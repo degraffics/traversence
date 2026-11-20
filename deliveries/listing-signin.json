@@ -3,20 +3,20 @@
  "built_on": "a6218c5 Sync: 2026-11-20 18:28 UTC",
  "recorded": "2026-11-20 18:31 UTC",
  "note": "listing-signin (Jason 2026-11-20), rebuilt on Sync: 2026-11-20 18:28 UTC (a6218c5) after #239 Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "5674a94 Sync: 2026-11-20 18:34 UTC",
  "files": {
   "app/ui/faq.md": {
    "sha256": "cfc1eefac4e10912354d6353b59d3bec46939f45412d1872a8e3f6582c15e06f",
-   "live": false
+   "live": true
   },
   "website/js/tv-trail.js": {
    "sha256": "2603ab6ab5eff68dcfb3854050b67c2b6b01ca77725b9ac2dece9f36795a6a91",
-   "live": false
+   "live": true
   },
   "website/listing/view.php": {
    "sha256": "b40880f3a6d7c4b2427986d3d78aa794fbffee16d486c0d333160273d4966426",
-   "live": false
+   "live": true
   }
  }
 }

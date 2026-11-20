@@ -118,6 +118,12 @@ sessions take over, holding until Jason says resume. Live through Release #228 (
   `session_01CXLi5iruQZSTYKyuR7b1SN`. Brief: the map, `research/order-review-crosswalk-2026-11-20.md`, 0101's and 0135's
   notes of 2026-11-20. First a proposal (one cart that is the invoice, lines released by their requirements); the
   first release carries the chargeFor fix. Archive the old order processing session once it confirms.
+- **Releases may stack while Jason is away** (Jason, 2026-11-20: "if you need to stack releases in a que until I am
+  available to approve you are free to do that as long as that doesnt cause issues with going live. That way sessions
+  can move through phases."): a session builds its next release while earlier ones wait for his Approve. Each waits as
+  its own PR with its pop-up open; one that depends on an earlier one is built on that branch and merges only after it.
+  On his Approves the session manager sets the merge order, one release live at a time, each rebuilt on the newest sync
+  (shared files, faq.md) and zip-checked just before its merge. Nothing merges without his Approve.
 - **Order questions are asked plainly first** (Jason, 2026-11-20, to the order session: "before asking questions provide
   me the question plainly for everyone to review and respond"): in the chat, for him, the session manager and Gemini,
   then the pop-up after the replies.
