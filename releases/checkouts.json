@@ -93,6 +93,17 @@
    "expires": "2026-11-20T20:59:49Z",
    "release": "0176-issues.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/ServiceHealth.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
+   "why": "0176 R2: service issues as threads",
+   "since": "2026-11-20T16:59:51Z",
+   "expires": "2026-11-20T20:59:51Z",
+   "release": "0176-issues.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
