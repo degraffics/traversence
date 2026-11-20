@@ -12,6 +12,8 @@ rules about the data, so both records say "the numbers are in 0163, and the data
 **Amended 2026-11-14** by Jason's decisions on the gaps review and the rural test's Run 2 (0164 §15): §7, §8, §10,
 §11 and §12 below.
 
+**State (2026-11-20):** Common Crawl's URL Index reads live (#225, crawler 2.15.0; `CC_MAP_PER_RUN` note); §9's task switches move to their workflow's page in 0175 R2a, held (`handoffs/control-board-2026-11-20.md`).
+
 **Status:** Accepted (Jason, 2026-11-14: "all approved"; written that day by the session manager from his answers in
 chat). **No shadow mode** (Jason, 2026-11-14): each part is built switched off and goes live when it's switched on, after
 the switch-on check (§10); nothing runs alongside "to compare" before that. It builds on
