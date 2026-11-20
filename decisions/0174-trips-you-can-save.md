@@ -175,3 +175,12 @@ server.
   the map's card and in Peek.
 - **The data:** `trips.start_min`, `trips.place_key` and `trip_stops.stay` were added.
 
+**Note (2026-11-20): release 4, sharing, Personal Guides and counts (`trip-share.zip`; `handoffs/trip-share.md`, each
+behaviour with its source).**
+- **Share:** a view-only link; turning it on again makes a new link.
+- **Personal Guides:** live with the trip, checked like a journey (a contributor, the automated check, reportable,
+  hidden by staff in Admin → Journeys), and a content page.
+- **Shown publicly:** a private place never shows, nor its name; a business marked closed shows greyed.
+- **Counts:** a business's in its insights ("Added to trips"), a place's in Admin → Insights; never who.
+- **Jason's answers to the pop-up's four questions are recorded here.**
+
