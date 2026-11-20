@@ -74,6 +74,28 @@
    "expires": "2026-11-21T03:27:17Z",
    "release": "pulse-filter-panel.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/PulseViews.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hFvhtEKj2JuNVmjWZ",
+   "why": "Pulse saved views",
+   "since": "2026-11-20T23:27:25Z",
+   "expires": "2026-11-21T03:27:25Z",
+   "release": "pulse-filter-panel.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/user/api/pulse-views.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hFvhtEKj2JuNVmjWZ",
+   "why": "Pulse saved views",
+   "since": "2026-11-20T23:27:25Z",
+   "expires": "2026-11-21T03:27:25Z",
+   "release": "pulse-filter-panel.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
