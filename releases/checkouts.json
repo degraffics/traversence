@@ -2,17 +2,6 @@
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
  "claims": [
   {
-   "path": "app/lib/crawler/CrawlService.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "0175 release 1: a trip places the system's pause, never a switch; it lifts when its check passes",
-   "since": "2026-11-20T13:29:57Z",
-   "expires": "2026-11-20T17:29:57Z",
-   "release": "",
-   "callers": {}
-  },
-  {
    "path": "app/admin/operations-console.php",
    "functions": [
     "tv_ops_issues"
@@ -124,47 +113,21 @@
      "website/js/tv-vault.js"
     ]
    }
-  },
-  {
-   "path": "website/js/tv-vault.js",
-   "functions": [
-    "drawItems",
-    "onItem"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5gxSyzVYGuXX3xuu2c",
-   "why": "vault icons: Copy password and \u22ef (table-standard \u00a77; Jason 2026-11-20 'Follow the standard')",
-   "since": "2026-11-20T17:28:00Z",
-   "expires": "2026-11-20T21:29:05Z",
-   "release": "vault-icons.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/ui/vault.php",
-   "functions": [
-    "(top)"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5gxSyzVYGuXX3xuu2c",
-   "why": "vault icons: Copy password and \u22ef (table-standard \u00a77; Jason 2026-11-20 'Follow the standard')",
-   "since": "2026-11-20T17:28:00Z",
-   "expires": "2026-11-20T21:28:00Z",
-   "release": "vault-icons",
-   "callers": {}
-  },
-  {
-   "path": "app/ui/vault.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5gxSyzVYGuXX3xuu2c",
-   "why": "release vault-icons.zip",
-   "since": "2026-11-20T17:29:05Z",
-   "expires": "2026-11-20T21:29:05Z",
-   "release": "vault-icons.zip",
-   "callers": {}
   }
  ],
  "lapsed": [
+  {
+   "path": "app/lib/crawler/CrawlService.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "0175 release 1: a trip places the system's pause, never a switch; it lifts when its check passes",
+   "since": "2026-11-20T13:29:57Z",
+   "expires": "2026-11-20T17:29:57Z",
+   "release": "",
+   "callers": {},
+   "lapsed": "2026-11-20T17:34:36Z"
+  },
   {
    "path": "website/place/landmark.php",
    "functions": [],
@@ -840,20 +803,6 @@
    "release": "",
    "callers": {},
    "lapsed": "2026-11-17T16:27:28Z"
-  },
-  {
-   "path": "app/lib/Domains.php",
-   "functions": [
-    "isTeam"
-   ],
-   "kind": "add",
-   "session": "domain-sales-team",
-   "why": "Domain sales Test: the Founder admin counts as our team; Edit no longer opens the privacy card (Jason, 2026-11-17)",
-   "since": "2026-11-17T11:52:24Z",
-   "expires": "2026-11-17T15:52:24Z",
-   "release": "",
-   "callers": {},
-   "lapsed": "2026-11-17T15:55:08Z"
   }
  ]
 }
