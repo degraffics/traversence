@@ -3,48 +3,48 @@
  "built_on": "e4602d8 Sync: 2026-11-20 13:32 UTC",
  "recorded": "2026-11-20 13:47 UTC",
  "note": "The trip page, decisions/0174 release 3 (built on Sync 13:32 UTC, e4602d8). Waiting for the session manager's review and Jason's OK. Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "11c4954 Sync: 2026-11-20 13:53 UTC",
  "files": {
   "app/lib/Trips.php": {
    "sha256": "ac7c2d99a72adf07629c8879f3f340b229597565297c40fa0fa0a22cbd7b6f0a",
-   "live": false
+   "live": true
   },
   "app/migrations/2026-11-21_trips-page.sql": {
    "sha256": "4911f33cd1067f87322e40a263071c5efc0ae169cdb83c1bd5f971b2c998159f",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "fdfbb695f25b935129f222055a15e60dc5bd29ba026f502c1348ef6526ed3f83",
-   "live": false
+   "live": true
   },
   "website/api/trips.php": {
    "sha256": "dcfa7fda49daecb5d1b6f4b485afc69a0519ee8cbe94dc78d853020d823abcdf",
-   "live": false
+   "live": true
   },
   "website/discovery/index.php": {
    "sha256": "95a856e2257eefdb6465c8df43a011756d3e9af2f22d8c87350e0c01e0fa3c2d",
-   "live": false
+   "live": true
   },
   "website/js/map-view.js": {
    "sha256": "bc29a2e3996c3d80bd1f4fe76f7e947e2b1e12a5509b4b3d3e7014bba0593132",
-   "live": false
+   "live": true
   },
   "website/js/search-panel.js": {
    "sha256": "489287c6fa00468cdcbde38bb8bf4a467ef74fdce68d8d3a4ee47d6715a2a478",
-   "live": false
+   "live": true
   },
   "website/js/tv-trips.js": {
    "sha256": "aeb1c2b02f66610de80bb614520662ac11e38fbcdabada7f6b640d0445513f93",
-   "live": false
+   "live": true
   },
   "website/user/trips/index.php": {
    "sha256": "f96f90d08ff105e27f36a956bddb0f6aed4e7870882325b1779e5d077cb2666b",
-   "live": false
+   "live": true
   },
   "website/user/trips/trip.php": {
    "sha256": "b16526202e9699680da4e492bf19e926b3833ad4ac6e020962f6c62d0b49e526",
-   "live": false
+   "live": true
   }
  }
 }
