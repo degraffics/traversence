@@ -102,6 +102,17 @@
    "expires": "2026-11-20T17:23:12Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/migrations/2026-11-20_trips.sql",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Trips you can save (decisions/0174 release 2)",
+   "since": "2026-11-20T13:23:14Z",
+   "expires": "2026-11-20T17:23:14Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
