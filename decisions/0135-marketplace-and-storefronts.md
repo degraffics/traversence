@@ -577,3 +577,15 @@ counts come in by sync and webhook. Not yet: "Track stock" is optional, so an un
 available; a count kept elsewhere can be wrong here; every card order is charged at checkout (only deposits and
 rentals authorize first). How each is closed (required stock, a back-order state, authorize-then-confirm, an
 expectations line at checkout) is the build session's proposal, each part sourced to this note, for Jason's OK.
+
+**Added (Jason, 2026-11-20):** "The ordering process may require a two way confirmation of what is being sold/set as
+expectations before the transaction can be rendered. IE. schedule appointment, appointment set, then transact. Items like
+event tickets are sold as final and come as a physical/digital pass for entry so the delivery of that is the product, not
+the person actually using it. so we need to be explicit in how we define the terms of the transactions prior to
+conducting final transaction and money transfer."
+- **Two-way confirmation where it's needed:** for what needs confirming, the buyer and the business both confirm what's
+  being sold and the expectations (e.g. the appointment is requested, then set) before the transaction; then it's paid.
+- **What is delivered defines the sale:** an event ticket is sold as final; the product is the pass (physical or
+  digital) for entry, delivered when issued, not the person's use of it.
+- **Every kind's terms are explicit before money moves:** what's delivered, when it counts as delivered, whether it's
+  final, and what needs confirming first, shown to the buyer before the final transaction.
