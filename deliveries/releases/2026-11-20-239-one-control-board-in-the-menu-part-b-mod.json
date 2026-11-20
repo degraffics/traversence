@@ -1,0 +1,49 @@
+{
+    "id": 239,
+    "title": "One control board in the menu, part B: Modules (Service register), with Costs folded in at its top",
+    "why": "decisions/0175's note \"one control board in the menu\" (Jason, 2026-11-20: \"yes. fold into 2\"): \"Modules (the Service register): each card holds its stage-2 pre-flight and its caps, budget and cost (the Pre-flight and Costs pages today)\"; release 2b part B.",
+    "proposals": "",
+    "zip": "0175-r2b-modules.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/admin/manifests.php": {
+            "sha": "b9433b5c852c261ea5f05dc93cda899daf51c3681b8d8cc1ecb50f6e381972c1",
+            "size": 23266,
+            "live_was": "23fc8bd2d7b204e3441a13c6080e1da30795cb369d0137aeea516a983317a686"
+        },
+        "app/admin/operations-console.php": {
+            "sha": "0b74e2b216437a242f93316753d6930c6d72e867554a021c0b15b0dcdd21b325",
+            "size": 49465,
+            "live_was": "080f0f434b4a0ccefc2de31095d3eae8a975858e903ef301ad1059e599adb400"
+        },
+        "app/ui/faq.md": {
+            "sha": "69fc6d0859bb8693132f4bf39d04e5f07f9407b6d4afe7f0a2a4942cdc46342b",
+            "size": 409184,
+            "live_was": "f75c60f0ff9bab3283dfb1301cb7e1f6b28bee33851b037596611425ed4d1b86"
+        },
+        "website/admin/router.php": {
+            "sha": "539223447737bc4f8c04ed35d22ef92b98ccaca3df371679e9a3a451b39c0fa4",
+            "size": 14511,
+            "live_was": "29e843af4748becb0174ff139f7c23e45e88a2da7a8aa7bfa155b0a090a5e1c7"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-20T18:25:53+00:00",
+            "by": 0,
+            "msg": "Uploaded 0175-r2b-modules.zip: 4 files."
+        }
+    ]
+}
