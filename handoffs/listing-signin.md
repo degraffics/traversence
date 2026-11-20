@@ -1,6 +1,6 @@
 # A listing's page sees who's signed in; Back where there's no route (2026-11-20): built, waiting
 
-Design and trips session. Built on **Sync 18:05 UTC (c6eff9a)**, after #238 (faq.md rebuilt on it) by `handoffs/listing-signin/build-ls.py`.
+Design and trips session. Built on **Sync 18:28 UTC (a6218c5)**, after #239 (faq.md rebuilt on it) by `handoffs/listing-signin/build-ls.py`.
 
 ## Why
 Jason, 2026-11-20, on https://traversence.com/listing/view.php?id=8916: "Where is the top command bar for the user? Why is

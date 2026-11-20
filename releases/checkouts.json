@@ -102,8 +102,8 @@
    "session": "session_01CXLi5gxSyzVYGuXX3xuu2c",
    "why": "listing-signin: the site's session folder on listing pages; Back to where they came from (Jason 2026-11-20)",
    "since": "2026-11-20T18:04:51Z",
-   "expires": "2026-11-20T22:04:51Z",
-   "release": "listing-signin",
+   "expires": "2026-11-20T22:14:34Z",
+   "release": "listing-signin.zip",
    "callers": {}
   },
   {
@@ -117,6 +117,30 @@
    "since": "2026-11-20T18:04:51Z",
    "expires": "2026-11-20T22:04:51Z",
    "release": "listing-signin",
+   "callers": {}
+  },
+  {
+   "path": "website/listing/view.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5gxSyzVYGuXX3xuu2c",
+   "why": "release listing-signin.zip",
+   "since": "2026-11-20T18:14:34Z",
+   "expires": "2026-11-20T22:14:34Z",
+   "release": "listing-signin.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/QuickBooksPay.php",
+   "functions": [
+    "chargeFor"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iruQZSTYKyuR7b1SN",
+   "why": "chargeFor fix: a test copy that took real money can be refunded (map \u00a75, Jason: Fix in first release)",
+   "since": "2026-11-20T18:15:43Z",
+   "expires": "2026-11-20T22:16:08Z",
+   "release": "orders-chargefor.zip",
    "callers": {}
   }
  ],

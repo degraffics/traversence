@@ -8,7 +8,7 @@
  "files": {
   "app/admin/operations-console.php": {
    "sha256": "080f0f434b4a0ccefc2de31095d3eae8a975858e903ef301ad1059e599adb400",
-   "live": true
+   "live": false
   },
   "app/lib/OutsideServices.php": {
    "sha256": "f3e4c3561f9b775c843a15250d7fd00cabf428fff85765d30ac658f6f4ec3ac7",

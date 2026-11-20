@@ -1,13 +1,13 @@
 {
  "zip": "listing-signin.zip",
- "built_on": "c6eff9a Sync: 2026-11-20 18:05 UTC",
- "recorded": "2026-11-20 18:14 UTC",
- "note": "listing-signin (Jason 2026-11-20), built on Sync: 2026-11-20 18:05 UTC (c6eff9a) Sent through git (releases/inbox).",
+ "built_on": "a6218c5 Sync: 2026-11-20 18:28 UTC",
+ "recorded": "2026-11-20 18:31 UTC",
+ "note": "listing-signin (Jason 2026-11-20), rebuilt on Sync: 2026-11-20 18:28 UTC (a6218c5) after #239 Sent through git (releases/inbox).",
  "status": "pending",
  "live_in": "",
  "files": {
   "app/ui/faq.md": {
-   "sha256": "326898fb90e534563dd64afdf3d08cbaf477488af5b66fe45ebaf797531eba37",
+   "sha256": "cfc1eefac4e10912354d6353b59d3bec46939f45412d1872a8e3f6582c15e06f",
    "live": false
   },
   "website/js/tv-trail.js": {

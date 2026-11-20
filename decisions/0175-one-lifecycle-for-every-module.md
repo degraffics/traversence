@@ -451,3 +451,23 @@ PR #1186, built on Sync 16:01 UTC):
 - Each task's switch is on its workflow's page.
 - The card's in-place Switch on (#216) stays beside the one home of §6. Jason, 2026-11-20, in the decision pop-up: "Keep
   both". It presses the same switch, and the card also links to it.
+
+**Note (Jason, 2026-11-20, in the decision pop-up): where Costs lives.** Asked where Costs' figures that aren't one
+service's go (the month against revenue, the community budget, the AI cap's shares, a hub's opening budget), he chose
+"Top of Modules": the whole Costs page is a fold at the top of Modules (Service register), and in release 2b part C By
+workflow also shows on Workflows. Automation's Services table stays in Start-up (asked in the same pop-up, not removed).
+
+## Note (Jason, 2026-11-20): "Paused now" gives a clear picture
+
+On a screenshot of the board's "Paused now" (12 paused or out: 2 trips, 7 marked "paused by a person (Shut down from the
+Control Board by the Control Board (a trip))", 3 "paused by Release A"): "this makes me feel like the system is not
+operating correctly. Still struggling to get a clear picture of how well the system is performing." He chose all three of
+the session manager's proposals:
+1. **Words true:** a pause the board's shutdown made after a trip is never "paused by a person"; it names its trip.
+2. **Three groups:** **Needs attention** (each trip, with its fix); **Waiting on those** (what a trip's shutdown paused,
+   folded under its trip); **Off on purpose** (switched off by a release or a person, with what each waits for, folded
+   away).
+3. **One health line above it, in plain words**, e.g. "Site, search, sign-in and payments: working. Data gathering: 2
+   sources down (Overture bulk, Common Crawl), 9 parts waiting on them. 3 off on purpose." The critical duties first
+   (0171's), then each system's count.
+Built by the Operations session, before part C.

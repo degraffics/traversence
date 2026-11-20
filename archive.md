@@ -106,6 +106,7 @@ the link's own spot.
 | Scheduled tasks (`/admin/config/scheduler`) | the board's **Scheduled tasks** tab | the whole page, loaded in place; `#job-<key>` lands on its job |
 | Pre-flight (`/admin/config/preflight`) | the board's **Pre-flight** stage (and Start-up) | the whole page (Run all, each line's Test, runs, report), loaded in place; `#pf-<line>` lands on its line |
 | Automation (`/admin/config/automation`) | the board's **Start-up** stage | the whole page (master switch, Start, Pause everything, the check, workflows, tasks, services, Changes), loaded in place, until release 2b's parts B and C move its services and workflows |
+| Costs (`/admin/config/costs`) | **Costs this month**, the fold at the top of Modules (Service register), `#costs` (release 2b part B; `TV_ADMIN_FOLDED_INTO`) | the whole page: the month against revenue, the community budget, by service, by workflow, the AI cap's shares, a hub's opening budget |
 
 ## Archived pages outside the admin
 
