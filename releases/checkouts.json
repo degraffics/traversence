@@ -153,6 +153,33 @@
    "expires": "2026-11-20T22:42:34Z",
    "release": "0175-paused-now",
    "callers": {}
+  },
+  {
+   "path": "app/admin/manifests.php",
+   "functions": [
+    "'config'"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
+   "why": "0175 R2b part C: the Workflow board folded into Workflows",
+   "since": "2026-11-20T18:46:17Z",
+   "expires": "2026-11-20T22:46:17Z",
+   "release": "0175-r2b-workflows",
+   "callers": {}
+  },
+  {
+   "path": "website/admin/router.php",
+   "functions": [
+    "'config/scheduler'",
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
+   "why": "0175 R2b part C: the Workflow board folded into Workflows",
+   "since": "2026-11-20T18:46:17Z",
+   "expires": "2026-11-20T22:46:17Z",
+   "release": "0175-r2b-workflows",
+   "callers": {}
   }
  ],
  "lapsed": [
