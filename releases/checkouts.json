@@ -1,6 +1,133 @@
 {
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
- "claims": [],
+ "claims": [
+  {
+   "path": "app/lib/Thread.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
+   "why": "0176 R3: Fix it routing",
+   "since": "2026-11-20T23:32:36Z",
+   "expires": "2026-11-21T03:32:36Z",
+   "release": "0176-fix-it.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ServiceHealth.php",
+   "functions": [
+    "facts"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
+   "why": "0176 R3: Fix it routing",
+   "since": "2026-11-20T23:32:36Z",
+   "expires": "2026-11-21T03:32:36Z",
+   "release": "0176-fix-it.zip",
+   "callers": {
+    "facts": [
+     "app/admin/operations-console.php",
+     "app/lib/OutsideServices.php",
+     "app/lib/Pulse.php",
+     "app/lib/SystemStart.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/ControlAlarms.php",
+   "functions": [
+    "facts",
+    "mail",
+    "notifyOne",
+    "pulseBody",
+    "pulseSteps"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
+   "why": "0176 R3: Fix it routing",
+   "since": "2026-11-20T23:32:36Z",
+   "expires": "2026-11-21T03:32:36Z",
+   "release": "0176-fix-it.zip",
+   "callers": {
+    "facts": [
+     "app/admin/control-console.php",
+     "app/lib/Pulse.php"
+    ],
+    "pulseSteps": [
+     "app/lib/Pulse.php"
+    ]
+   }
+  },
+  {
+   "path": "app/admin/control-console.php",
+   "functions": [
+    "tv_cb_alarms"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
+   "why": "0176 R3: Fix it routing",
+   "since": "2026-11-20T23:32:36Z",
+   "expires": "2026-11-21T03:32:36Z",
+   "release": "0176-fix-it.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/operations-console.php",
+   "functions": [
+    "tv_ops_issues",
+    "tv_ops_keys",
+    "tv_ops_reg_block"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
+   "why": "0176 R3: Fix it routing",
+   "since": "2026-11-20T23:32:36Z",
+   "expires": "2026-11-21T03:32:36Z",
+   "release": "0176-fix-it.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/index-console.php",
+   "functions": [
+    "tv_admin_mod_index"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
+   "why": "0176 R3: Fix it routing",
+   "since": "2026-11-20T23:32:36Z",
+   "expires": "2026-11-21T03:32:36Z",
+   "release": "0176-fix-it.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/pulse-ui.php",
+   "functions": [
+    "tv_pulse_board"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
+   "why": "0176 R3: Fix it routing",
+   "since": "2026-11-20T23:32:36Z",
+   "expires": "2026-11-21T03:32:36Z",
+   "release": "0176-fix-it.zip",
+   "callers": {
+    "tv_pulse_board": [
+     "app/admin/sections.php",
+     "website/admin/w.php"
+    ]
+   }
+  },
+  {
+   "path": "website/js/admin-outside.js",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
+   "why": "0176 R3: Fix it routing",
+   "since": "2026-11-20T23:32:36Z",
+   "expires": "2026-11-21T03:32:36Z",
+   "release": "0176-fix-it.zip",
+   "callers": {}
+  }
+ ],
  "lapsed": [
   {
    "path": "app/admin/operations-console.php",
