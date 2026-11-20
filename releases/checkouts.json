@@ -193,6 +193,45 @@
      "app/lib/Pulse.php"
     ]
    }
+  },
+  {
+   "path": "app/lib/Links.php",
+   "functions": [
+    "feed",
+    "resolve"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5gxSyzVYGuXX3xuu2c",
+   "why": "hero tidy: journeys can be linked (Jason, 2026-11-20: \"Fix it here\")",
+   "since": "2026-11-20T15:36:44Z",
+   "expires": "2026-11-20T19:36:44Z",
+   "release": "hero-tidy",
+   "callers": {
+    "resolve": [
+     "app/lib/Community.php",
+     "app/lib/Contacts.php",
+     "app/lib/Engage.php",
+     "app/lib/GroupGrowth.php",
+     "app/lib/Journeys.php",
+     "app/lib/Market.php",
+     "app/lib/Reports.php",
+     "app/lib/SearchIndex.php",
+     "app/lib/Stories.php",
+     "app/lib/Tags.php",
+     "app/lib/UniversalSearch.php",
+     "website/admin/insights.php",
+     "website/admin/search-misses.php",
+     "website/admin/search-oversight.php",
+     "website/api/tags.php",
+     "website/discovery/index.php",
+     "website/experiences/view.php",
+     "website/journeys/view.php"
+    ],
+    "feed": [
+     "app/lib/MemberPulse.php",
+     "website/user/api/links.php"
+    ]
+   }
   }
  ],
  "lapsed": [
