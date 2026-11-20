@@ -105,6 +105,38 @@
    "expires": "2026-11-20T22:16:08Z",
    "release": "orders-chargefor.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/ControlBoard.php",
+   "functions": [
+    "pausedHtml",
+    "pausedNow"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
+   "why": "0175's note 2026-11-20: Paused now gives a clear picture",
+   "since": "2026-11-20T18:42:29Z",
+   "expires": "2026-11-20T22:42:29Z",
+   "release": "0175-paused-now",
+   "callers": {
+    "pausedHtml": [
+     "app/admin/automation-console.php",
+     "app/admin/control-console.php"
+    ]
+   }
+  },
+  {
+   "path": "app/admin/control-console.php",
+   "functions": [
+    "tv_admin_mod_control"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
+   "why": "0175's note 2026-11-20: Paused now gives a clear picture",
+   "since": "2026-11-20T18:42:29Z",
+   "expires": "2026-11-20T22:42:29Z",
+   "release": "0175-paused-now",
+   "callers": {}
   }
  ],
  "lapsed": [
