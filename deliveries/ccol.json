@@ -3,16 +3,16 @@
  "built_on": "7a2f9ab Sync: 2026-11-20 14:27 UTC",
  "recorded": "2026-11-20 14:29 UTC",
  "note": "ccol (Common Crawl part A): the site keeps the crawl's URL Index file map (built on Sync 14:27 UTC, 7a2f9ab) Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "c566155 Sync: 2026-11-20 14:33 UTC",
  "files": {
   "app/ui/faq.md": {
    "sha256": "d207b3c1a040220a2ca209e4b55d4cd4d0208f1d2449c36e095b61214da5329e",
-   "live": false
+   "live": true
   },
   "website/api/crawl/commoncrawl.php": {
    "sha256": "d17b27d6b39ada0a68f05c66900041373f6afea9a96aad2aef7f3c25df00ac34",
-   "live": false
+   "live": true
   }
  }
 }

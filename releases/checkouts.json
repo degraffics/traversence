@@ -230,17 +230,6 @@
    "callers": {}
   },
   {
-   "path": "website/api/crawl/commoncrawl.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "Common Crawl's URL Index: the crawl's file map kept for the worker (decisions/0164's note of 2026-11-20)",
-   "since": "2026-11-20T14:14:42Z",
-   "expires": "2026-11-20T18:29:27Z",
-   "release": "ccol.zip",
-   "callers": {}
-  },
-  {
    "path": "app/lib/AccountDeletion.php",
    "functions": [],
    "kind": "add",
@@ -296,66 +285,61 @@
    "callers": {}
   },
   {
-   "path": "app/lib/Thread.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5hJ4C32FpJfNTaTa2z",
-   "why": "decisions/0176 release 1: the alarm thread, one shape on every surface",
-   "since": "2026-11-20T14:23:49Z",
-   "expires": "2026-11-20T18:29:14Z",
-   "release": "0176-thread.zip",
+   "path": "app/ui/engage-ui.php",
+   "functions": [
+    "tv_engage_bar"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Sharing, Personal Guides, counts (decisions/0174 release 4): a place's trip count",
+   "since": "2026-11-20T14:39:59Z",
+   "expires": "2026-11-20T18:39:59Z",
+   "release": "trip-share.zip",
    "callers": {}
   },
   {
    "path": "app/lib/ControlAlarms.php",
    "functions": [],
    "kind": "change",
-   "session": "session_01CXLi5hJ4C32FpJfNTaTa2z",
-   "why": "decisions/0176 release 1: the alarm thread, one shape on every surface",
-   "since": "2026-11-20T14:23:56Z",
-   "expires": "2026-11-20T18:29:14Z",
-   "release": "0176-thread.zip",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "W1 findings: the hour kept, a handled review item, Recovered words",
+   "since": "2026-11-20T14:40:22Z",
+   "expires": "2026-11-20T18:40:22Z",
+   "release": "",
    "callers": {}
   },
   {
-   "path": "app/lib/Notify.php",
+   "path": "app/lib/ControlSensor.php",
    "functions": [],
    "kind": "change",
-   "session": "session_01CXLi5hJ4C32FpJfNTaTa2z",
-   "why": "decisions/0176 release 1: the alarm thread, one shape on every surface",
-   "since": "2026-11-20T14:23:56Z",
-   "expires": "2026-11-20T18:29:14Z",
-   "release": "0176-thread.zip",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "W1 findings: the hour kept, a handled review item, Recovered words",
+   "since": "2026-11-20T14:40:25Z",
+   "expires": "2026-11-20T18:40:25Z",
+   "release": "",
    "callers": {}
   },
   {
-   "path": "app/admin/control-console.php",
+   "path": "website/api/admin/intake/candidates.php",
    "functions": [],
    "kind": "change",
-   "session": "session_01CXLi5hJ4C32FpJfNTaTa2z",
-   "why": "decisions/0176 release 1: the alarm thread, one shape on every surface",
-   "since": "2026-11-20T14:23:56Z",
-   "expires": "2026-11-20T18:29:14Z",
-   "release": "0176-thread.zip",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "W1 findings: the hour kept, a handled review item, Recovered words",
+   "since": "2026-11-20T14:40:27Z",
+   "expires": "2026-11-20T18:40:27Z",
+   "release": "",
    "callers": {}
   },
   {
-   "path": "app/lib/Pulse.php",
-   "functions": [
-    "items"
-   ],
+   "path": "website/admin/listing-intake.php",
+   "functions": [],
    "kind": "change",
-   "session": "session_01CXLi5hJ4C32FpJfNTaTa2z",
-   "why": "decisions/0176 release 1: the alarm thread, one shape on every surface",
-   "since": "2026-11-20T14:23:56Z",
-   "expires": "2026-11-20T18:29:14Z",
-   "release": "0176-thread.zip",
-   "callers": {
-    "items": [
-     "app/lib/DailyReport.php",
-     "app/ui/pulse-ui.php"
-    ]
-   }
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "W1 findings: the hour kept, a handled review item, Recovered words",
+   "since": "2026-11-20T14:40:29Z",
+   "expires": "2026-11-20T18:40:29Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [

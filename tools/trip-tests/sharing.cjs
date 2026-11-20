@@ -88,6 +88,9 @@ const ok = (c, m) => { if (c) { pass++; console.log('ok   ' + m); } else { fail+
     execSync(`mysql lv_main -e "DELETE FROM platform_counts WHERE metric = 'trip' AND k = 'lm:1'; INSERT INTO platform_counts (day, metric, k, n, visits) VALUES (CURDATE(), 'trip', 'lm:1', 3, 3)"`);
     await go(p, '/place/landmark.php?id=1');
     ok((await p.locator('.eg-bar [data-eg-trips]').getAttribute('title').catch(() => '')) === 'Added to 3 trips this month', tag + 'a place\'s page: "Added to 3 trips this month" beside its views');
+    execSync(`mysql lv_main -e "DELETE FROM platform_counts WHERE metric = 'trip' AND k = 'lm:1'"`);
+    await go(p, '/place/landmark.php?id=1');
+    ok((await p.locator('.eg-bar [data-eg-trips]').getAttribute('title').catch(() => '')) === 'Added to 0 trips this month', tag + 'at 0 it still shows (Jason, 2026-11-19: "the social numbers should always be present")');
     await go(p, '/listing/view.php?id=3');
     ok(await p.locator('[data-eg-trips]').count() === 0, tag + 'a business\'s page shows no trip count (theirs is in their insights)');
     await go(p, '/admin/insights.php');

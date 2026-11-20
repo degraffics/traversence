@@ -1,0 +1,82 @@
+{
+ "zip": "trip-share.zip",
+ "built_on": "b94c979 Sync: 2026-11-20 14:37 UTC",
+ "recorded": "2026-11-20 14:42 UTC",
+ "note": "Sharing, Personal Guides, counts: decisions/0174 release 4 (built on Sync 14:37 UTC, b94c979). Approved by Jason in the pop-up (Q1 a new link, Q2 also on the place's page, Q3 live), reviewed by the session manager. Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/AccountDeletion.php": {
+   "sha256": "0538ec8e7a651b26c73fb6350d7e9b660708f01f5e3af1311012236ff69b8b20",
+   "live": false
+  },
+  "app/lib/Engage.php": {
+   "sha256": "4aa2c5083304dfc0ef3efec8b6f7b3fe8d28fbb50e5414de8abde6b86a4544f2",
+   "live": false
+  },
+  "app/lib/Links.php": {
+   "sha256": "1c5a07f25eb7037efa80dd3a19acac284cb021ec59140dc7891d328a77fec862",
+   "live": false
+  },
+  "app/lib/ListingActions.php": {
+   "sha256": "4f00979920a9d1b8606125bfe2ce72e4228c05bee74cf04e4053e616b4a71fab",
+   "live": false
+  },
+  "app/lib/PlatformCounts.php": {
+   "sha256": "50664a637b51852ee2ecf7a1947238a42c6dbcb8b34a83075f285fc0b3e0a936",
+   "live": false
+  },
+  "app/lib/Reports.php": {
+   "sha256": "3178a885b71a8be52dfbe8831e992036dd8b8911247ac788eff80c6fe0cdbe38",
+   "live": false
+  },
+  "app/lib/Trips.php": {
+   "sha256": "e928024ac3ad2eb4e805dc50cb396e1dca6dbb6eb6ad0e05911f67559d9f9f58",
+   "live": false
+  },
+  "app/lib/staging-tables.php": {
+   "sha256": "d69e8d03db4d9e130121e2b82a32ed1f3c0d7d65bad6ecbb9c48319e2d7dd01c",
+   "live": false
+  },
+  "app/migrations/2026-11-21_personal-guides.sql": {
+   "sha256": "31e2ff0356048972e5b4d4f63bf919702aeb7b89b81854e25dff8e71fd1823dc",
+   "live": false
+  },
+  "app/ui/engage-ui.php": {
+   "sha256": "f87dfa9630716851cb51ee7ad81fe89168beb5cc1d3eba00e92a241b154e3592",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "d4e4287e3bea8928a1f017465866774c2945f2c7575903cd1543324be7ce8547",
+   "live": false
+  },
+  "website/admin/insights.php": {
+   "sha256": "f52d3371362ab57c3e17f8d16fcd50fa9e07f261cf5e2ed08ff44d3a72cb7891",
+   "live": false
+  },
+  "website/admin/journeys.php": {
+   "sha256": "35e66a2b85fc8d312e4779aeb4545155a3d2b3ecfb4cf4077c5f01f8e5687263",
+   "live": false
+  },
+  "website/api/engage.php": {
+   "sha256": "9a0d653f46f5b7da4c2640072da6d16265830fa90257a2acfbb188b84cef5925",
+   "live": false
+  },
+  "website/api/trips.php": {
+   "sha256": "9406bbf1469e1b3f68f5819f06f51074defd5f2b70ed383fecd48bc59d525f06",
+   "live": false
+  },
+  "website/guide/personal.php": {
+   "sha256": "ff0018f1b4780195d3e85f6825b2599ce1ea2d0b99ab3af211b51f68057c4b96",
+   "live": false
+  },
+  "website/trip/index.php": {
+   "sha256": "65ebcc74fa5cfc8072881066fc4259ad5642d3aa26a5b3f356a7500d9171cc6d",
+   "live": false
+  },
+  "website/user/trips/trip.php": {
+   "sha256": "49fa43e8223d8fcd5516c85dcfc45da405eac9195411831994a1dfc4dea91e4a",
+   "live": false
+  }
+ }
+}

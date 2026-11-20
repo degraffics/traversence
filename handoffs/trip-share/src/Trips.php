@@ -326,6 +326,20 @@ final class Trips
         } catch (Throwable $e) { error_log('trips count: ' . $e->getMessage()); }
     }
 
+    /** A place's count shows at 0 too (Jason, 2026-11-19: "the social numbers should always be present"; 0058 §20 note). */
+    public const SHOW_ZERO_TRIPS = true;
+
+    /**
+     * "Added to N trips this month" for a place, shown on its page (0174 §1; Jason, 2026-11-20, "Also on the place's
+     * page"): counts only, never who (0058 §13). A business's stays in its own insights.
+     */
+    public static function addedThisMonth(PDO $pdo, string $kind, string $ref): int
+    {
+        if ($kind === 'listing' || !self::key($kind, $ref)) return 0;
+        try { require_once __DIR__ . '/PlatformCounts.php'; return (int) PlatformCounts::total($pdo, 'trip', max(0, (int) date('j') - 1), $kind . ':' . $ref)['n']; }
+        catch (Throwable $e) { return 0; }
+    }
+
     /**
      * Share a link (0174 §1: "anyone with the link can view it, not edit it. The link can be turned off any time"). On:
      * a new link (a link turned off stays dead). Off: no link. Returns the link's address, or ''.

@@ -15,6 +15,18 @@ put('website/api/trips.php', src('api-trips.php'))
 put('website/user/trips/trip.php', src('trip.php'))
 put('website/trip/index.php', src('trip-index.php'))
 
+# a place's count on its page (Jason, 2026-11-20: "Also on the place's page"): beside its views, never who
+f = 'app/ui/engage-ui.php'; s = live(f)
+s = rep(s, "        . $ic('<path d=\"M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z\"/><circle cx=\"12\" cy=\"12\" r=\"3\"/>') . '<span>' . number_format($views) . '</span></span>';",
+           "        . $ic('<path d=\"M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z\"/><circle cx=\"12\" cy=\"12\" r=\"3\"/>') . '<span>' . number_format($views) . '</span></span>';\n"
+           "    if (in_array($kind, ['lm', 'rec', 'place'], true) && is_file(__DIR__ . '/../lib/Trips.php')) {   // added to trips this month (decisions/0174 §1; Jason, 2026-11-20)\n"
+           "        require_once __DIR__ . '/../lib/Trips.php';\n"
+           "        $tn = Trips::addedThisMonth($pdo, $kind, $ref);\n"
+           "        if ($tn > 0 || Trips::SHOW_ZERO_TRIPS) { $tw = 'Added to ' . number_format($tn) . ' trip' . ($tn === 1 ? '' : 's') . ' this month';\n"
+           "            $h .= '<span class=\"eg-n\" data-eg-trips title=\"' . $tw . '\" aria-label=\"' . $tw . '\">' . $ic('<path d=\"M3 17l6-6 4 4 8-8\"/><path d=\"M14 7h7v7\"/>') . '<span>' . number_format($tn) . '</span></span>'; }\n"
+           "    }")
+put(f, s)
+
 # counts (0174 §1, 0058 §13): a business's in listing_actions as 0094's `save`; a place's in PlatformCounts
 f = 'app/lib/ListingActions.php'; s = live(f)
 s = rep(s, "'save' => 'Contacts saved'];", "'save' => 'Contacts saved', 'trip' => 'Added to trips'];   // trip: decisions/0174 §1, never who")
@@ -128,7 +140,7 @@ s = rep(s, "Only you. A trip is private: nobody else sees it, and nobody sees wh
            "Only you, unless you share it. A trip is private: nobody sees who added a place to a trip. On a trip's page, **Share** makes a link: anyone with it can view the trip (its days, times and map), not change it, and it shows nothing about you. **Turn off** stops the link at once; sharing again makes a new link. Stops that can't be shown publicly (a place whose location is kept private, one marked closed) are left out of a shared trip. You can also publish a trip as a Personal Guide (see below), only when you choose.")
 a = "### Why can't I add some places to a trip?"
 s = rep(s, a, """### Can a business see who added it to a trip?
-No. A business sees only how many times it was added to a trip ("Added to trips" in its insights, with its calls and directions), never who. Nobody on our team is counted.
+No. A business sees only how many times it was added to a trip ("Added to trips" in its insights, with its calls and directions), never who. A place, a landmark or an outdoor place shows it on its page, beside its views ("Added to 12 trips this month"), never who. Nobody on our team is counted.
 
 """ + a)
 a = "### Can a business see who added it to a trip?"
