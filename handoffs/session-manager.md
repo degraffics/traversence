@@ -147,7 +147,7 @@ sessions take over, holding until Jason says resume. Live through Release #228 (
   boxes say the same thing and the first is wrong while the key is missing; "Retire it…" wraps onto two lines under its
   spinner; "Linked, not called" shows three times.
 - **Old sessions archived at the restart** (2026-11-20): Control Board, dispatcher, design, business listings.
-- **New sessions:** Operations `session_01CXLi5iPPT6FpHPEMPUcaw4`, Design and trips `session_01CXLi5gxSyzVYGuXX3xuu2c`
+- **New sessions:** Operations `session_01CXLi5iPPT6FpHPEMPUcaw4`, Design and trips `session_01CXLi5hFvhtEKj2JuNVmjWZ` (fresh 18:45 from `design-and-trips-2026-11-20.md`; the earlier one archived)
   (both held). Session manager `session_01CXLi5mGX2sg5QS11gg3Wrh`; Monday's listing check moved to it
   (`trig_01SYS5pgeFj79vmeE35fvgha`).
 - **Review rule** (Jason, 2026-11-20, playbook §3): every behaviour in a summary is checked against the decision line it
