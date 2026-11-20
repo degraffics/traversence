@@ -1,0 +1,81 @@
+{
+    "id": 221,
+    "title": "The trip page: days, order, times against hours, and the map",
+    "why": "decisions/0174 release 3 (accepted 2026-11-19). Each trip gets its own page. Pick the day it starts, how many days and when each day starts; drag stops into order or onto another day (↑ ↓ and a day on a phone), and choose how long at each. Every stop gets a time from the drive before it; with a date, each is checked against its hours ('Closed when you'd arrive: Opens 11 AM', with Move to day 2) and outdoor places against daylight. Times are in the trip's first stop's zone, always labelled; a stop in another zone shows its own. The map numbers the stops, a colour a day, with straight lines between; the miles and times say 'about' (routes come with release 5). Print. The Trip Planner gets Save as a trip, whose page offers the place's ready-made journeys (Use these stops). Add to a trip moves onto the map's card and search's Peek (where the planner's results open), as release 2 moved it here. No AI, no outside calls, no cost.",
+    "proposals": "",
+    "zip": "trip-page.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/ui/faq.md": {
+            "sha": "fdfbb695f25b935129f222055a15e60dc5bd29ba026f502c1348ef6526ed3f83",
+            "size": 398140,
+            "live_was": "8e936e51673d5c84921286c8624f481b39e00b357c75d18f4244d79b8c53c92e"
+        },
+        "app/migrations/2026-11-21_trips-page.sql": {
+            "sha": "4911f33cd1067f87322e40a263071c5efc0ae169cdb83c1bd5f971b2c998159f",
+            "size": 1120,
+            "live_was": null
+        },
+        "app/lib/Trips.php": {
+            "sha": "ac7c2d99a72adf07629c8879f3f340b229597565297c40fa0fa0a22cbd7b6f0a",
+            "size": 30501,
+            "live_was": "c4ef51e3eb8a958871fa48bb8b99fb7e07f19c1806707d399a96abe6d4297b47"
+        },
+        "website/user/trips/index.php": {
+            "sha": "f96f90d08ff105e27f36a956bddb0f6aed4e7870882325b1779e5d077cb2666b",
+            "size": 10799,
+            "live_was": "20a4bf267f7a4e5efbfa89500e9f2d40a45b77fe0d80b536299e6ce696c101d0"
+        },
+        "website/user/trips/trip.php": {
+            "sha": "b16526202e9699680da4e492bf19e926b3833ad4ac6e020962f6c62d0b49e526",
+            "size": 24037,
+            "live_was": null
+        },
+        "website/discovery/index.php": {
+            "sha": "95a856e2257eefdb6465c8df43a011756d3e9af2f22d8c87350e0c01e0fa3c2d",
+            "size": 94809,
+            "live_was": "b03110318bf2d7d98c91389f54898f0ab6222be0bf6743a0527c7c6bf52a4d2f"
+        },
+        "website/api/trips.php": {
+            "sha": "dcfa7fda49daecb5d1b6f4b485afc69a0519ee8cbe94dc78d853020d823abcdf",
+            "size": 11159,
+            "live_was": "34d21600adade843e46254bae16d38c057e5028982a2c94274031a42f2d2911c"
+        },
+        "website/js/map-view.js": {
+            "sha": "bc29a2e3996c3d80bd1f4fe76f7e947e2b1e12a5509b4b3d3e7014bba0593132",
+            "size": 71089,
+            "live_was": "927dbc5f48a23001d5c0dea06046d3e1b0a81c70de886eef43cd7bf4337c6456"
+        },
+        "website/js/search-panel.js": {
+            "sha": "489287c6fa00468cdcbde38bb8bf4a467ef74fdce68d8d3a4ee47d6715a2a478",
+            "size": 136469,
+            "live_was": "28554d234fef4c9024f29e857404de1fd72a58878cef96f225ab3eb365f7898c"
+        },
+        "website/js/tv-trips.js": {
+            "sha": "aeb1c2b02f66610de80bb614520662ac11e38fbcdabada7f6b640d0445513f93",
+            "size": 20297,
+            "live_was": "94d655f9670e4c1f0c6652a12df5f34a6b9a242eb19fb79b50e4a75b8d1118ae"
+        }
+    },
+    "migrations": [
+        "app/migrations/2026-11-21_trips-page.sql"
+    ],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-20T13:50:31+00:00",
+            "by": 0,
+            "msg": "Uploaded trip-page.zip: 10 files."
+        }
+    ]
+}
