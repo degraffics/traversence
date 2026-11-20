@@ -301,13 +301,14 @@
     "approve",
     "paidInQuickBooks",
     "received",
-    "send"
+    "send",
+    "setStage"
    ],
    "kind": "change",
    "session": "session_01CXLi5iruQZSTYKyuR7b1SN",
    "why": "Orders: the order map's rulings (decisions/0101 note 2026-11-20, B.1-B.6)",
    "since": "2026-11-20T18:55:46Z",
-   "expires": "2026-11-20T22:55:55Z",
+   "expires": "2026-11-20T22:55:59Z",
    "release": "orders-rulings.zip",
    "callers": {
     "send": [
@@ -322,6 +323,12 @@
     ],
     "paidInQuickBooks": [
      "app/lib/QrIssue.php"
+    ],
+    "setStage": [
+     "app/admin/workflows.php",
+     "app/lib/Pulse.php",
+     "app/lib/WorkOrders.php",
+     "website/admin/client-order.php"
     ]
    }
   }
