@@ -234,6 +234,17 @@
    "expires": "2026-11-20T17:45:55Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/migrations/2026-11-21_trips-page.sql",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "The trip page (decisions/0174 release 3)",
+   "since": "2026-11-20T13:45:57Z",
+   "expires": "2026-11-20T17:45:57Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
