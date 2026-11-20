@@ -439,3 +439,14 @@ part 1, the side panel (an alarm's first button opens its component, routed by t
 pre-flight line, a workflow's or task's own page, a site job on Scheduled tasks; one panel at a time with Back), the
 Routes line's words, and a trip's words ("closes as Recovered", ESCALATED_RECOVERS); part 2, the lines and words (items
 3–8, 10–11). 0176 release 3 routes a cause to its exact spot inside the component (the session manager, 2026-11-20).
+
+**Note (2026-11-20): release 2a built.** Part 1 live as #229 (`0175-r2a-panel.zip`). Part 2 (`0175-r2a-lines.zip`,
+PR #1186, built on Sync 16:01 UTC):
+- "Paused now" is the top line of the board and of Automation, and the pre-flight's result sits in the Start-up stage.
+- An active module reads "Diagnostics".
+- A workflow whose failing task a backup covers reads "On a backup".
+- A warning shows "!" and has no Acknowledge.
+- A system's hour turns red only for a critical part. A process's own hour is amber while it is held: a words fix,
+  since green while held was untrue (playbook principle 4).
+- Each task's switch is on its workflow's page.
+- Open question for Jason: the card's in-place Switch on (#216) beside the one home of §6.
