@@ -129,3 +129,20 @@ he says otherwise.
 | A phone card | each row as a card: severity, from, subject, the sub-line, ▾ and ⋯ | ▾ opens it under itself |
 | A large table | "1–50 of 1,234", Show 50 ▾, the page bar | a page number, or Show 100 |
 | No history yet | "No history yet" once in Last 24 hours | nothing; it fills as readings come |
+
+## Note (Jason, 2026-11-20): Pulse's filters made easier
+
+On a screenshot of the admin Pulse (the From column's funnel opening a centred "Show these senders" box with Show and
+Cancel): "I am noticing that the group, filter, box drop down are kind of hard to work with. Suggestions to make managing
+the pulse and display easier." He chose all six of the session manager's suggestions, saved views included:
+1. **One filter button** ("Inbox · The bell ▾") holds the views, **Senders** and **Group by**; each tick applies at
+   once (no Show / Cancel); only active filters show, as tags with × (§4 here; CLAUDE.md filters). No filter controls in
+   column headers (§4): the From funnel goes, folded into the button.
+2. **Counts match what you'll see:** a sender's count is within the current view; one with none is greyed at 0.
+3. **The menu opens under its button** and closes with ×, Esc or a click outside (CLAUDE.md, "Everything that pops open
+   closes").
+4. **Groups:** a small group opens by itself, open groups are remembered, and Open all / Close all.
+5. **Saved views (new, Jason's yes):** name the current mix of filters ("Needs me now", "Orders"); each is one click in
+   the same button.
+6. **Words beside the header's four icons** (bell, calendar, ⋯, settings) on a wide screen.
+Built by the Design and trips session.
