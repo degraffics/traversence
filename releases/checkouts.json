@@ -180,6 +180,19 @@
    "expires": "2026-11-20T22:46:17Z",
    "release": "0175-r2b-workflows",
    "callers": {}
+  },
+  {
+   "path": "app/admin/operations-console.php",
+   "functions": [
+    "tv_admin_mod_workflows_crawler"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
+   "why": "0175 R2b part C",
+   "since": "2026-11-20T18:46:20Z",
+   "expires": "2026-11-20T22:46:20Z",
+   "release": "0175-r2b-workflows",
+   "callers": {}
   }
  ],
  "lapsed": [
