@@ -38,6 +38,19 @@
    "expires": "2026-11-20T17:23:02Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "website/directory/index.php",
+   "functions": [
+    "paintList"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Trips you can save (decisions/0174 release 2)",
+   "since": "2026-11-20T13:23:04Z",
+   "expires": "2026-11-20T17:23:04Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
