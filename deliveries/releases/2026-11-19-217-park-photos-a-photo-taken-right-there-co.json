@@ -1,0 +1,39 @@
+{
+    "id": 217,
+    "title": "Park photos: a photo taken right there counts without \"State Park\" in its name",
+    "why": "Jason, 2026-11-19, approved (reviewed by the session manager), after Lyman Lake State Park kept its stock photo. Card photos (#205) asked for every word of the place's name in a Commons photo's file name or title, so a Kansas KU building could never stand in for an Arizona visitor centre. But that also rejected \"Lyman Lake, Arizona\", taken at the lake. Now a photo taken within 1.5 km needs only the place's own words; the kind words (state, national, park, monument, historic, site, recreation, area, visitor, center, memorial, preserve, forest) may be missing there only. Words like lake or canyon stay required, unlocated or farther photos still need every word, and Kansas stays out. The same rule serves landmarks' photos. No new tables.",
+    "proposals": "",
+    "zip": "park-photos-onspot.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/ui/faq.md": {
+            "sha": "db6923744c4e3d8d7770d13f7b35f492149572072bf5f76a99ba3c0898b4835c",
+            "size": 394242,
+            "live_was": "2b3af456f6c36ae40f2ecea89f6e0c58b53f1d753b5f0a71b84e029c01d83240"
+        },
+        "app/lib/Landmarks.php": {
+            "sha": "084dc3bc1db3c13a3cd3239be53502abe6be18d34e1eb3fcbb38f0d84dead692",
+            "size": 58473,
+            "live_was": "79fbc259c2a04faee3af8bbf629434d7d87e7ddc90fc0729a78fc5b4bc52f2b3"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-20T03:50:10+00:00",
+            "by": 0,
+            "msg": "Uploaded park-photos-onspot.zip: 2 files."
+        }
+    ]
+}
