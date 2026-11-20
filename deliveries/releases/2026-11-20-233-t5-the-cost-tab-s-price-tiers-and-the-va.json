@@ -1,0 +1,49 @@
+{
+    "id": 233,
+    "title": "T5: the cost tab's price tiers and the vault's list on the table standard",
+    "why": "design/table-standard.md §Order 3 (Jason, 2026-11-19: \"The table presentation needs a standard implementation plan\"): the shared parts. Domains moved to Release 3e (it's a member and business page; the standard covers the admin's tables) and outside services to the Operations session.",
+    "proposals": "",
+    "zip": "t5.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/ui/cost-tab.php": {
+            "sha": "105ec294cf4c043dd12451f395213bed0c7f6a0f8ef1c14145c77a6e6474f3d2",
+            "size": 15588,
+            "live_was": "63918e8ddcca5039fa2825588efd5d2d7ac3fa419be5928fee63ef49cbeb7215"
+        },
+        "app/ui/vault.php": {
+            "sha": "04a3184acc4a28198543506e3fc6b0dfb9fbaeefd17ce23044426438fdb36428",
+            "size": 44962,
+            "live_was": "b76c57308f388b2c832b1edf97fffba408f49f86d940cc1f38a1cd7d6b750fbc"
+        },
+        "website/js/tv-cost.js": {
+            "sha": "5ab098f2e9a2cc1b8241f7537fa0b297a96d0e3dff0a74882e7b5940d3de768d",
+            "size": 8948,
+            "live_was": "40641e5d00f004cc5dfe275060c2ff7f57b047ff6de912a01e6d3d9e0ebd14b1"
+        },
+        "website/js/tv-vault.js": {
+            "sha": "2a37e940df07d93b51ee0f68ca5a9f3ea13b47d9f9f4911a1503c98f41125d7f",
+            "size": 103251,
+            "live_was": "f80831ffe2acca96b75c4578136ce40f84232ac878b4619503a7ee48867538d1"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-20T17:02:06+00:00",
+            "by": 0,
+            "msg": "Uploaded t5.zip: 4 files."
+        }
+    ]
+}
