@@ -44,6 +44,17 @@
    "expires": "2026-11-20T18:02:40Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/admin/operations-console.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
+   "why": "feeds: an outside service's words follow its state; SlowDown is a rate wait",
+   "since": "2026-11-20T14:02:42Z",
+   "expires": "2026-11-20T18:02:42Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
