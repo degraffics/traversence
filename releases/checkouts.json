@@ -73,7 +73,7 @@
    "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
    "why": "0176 R2 part 2: the alarm notice",
    "since": "2026-11-20T17:00:00Z",
-   "expires": "2026-11-20T21:36:17Z",
+   "expires": "2026-11-20T21:36:49Z",
    "release": "0176-notice.zip",
    "callers": {
     "items": [
@@ -124,7 +124,7 @@
    "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
    "why": "0176 R2 part 2: the alarm notice",
    "since": "2026-11-20T17:36:03Z",
-   "expires": "2026-11-20T21:36:03Z",
+   "expires": "2026-11-20T21:36:49Z",
    "release": "0176-notice.zip",
    "callers": {}
   },
@@ -140,7 +140,7 @@
    "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
    "why": "0176 R2 part 2: the alarm notice",
    "since": "2026-11-20T17:36:07Z",
-   "expires": "2026-11-20T21:36:07Z",
+   "expires": "2026-11-20T21:36:49Z",
    "release": "0176-notice.zip",
    "callers": {}
   },
@@ -153,7 +153,7 @@
    "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
    "why": "0176 R2 part 2: the alarm notice",
    "since": "2026-11-20T17:36:13Z",
-   "expires": "2026-11-20T21:36:13Z",
+   "expires": "2026-11-20T21:36:49Z",
    "release": "0176-notice.zip",
    "callers": {}
   }
