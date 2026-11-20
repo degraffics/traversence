@@ -57,7 +57,7 @@ $a = ControlAlarms::byId($pdo, $id);
 $t('its tries run out: no longer retrying, an ordinary trip', $a['level'] === 'trip' && empty($a['retrying_at']) && !empty($a['tripped_at']), $a);
 $t('…the Escalation Notice in the logbook', (int) $pdo->query("SELECT COUNT(*) FROM control_log WHERE what LIKE 'Escalation Notice: retries unsuccessful, now admin required: GitHub, System-critical procedures%'")->fetchColumn() === 1);
 $ok = ControlAlarms::clear($pdo, 'x:gh', 'It answered.');
-$t('…and now only Resolve clears it', !$ok && ControlAlarms::byId($pdo, $id)['cleared_at'] === null);
+$t('…and once its check passes, it closes as Recovered (Jason, 2026-11-20: "Close as Recovered")', $ok && str_starts_with((string) ControlAlarms::byId($pdo, $id)['cleared_how'], 'Recovered:'));
 
 // only trips reach a person
 $pl = (string) file_get_contents($app . '/lib/Pulse.php');

@@ -19,7 +19,7 @@ $pdo->exec("CREATE TABLE IF NOT EXISTS service_issues (id INT UNSIGNED NOT NULL 
     resolved_at DATETIME NULL, resolved_by INT NULL, resolved_how VARCHAR(255) NULL)");
 $pdo->exec("INSERT IGNORE INTO crawl_capture_tasks (task, wf, enabled) VALUES ('coverage', 'W1', 1), ('second_look', 'W2', 1)");
 Automation::set($pdo, 'master', 'all', false, 'test', 7, 'Jason'); Automation::forget();
-$on = fn (string $wf) => Automation::wfOff($pdo, $wf) === null;
+$on = fn (string $wf) => Automation::gathering($pdo, '', $wf) === null;   // the switch and the system's pause (decisions/0175)
 Automation::setWorkflow($pdo, 'W1', false, 'test', 7, 'Jason'); Automation::setWorkflow($pdo, 'W2', false, 'test', 7, 'Jason'); Automation::forget();
 
 // 1. the system tries first: a crash is a warning for its tries, then a trip
@@ -30,8 +30,7 @@ $crash(); $t('…the second try still a warning', ControlAlarms::openOf($pdo, 't
 $crash(); Automation::forget(); $a = ControlAlarms::openOf($pdo, 'task:failed:second_look');
 $t('…the third: a trip, marked tripped', $a['level'] === 'trip' && $a['tripped_at'] !== null, $a);
 $t('…it stopped only its own workflow (W2), not W1', !$on('W2') && $on('W1') && Automation::master($pdo) === null, ControlAlarms::stoppedWords($a));
-$t('…and it says what it stopped', ControlAlarms::stoppedWords($a) === 'W2 (its tasks first, then the workflow)', ControlAlarms::stoppedWords($a));
-$t('…its reading good again doesn\'t clear it: noted, waiting for Resolve', !ControlAlarms::clear($pdo, 'task:failed:second_look', 'It did its work in run #9.') && (string) ControlAlarms::openOf($pdo, 'task:failed:second_look')['good_how'] === 'It did its work in run #9.');
+$t('…and it says what it stopped (a pause since decisions/0175: W2\'s switch is untouched)', ControlAlarms::stoppedWords($a) === 'W2 (its tasks wait with it)', ControlAlarms::stoppedWords($a));
 
 // 2. the time limit: an hour from the first failure, even with fewer tries
 ControlAlarms::raise($pdo, 'job:slowpoke', 'job:slowpoke', 'trip', 'crash', 'The job stopped');
@@ -48,14 +47,14 @@ $t('a refusal (held) trips at once', ControlAlarms::openOf($pdo, 'x:held')['leve
 // 4. the crawler itself down: the master switch; Resolve starts again only what it stopped, Undo puts it back
 foreach ([1, 2, 3] as $i) ControlAlarms::raise($pdo, 'run:failed', 'wk:crawler', 'trip', 'crash', 'A crawler run failed (#' . $i . ')');
 Automation::forget(); $r = ControlAlarms::openOf($pdo, 'run:failed');
-$t('a run that failed outright, three times: a trip that pauses all gathering', $r['level'] === 'trip' && Automation::master($pdo) !== null, ControlAlarms::stoppedWords($r));
+$t('a run that failed outright, three times: a trip that pauses all gathering (paused by the system; the master switch untouched, 0175)', $r['level'] === 'trip' && Automation::gathering($pdo) !== null && Automation::master($pdo) === null, ControlAlarms::stoppedWords($r));
 // (4e, Jason 2026-11-19: "no dead ends, system fixes first": Resolve no longer asks what fixed it; r4e tests that)
 [$ok, $msg] = ControlAlarms::resolve($pdo, (int) $r['id'], 7, 'Jason', 'Redeployed the worker');
 Automation::forget(); $r2 = ControlAlarms::byId($pdo, (int) $r['id']);
-$t('…resolved: the master switch is back on, and it says how', $ok && Automation::master($pdo) === null && $r2['cleared_at'] !== null && str_contains((string) $r2['cleared_how'], 'Redeployed the worker') && str_contains((string) $r2['cleared_how'], 'All gathering'), $r2['cleared_how']);
+$t('…resolved: the master switch is back on, and it says how', $ok && Automation::gathering($pdo) === null && $r2['cleared_at'] !== null && str_contains((string) $r2['cleared_how'], 'Redeployed the worker') && str_contains((string) $r2['cleared_how'], 'All gathering'), $r2['cleared_how']);
 [$ok, $msg] = ControlAlarms::unresolve($pdo, (int) $r['id'], 7, 'Jason');
 Automation::forget(); $r3 = ControlAlarms::byId($pdo, (int) $r['id']);
-$t('…Undo: open again, and gathering paused again', $ok && $r3['cleared_at'] === null && Automation::master($pdo) !== null, $msg);
+$t('…Undo: open again, and gathering paused again', $ok && $r3['cleared_at'] === null && Automation::gathering($pdo) !== null, $msg);
 ControlAlarms::resolve($pdo, (int) $r['id'], 7, 'Jason', 'Redeployed again'); Automation::forget();
 
 // 5. a check still red: the trip stays, with the reason on its row
@@ -63,6 +62,10 @@ $w = ControlAlarms::openOf($pdo, 'task:failed:second_look');
 [$ok, $msg] = ControlAlarms::resolve($pdo, (int) $w['id'], 7, 'Jason', 'Fixed its source');
 $w2 = ControlAlarms::byId($pdo, (int) $w['id']);
 $t('Resolve where W2\'s check is red: not resolved, the reason kept on the row, W2 still off', !$ok && $w2['cleared_at'] === null && str_starts_with((string) $w2['resolve_note'], 'Not resolved') && !$on('W2'), $msg);
+// decisions/0175 §3 (Jason, 2026-11-19: "If this was resolved by system ... it should be handled"): its reading good again
+// closes it as Recovered and lifts its pause (before 0175 it waited for Resolve)
+ControlAlarms::clear($pdo, 'task:failed:second_look', 'It did its work in run #9.'); Automation::forget(); $w3 = ControlAlarms::byId($pdo, (int) $w['id']);
+$t('…its reading good again: the trip closes itself as Recovered, and W2 runs again (0175 §3; Jason, 2026-11-20: "Close as Recovered")', $w3['cleared_at'] !== null && str_starts_with((string) $w3['cleared_how'], 'Recovered:') && $on('W2'), $w3['cleared_how']);
 
 // 6. a back-off at its limit: a trip holding the server's calls; a person's resolve closes it
 $pdo->exec("DELETE FROM service_issues");

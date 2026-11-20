@@ -28,12 +28,14 @@ $t('…a slow site job is a warning however many times in a row', str_contains($
 
 // 2. a slow trip from before 4e: the watch lifts it itself, checking first
 $pdo->exec("INSERT INTO control_alarms (akey, proc, level, kind, title, n_times, first_at, last_at, tripped_at, stopped) VALUES ('ep:crawl/old:slow', 'wf:W2', 'trip', 'slow', '/api/crawl/old is slow', 3, UTC_TIMESTAMP(), UTC_TIMESTAMP(), UTC_TIMESTAMP(), '[[\"proc\",\"wf:W2\",\"W2\"]]')");
-Automation::setWorkflow($pdo, 'W2', true, 'Shut down by a slow trip', 7, 'Jason'); Automation::forget();
+// before decisions/0175 a trip wrote into W2's switch itself; the watch puts it back to what a person set, then pauses
+$pdo->exec("INSERT INTO automation_log (at, kind, ref, paused, why, by_uid, by_name) VALUES (UTC_TIMESTAMP() - INTERVAL 1 DAY, 'workflow', 'W2', 0, 'On', 7, 'Jason')");
+Automation::setWorkflow($pdo, 'W2', true, 'Shut down from the Control Board by the Control Board (a trip)', 0, 'the Control Board (a trip)'); Automation::forget();
 $id = (int) $pdo->query("SELECT id FROM control_alarms WHERE akey = 'ep:crawl/old:slow'")->fetchColumn();
 ControlAlarms::tick($pdo);
 $a = ControlAlarms::byId($pdo, $id); Automation::forget();
-if ($a['cleared_at'] !== null) $t('the watch lifted the old slow trip: W2 checked and started again by the system', Automation::wfOff($pdo, 'W2') === null && str_contains((string) $a['cleared_how'], 'Resolved by the system'), $a['cleared_how']);
-else $t('W2\'s check is red here: the old slow trip is now a warning that says the system tries every 5 minutes, W2 still off', $a['level'] === 'warning' && str_contains((string) $a['means'], 'the system tries every 5 minutes') && Automation::wfOff($pdo, 'W2') !== null, $a);
+if ($a['cleared_at'] !== null) $t('the watch lifted the old slow trip: W2 checked and started again by the system', Automation::gathering($pdo, '', 'W2') === null && str_contains((string) $a['cleared_how'], 'Resolved by the system'), $a['cleared_how']);
+else $t('W2\'s check is red here: the old slow trip is now a warning that says the system tries every 5 minutes, W2 still off', $a['level'] === 'warning' && str_contains((string) $a['means'], 'the system tries every 5 minutes') && Automation::gathering($pdo, '', 'W2') !== null, $a);   // paused by the system since decisions/0175
 $t('…the watch tries it every time while it still holds what it stopped', str_contains($src, "kind = 'slow' AND (level = 'trip' OR (stopped IS NOT NULL"));
 
 // 3. Resolve: no question; it checks and starts again
