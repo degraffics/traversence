@@ -15,8 +15,9 @@ except this hand-off and the Pulse answers note (branch `claude/pulse-filters`).
 | 240 | listing-signin: listing pages read the site's session folder (signed-in people looked like guests since 2026-10-10); Back to where you came from (0058 note) | `listing-signin.md` | the guest Back, yes; **the signed-in bar on a listing: Jason to confirm** |
 
 ## 2. Next, in order
-1. **Pulse filters** (design/table-standard.md, Jason's note of 2026-11-20 and its **Answers**). Not started. Plan, cleared
-   by the session manager:
+1. **Pulse filters** (design/table-standard.md, Jason's note of 2026-11-20 and its **Answers**). **Progress (2026-11-20, the
+   successor session): built and sent as `pulse-filter-panel.zip` on Sync 5674a94, PR open, waiting for Jason's Approve
+   (`handoffs/pulse-filters.md`).** Plan, cleared by the session manager:
    - One button "Inbox · All (n) ▾" whose panel holds Lists, Show (the views), **Senders** and **Levels** (ticks applied
      at once, no Show/Cancel), and **Group by**. Active filters show as × tags beside it. The separate Group ▾ folds in.
      Both header funnels go (From per note 1; the level funnel by §4 "no filter controls in column headers"). Sorting
