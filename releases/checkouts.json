@@ -135,6 +135,17 @@
    "expires": "2026-11-20T17:23:18Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "website/user/trips/index.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Trips you can save (decisions/0174 release 2)",
+   "since": "2026-11-20T13:23:20Z",
+   "expires": "2026-11-20T17:23:20Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
