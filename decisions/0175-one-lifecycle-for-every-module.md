@@ -387,6 +387,10 @@ passes, nothing waits (`ControlAlarms::ESCALATED_RECOVERS`).
 site's connections (Bluehost's network). Fall back to the crawler's own geocode on Railway when that happens?", he
 answered "Yes". So the Census geocoder (U.S. Census Bureau) names its backup, per §3 ("The workflow … reroutes to a
 backup service where one is named"):
-- when the site's call to geocoding.geo.census.gov fails on the connection (reset or no answer), the address waits for
-  the crawler's geocode task on Railway, which calls the same Census service from there;
-- a map point is never lost or invented in between.
+- When the site's call to geocoding.geo.census.gov fails on the connection (reset or no answer), the batch is sent from
+  Railway instead.
+- **Correction (the Control Board session, 2026-11-20, checked in the code after his answer):** the crawler's geocode
+  task doesn't call the Census itself today. It asks the site to (`/api/crawl/geocode.php` → `Geocoder.php`), so it
+  shares the site's connection. A backup on Railway means the worker sends the batch to the Census itself, then hands
+  the answers to the site to place.
+- A map point is never lost or invented in between: a batch that neither side could send waits, as it does now.
