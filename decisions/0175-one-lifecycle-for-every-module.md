@@ -471,3 +471,13 @@ the session manager's proposals:
    sources down (Overture bulk, Common Crawl), 9 parts waiting on them. 3 off on purpose." The critical duties first
    (0171's), then each system's count.
 Built by the Operations session, before part C.
+
+**Built (Operations session, 2026-11-20, release 0175-paused-now, built on Sync 18:34 UTC):** the cause of "paused by a
+person": before 0175 a trip shut its part down through the board (`ControlBoard::stopOne` with who = "the Control Board (a
+trip)"), writing into the switches; `putBackTripSwitches` (§7) puts back only switches a person had set before, so the rest
+stayed off, and "Paused now" read any switched-off task or workflow as a person's. Now a switch carrying that mark is the
+trip's: under its open trip, or, when its trip has closed, listed under Needs attention as left off, naming the trip. Paused
+now is in the three groups; the health line names the duties of 0171 §5's register (sign-in and email named out of
+"System-critical procedures", its other parts as "Site jobs"), then Data gathering, Workers, Outside services and the
+site's own parts, each part said once; red only for a critical duty down (Jason, 2026-11-20: "Critical part down"). Tests:
+`tools/control-board-tests/paused-now.php` (20), `lines.php` updated.

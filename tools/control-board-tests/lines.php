@@ -41,7 +41,8 @@ $t('a task a person switched off: named, by a person, why, and its fix on its wo
 $t('a paused workflow: its own page', isset($by['/admin/config/control/wf-W3']) && str_contains($by['/admin/config/control/wf-W3'][2], 'Until the review'));
 $t('the system\'s pause: by the system (a trip), with its reason, and the service\'s card', isset($by['/admin/config/register#svc-commoncrawl']) && $by['/admin/config/register#svc-commoncrawl'][1] === 'the system (a trip)' && str_contains($by['/admin/config/register#svc-commoncrawl'][2], 'It resumes when its check passes'), $all);
 $h1 = ControlBoard::pausedHtml($pdo);
-$t('the line counts them, by the system and by a person, each a link that opens in the side panel', (bool) preg_match('/3 paused or out, 1 by the system, 2 by a person/', $h1) && substr_count($h1, 'data-peek-frame') === 3, $h1);
+// grouped since 0175's note (2026-11-20, "Paused now gives a clear picture"): a pause whose trip isn't open needs a look itself
+$t('the line counts them in groups, each a link that opens in the side panel', str_contains($h1, '1 held by the system with no open trip, 2 off on purpose.') && substr_count($h1, 'data-peek-frame') === 3, $h1);
 // ---- the board's top line, and the pre-flight in Start-up
 $board = tv_admin_mod_control($pdo);
 $top = substr($board, (int) strpos($board, 'cb-top cb-strip'), 4000);
