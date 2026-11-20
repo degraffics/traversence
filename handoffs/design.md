@@ -122,6 +122,11 @@ session manager's `session-manager.md` is the check if one is in doubt.
 
 ## 6. Rules and pitfalls learned (add to the builder playbook's spirit)
 
+- **Shared files before every merge (2026-11-20, #235; the session manager):** the zip check reads only the inbox, so it
+  doesn't see a release that's Planned or On staging. #234 (0176 R2 part 1) was on staging when the vault icons merged,
+  and their faq.md then dropped #234's two FAQ changes. Before merging any release that carries faq.md or another shared
+  file, ask the session manager whether another release with that file is Planned or On staging, and wait for "clear".
+
 - **Rebuild on the newest sync, every time.** Before zipping, pull the mirror. If a release went live since, rebuild from
   the live copies: every build script here (`build-*.py`) reads the mirror, so re-running it is the rebuild.
 - **faq.md order.** faq.md is add-only and shared. A zip blocked only by another pending zip's faq.md waits for that
