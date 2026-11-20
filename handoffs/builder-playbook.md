@@ -80,6 +80,9 @@ Each one comes from a request Jason had to send. Build to them, and the session 
   source: a decision and section, or Jason's quoted words with their date. A behaviour no decision states is never a
   build choice: leave it out, or ask Jason. Reusing a setting for a new purpose is a new behaviour. [0175 R1 lifted a
   system pause "for one try each hour" from `control_fix_minutes`; 0171 says the tries end in a trip and the escalation.]
+- **A gap closes in the decision record** (Jason, 2026-11-20: "does this prompt a question to answer the missing
+  decision?"). Ask the question; write his answer into the decision it belongs to as a dated note quoting him; then
+  build, citing that note. A big gap (new policy, several parts depend on it) is asked as "draft a decision for this?".
 - **Phone check at 390px** for every page changed: `tools/page-audit/layout-probe.mjs` (or Playwright at 390 wide):
   no sideways scroll, cards 3px from the edges, nothing cut off. [The Start card was 428px wide; buttons were cut off.]
 - **Press every new button once** in a rendered test (or on staging after it lands) and say which you did. Never write
