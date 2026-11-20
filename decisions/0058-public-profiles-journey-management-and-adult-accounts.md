@@ -1004,6 +1004,13 @@ Now:
 **Note (2026-11-12, Jason: "the clicking into deeper pages does not have an easy way to go back up the route I took down"):** content pages still have no breadcrumbs (§11); instead every public page carries the way back up: "‹ Back to <the page before>" with ▾ for the whole route this visit actually took (`js/tv-trail.js`, kept in the tab only), for everyone: in the account bar when signed in, else a slim line atop the page. Opening a page already on the route goes back up it. Only in the Let's Explore funnel (Jason, 2026-11-12: "the route should only be for the discovery funnel"): its pages and what's reached from them (a place, a guide, a listing, a journey); any other section ends it, and a page reached from elsewhere shows none. Not on admin or sign-in pages (`trail_20261112.zip`).
 ## Consequences
 
+**Note (Jason, 2026-11-20, a pop-up reviewed by the session manager):** a page that carries the route, opened with none in
+its tab (a new tab, a link from Pulse, the admin or elsewhere on the site), had no Back at all. Asked what Back should
+show then, he answered **"back to where they came from"**. Such a page shows **‹ Back** to the page on our site it came
+from, named by its section where known ("‹ Back to your account", "‹ Back to the admin"), in the account bar when signed
+in, else the slim line. One step, not a route. Nothing shows when it came from outside the site. Other sections stay as
+the 2026-11-12 note set them (the route only for Let's Explore's funnel). Release: listing-signin.
+
 - New columns: `journeys.entity_id` and `journeys.submitted_at`, and `age_confirmations.min_age`. Two new staff roles
   (`role_grants.role` adds editor and creator). Migration: `2026-10-08_journey_management.sql`.
 - Still to build, in this order:
