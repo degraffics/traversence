@@ -79,7 +79,7 @@
    "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
    "why": "0176 R2: service issues as threads",
    "since": "2026-11-20T16:59:46Z",
-   "expires": "2026-11-20T20:59:46Z",
+   "expires": "2026-11-20T21:00:54Z",
    "release": "0176-issues.zip",
    "callers": {}
   },
@@ -90,7 +90,7 @@
    "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
    "why": "0176 R2: service issues as threads",
    "since": "2026-11-20T16:59:49Z",
-   "expires": "2026-11-20T20:59:49Z",
+   "expires": "2026-11-20T21:00:54Z",
    "release": "0176-issues.zip",
    "callers": {}
   },
@@ -101,9 +101,20 @@
    "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
    "why": "0176 R2: service issues as threads",
    "since": "2026-11-20T16:59:51Z",
-   "expires": "2026-11-20T20:59:51Z",
+   "expires": "2026-11-20T21:00:54Z",
    "release": "0176-issues.zip",
-   "callers": {}
+   "callers": {
+    "describe": [
+     "app/lib/Operations.php",
+     "app/lib/OutsideServices.php",
+     "app/lib/Preflight.php",
+     "app/lib/Pulse.php",
+     "app/lib/SystemStart.php"
+    ],
+    "osmUse": [
+     "app/lib/crawler/CrawlService.php"
+    ]
+   }
   },
   {
    "path": "app/lib/OutsideServices.php",
@@ -114,7 +125,7 @@
    "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
    "why": "0176 R2: service issues as threads",
    "since": "2026-11-20T16:59:54Z",
-   "expires": "2026-11-20T20:59:54Z",
+   "expires": "2026-11-20T21:00:54Z",
    "release": "0176-issues.zip",
    "callers": {
     "working": [
@@ -131,7 +142,7 @@
    "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
    "why": "0176 R2: service issues as threads",
    "since": "2026-11-20T17:00:00Z",
-   "expires": "2026-11-20T21:00:00Z",
+   "expires": "2026-11-20T21:00:54Z",
    "release": "0176-issues.zip",
    "callers": {
     "items": [
@@ -152,7 +163,7 @@
    "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
    "why": "0176 R2: service issues as threads",
    "since": "2026-11-20T17:00:03Z",
-   "expires": "2026-11-20T21:00:03Z",
+   "expires": "2026-11-20T21:00:54Z",
    "release": "0176-issues.zip",
    "callers": {}
   },
@@ -163,9 +174,14 @@
    "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
    "why": "0176 R2: service issues as threads",
    "since": "2026-11-20T17:00:08Z",
-   "expires": "2026-11-20T21:00:08Z",
+   "expires": "2026-11-20T21:00:54Z",
    "release": "0176-issues.zip",
-   "callers": {}
+   "callers": {
+    "statuses": [
+     "website/js/tv-domains.js",
+     "website/js/tv-vault.js"
+    ]
+   }
   }
  ],
  "lapsed": [
