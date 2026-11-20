@@ -481,3 +481,7 @@ now is in the three groups; the health line names the duties of 0171 §5's regis
 "System-critical procedures", its other parts as "Site jobs"), then Data gathering, Workers, Outside services and the
 site's own parts, each part said once; red only for a critical duty down (Jason, 2026-11-20: "Critical part down"). Tests:
 `tools/control-board-tests/paused-now.php` (20), `lines.php` updated.
+
+**Answered (Jason, 2026-11-20, in the decision pop-up, reviewed by the session manager; PR #1219):** Approve. On switches a
+past trip left off with no person's setting to go back to: **"Keep for a person"**. They stay off, listed under Needs
+attention as left off by a trip that has closed, each with its switch; nothing switches them back on by itself.
