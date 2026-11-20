@@ -146,3 +146,15 @@ server.
    - **(c) FOSSGIS's public routing:** no cost, light use only. The points go to FOSSGIS in Germany. Not recommended.
    - Or decide at release 5.
 3. Guests: keep one trip on the device until they make an account (recommended), or trips only with an account?
+
+**Note (2026-11-20): release 1, Send to Maps (`send-to-maps.zip`, reviewed by the session manager; `handoffs/send-to-maps.md`).**
+- **What it does:** a suggested journey's route icon and a place's "Make a day of it" now open Send to Maps.
+  - The visitor picks Google Maps or Apple Maps, and My location or the first stop. Both are remembered on the device.
+  - Every stop goes, in order, in legs of a start, 8 between and an end.
+- **Apple:** its link was checked against Apple's current page. It takes repeated `waypoint`s, and needs iOS 18.4 or
+  macOS 15.4.
+- **Google:** its documentation couldn't be reached from the session, so the site's proven count was kept.
+- **Also fixed, the same rules as Directions:**
+  - a shelter or a mailbox could be a stop in a suggested journey;
+  - a private place could be a landmark's place to eat.
+
