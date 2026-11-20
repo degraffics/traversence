@@ -6,12 +6,12 @@
     "zip": "trips.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "planned",
+    "state": "approved",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
-    "plan_at": null,
+    "plan_at": "2026-11-20 13:29:46",
     "staged_at": null,
     "vetted_at": null,
     "live_at": null,
@@ -91,6 +91,16 @@
             "at": "2026-11-20T13:29:44+00:00",
             "by": 0,
             "msg": "Uploaded trips.zip: 13 files."
+        },
+        {
+            "at": "2026-11-20T13:29:46+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/trips.zip (git db57bcb725)."
+        },
+        {
+            "at": "2026-11-20T13:29:46+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
         }
     ]
 }
