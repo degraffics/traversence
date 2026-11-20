@@ -3,40 +3,40 @@
  "built_on": "ac9cc04 Sync: 2026-11-20 17:44 UTC",
  "recorded": "2026-11-20 17:48 UTC",
  "note": "3d (css-theme-brand \u00a74 Release 3; Jason 2026-11-20 'Mockup, adapted'), built on Sync: 2026-11-20 17:44 UTC (ac9cc04) Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "6f955cf Sync: 2026-11-20 17:54 UTC",
  "files": {
   "app/lib/Community.php": {
    "sha256": "caee424aae3f1c5dc530ca0a029b1e7f2663404c1b5543abc42720a7aafaeebc",
-   "live": false
+   "live": true
   },
   "app/ui/admin-dashboard.php": {
    "sha256": "d8de448b15b174ee420d1ce718f62c99bb150bfdf7bc6292ea8b1376aa1848f1",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "d1b0201b05ef829711c67b6b6852af946dfc16b4bc2aa1c49d950773cb23500a",
-   "live": false
+   "live": true
   },
   "app/ui/profile-header.php": {
    "sha256": "78c0718e89cd59073d9945b97f41ad6ae8bf0930dd6d4b9078be50b01b53058f",
-   "live": false
+   "live": true
   },
   "app/ui/pulse-panel.php": {
    "sha256": "56d1d9c4eaf7ccc7969cca0fe979c01496a51dd983edb302f4d012dd43cbcd19",
-   "live": false
+   "live": true
   },
   "website/community/group.php": {
    "sha256": "421b2b2a5f7ef0332b2c2685d6f8fd1c8a235a7aefce0a6d2b2b2714233c277b",
-   "live": false
+   "live": true
   },
   "website/community/index.php": {
    "sha256": "9ba34d74ac18483792270bec7941e2b8ba8ced0597fbc4aef35c9315b8f93407",
-   "live": false
+   "live": true
   },
   "website/user/dashboard.php": {
    "sha256": "c7bc4de05f8b8cbc86a761d2e751453719d3d236be65144dbc439815d6b20b4d",
-   "live": false
+   "live": true
   }
  }
 }
