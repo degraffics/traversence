@@ -24,57 +24,6 @@
    "callers": {}
   },
   {
-   "path": "app/lib/ServiceHealth.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "feeds: an outside service's words follow its state; SlowDown is a rate wait",
-   "since": "2026-11-20T14:02:38Z",
-   "expires": "2026-11-20T18:04:32Z",
-   "release": "feeds-words.zip",
-   "callers": {
-    "serverState": [
-     "app/ui/outside-services.php"
-    ],
-    "describe": [
-     "app/lib/Operations.php",
-     "app/lib/OutsideServices.php",
-     "app/lib/Preflight.php",
-     "app/lib/Pulse.php",
-     "app/lib/SystemStart.php"
-    ],
-    "holdForTrip": [
-     "app/lib/ControlAlarms.php"
-    ]
-   }
-  },
-  {
-   "path": "app/lib/Operations.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "feeds: an outside service's words follow its state; SlowDown is a rate wait",
-   "since": "2026-11-20T14:02:40Z",
-   "expires": "2026-11-20T18:04:32Z",
-   "release": "feeds-words.zip",
-   "callers": {
-    "status": [
-     "app/lib/SystemStart.php"
-    ]
-   }
-  },
-  {
-   "path": "app/admin/operations-console.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "feeds: an outside service's words follow its state; SlowDown is a rate wait",
-   "since": "2026-11-20T14:02:42Z",
-   "expires": "2026-11-20T18:04:32Z",
-   "release": "feeds-words.zip",
-   "callers": {}
-  },
-  {
    "path": "app/lib/Engage.php",
    "functions": [
     "(top)",
