@@ -3,7 +3,7 @@
 Status: **accepted** (Jason, 2026-11-20, draft 2, approved with the decision pop-up; reviewed by the session manager).
 The Control Board session wrote it at Jason's request, relayed by the session manager. Draft 2 rewrote draft 1 (one
 state for a service) with Jason's five messages of the morning. His answer on where a task's switch goes is quoted in
-§6 and applied there, and in §3. **Next:** release 1, Paused by the system.
+§6 and applied there, and in §3. **Built (2026-11-20):** release 1, Paused by the system (#222), with feeds-words (#223) and the watch keeping the hour (#228). **Held** (Jason, 2026-11-20: "once release is live hold building anything more"): release 2a (the board as the one place to act), 2b (one control board in the menu), the Census backup, releases 3–4. Their scope and sources: `handoffs/control-board-2026-11-20.md`.
 
 Builds on:
 - 0169: the Shop's App store and one lifecycle for every app (accepted 2026-11-16, not built). Its §5 lifecycle is

@@ -1,6 +1,6 @@
 # ADR 0164: The Knowledge Engine: rule book, phases, workflows and sources
 
-**Status:** Accepted (Jason, 2026-11-14: "all approved", with §14 settled the same day). **No shadow mode** (Jason,
+**Status:** Accepted (Jason, 2026-11-14: "all approved", with §14 settled the same day). **State (2026-11-20):** Common Crawl's bulk reads from its URL Index are live (#225, crawler 2.15.0; see the note); the first run's map lines are still to be seen (`handoffs/control-board-2026-11-20.md`). **No shadow mode** (Jason,
 2026-11-14): each part goes live when switched on (0163 §9, §10), never run alongside first. Written from his Decision 5 (2026-11-14, via the session
 manager): "the rule book is essential to the new doc. so let's move it into the new adr and close and point old adrs to
 this new one where ever its previous info aligns within the new doc." It **takes over `decisions/0133`** (the crawler's

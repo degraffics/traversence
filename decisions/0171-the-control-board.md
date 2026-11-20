@@ -1,6 +1,6 @@
 # 0171: The System Control Board: start-to-finish management and control of the whole system
 
-Status: accepted (Jason, 2026-11-18, revision 2, approved with the decision pop-up). **Built (2026-11-19):** all five
+Status: accepted (Jason, 2026-11-18, revision 2, approved with the decision pop-up). **State (2026-11-20):** live, with 0175 R1 (#222) and the watch keeping the hour (#228); further work is 0175's, held, see `handoffs/control-board-2026-11-20.md`. **Built (2026-11-19):** all five
 releases are live: 1 (#120), 2a (#121, fixed #124), 2b (#127, layout #128), 2c (#129), fixes #131–#134, 3a (#137),
 3b (#139, #140), 3c (#143), 3d (#144), 3e (#145), 3f (#148), 4a (#151), 4b (#154), 4c (#156), 4d (#157), 4e (#160), 5a
 (#166), the old trips settled (#168), a back-off in its wait isn't a hold (#169) and 5b, the reports (#173); then the links and Resolve fixes (#175) and the off-region sources (#177). §12's process
@@ -708,3 +708,10 @@ note: clocks on work cases only). Asked "if no one resolves a Control Board trip
 twice that, and it is in the bell's list throughout (it is Critical).
 
 **Note (Jason, 2026-11-20, decisions/0175): a fault pauses, never switches off.** §7's trip no longer writes into a person's switch: the system pauses what its cause touches ("Paused by the system", with its reason) and it clears itself when its check passes. The escalation set in §5's note of 2026-11-19 and 3c's note stays exactly as it is. At a failure both the component and the workflow are checked; the workflow reroutes to a backup where one is named. Every alarm opens its fix in a drawer (at_hand): the board is the one place to act.
+
+**Note (Jason, 2026-11-20, in the decision pop-up): a nightly task keeps the hour.** Asked how a nightly task's tries
+should count (a bulk task runs only 1–5 AM Arizona, so a second try can't come inside the hour, and W1's alarm read
+"1 of 3 tries, until 09:25 UTC" hours after that time had passed), he chose "Keep the hour": as 3c set it, after
+`control_fix_minutes` (60) with no fix, it's a trip. Found with it: the trip only happened when the same failure was
+raised again, so a warning whose hour ran out with no new failure stayed a warning, its words saying a time that had
+passed. The board's watch now trips a warning whose tries or time ran out, and its words follow the state.

@@ -1,6 +1,6 @@
 # 0173: One lifecycle for every outside service: add, activate, pause, retire, remove
 
-Status: **accepted** (Jason, 2026-11-19, draft 2, approved with the decision pop-up; reviewed by the session manager).
+Status: **accepted** (Jason, 2026-11-19, draft 2, approved with the decision pop-up; reviewed by the session manager). **Complete (2026-11-19):** releases 1–3 live (#209, #210, #212); its stages follow 0175's eight (0175 R3, held: `handoffs/control-board-2026-11-20.md`).
 His answers: Railway's keys are kept on Railway (§3); the Proposed stage is kept (§2). The Control Board session wrote
 it at Jason's request, relayed by the session manager. **Building:** release 1, One home, sent as
 `service-register-r1.zip` (live as #209); release 2, the key on its card, sent as `service-keys-r2.zip` (built on
