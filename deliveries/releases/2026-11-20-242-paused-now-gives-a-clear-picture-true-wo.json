@@ -1,0 +1,97 @@
+{
+    "id": 242,
+    "title": "Paused now gives a clear picture: true words, three groups, one health line",
+    "why": "decisions/0175's note (Jason, 2026-11-20, \"Paused now gives a clear picture\"): \"this makes me feel like the system is not operating correctly. Still struggling to get a clear picture of how well the system is performing.\" He chose all three fixes.",
+    "proposals": "",
+    "zip": "0175-paused-now-2.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "live",
+    "step": 3,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": "2026-11-20 23:37:04",
+    "staged_at": "2026-11-20 23:37:06",
+    "vetted_at": "2026-11-20 23:37:09",
+    "live_at": "2026-11-20 23:37:09",
+    "files": {
+        "app/lib/ControlBoard.php": {
+            "sha": "275d45fd00c68c2a842520fd43af73e19af85d8cf4df40d866da129d3a86d1cf",
+            "size": 52647,
+            "live_was": "e8b9c745c4010355b0e15ce48a705eda85aad490bb4ec64af0ec34e0d19a10f7",
+            "existed": true,
+            "old_sha": "e8b9c745c4010355b0e15ce48a705eda85aad490bb4ec64af0ec34e0d19a10f7"
+        },
+        "app/admin/control-console.php": {
+            "sha": "5436bd9c67050d643a38ffbdfd93a910f1b3aa32ca5545621a0eafd75842b8b3",
+            "size": 126007,
+            "live_was": "442dbaf70e0f7dd7fe3c28e1f48dcd26f56c79830ebf35c2cc52a22009440bd7",
+            "existed": true,
+            "old_sha": "442dbaf70e0f7dd7fe3c28e1f48dcd26f56c79830ebf35c2cc52a22009440bd7"
+        },
+        "app/ui/faq.md": {
+            "sha": "910361a0d3f8847e0ce2eb3337497a3ce8f3bd2335af2dff2709c5c684182742",
+            "size": 410645,
+            "live_was": "2abe969af9074ec53f6ae203339fca59d9a8cd4d40f02dd725820fce62dce97f",
+            "existed": true,
+            "old_sha": "2abe969af9074ec53f6ae203339fca59d9a8cd4d40f02dd725820fce62dce97f"
+        }
+    },
+    "migrations": [],
+    "checks": {
+        "ok": true,
+        "where": "live",
+        "at": "2026-11-20T23:37:09+00:00",
+        "items": [
+            [
+                "PHP files parse",
+                true,
+                "2 checked"
+            ],
+            [
+                "Pages answer",
+                true,
+                "2 pages answered on traversence.com"
+            ],
+            [
+                "No new fatal errors in the logs",
+                true,
+                "3 logs read"
+            ]
+        ],
+        "first_fail": ""
+    },
+    "log": [
+        {
+            "at": "2026-11-20T23:37:03+00:00",
+            "by": 0,
+            "msg": "Uploaded 0175-paused-now-2.zip: 3 files."
+        },
+        {
+            "at": "2026-11-20T23:37:04+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/0175-paused-now-2.zip (git cbecb1691c)."
+        },
+        {
+            "at": "2026-11-20T23:37:04+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
+        },
+        {
+            "at": "2026-11-20T23:37:07+00:00",
+            "by": 0,
+            "msg": "Put on staging (3 files); its checks passed."
+        },
+        {
+            "at": "2026-11-20T23:37:09+00:00",
+            "by": 0,
+            "msg": "Approved in chat before it was sent through git, and its checks on staging passed: publishing by itself."
+        },
+        {
+            "at": "2026-11-20T23:37:09+00:00",
+            "by": 0,
+            "msg": "Published: 3 files; everyone at once (no switch)."
+        }
+    ]
+}
