@@ -113,6 +113,7 @@ sessions take over, holding until Jason says resume. Live through Release #228 (
   to its first option): show the line's real schedule. The National Park Service card (0173's card): two "Active"
   boxes say the same thing and the first is wrong while the key is missing; "Retire it…" wraps onto two lines under its
   spinner; "Linked, not called" shows three times.
+- **Old sessions archived at the restart** (2026-11-20): Control Board, dispatcher, design, business listings.
 - **New sessions:** Operations `session_01CXLi5iPPT6FpHPEMPUcaw4`, Design and trips `session_01CXLi5gxSyzVYGuXX3xuu2c`
   (both held). Session manager `session_01CXLi5mGX2sg5QS11gg3Wrh`; Monday's listing check moved to it
   (`trig_01SYS5pgeFj79vmeE35fvgha`).
@@ -251,8 +252,8 @@ the needs that have none; OpenStreetMap coverage from our Geofabrik copy.
 for heritage (store with credit, or link); approve 0164 §7.1's licence-source strategy; renew `GITHUB_SYNC_TOKEN`
 before Dec 16 (https://github.com/settings/tokens); the OpenStreetMap statement: posted 2026-11-19, about 16:10 UTC, waiting for a forum moderator (research/osm-overpass-2026-11-13.md §3); on their answer, Check and start again on the Overpass alarm (no Reactivate or Mark resolved since control-board-card-2).
 
-**Visual fixes** (to the design session's Release 3): the squeezed footer edit zone (Discovery's hero, the Edit switch and stock
-bylines are done: #153, #158, #159).
+**Visual fixes:** all done (Discovery's hero, the Edit switch and stock bylines: #153, #158, #159; the footer edit zone:
+`width:100%` live at Blocks.php:841, checked 2026-11-20).
 
 **To purge or remove:** the old S3 bucket, then narrow the AWS key to SES; `.env` leftovers (Jason); the "Default
 place" settings row; merged branches on GitHub; the `_moved_npi_orgs` / `_moved_irs_orgs` drop (Jason's OK);
