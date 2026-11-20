@@ -3,32 +3,32 @@
  "built_on": "c566155 Sync: 2026-11-20 14:33 UTC",
  "recorded": "2026-11-20 14:35 UTC",
  "note": "decisions/0176 release 1: the alarm thread, one shape on every surface, one message per alarm; built on Sync: 2026-11-20 14:33 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "b94c979 Sync: 2026-11-20 14:37 UTC",
  "files": {
   "app/admin/control-console.php": {
    "sha256": "5aa64b731da061875b7841c07b1a40d553270bf34efd9412caeb8d6d6ea49753",
-   "live": false
+   "live": true
   },
   "app/lib/ControlAlarms.php": {
    "sha256": "67c0eb159d517092233746a3a3e1790e4b6f85eec83a79609c3b5aabd2f76f2f",
-   "live": false
+   "live": true
   },
   "app/lib/Notify.php": {
    "sha256": "77bca49f6b7c6fadfb6f7c91f61e10f01c1aa78475dea5f3a195fb3be9e809a7",
-   "live": false
+   "live": true
   },
   "app/lib/Pulse.php": {
    "sha256": "a031da6e43dd67b05874ed6b908c669ae20246d399d5fff70d85641955f822d2",
-   "live": false
+   "live": true
   },
   "app/lib/Thread.php": {
    "sha256": "11227bdeddb793b3358d67161f95901fbaaf53986549163504c1acfc83823595",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "19c6833eac13f777dafd9d3ccc45c90745b65cbf7ad4f9b0f6f1f070ef1fce5a",
-   "live": false
+   "live": true
   }
  }
 }
