@@ -151,3 +151,6 @@ Built by the Design and trips session.
 fewer**. Saved views are kept **with his account** across devices ("With my account"), not on the device as Pulse's other
 choices are. That needs a new add-only table (`pulse_views`: the person, the name, the filters as JSON, when made), with
 its staging class (decisions/0165, R14). Pulse's other choices stay on the device, as before.
+
+**As built (2026-11-20, `pulse-filter-panel.zip`, `handoffs/pulse-filters.md`):** the six items as above; Levels joins
+Senders in the panel (§4); a choice no longer closes the panel, so filters combine. Waiting for Jason's Approve.

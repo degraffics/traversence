@@ -1,6 +1,6 @@
 # Decision register
 
-Decision 0145 §1a. Generated on 2026-11-20 17:19 UTC from `decisions/` and the live mirror (`1ada60f`). Don't edit by hand:
+Decision 0145 §1a. Generated on 2026-11-20 19:17 UTC from `decisions/` and the live mirror (`5674a94`). Don't edit by hand:
 edit the decision, and this follows. "Missing files" are files a decision names that the site no longer has: the
 decision may be stale, or the file moved.
 
@@ -63,7 +63,7 @@ decision may be stale, or the file moved.
 | 0055 | [App Shell, Dashboards and Roles](0055-app-shell-dashboards-and-roles.md) | accepted |  | 2 | 8 |  |
 | 0056 | [Journeys, Contributors and the Six-Tier Discovery Funnel](0056-journeys-contributors-and-the-six-tier-funnel.md) | accepted |  |  | 0 |  |
 | 0057 | [The FAQ Grows With Every Build](0057-faq-grows-with-every-build.md) | accepted |  |  | 1 | `website/includes/faq.md` |
-| 0058 | [Public Profiles, Journey Management, and Adult Accounts](0058-public-profiles-journey-management-and-adult-accounts.md) | accepted |  | 13 | 1 |  |
+| 0058 | [Public Profiles, Journey Management, and Adult Accounts](0058-public-profiles-journey-management-and-adult-accounts.md) | accepted |  | 14 | 1 |  |
 | 0059 | [Experiences](0059-experiences.md) | accepted |  |  | 0 |  |
 | 0060 | [0060: Search & Suggestion Architecture](0060-search-and-suggestion-architecture.md) | accepted |  | 1 | 0 |  |
 | 0061 | [0061: Situations: an intent map, the Chameleon Filter as router, and search that learns](0061-situations-intent-map-and-learning-search.md) | accepted | 0133 | 1 | 0 |  |
@@ -180,5 +180,5 @@ decision may be stale, or the file moved.
 | 0172 | [0172: Communications: who reaches whom, about what, by which channel, and one way to deliver](0172-communications-who-reaches-whom.md) | accepted |  | 3 | 2 |  |
 | 0173 | [0173: One lifecycle for every outside service: add, activate, pause, retire, remove](0173-one-lifecycle-for-every-outside-service.md) | accepted |  | 4 | 3 |  |
 | 0174 | [0174: Trips you can save: Add to a trip, the trip page, sending it to Maps, and routes on our own site](0174-trips-you-can-save.md) | accepted |  | 4 | 1 |  |
-| 0175 | [0175: One lifecycle for every module: our services and account apps, from selection to removal, acted on from the board](0175-one-lifecycle-for-every-module.md) | accepted |  | 9 | 1 |  |
-| 0176 | [0176: The dispatcher presents and routes every thread](0176-the-dispatcher-presents-and-routes-every-thread.md) | accepted |  | 3 | 1 |  |
+| 0175 | [0175: One lifecycle for every module: our services and account apps, from selection to removal, acted on from the board](0175-one-lifecycle-for-every-module.md) | accepted |  | 10 | 1 |  |
+| 0176 | [0176: The dispatcher presents and routes every thread](0176-the-dispatcher-presents-and-routes-every-thread.md) | accepted |  | 6 | 1 |  |
