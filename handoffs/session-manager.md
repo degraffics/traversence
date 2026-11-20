@@ -97,8 +97,8 @@ a build choice. (Missed on 0175 R1's hourly try and on 0175 draft 1's third-trip
 sessions take over, holding until Jason says resume. Live through Release #228 (Sync 6c545d9, 14:48 UTC).
 - **Operations** (0175 + 0176; hand-offs `control-board-2026-11-20.md`, `dispatcher.md`): 0175 R2a → 0176 R2 → 0175 R2b →
   Census backup → 0176 R3, R4 → 0175 R3, R4 (then the App store, 0169). Held work on branches: `claude/0175-r2a-wip`.
-  Progress: 0175 R2a live (#229, #231); 0176 R2 part 1 live (#234); part 2, the alarm notice (`0176-notice.zip`, Sync 17:34 UTC),
-  in review. Next: 0175 R2b.
+  Progress: 0175 R2a live (#229, #231); 0176 R2 live (#234, #236). 0175 R2b part A (board tabs, Sync 17:54 UTC) approved
+  2026-11-20; parts B (Modules, with Jason's Costs question) and C (Workflows) next.
 - **Design and trips** (`design.md` and its area files): hero-tidy (`claude/hero-tidy`, approved, unsent) → admin kit →
   T5 → 3d/3e/3f → the map release → 0174 R5 (openrouteservice; read its terms first).
   **Progress (2026-11-20):** hero tidy rebuilt on Sync 15:06 UTC (eb49e51) and sent (`releases/inbox/hero-tidy.zip`,
