@@ -1,0 +1,26 @@
+{
+ "zip": "0175-r2b-board.zip",
+ "built_on": "6f955cf Sync: 2026-11-20 17:54 UTC",
+ "recorded": "2026-11-20 18:02 UTC",
+ "note": "0175 R2b part A: one control board in the menu; built on Sync: 2026-11-20 17:54 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/control-console.php": {
+   "sha256": "442dbaf70e0f7dd7fe3c28e1f48dcd26f56c79830ebf35c2cc52a22009440bd7",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "f75c60f0ff9bab3283dfb1301cb7e1f6b28bee33851b037596611425ed4d1b86",
+   "live": false
+  },
+  "website/admin/router.php": {
+   "sha256": "29e843af4748becb0174ff139f7c23e45e88a2da7a8aa7bfa155b0a090a5e1c7",
+   "live": false
+  },
+  "website/js/admin-control.js": {
+   "sha256": "49b30b69863731d64050d8697d5fa03a1ae141a758de2e697d0aaebdb7440fe1",
+   "live": false
+  }
+ }
+}

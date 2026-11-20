@@ -107,6 +107,8 @@ allowed: panels (1–2) first, then the words and lines (3–11).
 
 ### 0175 release 2b: one control board in the menu (last)
 
+**State (Operations, 2026-11-20):** three parts (the session manager's answer). Part A (`0175-r2b-board.zip`, approved): the board's tables and Scheduled tasks as tabs, Automation in Start-up, the pre-flight page in its stage, `TV_ADMIN_FOLDED` redirects, `archive.md`'s table; tests `board-tabs.cjs` (16) and `moved.php` (12). Part B: Modules (Costs' non-service parts are a question for Jason in its pop-up; recommended: a Costs section at the top of Modules, By workflow on Workflows). Part C: Workflows. Q2: Automation's Changes stays as a fold in Start-up.
+
 0175's note (Jason: "arent we combining things into one control boards …", "yes. fold into 2"):
 - **System Control Board:** Alarms, Logbook, Ledger, Upkeep and Reports as its tabs; Scheduled tasks as a tab;
   Automation's master, Start and Pause everything as its Start-up and Shut-down stages.
