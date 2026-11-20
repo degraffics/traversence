@@ -187,6 +187,92 @@
    "expires": "2026-11-20T20:11:07Z",
    "release": "0175-r2a-lines.zip",
    "callers": {}
+  },
+  {
+   "path": "app/ui/pulse-ui.php",
+   "functions": [
+    "(top)",
+    "tv_pulse_settings"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5gxSyzVYGuXX3xuu2c",
+   "why": "admin kit: metadata text on --tv-meta (css-theme-brand \u00a73, 4.5:1); the way-back bar's width on phones",
+   "since": "2026-11-20T16:12:30Z",
+   "expires": "2026-11-20T20:12:30Z",
+   "release": "admin-kit",
+   "callers": {
+    "tv_pulse_settings": [
+     "app/admin/sections.php",
+     "website/admin/w.php"
+    ]
+   }
+  },
+  {
+   "path": "app/ui/admin-hub.php",
+   "functions": [
+    "tv_admin_bar",
+    "tv_admin_start"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5gxSyzVYGuXX3xuu2c",
+   "why": "admin kit: metadata text on --tv-meta (css-theme-brand \u00a73, 4.5:1); the way-back bar's width on phones",
+   "since": "2026-11-20T16:12:30Z",
+   "expires": "2026-11-20T20:12:30Z",
+   "release": "admin-kit",
+   "callers": {
+    "tv_admin_start": [
+     "app/admin/legal-editor.php",
+     "website/admin/client-order.php",
+     "website/admin/content-template.php",
+     "website/admin/data-crawler.php",
+     "website/admin/ecommerce.php",
+     "website/admin/guide-edit.php",
+     "website/admin/logs.php",
+     "website/admin/order.php",
+     "website/admin/people.php",
+     "website/admin/products.php",
+     "website/admin/router.php",
+     "website/admin/safety.php",
+     "website/admin/sales.php",
+     "website/admin/search.php",
+     "website/admin/settings.php",
+     "website/admin/sitemap.php",
+     "website/admin/staff-levels.php",
+     "website/admin/staff-profile.php",
+     "website/admin/staff.php",
+     "website/admin/vendors.php",
+     "website/admin/w.php"
+    ],
+    "tv_admin_bar": [
+     "website/admin/router.php"
+    ]
+   }
+  },
+  {
+   "path": "app/ui/admin-dashboard.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5gxSyzVYGuXX3xuu2c",
+   "why": "admin kit: metadata text on --tv-meta (css-theme-brand \u00a73, 4.5:1); the way-back bar's width on phones",
+   "since": "2026-11-20T16:12:30Z",
+   "expires": "2026-11-20T20:12:30Z",
+   "release": "admin-kit",
+   "callers": {}
+  },
+  {
+   "path": "website/js/tv-trail.js",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5gxSyzVYGuXX3xuu2c",
+   "why": "admin kit: metadata text on --tv-meta (css-theme-brand \u00a73, 4.5:1); the way-back bar's width on phones",
+   "since": "2026-11-20T16:12:30Z",
+   "expires": "2026-11-20T20:12:30Z",
+   "release": "admin-kit",
+   "callers": {}
   }
  ],
  "lapsed": [
