@@ -12,9 +12,14 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Send to Maps (decisions/0174 release 1)",
    "since": "2026-11-20T04:01:37Z",
-   "expires": "2026-11-20T08:02:43Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-20T08:03:19Z",
+   "release": "send-to-maps.zip",
+   "callers": {
+    "tv_sj_card": [
+     "website/hub/index.php",
+     "website/journeys/suggested.php"
+    ]
+   }
   },
   {
    "path": "app/lib/JourneyPlan.php",
@@ -26,8 +31,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Send to Maps (decisions/0174 release 1)",
    "since": "2026-11-20T04:01:41Z",
-   "expires": "2026-11-20T08:02:16Z",
-   "release": "",
+   "expires": "2026-11-20T08:03:19Z",
+   "release": "send-to-maps.zip",
    "callers": {}
   },
   {
@@ -40,9 +45,13 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Send to Maps (decisions/0174 release 1)",
    "since": "2026-11-20T04:01:43Z",
-   "expires": "2026-11-20T08:02:18Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-20T08:03:19Z",
+   "release": "send-to-maps.zip",
+   "callers": {
+    "near": [
+     "website/discovery/index.php"
+    ]
+   }
   },
   {
    "path": "app/ui/maps-send.php",
@@ -51,8 +60,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Send to Maps (decisions/0174 release 1)",
    "since": "2026-11-20T04:01:44Z",
-   "expires": "2026-11-20T08:01:44Z",
-   "release": "",
+   "expires": "2026-11-20T08:03:19Z",
+   "release": "send-to-maps.zip",
    "callers": {}
   },
   {
@@ -62,8 +71,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Send to Maps (decisions/0174 release 1)",
    "since": "2026-11-20T04:01:46Z",
-   "expires": "2026-11-20T08:01:46Z",
-   "release": "",
+   "expires": "2026-11-20T08:03:19Z",
+   "release": "send-to-maps.zip",
    "callers": {}
   },
   {
@@ -73,8 +82,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Send to Maps (decisions/0174 release 1)",
    "since": "2026-11-20T04:01:48Z",
-   "expires": "2026-11-20T08:01:48Z",
-   "release": "",
+   "expires": "2026-11-20T08:03:19Z",
+   "release": "send-to-maps.zip",
    "callers": {}
   },
   {
