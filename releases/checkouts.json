@@ -92,6 +92,260 @@
      "website/js/tv-vault.js"
     ]
    }
+  },
+  {
+   "path": "app/ui/profile-header.php",
+   "functions": [
+    "tv_profile_css"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5gxSyzVYGuXX3xuu2c",
+   "why": "3d: Community to the mockup (Jason 2026-11-20 'Mockup, adapted'); group page, member dashboard and its Pulse on the tokens",
+   "since": "2026-11-20T17:47:18Z",
+   "expires": "2026-11-20T21:47:18Z",
+   "release": "r3d",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/admin-dashboard.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5gxSyzVYGuXX3xuu2c",
+   "why": "3d: Community to the mockup (Jason 2026-11-20 'Mockup, adapted'); group page, member dashboard and its Pulse on the tokens",
+   "since": "2026-11-20T17:47:18Z",
+   "expires": "2026-11-20T21:47:18Z",
+   "release": "r3d",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/pulse-panel.php",
+   "functions": [
+    "tv_pulse_css"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5gxSyzVYGuXX3xuu2c",
+   "why": "3d: Community to the mockup (Jason 2026-11-20 'Mockup, adapted'); group page, member dashboard and its Pulse on the tokens",
+   "since": "2026-11-20T17:47:18Z",
+   "expires": "2026-11-20T21:47:18Z",
+   "release": "r3d",
+   "callers": {
+    "tv_pulse_css": [
+     "website/business/router.php",
+     "website/user/dashboard.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/Community.php",
+   "functions": [
+    "directory"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5gxSyzVYGuXX3xuu2c",
+   "why": "3d: Community to the mockup (Jason 2026-11-20 'Mockup, adapted'); group page, member dashboard and its Pulse on the tokens",
+   "since": "2026-11-20T17:47:18Z",
+   "expires": "2026-11-20T21:47:18Z",
+   "release": "r3d",
+   "callers": {
+    "directory": [
+     "app/lib/SearchIndex.php",
+     "app/lib/UniversalSearch.php",
+     "website/hub/index.php",
+     "website/index.php",
+     "website/user/api/community.php"
+    ]
+   }
+  },
+  {
+   "path": "website/community/index.php",
+   "functions": [
+    "(top)",
+    "card",
+    "load"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5gxSyzVYGuXX3xuu2c",
+   "why": "3d: Community to the mockup (Jason 2026-11-20 'Mockup, adapted'); group page, member dashboard and its Pulse on the tokens",
+   "since": "2026-11-20T17:47:18Z",
+   "expires": "2026-11-20T21:47:18Z",
+   "release": "r3d",
+   "callers": {
+    "card": [
+     "app/admin/automation-console.php",
+     "app/admin/job-line.php",
+     "app/admin/operations-console.php",
+     "app/admin/tools.php",
+     "app/data/decisions-index.php",
+     "app/lib/AccountDomains.php",
+     "app/lib/Automation.php",
+     "app/lib/Billing.php",
+     "app/lib/CardScan.php",
+     "app/lib/DataCleanup.php",
+     "app/lib/GroupCharters.php",
+     "app/lib/HelpFind.php",
+     "app/lib/Identity.php",
+     "app/lib/ItemKinds.php",
+     "app/lib/ListingActions.php",
+     "app/lib/MarketCheckout.php",
+     "app/lib/MarketPay.php",
+     "app/lib/Marketing.php",
+     "app/lib/MemberPosts.php",
+     "app/lib/OutsideServices.php",
+     "app/lib/QrIssue.php",
+     "app/lib/Releases.php",
+     "app/lib/ServiceStages.php",
+     "app/lib/SystemStart.php",
+     "app/lib/Vectors.php",
+     "app/lib/Wallet.php",
+     "app/lib/legal-seed.php",
+     "app/lib/service-defs.php",
+     "app/lib/upload-targets.php",
+     "app/ui/confidence-ui.php",
+     "app/ui/explore-hero.php",
+     "app/ui/header.php",
+     "app/ui/journey-ui.php",
+     "app/ui/market-ui.php",
+     "app/ui/outside-services.php",
+     "app/ui/theme-tokens.php",
+     "website/admin/api/find.php",
+     "website/admin/api/people.php",
+     "website/admin/client-order.php",
+     "website/api/tag-card.php",
+     "website/api/vcard.php",
+     "website/directory/index.php",
+     "website/hub/index.php",
+     "website/js/consent.js",
+     "website/js/profile.js",
+     "website/js/search-panel.js",
+     "website/js/tv-ask.js",
+     "website/js/tv-moments.js",
+     "website/js/tv-stock.js",
+     "website/listing/view.php",
+     "website/market/cart.php",
+     "website/market/view.php",
+     "website/nexus.php",
+     "website/terms.php"
+    ],
+    "load": [
+     "app/lib/GeminiCompare.php",
+     "app/lib/OutsideServices.php",
+     "app/lib/service-defs.php",
+     "app/ui/comms-setting.php",
+     "website/admin/crawler-review.php",
+     "website/admin/listing-intake.php",
+     "website/admin/sales.php",
+     "website/api/crawl/irs.php",
+     "website/api/crawl/landmarks.php",
+     "website/api/crawl/npi.php",
+     "website/api/crawl/rec.php",
+     "website/community/group.php",
+     "website/directory/classic.php",
+     "website/js/admin-inbox.js",
+     "website/js/consent.js",
+     "website/js/evidence-offers.js",
+     "website/js/location-scope.js",
+     "website/js/map-view.js",
+     "website/js/photo-viewer.js",
+     "website/js/stg-bar.js",
+     "website/js/suggest.js",
+     "website/js/tv-art.js",
+     "website/js/tv-domains.js",
+     "website/js/tv-stock.js",
+     "website/market/cart.php",
+     "website/user/dashboard.php"
+    ]
+   }
+  },
+  {
+   "path": "website/community/group.php",
+   "functions": [
+    "(top)",
+    "charterCard",
+    "charterForm",
+    "growUI",
+    "joinNow",
+    "load"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5gxSyzVYGuXX3xuu2c",
+   "why": "3d: Community to the mockup (Jason 2026-11-20 'Mockup, adapted'); group page, member dashboard and its Pulse on the tokens",
+   "since": "2026-11-20T17:47:18Z",
+   "expires": "2026-11-20T21:47:18Z",
+   "release": "r3d",
+   "callers": {
+    "load": [
+     "app/lib/GeminiCompare.php",
+     "app/lib/OutsideServices.php",
+     "app/lib/service-defs.php",
+     "app/ui/comms-setting.php",
+     "website/admin/crawler-review.php",
+     "website/admin/listing-intake.php",
+     "website/admin/sales.php",
+     "website/api/crawl/irs.php",
+     "website/api/crawl/landmarks.php",
+     "website/api/crawl/npi.php",
+     "website/api/crawl/rec.php",
+     "website/community/index.php",
+     "website/directory/classic.php",
+     "website/js/admin-inbox.js",
+     "website/js/consent.js",
+     "website/js/evidence-offers.js",
+     "website/js/location-scope.js",
+     "website/js/map-view.js",
+     "website/js/photo-viewer.js",
+     "website/js/stg-bar.js",
+     "website/js/suggest.js",
+     "website/js/tv-art.js",
+     "website/js/tv-domains.js",
+     "website/js/tv-stock.js",
+     "website/market/cart.php",
+     "website/user/dashboard.php"
+    ]
+   }
+  },
+  {
+   "path": "website/user/dashboard.php",
+   "functions": [
+    "(top)",
+    "acts",
+    "btn",
+    "loadTeam",
+    "render",
+    "renderPasswordChecklist",
+    "renderReferrals",
+    "verRows"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5gxSyzVYGuXX3xuu2c",
+   "why": "3d: Community to the mockup (Jason 2026-11-20 'Mockup, adapted'); group page, member dashboard and its Pulse on the tokens",
+   "since": "2026-11-20T17:47:18Z",
+   "expires": "2026-11-20T21:47:18Z",
+   "release": "r3d",
+   "callers": {
+    "btn": [
+     "website/community/group.php",
+     "website/js/address-book.js",
+     "website/js/business-inbox.js",
+     "website/js/tv-editor.js",
+     "website/js/tv-pulse.js"
+    ],
+    "loadTeam": [
+     "website/admin/people.php"
+    ],
+    "render": [
+     "app/lib/Blocks.php",
+     "app/lib/Qr.php",
+     "website/admin/crawler-review.php",
+     "website/directory/classic.php",
+     "website/js/collection.js"
+    ],
+    "acts": [
+     "app/lib/Releases.php",
+     "website/js/tv-pulse.js"
+    ]
+   }
   }
  ],
  "lapsed": [
