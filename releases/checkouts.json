@@ -2,6 +2,82 @@
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
  "claims": [
   {
+   "path": "app/ui/pulse-ui.php",
+   "functions": [
+    "(top)",
+    "api",
+    "apply",
+    "openMsg",
+    "paintFilters",
+    "paintMarks",
+    "regroup",
+    "sortRows",
+    "toggleGroup",
+    "tv_pulse_board"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5hFvhtEKj2JuNVmjWZ",
+   "why": "Pulse filters in one button, saved views (approved 2026-11-20)",
+   "since": "2026-11-20T23:27:17Z",
+   "expires": "2026-11-21T03:27:17Z",
+   "release": "pulse-filter-panel.zip",
+   "callers": {
+    "api": [
+     "app/ui/card-scanner.php",
+     "app/ui/lead-panel.php",
+     "website/admin/listing-edit.php",
+     "website/admin/listing-intake.php",
+     "website/admin/listings.php",
+     "website/admin/nexus.php",
+     "website/admin/rebuild.php",
+     "website/admin/sales.php",
+     "website/js/gallery.js",
+     "website/js/hero-media.js",
+     "website/js/stg-bar.js",
+     "website/js/tv-domains.js",
+     "website/js/tv-editor.js",
+     "website/js/tv-vault.js",
+     "website/plans.php",
+     "website/qr/manage.php",
+     "website/user/dashboard.php"
+    ],
+    "tv_pulse_board": [
+     "app/admin/sections.php",
+     "website/admin/w.php"
+    ],
+    "paintFilters": [
+     "website/directory/classic.php"
+    ],
+    "apply": [
+     "app/lib/Rebuild.php",
+     "app/lib/SearchEdits.php",
+     "app/lib/SuggestionActions.php",
+     "app/lib/Thresholds.php",
+     "app/lib/Uploads.php",
+     "app/lib/crawler/ClusterRecluster.php",
+     "website/js/consent.js"
+    ],
+    "paintMarks": [
+     "website/js/tv-pulse.js"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/staging-tables.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5hFvhtEKj2JuNVmjWZ",
+   "why": "Pulse filters in one button, saved views (approved 2026-11-20)",
+   "since": "2026-11-20T23:27:17Z",
+   "expires": "2026-11-21T03:27:17Z",
+   "release": "pulse-filter-panel.zip",
+   "callers": {}
+  }
+ ],
+ "lapsed": [
+  {
    "path": "app/admin/operations-console.php",
    "functions": [
     "tv_ops_issues"
@@ -12,7 +88,8 @@
    "since": "2026-11-20T16:59:46Z",
    "expires": "2026-11-20T21:00:54Z",
    "release": "0176-issues.zip",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-20T23:27:17Z"
   },
   {
    "path": "app/ui/outside-services.php",
@@ -23,7 +100,8 @@
    "since": "2026-11-20T16:59:49Z",
    "expires": "2026-11-20T21:00:54Z",
    "release": "0176-issues.zip",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-20T23:27:17Z"
   },
   {
    "path": "app/lib/ServiceHealth.php",
@@ -45,7 +123,8 @@
     "osmUse": [
      "app/lib/crawler/CrawlService.php"
     ]
-   }
+   },
+   "lapsed": "2026-11-20T23:27:17Z"
   },
   {
    "path": "app/lib/OutsideServices.php",
@@ -62,7 +141,8 @@
     "working": [
      "app/ui/outside-services.php"
     ]
-   }
+   },
+   "lapsed": "2026-11-20T23:27:17Z"
   },
   {
    "path": "app/lib/SystemStart.php",
@@ -75,7 +155,8 @@
    "since": "2026-11-20T17:00:03Z",
    "expires": "2026-11-20T21:00:54Z",
    "release": "0176-issues.zip",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-20T23:27:17Z"
   },
   {
    "path": "website/js/tv-ask.js",
@@ -91,7 +172,8 @@
      "website/js/tv-domains.js",
      "website/js/tv-vault.js"
     ]
-   }
+   },
+   "lapsed": "2026-11-20T23:27:17Z"
   },
   {
    "path": "app/lib/QuickBooksPay.php",
@@ -111,7 +193,8 @@
      "website/admin/order.php",
      "website/api/qb-webhook.php"
     ]
-   }
+   },
+   "lapsed": "2026-11-20T23:27:17Z"
   },
   {
    "path": "app/lib/ControlBoard.php",
@@ -130,7 +213,8 @@
      "app/admin/automation-console.php",
      "app/admin/control-console.php"
     ]
-   }
+   },
+   "lapsed": "2026-11-20T23:27:17Z"
   },
   {
    "path": "app/admin/control-console.php",
@@ -143,7 +227,8 @@
    "since": "2026-11-20T18:42:29Z",
    "expires": "2026-11-20T22:44:21Z",
    "release": "0175-paused-now.zip",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-20T23:27:17Z"
   },
   {
    "path": "app/lib/ControlBoard.php",
@@ -159,7 +244,8 @@
    "since": "2026-11-20T18:42:34Z",
    "expires": "2026-11-20T22:42:34Z",
    "release": "0175-paused-now",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-20T23:27:17Z"
   },
   {
    "path": "app/admin/manifests.php",
@@ -172,7 +258,8 @@
    "since": "2026-11-20T18:46:17Z",
    "expires": "2026-11-20T22:46:17Z",
    "release": "0175-r2b-workflows",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-20T23:27:17Z"
   },
   {
    "path": "website/admin/router.php",
@@ -186,7 +273,8 @@
    "since": "2026-11-20T18:46:17Z",
    "expires": "2026-11-20T22:46:17Z",
    "release": "0175-r2b-workflows",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-20T23:27:17Z"
   },
   {
    "path": "app/admin/operations-console.php",
@@ -199,7 +287,8 @@
    "since": "2026-11-20T18:46:20Z",
    "expires": "2026-11-20T22:46:20Z",
    "release": "0175-r2b-workflows",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-20T23:27:17Z"
   },
   {
    "path": "app/lib/Geocoder.php",
@@ -219,7 +308,8 @@
      "website/admin/geocode.php",
      "website/api/crawl/geocode.php"
     ]
-   }
+   },
+   "lapsed": "2026-11-20T23:27:17Z"
   },
   {
    "path": "website/api/crawl/geocode.php",
@@ -230,7 +320,8 @@
    "since": "2026-11-20T18:51:44Z",
    "expires": "2026-11-20T22:51:44Z",
    "release": "census-backup",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-20T23:27:17Z"
   },
   {
    "path": "app/lib/Geocoder.php",
@@ -247,7 +338,8 @@
    "since": "2026-11-20T18:52:14Z",
    "expires": "2026-11-20T22:52:14Z",
    "release": "census-backup",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-20T23:27:17Z"
   },
   {
    "path": "app/lib/ClientOrders.php",
@@ -284,7 +376,8 @@
      "app/lib/WorkOrders.php",
      "website/admin/client-order.php"
     ]
-   }
+   },
+   "lapsed": "2026-11-20T23:27:17Z"
   },
   {
    "path": "app/lib/QrIssue.php",
@@ -301,7 +394,8 @@
     "refresh": [
      "website/api/go-codes.php"
     ]
-   }
+   },
+   "lapsed": "2026-11-20T23:27:17Z"
   },
   {
    "path": "app/lib/WorkOrders.php",
@@ -319,7 +413,8 @@
     "staffMove": [
      "app/lib/Pulse.php"
     ]
-   }
+   },
+   "lapsed": "2026-11-20T23:27:17Z"
   },
   {
    "path": "app/admin/Workflow.php",
@@ -334,7 +429,8 @@
     "checks": [
      "app/admin/sections.php"
     ]
-   }
+   },
+   "lapsed": "2026-11-20T23:27:17Z"
   },
   {
    "path": "website/api/qb-webhook.php",
@@ -345,7 +441,8 @@
    "since": "2026-11-20T18:56:22Z",
    "expires": "2026-11-20T22:57:22Z",
    "release": "orders-rulings.zip",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-20T23:27:17Z"
   },
   {
    "path": "website/admin/order.php",
@@ -356,7 +453,8 @@
    "since": "2026-11-20T18:56:24Z",
    "expires": "2026-11-20T22:57:22Z",
    "release": "orders-rulings.zip",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-20T23:27:17Z"
   },
   {
    "path": "website/admin/client-order.php",
@@ -367,7 +465,8 @@
    "since": "2026-11-20T18:56:26Z",
    "expires": "2026-11-20T22:57:22Z",
    "release": "orders-rulings.zip",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-20T23:27:17Z"
   },
   {
    "path": "website/order.php",
@@ -378,7 +477,8 @@
    "since": "2026-11-20T18:56:28Z",
    "expires": "2026-11-20T22:57:22Z",
    "release": "orders-rulings.zip",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-20T23:27:17Z"
   },
   {
    "path": "app/ui/pulse-ui.php",
@@ -439,7 +539,8 @@
     "paintMarks": [
      "website/js/tv-pulse.js"
     ]
-   }
+   },
+   "lapsed": "2026-11-20T23:27:17Z"
   },
   {
    "path": "app/lib/staging-tables.php",
@@ -452,7 +553,8 @@
    "since": "2026-11-20T19:01:21Z",
    "expires": "2026-11-20T23:02:10Z",
    "release": "pulse-filter-panel.zip",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-20T23:27:17Z"
   },
   {
    "path": "app/migrations/2026-11-20_pulse_views.sql",
@@ -463,7 +565,8 @@
    "since": "2026-11-20T19:02:10Z",
    "expires": "2026-11-20T23:02:10Z",
    "release": "pulse-filter-panel.zip",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-20T23:27:17Z"
   },
   {
    "path": "app/lib/PulseViews.php",
@@ -474,7 +577,8 @@
    "since": "2026-11-20T19:02:10Z",
    "expires": "2026-11-20T23:02:10Z",
    "release": "pulse-filter-panel.zip",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-20T23:27:17Z"
   },
   {
    "path": "website/user/api/pulse-views.php",
@@ -485,10 +589,9 @@
    "since": "2026-11-20T19:02:10Z",
    "expires": "2026-11-20T23:02:10Z",
    "release": "pulse-filter-panel.zip",
-   "callers": {}
-  }
- ],
- "lapsed": [
+   "callers": {},
+   "lapsed": "2026-11-20T23:27:17Z"
+  },
   {
    "path": "app/lib/crawler/CrawlService.php",
    "functions": [],
@@ -764,418 +867,6 @@
     ]
    },
    "lapsed": "2026-11-19T10:52:07Z"
-  },
-  {
-   "path": "website/index.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "Design 3b-1",
-   "since": "2026-11-19T00:20:04Z",
-   "expires": "2026-11-19T04:28:53Z",
-   "release": "design-r3b1-explore-2.zip",
-   "callers": {},
-   "zones": [
-    "home.after-doors"
-   ],
-   "lapsed": "2026-11-19T04:29:41Z"
-  },
-  {
-   "path": "app/admin/control-console.php",
-   "functions": [
-    "tv_cb_more",
-    "tv_cb_statement_osm"
-   ],
-   "kind": "add",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "Control Board 3b: More toggle, the OSM statement",
-   "since": "2026-11-18T19:58:45Z",
-   "expires": "2026-11-18T23:58:45Z",
-   "release": "control-board-3b",
-   "callers": {},
-   "lapsed": "2026-11-19T00:05:05Z"
-  },
-  {
-   "path": "website/js/admin-control.js",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "Control Board 3b: More toggle, the OSM statement",
-   "since": "2026-11-18T19:58:45Z",
-   "expires": "2026-11-18T23:59:31Z",
-   "release": "control-board-3b.zip",
-   "callers": {},
-   "lapsed": "2026-11-19T00:05:05Z"
-  },
-  {
-   "path": "app/admin/sections.php",
-   "functions": [
-    "tv_admin_mod_scheduler"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5kHKsQbGaogTWfpFiw",
-   "why": "Scheduled tasks and their pages link both ways (Jason, 2026-11-17)",
-   "since": "2026-11-17T17:25:49Z",
-   "expires": "2026-11-17T21:54:35Z",
-   "release": "",
-   "callers": {},
-   "lapsed": "2026-11-18T01:13:38Z"
-  },
-  {
-   "path": "app/admin/widgets.php",
-   "functions": [
-    "tv_w_section"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5kHKsQbGaogTWfpFiw",
-   "why": "Scheduled tasks and their pages link both ways (Jason, 2026-11-17)",
-   "since": "2026-11-17T17:25:51Z",
-   "expires": "2026-11-17T21:54:38Z",
-   "release": "",
-   "callers": {},
-   "lapsed": "2026-11-18T01:13:38Z"
-  },
-  {
-   "path": "app/lib/SystemStart.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
-   "why": "release switchon-group.zip",
-   "since": "2026-11-17T19:23:54Z",
-   "expires": "2026-11-17T23:23:54Z",
-   "release": "switchon-group.zip",
-   "callers": {},
-   "lapsed": "2026-11-18T01:13:38Z"
-  },
-  {
-   "path": "app/lib/SystemStart.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
-   "why": "Start confirms operational, then fires the queue (Jason, 2026-11-17)",
-   "since": "2026-11-17T20:15:01Z",
-   "expires": "2026-11-18T00:15:04Z",
-   "release": "start-confirm.zip",
-   "callers": {
-    "pulseDo": [
-     "app/admin/automation-console.php",
-     "app/lib/Operations.php"
-    ]
-   },
-   "lapsed": "2026-11-18T01:13:38Z"
-  },
-  {
-   "path": "app/lib/Thresholds.php",
-   "functions": [
-    "(top)",
-    "START_GATE"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5kkqbbZZGMKEB1cFnC",
-   "why": "Start confirms operational, then fires the queue (Jason, 2026-11-17)",
-   "since": "2026-11-17T20:15:01Z",
-   "expires": "2026-11-18T00:15:04Z",
-   "release": "start-confirm.zip",
-   "callers": {},
-   "lapsed": "2026-11-18T01:13:38Z"
-  },
-  {
-   "path": "app/ui/favicon.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5iXPuLbnLpdUjRWunZ",
-   "why": "Site icon on every page (favicon.ico, touch icon, one shared helper)",
-   "since": "2026-11-17T13:47:00Z",
-   "expires": "2026-11-17T17:48:36Z",
-   "release": "favicon-everywhere.zip",
-   "callers": {},
-   "lapsed": "2026-11-17T17:48:55Z"
-  },
-  {
-   "path": "website/favicon.ico",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5iXPuLbnLpdUjRWunZ",
-   "why": "Site icon on every page (favicon.ico, touch icon, one shared helper)",
-   "since": "2026-11-17T13:47:00Z",
-   "expires": "2026-11-17T17:48:36Z",
-   "release": "favicon-everywhere.zip",
-   "callers": {},
-   "lapsed": "2026-11-17T17:48:55Z"
-  },
-  {
-   "path": "website/image/apple-touch-icon.png",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5iXPuLbnLpdUjRWunZ",
-   "why": "Site icon on every page (favicon.ico, touch icon, one shared helper)",
-   "since": "2026-11-17T13:47:00Z",
-   "expires": "2026-11-17T17:48:36Z",
-   "release": "favicon-everywhere.zip",
-   "callers": {},
-   "lapsed": "2026-11-17T17:48:55Z"
-  },
-  {
-   "path": "trvgo/index.php",
-   "functions": [
-    "(top)"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5iXPuLbnLpdUjRWunZ",
-   "why": "Site icon on every page (favicon.ico, touch icon, one shared helper)",
-   "since": "2026-11-17T13:47:10Z",
-   "expires": "2026-11-17T17:48:36Z",
-   "release": "favicon-everywhere.zip",
-   "callers": {},
-   "lapsed": "2026-11-17T17:48:55Z"
-  },
-  {
-   "path": "app/ui/storefront-view.php",
-   "functions": [
-    "(top)",
-    "tv_storefront_closed",
-    "tv_storefront_serve"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5iXPuLbnLpdUjRWunZ",
-   "why": "Site icon on every page (favicon.ico, touch icon, one shared helper)",
-   "since": "2026-11-17T13:47:10Z",
-   "expires": "2026-11-17T17:48:36Z",
-   "release": "favicon-everywhere.zip",
-   "callers": {
-    "tv_storefront_serve": [
-     "trvgo/index.php"
-    ]
-   },
-   "lapsed": "2026-11-17T17:48:55Z"
-  },
-  {
-   "path": "website/admin/manifest.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5iXPuLbnLpdUjRWunZ",
-   "why": "Site icon on every page (favicon.ico, touch icon, one shared helper)",
-   "since": "2026-11-17T13:47:10Z",
-   "expires": "2026-11-17T17:48:36Z",
-   "release": "favicon-everywhere.zip",
-   "callers": {},
-   "lapsed": "2026-11-17T17:48:55Z"
-  },
-  {
-   "path": "website/index.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5iXPuLbnLpdUjRWunZ",
-   "why": "Site icon on every page (favicon.ico, touch icon, one shared helper)",
-   "since": "2026-11-17T13:47:10Z",
-   "expires": "2026-11-17T17:48:36Z",
-   "release": "favicon-everywhere.zip",
-   "callers": {},
-   "zones": [
-    "home.after-doors"
-   ],
-   "lapsed": "2026-11-17T17:48:55Z"
-  },
-  {
-   "path": "website/directory/classic.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5iXPuLbnLpdUjRWunZ",
-   "why": "Site icon on every page (favicon.ico, touch icon, one shared helper)",
-   "since": "2026-11-17T13:47:10Z",
-   "expires": "2026-11-17T17:48:36Z",
-   "release": "favicon-everywhere.zip",
-   "callers": {},
-   "lapsed": "2026-11-17T17:48:55Z"
-  },
-  {
-   "path": "app/ui/auth-nav.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5iXPuLbnLpdUjRWunZ",
-   "why": "release favicon-everywhere.zip",
-   "since": "2026-11-17T13:48:36Z",
-   "expires": "2026-11-17T17:48:36Z",
-   "release": "favicon-everywhere.zip",
-   "callers": {},
-   "lapsed": "2026-11-17T17:48:55Z"
-  },
-  {
-   "path": "app/ui/page-shell.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5iXPuLbnLpdUjRWunZ",
-   "why": "release favicon-everywhere.zip",
-   "since": "2026-11-17T13:48:36Z",
-   "expires": "2026-11-17T17:48:36Z",
-   "release": "favicon-everywhere.zip",
-   "callers": {},
-   "lapsed": "2026-11-17T17:48:55Z"
-  },
-  {
-   "path": "website/admin/chamber-builder.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5iXPuLbnLpdUjRWunZ",
-   "why": "release favicon-everywhere.zip",
-   "since": "2026-11-17T13:48:36Z",
-   "expires": "2026-11-17T17:48:36Z",
-   "release": "favicon-everywhere.zip",
-   "callers": {},
-   "lapsed": "2026-11-17T17:48:55Z"
-  },
-  {
-   "path": "app/lib/Domains.php",
-   "functions": [
-    "priceList"
-   ],
-   "kind": "add",
-   "session": "namecom-prices",
-   "why": "Name.com card: the prices our account pays vs Name.com's retail, per ending (Jason, 2026-11-17)",
-   "since": "2026-11-17T13:32:35Z",
-   "expires": "2026-11-17T17:32:35Z",
-   "release": "",
-   "callers": {},
-   "lapsed": "2026-11-17T17:48:17Z"
-  },
-  {
-   "path": "app/ui/page-shell.php",
-   "functions": [
-    "tv_page_start"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5iXPuLbnLpdUjRWunZ",
-   "why": "Site icon on every page (favicon.ico, touch icon, one shared helper)",
-   "since": "2026-11-17T13:47:10Z",
-   "expires": "2026-11-17T17:47:10Z",
-   "release": "favicon",
-   "callers": {
-    "tv_page_start": [
-     "app/ui/admin-crawler.php",
-     "app/ui/admin-hub.php",
-     "app/ui/app-shell.php",
-     "app/ui/not-found.php",
-     "website/admin/router.php",
-     "website/hub/build.php"
-    ]
-   },
-   "lapsed": "2026-11-17T17:48:17Z"
-  },
-  {
-   "path": "app/ui/auth-nav.php",
-   "functions": [
-    "tv_nav_head"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5iXPuLbnLpdUjRWunZ",
-   "why": "Site icon on every page (favicon.ico, touch icon, one shared helper)",
-   "since": "2026-11-17T13:47:10Z",
-   "expires": "2026-11-17T17:47:10Z",
-   "release": "favicon",
-   "callers": {},
-   "lapsed": "2026-11-17T17:48:17Z"
-  },
-  {
-   "path": "website/admin/chamber-builder.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5iXPuLbnLpdUjRWunZ",
-   "why": "Site icon on every page (favicon.ico, touch icon, one shared helper)",
-   "since": "2026-11-17T13:47:10Z",
-   "expires": "2026-11-17T17:47:10Z",
-   "release": "favicon",
-   "callers": {},
-   "lapsed": "2026-11-17T17:48:17Z"
-  },
-  {
-   "path": "app/lib/AccountDomains.php",
-   "functions": [
-    "VERIFY_TELL",
-    "resendVerify",
-    "verifyTick"
-   ],
-   "kind": "add",
-   "session": "domain-verify",
-   "why": "Domains: per-year cost on multi-year terms; a follow-up for the registrant's contact verification until it's resolved (Jason, 2026-11-17)",
-   "since": "2026-11-17T13:15:21Z",
-   "expires": "2026-11-17T17:15:21Z",
-   "release": "",
-   "callers": {},
-   "lapsed": "2026-11-17T17:18:03Z"
-  },
-  {
-   "path": "app/lib/AccountDomains.php",
-   "functions": [
-    "termsFor"
-   ],
-   "kind": "add",
-   "session": "domain-terms",
-   "why": "Domain year choices limited to the terms Name.com sells for each ending (Jason, 2026-11-17)",
-   "since": "2026-11-17T13:03:23Z",
-   "expires": "2026-11-17T17:03:23Z",
-   "release": "",
-   "callers": {},
-   "lapsed": "2026-11-17T17:06:02Z"
-  },
-  {
-   "path": "app/lib/Domains.php",
-   "functions": [
-    "INFO_PATH"
-   ],
-   "kind": "add",
-   "session": "domain-terms",
-   "why": "Domain year choices limited to the terms Name.com sells for each ending (Jason, 2026-11-17)",
-   "since": "2026-11-17T13:03:23Z",
-   "expires": "2026-11-17T17:03:23Z",
-   "release": "",
-   "callers": {},
-   "lapsed": "2026-11-17T17:06:02Z"
-  },
-  {
-   "path": "app/lib/AccountDomains.php",
-   "functions": [
-    "TERMS",
-    "forYears",
-    "pricing",
-    "quote",
-    "termName"
-   ],
-   "kind": "add",
-   "session": "domain-years",
-   "why": "Domain purchases: terms of years",
-   "since": "2026-11-17T12:40:57Z",
-   "expires": "2026-11-17T16:42:17Z",
-   "release": "",
-   "callers": {},
-   "lapsed": "2026-11-17T16:44:04Z"
-  },
-  {
-   "path": "app/lib/Domains.php",
-   "functions": [
-    "lookupLive"
-   ],
-   "kind": "add",
-   "session": "domain-live-search",
-   "why": "Test mode searches Name.com live (real availability and prices), buys in the sandbox; no guessed renewal prices (Jason, 2026-11-17)",
-   "since": "2026-11-17T12:18:07Z",
-   "expires": "2026-11-17T16:18:07Z",
-   "release": "",
-   "callers": {},
-   "lapsed": "2026-11-17T16:27:28Z"
-  },
-  {
-   "path": "app/lib/AccountDomains.php",
-   "functions": [
-    "renewalCost"
-   ],
-   "kind": "add",
-   "session": "domain-live-search",
-   "why": "Test mode searches Name.com live; no guessed renewal prices (Jason, 2026-11-17)",
-   "since": "2026-11-17T12:19:33Z",
-   "expires": "2026-11-17T16:19:33Z",
-   "release": "",
-   "callers": {},
-   "lapsed": "2026-11-17T16:27:28Z"
   }
  ]
 }
