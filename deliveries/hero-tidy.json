@@ -1,17 +1,21 @@
 {
  "zip": "hero-tidy.zip",
  "built_on": "eb49e51 Sync: 2026-11-20 15:06 UTC",
- "recorded": "2026-11-20 15:29 UTC",
- "note": "Hero tidy (Jason, 2026-11-20), built on Sync: 2026-11-20 15:06 UTC (eb49e51) Sent through git (releases/inbox).",
+ "recorded": "2026-11-20 15:37 UTC",
+ "note": "Hero tidy (Jason, 2026-11-20), rebuilt after his pop-up answers (journeys linkable; the merge out), built on Sync: 2026-11-20 15:06 UTC (eb49e51) Sent through git (releases/inbox).",
  "status": "pending",
  "live_in": "",
  "files": {
+  "app/lib/Links.php": {
+   "sha256": "b521731d10b77fd67a960e398d9129f6cfe7b6c4fe7e41f80b191802222c3276",
+   "live": false
+  },
   "app/ui/engage-ui.php": {
    "sha256": "44905ad01f6ae45df9b187f8f00010d215087352878ef5c25fdd7777367406ea",
    "live": false
   },
   "app/ui/faq.md": {
-   "sha256": "27ff026ab1890b59f6d6aa18598a8b8c5654ec889a600989dba1c5f060af59a9",
+   "sha256": "25bd5f4366d3a9ff69618041f79bf772a040f4ace4d351ac4371774b94839831",
    "live": false
   },
   "app/ui/stock-ui.php": {
@@ -23,7 +27,7 @@
    "live": false
   },
   "website/hub/index.php": {
-   "sha256": "a4eb2b0306ffdd04dcb752fa3712750702e262a04b366d367642f09fafdfa851",
+   "sha256": "6f5f96e5d9255c9400995e75a8133e5c636e670e8d22357da320a7172eb173df",
    "live": false
   },
   "website/js/engage.js": {

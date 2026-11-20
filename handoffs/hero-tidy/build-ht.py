@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Hero tidy (Jason, 2026-11-20): ⋯ starts Link to, Claim, Add to a trip; the page's Link icon hides while ⋯ is open; the
-stock photo's details see-through; Explore's default-place notice slim; the hub's stray text; same-named areas once."""
+stock photo's details see-through; Explore's default-place notice slim; the hub's stray text; journeys can be linked."""
 import os, shutil
 M = '/home/user/traverse-3way-sync'; S = os.path.dirname(os.path.abspath(__file__)); O = os.path.join(S, 'out')
 shutil.rmtree(O, ignore_errors=True)
@@ -66,6 +66,22 @@ s = rep(s, "        'tools' => ['trip' => $hasPt ? ['lat' => (float) $biz['latit
            "                    'claim' => $isOwner ? ['', 'It\\'s yours: Manage is in the corner.'] : ($biz['status'] === 'unclaimed' && $notBiz === '' ? '/claim.php?listing=' . $eid : ['', $notBiz !== '' ? 'Not a business: nothing to claim.' : 'Already claimed by its business.'])]]),   // ⋯: Link to, Claim, Add to a trip first (Jason, 2026-11-20)")
 put(f, s)
 
+# ---- journeys can be linked (Jason, 2026-11-20, hero tidy's pop-up: "Fix it here"): the Link button journey pages and cards
+# already draw (place:jr:N) had no case in Links::resolve; a published journey only, as Journeys::visible shows the public ----
+f = 'app/lib/Links.php'; s = live(f)
+s = rep(s, "        if ($type === 'place' && preg_match('/^how:(\\d{1,10})$/', $id, $hm)) {",
+           "        if ($type === 'place' && preg_match('/^jr:(\\d{1,10})$/', $id, $jm)) {   // a published journey (journeys/view.php; Jason, 2026-11-20: \"Fix it here\")\n"
+           "            $st = $pdo->prepare(\"SELECT title FROM journeys WHERE id = ? AND status = 'published'\");\n"
+           "            $st->execute([(int) $jm[1]]);\n"
+           "            $t = $st->fetchColumn();\n"
+           "            if ($t === false) throw new InvalidArgumentException('That journey isn\\'t available.');\n"
+           "            return [(string) $t, '/journeys/view.php?id=' . (int) $jm[1]];\n"
+           "        }\n"
+           "        if ($type === 'place' && preg_match('/^how:(\\d{1,10})$/', $id, $hm)) {")
+s = rep(s, "'body' => $new ? \"$new new listing\" . ($new === 1 ? '' : 's') . ' this month' : 'Its guide, places and local picks',",
+           "'body' => $new ? \"$new new listing\" . ($new === 1 ? '' : 's') . ' this month' : (str_starts_with((string) $l['target_id'], 'jr:') ? 'A journey you linked' : 'Its guide, places and local picks'),")
+put(f, s)
+
 # ---- the stock photo's details: see the photo through it, still readable; its words said once (Jason, 2026-11-20) ----
 f = 'app/ui/stock-ui.php'; s = live(f)
 s = rep(s, "    $what = !empty($s['representative']) ? 'Representative photo: it shows the kind of place or thing, not this one itself.' : 'Stock photo of this place.';",
@@ -102,22 +118,18 @@ s = rep(s, "      document.getElementById('dv-ask-t').textContent = 'Your defaul
            "      var go = document.getElementById('dv-ask-go'); go.textContent = 'Explore it';")
 put(f, s)
 
-# ---- the hub: a note printed as text (#211's slip), and same-named areas once ----
+# ---- the hub: a note printed as text (#211's slip) ----
 f = 'website/hub/index.php'; s = live(f)
 s = rep(s, "'suggest' => $sg + ['kind' => 'story']]])]) ?>   // ⋯ (2026-11-19)", "'suggest' => $sg + ['kind' => 'story']]])]) /* ⋯ (2026-11-19) */ ?>")
-s = rep(s, "    $nh = '<div class=\"gd-next\">';\n    foreach ($kids as [$kk, $kn, $ku, $kl, $kc, $planned])",
-           "    $nh = '<div class=\"gd-next\">';\n"
-           "    // areas with the same name show once (Jason, 2026-11-20: \"Albuquerque\" ten times): the biggest opens, the rest are counted\n"
-           "    $byName = [];\n"
-           "    foreach ($kids as $k) { $nk = mb_strtolower(trim((string) $k[1])); if (!isset($byName[$nk])) { $byName[$nk] = $k + [6 => 1]; continue; }\n"
-           "        $b = $byName[$nk]; $n = $b[6] + 1; if ((int) $k[4] > (int) $b[4]) { $b = $k + [6 => 0]; } $b[4] = (int) $byName[$nk][4] + (int) $k[4]; $b[6] = $n; $byName[$nk] = $b; }\n"
-           "    $kids2 = array_values($byName);\n"
-           "    foreach ($kids2 as $k2) { [$kk, $kn, $ku, $kl, $kc, $planned] = $k2; $areas = (int) ($k2[6] ?? 1); if ($areas > 1) $kl = $areas . ' areas';")
-s = rep(s, "            . '<span>' . ($planned ? 'Coming soon' : ($kc ? number_format($kc) . ' listing' . ($kc === 1 ? '' : 's') : Guides::TIERS[Guides::place($pdo, $kk)['level'] ?? 'sub'][1])) . '</span></a>';\n    $blocks['next'] = $nh . '</div>';",
-           "            . '<span>' . ($planned ? 'Coming soon' : ($kc ? number_format($kc) . ' listing' . ($kc === 1 ? '' : 's') : Guides::TIERS[Guides::place($pdo, $kk)['level'] ?? 'sub'][1])) . '</span></a>';\n    }\n    $blocks['next'] = $nh . '</div>';")
+# (same-named areas once was taken out, 2026-11-20: Jason, "This seems to be a crawler, workflow issue, because the page should
+# show what is properly assigned to that area based on its funnel level"; the list shows the data as it is, and the data is
+# the area data plan's)
 put(f, s)
 f = 'app/ui/faq.md'; s = live(f)
 s = rep(s, "Everything else is under **⋯**, in words: **Share** and **QR code**,", "Everything else is under **⋯**, in words: first **Link to** (the page's own Link: follow it, and what's new shows in your Pulse), **Claim** (a business's or an organization's listing; greyed elsewhere, with why) and **Add to a trip**, then **Share** and **QR code**,")
 s = rep(s, "then **See on the map**, **Plan a trip here**, **Add to a trip** and **Report** where the page has them.", "then **See on the map**, **Plan a trip here** and **Report** where the page has them. While ⋯ is open, the page's Link icon steps aside so the two never sit on each other.")
+s = rep(s, "### Can I link a lake, campground or trail?\nYes. Use the link icon in the corner of its page. It's saved with your other linked places.\n",
+           "### Can I link a lake, campground or trail?\nYes. Use the link icon in the corner of its page. It's saved with your other linked places.\n\n"
+           "### Can I link a journey?\nYes, once it's published. Use the link icon in the corner of its page, or on its card. It's saved with your other linked places. A draft, or a journey hidden after reports, can't be linked.\n")
 put(f, s)
 print('built', sum(len(fs) for _, _, fs in os.walk(O)), 'files')

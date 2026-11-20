@@ -1,7 +1,7 @@
 // tools/design-tests/hero-tidy.cjs: the hero tidy (Jason, 2026-11-20), rendered at 1280 and 390.
 //   ⋯ starts Link to, Claim, Add to a trip; the page's Link icon hides while ⋯ is open; Link to runs the page's Link;
 //   the stock photo's details see-through; Explore's default place in one slim line; the hub's stray text gone;
-//   same-named areas listed once (seed: hero-tidy-seed.php adds three "Twin Town" areas to geo hub 1). Copy
+//   its areas listed as the data has them (seed: hero-tidy-seed.php adds three "Twin Town" areas to geo hub 1). Copy
 //   stock-page.php to the harness's website/test/stock.php first.
 // Run: SEED="php hero-tidy-seed.php <root>" BASE=http://127.0.0.1:8790 node hero-tidy.cjs
 const { chromium } = require('playwright');
@@ -57,9 +57,10 @@ const ok = (c, m) => { if (c) { pass++; console.log('ok   ' + m); } else { fail+
     await go('/hub/?geo=show-low-geo');
     const body = await p.locator('body').innerText();
     ok(!/\(2026-11-19\)/.test(body), tag + 'the hub: no stray "// ⋯ (2026-11-19)"');
+    // same-named areas are listed as the data has them (Jason, 2026-11-20: "the page should show what is properly assigned to
+    // that area based on its funnel level"): the merge was taken out, and the data is the area data plan's
     const twins = await p.locator('.gd-stop', {hasText: 'Twin Town'}).count();
-    ok(twins === 1 && /3 areas/.test(await p.locator('.gd-stop', {hasText: 'Twin Town'}).innerText()), tag + 'same-named areas listed once: "3 areas"');
-    if (false) ok(twins === 1 && /3 areas/.test(await p.locator('.gd-stop', {hasText: 'Twin Town'}).innerText()), tag + 'same-named areas listed once: "3 areas"');
+    ok(twins === 3, tag + 'the hub lists its areas as the data has them (3 "Twin Town" rows, nothing merged)');
     ok(!errs.length, tag + 'no script errors' + (errs.length ? ': ' + errs.join('; ') : ''));
     await ctx.close();
   }

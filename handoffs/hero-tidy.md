@@ -1,4 +1,4 @@
-# Hero tidy: rebuilt and sent to the branch, waiting for Jason's OK to merge (2026-11-20)
+# Hero tidy: rebuilt after Jason's pop-up answers, waiting for his second OK (2026-11-20)
 
 Jason approved this in the pop-up on 2026-11-20 (reviewed by the session manager), then held it ("Once r4 is released and
 live. Hold building anything more"). R4 went live as #227. At the restart Jason said resume (the session manager,
@@ -50,3 +50,18 @@ already live, and the session manager has queued it for the admin kit release.
 
 `tools/design-tests/hero-tidy.cjs` with `hero-tidy-seed.php` and `stock-page.php` (copied to the harness's
 `website/test/stock.php`): 30 checks at 1280 and 390. These went into `main` with R4 (#1153); they're tests only.
+
+## Jason's answers (pop-up, 2026-11-20, reviewed by the session manager) and the rebuild
+- **Approve.**
+- **Journey Link: "Fix it here".** This release adds the `jr:` case to `Links::resolve` (published only) and the feed's
+  words "A journey you linked", plus an FAQ entry ("Can I link a journey?"). Recorded as a note in decisions/0047. The
+  question assumed ⋯ appears on journeys; it doesn't (⋯ with Link to is on listings, landmarks, outdoor places and hubs).
+  The real gap was the Link button journey pages and cards already drew.
+- **Same-named areas: "This seems to be a crawler, workflow issue, because the page should show what is properly
+  assigned to that area based on its funnel level."** The merge was taken out, so the hub lists its areas as the data
+  has them. His words went to the session manager's area data plan. hero-tidy.cjs now checks that nothing is merged.
+- **Tests on the rebuild:** hero-tidy.cjs passed 30 of 30. Links on MariaDB: a published journey links, its state says
+  linked, a draft is refused, the feed says "A journey you linked", and unlink works. The journey page draws its Link
+  button. Pressing it while signed in was not done on the harness: the real press happens on staging and live.
+- Re-sent as `hero-tidy.zip` (the earlier inbox copy was removed from the branch first). 8 files, zip check clean.
+  Claims: Links.php::resolve,feed and hub/index.php::(top) are added; hub_card is released.
