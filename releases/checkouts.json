@@ -359,13 +359,14 @@
   {
    "path": "app/lib/WorkOrders.php",
    "functions": [
+    "moveItems",
     "staffMove"
    ],
    "kind": "change",
    "session": "session_01CXLi5iruQZSTYKyuR7b1SN",
    "why": "Orders: the order map's rulings (decisions/0101 note 2026-11-20, B.1-B.6)",
    "since": "2026-11-20T18:56:13Z",
-   "expires": "2026-11-20T22:56:13Z",
+   "expires": "2026-11-20T22:56:16Z",
    "release": "orders-rulings.zip",
    "callers": {
     "staffMove": [
