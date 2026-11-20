@@ -55,8 +55,8 @@
    "session": "session_01CXLi5gxSyzVYGuXX3xuu2c",
    "why": "hero tidy (Jason, 2026-11-20): \u22ef order, Link icon, stock details, Explore's place line, hub's stray text and same-named areas",
    "since": "2026-11-20T15:28:50Z",
-   "expires": "2026-11-20T19:28:50Z",
-   "release": "hero-tidy",
+   "expires": "2026-11-20T19:29:15Z",
+   "release": "hero-tidy.zip",
    "callers": {
     "tv_stock_tag": [
      "app/admin/sections.php",
@@ -78,8 +78,8 @@
    "session": "session_01CXLi5gxSyzVYGuXX3xuu2c",
    "why": "hero tidy (Jason, 2026-11-20): \u22ef order, Link icon, stock details, Explore's place line, hub's stray text and same-named areas",
    "since": "2026-11-20T15:28:50Z",
-   "expires": "2026-11-20T19:28:50Z",
-   "release": "hero-tidy",
+   "expires": "2026-11-20T19:29:15Z",
+   "release": "hero-tidy.zip",
    "callers": {}
   },
   {
@@ -91,8 +91,8 @@
    "session": "session_01CXLi5gxSyzVYGuXX3xuu2c",
    "why": "hero tidy (Jason, 2026-11-20): \u22ef order, Link icon, stock details, Explore's place line, hub's stray text and same-named areas",
    "since": "2026-11-20T15:28:50Z",
-   "expires": "2026-11-20T19:28:50Z",
-   "release": "hero-tidy",
+   "expires": "2026-11-20T19:29:15Z",
+   "release": "hero-tidy.zip",
    "callers": {}
   },
   {
@@ -105,8 +105,8 @@
    "session": "session_01CXLi5gxSyzVYGuXX3xuu2c",
    "why": "hero tidy (Jason, 2026-11-20): \u22ef order, Link icon, stock details, Explore's place line, hub's stray text and same-named areas",
    "since": "2026-11-20T15:28:50Z",
-   "expires": "2026-11-20T19:28:50Z",
-   "release": "hero-tidy",
+   "expires": "2026-11-20T19:29:15Z",
+   "release": "hero-tidy.zip",
    "callers": {
     "ask": [
      "app/admin/automation-console.php",
@@ -135,8 +135,8 @@
    "session": "session_01CXLi5gxSyzVYGuXX3xuu2c",
    "why": "hero tidy (Jason, 2026-11-20): \u22ef order, Link icon, stock details, Explore's place line, hub's stray text and same-named areas",
    "since": "2026-11-20T15:28:50Z",
-   "expires": "2026-11-20T19:28:50Z",
-   "release": "hero-tidy",
+   "expires": "2026-11-20T19:29:15Z",
+   "release": "hero-tidy.zip",
    "callers": {}
   },
   {
@@ -148,8 +148,8 @@
    "session": "session_01CXLi5gxSyzVYGuXX3xuu2c",
    "why": "hero tidy (Jason, 2026-11-20): \u22ef order, Link icon, stock details, Explore's place line, hub's stray text and same-named areas",
    "since": "2026-11-20T15:28:50Z",
-   "expires": "2026-11-20T19:28:50Z",
-   "release": "hero-tidy",
+   "expires": "2026-11-20T19:29:15Z",
+   "release": "hero-tidy.zip",
    "callers": {}
   }
  ],
