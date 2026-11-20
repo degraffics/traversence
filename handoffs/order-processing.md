@@ -1,11 +1,11 @@
 # Order processing: the session's hand-off (2026-11-20)
 
-**Since the restart (Orders session `session_01CXLi5iruQZSTYKyuR7b1SN`, 2026-11-20):** the map is confirmed and every
-§5 item is ruled (`research/order-rulings-2026-11-20.md`, written into decisions/0101's note "rulings on the order
-map"). The one-cart proposal is `research/one-cart-proposal-2026-11-20.md` (draft decision 0177, its questions Q-A to
+**Since the restart (Orders session `session_01CXLi5iruQZSTYKyuR7b1SN`, 2026-11-20):** Gemini's review of the map
+(`research/order-rulings-2026-11-20.md`) answers every §5 item, but Jason sent it for review: it's proposals until he
+confirms it (session manager, 2026-11-20). Nothing written into 0101. The one-cart proposal is `research/one-cart-proposal-2026-11-20.md` (draft decision 0177, its questions Q-A to
 Q-G). R0, the chargeFor fix, is built as `releases/inbox/orders-chargefor.zip` (built on Sync 18:05 UTC; files:
-`app/lib/QuickBooksPay.php`; test `tools/order-tests/chargefor.php`), waiting for Jason's Approve. Next: rulings R1 and
-R3–R6 as one release on what's built; then the cart, after Q-A and Q-B. The sections below are the earlier session's
+`app/lib/QuickBooksPay.php`; test `tools/order-tests/chargefor.php`), waiting for Jason's Approve. Next, if Jason confirms the review: R1 and
+R3–R6 (and R2's first two proof paths as a Send gate) as one release on what's built; then the cart, after Q-A and Q-B. The sections below are the earlier session's
 record.
 
 The order processing session (opened by Jason 2026-11-19: "an order processing agent session for reviewing how the

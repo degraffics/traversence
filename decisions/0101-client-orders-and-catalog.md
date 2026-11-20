@@ -833,38 +833,3 @@ Also recorded the same day (research/order-review-crosswalk-2026-11-20.md, his w
 cart is the invoice the client confirms and pays, and an item is released to the cart only once its own process's
 requirements are met (proof approved, production files uploaded, vendor selected, drop-ship configured…). How this
 meets the client order flow above is the Orders session's proposal, for his OK.
-
-## Note (Jason, 2026-11-20): rulings on the order map
-
-Jason reviewed `research/order-system-map-2026-11-19.md` (with Gemini) and sent his answers, kept verbatim in
-`research/order-rulings-2026-11-20.md`. The map is "confirmed as accurate and complete as the baseline snapshot". His
-rulings on its §5, quoted:
-
-1. **Ship-to:** "When an order already has a Ship to address (`orders.ship_*`) entered by staff, prefill the client's
-   approval/checkout form with that destination and leave 'To the billing address above' unticked so it does not
-   silently overwrite staff-configured drop-ship or venue addresses. Only default to the billing address when Ship to is
-   blank." This narrows this decision's Delivery default ("to the billing address" by default) to orders with no Ship to.
-2. **A proof for every printed item:** "Yes, require a proof, satisfied through one of three explicit paths before Send
-   or release to the cart/production": a staff proof approved by the client with sign-off; an exact reorder
-   (`reuse_of`) confirmed for reuse with initials; or client-supplied artwork "preflighted against our file-check limits
-   (0176), and explicitly confirmed/approved by the client". "New printed items and 'Update & Reprint' reorders always go
-   through proof approval; nothing goes to press without one of those three verified paths."
-3. **Part payments on QuickBooks' page:** "record partial payments made on QuickBooks' hosted invoice page as deposit /
-   partial `order_ledger` entries rather than waiting until the balance reaches $0.00 … only transitioning to `paid`
-   once the balance clears."
-4. **Shipped or Ready before paid:** "centralize the payment check so the order page, Pulse, work orders and `/wo.php`
-   enforce the same `paid_in_full` rule as the Back-Office → Orders drawer, except where the order explicitly has
-   'Release to production before payment' (or invoice / outside pay terms) active."
-5. **A refund of printed work:** "when refunding printed work that has an active/open work order, surface an explicit
-   'Cancel the work order and notify the vendor' action in the refund workflow so open vendor jobs are not left
-   orphaned."
-6. **The six unused builder actions** (`terms`, `line_save`, `addr_save`, `line_ship`, `options_save`, `stage`): "Yes,
-   delete them as dead code; edit-in-place superseded them (0101)."
-7. **Watermarks:** "0101 replaced 0099: keep 0101's rule (no watermarking; restrict file downloads until the order is
-   paid in full, allowing only the active proof awaiting sign-off to be viewed/downloaded)." 0099's watermark rule no
-   longer applies to client orders.
-
-Also kept as invariants (his Part 2 §6): unpicked options take the first choice; tax only at approval; our own sales
-(`orders`) apart from businesses' (`market_orders`, `b_biz_quotes`). Still open, to be asked: when design is earned and
-when production is refundable; the order file check's limits (0176); design capacity; a fingerprint of the approved
-file; order mail onto the one dispatcher (0172). Each ruling is built in a release that cites this note.
