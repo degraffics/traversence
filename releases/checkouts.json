@@ -143,6 +143,19 @@
    "expires": "2026-11-20T21:36:07Z",
    "release": "0176-notice.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/Mailer.php",
+   "functions": [
+    "buildHeaders"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
+   "why": "0176 R2 part 2: the alarm notice",
+   "since": "2026-11-20T17:36:13Z",
+   "expires": "2026-11-20T21:36:13Z",
+   "release": "0176-notice.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
