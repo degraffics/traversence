@@ -326,3 +326,15 @@ Reviewed by the session manager (2026-11-20).
 the one shape; `ControlAlarms::facts()` supplies an alarm's parts; the trip, its Escalation Notice and Recovered are one
 message (`Notify::IN_PLACE`), updated in place; the board's rows, Pulse's item and body, the push and the logbook read the
 same shape. Record: `handoffs/dispatcher.md`.
+
+## Note (Jason, 2026-11-20): email takes the push's shape
+
+On a screenshot of his phone (Gmail: "Traversence.com · W3 Sources and the place store: Its gate: 1 red line(s) in th…",
+four separate emails), asked whether email should take the same shape as the push, Jason chose **"Same shape as push"**.
+This replaces "Email: 0176 doesn't change it" above for alarm threads:
+- **The subject** is the thread's title and status in plain words, as the push reads (e.g. "W3 Sources: Paused by the
+  system"), never the check's raw text.
+- **One email thread per alarm:** later news on the same alarm (raised, Escalation Notice, Recovered) goes as a reply in
+  that thread, not a new email.
+- The body still says what happened and links to the item (0172 "The other channels point back"); each trip still
+  reaches the Founder's email at once (0171 §7). Built by Operations with release 2.
