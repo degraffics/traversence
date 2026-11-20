@@ -1,6 +1,7 @@
 # 0176: The dispatcher presents and routes every thread
 
-Status: **draft 2, proposed** (2026-11-20; reviewed by the session manager). Written by the dispatcher session at Jason's request, relayed by the session
+Status: **accepted** (Jason, 2026-11-20, draft 2, approved with the decision pop-up; reviewed by the session manager).
+His answers to the questions are below them. **Next:** release 1, the thread and the shape, for alarms.
 manager. Nothing is built until he approves it.
 
 Builds on:
@@ -309,3 +310,13 @@ Reviewed by the session manager (2026-11-20).
    - May a customer upload a replacement on the order's link? Today only staff can upload to an order.
 4. **How far the one shape reaches.** Incidents and uploads first, and the other kinds (comments, bookings, groups,
    whose bodies have their own reply boxes) in a later release (recommended)? Or every kind at once?
+
+**Answered (Jason, 2026-11-20, in the decision pop-up):**
+1. **Approve.**
+2. **Keep post first.** A place's photo stays live at once, with the staff thread "New photo of <place>" offering Hide
+   (§6).
+3. **"I'll set the limits"**: customers may replace a file on the order's link, and Jason gives the check's minimum
+   resolution, bleed and size. Until he has, the order file check and Replace file stay "to come", and release 4 builds
+   the staff thread first.
+4. **Incidents first.** Alarms, service issues and uploads move to the one shape in these releases. Comments, bookings
+   and groups follow in a later release.
