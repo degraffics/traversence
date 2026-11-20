@@ -121,6 +121,27 @@
      "app/ui/outside-services.php"
     ]
    }
+  },
+  {
+   "path": "app/lib/Pulse.php",
+   "functions": [
+    "items"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
+   "why": "0176 R2: service issues as threads",
+   "since": "2026-11-20T17:00:00Z",
+   "expires": "2026-11-20T21:00:00Z",
+   "release": "0176-issues.zip",
+   "callers": {
+    "items": [
+     "app/lib/DailyReport.php",
+     "app/ui/pulse-ui.php",
+     "website/admin/staff-profile.php",
+     "website/admin/w.php",
+     "website/user/api/bell.php"
+    ]
+   }
   }
  ],
  "lapsed": [
