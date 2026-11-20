@@ -121,6 +121,11 @@ sessions take over, holding until Jason says resume. Live through Release #228 (
   issue, because the page should show what is properly assigned to that area based on its funnel level", so the hub
   shows the data as it is, no merge, and the fix is the clusters' assignment by funnel level, to Operations); the dashboard
   discussion; done: the Park Service key (Jason, 2026-11-20: "done. its in!"); control_tick is back on `*/5` (Jason pressed it, 2026-11-20).
+- **Shared-file race (2026-11-20, #234 then #235):** vault-icons was merged while 0176-issues was already taken from the
+  inbox onto staging; both carried faq.md, the zip check saw no pending clash (it reads the inbox, not releases on
+  staging), and #235 put back #234's two FAQ entries. Until the zip check also reads release records Planned or On
+  staging, the session manager holds a second merge carrying the same file until the first is Live. Fix for the zip
+  check: queued (whoever next touches tools/page-audit).
 - **Operations, with 0176 R2:** alarm emails take the push's shape (0176 note, Jason 2026-11-20, "Same shape as push"):
   plain-words subject, one thread per alarm, news as replies.
 - **Operations, a small fix after 0175 R2a** (from Jason's screenshots, 2026-11-20; playbook §4, words follow the state):
