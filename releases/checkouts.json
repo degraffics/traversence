@@ -198,8 +198,8 @@
    "session": "session_01CXLi5gxSyzVYGuXX3xuu2c",
    "why": "admin kit: metadata text on --tv-meta (css-theme-brand \u00a73, 4.5:1); the way-back bar's width on phones",
    "since": "2026-11-20T16:12:30Z",
-   "expires": "2026-11-20T20:12:30Z",
-   "release": "admin-kit",
+   "expires": "2026-11-20T20:12:39Z",
+   "release": "admin-kit.zip",
    "callers": {
     "tv_pulse_settings": [
      "app/admin/sections.php",
@@ -217,8 +217,8 @@
    "session": "session_01CXLi5gxSyzVYGuXX3xuu2c",
    "why": "admin kit: metadata text on --tv-meta (css-theme-brand \u00a73, 4.5:1); the way-back bar's width on phones",
    "since": "2026-11-20T16:12:30Z",
-   "expires": "2026-11-20T20:12:30Z",
-   "release": "admin-kit",
+   "expires": "2026-11-20T20:12:39Z",
+   "release": "admin-kit.zip",
    "callers": {
     "tv_admin_start": [
      "app/admin/legal-editor.php",
@@ -257,8 +257,8 @@
    "session": "session_01CXLi5gxSyzVYGuXX3xuu2c",
    "why": "admin kit: metadata text on --tv-meta (css-theme-brand \u00a73, 4.5:1); the way-back bar's width on phones",
    "since": "2026-11-20T16:12:30Z",
-   "expires": "2026-11-20T20:12:30Z",
-   "release": "admin-kit",
+   "expires": "2026-11-20T20:12:39Z",
+   "release": "admin-kit.zip",
    "callers": {}
   },
   {
@@ -270,8 +270,8 @@
    "session": "session_01CXLi5gxSyzVYGuXX3xuu2c",
    "why": "admin kit: metadata text on --tv-meta (css-theme-brand \u00a73, 4.5:1); the way-back bar's width on phones",
    "since": "2026-11-20T16:12:30Z",
-   "expires": "2026-11-20T20:12:30Z",
-   "release": "admin-kit",
+   "expires": "2026-11-20T20:12:39Z",
+   "release": "admin-kit.zip",
    "callers": {}
   }
  ],
