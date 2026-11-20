@@ -1,6 +1,6 @@
 # 0171: The System Control Board: start-to-finish management and control of the whole system
 
-Status: accepted (Jason, 2026-11-18, revision 2, approved with the decision pop-up). **Built (2026-11-19):** all five
+Status: accepted (Jason, 2026-11-18, revision 2, approved with the decision pop-up). **State (2026-11-20):** live, with 0175 R1 (#222) and the watch keeping the hour (#228); further work is 0175's, held, see `handoffs/control-board-2026-11-20.md`. **Built (2026-11-19):** all five
 releases are live: 1 (#120), 2a (#121, fixed #124), 2b (#127, layout #128), 2c (#129), fixes #131–#134, 3a (#137),
 3b (#139, #140), 3c (#143), 3d (#144), 3e (#145), 3f (#148), 4a (#151), 4b (#154), 4c (#156), 4d (#157), 4e (#160), 5a
 (#166), the old trips settled (#168), a back-off in its wait isn't a hold (#169) and 5b, the reports (#173); then the links and Resolve fixes (#175) and the off-region sources (#177). §12's process
