@@ -17,6 +17,32 @@
      "app/lib/PlacePhotos.php"
     ]
    }
+  },
+  {
+   "path": "app/lib/PlaceFinder.php",
+   "functions": [
+    "get"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Wikidata within its limits (Jason, 2026-11-20, approved; board issue #26)",
+   "since": "2026-11-20T03:47:15Z",
+   "expires": "2026-11-20T07:47:15Z",
+   "release": "wikidata-limits.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Dossier.php",
+   "functions": [
+    "get"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "Wikidata within its limits (Jason, 2026-11-20, approved; board issue #26)",
+   "since": "2026-11-20T03:47:15Z",
+   "expires": "2026-11-20T07:47:15Z",
+   "release": "wikidata-limits.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
