@@ -142,41 +142,6 @@
    "expires": "2026-11-20T22:16:08Z",
    "release": "orders-chargefor.zip",
    "callers": {}
-  },
-  {
-   "path": "app/admin/manifests.php",
-   "functions": [
-    "'config'"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
-   "why": "0175 R2b part B: the register's label, Modules (Service register)",
-   "since": "2026-11-20T18:16:46Z",
-   "expires": "2026-11-20T22:25:01Z",
-   "release": "0175-r2b-modules.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/admin/operations-console.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
-   "why": "release 0175-r2b-modules.zip",
-   "since": "2026-11-20T18:25:01Z",
-   "expires": "2026-11-20T22:25:01Z",
-   "release": "0175-r2b-modules.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/admin/router.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
-   "why": "release 0175-r2b-modules.zip",
-   "since": "2026-11-20T18:25:01Z",
-   "expires": "2026-11-20T22:25:01Z",
-   "release": "0175-r2b-modules.zip",
-   "callers": {}
   }
  ],
  "lapsed": [
