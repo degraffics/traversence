@@ -18,14 +18,17 @@ $pdo->exec("INSERT INTO service_issues (id, service, host, caller, kind, state, 
   (30, 'claude', 'api.anthropic.com', 'site', 'auth', 'open', 1, '2026-11-19 17:00:00', '2026-11-19 17:00:00', '{\"latest\":{\"status\":401,\"error\":\"invalid x-api-key\"}}')");
 $aid = ControlAlarms::raise($pdo, 'svc:issue:28', 'svc:commoncrawl', 'trip', 'held', 'index.commoncrawl.org: Its server failed', '', '', '', [], true, false);
 $cc = tv_ops_issues($pdo, 'commoncrawl', 'x', '');
-$t('a service with an open issue shows it on its card, with an anchor of its own', str_contains($cc, 'id="issue-28"') && str_contains($cc, 'Issue #28: Its server failed (tripped)'), $cc);
+// decisions/0176 release 2: the issue is one thread in the one shape (Title, Status, What it affects, What the system is
+// doing, What to do, its buttons, Details ▾), no ×, and no "Its alarm on the board" (the thread is the alarm)
+$t('a service with an open issue shows it on its card as its thread, with an anchor of its own', str_contains($cc, 'id="issue-28"') && str_contains($cc, 'Common Crawl: its server failed at index.commoncrawl.org') && str_contains($cc, '>Trip</span>') && str_contains($cc, 'Issue</dt><dd>#28'), $cc);
 $t('…what came back, how often and from where, since when', str_contains($cc, 'HTTP 503 Service Unavailable') && str_contains($cc, '6 failures in a row, from the crawler, on Railway') && str_contains($cc, 'datetime="2026-11-19T16:02:00Z"'));
-$t('…what it means and what to do (their server: nothing to change on our side)', str_contains($cc, 'What it means') && str_contains($cc, 'Nothing to change on our side: index.commoncrawl.org is failing on its own server'));
-$t('…tripped: Check and start again (the board\'s resolve, on its alarm) and its alarm on the board', str_contains($cc, 'data-ops-cb="resolve" data-ops-id="' . $aid . '"') && str_contains($cc, 'href="/admin/config/control#cb-alarm-' . $aid . '"') && !str_contains($cc, 'data-ops-cb="svcresolve"'));
+$t('…what the system is doing and what to do (their server: nothing to change on our side)', str_contains($cc, 'What the system is doing:') && str_contains($cc, 'Nothing to change on our side: index.commoncrawl.org is failing on its own server'));
+$t('…its status says the system paused it, and that it closes as Recovered', str_contains($cc, 'Paused by the system (a trip) since <time'));
+$t('…tripped: Check and start again (the board\'s resolve, on its alarm), its case in Pulse, and no "Its alarm on the board"', str_contains($cc, 'data-ops-cb="resolve" data-ops-id="' . $aid . '"') && !str_contains($cc, 'href="/admin/config/control#cb-alarm-') && !str_contains($cc, 'data-ops-cb="svcresolve"') && str_contains($cc, 'href="/admin/pulse/stream#case=alarm%3A' . $aid . '" data-peek-frame>Its case in Pulse</a>'), $cc);
 $tv = tv_ops_issues($pdo, 'tavily', 'x', '');
 $t('a 429 has nothing to press: it waits its turn and says so', !str_contains($tv, 'data-ops-cb=') && str_contains($tv, 'after the wait it asked for; nothing to press'));
 $cl = tv_ops_issues($pdo, 'claude', 'x', '');
-$t('a refused key says it needs a person, what to do, then Check it now closes it', str_contains($cl, 'This one needs a person:') && str_contains($cl, 'press Check it now: a passing check is what closes it') && str_contains($cl, 'data-ops-cb="svccheck" data-ops-id="30"') && str_contains($cl, 'data-tv-status="bad"'));
+$t('a refused key says it needs a person, what to do, then Check it now closes it', str_contains($cl, 'This one needs a person:') && str_contains($cl, 'press Check it now: a passing check is what closes it') && str_contains($cl, 'data-ops-cb="svccheck" data-ops-id="30"') && str_contains($cl, '>Held</span>') && !str_contains($cl, 'data-tv-status'));   // no status line in the thread, so no ×
 $t('never Mark resolved on the card (Jason: "it should be the result of an issue being fixed")', !str_contains($cc . $tv . $cl, 'Mark resolved') && !str_contains($cc . $tv . $cl, 'svcresolve'));
 $t('no open issue: nothing added to the card', tv_ops_issues($pdo, 'osm', 'x', '') === '');
 $t('the buttons post the board\'s own actions with the page\'s token, busy while working, the answer beside the button', str_contains($cc, 'fetch("/admin/api/config/control"') && str_contains($cc, '"X-CSRF-Token":"x"') && str_contains($cc, 'TvAsk.busy(b,true)') && str_contains($cc, '{anchor:b,bad:!j.ok}'));
