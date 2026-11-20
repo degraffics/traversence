@@ -418,3 +418,9 @@ The rules hold:
 - old manifest sections are archived in `archive.md`, not deleted;
 - every behaviour each page had is listed in the hand-off with where it moved, and a drop needs `--drops` and his OK;
 - the zip check and the drawer and anchor tests cover the redirects.
+
+**Note (Jason, 2026-11-20, in the decision pop-up): when an hour on a system's strip turns red.** No decision set it
+(release 2a's item 11, `handoffs/control-board-2026-11-20.md`). Asked "When should one of those hours turn red?", he
+chose "Critical part down": an hour turns **red only when a critical part is down** (its duty: search, sign-in,
+payments, page load, the database; 0171 §5's note, Thresholds & gates → Critical parts). Any other part held or red
+that hour makes it **amber, with the cause named** ("1 of 20 held: Common Crawl"). Built in release 2a.
