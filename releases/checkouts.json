@@ -11,9 +11,24 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Trips you can save (decisions/0174 release 2)",
    "since": "2026-11-20T13:22:56Z",
-   "expires": "2026-11-20T17:22:56Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-20T17:24:07Z",
+   "release": "trips.zip",
+   "callers": {
+    "tv_engage_bar": [
+     "app/lib/Blocks.php",
+     "website/community/group.php",
+     "website/experiences/view.php",
+     "website/guide/how.php",
+     "website/guide/resources.php",
+     "website/hub/index.php",
+     "website/journeys/suggested.php",
+     "website/listing/view.php",
+     "website/market/item.php",
+     "website/market/view.php",
+     "website/place/landmark.php",
+     "website/place/recreation.php"
+    ]
+   }
   },
   {
    "path": "website/user/dashboard.php",
@@ -22,8 +37,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Trips you can save (decisions/0174 release 2)",
    "since": "2026-11-20T13:23:00Z",
-   "expires": "2026-11-20T17:23:00Z",
-   "release": "",
+   "expires": "2026-11-20T17:24:07Z",
+   "release": "trips.zip",
    "callers": {}
   },
   {
@@ -35,8 +50,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Trips you can save (decisions/0174 release 2)",
    "since": "2026-11-20T13:23:02Z",
-   "expires": "2026-11-20T17:23:02Z",
-   "release": "",
+   "expires": "2026-11-20T17:24:07Z",
+   "release": "trips.zip",
    "callers": {}
   },
   {
@@ -48,8 +63,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Trips you can save (decisions/0174 release 2)",
    "since": "2026-11-20T13:23:04Z",
-   "expires": "2026-11-20T17:23:04Z",
-   "release": "",
+   "expires": "2026-11-20T17:24:07Z",
+   "release": "trips.zip",
    "callers": {}
   },
   {
@@ -99,8 +114,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Trips you can save (decisions/0174 release 2)",
    "since": "2026-11-20T13:23:12Z",
-   "expires": "2026-11-20T17:23:12Z",
-   "release": "",
+   "expires": "2026-11-20T17:24:07Z",
+   "release": "trips.zip",
    "callers": {}
   },
   {
@@ -110,8 +125,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Trips you can save (decisions/0174 release 2)",
    "since": "2026-11-20T13:23:14Z",
-   "expires": "2026-11-20T17:23:14Z",
-   "release": "",
+   "expires": "2026-11-20T17:24:07Z",
+   "release": "trips.zip",
    "callers": {}
   },
   {
@@ -121,8 +136,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Trips you can save (decisions/0174 release 2)",
    "since": "2026-11-20T13:23:16Z",
-   "expires": "2026-11-20T17:23:16Z",
-   "release": "",
+   "expires": "2026-11-20T17:24:07Z",
+   "release": "trips.zip",
    "callers": {}
   },
   {
@@ -132,8 +147,8 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Trips you can save (decisions/0174 release 2)",
    "since": "2026-11-20T13:23:18Z",
-   "expires": "2026-11-20T17:23:18Z",
-   "release": "",
+   "expires": "2026-11-20T17:24:07Z",
+   "release": "trips.zip",
    "callers": {}
   },
   {
@@ -143,8 +158,41 @@
    "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
    "why": "Trips you can save (decisions/0174 release 2)",
    "since": "2026-11-20T13:23:20Z",
-   "expires": "2026-11-20T17:23:20Z",
-   "release": "",
+   "expires": "2026-11-20T17:24:07Z",
+   "release": "trips.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/suggested-journeys.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "release trips.zip",
+   "since": "2026-11-20T13:24:07Z",
+   "expires": "2026-11-20T17:24:07Z",
+   "release": "trips.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/AccountDeletion.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "release trips.zip",
+   "since": "2026-11-20T13:24:07Z",
+   "expires": "2026-11-20T17:24:07Z",
+   "release": "trips.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/staging-tables.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
+   "why": "release trips.zip",
+   "since": "2026-11-20T13:24:07Z",
+   "expires": "2026-11-20T17:24:07Z",
+   "release": "trips.zip",
    "callers": {}
   }
  ],
