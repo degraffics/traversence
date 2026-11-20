@@ -113,6 +113,20 @@
      "website/js/tv-vault.js"
     ]
    }
+  },
+  {
+   "path": "app/lib/Notify.php",
+   "functions": [
+    "deliverEmail",
+    "deliverPush"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
+   "why": "0176 R2 part 2: the alarm notice",
+   "since": "2026-11-20T17:36:03Z",
+   "expires": "2026-11-20T21:36:03Z",
+   "release": "0176-notice.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
