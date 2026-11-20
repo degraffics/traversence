@@ -257,6 +257,12 @@ Already there, so not missing: short links and QR (`ShortCodes`, `Qr`, `QrIssue`
   members, **Join Group**). Built to the standards: brand icons (`tv_icon()`), the name as the link, filters as one
   dropdown where the standard asks, 3px edges at 390px. "+N this week" comes from the join counts (0136 §5). Then the
   lifecycle job (C4), the home place (C3), or events.
+  **Note (Jason, 2026-11-20, 3d's pop-up, reviewed by the session manager):** asked whether to build `/community/` to this
+  mockup or only re-skin it, he chose **"Mockup, adapted"**. It's built to the mockup, adapted to his newer directive
+  (`design/css-theme-brand.md`, 2026-11-18): topics go in the category dropdown, not chips (§1, CLAUDE.md's filters
+  rule); cards sit on the card colour (`--tv-card-a`), not white (§5, brand.md §4's three levels). "+N this week" is a
+  count of joins in the last 7 days (`community_group_members.joined_at`), never who (0058 §13). It's Release 3d,
+  with the group page and the member dashboard on the tokens.
 
 ## Next build
 
