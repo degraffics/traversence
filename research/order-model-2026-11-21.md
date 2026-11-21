@@ -28,6 +28,8 @@ and `research/order-rulings-2026-11-20.md` (his confirmed rulings B.1–B.7, §1
 supported by admin and once approved, released, and the cart can be finalized."
 - An item that needs preparing waits in the cart, not buyable, until it is released. One that needs none (a GO Code, a
   plan, a domain) is buyable at once, as today **(described, to confirm)**.
+- Each line keeps its own process (2026-11-20): "it can be graphic design, printed product, etc handles as separate
+  processes, but becomes on cart (Invoice) for approval(confirmation) and payment".
 - What releases a printed item (2026-11-20): "proofs get approved, production files get uploaded, vendor is selected,
   drops ship is configured, etc. then released."
 
@@ -77,7 +79,10 @@ to its order page. Not yet confirmed.
 **Kept from the confirmed rulings, not changed today:** B.1 (ship-to prefill), B.2 (three proof paths), B.5 (refund
 with an open work order), B.6 (delete the six actions after a live search), B.7 (no watermark), §3 (the two ledger
 layers; plans have no dunning; the invariants: first choice is standard, tax at approval, our sales walled off from
-businesses').
+businesses'). Also kept: **terms before money**, for our own sales too (0101's and 0135's notes of 2026-11-20, "Yes,
+both"): a physical item is sold only as stocked and ready, or back-ordered, known before paying; made to order, custom
+and services state what's promised before money is taken, with two-way confirmation where needed; tickets are final,
+the pass is the product. It shapes 1.2's client-configured items and 1.8's money at ordering.
 
 ## 2. Against the map (what's built and decided)
 
@@ -116,7 +121,8 @@ businesses').
    and emails need the two told apart.
 2. The admin override: admins only (and managers?), with a reason recorded.
 3. Approve for the client: is the "yes given in person, by phone or email" use dropped (1.6 vs the map)?
-4. Which route an order takes, and whether invoice-later, wire and check stay on the invoice route only.
+4. Which route an order takes, and whether invoice-later, wire and check stay on the invoice route only. (B.4 as
+   confirmed exempts "invoice later" from paid in full; 1.9 removes that exemption.)
 5. The estimate's deposit: how much and who sets it, shown before paying.
 6. How long a quote's price holds, and a vendor cost that changes.
 7. A change after release (back to held), and after payment but before the vendor.
