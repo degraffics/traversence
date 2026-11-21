@@ -17,6 +17,7 @@ const dir = '/home/user/traversence/handoffs/control-board-plan/step3/mockups/';
         return { sw, wide: wide.slice(0, 5) };
       });
       // open/close check on pages with a panel
+      if (f !== 'index.html') await p.screenshot({ path: dir + 'shots/' + f.replace('.html', '') + '-' + w + '.png', fullPage: true });
       let panel = '';
       if (await p.$('[data-open-panel]')) {
         await p.click('[data-open-panel]');
@@ -30,7 +31,6 @@ const dir = '/home/user/traversence/handoffs/control-board-plan/step3/mockups/';
         const psw = await p.evaluate(() => document.documentElement.scrollWidth);
         panel = `panel open=${o1} esc=${!o2} x=${!o3} outside=${!o4}`;
       }
-      if (f !== 'index.html') await p.screenshot({ path: dir + 'shots/' + f.replace('.html', '') + '-' + w + '.png', fullPage: true });
       res.push(`${f} @${w}: scrollWidth=${r.sw} ${w===390 ? (r.sw <= 390 ? 'PASS' : 'FAIL') : ''} ${r.wide.join(' | ')} ${panel}`);
       await ctx.close();
     }

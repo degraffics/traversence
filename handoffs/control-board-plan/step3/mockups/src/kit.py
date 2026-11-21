@@ -200,7 +200,7 @@ JS = r"""
 
 
 def page(fname, title, desc, body, panels=''):
-    for m in ('railway', 'github'):
+    for m in SETUP:
         if f'data-open-panel="p-setup-{m}"' in body + panels and f'id="p-setup-{m}"' not in panels:
             panels += setup_panel(m)
     doc = f"""<!doctype html>
@@ -351,7 +351,7 @@ HOSTED_KEYS = [  # (name, module, where) from service-defs.php
 ]
 
 
-def slot(ty, provider, label=None, url=None, fix=False, mine=True, src='doc', rel='212'):
+def slot(ty, provider, label=None, url=None, fix=False, mine=True, src='doc', rel='212', note=''):
     words = {'billing': 'billing', 'keys': 'API keys', 'console': 'console', 'login': 'sign-in'}[ty]
     head = {'billing': 'Billing', 'keys': 'Keys', 'console': 'Console', 'login': 'Sign in'}[ty]
     btn = {'billing': 'billing', 'keys': 'API keys', 'console': 'console', 'login': 'sign-in'}[ty]
@@ -361,7 +361,7 @@ def slot(ty, provider, label=None, url=None, fix=False, mine=True, src='doc', re
         sub = f' · {E(label)}' if label and label.lower() != head.lower() else ''
         return (f'<div class="{cls}">{fx}<div class="ty">{head}{sub}</div>'
                 f'<a class="pl" href="{E(url)}" target="_blank" rel="noopener">Open {E(provider)} {btn} ↗</a>'
-                + (f'<span class="src" title="Written by a Claude session from {E(provider)}\'s own pages">Documented · release #{rel}</span>' if src == 'doc' else '<span class="src">Site settings</span>') + '</div>')
+                + (f'<span class="src" title="Written by a Claude session from {E(provider)}\'s own pages">Documented · release #{rel}</span>' if src == 'doc' else '<span class="src">Site settings</span>') + (f'<div class="why">{note}</div>' if note else '') + '</div>')
     pub = '<div><span class="pub" role="button" tabindex="0">Publish from your Vault</span> <span class="why">(owner only)</span></div>' if mine else ''
     return (f'<div class="{cls} none">{fx}<div class="ty">{head}</div>'
             f'<div class="miss">No {words} page registered for {E(provider)} yet.</div>{pub}</div>')

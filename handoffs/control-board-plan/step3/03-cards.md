@@ -449,3 +449,98 @@ The notice reads: "Setup capture: Sign in not recorded · Keys, Console: why not
 - A new module can't leave stage 1 while any item is missing.
 - Today's modules show the notice and are never held.
 - No credential value appears on any page, record or message: the mockups show names only.
+
+---
+
+## 14. Bluehost's card (mockups `bluehost-*.html`)
+
+Built like Railway's and GitHub's (`mockups/src/bluehost.py`), starting from step 2's g3 §3, which already wrote Bluehost to
+the contract. Each claim was checked against the live code at mirror `aeb5f31` (cited below). Live readings come only
+from the health report of 10:19 UTC (3:19 AM MST, `site-audit/results/server.json`, written by Search probe run #63):
+PHP 8.0.31, MySQL 5.7.44-48, 414 tables, 630.89 MB. No `.env` was opened and no live page was called. Everything else
+reads "not read yet".
+
+### 14.1 What it is (checked)
+
+| Claim | The live code |
+|---|---|
+| A **Host**, **critical** | `ControlRegister::CRITICAL`: `svc:bluehost` → page, `site:env` → page, `site:db` and `site:dbup` → database, `site:sched` → procedures (L88–104). The duties are `DUTIES` (L75–81) |
+| Its duties | pages load, search, sign-in, payments, the database, the scheduler (cPanel cron), and the site's own email (the need "The site's own email": Bluehost, then AWS; `Preflight.php` NEEDS) |
+| Its definition | `service-defs.php` 'bluehost': "The web host: the site itself, cPanel (jobs, mailboxes, through its API), and the site's own email"; "A flat hosting plan. Its price goes in the monthly total once it's set (Settings: Bluehost plan, a month)" (`BLUEHOST_USD_MONTH`, `EnvSettings.php:22`); links Account and cPanel |
+| cPanel's address | `CPanel.php:36–39`: `https://<CPANEL_HOST>:2083`, with `CPANEL_USER` and `CPANEL_TOKEN` |
+| The scheduler | `Scheduler::JOBS` 50, `AUTO` 40, `QUIET` 4; `billing_tick` isn't in `AUTO`, so nothing checks its cron line (g3 J8) |
+| **Today's mismatch** | `svc:bluehost`'s line tests the site's email sign-in and cPanel's cron list (`Preflight.php:978–987`) but carries the Page load duty; its title is the part that passed ("Bluehost: The site's email: signed in."); `site:env` carries Page load while its test also fails on an unwritable `.env` (`Preflight.php:744–747`). g3 D6, F5. Shown on page b as an observed note; the card is drawn as the spec says |
+
+### 14.2 The four zones
+
+| Zone | Bluehost |
+|---|---|
+| 1 Identity and role | **Bluehost** · Host · "Critical: page, database, procedures" · state · "Stage 5 of 8 · Operational · Next allowed: Check now · Set them up now · Run database updates now · Take out (stage 6, *spec*)" · Setup capture notice · spend chip "A flat hosting plan · price not read yet (the setting "Bluehost plan, a month", `BLUEHOST_USD_MONTH`) · Billing: No billing page registered for Bluehost yet." · its radius fold · Setup capture fold |
+| 2 What it hosts | one row per hosted part, **each with its own duty** (the fix for D6): the site (pages; Page load); the databases (4 realms; Database connections); `.env` (Page load to read, Settings and Its key to write); the scheduler (procedures); cPanel's API (no duty: setting up jobs and mailboxes); the site's own email (procedures, through its need, backup Amazon SES); our endpoints for the workers (no duty: gathering) |
+| 3 Sensors | the outside heartbeat (GitHub, every 15–30 min, *spec*); one query per realm at each watch (*spec*); the watch's tick and each critical job's cron line; cPanel's cron list; the email sign-in without sending; `.env` readable, writable, each name once; the bot check (*spec*) |
+| 4 Actions | **On our system:** Check now · Set them up now · Run database updates now · Take out (greyed: "a module can't be taken out today", g3 M5). **At Bluehost:** Billing: not registered · Keys: not registered · **Console · cPanel**, `https://‹CPANEL_HOST›:2083`, **Site settings** · **Sign in · Account** https://my.bluehost.com/, **Documented · release #212** (release #212 carried `service-defs.php`; the mirror's earliest copy has the link). Each missing slot carries "Publish from your Vault" (owner only) |
+
+`service-defs.php` also lists cPanel as `https://my.bluehost.com/hosting/app#/cpanel` (and `Preflight.php:124` uses it
+for .env fixes). Jason's tag rule makes Bluehost's Console the Site settings link built from `CPANEL_HOST`, so only that
+is drawn. IR-0001's page now uses the same form.
+
+### 14.3 Setup capture (§13; 04 §10)
+
+Notice in zone 1: **"Setup capture: Billing, Keys: why not recorded"** (grey, Record ▸; never an alarm, a hold or a
+Pulse item). Sign in is recorded (Account) and Console is recorded (Site settings), so only Billing and Keys lack a why.
+Where its keys live, names only (`Database.php` L120–160, `CPanel.php`, `EnvSettings.php`, the endpoints):
+- `DB_HOST`, `DB_PORT`, `DB_CHARSET`
+- `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD` (also read as `DB_DATABASE-main` and the like)
+- `DB_ADMIN_*`, `DB_LISTINGS_*`, `DB_USERS_*` (database, username, password each)
+- `CPANEL_HOST`, `CPANEL_USER`, `CPANEL_TOKEN`
+- `SMTP_HOST`, `SMTP_PORT`, `SMTP_USERNAME`, `SMTP_PASSWORD`, `SMTP_FROM_EMAIL`, `SMTP_FROM_NAME`, `SMTP_REPLY_TO`
+- `STAFF_EMAIL_DOMAIN`
+- `CRAWLER_API_TOKEN`, `VIDEO_WORKER_TOKEN` (.env and Railway)
+- `HEALTH_TOKEN` (.env and a GitHub secret)
+- `BLUEHOST_USD_MONTH`
+
+All of them live in `.env`, above `public_html`.
+
+### 14.4 Its Incident Radius (02 §6; g3 §3)
+
+| Fault | Held | Unaffected |
+|---|---|---|
+| Bluehost down | everything that runs on it: pages, search, sign-in, payments, the admin, Pulse and the board, every site job, staging, trvgo.us; our crawl and video endpoints, so the workers' reports wait | Railway's workers keep running but can't report; GitHub (releases wait in the inbox); the mirror and OneDrive; everything stored |
+| One realm refused | what reads it (listings: search and listing pages, and the endpoints writing listings) | the other realms' pages, sign-in, the admin |
+| cPanel's API refuses its key | setting up or changing cron lines and mailboxes | every job (on its existing line), everything else |
+| A critical job's cron line missing | that job's work (renewals for `billing_tick`) | every other job, pages, checkout |
+| Its email refused | sending through Bluehost; the need goes to Amazon SES ("On a backup") | sign-in links still go out; everything else |
+| A `.env` name missing (`HEALTH_TOKEN`) | what that name does (the daily health report) | everything else |
+
+### 14.5 The states
+
+| Mockup | Row | Status words | Fix it |
+|---|---|---|---|
+| a The board | — | Bluehost's tile "On · Warning (Slow): /api/crawl/loads is slow" (02 group A) with its radius, plus **"When Bluehost is down, the board can't load"**: the email and push from the outside heartbeat's own sender | — |
+| b Working | — | as above; the observed mismatch note | — |
+| c1 Pages not loading | 53 | "Page load · Down: the system is still trying" (critical, a trip at once) | Console · cPanel and Sign in · Account: both open off the host |
+| c2 A realm refused | 54 | "The listings database · Down: the system is still trying" | Console · cPanel (MySQL databases) |
+| c3 cPanel's key | 29, 56 | "cPanel's API refused our key · Paused by the system: calls with CPANEL_TOKEN wait for a new key." | Keys: not registered, said so; Replace key |
+| c4 A cron line missing | 55 | "The site's scheduled jobs · Down: the system is still trying" (scenario on the real gap, `billing_tick`) | Set them up now; Console · cPanel (Cron jobs) |
+| c5 Its email | 29, 43 | "Bluehost's email refused our key · Paused by the system: calls with SMTP_PASSWORD wait for a new key." The need: "The site's own email is on its backup (Amazon SES) while Bluehost's email is paused (IR-####)." | Keys: not registered; Replace key |
+| c6 A .env name missing | 31, 71, 107 | "HEALTH_TOKEN isn't in .env · Paused by the system: the daily health report waits." | Its key (Add its key); Keys: not registered |
+| d Pages down | 53, §7 | the board and Pulse can't answer; email and push from the heartbeat's sender ("SYSTEM ALARM NOTICE: Page load: Down: the system is still trying" / "SYSTEM ALARM: Page load", "Down since <time>: the system is still trying."); Fix it by the email's links to cPanel and Account, then the card once pages load; Recovered on all four ("Recovered: Page load was down <n>, the system fixed it."; Pulse gets the row already closed; the push replaced silently) | Console · cPanel; Sign in · Account |
+
+### 14.6 Open words for Bluehost
+
+1. **How the outside sender emails and pushes.** Row 53 says "E/Pu from the heartbeat's own sender", and O3 sets it on
+   GitHub every 15–30 min. 02 doesn't say how GitHub sends the email (which mail service, with what key) or the push
+   (the push keys, VAPID, live in Bluehost's `.env`). Drawn as *spec*.
+2. **Ids from outside.** Who numbers the T- and IR- ids while the site is down? 02 says the incident "is opened outside
+   the host and finished when the site is back". The mockup shows T-#### and IR-####.
+3. **Pulse while Bluehost is down.** Pulse lives on Bluehost. The mockup shows its row written, already closed, when the
+   site is back; 02 doesn't say.
+4. **"Down" while something is held.** Rows 53–55 say "Down: the system is still trying". Jason's ruling for GitHub
+   (12.6a) puts "Paused by the system (…)" first once a hold is placed. For Bluehost down, the engine can't place holds
+   (it's on the host), so "Down" fits; for c2 (endpoints writing listings held) and c4 (renewals wait), confirm whether
+   the GitHub ruling applies.
+5. **cPanel's key refused** has no row of its own; the mockup uses row 29's shape with row 56's part name.
+6. **HEALTH_TOKEN and the heartbeat.** 02 §2.7's page heartbeat reads `/api/health.php`. If that read needs
+   `HEALTH_TOKEN`, a missing token would also blind the heartbeat. 02 doesn't say whether the heartbeat's page check uses it.
+7. **Two cPanel links.** `service-defs.php` documents `https://my.bluehost.com/hosting/app#/cpanel`; the rule draws the
+   Console from `CPANEL_HOST` (Site settings). Is the documented link kept somewhere (e.g. as Account's second page), or dropped?
