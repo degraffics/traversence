@@ -1,0 +1,69 @@
+{
+    "id": 246,
+    "title": "Uploads tell our team in one thread: a place's new photo, and new artwork on an order",
+    "why": "decisions/0176 release 4 (§6, A6; Jason 2026-11-20: \"Keep post first\", \"I'll set the limits\"): each upload target names its staff thread and its landing spot; the staff thread first, the order file check and Replace file to come.",
+    "proposals": "",
+    "zip": "0176-uploads.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/lib/Journeys.php": {
+            "sha": "67978f079188bd9cfe57bd18d77b1cfb5663bcedb01c046d12ae472d598cfb30",
+            "size": 56509,
+            "live_was": "db91681f1b9ec07088850b10b83b46166dda60a1489e1e439c06db06121c642a"
+        },
+        "app/lib/Notify.php": {
+            "sha": "6c5834665726b5784d66749b6fe3a337c835e04f1b45aa8b8d0661c4f864cbb7",
+            "size": 55171,
+            "live_was": "a3f16a74de83d7a2b03237ac749eb32fbc6e53b94426b76f47aa8faf6663ce0f"
+        },
+        "app/lib/Pulse.php": {
+            "sha": "91980f4829bb4959077a22dd40524ee795fe5c42c048e0b81eee58d612fed250",
+            "size": 154236,
+            "live_was": "099d873f056ba2d3fd1c439040e4b67d6299c76f5f8c5d7e3d36a76efcea4d5d"
+        },
+        "app/lib/Reports.php": {
+            "sha": "0cd3e979e61a00287ac286b5fe10102303617cd1866060844b3dd4996ce71e9e",
+            "size": 35370,
+            "live_was": "3178a885b71a8be52dfbe8831e992036dd8b8911247ac788eff80c6fe0cdbe38"
+        },
+        "app/lib/upload-targets.php": {
+            "sha": "3b31945766c0c57cdab6f58ad4e2698a1fc49403d077dfd9f794cbac69992dd5",
+            "size": 41092,
+            "live_was": "150723811d7a8e279bb6247368f85c91c64b4301f7c3d35204f1d15a916c90d4"
+        },
+        "app/ui/faq.md": {
+            "sha": "cb5cac2c68433da4af6b9b6b9da423d6fdb6543eda629cfbedd9ffa010bff3e8",
+            "size": 415651,
+            "live_was": "982f3d13a92ccf1e086fc5ae482891385490e556c760f4a1ecd2e7e1bdc0405a"
+        },
+        "app/lib/UploadThreads.php": {
+            "sha": "d2c8dd98d329ef4b89ac7bf776dd93e44696584962e16c247953993b79f7c42b",
+            "size": 21878,
+            "live_was": null
+        },
+        "website/api/upload-act.php": {
+            "sha": "045e034abda51dcc0009a28356c73966d2332c313507e10fecfdf6d7999ccd55",
+            "size": 1739,
+            "live_was": null
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-21T03:16:36+00:00",
+            "by": 0,
+            "msg": "Uploaded 0176-uploads.zip: 8 files."
+        }
+    ]
+}
