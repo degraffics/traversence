@@ -1,0 +1,75 @@
+# The interactive board mockup (step 3)
+
+`index.html` is one self-contained page: step 3's design as one board you can click through. It's a static design
+mockup, not site code. It makes no outside call and uses no library. Approved by Jason on 2026-11-21, with Gemini's
+draft as the structure.
+
+**Views**
+- **Board: "Is it delivering?"** The seven delivery promises (for-jason-review item 9) as four boxes, 23 objectives.
+  Each objective shows:
+  - its measure, its target, the reading with its time, a bar and a trend;
+  - Fix it to its parts, and Improve where a stat is below target;
+  - its state: Working, **Less than optimal** (amber), Failing, or not checked yet.
+
+  Below the boxes are the pages as monitored units: every page in `site-audit/pages.md` and every admin route in the
+  mirror's `app/admin/manifests.php`, 335 pages in 18 groups. Each group opens a route table, and **Manage** opens a
+  page: its route, status, access, purpose, what it replaces, endpoints, probe, Run probe (inert) and Fix it.
+- **Modules.** All 20 modules, the hosts included. Each is the four-zone card from 03 §1–§25, folded, with a switch
+  across its 70 states in total.
+  - Role filters: All, Hosts, Services, Sources.
+  - Tavily and Brave are drawn as one chain, and the five batched sources as one group. Each keeps its own card.
+- **Workflows.** W0–W14 from the live `Automation::WORKFLOWS`.
+  - Each need from `Preflight::NEEDS`, its sources in the map's order linked to their cards, then its fallback.
+  - The operational duties (the site's needs).
+  - State from the alarms snapshot.
+- **Diagnostics.** Each module's Incident Radius follows the state picked on its card. Then where the work gets done:
+  the manifest's admin URLs and the provider's slots.
+
+**Across all views**
+- **What's wrong now:** the strip of quick jumps along the top.
+- **Coverage:** every promise or page with no reading is named as a gap.
+- **Two drill-down chains,** each opening level by level in panels with Back, to a root with Fix it or Improve:
+  - **IR-0001 (a fault):** Gathering reconciles → W1 → overture_bulk / foursquare_bulk (#1290, #1288) →
+    `/api/crawl/loads.php` → Bluehost.
+  - **Search (less than optimal):** the scorecard's 101 of 106 → Our index and Typing → Saint Johns and Besh-Ba-Gowah →
+    W1, W9 and W12 → Geofabrik and Overture.
+- **Layout:** the 2-column or stacked toggle, remembered in `localStorage`.
+
+## Real against scenario
+
+**Real**
+- **Readings, each shown with its time** (from `site-audit/results/`):
+  - the alarms snapshot and its summary (10:19 UTC);
+  - the rendered check (412 views);
+  - the paths check and its 15-run history;
+  - the search scorecard (101 of 106);
+  - the layout probe;
+  - the crawler snapshot (9 days of history);
+  - the caps: Claude $27.05 of $40 (68%); Places 544 of 1,000 (54%); Tavily 26 searches, 20.8¢.
+- **From the live code:** the page and route lists, the workflows and needs, and the admin URLs.
+- **The cards:** each module's working card, and the states read live: Anthropic near its cap, NPI, Foursquare.
+
+**Scenario**
+- Every other state on a card's switch. It's drawn from the spec's faults, marked "scenario" on its button and in the
+  summary, and its values are in dotted copper.
+- The Improve buttons and Run probe are drawn and inert.
+
+**Not checked yet** (listed in the coverage panel):
+- objectives no probe measures yet (page speed, 3 within 5 mi as defined, leaks, photos, payments, email,
+  self-recovery);
+- 112 pages no probe covers;
+- 26 services the needs name that have no card yet.
+
+**Trends** come from the history that exists: the paths check's runs and the crawler snapshot's days. Everything else
+says "No history yet", because the historian (decisions/0171 r4b) isn't read here.
+
+## Rebuild
+
+```
+cd handoffs/control-board-plan/step3/mockups/src
+python3 board.py                   # writes ../../board/index.html and stats.json
+node board-check.cjs               # the checks at 1280 and 390; screenshots in ../../board/shots/
+```
+
+`board.py` reads the generated card mockups in `mockups/`, so it reflects their latest build. It also reads the live
+mirror at `/home/user/traverse-3way-sync`. The 70 static pages and the PDFs stay as they are, as history.
