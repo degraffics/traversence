@@ -228,6 +228,15 @@ LEGEND = ('<div class="legend"><span><span class="sc">dotted copper</span> = a s
           'not read from live</span><span><b>not read yet</b> = the board would read it; this mockup could not</span></div>')
 
 # ---------- Railway's real values (read 2026-11-21) ----------
+RW_PROJECT = 'a445f0be-b6de-46bb-a422-51ff835ca6e4'
+RW_SVC = {'traversence': '8d254c0d-abcb-4520-b9ae-dfbdd362b243', 'w0-indexer': 'd2f49c7a-cc36-436b-bfc2-bf93111ab287', 'video-worker': 'cc4bccbb-4028-47da-9820-24039b59d309'}
+RW_DEP = {'22f18475': '22f18475-dfd2-4b47-ab3a-233e733d0f94', 'd0e9413f': 'd0e9413f-3752-4170-bc0e-8719bde138ec', '628caa0d': '628caa0d-3073-49f6-8e5f-18da4162f2aa'}
+
+
+def deploy_url(svc, dep_full):
+    return f'https://railway.com/project/{RW_PROJECT}/service/{RW_SVC[svc]}?id={dep_full}'
+
+
 RW = {
     'plan': 'Hobby: $5 a month including $5 of usage',
     'usage_url': 'https://railway.com/account/usage',
@@ -316,8 +325,12 @@ def zone1(state_light, stage_line, spend_html, extra=''):
 
 STAGE_WORKING = ('<span class="st">Stage 5 of 8 · Operational</span><span class="nx">Next allowed: Check now · Pause everything · '
                  'Take out (stage 6) · Deactivate (stage 7)</span>')
+USAGE_UNITS = ('<code>CPU_USAGE</code> 87.17 · <code>MEMORY_USAGE_GB</code> 2,626.44 · <code>NETWORK_TX_GB</code> 2.39 · '
+               '<code>NETWORK_RX_GB</code> 22.56')
+USAGE_WHEN = 'since Nov 1, 12:00 AM UTC; read from Railway\'s API Nov 21, 9:27 AM MST'
 SPEND_UNREAD = (f'<span class="spend"><span>Hobby · $5 a month including $5 of usage</span>'
-                f'<b>use not read yet</b><a href="{RW["usage_url"]}" target="_blank" rel="noopener">Railway\'s usage page ↗</a></span>')
+                f'<span>Use since Nov 1: {USAGE_UNITS}</span><b>not priced yet</b>'
+                f'<a href="{RW["usage_url"]}" target="_blank" rel="noopener">Billing · Usage ↗</a></span>')
 
 
 def svc_rows(over=None):
@@ -335,7 +348,7 @@ def svc_rows(over=None):
 <div><div>Feeds <b>{s['feeds']}</b></div>
 <div class="sub">Schedule: Railway {s['sched']} · repo {s['sched_repo']}</div>
 <div class="sub">{rs}</div>
-<div class="sub">Deploy <code>{s['dep']}</code> {s['dep_st']} · {s['dep_at']} · commit <code>{s['commit']}</code> “{E(s['msg'])}”</div>
+<div class="sub">Deploy <code>{s['dep']}</code> {s['dep_st']} · {s['dep_at']} · commit <code>{s['commit']}</code> “{E(s['msg'])}” · <a href="{deploy_url(s['svc'], RW_DEP[s['dep']])}" target="_blank" rel="noopener">its log ↗</a> <span class="why">(spec: built from Railway's project, service and deployment ids)</span></div>
 <div class="sub">{s['nxt']}</div>{o.get('more','')}</div>
 <div class="btns">{o.get('btn', b('Check now'))}</div></div>""")
     return '<div class="rows">' + ''.join(out) + '</div>'
@@ -348,7 +361,7 @@ def sensors(over=None, keys_over=None):
         ('Runs', 'The crawler: each run reports back. A run 35 min late, or failing outright, is the host\'s fault.', over.get('runs', 'Last run: <b>not read yet</b>')),
         ('Heartbeats', 'W0 Indexer: silent 15 min is a fault. The video worker: <i>spec</i>, not built.', over.get('hb', 'W0 Indexer: <b>not read yet</b> · the video worker: not built')),
         ('Deploys', 'The latest deploy of each service (today the site watches the crawler only; all three is <i>spec</i>).', over.get('dep', '3 of 3 SUCCESS (read from Railway\'s API, 8:51 AM MST)')),
-        ('Spend', 'The month\'s use against the plan.', over.get('spend', f'use not read yet · <a href="{RW["usage_url"]}" target="_blank" rel="noopener">Railway\'s usage page ↗</a>')),
+        ('Spend', 'The month\'s use against the plan.', over.get('spend', f'{USAGE_UNITS} ({USAGE_WHEN}; no disk measures returned) · <b>not priced yet</b>: no price source is registered, so no dollar figure · <a href="{RW["usage_url"]}" target="_blank" rel="noopener">Billing · Usage ↗</a>')),
     ]
     h = ''
     for n, what, val in rows:
@@ -396,5 +409,6 @@ PROV_RW = [
     'The repo\'s settings: <code>workers/crawler/railway.json</code> (restart Never, no schedule), <code>railway.indexer.json</code> (On failure, 10), <code>workers/video/railway.json</code> (every 5 min, restart Never).',
     'Plan, links, keys and caps: the live <code>service-defs.php</code> (\'railway\', mirror <code>aeb5f31</code>, Sync 14:26 UTC). Portal slots: 02 §8\'s coverage table (Usage → billing, Dashboard → console; keys and sign-in not registered).',
     'Words: 02-state-model.md (§0, §3b, §3c, §4 rows and §4.8 New column, §6, §7). Words the spec doesn\'t have are listed in 03-cards.md, “Open words”.',
+    'Railway\'s usage: its API\'s <code>usage</code> query, read-only, since Nov 1 00:00 UTC, read 16:27 UTC (9:27 AM MST): CPU_USAGE, MEMORY_USAGE_GB, NETWORK_TX_GB, NETWORK_RX_GB as given; no disk measures returned. Not priced: no price source is registered.',
     'Times are shown in MST (Arizona), labelled.',
 ]

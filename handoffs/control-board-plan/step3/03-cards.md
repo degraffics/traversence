@@ -36,7 +36,7 @@ it holds and its buttons are then the first thing under the name. The part's own
 | Criticality | "Not critical by itself" | `criticality` (none) | P8: decided by duty; Railway has none (Jason) |
 | State | the light and first words: "On · Working" | from `state()` | 02 §3b's precedence; `<switch> · <run-state>`; the light is never colour alone (dot and word) |
 | Stage badge | "Stage 5 of 8 · Operational" + "Next allowed: …" | `stage` | §2 below |
-| Spend chip | "Hobby · $5 a month including $5 of usage · use not read yet · Railway's usage page ↗" | `plan`, `caps`, ledger | §3 below |
+| Spend chip | "Hobby · $5 a month including $5 of usage · Use since Nov 1: CPU_USAGE 87.17 · MEMORY_USAGE_GB 2,626.44 · NETWORK_TX_GB 2.39 · NETWORK_RX_GB 22.56 · not priced yet · Billing · Usage ↗" | `plan`, `caps`, ledger | §3 below |
 | Its radius | "If Railway itself is down: its Incident Radius ▸" | `hosts`, `feeds` | §6; see §5 below |
 
 ### Zone 2: Capabilities and feeds (for a Host: the services it hosts)
@@ -64,7 +64,7 @@ and opens to the switch rows (§4 below).
 | Runs | the crawler: a run started within its schedule plus 5 min that reported back | not read yet |
 | Heartbeats | W0 Indexer: a heartbeat within 15 min; the video worker: *spec* | not read yet · not built |
 | Deploys | Railway's API: each service's latest deploy | 3 of 3 SUCCESS (read 8:51 AM MST) |
-| Spend | the month's use against the plan | use not read yet + usage link |
+| Spend | the month's use against the plan | Railway's real usage in its own measures, since Nov 1, "not priced yet", with Billing · Usage ↗ (§3) |
 | Railway's own keys | `CRAWLER_API_TOKEN` (.env and Railway), `RAILWAY_API_TOKEN` (.env, watching deploys): the token check (row 52) | not read yet |
 | Keys kept on Railway for other modules | `TAVILY_API_KEY`, `BRAVE_API_KEY`, `GOOGLE_PLACES_KEY`, `RIDB_API_KEY`, `HF_TOKEN` (from `service-defs.php`): the worker's key test (row 30) | each "Not checked yet" (grey): "<KEY> on Railway: not checked yet (the worker reports at its next run)." |
 
@@ -157,12 +157,14 @@ The card shows only this compact badge. The full eight-stage breakdown stays in 
 - **Shown:** `<plan> · $<spend> of $<cap> (<pct>%)`, where pct = **round(spend ÷ cap × 100)**, computed from the same two
   numbers printed beside it. The title, body, chip and sensor row all print that one figure.
 - **Level:** the band reached (50, 75, 95) decides Warning; the number shown never does (row 39). At 100% it's a trip (row 40).
-- **Railway today:** the dollars aren't read, so the chip says **"use not read yet"** with **Railway's usage page ↗**
-  (manifest). Mockup c5 shows the rule with illustrative numbers, dotted and labelled: $3.85 of $5.00 = round(77) = 77%,
-  past its 75% warning.
-- **Finding:** Railway's API *does* answer usage, but in resource units, not dollars (`usage`: CPU 86.6, memory 2,617
-  GB, this period; `estimatedUsage` also gives network). Turning them into dollars needs Railway's unit prices, which
-  aren't in our records. Until a price source is registered, the chip stays "use not read yet" (Open words, item 6).
+- **Railway today (Jason, 2026-11-21, answer 6):** the chip shows Railway's **real usage in its own measures**, read
+  from its API (read-only, the `usage` query, never variables), marked **"not priced yet"**, with the Billing · Usage link.
+  It never says "use not read yet", and it shows **no dollar figure until a price source is registered**. Read Nov 21,
+  16:27 UTC (9:27 AM MST), since Nov 1 00:00 UTC, as the API names them: `CPU_USAGE` 87.17, `MEMORY_USAGE_GB` 2,626.44,
+  `NETWORK_TX_GB` 2.39, `NETWORK_RX_GB` 22.56. No disk measure was returned. The API gives no units beyond these names,
+  so none are added.
+- **Mockup c5** shows the near-cap state as it will read **once a price source exists**: the dollars are illustrative,
+  dotted and labelled. $3.85 of $5.00 = round(77) = 77%, past its 75% warning.
 
 ## 4. The board's first view: healthy, held, needs me (mockup a)
 
@@ -266,36 +268,28 @@ Rendered from `step2/ir-0001.md` and the manifest's worked report:
 | The module list at 390 showing only mark, name and cost | The whole card at 390, stacked | **replaced** |
 | Mark resolved, Use backup | — | **dropped** (rows 95; Q17) |
 
-## 10. Open words (the spec has no words for these; none were made up for the UI except where marked)
+## 10. Jason's answers to the open words (Jason, 2026-11-21)
 
-1. **The top line's answers.** 02 has no sentence for "Is it healthy / What's held and why / What needs me". The
-   mockup uses counts and the hold's cause only. The question labels are Jason's (what-the-board-is.md §5).
-2. **A Railway key reported missing:** the title. Row 31 says "as 29, 'isn't on Railway'". The mockup composes "Tavily:
-   TAVILY_API_KEY isn't on Railway"; it needs confirming.
-3. **W0 Indexer's trip status.** Row 50 gives "in rows 47–48's shape". The mockup composes "Paused by the system (a trip)
-   since …" with Held: W0. A short form like row 48's "all gathering waits" for W0 has no words.
-4. **The crawler's warning try line.** Row 83's "Trying again (2 of 3): <answer> at <time>" needs an <answer> for a
-   missing run. The mockup uses "no run reported" / "no heartbeat".
-5. **The push body's counts.** §7's "<n> wait, <m> on a backup" needs the crawler's task count, which no manifest field
-   holds. The mockup uses row 48's "All gathering waits."
-6. **The spend chip in resource units.** Railway's API reports usage in units, not dollars (§3). There are no words for
-   "read but not priced"; the chip keeps "use not read yet".
-7. **The Pulse sender's name** ("Control Board") and the email's From ("Traversence Control Board"): 0172 decides; 02 doesn't say.
-8. **Recovered's proof line.** §3c's system Recovered carries no proof. The mockup adds "Its check passed: a crawler run
-   started at <time> and reported back." (§2.7's proof shape).
-9. **"Pause our calls" on a Host.** Row 39 lists it for a capped part, but for Railway it has no defined meaning (the
-    host's stop is Pause everything). It's left off c5's buttons.
-10. **The keys slot's words.** 02 PL and 04 §5's rule 4 say "No <type> page registered…" with the type "keys"; Jason's
-    Railway check says "No API keys page registered for Railway yet". The mockups use "API keys" for every provider. Confirm
-    that this one wording holds everywhere.
-11. **The deploy's own log link** (manifest fix_it "that deploy's log", *spec*): no `portal_links` type holds a per-deploy
-    URL, and none is registered.
-12. **CS-5's Still off on a trip that left no switch.** In the 2 AM scenario the two W3 switches were left by an earlier
-    trip, not the crawler's. The mockup still names them on Recovered, with their own trip ("left off by W3's trip of
-    Nov 20"), because they sit inside what this trip held. CS-5 is written for switches the closing trip left; whether it
-    covers these too needs confirming.
-13. **"Opened by itself"** beside an auto-opened group, and the "If Railway itself is down: its Incident Radius" fold
-    label, aren't spec words.
+Each was an open word in the first draft. Jason answered all 13 ("Accept, then GitHub"):
+1. **The top line's answers:** as drawn (counts and the hold's cause; his three questions as the labels).
+2. **A Railway key reported missing:** as drawn, "Tavily: TAVILY_API_KEY isn't on Railway".
+3. **W0 Indexer's trip status:** as drawn, "Paused by the system (a trip) since …", Held: W0.
+4. **The crawler's try line:** as drawn, "no run reported" / "no heartbeat" as the <answer>.
+5. **The push body:** as drawn, row 48's "All gathering waits."
+6. **The spend chip:** Railway's real usage in its own measures, "not priced yet", with Billing · Usage; never "use not read
+   yet"; no dollar figure until a price source is registered (§3; applied to every Railway page).
+7. **Senders:** the Pulse sender is **"Control Board"**; the email's From is **"Traversence Control Board"** (as drawn).
+8. **Recovered's proof line:** as drawn, "Its check passed: <what was checked>."
+9. **"Pause our calls" on a Host:** as drawn, left off; the Host's stop is Pause everything.
+10. **The keys slot's words:** as drawn, "No API keys page registered for <Provider> yet" for every provider.
+11. **The deploy's log link:** built from Railway's own ids, `https://railway.com/project/<project id>/service/<service id>?id=<deployment id>`,
+    marked *spec*. Each service's latest deploy in zone 2 now carries "its log ↗ (spec)", and c1's Fix it line carries the
+    failed deploy's log link from the alarm's evidence.
+12. **Recovered names every switch still off inside what the trip held,** each with its own trip ("left off by W3's trip
+    of Nov 20"), as drawn in the 2 AM walkthrough.
+13. **"Opened by itself" and the radius fold's label:** as drawn.
+
+**Open words now:** none for Railway. GitHub's are in §12.6.
 
 ## 11. What the mockups show and where
 
@@ -307,3 +301,80 @@ Rendered from `step2/ir-0001.md` and the manifest's worked report:
 | 4 | 2 AM on four surfaces, Recovered closing all four | pass | d |
 | 5 | IR-0001, root cause Unconfirmed, ids, timeline, radius | pass | e |
 | 6 | No sideways scroll at 390, worst cases | pass | all pages (§8) |
+
+---
+
+## 12. GitHub's card (mockups `github-*.html`)
+
+Built the same way as Railway's: one generator (`mockups/src/github.py`), the four zones, Jason's rulings (02 §0a),
+the locked label rules and source tags (04 §5), and §1–§10 above. **Real data:** GitHub Actions read-only (Nov 21, about
+9:30 AM MST): `sync.yml` runs #682–#691 on `degraffics/traverse-3way-sync`; Release ping #367–#370, Site audit #46–#49,
+Site checks (browser) #30–#33 and Search probe #60–#63 on `degraffics/traversence`. Also the live alarms' `releases_looked`
+(10:19 UTC), `service-defs.php` ('github'), and `ControlRegister` (`'svc:github' => 'procedures'`). Token values and
+expiry dates weren't read; the mockups say "not read yet".
+
+### 12.1 The four zones
+
+| Zone | GitHub |
+|---|---|
+| 1 Identity and role | **GitHub** · Host · "Critical: procedures (releases and the sync)" · state · "Stage 5 of 8 · Operational · Next allowed: Check now · Check for builds · Run the sync · Take out · Deactivate" · spend chip "Actions minutes: within the free allowance on the current plan · use not read yet (our tokens can't read billing) · Billing ↗" · "If GitHub itself is down: its Incident Radius ▸" |
+| 2 What it runs and feeds | one row per run, each with schedule, what it feeds, its last real run and "Its runs ↗": **the sync** (`sync.yml`, 06:00 and 18:00 UTC or on demand, one at a time → the live mirror and OneDrive; last #691, scheduled, success, Nov 21 7:25 AM MST); **Release ping** (#370, 5:22 AM MST, "Release #247…"); **the release look** (the site's 10-minute job; last looks 3:00 AM MST no answer `found: -1`, Nov 20 8:17 PM MST found 0, Nov 20 11:28 AM MST found 0); **Site audit** (#49, 9:23 AM MST); **Site checks** (#33, 2:17 AM MST, 26 min); **Search probe and health report** (#63, 3:17 AM MST). The two repositories it holds, and that Railway deploys from `degraffics/traversence` `main` |
+| 3 Sensors and keys | the release look; the release job quiet (built); the sync's runs (failed, stuck over 15 min, none in 14 h, a slot missed an hour after it); the other Actions' last runs; tokens by name only: `GITHUB_DOCS_TOKEN`, `GITHUB_SYNC_TOKEN`, `HEALTH_TOKEN` (a GitHub secret and its `.env` copy, which must match), each "reads its repository: not read yet · expiry: not read yet", amber 14 days before expiry |
+| 4 Actions and Fix it | **On our system:** Check now · Check for builds · Run the sync (lists the runs first, never two at once) · on a trip Check and start again, Acknowledge · on a token Replace key. **At GitHub**, fixed order: Billing · Billing → **Open GitHub billing ↗** https://github.com/settings/billing, "Documented · release #212" · Keys: "No API keys page registered for GitHub yet." · Console: "No console page registered for GitHub yet." · Sign in: "No sign-in page registered for GitHub yet." · each missing slot with "Publish from your Vault" (owner only) |
+
+**"The sync" is not a portal slot** (Jason's ruling, 04 §5): `service-defs.php`'s "The sync" link
+(https://github.com/degraffics/traverse-3way-sync/actions) is shown as the sync row's **"Its runs ↗"** in zone 2.
+**#212:** release #212 carried `app/lib/service-defs.php` (its record, `deliveries/releases/2026-11-19-212-…json`, live Nov 19
+23:25 UTC). The mirror's earliest copy (`86c278d`) already has the Billing link. The record lists files, not lines, so it
+shows #212 shipped the file, not that it added this line.
+
+### 12.2 Its Incident Radius (manifest §2; 02 §6)
+
+| Fault | Held | Unaffected |
+|---|---|---|
+| GitHub down | releases (builds wait in the inbox; records aren't written), the sync and the mirror and OneDrive, **new Railway deploys** (they build from GitHub) | Bluehost's pages, search, sign-in, payments, databases; gathering on current versions; everything stored |
+| A token refused | what that token does (docs: releases; sync: watching the sync; health: the health report) | everything else |
+| The sync failed or stuck (at its trip) | the sync, the mirror and OneDrive | releases, the site |
+| A sync slot missed | nothing (a warning; the mirror is late) | everything |
+| A check run failed | nothing (that report waits) | everything |
+
+### 12.3 The states
+
+| Mockup | Row | State and words | Fix it |
+|---|---|---|---|
+| a The board | 61 | GitHub's tile "On · Warning: The 06:00 UTC sync didn't run; the mirror is behind since 03:19 UTC.", real at 3:19 AM MST; its radius; Open GitHub's card (side panel) | — |
+| b Working | — | "On · Working", the real runs | — |
+| c1 API not answering | 57 | critical, trip at once: title "GitHub", "Down: the system is still trying since …. Releases wait in the inbox."; second card after Acknowledge, still red | Console: "No console page registered for GitHub yet", never Billing |
+| c2 A token | 58, 59 | "GITHUB_SYNC_TOKEN expires <date> (in <n> days)" (warning, date a scenario), then "GitHub refused GITHUB_DOCS_TOKEN · Paused by the system: releases wait." | Keys: "No API keys page registered for GitHub yet", then Replace key |
+| c3 The sync stuck | 60 | "The sync's run #<n> is stuck · Trying again (1 of 3)" (run number a scenario) | the run's page with Cancel (from the alarm's evidence); no slot outlined |
+| c4 A slot missed (real) | 61 | "The 06:00 UTC sync didn't run; the mirror is behind since 03:19 UTC." Held nothing; Late: mirror and OneDrive. Cleared: "the sync's run #690 finished well (5:26 AM MST)". The 07:00 UTC raise is *spec* (nothing was raised live) | the sync's runs |
+| c5 A check run failed | — (manifest) | "Site checks (browser) failed: run #<n>" (a scenario; every real run today succeeded); its next run is its check | its run's log |
+| c6 The release look (real `found: -1`) | 57 | the contract's trip on today's 10:00 UTC look, under a banner **"Not an observed trip"**: live, nothing was raised, and release #247 went live at 5:22 AM MST | Console: not registered |
+| d API down, every surface | 57, §7 | board → Pulse ("Control Board", Critical) → email ("Traversence Control Board", "SYSTEM ALARM NOTICE: GitHub: Down: the system is still trying") → push ("SYSTEM ALARM: GitHub" / "Down: releases wait in the inbox.") → Fix it in the side panel → Recovered on all four ("Recovered: GitHub was down <n>, the system fixed it."; "Still off: none"; the push replaced silently) | Console: not registered |
+
+### 12.4 Real findings the card shows
+
+- **The 06:00 UTC slot:** no run came for it. #690 was started by hand at 12:24 UTC and caught the mirror up. A run GitHub
+  marks "schedule" (#691) started at 14:25 UTC; GitHub doesn't record which slot it served. Yesterday's 18:00 slot ran at
+  23:48 UTC, about six hours late.
+- **The 10:00 UTC release look** got no answer (`found: -1`) and raised nothing. Under the contract (GitHub is critical)
+  it would be a trip at once (c6).
+- **No check run failed today:** the last runs of the audit, checks and probe all succeeded.
+
+### 12.5 The phone at 390
+
+The same rules as §8. GitHub's four slots sit two per row (Billing · Keys, Console · Sign in), and the long workflow
+paths, commit titles and `found: -1` lines wrap. Every page passes `scrollWidth ≤ 390`.
+
+### 12.6 Open words for GitHub
+
+1. **Row 57's "Down" while something is held.** §5.4 says "Paused by the system" whenever a hold exists, and "Down: the
+   system is still trying" for a critical part with nothing held. Row 57 uses "Down" while releases and the sync are held.
+   The mockups follow row 57.
+2. **Row 58's URL.** Row 58's words end "Replace it: https://github.com/settings/tokens". Under the locked rules that page
+   would be GitHub's Keys slot, which isn't registered, so the mockup leaves the URL out of the alarm's words.
+3. **A stuck sync's title.** Row 60 has words for "failed"; the mockup composes "The sync's run #<n> is stuck".
+4. **A failed check run's words.** No 02 row names it; the mockup uses row 62's shape, "<name> failed: run #<n>".
+5. **GitHub's spend chip.** The tokens can't read Actions minutes, so the chip keeps the manifest's "use not read yet".
+   Jason's answer 6 covered Railway, where the API reads usage; whether GitHub needs a token with billing read access is open.
+6. **The sync's "Cancel the run"** is a board action on GitHub's run (manifest fix_it "with Cancel"); 02 has no row for it.

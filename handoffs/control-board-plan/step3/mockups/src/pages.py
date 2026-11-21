@@ -58,7 +58,7 @@ hosts = f"""<div class="grid3">
 <div class="host"><div class="hn"><a href="#" data-open-panel="p-railway">Railway</a><span class="badge role">Host</span><span class="badge crit">Not critical by itself</span></div>
 <div>{light('g','On · Working')} · Stage 5 of 8 · Operational</div>
 <ul><li>The crawler (every 5 min) → W1–W12 · <span class="cnt a">2 switches still off in W3</span></li><li>W0 Indexer (always on) → W0</li><li>The video worker (every 5 min) → posted videos · <span class="mm">restart rule differs from the repo</span></li></ul>
-<div class="kv" style="margin-top:.3rem"><span>use not read yet · <a href="{RW['usage_url']}" target="_blank" rel="noopener">usage ↗</a></span></div>
+<div class="kv" style="margin-top:.3rem"><span>Use since Nov 1: {USAGE_UNITS} · <b>not priced yet</b> · <a href="{RW['usage_url']}" target="_blank" rel="noopener">Billing · Usage ↗</a></span></div>
 <div class="rad" style="grid-template-columns:minmax(0,1fr) minmax(0,1fr)"><div class="h"><b>If it goes down, Held</b>the crawler (all gathering, W1–W12), W0, new video copies (they queue)</div>
 <div class="u"><b>Unaffected</b>Bluehost's pages, search, sign-in, payments and databases; GitHub; everything stored</div></div>
 <div class="btns" style="margin-top:.4rem">{b('Open Railway\'s card', True).replace('<button class="btn f">','<button class="btn f" data-open-panel="p-railway">')}</div></div>
@@ -112,8 +112,9 @@ FAULTS = [
      'Once the worker reports <code>TAVILY_API_KEY</code> missing, only the calls that use it are held, each need goes to Brave Search, and Railway stays green.',
      card_key_missing),
     ('railway-c5-spend.html', 'Railway card: spend near the cap', 'Spend near the plan: one percentage, the same in title and body.',
-     '<b>(c5) Spend near the cap (row 39, BL).</b> Railway\'s month in dollars isn\'t read yet, so the numbers here are <b>illustrative only</b> '
-     '(dotted). The rule they show is real: round(spend ÷ cap × 100), one figure in the title, the body, the chip and the sensor.', card_spend),
+     '<b>(c5) Spend near the cap (row 39, BL): the state once a price source is registered.</b> Today Railway\'s use is read in its own units '
+     'and shown “not priced yet” (Jason, 2026-11-21: no dollar figure until a price source is registered; see b). The dollars here are '
+     '<b>illustrative only</b> (dotted), to show the rule: round(spend ÷ cap × 100), one figure in the title, the body, the chip and the sensor.', card_spend),
     ('railway-c6-switch-left-off.html', 'Railway card: a switch left off', 'Two W3 switches left off by a closed trip, with Switch on on the row.',
      '<b>(c6) A switch left off by a closed trip (§0 CS-3, case None; row 7).</b> Real: W3\'s two tasks on the crawler. The group opens by itself '
      'because a switch inside is still off, and Switch on sits on each task\'s row.', card_switch_left),
@@ -242,13 +243,18 @@ add('railway-e-ir-0001.html', 'IR-0001, Incident Report', 'This morning\'s two W
           'Its root cause is <b>Unconfirmed</b>, in its own row.') + ir)
 
 # ================= index =================
-items = ''
-for f, t, d in PAGES:
-    s = f.replace('.html', '')
-    items += (f'<div class="card"><div class="z"><a class="name" href="{f}">{E(t)}</a><div class="sub" style="margin:.2rem 0 .5rem">{E(d)}</div>'
-              f'<div class="grid2"><a href="shots/{s}-1280.png"><img src="shots/{s}-1280.png" alt="{E(t)} at 1280" style="width:100%;border:1px solid var(--card-edge);border-radius:.4rem"></a>'
-              f'<a href="shots/{s}-390.png"><img src="shots/{s}-390.png" alt="{E(t)} at 390" style="max-width:220px;width:100%;border:1px solid var(--card-edge);border-radius:.4rem"></a></div>'
-              f'<div class="kv"><a href="shots/{s}-1280.png">1280 screenshot</a><a href="shots/{s}-390.png">390 screenshot</a></div></div></div>')
-page('index.html', 'Railway mockups', 'Step 3\'s first card spec: Railway\'s four-zone card in every state.',
-     '<div class="intro"><b>Railway: the first card spec\'s mockups (step 3).</b> Static design pages, not site code. The spec is <code>../03-cards.md</code>; '
-     'the words come from <code>../02-state-model.md</code>.</div>' + items)
+def build_index():
+    items = ''
+    for f, t, d in PAGES:
+        s = f.replace('.html', '')
+        items += (f'<div class="card"><div class="z"><a class="name" href="{f}">{E(t)}</a><div class="sub" style="margin:.2rem 0 .5rem">{E(d)}</div>'
+                  f'<div class="grid2"><a href="shots/{s}-1280.png"><img src="shots/{s}-1280.png" alt="{E(t)} at 1280" style="width:100%;border:1px solid var(--card-edge);border-radius:.4rem"></a>'
+                  f'<a href="shots/{s}-390.png"><img src="shots/{s}-390.png" alt="{E(t)} at 390" style="max-width:220px;width:100%;border:1px solid var(--card-edge);border-radius:.4rem"></a></div>'
+                  f'<div class="kv"><a href="shots/{s}-1280.png">1280 screenshot</a><a href="shots/{s}-390.png">390 screenshot</a></div></div></div>')
+    page('index.html', 'Railway mockups', 'Step 3\'s first card spec: Railway\'s four-zone card in every state.',
+         '<div class="intro"><b>The card spec\'s mockups (step 3): Railway, then GitHub.</b> Static design pages, not site code. The spec is <code>../03-cards.md</code>; '
+         'the words come from <code>../02-state-model.md</code>.</div>' + items)
+
+
+if __name__ == '__main__':
+    build_index()

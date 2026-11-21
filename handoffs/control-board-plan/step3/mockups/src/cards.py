@@ -37,7 +37,8 @@ def card_deploy_failed():
         b('Check now', True),
         railway_slots(fix='console'),
         'Fix it: <b>Railway\'s console page</b> (row 131), then <b>Check now</b> reads the latest deploy again. '
-        'The deploy\'s own log page is <i>spec</i> and not registered (Open words).',
+        f'From the alarm\'s evidence: <a href="https://railway.com/project/{RW_PROJECT}/service/{RW_SVC["traversence"]}?id=" target="_blank" rel="noopener">the failed deploy\'s log ↗</a> '
+        '<span class="why">(spec: built from Railway\'s project, service and deployment ids; the scenario deploy has no real id)</span>',
         '<dl class="dl"><dt>Alarm</dt><dd>W-#### (assigned by the engine) · Warning · no Acknowledge on a warning (R80)</dd>'
         '<dt>Reading</dt><dd>Railway\'s API: the newest deploy of <code>traversence</code> FAILED; the running one is <code>22f18475</code> SUCCESS</dd>'
         '<dt>Messages</dt><dd>Pulse —, email —, push — (a warning, §7)</dd><dt>Rule</dt><dd>02 §4 row 51; manifest radius “A deploy failed or stalled”</dd></dl>')
