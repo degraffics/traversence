@@ -1,6 +1,6 @@
 # Draft decision: one cart is the invoice, each line released to it by its own process (2026-11-20)
 
-Status: **draft, for the session manager's review and then Jason's OK** (updated with Jason's confirmed rulings, R). Nothing here is built. Orders session.
+Status: **superseded** by `research/order-model-2026-11-21.md` (Jason's own model, 2026-11-21). Kept as history; nothing here is proposed any more.
 Built on: the live mirror at "Sync: 2026-11-20 17:54 UTC" (`6f955cf`); `main` at `a0f0db6`; the map
 (`research/order-system-map-2026-11-19.md`, Jason's accepted baseline) and the crosswalk
 (`research/order-review-crosswalk-2026-11-20.md`).
