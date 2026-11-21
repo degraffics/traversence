@@ -1,6 +1,6 @@
 # Decision register
 
-Decision 0145 §1a. Generated on 2026-11-21 09:17 UTC from `decisions/` and the live mirror (`86c278d`). Don't edit by hand:
+Decision 0145 §1a. Generated on 2026-11-21 19:17 UTC from `decisions/` and the live mirror (`aeb5f31`). Don't edit by hand:
 edit the decision, and this follows. "Missing files" are files a decision names that the site no longer has: the
 decision may be stale, or the file moved.
 
@@ -180,5 +180,5 @@ decision may be stale, or the file moved.
 | 0172 | [0172: Communications: who reaches whom, about what, by which channel, and one way to deliver](0172-communications-who-reaches-whom.md) | accepted |  | 3 | 2 |  |
 | 0173 | [0173: One lifecycle for every outside service: add, activate, pause, retire, remove](0173-one-lifecycle-for-every-outside-service.md) | accepted |  | 4 | 3 |  |
 | 0174 | [0174: Trips you can save: Add to a trip, the trip page, sending it to Maps, and routes on our own site](0174-trips-you-can-save.md) | accepted |  | 4 | 1 |  |
-| 0175 | [0175: One lifecycle for every module: our services and account apps, from selection to removal, acted on from the board](0175-one-lifecycle-for-every-module.md) | accepted |  | 10 | 1 |  |
+| 0175 | [0175: One lifecycle for every module: our services and account apps, from selection to removal, acted on from the board](0175-one-lifecycle-for-every-module.md) | accepted |  | 11 | 1 |  |
 | 0176 | [0176: The dispatcher presents and routes every thread](0176-the-dispatcher-presents-and-routes-every-thread.md) | accepted |  | 8 | 2 |  |
