@@ -477,7 +477,7 @@ reads "not read yet".
 |---|---|
 | 1 Identity and role | **Bluehost** · Host · "Critical: page, database, procedures" · state · "Stage 5 of 8 · Operational · Next allowed: Check now · Set them up now · Run database updates now · Take out (stage 6, *spec*)" · Setup capture notice · spend chip "A flat hosting plan · price not read yet (the setting "Bluehost plan, a month", `BLUEHOST_USD_MONTH`) · Billing: No billing page registered for Bluehost yet." · its radius fold · Setup capture fold |
 | 2 What it hosts | one row per hosted part, **each with its own duty** (the fix for D6): the site (pages; Page load); the databases (4 realms; Database connections); `.env` (Page load to read, Settings and Its key to write); the scheduler (procedures); cPanel's API (no duty: setting up jobs and mailboxes); the site's own email (procedures, through its need, backup Amazon SES); our endpoints for the workers (no duty: gathering) |
-| 3 Sensors | the outside heartbeat (GitHub, every 15–30 min, *spec*); one query per realm at each watch (*spec*); the watch's tick and each critical job's cron line; cPanel's cron list; the email sign-in without sending; `.env` readable, writable, each name once; the bot check (*spec*) |
+| 3 Sensors | the outside heartbeat (GitHub, every 15–30 min, loads the public home page with no token, *spec*; 14.6a §5); one query per realm at each watch (*spec*); the watch's tick and each critical job's cron line; cPanel's cron list; the email sign-in without sending; `.env` readable, writable, each name once; the bot check (*spec*) |
 | 4 Actions | **On our system:** Check now · Set them up now · Run database updates now · Take out (greyed: "a module can't be taken out today", g3 M5). **At Bluehost:** Billing: not registered · Keys: not registered · **Console · cPanel**, `https://‹CPANEL_HOST›:2083`, **Site settings** · **Sign in · Account** https://my.bluehost.com/, **Documented · release #212** (release #212 carried `service-defs.php`; the mirror's earliest copy has the link). Each missing slot carries "Publish from your Vault" (owner only) |
 
 `service-defs.php` also lists cPanel as `https://my.bluehost.com/hosting/app#/cpanel` (and `Preflight.php:124` uses it
@@ -520,7 +520,7 @@ All of them live in `.env`, above `public_html`.
 | b Working | — | as above; the observed mismatch note | — |
 | c1 Pages not loading | 53 | "Page load · Down: the system is still trying" (critical, a trip at once) | Console · cPanel and Sign in · Account: both open off the host |
 | c2 A realm refused | 54 | "The listings database · Paused by the system (the listings endpoints): still trying, 1 of 3, next at <time>" (14.6a) | Console · cPanel (MySQL databases) |
-| c3 cPanel's key | 29, 56 | "cPanel's API refused our key · Paused by the system: calls with CPANEL_TOKEN wait for a new key." | Keys: not registered, said so; Replace key |
+| c3 cPanel's key | 29, 56, **14.6a §4** | "cPanel's key refused: mailboxes and cron jobs wait · Paused by the system (setting up mailboxes and cron lines): waits for a new key." Existing jobs keep running on their lines | **On our system:** Its key with Replace ready (`CPANEL_TOKEN` is in `.env`). **At Bluehost:** "No API keys page registered for Bluehost yet", Publish from your Vault; never borrows Console (row 129) |
 | c4 A cron line missing | 55 | "The site's scheduled jobs · Paused by the system (renewals): still trying, 1 of 3, next at <time>" (14.6a; scenario on the real gap, `billing_tick`) | Set them up now; Console · cPanel (Cron jobs) |
 | c5 Its email | 29, 43 | "Bluehost's email refused our key · Paused by the system: calls with SMTP_PASSWORD wait for a new key." The need: "The site's own email is on its backup (Amazon SES) while Bluehost's email is paused (IR-####)." | Keys: not registered; Replace key |
 | c6 A .env name missing | 31, 71, 107 | "HEALTH_TOKEN isn't in .env · Paused by the system: the daily health report waits." | Its key (Add its key); Keys: not registered |
@@ -547,8 +547,20 @@ All of them live in `.env`, above `public_html`.
      the outage email on page a).
 3. **cPanel (open word 7).** The Console keeps `CPANEL_HOST` (Site settings). The documented
    `https://my.bluehost.com/hosting/app#/cpanel` link folds into Sign in · Account and isn't shown separately (as drawn).
+4. **cPanel's key refused (open word 5; session manager's ruling, 2026-11-21, applying 02 row 129).** A row of its own:
+   "cPanel's key refused: mailboxes and cron jobs wait". On our system, Fix it opens **Its key** with Replace ready (the
+   key lives in `.env`). The At Bluehost Keys slot stays "No API keys page registered for Bluehost yet", with Publish
+   from your Vault, and never borrows another slot. Jobs already on their cron lines keep running (14.4). Applied: c3.
+5. **HEALTH_TOKEN and the heartbeat (open word 6; session manager's ruling).** The outside heartbeat loads a **public
+   page with no token**, so it measures "pages load". `HEALTH_TOKEN` stays the health report's key on GitHub's card
+   (§12). *inf:* whether today's `/api/health.php` needs the token is a **step-4 check against the live file**.
+   Applied: pages a, c1 and d, and the sensor row.
+6. **The documented cPanel link (open word 7; session manager's ruling, from Jason's answer).** Not a second page: Sign
+   in shows **Account** only (Documented · release #212). The separate link isn't drawn. Its URL,
+   `https://my.bluehost.com/hosting/app#/cpanel` (`service-defs.php` 'bluehost'; `Preflight.php:124` uses it for `.env`
+   fixes), is recorded here as **folded into Sign in · Account**, so nothing is lost.
 
-### 14.6 Open words for Bluehost (still open: 5 and 6; 1–4 and 7 answered in 14.6a)
+### 14.6 Open words for Bluehost (all answered: 1–4 and 7 by Jason, 5–7 ruled by the session manager; see 14.6a)
 
 1. **How the outside sender emails and pushes.** Row 53 says "E/Pu from the heartbeat's own sender", and O3 sets it on
    GitHub every 15–30 min. 02 doesn't say how GitHub sends the email (which mail service, with what key) or the push

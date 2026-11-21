@@ -111,7 +111,7 @@ def bh_parts(over=None):
 def bh_sensors(over=None):
     over = over or {}
     rows = [
-        ('Outside heartbeat', 'GitHub reads the home page and <code>/api/health.php</code> every 15–30 min (02 §2.7, O3; <i>spec</i>)', over.get('hb', 'not built; today only the daily health report: it answered at 3:19 AM MST')),
+        ('Outside heartbeat', 'GitHub loads the public home page, with no token, every 15–30 min, so it measures “pages load” (02 §2.7, O3; <i>spec</i>; whether <code>/api/health.php</code> needs <code>HEALTH_TOKEN</code> is a step-4 check, <i>inf</i>)', over.get('hb', 'not built; today only the daily health report: it answered at 3:19 AM MST')),
         ('Each realm', 'one query per realm at each watch (<i>spec</i>)', over.get('db', 'not read yet')),
         ('The watch and cron', 'a tick within 10 minutes; each critical job\'s cron line', over.get('cron', 'not read yet · <code>billing_tick</code>\'s line is never checked today')),
         ('cPanel\'s API', 'its cron list', over.get('cpanel', 'not read yet')),
@@ -158,14 +158,14 @@ def card_pages_down(t='2:15 AM MST'):
                 bh_slots(fix='console'),
                 'Fix it: <b>Bluehost\'s console page</b> (cPanel, from <code>CPANEL_HOST</code>), and Sign in · Account. Both open off the host, so they work '
                 'while it\'s down; the board\'s own buttons work once it\'s back.',
-                '<dl class="dl"><dt>Ids</dt><dd>none while the host is down; T-#### and IR-#### are assigned when the site takes the record in</dd><dt>Evidence</dt><dd>the home page and <code>/api/health.php</code> gave no 200</dd>'
+                '<dl class="dl"><dt>Ids</dt><dd>none while the host is down; T-#### and IR-#### are assigned when the site takes the record in</dd><dt>Evidence</dt><dd>the public home page (no token) gave no 200</dd>'
                 '<dt>Told</dt><dd>the Founder, by email only: the heartbeat sends through Amazon SES with a GitHub secret limited to sending (Jason, 2026-11-21). No push: the push keys stay on Bluehost</dd>'
                 '<dt>Rule</dt><dd>02 §4 row 53; 03 §14.6 (Jason\'s answers)</dd></dl>',
                 at='Bluehost')
     parts = {'site': {'state': light('r', 'Down'), 'cls': 'hr', 'btn': UPB}, 'ep': {'state': light('h', 'Held (waiting on Bluehost)'), 'cls': 'hl'},
              'db': {'state': light('h', 'Held (waiting on Bluehost)'), 'cls': 'hl'}, 'sched': {'state': light('h', 'Held (waiting on Bluehost)'), 'cls': 'hl'}}
     return bh_card(light('r', 'On · Down: the system is still trying'), th, parts=parts, fault='r', stage=STAGE_BH_TRIP,
-                   sens={'hb': f'<b>No 200</b> from the home page or <code>/api/health.php</code> at {sc(t)}', 'Outside heartbeat_cls': 'hr'})
+                   sens={'hb': f'<b>No 200</b> from the public home page at {sc(t)}', 'Outside heartbeat_cls': 'hr'})
 
 
 def card_db():
@@ -186,14 +186,14 @@ def card_db():
 
 
 def card_cpanel_key():
-    th = thread('cPanel\'s API refused our key', light('r', 'Paused by the system') + f': calls with CPANEL_TOKEN wait for a new key. Since {sc("10:05 AM MST")}.',
+    th = thread('cPanel\'s key refused: mailboxes and cron jobs wait', light('r', 'Paused by the system') + f' (setting up mailboxes and cron lines): waits for a new key. Since {sc("10:05 AM MST")}.',
                 '<ul><li>Calls that use <code>CPANEL_TOKEN</code>: setting up or changing cron lines and mailboxes</li></ul>', 'none',
                 '<ul><li>Every job: they run on their existing cron lines</li><li>Pages, search, sign-in, payments, the databases, email</li></ul>',
                 'A refused key gets no tries: it waits for a person (row 29). Not critical: no duty stops.',
                 b('Replace key', True) + b('Acknowledge'),
                 bh_slots(fix='keys'),
-                'Fix it: <b>Bluehost\'s API keys page</b>. No API keys page registered for Bluehost yet, so Fix it says so and never borrows Console. '
-                'Then <b>Replace key</b>, whose check reads cPanel\'s cron list with the new token, past its own hold.',
+                'Fix it, on our system: <b>Its key</b>, with <b>Replace key</b> ready (<code>CPANEL_TOKEN</code> lives in <code>.env</code>); its check reads cPanel\'s cron list with the new token, past its own hold. '
+                'At Bluehost: No API keys page registered for Bluehost yet, with Publish from your Vault. It never borrows Console (row 129).',
                 '<dl class="dl"><dt>Ids</dt><dd>T-#### · IR-####</dd><dt>Evidence</dt><dd>cPanel\'s API answered 401 to its cron list</dd><dt>Rule</dt><dd>02 rows 29, 56, 106, 129</dd></dl>', at='Bluehost')
     parts = {'cpanel': {'state': light('r', 'Paused by the system'), 'cls': 'hr', 'btn': UPB}}
     return bh_card(light('a', 'On · Working, one part paused: cPanel\'s API'), th, parts=parts, fault='r',
@@ -294,7 +294,7 @@ def bh_story():
     REC = f'Recovered: Page load was down {sc("45 min")}, the system fixed it.'
     hd = '<div class="prow hd"><div>From</div><div>Severity</div><div>Subject</div><div>Received</div></div>'
     steps = f"""<div class="steps">
-<div class="step"><h3>1 · The board and Pulse can't open: they're on Bluehost</h3><div class="when">{sc('2:15 AM MST')}: the outside heartbeat on GitHub gets no 200 from the home page or <code>/api/health.php</code>. Page load is critical: a trip at once.</div>
+<div class="step"><h3>1 · The board and Pulse can't open: they're on Bluehost</h3><div class="when">{sc('2:15 AM MST')}: the outside heartbeat on GitHub gets no 200 from the public home page (no token). Page load is critical: a trip at once.</div>
 <div class="note">The board and Pulse show nothing while Bluehost is down: no page of ours answers. The heartbeat writes the incident as an unnumbered record in the repo (its times, what failed, its checks) and sends the email itself.</div></div>
 <div class="step"><h3>2 · Email only, from outside the host, in the same minute</h3><div class="when">One title: “Page load”. One status: “Down: the system is still trying” (the host itself is gone, so nothing could place a hold). One Held/Unaffected line.</div>
 <div class="frame"><div class="fh">Email · a new thread to the Founder, from the outside heartbeat through Amazon SES (<i>spec</i>)</div><div class="fb"><div class="email"><div class="hd2"><span>From</span><b>Traversence Control Board</b><span>To</span><b>the Founder (Jason)</b><span>Subject</span><b>{SUBJ}</b><span>Sent</span><span>Nov 21, {sc('2:15 AM')} MST</span></div>
@@ -307,10 +307,10 @@ def bh_story():
 <p><button class="btn f" data-open-panel="p-fix">Open it live</button></p></div></div></div>
 <div class="step"><h3>4 · Back: numbered, then Recovered on every channel</h3><div class="when">{sc('3:00 AM MST')}: the heartbeat gets 200. The site takes the heartbeat's record in, assigns T-#### and IR-#### then, and closes it as Recovered on every channel.</div>
 <div class="frame"><div class="fh">Board</div><div class="fb"><div class="need"><div class="l1">{light('g', 'Closed: Recovered')}<span class="t">Page load</span><span class="why">T-#### · IR-####</span></div>
-<div>{REC}</div><div class="sub">Its check passed: the home page and <code>/api/health.php</code> answered 200 at {sc('3:00 AM MST')}. The workers' reports that waited are taken in again.</div><div class="sub">Still off: none.</div></div></div></div>
+<div>{REC}</div><div class="sub">Its check passed: the public home page answered 200 at {sc('3:00 AM MST')}. The workers' reports that waited are taken in again.</div><div class="sub">Still off: none.</div></div></div></div>
 <div class="frame"><div class="fh">Pulse · the incident's row, taken in when the site came back</div><div class="fb">{hd}<div class="prow"><div>Control Board</div><div class="sev" style="color:var(--meta)">Critical</div><div>SYSTEM ALARM NOTICE: Page load: Recovered<div class="sub">Raised while the site was down, by the outside heartbeat: {sc('2:15 AM MST')}, checks at {sc('2:30')} and {sc('2:45 AM MST')}, back at {sc('3:00 AM MST')}.</div><div class="sub">Last note: {REC} Still off: none.</div></div><div>Nov 21, {sc('2:15 AM')} MST</div></div></div></div>
 <div class="frame"><div class="fh">Email · a reply in the same thread</div><div class="fb"><div class="email"><div class="hd2"><span>Subject</span><b>SYSTEM ALARM NOTICE: Page load: Recovered</b><span>In reply to</span><span>{SUBJ}</span><span>Sent</span><span>Nov 21, {sc('3:00 AM')} MST</span></div>
-<p>{REC}</p><p>Its check passed: the home page and <code>/api/health.php</code> answered 200 at {sc('3:00 AM MST')}. Still off: none.</p></div></div></div>
+<p>{REC}</p><p>Its check passed: the public home page answered 200 at {sc('3:00 AM MST')}. Still off: none.</p></div></div></div>
 <div class="frame"><div class="fh">Push</div><div class="fb"><div class="sub">None: no push went out during the outage, so none is replaced.</div></div></div></div>
 </div>"""
     add('bluehost-d-pages-down.html', 'Pages down, every surface', 'Bluehost\'s pages down walked through the outside heartbeat, email, push, Fix it and Recovered.',
