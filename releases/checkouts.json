@@ -180,14 +180,12 @@
   },
   {
    "path": "app/lib/Operations.php",
-   "functions": [
-    "alarms"
-   ],
+   "functions": [],
    "kind": "change",
    "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
-   "why": "0176 R3: Reactivate on W0's page (Jason's correction, 2026-11-20)",
+   "why": "0176 R3: Every blocked site opens W0's page",
    "since": "2026-11-21T00:00:47Z",
-   "expires": "2026-11-21T04:00:47Z",
+   "expires": "2026-11-21T04:01:14Z",
    "release": "0176-fix-it.zip",
    "callers": {
     "alarms": [
