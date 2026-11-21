@@ -1,0 +1,143 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>For Jason's review</title><style>@page{size:Letter;margin:.4in}body{font:11px/1.4 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:#2b2118;max-width:900px;margin:0 auto;padding:0 16px;background:#fff}
+h1{font:700 21px Georgia,serif;color:#3d2b1f}table{border-collapse:collapse;margin:.6em 0 1em;width:100%}td,th{border:1px solid #d9c9b3;padding:4px 8px;text-align:left;vertical-align:top}th{background:#f3ebe0}
+code{font:12px ui-monospace,monospace;background:#f3ebe0;padding:0 3px;border-radius:3px}p{margin:.4em 0}b{color:#2b2118}</style></head><body><h1 id="for-jasons-review-the-control-board-step-3">For Jason’s review:
+the control board, step 3</h1>
+<p>One page, in step with <code>03-cards.md</code>’s “For Jason’s
+review” list (items 1–8). Each item says what it is, what we recommend,
+and where it comes from. <strong>Decided:</strong> 1 item (5).
+<strong>Open:</strong> 7 items.</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Item</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>QuickBooks’ processing fees</td>
+<td>Open</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>The shared web search cap’s unit</td>
+<td>Open</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>The Communications Dispatcher as a critical part</td>
+<td>Open</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>SES’s bounce and complaint warnings</td>
+<td>Open</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>The IRS load’s partial delete</td>
+<td><strong>Decided: “Fix in the build” (Jason,
+2026-11-21)</strong></td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>Overture’s and Foursquare’s licences</td>
+<td>Open</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>The trvgo.us redirect while the edge is down</td>
+<td>Open</td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td>Thresholds still marked des</td>
+<td>Open</td>
+</tr>
+</tbody>
+</table>
+<p><strong>1. QuickBooks’ processing fees (open).</strong> QuickBooks’
+card shows “fees not read yet”, because nothing reads what Intuit
+charged us. <strong>Recommended:</strong> read the fees in step 4’s
+ledger export, as a spec item. It’s a read of our own account at no
+cost. Until then the chip stays “fees not read yet”, with Console beside
+it. <em>Source: 03 §19.6, 3.</em></p>
+<p><strong>2. The shared web search cap’s unit (open).</strong> Tavily
+and Brave share one allowance, <code>websearch_monthly</code>, which
+counts searches, as the code does. Brave costs $0.005 a search and
+Tavily $0.008 a credit, so the same count means different money.
+<strong>Recommended:</strong> keep the count, which the code enforces,
+with a dollars line beside it on both cards, unless you’d rather cap
+dollars. <em>Source: 03 §18.6, 2.</em></p>
+<p><strong>3. The Communications Dispatcher as a critical part
+(open).</strong> The register has no dispatcher part today. Alarms,
+sign-in codes and notices all go through it.
+<strong>Recommended:</strong> register it in step 4 as critical for
+procedures, with <code>svc:aws</code> (SES) as one of its email
+providers. <em>Source: 03 §20.6, 1.</em></p>
+<p><strong>4. SES’s bounce and complaint warnings (open).</strong> The
+rates are read at no cost. The warning levels drawn are AWS’s review
+levels, 5% bounce and 0.1% complaint (inferred).
+<strong>Recommended:</strong> keep those levels, checked against AWS’s
+own docs in step 4. <em>Source: 03 §20.6, 5; item 8 lists it with the
+other thresholds.</em></p>
+<p><strong>5. The IRS load’s partial delete (decided).</strong> When one
+state’s file loads and the other’s rows are all refused, the load’s
+finish removes the second state’s nonprofits
+(<code>IrsBulk::finish()</code>). <strong>Decided: “Fix in the build”
+(Jason, 2026-11-21).</strong> 02 row 38b’s shape check comes before any
+write, and nothing is deleted below 90% of last month’s rows. It’s a
+step-4 build item, with no live action. The 90% is the number you saw;
+it stays marked des. <em>Source: 03 §22.5, §22.6 IRS 2; 02 row
+38b.</em></p>
+<p><strong>6. Confirm Overture’s (CDLA-Permissive-2.0) and Foursquare’s
+(Apache-2.0) licences: loads already running (open).</strong>
+decisions/0164 R9 lets these open datasets be stored and shown with
+credit only once their licences are confirmed (Decision 9). Their cards
+say “licence: confirmation not recorded”. W1 added 205 in run #1290
+(your screenshot of run #1290’s page: W1 · Added 205 · Changed 4 · Sent
+to Review 709; overture_bulk failed at 380 s).
+<strong>Recommended:</strong> confirm both, or hold what they add until
+you do. <em>Source: 03 §22.6, All five 3.</em></p>
+<p><strong>7. Stop the trvgo.us redirect while the edge is down
+(open).</strong> trvgo.us/<shop> sends visitors on to a shop’s own
+domain (a 301, cached 5 minutes). So when the Fly.io edge is down, those
+shops’ trvgo.us addresses fail too, and the source map’s fallback (“the
+storefront’s trvgo.us address still works”) doesn’t hold.
+<strong>Recommended:</strong> serve the shop on trvgo.us while the
+board’s edge check (the spec sensor on <code>/__edge</code>) is red.
+<em>Source: 03 §25.2, §25.4, 2.</em></p>
+<p><strong>8. Thresholds still marked des (open).</strong>
+<strong>Recommended:</strong> approve these, or give your own numbers: -
+24 hours before a domain’s certificate failure is told to the business’s
+team and ours (03 §25.4, 3); - SES’s 5% bounce and 0.1% complaint (item
+4); - the IRS floor of 90% of last month’s rows (item 5: the fix is
+approved, the number is still des).</p>
+<p><em>Source: 03 §25.4, 3.</em></p>
+<p><strong>9. Delivery objectives: is the platform delivering for users?
+(open; the session manager’s proposal, not drawn yet).</strong> A fourth
+top-line question on the board, “Is it delivering?”, with objectives and
+targets in seven groups: 1. the site is there: pages under about 2.5 s,
+99.5% of the time; sign-in working end to end; the phone layout; 2.
+people find what they came for: search quality; at least 3 results
+within 5 mi (30 for the outdoors, decisions/0060); paths complete; 3.
+what they see is true: freshness, completeness, nothing private or
+sacred leaks; 4. money and commitments kept: payments, renewals, orders,
+email delivered; 5. knowledge keeps growing: gathering reconciles, and
+the Review queue’s age; 6. within our means: the caps; 7. the team is
+told and things recover: trips reach a person, the self-recovery rate,
+Incident Reports.</p>
+<p>Each objective is a Service module with its own check, radius, and
+Fix it pointing to its parts. Each is a warning first. Many of the
+measures already exist: the search, layout, paths and photos probes, and
+the health report. <strong>Recommended:</strong> add them to step 3’s
+design; you set the targets once. <em>Source: the session manager’s
+proposal, 2026-11-21; no mockup yet.</em></p>
+</body></html>

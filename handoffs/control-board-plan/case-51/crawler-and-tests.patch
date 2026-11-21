@@ -1,0 +1,328 @@
+diff --git a/tools/control-board-tests/expire-tries.php b/tools/control-board-tests/expire-tries.php
+index c9cf2342..e2dcb094 100644
+--- a/tools/control-board-tests/expire-tries.php
++++ b/tools/control-board-tests/expire-tries.php
+@@ -28,7 +28,8 @@ $did = ControlAlarms::expireTries($pdo); Automation::forget();
+ $a = ControlAlarms::byId($pdo, $id);
+ $t('past its hour, the watch makes it a trip (0171 3c as set)', $a['level'] === 'trip' && $a['tripped_at'] !== null, [$did, $a['level']]);
+ $t('…its words say the tries ran out, never "until" a time gone by', str_contains((string) $a['means'], 'Its tries ran out at ') && !str_contains((string) $a['means'], 'trying again by itself'), $a['means']);
+-$t('…and the trip places its pause (decisions/0175): W1 paused by the system, its switch untouched', Automation::gathering($pdo, '', 'W1') !== null && Automation::wfOff($pdo, 'W1') === null);
++// case #51 (2026-11-21; decisions/0175 §3): a task's trip pauses only that task, W1's other tasks carrying on
++$t('…and the trip places its pause (decisions/0175): overture_bulk paused by the system, W1 and its switch untouched', Automation::taskOff($pdo, 'overture_bulk') !== null && Automation::gathering($pdo, '', 'W1') === null && Automation::wfOff($pdo, 'W1') === null);
+ $t('…logged', (int) $pdo->query("SELECT COUNT(*) FROM control_log WHERE what LIKE 'Trip: W1: its task overture_bulk failed%'")->fetchColumn() === 1);
+ $t('run again: nothing more to do', ControlAlarms::expireTries($pdo) === []);
+ 
+diff --git a/tools/control-board-tests/paused.php b/tools/control-board-tests/paused.php
+index 74d6e088..f0452ee1 100644
+--- a/tools/control-board-tests/paused.php
++++ b/tools/control-board-tests/paused.php
+@@ -24,11 +24,11 @@ Automation::setWorkflow($pdo, 'W1', false, 'test', 7, 'Jason'); Automation::setW
+ $wfPaused = fn (string $wf) => (int) $pdo->query('SELECT paused FROM crawl_workflows WHERE wf = ' . $pdo->quote($wf))->fetchColumn();
+ 
+ // 1. a trip places the pause; the switch stays the person's
+-$crash = fn (bool $ev = true) => ControlAlarms::raise($pdo, 'task:failed:second_look', 'wf:W2', 'trip', 'crash', 'W2: its task second_look failed', 'Its work goes back.', 'Read the why.', 'boom', [], $ev, false);
+-$crash(); Automation::forget(); $a = ControlAlarms::openOf($pdo, 'task:failed:second_look');
++$crash = fn (bool $ev = true) => ControlAlarms::raise($pdo, 'reads:failed:W2', 'wf:W2', 'trip', 'crash', 'W2: its page reads failed', 'Its work goes back.', 'Read the why.', 'boom', [], $ev, false);
++$crash(); Automation::forget(); $a = ControlAlarms::openOf($pdo, 'reads:failed:W2');
+ $t('a trip: the alarm is a trip', ($a['level'] ?? '') === 'trip' && $a['tripped_at'] !== null, $a);
+ $t('…W2\'s switch is untouched (still on, as Jason left it; Automation::wfOff reads only the switch)', $wfPaused('W2') === 0 && Automation::wfOff($pdo, 'W2') === null);
+-$t('…and W2 is paused by the system, with its reason, where a person\'s pause would show', str_contains((string) Automation::gathering($pdo, '', 'W2'), 'W2: Paused by the system (a trip): W2: its task second_look failed') && str_contains((string) Automation::gathering($pdo, '', 'W2'), 'It resumes when its check passes'), Automation::gathering($pdo, '', 'W2'));
++$t('…and W2 is paused by the system, with its reason, where a person\'s pause would show', str_contains((string) Automation::gathering($pdo, '', 'W2'), 'W2: Paused by the system (a trip): W2: its page reads failed') && str_contains((string) Automation::gathering($pdo, '', 'W2'), 'It resumes when its check passes'), Automation::gathering($pdo, '', 'W2'));
+ $t('…its record names the alarm', (int) $pdo->query("SELECT alarm_id FROM system_pauses WHERE kind = 'wf' AND ref = 'W2' AND cleared_at IS NULL")->fetchColumn() === (int) $a['id']);
+ $t('…what it stopped reads as a pause', str_contains((string) $a['stopped'], '"pause","wf:W2"'), $a['stopped']);
+ $t('…W1 runs on: only what the fault touches is paused', Automation::gathering($pdo, '', 'W1') === null);
+@@ -42,14 +42,14 @@ $t('…and so do the open-data loads and the identity recheck', str_contains($ol
+ 
+ // 3. it failed again: still paused (no second pause); its check passes: Recovered, the pause lifts
+ $crash(); $t('the same fault again: one pause, not two', (int) $pdo->query("SELECT COUNT(*) FROM system_pauses WHERE ref = 'W2' AND cleared_at IS NULL")->fetchColumn() === 1);
+-ControlAlarms::clear($pdo, 'task:failed:second_look', 'Its next run finished.'); Automation::forget();
++ControlAlarms::clear($pdo, 'reads:failed:W2', 'Its next run finished.'); Automation::forget();
+ $c = ControlAlarms::byId($pdo, (int) $a['id']);
+ $t('its check passes: the trip closes itself as Recovered, escalated or not (Jason, 2026-11-20: "Close as Recovered")', ControlAlarms::ESCALATED_RECOVERS === true && $c['cleared_at'] !== null && str_starts_with((string) $c['cleared_how'], 'Recovered:'), $c['cleared_how']);
+ $t('…and its pause lifts: W2 runs again', Automation::gathering($pdo, '', 'W2') === null && (string) $pdo->query("SELECT cleared_how FROM system_pauses WHERE ref = 'W2'")->fetchColumn() !== '');
+ 
+ // 4. no try of the system's own (Jason, 2026-11-20: "Why is this session inventing things instead of check what's already
+ // set by adr?"): a pause lifts only when its check passes or on a person's Check and start again; the watch never lifts it
+-$crash(); $crash(); $crash(); $crash(); Automation::forget(); $a2 = ControlAlarms::openOf($pdo, 'task:failed:second_look');
++$crash(); $crash(); $crash(); $crash(); Automation::forget(); $a2 = ControlAlarms::openOf($pdo, 'reads:failed:W2');
+ $t('a new trip: paused again', Automation::gathering($pdo, '', 'W2') !== null, $a2);
+ $pdo->exec("UPDATE system_pauses SET at = UTC_TIMESTAMP() - INTERVAL 5 HOUR WHERE cleared_at IS NULL");
+ try { ControlAlarms::tick($pdo); } catch (Throwable $x) {} Automation::forget();
+@@ -58,7 +58,7 @@ $t('hours later, the watch hasn\'t lifted it: no try is made without a check pas
+ // 5. a person's Check and start again runs its check first: red keeps the pause, saying why; once the check passes, it lifts
+ [$ok, $msg] = ControlAlarms::resolve($pdo, (int) $a2['id'], 7, 'Jason', ''); Automation::forget();
+ $t('Check and start again with W2\'s check red: not started, the pause stays, saying why', !$ok && str_contains($msg, 'its check is red') && Automation::gathering($pdo, '', 'W2') !== null && $wfPaused('W2') === 0, $msg);
+-ControlAlarms::clear($pdo, 'task:failed:second_look', 'Its check passed.'); Automation::forget();
++ControlAlarms::clear($pdo, 'reads:failed:W2', 'Its check passed.'); Automation::forget();
+ $t('…and its check passing lifts it (Recovered); the switch was never touched', Automation::gathering($pdo, '', 'W2') === null && $wfPaused('W2') === 0);
+ 
+ // 6. out of budget: the service paused by the system, its switch untouched
+diff --git a/tools/control-board-tests/r3c.php b/tools/control-board-tests/r3c.php
+index b688a5b6..9fc08427 100644
+--- a/tools/control-board-tests/r3c.php
++++ b/tools/control-board-tests/r3c.php
+@@ -29,8 +29,9 @@ $t('a crash: a warning while the system tries again (1 of 3)', $a['level'] === '
+ $crash(); $t('…the second try still a warning', ControlAlarms::openOf($pdo, 'task:failed:second_look')['level'] === 'warning');
+ $crash(); Automation::forget(); $a = ControlAlarms::openOf($pdo, 'task:failed:second_look');
+ $t('…the third: a trip, marked tripped', $a['level'] === 'trip' && $a['tripped_at'] !== null, $a);
+-$t('…it stopped only its own workflow (W2), not W1', !$on('W2') && $on('W1') && Automation::master($pdo) === null, ControlAlarms::stoppedWords($a));
+-$t('…and it says what it stopped (a pause since decisions/0175: W2\'s switch is untouched)', ControlAlarms::stoppedWords($a) === 'W2 (its tasks wait with it)', ControlAlarms::stoppedWords($a));
++// case #51 (2026-11-21; decisions/0175 §3, "a trip stops only what it holds"): a task's failure pauses only that task
++$t('…it stopped only its own task (second_look), not W2 or W1', Automation::taskOff($pdo, 'second_look') !== null && $on('W2') && $on('W1') && Automation::master($pdo) === null, ControlAlarms::stoppedWords($a));
++$t('…and it says what it stopped (a pause since decisions/0175: the task\'s switch is untouched)', ControlAlarms::stoppedWords($a) === 'second_look (W2\'s other tasks carry on)', ControlAlarms::stoppedWords($a));
+ 
+ // 2. the time limit: an hour from the first failure, even with fewer tries
+ ControlAlarms::raise($pdo, 'job:slowpoke', 'job:slowpoke', 'trip', 'crash', 'The job stopped');
+@@ -61,11 +62,11 @@ ControlAlarms::resolve($pdo, (int) $r['id'], 7, 'Jason', 'Redeployed again'); Au
+ $w = ControlAlarms::openOf($pdo, 'task:failed:second_look');
+ [$ok, $msg] = ControlAlarms::resolve($pdo, (int) $w['id'], 7, 'Jason', 'Fixed its source');
+ $w2 = ControlAlarms::byId($pdo, (int) $w['id']);
+-$t('Resolve where W2\'s check is red: not resolved, the reason kept on the row, W2 still off', !$ok && $w2['cleared_at'] === null && str_starts_with((string) $w2['resolve_note'], 'Not resolved') && !$on('W2'), $msg);
++$t('Resolve where W2\'s check is red: not resolved, the reason kept on the row, its task still paused', !$ok && $w2['cleared_at'] === null && str_starts_with((string) $w2['resolve_note'], 'Not resolved') && Automation::taskOff($pdo, 'second_look') !== null, $msg);
+ // decisions/0175 §3 (Jason, 2026-11-19: "If this was resolved by system ... it should be handled"): its reading good again
+ // closes it as Recovered and lifts its pause (before 0175 it waited for Resolve)
+ ControlAlarms::clear($pdo, 'task:failed:second_look', 'It did its work in run #9.'); Automation::forget(); $w3 = ControlAlarms::byId($pdo, (int) $w['id']);
+-$t('…its reading good again: the trip closes itself as Recovered, and W2 runs again (0175 §3; Jason, 2026-11-20: "Close as Recovered")', $w3['cleared_at'] !== null && str_starts_with((string) $w3['cleared_how'], 'Recovered:') && $on('W2'), $w3['cleared_how']);
++$t('…its reading good again: the trip closes itself as Recovered, and its task runs again (0175 §3; Jason, 2026-11-20: "Close as Recovered")', $w3['cleared_at'] !== null && str_starts_with((string) $w3['cleared_how'], 'Recovered:') && Automation::taskOff($pdo, 'second_look') === null, $w3['cleared_how']);
+ 
+ // 6. a back-off at its limit: a trip holding the server's calls; a person's resolve closes it
+ $pdo->exec("DELETE FROM service_issues");
+diff --git a/tools/control-board-tests/task-failures.php b/tools/control-board-tests/task-failures.php
+new file mode 100644
+index 00000000..5d2028ab
+--- /dev/null
++++ b/tools/control-board-tests/task-failures.php
+@@ -0,0 +1,48 @@
++<?php
++// Case #51 (2026-11-21: W1's overture_bulk failed on a TimeoutError, and the trip paused all of W1). A crawler task's
++// trip pauses only that task, its workflow's other tasks carrying on, as the alarm's own words say (decisions/0175 §3: "a trip
++// stops only what it holds"). Its tries keep the hour (0171's note of 2026-11-20, Jason: "Keep the hour"). Our own site slow to
++// answer (the worker's SiteSlow) is a warning that clears itself, never a crash (0171's note, Jason 2026-11-19: slow is never a
++// trip). Run: mariadb < ../release-b-tests/start-schema.sql && php task-failures.php <root>/app
++declare(strict_types=1);
++$app = $argv[1]; if (is_file($app . '/admin/Access.php')) require_once $app . '/admin/Access.php';
++require_once $app . '/lib/Auth.php'; require_once $app . '/lib/Database.php'; $pdo = Database::connection();
++$pass = 0; $fail = 0;
++$t = function (string $n, bool $ok, $got = null) use (&$pass, &$fail) { if ($ok) { $pass++; echo "  ok  $n\n"; } else { $fail++; echo "FAIL  $n" . ($got !== null ? ' — ' . mb_substr(is_string($got) ? $got : json_encode($got, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE), 0, 600) : '') . "\n"; } };
++require_once $app . '/lib/ControlAlarms.php'; require_once $app . '/lib/Automation.php';
++$pdo->exec('DROP TABLE IF EXISTS control_alarms'); ControlAlarms::ensure($pdo);
++$pdo->exec("INSERT IGNORE INTO crawl_capture_tasks (task, wf, enabled) VALUES ('overture_bulk', 'W1', 1), ('coverage', 'W1', 1)");
++$pdo->exec('DROP TABLE IF EXISTS system_pauses');
++$pdo->exec("CREATE TABLE system_pauses (id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, kind VARCHAR(10) NOT NULL, ref VARCHAR(60) NOT NULL, alarm_id INT UNSIGNED NULL, why VARCHAR(255) NOT NULL DEFAULT '', at DATETIME NOT NULL, cleared_at DATETIME NULL, cleared_how VARCHAR(255) NULL)");
++$raise = fn () => ControlAlarms::raise($pdo, 'task:failed:overture_bulk', 'wf:W1', 'trip', 'crash', 'W1: its task overture_bulk failed (run #1290)', 'Its work goes back and the next run tries it again; the workflow\'s other tasks carry on.', 'Read its why.', 'TimeoutError', [], true);
++$row = fn () => $pdo->query("SELECT * FROM control_alarms WHERE akey = 'task:failed:overture_bulk'")->fetch(PDO::FETCH_ASSOC);
++$paused = fn () => $pdo->query("SELECT CONCAT(kind, ':', ref) FROM system_pauses WHERE cleared_at IS NULL")->fetchAll(PDO::FETCH_COLUMN);
++[$max, $mins] = ControlAlarms::limits($pdo, 'crash');
++
++$raise(); $a = $row();
++$t('its first failure is a warning: the system trying again by itself (1 of ' . $max . ' tries, until …)', $a['level'] === 'warning' && str_contains((string) $a['means'], '(1 of ' . $max . ' tries, until '), $a['means']);
++$t('…nothing is paused', $paused() === []);
++// the hour runs out with no fix (a nightly task: its next run is a day later): the watch makes it a trip, as Jason chose
++$pdo->exec("UPDATE control_alarms SET first_at = UTC_TIMESTAMP() - INTERVAL 2 HOUR, last_at = UTC_TIMESTAMP() - INTERVAL 2 HOUR WHERE akey = 'task:failed:overture_bulk'");
++ControlAlarms::expireTries($pdo); Automation::forget(); $a = $row();
++$t('its hour gone with no fix: a trip (0171\'s note: Keep the hour)', $a['level'] === 'trip' && !empty($a['tripped_at']), $a);
++$p = $paused();
++$t('…which pauses only that task, never W1 (its other tasks carry on)', in_array('task:overture_bulk', $p, true) && !in_array('wf:W1', $p, true), $p);
++$t('…and Check and start again has it to start again', str_contains((string) $a['stopped'], 'task:overture_bulk'), $a['stopped']);
++$t('…its words say what it held', str_contains((string) $a['stopped'], "overture_bulk (W1's other tasks carry on)"), $a['stopped']);
++$t('…W1 itself is not paused, its other tasks still run', Automation::taskOff($pdo, 'coverage') === null && Automation::taskOff($pdo, 'overture_bulk') !== null, [Automation::taskOff($pdo, 'coverage'), Automation::taskOff($pdo, 'overture_bulk')]);
++ControlAlarms::clear($pdo, 'task:failed:overture_bulk', 'It did its work in run #1291.'); Automation::forget();
++$t('it did its work: the trip closes and the task runs again', $paused() === [] && Automation::taskOff($pdo, 'overture_bulk') === null, $paused());
++
++// any other alarm keeps its clock (0171 §5's limits)
++ControlAlarms::raise($pdo, 'ep:x:5xx', 'site:x', 'trip', 'crash', 'x failed', '', '', '', [], true);
++$o = $pdo->query("SELECT means FROM control_alarms WHERE akey = 'ep:x:5xx'")->fetchColumn();
++$t('any other crash: the same clock\'s words', str_contains((string) $o, ' tries, until '), $o);
++
++// our own site slow: a warning that clears itself
++$cs = (string) file_get_contents($app . '/lib/crawler/CrawlService.php');
++$t('a task that stopped because our site was slow (SiteSlow) raises task:slow, a warning, never task:failed', str_contains($cs, "if (\$o === 'failed' && str_starts_with((string) \$tw, 'SiteSlow(')) {") && str_contains($cs, "'task:slow:' . \$t, 'wf:' . \$tasks[\$t]['wf'], 'warning', 'slow'"));
++$t('…and it clears when the task does its work', str_contains($cs, "if (\$o === 'done') ControlAlarms::clear(\$pdo, 'task:slow:' . \$t,"));
++ControlAlarms::raise($pdo, 'task:slow:overture_bulk', 'wf:W1', 'trip', 'slow', 'W1: our site was slow', '', '', '', []);
++$t('…slow is never a trip, even asked for one', $pdo->query("SELECT level FROM control_alarms WHERE akey = 'task:slow:overture_bulk'")->fetchColumn() === 'warning');
++echo "\n$pass passed, $fail failed\n"; exit($fail ? 1 : 0);
+diff --git a/tools/dispatcher-tests/r1.php b/tools/dispatcher-tests/r1.php
+index 7624ca91..5a1de440 100644
+--- a/tools/dispatcher-tests/r1.php
++++ b/tools/dispatcher-tests/r1.php
+@@ -66,10 +66,10 @@ $t('…and nobody is told: no message, no push', !$msgs() && !WebPush::$sent);
+ 
+ // ---- 3. the tries run out: a trip, Paused by the system, one message (0176 §4 step 2) -----------------------------------
+ $raise(); $raise(); $a = ControlAlarms::byId($pdo, $id); $m = $msgs();
+-$t('the third failure: a trip that paused W2 (0175 §3)', $a['level'] === 'trip' && str_contains((string) $a['stopped'], '"pause","wf:W2"'), $a);
++$t('the third failure: a trip that paused its task, not W2 (0175 §3; case #51)', $a['level'] === 'trip' && str_contains((string) $a['stopped'], '"pause","task:second_look"') && !str_contains((string) $a['stopped'], '"wf:W2"'), $a);
+ $fa = ControlAlarms::facts($pdo, $a);
+ $t('…its status: "Paused by the system (a trip) since …", closing as Recovered when its check passes', str_starts_with($fa['status'], 'Paused by the system (a trip) since {t:') && str_contains($fa['status'], 'closes as Recovered when its check passes'), $fa['status']);
+-$t('…what it affects: what it paused', in_array('Paused by the system: W2 (its tasks wait with it)', $fa['affects'], true), $fa['affects']);
++$t('…what it affects: what it paused', in_array('Paused by the system: second_look (W2\'s other tasks carry on)', $fa['affects'], true), $fa['affects']);
+ $t('…one message to the founder, thing alarm:<id>, shown by its Pulse item (no second row)', count($m) === 1 && $m[0]['kind'] === 'alarm.trip' && $m[0]['thing'] === 'alarm:' . $id && $m[0]['pulse_ref'] === 'alarm:' . $id, $m);
+ // the alarm notice (0176's notes, 2026-11-20, release 2 part 2): the title "SYSTEM ALARM NOTICE: <item>: <action>"; the words
+ // start with the action and its status, then what's going on, what it means, what to do
+@@ -83,7 +83,7 @@ require_once $app . '/lib/Pulse.php';
+ $src = (string) file_get_contents($app . '/lib/Pulse.php');
+ $t('Pulse\'s alarm item reads the shape\'s words (Thread::text, surface pulse)', str_contains($src, "Thread::text(ControlAlarms::facts(\$pdo, \$al), 'pulse')"));
+ $pt = Thread::text(ControlAlarms::facts($pdo, ControlAlarms::byId($pdo, $id)), 'pulse');
+-$t('…which say its status, what it affects and what to do, and no raw details', str_contains($pt, 'Status: Paused by the system (a trip) since ') && str_contains($pt, 'What it affects: Paused by the system: W2') && str_contains($pt, 'What to do: Read why on its run.') && !str_contains($pt, 'boom'), $pt);
++$t('…which say its status, what it affects and what to do, and no raw details', str_contains($pt, 'Status: Paused by the system (a trip) since ') && str_contains($pt, 'What it affects: Paused by the system: second_look') && str_contains($pt, 'What to do: Read why on its run.') && !str_contains($pt, 'boom'), $pt);
+ $pb = ControlAlarms::pulseBody($pdo, ['thing' => 'alarm:' . $id], 7);
+ $t('the message\'s body in Pulse: the shape, Acknowledge posting to the board, no details', str_contains($pb['html'], 'class="tv-th"') && str_contains($pb['html'], 'data-msg-act="/admin/api/config/control"') && str_contains($pb['html'], '&quot;ack&quot;') && !str_contains($pb['html'], 'Details ▾') && $pb['state'] === 'Open', $pb);
+ 
+diff --git a/workers/crawler/crawler.py b/workers/crawler/crawler.py
+index 40b7f934..0fb7382a 100644
+--- a/workers/crawler/crawler.py
++++ b/workers/crawler/crawler.py
+@@ -212,7 +212,7 @@ SKIP_HOSTS = {"openstreetmap.org", "npino.com", "npiprofile.com", "npidb.org", "
+ 
+ started = time.monotonic()
+ WORKER_KEYS = ("GOOGLE_PLACES_KEY", "TAVILY_API_KEY", "BRAVE_API_KEY", "RIDB_API_KEY", "HF_TOKEN")   # reported by name at each run
+-WORKER_V = "2.16.1"          # 2.16.1: Common Crawl's bulk reads wait only on data.commoncrawl.org, the host they read (an index-server hold stopped them). 2.16.0: the Census geocoder's backup: when the site can't reach the Census on its connection, the worker sends the same batch itself and hands the reply to the site to place (decisions/0175's note, 2026-11-20). 2.15.0: Common Crawl's bulk reads (our states' public sites, a source's pages) query its URL Index (Parquet on data.commoncrawl.org, one request at a time, the crawl's file map kept on the site), never the index server, which keeps only a single page's copy (decisions/0164's note of 2026-11-20). 2.14.1: a 503 asking us to slow down (S3's SlowDown, Common Crawl's data server) is a rate wait, not a server error. 2.14.0: our copy carries health care and guides, and Utah, Colorado and Nevada (one state a run). 2.13.0: Overpass retired: never asked; a kind our copy lacks is reported as not in our copy. 2.12.1: a task stopped by a held service reports "held", never "failed": the call that trips a hold says so, and Common Crawl's task checks its holds first, so a run whose only trouble is a held service ends ok on Railway, not Crashed; 2.12.0: the identity check starts from what the site's own copies hold (the job's "local"), outside only for the rest; 2.11.0: a website that doesn't load for the refresh is looked up in Common Crawl's newest crawl (W2, decisions/0163's source map: direct, then Common Crawl); 2.10.0: web search falls to Brave when Tavily fails or is held; Google Places as the paid backup for confirming a business in the identity check, only by a director's override within its cap (decisions/0163's source map); 2.9.0: W1 reads our OpenStreetMap copy first (the job's "ours", from Geofabrik), Overpass only for a kind or town it lacks, and works on while every Overpass server is held (decisions/0163's source map); 2.8.0: every link on a page read goes to the page log (same site or not; no cap of 60, nor 40 other sites: W0, decisions/0164 §1.4); 2.7.5: a page whose reading had to stop is logged waiting to be read (P1-1); 2.7.4: reports which keys it has (names only), its per-run limits from the plan, Geofabrik's weekly load (osmium); 2.7.3: Geofabrik over IPv4; 2.7: the open-dataset loads and Geofabrik's test (Release B); the service's contract 2 (decisions/0160 §2): the site plans each run, the worker reports it; 2.4: calls by host; 2.5: issues, holds, probes, per-kind Overpass; 2.6: servers from the plan, the pace
++WORKER_V = "2.16.2"          # 2.16.2: our own site slow (no answer in time, or its 5xx) is SiteSlow, slow and never a crash; Overture and Foursquare send 250 rows a batch, a slow one once more (case #51). 2.16.1: Common Crawl's bulk reads wait only on data.commoncrawl.org, the host they read (an index-server hold stopped them). 2.16.0: the Census geocoder's backup: when the site can't reach the Census on its connection, the worker sends the same batch itself and hands the reply to the site to place (decisions/0175's note, 2026-11-20). 2.15.0: Common Crawl's bulk reads (our states' public sites, a source's pages) query its URL Index (Parquet on data.commoncrawl.org, one request at a time, the crawl's file map kept on the site), never the index server, which keeps only a single page's copy (decisions/0164's note of 2026-11-20). 2.14.1: a 503 asking us to slow down (S3's SlowDown, Common Crawl's data server) is a rate wait, not a server error. 2.14.0: our copy carries health care and guides, and Utah, Colorado and Nevada (one state a run). 2.13.0: Overpass retired: never asked; a kind our copy lacks is reported as not in our copy. 2.12.1: a task stopped by a held service reports "held", never "failed": the call that trips a hold says so, and Common Crawl's task checks its holds first, so a run whose only trouble is a held service ends ok on Railway, not Crashed; 2.12.0: the identity check starts from what the site's own copies hold (the job's "local"), outside only for the rest; 2.11.0: a website that doesn't load for the refresh is looked up in Common Crawl's newest crawl (W2, decisions/0163's source map: direct, then Common Crawl); 2.10.0: web search falls to Brave when Tavily fails or is held; Google Places as the paid backup for confirming a business in the identity check, only by a director's override within its cap (decisions/0163's source map); 2.9.0: W1 reads our OpenStreetMap copy first (the job's "ours", from Geofabrik), Overpass only for a kind or town it lacks, and works on while every Overpass server is held (decisions/0163's source map); 2.8.0: every link on a page read goes to the page log (same site or not; no cap of 60, nor 40 other sites: W0, decisions/0164 §1.4); 2.7.5: a page whose reading had to stop is logged waiting to be read (P1-1); 2.7.4: reports which keys it has (names only), its per-run limits from the plan, Geofabrik's weekly load (osmium); 2.7.3: Geofabrik over IPv4; 2.7: the open-dataset loads and Geofabrik's test (Release B); the service's contract 2 (decisions/0160 §2): the site plans each run, the worker reports it; 2.4: calls by host; 2.5: issues, holds, probes, per-kind Overpass; 2.6: servers from the plan, the pace
+ RUN_END = None             # when this run's own work must stop (started + TIME_BUDGET, or a bulk load's end)
+ TASK_END = None            # when the capture task being worked must stop (its share of the run)
+ FETCH_CAP = MAX_FETCHES    # fetches this run may have made by the end of the task being worked
+@@ -435,6 +435,12 @@ class SiteBotCheck(ServiceHeld):
+     """The host's bot check refused the worker even with its cookie: the work goes back untouched, the task reports held."""
+ 
+ 
++class SiteSlow(RuntimeError):
++    """Our own site slow or failing to answer (no answer in time, or a 5xx of its own): slow, never a crash (2.16.2; Jason,
++    2026-11-19: "slow is never a trip"; case #51). A RuntimeError, keeping "site <path> said 5xx: …" for the callers that
++    wait a busy host out (geofabrik_send)."""
++
++
+ def _site_request(path, data, timeout):
+     global _site_last
+     wait = SITE_GAP - (time.monotonic() - _site_last)
+@@ -468,7 +474,15 @@ def site_call(path, payload=None, timeout=60):
+                 log(f"site {path}: the host's bot check refused the worker even with its cookie ({m.group(1)})")
+                 raise SiteBotCheck("the host's bot check refused the worker (Bluehost, 409 humans challenge)") from None
+             # Say which call failed and what the site said (Bluehost's firewall answers 406 with an HTML page).
++            if e.code >= 500:                            # our own server's error: slow, never a crash (2.16.2)
++                raise SiteSlow(f"site {path} said {e.code}: {raw[:200]!r}") from None
+             raise RuntimeError(f"site {path} said {e.code}: {raw[:200]!r}") from None
++        except (TimeoutError, socket.timeout) as e:    # no answer from our own site in time (2.16.2)
++            raise SiteSlow(f"site {path}: no answer in {timeout} s") from None
++        except urllib.error.URLError as e:
++            if isinstance(e.reason, (TimeoutError, socket.timeout)):
++                raise SiteSlow(f"site {path}: no answer in {timeout} s") from None
++            raise
+     d = json.loads(body.decode("utf-8"))
+     if payload is None and isinstance(d, dict):   # work the site handed out: how the run knows a task had work
+         task_got += sum(len(d[k]) for k in GOT_KEYS if isinstance(d.get(k), list)) + (1 if d.get("source") else 0)
+@@ -3549,6 +3563,23 @@ def _overture_release():
+     return sorted(found)[-1] if found else ""
+ 
+ 
++# 2.16.2 (case #51, 2026-11-21: W1's overture_bulk stopped on a TimeoutError after 380 s, our own site taking 500 rows): smaller
++# batches, and a batch our site was too slow for (SiteSlow) is sent once more after a wait (the site keeps each row by its
++# own id, so a resend changes nothing). Still slow: SiteSlow goes up, and the site counts it as slow, never a crash.
++OPEN_LOAD_BATCH = 250
++OPEN_LOAD_WAIT = 30
++
++
++def open_load_send(body):
++    """One batch to /api/crawl/loads.php; slow once, it waits OPEN_LOAD_WAIT seconds and sends the same batch again."""
++    try:
++        return site_call("/api/crawl/loads.php", body, timeout=120)
++    except SiteSlow as e:
++        log(f"{body.get('dataset')}: {body.get('key')}: our site was slow ({e}); sending the batch again in {OPEN_LOAD_WAIT} s")
++        time.sleep(OPEN_LOAD_WAIT)
++        return site_call("/api/crawl/loads.php", body, timeout=120)
++
++
+ def open_load(dataset, deadline):
+     """One dataset's towns, biggest gap first, as many as the site hands out: each town's box read, sent, then marked done."""
+     release = _overture_release() if dataset == "overture" else (FSQ_RELEASE or "dt=2026-10-15")
+@@ -3584,8 +3615,8 @@ def open_load(dataset, deadline):
+             rows = [{"id": r[0], "name": r[1] or "", "category": r[2] or "", "street": r[3] or "", "city": r[4] or "", "state": (r[5] or "")[-2:], "zip": (r[6] or "")[:5],
+                      "phone": r[7] or "", "website": r[8] or "", "lat": r[9], "lng": r[10], "date_closed": str(r[11] or ""), "sources": [["Foursquare", "Apache-2.0"]], "confidence": 0.6}
+                     for r in con.execute(q).fetchall()]
+-        for i in range(0, len(rows), 500):
+-            res = site_call("/api/crawl/loads.php", {"dataset": dataset, "release": release, "key": t["key"], "rows": rows[i:i + 500]}, timeout=120)
++        for i in range(0, len(rows), OPEN_LOAD_BATCH):
++            res = open_load_send({"dataset": dataset, "release": release, "key": t["key"], "rows": rows[i:i + OPEN_LOAD_BATCH]})
+             if res.get("paused"):
+                 return "paused"
+         site_call("/api/crawl/loads.php", {"dataset": dataset, "release": release, "key": t["key"], "done": True})
+diff --git a/workers/crawler/tests/test_site_slow.py b/workers/crawler/tests/test_site_slow.py
+new file mode 100644
+index 00000000..909a45a2
+--- /dev/null
++++ b/workers/crawler/tests/test_site_slow.py
+@@ -0,0 +1,76 @@
++"""2.16.2 (case #51, 2026-11-21): our own site slow is SiteSlow, never a crash: no answer in time, or a 5xx from it, raises
++SiteSlow (a RuntimeError keeping "site <path> said 5xx: …" for geofabrik_send); a 4xx stays an ordinary error. Overture and
++Foursquare send OPEN_LOAD_BATCH rows a batch, and one our site was slow for is sent once more. The task's why names
++SiteSlow, so the site counts it as slow. Run: python3 tests/test_site_slow.py"""
++import io, os, socket, sys, urllib.error
++os.environ.setdefault("TRAVERSENCE_URL", "http://127.0.0.1:1")
++os.environ.setdefault("CRAWLER_API_TOKEN", "t")
++sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
++import crawler  # noqa: E402
++
++fails = 0
++def check(name, ok):
++    global fails
++    print(("  ok  " if ok else "FAIL  ") + name)
++    fails += 0 if ok else 1
++
++def raising(exc):
++    def f(path, data, timeout):
++        raise exc
++    return f
++
++def err(code):
++    return urllib.error.HTTPError("http://x", code, "x", {}, io.BytesIO(b"<html>busy</html>"))
++
++for name, exc in [("a timeout", TimeoutError("timed out")), ("a socket timeout", socket.timeout("timed out")), ("a URLError around a timeout", urllib.error.URLError(TimeoutError("timed out")))]:
++    crawler._site_request = raising(exc)
++    try:
++        crawler.site_call("/api/crawl/loads.php", {"x": 1}, timeout=120); got = None
++    except Exception as e:
++        got = e
++    check(f"{name} from our site is SiteSlow, saying how long it waited", isinstance(got, crawler.SiteSlow) and "no answer in 120 s" in str(got))
++crawler._site_request = raising(err(503))
++try:
++    crawler.site_call("/api/crawl/loads.php", {"x": 1}); got = None
++except Exception as e:
++    got = e
++check("a 503 from our site is SiteSlow, its words kept for geofabrik_send", isinstance(got, crawler.SiteSlow) and isinstance(got, RuntimeError) and " said 503: " in str(got))
++crawler._site_request = raising(err(403))
++try:
++    crawler.site_call("/api/crawl/loads.php", {"x": 1}); got = None
++except Exception as e:
++    got = e
++check("a 403 stays an ordinary error (not slow)", isinstance(got, RuntimeError) and not isinstance(got, crawler.SiteSlow))
++
++# a slow batch is sent once more
++calls = []
++def flaky(path, payload=None, timeout=60):
++    calls.append(payload)
++    if len(calls) == 1:
++        raise crawler.SiteSlow("site /api/crawl/loads.php: no answer in 120 s")
++    return {"ok": True}
++crawler.site_call, real = flaky, crawler.site_call
++crawler.OPEN_LOAD_WAIT = 0
++check("a batch our site was slow for is sent once more, the same batch", crawler.open_load_send({"rows": [1, 2]}) == {"ok": True} and len(calls) == 2 and calls[0] == calls[1])
++calls.clear()
++def slow(path, payload=None, timeout=60):
++    calls.append(payload); raise crawler.SiteSlow("site /api/crawl/loads.php: no answer in 120 s")
++crawler.site_call = slow
++try:
++    crawler.open_load_send({"rows": [1]}); got = None
++except Exception as e:
++    got = e
++check("…still slow the second time: SiteSlow goes up (the task's why names it)", isinstance(got, crawler.SiteSlow) and len(calls) == 2)
++crawler.site_call = real
++check("batches are smaller than before (500)", crawler.OPEN_LOAD_BATCH < 500 and "rows[i:i + OPEN_LOAD_BATCH]" in open(crawler.__file__).read())
++
++# the task's outcome and why
++item = {"task": "overture_bulk", "allotted": 60, "counts": {}}
++def task(deadline):
++    raise crawler.SiteSlow("site /api/crawl/loads.php: no answer in 120 s")
++crawler.HANDLERS["slowtask"] = (task, None, lambda: "")
++crawler.work_task({"task": "slowtask", "seconds": 60}, item, 60)
++check("the task reports its why starting SiteSlow( (the site counts it slow, never a crash)", item.get("outcome") == "failed" and item.get("why", "").startswith("SiteSlow("))
++check("the worker's version says 2.16.2", crawler.WORKER_V == "2.16.2")
++print("all passed" if not fails else f"{fails} failed")
++sys.exit(1 if fails else 0)
