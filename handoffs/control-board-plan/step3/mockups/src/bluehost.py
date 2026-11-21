@@ -151,14 +151,16 @@ UNAFF_BH = ('<ul><li>Railway\'s workers keep running, but can\'t report</li><li>
 def card_pages_down(t='2:15 AM MST'):
     th = thread('Page load', light('r', 'Down: the system is still trying') + f' since {sc(t)}.',
                 HELD_BH, 'none', UNAFF_BH,
-                f'The outside heartbeat on GitHub checks every 15–30 minutes (next {sc("2:30 AM MST")}). The incident is opened outside the host, and finished '
-                'when the site is back, from the gap in its readings. Jason is told by the heartbeat\'s own sender, since Pulse and the board are on Bluehost.',
+                f'The outside heartbeat (GitHub Actions) checks every 15–30 minutes (next {sc("2:30 AM MST")}) and writes the incident as an unnumbered record in the repo. '
+                'Jason is told by email only, through the site\'s Amazon email (SES); no push while the host is gone. When the site is back it takes the record in, '
+                'numbers it, and shows it in Pulse as “Raised while the site was down, by the outside heartbeat”.',
                 b('Check and start again', True) + b('Acknowledge'),
                 bh_slots(fix='console'),
                 'Fix it: <b>Bluehost\'s console page</b> (cPanel, from <code>CPANEL_HOST</code>), and Sign in · Account. Both open off the host, so they work '
                 'while it\'s down; the board\'s own buttons work once it\'s back.',
-                '<dl class="dl"><dt>Ids</dt><dd>T-#### · IR-#### (critical: a trip at once)</dd><dt>Evidence</dt><dd>the home page and <code>/api/health.php</code> gave no 200</dd>'
-                '<dt>Told</dt><dd>the Founder, by email and push from the heartbeat\'s own sender (<i>spec</i>)</dd><dt>Rule</dt><dd>02 §4 row 53; §6 “Railway down” mirror; g3 §3</dd></dl>',
+                '<dl class="dl"><dt>Ids</dt><dd>none while the host is down; T-#### and IR-#### are assigned when the site takes the record in</dd><dt>Evidence</dt><dd>the home page and <code>/api/health.php</code> gave no 200</dd>'
+                '<dt>Told</dt><dd>the Founder, by email only: the heartbeat sends through Amazon SES with a GitHub secret limited to sending (Jason, 2026-11-21). No push: the push keys stay on Bluehost</dd>'
+                '<dt>Rule</dt><dd>02 §4 row 53; 03 §14.6 (Jason\'s answers)</dd></dl>',
                 at='Bluehost')
     parts = {'site': {'state': light('r', 'Down'), 'cls': 'hr', 'btn': UPB}, 'ep': {'state': light('h', 'Held (waiting on Bluehost)'), 'cls': 'hl'},
              'db': {'state': light('h', 'Held (waiting on Bluehost)'), 'cls': 'hl'}, 'sched': {'state': light('h', 'Held (waiting on Bluehost)'), 'cls': 'hl'}}
@@ -167,10 +169,10 @@ def card_pages_down(t='2:15 AM MST'):
 
 
 def card_db():
-    th = thread('The listings database', light('r', 'Down: the system is still trying') + f' since {sc("9:12 AM MST")}.',
+    th = thread('The listings database', light('r', 'Paused by the system (the listings endpoints)') + f': still trying, {sc("1 of 3")}, next at {sc("9:17 AM MST")}. Since {sc("9:12 AM MST")}.',
                 '<ul><li>What reads the listings realm: search and listing pages</li><li>The endpoints that write listings (their tasks wait)</li></ul>', 'none',
                 '<ul><li>Sign-in (the users realm), the admin and orders (the admin realm)</li><li>Pages that read only the main database</li><li>Railway\'s other calls</li></ul>',
-                f'A critical part (database) trips at once while the system keeps trying: one query on the listings realm at each watch. Next {sc("9:17 AM MST")}.',
+                'A critical part (database) trips at once while the system keeps trying: one query on the listings realm at each watch.',
                 b('Check and start again', True) + b('Acknowledge'),
                 bh_slots(fix='console'),
                 'Fix it: <b>Bluehost\'s console page</b> (cPanel: MySQL databases), then <b>Check and start again</b> runs the realm\'s query.',
@@ -179,7 +181,7 @@ def card_db():
     parts = {'db': {'state': light('r', 'Down: the listings realm'), 'cls': 'hr', 'btn': UPB,
                     'read': f'main, admin, users answer · <b>listings refused</b> at {sc("9:12 AM MST")}'},
              'site': {'state': light('h', 'Partly working: search and listing pages wait'), 'cls': 'hl'}}
-    return bh_card(light('r', 'On · Down: the listings database'), th, parts=parts, fault='r', stage=STAGE_BH_TRIP,
+    return bh_card(light('r', 'On · Paused by the system (the listings endpoints)'), th, parts=parts, fault='r', stage=STAGE_BH_TRIP,
                    sens={'db': f'<b>listings refused</b> at {sc("9:12 AM MST")}; main, admin, users answered', 'Each realm_cls': 'hr'})
 
 
@@ -199,7 +201,7 @@ def card_cpanel_key():
 
 
 def card_cron():
-    th = thread('The site\'s scheduled jobs', light('r', 'Down: the system is still trying') + f' since {sc("12:40 PM MST")}.',
+    th = thread('The site\'s scheduled jobs', light('r', 'Paused by the system (renewals)') + f': still trying, {sc("1 of 3")}, next at {sc("12:45 PM MST")}. Since {sc("12:40 PM MST")}.',
                 '<ul><li>Plans and renewals (<code>billing_tick</code>): renewals wait</li></ul>', 'none',
                 '<ul><li>Every other job, on its own line</li><li>Pages, search, sign-in, checkout (but not renewals)</li></ul>',
                 'A critical job\'s cron line is missing (procedures), so it trips at once while the system keeps looking at each watch.',
@@ -211,7 +213,7 @@ def card_cron():
                 '<dt>Ids</dt><dd>T-#### · IR-####</dd><dt>Rule</dt><dd>02 §4 row 55; P8</dd></dl>', at='Bluehost')
     parts = {'sched': {'state': light('r', 'Down: a critical line missing'), 'cls': 'hr', 'btn': UPB,
                        'read': f'<b><code>billing_tick</code>\'s cron line isn\'t in cPanel</b> ({sc("12:40 PM MST")})'}}
-    return bh_card(light('r', 'On · Down: the site\'s scheduled jobs'), th, parts=parts, fault='r', stage=STAGE_BH_TRIP,
+    return bh_card(light('r', 'On · Paused by the system (renewals)'), th, parts=parts, fault='r', stage=STAGE_BH_TRIP,
                    sens={'cron': f'<b><code>billing_tick</code>\'s line missing</b> at {sc("12:40 PM MST")}', 'The watch and cron_cls': 'hr'})
 
 
@@ -270,12 +272,12 @@ def bh_board():
     j = hosts.index('<div class="host"><div class="hn"><a href="#" data-open-panel="p-railway">Railway</a>')
     hh = hosts[:i] + tile + hosts[j:]
     when_down = f"""<div class="sec"><h2>When Bluehost is down, the board can't load</h2>
-<div class="sub" style="margin:0 .2rem .6rem">The board and Pulse live on Bluehost. The outside heartbeat on GitHub (every 15–30 min, O3) is what notices, and its own sender tells Jason.</div>
-<div class="grid2"><div class="frame"><div class="fh">Email · from the heartbeat's own sender (<i>spec</i>)</div><div class="fb"><div class="email"><div class="hd2"><span>From</span><b>Traversence Control Board</b><span>Subject</span><b>SYSTEM ALARM NOTICE: Page load: Down: the system is still trying</b></div>
+<div class="sub" style="margin:0 .2rem .6rem">The board and Pulse live on Bluehost. The outside heartbeat (GitHub Actions, every 15–30 min, O3) notices, writes an unnumbered record in the repo, and emails Jason through the site's Amazon email (SES). No push: the push keys stay on Bluehost.</div>
+<div><div class="frame"><div class="fh">Email · from the outside heartbeat, through Amazon SES (<i>spec</i>)</div><div class="fb"><div class="email"><div class="hd2"><span>From</span><b>Traversence Control Board</b><span>Subject</span><b>SYSTEM ALARM NOTICE: Page load: Down: the system is still trying</b></div>
 <p>Held: everything that runs on Bluehost. Unaffected: Railway's workers (they can't report), GitHub, the mirror.</p>
-<p>At Bluehost: <a href="#cpanel">Console · cPanel</a> · <a href="{ACCOUNT}">Sign in · Account</a></p></div></div></div>
-<div class="frame"><div class="fh">Push · from the heartbeat's own sender (<i>spec</i>)</div><div class="fb"><div class="push"><div class="pa"><span>Traversence</span><span>{sc('2:15 AM')}</span></div><div class="pt">SYSTEM ALARM: Page load</div><div>Down: the system is still trying.</div></div></div></div></div>
-<div class="sub" style="margin:.4rem .2rem 0">When the site is back, the board opens with the incident already written from the gap in its readings: see page d.</div></div>"""
+<p>At Bluehost: <a href="#cpanel">Console · cPanel</a> · <a href="{ACCOUNT}">Sign in · Account</a></p><p class="sub">No incident number yet: it's assigned when the site is back.</p></div></div></div>
+<div class="frame"><div class="fh">Push</div><div class="fb"><div class="sub">None while the host is gone: the push keys stay on Bluehost.</div></div></div></div>
+<div class="sub" style="margin:.4rem .2rem 0">When the site is back, it takes the heartbeat's record in, numbers it, and shows it in Pulse as “Raised while the site was down, by the outside heartbeat”: see page d.</div></div>"""
     body = (intro('<b>(a) Bluehost on the board\'s first view, 1280.</b> The same 10:19 UTC (3:19 AM MST) board, with Bluehost\'s tile drawn from the live code and the '
                   'health report. Below it: what stays honest when the board itself can\'t load because Bluehost is down.')
             + top_open + '<div class="sec"><h2>What needs me</h2>' + trip_cc + closed_trip + needs_att + warn_grp + '</div>'
@@ -293,27 +295,27 @@ def bh_story():
     hd = '<div class="prow hd"><div>From</div><div>Severity</div><div>Subject</div><div>Received</div></div>'
     steps = f"""<div class="steps">
 <div class="step"><h3>1 · The board and Pulse can't open: they're on Bluehost</h3><div class="when">{sc('2:15 AM MST')}: the outside heartbeat on GitHub gets no 200 from the home page or <code>/api/health.php</code>. Page load is critical: a trip at once.</div>
-<div class="note">The board and Pulse show nothing while Bluehost is down: no page of ours answers. The next two surfaces come from the heartbeat's own sender, outside the host.</div></div>
-<div class="step"><h3>2 · Email and push, from outside the host, in the same minute</h3><div class="when">One title everywhere: “Page load”. One status: “Down: the system is still trying”. One Held/Unaffected line.</div>
-<div class="frame"><div class="fh">Email · a new thread to the Founder (from the heartbeat's sender, <i>spec</i>)</div><div class="fb"><div class="email"><div class="hd2"><span>From</span><b>Traversence Control Board</b><span>To</span><b>the Founder (Jason)</b><span>Subject</span><b>{SUBJ}</b><span>Sent</span><span>Nov 21, {sc('2:15 AM')} MST</span></div>
+<div class="note">The board and Pulse show nothing while Bluehost is down: no page of ours answers. The heartbeat writes the incident as an unnumbered record in the repo (its times, what failed, its checks) and sends the email itself.</div></div>
+<div class="step"><h3>2 · Email only, from outside the host, in the same minute</h3><div class="when">One title: “Page load”. One status: “Down: the system is still trying” (the host itself is gone, so nothing could place a hold). One Held/Unaffected line.</div>
+<div class="frame"><div class="fh">Email · a new thread to the Founder, from the outside heartbeat through Amazon SES (<i>spec</i>)</div><div class="fb"><div class="email"><div class="hd2"><span>From</span><b>Traversence Control Board</b><span>To</span><b>the Founder (Jason)</b><span>Subject</span><b>{SUBJ}</b><span>Sent</span><span>Nov 21, {sc('2:15 AM')} MST</span></div>
 <p><b>Page load</b></p><p><b>Status:</b> Down: the system is still trying, since {sc('2:15 AM MST')}.</p><p><b>What it affects:</b> {HELD}</p>
-<p><b>What the system is doing:</b> the outside heartbeat checks again every 15–30 minutes; next {sc('2:30 AM MST')}. The incident is finished when the site is back.</p>
+<p><b>What the system is doing:</b> the outside heartbeat checks again every 15–30 minutes; next {sc('2:30 AM MST')}. No incident number yet: it's assigned when the site is back.</p>
 <p><b>Fix it, at Bluehost</b> (these open off the host): Console · cPanel (https://‹CPANEL_HOST›:2083) · Sign in · Account <a href="{ACCOUNT}">{ACCOUNT}</a></p></div></div></div>
-<div class="frame"><div class="fh">Push · one, tagged for this incident (from the heartbeat's sender, <i>spec</i>)</div><div class="fb"><div class="push"><div class="pa"><span>Traversence</span><span>{sc('2:15 AM')}</span></div><div class="pt">SYSTEM ALARM: Page load</div><div>Down since {sc('2:15 AM MST')}: the system is still trying.</div></div></div></div></div>
+<div class="frame"><div class="fh">Push</div><div class="fb"><div class="sub">None while the host is gone: the push keys stay on Bluehost (Jason, 2026-11-21).</div></div></div></div>
 <div class="step"><h3>3 · Fix it: Bluehost's own pages, then its card once the site answers</h3><div class="when">While it's down, the email's two links open Bluehost's cPanel and account. Once pages load, Fix it opens Bluehost's card in the side panel.</div>
 <div class="frame"><div class="fh">Side panel over the board, once it loads (× · Esc · click outside to close)</div><div class="fb"><div class="panel-static"><button class="x" aria-label="Close" style="pointer-events:none">×</button><h2 style="font-size:16px;margin:.2rem 0 .7rem">Bluehost</h2>{card_pages_down()}</div>
 <p><button class="btn f" data-open-panel="p-fix">Open it live</button></p></div></div></div>
-<div class="step"><h3>4 · Recovered closes all four</h3><div class="when">{sc('3:00 AM MST')}: the heartbeat gets 200. The site writes the incident from the gap in its readings; Pulse gets the row already closed.</div>
+<div class="step"><h3>4 · Back: numbered, then Recovered on every channel</h3><div class="when">{sc('3:00 AM MST')}: the heartbeat gets 200. The site takes the heartbeat's record in, assigns T-#### and IR-#### then, and closes it as Recovered on every channel.</div>
 <div class="frame"><div class="fh">Board</div><div class="fb"><div class="need"><div class="l1">{light('g', 'Closed: Recovered')}<span class="t">Page load</span><span class="why">T-#### · IR-####</span></div>
 <div>{REC}</div><div class="sub">Its check passed: the home page and <code>/api/health.php</code> answered 200 at {sc('3:00 AM MST')}. The workers' reports that waited are taken in again.</div><div class="sub">Still off: none.</div></div></div></div>
-<div class="frame"><div class="fh">Pulse · the incident's row, closed, written when the site came back</div><div class="fb">{hd}<div class="prow"><div>Control Board</div><div class="sev" style="color:var(--meta)">Critical</div><div>SYSTEM ALARM NOTICE: Page load: Recovered<div class="sub">Last note: {REC} Still off: none.</div></div><div>Nov 21, {sc('3:00 AM')} MST</div></div></div></div>
+<div class="frame"><div class="fh">Pulse · the incident's row, taken in when the site came back</div><div class="fb">{hd}<div class="prow"><div>Control Board</div><div class="sev" style="color:var(--meta)">Critical</div><div>SYSTEM ALARM NOTICE: Page load: Recovered<div class="sub">Raised while the site was down, by the outside heartbeat: {sc('2:15 AM MST')}, checks at {sc('2:30')} and {sc('2:45 AM MST')}, back at {sc('3:00 AM MST')}.</div><div class="sub">Last note: {REC} Still off: none.</div></div><div>Nov 21, {sc('2:15 AM')} MST</div></div></div></div>
 <div class="frame"><div class="fh">Email · a reply in the same thread</div><div class="fb"><div class="email"><div class="hd2"><span>Subject</span><b>SYSTEM ALARM NOTICE: Page load: Recovered</b><span>In reply to</span><span>{SUBJ}</span><span>Sent</span><span>Nov 21, {sc('3:00 AM')} MST</span></div>
 <p>{REC}</p><p>Its check passed: the home page and <code>/api/health.php</code> answered 200 at {sc('3:00 AM MST')}. Still off: none.</p></div></div></div>
-<div class="frame"><div class="fh">Push · the earlier push replaced in place under its tag, silently</div><div class="fb"><div class="push"><div class="pa"><span>Traversence · replaced quietly, no sound</span><span>{sc('3:00 AM')}</span></div><div class="pt">SYSTEM ALARM: Page load</div><div>Recovered.</div></div></div></div></div>
+<div class="frame"><div class="fh">Push</div><div class="fb"><div class="sub">None: no push went out during the outage, so none is replaced.</div></div></div></div>
 </div>"""
     add('bluehost-d-pages-down.html', 'Pages down, every surface', 'Bluehost\'s pages down walked through the outside heartbeat, email, push, Fix it and Recovered.',
         intro('<b>(d) “Pages down”, every surface.</b> A scenario: every time is illustrative (dotted). Words: 02 row 53, §3c, §7. While Bluehost is down the board and Pulse '
-              'can\'t answer, so the heartbeat on GitHub sends the email and the push itself (<i>spec</i>, O3).') + steps + prov(PROV_BH),
+              'can\'t answer, so the outside heartbeat on GitHub sends the email itself, through Amazon SES; no push (Jason, 2026-11-21; <i>spec</i>, O3).') + steps + prov(PROV_BH),
         panel('p-fix', 'Bluehost', card_pages_down()))
 
 
@@ -323,7 +325,7 @@ add('bluehost-b-working.html', 'Bluehost card, Working', 'Bluehost\'s four-zone 
           'and the 3:19 AM MST health report; the rest is “not read yet”.') + MISMATCH + bh_card(light('a', 'On · Warning (Slow): our endpoint')) + prov(PROV_BH))
 BH_FAULTS = [
     ('bluehost-c1-pages-down.html', 'Bluehost card: pages not loading', 'Critical: a trip at once while the outside heartbeat keeps trying.',
-     '<b>(c1) Pages not loading (row 53).</b> Critical (page): a trip at once while it keeps trying. This card is what the board shows once it can load again; while it\'s down, Jason has the email and push (page d).', card_pages_down),
+     '<b>(c1) Pages not loading (row 53).</b> Critical (page): a trip at once while it keeps trying. This card is what the board shows once it can load again; while it\'s down, Jason has the email only (page d).', card_pages_down),
     ('bluehost-c2-database.html', 'Bluehost card: a database refused', 'The listings realm refused: only what reads it waits.',
      '<b>(c2) The database unreachable (row 54):</b> the listings realm refused. Critical (database).', card_db),
     ('bluehost-c3-cpanel-key.html', 'Bluehost card: cPanel refused our key', 'cPanel\'s API refused its token: only setting up jobs and mailboxes waits.',

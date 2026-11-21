@@ -516,17 +516,39 @@ All of them live in `.env`, above `public_html`.
 
 | Mockup | Row | Status words | Fix it |
 |---|---|---|---|
-| a The board | — | Bluehost's tile "On · Warning (Slow): /api/crawl/loads is slow" (02 group A) with its radius, plus **"When Bluehost is down, the board can't load"**: the email and push from the outside heartbeat's own sender | — |
+| a The board | — | Bluehost's tile "On · Warning (Slow): /api/crawl/loads is slow" (02 group A) with its radius, plus **"When Bluehost is down, the board can't load"**: the email only, from the outside heartbeat through Amazon SES, with no incident number yet; no push (14.6a) | — |
 | b Working | — | as above; the observed mismatch note | — |
 | c1 Pages not loading | 53 | "Page load · Down: the system is still trying" (critical, a trip at once) | Console · cPanel and Sign in · Account: both open off the host |
-| c2 A realm refused | 54 | "The listings database · Down: the system is still trying" | Console · cPanel (MySQL databases) |
+| c2 A realm refused | 54 | "The listings database · Paused by the system (the listings endpoints): still trying, 1 of 3, next at <time>" (14.6a) | Console · cPanel (MySQL databases) |
 | c3 cPanel's key | 29, 56 | "cPanel's API refused our key · Paused by the system: calls with CPANEL_TOKEN wait for a new key." | Keys: not registered, said so; Replace key |
-| c4 A cron line missing | 55 | "The site's scheduled jobs · Down: the system is still trying" (scenario on the real gap, `billing_tick`) | Set them up now; Console · cPanel (Cron jobs) |
+| c4 A cron line missing | 55 | "The site's scheduled jobs · Paused by the system (renewals): still trying, 1 of 3, next at <time>" (14.6a; scenario on the real gap, `billing_tick`) | Set them up now; Console · cPanel (Cron jobs) |
 | c5 Its email | 29, 43 | "Bluehost's email refused our key · Paused by the system: calls with SMTP_PASSWORD wait for a new key." The need: "The site's own email is on its backup (Amazon SES) while Bluehost's email is paused (IR-####)." | Keys: not registered; Replace key |
 | c6 A .env name missing | 31, 71, 107 | "HEALTH_TOKEN isn't in .env · Paused by the system: the daily health report waits." | Its key (Add its key); Keys: not registered |
-| d Pages down | 53, §7 | the board and Pulse can't answer; email and push from the heartbeat's sender ("SYSTEM ALARM NOTICE: Page load: Down: the system is still trying" / "SYSTEM ALARM: Page load", "Down since <time>: the system is still trying."); Fix it by the email's links to cPanel and Account, then the card once pages load; Recovered on all four ("Recovered: Page load was down <n>, the system fixed it."; Pulse gets the row already closed; the push replaced silently) | Console · cPanel; Sign in · Account |
+| d Pages down | 53, §7 | the board and Pulse can't answer; **email only** from the outside heartbeat through Amazon SES ("SYSTEM ALARM NOTICE: Page load: Down: the system is still trying"), no number yet; **no push**; Fix it by the email's links to cPanel and Account, then the card once pages load; back: the record is taken in and numbered, Pulse shows it as "Raised while the site was down, by the outside heartbeat" with its real times, and Recovered closes it on every channel ("Recovered: Page load was down <n>, the system fixed it."; no push to replace) (14.6a) | Console · cPanel; Sign in · Account |
 
-### 14.6 Open words for Bluehost
+### 14.6a Jason's answers (2026-11-21, all as recommended, reviewed by the session manager)
+
+1. **When Bluehost is down (open words 1–3).**
+   - The outside heartbeat (GitHub Actions, every 15–30 min) sends **email only**, through the site's existing Amazon
+     email (SES), with a GitHub secret limited to sending.
+   - The push keys stay on Bluehost, so there's **no push** while the host is gone.
+   - It writes the incident as an **unnumbered record in the repo**: its times, what failed, its checks. The email names
+     no T- or IR- number.
+   - When the site is back, it takes that record in, **assigns the T- and IR- numbers then**, and shows it in Pulse as
+     **"Raised while the site was down, by the outside heartbeat"**, with the real times. Recovered then closes it on
+     every channel.
+   - SES costs fractions of a cent a message, inside the email budget, under the system-email exception (Jason confirmed).
+   - Applied: pages a and d (email only, no push frame during the outage; the Pulse row after return carries the words and
+     times; no push to replace on Recovered), and c1's thread.
+2. **"Down" while something is held (open word 4).** Words follow the state.
+   - Once something is held, the status reads "Paused by the system (<what's held>): still trying, n of 3, next at
+     <time>". Applied: c2 "Paused by the system (the listings endpoints)…", c4 "Paused by the system (renewals)…".
+   - "Down: the system is still trying" only when the host itself is gone and nothing could place a hold: c1 and d (and
+     the outage email on page a).
+3. **cPanel (open word 7).** The Console keeps `CPANEL_HOST` (Site settings). The documented
+   `https://my.bluehost.com/hosting/app#/cpanel` link folds into Sign in · Account and isn't shown separately (as drawn).
+
+### 14.6 Open words for Bluehost (still open: 5 and 6; 1–4 and 7 answered in 14.6a)
 
 1. **How the outside sender emails and pushes.** Row 53 says "E/Pu from the heartbeat's own sender", and O3 sets it on
    GitHub every 15–30 min. 02 doesn't say how GitHub sends the email (which mail service, with what key) or the push
