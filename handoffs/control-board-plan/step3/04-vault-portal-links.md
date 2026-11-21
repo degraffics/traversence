@@ -187,7 +187,7 @@ Zone 4 keeps its two rows (02 §8; report §1). They are never mixed:
 **Jason's answers (2026-11-21):** "Approved all six recommendations in 04-vault-portal-links.md §7": (1) show both and
 record his pick, with no silent replacement; (2) §5's label rulings; (3) publishing is owner-only; (4) no account label;
 (5) the 180-day note, as words only; (6) the Vault's one-time page first, then the staff extension. "Still
-specs/mockups only—no code or live-site changes." Q7 came from his domain check after that, and is still open.
+specs/mockups only—no code or live-site changes." Q7 came from his domain check after that. He answered it in the pop-up: "Confirm on the spot (Recommended)".
 
 1. **When the Vault and the documented list both have the same type and they differ.** *Recommended:* the documented
    link stays shown, and the card adds "Your Vault has a different <type> page", offering both. Your choice is recorded.
