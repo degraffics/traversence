@@ -54,3 +54,19 @@ on trvgo.us while the board's edge check (the spec sensor on `/__edge`) is red. 
 - the IRS floor of 90% of last month's rows (item 5: the fix is approved, the number is still des).
 
 *Source: 03 §25.4, 3.*
+
+**9. Delivery objectives: is the platform delivering for users? (open; the session manager's proposal, not drawn yet).**
+A fourth top-line question on the board, "Is it delivering?", with objectives and targets in seven groups:
+1. the site is there: pages under about 2.5 s, 99.5% of the time; sign-in working end to end; the phone layout;
+2. people find what they came for: search quality; at least 3 results within 5 mi (30 for the outdoors, decisions/0060);
+   paths complete;
+3. what they see is true: freshness, completeness, nothing private or sacred leaks;
+4. money and commitments kept: payments, renewals, orders, email delivered;
+5. knowledge keeps growing: gathering reconciles, and the Review queue's age;
+6. within our means: the caps;
+7. the team is told and things recover: trips reach a person, the self-recovery rate, Incident Reports.
+
+Each objective is a Service module with its own check, radius, and Fix it pointing to its parts. Each is a warning
+first. Many of the measures already exist: the search, layout, paths and photos probes, and the health report.
+**Recommended:** add them to step 3's design; you set the targets once. *Source: the session manager's proposal,
+2026-11-21; no mockup yet.*

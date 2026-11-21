@@ -1459,3 +1459,15 @@ Items noted for Jason's review of the step-3 design. None is asked now.
    while the edge's check is red, so the source map's fallback holds.
 8. **Thresholds marked des:** the 24-hour certificate limit before a domain's failure is told (§25.4, 3), with the
    others still des: SES's 5% and 0.1% (item 4) and the IRS floor of 90% (item 5, approved as a fix, the number des).
+9. **Delivery objectives: "Is it delivering?"** (the session manager's proposal, 2026-11-21; *proposal, not drawn yet*).
+   A fourth top-line question on the board, with objectives and targets in seven groups:
+   - the site is there;
+   - people find what they came for;
+   - what they see is true;
+   - money and commitments kept;
+   - knowledge keeps growing;
+   - within our means;
+   - the team is told and things recover.
+
+   Each is a Service module with its own check, radius and Fix it to its parts, and is a warning first. Recommended:
+   add them to step 3's design; Jason sets the targets once.
