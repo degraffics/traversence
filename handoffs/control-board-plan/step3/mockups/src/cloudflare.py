@@ -79,7 +79,7 @@ def cf_secret():
                 cf_slots(fix='console'),
                 'Fix it: <b>Cloudflare\'s console</b> (Turnstile: the widget\'s secret), then Replace key and its check, the made-up token answered “invalid-input-response”. The check comes back on with it.',
                 f'<dl class="dl"><dt>Evidence</dt><dd>siteverify answered “invalid-input-secret” at {sc("7:40 AM MST")}</dd><dt>Told</dt><dd>the Founder: email by Bluehost\'s SMTP, Pulse, push</dd>'
-                '<dt>Rule</dt><dd>02 rows 29 (a refused key), 87 (a critical duty trips at once), 106; Jason, 2026-11-21: a refused secret lets people through</dd></dl>'
+                '<dt>Rule</dt><dd>02 rows 29 (a refused key), 87 (a critical duty trips at once), 106; Jason, 2026-11-21: a refused secret lets people through, recorded here where it\'s applied (no new 02 row, the session manager)</dd></dl>'
                 + today_words(['Today: the check refuses everyone (“The “verify you\'re human” check didn\'t pass. Please try again.”), so password sign-in, sign-up and Forgot password stop; the log says “captcha refused: invalid-input-secret”; the pre-flight names it only when it runs.',
                                'New: “Cloudflare refused our Turnstile secret · Trip (critical: sign-in\'s duty): sign-in carries on without the check until a new key.”']), at=CF)
     return cf_card(light('r', 'On · Trip (critical: sign-in\'s duty)'), th, fault='r', stage=STAGE_CFT,

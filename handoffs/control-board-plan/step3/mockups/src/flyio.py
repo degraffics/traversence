@@ -3,21 +3,21 @@ import kit
 from cloudflare import *  # every earlier page is generated on import
 
 FY = 'Fly.io'
-FYL = dict(dash='https://fly.io/dashboard', bill='https://fly.io/dashboard/personal/billing')
+FYL = dict(dash='https://fly.io/dashboard', bill='https://fly.io/dashboard/personal/billing', tok='https://fly.io/dashboard/traversence/tokens')
 
 kit.SETUP['fly'] = dict(
-    provider=FY, notice='Setup capture: Sign in not recorded · Keys: why not recorded',
+    provider=FY, notice='Setup capture: Sign in not recorded',
     keys=[('FLY_API_TOKEN', '.env', 'a deploy token for the edge app: the site adds and removes certificates through Fly\'s API'),
           ('FLY_APP, FLY_IPV4, FLY_IPV6', '.env', 'the edge app\'s name (trvgo-edge) and its addresses, shown to businesses as DNS records; not secrets'),
           ('STOREFRONT_EDGE_KEY', '.env and a Fly secret (the same value)', 'signs each visit the edge passes to trvgo.us (X-TV-Edge)'),
           ('DOMAINS_MODE', '.env (Settings)', 'off, test or live: Connect your domain on a storefront')],
     keys_note='Names only. Domain sales (Name.com\'s keys, DOMAIN_SALES_MODE) belong to the Name.com card.',
-    slots=[('Billing', 'Billing · Documented · release #212', None), ('Keys', 'Not registered', ''),
+    slots=[('Billing', 'Billing · Documented · release #212', None), ('Keys', 'Keys · Tokens · Documented · release #97', None),
            ('Console', 'Console · Dashboard · Documented · release #212', None), ('Sign in', 'Not registered', '')])
 
 
 def fy_slots(fix=None):
-    return ('<div class="slots">' + slot('billing', FY, 'Billing', FYL['bill'], fix == 'billing') + slot('keys', FY, fix=fix == 'keys')
+    return ('<div class="slots">' + slot('billing', FY, 'Billing', FYL['bill'], fix == 'billing') + slot('keys', FY, 'Tokens', FYL['tok'], fix == 'keys', rel='97')
             + slot('console', FY, 'Dashboard', FYL['dash'], fix == 'console') + slot('login', FY, fix=fix == 'login') + '</div>')
 
 
@@ -50,7 +50,7 @@ def fy_z2(dom=None, dom_cls=''):
 def fy_z3(dom=None, dom_cls=''):
     return rows([
         ('The edge', 'Fly\'s own health check: <code>GET /__edge</code> every 30 s (answers “ok”); one machine always running (shared-cpu-1x, 256 MB, <code>lax</code>)', '',
-         f'{NR}: <b>no check of ours reads it</b> (spec: the board probes <code>https://trvgo-edge.fly.dev/__edge</code>, open word 1)', '', ''),
+         f'{NR} · <b>spec sensor:</b> the board checks <code>https://trvgo-edge.fly.dev/__edge</code> on the diagnostic clock; a failure follows rows 24–26 (none reads it today)', '', ''),
         ('Its certificates', 'the pre-flight reads the app\'s certificate list (read only)', '', dom or f'{NR}', '', dom_cls),
         ('Its key', '<code>FLY_API_TOKEN</code>: a deploy token for trvgo-edge', '', NR, '', ''),
     ]) + '<div class="sub" style="margin-top:.4rem">Deploys: by hand with <code>fly deploy</code> from <code>workers/storefront-edge/</code> (Caddy 2.8); no deploy record is read here.</div>'
@@ -58,7 +58,7 @@ def fy_z3(dom=None, dom_cls=''):
 
 def fy_card(state, thread_html=None, fault=None, z2=None, z3=None, note=''):
     return card(FY, 'fly', CRIT_FY, state, STAGE_FY, SPEND_FY + note, FY_RADIUS, z2 or fy_z2(), z3 or fy_z3(),
-                act_rows(b('Check now'), FY, fy_slots(), then='The tokens page is only in the pre-flight\'s fix link, not in its record: Keys stays not registered.'),
+                act_rows(b('Check now'), FY, fy_slots(), then='Keys · Tokens: the link release #97 added to the pre-flight\'s Fly line (live 2026-11-17).'),
                 thread_html, fault, role='Host')
 
 
@@ -66,7 +66,7 @@ PROV_FY = [
     'The repo: <code>workers/storefront-edge/</code> (<code>fly.toml</code>: app trvgo-edge, lax, one machine always on, the /__edge check every 30 s; <code>Caddyfile</code>: the hand-over to trvgo.us with X-TV-Host and X-TV-Edge; <code>Dockerfile</code>: Caddy 2.8; <code>README.md</code>).',
     'The live code, mirror <code>aeb5f31</code>: <code>Domains.php</code> (stages, <code>check()</code>, <code>certificate()</code> through Fly\'s GraphQL, 3 days before a moved domain fails, “Fly didn\'t answer. It\'s tried again on the next check.”); '
     '<code>Scheduler.php</code> (<code>domains_tick</code>, 15 minutes); <code>storefront-view.php</code> (trvgo.us/&lt;shop&gt; 301s to its own domain); <code>Preflight.php</code> (owndomains need; Fly\'s test); <code>service-defs.php</code> \'fly\' (links Dashboard, Billing).',
-    'Words: 02 rows 24–26, 49 (one domain is no fault on the edge), 130; §3a, §3b. Scenario values dotted copper. No .env opened; no outside call made.',
+    'Keys slot: release #97 (deliveries/releases, live 2026-11-17: “links the traversence organization\'s tokens”). Words: 02 rows 24–26, 49 (one domain is no fault on the edge), 130; §3a, §3b. Scenario values dotted copper. No .env opened; no outside call made.',
 ]
 
 

@@ -1366,7 +1366,7 @@ pages, search, payments (unless DNS is on it), the storefront edge.
 | Mockup | Row (02) | New words | Today's words | Fix it |
 |---|---|---|---|---|
 | a Working | — | "On · Working"; R2 Proposed; DNS needs live data | — | — |
-| b Turnstile secret refused (its most real fault: the pre-flight already tests for it) | 29, 87, 106 | "Cloudflare refused our Turnstile secret · Trip (critical: sign-in's duty): sign-in carries on without the check until a new key." Held: nothing; password sign-in, sign-up and Forgot password carry on without the check (Jason, 2026-11-21); the trip is critical on `site:signin` (procedures) so it's fixed fast. Row 29's hold gives way to the fail-open here | each visitor: "The "verify you're human" check didn't pass. Please try again.", so password sign-in stops; the log "captcha refused: invalid-input-secret"; the pre-flight only when it runs | Console (Turnstile's secret), then Replace key |
+| b Turnstile secret refused (its most real fault: the pre-flight already tests for it) | 29, 87, 106 | "Cloudflare refused our Turnstile secret · Trip (critical: sign-in's duty): sign-in carries on without the check until a new key." Held: nothing; password sign-in, sign-up and Forgot password carry on without the check (Jason, 2026-11-21); the trip is critical on `site:signin` (procedures) so it's fixed fast. Row 29's hold gives way to the fail-open here | each visitor: "The "verify you're human" check didn't pass. Please try again.", so password sign-in stops (the fail-open is recorded here, where it's applied: no new 02 row, the session manager); the log "captcha refused: invalid-input-secret"; the pre-flight only when it runs | Console (Turnstile's secret), then Replace key |
 
 ### 24.3 Setup capture
 
@@ -1403,7 +1403,7 @@ was made to Fly or to the edge.
 | keys (names) | `FLY_API_TOKEN` (.env, a deploy token for the app); `FLY_APP`, `FLY_IPV4`, `FLY_IPV6` (.env, not secrets); `STOREFRONT_EDGE_KEY` (.env and a Fly secret, the same value); `DOMAINS_MODE` (.env, Settings: off, test or live) | obs |
 | stage | **needs live data:** `DOMAINS_MODE` decides it | obs |
 | spend | "Per machine and certificate; small while few businesses use their own domain", "use not read yet" | obs |
-| slots (04) | Billing · Billing and Console · Dashboard (Documented · release #212, 02 §8); Keys and Sign in not registered. The pre-flight's fix link names a tokens page that isn't in its record (open word 4) | obs |
+| slots (04) | Billing · Billing and Console · Dashboard (Documented · release #212, 02 §8); **Keys · Tokens, `https://fly.io/dashboard/traversence/tokens`, Documented · release #97** (live 2026-11-17: "links the traversence organization's tokens", `deliveries/releases/2026-11-17-97-…`); Sign in not registered | obs |
 
 ### 25.2 Incident Radius (checked in the code)
 
@@ -1420,19 +1420,19 @@ was made to Fly or to the edge.
 | a Working | — | "On · Working"; stage "needs live data"; the radius as checked | — | — |
 | b A certificate failing for one domain (its most real fault in the code) | 49's shape; 24–26 for Fly's 5xx; 130 | "pinecafe.com's certificate isn't ready · Warning (that domain): the system asks again at each check." Told after 24 hours (des) | the domain's row keeps "Certificate coming" and its last error ("The certificate: Fly didn't take it: …") on Custom domains only; no time limit; nothing on the board | Console (the app's certificates), then Check this domain now |
 
-The edge down isn't drawn: nothing of ours reads `/__edge` today, so it would be invisible (open word 1).
+The edge down isn't drawn: nothing of ours reads `/__edge` today. Spec sensor (§25.4, 1): the board checks it on the
+diagnostic clock, and a failure follows rows 24–26 on this Host.
 
-### 25.4 Open words for the Fly.io edge
+### 25.4 Open words for the Fly.io edge: answered (the session manager, 2026-11-21)
 
-1. **No check of ours reads the edge.** Spec: the board probes `https://trvgo-edge.fly.dev/__edge` (Fly's own check
-   answers there), and its down state follows rows 24–26 on this Host.
-2. **The trvgo.us redirect:** while the edge is down, trvgo.us/<shop> still sends visitors to the dead domain. Should
-   the redirect stop while the edge's check fails, so the source map's fallback holds?
-3. **A certificate that never issues** has no time limit in the code. 24 hours before telling the business's team and
-   ours is des. Also: no 02 row for one item of a Host failing (drawn as row 49's shape).
-4. **Keys slot:** the pre-flight's fix link names `https://fly.io/dashboard/traversence/tokens`, which isn't in
-   `service-defs.php`'s links, so Keys stays not registered. Add it to the record?
-5. **Its stage** needs live data (`DOMAINS_MODE`), as do the domains by stage (`business_domains`).
+1. **A spec sensor:** the board checks `https://trvgo-edge.fly.dev/__edge` on the diagnostic clock; a failure follows
+   rows 24–26 on this Host. Drawn in zone 3.
+2. **Stopping the trvgo.us redirect** while the edge's check fails: on "For Jason's review" (item 7).
+3. **The 24-hour certificate limit** (des): on "For Jason's review" with the other thresholds (item 8). No 02 row: one
+   item of a Host failing stays row 49's shape.
+4. **Keys:** release #97 added the tokens link (live 2026-11-17), so Keys is registered: "Keys · Tokens · Documented ·
+   release #97". The mirror's clone is shallow (3 commits); the release record is the source.
+5. **Its stage** (`DOMAINS_MODE`) and the domains by stage (`business_domains`): live data (asks.md).
 
 ---
 
@@ -1454,3 +1454,8 @@ Items noted for Jason's review of the step-3 design. None is asked now.
 6. **Confirm Overture (CDLA-Permissive-2.0) and Foursquare (Apache-2.0) licences — loads already running** (0164
    Decision 9; §22.6, 3). W1 added 205 in run #1290: Jason's screenshot of run #1290's page (W1 · Added 205 · Changed 4
    · Sent to Review 709; overture_bulk failed at 380 s).
+7. **Stop the trvgo.us redirect while the edge's check fails** (§25.2, §25.4, 2). Today trvgo.us/<shop> 301s to a shop's
+   own domain, so an edge outage takes those shops' trvgo.us addresses down too. Recommended: serve the shop on trvgo.us
+   while the edge's check is red, so the source map's fallback holds.
+8. **Thresholds marked des:** the 24-hour certificate limit before a domain's failure is told (§25.4, 3), with the
+   others still des: SES's 5% and 0.1% (item 4) and the IRS floor of 90% (item 5, approved as a fix, the number des).
