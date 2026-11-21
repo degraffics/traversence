@@ -31,14 +31,15 @@ BV_RADIUS = """<details><summary>If Brave Search can't be called: its Incident R
 STAGE_BV = '<span class="st">Stage 5 of 8 · Operational</span><span class="nx">Next allowed: Check now · Pause our calls · Take out (stage 6) · Deactivate (stage 7)</span>'
 STAGE_BVT = '<span class="st">Stage 5 of 8 · Operational</span><span class="nx">Next allowed: Check and start again · Acknowledge · Take out (stage 6)</span>'
 SPEND_BV = ('<span class="spend"><span>Brave Search, this month (about $0.005 a search):</span>'
-            '<span>its own searches: <b>not read yet</b></span><span>Tavily\'s fallbacks (their own line): <b>not read yet</b></span>'
+            '<span>its own searches: <b>not read yet</b> (count) · <b>not read yet</b> (dollars)</span><span>Tavily\'s fallbacks (their own line): <b>not read yet</b> (count) · <b>not read yet</b> (dollars)</span>'
+            '<span class="why">the cap counts searches, as the code does; the dollars line sits beside it</span>'
             '<span class="why">one shared web search allowance with Tavily; failed calls counted</span><span class="why">Billing: No billing page registered for Brave Search yet.</span></span>')
 
 
 def bv_z2(over=None):
     over = over or {}
     return rows([
-        ('Web search, as the second source', 'the crawler on Railway: Tavily first, then Brave when Tavily fails or is held', over.get('ws', light('g', 'On · Working') + ' <span class="why">standing by: Tavily answers first</span>'),
+        ('Web search', 'Web search when Tavily\'s key is missing, and the backup on any Tavily failure or hold', over.get('ws', light('g', 'On · Working') + ' <span class="why">standing by: Tavily answers first</span>'),
          'Feeds <b>Web search (W8, W10–W12)</b>, <b>A missing phone or website (W2)</b> and <b>Confirm a business (W1, W2)</b>, each after Tavily. '
          'It\'s the first source only when the crawler has no Tavily key. A search counts once against the shared allowance, whichever engine answers; about one a second.',
          over.get('ws_btn', b('Check now')), over.get('ws_cls', '')),
@@ -78,11 +79,12 @@ def bv_quota():
     th = thread(f'{BV} used its month at the provider',
                 light('r', 'Paused by the system') + ' until its plan\'s month turns; its check runs then.',
                 '<ul><li>Brave\'s calls</li></ul>', 'none needed: Tavily, the first source, works', UNAFF_BV,
-                'A 429 whose answer names its plan\'s limit is a quota (row 36). Nothing waits while Tavily works; if Tavily pauses too, the needs wait (page d).',
+                'A 429 whose answer names its plan\'s limit is a quota (row 36); any other 429 is a rate wait (row 27). Nothing waits while Tavily works; if Tavily pauses too, the needs wait (page d).',
                 b('Check now', True) + b('Acknowledge'),
                 bv_slots(fix='billing'),
                 f'Fix it: <b>{BV}\'s billing page</b>. No billing page registered for {BV} yet, so Fix it says so and never borrows the API dashboard.',
                 f'<dl class="dl"><dt>Evidence</dt><dd>429 with a plan-limit answer at {sc("3:12 PM MST")}, reported by the crawler\'s run {sc("#1360")}</dd>'
+                '<dt>Basis</dt><dd>inf: Brave\'s real plan-limit wording isn\'t recorded; step 4 checks the classification on a real response</dd>'
                 '<dt>Rule</dt><dd>02 rows 36, 37, 42 (a backup\'s own fault: “Nothing waits on it: its need\'s first choice is working”), 128</dd></dl>'
                 + today_words(['Today: Brave\'s own calls go through the worker; its issue reads “…: Over its quota or plan (the crawler, on Railway)” (sim, g2 row 6), and its own calls weren\'t paused (g1 row 19).',
                                f'New: “{BV} used its month at the provider · Paused by the system until its plan\'s month turns.” “Nothing waits on it: its need\'s first choice is working.”']), at=BV)
@@ -116,9 +118,10 @@ def bv_both():
                 held, 'none: Brave was the last search source; the paid backup for Confirm (<code>po_places_confirm</code>) is off',
                 '<ul><li>Every workflow\'s other tasks: W1, W2, W8, W10–W12 read “Partly working”</li><li>Every other source; pages, search, sign-in, payments</li></ul>',
                 'Each need\'s first fix is Tavily\'s, its first source. The tasks start again by themselves when either source\'s check passes. No new alarm: the two trips already told Jason, and the need is a roll-up (§2.2).',
-                b('Open Tavily\'s trip (its key)', True) + b('Open Brave\'s trip (its month)'),
+                b('Fix it: Tavily\'s key', True) + b('Fix it: Brave\'s month') + '<span class="why"><b>Either fix lifts the hold.</b></span>',
                 bv_slots(fix='billing'),
-                'Fix it: the first source first: <b>Tavily\'s key</b> (Replace key on Railway). For Brave: its billing page, not registered (“No billing page registered for Brave Search yet”).',
+                'Side by side, Tavily first (the need\'s first source): <b>Tavily\'s key</b> (Replace key on Railway; Tavily\'s Keys page isn\'t registered), and '
+                '<b>Brave\'s billing page</b> (“No billing page registered for Brave Search yet”). Either fix lifts the hold.',
                 '<dl class="dl"><dt>Radius</dt><dd>the tasks that need web search, in every workflow the needs name; never a workflow whole unless every task waits (rows 45, 46; P6)</dd>'
                 '<dt>Rule</dt><dd>02 rows 45, 46, 43, 44; §6</dd></dl>'
                 + today_words(['Today: “Paused by the system: <task> (<first workflow only>)” (sim, g1 row 18): a need with no source held only the first workflow it named, whole.',

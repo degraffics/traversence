@@ -858,13 +858,13 @@ Tavily.
 | id · name | `brave` · Brave Search | obs |
 | role | **Source**, and **Tavily's backup**: the second source of each web search need | obs (needs); des |
 | criticality | none (not in `ControlRegister::CRITICAL`) | obs |
-| purpose | "The crawler's web search when it has a Brave key instead of Tavily's." In the worker, Brave also answers whenever Tavily fails or is held | obs |
+| purpose | **"Web search when Tavily's key is missing, and the backup on any Tavily failure or hold."** (ruling 1; the live definition says only "when it has a Brave key instead of Tavily's", and the worker does both) | obs; ruling 1 |
 | plan and price | "Its free plan or paid plan, per search; the site counts each one (about $0.005) inside the same web search allowance as Tavily (SEARCH_MONTHLY)." Price `BRAVE_USD_PER_SEARCH` **$0.005** (`CrawlService::PRICES`) | obs |
 | caps and pace | **none of its own**: it shares Tavily's allowance (`websearch_monthly`, `websearch_stop_pct` 90%, `worker_searches_per_run` 10, `paid_spread`). The worker counts **one search per query, whichever engine answers**, before trying them, and waits about one second between searches. So with `websearch_monthly` = 0, Brave is off too | obs (code); inf |
 | its key | `BRAVE_API_KEY` on **Railway** (the crawler service), reported by name only (`WORKER_KEYS`); "not checked yet" until the worker's key test exists (Q4, row 30) | obs |
-| spend | the ledger's `brave`, in **two lines**: its own searches, and **Tavily's fallbacks** (the worker's `search_switches`, today dropped by the site, g2 row 27) (ruling 4). Not readable here: the ledger is in the database; the step-4 export (§17.6 item 1) carries it | des; obs |
+| spend | the cap counts searches, as the code does, with a **dollars line beside it** (ruling 2); the ledger's `brave`, in **two lines**: its own searches, and **Tavily's fallbacks** (the worker's `search_switches`, today dropped by the site, g2 row 27) (ruling 4). Not readable here: the ledger is in the database; the step-4 export (§17.6 item 1) carries it | des; obs |
 | what uses it | Web search (W8, W10–W12), A missing phone or website (W2), Confirm a business (W1, W2), each after Tavily | obs (`Preflight::NEEDS`) |
-| its answers | 401 refused key · 429: a quota when its answer names the plan, else a rate wait (`ServiceHealth::classify()`) · 5xx and timeouts | obs |
+| its answers | 401 refused key · **429: a rate wait (row 27) unless its body names the plan, then a quota (row 36)** (ruling 3; **inf**: Brave's real wording isn't recorded; step 4 checks it on a real response) · 5xx and timeouts | obs (`classify()`); inf |
 | portal_links | Console · API dashboard https://api-dashboard.search.brave.com/, **Documented · release #212**; Billing, Keys, Sign in: **not registered**, each with Publish from your Vault | obs |
 
 ### 18.2 The four zones
@@ -891,7 +891,7 @@ Tavily.
 | a Working | — | "On · Working · standing by: Tavily answers first"; spend in two lines, not read yet | — | — |
 | b Its own quota | 36, 37, 42, 128 | "Brave Search used its month at the provider · Paused by the system until its plan's month turns." "Nothing waits on it: its need's first choice is working." | "…: Over its quota or plan (the crawler, on Railway)" (sim, g2 row 6); its own calls weren't paused (g1 row 19) | Billing: "No billing page registered for Brave Search yet" |
 | c A refused key | 29, 31, 42, 106, 129 | "Brave Search refused our key · Paused by the system: calls with BRAVE_API_KEY wait for a new key." | "api.search.brave.com: Our key was refused (the crawler, on Railway)" (sim, g2 row 2) | Keys: "No API keys page registered for Brave Search yet"; the key lives on Railway |
-| d Both sources down | 45, 46 | "Web search: no source works (Tavily paused, Brave Search paused)" · "Paused by the system, waiting on its sources" · on each held task: "Waiting on Web search: no source works (Tavily paused, Brave Search paused)." | "Paused by the system: <task> (<first workflow only>)": the first workflow named, whole (sim, g1 row 18) | the first source first: Tavily's key; then Brave's billing (not registered) |
+| d Both sources down (both Fix its side by side, Tavily first: "Either fix lifts the hold", ruling 4) | 45, 46 | "Web search: no source works (Tavily paused, Brave Search paused)" · "Paused by the system, waiting on its sources" · on each held task: "Waiting on Web search: no source works (Tavily paused, Brave Search paused)." | "Paused by the system: <task> (<first workflow only>)": the first workflow named, whole (sim, g1 row 18) | the first source first: Tavily's key; then Brave's billing (not registered) |
 
 ### 18.5 Setup capture (§13.x)
 
@@ -903,13 +903,90 @@ Keys, names only:
 
 It has no settings of its own: it shares Tavily's web search allowance.
 
-### 18.6 Open words for Brave Search
+### 18.6 Open words for Brave Search: answered by the session manager (2026-11-21)
 
-1. **"Brave as the first source."** The definition says Brave is used "when it has a Brave key instead of Tavily's". The
-   worker also uses it whenever Tavily fails or is held. Should the purpose line say both?
-2. **One allowance, two prices.** A search counts once against the shared allowance whichever engine answers, but Brave
-   costs $0.005 and Tavily $0.008 a credit. Should the cap be in dollars, so the stop line follows the real spend?
-3. **Its own quota's evidence.** Brave's plan-limit answer is classified as a quota only when the 429's body names the
-   plan (`classify()`'s words). Brave's real wording isn't recorded here.
-4. **Fix it with two trips** (page d): the card offers both trips, Tavily's first (the need's first source). Is "the first
-   source first" the right order when Brave's fix is quicker?
+1. **The purpose line** says both: "Web search when Tavily's key is missing, and the backup on any Tavily failure or
+   hold." (zone 2 and §18.1).
+2. **One allowance, two prices:** keep the count, as the code does, with a dollars line beside it (the spend chip).
+   **The cap's unit (searches or dollars) is a possible question for Jason, not asked now.**
+3. **A 429** is a rate wait (row 27) unless its body names the plan, when it's a quota (row 36). Marked **inf**; step 4
+   checks it on a real response. (The ruling cited row 37; row 37 is the quota's reset, and the rate wait is row 27.)
+4. **Fix it with two trips** (page d): both sit side by side, Tavily first, with the words "Either fix lifts the hold".
+
+---
+
+## 19. QuickBooks' card (mockups `quickbooks-*.html`)
+
+Built like the others (`mockups/src/quickbooks.py`). Basis marks as in 02. Real values come from the live code at mirror
+`aeb5f31`, its tests (`tools/control-board-tests/sensor.php`, `r3f.php`), and the live alarms of 10:19 UTC. No `.env` was
+opened and no call was made to QuickBooks.
+
+### 19.1 The manifest
+
+| Field | Value | Basis |
+|---|---|---|
+| id · name | `quickbooks` · QuickBooks (Intuit) | obs |
+| role | **Service**: it does a platform job (our orders' invoices, card payments, refunds and disputes) | des (02 §2.1 lists Payments as a Service) |
+| criticality | **Critical: payments.** `ControlRegister::CRITICAL`: `svc:quickbooks` → payments, `job:billing_tick` → payments (plans and renewals), `site:payments` → payments (checkout's and QuickBooks' paths, and QuickBooks' token). Sign-in's duty is separate (`site:signin` → procedures) | obs |
+| purpose · plan | "Invoices, card payments, refunds and disputes for our own orders." "Our subscription is paid to Intuit. Each card payment carries a processing fee, ours on our own orders; it shows in QuickBooks (not recorded here yet)." | obs |
+| how it works | a checkout becomes a QuickBooks invoice; its Automated Sales Tax adds the tax; the buyer pays on QuickBooks' own payment page; no card number touches our server. A create runs **once per request id**, so a retry or a double click never makes a second invoice (0098) | obs (`QuickBooksPay.php` header, `call()`) |
+| **the no-real-money guard** | `guardReal()` before every charge, invoice and payment on an order: a test order (made in the sandbox, a "TEST · …" copy, or by a test account) never goes through live QuickBooks. `testHere()` runs staging and test accounts in the sandbox. Refunds and credits only send money back. CLAUDE.md "No test moves real money"; decisions/0145 | obs |
+| staging | `guardStaging()`: payments refuse to start on staging while a live payment key is in its `.env` (`StagingGate::LIVE_PAY_KEYS`: `QB_CLIENT_ID`, `QB_CLIENT_SECRET`, and `QB_ENV=production`), decisions/0165 §1; the r3f tests read the names the code reads | obs |
+| the OAuth token | an access token refreshed when it runs out (QuickBooks hands a new refresh token each time); a 401 before its time gets a fresh token once; a refused refresh (`invalid_grant`) marks the connection "needs reconnecting" and only the owner's **Reconnect** (E-Commerce → Payments) restores it. The tokens are kept sealed in the database (`qb_connection`), never in `.env` | obs (`access()`, `markReconnect()`, `call()`) |
+| retries | each call retries once after 2 seconds on 429 or 5xx (`httpRetry()`) | obs |
+| the sensor | `ControlSensor::probePayments()`: the token read locally every 5 minutes; a real check (the company's info) at most once an hour, held on staging. "held" (needs reconnecting) is a trip at once | obs |
+| webhooks | `/api/qb-webhook.php`, signed with the verifier token (`intuit-signature`), refused unsigned (401). Payments, invoice changes, refunds, credit memos. **A missed webhook only delays, never loses, an order**: the buyer's page asks QuickBooks, and "Check QuickBooks" on Orders catches it | obs |
+| backup | the need "Our orders' payments": QuickBooks, else **"wire or check"**; **Stripe as a second processor: planned, not built** | obs (`Preflight::NEEDS`) |
+| portal_links | **Console · QuickBooks** https://qbo.intuit.com/ and **Keys · Developer app** https://developer.intuit.com/app/developer/dashboard (04 §5 rulings), each **Documented · release #212**; Billing and Sign in: not registered | obs |
+
+### 19.2 The four zones
+
+| Zone | QuickBooks |
+|---|---|
+| 1 | **QuickBooks (Intuit)** · Service · **Critical: payments** · state · Stage 5 · setup notice · chip "Our subscription is paid to Intuit; each card payment carries a processing fee · not recorded here yet · Billing: No billing page registered for QuickBooks (Intuit) yet." · **the guard: "No test moves real money"** with `guardReal()` and `testHere()` · radius |
+| 2 | Our orders' payments · Plans and renewals (`billing_tick`) · Its webhooks · The mode (production, sandbox or mock) |
+| 3 | Its token (local every 5 min, a real check hourly) · Checkout's paths (site:payments) · Webhooks (signed or refused) · Staging's keys |
+| 4 | On our system: Check now · **Reconnect** (the owner) · Take out. At QuickBooks (Intuit): Billing (not registered) · Keys · Developer app · Console · QuickBooks · Sign in (not registered) |
+
+### 19.3 Incident Radius: when payments can't reach QuickBooks
+
+| Held | On a backup | Unaffected |
+|---|---|---|
+| our orders' payments: new invoices and pay links, card charges (a waiting charge goes once QuickBooks answers, never twice), recorded payments; checkout for our own orders shows "opens soon"; renewals (`billing_tick`) | "wire or check" for our orders; Stripe as a second processor is planned, not built | **Marketplace checkout** (businesses' own Stripe and Square); orders already paid and codes already issued; pages, search, sign-in; everything else |
+
+### 19.4 The states (mockups)
+
+| Mockup | Row (02) | New words | Today's words, beside them | Fix it |
+|---|---|---|---|---|
+| a Working | — | "On · Working"; the guard on the card. No QuickBooks or payments alarm in the 10:19 UTC snapshot (obs) | — | — |
+| b The token refused (`invalid_grant`) | 70, 106, 129 | "Checkout can't take cards: QuickBooks needs reconnecting · Paused by the system." Closes "Fixed by <name>: reconnected QuickBooks. Its check passed: <proof>." | code "QuickBooks needs reconnecting (Admin → E-Commerce → Payments)."; sensor "QuickBooks' connection ran out or was refused: it needs reconnecting." (obs); board "SYSTEM ALARM NOTICE: Checkout and payments: Paused by the system", closing "Recovered: … the system fixed it" after a person reconnected (sim, g3 C12) | **Its key: Reconnect** (the owner); Keys · Developer app if the app's keys changed |
+| c QuickBooks 5xx while a charge waits | 24–26, 69, 87, 88 | "Checkout and payments: QuickBooks isn't answering · Paused by the system (our orders' payments): still trying, 2 of 3, next at <time>." (critical: a trip at once while trying; words follow the state, 12.6a) | code "QuickBooks (503): …" after one retry; sensor "QuickBooks didn't answer: …" (obs); board "Tripped at once … still trying" with "…: Paused by the system" though nothing paused (sim, g4 row 4) | their trouble: Console · QuickBooks, then Check and start again |
+| d A test order stopped | a Notice (no row) | "Order #<n> is a test order: it never goes through live QuickBooks" · "Notice · its invoice was stopped before it reached the live gateway. No real money moved." No message | code "Order #… is a test order: it never goes through live QuickBooks, so no real money moves. Switch E-Commerce → Payments to Sandbox to run it through." (obs, `guardReal()`), to the person who pressed | none |
+
+### 19.5 Setup capture (§13.x)
+
+Notice: **"Setup capture: Sign in not recorded · Billing: why not recorded"**.
+
+Keys, names only:
+- `QB_ENV`: `.env`.
+- `QB_CLIENT_ID`, `QB_CLIENT_SECRET`: `.env`. These are a live payment key, never on staging.
+- `QB_SANDBOX_CLIENT_ID`, `QB_SANDBOX_CLIENT_SECRET`: `.env`.
+- `QB_WEBHOOK_TOKEN` and its sandbox twin: `.env`.
+- `QB_REDIRECT_URI`: `.env`, optional.
+- `QB_INCOME_ACCOUNT_ID`: `.env`, optional.
+- The connection's access and refresh tokens: sealed in the database (`qb_connection`), never in `.env`.
+- `QB_TEST_API` is for tests only and isn't listed.
+
+### 19.6 Open words for QuickBooks
+
+1. **The test-order guard as a state.** It has no 02 row. It's drawn as a Notice with no message, like Gemini's privacy
+   guard (row 37a). Should it get a row?
+2. **Down or Paused for a critical payments outage.** Rows 69 and 87 say "Down: the system is still trying" when nothing
+   is held. Page c holds the waiting charge, so it reads "Paused by the system (our orders' payments): still trying, n of
+   3" (12.6a). Confirm that payments follow the GitHub ruling.
+3. **The processing fee** "shows in QuickBooks (not recorded here yet)". Should the spend chip read it from QuickBooks'
+   payments, and when?
+4. **Stripe as a second processor** is planned in the need's fallback. Until it's built, "wire or check" is the only
+   backup; the card says so.
+5. **The token's date.** The sensor reads "its token is good until <date>" from the connection. Should the card warn a
+   set number of days before the refresh token runs out, as GitHub's tokens do (14 days)?
