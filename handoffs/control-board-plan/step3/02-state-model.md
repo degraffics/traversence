@@ -147,6 +147,39 @@ matches what you're fixing").** It replaces a single billing link.
 
 ---
 
+## 0a. Jason's rulings and answers (2026-11-21): these govern wherever a row below differs
+
+**Rulings:**
+1. **Toggles in folded groups.**
+   - A folded group's header keeps the count ("2 switches still off").
+   - Any group holding a switch still off opens by itself.
+   - **Switch on** stays visible on the task's own row, on the closed trip's row, and in Paused now → Needs attention
+     (CS-4). A toggle is never hidden inside a closed group.
+2. **Retry spacing.** The tries at about 5, 15 and 35 minutes are confirmed, inside the 60-minute "Keep the hour". They
+   are marked **des**: they adopt the existing back-off spacing, not an earlier rule of Jason's.
+3. **A part with no separate check (its next run is the check), and O2.**
+   - The engine never places a hold that blocks a part's own next run (P7).
+   - If that next run fails again, the engine raises a **Trip** that says plainly it can't be held without blocking its
+     next run, and the next scheduled run still goes ahead.
+4. **Start the system and "Keep for a person" (O4).** Start the system's setting does **not** count as a person's. Only an
+   explicit action by a person on the switch counts. Otherwise the "None" rule applies: the switch stays **Off by the
+   system (left by a closed trip)** until a person switches it on.
+
+**Answers:**
+- **Q19:**
+  - Alarm and logbook history are kept **90 days**; trip and Incident Report records **365 days** where practical.
+  - `control_cost_factor` is **2.0×** the rolling 30-day average.
+- **O1:** a **15-minute** correlation window, matching host, signature and time.
+- **O3:** the outside GitHub probe runs every **15–30 minutes**, a light check, comfortably inside GitHub's free minutes.
+- **O5:** provider pages come from what is already documented, and from Jason's Vault for the priority modules.
+  - They are matched strictly by type (billing, keys, console, login). A URL is never invented, and never borrowed from
+    another type.
+  - Where a type has no registered URL, the card keeps "No <billing / keys / console / sign-in> page registered for
+    <Provider> yet".
+  - **Note:** the Vault's items are sealed in Jason's browser (decisions/0156; `vault_items` holds only a sealed blob and
+    a hash of the site). Neither the site nor a session can read a Vault URL. The priority modules' URLs come from Jason,
+    copied from his unlocked Vault into the list below. Until then the "not registered" wording stands.
+
 ## 1. Principles
 
 Each is a rule the engine enforces. A rule the engine can't enforce isn't a principle here.
@@ -1053,28 +1086,8 @@ The card's existing parts are kept and placed in their zones. The cards and mock
 
 ## 10. Open items
 
-- **Q19:** how long alarms, the logbook and maintenance windows are kept, and the value of `control_cost_factor` (row 76).
-  Nothing sets either; they're Jason's to give.
-- **O1:** the correlation window's length for "a short window" (report §5). IR-0001's two failures were 11 minutes apart.
-  No source gives a number.
-- **O2:** a part with no check of its own (a job or task failing in its own code) whose next run fails again (row 17).
-  No source decides whether that's a trip, or what it holds and says, since no try could run and holding it would block
-  its only check (P7).
-- **O3:** how often the outside heartbeat (page load, the watch, cron) may run on GitHub Actions within the free
-  minutes. Every 10 minutes may pass the free allowance ("no income, no expense").
-- **O4:** in CS-3, whether **Start the system's** setting counts as a person's. 0175 §7 named it separately; the note
-  "Keep for a person" doesn't say; today's code counts it as a person's.
-- **O5:** the provider pages not registered, for Jason to give, never invented. From §8's coverage:
-  - **billing** (paid modules): Tavily, Brave Search, Bluehost, QuickBooks (our subscription), Name.com, Microsoft
-    (Microsoft 365), Apple (the $99 developer programme) and 1Password. Stripe and Square too, if their card fees,
-    which are the businesses', ever need a page of ours. Gemini's only Limits link is a docs page (ai.google.dev rate
-    limits), not billing: confirm or replace it. Anthropic's billing type maps to its Usage and Limits pages: confirm
-    that Limits is the page for adding credit.
-  - **keys:** Cloudflare, Tavily, Brave Search, Railway, Bluehost, QuickBooks, Stripe, Square, Fly.io, GitHub, Supabase,
-    openrouteservice, Foursquare (Hugging Face's token page), RIDB, the Park Service, Pixabay, Microsoft, Apple, Meta
-    and 1Password.
-  - **console:** Gemini, Bluehost (is "cPanel" its console?), QuickBooks, Square, Name.com, GitHub (is "The sync" its
-    console?), Census, AZ 511, Foursquare, RIDB, the Park Service, Pixabay, Microsoft, Apple, Meta and 1Password.
-  - **login:** every module but Bluehost (Account) and Apple (Developer account). Login is only the last fallback (PL).
-- **IR-0001's root cause** (handler or response path) still needs live data (`ir-0001.md`). It doesn't change the model:
-  row 11 holds either way.
+All answered by Jason on 2026-11-21 (§0a). What's left to supply, not to decide:
+- **Provider pages for the priority modules**, from Jason's Vault: billing, keys, console and login for Railway, GitHub,
+  Anthropic, Google, Tavily, Brave Search, Bluehost and QuickBooks first. The full gap list is in §8's coverage table.
+- **IR-0001's root cause** (handler or response path) still needs live data (`../step2/ir-0001.md`). It doesn't change
+  the model: row 11 holds either way.
