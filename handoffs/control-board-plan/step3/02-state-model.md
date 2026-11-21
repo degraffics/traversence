@@ -165,6 +165,21 @@ matches what you're fixing").** It replaces a single billing link.
    explicit action by a person on the switch counts. Otherwise the "None" rule applies: the switch stays **Off by the
    system (left by a closed trip)** until a person switches it on.
 
+5. **Words while something is held** (Jason, 2026-11-21, on GitHub and Bluehost). Words follow the state (P9). Once a
+   hold is placed, the status is "Paused by the system (<what's held>): still trying, n of 3, next at <time>". "Down" is used
+   only when a host itself is gone and nothing could place a hold. Rows 53–55 and 57 read this way.
+6. **When Bluehost is down, the board can't load** (Jason, 2026-11-21).
+   - The outside heartbeat (GitHub Actions, every 15–30 min, O3) sends **email only**, through the site's existing
+     Amazon email (SES), with a GitHub secret limited to sending. Jason confirmed SES's fraction-of-a-cent cost as the
+     system-email exception (2026-11-09).
+   - The push keys stay on Bluehost, so there's **no push** while the host is gone.
+   - The heartbeat writes the incident as an unnumbered record in the repo: times, what failed, its checks.
+   - When the site is back, it imports that record and assigns the T- and IR- numbers then. Pulse shows it as "Raised
+     while the site was down, by the outside heartbeat", with the real times.
+   - Recovered then closes it on every channel.
+7. **Bluehost's cPanel** (Jason, 2026-11-21). Console keeps `CPANEL_HOST` (Site settings). The documented my.bluehost.com
+   cPanel link folds into Sign in · Account, never shown twice.
+
 **Answers:**
 - **Q19:**
   - Alarm and logbook history are kept **90 days**; trip and Incident Report records **365 days** where practical.
