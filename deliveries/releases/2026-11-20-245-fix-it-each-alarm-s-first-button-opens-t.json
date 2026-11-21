@@ -1,0 +1,79 @@
+{
+    "id": 245,
+    "title": "Fix it: each alarm's first button opens the one spot that fixes it",
+    "why": "decisions/0176 release 3 (§5, A5): each thread carries its cause, and a cause → landing map gives one exact spot; Fix it shows only when a person can fix something, in the side panel one at a time with Back; from a push, the thread's Pulse row with the panel on the fix; after acting, the check on the spot.",
+    "proposals": "",
+    "zip": "0176-fix-it.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/admin/control-console.php": {
+            "sha": "4f04c5cb7f20bf0e2acd7e701b1a31f3127058bbf2d50431e0fb1ab23db58987",
+            "size": 129116,
+            "live_was": "5436bd9c67050d643a38ffbdfd93a910f1b3aa32ca5545621a0eafd75842b8b3"
+        },
+        "app/admin/index-console.php": {
+            "sha": "c9e6b3bd58bdf4433cf0e1733272ed46c4a5ad17057b2f3d31686c30569d15b0",
+            "size": 15559,
+            "live_was": "7d845280b422aa96feb2744b7eda764cfd6c70e6590093f3aef088d60c303dd2"
+        },
+        "app/admin/operations-console.php": {
+            "sha": "c1b2cbec0c4f98d7c481cce2f62b6384cca23b5291064b88affde175799eaa73",
+            "size": 54622,
+            "live_was": "4730db69daa8fbe7c10eed93cfa0e7d0d9f8a2382ea9981bfa231d215594a7d1"
+        },
+        "app/lib/ControlAlarms.php": {
+            "sha": "757d1b17f220a429c3d6dfc398bf315217cedb0b5d8570f94ce26141628b41c6",
+            "size": 89780,
+            "live_was": "46519fca57f637c7c7ef66739c5e28f4d9bee7211480f07a6fb6e217c88f86bf"
+        },
+        "app/lib/Operations.php": {
+            "sha": "428a15935ff34b4063498975cfa21d0ebdc952405b4feb900e5a814d0bb3a226",
+            "size": 75156,
+            "live_was": "6296ea6339a8972dde038519c51441eb0449a8222b93d3a5d57dc0c874900ab2"
+        },
+        "app/lib/ServiceHealth.php": {
+            "sha": "dd9cfafe3ba7054ab8d0d9fa9396e62577716705e1fb6b4ff7fbc93653b06c17",
+            "size": 65524,
+            "live_was": "1f53c2c5ddf9ba09fc2534f815b73a76deb04e02ed38b523affe81b24b85910f"
+        },
+        "app/lib/Thread.php": {
+            "sha": "1c61549e4edef9c17f75b34e62aa2cc3f47985fe330dd2bb6dce24318763736b",
+            "size": 12417,
+            "live_was": "11227bdeddb793b3358d67161f95901fbaaf53986549163504c1acfc83823595"
+        },
+        "app/ui/faq.md": {
+            "sha": "982f3d13a92ccf1e086fc5ae482891385490e556c760f4a1ecd2e7e1bdc0405a",
+            "size": 413812,
+            "live_was": "33d6b665b8322e0ed728173668b27c04432265f1c31337348b9a1352bf367965"
+        },
+        "app/ui/pulse-ui.php": {
+            "sha": "80e07e5e611e6a87817af2bc14c28cfda2ef76b4b850323f2851e6bc986951a7",
+            "size": 174266,
+            "live_was": "7a3d26087ac19b05bd3ea905747f9b48f7878b29e4fb01e4f243a08e720ae156"
+        },
+        "website/js/admin-outside.js": {
+            "sha": "5b11db06a3464e41bf208663d67cb0c31adada5c8b0accf354165ed297dc2214",
+            "size": 7775,
+            "live_was": "17cde6430c425101e64cdd8f9676f44eead7931953ebd3bdb868577275ca9018"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-21T00:54:39+00:00",
+            "by": 0,
+            "msg": "Uploaded 0176-fix-it.zip: 10 files."
+        }
+    ]
+}
