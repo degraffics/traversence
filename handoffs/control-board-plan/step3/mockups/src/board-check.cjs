@@ -99,6 +99,15 @@ const url = 'file://' + dir + 'index.html';
       return out;
     });
     ok(long.length === 0, `@${w} no top-level paragraph over ~120 characters in objectives and cards` + (long.length ? `: ${long.length}, e.g. ${long.slice(0, 2).join(' | ')}` : ''));
+    // each objective says "not checked yet" at most once at its top level (details excluded)
+    const rep = await p.evaluate(() => [...document.querySelectorAll('.obj')].map(o => { const c = o.cloneNode(true); c.querySelectorAll('details').forEach(d => { const s = d.querySelector(':scope > summary'); d.replaceWith(s ? s.cloneNode(true) : document.createTextNode('')); }); return [o.id, (c.textContent.match(/not checked yet/g) || []).length]; }).filter(x => x[1] > 1));
+    ok(rep.length === 0, `@${w} no objective says "not checked yet" more than once at its top level` + (rep.length ? ': ' + rep.map(x => x.join(' ')).join(', ') : ''));
+    // the header: at 390 the readings sit behind one pill, and the header stays short
+    const hh = await p.evaluate(() => Math.round(document.querySelector('.top').getBoundingClientRect().height));
+    ok(hh <= 80, `@${w} the header is ${hh} px tall (two lines at most)`);
+    if (w === 390) { for (const how of ['x', 'esc', 'outside']) { await p.click('.top details.rd > summary'); const o1 = await p.evaluate(() => document.querySelector('.top details.rd').open);
+      if (how === 'x') await p.click('.top details.rd .px'); if (how === 'esc') await p.keyboard.press('Escape'); if (how === 'outside') await p.mouse.click(5, 600);
+      ok(o1 && !(await p.evaluate(() => document.querySelector('.top details.rd').open)), `@390 the Readings pill opens and closes by ${how}`); } }
     // every detail, accordion and popover opens and closes
     const dt = await p.evaluate(() => { let n = 0, bad = 0; document.querySelectorAll('details').forEach(d => { const s = d.querySelector(':scope > summary'); if (!s) { bad++; return; } const was = d.open; s.click(); const a = d.open !== was; s.click(); const b2 = d.open === was; n++; if (!(a && b2)) bad++; }); return [n, bad]; });
     ok(dt[1] === 0, `@${w} every detail and accordion opens and closes: ${dt[0]} checked, ${dt[1]} failed`);

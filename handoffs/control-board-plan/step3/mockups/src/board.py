@@ -444,7 +444,7 @@ def lt(k, w):
 
 def bar(pct, k):
     if pct is None:
-        return '<div class="pbar none"><span>no bar: not a share</span></div>' if k != 'n' else '<div class="pbar none"><span>not checked yet</span></div>'
+        return ''
     return f'<div class="pbar {k}" role="img" aria-label="{pct:.0f}%"><b style="width:{min(100, pct):.1f}%"></b></div>'
 
 
@@ -453,19 +453,41 @@ def modlink(m, scn=0):
     return f'<a href="#" class="mlink" data-go-mod="{m}" data-scn="{scn}">{E(lab)}</a>'
 
 
+NEEDS_PROBE = {'o-speed': 'a page-speed probe (2.5 s, 99.5% of the time)', 'o-near': 'a 3-within-5-mi probe per town (decisions/0060)',
+               'o-leak': 'a held-words probe (decisions/0066, 0164 R7)', 'o-photos': 'the photos check\'s results in site-audit/results',
+               'o-pay': 'QuickBooks\' token read and the send-order path run', 'o-email': 'SES\'s bounce and complaint rates read',
+               'o-search-cap': 'websearch_monthly read (the shared web search cap)', 'o-selfrec': 'the self-recovery rate from the historian (0171 r4b)'}
+
+
 def objective(o):
     short = lambda m: SHORT(next(x["label"] for x in MODULES if x["id"] == m))
-    fix = ''.join(f'<button class="btn" data-go-mod="{m}">Fix it: {E(short(m))}</button>' for m in o['fix'])
-    imp = (f'<details class="imp pop"><summary class="btn imp">Improve</summary><div class="popb"><button class="px" type="button" aria-label="Close">×</button>' + ''.join(f'<button class="btn imp" title="Drawn: inert in the mockup">{E(t)}</button>' for t in o['improve']) + '</div></details>') if o['improve'] else ''
-    ch = f'<button class="btn f" data-open-panel="p-{o["chain"]}-0">Drill down</button>' if o['chain'] else ''
-    live = f'<span class="live">live · <time>{E(o["when"].split(", ", 1)[-1])}</time></span>' if o['when'] else '<span class="live none">not checked yet</span>'
-    metric = METRIC.get(o['id'], 'not checked yet')
+    unchecked = o['state'] == 'n'
+    if unchecked:
+        need = NEEDS_PROBE.get(o['id'], 'its check')
+        acts = (f'<details class="imp pop"><summary class="btn imp">Set up its check</summary><div class="popb"><button class="px" type="button" aria-label="Close">×</button>'
+                f'<div class="micro">Build: {E(need)}</div><button class="btn imp" title="Drawn: inert in the mockup">Set up: {E(need.split(" (")[0])}</button></div></details>')
+        metric = ('needs: ' + need.split(' (')[0]) if o['id'] not in METRIC else METRIC[o['id']] + ' · needs: ' + need.split(' (')[0]
+        live = ''
+        mods = ''.join(f'<a href="#" class="mlink" data-go-mod="{m}">{E(short(m))}</a> ' for m in o['fix'])
+        extra = f'<dt>Its parts</dt><dd>{mods}</dd>' if mods else ''
+    else:
+        fix = ''.join(f'<button class="btn" data-go-mod="{m}">Fix it: {E(short(m))}</button>' for m in o['fix'])
+        imp = (f'<details class="imp pop"><summary class="btn imp">Improve</summary><div class="popb"><button class="px" type="button" aria-label="Close">×</button>' + ''.join(f'<button class="btn imp" title="Drawn: inert in the mockup">{E(t)}</button>' for t in o['improve']) + '</div></details>') if o['improve'] else ''
+        ch = f'<button class="btn f" data-open-panel="p-{o["chain"]}-0">Drill down</button>' if o['chain'] else ''
+        acts = ch + fix + imp
+        metric = METRIC.get(o['id'], '')
+        live = f'<span class="live">live · <time>{E(o["when"].split(", ", 1)[-1])}</time></span>' if o['when'] else ''
+        extra = ''
+    if unchecked and o['chain']:
+        acts = f'<button class="btn f" data-open-panel="p-{o["chain"]}-0">Drill down</button>' + acts
+    trend = '' if unchecked else f'<span class="trend">{o["trend"]}</span>'
+    orow = f'<div class="orow">{bar(o["pct"], o["state"])}{trend}</div>' if (bar(o['pct'], o['state']) or trend) else ''
     return f"""<div class="obj s-{o['state']}" id="{o['id']}"><div class="oh"><b>{E(o['name'])}</b>{lt(o['state'], LT[o['state']])}</div>
 <div class="om2"><span class="metric">{E(metric)}</span>{live}</div>
-<div class="orow">{bar(o['pct'], o['state'])}<span class="trend">{o['trend']}</span></div>
-<div class="btns">{ch}{fix}{imp}</div>
+{orow}
+<div class="btns">{acts}</div>
 <details class="more"><summary>Measure, target, reading</summary><dl class="dl"><dt>Measure</dt><dd>{E(o['measure'])}</dd><dt>Target</dt><dd>{E(o['target'])}</dd>
-<dt>Reading</dt><dd>{E(o['reading'])}{' · <time>' + E(o['when']) + '</time>' if o['when'] else ''} <span class="basis">{o['basis']}</span></dd></dl></details></div>"""
+<dt>Reading</dt><dd>{E(o['reading'])}{' · <time>' + E(o['when']) + '</time>' if o['when'] else ''} <span class="basis">{o['basis']}</span></dd>{extra}</dl></details></div>"""
 
 
 def board_view():
@@ -982,7 +1004,7 @@ details.pop{display:inline-block;position:relative}details.pop>summary{list-styl
 .crow.hr{background:#a62b2b10}.crow.hl{background:#8f560010}.crow>details{flex:1;min-width:0}.crow>.btns{margin:0;flex:0 0 auto}
 details.cr>summary{display:flex;flex-wrap:wrap;gap:.25rem .55rem;align-items:center;cursor:pointer;list-style:none}details.cr>summary::-webkit-details-marker{display:none}
 details.cr>summary::before{content:"▸";color:var(--taupe);font-size:11px}details.cr[open]>summary::before{content:"▾"}
-.cn{font-weight:600}article.card .z>.stage:has(>details.pillx),article.card .z>details:not(.more):not(.kgrp){display:inline-block;vertical-align:top;margin:.15rem .3rem .15rem 0}article.card .z>details[open]:not(.more):not(.kgrp){display:block}article.card .slot{padding:.35rem .5rem}article.card .slot .src{font-size:10.5px;padding:0 .35rem}article.card .slot .ty{font-size:11px}@media (max-width:767px){.crow:not(.hr):not(.hl) summary:has(.lt) .micro.m{display:none}details.cr>summary:not(:has(.lt)){flex-wrap:nowrap}details.cr>summary:not(:has(.lt)) .micro.m{min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}.crow.hr details.cr>summary .micro.m,.crow.hl details.cr>summary .micro.m{max-width:100%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}article.card .z{padding:.55rem .5rem}article.card .thread{padding:.5rem .55rem}article.card .pl{font-size:12px;margin:.1rem 0}article.card .zh{margin-bottom:.35rem}article.card .rp{padding:.2rem .4rem}article.card .act{margin:.25rem 0;gap:.3rem}}.micro.m{border:1px solid var(--card-edge);border-radius:999px;padding:0 .45rem;background:var(--sec)}.crb{padding:.3rem 0 .2rem 1rem;font-size:13px}
+.cn{font-weight:600;white-space:nowrap;flex:0 0 auto}.narrow{display:none}.top details.pop>summary{cursor:pointer;list-style:none;color:inherit;background:none}.top .popb{color:var(--ink)}@media (max-width:767px){.top{gap:.3rem .5rem}.top .chip{font-size:12px}.top .wide{display:none}.top .narrow{display:inline}.top .popb{position:absolute;right:0;left:auto}}article.card .z>.stage:has(>details.pillx),article.card .z>details:not(.more):not(.kgrp){display:inline-block;vertical-align:top;margin:.15rem .3rem .15rem 0}article.card .z>details[open]:not(.more):not(.kgrp){display:block}article.card .slot{padding:.35rem .5rem}article.card .slot .src{font-size:10.5px;padding:0 .35rem}article.card .slot .ty{font-size:11px}@media (max-width:767px){.crow:not(.hr):not(.hl) summary:has(.lt) .micro.m{display:none}details.cr>summary:not(:has(.lt)){flex-wrap:nowrap}details.cr>summary:not(:has(.lt)) .micro.m{min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}.crow.hr details.cr>summary .micro.m,.crow.hl details.cr>summary .micro.m{max-width:100%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}article.card .z{padding:.55rem .5rem}article.card .thread{padding:.5rem .55rem}article.card .pl{font-size:12px;margin:.1rem 0}article.card .zh{margin-bottom:.35rem}article.card .rp{padding:.2rem .4rem}article.card .act{margin:.25rem 0;gap:.3rem}}.micro.m{border:1px solid var(--card-edge);border-radius:999px;padding:0 .45rem;background:var(--sec)}.crb{padding:.3rem 0 .2rem 1rem;font-size:13px}
 details.kgrp{border:1px solid var(--card-edge);border-radius:.45rem;padding:.3rem .45rem;margin:.3rem 0}details.kgrp>summary{cursor:pointer;list-style:none}details.kgrp>summary::-webkit-details-marker{display:none}
 .spill{display:inline-block;font-size:12px;font-weight:600;border-radius:999px;padding:.05rem .6rem;background:var(--sec);border:1px solid var(--card-edge)}details.key{padding:.15rem 0}
 details.pillx{display:inline-block;max-width:100%}details.pillx>summary{display:inline-block;cursor:pointer;list-style:none;font-size:12.5px;border:1px solid var(--field-edge);border-radius:999px;padding:.05rem .6rem;background:var(--card)}
@@ -1072,9 +1094,11 @@ def build():
     held = sum(1 for a in ALARMS['open'] if a['level'] == 'trip')
     mods_js = {m['id']: m['label'] for m in MODULES}
     pages_js = [{k: p[k] for k in ('group', 'sub', 'route', 'also', 'purpose', 'adr', 'status', 'state', 'words', 'probes', 'deps', 'endpoints', 'replaces', 'archived', 'access', 'src')} for p in PAGES]
-    body = f"""<header class="top"><b>System Control Board</b><span class="chip">Design mockup · step 3 · not site code</span><span id="trail" class="tm"></span>
-<span class="tm">Readings: alarms and caps <time>{T_AL}</time> · rendered <time>{T_RE}</time> · paths <time>{T_PA}</time></span>
-<span class="sp" style="flex:1"></span><span class="chip">{held} trips open · 21 alarms</span><button class="chip" style="background:none;color:inherit;cursor:pointer;font:inherit" data-open-panel="p-coverage">{ico('gap', 14)} Coverage: {n_unm + n_noch} gaps named</button></header>
+    body = f"""<header class="top"><b>System Control Board</b><span class="chip wide">Design mockup · step 3 · not site code</span><span id="trail" class="tm wide"></span>
+<span class="tm wide">Readings: alarms and caps <time>{T_AL}</time> · rendered <time>{T_RE}</time> · paths <time>{T_PA}</time></span>
+<details class="pop narrow rd"><summary class="chip">Readings ▸</summary><div class="popb"><button class="px" type="button" aria-label="Close">×</button><div class="micro">Design mockup · step 3 · not site code</div>
+<div class="micro">Alarms and caps <time>{T_AL}</time></div><div class="micro">Rendered <time>{T_RE}</time></div><div class="micro">Paths <time>{T_PA}</time></div><div class="micro">Search scorecard <time>{T_SC}</time></div></div></details>
+<span class="sp" style="flex:1"></span><span class="chip"><span class="wide">{held} trips open · 21 alarms</span><span class="narrow">{held} trips · 21 alarms</span></span><button class="chip" style="background:none;color:inherit;cursor:pointer;font:inherit" data-open-panel="p-coverage">{ico('gap', 14)} <span class="wide">Coverage: {n_unm + n_noch} gaps named</span><span class="narrow">{n_unm + n_noch} gaps</span></button></header>
 <nav class="qbar" aria-label="What's wrong now">{quick()}</nav>
 <div class="shell"><nav class="rail" aria-label="Board views">
 <button data-nav="board" aria-current="page">{ico('board')}Board<span class="cnt">{N_OBJ}</span></button>
