@@ -35,6 +35,19 @@
      "website/api/crawl/service.php"
     ]
    }
+  },
+  {
+   "path": "app/lib/ControlAlarms.php",
+   "functions": [
+    "settleNarrow"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
+   "why": "Urgent W1 release: old trips narrowed to today's rule; FAQ entry",
+   "since": "2026-11-21T14:42:22Z",
+   "expires": "2026-11-21T18:42:22Z",
+   "release": "w1-urgent",
+   "callers": {}
   }
  ],
  "lapsed": [
