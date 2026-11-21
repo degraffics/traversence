@@ -1,24 +1,26 @@
 {
- "at": "2026-11-20T09:42:06.423Z",
+ "at": "2026-11-21T09:43:18.657Z",
  "site": "https://traversence.com",
- "run_url": "https://github.com/degraffics/traversence/actions/runs/44709406385",
+ "run_url": "https://github.com/degraffics/traversence/actions/runs/44888842501",
  "staging": "https://staging.trvgo.us",
  "signed_in": true,
  "full": false,
  "budget_s": 420,
- "took_s": 150,
+ "took_s": 192,
  "guides": {
   "source": "endpoint",
   "total": 6,
   "this_run": [
-   "town:73",
-   "town:84"
+   "town:66",
+   "town:67",
+   "town:68",
+   "town:72"
   ],
   "per_run": 4
  },
  "rotation": {
-  "from": 4,
-  "next": 0
+  "from": 0,
+  "next": 4
  },
  "measures": {
   "eat-near-me": 3,
@@ -66,15 +68,15 @@
    "timings": [
     {
      "page": "/",
-     "ms": 1886
+     "ms": 1751
     },
     {
      "page": "/listing/view.php?id=7523",
-     "ms": 2219
+     "ms": 2111
     }
    ],
    "where": "live",
-   "ms": 9404
+   "ms": 9135
   },
   {
    "id": "eat-near-me",
@@ -116,22 +118,22 @@
    "timings": [
     {
      "page": "/",
-     "ms": 2330
+     "ms": 1771
     },
     {
      "page": "/listing/view.php?id=7523",
-     "ms": 2420
+     "ms": 2142
     }
    ],
    "where": "live",
-   "ms": 10042
+   "ms": 9193
   },
   {
    "id": "town-guide",
    "kind": "core",
    "title": "Read a town's guide",
    "who": "guest",
-   "status": "issues",
+   "status": "passed",
    "goal": true,
    "stuck": "",
    "steps": {
@@ -142,39 +144,32 @@
    },
    "counts": {
     "dead_ends": 0,
-    "surprises": 1,
+    "surprises": 0,
     "accuracy": 0,
     "clarity": 0,
     "slow": 0
    },
-   "problems": [
-    {
-     "kind": "surprise",
-     "rule": "V06",
-     "page": "/hub/?town=phoenix-az-2",
-     "what": "the page jumps as it loads (layout shift 0.32)"
-    }
-   ],
+   "problems": [],
    "notes": [
-    "the town: Phoenix, AZ"
+    "the town: Dana Point, CA"
    ],
    "pages": [
     "/",
-    "/hub/?town=phoenix-az-2"
+    "/hub/?cluster=cluster-auto-laguna-niguel"
    ],
    "shots": [],
    "timings": [
     {
      "page": "/",
-     "ms": 1429
+     "ms": 1253
     },
     {
-     "page": "/hub/?town=phoenix-az-2",
-     "ms": 3441
+     "page": "/hub/?cluster=cluster-auto-laguna-niguel",
+     "ms": 2237
     }
    ],
    "where": "live",
-   "ms": 11377
+   "ms": 10047
   },
   {
    "id": "search-typo",
@@ -202,7 +197,7 @@
      "kind": "surprise",
      "rule": "V06",
      "page": "/hub/?cluster=cluster-auto-show-low",
-     "what": "the page jumps as it loads (layout shift 0.31)"
+     "what": "the page jumps as it loads (layout shift 0.34)"
     }
    ],
    "notes": [],
@@ -214,15 +209,15 @@
    "timings": [
     {
      "page": "/",
-     "ms": 1254
+     "ms": 1107
     },
     {
      "page": "/hub/?cluster=cluster-auto-show-low",
-     "ms": 3560
+     "ms": 3040
     }
    ],
    "where": "live",
-   "ms": 11733
+   "ms": 11008
   },
   {
    "id": "set-place",
@@ -261,11 +256,11 @@
    "timings": [
     {
      "page": "/directory/",
-     "ms": 1227
+     "ms": 1070
     }
    ],
    "where": "live",
-   "ms": 7481
+   "ms": 7285
   },
   {
    "id": "sign-in",
@@ -301,15 +296,15 @@
    "timings": [
     {
      "page": "/",
-     "ms": 2051
+     "ms": 1922
     },
     {
      "page": "/login.php",
-     "ms": 1985
+     "ms": 1878
     }
    ],
    "where": "live",
-   "ms": 16598
+   "ms": 15000
   },
   {
    "id": "sign-out",
@@ -342,15 +337,15 @@
    "timings": [
     {
      "page": "/user/dashboard.php",
-     "ms": 1698
+     "ms": 1716
     },
     {
      "page": "/",
-     "ms": 1577
+     "ms": 1560
     }
    ],
    "where": "live",
-   "ms": 5952
+   "ms": 5872
   },
   {
    "id": "my-listing",
@@ -383,15 +378,15 @@
    "timings": [
     {
      "page": "/",
-     "ms": 2163
+     "ms": 1764
     },
     {
      "page": "/listing/view.php?id=8916",
-     "ms": 2341
+     "ms": 2010
     }
    ],
    "where": "live",
-   "ms": 5058
+   "ms": 4321
   },
   {
    "id": "sign-up",
@@ -436,32 +431,32 @@
    "problems": [],
    "notes": [],
    "pages": [
-    "/journeys/suggested.php?id=8",
-    "/journeys/suggested.php?id=10",
-    "/journeys/suggested.php?id=32",
-    "/journeys/suggested.php?id=9"
+    "/journeys/suggested.php?id=14",
+    "/journeys/suggested.php?id=15",
+    "/journeys/suggested.php?id=16",
+    "/journeys/suggested.php?id=17"
    ],
    "shots": [],
    "timings": [
     {
-     "page": "/journeys/suggested.php?id=8",
-     "ms": 2597
+     "page": "/journeys/suggested.php?id=14",
+     "ms": 2433
     },
     {
-     "page": "/journeys/suggested.php?id=10",
-     "ms": 1381
+     "page": "/journeys/suggested.php?id=15",
+     "ms": 1325
     },
     {
-     "page": "/journeys/suggested.php?id=32",
-     "ms": 1289
+     "page": "/journeys/suggested.php?id=16",
+     "ms": 1323
     },
     {
-     "page": "/journeys/suggested.php?id=9",
-     "ms": 1285
+     "page": "/journeys/suggested.php?id=17",
+     "ms": 1538
     }
    ],
    "where": "staging",
-   "ms": 14434
+   "ms": 14384
   },
   {
    "id": "like-member",
@@ -506,17 +501,17 @@
    "problems": [],
    "notes": [],
    "pages": [
-    "/journeys/suggested.php?id=8"
+    "/journeys/suggested.php?id=14"
    ],
    "shots": [],
    "timings": [
     {
-     "page": "/journeys/suggested.php?id=8",
-     "ms": 1780
+     "page": "/journeys/suggested.php?id=14",
+     "ms": 1796
     }
    ],
    "where": "staging",
-   "ms": 7566
+   "ms": 7519
   },
   {
    "id": "claim",
@@ -690,9 +685,9 @@
    "changes": true
   },
   {
-   "id": "guide:town:73",
+   "id": "guide:town:66",
    "kind": "guide",
-   "title": "Follow the Phoenix, AZ guide",
+   "title": "Follow the Dana Point, CA guide",
    "who": "guest",
    "status": "passed",
    "goal": true,
@@ -713,112 +708,110 @@
    "problems": [],
    "notes": [],
    "pages": [
-    "/hub/?town=phoenix-az",
-    "/journeys/suggested.php?id=8",
-    "/listing/view.php?id=9116",
-    "/journeys/suggested.php?id=8",
-    "/place/landmark.php?id=900000029",
-    "/journeys/suggested.php?id=8",
-    "/place/landmark.php?id=900000023",
-    "/journeys/suggested.php?id=8",
-    "/listing/view.php?id=9113",
-    "/journeys/suggested.php?id=8",
-    "/place/landmark.php?id=900000030",
-    "/journeys/suggested.php?id=8",
-    "/place/recreation.php?id=f247732",
-    "/journeys/suggested.php?id=8"
+    "/hub/?town=dana-point-ca",
+    "/journeys/suggested.php?id=14",
+    "/place/landmark.php?id=900000005",
+    "/journeys/suggested.php?id=14",
+    "/place/landmark.php?id=900000004",
+    "/journeys/suggested.php?id=14",
+    "/listing/view.php?id=9033",
+    "/journeys/suggested.php?id=14",
+    "/place/landmark.php?id=900000001",
+    "/journeys/suggested.php?id=14",
+    "/place/landmark.php?id=900000003",
+    "/journeys/suggested.php?id=14",
+    "/place/landmark.php?id=900000796",
+    "/journeys/suggested.php?id=14"
    ],
    "shots": [],
    "timings": [
     {
-     "page": "/hub/?town=phoenix-az",
-     "ms": 3197
+     "page": "/hub/?town=dana-point-ca",
+     "ms": 1615
     },
     {
-     "page": "/journeys/suggested.php?id=8",
-     "ms": 1863
+     "page": "/journeys/suggested.php?id=14",
+     "ms": 1822
     },
     {
-     "page": "/listing/view.php?id=9116",
-     "ms": 2023
+     "page": "/place/landmark.php?id=900000005",
+     "ms": 1841
     },
     {
-     "page": "/place/landmark.php?id=900000029",
-     "ms": 1950
+     "page": "/place/landmark.php?id=900000004",
+     "ms": 1876
     },
     {
-     "page": "/place/landmark.php?id=900000023",
-     "ms": 1908
+     "page": "/listing/view.php?id=9033",
+     "ms": 1932
     },
     {
-     "page": "/listing/view.php?id=9113",
-     "ms": 2021
+     "page": "/place/landmark.php?id=900000001",
+     "ms": 1849
     },
     {
-     "page": "/place/landmark.php?id=900000030",
-     "ms": 2006
+     "page": "/place/landmark.php?id=900000003",
+     "ms": 1852
     },
     {
-     "page": "/place/recreation.php?id=f247732",
-     "ms": 1960
+     "page": "/place/landmark.php?id=900000796",
+     "ms": 1837
     }
    ],
    "where": "live",
-   "ms": 27023,
+   "ms": 23907,
    "guide": {
-    "key": "town:73",
-    "name": "Phoenix",
-    "url": "/hub/?town=phoenix-az",
-    "journeys": 5,
+    "key": "town:66",
+    "name": "Dana Point",
+    "url": "/hub/?town=dana-point-ca",
+    "journeys": 4,
     "stops": [
      {
-      "name": "Subway",
-      "url": "/listing/view.php?id=9116",
+      "name": "Salt Creek Beach Park",
+      "url": "/place/landmark.php?id=900000005",
+      "opened": true
+     },
+     {
+      "name": "Ocean Institute",
+      "url": "/place/landmark.php?id=900000004",
+      "opened": true
+     },
+     {
+      "name": "Starbucks",
+      "url": "/listing/view.php?id=9033",
       "opened": true,
       "phone": true,
       "open_shown": true
      },
      {
-      "name": "Executive Towers",
-      "url": "/place/landmark.php?id=900000029",
+      "name": "Doheny State Beach",
+      "url": "/place/landmark.php?id=900000001",
       "opened": true
      },
      {
-      "name": "Orpheum Theatre",
-      "url": "/place/landmark.php?id=900000023",
+      "name": "Mission San Juan Capistrano",
+      "url": "/place/landmark.php?id=900000003",
       "opened": true
      },
      {
-      "name": "Domino's",
-      "url": "/listing/view.php?id=9113",
-      "opened": true,
-      "phone": true,
-      "open_shown": true
-     },
-     {
-      "name": "Bragg's Pies Building",
-      "url": "/place/landmark.php?id=900000030",
-      "opened": true
-     },
-     {
-      "name": "Hotel San Carlos",
-      "url": "/place/recreation.php?id=f247732",
+      "name": "Chet Holifield Federal Building",
+      "url": "/place/landmark.php?id=900000796",
       "opened": true
      }
     ]
    }
   },
   {
-   "id": "guide:town:84",
+   "id": "guide:town:67",
    "kind": "guide",
-   "title": "Follow the Globe, AZ guide",
+   "title": "Follow the Laguna Niguel, CA guide",
    "who": "guest",
    "status": "passed",
    "goal": true,
    "stuck": "",
    "steps": {
     "taps": 1,
-    "pages": 10,
+    "pages": 14,
     "limit": 3,
     "over": false
    },
@@ -832,80 +825,334 @@
    "problems": [],
    "notes": [],
    "pages": [
-    "/hub/?town=globe-az",
-    "/journeys/suggested.php?id=40",
-    "/place/landmark.php?id=900000192",
-    "/journeys/suggested.php?id=40",
-    "/place/landmark.php?id=900000191",
-    "/journeys/suggested.php?id=40",
-    "/place/landmark.php?id=900000190",
-    "/journeys/suggested.php?id=40",
-    "/place/landmark.php?id=900000196",
-    "/journeys/suggested.php?id=40"
+    "/hub/?town=laguna-niguel-ca",
+    "/journeys/suggested.php?id=1",
+    "/listing/view.php?id=9043",
+    "/journeys/suggested.php?id=1",
+    "/place/landmark.php?id=900000003",
+    "/journeys/suggested.php?id=1",
+    "/place/landmark.php?id=900000007",
+    "/journeys/suggested.php?id=1",
+    "/listing/view.php?id=9038",
+    "/journeys/suggested.php?id=1",
+    "/place/landmark.php?id=900000006",
+    "/journeys/suggested.php?id=1",
+    "/place/landmark.php?id=900000773",
+    "/journeys/suggested.php?id=1"
    ],
    "shots": [],
    "timings": [
     {
-     "page": "/hub/?town=globe-az",
-     "ms": 1861
+     "page": "/hub/?town=laguna-niguel-ca",
+     "ms": 1466
     },
     {
-     "page": "/journeys/suggested.php?id=40",
-     "ms": 1907
+     "page": "/journeys/suggested.php?id=1",
+     "ms": 1803
     },
     {
-     "page": "/place/landmark.php?id=900000192",
-     "ms": 1961
+     "page": "/listing/view.php?id=9043",
+     "ms": 1888
     },
     {
-     "page": "/place/landmark.php?id=900000191",
-     "ms": 1954
+     "page": "/place/landmark.php?id=900000003",
+     "ms": 1891
     },
     {
-     "page": "/place/landmark.php?id=900000190",
-     "ms": 1946
+     "page": "/place/landmark.php?id=900000007",
+     "ms": 1836
     },
     {
-     "page": "/place/landmark.php?id=900000196",
-     "ms": 1965
+     "page": "/listing/view.php?id=9038",
+     "ms": 1873
+    },
+    {
+     "page": "/place/landmark.php?id=900000006",
+     "ms": 1829
+    },
+    {
+     "page": "/place/landmark.php?id=900000773",
+     "ms": 1840
     }
    ],
    "where": "live",
-   "ms": 18447,
+   "ms": 23107,
    "guide": {
-    "key": "town:84",
-    "name": "Globe",
-    "url": "/hub/?town=globe-az",
+    "key": "town:67",
+    "name": "Laguna Niguel",
+    "url": "/hub/?town=laguna-niguel-ca",
     "journeys": 4,
     "stops": [
      {
-      "name": "Copper Bean Coffee",
-      "url": "https://www.openstreetmap.org/way/1557525401",
+      "name": "Pizza Hut",
+      "url": "/listing/view.php?id=9043",
+      "opened": true,
+      "phone": true,
+      "open_shown": true
+     },
+     {
+      "name": "Mission San Juan Capistrano",
+      "url": "/place/landmark.php?id=900000003",
       "opened": true
      },
      {
-      "name": "International House",
-      "url": "/place/landmark.php?id=900000192",
+      "name": "Laguna Niguel Regional Park",
+      "url": "/place/landmark.php?id=900000007",
       "opened": true
      },
      {
-      "name": "Elks Building",
-      "url": "/place/landmark.php?id=900000191",
+      "name": "Wendy's",
+      "url": "/listing/view.php?id=9038",
+      "opened": true,
+      "phone": true,
+      "open_shown": true
+     },
+     {
+      "name": "Esslinger Building",
+      "url": "/place/landmark.php?id=900000006",
       "opened": true
      },
      {
-      "name": "Gila Valley Bank and Trust Building",
-      "url": "/place/landmark.php?id=900000190",
+      "name": "Laguna Niguel Lake",
+      "url": "/place/landmark.php?id=900000773",
+      "opened": true
+     }
+    ]
+   }
+  },
+  {
+   "id": "guide:town:68",
+   "kind": "guide",
+   "title": "Follow the Laguna Beach, CA guide",
+   "who": "guest",
+   "status": "passed",
+   "goal": true,
+   "stuck": "",
+   "steps": {
+    "taps": 1,
+    "pages": 14,
+    "limit": 3,
+    "over": false
+   },
+   "counts": {
+    "dead_ends": 0,
+    "surprises": 0,
+    "accuracy": 0,
+    "clarity": 0,
+    "slow": 0
+   },
+   "problems": [],
+   "notes": [],
+   "pages": [
+    "/hub/?town=laguna-beach-ca",
+    "/journeys/suggested.php?id=18",
+    "/listing/view.php?id=9028",
+    "/journeys/suggested.php?id=18",
+    "/place/landmark.php?id=900000003",
+    "/journeys/suggested.php?id=18",
+    "/place/landmark.php?id=900000796",
+    "/journeys/suggested.php?id=18",
+    "/place/landmark.php?id=900000800",
+    "/journeys/suggested.php?id=18",
+    "/listing/view.php?id=9031",
+    "/journeys/suggested.php?id=18",
+    "/place/landmark.php?id=900000008",
+    "/journeys/suggested.php?id=18"
+   ],
+   "shots": [],
+   "timings": [
+    {
+     "page": "/hub/?town=laguna-beach-ca",
+     "ms": 1515
+    },
+    {
+     "page": "/journeys/suggested.php?id=18",
+     "ms": 1812
+    },
+    {
+     "page": "/listing/view.php?id=9028",
+     "ms": 1893
+    },
+    {
+     "page": "/place/landmark.php?id=900000003",
+     "ms": 1883
+    },
+    {
+     "page": "/place/landmark.php?id=900000796",
+     "ms": 1850
+    },
+    {
+     "page": "/place/landmark.php?id=900000800",
+     "ms": 1849
+    },
+    {
+     "page": "/listing/view.php?id=9031",
+     "ms": 1878
+    },
+    {
+     "page": "/place/landmark.php?id=900000008",
+     "ms": 1824
+    }
+   ],
+   "where": "live",
+   "ms": 23109,
+   "guide": {
+    "key": "town:68",
+    "name": "Laguna Beach",
+    "url": "/hub/?town=laguna-beach-ca",
+    "journeys": 4,
+    "stops": [
+     {
+      "name": "The Habit Burger Grill",
+      "url": "/listing/view.php?id=9028",
+      "opened": true,
+      "phone": true,
+      "open_shown": true
+     },
+     {
+      "name": "Mission San Juan Capistrano",
+      "url": "/place/landmark.php?id=900000003",
       "opened": true
      },
      {
-      "name": "Taco Bell",
-      "url": "https://www.openstreetmap.org/way/1149205695",
+      "name": "Chet Holifield Federal Building",
+      "url": "/place/landmark.php?id=900000796",
       "opened": true
      },
      {
-      "name": "Holy Angels Church",
-      "url": "/place/landmark.php?id=900000196",
+      "name": "Laguna South Coast Cinemas",
+      "url": "/place/landmark.php?id=900000800",
+      "opened": true
+     },
+     {
+      "name": "The Cliff",
+      "url": "/listing/view.php?id=9031",
+      "opened": true,
+      "phone": true,
+      "open_shown": true
+     },
+     {
+      "name": "St. Francis by-the-Sea American Catholic Church",
+      "url": "/place/landmark.php?id=900000008",
+      "opened": true
+     }
+    ]
+   }
+  },
+  {
+   "id": "guide:town:72",
+   "kind": "guide",
+   "title": "Follow the Glendale, AZ guide",
+   "who": "guest",
+   "status": "passed",
+   "goal": true,
+   "stuck": "",
+   "steps": {
+    "taps": 1,
+    "pages": 14,
+    "limit": 3,
+    "over": false
+   },
+   "counts": {
+    "dead_ends": 0,
+    "surprises": 0,
+    "accuracy": 0,
+    "clarity": 0,
+    "slow": 0
+   },
+   "problems": [],
+   "notes": [],
+   "pages": [
+    "/hub/?town=glendale-az",
+    "/journeys/suggested.php?id=5",
+    "/listing/view.php?id=9051",
+    "/journeys/suggested.php?id=5",
+    "/place/recreation.php?id=f247732",
+    "/journeys/suggested.php?id=5",
+    "/listing/view.php?id=9047",
+    "/journeys/suggested.php?id=5",
+    "/place/landmark.php?id=8747",
+    "/journeys/suggested.php?id=5",
+    "/place/landmark.php?id=900000012",
+    "/journeys/suggested.php?id=5",
+    "/place/landmark.php?id=900000011",
+    "/journeys/suggested.php?id=5"
+   ],
+   "shots": [],
+   "timings": [
+    {
+     "page": "/hub/?town=glendale-az",
+     "ms": 2076
+    },
+    {
+     "page": "/journeys/suggested.php?id=5",
+     "ms": 1809
+    },
+    {
+     "page": "/listing/view.php?id=9051",
+     "ms": 1915
+    },
+    {
+     "page": "/place/recreation.php?id=f247732",
+     "ms": 1872
+    },
+    {
+     "page": "/listing/view.php?id=9047",
+     "ms": 1869
+    },
+    {
+     "page": "/place/landmark.php?id=8747",
+     "ms": 1842
+    },
+    {
+     "page": "/place/landmark.php?id=900000012",
+     "ms": 1882
+    },
+    {
+     "page": "/place/landmark.php?id=900000011",
+     "ms": 1835
+    }
+   ],
+   "where": "live",
+   "ms": 23656,
+   "guide": {
+    "key": "town:72",
+    "name": "Glendale",
+    "url": "/hub/?town=glendale-az",
+    "journeys": 4,
+    "stops": [
+     {
+      "name": "Cheese 'N Stuff Deli",
+      "url": "/listing/view.php?id=9051",
+      "opened": true,
+      "phone": true,
+      "open_shown": true
+     },
+     {
+      "name": "Hotel San Carlos",
+      "url": "/place/recreation.php?id=f247732",
+      "opened": true
+     },
+     {
+      "name": "Akaihana",
+      "url": "/listing/view.php?id=9047",
+      "opened": true,
+      "phone": true,
+      "open_shown": true
+     },
+     {
+      "name": "North Mountain",
+      "url": "/place/landmark.php?id=8747",
+      "opened": true
+     },
+     {
+      "name": "Glendale Grammar School One-room Class Building",
+      "url": "/place/landmark.php?id=900000012",
+      "opened": true
+     },
+     {
+      "name": "Glendale High School Auditorium",
+      "url": "/place/landmark.php?id=900000011",
       "opened": true
      }
     ]
@@ -916,14 +1163,14 @@
   "php": "8.0",
   "jobs": [
    {
-    "job": "system_start_tick",
+    "job": "sales_tick",
     "fails_today": 0,
-    "last": "2026-11-18 01:24:02",
+    "last": "2026-11-18 23:17:02",
     "ok": 1
    }
   ],
   "cache": {
-   "entries": 6723,
+   "entries": 8425,
    "expired": 4,
    "expired_share": 0
   },
@@ -945,15 +1192,15 @@
   "biggest_tables": [
    {
     "name": "identity_fact_sources",
-    "mb": 78.19
+    "mb": 97.22
    },
    {
     "name": "identity_facts",
-    "mb": 76.38
+    "mb": 88.41
    },
    {
     "name": "crawl_frontier",
-    "mb": 67.16
+    "mb": 69.16
    },
    {
     "name": "_moved_npi_orgs",
@@ -964,16 +1211,16 @@
     "mb": 37.61
    },
    {
+    "name": "page_cache",
+    "mb": 33.44
+   },
+   {
     "name": "place_profile",
     "mb": 33.08
    },
    {
     "name": "open_places",
     "mb": 27.55
-   },
-   {
-    "name": "ip_eu_ranges",
-    "mb": 25.06
    }
   ],
   "status": [

@@ -1,14 +1,14 @@
 {
- "at": "2026-11-20T09:39:36.316Z",
+ "at": "2026-11-21T09:40:06.904Z",
  "site": "https://traversence.com",
- "run_url": "https://github.com/degraffics/traversence/actions/runs/44709406385",
+ "run_url": "https://github.com/degraffics/traversence/actions/runs/44888842501",
  "full": false,
  "signed_in": true,
- "pages": 404,
+ "pages": 412,
  "by": {
   "scroll": 1,
   "status": 2,
-  "edges": 5
+  "edges": 13
  },
  "results": [
   {
@@ -825,6 +825,40 @@
   },
   {
    "who": "guest",
+   "url": "/guide/personal.php",
+   "size": "phone",
+   "must": false,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/user/trips/",
+   "eg": {},
+   "why": []
+  },
+  {
+   "who": "guest",
+   "url": "/guide/personal.php",
+   "size": "desktop",
+   "must": false,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/user/trips/",
+   "eg": {},
+   "why": []
+  },
+  {
+   "who": "guest",
    "url": "/guide/resources.php",
    "size": "phone",
    "must": false,
@@ -1833,6 +1867,40 @@
    "alt": 0,
    "names": 0,
    "final": "/stg-enter.php",
+   "why": []
+  },
+  {
+   "who": "guest",
+   "url": "/trip/",
+   "size": "phone",
+   "must": false,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/user/trips/",
+   "eg": {},
+   "why": []
+  },
+  {
+   "who": "guest",
+   "url": "/trip/",
+   "size": "desktop",
+   "must": false,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/user/trips/",
+   "eg": {},
    "why": []
   },
   {
@@ -2276,6 +2344,40 @@
    "why": []
   },
   {
+   "who": "member",
+   "url": "/user/trips/",
+   "size": "phone",
+   "must": false,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/user/trips/",
+   "eg": {},
+   "why": []
+  },
+  {
+   "who": "member",
+   "url": "/user/trips/trip.php",
+   "size": "phone",
+   "must": false,
+   "status": 404,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/user/trips/trip.php",
+   "eg": {},
+   "why": []
+  },
+  {
    "who": "owner",
    "url": "/dashboard.php",
    "size": "phone",
@@ -2610,6 +2712,40 @@
    "alt": 0,
    "names": 0,
    "final": "/user/transfer.php",
+   "eg": {},
+   "why": []
+  },
+  {
+   "who": "owner",
+   "url": "/user/trips/",
+   "size": "phone",
+   "must": false,
+   "status": 200,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/user/trips/",
+   "eg": {},
+   "why": []
+  },
+  {
+   "who": "owner",
+   "url": "/user/trips/trip.php",
+   "size": "phone",
+   "must": false,
+   "status": 404,
+   "console": [],
+   "requests": [],
+   "dialogs": [],
+   "scroll": false,
+   "edges": 0,
+   "alt": 0,
+   "names": 0,
+   "final": "/user/trips/trip.php",
    "eg": {},
    "why": []
   },
@@ -5707,12 +5843,21 @@
    "requests": [],
    "dialogs": [],
    "scroll": false,
-   "edges": 0,
+   "edges": 1,
    "alt": 0,
    "names": 0,
-   "final": "/admin/config/alarms",
-   "eg": {},
-   "why": []
+   "final": "/admin/config/control?tab=alarms",
+   "eg": {
+    "edges": [
+     "<details class=\"ak-card tv-bleed cb-panel\" id=\"cb-watch\" data-gap=\"14px left, 14px right; #ta-work pads 13.6px/13.6px\"></details>"
+    ]
+   },
+   "why": [
+    [
+     "edges",
+     "1 card(s) e.g. <details class=\"ak-card tv-bleed cb-panel\" id=\"cb-watch\" data-gap=\"14px left, 14px right; #ta-work pads 13.6px/13.6px\"></details>"
+    ]
+   ]
   },
   {
    "who": "staff-executive",
@@ -5727,7 +5872,7 @@
    "edges": 0,
    "alt": 0,
    "names": 0,
-   "final": "/admin/config/alarms",
+   "final": "/admin/config/control?tab=alarms",
    "eg": {},
    "why": []
   },
@@ -5741,12 +5886,21 @@
    "requests": [],
    "dialogs": [],
    "scroll": false,
-   "edges": 0,
+   "edges": 1,
    "alt": 0,
    "names": 0,
-   "final": "/admin/config/log",
-   "eg": {},
-   "why": []
+   "final": "/admin/config/control?tab=log",
+   "eg": {
+    "edges": [
+     "<details class=\"ak-card tv-bleed cb-panel\" id=\"cb-watch\" data-gap=\"14px left, 14px right; #ta-work pads 13.6px/13.6px\"></details>"
+    ]
+   },
+   "why": [
+    [
+     "edges",
+     "1 card(s) e.g. <details class=\"ak-card tv-bleed cb-panel\" id=\"cb-watch\" data-gap=\"14px left, 14px right; #ta-work pads 13.6px/13.6px\"></details>"
+    ]
+   ]
   },
   {
    "who": "staff-executive",
@@ -5761,7 +5915,7 @@
    "edges": 0,
    "alt": 0,
    "names": 0,
-   "final": "/admin/config/log",
+   "final": "/admin/config/control?tab=log",
    "eg": {},
    "why": []
   },
@@ -5775,12 +5929,21 @@
    "requests": [],
    "dialogs": [],
    "scroll": false,
-   "edges": 0,
+   "edges": 1,
    "alt": 0,
    "names": 0,
-   "final": "/admin/config/ledger",
-   "eg": {},
-   "why": []
+   "final": "/admin/config/control?tab=ledger",
+   "eg": {
+    "edges": [
+     "<details class=\"ak-card tv-bleed cb-panel\" id=\"cb-watch\" data-gap=\"14px left, 14px right; #ta-work pads 13.6px/13.6px\"></details>"
+    ]
+   },
+   "why": [
+    [
+     "edges",
+     "1 card(s) e.g. <details class=\"ak-card tv-bleed cb-panel\" id=\"cb-watch\" data-gap=\"14px left, 14px right; #ta-work pads 13.6px/13.6px\"></details>"
+    ]
+   ]
   },
   {
    "who": "staff-executive",
@@ -5795,7 +5958,7 @@
    "edges": 0,
    "alt": 0,
    "names": 0,
-   "final": "/admin/config/ledger",
+   "final": "/admin/config/control?tab=ledger",
    "eg": {},
    "why": []
   },
@@ -5809,12 +5972,21 @@
    "requests": [],
    "dialogs": [],
    "scroll": false,
-   "edges": 0,
+   "edges": 1,
    "alt": 0,
    "names": 0,
-   "final": "/admin/config/upkeep",
-   "eg": {},
-   "why": []
+   "final": "/admin/config/control?tab=upkeep",
+   "eg": {
+    "edges": [
+     "<details class=\"ak-card tv-bleed cb-panel\" id=\"cb-watch\" data-gap=\"14px left, 14px right; #ta-work pads 13.6px/13.6px\"></details>"
+    ]
+   },
+   "why": [
+    [
+     "edges",
+     "1 card(s) e.g. <details class=\"ak-card tv-bleed cb-panel\" id=\"cb-watch\" data-gap=\"14px left, 14px right; #ta-work pads 13.6px/13.6px\"></details>"
+    ]
+   ]
   },
   {
    "who": "staff-executive",
@@ -5829,7 +6001,7 @@
    "edges": 0,
    "alt": 0,
    "names": 0,
-   "final": "/admin/config/upkeep",
+   "final": "/admin/config/control?tab=upkeep",
    "eg": {},
    "why": []
   },
@@ -5843,12 +6015,21 @@
    "requests": [],
    "dialogs": [],
    "scroll": false,
-   "edges": 0,
+   "edges": 1,
    "alt": 0,
    "names": 0,
    "final": "/admin/config/workflows",
-   "eg": {},
-   "why": []
+   "eg": {
+    "edges": [
+     "<div class=\"ak-card tv-bleed au-m\" id=\"start\" data-gap=\"3px left, 24px right; #ta-work pads 13.6px/13.6px\"></div>"
+    ]
+   },
+   "why": [
+    [
+     "edges",
+     "1 card(s) e.g. <div class=\"ak-card tv-bleed au-m\" id=\"start\" data-gap=\"3px left, 24px right; #ta-work pads 13.6px/13.6px\"></div>"
+    ]
+   ]
   },
   {
    "who": "staff-executive",
@@ -5945,12 +6126,21 @@
    "requests": [],
    "dialogs": [],
    "scroll": false,
-   "edges": 0,
+   "edges": 1,
    "alt": 0,
    "names": 0,
-   "final": "/admin/config/scheduler",
-   "eg": {},
-   "why": []
+   "final": "/admin/config/control?tab=scheduler",
+   "eg": {
+    "edges": [
+     "<details class=\"ak-card tv-bleed cb-panel\" id=\"cb-watch\" data-gap=\"14px left, 14px right; #ta-work pads 13.6px/13.6px\"></details>"
+    ]
+   },
+   "why": [
+    [
+     "edges",
+     "1 card(s) e.g. <details class=\"ak-card tv-bleed cb-panel\" id=\"cb-watch\" data-gap=\"14px left, 14px right; #ta-work pads 13.6px/13.6px\"></details>"
+    ]
+   ]
   },
   {
    "who": "staff-executive",
@@ -5965,7 +6155,7 @@
    "edges": 0,
    "alt": 0,
    "names": 0,
-   "final": "/admin/config/scheduler",
+   "final": "/admin/config/control?tab=scheduler",
    "eg": {},
    "why": []
   },
@@ -5979,21 +6169,20 @@
    "requests": [],
    "dialogs": [],
    "scroll": false,
-   "edges": 11,
+   "edges": 2,
    "alt": 0,
    "names": 0,
-   "final": "/admin/config/preflight",
+   "final": "/admin/config/control?tab=preflight",
    "eg": {
     "edges": [
-     "<details class=\"pf-g ak-card tv-bleed\" id=\"pf-g-site\" open=\"\" data-gap=\"14px left, 14px right; #ta-work pads 13.6px/13.6px\"></details>",
-     "<details class=\"pf-g ak-card tv-bleed\" id=\"pf-g-services\" open=\"\" data-gap=\"14px left, 14px right; #ta-work pads 13.6px/13.6px\"></details>",
-     "<details class=\"pf-g ak-card tv-bleed\" id=\"pf-g-railway\" open=\"\" data-gap=\"14px left, 14px right; #ta-work pads 13.6px/13.6px\"></details>"
+     "<details class=\"ak-card tv-bleed cb-panel\" id=\"cb-watch\" data-gap=\"14px left, 14px right; #ta-work pads 13.6px/13.6px\"></details>",
+     "<details class=\"ak-card tv-bleed cb-panel\" id=\"cb-site-needs\" data-gap=\"14px left, 14px right; #ta-work pads 13.6px/13.6px\"></details>"
     ]
    },
    "why": [
     [
      "edges",
-     "11 card(s) e.g. <details class=\"pf-g ak-card tv-bleed\" id=\"pf-g-site\" open=\"\" data-gap=\"14px left, 14px right; #ta-work pads 13.6px/13.6px\"></details>"
+     "2 card(s) e.g. <details class=\"ak-card tv-bleed cb-panel\" id=\"cb-watch\" data-gap=\"14px left, 14px right; #ta-work pads 13.6px/13.6px\"></details>"
     ]
    ]
   },
@@ -6010,7 +6199,7 @@
    "edges": 0,
    "alt": 0,
    "names": 0,
-   "final": "/admin/config/preflight",
+   "final": "/admin/config/control?tab=preflight",
    "eg": {},
    "why": []
   },
@@ -6027,16 +6216,16 @@
    "edges": 1,
    "alt": 0,
    "names": 0,
-   "final": "/admin/config/automation",
+   "final": "/admin/config/control?tab=startup",
    "eg": {
     "edges": [
-     "<div class=\"ak-card tv-bleed au-m\" id=\"start\" data-gap=\"3px left, 24px right; #ta-work pads 13.6px/13.6px\"></div>"
+     "<details class=\"ak-card tv-bleed cb-panel\" id=\"cb-watch\" data-gap=\"14px left, 14px right; #ta-work pads 13.6px/13.6px\"></details>"
     ]
    },
    "why": [
     [
      "edges",
-     "1 card(s) e.g. <div class=\"ak-card tv-bleed au-m\" id=\"start\" data-gap=\"3px left, 24px right; #ta-work pads 13.6px/13.6px\"></div>"
+     "1 card(s) e.g. <details class=\"ak-card tv-bleed cb-panel\" id=\"cb-watch\" data-gap=\"14px left, 14px right; #ta-work pads 13.6px/13.6px\"></details>"
     ]
    ]
   },
@@ -6053,7 +6242,7 @@
    "edges": 0,
    "alt": 0,
    "names": 0,
-   "final": "/admin/config/automation",
+   "final": "/admin/config/control?tab=startup",
    "eg": {},
    "why": []
   },
@@ -6067,12 +6256,21 @@
    "requests": [],
    "dialogs": [],
    "scroll": false,
-   "edges": 0,
+   "edges": 1,
    "alt": 0,
    "names": 0,
    "final": "/admin/config/register",
-   "eg": {},
-   "why": []
+   "eg": {
+    "edges": [
+     "<details class=\"ak-card tv-bleed\" id=\"costs\" style=\"margin:.6rem 0\" data-gap=\"14px left, 14px right; #ta-work pads 13.6px/13.6px\"></details>"
+    ]
+   },
+   "why": [
+    [
+     "edges",
+     "1 card(s) e.g. <details class=\"ak-card tv-bleed\" id=\"costs\" style=\"margin:.6rem 0\" data-gap=\"14px left, 14px right; #ta-work pads 13.6px/13.6px\"></details>"
+    ]
+   ]
   },
   {
    "who": "staff-executive",
@@ -6101,12 +6299,21 @@
    "requests": [],
    "dialogs": [],
    "scroll": false,
-   "edges": 0,
+   "edges": 1,
    "alt": 0,
    "names": 0,
-   "final": "/admin/config/costs",
-   "eg": {},
-   "why": []
+   "final": "/admin/config/register#costs",
+   "eg": {
+    "edges": [
+     "<details class=\"ak-card tv-bleed ak-landed\" id=\"costs\" style=\"margin:.6rem 0\" open=\"\" data-gap=\"14px left, 14px right; #ta-work pads 13.6px/13.6px\"></details>"
+    ]
+   },
+   "why": [
+    [
+     "edges",
+     "1 card(s) e.g. <details class=\"ak-card tv-bleed ak-landed\" id=\"costs\" style=\"margin:.6rem 0\" open=\"\" data-gap=\"14px left, 14px right; #ta-work pads 13.6px/13.6px\"></details>"
+    ]
+   ]
   },
   {
    "who": "staff-executive",
@@ -6121,7 +6328,7 @@
    "edges": 0,
    "alt": 0,
    "names": 0,
-   "final": "/admin/config/costs",
+   "final": "/admin/config/register#costs",
    "eg": {},
    "why": []
   },
@@ -6138,7 +6345,7 @@
    "edges": 1,
    "alt": 0,
    "names": 0,
-   "final": "/admin/config/board",
+   "final": "/admin/config/workflows#crawler",
    "eg": {
     "edges": [
      "<div class=\"ak-card tv-bleed au-m\" id=\"start\" data-gap=\"3px left, 24px right; #ta-work pads 13.6px/13.6px\"></div>"
@@ -6164,7 +6371,7 @@
    "edges": 0,
    "alt": 0,
    "names": 0,
-   "final": "/admin/config/board",
+   "final": "/admin/config/workflows#crawler",
    "eg": {},
    "why": []
   },
