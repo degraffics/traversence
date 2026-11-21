@@ -3,12 +3,15 @@
  "claims": [
   {
    "path": "app/lib/UploadThreads.php",
-   "functions": [],
+   "functions": [
+    "manage",
+    "reportSteps"
+   ],
    "kind": "add",
    "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
-   "why": "0176 R4: uploads' staff threads",
+   "why": "0176 R4",
    "since": "2026-11-21T01:04:49Z",
-   "expires": "2026-11-21T05:04:49Z",
+   "expires": "2026-11-21T05:16:57Z",
    "release": "0176-uploads.zip",
    "callers": {}
   },
@@ -92,13 +95,15 @@
    "path": "app/lib/Pulse.php",
    "functions": [
     "'square'",
-    "items"
+    "items",
+    "manage",
+    "playbook"
    ],
    "kind": "change",
    "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
-   "why": "0176 R4: a journey's report joins its photos' thread (Pulse::items)",
+   "why": "0176 R4: a journey report's case carries the photo's steps",
    "since": "2026-11-21T01:04:51Z",
-   "expires": "2026-11-21T05:09:33Z",
+   "expires": "2026-11-21T05:16:52Z",
    "release": "0176-uploads.zip",
    "callers": {
     "items": [
@@ -107,6 +112,13 @@
      "website/admin/staff-profile.php",
      "website/admin/w.php",
      "website/user/api/bell.php"
+    ],
+    "playbook": [
+     "app/lib/DailyReport.php",
+     "app/ui/pulse-ui.php"
+    ],
+    "manage": [
+     "website/admin/api/pulse.php"
     ]
    }
   },
