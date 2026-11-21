@@ -540,6 +540,9 @@ All of them live in `.env`, above `public_html`.
    - SES costs fractions of a cent a message, inside the email budget, under the system-email exception (Jason confirmed).
    - Applied: pages a and d (email only, no push frame during the outage; the Pulse row after return carries the words and
      times; no push to replace on Recovered), and c1's thread.
+   - **Its recipient** (the session manager, 2026-11-21, §20.6): the address set as a GitHub secret named `ALARM_TO`,
+     never hard-coded; unset, the heartbeat's run fails visibly on GitHub. Pages a, c1 and d draw it as "<the address set
+     as ALARM_TO>".
 2. **"Down" while something is held (open word 4).** Words follow the state.
    - Once something is held, the status reads "Paused by the system (<what's held>): still trying, n of 3, next at
      <time>". Applied: c2 "Paused by the system (the listings endpoints)…", c4 "Paused by the system (renewals)…".
@@ -1036,7 +1039,7 @@ Built from decisions/0172 and 0176, the live code at mirror `aeb5f31` (`Notify`,
 | **The dispatcher itself failing** (its database: `Notify` never throws, so a send is lost with no trace, g4 §c) | every message, on every channel | — | the site's pages and work | obs; des |
 
 **Who watches the watcher:** when the dispatcher can't tell anyone, the outside heartbeat on GitHub (Bluehost's card,
-§14.6a) emails the Founder through SES with its own sending-only secret, from outside the host.
+§14.6a) emails **"<the address set as ALARM_TO>"**, a GitHub secret named `ALARM_TO`, never hard-coded (if it's unset, the heartbeat's run fails visibly on GitHub), through SES with its own sending-only secret, from outside the host (§20.6, 3).
 
 ### 20.4 The states (mockups)
 
@@ -1066,17 +1069,93 @@ Keys, names only. All of these are in `.env`:
 
 Mailboxes' passwords and Microsoft's tokens are sealed in the database, never in `.env`.
 
-### 20.6 Open words for the dispatcher
+### 20.6 Open words for the dispatcher: answered by the session manager (2026-11-21)
 
-1. **Critical, or not?** 02 §7 and the report make the dispatcher a critical Service (procedures). The live register has
-   no dispatcher part; only `svc:aws` carries "system email". Should step 4 register the dispatcher as a part with the
-   procedures duty, and keep `svc:aws` as one of its channels' providers?
-2. **Email's order.** The coordinator's brief put SES first. The code sends system and alarm email by Bluehost's SMTP
-   first, with SES as the backup, and notices through SES. The card follows the code; confirm the order.
-3. **The outside heartbeat as the watcher's watcher.** It emails through SES with its own secret (14.6a). When "no active
-   founder" is the cause, whom does it email? 02 doesn't say.
-4. **The routing matrix** is email only today (#cs-routing). Does step 4 extend it to Pulse and push, by role and level?
-5. **Bounces and complaints:** SES's rate per account isn't read today. Its threshold for a warning isn't set in 02.
+1. **Registering the dispatcher as a critical part** (procedures), with `svc:aws` as one of its channels' providers, is a
+   **step-4 build item**. It's on "For Jason's review". The card keeps "Critical: procedures (by the spec; not in the
+   register today)".
+2. **Email's order** stays as the code has it: Bluehost's SMTP first, SES the backup.
+3. **With "no active founder",** the outside heartbeat emails the address set as a GitHub secret named **`ALARM_TO`**,
+   never hard-coded. If it's unset, the heartbeat's run fails visibly on GitHub. Drawn as "<the address set as
+   ALARM_TO>" on page d, and on Bluehost's card wherever the heartbeat's recipient appears (pages a, c1, d; §14.6a).
+4. **The routing matrix** extends to Pulse and push, by role and level, as a **step-4 item** (0172 already decided it).
+5. **SES's bounce and complaint rates** are read at no cost. Warnings come at AWS's review levels, **5% bounce and 0.1%
+   complaint**, marked **inf**, with a step-4 check against AWS's docs. They're on "For Jason's review".
+
+---
+
+## 21. The AWS account's card (mockups `aws-*.html`)
+
+**One module, two parts:** email (SES) and storage (S3). It has one key (IAM) and one bill. Built like the others
+(`mockups/src/aws.py`) from the live code at mirror `aeb5f31`. No `.env` was opened and no call was made to AWS.
+
+### 21.1 The manifest
+
+| Field | Value | Basis |
+|---|---|---|
+| id · name | `aws` · Amazon Web Services | obs |
+| purpose | "Email (SES), tables and forms (Textract), and file storage until the move to R2 is finished." | obs (`service-defs.php`) |
+| role | **Service** | des |
+| criticality | **Critical: procedures, through its email.** `ControlRegister::CRITICAL` maps `svc:aws` → procedures ("system email (SES): sign-in links, codes and notices") | obs |
+| part 1: email (SES) | **Sending:** the Dispatcher's email backup (Bluehost's SMTP first, `Mailer`), and the sender for notices and the weekly digest (`SesMail`, a personal account; a bulk account when bulk mail is built). **Receiving:** SES inbound, through SNS to `/api/ses-inbound.php`, into its mailbox's Pulse inbox. **The suppression list:** a bounce or complaint stops all mail to that address and may pause its sender (`/api/ses-events.php`). **The rates:** bounce and complaint, read at no cost, warnings at 5% and 0.1% (inf; §20.6, 5) | obs; des |
+| part 2: storage (S3) | every file the site keeps, by owner (`Store::KINDS`: members, businesses, guests, orders, system): photos, a business's files, GO Code logos, orders' proofs and artwork, the stock library's copies, posted videos and their 720p and 1080p copies (the video worker reads and writes through short-lived links). Uploads go from the browser straight to the store (`S3::presign`). Staging's publish copies its files there. **The code keeps no backups there.** **Until the move to Cloudflare R2** (decisions/0151, accepted; `S3_ENDPOINT` points the store at R2 with R2's own key): whether it's moved can't be read here | obs; needs live data |
+| Textract | reading tables, forms and scanned PDFs (`scan_read`); menus after Google, before Claude | obs |
+| spend | one bill: SES about $0.10 per 1,000 emails (cap `SES_MONTHLY_CAP_USD`, `ses_month_usd`); S3 $0.023 a GB-month and about $0.09 a GB downloaded after 100 GB free; Textract per page. **Use not read yet:** each billing lookup costs about a cent | obs |
+| key | `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY` in `.env`: SES, S3 (while on AWS) and Textract | obs |
+| its answers | 503 SlowDown → **a rate wait** (`ServiceHealth::classify()`, tested in `feeds-words.php`); 403 InvalidClientTokenId and the like → a refused key; SES's account-level pause → a stop kind | obs; inf (SES's pause wording) |
+| portal_links | **the same as the Dispatcher's AWS slots:** Billing, Keys · The site's key (IAM), Console (its address `{console}` filled in by the site, not read here), each Documented · release #212; Sign in not registered. The "SES" and "S3" pages aren't slots | obs |
+| the Dispatcher | its card names SES as one of its email providers and links here; this card links back | des |
+
+### 21.2 The four zones
+
+| Zone | Amazon Web Services |
+|---|---|
+| 1 | Service · "Critical: procedures, through its email (svc:aws, "system email")" · state · Stage 5 · setup notice · spend (use not read yet) · "Two parts: email (SES) and storage (S3) · one key (IAM), one bill · The Communications Dispatcher's card" · radius per part |
+| 2 | Email: sending (SES) · Email: receiving (SES inbound) · Storage (S3) · Textract |
+| 3 | SES's sending (status, bounce and complaint rates) · the file store (a signed check; SlowDown a rate wait) · its key |
+| 4 | On our system: Check now · Pause a part (email or storage, automatic calls only). At Amazon Web Services: the Dispatcher's four slots |
+
+### 21.3 Incident Radius, per part
+
+| Fault | Held | On a backup | Unaffected | Basis |
+|---|---|---|---|---|
+| **SES down or paused** | notices and the weekly digest by email; inbound mail waits at AWS; bounce reports wait | alarms and sign-in codes by Bluehost's SMTP, first anyway; Pulse and push | storage; pages, search, sign-in, payments | obs (code); des |
+| **S3 SlowDown** | nothing: a rate wait, never a trip (row 27); uploads and video copies wait a few minutes and go on | — | everything | obs (`classify()`, test) |
+| **S3 down** (while storage is on AWS) | new uploads (the browser sends them straight to the store); video copies; staging's publish of files; **stored photos served from the store don't show** (`media.php` points the browser at the store) | none | files still on the server (not moved yet) keep serving; SES; pages, search, payments | inf (from `Store.php`'s notes) |
+| **The key refused** | both parts and Textract (while storage is on AWS; once it's on R2 with its own key, only email and Textract) | alarms by SMTP; menus by Claude | Pulse and push; files on the server; pages | des |
+
+### 21.4 The states (mockups)
+
+| Mockup | Row (02) | New words | Today's words, beside them | Fix it |
+|---|---|---|---|---|
+| a Working | — | "On · Working"; two parts, one key, one bill; the Dispatcher linked | — | — |
+| b SES sending paused by AWS | 38, 81 | "Amazon SES paused our sending · Paused by the system (email by SES)" | a failed SES send on the route; SES's rates not read; nothing on the board (g4 §c) | Console (SES's status and AWS's case), then Check and start again |
+| c S3 asked us to slow down | 27, 28, 130 | "Amazon S3 asked us to slow down · Calls wait until <time>, then start again by themselves." | Common Crawl's S3 today: "Its server failed" with a SlowDown reading, never changed (obs, L12) | their trouble: Console (S3) |
+| d The IAM key refused | 29, 106, 129 | "Amazon Web Services refused our key · Paused by the system: calls with AWS_ACCESS_KEY_ID wait for a new key." Both parts held | each caller fails on its own; no one alarm names the key | Keys · The site's key (IAM), registered; Replace key |
+
+### 21.5 Setup capture (§13.x)
+
+Notice: **"Setup capture: Sign in not recorded"**.
+
+Keys, names only. All of these are in `.env`:
+- `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_REGION`.
+- `S3_BUCKET`.
+- `S3_ENDPOINT`, `S3_ACCESS_KEY_ID`, `S3_SECRET_ACCESS_KEY`, `S3_REGION`: R2's own key, optional.
+- `SES_MODE`, `SES_REGION`, `SES_PERSONAL_KEY_ID`, `SES_PERSONAL_SECRET`, `SES_BULK_KEY_ID`, `SES_BULK_SECRET`.
+- `SES_MONTHLY_CAP_USD`, `SES_USD_PER_1000`.
+
+### 21.6 Open words for AWS
+
+1. **Has storage moved to R2?** 0151 is accepted and its code is built, but the move is done by hand in two dashboards.
+   Whether `S3_ENDPOINT` is set live decides whether storage belongs on this card or on Cloudflare's. Needs live data.
+2. **SES's account-level pause** has no 02 row. It's drawn as a stop kind (row 38's shape), and AWS's real wording isn't
+   recorded (inf).
+3. **Stored photos while S3 is down:** the code's notes say `media.php` points the browser at the store, so those photos
+   wouldn't show. Should that be a Held line on the page duty, and is it critical? Page load stays up.
+4. **Textract** is part of this module but isn't one of the two parts asked for. It's drawn as a third line on zone 2.
+   Should it be its own part?
+5. **Who's told when the key is refused:** email by Bluehost still reaches the Founder, and push and Pulse do too. Confirm
+   the key's trip isn't sent through SES itself.
 
 ---
 
@@ -1088,3 +1167,7 @@ Items noted for Jason's review of the step-3 design. None is asked now.
    our own account's data at no cost, and the spend chip reads "fees not read yet" until then.
 2. **The shared web search cap's unit** (§18.6, 2): it counts searches today, as the code does, with a dollars line
    beside it. Should the cap be a count or dollars, since Brave costs $0.005 a search and Tavily $0.008 a credit?
+3. **Registering the Communications Dispatcher as a critical part** (procedures) in step 4, with `svc:aws` (SES) as one
+   of its channels' providers (§20.6, 1). Today the register has no dispatcher part.
+4. **SES's bounce and complaint warnings** at AWS's review levels: 5% bounce, 0.1% complaint (inf; a step-4 check
+   against AWS's docs). The rates are read at no cost (§20.6, 5).

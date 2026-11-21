@@ -42,7 +42,7 @@ CD_RADIUS = f"""<details><summary>Its Incident Radius, by fault</summary>
 <div class="rad"><div class="h"><b>Held</b><ul><li>SES down: notices and the weekly digest by email, and system email's backup</li><li>Push keys refused: every push</li><li>The dispatcher itself failing (its database): every message, on every channel</li></ul></div>
 <div class="o"><b>On a backup</b><ul><li>SES down: system email (sign-in codes, alarms) still goes by Bluehost\'s SMTP, first anyway; Pulse and push carry the rest</li><li>Push refused: Pulse and email carry it</li></ul></div>
 <div class="u"><b>Unaffected</b><ul><li>Pulse, always: every message lands there</li><li>The site\'s pages and work</li></ul></div></div>
-<div class="sub"><b>Who watches the watcher:</b> when the dispatcher can\'t tell anyone, the outside heartbeat on GitHub (Bluehost\'s card, 03 §14.6a) emails the Founder through SES with its own sending-only secret.</div></details>"""
+<div class="sub"><b>Who watches the watcher:</b> when the dispatcher can\'t tell anyone, the outside heartbeat on GitHub (Bluehost\'s card, 03 §14.6a) emails &lt;the address set as ALARM_TO&gt; (a GitHub secret, never hard-coded; unset, its run fails visibly on GitHub) through SES with its own sending-only secret.</div></details>"""
 
 STAGE_CD = '<span class="st">Stage 5 of 8 · Operational</span><span class="nx">Next allowed: Check now · Send test dispatch · Pause a channel · Take out (stage 6)</span>'
 STAGE_CDT = '<span class="st">Stage 5 of 8 · Operational</span><span class="nx">Next allowed: Check and start again · Send test dispatch · Acknowledge</span>'
@@ -67,7 +67,7 @@ def cd_z2(over=None):
          'One record per recipient, routed by their choices along one route (created → addressed → held → sent → delivered → read). One thread per alarm: an alarm\'s message is updated where it is (<code>IN_PLACE</code>).', '', over.get('pulse_cls', '')),
         ('Email', 'Bluehost\'s SMTP first, then Amazon SES the backup (<code>Mailer</code>); SES also sends notices and the weekly digest (<code>SesMail</code>)', over.get('email', light('g', 'On · Working')),
          'Quiet hours hold Notice, General and Special; Critical, Urgent and Alert go anyway. One email per conversation while it\'s unread. A bounce or complaint stops all mail to that address (SES\'s suppression list). '
-         f'Its SES page: <a href="{AWS_SES}" target="_blank" rel="noopener">SES ↗</a> (not a portal slot).', over.get('email_btn', b('Check now')), over.get('email_cls', '')),
+         f'Its SES page: <a href="{AWS_SES}" target="_blank" rel="noopener">SES ↗</a> (not a portal slot). SES is a part of <a href="aws-a-working.html">Amazon Web Services\' card</a>.', over.get('email_btn', b('Check now')), over.get('email_cls', '')),
         ('Push', 'web push with our own VAPID keys (<code>WebPush</code>, RFC 8291 and 8292)', over.get('push', light('g', 'On · Working')),
          'On by default for Alert and up, once a person has a device. A pace per person: past 3 pushes in 5 minutes the rest fold into one summary; Critical always goes on its own. '
          'One tag per thread, alerting again only on a rise or Critical; Recovered replaces it quietly.', over.get('push_btn', b('Check now')), over.get('push_cls', '')),
@@ -86,7 +86,7 @@ def cd_z3(over=None):
     return rows([
         ('The route', 'each message\'s stages (<code>comms_route</code>); each sender\'s last sent and failed, 24 h counts', '', over.get('route', 'not read yet'), '', over.get('route_cls', '')),
         ('Queue depth', 'held now, and the oldest held (<i>spec</i>)', '', over.get('q', 'not built'), '', ''),
-        ('Bounces and complaints', 'SES\'s rate, per account (<i>spec</i>; today an address is stopped, no rate shown)', '', over.get('bounce', 'not built'), '', over.get('bounce_cls', '')),
+        ('Bounces and complaints', 'SES\'s rates, read at no cost; a warning at AWS\'s review levels, 5% bounce and 0.1% complaint (inf: a step-4 check against AWS\'s docs). Today an address is stopped, no rate shown', '', over.get('bounce', 'not built'), '', over.get('bounce_cls', '')),
         ('Push keys', '<code>VAPID_*</code> present and accepted (<i>spec</i>); dead devices (<code>push_subs.failed_at</code>)', '', over.get('vapid', 'not read yet'), '', over.get('vapid_cls', '')),
         ('Reached no one', 'a trip with no active receiver (<i>spec</i>, row 80); today nothing is sent and nothing logged (g4 row 14)', '', over.get('none', 'not built'), '', over.get('none_cls', '')),
         ('Founders without a device', 'push can\'t reach them (<i>spec</i>)', '', 'not read yet', '', ''),
@@ -94,7 +94,7 @@ def cd_z3(over=None):
 
 
 CD_Z4 = act_rows(b('Send test dispatch') + '<span class="why">to the owner only</span>'
-                 + f'<a class="btn" href="{COMMS}#cs-routing">Open the routing matrix</a><span class="why">who gets what, by role and level (today: email only)</span>'
+                 + f'<a class="btn" href="{COMMS}#cs-routing">Open the routing matrix</a><span class="why">who gets what, by role and level (today email only; Pulse and push in step 4, as 0172 decided)</span>'
                  + b('Fix it', off='nothing open') + b('Check now'), AWSP, cd_slots(),
                  then=f'Fix it routes: a sender failing → <a href="{COMMS}#cs-controls">{COMMS}#cs-controls</a> and its sender\'s card; push keys → Its key. After Keys → Replace key, then its check.')
 
@@ -165,8 +165,8 @@ def cd_nobody():
                 f'<a class="btn f" href="{COMMS}#cs-routing">Open the routing matrix</a>' + b('Acknowledge'),
                 cd_slots(),
                 f'Fix it: <b>the routing matrix</b> (<a href="{COMMS}#cs-routing">{COMMS}#cs-routing</a>): make sure a founder is active, with email and a device. '
-                'If the founder\'s account is the one missing, the outside heartbeat\'s email (Bluehost\'s card) is the only way left to tell anyone.',
-                '<dl class="dl"><dt>Who watches the watcher</dt><dd>this alarm can reach no one through the dispatcher by definition; it stands on the board, and the outside heartbeat (GitHub, every 15–30 min) can email from outside (03 §14.6a)</dd>'
+                'With no active founder, the outside heartbeat emails &lt;the address set as ALARM_TO&gt; (a GitHub secret, never hard-coded; unset, its run fails visibly on GitHub).',
+                '<dl class="dl"><dt>Who watches the watcher</dt><dd>this alarm can reach no one through the dispatcher by definition; it stands on the board, and the outside heartbeat (GitHub, every 15–30 min) emails &lt;the address set as ALARM_TO&gt; from outside (03 §14.6a, §20.6)</dd>'
                 '<dt>Rule</dt><dd>02 rows 80, 53 (the outside heartbeat); P11 (a trip always reaches someone; if it can\'t, the dispatcher\'s own fault is raised and shown)</dd></dl>'
                 + today_words(['Today: nothing is sent and nothing is logged (g4 row 14, extra N).',
                                f'New: “{CD}: a trip reached no one (no active founder) · Down.”']), at=AWSP)

@@ -152,7 +152,7 @@ def card_pages_down(t='2:15 AM MST'):
     th = thread('Page load', light('r', 'Down: the system is still trying') + f' since {sc(t)}.',
                 HELD_BH, 'none', UNAFF_BH,
                 f'The outside heartbeat (GitHub Actions) checks every 15–30 minutes (next {sc("2:30 AM MST")}) and writes the incident as an unnumbered record in the repo. '
-                'Jason is told by email only, through the site\'s Amazon email (SES); no push while the host is gone. When the site is back it takes the record in, '
+                'It emails &lt;the address set as ALARM_TO&gt; (a GitHub secret, never hard-coded; unset, the heartbeat\'s run fails visibly on GitHub), only, through the site\'s Amazon email (SES); no push while the host is gone. When the site is back it takes the record in, '
                 'numbers it, and shows it in Pulse as “Raised while the site was down, by the outside heartbeat”.',
                 b('Check and start again', True) + b('Acknowledge'),
                 bh_slots(fix='console'),
@@ -272,8 +272,8 @@ def bh_board():
     j = hosts.index('<div class="host"><div class="hn"><a href="#" data-open-panel="p-railway">Railway</a>')
     hh = hosts[:i] + tile + hosts[j:]
     when_down = f"""<div class="sec"><h2>When Bluehost is down, the board can't load</h2>
-<div class="sub" style="margin:0 .2rem .6rem">The board and Pulse live on Bluehost. The outside heartbeat (GitHub Actions, every 15–30 min, O3) notices, writes an unnumbered record in the repo, and emails Jason through the site's Amazon email (SES). No push: the push keys stay on Bluehost.</div>
-<div><div class="frame"><div class="fh">Email · from the outside heartbeat, through Amazon SES (<i>spec</i>)</div><div class="fb"><div class="email"><div class="hd2"><span>From</span><b>Traversence Control Board</b><span>Subject</span><b>SYSTEM ALARM NOTICE: Page load: Down: the system is still trying</b></div>
+<div class="sub" style="margin:0 .2rem .6rem">The board and Pulse live on Bluehost. The outside heartbeat (GitHub Actions, every 15–30 min, O3) notices, writes an unnumbered record in the repo, and emails &lt;the address set as ALARM_TO&gt; (a GitHub secret; unset, its run fails visibly on GitHub) through the site's Amazon email (SES). No push: the push keys stay on Bluehost.</div>
+<div><div class="frame"><div class="fh">Email · from the outside heartbeat, through Amazon SES (<i>spec</i>)</div><div class="fb"><div class="email"><div class="hd2"><span>From</span><b>Traversence Control Board</b><span>To</span><b>&lt;the address set as ALARM_TO&gt;</b><span>Subject</span><b>SYSTEM ALARM NOTICE: Page load: Down: the system is still trying</b></div>
 <p>Held: everything that runs on Bluehost. Unaffected: Railway's workers (they can't report), GitHub, the mirror.</p>
 <p>At Bluehost: <a href="#cpanel">Console · cPanel</a> · <a href="{ACCOUNT}">Sign in · Account</a></p><p class="sub">No incident number yet: it's assigned when the site is back.</p></div></div></div>
 <div class="frame"><div class="fh">Push</div><div class="fb"><div class="sub">None while the host is gone: the push keys stay on Bluehost.</div></div></div></div>
@@ -297,7 +297,7 @@ def bh_story():
 <div class="step"><h3>1 · The board and Pulse can't open: they're on Bluehost</h3><div class="when">{sc('2:15 AM MST')}: the outside heartbeat on GitHub gets no 200 from the public home page (no token). Page load is critical: a trip at once.</div>
 <div class="note">The board and Pulse show nothing while Bluehost is down: no page of ours answers. The heartbeat writes the incident as an unnumbered record in the repo (its times, what failed, its checks) and sends the email itself.</div></div>
 <div class="step"><h3>2 · Email only, from outside the host, in the same minute</h3><div class="when">One title: “Page load”. One status: “Down: the system is still trying” (the host itself is gone, so nothing could place a hold). One Held/Unaffected line.</div>
-<div class="frame"><div class="fh">Email · a new thread to the Founder, from the outside heartbeat through Amazon SES (<i>spec</i>)</div><div class="fb"><div class="email"><div class="hd2"><span>From</span><b>Traversence Control Board</b><span>To</span><b>the Founder (Jason)</b><span>Subject</span><b>{SUBJ}</b><span>Sent</span><span>Nov 21, {sc('2:15 AM')} MST</span></div>
+<div class="frame"><div class="fh">Email · a new thread, from the outside heartbeat through Amazon SES (<i>spec</i>)</div><div class="fb"><div class="email"><div class="hd2"><span>From</span><b>Traversence Control Board</b><span>To</span><b>&lt;the address set as ALARM_TO&gt;</b><span>Subject</span><b>{SUBJ}</b><span>Sent</span><span>Nov 21, {sc('2:15 AM')} MST</span></div>
 <p><b>Page load</b></p><p><b>Status:</b> Down: the system is still trying, since {sc('2:15 AM MST')}.</p><p><b>What it affects:</b> {HELD}</p>
 <p><b>What the system is doing:</b> the outside heartbeat checks again every 15–30 minutes; next {sc('2:30 AM MST')}. No incident number yet: it's assigned when the site is back.</p>
 <p><b>Fix it, at Bluehost</b> (these open off the host): Console · cPanel (https://‹CPANEL_HOST›:2083) · Sign in · Account <a href="{ACCOUNT}">{ACCOUNT}</a></p></div></div></div>
