@@ -200,6 +200,9 @@ JS = r"""
 
 
 def page(fname, title, desc, body, panels=''):
+    for m in ('railway', 'github'):
+        if f'data-open-panel="p-setup-{m}"' in body + panels and f'id="p-setup-{m}"' not in panels:
+            panels += setup_panel(m)
     doc = f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{E(title)}</title><meta name="description" content="{E(desc)}">
@@ -213,6 +216,81 @@ def page(fname, title, desc, body, panels=''):
 {JS}
 </body></html>"""
     open(OUT + fname, 'w').write(doc)
+
+
+# ---------- Setup & Access Capture (03-cards §13; 04 §10) ----------
+SETUP = {
+    'railway': dict(
+        provider='Railway',
+        notice='Setup capture: Sign in not recorded · Keys: why not recorded',
+        keys=[('CRAWLER_API_TOKEN', '.env and Railway', 'the crawler\'s pass into our site'),
+              ('RAILWAY_API_TOKEN', '.env', 'watching deploys, setting the schedule'),
+              ('RAILWAY_PROJECT_ID', '.env', 'an id, not a secret'),
+              ('RAILWAY_SERVICE_ID', '.env', 'an id, not a secret')],
+        keys_note='Keys the worker holds for other modules (e.g. <code>TAVILY_API_KEY</code>) are recorded on those modules\' cards, with Railway as their place.',
+        slots=[('Billing', 'Billing · Usage · Documented · release #212', None),
+               ('Keys', 'Not registered', 'Railway\'s project Variables page isn\'t recorded'),
+               ('Console', 'Console · Dashboard · Documented · release #212', None),
+               ('Sign in', 'Not registered', '')]),
+    'github': dict(
+        provider='GitHub',
+        notice='Setup capture: Sign in not recorded · Keys, Console: why not recorded',
+        keys=[('GITHUB_DOCS_TOKEN', '.env', 'reads the inbox, writes release records, asks for the checks'),
+              ('GITHUB_SYNC_TOKEN', '.env', 'watches the sync'),
+              ('HEALTH_TOKEN', 'a GitHub secret on degraffics/traversence and its .env copy (they must match)', 'the daily health report'),
+              ('MIRROR_READ_TOKEN', 'a GitHub secret on degraffics/traversence', 'the audit'),
+              ('CHECK_ACCOUNTS', 'a GitHub secret on degraffics/traversence', 'the checks'),
+              ('CLAUDE_CODE_OAUTH_TOKEN', 'a GitHub secret on degraffics/traversence', 'Claude\'s workflow'),
+              ('ONEDRIVE_CLIENT_ID', 'a GitHub secret on degraffics/traverse-3way-sync', 'the sync'),
+              ('ONEDRIVE_TENANT_ID', 'a GitHub secret on degraffics/traverse-3way-sync', 'the sync'),
+              ('ONEDRIVE_REFRESH_TOKEN', 'a GitHub secret on degraffics/traverse-3way-sync', 'the sync'),
+              ('FTP_HOST', 'a GitHub secret on degraffics/traverse-3way-sync', 'the sync'),
+              ('FTP_USER', 'a GitHub secret on degraffics/traverse-3way-sync', 'the sync'),
+              ('FTP_PASS', 'a GitHub secret on degraffics/traverse-3way-sync', 'the sync'),
+              ('FTP_REMOTE_PATH', 'a GitHub secret on degraffics/traverse-3way-sync', 'the sync'),
+              ('GH_PAT', 'a GitHub secret on degraffics/traverse-3way-sync (optional)', 'saving a rotated OneDrive token')],
+        keys_note='Planned: a read-only billing token for Actions minutes (Jason, 2026-11-21: Vault, then Its key; not added yet).',
+        slots=[('Billing', 'Billing · Documented · release #212', None),
+               ('Keys', 'Not registered', 'GitHub\'s token settings page isn\'t recorded'),
+               ('Console', 'Not registered', '“The sync” is our own workflow\'s page: it sits on the Sync part as “Its runs”'),
+               ('Sign in', 'Not registered', '')]),
+}
+
+
+def setup_notice(mod):
+    s = SETUP[mod]
+    return (f'<div class="stage" style="color:var(--meta);font-size:12.5px">{s["notice"]} '
+            f'<a href="#" data-open-panel="p-setup-{mod}" style="color:var(--meta)">Record ▸</a></div>')
+
+
+def setup_details(mod):
+    s = SETUP[mod]
+    keys = ''.join(f'<li><code>{k}</code>: {where} <span class="why">({what})</span></li>' for k, where, what in s['keys'])
+    slots = ''.join(f'<li><b>{n}:</b> {st}' + (f' <span class="why">({why})</span>' if why else '') + (' · <span class="why">no why yet</span>' if st == 'Not registered' else '') + '</li>'
+                    for n, st, why in s['slots'])
+    return (f'<details><summary>Setup capture</summary><div class="sub" style="margin:.3rem 0">Names only, never values. Credentials live only in the Vault.</div>'
+            f'<div style="font-size:13px"><b>Where to sign in:</b> Sign in slot: Not registered.</div>'
+            f'<div style="font-size:13px;margin-top:.3rem"><b>Where its keys live:</b></div><ul style="margin:.2rem 0;padding-left:1.1rem;font-size:13px">{keys}</ul>'
+            f'<div class="sub">{s["keys_note"]}</div>'
+            f'<div style="font-size:13px;margin-top:.3rem"><b>Its slots:</b></div><ul style="margin:.2rem 0;padding-left:1.1rem;font-size:13px">{slots}</ul></details>')
+
+
+def setup_panel(mod):
+    s = SETUP[mod]
+    rows = ''
+    for n, st, why in s['slots']:
+        if st != 'Not registered':
+            continue
+        rows += (f'<div class="slot none" style="margin:.4rem 0"><div class="ty">{n}</div>'
+                 f'<div class="miss">No {"sign-in" if n == "Sign in" else ("API keys" if n == "Keys" else n.lower())} page registered for {s["provider"]} yet.</div>'
+                 f'<div class="btns"><button class="btn">Publish from your Vault</button><span class="why">owner only</span></div>'
+                 f'<label class="sub" style="display:block;margin-top:.4rem">Or a one-line why'
+                 f'<input type="text" data-spell maxlength="140" style="display:block;width:100%;margin-top:.2rem;padding:.3rem .45rem;border:1px solid var(--field-edge);border-radius:.4rem;background:var(--card);font:inherit"></label>'
+                 f'<div class="btns" style="margin-top:.3rem"><button class="btn">Record</button></div></div>')
+    return (f'<aside class="panel" id="p-setup-{mod}" hidden role="dialog" aria-label="Setup capture: {s["provider"]}">'
+            f'<button class="x" aria-label="Close">×</button><h2 style="font-size:16px;margin:.2rem 0 .3rem">Setup capture: {s["provider"]}</h2>'
+            f'<div class="sub" style="margin-bottom:.5rem">{s["notice"]}. A notice only: never an alarm, a hold or a Pulse item. Names only; credentials go only into the Vault.</div>'
+            f'{rows}{setup_details(mod).replace("<details>", "<details open>")}</aside>')
 
 
 def light(kind, words):
@@ -320,7 +398,8 @@ def zone1(state_light, stage_line, spend_html, extra=''):
 <span class="badge role">Host</span><span class="badge crit">Not critical by itself</span>
 {state_light}</div>
 <div class="stage">{stage_line}</div>
-<div class="stage">{spend_html}</div>{extra}""")
+{setup_notice('railway')}
+<div class="stage">{spend_html}</div>{extra}{setup_details('railway')}""")
 
 
 STAGE_WORKING = ('<span class="st">Stage 5 of 8 · Operational</span><span class="nx">Next allowed: Check now · Pause everything · '

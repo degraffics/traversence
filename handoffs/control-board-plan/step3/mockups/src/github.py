@@ -31,7 +31,8 @@ def gh_zone1(state_light, stage=STAGE_GH):
 <span class="badge role">Host</span><span class="badge crit">Critical: procedures (releases and the sync)</span>
 {state_light}</div>
 <div class="stage">{stage}</div>
-<div class="stage">{SPEND_GH}</div>{GH_RADIUS}""")
+{setup_notice('github')}
+<div class="stage">{SPEND_GH}</div>{GH_RADIUS}{setup_details('github')}""")
 
 
 # What it runs (real runs, read from GitHub Actions, Nov 21 9:30 AM MST)
@@ -331,7 +332,7 @@ def gh_story():
 <p><b>What the system is doing:</b> it tries again at each 10-minute look and closes this as Recovered when a look succeeds. Next look {sc('9:50 AM MST')}.</p>
 <p><b>Fix it:</b> <a href="https://traversence.com/admin/dashboard/stream#case=alarm:T-####&amp;fix=1">https://traversence.com/admin/dashboard/stream#case=alarm:T-####&amp;fix=1</a></p>
 <p><b>Console at GitHub:</b> No console page registered for GitHub yet.</p></div></div></div>
-<div class="frame"><div class="fh">Push · one, tagged for this incident</div><div class="fb"><div class="push"><div class="pa"><span>Traversence</span><span>{sc('9:40 AM')}</span></div><div class="pt">SYSTEM ALARM: GitHub</div><div>{STAT}.</div></div></div></div></div>
+<div class="frame"><div class="fh">Push · one, tagged for this incident</div><div class="fb"><div class="push"><div class="pa"><span>Traversence</span><span>{sc('9:40 AM')}</span></div><div class="pt">SYSTEM ALARM: GitHub</div><div>Paused by the system (releases and the sync): still trying.</div></div></div></div></div>
 <div class="step"><h3>2 · Fix it opens GitHub's card in the side panel</h3><div class="when">From the board row, the Pulse row or the email's link.</div>
 <div class="frame"><div class="fh">Side panel over the board (× · Esc · click outside to close)</div><div class="fb"><div class="panel-static"><button class="x" aria-label="Close" style="pointer-events:none">×</button><h2 style="font-size:16px;margin:.2rem 0 .7rem">GitHub</h2>{card_api_down()}</div>
 <p><button class="btn f" data-open-panel="p-fix">Open it live</button></p></div></div></div>
