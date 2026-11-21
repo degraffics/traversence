@@ -22,6 +22,92 @@
    "expires": "2026-11-21T05:04:49Z",
    "release": "0176-uploads.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/Notify.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
+   "why": "0176 R4: uploads' staff threads",
+   "since": "2026-11-21T01:04:51Z",
+   "expires": "2026-11-21T05:04:51Z",
+   "release": "0176-uploads.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/upload-targets.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
+   "why": "0176 R4: uploads' staff threads",
+   "since": "2026-11-21T01:04:51Z",
+   "expires": "2026-11-21T05:04:51Z",
+   "release": "0176-uploads.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Journeys.php",
+   "functions": [
+    "save"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
+   "why": "0176 R4: uploads' staff threads",
+   "since": "2026-11-21T01:04:51Z",
+   "expires": "2026-11-21T05:04:51Z",
+   "release": "0176-uploads.zip",
+   "callers": {
+    "save": [
+     "website/user/journeys/compose.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/Reports.php",
+   "functions": [
+    "file"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
+   "why": "0176 R4: uploads' staff threads",
+   "since": "2026-11-21T01:04:51Z",
+   "expires": "2026-11-21T05:04:51Z",
+   "release": "0176-uploads.zip",
+   "callers": {
+    "file": [
+     "app/lib/CommentNotices.php",
+     "app/lib/GroupNotices.php",
+     "app/lib/ListingMessages.php",
+     "app/lib/PulseAct.php",
+     "website/api/engage.php",
+     "website/api/journeys.php",
+     "website/user/api/business-messages.php",
+     "website/user/api/community.php",
+     "website/user/api/people.php",
+     "website/user/api/posts.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/Pulse.php",
+   "functions": [
+    "items"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
+   "why": "0176 R4: uploads' staff threads",
+   "since": "2026-11-21T01:04:51Z",
+   "expires": "2026-11-21T05:04:51Z",
+   "release": "0176-uploads.zip",
+   "callers": {
+    "items": [
+     "app/lib/DailyReport.php",
+     "app/ui/pulse-ui.php",
+     "website/admin/staff-profile.php",
+     "website/admin/w.php",
+     "website/user/api/bell.php"
+    ]
+   }
   }
  ],
  "lapsed": [
