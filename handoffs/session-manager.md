@@ -100,6 +100,9 @@ sessions take over, holding until Jason says resume. Live through Release #228 (
   Census backup → 0176 R3, R4 → 0175 R3, R4 (then the App store, 0169). Held work on branches: `claude/0175-r2a-wip`.
   Progress: 0175 R2a live (#229, #231); 0176 R2 live (#234, #236). 0175 R2b part A (board tabs, Sync 17:54 UTC) approved
   2026-11-20; parts B (Modules, with Jason's Costs question) and C (Workflows) next.
+  Progress (2026-11-20): Paused now (#242), 0175 R2b part C (#243) and the Census backup (#244) are live. 0176 R3, Fix it
+  routing, is built on Sync 23:49 UTC (`handoffs/0176-fix-it/`; 0176's note "release 3 built"), waiting for review and
+  Jason's OK.
 - **Design and trips** (`design.md` and its area files): hero-tidy (`claude/hero-tidy`, approved, unsent) → admin kit →
   T5 → 3d/3e/3f → the map release → 0174 R5 (openrouteservice; read its terms first).
   **Progress (2026-11-20):** hero tidy rebuilt on Sync 15:06 UTC (eb49e51) and sent (`releases/inbox/hero-tidy.zip`,
@@ -294,7 +297,7 @@ these and `StagingGate`; roles in `Access::can` / `Modules::canTool`. It extends
 second copy. "Control" means **both** (Jason, 2026-11-19): rules he sets for each of the five, and a log of every
 one that ran (who, what, when, where, the rule that allowed or stopped it).
 - **Progress:** decisions/0176 (accepted 2026-11-20) covers (1) alerts as threads in one shape (R1 live, #226), part of
-  (2) buttons as Fix it routing (R3, held) and part of (3) forms as uploads (R4, held), all in Operations' order. Still
+  (2) buttons as Fix it routing (R3, built 2026-11-20, waiting for Jason's OK) and part of (3) forms as uploads (R4, held), all in Operations' order. Still
   to decide: (4) the message gate's rules, (5) the role-based actions, and the log of every one that ran.
 
 **Queued builds, in order:** W15 Funnel (0170); state licence lists (3a: decision first); the App store (0169) and its

@@ -293,7 +293,8 @@ export function stagingRunners(k) {
         const tool = await firstVisible(page, ['#pb-dr-play button[data-tool-url*="reports"]', '#pb-dr-tool']);
         if (!(await page.locator('#pb-tool-f').isVisible().catch(() => false))) { if (!tool) { w.stuck = 'the case has no way to the Reports tool'; await w.shot('notool'); return; } await w.tap(tool, 'Open the report'); }
         await page.waitForTimeout(3000);
-        const f = page.frameLocator('#pb-tool-f');
+        // a case opened in place shows its tool in the site's side panel (decisions/0176 R3); the drawer's own frame otherwise
+        const f = (await page.locator('.tv-pk iframe').isVisible().catch(() => false)) ? page.frameLocator('.tv-pk iframe') : page.frameLocator('#pb-tool-f');
         const card = f.locator('div.rp', { hasText: STAMP }).first();
         if (!(await card.isVisible().catch(() => false))) { w.add('accuracy', 'J02', w.here(), 'the Reports tool doesn\'t show the reported post'); await w.shot('noreport'); return; }
         if (!(await tapIn(w, card, 'button[value=dismiss]', 'Dismiss'))) return;

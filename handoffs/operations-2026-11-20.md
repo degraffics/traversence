@@ -35,7 +35,15 @@ on Jason's Approve, tell the session manager (it runs the sync).
 
 Claims held (release names 0175-paused-now, 0175-r2b-workflows, census-backup) end when each is verified live.
 
-## Next: 0176 R3, Fix it routing (cleared by the session manager, 2026-11-20 18:54: "go ahead with A for both")
+## Taken over (2026-11-20, session_01CXLi5jC5aZcEZtdMWtd4Gb)
+#1219, #1220 and #1222 are live (#242, #243, #244; Sync 23:49 UTC 66b591f). 0176 R3 is **built** on that sync:
+`handoffs/0176-fix-it/0176-fix-it.zip` (11 files: Thread, ServiceHealth, ControlAlarms, Operations, control-console,
+operations-console, index-console, pulse-ui, admin-outside.js, faq.md, release.json), its PR stacked after #1222, tests
+`dispatcher-tests/r3.php` (44) and `r3.cjs` with `r3-page.php` (48, at 1280 and 390). Jason's correction (through the session manager): Reactivate moved to W0's page on the board. Not sent: waiting for the session
+manager's review and Jason's Approve. Its only zip-check block is the stale `0175-paused-now.zip` delivery record (its
+`-2` is live). What it built: 0176's note "release 3 built".
+
+## 0176 R3, Fix it routing (cleared by the session manager, 2026-11-20 18:54: "go ahead with A for both")
 Sources: 0176 §5 (the cause → landing table; "From a push, it opens the app at the thread's Pulse row, with the panel on
 the fix (A5)"), the releases list's item 3, `handoffs/dispatcher.md` "Release 3". Plan as cleared:
 - `Thread::FIX` cause → one spot; "Fix it" first among a thread's buttons, opening in the one side panel (R2a's tv-ask
