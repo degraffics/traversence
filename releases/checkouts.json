@@ -91,13 +91,14 @@
   {
    "path": "app/lib/Pulse.php",
    "functions": [
+    "'square'",
     "items"
    ],
    "kind": "change",
    "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
-   "why": "0176 R4: uploads' staff threads",
+   "why": "0176 R4: a journey's report joins its photos' thread (Pulse::items)",
    "since": "2026-11-21T01:04:51Z",
-   "expires": "2026-11-21T05:04:51Z",
+   "expires": "2026-11-21T05:09:33Z",
    "release": "0176-uploads.zip",
    "callers": {
     "items": [
