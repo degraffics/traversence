@@ -600,7 +600,7 @@ made to Anthropic.
 | used by | guides (W4 research briefs, drafts, names, fixes, Check my facts), guides on demand (W5), heritage and topics (W6), journeys' names and Find it (W8), place descriptions (W9), live events (W10), Write it for me (catalog); six more off by default (W1, W3's second tier, the vector index). From `AiClient::FEATURES` with `CrawlService::FEATURE_WF` | obs (code defaults); the live per-feature settings: not read yet |
 | governing decisions | 0131 (place guides), 0147 §5 (half the day's allowance on demand; the rest queued), 0160 §5 (the always-on R&D features inside the cap; every call counted) | obs |
 | caps | `ai_month_usd` (the AI monthly cap; default $40, decisions/0163 §7; the live reading shows $40.00) · `guide_ondemand_share` (50% by default) · `ai_free_asks` · `ai_cover` · `po_claude_prose` | obs (`Thresholds.php`, `service-defs.php`) |
-| the monthly cap | `AiClient::capUsd()`: the setting `ai_month_usd`; with no database, `.env`'s retired `AI_MONTHLY_CAP_USD`, else $25. `allow()` refuses every feature once the month's spend reaches it: "The month's AI cap ($…) is reached: it starts again on the 1st." | obs (code) |
+| the monthly cap | `AiClient::capUsd()`: the setting `ai_month_usd`; with no database, `.env`'s retired `AI_MONTHLY_CAP_USD`, else $25 (brought to $40 in step 4: Jason, 2026-11-21). `allow()` refuses every feature once the month's spend reaches it: "The month's AI cap ($…) is reached: it starts again on the 1st." | obs (code) |
 | the 50% on-demand rule | the day's allowance = the cap ÷ the days in the month; Guides on demand may spend up to `guide_ondemand_share` of it (`OnDemand::allowance()`); a build that would pass it **queues for tomorrow**, most-searched first, never stopping part way; the place still gets its free work at once (0147 §5) | obs (code, decision) |
 | every call counted | each call's cost is kept in `ai_jobs.cost_micros`, including a call that failed after a paid answer ("Paid, then failed: …", `AiClient.php:364`; 0160 §5, D16) | obs (code) |
 | required keys | `ANTHROPIC_API_KEY` (`.env`) | obs |
@@ -614,7 +614,7 @@ made to Anthropic.
 | 1 Identity and role | **Anthropic (Claude)** · Service · "Not critical: no duty stops without it" · state · "Stage 5 of 8 · Operational · Next allowed: Check now · Pause · Raise or lower our cap · Take out · Deactivate" · setup capture notice · spend chip "Claude (AI): $27.05 of $40.00 (68%) (the live reading) · Every call counted, failed calls included · Billing · Usage ↗" (BL: round(spend ÷ cap × 100)) · its radius fold · Setup capture fold |
 | 2 What uses it | one row per workflow, listing each feature with its default model and runs a day, and those off by default marked; then its rules: the monthly cap, the on-demand half with the rest queued, each feature's own runs and budget, every call counted |
 | 3 Sensors | the month's spend against the cap · today's on-demand spend against half the day's allowance ($40.00 ÷ 30 = $1.33; half $0.67: inf) · its key (one authenticated call, 02 §2.7) · its answers (refused, out of credit, busy) |
-| 4 Actions | **On our system:** Check now · Pause · Raise the cap · Lower the cap · Take out; on a trip Check and start again, Acknowledge; on its key Replace key. **At Anthropic (Claude):** Billing (Usage, and Limits) · Keys · Console · Sign in (not registered, Publish from your Vault) |
+| 4 Actions | **On our system:** Check now · Pause our calls (automatic calls only; ruling 3) · Raise the cap · Lower the cap · Take out; on a trip Check and start again, Acknowledge; on its key Replace key. **At Anthropic (Claude):** Billing (Usage, and Limits) · Keys · Console · Sign in (not registered, Publish from your Vault) |
 
 ### 15.3 Its Incident Radius
 
@@ -622,7 +622,7 @@ made to Anthropic.
 |---|---|---|---|---|
 | Its key refused, or out of credit (rows 29, 38) | every call with `ANTHROPIC_API_KEY`: all Claude features | none (Gemini reads pages first already; nothing backs up Claude's writing) | pages, search, sign-in, payments; the crawler; journeys built by rules; guides already written | des |
 | Busy (429, 529, 5xx; row 27, 24) | nothing: a rate wait or the system's tries | — | everything | des |
-| The monthly cap reached (row 40) | Claude's automatic calls | — | a person's presses (02 row 40); the queue is kept for the 1st; pages, search, the crawler | des (today's code also refuses a person's asks: obs) |
+| The monthly cap reached (row 40) | every Claude call, a person's press included (Jason, 2026-11-21); the owner's Raise the cap (logged) is the way past it | — | the queue is kept for the 1st; pages, search, the crawler | des, matching today's code ( refuses a person's asks: obs) |
 | Today's on-demand half used (0147 §5) | new on-demand guide builds, until tomorrow (queued, most-searched first) | — | every other feature (the other half and their own budgets); a build already started; the place's free work | obs (code, decision) |
 | A workflow's share used (`shareLeft`) | that workflow's features until the 1st | — | the other workflows' features | obs (code) |
 
@@ -632,11 +632,18 @@ made to Anthropic.
 |---|---|---|---|---|
 | a Working | — | "On · Working"; spend illustrative ($12.40 of $40.00, 31%) since today's real reading is past 50% | — | — |
 | b Near the cap (real) | 39, BL | title and body "Claude (AI): $27.05 of $40.00 (68%)", "past its 50% warning" | title "Anthropic (Claude) at 50%", reading "67%", means "Claude (AI): $27.05 of $40.00 (67%)" (obs, the live alarm since Nov 19, 12:20 AM MST; `Operations.php` L605, L614) | Billing (Usage; Limits), then Check now |
-| c At the cap: today's on-demand half | 0147 §5 (no 02 row) | "Guides on demand: today's half of the AI allowance is used" · "Held (until tomorrow) · $0.67 of $0.67 today. New builds queue for tomorrow, most-searched first." No message: the rule working, not a fault | the place's page: "Claude's write-up is queued for tomorrow" (0147) | none (nothing is wrong); our share or cap, on our system |
-| c At the cap: the monthly cap | 40, 41, 109 | "Claude (AI): $40.00 of $40.00 (100%) · Paused by the system until our cap is raised or the month turns." | code: "The month's AI cap ($40.00) is reached: it starts again on the 1st." (obs, `AiClient::allow()`), refusing a person's asks too | Raise the cap (ours); Billing shows the account's own limit and doesn't raise ours |
+| c At the cap: today's on-demand half | 0147 §5; a **Notice** (02 §3c; ruling 1) | "New builds wait until midnight (the on-demand half is used); the queue carries on". No message; it lifts by itself at midnight | the place's page: "Claude's write-up is queued for tomorrow" (0147) | none (nothing is wrong); our share or cap, on our system |
+| c At the cap: the monthly cap | 40, 41, 109 | "Claude (AI): $40.00 of $40.00 (100%) · Paused by the system until our cap is raised or the month turns." | code: "The month's AI cap ($40.00) is reached: it starts again on the 1st." (obs, `AiClient::allow()`), refusing a person's asks too, which is now the rule (Jason, 2026-11-21) | Raise the cap (the owner's, logged: the one way past it); Billing shows the account's own limit and doesn't raise ours |
 | d A refused key | 29, 106, 129 | "Claude (AI) refused our key · Paused by the system: calls with ANTHROPIC_API_KEY wait for a new key." | code: "Claude refused the key: check ANTHROPIC_API_KEY." (obs); board: "api.anthropic.com: Our key was refused (the site, on Bluehost)" with "Nothing could be paused from here (it only trips)" (sim, g4 row 9a) | **Keys** (registered, Documented · release #212), then Replace key and its check |
 
 Out of credit (row 38) routes to Billing; it isn't drawn as its own page.
+
+**A workflow's share of the cap** (`shareLeft`, 02 row 41a): a **warning on that workflow only**, never on Claude
+(ruling 6). Its words: "<workflow> has used its <n>% share of the AI cap ($<x> this month, with last month's unused
+part): its Claude features wait until the 1st." Today's words: "… has used its …% share of the AI cap (…): more on the
+1st, or raise its share on the Workflow board." (obs, `AiClient::shareLeft()`). Not drawn as its own page.
+
+**Journey writing** shows on the card as *coming*: 0147 §5 decided it, and it isn't built (ruling 5).
 
 ### 15.5 Setup capture (§13.x)
 
@@ -649,17 +656,20 @@ Where its keys live, names only:
 
 Its settings, not keys: `ai_month_usd`, `guide_ondemand_share`, `ai_free_asks`, `ai_cover`, `po_claude_prose`.
 
-### 15.6 Open words for Anthropic
+### 15.6 Open words for Anthropic, and the session manager's rulings (2026-11-21)
 
-1. **The on-demand half has no 02 row.** 0147 §5 and `OnDemand::allowance()` decide it. The mockup composes the title
-   "Guides on demand: today's half of the AI allowance is used" and the status "Held (until tomorrow)". It sends no
-   message, since it's the rule working rather than a fault. Should it be a Notice (02 §3c) instead?
-2. **The monthly cap and a person's asks.** 02 row 40 says a person's presses still reach a capped part. Today's code
-   refuses every feature at the cap, a person's asks included. Which one holds for Claude?
-3. **"Pause our calls" for a Service.** Row 39 lists it and it's drawn; what it pauses (every feature, or the automatic ones only) isn't defined.
-4. **Two caps, two numbers.** `Thresholds.php` defaults `ai_month_usd` to $40 (decisions/0163 §7), 0160 §5 says "$25",
-   and `capUsd()` falls back to $25. The live reading shows $40.00. Should 0160's "$25" get a note?
-5. **"Journey writing".** 0147 §5 names two on-demand features sharing the half, *Guides on demand* and *Journey
-   writing*. The code has only Guides on demand (`guide_ondemand`, W5), with journeys' names under W8.
-6. **A workflow's share** (`shareLeft`: a workflow's features stop at its share of the cap, carrying last month's unused
-   part) has no 02 row and isn't drawn as its own state.
+**Ruled by the session manager, applied:**
+1. **The on-demand half used** is a **Notice**: "New builds wait until midnight (the on-demand half is used); the queue
+   carries on". It sends no message and lifts by itself (page c, first card).
+3. **"Pause our calls" for a Service** pauses **automatic calls only**; a person's press is still allowed while under
+   the monthly cap (every Anthropic card's buttons say so).
+5. **Journey writing** stays *coming* on the card (0147 decided it; not built). No note.
+6. **A workflow's share of the cap** (`shareLeft`) is a warning on that workflow only: 02 row 41a (§15.4).
+- **The BL rule:** the percentage shown matches the reading everywhere: 68%. The only "67%" left on a page is in page
+  b's Details, quoted as today's words being replaced.
+
+**Answered by Jason (2026-11-21, Approve, reviewed by the session manager):**
+2. **At the monthly cap nothing passes, a person's press included.** The owner gets **Raise the cap** (logged) on the
+   card, and that's the way past it. 02 row 40 now says so; mockup c's monthly-cap frame is redrawn to match.
+4. **The cap is $40** (decisions/0163 §7). `AiClient::capUsd()`'s $25 fallback is brought to $40 in step 4. The dated
+   note on decisions/0160 §5 is the coordinator's.
