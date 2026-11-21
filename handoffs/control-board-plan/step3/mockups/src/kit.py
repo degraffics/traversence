@@ -264,7 +264,7 @@ HOSTED_KEYS = [  # (name, module, where) from service-defs.php
 ]
 
 
-def slot(ty, provider, label=None, url=None, fix=False, mine=True):
+def slot(ty, provider, label=None, url=None, fix=False, mine=True, src='doc', rel='212'):
     words = {'billing': 'billing', 'keys': 'API keys', 'console': 'console', 'login': 'sign-in'}[ty]
     head = {'billing': 'Billing', 'keys': 'Keys', 'console': 'Console', 'login': 'Sign in'}[ty]
     btn = {'billing': 'billing', 'keys': 'API keys', 'console': 'console', 'login': 'sign-in'}[ty]
@@ -274,7 +274,7 @@ def slot(ty, provider, label=None, url=None, fix=False, mine=True):
         sub = f' · {E(label)}' if label and label.lower() != head.lower() else ''
         return (f'<div class="{cls}">{fx}<div class="ty">{head}{sub}</div>'
                 f'<a class="pl" href="{E(url)}" target="_blank" rel="noopener">Open {E(provider)} {btn} ↗</a>'
-                f'<span class="src">Documented</span></div>')
+                (f'<span class="src" title="Written by a Claude session from {E(provider)}\'s own pages">Documented · release #{rel}</span>' if src == 'doc' else '<span class="src">Site settings</span>') + '</div>')
     pub = '<div><span class="pub" role="button" tabindex="0">Publish from your Vault</span> <span class="why">(owner only)</span></div>' if mine else ''
     return (f'<div class="{cls} none">{fx}<div class="ty">{head}</div>'
             f'<div class="miss">No {words} page registered for {E(provider)} yet.</div>{pub}</div>')
