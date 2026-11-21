@@ -1,6 +1,162 @@
 {
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
- "claims": [],
+ "claims": [
+  {
+   "path": "app/admin/operations-console.php",
+   "functions": [
+    "tv_ops_ctx"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
+   "why": "release workflow-holds.zip",
+   "since": "2026-11-21T12:21:43Z",
+   "expires": "2026-11-21T16:21:43Z",
+   "release": "workflow-holds.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/preflight-console.php",
+   "functions": [
+    "tv_preflight_line",
+    "tv_preflight_mark"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
+   "why": "release workflow-holds.zip",
+   "since": "2026-11-21T12:21:43Z",
+   "expires": "2026-11-21T16:21:43Z",
+   "release": "workflow-holds.zip",
+   "callers": {
+    "tv_preflight_line": [
+     "website/admin/api.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/ControlAlarms.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
+   "why": "release workflow-holds.zip",
+   "since": "2026-11-21T12:21:43Z",
+   "expires": "2026-11-21T16:21:43Z",
+   "release": "workflow-holds.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ControlBoard.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
+   "why": "release workflow-holds.zip",
+   "since": "2026-11-21T12:21:43Z",
+   "expires": "2026-11-21T16:21:43Z",
+   "release": "workflow-holds.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Operations.php",
+   "functions": [
+    "(top)",
+    "blocking"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
+   "why": "release workflow-holds.zip",
+   "since": "2026-11-21T12:21:43Z",
+   "expires": "2026-11-21T16:21:43Z",
+   "release": "workflow-holds.zip",
+   "callers": {
+    "blocking": [
+     "app/admin/automation-console.php",
+     "app/admin/operations-console.php",
+     "app/lib/ControlBoard.php",
+     "app/lib/Preflight.php",
+     "app/lib/WorkflowSettings.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/Preflight.php",
+   "functions": [
+    "held"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
+   "why": "release workflow-holds.zip",
+   "since": "2026-11-21T12:21:43Z",
+   "expires": "2026-11-21T16:21:43Z",
+   "release": "workflow-holds.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ServiceHealth.php",
+   "functions": [
+    "alarm"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
+   "why": "release workflow-holds.zip",
+   "since": "2026-11-21T12:21:43Z",
+   "expires": "2026-11-21T16:21:43Z",
+   "release": "workflow-holds.zip",
+   "callers": {
+    "alarm": [
+     "app/lib/ControlAlarms.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/crawler/CrawlService.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
+   "why": "release workflow-holds.zip",
+   "since": "2026-11-21T12:21:43Z",
+   "expires": "2026-11-21T16:21:43Z",
+   "release": "workflow-holds.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/service-defs.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
+   "why": "release workflow-holds.zip",
+   "since": "2026-11-21T12:21:43Z",
+   "expires": "2026-11-21T16:21:43Z",
+   "release": "workflow-holds.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/outside-services.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
+   "why": "release workflow-holds.zip",
+   "since": "2026-11-21T12:21:43Z",
+   "expires": "2026-11-21T16:21:43Z",
+   "release": "workflow-holds.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/admin/api.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
+   "why": "release workflow-holds.zip",
+   "since": "2026-11-21T12:21:43Z",
+   "expires": "2026-11-21T16:21:43Z",
+   "release": "workflow-holds.zip",
+   "callers": {}
+  }
+ ],
  "lapsed": [
   {
    "path": "app/lib/Operations.php",
