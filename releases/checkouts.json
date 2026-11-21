@@ -1,6 +1,163 @@
 {
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
- "claims": [],
+ "claims": [
+  {
+   "path": "app/lib/Operations.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
+   "why": "Workflow audit: a source down holds only what uses it",
+   "since": "2026-11-21T03:28:58Z",
+   "expires": "2026-11-21T07:28:58Z",
+   "release": "workflow-holds.zip",
+   "callers": {
+    "blocking": [
+     "app/admin/automation-console.php",
+     "app/admin/operations-console.php",
+     "app/lib/ControlBoard.php",
+     "app/lib/Preflight.php",
+     "app/lib/WorkflowSettings.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/Preflight.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
+   "why": "Workflow audit: a source down holds only what uses it",
+   "since": "2026-11-21T03:28:58Z",
+   "expires": "2026-11-21T07:28:58Z",
+   "release": "workflow-holds.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ServiceHealth.php",
+   "functions": [
+    "alarm",
+    "answered"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
+   "why": "Workflow audit: a source down holds only what uses it",
+   "since": "2026-11-21T03:28:58Z",
+   "expires": "2026-11-21T07:28:58Z",
+   "release": "workflow-holds.zip",
+   "callers": {
+    "answered": [
+     "app/lib/Preflight.php"
+    ],
+    "alarm": [
+     "app/lib/ControlAlarms.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/ControlBoard.php",
+   "functions": [
+    "pausedHtml"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
+   "why": "Workflow audit: a source down holds only what uses it",
+   "since": "2026-11-21T03:28:58Z",
+   "expires": "2026-11-21T07:28:58Z",
+   "release": "workflow-holds.zip",
+   "callers": {
+    "pausedHtml": [
+     "app/admin/automation-console.php",
+     "app/admin/control-console.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/ControlAlarms.php",
+   "functions": [
+    "stop"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
+   "why": "Workflow audit: a source down holds only what uses it",
+   "since": "2026-11-21T03:28:58Z",
+   "expires": "2026-11-21T07:28:58Z",
+   "release": "workflow-holds.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/crawler/CrawlService.php",
+   "functions": [
+    "plan"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
+   "why": "Workflow audit: a source down holds only what uses it",
+   "since": "2026-11-21T03:28:58Z",
+   "expires": "2026-11-21T07:28:58Z",
+   "release": "workflow-holds.zip",
+   "callers": {
+    "plan": [
+     "website/api/crawl/service.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/service-defs.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
+   "why": "Workflow audit: a source down holds only what uses it",
+   "since": "2026-11-21T03:28:58Z",
+   "expires": "2026-11-21T07:28:58Z",
+   "release": "workflow-holds.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/preflight-console.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
+   "why": "Workflow audit: a source down holds only what uses it",
+   "since": "2026-11-21T03:28:58Z",
+   "expires": "2026-11-21T07:28:58Z",
+   "release": "workflow-holds.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/outside-services.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
+   "why": "Workflow audit: a source down holds only what uses it",
+   "since": "2026-11-21T03:28:58Z",
+   "expires": "2026-11-21T07:28:58Z",
+   "release": "workflow-holds.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/operations-console.php",
+   "functions": [
+    "tv_ops_ctx"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
+   "why": "Workflow audit: a source down holds only what uses it",
+   "since": "2026-11-21T03:28:58Z",
+   "expires": "2026-11-21T07:28:58Z",
+   "release": "workflow-holds.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/admin/api.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
+   "why": "Workflow audit: a source down holds only what uses it",
+   "since": "2026-11-21T03:28:58Z",
+   "expires": "2026-11-21T07:28:58Z",
+   "release": "workflow-holds.zip",
+   "callers": {}
+  }
+ ],
  "lapsed": [
   {
    "path": "app/admin/operations-console.php",
