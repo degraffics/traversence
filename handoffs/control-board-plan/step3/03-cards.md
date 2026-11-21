@@ -578,3 +578,88 @@ All of them live in `.env`, above `public_html`.
    `HEALTH_TOKEN`, a missing token would also blind the heartbeat. 02 doesn't say whether the heartbeat's page check uses it.
 7. **Two cPanel links.** `service-defs.php` documents `https://my.bluehost.com/hosting/app#/cpanel`; the rule draws the
    Console from `CPANEL_HOST` (Site settings). Is the documented link kept somewhere (e.g. as Account's second page), or dropped?
+
+---
+
+## 15. Anthropic's card (mockups `anthropic-*.html`)
+
+Built like the hosts' cards (`mockups/src/anthropic.py`). Basis marks as in 02: **obs** (the live reading or the live
+code as it stands), **sim**, **inf** (worked out from code or decisions, not run), **des** (designed). Real values come from
+the live code at mirror `aeb5f31` and the live alarms of 10:19 UTC (3:19 AM MST). No `.env` was opened and no call was
+made to Anthropic.
+
+### 15.1 The manifest
+
+| Field | Value | Basis |
+|---|---|---|
+| id · name | `anthropic` · Anthropic (Claude) | obs (`service-defs.php`) |
+| role | **Service**: it does a platform job (writing and reading for us) | des (02 §2.1) |
+| criticality | **None**: `ControlRegister::CRITICAL` has no Anthropic entry; no duty (page, search, payments, database, procedures) stops without it | obs |
+| purpose | "AI Assist, Find it, writing guides and journeys, reading business cards" | obs |
+| plan | "Per word read and written (tokens); each answer's cost is worked out as it comes back. The site stops all AI at its monthly cap (AI use has each feature's own limit)." | obs |
+| used by | guides (W4 research briefs, drafts, names, fixes, Check my facts), guides on demand (W5), heritage and topics (W6), journeys' names and Find it (W8), place descriptions (W9), live events (W10), Write it for me (catalog); six more off by default (W1, W3's second tier, the vector index). From `AiClient::FEATURES` with `CrawlService::FEATURE_WF` | obs (code defaults); the live per-feature settings: not read yet |
+| governing decisions | 0131 (place guides), 0147 §5 (half the day's allowance on demand; the rest queued), 0160 §5 (the always-on R&D features inside the cap; every call counted) | obs |
+| caps | `ai_month_usd` (the AI monthly cap; default $40, decisions/0163 §7; the live reading shows $40.00) · `guide_ondemand_share` (50% by default) · `ai_free_asks` · `ai_cover` · `po_claude_prose` | obs (`Thresholds.php`, `service-defs.php`) |
+| the monthly cap | `AiClient::capUsd()`: the setting `ai_month_usd`; with no database, `.env`'s retired `AI_MONTHLY_CAP_USD`, else $25. `allow()` refuses every feature once the month's spend reaches it: "The month's AI cap ($…) is reached: it starts again on the 1st." | obs (code) |
+| the 50% on-demand rule | the day's allowance = the cap ÷ the days in the month; Guides on demand may spend up to `guide_ondemand_share` of it (`OnDemand::allowance()`); a build that would pass it **queues for tomorrow**, most-searched first, never stopping part way; the place still gets its free work at once (0147 §5) | obs (code, decision) |
+| every call counted | each call's cost is kept in `ai_jobs.cost_micros`, including a call that failed after a paid answer ("Paid, then failed: …", `AiClient.php:364`; 0160 §5, D16) | obs (code) |
+| required keys | `ANTHROPIC_API_KEY` (`.env`) | obs |
+| its answers | 401/403 → "Claude refused the key: check ANTHROPIC_API_KEY." · 400 "credit" → "The Claude account is out of credit…" · 429, 529, 5xx → "Claude is busy; trying again shortly." (`AiClient.php:383–386`) | obs (code) |
+| portal_links | Billing · Usage https://console.anthropic.com/usage and Billing · Limits https://console.anthropic.com/settings/limits · Keys https://console.anthropic.com/settings/keys · Console https://console.anthropic.com/ · Sign in: not registered. All documented ones "Documented · release #212" (#212 carried `service-defs.php`; the mirror's earliest copy has all four links). Limits is a second billing page (04 §5's approved ruling). `portal_domains`: claude.com alongside anthropic.com (§7 Q7, approved) | obs; des (slot rules) |
+
+### 15.2 The four zones
+
+| Zone | Anthropic |
+|---|---|
+| 1 Identity and role | **Anthropic (Claude)** · Service · "Not critical: no duty stops without it" · state · "Stage 5 of 8 · Operational · Next allowed: Check now · Pause · Raise or lower our cap · Take out · Deactivate" · setup capture notice · spend chip "Claude (AI): $27.05 of $40.00 (68%) (the live reading) · Every call counted, failed calls included · Billing · Usage ↗" (BL: round(spend ÷ cap × 100)) · its radius fold · Setup capture fold |
+| 2 What uses it | one row per workflow, listing each feature with its default model and runs a day, and those off by default marked; then its rules: the monthly cap, the on-demand half with the rest queued, each feature's own runs and budget, every call counted |
+| 3 Sensors | the month's spend against the cap · today's on-demand spend against half the day's allowance ($40.00 ÷ 30 = $1.33; half $0.67: inf) · its key (one authenticated call, 02 §2.7) · its answers (refused, out of credit, busy) |
+| 4 Actions | **On our system:** Check now · Pause · Raise the cap · Lower the cap · Take out; on a trip Check and start again, Acknowledge; on its key Replace key. **At Anthropic (Claude):** Billing (Usage, and Limits) · Keys · Console · Sign in (not registered, Publish from your Vault) |
+
+### 15.3 Its Incident Radius
+
+| Fault | Held | On a backup | Unaffected | Basis |
+|---|---|---|---|---|
+| Its key refused, or out of credit (rows 29, 38) | every call with `ANTHROPIC_API_KEY`: all Claude features | none (Gemini reads pages first already; nothing backs up Claude's writing) | pages, search, sign-in, payments; the crawler; journeys built by rules; guides already written | des |
+| Busy (429, 529, 5xx; row 27, 24) | nothing: a rate wait or the system's tries | — | everything | des |
+| The monthly cap reached (row 40) | Claude's automatic calls | — | a person's presses (02 row 40); the queue is kept for the 1st; pages, search, the crawler | des (today's code also refuses a person's asks: obs) |
+| Today's on-demand half used (0147 §5) | new on-demand guide builds, until tomorrow (queued, most-searched first) | — | every other feature (the other half and their own budgets); a build already started; the place's free work | obs (code, decision) |
+| A workflow's share used (`shareLeft`) | that workflow's features until the 1st | — | the other workflows' features | obs (code) |
+
+### 15.4 The states (mockups)
+
+| Mockup | Row (02) | New words | Today's words, beside them | Fix it |
+|---|---|---|---|---|
+| a Working | — | "On · Working"; spend illustrative ($12.40 of $40.00, 31%) since today's real reading is past 50% | — | — |
+| b Near the cap (real) | 39, BL | title and body "Claude (AI): $27.05 of $40.00 (68%)", "past its 50% warning" | title "Anthropic (Claude) at 50%", reading "67%", means "Claude (AI): $27.05 of $40.00 (67%)" (obs, the live alarm since Nov 19, 12:20 AM MST; `Operations.php` L605, L614) | Billing (Usage; Limits), then Check now |
+| c At the cap: today's on-demand half | 0147 §5 (no 02 row) | "Guides on demand: today's half of the AI allowance is used" · "Held (until tomorrow) · $0.67 of $0.67 today. New builds queue for tomorrow, most-searched first." No message: the rule working, not a fault | the place's page: "Claude's write-up is queued for tomorrow" (0147) | none (nothing is wrong); our share or cap, on our system |
+| c At the cap: the monthly cap | 40, 41, 109 | "Claude (AI): $40.00 of $40.00 (100%) · Paused by the system until our cap is raised or the month turns." | code: "The month's AI cap ($40.00) is reached: it starts again on the 1st." (obs, `AiClient::allow()`), refusing a person's asks too | Raise the cap (ours); Billing shows the account's own limit and doesn't raise ours |
+| d A refused key | 29, 106, 129 | "Claude (AI) refused our key · Paused by the system: calls with ANTHROPIC_API_KEY wait for a new key." | code: "Claude refused the key: check ANTHROPIC_API_KEY." (obs); board: "api.anthropic.com: Our key was refused (the site, on Bluehost)" with "Nothing could be paused from here (it only trips)" (sim, g4 row 9a) | **Keys** (registered, Documented · release #212), then Replace key and its check |
+
+Out of credit (row 38) routes to Billing; it isn't drawn as its own page.
+
+### 15.5 Setup capture (§13.x)
+
+Notice in zone 1: **"Setup capture: Sign in not recorded"**. Billing, Keys and Console are registered.
+
+Where its keys live, names only:
+- `ANTHROPIC_API_KEY`: `.env`.
+- `ANTHROPIC_BASE_URL`: `.env`, optional; unset, it's api.anthropic.com.
+- `AI_MONTHLY_CAP_USD`: `.env`, retired. It's read only when the database can't be; the cap now lives in `ai_month_usd`.
+
+Its settings, not keys: `ai_month_usd`, `guide_ondemand_share`, `ai_free_asks`, `ai_cover`, `po_claude_prose`.
+
+### 15.6 Open words for Anthropic
+
+1. **The on-demand half has no 02 row.** 0147 §5 and `OnDemand::allowance()` decide it. The mockup composes the title
+   "Guides on demand: today's half of the AI allowance is used" and the status "Held (until tomorrow)". It sends no
+   message, since it's the rule working rather than a fault. Should it be a Notice (02 §3c) instead?
+2. **The monthly cap and a person's asks.** 02 row 40 says a person's presses still reach a capped part. Today's code
+   refuses every feature at the cap, a person's asks included. Which one holds for Claude?
+3. **"Pause our calls" for a Service.** Row 39 lists it and it's drawn; what it pauses (every feature, or the automatic ones only) isn't defined.
+4. **Two caps, two numbers.** `Thresholds.php` defaults `ai_month_usd` to $40 (decisions/0163 §7), 0160 §5 says "$25",
+   and `capUsd()` falls back to $25. The live reading shows $40.00. Should 0160's "$25" get a note?
+5. **"Journey writing".** 0147 §5 names two on-demand features sharing the half, *Guides on demand* and *Journey
+   writing*. The code has only Guides on demand (`guide_ondemand`, W5), with journeys' names under W8.
+6. **A workflow's share** (`shareLeft`: a workflow's features stop at its share of the cap, carrying last month's unused
+   part) has no 02 row and isn't drawn as its own state.
