@@ -17,7 +17,8 @@ kit.SETUP['aws'] = dict(
 
 AW_RADIUS = f"""<details><summary>Its Incident Radius, per part</summary>
 <div class="rad"><div class="h"><b>Held</b><ul><li><b>SES down:</b> notices and the weekly digest by email; inbound mail waits at AWS; bounce reports wait</li>
-<li><b>The file store down</b> (while it's on S3): new uploads (the browser sends them straight to the store), video copies, staging's publish of files; stored photos served from the store don\'t show</li>
+<li><b>The file store down</b> (while it's on S3): new uploads (the browser sends them straight to the store), video copies, staging's publish of files</li>
+<li><b>The page duty, a partial hold</b> (S3 down): Photos stored on S3 don\'t show. Pages still load: never a page-load trip</li>
 <li><b>The key refused:</b> both parts, and Textract</li></ul></div>
 <div class="o"><b>On a backup</b><ul><li>Alarms and sign-in codes: Bluehost\'s SMTP, first anyway</li><li>Reading menus: Claude, after Google and Amazon</li></ul></div>
 <div class="u"><b>Unaffected</b><ul><li>Pulse and push</li><li>Files still on the server (not moved yet) keep serving</li><li>Pages, search, sign-in, payments</li></ul></div></div>
@@ -47,7 +48,7 @@ def aw_z2(over=None):
          'Each message\'s signature checked against AWS\'s certificate; each handled once. Bounce and complaint reports come the same way (<code>/api/ses-events.php</code>).', '', over.get('recv_cls', '')),
         ('Storage (S3)', 'every file the site keeps, by owner (<code>Store::KINDS</code>: members, businesses, guests, orders, system)', over.get('s3', light('g', 'On · Working')),
          'Profile, cover and place photos; a business\'s photos and quote files; GO Code logos; orders\' proofs and artwork; the stock library\'s copies; posted videos and their 720p and 1080p copies (the video worker reads and writes through short-lived links). '
-         'Uploads go from the browser straight to the store. <b>Until the move to Cloudflare R2 is finished</b> (decisions/0151): whether it\'s moved isn\'t known here (needs live data). '
+         'Uploads go from the browser straight to the store. <b>Until the move to Cloudflare R2 is finished</b> (decisions/0151): drawn as S3 until <code>S3_ENDPOINT</code> (set or not, the name only) is answered: <b>needs live data</b>. '
          'The code keeps no backups there.', over.get('s3_btn', b('Check now')), over.get('s3_cls', '')),
         ('Textract', 'reading tables, forms and scanned PDFs (<code>scan_read</code>; menus after Google)', light('n', 'not read yet'), 'Per page; menus fall to Claude when it can\'t.', '', ''),
     ])
@@ -85,7 +86,7 @@ PROV_AW = [
     '<code>ServiceHealth::classify()</code> (SlowDown → rate) and <code>tools/control-board-tests/feeds-words.php</code>; decisions/0151 (files to R2).',
     'Whether the files have moved to R2 (<code>S3_ENDPOINT</code> set) can\'t be read here: needs live data. Its spend isn\'t read: each billing lookup costs about a cent.',
     'The slots: the same as the Dispatcher\'s (AWS\'s Billing, Keys · The site\'s key (IAM), Console), each Documented · release #212; SES and S3 pages aren\'t slots.',
-    'Words: 02 rows 27, 28, 29, 38, 81, 106, 128–131; §4.8. Times in MST. No .env was opened; no call was made to AWS.',
+    'Words: 02 rows 27, 28, 29, 38a, 81, 106, 128–131; §4.8. Times in MST. No .env was opened; no call was made to AWS.',
 ]
 
 
@@ -100,7 +101,7 @@ def aw_ses():
                 cd_slots(fix='console'),
                 f'Fix it: <b>{AWSP}\'s console</b> (SES, its account\'s status and AWS\'s case), then Check and start again. The bounce and complaint rates on the card show why AWS looked.',
                 f'<dl class="dl"><dt>Evidence</dt><dd>SES answered that sending is paused for the account at {sc("8:10 AM MST")}</dd><dt>Rates</dt><dd>bounce {sc("6.2%")}, complaint {sc("0.04%")}: past the 5% bounce level (inf)</dd>'
-                '<dt>Rule</dt><dd>02 rows 38 (a stop kind that waits for a person), 81; 03 §20.6, 5</dd></dl>'
+                '<dt>Told</dt><dd>the Founder: email by Bluehost\'s SMTP, then Pulse and push; never SES</dd><dt>Rule</dt><dd>02 rows 38a (SES\'s account-level pause: a stop kind that waits for a person; AWS\'s wording inf), 81; 03 §20.6, 5</dd></dl>'
                 + today_words(['Today: a failed SES send is logged on the route; SES\'s rates aren\'t read; nothing on the board (g4 §c).',
                                'New: “Amazon SES paused our sending · Paused by the system (email by SES).”']), at=AWSP)
     return aw_card(light('r', 'On · Paused by the system (email by SES)'), th, fault='r', stage=STAGE_AWT,
@@ -130,14 +131,14 @@ def aw_s3():
 def aw_key():
     th = thread(f'{AW} refused our key',
                 light('r', 'Paused by the system') + f': calls with AWS_ACCESS_KEY_ID wait for a new key. Since {sc("5:22 PM MST")}.',
-                '<ul><li><b>Email by SES:</b> notices and the digest; inbound mail waits at AWS</li><li><b>Storage</b> (while it\'s on S3): new uploads, video copies, stored photos served from the store</li><li>Textract</li></ul>',
+                '<ul><li><b>Email by SES:</b> notices and the digest; inbound mail waits at AWS</li><li><b>Storage</b> (while it\'s on S3): new uploads, video copies</li><li><b>The page duty, a partial hold:</b> Photos stored on S3 don\'t show (pages still load)</li><li>Textract</li></ul>',
                 '<ul><li>Alarms and sign-in codes: Bluehost\'s SMTP</li><li>Menus: Claude</li></ul>',
                 '<ul><li>Files still on the server; Pulse and push; pages, search, payments</li></ul>',
                 'One key, both parts: a refused key gets no tries; it waits for a person (row 29). Once storage is on R2 (its own key), only email and Textract would wait.',
                 b('Replace key', True) + b('Acknowledge'),
                 cd_slots(fix='keys'),
                 f'Fix it: <b>{AWSP}\'s API keys page</b> (The site\'s key, IAM), registered, then Replace key and its check: one signed call to each part.',
-                '<dl class="dl"><dt>Ids</dt><dd>T-#### · IR-####</dd><dt>Told</dt><dd>the Founder (Pulse, push; email by Bluehost)</dd><dt>Rule</dt><dd>02 rows 29, 106, 129</dd></dl>'
+                '<dl class="dl"><dt>Ids</dt><dd>T-#### · IR-####</dd><dt>Told</dt><dd>the Founder: email by Bluehost\'s SMTP first, then Pulse and push; never through SES itself (its key is the one refused)</dd><dt>Rule</dt><dd>02 rows 29, 106, 129</dd></dl>'
                 + today_words(['Today: each caller fails on its own (SES\'s route, an upload\'s error, the video worker\'s run); no one alarm names the key.',
                                f'New: “{AW} refused our key · Paused by the system: calls with AWS_ACCESS_KEY_ID wait for a new key.”']), at=AWSP)
     return aw_card(light('r', 'On · Paused by the system (its key)'), th, fault='r', stage=STAGE_AWT,
@@ -151,9 +152,9 @@ add('aws-a-working.html', 'AWS account card, Working', 'One AWS module, two part
           'until the move to Cloudflare R2). One key (IAM), one bill. Its SES carries the “system email” critical duty (<code>svc:aws</code>); the Dispatcher\'s card names it as an email provider.')
     + aw_card(light('g', 'On · Working')) + prov(PROV_AW))
 add('aws-b-ses-paused.html', 'AWS card: SES sending paused', 'AWS paused our SES sending: notices and the digest wait; alarms still go by SMTP.',
-    intro('<b>(b) SES sending paused by AWS (rows 38, 81).</b> Notices and the digest wait; alarms and sign-in codes still go by Bluehost\'s SMTP; Pulse and push carry the rest.') + aw_ses() + prov(PROV_AW))
+    intro('<b>(b) SES sending paused by AWS (rows 38a, 81).</b> Notices and the digest wait; alarms and sign-in codes still go by Bluehost\'s SMTP; Pulse and push carry the rest.') + aw_ses() + prov(PROV_AW))
 add('aws-c-s3-slowdown.html', 'AWS card: S3 asked us to slow down', 'S3\'s SlowDown while uploads wait: a rate wait, never a trip.',
     intro('<b>(c) S3\'s SlowDown while uploads wait (rows 27, 28).</b> A rate wait: uploads and video copies wait a few minutes and go on by themselves.') + aw_s3() + prov(PROV_AW))
 add('aws-d-key-refused.html', 'AWS card: key refused', 'The one IAM key refused: both parts and Textract wait; Fix it goes to Keys (IAM).',
-    intro('<b>(d) The IAM key refused (rows 29, 106, 129).</b> One key, both parts.') + aw_key() + prov(PROV_AW))
+    intro('<b>(d) The IAM key refused (rows 29, 106, 129).</b> One key, both parts. Who\'s told: email by Bluehost\'s SMTP first, then Pulse and push, never through SES itself (the session manager, 2026-11-21).') + aw_key() + prov(PROV_AW))
 build_index()

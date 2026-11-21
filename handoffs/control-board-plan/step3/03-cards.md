@@ -1098,7 +1098,7 @@ Mailboxes' passwords and Microsoft's tokens are sealed in the database, never in
 | role | **Service** | des |
 | criticality | **Critical: procedures, through its email.** `ControlRegister::CRITICAL` maps `svc:aws` → procedures ("system email (SES): sign-in links, codes and notices") | obs |
 | part 1: email (SES) | **Sending:** the Dispatcher's email backup (Bluehost's SMTP first, `Mailer`), and the sender for notices and the weekly digest (`SesMail`, a personal account; a bulk account when bulk mail is built). **Receiving:** SES inbound, through SNS to `/api/ses-inbound.php`, into its mailbox's Pulse inbox. **The suppression list:** a bounce or complaint stops all mail to that address and may pause its sender (`/api/ses-events.php`). **The rates:** bounce and complaint, read at no cost, warnings at 5% and 0.1% (inf; §20.6, 5) | obs; des |
-| part 2: storage (S3) | every file the site keeps, by owner (`Store::KINDS`: members, businesses, guests, orders, system): photos, a business's files, GO Code logos, orders' proofs and artwork, the stock library's copies, posted videos and their 720p and 1080p copies (the video worker reads and writes through short-lived links). Uploads go from the browser straight to the store (`S3::presign`). Staging's publish copies its files there. **The code keeps no backups there.** **Until the move to Cloudflare R2** (decisions/0151, accepted; `S3_ENDPOINT` points the store at R2 with R2's own key): whether it's moved can't be read here | obs; needs live data |
+| part 2: storage (S3) | every file the site keeps, by owner (`Store::KINDS`: members, businesses, guests, orders, system): photos, a business's files, GO Code logos, orders' proofs and artwork, the stock library's copies, posted videos and their 720p and 1080p copies (the video worker reads and writes through short-lived links). Uploads go from the browser straight to the store (`S3::presign`). Staging's publish copies its files there. **The code keeps no backups there.** **Until the move to Cloudflare R2** (decisions/0151, accepted; `S3_ENDPOINT` points the store at R2 with R2's own key): **drawn as S3 until `S3_ENDPOINT` (set or not, the name only) is answered** (§21.6, 1) | obs; needs live data |
 | Textract | reading tables, forms and scanned PDFs (`scan_read`); menus after Google, before Claude | obs |
 | spend | one bill: SES about $0.10 per 1,000 emails (cap `SES_MONTHLY_CAP_USD`, `ses_month_usd`); S3 $0.023 a GB-month and about $0.09 a GB downloaded after 100 GB free; Textract per page. **Use not read yet:** each billing lookup costs about a cent | obs |
 | key | `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY` in `.env`: SES, S3 (while on AWS) and Textract | obs |
@@ -1121,7 +1121,7 @@ Mailboxes' passwords and Microsoft's tokens are sealed in the database, never in
 |---|---|---|---|---|
 | **SES down or paused** | notices and the weekly digest by email; inbound mail waits at AWS; bounce reports wait | alarms and sign-in codes by Bluehost's SMTP, first anyway; Pulse and push | storage; pages, search, sign-in, payments | obs (code); des |
 | **S3 SlowDown** | nothing: a rate wait, never a trip (row 27); uploads and video copies wait a few minutes and go on | — | everything | obs (`classify()`, test) |
-| **S3 down** (while storage is on AWS) | new uploads (the browser sends them straight to the store); video copies; staging's publish of files; **stored photos served from the store don't show** (`media.php` points the browser at the store) | none | files still on the server (not moved yet) keep serving; SES; pages, search, payments | inf (from `Store.php`'s notes) |
+| **S3 down** (while storage is on AWS) | new uploads (the browser sends them straight to the store); video copies; staging's publish of files; **a Held line under the page duty: "Photos stored on S3 don't show"**, a partial hold, never a page-load trip (`media.php` points the browser at the store; §21.6, 3) | none | files still on the server (not moved yet) keep serving; SES; pages, search, payments | inf (from `Store.php`'s notes) |
 | **The key refused** | both parts and Textract (while storage is on AWS; once it's on R2 with its own key, only email and Textract) | alarms by SMTP; menus by Claude | Pulse and push; files on the server; pages | des |
 
 ### 21.4 The states (mockups)
@@ -1129,9 +1129,9 @@ Mailboxes' passwords and Microsoft's tokens are sealed in the database, never in
 | Mockup | Row (02) | New words | Today's words, beside them | Fix it |
 |---|---|---|---|---|
 | a Working | — | "On · Working"; two parts, one key, one bill; the Dispatcher linked | — | — |
-| b SES sending paused by AWS | 38, 81 | "Amazon SES paused our sending · Paused by the system (email by SES)" | a failed SES send on the route; SES's rates not read; nothing on the board (g4 §c) | Console (SES's status and AWS's case), then Check and start again |
+| b SES sending paused by AWS | 38a, 81 | "Amazon SES paused our sending · Paused by the system (email by SES)" | a failed SES send on the route; SES's rates not read; nothing on the board (g4 §c) | Console (SES's status and AWS's case), then Check and start again |
 | c S3 asked us to slow down | 27, 28, 130 | "Amazon S3 asked us to slow down · Calls wait until <time>, then start again by themselves." | Common Crawl's S3 today: "Its server failed" with a SlowDown reading, never changed (obs, L12) | their trouble: Console (S3) |
-| d The IAM key refused | 29, 106, 129 | "Amazon Web Services refused our key · Paused by the system: calls with AWS_ACCESS_KEY_ID wait for a new key." Both parts held | each caller fails on its own; no one alarm names the key | Keys · The site's key (IAM), registered; Replace key |
+| d The IAM key refused | 29, 106, 129 | "Amazon Web Services refused our key · Paused by the system: calls with AWS_ACCESS_KEY_ID wait for a new key." Both parts held | each caller fails on its own; no one alarm names the key | Keys · The site's key (IAM), registered; Replace key. Told: email by Bluehost's SMTP first, then Pulse and push, never through SES itself |
 
 ### 21.5 Setup capture (§13.x)
 
@@ -1144,18 +1144,150 @@ Keys, names only. All of these are in `.env`:
 - `SES_MODE`, `SES_REGION`, `SES_PERSONAL_KEY_ID`, `SES_PERSONAL_SECRET`, `SES_BULK_KEY_ID`, `SES_BULK_SECRET`.
 - `SES_MONTHLY_CAP_USD`, `SES_USD_PER_1000`.
 
-### 21.6 Open words for AWS
+### 21.6 Open words for AWS: answered (the session manager, 2026-11-21)
 
-1. **Has storage moved to R2?** 0151 is accepted and its code is built, but the move is done by hand in two dashboards.
-   Whether `S3_ENDPOINT` is set live decides whether storage belongs on this card or on Cloudflare's. Needs live data.
-2. **SES's account-level pause** has no 02 row. It's drawn as a stop kind (row 38's shape), and AWS's real wording isn't
-   recorded (inf).
-3. **Stored photos while S3 is down:** the code's notes say `media.php` points the browser at the store, so those photos
-   wouldn't show. Should that be a Held line on the page duty, and is it critical? Page load stays up.
-4. **Textract** is part of this module but isn't one of the two parts asked for. It's drawn as a third line on zone 2.
-   Should it be its own part?
-5. **Who's told when the key is refused:** email by Bluehost still reaches the Founder, and push and Pulse do too. Confirm
-   the key's trip isn't sent through SES itself.
+1. **Storage:** drawn as S3 until `S3_ENDPOINT` (set or not, the name only) is answered. **Needs live data.** If it's set
+   live, storage moves to Cloudflare's card and this card keeps email and Textract.
+2. **SES's account-level pause:** 02 row **38a** (row 38's shape): a stop kind that waits for a person; AWS lifts it.
+   AWS's own wording stays **inf** until it's read. Mockup b cites it.
+3. **S3 down:** a Held line under the page duty, "Photos stored on S3 don't show". A partial hold, never a page-load trip
+   (§21.3; the radius on every AWS mockup).
+4. **Textract** stays a line in zone 2, not a part of its own.
+5. **Who's told when the key is refused:** confirmed. The alarm goes by Bluehost's SMTP first, then Pulse and push, never
+   through SES itself. Mockup d says so in its intro and its thread's Told line.
+
+---
+
+## 22. The batched sources: Overture, Foursquare, Geofabrik, NPI (CMS) and the IRS (mockups `sources-*.html`)
+
+Five free Sources the Railway worker loads in bulk for W1. Built like the others (`mockups/src/sources.py`) from the live
+code at mirror `aeb5f31` and the crawler in this repo. No `.env` was opened and no outside call was made. **Shared by
+all five:**
+- **Role** Source; **criticality** "Not critical: no duty stops without it" (none is in `ControlRegister::CRITICAL`).
+- **Spend** Free ($0), no bill; our cost is the worker's time, counted on Railway's card.
+- **Stage** 5 · Operational, inferred: Overture, Foursquare and Geofabrik are `added_off` in their records, and they ran
+  (IR-0001; Geofabrik's 2026-11-15 IPv6 fix), so a person switched them on (inf).
+- **Last load and its counts:** read from each load table (`open_loads` seen and listed per town or state; `npi_loads`,
+  `npi_orgs`; `irs_loads` rows seen and removed). **Needs live data**, so every mockup shows "not read yet".
+- **Slots (04):** Billing and Keys aren't registered, each with a suggested why ("Free ($0): no bill"; "no key", or
+  Foursquare's Hugging Face token page). Sign in isn't registered ("no account"; Foursquare: the Hugging Face account).
+  **Console is drawn as the data's download page**, from `service-defs.php`'s own link, tagged Documented · release #212
+  and marked "proposed": "Releases", "On Hugging Face", "US extracts", "Monthly files" and "EO BMF files" aren't mapped
+  labels in 02 §8 (open word, all).
+- **Setup capture (§13):** notice "Setup capture: Billing, Keys, Sign in: why not recorded". Names and places in §22.6's
+  table per source.
+- **IR-0001** (`step2/ir-0001.md`): both W1 timeouts were reading **our** `/api/crawl/loads` reply. Under the contract
+  it's a warning on the Site part (02 rows 11–13), the tasks aren't held, and they run at the next night's window
+  (row 14). Today (live L2, L3) each one tripped and paused all of W1, twice.
+
+### 22.1 Overture Maps (Places) (mockup b)
+
+| Field | Value | Basis |
+|---|---|---|
+| purpose | "The base layer of businesses by town for Arizona and New Mexico … name, address, phone, website, category and confidence. Loaded monthly by the Railway worker, by town box, through the one identity check." | obs |
+| licence and use | per record: CDLA-Permissive-2.0 (Meta, Microsoft, BrightQuery, DAC, Uberall, Overture), Apache-2.0 (Foursquare), CC0 (AllThePlaces). 0164 R9: corroboration, stored and shown with credit as its licences allow, **once they're confirmed** (Decision 9). Its emails field is never imported | obs |
+| credit | "Overture Maps Foundation" plus the upstream; each record keeps its source and licence | obs |
+| feeds | W1 · `overture_bulk`: towns by box, biggest gap first, `load_towns_per_run` a run (3 by default) | obs |
+| cadence | the monthly release; `OVERTURE_RELEASE` (name only) pins one, else the newest on the bucket's listing | obs |
+| priority map | Places by kind and town (W1): our OSM copy, **then Overture**, then it waits. Businesses in bulk (W1): our open-data copies, Overture, Foursquare, Geofabrik; the last load is kept | obs (`Preflight::NEEDS`) |
+| hosts | declared `overturemaps-us-west-2.s3.amazonaws.com`, `overturemaps.org`; the release listing calls `…s3.us-west-2.amazonaws.com`, filed today under AWS (g2 row 31). Under the contract its calls count on Overture's card | obs; des |
+| faults | the bucket down or slow (DuckDB's reads: not classified today, g1 row 5) → rows 24–26 on Overture, only `overture_bulk` waits, the last load kept; **no release found** (`_overture_release()` returns "" and the load reads `release//`) → a malformed answer, rows 24–26 (open word 2); our load endpoint slow → the Site part (IR-0001) | obs; des |
+| mockup b | "On · Working", a "Linked" line naming IR-0001 as the Site part's warning; zone 3's endpoint line amber "Warning (Slow)"; today's words beside (L2) | des |
+
+### 22.2 Foursquare open places (mockup c)
+
+| Field | Value | Basis |
+|---|---|---|
+| purpose | "More businesses by town, where Overture doesn't already carry Foursquare's record … counted as the same source when it does." | obs |
+| licence and use | Apache-2.0: its licence and NOTICE.txt kept with data we pass on, changes marked; R9 as Overture's | obs |
+| credit | "Foursquare" | obs |
+| feeds | W1 · `foursquare_bulk`, towns a run shared with Overture; read from Hugging Face, gated | obs |
+| key | `HF_TOKEN` on Railway (a token whose account accepted Foursquare's terms). Set: the task table skips the task without it, and it ran (inf). A refused token is a task failure today (g2 row 3); under the contract rows 29–31, only `foursquare_bulk` held | obs; inf; des |
+| cadence | `FSQ_RELEASE` (name only); unset, **the code reads the fixed `dt=2026-10-15`**, though its note says "the newest on Hugging Face" (open word 1) | obs |
+| priority map | Businesses in bulk (W1), the third source; the last load is kept | obs |
+| mockup c | Working, IR-0001's first member (1:20 AM MST), linked to IR-0001 and Overture's card | obs (times); des |
+
+### 22.3 Geofabrik, our OpenStreetMap copy (mockup d)
+
+| Field | Value | Basis |
+|---|---|---|
+| purpose | OpenStreetMap for Arizona, New Mexico, Utah, Colorado and Nevada as weekly state files; our only OpenStreetMap source since Overpass was retired (2026-11-19) | obs |
+| licence and use | ODbL: its own layer, kept in its own tables, never copied into our listings (decisions/0065, 0164 R9); within it, show all it gives | obs |
+| credit | "© OpenStreetMap contributors" | obs |
+| feeds | W1 · `geofabrik_bulk`: one state a run, each state every `geofabrik_days` (7) at most; osmium-tool reads it; 500-place batches, the site's 502/503/504 waited out (30, 90, 180 s) | obs |
+| priority map | Places by kind and town (W1): **our OSM copy first**; Businesses in bulk (W1): the fourth source | obs |
+| faults | a state's download fails: **today it's logged on Railway only, the run moves on, and the site lists the state as due again, so the next run downloads it again** (`geofabrik_load`, `geofabrikDue()`). Its record says "a refused download is held for a person, never retried (a free mirror instead, by hand)"; only the test download (`geofabrik_probe`) raises a case. Under the contract: a server answer → rows 24–26 on **that state's file only**; a refusal → row 32 (a ban, never retried) | obs; des |
+| mockup d | Utah's file, a scenario 503: "Geofabrik: Utah's file didn't download · Trying again (1 of 3)"; the other four states unaffected; Utah's last load kept (if its first load finished: needs live data); their trouble, so Console (US extracts), no Fix it | des |
+
+### 22.4 NPI Registry (CMS) (mockup e)
+
+| Field | Value | Basis |
+|---|---|---|
+| purpose | "Health providers' names, addresses and phones: the monthly file, the second look and identity checks." | obs |
+| licence and use | public domain: owned, stored with the source (R9) | obs |
+| feeds | W1 · `npi_bulk` (the monthly file); W1, W2 · `second_look`, `identity`, `npi_town` (single lookups, one at a time) | obs (`OutsideServices`) |
+| cadence | **the monthly load is off since 2026-11-02** (`NpiBulk::OFF`, Jason: CMS took its file page down "until further notice"). Drawn as "Off: Jason switched it off on Nov 2 (…)" (§0's person's-Off words). Lookups go on | obs |
+| priority map | Health providers (W1): our NPI copy, then CMS; the last load is kept. Confirm a business (W1, W2): CMS after our copies | obs |
+| faults | the file page without a monthly file ("no monthly file found on the NPI download page") → a malformed answer, rows 24–26; the API down → rows 24–26 on the lookups | obs; des |
+| mockup e | Working; the monthly file row "Off"; the NPI Registry linked on the record, not a slot | des |
+
+### 22.5 IRS exempt organizations (mockup f)
+
+| Field | Value | Basis |
+|---|---|---|
+| purpose | "Confirms a nonprofit exists (the monthly EO BMF file); its search linked on a listing's identity record." | obs |
+| licence and use | public domain; **evidence only: never shown, never creates a listing** (R9, §12 C2) | obs |
+| feeds | W1 · `irs_bulk`: `eo_{state}.csv` for Arizona and New Mexico, columns EIN, NAME, STREET, CITY, STATE, ZIP, NTEE_CD | obs |
+| cadence | monthly: due when the last finished load is 30 days old | obs |
+| priority map | Nonprofits (W1): our IRS copy, then the IRS; the last load is kept | obs |
+| faults | **a file that changed shape.** Today columns are read by name, so a missing one loads as blank, silently; a missing EIN or NAME drops every row and "the IRS files had no rows the site accepted" keeps the old copy. **If one state's file fails and the other loads, `IrsBulk::finish()` removes every record not in this month's file: that state's nonprofits are deleted.** The contract drawn: the load checks the columns before it sends a row; a changed shape stops it, the last load kept; Paused by the system, waiting for a person (the loader updated) | obs (code); des |
+| mockup f | "The IRS's exempt-organization file changed shape · Paused by the system: nothing of this month's load was kept." New Mexico's file without NTEE_CD (scenario). Fix it: Console (EO BMF files), then a build, then Check and start again | des |
+
+### 22.6 Open words for the sources
+
+Setup capture, names and places only:
+
+| Source | Names | Place |
+|---|---|---|
+| Overture | `OVERTURE_RELEASE` (optional); `load_towns_per_run` | Railway; a setting |
+| Foursquare | `HF_TOKEN`; `FSQ_RELEASE` (optional); `load_towns_per_run` | Railway; a setting |
+| Geofabrik | `OSM_EXTRACT_BASE` (optional, a free mirror); `geofabrik_days`; osmium-tool | Railway; a setting; the worker's image |
+| NPI (CMS) | `NPI_BULK`, `NPI_TIME`; `NpiBulk::OFF` | Railway; the site's code |
+| IRS | `IRS_BULK` | Railway |
+
+**All five**
+1. **Console as the download page:** none of their link labels is mapped in 02 §8. Map "Releases", "On Hugging Face",
+   "US extracts", "Monthly files" and "EO BMF files" to Console, or leave Console not registered?
+2. **Last loads need live data:** each load table's newest row (when, seen, kept, removed). Also `OVERTURE_RELEASE` and
+   `FSQ_RELEASE`, set or not (names only).
+3. **Licences confirmed?** R9 lets Overture and Foursquare be shown "once their licences are confirmed" (Decision 9).
+   The card shows the licence; whether it's confirmed isn't recorded anywhere it can read.
+
+**Overture**
+1. Its regional S3 host is filed under AWS today (g2 row 31). Drawn on Overture's card, with its declared hosts to be
+   corrected in step 4.
+2. **No release found** has no words of its own: drawn as a malformed answer (rows 24–26). A row, or that's enough?
+
+**Foursquare**
+1. **`FSQ_RELEASE`'s default** is a fixed `dt=2026-10-15` while its note says "the newest". A code finding for step 4,
+   not a card word.
+2. Its key is a Hugging Face token: is Hugging Face its own module (a Keys and Sign in slot there), or a line here?
+
+**Geofabrik**
+1. **A refused download:** its record says "held for a person, never retried"; 02 row 32 says one probe a day for 3 days.
+   Which wins for Geofabrik?
+2. **One state's file as a part:** drawn so a failure holds that state only. Confirm the state is the part.
+3. Whether Utah, Colorado and Nevada have finished a first load (added 2026-11-19): needs live data.
+
+**NPI (CMS)**
+1. **`NpiBulk::OFF` is a code constant, not a switch.** Drawn with §0's person's-Off words. Should it become a switch
+   (with its why) so the board can show and lift it?
+2. Is CMS's file page back? Needs a live read (one page, at no cost) before it's switched on.
+
+**IRS**
+1. **A file that changed shape has no 02 row.** Drawn as a stop kind waiting for a person (row 38's shape), checked
+   before any row is sent. A row for it (all bulk files), or the malformed answer of rows 24–26?
+2. **The partial delete in `IrsBulk::finish()`** is a live-code risk: listed for Jason's review (item 5).
 
 ---
 
@@ -1171,3 +1303,6 @@ Items noted for Jason's review of the step-3 design. None is asked now.
    of its channels' providers (§20.6, 1). Today the register has no dispatcher part.
 4. **SES's bounce and complaint warnings** at AWS's review levels: 5% bounce, 0.1% complaint (inf; a step-4 check
    against AWS's docs). The rates are read at no cost (§20.6, 5).
+5. **The IRS load's partial delete** (§22.5, §22.6 IRS 2): when one state's file loads and the other's rows are all
+   refused, the finish removes the second state's nonprofits. A code fix for step 4 (finish per state, or not at all
+   unless every state loaded), not a card word.
