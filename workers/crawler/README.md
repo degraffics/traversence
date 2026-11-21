@@ -196,6 +196,8 @@ middle change, and confidential listings are never sent. A batch can take a few 
 250 seconds. A Census outage is logged and the run carries on. It is the same as Admin → Crawler → Map points →
 Find points, without anyone pressing it.
 
+**Common Crawl's bulk reads wait only on their own host (2.16.1, 2026-11-21).** `common_crawl()` reads only data.commoncrawl.org, so only a hold there stops it; an index-server hold no longer does (decisions/0175 §3). The per-site copy still waits on both, since it asks the index server too.
+
 **The Census's backup (2.16.0; decisions/0175's note, Jason 2026-11-20: "Yes, build it").** When the site's call fails
 on its connection (reset or no answer, or the site holding the Census for that), the site answers `waits` with a
 `backup`: the Census's batch address and the batch (ids and the address file, base64; confidential listings are never
