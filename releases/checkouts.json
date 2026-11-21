@@ -1,6 +1,7 @@
 {
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
- "claims": [
+ "claims": [],
+ "lapsed": [
   {
    "path": "app/lib/Operations.php",
    "functions": [],
@@ -18,7 +19,8 @@
      "app/lib/Preflight.php",
      "app/lib/WorkflowSettings.php"
     ]
-   }
+   },
+   "lapsed": "2026-11-21T09:17:36Z"
   },
   {
    "path": "app/lib/Preflight.php",
@@ -29,7 +31,8 @@
    "since": "2026-11-21T03:28:58Z",
    "expires": "2026-11-21T07:28:58Z",
    "release": "workflow-holds.zip",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-21T09:17:36Z"
   },
   {
    "path": "app/lib/ServiceHealth.php",
@@ -50,7 +53,8 @@
     "alarm": [
      "app/lib/ControlAlarms.php"
     ]
-   }
+   },
+   "lapsed": "2026-11-21T09:17:36Z"
   },
   {
    "path": "app/lib/ControlBoard.php",
@@ -68,7 +72,8 @@
      "app/admin/automation-console.php",
      "app/admin/control-console.php"
     ]
-   }
+   },
+   "lapsed": "2026-11-21T09:17:36Z"
   },
   {
    "path": "app/lib/ControlAlarms.php",
@@ -81,7 +86,8 @@
    "since": "2026-11-21T03:28:58Z",
    "expires": "2026-11-21T07:28:58Z",
    "release": "workflow-holds.zip",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-21T09:17:36Z"
   },
   {
    "path": "app/lib/crawler/CrawlService.php",
@@ -98,7 +104,8 @@
     "plan": [
      "website/api/crawl/service.php"
     ]
-   }
+   },
+   "lapsed": "2026-11-21T09:17:36Z"
   },
   {
    "path": "app/lib/service-defs.php",
@@ -109,7 +116,8 @@
    "since": "2026-11-21T03:28:58Z",
    "expires": "2026-11-21T07:28:58Z",
    "release": "workflow-holds.zip",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-21T09:17:36Z"
   },
   {
    "path": "app/admin/preflight-console.php",
@@ -120,7 +128,8 @@
    "since": "2026-11-21T03:28:58Z",
    "expires": "2026-11-21T07:28:58Z",
    "release": "workflow-holds.zip",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-21T09:17:36Z"
   },
   {
    "path": "app/ui/outside-services.php",
@@ -131,7 +140,8 @@
    "since": "2026-11-21T03:28:58Z",
    "expires": "2026-11-21T07:28:58Z",
    "release": "workflow-holds.zip",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-21T09:17:36Z"
   },
   {
    "path": "app/admin/operations-console.php",
@@ -144,7 +154,8 @@
    "since": "2026-11-21T03:28:58Z",
    "expires": "2026-11-21T07:28:58Z",
    "release": "workflow-holds.zip",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-21T09:17:36Z"
   },
   {
    "path": "website/admin/api.php",
@@ -155,7 +166,8 @@
    "since": "2026-11-21T03:28:58Z",
    "expires": "2026-11-21T07:28:58Z",
    "release": "workflow-holds.zip",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-21T09:17:36Z"
   },
   {
    "path": "app/lib/Operations.php",
@@ -170,7 +182,8 @@
    "since": "2026-11-21T03:29:10Z",
    "expires": "2026-11-21T07:29:10Z",
    "release": "workflow-holds.zip",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-21T09:17:36Z"
   },
   {
    "path": "app/lib/Preflight.php",
@@ -184,10 +197,9 @@
    "since": "2026-11-21T03:29:10Z",
    "expires": "2026-11-21T07:29:10Z",
    "release": "workflow-holds.zip",
-   "callers": {}
-  }
- ],
- "lapsed": [
+   "callers": {},
+   "lapsed": "2026-11-21T09:17:36Z"
+  },
   {
    "path": "app/admin/operations-console.php",
    "functions": [
@@ -800,184 +812,6 @@
    "release": "",
    "callers": {},
    "lapsed": "2026-11-19T21:44:52Z"
-  },
-  {
-   "path": "website/user/api/bell.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "staff-bell (Jason, 2026-11-19, approved a+b+c)",
-   "since": "2026-11-19T17:33:58Z",
-   "expires": "2026-11-19T21:33:58Z",
-   "release": "",
-   "callers": {},
-   "lapsed": "2026-11-19T21:41:28Z"
-  },
-  {
-   "path": "website/user/dashboard.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "staff-bell (Jason, 2026-11-19, approved a+b+c)",
-   "since": "2026-11-19T17:34:04Z",
-   "expires": "2026-11-19T21:34:04Z",
-   "release": "",
-   "callers": {},
-   "lapsed": "2026-11-19T21:41:28Z"
-  },
-  {
-   "path": "website/js/tv-pulse.js",
-   "functions": [
-    "paintPulse"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "staff-bell (Jason, 2026-11-19, approved a+b+c)",
-   "since": "2026-11-19T17:34:06Z",
-   "expires": "2026-11-19T21:34:06Z",
-   "release": "",
-   "callers": {},
-   "lapsed": "2026-11-19T21:41:28Z"
-  },
-  {
-   "path": "app/lib/crawler/Sources.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "control-board-itsdata (Jason 2026-11-19: blocked notice, Its data, outside our region, Pulse timing)",
-   "since": "2026-11-19T16:30:20Z",
-   "expires": "2026-11-19T20:30:20Z",
-   "release": "",
-   "callers": {},
-   "lapsed": "2026-11-19T21:32:57Z"
-  },
-  {
-   "path": "app/lib/ControlSensor.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "control-board-itsdata (Jason 2026-11-19: blocked notice, Its data, outside our region, Pulse timing)",
-   "since": "2026-11-19T16:30:25Z",
-   "expires": "2026-11-19T20:30:25Z",
-   "release": "",
-   "callers": {},
-   "lapsed": "2026-11-19T21:32:57Z"
-  },
-  {
-   "path": "app/lib/Thresholds.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "control-board-itsdata (Jason 2026-11-19: blocked notice, Its data, outside our region, Pulse timing)",
-   "since": "2026-11-19T16:30:27Z",
-   "expires": "2026-11-19T20:30:27Z",
-   "release": "",
-   "callers": {},
-   "lapsed": "2026-11-19T21:32:57Z"
-  },
-  {
-   "path": "app/lib/ControlBoard.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "control-board-itsdata (Jason 2026-11-19: blocked notice, Its data, outside our region, Pulse timing)",
-   "since": "2026-11-19T16:30:32Z",
-   "expires": "2026-11-19T20:30:32Z",
-   "release": "",
-   "callers": {},
-   "lapsed": "2026-11-19T21:32:57Z"
-  },
-  {
-   "path": "app/lib/EngineCase.php",
-   "functions": [
-    "blockReason"
-   ],
-   "kind": "add",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "control-board-table: the parts in the admin's one table",
-   "since": "2026-11-19T16:02:01Z",
-   "expires": "2026-11-19T20:02:01Z",
-   "release": "",
-   "callers": {},
-   "lapsed": "2026-11-19T20:17:37Z"
-  },
-  {
-   "path": "app/ui/theme-tokens.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "Buttons standard: one filled button, Claim, Peek dim, search bars",
-   "since": "2026-11-19T13:07:42Z",
-   "expires": "2026-11-19T17:07:42Z",
-   "release": "",
-   "callers": {},
-   "lapsed": "2026-11-19T17:08:59Z"
-  },
-  {
-   "path": "app/lib/Guides.php",
-   "functions": [
-    "stripPick"
-   ],
-   "kind": "add",
-   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "Hub weather strip's pick, testable",
-   "since": "2026-11-19T11:47:25Z",
-   "expires": "2026-11-19T15:47:25Z",
-   "release": "",
-   "callers": {},
-   "lapsed": "2026-11-19T15:53:48Z"
-  },
-  {
-   "path": "website/directory/index.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "Get Local: Kind fits the card; the search hint on the palette (Jason's screenshot 2026-11-19)",
-   "since": "2026-11-19T04:19:47Z",
-   "expires": "2026-11-19T08:19:47Z",
-   "release": "",
-   "callers": {},
-   "lapsed": "2026-11-19T10:52:07Z"
-  },
-  {
-   "path": "app/lib/Preflight.php",
-   "functions": [
-    "alarm",
-    "runAll",
-    "w0Batch"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "control-board-legacy",
-   "since": "2026-11-19T04:27:29Z",
-   "expires": "2026-11-19T08:29:41Z",
-   "release": "control-board-legacy.zip",
-   "callers": {
-    "alarm": [
-     "app/lib/ControlAlarms.php"
-    ]
-   },
-   "lapsed": "2026-11-19T10:52:07Z"
-  },
-  {
-   "path": "app/lib/ControlAlarms.php",
-   "functions": [
-    "(top)",
-    "resolve",
-    "watch"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "control-board-legacy (the watch)",
-   "since": "2026-11-19T04:27:33Z",
-   "expires": "2026-11-19T08:29:41Z",
-   "release": "control-board-legacy.zip",
-   "callers": {
-    "resolve": [
-     "website/admin/api.php"
-    ]
-   },
-   "lapsed": "2026-11-19T10:52:07Z"
   }
  ]
 }

@@ -1,14 +1,14 @@
 {
  "version": 1,
- "generated_at": "2026-11-20T19:17:32Z",
- "run_url": "https://github.com/degraffics/traversence/actions/runs/44709406385",
+ "generated_at": "2026-11-21T09:43:18Z",
+ "run_url": "https://github.com/degraffics/traversence/actions/runs/44888842501",
  "site": "https://traversence.com",
  "counts": {
-  "open": 14,
+  "open": 21,
   "blocking": 1,
   "by_kind": {
-   "path": 4,
-   "page": 7,
+   "path": 3,
+   "page": 15,
    "code": 0,
    "cost": 3
   }
@@ -37,7 +37,7 @@
    "verdict": "conflict",
    "decided": true,
    "first_seen": "2026-11-20T09:42:06Z",
-   "last_seen": "2026-11-20T19:17:32Z"
+   "last_seen": "2026-11-21T09:43:18Z"
   },
   {
    "id": "f-890ebaf025",
@@ -46,7 +46,7 @@
    ],
    "paths": [],
    "page": "/admin/insights/sources",
-   "shot_url": "https://github.com/degraffics/traversence/actions/runs/44709406385#artifacts",
+   "shot_url": "https://github.com/degraffics/traversence/actions/runs/44888842501#artifacts",
    "kind": "page",
    "rule": "J01",
    "title": "The page doesn't open: /admin/insights/sources",
@@ -59,7 +59,7 @@
    "verdict": "",
    "decided": false,
    "first_seen": "2026-11-18T09:38:27Z",
-   "last_seen": "2026-11-20T19:17:32Z"
+   "last_seen": "2026-11-21T09:43:18Z"
   },
   {
    "id": "f-fa035ddd5a",
@@ -84,7 +84,7 @@
    "verdict": "fix, to check in the build",
    "decided": true,
    "first_seen": "2026-11-12T17:55:55Z",
-   "last_seen": "2026-11-20T19:17:32Z"
+   "last_seen": "2026-11-21T09:43:18Z"
   },
   {
    "id": "f-c9499ea13e",
@@ -98,41 +98,17 @@
    "shot_url": "",
    "kind": "path",
    "rule": "V06",
-   "title": "A surprise: the page jumps as it loads (layout shift 0.31)",
+   "title": "A surprise: the page jumps as it loads (layout shift 0.34)",
    "detail": "On the path \"Search with a typo (\"swiming\")\".",
    "severity": "update",
-   "sig": "52b985ea89b71918",
+   "sig": "dbca7c6835099923",
    "blocks": 0,
    "proposal": "",
    "proposal_url": "",
    "verdict": "",
    "decided": false,
    "first_seen": "2026-11-13T17:29:44Z",
-   "last_seen": "2026-11-20T19:17:32Z"
-  },
-  {
-   "id": "f-e156f08ca2",
-   "who": [
-    "guest"
-   ],
-   "paths": [
-    "town-guide"
-   ],
-   "page": "/hub/?town=phoenix-az-2",
-   "shot_url": "",
-   "kind": "path",
-   "rule": "V06",
-   "title": "A surprise: the page jumps as it loads (layout shift 0.32)",
-   "detail": "On the path \"Read a town's guide\".",
-   "severity": "update",
-   "sig": "90e3f7530e1e46d2",
-   "blocks": 0,
-   "proposal": "",
-   "proposal_url": "",
-   "verdict": "",
-   "decided": false,
-   "first_seen": "2026-11-20T09:42:06Z",
-   "last_seen": "2026-11-20T19:17:32Z"
+   "last_seen": "2026-11-21T09:43:18Z"
   },
   {
    "id": "f-be75f4f580",
@@ -152,7 +128,7 @@
    "verdict": "fix, and missing",
    "decided": true,
    "first_seen": "2026-11-16T18:44:37Z",
-   "last_seen": "2026-11-20T19:17:32Z"
+   "last_seen": "2026-11-21T09:43:18Z"
   },
   {
    "id": "f-fc2b825837",
@@ -172,7 +148,7 @@
    "verdict": "",
    "decided": false,
    "first_seen": "2026-11-16T18:44:37Z",
-   "last_seen": "2026-11-20T19:17:32Z"
+   "last_seen": "2026-11-21T09:43:18Z"
   },
   {
    "id": "f-316f5c935f",
@@ -181,7 +157,7 @@
    ],
    "paths": [],
    "page": "/admin/config/board",
-   "shot_url": "https://github.com/degraffics/traversence/actions/runs/44709406385#artifacts",
+   "shot_url": "https://github.com/degraffics/traversence/actions/runs/44888842501#artifacts",
    "kind": "page",
    "rule": "V01",
    "title": "Cards not 3px from the screen edge at 390px: /admin/config/board",
@@ -194,7 +170,7 @@
    "verdict": "",
    "decided": false,
    "first_seen": "2026-11-18T09:38:27Z",
-   "last_seen": "2026-11-20T19:17:32Z"
+   "last_seen": "2026-11-21T09:43:18Z"
   },
   {
    "id": "f-836cc83cc8",
@@ -203,20 +179,20 @@
    ],
    "paths": [],
    "page": "/admin/config/automation",
-   "shot_url": "https://github.com/degraffics/traversence/actions/runs/44709406385#artifacts",
+   "shot_url": "https://github.com/degraffics/traversence/actions/runs/44888842501#artifacts",
    "kind": "page",
    "rule": "V01",
    "title": "Cards not 3px from the screen edge at 390px: /admin/config/automation",
-   "detail": "1 card(s) e.g. <div class=\"ak-card tv-bleed au-m\" id=\"start\" data-gap=\"3px left, 24px right; #ta-work pads 13.6px/13.6px\"></div>",
+   "detail": "1 card(s) e.g. <details class=\"ak-card tv-bleed cb-panel\" id=\"cb-watch\" data-gap=\"14px left, 14px right; #ta-work pads 13.6px/13.6px\"></details>",
    "severity": "update",
-   "sig": "1a6bb32085b69067",
+   "sig": "a4b940600c2d3b81",
    "blocks": 0,
    "proposal": "",
    "proposal_url": "",
    "verdict": "",
    "decided": false,
    "first_seen": "2026-11-18T09:38:27Z",
-   "last_seen": "2026-11-20T19:17:32Z"
+   "last_seen": "2026-11-21T09:43:18Z"
   },
   {
    "id": "f-fb38c0ede5",
@@ -225,20 +201,20 @@
    ],
    "paths": [],
    "page": "/admin/config/preflight",
-   "shot_url": "https://github.com/degraffics/traversence/actions/runs/44709406385#artifacts",
+   "shot_url": "https://github.com/degraffics/traversence/actions/runs/44888842501#artifacts",
    "kind": "page",
    "rule": "V01",
    "title": "Cards not 3px from the screen edge at 390px: /admin/config/preflight",
-   "detail": "11 card(s) e.g. <details class=\"pf-g ak-card tv-bleed\" id=\"pf-g-site\" open=\"\" data-gap=\"14px left, 14px right; #ta-work pads 13.6px/13.6px\"></details>",
+   "detail": "2 card(s) e.g. <details class=\"ak-card tv-bleed cb-panel\" id=\"cb-watch\" data-gap=\"14px left, 14px right; #ta-work pads 13.6px/13.6px\"></details>",
    "severity": "update",
-   "sig": "f8e697b2af08b23a",
+   "sig": "0ad6f81d9abf3989",
    "blocks": 0,
    "proposal": "",
    "proposal_url": "",
    "verdict": "",
    "decided": false,
    "first_seen": "2026-11-18T09:38:27Z",
-   "last_seen": "2026-11-20T19:17:32Z"
+   "last_seen": "2026-11-21T09:43:18Z"
   },
   {
    "id": "f-cd1e26ccb6",
@@ -247,7 +223,7 @@
    ],
    "paths": [],
    "page": "/admin/config/control",
-   "shot_url": "https://github.com/degraffics/traversence/actions/runs/44709406385#artifacts",
+   "shot_url": "https://github.com/degraffics/traversence/actions/runs/44888842501#artifacts",
    "kind": "page",
    "rule": "V01",
    "title": "Cards not 3px from the screen edge at 390px: /admin/config/control",
@@ -260,7 +236,7 @@
    "verdict": "",
    "decided": false,
    "first_seen": "2026-11-19T09:46:02Z",
-   "last_seen": "2026-11-20T19:17:32Z"
+   "last_seen": "2026-11-21T09:43:18Z"
   },
   {
    "id": "f-f59c3b6a11",
@@ -269,7 +245,7 @@
    ],
    "paths": [],
    "page": "/admin/config/communications",
-   "shot_url": "https://github.com/degraffics/traversence/actions/runs/44709406385#artifacts",
+   "shot_url": "https://github.com/degraffics/traversence/actions/runs/44888842501#artifacts",
    "kind": "page",
    "rule": "V01",
    "title": "Cards not 3px from the screen edge at 390px: /admin/config/communications",
@@ -282,7 +258,7 @@
    "verdict": "",
    "decided": false,
    "first_seen": "2026-11-19T09:46:02Z",
-   "last_seen": "2026-11-20T19:17:32Z"
+   "last_seen": "2026-11-21T09:43:18Z"
   },
   {
    "id": "f-97a2a8cb40",
@@ -291,7 +267,7 @@
    ],
    "paths": [],
    "page": "/admin/local/review",
-   "shot_url": "https://github.com/degraffics/traversence/actions/runs/44709406385#artifacts",
+   "shot_url": "https://github.com/degraffics/traversence/actions/runs/44888842501#artifacts",
    "kind": "page",
    "rule": "V01",
    "title": "Sideways scroll at 390px: /admin/local/review",
@@ -304,27 +280,203 @@
    "verdict": "",
    "decided": false,
    "first_seen": "2026-11-20T09:42:06Z",
-   "last_seen": "2026-11-20T19:17:32Z"
+   "last_seen": "2026-11-21T09:43:18Z"
   },
   {
-   "id": "f-df277495d1",
+   "id": "f-2350672491",
+   "who": [
+    "staff-executive"
+   ],
+   "paths": [],
+   "page": "/admin/config/log",
+   "shot_url": "https://github.com/degraffics/traversence/actions/runs/44888842501#artifacts",
+   "kind": "page",
+   "rule": "V01",
+   "title": "Cards not 3px from the screen edge at 390px: /admin/config/log",
+   "detail": "1 card(s) e.g. <details class=\"ak-card tv-bleed cb-panel\" id=\"cb-watch\" data-gap=\"14px left, 14px right; #ta-work pads 13.6px/13.6px\"></details>",
+   "severity": "update",
+   "sig": "a4b940600c2d3b81",
+   "blocks": 0,
+   "proposal": "",
+   "proposal_url": "",
+   "verdict": "",
+   "decided": false,
+   "first_seen": "2026-11-21T09:43:18Z",
+   "last_seen": "2026-11-21T09:43:18Z"
+  },
+  {
+   "id": "f-26d2d75543",
+   "who": [
+    "staff-executive"
+   ],
+   "paths": [],
+   "page": "/admin/config/upkeep",
+   "shot_url": "https://github.com/degraffics/traversence/actions/runs/44888842501#artifacts",
+   "kind": "page",
+   "rule": "V01",
+   "title": "Cards not 3px from the screen edge at 390px: /admin/config/upkeep",
+   "detail": "1 card(s) e.g. <details class=\"ak-card tv-bleed cb-panel\" id=\"cb-watch\" data-gap=\"14px left, 14px right; #ta-work pads 13.6px/13.6px\"></details>",
+   "severity": "update",
+   "sig": "a4b940600c2d3b81",
+   "blocks": 0,
+   "proposal": "",
+   "proposal_url": "",
+   "verdict": "",
+   "decided": false,
+   "first_seen": "2026-11-21T09:43:18Z",
+   "last_seen": "2026-11-21T09:43:18Z"
+  },
+  {
+   "id": "f-4b562b2095",
+   "who": [
+    "staff-executive"
+   ],
+   "paths": [],
+   "page": "/admin/config/workflows",
+   "shot_url": "https://github.com/degraffics/traversence/actions/runs/44888842501#artifacts",
+   "kind": "page",
+   "rule": "V01",
+   "title": "Cards not 3px from the screen edge at 390px: /admin/config/workflows",
+   "detail": "1 card(s) e.g. <div class=\"ak-card tv-bleed au-m\" id=\"start\" data-gap=\"3px left, 24px right; #ta-work pads 13.6px/13.6px\"></div>",
+   "severity": "update",
+   "sig": "1a6bb32085b69067",
+   "blocks": 0,
+   "proposal": "",
+   "proposal_url": "",
+   "verdict": "",
+   "decided": false,
+   "first_seen": "2026-11-21T09:43:18Z",
+   "last_seen": "2026-11-21T09:43:18Z"
+  },
+  {
+   "id": "f-6794597ee0",
+   "who": [
+    "staff-executive"
+   ],
+   "paths": [],
+   "page": "/admin/config/scheduler",
+   "shot_url": "https://github.com/degraffics/traversence/actions/runs/44888842501#artifacts",
+   "kind": "page",
+   "rule": "V01",
+   "title": "Cards not 3px from the screen edge at 390px: /admin/config/scheduler",
+   "detail": "1 card(s) e.g. <details class=\"ak-card tv-bleed cb-panel\" id=\"cb-watch\" data-gap=\"14px left, 14px right; #ta-work pads 13.6px/13.6px\"></details>",
+   "severity": "update",
+   "sig": "a4b940600c2d3b81",
+   "blocks": 0,
+   "proposal": "",
+   "proposal_url": "",
+   "verdict": "",
+   "decided": false,
+   "first_seen": "2026-11-21T09:43:18Z",
+   "last_seen": "2026-11-21T09:43:18Z"
+  },
+  {
+   "id": "f-89fe13e491",
+   "who": [
+    "staff-executive"
+   ],
+   "paths": [],
+   "page": "/admin/config/ledger",
+   "shot_url": "https://github.com/degraffics/traversence/actions/runs/44888842501#artifacts",
+   "kind": "page",
+   "rule": "V01",
+   "title": "Cards not 3px from the screen edge at 390px: /admin/config/ledger",
+   "detail": "1 card(s) e.g. <details class=\"ak-card tv-bleed cb-panel\" id=\"cb-watch\" data-gap=\"14px left, 14px right; #ta-work pads 13.6px/13.6px\"></details>",
+   "severity": "update",
+   "sig": "a4b940600c2d3b81",
+   "blocks": 0,
+   "proposal": "",
+   "proposal_url": "",
+   "verdict": "",
+   "decided": false,
+   "first_seen": "2026-11-21T09:43:18Z",
+   "last_seen": "2026-11-21T09:43:18Z"
+  },
+  {
+   "id": "f-97786667c0",
+   "who": [
+    "staff-executive"
+   ],
+   "paths": [],
+   "page": "/admin/config/costs",
+   "shot_url": "https://github.com/degraffics/traversence/actions/runs/44888842501#artifacts",
+   "kind": "page",
+   "rule": "V01",
+   "title": "Cards not 3px from the screen edge at 390px: /admin/config/costs",
+   "detail": "1 card(s) e.g. <details class=\"ak-card tv-bleed ak-landed\" id=\"costs\" style=\"margin:.6rem 0\" open=\"\" data-gap=\"14px left, 14px right; #ta-work pads 13.6px/13.6px\"></details>",
+   "severity": "update",
+   "sig": "a7e4dc52940db071",
+   "blocks": 0,
+   "proposal": "",
+   "proposal_url": "",
+   "verdict": "",
+   "decided": false,
+   "first_seen": "2026-11-21T09:43:18Z",
+   "last_seen": "2026-11-21T09:43:18Z"
+  },
+  {
+   "id": "f-ae2992d6a5",
    "who": [],
    "paths": [],
    "page": "",
    "shot_url": "",
    "kind": "cost",
    "rule": "D03",
-   "title": "A scheduled job isn't running cleanly: system_start_tick",
-   "detail": "Last ran 2026-11-18 01:24:02 (site time).",
+   "title": "A scheduled job isn't running cleanly: sales_tick",
+   "detail": "Last ran 2026-11-18 23:17:02 (site time).",
    "severity": "update",
-   "sig": "0c62f74cb360e72f",
+   "sig": "c8c944156a9bfe62",
    "blocks": 0,
    "proposal": "",
    "proposal_url": "",
    "verdict": "",
    "decided": false,
-   "first_seen": "2026-11-20T09:42:06Z",
-   "last_seen": "2026-11-20T19:17:32Z"
+   "first_seen": "2026-11-21T09:43:18Z",
+   "last_seen": "2026-11-21T09:43:18Z"
+  },
+  {
+   "id": "f-b1c4d2dd7e",
+   "who": [
+    "staff-executive"
+   ],
+   "paths": [],
+   "page": "/admin/config/register",
+   "shot_url": "https://github.com/degraffics/traversence/actions/runs/44888842501#artifacts",
+   "kind": "page",
+   "rule": "V01",
+   "title": "Cards not 3px from the screen edge at 390px: /admin/config/register",
+   "detail": "1 card(s) e.g. <details class=\"ak-card tv-bleed\" id=\"costs\" style=\"margin:.6rem 0\" data-gap=\"14px left, 14px right; #ta-work pads 13.6px/13.6px\"></details>",
+   "severity": "update",
+   "sig": "0da252bd4ceab863",
+   "blocks": 0,
+   "proposal": "",
+   "proposal_url": "",
+   "verdict": "",
+   "decided": false,
+   "first_seen": "2026-11-21T09:43:18Z",
+   "last_seen": "2026-11-21T09:43:18Z"
+  },
+  {
+   "id": "f-d844c6c46e",
+   "who": [
+    "staff-executive"
+   ],
+   "paths": [],
+   "page": "/admin/config/alarms",
+   "shot_url": "https://github.com/degraffics/traversence/actions/runs/44888842501#artifacts",
+   "kind": "page",
+   "rule": "V01",
+   "title": "Cards not 3px from the screen edge at 390px: /admin/config/alarms",
+   "detail": "1 card(s) e.g. <details class=\"ak-card tv-bleed cb-panel\" id=\"cb-watch\" data-gap=\"14px left, 14px right; #ta-work pads 13.6px/13.6px\"></details>",
+   "severity": "update",
+   "sig": "a4b940600c2d3b81",
+   "blocks": 0,
+   "proposal": "",
+   "proposal_url": "",
+   "verdict": "",
+   "decided": false,
+   "first_seen": "2026-11-21T09:43:18Z",
+   "last_seen": "2026-11-21T09:43:18Z"
   }
  ]
 }

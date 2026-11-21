@@ -1,5 +1,5 @@
 {
- "at": "2026-11-20T10:20:11.547Z",
+ "at": "2026-11-21T10:19:49.003Z",
  "checked": "2026-11-14T15:38:12+00:00",
  "files_read": 784,
  "tables": [
@@ -179,7 +179,7 @@
    "db": "degraff1_traversence",
    "table": "identity_facts",
    "column": "w",
-   "filled": 267260,
+   "filled": 316324,
    "kept": false
   },
   {
@@ -193,7 +193,7 @@
    "db": "degraff1_traversence",
    "table": "listing_actions",
    "column": "n",
-   "filled": 915,
+   "filled": 1139,
    "kept": false
   },
   {
@@ -235,14 +235,14 @@
    "db": "degraff1_traversence",
    "table": "platform_counts",
    "column": "k",
-   "filled": 3506,
+   "filled": 3526,
    "kept": false
   },
   {
    "db": "degraff1_traversence",
    "table": "platform_counts",
    "column": "n",
-   "filled": 3506,
+   "filled": 3526,
    "kept": false
   },
   {
@@ -263,21 +263,21 @@
    "db": "degraff1_traversence",
    "table": "search_counts",
    "column": "k",
-   "filled": 64,
+   "filled": 66,
    "kept": false
   },
   {
    "db": "degraff1_traversence",
    "table": "search_counts",
    "column": "n",
-   "filled": 64,
+   "filled": 66,
    "kept": false
   },
   {
    "db": "degraff1_traversence",
    "table": "search_demand",
    "column": "n",
-   "filled": 63,
+   "filled": 67,
    "kept": false
   },
   {
@@ -298,7 +298,7 @@
    "db": "degraff1_traversence",
    "table": "search_index_state",
    "column": "v",
-   "filled": 193,
+   "filled": 194,
    "kept": false
   },
   {
@@ -347,14 +347,14 @@
    "db": "degraff1_traversence",
    "table": "search_terms",
    "column": "q",
-   "filled": 131,
+   "filled": 134,
    "kept": false
   },
   {
    "db": "degraff1_traversence",
    "table": "search_terms",
    "column": "n",
-   "filled": 131,
+   "filled": 134,
    "kept": false
   },
   {
@@ -368,14 +368,14 @@
    "db": "degraff1_traversence",
    "table": "site_release_settings",
    "column": "k",
-   "filled": 227,
+   "filled": 255,
    "kept": false
   },
   {
    "db": "degraff1_traversence",
    "table": "site_release_settings",
    "column": "v",
-   "filled": 227,
+   "filled": 255,
    "kept": false
   },
   {
@@ -396,7 +396,7 @@
    "db": "degraff1_traversence",
    "table": "topic_relations",
    "column": "n",
-   "filled": 583,
+   "filled": 610,
    "kept": false
   },
   {
