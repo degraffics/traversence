@@ -802,7 +802,7 @@ Built like the others (`mockups/src/tavily.py`). Basis marks as in 02. Real valu
 
 | Fault | Held | On a backup | Unaffected | Basis |
 |---|---|---|---|---|
-| Tavily can't be called (key, plan limit, down) | Tavily's calls: searches, and its page reads (those pages wait "to be read") | **Brave Search** for Web search (W8, W10–W12), A missing phone or website (W2), Confirm a business (W1, W2), while Brave works | the crawler's other work; every other source; pages, search, sign-in, payments | obs (worker), des |
+| Tavily can't be called (key, plan limit, down) | Tavily's calls; and **W3's task Read a page through Tavily** (when it's on), its pages waiting "to be read": a real hold on that task only (ruling 5). Nothing else is held | **Brave Search** for Web search (W8, W10–W12), A missing phone or website (W2), Confirm a business (W1, W2), while Brave works | the crawler's other work; every other source; pages, search, sign-in, payments | obs (worker), des |
 | Both Tavily and Brave paused | the tasks that need web search: Web search waits ("queued"); A missing phone or website waits; Confirm a business goes to the person queue | — | everything else | des (row 45) |
 | Our cap reached (`websearch_stop_pct`) | Tavily's automatic calls; at the cap nothing passes, a person's press included (row 40) | Brave Search, within its own allowance | everything else | des |
 
@@ -810,8 +810,8 @@ Built like the others (`mockups/src/tavily.py`). Basis marks as in 02. Real valu
 
 | Mockup | Row (02) | New words | Today's words, beside them | Fix it |
 |---|---|---|---|---|
-| a Working | — | "On · Working"; the month's figure from the report | — | — |
-| b Its plan's limit (432) | 36, 37, 43, 44 | "Tavily used its month at the provider · Paused by the system until the 1st; its check runs then." Web search "On a backup: Brave Search" | none: a 432 is classified as nothing (obs); the crawler logs "search: brave instead (tavily failed: …)" (obs) | **Billing: "No billing page registered for Tavily yet"**, never the Dashboard |
+| a Its two states (**needs live data**) | — | "On · Working" with a monthly allowance; and, with `websearch_monthly` = 0 (its default), "Off on purpose: websearch_monthly is 0": web search stopped, Brave too (they share the allowance), nothing a fault (ruling 3) | — | — |
+| b Its plan's limit (432) | 36, 37, 43, 44 | a quota (ruling 2): "Tavily used its month at the provider · Paused by the system until the 1st; its check runs then." Web search "On a backup: Brave Search" | none: a 432 is classified as nothing (obs); the crawler logs "search: brave instead (tavily failed: …)" (obs) | **Billing: "No billing page registered for Tavily yet"**, never the Dashboard |
 | c A refused key | 29, 31, 43, 106, 129 | "Tavily refused our key · Paused by the system: calls with TAVILY_API_KEY wait for a new key." | "api.tavily.com: Our key was refused (the crawler, on Railway)"; its check confirms only presence (sim, g2 row 2) | **Keys: "No API keys page registered for Tavily yet"**; the key lives on Railway |
 | d A 5xx or timeout | 24–26, 43, 83, 130 | "Tavily isn't answering · Trying again (2 of 3): it answered 502 Bad Gateway at <time>. Next check <time>." Each search goes to Brave at once | "api.tavily.com: Its server failed (the crawler, on Railway)", counting the reports' failures (sim, g2 rows 16–18); the switch isn't logged (g2 row 27) | their trouble: no Fix it; Console · Dashboard, then Check now (row 130) |
 
@@ -828,15 +828,88 @@ Keys, names only:
 
 Settings, not keys: `worker_searches_per_run`, `websearch_monthly`, `websearch_stop_pct`, `paid_spread`.
 
-### 17.6 Open words for Tavily
+### 17.6 Open words for Tavily: answered by the session manager (2026-11-21)
 
-1. **The month's figure.** 26 searches and 20.8¢ come from the approved report. The mirror has no ledger rows, so the card
-   can't re-read them. A read-only ledger export (like `alarms.json`) would let the next pass show the live figure.
-2. **The 432 plan limit.** It's drawn as a quota with a known reset (the month), the same as row 36. Today
-   `ServiceHealth::classify()` reads it as nothing. Should 02 name 432 in the engine's `classify` (P2)?
-3. **`websearch_monthly` is 0 by default** ("0 stops web search"). The live value isn't readable here. If it's 0 live,
-   web search is stopped on purpose, which the card would show as Off, not Working.
-4. **When a search falls to Brave,** does it spend Brave's own allowance (Brave is paid per search, `BRAVE_USD_PER_SEARCH`
-   0.005)? Brave's card (next) should show it.
-5. **Read a page through Tavily** (Tavily Extract) has no backup; its pages wait "to be read". Is that a hold on W3's
-   task, or a Notice?
+1. **The month's figure:** a **step-4 spec item**: a read-only ledger export, written like `alarms.json`, holding
+   **counts and money only, per service and per month**: no query text, no person, no key. The card reads its figure
+   from that export; until then it carries the approved report's 26 searches and 20.8¢, labelled.
+2. **432 is a quota** (row 36): a wait until the month resets, said on the card (page b).
+   **Finding (step-2 style):** `ServiceHealth::classify()` (`ServiceHealth.php:183–200`) returns `''` for any 4xx it
+   doesn't name, so Tavily's 432 is read as "not the service's": no issue, no alarm, nothing on the board. The worker
+   falls to Brave on every search, and the plan limit is invisible. Step 4's engine classifies 432 as a quota (P2).
+3. **`websearch_monthly` = 0 live?** Both states are drawn on page a (On, and Off on purpose), marked "needs live data".
+   It's with Jason through the session manager's asks.
+4. **Fallback searches from Tavily** are their own line in Brave's spend (§18).
+5. **Tavily Extract:** a real hold on W3's task Read a page through Tavily only (row 39's shape), its pages waiting "to
+   be read". Nothing else is held (pages b and c).
+
+---
+
+## 18. Brave Search's card (mockups `brave-*.html`)
+
+Built like the others (`mockups/src/brave.py`). Basis marks as in 02. Real values come from the live code at mirror
+`aeb5f31` and the worker (`workers/crawler/crawler.py`, 2.16.1). No `.env` was opened and no call was made to Brave or
+Tavily.
+
+### 18.1 The manifest
+
+| Field | Value | Basis |
+|---|---|---|
+| id · name | `brave` · Brave Search | obs |
+| role | **Source**, and **Tavily's backup**: the second source of each web search need | obs (needs); des |
+| criticality | none (not in `ControlRegister::CRITICAL`) | obs |
+| purpose | "The crawler's web search when it has a Brave key instead of Tavily's." In the worker, Brave also answers whenever Tavily fails or is held | obs |
+| plan and price | "Its free plan or paid plan, per search; the site counts each one (about $0.005) inside the same web search allowance as Tavily (SEARCH_MONTHLY)." Price `BRAVE_USD_PER_SEARCH` **$0.005** (`CrawlService::PRICES`) | obs |
+| caps and pace | **none of its own**: it shares Tavily's allowance (`websearch_monthly`, `websearch_stop_pct` 90%, `worker_searches_per_run` 10, `paid_spread`). The worker counts **one search per query, whichever engine answers**, before trying them, and waits about one second between searches. So with `websearch_monthly` = 0, Brave is off too | obs (code); inf |
+| its key | `BRAVE_API_KEY` on **Railway** (the crawler service), reported by name only (`WORKER_KEYS`); "not checked yet" until the worker's key test exists (Q4, row 30) | obs |
+| spend | the ledger's `brave`, in **two lines**: its own searches, and **Tavily's fallbacks** (the worker's `search_switches`, today dropped by the site, g2 row 27) (ruling 4). Not readable here: the ledger is in the database; the step-4 export (§17.6 item 1) carries it | des; obs |
+| what uses it | Web search (W8, W10–W12), A missing phone or website (W2), Confirm a business (W1, W2), each after Tavily | obs (`Preflight::NEEDS`) |
+| its answers | 401 refused key · 429: a quota when its answer names the plan, else a rate wait (`ServiceHealth::classify()`) · 5xx and timeouts | obs |
+| portal_links | Console · API dashboard https://api-dashboard.search.brave.com/, **Documented · release #212**; Billing, Keys, Sign in: **not registered**, each with Publish from your Vault | obs |
+
+### 18.2 The four zones
+
+| Zone | Brave Search |
+|---|---|
+| 1 | **Brave Search** · Source · not critical · state · Stage 5 · setup notice · chip "Brave Search, this month (about $0.005 a search): its own searches: not read yet · Tavily's fallbacks (their own line): not read yet · one shared web search allowance with Tavily; failed calls counted · Billing: No billing page registered for Brave Search yet." · radius (with what happens if Tavily is paused too) |
+| 2 | Web search, as the second source ("standing by: Tavily answers first") |
+| 3 | the month's searches (two lines) · its key on Railway (not checked yet) · its answers |
+| 4 | On our system: Check now · Pause our calls (automatic calls only). At Brave Search: Billing (not registered) · Keys (not registered) · Console · API dashboard · Sign in (not registered) |
+
+### 18.3 Incident Radius, and when Brave fails too while Tavily is held
+
+| Fault | Held | On a backup | Unaffected | Words | Basis |
+|---|---|---|---|---|---|
+| Brave's own fault (quota, key, down) while Tavily works | Brave's calls only | none needed | every need: Tavily, the first source, answers | "Nothing waits on it: its need's first choice is working." (row 42) | des |
+| **Brave fails too while Tavily is held** | **only the tasks that need web search, in every workflow the needs name** (row 45; P6): Web search (W8, W10–W12) waits ("queued"); A missing phone or website (W2) waits where our open-data copies can't say; Confirm a business (W1, W2) goes to the person queue after our copies, CMS and the Arizona Corporation Commission | none: Brave was the last search source; the paid Confirm backup is off | every workflow's other tasks (they read "Partly working", row 3b roll-up); every other source; pages, search, sign-in, payments | on each held task's row: **"Waiting on Web search: no source works (Tavily paused, Brave Search paused)."** (row 45). A workflow reads "W<n>: every task waits on <part>" only if every task waits (row 46). **No new alarm**: the two trips already told Jason; the need is a roll-up (§2.2) | des |
+| Either source's check passes | — | the need answers again; "Back on its first choice: Tavily" when Tavily's does (row 44) | — | | des |
+
+### 18.4 The states (mockups)
+
+| Mockup | Row (02) | New words | Today's words, beside them | Fix it |
+|---|---|---|---|---|
+| a Working | — | "On · Working · standing by: Tavily answers first"; spend in two lines, not read yet | — | — |
+| b Its own quota | 36, 37, 42, 128 | "Brave Search used its month at the provider · Paused by the system until its plan's month turns." "Nothing waits on it: its need's first choice is working." | "…: Over its quota or plan (the crawler, on Railway)" (sim, g2 row 6); its own calls weren't paused (g1 row 19) | Billing: "No billing page registered for Brave Search yet" |
+| c A refused key | 29, 31, 42, 106, 129 | "Brave Search refused our key · Paused by the system: calls with BRAVE_API_KEY wait for a new key." | "api.search.brave.com: Our key was refused (the crawler, on Railway)" (sim, g2 row 2) | Keys: "No API keys page registered for Brave Search yet"; the key lives on Railway |
+| d Both sources down | 45, 46 | "Web search: no source works (Tavily paused, Brave Search paused)" · "Paused by the system, waiting on its sources" · on each held task: "Waiting on Web search: no source works (Tavily paused, Brave Search paused)." | "Paused by the system: <task> (<first workflow only>)": the first workflow named, whole (sim, g1 row 18) | the first source first: Tavily's key; then Brave's billing (not registered) |
+
+### 18.5 Setup capture (§13.x)
+
+Notice: **"Setup capture: Sign in not recorded · Billing, Keys: why not recorded"**.
+
+Keys, names only:
+- `BRAVE_API_KEY`: Railway, the crawler service.
+- `BRAVE_USD_PER_SEARCH`: `.env`.
+
+It has no settings of its own: it shares Tavily's web search allowance.
+
+### 18.6 Open words for Brave Search
+
+1. **"Brave as the first source."** The definition says Brave is used "when it has a Brave key instead of Tavily's". The
+   worker also uses it whenever Tavily fails or is held. Should the purpose line say both?
+2. **One allowance, two prices.** A search counts once against the shared allowance whichever engine answers, but Brave
+   costs $0.005 and Tavily $0.008 a credit. Should the cap be in dollars, so the stop line follows the real spend?
+3. **Its own quota's evidence.** Brave's plan-limit answer is classified as a quota only when the 429's body names the
+   plan (`classify()`'s words). Brave's real wording isn't recorded here.
+4. **Fix it with two trips** (page d): the card offers both trips, Tavily's first (the need's first source). Is "the first
+   source first" the right order when Brave's fix is quicker?

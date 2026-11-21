@@ -39,6 +39,10 @@ SPEND_TV = ('<span class="spend"><span>Tavily, this month:</span><b>26 searches 
             '<span class="why">failed calls counted</span><span class="why">Billing: No billing page registered for Tavily yet.</span></span>')
 
 
+SPEND_TV_OFF = ('<span class="spend"><span>Tavily, this month:</span><b>26 searches · 20.8¢</b><span class="why">(the approved report)</span>'
+                '<span><code>websearch_monthly</code> = 0: web search is stopped on purpose</span><span class="why">needs live data</span></span>')
+
+
 def tv_z2(over=None):
     over = over or {}
     return rows([
@@ -47,8 +51,8 @@ def tv_z2(over=None):
          '<b>Confirm a business (W1, W2)</b>: our copies, CMS, the Arizona Corporation Commission, then Tavily, then Brave. At most 10 a run, about one a second, '
          'stopping at 90% of the month and paced through the day (defaults; the live settings: not read yet). Each switch to Brave is counted.',
          over.get('ws_btn', b('Check now')), over.get('ws_cls', '')),
-        ('Read a page through Tavily', 'Tavily Extract (second tier)', light('n', 'Off by default'),
-         'Reads a page the crawler can\'t, within the allowance the site gives; never a page robots.txt forbids.', '', ''),
+        ('Read a page through Tavily', 'W3\'s task, Tavily Extract (second tier)', over.get('ex', light('n', 'Off by default')),
+         'Reads a page the crawler can\'t, within the allowance the site gives; never a page robots.txt forbids. No backup: while Tavily is paused, this task alone is held and its pages wait “to be read”.', '', over.get('ex_cls', '')),
     ])
 
 
@@ -73,7 +77,7 @@ def tv_card(state, thread_html=None, z2o=None, z3o=None, fault=None, stage=STAGE
 
 BRAVE_OB = ('<ul><li>Web search (W8, W10–W12): Brave Search</li><li>A missing phone or website (W2): Brave Search</li><li>Confirm a business (W1, W2): Brave Search</li></ul>'
             f'<div class="why">Each, while Brave Search works ({sc("its last search passed")}); a switch is counted.</div>')
-UNAFF_TV = '<ul><li>The crawler\'s other work; every other source</li><li>Pages, search, sign-in, payments</li></ul>'
+UNAFF_TV = '<ul><li>Nothing else is held: the crawler\'s other work, W3\'s other tasks, every other source</li><li>Pages, search, sign-in, payments</li></ul>'
 UPT = '<span class="why">its actions are in the thread above ↑</span>'
 
 PROV_TV = [
@@ -90,7 +94,7 @@ PROV_TV = [
 def tv_plan():
     th = thread(f'{TV} used its month at the provider',
                 light('r', 'Paused by the system') + ' until the 1st; its check runs then.',
-                '<ul><li>Tavily\'s calls, until its month turns</li></ul>', BRAVE_OB, UNAFF_TV,
+                '<ul><li>Tavily\'s calls, until its month turns</li><li>W3\'s task Read a page through Tavily (when it\'s on): its pages wait “to be read”</li></ul>', BRAVE_OB, UNAFF_TV,
                 'Tavily answered 432 (its plan\'s limit): a quota with a known reset, the month. Its check runs on the 1st and closes it as Recovered when it passes. '
                 'Meanwhile each need uses its next source.',
                 b('Check now', True) + b('Acknowledge'),
@@ -98,18 +102,19 @@ def tv_plan():
                 f'Fix it: <b>{TV}\'s billing page</b>. No billing page registered for {TV} yet, so Fix it says so and never borrows the Dashboard. '
                 'Keep PAYGO and auto-upgrade off in its dashboard (its plan note).',
                 f'<dl class="dl"><dt>Evidence</dt><dd>432 from api.tavily.com at {sc("10:14 AM MST")}, reported by the crawler\'s run {sc("#1350")}</dd>'
-                '<dt>Classified</dt><dd>by the engine as a quota (P2): <b>today</b> <code>ServiceHealth::classify()</code> returns nothing for a 432 (“not the service\'s”), so the plan limit raises no issue; the worker simply falls to Brave each time</dd>'
+                '<dt>Classified</dt><dd>a 432 is a quota (row 36): a wait until the month resets (the session manager\'s ruling, 2026-11-21)</dd>'
+                '<dt>Finding</dt><dd>today <code>ServiceHealth::classify()</code> returns nothing for a 432 (“not the service\'s”), so the plan limit raises no issue and the worker simply falls to Brave each time (03 §17.6)</dd>'
                 '<dt>Rule</dt><dd>02 rows 36, 37 (a quota with a known reset), 43, 44, 128</dd></dl>'
                 + today_words(['Today: no words: a 432 is classified as nothing (obs, <code>ServiceHealth::classify()</code>); the crawler logs “search: brave instead (tavily failed: …)” (obs, <code>crawler.py</code>).']), at=TV)
     return tv_card(light('r', 'On · Paused by the system (its month at Tavily)'), th, fault='r', stage=STAGE_TVT,
-                   z2o={'ws': light('a', 'On a backup: Brave Search'), 'ws_cls': 'hl', 'ws_btn': UPT},
+                   z2o={'ws': light('a', 'On a backup: Brave Search'), 'ws_cls': 'hl', 'ws_btn': UPT, 'ex': light('h', 'Held (waiting on Tavily), when it\'s on: pages wait “to be read”'), 'ex_cls': 'hl', },
                    z3o={'a': f'<b>432</b> (plan limit) at {sc("10:14 AM MST")}', 'a_cls': 'hr', 'sw': f'{sc("14")} searches went to Brave since', 'sw_cls': 'hl'})
 
 
 def tv_key():
     th = thread(f'{TV} refused our key',
                 light('r', 'Paused by the system') + f': calls with TAVILY_API_KEY wait for a new key. Reported by the crawler\'s run {sc("#1351")} at {sc("11:20 AM MST")}.',
-                '<ul><li>Calls with <code>TAVILY_API_KEY</code></li></ul>', BRAVE_OB, UNAFF_TV,
+                '<ul><li>Calls with <code>TAVILY_API_KEY</code></li><li>W3\'s task Read a page through Tavily (when it\'s on): its pages wait “to be read”</li></ul>', BRAVE_OB, UNAFF_TV,
                 'A refused key gets no tries: it waits for a person (rows 29, 31). Each need goes to Brave Search meanwhile.',
                 b('Replace key', True) + '<span class="why">on Railway: the crawler service → Variables; its check is the worker\'s key test at its next run</span>' + b('Acknowledge'),
                 tv_slots(fix='keys'),
@@ -118,7 +123,7 @@ def tv_key():
                 + today_words(['Board today: “api.tavily.com: Our key was refused (the crawler, on Railway)”; its check confirms only that the worker has the key, never that it works (sim, g2 row 2).',
                                f'New: “{TV} refused our key · Paused by the system: calls with TAVILY_API_KEY wait for a new key.”']), at=TV)
     return tv_card(light('r', 'On · Paused by the system (its key)'), th, fault='r', stage=STAGE_TVT,
-                   z2o={'ws': light('a', 'On a backup: Brave Search'), 'ws_cls': 'hl', 'ws_btn': UPT},
+                   z2o={'ws': light('a', 'On a backup: Brave Search'), 'ws_cls': 'hl', 'ws_btn': UPT, 'ex': light('h', 'Held (waiting on Tavily), when it\'s on: pages wait “to be read”'), 'ex_cls': 'hl', },
                    z3o={'k': f'<b>Refused (401)</b>, reported at {sc("11:20 AM MST")}', 'k_cls': 'hr', 'sw': f'{sc("9")} searches went to Brave since', 'sw_cls': 'hl'})
 
 
@@ -141,8 +146,13 @@ def tv_server():
 
 
 add('tavily-a-working.html', 'Tavily card, Working', 'Tavily, a Source: web search for the crawler and research, Brave its backup.',
-    intro('<b>(a) Tavily\'s card, Working.</b> A Source: the crawler\'s web search, with Brave Search as the next source on the map. Its month\'s figure is the approved report\'s '
-          '(the ledger isn\'t in the mirror). Its key lives on Railway, reported by name only.') + tv_card(light('g', 'On · Working')) + prov(PROV_TV))
+    intro('<b>(a) Tavily\'s card in its two possible states</b> (<b>needs live data</b>: whether <code>websearch_monthly</code> is 0 live isn\'t readable here; it\'s with Jason). '
+          'First, On · Working: web search has a monthly allowance. Second, <code>websearch_monthly</code> = 0, its default: web search is <b>Off on purpose</b> and nothing is a fault. '
+          'A Source, with Brave Search as the next source on the map. Its month\'s figure is the approved report\'s (the ledger isn\'t in the mirror). Its key lives on Railway, reported by name only.')
+    + tv_card(light('g', 'On · Working') + ' <span class="cnt">needs live data</span>')
+    + tv_card(light('n', 'Off on purpose: websearch_monthly is 0') + ' <span class="cnt">needs live data</span>', spend=SPEND_TV_OFF,
+              z2o={'ws': light('n', 'Off: web search stopped (websearch_monthly 0)') + ' <span class="why">Web search waits “queued”; Brave shares the same allowance, so it\'s off too</span>', 'ws_btn': ''})
+    + prov(PROV_TV))
 add('tavily-b-plan-limit.html', 'Tavily card: its month used', 'A 432 at Tavily: paused until the 1st; each need goes to Brave Search.',
     intro('<b>(b) Its plan\'s limit used at Tavily (a 432).</b> A quota with a known reset (rows 36, 43). Today the code reads a 432 as nothing, so the board says nothing while the worker falls to Brave.') + tv_plan() + prov(PROV_TV))
 add('tavily-c-key-refused.html', 'Tavily card: key refused', 'TAVILY_API_KEY refused: Tavily\'s calls wait; Brave carries the searches; Fix it names Keys (not registered).',
