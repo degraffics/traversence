@@ -297,6 +297,15 @@ NEEDS = parse_needs()
 SVC2MOD = {'anthropic': 'anthropic', 'gemini': 'gemini', 'google': 'places', 'tavily': 'tavily', 'brave': 'brave', 'quickbooks': 'quickbooks', 'aws': 'aws',
            'cloudflare': 'cloudflare', 'fly': 'fly', 'github': 'github', 'bluehost': 'bluehost', 'overture': 'overture', 'foursquare': 'foursquare',
            'geofabrik': 'geofabrik', 'cms': 'cms', 'irs': 'irs'}
+import svc26
+WFNAMES = {w: n for w, n, _, _ in WORKFLOWS}
+for _n, (key, role, name, scs) in enumerate(svc26.scenarios(NEEDS, WFNAMES), 1):
+    MODULES.append(dict(id=key, label=name, role=role, sec=f'§26.{_n}', admin=['/admin/config/register'] + (['/admin/insights/sources'] if role == 'Source' else []),
+                        crit='Not critical: no duty stops without it', more=True,
+                        scns=[dict(id=f'{key}-{i}', title=t, file='', intro=('A real fault from the alarms snapshot (3:19 AM MST).' if i else 'Its record, needs and callers in the live code (03 §26).'),
+                                   card=c, light=l, real=r) for i, (t, c, l, r) in enumerate(scs)]))
+    SVC2MOD[key] = key
+N_SCN = sum(len(m['scns']) for m in MODULES)
 LINE2MOD = {'rw:beat': 'railway', 'rw:crawler': 'railway', 'rw:api': 'railway', 'site:db': 'bluehost', 'osm': 'geofabrik'}
 WF_ALARMS = {}
 for a in ALARMS['open']:
@@ -470,7 +479,7 @@ def board_view():
 
 def mod_card(m):
     seg = ''.join(f'<button class="sc-b" data-mod="{m["id"]}" data-scn="{i}" aria-pressed="{"true" if i == 0 else "false"}">{E(s["title"].split(": ", 1)[-1] if ": " in s["title"] else s["title"])}{"" if s["real"] else " · scenario"}</button>' for i, s in enumerate(m['scns']))
-    cards = ''.join(f'<div class="scn" data-mod="{m["id"]}" data-scn="{i}" data-real="{1 if s["real"] else 0}"{"" if i == 0 else " hidden"}><p class="sub scn-intro">{E(s["intro"])} <a href="../mockups/{s["file"]}">Its static mockup</a></p>{s["card"]}</div>' for i, s in enumerate(m['scns']))
+    cards = ''.join(f'<div class="scn" data-mod="{m["id"]}" data-scn="{i}" data-real="{1 if s["real"] else 0}"{"" if i == 0 else " hidden"}><p class="sub scn-intro">{E(s["intro"])}{f' <a href="../mockups/{s["file"]}">Its static mockup</a>' if s["file"] else ''}</p>{s["card"]}</div>' for i, s in enumerate(m['scns']))
     l0 = m['scns'][0]['light']
     return f"""<details class="mod" id="mod-{m['id']}" data-role="{m['role']}"><summary><span class="mn">{E(m['label'])}</span><span class="badge role">{m['role']}</span><span class="mstate" data-mod-state="{m['id']}">{lt(*l0)}{'' if m['scns'][0]['real'] else ' <span class="sctag">scenario</span>'}</span><span class="sub">03 {m['sec']} · {len(m['scns'])} state{'s' if len(m['scns']) > 1 else ''}</span></summary>
 <div class="seg wrapseg" role="group" aria-label="Scenario: {E(m['label'])}">{seg}</div>{cards}</details>"""
@@ -483,8 +492,12 @@ def modules_view():
     chain = f"""<div class="chainbox" data-role="Source"><h3>Web search: one chain</h3><p class="sub">Web search (W8, W10–W12): Tavily first, then Brave Search; both paused → "queued" (<code>Preflight::NEEDS</code> websearch). Each keeps its own manifest, radius and card below.</p>
 <div class="chain">{modlink('tavily')}<span aria-hidden="true">→</span>{modlink('brave')}<span aria-hidden="true">→</span><span class="sub">queued</span></div>{mod_card(by['places'])}{mod_card(by['tavily'])}{mod_card(by['brave'])}</div>"""
     grp = f"""<div class="chainbox" data-role="Source"><h3>The batched sources: one group</h3><p class="sub">Five free bulk files the Railway worker loads for W1. <a href="../mockups/sources-a-list.html">The list</a>. Each keeps its own card below.</p>{''.join(mod_card(by[i]) for i in ('overture', 'foursquare', 'geofabrik', 'cms', 'irs'))}</div>"""
+    more_s = ''.join(mod_card(m) for m in MODULES if m.get('more') and m['role'] == 'Service')
+    more_r = ''.join(mod_card(m) for m in MODULES if m.get('more') and m['role'] == 'Source')
+    grp += (f'<div class="chainbox" data-role="Service"><h3>More services (03 §26)</h3><p class="sub">Named by the source map with no card before; drawn from their records and callers. Never drawn as working unless they\'re called.</p>{more_s}</div>'
+            f'<div class="chainbox" data-role="Source"><h3>More sources (03 §26)</h3><p class="sub">The same, for sources. Common Crawl, Wikimedia and the Census carry their real faults from the alarms snapshot.</p>{more_r}</div>')
     return f"""<section class="view" id="view-modules" hidden data-title="Modules">
-<div class="vh"><div><h1>Modules</h1><p class="sub">Every module, the hosts included: {len(MODULES)} cards and {N_SCN} states, each the four-zone card of 03 §12–§25. Each card's switch flips between its states and the faults already specified. A state marked "scenario" is drawn, not read.</p></div>
+<div class="vh"><div><h1>Modules</h1><p class="sub">Every module, the hosts included: {len(MODULES)} cards and {N_SCN} states, each the four-zone card of 03 §1–§26. Each card's switch flips between its states and the faults already specified. A state marked "scenario" is drawn, not read.</p></div>
 <div class="seg" role="group" aria-label="Role"><button data-role-f="all" aria-pressed="true">All</button><button data-role-f="Host" aria-pressed="false">Hosts</button><button data-role-f="Service" aria-pressed="false">Services</button><button data-role-f="Source" aria-pressed="false">Sources</button></div></div>
 <h2 class="h2 rh" data-role="Host">Hosts</h2>{hosts}<h2 class="h2 rh" data-role="Service">Services</h2>{svcs}<h2 class="h2 rh" data-role="Source">Sources</h2>{chain}{grp}</section>"""
 
@@ -625,7 +638,7 @@ def quick():
         ('c', 'p-c1-0', 'W1 paused: IR-0001', 'r', '2 trips'),
         ('m', 'anthropic:1', 'Claude cap $27.05 of $40', 'a', '68%'),
         ('m', 'places:0', 'Google Places 544 of 1,000', 'a', '54%'),
-        ('w', '', 'W3: Common Crawl #35', 'r', 'trip'),
+        ('m', 'commoncrawl:1', 'W3: Common Crawl #35', 'r', 'trip'),
         ('w', '', 'Paused now: W3\'s source and commoncrawl tasks left off', 'a', '2 off'),
         ('c', 'p-c2-0', 'Search: 101 of 106', 'a', '95%'),
         ('o', 'o-paths', 'Paths: set-place failed', 'a', '1 failed'),

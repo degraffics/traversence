@@ -1,40 +1,13 @@
 {
  "pages": 335,
  "groups": 18,
- "modules": 20,
- "scenarios": 70,
+ "modules": 46,
+ "scenarios": 100,
  "objectives": 23,
  "unmeasured": 8,
  "pages_unchecked": 112,
  "coming": 37,
- "no_card": [
-  "apple",
-  "az511",
-  "azcc",
-  "census",
-  "commoncrawl",
-  "cpsc",
-  "dbip",
-  "heigit",
-  "loc",
-  "meta",
-  "microsoft",
-  "namecom",
-  "nmsos",
-  "nps",
-  "nws",
-  "onepassword",
-  "osm",
-  "pixabay",
-  "ridb",
-  "square",
-  "stripe",
-  "supabase",
-  "tailwind",
-  "usgs",
-  "vimeo",
-  "wikimedia"
- ],
+ "no_card": [],
  "workflows": 15,
  "chain1": [
   "Gathering reconciles",
@@ -50,5 +23,5 @@
   "W1 Listings (places by kind and town), W9 Landmarks, W12 Search learning",
   "Geofabrik (our OpenStreetMap copy) and Overture"
  ],
- "size": 1251470
+ "size": 1494072
 }
