@@ -3,48 +3,48 @@
  "built_on": "66b591f Sync: 2026-11-20 23:49 UTC",
  "recorded": "2026-11-21 00:54 UTC",
  "note": "0176 R3, Fix it routing: each alarm's first button opens the one spot that fixes it; Reactivate on W0's page. Jason approved in the decision pop-up (reviewed by the session manager). Built on Sync: 2026-11-20 23:49 UTC (66b591f) Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "077a3ec Sync: 2026-11-21 00:57 UTC",
  "files": {
   "app/admin/control-console.php": {
    "sha256": "4f04c5cb7f20bf0e2acd7e701b1a31f3127058bbf2d50431e0fb1ab23db58987",
-   "live": false
+   "live": true
   },
   "app/admin/index-console.php": {
    "sha256": "c9e6b3bd58bdf4433cf0e1733272ed46c4a5ad17057b2f3d31686c30569d15b0",
-   "live": false
+   "live": true
   },
   "app/admin/operations-console.php": {
    "sha256": "c1b2cbec0c4f98d7c481cce2f62b6384cca23b5291064b88affde175799eaa73",
-   "live": false
+   "live": true
   },
   "app/lib/ControlAlarms.php": {
    "sha256": "757d1b17f220a429c3d6dfc398bf315217cedb0b5d8570f94ce26141628b41c6",
-   "live": false
+   "live": true
   },
   "app/lib/Operations.php": {
    "sha256": "428a15935ff34b4063498975cfa21d0ebdc952405b4feb900e5a814d0bb3a226",
-   "live": false
+   "live": true
   },
   "app/lib/ServiceHealth.php": {
    "sha256": "dd9cfafe3ba7054ab8d0d9fa9396e62577716705e1fb6b4ff7fbc93653b06c17",
-   "live": false
+   "live": true
   },
   "app/lib/Thread.php": {
    "sha256": "1c61549e4edef9c17f75b34e62aa2cc3f47985fe330dd2bb6dce24318763736b",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "982f3d13a92ccf1e086fc5ae482891385490e556c760f4a1ecd2e7e1bdc0405a",
-   "live": false
+   "live": true
   },
   "app/ui/pulse-ui.php": {
    "sha256": "80e07e5e611e6a87817af2bc14c28cfda2ef76b4b850323f2851e6bc986951a7",
-   "live": false
+   "live": true
   },
   "website/js/admin-outside.js": {
    "sha256": "5b11db06a3464e41bf208663d67cb0c31adada5c8b0accf354165ed297dc2214",
-   "live": false
+   "live": true
   }
  }
 }

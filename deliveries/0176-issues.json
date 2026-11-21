@@ -20,7 +20,7 @@
   },
   "app/lib/ServiceHealth.php": {
    "sha256": "1f53c2c5ddf9ba09fc2534f815b73a76deb04e02ed38b523affe81b24b85910f",
-   "live": true
+   "live": false
   },
   "app/lib/SystemStart.php": {
    "sha256": "044f4704c5e4c71427b42044c8cf1c534f2f8d9a989d647b31597f0518b387dc",
