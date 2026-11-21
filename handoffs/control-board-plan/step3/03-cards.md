@@ -936,23 +936,23 @@ opened and no call was made to QuickBooks.
 | retries | each call retries once after 2 seconds on 429 or 5xx (`httpRetry()`) | obs |
 | the sensor | `ControlSensor::probePayments()`: the token read locally every 5 minutes; a real check (the company's info) at most once an hour, held on staging. "held" (needs reconnecting) is a trip at once | obs |
 | webhooks | `/api/qb-webhook.php`, signed with the verifier token (`intuit-signature`), refused unsigned (401). Payments, invoice changes, refunds, credit memos. **A missed webhook only delays, never loses, an order**: the buyer's page asks QuickBooks, and "Check QuickBooks" on Orders catches it | obs |
-| backup | the need "Our orders' payments": QuickBooks, else **"wire or check"**; **Stripe as a second processor: planned, not built** | obs (`Preflight::NEEDS`) |
+| backup | the need "Our orders' payments": QuickBooks, else **"wire or check"**, until Stripe exists as its own stage-1 module (ruling 4) | obs (`Preflight::NEEDS`); ruling 4 |
 | portal_links | **Console · QuickBooks** https://qbo.intuit.com/ and **Keys · Developer app** https://developer.intuit.com/app/developer/dashboard (04 §5 rulings), each **Documented · release #212**; Billing and Sign in: not registered | obs |
 
 ### 19.2 The four zones
 
 | Zone | QuickBooks |
 |---|---|
-| 1 | **QuickBooks (Intuit)** · Service · **Critical: payments** · state · Stage 5 · setup notice · chip "Our subscription is paid to Intuit; each card payment carries a processing fee · not recorded here yet · Billing: No billing page registered for QuickBooks (Intuit) yet." · **the guard: "No test moves real money"** with `guardReal()` and `testHere()` · radius |
+| 1 | **QuickBooks (Intuit)** · Service · **Critical: payments** · state · Stage 5 · setup notice · chip "Our subscription is paid to Intuit; each card payment carries a processing fee · **fees not read yet** · Console · QuickBooks ↗ (ruling 3) · Billing: No billing page registered for QuickBooks (Intuit) yet." · **the guard: "No test moves real money"** with `guardReal()` and `testHere()` · radius |
 | 2 | Our orders' payments · Plans and renewals (`billing_tick`) · Its webhooks · The mode (production, sandbox or mock) |
-| 3 | Its token (local every 5 min, a real check hourly) · Checkout's paths (site:payments) · Webhooks (signed or refused) · Staging's keys |
+| 3 | Its token (local every 5 min, a real check hourly; **a warning 14 days before the refresh token runs out**, ruling 5; Intuit's lifetime inf, a step-4 check) · Checkout's paths (site:payments) · Webhooks (signed or refused) · Staging's keys |
 | 4 | On our system: Check now · **Reconnect** (the owner) · Take out. At QuickBooks (Intuit): Billing (not registered) · Keys · Developer app · Console · QuickBooks · Sign in (not registered) |
 
 ### 19.3 Incident Radius: when payments can't reach QuickBooks
 
 | Held | On a backup | Unaffected |
 |---|---|---|
-| our orders' payments: new invoices and pay links, card charges (a waiting charge goes once QuickBooks answers, never twice), recorded payments; checkout for our own orders shows "opens soon"; renewals (`billing_tick`) | "wire or check" for our orders; Stripe as a second processor is planned, not built | **Marketplace checkout** (businesses' own Stripe and Square); orders already paid and codes already issued; pages, search, sign-in; everything else |
+| our orders' payments: new invoices and pay links, card charges (a waiting charge goes once QuickBooks answers, never twice), recorded payments; checkout for our own orders shows "opens soon"; renewals (`billing_tick`) | "wire or check" for our orders, until Stripe exists as its own stage-1 module | **Marketplace checkout** (businesses' own Stripe and Square); orders already paid and codes already issued; pages, search, sign-in; everything else |
 
 ### 19.4 The states (mockups)
 
@@ -961,7 +961,7 @@ opened and no call was made to QuickBooks.
 | a Working | — | "On · Working"; the guard on the card. No QuickBooks or payments alarm in the 10:19 UTC snapshot (obs) | — | — |
 | b The token refused (`invalid_grant`) | 70, 106, 129 | "Checkout can't take cards: QuickBooks needs reconnecting · Paused by the system." Closes "Fixed by <name>: reconnected QuickBooks. Its check passed: <proof>." | code "QuickBooks needs reconnecting (Admin → E-Commerce → Payments)."; sensor "QuickBooks' connection ran out or was refused: it needs reconnecting." (obs); board "SYSTEM ALARM NOTICE: Checkout and payments: Paused by the system", closing "Recovered: … the system fixed it" after a person reconnected (sim, g3 C12) | **Its key: Reconnect** (the owner); Keys · Developer app if the app's keys changed |
 | c QuickBooks 5xx while a charge waits | 24–26, 69, 87, 88 | "Checkout and payments: QuickBooks isn't answering · Paused by the system (our orders' payments): still trying, 2 of 3, next at <time>." (critical: a trip at once while trying; words follow the state, 12.6a) | code "QuickBooks (503): …" after one retry; sensor "QuickBooks didn't answer: …" (obs); board "Tripped at once … still trying" with "…: Paused by the system" though nothing paused (sim, g4 row 4) | their trouble: Console · QuickBooks, then Check and start again |
-| d A test order stopped | a Notice (no row) | "Order #<n> is a test order: it never goes through live QuickBooks" · "Notice · its invoice was stopped before it reached the live gateway. No real money moved." No message | code "Order #… is a test order: it never goes through live QuickBooks, so no real money moves. Switch E-Commerce → Payments to Sandbox to run it through." (obs, `guardReal()`), to the person who pressed | none |
+| d A test order stopped | **70a**, a Notice | "Order #<n> is a test order: it never goes through live QuickBooks. No real money moved." · "Notice · its invoice was stopped before it reached the live gateway." No message | code "Order #… is a test order: it never goes through live QuickBooks, so no real money moves. Switch E-Commerce → Payments to Sandbox to run it through." (obs, `guardReal()`), to the person who pressed | none |
 
 ### 19.5 Setup capture (§13.x)
 
@@ -977,16 +977,114 @@ Keys, names only:
 - The connection's access and refresh tokens: sealed in the database (`qb_connection`), never in `.env`.
 - `QB_TEST_API` is for tests only and isn't listed.
 
-### 19.6 Open words for QuickBooks
+### 19.6 Open words for QuickBooks: answered by the session manager (2026-11-21)
 
-1. **The test-order guard as a state.** It has no 02 row. It's drawn as a Notice with no message, like Gemini's privacy
-   guard (row 37a). Should it get a row?
-2. **Down or Paused for a critical payments outage.** Rows 69 and 87 say "Down: the system is still trying" when nothing
-   is held. Page c holds the waiting charge, so it reads "Paused by the system (our orders' payments): still trying, n of
-   3" (12.6a). Confirm that payments follow the GitHub ruling.
-3. **The processing fee** "shows in QuickBooks (not recorded here yet)". Should the spend chip read it from QuickBooks'
-   payments, and when?
-4. **Stripe as a second processor** is planned in the need's fallback. Until it's built, "wire or check" is the only
-   backup; the card says so.
-5. **The token's date.** The sensor reads "its token is good until <date>" from the connection. Should the card warn a
-   set number of days before the refresh token runs out, as GitHub's tokens do (14 days)?
+1. **The test-order guard** is 02 row 70a: a Notice on QuickBooks' card only, with no message, the same shape as 37a (page d).
+2. **A payments outage** follows the GitHub rule: words follow the state. Page c reads "Paused by the system (our
+   orders' payments): still trying, n of 3", as drawn.
+3. **The fees:** the spend chip reads "fees not read yet", with the Console slot. Reading QuickBooks' fees joins the
+   step-4 ledger export as a spec item: a read of our own account's data, at no cost. It's in "For Jason's review" at the
+   end of this document; not asked now.
+4. **The backup** is "wire or check" until Stripe exists as its own stage-1 module.
+5. **The token's date:** a warning 14 days before the refresh token runs out, the same threshold as GitHub's. Intuit's
+   refresh lifetime is **inf**, with a step-4 check.
+
+---
+
+## 20. The Communications Dispatcher's card (mockups `dispatcher-*.html`)
+
+A Service module, from the report's §5 as corrected: **channels are email, Pulse and push only; no SMS, no webhooks**.
+Built from decisions/0172 and 0176, the live code at mirror `aeb5f31` (`Notify`, `Mailer`, `SesMail`, `WebPush`,
+`Mailboxes`, `ControlRegister`), step 2's g4 §c, and the tests in `tools/notify-tests/` and `tools/dispatcher-tests/`. No
+`.env` was opened and no message was sent.
+
+### 20.1 The manifest
+
+| Field | Value | Basis |
+|---|---|---|
+| id · name | `dispatcher` · The Communications Dispatcher (`Notify`, with `Thread`, `Mailer`, `SesMail`, `WebPush`) | obs (g4 §c) |
+| role | **Service**: it delivers every thread (alarms, uploads, people's messages) | des (02 §7) |
+| criticality | **The code and the spec differ.** `ControlRegister::CRITICAL` has **no dispatcher part** (and `processes` has no Notify part); the procedures duty names `svc:aws` (SES, "system email"). 02 §7 and the report call the dispatcher critical (procedures). The card shows the spec, labelled "Critical: procedures (by the spec; not in the register today)" (§20.6) | obs; des |
+| channels | **Pulse** (always; `comms_messages`), **email**, **push** (`Notify::CHANNELS`) | obs |
+| email | **Bluehost's SMTP first, then Amazon SES "the backup"** (`Mailer`, 0163's note). SES also sends notices and the weekly digest from its personal account, and later bulk mail from its own account (`SesMail`). A bounce or complaint stops all mail to that address (SES's suppression list). So the code doesn't send alarm email through SES first; SES is its backup | obs |
+| push | our own VAPID keys (`WebPush`, RFC 8291 and 8292); on by default for Alert and up once a person has a device; **pace**: past 3 pushes in 5 minutes per person the rest fold into one summary; Critical always on its own; one tag per thread, alerting again only on a rise or Critical | obs |
+| quiet hours | hold email for Notice, General and Special, and push for Alert too; Critical and Urgent go anyway | obs |
+| one thread | one record per recipient; alarm kinds are updated in place (`IN_PLACE`), one thread per alarm on every channel (0176 §1) | obs |
+| mailboxes (receiving) | cPanel, IMAP, POP, Gmail, Microsoft (Graph), SES inbound, read and answered in Pulse every 5 minutes; passwords sealed (`COMMS_SEAL_KEY`) | obs |
+| fallback between channels | **today: none.** Email's only fallback is SMTP → SES; when both fail, a `mail.failure` message goes to Pulse and reaches the overseers by the same failing email (root cause 6; g4 §c). **Spec (row 81):** the message falls back to the next channel, logged "Fell back to push (email failed: <answer>)" | obs; des |
+| message control | pauses a kind, a channel or a sender. **Today** it holds Critical too (g4 row 15); **spec (row 82)**: Critical is sent anyway | obs; des |
+| spend | Bluehost's mail and our push keys: free; SES about $0.10 per 1,000 emails, at `SES_MONTHLY_CAP_USD`; use not read yet | obs |
+| portal_links | through AWS (`service-defs.php` 'aws'): Billing, Keys · The site's key (IAM), Console (its address `{console}` filled in by the site, not read here), each **Documented · release #212**; Sign in not registered. "SES" and "S3" aren't slots: SES's page is a link on zone 2's email row | obs |
+
+### 20.2 The four zones
+
+| Zone | The Communications Dispatcher |
+|---|---|
+| 1 | Service · "Critical: procedures (by the spec; not in the register today)" · state · Stage 5 · setup notice · spend · **"Channels: email, Pulse, push · no SMS, no webhooks"** · radius |
+| 2 | **the channel adapters:** Pulse · Email (SMTP, then SES; quiet hours; one email per conversation while unread; suppression) · Push (VAPID; pace; tags) · Mailboxes (receiving) · Fallback between channels (today none; spec row 81) · Message control (today holds Critical; spec row 82) |
+| 3 | the route (each sender's last sent and failed, 24 h) · queue depth (*spec*) · bounces and complaints (*spec*; today an address is stopped, no rate) · push keys and dead devices · reached no one (*spec*, row 80) · founders without a device |
+| 4 | On our system: **Send test dispatch (to the owner only)** · **Open the routing matrix** (who gets what, by role and level; https://traversence.com/admin/config/communications#cs-routing, email only today) · **Fix it** (a sender → https://traversence.com/admin/config/communications#cs-controls and its sender's card; push keys → Its key) · Check now. At Amazon Web Services (SES): Billing · Keys (IAM) · Console · Sign in (not registered) |
+
+### 20.3 Incident Radius
+
+| Fault | Held | On a backup | Unaffected | Basis |
+|---|---|---|---|---|
+| SES down | notices and the weekly digest by email; system email's backup | system email (sign-in codes, alarms) still goes by Bluehost's SMTP, first anyway; Pulse and push carry the rest | Pulse, push, the site | obs (code); des |
+| SMTP and SES both refuse (row 81) | email of every kind | Pulse and push carry every message, each saying "Fell back to push (email failed: …)" | Pulse, push | des |
+| Push keys refused | every push | Pulse and email | Pulse, email | des |
+| A trip reaches no one (row 80) | every alarm's message (no active receiver) | none | the board shows every trip | des |
+| **The dispatcher itself failing** (its database: `Notify` never throws, so a send is lost with no trace, g4 §c) | every message, on every channel | — | the site's pages and work | obs; des |
+
+**Who watches the watcher:** when the dispatcher can't tell anyone, the outside heartbeat on GitHub (Bluehost's card,
+§14.6a) emails the Founder through SES with its own sending-only secret, from outside the host.
+
+### 20.4 The states (mockups)
+
+| Mockup | Row (02) | New words | Today's words, beside them | Fix it |
+|---|---|---|---|---|
+| a Working | — | "On · Working"; the criticality difference shown as an observed note | — | — |
+| b Email failing (SMTP 535, SES refused) | 81, 82 | "Email isn't sending (SMTP 535, SES refused) · Alarms go by Pulse and push." · "Paused by the system (email): still trying, 1 of 3, next at <time>." Each failed email "Fell back to push" | a `mail.failure` in Pulse, reaching overseers by the same failing email; no board alarm; nothing falls back (inf, g4 §c) | the sender's card (#cs-controls) and AWS's Console for SES; Check and start again |
+| c Push keys refused | 29, 81, 106 | "Push isn't sending (VAPID keys refused) · Alarms go by Pulse and email." · "Paused by the system (push)" | the route `skipped` or `failed`; nothing tells anyone (g4 §c) | Its key (Replace key); no portal page (our own keys) |
+| d A trip reached no one | 80; P11 | "The Communications Dispatcher: a trip reached no one (no active founder) · Down." The trip's row: "Reached no one: no active founder", logged | nothing sent, nothing logged (g4 row 14) | the routing matrix (#cs-routing); the outside heartbeat's email as the last way |
+
+Under Jason's words-follow-the-state rule (12.6a), b and c read "Paused by the system (<channel>)" because the channel is
+held. d reads "Down": nothing is held, and the alarms stand on the board.
+
+### 20.5 Setup capture (§13.x)
+
+Notice: **"Setup capture: Sign in not recorded"**.
+
+Keys, names only. All of these are in `.env`:
+- `SMTP_HOST`, `SMTP_PORT`, `SMTP_USERNAME`, `SMTP_PASSWORD`, `SMTP_FROM_EMAIL`, `SMTP_FROM_NAME`, `SMTP_REPLY_TO`.
+- `<SENDER>_SMTP_USERNAME`, `<SENDER>_SMTP_PASSWORD`, for a sender with its own mailbox.
+- `SES_MODE`, `SES_REGION` (else `AWS_REGION`).
+- `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`, or `SES_PERSONAL_KEY_ID` and `SES_PERSONAL_SECRET`.
+- `SES_BULK_KEY_ID`, `SES_BULK_SECRET`.
+- `SES_MONTHLY_CAP_USD`, `SES_USD_PER_1000`, `EMAIL_LINK_KEY`.
+- `VAPID_PRIVATE_PEM_B64`, `VAPID_PUBLIC_B64U` (write-only).
+- `COMMS_SEAL_KEY` (write-only).
+
+Mailboxes' passwords and Microsoft's tokens are sealed in the database, never in `.env`.
+
+### 20.6 Open words for the dispatcher
+
+1. **Critical, or not?** 02 §7 and the report make the dispatcher a critical Service (procedures). The live register has
+   no dispatcher part; only `svc:aws` carries "system email". Should step 4 register the dispatcher as a part with the
+   procedures duty, and keep `svc:aws` as one of its channels' providers?
+2. **Email's order.** The coordinator's brief put SES first. The code sends system and alarm email by Bluehost's SMTP
+   first, with SES as the backup, and notices through SES. The card follows the code; confirm the order.
+3. **The outside heartbeat as the watcher's watcher.** It emails through SES with its own secret (14.6a). When "no active
+   founder" is the cause, whom does it email? 02 doesn't say.
+4. **The routing matrix** is email only today (#cs-routing). Does step 4 extend it to Pulse and push, by role and level?
+5. **Bounces and complaints:** SES's rate per account isn't read today. Its threshold for a warning isn't set in 02.
+
+---
+
+## For Jason's review
+
+Items noted for Jason's review of the step-3 design. None is asked now.
+
+1. **QuickBooks' processing fees** (§19.6, 3): reading them joins the step-4 ledger export as a spec item. It's a read of
+   our own account's data at no cost, and the spend chip reads "fees not read yet" until then.
+2. **The shared web search cap's unit** (§18.6, 2): it counts searches today, as the code does, with a dollars line
+   beside it. Should the cap be a count or dollars, since Brave costs $0.005 a search and Tavily $0.008 a credit?

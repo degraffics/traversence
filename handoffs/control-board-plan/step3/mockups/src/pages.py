@@ -252,7 +252,7 @@ def build_index():
                   f'<a href="shots/{s}-390.png"><img src="shots/{s}-390.png" alt="{E(t)} at 390" style="max-width:220px;width:100%;border:1px solid var(--card-edge);border-radius:.4rem"></a></div>'
                   f'<div class="kv"><a href="shots/{s}-1280.png">1280 screenshot</a><a href="shots/{s}-390.png">390 screenshot</a></div></div></div>')
     page('index.html', 'Railway mockups', 'Step 3\'s first card spec: Railway\'s four-zone card in every state.',
-         '<div class="intro"><b>The card spec\'s mockups (step 3): Railway, GitHub, Bluehost, Anthropic, Google, Tavily, Brave Search and QuickBooks.</b> Static design pages, not site code. The spec is <code>../03-cards.md</code>; '
+         '<div class="intro"><b>The card spec\'s mockups (step 3): Railway, GitHub, Bluehost, Anthropic, Google, Tavily, Brave Search, QuickBooks and the Communications Dispatcher.</b> Static design pages, not site code. The spec is <code>../03-cards.md</code>; '
          'the words come from <code>../02-state-model.md</code>.</div>' + items)
 
 

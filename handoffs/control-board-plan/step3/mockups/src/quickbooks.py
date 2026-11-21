@@ -33,7 +33,7 @@ def qb_slots(fix=None):
 
 QB_RADIUS = """<details><summary>If QuickBooks can't be reached: its Incident Radius</summary>
 <div class="rad"><div class="h"><b>Held</b><ul><li>Our orders' payments: new invoices and their pay links, card charges, payments recorded</li><li>Checkout for our own orders shows “opens soon”</li></ul></div>
-<div class="o"><b>On a backup</b><ul><li>“Wire or check” (the need's fallback); Stripe as a second processor is planned, not built</li></ul></div>
+<div class="o"><b>On a backup</b><ul><li>“Wire or check”, until Stripe exists as its own stage-1 module</li></ul></div>
 <div class="u"><b>Unaffected</b><ul><li>Marketplace checkout: businesses' own Stripe and Square</li><li>Orders already paid; codes already issued</li><li>Pages, search, sign-in; everything else</li></ul></div></div>
 <div class="sub">A missed webhook only delays, never loses, an order: the buyer's page asks QuickBooks, and “Check QuickBooks” on Orders catches any it missed.</div></details>"""
 
@@ -41,7 +41,9 @@ STAGE_QB = '<span class="st">Stage 5 of 8 · Operational</span><span class="nx">
 STAGE_QBT = '<span class="st">Stage 5 of 8 · Operational</span><span class="nx">Next allowed: Check and start again · Reconnect · Acknowledge</span>'
 GUARD = ('<span class="spend"><span><b>No test moves real money</b></span><span class="why">a test order (made in the sandbox, “TEST · …”, or by a test account) never goes through live QuickBooks: '
          '<code>QuickBooksPay::guardReal()</code> before every charge, invoice and payment; <code>testHere()</code> runs test accounts and staging in the sandbox (decisions/0145)</span></span>')
-FEES = ('<span class="spend"><span>Our subscription is paid to Intuit; each card payment carries a processing fee</span><b>not recorded here yet</b>'
+FEES = ('<span class="spend"><span>Our subscription is paid to Intuit; each card payment carries a processing fee</span><b>fees not read yet</b>'
+        f'<a href="{QBO}" target="_blank" rel="noopener">Console · QuickBooks ↗</a>'
+        '<span class="why">reading them joins the step-4 ledger export (our own account\'s data, no cost)</span>'
         '<span class="why">Billing: No billing page registered for QuickBooks (Intuit) yet.</span></span>')
 
 
@@ -68,7 +70,7 @@ def qb_z3(over=None):
     over = over or {}
     return rows([
         ('Its token', 'read locally every 5 minutes; a real check (the company\'s info) at most once an hour, held on staging (<code>ControlSensor::probePayments</code>)', '',
-         over.get('tok', 'not read yet: “Connected; its token is good until <date>” when it is'), '', over.get('tok_cls', '')),
+         over.get('tok', 'not read yet: “Connected; its token is good until <date>” when it is') + '<div class="sub">A warning 14 days before the refresh token runs out, as GitHub\'s tokens (Intuit\'s refresh lifetime: inf, a step-4 check).</div>', '', over.get('tok_cls', '')),
         ('Checkout\'s paths', 'site:payments: visitors\' server errors on checkout and QuickBooks\' paths (critical: payments)', '', over.get('paths', 'no alarm open in the 3:19 AM MST snapshot'), '', over.get('paths_cls', '')),
         ('Webhooks', 'signed or refused, logged', '', over.get('wh', 'not read yet'), '', ''),
         ('Staging\'s keys', 'no live payment key on staging (<code>StagingGate::liveKeys</code>)', '', over.get('stg', 'not read yet'), '', ''),
@@ -92,7 +94,7 @@ def qb_card(state, thread_html=None, z2o=None, z3o=None, fault=None, stage=STAGE
 
 HELD_QB = ('<ul><li>Our orders\' payments: new invoices and pay links, card charges, recorded payments; checkout for our orders shows “opens soon”</li>'
            '<li>Renewals (<code>billing_tick</code>) wait</li></ul>')
-OB_QB = '<ul><li>“Wire or check” for our orders (the need\'s fallback)</li></ul><div class="why">Stripe as a second processor: planned, not built</div>'
+OB_QB = '<ul><li>“Wire or check” for our orders, until Stripe exists as its own stage-1 module</li></ul>'
 UNAFF_QB = '<ul><li>Marketplace checkout (businesses\' Stripe and Square)</li><li>Paid orders and issued codes</li><li>Pages, search, sign-in</li></ul>'
 UPQ = '<span class="why">its actions are in the thread above ↑</span>'
 
@@ -147,8 +149,8 @@ def qb_down():
 
 
 def qb_guard():
-    th = thread(f'Order {sc("#1057")} is a test order: it never goes through live QuickBooks',
-                light('n', 'Notice') + f' · {sc("10:41 AM MST")}: its invoice was stopped before it reached the live gateway. No real money moved.',
+    th = thread(f'Order {sc("#1057")} is a test order: it never goes through live QuickBooks. No real money moved.',
+                light('n', 'Notice') + f' · {sc("10:41 AM MST")}: its invoice was stopped before it reached the live gateway. No message.',
                 'nothing: the guard working', 'none', '<ul><li>Everything: live payments go on</li></ul>',
                 'The guard, not a fault: a test order (made in the sandbox, “TEST · …”, or by a test account) never reaches live QuickBooks. Run it through the sandbox instead. No message is sent.',
                 b('Switch E-Commerce → Payments to Sandbox') + '<span class="why">to run the test order through</span>',
@@ -156,7 +158,7 @@ def qb_guard():
                 'No Fix it: nothing is wrong.',
                 '<dl class="dl"><dt>Why</dt><dd>its buyer is a test account (or it was made in the sandbox, or it\'s a “TEST · …” copy): <code>guardReal()</code>, called before every charge, invoice and payment</dd>'
                 '<dt>Refunds</dt><dd>refunds and credits only send money back, so a test copy that once took real money can still be refunded</dd>'
-                '<dt>Rule</dt><dd>CLAUDE.md “No test moves real money”; decisions/0145; a Notice (02 §3c); no 02 row (Open words)</dd></dl>'
+                '<dt>Rule</dt><dd>CLAUDE.md “No test moves real money”; decisions/0145; 02 row 70a: a Notice on QuickBooks\' card only, no message</dd></dl>'
                 + today_words(['Code: “Order #… is a test order: it never goes through live QuickBooks, so no real money moves. Switch E-Commerce → Payments to Sandbox to run it through.” (obs, <code>guardReal()</code>), shown to the person who pressed.']), at=QB)
     return qb_card(light('g', 'On · Working') + ' <span class="cnt">Notice: a test order stopped</span>', th,
                    z2o={'pay': light('g', 'On · Working') + ' <span class="why">the guard stopped a test order</span>'})
