@@ -1,0 +1,128 @@
+diff --git a/app/lib/ControlAlarms.php b/app/lib/ControlAlarms.php
+index 71c222f..6587860 100644
+--- a/app/lib/ControlAlarms.php
++++ b/app/lib/ControlAlarms.php
+@@ -264,6 +264,16 @@ final class ControlAlarms
+             // a need with no source working (a pre-flight need line): the tasks that call its services wait, in every workflow
+             // it names, never the whole of the first one (the workflow audit, 2026-11-21; decisions/0175 §3: "a trip stops only
+             // what it holds"). A need whose services no task calls keeps the old pause on its workflow.
++            // our own endpoint's fault where the worker sends (ep:<endpoint>:5xx, :slow, :count): held nowhere. The worker sends
++            // it again and the endpoint's next good answer clears it; pausing what calls it would leave nothing to send that
++            // answer (case #51, 2026-11-21: three 500s from /api/crawl/loads.php paused all of W1 until a person lifted it)
++            if (str_starts_with($key, 'ep:')) return $out;
++            // a crawler task that failed (CrawlService's task:failed:<t>): only that task waits; its workflow's other tasks carry
++            // on, as its own words say (decisions/0175 §3: "a trip stops only what it holds"; case #51, 2026-11-21)
++            if (preg_match('/^task:failed:([a-z0-9_]+)$/', $key, $tm)) {
++                if (Automation::taskOff($pdo, $tm[1]) === null) $pause('task', $tm[1], $tm[1] . ' (' . substr($proc, 3) . '\'s other tasks carry on)');
++                return $out;
++            }
+             if (preg_match('/^pf:nd:([a-z_]+)$/', $key, $nm)) {
+                 require_once __DIR__ . '/Preflight.php'; require_once __DIR__ . '/OutsideServices.php'; require_once __DIR__ . '/ControlRegister.php';
+                 $nd = Preflight::NEEDS[$nm[1]] ?? null; $tw = ControlRegister::taskWorkflows($pdo); $tasks = [];
+@@ -466,6 +476,38 @@ final class ControlAlarms
+         return $did;
+     }
+ 
++    /**
++     * After the urgent W1 release (case #51, 2026-11-21): an open trip from before it that paused a whole workflow for one
++     * task's failure (task:failed:<t>) or for our own endpoint (ep:…) gets today's rule: the workflow's pause lifts, the task
++     * alone waits, and our endpoint's fault holds nothing (stop()). Logged. Safe every watch: once done, nothing matches.
++     */
++    public static function settleNarrow(PDO $pdo): array
++    {
++        $did = [];
++        try {
++            require_once __DIR__ . '/Automation.php'; require_once __DIR__ . '/ControlRegister.php';
++            Automation::ensurePauses($pdo);
++            // a bulk load's trip from a worker before 2.16.2, on the read timeout our load endpoint gave it (IR-0001, runs #1288
++            // and #1290: the only calls such a load shares are /api/crawl/loads.php): our endpoint was slow, never the task or
++            // its source, so it's re-filed as that and closed, its pause lifted (0171's note of 2026-11-19: slow is never a trip)
++            $loads = (array) (ControlRegister::ENDPOINTS['crawl/loads'][1] ?? []);
++            foreach ($pdo->query("SELECT * FROM control_alarms WHERE cleared_at IS NULL AND level = 'trip' AND akey LIKE 'task:failed:%'")->fetchAll(PDO::FETCH_ASSOC) as $a) {
++                $tk = substr((string) $a['akey'], 12);
++                if (!in_array($tk, $loads, true) || trim((string) $a['reading']) !== "TimeoutError('The read operation timed out')") continue;
++                if (self::clear($pdo, (string) $a['akey'], 'Re-filed: our load endpoint (/api/crawl/loads) didn\'t answer in time, so it was slow, not the task failing; nothing stays held (case #51).')) $did[] = 'trip #' . (int) $a['id'] . ' re-filed as our endpoint slow';
++            }
++            foreach ($pdo->query("SELECT * FROM control_alarms WHERE cleared_at IS NULL AND level = 'trip' AND (akey LIKE 'task:failed:%' OR akey LIKE 'ep:%') AND stopped LIKE '%\"wf:%'")->fetchAll(PDO::FETCH_ASSOC) as $a) {
++                $was = self::stoppedWords($a);
++                Automation::sysResume($pdo, (int) $a['id'], 'Narrowed: a task\'s failure pauses only that task, and our endpoint\'s fault holds nothing (case #51)');
++                $now = self::stop($pdo, $a);
++                $pdo->prepare('UPDATE control_alarms SET stopped = ? WHERE id = ?')->execute([$now ? mb_substr(json_encode($now, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE), 0, 400) : null, (int) $a['id']]);
++                self::log($pdo, 'settle', (string) $a['proc'], 'Narrowed: ' . (string) $a['title'], 'the system', 'It paused ' . $was . '; now ' . ($now ? implode(', ', array_column($now, 2)) : 'nothing') . '.');
++                $did[] = 'trip #' . (int) $a['id'] . ' narrowed';
++            }
++        } catch (Throwable $x) { error_log('settle narrow: ' . $x->getMessage()); }
++        return $did;
++    }
++
+     /** What a trip stopped, in words ('' none). */
+     public static function stoppedWords(array $a): string
+     {
+@@ -925,6 +967,7 @@ final class ControlAlarms
+         $did = [];
+         if ($sd = self::seed($pdo)) $did[] = $sd . ' known problem(s) raised';
+         foreach (self::settle0175($pdo) as $p) $did[] = $p;
++        foreach (self::settleNarrow($pdo) as $p) $did[] = $p;
+         foreach (self::expireTries($pdo) as $p) $did[] = $p;
+         // maintenance windows (0171 §2.5, release 4a): one whose time has come goes out; one past its Back by comes back
+         try { require_once __DIR__ . '/ControlMaintenance.php'; foreach (ControlMaintenance::tick($pdo) as $m) $did[] = 'maintenance: ' . $m; } catch (Throwable $x) {}
+diff --git a/app/lib/crawler/CrawlService.php b/app/lib/crawler/CrawlService.php
+index 185d279..4bfe013 100644
+--- a/app/lib/crawler/CrawlService.php
++++ b/app/lib/crawler/CrawlService.php
+@@ -200,6 +200,9 @@ final class CrawlService
+             $o = isset(self::OUTCOMES[$it['outcome'] ?? '']) ? (string) $it['outcome'] : 'skipped';
+             $n[$o]++;
+             $why = mb_substr(trim((string) ($it['why'] ?? '')), 0, 500);
++            // a task stopped only by our own endpoint (SiteSlow, below) isn't the crawler failing: it doesn't make the run
++            // "failed", whose trip pauses all gathering (case #51; slow is never a trip). Its item keeps "failed" and its why.
++            if ($o === 'failed' && str_starts_with($why, 'SiteSlow(')) { $n['failed']--; $n['skipped']++; }
+             $counts = array_slice(array_filter((array) ($it['counts'] ?? []), fn ($v) => is_int($v) || is_float($v) || is_string($v)), 0, 20, true);
+             $ins->execute([$runId, $tasks[$t]['wf'], $t, $o, max(0, min(65535, (int) ($it['allotted'] ?? 0))), max(0, min(65535, (int) ($it['seconds'] ?? 0))),
+                            max(0, min(65535, (int) ($it['fetches'] ?? 0))), max(0, min(65535, (int) ($it['searches'] ?? 0))), $counts ? json_encode($counts, JSON_UNESCAPED_SLASHES) : null, $why !== '' ? $why : null]);
+@@ -255,9 +258,24 @@ final class CrawlService
+                 'Its time ran out before any task was reached: the run is too short for its plan, or a task is slow.', 'Open run #' . $runId . ' (beside this) to see which task used its time; shorten that task\'s share or lengthen the run.', mb_substr($why, 0, 255), [['Run #' . $runId, 'peek', '/admin/insights/crawler?run=' . $runId]]);
+             else { ControlAlarms::clear($pdo, 'run:failed', $at); ControlAlarms::clear($pdo, 'run:starved', $at); }
+             // a task that fails is its own alarm on its workflow (release 3c): the next runs try it again (a warning), then a
+-            // trip stops that workflow only; a run where it did its work clears it. A run that failed outright is the
++            // trip pauses that task only, its workflow's other tasks carrying on (case #51, 2026-11-21; decisions/0175 §3); a run
++            // where it did its work clears it. A run that failed outright is the
+             // crawler's own trip above, not one per task.
+             if ($status !== 'failed') foreach ($taskOut as $t => [$o, $tw]) {
++                // our own endpoint slow or failing where the worker sends (crawler 2.16.2: SiteSlow, our timeout or our 5xx):
++                // recorded against our endpoint, never a task failure against its source (case #51, 2026-11-21: W1's two bulk
++                // loads timed out on /api/crawl/loads.php and paused all of W1). A timeout is slow: a warning, nothing paused,
++                // cleared by the endpoint's next answer at its usual speed (0171's note of 2026-11-19, "slow is never a trip").
++                // A 5xx is the endpoint's own crash, held nowhere: the worker sends it again (ControlAlarms::stop, ep:).
++                if ($o === 'failed' && str_starts_with((string) $tw, 'SiteSlow(')) {
++                    $ep = preg_match('~site /api/([a-z0-9_/-]+?)(?:\.php)?(?:\?[^\s:]*)?(?::| said)~i', (string) $tw, $em) ? $em[1] : 'crawl/unknown';
++                    $epProc = ControlAlarms::procOfEndpoint($pdo, $ep);
++                    if (preg_match('/ said (5\d\d)/', (string) $tw, $cm)) ControlAlarms::raise($pdo, 'ep:' . $ep . ':5xx', $epProc, 'trip', 'crash', '/api/' . $ep . ' answered a server error (' . $cm[1] . ') to the task ' . $t . ' (run #' . $runId . ')',
++                        'The worker\'s call failed on our side; what it sent wasn\'t kept and it sends it again on its next run. Nothing is paused: the fault is our endpoint\'s, not the task\'s or its source\'s.', 'Open the run (beside this) for its reason. Fix the cause on the site; the endpoint\'s next good answer clears this by itself.', mb_substr((string) $tw, 0, 255), [['Run #' . $runId, 'peek', '/admin/insights/crawler?run=' . $runId]]);
++                    else ControlAlarms::raise($pdo, 'ep:' . $ep . ':slow', $epProc, 'warning', 'slow', '/api/' . $ep . ' didn\'t answer the task ' . $t . ' in time (run #' . $runId . ')',
++                        'Our endpoint was too slow to answer the worker. That\'s slow, never a trip: nothing is paused, and the task tries again on its next run.', 'Nothing to do unless it keeps happening: it clears by itself when the endpoint answers at its usual speed.', mb_substr((string) $tw, 0, 255), [['Run #' . $runId, 'peek', '/admin/insights/crawler?run=' . $runId]]);
++                    continue;
++                }
+                 if ($o === 'failed') ControlAlarms::raise($pdo, 'task:failed:' . $t, 'wf:' . $tasks[$t]['wf'], 'trip', 'crash', $tasks[$t]['wf'] . ': its task ' . $t . ' failed (run #' . $runId . ')',
+                     'Its work goes back and the next run tries it again; the workflow\'s other tasks carry on.', 'Read its why in run #' . $runId . ' (beside this) and fix its source or its settings; then Try it first on the next run. Or Pause the task: the workflow\'s other tasks carry on.', $tw !== '' ? $tw : 'failed', [['Run #' . $runId, 'peek', '/admin/insights/crawler?run=' . $runId], ['Try it first on the next run', 'ops', 'ops_runnext:' . $t], ['Pause the task', 'ops', 'ops_task_off:' . $t, 'Pause the task ' . $t . '? It\'s switched off on Automation with this reason; its work waits.']]);
+                 elseif ($o === 'done') ControlAlarms::clear($pdo, 'task:failed:' . $t, 'It did its work in run #' . $runId . ' (' . gmdate('H:i') . ' UTC).');
+diff --git a/app/ui/faq.md b/app/ui/faq.md
+index cf10b0a..2c346dd 100644
+--- a/app/ui/faq.md
++++ b/app/ui/faq.md
+@@ -448,6 +448,15 @@ It's **one message**, updated in place, never sent twice. When a trip escalates,
+ - **A trip's notice, on every channel** (2026-11-20): its email subject and its Pulse row read "SYSTEM ALARM NOTICE: <the part>: <what happened>", where what happened is **Paused by the system**, then **Retries unsuccessful, now admin required** if the system couldn't fix it, then **Recovered**. The push reads "SYSTEM ALARM: <the part>", its words starting with what happened. Each says what's going on, what it means, what to do, and links to it. One alarm is one thread: Pulse and the push update in place, and each later email replies in the first one's thread. A trip goes at once, whatever your quiet hours.
+ - **Fix it** (2026-11-20, decisions/0176 release 3): where a person can fix something, an alarm's first button is **Fix it**. It opens the one spot that fixes it in the side panel (its ×, Esc or a click outside closes it): for a refused key, the service card's **Its key**, with Replace ready to paste into; for a used-up quota or a cap, the card's **Caps and paces** (the community budget: **Costs**); for a site that blocked the indexer, its line under **Sites that blocked us** on W0's page on the board, with **Reactivate**; for an outside service that refused us, its issue on its card, with **Check it now** once they've lifted it. Fix it is the first button on the board's row, in the alarm's Pulse case and on the service's card. After you act there, its check runs on the spot: Replace runs Check (with **Put the old one back** if it fails), and setting a cap looks at the budget again and says **Fixed**, or what it still reads. When it's the service's own trouble (its server failing, not answering, or asking us to slow down) there's no Fix it: the thread says **The system is handling it**. On its card are **Check it now** (except while it's asked us to wait), **Pause it** and **Use backup**, which stays greyed until it's built. A push or an email about an alarm opens its Pulse case, with its Fix it already open beside it.
+ - **A step's Open in Pulse** (2026-11-20): a case opened in its row shows its tool in the side panel when you press Open. Before this, the press showed nothing.
++### I'm on the Traversence team. When one crawler task fails, what does it hold?
++Only that task (2026-11-21, after case #51, when one bulk load's timeout paused all of W1). The system tries it again first.
++If it still fails, the trip pauses that one task, and the workflow's other tasks carry on. When our own site is too slow to
++answer the crawler, or gives it a server error, that's recorded against our own endpoint, never against the task or its
++source:
++- A slow answer is a warning, nothing is paused, and it clears when the endpoint answers at its usual speed.
++- A server error trips the endpoint but holds nothing, so the crawler can send again and its next good answer clears it.
++- The bulk loads send their rows in smaller batches, and a batch our site was too slow for is sent once more.
++
+ ### I'm on the Traversence team. How am I told about a visitor's photo of a place, or new artwork on an order?
+ Since 2026-11-20 (decisions/0176 release 4), each is one thread in your Pulse, updated in place, never sent twice:
+ - **A photo of a place** (if you see Reports): "New photo of <the place>", or "New photos of <the place> (3)", when its journey goes live (it's published, or a photo is added to a published one). A place's photo is live at once (post first). Inside it: **Open it** (the journey, in the side panel) and **Hide**, with a reason its author sees; then **Show again** puts it back. A report on it joins the same thread: while it's open, the report's own case in Pulse is that one row, with its clock, Take it, Assign and Escalate as before, and the photo's steps inside it: see the photos, **Take it down**, **Leave it up**, or **Hide** with your own reason. Once it's decided, the photo's thread is its own row again.
