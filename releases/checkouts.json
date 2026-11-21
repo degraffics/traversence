@@ -1,6 +1,42 @@
 {
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
- "claims": [],
+ "claims": [
+  {
+   "path": "app/lib/ControlAlarms.php",
+   "functions": [
+    "stop",
+    "tick"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
+   "why": "Urgent W1 release (case #51): a task's trip pauses only the task; our endpoint's faults recorded against it, holding nothing",
+   "since": "2026-11-21T14:42:17Z",
+   "expires": "2026-11-21T18:42:17Z",
+   "release": "w1-urgent",
+   "callers": {
+    "tick": [
+     "app/scripts/control_tick.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/crawler/CrawlService.php",
+   "functions": [
+    "report"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
+   "why": "Urgent W1 release (case #51): a task's trip pauses only the task; our endpoint's faults recorded against it, holding nothing",
+   "since": "2026-11-21T14:42:17Z",
+   "expires": "2026-11-21T18:42:17Z",
+   "release": "w1-urgent",
+   "callers": {
+    "report": [
+     "website/api/crawl/service.php"
+    ]
+   }
+  }
+ ],
  "lapsed": [
   {
    "path": "app/lib/Operations.php",
