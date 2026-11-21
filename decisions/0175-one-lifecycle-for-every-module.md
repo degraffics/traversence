@@ -510,3 +510,29 @@ referring to the situation." Asked whether a warning that clears by itself also 
 - A warning that clears by itself has its ID and stays in the logbook; it appears in an Incident Report only when it
   led to a trip.
 Built by the Operations session.
+
+**Note (2026-11-21): a source down holds only what uses it, every workflow checked** (`workflow-holds.zip`, built on Sync
+03:19 UTC 86c278d; the session manager's audit of W0–W14 against 0163's source map, cleared 2026-11-21). Jason, on W3
+tripped by Common Crawl: "W3: what is it supposed to do?" and "reroute to a back up service or trip". §3's "a trip stops
+only what it holds", as built:
+- **The gate** (`Operations::gateFor`): a service's red line holds nothing when every need of the workflow that names it
+  still has a source that works (ok, or On a backup). It holds only the workflow's tasks that call the service when the
+  workflow has others; the crawler's plan skips just those tasks. It holds the whole workflow only when every task calls
+  it. A service no need names and no task calls (reached through a site job, or as a paid backup) holds nothing. Before
+  this, a down backup held its whole workflow: Common Crawl, only W3's backup after reading directly, tripped all of W3.
+- **A red need** pauses the tasks that call its services in every workflow it names, never the whole of the first one
+  listed. This is the biggest change, and it is §3's rule.
+- **A fix to §3's rule, which wasn't true for crawler-held issues:** a trip "closes as Recovered when its check passes",
+  but the site's check answering closed only the site's own issues, and the trip held the crawler's calls. Now the site's
+  2xx at a host closes the crawler's back-off there too (never a refusal, a key or a quota, and never a 429 in its wait).
+- **Each check tests the servers its steps call:** Common Crawl's data host for the bulk reads, then its index server for
+  the per-site copy; the Census geocoder, then TIGER's file, then the data API; Wikidata's query service, then its records;
+  USGS GNIS's file, then the topo layer; Overture's address as the crawler reads it; the NPI registry, then its monthly
+  files. The first down is red; a later one down is amber ("Partly working") and names only the step that waits.
+  `CENSUS_API_KEY` is optional (the geocoder needs none).
+- **Crawler 2.16.1:** Common Crawl's bulk reads wait only on data.commoncrawl.org.
+- **Words:** Paused now says "Its fix:" once; "then Resolve" reads "then press Check and start again".
+- **Questions for Jason** (from the audit; built as today until he answers): Overture as a backup for places by kind;
+  whether our own copies need a freshness limit to count as a need's first source; W6's and W8's sources (0163 versus the
+  code's Claude-only "writing"); a Railway key not yet reported holding a workflow.
+

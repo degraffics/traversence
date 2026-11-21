@@ -104,6 +104,9 @@ sessions take over, holding until Jason says resume. Live through Release #228 (
   routing, is built on Sync 23:49 UTC (`handoffs/0176-fix-it/`; 0176's note "release 3 built"), waiting for review and
   Jason's OK. Progress (2026-11-21): 0176 R3 live as #245. 0176 R4 (uploads' staff threads) built on Sync 00:57 UTC
   (`handoffs/0176-uploads/`), waiting for review and Jason's OK; the order file check waits for his limits.
+  Progress (2026-11-21): 0176 R4 live as #246. The workflow audit (W0–W14 against 0163, Common Crawl first) built on
+  Sync 03:19 UTC (`handoffs/workflow-holds/`; 0175's note of 2026-11-21); four questions to Jason. Next: the Incident
+  Report (0175's note), planned first.
 - **Design and trips** (`design.md` and its area files): hero-tidy (`claude/hero-tidy`, approved, unsent) → admin kit →
   T5 → 3d/3e/3f → the map release → 0174 R5 (openrouteservice; read its terms first).
   **Progress (2026-11-20):** hero tidy rebuilt on Sync 15:06 UTC (eb49e51) and sent (`releases/inbox/hero-tidy.zip`,

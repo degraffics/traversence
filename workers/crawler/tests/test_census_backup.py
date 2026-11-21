@@ -77,5 +77,5 @@ try:
 except Exception as e:
     err = e
 check("a wait without a backup: held, as before", isinstance(err, crawler.ServiceHeld) and "503" in str(err) and not sent, err)
-check("the worker's version says it", crawler.WORKER_V == "2.16.0")
+check("the worker's version says it (2.16.0 or later)", tuple(map(int, crawler.WORKER_V.split("."))) >= (2, 16, 0))
 print("\n" + ("all passed" if not fails else f"{fails} failed")); sys.exit(1 if fails else 0)

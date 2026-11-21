@@ -32,10 +32,19 @@ except Exception as e:
 check("the timeout that trips its hold raises ServiceHeld", isinstance(second, crawler.ServiceHeld) and host in crawler.HELD)
 
 # the task: held, never failed
-item = {"task": "commoncrawl", "allotted": 60, "counts": {}}
+# 2.16.1: the bulk path reads only data.commoncrawl.org, so an index-server hold (as above) no longer stops it
+# (decisions/0175 §3, a trip stops only what it holds): it goes on to its first read
 crawler.HANDLERS["commoncrawl"] = (crawler.common_crawl, None, lambda: "")
+reached = []
+real_newest = crawler.cc_newest_crawl
+def newest():
+    reached.append(1); raise RuntimeError("reached the bulk read")
+crawler.cc_newest_crawl = newest
+item = {"task": "commoncrawl", "allotted": 60, "counts": {}}
 crawler.work_task({"task": "commoncrawl", "seconds": 60}, item, 60)
-check("Common Crawl held from the start: its task reports held", item.get("outcome") == "held")
+check("only the index server held: the bulk task isn't held, it reads", reached and item.get("outcome") != "held")
+crawler.cc_newest_crawl = real_newest
+check("…the per-site copy still waits on the index server (it asks it)", "held(\"index.commoncrawl.org\") or held(\"data.commoncrawl.org\")" in open(crawler.__file__).read())
 
 # a hold the site sent at the start of the run
 crawler.HELD.clear(); crawler.HELD["data.commoncrawl.org"] = "open issue #13"
