@@ -234,3 +234,48 @@ specs/mockups only—no code or live-site changes." Q7 came from his domain chec
 - A publish list in the Vault's one-time page, under the code seal.
 
 Nothing here is built until the step-3 design is approved, and only as part of the one release.
+
+## 10. Setup & Access Capture: a required step for every module (Jason, 2026-11-21)
+
+Jason: "When creating or wiring any module that uses an external service or off-site access point, require a Setup &
+Access Capture step before closing the module." It applies to every module, not only this add-on. It's the exit guard
+of stage 1, Selection and configuration (02 §3a): a module can't leave stage 1, and so can't be integrated or
+activated, until its capture is complete. Specs and mockups only.
+
+1. **Credentials and secrets.**
+   - Usernames, passwords, keys and tokens are stored only in the Vault, sealed in the owner's browser (0156).
+   - They are never stored on the server, never committed to a repository, and never pasted into a chat, a spec, a
+     hand-off or a thread.
+   - Specs and setup notes list only the **names** of the expected settings (e.g. `GEMINI_API_KEY` in `.env`,
+     `TAVILY_API_KEY` on Railway), with where each lives. Never a value.
+2. **Off-site access points.**
+   - The provider's landing, sign-in, console, keys and billing pages are captured and mapped to the four fixed slots:
+     **Billing · Keys · Console · Sign in**.
+   - Each slot carries one of the approved source tags:
+     - `From your Vault · <date>`;
+     - `Site settings` (from `.env`, e.g. Bluehost's Console from `CPANEL_HOST`);
+     - `Documented · release #<N>`;
+     - `Not registered`.
+   - They follow the portal-slot rules:
+     - one type per slot, never borrowed (§4.3, §6);
+     - no documentation pages and none of our own workflow runs in a slot (§5: "Rate limits" and "The sync" sit
+       elsewhere on their cards);
+     - Fix it routing by type (02 rows 128–135);
+     - the owner confirms a domain not yet in `service-defs.php` on the spot (§7 Q7).
+3. **No unrecorded setup.** A module's setup isn't finished until its record says three things:
+   - **where to sign in** (the Sign in slot, or `Not registered` with the reason);
+   - **where its keys live** (each key's name and place: `.env`, Railway, or the Vault, plus the Keys slot);
+   - **which slots are intentionally unregistered**, each with a one-line why (e.g. "No billing page: free tier").
+
+   A slot left `Not registered` without a why blocks the stage-1 exit.
+
+**On the card:** Zone 1's stage badge reads "Stage 1 of 8 · Selection and configuration · Next allowed: Complete setup
+capture". The missing items are listed by name, each with its own button. A module that went live before this rule (all
+today's) shows its gaps as words on the card, e.g. "Setup capture: Sign in not recorded". That's a notice only, never an
+alarm or a hold, until its next setup change.
+
+**Proof (step 4):**
+- A new module can't leave stage 1 while any of the three items is missing.
+- No value of a credential appears in any stored record, spec, log or message.
+- Every slot shows exactly one approved source tag.
+- An unregistered slot without a why is refused.
