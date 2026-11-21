@@ -494,3 +494,19 @@ site's own parts, each part said once; red only for a critical duty down (Jason,
 **Answered (Jason, 2026-11-20, in the decision pop-up, reviewed by the session manager; PR #1219):** Approve. On switches a
 past trip left off with no person's setting to go back to: **"Keep for a person"**. They stay off, listed under Needs
 attention as left off by a trip that has closed, each with its switch; nothing switches them back on by itself.
+
+## Note (Jason, 2026-11-21): every trip gets an Incident Report
+
+Jason: "A trip needs a trip gets an incident report, detailing exactly what happened leading up to the trip. Warning id
+and trip id with explanations that I can reference. I want these Incident Reports linked to the trip or warning when
+referring to the situation." Asked whether a warning that clears by itself also gets one: **"Trips only"**.
+- **One Incident Report per trip,** numbered (IR-####), opened when the trip happens and kept after it closes.
+- **What it holds, in order:** the warnings that led to it, each with its own ID (when it began, what came back, what
+  the system tried and each try's result); the trip with its ID (why it tripped, what it paused, what waited on it);
+  what followed (the Escalation Notice, who acted and what they pressed, Recovered or the fix that closed it); plain
+  explanations at each step; the evidence (the run, the records touched: 0171's ledger and logbook).
+- **Linked wherever the trip or its warnings are referred to:** the board's alarm, Pulse, the SYSTEM ALARM NOTICE email
+  and push (0176's notes), the card's issue box, the logbook and the reports; the IR number shows on each and opens it.
+- A warning that clears by itself has its ID and stays in the logbook; it appears in an Incident Report only when it
+  led to a trip.
+Built by the Operations session.
