@@ -11,7 +11,7 @@
    "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
    "why": "0176 R4",
    "since": "2026-11-21T01:04:49Z",
-   "expires": "2026-11-21T05:16:57Z",
+   "expires": "2026-11-21T07:16:02Z",
    "release": "0176-uploads.zip",
    "callers": {}
   },
@@ -22,7 +22,7 @@
    "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
    "why": "0176 R4: uploads' staff threads",
    "since": "2026-11-21T01:04:49Z",
-   "expires": "2026-11-21T05:04:49Z",
+   "expires": "2026-11-21T07:16:02Z",
    "release": "0176-uploads.zip",
    "callers": {}
   },
@@ -33,9 +33,13 @@
    "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
    "why": "0176 R4: uploads' staff threads",
    "since": "2026-11-21T01:04:51Z",
-   "expires": "2026-11-21T05:04:51Z",
+   "expires": "2026-11-21T07:16:02Z",
    "release": "0176-uploads.zip",
-   "callers": {}
+   "callers": {
+    "settings": [
+     "website/user/api/comms.php"
+    ]
+   }
   },
   {
    "path": "app/lib/upload-targets.php",
@@ -44,7 +48,7 @@
    "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
    "why": "0176 R4: uploads' staff threads",
    "since": "2026-11-21T01:04:51Z",
-   "expires": "2026-11-21T05:04:51Z",
+   "expires": "2026-11-21T07:16:02Z",
    "release": "0176-uploads.zip",
    "callers": {}
   },
@@ -104,7 +108,7 @@
    "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
    "why": "0176 R4 (Pulse::manage's neighbour)",
    "since": "2026-11-21T01:04:51Z",
-   "expires": "2026-11-21T05:17:24Z",
+   "expires": "2026-11-21T07:16:02Z",
    "release": "0176-uploads.zip",
    "callers": {
     "items": [
@@ -136,7 +140,18 @@
    "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
    "why": "0176 R4",
    "since": "2026-11-21T01:04:58Z",
-   "expires": "2026-11-21T05:04:58Z",
+   "expires": "2026-11-21T07:16:02Z",
+   "release": "0176-uploads.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Journeys.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
+   "why": "release 0176-uploads.zip",
+   "since": "2026-11-21T03:16:02Z",
+   "expires": "2026-11-21T07:16:02Z",
    "release": "0176-uploads.zip",
    "callers": {}
   }
