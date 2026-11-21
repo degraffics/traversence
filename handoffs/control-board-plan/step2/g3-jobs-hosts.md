@@ -14,6 +14,8 @@ are `file:line` under `sync-app/lib/` unless a path is given.
 - `ledger.sql` and `stages.sql`: `control_ledger`, `control_records` and `service_stages`, made from how the code uses
   them.
 
+**Re-run after the MariaDB restart (14:27 UTC):** lv_g3 was still there. I reset it and re-ran both probes; their output is identical to the earlier runs, times and ids aside. I re-ran every test below on a freshly recreated lv_g3: the results stand, except `expire-tries` (now 9/9, which confirms the earlier miss was leftover rows) and `r4a` (now 39/39; its earlier stop came from the database's state, not the code).
+
 Both probes copy the app to a temporary folder and stub `Mailer` and `WebPush`, so a "mail" or "push" in the output is a
 call that the dispatcher really made. I also ran the existing tests on the copy: `critical` 20/20, `quiet-job` 4/4,
 `sensor` 30/30, `r1` 33/33, `r2b` 14/14, `r4b` 35/35, `r4c` 9/9, `r5a` 17/17, `r5b` 17/17, `paused-now` 20/20,
@@ -132,7 +134,7 @@ Column notes:
 | R148 | works | Pause everything is kept as the emergency stop | SystemStart.php:189-200 |
 | R149 | partial | A row's Shut down is logged as "stop … shut down" with who, not as Deactivate | ControlBoard.php:574-600 |
 | R150 | partial | Workflows and tasks: blue, notices, Start skips, Put back checks first, windows ahead, late and missed logged (E4). **Modules can't be taken out** (M5) | ControlMaintenance.php:29-34, :98-169; extra.out E4 |
-| R151 | needs staging | `upkeep()` reads the night window, jobs and the nightly pre-flight; `r4a` stops on the copy's schema (`CrawlService::pause`) | ControlMaintenance.php:193-266 |
+| R151 | works | `upkeep()` reads the night window, the jobs and the nightly pre-flight; `r4a` 39/39 on a clean lv_g3 (maintenance, windows ahead, the upkeep calendar) | ControlMaintenance.php:193-266; tools/control-board-tests/r4a.php |
 | R152 | works | Start and Shut down are refused on staging | SystemStart.php:157-161; ControlBoard.php:629 |
 | R153 | works | `Clocks::ramp`: half budget for 14 days, applied on resume | Clocks.php:101; Automation.php:429-436 |
 | R154 | needs staging | `WorkflowSettings.php` versions; not exercised here | WorkflowSettings.php |
@@ -153,7 +155,7 @@ Column notes:
 | R174 | missing | There's nothing to link | — |
 | R175 | partial | Uptime per process in the historian and in every report. The board's own page is outside this audit | ControlReport.php:74-87 |
 
-**Counts (39 rows).** works 16 · partial 14 · missing 5 · needs staging 4 · broken 0 · needs live data 0. Area 2: works 2, partial 6, missing 3, needs staging 2. Area 9: works 9, partial 6, needs staging 2. Area 11: works 5, partial 2, missing 2.
+**Counts (39 rows).** works 17 · partial 14 · missing 5 · needs staging 3 · broken 0 · needs live data 0. Area 2: works 2, partial 6, missing 3, needs staging 2. Area 9: works 10, partial 6, needs staging 1. Area 11: works 5, partial 2, missing 2.
 
 ---
 

@@ -10,6 +10,8 @@ Jason approved as step 3's frame (`../module-harmony-report.pdf`; worked in `../
   (raise the failure, read what was paused and said), not by reading hand-offs.
 - Live data from `site-audit/results/alarms.json` (10:19 UTC) and Railway's logs, read-only.
 - Nothing on the site, the mirror or Railway was changed.
+- The test database was restarted once during the audits. The jobs auditor re-ran all its probes and tests after it;
+  one grade changed (R151, the upkeep calendar, now works).
 
 | File | What it covers |
 |---|---|
@@ -35,11 +37,11 @@ Jason approved as step 3's frame (`../module-harmony-report.pdf`; worked in `../
 
 | Grade | Rows |
 |---|---|
-| Works | 72 |
+| Works | 73 |
 | Partial | 79 |
 | Broken | 7 (R67, R68, R76, R87, R101, R113, R128) |
 | Missing | 8 |
-| Needs staging | 12 |
+| Needs staging | 11 |
 | Needs live data | 1 |
 
 ## What the findings have in common
@@ -114,7 +116,7 @@ checking (root cause 3). The session manager decides whether a fix or a person's
 - The 8 open alarms the snapshot leaves out, the open system pauses, and the open Pulse cases.
 - Whether `OVERTURE_RELEASE` is set on Railway (its name only).
 
-**Staging:** 12 rows (pressing buttons, rendered states with live-shaped data). They're checked in step 4's rendered
+**Staging:** 11 rows (pressing buttons, rendered states with live-shaped data). They're checked in step 4's rendered
 checks.
 
 ## Area 13: the build's own rules (R180–R189)
