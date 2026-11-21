@@ -131,7 +131,21 @@ The documented links today [obs, `service-defs.php` at `37a212e`], with the labe
 | GitHub | Billing | — | — | — | **The sync** (our own Actions page) |
 | QuickBooks (Intuit) | — | — | — | — | **QuickBooks** (the app); **Developer app** |
 
-**Recommended rulings on the ambiguous labels** (§7 Q2) [des]:
+**Locked by Jason (2026-11-21): the link-label rules.** Mockups and specs follow these now:
+1. **Fixed order:** always Billing · Keys · Console · Sign in, under "At <Provider>".
+2. **Label format:** the slot type is the main label. The provider's own label is added in small type only where it
+   differs, e.g. "Billing · Usage", "Billing · Limits", "Console · Dashboard".
+3. **Source tags:** "Documented", or "From your Vault · <date>".
+4. **Missing links:** "No <type> page registered for <Provider> yet", with "Publish from your Vault" for Jason. Fix it
+   names its page type and never borrows another link.
+5. **Phone (390px):** two slots per row, no sideways scroll.
+6. **Label mappings:** the rulings below are **approved**:
+   - cPanel and AI Studio → Console;
+   - QuickBooks (the app) → Console, Developer app → Keys;
+   - Limits → Billing;
+   - Google's Rate limits and GitHub's The sync are moved off the provider portal slots.
+
+**Rulings on the ambiguous labels** (§7 Q2), approved by Jason on 2026-11-21:
 - **Limits (Anthropic):** stays a second **billing**-type page, shown as "Limits" under Billing. It holds the spend limit.
 - **Rate limits (Google):** a documentation page, **not a portal slot**. It moves to the card's Zone 2 "Its limits"
   line, so Billing stays empty until a real billing page is published.
