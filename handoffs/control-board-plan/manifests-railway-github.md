@@ -53,10 +53,11 @@ for it and it isn't built yet.
 | Plug-ins | The crawler on Railway (worker 2.16.0 then; 2.16.1 from 12:22 UTC) |
 | Signature | The same in both: `TimeoutError('The read operation timed out')`, a bulk load sending its rows, within 11 minutes |
 | Members | `foursquare_bulk` (run #1288, first failure 08:20 UTC, trip 09:25); `overture_bulk` (run #1290, first failure 08:31, trip 09:35) |
-| Root cause | A read that timed out while a bulk load sent a large batch of rows to our site's load endpoint (case #51's notes). The fault sits on the **Site** endpoint the worker sends to, not on Railway and not on Overture or Foursquare. *To confirm in step 2 from the two runs' logs.* |
+| Root cause | **Unconfirmed.** Both tasks timed out while a bulk load was sending its rows to our site's load endpoint (case #51's notes). Jason's question stands open: did the timeout occur inside our load handler, or on the outbound/response path? Step 2's audit answers it from runs #1288 and #1290 (their logs, the worker's timing per batch, and our endpoint's own timings for those minutes). Until then, this report doesn't name a root cause. |
+| Where it would sit | If it's inside our load handler, the fault is the **Site** endpoint's. If it's on the outbound/response path, it's that path's (the worker's connection, or the network). Neither is Overture or Foursquare as a source. |
 | Retry timeline | One failure each, then the hour ran out with no second try (each task runs nightly), and the watch tripped them at 09:25 and 09:35 |
 | **Incident Radius, as it happened** | **Held:** all of W1 (both trips paused the whole workflow). **Unaffected:** pages, search, sign-in, payments, W0, W2–W12 |
-| **Incident Radius, under the contract** | **Held:** nothing. Our endpoint being slow is a warning on the Site part, and the two bulk loads' next nightly runs go ahead. If the endpoint were failing, not slow: **held** only those two tasks; **unaffected:** the rest of W1 and everything else |
+| **Incident Radius, under the contract** | *Depends on the confirmed root cause.* If it was our endpoint: **held** nothing. Our endpoint being slow is a warning on the Site part, and the two bulk loads' next nightly runs go ahead. If the endpoint were failing, not slow: **held** only those two tasks; **unaffected:** the rest of W1 and everything else |
 | Proportionate actions | Pause only these tasks · Check and resume (re-checks the endpoint, then both tasks) · Fix it: the Site endpoint's own page, with its timings |
 | Recovery | Closes as Recovered when the endpoint's check passes and the tasks next do their work |
 | What would stop it happening again | Smaller batches to the endpoint, and a timeout reported as slow, not as a crash (case #51's draft, held for this build) |
@@ -118,6 +119,16 @@ with no run (17:19 UTC), it would have tripped the Sync part and opened this rep
 | Actions | Run the sync (lists the runs first) · Fix it: the sync's runs page |
 | Recovery | Clears when a sync run succeeds |
 | What would stop it happening again | A missed-slot warning an hour after each slot, so a lagging mirror is seen at 07:00, not found later |
+
+### Spec scenario: not an observed trip (the 10:00 UTC release look)
+
+**What happened today, live:** at 10:00 UTC the site's 10-minute release look got no answer from GitHub. It was recorded
+as `found: -1` and **nothing was raised**: no alarm, no Pulse item, no message. The next looks went on as normal.
+
+**What the contract would do, in the same case (spec, not built):** a failed look is a fault on GitHub. GitHub is
+critical, so it's a trip at once while the system tries again at each 10-minute look. **Held:** releases (builds wait in
+the inbox). **Unaffected:** everything else. It closes as Recovered when a look succeeds, and as a trip it gets its
+Incident Report. This is a scenario for step 4's test, not a trip from today's logs.
 
 ## 3. The report's five states on the eight stages
 
