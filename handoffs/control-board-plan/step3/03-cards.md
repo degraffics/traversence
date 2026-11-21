@@ -22,7 +22,7 @@ never presented as live.
 ## 1. The card: four zones, field by field
 
 The zones always appear in the report's order: 1 Identity and role, 2 Capabilities and feeds, 3 Sensors and key
-readiness, 4 Actions and Fix it. **One exception, the fix for the lift's §(f):** while a fault is open on the module
+readiness, 4 Actions and Fix it. **One exception, the fix for the lift's §(f) (approved, Jason, 2026-11-21):** while a fault is open on the module
 or any of its parts, **zone 4 moves up under zone 1** and carries the thread (02 §2.6's six parts). The problem, what
 it holds and its buttons are then the first thing under the name. The part's own row in zone 2 or 3 is tinted
 (amber or red) and says "its actions are in the thread above ↑". When everything is Working, zone 4 sits last.
@@ -75,8 +75,8 @@ Presence alone is **Not checked yet**: grey, holding nothing, never red (Q4, row
 
 ### Zone 4: Actions and Fix it, in two rows that never mix (02 PL; 04 §6)
 
-**On our system** (board actions, each with its guard): Check now (rows 91–92), Check and start again (a trip only,
-row 93), Acknowledge (a trip only, row 96; never on a warning, R80), Take out / Put back (rows 103–104), Pause everything
+**On our system** (board actions, each with its guard): Check now (rows 91–92), **Check and start again** (a trip only,
+row 93; the one wording everywhere, never "Check and resume", Jason, 2026-11-21), Acknowledge (a trip only, row 96; never on a warning, R80), Take out / Put back (rows 103–104), Pause everything
 (row 111, which also stops Railway's schedule), and for a capped part Raise the cap / Lower the cap (row 39). A board action
 never claims to change anything at Railway.
 
@@ -89,15 +89,27 @@ Railway today (from `service-defs.php`, mapped by 02 §8's label rule; none from
 
 | Slot | Shows | Chip |
 |---|---|---|
-| Billing | "Billing · Usage" → **Open Railway billing ↗** https://railway.com/account/usage | Documented |
+| Billing | "Billing · Usage" → **Open Railway billing ↗** https://railway.com/account/usage | Documented · release #212 |
 | Keys | "No API keys page registered for Railway yet." + Publish from your Vault | — |
-| Console | "Console · Dashboard" → **Open Railway console ↗** https://railway.com/dashboard | Documented |
+| Console | "Console · Dashboard" → **Open Railway console ↗** https://railway.com/dashboard | Documented · release #212 |
 | Sign in | "No sign-in page registered for Railway yet." + Publish from your Vault | — |
 
 **The link-label rules, locked by Jason (04 §5, 2026-11-21), and his §7 answers, applied on every card:**
 - **Label format:** the slot type is the main label. The provider's own label follows in small type only where it differs
   ("Billing · Usage", "Console · Dashboard").
-- **Source chip:** "Documented", or "From your Vault · <date>". For Railway today every link is Documented.
+- **Source tag, one of four (locked by Jason, 04 rule 3):**
+  1. **"From your Vault · <date>"**: published from his unlocked Vault.
+  2. **"Site settings"**: built from a `.env` value. Bluehost's Console comes from `CPANEL_HOST`, so mockup e's
+     "Console · cPanel" carries "Site settings".
+  3. **"Documented · release #<real number>"**: added to `service-defs.php` by that approved release, never a "#N"
+     placeholder. Railway's Billing · Usage and Console · Dashboard are **"Documented · release #212"** (0173 release 3,
+     which created `service-defs.php`). The tag's tooltip reads "Written by a Claude session from Railway's own pages".
+     "Claude session" appears only in that tooltip, never as a separate badge.
+  4. **"Not registered"**: the slot reads "No <type> page registered for <Provider> yet", with "Publish from your Vault".
+  For Railway today both links are Documented · release #212, and none comes from the Vault. The same #212 tag is drawn on
+  the other documented links the mockups show (Tavily's Console · Dashboard in c4, Bluehost's Sign in · Account in e):
+  both are in `service-defs.php`'s earliest copy on the mirror (`86c278d`, Nov 21 03:19 UTC). That copy came after
+  #212, so it can't prove #212 added them; confirm with the release record.
 - **§5's mappings** where other providers appear: cPanel and AI Studio → Console; QuickBooks (the app) → Console;
   Developer app → Keys; Limits → Billing. Google's Rate limits and GitHub's The sync are **not portal slots**. Rate limits
   goes to zone 2's "Its limits" line; The sync goes to the Sync part's "Its runs". Mockup e shows Bluehost's cPanel as
@@ -124,12 +136,12 @@ here", and the line under the slots names it ("Fix it: Railway's console page").
 | A deploy failed (row 51) | host | Console (Dashboard). The deploy's own log page is *spec* and not registered |
 | The crawler down (rows 47–48), W0 silent (row 50) | host | Console |
 | Spend near the cap (row 39) | budget | Billing (Usage) |
-| A key missing or refused on Railway (rows 29, 31, 129) | key | **Keys**: not registered, so it says "No API keys page registered for Railway yet" and never borrows Console or Billing (Jason's check, 2026-11-21) |
+| A key missing or refused on Railway (rows 29, 31, 129) | key | **Keys** (approved, Jason, 2026-11-21): not registered, so it says "No API keys page registered for Railway yet" and never borrows Console or Billing. The key itself lives in the crawler service → Variables, said as text. Row 129 in 02 is being corrected to match |
 | Railway's API refuses our token (row 52) | key | Keys (same) |
 
 ---
 
-## 2. The stage badge and state: compact, not eight boxes
+## 2. The stage badge and state: compact, not eight boxes (approved, Jason, 2026-11-21)
 
 One line: **"Stage 5 of 8 · Operational"** (§3a's name) and **"Next allowed: …"**, the actions §3a allows from here.
 - Working: "Next allowed: Check now · Pause everything · Take out (stage 6) · Deactivate (stage 7)".
@@ -137,9 +149,8 @@ One line: **"Stage 5 of 8 · Operational"** (§3a's name) and **"Next allowed: �
 - The current state sits beside the name (zone 1), so stage and state are read together: "On · Working · Stage 5 of 8 ·
   Operational".
 
-§3a's full eight-stage strip ("✓ for each stage reached… an unreached one naming what's missing with its button") moves
-to the card's Details and the module's own page. That's a change against §3a's rule that the card shows the strip;
-see Open words, item 9.
+The card shows only this compact badge. The full eight-stage breakdown stays in 02's state section (§3a), not on the card
+(Jason, 2026-11-21).
 
 ## 3. The spend chip, computed from the numbers shown (02 BL)
 
@@ -247,10 +258,10 @@ Rendered from `step2/ir-0001.md` and the manifest's worked report:
 | "3 engine feeds failing", a closed `<details>` with only "Acknowledge all 3" | Grouped by cause only (row 127); a group with a switch still off opens by itself; each member keeps its buttons | **replaced** |
 | Acknowledge turns the light green (g4 F1) | The light stays red: "1 trip (seen by Jason)" | **replaced** |
 | The service card's parts in no zone order (g4 §d: stage, status, Used by, Its key, Known price, This month, Caps and paces, Is it working, settings, In our admin, On <company>, Terms, Waiting on them) | Placed in zones: stage, status → 1; Used by → 2; Its key, Is it working → 3; Caps and paces, In our admin, On <company> → 4; Known price, This month → the spend chip; Terms, contact, settings → Details | **kept, moved** |
-| 0173's seven stages ("Added · In use", which disagree) | Jason's eight, compact badge; the full strip in Details | **replaced** |
+| 0173's seven stages ("Added · In use", which disagree) | Jason's eight, as the compact badge; the breakdown stays in 02 §3a | **replaced** |
 | No role, no criticality on the card | Role badge and criticality in zone 1 | **added** |
 | Workers aren't cards; Railway lists one service's deploy | Three services as rows, each with schedule, restart rule against the repo, deploy and feeds | **added** |
-| "On <company>" links as one list | Four typed slots, fixed order, source chip, "not registered" words, Publish from your Vault | **replaced** |
+| "On <company>" links as one list | Four typed slots, fixed order, one of four source tags, "not registered" words, Publish from your Vault | **replaced** |
 | "Nothing could be paused from here", "Couldn't look: HTTP 401", "nobody had set this switch before" | 02's words by state | **dropped** |
 | The module list at 390 showing only mark, name and cost | The whole card at 390, stacked | **replaced** |
 | Mark resolved, Use backup | — | **dropped** (rows 95; Q17) |
@@ -272,25 +283,18 @@ Rendered from `step2/ir-0001.md` and the manifest's worked report:
 7. **The Pulse sender's name** ("Control Board") and the email's From ("Traversence Control Board"): 0172 decides; 02 doesn't say.
 8. **Recovered's proof line.** §3c's system Recovered carries no proof. The mockup adds "Its check passed: a crawler run
    started at <time> and reported back." (§2.7's proof shape).
-9. **The eight-stage strip.** §3a says the card shows it; the brief says a compact badge. The mockup keeps the badge and
-   moves the strip to Details. Which one stands needs Jason's call.
-10. **"Check and resume" vs "Check and start again".** The manifest and Jason's checklist say "Check and resume"; 02 PL
-    and rows 93–94 say "Check and start again". The mockups use 02's.
-11. **"Pause our calls" on a Host.** Row 39 lists it for a capped part, but for Railway it has no defined meaning (the
+9. **"Pause our calls" on a Host.** Row 39 lists it for a capped part, but for Railway it has no defined meaning (the
     host's stop is Pause everything). It's left off c5's buttons.
-12. **The keys slot's words.** 02 PL and 04 §5's rule 4 say "No <type> page registered…" with the type "keys"; Jason's
+10. **The keys slot's words.** 02 PL and 04 §5's rule 4 say "No <type> page registered…" with the type "keys"; Jason's
     Railway check says "No API keys page registered for Railway yet". The mockups use "API keys" for every provider. Confirm
     that this one wording holds everywhere.
-13. **Fix it for a Railway key.** Row 129 sends it to "At Railway: Open Railway console ↗ (the crawler service →
-    Variables)". Jason's check (2026-11-21) says it points to the Keys slot and never borrows Console. The mockups
-    follow Jason: Keys, unregistered, said in words, with "The key itself lives in the crawler service → Variables" as text.
-14. **The deploy's own log link** (manifest fix_it "that deploy's log", *spec*): no `portal_links` type holds a per-deploy
+11. **The deploy's own log link** (manifest fix_it "that deploy's log", *spec*): no `portal_links` type holds a per-deploy
     URL, and none is registered.
-15. **CS-5's Still off on a trip that left no switch.** In the 2 AM scenario the two W3 switches were left by an earlier
+12. **CS-5's Still off on a trip that left no switch.** In the 2 AM scenario the two W3 switches were left by an earlier
     trip, not the crawler's. The mockup still names them on Recovered, with their own trip ("left off by W3's trip of
     Nov 20"), because they sit inside what this trip held. CS-5 is written for switches the closing trip left; whether it
     covers these too needs confirming.
-16. **"Opened by itself"** beside an auto-opened group, and the "If Railway itself is down: its Incident Radius" fold
+13. **"Opened by itself"** beside an auto-opened group, and the "If Railway itself is down: its Incident Radius" fold
     label, aren't spec words.
 
 ## 11. What the mockups show and where
