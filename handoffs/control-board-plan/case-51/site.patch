@@ -1,0 +1,41 @@
+diff --git a/app/lib/ControlAlarms.php b/app/lib/ControlAlarms.php
+index 71c222f..331e4b0 100644
+--- a/app/lib/ControlAlarms.php
++++ b/app/lib/ControlAlarms.php
+@@ -264,6 +264,12 @@ final class ControlAlarms
+             // a need with no source working (a pre-flight need line): the tasks that call its services wait, in every workflow
+             // it names, never the whole of the first one (the workflow audit, 2026-11-21; decisions/0175 §3: "a trip stops only
+             // what it holds"). A need whose services no task calls keeps the old pause on its workflow.
++            // a crawler task that failed (CrawlService's task:failed:<t>): only that task waits; its workflow's other tasks carry
++            // on, as its own words say (decisions/0175 §3: "a trip stops only what it holds"; case #51, 2026-11-21)
++            if (preg_match('/^task:failed:([a-z0-9_]+)$/', $key, $tm)) {
++                if (Automation::taskOff($pdo, $tm[1]) === null) $pause('task', $tm[1], $tm[1] . ' (' . substr($proc, 3) . '\'s other tasks carry on)');
++                return $out;
++            }
+             if (preg_match('/^pf:nd:([a-z_]+)$/', $key, $nm)) {
+                 require_once __DIR__ . '/Preflight.php'; require_once __DIR__ . '/OutsideServices.php'; require_once __DIR__ . '/ControlRegister.php';
+                 $nd = Preflight::NEEDS[$nm[1]] ?? null; $tw = ControlRegister::taskWorkflows($pdo); $tasks = [];
+diff --git a/app/lib/crawler/CrawlService.php b/app/lib/crawler/CrawlService.php
+index 185d279..29d1f9a 100644
+--- a/app/lib/crawler/CrawlService.php
++++ b/app/lib/crawler/CrawlService.php
+@@ -255,9 +255,18 @@ final class CrawlService
+                 'Its time ran out before any task was reached: the run is too short for its plan, or a task is slow.', 'Open run #' . $runId . ' (beside this) to see which task used its time; shorten that task\'s share or lengthen the run.', mb_substr($why, 0, 255), [['Run #' . $runId, 'peek', '/admin/insights/crawler?run=' . $runId]]);
+             else { ControlAlarms::clear($pdo, 'run:failed', $at); ControlAlarms::clear($pdo, 'run:starved', $at); }
+             // a task that fails is its own alarm on its workflow (release 3c): the next runs try it again (a warning), then a
+-            // trip stops that workflow only; a run where it did its work clears it. A run that failed outright is the
++            // trip pauses that task only, its workflow's other tasks carrying on (case #51, 2026-11-21; decisions/0175 §3); a run
++            // where it did its work clears it. A run that failed outright is the
+             // crawler's own trip above, not one per task.
+             if ($status !== 'failed') foreach ($taskOut as $t => [$o, $tw]) {
++                // our own site slow or failing to answer the worker (crawler 2.16.2: SiteSlow, a timeout or a 5xx from us): slow,
++                // a warning that clears itself, never a crash (Jason, 2026-11-19: "slow is never a trip"; case #51)
++                if ($o === 'failed' && str_starts_with((string) $tw, 'SiteSlow(')) {
++                    ControlAlarms::raise($pdo, 'task:slow:' . $t, 'wf:' . $tasks[$t]['wf'], 'warning', 'slow', $tasks[$t]['wf'] . ': our site was slow to answer its task ' . $t . ' (run #' . $runId . ')',
++                        'The site took too long to take what the task sent (or answered with an error of its own); the task tries again on its next run, and nothing is paused.', 'Nothing to do unless it keeps happening: it clears by itself when the task does its work.', mb_substr((string) $tw, 0, 255), [['Its run', 'peek', '/admin/insights/crawler?run=' . $runId]]);
++                    continue;
++                }
++                if ($o === 'done') ControlAlarms::clear($pdo, 'task:slow:' . $t, 'It did its work in run #' . $runId . ' (' . gmdate('H:i') . ' UTC).');
+                 if ($o === 'failed') ControlAlarms::raise($pdo, 'task:failed:' . $t, 'wf:' . $tasks[$t]['wf'], 'trip', 'crash', $tasks[$t]['wf'] . ': its task ' . $t . ' failed (run #' . $runId . ')',
+                     'Its work goes back and the next run tries it again; the workflow\'s other tasks carry on.', 'Read its why in run #' . $runId . ' (beside this) and fix its source or its settings; then Try it first on the next run. Or Pause the task: the workflow\'s other tasks carry on.', $tw !== '' ? $tw : 'failed', [['Run #' . $runId, 'peek', '/admin/insights/crawler?run=' . $runId], ['Try it first on the next run', 'ops', 'ops_runnext:' . $t], ['Pause the task', 'ops', 'ops_task_off:' . $t, 'Pause the task ' . $t . '? It\'s switched off on Automation with this reason; its work waits.']]);
+                 elseif ($o === 'done') ControlAlarms::clear($pdo, 'task:failed:' . $t, 'It did its work in run #' . $runId . ' (' . gmdate('H:i') . ' UTC).');
