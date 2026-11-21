@@ -90,9 +90,11 @@ const url = 'file://' + dir + 'index.html';
       const out = [];
       document.querySelectorAll('.obj *, article.card *').forEach(e => {
         if (e.closest('details:not(.mod)') && !e.closest('summary')) return;
-        if (!leaf(e) || !BLK.includes(e.tagName) && !(e.parentElement && e.parentElement.classList.contains('spend'))) return;
-        const t = e.textContent.replace(/\s+/g, ' ').trim();
-        if (t.length > 125) out.push(t.slice(0, 80));
+        if (!BLK.includes(e.tagName) && !(e.parentElement && e.parentElement.classList.contains('spend'))) return;
+        if (leaf(e)) { const t = e.textContent.replace(/\s+/g, ' ').trim(); if (t.length > 125) out.push(t.slice(0, 80)); return; }
+        let run = '';
+        const flush = () => { const t = run.replace(/\s+/g, ' ').trim(); if (t.length > 125) out.push('(inline) ' + t.slice(0, 80)); run = ''; };
+        e.childNodes.forEach(n => { if (n.nodeType === 1 && BLK.includes(n.tagName)) flush(); else run += n.textContent; }); flush();
       });
       return out;
     });
@@ -111,6 +113,26 @@ const url = 'file://' + dir + 'index.html';
       const o2 = await pop.evaluate(d => d.open);
       ok(o1 && !o2, `@${w} the Improve popover opens and closes by ${how}`);
     }
+    // card heights, collapsed: every card under ~1,400 px at 1280; every fault card under ~1,800 px at 390 with zone 4's actions visible
+    await p.click('.rail [data-nav="modules"]');
+    const hs = await p.evaluate(() => {
+      const out = [];
+      document.querySelectorAll('#view-modules .scn').forEach(sc => {
+        const mod = sc.closest('details.mod'); const was = [mod.open, sc.hidden];
+        mod.open = true; sc.hidden = false;
+        sc.querySelectorAll('details').forEach(d => d.open = false);
+        const c = sc.querySelector('article.card');
+        if (c) { const act = c.querySelector('.thread .act') || c.querySelector('.act');
+          out.push([sc.dataset.mod + ':' + sc.dataset.scn, Math.round(c.getBoundingClientRect().height), /fault-/.test(c.className), !!act && !act.closest('details:not([open])')]); }
+        mod.open = was[0]; sc.hidden = was[1];
+      });
+      return out;
+    });
+    const tallest = hs.reduce((a, x) => x[1] > a[1] ? x : a, ['', 0]);
+    const faults = hs.filter(x => x[2]); const tallF = faults.reduce((a, x) => x[1] > a[1] ? x : a, ['', 0]);
+    if (w === 1280) ok(hs.every(x => x[1] <= 1400), `@1280 every card collapsed under ~1,400 px: tallest ${tallest[0]} ${tallest[1]} px` + (hs.filter(x => x[1] > 1400).length ? '; over: ' + hs.filter(x => x[1] > 1400).map(x => x[0] + ' ' + x[1]).join(', ') : ''));
+    if (w === 390) ok(faults.every(x => x[1] <= 1800 && x[3]), `@390 every fault card collapsed under ~1,800 px with zone 4's actions visible: tallest ${tallF[0]} ${tallF[1]} px, railway:2 ${(hs.find(x => x[0] === 'railway:2') || [])[1]} px` + (faults.filter(x => x[1] > 1800 || !x[3]).length ? '; over: ' + faults.filter(x => x[1] > 1800 || !x[3]).map(x => x[0] + ' ' + x[1]).join(', ') : ''));
+    await p.click('.rail [data-nav="board"]');
     // layout toggle remembered
     if (w === 1280) {
       await p.click('[data-layout="rows"]'); await p.reload();

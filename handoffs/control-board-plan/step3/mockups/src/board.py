@@ -489,7 +489,7 @@ def board_view():
 
 
 def _plain(t):
-    return re.sub(r'\s+', ' ', html.unescape(re.sub(r'<[^>]+>', '', t))).strip()
+    return re.sub(r'\s+', ' ', html.unescape(re.sub(r'<[^>]+>', ' ', t))).strip()
 
 
 def pill_rad(rad):
@@ -540,10 +540,178 @@ def unplaceholder(h):
     return re.sub(r'<([A-Za-z][\w ]*?)>', one, h)
 
 
+def _children(block):
+    """The top-level child elements of an element's html (its own tag stripped)."""
+    m = re.match(r'<(\w+)[^>]*>', block)
+    inner = block[m.end():-len(f'</{m.group(1)}>')]
+    out, i = [], 0
+    for x in re.finditer(r'<(\w+)\b', inner):
+        if x.start() < i:
+            continue
+        el = balanced(inner, x.start(), x.group(1))
+        out.append(el)
+        i = x.start() + len(el)
+    return out
+
+
+def _short(t, n=64):
+    t = _plain(t)
+    return t if len(t) <= n else t[:n].rsplit(' ', 1)[0] + '…'
+
+
+def _row_parts(row):
+    cls = (re.match(r'<div class="row([^"]*)"', row).group(1) or '').strip()
+    nm = re.search(r'<div class="nm">(.*?)</div>', row, re.S)
+    st = re.search(r'<span class="lt (\w)"><i aria-hidden="true"></i>([^<]*)</span>', row)
+    ch = _children(row)
+    btns = next((c for c in ch if c.startswith('<div class="btns"')), '<div class="btns"></div>')
+    rest = ''.join(c for c in ch if not c.startswith('<div class="btns"'))
+    return cls, (nm.group(1) if nm else ''), st, btns, rest
+
+
+def _crow(row):
+    """One compact row: light, name, state pill, a micro-label (Feeds, next run, or the reading), its main button; the rest behind it."""
+    cls, nm, st, btns, rest = _row_parts(row)
+    txt = _plain(re.sub(r'<span class="lt \w"><i aria-hidden="true"></i>[^<]*</span>', '', rest))
+    bits = []
+    f = re.search(r'Feeds\s+(.{1,40}?)(?:\s{2,}|Schedule|$)', txt)
+    if f:
+        bits.append('Feeds ' + f.group(1).strip())
+    nx = re.search(r'Next run ([^·(]{3,30})', txt)
+    if nx:
+        bits.append('next ' + nx.group(1).strip())
+    if not bits:
+        b = re.findall(r'<b>(.*?)</b>', rest, re.S)
+        lead = _plain(b[0]) if b else ''
+        bits.append(lead if lead and len(lead) > 6 else _short(re.sub(r'^\W+', '', txt.replace(_plain(nm), '', 1)), 70))
+    pill = f'<span class="lt {st.group(1)}"><i aria-hidden="true"></i>{st.group(2)}</span>' if st else ''
+    micro = ''.join(f'<span class="micro m">{E(_short(x, 70))}</span>' for x in bits if x)
+    body = re.sub(r'<span class="lt \w"><i aria-hidden="true"></i>[^<]*</span>', '', rest, count=1) if st else rest
+    return (f'<div class="crow {cls}"><details class="cr"><summary><span class="cn">{nm}</span>{pill}{micro}</summary><div class="crb">{body}</div></details>'
+            + (btns if '<button' in btns else '') + '</div>')
+
+
+def _keys(rows, title):
+    states = [(_row_parts(r)[2].group(1) if _row_parts(r)[2] else 'n') for r in rows]
+    ok = sum(1 for x in states if x == 'g')
+    subs = [_plain(m.group(1)) for r in rows for m in [re.search(r'<div class="sub">(.*?)</div>', r, re.S)] if m]
+    common = ''
+    if subs:
+        k0 = _plain(_row_parts(rows[0])[1])
+        common = subs[0].replace(k0, 'each key')
+    lines = ''
+    for r, k in zip(rows, states):
+        _, nm, st, _, rest = _row_parts(r)
+        words = st.group(2) if st else ('not checked yet' if 'not read yet' in rest or 'not checked' in rest.lower() else _short(rest, 40))
+        lines += f'<details class="cr key"><summary><span class="cn">{nm}</span><span class="lt {k}"><i aria-hidden="true"></i>{E(words)}</span></summary><div class="crb">{rest}</div></details>'
+    head = f'{E(title)}: {len(rows)} · {ok} checked · {len(rows) - ok} not checked yet' if title else f'Keys: {len(rows)} · {ok} checked · {len(rows) - ok} not checked yet'
+    return (f'<details class="kgrp"><summary><span class="spill">{head}</span></summary>'
+            + (f'<div class="micro">{E(common)}</div>' if common else '') + lines + '</details>')
+
+
+def _rows_blocks(card):
+    out, i = '', 0
+    for m in re.finditer(r'(<h3[^>]*>(.*?)</h3>)?<div class="rows">', card, re.S):
+        if m.start() < i:
+            continue
+        start = m.start() + (len(m.group(1)) if m.group(1) else 0)
+        blk = balanced(card, start, 'div')
+        rows = [c for c in _children(blk) if c.startswith('<div class="row')]
+        out += card[i:m.start()]
+        title = _plain(m.group(2)).split('(')[0].strip() if m.group(2) else ''
+        iskey = lambda r: bool(re.fullmatch(r'\s*<code>[^<]+</code>\s*', _row_parts(r)[1] or 'x'))
+        if rows and all(iskey(r) for r in rows):
+            out += _keys(rows, title)
+        elif sum(1 for r in rows if iskey(r)) >= 2:
+            out += (m.group(1) or '') + _keys([r for r in rows if iskey(r)], title) + '<div class="rows crows">' + ''.join(_crow(r) for r in rows if not iskey(r)) + '</div>'
+        else:
+            kids = _children(blk)
+            rws = [c for c in kids if c.startswith('<div class="row')]
+            if len(rws) > 3:
+                def issue(r):
+                    cls, _, st, _, _ = _row_parts(r)
+                    return bool(cls) or (st and st.group(1) != 'g')
+                show = [r for r in rws if issue(r)][:3]
+                for r in rws:
+                    if len(show) >= 3:
+                        break
+                    if r not in show:
+                        show.append(r)
+                rest_ = [r for r in rws if r not in show]
+                words = {}
+                for r in rest_:
+                    st = _row_parts(r)[2]
+                    w = _plain(st.group(2)).split('·')[-1].strip() if st else _plain(_row_parts(r)[1])
+                    words[w] = words.get(w, 0) + 1
+                fold = (f'<details class="kgrp"><summary><span class="spill">+{len(rest_)} more: ' + ', '.join((f'{n} {E(w)}' if any(_row_parts(r)[2] for r in rest_) else E(w)) for w, n in words.items()) + '</span></summary>'
+                        + '<div class="rows crows">' + ''.join(_crow(r) for r in rest_) + '</div></details>') if rest_ else ''
+                out += (m.group(1) or '') + '<div class="rows crows">' + ''.join(_crow(r) for r in rws if r in show) + '</div>' + fold
+            else:
+                out += (m.group(1) or '') + '<div class="rows crows">' + ''.join(_crow(c) if c.startswith('<div class="row') else c for c in kids) + '</div>'
+        i = start + len(blk)
+    return out + card[i:]
+
+
+def _spend_pills(card):
+    out, i = '', 0
+    for m in re.finditer(r'<span class="spend[^"]*">', card):
+        if m.start() < i:
+            continue
+        blk = balanced(card, m.start(), 'span')
+        first = _short(re.sub(r'<a [^>]*>.*?</a>', '', blk), 48)
+        out += card[i:m.start()] + f'<details class="pillx"><summary>{E(first)}</summary>{blk}</details>'
+        i = m.start() + len(blk)
+    return out + card[i:]
+
+
+def _slots_fold(card):
+    out, i = '', 0
+    for m in re.finditer(r'<div class="slots">', card):
+        if m.start() < i:
+            continue
+        blk = balanced(card, m.start(), 'div')
+        kids = _children(blk)
+        keep = [k for k in kids if not (k.startswith('<div class="slot none') or k.startswith('<div class="slot  none'))]
+        none = [k for k in kids if k not in keep]
+        names = [_plain(re.search(r'<div class="ty">(.*?)</div>', k, re.S).group(1)) for k in none]
+        fold = (f'<details class="pillx nreg"><summary>Not registered: {E(", ".join(names))}</summary><div class="slots">{"".join(none)}</div></details>') if none else ''
+        out += card[i:m.start()] + '<div class="slots">' + ''.join(keep) + '</div>' + fold
+        i = m.start() + len(blk)
+    return out + card[i:]
+
+
+def _zone_notes(card):
+    """Prose standing loose in a zone (a rule's rationale, a note) folds behind its first words."""
+    out, i = '', 0
+    for m in re.finditer(r'<div class="z">', card):
+        if m.start() < i:
+            continue
+        blk = balanced(card, m.start(), 'div')
+        kids = _children(blk)
+        new = ''
+        for k in kids:
+            cls = (re.match(r'<\w+(?: class="([^"]*)")?', k).group(1) or '')
+            txt = _plain(k)
+            if k.startswith('<details') or any(c in cls.split() for c in ('zh', 'rows', 'crows', 'idl', 'thread', 'act', 'slots', 'stage')) or len(txt) <= 120:
+                new += k
+            else:
+                new += f'<details class="more"><summary>{E(_short(txt, 70))}</summary>{k}</details>'
+        out += card[i:m.start()] + '<div class="z">' + new + '</div>'
+        i = m.start() + len(blk)
+    return out + card[i:]
+
+
 def compact(card):
     """Jason, 2026-11-21: visual-forward. Structure moves to pills and step tags; the prose moves one tap away."""
     card = unplaceholder(card)
     card = _rads(card)
+    card = _rows_blocks(card)
+    card = _spend_pills(card)
+    card = _slots_fold(card)
+    card = _zone_notes(card)
+    card = re.sub(r'(<div class="slot[^"]*">(?:(?!<div class="slot).)*?)<div class="why">((?:(?!</div>).){50,}?)</div>',
+                  lambda m: m.group(1) + f'<details class="more"><summary>Note</summary><div class="why">{m.group(2)}</div></details>', card, flags=re.S)
+    card = re.sub(r'<span class="nx">(.*?)</span>', lambda m: f'<details class="pillx nx"><summary>{"Next allowed" if "Next allowed" in m.group(1) else _short(m.group(1), 40)}</summary><span class="micro">{m.group(1)}</span></details>', card, flags=re.S)
     card = re.sub(r'<div class="doing"><b>What the system is doing:</b>\s*(.*?)</div>',
                   r'<details class="more doing"><summary><span class="pill">What the system is doing</span></summary>\1</details>', card, flags=re.S)
     card = re.sub(r'<div class="sub" style="[^"]*border-left[^"]*"><b>Today(?:&#x27;|\'|’)s words, beside the new:</b>(.*?)</div>',
@@ -810,6 +978,16 @@ details.clamp>summary{color:var(--ink)}details.clamp>summary::after{content:" �
 details.pop{display:inline-block;position:relative}details.pop>summary{list-style:none}.popb{position:absolute;z-index:30;left:0;top:110%;min-width:220px;max-width:min(320px,80vw);background:var(--card);border:1px solid var(--card-edge);border-radius:.5rem;padding:.5rem;box-shadow:0 6px 18px #231D1733;display:flex;flex-direction:column;gap:.3rem}
 .popb .px{align-self:flex-end;border:0;background:none;font-size:16px;cursor:pointer;color:var(--meta)}
 @media (max-width:767px){.popb{position:static;max-width:100%;box-shadow:none;margin-top:.3rem}}
+.crows{display:flex;flex-direction:column;gap:0}.crow{display:flex;gap:.5rem;align-items:flex-start;border-top:1px solid var(--card-edge);padding:.3rem 0}.crow:first-child{border-top:0}
+.crow.hr{background:#a62b2b10}.crow.hl{background:#8f560010}.crow>details{flex:1;min-width:0}.crow>.btns{margin:0;flex:0 0 auto}
+details.cr>summary{display:flex;flex-wrap:wrap;gap:.25rem .55rem;align-items:center;cursor:pointer;list-style:none}details.cr>summary::-webkit-details-marker{display:none}
+details.cr>summary::before{content:"▸";color:var(--taupe);font-size:11px}details.cr[open]>summary::before{content:"▾"}
+.cn{font-weight:600}article.card .z>.stage:has(>details.pillx),article.card .z>details:not(.more):not(.kgrp){display:inline-block;vertical-align:top;margin:.15rem .3rem .15rem 0}article.card .z>details[open]:not(.more):not(.kgrp){display:block}article.card .slot{padding:.35rem .5rem}article.card .slot .src{font-size:10.5px;padding:0 .35rem}article.card .slot .ty{font-size:11px}@media (max-width:767px){.crow:not(.hr):not(.hl) summary:has(.lt) .micro.m{display:none}details.cr>summary:not(:has(.lt)){flex-wrap:nowrap}details.cr>summary:not(:has(.lt)) .micro.m{min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}.crow.hr details.cr>summary .micro.m,.crow.hl details.cr>summary .micro.m{max-width:100%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}article.card .z{padding:.55rem .5rem}article.card .thread{padding:.5rem .55rem}article.card .pl{font-size:12px;margin:.1rem 0}article.card .zh{margin-bottom:.35rem}article.card .rp{padding:.2rem .4rem}article.card .act{margin:.25rem 0;gap:.3rem}}.micro.m{border:1px solid var(--card-edge);border-radius:999px;padding:0 .45rem;background:var(--sec)}.crb{padding:.3rem 0 .2rem 1rem;font-size:13px}
+details.kgrp{border:1px solid var(--card-edge);border-radius:.45rem;padding:.3rem .45rem;margin:.3rem 0}details.kgrp>summary{cursor:pointer;list-style:none}details.kgrp>summary::-webkit-details-marker{display:none}
+.spill{display:inline-block;font-size:12px;font-weight:600;border-radius:999px;padding:.05rem .6rem;background:var(--sec);border:1px solid var(--card-edge)}details.key{padding:.15rem 0}
+details.pillx{display:inline-block;max-width:100%}details.pillx>summary{display:inline-block;cursor:pointer;list-style:none;font-size:12.5px;border:1px solid var(--field-edge);border-radius:999px;padding:.05rem .6rem;background:var(--card)}
+details.pillx>summary::-webkit-details-marker{display:none}details.pillx[open]>summary{margin-bottom:.3rem}
+article.card details:not(.cr):not(.rp):not(.pillx):not(.kgrp):not(.more):not(.clamp)>summary{display:inline-block;font-size:12.5px;border:1px solid var(--field-edge);border-radius:999px;padding:.05rem .6rem;background:var(--card);cursor:pointer}
 @media (max-width:767px){.shell{grid-template-columns:minmax(0,1fr)}.rail{position:static;flex-direction:row;overflow-x:auto;padding:.4rem 16px;gap:.2rem}.rail button{width:auto;flex:0 0 auto}.rail .cnt{margin-left:.3rem}
 .main{padding:.6rem 3px 3rem}.view>.vh,.view>.h2,.view>.sgs>.sub{padding:0 10px}.pgrid{grid-template-columns:minmax(0,1fr)}.pbox,.sg,.mod{border-radius:.5rem}.cols2{columns:1}
 .rtab thead{display:none}.rtab tr{display:block;border-top:1px solid var(--card-edge);padding:.35rem 0}.rtab td{display:block;border:0;padding:.1rem .2rem}
@@ -868,6 +1046,11 @@ document.addEventListener('click',function(e){document.querySelectorAll('details
   var m=t.match(/^(.{20,90}?[.:;])\s/),first=m?m[1]:t.slice(0,80).replace(/\s+\S*$/,'')+'…';
   var d=document.createElement('details');d.className='clamp';var sm=document.createElement('summary');sm.textContent=first;var body=document.createElement('div');
   while(e.firstChild)body.appendChild(e.firstChild);d.appendChild(sm);d.appendChild(body);e.appendChild(d);}
+ // runs of inline text inside a block that also holds blocks
+ document.querySelectorAll('article.card div,.obj div').forEach(function(e){if(e.closest('details:not(.mod)')||leaf(e))return;var run=[];
+  function flush(){var t=run.map(function(n){return n.textContent;}).join('').replace(/\s+/g,' ').trim();if(t.length>120){var m=t.match(/^(.{20,90}?[.:;])\s/),first=m?m[1]:t.slice(0,80).replace(/\s+\S*$/,'')+'…';
+   var d=document.createElement('details');d.className='clamp';var sm=document.createElement('summary');sm.textContent=first;var body=document.createElement('div');e.insertBefore(d,run[0]);run.forEach(function(n){body.appendChild(n);});d.appendChild(sm);d.appendChild(body);}run=[];}
+  Array.prototype.slice.call(e.childNodes).forEach(function(n){if(n.nodeType===1&&BLK.indexOf(n.tagName)>=0)flush();else run.push(n);});flush();});
 })();
 var L=null,V=null;try{L=localStorage.getItem('tvb-layout');V=localStorage.getItem('tvb-view');}catch(e){}
 if(L==='rows'){var bb=document.querySelector('[data-layout="rows"]');if(bb)bb.click();}
