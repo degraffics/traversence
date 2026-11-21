@@ -46,7 +46,7 @@ $src = (string) file_get_contents($app . '/lib/crawler/Frontier.php');
 $t('the blocked sites are one line, "N sites blocked us", each with its reason', str_contains($src, "\$out[] = ['held', count(\$held) . ' site'") && str_contains($src, 'EngineCase::blockReason((string) $s[\'held_why\'])'));
 $ops = (string) file_get_contents($app . '/lib/Operations.php');
 $t('…a notice, a warning only past the share of the day\'s reads (w0_block_share, 20 read at least)', str_contains($ops, "\$over ? 'warning' : 'notice'") && str_contains($ops, "\$over = \$nr >= 20 && 100 * \$nb / max(1, \$nr) > \$pct;"));
-$t('…Reactivate in place, and every blocked site a tap away', str_contains($ops, "'Reactivate ' . \$hs['host'], 'ops', 'ops_w0_reactivate:'") && str_contains($ops, "'/admin/insights/index#held'"));
+$t('…Reactivate in place, and every blocked site a tap away', str_contains($ops, "'Reactivate ' . \$hs['host'], 'ops', 'ops_w0_reactivate:'") && str_contains($ops, "'/admin/config/control/wf-W0#cb-held'"));   // W0's page since 0176 R3 (Jason, 2026-11-20: the board is the one place to act)
 require_once $app . '/lib/Thresholds.php';
 $t('…its share is a setting, 5% unless changed', (int) Thresholds::get($pdo, 'w0_block_share') === 5);
 

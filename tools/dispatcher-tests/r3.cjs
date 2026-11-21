@@ -6,12 +6,13 @@ const { chromium } = require('playwright'); const fs = require('fs'); const { ex
 const root = process.argv[2];
 let pass = 0, fail = 0; const t = (n, ok, got) => { if (ok) { pass++; console.log('  ok  ' + n); } else { fail++; console.log('FAIL  ' + n + (got !== undefined ? ' — ' + JSON.stringify(got) : '')); } };
 const page = m => execFileSync('php', [path.join(__dirname, 'r3-page.php'), root + '/app', m], { stdio: ['ignore', 'pipe', 'ignore'] });
-(async () => { const b = await chromium.launch(); const reg = page('register'), alarms = page('alarms'), pulse = page('pulse');
+(async () => { const b = await chromium.launch(); const reg = page('register'), alarms = page('alarms'), pulse = page('pulse'), w0 = page('w0');
  for (const w of [1280, 390]) {
   const p = await b.newPage({ viewport: { width: w, height: 900 } });
   await p.route('**/*', r => { const u = new URL(r.request().url());
    if (u.pathname.startsWith('/js/')) { try { return r.fulfill({ body: fs.readFileSync(root + '/website' + u.pathname), contentType: 'text/javascript' }); } catch (e) { return r.fulfill({ body: '', contentType: 'text/javascript' }); } }
    if (u.pathname.startsWith('/admin/api/')) return r.fulfill({ body: '{"ok":true,"case_no":0,"ticked":[]}', contentType: 'application/json' });   // a case's answer, as the site's API gives it
+   if (u.pathname === '/admin/config/control/wf-W0') return r.fulfill({ body: w0, contentType: 'text/html' });
    if (u.pathname === '/admin/dashboard/stream') return r.fulfill({ body: pulse, contentType: 'text/html' });
    if (u.pathname === '/board') return r.fulfill({ body: alarms, contentType: 'text/html' });
    return r.fulfill({ body: reg, contentType: 'text/html' }); });
@@ -35,6 +36,18 @@ const page = m => execFileSync('php', [path.join(__dirname, 'r3-page.php'), root
   t(w + ': …and a click outside closes it', await p.locator('.tv-pk:visible').count() === 0);
   t(w + ': the crash keeps its component button, no Fix it', await p.locator('#cb li[id^="cb-alarm-"]', { hasText: 'second_look' }).locator('.tv-fix').count() === 0);
   t(w + ': board: no sideways scroll', await p.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth));
+  // W0's own page: the sites that blocked us, each with Reactivate (Jason, 2026-11-20: the board is the one place to act)
+  const posted = []; p.on('request', q => { if (q.url().includes('/admin/api/config/control') && q.method() === 'POST') posted.push(q.postData() || ''); });
+  await p.goto('http://t.local/admin/config/control/wf-W0#held-example.org'); await p.waitForTimeout(1200);
+  const hl = p.locator('[id="held-example.org"]');
+  t(w + ': W0\'s page: the blocked site\'s line is in view, with Reactivate', await hl.isVisible() && await p.evaluate(() => { const r = document.getElementById('held-example.org').getBoundingClientRect(); return r.top >= 0 && r.bottom <= innerHeight; }) && await hl.locator('button', { hasText: 'Reactivate' }).count() === 1);
+  const wfx = p.locator('a.tv-fix[href="#held-example.org"]').first();
+  t(w + ': …the site\'s alarm on that page: Fix it lands on its line, no panel', await wfx.count() === 1 && await wfx.getAttribute('data-peek-frame') === null);
+  await hl.locator('button', { hasText: 'Reactivate' }).click(); await p.waitForTimeout(400);
+  const yes = p.locator('button', { hasText: /^Reactivate$/ }).filter({ hasNot: p.locator('xpath=ancestor::li[@id="held-example.org"]') }).last();
+  if (await yes.count()) { await yes.click(); await p.waitForTimeout(800); }
+  t(w + ': …Reactivate asks first, then sends the board\'s own action for that site', posted.some(b => b.includes('opsdo') && b.includes('ops_w0_reactivate:example.org')), posted);
+  t(w + ': W0\'s page: no sideways scroll', await p.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth));
   // a push's link: the thread's Pulse row, its panel on Fix it
   await p.goto('http://t.local/admin/dashboard/stream#case=alarm:1&fix=1'); await p.waitForTimeout(1500);
   const pk = p.locator('.tv-pk iframe'), tf = p.locator('#pb-tool-f');

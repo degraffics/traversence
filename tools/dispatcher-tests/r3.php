@@ -73,11 +73,13 @@ $aCr = ControlAlarms::raise($pdo, 'task:failed:second_look', 'wf:W2', 'trip', 'c
 $by = fn (int $id) => ControlAlarms::byId($pdo, $id);
 $t('an alarm on an issue takes the issue\'s cause', ControlAlarms::fixOf($pdo, $by($a40)) === ['cause' => 'key', 'url' => '/admin/config/register#svc-anthropic-key'] && ControlAlarms::fixOf($pdo, $by($a43))['cause'] === 'theirs');
 $t('a cap: the card\'s Caps and budget; the community budget: Costs', ControlAlarms::fixOf($pdo, $by($aCap)) === ['cause' => 'quota', 'url' => '/admin/config/register#svc-tavily-caps'] && ControlAlarms::fixOf($pdo, $by($aCom)) === ['cause' => 'quota', 'url' => '/admin/config/register#costs']);
-$t('a site that blocked W0: its line among the sites that blocked us', ControlAlarms::fixOf($pdo, $by($aW0)) === ['cause' => 'blocked', 'url' => '/admin/insights/index#held-example.org'], ControlAlarms::fixOf($pdo, $by($aW0)));
+$t('a site that blocked W0: its line on W0\'s page on the board, with Reactivate', ControlAlarms::fixOf($pdo, $by($aW0)) === ['cause' => 'blocked', 'url' => '/admin/config/control/wf-W0#held-example.org'], ControlAlarms::fixOf($pdo, $by($aW0)));
 $t('a crash has no mapped cause (its row keeps its component button)', ControlAlarms::fixOf($pdo, $by($aCr)) === null);
 $t('their trouble on an alarm: no Fix it, "The system is handling it"', ControlAlarms::facts($pdo, $by($a43))['fix'] === null && str_starts_with(ControlAlarms::facts($pdo, $by($a43))['doing'], 'The system is handling it: '));
-$ix = (string) file_get_contents($app . '/admin/index-console.php');
-$t('Insights → Index: each blocked site\'s row carries held-<host>, beside its Reactivate', str_contains($ix, '<tr id="\' . $e(ControlAlarms::heldAnchor((string) $r[\'host\'])) . \'">') && ControlAlarms::heldAnchor('Sub_Domain.Example.org') === 'held-sub-domain.example.org');
+$ix = (string) file_get_contents($app . '/admin/index-console.php'); $cc = (string) file_get_contents($app . '/admin/control-console.php');
+$t('W0\'s page lists each site that blocked us, with Reactivate (the board\'s own action, its permission)', str_contains($cc, "\$focus === 'wf:W0'") && str_contains($cc, "id=\"cb-held\"") && str_contains($cc, "'ops:w0:held|ops_w0_reactivate:'") && str_contains($cc, "Access::can('insights.crawler.edit'") && ControlAlarms::heldAnchor('Sub_Domain.Example.org') === 'held-sub-domain.example.org');
+$t('…Insights → Index keeps the view and links to W0\'s page for Reactivate; its own Reactivate is gone', str_contains($ix, 'href="/admin/config/control/wf-W0#\' . $e(ControlAlarms::heldAnchor') && !str_contains($ix, "\$btn('reactivate'") && !str_contains($ix, "case 'reactivate':"));
+$t('…the W0 alarm\'s "Every blocked site" opens W0\'s page', str_contains((string) file_get_contents($app . '/lib/Operations.php'), "['Every blocked site', 'peek', '/admin/config/control/wf-W0#cb-held']"));
 
 // the board
 $names = []; $pid = fn (string $p) => 'cb-p-' . str_replace(':', '-', $p);
@@ -86,7 +88,10 @@ $rowOf = function (int $id) use ($pdo, $names, $pid, $btn): string { $a = Contro
 $b40 = $rowOf($a40);
 $t('the board: Fix it first, into the side panel, in place of "Open its card" (the same page)', str_contains($b40, '<a class="ak-b cb-xs go cb-main tv-fix" href="/admin/config/register#svc-anthropic-key" data-peek-frame=') && !str_contains($b40, '>Open its card</a>'), mb_substr($b40, (int) strpos($b40, 'cb-acts'), 500));
 $bW0 = $rowOf($aW0);
-$t('…a site that blocked W0: Fix it to its line, and its process page kept beside it (another page)', str_contains($bW0, 'href="/admin/insights/index#held-example.org" data-peek-frame') && str_contains($bW0, '>Open W0</a>'), mb_substr($bW0, (int) strpos($bW0, 'cb-acts'), 600));
+$t('…a site that blocked W0: Fix it to its line on W0\'s page, in place of "Open W0" (the same page)', str_contains($bW0, 'href="/admin/config/control/wf-W0#held-example.org" data-peek-frame') && !str_contains($bW0, '>Open W0</a>'), mb_substr($bW0, (int) strpos($bW0, 'cb-acts'), 600));
+$a0 = ControlAlarms::byId($pdo, $aW0); $a0['fix'] = json_decode((string) $a0['fix'], true) ?: [];
+$onW0 = tv_cb_alarms([$a0], ['trip' => 0, 'warning' => 1, 'notice' => 0], $names, $pid, true, '', $btn, [], 'wf:W0');
+$t('…on W0\'s own page, Fix it lands on the line there (an anchor, no panel)', str_contains($onW0, 'href="#held-example.org" data-fix="blocked"'), mb_substr($onW0, (int) strpos($onW0, 'cb-acts'), 400));
 $bCr = $rowOf($aCr);
 $t('…a crash keeps its component button and has no Fix it', !str_contains($bCr, 'tv-fix') && str_contains($bCr, '>Open W2</a>'));
 $b43 = $rowOf($a43);

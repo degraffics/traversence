@@ -390,8 +390,12 @@ manager 2026-11-20 18:54, "go ahead with A for both"). §5 as built:
   when it can be pressed. A used-up quota or a cap on the card's Caps and paces (`#svc-<k>-caps`, or This month where a
   card has no caps); the community budget on Costs (`#costs`). An outside service that refused us on its issue on its
   card (`#issue-<id>`), where Check it now is, since a service has no Reactivate of its own. A site that blocked W0 on
-  its line under Sites that blocked us (Insights → Index, `#held-<host>`), with Reactivate: W0's own page has no list of
-  blocked sites, so this is that source's rule as it exists.
+  its line on W0's own page on the board (`/admin/config/control/wf-W0#held-<host>`), with Reactivate.
+- **Reactivate moved to W0's page** (Jason, 2026-11-20, through the session manager: "Insights vs systems services
+  register?"; §5 "that source's rule on its process page" and 0175 §6, the board is the one place to act). W0's page
+  lists the sites that blocked us (`#cb-held`), each with Reactivate, the board's own action with its permission.
+  Insights → Index keeps the list to read and links each site to W0's page; its own Reactivate is gone. The W0
+  alarm's "Every blocked site" opens W0's page.
 - **No alarm carries "no backup" or "repair needs shutdown" today.** I checked every `ControlAlarms::raise` caller. The
   map holds their spots, but nothing draws them until an owner sets that cause.
 - **An alarm with no mapped cause** (a crash, a red check, a payments token) keeps its component button (0175 release
