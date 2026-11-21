@@ -48,6 +48,7 @@ $t('…taskHeld names the line for that task only', Operations::taskHeld($pdo, '
 $cs = (string) file_get_contents($app . '/lib/crawler/CrawlService.php');
 $t('…and the crawler\'s plan skips a held task, never its workflow', str_contains($cs, "if (Operations::taskHeld(\$pdo, (string) \$t, (string) \$r['wf'])) continue;"));
 $pf = (string) file_get_contents($app . '/lib/Preflight.php');
+$t('a line W3 doesn\'t wait on still shows, amber, saying it holds nothing here', str_contains($pf, "if (\$g['apart']) { \$states[] = 'warn'; \$parts[] = 'Down, and ' . \$wf . ' doesn\\'t wait on it: '"));
 $t('W3\'s line says it in amber: waiting while their source is down, the rest runs', str_contains($pf, "'Waiting while their source is down: '") && str_contains($pf, "\$states[] = 'warn'; \$parts[] = 'A source is down and covered: '"));
 
 // 3. every task of a workflow calls the service: the workflow waits whole, as before
