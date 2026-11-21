@@ -259,6 +259,8 @@ SETUP = {
 
 def setup_notice(mod):
     s = SETUP[mod]
+    if s.get('clear'):
+        return f'<div class="stage" style="color:var(--meta);font-size:12.5px">{s["clear"]}</div>'
     return (f'<div class="stage" style="color:var(--meta);font-size:12.5px">{s["notice"]} '
             f'<a href="#" data-open-panel="p-setup-{mod}" style="color:var(--meta)">Record ▸</a></div>')
 
@@ -266,7 +268,7 @@ def setup_notice(mod):
 def setup_details(mod):
     s = SETUP[mod]
     keys = ''.join(f'<li><code>{k}</code>: {where} <span class="why">({what})</span></li>' for k, where, what in s['keys'])
-    slots = ''.join(f'<li><b>{n}:</b> {st}' + (f' <span class="why">({why})</span>' if why else '') + (' · <span class="why">no why yet</span>' if st == 'Not registered' else '') + '</li>'
+    slots = ''.join(f'<li><b>{n}:</b> {st}' + (f' <span class="why">({why})</span>' if why else '') + (' · <span class="why">no why yet</span>' if st == 'Not registered' and not why else '') + '</li>'
                     for n, st, why in s['slots'])
     return (f'<details><summary>Setup capture</summary><div class="sub" style="margin:.3rem 0">Names only, never values. Credentials live only in the Vault.</div>'
             f'<div style="font-size:13px"><b>Where to sign in:</b> Sign in slot: Not registered.</div>'

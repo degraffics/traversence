@@ -1169,13 +1169,14 @@ all five:**
   (IR-0001; Geofabrik's 2026-11-15 IPv6 fix), so a person switched them on (inf).
 - **Last load and its counts:** read from each load table (`open_loads` seen and listed per town or state; `npi_loads`,
   `npi_orgs`; `irs_loads` rows seen and removed). **Needs live data**, so every mockup shows "not read yet".
-- **Slots (04):** Billing and Keys aren't registered, each with a suggested why ("Free ($0): no bill"; "no key", or
-  Foursquare's Hugging Face token page). Sign in isn't registered ("no account"; Foursquare: the Hugging Face account).
-  **Console is drawn as the data's download page**, from `service-defs.php`'s own link, tagged Documented · release #212
-  and marked "proposed": "Releases", "On Hugging Face", "US extracts", "Monthly files" and "EO BMF files" aren't mapped
-  labels in 02 §8 (open word, all).
-- **Setup capture (§13):** notice "Setup capture: Billing, Keys, Sign in: why not recorded". Names and places in §22.6's
-  table per source.
+- **Slots (04), the session manager's ruling (2026-11-21):** a download page isn't a portal slot (§5: no docs or our own
+  runs in slots), so it's in zone 2 as **"Its files ↗"**. For open data with no account, all four slots read Not
+  registered, each with the why **"Open data: no account"**. Foursquare's whys: Billing "Open data: no bill"; Keys "its
+  key is a Hugging Face token: Hugging Face is a line on this card"; Console "Open data: its files are linked in zone 2";
+  Sign in "a Hugging Face account: a line on this card".
+- **Setup capture (§13):** every slot's why is recorded, so the notice clears ("Setup capture: each slot's why
+  recorded"); names and places stay in the Details (§22.6's table).
+- **Licence:** Overture's and Foursquare's cards show "licence: confirmation not recorded (0164 Decision 9)".
 - **IR-0001** (`step2/ir-0001.md`): both W1 timeouts were reading **our** `/api/crawl/loads` reply. Under the contract
   it's a warning on the Site part (02 rows 11–13), the tasks aren't held, and they run at the next night's window
   (row 14). Today (live L2, L3) each one tripped and paused all of W1, twice.
@@ -1192,6 +1193,7 @@ all five:**
 | priority map | Places by kind and town (W1): our OSM copy, **then Overture**, then it waits. Businesses in bulk (W1): our open-data copies, Overture, Foursquare, Geofabrik; the last load is kept | obs (`Preflight::NEEDS`) |
 | hosts | declared `overturemaps-us-west-2.s3.amazonaws.com`, `overturemaps.org`; the release listing calls `…s3.us-west-2.amazonaws.com`, filed today under AWS (g2 row 31). Under the contract its calls count on Overture's card | obs; des |
 | faults | the bucket down or slow (DuckDB's reads: not classified today, g1 row 5) → rows 24–26 on Overture, only `overture_bulk` waits, the last load kept; **no release found** (`_overture_release()` returns "" and the load reads `release//`) → a malformed answer, rows 24–26 (open word 2); our load endpoint slow → the Site part (IR-0001) | obs; des |
+| no release found | its own words, a malformed answer (rows 24–26): "Overture: no release found · Its bucket listed no release at <time>. Trying again (1 of 3)." | des (the session manager, 2026-11-21) |
 | mockup b | "On · Working", a "Linked" line naming IR-0001 as the Site part's warning; zone 3's endpoint line amber "Warning (Slow)"; today's words beside (L2) | des |
 
 ### 22.2 Foursquare open places (mockup c)
@@ -1217,7 +1219,8 @@ all five:**
 | feeds | W1 · `geofabrik_bulk`: one state a run, each state every `geofabrik_days` (7) at most; osmium-tool reads it; 500-place batches, the site's 502/503/504 waited out (30, 90, 180 s) | obs |
 | priority map | Places by kind and town (W1): **our OSM copy first**; Businesses in bulk (W1): the fourth source | obs |
 | faults | a state's download fails: **today it's logged on Railway only, the run moves on, and the site lists the state as due again, so the next run downloads it again** (`geofabrik_load`, `geofabrikDue()`). Its record says "a refused download is held for a person, never retried (a free mirror instead, by hand)"; only the test download (`geofabrik_probe`) raises a case. Under the contract: a server answer → rows 24–26 on **that state's file only**; a refusal → row 32 (a ban, never retried) | obs; des |
-| mockup d | Utah's file, a scenario 503: "Geofabrik: Utah's file didn't download · Trying again (1 of 3)"; the other four states unaffected; Utah's last load kept (if its first load finished: needs live data); their trouble, so Console (US extracts), no Fix it | des |
+| by classification (the session manager, 2026-11-21) | **a failure** (a timeout or a 5xx) follows row 32's probe: held, one download a day for at most 3 days, then a person's call. **A refusal** (a 403 or a block) waits for a person at once, under Jason's refusal rule. **One state's file is the held part** | des |
+| mockup d | Utah's file, a scenario 503 (a failure): "Geofabrik: Utah's file didn't download · Paused by the system (Utah's file). The system checks once a day for 3 days; after that it's your call." The refusal case named beside it. The other four states unaffected; Utah's last load kept (if its first load finished: needs live data); their trouble, no Fix it, its files in zone 2 | des |
 
 ### 22.4 NPI Registry (CMS) (mockup e)
 
@@ -1226,7 +1229,7 @@ all five:**
 | purpose | "Health providers' names, addresses and phones: the monthly file, the second look and identity checks." | obs |
 | licence and use | public domain: owned, stored with the source (R9) | obs |
 | feeds | W1 · `npi_bulk` (the monthly file); W1, W2 · `second_look`, `identity`, `npi_town` (single lookups, one at a time) | obs (`OutsideServices`) |
-| cadence | **the monthly load is off since 2026-11-02** (`NpiBulk::OFF`, Jason: CMS took its file page down "until further notice"). Drawn as "Off: Jason switched it off on Nov 2 (…)" (§0's person's-Off words). Lookups go on | obs |
+| cadence | **the monthly load is off since 2026-11-02** (`NpiBulk::OFF`, Jason: CMS took its file page down "until further notice"). Drawn as **"Off on purpose: CMS took its file page down (Jason, 2026-11-02)"**, a real switch with its why in step 4 (the session manager, 2026-11-21). Lookups go on | obs |
 | priority map | Health providers (W1): our NPI copy, then CMS; the last load is kept. Confirm a business (W1, W2): CMS after our copies | obs |
 | faults | the file page without a monthly file ("no monthly file found on the NPI download page") → a malformed answer, rows 24–26; the API down → rows 24–26 on the lookups | obs; des |
 | mockup e | Working; the monthly file row "Off"; the NPI Registry linked on the record, not a slot | des |
@@ -1240,10 +1243,10 @@ all five:**
 | feeds | W1 · `irs_bulk`: `eo_{state}.csv` for Arizona and New Mexico, columns EIN, NAME, STREET, CITY, STATE, ZIP, NTEE_CD | obs |
 | cadence | monthly: due when the last finished load is 30 days old | obs |
 | priority map | Nonprofits (W1): our IRS copy, then the IRS; the last load is kept | obs |
-| faults | **a file that changed shape.** Today columns are read by name, so a missing one loads as blank, silently; a missing EIN or NAME drops every row and "the IRS files had no rows the site accepted" keeps the old copy. **If one state's file fails and the other loads, `IrsBulk::finish()` removes every record not in this month's file: that state's nonprofits are deleted.** The contract drawn: the load checks the columns before it sends a row; a changed shape stops it, the last load kept; Paused by the system, waiting for a person (the loader updated) | obs (code); des |
-| mockup f | "The IRS's exempt-organization file changed shape · Paused by the system: nothing of this month's load was kept." New Mexico's file without NTEE_CD (scenario). Fix it: Console (EO BMF files), then a build, then Check and start again | des |
+| faults | **a file that changed shape.** Today columns are read by name, so a missing one loads as blank, silently; a missing EIN or NAME drops every row and "the IRS files had no rows the site accepted" keeps the old copy. **If one state's file fails and the other loads, `IrsBulk::finish()` removes every record not in this month's file: that state's nonprofits are deleted.** **02 row 38b:** the shape is checked before any write; a changed shape is a stop that waits for a person (the loader updated); **nothing is deleted** when the check fails or the load's rows fall below a floor. The code holds no typical counts, so the floor is **a share of last month's rows (90% proposed, des)** | obs (code); des |
+| mockup f | "The IRS's exempt-organization file changed shape · Paused by the system: nothing of this month's load was kept." New Mexico's file without NTEE_CD (scenario), the floor in its Details. Fix it: its files (zone 2), then a build, then Check and start again | des |
 
-### 22.6 Open words for the sources
+### 22.6 Open words for the sources: answered (the session manager, 2026-11-21; the IRS delete with Jason)
 
 Setup capture, names and places only:
 
@@ -1256,38 +1259,126 @@ Setup capture, names and places only:
 | IRS | `IRS_BULK` | Railway |
 
 **All five**
-1. **Console as the download page:** none of their link labels is mapped in 02 §8. Map "Releases", "On Hugging Face",
-   "US extracts", "Monthly files" and "EO BMF files" to Console, or leave Console not registered?
-2. **Last loads need live data:** each load table's newest row (when, seen, kept, removed). Also `OVERTURE_RELEASE` and
-   `FSQ_RELEASE`, set or not (names only).
-3. **Licences confirmed?** R9 lets Overture and Foursquare be shown "once their licences are confirmed" (Decision 9).
-   The card shows the licence; whether it's confirmed isn't recorded anywhere it can read.
+1. **Console as the download page: no.** It isn't a slot (§5); it's "Its files ↗" in zone 2, and all four slots read Not
+   registered with "Open data: no account" (Foursquare's whys in §22's head). The setup notice clears.
+2. **Live data:** each load table's newest row, `OVERTURE_RELEASE` and `FSQ_RELEASE` (set or not, names only), and
+   Utah, Colorado and Nevada's first loads go on the session manager's list of asks. Marked "needs live data".
+3. **Licences:** the cards show "licence: confirmation not recorded (0164 Decision 9)", and "For Jason's review" has its
+   own item (6).
 
-**Overture**
-1. Its regional S3 host is filed under AWS today (g2 row 31). Drawn on Overture's card, with its declared hosts to be
-   corrected in step 4.
-2. **No release found** has no words of its own: drawn as a malformed answer (rows 24–26). A row, or that's enough?
+**Overture.** 1: its S3 host goes on Overture's card. 2: "No release found" is a malformed answer (rows 24–26), with
+its own words (§22.1).
 
-**Foursquare**
-1. **`FSQ_RELEASE`'s default** is a fixed `dt=2026-10-15` while its note says "the newest". A code finding for step 4,
-   not a card word.
-2. Its key is a Hugging Face token: is Hugging Face its own module (a Keys and Sign in slot there), or a line here?
+**Foursquare.** 1: the fixed `dt=2026-10-15` default is a step-4 code finding. 2: Hugging Face is a line on this card,
+not a module.
 
-**Geofabrik**
-1. **A refused download:** its record says "held for a person, never retried"; 02 row 32 says one probe a day for 3 days.
-   Which wins for Geofabrik?
-2. **One state's file as a part:** drawn so a failure holds that state only. Confirm the state is the part.
-3. Whether Utah, Colorado and Nevada have finished a first load (added 2026-11-19): needs live data.
+**Geofabrik.** 1: by classification. A refusal (a 403 or a block) waits for a person; a failure (a timeout or a 5xx)
+follows row 32's probe. Page d shows the failure and names the refusal. 2: one state's file is the held part. 3: live
+data.
 
-**NPI (CMS)**
-1. **`NpiBulk::OFF` is a code constant, not a switch.** Drawn with §0's person's-Off words. Should it become a switch
-   (with its why) so the board can show and lift it?
-2. Is CMS's file page back? Needs a live read (one page, at no cost) before it's switched on.
+**NPI (CMS).** 1: in step 4, a real switch with its why, "Off on purpose: CMS took its file page down (Jason,
+2026-11-02)". 2: live data.
 
-**IRS**
-1. **A file that changed shape has no 02 row.** Drawn as a stop kind waiting for a person (row 38's shape), checked
-   before any row is sent. A row for it (all bulk files), or the malformed answer of rows 24–26?
-2. **The partial delete in `IrsBulk::finish()`** is a live-code risk: listed for Jason's review (item 5).
+**IRS.** 1: 02 row **38b**: a file that changed shape is a stop that waits for a person; the shape is checked before any
+write, and nothing is deleted when the check fails or the rows fall below the floor (a share of last month's rows, 90%
+proposed). Page f shows it. 2: **the partial delete is with Jason** (the session manager is asking him); it stays on
+"For Jason's review" (item 5).
+
+---
+
+## 23. The video worker's card (mockups `video-*.html`)
+
+A **Service hosted on Railway** (the report): 720p and 1080p copies of posted videos (decisions/0153 §8, 0154 §2;
+`workers/video/`). Built in `mockups/src/video.py` from the repo, the live code at mirror `aeb5f31`, and Railway's
+read-only API (8:51 AM MST). No variables were read.
+
+### 23.1 The manifest and four zones
+
+| Field | Value | Basis |
+|---|---|---|
+| role · criticality | Service, hosted on Railway · **not critical** (`ControlRegister::CRITICAL` leaves it out, Jason) | obs |
+| what it does | every 5 minutes (`*/5 * * * *`), a run of up to 240 s asks for 2 jobs: fetches the original through a short-lived link, makes a 720p copy (and a 1080p one when the poster's plan plays it) with ffmpeg, uploads through short-lived links, reports. It never holds the store's keys | obs (`video.py`) |
+| the queue | `VideoJobs`: a job leased 20 minutes; a failure tries again, **3 times**, then "failed"; each copy checked in the store before it's recorded. Counts (`video_jobs` queued, done today, failed): **needs live data** | obs |
+| endpoints | `/api/video/jobs.php`, `/api/video/results.php` (Site parts `video/jobs`, `video/results`) | obs |
+| storage | the file store, originals and copies side by side (`v720`, `v1080`): links to the AWS card (S3 until the move to R2) | obs |
+| on Railway | service `video-worker`, root `/workers/video`; latest deploy `628caa0d` SUCCESS Nov 17, 6:30 PM MST (commit `430d4c3`) | obs (Railway API) |
+| **restart rule** | **Railway: On failure, up to 10. The repo: Never.** Drawn amber, "for Jason to choose"; the next deploy from the repo sets Never | obs |
+| heartbeat | **missing today** (step 2, root cause 4). Spec: it checks in after each run; silent past its window (15 minutes, three runs) → row 50: a warning, a trip after 3 tries, **only this service trips** | des |
+| spend | Railway's compute, "use not priced yet", counted on Railway's card | obs |
+| slots | Railway's: Billing · Usage, Console · Dashboard (Documented · release #212); Keys and Sign in not registered | obs (02 §8) |
+| zones | 1: Service · hosted on Railway, not critical, state, stage 5, setup notice, spend, radius. 2: copies of posted videos, its endpoints, its storage. 3: its heartbeat, on Railway (deploy, next run, the restart rule), its key. 4: Check now · Pause; At Railway, its slots | des |
+
+**Incident Radius:** Held: new copies (they queue). On a backup: each video plays its original (`MemberPosts`: feeds
+play `v720`, else the original). Unaffected: everything else, including the crawler and W0 on the same host.
+
+### 23.2 States (mockups)
+
+| Mockup | Row (02) | New words | Today's words | Fix it |
+|---|---|---|---|---|
+| a Working | — | "On · Working"; the restart rule amber | — | — |
+| b Silent | 50 (47–48's shape) | "The video worker hasn't checked in · Paused by the system: no heartbeat since <time>. Its 3 tries failed; new video copies queue." | nothing: no heartbeat exists | Console (Railway): the service's deploy and cron runs, then Check and start again |
+| c One copy failing | 49's shape | a Notice: "One video's copies failed: Moment #… after 3 tries (ffmpeg: …). It plays its original; nothing else waits." [Try this video again] | the job's row keeps its error; nothing on the board | none (no alarm) |
+
+### 23.3 Setup capture
+
+Notice "Setup capture: Sign in not recorded · Keys: why not recorded" (Railway's slots). Names and places:
+`VIDEO_WORKER_TOKEN` (.env and Railway, the same value), `TRAVERSENCE_SITE`, `RUN_SECONDS`, `JOBS_PER_ASK` (Railway),
+`VIDEO_WORKER_PAUSED` (.env, Settings; staging sets it).
+
+### 23.4 Open words for the video worker
+
+1. **The restart rule:** On failure (Railway) or Never (the repo)? Jason to choose.
+2. **One job failing has no 02 row:** drawn as row 49's shape (no fault on the worker) with a Notice naming the video.
+   Confirm, and whether [Try this video again] belongs on the card or on the post.
+3. **The heartbeat's window:** 15 minutes (row 50) is three of its 5-minute runs. Keep it, or tie it to the cron?
+4. **The queue's counts** need live data (`video_jobs`).
+
+## 24. Cloudflare's card (mockups `cloudflare-*.html`)
+
+Built in `mockups/src/cloudflare.py` from the live code at mirror `aeb5f31`. No `.env` opened; no outside call (a DNS
+lookup of the site would be one, so DNS is "needs live data").
+
+### 24.1 What the code uses it for
+
+| Part | What the code shows | State drawn | Basis |
+|---|---|---|---|
+| **Sign-in check (Turnstile)** | sign-in, sign-up, Forgot password, likes' check (decisions/0097). Off until `TURNSTILE_SITE_KEY` and `TURNSTILE_SECRET_KEY` are set. **Fails open** when Cloudflare doesn't answer ("don't lock everyone out"); **refuses** when its answer isn't a success | on or off: needs live data | obs (`Captcha.php`) |
+| **File storage (R2)** | decisions/0151; `S3_ENDPOINT` points the store at R2 with its own key; the pre-flight's R2 line and CORS rule; `files_tick` every 10 minutes | **Proposed (stage 1)** until `S3_ENDPOINT` is answered (needs live data); the AWS card carries storage meanwhile (§21.6, 1) | obs; des |
+| **cdnjs** | browsers load Leaflet (maps) and pdf.js (PDF previews) from `cdnjs.cloudflare.com` (13 files) | "not checked by us": the server never calls it | obs |
+| **DNS** | `ControlRegister::CRITICAL` maps `svc:cloudflare` → page, "unsure: in front of the site's address"; the captcha's notes say DNS "doesn't have to be on Cloudflare"; `RegionGate` reads `CF-IPCountry` only when behind it | needs live data | obs |
+| **The storefront edge** | **not Cloudflare:** Fly.io with Caddy (`workers/storefront-edge`, decisions/0139): its own Host card | — | obs |
+
+**Slots (04):** Billing · Billing and Console · Dashboard (Documented · release #212, 02 §8); Keys and Sign in not
+registered. "R2 buckets" and "Turnstile" are pages, linked on their zone 2 lines, not slots. `Pulse::SERVICES` links
+the Dashboard. **Spend:** R2's prices and Turnstile free, "use not read yet". **Criticality:** "Critical: page load
+(svc:cloudflare), flagged 'unsure' in the code".
+
+**Incident Radius, per part:** R2 down (once in use): uploads wait on the server, stored files don't show. cdnjs down:
+maps and PDF previews don't draw. Turnstile down: sign-in goes on without the check (its backup by design). Unaffected:
+pages, search, payments (unless DNS is on it), the storefront edge.
+
+### 24.2 States (mockups)
+
+| Mockup | Row (02) | New words | Today's words | Fix it |
+|---|---|---|---|---|
+| a Working | — | "On · Working"; R2 Proposed; DNS needs live data | — | — |
+| b Turnstile secret refused (its most real fault: the pre-flight already tests for it) | 29, 106 | "Cloudflare refused our Turnstile secret · Paused by the system: the sign-in check with TURNSTILE_SECRET_KEY waits for a new key." Held: password sign-in, sign-up, Forgot password; On a backup: Google, Microsoft, Facebook sign-in; touches `site:signin` (procedures) | each visitor: "The "verify you're human" check didn't pass. Please try again."; the log "captcha refused: invalid-input-secret"; the pre-flight only when it runs | Console (Turnstile's secret), then Replace key |
+
+### 24.3 Setup capture
+
+Notice "Setup capture: Sign in not recorded · Keys: why not recorded". Names: `TURNSTILE_SITE_KEY`,
+`TURNSTILE_SECRET_KEY` (.env); `S3_ENDPOINT`, `S3_ACCESS_KEY_ID`, `S3_SECRET_ACCESS_KEY`, `S3_REGION` (.env, optional,
+R2's key; listed on the AWS card too).
+
+### 24.4 Open words for Cloudflare
+
+1. **Is the site's DNS on Cloudflare?** Needs live data. If not, `svc:cloudflare` shouldn't carry the page duty.
+2. **Is R2 live?** `Pulse::SERVICES` says R2 holds "every photo, video and file"; the AWS record says S3 "until the
+   move to R2 is finished". The same `S3_ENDPOINT` ask as §21.6, 1.
+3. **A refused Turnstile secret locks out password sign-in**, while an outage lets people through. Should a refused
+   secret fail open too (with the alarm), or stay closed? Jason's call.
+4. **cdnjs** isn't checked by any sensor. A line only, or a browser-side check in step 4?
+5. **The storefront edge** (Fly.io) needs its own Host card: not in this batch.
 
 ---
 
@@ -1306,3 +1397,6 @@ Items noted for Jason's review of the step-3 design. None is asked now.
 5. **The IRS load's partial delete** (§22.5, §22.6 IRS 2): when one state's file loads and the other's rows are all
    refused, the finish removes the second state's nonprofits. A code fix for step 4 (finish per state, or not at all
    unless every state loaded), not a card word.
+6. **Confirm Overture (CDLA-Permissive-2.0) and Foursquare (Apache-2.0) licences — loads already running** (0164
+   Decision 9; §22.6, 3). The session manager's note: W1 added 205 in run #1290. Step 2's `ir-0001.md` reads #1290 as
+   stopped before its first town, so that count isn't confirmed from the evidence here.
