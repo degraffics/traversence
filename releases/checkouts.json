@@ -8,9 +8,15 @@
    "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
    "why": "0176 R3: Fix it routing",
    "since": "2026-11-20T23:32:36Z",
-   "expires": "2026-11-21T03:32:36Z",
+   "expires": "2026-11-21T04:53:51Z",
    "release": "0176-fix-it.zip",
-   "callers": {}
+   "callers": {
+    "html": [
+     "app/admin/control-console.php",
+     "app/admin/operations-console.php",
+     "app/lib/ControlAlarms.php"
+    ]
+   }
   },
   {
    "path": "app/lib/ServiceHealth.php",
@@ -23,7 +29,7 @@
    "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
    "why": "0176 R3: Fix it routing",
    "since": "2026-11-20T23:32:36Z",
-   "expires": "2026-11-21T03:53:24Z",
+   "expires": "2026-11-21T04:53:51Z",
    "release": "0176-fix-it.zip",
    "callers": {
     "facts": [
@@ -53,7 +59,7 @@
    "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
    "why": "0176 R3: Fix it routing",
    "since": "2026-11-20T23:32:36Z",
-   "expires": "2026-11-21T03:32:36Z",
+   "expires": "2026-11-21T04:53:51Z",
    "release": "0176-fix-it.zip",
    "callers": {
     "facts": [
@@ -86,7 +92,7 @@
    "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
    "why": "0176 R3: Fix it routing",
    "since": "2026-11-20T23:32:36Z",
-   "expires": "2026-11-21T03:53:24Z",
+   "expires": "2026-11-21T04:53:51Z",
    "release": "0176-fix-it.zip",
    "callers": {}
   },
@@ -97,7 +103,7 @@
    "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
    "why": "0176 R3: Fix it routing",
    "since": "2026-11-20T23:32:36Z",
-   "expires": "2026-11-21T03:53:24Z",
+   "expires": "2026-11-21T04:53:51Z",
    "release": "0176-fix-it.zip",
    "callers": {}
   },
@@ -111,7 +117,7 @@
    "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
    "why": "0176 R3: Fix it routing",
    "since": "2026-11-20T23:32:36Z",
-   "expires": "2026-11-21T03:53:24Z",
+   "expires": "2026-11-21T04:53:51Z",
    "release": "0176-fix-it.zip",
    "callers": {
     "tv_pulse_board": [
@@ -185,13 +191,35 @@
    "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
    "why": "0176 R3: Every blocked site opens W0's page",
    "since": "2026-11-21T00:00:47Z",
-   "expires": "2026-11-21T04:01:14Z",
+   "expires": "2026-11-21T04:53:51Z",
    "release": "0176-fix-it.zip",
    "callers": {
     "alarms": [
      "app/lib/ControlAlarms.php"
     ]
    }
+  },
+  {
+   "path": "app/admin/control-console.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
+   "why": "release 0176-fix-it.zip",
+   "since": "2026-11-21T00:53:51Z",
+   "expires": "2026-11-21T04:53:51Z",
+   "release": "0176-fix-it.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/js/admin-outside.js",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
+   "why": "release 0176-fix-it.zip",
+   "since": "2026-11-21T00:53:51Z",
+   "expires": "2026-11-21T04:53:51Z",
+   "release": "0176-fix-it.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
