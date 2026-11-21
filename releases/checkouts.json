@@ -156,6 +156,35 @@
    "expires": "2026-11-21T07:28:58Z",
    "release": "workflow-holds.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/Operations.php",
+   "functions": [
+    "forgetGate",
+    "gateFor",
+    "taskHeld"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
+   "why": "Workflow audit",
+   "since": "2026-11-21T03:29:10Z",
+   "expires": "2026-11-21T07:29:10Z",
+   "release": "workflow-holds.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Preflight.php",
+   "functions": [
+    "markOf",
+    "reachAll"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
+   "why": "Workflow audit",
+   "since": "2026-11-21T03:29:10Z",
+   "expires": "2026-11-21T07:29:10Z",
+   "release": "workflow-holds.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
