@@ -135,7 +135,15 @@ The documented links today [obs, `service-defs.php` at `37a212e`], with the labe
 1. **Fixed order:** always Billing · Keys · Console · Sign in, under "At <Provider>".
 2. **Label format:** the slot type is the main label. The provider's own label is added in small type only where it
    differs, e.g. "Billing · Usage", "Billing · Limits", "Console · Dashboard".
-3. **Source tags:** "Documented", or "From your Vault · <date>".
+3. **Source tags** (four, locked by Jason on 2026-11-21; each says who vouched for the link):
+   - **From your Vault · <date>:** published from Jason's unlocked Vault.
+   - **Site settings:** built from a `.env` value, e.g. Bluehost's Console from `CPANEL_HOST`.
+   - **Documented · release #<its real number>:** added to `service-defs.php` by that approved release, never a "#N"
+     placeholder. Its tooltip says whether Jason supplied it or a Claude session took it from the provider's own pages.
+     "Claude Session" appears only in the tooltip, never as a badge of its own. Railway's Billing · Usage and Console ·
+     Dashboard are "Documented · release #212" (0173 release 3, `service-defs.php` created). The record doesn't show Jason
+     supplying them, so the tooltip reads "Written by a Claude session from Railway's own pages".
+   - **Not registered:** "No <type> page registered for <Provider> yet", with "Publish from your Vault".
 4. **Missing links:** "No <type> page registered for <Provider> yet", with "Publish from your Vault" for Jason. Fix it
    names its page type and never borrows another link.
 5. **Phone (390px):** two slots per row, no sideways scroll.
