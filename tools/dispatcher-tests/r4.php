@@ -20,7 +20,7 @@ file_put_contents($app . '/lib/Mailer.php', "<?php\nfinal class Mailer { public 
 file_put_contents($app . '/lib/WebPush.php', "<?php\nfinal class WebPush { public static array \$sent = []; public static function sendToUser(PDO \$p, int \$u, array \$m): array { self::\$sent[] = ['u' => \$u] + \$m; return ['sent' => 1, 'failed' => 0]; } public static function ready(PDO \$p): bool { return true; } }\n");
 if (is_file($app . '/admin/Access.php')) require_once $app . '/admin/Access.php';
 require_once $app . '/lib/Auth.php'; require_once $app . '/lib/Database.php'; $pdo = Database::connection();
-require_once $app . '/lib/Notify.php'; require_once $app . '/lib/UploadThreads.php'; require_once $app . '/lib/Journeys.php'; require_once $app . '/lib/Reports.php';
+require_once $app . '/lib/Notify.php'; require_once $app . '/lib/UploadThreads.php'; require_once $app . '/lib/Journeys.php'; require_once $app . '/lib/Reports.php'; require_once $app . '/lib/Pulse.php';
 require_once $app . '/lib/Mailer.php'; require_once $app . '/lib/WebPush.php';
 $pass = 0; $fail = 0;
 $t = function (string $n, bool $ok, $got = null) use (&$pass, &$fail) { if ($ok) { $pass++; echo "  ok  $n\n"; } else { $fail++; echo "FAIL  $n" . ($got !== null ? ' — ' . mb_substr(is_string($got) ? $got : json_encode($got, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE), 0, 600) : '') . "\n"; } };
@@ -89,7 +89,15 @@ $b3 = UploadThreads::pulseBody($pdo, $m3[0], (int) $m3[0]['to_user'])['html'];
 $t('…its body lists the report, with Take it down and Leave it up (asking first)', str_contains($b3, '1 open report') && str_contains($b3, 'Not this place') && str_contains($b3, '>Take it down</button>') && str_contains($b3, '>Leave it up</button>') && str_contains($b3, 'data-confirm="Take it down?'), $b3);
 $t('UploadThreads knows the journey has a thread (Pulse folds its report row in)', UploadThreads::hasPlaceThread($pdo, 40) && !UploadThreads::hasPlaceThread($pdo, 41));
 $ps = (string) file_get_contents($app . '/lib/Pulse.php');
-$t('…Pulse skips that report\'s own row unless it\'s a matter of safety (its Critical row stays)', str_contains($ps, "if (!\$crit && \$r['kind'] === 'journey' && class_exists('UploadThreads') && UploadThreads::hasPlaceThread(\$pdo, (int) \$r['target_id'])) continue;"));
+$rid0 = (int) $q("SELECT id FROM content_reports WHERE target_id = 40 ORDER BY id")[0]['id'];
+$t('…one row: while reported, the thread rides on the report\'s own Pulse case (pulse_ref), which keeps its clock, assign and escalate', count(array_filter($m3, fn ($r) => $r['pulse_ref'] === 'report:' . $rid0)) === count($m3), array_column($m3, 'pulse_ref'));
+$t('…Pulse still lists every open report as its case (nothing folded away)', !str_contains($ps, 'hasPlaceThread') && str_contains($ps, "\$add('report:' . \$r['id'], 'safety', \$crit ? 'critical' : 'alert'"));
+$s0 = fn (string $tt, string $h, ?array $act = null, bool $auto = false, string $ext = '') => ['t' => $tt, 'h' => $h, 'act' => $act, 'auto' => $auto];
+$pb = Pulse::playbook(['key' => 'report:' . $rid0, 'url' => '/admin/reports.php', 'reply_to' => null]);
+$t('…the report\'s case carries the thread\'s steps: see the photos, Take it down, Leave it up, Hide with a reason, then Resolve', $pb[0]['act'] === ['tool', '/journeys/view.php?id=40'] && $pb[1]['act'] === ['do', 'upload_report_remove', 'Take it down'] && $pb[2]['act'] === ['do', 'upload_report_dismiss', 'Leave it up'] && $pb[3]['act'][0] === 'form' && $pb[3]['act'][1] === 'upload_hide' && end($pb)['act'] === ['resolve'], $pb);
+$pdo->exec("INSERT INTO content_reports (reporter_id, kind, target_id, reason, status, created_at) VALUES (6, 'group', 3, 'spam', 'open', '$now')"); $ridG = (int) $pdo->lastInsertId();
+$t('…any other report keeps its own steps', Pulse::playbook(['key' => 'report:' . $ridG, 'url' => '/admin/reports.php', 'reply_to' => null])[0]['t'] === 'Read the report and see what it\'s about');
+$pdo->exec("DELETE FROM content_reports WHERE id = $ridG");
 
 // its buttons, through their workflows
 $rid = (int) $q("SELECT id FROM content_reports WHERE target_id = 40")[0]['id'];
@@ -109,6 +117,18 @@ $t('…and back to its plain title once it\'s live again with no open report', !
 try { UploadThreads::act($pdo, $viewer, ['act' => 'show', 'journey' => 40, 'msg' => $msg]); $t('a move that doesn\'t fit where it is says why', false); }
 catch (InvalidArgumentException $x) { $t('a move that doesn\'t fit where it is says why', $x->getMessage() !== ''); }
 try { UploadThreads::act($pdo, $viewer, ['act' => 'nope']); $t('an unknown step is refused', false); } catch (InvalidArgumentException $x) { $t('an unknown step is refused', true); }
+
+$t('after Leave it up, the thread is its own row again (no open report to ride on)', !array_filter($q("SELECT pulse_ref FROM comms_messages WHERE thing = 'journey:40'"), fn ($r) => $r['pulse_ref'] !== null));
+// the same steps from the report's case in Pulse (Pulse::manage), and noted on the case
+$pdo->exec("UPDATE journeys SET status = 'published' WHERE id = 40");
+$pdo->exec("INSERT INTO content_reports (reporter_id, kind, target_id, reason, status, created_at) VALUES (6, 'journey', 40, 'spam', 'open', '$now')"); $rid2 = (int) $pdo->lastInsertId();
+$pdo->exec("CREATE TABLE IF NOT EXISTS pulse_notes (id INT AUTO_INCREMENT PRIMARY KEY, item_key VARCHAR(120), user_id INT, kind VARCHAR(20), body TEXT, created_at DATETIME DEFAULT CURRENT_TIMESTAMP)");
+try { $said2 = Pulse::manage($pdo, 'report:' . $rid2, 'upload_report_remove', [], $viewer); } catch (Throwable $x) { $said2 = 'ERR ' . $x->getMessage(); }
+$t('the report\'s case: Take it down works there too (the report workflow), its answer said', str_starts_with($said2, 'Taken down') && $q("SELECT status FROM journeys WHERE id = 40")[0]['status'] === 'hidden', $said2);
+$pb2 = Pulse::playbook(['key' => 'report:' . $rid2, 'url' => '/admin/reports.php', 'reply_to' => null]);
+$t('…and its steps then offer Show again', (bool) array_filter($pb2, fn ($x) => ($x['act'] ?? null) === ['do', 'upload_show', 'Show again']), $pb2);
+try { Pulse::manage($pdo, 'report:' . $rid2, 'upload_show', [], $viewer); } catch (Throwable $x) {}
+$t('…which puts it back', $q("SELECT status FROM journeys WHERE id = 40")[0]['status'] === 'published');
 
 // publishing tells staff once; a staff journey's own uploader isn't told
 $src2 = (string) file_get_contents($app . '/lib/Journeys.php');

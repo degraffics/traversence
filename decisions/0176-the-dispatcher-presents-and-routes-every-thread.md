@@ -427,9 +427,13 @@ manager, 2026-11-21). §6 as built, the staff thread first (Question 3's answer)
   publishes (`Journeys::save`, the publish itself), or when a photo is added to a journey that's already published.
   Never for a draft. The uploader's answer says "it's live now" or "it goes live when you publish". The buttons: Open
   it in the side panel; Hide with a reason its author sees; Show again (the journey workflow's Hide and Restore).
-- **A report on it** joins the same thread (`Reports::file` → `UploadThreads::placePhoto`), with the report workflow's
-  Take it down and Leave it up. Its own Pulse row folds in, except a matter of safety (`Pulse::CRITICAL_REASONS`),
-  which keeps its Critical row as well. The thread's title follows its state: ": reported", ": hidden", or plain.
+- **A report on it** joins the same thread (`Reports::file` → `UploadThreads::placePhoto`). The report's own Pulse case
+  stays the one row, so its clock, assign and escalate are kept as they are (the session manager, 2026-11-21: nothing
+  dropped). While a report is open, the thread's message rides on it (`pulse_ref` 'report:<id>', the pattern of 0171 §8:
+  "the trip's own Pulse item shows it: no second row"). The case's steps carry the thread's: see the photos, Take it
+  down and Leave it up (the report workflow), Hide with a reason. Once the report is decided, the thread is its own row
+  again. The report kind's level is Alert, the same as today's report row. The title follows the state: ": reported",
+  ": hidden", or plain.
 - **An order file:** one thread per order, "New artwork on Order #N", for every kind except a shipping label. Open the
   order opens its Files (`#docs`) in the side panel, where its proofs and approval are; Approve proof isn't repeated in
   the thread. Ask for a new file and Check the files are greyed, with their reason shown.
