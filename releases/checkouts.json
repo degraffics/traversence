@@ -22,13 +22,14 @@
   {
    "path": "app/lib/crawler/CrawlService.php",
    "functions": [
+    "(top)",
     "report"
    ],
    "kind": "change",
    "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
-   "why": "Urgent W1 release (case #51): a task's trip pauses only the task; our endpoint's faults recorded against it, holding nothing",
+   "why": "Urgent W1 release (case #51): the report's comment and the endpoint-slow handling",
    "since": "2026-11-21T14:42:17Z",
-   "expires": "2026-11-21T18:42:17Z",
+   "expires": "2026-11-21T18:43:14Z",
    "release": "w1-urgent",
    "callers": {
     "report": [
