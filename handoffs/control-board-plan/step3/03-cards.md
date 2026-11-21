@@ -676,87 +676,167 @@ Its settings, not keys: `ai_month_usd`, `guide_ondemand_share`, `ai_free_asks`, 
 
 ---
 
-## 16. Google's cards: Google Cloud and Google AI Studio (Gemini) (mockups `google-*.html`)
+## 16. Google's cards: Google Places, Google Cloud and Google AI Studio (Gemini) (mockups `google-*.html`)
 
-The live code registers Google as **two modules** in `service-defs.php`, each with its own key, caps and links: 'google'
-(Google Cloud: Places, Document AI, Continue with Google) and 'gemini' (Google AI Studio). Each gets its own card
-(`mockups/src/google.py`); the pages show both where both apply. Basis marks as in 02 (obs, sim, inf, des). Real values
-come from the live code at mirror `aeb5f31` and the live alarms of 10:19 UTC (3:19 AM MST). No `.env` was opened and no
-call was made to Google.
+**Jason (2026-11-21): Places is split into its own module.** The live code registers Google as two modules in
+`service-defs.php`: 'google' (Places, Document AI, Continue with Google) and 'gemini'. The board draws three:
+- **Google Places**, a **Source**: it supplies data, its fault reroutes on the source map, and it has its own key
+  `GOOGLE_PLACES_KEY` and its own radius.
+- **Google Cloud**, a **Service**: Document AI and Continue with Google.
+- **Google AI Studio (Gemini)**, a **Service**.
+
+Places and Cloud link **Google's one billing account**. **This changes the live code's module boundary in step 4:** a new
+'places' entry in `service-defs.php` takes Places' key, caps, ledger and hosts out of 'google'. Basis marks as in 02
+(obs, sim, inf, des). Real values come from the live code at mirror `aeb5f31` and the live alarms of 10:19 UTC (3:19 AM
+MST). No `.env` was opened and no call was made to Google.
 
 ### 16.1 The manifests
 
-| Field | Google Cloud (`google`) | Google AI Studio (`gemini`) | Basis |
-|---|---|---|---|
-| purpose | "Checking listings against Google Places, reading menus (Document AI), and Continue with Google." | "Reading pages into facts for the Knowledge Engine (decisions/0164 §0.8, R5; decisions/0163 §11). Not called yet." | obs |
-| role | **Service** (it checks, reads and signs in for us; Places also feeds two needs as a source; Open words 1) | **Service** (02 §2.1 names Gemini a Service) | des |
-| criticality | none: not in `ControlRegister::CRITICAL`; sign-in keeps email and password | none | obs |
-| stage today | Operational (its Places reading is live) | **added, off, "Not called yet"** (`added_off`): stage 2, Integration (pre-flight) | obs |
-| plan | "Places: about $0.032 a check, paced and stopped by the site, with a $10 budget alert at Google. Document AI: per page. Sign-in: free." | "Free ($0) on its free tier, inside its rate limits; nothing private goes to the free tier (decisions/0164 R5)." | obs |
-| caps | `worker_places_per_run` 5 · `places_monthly` 1,000 · `places_stop_pct` 90% · `paid_spread` · `po_places_confirm` (off at 0) | `gemini_daily` 1,000 · `gemini_per_minute` 15 · `gemini_reserve_pct` 20% (held for visitors waiting) | obs (defaults; live settings not read yet) |
-| spend | the ledger's `google_places` at `GOOGLE_PLACES_USD_PER_CALL` (0.032) | every call counted, failed calls included, at $0 (`Gemini::read` → `AiClient::record`) | obs |
-| what uses it | **Still open? (W2)**: our copies first, then Google. **Confirm a business (W1, W2)**: a paid backup only (`po_places_confirm`, off). **Reading menus**: Google, then Amazon (Textract), then Claude (`AiClient::ROUTES`). **Sign in with Google, Microsoft, Apple or Facebook**: "email and password always work". **Videos in journeys**: after Vimeo | **Page prose into facts (W1–W3, W10, W11)**: Gemini first, then Claude only under a director's override (`po_claude_prose`, off); else "waiting to be read; nothing lost". **Semantic search (W3)**: Supabase, then Gemini's embeddings (the vector index is off) | obs (`Preflight::NEEDS`) |
-| the privacy rule | — | **Nothing private to Gemini's free tier** (CLAUDE.md; decisions/0164 R5, §0.8): `Gemini::refused()` sends only features whose input class is *public* (Read a public page into facts, Read a page through Tavily, Source terms, Read a scanned PDF, Live events, the vector index); research, archives, a listing, a person's own words and private material stay on Claude. `Gemini::safe()` cuts R6's private details from each page before sending, counted by kind | obs (code) |
-| its answers | refused key (401/403) · quota at the cap · the worker's key report | 429 → "Gemini's allowance answered "too many": the work waits." · other → "Gemini didn't answer (…): the work waits." · our limits (`room()`): per minute, per day, the visitors' reserve, the day's pace | obs (code) |
-| portal_links | Billing · Billing, Keys · Credentials, Console · Console: each **Documented · release #212**; Sign in: not registered. "Document AI" isn't a slot: it's a link on its zone 2 line | Keys · Keys and **Console · AI Studio** (04 §5 ruling): each **Documented · release #212**; Billing: not registered (the free tier has none linked); Sign in: not registered. "Rate limits" is documentation: zone 2's "Its limits" line (04 §5 ruling) | obs; des |
+| Field | Google Places | Google Cloud | Google AI Studio (Gemini) | Basis |
+|---|---|---|---|---|
+| role | **Source** (Jason) | **Service** | **Service** (02 §2.1) | des |
+| criticality | none | none: **sign-in's critical duty is email and password**; Continue with Google is one of four providers | none | obs; ruling 5 |
+| stage today | Operational (its reading is live) | Operational | **Stage 2, Integration**, until its key is checked and its pre-flight passes; added, off, "Not called yet" | obs; ruling 3 |
+| what uses it | **Still open? (W2)**: our copies first, then Places; **Confirm a business (W1, W2)**: a paid backup only (`po_places_confirm`, off) | **Reading menus**: Google, then Amazon (Textract), then Claude; **Sign in with Google, Microsoft, Apple or Facebook**; **Videos in journeys** (after Vimeo) | **Page prose into facts (W1–W3, W10, W11)**: Gemini, then Claude only under a director's override (`po_claude_prose`, off); else "waiting to be read; nothing lost". **Semantic search (W3)** (the vector index is off) | obs (`Preflight::NEEDS`, `AiClient::ROUTES`) |
+| plan and spend | about $0.032 a check (`GOOGLE_PLACES_USD_PER_CALL`), ledger `google_places`; the live reading 544 of 1,000 checks (54%) | Document AI per page (use not read yet); sign-in free | Free ($0) on its free tier; every call counted, failed calls included, at $0 | obs |
+| caps | `worker_places_per_run` 5 · `places_monthly` 1,000 · `places_stop_pct` 90% · `paid_spread` · `po_places_confirm` | none metered | `gemini_daily` 1,000 · `gemini_per_minute` 15 · `gemini_reserve_pct` 20% | obs (defaults; live settings not read yet) |
+| budget alert | **"Google's own budget alert: $10 (set at Google, not read here)"**, words only, in zone 1 beside the Billing link (ruling 6) | the same words (the same billing account) | — | obs (plan text); ruling 6 |
+| keys | `GOOGLE_PLACES_KEY` on Railway, reported by name; "not checked yet" until the worker reports | `GOOGLE_DOCAI_KEY_FILE`, `GOOGLE_DOCAI_PROCESSOR`, `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` in `.env` | `GEMINI_API_KEY` in `.env`, **"not checked yet"**: whether it's set isn't known, and `.env` is never opened | obs; ruling 3 |
+| the privacy rule | — | — | **Nothing private to Gemini's free tier** (CLAUDE.md; 0164 R5, §0.8): `Gemini::refused()` sends only public-page features (Read a public page into facts, Read a page through Tavily, Source terms, Read a scanned PDF, Live events, the vector index); `Gemini::safe()` cuts R6's private details from each page before sending | obs |
+| portal_links | Billing · Billing, Keys · Credentials, Console · Console: each **Documented · release #212**; Sign in not registered (the same pages as Cloud's: one Google account) | the same four | Keys · Keys and Console · AI Studio, each #212; Billing not registered (the free tier has none linked); Sign in not registered. Rate limits: documentation, zone 2 | obs; des |
 
 ### 16.2 The four zones
 
-| Zone | Google Cloud | Google AI Studio (Gemini) |
-|---|---|---|
-| 1 Identity and role | Service · "Not critical: no duty stops without it" · state · Stage 5 · setup notice · chip "Google Places check: 544 of 1,000 checks (54%) (the live reading) · about $0.032 a check; Google's own $10 budget alert · Billing ↗" (BL) · radius fold | Service · not critical · "Off · added, not called yet" · "Stage 2 of 8 · Integration (pre-flight) · Next allowed: Run pre-flight · Activate (offered once its pre-flight passes) · Edit" · setup notice · chip "Free ($0) on its free tier · **Nothing private goes to it**, only public pages, cleaned first · Calls: n of 1,000 today · 15 a minute · 20% held for visitors waiting" · radius fold |
-| 2 What uses it | Places check (the crawler on Railway) · Reading menus (Document AI ↗) · Continue with Google · Videos in journeys | Page prose into facts · Semantic search · **What may go to it** (the privacy guard) · Its limits (Rate limits ↗, ours) |
-| 3 Sensors | the month's checks against `places_monthly` · `GOOGLE_PLACES_KEY` on Railway (not checked yet until the worker reports, row 30) · Document AI and sign-in keys set | calls today and this minute · removed before sending (by kind) · refused by the guard · `GEMINI_API_KEY` (one authenticated call) |
-| 4 Actions | On our system: Check now · Pause our calls (automatic calls only) · Raise or lower the cap. At Google Cloud: Billing · Keys (Credentials) · Console · Sign in (not registered) | On our system: Run pre-flight · Activate (greyed until its pre-flight passes). At Google AI Studio (Gemini): Billing (not registered) · Keys · Console (AI Studio) · Sign in (not registered) |
+| Zone | Google Places | Google Cloud | Gemini |
+|---|---|---|---|
+| 1 | Source · not critical · state · Stage 5 · setup notice · chip "Google Places check: 544 of 1,000 checks (54%) · about $0.032 a check · Billing ↗ · Google's own budget alert: $10 (set at Google, not read here)" · radius | Service · "Not critical: sign-in's critical duty is email and password" · Stage 5 · setup notice · chip "Document AI: per page · use not read yet · Sign-in: free · Billing ↗ · Google's own budget alert: $10 (set at Google, not read here)" · radius | Service · not critical · "Off · added, not called yet" · "Stage 2 of 8 · Integration (pre-flight) · Next allowed: Run pre-flight · Edit · Activate (offered once its key is checked and its pre-flight passes)" · setup notice · chip "Free ($0) · Nothing private goes to it · Calls: n of 1,000 today · 15 a minute · 20% held for visitors waiting" · radius |
+| 2 | Places check · Still open? (W2) · Confirm a business (paid backup, off) | Reading menus (Document AI ↗) · Continue with Google · Videos in journeys | Page prose into facts · Semantic search · What may go to it (the guard) · Its limits (Rate limits ↗; our limits stopping background work are a Notice) |
+| 3 | the month's checks · its key on Railway | Document AI and sign-in keys set | calls today and this minute · removed before sending · refused by the guard · its key (not checked yet) |
+| 4 | Check now · Pause our calls (automatic only) · Raise or lower the cap · its four slots | Check now · Take out · its four slots | Run pre-flight · Activate (greyed) · its four slots |
 
 ### 16.3 Incident Radius
 
 | Fault | Held | On a backup | Unaffected | Basis |
 |---|---|---|---|---|
-| Google Cloud's Places key refused (rows 29, 31) | Places checks | Still open? (W2): our copies first; where they can't say, it waits | Document AI and sign-in (their own keys), Confirm a business (paid backup off), everything else | des |
-| Places at its cap (row 40) | the crawler's Places checks until the month turns | Still open? waits where our copies can't say | everything else | des |
-| Google Cloud down entirely | Places, Document AI, Continue with Google | menus: Amazon, then Claude; sign-in: email and password, Microsoft, Apple, Facebook | pages, search, payments, Gemini | des |
-| Gemini's day used at Google (row 36) | Gemini's calls, until 00:00 Pacific: pages wait "to be read; nothing lost" | none: no fallback to Claude (Q13) unless a director's override | every Claude feature, Google Cloud | des |
-| Gemini's minute used (row 27) | nothing: a rate wait | — | everything | des |
-| The privacy guard refuses a feature | nothing: the feature runs on Claude as before | — | everything | obs (code) |
+| Places' key refused (rows 29, 31) | Places checks; Still open? only where our copies can't say (Places is its last source) | Still open?: our copies, its first source | Confirm a business (paid backup off); Google Cloud and Gemini (their own keys); everything else | des |
+| Places at its cap (row 40) | the crawler's Places checks until the month turns | as above | everything else | des |
+| Google Cloud down | Document AI, Continue with Google | menus: Amazon, then Claude; sign-in: email and password (the critical duty), Microsoft, Apple, Facebook | pages, search, payments, Places, Gemini | des |
+| Gemini's day used at Google (row 36) | Gemini's calls until 00:00 Pacific: pages wait "to be read; nothing lost" | none (no fallback to Claude, Q13, unless a director's override) | every Claude feature; Places; Cloud | des |
+| Gemini's minute (row 27); our limits stopping background work | nothing: a rate wait; a Notice for our own limits | — | everything | des; ruling 4 |
+| The privacy guard refuses a feature (row 37a) | nothing: it stays on Claude | — | everything | obs (code) |
 
 ### 16.4 The states (mockups)
 
 | Mockup | Row (02) | New words | Today's words, beside them | Fix it |
 |---|---|---|---|---|
-| a Working | — | Google Cloud "On · Working", count illustrative (312 of 1,000, 31%), since the real reading is past 50%; Gemini as it is today: "Off · added, not called yet", stage 2 | — | — |
-| b Places near the cap (**real**) | 39, BL | "Google Places check: 544 of 1,000 checks (54%)" · "past its 50% warning" | title "Google Cloud at 50%", reading "54%", means "Google Places check: 544 of 1,000 checks (54%)." (obs, since Nov 19, 3:21 PM MST) | Billing, then Check now |
-| b Gemini's day at Google | 36, 37 | "Google AI Studio (Gemini) used its day at the provider · Paused by the system until 00:00 Pacific; its check runs then." | code: "Gemini's allowance answered "too many": the work waits." and "Gemini's 1000 calls for today are used: the work waits until tomorrow (no fallback to Claude)." (obs); board for a quota: "Over its quota or plan", held for good (sim, g2 row 6) | **Billing: "No billing page registered for Google AI Studio (Gemini) yet"**, never borrowing Keys or AI Studio |
-| c A refused key | 29, 31, 106, 129 | "Google Cloud refused our key · Paused by the system: calls with GOOGLE_PLACES_KEY wait for a new key." | "places.googleapis.com: Our key was refused (the crawler, on Railway)"; its check confirms only that the worker has the key (sim, g2 row 2) | **Keys · Credentials** (registered), then Replace key on Railway and the worker's key test |
-| d The privacy guard | a Notice (02 §3c); no row | "Names in journeys and stories stays on Claude: it carries a person's own words" · "Notice · AI use asked to move it to Gemini. Nothing was sent to Google." No message | code: "Gemini's free tier lets Google use what it's sent, so only public pages go to it (decisions/0164 §0.8); this feature carries a person's own words, which go only to Claude, with their consent (R5), so it stays on Claude." (obs, `Gemini::refused()`), returned to the caller only | none: nothing is wrong |
+| a Working | — | Google Places "On · Working", count illustrative (312 of 1,000, 31%); Google Cloud "On · Working"; Gemini as it is today, stage 2, its key not checked yet | — | — |
+| b Places near the cap (**real**), on Places' card | 39, BL | "Google Places check: 544 of 1,000 checks (54%)" · "past its 50% warning" | title "Google Cloud at 50%", reading "54%" (obs, since Nov 19, 3:21 PM MST) | Billing (Google's one account), then Check now |
+| b Gemini's day at Google | 36, 37 | "Google AI Studio (Gemini) used its day at the provider · Paused by the system until 00:00 Pacific; its check runs then." | code: "Gemini's allowance answered "too many": the work waits." (obs); board: "Over its quota or plan", held for good (sim, g2 row 6) | Billing: "No billing page registered for Google AI Studio (Gemini) yet", never another slot |
+| c Places' key refused, on Places' card | 29, 31, 106, 129 | "Google Places refused our key · Paused by the system: calls with GOOGLE_PLACES_KEY wait for a new key." Still open? "On a backup: our copies only" | "places.googleapis.com: Our key was refused (the crawler, on Railway)" (sim, g2 row 2) | Keys · Credentials (registered), then Replace key on Railway |
+| d The privacy guard | 37a | "Kept on Claude: this carries a person's own words (nothing private to Gemini's free tier)", a Notice on Gemini's card only, no message | code: "Gemini's free tier lets Google use what it's sent, …, so it stays on Claude." (obs, `Gemini::refused()`) | none |
 
-Gemini's faults (b's second card, d) are drawn as they would read **once it's active**, marked as a scenario: today it
-isn't called.
+Gemini's faults (b's second card, d) are drawn as they'd read once it's active, marked as a scenario.
 
 ### 16.5 Setup capture (§13.x)
 
-**Google Cloud.** Notice: **"Setup capture: Sign in not recorded"**. Keys, names only:
-- `GOOGLE_PLACES_KEY`: Railway (the crawler service).
+**Google Places.** Notice: "Setup capture: Sign in not recorded". Keys, names only:
+- `GOOGLE_PLACES_KEY`: Railway.
 - `GOOGLE_PLACES_MONTHLY`: Railway, retired; now `places_monthly`.
 - `GOOGLE_PLACES_USD_PER_CALL`: `.env`.
 - `PLACES_STOP_PCT`: `.env`, retired; now `places_stop_pct`.
-- `GOOGLE_DOCAI_KEY_FILE` and `GOOGLE_DOCAI_PROCESSOR`: `.env`.
-- `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET`: `.env`.
 
-**Google AI Studio (Gemini).** Notice: **"Setup capture: Sign in not recorded · Billing: why not recorded"**. Its slot
-lists "the free tier has no billing linked" as the likely why, to be recorded. Key: `GEMINI_API_KEY` in `.env`.
+**Google Cloud.** Notice: "Setup capture: Sign in not recorded". Keys: `GOOGLE_DOCAI_KEY_FILE`, `GOOGLE_DOCAI_PROCESSOR`,
+`GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, all in `.env`.
 
-### 16.6 Open words for Google
+**Gemini.** Notice: "Setup capture: Sign in not recorded · Billing: why not recorded". Key: `GEMINI_API_KEY`, in
+`.env`; whether it's set isn't known.
 
-1. **Google Cloud's role.** It does platform jobs (menus, sign-in), so it's drawn as a Service. Places also feeds two
-   needs as a source (Still open?, the paid Confirm backup). Service, Source, or split Places into its own module?
-2. **The privacy guard as a state.** It has no 02 row. It's drawn as a Notice with no message, and the code returns its
-   words to the caller only. Should a refused move show on the board at all, and is a Notice right?
-3. **Gemini's stage.** The code says "added, off" and "Not called yet". It's drawn at stage 2 (Integration). Is it
-   stage 1 or 2 until its key is in and its pre-flight passes?
-4. **"Our cap" for Gemini.** `gemini_daily` (1,000) is ours; Google's own per-day quota is the provider's. Row 36 covers
-   the provider's day. When our own `room()` stops background work at 80% (the visitors' reserve) or by the day's pace,
-   is that a Notice or a Warning?
-5. **Continue with Google** is a sign-in path. The duty "procedures" covers sign-in, but email and password always work.
-   It's drawn as not critical; confirm.
-6. **The $10 budget alert** lives at Google (the plan text). The board can't read it. Show it only as words, as drawn?
+### 16.6 Open words for Google: answered (2026-11-21)
+
+1. **Places' role** (Jason): split into its own module, a Source; Google Cloud is a Service; one billing account links
+   both. The live code's module boundary changes in step 4.
+2. **The privacy guard** (the session manager): a Notice on Gemini's card only, no message: 02 row 37a.
+3. **Gemini's stage** (the session manager): stage 2 until its key is checked and its pre-flight passes; its key reads
+   "not checked yet".
+4. **Our limits stopping Gemini's background work** (the 80% reserve, the day's pace) (the session manager): a Notice.
+5. **Continue with Google** (the session manager): not critical; sign-in's critical duty is email and password.
+6. **Google's $10 budget alert** (the session manager): words only in zone 1, beside the Billing link: "Google's own
+   budget alert: $10 (set at Google, not read here)".
+
+No open words remain for Google.
+
+---
+
+## 17. Tavily's card (mockups `tavily-*.html`)
+
+Built like the others (`mockups/src/tavily.py`). Basis marks as in 02. Real values come from the live code at mirror
+`aeb5f31` and the worker's code (`workers/crawler/crawler.py`, 2.16.1). No `.env` was opened and no call was made to Tavily.
+
+### 17.1 The manifest
+
+| Field | Value | Basis |
+|---|---|---|
+| id · name | `tavily` · Tavily | obs |
+| role | **Source**: it supplies search results for the crawler and research | des (02 §2.1 lists Tavily as a Source) |
+| criticality | none (not in `ControlRegister::CRITICAL`) | obs |
+| purpose | "The crawler's web search." | obs (`service-defs.php`) |
+| plan | "A monthly allowance of searches on its plan; the site stops at its stop line and paces it. Keep PAYGO and auto-upgrade off in its dashboard." The worker's notes say "free plan: 1,000 searches a month" | obs |
+| the month's use | **26 searches, 20.8¢** this month: from the approved report (2026-11-21). The ledger (`tavily`, `tavily_extract`) lives in the database, not the mirror, so it **can't be re-read here**. It matches the code's price: 26 × `TAVILY_USD_PER_CREDIT` $0.008 = 20.8¢. Failed calls are counted | obs (report); inf (the check) |
+| caps and pace | `worker_searches_per_run` 10 · `websearch_monthly` (**0 by default: "0 stops web search"**; the live value: not read yet) · `websearch_stop_pct` 90% · `paid_spread` on (each run uses only the day's share so far) · the worker waits about one second between searches | obs (defaults) |
+| what uses it | **Web search (W8, W10–W12)**: Tavily, then Brave. **A missing phone or website (W2)**: our open-data copies, then Tavily, then Brave. **Confirm a business (W1, W2)**: our copies, CMS, the Arizona Corporation Commission, then Tavily, then Brave, then the paid backup. **Read a page through Tavily** (Tavily Extract, second tier, off by default) | obs (`Preflight::NEEDS`, `AiClient::FEATURES`) |
+| reroute | the worker: "Tavily, then Brave when Tavily fails or is held (decisions/0163's source map: free before paid, the first that works wins, each switch logged)". Today the switch counts (`search_switches`) are dropped by the site (g2 row 27) | obs |
+| key | `TAVILY_API_KEY` on Railway, reported by name only (`WORKER_KEYS`); presence only today, so "not checked yet" (Q4, row 30) | obs |
+| its answers | 401 refused key · **432 plan limit** · 429 rate · 5xx and timeouts. **Today `ServiceHealth::classify()` returns nothing for a 432** (any 4xx it doesn't name is "not the service's"), so Tavily's plan limit raises no issue; the worker falls to Brave each time | obs (code) |
+| portal_links | Console · Dashboard https://app.tavily.com/, **Documented · release #212**; Billing, Keys, Sign in: **not registered** (02 §8; 04 §5), each with Publish from your Vault | obs |
+
+### 17.2 The four zones
+
+| Zone | Tavily |
+|---|---|
+| 1 | **Tavily** · Source · not critical · state · Stage 5 · setup notice · chip "Tavily, this month: 26 searches · 20.8¢ (the approved report) · of `websearch_monthly`: not read yet · stops at 90% · paced through the day · failed calls counted · Billing: No billing page registered for Tavily yet." · radius |
+| 2 | Web search (with what each need does after it) · Read a page through Tavily (off by default) |
+| 3 | the month's searches · switches to Brave (logged) · its key on Railway (not checked yet) · its answers |
+| 4 | On our system: Check now · Pause our calls (automatic calls only) · Raise or lower the cap. At Tavily: Billing (not registered) · Keys (not registered) · Console · Dashboard · Sign in (not registered) |
+
+### 17.3 Incident Radius (a Source: reroutes on the source map)
+
+| Fault | Held | On a backup | Unaffected | Basis |
+|---|---|---|---|---|
+| Tavily can't be called (key, plan limit, down) | Tavily's calls: searches, and its page reads (those pages wait "to be read") | **Brave Search** for Web search (W8, W10–W12), A missing phone or website (W2), Confirm a business (W1, W2), while Brave works | the crawler's other work; every other source; pages, search, sign-in, payments | obs (worker), des |
+| Both Tavily and Brave paused | the tasks that need web search: Web search waits ("queued"); A missing phone or website waits; Confirm a business goes to the person queue | — | everything else | des (row 45) |
+| Our cap reached (`websearch_stop_pct`) | Tavily's automatic calls; at the cap nothing passes, a person's press included (row 40) | Brave Search, within its own allowance | everything else | des |
+
+### 17.4 The states (mockups)
+
+| Mockup | Row (02) | New words | Today's words, beside them | Fix it |
+|---|---|---|---|---|
+| a Working | — | "On · Working"; the month's figure from the report | — | — |
+| b Its plan's limit (432) | 36, 37, 43, 44 | "Tavily used its month at the provider · Paused by the system until the 1st; its check runs then." Web search "On a backup: Brave Search" | none: a 432 is classified as nothing (obs); the crawler logs "search: brave instead (tavily failed: …)" (obs) | **Billing: "No billing page registered for Tavily yet"**, never the Dashboard |
+| c A refused key | 29, 31, 43, 106, 129 | "Tavily refused our key · Paused by the system: calls with TAVILY_API_KEY wait for a new key." | "api.tavily.com: Our key was refused (the crawler, on Railway)"; its check confirms only presence (sim, g2 row 2) | **Keys: "No API keys page registered for Tavily yet"**; the key lives on Railway |
+| d A 5xx or timeout | 24–26, 43, 83, 130 | "Tavily isn't answering · Trying again (2 of 3): it answered 502 Bad Gateway at <time>. Next check <time>." Each search goes to Brave at once | "api.tavily.com: Its server failed (the crawler, on Railway)", counting the reports' failures (sim, g2 rows 16–18); the switch isn't logged (g2 row 27) | their trouble: no Fix it; Console · Dashboard, then Check now (row 130) |
+
+### 17.5 Setup capture (§13.x)
+
+Notice: **"Setup capture: Sign in not recorded · Billing, Keys: why not recorded"**.
+
+Keys, names only:
+- `TAVILY_API_KEY`: Railway, reported by name only.
+- `TAVILY_USD_PER_CREDIT`: `.env`.
+- `WEBSEARCH_USD_PER_SEARCH`: `.env`, the old name.
+- `SEARCH_MONTHLY`: Railway, retired; now `websearch_monthly`.
+- `WEBSEARCH_STOP_PCT`: `.env`, retired; now `websearch_stop_pct`.
+
+Settings, not keys: `worker_searches_per_run`, `websearch_monthly`, `websearch_stop_pct`, `paid_spread`.
+
+### 17.6 Open words for Tavily
+
+1. **The month's figure.** 26 searches and 20.8¢ come from the approved report. The mirror has no ledger rows, so the card
+   can't re-read them. A read-only ledger export (like `alarms.json`) would let the next pass show the live figure.
+2. **The 432 plan limit.** It's drawn as a quota with a known reset (the month), the same as row 36. Today
+   `ServiceHealth::classify()` reads it as nothing. Should 02 name 432 in the engine's `classify` (P2)?
+3. **`websearch_monthly` is 0 by default** ("0 stops web search"). The live value isn't readable here. If it's 0 live,
+   web search is stopped on purpose, which the card would show as Off, not Working.
+4. **When a search falls to Brave,** does it spend Brave's own allowance (Brave is paid per search, `BRAVE_USD_PER_SEARCH`
+   0.005)? Brave's card (next) should show it.
+5. **Read a page through Tavily** (Tavily Extract) has no backup; its pages wait "to be read". Is that a hold on W3's
+   task, or a Notice?
