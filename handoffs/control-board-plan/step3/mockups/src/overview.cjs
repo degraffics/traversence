@@ -72,7 +72,7 @@ const PAGE_W = 1280, PAGE_H = 1810, STRIP = 70, MAXH = PAGE_H - STRIP - 40, MINS
   const esc = t => t.replace(/&/g, '&amp;').replace(/</g, '&lt;');
   const img = f => 'data:image/jpeg;base64,' + fs.readFileSync(f).toString('base64');
   const imgs = {}; for (const pg of pages) imgs[pg.shot] = imgs[pg.shot] || img(pg.shot);
-  const pdfs = [['Railway', 'railway-mockups.pdf'], ['GitHub', 'github-mockups.pdf'], ['Bluehost', 'bluehost-mockups.pdf']];
+  const pdfs = [['Railway', 'railway-mockups.pdf'], ['GitHub', 'github-mockups.pdf'], ['Bluehost', 'bluehost-mockups.pdf'], ['Anthropic to the data sources', 'control-board-remaining-modules.pdf']];
   const htmlLinks = fs.readdirSync(dir).filter(f => f.endsWith('.html') && f !== 'index.html' && !/^(railway|github|bluehost)-/.test(f)).sort();
   const groups = {}; for (const f of htmlLinks) { const k = f.split('-')[0]; (groups[k] = groups[k] || []).push(f); }
   let body = `<section class="pg cover"><div class="k">Traversence · System Control Board · step 3</div><h1>The control board, card by card</h1>
