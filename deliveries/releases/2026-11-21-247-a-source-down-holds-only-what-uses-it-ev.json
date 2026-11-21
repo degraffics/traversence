@@ -1,0 +1,89 @@
+{
+    "id": 247,
+    "title": "A source down holds only what uses it: every workflow checked against its needs (W0–W14), Common Crawl first",
+    "why": "The workflow audit of 2026-11-21 (Jason: \"reroute to a back up service or trip\"; decisions/0175 §3: \"a trip stops only what it holds\"; decisions/0163's source map): a down backup held whole workflows (Common Crawl, only W3's backup, tripped W3), and a crawler-held trip couldn't clear by its check.",
+    "proposals": "",
+    "zip": "workflow-holds.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/admin/operations-console.php": {
+            "sha": "8ec269f75bcec28863afdc02daf8b4670032afc4c7f726ad530c3488c751bc38",
+            "size": 54629,
+            "live_was": "c1b2cbec0c4f98d7c481cce2f62b6384cca23b5291064b88affde175799eaa73"
+        },
+        "app/admin/preflight-console.php": {
+            "sha": "3e478ec85ec6267d6c49ad2a6033df5eff695d1aa5c567a24c1e34bc3cd05099",
+            "size": 19323,
+            "live_was": "bea94da5011c9c8b6ad785f4b0b45a12dd85447a6d48c83e8582e1295cc8b357"
+        },
+        "app/lib/ControlAlarms.php": {
+            "sha": "4202fa410ee2b7ed9f469bb3315b5a7f8aa34f3e6b316363b1b481d09da14a79",
+            "size": 90913,
+            "live_was": "757d1b17f220a429c3d6dfc398bf315217cedb0b5d8570f94ce26141628b41c6"
+        },
+        "app/lib/ControlBoard.php": {
+            "sha": "fd6d4e19c72a395b530c5f3cfa2d46c0aff57b32509721f0ed8ba154c601853b",
+            "size": 52785,
+            "live_was": "275d45fd00c68c2a842520fd43af73e19af85d8cf4df40d866da129d3a86d1cf"
+        },
+        "app/lib/Operations.php": {
+            "sha": "b8e02ab9b346d63575c3575121b0ddb4747a4ad1a6383ede756ab4a4eb91a59b",
+            "size": 79088,
+            "live_was": "428a15935ff34b4063498975cfa21d0ebdc952405b4feb900e5a814d0bb3a226"
+        },
+        "app/lib/Preflight.php": {
+            "sha": "f902866ffaf8941e107faf415a2e7b60c850642d05a9b232271b3b6d21a4d5b1",
+            "size": 161053,
+            "live_was": "d9b8beb8a31196877e5bb794061d80856498123f0ee87c735608f668bee56d9d"
+        },
+        "app/lib/ServiceHealth.php": {
+            "sha": "a53cfc03b3f6e8984eb8607fc7be807e2ad68126364eaa7b3d01b979be0829fe",
+            "size": 66528,
+            "live_was": "dd9cfafe3ba7054ab8d0d9fa9396e62577716705e1fb6b4ff7fbc93653b06c17"
+        },
+        "app/lib/crawler/CrawlService.php": {
+            "sha": "63941af9838c8b818d36c6880594f9ae8839580fd667b6b3ad18ae4325c94a44",
+            "size": 41184,
+            "live_was": "f7730d4e870888661a1919bd6bda9afd7ece512956fec90ecdf90c11cdff1d65"
+        },
+        "app/lib/service-defs.php": {
+            "sha": "c05f28c8cb6194a0edc296c6187ba4f9954af7b38bcf0581f60621320c9aff14",
+            "size": 36710,
+            "live_was": "ba6a2e5e048f7b28e0c228e8cbad8e2bd1b9426045cba979ed8423a9c23defa9"
+        },
+        "app/ui/faq.md": {
+            "sha": "f22899008ceaaa0e6ba232da9494c63d6f4d6067a15efc1f4523b9f8f7890d0a",
+            "size": 416700,
+            "live_was": "cb5cac2c68433da4af6b9b6b9da423d6fdb6543eda629cfbedd9ffa010bff3e8"
+        },
+        "app/ui/outside-services.php": {
+            "sha": "b119f4660c9747af0f8836b2f515fb4c3ea87469e6efded907fe57abfbc131a3",
+            "size": 51506,
+            "live_was": "eda94f636c76a8102fe82f45b110520c4e2d110262697d0845b08a8c244a7d07"
+        },
+        "website/admin/api.php": {
+            "sha": "65cb978574a034aa22e966635bba17fab9f5b13a578e5a7a7714c124dae776b0",
+            "size": 45198,
+            "live_was": "368a7e419bc0f470ae8d1897c09b5c818cf1bda179c0c91c8216194bf9ad1d9e"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-21T12:22:22+00:00",
+            "by": 0,
+            "msg": "Uploaded workflow-holds.zip: 12 files."
+        }
+    ]
+}
