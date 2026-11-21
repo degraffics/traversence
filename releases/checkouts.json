@@ -1,6 +1,29 @@
 {
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
- "claims": [],
+ "claims": [
+  {
+   "path": "app/lib/UploadThreads.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
+   "why": "0176 R4: uploads' staff threads",
+   "since": "2026-11-21T01:04:49Z",
+   "expires": "2026-11-21T05:04:49Z",
+   "release": "0176-uploads.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/api/upload-act.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
+   "why": "0176 R4: uploads' staff threads",
+   "since": "2026-11-21T01:04:49Z",
+   "expires": "2026-11-21T05:04:49Z",
+   "release": "0176-uploads.zip",
+   "callers": {}
+  }
+ ],
  "lapsed": [
   {
    "path": "app/admin/operations-console.php",
