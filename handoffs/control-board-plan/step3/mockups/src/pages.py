@@ -112,9 +112,9 @@ FAULTS = [
      'Once the worker reports <code>TAVILY_API_KEY</code> missing, only the calls that use it are held, each need goes to Brave Search, and Railway stays green.',
      card_key_missing),
     ('railway-c5-spend.html', 'Railway card: spend near the cap', 'Spend near the plan: one percentage, the same in title and body.',
-     '<b>(c5) Spend near the cap (row 39, BL): the state once a price source is registered.</b> Today Railway\'s use is read in its own units '
-     'and shown “not priced yet” (Jason, 2026-11-21: no dollar figure until a price source is registered; see b). The dollars here are '
-     '<b>illustrative only</b> (dotted), to show the rule: round(spend ÷ cap × 100), one figure in the title, the body, the chip and the sensor.', card_spend),
+     '<div style="border:2px solid var(--amber);border-radius:.5rem;padding:.5rem .7rem;margin:0 0 .6rem;font-weight:700;color:var(--amber)">Illustrative: no price source yet; today the chip shows units, not priced yet</div>'
+     '<b>(c5) Spend near the cap (row 39, BL).</b> The dotted dollars show the rule once a price source is registered: round(spend ÷ cap × 100), one figure in the title, '
+     'the body, the chip and the sensor. Today\'s real chip (units, not priced yet, read 9:27 AM MST) is shown beside the illustrative one.', card_spend),
     ('railway-c6-switch-left-off.html', 'Railway card: a switch left off', 'Two W3 switches left off by a closed trip, with Switch on on the row.',
      '<b>(c6) A switch left off by a closed trip (§0 CS-3, case None; row 7).</b> Real: W3\'s two tasks on the crawler. The group opens by itself '
      'because a switch inside is still off, and Switch on sits on each task\'s row.', card_switch_left),

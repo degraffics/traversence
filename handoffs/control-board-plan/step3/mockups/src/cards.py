@@ -158,7 +158,8 @@ def card_spend():
     pct = round(spend / cap * 100)
     title = f'Railway: {sc("$3.85")} of $5.00 ({sc(str(pct) + "%")})'
     sp = (f'<span class="spend warn"><span>Hobby · $5 a month including $5 of usage</span><b>{sc("$3.85")} of $5.00 ({sc(str(pct)+"%")})</b>'
-          f'<a href="{RW["usage_url"]}" target="_blank" rel="noopener">Railway\'s usage page ↗</a></span>')
+          f'<a href="{RW["usage_url"]}" target="_blank" rel="noopener">Billing · Usage ↗</a></span>'
+          '<span class="why" style="margin:0 .3rem">beside today\'s real chip:</span>' + SPEND_UNREAD)
     th = thread(
         title,
         light('a', 'Warning (Near its cap)') + f' · {sc("$3.85")} of $5.00 ({sc(str(pct)+"%")}), past its 75% warning.',

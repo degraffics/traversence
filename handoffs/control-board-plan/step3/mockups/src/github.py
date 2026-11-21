@@ -21,7 +21,7 @@ STAGE_GH = ('<span class="st">Stage 5 of 8 · Operational</span><span class="nx"
 STAGE_GH_TRIP = ('<span class="st">Stage 5 of 8 · Operational</span><span class="nx">Next allowed: Check and start again · '
                  'Acknowledge · Take out (stage 6)</span>')
 SPEND_GH = (f'<span class="spend"><span>Actions minutes: within the free allowance on the current plan</span>'
-            f'<b>use not read yet</b><span class="why">(our tokens can\'t read billing)</span>'
+            f'<b>use not read yet</b>'
             f'<a href="{GH_BILL}" target="_blank" rel="noopener">Billing ↗</a></span>')
 
 
@@ -103,6 +103,9 @@ def gh_sensors(tok_over=None, extra=None):
     for n, what, val in rows:
         cls = 'row' + (' ' + extra[n + '_cls'] if extra.get(n + '_cls') else '')
         s += f'<div class="{cls}"><div class="nm">{n}</div><div><div class="sub">{what}</div><div>{val}</div></div><div class="btns"></div></div>'
+    h += ('<div class="row"><div><div class="nm">Planned</div><div class="sub">GitHub\'s manifest, a required key once built</div></div>'
+          '<div>' + light('n', 'Not added yet') + '<div>Planned: a read-only token for Actions minutes (not added yet)</div>'
+          '<div class="sub">A separate fine-grained token with only the billing or plan read it needs, entered later through Its key, never in chat.</div></div><div class="btns"></div></div>')
     return (f'<div class="rows">{s}</div><h3 style="font:600 13px var(--sans);margin:.8rem 0 .2rem">Its tokens (names only, never values)</h3>'
             f'<div class="rows">{h}</div><div class="sub" style="margin-top:.4rem">The sync\'s own secrets on GitHub (OneDrive, FTP, its token): names only, not read here.</div>')
 
@@ -131,7 +134,7 @@ UNAFF_GH = ('<ul><li>Bluehost: pages, search, sign-in, payments, the databases</
 
 # ---- (c1) GitHub's API not answering: row 57, critical ----
 def card_api_down(t='9:40 AM MST', ack=False):
-    st = light('r', 'Down: the system is still trying') + f' since {sc(t)}. Releases wait in the inbox.'
+    st = light('r', 'Paused by the system (releases and the sync)') + f': still trying, {sc("1 of 3")}, next at {sc("9:50 AM MST")}. Since {sc(t)}; releases wait in the inbox.'
     if ack:
         st += ' <span class="why">Seen by Jason. The light stays red while it\'s down.</span>'
     th = thread('GitHub', st, HELD_GH, 'none', UNAFF_GH,
@@ -144,9 +147,9 @@ def card_api_down(t='9:40 AM MST', ack=False):
                 '<dl class="dl"><dt>Ids</dt><dd>T-#### · IR-#### (critical: no warning first)</dd><dt>Evidence</dt><dd>the release look got no answer from GitHub\'s API</dd>'
                 '<dt>Told</dt><dd>the Founder at once, in quiet hours too: Pulse (Critical), email, push</dd><dt>Rule</dt><dd>02 §4 row 57; §6 “GitHub down”; manifest §2</dd></dl>',
                 at='GitHub')
-    runs = {'look': {'state': light('r', 'Down: no answer'), 'cls': 'hr', 'btn': UP}, 'sync': {'state': light('h', 'Held (waiting on GitHub)'), 'cls': 'hl'},
+    runs = {'look': {'state': light('r', 'Paused by the system: no answer'), 'cls': 'hr', 'btn': UP}, 'sync': {'state': light('h', 'Held (waiting on GitHub)'), 'cls': 'hl'},
             'ping': {'state': light('h', 'Held (waiting on GitHub)'), 'cls': 'hl'}}
-    return gh_card(light('r', 'On · Down: the system is still trying'), th, runs=runs, fault='r', stage=STAGE_GH_TRIP,
+    return gh_card(light('r', 'On · Paused by the system (releases and the sync)'), th, runs=runs, fault='r', stage=STAGE_GH_TRIP,
                    sens={'look': f'<b>No answer</b> at {sc("9:40 AM MST")} (and each look since)', 'Release look_cls': 'hr'})
 
 
@@ -242,7 +245,7 @@ def card_check_failed():
 # ---- (c6) the release look failing: real found -1 at 10:00 UTC, as the spec scenario ----
 def card_look_failed():
     th = thread('GitHub',
-                light('r', 'Down: the system is still trying') + ' since 3:00 AM MST. Releases wait in the inbox.',
+                light('r', 'Paused by the system (releases and the sync)') + f': still trying, {sc("1 of 3")}, next at {sc("3:10 AM MST")}. Since 3:00 AM MST; releases wait in the inbox.',
                 '<ul><li>Releases: builds wait in the inbox</li></ul>', 'none', '<ul><li>Everything else: the sync, the site, gathering, Railway\'s workers</li></ul>',
                 'GitHub is critical (procedures), so it\'s a trip at once while the system tries again at each 10-minute look. It closes as Recovered when a look succeeds.',
                 b('Check and start again', True) + b('Acknowledge') + b('Check for builds'),
@@ -253,8 +256,8 @@ def card_look_failed():
                 '<dt>Ids</dt><dd>T-#### · IR-#### (as the contract would assign them)</dd><dt>Rule</dt><dd>02 row 57; manifest §2 “Spec scenario: not an observed trip”</dd></dl>', at='GitHub')
     banner = ('<div class="note" style="border-color:var(--amber)"><b>Not an observed trip.</b> The <code>found: -1</code> at 10:00 UTC is real; the trip drawn below '
               'is what the contract would do with it (a spec scenario for step 4\'s test). Live, nothing was raised.</div>')
-    runs = {'look': {'state': light('r', 'Down: no answer'), 'cls': 'hr', 'btn': UP}}
-    return banner + gh_card(light('r', 'On · Down: the system is still trying'), th, runs=runs, fault='r', stage=STAGE_GH_TRIP,
+    runs = {'look': {'state': light('r', 'Paused by the system: no answer'), 'cls': 'hr', 'btn': UP}}
+    return banner + gh_card(light('r', 'On · Paused by the system (releases and the sync)'), th, runs=runs, fault='r', stage=STAGE_GH_TRIP,
                             sens={'look': '<b>No answer</b> at 3:00 AM MST (<code>found: -1</code>)', 'Release look_cls': 'hr'})
 
 
@@ -310,34 +313,35 @@ def card_working_gh():
 
 # ---- (d) GitHub's API down, every surface ----
 def gh_story():
-    SUBJ = 'SYSTEM ALARM NOTICE: GitHub: Down: the system is still trying'
+    STAT = f'Paused by the system (releases and the sync): still trying, {sc("1 of 3")}, next at {sc("9:50 AM MST")}'
+    SUBJ = 'SYSTEM ALARM NOTICE: GitHub: ' + STAT
     HELD = ('Held: releases (builds wait in the inbox), the sync and the mirror, new Railway deploys. '
             'Unaffected: Bluehost\'s pages, search, sign-in, payments and databases; gathering on current versions.')
-    REC = f'Recovered: GitHub was down {sc("1 h 10 min")}, the system fixed it.'
+    REC = f'Recovered: GitHub was down {sc("20 min")}, the system fixed it.'
     hd = '<div class="prow hd"><div>From</div><div>Severity</div><div>Subject</div><div>Received</div></div>'
     steps = f"""<div class="steps">
-<div class="step"><h3>1 · The trip, at once (critical), on four surfaces in the same minute</h3><div class="when">{sc('9:40 AM MST')}: the 10-minute release look gets no answer from GitHub's API. GitHub is critical (procedures), so there's no warning first.</div>
+<div class="step"><h3>1 · The trip, at once (critical), on four surfaces in the same minute</h3><div class="when">{sc('9:40 AM MST')}: the 10-minute release look gets no answer from GitHub's API. GitHub is critical (procedures), so it trips at once and holds releases and the sync, while it keeps trying.</div>
 <div class="frame"><div class="fh">Board · What needs me</div><div class="fb"><div class="need"><div class="l1">{light('r', 'Trip')}<span class="t">GitHub</span><span class="why">T-#### · IR-####</span></div>
-<div>Down: the system is still trying. Since {sc('9:40 AM MST')}.</div><div class="sub">{HELD}</div>
+<div>{STAT}. Since {sc('9:40 AM MST')}.</div><div class="sub">{HELD}</div>
 <div class="act"><div class="lbl">On our system</div><div class="btns">{b('Check and start again', True)}{b('Acknowledge')}<button class="btn" data-open-panel="p-fix">Fix it: GitHub's console page</button></div></div></div></div></div>
 <div class="frame"><div class="fh">Pulse · one row, Critical, unread</div><div class="fb">{hd}<div class="prow unread"><div>Control Board</div><div class="sev">Critical</div><div>{SUBJ}<div class="sub" style="font-weight:400">{HELD}</div>
 <div class="btns" style="margin-top:.3rem">{b('Check and start again', True)}<button class="btn" data-open-panel="p-fix">Fix it</button></div></div><div>Nov 21, {sc('9:40 AM')} MST</div></div></div></div>
 <div class="frame"><div class="fh">Email · a new thread to the Founder</div><div class="fb"><div class="email"><div class="hd2"><span>From</span><b>Traversence Control Board</b><span>To</span><b>the Founder (Jason)</b><span>Subject</span><b>{SUBJ}</b><span>Sent</span><span>Nov 21, {sc('9:40 AM')} MST</span></div>
-<p><b>GitHub</b></p><p><b>Status:</b> Down: the system is still trying, since {sc('9:40 AM MST')}.</p><p><b>What it affects:</b> {HELD}</p>
+<p><b>GitHub</b></p><p><b>Status:</b> {STAT}. Since {sc('9:40 AM MST')}.</p><p><b>What it affects:</b> {HELD}</p>
 <p><b>What the system is doing:</b> it tries again at each 10-minute look and closes this as Recovered when a look succeeds. Next look {sc('9:50 AM MST')}.</p>
 <p><b>Fix it:</b> <a href="https://traversence.com/admin/dashboard/stream#case=alarm:T-####&amp;fix=1">https://traversence.com/admin/dashboard/stream#case=alarm:T-####&amp;fix=1</a></p>
 <p><b>Console at GitHub:</b> No console page registered for GitHub yet.</p></div></div></div>
-<div class="frame"><div class="fh">Push · one, tagged for this incident</div><div class="fb"><div class="push"><div class="pa"><span>Traversence</span><span>{sc('9:40 AM')}</span></div><div class="pt">SYSTEM ALARM: GitHub</div><div>Down: releases wait in the inbox.</div></div></div></div></div>
+<div class="frame"><div class="fh">Push · one, tagged for this incident</div><div class="fb"><div class="push"><div class="pa"><span>Traversence</span><span>{sc('9:40 AM')}</span></div><div class="pt">SYSTEM ALARM: GitHub</div><div>{STAT}.</div></div></div></div></div>
 <div class="step"><h3>2 · Fix it opens GitHub's card in the side panel</h3><div class="when">From the board row, the Pulse row or the email's link.</div>
 <div class="frame"><div class="fh">Side panel over the board (× · Esc · click outside to close)</div><div class="fb"><div class="panel-static"><button class="x" aria-label="Close" style="pointer-events:none">×</button><h2 style="font-size:16px;margin:.2rem 0 .7rem">GitHub</h2>{card_api_down()}</div>
 <p><button class="btn f" data-open-panel="p-fix">Open it live</button></p></div></div></div>
-<div class="step"><h3>3 · Recovered closes all four</h3><div class="when">{sc('10:50 AM MST')}: a look succeeds. Releases waiting in the inbox are taken; the sync and Railway's deploys run again.</div>
+<div class="step"><h3>3 · Recovered closes all four</h3><div class="when">{sc('10:00 AM MST')}: its second try, the 10-minute look, succeeds. Releases waiting in the inbox are taken; the sync and Railway's deploys run again.</div>
 <div class="frame"><div class="fh">Board</div><div class="fb"><div class="need"><div class="l1">{light('g', 'Closed: Recovered')}<span class="t">GitHub</span><span class="why">T-#### · IR-####</span></div>
-<div>{REC}</div><div class="sub">Its check passed: the release look answered (found {sc('1')}) at {sc('10:50 AM MST')}.</div><div class="sub">Still off: none. GitHub's hold wrote no switch.</div></div></div></div>
-<div class="frame"><div class="fh">Pulse · the same row, its last note</div><div class="fb">{hd}<div class="prow"><div>Control Board</div><div class="sev" style="color:var(--meta)">Critical</div><div>SYSTEM ALARM NOTICE: GitHub: Recovered<div class="sub">Last note: {REC} Still off: none.</div><div class="why">It leaves the open list; the bell's count drops.</div></div><div>Nov 21, {sc('10:50 AM')} MST</div></div></div></div>
-<div class="frame"><div class="fh">Email · a reply in the same thread</div><div class="fb"><div class="email"><div class="hd2"><span>Subject</span><b>SYSTEM ALARM NOTICE: GitHub: Recovered</b><span>In reply to</span><span>{SUBJ}</span><span>Sent</span><span>Nov 21, {sc('10:50 AM')} MST</span></div>
-<p>{REC}</p><p>Its check passed: the release look answered at {sc('10:50 AM MST')}. Still off: none.</p></div></div></div>
-<div class="frame"><div class="fh">Push · the earlier push replaced in place under its tag, silently</div><div class="fb"><div class="push"><div class="pa"><span>Traversence · replaced quietly, no sound</span><span>{sc('10:50 AM')}</span></div><div class="pt">SYSTEM ALARM: GitHub</div><div>Recovered.</div></div></div></div></div>
+<div>{REC}</div><div class="sub">Its check passed: the release look answered (found {sc('1')}) at {sc('10:00 AM MST')}.</div><div class="sub">Still off: none. GitHub's hold wrote no switch.</div></div></div></div>
+<div class="frame"><div class="fh">Pulse · the same row, its last note</div><div class="fb">{hd}<div class="prow"><div>Control Board</div><div class="sev" style="color:var(--meta)">Critical</div><div>SYSTEM ALARM NOTICE: GitHub: Recovered<div class="sub">Last note: {REC} Still off: none.</div><div class="why">It leaves the open list; the bell's count drops.</div></div><div>Nov 21, {sc('10:00 AM')} MST</div></div></div></div>
+<div class="frame"><div class="fh">Email · a reply in the same thread</div><div class="fb"><div class="email"><div class="hd2"><span>Subject</span><b>SYSTEM ALARM NOTICE: GitHub: Recovered</b><span>In reply to</span><span>{SUBJ}</span><span>Sent</span><span>Nov 21, {sc('10:00 AM')} MST</span></div>
+<p>{REC}</p><p>Its check passed: the release look answered at {sc('10:00 AM MST')}. Still off: none.</p></div></div></div>
+<div class="frame"><div class="fh">Push · the earlier push replaced in place under its tag, silently</div><div class="fb"><div class="push"><div class="pa"><span>Traversence · replaced quietly, no sound</span><span>{sc('10:00 AM')}</span></div><div class="pt">SYSTEM ALARM: GitHub</div><div>Recovered.</div></div></div></div></div>
 </div>"""
     add('github-d-api-down.html', 'GitHub down, every surface', 'GitHub\'s API down walked through the board, Pulse, email, push, Fix it and Recovered.',
         intro('<b>(d) GitHub\'s API down, every surface.</b> A scenario: every time is illustrative (dotted). The radius, links, ids\' shape and words are the spec\'s and the manifest\'s. '
