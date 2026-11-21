@@ -3,8 +3,8 @@
 This is step 1 of `handoffs/control-board-plan.md`: every requirement Jason has given for the System Control Board, in
 one list, each with where it comes from and how it will be tested. It merges four readings (A: decisions/0171; B: 0175
 and 0173; C: 0176, 0172's alarm parts and 0163's board parts; D: the hand-offs, Jason's answers, his mockup and the
-broken pieces he found). Every line traces to a source line; where two current lines disagree, or nothing decides a
-point, it is a question for Jason (section 4), never a guess. Lines a later dated note replaced are in section 5, not
+broken pieces he found). Every line traces to a source line; the model in section 1 applies Jason's settled words to every row, and section 4 answers the 22
+questions from it (one, Q19, is left for Jason). Lines a later dated note replaced are in section 5, not
 dropped. **This is a draft for the session manager's review, then Jason's.** No code was changed.
 
 **Sources read.** `decisions/0171-the-control-board.md`, `0175-one-lifecycle-for-every-module.md`,
@@ -25,6 +25,79 @@ depends on a question.
 `control-board-2026-11-20.md`; OPS = `operations-2026-11-20.md`; DSP = `dispatcher.md`; PF = `preflight.md`; AS =
 `automation-switches.md`; SM = `session-manager.md`; PB = `builder-playbook.md`; C51 =
 `control-board-plan/case-51/NOTES.md`; PLAN = `control-board-plan.md`. MK = `design/control-board-mockup.html`.
+
+## 1. One model, applied everywhere
+
+The rules the board follows, built from Jason's settled words. Every row below applies them; nothing is decided case by case.
+
+### 1.1 What a trip is (one definition, everywhere)
+
+A **fault** is a part not working. The **system tries first**: while it tries, the part is a warning on the board, and
+nobody is told. A **trip** "is when the PAUSE has been placed": the system pauses **only what the cause touches** (that
+service's calls, a task, a workflow, or all gathering only when the crawler itself is down). It **never switches
+anything off**, and it never writes into a person's switch. It **closes as Recovered when its check passes**, even after
+it has escalated ("If this was resolved by system or marked as resolved by admin it should be handled"; "Close as
+Recovered"). Waiting for a person is only for what a person must do: a refusal, a ban, a refused key or a used-up quota
+waits for that person's own button, whose check then closes it. The escalation "action and timeline is set", and it
+isn't re-decided:
+- **A critical part** (pages, search, sign-in, payments, the database) trips at once and tells the Founder, while the
+  system keeps trying.
+- **Any other part** is a warning while the system tries, and Paused by the system when it can't.
+- **Both, when the tries run out:** the Escalation Notice ("Retries unsuccessful, now admin required"), then Pulse's
+  clock: the Manager, then the Director.
+- **Being told:** a trip reaches the Founder once and at once (board, Pulse, email, push). A warning stays on the board.
+  Recovered is a notice with nothing to press.
+
+*Sources: 0175 §3 and its notes "Trip, and fault" and "an escalated trip closes as Recovered"; 0171's notes of
+2026-11-19 (critical parts; escalation "YES"); 0176 §4.*
+
+### 1.2 A service once it's assigned to workflows (one model)
+
+- **A service is a module.** It passes through Jason's eight stages: selection and configuration, integration
+  (pre-flight), activation, assigned to workflows, operational, maintenance, deactivation and removal (history kept).
+  Stage 4 records which workflows and tasks it serves.
+- **A workflow is "multi-step tasks or procedures that use services to render a specific action/result/outcome".**
+  Each task needs things (places, pages, identity…). For each need, the **source priority map** gives the order: our own
+  copy first, then outside services in order.
+- **At a failure, two things are checked: "1. component 2. workflow."**
+  - **The component** (the service, our own endpoint, the worker, a job): the system tries its check. It shows a warning
+    while it tries, and Paused by the system when the tries run out. That pause holds that component's calls only.
+  - **The workflow:** each task that used the component "reroute[s] to a back up service": the next working source on
+    the map, shown "On a backup". A task with no working source left "trip[s]": that task is paused. The workflow is
+    paused whole only when every one of its tasks is. All gathering pauses only when the crawler itself is down.
+- **Recovery:**
+  - The component's check passes, so its pause lifts, the tasks go back to their first choice, and it's Recovered.
+  - A refusal, ban, key or quota waits for the person's button (Reactivate, Replace, a cap), whose check closes it.
+- **Two kinds of repair:**
+  - **Fix while running** (the headlight): a key, a setting, a retry. Nothing else stops.
+  - **Needs shut down** (the battery): Maintenance. Take out pauses its dependants with why, and Put back checks first.
+- **Who presses what:** Activate, Deactivate and Delete are a person's. Pause is the system's or a person's.
+
+*Sources: 0175 "What Jason asked for", §2, §3 and its note of 2026-11-21 (Jason: "reroute to a back up service or
+trip"); 0163's source map.*
+
+### 1.3 The two clocks
+
+| The run schedule: when work happens | The diagnostic clock: how a fault is judged |
+|---|---|
+| A workflow's and task's schedule: every N minutes, a bulk task's nightly window (1–5 AM Arizona), its share of a run (seconds, items) | The system's tries on a failing **component's check**: `control_fix_tries` (3) or `control_fix_minutes` (60, "Keep the hour") |
+| The site's jobs (cron, `Scheduler::JOBS`) | The slow rule (a call slower than its usual × the slow factor): slow is never a trip |
+| The nightly 2 AM pre-flight self-test (it feeds the cards) | The query timings and speed gates (each query's limit in ms) |
+| The sync (06:00 and 18:00 UTC), the release job (every 10 min), the watch's tick (every 5 min) | The back-off ladder (waits that double; a site's Retry-After) |
+| The historian's hourly row | Late and stuck: a job past its time plus 5 min; a run that never ended after 2 hours; W0 silent over 5 min |
+| | Pulse's escalation clock (Critical: the Manager at 2 hours, the Director at 4) |
+
+**A scheduled run is not a try.** Tries are the system re-checking the failed component, on the diagnostic clock,
+within the hour. The task's next run comes on its schedule: it runs if the pause has lifted, and waits if it still
+holds. This is where today's code goes wrong (case #51):
+- It counted a nightly task's failure as a try, then tripped when the hour ran out with no check made.
+- It paused all of W1.
+- It blamed the outside task for our own endpoint's timeout.
+
+Applied, case #51 reads:
+- The component was our endpoint (`loads.php`), and it timed out. That's slow: a warning, nothing paused.
+- The system checks the endpoint, and it answers, so the warning clears.
+- `overture_bulk`'s next nightly run goes ahead.
 
 ## 2. What Jason wants
 
@@ -129,18 +202,20 @@ The plan's test: the finished board must answer these.
 
 ### Area 4. Alarms: levels, tries, trip, escalation
 
+These rows apply the model in section 1 (what a trip is, a service in its workflows, the two clocks); where a row and the model differ, the model wins.
+
 | R# | Requirement | Jason's words | Sources | Test |
 |---|---|---|---|---|
 | R65 | Any trip or issue (slow, retry, crash) produces an alert. | "real time monitoring, so any trip or issue (slow, retry, crash) produces an alert." | 0171 L31-32, L100; CB 360-361 (A63, D38) | Scenario: a slow call, a retry and a crash each raise an alarm row. |
 | R66 | One alarm list for the whole system, by level: **Trip** (stopped, can't run what's switched on), **Warning** (slow, retrying, near a limit), **Notice** (nothing to do: came on, backup in use, cleared by itself, in maintenance). | — | 0171 §7 L363-368; CB 323 (A64, D39) | Unit: three levels; Scenario: each case lands on its level. |
-| R67 | The system tries first: a crash is a warning while the system tries again by itself, for `control_fix_tries` (3) or `control_fix_minutes` (60) from the first failure, whichever comes first; then a trip. Held or out (a refusal, a refused key, a used-up quota or budget) trips at once: there's nothing to try. | "A trip is when the system identifies a problem and can't resolve it: 1. internal testing and procedures to systematically resolve the issue. 2. pushing the issue to an admin…" | 0171 L289-293, L388-390; 0175 L160-164; 0176 L175-176, L190-191; CB 71-85 (A65, A73, B39, C43, C85, D40, D68) | Scenario: crash once → warning "Trying again (1 of 3)"; 3 fails → trip; refused key → trip at once. (see Q1, Q3) |
-| R68 | **Keep the hour:** the watch trips a warning whose tries or time ran out even with no new failure, and its words follow the state; a nightly task keeps the hour too: after `control_fix_minutes` with no fix, it's a trip. | "Keep the hour" (decision pop-up) | 0171 L712-717; CB20 40; C51 20-24 (A74, D52) | Scenario: one failure, no repeat, wait 61 minutes → trip; words never show a passed time as to come. (see Q1) |
+| R67 | The system tries first (model 1.1): a fault is a warning while the system re-checks the failed **component**, for `control_fix_tries` (3) or `control_fix_minutes` (60) from the first failure, whichever comes first, on the diagnostic clock (model 1.3); then a trip, a pause on what its cause touches. What only a person can fix (a refusal, a ban, a refused key, a used-up quota or budget) is paused at once and waits for that person's button. | "A trip is when the PAUSE has been placed" | 0171 3c L289-291; 0175 §3 L145-164, L375-378 (A66, B32, B42) | Scenario: a failing component's check fails 3 times, or for 60 min → paused, nothing wider; a refused key → paused at once, closed by Replace's check. |
+| R68 | **Keep the hour, on the diagnostic clock:** the hour times the system's tries on the failed component's check, and the watch makes it a trip when the tries or the hour run out, even with no new failure, its words following the state. A task's scheduled run is never a try: its next run comes on its schedule (model 1.3) and goes ahead if the pause has lifted, or waits while it holds. | "Keep the hour" (decision pop-up) | 0171 L712-717; 0175 §3 (A74, D52) | Scenario: a nightly task's source fails at 2 AM → the source's check is retried within the hour; it passes → nothing paused and the next night's run goes ahead; it fails → only what needs that source waits. |
 | R69 | Slow is never a trip: a slow call or job is a warning that says how slow, stops nothing and clears itself when speed returns. | "There is no way to fix this"; "no dead ends, system fixes first" | 0171 L299-302; CB 188-195 (A52, D42) | Scenario: slow call several times in a row → warning only, nothing paused; speed back → cleared. |
 | R70 | A back-off trips when it reaches its case limit; but a back-off in its wait isn't a hold (no gate goes red for it), and a 429 ("asked us to slow down") is a warning that waits twice as long, never a trip, its Check greyed with the reason and the next try shown as text. | "We already have a rule for how trips get set" | 0171 §5 L283, L645-647; CB 21-22, 219-222, 235-239 (A66, A67, A68, D41, D43) | Scenario: back-off to its limit → trip; back-off waiting → gates green; repeated 429 → warning, wait doubles, no trip. |
-| R71 | A red required pre-flight line is a trip only while what it holds is switched on (by a person's switch); otherwise a warning that Start holds. | — | 0171 L293-294 (A69) | Scenario: red line with the workflow off → warning; on → trip. |
-| R72 | A critical part's first failure reaches a person at once (Pulse, the Founder's email, the push) while the system keeps trying and nothing is stopped; its retry warnings count as failures. | "this is one that should immediately trip even it is to be retried, may not require admin but because it causes the system to fail in its ability to perform it needs admin oversight immediately." | 0171 L308-320; 0175 L157-158; 0176 L193-194; DSP 41-45 (A70, B36, C44, D53) | Scenario: fail `site:search` once → alarm on all three channels at once, nothing paused. (see Q8) |
+| R71 | A red pre-flight line is a fault on the component it checks, under model 1.1: it's a warning while the system re-checks it, and a pause on that component when it can't. Under model 1.2, what it holds is only the tasks that can't reroute. At start-up the interlock waits on a line only when the component's own check can run before start-up (not on a Railway key, whose check is the worker's report: see Q4). | — | 0171 L293-294, §2 L156-158; 0175 note 2026-11-21 (A69) | Scenario: red line on a backup-covered service → nothing held; on a sole source → its tasks wait. |
+| R72 | A critical part (pages, search, sign-in, payments, the database) trips at once: Pulse, the Founder's email and the push, while the system keeps trying; its retry warnings count as failures. | "this is one that should immediately trip even it is to be retried, may not require admin but because it causes the system to fail it should trip" | 0171 L319-320; 0175 §3 L157-159 (A70, B36) | Scenario: a critical duty's first failure → one trip at once on all channels; the system keeps trying. |
 | R73 | When the system fixes it, it closes itself: "Recovered: <part> was down <n> min, the system fixed it.", a notice with nothing to press, in the logbook, not holding the bell. | "The system fixes it: the trip closes as 'Recovered…' … This is a notification, not need for me to acknowledge." | 0171 L313-314, L321-322; 0175 L159; 0176 L178 (A71, B37, C36) | Scenario: search recovers → closed with those words, no button, a logbook row. |
-| R74 | When a critical part's tries run out: the Escalation Notice, "Retries unsuccessful, now admin required: <part>, <duty>"; what it holds is now paused. | "Retries run out: it becomes an ordinary trip … Escalation Notice, retries unsuccessful, now admin required." | 0171 L314-315, L323-324; 0175 L160-162; 0176 L179 (A72, B38, C37) | Scenario: keep search failing past 3 tries or 60 minutes → those exact words; its hold applied. (see Q7) |
+| R74 | When the tries run out, for any part (critical or not; "escalated the same way"): the Escalation Notice, "Retries unsuccessful, now admin required: <part>", and Pulse's clock runs (row R76). What its cause touches is paused (model 1.1). | "Retries run out: it becomes an ordinary trip … Escalation Notice, retries unsuccessful, now admin required."; "the action and timeline is set" | 0171 L314-315, L323-324; 0175 §3 L160-164; 0176 L176-179 (A72, B37, C44) | Scenario: a non-critical and a critical part each run out of tries → one Escalation Notice each, on the same thread. |
 | R75 | An escalated trip whose check later passes closes itself as Recovered, its pause lifts, and the Recovered notice goes to the Founders; nothing is left to press. | "Close as Recovered" | 0175 L380-384; 0176 L179 (B41, C46, D54) | Scenario: escalate, then pass the check → closed as Recovered, notice to the Founders. |
 | R76 | An open trip still escalates by itself on Pulse's clock: to the Manager once its level's hours pass (Critical: 2 hours), to the Director after twice that; it stays in the bell's list throughout. Alarms show no clock on their row. The escalation stays exactly as 0171 set it; draft 1's "third trip in 24 hours" guard is dropped. | "YES" (to "if no one resolves a Control Board trip, should it still be escalated?"); "who set this? we have an escalation process already set/// the action and timeline is set!" | 0171 L705-708, L710; 0175 L66-67, L155-156, L165; 0105 L90, L186; 0176 L179 (A89, A90, B35, B40, C45) | Scenario: trip open 2 h → Manager; 4 h → Director; no clock on the row; no third-trip rule in code. (see Q7, Q9) |
 | R77 | A fault is the part not working; a trip is the system placing its pause because of it. The board's word stays **Trip**; what it pauses reads "Paused by the system (a trip): …". | "I am good with this definition."; "A trip is when the PAUSE has been placed" | 0175 L375-378 (B42, D45) | Rendered: every paused part reads "Paused by the system (a trip): …". (see Q8) |
@@ -155,10 +230,12 @@ The plan's test: the finished board must answer these.
 
 ### Area 5. What a fault holds, backups and recovery
 
+These rows apply the model in section 1.2: the component is checked and paused, its tasks reroute or wait, the workflow waits only when all of them do.
+
 | R# | Requirement | Jason's words | Sources | Test |
 |---|---|---|---|---|
 | R86 | A fault pauses, never switches off. What isn't working is **Paused by the system**, shown in the same place a person's pause shows, with its reason and the check that lifts it ("Paused by the system: download.geofabrik.de failed 6 times, 09:12 MST. It resumes when its check passes."). The person's switch stays as they left it: the pause is a record of its own. Every page shows both: "On · Paused by the system: …". | "Holds vs OFF: the app service is not turned off when its performance is not functional unless it requires it off for maintenance, hence PAUSED." | 0175 L63-65, §2 L137-139, §3 L144-151, L296; 0171 L710; 0163 L625 (A94, B29, B30, B31, B33, B54, B133, C106, D46) | Scenario: a fault on each kind of part; no switch value changes; the pause row reads as shown. |
-| R87 | A trip pauses only what its cause touches, as narrowly as its cause: a service's calls, a task, a workflow, or all gathering when the crawler itself is down (runs failing outright or never reporting); out of budget, that service; a back-off at its limit, that server's calls; W0 gone quiet, W0. A site job tied to no workflow only trips. Everything else stays up. | — | 0171 L392-395, §9 L538-539; 0175 §3 L145-149; 0176 L196; PB 32-33; PLAN 28 (A92, A93, B32, C88, D47, D67) | Scenario per cause: exactly that scope is held, nothing wider. **Broken today** for a task's failure (case #51, K1). (see Q2, Q5) |
+| R87 | A trip pauses only what its cause touches (model 1.1–1.2): the failed **component's** calls; each task that used it reroutes to the next working source on the priority map or, with none left, is paused; the workflow is paused only when every one of its tasks is; all gathering only when the crawler itself is down. Our own endpoint failing or slow is the Site part's fault, never the outside source's or the task's (Q3). | "reroute to a back up service or trip"; "1. component 2. workflow are checked" | 0175 §3 L145-149, L166-171, L255-258, note 2026-11-21; 0176 L196 (A92, A93, B32, C88, D47, D67) | Scenario per cause: exactly that scope is held, nothing wider. **Broken today:** a task's failure pauses its whole workflow (case #51, twice on 2026-11-21: overture_bulk, foursquare_bulk). |
 | R88 | A source down holds only what uses it: a service's red line holds nothing when every need of the workflow still has a working source (ok, or on a backup); it holds only the tasks that call the service when the workflow has others; the whole workflow only when every task calls it. A service no need names and no task calls (a site job's, a paid backup) holds nothing. A red need pauses the tasks that call its services in every workflow it names, never the whole of the first one listed. A hold on one server holds only that server, unless nothing else answers. | "W3: what is it supposed to do?"; "reroute to a back up service or trip" | 0175 L514-524; 0163 L504-505 (B43-B46, C129, D48) | `holds.php`; Scenario: down a backup while the primary works → nothing held; down a sole source → only its tasks pause. |
 | R89 | At a failure both the component and the workflow are checked. The component has its own check, pause and card; the workflow reroutes to a named backup ("On a backup": Tavily to Brave, our OpenStreetMap copy before any server) and is paused only when it can't work without the component. The alarm names which of the two is the source, and the board opens that one. | "So two things are happening at the time of a failure 1. component 2. workflow are checked."; "if a workflow has a component that is failing it needs to either reroute to a back up service or trip if it is not able to function properly." | 0175 §3 L167-171, §6 L255-259, L266; 0171 L710; CB20 88-90 (A95, B58, B59, B60, D49) | Scenario: Tavily down → the workflow uses Brave, reads "On a backup", not paused; the alarm names Tavily. |
 | R90 | On a backup is a working state: never "Holding", never red, its backup named; a workflow whose failing task a backup covers reads "On a backup". | (same quote) | 0175 L456; 0176 L127, L153; CB20 88-90 (B61, C9, D50) | Rendered: W1 on a backup reads On a backup and names it. |
@@ -170,7 +247,7 @@ The plan's test: the finished board must answer these.
 | R96 | The Census geocoder's backup: when the site's call fails on the connection (reset or no answer, or the site's hold of kind "timeout"), the batch goes from Railway; the worker sends it only to the Census batch address and posts the answers back; the site places only listings it handed off that still wait, marked `via: railway`. Any other refusal waits; a pause or staging never hands it on; a map point is never lost or invented; private listings are never in a batch. | "Yes"; "Yes, build it" | 0175 L386-408; CB20 123-129; OPS 28-34 (B62, B63, B64, D75) | `census-backup.php` (15), `test_census_backup.py` (10). Live #244. |
 | R97 | Overture stays as a backup for places by kind; our own copies count as a need's first source while they have rows (no freshness limit for now). Paid backups (Google Places to confirm, Claude to read pages when Gemini can't) are off until a director sets their monthly cap. | "Keep it"; "Keep as is for now" | 0175 L540-542; 0163 L425-427, L502-503 (B65, B66, C145) | Unit: an empty copy doesn't count; a paid backup is off with no cap. (see Q13) |
 | R98 | Switches a past trip left off, with no person's setting to go back to, stay off: listed under Needs attention as left off by a trip that has closed, each with its switch; nothing switches them back on by itself. Where a person had set one, it went back to their value, logged "Put back to what <name> set on <date>". | "Keep for a person" | 0175 §7 L270-280, L494-496; OPS 23-24 (B51, B53, D70) | `paused.php`, `paused-now.php`; Rendered: a left-off item under Needs attention with its switch. |
-| R99 | The interlock: a process starts only when its needs are green; otherwise its Start names the red line and carries its fix. A red line holds only what it's for: a line for everything holds the master; a workflow's or service's line holds that workflow and its tasks; the Railway schedule's line holds nothing. A service issue fails a gate only when it holds the service. | — | 0171 §2 L156-158; 0163 L345-347, L361; CB 321 (A102, C109, C114, D65) | Scenario: one red need → only its workflow waits, its Start greyed naming the line, with its fix. |
+| R99 | The interlock (model 1.2): a process starts only when its needs have a working source (first choice or a backup); otherwise its Start names the red line and carries its fix. A line holds only what can't reroute: a red need holds the tasks that call it, never the whole of a workflow that has other tasks; the Railway schedule's line holds nothing. A service issue fails a gate only when it holds the service. | — | 0171 §2 L156-158; 0163 L345-347, L361; 0175 note 2026-11-21 (A102, C109, C114, D65) | Scenario: one red need with no backup → only its tasks wait, their Start greyed naming the line, with its fix. |
 
 ### Area 6. Words (and lights)
 
@@ -302,221 +379,42 @@ The plan's test: the finished board must answer these.
 | R188 | The board doesn't change how any workflow gathers or any 0164 rule, doesn't change Railway's cron or restart policy (the site sets them), spends no money, and moves no data between databases. | — | 0171 L687-690; CB 527-528 (A163, D118) | Review: no new paid service; no cron change by a session. |
 | R189 | After it's live: the scenario test runs again at every release touching the board; a daily check that each open alarm's hold, words and Fix it match the map (a mismatch is a case for the building session and the session manager, never Jason); after a week, a report to Jason of what tripped, what recovered and any mismatch. Jason should not have to find the broken pieces himself. | (2026-11-21, recorded in the plan) | PLAN 6-9, 33, 85-91 (D7) | Review after a week. |
 
-## 4. Questions for Jason
+## 4. The 22 questions, answered from the model
 
-Each was checked against its source lines; questions a later dated note already settles are in section 5. Ordered by
-how much they change the failure map: what a fault holds, how tries count, when it trips, then who is told.
+Jason, 2026-11-21: "many of the answers have already been given so its not seeing how to apply them into its logic to properly build and it wants to reverify." Each question is answered from section 1 and his own words, with its source. One is left: Q19.
 
-**Q1. "Keep the hour" for a task that can only run at night (case #51).**
-- One side: 0171's note of 2026-11-20 (L712-717), which Jason chose in the pop-up: "Keep the hour: as 3c set it, after
-  `control_fix_minutes` (60) with no fix, it's a trip", for a bulk task that "runs only 1–5 AM Arizona, so a second try
-  can't come inside the hour".
-- Other side: 0171 3c (L289-291) "the system tries again by itself, for `control_fix_tries` (default 3) or
-  `control_fix_minutes`…, then a trip"; the playbook's "the system fixes first" (PB 42-46); case #51's brief asked for a
-  task's tries to count its own runs (C51 20-24).
-- Why it matters: case #51. `overture_bulk` timed out once; with no second try possible inside the hour, the hour ran
-  out and it tripped (and, through Q2, paused all of W1). Under "Keep the hour" a night task never gets its 3 tries.
-- **(Recommended)** Keep the hour for everything that can try again within it. For a task that only runs in a window,
-  count its tries by its own runs: one failure is a warning until its next window ("Trying again tonight, 1 of 3");
-  it trips only when its tries run out. Reason: it keeps the system-fixes-first rule and doesn't trip on a failure the
-  system never had a chance to retry.
+| Q | Question | Now |
+|---|---|---|
+| Q1 | "Keep the hour" for a night-only task | **Answered by 1.3's two clocks:** the hour times the system's tries on the component's check, never the task's next run. "Keep the hour" stands as Jason chose it. The task's next run comes on its schedule. |
+| Q2 | What one task's failure holds | **Answered by 1.2:** the component's calls are paused; each task reroutes or waits; the workflow waits only if every task does. (0175 §3; "reroute to a back up service or trip") |
+| Q3 | Our site's timeout or 5xx to the worker | **Answered:** the component is our own endpoint (the site part), never the outside task. A timeout is slow, never a trip (0171's note of 2026-11-19). A 5xx is a fault on that endpoint under 1.1. |
+| Q4 | A Railway key not yet reported | **Answered by 1.1–1.2 and stage 2:** a key that lives on Railway is checked by the worker's report. Start-up starts the worker, the worker reports its keys, and only the tasks that need a key reported missing or refused are held (1.2). Until the report arrives, the key reads "not checked yet" and holds nothing. Start-up doesn't wait on it, which would go round in a circle. |
+| Q5 | When is a light red; core host down | **Answered:** a row is red for a trip (0171 §1's lights). The summary lines are red only for a critical duty down (0175's "Paused now" note). A core host holds only what its cause touches (§1): Railway down is the crawler down, so all gathering. The mockup's "Red holds everything" is replaced by 0175 §3. |
+| Q6 | Does a ban or block close by itself | **Answered:** no. A refusal waits for the person's Reactivate (0171's note "osm-copy-wider"; 0175's note of 2026-11-21: "never a refusal, a key or a quota"). |
+| Q7 | Escalation Notice at the trip | **Answered by 1.1, as set:** when the tries run out, the Escalation Notice, then Pulse's clock. Nothing new. |
+| Q8 | Is a critical part's first failure a trip | **Answered:** yes. "A critical part: a trip at once … while the system keeps trying" (0175 §3, which Jason approved). |
+| Q9 | Who is told at once | **Answered:** the Founder, once and at once (0175 §3; 0176 §4). Others by Pulse's escalation clock. |
+| Q10 | Railway deploys and sync failures as Pulse cases | **Answered by 1.2:** Railway and the sync are components (the Workers and Site systems), under the same model and thread. There's no separate Pulse case (0171 §8; 0176, which routes every thread). |
+| Q11 | Grouped alarms: one message or many | **Answered:** one thread per item or group. Jason's notice title is "<item or group>" (0176's note). |
+| Q12 | What Acknowledge does | **Answered:** a warning has none (0175, Paused now). On a trip it marks it as seen, and the escalation runs until it closes (Jason's "YES" to escalating a trip nobody resolves). Check and start again is its acknowledgement (0171's links note). |
+| Q13 | Gemini's day used up | **Answered:** the work waits, with no fallback to Claude (0163 §11; "no income, no expense"). Claude is the backup only for a refusal or an outage. |
+| Q14 | A person's quick stop | **Answered:** Jason's actions are Pause (system or person) and Deactivate (person). Shut down on a row is Deactivate, recorded with who (0175 §2, §3). |
+| Q15 | 0175 R3 and R4 in this build | **Decided in step 3's design** (the plan: one release, approved once). It's a scope line in the design, not a question. |
+| Q16 | Review in the counts | **Answered by 0171 §1's route:** Review is an outcome beside stored, held and refused, so the count includes it. |
+| Q17 | The Use backup button | **Answered by 1.2:** the system reroutes by itself, so the button has no job. It goes in step 3's kept/moved/dropped list as dropped, with why. |
+| Q18 | The 2 AM run | **Answered:** it stays as a nightly self-test that feeds the cards (0175). It runs on the schedule clock. A red line is a fault under 1.1. |
+| Q19 | Two numbers nothing sets: how long alarms and the logbook are kept, and `control_cost_factor` | **Still open:** no decision or setting gives either value, and neither exists in the code. They'd become settings on Thresholds & gates; their starting values are Jason's to give. |
+| Q20 | "the Admin's test" | **Answered:** the playbook defines it: what he sees, what it means, what he presses, checked before a release. |
+| Q21 | Three layout choices | **Answered by the plan:** step 3's mockups show them, with real data, and Jason approves once. It's not a question now. |
+| Q22 | Fix, Disconnect and Add source on a need | **Answered by stage 4:** "assigned to workflows" is a module stage, so assigning and unassigning a service to a workflow's need are its actions, in the map's order. Fix is Fix it. They're shown in step 3's design. |
 
-**Q2. What does one task's own failure hold: the task, or its whole workflow?**
-- One side: 0171 3c (L392-393): "a task's failures stop that workflow; a task, that task". The live code does the first:
-  `ControlAlarms::stop()` pauses the whole workflow for a failed task (`$pause('wf', …)`, L285 on the mirror at 37a212e),
-  though the alarm's own words say "the workflow's other tasks carry on" (C51 table).
-- Other side: 0175 §3 (L145-149) "It pauses only what its cause touches … a task; a workflow"; 0175's note of
-  2026-11-21 (L520-521) "It holds the whole workflow only when every task calls it" (that note is about a source down);
-  0176 L196 "as narrow as its cause"; PLAN 28 "A trip stops only what it holds".
-- Why it matters: case #51 (W1 paused whole for one task's timeout). The same code also pauses only the *first*
-  workflow of a site job tied to several (`$wfs[0]`, L281), the pattern 0175's note rejects for needs.
-- **(Recommended)** A task's failure pauses that task only. Its workflow is paused only when every one of its tasks is
-  paused, or when the failure is the workflow's own (its run failing outright). A site job tied to workflows pauses the
-  tasks it feeds in each of them. Reason: 3c's two clauses can't both be read plainly; every later note narrows.
+**Left: one question (Q19).** Twenty-one are answered by Jason's own words or the plan.
 
-**Q3. Our own site timing out or failing (5xx) when the worker calls it: a crash, or slow?**
-- One side: 0171 §5 (L284): a **Crash** includes "an endpoint answering 5xx", a warning while trying, then a trip.
-  Today the worker reports our timeout as the task failing (C51 cause 2).
-- Other side: 0171's note of 2026-11-19 (L299-302): "slow is never a trip … stops nothing and clears itself"; the
-  playbook (PB 47-52): stop only for harm; slowness clears itself.
-- Why it matters: case #51's timeout was ours (sending rows to `/api/crawl/loads.php`), yet it counted against the
-  outside task and tripped it.
-- **(Recommended)** Our endpoint's timeout is slow: a warning on our endpoint's part that clears when the task does its
-  work; nothing paused. A 5xx from our endpoint is a crash of that endpoint (the Site part), with its tries, never
-  counted against the outside source or the task. Reason: the fault is ours, so the alarm and Fix it belong on our part.
+**Corrections from this revision.**
 
-**Q4. A Railway key the crawler hasn't reported yet: does it hold a workflow?**
-- Source: 0175's note of 2026-11-21 (L537), the audit's question "a Railway key not yet reported holding a workflow",
-  left "still to ask" (L543). 0173 §3 (L125-133): Railway's keys stay on Railway, the card's Check confirms from the
-  worker's report. Nothing decides what a missing report means.
-- Why it matters: after a redeploy, until the worker reports, a workflow could be held (or a red line shown) for a key
-  that is in fact there.
-- **(Recommended)** Amber "Not checked yet: the worker hasn't reported its keys", holding nothing; it turns red (and
-  holds the tasks that use the key) only when the worker reports the key missing or refused. Reason: a hold needs
-  evidence (principle 1, "the system fixes first").
-
-**Q5. When is a light red, and what does a core host down hold?**
-- One side: 0171 3d (L512-513): "Red only for a trip or a core host down (Bluehost, Railway, GitHub)"; the mockup
-  (MK 542, 738): "Core: … (Red holds everything)".
-- Other side: 0171's critical note (L325-326): "Not critical by themselves: … Railway or GitHub as hosts"; 0175's notes
-  (L431-435, L489-491): a system's hour and the health line are "red only when a critical part is down"; PB 32-33: a
-  hold as narrow as its cause; 0171 3c (L394): the master only when the crawler itself is down.
-- Why it matters: a non-critical trip's own row, a down Railway and a down GitHub each read differently on the row, the
-  system line and the health line today, and "Red holds everything" would pause far more than its cause.
-- **(Recommended)** Rows: red for an open trip (it needs a person). Summary lines (system hour, health line): red only
-  for a critical duty down. Bluehost down is critical (its duties are page load and the database). Railway down means
-  the crawler is down: all gathering pauses (3c), red on its row, amber on the health line. GitHub down holds releases
-  only. No "red holds everything". Reason: matches every dated note; nothing is held wider than its cause.
-
-**Q6. A site or service that refused us: when its check later passes, does it close by itself?**
-- One side: 0175 §3 (L152): a pause "clears itself when its check passes"; 0175's note of 2026-11-20 (L380-384): even
-  an escalated trip "closes as Recovered" once its check passes.
-- Other side: 0171's osm-copy-wider note (L472-473): "a refusal, a refused key or a used-up quota always waits for a
-  person's button (principle 1's exception)"; 0163 (L150-154, L184-185): a banned service has "no automatic return: a
-  passing check raises 'looks lifted' with Reactivate"; a site that blocks us is "never retried by itself".
-- Why it matters: a refused key or used-up quota can only pass its check after a person acts, so both rules agree there.
-  A ban or a blocked site differs: under 0175 it could reopen by itself and reach a site that asked us to stop.
-- **(Recommended)** Keep the person's button for a ban or a block: a passing probe says "looks lifted" with Reactivate,
-  and Reactivate runs the check and closes the trip. A refused key and a used-up quota close when the person's own fix
-  passes its check (as built). Reason: going back to a site that refused us is a person's call (0164 "curators").
-
-**Q7. When a non-critical part's tries run out: is the Escalation Notice the same moment as the trip?**
-- One side: 0176 §4 step 2 (L176): when the tries run out, the trip is raised "and since its tries ran out, 0175 §3's
-  Escalation Notice", at once, on the same thread; step 4b (L179) then has "the level rise brings one push".
-- Other side: 0175 §3 (L157-164): for a critical part the Escalation Notice comes when its tries run out *after* the
-  first-failure trip; "Any other part: a warning while the system tries, Paused by the system when it can't. It's
-  escalated the same way"; 0171's note to §8 (L705-708): escalation is "to the Manager once its level's hours have
-  passed, to the Director after twice that". Trips and Escalation Notices are both Critical (0176 L379), so a "level
-  rise" between them has no level to rise to.
-- Why it matters: it decides how many messages Jason gets for one fault, and what "escalated" means on the board.
-- **(Recommended)** For a non-critical part: one message at the trip ("Paused by the system"); no separate Escalation
-  Notice. "Escalated" means Pulse's clock: the Manager at 2 hours, the Director at 4, each told by their own channels.
-  The "Retries unsuccessful, now admin required" notice stays for critical parts only, as 0171 wrote it. Reason: fewer
-  messages for one thing; Jason: "the action and timeline is set".
-
-**Q8. A critical part's first failure pauses nothing: is it a "trip"?**
-- One side: 0171's critical note (L319-320): "a trip at once … the system keeps trying and nothing is stopped".
-- Other side: 0175's note (L375-378): "A trip is when the PAUSE has been placed"; 0171 3c (L388-390): a trip means
-  "ceasing internal process until admin resolves it".
-- Why it matters: the board then shows trips that hold nothing, and the top-bar count, the light and the Incident
-  Report (R173, trips only) all depend on the word.
-- **(Recommended)** Call it **"Critical part down"**: red, counted with the trips in the top bar, sent at once on all
-  three channels, with its own Incident Report; status "Down: the system is retrying". It becomes a trip (a pause) only
-  when its tries run out. Reason: the words stay true to "a trip is a pause".
-
-**Q9. Who is told of a trip at once: the Founder only, or also that system's staff?**
-- One side: 0172 §2.12 (L572): a trip is told to "Founder; the process's staff"; §1.7 (L402): Executives and Directors
-  get "trips in their systems".
-- Other side: 0171 §7 (L409-410) and 0176 §4 (L176): "the Founder's email"; others reach it only by escalation (0176
-  L179, 0171 L705-708).
-- Why it matters: whether a Director learns of a W1 trip at once or after 4 hours.
-- **(Recommended)** The Founder at once by email, push and Pulse; the Pulse item sits in the system's own department
-  queue, so its Manager and Director see it there at once without an email or push; they are told by their channels on
-  escalation. Reason: one person paged, the team informed, no new channel.
-
-**Q10. Railway's deploys and the sync's runs failing: a Pulse case, or the board's rule?**
-- One side: 0163 §5 (L110-112): the site "raises a Pulse case when one fails or stalls".
-- Other side: 0171's note (L427-435): "only a trip reaches a person"; §8 (L477-488) turned the other old Pulse cases
-  into alarms, but not these.
-- Why it matters: a failed deploy stops the crawler; today it reaches Jason outside the board's rules and words.
-- **(Recommended)** Make them alarms on the Workers and Site parts under the same rules: a failed deploy is a crash
-  (warning while Railway retries, a trip when it can't, and then the crawler-down hold); a stalled sync is a warning,
-  a trip after its hour. Reason: one set of rules, one thread shape.
-
-**Q11. Grouped alarms: one message per group, or per alarm?**
-- One side: 0171 §8 3d (L504-511) and 0172 (L139-142): related alarms are one row on the board and one item in Pulse;
-  0176's note (L346) titles a notice "<item or group>".
-- Other side: 0176 §1 (L100-103) and its note (L352): "One thread per alarm on each channel".
-- Why it matters: five feeds held by one cause could send five emails and pushes, or one.
-- **(Recommended)** One thread per group while two or more share it: the group's title ("5 engine feeds held"),
-  updated as members join or clear; an alarm that leaves the group keeps its own thread. Reason: Jason's own format
-  names "(Item or Group)".
-
-**Q12. What does Acknowledge do now?**
-- One side: 0171 §7 (L424-425): acknowledging in any place acknowledges all and "stops the email repeat"; §8 (L496)
-  "Done in Pulse means acknowledged"; 3d (L506-507) "Acknowledge all" on a group; the mockup's Done (MK 468, 954-956).
-- Other side: the links note (L400-402): Check and start again "is also its acknowledgement"; 0175 (L457): a warning
-  has no Acknowledge; the email repeat is dropped (L432); trips close themselves (0175 §3).
-- Why it matters: a button with no clear effect is a dead end; and whether acknowledging stops the escalation.
-- **(Recommended)** No Acknowledge on warnings or warning groups. On an open trip, Done/Acknowledge means "seen by me":
-  logged, shown on the row with who, doesn't close it and doesn't stop the escalation (which runs until it closes).
-  Reason: Jason's "YES" was to escalating a trip no one *resolves*.
-
-**Q13. Gemini's day used up: does the work wait, or use the paid Claude backup?**
-- One side: 0163 §11 (L528-529): "the work waits; no fallback to Claude".
-- Other side: 0163's source map (L441): "Gemini (free tier) → $ Claude (AI cap)"; #103 (L502-503): "Claude reads pages
-  when Gemini can't", off until a director sets its cap.
-- Why it matters: the board's "What it affects" and "What the system is doing" for W1-W3, W10 and W11.
-- **(Recommended)** "Can't" means a refusal or an outage, never a used-up day: a used-up day waits (amber "Waiting for
-  tomorrow's allowance"), even with the paid backup's cap set. Reason: keeps the daily cap honest (no income, no
-  expense).
-
-**Q14. A person's quick stop: Pause or Deactivate?**
-- One side: 0175 §6 (L253-254): "Shut down one workflow or module stays on its row, as Deactivate"; Deactivate needs
-  its pre-flight to come back (L362).
-- Other side: 0175 §2 (L133): Pause "stays active, keeps its key and settings"; today's register Pause is `svc_off`,
-  "Nothing calls it", back by Activate through the gate (0173 L101), which is closer to 0175's Deactivate.
-- Why it matters: in an incident, a stop that needs a full pre-flight to come back is slower; and R3 renames today's
-  buttons.
-- **(Recommended)** The board's row Shut down is a person's Pause (Resume runs its pre-flight, as 0175 L362 says);
-  Deactivate is the card's on-purpose switch-off with why; today's register Pause maps to Pause. Reason: Pause is the
-  light, reversible action; Deactivate is a decision.
-
-**Q15. Are 0175 R3 and R4 part of this one board build?**
-- Source: 0175's status (L5-6): R3 (the eight stages and actions on the card) and R4 (one definition: `kind`, `repair`,
-  `fallback`, the zip check's refusal) are held; the plan wants one release (PLAN 72-83).
-- Why it matters: R4's `repair` and `fallback` decide what a fault holds (R95), so the failure map needs them; R3 is the
-  cards' look.
-- **(Recommended)** Put R4's `repair` and `fallback` fields in this build, since the map reads them; leave R3 (the
-  card's stage strip and renamed buttons) for its own release after. Reason: one coherent failure map without growing
-  the release into the cards' redesign.
-
-**Q16. The counts' check: is "Review" its own count?**
-- One side: 0171 §9 (L536-537): "received = stored + updated + refused"; the mockup's bar (MK 831) the same.
-- Other side: CB 409: "Counting rule: received = stored + updated + Review + refused, judged in release 3".
-- Why it matters: a record sent to Review would read as lost ("Mismatch!") on every call that uses Review.
-- **(Recommended)** Count Review on its own: received = stored + updated + Review + refused, shown as its own segment.
-
-**Q17. "Use backup" as a button: what should it do?**
-- Source: 0176 §5 (L210, L405): "Use backup as a button is to come (A5; 0175 §3 reroutes by itself)"; it shows greyed.
-- Why it matters: a button greyed "to come" for good is a dead end; if the system reroutes by itself, the button has no
-  job unless it forces the backup for a source that is slow but still answering.
-- **(Recommended)** Drop the button; show "On a backup: <name>" when the system has rerouted, and nothing when it
-  hasn't. Reason: the system fixes first.
-
-**Q18. The 2 AM run: keep it, and does its failure raise anything?**
-- Source: 0175 (L369-370): "The 2 AM run may stay as a nightly self-test that feeds the cards." Nothing says whether its
-  red line raises an alarm, or which hour rule applies.
-- **(Recommended)** Keep it as a self-test that updates the cards' Diagnostics; a red line raises the same alarm as any
-  check, under R50 (its words follow its line). Reason: it's free and finds faults before the morning.
-
-**Q19. Two numbers no decision sets.**
-- 0171's Consequences (L702-703): every new table has "its kept-days settings", but none is named for alarms, the
-  logbook or the maintenance windows; §9 (L534-535): `control_cost_factor` has no value.
-- **(Recommended)** Alarms, the logbook and maintenance windows kept 400 days (as the daily readings); Incident Reports
-  kept for good; `control_cost_factor` 3 (as `control_slow_factor`). Reason: the reports and Incident Reports read
-  back that far.
-
-**Q20. "Every press runs the Admin's test first": what is that test?**
-- Source: 0173 §2 (L106): "Every press runs the Admin's test first, as the board's buttons do." Nothing defines it.
-- **(Recommended)** Read it as: each stage button checks first and shows what it will do (and greys with the reason when
-  it can't), as Check and start again does. Reason: matches the board's buttons; no new step.
-
-**Q21. Three layout choices for step 3's mockups.**
-- The one-line diagram ("mimic board": sources → workers → endpoints → tables → outcome, each box lit by its state; CB
-  318, SM 176-178), "to discuss", never held.
-- §2's stage tiles and separate buttons were "the session manager's call when Jason was unsure" (0171 L7; CB 9-11); his
-  mockup puts numbered buttons beside a stage strip (MK 433-450).
-- His five dashboard references (SM 172-189: tabs per system, a trend panel with a stats table, fault lights for
-  critical duties, capacity bars per service; skip big gauges, pies, slicers).
-- **(Recommended)** Show all three in step 3's mockups, with real data, and let him choose there. Reason: the plan's step
-  3 is where he sees and approves the design once.
-
-**Q22. Fix, Disconnect and Add source on a need (from his example board).**
-- Source: CB 285-286, 461-463: not built, since they would change what holds a workflow, against 0163's source map; "a
-  decision comes first".
-- **(Recommended)** Not in this build. A need's sources stay in the code's source map; the board shows them and their
-  order, and Fix it covers keys and caps. Reason: changing the map from a page needs its own decision.
+- The case-51 draft's "tries by runs" was wrong: it mixed the two clocks. It's withdrawn. The draft's task-only pause is
+  also too narrow, since 1.2's model pauses the component and reroutes the tasks.
+- R65–R99 get rewritten from 1.1–1.3 in place of their case-by-case lines.
 
 ## 5. Replaced lines and settled questions
 
@@ -693,7 +591,7 @@ how much they change the failure map: what a fault holds, how tries count, when 
 | 12 Phones and rendering | 4 (R176-R179) |
 | 13 Build rules | 10 (R180-R189) |
 | **Requirements** | **189**, merged from 594 reader rows (A 165, B 136, C 154, D 139) |
-| **Questions for Jason** | **22** (Q1-Q22), from about 60 raised by the four readers |
+| **Questions for Jason** | **1 left** (Q19); the 22 (Q1-Q22, from about 60 raised by the four readers) answered from section 1 |
 | **Replaced lines and settled questions** | **48** rows in section 5 |
 | **Held and not built** | 22 items |
 | **Broken pieces he found** | 22 (2 not fixed live: K1, K22) |
