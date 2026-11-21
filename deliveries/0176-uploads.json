@@ -1,0 +1,42 @@
+{
+ "zip": "0176-uploads.zip",
+ "built_on": "077a3ec Sync: 2026-11-21 00:57 UTC",
+ "recorded": "2026-11-21 03:16 UTC",
+ "note": "0176 R4: uploads tell our team in one thread (a place's new photo; new artwork on an order). Jason approved in the decision pop-up (reviewed by the session manager). Built on Sync: 2026-11-21 00:57 UTC (077a3ec) Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/Journeys.php": {
+   "sha256": "67978f079188bd9cfe57bd18d77b1cfb5663bcedb01c046d12ae472d598cfb30",
+   "live": false
+  },
+  "app/lib/Notify.php": {
+   "sha256": "6c5834665726b5784d66749b6fe3a337c835e04f1b45aa8b8d0661c4f864cbb7",
+   "live": false
+  },
+  "app/lib/Pulse.php": {
+   "sha256": "91980f4829bb4959077a22dd40524ee795fe5c42c048e0b81eee58d612fed250",
+   "live": false
+  },
+  "app/lib/Reports.php": {
+   "sha256": "0cd3e979e61a00287ac286b5fe10102303617cd1866060844b3dd4996ce71e9e",
+   "live": false
+  },
+  "app/lib/UploadThreads.php": {
+   "sha256": "d2c8dd98d329ef4b89ac7bf776dd93e44696584962e16c247953993b79f7c42b",
+   "live": false
+  },
+  "app/lib/upload-targets.php": {
+   "sha256": "3b31945766c0c57cdab6f58ad4e2698a1fc49403d077dfd9f794cbac69992dd5",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "cb5cac2c68433da4af6b9b6b9da423d6fdb6543eda629cfbedd9ffa010bff3e8",
+   "live": false
+  },
+  "website/api/upload-act.php": {
+   "sha256": "045e034abda51dcc0009a28356c73966d2332c313507e10fecfdf6d7999ccd55",
+   "live": false
+  }
+ }
+}
