@@ -161,7 +161,7 @@ FAULTS = {
          lt('a', 'Warning (a rate wait)') + ' since Nov 18, 1:05 PM MST: 503 SlowDown "Please reduce your request rate".',
          'nothing: a back-off in its wait isn\'t a hold', 'none', '<ul><li>Everything: calls wait, then start again by themselves</li></ul>',
          'A rate wait, never a trip (row 27).',
-         ['Today (live): "data.commoncrawl.org: Its server failed (the crawler, on Railway)" with a SlowDown reading (L12).', 'New: "Common Crawl asked us to slow down · Calls wait until <time>, then start again by themselves."'],
+         ['The defect, today (live): "data.commoncrawl.org: Its server failed (the crawler, on Railway)" for a 503 SlowDown, a rate wait (L12).', 'New: "Common Crawl asked us to slow down · Calls wait until <time>, then start again by themselves."'],
          'Nov 18, 1:05 PM MST (alarms snapshot, 3:19 AM MST)'),
     ],
     'wikimedia': [
@@ -207,7 +207,7 @@ def card(rec, needs, wfnames, fault=None):
         ('Feeds', 'Preflight::NEEDS', '', E(feeds), ''),
         ('Its place on the source map', 'in the map\'s order, then the fallback', '', '<ul>' + ''.join(f'<li>{E(place(key, n))}</li>' for n in ns) + '</ul>' if ns else 'not named', ''),
         ('Its callers', 'the code that calls it', lt('g' if st == 'live' else 'n', STATUS_WORDS[st].split(' (')[0]), E(callers) + ' <span class="basis">obs</span>', ''),
-    ] + ([('Its pages', 'not portal slots (§5)', '', pagelinks, '')] if pagelinks else [])))
+    ] + EXTRA.get(key, []) + ([('Its pages', 'not portal slots (§5)', '', pagelinks, '')] if pagelinks else [])))
     keys = ', '.join(f'<code>{E(a)}</code> ({E(b)})' for a, b in d['keys'] + d['code_keys']) or 'none'
     z3 = kit.zone(3, 'Sensors and key readiness', rows([
         ('Its hosts', 'declared', '', ', '.join(f'<code>{E(h)}</code>' for h in d['hosts']), ''),
@@ -222,7 +222,7 @@ def card(rec, needs, wfnames, fault=None):
         body = z1 + kit.zone(4, 'Actions and Fix it: <span style="text-transform:none;letter-spacing:0">where the problem is reported</span>', th) + z2 + z3
     else:
         z4 = kit.act_rows(kit.b('Check now') + (kit.b('Pause our calls') if st == 'live' else ''), d['name'], sl,
-                          then='Open words: ' + ' '.join(re.sub(r'`([^`]+)`', r'<code>\1</code>', E(o)) for o in opens))
+                          then='Open words, answered (the session manager, 2026-11-21): ' + ' '.join(re.sub(r'`([^`]+)`', r'<code>\1</code>', E(o)) for o in opens))
         body = z1 + z2 + z3 + kit.zone(4, 'Actions and Fix it', z4)
     return f'<article class="card{" fault-" + fault[1] if fault else ""}" aria-label="{E(d["name"])}">{body}</article>', (k, words)
 
@@ -296,5 +296,45 @@ def section_md(needs, wfnames):
               f'| keys (names only) | {", ".join(f"`{a}` ({b})" for a, b in d["keys"] + d["code_keys"]) or "none"} | obs |',
               f'| slots (04) | {sl}; {"the rest Not registered, \"" + OPEN + "\"" if opendata else "the rest Not registered"} | obs; des |',
               f'| states (02) | {"working, from its callers" if st == "live" else STATUS[st][1]}' + (''.join(f'; {f[0]}' for f in FAULTS.get(key, []))) + ' | ' + ('obs (alarms) · rows 24–27, 130' if key in FAULTS else 'des') + ' |', '',
-              '**Open words:** ' + ' '.join(f'({i}) {o}' for i, o in enumerate(opens, 1)), '']
+              '**Open words, answered (the session manager, 2026-11-21):** ' + ' '.join(f'({i}) {o}' for i, o in enumerate(opens, 1)), '']
     return '\n'.join(L)
+
+
+# The session manager's answers to §26's open words (2026-11-21); they replace the open words on the cards and in §26.
+ANSWERED = {
+    'census': ['`CENSUS_API_KEY`: set or not goes on the asks (asks.md, visit 5).', '#18: a server answer under the contract (rows 24–26), the worker\'s backup taking the batch; whether it\'s still open is live data.'],
+    'commoncrawl': ['#35: under the contract only the needs that use it wait (Sources read regularly, Re-read websites), not W3 whole.', '#22: a rate wait under the contract (row 27). Today\'s wording, "Its server failed", is shown beside it as the defect.'],
+    'wikimedia': ['#26: a rate wait (row 27), never a trip; today\'s words already follow the state.', 'Wikipedia stays cite only (R9).'],
+    'loc': ['Its calls this month: live data.'],
+    'nps': ['`NPS_API_KEY`: set or not goes on the asks (visit 5).'],
+    'ridb': ['`RIDB_API_KEY` on Railway: on the asks (visit 11); its last load (`rec_loads`) is live data.'],
+    'usgs': ['The tiles load in browsers: a browser-side check in step 4\'s rendered checks, as cdnjs.'],
+    'osm': ['One card for the tiles, a browser-side Source; the data is our copy, on Geofabrik\'s card (linked).'],
+    'azcc': ['Stage 1 until W14 is built.'],
+    'nmsos': ['Stage 1 until W14 is built.'],
+    'dbip': ['Its file\'s last load (`ip_eu_ranges`): live data.'],
+    'nws': ['Its user agent names a generic site contact, never a person: to check in step 4.'],
+    'az511': ['`AZ511_API_KEY`: set or not goes on the asks (visit 5).'],
+    'cpsc': ['Called only when an item is posted; its calls are live data.'],
+    'pixabay': ['`PIXABAY_KEY`: set or not goes on the asks (visit 5).'],
+    'heigit': ['`ors_matrix_daily`\'s value goes on the asks (visit 6).'],
+    'supabase': ['"Off · added, not called yet" at stage 2, as Gemini.', '`SUPABASE_URL` and `SUPABASE_SERVICE_KEY`: set or not goes on the asks (visit 5).'],
+    'stripe': ['Built, not planned. `MARKET_PAY_ENV` goes on the asks (visit 5); connected businesses are live data.'],
+    'square': ['As Stripe: `MARKET_PAY_ENV` on the asks.'],
+    'namecom': ['`DOMAIN_SALES_MODE` goes on the asks (visit 7), with `DOMAINS_MODE`.'],
+    'apple': ['Its Developer Program status goes on the asks (visit 16).'],
+    'microsoft': ['One card with three parts: sign-in, mail and OneDrive (the sync). GitHub\'s sync part links here.'],
+    'meta': ['Its app\'s review state goes on the asks (visit 16).'],
+    'onepassword': ['On "For Jason\'s review" (item 10): Retired for our own staff once the Vault is in use; kept only as decisions/0156\'s "1Password through us" option for customers.'],
+    'tailwind': ['A finding: the CDN is unversioned, against our own library rule. A Deactivate plan tied to design/css-theme-brand.md\'s releases.'],
+    'vimeo': ['Browser-side only; no check of ours (as the tiles).'],
+}
+S = [r[:6] + (ANSWERED[r[0]],) for r in S]
+
+# Extra zone-2 rows (the session manager, 2026-11-21): OpenStreetMap's tiles card linking Geofabrik; Microsoft's three parts.
+EXTRA = {
+    'osm': [('Its data', 'our copy', '', 'Our OpenStreetMap copy is Geofabrik\'s weekly state files: <a href="#" class="mlink" data-go-mod="geofabrik">Geofabrik\'s card</a>. This card is the tiles only, a browser-side Source.', '')],
+    'microsoft': [('Part 1: sign-in', 'SocialAuth.php', '', 'Sign in with Microsoft (<code>MICROSOFT_CLIENT_ID</code>, <code>MICROSOFT_TENANT</code>). Email and password always work (its need\'s fallback).', ''),
+                  ('Part 2: mail', 'MsGraphMail.php', '', 'Mailboxes read and sent through Microsoft Graph (<code>MS_MAIL_CLIENT_ID</code>, <code>MS_MAIL_CLIENT_SECRET</code>).', ''),
+                  ('Part 3: OneDrive (the sync)', 'traverse-3way-sync', '', 'The working copy the sync keeps; its secrets are on the sync repo (names on <a href="#" class="mlink" data-go-mod="github">GitHub\'s card</a>, whose sync part links here).', '')],
+}

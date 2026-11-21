@@ -6,7 +6,7 @@ The reads are grouped by the page they come from, so each page is one visit. Eve
 pressed, switched or edited. Where a read has no admin page today, it goes through the admin's **Data browser**, read
 only. Step 4's ledger export is proposed to replace those reads later.
 
-The numbers in brackets are the 13 asks as listed:
+The numbers in brackets are the 14 asks as listed:
 1. IR-0001's timings and run #1290's task
 2. alarms, pauses and Pulse cases
 3. the lift's reads
@@ -20,6 +20,8 @@ The numbers in brackets are the 13 asks as listed:
 11. DNS on Cloudflare
 12. `DOMAINS_MODE` and domains
 13. the Vault's provider pages
+14. §26's names (the session manager, 2026-11-21): the services' keys and modes, `ors_matrix_daily`, Apple's Developer
+    Program and Meta's app review
 
 ---
 
@@ -76,17 +78,33 @@ The numbers in brackets are the 13 asks as listed:
   - **Settles:** Gemini's stage (drawn at stage 2, pre-flight) and its card, 03 §16.
 - **[3] The lift, item 6.** The times and answers of the `svc:commoncrawl`, `wf:W3` and `nd:sources` lines just before and after the press. Was Common Crawl's line older than 60 minutes?
 
+- **[14] §26's keys: set or not (names only).** Each service's line on this page says whether its key is in `.env`
+  ("Not set up (…)" when it isn't):
+  - `CENSUS_API_KEY` (the Census data API's higher daily limit; the geocoder needs none);
+  - `NPS_API_KEY` (the Park Service's photos);
+  - `AZ511_API_KEY` (AZ 511's events API; the WZDx feed needs none);
+  - `PIXABAY_KEY` (Pixabay's photos for the Stock library);
+  - `SUPABASE_URL` and `SUPABASE_SERVICE_KEY` (the vector index, added off).
+  - **Settles:** 03 §26.1, 26.5, 26.13, 26.15, 26.17.
+- **[14] `MARKET_PAY_ENV`:** live, sandbox or mock (a `.env` name; the Stripe and Square lines show which mode they
+  test). **Settles:** 03 §26.18, 26.19.
+
 ## Visit 6. Thresholds & gates: https://traversence.com/admin/config/thresholds
 
 - **[5] `websearch_monthly`'s value.**
   - **Why:** its default, 0, stops web search, Brave included. It decides which of Tavily's two drawn states is live: a monthly allowance, or "Off on purpose: websearch_monthly is 0".
   - **Settles:** 03 §17, §18.
 
+- **[14] `ors_matrix_daily`'s value** (openrouteservice's travel-time asks a day; its free plan allows 500).
+  **Settles:** 03 §26.16.
+
 ## Visit 7. Settings: https://traversence.com/admin/config/settings
 
 - **[12] `DOMAINS_MODE`:** off, test or live.
   - **Why:** it decides the Fly.io edge's stage, which is drawn as "needs live data".
   - **Settles:** 03 §25.1, §25.4, 5.
+
+- **[14] `DOMAIN_SALES_MODE`:** off, test or live (Domain sales on Name.com's card). **Settles:** 03 §26.20.
 
 ## Visit 8. Market → Custom domains: https://traversence.com/admin/market/domains
 
@@ -134,6 +152,8 @@ https://railway.com/project/a445f0be-b6de-46bb-a422-51ff835ca6e4/service/8d254c0
     - Unset, Foursquare reads the fixed `dt=2026-10-15`.
   - **Settles:** 03 §22.1, §22.2; `step2/ir-0001.md`.
 
+- **[14] `RIDB_API_KEY`:** set or not (Recreation.gov's monthly load). **Settles:** 03 §26.6.
+
 ## Visit 12. GitHub, degraffics/traversence → Settings → Secrets
 
 https://github.com/degraffics/traversence/settings/secrets/actions
@@ -176,3 +196,10 @@ https://github.com/degraffics/traversence/settings/secrets/actions
 | Fly.io | Sign in |
 
 The open-data sources (Overture, Geofabrik, NPI, IRS) need none: their slots say "Open data: no account".
+
+## Visit 16. Apple's and Meta's developer accounts
+
+- **[14] Apple's Developer Program:** is the $99 program active for Sign in with Apple?
+  Sign in at https://developer.apple.com/account, then Membership details. **Settles:** 03 §26.21.
+- **[14] Meta's app review state:** is the app for Sign in with Facebook live or still in development or review?
+  Sign in at https://developers.facebook.com/apps/, open the app, then App Review. **Settles:** 03 §26.23.
