@@ -3,56 +3,56 @@
  "built_on": "86c278d Sync: 2026-11-21 03:19 UTC",
  "recorded": "2026-11-21 12:22 UTC",
  "note": "The workflow audit: a source down holds only what uses it (W0\u2013W14 against 0163), Common Crawl first; crawler 2.16.1 deploys with the merge. Jason approved in the decision pop-up (reviewed by the session manager). Built on Sync: 2026-11-21 03:19 UTC (86c278d) Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "37a212e Sync: 2026-11-21 12:26 UTC",
  "files": {
   "app/admin/operations-console.php": {
    "sha256": "8ec269f75bcec28863afdc02daf8b4670032afc4c7f726ad530c3488c751bc38",
-   "live": false
+   "live": true
   },
   "app/admin/preflight-console.php": {
    "sha256": "3e478ec85ec6267d6c49ad2a6033df5eff695d1aa5c567a24c1e34bc3cd05099",
-   "live": false
+   "live": true
   },
   "app/lib/ControlAlarms.php": {
    "sha256": "4202fa410ee2b7ed9f469bb3315b5a7f8aa34f3e6b316363b1b481d09da14a79",
-   "live": false
+   "live": true
   },
   "app/lib/ControlBoard.php": {
    "sha256": "fd6d4e19c72a395b530c5f3cfa2d46c0aff57b32509721f0ed8ba154c601853b",
-   "live": false
+   "live": true
   },
   "app/lib/Operations.php": {
    "sha256": "b8e02ab9b346d63575c3575121b0ddb4747a4ad1a6383ede756ab4a4eb91a59b",
-   "live": false
+   "live": true
   },
   "app/lib/Preflight.php": {
    "sha256": "f902866ffaf8941e107faf415a2e7b60c850642d05a9b232271b3b6d21a4d5b1",
-   "live": false
+   "live": true
   },
   "app/lib/ServiceHealth.php": {
    "sha256": "a53cfc03b3f6e8984eb8607fc7be807e2ad68126364eaa7b3d01b979be0829fe",
-   "live": false
+   "live": true
   },
   "app/lib/crawler/CrawlService.php": {
    "sha256": "63941af9838c8b818d36c6880594f9ae8839580fd667b6b3ad18ae4325c94a44",
-   "live": false
+   "live": true
   },
   "app/lib/service-defs.php": {
    "sha256": "c05f28c8cb6194a0edc296c6187ba4f9954af7b38bcf0581f60621320c9aff14",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "f22899008ceaaa0e6ba232da9494c63d6f4d6067a15efc1f4523b9f8f7890d0a",
-   "live": false
+   "live": true
   },
   "app/ui/outside-services.php": {
    "sha256": "b119f4660c9747af0f8836b2f515fb4c3ea87469e6efded907fe57abfbc131a3",
-   "live": false
+   "live": true
   },
   "website/admin/api.php": {
    "sha256": "65cb978574a034aa22e966635bba17fab9f5b13a578e5a7a7714c124dae776b0",
-   "live": false
+   "live": true
   }
  }
 }

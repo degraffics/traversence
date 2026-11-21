@@ -32,7 +32,7 @@
   },
   "app/ui/outside-services.php": {
    "sha256": "eda94f636c76a8102fe82f45b110520c4e2d110262697d0845b08a8c244a7d07",
-   "live": true
+   "live": false
   },
   "website/js/tv-ask.js": {
    "sha256": "e701bb165da96d8559a9529777de744944cc20068c74d44e81e538b374004d56",
