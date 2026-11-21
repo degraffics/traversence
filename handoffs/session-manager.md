@@ -102,7 +102,8 @@ sessions take over, holding until Jason says resume. Live through Release #228 (
   2026-11-20; parts B (Modules, with Jason's Costs question) and C (Workflows) next.
   Progress (2026-11-20): Paused now (#242), 0175 R2b part C (#243) and the Census backup (#244) are live. 0176 R3, Fix it
   routing, is built on Sync 23:49 UTC (`handoffs/0176-fix-it/`; 0176's note "release 3 built"), waiting for review and
-  Jason's OK.
+  Jason's OK. Progress (2026-11-21): 0176 R3 live as #245. 0176 R4 (uploads' staff threads) built on Sync 00:57 UTC
+  (`handoffs/0176-uploads/`), waiting for review and Jason's OK; the order file check waits for his limits.
 - **Design and trips** (`design.md` and its area files): hero-tidy (`claude/hero-tidy`, approved, unsent) → admin kit →
   T5 → 3d/3e/3f → the map release → 0174 R5 (openrouteservice; read its terms first).
   **Progress (2026-11-20):** hero tidy rebuilt on Sync 15:06 UTC (eb49e51) and sent (`releases/inbox/hero-tidy.zip`,

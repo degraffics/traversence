@@ -171,7 +171,7 @@ Source: 0176 §5, A5.
   offers the old value back (Put back, 0173 release 2).
 - **A spot marked "to come"** shows a greyed Fix it with the reason (playbook principle 3).
 
-## Release 4, not started: uploads
+## Release 4, built 2026-11-21 (`handoffs/0176-uploads/0176-uploads.zip`, on Sync 00:57 UTC 077a3ec; 0176's note "release 4 built"): uploads
 
 Source: 0176 §6, A6.
 - **Each target in `upload-targets.php`** names its thread (kind, who's told, the facts) and its landing spot.
