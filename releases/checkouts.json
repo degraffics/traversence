@@ -97,13 +97,14 @@
     "'square'",
     "items",
     "manage",
+    "mark",
     "playbook"
    ],
    "kind": "change",
    "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
-   "why": "0176 R4: a journey report's case carries the photo's steps",
+   "why": "0176 R4 (Pulse::manage's neighbour)",
    "since": "2026-11-21T01:04:51Z",
-   "expires": "2026-11-21T05:16:52Z",
+   "expires": "2026-11-21T05:17:24Z",
    "release": "0176-uploads.zip",
    "callers": {
     "items": [
@@ -118,6 +119,10 @@
      "app/ui/pulse-ui.php"
     ],
     "manage": [
+     "website/admin/api/pulse.php"
+    ],
+    "mark": [
+     "app/lib/ClientOrders.php",
      "website/admin/api/pulse.php"
     ]
    }
