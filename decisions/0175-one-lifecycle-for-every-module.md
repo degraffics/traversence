@@ -536,3 +536,9 @@ only what it holds", as built:
   whether our own copies need a freshness limit to count as a need's first source; W6's and W8's sources (0163 versus the
   code's Claude-only "writing"); a Railway key not yet reported holding a workflow.
 
+**Answered (Jason, 2026-11-21, in the decision pop-up, reviewed by the session manager):** the release, **Approve**. Overture
+as a backup for places by kind: **"Keep it"**. Our own copies' freshness: **"Keep as is for now"** (our copy counts while
+it has rows). W6 and W8: **"Follow 0163"**: W6's heritage need lists the Library of Congress → Wikimedia → the Park
+Service with no Claude, and W8's Find it lists Tavily → Brave → then Claude; built in a follow-up release, since this
+one was approved as it stood. A Railway key not yet reported holding a workflow: still to ask.
+
