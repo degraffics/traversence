@@ -86,10 +86,30 @@ holds anything, raises no trip, and the board works the same without it.
 
 ### 4.3 The server's checks (each a refusal with its reason, never a silent fix)
 - `https` only, with no user or password in the URL.
-- **The host must belong to that provider:** the URL's host, or a parent domain of it, must appear in that module's
-  documented links or contacts in `service-defs.php`. For example, `railway.com` is accepted for Railway, and
-  `github.com` is refused for Railway. Refused: "That address isn't one of Railway's known domains." [des, from 0156 §2's
-  "warns where it doesn't match the company's known login page"]
+- **The host must belong to that provider, matched by registrable domain** (corrected 2026-11-21 after Jason's check). The URL's registrable domain (the name before the public suffix, e.g. `console.anthropic.com` → `anthropic.com`, `accounts.google.com` → `google.com`) must equal the registrable domain of one of that module's documented hosts in `service-defs.php` (links and contacts), or of a host in its `portal_domains` (below). Subdomains, sub-paths and ports are accepted: `console.anthropic.com/settings/limits`, `account.brave.com`, `accounts.intuit.com` all pass. `github.com` is refused for Railway: "That address isn't one of Railway's known domains." Matching uses the public suffix list, never a plain "ends with". [des, from 0156 §2's "warns where it doesn't match the company's known login page"]
+  - *Why "registrable domain", not "host or parent":* read literally, "a parent of the URL's host must appear" would refuse real pages. Gemini's documented hosts are `aistudio.google.com` and `ai.google.dev`, so its sign-in page `accounts.google.com` would fail. Brave's only documented host is `api-dashboard.search.brave.com`, so `account.brave.com` would fail.
+  - **Checked against the live definitions** (`37a212e`). Each module's documented registrable domains:
+    - Anthropic: anthropic.com.
+    - Google Cloud: google.com.
+    - Gemini: google.com, google.dev.
+    - Tavily: tavily.com.
+    - Brave Search: brave.com.
+    - Railway: railway.com.
+    - Bluehost: bluehost.com.
+    - QuickBooks: intuit.com.
+    - GitHub: github.com.
+
+    With the registrable-domain rule, every page named in §5 passes, except the **three known alternates** below.
+  - **`portal_domains`, a new manifest field** for a provider's other real domains, each with its source. Never learned
+    by itself. The three known today:
+    - **Anthropic:** `claude.com`. Anthropic's Console has moved to `platform.claude.com`, so a current console, keys or
+      billing URL saved in the Vault may be on `claude.com`.
+    - **Railway:** `railway.app`, its older domain. Vault items saved before the move may hold it.
+    - **Bluehost's cPanel:** it can sit on the server's own host name or on our domain with port 2083 (`CPANEL_HOST` in
+      `.env`). The host's name isn't a secret; its value is read from `.env` at the check, never stored in the defs.
+  - **A refusal never dead-ends** (§7 Q7): when only the domain is unknown, the refusal names it and offers you "This is
+    <Provider>'s domain". Pressing it records the domain under that module, with your name and the date, and publishes.
+    The next release that touches `service-defs.php` folds it in as a sourced entry.
 - **Strip, never guess:** a query string is refused, not cut off ("This address carries values; save the plain page
   address in the item"). A fragment is allowed only as a path (`#/cpanel`), never `name=value`.
 - **One URL per module and type** from the Vault. Publishing again replaces it, and the log keeps the old one.
@@ -150,6 +170,11 @@ Zone 4 keeps its two rows (02 §8; report §1). They are never mixed:
 
 ## 7. Questions for Jason (each with a recommendation)
 
+**Jason's answers (2026-11-21):** "Approved all six recommendations in 04-vault-portal-links.md §7": (1) show both and
+record his pick, with no silent replacement; (2) §5's label rulings; (3) publishing is owner-only; (4) no account label;
+(5) the 180-day note, as words only; (6) the Vault's one-time page first, then the staff extension. "Still
+specs/mockups only—no code or live-site changes." Q7 came from his domain check after that, and is still open.
+
 1. **When the Vault and the documented list both have the same type and they differ.** *Recommended:* the documented
    link stays shown, and the card adds "Your Vault has a different <type> page", offering both. Your choice is recorded.
    Neither replaces the other by itself.
@@ -161,13 +186,16 @@ Zone 4 keeps its two rows (02 §8; report §1). They are never mixed:
 5. **Staleness.** *Recommended:* 180 days before "not confirmed since" shows, as a word only, never an alarm.
 6. **Where publishing happens.** *Recommended:* first in the Vault's one-time page (built, code-sealed), and in the staff
    extension once its stage allows (0156 §9).
+7. **An unknown domain on a real page.** *Recommended:* the refusal names the domain and offers "This is <Provider>'s
+   domain" (owner only). That records it with your name and date, and the next defs release folds it in, so a valid
+   page is never stuck.
 
 ## 8. Proof (step 4 tests; designed)
 
 - **No secret moves:** the publish payload, the stored record, the log line and every alarm, thread, email, push and
   Pulse row are scanned for the item's username, password and notes, and none appear. A query string or a value
   fragment is refused.
-- **Domains:** a URL outside the provider's known domains is refused with its reason. A parent-domain match is accepted.
+- **Domains:** every §5 page and the three alternates pass (`console.anthropic.com/settings/limits`, `platform.claude.com/…`, `accounts.google.com`, `account.brave.com`, `accounts.intuit.com`, `railway.app/…`, the cPanel host with port 2083). Another provider's domain (`github.com` for Railway) is refused with its reason. A look-alike (`anthropic.com.evil.net`, `railway-app.com`) is refused, because matching is by registrable domain. A domain you confirm is recorded with who and when.
 - **Strict typing:** an empty slot shows "No … page registered", and Fix it never borrows another slot's URL.
 - **Non-interference:** with the add-on failing, deactivated or removed, every other module's state, holds, alarms and
   messages are unchanged. Its fault greys only its own Publish button.
