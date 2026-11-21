@@ -308,6 +308,11 @@ Person-written only (0043): no crawler. A story's named places go to Find it (W8
 
 ### 5. The always-on Claude features (Jason asked, 2026-11-13)
 
+**Note (2026-11-21, Jason approved):** the monthly AI cap is **$40**, under `decisions/0163` §7 (the `ai_month_usd`
+threshold), which replaced the $25 below. `capUsd()`'s $25 fallback, used when the setting is missing, is brought to $40
+in the control board's release (handoffs/control-board-plan.md, step 4). At the cap nothing passes, a person's press
+included; the owner's way past it is **Raise the cap** on Anthropic's card, logged (handoffs/control-board-plan/step3/03-cards.md §15).
+
 These run by themselves on a schedule, switched on by default, under the $25 monthly AI cap:
 - research briefs (W4);
 - guide drafts on their own (W4);
