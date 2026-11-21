@@ -92,7 +92,8 @@ once. Nothing is built before that.
 ## While the plan runs
 
 - No one-off board patches. Case #51's causes go into the map, step 2.
-- Live problems that harm the site or its data are still fixed at once, and recorded in the audit.
+- No live patches, not even for harm (Jason, 2026-11-21, after the live-harm lift went badly). A live-site action
+  happens only on Jason's explicit call. The end-to-end standard in `CLAUDE.md` governs every step.
 - Releases outside the board (Orders, Design and trips) carry on as before.
 - The session manager reviews each step against the whole requirements list, not only the lines a step cites.
 

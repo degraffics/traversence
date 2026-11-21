@@ -50,6 +50,19 @@ the report, once the session manager has checked the live build against its deci
 session waiting on him is never archived. After each release the session manager also checks the release and its hand-off for
 scope creep and drift against the decision, and that the decision has its note (`handoffs/session-manager.md`).
 
+## End to end, verified, before anything ships (Jason, 2026-11-21): every build
+
+No piecemeal patches and no unverified recovery flows. Before code is done:
+1. **Contract and boundaries:** it maps to the agreed module, service and workflow boundaries, the plug-in contract
+   and the one state model. No one-off wording, hidden sub-state changes, or recovery rules split across files.
+2. **Every state transition:** every entry point, button, hold scope and exit path is mapped, side effects included
+   (switches left off, notifications out of step). No action claims success, or closes a trip, without a real check.
+3. **UI matches the action:** actions sit where the problem is reported, and leave a true status.
+4. **Proof before hand-off:** the happy path, failures, edge cases, recovery and side effects are tested against the
+   contract.
+
+Live-site actions only on Jason's explicit call.
+
 ## Build sessions follow the playbook (Jason, 2026-11-18): every build
 
 Before the first release, read `handoffs/builder-playbook.md`: fixes in place, a way back for every action, the phone at
