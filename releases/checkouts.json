@@ -3,12 +3,15 @@
  "claims": [
   {
    "path": "app/lib/UploadThreads.php",
-   "functions": [],
+   "functions": [
+    "manage",
+    "reportSteps"
+   ],
    "kind": "add",
    "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
-   "why": "0176 R4: uploads' staff threads",
+   "why": "0176 R4",
    "since": "2026-11-21T01:04:49Z",
-   "expires": "2026-11-21T05:04:49Z",
+   "expires": "2026-11-21T05:16:57Z",
    "release": "0176-uploads.zip",
    "callers": {}
   },
