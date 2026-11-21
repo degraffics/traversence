@@ -7,7 +7,7 @@ made up. Mockups: `mockups/index.html`. Screenshots at 1280 and 390: `mockups/sh
 
 **Built from:** 02 (§0, §0a, §3, §4, §4.8, §6, §7, §8); `manifests-railway-github.md` §1; the report Jason approved
 (four zones; eight stages, no SMS, no webhooks); `04-vault-portal-links.md` §6 (the slot rendering; its §5 label
-rulings are not applied, since they're still waiting for Jason); `design/css-theme-brand.md`, `brand.md` §4, `design/table-standard.md`;
+label rulings and §7 answers, approved by Jason on 2026-11-21, are applied); `design/css-theme-brand.md`, `brand.md` §4, `design/table-standard.md`;
 step 2's g4 §(d) and the lift's §(f).
 
 **Real data only.** Railway's values were read from its API (read-only GraphQL, 2026-11-21 15:51 UTC): the project, its
@@ -83,7 +83,7 @@ never claims to change anything at Railway.
 **At Railway** (portal actions): four slots in a fixed order, **Billing · Keys · Console · Sign in**, two per row at
 390 (Billing · Keys, then Console · Sign in). Each slot is either:
 - a link labelled by its type, with the provider's label in small type where it differs, and a source chip; or
-- the words "No <type> page registered for Railway yet", greyed, with **Publish from your Vault** for Jason.
+- the words "No <type> page registered for Railway yet", greyed, with **Publish from your Vault** (owner only).
 
 Railway today (from `service-defs.php`, mapped by 02 §8's label rule; none from the Vault yet):
 
@@ -93,6 +93,23 @@ Railway today (from `service-defs.php`, mapped by 02 §8's label rule; none from
 | Keys | "No API keys page registered for Railway yet." + Publish from your Vault | — |
 | Console | "Console · Dashboard" → **Open Railway console ↗** https://railway.com/dashboard | Documented |
 | Sign in | "No sign-in page registered for Railway yet." + Publish from your Vault | — |
+
+**The link-label rules, locked by Jason (04 §5, 2026-11-21), and his §7 answers, applied on every card:**
+- **Label format:** the slot type is the main label. The provider's own label follows in small type only where it differs
+  ("Billing · Usage", "Console · Dashboard").
+- **Source chip:** "Documented", or "From your Vault · <date>". For Railway today every link is Documented.
+- **§5's mappings** where other providers appear: cPanel and AI Studio → Console; QuickBooks (the app) → Console;
+  Developer app → Keys; Limits → Billing. Google's Rate limits and GitHub's The sync are **not portal slots**. Rate limits
+  goes to zone 2's "Its limits" line; The sync goes to the Sync part's "Its runs". Mockup e shows Bluehost's cPanel as
+  "Console · cPanel".
+- **A Vault link that differs from a documented one:** both show, with "Your Vault has a different <type> page", and
+  Jason's pick is recorded. Neither replaces the other by itself. (No Railway case today, so no mockup shows it.)
+- **Publish from your Vault** is owner-only ("owner only" beside it), with no account label. Publishing happens on the
+  Vault's one-time page first, then in the staff extension. An unknown domain is confirmed on the spot by the owner
+  ("This is <Provider>'s domain"). Domains match by registrable domain, with `portal_domains` alternates (railway.app for
+  Railway, claude.com for Anthropic, the cPanel host for Bluehost).
+- **Staleness:** after 180 days, "not confirmed since <date>" shows as words only, never an alarm.
+- Every portal link opens in a new tab; Sign in never fills anything.
 
 **Each portal action is followed by the board action that verifies it** (PL), written under the slots: Billing →
 Check now; Console → Check now (or Check and start again on a trip); Keys → Replace key → its Check. Opening a portal page
@@ -261,8 +278,9 @@ Rendered from `step2/ir-0001.md` and the manifest's worked report:
     and rows 93–94 say "Check and start again". The mockups use 02's.
 11. **"Pause our calls" on a Host.** Row 39 lists it for a capped part, but for Railway it has no defined meaning (the
     host's stop is Pause everything). It's left off c5's buttons.
-12. **The keys slot's words.** 02 PL says "No keys page registered…"; Jason's check says "No API keys page registered for
-    Railway yet". The mockups use Jason's.
+12. **The keys slot's words.** 02 PL and 04 §5's rule 4 say "No <type> page registered…" with the type "keys"; Jason's
+    Railway check says "No API keys page registered for Railway yet". The mockups use "API keys" for every provider. Confirm
+    that this one wording holds everywhere.
 13. **Fix it for a Railway key.** Row 129 sends it to "At Railway: Open Railway console ↗ (the crawler service →
     Variables)". Jason's check (2026-11-21) says it points to the Keys slot and never borrows Console. The mockups
     follow Jason: Keys, unregistered, said in words, with "The key itself lives in the crawler service → Variables" as text.
