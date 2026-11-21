@@ -1243,10 +1243,10 @@ all five:**
 | feeds | W1 · `irs_bulk`: `eo_{state}.csv` for Arizona and New Mexico, columns EIN, NAME, STREET, CITY, STATE, ZIP, NTEE_CD | obs |
 | cadence | monthly: due when the last finished load is 30 days old | obs |
 | priority map | Nonprofits (W1): our IRS copy, then the IRS; the last load is kept | obs |
-| faults | **a file that changed shape.** Today columns are read by name, so a missing one loads as blank, silently; a missing EIN or NAME drops every row and "the IRS files had no rows the site accepted" keeps the old copy. **If one state's file fails and the other loads, `IrsBulk::finish()` removes every record not in this month's file: that state's nonprofits are deleted.** **02 row 38b:** the shape is checked before any write; a changed shape is a stop that waits for a person (the loader updated); **nothing is deleted** when the check fails or the load's rows fall below a floor. The code holds no typical counts, so the floor is **a share of last month's rows (90% proposed, des)** | obs (code); des |
+| faults | **a file that changed shape.** Today columns are read by name, so a missing one loads as blank, silently; a missing EIN or NAME drops every row and "the IRS files had no rows the site accepted" keeps the old copy. **If one state's file fails and the other loads, `IrsBulk::finish()` removes every record not in this month's file: that state's nonprofits are deleted.** **02 row 38b:** the shape is checked before any write; a changed shape is a stop that waits for a person (the loader updated); **nothing is deleted** when the check fails or the load's rows fall below a floor. The code holds no typical counts, so the floor is **a share of last month's rows (90%, des: the number Jason saw)**. **Jason (2026-11-21): "Fix in the build"**: the shape check before any write and no delete below 90% of last month's rows, a step-4 build item | obs (code); des; Jason |
 | mockup f | "The IRS's exempt-organization file changed shape · Paused by the system: nothing of this month's load was kept." New Mexico's file without NTEE_CD (scenario), the floor in its Details. Fix it: its files (zone 2), then a build, then Check and start again | des |
 
-### 22.6 Open words for the sources: answered (the session manager, 2026-11-21; the IRS delete with Jason)
+### 22.6 Open words for the sources: answered (the session manager, 2026-11-21; the IRS delete by Jason, 2026-11-21)
 
 Setup capture, names and places only:
 
@@ -1262,7 +1262,9 @@ Setup capture, names and places only:
 1. **Console as the download page: no.** It isn't a slot (§5); it's "Its files ↗" in zone 2, and all four slots read Not
    registered with "Open data: no account" (Foursquare's whys in §22's head). The setup notice clears.
 2. **Live data:** each load table's newest row, `OVERTURE_RELEASE` and `FSQ_RELEASE` (set or not, names only), and
-   Utah, Colorado and Nevada's first loads go on the session manager's list of asks. Marked "needs live data".
+   Utah, Colorado and Nevada's first loads go on the session manager's list of asks. Also: **which W1 task run #1290's
+   counts came from** (the run page's records will say), and **`irs_loads`' removed counts per load**. Marked "needs
+   live data".
 3. **Licences:** the cards show "licence: confirmation not recorded (0164 Decision 9)", and "For Jason's review" has its
    own item (6).
 
@@ -1281,8 +1283,9 @@ data.
 
 **IRS.** 1: 02 row **38b**: a file that changed shape is a stop that waits for a person; the shape is checked before any
 write, and nothing is deleted when the check fails or the rows fall below the floor (a share of last month's rows, 90%
-proposed). Page f shows it. 2: **the partial delete is with Jason** (the session manager is asking him); it stays on
-"For Jason's review" (item 5).
+is the number Jason saw, still des). Page f shows it. 2: **the partial delete: "Fix in the build" (Jason,
+2026-11-21).** Row 38b's shape check comes before any write, and nothing is deleted below 90% of last month's rows: a
+step-4 build item. No live action.
 
 ---
 
@@ -1302,11 +1305,11 @@ read-only API (8:51 AM MST). No variables were read.
 | endpoints | `/api/video/jobs.php`, `/api/video/results.php` (Site parts `video/jobs`, `video/results`) | obs |
 | storage | the file store, originals and copies side by side (`v720`, `v1080`): links to the AWS card (S3 until the move to R2) | obs |
 | on Railway | service `video-worker`, root `/workers/video`; latest deploy `628caa0d` SUCCESS Nov 17, 6:30 PM MST (commit `430d4c3`) | obs (Railway API) |
-| **restart rule** | **Railway: On failure, up to 10. The repo: Never.** Drawn amber, "for Jason to choose"; the next deploy from the repo sets Never | obs |
+| **restart rule** | **On failure, up to 10** (Jason, 2026-11-21). The repo's `workers/video/railway.json` says Never: changed to match in step 4 (a step-4 item, no longer drawn amber) | obs; Jason |
 | heartbeat | **missing today** (step 2, root cause 4). Spec: it checks in after each run; silent past its window (15 minutes, three runs) → row 50: a warning, a trip after 3 tries, **only this service trips** | des |
 | spend | Railway's compute, "use not priced yet", counted on Railway's card | obs |
 | slots | Railway's: Billing · Usage, Console · Dashboard (Documented · release #212); Keys and Sign in not registered | obs (02 §8) |
-| zones | 1: Service · hosted on Railway, not critical, state, stage 5, setup notice, spend, radius. 2: copies of posted videos, its endpoints, its storage. 3: its heartbeat, on Railway (deploy, next run, the restart rule), its key. 4: Check now · Pause; At Railway, its slots | des |
+| zones | 1: Service · hosted on Railway, not critical, state, stage 5, setup notice, spend, radius. 2: copies of posted videos, its endpoints, its storage. 3: its heartbeat, on Railway (deploy, next run, its restart rule), its key. 4: Check now · Pause; At Railway, its slots | des |
 
 **Incident Radius:** Held: new copies (they queue). On a backup: each video plays its original (`MemberPosts`: feeds
 play `v720`, else the original). Unaffected: everything else, including the crawler and W0 on the same host.
@@ -1315,9 +1318,9 @@ play `v720`, else the original). Unaffected: everything else, including the craw
 
 | Mockup | Row (02) | New words | Today's words | Fix it |
 |---|---|---|---|---|
-| a Working | — | "On · Working"; the restart rule amber | — | — |
+| a Working | — | "On · Working"; "Restart: On failure, up to 10" | — | — |
 | b Silent | 50 (47–48's shape) | "The video worker hasn't checked in · Paused by the system: no heartbeat since <time>. Its 3 tries failed; new video copies queue." | nothing: no heartbeat exists | Console (Railway): the service's deploy and cron runs, then Check and start again |
-| c One copy failing | 49's shape | a Notice: "One video's copies failed: Moment #… after 3 tries (ffmpeg: …). It plays its original; nothing else waits." [Try this video again] | the job's row keeps its error; nothing on the board | none (no alarm) |
+| c One copy failing | 49's shape | a Notice: "One video's copies failed: Moment #… after 3 tries (ffmpeg: …). It plays its original; nothing else waits." a link to the post's admin record, where Try this video again lives | the job's row keeps its error; nothing on the board | none (no alarm) |
 
 ### 23.3 Setup capture
 
@@ -1325,13 +1328,13 @@ Notice "Setup capture: Sign in not recorded · Keys: why not recorded" (Railway'
 `VIDEO_WORKER_TOKEN` (.env and Railway, the same value), `TRAVERSENCE_SITE`, `RUN_SECONDS`, `JOBS_PER_ASK` (Railway),
 `VIDEO_WORKER_PAUSED` (.env, Settings; staging sets it).
 
-### 23.4 Open words for the video worker
+### 23.4 Open words for the video worker: answered (2026-11-21: 1 by Jason; 2, 3 and 4 by the session manager)
 
-1. **The restart rule:** On failure (Railway) or Never (the repo)? Jason to choose.
-2. **One job failing has no 02 row:** drawn as row 49's shape (no fault on the worker) with a Notice naming the video.
-   Confirm, and whether [Try this video again] belongs on the card or on the post.
-3. **The heartbeat's window:** 15 minutes (row 50) is three of its 5-minute runs. Keep it, or tie it to the cron?
-4. **The queue's counts** need live data (`video_jobs`).
+1. **The restart rule:** On failure, up to 10 (Jason). The repo changes to match in step 4.
+2. **One job failing:** row 49's shape with a Notice on the card; **Try this video again lives on the post's admin
+   record**, linked from the card.
+3. **The heartbeat's window:** 15 minutes is right (row 50). The session manager.
+4. **The queue's counts** (`video_jobs`) are live data.
 
 ## 24. Cloudflare's card (mockups `cloudflare-*.html`)
 
@@ -1342,7 +1345,7 @@ lookup of the site would be one, so DNS is "needs live data").
 
 | Part | What the code shows | State drawn | Basis |
 |---|---|---|---|
-| **Sign-in check (Turnstile)** | sign-in, sign-up, Forgot password, likes' check (decisions/0097). Off until `TURNSTILE_SITE_KEY` and `TURNSTILE_SECRET_KEY` are set. **Fails open** when Cloudflare doesn't answer ("don't lock everyone out"); **refuses** when its answer isn't a success | on or off: needs live data | obs (`Captcha.php`) |
+| **Sign-in check (Turnstile)** | sign-in, sign-up, Forgot password, likes' check (decisions/0097). Off until `TURNSTILE_SITE_KEY` and `TURNSTILE_SECRET_KEY` are set. **Fails open** when Cloudflare doesn't answer ("don't lock everyone out"); **refuses** when its answer isn't a success, so today a refused secret stops password sign-in. **Jason (2026-11-21): a refused secret lets people through too, like an outage, with a critical trip on sign-in's duty** (a step-4 change) | on or off: needs live data | obs (`Captcha.php`) |
 | **File storage (R2)** | decisions/0151; `S3_ENDPOINT` points the store at R2 with its own key; the pre-flight's R2 line and CORS rule; `files_tick` every 10 minutes | **Proposed (stage 1)** until `S3_ENDPOINT` is answered (needs live data); the AWS card carries storage meanwhile (§21.6, 1) | obs; des |
 | **cdnjs** | browsers load Leaflet (maps) and pdf.js (PDF previews) from `cdnjs.cloudflare.com` (13 files) | "not checked by us": the server never calls it | obs |
 | **DNS** | `ControlRegister::CRITICAL` maps `svc:cloudflare` → page, "unsure: in front of the site's address"; the captcha's notes say DNS "doesn't have to be on Cloudflare"; `RegionGate` reads `CF-IPCountry` only when behind it | needs live data | obs |
@@ -1350,11 +1353,12 @@ lookup of the site would be one, so DNS is "needs live data").
 
 **Slots (04):** Billing · Billing and Console · Dashboard (Documented · release #212, 02 §8); Keys and Sign in not
 registered. "R2 buckets" and "Turnstile" are pages, linked on their zone 2 lines, not slots. `Pulse::SERVICES` links
-the Dashboard. **Spend:** R2's prices and Turnstile free, "use not read yet". **Criticality:** "Critical: page load
-(svc:cloudflare), flagged 'unsure' in the code".
+the Dashboard. **Spend:** R2's prices and Turnstile free, "use not read yet". **Criticality:** **no page-load duty until
+its DNS is answered** (live data; the session manager); a refused Turnstile secret trips on sign-in's duty.
 
 **Incident Radius, per part:** R2 down (once in use): uploads wait on the server, stored files don't show. cdnjs down:
-maps and PDF previews don't draw. Turnstile down: sign-in goes on without the check (its backup by design). Unaffected:
+maps and PDF previews don't draw (a line now; a browser-side check in step 4's rendered checks). Turnstile down, or its
+secret refused: sign-in goes on without the check. Unaffected:
 pages, search, payments (unless DNS is on it), the storefront edge.
 
 ### 24.2 States (mockups)
@@ -1362,7 +1366,7 @@ pages, search, payments (unless DNS is on it), the storefront edge.
 | Mockup | Row (02) | New words | Today's words | Fix it |
 |---|---|---|---|---|
 | a Working | — | "On · Working"; R2 Proposed; DNS needs live data | — | — |
-| b Turnstile secret refused (its most real fault: the pre-flight already tests for it) | 29, 106 | "Cloudflare refused our Turnstile secret · Paused by the system: the sign-in check with TURNSTILE_SECRET_KEY waits for a new key." Held: password sign-in, sign-up, Forgot password; On a backup: Google, Microsoft, Facebook sign-in; touches `site:signin` (procedures) | each visitor: "The "verify you're human" check didn't pass. Please try again."; the log "captcha refused: invalid-input-secret"; the pre-flight only when it runs | Console (Turnstile's secret), then Replace key |
+| b Turnstile secret refused (its most real fault: the pre-flight already tests for it) | 29, 87, 106 | "Cloudflare refused our Turnstile secret · Trip (critical: sign-in's duty): sign-in carries on without the check until a new key." Held: nothing; password sign-in, sign-up and Forgot password carry on without the check (Jason, 2026-11-21); the trip is critical on `site:signin` (procedures) so it's fixed fast. Row 29's hold gives way to the fail-open here | each visitor: "The "verify you're human" check didn't pass. Please try again.", so password sign-in stops; the log "captcha refused: invalid-input-secret"; the pre-flight only when it runs | Console (Turnstile's secret), then Replace key |
 
 ### 24.3 Setup capture
 
@@ -1370,15 +1374,65 @@ Notice "Setup capture: Sign in not recorded · Keys: why not recorded". Names: `
 `TURNSTILE_SECRET_KEY` (.env); `S3_ENDPOINT`, `S3_ACCESS_KEY_ID`, `S3_SECRET_ACCESS_KEY`, `S3_REGION` (.env, optional,
 R2's key; listed on the AWS card too).
 
-### 24.4 Open words for Cloudflare
+### 24.4 Open words for Cloudflare: answered (2026-11-21: 3 by Jason; 1, 2 and 4 by the session manager; 5 is §25)
 
-1. **Is the site's DNS on Cloudflare?** Needs live data. If not, `svc:cloudflare` shouldn't carry the page duty.
-2. **Is R2 live?** `Pulse::SERVICES` says R2 holds "every photo, video and file"; the AWS record says S3 "until the
-   move to R2 is finished". The same `S3_ENDPOINT` ask as §21.6, 1.
-3. **A refused Turnstile secret locks out password sign-in**, while an outage lets people through. Should a refused
-   secret fail open too (with the alarm), or stay closed? Jason's call.
-4. **cdnjs** isn't checked by any sensor. A line only, or a browser-side check in step 4?
-5. **The storefront edge** (Fly.io) needs its own Host card: not in this batch.
+1. **DNS:** no page-load duty until it's answered (live data). The session manager.
+2. **R2:** the same `S3_ENDPOINT` ask as §21.6, 1. The session manager.
+3. **A refused Turnstile secret** lets people through without the check, like an outage, with a critical trip on
+   sign-in's duty so it's fixed fast. Jason. Page b is redrawn to match.
+4. **cdnjs:** a line now; a browser-side check in step 4's rendered checks. The session manager.
+5. **The storefront edge** (Fly.io): its own Host card, §25.
+
+---
+
+## 25. The Fly.io storefront edge's card (mockups `flyio-*.html`)
+
+A **Host**: it serves businesses' own domains for their storefronts (decisions/0139 §3; `workers/storefront-edge/`).
+Built in `mockups/src/flyio.py` from the repo and the live code at mirror `aeb5f31`. No `.env` was opened, and no call
+was made to Fly or to the edge.
+
+### 25.1 The manifest
+
+| Field | Value | Basis |
+|---|---|---|
+| role · criticality | Host · not critical: no duty stops without it | des (not in `ControlRegister::CRITICAL`) |
+| what it hosts | nothing of its own: no database, no copy. Caddy passes each visit to `trvgo.us` with the domain asked for (`X-TV-Host`) and our shared key (`X-TV-Edge`); the router shows that storefront. `www.` redirects to the bare domain | obs (`Caddyfile`, `README.md`) |
+| the app | `trvgo-edge`, region `lax`, one machine always running (shared-cpu-1x, 256 MB), Fly's own check `GET /__edge` every 30 s; made 2026-11-02 | obs (`fly.toml`) |
+| certificates (TLS) | one per hostname, asked for through Fly's GraphQL API (`Domains::certificate()`). `domains_tick` (every 15 minutes) checks each waiting domain's DNS, then its certificate: Added → DNS pointed → Certificate coming → Live; Failed; Removed. Live ones daily; a domain whose DNS has moved for 3 days goes to Failed and its storefront back to trvgo.us; Disconnect removes its certificates | obs |
+| deploys | by hand, `fly deploy` from `workers/storefront-edge/` (Caddy 2.8); no deploy record read | obs |
+| keys (names) | `FLY_API_TOKEN` (.env, a deploy token for the app); `FLY_APP`, `FLY_IPV4`, `FLY_IPV6` (.env, not secrets); `STOREFRONT_EDGE_KEY` (.env and a Fly secret, the same value); `DOMAINS_MODE` (.env, Settings: off, test or live) | obs |
+| stage | **needs live data:** `DOMAINS_MODE` decides it | obs |
+| spend | "Per machine and certificate; small while few businesses use their own domain", "use not read yet" | obs |
+| slots (04) | Billing · Billing and Console · Dashboard (Documented · release #212, 02 §8); Keys and Sign in not registered. The pre-flight's fix link names a tokens page that isn't in its record (open word 4) | obs |
+
+### 25.2 Incident Radius (checked in the code)
+
+| Fault | Held | On a backup | Unaffected |
+|---|---|---|---|
+| **The edge down** | every storefront on its own domain, **and those shops' trvgo.us addresses**: `storefront-view.php` 301s trvgo.us/<shop> to its domain (cached 5 minutes), so visitors land on the outage | none today; `Preflight`'s fallback "the storefront's trvgo.us address still works" doesn't hold while that redirect stands (open word 2) | trvgo.us itself (short codes, GO Codes, storefronts without their own domain); the site |
+| **One domain's certificate** | that one storefront stays on its trvgo.us address (it isn't linked until Live) | — | the edge, every other domain |
+| **Bluehost down** | the edge's storefronts too: every visit goes on to trvgo.us | — | — |
+
+### 25.3 States (mockups)
+
+| Mockup | Row (02) | New words | Today's words | Fix it |
+|---|---|---|---|---|
+| a Working | — | "On · Working"; stage "needs live data"; the radius as checked | — | — |
+| b A certificate failing for one domain (its most real fault in the code) | 49's shape; 24–26 for Fly's 5xx; 130 | "pinecafe.com's certificate isn't ready · Warning (that domain): the system asks again at each check." Told after 24 hours (des) | the domain's row keeps "Certificate coming" and its last error ("The certificate: Fly didn't take it: …") on Custom domains only; no time limit; nothing on the board | Console (the app's certificates), then Check this domain now |
+
+The edge down isn't drawn: nothing of ours reads `/__edge` today, so it would be invisible (open word 1).
+
+### 25.4 Open words for the Fly.io edge
+
+1. **No check of ours reads the edge.** Spec: the board probes `https://trvgo-edge.fly.dev/__edge` (Fly's own check
+   answers there), and its down state follows rows 24–26 on this Host.
+2. **The trvgo.us redirect:** while the edge is down, trvgo.us/<shop> still sends visitors to the dead domain. Should
+   the redirect stop while the edge's check fails, so the source map's fallback holds?
+3. **A certificate that never issues** has no time limit in the code. 24 hours before telling the business's team and
+   ours is des. Also: no 02 row for one item of a Host failing (drawn as row 49's shape).
+4. **Keys slot:** the pre-flight's fix link names `https://fly.io/dashboard/traversence/tokens`, which isn't in
+   `service-defs.php`'s links, so Keys stays not registered. Add it to the record?
+5. **Its stage** needs live data (`DOMAINS_MODE`), as do the domains by stage (`business_domains`).
 
 ---
 
@@ -1394,9 +1448,9 @@ Items noted for Jason's review of the step-3 design. None is asked now.
    of its channels' providers (§20.6, 1). Today the register has no dispatcher part.
 4. **SES's bounce and complaint warnings** at AWS's review levels: 5% bounce, 0.1% complaint (inf; a step-4 check
    against AWS's docs). The rates are read at no cost (§20.6, 5).
-5. **The IRS load's partial delete** (§22.5, §22.6 IRS 2): when one state's file loads and the other's rows are all
-   refused, the finish removes the second state's nonprofits. A code fix for step 4 (finish per state, or not at all
-   unless every state loaded), not a card word.
+5. **The IRS load's partial delete** (§22.5, §22.6 IRS 2): **decided: "Fix in the build" (Jason, 2026-11-21).** Row
+   38b's shape check before any write, and no delete below 90% of last month's rows (the number he saw, still des): a
+   step-4 build item.
 6. **Confirm Overture (CDLA-Permissive-2.0) and Foursquare (Apache-2.0) licences — loads already running** (0164
-   Decision 9; §22.6, 3). The session manager's note: W1 added 205 in run #1290. Step 2's `ir-0001.md` reads #1290 as
-   stopped before its first town, so that count isn't confirmed from the evidence here.
+   Decision 9; §22.6, 3). W1 added 205 in run #1290: Jason's screenshot of run #1290's page (W1 · Added 205 · Changed 4
+   · Sent to Review 709; overture_bulk failed at 380 s).

@@ -22,8 +22,7 @@ VW_RADIUS = """<details><summary>If the video worker stops: its Incident Radius<
 STAGE_V = '<span class="st">Stage 5 of 8 · Operational</span><span class="nx">Next allowed: Check now · Pause · Take out (stage 6) · Deactivate (stage 7)</span>'
 STAGE_VT = '<span class="st">Stage 5 of 8 · Operational</span><span class="nx">Next allowed: Check and start again · Acknowledge · Take out (stage 6)</span>'
 SPEND_V = '<span class="spend"><span>Its cost: Railway\'s compute</span><b>use not priced yet</b><span class="why">counted on Railway\'s card</span></span>'
-RESTART = (light('a', 'Restart rule differs') + ' Railway says <b>On failure, up to 10</b>; the repo says <b>Never</b> (<code>workers/video/railway.json</code>). '
-           '<span class="why">For Jason to choose; the next deploy from the repo sets Never.</span>')
+RESTART = (light('g', 'Restart: On failure, up to 10') + ' <span class="why">Jason, 2026-11-21. The repo\'s “Never” (<code>workers/video/railway.json</code>) changes to match in step 4.</span>')
 
 
 def vw_z2(q=None, q_cls=''):
@@ -41,7 +40,7 @@ def vw_z3(hb=None, hb_cls=''):
     return rows([
         ('Its heartbeat', 'spec: it checks in after each run; silent past its window (15 minutes, row 50) only this service trips', '', hb or f'Checked in at {sc("8:50 AM MST")} (spec: not built today)', '', hb_cls),
         ('On Railway', 'service <code>video-worker</code>, root <code>/workers/video</code>', '',
-         'Latest deploy <code>628caa0d</code> SUCCESS, Nov 17, 6:30 PM MST (commit <code>430d4c3</code>). Next run 8:55 AM MST (Railway, read 8:51 AM MST).<div style="margin-top:.3rem">' + RESTART + '</div>', '', 'hl'),
+         'Latest deploy <code>628caa0d</code> SUCCESS, Nov 17, 6:30 PM MST (commit <code>430d4c3</code>). Next run 8:55 AM MST (Railway, read 8:51 AM MST).<div style="margin-top:.3rem">' + RESTART + '</div>', '', ''),
         ('Its key', '<code>VIDEO_WORKER_TOKEN</code>, in .env and on Railway', '', 'not read yet (a run without it prints “nothing to do”)', '', ''),
     ]) + '<div class="sub" style="margin-top:.4rem">Its keys and settings, by name and place: Setup capture (zone 1).</div>'
 
@@ -83,17 +82,17 @@ def vw_silent():
 
 def vw_job():
     note = (f'<div class="stage" style="font-size:13px">{light("n", "Notice")} One video\'s copies failed: Moment {sc("#4182")}\'s video, after 3 tries '
-            f'(“ffmpeg: {sc("Invalid data found when processing input")}”). It plays its original; nothing else waits. No alarm: a job failing isn\'t a fault on the worker (row 49\'s shape).</div>')
+            f'(“ffmpeg: {sc("Invalid data found when processing input")}”). It plays its original; nothing else waits. No alarm: a job failing isn\'t a fault on the worker (row 49\'s shape). <a href="#">The post\'s admin record ↗</a> <span class="why">(Try this video again is there)</span></div>')
     z2q = light('g', 'On · Working') + f'<div class="sub">{sc("1")} job failed after 3 tries · the rest done</div>'
     tw = today_words(['Today: the job\'s row keeps its error (<code>video_jobs.error</code>, status “failed”); nothing on the board.',
-                      'New: a Notice on this card naming the video, with the post linked, and nothing held.'])
+                      'New: a Notice on this card naming the video, linked to the post\'s admin record (where Try this video again lives), and nothing held.'])
     return card(VW, 'video', 'Not critical: no duty stops without it', light('g', 'On · Working'), STAGE_V, SPEND_V + note, VW_RADIUS,
-                vw_z2(z2q, 'hl'), vw_z3(), act_rows(b('Check now') + b('Try this video again') + b('Pause'), 'Railway', railway_slots(),
-                                                   then='Try this video again queues it once more; if it fails, the original stays.') + tw, role='Service · hosted on Railway')
+                vw_z2(z2q, 'hl'), vw_z3(), act_rows(b('Check now') + b('Pause'), 'Railway', railway_slots(),
+                                                   then='Try this video again lives on the post\'s admin record, linked from the Notice above.') + tw, role='Service · hosted on Railway')
 
 
-add('video-a-working.html', 'Video worker card, Working', 'The video worker on Railway: copies of posted videos, its heartbeat (spec), its restart rule for Jason.',
-    intro('<b>(a) The video worker, Working.</b> A Service hosted on Railway: 720p and 1080p copies of posted videos (decisions/0153 §8). Its heartbeat is spec. Its restart rule differs between Railway and the repo: amber, for Jason.')
+add('video-a-working.html', 'Video worker card, Working', 'The video worker on Railway: copies of posted videos, its heartbeat (spec), its restart rule (On failure, up to 10).',
+    intro('<b>(a) The video worker, Working.</b> A Service hosted on Railway: 720p and 1080p copies of posted videos (decisions/0153 §8). Its heartbeat is spec (15 minutes). It restarts on failure, up to 10 (Jason, 2026-11-21); the repo changes to match in step 4.')
     + vw_card(light('g', 'On · Working')) + prov(PROV_V))
 add('video-b-silent.html', 'Video worker card: silent', 'No heartbeat past its window: only the video worker trips; copies queue, originals play.',
     intro('<b>(b) Silent: no heartbeat (row 50).</b> Only this service trips; new copies queue and each video plays its original.') + vw_silent() + prov(PROV_V))
