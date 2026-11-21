@@ -35,6 +35,19 @@ draft as the structure.
     W1, W9 and W12 → Geofabrik and Overture.
 - **Layout:** the 2-column or stacked toggle, remembered in `localStorage`.
 
+## Presentation (Jason, 2026-11-21: visual-forward, scannable first)
+
+- **Objectives:** a short title, a status pill, a compact metric with a "live · <time>" micro-label, a bar or sparkline, and
+  short action pills (Drill down, Fix it, Improve). Measure, target and the full reading are in a detail.
+- **Cards** (`compact()` in `board.py`, for every card including §26's):
+  - Held, On a backup and Unaffected are pills with counts, each list one tap away.
+  - A thread's next steps are step tags ("1. Open Console → 2. Check and start again"), with the reasons in a detail.
+  - "What the system is doing" and the copy pair (today · new) sit in details.
+  - Any block over 120 characters folds behind its first words.
+- **Chains:** each level is a compact row: a light, the part, a one-line why, and its evidence in a detail.
+- **Coverage:** the counts are pills, each opening its list.
+- **Nothing is dropped:** every reading, time, basis tag and reference is one tap away.
+
 ## Real against scenario
 
 **Real**
@@ -69,6 +82,7 @@ says "No history yet", because the historian (decisions/0171 r4b) isn't read her
 cd handoffs/control-board-plan/step3/mockups/src
 python3 board.py                   # writes ../../board/index.html and stats.json
 node board-check.cjs               # the checks at 1280 and 390; screenshots in ../../board/shots/
+node board-ba.cjs after            # the Board and a fault card (Railway: the crawler down), at 1280 and 390
 ```
 
 `board.py` reads the generated card mockups in `mockups/`, so it reflects their latest build. It also reads the live

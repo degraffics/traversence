@@ -83,6 +83,34 @@ const url = 'file://' + dir + 'index.html';
       ok(okc, `@${w} chain ${c}: ${n} levels to the root and back, each with its why, no dead end`);
       await p.keyboard.press('Escape');
     }
+    // no paragraph over about 120 characters at an objective's or a card's top level (details excluded)
+    const long = await p.evaluate(() => {
+      const BLK = 'DIV,P,UL,OL,LI,DL,DD,DT,TABLE,TR,TD,DETAILS,SECTION,ARTICLE,ASIDE,H2,H3';
+      const leaf = e => { for (let c = e.firstElementChild; c; c = c.nextElementSibling) if (BLK.includes(c.tagName)) return false; return true; };
+      const out = [];
+      document.querySelectorAll('.obj *, article.card *').forEach(e => {
+        if (e.closest('details:not(.mod)') && !e.closest('summary')) return;
+        if (!leaf(e) || !BLK.includes(e.tagName) && !(e.parentElement && e.parentElement.classList.contains('spend'))) return;
+        const t = e.textContent.replace(/\s+/g, ' ').trim();
+        if (t.length > 125) out.push(t.slice(0, 80));
+      });
+      return out;
+    });
+    ok(long.length === 0, `@${w} no top-level paragraph over ~120 characters in objectives and cards` + (long.length ? `: ${long.length}, e.g. ${long.slice(0, 2).join(' | ')}` : ''));
+    // every detail, accordion and popover opens and closes
+    const dt = await p.evaluate(() => { let n = 0, bad = 0; document.querySelectorAll('details').forEach(d => { const s = d.querySelector(':scope > summary'); if (!s) { bad++; return; } const was = d.open; s.click(); const a = d.open !== was; s.click(); const b2 = d.open === was; n++; if (!(a && b2)) bad++; }); return [n, bad]; });
+    ok(dt[1] === 0, `@${w} every detail and accordion opens and closes: ${dt[0]} checked, ${dt[1]} failed`);
+    for (const how of ['x', 'esc', 'outside']) {
+      await p.click('.rail [data-nav="board"]');
+      const pop = await p.$('#view-board details.pop');
+      await (await pop.$('summary')).click();
+      const o1 = await pop.evaluate(d => d.open);
+      if (how === 'x') await (await pop.$('.px')).click();
+      if (how === 'esc') await p.keyboard.press('Escape');
+      if (how === 'outside') await p.mouse.click(5, 450);
+      const o2 = await pop.evaluate(d => d.open);
+      ok(o1 && !o2, `@${w} the Improve popover opens and closes by ${how}`);
+    }
     // layout toggle remembered
     if (w === 1280) {
       await p.click('[data-layout="rows"]'); await p.reload();

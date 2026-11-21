@@ -412,7 +412,15 @@ PROMISES = [
     ]),
 ]
 N_OBJ = sum(len(g[2]) for g in PROMISES)
-LT = {'g': 'Working', 'a': 'Less than optimal', 'r': 'Failing', 'n': 'not checked yet'}
+LT = {'g': 'Working', 'a': 'Less than optimal', 'r': 'Trip', 'n': 'not checked yet'}
+# a compact metric per objective (Jason, 2026-11-21: visual-forward, scannable first); the full reading stays in its detail
+pct = lambda a, b: f'{a / b * 100:.1f}%'
+METRIC = {'o-pages': f'{r200}/{rN} answered · {pct(r200, rN)}', 'o-signin': 'sign-in and sign-out passed', 'o-phone': f'{len(scroll_pages)} sideways · {len(edge_pages)} edges off',
+          'o-search': f'{SCORE["pass"]}/{SCORE["of"]} cases · {pct(SCORE["pass"], SCORE["of"])}', 'o-paths': f'{pc["passed"]}/{ran} passed · {pc["failed"]} failed',
+          'o-fresh': 'NPI Registry: warn', 'o-complete': f'{c21["map_points"]["approximate"]:,} of {c21["map_points"]["public"]:,} approximate', 'o-gather': 'W1, W3 paused · 0 records in',
+          'o-grow': f'{c21["finds"]["published"]:,} published', 'o-renew': 'Scheduled tasks: bad', 'o-claude': '$27.05 / $40 · 68%', 'o-places': '544 / 1,000 · 54%',
+          'o-search-cap': '26 searches · 20.8¢', 'o-told': '4 of 4 trips sent', 'o-uptime': '97.5% uptime · 24 h', 'o-ir': 'IR-0001 open · Unconfirmed'}
+SHORT = lambda lab: re.sub(r'^The Communications ', '', re.sub(r'\s*\(.*?\)', '', lab)) or lab
 
 # ------------------------------------------------------------------ HTML pieces
 ICON = {
@@ -436,7 +444,7 @@ def lt(k, w):
 
 def bar(pct, k):
     if pct is None:
-        return '<div class="pbar none"><span>no reading</span></div>'
+        return '<div class="pbar none"><span>no bar: not a share</span></div>' if k != 'n' else '<div class="pbar none"><span>not checked yet</span></div>'
     return f'<div class="pbar {k}" role="img" aria-label="{pct:.0f}%"><b style="width:{min(100, pct):.1f}%"></b></div>'
 
 
@@ -446,15 +454,18 @@ def modlink(m, scn=0):
 
 
 def objective(o):
-    fix = ''.join(f'<button class="btn" data-go-mod="{m}">Fix it: {E(next(x["label"] for x in MODULES if x["id"] == m))}</button>' for m in o['fix'])
-    imp = ''.join(f'<button class="btn imp" title="Drawn: inert in the mockup">Improve: {E(t)}</button>' for t in o['improve'])
-    ch = f'<button class="btn f" data-open-panel="p-{o["chain"]}-0">Drill down to the root</button>' if o['chain'] else ''
-    when = f' · <time>{E(o["when"])}</time>' if o['when'] else ''
-    return f"""<div class="obj s-{o['state']}" id="{o['id']}"><div class="oh"><b>{E(o['name'])}</b>{lt(o['state'], LT[o['state']] if o['state'] != 'r' else 'Failing (a warning first; today a trip)')}</div>
-<div class="om"><span>Measure:</span> {E(o['measure'])}</div><div class="om"><span>Target:</span> {E(o['target'])}</div>
-<div class="ord"><span>Reading:</span> {E(o['reading'])}{when} <span class="basis">{o['basis']}</span></div>
+    short = lambda m: SHORT(next(x["label"] for x in MODULES if x["id"] == m))
+    fix = ''.join(f'<button class="btn" data-go-mod="{m}">Fix it: {E(short(m))}</button>' for m in o['fix'])
+    imp = (f'<details class="imp pop"><summary class="btn imp">Improve</summary><div class="popb"><button class="px" type="button" aria-label="Close">×</button>' + ''.join(f'<button class="btn imp" title="Drawn: inert in the mockup">{E(t)}</button>' for t in o['improve']) + '</div></details>') if o['improve'] else ''
+    ch = f'<button class="btn f" data-open-panel="p-{o["chain"]}-0">Drill down</button>' if o['chain'] else ''
+    live = f'<span class="live">live · <time>{E(o["when"].split(", ", 1)[-1])}</time></span>' if o['when'] else '<span class="live none">not checked yet</span>'
+    metric = METRIC.get(o['id'], 'not checked yet')
+    return f"""<div class="obj s-{o['state']}" id="{o['id']}"><div class="oh"><b>{E(o['name'])}</b>{lt(o['state'], LT[o['state']])}</div>
+<div class="om2"><span class="metric">{E(metric)}</span>{live}</div>
 <div class="orow">{bar(o['pct'], o['state'])}<span class="trend">{o['trend']}</span></div>
-<div class="btns">{ch}{fix}{imp}</div></div>"""
+<div class="btns">{ch}{fix}{imp}</div>
+<details class="more"><summary>Measure, target, reading</summary><dl class="dl"><dt>Measure</dt><dd>{E(o['measure'])}</dd><dt>Target</dt><dd>{E(o['target'])}</dd>
+<dt>Reading</dt><dd>{E(o['reading'])}{' · <time>' + E(o['when']) + '</time>' if o['when'] else ''} <span class="basis">{o['basis']}</span></dd></dl></details></div>"""
 
 
 def board_view():
@@ -477,11 +488,83 @@ def board_view():
 <div class="sgs">{grp}</div></section>"""
 
 
+def _plain(t):
+    return re.sub(r'\s+', ' ', html.unescape(re.sub(r'<[^>]+>', '', t))).strip()
+
+
+def pill_rad(rad):
+    """Held · On a backup · Unaffected as structured pills, each list one tap away (balanced, so nested blocks survive)."""
+    inner = rad[len('<div class="rad">'):-len('</div>')]
+    out, i = '', 0
+    for m in re.finditer(r'<div class="([hou])"><b>([^<]*)</b>', inner):
+        if m.start() < i:
+            continue
+        blk = balanced(inner, m.start(), 'div')
+        out += inner[i:m.start()]
+        i = m.start() + len(blk)
+        c, lab, body = m.group(1), m.group(2), blk[m.end() - m.start():-len('</div>')]
+        items = re.findall(r'<li>(.*?)</li>', body, re.S)
+        if items:
+            first = _plain(items[0])
+            first = first if len(first) <= 60 else first[:60].rsplit(' ', 1)[0] + '…'
+            out += f'<details class="rp {c}"><summary><span class="rpill {c}">{lab}</span><span class="rn">{len(items)}</span><span class="rf">{E(first)}</span></summary>{body}</details>'
+        else:
+            out += f'<div class="rp {c}"><span class="rpill {c}">{lab}</span><span class="rf">{E(_plain(body))}</span></div>'
+    return '<div class="rad">' + out + inner[i:] + '</div>'
+
+
+def _rads(card):
+    out, i = '', 0
+    for m in re.finditer(r'<div class="rad">', card):
+        if m.start() < i:
+            continue
+        blk = balanced(card, m.start(), 'div')
+        out += card[i:m.start()] + pill_rad(blk)
+        i = m.start() + len(blk)
+    return out + card[i:]
+
+
+HTML_TAGS = {'a', 'b', 'i', 'em', 'strong', 'code', 'span', 'div', 'p', 'ul', 'ol', 'li', 'dl', 'dt', 'dd', 'table', 'tr', 'td', 'th', 'thead', 'tbody', 'details', 'summary',
+             'button', 'article', 'section', 'aside', 'h1', 'h2', 'h3', 'h4', 'br', 'small', 'sub', 'sup', 'label', 'input', 'svg', 'path', 'nav', 'img', 'u', 's', 'kbd'}
+
+
+def unplaceholder(h):
+    """Spec placeholders written as <time>, <name>, <SENDER> in the card mockups are text, not tags: escaped here."""
+    def one(m):
+        t = m.group(1)
+        if t.split()[0].lower() in HTML_TAGS:
+            return m.group(0)
+        if t == 'time' and '</time>' in h[m.end():m.end() + 120]:
+            return m.group(0)
+        return '&lt;' + t + '&gt;'
+    return re.sub(r'<([A-Za-z][\w ]*?)>', one, h)
+
+
+def compact(card):
+    """Jason, 2026-11-21: visual-forward. Structure moves to pills and step tags; the prose moves one tap away."""
+    card = unplaceholder(card)
+    card = _rads(card)
+    card = re.sub(r'<div class="doing"><b>What the system is doing:</b>\s*(.*?)</div>',
+                  r'<details class="more doing"><summary><span class="pill">What the system is doing</span></summary>\1</details>', card, flags=re.S)
+    card = re.sub(r'<div class="sub" style="[^"]*border-left[^"]*"><b>Today(?:&#x27;|\'|’)s words, beside the new:</b>(.*?)</div>',
+                  r'<details class="more copy"><summary><span class="pill">Copy pair: today · new</span></summary>\1</details>', card, flags=re.S)
+    fx = re.search(r'<div class="slot[^"]* fix[^"]*">.*?<div class="ty">([^<·]+)', card, re.S)
+    btn = re.search(r'<button class="btn f"[^>]*>([^<]+)</button>', card)
+    tags = []
+    if fx:
+        tags.append(f'Open {fx.group(1).strip()}')
+    if btn:
+        tags.append(btn.group(1).strip())
+    st = '<span class="steps">' + ' <span aria-hidden="true">→</span> '.join(f'<span class="step"><b>{i}</b> {E(t)}</span>' for i, t in enumerate(tags, 1)) + '</span>' if tags else ''
+    card = re.sub(r'<div class="then">(.*?)</div>', lambda m: f'<div class="then">{st}<details class="more"><summary>{"Why these steps" if tags else "Notes"}</summary>{m.group(1)}</details></div>', card, flags=re.S)
+    return card
+
+
 def mod_card(m):
     seg = ''.join(f'<button class="sc-b" data-mod="{m["id"]}" data-scn="{i}" aria-pressed="{"true" if i == 0 else "false"}">{E(s["title"].split(": ", 1)[-1] if ": " in s["title"] else s["title"])}{"" if s["real"] else " · scenario"}</button>' for i, s in enumerate(m['scns']))
-    cards = ''.join(f'<div class="scn" data-mod="{m["id"]}" data-scn="{i}" data-real="{1 if s["real"] else 0}"{"" if i == 0 else " hidden"}><p class="sub scn-intro">{E(s["intro"])}{f' <a href="../mockups/{s["file"]}">Its static mockup</a>' if s["file"] else ''}</p>{s["card"]}</div>' for i, s in enumerate(m['scns']))
+    cards = ''.join(f'<div class="scn" data-mod="{m["id"]}" data-scn="{i}" data-real="{1 if s["real"] else 0}"{"" if i == 0 else " hidden"}><details class="more scn-intro"><summary>About this state</summary><p class="sub">{E(s["intro"])}{f' <a href="../mockups/{s["file"]}">Its static mockup</a>' if s["file"] else ''}</p></details>{compact(s["card"])}</div>' for i, s in enumerate(m['scns']))
     l0 = m['scns'][0]['light']
-    return f"""<details class="mod" id="mod-{m['id']}" data-role="{m['role']}"><summary><span class="mn">{E(m['label'])}</span><span class="badge role">{m['role']}</span><span class="mstate" data-mod-state="{m['id']}">{lt(*l0)}{'' if m['scns'][0]['real'] else ' <span class="sctag">scenario</span>'}</span><span class="sub">03 {m['sec']} · {len(m['scns'])} state{'s' if len(m['scns']) > 1 else ''}</span></summary>
+    return f"""<details class="mod" id="mod-{m['id']}" data-role="{m['role']}"><summary><span class="mn">{E(m['label'])}</span><span class="badge role">{m['role']}</span><span class="mstate" data-mod-state="{m['id']}">{lt(*l0)}{' <span class="live">live</span>' if m['scns'][0]['real'] else ' <span class="sctag">scenario</span>'}</span><span class="sub">03 {m['sec']} · {len(m['scns'])} state{'s' if len(m['scns']) > 1 else ''}</span></summary>
 <div class="seg wrapseg" role="group" aria-label="Scenario: {E(m['label'])}">{seg}</div>{'<p class="sub">The sync\'s OneDrive side: <a href="#" class="mlink" data-go-mod="microsoft">Microsoft\'s card</a> (03 §26).</p>' if m['id'] == 'github' else ''}{cards}</details>"""
 
 
@@ -537,9 +620,9 @@ def workflows_view():
 def diag_view():
     out = ''
     for m in MODULES:
-        rads = ''.join(f'<div class="scn" data-mod="{m["id"]}" data-scn="{i}"{"" if i == 0 else " hidden"}><div class="sub">State: {E(s["title"])}{"" if s["real"] else " (scenario)"}</div>{rad_of(s["card"])}</div>' for i, s in enumerate(m['scns']))
+        rads = ''.join(f'<div class="scn" data-mod="{m["id"]}" data-scn="{i}"{"" if i == 0 else " hidden"}><div class="micro">{E(s["title"])} {'<span class="live">live</span>' if s["real"] else '<span class="sctag">scenario</span>'}</div>{compact(rad_of(s["card"]) if rad_of(s["card"]).startswith('<div class="rad">') else rad_of(s["card"]))}</div>' for i, s in enumerate(m['scns']))
         adm = ''.join(f'<li><a href="{ADMIN}{a}" target="_blank" rel="noopener">{ADMIN}{a}</a></li>' for a in m['admin'])
-        out += f"""<details class="mod diag" data-role="{m['role']}"><summary><span class="mn">{E(m['label'])}</span><span class="badge role">{m['role']}</span><span class="mstate" data-mod-state="{m['id']}">{lt(*m['scns'][0]['light'])}{'' if m['scns'][0]['real'] else ' <span class="sctag">scenario</span>'}</span></summary>
+        out += f"""<details class="mod diag" data-role="{m['role']}"><summary><span class="mn">{E(m['label'])}</span><span class="badge role">{m['role']}</span><span class="mstate" data-mod-state="{m['id']}">{lt(*m['scns'][0]['light'])}{' <span class="live">live</span>' if m['scns'][0]['real'] else ' <span class="sctag">scenario</span>'}</span></summary>
 <h3 class="h3">Incident Radius, following the selected state</h3>{rads}
 <h3 class="h3">Where the work gets done</h3><ul class="adm">{adm}</ul><div class="sub">At the provider, its slots:</div>{slots_of(m['scns'][0]['card'])}</details>"""
     return f"""<section class="view" id="view-diagnostics" hidden data-title="Diagnostics">
@@ -547,21 +630,30 @@ def diag_view():
 
 
 # ------------------------------------------------------------------ the two drill-down chains
+def first_sentence(t, n=110):
+    plain = re.sub(r'<[^>]+>', '', t)
+    m = re.match(r'(.+?[.:;])(\s|$)', plain)
+    one = (m.group(1) if m else plain)
+    return E(one if len(one) <= n else one[:n].rsplit(' ', 1)[0] + '…')
+
+
 def level(cid, i, n, kind, name, state, why, evidence, nexts, root=None):
     back = f'<button class="btn back" data-open-panel="p-{cid}-{i - 1}">← Back</button>' if i else ''
     nx = ''.join(f'<button class="btn f" data-open-panel="p-{cid}-{i + 1}">{E(t)} →</button>' if t else '' for t in nexts)
     rt = ''
     if root:
-        rt = '<div class="rootbox"><b>At the root</b>' + ''.join(f'<div class="btns">{r}</div>' for r in root) + '</div>'
+        rt = '<div class="rootbox"><b>At the root</b><div class="btns">' + ''.join(root) + '</div></div>'
+    color = "red" if "lt r" in state else "amber" if "lt a" in state or "lt h" in state else "green" if "lt g" in state else "grey"
     return (f'<aside class="panel" id="p-{cid}-{i}" hidden role="dialog" aria-label="{E(name)}"><button class="x" aria-label="Close">×</button>'
-            f'<div class="crumb">Level {i + 1} of {n} · {E(kind)}</div><h2 class="h2">{E(name)}</h2><div>{state}</div>'
-            f'<div class="why"><b>Why it\'s {"red" if "lt r" in state else "amber" if "lt a" in state or "lt h" in state else "green" if "lt g" in state else "grey"}:</b> {why}</div>'
-            f'<div class="ev"><b>Evidence</b>{evidence}</div>{rt}<div class="btns navb">{back}{nx}</div></aside>')
+            f'<div class="crumb">Level {i + 1} of {n} · {E(kind)}</div><div class="lvrow">{state}<b class="lvn">{E(name)}</b></div>'
+            f'<div class="why"><span class="micro">Why it\'s {color}</span> {first_sentence(why)}</div>'
+            f'<details class="more"><summary>Why, in full</summary><p>{why}</p></details>'
+            f'<details class="more ev"><summary><span class="pill">Evidence</span></summary>{evidence}</details>{rt}<div class="btns navb">{back}{nx}</div></aside>')
 
 
 def chains():
     c1 = [
-        ('Snapshot (promise 5)', 'Gathering reconciles', lt('r', 'Failing (today a trip; a warning first under the contract)'),
+        ('Snapshot (promise 5)', 'Gathering reconciles', lt('r', 'Trip'),
          f'W1 is paused whole by two task trips, and W3 by Common Crawl\'s trip. "Records: 0 in, 0 stored, 0 refused" in the last 24 hours.',
          f'<ul><li>The alarms snapshot, <time>{T_AL}</time>: 4 trips open (pf:wf:W3, task:failed:overture_bulk, task:failed:foursquare_bulk, svc:issue:35)</li><li>Summary: {E(TODAY)}</li></ul>', ['Workflow W1 Listings']),
         ('Workflow', 'W1 Listings', lt('r', 'Paused by the system (twice)'),
@@ -619,12 +711,13 @@ def coverage():
     nochk = [p for p in PAGES if p['state'] == 'n' and not p['status'].startswith('Coming')]
     coming = [p for p in PAGES if p['status'].startswith('Coming')]
     li = lambda xs: ''.join(f'<li>{x}</li>' for x in xs)
+    sec = lambda n, of, words, body: (f'<details class="covd"><summary><span class="pill cnt">{n}</span> {words}{" of " + str(of) if of else ""}</summary>{body}</details>')
     h = (f'<aside class="panel" id="p-coverage" hidden role="dialog" aria-label="Coverage"><button class="x" aria-label="Close">×</button><h2 class="h2">Coverage: every gap named</h2>'
-         f'<p class="sub">Every promise ({N_OBJ} objectives in 7 groups) and every page ({len(PAGES)}) is a snapshot on the board. A snapshot with no reading is a gap, listed here; none is silently missing.</p>'
-         f'<h3 class="h3">Objectives not checked yet ({len(unmeasured)} of {N_OBJ})</h3><ul>{li(E(o["name"]) + ": " + E(o["reading"]) for o in unmeasured)}</ul>'
-         f'<h3 class="h3">Pages no probe covers yet ({len(nochk)} of {len(PAGES)})</h3><p class="sub">Each says "not checked yet" in its route table.</p><ul class="cols2">{li("<code>" + E(p["route"]) + "</code>" for p in nochk)}</ul>'
-         f'<h3 class="h3">Coming, designed not built ({len(coming)})</h3><ul>{li("<code>" + E(p["route"]) + "</code>" for p in coming)}</ul>'
-         f'<h3 class="h3">Services the needs name with no card yet ({len(NO_CARD)})</h3><ul class="cols2">{li("<code>" + E(s) + "</code>" for s in NO_CARD)}</ul></aside>')
+         f'<div class="micro">{N_OBJ} objectives · {len(PAGES)} pages · every one a snapshot; none silently missing</div>'
+         + sec(len(unmeasured), N_OBJ, 'objectives not checked yet', f'<ul>{li(E(o["name"]) + ": " + E(o["reading"]) for o in unmeasured)}</ul>')
+         + sec(len(nochk), len(PAGES), 'pages no probe covers yet', f'<ul class="cols2">{li("<code>" + E(p["route"]) + "</code>" for p in nochk)}</ul>')
+         + sec(len(coming), 0, 'coming, designed not built', f'<ul>{li("<code>" + E(p["route"]) + "</code>" for p in coming)}</ul>')
+         + sec(len(NO_CARD), 0, 'services the needs name with no card yet', f'<ul class="cols2">{li("<code>" + E(s) + "</code>" for s in NO_CARD)}</ul>') + '</aside>')
     return h, len(unmeasured), len(nochk), len(coming)
 
 
@@ -699,6 +792,24 @@ h1{font:700 22px/1.2 var(--serif);margin:0 0 .2rem}.h2{font:700 17px/1.25 var(--
 .navb{border-top:1px solid var(--sec-edge);padding-top:.6rem}.cols2{columns:2;column-gap:1.2rem}
 .panel{padding:1rem 1rem 2rem}.sctag{font-size:11px;border:1px dotted var(--copper);color:var(--copper);border-radius:3px;padding:0 4px}.panel .x{float:right}
 .mrow td:first-child code{font-weight:600}
+.om2{display:flex;flex-wrap:wrap;gap:.3rem .7rem;align-items:baseline;margin:.15rem 0}.metric{font:600 14px var(--sans)}
+.live{font-size:11px;color:var(--meta);border:1px solid var(--card-edge);border-radius:999px;padding:0 .45rem;background:var(--sec)}.live.none{color:var(--taupe)}
+.micro{font-size:11.5px;color:var(--meta);text-transform:none;letter-spacing:.02em}
+details.more>summary,details.clamp>summary,details.covd>summary{cursor:pointer;font-size:12.5px;color:var(--brown);list-style:none;padding:.15rem 0}
+details.more>summary::-webkit-details-marker,details.clamp>summary::-webkit-details-marker,details.covd>summary::-webkit-details-marker,details.rp>summary::-webkit-details-marker,details.pop>summary::-webkit-details-marker{display:none}
+details.more>summary::before,details.clamp>summary::after,details.covd>summary::before{content:"▸ ";color:var(--taupe)}details.more[open]>summary::before,details.covd[open]>summary::before{content:"▾ "}
+details.clamp>summary{color:var(--ink)}details.clamp>summary::after{content:" ▸ more";color:var(--brown);font-size:11.5px}details.clamp[open]>summary{display:none}
+.pill{display:inline-block;font-size:11.5px;font-weight:600;border-radius:999px;padding:.05rem .55rem;background:var(--sec);border:1px solid var(--card-edge);color:var(--ink)}.pill.cnt{background:var(--btn);color:var(--btn-text);border-color:var(--btn)}
+.covd{border-top:1px solid var(--sec-edge);padding:.35rem 0}
+.rad{display:flex;flex-direction:column;gap:.3rem}.rp{display:block;border:1px solid var(--card-edge);border-radius:.45rem;padding:.25rem .45rem;background:var(--card)}
+.rp>summary{display:flex;gap:.45rem;align-items:center;cursor:pointer;list-style:none;flex-wrap:wrap}.rp ul{margin:.3rem 0 .1rem;padding-left:1.1rem;font-size:13px}
+.rpill{font-size:11.5px;font-weight:700;border-radius:999px;padding:.05rem .55rem;color:#fff}.rpill.h{background:var(--amber)}.rpill.o{background:var(--blue)}.rpill.u{background:#6E9A82}
+.rn{font:700 12px var(--sans);color:var(--meta)}.rf{font-size:12.5px;color:var(--meta)}
+.steps{display:flex;flex-wrap:wrap;gap:.35rem;align-items:center;margin:.3rem 0}.step{font-size:12px;border:1px solid var(--copper);border-radius:999px;padding:.05rem .55rem;background:var(--card)}.step b{color:var(--copper);margin-right:.2rem}
+.lvrow{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;margin:.3rem 0}.lvn{font:700 16px var(--serif)}
+details.pop{display:inline-block;position:relative}details.pop>summary{list-style:none}.popb{position:absolute;z-index:30;left:0;top:110%;min-width:220px;max-width:min(320px,80vw);background:var(--card);border:1px solid var(--card-edge);border-radius:.5rem;padding:.5rem;box-shadow:0 6px 18px #231D1733;display:flex;flex-direction:column;gap:.3rem}
+.popb .px{align-self:flex-end;border:0;background:none;font-size:16px;cursor:pointer;color:var(--meta)}
+@media (max-width:767px){.popb{position:static;max-width:100%;box-shadow:none;margin-top:.3rem}}
 @media (max-width:767px){.shell{grid-template-columns:minmax(0,1fr)}.rail{position:static;flex-direction:row;overflow-x:auto;padding:.4rem 16px;gap:.2rem}.rail button{width:auto;flex:0 0 auto}.rail .cnt{margin-left:.3rem}
 .main{padding:.6rem 3px 3rem}.view>.vh,.view>.h2,.view>.sgs>.sub{padding:0 10px}.pgrid{grid-template-columns:minmax(0,1fr)}.pbox,.sg,.mod{border-radius:.5rem}.cols2{columns:1}
 .rtab thead{display:none}.rtab tr{display:block;border-top:1px solid var(--card-edge);padding:.35rem 0}.rtab td{display:block;border:0;padding:.1rem .2rem}
@@ -714,7 +825,7 @@ function openPanel(id){document.querySelectorAll('.panel').forEach(function(p){p
 function show(v){document.querySelectorAll('.view').forEach(function(s){s.hidden=s.id!=='view-'+v;});document.querySelectorAll('[data-nav]').forEach(function(n){n.setAttribute('aria-current',n.getAttribute('data-nav')===v?'page':'false');});var s=document.getElementById('view-'+v);document.getElementById('trail').textContent=s?s.getAttribute('data-title'):'';try{localStorage.setItem('tvb-view',v);}catch(e){}}
 function setScn(m,i){document.querySelectorAll('.scn[data-mod="'+m+'"]').forEach(function(x){x.hidden=x.getAttribute('data-scn')!==String(i);});
  document.querySelectorAll('.sc-b[data-mod="'+m+'"]').forEach(function(x){x.setAttribute('aria-pressed',x.getAttribute('data-scn')===String(i)?'true':'false');});
- var sc=document.querySelector('#view-modules .scn[data-mod="'+m+'"][data-scn="'+i+'"]'),sel=sc&&sc.querySelector('.lt');if(sel)document.querySelectorAll('[data-mod-state="'+m+'"]').forEach(function(x){x.innerHTML=sel.outerHTML+(sc.getAttribute('data-real')==='1'?'':' <span class="sctag">scenario</span>');});}
+ var sc=document.querySelector('#view-modules .scn[data-mod="'+m+'"][data-scn="'+i+'"]'),sel=sc&&sc.querySelector('.lt');if(sel)document.querySelectorAll('[data-mod-state="'+m+'"]').forEach(function(x){x.innerHTML=sel.outerHTML+(sc.getAttribute('data-real')==='1'?' <span class="live">live</span>':' <span class="sctag">scenario</span>');});}
 function goMod(m,i){close();show('modules');var d=document.getElementById('mod-'+m);if(!d)return;d.open=true;if(i!==null&&i!==undefined)setScn(m,i);setTimeout(function(){d.scrollIntoView({block:'start'});},0);}
 function lt(k,w){return '<span class="lt '+k+'"><i aria-hidden="true"></i>'+esc(w)+'</span>';}
 function table(gi){var g=G[gi],h='<div class="tw"><table class="rtab"><thead><tr><th>Route</th><th>What it does</th><th>Status</th><th>Probe</th><th></th></tr></thead><tbody>';
@@ -745,12 +856,30 @@ document.addEventListener('click',function(e){var t=e.target.closest('[data-open
  if(t.hasAttribute('data-layout')){var L=t.getAttribute('data-layout');document.getElementById('pgrid').classList.toggle('rows',L==='rows');document.querySelectorAll('[data-layout]').forEach(function(x){x.setAttribute('aria-pressed',x===t);});try{localStorage.setItem('tvb-layout',L);}catch(e){}return;}
  if(t.hasAttribute('data-role-f')){var R=t.getAttribute('data-role-f');document.querySelectorAll('#view-modules [data-role]').forEach(function(x){x.hidden=R!=='all'&&x.getAttribute('data-role')!==R;});document.querySelectorAll('[data-role-f]').forEach(function(x){x.setAttribute('aria-pressed',x===t);});return;}
 });
-document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){close();document.querySelectorAll('details.pop[open]').forEach(function(d){d.open=false;});}});
+document.addEventListener('click',function(e){document.querySelectorAll('details.pop[open]').forEach(function(d){if(!d.contains(e.target)||e.target.closest('.px'))d.open=false;});},true);
+// Clamp: any block of prose over 120 characters at a card's or an objective's top level moves into a detail, its first words as
+// the summary (Jason, 2026-11-21: visual-forward, scannable first; nothing dropped, one tap away).
+(function(){var BLK='DIV,P,UL,OL,LI,DL,DD,DT,TABLE,TR,TD,DETAILS,SECTION,ARTICLE,ASIDE,H2,H3';
+ function leaf(e){for(var c=e.firstElementChild;c;c=c.nextElementSibling){if(BLK.indexOf(c.tagName)>=0)return false;}return true;}
+ var els=document.querySelectorAll('article.card p,article.card li,article.card div,article.card dd,article.card td,article.card .spend>span,.obj div,.obj p,#view-workflows td,#view-workflows li,#view-diagnostics li,#view-diagnostics p');
+ for(var i=els.length-1;i>=0;i--){var e=els[i];if(e.closest('details:not(.mod)')||e.closest('summary')||!leaf(e))continue;
+  var t=e.textContent.replace(/\s+/g,' ').trim();if(t.length<=120)continue;
+  var m=t.match(/^(.{20,90}?[.:;])\s/),first=m?m[1]:t.slice(0,80).replace(/\s+\S*$/,'')+'…';
+  var d=document.createElement('details');d.className='clamp';var sm=document.createElement('summary');sm.textContent=first;var body=document.createElement('div');
+  while(e.firstChild)body.appendChild(e.firstChild);d.appendChild(sm);d.appendChild(body);e.appendChild(d);}
+})();
 var L=null,V=null;try{L=localStorage.getItem('tvb-layout');V=localStorage.getItem('tvb-view');}catch(e){}
 if(L==='rows'){var bb=document.querySelector('[data-layout="rows"]');if(bb)bb.click();}
 show(V&&document.getElementById('view-'+V)?V:'board');
 })();
 </script>"""
+
+
+def fold_intros(h):
+    """Each view's intro sentence moves into "About this view" (Jason, 2026-11-21: scannable first)."""
+    return re.sub(r'(<h[12] class="?[^>]*>[^<]*</h[12]>|<h1>[^<]*</h1>)<p class="sub">(.*?)</p>',
+                  r'\1<details class="more"><summary>About this view</summary><p class="sub">\2</p></details>', h, flags=re.S)
 
 
 def build():
@@ -769,8 +898,8 @@ def build():
 <button data-nav="modules" aria-current="false">{ico('mods')}Modules<span class="cnt">{len(MODULES)}</span></button>
 <button data-nav="workflows" aria-current="false">{ico('wf')}Workflows<span class="cnt">{len(WORKFLOWS)}</span></button>
 <button data-nav="diagnostics" aria-current="false">{ico('diag')}Diagnostics<span class="cnt">{len(MODULES)}</span></button></nav>
-<main class="main">{board_view()}{modules_view()}{workflows_view()}{diag_view()}</main></div>
-<div class="scrim"></div>{chain_html}{cov_html}{manage_panel()}{''.join(PANELS.values())}
+<main class="main">{fold_intros(board_view() + modules_view() + workflows_view() + diag_view())}</main></div>
+<div class="scrim"></div>{chain_html}{cov_html}{manage_panel()}{''.join(unplaceholder(v) for v in PANELS.values())}
 <script>window.__PAGES={json.dumps(pages_js)};window.__GROUPS={json.dumps([{'rows': g['rows']} for g in GROUPS])};window.__MODS={json.dumps(mods_js)};</script>{JS}"""
     doc = f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>System Control Board</title><meta name="description" content="Step 3's interactive board mockup: is it delivering, the pages, modules, workflows and diagnostics.">
