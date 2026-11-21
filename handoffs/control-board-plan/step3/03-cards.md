@@ -366,6 +366,20 @@ shows #212 shipped the file, not that it added this line.
 The same rules as §8. GitHub's four slots sit two per row (Billing · Keys, Console · Sign in), and the long workflow
 paths, commit titles and `found: -1` lines wrap. Every page passes `scrollWidth ≤ 390`.
 
+### 12.6a Jason's decisions (2026-11-21, in the decision pop-up, reviewed by the session manager)
+
+1. **railway-c5's dollars: kept, labelled.** Its banner says plainly "Illustrative: no price source yet; today the chip
+   shows units, not priced yet", and today's real units chip is shown beside it.
+2. **GitHub's API down: "Paused, then trying".** Words follow the state (P9). Once a hold is placed the status is
+   "Paused by the system (releases and the sync)", and the trying is a second clause: "Paused by the system (releases
+   and the sync): still trying, 2 of 3, next at <time>". GitHub is critical, so it trips at once while it tries; the
+   words say both. 02's row 57 is corrected to match.
+3. **GitHub's Actions minutes: yes, a read-only token** (spec only; nothing is added now).
+   - A separate fine-grained token, read-only, with only the billing or plan read it needs.
+   - Entered later through Its key, never in chat, at no cost.
+   - Until then the chip stays "use not read yet" with the billing link.
+   - It's a required key in GitHub's manifest once built.
+
 ### 12.6 Open words for GitHub
 
 1. **Row 57's "Down" while something is held.** §5.4 says "Paused by the system" whenever a hold exists, and "Down: the
