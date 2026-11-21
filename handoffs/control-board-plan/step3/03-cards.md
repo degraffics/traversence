@@ -392,3 +392,60 @@ paths, commit titles and `found: -1` lines wrap. Every page passes `scrollWidth 
 5. **GitHub's spend chip.** The tokens can't read Actions minutes, so the chip keeps the manifest's "use not read yet".
    Jason's answer 6 covered Railway, where the API reads usage; whether GitHub needs a token with billing read access is open.
 6. **The sync's "Cancel the run"** is a board action on GitHub's run (manifest fix_it "with Cancel"); 02 has no row for it.
+
+## 13. Setup & Access Capture on the card (Jason, 2026-11-21; `04-vault-portal-links.md` §10; 02 §3a stage 1's exit guard)
+
+**What this section holds:**
+- Setting **names** only, never a value.
+- Every key name below is read from the live code (`service-defs.php`, `Operations.php`, `Preflight.php`) or the
+  repositories' workflow files.
+
+**Zone 1's badge, for a new module in stage 1:**
+
+"Stage 1 of 8 · Selection and configuration · Next allowed: Complete setup capture"
+
+The missing items are listed by name, each with its own button. Examples:
+- "Sign in not recorded" [Record sign in]
+- "Where TAVILY_API_KEY lives not recorded" [Record]
+- "Billing: Not registered, no reason given" [Give a reason]
+
+The module can't move to stage 2 until all three are recorded (02 §3a). Credentials go only into the Vault.
+
+**Today's modules** went live before the rule, so their gaps are a **notice** in zone 1, under the stage badge. For
+example:
+- "Setup capture: Sign in not recorded · Keys: why not recorded".
+- Grey words with a small "Record ▸", never red or amber.
+- Never an alarm, a hold or a Pulse item.
+- It stays until the module's next setup change, which then has to complete it.
+
+### 13.1 Railway: its setup capture
+
+| Item | What's recorded now | Gap shown as notice |
+|---|---|---|
+| **Where to sign in** | Sign in slot: Not registered | "Sign in not recorded" |
+| **Where its keys live** | `CRAWLER_API_TOKEN`: `.env` and Railway (the crawler's pass into our site) · `RAILWAY_API_TOKEN`: `.env` (watching deploys, setting the schedule) · `RAILWAY_PROJECT_ID`, `RAILWAY_SERVICE_ID`: `.env` (ids, not secrets). Keys the worker holds **for other modules** (e.g. `TAVILY_API_KEY`) are recorded on those modules' cards, with Railway as their place | — |
+| **Keys slot** | Not registered (Railway's project Variables page isn't recorded) | "Keys: why not recorded" |
+| **Billing slot** | Billing · Usage · Documented · release #212 | — |
+| **Console slot** | Console · Dashboard · Documented · release #212 | — |
+| **Unregistered, with why** | Keys and Sign in have no why yet | Both listed. Each is filled by Jason's Vault publish, or a one-line why |
+
+The notice reads: "Setup capture: Sign in not recorded · Keys: why not recorded". Its [Record ▸] opens the Setup
+capture panel. There, the two slots show "Publish from your Vault" (owner only), or a field for a one-line why.
+
+### 13.2 GitHub: its setup capture
+
+| Item | What's recorded now | Gap shown as notice |
+|---|---|---|
+| **Where to sign in** | Sign in slot: Not registered | "Sign in not recorded" |
+| **Where its keys live** | `GITHUB_DOCS_TOKEN`: `.env` (reads the inbox, writes release records, asks for the checks) · `GITHUB_SYNC_TOKEN`: `.env` (watches the sync) · `HEALTH_TOKEN`: a GitHub secret on degraffics/traversence **and** its `.env` copy (they must match) · `MIRROR_READ_TOKEN`, `CHECK_ACCOUNTS`, `CLAUDE_CODE_OAUTH_TOKEN`: GitHub secrets on degraffics/traversence (the audit, the checks, Claude's workflow) · the sync's own secrets on degraffics/traverse-3way-sync: `ONEDRIVE_CLIENT_ID`, `ONEDRIVE_TENANT_ID`, `ONEDRIVE_REFRESH_TOKEN`, `FTP_HOST`, `FTP_USER`, `FTP_PASS`, `FTP_REMOTE_PATH`, `GH_PAT` (optional) · **planned:** a read-only billing token for Actions minutes (Jason, 2026-11-21: Vault, then Its key; not added yet) | — |
+| **Keys slot** | Not registered (GitHub's token settings page isn't recorded) | "Keys: why not recorded" |
+| **Billing slot** | Billing · Billing · Documented · release #212 | — |
+| **Console slot** | Not registered ("The sync" is our own workflow's page: it sits on the Sync part as "Its runs", not in a slot) | "Console: why not recorded" |
+| **Unregistered, with why** | Keys, Console and Sign in have no why yet | All three listed |
+
+The notice reads: "Setup capture: Sign in not recorded · Keys, Console: why not recorded".
+
+**Proof (step 4):**
+- A new module can't leave stage 1 while any item is missing.
+- Today's modules show the notice and are never held.
+- No credential value appears on any page, record or message: the mockups show names only.

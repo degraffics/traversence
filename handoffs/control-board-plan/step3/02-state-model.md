@@ -339,7 +339,7 @@ it's doing now.
 
 | Report's state | Jason's stage | Allowed here | Who presses | Its way back |
 |---|---|---|---|---|
-| **Registered / Draft** | 1. Selection and configuration | Edit configuration · Add its key · Propose · Discard | a person | Drop it (a proposal) |
+| **Registered / Draft** | 1. Selection and configuration | Edit configuration · Add its key · Propose · Discard · **Complete setup capture** | a person | Drop it (a proposal) |
 | | 2. Integration (pre-flight) | Run pre-flight (its check, with its keys, reach and limits) · Edit | a person; the nightly 2 AM run | — |
 | **Active (Operational)** | 3. Activation | **Activate** (offered only once its pre-flight passes, R57) | **a person** | Deactivate |
 | | 4. Assigned to workflows | Assign to a need or task (in the map's order) · Unassign (Q22) | a person | Unassign |
@@ -347,6 +347,23 @@ it's doing now.
 | **Maintenance / Draining** | 6. Maintenance | Take out (a reason and a Back by) · Put back (its check first) · Extend the window | a person; a window set ahead goes out and back by itself | Put back |
 | **Deprecated** | 7. Deactivation | **Deactivate**, with why. Its assignments first move to the next source on the map ("Migrate traffic"), and no new ones are taken | **a person** | Activate through stage 2's check |
 | **Removed (archived)** | 8. Removal | **Delete** (while code remains it reads Retired; once a release drops the code, Removed) · Bring it back · View history | **a person** | Bring it back (while code remains) |
+
+**Stage 1's exit guard: Setup & Access Capture** (Jason, 2026-11-21; `04-vault-portal-links.md` §10). A module that uses an
+outside service or an off-site access point can't leave stage 1, so it can't be integrated or activated, until its
+record says three things:
+1. **Where to sign in:** the Sign in slot, or `Not registered` with its reason.
+2. **Where its keys live:** each key's **name** and place (`.env`, Railway, a GitHub secret, or the Vault), and the Keys
+   slot. Credentials themselves live only in the Vault. No value ever appears in a record, spec, log or message.
+3. **Which slots are intentionally unregistered,** each with a one-line why. A `Not registered` slot without a why blocks
+   the exit.
+
+Every slot carries exactly one approved source tag. A module that went live before this rule (all of today's) isn't
+held: its gaps show as a notice on its card ("Setup capture: Sign in not recorded"), never an alarm or a hold, until its
+next setup change.
+- Transition: stage 1 → stage 2 is guarded by the capture being complete.
+- Test: S-A0, "a new module can't leave stage 1 while any of the three is missing; an unregistered slot without a why is
+  refused; no credential value in any record".
+
 
 **The rules:**
 - System code may call only **Pause**, as a hold (R34). Today Start's watch writes switches (g3 C8), so it fails this.
@@ -996,6 +1013,7 @@ today (`OutsideServices::CONTROLS`, `Preflight::NEEDS`, `ControlRegister::CRITIC
 | `sensors`, `check`, `probe`, `answers` (how its answers classify, and its reset time) | `classify`, P4, P7, rows 27, 32, 36, 38 | missing (`PROBES` is empty) |
 | `fix_it_routes` | Fix it (R117) | partial (one generic map) |
 | **`portal_links`**: per type `billing`, `keys`, `console`, `login`, each `{url, label, type}` | PL's routing (group G) | missing as a field |
+| **`setup_capture`**: `sign_in` (a slot or why), `keys` (each `{name, place}`: `.env` · Railway · GitHub secret · Vault; never a value), `unregistered` (each slot type with its one-line why), `captured_at`, `by` | stage 1's exit guard (§3a); the card's setup notice | missing as a field (Jason, 2026-11-21) |
 | `correlation` (signature fields), `incident_radius_rules` (rare overrides) | group F; `radius` | missing |
 
 **`portal_links` values come only from `service-defs.php`'s company link lists**, mapped by their labels:
