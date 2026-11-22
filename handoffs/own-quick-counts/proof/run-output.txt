@@ -1,5 +1,6 @@
 — 1280px
   ✓ your phrases go with the Quick Search request (["pools","open now","zzqx"])
+  ✓ a count past its hour is cleared; fresh ones are kept
   ✓ "pools" shows 4, what its search finds (4)
   ✓ "open now" shows no number: it changes by the minute
   ✓ a phrase that finds nothing shows no number
@@ -17,4 +18,4 @@
   ✓ counting recorded nothing: the place's search counts unchanged (0); the crawler isn't asked (no_side, as while typing)
   ✓ no sideways scroll (390)
   ✓ no script errors
-17 passed, 0 failed
+18 passed, 0 failed

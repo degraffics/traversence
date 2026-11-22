@@ -1,17 +1,17 @@
 {
  "zip": "own-quick-counts.zip",
  "built_on": "70d0cb1 Sync: 2026-11-22 13:57 UTC",
- "recorded": "2026-11-22 14:05 UTC",
+ "recorded": "2026-11-22 14:08 UTC",
  "note": "Own quick searches counted (Jason 'Count them'), built on Sync: 13:57 UTC 2026-11-22 (70d0cb1) Sent through git (releases/inbox).",
  "status": "pending",
  "live_in": "",
  "files": {
   "app/lib/SearchPresets.php": {
-   "sha256": "e5393aa7604809f64d21a22cad597ddd8448b3d28c1893d697144b0cd983f760",
+   "sha256": "7dc9579e50c9369bab47fa19df30a8795bed1e500de47e86398e9f8205381139",
    "live": false
   },
   "app/ui/faq.md": {
-   "sha256": "145038782ff88f71728f9f10bf13d9e5c6657fac828fc58e773189bd02608167",
+   "sha256": "d57340790d80ed59f8dd448242732b6929180561859735e98b7c15abd5fdbbed",
    "live": false
   },
   "website/api/search.php": {

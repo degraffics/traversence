@@ -1,7 +1,7 @@
 // Your own quick searches counted (Jason, 2026-11-22: "Count them", B2's follow-up; handoffs/own-quick-counts.md),
 // rendered at 1280 and 390 on the harness with search_index seeded (4 pool listings, a pizza place). Each of your own
 // phrases shows the number its search's Results tab gives; "open now" none (it changes by the minute); one that finds
-// nothing none; ⊕ and ✎ Done bring the new phrase's count; counting records nothing (no_side: no crawler, no counts).
+// nothing none; ⊕ and ✎ Done bring the new phrase's count; counting records nothing (no_side: no crawler, no counts); a count past its hour is cleared.
 // Run: node own-quick-counts.cjs [base] — mysql on the path with the harness database tvh.
 const { chromium } = require('playwright');
 const cp = require('child_process');
@@ -10,7 +10,8 @@ let pass = 0, fail = 0; const ok = (c, m) => { c ? pass++ : fail++; console.log(
 const sql = q => { try { return cp.execFileSync('mysql', ['-N', '-B', 'tvh', '-e', q]).toString().trim(); } catch (e) { return 'n/a'; } };
 (async () => {
   const b = await chromium.launch();
-  sql("DELETE FROM search_index_state WHERE k LIKE 'pm:%'");
+  sql("DELETE FROM search_index_state WHERE k LIKE 'pm:%' OR k = 'pmsweep'");
+  sql("INSERT INTO search_index_state (k, v, v_long) VALUES ('pm:old0000000000000000', '{\"t\":1000,\"n\":3}', '{\"t\":1000,\"n\":3}')");   // a count past its hour
   const side0 = sql('SELECT COUNT(*) FROM search_counts');
   for (const w of [1280, 390]) {
     console.log('— ' + w + 'px');
@@ -27,6 +28,7 @@ const sql = q => { try { return cp.execFileSync('mysql', ['-N', '-B', 'tvh', '-e
     const tot = async q => { const j = await p.evaluate(async q => (await fetch('/api/search.php?q=' + encodeURIComponent(q) + '&reach=all')).json(), q); return (j.results || {}).total || 0; };
     const poolsTotal = await tot('pools');
     ok(/pools/.test(asked), 'your phrases go with the Quick Search request (' + asked + ')');
+    if (w === 1280) ok(sql("SELECT COUNT(*) FROM search_index_state WHERE k = 'pm:old0000000000000000'") === '0' && +sql("SELECT COUNT(*) FROM search_index_state WHERE k LIKE 'pm:%'") >= 1, 'a count past its hour is cleared; fresh ones are kept');
     ok((r.find(x => x.t === 'pools') || {}).n === String(poolsTotal) && poolsTotal === 4, '"pools" shows ' + (r.find(x => x.t === 'pools') || {}).n + ', what its search finds (' + poolsTotal + ')');
     ok((r.find(x => x.t === 'open now') || { n: 'x' }).n === '', '"open now" shows no number: it changes by the minute');
     ok((r.find(x => x.t === 'zzqx') || { n: 'x' }).n === '', 'a phrase that finds nothing shows no number');

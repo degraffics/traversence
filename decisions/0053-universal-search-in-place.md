@@ -558,4 +558,4 @@ whose answer changes by the minute (Open now), counts on the rest**; a row that 
 than a wrong one (built in `search-fixes.zip`, live as #248). Then, of a person's own quick searches: **"Count them"**.
 Built as `own-quick-counts.zip` (2026-11-22, Sync 13:57 UTC): each of your own phrases is run as the search it opens,
 with no side effects (`no_side`, as while typing), and shows its Results total for where you are, kept an hour per place
-and phrase (`SearchPresets::mine`); open now and a phrase that finds nothing show no number; only the words are sent.
+and phrase (`SearchPresets::mine`); open now and a phrase that finds nothing show no number; the words go with the search, and the count is kept an hour by phrase and place, never with who asked, then cleared.

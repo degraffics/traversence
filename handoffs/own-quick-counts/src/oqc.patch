@@ -8,7 +8,7 @@
   */
  final class SearchPresets
  {
-@@ -82,6 +83,47 @@
+@@ -82,6 +83,65 @@
          return array_map(fn ($p) => ['label' => $p['label'], 'q' => $p['q'] . ($near !== '' ? ' in ' . $near : ''), 'count' => $p['count']], $out);
      }
  
@@ -17,12 +17,14 @@
 +     * phrase is run as the search it opens, with no side effects (no_side: nothing sent to the crawler or recorded as
 +     * demand, as while typing), and its total kept an hour per place and phrase, like have(). A phrase that changes by
 +     * the minute ("open now") gets no number (B2); one that finds nothing, or can't be run, shows no number rather than a
-+     * wrong one. The phrases come from the device; nothing about them or the person is stored.
++     * wrong one. The phrases come from the device. A count is kept an hour by phrase and place (its key a hash of both),
++     * never with who asked; counts past their hour are cleared (sweepMine).
 +     * @param list<string> $phrases at most 12, as kept by js/search-panel.js
 +     * @return list<array{q: string, count: ?int}>
 +     */
 +    public static function mine(PDO $pdo, array $ctx, array $phrases): array
 +    {
++        self::sweepMine($pdo);
 +        $out = []; $seen = [];
 +        foreach (array_slice($phrases, 0, 12) as $q) {
 +            if (!is_string($q)) continue;
@@ -33,6 +35,22 @@
 +            $out[] = ['q' => $q, 'count' => self::countMine($pdo, $ctx, $q)];
 +        }
 +        return $out;
++    }
++
++    /** Clears the own-phrase counts past their hour (at most once every 10 minutes), so they don't pile up. */
++    public static function sweepMine(PDO $pdo): void
++    {
++        try {
++            $m = SearchIndex::state($pdo, 'pmsweep');
++            if ($m !== '' && (int) $m > time() - 600) return;
++            SearchIndex::setState($pdo, 'pmsweep', (string) time());
++            $old = [];
++            foreach ($pdo->query("SELECT k, v FROM search_index_state WHERE k LIKE 'pm:%' LIMIT 2000")->fetchAll(PDO::FETCH_ASSOC) as $r) {
++                $j = json_decode((string) $r['v'], true);
++                if (!is_array($j) || (int) ($j['t'] ?? 0) < time() - 3600) $old[] = (string) $r['k'];
++            }
++            foreach (array_chunk($old, 200) as $ch) $pdo->prepare('DELETE FROM search_index_state WHERE k IN (' . implode(',', array_fill(0, count($ch), '?')) . ')')->execute($ch);
++        } catch (Throwable $e) { error_log('quick search sweep: ' . $e->getMessage()); }
 +    }
 +
 +    private static function countMine(PDO $pdo, array $ctx, string $q): ?int
@@ -72,7 +90,7 @@
  
  ### Can I save my own search phrases?
 -Yes. In the search panel, **⊕** next to **Quick Search** adds the words you've typed as one of your quick searches, and **✎** lets you add, change or remove them. For now they're saved in this browser. To keep a search on your account, with its place, use **☆ Save** on its results.
-+Yes. In the search panel, **⊕** next to **Quick Search** adds the words you've typed as one of your quick searches, and **✎** lets you add, change or remove them. Each shows how many it finds where you are, counted the way its search would find them (none for what changes by the minute, like open now). For now they're saved in this browser, and only the words are sent to count them: nothing about them or you is kept. To keep a search on your account, with its place, use **☆ Save** on its results.
++Yes. In the search panel, **⊕** next to **Quick Search** adds the words you've typed as one of your quick searches, and **✎** lets you add, change or remove them. Each shows how many it finds where you are, counted the way its search would find them (none for what changes by the minute, like open now). For now they're saved in this browser. To count them, the words are sent with the search; each count is kept for an hour by phrase and place, never with who asked, and then cleared. To keep a search on your account, with its place, use **☆ Save** on its results.
  
  ### How do I switch between the list and the map?
  Use **List**, **Table** or **Map** at the top right of Get Local (a phone has List and Map). **Map** opens full screen with every result as a pin; **Exit map** brings you back to the list, which keeps any filters you changed on the map. **Table** shows the same results as rows: tap a column's name to sort it (A to Z, Z to A, or nearest first), search it, or untick values to hide them ("Show Restaurants (6)"); the column menus work on the results on the page, and **Clear the column filters** brings every row back. On a computer you may see the list **beside the map** instead: the numbered businesses on the left, their numbered pins on the right, a dashed ring for how far you chose, and **Search this area** once you move the map. We're trying both layouts to see which helps people more (we count which one a device has and what's tapped there, never who); **Arrange** lets you pick the one you like.

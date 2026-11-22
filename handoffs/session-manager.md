@@ -127,7 +127,7 @@ sessions take over, holding until Jason says resume. Live through Release #228 (
   rendered test `tools/design-tests/signin-3f/run.cjs` 136/136 at 1280 and 390. Waiting for the session manager's review,
   then Jason's OK.
   **Progress (2026-11-22):** 3f live as #251. Own quick searches counted ("Count them") built on 70d0cb1 as
-  `own-quick-counts.zip` (`handoffs/own-quick-counts.md`), 17/17; waiting for review and Jason's OK.
+  `own-quick-counts.zip` (`handoffs/own-quick-counts.md`), 18/18; waiting for review and Jason's OK.
 - **Orders held** (Jason, 2026-11-21: "It is obvious you are not able to see how the order system should work, so before I
   put more work time i need to think about how we move forward"): no pop-ups, merges or builds; #1212 (chargeFor) and
   #1224 (rulings) stay drafts outside main, out of the release order, until he says how to proceed.
