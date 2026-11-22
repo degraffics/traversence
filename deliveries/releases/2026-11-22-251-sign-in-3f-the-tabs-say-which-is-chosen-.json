@@ -1,0 +1,109 @@
+{
+    "id": 251,
+    "title": "Sign-in (3f): the tabs say which is chosen, the social buttons say their names, no cart or bell on sign-in pages, a code box that signs in at the 6th digit, and",
+    "why": "Jason's screenshots of sign-in, approved 2026-11-22 (handoffs/screens-proposal-2026-11-22.md A7, A9-A12, B7, B8). Member sign-in: the chosen tab is marked in brown with an underline and the other is quiet (A7); tabs and buttons in sentence case and Forgot password? in the one link style (B7); Google, Microsoft and Facebook say Continue with... beside their logos (A9). The sign-in pages (sign in, register, forgot and reset password, staff sign-in and setup) leave out the cart, bell and search, which looked switched off with nothing to show yet (A10). The staff code step says 6 digits, says until what clock time the code works in the viewer's zone, takes a pasted code with spaces or dashes and signs in at the 6th digit; the email's Sign in with this code signs in by itself (A11); the code email says Tap or click the code (A12). B8 (decisions/0100's note of 2026-11-22): on the staff code step, Can't get the email? sends the owners a Pulse case with the person's name and a phone or other email. The case shows who the login is, its work email, its last sign-in and the contact marked not verified, then Change work email, Reset the mailbox password and New setup link, each asking Have you confirmed this is them? first and greyed with the reason for anyone not an owner; the setup link and the new mailbox password are shown to the owner once to hand over. Every step goes in the staff log and the case's notes; the old address is told when the email changes. Staff with no authenticator app get one notice on the admin side to add it, Not now remembered. One new table, staff_mail_requests (made by the code, class never). FAQ updated. No outside calls but cPanel's own mailbox reset (our host, no cost); emails are the site's own system emails.",
+    "proposals": "",
+    "zip": "signin-3f.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/ui/pulse-ui.php": {
+            "sha": "189667ea232b83fb71c041b51ef69b921d29a8f85cce53d3ab97ef48389699bd",
+            "size": 177635,
+            "live_was": "80e07e5e611e6a87817af2bc14c28cfda2ef76b4b850323f2851e6bc986951a7"
+        },
+        "app/ui/social-buttons.php": {
+            "sha": "4bb6e6ee9f523ee64a86655beebb32a8e2f86724c7a48914069050e7322d2528",
+            "size": 4787,
+            "live_was": "374eb50c3a3a7649aaeffda21c3900525e73da3376f76d1ddd93a1c7463054cd"
+        },
+        "app/ui/faq.md": {
+            "sha": "0c7d876bab45eb36c278307f8067167b90067162d24639c285c5875f4061320c",
+            "size": 420127,
+            "live_was": "d3cfa2c30120b4d3438327eb1bed871db5a0f6c81b5c0b8cf62358e5d9f3621f"
+        },
+        "app/ui/header.php": {
+            "sha": "3cdc2402c4bc49f2e597a720f11b6c1c3646500f6c032e3b7f8b2f6f4aa5c9b4",
+            "size": 68210,
+            "live_was": "a99e404dba4a348426f27c7da91e91c1546f59727b09056e6fc92f98c0d539cd"
+        },
+        "app/lib/StaffMailHelp.php": {
+            "sha": "3cd71b9e166ab05d714bf6f981f61b0691c8349838aa3788c868b8a8dd186d46",
+            "size": 18603,
+            "live_was": null
+        },
+        "app/lib/staging-tables.php": {
+            "sha": "814368bf4173102b0416ce709f46a18c109437159ef826ee0dde0603809104a4",
+            "size": 28790,
+            "live_was": "504ab38bb2906dc85fdd30c1e47116e062fe0a6d3162980af7d9829ecf122d77"
+        },
+        "app/lib/Mailer.php": {
+            "sha": "15680df3c33470bd531a16497ac9b9341f3a8ff26e8280de20765f56c0577a12",
+            "size": 21621,
+            "live_was": "c59f5848145755b2e709fa4133dc2791817212a92a4d6a3496c0c37f631b80ae"
+        },
+        "app/lib/Pulse.php": {
+            "sha": "38fc91da4517a00cddd533504f00dc6db2175f3f5959efa3f3c54294f8faba19",
+            "size": 155903,
+            "live_was": "91980f4829bb4959077a22dd40524ee795fe5c42c048e0b81eee58d612fed250"
+        },
+        "app/lib/StaffLogin.php": {
+            "sha": "a807e1021be00a36f15ef1f4c7e428f1524945b88984bd09192be45ffbe17e05",
+            "size": 54002,
+            "live_was": "75ae6ef84a1b9aa61bfe6f1340388353f5f20f3983f6e78523c31e7e6fa9b44c"
+        },
+        "website/admin/staff.php": {
+            "sha": "af5ed762080ce757e6faf4288db8da35ae07639c544bbc3b48acbad2839b9d41",
+            "size": 31769,
+            "live_was": "0aa8150eb06bf94a31b498e8f91362efd55ab6a9cd27f7f455d1f60ea65e4bb9"
+        },
+        "website/admin/api/pulse.php": {
+            "sha": "1da9ff38da1faeb52bb80bd33e6cfb2ff8e5b555fe7a20b22fc47d2ed08df745",
+            "size": 12205,
+            "live_was": "7565068f960e5f92640899ed3f5b871d4a4af64cddc0c377cec64a5b0982f069"
+        },
+        "website/admin/login.php": {
+            "sha": "8f9cf00d661da2ed955a23777f7de4998de0953d5380cf8887ccc695698f3f20",
+            "size": 12117,
+            "live_was": "74f79f291355a19471648bee086bf6bca14b9e42e51ae0257766fd651fbd2b97"
+        },
+        "website/two-step.php": {
+            "sha": "4113f10014472d4e8024b1b829c22f68af3f56b89f1beaba6437d98a2df95124",
+            "size": 7244,
+            "live_was": "aee503378deeb34c5ca357c4cd024e4c928957e606f2f38f21e3c07701336ef9"
+        },
+        "website/login.php": {
+            "sha": "94fd089e4c2c73cc9831ecb9876e2fc82cabd1198c11b04c65cd63a13b337c8d",
+            "size": 19737,
+            "live_was": "2d0ff7cf1ae9fd02632f4d0d00f56d032ab0cccfb9e9ad39bf27719257eceb82"
+        },
+        "website/js/code-link.js": {
+            "sha": "288994a3b3bab805ae1c4510ec4109cb309e0f4b4da7cc81fd5f7474ecaf7a39",
+            "size": 2795,
+            "live_was": "c4628470a65d70e6b4cc55a60f790c48985aeff2a7812ab432405206d1ddac02"
+        },
+        "website/js/tv-time.js": {
+            "sha": "1ab1196ffde55eeb948fc4e63ba189b592c966d13d3ee84c1243c37e15bd994c",
+            "size": 2663,
+            "live_was": "ae94a252e31635d7775dd970ecfb81997375681665717610f5dfcc4c77f7f3ba"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-22T13:54:55+00:00",
+            "by": 0,
+            "msg": "Uploaded signin-3f.zip: 16 files."
+        }
+    ]
+}
