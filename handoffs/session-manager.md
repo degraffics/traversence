@@ -128,6 +128,8 @@ sessions take over, holding until Jason says resume. Live through Release #228 (
   then Jason's OK.
   **Progress (2026-11-22):** 3f live as #251. Own quick searches counted ("Count them") built on 70d0cb1 as
   `own-quick-counts.zip` (`handoffs/own-quick-counts.md`), 18/18; waiting for review and Jason's OK.
+  **Progress (2026-11-22, later):** own quick searches live as #252. The 5px hero gap was the probe's measurement (the
+  `<nav>` inside the bar, not the bar): fixed in `layout-probe.mjs`, no site release.
 - **Orders held** (Jason, 2026-11-21: "It is obvious you are not able to see how the order system should work, so before I
   put more work time i need to think about how we move forward"): no pop-ups, merges or builds; #1212 (chargeFor) and
   #1224 (rulings) stay drafts outside main, out of the release order, until he says how to proceed.
