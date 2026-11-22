@@ -6,13 +6,13 @@
     "zip": "design-3f-leftovers.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "approved",
+    "state": "staged",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
     "plan_at": "2026-11-22 20:52:55",
-    "staged_at": null,
+    "staged_at": "2026-11-22 20:52:57",
     "vetted_at": null,
     "live_at": null,
     "files": {
@@ -163,7 +163,29 @@
         }
     },
     "migrations": [],
-    "checks": [],
+    "checks": {
+        "ok": true,
+        "where": "staging",
+        "at": "2026-11-22T20:53:00+00:00",
+        "items": [
+            [
+                "PHP files parse",
+                true,
+                "28 checked"
+            ],
+            [
+                "Pages answer",
+                true,
+                "25 pages answered on staging.trvgo.us"
+            ],
+            [
+                "No new fatal errors in the logs",
+                true,
+                "15 logs read"
+            ]
+        ],
+        "first_fail": ""
+    },
     "log": [
         {
             "at": "2026-11-22T20:52:54+00:00",
@@ -179,6 +201,11 @@
             "at": "2026-11-22T20:52:55+00:00",
             "by": 0,
             "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
+        },
+        {
+            "at": "2026-11-22T20:53:00+00:00",
+            "by": 0,
+            "msg": "Put on staging (29 files); its checks passed."
         }
     ]
 }
