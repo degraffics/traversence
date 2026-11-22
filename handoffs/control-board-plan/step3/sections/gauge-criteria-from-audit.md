@@ -44,7 +44,7 @@ staging passed: publishing by itself." The code writes it for every build that p
 it in claude before it got pushed"). It records the rule, not a look at a page, so it isn't counted as a review here. It's
 offered to Jason as an option (§3).
 
-## 3. The recommendation
+## 3. The rule (decided by Jason, 2026-11-22, as recommended)
 
 - **checked:** every check in the register that applies to the item passes (§7). A missing check shows "no check yet" and
   counts as unmet; it blocks the move from Audit & Review to Implementation.
@@ -54,11 +54,11 @@ offered to Jason as an option (§3).
   live data.
 - **Past work:** an item counts as reviewed where his sign-off is on record. The rest shows **"audited, awaiting sign-off"**,
   never "reviewed". This replaces the "accepted at sign-off" mark.
-- **The other readings, offered as choices:**
-  1. **Claude's review alone, with no open finding, completes "reviewed".** This departs from 0145 §5 ("Jason approves,
-     rejects or rewords them"; "Jason's sign-off") and would need a note in 0145.
-  2. **His chat approval of a build counts as sign-off** for what the build carried (the 218 releases above). It would need
-     the same note: 0145 asks for his sign-off on what the audit found, which the chat approval doesn't record per page.
+- **Rejected alternatives (kept as the record):**
+  1. **Claude's review alone, with no open finding, completes "reviewed".** It departs from 0145 §5 ("Jason approves,
+     rejects or rewords them"; "Jason's sign-off") and would have needed a note in 0145.
+  2. **His chat approval of a build counts as sign-off** for what the build carried (the 218 releases above). It would have
+     needed the same note: 0145 asks for his sign-off on what the audit found, which the chat approval doesn't record per page.
 
 ## 4. Proof: a page against a data job
 
@@ -151,11 +151,12 @@ are in Phased Development and Dashboard & Pulse in Audit & Review. The workflows
 PATHS passes ("eat-near-me") · PATHS fails ("set-place", the finding P9 decided) · LOAD no check yet · PHOTOS not recorded
 (no result kept in git) · PHOTOS-SHOWN no check yet · BRAND partial (R10, R11 and the 3px edges only) · TOOLS no check yet.
 
-## 8. For Jason
+## 8. Decided (Jason, 2026-11-22)
 
-1. "Reviewed" as recommended (no open finding, and your sign-off on record). The chat approval stays an option, with its note
-   in 0145.
-2. Targets: your own, or the proposed target per check? How often each check runs? Site health through the one alarm engine?
+1. **Reviewed, per 0145:** no open finding, plus his sign-off on record (a release approval, or his ruling on the page's
+   proposal). Past work without it shows "audited, awaiting sign-off". The other readings are rejected (§3).
+2. **The register's targets and schedule:** approved (`check-register.md`); the AUDIT row's 20% is ours, approved with the schedule.
+3. **Site health:** one notification path through the dispatcher.
 
 Settled by the session manager (2026-11-22): weights stay at 1; releases #60–#69 are mapped to items by their owning
 sessions, through the session manager.

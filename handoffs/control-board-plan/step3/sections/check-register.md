@@ -36,27 +36,28 @@ also as `check-register.json`. A spec: nothing here is built.
 | **BRAND** | The brand and design standards on every page | brand.md; design/css-theme-brand.md; CLAUDE.md | pages | the standards a browser can read: tokens and colours, one header per view, filters as one dropdown, card anatomy, icons, notices, busy states, forms. Today only R10 (icons), R11 (breadcrumbs) and the rendered 3px edges are automatic | 3. daily with RENDER | partial: R10, R11 and the 3px edges only | partial today: R10, R11 (scorecard.md) and RENDER's edges | not built (partial) |
 | **AUDIT** | The audit's own load: what each run asks of the site | Jason, 2026-11-22: "wont bog our platform or resources down creating slowness issues" | every run of every check | each run's requests to the site, its time, and the probe pages' response times against their baseline | every run reports its own load | no check yet | proposed: an "Audit" runtime card on the board | not built |
 
-## Targets: one per check, with its source (every one proposed)
+## Targets: one per check, with its source (approved, Jason, 2026-11-22)
 
 Each check has one target. Where a published standard fits, it's cited by name (Google's Core Web Vitals; W3C WCAG 2.2);
-otherwise the decision line it comes from. Every target is **proposed** until Jason sets it.
+otherwise the decision line it comes from. **Jason approved every target as proposed (2026-11-22).** The AUDIT row's 20% is ours,
+approved with the schedule.
 
-| Check | Target (proposed) | Source |
-|---|---|---|
-| R01–R15 | 0 failures in the files each reads | site-audit/rules.md (each rule); decisions/0145 §6 |
-| RENDER | every page answers, with no console error, no failed request, no sideways scroll at 390 and card edges at 3px, as each account; the accessibility basics at WCAG 2.2 AA | decisions/0145 §1; CLAUDE.md "Phone layout and visual standard"; decisions/0058 §11; W3C WCAG 2.2, level AA |
-| PATHS | every path reaches its goal: 3 taps or fewer from home to a place to eat and to a town's guide, 5 or fewer for the rest | site-audit/punch-list.md A6 (decided 2026-11-08); rules.md J01 |
-| SEARCH | every probe case passes; typing suggestions answer within 300 ms | the search probe's own bar (site-audit/search-scorecard.md); decisions/0088 ("never wait") |
-| LAYOUT | no gap between the top bar and the hero; nothing drawn over a card's action icons | decisions/0058 §21 |
-| PHOTOS | a real stock and member photo answer 200 as an image; every kind reaches media.php | decisions/0123; the 2026-11-15 404 |
-| BOARD | its process working, with no open trip | decisions/0171, 0175 |
-| TOOLS | every tool does what site-audit/tools.md says, for every account that may use it, and is refused with the reason for every account that may not | decisions/0145 §1 ("Function and tool checks") |
-| LOAD | Core Web Vitals "good": LCP ≤ 2.5 s, CLS ≤ 0.1, INP ≤ 200 ms, each at the 75th percentile | Google's Core Web Vitals thresholds; the board's "Pages load fast" (about 2.5 s, des) |
-| PHOTOS-SHOWN | every image on the page loaded and drawn (decoded, wider than 0) and with a text alternative | Jason, 2026-11-22 ("the photo loads and display"); W3C WCAG 2.2 SC 1.1.1 Non-text Content |
-| BRAND | the readable standards of brand.md met: its tokens, one header per view, filters as one dropdown, card anatomy, icons; text contrast at least 4.5:1, focus visible | brand.md §4; design/css-theme-brand.md; CLAUDE.md; W3C WCAG 2.2 SC 1.4.3 Contrast (Minimum) and 2.4.7 Focus Visible |
-| AUDIT | a light run asks at most about 20 requests, one at a time with a 1 s gap; the probe pages' response times stay within 20% of their 7-day median, or the next run backs off | Jason, 2026-11-22 (the schedule below); the 20% is ours, proposed |
+| Check | Target | Source | Status |
+|---|---|---|---|
+| R01–R15 | 0 failures in the files each reads | site-audit/rules.md (each rule); decisions/0145 §6 | approved (Jason, 2026-11-22) |
+| RENDER | every page answers, with no console error, no failed request, no sideways scroll at 390 and card edges at 3px, as each account; the accessibility basics at WCAG 2.2 AA | decisions/0145 §1; CLAUDE.md "Phone layout and visual standard"; decisions/0058 §11; W3C WCAG 2.2, level AA | approved (Jason, 2026-11-22) |
+| PATHS | every path reaches its goal: 3 taps or fewer from home to a place to eat and to a town's guide, 5 or fewer for the rest | site-audit/punch-list.md A6 (decided 2026-11-08); rules.md J01 | approved (Jason, 2026-11-22) |
+| SEARCH | every probe case passes; typing suggestions answer within 300 ms | the search probe's own bar (site-audit/search-scorecard.md); decisions/0088 ("never wait") | approved (Jason, 2026-11-22) |
+| LAYOUT | no gap between the top bar and the hero; nothing drawn over a card's action icons | decisions/0058 §21 | approved (Jason, 2026-11-22) |
+| PHOTOS | a real stock and member photo answer 200 as an image; every kind reaches media.php | decisions/0123; the 2026-11-15 404 | approved (Jason, 2026-11-22) |
+| BOARD | its process working, with no open trip | decisions/0171, 0175 | approved (Jason, 2026-11-22) |
+| TOOLS | every tool does what site-audit/tools.md says, for every account that may use it, and is refused with the reason for every account that may not | decisions/0145 §1 ("Function and tool checks") | approved (Jason, 2026-11-22) |
+| LOAD | Core Web Vitals "good": LCP ≤ 2.5 s, CLS ≤ 0.1, INP ≤ 200 ms, each at the 75th percentile | Google's Core Web Vitals thresholds; the board's "Pages load fast" (about 2.5 s, des) | approved (Jason, 2026-11-22) |
+| PHOTOS-SHOWN | every image on the page loaded and drawn (decoded, wider than 0) and with a text alternative | Jason, 2026-11-22 ("the photo loads and display"); W3C WCAG 2.2 SC 1.1.1 Non-text Content | approved (Jason, 2026-11-22) |
+| BRAND | the readable standards of brand.md met: its tokens, one header per view, filters as one dropdown, card anatomy, icons; text contrast at least 4.5:1, focus visible | brand.md §4; design/css-theme-brand.md; CLAUDE.md; W3C WCAG 2.2 SC 1.4.3 Contrast (Minimum) and 2.4.7 Focus Visible | approved (Jason, 2026-11-22) |
+| AUDIT | a light run asks at most about 20 requests, one at a time with a 1 s gap; the probe pages' response times stay within 20% of their 7-day median, or the next run backs off | Jason, 2026-11-22 (the schedule below); the 20% is ours, approved with the schedule | ours, approved with the schedule (Jason, 2026-11-22) |
 
-## How often, and what each run asks of the site
+## How often, and what each run asks of the site (approved, Jason, 2026-11-22)
 
 Jason (2026-11-22): "what would be an acceptable time, and wont bog our platform or resources down creating slowness issues".
 
@@ -116,17 +117,17 @@ Example: `{"check": "LOAD", "item": "/directory/", "who": "guest", "target": "2.
 3. **One results format** for every check, extending findings.json: PHOTOS's results (today only an exit code) and LAYOUT's go into it.
 4. **The gauges read the register**, with **Run checks now** in each gauge's drawer.
 
-## Site health: one notification path (a recommendation; Jason's question)
+## Site health: one notification path (decided, Jason, 2026-11-22)
 
-Jason (2026-11-22): "Failures = notifications, not sure if this is a replacement or side-by-side". **Recommended: one path.**
+Jason asked: "Failures = notifications, not sure if this is a replacement or side-by-side". **He chose one path, as recommended.**
 - Each failure goes through the dispatcher once (decisions/0172, 0176). A **build regression** is a Pulse item with no push. A
   **runtime failure** is an alarm, with a push only for a trip or a critical part.
 - **Site health stops sending its own notices.** Its list stays as the audit's view, reached from a gauge's drill-down.
-- **The alternative:** side by side for a trial week, then choose.
+- **Rejected alternative:** side by side for a trial week.
 - The audit stays the scheduled diagnostic: a failing check never trips anything on its own (the two clocks, decisions/0175).
 
-## Open questions (Jason's calls)
+## Decided (Jason, 2026-11-22)
 
-1. **Targets:** the proposed target per check (above), or his own?
-2. **The schedule** above: acceptable as proposed?
-3. **Site health:** one path (recommended), or side by side for a trial week?
+1. **Targets:** approved as proposed, each with its source (the AUDIT row's 20% is ours, approved with the schedule).
+2. **The schedule:** approved as proposed.
+3. **Site health:** one notification path.

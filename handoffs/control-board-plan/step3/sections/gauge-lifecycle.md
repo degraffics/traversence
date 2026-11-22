@@ -103,8 +103,8 @@ way (`assoc.py`, `association-map.md`); and every item on the development gauges
 
 ### How often, and Site health
 
-The schedule (five runs, each with its load on the site) and the recommendation for Site health (one notification path through
-the dispatcher, with the side-by-side week as the alternative) are in **`check-register.md`**.
+The schedule (five runs, each with its load on the site; approved) and Site health's one notification path (decided) are in
+**`check-register.md`** (Jason, 2026-11-22).
 
 ### What a failure does
 
@@ -160,14 +160,20 @@ Jason approved the runtime lifecycle: "Approve". Every runtime snapshot gauge on
 - **The strip on the Development page** shows Pages load fast across all five stages: Planning is today, the other four are
   illustrations (Monitoring's reading is a scenario).
 
-## 8. Open questions (Jason's calls)
+## 8. Decided, and open
 
-1. **Reviewed:** as recommended in `gauge-criteria-from-audit.md` (no open finding and your sign-off on record); the chat
-   approval stays an option, with its note in 0145.
-2. **Targets:** the proposed target per check, each with its source (`check-register.md`), or your own?
-3. **The schedule:** the five runs and their load (`check-register.md`), as proposed?
-4. **Site health:** one notification path (recommended) or side by side for a trial week?
-5. **The nine placements:** "Needs changes"; they wait for your detail.
+**Decided (Jason, 2026-11-22), all as recommended:**
+1. **Site health: one path.** Every failure goes through the dispatcher once: a build regression is a Pulse item with no push;
+   a runtime failure is an alarm, pushed only for a trip or a critical part. Site health's own notices stop, and its list stays
+   as the audit's view. (Rejected: side by side for a trial week.)
+2. **Reviewed, per 0145:** no open finding, plus his sign-off on record (a release approval, or his ruling on the page's
+   proposal). Past work without it shows "audited, awaiting sign-off". (Rejected: Claude's review alone; his chat approval of
+   each build. Both kept in `gauge-criteria-from-audit.md` as rejected alternatives.)
+3. **The register's targets and schedule: approved** (`check-register.md`). The AUDIT row's 20% is ours, approved with the
+   schedule. The gauge-level paths note stands (an item's three paths read its gauge's lists).
+
+**Open:**
+1. **The nine placements:** "Needs changes"; they wait for your detail.
 
 Settled by the session manager (2026-11-22): weights stay at 1; the owning sessions map releases #60–#69 to items, through
 the session manager.

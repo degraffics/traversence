@@ -75,7 +75,7 @@ CHECKS += [
 CHECKS.append(dict(id='AUDIT', name='The audit\'s own load: what each run asks of the site', source='Jason, 2026-11-22: "wont bog our platform or resources down creating slowness issues"',
                    scope='every run of every check', measure='each run\'s requests to the site, its time, and the probe pages\' response times against their baseline',
                    target='', runs='every run reports it', evidence='proposed: an "Audit" runtime card on the board', status='not built', latest='no check yet', result='no check'))
-TARGETS = {   # one target per check, with its source; every one proposed until Jason sets it
+TARGETS = {   # one target per check, with its source; approved by Jason, 2026-11-22
     **{f'R{n:02d}': ('0 failures in the files it reads', 'site-audit/rules.md (its rule); decisions/0145 §6 (the zip check blocks the "yes" rules)') for n in range(1, 16)},
     'RENDER': ('every page answers, with no console error, no failed request, no sideways scroll at 390 and card edges at 3px, as each account; the accessibility basics at WCAG 2.2 AA',
                'decisions/0145 §1; CLAUDE.md "Phone layout and visual standard"; decisions/0058 §11; W3C WCAG 2.2, level AA'),
@@ -90,7 +90,7 @@ TARGETS = {   # one target per check, with its source; every one proposed until 
     'BRAND': ('the readable standards of brand.md met: its tokens, one header per view, filters as one dropdown, card anatomy, icons; text contrast at least 4.5:1, focus visible',
               'brand.md §4; design/css-theme-brand.md; CLAUDE.md; W3C WCAG 2.2 SC 1.4.3 Contrast (Minimum) and 2.4.7 Focus Visible'),
     'AUDIT': ('a light run asks at most about 20 requests, one at a time with a 1 s gap; the probe pages\' response times stay within 20% of their 7-day median, or the next run backs off',
-              'Jason, 2026-11-22 (the schedule below); the 20% is ours, proposed'),
+              'Jason, 2026-11-22 (the schedule below); the 20% is ours, approved with the schedule'),
 }
 RUNS = {   # Jason, 2026-11-22: "what would be an acceptable time, and wont bog our platform or resources down creating slowness issues"
     **{f'R{n:02d}': '1. on every zip and after every sync, on GitHub (no load on the site)' for n in range(1, 16)},
@@ -108,7 +108,7 @@ RUNS = {   # Jason, 2026-11-22: "what would be an acceptable time, and wont bog 
 }
 for c in CHECKS:
     c['target'], c['target_source'] = TARGETS[c['id']]
-    c['target_status'] = 'proposed'
+    c['target_status'] = 'ours, approved with the schedule (Jason, 2026-11-22)' if c['id'] == 'AUDIT' else 'approved (Jason, 2026-11-22)'
     c['runs'] = RUNS[c['id']]
 SCHEDULE = [
     ('1. Code checks', 'R01–R15', 'on every zip and after every sync', 'none to the site (reads the mirror and the zip)', 'a few minutes', 'GitHub\'s runners'),
@@ -144,13 +144,14 @@ def write():
          '| ID | Check | Source rule | Scope | Measure | When it runs | Latest | Evidence | Status |', '|---|---|---|---|---|---|---|---|---|']
     for c in CHECKS:
         L.append(f'| **{c["id"]}** | {c["name"]} | {c["source"]} | {c["scope"]} | {c["measure"]} | {c["runs"]} | {c["latest"]} | {c["evidence"]} | {c["status"]} |'.replace('\n', ' '))
-    L += ['', '## Targets: one per check, with its source (every one proposed)', '',
+    L += ['', '## Targets: one per check, with its source (approved, Jason, 2026-11-22)', '',
           'Each check has one target. Where a published standard fits, it\'s cited by name (Google\'s Core Web Vitals; W3C WCAG 2.2);',
-          'otherwise the decision line it comes from. Every target is **proposed** until Jason sets it.', '',
-          '| Check | Target (proposed) | Source |', '|---|---|---|']
-    L += ['| R01–R15 | 0 failures in the files each reads | site-audit/rules.md (each rule); decisions/0145 §6 |']
-    L += [f'| {c["id"]} | {c["target"]} | {c["target_source"]} |' for c in CHECKS if not re.match(r'R\d\d$', c['id'])]
-    L += ['', '## How often, and what each run asks of the site', '',
+          'otherwise the decision line it comes from. **Jason approved every target as proposed (2026-11-22).** The AUDIT row\'s 20% is ours,',
+          'approved with the schedule.', '',
+          '| Check | Target | Source | Status |', '|---|---|---|---|']
+    L += ['| R01–R15 | 0 failures in the files each reads | site-audit/rules.md (each rule); decisions/0145 §6 | approved (Jason, 2026-11-22) |']
+    L += [f'| {c["id"]} | {c["target"]} | {c["target_source"]} | {c["target_status"]} |' for c in CHECKS if not re.match(r'R\d\d$', c['id'])]
+    L += ['', '## How often, and what each run asks of the site (approved, Jason, 2026-11-22)', '',
           'Jason (2026-11-22): "what would be an acceptable time, and wont bog our platform or resources down creating slowness issues".', '',
           '| Run | Checks | When | Requests to the site | Time | Where |', '|---|---|---|---|---|---|']
     L += [f'| {a} | {b} | {c} | {d} | {e} | {f} |' for a, b, c, d, e, f in SCHEDULE]
@@ -177,15 +178,15 @@ def write():
           '2. **The four gaps:** TOOLS first (with `site-audit/tools.md`), then LOAD, PHOTOS-SHOWN, BRAND; and the AUDIT card (each run\'s load).',
           '3. **One results format** for every check, extending findings.json: PHOTOS\'s results (today only an exit code) and LAYOUT\'s go into it.',
           '4. **The gauges read the register**, with **Run checks now** in each gauge\'s drawer.', '',
-          '## Site health: one notification path (a recommendation; Jason\'s question)', '',
-          'Jason (2026-11-22): "Failures = notifications, not sure if this is a replacement or side-by-side". **Recommended: one path.**',
+          '## Site health: one notification path (decided, Jason, 2026-11-22)', '',
+          'Jason asked: "Failures = notifications, not sure if this is a replacement or side-by-side". **He chose one path, as recommended.**',
           '- Each failure goes through the dispatcher once (decisions/0172, 0176). A **build regression** is a Pulse item with no push. A',
           '  **runtime failure** is an alarm, with a push only for a trip or a critical part.',
           '- **Site health stops sending its own notices.** Its list stays as the audit\'s view, reached from a gauge\'s drill-down.',
-          '- **The alternative:** side by side for a trial week, then choose.',
+          '- **Rejected alternative:** side by side for a trial week.',
           '- The audit stays the scheduled diagnostic: a failing check never trips anything on its own (the two clocks, decisions/0175).', '',
-          '## Open questions (Jason\'s calls)', '', '1. **Targets:** the proposed target per check (above), or his own?',
-          '2. **The schedule** above: acceptable as proposed?', '3. **Site health:** one path (recommended), or side by side for a trial week?']
+          '## Decided (Jason, 2026-11-22)', '', '1. **Targets:** approved as proposed, each with its source (the AUDIT row\'s 20% is ours, approved with the schedule).',
+          '2. **The schedule:** approved as proposed.', '3. **Site health:** one notification path.']
     open(OUT + 'check-register.md', 'w').write('\n'.join(L) + '\n')
     json.dump(dict(checks=CHECKS, results_format=RESULTS_FORMAT), open(OUT + 'check-register.json', 'w'), indent=1)
 

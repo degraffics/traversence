@@ -13,7 +13,7 @@
    "latest": "0 failures (2026-11-21 19:17 UTC)",
    "result": "pass",
    "target_source": "site-audit/rules.md (its rule); decisions/0145 \u00a76 (the zip check blocks the \"yes\" rules)",
-   "target_status": "proposed"
+   "target_status": "approved (Jason, 2026-11-22)"
   },
   {
    "id": "R02",
@@ -28,7 +28,7 @@
    "latest": "0 failures (2026-11-21 19:17 UTC)",
    "result": "pass",
    "target_source": "site-audit/rules.md (its rule); decisions/0145 \u00a76 (the zip check blocks the \"yes\" rules)",
-   "target_status": "proposed"
+   "target_status": "approved (Jason, 2026-11-22)"
   },
   {
    "id": "R03",
@@ -43,7 +43,7 @@
    "latest": "0 failures (2026-11-21 19:17 UTC)",
    "result": "pass",
    "target_source": "site-audit/rules.md (its rule); decisions/0145 \u00a76 (the zip check blocks the \"yes\" rules)",
-   "target_status": "proposed"
+   "target_status": "approved (Jason, 2026-11-22)"
   },
   {
    "id": "R04",
@@ -58,7 +58,7 @@
    "latest": "0 failures (2026-11-21 19:17 UTC)",
    "result": "pass",
    "target_source": "site-audit/rules.md (its rule); decisions/0145 \u00a76 (the zip check blocks the \"yes\" rules)",
-   "target_status": "proposed"
+   "target_status": "approved (Jason, 2026-11-22)"
   },
   {
    "id": "R05",
@@ -73,7 +73,7 @@
    "latest": "0 failures (2026-11-21 19:17 UTC)",
    "result": "pass",
    "target_source": "site-audit/rules.md (its rule); decisions/0145 \u00a76 (the zip check blocks the \"yes\" rules)",
-   "target_status": "proposed"
+   "target_status": "approved (Jason, 2026-11-22)"
   },
   {
    "id": "R06",
@@ -88,7 +88,7 @@
    "latest": "0 failures (2026-11-21 19:17 UTC)",
    "result": "pass",
    "target_source": "site-audit/rules.md (its rule); decisions/0145 \u00a76 (the zip check blocks the \"yes\" rules)",
-   "target_status": "proposed"
+   "target_status": "approved (Jason, 2026-11-22)"
   },
   {
    "id": "R07",
@@ -103,7 +103,7 @@
    "latest": "0 failures (2026-11-21 19:17 UTC)",
    "result": "pass",
    "target_source": "site-audit/rules.md (its rule); decisions/0145 \u00a76 (the zip check blocks the \"yes\" rules)",
-   "target_status": "proposed"
+   "target_status": "approved (Jason, 2026-11-22)"
   },
   {
    "id": "R08",
@@ -118,7 +118,7 @@
    "latest": "0 failures (2026-11-21 19:17 UTC)",
    "result": "pass",
    "target_source": "site-audit/rules.md (its rule); decisions/0145 \u00a76 (the zip check blocks the \"yes\" rules)",
-   "target_status": "proposed"
+   "target_status": "approved (Jason, 2026-11-22)"
   },
   {
    "id": "R09",
@@ -133,7 +133,7 @@
    "latest": "0 failures (2026-11-21 19:17 UTC)",
    "result": "pass",
    "target_source": "site-audit/rules.md (its rule); decisions/0145 \u00a76 (the zip check blocks the \"yes\" rules)",
-   "target_status": "proposed"
+   "target_status": "approved (Jason, 2026-11-22)"
   },
   {
    "id": "R10",
@@ -148,7 +148,7 @@
    "latest": "0 failures (2026-11-21 19:17 UTC)",
    "result": "pass",
    "target_source": "site-audit/rules.md (its rule); decisions/0145 \u00a76 (the zip check blocks the \"yes\" rules)",
-   "target_status": "proposed"
+   "target_status": "approved (Jason, 2026-11-22)"
   },
   {
    "id": "R11",
@@ -163,7 +163,7 @@
    "latest": "0 failures (2026-11-21 19:17 UTC)",
    "result": "pass",
    "target_source": "site-audit/rules.md (its rule); decisions/0145 \u00a76 (the zip check blocks the \"yes\" rules)",
-   "target_status": "proposed"
+   "target_status": "approved (Jason, 2026-11-22)"
   },
   {
    "id": "R12",
@@ -178,7 +178,7 @@
    "latest": "0 failures (2026-11-21 19:17 UTC)",
    "result": "pass",
    "target_source": "site-audit/rules.md (its rule); decisions/0145 \u00a76 (the zip check blocks the \"yes\" rules)",
-   "target_status": "proposed"
+   "target_status": "approved (Jason, 2026-11-22)"
   },
   {
    "id": "R13",
@@ -193,7 +193,7 @@
    "latest": "0 failures (2026-11-21 19:17 UTC)",
    "result": "pass",
    "target_source": "site-audit/rules.md (its rule); decisions/0145 \u00a76 (the zip check blocks the \"yes\" rules)",
-   "target_status": "proposed"
+   "target_status": "approved (Jason, 2026-11-22)"
   },
   {
    "id": "R14",
@@ -208,7 +208,7 @@
    "latest": "0 failures (2026-11-21 19:17 UTC)",
    "result": "pass",
    "target_source": "site-audit/rules.md (its rule); decisions/0145 \u00a76 (the zip check blocks the \"yes\" rules)",
-   "target_status": "proposed"
+   "target_status": "approved (Jason, 2026-11-22)"
   },
   {
    "id": "R15",
@@ -223,7 +223,7 @@
    "latest": "0 failures (2026-11-21 19:17 UTC)",
    "result": "pass",
    "target_source": "site-audit/rules.md (its rule); decisions/0145 \u00a76 (the zip check blocks the \"yes\" rules)",
-   "target_status": "proposed"
+   "target_status": "approved (Jason, 2026-11-22)"
   },
   {
    "id": "RENDER",
@@ -238,7 +238,7 @@
    "latest": "run 2026-11-21 09:40 UTC",
    "result": "per page",
    "target_source": "decisions/0145 \u00a71; CLAUDE.md \"Phone layout and visual standard\"; decisions/0058 \u00a711; W3C WCAG 2.2, level AA",
-   "target_status": "proposed"
+   "target_status": "approved (Jason, 2026-11-22)"
   },
   {
    "id": "PATHS",
@@ -253,7 +253,7 @@
    "latest": "run 2026-11-21 09:43 UTC",
    "result": "per path",
    "target_source": "site-audit/punch-list.md A6 (decided 2026-11-08); rules.md J01",
-   "target_status": "proposed"
+   "target_status": "approved (Jason, 2026-11-22)"
   },
   {
    "id": "SEARCH",
@@ -268,7 +268,7 @@
    "latest": "101 of 106 cases pass (2026-11-21 10:19 UTC)",
    "result": "fail",
    "target_source": "the search probe's own bar (site-audit/search-scorecard.md); decisions/0088 (\"never wait\")",
-   "target_status": "proposed"
+   "target_status": "approved (Jason, 2026-11-22)"
   },
   {
    "id": "LAYOUT",
@@ -283,7 +283,7 @@
    "latest": "5px above the hero on a landmark and on Discovery (2026-11-21 10:19 UTC)",
    "result": "fail",
    "target_source": "decisions/0058 \u00a721",
-   "target_status": "proposed"
+   "target_status": "approved (Jason, 2026-11-22)"
   },
   {
    "id": "PHOTOS",
@@ -298,7 +298,7 @@
    "latest": "exit code in the run only: no result kept in git",
    "result": "not recorded",
    "target_source": "decisions/0123; the 2026-11-15 404",
-   "target_status": "proposed"
+   "target_status": "approved (Jason, 2026-11-22)"
   },
   {
    "id": "BOARD",
@@ -313,7 +313,7 @@
    "latest": "per workflow (alarms snapshot, 2026-11-21 3:19 AM MST)",
    "result": "per item",
    "target_source": "decisions/0171, 0175",
-   "target_status": "proposed"
+   "target_status": "approved (Jason, 2026-11-22)"
   },
   {
    "id": "TOOLS",
@@ -328,7 +328,7 @@
    "latest": "no check yet",
    "result": "no check",
    "target_source": "decisions/0145 \u00a71 (\"Function and tool checks\")",
-   "target_status": "proposed"
+   "target_status": "approved (Jason, 2026-11-22)"
   },
   {
    "id": "LOAD",
@@ -343,7 +343,7 @@
    "latest": "no check yet",
    "result": "no check",
    "target_source": "Google's Core Web Vitals thresholds; the board's \"Pages load fast\" (about 2.5 s, des)",
-   "target_status": "proposed"
+   "target_status": "approved (Jason, 2026-11-22)"
   },
   {
    "id": "PHOTOS-SHOWN",
@@ -358,7 +358,7 @@
    "latest": "no check yet",
    "result": "no check",
    "target_source": "Jason, 2026-11-22 (\"the photo loads and display\"); W3C WCAG 2.2 SC 1.1.1 Non-text Content",
-   "target_status": "proposed"
+   "target_status": "approved (Jason, 2026-11-22)"
   },
   {
    "id": "BRAND",
@@ -373,7 +373,7 @@
    "latest": "partial: R10, R11 and the 3px edges only",
    "result": "partial",
    "target_source": "brand.md \u00a74; design/css-theme-brand.md; CLAUDE.md; W3C WCAG 2.2 SC 1.4.3 Contrast (Minimum) and 2.4.7 Focus Visible",
-   "target_status": "proposed"
+   "target_status": "approved (Jason, 2026-11-22)"
   },
   {
    "id": "AUDIT",
@@ -387,8 +387,8 @@
    "status": "not built",
    "latest": "no check yet",
    "result": "no check",
-   "target_source": "Jason, 2026-11-22 (the schedule below); the 20% is ours, proposed",
-   "target_status": "proposed"
+   "target_source": "Jason, 2026-11-22 (the schedule below); the 20% is ours, approved with the schedule",
+   "target_status": "ours, approved with the schedule (Jason, 2026-11-22)"
   }
  ],
  "results_format": {

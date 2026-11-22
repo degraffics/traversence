@@ -1974,6 +1974,12 @@ reference** (Q21 and SM 172–189, `step1-requirements.md`), by Jason's directio
   Services ▸ (the Service register's outside companies). The checks behind the gauges are one register
   (`sections/check-register.md`): targets proposed with their sources, the schedule with each run's load, Site health's one path
   as a recommendation.
+- **Decided (Jason, 2026-11-22), all as recommended:** (1) **Site health: one path**: every failure goes through the dispatcher
+  once (a build regression a Pulse item with no push; a runtime failure an alarm, pushed only for a trip or a critical part);
+  Site health's own notices stop and its list stays as the audit's view. (2) **Reviewed, per 0145**: no open finding plus his
+  sign-off on record (a release approval or his ruling on the page's proposal); past work without it shows "audited, awaiting
+  sign-off"; Claude's review alone and the chat approval are rejected. (3) **The register's targets and schedule are approved**;
+  the AUDIT row's 20% is ours, approved with the schedule.
 
 ---
 
