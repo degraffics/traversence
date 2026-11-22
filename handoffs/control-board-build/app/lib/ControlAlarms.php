@@ -959,6 +959,8 @@ final class ControlAlarms
         foreach (self::expireTries($pdo) as $p) $did[] = $p;
         // maintenance windows (0171 §2.5, release 4a): one whose time has come goes out; one past its Back by comes back
         try { require_once __DIR__ . '/ControlMaintenance.php'; foreach (ControlMaintenance::tick($pdo) as $m) $did[] = 'maintenance: ' . $m; } catch (Throwable $x) {}
+        // the outside heartbeat's records, raised while the site was down, numbered now it's back (02 §0a ruling 6)
+        try { require_once __DIR__ . '/ControlIncidents.php'; if ($hb = ControlIncidents::importHeartbeat($pdo)) $did[] = $hb . ' heartbeat record(s) imported'; } catch (Throwable $x) {}
         require_once __DIR__ . '/Automation.php';
         $masterOn = Automation::master($pdo) === null;
         // W0 Indexer: its check-in (every minute or so while it runs)

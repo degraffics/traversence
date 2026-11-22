@@ -1,0 +1,47 @@
+# The outside heartbeat (the state model, 02 §0a ruling 6 and O3; rows 53–55; handoffs/control-board-build.md D23).
+# When Bluehost is down the board can't load, so GitHub checks from outside every 20 minutes (O3: 15–30): the home page,
+# the databases and the board's watch. A part down is a critical trip at once: an unnumbered record in
+# site-audit/heartbeat/records.json and one email through SES only (no push: the push keys stay on Bluehost). Recovered goes
+# in the same thread. The site imports closed records when it's back and numbers them (ControlIncidents::importHeartbeat).
+# Secrets (close.md A1; set at https://github.com/degraffics/traversence/settings/secrets/actions):
+#   ALARM_TO              the Founder's address trips already reach (R126)
+#   HEARTBEAT_SES_KEY_ID  an SES send-only key (AWS IAM: ses:SendRawEmail only), https://console.aws.amazon.com/iam/
+#   HEARTBEAT_SES_SECRET  its secret
+#   HEALTH_TOKEN          already set (the site audit's), for the databases and the watch
+# Until ALARM_TO and the key are set, the records are still written and the run warns "not set up (ALARM_TO)".
+# This reaches main only with the control board's release, after Jason's Approve (session manager, 2026-11-22).
+name: Outside heartbeat
+
+on:
+  schedule:
+    - cron: '7,27,47 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: heartbeat
+  cancel-in-progress: false
+
+jobs:
+  beat:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check the site from outside
+        env:
+          HEALTH_TOKEN: ${{ secrets.HEALTH_TOKEN }}
+          ALARM_TO: ${{ secrets.ALARM_TO }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.HEARTBEAT_SES_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.HEARTBEAT_SES_SECRET }}
+          SES_REGION: us-east-2
+        run: python3 tools/heartbeat/heartbeat.py --records site-audit/heartbeat/records.json
+      - name: Keep the record
+        run: |
+          git add site-audit/heartbeat/records.json
+          if git diff --cached --quiet; then echo "Nothing changed."; exit 0; fi
+          git -c user.name="Outside heartbeat" -c user.email="heartbeat@users.noreply.github.com" commit -qm "Heartbeat: record updated"
+          for i in 1 2 3 4; do git pull -q --rebase origin main && git push -q origin HEAD:main && exit 0; sleep $((i * 5)); done
+          echo "::warning::The record couldn't be pushed; the next run writes it again."

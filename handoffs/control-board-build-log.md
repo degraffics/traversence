@@ -192,6 +192,40 @@ says which schema it needs.
 - **Outside this zip (recorded, per the brief):** the crawler worker's 432 fix (`workers/crawler/crawler.py`
   `note_issue`: report any status >= 400 with its status and body) is a separate worker release after the board is live.
 
+### 7. The views: how they're split, and their one contract (2026-11-22 22:50 UTC)
+
+Built in parallel by helpers inside this session, each owning its files, all in `handoffs/control-board-build/` (a file
+not yet there starts from its live copy at `7c99b2c`):
+- **Gauges' data (G):** `app/lib/ControlGauges.php`; `tools/page-audit/gauges.py` writing `site-audit/results/gauges.json`
+  (the 16 development gauges' draft configuration from `step3/sections/inventory.json`, the criteria from the check register,
+  the 23 runtime gauges' setup and associations); `tools/control-board-tests/gauges.php`.
+- **The board's views (B):** `app/admin/control-console.php`, `website/js/admin-control.js`, `website/js/tv-copy.js`,
+  `app/lib/ControlReport.php`'s page: "Is it delivering?", Development, Incidents (IR-####), the folded Reports (D16),
+  Copy by section (D15), the Open list keeping acknowledged trips (D5).
+- **Workflows (W):** `app/admin/operations-console.php` (the Workflows page, `workflows-page.md` §5 and §7),
+  `app/admin/automation-console.php` (W13 a list, W14 "Not built"), `app/admin/preflight-console.php`, D9's failed jobs.
+- **Modules (M):** `app/admin/module-cards.php` (new): the four-zone card (03 §1–§4, §8–§9) for the Service register's
+  modules and the hosts and endpoints as parts (D18), hooked into `operations-console.php`'s register.
+- **The register's missing checks (C):** `tools/page-audit/tools-check.mjs`, `load-check.mjs`, `photos-shown.mjs`,
+  `brand-check.mjs`, `audit-sample.py`, `.github/workflows/site-checks.yml` (`check-register.md`).
+- **This session:** `app/ui/score-gauge.php` (done), `.github/workflows/heartbeat.yml`, the scenario test, the rendered
+  checks, the FAQ, the summary and delivery.
+
+**The contract** (PHP 8.0):
+- `tv_score_gauge(?float $score, string $label, string $k, array $o = [])` and `tv_score_stage_pill($stage)`,
+  `tv_score_gauge_css()` (`app/ui/score-gauge.php`). `$k`: a stage key `planning|phased|audit|impl|monitor`, or at
+  Monitoring a band `good|below|poor|none`.
+- `ControlGauges::runtime(PDO): array` — the 23 runtime gauges, each `id, box` (its promise), `title, measure, target`
+  (null: "target: set by Jason"), `unit, reading` (?float), `reading_text, at` (?int), `live` (bool), `band`
+  (`good|below|poor|none`), `stage, setup` (`probe, target, check, alarm` bools), `score` (0–100: setup % below
+  Monitoring, the reading against its target at it), `paths` (`workflows`, `core`, `registered`: each a list of
+  `[id, name, state, share|null, href]`), `fix` (list of `[label, href]`), `no_check` (check IDs missing).
+- `ControlGauges::development(PDO): array` — the 16, each `id, title, stage, score, signed` (bool), `items, criteria,
+  met, preview` (the draft's %), `no_check, paths`.
+- `ControlGauges::workflows(PDO): array` — W0–W14, each `wf, name, kind` (`gauge|list|not_built`), `stage, score,
+  setup, measure, target, reading_text, band`.
+- `ControlGauges::source(PDO): array` — `ok, at, from` (where the configuration was read, its time).
+
 ## Next, in the plan's order (§2.2) (superseded by the hand-off above)
 1. Read C15 on staging (§6), and the Ledger tab's rows: read-only, wanted from a runner or Jason.
 2. Remaining callers: Operations, ControlSensor, ControlMaintenance and ControlHistorian (they raise through the store,
