@@ -433,7 +433,7 @@
    <button type="button" class="tvn-tab" data-tv-toggle="nav" aria-label="Collapse or expand the menu icons" title="Collapse or expand">
      <svg viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="2"/></svg>
    </button>
-@@ -488,6 +493,27 @@
+@@ -488,6 +493,29 @@
  <script<?= tv_nonce() ?>>(function () { var n = document.getElementById('tv-notice'), t = document.getElementById('top-bar'); if (n && t && t.parentNode) t.parentNode.insertBefore(n, t.nextSibling); })();</script>
  <?php endif;
  }
@@ -453,7 +453,9 @@
 +  <a href="/admin/staff.php#my-app" style="color:var(--tv-link);font-weight:700;text-decoration:underline;white-space:nowrap">Add it</a>
 +  <form method="post" action="/admin/staff.php" style="display:contents"><input type="hidden" name="csrf" value="<?= $tv_e((string) ($_SESSION['csrf_token'] ?? '')) ?>"><input type="hidden" name="do" value="app_nudge_off"><input type="hidden" name="back" value="<?= $tv_e((string) ($_SERVER['REQUEST_URI'] ?? '/admin/')) ?>"><button style="background:none;border:0;color:var(--tv-meta,#6B5A45);text-decoration:underline;cursor:pointer;font-size:.85rem;padding:0;white-space:nowrap">Not now</button><button aria-label="Not now" title="Not now" style="position:absolute;top:.2rem;right:.35rem;background:none;border:0;font-size:1.3rem;line-height:1;color:var(--tv-meta,#6B5A45);cursor:pointer;padding:.2rem .3rem">&times;</button></form>
 +</div>
-+<script<?= tv_nonce() ?>>document.addEventListener('DOMContentLoaded', function () { var n = document.getElementById('tv-appnudge'); if (n) document.body.appendChild(n); });   // out of the header's stacking, over the page</script>
++<script<?= tv_nonce() ?>>document.addEventListener('DOMContentLoaded', function () { var n = document.getElementById('tv-appnudge'); if (!n) return; document.body.appendChild(n);
++  // the page keeps room for it at its foot, so it never covers a page's last button (a record page's Save, the way-back bar)
++  var pad = function () { document.body.style.paddingBottom = (n.offsetHeight + 24) + 'px'; }; pad(); addEventListener('resize', pad); });   // out of the header's stacking, over the page</script>
 +<?php       endif;
 +        }
 +    } catch (Throwable $tv_x) { error_log('app nudge: ' . $tv_x->getMessage()); }

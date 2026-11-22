@@ -102,7 +102,7 @@ Files (16): `website/login.php`, `website/admin/login.php`, `website/admin/staff
 | The setup link and the new mailbox password shown to the owner once: hidden until Show, Copy, Done | B8 ("show it to the owner to hand over"); CLAUDE.md "one-time secrets stay hidden until asked for" |
 | Every action in the staff log and the case's notes; the old address told of an email change; the mailbox told of a reset | B8 guard rails |
 | Close it (with what happened) closes the request and the case | B8 (a case needs a way to end; the request's own state) |
-| Staff with no authenticator app: one bar at the foot of admin pages, **Add it** (/admin/staff.php#my-app), **Not now** and ×, remembered per staff login | B8 ("one dismissable notice … remembered per staff login") |
+| Staff with no authenticator app: one bar at the foot of admin pages, **Add it** (/admin/staff.php#my-app), **Not now** and ×, remembered per staff login; the page keeps room at its foot so its last button is never under it, and it overlaps nothing fixed or sticky (the way-back bar sits at the top; session manager review 2026-11-22) | B8 ("one dismissable notice … remembered per staff login") |
 | Pulse step buttons (shared): an optional options element `{confirm, yes, danger, off}`; the API's `once` | the brief ("one shared change, so claim it") |
 
 ### Kept, moved, dropped (playbook §3)
@@ -124,7 +124,7 @@ Files (16): `website/login.php`, `website/admin/login.php`, `website/admin/staff
 - Signed in with no authenticator app → the bar at the foot: Add it, or Not now / × (gone for good).
 
 ### Proof (`tools/design-tests/signin-3f/run.cjs` with `seed.sql`, on the harness; `signin-3f/proof/`)
-128 checks, 128 passed, 1280 and 390: every flow above pressed in a real browser (the run's output is
+136 checks, 136 passed, 1280 and 390: every flow above pressed in a real browser (the run's output is
 `proof/run-output.txt`; screenshots `proof/3f-*.png`, `proof/join-390.png`). The cPanel reset was pressed against the
 harness's stand-in (the real call goes through `CPanelMail`, held on staging by `StagingGate`); mail was captured, not
 sent. The real run happens on staging and live.

@@ -99,6 +99,21 @@ const noSideways = async (p, w, m) => { const sw = await p.evaluate(() => docume
       return { t: n.innerText, add: n.querySelector('a').getAttribute('href'), top: !!(at && at.closest('#tv-appnudge')), inView: b.top >= 0 && b.bottom <= innerHeight && b.left >= 0 && b.right <= innerWidth }; });
     ok(r && /Add an authenticator app/.test(r.t) && r.add === '/admin/staff.php#my-app', 'B8: no authenticator app: the notice to add it, with Add it (' + (r && r.add) + ')');
     ok(r && r.top && r.inView, 'B8: the notice is on top and wholly in the window (not under the admin\'s fixed headers)');
+    // with the way-back bar (admin kit, .tv-trl) and anything else fixed or sticky: never overlapping; the page keeps room
+    // at its foot, so its last button scrolls clear of the bar (session manager's review, 2026-11-22)
+    for (const u of ['/admin/staff.php', '/admin/dashboard/today']) {
+      await go(p, u);
+      r = await p.evaluate(() => { const n = document.getElementById('tv-appnudge'), nb = n.getBoundingClientRect(); const hit = (a, b) => a.left < b.right && b.left < a.right && a.top < b.bottom && b.top < a.bottom;
+        const others = [...document.querySelectorAll('body *')].filter(e => e !== n && !n.contains(e) && !e.contains(n) && /fixed|sticky/.test(getComputedStyle(e).position) && e.offsetHeight > 0 && e.offsetWidth > 0);
+        const clash = others.filter(e => hit(e.getBoundingClientRect(), nb)).map(e => e.id || e.className);
+        const trl = document.querySelector('.tv-trl'), tb = trl && trl.getBoundingClientRect();
+        scrollTo(0, document.documentElement.scrollHeight); const btns = [...document.querySelectorAll('#ta-work button, #ta-work a.hb-b, #ta-work input[type=submit]')].filter(b => b.offsetHeight > 0 && b.offsetParent !== null);
+        const last = btns[btns.length - 1], lb = last && last.getBoundingClientRect(), nb2 = n.getBoundingClientRect();
+        return { clash, trl: !!trl, trlClash: !!(tb && hit(tb, nb)), pad: parseFloat(getComputedStyle(document.body).paddingBottom) >= n.offsetHeight, last: last && last.textContent.trim().slice(0, 30), lastClear: !lb || lb.bottom <= nb2.top }; });
+      ok(r.clash.length === 0 && !r.trlClash, 'B8: ' + u + ': the bar overlaps nothing fixed or sticky' + (r.trl ? ', nor the way-back bar' : '') + (r.clash.length ? ' (' + r.clash.join(', ') + ')' : ''));
+      ok(r.pad && r.lastClear, 'B8: ' + u + ': the page keeps room at its foot; its last button ("' + r.last + '") scrolls clear of the bar');
+    }
+    await go(p, '/admin/staff.php');
     await noSideways(p, w, 'the admin with the notice');
     if (w === 390) await p.screenshot({ path: '/tmp/claude-0/shots/3f-nudge-390.png' });
     const nn = w === 390 ? '#tv-appnudge button[aria-label="Not now"]' : '#tv-appnudge button:has-text("Not now")';   // × at 390, the words at 1280
