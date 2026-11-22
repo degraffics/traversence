@@ -6,167 +6,225 @@
     "zip": "design-3f-leftovers.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "staged",
-    "step": 0,
+    "state": "live",
+    "step": 3,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
     "plan_at": "2026-11-22 20:52:55",
     "staged_at": "2026-11-22 20:52:57",
-    "vetted_at": null,
-    "live_at": null,
+    "vetted_at": "2026-11-22 20:53:01",
+    "live_at": "2026-11-22 20:53:01",
     "files": {
         "app/business/portal.php": {
             "sha": "11854e0f5feae2414249e096c86791ea11616aa97557ffd5714a9cf302556fca",
             "size": 18686,
-            "live_was": "da00f2a1bbf906f562c405937df6464fb7e4d379644f2383de7bb4460af180bb"
+            "live_was": "da00f2a1bbf906f562c405937df6464fb7e4d379644f2383de7bb4460af180bb",
+            "existed": true,
+            "old_sha": "da00f2a1bbf906f562c405937df6464fb7e4d379644f2383de7bb4460af180bb"
         },
         "website/listing/location.php": {
             "sha": "1685f815b8aa90f50d4a826f389d6abd8a0f904a3bae564d0d349aec50175752",
             "size": 12226,
-            "live_was": "54a032dbe58c85a91d6c856c873c14b6baeefa9db09187ba529624cf575e4e64"
+            "live_was": "54a032dbe58c85a91d6c856c873c14b6baeefa9db09187ba529624cf575e4e64",
+            "existed": true,
+            "old_sha": "54a032dbe58c85a91d6c856c873c14b6baeefa9db09187ba529624cf575e4e64"
         },
         "website/listing/businessportal.php": {
             "sha": "0fcd953b33b385c84868bec5c744d43ea9afccfdca2a5057e1c5d87611167bcb",
             "size": 22595,
-            "live_was": "0929988c8aace5ae23414b79a99f774229982d494166e9cc74fc2ef534cf8180"
+            "live_was": "0929988c8aace5ae23414b79a99f774229982d494166e9cc74fc2ef534cf8180",
+            "existed": true,
+            "old_sha": "0929988c8aace5ae23414b79a99f774229982d494166e9cc74fc2ef534cf8180"
         },
         "website/ai/index.php": {
             "sha": "3aeba5391aefec7768ca21b301bf898779645dccfa6b00efb5380ee3ddc72609",
             "size": 15514,
-            "live_was": "c18c00b75bbbdc563c6df906ad1ff1eb936307770296796dfc0b5bc5897b5c5a"
+            "live_was": "c18c00b75bbbdc563c6df906ad1ff1eb936307770296796dfc0b5bc5897b5c5a",
+            "existed": true,
+            "old_sha": "c18c00b75bbbdc563c6df906ad1ff1eb936307770296796dfc0b5bc5897b5c5a"
         },
         "website/register.php": {
             "sha": "15e9624db9bcf6d2ab79c86396aabd9a99532d9ef1172c8f0d44a938f1660676",
             "size": 10230,
-            "live_was": "b2b94b90a6dfa978477dcd12568bec970a786bc4c49c4da078a2375a6a44a8ea"
+            "live_was": "b2b94b90a6dfa978477dcd12568bec970a786bc4c49c4da078a2375a6a44a8ea",
+            "existed": true,
+            "old_sha": "b2b94b90a6dfa978477dcd12568bec970a786bc4c49c4da078a2375a6a44a8ea"
         },
         "website/user/journeys/index.php": {
             "sha": "4d80ed694421c7b946b789b1b79c5b09497d3d3e2e317fbee965a86c00c97f42",
             "size": 11088,
-            "live_was": "a71921db10699c737f4155177b2ae5ab3498df9f1ae8b2f48513090baffeac3c"
+            "live_was": "a71921db10699c737f4155177b2ae5ab3498df9f1ae8b2f48513090baffeac3c",
+            "existed": true,
+            "old_sha": "a71921db10699c737f4155177b2ae5ab3498df9f1ae8b2f48513090baffeac3c"
         },
         "website/user/journeys/compose.php": {
             "sha": "a818e66fd260827360349142faba89cfc5f94b0372846d5917f32e3224e92976",
             "size": 37798,
-            "live_was": "ac9bd0b42c598a94652b8ebdec2707c2eb955f0c22fd584940083c19460eab1e"
+            "live_was": "ac9bd0b42c598a94652b8ebdec2707c2eb955f0c22fd584940083c19460eab1e",
+            "existed": true,
+            "old_sha": "ac9bd0b42c598a94652b8ebdec2707c2eb955f0c22fd584940083c19460eab1e"
         },
         "website/user/trips/trip.php": {
             "sha": "8bede7030e6f50e3da4035753d5c92cb765129dc1abb5bdbde07329c965d4ed3",
             "size": 35865,
-            "live_was": "49fa43e8223d8fcd5516c85dcfc45da405eac9195411831994a1dfc4dea91e4a"
+            "live_was": "49fa43e8223d8fcd5516c85dcfc45da405eac9195411831994a1dfc4dea91e4a",
+            "existed": true,
+            "old_sha": "49fa43e8223d8fcd5516c85dcfc45da405eac9195411831994a1dfc4dea91e4a"
         },
         "website/user/notice.php": {
             "sha": "d01687f77f0b8cebcb77a6ce6e7f693151fa2f532e4a9df13d400cf26f6340a6",
             "size": 11546,
-            "live_was": "d8fb7e77fa07ed48add35ff97964cfe6e320b95ae9908849ce8f4289949aafa4"
+            "live_was": "d8fb7e77fa07ed48add35ff97964cfe6e320b95ae9908849ce8f4289949aafa4",
+            "existed": true,
+            "old_sha": "d8fb7e77fa07ed48add35ff97964cfe6e320b95ae9908849ce8f4289949aafa4"
         },
         "website/user/experiences/index.php": {
             "sha": "8c24521796426ee3238e6064943f1b634f1a9fcbb17164e0d4157ff20d8318ef",
             "size": 17524,
-            "live_was": "b05daa331c6559bff06894c158cf56fb0ae129e11c689239a674d804dc8b04e9"
+            "live_was": "b05daa331c6559bff06894c158cf56fb0ae129e11c689239a674d804dc8b04e9",
+            "existed": true,
+            "old_sha": "b05daa331c6559bff06894c158cf56fb0ae129e11c689239a674d804dc8b04e9"
         },
         "website/user/accounts.php": {
             "sha": "dbfe08b773211a97960a8d0a7a6964fba61eac2f6466ce4b36866c1d3a128307",
             "size": 8977,
-            "live_was": "0ce6afd14f5a44c8e8be09d4f96c3b523ddaaefe1c591e1c48118427b7f4fb98"
+            "live_was": "0ce6afd14f5a44c8e8be09d4f96c3b523ddaaefe1c591e1c48118427b7f4fb98",
+            "existed": true,
+            "old_sha": "0ce6afd14f5a44c8e8be09d4f96c3b523ddaaefe1c591e1c48118427b7f4fb98"
         },
         "website/user/profile.php": {
             "sha": "120be5fac6987b182d43c5800c5c6b451fdfedd6f40d26a42c8122f20553f30c",
             "size": 19506,
-            "live_was": "bc9577bc619ff4fc6d6fd6636660ed5abfc1df0887c5f4df92425cbb847d7196"
+            "live_was": "bc9577bc619ff4fc6d6fd6636660ed5abfc1df0887c5f4df92425cbb847d7196",
+            "existed": true,
+            "old_sha": "bc9577bc619ff4fc6d6fd6636660ed5abfc1df0887c5f4df92425cbb847d7196"
         },
         "website/user/market/index.php": {
             "sha": "972a7e9f96d5e2225e9ee4c24946ddedd34e2944fcf14ca56c37171f1f652eb1",
             "size": 31762,
-            "live_was": "3245f862b8249f4940ae0afd22ef853a848e29f3912d1a8380b01a93284fd7a0"
+            "live_was": "3245f862b8249f4940ae0afd22ef853a848e29f3912d1a8380b01a93284fd7a0",
+            "existed": true,
+            "old_sha": "3245f862b8249f4940ae0afd22ef853a848e29f3912d1a8380b01a93284fd7a0"
         },
         "website/faq.php": {
             "sha": "83ce911bcca1cdafb2e68d3681c2f9247ed66c49cb044f0657f7d1ef827fa076",
             "size": 8639,
-            "live_was": "1df9442e5ae35908477d8e26e8467ed32f797e679a9f7e173a49ec659266ebef"
+            "live_was": "1df9442e5ae35908477d8e26e8467ed32f797e679a9f7e173a49ec659266ebef",
+            "existed": true,
+            "old_sha": "1df9442e5ae35908477d8e26e8467ed32f797e679a9f7e173a49ec659266ebef"
         },
         "website/plans.php": {
             "sha": "fb883570b512b5d215466c8ae2160bb8a2f37cb9839fa46895b7c1d6e3bd77b8",
             "size": 20977,
-            "live_was": "ec4a77dd1fe8224fc6f8ab103639c1a46febf1fe9781b729feadb8eb4cf06333"
+            "live_was": "ec4a77dd1fe8224fc6f8ab103639c1a46febf1fe9781b729feadb8eb4cf06333",
+            "existed": true,
+            "old_sha": "ec4a77dd1fe8224fc6f8ab103639c1a46febf1fe9781b729feadb8eb4cf06333"
         },
         "website/business/router.php": {
             "sha": "b9598b271568d025eeedfa54254624a5e4dff859996ec9f0652cd0fc9e51ed0e",
             "size": 49243,
-            "live_was": "c4f841909e37774b89c2390da6dbca14332bf69ba27dedb7cb79f798b2113fe5"
+            "live_was": "c4f841909e37774b89c2390da6dbca14332bf69ba27dedb7cb79f798b2113fe5",
+            "existed": true,
+            "old_sha": "c4f841909e37774b89c2390da6dbca14332bf69ba27dedb7cb79f798b2113fe5"
         },
         "website/hub/build.php": {
             "sha": "ae8724d17f8bc7e590e22011321f265d5765e8620620041e6bf61a03adafa6f3",
             "size": 14109,
-            "live_was": "e9d0405ec3a50805ace15b932e4369debca56e5ac89571e1d9b8b49354a2f20e"
+            "live_was": "e9d0405ec3a50805ace15b932e4369debca56e5ac89571e1d9b8b49354a2f20e",
+            "existed": true,
+            "old_sha": "e9d0405ec3a50805ace15b932e4369debca56e5ac89571e1d9b8b49354a2f20e"
         },
         "website/verify-email.php": {
             "sha": "7817ad0c7041b863526b02194bf444ec9dd61ccda907cb099b37d684595bc468",
             "size": 10613,
-            "live_was": "14bf31cc8182e3f49ffa3b27432869e86f3cbe3f6eb5161e9f9e681f1f808375"
+            "live_was": "14bf31cc8182e3f49ffa3b27432869e86f3cbe3f6eb5161e9f9e681f1f808375",
+            "existed": true,
+            "old_sha": "14bf31cc8182e3f49ffa3b27432869e86f3cbe3f6eb5161e9f9e681f1f808375"
         },
         "website/claim.php": {
             "sha": "973283c5c2e6b239aaf16831a15fb28bd804b6be00f61264158e5085ec865248",
             "size": 29122,
-            "live_was": "ab038f4103181275bc7ba9c9a21331202ead4e349b052bc23b21482943502519"
+            "live_was": "ab038f4103181275bc7ba9c9a21331202ead4e349b052bc23b21482943502519",
+            "existed": true,
+            "old_sha": "ab038f4103181275bc7ba9c9a21331202ead4e349b052bc23b21482943502519"
         },
         "website/two-step.php": {
             "sha": "96de794145267fef94de1538419208bc25dc67eeb208f9c51fb301da07c11733",
             "size": 7455,
-            "live_was": "4113f10014472d4e8024b1b829c22f68af3f56b89f1beaba6437d98a2df95124"
+            "live_was": "4113f10014472d4e8024b1b829c22f68af3f56b89f1beaba6437d98a2df95124",
+            "existed": true,
+            "old_sha": "4113f10014472d4e8024b1b829c22f68af3f56b89f1beaba6437d98a2df95124"
         },
         "website/verify-listing.php": {
             "sha": "7222fe5353bc0f93db32bd49255d5d0fb04bfa09e16d76ae0b5a669e5425e31d",
             "size": 6512,
-            "live_was": "80570c1a3199fc917065b92a548a80cd9f032baa2a980766ccf52da8c8433033"
+            "live_was": "80570c1a3199fc917065b92a548a80cd9f032baa2a980766ccf52da8c8433033",
+            "existed": true,
+            "old_sha": "80570c1a3199fc917065b92a548a80cd9f032baa2a980766ccf52da8c8433033"
         },
         "website/nexus.php": {
             "sha": "2f1b6c1df9cc6fe48d2d25c41ebb338749fe9ac1982bdda789e18f5e868272e9",
             "size": 7853,
-            "live_was": "ea29c1b2a27fd2729c27569504be505bf73d0f65a6295a4eada2185f16a816eb"
+            "live_was": "ea29c1b2a27fd2729c27569504be505bf73d0f65a6295a4eada2185f16a816eb",
+            "existed": true,
+            "old_sha": "ea29c1b2a27fd2729c27569504be505bf73d0f65a6295a4eada2185f16a816eb"
         },
         "website/login.php": {
             "sha": "fca2495029546808a4e8f4afb5590cc122a62560cfa94ceba8465ef3d0c6f207",
             "size": 20350,
-            "live_was": "94fd089e4c2c73cc9831ecb9876e2fc82cabd1198c11b04c65cd63a13b337c8d"
+            "live_was": "94fd089e4c2c73cc9831ecb9876e2fc82cabd1198c11b04c65cd63a13b337c8d",
+            "existed": true,
+            "old_sha": "94fd089e4c2c73cc9831ecb9876e2fc82cabd1198c11b04c65cd63a13b337c8d"
         },
         "website/guide/resources.php": {
             "sha": "e744aac0262822677dece82b59ddcc3af2ca6b70537936b290d0b24599a6e9db",
             "size": 7602,
-            "live_was": "10d2d88cff8ba8a70e02aed2a3ab2fd9a30b4489db7372aafda50389425f0969"
+            "live_was": "10d2d88cff8ba8a70e02aed2a3ab2fd9a30b4489db7372aafda50389425f0969",
+            "existed": true,
+            "old_sha": "10d2d88cff8ba8a70e02aed2a3ab2fd9a30b4489db7372aafda50389425f0969"
         },
         "website/guide/how.php": {
             "sha": "a2c0dd4b10f5b592f9f975247de695d8a54309a3540973e653726b0537ce57b4",
             "size": 6864,
-            "live_was": "0dd915716b8e9e0338e7675ca6cd3e7514b53092744ebf1409ec3fb7d79cdae3"
+            "live_was": "0dd915716b8e9e0338e7675ca6cd3e7514b53092744ebf1409ec3fb7d79cdae3",
+            "existed": true,
+            "old_sha": "0dd915716b8e9e0338e7675ca6cd3e7514b53092744ebf1409ec3fb7d79cdae3"
         },
         "website/q.php": {
             "sha": "9622458e41903d6e1592f22289c3c877df324b85bca91ff70ee8b68f6532c524",
             "size": 18037,
-            "live_was": "ce07b18300c994fdd91eb4a21308fbf1e69da5a310ebb5d94b73c5a63be38bc9"
+            "live_was": "ce07b18300c994fdd91eb4a21308fbf1e69da5a310ebb5d94b73c5a63be38bc9",
+            "existed": true,
+            "old_sha": "ce07b18300c994fdd91eb4a21308fbf1e69da5a310ebb5d94b73c5a63be38bc9"
         },
         "website/reset-password.php": {
             "sha": "68a08cdd80a3b8b1dcac496679024a77108954f58049d2b12114b4ec4dab1081",
             "size": 7389,
-            "live_was": "f4360f60b4cb870bae109a02202790ce2f826e929937893d4e0ecd035af814aa"
+            "live_was": "f4360f60b4cb870bae109a02202790ce2f826e929937893d4e0ecd035af814aa",
+            "existed": true,
+            "old_sha": "f4360f60b4cb870bae109a02202790ce2f826e929937893d4e0ecd035af814aa"
         },
         "website/pages/view.php": {
             "sha": "670d1283c4e1793e59404c51c562a1dc606da68d16bf76f583136918cc4adea1",
             "size": 8460,
-            "live_was": "285b9f2841b986dfffc8642e5aec49c5713d0dfd6b8ae38adf7c05ba2ebfce52"
+            "live_was": "285b9f2841b986dfffc8642e5aec49c5713d0dfd6b8ae38adf7c05ba2ebfce52",
+            "existed": true,
+            "old_sha": "285b9f2841b986dfffc8642e5aec49c5713d0dfd6b8ae38adf7c05ba2ebfce52"
         },
         "website/js/tv-password.js": {
             "sha": "88fbe27fac497296c3a0ee2f7bd72c906703f4c750bdc473a2f5c8de4ec2bda9",
             "size": 6450,
-            "live_was": "fec56af9eace64f9b69bf4a51a9a2dd0707eed1a2fda7bb73e6f8fb85f338b81"
+            "live_was": "fec56af9eace64f9b69bf4a51a9a2dd0707eed1a2fda7bb73e6f8fb85f338b81",
+            "existed": true,
+            "old_sha": "fec56af9eace64f9b69bf4a51a9a2dd0707eed1a2fda7bb73e6f8fb85f338b81"
         }
     },
     "migrations": [],
     "checks": {
         "ok": true,
-        "where": "staging",
-        "at": "2026-11-22T20:53:00+00:00",
+        "where": "live",
+        "at": "2026-11-22T20:53:02+00:00",
         "items": [
             [
                 "PHP files parse",
@@ -176,7 +234,7 @@
             [
                 "Pages answer",
                 true,
-                "25 pages answered on staging.trvgo.us"
+                "25 pages answered on traversence.com"
             ],
             [
                 "No new fatal errors in the logs",
@@ -206,6 +264,16 @@
             "at": "2026-11-22T20:53:00+00:00",
             "by": 0,
             "msg": "Put on staging (29 files); its checks passed."
+        },
+        {
+            "at": "2026-11-22T20:53:01+00:00",
+            "by": 0,
+            "msg": "Approved in chat before it was sent through git, and its checks on staging passed: publishing by itself."
+        },
+        {
+            "at": "2026-11-22T20:53:01+00:00",
+            "by": 0,
+            "msg": "Published: 29 files; everyone at once (no switch)."
         }
     ]
 }
