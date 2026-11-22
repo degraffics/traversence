@@ -438,3 +438,15 @@ manager, 2026-11-21). §6 as built, the staff thread first (Question 3's answer)
   order opens its Files (`#docs`) in the side panel, where its proofs and approval are; Approve proof isn't repeated in
   the thread. Ask for a new file and Check the files are greyed, with their reason shown.
 
+
+## Note (the control board's build, 2026-11-23): one thread's words, and a trip that joins an incident
+
+- **A service's issue reads in its alarm's words** (§3: "the thread is the alarm"). While its alarm is open, the issue's
+  thread on the card, Outside services and Start takes the alarm's title and status from the one engine, in the words of
+  the state model Jason approved on 2026-11-22 (`handoffs/control-board-plan/step3/02-state-model.md` §4.8, e.g. row 26:
+  "<module> isn't answering · Paused by the system (a trip) since <time>"). Release 2's card title ("Common Crawl: its
+  server failed at index.commoncrawl.org") is replaced: the board and the card now read the same. Its What to do,
+  Details and buttons stay the card's.
+- **A trip that joins an incident** (02 row 124; the session manager's ruling, 2026-11-22): it updates the incident's Pulse
+  item and replies in the incident's existing email thread, under the first trip's subject, with no push (§1: one thread
+  per alarm, updated in place). `Notify::send` takes `no_push` for it.

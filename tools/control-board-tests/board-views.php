@@ -98,12 +98,12 @@ $t('…the board\'s script loads it on open, with Try again on a failure', str_c
 $t('Incidents: the IR-#### list, each opening its page', str_contains($sec('cb-irs'), 'href="/admin/config/control?ir=1" data-peek-frame>IR-0001</a>') && str_contains($txt($sec('cb-irs')), 'Unconfirmed'));
 $ir = tv_cb_ir_page($pdo, 1, 'x'); $it = $txt($ir);
 $t('IR-0001\'s page: its title "IR-0001 · 1 part: W1 Listings · Paused by the system" (03 §7)', str_contains($it, 'IR-0001 · 1 part: W1 Listings · Paused by the system'), mb_substr($it, 0, 160));
-$t('…its root cause "Unconfirmed" in its own row until a person writes it', (bool) preg_match('/<h3 class="cb-title">Root cause<\/h3><p data-tv-status="info" data-tv-label="Unconfirmed:">/', $ir));
+$t('…its root cause "Unconfirmed" in its own row until a person writes it', (bool) preg_match('/<h3 class="cb-title">Root cause<\/h3><div class="cb-rc"><p data-tv-status="info" data-tv-label="Unconfirmed:" data-tv-keep>/', $ir));
 $t('…its members with warning and trip ids (W-0001, T-0001) and real times', str_contains($it, 'W-0001') && str_contains($it, 'T-0001') && substr_count($ir, 'data-tv-time') >= 3);
 $t('…its radius as recorded, its timeline and its evidence', str_contains($it, 'Held all of W1') && str_contains($it, 'Opened at T-0001 (W-0001)') && str_contains($it, 'TimeoutError after 600 s'));
 $t('…an IR that isn\'t kept says so, with the way to every report', str_contains($txt(tv_cb_ir_page($pdo, 99, 'x')), 'There\'s no IR-0099'));
 ControlIncidents::setCause($pdo, 1, 'Our load endpoint timed out under the batch.', 'Jason');
-$t('…once written, Confirmed with who wrote it', str_contains(tv_cb_ir_page($pdo, 1, 'x'), 'data-tv-label="Confirmed:">Our load endpoint timed out under the batch. <small>(Jason)'));
+$t('…once written, Confirmed with who wrote it', str_contains(tv_cb_ir_page($pdo, 1, 'x'), 'data-tv-label="Confirmed:" data-tv-keep>Our load endpoint timed out under the batch. <small>(Jason)'));
 
 // ---- the folded report (D16)
 $r = ['sections' => [

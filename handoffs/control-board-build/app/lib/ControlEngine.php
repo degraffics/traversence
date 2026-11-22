@@ -208,6 +208,7 @@ final class ControlEngine
     /** Our endpoint's check: an authenticated no-work request (?check=1) inside its speed gate (§2.7). */
     private static function checkEndpoint(PDO $pdo, string $ep): array
     {
+        // @gate: it calls our own site (APP_URL: staging's own address on staging), never an outside service (decisions/0165 R13)
         $base = rtrim((string) (getenv('APP_URL') ?: 'https://traversence.com'), '/');
         $tok = str_starts_with($ep, 'video/') ? (string) getenv('VIDEO_WORKER_TOKEN') : (string) getenv('CRAWLER_API_TOKEN');
         $gate = self::gateMs($pdo, $ep);
