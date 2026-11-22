@@ -531,9 +531,6 @@ function tv_ops_wf_state(PDO $pdo, array $d, string $wf): array
     } elseif ($notBuilt) {   // W14 (live-reads C6: it said "Running" with nothing serving it)
         [$k, $words, $why] = ['n', 'Not built' . (isset(TV_WFP_NOT_BUILT[$wf]) ? ': ' . strtok(TV_WFP_NOT_BUILT[$wf], ' ') : ''), 'Nothing carries it yet: no crawler task, site job or AI feature names ' . $wf . '.' . (isset(TV_WFP_NOT_BUILT[$wf]) ? ' Its ' . TV_WFP_NOT_BUILT[$wf] . ' (03 §26.9–26.10).' : '')];
         $groups[] = 'off';
-    } elseif ($red) {   // a red switch-on line that holds it whole (moved onto its card: §7, R88, R99)
-        [$k, $words, $why] = ['a', 'Held by its check: ' . (string) $red[0]['line'], rtrim((string) $red[0]['why'], '. ') . '.'];
-        $groups[] = 'att';
     } elseif ($warns) {
         [$k, $words, $why] = ['a', 'Warning: ' . rtrim((string) $warns[0][0]['title'], '. '), count($warns) . ' warning' . (count($warns) === 1 ? '' : 's') . ' open: the system is trying; nothing is held.'];
     } elseif ($d['master']) {
@@ -542,6 +539,9 @@ function tv_ops_wf_state(PDO $pdo, array $d, string $wf): array
     } elseif ($pp) {   // a person's pause: paused, never a failure (R109)
         [$k, $words, $why] = ['n', 'Paused: ' . rtrim(trim((string) ($r['paused_why'] ?? '')) ?: 'paused', '. '), 'Set by ' . (trim((string) ($r['by_user'] ?? '')) ?: 'a person') . (!empty($r['paused_at']) ? ', ' . date('M j', (int) strtotime((string) $r['paused_at'])) : '') . '.'];
         $groups[] = 'off';
+    } elseif ($red) {   // a red switch-on line that holds it whole (moved onto its card: §7, R88, R99)
+        [$k, $words, $why] = ['a', 'Held by its check: ' . (string) $red[0]['line'], rtrim((string) $red[0]['why'], '. ') . '.'];
+        $groups[] = 'att';
     } elseif ($tasks && !$on) {
         $p0 = $purpose[0] ?? null;
         [$k, $words, $why] = ['n', 'Off' . ($p0 ? ': ' . rtrim((string) $p0[2], '. ') : ''), 'Every task is switched off on purpose; nothing runs until one is switched on, on its own page.'];

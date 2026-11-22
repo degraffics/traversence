@@ -243,6 +243,13 @@ function tv_module_card(PDO $pdo, string $key, array $ctx = []): string
         elseif ($ck['pass'] === false && !str_starts_with((string) $ck['proof'], 'Its check failed to run')) { $light = 'hold'; $first = 'On · Warning: no heartbeat in its window'; $rest = (string) $ck['proof']; }
         elseif ($ck['pass'] === false) $rest = 'Its heartbeat couldn\'t be read yet.';   // a reading that couldn't be taken is "not checked yet", never a fault (02 §3b; P4)
     }
+    // a Host's light is its worst part's (02 §3b roll-up, R9): "On · Paused by the system: the crawler (a trip)" (03 §5 c2)
+    if (!$isWk && in_array($light, ['ok', 'grey', 'hold'], true)) foreach ($alarms as $pa) {
+        if ($pa['proc'] === $proc || ($pa['component'] ?? '') === $proc || !isset($parts[$pa['proc']]) && !isset($parts[(string) ($pa['component'] ?? '')])) continue;
+        $pn = (string) ($parts[$pa['proc']]['name'] ?? $parts[(string) ($pa['component'] ?? '')]['name'] ?? $pa['proc']);
+        if ($pa['level'] === 'trip' && !empty($pa['tripped_at'])) { $light = 'bad'; $first = 'On · Paused by the system: ' . $pn . ' (a trip)'; $rest = '1 trip' . ($pa['ack_at'] !== null ? ' (seen by ' . (string) ($pa['ack_name'] ?? 'staff') . ')' : ''); break; }
+        if ($light !== 'hold') { $light = 'hold'; $first = 'On · Warning: ' . $pn; $rest = ''; }
+    }
     $faultOpen = (bool) ($alarms || $issues);
     $dutyMap = ControlRegister::dutyMap($pdo);
     $duties = []; foreach (array_merge([$proc], $key === 'bluehost' ? array_keys(TV_MC_BLUEHOST_PARTS) : []) as $p) if (isset($dutyMap[$p])) $duties[$dutyMap[$p]] = true;
@@ -361,7 +368,7 @@ function tv_mc_setup(array $man, array $slots): string
         . '<p class="mc-sub">Names only, never values. Credentials live only in the Vault.</p>'
         . '<p><b>Where its keys live</b></p>' . ($keys !== '' ? '<ul class="mc-list">' . $keys . '</ul>' : '<p class="mc-sub">No keys of its own.</p>')
         . '<p><b>Its slots</b></p><ul class="mc-list">' . $sl . '</ul>'
-        . '<p data-tv-status="info" data-tv-label="Recording a why:">To come: the manifest\'s setup_capture field (02 §8) isn\'t built yet, so a one-line why can\'t be saved here. A slot is filled by publishing it from your Vault.</p></details>';
+        . '<p class="mc-sub">Recording a why is to come: the manifest\'s setup_capture field (02 §8) isn\'t built yet, so a one-line why can\'t be saved here. A slot is filled by publishing it from your Vault.</p></details>';
 }
 
 /**
@@ -544,7 +551,7 @@ function tv_mc_css(): string
 {
     static $done = false; if ($done) return ''; $done = true;
     return '<style>'
-        . '.mc-card{border:1px solid var(--tv-line-strong);border-radius:.6rem;background:var(--tv-card-a,var(--tv-card));padding:.6rem .75rem;margin:.5rem 0;min-width:0;overflow-wrap:anywhere}'
+        . '.mc-card{border:1px solid var(--tv-line-strong);border-radius:.6rem;background:var(--tv-card-a,var(--tv-card));padding:.6rem .75rem;margin:.5rem 0;min-width:0;overflow-wrap:break-word}.mc-card code,.mc-card a,.mc-card time{overflow-wrap:anywhere}'
         . '.mc-card *{min-width:0}.mc-z{border-top:1px solid var(--tv-line);padding:.45rem 0}.mc-z:first-child{border-top:0}'
         . '.mc-zh{font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--tv-meta);margin:0 0 .3rem}'
         . '.mc-name{font-family:var(--tv-font-display,serif);color:#92400E;text-decoration:underline;font-size:1.1rem}'
@@ -560,7 +567,7 @@ function tv_mc_css(): string
         . '.mc-slots{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.4rem}.mc-slot{border:1px solid var(--tv-line);border-radius:.5rem;padding:.4rem}.mc-none{opacity:.85}'
         . '.mc-slot-fix{outline:2px solid var(--tv-copper);outline-offset:1px}.mc-fixhere{display:block;color:var(--tv-copper);font-size:.78rem}.mc-ty{font-weight:600;margin:0 0 .2rem}'
         . '.mc-tag{display:inline-block;font-size:.72rem;border:1px solid var(--tv-line-strong);border-radius:999px;padding:0 .4rem;color:var(--tv-meta)}'
-        . '.mc-fold>summary,.mc-setup>summary,.mc-rl>summary{cursor:pointer}.mc-caps{display:block;overflow-x:auto;max-width:100%}.mc-card .ak-b{max-width:100%;white-space:normal;overflow-wrap:anywhere;text-align:left}.mc-card .os-stage form{max-width:100%;flex-wrap:wrap}.mc-card .ak-in{max-width:100%}'
+        . '.mc-fold>summary,.mc-setup>summary,.mc-rl>summary{cursor:pointer}.mc-caps{display:block;overflow-x:auto;max-width:100%}.mc-card .ak-b{max-width:100%;white-space:normal;overflow-wrap:break-word;text-align:left}.mc-card .os-stage form{max-width:100%;flex-wrap:wrap}.mc-card .ak-in{max-width:100%}'
         . '@media (max-width:767px){.mc-card{margin:3px 0;border-radius:.5rem;padding:.5rem}.mc-rad{grid-template-columns:1fr}.mc-slots{grid-template-columns:repeat(2,minmax(0,1fr))}.mc-btns{flex-direction:row}}'
         . '</style>';
 }

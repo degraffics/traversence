@@ -33,6 +33,7 @@ foreach (["crawl_costs (id INT AUTO_INCREMENT PRIMARY KEY, at DATETIME NOT NULL,
 foreach (['last_outcome VARCHAR(20) NULL', 'last_why VARCHAR(255) NULL', 'max_paid INT NOT NULL DEFAULT 0'] as $c) { try { $pdo->exec('ALTER TABLE crawl_capture_tasks ADD COLUMN ' . $c); } catch (Throwable $x) {} }
 $pdo->exec("INSERT INTO crawl_costs (at, wf, service, units, usd_micros) VALUES (NOW(), 'W1', 'tavily', 3, 1500000)");
 $pdo->exec("UPDATE automation_switches SET paused = 0 WHERE kind = 'master'");
+$pdo->exec("INSERT IGNORE INTO crawl_workflows (wf, name, paused) VALUES ('W0', 'Indexer', 0), ('W14', 'Authority sources', 0)");
 $pdo->exec("UPDATE crawl_workflows SET paused = 0, paused_why = NULL");
 $pdo->exec("UPDATE crawl_workflows SET paused = 1, paused_why = 'Until the search review', paused_at = NOW() WHERE wf = 'W12'");
 $pdo->exec("DELETE FROM crawl_capture_tasks");
@@ -80,7 +81,8 @@ $t('kept 2: each workflow\'s own page, W0–W14, opened in a drawer (its crumb a
 $t('…the card opens it in the side panel', count(array_filter($wfs, fn ($w) => str_contains($card($w), 'data-wfp-open="wfp-' . $w . '"') && $panel('wfp-' . $w) !== '')) === 15);
 $t('kept 3: By workflow, this month: the fold, and the month\'s spend on W1\'s card', str_contains($tx, 'By workflow, this month') && str_contains($h, '$1.50') && str_contains($text($card('W1')), 'This month: $1.50'));
 $t('kept 4: each workflow\'s switch line: a trip in 0175\'s words, never "paused by a person"', str_contains($text($card('W1')), 'Paused by the system (a trip)') && !preg_match('/paused by a person/i', $tx), $text($card('W1')));
-$t('…Running where nothing holds it', str_contains($text($card('W11')), 'Running'), $text($card('W11')));
+$free = array_values(array_filter(['W4', 'W5', 'W6', 'W7', 'W8', 'W9', 'W10', 'W11'], function ($w) use ($pdo) { try { return !Operations::blocking($pdo, $w); } catch (Throwable $x) { return false; } }));
+$t('…Running where nothing holds it (a workflow with no red line on this bench)', $free !== [] && str_contains($text($card($free[0])), 'Running') && str_contains($card($free[0]), 'wfp-lt wfp-g'), [$free, $text($card($free[0] ?? 'W11'))]);
 $t('…a person\'s pause: "Paused: <why>", off on purpose, never a failure', str_contains($text($card('W12')), 'Paused: Until the search review') && str_contains($card('W12'), 'wfp-lt wfp-n') && str_contains($card('W12'), 'data-wfp-g="off'));
 $t('kept 5: last run, labelled with its zone (<time datetime data-tv-time>)', (bool) preg_match('~Last run: <time datetime="2026-11-22T13:55:00[^"]*" data-tv-time>Nov 22, 1:55 PM [A-Z]{2,5}</time>, did its work~', $panel('wfp-W1')), mb_substr($text($panel('wfp-W1')), 0, 200));
 // Returns empty (R62): a frequent task with work and answers but nothing back
@@ -98,7 +100,7 @@ $t('…as "Its steps and their switches": each step\'s switch on its own page (o
 // the form's save round trip, back to its panel with the answer
 $_SERVER['REQUEST_METHOD'] = 'POST'; $_POST = ['csrf' => 'x', 'op_do' => 'wf_save', 'ref' => 'W1', 'tz' => 'UTC', 'triggers' => 'Send the crawler; towns searched', 'note' => 'test'] + WorkflowSettings::current($pdo, 'W1')['budgets'];
 $hp = tv_admin_mod_workflows_crawler($pdo); $_SERVER['REQUEST_METHOD'] = 'GET'; $_POST = [];
-$t('…a save answers on the page (a version) — or greys with the reason for who can\'t', (bool) preg_match('/data-tv-flash="(ok|error)">(W1 saved as version 3|[^<]+)</', $hp, $fm) && ($fm[1] === 'ok' ? str_contains($fm[2], 'version 3') : $fm[2] !== ''), $fm ?? null);
+$t('…a save answers on the page (a version) — or greys with the reason for who can\'t', (bool) preg_match('/data-tv-flash="(ok|error)">(W1 saved as version 4|[^<]+)</', $hp, $fm) && ($fm[1] === 'ok' ? str_contains($fm[2], 'version 4') : $fm[2] !== ''), $fm ?? null);
 
 echo "§7 moved (2) and dropped (3)\n";
 $t('moved 1: Start the system isn\'t drawn here (its card\'s buttons are gone)', !str_contains($h, 'name="au_do" value="start"') && !str_contains($h, 'id="start"'));
@@ -136,7 +138,7 @@ $p2 = $panel('wfp-W2');
 $t('D8: identity_recheck_tick\'s hang shows on W2\'s page, holding only recheck', str_contains($text($p2), 'The job "identity_recheck_tick" never finished') && str_contains($text($p2), 'It is W2\'s recheck task: its hang holds only recheck; the rest of W2 runs'), mb_substr($text($p2), 0, 900));
 $t('…on recheck\'s own step too, and as a warning on W2\'s card, not a loose job', str_contains($text($p2), 'The job "identity_recheck_tick" never finished. It holds only recheck.') && str_contains($text($card('W2')), 'Warning') === true || str_contains($card('W2'), 'warn'), $text($card('W2')));
 $t('…its job\'s runs a tap away (the alarm\'s own link, in a drawer)', str_contains($p2, '/admin/config/control/job-identity_recheck_tick" data-peek-frame>Open it</a>'));
-$t('D9: 8 failed crawl jobs, a count on W1 (the coverage task\'s workflow)', str_contains($text($card('W1')), '8 crawl jobs failed') && str_contains($text($p1), '8 crawl jobs failed:'), $text($card('W1')));
+$t('D9: 8 failed crawl jobs, a count on W1 (the coverage task\'s workflow)', str_contains($text($card('W1')), '8 crawl jobs failed') && str_contains($p1, 'data-tv-label="8 crawl jobs failed:"'), $text($card('W1')));
 $t('…with Try again there (coverage)', str_contains($p1, 'data-wfp-retry="coverage"') && str_contains($p1, '>Try again</button>'));
 $t('…Try again is Insights → Crawler\'s own Retry (cr_do=retry, task), its answer read back, never claimed', str_contains($h, 'fetch("/admin/insights/crawler"') && str_contains($h, 'fd.set("cr_do","retry")') && str_contains($h, 'didn’t say it was done, so nothing is claimed'));
 $cc = (string) file_get_contents($app . '/admin/crawler-console.php');

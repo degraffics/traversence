@@ -17,7 +17,7 @@ require $app . '/admin/widgets.php'; require $app . '/ui/app-shell.php'; $_SESSI
 require $app . '/admin/preflight-console.php'; require $app . '/admin/control-console.php';
 ControlGauges::$source = dirname(__DIR__, 2) . '/site-audit/results/gauges.json';
 $html = tv_admin_mod_control($pdo);
-$txt = fn (string $h) => trim((string) preg_replace('/\s+/u', ' ', html_entity_decode(strip_tags($h), ENT_QUOTES)));
+$txt = fn (string $h) => trim((string) preg_replace('/\s+/u', ' ', html_entity_decode((string) preg_replace('/<[^>]+>/', ' ', $h), ENT_QUOTES)));
 $sec = function (string $id) use ($html): string { $i = strpos($html, 'id="' . $id . '"'); return $i === false ? '' : substr($html, $i, 60000); };
 
 // ---- D5: one count on every surface, an acknowledged trip in it
@@ -79,9 +79,10 @@ $t('…the old case\'s actions kept: Mark fixed, Set aside (asks why), Check aga
 $t('…posting to Pulse\'s own manage actions for sitehealth:open', str_contains($js, "post('/admin/api/pulse', { do: 'manage', key: 'sitehealth:open', what: what, args: args })"));
 $pdo->exec("UPDATE page_cache SET body = '{\"v\":{\"ok\":false,\"at\":\"\",\"run_url\":\"\",\"findings\":[],\"error\":\"GitHub didn\\\\u0027t answer (HTTP 503).\"}}' WHERE cache_key = 'sitehealth:now'");
 $bad = tv_cb_site_health($pdo);
-$t('…findings that couldn\'t be read say so (SiteHealth::load\'s error), with Check again', str_contains($txt($bad), 'Couldn\'t read the findings: GitHub didn\'t answer (HTTP 503).') && str_contains($bad, 'data-cb-sh="sh_refresh"'), $txt($bad));
-$pdo->exec("UPDATE feature_switches SET state = 'off' WHERE switch_key = 'site_health'");
-$t('…switched off: said, never a silent gap', str_contains($txt(tv_cb_site_health($pdo)), 'Site health is off'));
+$t('…findings that couldn\'t be read say so (SiteHealth::load\'s error), with Check again', str_contains(html_entity_decode($bad, ENT_QUOTES), 'data-tv-label="Couldn\'t read the findings:">GitHub didn\'t answer (HTTP 503).') && str_contains($bad, 'data-cb-sh="sh_refresh"'), $txt($bad));
+$pdo->exec("UPDATE feature_switches SET state = 'off' WHERE switch_key = 'site_health'");   // Switches keeps what it read: a fresh process
+$off = shell_exec('php -r ' . escapeshellarg('$a=$argv[1]; require $a."/lib/Database.php"; require $a."/admin/widgets.php"; require $a."/admin/control-console.php"; echo tv_cb_site_health(Database::connection());') . ' ' . escapeshellarg($app) . ' 2>&1');
+$t('…switched off: said, never a silent gap', str_contains((string) $off, 'Site health is off'), mb_substr((string) $off, 0, 200));
 
 // ---- Incidents and IR-0001's page
 $t('Incidents: the IR-#### list, each opening its page', str_contains($sec('cb-irs'), 'href="/admin/config/control?ir=1" data-peek-frame>IR-0001</a>') && str_contains($txt($sec('cb-irs')), 'Unconfirmed'));
@@ -92,7 +93,7 @@ $t('…its members with warning and trip ids (W-0001, T-0001) and real times', s
 $t('…its radius as recorded, its timeline and its evidence', str_contains($it, 'Held all of W1') && str_contains($it, 'Opened at T-0001 (W-0001)') && str_contains($it, 'TimeoutError after 600 s'));
 $t('…an IR that isn\'t kept says so, with the way to every report', str_contains($txt(tv_cb_ir_page($pdo, 99, 'x')), 'There\'s no IR-0099'));
 ControlIncidents::setCause($pdo, 1, 'Our load endpoint timed out under the batch.', 'Jason');
-$t('…once written, Confirmed with who wrote it', str_contains($txt(tv_cb_ir_page($pdo, 1, 'x')), 'Confirmed: Our load endpoint timed out under the batch. (Jason)'));
+$t('…once written, Confirmed with who wrote it', str_contains(tv_cb_ir_page($pdo, 1, 'x'), 'data-tv-label="Confirmed:">Our load endpoint timed out under the batch. <small>(Jason)'));
 
 // ---- the folded report (D16)
 $r = ['sections' => [
@@ -106,7 +107,7 @@ $r = ['sections' => [
     'trend' => ['The trend', ['Window'], [['The last 7 days']], '']]];
 $f = tv_cb_report_folded($r); $ft = $txt($f);
 $t('the report folded (D16): spend first, then uptime, alarms, switches, the rest folded', strpos($f, 'id="r-spend"') < strpos($f, 'id="r-uptime"') && strpos($f, 'id="r-uptime"') < strpos($f, 'id="r-alarms"') && strpos($f, 'id="r-alarms"') < strpos($f, 'id="r-changes"') && (bool) preg_match('/<details class="ak-card tv-bleed cb-rsec" id="r-ran"/', $f) && (bool) preg_match('/<details class="ak-card tv-bleed cb-rsec" id="r-trend"/', $f));
-$t('…uptime only for what was below 100%, the rest one line ("2 parts at 100%; 1 not due to be on")', str_contains($ft, 'Common Crawl') && str_contains($ft, 'W1 Listings') && !preg_match('/<td data-th="Process">W2</', $f) && str_contains($ft, 'And 2 parts at 100%; 1 not due to be on.'), mb_substr($ft, 0, 300));
+$t('…uptime only for what was below 100%, the rest one line ("2 parts at 100%; 1 not due to be on")', str_contains($ft, 'Common Crawl') && str_contains($ft, 'W1 Listings') && !str_contains($f, '<td data-th="Process">W2</td><td data-th="System">E</td><td data-th="Uptime">100%') && str_contains($ft, 'And 2 parts at 100%; 1 not due to be on.'), mb_substr($ft, 0, 300));
 $t('…alarms grouped by part and alarm with a count ("/api/crawl/verify is slow ×30"), opened to the rows on tap', str_contains($ft, '/api/crawl/verify is slow W2 · Warning ×30') && substr_count($f, '<details class="cb-rg">') === 2 && str_contains($ft, '31 alarms in 2 groups'));
 $t('…every section keeps Copy (data-copy), a section added later is never dropped', substr_count($f, 'data-copy=') === 7 && str_contains(tv_cb_report_folded(['sections' => ['new' => ['Something new', ['A'], [['x']], '']]]), 'Something new'));
 require_once $app . '/lib/ControlReport.php';
