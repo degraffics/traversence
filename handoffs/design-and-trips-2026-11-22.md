@@ -27,6 +27,9 @@ listing/view.php). The session manager's review (2026-11-22) asks for three fixe
 Fine as written: B3 "never twice in one list" (say it to Jason as the rule, and that it holds across pages: check that
 paging is one list); A13 (say a memorial filed as a business keeps "Unclaimed" until the area data fix, which the session
 manager holds). faq.md is clear to send. Then: summary to the session manager, then Jason's pop-up, merge, tell it.
+**Progress (2026-11-22, session_01CXLi5kMXdmwb4aE7hWkGeU):** the three fixes built into `card-fixes.zip` on ca2f7ab (the licence
+was stored, so no question was needed); zip check clean; run.php 16/16, parks.cjs 34/34 on the real page at 1280 and 390
+(`card-fixes.md`). Next: the session manager's review, then Jason's pop-up.
 
 ## 3. Next, in order (approved in `screens-proposal-2026-11-22.md`; each its own PR and pop-up)
 1. **The listing page (B5, Option 1):** photo capped lower; the actions in one row under the title, names on wide screens,

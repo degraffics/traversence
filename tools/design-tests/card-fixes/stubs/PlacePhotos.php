@@ -1,1 +1,1 @@
-<?php final class PlacePhotos { public static function for($p,$k,$ids){ return $k==="listing" && in_array("303",$ids,true) ? ["303"=>["image"=>"/img/c.jpg","credit"=>"Bob Ray"]] : []; } }
+<?php final class PlacePhotos { public static function for($p,$k,$ids){ return $k==="listing" && in_array("303",$ids,true) ? ["303"=>["image"=>"/img/c.jpg","credit"=>"Bob Ray","license"=>"cc-by-sa-4.0"]] : []; } }

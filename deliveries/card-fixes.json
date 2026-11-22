@@ -1,21 +1,29 @@
 {
  "zip": "card-fixes.zip",
  "built_on": "ca2f7ab Sync: 2026-11-22 12:25 UTC",
- "recorded": "2026-11-22 12:33 UTC",
- "note": "Cards and photos (screens proposal A4-A6, A13, B3, approved 2026-11-22); built on Sync 12:25 UTC (ca2f7ab) Sent through git (releases/inbox).",
+ "recorded": "2026-11-22 12:48 UTC",
+ "note": "Cards and photos (screens proposal A4-A6, A13, B3, approved 2026-11-22; the session manager's three fixes): distance only when known, credits with their licence on the photo; built on Sync 12:25 UTC (ca2f7ab) Sent through git (releases/inbox).",
  "status": "pending",
  "live_in": "",
  "files": {
+  "app/lib/Landmarks.php": {
+   "sha256": "6886706fdb2d6dc171bed7b2fb872acd07a99655f2caaa9e40f10360c667e21a",
+   "live": false
+  },
+  "app/lib/PlacePhotos.php": {
+   "sha256": "0d12ce45038cc18025f50cdecbba420f367d5c39fa261c12de7e7cfc96feff01",
+   "live": false
+  },
   "app/ui/explore-hero.php": {
-   "sha256": "c1d13f0780d8babf8f29a7703a95d350206fe17694a50f4c434c06e2ddb992d7",
+   "sha256": "069131eef4e6b3d2350130154356b5d9867643de2adc3a8ab2455f470fe2f45a",
    "live": false
   },
   "app/ui/faq.md": {
-   "sha256": "07bc2829bc4207aace9e6137530bcc84b2144555aede0a7148be45f3337807f5",
+   "sha256": "b1f14b9d1c28eeb96782d5b2cade9f2059306ff980a656254804b0e4d75b5ecc",
    "live": false
   },
   "website/discovery/index.php": {
-   "sha256": "94f28c7bc1df707849c573fdf2e5e0abfe43fc2aff33c7d5a4e0d689f74ff372",
+   "sha256": "e294da3b68684b39b50672cd094877894d93bf456493aeeaf98e35fe8b8fcbc1",
    "live": false
   },
   "website/listing/view.php": {
