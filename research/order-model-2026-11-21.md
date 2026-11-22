@@ -61,8 +61,14 @@ productions actual schedule."
 - A set price is paid when ordered (2026-11-21: "Paid at time of order").
 - **Delayed payment** (2026-11-22, on invoice-later terms): "Credit account terms needed for delayed payments. Or admin
   override to proceed without payment." So invoice later, as a pay mode anyone can be given, is replaced by a client's
-  credit account terms, or an admin's override on the order. To confirm: who grants a credit account and its terms, and
-  whether the balance-before-delivery rule (1.9) applies to it.
+  credit account terms, or an admin's override on the order.
+- **Credit accounts** (2026-11-22): "Admin grants credit to account upon cridet process compliance and completion.
+  Apporvals required, credit terms confirmed, balance due per terms. Deposits used to offset risks."
+  - An admin grants credit to an account once a credit process is complied with and completed.
+  - Approvals are required, and the credit terms are confirmed.
+  - The balance is due per those terms (not before delivery, as in 1.9).
+  - Deposits can still be taken to offset risk.
+  - To walk through later: what the credit process asks for, and who approves.
 - **A deposit on an estimate** (2026-11-22): "an estimate is used for when we dont have all things confirmed, so it could
   easily be used a tool to secure the deposit and enter into the stage where we can firm up things before releasing an
   estimate to become an invoice/order." So a deposit may also be taken before approval, on an estimate, to secure the
