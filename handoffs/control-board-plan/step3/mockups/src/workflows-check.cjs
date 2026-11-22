@@ -1,5 +1,5 @@
 // Checks the Workflows page (step3/board/workflows.html, and the board's Workflows view in index.html) at 1280 and 390:
-// 15 workflow gauges, each one score gauge (Ring and Arc) with its stage pill and its band within 1% of its score, no needle;
+// 14 workflow gauges and W13's list, each gauge one Arc with its stage pill and its band within 1% of its score, no needle;
 // every workflow's own page and its three paths open and close by ×, Esc and a click outside, with Back; the filters; the case's
 // six steps; kept/moved/dropped; no sideways scroll; no console errors; the validator on the standalone page.
 const { chromium } = require('playwright');
@@ -22,21 +22,25 @@ const dir = '/home/user/traversence/handoffs/control-board-plan/step3/board/';
       const tag = `${file} @${w}`;
       const sw = () => p.evaluate(() => document.documentElement.scrollWidth);
       const isOpen = id => p.evaluate(id => document.body.classList.contains('open') && !document.getElementById(id).hidden, id);
-      const cards = await p.evaluate(() => [...document.querySelectorAll('#wp-grid .wfg')].map(c => [c.id, c.querySelectorAll('.sr').length, (c.querySelector('.band-word.stage') || {}).textContent, c.querySelectorAll('.btn.path').length, !!c.querySelector('.lt'), !!c.querySelector('.proposed')]));
+      const cards = await p.evaluate(() => [...document.querySelectorAll('#wp-grid .wfg')].map(c => [c.id, c.querySelectorAll('.sr').length, (c.querySelector('.band-word.stage') || {}).textContent, c.querySelectorAll('.btn.path').length, !!c.querySelector('.lt'), !!c.querySelector('.proposed'), c.classList.contains('wfl')]));
       const STG = ['Planning', 'Phased Development', 'Audit & Review', 'Implementation', 'Monitoring'];
-      ok(cards.length === 15 && cards.map(c => c[0]).join(',') === Array.from({ length: 15 }, (_, i) => 'wf-W' + i).join(',') && cards.every(c => c[1] === 1 && STG.includes(c[2]) && c[3] === 3 && c[4] && c[5]),
-        `${tag}: W0–W14, each one score gauge with its stage pill, its state with a reason, a proposed measure and three paths (${cards.length})`);
-      ok(await p.evaluate(() => { const g = id => document.querySelector('#wf-' + id + ' .band-word.stage').textContent; return g('W1') === 'Audit & Review' && g('W13') === 'Planning' && g('W14') === 'Planning' && /Paused by the system \(a trip\)/.test(document.querySelector('#wf-W1 .lt').textContent) && /Off by the system/.test(document.querySelector('#wf-W3 .lt').textContent); }),
-        `${tag}: real states: W1 paused by the system (a trip), W3 off by the system; W13 and W14 in Planning`);
-      for (const st of ['ring', 'arc']) {
-        await p.click(`.wp-head [data-gstyle-set="${st}"]`);
+      const gs = cards.filter(c => !c[6]), ls = cards.filter(c => c[6]);
+      ok(cards.length === 15 && cards.map(c => c[0]).join(',') === Array.from({ length: 15 }, (_, i) => 'wf-W' + i).join(',') && gs.length === 14 && gs.every(c => c[1] === 1 && STG.includes(c[2]) && c[3] === 3 && c[4] && c[5])
+         && ls.length === 1 && ls[0][0] === 'wf-W13' && ls[0][1] === 0 && ls[0][3] === 3,
+        `${tag}: W0–W14: 14 gauges, each one score gauge with its stage pill, its state with a reason, a proposed measure and three paths; W13 a list, not a gauge`);
+      ok(await p.evaluate(() => [...document.querySelectorAll('#wp-grid .wfg:not(.wfl)')].every(c => (c.id === 'wf-W14') === (c.querySelector('.sr-n').textContent === '0%') && (c.id === 'wf-W14' || c.querySelector('.sr-n').textContent === '50%'))),
+        `${tag}: the recount: W0–W12 at 2 of 4 (50%, the probe built and the alarm wired through the one engine), W14 at 0`);
+      ok(await p.evaluate(() => { const a = document.getElementById('p-wfp-W1'), c = document.getElementById('p-wfc-W1'); return /build requirement/.test(a.textContent) && /\/api\/crawl\/loads\.php/.test(c.textContent) && /geofabrik_bulk/.test(c.textContent); }),
+        `${tag}: W1's page and its Core Services path show /api/crawl/loads.php as a component with its check and what it holds (a build requirement)`);
+      ok(await p.evaluate(() => { const g = id => document.querySelector('#wf-' + id + ' .band-word.stage').textContent; return g('W1') === 'Audit & Review' && g('W14') === 'Planning' && /Paused by the system \(a trip\)/.test(document.querySelector('#wf-W1 .lt').textContent) && /Off by the system/.test(document.querySelector('#wf-W3 .lt').textContent); }),
+        `${tag}: real states: W1 paused by the system (a trip), W3 off by the system; W14 in Planning`);
+      {
         const rp = await p.evaluate(ringProblems);
         const s = await sw();
-        ok(rp.style === st && rp.nbad === 0 && rp.needles === 0 && (st === 'ring' || rp.top50 >= 3) && s <= w,
-          `${tag}: ${st}: every score gauge one ${st}, band within 1% of its score, number, label, stage pill; ${rp.needles} needles${st === 'arc' ? `; 50 at the top centre (${rp.top50})` : ''}; scrollWidth ${s}` + (rp.nbad ? ': ' + rp.bad.join(' | ') : ''));
-        if (file === 'workflows.html') await p.screenshot({ path: `${dir}shots/workflows-${st}-${w}.png`, fullPage: true });
+        ok(rp.nbad === 0 && rp.needles === 0 && rp.rings === 0 && rp.switches === 0 && rp.top50 >= 1 && s <= w,
+          `${tag}: every score gauge one Arc, band within 1% of its score, number, label, stage pill; 50 at the top centre (${rp.top50}); ${rp.rings} Rings, ${rp.switches} style switches, ${rp.needles} needles; scrollWidth ${s}` + (rp.nbad ? ': ' + rp.bad.join(' | ') : ''));
+        if (file === 'workflows.html') await p.screenshot({ path: `${dir}shots/workflows-arc-${w}.png`, fullPage: true });
       }
-      await p.click('.wp-head [data-gstyle-set="ring"]');
       // every workflow's own page and its three paths: open, and close by ×
       let opened = 0, closedX = 0, wide = 0;
       for (let i = 0; i < 15; i++) {
@@ -61,8 +65,8 @@ const dir = '/home/user/traversence/handoffs/control-board-plan/step3/board/';
       await p.click('#p-wfr-W1 [data-wf-back]'); const backOk = await isOpen('p-wfp-W1');
       await p.click('#p-wfp-W1 [data-wf-back]'); const closed = !(await p.evaluate(() => document.body.classList.contains('open')));
       ok(inR && backOk && closed, `${tag}: from W1's page to Registered Services and Back to W1's page; Back there closes it`);
-      ok(await p.evaluate(() => { const a = document.getElementById('p-wfp-W1'); return /A gap against the model/.test(a.textContent) && /overture_bulk/.test(a.textContent) && a.querySelectorAll('.wp-t tbody tr').length >= 8; }),
-        `${tag}: W1's page lists its tasks with their needs and switches, and names its gap against R87`);
+      ok(await p.evaluate(() => { const a = document.getElementById('p-wfp-W1'); return /build requirement/.test(a.textContent) && /holding only the three tasks/.test(a.textContent) && /overture_bulk/.test(a.textContent) && a.querySelectorAll('.wp-t tbody tr').length >= 8; }),
+        `${tag}: W1's page lists its tasks with their needs and switches, and the loads endpoint as a component holding only its three tasks (R87)`);
       ok(await p.evaluate(() => /What a source down holds/.test(document.getElementById('p-wfp-W3').textContent) && /cc_home|per-site/.test(document.getElementById('p-wfp-W3').textContent)), `${tag}: W3's page says what a source down holds and links the case`);
       // filters
       const f = async g => { await p.click(`[data-wf-filter="${g}"]`); return p.evaluate(() => [...document.querySelectorAll('#wp-grid .wfg')].filter(c => !c.hidden).map(c => c.id.slice(3)).join(',')); };
@@ -71,7 +75,7 @@ const dir = '/home/user/traversence/handoffs/control-board-plan/step3/board/';
       ok(att === 'W1,W3' && all1.split(',').length === 15 && none.split(',').length === 9, `${tag}: Needs attention shows W1 and W3; pressed again every card; No open alarm shows 9 (${att}; ${none})`);
       // the case and kept/moved/dropped
       const cs = await p.evaluate(() => [...document.querySelectorAll('#wf-case .wp-cs')].map(li => li.querySelector('.live, .sctag').textContent));
-      ok(cs.length === 6 && cs.filter(x => /^real/.test(x)).length >= 3 && cs.some(x => /illustration/.test(x)), `${tag}: the case in six steps, the real ones and the illustrations marked (${cs.join(' / ')})`);
+      ok(cs.length === 6 && await p.evaluate(() => /no Fix it/.test(document.getElementById('wf-case').textContent) && /the system is waiting on them/.test(document.getElementById('wf-case').textContent)) && cs.filter(x => /^real/.test(x)).length >= 3 && cs.some(x => /illustration/.test(x)), `${tag}: the case in six steps, no Fix it for their trouble and "the system is waiting on them" (R118), the real ones and the illustrations marked (${cs.join(' / ')})`);
       ok(await p.evaluate(() => { const d = document.querySelector('.wp-kmd'); return d && d.querySelectorAll('tbody tr').length === 13 && /8 kept, 2 moved, 3 dropped/.test(d.querySelector('summary').textContent); }), `${tag}: today's page: 8 kept, 2 moved, 3 dropped, each with its reason`);
       const s2 = await sw(); ok(s2 <= w, `${tag}: no sideways scroll (${s2})`);
       if (file === 'workflows.html') { await p.click('#wf-W3 .wfg-open'); await p.screenshot({ path: `${dir}shots/workflows-panel-${w}.png` }); await p.keyboard.press('Escape'); }

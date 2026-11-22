@@ -1,4 +1,4 @@
-# The 16 development gauges as a mockup (Jason, 2026-11-22): two rows, Front end (6) and Back end (10), one score gauge each (Ring or Arc,
+# The 16 development gauges as a mockup (Jason, 2026-11-22): two rows, Front end (6) and Back end (10), one score gauge each (Arc,
 # no needle; Jason, 2026-11-22), Complete (live and passing, over the in-scope items). A gauge opens a side panel of its items by status, each with its
 # source, a two-faced item linking its other face. Read from step3/sections/inventory.json (sections16.py). Used by board.py for
 # the Board view's "Development" rows, and written standalone as step3/board/dev-gauges.html. Design mockup, not site code.
@@ -339,7 +339,7 @@ def gauge(g, side):
 def rows(heading='h2'):
     q = [i for i in ITEMS if i.get('pending')]
     return (f'<section class="dg" aria-label="Development"><div class="dg-head"><{heading} class="dg-h">Development</{heading}>'
-            f'<span class="dg-draft">configurations drafted, awaiting Jason\'s sign-off</span>{scorering.switch()}'
+            f'<span class="dg-draft">configurations drafted, awaiting Jason\'s sign-off</span>'
             f'<button type="button" class="dg-pv" data-dev-preview aria-pressed="false">Preview with the draft configuration</button>'
             f'<button type="button" class="dg-q" data-open-panel="p-dev-questions">Questions: pending Jason <b>{len(q)}</b></button></div>'
             f'<p class="dg-sub">Each gauge starts at 0 in Planning and is configured to say what 100 means (Jason, 2026-11-22). The pill under the gauge is its stage: '

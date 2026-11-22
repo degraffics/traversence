@@ -1988,15 +1988,15 @@ reference** (Q21 and SM 172–189, `step1-requirements.md`), by Jason's directio
   - **Colour:** the stage's, as on the strip's pills (Planning taupe, Phased Development amber, Audit & Review orange,
     Implementation slate, Monitoring sage). At Monitoring a runtime gauge takes its live reading against its target: sage
     when met, amber below, red on a trip. The stage word stays as the pill under it, so colour is never the only signal.
-  - About 68 px on cards, 60 px on phone grids, two per row at 390. `role="img"` with a label ("Directory: 52 percent,
+  - About 76 px on cards, 68 px on phone grids, two per row at 390. `role="img"` with a label ("Directory: 52 percent,
     Phased Development") and the visible number.
-  - **Two styles, pending Jason's choice** (his follow-up: "you could also just show the top half of the circle and make the
-    band go 0 - 100 with 50 being the half way mark"): **Ring**, a full circle with the number in the middle, and **Arc**,
-    the top half only, 0 at the left end, 50 at the top, 100 at the right end, the number in the opening and tiny "0" and
-    "100" at the ends. A "Gauge style: Ring | Arc" switch on `dev-gauges.html` and the board, remembered on the device;
-    Ring until he chooses. Checked by `devgauges-check.cjs` (`ring-check.cjs`): one drawing per gauge in each style, the band
-    within 1% of the score, Arc's 50 at the top centre, the number, the label and the stage pill, no needle anywhere, the
-    switch remembered. Generator: `mockups/src/scorering.py`.
+  - **Arc, Jason's choice, 2026-11-22.** Of the two styles drawn (his follow-up: "you could also just show the top half of
+    the circle and make the band go 0 - 100 with 50 being the half way mark"), he chose Arc: the top half only, 0 at the
+    left end, 50 at the top, 100 at the right end, the number in the opening, tiny "0" and "100" at the ends. It is the
+    board's only style: the Ring | Arc switch and its stored choice are removed; Ring stays drawable in `scorering.py`
+    but is never output. Checked by `devgauges-check.cjs` and `workflows-check.cjs` (`ring-check.cjs`): every gauge one
+    Arc, the band within 1% of the score, 50 at the top centre, the number, the label and the stage pill, no Ring, no
+    style switch, no needle. Generator: `mockups/src/scorering.py`.
 
 ---
 

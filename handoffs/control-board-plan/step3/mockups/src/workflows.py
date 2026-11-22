@@ -3,7 +3,7 @@
 #   step3/board/workflows.html   the standalone mockup (1280 and 390)
 #   the board's Workflows view   (board.py calls view() and panels())
 # Real data only: the live mirror (Sync e229587), the alarms snapshot (3:19 AM MST, Nov 21), 03 §28.1, the crawler worker.
-# What isn't real today is marked "illustration" or "proposed". Score gauges (Ring | Arc, no needle; Jason, 2026-11-22).
+# What isn't real today is marked "illustration" or "proposed". Score gauges in Arc (no needle; Jason's choice, 2026-11-22).
 # Design mockup, not site code.
 import html, json, os, re
 
@@ -137,13 +137,32 @@ STAGES = ['Planning', 'Phased Development', 'Audit & Review', 'Implementation', 
 SK = {'Planning': 'pl', 'Phased Development': 'pd', 'Audit & Review': 'ar', 'Implementation': 'im', 'Monitoring': 'mo'}
 
 
+# "Alarm wired" (the session manager, 2026-11-22): the workflow's failures raise through the one alarm engine, with their Fix it or
+# Check it now landing on one item. A pf:wf gate is part of "check passing", not this. From the mirror: a crawler task's failed runs
+# raise on its workflow (ControlBoard::latest, ControlBoard.php:446–470; ControlAlarms.php:44–52); a site job tied to a workflow raises
+# on it and pauses it (Automation::JOBS, Automation.php:50–61; ControlAlarms.php:279–285, 953–961); W0's worker raises on wf:W0
+# (ControlAlarms.php:278, 743–744); every alarm raised lands on one item (tools/control-board-tests/routes.php).
+WIRED = {
+    'W0': 'its worker raises on wf:W0, its held sites on W0\'s page (ControlAlarms.php:278, 743–744)',
+    'W1': 'its crawler tasks\' failed runs (ControlBoard.php:446–470) and listings_tick, data_cleanup_tick (Automation::JOBS)',
+    'W2': 'its crawler tasks\' failed runs and identity_recheck_tick (Automation::JOBS)',
+    'W3': 'its crawler tasks\' failed runs and page_read_tick, vectors_tick (Automation::JOBS)',
+    'W4': 'guide_finds_tick raises on it and pauses it (Automation::JOBS; ControlAlarms.php:279–285)',
+    'W5': 'guide_ondemand_tick (Automation::JOBS)', 'W6': 'heritage tasks\' failed runs and heritage_tick (Automation::JOBS)',
+    'W7': 'journeys_tick (Automation::JOBS)', 'W8': 'guide_finds_tick (Automation::JOBS)',
+    'W9': 'its bulk tasks\' failed runs and landmark_photos_tick (Automation::JOBS)', 'W10': 'guide_finds_tick (Automation::JOBS)',
+    'W11': 'howto\'s failed runs (ControlBoard.php:446–470)', 'W12': 'learn\'s failed runs (ControlBoard.php:446–470)',
+}
+LIST_ONLY = {'W13': 'W13 is a list, not a gauge: people write stories, so it has no machine steps to measure (the session manager, 2026-11-22).'}
+
+
 def setup(w):
     m, t, probe = MEASURE[w]
-    alarm = bool(B.WF_ALARMS.get(w))
+    alarm = w in WIRED
     return [('The probe built', probe is not None, probe or ('licence_lookup isn\'t built' if w == 'W14' else 'person-written: nothing runs to read')),
             ('Its target set', False, 'proposed: ' + t + ' (ours, for Jason)'),
-            ('Its check passing', False, 'no target yet' + ('; ' + STATE[w][1].lower() if w in ('W1', 'W2', 'W3') else '')),
-            ('Its alarm wired to the board', alarm, 'its alarms are in the snapshot (' + ', '.join(sorted({a['level'] for a in B.WF_ALARMS.get(w, [])})) + ')' if alarm else 'none seen in the alarms snapshot')]
+            ('Its check passing', False, 'no target yet; its gate (pf:wf:' + w + ') is part of this check' + ('; ' + STATE[w][1].lower() if w in ('W1', 'W2', 'W3') else '')),
+            ('Its alarm wired to the board', alarm, ('its failures raise through the one alarm engine: ' + WIRED[w]) if alarm else ('licence_lookup isn\'t built: nothing raises yet' if w == 'W14' else 'nothing raises'))]
 
 
 def stage(w):
@@ -245,8 +264,8 @@ CASE = [
      '"Partly working" (reachAll, :895–907). Before #247 the 504 turned the line red and held W3 whole (pf:wf:W3): the snapshot predates #247.'),
     ('The system tries', 'a', 'illustration', 'On the diagnostic clock: the component\'s check, 3 tries or 60 minutes (control_fix_tries, control_fix_minutes; R67–R68). '
      'A scheduled W3 run is not a try. Status: "Trying again (1 of 3)", then "Checked 09:42 MST: still 504. Next check 10:12 MST." (R104).'),
-    ('Its card, from the alarm', 'a', 'illustration', 'The alarm\'s first button opens Common Crawl\'s card (R116). A 504 is their trouble, so the card shows no Fix it (R118): '
-     'Check it now and Pause it. Fix it would show only for a cause a person can fix (a key, a quota, a block; R117).'),
+    ('Its card, from the alarm', 'a', 'illustration', 'The alarm\'s first button opens Common Crawl\'s card (R116). A 504 is their trouble, so the card shows no Fix it (R118, the session manager\'s ruling, 2026-11-22): '
+     'only Check it now and Pause it, with "the system is waiting on them". Fix it shows only for a cause a person can fix (a key, a quota, a block; R117).'),
     ('Recovered', 'g', 'illustration', 'The check passes: the pause lifts and the thread closes as "Recovered: Common Crawl\'s index was down <n> min, the system fixed it.", a notice with nothing to press '
      '(R73, R91, R92: a server error is a back-off kind, closed by its check).'),
     ('Switches back', 'a', 'real today: still off', 'A trip places its pause beside the switches, never in them, so nothing is left to restore (0175 release 1, paused.php). '
@@ -327,7 +346,17 @@ def groups(w):
     return ' '.join(g) if g else 'none'
 
 
+def list_card(w):
+    k, words, why = state(w)
+    return (f'<article class="wfg wfl s-{k}" id="wf-{w}" data-wf-g="{groups(w)}"><button type="button" class="wfg-open" data-open-panel="p-wfp-{w}" aria-label="Open {w} {E(wname(w))}: a list, not a gauge">'
+            f'<span class="wfg-h"><b>{w}</b> {E(wname(w))}</span><span class="wfg-list">{E(LIST_ONLY[w])}</span>{B.lt(k, words)}</button>'
+            f'<div class="btns"><button class="btn path" data-open-panel="p-wfa-{w}">Workflows ▸</button><button class="btn path" data-open-panel="p-wfc-{w}">Core Services ▸</button>'
+            f'<button class="btn path" data-open-panel="p-wfr-{w}">Registered Services ▸</button></div></article>')
+
+
 def card(w, links):
+    if w in LIST_ONLY:
+        return list_card(w)
     k, words, why = state(w)
     st = stage(w)
     m, t, _ = MEASURE[w]
@@ -352,7 +381,7 @@ def paused_now():
                                        for g, lab in (('att', 'Needs attention'), ('warn', 'Warnings'), ('off', 'Off on purpose'), ('none', 'No open alarm'))) + '</div>'
             f'<h3 class="h3">Needs attention</h3><ul class="wp-l">{li(att, "r")}</ul>'
             f'<details class="more"><summary>Waiting on those</summary><ul class="wp-l"><li>W1\'s other tasks (coverage, second_look, targets, npi_bulk, irs_bulk, geofabrik_bulk) wait while W1 is paused whole. '
-            f'Under the model (R87) only the three that post to /api/crawl/loads.php would wait: overture_bulk, foursquare_bulk, geofabrik_bulk (crawler.py:3552–3591, 3704–3757). Open question 2.</li></ul></details>'
+            f'The build makes /api/crawl/loads.php a component with its own check, so a failure there holds only overture_bulk, foursquare_bulk and geofabrik_bulk (R87; crawler.py:3552–3591, 3704–3757).</li></ul></details>'
             f'<h3 class="h3">Warnings</h3><ul class="wp-l">{li(warn, "a")}</ul>'
             f'<h3 class="h3">Off on purpose</h3><ul class="wp-l">{li(off, "n")}</ul></div>')
 
@@ -381,9 +410,16 @@ def kmd_html():
             f'with the Workflow board folded in.</p><table class="wp-t"><thead><tr><th>What</th><th>Today</th><th>Why</th></tr></thead><tbody>{rows}</tbody></table></details>')
 
 
+LOADS = ('<div class="wp-comp"><h3 class="h3">A Core Services component: <code>/api/crawl/loads.php</code> <span class="proposed">build requirement</span></h3>'
+         '<p class="sub">The session manager (2026-11-22, R87, #247\'s rule): the loads endpoint is a component with its own check, holding only the three tasks that post to it. '
+         '<b>Its check:</b> the endpoint answers within the worker\'s timeout (120 s, crawler.py:3588, :3711), read from its calls in the ledger (control_ledger, endpoint crawl/loads). '
+         '<b>What it holds when it fails:</b> overture_bulk, foursquare_bulk (open_load, crawler.py:3552–3591) and geofabrik_bulk (geofabrik_send, :3704–3757). '
+         'coverage, second_look, targets, npi_bulk and irs_bulk don\'t call it and carry on. <b>Today</b> its failure paused W1 whole (two trips): the build fixes that.</p></div>')
+
+
 def body(links=True):
     cards = ''.join(card(w, links) for w, *_ in B.WORKFLOWS)
-    return (f'<div class="wp-head"><h1>Workflows</h1><span class="dg-draft">draft for the session manager, then Jason</span>{scorering.switch()}</div>'
+    return (f'<div class="wp-head"><h1>Workflows</h1><span class="dg-draft">draft for the session manager, then Jason</span></div>'
             f'<p class="sub">W0–W14 from the live <code>Automation::WORKFLOWS</code>, each one a gauge under the approved lifecycle: setup % through Planning to Implementation, '
             f'its live reading against its target at Monitoring (Jason, 2026-11-22). The measures and targets are <span class="proposed">proposed</span>, ours. '
             f'A call happens only when the master switch, its workflow, its task and its service are all on (R140); a source down holds only what uses it (R88).</p>'
@@ -412,8 +448,7 @@ def page_panel(w, links):
         tk += f'<tr><td><b>{E(t_)}</b><div class="micro">{E(what)} ({E(src)})</div></td><td>{nh}</td><td>{B.lt(*ts)}</td></tr>'
     ho = ''.join(f'<li><b>{E(n["label"])}</b>: if {E(n["srcs"][0][2])} fails, {E(then)}.{(" Used by " + E(", ".join(users)) + ".") if users else ""}</li>' for n, users, then in holds(w))
     case = (f'<p class="sub"><a href="#wf-case" data-wf-case>The case drawn end to end: Common Crawl\'s index down</a> holds only the per-site copy; the bulk reads carry on.</p>' if w in ('W2', 'W3') else '')
-    gap = ('<p data-tv-status="info" class="wp-gap"><b>A gap against the model:</b> W1 is paused whole by two task trips. Under R87 only the three tasks that post to /api/crawl/loads.php '
-           '(overture_bulk, foursquare_bulk, geofabrik_bulk) would wait; coverage, second_look, targets, npi_bulk and irs_bulk don\'t call it. Open question 2.</p>' if w == 'W1' else '')
+    gap = LOADS if w == 'W1' else ''
     person = _list([E(x) for x in PERSON.get(w, [])])
     st_src = STARTS[w]
     fields = ''.join(f'<th>{E(f)}</th>' for f in TASK_FIELDS)
@@ -422,9 +457,10 @@ def page_panel(w, links):
             f'<p class="sub">{E(wwhat(w))} Runs on: {E(wwhere(w))}.</p>'
             f'<div class="wp-st">{B.lt(k, words)}<p class="sub">{E(why)}</p></div>{gap}'
             + (f'<h3 class="h3">Its alarms <span class="live">live · {E(B.T_AL)}</span></h3><ul class="wp-l">{alh}</ul>' if al else '')
-            + f'<h3 class="h3">Its gauge</h3><div class="wp-gz">{ring(w, True)}<span class="band-word stage st-{SK[st]}">{E(st)}</span></div>'
-            f'<p class="sub">Setup through Planning to Implementation (Jason approved, 2026-11-22). <span class="proposed">proposed</span> measure: {E(m)}; target: {E(t)}.</p><ul class="wp-l wp-su">{su}</ul>'
-            f'<h3 class="h3">What starts it (the run schedule)</h3><p class="sub">{E(st_src[0])} <span class="micro">({E(st_src[1])})</span></p>'
+            + (f'<h3 class="h3">A list, not a gauge</h3><p class="sub">{E(LIST_ONLY[w])}</p>' if w in LIST_ONLY else
+               f'<h3 class="h3">Its gauge</h3><div class="wp-gz">{ring(w, True)}<span class="band-word stage st-{SK[st]}">{E(st)}</span></div>'
+               f'<p class="sub">Setup through Planning to Implementation (Jason approved, 2026-11-22). <span class="proposed">proposed</span> measure: {E(m)}; target: {E(t)}.</p><ul class="wp-l wp-su">{su}</ul>')
+            + f'<h3 class="h3">What starts it (the run schedule)</h3><p class="sub">{E(st_src[0])} <span class="micro">({E(st_src[1])})</span></p>'
             f'<h3 class="h3">Its steps and their switches</h3>'
             + (f'<table class="wp-t"><thead><tr><th>Task</th><th>Its needs: sources in order, then the fallback</th><th>Its switch</th></tr></thead><tbody>{tk}</tbody></table>' if tk else '<p class="sub">No tasks: nothing runs.</p>')
             + f'<h3 class="h3">What a source down holds (R88)</h3>{("<ul class=wp-l>" + ho + "</ul>") if ho else "<p class=sub>No need in the map.</p>"}{case}'
@@ -447,7 +483,7 @@ def path_panels(w, links):
     fr = [x for x in SENDS if x[1] == w]
     th = _list([f'<a href="#" data-open-panel="p-wfp-{b}">{b} {E(wname(b))}</a>: {E(why)} <span class="micro">({E(s)})</span>' for a, b, why, s in to])
     frh = _list([f'<a href="#" data-open-panel="p-wfp-{a}">{a} {E(wname(a))}</a>: {E(why)} <span class="micro">({E(s)})</span>' for a, b, why, s in fr])
-    cs = _list([f'<b>{E(assoc.CORE_PARTS[c][0])}</b> <span class="micro">({E(assoc.CORE_PARTS[c][2])})</span>' for c in core(w)])
+    cs = _list([f'<b>{E(assoc.CORE_PARTS[c][0])}</b> <span class="micro">({E(assoc.CORE_PARTS[c][2])})</span>' for c in core(w)]) + (LOADS if w == 'W1' else '')
     rs = _list([f'<b>{E(n["label"])}</b>: {src_html(n, links)} <span class="micro">· else {E(n["fallback"])}{" (soft: its fallback always works)" if n["soft"] else ""}</span>' for n in needs_of(w)])
     back = f'<div class="btns navb"><button class="btn back" data-wf-back>← Back</button></div>'
     head = lambda pid, t: f'<aside class="panel" id="{pid}" hidden role="dialog" aria-label="{w}: {t}"><button class="x" aria-label="Close">×</button><div class="crumb">Workflows · <a href="#" data-open-panel="p-wfp-{w}">{w} {E(wname(w))}</a></div><h2 class="h2">{t}</h2>'
@@ -469,7 +505,7 @@ CSS = r"""
 .wp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.5rem;margin:.6rem 0}
 .wfg{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--card-edge);border-radius:.5rem;padding:.5rem;min-width:0}.wfg.s-r{border-color:var(--red)}.wfg.hit{box-shadow:0 0 0 2px var(--copper)}
 .wfg[hidden]{display:none}.wfg-open{display:flex;flex-direction:column;align-items:center;gap:.2rem;background:none;border:0;font:inherit;color:inherit;cursor:pointer;text-align:center;padding:0}
-.wfg .lt{font-size:12.5px;font-weight:600}.wfg-h{font-size:13.5px;line-height:1.25;min-height:2.5em}.wfg-su{font-size:12px;color:var(--meta)}.wfg-m{font-size:11.5px;color:var(--meta);line-height:1.3}
+.wfg .lt{font-size:12.5px;font-weight:600}.wfg-list{font-size:12.5px;color:var(--meta);line-height:1.35;margin:.3rem 0}.wfg-h{font-size:13.5px;line-height:1.25;min-height:2.5em}.wfg-su{font-size:12px;color:var(--meta)}.wfg-m{font-size:11.5px;color:var(--meta);line-height:1.3}
 .wfg .btns{justify-content:center;margin-top:.35rem}.wfg .btn.path{font-size:11.5px;padding:.1rem .5rem}
 .wp-case{background:var(--card);border:1px solid var(--card-edge);border-radius:.5rem;padding:.5rem .7rem;margin:.8rem 0}.wp-case .h2{font-size:16px;margin:0 0 .2rem}
 .wp-csl{margin:.3rem 0 0 1.1rem;padding:0;display:flex;flex-direction:column;gap:.45rem}.wp-csh{display:flex;flex-wrap:wrap;gap:.35rem;align-items:center}.wp-cs .sub{margin:.15rem 0 0}
@@ -535,7 +571,7 @@ def spec():
            'Step 3, 2026-11-22. A spec and a mockup: nothing is built. The mockup is `board/workflows.html` (standalone, 1280 and 390) and the board\'s',
            'Workflows view (`board/index.html`), both generated by `mockups/src/workflows.py`. Real data only: the live mirror (' + MIRROR + '), the alarms',
            'snapshot (' + B.T_AL + '), 03 §28.1 and the crawler worker (`workers/crawler/crawler.py`). What isn\'t real today is marked',
-           '**illustration** or **proposed**. Every gauge is a score gauge (Ring or Arc, no needle; Jason, 2026-11-22).', '',
+           '**illustration** or **proposed**. Every gauge is a score gauge in Arc (no needle; Jason\'s choice, 2026-11-22).', '',
            '## 1. What the page is', '',
            '- One page for the Knowledge Engine\'s workflows, W0–W14, on the System Control Board (R8, R17). It merges today\'s Workflows page and the folded-in',
            '  Workflow board (decisions/0175 L421–422: "Each workflow\'s page has its steps, services, backups and task switches"; release #243).',
@@ -562,10 +598,12 @@ def spec():
             '  minutes; slow is never a trip; the back-off ladder; late and stuck; Pulse\'s escalation). **A scheduled run is not a try** (R67, R68).',
             '- **Words follow the state (R101, R105, R110).** "Paused by the system (a trip): …" for a trip (R77); "Off by the system, left by a closed trip" for',
             '  W3\'s switches; "Off" with its reason for what\'s off on purpose, never a failure (R109).', '',
-            '### Today against the model', '',
-            '- **W1 is paused whole by two task trips** (overture_bulk #1290, foursquare_bulk #1288; the alarms snapshot). Under R87 only the tasks that post to',
-            '  `/api/crawl/loads.php` would wait: `overture_bulk`, `foursquare_bulk` (`open_load`, crawler.py:3552–3591) and `geofabrik_bulk` (`geofabrik_send`,',
-            '  :3704–3757). `coverage`, `second_look`, `targets`, `npi_bulk` and `irs_bulk` don\'t call it. Open question 2.',
+            '### Today against the model, and a build requirement', '',
+            '- **W1 is paused whole by two task trips** (overture_bulk #1290, foursquare_bulk #1288; the alarms snapshot).',
+            '- **Build requirement (the session manager, 2026-11-22; R87, #247\'s rule): `/api/crawl/loads.php` becomes a Core Services component with its own',
+            '  check**, holding only the three tasks that post to it: `overture_bulk`, `foursquare_bulk` (`open_load`, crawler.py:3552–3591) and `geofabrik_bulk`',
+            '  (`geofabrik_send`, :3704–3757). Its check: the endpoint answers within the worker\'s timeout (120 s, crawler.py:3588, :3711), read from its calls in',
+            '  the ledger. `coverage`, `second_look`, `targets`, `npi_bulk` and `irs_bulk` don\'t call it and carry on. Shown on W1\'s page and its Core Services path.',
             '- **W3 does nothing** while its two switches (Read a source, Common Crawl) stay Off by the system, written by the trip before 0175 release 1. They stay',
             '  off until a person switches them on (R98). Open question 3.', '',
             '## 4. The three paths, starting from a workflow', '',
@@ -584,11 +622,18 @@ def spec():
             'is the live reading against its target, coloured by it. The measures and targets are **proposed** (ours) for Jason to set.', '',
             '| Workflow | Stage | Setup | Proposed measure | Proposed target | The probe |', '|---|---|---|---|---|---|']
     for w in W:
+        if w in LIST_ONLY:
+            out.append(f'| {w} | a list, not a gauge | — | {LIST_ONLY[w]} | — | — |')
+            continue
         m, t, p = MEASURE[w]
         out.append(f'| {w} | {st[w]} | {sum(1 for x in setup(w) if x[1])} of 4 ({pct(w):.0f}%) | {m} | {t} | {p or "none: " + setup(w)[0][2]} |')
-    cnt = {s: sum(1 for w in W if st[w] == s) for s in STAGES}
+    cnt = {s: sum(1 for w in W if st[w] == s and w not in LIST_ONLY) for s in STAGES}
     out += ['', 'Today: ' + '; '.join(f'{s} {n}' for s, n in cnt.items() if n) + '. No workflow passes Audit & Review until Jason sets its target (proposed above).',
-            'Alarms wired = an alarm for it is in the snapshot (W1, W2, W3); the others\' alarms may be wired but none was open to see.', '',
+            '**Alarm wired** (the session manager, 2026-11-22) means the workflow\'s failures raise through the one alarm engine, with their Fix it or Check it now',
+            'landing on one item; a `pf:wf:W#` gate is part of "check passing", not this. From the mirror: a crawler task\'s failed runs raise on its workflow',
+            '(ControlBoard.php:446–470; ControlAlarms.php:44–52); a site job tied to a workflow raises on it and pauses it (Automation::JOBS, Automation.php:50–61;',
+            'ControlAlarms.php:279–285, 953–961); W0\'s worker raises on wf:W0 (ControlAlarms.php:278, 743–744); every alarm raised lands on one item',
+            '(tools/control-board-tests/routes.php). So W0–W12 are wired; W14 has nothing built to raise; W13 is a list.', '',
             '## 6. W0–W14 in full', '',
             'Each workflow\'s tasks (with where each is described), its needs with sources in priority order and fallback, what starts it, and its real state.', '']
     for w in W:
@@ -623,21 +668,20 @@ def spec():
     for i, (t, k, tag, x) in enumerate(CASE, 1):
         out.append(f'{i}. **{t}** ({tag}). {x}')
     out += ['', '## 9. The mockup', '',
-            '- `board/workflows.html`: standalone, under 300 KB, at 1280 and 390 (two cards a row on a phone, no sideways scroll). The Gauge style switch (Ring | Arc)',
-            '  as on the other pages. Checked by `mockups/src/workflows-check.cjs`: 15 gauges, one score gauge each with its stage pill and its band within 1% of',
+            '- `board/workflows.html`: standalone, under 300 KB, at 1280 and 390 (two cards a row on a phone, no sideways scroll). Arc gauges,',
+            '  Jason\'s choice. Checked by `mockups/src/workflows-check.cjs`: 14 gauges and W13\'s list, one Arc each with its stage pill and its band within 1% of',
             '  its score, every panel closing three ways with Back, the filters, the case\'s six steps, the validator.',
             '- The board\'s Workflows view (`board/index.html`, `board.py` calls `workflows.view()`), and its review-pack part.', '',
-            '## 10. Open questions', '',
-            '1. **Fix it in the case.** The brief asked for Fix it on the card; R117–R118 say a 504 (their trouble) shows no Fix it, only Check it now and Pause it.',
-            '   The mockup follows R118. Is that right, or should a 5xx get a Fix it?',
-            '2. **W1 paused whole.** The two task trips paused all of W1; under R87 only the three tasks posting to `/api/crawl/loads.php` would wait. Should the',
-            '   loads endpoint be a component with its own check (so a trip on it holds those three tasks only)?',
-            '3. **W3\'s two switches.** They were written Off by the older trip and stay off (R98). Switch them on now, or wait for IR-0001 and the Common Crawl',
+            '## 10. Settled by the session manager (2026-11-22)', '',
+            '- **Fix it in the case: R118 wins.** A 504 is their trouble: no Fix it, only Check it now and Pause it, with "the system is waiting on them". (Was open question 1.)',
+            '- **The loads endpoint** is a component with its own check: a build requirement (§3). (Was open question 2.)',
+            '- **W13 is a list, not a gauge**: it has no machine steps to measure. (Was open question 6.)',
+            '- **Spend and last runs** come from the build\'s data, as written. (Was open question 7.)',
+            '- **"Alarm wired"** is the one alarm engine, not a pf:wf gate (§5); the setup recounted. (Was open question 8.)',
+            '- **W0 started** stays in `asks.md` (visit 17) as live data. (Was open question 5.)', '',
+            '## 11. Open questions', '',
+            '1. **W3\'s two switches.** They were written Off by the older trip and stay off (R98). Switch them on now, or wait for IR-0001 and the Common Crawl',
             '   index to be read again?',
-            '4. **The measures and targets** in §5 are ours. Jason sets each (the "target set" criterion); until then every workflow stays at or below Audit & Review.',
-            '5. **W0\'s state.** Whether W0 has been started is live data the snapshot doesn\'t hold. Read it before the build (the workers\' heartbeat).',
-            '6. **W13** has no runs to read. Keep it as a gauge (named places sent to Find it), or list it without a gauge?',
-            '7. **By workflow, this month** (Operations::costs) and each task\'s switch and last run are live data this mockup doesn\'t hold; the build reads them.',
-            '8. **"Alarm wired"** counts only alarms open in the snapshot (W1, W2, W3). Is every workflow\'s gate (`pf:wf:W#`) enough to count as wired?']
+            '2. **The measures and targets** in §5 are ours. Jason sets each (the "target set" criterion); until then every workflow stays at or below Audit & Review.']
     open(STEP3 + 'workflows-page.md', 'w').write('\n'.join(out) + '\n')
     return dict(cited=len(rows), total=total, stages=cnt, kmd=n, case=len(CASE))

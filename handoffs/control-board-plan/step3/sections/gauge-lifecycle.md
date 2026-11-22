@@ -28,10 +28,9 @@ the five-stage strip, the board's Development rows).
   Implementation slate, Monitoring sage). At Monitoring a runtime gauge takes its reading against its target instead: sage
   met, amber below, red a trip. The stage pill stays under it, so colour is never the only signal.
 - `role="img"` with a label such as "Directory: 52 percent, Phased Development".
-- **Two styles, pending his choice:** **Ring** (a full circle, the number in the middle) and **Arc** (his follow-up: "just
-  show the top half of the circle and make the band go 0 - 100 with 50 being the half way mark": 0 at the left end, 50 at
-  the top, 100 at the right end, the number in the opening). The page's "Gauge style: Ring | Arc" switch shows one,
-  remembered on the device; Ring until he chooses. Spec in 03 §27; generator `mockups/src/scorering.py`.
+- **Arc, Jason's choice, 2026-11-22.** Of Ring and Arc (his follow-up: "just show the top half of the circle and make the
+  band go 0 - 100 with 50 being the half way mark"), he chose Arc: 0 at the left end, 50 at the top, 100 at the right end,
+  the number in the opening. It is the only style; the switch is removed. Spec in 03 §27; generator `mockups/src/scorering.py`.
 
 ## 2. The five words: the stage of the work (Jason's choice)
 

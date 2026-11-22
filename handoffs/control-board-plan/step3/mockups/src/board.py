@@ -995,7 +995,7 @@ SCALE = {'o-uptime': (95, 100), 'o-speed': (95, 100)}
 
 
 def dial(o, big=False):
-    """The live reading as a score gauge (Ring or Arc, no needle; Jason, 2026-11-22), coloured by the reading against its target:
+    """The live reading as a score gauge (Arc, no needle; Jason's choice, 2026-11-22), coloured by the reading against its target:
     sage when met, amber when below, red on a trip, taupe with no reading. The band word stays under it."""
     pct, k = o['pct'], o['state']
     shown = None if pct is None else (f'{pct:.1f}'.rstrip('0').rstrip('.') if pct % 1 else f'{pct:.0f}')

@@ -1,9 +1,9 @@
-// Score gauges (Jason, 2026-11-22): Ring or Arc, no needle. Run in the page: every gauge's .sr is checked against its score.
+// Score gauges in Arc (Jason's choice, 2026-11-22), no needle, no Ring, no style switch. Run in the page: every gauge's .sr is checked against its score.
 // Returns {style, n, bad[]}: one visible drawing per gauge in the page's style, the band's length within 1% of the score, the number
 // present and matching, role="img" with a label, the stage pill beside it (not for the big reading in a snapshot panel), and the Arc's
 // band ending where its score says (50 at the top centre). Also counts any needle left anywhere.
 module.exports.ringProblems = () => {
-  const style = document.documentElement.getAttribute('data-gstyle') || 'ring';
+  const style = 'arc';
   const bad = []; let n = 0, top50 = 0;
   document.querySelectorAll('.sr').forEach((r, i) => {
     n++;
@@ -30,5 +30,7 @@ module.exports.ringProblems = () => {
     }
   });
   const needles = document.querySelectorAll('.needle, .dg-needle, .hub, .dg-hub, .sr line, [class*=needle]').length;
-  return { style, n, bad: bad.slice(0, 8), nbad: bad.length, needles, top50 };
+  const rings = document.querySelectorAll('.sr-ring, svg.sr-ring').length;
+  const switches = document.querySelectorAll('[data-gstyle-set], .sr-sw').length + (document.documentElement.hasAttribute('data-gstyle') ? 1 : 0);
+  return { style, n, bad: bad.slice(0, 8), nbad: bad.length, needles, rings, switches, top50 };
 };

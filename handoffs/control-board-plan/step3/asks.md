@@ -223,3 +223,9 @@ The open-data sources (Overture, Geofabrik, NPI, IRS) need none: their slots say
   Sign in at https://developer.apple.com/account, then Membership details. **Settles:** 03 §26.21.
 - **[14] Meta's app review state:** is the app for Sign in with Facebook live or still in development or review?
   Sign in at https://developers.facebook.com/apps/, open the app, then App Review. **Settles:** 03 §26.23.
+
+## Visit 17. W0 Indexer's state: https://traversence.com/admin/config/control/wf-W0
+
+- **[17] Has W0 been started?** It was built and shipped switched off (release #79). Read its switch, who and when, and
+  its heartbeat's last time on its own page. Read only. **Settles:** `workflows-page.md` §5 and §6 (W0's state), held as
+  live data by the session manager (2026-11-22).

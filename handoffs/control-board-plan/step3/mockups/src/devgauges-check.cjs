@@ -1,5 +1,5 @@
 // Checks the 16 development gauges (step3/board/dev-gauges.html, and the Board view's Development rows in index.html) at 1280 and 390:
-// 16 gauges, each one score gauge (Ring or Arc, no needle; Jason, 2026-11-22), both styles, the switch remembered; every gauge's panel and the Questions panel open and close by ×, Esc and a click outside; the
+// 16 gauges, each one score gauge in Arc (Jason's choice, 2026-11-22), no Ring, no switch, no needle; every gauge's panel and the Questions panel open and close by ×, Esc and a click outside; the
 // other-face links open the other gauge's panel at that item; no sideways scroll; two gauges per row at 390; no console errors;
 // the validator passes on the standalone page.
 const { chromium } = require('playwright');
@@ -111,20 +111,13 @@ const dir = '/home/user/traversence/handoffs/control-board-plan/step3/board/';
       await p.click(`#${f0[1]} [data-dev-back]`); await p.waitForTimeout(60);
       ok(await isOpen(f0[0]), `${tag}: Back returns to the gauge the link came from`);
       await p.keyboard.press('Escape');
-      // score gauges: both styles render, bands match scores within 1%, Arc's 50 at the top centre, no needle anywhere; the switch is remembered
+      // score gauges in Arc only (Jason's choice, 2026-11-22): bands match scores within 1%, 50 at the top centre, no Ring, no switch, no needle
       await p.click('[data-dev-preview]');
-      for (const st of ['ring', 'arc']) {
-        await p.click(`[data-gstyle-set="${st}"]`);
-        const rp = await p.evaluate(ringProblems);
-        ok(rp.style === st && rp.n >= 21 && rp.nbad === 0 && rp.needles === 0 && (st === 'ring' || rp.top50 >= 1) && (await p.evaluate(() => document.documentElement.scrollWidth)) <= w,
-          `${tag}: ${st}: ${rp.n} score gauges, each one ${st} with its band within 1% of its score, its number, its label and its stage pill; ${rp.needles} needles${st === 'arc' ? `; 50 ends at the top centre (${rp.top50})` : ''}` + (rp.nbad ? ': ' + rp.bad.join(' | ') : ''));
-        if (file === 'dev-gauges.html') { await p.click('[data-dev-preview]'); await p.screenshot({ path: `${dir}shots/dev-gauges-${st}-${w}.png`, fullPage: true }); await p.click('[data-dev-preview]'); }
-      }
-      await p.reload(); if (file === 'index.html') await p.click('.rail [data-nav="board"]');
-      const kept = await p.evaluate(() => [document.documentElement.getAttribute('data-gstyle'), document.querySelector('[data-gstyle-set="arc"]').getAttribute('aria-pressed')]);
-      await p.click('[data-gstyle-set="ring"]'); await p.reload(); if (file === 'index.html') await p.click('.rail [data-nav="board"]');
-      const back2 = await p.evaluate(() => document.documentElement.getAttribute("data-gstyle"));
-      ok(kept[0] === 'arc' && kept[1] === 'true' && back2 === "ring", `${tag}: the Gauge style switch works and is remembered after a reload (arc kept: ${kept.join(", ")}; back to ${back2})`);
+      const rp = await p.evaluate(ringProblems);
+      ok(rp.n >= 21 && rp.nbad === 0 && rp.needles === 0 && rp.rings === 0 && rp.switches === 0 && rp.top50 >= 1 && (await p.evaluate(() => document.documentElement.scrollWidth)) <= w,
+        `${tag}: ${rp.n} score gauges, each one Arc with its band within 1% of its score, its number, its label and its stage pill; 50 ends at the top centre (${rp.top50}); ${rp.rings} Rings, ${rp.switches} style switches, ${rp.needles} needles` + (rp.nbad ? ': ' + rp.bad.join(' | ') : ''));
+      if (file === 'dev-gauges.html') await p.screenshot({ path: `${dir}shots/dev-gauges-arc-${w}.png`, fullPage: true });
+      await p.click('[data-dev-preview]');
       ok(errs.length === 0, `${tag}: no console errors` + (errs.length ? ': ' + errs.slice(0, 3).join(' | ') : ''));
       if (file === 'dev-gauges.html') await p.screenshot({ path: `${dir}shots/dev-gauges-${w}.png`, fullPage: true });
       if (file === 'dev-gauges.html') { await p.click('.dg-g >> nth=15'); await p.screenshot({ path: `${dir}shots/dev-gauges-panel-${w}.png` }); await p.keyboard.press('Escape'); }
