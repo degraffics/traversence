@@ -2,86 +2,30 @@
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
  "claims": [
   {
-   "path": "website/discovery/index.php",
-   "functions": [
-    "(top)",
-    "dv_card_photos",
-    "dv_landmark_cards",
-    "dv_park_cards"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5kMXdmwb4aE7hWkGeU",
-   "why": "card-fixes.zip, taken over from session_01CXLi5hFvhtEKj2JuNVmjWZ (screens proposal A4-A6, A13, B3)",
-   "since": "2026-11-22T12:37:44Z",
-   "expires": "2026-11-22T16:48:28Z",
-   "release": "card-fixes.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/ui/explore-hero.php",
-   "functions": [
-    "tv_explore_card",
-    "tv_explore_card_css"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5kMXdmwb4aE7hWkGeU",
-   "why": "card-fixes.zip, taken over from session_01CXLi5hFvhtEKj2JuNVmjWZ (screens proposal A4-A6, A13, B3)",
-   "since": "2026-11-22T12:37:44Z",
-   "expires": "2026-11-22T16:48:28Z",
-   "release": "card-fixes.zip",
-   "callers": {
-    "tv_explore_card": [
-     "app/ui/experience-ui.php",
-     "website/discovery/index.php"
-    ]
-   }
-  },
-  {
    "path": "website/listing/view.php",
    "functions": [
     "(top)"
    ],
    "kind": "change",
    "session": "session_01CXLi5kMXdmwb4aE7hWkGeU",
-   "why": "card-fixes.zip, taken over from session_01CXLi5hFvhtEKj2JuNVmjWZ (screens proposal A4-A6, A13, B3)",
+   "why": "The listing page, B5 Option 1 (screens proposal, Jason 2026-11-22)",
    "since": "2026-11-22T12:37:44Z",
-   "expires": "2026-11-22T16:48:28Z",
-   "release": "card-fixes.zip",
+   "expires": "2026-11-22T16:55:00Z",
+   "release": "listing-page.zip",
    "callers": {}
   },
   {
-   "path": "app/lib/PlacePhotos.php",
+   "path": "app/ui/confidence-ui.php",
    "functions": [
-    "for"
+    "tv_confidence_words"
    ],
-   "kind": "change",
+   "kind": "add",
    "session": "session_01CXLi5kMXdmwb4aE7hWkGeU",
-   "why": "card-fixes.zip: the card's visible credit carries the photo's licence (session manager's review, 2026-11-22)",
-   "since": "2026-11-22T12:38:46Z",
-   "expires": "2026-11-22T16:48:28Z",
-   "release": "card-fixes.zip",
-   "callers": {
-    "for": [
-     "website/discovery/index.php"
-    ]
-   }
-  },
-  {
-   "path": "app/lib/Landmarks.php",
-   "functions": [
-    "top"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5kMXdmwb4aE7hWkGeU",
-   "why": "card-fixes.zip: landmark cards' visible credit carries the photo's licence (image_license selected)",
-   "since": "2026-11-22T12:39:25Z",
-   "expires": "2026-11-22T16:48:28Z",
-   "release": "card-fixes.zip",
-   "callers": {
-    "top": [
-     "website/discovery/index.php"
-    ]
-   }
+   "why": "B5: how sure we are, in words",
+   "since": "2026-11-22T12:55:02Z",
+   "expires": "2026-11-22T16:55:02Z",
+   "release": "listing-page.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
