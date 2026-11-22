@@ -132,3 +132,6 @@ sent. The real run happens on staging and live.
 ### Open question for the summary (no separate pop-up, per the brief)
 A sole owner can be reset only from the server (`app/scripts/staff-reset.php`). Recommendation: keep a second owner or
 admin as the safety net; B8 shows the setup link to the owner to hand over, never only emailed.
+
+**Live (2026-11-22):** release #251, verified in Sync 13:57 UTC (70d0cb1): the 16 files match the zip byte for byte; the live
+sign-in page shows Continue with Google, Microsoft and Facebook. Claims end with the delivery record.

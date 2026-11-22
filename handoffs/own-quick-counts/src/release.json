@@ -1,0 +1,7 @@
+{
+ "title": "Quick Search: your own quick searches show how many they find where you are",
+ "why": "Jason, 2026-11-22: \"Count them\" (B2's follow-up, handoffs/screens-proposal-2026-11-22.md). In the search panel, each of your own quick searches (kept on your device) now shows the number its search finds for where you are, as the place's own quick searches do. Each phrase is run as the search it opens, with no side effects (as while typing: nothing to the crawler, nothing counted as demand), and kept an hour per place and phrase. Open now has no number (it changes by the minute, B2); a phrase that finds nothing shows none. Only the words are sent; nothing about them or the person is stored. FAQ updated. No outside calls, no cost.",
+ "changes": [{"what": "The search panel's Quick Search", "where": "https://traversence.com/"}],
+ "proposals": [],
+ "switch": ""
+}
