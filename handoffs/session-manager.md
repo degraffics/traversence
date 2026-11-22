@@ -132,6 +132,8 @@ sessions take over, holding until Jason says resume. Live through Release #228 (
   `<nav>` inside the bar, not the bar): fixed in `layout-probe.mjs`, no site release.
   **Progress (2026-11-22, phone menu):** defects fixed and Jason's option B built as `phone-menu.zip` on 25cb67e
   (`handoffs/phone-menu.md`), 12/12; carries #1256. Waiting for review and Jason's OK.
+  **Progress (2026-11-22, hold):** phone menu live as #253 (b735f56). Hand-off at a clean hold:
+  `handoffs/design-and-trips-2026-11-22b.md`; next is 3e (its rebuild-or-re-skin question to the session manager first).
 - **Orders held** (Jason, 2026-11-21: "It is obvious you are not able to see how the order system should work, so before I
   put more work time i need to think about how we move forward"): no pop-ups, merges or builds; #1212 (chargeFor) and
   #1224 (rulings) stay drafts outside main, out of the release order, until he says how to proceed.
