@@ -18,6 +18,28 @@
   }
   function say(msg, el, bad) { if (window.TvAsk) TvAsk.say(msg, { anchor: el, bad: !!bad }); }
 
+  // an Incident Report's root cause, written by a person (02 §2.6, P12); the answer beside the button, the words in place
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-cb-ircause]'); if (!b || b.disabled || !window.TvAsk) return;
+    e.preventDefault();
+    TvAsk.ask('Its root cause, in words', b.getAttribute('data-cb-cur') || '', { yes: 'Write it' }).then(function (v) {
+      if (!v) return;
+      TvAsk.busy(b, true);
+      var z = ''; try { z = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (x) {}
+      post('/admin/api/config/control', { action: 'ircause', id: b.getAttribute('data-cb-ircause'), value: v, tz: z }).then(function (j) {
+        TvAsk.busy(b, false); say(j.message || 'Written.', b, false);
+        // the line drawn again as the kit draws status lines: Confirmed, with its words
+        var rc = b.closest('section') && b.closest('section').querySelector('.cb-rc');
+        if (rc) { var p = document.createElement('p'); p.setAttribute('data-tv-status', 'ok'); p.setAttribute('data-tv-label', 'Confirmed:'); p.setAttribute('data-tv-keep', '');
+          p.textContent = v; rc.innerHTML = ''; rc.appendChild(p); if (TvAsk.statuses) TvAsk.statuses(rc); }
+        b.setAttribute('data-cb-cur', v); b.textContent = 'Change the root cause';
+      }, function (err) { TvAsk.busy(b, false); say(err.message, b, true); });
+    });
+  });
+  // an Incident Report's own page (03 §7) carries only its root cause's button: nothing of the board's to draw again
+  if (box.classList.contains('cb-irpage')) return;
+
+
   // a system's counts filter its rows (Jason, 2026-11-19: "click on trip or held and have the section filter to those"):
   // a press opens the system and shows only that light; again, or Show all, shows every row. Kept through each redraw.
   var lf = {};
@@ -289,22 +311,6 @@
   box.addEventListener('keydown', function (e) { var el = e.target.closest && e.target.closest('[data-cb-gf]'); if (el && (e.key === 'Enter' || e.key === ' ')) gfPick(el, e); }, true);
   (function () { var t = box.querySelector('#cb-systems'); if (t && window.MutationObserver) new MutationObserver(function () { gfPaint(); }).observe(t, { childList: true, subtree: true }); gfPaint(); })();
 
-  // an Incident Report's root cause, written by a person (02 §2.6, P12); the answer beside the button, the words in place
-  document.addEventListener('click', function (e) {
-    var b = e.target.closest('[data-cb-ircause]'); if (!b || b.disabled || !window.TvAsk) return;
-    e.preventDefault();
-    TvAsk.ask('Its root cause, in words', b.getAttribute('data-cb-cur') || '', { yes: 'Write it' }).then(function (v) {
-      if (!v) return;
-      TvAsk.busy(b, true);
-      var z = ''; try { z = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (x) {}
-      post('/admin/api/config/control', { action: 'ircause', id: b.getAttribute('data-cb-ircause'), value: v, tz: z }).then(function (j) {
-        TvAsk.busy(b, false); say(j.message || 'Written.', b, false);
-        var st = b.closest('section') && b.closest('section').querySelector('[data-tv-status]');
-        if (st) { st.setAttribute('data-tv-status', 'ok'); st.setAttribute('data-tv-label', 'Confirmed:'); st.textContent = v; }
-        b.setAttribute('data-cb-cur', v); b.textContent = 'Change the root cause';
-      }, function (err) { TvAsk.busy(b, false); say(err.message, b, true); });
-    });
-  });
   box.addEventListener('tv-table:act', function (e) {
     var d = e.detail || {}, r = d.row || {}, k = d.key, btn = d.button, list = d.list;
     if (!d.list || !d.list.el || !d.list.el.closest('#cb-systems')) return;

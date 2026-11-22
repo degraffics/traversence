@@ -646,7 +646,7 @@ function tv_cb_alarms(array $alarms, array $ac, array $names, callable $pid, boo
             // no Acknowledge on a warning: the system is handling it, and it clears itself or becomes a trip (0171 §7's 3c note,
             // "only a trip waits for a person"; Jason, 2026-11-19: "This is a notification, not need for me to acknowledge")
             . ($lv === 'warning' && !$cl ? '' : ($ack ? $btn('unack', 'Undo', true, '', (string) $id, ['class' => 'ak-b cb-xs']) : $btn('ack', $cl ? 'Seen' : 'Acknowledge', true, '', (string) $id, ['class' => 'ak-b cb-xs'])));
-        $holds = isset($names[$proc]) ? '<a href="#' . $e($pid($proc)) . '" data-cb-go="' . $e($pid($proc)) . '" class="underline">' . $e($names[$proc]) . '</a>' : $e($proc);
+        $holds = isset($names[$proc]) ? '<a href="#' . $e($pid($proc)) . '" data-cb-go="' . $e($pid($proc)) . '" class="underline">' . $e($names[$proc]) . '</a>' : $e(ControlAlarms::partName(Database::connection(), $proc));   // a part with no row: its plain name (02 §5.4)
         // the dispatcher's one shape (decisions/0176 §2: the board shows all of it): Title; Status; What it affects (Holds,
         // what its trip paused, an outside service's needs and their backups); What the system is doing; What to do and
         // the buttons; Details ▾ (its reading, kind and counts), folded. Every part read from the alarm as it is now.
@@ -1065,7 +1065,7 @@ function tv_cb_ir_page(PDO $pdo, int $id, string $csrf): string
 {
     $e = 'tv_w_e';
     $r = ControlIncidents::get($pdo, $id);
-    $h = '<div id="cb" class="cb-report" data-csrf="' . $e($csrf) . '"><p class="cb-rback"><a href="/admin/config/control?tab=incidents" class="underline">← Incident Reports</a></p>';
+    $h = '<div id="cb" class="cb-report cb-irpage" data-csrf="' . $e($csrf) . '"><p class="cb-rback"><a href="/admin/config/control?tab=incidents" class="underline">← Incident Reports</a></p>';
     if (!$r) return $h . '<p data-tv-status="info" data-tv-label="Not found:">There\'s no ' . $e(ControlIncidents::number($id)) . '. It may be older than ' . ControlIncidents::KEEP_DAYS . ' days. <a class="underline" href="/admin/config/control?tab=incidents">Every Incident Report</a></p></div>' . tv_cb_report_css() . tv_cb_view_assets();
     $names = []; try { foreach (ControlRegister::processes($pdo) as $pid => $p) $names[$pid] = (string) $p[1]; } catch (Throwable $x) {}
     $members = (array) $r['members'];
@@ -1077,8 +1077,9 @@ function tv_cb_ir_page(PDO $pdo, int $id, string $csrf): string
     $h .= '<h2 class="ak-h">' . $e($title) . '</h2><p class="ak-note">Opened ' . tv_cb_at((int) strtotime($r['opened_at'] . ' UTC')) . ($r['closed_at'] ? ' · closed ' . tv_cb_at((int) strtotime($r['closed_at'] . ' UTC')) : ' · open') . ' · ' . $e((string) $r['title']) . '</p>';
     $confirmed = $r['root_cause_state'] === 'confirmed' && trim((string) $r['root_cause']) !== '';
     $h .= '<section class="ak-card tv-bleed cb-rsec" data-copy="Root cause"><h3 class="cb-title">Root cause</h3>'
-        . ($confirmed ? '<p data-tv-status="ok" data-tv-label="Confirmed:">' . $e((string) $r['root_cause']) . ($r['root_cause_by'] ? ' <small>(' . $e((string) $r['root_cause_by']) . ')</small>' : '') . '</p>'
-            : '<p data-tv-status="info" data-tv-label="Unconfirmed:">No one has written its root cause yet, so this report doesn\'t name one.</p>')
+        // its line stands while it's true (data-tv-keep: no × on a fact), in .cb-rc so the button's answer redraws it in place
+        . '<div class="cb-rc">' . ($confirmed ? '<p data-tv-status="ok" data-tv-label="Confirmed:" data-tv-keep>' . $e((string) $r['root_cause']) . ($r['root_cause_by'] ? ' <small>(' . $e((string) $r['root_cause_by']) . ')</small>' : '') . '</p>'
+            : '<p data-tv-status="info" data-tv-label="Unconfirmed:" data-tv-keep>No one has written its root cause yet, so this report doesn\'t name one.</p>') . '</div>'
         . (function () use ($r, $e, $confirmed) {   // a person writes it (02 §2.6, P12: "Unconfirmed until a person writes it"); greyed with the reason for anyone who can't
             [$okC, $whyC] = ControlBoard::can();
             return '<p><button type="button" class="ak-b" data-cb-ircause="' . (int) $r['id'] . '" data-cb-cur="' . $e($confirmed ? (string) $r['root_cause'] : '') . '"'
@@ -1100,7 +1101,9 @@ function tv_cb_ir_page(PDO $pdo, int $id, string $csrf): string
     $tl = ''; foreach ((array) $r['timeline'] as $t) { $t = array_values((array) $t); $tl .= '<li>' . tv_cb_at((int) strtotime((string) ($t[0] ?? '') . ' UTC')) . ' ' . $e((string) ($t[1] ?? '')) . '</li>'; }
     $h .= '<section class="ak-card tv-bleed cb-rsec" data-copy="Timeline"><h3 class="cb-title">Timeline</h3>' . ($tl !== '' ? '<ul class="cb-tl">' . $tl . '</ul>' : '<p class="ak-note">Nothing on its timeline yet.</p>') . '</section>';
     $h .= '<section class="ak-card tv-bleed cb-rsec" data-copy="Evidence"><h3 class="cb-title">Evidence</h3><p>' . $e(trim((string) $r['evidence']) !== '' ? (string) $r['evidence'] : 'No reading was kept with its first trip.') . '</p></section>';
-    return $h . '</div>' . tv_cb_report_css() . '<script src="/js/tv-time.js?v=' . (int) @filemtime(__DIR__ . '/../../website/js/tv-time.js') . '" defer></script>' . tv_cb_view_assets();
+    // admin-control.js for Write the root cause (on this page it does only that: no redraw)
+    return $h . '</div>' . tv_cb_report_css() . '<script src="/js/tv-time.js?v=' . (int) @filemtime(__DIR__ . '/../../website/js/tv-time.js') . '" defer></script>'
+        . '<script src="/js/admin-control.js?v=' . (int) @filemtime(__DIR__ . '/../../website/js/admin-control.js') . '" defer></script>' . tv_cb_view_assets();
 }
 
 /** The report folded (D16; Jason on the 7-day report, live-reads C3: "this page is ridiculously long"): the summary and spend first; uptime only below 100% (the rest one line); alarms grouped by part and alarm with a count, opened to the rows on tap; switches as they are; the CSV and the file unchanged. */

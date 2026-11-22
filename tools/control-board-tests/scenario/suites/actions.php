@@ -32,6 +32,10 @@ sc('actions', 'S-D94', 'Check and start again with its check red: a Trip, its st
 sc('actions', 'S-D95', 'Resolve and Mark resolved (svcresolve) removed', ['g2:24'], function () {
     $src = file_get_contents($GLOBALS['APP'] . '/lib/ControlAlarms.php') . file_get_contents($GLOBALS['APP'] . '/lib/Pulse.php');
     chk('no svcresolve action left (02 §5.3: "Mark resolved and svcresolve" removed)', !str_contains($src, 'svcresolve'), substr_count($src, 'svcresolve') . ' mentions');
+    // the view (g2:24): an open issue's card and its board row carry Check it now, never Mark resolved
+    views(); svcFail('api.tavily.com', 'timeout', 'crawler', ['status' => 0, 'error' => 'timed out']);
+    $card = tv_module_card($GLOBALS['pdo'], 'tavily', ['can' => true]);
+    chk('the card: Check it now, no Mark resolved (row 95)', str_contains($card, 'Check it now') && !str_contains($card, 'Mark resolved') && !str_contains($card, 'svcresolve'), mb_substr(strip_tags($card), 0, 200));
 });
 sc('actions', 'S-D96', 'Acknowledge a trip: Seen; the trip stays', ['g4:3B', 'g4:3P'], function () {
     $a = loads5xxTrip(); ControlAlarms::ack($GLOBALS['pdo'], (int) $a['id'], 7, 'Jason');
@@ -63,6 +67,11 @@ sc('actions', 'S-D103', 'Take out (maintenance) for any module, host, job, worke
     require_once $GLOBALS['APP'] . '/lib/ControlMaintenance.php';
     $bad = array_values(array_filter(['svc:railway', 'svc:bluehost', 'job:billing_tick', 'wk:crawler', 'site:search', 'wf:W2'], fn ($p) => !ControlMaintenance::canTake($p)));
     chk('every part can be taken out (g3 M5: workflows and tasks only)', $bad === [], $bad);
+    // the view (g3:M5): a module taken out reads In maintenance on its card, with when it's back, never a failure
+    views();
+    try { ControlMaintenance::take($GLOBALS['pdo'], 'svc:tavily', time(), time() + 7200, 'testing the card', 7, 'Jason'); } catch (Throwable $x) { chk('a module can be taken out on the bench', false, $x->getMessage()); return; }
+    $card = strip_tags(tv_module_card($GLOBALS['pdo'], 'tavily', ['can' => true]));
+    chk('the card: In maintenance, Back by its time, not a fault', str_contains($card, 'In maintenance') && str_contains($card, 'Back by') && !preg_match('/\bTrip\b|Paused by the system/', $card), mb_substr($card, 0, 240));
 });
 sc('actions', 'S-D104', 'Put back: its check first; red stays out with the reason', ['g3:M4'], function () {
     require_once $GLOBALS['APP'] . '/lib/ControlMaintenance.php';

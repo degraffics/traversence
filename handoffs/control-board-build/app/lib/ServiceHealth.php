@@ -799,7 +799,11 @@ final class ServiceHealth
                 ['Since', $iso((string) $r['first_at']) . ((string) $r['last_at'] !== (string) $r['first_at'] ? ', last ' . $iso((string) $r['last_at']) : '')],
                 ['Issue', '#' . $id . ', ' . $k[0] . ($al ? ' (its alarm #' . (int) $al['id'] . ')' : '')]];
         $fix = self::fixOf($r); $cause = $fix['cause'];
-        return ['title' => $co . ': ' . mb_strtolower($k[0]) . ' at ' . $r['host'], 'level' => $trip || !$back ? 'trip' : 'warning',
+        // one thread (decisions/0176 §3: "the thread is the alarm"): with its alarm open, the title and status are the alarm's,
+        // from the one engine's state (02 §4.8, §5.4), so the card, Outside services and Start read as the board and Pulse do
+        $title = $co . ': ' . mb_strtolower($k[0]) . ' at ' . $r['host'];
+        if ($al) { try { $af = ControlAlarms::facts($pdo, $al); if (trim((string) ($af['title'] ?? '')) !== '') $title = (string) $af['title']; if (trim((string) ($af['status'] ?? '')) !== '') $status = (string) $af['status']; } catch (Throwable $x) {} }
+        return ['title' => $title, 'level' => $trip || !$back ? 'trip' : 'warning',
                 'pill' => $trip ? 'Trip' : (!$back ? 'Held' : 'Warning'), 'status' => $status, 'affects' => $affects,
                 'doing' => ($cause === 'theirs' ? Thread::HANDLING . ': ' : '') . (string) $k[2], 'todo' => $todo, 'details' => $det, 'alarm' => $al, 'trip' => $trip,
                 'fix' => $cause === 'theirs' ? null : $fix, 'theirs' => $cause === 'theirs'];

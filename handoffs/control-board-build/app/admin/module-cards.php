@@ -191,7 +191,8 @@ function tv_mc_t($at): string
 /** The light: never colour alone, a dot and its word (03 §1 Zone 1). */
 function tv_mc_light(string $light, string $words): string
 {
-    return '<span class="mc-light mc-l-' . tv_w_e($light) . '"><i aria-hidden="true"></i>' . tv_w_e($words) . '</span>';
+    require_once __DIR__ . '/../lib/Thread.php';   // the engine's words carry their moments as {t:…}: drawn as a labelled <time>
+    return '<span class="mc-light mc-l-' . tv_w_e($light) . '"><i aria-hidden="true"></i>' . Thread::times(tv_w_e($words)) . '</span>';
 }
 
 /** A board action button (posts {action, id} to /admin/api/config/control, busy while it works, the answer beside it). */

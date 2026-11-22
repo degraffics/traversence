@@ -36,6 +36,8 @@ const copies = () => { const miss = []; document.querySelectorAll('.ak-card, .cb
   const p = await ctx.newPage(); const posts = []; const W = w + 'px: '; const errs = []; p.on('pageerror', e => errs.push(e.message));
   await p.route('**/*', r => { const u = new URL(r.request().url());
    if (u.pathname.startsWith('/js/')) { try { return r.fulfill({ body: fs.readFileSync(root + '/website' + u.pathname), contentType: 'text/javascript' }); } catch (e) { return r.fulfill({ body: '', contentType: 'text/javascript' }); } }
+   if (u.pathname === '/admin/api/config/control' && r.request().method() === 'POST') { let b = {}; try { b = JSON.parse(r.request().postData() || '{}'); } catch (e) {}
+     if (b.action === 'ircause') { const j = JSON.parse(php('ircause', String(b.id || ''), String(b.value || '')).toString()); return r.fulfill({ status: j.ok ? 200 : (j.code || 422), body: JSON.stringify(j), contentType: 'application/json' }); } }
    if (u.pathname === '/admin/api/pulse') { posts.push(JSON.parse(r.request().postData() || '{}')); return r.fulfill({ body: '{"ok":true,"message":"Recorded."}', contentType: 'application/json' }); }
    if (u.pathname.startsWith('/admin/api/')) return r.fulfill({ body: '{"ok":true,"rows":[],"total":0,"counts":{}}', contentType: 'application/json' });
    if (u.pathname === '/admin/config/control' && u.searchParams.get('gauge')) return r.fulfill({ body: php('gauge', u.searchParams.get('gauge')), contentType: 'text/html' });
@@ -117,9 +119,25 @@ const copies = () => { const miss = []; document.querySelectorAll('.ak-card, .cb
   ws = await p.evaluate(wide); t(W + '…no sideways scroll', ws.sw <= w && !ws.over.length, ws);
   await p.goto('http://localhost/admin/config/control?ir=1'); await p.waitForTimeout(900);
   const irt = await p.evaluate(() => document.body.innerText);
-  t(W + 'IR-0001\'s page: title, root cause Unconfirmed, members W-0001 / T-0001, radius, timeline, evidence', /IR-0001 · 1 part: W1 Listings · Paused by the system/.test(irt) && /Unconfirmed/.test(irt) && /W-0001/.test(irt) && /T-0001/.test(irt) && /Held/.test(irt) && /Timeline/.test(irt), irt.slice(0, 300));
+  t(W + 'IR-0001\'s page: title, root cause Unconfirmed, members W-0001 / T-0001, radius, timeline, evidence', /IR-0001 · 1 part: W1 Listings · Paused by the system/.test(irt) && (w === 390 ? /Confirmed:/ : /Unconfirmed/).test(irt) && /W-0001/.test(irt) && /T-0001/.test(irt) && /Held/.test(irt) && /Timeline/.test(irt), irt.slice(0, 300));
   ws = await p.evaluate(wide); t(W + '…no sideways scroll', ws.sw <= w && !ws.over.length, ws);
   cm = await p.evaluate(copies); t(W + '…Copy on every section', cm.length === 0, cm);
+  // 7b. Write the root cause, pressed once (02 §2.6, P12): the one-field form, its answer beside the button, the words in place, kept
+  { const words = w === 1280 ? 'Our load endpoint timed out under the batch.' : 'The batch was too big for the load endpoint\'s timeout.';
+    const btn = await p.$('[data-cb-ircause]'); const was = btn ? (await btn.textContent()).trim() : '';
+    t(W + 'Write the root cause: a button on the report (' + was + ')', !!btn && /^(Write|Change) the root cause$/.test(was) && !(await btn.isDisabled()), was);
+    if (btn) { await btn.click(); await p.waitForTimeout(300);
+      const f = await p.$('.tv-ask-in'); t(W + '…opens the one-field form, its words to fill', !!f);
+      if (f) { await f.fill(words); await p.click('.tv-ask-b.yes'); await p.waitForTimeout(900);
+        const after = await p.evaluate(() => { const s = document.querySelector('[data-cb-ircause]').closest('section'); const rc = s.querySelector('.cb-rc'), n = rc && rc.querySelector('.tv-note');
+          return { note: !!n, x: !!(n && n.querySelector('.tv-note-x')), text: rc && rc.textContent.trim(), btn: document.querySelector('[data-cb-ircause]').textContent,
+            say: [...document.querySelectorAll('.tv-note')].map(x => x.textContent).join(' | ') }; });
+        t(W + '…pressed: Confirmed with its words, the button now Change the root cause, the answer beside it', after.note && !after.x && after.text === 'Confirmed:' + words && after.btn === 'Change the root cause' && /Root cause written/.test(after.say), after);
+        await p.goto('http://localhost/admin/config/control?ir=1'); await p.waitForTimeout(900);
+        const kept = await p.evaluate(() => document.body.innerText);
+        t(W + '…kept: the report opened again shows it Confirmed, with who wrote it', kept.includes('Confirmed:') && kept.includes(words) && kept.includes('(Jason)'), kept.slice(0, 300));
+        const lg = execFileSync('mariadb', ['-utv', '-ptv', '-h127.0.0.1', 'lv_main', '-N', '-e', "SELECT COUNT(*) FROM control_log WHERE what LIKE 'Root cause written on IR-0001%'"]).toString().trim();
+        t(W + '…and in the logbook', +lg >= 1, lg); } } }
   // 8. the folded report, and the page as a file on a phone
   await p.goto('http://localhost/admin/config/control?report=&range=week'); await p.waitForTimeout(900);
   const order = await p.evaluate(() => [...document.querySelectorAll('.cb-rsec')].map(x => x.id));

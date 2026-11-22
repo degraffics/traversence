@@ -2,7 +2,7 @@
 // rendered board, at 1280 and 390 (playbook §3: a rebuilt screen keeps everything the old one did):
 // a system's counts filter its parts; the systems you opened stay open through the 30-second redraw; Open every system /
 // Close them; an alarm's "Holds:" link opens the part's own page (never dead); the search finds a part by a source's name.
-// Run after a schema with a trip on W1 (see README): node board-rendered.cjs <root>
+// Run after the start schema, 2a's migration and board-rendered-seed.php (a W1 trip and a founder): node board-rendered.cjs <root>
 const { chromium } = require('playwright'); const fs = require('fs'); const { execFileSync } = require('child_process'); const path = require('path');
 const root = process.argv[2], app = root + '/app', page = path.join(__dirname, 'board-page.php');
 const html = execFileSync('php', [page, app, 'page']);

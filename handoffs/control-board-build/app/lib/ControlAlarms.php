@@ -664,9 +664,13 @@ final class ControlAlarms
     }
 
     /** A part's name as the board shows it. */
-    private static function partName(PDO $pdo, string $proc): string
+    public static function partName(PDO $pdo, string $proc): string
     {
         try { require_once __DIR__ . '/ControlRegister.php'; $p = ControlRegister::processes($pdo)[$proc] ?? null; if ($p) return (string) $p[1]; } catch (Throwable $x) {}
+        // a part the board has no row for still reads by its plain name (02 §5.4: "never job:, wf: or svc:")
+        if (str_starts_with($proc, 'job:')) return self::jobName(substr($proc, 4));
+        if (str_starts_with($proc, 'wf:')) { try { require_once __DIR__ . '/Automation.php'; $n = (string) (Automation::WORKFLOWS[substr($proc, 3)][0] ?? ''); if ($n !== '') return substr($proc, 3) . ' ' . $n; } catch (Throwable $x) {} }
+        if (str_starts_with($proc, 'svc:')) { try { require_once __DIR__ . '/OutsideServices.php'; $co = (string) (OutsideServices::COMPANIES[substr($proc, 4)][0] ?? ''); if ($co !== '') return $co; } catch (Throwable $x) {} }
         return $proc;
     }
 

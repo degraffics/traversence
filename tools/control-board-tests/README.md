@@ -212,5 +212,6 @@ and `website/api/` (the mirror's `sync-storage/api/crawl` and `api/video`). Put 
   (`workflows-page.md` §5, §7: 8 kept, 2 moved, 3 dropped), W13 a list, W14 Not built, D8, D9.
 - `board-views.php` and `board-views.cjs` (with `board-views-page.php`, `board-views-seed.php`): Is it delivering?,
   Development with Site health's list, Incidents, the folded report, Copy by section, an acknowledged trip kept open (D5).
-- `scenario/`: the scenario test over step 2's failure map (`scenario/cells.md`: 173 cells to 02 §4.9's 135 scenarios).
+- `scenario/`: the scenario test over step 2's failure map (`scenario/cells.md`: 173 cells to 02 §4.9's 135 scenarios); after each scenario, `views()` draws every alarm it left on the board's row, in Pulse and on its module card and checks the words (159 of 173 cells).
+- `rendered-all.sh <root>`: every rendered (`.cjs`) test of the board and the dispatcher on one bench, each on a fresh `lv_main` with its seed (`board-rendered-seed.php` adds the founder and W1's trip), at 1280 and 390. `board-views.cjs` presses Write the root cause on an Incident Report.
 - Repo-side: `../heartbeat/test_heartbeat.py` (the outside heartbeat).

@@ -520,7 +520,9 @@ final class SystemStart
         $why = mb_substr($why, 0, 250);
         require_once __DIR__ . '/ControlAlarms.php';
         $comp = str_starts_with($id, 't:') && $id !== 't:W14' ? $id : ($id === 't:W14' ? 'wf:W14' : $id);
-        ControlAlarms::raise($pdo, 'start:held:' . $id, $comp, 'trip', 'check', (self::TASKS[substr($id, 2)][0] ?? $id) . ': held by Start the system\'s watch',
+        // its plain name (02 §5.4: never wf: or task: in what a person reads): a Start task's, else the workflow's "W2 <name>"
+        $nm = self::TASKS[substr($id, 2)][0] ?? (str_starts_with($id, 'wf:') ? trim(substr($id, 3) . ' ' . (Automation::WORKFLOWS[substr($id, 3)][0] ?? '')) : $id);
+        ControlAlarms::raise($pdo, 'start:held:' . $id, $comp, 'trip', 'check', $nm . ': held by Start the system\'s watch',
             'Start the system\'s watch found it not ready: ' . $why, 'Fix what its reason names; its own alarm (beside this) says how. Check and start again checks it first.', $why, [['Start the system (its step)', 'peek', '/admin/config/automation#start'], ['Check', 'check', $comp]], true, false, $comp);
     }
 
