@@ -57,6 +57,14 @@ s = rep(s, "    if (R) { h += resultsHtml(d, R) + (nearBare() ? nearChooser() : 
            "    if (R) { h += resultsHtml(d, R) + guideH + (nearBare() ? nearChooser() : '') + mayH;")
 s = rep(s, "    b.innerHTML = fold(h, cut, q) + tellHtml(q, found || !!sitH);",
            "    b.innerHTML = fold(h + guideH, cut, q) + tellHtml(q, found || !!sitH);")
+# Esc in a pop-up over the panel (a Peek card, the page peek, a confirm) closes only that pop-up; a second Esc the panel
+# (0058's note: Esc in an inner pop-up closes only it, as the place picker does; the session manager's review, 2026-11-22)
+s = rep(s, "    if (e.key === 'Escape' && panel && !(e.target.classList && (e.target.classList.contains('tvs-in') || e.target.classList.contains('tvs-in2')))) close();",
+           "    if (e.key === 'Escape' && panel && !e.tvInner && !(e.target.classList && (e.target.classList.contains('tvs-in') || e.target.classList.contains('tvs-in2')))) close();")
+s = rep(s, "  document.addEventListener('keydown', function (e) {\n    var mb = (e.key === 'Enter'",
+           "  // first, before any pop-up's own Esc: is one open over the panel? Then this Esc is that pop-up's alone\n"
+           "  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && document.querySelector('.tvs-peek, .tv-ask-lb')) e.tvInner = true; }, true);\n"
+           "  document.addEventListener('keydown', function (e) {\n    var mb = (e.key === 'Enter'")
 put(f, s)
 
 # B2: Quick Search counts what each finds; a category people ask about too; Open now none (it changes by the minute)

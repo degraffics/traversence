@@ -47,7 +47,14 @@ let pass = 0, fail = 0; const ok = (c, m) => { if (c) { pass++; console.log('  â
     await p.click('.tvs-full [data-show="all"]').catch(() => {}); await p.click('.tvs-full .tvs-row:has-text("Pools of the White") .tvs-peekb'); await p.waitForTimeout(900);
     ok(await p.evaluate(() => [...document.querySelectorAll('iframe')].some(f => /faq\.php/.test(f.src))), 'a story\'s Peek opens its page in the page peek');
     await p.keyboard.press('Escape'); await p.waitForTimeout(300);
-    if (w === 390) ok(await p.evaluate(() => document.documentElement.scrollWidth <= innerWidth), 'at 390, nothing scrolls sideways');
+    ok(!(await p.evaluate(() => [...document.querySelectorAll('iframe')].some(f => /faq\.php/.test(f.src) && f.offsetParent))) && await p.isVisible('.tvs-full'), 'Esc on the page peek closes it only; the results stay');
+    await p.click('.tvs-full .tvs-row:has-text("Gila") .tvs-peekb'); await p.waitForTimeout(600);
+    await p.keyboard.press('Escape'); await p.waitForTimeout(300);
+    ok(!(await p.$('.tvs-peek')) && await p.isVisible('.tvs-full'), 'Esc on a Peek card closes the card only; the results stay');
+    const sw = await p.evaluate(() => document.documentElement.scrollWidth <= innerWidth);
+    await p.keyboard.press('Escape'); await p.waitForTimeout(400);
+    ok(!(await p.isVisible('.tvs-full').catch(() => false)), 'a second Esc closes the search panel');
+    if (w === 390) ok(sw, 'at 390, nothing scrolls sideways');
     ok(errs.length === 0, 'no script errors' + (errs.length ? ': ' + errs.join(' | ') : ''));
     await p.screenshot({ path: '/tmp/claude-0/sf-' + w + '.png' });
     await p.close();
