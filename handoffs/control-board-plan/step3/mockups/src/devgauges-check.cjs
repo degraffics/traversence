@@ -21,6 +21,11 @@ const dir = '/home/user/traversence/handoffs/control-board-plan/step3/board/';
       const g = await p.evaluate(() => [...document.querySelectorAll('.dg-g')].map(x => [x.dataset.gauge, x.querySelectorAll('.dg-needle').length, !!x.querySelector('.dg-word'), /\d+ of \d+ items/.test(x.textContent)]));
       ok(g.length === 16 && g.every(x => x[1] === 1 && x[2] && x[3]), `${tag}: 16 gauges, each with one needle, its band word and "n of N items" (${g.length} found)`);
       ok(await p.evaluate(() => document.querySelectorAll('.dg-grid')[0].querySelectorAll('.dg-g').length === 6 && document.querySelectorAll('.dg-grid')[1].querySelectorAll('.dg-g').length === 10), `${tag}: Front end 6, Back end 10`);
+      const rt = await p.evaluate(() => [...document.querySelectorAll('.dg-g .dg-word')].map(x => x.textContent.trim()));
+      ok(rt.length === 16 && rt.every(t => ['Behind', 'Under way', 'Nearly there'].includes(t)) && !rt.some(t => /Working|Less than optimal|Trip|Paused|Failing|Warning|Held|not checked/i.test(t)),
+        `${tag}: build gauges use only Behind / Under way / Nearly there, never the runtime words (${[...new Set(rt)].join(', ')})`);
+      ok(await p.evaluate(() => /Complete needs a path or function check; a page that only renders isn.t complete/.test(document.querySelector('.dg').textContent)), `${tag}: the check-level rule is on the page`);
+      ok(await p.evaluate(() => [...document.querySelectorAll('.dg-it')].every(li => !/check level: render/.test(li.textContent) || li.closest('ul').previousElementSibling.textContent.indexOf('Live, passing') < 0)), `${tag}: no render-only item is listed as Live, passing`);
       ok(await p.evaluate(() => /draft: the scope isn.t signed off/.test(document.querySelector('.dg').textContent) && /proposed/.test(document.querySelector('.dg').textContent)), `${tag}: the draft and proposed-bands marks show`);
       if (w === 390) {
         const cols = await p.evaluate(() => { const gs = [...document.querySelectorAll('.dg-grid')[0].querySelectorAll('.dg-g')]; return new Set(gs.map(x => Math.round(x.getBoundingClientRect().top))).size; });

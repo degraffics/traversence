@@ -50,6 +50,9 @@
      "option_b": "Discovery",
      "listed_in": "Discovery",
      "owner16": "Discovery",
+     "level": "render",
+     "check16": "not checked",
+     "check_by16": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
      "other_face": []
     },
     {
@@ -70,6 +73,9 @@
      "option_b": "Discovery",
      "listed_in": "Discovery",
      "owner16": "Discovery",
+     "level": "render",
+     "check16": "not checked",
+     "check_by16": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
      "other_face": [
       "Taxonomy & clusters (/admin/local/taxonomy) (Get Local 360\u00b0)"
      ]
@@ -92,6 +98,9 @@
      "option_b": "Discovery",
      "listed_in": "Discovery",
      "owner16": "Discovery",
+     "level": "render",
+     "check16": "not checked",
+     "check_by16": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
      "other_face": [
       "Guides (/admin/explore/place_guides) (Let's Explore 360\u00b0)"
      ]
@@ -114,6 +123,9 @@
      "option_b": "Discovery",
      "listed_in": "Discovery",
      "owner16": "Discovery",
+     "level": "render",
+     "check16": "not checked",
+     "check_by16": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
      "other_face": [
       "Landmarks (/admin/local/places) (Get Local 360\u00b0)"
      ]
@@ -136,6 +148,9 @@
      "option_b": "Discovery",
      "listed_in": "Discovery",
      "owner16": "Discovery",
+     "level": "render",
+     "check16": "not checked",
+     "check_by16": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
      "other_face": [
       "Recreation sites (/admin/local/recreation) (Get Local 360\u00b0)"
      ]
@@ -158,6 +173,9 @@
      "option_b": "Discovery",
      "listed_in": "Discovery",
      "owner16": "Discovery",
+     "level": "none",
+     "check16": "not checked",
+     "check_by16": "no live check reads it yet",
      "other_face": [
       "Stories (/admin/explore/stories) (Let's Explore 360\u00b0)"
      ]
@@ -180,6 +198,9 @@
      "option_b": "Discovery",
      "listed_in": "Discovery",
      "owner16": "Discovery",
+     "level": "none",
+     "check16": "not checked",
+     "check_by16": "no live check reads it yet",
      "other_face": [
       "Stock library (/admin/config/stock) (System Configuration)"
      ]
@@ -202,6 +223,9 @@
      "option_b": "Discovery",
      "listed_in": "Discovery",
      "owner16": "Discovery",
+     "level": "none",
+     "check16": "not checked",
+     "check_by16": "no live check reads it yet",
      "other_face": []
     },
     {
@@ -220,6 +244,9 @@
      "option_b": "Discovery",
      "listed_in": "Discovery",
      "owner16": "Discovery",
+     "level": "\u2014",
+     "check16": null,
+     "check_by16": null,
      "other_face": [
       "Modules (Service register) (/admin/config/register) (System Configuration)"
      ]
@@ -242,6 +269,9 @@
      "option_b": "Discovery",
      "listed_in": "Discovery",
      "owner16": "Discovery",
+     "level": "render",
+     "check16": "not checked",
+     "check_by16": "the rendered check at 1280 and 390: not checked yet",
      "other_face": [
       "Experiences (/admin/explore/experiences) (Let's Explore 360\u00b0)"
      ]
@@ -264,6 +294,9 @@
      "option_b": "Discovery",
      "listed_in": "Discovery",
      "owner16": "Discovery",
+     "level": "render",
+     "check16": "not checked",
+     "check_by16": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
      "other_face": [
       "Experiences (/admin/explore/experiences) (Let's Explore 360\u00b0)"
      ]
@@ -286,6 +319,9 @@
      "option_b": "Discovery",
      "listed_in": "Discovery",
      "owner16": "Discovery",
+     "level": "render",
+     "check16": "not checked",
+     "check_by16": "the rendered check at 1280 and 390: not checked yet",
      "other_face": [
       "Journeys (/admin/explore/journeys) (Let's Explore 360\u00b0)"
      ]
@@ -308,6 +344,9 @@
      "option_b": "Discovery",
      "listed_in": "Discovery",
      "owner16": "Discovery",
+     "level": "render",
+     "check16": "not checked",
+     "check_by16": "the rendered check at 1280 and 390: Answers (404 without its id) (render only: Complete needs a path or function check)",
      "other_face": [
       "Journeys (/admin/explore/journeys) (Let's Explore 360\u00b0)"
      ]
@@ -330,6 +369,9 @@
      "option_b": "Discovery",
      "listed_in": "Discovery",
      "owner16": "Discovery",
+     "level": "render",
+     "check16": "not checked",
+     "check_by16": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
      "other_face": [
       "Journeys (/admin/explore/journeys) (Let's Explore 360\u00b0)"
      ]
@@ -350,6 +392,9 @@
      "option_b": "Discovery",
      "listed_in": "Discovery",
      "owner16": "Discovery",
+     "level": "\u2014",
+     "check16": null,
+     "check_by16": null,
      "other_face": []
     },
     {
@@ -370,6 +415,9 @@
      "option_b": "Discovery",
      "listed_in": "Discovery",
      "owner16": "Discovery",
+     "level": "render",
+     "check16": "not checked",
+     "check_by16": "the rendered check at 1280 and 390: Answers (404 without its id) (render only: Complete needs a path or function check)",
      "other_face": [
       "How-to guides (/admin/explore/howto) (Let's Explore 360\u00b0)"
      ]
@@ -392,6 +440,9 @@
      "option_b": "Discovery",
      "listed_in": "Discovery",
      "owner16": "Discovery",
+     "level": "render",
+     "check16": "not checked",
+     "check_by16": "the rendered check at 1280 and 390: Answers (404 without its id) (render only: Complete needs a path or function check)",
      "other_face": [
       "Who to call (/admin/explore/guides) (Let's Explore 360\u00b0)"
      ]
@@ -414,6 +465,9 @@
      "option_b": "Discovery",
      "listed_in": "Discovery",
      "owner16": "Discovery",
+     "level": "path",
+     "check16": "passing",
+     "check_by16": "the paths check \"town-guide\": passed",
      "other_face": [
       "Guides (/admin/explore/place_guides) (Let's Explore 360\u00b0)"
      ]
@@ -436,6 +490,9 @@
      "option_b": "Discovery",
      "listed_in": "Discovery",
      "owner16": "Discovery",
+     "level": "none",
+     "check16": "not checked",
+     "check_by16": "no live check reads it yet",
      "other_face": [
       "AI use (/admin/config/ai) (System Configuration)"
      ]
@@ -478,6 +535,9 @@
      "option_b": "Events",
      "listed_in": "Discovery",
      "owner16": "Discovery",
+     "level": "none",
+     "check16": "not checked",
+     "check_by16": "no live check reads it yet",
      "other_face": [
       "Live events (/admin/explore/events) (Let's Explore 360\u00b0)"
      ]
@@ -500,6 +560,9 @@
      "option_b": "Discovery",
      "listed_in": "Discovery",
      "owner16": "Discovery",
+     "level": "none",
+     "check16": "not checked",
+     "check_by16": "no live check reads it yet",
      "other_face": []
     },
     {
@@ -520,6 +583,9 @@
      "option_b": "Discovery",
      "listed_in": "Discovery",
      "owner16": "Discovery",
+     "level": "render",
+     "check16": "not checked",
+     "check_by16": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
      "other_face": []
     },
     {
@@ -540,6 +606,9 @@
      "option_b": "Discovery",
      "listed_in": "Discovery",
      "owner16": "Discovery",
+     "level": "render",
+     "check16": "not checked",
+     "check_by16": "the rendered check at 1280 and 390: Answers (404 without its id) (render only: Complete needs a path or function check)",
      "other_face": []
     },
     {
@@ -560,6 +629,9 @@
      "option_b": "Discovery",
      "listed_in": "Discovery",
      "owner16": "Discovery",
+     "level": "render",
+     "check16": "not checked",
+     "check_by16": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
      "other_face": []
     },
     {
@@ -578,6 +650,9 @@
      "option_b": "Discovery",
      "listed_in": "Discovery",
      "owner16": "Discovery",
+     "level": "\u2014",
+     "check16": null,
+     "check_by16": null,
      "other_face": [
       "Waypoints & routes (/admin/explore/routes) (Let's Explore 360\u00b0)"
      ]
@@ -598,6 +673,9 @@
      "option_b": "Discovery",
      "listed_in": "Discovery",
      "owner16": "Discovery",
+     "level": "\u2014",
+     "check16": null,
+     "check_by16": null,
      "other_face": []
     },
     {
@@ -616,6 +694,9 @@
      "option_b": "Discovery",
      "listed_in": "Discovery",
      "owner16": "Discovery",
+     "level": "\u2014",
+     "check16": null,
+     "check_by16": null,
      "other_face": []
     },
     {
@@ -634,6 +715,9 @@
      "option_b": "Discovery",
      "listed_in": "Discovery",
      "owner16": "Discovery",
+     "level": "\u2014",
+     "check16": null,
+     "check_by16": null,
      "other_face": []
     },
     {
@@ -672,6 +756,9 @@
      "option_b": "Discovery",
      "listed_in": "Discovery",
      "owner16": "Discovery",
+     "level": "none",
+     "check16": "not checked",
+     "check_by16": "no live check reads it yet",
      "other_face": []
     },
     {
@@ -690,6 +777,9 @@
      "option_b": "Discovery",
      "listed_in": "Discovery",
      "owner16": "Discovery",
+     "level": "\u2014",
+     "check16": null,
+     "check_by16": null,
      "other_face": []
     },
     {
@@ -708,6 +798,9 @@
      "option_b": "Discovery",
      "listed_in": "Discovery",
      "owner16": "Discovery",
+     "level": "\u2014",
+     "check16": null,
+     "check_by16": null,
      "other_face": [
       "Taxonomy & clusters (/admin/local/taxonomy) (Get Local 360\u00b0)"
      ]
@@ -756,6 +849,9 @@
      "option_b": "Directory",
      "listed_in": "Directory",
      "owner16": "Directory",
+     "level": "render",
+     "check16": "not checked",
+     "check_by16": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
      "other_face": []
     },
     {
@@ -776,6 +872,9 @@
      "option_b": "Directory",
      "listed_in": "Directory",
      "owner16": "Directory",
+     "level": "path",
+     "check16": "passing",
+     "check_by16": "the paths check \"eat-near-me\": passed",
      "other_face": []
     },
     {
@@ -796,6 +895,9 @@
      "option_b": "Directory",
      "listed_in": "Directory",
      "owner16": "Directory",
+     "level": "path",
+     "check16": "not passing",
+     "check_by16": "the paths check \"set-place\": failed",
      "other_face": []
     },
     {
@@ -816,6 +918,9 @@
      "option_b": "Directory",
      "listed_in": "Directory",
      "owner16": "Directory",
+     "level": "render",
+     "check16": "not checked",
+     "check_by16": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
      "other_face": [
       "Listings (/admin/local/listings) (Get Local 360\u00b0)"
      ]
@@ -838,6 +943,9 @@
      "option_b": "Directory",
      "listed_in": "Directory",
      "owner16": "Directory",
+     "level": "render",
+     "check16": "not checked",
+     "check_by16": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
      "other_face": [
       "Map pins (/admin/local/pins) (Get Local 360\u00b0)"
      ]
@@ -860,6 +968,9 @@
      "option_b": "Business tools",
      "listed_in": "Directory",
      "owner16": "Directory",
+     "level": "render",
+     "check16": "not checked",
+     "check_by16": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
      "other_face": [
       "Claims (/admin/local/claims) (Get Local 360\u00b0)",
       "Verification vault (/admin/backoffice/vault) (Back-Office)"
@@ -883,6 +994,9 @@
      "option_b": "Business tools",
      "listed_in": "Directory",
      "owner16": "Directory",
+     "level": "render",
+     "check16": "not checked",
+     "check_by16": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
      "other_face": [
       "Claims (/admin/local/claims) (Get Local 360\u00b0)"
      ]
@@ -905,6 +1019,9 @@
      "option_b": "Business tools",
      "listed_in": "Directory",
      "owner16": "Directory",
+     "level": "render",
+     "check16": "not checked",
+     "check_by16": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
      "other_face": []
     },
     {
@@ -925,6 +1042,9 @@
      "option_b": "Business tools",
      "listed_in": "Directory",
      "owner16": "Directory",
+     "level": "path",
+     "check16": "passing",
+     "check_by16": "the paths check \"my-listing\": passed",
      "other_face": [
       "Hidden places (/admin/local/hidden) (Get Local 360\u00b0)"
      ]
@@ -947,6 +1067,9 @@
      "option_b": "Business tools",
      "listed_in": "Directory",
      "owner16": "Directory",
+     "level": "path",
+     "check16": "not checked",
+     "check_by16": "the paths check \"edit-listing\": skipped",
      "other_face": []
     },
     {
@@ -967,6 +1090,9 @@
      "option_b": "Directory",
      "listed_in": "Directory",
      "owner16": "Directory",
+     "level": "render",
+     "check16": "not checked",
+     "check_by16": "the rendered check at 1280 and 390: not opened yet (pages.md still says Coming; the page is in the mirror)",
      "other_face": []
     },
     {
@@ -987,6 +1113,9 @@
      "option_b": "Directory",
      "listed_in": "Directory",
      "owner16": "Directory",
+     "level": "render",
+     "check16": "not checked",
+     "check_by16": "the rendered check at 1280 and 390: not opened yet (pages.md still says Coming; the page is in the mirror)",
      "other_face": []
     },
     {
@@ -1007,6 +1136,9 @@
      "option_b": "Directory",
      "listed_in": "Directory",
      "owner16": "Directory",
+     "level": "path",
+     "check16": "not checked",
+     "check_by16": "the paths check \"message-business\": skipped",
      "other_face": []
     },
     {
@@ -1027,6 +1159,9 @@
      "option_b": "Business tools",
      "listed_in": "Directory",
      "owner16": "Directory",
+     "level": "none",
+     "check16": "not checked",
+     "check_by16": "no live check reads it yet",
      "other_face": [
       "Review (/admin/local/review) (Get Local 360\u00b0)"
      ]
@@ -1049,6 +1184,9 @@
      "option_b": "Directory",
      "listed_in": "Directory",
      "owner16": "Directory",
+     "level": "none",
+     "check16": "not checked",
+     "check_by16": "no live check reads it yet",
      "other_face": []
     },
     {
@@ -1069,6 +1207,9 @@
      "option_b": "Business tools",
      "listed_in": "Directory",
      "owner16": "Directory",
+     "level": "none",
+     "check16": "not checked",
+     "check_by16": "no live check reads it yet",
      "other_face": [
       "Nexus (/admin/local/nexus) (Get Local 360\u00b0)"
      ]
@@ -1091,6 +1232,9 @@
      "option_b": "Directory",
      "listed_in": "Directory",
      "owner16": "Directory",
+     "level": "path",
+     "check16": "passing",
+     "check_by16": "the paths check \"eat-near-me\": passed",
      "other_face": [
       "Categories (/admin/local/categories) (Get Local 360\u00b0)"
      ]
@@ -1112,7 +1256,12 @@
      "cross_links": "Directory",
      "option_b": "Platform",
      "listed_in": "Directory",
-     "owner16": "Question (no gauge yet)",
+     "owner16": "Directory",
+     "level": "path",
+     "pending": "recommended, pending Jason (the session manager, 2026-11-22); cross-linked to Discovery",
+     "why": "the learning search, with Universal search",
+     "check16": "not passing",
+     "check_by16": "the search scorecard: 101 of 106 cases pass (Nov 21)",
      "other_face": [
       "Search workbench (/admin/insights/search) (Insights & Research)"
      ]
@@ -1135,6 +1284,9 @@
      "option_b": "Directory",
      "listed_in": "Directory",
      "owner16": "Directory",
+     "level": "none",
+     "check16": "not checked",
+     "check_by16": "no probe reads it as defined (runtime board: not checked yet)",
      "other_face": []
     },
     {
@@ -1155,6 +1307,9 @@
      "option_b": "Directory",
      "listed_in": "Directory",
      "owner16": "Directory",
+     "level": "none",
+     "check16": "not checked",
+     "check_by16": "no live check reads it yet",
      "other_face": []
     },
     {
@@ -1173,6 +1328,9 @@
      "option_b": "Knowledge Engine",
      "listed_in": "Directory",
      "owner16": "System Configuration",
+     "level": "\u2014",
+     "check16": null,
+     "check_by16": null,
      "other_face": []
     },
     {
@@ -1193,6 +1351,9 @@
      "option_b": "Knowledge Engine",
      "listed_in": "Directory",
      "owner16": "System Configuration",
+     "level": "none",
+     "check16": "not checked",
+     "check_by16": "no live check reads it yet",
      "other_face": [
       "Data cleanup (/admin/insights/cleanup) (Insights & Research)"
      ]
@@ -1215,6 +1376,9 @@
      "option_b": "Knowledge Engine",
      "listed_in": "Directory",
      "owner16": "System Configuration",
+     "level": "none",
+     "check16": "not checked",
+     "check_by16": "no live check reads it yet",
      "other_face": [
       "Identities (/admin/local/identities) (Get Local 360\u00b0)"
      ]
@@ -1235,6 +1399,9 @@
      "option_b": "Directory",
      "listed_in": "Directory",
      "owner16": "Directory",
+     "level": "\u2014",
+     "check16": null,
+     "check_by16": null,
      "other_face": []
     },
     {
@@ -1291,6 +1458,9 @@
      "option_b": "Marketplace",
      "listed_in": "Directory",
      "owner16": "Marketplace",
+     "level": "\u2014",
+     "check16": null,
+     "check_by16": null,
      "other_face": []
     },
     {
@@ -1309,6 +1479,9 @@
      "option_b": "Business tools",
      "listed_in": "Directory",
      "owner16": "Directory",
+     "level": "\u2014",
+     "check16": null,
+     "check_by16": null,
      "other_face": [
       "Text messages (/admin/config/notify) (System Configuration)"
      ]
@@ -1365,6 +1538,9 @@
      "option_b": "Community",
      "listed_in": "Community",
      "owner16": "Community",
+     "level": "render",
+     "check16": "not checked",
+     "check_by16": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
      "other_face": [
       "Groups (/admin/social/groups) (Social 360\u00b0)"
      ]
@@ -1387,6 +1563,9 @@
      "option_b": "Community",
      "listed_in": "Community",
      "owner16": "Community",
+     "level": "render",
+     "check16": "not checked",
+     "check_by16": "the rendered check at 1280 and 390: not checked yet",
      "other_face": [
       "Groups (/admin/social/groups) (Social 360\u00b0)"
      ]
@@ -1409,6 +1588,9 @@
      "option_b": "Community",
      "listed_in": "Community",
      "owner16": "Community",
+     "level": "path",
+     "check16": "not checked",
+     "check_by16": "the paths check \"join-group\": skipped",
      "other_face": []
     },
     {
@@ -1429,6 +1611,9 @@
      "option_b": "Community",
      "listed_in": "Community",
      "owner16": "Community",
+     "level": "none",
+     "check16": "not checked",
+     "check_by16": "no live check reads it yet",
      "other_face": []
     },
     {
@@ -1449,6 +1634,9 @@
      "option_b": "Community",
      "listed_in": "Community",
      "owner16": "Community",
+     "level": "none",
+     "check16": "not checked",
+     "check_by16": "no live check reads it yet",
      "other_face": [
       "Reports (/admin/social/reports) (Social 360\u00b0)"
      ]
@@ -1471,6 +1659,9 @@
      "option_b": "Community",
      "listed_in": "Community",
      "owner16": "Community",
+     "level": "none",
+     "check16": "not checked",
+     "check_by16": "no live check reads it yet",
      "other_face": []
     },
     {
@@ -1511,6 +1702,9 @@
      "option_b": "Community",
      "listed_in": "Community",
      "owner16": "Community",
+     "level": "none",
+     "check16": "not checked",
+     "check_by16": "no live check reads it yet",
      "other_face": []
     },
     {
@@ -1531,6 +1725,9 @@
      "option_b": "Community",
      "listed_in": "Community",
      "owner16": "Community",
+     "level": "render",
+     "check16": "not checked",
+     "check_by16": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
      "other_face": []
     },
     {
@@ -1551,6 +1748,9 @@
      "option_b": "Community",
      "listed_in": "Community",
      "owner16": "Community",
+     "level": "render",
+     "check16": "not checked",
+     "check_by16": "the rendered check at 1280 and 390: not checked yet",
      "other_face": []
     },
     {
@@ -1571,6 +1771,9 @@
      "option_b": "Community",
      "listed_in": "Community",
      "owner16": "Community",
+     "level": "none",
+     "check16": "not checked",
+     "check_by16": "no live check reads it yet",
      "other_face": []
     },
     {
@@ -1591,6 +1794,9 @@
      "option_b": "Community",
      "listed_in": "Community",
      "owner16": "Community",
+     "level": "none",
+     "check16": "not checked",
+     "check_by16": "no live check reads it yet",
      "other_face": []
     },
     {
@@ -1609,6 +1815,9 @@
      "option_b": "Community",
      "listed_in": "Community",
      "owner16": "Community",
+     "level": "\u2014",
+     "check16": null,
+     "check_by16": null,
      "other_face": []
     },
     {
@@ -1629,6 +1838,9 @@
      "option_b": "Community",
      "listed_in": "Community",
      "owner16": "Accounts",
+     "level": "render",
+     "check16": "not checked",
+     "check_by16": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
      "other_face": []
     },
     {
@@ -1649,6 +1861,9 @@
      "option_b": "Community",
      "listed_in": "Community",
      "owner16": "Accounts",
+     "level": "render",
+     "check16": "not checked",
+     "check_by16": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
      "other_face": []
     },
     {
@@ -1669,6 +1884,9 @@
      "option_b": "Platform",
      "listed_in": "Community",
      "owner16": "Accounts",
+     "level": "render",
+     "check16": "not checked",
+     "check_by16": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
      "other_face": []
     },
     {
@@ -1689,6 +1907,9 @@
      "option_b": "Platform",
      "listed_in": "Community",
      "owner16": "Dashboard & Pulse",
+     "level": "none",
+     "check16": "not checked",
+     "check_by16": "no live check reads it yet",
      "other_face": [
       "Pulse stream (/admin/dashboard/stream) (Dashboard & Pulse)"
      ]
@@ -1711,6 +1932,9 @@
      "option_b": "Platform",
      "listed_in": "Community",
      "owner16": "Community",
+     "level": "path",
+     "check16": "passing",
+     "check_by16": "the paths check \"comment\": passed",
      "other_face": []
     },
     {
@@ -1731,6 +1955,9 @@
      "option_b": "Platform",
      "listed_in": "Community",
      "owner16": "Community",
+     "level": "path",
+     "check16": "passing",
+     "check_by16": "the paths check \"like-guest\": passed",
      "other_face": []
     },
     {
@@ -1751,6 +1978,9 @@
      "option_b": "Platform",
      "listed_in": "Community",
      "owner16": "Dashboard & Pulse",
+     "level": "none",
+     "check16": "not checked",
+     "check_by16": "no live check reads it yet",
      "other_face": [
       "Communications (/admin/config/communications) (System Configuration)"
      ]
@@ -1771,6 +2001,9 @@
      "option_b": "Platform",
      "listed_in": "Community",
      "owner16": "Dashboard & Pulse",
+     "level": "\u2014",
+     "check16": null,
+     "check_by16": null,
      "other_face": [
       "Communications (/admin/config/communications) (System Configuration)"
      ]
@@ -1793,6 +2026,9 @@
      "option_b": "Platform",
      "listed_in": "Community",
      "owner16": "Dashboard & Pulse",
+     "level": "none",
+     "check16": "not checked",
+     "check_by16": "no live check reads it yet",
      "other_face": [
       "Communications (/admin/config/communications) (System Configuration)"
      ]
@@ -1815,6 +2051,9 @@
      "option_b": "Platform",
      "listed_in": "Community",
      "owner16": "Accounts",
+     "level": "render",
+     "check16": "not checked",
+     "check_by16": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
      "other_face": [
       "Galleries (/admin/social/galleries) (Social 360\u00b0)"
      ]
@@ -1837,6 +2076,9 @@
      "option_b": "Platform",
      "listed_in": "Community",
      "owner16": "Accounts",
+     "level": "render",
+     "check16": "not passing",
+     "check_by16": "the rendered check at 1280 and 390: Answered 404",
      "other_face": []
     },
     {
@@ -1855,6 +2097,9 @@
      "option_b": "Events",
      "listed_in": "Community",
      "owner16": "Community",
+     "level": "\u2014",
+     "check16": null,
+     "check_by16": null,
      "other_face": [
       "Events (/admin/social/events) (Social 360\u00b0)"
      ]
@@ -1875,6 +2120,9 @@
      "option_b": "Events",
      "listed_in": "Community",
      "owner16": "Community",
+     "level": "\u2014",
+     "check16": null,
+     "check_by16": null,
      "other_face": []
     },
     {
@@ -1893,6 +2141,9 @@
      "option_b": "Community",
      "listed_in": "Community",
      "owner16": "Community",
+     "level": "\u2014",
+     "check16": null,
+     "check_by16": null,
      "other_face": []
     },
     {
@@ -1911,6 +2162,9 @@
      "option_b": "Community",
      "listed_in": "Community",
      "owner16": "Community",
+     "level": "\u2014",
+     "check16": null,
+     "check_by16": null,
      "other_face": []
     },
     {
@@ -1929,6 +2183,9 @@
      "option_b": "Community",
      "listed_in": "Community",
      "owner16": "Community",
+     "level": "\u2014",
+     "check16": null,
+     "check_by16": null,
      "other_face": []
     },
     {
@@ -1947,6 +2204,9 @@
      "option_b": "Community",
      "listed_in": "Community",
      "owner16": "Community",
+     "level": "\u2014",
+     "check16": null,
+     "check_by16": null,
      "other_face": []
     },
     {
@@ -1965,6 +2225,9 @@
      "option_b": "Community",
      "listed_in": "Community",
      "owner16": "Community",
+     "level": "\u2014",
+     "check16": null,
+     "check_by16": null,
      "other_face": []
     },
     {
@@ -1983,6 +2246,9 @@
      "option_b": "Community",
      "listed_in": "Community",
      "owner16": "Social 360\u00b0",
+     "level": "\u2014",
+     "check16": null,
+     "check_by16": null,
      "other_face": []
     },
     {
@@ -2001,6 +2267,9 @@
      "option_b": "Community",
      "listed_in": "Community",
      "owner16": "Community",
+     "level": "\u2014",
+     "check16": null,
+     "check_by16": null,
      "other_face": []
     },
     {
@@ -2019,6 +2288,9 @@
      "option_b": "Community",
      "listed_in": "Community",
      "owner16": "Community",
+     "level": "\u2014",
+     "check16": null,
+     "check_by16": null,
      "other_face": []
     },
     {
@@ -2037,6 +2309,9 @@
      "option_b": "Platform",
      "listed_in": "Community",
      "owner16": "Accounts",
+     "level": "\u2014",
+     "check16": null,
+     "check_by16": null,
      "other_face": []
     }
    ]
@@ -2088,6 +2363,9 @@
      "option_b": "Marketplace",
      "listed_in": "Marketplace",
      "owner16": "Marketplace",
+     "level": "render",
+     "check16": "not checked",
+     "check_by16": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
      "other_face": []
     },
     {
@@ -2108,6 +2386,9 @@
      "option_b": "Marketplace",
      "listed_in": "Marketplace",
      "owner16": "Marketplace",
+     "level": "render",
+     "check16": "not checked",
+     "check_by16": "the rendered check at 1280 and 390: not checked yet",
      "other_face": [
       "Items (/admin/market/items) (Market 360\u00b0)"
      ]
@@ -2130,6 +2411,9 @@
      "option_b": "Marketplace",
      "listed_in": "Marketplace",
      "owner16": "Marketplace",
+     "level": "render",
+     "check16": "not checked",
+     "check_by16": "the rendered check at 1280 and 390: not checked yet",
      "other_face": [
       "Items (/admin/market/items) (Market 360\u00b0)"
      ]
@@ -2152,6 +2436,9 @@
      "option_b": "Marketplace",
      "listed_in": "Marketplace",
      "owner16": "Marketplace",
+     "level": "render",
+     "check16": "not checked",
+     "check_by16": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
      "other_face": []
     },
     {
@@ -2172,6 +2459,9 @@
      "option_b": "Marketplace",
      "listed_in": "Marketplace",
      "owner16": "Marketplace",
+     "level": "render",
+     "check16": "not checked",
+     "check_by16": "the rendered check at 1280 and 390: not checked yet",
      "other_face": []
     },
     {
@@ -2192,6 +2482,9 @@
      "option_b": "Marketplace",
      "listed_in": "Marketplace",
      "owner16": "Marketplace",
+     "level": "render",
+     "check16": "not checked",
+     "check_by16": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
      "other_face": [
       "Marketplace rules (/admin/market/rules) (Market 360\u00b0)"
      ]
@@ -2214,6 +2507,9 @@
      "option_b": "Events",
      "listed_in": "Marketplace",
      "owner16": "Marketplace",
+     "level": "render",
+     "check16": "not passing",
+     "check_by16": "the rendered check at 1280 and 390: Answered 404",
      "other_face": []
     },
     {
@@ -2234,6 +2530,9 @@
      "option_b": "Marketplace",
      "listed_in": "Marketplace",
      "owner16": "Marketplace",
+     "level": "render",
+     "check16": "not passing",
+     "check_by16": "the rendered check at 1280 and 390: Answered 404",
      "other_face": []
     },
     {
@@ -2254,6 +2553,9 @@
      "option_b": "Marketplace",
      "listed_in": "Marketplace",
      "owner16": "Marketplace",
+     "level": "render",
+     "check16": "not checked",
+     "check_by16": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
      "other_face": [
       "Items (/admin/market/items) (Market 360\u00b0)"
      ]
@@ -2276,6 +2578,9 @@
      "option_b": "Marketplace",
      "listed_in": "Marketplace",
      "owner16": "Marketplace",
+     "level": "render",
+     "check16": "not checked",
+     "check_by16": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
      "other_face": [
       "Orders (/admin/backoffice/orders) (Back-Office)"
      ]
@@ -2298,6 +2603,9 @@
      "option_b": "Marketplace",
      "listed_in": "Marketplace",
      "owner16": "Marketplace",
+     "level": "path",
+     "check16": "not checked",
+     "check_by16": "the paths check \"market-post\": skipped",
      "other_face": [
       "Offers & disputes (/admin/market/exchange) (Market 360\u00b0)"
      ]
@@ -2320,6 +2628,9 @@
      "option_b": "Marketplace",
      "listed_in": "Marketplace",
      "owner16": "Marketplace",
+     "level": "none",
+     "check16": "not checked",
+     "check_by16": "no live check reads it yet",
      "other_face": [
       "Business items (/admin/market/bizitems) (Market 360\u00b0)"
      ]
@@ -2342,6 +2653,9 @@
      "option_b": "Business tools",
      "listed_in": "Marketplace",
      "owner16": "Marketplace",
+     "level": "none",
+     "check16": "not checked",
+     "check_by16": "no live check reads it yet",
      "other_face": [
       "Gateways (/admin/market/gateways) (Market 360\u00b0)"
      ]
@@ -2364,6 +2678,9 @@
      "option_b": "Business tools",
      "listed_in": "Marketplace",
      "owner16": "Marketplace",
+     "level": "none",
+     "check16": "not checked",
+     "check_by16": "no live check reads it yet",
      "other_face": []
     },
     {
@@ -2384,6 +2701,9 @@
      "option_b": "Business tools",
      "listed_in": "Marketplace",
      "owner16": "Marketplace",
+     "level": "none",
+     "check16": "not checked",
+     "check_by16": "no live check reads it yet",
      "other_face": []
     },
     {
@@ -2404,6 +2724,9 @@
      "option_b": "Business tools",
      "listed_in": "Marketplace",
      "owner16": "Marketplace",
+     "level": "none",
+     "check16": "not checked",
+     "check_by16": "no live check reads it yet",
      "other_face": [
       "Seller compliance (/admin/market/compliance) (Market 360\u00b0)"
      ]
@@ -2426,6 +2749,9 @@
      "option_b": "Business tools",
      "listed_in": "Marketplace",
      "owner16": "Marketplace",
+     "level": "none",
+     "check16": "not checked",
+     "check_by16": "no live check reads it yet",
      "other_face": []
     },
     {
@@ -2446,6 +2772,9 @@
      "option_b": "Business tools",
      "listed_in": "Marketplace",
      "owner16": "Marketplace",
+     "level": "none",
+     "check16": "not checked",
+     "check_by16": "no live check reads it yet",
      "other_face": [
       "Catalog rules (/admin/market/catalog) (Market 360\u00b0)"
      ]
@@ -2466,6 +2795,9 @@
      "option_b": "Business tools",
      "listed_in": "Marketplace",
      "owner16": "Marketplace",
+     "level": "\u2014",
+     "check16": null,
+     "check_by16": null,
      "other_face": []
     },
     {
@@ -2484,6 +2816,9 @@
      "option_b": "Business tools",
      "listed_in": "Marketplace",
      "owner16": "Marketplace",
+     "level": "\u2014",
+     "check16": null,
+     "check_by16": null,
      "other_face": []
     },
     {
@@ -2502,6 +2837,9 @@
      "option_b": "Business tools",
      "listed_in": "Marketplace",
      "owner16": "Marketplace",
+     "level": "\u2014",
+     "check16": null,
+     "check_by16": null,
      "other_face": []
     },
     {
@@ -2519,7 +2857,12 @@
      "cross_links": "Marketplace",
      "option_b": "Platform",
      "listed_in": "Marketplace",
-     "owner16": "Question (no gauge yet)",
+     "owner16": "Accounts",
+     "level": "\u2014",
+     "pending": "recommended, pending Jason (the session manager, 2026-11-22)",
+     "why": "site-wide legal text; no front-end gauge holds site-wide pages, and its admin face (Content templates?) isn't named",
+     "check16": null,
+     "check_by16": null,
      "other_face": [
       "Content templates (/admin/config/content) (System Configuration)"
      ]
@@ -2580,6 +2923,9 @@
      "option_b": "Business tools",
      "listed_in": "Marketplace",
      "owner16": "TRVGO \u2013 Storefront",
+     "level": "none",
+     "check16": "not checked",
+     "check_by16": "no live check reads it yet",
      "other_face": [
       "Storefronts (/admin/market/storefronts) (Market 360\u00b0)"
      ]
@@ -2602,6 +2948,9 @@
      "option_b": "Business tools",
      "listed_in": "Marketplace",
      "owner16": "TRVGO \u2013 Storefront",
+     "level": "none",
+     "check16": "not checked",
+     "check_by16": "no live check reads it yet",
      "other_face": [
       "Custom domains (/admin/market/domains) (Market 360\u00b0)"
      ]
@@ -2624,6 +2973,9 @@
      "option_b": "Business tools",
      "listed_in": "Marketplace",
      "owner16": "TRVGO \u2013 Storefront",
+     "level": "none",
+     "check16": "not checked",
+     "check_by16": "no live check reads it yet",
      "other_face": [
       "Storefronts (/admin/market/storefronts) (Market 360\u00b0)"
      ]
@@ -2646,6 +2998,9 @@
      "option_b": "Business tools",
      "listed_in": "Marketplace",
      "owner16": "TRVGO \u2013 Storefront",
+     "level": "none",
+     "check16": "not checked",
+     "check_by16": "no live check reads it yet",
      "other_face": []
     },
     {
@@ -2664,6 +3019,9 @@
      "option_b": "Business tools",
      "listed_in": "Marketplace",
      "owner16": "TRVGO \u2013 Storefront",
+     "level": "\u2014",
+     "check16": null,
+     "check_by16": null,
      "other_face": []
     },
     {
@@ -2682,6 +3040,9 @@
      "option_b": "Business tools",
      "listed_in": "Marketplace",
      "owner16": "TRVGO \u2013 Storefront",
+     "level": "\u2014",
+     "check16": null,
+     "check_by16": null,
      "other_face": []
     },
     {
@@ -2702,6 +3063,9 @@
      "option_b": "Marketplace",
      "listed_in": "Marketplace",
      "owner16": "Marketplace",
+     "level": "render",
+     "check16": "not checked",
+     "check_by16": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
      "other_face": []
     },
     {
@@ -2722,6 +3086,9 @@
      "option_b": "Marketplace",
      "listed_in": "Marketplace",
      "owner16": "Marketplace",
+     "level": "render",
+     "check16": "not checked",
+     "check_by16": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
      "other_face": [
       "Plans & subscriptions (/admin/backoffice/plans) (Back-Office)"
      ]
@@ -2744,6 +3111,9 @@
      "option_b": "Platform",
      "listed_in": "Marketplace",
      "owner16": "Marketplace",
+     "level": "render",
+     "check16": "not checked",
+     "check_by16": "the rendered check at 1280 and 390: not checked yet",
      "other_face": [
       "Promotions (/admin/growth/promotions) (Sales & Growth)"
      ]
@@ -2766,6 +3136,9 @@
      "option_b": "Marketplace",
      "listed_in": "Marketplace",
      "owner16": "Marketplace",
+     "level": "render",
+     "check16": "not checked",
+     "check_by16": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
      "other_face": [
       "GO Codes & short links (/admin/market/codes) (Market 360\u00b0)"
      ]
@@ -2788,6 +3161,9 @@
      "option_b": "Marketplace",
      "listed_in": "Marketplace",
      "owner16": "Marketplace",
+     "level": "render",
+     "check16": "not checked",
+     "check_by16": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
      "other_face": []
     },
     {
@@ -2808,6 +3184,9 @@
      "option_b": "Marketplace",
      "listed_in": "Marketplace",
      "owner16": "Marketplace",
+     "level": "render",
+     "check16": "not checked",
+     "check_by16": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
      "other_face": [
       "GO Codes & short links (/admin/market/codes) (Market 360\u00b0)"
      ]
@@ -2830,6 +3209,9 @@
      "option_b": "Marketplace",
      "listed_in": "Marketplace",
      "owner16": "TRVGO \u2013 Storefront",
+     "level": "render",
+     "check16": "not checked",
+     "check_by16": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
      "other_face": []
     },
     {
@@ -2850,6 +3232,9 @@
      "option_b": "Marketplace",
      "listed_in": "Marketplace",
      "owner16": "TRVGO \u2013 Storefront",
+     "level": "render",
+     "check16": "not checked",
+     "check_by16": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
      "other_face": []
     },
     {
@@ -2868,6 +3253,9 @@
      "option_b": "Marketplace",
      "listed_in": "Marketplace",
      "owner16": "TRVGO \u2013 Storefront",
+     "level": "\u2014",
+     "check16": null,
+     "check_by16": null,
      "other_face": []
     },
     {
@@ -2886,6 +3274,9 @@
      "option_b": "Business tools",
      "listed_in": "Marketplace",
      "owner16": "Marketplace",
+     "level": "\u2014",
+     "check16": null,
+     "check_by16": null,
      "other_face": []
     },
     {
@@ -2904,6 +3295,9 @@
      "option_b": "Business tools",
      "listed_in": "Marketplace",
      "owner16": "Marketplace",
+     "level": "\u2014",
+     "check16": null,
+     "check_by16": null,
      "other_face": []
     },
     {
@@ -2922,6 +3316,9 @@
      "option_b": "Business tools",
      "listed_in": "Marketplace",
      "owner16": "Marketplace",
+     "level": "\u2014",
+     "check16": null,
+     "check_by16": null,
      "other_face": []
     },
     {
@@ -2940,6 +3337,9 @@
      "option_b": "Marketplace",
      "listed_in": "Marketplace",
      "owner16": "Marketplace",
+     "level": "\u2014",
+     "check16": null,
+     "check_by16": null,
      "other_face": []
     },
     {
@@ -2958,6 +3358,9 @@
      "option_b": "Marketplace",
      "listed_in": "Marketplace",
      "owner16": "Marketplace",
+     "level": "\u2014",
+     "check16": null,
+     "check_by16": null,
      "other_face": []
     }
    ]
@@ -3005,7 +3408,12 @@
      "cross_links": "all four",
      "option_b": "Platform",
      "listed_in": "Platform",
-     "owner16": "Question (no gauge yet)",
+     "owner16": "Accounts",
+     "level": "render",
+     "pending": "recommended, pending Jason (the session manager, 2026-11-22)",
+     "why": "the way into all four; no front-end gauge holds it",
+     "check16": "not checked",
+     "check_by16": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
      "other_face": []
     },
     {
@@ -3026,6 +3434,9 @@
      "option_b": "Platform",
      "listed_in": "Platform",
      "owner16": "Accounts",
+     "level": "render",
+     "check16": "not checked",
+     "check_by16": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
      "other_face": []
     },
     {
@@ -3046,6 +3457,9 @@
      "option_b": "Platform",
      "listed_in": "Platform",
      "owner16": "Accounts",
+     "level": "path",
+     "check16": "passing",
+     "check_by16": "the paths check \"sign-in\": passed",
      "other_face": []
     },
     {
@@ -3066,6 +3480,9 @@
      "option_b": "Platform",
      "listed_in": "Platform",
      "owner16": "Accounts",
+     "level": "path",
+     "check16": "not checked",
+     "check_by16": "the paths check \"sign-up\": skipped",
      "other_face": []
     },
     {
@@ -3086,6 +3503,9 @@
      "option_b": "Platform",
      "listed_in": "Platform",
      "owner16": "Accounts",
+     "level": "none",
+     "check16": "not checked",
+     "check_by16": "no live check reads it yet",
      "other_face": []
     },
     {
@@ -3106,6 +3526,9 @@
      "option_b": "Platform",
      "listed_in": "Platform",
      "owner16": "Accounts",
+     "level": "render",
+     "check16": "not checked",
+     "check_by16": "the rendered check at 1280 and 390: not checked yet",
      "other_face": []
     },
     {
@@ -3126,6 +3549,9 @@
      "option_b": "Platform",
      "listed_in": "Platform",
      "owner16": "Accounts",
+     "level": "render",
+     "check16": "not checked",
+     "check_by16": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
      "other_face": []
     },
     {
@@ -3144,6 +3570,9 @@
      "option_b": "Platform",
      "listed_in": "Platform",
      "owner16": "Accounts",
+     "level": "\u2014",
+     "check16": null,
+     "check_by16": null,
      "other_face": []
     },
     {
@@ -3161,7 +3590,12 @@
      "cross_links": "Community",
      "option_b": "Platform",
      "listed_in": "Platform",
-     "owner16": "Question (no gauge yet)",
+     "owner16": "Accounts",
+     "level": "\u2014",
+     "pending": "recommended, pending Jason (the session manager, 2026-11-22)",
+     "why": "its public pages (proposed) have no front-end gauge; its admin face is Back-Office \u2192 DMCA queue (owned there)",
+     "check16": null,
+     "check_by16": null,
      "other_face": [
       "DMCA queue (/admin/backoffice/dmca) (Back-Office)"
      ]
@@ -3183,7 +3617,12 @@
      "cross_links": "\u2014",
      "option_b": "Platform",
      "listed_in": "Platform",
-     "owner16": "Question (no gauge yet)",
+     "owner16": "Accounts",
+     "level": "render",
+     "pending": "recommended, pending Jason (the session manager, 2026-11-22)",
+     "why": "a site-wide public page; its admin face is none",
+     "check16": "not checked",
+     "check_by16": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
      "other_face": []
     },
     {
@@ -3203,7 +3642,12 @@
      "cross_links": "Discovery",
      "option_b": "Platform",
      "listed_in": "Platform",
-     "owner16": "Question (no gauge yet)",
+     "owner16": "Discovery",
+     "level": "render",
+     "pending": "recommended, pending Jason (the session manager, 2026-11-22)",
+     "why": "a site-wide public page",
+     "check16": "not checked",
+     "check_by16": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
      "other_face": []
     },
     {
@@ -3223,7 +3667,12 @@
      "cross_links": "Discovery, Directory",
      "option_b": "Platform",
      "listed_in": "Platform",
-     "owner16": "Question (no gauge yet)",
+     "owner16": "Directory",
+     "level": "path",
+     "pending": "recommended, pending Jason (the session manager, 2026-11-22); cross-linked to Discovery",
+     "why": "its public face is on every page; its admin face is Insights \u2192 Search workbench (owned there)",
+     "check16": "not passing",
+     "check_by16": "the paths check \"search-typo\": issues",
      "other_face": [
       "Search workbench (/admin/insights/search) (Insights & Research)"
      ]
@@ -3265,7 +3714,12 @@
      "cross_links": "\u2014",
      "option_b": "Platform",
      "listed_in": "Platform",
-     "owner16": "Question (no gauge yet)",
+     "owner16": "Dashboard & Pulse",
+     "level": "none",
+     "pending": "recommended, pending Jason (the session manager, 2026-11-22)",
+     "why": "the admin's shell (router, manifests, the one endpoint) is no module's section",
+     "check16": "not checked",
+     "check_by16": "no live check reads it yet",
      "other_face": []
     },
     {
@@ -3366,6 +3820,9 @@
      "option_b": "Platform",
      "listed_in": "Platform",
      "owner16": "System Configuration",
+     "level": "none",
+     "check16": "not checked",
+     "check_by16": "no live check reads it yet",
      "other_face": [
       "Storage & backups (/admin/config/storage) (System Configuration)"
      ]
@@ -3388,6 +3845,9 @@
      "option_b": "Platform",
      "listed_in": "Platform",
      "owner16": "System Configuration",
+     "level": "none",
+     "check16": "not checked",
+     "check_by16": "no live check reads it yet",
      "other_face": [
       "Modules (Service register) (/admin/config/register) (System Configuration)"
      ]
@@ -3428,6 +3888,9 @@
      "option_b": "Platform",
      "listed_in": "Platform",
      "owner16": "Back-Office",
+     "level": "\u2014",
+     "check16": null,
+     "check_by16": null,
      "other_face": [
       "Orders (/admin/backoffice/orders) (Back-Office)"
      ]
@@ -3559,7 +4022,12 @@
      "cross_links": "Marketplace",
      "option_b": "Platform",
      "listed_in": "Platform",
-     "owner16": "Question (no gauge yet)",
+     "owner16": "Accounts",
+     "level": "render",
+     "pending": "recommended, pending Jason (the session manager, 2026-11-22)",
+     "why": "a site-wide public page with no front-end gauge",
+     "check16": "not checked",
+     "check_by16": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
      "other_face": []
     }
    ]
@@ -3600,6 +4068,9 @@
      "option_b": "Knowledge Engine",
      "listed_in": "Knowledge Engine",
      "owner16": "System Configuration",
+     "level": "\u2014",
+     "check16": null,
+     "check_by16": null,
      "other_face": [
       "The index (W0) (/admin/insights/index) (Insights & Research)",
       "Workflows (/admin/config/workflows) (System Configuration)"
@@ -3623,6 +4094,9 @@
      "option_b": "Knowledge Engine",
      "listed_in": "Knowledge Engine",
      "owner16": "System Configuration",
+     "level": "function",
+     "check16": "not passing",
+     "check_by16": "the runtime board: W1 paused by two task trips (overture_bulk #1290, foursquare_bulk #1288), 0 records in for 24 hours",
      "other_face": [
       "Crawler (/admin/insights/crawler) (Insights & Research)",
       "Workflows (/admin/config/workflows) (System Configuration)"
@@ -3646,6 +4120,9 @@
      "option_b": "Knowledge Engine",
      "listed_in": "Knowledge Engine",
      "owner16": "System Configuration",
+     "level": "function",
+     "check16": "not passing",
+     "check_by16": "the ledger's count check: ep:crawl/refresh:count open (received 1, counted 2), so its counts can't be trusted (03 \u00a728.2)",
      "other_face": [
       "Crawler (/admin/insights/crawler) (Insights & Research)",
       "Workflows (/admin/config/workflows) (System Configuration)"
@@ -3669,6 +4146,9 @@
      "option_b": "Knowledge Engine",
      "listed_in": "Knowledge Engine",
      "owner16": "System Configuration",
+     "level": "function",
+     "check16": "not passing",
+     "check_by16": "the runtime board: W3 does nothing while its two switches stay Off by the system, left by a closed trip (01-lift-reconstruction.md (b), (c))",
      "other_face": [
       "Crawler (/admin/insights/crawler) (Insights & Research)",
       "Sources (/admin/insights/sources) (Insights & Research)",
@@ -3693,6 +4173,9 @@
      "option_b": "Knowledge Engine",
      "listed_in": "Knowledge Engine",
      "owner16": "System Configuration",
+     "level": "none",
+     "check16": "not checked",
+     "check_by16": "no live check reads it yet",
      "other_face": [
       "Crawler (/admin/insights/crawler) (Insights & Research)",
       "Workflows (/admin/config/workflows) (System Configuration)"
@@ -3716,6 +4199,9 @@
      "option_b": "Knowledge Engine",
      "listed_in": "Knowledge Engine",
      "owner16": "System Configuration",
+     "level": "none",
+     "check16": "not checked",
+     "check_by16": "no live check reads it yet",
      "other_face": [
       "Crawler (/admin/insights/crawler) (Insights & Research)",
       "Workflows (/admin/config/workflows) (System Configuration)"
@@ -3739,6 +4225,9 @@
      "option_b": "Knowledge Engine",
      "listed_in": "Knowledge Engine",
      "owner16": "System Configuration",
+     "level": "none",
+     "check16": "not checked",
+     "check_by16": "no live check reads it yet",
      "other_face": [
       "Crawler (/admin/insights/crawler) (Insights & Research)",
       "Topic index (/admin/insights/topics) (Insights & Research)",
@@ -3763,6 +4252,9 @@
      "option_b": "Knowledge Engine",
      "listed_in": "Knowledge Engine",
      "owner16": "System Configuration",
+     "level": "none",
+     "check16": "not checked",
+     "check_by16": "no live check reads it yet",
      "other_face": [
       "Crawler (/admin/insights/crawler) (Insights & Research)",
       "Workflows (/admin/config/workflows) (System Configuration)"
@@ -3786,6 +4278,9 @@
      "option_b": "Knowledge Engine",
      "listed_in": "Knowledge Engine",
      "owner16": "System Configuration",
+     "level": "none",
+     "check16": "not checked",
+     "check_by16": "no live check reads it yet",
      "other_face": [
       "Crawler (/admin/insights/crawler) (Insights & Research)",
       "Workflows (/admin/config/workflows) (System Configuration)"
@@ -3809,6 +4304,9 @@
      "option_b": "Knowledge Engine",
      "listed_in": "Knowledge Engine",
      "owner16": "System Configuration",
+     "level": "none",
+     "check16": "not checked",
+     "check_by16": "no live check reads it yet",
      "other_face": [
       "Crawler (/admin/insights/crawler) (Insights & Research)",
       "Workflows (/admin/config/workflows) (System Configuration)"
@@ -3832,6 +4330,9 @@
      "option_b": "Knowledge Engine",
      "listed_in": "Knowledge Engine",
      "owner16": "System Configuration",
+     "level": "none",
+     "check16": "not checked",
+     "check_by16": "no live check reads it yet",
      "other_face": [
       "Crawler (/admin/insights/crawler) (Insights & Research)",
       "Workflows (/admin/config/workflows) (System Configuration)"
@@ -3855,6 +4356,9 @@
      "option_b": "Knowledge Engine",
      "listed_in": "Knowledge Engine",
      "owner16": "System Configuration",
+     "level": "none",
+     "check16": "not checked",
+     "check_by16": "no live check reads it yet",
      "other_face": [
       "Crawler (/admin/insights/crawler) (Insights & Research)",
       "Workflows (/admin/config/workflows) (System Configuration)"
@@ -3878,6 +4382,9 @@
      "option_b": "Knowledge Engine",
      "listed_in": "Knowledge Engine",
      "owner16": "System Configuration",
+     "level": "none",
+     "check16": "not checked",
+     "check_by16": "no live check reads it yet",
      "other_face": [
       "Crawler (/admin/insights/crawler) (Insights & Research)",
       "Workflows (/admin/config/workflows) (System Configuration)"
@@ -3901,6 +4408,9 @@
      "option_b": "Knowledge Engine",
      "listed_in": "Knowledge Engine",
      "owner16": "System Configuration",
+     "level": "none",
+     "check16": "not checked",
+     "check_by16": "no live check reads it yet",
      "other_face": [
       "Crawler (/admin/insights/crawler) (Insights & Research)",
       "Workflows (/admin/config/workflows) (System Configuration)"
@@ -3924,6 +4434,9 @@
      "option_b": "Knowledge Engine",
      "listed_in": "Knowledge Engine",
      "owner16": "System Configuration",
+     "level": "none",
+     "check16": "not checked",
+     "check_by16": "no live check reads it yet",
      "other_face": [
       "Crawler (/admin/insights/crawler) (Insights & Research)",
       "Workflows (/admin/config/workflows) (System Configuration)"
@@ -4147,8 +4660,9 @@
    "owner16": "Dashboard & Pulse",
    "other_face": [],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Pulse stream (/admin/dashboard/stream)",
@@ -4163,8 +4677,9 @@
     "The member's Pulse: needs as rows, notices (Dashboard & Pulse)"
    ],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Quick actions (/admin/dashboard/quick)",
@@ -4177,8 +4692,9 @@
    "owner16": "Dashboard & Pulse",
    "other_face": [],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Helper (/admin/dashboard/helper)",
@@ -4191,8 +4707,9 @@
    "owner16": "Dashboard & Pulse",
    "other_face": [],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Support inbox (/admin/dashboard/mail)",
@@ -4205,8 +4722,9 @@
    "owner16": "Dashboard & Pulse",
    "other_face": [],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "My inbox (/admin/dashboard/inbox)",
@@ -4219,8 +4737,9 @@
    "owner16": "Dashboard & Pulse",
    "other_face": [],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Your communications (/admin/dashboard/comms)",
@@ -4233,8 +4752,9 @@
    "owner16": "Dashboard & Pulse",
    "other_face": [],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Stream settings (/admin/dashboard/streamset)",
@@ -4247,8 +4767,9 @@
    "owner16": "Dashboard & Pulse",
    "other_face": [],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Listings (/admin/local/listings)",
@@ -4263,8 +4784,9 @@
     "A business's page (hero, engage bar, comments, Link) (Directory)"
    ],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Find, merge & bulk edit (/admin/local/bulk)",
@@ -4277,8 +4799,9 @@
    "owner16": "Get Local 360\u00b0",
    "other_face": [],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Intake from a website (/admin/local/intake)",
@@ -4291,8 +4814,9 @@
    "owner16": "Get Local 360\u00b0",
    "other_face": [],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Review (/admin/local/review)",
@@ -4308,7 +4832,8 @@
    ],
    "status": "live",
    "check": "not passing",
-   "check_by": "the rendered check at 1280 and 390: Less than optimal: sideways scroll"
+   "check_by": "the rendered check at 1280 and 390: Less than optimal: sideways scroll",
+   "level": "render"
   },
   {
    "name": "Claims (/admin/local/claims)",
@@ -4324,8 +4849,9 @@
     "Verify a listing from its link (Directory)"
    ],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Nexus (/admin/local/nexus)",
@@ -4340,8 +4866,9 @@
     "The Nexus: organizations with many locations (0054) (Directory)"
    ],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Identities (/admin/local/identities)",
@@ -4356,8 +4883,9 @@
     "The duplicates fix: one identity check, the recheck, Vet this place (System Configuration)"
    ],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Landmarks (/admin/local/places)",
@@ -4372,8 +4900,9 @@
     "Natural landmark page (USGS names) (Discovery)"
    ],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Recreation sites (/admin/local/recreation)",
@@ -4388,8 +4917,9 @@
     "Public recreation place page (Recreation.gov) (Discovery)"
    ],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Map pins (/admin/local/pins)",
@@ -4404,8 +4934,9 @@
     "Where a listing is: move the pin, I'm here (Directory)"
    ],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Nations (/admin/local/nations)",
@@ -4418,8 +4949,9 @@
    "owner16": "Get Local 360\u00b0",
    "other_face": [],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Hidden places (/admin/local/hidden)",
@@ -4434,8 +4966,9 @@
     "An owner opens their own hidden listing's editor (case #22) (Directory)"
    ],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Categories (/admin/local/categories)",
@@ -4450,8 +4983,9 @@
     "Directory search, categories, \"near me\" with miles (0044, 0053, 0060 A\u2013B, 0068) (Directory)"
    ],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Taxonomy & clusters (/admin/local/taxonomy)",
@@ -4468,19 +5002,21 @@
    ],
    "status": "live",
    "check": "not passing",
-   "check_by": "manifests.php marks it partial"
+   "check_by": "manifests.php marks it partial",
+   "level": "render"
   },
   {
    "name": "Single Home Rule (/admin/local/homes)",
    "kind": "admin tool",
    "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):50 ($C)",
    "owner": "",
-   "note": "Coming: The rule to be defined (Jason).",
+   "note": "Coming: The rule to be defined (Jason). \u00b7 in scope: the Single Home Rule is accepted (decisions/0042:51; 0170:4, 79\u201382 \"Home is the Single Home Rule, unchanged\")",
    "outline": false,
    "manifest": "local/homes",
    "owner16": "Get Local 360\u00b0",
    "other_face": [],
-   "status": "proposed"
+   "status": "decided",
+   "level": "\u2014"
   },
   {
    "name": "Journeys (/admin/explore/journeys)",
@@ -4497,8 +5033,9 @@
     "Suggested journeys built from a guide's places (0146) (Discovery)"
    ],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Experiences (/admin/explore/experiences)",
@@ -4514,8 +5051,9 @@
     "Your experiences (Discovery)"
    ],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Stories (/admin/explore/stories)",
@@ -4530,8 +5068,9 @@
     "The place page: photo corner, what's in the photo, the numbers, \u22ef toolkit, Plan a trip here (Discovery)"
    ],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Guides (/admin/explore/place_guides)",
@@ -4548,7 +5087,8 @@
    ],
    "status": "live",
    "check": "not checked",
-   "check_by": "the rendered check at 1280 and 390: not checked yet"
+   "check_by": "the rendered check at 1280 and 390: not checked yet",
+   "level": "render"
   },
   {
    "name": "Live events (/admin/explore/events)",
@@ -4563,8 +5103,9 @@
     "Live events from the crawler in guides and on venue listings (0133) (Discovery)"
    ],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Who to call (/admin/explore/guides)",
@@ -4579,8 +5120,9 @@
     "Resource guides: who to call in an area (0061) (Discovery)"
    ],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "How-to guides (/admin/explore/howto)",
@@ -4595,22 +5137,24 @@
     "How-to guides from official pages (0063) (Discovery)"
    ],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Waypoints & routes (/admin/explore/routes)",
    "kind": "admin tool",
    "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):62 ($C)",
    "owner": "",
-   "note": "Coming: A later wave.",
+   "note": "Coming: A later wave. \u00b7 a manifest section marked coming",
    "outline": false,
    "manifest": "explore/routes",
    "owner16": "Let's Explore 360\u00b0",
    "other_face": [
     "Trips R5: routes on our own site (openrouteservice) (Discovery)"
    ],
-   "status": "decided"
+   "status": "decided",
+   "level": "\u2014"
   },
   {
    "name": "Items (/admin/market/items)",
@@ -4627,8 +5171,9 @@
     "Your Marketplace posts (Marketplace)"
    ],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Marketplace rules (/admin/market/rules)",
@@ -4643,8 +5188,9 @@
     "The Marketplace rules (Marketplace)"
    ],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Business items (/admin/market/bizitems)",
@@ -4659,8 +5205,9 @@
     "Businesses' items (0135 step 3) (Marketplace)"
    ],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Offers & disputes (/admin/market/exchange)",
@@ -4675,8 +5222,9 @@
     "Post on the Marketplace; offers, Sold / Got it (0135 steps 1\u20132) (Marketplace)"
    ],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Storefronts (/admin/market/storefronts)",
@@ -4692,22 +5240,24 @@
     "Storefront Studio 5a: a business's pages as blocks (TRVGO \u2013 Storefront)"
    ],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Catalog rules (/admin/market/catalog)",
    "kind": "admin tool",
    "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):73 ($C)",
    "owner": "",
-   "note": "Coming: A later step.",
+   "note": "Coming: A later step. \u00b7 a manifest section marked coming",
    "outline": false,
    "manifest": "market/catalog",
    "owner16": "Market 360\u00b0",
    "other_face": [
     "Market 360\u00b0 catalog: photos, publishing, deleting; the acting-as bar; the account bar (Marketplace)"
    ],
-   "status": "decided"
+   "status": "decided",
+   "level": "\u2014"
   },
   {
    "name": "Gateways (/admin/market/gateways)",
@@ -4722,8 +5272,9 @@
     "Checkout through the business's own gateway (0135 step 4a) (Marketplace)"
    ],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Seller compliance (/admin/market/compliance)",
@@ -4738,8 +5289,9 @@
     "Market 360\u00b0 Phase B: acceptance log, store policies, seller agreement, rulebook, chargeback packet (zips 2\u20133) (Marketplace)"
    ],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Custom domains (/admin/market/domains)",
@@ -4754,8 +5306,9 @@
     "Connect your domain, bought or brought (0139 step 5b), through the Fly.io edge (TRVGO \u2013 Storefront)"
    ],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "GO Codes & short links (/admin/market/codes)",
@@ -4771,8 +5324,9 @@
     "Managing your GO Codes (Marketplace)"
    ],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Our pages (/admin/market/pages)",
@@ -4785,8 +5339,9 @@
    "owner16": "Market 360\u00b0",
    "other_face": [],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Form entries (/admin/market/leads)",
@@ -4799,8 +5354,9 @@
    "owner16": "Market 360\u00b0",
    "other_face": [],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Reports (/admin/social/reports)",
@@ -4815,8 +5371,9 @@
     "Charters, business-owned groups, moderation run by the group, notices sent once (0137 steps 1\u20135) (Community)"
    ],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Standing (/admin/social/standing)",
@@ -4829,8 +5386,9 @@
    "owner16": "Social 360\u00b0",
    "other_face": [],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Takedowns (/admin/social/takedowns)",
@@ -4843,8 +5401,9 @@
    "owner16": "Social 360\u00b0",
    "other_face": [],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Galleries (/admin/social/galleries)",
@@ -4859,8 +5418,9 @@
     "The Gallery: your photos and files (0126) (Accounts)"
    ],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Procedures (/admin/social/procedures)",
@@ -4873,8 +5433,9 @@
    "owner16": "Social 360\u00b0",
    "other_face": [],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Groups (/admin/social/groups)",
@@ -4890,22 +5451,24 @@
     "One group as a content page (0137 \u00a74) (Community)"
    ],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Events (/admin/social/events)",
    "kind": "admin tool",
    "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):89 ($C)",
    "owner": "",
-   "note": "Coming: Its definition (Jason).",
+   "note": "Coming: Its definition (Jason). \u00b7 in scope: Events is accepted (decisions/0134)",
    "outline": false,
    "manifest": "social/events",
    "owner16": "Social 360\u00b0",
    "other_face": [
     "Events, one tool for the whole site (0134 steps 1\u20138) (Community)"
    ],
-   "status": "proposed"
+   "status": "decided",
+   "level": "\u2014"
   },
   {
    "name": "Calls today (/admin/growth/calls)",
@@ -4918,8 +5481,9 @@
    "owner16": "Sales & Growth",
    "other_face": [],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Prospects (/admin/growth/prospects)",
@@ -4932,8 +5496,9 @@
    "owner16": "Sales & Growth",
    "other_face": [],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Customers (/admin/growth/customers)",
@@ -4946,8 +5511,9 @@
    "owner16": "Sales & Growth",
    "other_face": [],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Scan cards (/admin/growth/cards)",
@@ -4960,8 +5526,9 @@
    "owner16": "Sales & Growth",
    "other_face": [],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Add from the field (/admin/growth/field)",
@@ -4974,8 +5541,9 @@
    "owner16": "Sales & Growth",
    "other_face": [],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Promotions (/admin/growth/promotions)",
@@ -4990,8 +5558,9 @@
     "A promotion's page (Marketplace)"
    ],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Territories (/admin/growth/territories)",
@@ -5004,8 +5573,9 @@
    "owner16": "Sales & Growth",
    "other_face": [],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Funnel (/admin/growth/funnel)",
@@ -5018,68 +5588,74 @@
    "owner16": "Sales & Growth",
    "other_face": [],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Quotes & deals (/admin/growth/quotes)",
    "kind": "admin tool",
    "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):101 ($C)",
    "owner": "",
-   "note": "Coming: Its own build, after this one.",
+   "note": "Coming: Its own build, after this one. \u00b7 a manifest section marked coming",
    "outline": false,
    "manifest": "growth/quotes",
    "owner16": "Sales & Growth",
    "other_face": [],
-   "status": "decided"
+   "status": "decided",
+   "level": "\u2014"
   },
   {
    "name": "Clients (/admin/concierge/clients)",
    "kind": "admin tool",
    "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):105 ($C)",
    "owner": "",
-   "note": "Coming: The White Glove build (after this one).",
+   "note": "Coming: The White Glove build (after this one). \u00b7 a manifest section marked coming",
    "outline": false,
    "manifest": "concierge/clients",
    "owner16": "White Glove Concierge",
    "other_face": [],
-   "status": "decided"
+   "status": "decided",
+   "level": "\u2014"
   },
   {
    "name": "Engagements (/admin/concierge/engagement)",
    "kind": "admin tool",
    "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):106 ($C)",
    "owner": "",
-   "note": "Coming: The White Glove build.",
+   "note": "Coming: The White Glove build. \u00b7 a manifest section marked coming",
    "outline": false,
    "manifest": "concierge/engagement",
    "owner16": "White Glove Concierge",
    "other_face": [],
-   "status": "decided"
+   "status": "decided",
+   "level": "\u2014"
   },
   {
    "name": "Service catalog (/admin/concierge/catalog)",
    "kind": "admin tool",
    "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):107 ($C)",
    "owner": "",
-   "note": "Coming: The White Glove build.",
+   "note": "Coming: The White Glove build. \u00b7 a manifest section marked coming",
    "outline": false,
    "manifest": "concierge/catalog",
    "owner16": "White Glove Concierge",
    "other_face": [],
-   "status": "decided"
+   "status": "decided",
+   "level": "\u2014"
   },
   {
    "name": "Asset studio (/admin/concierge/studio)",
    "kind": "admin tool",
    "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):108 ($C)",
    "owner": "",
-   "note": "Coming: The studio build.",
+   "note": "Coming: The studio build. \u00b7 a manifest section marked coming",
    "outline": false,
    "manifest": "concierge/studio",
    "owner16": "White Glove Concierge",
    "other_face": [],
-   "status": "decided"
+   "status": "decided",
+   "level": "\u2014"
   },
   {
    "name": "Imports (/admin/concierge/imports)",
@@ -5093,7 +5669,8 @@
    "other_face": [],
    "status": "live",
    "check": "not passing",
-   "check_by": "manifests.php marks it partial"
+   "check_by": "manifests.php marks it partial",
+   "level": "render"
   },
   {
    "name": "Orders (/admin/backoffice/orders)",
@@ -5109,8 +5686,9 @@
     "The order system's improvements (the first release carries the chargeFor fix) (Back-Office)"
    ],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Products (/admin/backoffice/products)",
@@ -5123,8 +5701,9 @@
    "owner16": "Back-Office",
    "other_face": [],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Order management (/admin/backoffice/production)",
@@ -5137,8 +5716,9 @@
    "owner16": "Back-Office",
    "other_face": [],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Work orders (/admin/backoffice/work_orders)",
@@ -5152,7 +5732,8 @@
    "other_face": [],
    "status": "live",
    "check": "not checked",
-   "check_by": "the rendered check at 1280 and 390: not checked yet"
+   "check_by": "the rendered check at 1280 and 390: not checked yet",
+   "level": "render"
   },
   {
    "name": "Clients (/admin/backoffice/clients)",
@@ -5165,8 +5746,9 @@
    "owner16": "Back-Office",
    "other_face": [],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "QuickBooks items (/admin/backoffice/qb_items)",
@@ -5180,7 +5762,8 @@
    "other_face": [],
    "status": "live",
    "check": "not checked",
-   "check_by": "the rendered check at 1280 and 390: not checked yet"
+   "check_by": "the rendered check at 1280 and 390: not checked yet",
+   "level": "render"
   },
   {
    "name": "Collateral (/admin/backoffice/collateral)",
@@ -5193,8 +5776,9 @@
    "owner16": "Back-Office",
    "other_face": [],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Vendors (/admin/backoffice/vendor_list)",
@@ -5208,7 +5792,8 @@
    "other_face": [],
    "status": "live",
    "check": "not checked",
-   "check_by": "the rendered check at 1280 and 390: not checked yet"
+   "check_by": "the rendered check at 1280 and 390: not checked yet",
+   "level": "render"
   },
   {
    "name": "Materials & services (/admin/backoffice/cost_list)",
@@ -5222,7 +5807,8 @@
    "other_face": [],
    "status": "live",
    "check": "not checked",
-   "check_by": "the rendered check at 1280 and 390: not checked yet"
+   "check_by": "the rendered check at 1280 and 390: not checked yet",
+   "level": "render"
   },
   {
    "name": "Vendor orders (/admin/backoffice/vendors)",
@@ -5235,8 +5821,9 @@
    "owner16": "Back-Office",
    "other_face": [],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Price lists (/admin/backoffice/pricelists)",
@@ -5249,8 +5836,9 @@
    "owner16": "Back-Office",
    "other_face": [],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Taxes & shipping (/admin/backoffice/taxes)",
@@ -5263,8 +5851,9 @@
    "owner16": "Back-Office",
    "other_face": [],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Plans & subscriptions (/admin/backoffice/plans)",
@@ -5279,8 +5868,9 @@
     "Plans and prices (Marketplace)"
    ],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Payments (/admin/backoffice/payments)",
@@ -5293,8 +5883,9 @@
    "owner16": "Back-Office",
    "other_face": [],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Money reports (/admin/backoffice/money)",
@@ -5308,7 +5899,8 @@
    "other_face": [],
    "status": "live",
    "check": "not passing",
-   "check_by": "manifests.php marks it partial"
+   "check_by": "manifests.php marks it partial",
+   "level": "render"
   },
   {
    "name": "People (/admin/backoffice/people)",
@@ -5321,8 +5913,9 @@
    "owner16": "Back-Office",
    "other_face": [],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Staff logins (/admin/backoffice/logins)",
@@ -5335,8 +5928,9 @@
    "owner16": "Back-Office",
    "other_face": [],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Staff levels (/admin/backoffice/levels)",
@@ -5349,20 +5943,22 @@
    "owner16": "Back-Office",
    "other_face": [],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Fulfillment (/admin/backoffice/fulfillment)",
    "kind": "admin tool",
    "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):132 ($C)",
    "owner": "",
-   "note": "Coming: A later step.",
+   "note": "Coming: A later step. \u00b7 a manifest section marked coming",
    "outline": false,
    "manifest": "backoffice/fulfillment",
    "owner16": "Back-Office",
    "other_face": [],
-   "status": "decided"
+   "status": "decided",
+   "level": "\u2014"
   },
   {
    "name": "Import & export (/admin/backoffice/imports)",
@@ -5376,59 +5972,64 @@
    "other_face": [],
    "status": "live",
    "check": "not passing",
-   "check_by": "manifests.php marks it partial"
+   "check_by": "manifests.php marks it partial",
+   "level": "render"
   },
   {
    "name": "Inventory & COGS (/admin/backoffice/inventory)",
    "kind": "admin tool",
    "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):134 ($C)",
    "owner": "",
-   "note": "Coming: A later wave.",
+   "note": "Coming: A later wave. \u00b7 a manifest section marked coming",
    "outline": false,
    "manifest": "backoffice/inventory",
    "owner16": "Back-Office",
    "other_face": [],
-   "status": "decided"
+   "status": "decided",
+   "level": "\u2014"
   },
   {
    "name": "Consent hub (/admin/backoffice/consent)",
    "kind": "admin tool",
    "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):135 ($C)",
    "owner": "",
-   "note": "Coming: Its definition (Jason).",
+   "note": "Coming: Its definition (Jason). \u00b7 in scope: the consent hub is a planned wave (decisions/0108:153 \"brings part of the consent hub forward from Wave 4\")",
    "outline": false,
    "manifest": "backoffice/consent",
    "owner16": "Back-Office",
    "other_face": [],
-   "status": "proposed"
+   "status": "decided",
+   "level": "\u2014"
   },
   {
    "name": "DMCA queue (/admin/backoffice/dmca)",
    "kind": "admin tool",
    "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):136 ($C)",
    "owner": "",
-   "note": "Coming: A later wave.",
+   "note": "Coming: A later wave. \u00b7 a manifest section marked coming",
    "outline": false,
    "manifest": "backoffice/dmca",
    "owner16": "Back-Office",
    "other_face": [
-    "DMCA notices and counter-notices (0019) (Question (no gauge yet))"
+    "DMCA notices and counter-notices (0019) (Accounts)"
    ],
-   "status": "decided"
+   "status": "decided",
+   "level": "\u2014"
   },
   {
    "name": "Verification vault (/admin/backoffice/vault)",
    "kind": "admin tool",
    "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):137 ($C)",
    "owner": "",
-   "note": "Coming: A later wave.",
+   "note": "Coming: A later wave. \u00b7 a manifest section marked coming",
    "outline": false,
    "manifest": "backoffice/vault",
    "owner16": "Back-Office",
    "other_face": [
     "Claim a listing (email or text code, who might claim, the form that fits) (Directory)"
    ],
-   "status": "decided"
+   "status": "decided",
+   "level": "\u2014"
   },
   {
    "name": "Insights (/admin/insights/numbers)",
@@ -5441,8 +6042,9 @@
    "owner16": "Insights & Research",
    "other_face": [],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Search workbench (/admin/insights/search)",
@@ -5454,12 +6056,13 @@
    "manifest": "insights/search",
    "owner16": "Insights & Research",
    "other_face": [
-    "Universal search, in place (0053, 0061, 0063, 0067) (Question (no gauge yet))",
-    "Search Phase C (0060) (Question (no gauge yet))"
+    "Universal search, in place (0053, 0061, 0063, 0067) (Directory)",
+    "Search Phase C (0060) (Directory)"
    ],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Crawler (/admin/insights/crawler)",
@@ -5487,8 +6090,9 @@
     "W14 Authority sources (System Configuration)"
    ],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Sources (/admin/insights/sources)",
@@ -5504,7 +6108,8 @@
    ],
    "status": "live",
    "check": "not passing",
-   "check_by": "the rendered check at 1280 and 390: No answer"
+   "check_by": "the rendered check at 1280 and 390: No answer",
+   "level": "render"
   },
   {
    "name": "The index (W0) (/admin/insights/index)",
@@ -5519,8 +6124,9 @@
     "W0 Indexer (System Configuration)"
    ],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Data cleanup (/admin/insights/cleanup)",
@@ -5535,8 +6141,9 @@
     "Data cleanup: find, preview and act on what the old crawler made (System Configuration)"
    ],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "The Seeker (/admin/insights/seeker)",
@@ -5549,8 +6156,9 @@
    "owner16": "Insights & Research",
    "other_face": [],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Topic index (/admin/insights/topics)",
@@ -5565,8 +6173,9 @@
     "W6 Heritage and topics (System Configuration)"
    ],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Quarterly audit (/admin/insights/audit)",
@@ -5579,8 +6188,9 @@
    "owner16": "Insights & Research",
    "other_face": [],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "AI Assist (/admin/insights/aiassist)",
@@ -5593,8 +6203,9 @@
    "owner16": "Insights & Research",
    "other_face": [],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Data browser (/admin/insights/data)",
@@ -5607,44 +6218,48 @@
    "owner16": "Insights & Research",
    "other_face": [],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "5 W's lexicon (/admin/insights/fivew)",
    "kind": "admin tool",
    "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):155 ($C)",
    "owner": "",
-   "note": "Coming: The parser's output (Jason).",
+   "note": "Coming: The parser's output (Jason). \u00b7 in scope: the lexicon and the parser are accepted (decisions/0063, 0062)",
    "outline": false,
    "manifest": "insights/fivew",
    "owner16": "Insights & Research",
    "other_face": [],
-   "status": "proposed"
+   "status": "decided",
+   "level": "\u2014"
   },
   {
    "name": "Emergency resources (/admin/insights/emergency)",
    "kind": "admin tool",
    "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):156 ($C)",
    "owner": "",
-   "note": "Coming: Its definition (Jason).",
+   "note": "Coming: Its definition (Jason). \u00b7 Proposed: no accepted decision defines a map of shelters, hotlines and closures (decisions/0061:54 covers resource guides, already live)",
    "outline": false,
    "manifest": "insights/emergency",
    "owner16": "Insights & Research",
    "other_face": [],
-   "status": "proposed"
+   "status": "proposed",
+   "level": "\u2014"
   },
   {
    "name": "Telemetry (/admin/insights/telemetry)",
    "kind": "admin tool",
    "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):157 ($C)",
    "owner": "",
-   "note": "Coming: Its trends are on the System Control Board (decisions/0171 \u00a76): each process and system, open it to see the last 24 hours, 7 days or 30 days, with uptime.",
+   "note": "Coming: Its trends are on the System Control Board (decisions/0171 \u00a76): each process and system, open it to see the last 24 hours, 7 days or 30 days, with uptime. \u00b7 a manifest section marked coming",
    "outline": false,
    "manifest": "insights/telemetry",
    "owner16": "Insights & Research",
    "other_face": [],
-   "status": "decided"
+   "status": "decided",
+   "level": "\u2014"
   },
   {
    "name": "System Control Board (/admin/config/control)",
@@ -5658,7 +6273,8 @@
    "other_face": [],
    "status": "live",
    "check": "not passing",
-   "check_by": "the rendered check at 1280 and 390: Less than optimal: card edges"
+   "check_by": "the rendered check at 1280 and 390: Less than optimal: card edges",
+   "level": "render"
   },
   {
    "name": "Control Board: Alarms (/admin/config/alarms)",
@@ -5672,7 +6288,8 @@
    "other_face": [],
    "status": "live",
    "check": "not passing",
-   "check_by": "the rendered check at 1280 and 390: Less than optimal: card edges"
+   "check_by": "the rendered check at 1280 and 390: Less than optimal: card edges",
+   "level": "render"
   },
   {
    "name": "Control Board: Logbook (/admin/config/log)",
@@ -5686,7 +6303,8 @@
    "other_face": [],
    "status": "live",
    "check": "not passing",
-   "check_by": "the rendered check at 1280 and 390: Less than optimal: card edges"
+   "check_by": "the rendered check at 1280 and 390: Less than optimal: card edges",
+   "level": "render"
   },
   {
    "name": "Control Board: Ledger (/admin/config/ledger)",
@@ -5700,7 +6318,8 @@
    "other_face": [],
    "status": "live",
    "check": "not passing",
-   "check_by": "the rendered check at 1280 and 390: Less than optimal: card edges"
+   "check_by": "the rendered check at 1280 and 390: Less than optimal: card edges",
+   "level": "render"
   },
   {
    "name": "Control Board: Upkeep (/admin/config/upkeep)",
@@ -5714,7 +6333,8 @@
    "other_face": [],
    "status": "live",
    "check": "not passing",
-   "check_by": "the rendered check at 1280 and 390: Less than optimal: card edges"
+   "check_by": "the rendered check at 1280 and 390: Less than optimal: card edges",
+   "level": "render"
   },
   {
    "name": "Workflows (/admin/config/workflows)",
@@ -5744,7 +6364,8 @@
    ],
    "status": "live",
    "check": "not passing",
-   "check_by": "the rendered check at 1280 and 390: Less than optimal: card edges"
+   "check_by": "the rendered check at 1280 and 390: Less than optimal: card edges",
+   "level": "render"
   },
   {
    "name": "Permissions (/admin/config/permissions)",
@@ -5757,8 +6378,9 @@
    "owner16": "System Configuration",
    "other_face": [],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Data separation (/admin/config/datacheck)",
@@ -5771,8 +6393,9 @@
    "owner16": "System Configuration",
    "other_face": [],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Scheduled tasks (/admin/config/scheduler)",
@@ -5786,7 +6409,8 @@
    "other_face": [],
    "status": "live",
    "check": "not passing",
-   "check_by": "the rendered check at 1280 and 390: Less than optimal: card edges"
+   "check_by": "the rendered check at 1280 and 390: Less than optimal: card edges",
+   "level": "render"
   },
   {
    "name": "Pre-flight (/admin/config/preflight)",
@@ -5800,7 +6424,8 @@
    "other_face": [],
    "status": "live",
    "check": "not passing",
-   "check_by": "the rendered check at 1280 and 390: Less than optimal: card edges"
+   "check_by": "the rendered check at 1280 and 390: Less than optimal: card edges",
+   "level": "render"
   },
   {
    "name": "Automation (/admin/config/automation)",
@@ -5814,7 +6439,8 @@
    "other_face": [],
    "status": "live",
    "check": "not passing",
-   "check_by": "the rendered check at 1280 and 390: Less than optimal: card edges"
+   "check_by": "the rendered check at 1280 and 390: Less than optimal: card edges",
+   "level": "render"
   },
   {
    "name": "Modules (Service register) (/admin/config/register)",
@@ -5831,7 +6457,8 @@
    ],
    "status": "live",
    "check": "not passing",
-   "check_by": "the rendered check at 1280 and 390: Less than optimal: card edges"
+   "check_by": "the rendered check at 1280 and 390: Less than optimal: card edges",
+   "level": "render"
   },
   {
    "name": "Costs (/admin/config/costs)",
@@ -5845,7 +6472,8 @@
    "other_face": [],
    "status": "live",
    "check": "not passing",
-   "check_by": "the rendered check at 1280 and 390: Less than optimal: card edges"
+   "check_by": "the rendered check at 1280 and 390: Less than optimal: card edges",
+   "level": "render"
   },
   {
    "name": "Workflow board (/admin/config/board)",
@@ -5859,7 +6487,8 @@
    "other_face": [],
    "status": "live",
    "check": "not passing",
-   "check_by": "the rendered check at 1280 and 390: Less than optimal: card edges"
+   "check_by": "the rendered check at 1280 and 390: Less than optimal: card edges",
+   "level": "render"
   },
   {
    "name": "AI use (/admin/config/ai)",
@@ -5874,8 +6503,9 @@
     "Guides and journeys on demand (0147), within the AI cap (Discovery)"
    ],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Communications (/admin/config/communications)",
@@ -5893,7 +6523,8 @@
    ],
    "status": "live",
    "check": "not passing",
-   "check_by": "the rendered check at 1280 and 390: Less than optimal: card edges"
+   "check_by": "the rendered check at 1280 and 390: Less than optimal: card edges",
+   "level": "render"
   },
   {
    "name": "Vault (/admin/config/vault)",
@@ -5906,8 +6537,9 @@
    "owner16": "System Configuration",
    "other_face": [],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Thresholds & gates (/admin/config/thresholds)",
@@ -5920,8 +6552,9 @@
    "owner16": "System Configuration",
    "other_face": [],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Content templates (/admin/config/content)",
@@ -5933,11 +6566,12 @@
    "manifest": "config/content",
    "owner16": "System Configuration",
    "other_face": [
-    "Legal texts published (terms, privacy, policies), an attorney's pass (Question (no gauge yet))"
+    "Legal texts published (terms, privacy, policies), an attorney's pass (Accounts)"
    ],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Stock library (/admin/config/stock)",
@@ -5952,8 +6586,9 @@
     "Card photos for parks and landmarks (real photos first, looked up on open, on-the-spot photos) (Discovery)"
    ],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Jurisdictions (/admin/config/jurisdictions)",
@@ -5966,8 +6601,9 @@
    "owner16": "System Configuration",
    "other_face": [],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Database updates (/admin/config/dbupdates)",
@@ -5980,8 +6616,9 @@
    "owner16": "System Configuration",
    "other_face": [],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Switches (/admin/config/switches)",
@@ -5994,8 +6631,9 @@
    "owner16": "System Configuration",
    "other_face": [],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Test accounts (/admin/config/testaccounts)",
@@ -6008,8 +6646,9 @@
    "owner16": "System Configuration",
    "other_face": [],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Staging (/admin/config/staging)",
@@ -6022,8 +6661,9 @@
    "owner16": "System Configuration",
    "other_face": [],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Releases (/admin/config/releases)",
@@ -6036,8 +6676,9 @@
    "owner16": "System Configuration",
    "other_face": [],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Settings (/admin/config/settings)",
@@ -6050,8 +6691,9 @@
    "owner16": "System Configuration",
    "other_face": [],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Logs (/admin/config/logs)",
@@ -6064,8 +6706,9 @@
    "owner16": "System Configuration",
    "other_face": [],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Site map (/admin/config/sitemap)",
@@ -6078,8 +6721,9 @@
    "owner16": "System Configuration",
    "other_face": [],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Decisions (/admin/config/decisions)",
@@ -6092,193 +6736,198 @@
    "owner16": "System Configuration",
    "other_face": [],
    "status": "live",
-   "check": "passing",
-   "check_by": "the rendered check at 1280 and 390: Working"
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: Working (render only: Complete needs a path or function check)",
+   "level": "render"
   },
   {
    "name": "Templates (/admin/config/templates)",
    "kind": "admin tool",
    "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):193 ($C)",
    "owner": "",
-   "note": "Coming: A later step.",
+   "note": "Coming: A later step. \u00b7 a manifest section marked coming",
    "outline": false,
    "manifest": "config/templates",
    "owner16": "System Configuration",
    "other_face": [],
-   "status": "decided"
+   "status": "decided",
+   "level": "\u2014"
   },
   {
    "name": "Branding & SEO (/admin/config/branding)",
    "kind": "admin tool",
    "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):194 ($C)",
    "owner": "",
-   "note": "Coming: A later wave.",
+   "note": "Coming: A later wave. \u00b7 a manifest section marked coming",
    "outline": false,
    "manifest": "config/branding",
    "owner16": "System Configuration",
    "other_face": [],
-   "status": "decided"
+   "status": "decided",
+   "level": "\u2014"
   },
   {
    "name": "Text messages (/admin/config/notify)",
    "kind": "admin tool",
    "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):195 ($C)",
    "owner": "",
-   "note": "Coming: Its own decision first (decisions/0172 \u00a75), then its build, only where revenue covers it.",
+   "note": "Coming: Its own decision first (decisions/0172 \u00a75), then its build, only where revenue covers it. \u00b7 Proposed: texting \"stays its own decision first\" (decisions/0172:8, :895, :907)",
    "outline": false,
    "manifest": "config/notify",
    "owner16": "System Configuration",
    "other_face": [
     "Checking a phone with a texted code (claim) (Directory)"
    ],
-   "status": "proposed"
+   "status": "proposed",
+   "level": "\u2014"
   },
   {
    "name": "Storage & backups (/admin/config/storage)",
    "kind": "admin tool",
    "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):196 ($C)",
    "owner": "",
-   "note": "Coming: A later step.",
+   "note": "Coming: A later step. \u00b7 a manifest section marked coming",
    "outline": false,
    "manifest": "config/storage",
    "owner16": "System Configuration",
    "other_face": [
     "One uploader; files on S3 and Cloudflare R2 (0122\u20130127, 0151) (System Configuration)"
    ],
-   "status": "decided"
+   "status": "decided",
+   "level": "\u2014"
   }
  ],
  "gauges16": {
   "Discovery": {
-   "items": 31,
-   "in_scope": 29,
-   "complete": 14,
-   "pct": 48.3,
+   "items": 32,
+   "in_scope": 30,
+   "complete": 1,
+   "pct": 3.3,
    "held": 1,
    "decided": 5,
    "not_passing": 0,
-   "not_checked": 9,
+   "not_checked": 23,
    "proposed": 2
   },
   "Directory": {
-   "items": 21,
-   "in_scope": 20,
-   "complete": 9,
-   "pct": 45.0,
+   "items": 23,
+   "in_scope": 22,
+   "complete": 3,
+   "pct": 13.6,
    "held": 0,
    "decided": 1,
-   "not_passing": 1,
-   "not_checked": 9,
+   "not_passing": 3,
+   "not_checked": 15,
    "proposed": 1
   },
   "Community": {
    "items": 23,
    "in_scope": 22,
-   "complete": 4,
-   "pct": 18.2,
+   "complete": 2,
+   "pct": 9.1,
    "held": 0,
    "decided": 9,
    "not_passing": 0,
-   "not_checked": 9,
+   "not_checked": 11,
    "proposed": 1
   },
   "Marketplace": {
    "items": 33,
    "in_scope": 31,
-   "complete": 10,
-   "pct": 32.3,
+   "complete": 0,
+   "pct": 0.0,
    "held": 2,
    "decided": 5,
    "not_passing": 2,
-   "not_checked": 12,
+   "not_checked": 22,
    "proposed": 2
   },
   "TRVGO \u2013 Storefront": {
    "items": 9,
    "in_scope": 9,
-   "complete": 2,
-   "pct": 22.2,
+   "complete": 0,
+   "pct": 0.0,
    "held": 1,
    "decided": 2,
    "not_passing": 0,
-   "not_checked": 4,
+   "not_checked": 6,
    "proposed": 0
   },
   "Accounts": {
-   "items": 13,
-   "in_scope": 13,
-   "complete": 7,
-   "pct": 53.8,
-   "held": 0,
+   "items": 18,
+   "in_scope": 17,
+   "complete": 1,
+   "pct": 5.9,
+   "held": 1,
    "decided": 2,
    "not_passing": 1,
-   "not_checked": 3,
-   "proposed": 0
+   "not_checked": 12,
+   "proposed": 1
   },
   "Dashboard & Pulse": {
-   "items": 12,
-   "in_scope": 12,
-   "complete": 8,
-   "pct": 66.7,
+   "items": 13,
+   "in_scope": 13,
+   "complete": 0,
+   "pct": 0.0,
    "held": 1,
    "decided": 0,
    "not_passing": 0,
-   "not_checked": 3,
+   "not_checked": 12,
    "proposed": 0
   },
   "Get Local 360\u00b0": {
    "items": 15,
-   "in_scope": 14,
-   "complete": 12,
-   "pct": 85.7,
+   "in_scope": 15,
+   "complete": 0,
+   "pct": 0.0,
    "held": 0,
-   "decided": 0,
+   "decided": 1,
    "not_passing": 2,
-   "not_checked": 0,
-   "proposed": 1
+   "not_checked": 12,
+   "proposed": 0
   },
   "Let's Explore 360\u00b0": {
    "items": 8,
    "in_scope": 8,
-   "complete": 6,
-   "pct": 75.0,
+   "complete": 0,
+   "pct": 0.0,
    "held": 0,
    "decided": 1,
    "not_passing": 0,
-   "not_checked": 1,
+   "not_checked": 7,
    "proposed": 0
   },
   "Market 360\u00b0": {
    "items": 12,
    "in_scope": 12,
-   "complete": 11,
-   "pct": 91.7,
+   "complete": 0,
+   "pct": 0.0,
    "held": 0,
    "decided": 1,
    "not_passing": 0,
-   "not_checked": 0,
+   "not_checked": 11,
    "proposed": 0
   },
   "Social 360\u00b0": {
    "items": 8,
-   "in_scope": 7,
-   "complete": 6,
-   "pct": 85.7,
+   "in_scope": 8,
+   "complete": 0,
+   "pct": 0.0,
    "held": 0,
-   "decided": 1,
+   "decided": 2,
    "not_passing": 0,
-   "not_checked": 0,
-   "proposed": 1
+   "not_checked": 6,
+   "proposed": 0
   },
   "Sales & Growth": {
    "items": 9,
    "in_scope": 9,
-   "complete": 8,
-   "pct": 88.9,
+   "complete": 0,
+   "pct": 0.0,
    "held": 0,
    "decided": 1,
    "not_passing": 0,
-   "not_checked": 0,
+   "not_checked": 8,
    "proposed": 0
   },
   "White Glove Concierge": {
@@ -6294,35 +6943,35 @@
   },
   "Back-Office": {
    "items": 25,
-   "in_scope": 24,
-   "complete": 13,
-   "pct": 54.2,
+   "in_scope": 25,
+   "complete": 0,
+   "pct": 0.0,
    "held": 1,
-   "decided": 4,
+   "decided": 5,
    "not_passing": 2,
-   "not_checked": 4,
-   "proposed": 1
+   "not_checked": 17,
+   "proposed": 0
   },
   "Insights & Research": {
    "items": 14,
-   "in_scope": 12,
-   "complete": 10,
-   "pct": 83.3,
+   "in_scope": 13,
+   "complete": 0,
+   "pct": 0.0,
    "held": 0,
-   "decided": 1,
+   "decided": 2,
    "not_passing": 1,
-   "not_checked": 0,
-   "proposed": 2
+   "not_checked": 10,
+   "proposed": 1
   },
   "System Configuration": {
    "items": 54,
    "in_scope": 53,
-   "complete": 17,
-   "pct": 32.1,
+   "complete": 0,
+   "pct": 0.0,
    "held": 1,
    "decided": 4,
    "not_passing": 16,
-   "not_checked": 15,
+   "not_checked": 32,
    "proposed": 1
   }
  },
@@ -6330,39 +6979,58 @@
  "questions16": [
   {
    "name": "Search Phase C (0060)",
-   "why": "the learning search, with Universal search"
+   "why": "the learning search, with Universal search",
+   "recommended": "Directory",
+   "pending": "recommended, pending Jason (the session manager, 2026-11-22); cross-linked to Discovery"
   },
   {
    "name": "Legal texts published (terms, privacy, policies), an attorney's pass",
-   "why": "site-wide legal text; no front-end gauge holds site-wide pages, and its admin face (Content templates?) isn't named"
+   "why": "site-wide legal text; no front-end gauge holds site-wide pages, and its admin face (Content templates?) isn't named",
+   "recommended": "Accounts",
+   "pending": "recommended, pending Jason (the session manager, 2026-11-22)"
   },
   {
    "name": "Home: search first, four doors, five tabs (0138)",
-   "why": "the way into all four; no front-end gauge holds it"
+   "why": "the way into all four; no front-end gauge holds it",
+   "recommended": "Accounts",
+   "pending": "recommended, pending Jason (the session manager, 2026-11-22)"
   },
   {
    "name": "DMCA notices and counter-notices (0019)",
-   "why": "its public pages (proposed) have no front-end gauge; its admin face is Back-Office \u2192 DMCA queue (owned there)"
+   "why": "its public pages (proposed) have no front-end gauge; its admin face is Back-Office \u2192 DMCA queue (owned there)",
+   "recommended": "Accounts",
+   "pending": "recommended, pending Jason (the session manager, 2026-11-22)"
   },
   {
    "name": "The FAQ (0057)",
-   "why": "a site-wide public page; its admin face is none"
+   "why": "a site-wide public page; its admin face is none",
+   "recommended": "Accounts",
+   "pending": "recommended, pending Jason (the session manager, 2026-11-22)"
   },
   {
    "name": "Ask Traversence (AI page)",
-   "why": "a site-wide public page"
+   "why": "a site-wide public page",
+   "recommended": "Discovery",
+   "pending": "recommended, pending Jason (the session manager, 2026-11-22)"
   },
   {
    "name": "Universal search, in place (0053, 0061, 0063, 0067)",
-   "why": "its public face is on every page; its admin face is Insights \u2192 Search workbench (owned there)"
+   "why": "its public face is on every page; its admin face is Insights \u2192 Search workbench (owned there)",
+   "recommended": "Directory",
+   "pending": "recommended, pending Jason (the session manager, 2026-11-22); cross-linked to Discovery"
   },
   {
    "name": "The admin engine: 10 modules, manifests, widgets, workflows (0109)",
-   "why": "the admin's shell (router, manifests, the one endpoint) is no module's section"
+   "why": "the admin's shell (router, manifests, the one endpoint) is no module's section",
+   "recommended": "Dashboard & Pulse",
+   "pending": "recommended, pending Jason (the session manager, 2026-11-22)"
   },
   {
    "name": "Terms and privacy pages",
-   "why": "a site-wide public page with no front-end gauge"
+   "why": "a site-wide public page with no front-end gauge",
+   "recommended": "Accounts",
+   "pending": "recommended, pending Jason (the session manager, 2026-11-22)"
   }
- ]
+ ],
+ "check_levels": "render (the page answers), path (the flow completes), function (it does its job on real data); Complete needs path or function"
 }

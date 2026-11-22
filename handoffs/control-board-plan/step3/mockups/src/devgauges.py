@@ -24,7 +24,7 @@ def slug(g):
 def _group(it):
     st = it['status']
     if st == 'live':
-        return {'passing': 'pass', 'not passing': 'fail'}.get(it.get('check'), 'nochk')
+        return {'passing': 'pass', 'not passing': 'fail'}.get(it.get('check16', it.get('check')), 'nochk')
     return {'held': 'held', 'decided': 'notbuilt', 'proposed': 'prop'}[st]
 
 
@@ -34,7 +34,10 @@ for sec in INV['sections'].values():
     for it in sec['items']:
         if it['owner16'].startswith('replaced by'):
             continue
-        ITEMS.append(dict(it))
+        it = dict(it)
+        if 'check16' in it:
+            it['check'], it['check_by'] = it['check16'], it['check_by16']
+        ITEMS.append(it)
 ITEMS += [dict(it) for it in INV['manifest_items']]
 for n, it in enumerate(ITEMS, 1):
     it['id'] = f'dev-{n}'
@@ -92,11 +95,12 @@ def gauge(g, side):
 
 
 def rows(heading='h2'):
-    q = [i for i in ITEMS if i['owner16'] == QUESTION]
+    q = [i for i in ITEMS if i.get('pending')]
     return (f'<section class="dg" aria-label="Development"><div class="dg-head"><{heading} class="dg-h">Development</{heading}>'
             f'<span class="dg-draft">draft: the scope isn\'t signed off</span><span class="dg-prop">bands proposed: under 50 · 50–80 · 80 and up</span>'
-            f'<button type="button" class="dg-q" data-open-panel="p-dev-questions">Questions <b>{len(q)}</b></button></div>'
+            f'<button type="button" class="dg-q" data-open-panel="p-dev-questions">Questions: recommended, pending Jason <b>{len(q)}</b></button></div>'
             f'<p class="dg-sub">One needle each: Complete, live and passing its check over the gauge\'s in-scope items (Jason, 2026-11-22). Tap a gauge for its items.</p>'
+            f'<p class="dg-rule"><b>Complete needs a path or function check; a page that only renders isn\'t complete.</b> Each item names its level: render (the page answers), path (the flow completes), function (it does its job on real data).</p>'
             f'<h3 class="dg-row">Front end <span>6</span></h3><div class="dg-grid">{"".join(gauge(g, "front") for g in FRONT)}</div>'
             f'<h3 class="dg-row">Back end <span>10</span> <small>the admin\'s modules, as manifests.php has them</small></h3><div class="dg-grid">{"".join(gauge(g, "back") for g in BACK)}</div></section>')
 
@@ -109,7 +113,10 @@ def _item(it):
             faces.append(f'<a href="#" class="dg-face" data-open-panel="p-dev-{slug(o["owner16"])}" data-dev-item="{o["id"]}">Other face: {E(o["name"])} · {E(o["owner16"])} ›</a>')
         elif o:
             faces.append(f'<a href="#" class="dg-face" data-open-panel="p-dev-questions" data-dev-item="{o["id"]}">Other face: {E(o["name"])} · Questions ›</a>')
-    chk = f'<span class="dg-chk">{E(it.get("check_by", ""))}</span>' if it['status'] == 'live' and it.get('check_by') else ''
+    lvl = f'<span class="dg-lvl l-{it.get("level", "none")}">check level: {E(it.get("level", "none"))}</span>' if it['status'] == 'live' else ''
+    chk = lvl + (f'<span class="dg-chk">{E(it.get("check_by", ""))}</span>' if it['status'] == 'live' and it.get('check_by') else '')
+    if it.get('pending'):
+        chk += f'<span class="dg-pend">{E(it["owner16"])}: {E(it["pending"])}</span>'
     why = f'<span class="dg-chk">{E(it["why"])}</span>' if it.get('why') else ''
     return (f'<li class="dg-it" id="{it["id"]}"><span class="dg-in">{E(it["name"])}</span><span class="dg-src">{E(it["source"])}</span>{chk}{why}'
             + ''.join(faces) + '</li>')
@@ -135,11 +142,16 @@ def panel(g):
             f'<div class="btns navb"><button class="btn back" data-dev-back>← Back</button></div></aside>')
 
 
+def _qitem(it):
+    return (f'<li class="dg-it"><span class="dg-in">{E(it["name"])}</span><span class="dg-pend">Recommended: {E(it["owner16"])} · {E(it["pending"])}</span>'
+            f'<span class="dg-chk">{E(it.get("why", ""))}</span><a href="#" class="dg-face" data-open-panel="p-dev-{slug(it["owner16"])}" data-dev-item="{it["id"]}">Open it on {E(it["owner16"])} ›</a></li>')
+
+
 def panels():
-    q = [i for i in ITEMS if i['owner16'] == QUESTION]
-    qp = (f'<aside class="panel" id="p-dev-questions" hidden role="dialog" aria-label="Questions: items with no gauge yet"><button class="x" aria-label="Close">×</button>'
-          f'<div class="crumb">Development</div><h2 class="h2">Questions: no gauge yet</h2><p class="sub">Items with no manifest home and no front-end gauge: listed, never guessed (development-gauges.md).</p>'
-          f'<ul class="dg-list">{"".join(_item(i) for i in q)}</ul><div class="btns navb"><button class="btn back" data-dev-back>← Back</button></div></aside>')
+    q = [i for i in ITEMS if i.get('pending')]
+    qp = (f'<aside class="panel" id="p-dev-questions" hidden role="dialog" aria-label="Questions: recommended, pending Jason"><button class="x" aria-label="Close">×</button>'
+          f'<div class="crumb">Development</div><h2 class="h2">Questions: recommended, pending Jason</h2><p class="sub">Items with no manifest home and no clear front-end gauge, placed where the session manager recommends until Jason confirms (development-gauges.md). Each is counted on the gauge named.</p>'
+          f'<ul class="dg-list">{"".join(_qitem(i) for i in q)}</ul><div class="btns navb"><button class="btn back" data-dev-back>← Back</button></div></aside>')
     return ''.join(panel(g) for g in FRONT + BACK) + qp
 
 
@@ -165,6 +177,8 @@ CSS = r"""
 .dg-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.3rem}
 .dg-it{background:var(--card);border:1px solid var(--card-edge);border-radius:.5rem;padding:.4rem .55rem;display:flex;flex-direction:column;gap:.15rem;font-size:13px;overflow-wrap:anywhere}
 .dg-it.hit{border-color:var(--copper);box-shadow:0 0 0 2px #C85A1744}.dg-in{font-weight:600}.dg-src,.dg-chk{font-size:11.5px;color:var(--meta)}.dg-face{font-size:12px;color:var(--brown)}
+.dg-rule{font-size:12.5px;margin:.1rem 0 .4rem;border-left:3px solid var(--copper);padding-left:.5rem}.dg-lvl{font-size:11px;border:1px solid var(--card-edge);border-radius:999px;padding:0 .45rem;align-self:flex-start;background:var(--sec)}
+.dg-lvl.l-path,.dg-lvl.l-function{border-color:#3d6b52;color:#3d6b52}.dg-pend{font-size:11.5px;color:var(--copper)}
 @media (max-width:767px){.dg-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:3px}.dg-q{margin-left:0}}
 """
 
@@ -188,9 +202,9 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});}
 
 
 def page(base_css):
-    q = sum(1 for i in ITEMS if i['owner16'] == QUESTION)
+    q = sum(1 for i in ITEMS if i.get('pending'))
     body = (f'<header class="bhead"><b>System Control Board</b><span class="chip">Development gauges · design mockup · step 3 · not site code</span></header>'
-            f'<main class="dg-main">{rows("h1")}<p class="dg-sub">From <code>step3/sections/inventory.json</code> ({len(ITEMS)} items: {len(ITEMS) - q} owned by the 16 gauges, {q} questions). '
+            f'<main class="dg-main">{rows("h1")}<p class="dg-sub">From <code>step3/sections/inventory.json</code> ({len(ITEMS)} items, each owned by one of the 16 gauges; {q} of them recommended, pending Jason). '
             f'Live means on the live site (mirror Sync e229587 or a live release record); its check is the rendered check, the paths check or a runtime snapshot.</p></main>'
             f'<div class="scrim"></div>{panels()}{JS}{JS_PAGE}')
     return (f'<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">'

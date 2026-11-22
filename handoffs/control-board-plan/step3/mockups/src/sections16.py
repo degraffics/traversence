@@ -20,6 +20,16 @@ GAUGES = FRONT + ['Dashboard & Pulse', 'Get Local 360°', 'Let\'s Explore 360°'
                   'Back-Office', 'Insights & Research', 'System Configuration']
 QUESTION = 'Question (no gauge yet)'
 
+# Coming cards rechecked against decisions/ (the session manager, 2026-11-22): in scope, not built, where an accepted decision covers it
+COMING_COVERED = {
+    'local/homes': ('decided', 'in scope: the Single Home Rule is accepted (decisions/0042:51; 0170:4, 79–82 "Home is the Single Home Rule, unchanged")'),
+    'social/events': ('decided', 'in scope: Events is accepted (decisions/0134)'),
+    'backoffice/consent': ('decided', 'in scope: the consent hub is a planned wave (decisions/0108:153 "brings part of the consent hub forward from Wave 4")'),
+    'insights/fivew': ('decided', 'in scope: the lexicon and the parser are accepted (decisions/0063, 0062)'),
+    'insights/emergency': ('proposed', 'Proposed: no accepted decision defines a map of shelters, hotlines and closures (decisions/0061:54 covers resource guides, already live)'),
+    'config/notify': ('proposed', 'Proposed: texting "stays its own decision first" (decisions/0172:8, :895, :907)'),
+}
+
 # ---- the back end, computed from manifests.php: each section an item with its live, partial or coming status
 lines = open(MANIFEST).read().split('\n')
 MITEMS, mod = [], None
@@ -42,8 +52,12 @@ for n, l in enumerate(lines, 1):
     if status == 'coming':
         waits = re.search(r"\$C\('(?:[^'\\]|\\.)*', '\w+', '(?:[^'\\]|\\.)*', '((?:[^'\\]|\\.)*)'", l)
         w = waits.group(1).replace("\\'", "'") if waits else ''
-        it['status'] = 'proposed' if re.search(r'definition|defined|decision first|\(Jason\)', w) else 'decided'
-        it['note'] = 'Coming: ' + (w or 'no wait named')
+        cov = COMING_COVERED.get(f'{mod}/{key}')
+        if cov:
+            it['status'], why = cov
+        else:
+            it['status'], why = ('proposed', 'waits on Jason\'s definition; no accepted decision found') if re.search(r'definition|defined|decision first|\(Jason\)', w) else ('decided', 'a manifest section marked coming')
+        it['note'] = 'Coming: ' + (w or 'no wait named') + ' · ' + why
     else:
         it['status'] = 'live'
         if status == 'partial':
@@ -74,8 +88,8 @@ OWN = [  # (name starts with, owner16); anything listed in Platform must match o
     ('Admin → Social → Business groups', 'Social 360°'),
     ('Storefront', 'TRVGO – Storefront'), ('Connect your domain', 'TRVGO – Storefront'), ('Builder step 6', 'TRVGO – Storefront'), ('Shop → Domains', 'TRVGO – Storefront'),
     ('Your domains', 'TRVGO – Storefront'), ('Domain sales', 'TRVGO – Storefront'),
-    ('Legal texts published', QUESTION), ('Terms and privacy', QUESTION), ('Home: search first', QUESTION), ('The FAQ', QUESTION), ('Ask Traversence', QUESTION),
-    ('Universal search', QUESTION), ('Search Phase C', QUESTION), ('DMCA notices', QUESTION), ('The admin engine', QUESTION),
+    ('Legal texts published', 'Accounts'), ('Terms and privacy', 'Accounts'), ('Home: search first', 'Accounts'), ('The FAQ', 'Accounts'), ('Ask Traversence', 'Discovery'),
+    ('Universal search', 'Directory'), ('Search Phase C', 'Directory'), ('DMCA notices', 'Accounts'), ('The admin engine', 'Dashboard & Pulse'),
     ('Sign in', 'Accounts'), ('Sign up', 'Accounts'), ('Two-step', 'Accounts'), ('Delete my account', 'Accounts'), ('Data access requests', 'Accounts'),
     ('One uploader', 'System Configuration'), ('The video worker', 'System Configuration'), ('The order system\'s improvements', 'Back-Office'),
 ]
@@ -116,6 +130,11 @@ FACES = {
 }
 
 
+OLD = {'Discovery': 48.3, 'Directory': 45.0, 'Community': 18.2, 'Marketplace': 32.3, 'TRVGO – Storefront': 22.2, 'Accounts': 53.8, 'Dashboard & Pulse': 66.7,
+       'Get Local 360°': 85.7, 'Let\'s Explore 360°': 75.0, 'Market 360°': 91.7, 'Social 360°': 85.7, 'Sales & Growth': 88.9, 'White Glove Concierge': 0.0,
+       'Back-Office': 54.2, 'Insights & Research': 83.3, 'System Configuration': 32.1}   # the first remap (commit d63d15c3)
+
+
 def build():
     items, dropped = [], []
     for sec, d in S.SECTIONS.items():
@@ -129,9 +148,15 @@ def build():
             o = next((g for p, g in OWN if it['name'].startswith(p)), None) or DEFAULT.get(sec)
             assert o, 'no owner for ' + it['name']
             it['owner16'] = o
-            if o == QUESTION:
-                it['why'] = next(v for k, v in WHY_Q.items() if it['name'].startswith(k))
+            pk = next((k for k in WHY_Q if it['name'].startswith(k)), None)
+            if pk:
+                it['why'] = WHY_Q[pk]
+                it['pending'] = 'recommended, pending Jason (the session manager, 2026-11-22)' + ('; cross-linked to Discovery' if pk in ('Universal search', 'Search Phase C') else '')
+            # 1. check levels: render (the page answers), path (the flow completes), function (it does its job on real data)
+            _level(it)
             items.append(it)
+    for m in MITEMS:
+        _level(m)
     items += MITEMS
     # each item owned exactly once, every rule used
     names = [i['name'] for i in items]
@@ -150,6 +175,26 @@ def build():
     return items, dropped
 
 
+def _level(it):
+    if it['status'] != 'live':
+        it['level'] = '—'
+        return
+    by = it.get('check_by', '')
+    if by.startswith('the rendered check'):
+        it['level'] = 'render'
+    elif by.startswith('the paths check') or by.startswith('the search scorecard'):
+        it['level'] = 'path'
+    elif by.startswith('no live check') or by.startswith('no probe'):
+        it['level'] = 'none'
+    elif by.startswith('manifests.php marks it partial'):
+        it['level'] = 'render'
+    else:
+        it['level'] = 'function'
+    if it['level'] == 'render' and it.get('check') == 'passing':
+        it['check'] = 'not checked'
+        it['check_by'] = by + ' (render only: Complete needs a path or function check)'
+
+
 def stats(items, g):
     its = [i for i in items if i['owner16'] == g]
     scope = [i for i in its if i['status'] != 'proposed']
@@ -164,7 +209,8 @@ def write():
     items, dropped = build()
     old = sum(len(d['items']) for d in S.SECTIONS.values())
     A = {g: stats(items, g) for g in GAUGES}
-    q = [i for i in items if i['owner16'] == QUESTION]
+    q = [i for i in items if i.get('pending')]
+    assert not [i for i in items if i['owner16'] == QUESTION]
     two = sum(1 for i in items if i['other_face'] and 'manifest' not in i)
     LAB = {'live': 'Live', 'held': 'Built, held', 'decided': 'Decided, not built', 'proposed': 'Proposed (out of scope)'}
     L = ['# The 16 development gauges: every item, its one owner (a proposal for Jason)', '',
@@ -173,15 +219,20 @@ def write():
          f'mirror\'s manifests.php ({MANIFEST_SRC}). Specs only: no gauge built on the board, nothing merged.', '',
          '**Ownership is where the item lives.** A public page or flow belongs to its front-end gauge. An admin section belongs to the module',
          'manifests.php puts it in: computed from the file, not judged. A feature with both faces is two items, each owned once, and each',
-         'one\'s drill-down links the other. **Complete** = live and passing its check, over the gauge\'s signed scope; one needle per gauge,',
+         'one\'s drill-down links the other. **Complete** = live and passing a **path or function** check, over the gauge\'s signed scope; one needle per gauge,',
          'everything else in the drill-down. Every % is a **draft: the scope isn\'t signed off**. The generator stops if any item is owned',
          'twice, if any rule matches nothing, or if a face link points at nothing.', '',
-         '## The 16 gauges', '', '| # | Gauge | Items | In scope | Complete (draft) | Held | Decided, not built | Live, not passing | Live, not checked |',
+         '**Check levels (the session manager, 2026-11-22).** Every live item names its level: **render** (the page answers: the rendered',
+         'check), **path** (the flow completes: the paths check, the search scorecard) or **function** (it does its job on real data: a runtime',
+         'snapshot or a live reading). **Complete needs a path or function check; a page that only renders isn\'t complete.** A render-only',
+         'pass counts as live, not checked, the same on the front end and the back end.', '',
+         '## The 16 gauges', '', '| # | Gauge | Items | In scope | Complete (draft): before the check levels → now | Held | Decided, not built | Live, not passing | Live, not checked |',
          '|---|---|---|---|---|---|---|---|---|']
     for n, g in enumerate(GAUGES, 1):
         s = A[g]
-        L.append(f'| {n} | **{g}**{" (back end)" if n > 6 else ""} | {s["items"]} | {s["in_scope"]} | **{s["pct"]}%** | {s["held"]} | {s["decided"]} | {s["not_passing"]} | {s["not_checked"]} |')
-    L += [f'| | Questions (no gauge yet) | {len(q)} | | | | | | |', f'| | **All** | {len(items)} | | | | | | |', '',
+        L.append(f'| {n} | **{g}**{" (back end)" if n > 6 else ""} | {s["items"]} | {s["in_scope"]} | {OLD[g]}% → **{s["pct"]}%** | {s["held"]} | {s["decided"]} | {s["not_passing"]} | {s["not_checked"]} |')
+    L += [f'| | **All** | {len(items)} | | | | | | |', '',
+          'The "before" column is the first remap (commit d63d15c3): a render pass counted as complete, and six coming cards were Proposed.', '',
           f'**The count: {len(items)} items, up {len(items) - old} from {old}.** {len(MITEMS)} admin sections come from manifests.php (Pulse\'s three',
           'sections are the Dashboard\'s own, `Workspaces::MERGED`, counted once), and the '
           f'{len(dropped)} inventory items that were an admin section, or a bundle of them, are replaced by the sections themselves. '
@@ -191,18 +242,24 @@ def write():
           'there. Their outputs still count on the front end (guides, journeys, landmarks and events in Discovery; listings in Directory). Their',
           'admin consoles are Insights sections (the crawler console, `insights/crawler`; the index, `insights/index`; data cleanup,',
           '`insights/cleanup`; sources), owned by Insights & Research and linked as each workflow\'s other face.', '',
-          '## Questions (never guessed)', '']
+          '**A workflow and its console are two items**, linked as two faces: each workflow W0–W14 and each data fix is owned by System',
+          f'Configuration, its console by Insights & Research ({sum(1 for i in items if i.get("manifest", "").startswith("insights/") and i["other_face"])} Insights sections link a workflow face). Each is counted once.', '',
+          '## The coming cards, rechecked against decisions/', '',
+          'A coming card that\'s decided (a manifest section marked coming, or an accepted decision) is **in scope, not built**. Only items waiting',
+          'on Jason\'s own definition, with no accepted decision covering them, are **Proposed**.', '']
+    for mk, (st, why) in COMING_COVERED.items():
+        L.append(f'- **`{mk}`** → {"in scope, not built" if st == "decided" else "Proposed"}: {why}.')
+    L += ['- Every other coming card was already in scope, not built (a manifest section marked coming), Growth\'s **Quotes & deals** among them.', '',
+          '## The nine with no home: recommended owners, pending Jason', '',
+          'The session manager\'s recommendation (2026-11-22), shown under the Questions pill as "recommended, pending Jason" until he confirms:', '']
     for i in q:
-        L.append(f'- **{i["name"]}** ({LAB[i["status"]]}): {i["why"]}.')
-    L += ['- **Two faces of the engine:** the data cleanup workflow (System Configuration) and the Data cleanup section (Insights) are two',
-          '  items, as the rule asks. Is that the split Jason wants, or should a workflow and its console be one item?',
-          '- **Coming cards whose wait names a definition or decision** (Single Home Rule, Events, Consent hub, 5 W\'s, Emergency resources, Text',
-          '  messages) are Proposed, out of scope until defined; the rest of the Coming cards are Decided, not built.', '',
+        L.append(f'- **{i["name"]}** → **{i["owner16"]}** ({i["pending"].split("; ")[1] if "; " in i["pending"] else "recommended, pending Jason"}): {i["why"]}.')
+    L += ['',
           '## What changed from the 6-gauge proposal', '',
           '- **Platform** is gone: sign-in, profile, the Gallery and account pieces went to **Accounts**; Pulse and messages to **Dashboard &',
           '  Pulse**; the uploader and the video worker to **System Configuration** (their admin homes, Storage & backups and the Service register);',
-          '  our orders to **Back-Office**. Home, the FAQ, the AI page, universal search, legal pages, DMCA\'s public pages and the admin shell have',
-          '  no home and are questions.',
+          '  our orders to **Back-Office**. Home, the FAQ, legal pages and DMCA\'s public pages to **Accounts**, universal search to **Directory**,',
+          '  the AI page to **Discovery** and the admin shell to **Dashboard & Pulse**: recommended, pending Jason.',
           '- **Knowledge Engine** is no longer its own gauge: manifests.php puts Workflows in System Configuration.',
           '- **Storefronts, Studio and domains** moved from Marketplace to **TRVGO – Storefront**.',
           '- **Every admin section is its own item** in its module\'s gauge (they were bundled or missing before), so the back end is computed',
@@ -214,7 +271,7 @@ def write():
               '| Item | Status | Source | The other face |', '|---|---|---|---|']
         for st in ('live', 'held', 'decided', 'proposed'):
             for i in [i for i in items if i['owner16'] == g and i['status'] == st]:
-                stat = LAB[st] + (f', {i["check"]}' if st == 'live' else '') + (f' <br>*{i["note"]}*' if i.get('note') else '')
+                stat = LAB[st] + (f', {i["check"]} ({i.get("level", "—")})' if st == 'live' else '') + (f' <br>*{i["note"]}*' if i.get('note') else '') + (f' <br>*{i["pending"]}*' if i.get('pending') else '')
                 L.append(f'| {i["name"].replace("|", "/")} | {stat} | {i["source"].replace("|", "/")} | {"; ".join(i["other_face"]) or "—"} |')
         L.append('')
     L += ['---', '', '## Inventory items replaced by their admin sections', '', '| Inventory item | Replaced by (manifests.php) |', '|---|---|']
@@ -226,12 +283,23 @@ def write():
         for it in sec['items']:
             src = by.get(it['name'])
             it['owner16'] = src['owner16'] if src else next(f'replaced by {", ".join(k)}' for n, k in dropped if n == it['name'])
+            if src:
+                for k in ('level', 'pending', 'why'):
+                    if k in src:
+                        it[k] = src[k]
+                it['check16'] = src.get('check')
+                it['check_by16'] = src.get('check_by')
             it['other_face'] = src['other_face'] if src else []
     d['manifest_items'] = MITEMS
     d['gauges16'] = {g: A[g] for g in GAUGES}
     d['gauges16_rule'] = 'Ownership is where the item lives; admin sections by manifests.php; two faces are two items, each linking the other (Jason, 2026-11-22).'
-    d['questions16'] = [dict(name=i['name'], why=i['why']) for i in q]
+    d['questions16'] = [dict(name=i['name'], why=i['why'], recommended=i['owner16'], pending=i['pending']) for i in q]
+    d['check_levels'] = 'render (the page answers), path (the flow completes), function (it does its job on real data); Complete needs path or function'
     json.dump(d, open(OUT + 'inventory.json', 'w'), indent=1)
+    for i in items:
+        if i['status'] == 'live':
+            assert i.get('level') in ('render', 'path', 'function', 'none'), i['name']
+            assert not (i['check'] == 'passing' and i['level'] == 'render'), i['name']
     print('items', len(items), 'from', old, 'manifest', len(MITEMS), 'dropped', len(dropped), 'two-faced front items', two, 'questions', len(q))
     for g in GAUGES:
         print(g, A[g]['items'], A[g]['in_scope'], A[g]['pct'], 'held', A[g]['held'])
