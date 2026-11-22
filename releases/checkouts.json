@@ -1,6 +1,180 @@
 {
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
- "claims": [],
+ "claims": [
+  {
+   "path": "website/market/index.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5grMsUgrRMJv3a71F9",
+   "why": "3e: Marketplace, checkout, storefronts' own chrome and domains onto the tokens (css-theme-brand \u00a74 Release 3), layouts kept; the owner's accent warning below 4.5:1 (admin-design.md)",
+   "since": "2026-11-22T14:45:07Z",
+   "expires": "2026-11-22T18:45:07Z",
+   "release": "design-3e.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/market/view.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5grMsUgrRMJv3a71F9",
+   "why": "3e: Marketplace, checkout, storefronts' own chrome and domains onto the tokens (css-theme-brand \u00a74 Release 3), layouts kept; the owner's accent warning below 4.5:1 (admin-design.md)",
+   "since": "2026-11-22T14:45:07Z",
+   "expires": "2026-11-22T18:45:07Z",
+   "release": "design-3e.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/market/item.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5grMsUgrRMJv3a71F9",
+   "why": "3e: Marketplace, checkout, storefronts' own chrome and domains onto the tokens (css-theme-brand \u00a74 Release 3), layouts kept; the owner's accent warning below 4.5:1 (admin-design.md)",
+   "since": "2026-11-22T14:45:07Z",
+   "expires": "2026-11-22T18:45:07Z",
+   "release": "design-3e.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/market/cart.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5grMsUgrRMJv3a71F9",
+   "why": "3e: Marketplace, checkout, storefronts' own chrome and domains onto the tokens (css-theme-brand \u00a74 Release 3), layouts kept; the owner's accent warning below 4.5:1 (admin-design.md)",
+   "since": "2026-11-22T14:45:07Z",
+   "expires": "2026-11-22T18:45:07Z",
+   "release": "design-3e.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/market/order.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5grMsUgrRMJv3a71F9",
+   "why": "3e: Marketplace, checkout, storefronts' own chrome and domains onto the tokens (css-theme-brand \u00a74 Release 3), layouts kept; the owner's accent warning below 4.5:1 (admin-design.md)",
+   "since": "2026-11-22T14:45:07Z",
+   "expires": "2026-11-22T18:45:07Z",
+   "release": "design-3e.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/market/rules.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5grMsUgrRMJv3a71F9",
+   "why": "3e: Marketplace, checkout, storefronts' own chrome and domains onto the tokens (css-theme-brand \u00a74 Release 3), layouts kept; the owner's accent warning below 4.5:1 (admin-design.md)",
+   "since": "2026-11-22T14:45:07Z",
+   "expires": "2026-11-22T18:45:07Z",
+   "release": "design-3e.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/market/ticket.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5grMsUgrRMJv3a71F9",
+   "why": "3e: Marketplace, checkout, storefronts' own chrome and domains onto the tokens (css-theme-brand \u00a74 Release 3), layouts kept; the owner's accent warning below 4.5:1 (admin-design.md)",
+   "since": "2026-11-22T14:45:07Z",
+   "expires": "2026-11-22T18:45:07Z",
+   "release": "design-3e.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/market/download.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5grMsUgrRMJv3a71F9",
+   "why": "3e: Marketplace, checkout, storefronts' own chrome and domains onto the tokens (css-theme-brand \u00a74 Release 3), layouts kept; the owner's accent warning below 4.5:1 (admin-design.md)",
+   "since": "2026-11-22T14:45:07Z",
+   "expires": "2026-11-22T18:45:07Z",
+   "release": "design-3e.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/shop/index.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5grMsUgrRMJv3a71F9",
+   "why": "3e: Marketplace, checkout, storefronts' own chrome and domains onto the tokens (css-theme-brand \u00a74 Release 3), layouts kept; the owner's accent warning below 4.5:1 (admin-design.md)",
+   "since": "2026-11-22T14:45:07Z",
+   "expires": "2026-11-22T18:45:07Z",
+   "release": "design-3e.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/market-ui.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5grMsUgrRMJv3a71F9",
+   "why": "3e: Marketplace, checkout, storefronts' own chrome and domains onto the tokens (css-theme-brand \u00a74 Release 3), layouts kept; the owner's accent warning below 4.5:1 (admin-design.md)",
+   "since": "2026-11-22T14:45:07Z",
+   "expires": "2026-11-22T18:45:07Z",
+   "release": "design-3e.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/domains-view.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5grMsUgrRMJv3a71F9",
+   "why": "3e: Marketplace, checkout, storefronts' own chrome and domains onto the tokens (css-theme-brand \u00a74 Release 3), layouts kept; the owner's accent warning below 4.5:1 (admin-design.md)",
+   "since": "2026-11-22T14:45:07Z",
+   "expires": "2026-11-22T18:45:07Z",
+   "release": "design-3e.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/storefront-view.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5grMsUgrRMJv3a71F9",
+   "why": "3e: Marketplace, checkout, storefronts' own chrome and domains onto the tokens (css-theme-brand \u00a74 Release 3), layouts kept; the owner's accent warning below 4.5:1 (admin-design.md)",
+   "since": "2026-11-22T14:45:07Z",
+   "expires": "2026-11-22T18:45:07Z",
+   "release": "design-3e.zip",
+   "callers": {}
+  },
+  {
+   "path": "trvgo/index.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5grMsUgrRMJv3a71F9",
+   "why": "3e: Marketplace, checkout, storefronts' own chrome and domains onto the tokens (css-theme-brand \u00a74 Release 3), layouts kept; the owner's accent warning below 4.5:1 (admin-design.md)",
+   "since": "2026-11-22T14:45:07Z",
+   "expires": "2026-11-22T18:45:07Z",
+   "release": "design-3e.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/business/storefront.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5grMsUgrRMJv3a71F9",
+   "why": "3e: Marketplace, checkout, storefronts' own chrome and domains onto the tokens (css-theme-brand \u00a74 Release 3), layouts kept; the owner's accent warning below 4.5:1 (admin-design.md)",
+   "since": "2026-11-22T14:45:07Z",
+   "expires": "2026-11-22T18:45:07Z",
+   "release": "design-3e.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Storefront.php",
+   "functions": [
+    "save"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5grMsUgrRMJv3a71F9",
+   "why": "3e: Marketplace, checkout, storefronts' own chrome and domains onto the tokens (css-theme-brand \u00a74 Release 3), layouts kept; the owner's accent warning below 4.5:1 (admin-design.md)",
+   "since": "2026-11-22T14:45:07Z",
+   "expires": "2026-11-22T18:45:07Z",
+   "release": "design-3e.zip",
+   "callers": {
+    "save": [
+     "app/business/storefront.php"
+    ]
+   }
+  }
+ ],
  "lapsed": [
   {
    "path": "app/lib/Operations.php",
