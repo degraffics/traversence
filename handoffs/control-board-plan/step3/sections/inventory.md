@@ -17,11 +17,12 @@ without its id)" is counted as passing, with the caveat below.
 
 | Section | Live (passing · not passing · not checked) | Built, held | Decided, not built | Proposed | In scope | Complete % (draft) | Live % |
 |---|---|---|---|---|---|---|---|
-| **Discovery** | 25 (14 · 1 · 10) | 1 | 6 | 2 | 32 | **43.8%** | 78.1% |
-| **Directory** | 24 (9 · 3 · 12) | 0 | 3 | 2 | 27 | **33.3%** | 88.9% |
+| **Discovery** | 24 (14 · 0 · 10) | 1 | 6 | 2 | 31 | **45.2%** | 77.4% |
+| **Directory** | 23 (9 · 2 · 12) | 0 | 3 | 2 | 26 | **34.6%** | 88.5% |
 | **Community** | 22 (8 · 1 · 13) | 1 | 11 | 1 | 34 | **23.5%** | 64.7% |
 | **Marketplace** | 31 (12 · 2 · 17) | 4 | 8 | 1 | 43 | **27.9%** | 72.1% |
-| **Platform** (not gauged) | 22 (7 · 1 · 14) | 1 | 5 | 2 | 28 | **25.0%** | 78.6% |
+| **Platform** (not gauged) | 21 (7 · 1 · 13) | 1 | 5 | 2 | 27 | **25.9%** | 77.8% |
+| **Knowledge Engine** | 14 (0 · 3 · 11) | 1 | 0 | 0 | 15 | **0.0%** | 93.3% |
 
 Complete % = live and passing ÷ in scope (live, held and decided). Live % = live ÷ in scope, shown for comparison.
 
@@ -70,7 +71,7 @@ twice; Market 360°, the Shop, Domains and Storefronts in Marketplace; the platf
 
 **Owner sessions:** Design and trips (pages, trips, the place page); Operations (the Knowledge Engine that fills it).
 
-**Summary (draft: the scope isn't signed off):** 25 live (14 passing, 1 not passing, 10 not checked), 1 built and held, 6 decided and not built, 2 proposed. **Complete: 43.8%** of 32 in scope; **held: 1**; live: 78.1%.
+**Summary (draft: the scope isn't signed off):** 24 live (14 passing, 0 not passing, 10 not checked), 1 built and held, 6 decided and not built, 2 proposed. **Complete: 45.2%** of 31 in scope; **held: 1**; live: 77.4%.
 
 **Top gaps (decided, not built):**
 
@@ -107,7 +108,6 @@ twice; Market 360°, the Shop, Domains and Storefronts in Marketplace; the platf
 | Trips R3: the trip page (days, order, times against hours, the map, Print) | feature | Live, passing | the rendered check at 1280 and 390: Answers (404 without its id) | release #221 (live 2026-11-20); decisions/0174 §3 | Design and trips (handoffs/design.md, session_01CXLi5jkgtUikcdUQ4Wmv28) |
 | Trips R4: share a link, Personal Guides, counts | feature | Live, passing | the rendered check at 1280 and 390: Working | release #227 (live 2026-11-20); decisions/0174 | Design and trips (handoffs/design.md, session_01CXLi5jkgtUikcdUQ4Wmv28) |
 | Everything placed in the discovery funnel, active or planned (0170) <br>*Built parts by section to confirm with 0170's own notes* | feature | Live, not checked | no live check reads it yet | decisions/0170; app/lib/HubOpening.php in the mirror | Operations (handoffs/operations-2026-11-20.md, session_01CXLi5mGX2sg5QS11gg3Wrh) |
-| The engine's discovery workflows W3–W14 (sources, guides, landmarks, events, research) <br>*Counted here only as the runtime state of W3; the engine itself is Platform* | workflow | Live, not passing | the runtime board: W3 does nothing while its two switches stay Off by the system (01-lift-reconstruction.md (b), (c)) | decisions/0164; release #247 (live 2026-11-21) | Operations (handoffs/operations-2026-11-20.md, session_01CXLi5mGX2sg5QS11gg3Wrh) |
 | Park Service photos (NPS photo API) <br>*held for a key* | integration | Built, held | — | handoffs/design.md §3.8: built, skipped until NPS_API_KEY is set; decisions/0143 | Design and trips (handoffs/design.md, session_01CXLi5jkgtUikcdUQ4Wmv28) |
 | Journeys' Link button resolves (place:jr:N) **[outline]** | feature | Decided, not built | — | handoffs/design.md §4: no case in Links::resolve (a gap found 2026-11-20) | Design and trips (handoffs/design.md, session_01CXLi5jkgtUikcdUQ4Wmv28) |
 | Trips R5: routes on our own site (openrouteservice) **[outline]** | feature | Decided, not built | — | decisions/0174 §5; handoffs/design.md §3.2: not started, its terms to check first | Design and trips (handoffs/design.md, session_01CXLi5jkgtUikcdUQ4Wmv28) |
@@ -124,7 +124,7 @@ twice; Market 360°, the Shop, Domains and Storefronts in Marketplace; the platf
 
 **Owner sessions:** Design and trips (Get Local's page); Business listings (claim, the owner's tools); Operations (W1 and W2).
 
-**Summary (draft: the scope isn't signed off):** 24 live (9 passing, 3 not passing, 12 not checked), 0 built and held, 3 decided and not built, 2 proposed. **Complete: 33.3%** of 27 in scope; **held: 0**; live: 88.9%.
+**Summary (draft: the scope isn't signed off):** 23 live (9 passing, 2 not passing, 12 not checked), 0 built and held, 3 decided and not built, 2 proposed. **Complete: 34.6%** of 26 in scope; **held: 0**; live: 88.5%.
 
 **Top gaps (decided, not built):**
 
@@ -154,7 +154,6 @@ twice; Market 360°, the Shop, Domains and Storefronts in Marketplace; the platf
 | Search Phase C (0060) | feature | Live, not passing | the search scorecard: 101 of 106 cases pass (Nov 21) | decisions/0061:7 replaces 0060's Phase C and is built in three batches; settles the outline's "decided, not built" | — |
 | "3 within 5 mi" coverage promise (0060) **[outline]** | feature | Live, not checked | no probe reads it as defined (runtime board: not checked yet) | decisions/0060; the runtime board's "3 within 5 mi" snapshot | — |
 | OpenStreetMap businesses where we have no listings yet (0065) | feature | Live, not checked | no live check reads it yet | /api/open-places.php (site-audit/pages.md:206); decisions/0065 | — |
-| The engine's listing workflows: W1 Listings, W2 Keep current **[outline]** | workflow | Live, not passing | the runtime board's "Gathering reconciles": W1 paused by two trips, 0 records in for 24 hours (alarms snapshot, Nov 21) | decisions/0160, 0164; release #20 (live 2026-11-13), release #22 (live 2026-11-13), release #28 (live 2026-11-13) | Operations (handoffs/operations-2026-11-20.md, session_01CXLi5mGX2sg5QS11gg3Wrh) |
 | Data cleanup: find, preview and act on what the old crawler made | admin tool | Live, not checked | no live check reads it yet | release #49 (live 2026-11-14), release #50 (live 2026-11-14), release #52 (live 2026-11-15), release #53 (live 2026-11-15), release #54 (live 2026-11-15); decisions/0163 §8 stage 1b; settles the outline's "to confirm" | Operations (handoffs/operations-2026-11-20.md, session_01CXLi5mGX2sg5QS11gg3Wrh) |
 | The duplicates fix: one identity check, the recheck, Vet this place | workflow | Live, not checked | no live check reads it yet | release #58 (live 2026-11-15) (Release B part 1); handoffs/duplicates.md; decisions/0164 §3.1–3.2; settles the outline's "to confirm" | Operations (handoffs/operations-2026-11-20.md, session_01CXLi5mGX2sg5QS11gg3Wrh) |
 | Admin → Local: listings, find/merge/bulk, intake, review, claims, identities, map pins, categories, taxonomy | admin tool | Live, not checked | no live check reads it yet | app/admin/manifests.php:36–49 (live sections) | Operations (handoffs/operations-2026-11-20.md, session_01CXLi5mGX2sg5QS11gg3Wrh) |
@@ -289,11 +288,11 @@ twice; Market 360°, the Shop, Domains and Storefronts in Marketplace; the platf
 
 ---
 
-## Platform (not gauged unless Jason says so)
+## Platform (a proposed gauge: sections/crossover.md)
 
 **Owner sessions:** Operations; Control board; Communications; the dispatcher; Design (admin).
 
-**Summary (draft: the scope isn't signed off):** 22 live (7 passing, 1 not passing, 14 not checked), 1 built and held, 5 decided and not built, 2 proposed. **Complete: 25.0%** of 28 in scope; **held: 1**; live: 78.6%.
+**Summary (draft: the scope isn't signed off):** 21 live (7 passing, 1 not passing, 13 not checked), 1 built and held, 5 decided and not built, 2 proposed. **Complete: 25.9%** of 27 in scope; **held: 1**; live: 77.8%.
 
 **Top gaps (decided, not built):**
 
@@ -319,7 +318,6 @@ twice; Market 360°, the Shop, Domains and Storefronts in Marketplace; the platf
 | The admin engine: 10 modules, manifests, widgets, workflows (0109) | admin tool | Live, not checked | no live check reads it yet | decisions/0109; app/admin/manifests.php | — |
 | The admin's Pulse and Support inbox (0172, 0176) | admin tool | Live, not checked | no live check reads it yet | release #138 (live 2026-11-18), release #141 (live 2026-11-18), release #147 (live 2026-11-18), release #241 (live 2026-11-20) | The dispatcher (handoffs/dispatcher.md, session_01CXLi5hJ4C32FpJfNTaTa2z) |
 | The System Control Board (0171, 0175, 0176) | admin tool | Live, not checked | no live check reads it yet | release #127 (live 2026-11-18), release #229 (live 2026-11-20), release #231 (live 2026-11-20), release #238 (live 2026-11-20), release #239 (live 2026-11-20), release #243 (live 2026-11-20), release #245 (live 2026-11-21) | Control board (handoffs/control-board-2026-11-20.md) |
-| The Knowledge Engine's shared parts: W0 Indexer, the crawler service, its console, switches and source map (0160, 0163, 0164) | workflow | Live, not checked | no live check reads it yet | decisions/0164; release #16 (live 2026-11-13), release #79 (live 2026-11-17), release #88 (live 2026-11-17), release #247 (live 2026-11-21) | Operations (handoffs/operations-2026-11-20.md, session_01CXLi5mGX2sg5QS11gg3Wrh) |
 | Staging in safe mode, releases through git (0145, 0159 steps 1–2, 0165) | workflow | Live, not checked | no live check reads it yet | release #7 (live 2026-11-13), release #10 (live 2026-11-13), release #56 (live 2026-11-15), release #57 (live 2026-11-15) | — |
 | The page builder for our own pages (0159 steps 3–4) | feature | Live, not checked | no live check reads it yet | release #18 (live 2026-11-13), release #23 (live 2026-11-13), release #27 (live 2026-11-13), release #33 (live 2026-11-13), release #34 (live 2026-11-13) | The builder (handoffs/0159-the-builder.md) |
 | One uploader; files on S3 and Cloudflare R2 (0122–0127, 0151) | feature | Live, not checked | no live check reads it yet | decisions/0127, 0151 | — |
@@ -335,3 +333,29 @@ twice; Market 360°, the Shop, Domains and Storefronts in Marketplace; the platf
 | 5 W's lexicon; Emergency resources | admin tool | Decided, not built | — | app/admin/manifests.php:155–156 (Coming) | — |
 | DMCA notices and counter-notices (0019) | feature | Proposed | — | decisions/0019 (Proposed); site-audit/pages.md:275; manifests.php:136 (Coming) | — |
 | Text messages (Twilio) | integration | Proposed | — | app/admin/manifests.php:195 (Coming: "Its own decision first", 0172 §5) | — |
+
+---
+
+## Knowledge Engine (a proposed gauge: sections/crossover.md)
+
+**Owner sessions:** Operations.
+
+**Summary (draft: the scope isn't signed off):** 14 live (0 passing, 3 not passing, 11 not checked), 1 built and held, 0 decided and not built, 0 proposed. **Complete: 0.0%** of 15 in scope; **held: 1**; live: 93.3%.
+
+| Item | Kind | Status | Check | Source | Owner |
+|---|---|---|---|---|---|
+| W1 Listings <br>*Businesses and organizations found, checked and published as listings.* | workflow | Live, not passing | the runtime board: W1 paused by two task trips (overture_bulk #1290, foursquare_bulk #1288), 0 records in for 24 hours | app/lib/Automation.php WORKFLOWS (mirror); decisions/0164; carried by: crawler and site | Operations (handoffs/operations-2026-11-20.md, session_01CXLi5mGX2sg5QS11gg3Wrh) |
+| W2 Keeping listings current <br>*Live listings rechecked: websites, who they are, map points, Google.* | workflow | Live, not passing | the ledger's count check: ep:crawl/refresh:count open (received 1, counted 2), so its counts can't be trusted (03 §28.2) | app/lib/Automation.php WORKFLOWS (mirror); decisions/0164; carried by: crawler | Operations (handoffs/operations-2026-11-20.md, session_01CXLi5mGX2sg5QS11gg3Wrh) |
+| W3 Sources and the place store <br>*The source register: sites we read regularly, and what they name.* | workflow | Live, not passing | the runtime board: W3 does nothing while its two switches stay Off by the system, left by a closed trip (01-lift-reconstruction.md (b), (c)) | app/lib/Automation.php WORKFLOWS (mirror); decisions/0164; carried by: crawler and site | Operations (handoffs/operations-2026-11-20.md, session_01CXLi5mGX2sg5QS11gg3Wrh) |
+| W4 Place guides <br>*Research briefs, guide drafts, names in guides, guide fixes.* | workflow | Live, not checked | no live check reads it yet | app/lib/Automation.php WORKFLOWS (mirror); decisions/0164; carried by: site | Operations (handoffs/operations-2026-11-20.md, session_01CXLi5mGX2sg5QS11gg3Wrh) |
+| W5 Guides on demand <br>*A first look at a place a visitor searched, then its full guide.* | workflow | Live, not checked | no live check reads it yet | app/lib/Automation.php WORKFLOWS (mirror); decisions/0164; carried by: site | Operations (handoffs/operations-2026-11-20.md, session_01CXLi5mGX2sg5QS11gg3Wrh) |
+| W6 Heritage and topics <br>*The heritage catalog, topic summaries and topic research.* | workflow | Live, not checked | no live check reads it yet | app/lib/Automation.php WORKFLOWS (mirror); decisions/0164; carried by: crawler and site | Operations (handoffs/operations-2026-11-20.md, session_01CXLi5mGX2sg5QS11gg3Wrh) |
+| W7 Suggested journeys <br>*Each live guide's journeys, with travel times from openrouteservice.* | workflow | Live, not checked | no live check reads it yet | app/lib/Automation.php WORKFLOWS (mirror); decisions/0164; carried by: site | Operations (handoffs/operations-2026-11-20.md, session_01CXLi5mGX2sg5QS11gg3Wrh) |
+| W8 Find it <br>*Places a guide, journey or story names that we don't have yet.* | workflow | Live, not checked | no live check reads it yet | app/lib/Automation.php WORKFLOWS (mirror); decisions/0164; carried by: site | Operations (handoffs/operations-2026-11-20.md, session_01CXLi5mGX2sg5QS11gg3Wrh) |
+| W9 Landmarks and places on demand <br>*Landmarks, their photos, places opened or searched that we don't hold, their descriptions.* | workflow | Live, not checked | no live check reads it yet | app/lib/Automation.php WORKFLOWS (mirror); decisions/0164; carried by: crawler and site | Operations (handoffs/operations-2026-11-20.md, session_01CXLi5mGX2sg5QS11gg3Wrh) |
+| W10 Live events <br>*Upcoming events for places with a live guide.* | workflow | Live, not checked | no live check reads it yet | app/lib/Automation.php WORKFLOWS (mirror); decisions/0164; carried by: site | Operations (handoffs/operations-2026-11-20.md, session_01CXLi5mGX2sg5QS11gg3Wrh) |
+| W11 How-to guides <br>*Official pages read into how-to guides.* | workflow | Live, not checked | no live check reads it yet | app/lib/Automation.php WORKFLOWS (mirror); decisions/0164; carried by: crawler | Operations (handoffs/operations-2026-11-20.md, session_01CXLi5mGX2sg5QS11gg3Wrh) |
+| W12 Search learning <br>*What people search, learned; gaps queued for the crawler.* | workflow | Live, not checked | no live check reads it yet | app/lib/Automation.php WORKFLOWS (mirror); decisions/0164; carried by: crawler | Operations (handoffs/operations-2026-11-20.md, session_01CXLi5mGX2sg5QS11gg3Wrh) |
+| W13 Stories <br>*Person-written only: no crawler. Its named places go to Find it (W8).* | workflow | Live, not checked | no live check reads it yet | app/lib/Automation.php WORKFLOWS (mirror); decisions/0164; carried by: people | Operations (handoffs/operations-2026-11-20.md, session_01CXLi5mGX2sg5QS11gg3Wrh) |
+| W14 Authority sources <br>*its licence_lookup (AZCC, NM SoS) isn't built yet (03 §26.9–26.10, §28.3); Each state's licence and registry sources found, their terms read and readers tested, and staged switched off ahead of i* | workflow | Live, not checked | no live check reads it yet | app/lib/Automation.php WORKFLOWS (mirror); decisions/0164; carried by: crawler and site | Operations (handoffs/operations-2026-11-20.md, session_01CXLi5mGX2sg5QS11gg3Wrh) |
+| W0 Indexer <br>*built and switched off until the team starts it (app/ui/faq.md:870; release #79 "shipped switched off"); whether it's been started is live data; Every URL found logged in the frontier, new sites classified by the machine, pages read where the rules allow: Phase 1, * | workflow | Built, held | — | app/lib/Automation.php WORKFLOWS (mirror); decisions/0164; carried by: indexer (Railway, always on) | Operations (handoffs/operations-2026-11-20.md, session_01CXLi5mGX2sg5QS11gg3Wrh) |

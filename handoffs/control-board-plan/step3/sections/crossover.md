@@ -16,9 +16,9 @@ measured data."
 - Every item has **one owning gauge** (its agency). Other sections may show it as a cross-link, never count it.
 - The session manager agrees and withdraws the two-needle idea (2026-11-22). Recorded in 03 §27 as Jason's direction.
 
-## The count: 99 crossover items of 172
+## The count: 111 crossover items of 184
 
-99 of the inventory's 172 items span sections or had no clear owner (the 8 questions, the Platform list and a sweep
+111 of the inventory's 184 items span sections or had no clear owner (the 8 questions, the Platform list and a sweep
 of every item). Each now has one agency, its reason, the alternative and where it's cross-linked. **No item is left without an
 owner, and none is counted twice** (checked by the generator: every Platform item needs an agency, every rule must match).
 
@@ -34,8 +34,8 @@ listing face in Directory, the selling face in Marketplace), Events under Commun
 | **Community** | 25 | 24 | **16.7%** (4) | 0 | 10 | 0 | 10 |
 | **Marketplace** | 43 | 41 | **29.3%** (12) | 3 | 8 | 2 | 16 |
 | **Platform** | 42 | 40 | **27.5%** (11) | 3 | 6 | 3 | 17 |
-| **Knowledge Engine** | 6 | 6 | **0.0%** (0) | 0 | 1 | 2 | 3 |
-| **All** | 172 | | | | | | |
+| **Knowledge Engine** | 18 | 18 | **0.0%** (0) | 1 | 1 | 3 | 13 |
+| **All** | 184 | | | | | | |
 
 **The alternative: 4 + Platform + Knowledge Engine + Business tools + Events (eight gauges).**
 
@@ -46,10 +46,10 @@ listing face in Directory, the selling face in Marketplace), Events under Commun
 | Community | 23 | 22 | 18.2% (4) | 0 | 8 |
 | Marketplace | 23 | 21 | 57.1% (12) | 1 | 1 |
 | Platform | 42 | 40 | 27.5% (11) | 3 | 6 |
-| Knowledge Engine | 6 | 6 | 0.0% (0) | 0 | 1 |
+| Knowledge Engine | 18 | 18 | 0.0% (0) | 1 | 1 |
 | Business tools | 27 | 27 | 14.8% (4) | 2 | 8 |
 | Events | 4 | 4 | 0.0% (0) | 0 | 2 |
-| **All** | 172 | | | | |
+| **All** | 184 | | | | |
 
 **Why six, not eight:**
 - **Business tools** would take 27 items: Directory's listing face (claim, verify, the portal, the
@@ -249,24 +249,34 @@ listing face in Directory, the selling face in Marketplace), Events under Commun
 - 5 W's lexicon; Emergency resources · Decided, not built
 - Terms and privacy pages · Live, passing
 
-### Knowledge Engine (6 items; Complete 0.0%, draft)
+### Knowledge Engine (18 items; Complete 0.0%, draft)
 
-- The engine's discovery workflows W3–W14 (sources, guides, landmarks, events, research) · Live, not passing *(moved from Discovery)*
-- The engine's listing workflows: W1 Listings, W2 Keep current · Live, not passing *(moved from Directory)*
 - W2's refresh count (L9: counted more than received) · Decided, not built *(moved from Directory)*
 - Data cleanup: find, preview and act on what the old crawler made · Live, not checked *(moved from Directory)*
 - The duplicates fix: one identity check, the recheck, Vet this place · Live, not checked *(moved from Directory)*
-- The Knowledge Engine's shared parts: W0 Indexer, the crawler service, its console, switches and source map (0160, 0163, 0164) · Live, not checked *(moved from Platform)*
+- W0 Indexer · Built, held
+- W1 Listings · Live, not passing
+- W2 Keeping listings current · Live, not passing
+- W3 Sources and the place store · Live, not passing
+- W4 Place guides · Live, not checked
+- W5 Guides on demand · Live, not checked
+- W6 Heritage and topics · Live, not checked
+- W7 Suggested journeys · Live, not checked
+- W8 Find it · Live, not checked
+- W9 Landmarks and places on demand · Live, not checked
+- W10 Live events · Live, not checked
+- W11 How-to guides · Live, not checked
+- W12 Search learning · Live, not checked
+- W13 Stories · Live, not checked
+- W14 Authority sources · Live, not checked
 
 ## Moves against the inventory
 
-20 items change owner from where `inventory.md` listed them; every other item stays where it was.
+17 items change owner from where `inventory.md` listed them; every other item stays where it was.
 
 | Item | Listed in | Owned by |
 |---|---|---|
-| The engine's discovery workflows W3–W14 (sources, guides, landmarks, events, research) | Discovery | Knowledge Engine |
 | Search Phase C (0060) | Directory | Platform |
-| The engine's listing workflows: W1 Listings, W2 Keep current | Directory | Knowledge Engine |
 | W2's refresh count (L9: counted more than received) | Directory | Knowledge Engine |
 | Data cleanup: find, preview and act on what the old crawler made | Directory | Knowledge Engine |
 | The duplicates fix: one identity check, the recheck, Vet this place | Directory | Knowledge Engine |
@@ -283,7 +293,6 @@ listing face in Directory, the selling face in Marketplace), Events under Commun
 | Facebook and Instagram for members (0168 Phase 1) | Community | Platform |
 | Legal texts published (terms, privacy, policies), an attorney's pass | Marketplace | Platform |
 | A promotion's page | Marketplace | Platform |
-| The Knowledge Engine's shared parts: W0 Indexer, the crawler service, its console, switches and source map (0160, 0163, 0164) | Platform | Knowledge Engine |
 
 ## Every crossover item: recommended owner, the alternative, where it's cross-linked
 
@@ -295,7 +304,6 @@ listing face in Directory, the selling face in Marketplace), Events under Commun
 | Trips R4: share a link, Personal Guides, counts | **Discovery** | Personal Guides are trips published as guides (0174) | Community (member-published) | Community |
 | The map release: trails and routes in their own colour (--tv-route) | **Discovery** | trails and routes | Platform (js/map-view.js serves every map) | Platform |
 | Am here: live check-ins | **Discovery** | beside "Was here" on journeys | Community (a check-in is social) | Community |
-| The engine's discovery workflows W3–W14 (sources, guides, landmarks, events, research) | **Knowledge Engine** | the engine; guides, journeys, landmarks and events it makes are counted in Discovery | Discovery | Discovery |
 | The area data: micro-clusters misnamed under Ancient Borderlands | **Discovery** | the place taxonomy | Knowledge Engine (Data cleanup is the tool) | Knowledge Engine |
 | Claim a listing (email or text code, who might claim, the form that fits) | **Directory** | claim (ruling) | Business tools | — |
 | Verify a listing from its link | **Directory** | claim (ruling) | Business tools | — |
@@ -308,7 +316,6 @@ listing face in Directory, the selling face in Marketplace), Events under Commun
 | The Nexus: organizations with many locations (0054) | **Directory** | many locations as listings | Business tools | — |
 | Search Phase C (0060) | **Platform** | the learning search (0061) serves every kind, not only listings | Directory | Directory |
 | OpenStreetMap businesses where we have no listings yet (0065) | **Directory** | shown on Get Local | Knowledge Engine | Knowledge Engine |
-| The engine's listing workflows: W1 Listings, W2 Keep current | **Knowledge Engine** | the engine; the listings are counted in Directory | Directory | Directory |
 | W2's refresh count (L9: counted more than received) | **Knowledge Engine** | a fix in the engine's ledger | Directory | Directory |
 | Data cleanup: find, preview and act on what the old crawler made | **Knowledge Engine** | brings the engine's old output into line | Directory | Directory |
 | The duplicates fix: one identity check, the recheck, Vet this place | **Knowledge Engine** | the engine's identity check (0164 §3) | Directory | Directory |
@@ -374,7 +381,6 @@ listing face in Directory, the selling face in Marketplace), Events under Commun
 | The admin engine: 10 modules, manifests, widgets, workflows (0109) | **Platform** | the admin | none | — |
 | The admin's Pulse and Support inbox (0172, 0176) | **Platform** | Pulse and messages (0172, 0176) | none | — |
 | The System Control Board (0171, 0175, 0176) | **Platform** | the admin | a runtime board, not a build gauge | — |
-| The Knowledge Engine's shared parts: W0 Indexer, the crawler service, its console, switches and source map (0160, 0163, 0164) | **Knowledge Engine** | the engine | Platform | — |
 | Staging in safe mode, releases through git (0145, 0159 steps 1–2, 0165) | **Platform** | releases | none | — |
 | The page builder for our own pages (0159 steps 3–4) | **Platform** | our own pages; the same builder's Storefront Studio is Marketplace's | Marketplace | Marketplace |
 | One uploader; files on S3 and Cloudflare R2 (0122–0127, 0151) | **Platform** | every file in every section goes through it (0127) | none | — |
@@ -388,6 +394,21 @@ listing face in Directory, the selling face in Marketplace), Events under Commun
 | Text messages (Twilio) | **Platform** | one channel for every section (0172 §5) | none | — |
 | 5 W's lexicon; Emergency resources | **Platform** | the search parser; Emergency resources rides with it as an admin Coming card | Discovery (Emergency resources is a map of places) | Discovery |
 | Terms and privacy pages | **Platform** | site-wide legal pages | Marketplace | Marketplace |
+| W0 Indexer | **Knowledge Engine** | the engine; its outputs are counted where they show | Platform | Platform (its index) |
+| W1 Listings | **Knowledge Engine** | the engine; its outputs are counted where they show | Platform | Directory (listings) |
+| W2 Keeping listings current | **Knowledge Engine** | the engine; its outputs are counted where they show | Platform | Directory (listings) |
+| W3 Sources and the place store | **Knowledge Engine** | the engine; its outputs are counted where they show | Platform | Discovery (what it makes) |
+| W4 Place guides | **Knowledge Engine** | the engine; its outputs are counted where they show | Platform | Discovery (what it makes) |
+| W5 Guides on demand | **Knowledge Engine** | the engine; its outputs are counted where they show | Platform | Discovery (what it makes) |
+| W6 Heritage and topics | **Knowledge Engine** | the engine; its outputs are counted where they show | Platform | Discovery (what it makes) |
+| W7 Suggested journeys | **Knowledge Engine** | the engine; its outputs are counted where they show | Platform | Discovery (what it makes) |
+| W8 Find it | **Knowledge Engine** | the engine; its outputs are counted where they show | Platform | Discovery (what it makes) |
+| W9 Landmarks and places on demand | **Knowledge Engine** | the engine; its outputs are counted where they show | Platform | Discovery (what it makes) |
+| W10 Live events | **Knowledge Engine** | the engine; its outputs are counted where they show | Platform | Discovery (what it makes) |
+| W11 How-to guides | **Knowledge Engine** | the engine; its outputs are counted where they show | Platform | Discovery (what it makes) |
+| W12 Search learning | **Knowledge Engine** | the engine; its outputs are counted where they show | Platform | Platform (its index) |
+| W13 Stories | **Knowledge Engine** | the engine; its outputs are counted where they show | Platform | Discovery (what it makes) |
+| W14 Authority sources | **Knowledge Engine** | the engine; its outputs are counted where they show | Platform | Discovery (what it makes) |
 
 ## The runtime board: gauges showing two readings
 
