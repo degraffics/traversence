@@ -52,6 +52,17 @@ SM 172–189).
 - **Coverage:** the counts are pills, each opening its list.
 - **Nothing is dropped:** every reading, time, basis tag and reference is one tap away.
 
+## Standards (Gemini's hand-off note, 2026-11-22; 03 §28.5)
+
+- **One command search:** Ctrl+K (⌘K) or the header's search icon, over modules, workflows, pages and snapshots; Enter
+  takes the first result; it closes by ×, Esc and a click outside.
+- **Filters** are one dropdown button per list (the role filter in Modules and Diagnostics), never a row of pills.
+- **Rollups** (system feeds only): the quick-jump strip is grouped (Trips, Warnings, Caps, Checks, Sync); Diagnostics
+  opens with the modules grouped by state.
+- **Phones:** edge to edge below 768px; one primary scrollbar (nothing scrolls inside the page but an open panel).
+- **Notes from the live code** (03 §28): W1's root cause and recovery, W3's answer with its evidence, W2's untrusted
+  count, Fly.io's trvgo.us warning, the sync's real status with its history, Gemini's stage 2 → 3 needs.
+
 ## Real against scenario
 
 **Real**

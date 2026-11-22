@@ -6,7 +6,7 @@ The reads are grouped by the page they come from, so each page is one visit. Eve
 pressed, switched or edited. Where a read has no admin page today, it goes through the admin's **Data browser**, read
 only. Step 4's ledger export is proposed to replace those reads later.
 
-The numbers in brackets are the 15 asks as listed:
+The numbers in brackets are the 16 asks as listed:
 1. IR-0001's timings and run #1290's task
 2. alarms, pauses and Pulse cases
 3. the lift's reads
@@ -23,6 +23,8 @@ The numbers in brackets are the 15 asks as listed:
 14. §26's names (the session manager, 2026-11-21): the services' keys and modes, `ors_matrix_daily`, Apple's Developer
     Program and Meta's app review
 15. the seeded workflow → task table (the association map)
+16. Gemini's hand-off note (2026-11-22): W2's count call, W3 after release #247, the worker's version, and §26's verify
+    steps' live parts (03 §28)
 
 ---
 
@@ -37,6 +39,10 @@ The numbers in brackets are the 15 asks as listed:
   - **Settles:** `step2/ir-0001.md`; 03 §7, §22.1 (Overture's page b).
   - **If the ledger has no rows for those minutes:** Bluehost's access log for the same requests. A session can read it through the cPanel API with your OK, so you don't open cPanel.
 - **[3] The lift, item 10.** `POST /admin/api/config/control` with `action=resolve`: its time. This places the press against #35's clearing. *Settles:* `01-lift-reconstruction.md` (a)–(f).
+- **[16] W2's count (live L9, `ep:crawl/refresh:count`).** The call that raised it: what it received and the records it
+  touched. **Why:** the cause is read from the code (03 §28.2: the refreshed listing counted as an outcome, never as
+  received); this call confirms it. **Settles:** 03 §28.2.
+
 
 ## Visit 2. The Control Board's Alarms: https://traversence.com/admin/config/alarms
 
@@ -50,6 +56,10 @@ The numbers in brackets are the 15 asks as listed:
   - `pf:so:commoncrawl-common-crawl-a5bbfe76`.
 
   For each, its level, cleared at and how, resolved by and its note, acknowledged by, stopped, and last seen. *Settles:* `01-lift-reconstruction.md` (what "Check and start again" closed, and when).
+- **[16] W3 after release #247 (live 12:22 UTC Nov 21).** Is `pf:wf:W3` still open, and has #35 (index.commoncrawl.org)
+  recovered? **Why:** since #247 the gate holds only Common Crawl's per-site copy; the snapshot (3:19 AM MST) predates
+  it. **Settles:** 03 §28.1; Common Crawl's card.
+
 
 ## Visit 3. The Control Board's Logbook: https://traversence.com/admin/config/log
 
@@ -89,6 +99,9 @@ The numbers in brackets are the 15 asks as listed:
   - **Settles:** 03 §26.1, 26.5, 26.13, 26.15, 26.17.
 - **[14] `MARKET_PAY_ENV`:** live, sandbox or mock (a `.env` name; the Stripe and Square lines show which mode they
   test). **Settles:** 03 §26.18, 26.19.
+- **[16] §26's verify steps' lines:** Common Crawl (Ready or "Partly working"), the National Weather Service, USGS (its
+  two parts), RIDB, AZ 511 and Pixabay: each line's state and time. **Settles:** 03 §28.3, §26.6–26.15.
+
 
 ## Visit 6. Thresholds & gates: https://traversence.com/admin/config/thresholds
 
@@ -146,6 +159,8 @@ These tables have no admin page of their own. Choose each table in the browser a
 - **[10] `video_jobs`.**
   - **Needed:** counts by status: queued or leased, done today, failed.
   - **Settles:** the video worker's zone 2, 03 §23.4, 4.
+- **[16] RIDB's last load:** `rec_loads`, its newest row's time (this month's load or not). **Settles:** 03 §26.6, §28.3.
+
 
 ## Visit 11. Railway, the crawler service's Variables
 
@@ -158,6 +173,10 @@ https://railway.com/project/a445f0be-b6de-46bb-a422-51ff835ca6e4/service/8d254c0
   - **Settles:** 03 §22.1, §22.2; `step2/ir-0001.md`.
 
 - **[14] `RIDB_API_KEY`:** set or not (Recreation.gov's monthly load). **Settles:** 03 §26.6.
+- **[16] The worker's version:** the crawler service's latest deployment and the version its run log prints (2.16.1 or
+  not). It decides whether the bulk reads run while the index is tripped (crawler.py:215). Its run report also names
+  `RIDB_API_KEY` present or not (names only). **Settles:** 03 §28.1, §28.3.
+
 
 ## Visit 12. GitHub, degraffics/traversence → Settings → Secrets
 

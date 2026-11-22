@@ -1485,7 +1485,7 @@ key and no account has all four slots Not registered with "Open data: no account
 | slots (04) | none registered; the rest Not registered, "Open data: no account" | obs; des |
 | states (02) | working, from its callers; Trip at index.commoncrawl.org (#35); Asked us to slow down at data.commoncrawl.org (#22) | obs (alarms) · rows 24–27, 130 |
 
-**Open words, answered (the session manager, 2026-11-21):** (1) #35: under the contract only the needs that use it wait (Sources read regularly, Re-read websites), not W3 whole. (2) #22: a rate wait under the contract (row 27). Today's wording, "Its server failed", is shown beside it as the defect.
+**Open words, answered (the session manager, 2026-11-21; verify steps and build status, Gemini's hand-off note, 2026-11-22):** (1) #35: W3 can run while index.commoncrawl.org is tripped: its columnar reads use only data.commoncrawl.org (crawler.py:1697–1703). Since release #247 (live 12:22 UTC Nov 21) the pre-flight gates on data.commoncrawl.org only and the index is a second part that holds only the per-site copy (Preflight.php:1110–1113, reachAll :895–907). The snapshot's "W3 held whole" is from before #247. (2) #22: a rate wait under the contract (row 27). Today's wording, "Its server failed", is shown beside it as the defect.
 
 ### 26.3 Wikimedia (Wikipedia, Wikidata, Commons) (`wikimedia`)
 
@@ -1557,7 +1557,7 @@ key and no account has all four slots Not registered with "Open data: no account
 | slots (04) | none registered; the rest Not registered | obs; des |
 | states (02) | not checked yet | des |
 
-**Open words, answered (the session manager, 2026-11-21):** (1) `RIDB_API_KEY` on Railway: on the asks (visit 11); its last load (`rec_loads`) is live data.
+**Open words, answered (the session manager, 2026-11-21; verify steps and build status, Gemini's hand-off note, 2026-11-22):** (1) verify: the worker's run report names `RIDB_API_KEY` as present (WORKER_KEYS, crawler.py:214) and the Pre-flight's RIDB line reads Ready (Preflight.php:967, the Railway key); passes when `rec_loads` holds this month's load. The live parts are on the asks (visit 11).
 
 ### 26.7 USGS (The National Map, GNIS) (`usgs`)
 
@@ -1575,7 +1575,7 @@ key and no account has all four slots Not registered with "Open data: no account
 | slots (04) | none registered; the rest Not registered, "Open data: no account" | obs; des |
 | states (02) | working, from its callers | des |
 
-**Open words, answered (the session manager, 2026-11-21):** (1) The tiles load in browsers: a browser-side check in step 4's rendered checks, as cdnjs.
+**Open words, answered (the session manager, 2026-11-21; verify steps and build status, Gemini's hand-off note, 2026-11-22):** (1) verify: the Pre-flight's two parts (Preflight.php:1103–1104): GNIS's Arizona names file answers a HEAD with 200, and the topo layer's description answers 200. The tiles in browsers: a step-4 rendered check reads the map's tile requests to basemap.nationalmap.gov at 1280 and 390 and passes when they answer 200 and the map draws.
 
 ### 26.8 OpenStreetMap (`osm`)
 
@@ -1593,7 +1593,7 @@ key and no account has all four slots Not registered with "Open data: no account
 | slots (04) | none registered; the rest Not registered, "Open data: no account" | obs; des |
 | states (02) | working, from its callers | des |
 
-**Open words, answered (the session manager, 2026-11-21):** (1) One card for the tiles, a browser-side Source; the data is our copy, on Geofabrik's card (linked).
+**Open words, answered (the session manager, 2026-11-21; verify steps and build status, Gemini's hand-off note, 2026-11-22):** (1) verify: a step-4 rendered check opens a page with a map at 1280 and 390 and reads its tile requests to tile.openstreetmap.org (js/map-view.js:98, :102); passes when they answer 200, the map draws and the credit shows. The data is our copy, on Geofabrik's card (linked).
 
 ### 26.9 Arizona Corporation Commission (`azcc`)
 
@@ -1611,7 +1611,7 @@ key and no account has all four slots Not registered with "Open data: no account
 | slots (04) | none registered; the rest Not registered, "Open data: no account" | obs; des |
 | states (02) | Proposed (stage 1) | des |
 
-**Open words, answered (the session manager, 2026-11-21):** (1) Stage 1 until W14 is built.
+**Open words, answered (the session manager, 2026-11-21; verify steps and build status, Gemini's hand-off note, 2026-11-22):** (1) Build status: not built. W14's licence_lookup isn't in the worker, so nothing calls it (stage 1). Its Pre-flight line exists: arizonabusinesscenter.azcc.gov (Preflight.php:1079–1082) answers our server 403 "Access Blocked", pending our public records request. (2) Expected inputs once built: the business's name, its entity or licence number, and the state (AZ). Its site moved from ecorp.azcc.gov to arizonabusinesscenter.azcc.gov; its terms are not read yet (research/rural-test-2026-11-14.md: "Allow the new host and read its terms first").
 
 ### 26.10 New Mexico Secretary of State (businesses) (`nmsos`)
 
@@ -1629,7 +1629,7 @@ key and no account has all four slots Not registered with "Open data: no account
 | slots (04) | none registered; the rest Not registered, "Open data: no account" | obs; des |
 | states (02) | Proposed (stage 1) | des |
 
-**Open words, answered (the session manager, 2026-11-21):** (1) Stage 1 until W14 is built.
+**Open words, answered (the session manager, 2026-11-21; verify steps and build status, Gemini's hand-off note, 2026-11-22):** (1) Build status: not built (stage 1), as the Arizona Corporation Commission. Its Pre-flight line asks enterprise.sos.nm.gov/search (Preflight.php:1083). (2) Expected inputs once built: the business's name, its business ID, and the state (NM). Its terms are not read yet: the rural test reached no New Mexico registry (research/rural-test-2026-11-14.md).
 
 ### 26.11 DB-IP (`dbip`)
 
@@ -1665,7 +1665,7 @@ key and no account has all four slots Not registered with "Open data: no account
 | slots (04) | none registered; the rest Not registered, "Open data: no account" | obs; des |
 | states (02) | working, from its callers | des |
 
-**Open words, answered (the session manager, 2026-11-21):** (1) Its user agent names a generic site contact, never a person: to check in step 4.
+**Open words, answered (the session manager, 2026-11-21; verify steps and build status, Gemini's hand-off note, 2026-11-22):** (1) verify: the Pre-flight's line asks api.weather.gov for Kayenta's forecast point (Preflight.php:1092) and passes on 200; the user agent Weather.php sends is read in step 4 and passes when it names a generic site contact, never a person.
 
 ### 26.13 AZ 511 (ADOT) (`az511`)
 
@@ -1683,7 +1683,7 @@ key and no account has all four slots Not registered with "Open data: no account
 | slots (04) | Keys · Developers (key); the rest Not registered | obs; des |
 | states (02) | not checked yet | des |
 
-**Open words, answered (the session manager, 2026-11-21):** (1) `AZ511_API_KEY`: set or not goes on the asks (visit 5).
+**Open words, answered (the session manager, 2026-11-21; verify steps and build status, Gemini's hand-off note, 2026-11-22):** (1) verify: `AZ511_API_KEY` set (the line reads "Not set up" without it, Preflight.php:1094), then the WZDx feed with our key answers 200 (:1095). Set or not is on the asks (visit 5).
 
 ### 26.14 CPSC (SaferProducts.gov) (`cpsc`)
 
@@ -1719,7 +1719,7 @@ key and no account has all four slots Not registered with "Open data: no account
 | slots (04) | none registered; the rest Not registered | obs; des |
 | states (02) | not checked yet | des |
 
-**Open words, answered (the session manager, 2026-11-21):** (1) `PIXABAY_KEY`: set or not goes on the asks (visit 5).
+**Open words, answered (the session manager, 2026-11-21; verify steps and build status, Gemini's hand-off note, 2026-11-22):** (1) verify: `PIXABAY_KEY` set (the line reads "Not set up" without it, Preflight.php:1116), then one search with our key answers 200 (:1117, free). Set or not is on the asks (visit 5).
 
 ### 26.16 openrouteservice (HeiGIT) (`heigit`)
 
@@ -1949,6 +1949,123 @@ reference** (Q21 and SM 172–189, `step1-requirements.md`), by Jason's directio
   - Pages load fast: Workflows "none: no workflow makes this"; Services → Bluehost, Cloudflare.
   - Complete: Workflows → W2's tasks; Services → "A missing phone or website" → Tavily → Brave.
   - Gathering reconciles: IR-0001 on both paths.
+
+---
+
+## 28. Gemini's hand-off note (2026-11-22): the pauses framed, W2's count, verify steps, routing and the sync, standards
+
+Each point is on the interactive board (`board/index.html`), generated by `mockups/src/board.py` and `svc26.py`. Evidence is
+by file and line in the live mirror (`aeb5f31`, Sync 14:26 UTC Nov 21) and the crawler worker (`workers/crawler/crawler.py`).
+
+### 28.1 W1's and W3's pauses
+
+**W1 (IR-0001).** On the snapshot (Gathering reconciles, Incident Reports close), W1's row and its Workflows path, and
+IR-0001's chain at its first and last levels:
+- **Root cause so far:** the response path. The worker sent its rows to our load endpoint (`/api/crawl/loads.php`) and no
+  reply came within its timeout, though the site stored rows from run #1290. **Unconfirmed** until the endpoint's own
+  timings for 08:15–08:21 and 08:26–08:32 UTC are read (`step2/ir-0001.md`; asks.md, visit 1).
+- **Recovers when:** `/api/crawl/loads.php`'s check passes (it replies within its timeout), then `overture_bulk` and
+  `foursquare_bulk` next do their work (a town loaded, its records sent). Then W1's two trips close as Recovered.
+
+**W3 and Common Crawl #35: can W3 run while index.commoncrawl.org is tripped? Yes, its bulk reads can.**
+- The columnar bulk reads ask only data.commoncrawl.org: `common_crawl()` holds only on that host and reads the URL Index
+  there, "never the index server" (crawler.py:1697–1703; worker 2.16.1's note, :215).
+- Only the per-site page copy waits on index.commoncrawl.org: `cc_home()` (crawler.py:1672–1680), called by W3's
+  fallback in `read_source()` (:1880) and by W2's `refresh_listings()` (:2415).
+- **The gate already says so, since release #247** (live 12:22 UTC Nov 21, `deliveries/releases/…-247-…json`): Common
+  Crawl's pre-flight line checks data.commoncrawl.org first, then the index as a second part (Preflight.php:1110–1113).
+  `reachAll()` (:895–907) makes a failing second part amber, "Only the copy of one site's page waits; the rest works",
+  shown "Partly working" (:41–44). Before #247 the line asked only the index (mirror `077a3ec`), so its 504 turned it
+  red and tripped `pf:wf:W3`, holding W3 whole. The alarms snapshot (3:19 AM MST = 10:19 UTC) predates #247.
+- A SlowDown at data.commoncrawl.org (#22) is a rate wait that pauses the bulk reads while its back-off runs
+  (crawler.py:1602–1609, :1701).
+- **Its radius (the contract):** Held: only the needs that go through index.commoncrawl.org (the per-site copies: W3's
+  fallback copy, W2's Re-read websites; each reads the site directly first). On a backup: the columnar reads, from
+  data.commoncrawl.org. Unaffected: every other need.
+- **#35 recovers when** its check passes against index.commoncrawl.org (`collinfo.json` answers 200, Preflight.php:1113),
+  closing as Recovered. W3's pause lifts when its line passes (Preflight.php:304–306; `ControlAlarms::ESCALATED_RECOVERS`
+  is true, :212).
+- **Live, to confirm (asks.md, visit 11):** that Railway runs worker 2.16.1, and that `pf:wf:W3` closed after #247. The
+  step-4 item is that confirmation, not a split: #247 made the split.
+
+On Common Crawl's card (zone 2's "Can W3 run…?" row, its radius, #35's state) and W3's row in Workflows.
+
+### 28.2 W2's refresh count (live L9, `ep:crawl/refresh:count`: received 1, counted 2)
+
+**Where they diverge (inf: from the code; the call's own Ledger row confirms it, asks.md visit 1):**
+- "Received" counts only the lists in the POST: `ControlLedger.php:162` → `listed()` (:77–86), which skips numbers and
+  objects. `/api/crawl/refresh` posts `entity_id` (a number), `found` (an object) and `locations` (a list), so received
+  is the other locations found, never the listing being refreshed.
+- The outcomes count that listing too: its fields filled are one "updated" line per record (`CrawlerIngest.php:571`,
+  merged per record at `ControlLedger.php:47–56`), and each location staged is one "review" (`IntakeStager.php:222`).
+  One listing with one other location reads received 1, counted 2: the alarm at `ControlLedger.php:122–123`.
+- With no library mark (a map point only, `Geocoder::setPoint`), the answer's `filled` list counts once per field
+  (`Refresh.php:180`; `ControlLedger.php:28` and :97).
+
+**Fix (a step-4 spec item): count at the boundary, once.** The endpoint's received is the listing plus its locations
+(1 + the locations); its outcomes count records, never fields (the refresh answers `updated` 0 or 1, the field names as
+detail). It changes only the count and its warning, not what the site does, so it's this note, not a review row. Until
+then, the board's W2 rows (the Complete snapshot's Workflows path, W2's row in Workflows) and the `/api/crawl/refresh.php`
+page row say "the count can't be trusted until the step-4 fix", with the cause.
+
+### 28.3 §26's verify steps and build status
+
+Each "not checked yet" for OpenStreetMap's tiles, RIDB, NWS, AZ 511, USGS and Pixabay is now "verify: <step>" on its card
+and in §26 above (what the check reads, where, what passes). The live parts are on asks.md (visit 5, keys set or not;
+visit 11, the worker's run report and `rec_loads`).
+
+| Service | verify: what it reads, where, what passes |
+|---|---|
+| OpenStreetMap (tiles) | a step-4 rendered check opens a page with a map at 1280 and 390 and reads its tile requests to tile.openstreetmap.org (`js/map-view.js:98`, :102); passes on 200, the map drawn and the credit shown |
+| RIDB | the worker's run report names `RIDB_API_KEY` present (`WORKER_KEYS`, crawler.py:214); the pre-flight line reads Ready (Preflight.php:967); passes when `rec_loads` holds this month's load |
+| NWS | the pre-flight asks api.weather.gov for Kayenta's forecast point (Preflight.php:1092), 200; `Weather.php`'s user agent names a generic site contact, never a person |
+| AZ 511 | `AZ511_API_KEY` set (else "Not set up", Preflight.php:1094); the WZDx feed with our key answers 200 (:1095) |
+| USGS | GNIS's Arizona names file answers a HEAD with 200 and the topo layer's description answers 200 (Preflight.php:1103–1104); the tiles by the rendered check, as OpenStreetMap's |
+| Pixabay | `PIXABAY_KEY` set (else "Not set up", Preflight.php:1116); one search with our key answers 200 (:1117, free) |
+
+**AZCC and NM SoS: not built.** W14's `licence_lookup` isn't in the worker, so nothing calls either (stage 1).
+- **Arizona Corporation Commission:** its pre-flight line reads arizonabusinesscenter.azcc.gov (Preflight.php:1079–1082),
+  which answers our server 403 "Access Blocked", pending our public records request. Its site moved from ecorp.azcc.gov
+  (research/rural-test-2026-11-14.md, its sources table and §5: "allow the new host and read its terms first"); its
+  terms are not read yet.
+- **New Mexico Secretary of State:** its line reads enterprise.sos.nm.gov/search (Preflight.php:1083). The rural test
+  reached no New Mexico registry; its terms are not read yet.
+- **Expected inputs once built:** the business's name, its entity or licence number, and the state.
+
+**Gemini, stage 2 → 3 (Activate) needs** (on its card): its key checked (`GEMINI_API_KEY` in .env, then the models list
+with our key answers, free: Preflight.php:1061–1065); its pre-flight passing (its line Ready; Activate is offered then,
+02 row 102); and the privacy guard's test passing (`tools/release-b-tests/gemini.php`: every feature that isn't public
+input refused, `Gemini::refused()`, Gemini.php:38–43; decisions/0164 §0.8).
+
+### 28.4 Routing and the sync
+
+- **Fly.io:** a warning on its card and on every storefront page's row (the routes the board ties to Fly.io): "A failing
+  custom domain also takes its shop's trvgo.us/<shop> address down (the 301), until review item 7 is decided." It links
+  `for-jason-review.html`, item 7.
+- **The sync, now:** last sync 22:55 UTC Nov 21 (3:55 PM MST); the 18:00 UTC slot ran late. Release #247 went live 12:22
+  UTC Nov 21 and the 12:26 UTC sync mirrored it (the mirror's commit `37a212e`). On GitHub's card, with the history: 22:55
+  (the last sync), 14:26 (`aeb5f31`, the mirror this board reads), 12:26 (#247 mirrored), and the snapshot's 03:19 UTC
+  reading (the mirror behind since #689, the 06:00 slot passed with no run). The quick-jump strip's Sync rollup opens it.
+
+### 28.5 Standards
+
+- **Palette, checked against brand.md §4 and design/css-theme-brand.md:** the anchors `#3E2B1F`, serif headings in
+  `#2A1D14` and Inter for data agree with the board's tokens. **One disagreement:** the hand-off note's canvas `#EFE3C8` is
+  replaced by Jason's note of 2026-11-19 (brand.md §4; css-theme-brand.md line 32): page `#E4DCC5`, section `#EDE6D5`,
+  card `#F6F1E4`. The board keeps `#E4DCC5`. Two smaller ones, unchanged: metadata text is `#5E4F3C` (the admin kit's
+  `--tv-meta`, for contrast), not Muted Taupe `#7A6A52`; and CLAUDE.md's active sage is `#8FBCA8` where brand.md's is
+  `#92BEA5` (the board uses brand.md's).
+- **One command search:** Ctrl+K (⌘K) or the header's search icon opens it, over modules, workflows, pages and
+  snapshots; Enter takes the first result; it closes by ×, Esc and a click outside, and works at 390.
+- **Filters as dropdowns:** the role filter is one button per list (Modules, Diagnostics): its icon, current choice,
+  count and ▾; no row of pills.
+- **Grouped rollups** (system feeds only): the quick-jump strip is five rollups (Trips, Warnings, Caps, Checks, Sync), each
+  one button with its count; Diagnostics opens with the modules grouped by state.
+- **Phones:** edge to edge below 768px (cards 3px from each side, the containers flush); one primary scrollbar (the
+  quick-jump strip and the views' menu wrap, no inner scroll box). The per-module Held / On a backup / Unaffected tables
+  stay.
+- **Checks added** (`board-check.cjs`): Ctrl+K and the header icon, the four kinds found, Enter, the three ways to close;
+  one primary scrollbar in every view at 1280 and 390; edge to edge at 390; the rollups; the role dropdown.
 
 ---
 

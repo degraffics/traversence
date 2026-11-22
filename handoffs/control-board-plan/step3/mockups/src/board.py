@@ -157,6 +157,19 @@ def archived_note(route):
     return ''
 
 
+FLY_WARN = 'A failing custom domain also takes its shop\'s trvgo.us/<shop> address down (the 301), until review item 7 is decided.'
+W2_PAGE = ('W2\'s count on this endpoint can\'t be trusted until the step-4 fix (live L9: received 1, counted 2): "received" counts only the POST\'s lists '
+           '(ControlLedger.php:162), while the outcomes count the refreshed listing too (CrawlerIngest.php:571, IntakeStager.php:222). Fix: count at the boundary, once (03 §28.2).')
+
+
+def page_note(route, deps):
+    if 'crawl/refresh' in route:
+        return W2_PAGE, ''
+    if 'fly' in deps:
+        return FLY_WARN, '../for-jason-review.html'
+    return '', ''
+
+
 PAGES = []  # one record per page snapshot
 GROUPS = []
 for g in PAGES_MD:
@@ -169,6 +182,7 @@ for g in PAGES_MD:
                    endpoints=re.findall(r'/api/[\w/.-]+', r['purpose']), replaces=(rep.group(1).strip() if rep else ''), archived=archived_note(r['route']) if 'Archived' in r['status'] else '',
                    access='admin (staff)' if r['route'].startswith('/admin') else ('signed in' if r['route'].startswith(('/user', '/business')) else ('worker token' if '/api/crawl/' in r['route'] else 'public')),
                    src='site-audit/pages.md')
+        rec['note'], rec['notelink'] = page_note(rec['route'], rec['deps'])
         PAGES.append(rec); rows.append(rec['id'])
     GROUPS.append({'name': g['name'], 'rows': rows, 'src': 'pages.md'})
 for m in MANIFEST:
@@ -178,6 +192,7 @@ for m in MANIFEST:
         rec = dict(id=len(PAGES), group=f"Admin · {m['mod']}", sub='', route=sct['route'], also=[], purpose=sct['label'], adr='0109', status=sct['kind'], state=st, words=words,
                    probes=probes_for(sct['route']), deps=deps_for(sct['route'], sct['label']), endpoints=[f"/admin/api/{m['mod']}/<tool>"], replaces='', archived='', access='admin (staff)',
                    src='app/admin/manifests.php (mirror aeb5f31)')
+        rec['note'], rec['notelink'] = page_note(rec['route'], rec['deps'])
         PAGES.append(rec); rows.append(rec['id'])
     GROUPS.append({'name': f"Admin · {m['mod']} (manifest)", 'rows': rows, 'src': 'manifests.php'})
 
@@ -313,6 +328,36 @@ for a in ALARMS['open']:
         WF_ALARMS.setdefault(a['process'][3:], []).append(a)
 
 
+# Gemini's hand-off note (2026-11-22): W1's and W3's pauses framed, W2's count, the sync's real status. Evidence by file:line.
+W1_CAUSE = ('Root cause so far: the response path. The worker sent its rows to our load endpoint (/api/crawl/loads.php) and no reply came within its timeout, '
+            'though the site stored rows from run #1290. Unconfirmed until the endpoint\'s own timings for 08:15–08:21 and 08:26–08:32 UTC are read (IR-0001; asks.md, visit 1).')
+W1_RECOVER = ('Recovers when: /api/crawl/loads.php\'s check passes (it replies within its timeout), then overture_bulk and foursquare_bulk next do their work '
+              '(a town loaded, its records sent). Then W1\'s two trips close as Recovered.')
+W3_ANSWER = ('W3 can run while index.commoncrawl.org is tripped: its columnar bulk reads ask only data.commoncrawl.org (crawler.py:1697–1703; worker 2.16.1, :215). '
+             'Only the per-site page copy waits on the index (cc_home, crawler.py:1672–1680). Since release #247 (live 12:22 UTC Nov 21) the gate checks data.commoncrawl.org '
+             'first and the index as a second part that holds only that copy (Preflight.php:1110–1113; reachAll, :895–907). The snapshot\'s "W3 held whole" is from before #247.')
+W3_RADIUS = 'Held: only the needs that go through index.commoncrawl.org (the per-site copies). On a backup: the columnar reads, from data.commoncrawl.org.'
+W3_RECOVER = ('Recovers when: #35\'s check passes against index.commoncrawl.org (collinfo.json answers 200, Preflight.php:1113), so it closes as Recovered; '
+              'W3\'s pause lifts when its line passes (Preflight.php:304–306; ControlAlarms::ESCALATED_RECOVERS, :212). Whether it closed after #247: live data (asks.md, visit 11).')
+W2_COUNT = ('The count can\'t be trusted until the step-4 fix. Cause: "received" counts only the lists in the POST (ControlLedger.php:162, listed() :77–86): the other '
+            'locations found, never the listing being refreshed (entity_id) or its fields (found). The outcomes count that listing too: updated once (CrawlerIngest.php:571, '
+            'one line per record, ControlLedger.php:47–56), plus each location sent to Review (IntakeStager.php:222). One listing with one other location: received 1, counted 2 (L9). '
+            'With no library mark, the answer\'s filled list counts once per field (Refresh.php:180; ControlLedger.php:28, :97). Fix (step 4): count at the boundary, once.')
+SYNC_NOW = ('Last sync 22:55 UTC Nov 21 (3:55 PM MST): the 18:00 UTC slot ran late (the session manager\'s reading, 2026-11-22). Release #247 went live 12:22 UTC Nov 21 '
+            'and the 12:26 UTC sync mirrored it (the mirror\'s commit 37a212e).')
+SYNC_HISTORY = [('22:55 UTC Nov 21 (3:55 PM MST)', 'the 18:00 UTC slot, run late: the last sync'),
+                ('14:26 UTC Nov 21 (7:26 AM MST)', 'sync aeb5f31: the mirror this board reads'),
+                ('12:26 UTC Nov 21 (5:26 AM MST)', 'sync 37a212e: release #247 mirrored (live 12:22 UTC)'),
+                ('03:19 UTC Nov 21 (8:19 PM MST Nov 20)', 'the snapshot\'s reading: the mirror behind since this sync (#689 by hand), the 06:00 UTC slot passed with no run')]
+WF_NOTE = {'W1': [('Root cause so far', W1_CAUSE.split(': ', 1)[1]), ('Recovers when', W1_RECOVER.split(': ', 1)[1])],
+           'W3': [('Can W3 run?', W3_ANSWER), ('Its radius (the contract)', W3_RADIUS), ('Recovers when', W3_RECOVER.split(': ', 1)[1])],
+           'W2': [('Its count (L9)', W2_COUNT)]}
+
+
+def wf_note(w, cls='wfn'):
+    return ''.join(f'<details class="more {cls}"><summary><span class="pill">{E(t)}</span></summary><p class="sub">{E(x)}</p></details>' for t, x in WF_NOTE.get(w, []))
+
+
 def mod_for(kind, key):
     if kind == 'svc':
         return SVC2MOD.get(key)
@@ -383,7 +428,7 @@ PROMISES = [
             'not checked yet: no probe reads it', 'n', None, sparkline([])),
         obj('o-photos', 'Photos load', 'the photos check (daily, site-checks.yml)', 'every kind loads', 'not checked yet: its results aren\'t in site-audit/results', 'n', None, sparkline([]), fix=['aws', 'cloudflare']),
         obj('o-gather', 'Gathering reconciles', 'workflows running, and records in and stored (the alarms snapshot)', 'every workflow on; records in every day',
-            f'W1 paused whole by two trips (overture_bulk #1290, foursquare_bulk #1288); W3 tripped (Common Crawl #35). "Records: 0 in, 0 stored, 0 refused" in 24 hours',
+            f'W1 paused whole by two trips (overture_bulk #1290, foursquare_bulk #1288); W3 tripped (Common Crawl #35). "Records: 0 in, 0 stored, 0 refused" in 24 hours. Root cause and recovery: below',
             'r', None, sparkline([]), chain='c1', fix=['railway', 'bluehost', 'overture', 'foursquare'], when=T_AL),
         obj('o-grow', 'Knowledge keeps growing', 'published listings (the crawler snapshot, daily)', SET,
             f'{c21["finds"]["published"]:,} published (from {pub_trend[0]:,} on Nov 13); {c21["staged"]["review"]} waiting in Review; the Review queue\'s age: not checked yet',
@@ -431,6 +476,8 @@ ICON = {
     'pages': '<path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4"/>',
     'gap': '<path d="M12 4l9 16H3z"/><path d="M12 10v5M12 17v1"/>',
     'chev': '<path d="M9 6l6 6-6 6"/>',
+    'search': '<circle cx="11" cy="11" r="6"/><path d="M20 20l-4.5-4.5"/>',
+    'filter': '<path d="M4 5h16l-6 8v5l-4 2v-7z"/>',
 }
 
 
@@ -766,12 +813,64 @@ def compact(card):
     return card
 
 
+def _mnote(cls, title, body, more=''):
+    return f'<div class="mnote {cls}"><b>{title}</b> {body}' + (f'<details class="more"><summary>More</summary>{more}</details>' if more else '') + '</div>'
+
+
+MOD_NOTE = {
+    'fly': _mnote('warn', 'Warning:', E(FLY_WARN) + ' <a href="../for-jason-review.html">Review item 7</a>',
+                  '<p class="sub">The storefront pages\' rows (Board → the pages, the groups with trvgo.us and storefronts) carry the same note. 03 §25; for-jason-review item 7.</p>'),
+    'github': _mnote('info', 'The sync, now:', E(SYNC_NOW),
+                     '<div class="micro">History</div><ul class="hist">' + ''.join(f'<li><time>{E(t)}</time>: {E(x)}</li>' for t, x in SYNC_HISTORY) + '</ul>'
+                     '<p class="sub">The card\'s states below keep the snapshot\'s readings (3:19 AM MST); the missed-slot state is the 03:19 UTC record.</p>'),
+    'gemini': _mnote('info', 'From stage 2 to 3 (Activate), it needs:',
+                     'its key checked, its pre-flight passing, and the privacy guard\'s test passing.',
+                     '<ul><li><b>Its key checked:</b> <code>GEMINI_API_KEY</code> in .env, then the models list with our key answers (free, nothing generated): Preflight.php:1061–1065. Set or not is on the asks (visit 5).</li>'
+                     '<li><b>Its pre-flight passing:</b> its line reads Ready; Activate is offered then (02 row 102).</li>'
+                     '<li><b>The privacy guard\'s test:</b> <code>tools/release-b-tests/gemini.php</code> passes: every feature that isn\'t public input is refused (<code>Gemini::refused()</code>, Gemini.php:38–43; decisions/0164 §0.8).</li></ul>'),
+    'commoncrawl': _mnote('info', 'W3 while index.commoncrawl.org is tripped:', 'it can run. Its columnar reads use only data.commoncrawl.org; only the per-site copies wait.',
+                          f'<p class="sub">{E(W3_ANSWER)}</p><p class="sub">{E(W3_RADIUS)}</p><p class="sub">{E(W3_RECOVER)}</p>'),
+}
+
+
 def mod_card(m):
     seg = ''.join(f'<button class="sc-b" data-mod="{m["id"]}" data-scn="{i}" aria-pressed="{"true" if i == 0 else "false"}">{E(s["title"].split(": ", 1)[-1] if ": " in s["title"] else s["title"])}{"" if s["real"] else " · scenario"}</button>' for i, s in enumerate(m['scns']))
     cards = ''.join(f'<div class="scn" data-mod="{m["id"]}" data-scn="{i}" data-real="{1 if s["real"] else 0}"{"" if i == 0 else " hidden"}><details class="more scn-intro"><summary>About this state</summary><p class="sub">{E(s["intro"])}{f' <a href="../mockups/{s["file"]}">Its static mockup</a>' if s["file"] else ''}</p></details>{compact(s["card"])}</div>' for i, s in enumerate(m['scns']))
     l0 = m['scns'][0]['light']
     return f"""<details class="mod" id="mod-{m['id']}" data-role="{m['role']}"><summary><span class="mn">{E(m['label'])}</span><span class="badge role">{m['role']}</span><span class="mstate" data-mod-state="{m['id']}">{lt(*l0)}{' <span class="live">live</span>' if m['scns'][0]['real'] else ' <span class="sctag">scenario</span>'}</span><span class="sub">03 {m['sec']} · {len(m['scns'])} state{'s' if len(m['scns']) > 1 else ''}</span></summary>
-<div class="seg wrapseg" role="group" aria-label="Scenario: {E(m['label'])}">{seg}</div>{'<p class="sub">The sync\'s OneDrive side: <a href="#" class="mlink" data-go-mod="microsoft">Microsoft\'s card</a> (03 §26).</p>' if m['id'] == 'github' else ''}{cards}</details>"""
+<div class="seg wrapseg" role="group" aria-label="Scenario: {E(m['label'])}">{seg}</div>{'<p class="sub">The sync\'s OneDrive side: <a href="#" class="mlink" data-go-mod="microsoft">Microsoft\'s card</a> (03 §26).</p>' if m['id'] == 'github' else ''}{MOD_NOTE.get(m['id'], '')}{cards}</details>"""
+
+
+def role_filter(scope):
+    """One dropdown button per list (design/css-theme-brand.md: a single dropdown filter model, not rows of pills)."""
+    n = {r: sum(1 for m in MODULES if m['role'] == r) for r in ('Host', 'Service', 'Source')}
+    opts = [('all', 'All', len(MODULES)), ('Host', 'Hosts', n['Host']), ('Service', 'Services', n['Service']), ('Source', 'Sources', n['Source'])]
+    ob = ''.join(f'<button type="button" class="fopt" data-role-f="{k}" data-scope="{scope}" aria-pressed="{"true" if k == "all" else "false"}">{w} <b>{c}</b></button>' for k, w, c in opts)
+    return (f'<details class="pop fdrop"><summary class="btn fbtn">{ico("filter", 14)} Role: <span class="fcur">All</span> <b class="fcnt">{len(MODULES)}</b> <span aria-hidden="true">▾</span></summary>'
+            f'<div class="popb"><button class="px" type="button" aria-label="Close">×</button>{ob}</div></details>')
+
+
+def _cur_light(m):
+    rank = {'r': 0, 'a': 1, 'h': 1, 'n': 2, 'g': 3}
+    x = sorted([s for s in m['scns'] if s['real']] or m['scns'][:1], key=lambda s: rank.get(s['light'][0], 2))[0]
+    return x['light']
+
+
+def diag_rollup():
+    """Grouped summary banners over the modules' current states (system feeds only, never a wall of rows)."""
+    grp = [('r', 'Paused by the system', []), ('a', 'Warnings and holds', []), ('n', 'not checked yet', []), ('g', 'Working', [])]
+    for m in MODULES:
+        k = _cur_light(m)[0]
+        k = 'a' if k == 'h' else k
+        next(g for g in grp if g[0] == k)[2].append(m)
+    out = ''
+    for k, w, ms in grp:
+        if not ms:
+            continue
+        items = ''.join(f'<button type="button" class="qj {k}" data-go-diag="{m["id"]}"><span>{E(m["label"])}</span><b>{E(_cur_light(m)[1][:28])}</b></button>' for m in ms)
+        out += (f'<details class="pop qg {k}"><summary class="qgs"><span>{E(w)}</span><b>{len(ms)}</b><span aria-hidden="true">▾</span></summary>'
+                f'<div class="popb"><button class="px" type="button" aria-label="Close">×</button>{items}</div></details>')
+    return f'<div class="drollup" role="group" aria-label="The modules by state">{out}</div>'
 
 
 def modules_view():
@@ -787,7 +886,7 @@ def modules_view():
             f'<div class="chainbox" data-role="Source"><h3>More sources (03 §26)</h3><p class="sub">The same, for sources. Common Crawl, Wikimedia and the Census carry their real faults from the alarms snapshot.</p>{more_r}</div>')
     return f"""<section class="view" id="view-modules" hidden data-title="Modules">
 <div class="vh"><div><h1>Modules</h1><p class="sub">Every module, the hosts included: {len(MODULES)} cards and {N_SCN} states, each the four-zone card of 03 §1–§26. Each card's switch flips between its states and the faults already specified. A state marked "scenario" is drawn, not read.</p></div>
-<div class="seg" role="group" aria-label="Role"><button data-role-f="all" aria-pressed="true">All</button><button data-role-f="Host" aria-pressed="false">Hosts</button><button data-role-f="Service" aria-pressed="false">Services</button><button data-role-f="Source" aria-pressed="false">Sources</button></div></div>
+{role_filter('#view-modules')}</div>
 <h2 class="h2 rh" data-role="Host">Hosts</h2>{hosts}<h2 class="h2 rh" data-role="Service">Services</h2>{svcs}<h2 class="h2 rh" data-role="Source">Sources</h2>{chain}{grp}</section>"""
 
 
@@ -809,7 +908,8 @@ def workflows_view():
                 mm = mod_for(k, v)
                 parts.append(modlink(mm) if mm else (f'<span class="own">{E(lab)}</span>' if k in ('ours', 'paid') else f'<span class="nocard" title="no card yet">{E(lab if k != "svc" else v)}</span>'))
             nh += f'<li><b>{E(n["label"])}</b>: {" → ".join(parts)} <span class="sub">· else {E(n["fallback"])}</span></li>'
-        rows += f'<tr><td><b>{w}</b> {E(name.replace(chr(92), ""))}<div class="sub">{E(what.replace(chr(92), ""))[:180]}</div></td><td><ul class="needs">{nh or "<li class=sub>no need in the map</li>"}</ul></td><td>{st}</td></tr>'
+        st += wf_note(w)
+        rows += f'<tr id="wf-{w}"><td><b>{w}</b> {E(name.replace(chr(92), ""))}<div class="sub">{E(what.replace(chr(92), ""))[:180]}</div></td><td><ul class="needs">{nh or "<li class=sub>no need in the map</li>"}</ul></td><td>{st}</td></tr>'
     duty = ''
     for n in [n for n in NEEDS if n['kind'] == 'siteneeds']:
         parts = []
@@ -828,11 +928,11 @@ def diag_view():
     for m in MODULES:
         rads = ''.join(f'<div class="scn" data-mod="{m["id"]}" data-scn="{i}"{"" if i == 0 else " hidden"}><div class="micro">{E(s["title"])} {'<span class="live">live</span>' if s["real"] else '<span class="sctag">scenario</span>'}</div>{compact(rad_of(s["card"]) if rad_of(s["card"]).startswith('<div class="rad">') else rad_of(s["card"]))}</div>' for i, s in enumerate(m['scns']))
         adm = ''.join(f'<li><a href="{ADMIN}{a}" target="_blank" rel="noopener">{ADMIN}{a}</a></li>' for a in m['admin'])
-        out += f"""<details class="mod diag" data-role="{m['role']}"><summary><span class="mn">{E(m['label'])}</span><span class="badge role">{m['role']}</span><span class="mstate" data-mod-state="{m['id']}">{lt(*m['scns'][0]['light'])}{' <span class="live">live</span>' if m['scns'][0]['real'] else ' <span class="sctag">scenario</span>'}</span></summary>
+        out += f"""<details class="mod diag" id="diag-{m['id']}" data-role="{m['role']}"><summary><span class="mn">{E(m['label'])}</span><span class="badge role">{m['role']}</span><span class="mstate" data-mod-state="{m['id']}">{lt(*m['scns'][0]['light'])}{' <span class="live">live</span>' if m['scns'][0]['real'] else ' <span class="sctag">scenario</span>'}</span></summary>
 <h3 class="h3">Incident Radius, following the selected state</h3>{rads}
 <h3 class="h3">Where the work gets done</h3><ul class="adm">{adm}</ul><div class="sub">At the provider, its slots:</div>{slots_of(m['scns'][0]['card'])}</details>"""
     return f"""<section class="view" id="view-diagnostics" hidden data-title="Diagnostics">
-<div class="vh"><div><h1>Diagnostics</h1><p class="sub">Each module's Incident Radius (Held, On a backup, Unaffected) follows the state selected on its card in Modules. Then where the work gets done: our admin pages (routes from <code>manifests.php</code>) and the provider's slots.</p></div></div>{out}</section>"""
+<div class="vh"><div><h1>Diagnostics</h1><p class="sub">Each module's Incident Radius (Held, On a backup, Unaffected) follows the state selected on its card in Modules. Then where the work gets done: our admin pages (routes from <code>manifests.php</code>) and the provider's slots.</p></div>{role_filter('#view-diagnostics')}</div>{diag_rollup()}{out}</section>"""
 
 
 # ------------------------------------------------------------------ the two drill-down chains
@@ -849,12 +949,15 @@ def level(cid, i, n, kind, name, state, why, evidence, nexts, root=None):
     rt = ''
     if root:
         rt = '<div class="rootbox"><b>At the root</b><div class="btns">' + ''.join(root) + '</div></div>'
+    fr = ''
+    if cid == 'c1' and i in (0, n - 1):   # IR-0001's chain: where it stands at the snapshot and at the root (Gemini's hand-off note)
+        fr = f'<div class="sframe"><dl class="dl"><dt>Root cause so far</dt><dd>{E(W1_CAUSE.split(": ", 1)[1])} <span class="lt a"><i aria-hidden="true"></i>Unconfirmed</span></dd><dt>Recovers when</dt><dd>{E(W1_RECOVER.split(": ", 1)[1])}</dd></dl></div>'
     color = "red" if "lt r" in state else "amber" if "lt a" in state or "lt h" in state else "green" if "lt g" in state else "grey"
     return (f'<aside class="panel" id="p-{cid}-{i}" hidden role="dialog" aria-label="{E(name)}"><button class="x" aria-label="Close">×</button>'
             f'<div class="crumb">Level {i + 1} of {n} · {E(kind)}</div><div class="lvrow">{state}<b class="lvn">{E(name)}</b></div>'
             f'<div class="why"><span class="micro">Why it\'s {color}</span> {first_sentence(why)}</div>'
             f'<details class="more"><summary>Why, in full</summary><p>{why}</p></details>'
-            f'<details class="more ev"><summary><span class="pill">Evidence</span></summary>{evidence}</details>{rt}<div class="btns navb">{back}{nx}</div></aside>')
+            f'<details class="more ev"><summary><span class="pill">Evidence</span></summary>{evidence}</details>{rt}{fr}<div class="btns navb">{back}{nx}</div></aside>')
 
 
 # ------------------------------------------------------------------ gauge cards and their two drill paths (Jason, 2026-11-22)
@@ -995,7 +1098,7 @@ def wf_panel(o):
             k, words = _wf_state(w)
             name = next((n for ww, n, _, _ in WORKFLOWS if ww == w), '')
             why = '; '.join(E(a['title'][:110]) for a in WF_ALARMS.get(w, []) if a['level'] == 'trip') if k == 'r' else ('; '.join(E(a['title'][:110]) for a in WF_ALARMS.get(w, [])) if k == 'a' else 'At ' + T_AL + '.')
-            body += _lv('Workflow', lt(k, words), f'{w} {E(name)}', why, assoc.SHARES.get((o['id'], w)))
+            body += _lv('Workflow', lt(k, words), f'{w} {E(name)}', why + wf_note(w), assoc.SHARES.get((o['id'], w)))
             for t in tasks:
                 tk, tw = _task_state(t)
                 a = TASK_ALARM.get(t)
@@ -1052,6 +1155,17 @@ def sv_panel(o):
             + f'<div class="btns navb"><button class="btn back" data-open-panel="p-snap-{o["id"]}">← Back</button><button class="btn" data-open-panel="p-wf-{o["id"]}">Workflows ▸</button></div></aside>')
 
 
+SNAP_FRAME = {'o-gather': ['W1', 'W3'], 'o-ir': ['W1'], 'o-complete': ['W2'], 'o-places': ['W2'], 'o-grow': ['W2']}
+
+
+def snap_frame(oid):
+    ws = SNAP_FRAME.get(oid, [])
+    if not ws:
+        return ''
+    rows = ''.join(f'<dt>{w}: {E(t)}</dt><dd>{E(x)}</dd>' for w in ws for t, x in WF_NOTE[w])
+    return f'<div class="sframe"><div class="h3">Where it stands: root cause and recovery</div><dl class="dl">{rows}</dl></div>'
+
+
 def snap_panel(o):
     mods = _mods_of(o['id'])
     def _cur(m):
@@ -1063,7 +1177,7 @@ def snap_panel(o):
             f'<div class="crumb">Snapshot</div><div class="lvrow">{lt(o["state"], LT[o["state"]])}<b class="lvn">{E(o["name"])}</b></div>'
             f'<div class="gbig">{dial(o) if o["id"] not in ("o-gather", "o-grow") else ""}</div>'
             f'<dl class="dl"><dt>Measure</dt><dd>{E(o["measure"])}</dd><dt>Target</dt><dd>{E(o["target"])}</dd><dt>Reading</dt><dd>{E(o["reading"])}{" · <time>" + E(o["when"]) + "</time>" if o["when"] else ""} <span class="basis">{o["basis"]}</span></dd></dl>'
-            f'<div class="btns"><button class="btn f" data-open-panel="p-wf-{o["id"]}">Workflows ▸</button><button class="btn f" data-open-panel="p-sv-{o["id"]}">Services ▸</button></div>'
+            f'{snap_frame(o["id"])}<div class="btns"><button class="btn f" data-open-panel="p-wf-{o["id"]}">Workflows ▸</button><button class="btn f" data-open-panel="p-sv-{o["id"]}">Services ▸</button></div>'
             f'<div class="h3">Its modules (from the association map): Fix it where one is amber or red</div><div class="btns">{fix}</div>' + (f'<div class="h3">Improve</div><div class="btns">{imp}</div>' if imp else '') + '</aside>')
 
 
@@ -1105,7 +1219,7 @@ def write_assoc_md():
 def chains():
     c1 = [
         ('Snapshot (promise 5)', 'Gathering reconciles', lt('r', 'Trip'),
-         f'W1 is paused whole by two task trips, and W3 by Common Crawl\'s trip. "Records: 0 in, 0 stored, 0 refused" in the last 24 hours.',
+         f'W1 is paused whole by two task trips, and W3 by Common Crawl\'s trip. "Records: 0 in, 0 stored, 0 refused" in the last 24 hours. {E(W1_CAUSE)} {E(W1_RECOVER)}',
          f'<ul><li>The alarms snapshot, <time>{T_AL}</time>: 4 trips open (pf:wf:W3, task:failed:overture_bulk, task:failed:foursquare_bulk, svc:issue:35)</li><li>Summary: {E(TODAY)}</li></ul>', ['Workflow W1 Listings']),
         ('Workflow', 'W1 Listings', lt('r', 'Paused by the system (twice)'),
          'Each task trip paused all of W1 ("W1 (its tasks wait with it)"). Under the contract a timeout reading our own reply is a warning on the Site endpoint, and the tasks aren\'t held (02 rows 11–14).',
@@ -1120,7 +1234,7 @@ def chains():
          'The only calls the two failures share are to our load endpoint: the opening GET (60 s), each 500-row POST (120 s), the town\'s done POST (60 s). The site stored rows from run #1290, while the worker never got the reply: that points at the response path.',
          '<ul><li><code>step2/ir-0001.md</code>: "Confirmed: the worker sent its request to our site\'s load endpoint, and no reply came within its timeout"</li><li>02 rows 11–13: B "/api/crawl/loads is slow · It didn\'t reply to the crawler within 120 s for 500 rows at 01:31 MST."</li></ul>', ['Its host: Bluehost']),
         ('Host', 'Bluehost (the site and its databases)', lt('a', 'Root cause Unconfirmed'),
-         'Inside our load handler, or on the outbound/response path? It needs the endpoint\'s own timings for 08:15–08:21 and 08:26–08:32 UTC.',
+         'Inside our load handler, or on the outbound/response path? It needs the endpoint\'s own timings for 08:15–08:21 and 08:26–08:32 UTC. ' + E(W1_RECOVER),
          f'<ul><li>IR-0001: <a href="../mockups/railway-e-ir-0001.html">the Incident Report</a></li><li>asks.md, visit 1: the Ledger</li></ul><div class="btns">{modlink("bluehost")}</div>', [],
          [f'<a class="btn f" href="{ADMIN}/admin/config/ledger" target="_blank" rel="noopener">Fix it: read the Ledger for those minutes ↗</a>',
           '<button class="btn" title="Drawn: inert in the mockup">Fix it: Check and start again on W1\'s trips</button>',
@@ -1173,42 +1287,80 @@ def coverage():
     return h, len(unmeasured), len(nochk), len(coming)
 
 
+def search_index():
+    ix = [['Module', m['label'], 'data-go-mod', m['id'], m['role'] + ' · 03 ' + m['sec']] for m in MODULES]
+    ix += [['Workflow', f'{w} {n}'.replace(chr(92), ''), 'data-go-wf', w, (what or '').replace(chr(92), '')[:80]] for w, n, what, _ in WORKFLOWS]
+    ix += [['Snapshot', o['name'], 'data-open-panel', 'p-snap-' + o['id'], METRIC.get(o['id'], o['measure'])[:80]] for _, _, objs in PROMISES for o in objs]
+    ix += [['Page', p['route'], 'data-manage', str(p['id']), p['group']] for p in PAGES]
+    return ix
+
+
+def search_panel():
+    return ('<aside class="panel" id="p-search" hidden role="dialog" aria-label="Search the board"><button class="x" aria-label="Close">×</button>'
+            '<h2 class="h2">Search the board</h2><label class="micro" for="cmdq">Modules, workflows, pages and snapshots · Ctrl+K opens it, Esc closes it</label>'
+            '<input id="cmdq" class="cmdq" type="search" placeholder="Search: a module, W3, /api/crawl, a snapshot" autocomplete="off" spellcheck="false" aria-controls="cmdr">'
+            '<div id="cmdr" class="cmdr" aria-live="polite"></div></aside>')
+
+
 def manage_panel():
     return ('<aside class="panel" id="p-manage" hidden role="dialog" aria-label="Manage a page"><button class="x" aria-label="Close">×</button>'
             '<div id="manage-body"></div></aside>')
 
 
 def quick():
-    q = [
-        ('c', 'p-c1-0', 'W1 paused: IR-0001', 'r', '2 trips'),
-        ('m', 'anthropic:1', 'Claude cap $27.05 of $40', 'a', '68%'),
-        ('m', 'places:0', 'Google Places 544 of 1,000', 'a', '54%'),
-        ('m', 'commoncrawl:1', 'W3: Common Crawl #35', 'r', 'trip'),
-        ('w', '', 'Paused now: W3\'s source and commoncrawl tasks left off', 'a', '2 off'),
-        ('c', 'p-c2-0', 'Search: 101 of 106', 'a', '95%'),
-        ('o', 'o-paths', 'Paths: set-place failed', 'a', '1 failed'),
-        ('m', 'irs:0', 'IRS: Fix in the build, pending', 'a', 'step 4'),
-        ('o', 'o-renew', 'Scheduled tasks: bad', 'a', 'health'),
+    """Grouped rollups (design/css-theme-brand.md: "grouped summary banners", system feeds only): one button per group, its items inside."""
+    groups = [
+        ('r', 'Trips', [('c', 'p-c1-0', 'W1 paused: IR-0001 (the response path, Unconfirmed)', 'r', '2 trips'),
+                        ('m', 'commoncrawl:1', 'W3: Common Crawl #35 (its bulk reads can run)', 'r', 'trip')]),
+        ('a', 'Warnings', [('w', 'workflows', 'Paused now: W3\'s source and commoncrawl tasks left off', 'a', '2 off'),
+                           ('f', 'W2', 'W2: refresh\'s count can\'t be trusted (L9)', 'a', 'step 4'),
+                           ('o', 'o-paths', 'Paths: set-place failed', 'a', '1 failed'),
+                           ('m', 'irs:0', 'IRS: Fix in the build, pending', 'a', 'step 4'),
+                           ('o', 'o-renew', 'Scheduled tasks: bad', 'a', 'health')]),
+        ('a', 'Caps', [('m', 'anthropic:1', 'Claude cap $27.05 of $40', 'a', '68%'),
+                       ('m', 'places:0', 'Google Places 544 of 1,000', 'a', '54%')]),
+        ('a', 'Checks', [('c', 'p-c2-0', 'Search: 101 of 106', 'a', '95%')]),
+        ('n', 'Sync', [('m', 'github:0', 'Last sync 22:55 UTC (3:55 PM MST): the 18:00 slot ran late', 'n', 'late')]),
     ]
     out = ''
-    for kind, tgt, t, k, n in q:
-        if kind == 'c':
-            attr = f'data-open-panel="{tgt}"'
-        elif kind == 'm':
-            mm, sn = tgt.split(':')
-            attr = f'data-go-mod="{mm}" data-scn="{sn}"'
-        elif kind == 'w':
-            attr = 'data-go-view="workflows"'
-        else:
-            attr = f'data-go-obj="{tgt}"'
-        out += f'<button class="qj {k}" {attr}><span>{E(t)}</span><b>{E(n)}</b></button>'
+    for gk, gname, q in groups:
+        items = ''
+        for kind, tgt, t, k, n in q:
+            if kind == 'c':
+                attr = f'data-open-panel="{tgt}"'
+            elif kind == 'm':
+                mm, sn = tgt.split(':')
+                attr = f'data-go-mod="{mm}" data-scn="{sn}"'
+            elif kind == 'w':
+                attr = 'data-go-view="workflows"'
+            elif kind == 'f':
+                attr = f'data-go-wf="{tgt}"'
+            else:
+                attr = f'data-go-obj="{tgt}"'
+            items += f'<button class="qj {k}" {attr}><span>{E(t)}</span><b>{E(n)}</b></button>'
+        out += (f'<details class="pop qg {gk}"><summary class="qgs"><span>{E(gname)}</span><b>{len(q)}</b><span aria-hidden="true">▾</span></summary>'
+                f'<div class="popb"><button class="px" type="button" aria-label="Close">×</button>{items}</div></details>')
     return out
 
 
 CSS = kit.CSS + r"""
 .bhead{position:sticky;top:0;z-index:40;background:var(--umber);color:var(--btn-text);padding:.5rem 16px;display:flex;flex-wrap:wrap;gap:.4rem .8rem;align-items:center}
 .bhead b{font-family:var(--serif)}.bhead .tm{font-size:12px;color:#E3C9A8}.bhead .chip{border:1px solid #E3C9A866;border-radius:999px;padding:.05rem .55rem;font-size:12px}
-.qbar{display:flex;gap:.4rem;overflow-x:auto;padding:.5rem 16px;background:var(--sec);border-bottom:1px solid var(--sec-edge);scrollbar-width:thin}
+.qbar{display:flex;flex-wrap:wrap;gap:.4rem;padding:.5rem 16px;background:var(--sec);border-bottom:1px solid var(--sec-edge)}
+.qg>summary.qgs{display:flex;gap:.4rem;align-items:center;border:1px solid var(--card-edge);background:var(--card);border-radius:.5rem;padding:.3rem .6rem;font-size:12.5px;cursor:pointer;color:var(--ink)}
+.qg>summary.qgs b{font-size:11.5px;border-radius:999px;padding:0 .45rem;color:#fff;background:var(--taupe)}.qg.r>summary b{background:var(--red)}.qg.a>summary b{background:var(--amber)}.qg.g>summary b{background:#3d6b52}
+.qj b{white-space:nowrap}.qg .popb .qj{width:100%;justify-content:space-between;text-align:left}.qj.n b{background:var(--taupe)}.qj.g b{background:#3d6b52}
+.drollup{display:flex;flex-wrap:wrap;gap:.4rem;margin:.5rem 0 .8rem}
+.fbtn{display:inline-flex;gap:.35rem;align-items:center}.fbtn .fcnt{font-size:11.5px;border-radius:999px;padding:0 .45rem;background:var(--sec);color:var(--ink)}
+.fopt{display:flex;justify-content:space-between;gap:.6rem;border:1px solid var(--card-edge);background:var(--card);border-radius:.4rem;padding:.3rem .55rem;font:inherit;font-size:13px;cursor:pointer;color:var(--ink);text-align:left}.fopt[aria-pressed="true"]{border-color:var(--btn);box-shadow:inset 3px 0 0 var(--btn)}
+.mnote{border:1px solid var(--card-edge);border-left:3px solid var(--blue);background:var(--card);padding:.45rem .65rem;margin:.45rem 0;border-radius:.5rem;font-size:13px}.mnote.warn{border-left-color:var(--amber)}.mnote ul.hist{margin:.2rem 0 .2rem 1rem;padding:0}
+.pnote{font-size:12px;border-left:3px solid var(--amber);padding-left:.45rem;margin-top:.3rem;color:var(--ink)}
+.sframe{border:1px solid var(--card-edge);border-left:3px solid var(--amber);background:var(--card);border-radius:.5rem;padding:.45rem .65rem;margin:.6rem 0}.sframe .h3{margin-top:0}
+details.wfn{margin-top:.3rem}details.wfn>summary{cursor:pointer}tr.hit>td{background:#C85A1714}
+.srch{display:inline-flex;gap:.35rem;align-items:center;background:none;color:inherit;cursor:pointer;font:inherit}.srch kbd{font:inherit;font-size:11px;border:1px solid #E3C9A866;border-radius:4px;padding:0 .3rem}
+.cmdq{width:100%;box-sizing:border-box;font:inherit;font-size:15px;padding:.5rem .65rem;margin:.4rem 0 .6rem;border:1px solid var(--field-edge);border-radius:.5rem;background:var(--card);color:var(--ink)}
+.cmdr{display:flex;flex-direction:column;gap:.3rem}.cmdi{display:grid;grid-template-columns:auto minmax(0,1fr);gap:.1rem .5rem;text-align:left;border:1px solid var(--card-edge);background:var(--card);border-radius:.5rem;padding:.4rem .55rem;font:inherit;font-size:13px;cursor:pointer;color:var(--ink)}
+.cmdi .ck{font-size:11px;color:var(--meta);border:1px solid var(--card-edge);border-radius:999px;padding:0 .4rem;align-self:start}.cmdi b{overflow-wrap:anywhere}.cmdi .sub{grid-column:2;overflow-wrap:anywhere}
 .qj{flex:0 0 auto;display:flex;gap:.45rem;align-items:center;border:1px solid var(--card-edge);background:var(--card);border-radius:.5rem;padding:.3rem .55rem;font:inherit;font-size:12.5px;cursor:pointer;color:var(--ink)}
 .qj b{font-size:11.5px;border-radius:999px;padding:0 .45rem;color:#fff}.qj.r b{background:var(--red)}.qj.a b{background:var(--amber)}
 .shell{display:grid;grid-template-columns:200px minmax(0,1fr);gap:0}
@@ -1281,10 +1433,11 @@ details.kgrp{border:1px solid var(--card-edge);border-radius:.45rem;padding:.3re
 details.pillx{display:inline-block;max-width:100%}details.pillx>summary{display:inline-block;cursor:pointer;list-style:none;font-size:12.5px;border:1px solid var(--field-edge);border-radius:999px;padding:.05rem .6rem;background:var(--card)}
 details.pillx>summary::-webkit-details-marker{display:none}details.pillx[open]>summary{margin-bottom:.3rem}
 article.card details:not(.cr):not(.rp):not(.pillx):not(.kgrp):not(.more):not(.clamp)>summary{display:inline-block;font-size:12.5px;border:1px solid var(--field-edge);border-radius:999px;padding:.05rem .6rem;background:var(--card);cursor:pointer}
-@media (max-width:767px){.shell{grid-template-columns:minmax(0,1fr)}.rail{position:static;flex-direction:row;overflow-x:auto;padding:.4rem 16px;gap:.2rem}.rail button{width:auto;flex:0 0 auto}.rail .cnt{margin-left:.3rem}
+@media (max-width:767px){.shell{grid-template-columns:minmax(0,1fr)}.rail{position:static;flex-direction:row;flex-wrap:wrap;padding:.4rem 16px;gap:.2rem}.rail button{width:auto;flex:0 0 auto}.rail .cnt{margin-left:.3rem}
 .main{padding:.6rem 3px 3rem}.view>.vh,.view>.h2,.view>.sgs>.sub{padding:0 10px}.pgrid{grid-template-columns:minmax(0,1fr)}.pbox,.sg,.mod{border-radius:.5rem}.cols2{columns:1}
 .rtab thead{display:none}.rtab tr{display:block;border-top:1px solid var(--card-edge);padding:.35rem 0}.rtab td{display:block;border:0;padding:.1rem .2rem}
 .wt thead{display:none}.wt tr{display:block;border-top:1px solid var(--card-edge);padding:.35rem 0}.wt td{display:block;border:0;padding:.15rem .2rem}}
+@media (max-width:767px){.pbox,.chainbox{padding-left:0;padding-right:0;border-left-width:0;border-right-width:0}.pbox>h2,.chainbox>h3,.chainbox>p,.chainbox>.chain{padding-left:.5rem;padding-right:.5rem}.ggrid{gap:3px}.mnote{margin-left:0;margin-right:0}}
 """
 
 JS = r"""<script>
@@ -1300,8 +1453,9 @@ function setScn(m,i){document.querySelectorAll('.scn[data-mod="'+m+'"]').forEach
 function goMod(m,i){close();var d=document.getElementById('mod-'+m);if(!d){if(window.__PARTOF&&__PARTOF[m])location.href=__PARTOF[m]+'#mod-'+m;return;}show('modules');d.open=true;if(i!==null&&i!==undefined)setScn(m,i);setTimeout(function(){d.scrollIntoView({block:'start'});},0);}
 function lt(k,w){return '<span class="lt '+k+'"><i aria-hidden="true"></i>'+esc(w)+'</span>';}
 function table(gi){var g=G[gi],h='<div class="tw"><table class="rtab"><thead><tr><th>Route</th><th>What it does</th><th>Status</th><th>Probe</th><th></th></tr></thead><tbody>';
- g.rows.forEach(function(i){var p=P[i];h+='<tr class="mrow"><td><code>'+esc(p.route)+'</code>'+(p.sub?'<div class="sub">'+esc(p.sub)+'</div>':'')+'</td><td>'+esc(p.purpose).slice(0,220)+'</td><td>'+lt(p.state,p.words)+'<div class="sub">'+esc(p.status).slice(0,120)+'</div></td><td class="sub">'+(p.probes.length?esc(p.probes[0]).slice(0,90):'not checked yet')+'</td><td><button class="btn" data-manage="'+i+'">Manage</button></td></tr>';});
+ g.rows.forEach(function(i){var p=P[i];h+='<tr class="mrow"><td><code>'+esc(p.route)+'</code>'+(p.sub?'<div class="sub">'+esc(p.sub)+'</div>':'')+'</td><td>'+esc(p.purpose).slice(0,220)+'</td><td>'+lt(p.state,p.words)+'<div class="sub">'+esc(p.status).slice(0,120)+'</div>'+pnote(p)+'</td><td class="sub">'+(p.probes.length?esc(p.probes[0]).slice(0,90):'not checked yet')+'</td><td><button class="btn" data-manage="'+i+'">Manage</button></td></tr>';});
  return h+'</tbody></table></div>';}
+function pnote(p){return p.note?'<div class="pnote"><b>Note:</b> '+esc(p.note)+(p.notelink?' <a href="'+p.notelink+'">Review item 7</a>':'')+'</div>':'';}
 function manage(i){var p=P[i],mods=window.__MODS;
  var h='<div class="crumb">'+esc(p.group)+'</div><h2 class="h2"><code>'+esc(p.route)+'</code></h2><div>'+lt(p.state,p.words)+'</div>'+
  '<dl class="dl"><dt>Route</dt><dd><code>'+esc(p.route)+'</code>'+(p.also.length?' · also '+p.also.map(function(a){return '<code>'+esc(a)+'</code>';}).join(', '):'')+'</dd>'+
@@ -1309,11 +1463,11 @@ function manage(i){var p=P[i],mods=window.__MODS;
  '<dt>What it replaces</dt><dd>'+(p.replaces?esc(p.replaces):(p.archived?esc(p.archived):'nothing named in pages.md or archive.md'))+'</dd>'+
  '<dt>Endpoints</dt><dd>'+(p.endpoints.length?p.endpoints.map(function(a){return '<code>'+esc(a)+'</code>';}).join(', '):'not named in pages.md')+'</dd>'+
  '<dt>Its probe</dt><dd>'+(p.probes.length?'<ul>'+p.probes.map(function(x){return '<li>'+esc(x)+'</li>';}).join('')+'</ul>':'not checked yet: no search, layout, paths, photos or rendered check covers it')+'</dd>'+
- '<dt>Source</dt><dd>'+esc(p.src)+'</dd></dl>'+
+ '<dt>Source</dt><dd>'+esc(p.src)+'</dd></dl>'+pnote(p)+
  '<div class="btns"><button class="btn" disabled title="Drawn: inert in the mockup">Run probe</button>'+p.deps.map(function(m){return '<button class="btn f" data-go-mod="'+m+'">Fix it: '+esc(mods[m]||m)+'</button>';}).join('')+'</div>'+
  '<p class="sub">Fix it goes to the module it depends on: Bluehost hosts every page (Preflight hosting); the others are inferred from what it does (inf).</p>';
  document.getElementById('manage-body').innerHTML=h;openPanel('p-manage');}
-document.addEventListener('click',function(e){var t=e.target.closest('[data-open-panel],[data-go-mod],[data-nav],[data-go-view],[data-go-obj],[data-manage],.sgh,.sc-b,[data-layout],[data-role-f],.x');
+document.addEventListener('click',function(e){var t=e.target.closest('[data-open-panel],[data-go-mod],[data-nav],[data-go-view],[data-go-obj],[data-go-wf],[data-go-diag],[data-search],[data-manage],.sgh,.sc-b,[data-layout],[data-role-f],.x');
  if(!t){if(e.target.classList.contains('scrim'))close();return;}
  if(t.classList.contains('x')){close();return;}
  if(t.hasAttribute('data-open-panel')){e.preventDefault();openPanel(t.getAttribute('data-open-panel'));return;}
@@ -1325,8 +1479,21 @@ document.addEventListener('click',function(e){var t=e.target.closest('[data-open
  if(t.classList.contains('sgh')){var gi=t.getAttribute('data-group'),r=document.getElementById('rt-'+gi),op=t.getAttribute('aria-expanded')!=='true';t.setAttribute('aria-expanded',op);if(op&&!r.innerHTML)r.innerHTML=table(+gi);r.hidden=!op;return;}
  if(t.classList.contains('sc-b')){setScn(t.getAttribute('data-mod'),t.getAttribute('data-scn'));return;}
  if(t.hasAttribute('data-layout')){var L=t.getAttribute('data-layout');document.getElementById('pgrid').classList.toggle('rows',L==='rows');document.querySelectorAll('[data-layout]').forEach(function(x){x.setAttribute('aria-pressed',x===t);});try{localStorage.setItem('tvb-layout',L);}catch(e){}return;}
- if(t.hasAttribute('data-role-f')){var R=t.getAttribute('data-role-f');document.querySelectorAll('#view-modules [data-role]').forEach(function(x){x.hidden=R!=='all'&&x.getAttribute('data-role')!==R;});document.querySelectorAll('[data-role-f]').forEach(function(x){x.setAttribute('aria-pressed',x===t);});return;}
+ if(t.hasAttribute('data-role-f')){var R=t.getAttribute('data-role-f'),S=t.getAttribute('data-scope')||'#view-modules',n=0;document.querySelectorAll(S+' [data-role]').forEach(function(x){x.hidden=R!=='all'&&x.getAttribute('data-role')!==R;if(!x.hidden&&x.tagName==='DETAILS')n++;});
+  document.querySelectorAll('[data-role-f][data-scope="'+S+'"]').forEach(function(x){x.setAttribute('aria-pressed',x===t);});var d=t.closest('details.fdrop');if(d){d.querySelector('.fcur').textContent=t.textContent.replace(/\s*\d+\s*$/,'');d.querySelector('.fcnt').textContent=n;d.open=false;}return;}
+ if(t.hasAttribute('data-go-wf')){close();show('workflows');var r=document.getElementById('wf-'+t.getAttribute('data-go-wf'));if(r){r.classList.add('hit');setTimeout(function(){r.scrollIntoView({block:'center'});},0);}return;}
+ if(t.hasAttribute('data-go-diag')){close();show('diagnostics');var g=document.getElementById('diag-'+t.getAttribute('data-go-diag'));if(g){g.hidden=false;g.open=true;setTimeout(function(){g.scrollIntoView({block:'start'});},0);}return;}
+ if(t.hasAttribute('data-search')){openSearch();return;}
 });
+document.addEventListener('click',function(e){var q=e.target.closest('.qj');if(q){var d=q.closest('details.pop');if(d)d.open=false;}});
+// the one command search (design/css-theme-brand.md: Ctrl+K): modules, workflows, pages and snapshots; closes by ×, Esc and a click outside
+var CMD=window.__CMD||[],cq=document.getElementById('cmdq'),cr=document.getElementById('cmdr');
+function renderSearch(){if(!cr)return;var w=cq.value.toLowerCase().split(/\s+/).filter(Boolean),hits=[],per={};
+ CMD.forEach(function(x){var h=(x[0]+' '+x[1]+' '+x[4]).toLowerCase();if(w.every(function(k){return h.indexOf(k)>=0;})){per[x[0]]=(per[x[0]]||0)+1;if(w.length||per[x[0]]<=4)hits.push(x);}});
+ cr.innerHTML=(hits.length?'':'<p class="sub">Nothing found for that. Try a module, a workflow (W1), a route or a snapshot.</p>')+hits.slice(0,40).map(function(x){return '<button type="button" class="cmdi" '+x[2]+'="'+esc(x[3])+'"><span class="ck">'+esc(x[0])+'</span><b>'+esc(x[1])+'</b><span class="sub">'+esc(x[4])+'</span></button>';}).join('')+(hits.length>40?'<p class="micro">'+(hits.length-40)+' more: add a word</p>':'');}
+function openSearch(){openPanel('p-search');if(cq){cq.value='';renderSearch();setTimeout(function(){cq.focus();},0);}}
+if(cq){cq.addEventListener('input',renderSearch);cq.addEventListener('keydown',function(e){if(e.key==='Enter'){var f=cr.querySelector('.cmdi');if(f){e.preventDefault();f.click();}}});}
+document.addEventListener('keydown',function(e){if((e.ctrlKey||e.metaKey)&&(e.key==='k'||e.key==='K')){e.preventDefault();openSearch();}});
 document.addEventListener('click',function(e){var c=e.target.closest('[data-card]');if(!c)return;openPanel('p-snap-'+c.getAttribute('data-card'));});
 document.addEventListener('keydown',function(e){if(e.key==='Escape'){close();document.querySelectorAll('details.pop[open]').forEach(function(d){d.open=false;});}});
 document.addEventListener('click',function(e){document.querySelectorAll('details.pop[open]').forEach(function(d){if(!d.contains(e.target)||e.target.closest('.px'))d.open=false;});},true);
@@ -1466,12 +1633,12 @@ def build():
     cov_html, n_unm, n_noch, n_coming = coverage()
     held = sum(1 for a in ALARMS['open'] if a['level'] == 'trip')
     mods_js = {m['id']: m['label'] for m in MODULES}
-    pages_js = [{k: p[k] for k in ('group', 'sub', 'route', 'also', 'purpose', 'adr', 'status', 'state', 'words', 'probes', 'deps', 'endpoints', 'replaces', 'archived', 'access', 'src')} for p in PAGES]
+    pages_js = [{k: p[k] for k in ('group', 'sub', 'route', 'also', 'purpose', 'adr', 'status', 'state', 'words', 'probes', 'deps', 'endpoints', 'replaces', 'archived', 'access', 'src', 'note', 'notelink')} for p in PAGES]
     body = f"""<header class="bhead"><b>System Control Board</b><span class="chip wide">Design mockup · step 3 · not site code</span><span id="trail" class="tm wide"></span>
 <span class="tm wide">Readings: alarms and caps <time>{T_AL}</time> · rendered <time>{T_RE}</time> · paths <time>{T_PA}</time></span>
 <details class="pop narrow rd"><summary class="chip">Readings ▸</summary><div class="popb"><button class="px" type="button" aria-label="Close">×</button><div class="micro">Design mockup · step 3 · not site code</div>
 <div class="micro">Alarms and caps <time>{T_AL}</time></div><div class="micro">Rendered <time>{T_RE}</time></div><div class="micro">Paths <time>{T_PA}</time></div><div class="micro">Search scorecard <time>{T_SC}</time></div></div></details>
-<span class="sp" style="flex:1"></span><span class="chip"><span class="wide">{held} trips open · 21 alarms</span><span class="narrow">{held} trips · 21 alarms</span></span><button class="chip" style="background:none;color:inherit;cursor:pointer;font:inherit" data-open-panel="p-coverage">{ico('gap', 14)} <span class="wide">Coverage: {n_unm + n_noch} gaps named</span><span class="narrow">{n_unm + n_noch} gaps</span></button></header>
+<span class="sp" style="flex:1"></span><button type="button" class="chip srch" data-search aria-label="Search the board (Ctrl+K)">{ico('search', 14)}<span class="wide">Search</span><kbd class="wide">Ctrl K</kbd></button><span class="chip"><span class="wide">{held} trips open · 21 alarms</span><span class="narrow">{held} trips · 21 alarms</span></span><button class="chip" style="background:none;color:inherit;cursor:pointer;font:inherit" data-open-panel="p-coverage">{ico('gap', 14)} <span class="wide">Coverage: {n_unm + n_noch} gaps named</span><span class="narrow">{n_unm + n_noch} gaps</span></button></header>
 <nav class="qbar" aria-label="What's wrong now">{quick()}</nav>
 <div class="shell"><nav class="rail" aria-label="Board views">
 <button data-nav="board" aria-current="page">{ico('board')}Board<span class="cnt">{N_OBJ}</span></button>
@@ -1479,8 +1646,8 @@ def build():
 <button data-nav="workflows" aria-current="false">{ico('wf')}Workflows<span class="cnt">{len(WORKFLOWS)}</span></button>
 <button data-nav="diagnostics" aria-current="false">{ico('diag')}Diagnostics<span class="cnt">{len(MODULES)}</span></button></nav>
 <main class="main">{fold_intros(board_view() + modules_view() + workflows_view() + diag_view())}</main></div>
-<div class="scrim"></div>{gpanels}{chain_html}{cov_html}{manage_panel()}{''.join(unplaceholder(v) for v in PANELS.values())}
-<script>window.__PAGES={json.dumps(pages_js)};window.__GROUPS={json.dumps([{'rows': g['rows']} for g in GROUPS])};window.__MODS={json.dumps(mods_js)};</script>{JS}"""
+<div class="scrim"></div>{gpanels}{chain_html}{cov_html}{manage_panel()}{search_panel()}{''.join(unplaceholder(v) for v in PANELS.values())}
+<script>window.__PAGES={json.dumps(pages_js)};window.__GROUPS={json.dumps([{'rows': g['rows']} for g in GROUPS])};window.__MODS={json.dumps(mods_js)};window.__CMD={json.dumps(search_index())};</script>{JS}"""
     # native buttons for "Publish from your Vault"; aria-labels as plain text (no escaped tags)
     body, n_pub = re.subn(r'<span class="pub" role="button" tabindex="0">(.*?)</span>', r'<button type="button" class="pub">\1</button>', body)
     def _plain_aria(m):

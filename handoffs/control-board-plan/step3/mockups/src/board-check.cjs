@@ -67,7 +67,8 @@ const url = 'file://' + dir + 'index.html';
     // chains: to the root and back, no dead end
     for (const c of ['c1', 'c2']) {
       const n = await p.$$eval(`aside[id^="p-${c}-"]`, a => a.length);
-      await p.click(`[data-open-panel="p-${c}-0"]`);
+      await p.evaluate(c => { const q = document.querySelector(`.qbar [data-open-panel="p-${c}-0"]`); q.closest('details').open = true; }, c);
+      await p.click(`.qbar [data-open-panel="p-${c}-0"]`);
       let okc = true;
       for (let i = 0; i < n; i++) {
         okc = okc && await isOpen(`p-${c}-${i}`);
@@ -145,10 +146,14 @@ const url = 'file://' + dir + 'index.html';
     // every control works: quick jumps, role filters
     await p.keyboard.press('Escape');
     const qj = await p.$$eval('.qbar .qj', bs => bs.length);
+    const qg = await p.$$eval('.qbar details.qg', ds => ds.map(d => [d.querySelector('summary').textContent, d.querySelectorAll('.qj').length]));
+    ok(qg.length >= 4 && qg.every(g => g[1] > 0), `@${w} the quick-jump strip is grouped rollups: ${qg.map(g => g[0].replace('▾', '').trim()).join(' · ')}`);
     let qok = 0;
     for (let i = 0; i < qj; i++) {
       await p.click('.rail [data-nav="board"]');
+      await p.evaluate(() => window.scrollTo(0, 0));
       const before = await p.evaluate(() => [document.body.classList.contains('open'), [...document.querySelectorAll('.view')].find(v => !v.hidden).id, scrollY]);
+      await p.evaluate(i => { const q = document.querySelectorAll('.qbar .qj')[i]; q.closest('details').open = true; }, i);
       await p.click(`.qbar .qj >> nth=${i}`);
       const after = await p.evaluate(() => [document.body.classList.contains('open'), [...document.querySelectorAll('.view')].find(v => !v.hidden).id, scrollY]);
       if (after[0] !== before[0] || after[1] !== before[1] || after[2] !== before[2]) qok++;
@@ -158,10 +163,56 @@ const url = 'file://' + dir + 'index.html';
     await p.click('.rail [data-nav="modules"]');
     const rf = [];
     for (const role of ['Host', 'Service', 'Source', 'all']) {
-      await p.click(`[data-role-f="${role}"]`);
-      rf.push(await p.evaluate(r => { const ds = [...document.querySelectorAll('#view-modules [data-role]')]; return r === 'all' ? ds.every(d => !d.hidden) : ds.every(d => d.hidden === (d.getAttribute('data-role') !== r)); }, role));
+      await p.click('#view-modules details.fdrop > summary');
+      await p.click(`#view-modules [data-role-f="${role}"]`);
+      rf.push(await p.evaluate(r => { const ds = [...document.querySelectorAll('#view-modules [data-role]')]; const d = document.querySelector('#view-modules details.fdrop');
+        return !d.open && (r === 'all' ? ds.every(d => !d.hidden) : ds.every(d => d.hidden === (d.getAttribute('data-role') !== r))); }, role));
     }
-    ok(rf.every(Boolean), `@${w} the role filters show only their role (Hosts, Services, Sources, All)`);
+    ok(rf.every(Boolean), `@${w} the role filter is one dropdown button that shows only its role and closes (Hosts, Services, Sources, All)`);
+    const fpills = await p.evaluate(() => document.querySelectorAll('.seg [data-role-f]').length);
+    ok(fpills === 0, `@${w} no list keeps a row of filter pills (${fpills} found)`);
+    // the Diagnostics rollup: grouped banners, each item opens its module
+    await p.click('.rail [data-nav="diagnostics"]');
+    const dr = await p.evaluate(() => { const gs = [...document.querySelectorAll('#view-diagnostics .drollup details.qg')]; return [gs.length, gs.reduce((a, g) => a + g.querySelectorAll('.qj').length, 0), document.querySelectorAll('#view-diagnostics details.mod.diag').length]; });
+    ok(dr[0] >= 2 && dr[1] === dr[2], `@${w} Diagnostics opens with grouped rollups: ${dr[0]} groups holding ${dr[1]} of ${dr[2]} modules`);
+    await p.click('#view-diagnostics .drollup details.qg > summary');
+    await p.click('#view-diagnostics .drollup details.qg .qj');
+    ok(await p.evaluate(() => [...document.querySelectorAll('#view-diagnostics details.mod.diag')].some(d => d.open)), `@${w} a rollup item opens its module in Diagnostics`);
+    // the one command search: Ctrl+K and the header icon; modules, workflows, pages and snapshots; closes three ways
+    await p.click('.rail [data-nav="board"]');
+    await p.keyboard.press('Control+k');
+    ok(await isOpen('p-search') && await p.evaluate(() => document.activeElement && document.activeElement.id === 'cmdq'), `@${w} Ctrl+K opens the search with its box focused`);
+    const kinds = {};
+    for (const [q, kind] of [['bluehost', 'Module'], ['W3', 'Workflow'], ['crawl/refresh', 'Page'], ['Pages load fast', 'Snapshot']]) {
+      await p.fill('#cmdq', q);
+      kinds[kind] = await p.evaluate(k => [...document.querySelectorAll('#cmdr .cmdi .ck')].some(x => x.textContent === k), kind);
+    }
+    ok(Object.values(kinds).every(Boolean), `@${w} the search finds a module, a workflow, a page and a snapshot: ${JSON.stringify(kinds)}`);
+    await p.fill('#cmdq', 'W3'); await p.keyboard.press('Enter');
+    ok(await p.evaluate(() => !document.getElementById('view-workflows').hidden && !document.body.classList.contains('open')), `@${w} Enter takes the first result (W3's row in Workflows)`);
+    await p.click('.rail [data-nav="board"]');
+    for (const how of ['x', 'esc', 'outside']) {
+      await p.click('.bhead [data-search]');
+      const o1 = await isOpen('p-search');
+      if (how === 'x') await p.click('#p-search .x');
+      if (how === 'esc') await p.keyboard.press('Escape');
+      if (how === 'outside') await p.mouse.click(3, 450);
+      const sws = await sw();
+      ok(o1 && !(await p.evaluate(() => document.body.classList.contains('open'))) && sws <= w, `@${w} the header's search icon opens it, and it closes by ${how}; scrollWidth ${sws}`);
+    }
+    // one primary scrollbar: in every view, nothing but the page scrolls (no inner scroll box, either way)
+    for (const v of ['board', 'modules', 'workflows', 'diagnostics']) {
+      await p.click(`.rail [data-nav="${v}"]`);
+      const inner = await p.evaluate(() => [...document.querySelectorAll('body *')].filter(e => { if (e.closest('aside.panel') || !e.offsetParent) return false; const cs = getComputedStyle(e);
+        return (/(auto|scroll)/.test(cs.overflowY) && e.scrollHeight > e.clientHeight + 1) || (/(auto|scroll)/.test(cs.overflowX) && e.scrollWidth > e.clientWidth + 1); }).map(e => e.tagName.toLowerCase() + '.' + [...e.classList].join('.')).slice(0, 5));
+      ok(inner.length === 0, `@${w} ${v}: one primary scrollbar, no inner scroll box` + (inner.length ? ': ' + inner.join(', ') : ''));
+    }
+    if (w === 390) {
+      await p.click('.rail [data-nav="modules"]');
+      const edge = await p.evaluate(() => [...document.querySelectorAll('#view-modules details.mod, #view-board .gcard')].filter(e => e.offsetParent).slice(0, 40).map(e => { const r = e.getBoundingClientRect(); return [Math.round(r.left), Math.round(innerWidth - r.right)]; }));
+      await p.click('.rail [data-nav="board"]');
+      ok(edge.length > 0 && edge.every(([l, r]) => l <= 4 && r <= 4), `@390 edge to edge below 768px: module cards within 4px of each side (${edge.length} measured)`);
+    }
     await p.click('.rail [data-nav="board"]');
     // the card opens by keyboard
     await p.focus('#o-pages .gopen'); await p.keyboard.press('Enter'); ok(await isOpen('p-snap-o-pages'), `@${w} a gauge card opens by keyboard`); await p.keyboard.press('Escape');

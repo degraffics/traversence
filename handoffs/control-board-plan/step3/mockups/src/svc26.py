@@ -149,13 +149,13 @@ FAULTS = {
         ('Trip at index.commoncrawl.org (#35)', 'r', 'Paused by the system (index.commoncrawl.org)',
          'Common Crawl isn\'t answering',
          lt('r', 'Paused by the system (a trip)') + ' since Nov 20, 12:06 AM MST: 504 Gateway Time-out at index.commoncrawl.org; its 5 tries failed.',
-         '<ul><li>Calls to index.commoncrawl.org</li><li>Under the contract, only the work that needs it: Sources read regularly (W3) and Re-read websites (W2) move to their other sources first</li></ul>',
-         '<ul><li>Sources read regularly (W3): what our sources said, then the crawler reading directly</li><li>Re-read websites (W2): the crawler reading directly</li></ul>',
+         '<ul><li>Only the needs that go through index.commoncrawl.org: the per-site page copies (<code>cc_home</code>, crawler.py:1672–1680), W3\'s fallback copy in Sources read regularly (:1880) and W2\'s Re-read websites (:2415); each reads the site directly first</li></ul>',
+         '<ul><li>The columnar reads: W3\'s bulk reads carry on from data.commoncrawl.org (crawler.py:1697–1703; worker 2.16.1, :215)</li></ul>',
          '<ul><li>data.commoncrawl.org (its own line)</li><li>Every other source; pages, search, payments</li></ul>',
-         'A server answer: tried, then a trip (rows 24–26). Its check runs on the diagnostic clock; Recovered closes it when the index answers.',
-         ['Today (live): "index.commoncrawl.org: Its server failed (the crawler, on Railway)", and W3 held whole by its gate (pf:wf:W3, "W3 (its tasks wait with it)") since Nov 20, 8:05 AM MST.',
+         'A server answer: tried, then a trip (rows 24–26). Recovers when its check passes against index.commoncrawl.org (<code>collinfo.json</code> answers 200, Preflight.php:1113); then #35 closes as Recovered and the per-site copies run again.',
+         ['Today (live): "index.commoncrawl.org: Its server failed (the crawler, on Railway)", and W3 held whole by its gate (pf:wf:W3, "W3 (its tasks wait with it)") since Nov 20, 8:05 AM MST: the snapshot, before release #247 split the gate (live 12:22 UTC Nov 21).',
           'New: "Common Crawl isn\'t answering · Paused by the system (a trip) since <time>."; W3 waits only where no other source covers its need.'],
-         'Nov 19, 6:01 PM MST: first failure · Nov 20, 12:06 AM MST: trip (alarms snapshot, 3:19 AM MST)'),
+         'Nov 19, 6:01 PM MST: first failure · Nov 20, 12:06 AM MST: trip (alarms snapshot, 3:19 AM MST) · recovers when index.commoncrawl.org/collinfo.json answers 200'),
         ('Asked us to slow down at data.commoncrawl.org (#22)', 'a', 'Warning (a rate wait): data.commoncrawl.org',
          'Common Crawl asked us to slow down',
          lt('a', 'Warning (a rate wait)') + ' since Nov 18, 1:05 PM MST: 503 SlowDown "Please reduce your request rate".',
@@ -230,6 +230,9 @@ def card(rec, needs, wfnames, fault=None):
 def radius(key, ns):
     """Its Incident Radius from the source map (Preflight::NEEDS): where it's the last source, the need falls to its fallback; else
     the need moves to its next source."""
+    if key == 'commoncrawl':   # the contract's radius (Gemini's hand-off note, 2026-11-22; crawler.py:1672–1703, Preflight.php:1110–1113)
+        return ('<details><summary>If index.commoncrawl.org can\'t be called: its Incident Radius (the contract)</summary><div class="rad"><div class="h"><b>Held</b><ul><li>Only the needs that go through index.commoncrawl.org: the per-site page copies (W3\'s fallback copy, W2\'s Re-read websites; each reads the site directly first)</li></ul></div>'
+                '<div class="o"><b>On a backup</b><ul><li>The columnar reads: W3\'s bulk reads carry on from data.commoncrawl.org</li></ul></div><div class="u"><b>Unaffected</b><ul><li>Every need that doesn\'t name it; pages, search, payments</li></ul></div></div></details>')
     held, backup = [], []
     for n in ns:
         vals = [v for k, v, _ in n['srcs']]
@@ -303,20 +306,20 @@ def section_md(needs, wfnames):
 # The session manager's answers to §26's open words (2026-11-21); they replace the open words on the cards and in §26.
 ANSWERED = {
     'census': ['`CENSUS_API_KEY`: set or not goes on the asks (asks.md, visit 5).', '#18: a server answer under the contract (rows 24–26), the worker\'s backup taking the batch; whether it\'s still open is live data.'],
-    'commoncrawl': ['#35: under the contract only the needs that use it wait (Sources read regularly, Re-read websites), not W3 whole.', '#22: a rate wait under the contract (row 27). Today\'s wording, "Its server failed", is shown beside it as the defect.'],
+    'commoncrawl': ['#35: W3 can run while index.commoncrawl.org is tripped: its columnar reads use only data.commoncrawl.org (crawler.py:1697–1703). Since release #247 (live 12:22 UTC Nov 21) the pre-flight gates on data.commoncrawl.org only and the index is a second part that holds only the per-site copy (Preflight.php:1110–1113, reachAll :895–907). The snapshot\'s "W3 held whole" is from before #247.', '#22: a rate wait under the contract (row 27). Today\'s wording, "Its server failed", is shown beside it as the defect.'],
     'wikimedia': ['#26: a rate wait (row 27), never a trip; today\'s words already follow the state.', 'Wikipedia stays cite only (R9).'],
     'loc': ['Its calls this month: live data.'],
     'nps': ['`NPS_API_KEY`: set or not goes on the asks (visit 5).'],
-    'ridb': ['`RIDB_API_KEY` on Railway: on the asks (visit 11); its last load (`rec_loads`) is live data.'],
-    'usgs': ['The tiles load in browsers: a browser-side check in step 4\'s rendered checks, as cdnjs.'],
-    'osm': ['One card for the tiles, a browser-side Source; the data is our copy, on Geofabrik\'s card (linked).'],
-    'azcc': ['Stage 1 until W14 is built.'],
-    'nmsos': ['Stage 1 until W14 is built.'],
+    'ridb': ['verify: the worker\'s run report names `RIDB_API_KEY` as present (WORKER_KEYS, crawler.py:214) and the Pre-flight\'s RIDB line reads Ready (Preflight.php:967, the Railway key); passes when `rec_loads` holds this month\'s load. The live parts are on the asks (visit 11).'],
+    'usgs': ['verify: the Pre-flight\'s two parts (Preflight.php:1103–1104): GNIS\'s Arizona names file answers a HEAD with 200, and the topo layer\'s description answers 200. The tiles in browsers: a step-4 rendered check reads the map\'s tile requests to basemap.nationalmap.gov at 1280 and 390 and passes when they answer 200 and the map draws.'],
+    'osm': ['verify: a step-4 rendered check opens a page with a map at 1280 and 390 and reads its tile requests to tile.openstreetmap.org (js/map-view.js:98, :102); passes when they answer 200, the map draws and the credit shows. The data is our copy, on Geofabrik\'s card (linked).'],
+    'azcc': ['Build status: not built. W14\'s licence_lookup isn\'t in the worker, so nothing calls it (stage 1). Its Pre-flight line exists: arizonabusinesscenter.azcc.gov (Preflight.php:1079–1082) answers our server 403 "Access Blocked", pending our public records request.', 'Expected inputs once built: the business\'s name, its entity or licence number, and the state (AZ). Its site moved from ecorp.azcc.gov to arizonabusinesscenter.azcc.gov; its terms are not read yet (research/rural-test-2026-11-14.md: "Allow the new host and read its terms first").'],
+    'nmsos': ['Build status: not built (stage 1), as the Arizona Corporation Commission. Its Pre-flight line asks enterprise.sos.nm.gov/search (Preflight.php:1083).', 'Expected inputs once built: the business\'s name, its business ID, and the state (NM). Its terms are not read yet: the rural test reached no New Mexico registry (research/rural-test-2026-11-14.md).'],
     'dbip': ['Its file\'s last load (`ip_eu_ranges`): live data.'],
-    'nws': ['Its user agent names a generic site contact, never a person: to check in step 4.'],
-    'az511': ['`AZ511_API_KEY`: set or not goes on the asks (visit 5).'],
+    'nws': ['verify: the Pre-flight\'s line asks api.weather.gov for Kayenta\'s forecast point (Preflight.php:1092) and passes on 200; the user agent Weather.php sends is read in step 4 and passes when it names a generic site contact, never a person.'],
+    'az511': ['verify: `AZ511_API_KEY` set (the line reads "Not set up" without it, Preflight.php:1094), then the WZDx feed with our key answers 200 (:1095). Set or not is on the asks (visit 5).'],
     'cpsc': ['Called only when an item is posted; its calls are live data.'],
-    'pixabay': ['`PIXABAY_KEY`: set or not goes on the asks (visit 5).'],
+    'pixabay': ['verify: `PIXABAY_KEY` set (the line reads "Not set up" without it, Preflight.php:1116), then one search with our key answers 200 (:1117, free). Set or not is on the asks (visit 5).'],
     'heigit': ['`ors_matrix_daily`\'s value goes on the asks (visit 6).'],
     'supabase': ['"Off · added, not called yet" at stage 2, as Gemini.', '`SUPABASE_URL` and `SUPABASE_SERVICE_KEY`: set or not goes on the asks (visit 5).'],
     'stripe': ['Built, not planned. `MARKET_PAY_ENV` goes on the asks (visit 5); connected businesses are live data.'],
@@ -333,6 +336,12 @@ S = [r[:6] + (ANSWERED[r[0]],) for r in S]
 
 # Extra zone-2 rows (the session manager, 2026-11-21): OpenStreetMap's tiles card linking Geofabrik; Microsoft's three parts.
 EXTRA = {
+    'commoncrawl': [('Can W3 run while index.commoncrawl.org is tripped?', 'Gemini\'s hand-off note, 2026-11-22', '<span class="lt g"><i aria-hidden="true"></i>Yes: its bulk reads</span>',
+                     '<ul><li>The columnar bulk reads ask only data.commoncrawl.org: <code>common_crawl()</code> holds only on that host and reads the URL Index there, "never the index server" (crawler.py:1697–1703; worker 2.16.1, :215).</li>'
+                     '<li>Only the per-site page copy waits on index.commoncrawl.org: <code>cc_home()</code> (crawler.py:1672–1680), called by W3\'s fallback (:1880) and W2\'s Re-read websites (:2415).</li>'
+                     '<li>The gate, since release #247 (live 12:22 UTC Nov 21): Common Crawl\'s line is data.commoncrawl.org first, the index second (Preflight.php:1110–1113); a failing second part is amber, "Only the copy of one site\'s page waits; the rest works" (reachAll, :895–907), shown "Partly working" (:41–44). Before #247 the line asked only the index, so its 504 tripped W3 whole: the snapshot (3:19 AM MST) shows that.</li>'
+                     '<li>A SlowDown at data.commoncrawl.org (#22) is a rate wait that pauses the bulk reads while its back-off runs (crawler.py:1602–1609, :1701).</li></ul>'
+                     '<div class="why">Live, to confirm (asks.md, visit 11): that Railway runs worker 2.16.1, and that pf:wf:W3 closed after #247.</div>', 'hl')],
     'osm': [('Its data', 'our copy', '', 'Our OpenStreetMap copy is Geofabrik\'s weekly state files: <a href="#" class="mlink" data-go-mod="geofabrik">Geofabrik\'s card</a>. This card is the tiles only, a browser-side Source.', '')],
     'microsoft': [('Part 1: sign-in', 'SocialAuth.php', '', 'Sign in with Microsoft (<code>MICROSOFT_CLIENT_ID</code>, <code>MICROSOFT_TENANT</code>). Email and password always work (its need\'s fallback).', ''),
                   ('Part 2: mail', 'MsGraphMail.php', '', 'Mailboxes read and sent through Microsoft Graph (<code>MS_MAIL_CLIENT_ID</code>, <code>MS_MAIL_CLIENT_SECRET</code>).', ''),
