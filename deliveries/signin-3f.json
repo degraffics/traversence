@@ -1,0 +1,74 @@
+{
+ "zip": "signin-3f.zip",
+ "built_on": "5237f07 Sync: 2026-11-22 13:09 UTC",
+ "recorded": "2026-11-22 13:51 UTC",
+ "note": "Sign-in (3f): A7, A9-A12, B7, B8 (a lost work email), built on Sync: 13:09 UTC 2026-11-22 (5237f07) Sent through git (releases/inbox).",
+ "status": "live",
+ "live_in": "70d0cb1 Sync: 2026-11-22 13:57 UTC",
+ "files": {
+  "app/lib/Mailer.php": {
+   "sha256": "15680df3c33470bd531a16497ac9b9341f3a8ff26e8280de20765f56c0577a12",
+   "live": true
+  },
+  "app/lib/Pulse.php": {
+   "sha256": "38fc91da4517a00cddd533504f00dc6db2175f3f5959efa3f3c54294f8faba19",
+   "live": true
+  },
+  "app/lib/StaffLogin.php": {
+   "sha256": "a807e1021be00a36f15ef1f4c7e428f1524945b88984bd09192be45ffbe17e05",
+   "live": true
+  },
+  "app/lib/StaffMailHelp.php": {
+   "sha256": "3cd71b9e166ab05d714bf6f981f61b0691c8349838aa3788c868b8a8dd186d46",
+   "live": true
+  },
+  "app/lib/staging-tables.php": {
+   "sha256": "814368bf4173102b0416ce709f46a18c109437159ef826ee0dde0603809104a4",
+   "live": true
+  },
+  "app/ui/faq.md": {
+   "sha256": "0c7d876bab45eb36c278307f8067167b90067162d24639c285c5875f4061320c",
+   "live": true
+  },
+  "app/ui/header.php": {
+   "sha256": "3cdc2402c4bc49f2e597a720f11b6c1c3646500f6c032e3b7f8b2f6f4aa5c9b4",
+   "live": true
+  },
+  "app/ui/pulse-ui.php": {
+   "sha256": "189667ea232b83fb71c041b51ef69b921d29a8f85cce53d3ab97ef48389699bd",
+   "live": true
+  },
+  "app/ui/social-buttons.php": {
+   "sha256": "4bb6e6ee9f523ee64a86655beebb32a8e2f86724c7a48914069050e7322d2528",
+   "live": true
+  },
+  "website/admin/api/pulse.php": {
+   "sha256": "1da9ff38da1faeb52bb80bd33e6cfb2ff8e5b555fe7a20b22fc47d2ed08df745",
+   "live": true
+  },
+  "website/admin/login.php": {
+   "sha256": "8f9cf00d661da2ed955a23777f7de4998de0953d5380cf8887ccc695698f3f20",
+   "live": true
+  },
+  "website/admin/staff.php": {
+   "sha256": "af5ed762080ce757e6faf4288db8da35ae07639c544bbc3b48acbad2839b9d41",
+   "live": true
+  },
+  "website/js/code-link.js": {
+   "sha256": "288994a3b3bab805ae1c4510ec4109cb309e0f4b4da7cc81fd5f7474ecaf7a39",
+   "live": true
+  },
+  "website/js/tv-time.js": {
+   "sha256": "1ab1196ffde55eeb948fc4e63ba189b592c966d13d3ee84c1243c37e15bd994c",
+   "live": true
+  },
+  "website/login.php": {
+   "sha256": "94fd089e4c2c73cc9831ecb9876e2fc82cabd1198c11b04c65cd63a13b337c8d",
+   "live": true
+  },
+  "website/two-step.php": {
+   "sha256": "4113f10014472d4e8024b1b829c22f68af3f56b89f1beaba6437d98a2df95124",
+   "live": true
+  }
+ }
+}

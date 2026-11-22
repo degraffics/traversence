@@ -1,0 +1,181 @@
+--- a/app/lib/SearchPresets.php
++++ b/app/lib/SearchPresets.php
+@@ -15,6 +15,7 @@
+  *   - what's asked there: counts of the question's reading (why:eat, cat:pharmacies) per place per day, counted when
+  *     someone picks a result, never the words typed and never who asked (search_counts, kept 90 days).
+  * A category shows as its own preset only once it has been asked about at least 3 times in 30 days in that place.
++ * A person's own quick searches (kept on their device) are counted too (mine(): Jason, 2026-11-22, "Count them").
+  */
+ final class SearchPresets
+ {
+@@ -82,6 +83,65 @@
+         return array_map(fn ($p) => ['label' => $p['label'], 'q' => $p['q'] . ($near !== '' ? ' in ' . $near : ''), 'count' => $p['count']], $out);
+     }
+ 
++    /**
++     * A person's own quick searches, counted for where they are (Jason, 2026-11-22: "Count them", B2's follow-up): each
++     * phrase is run as the search it opens, with no side effects (no_side: nothing sent to the crawler or recorded as
++     * demand, as while typing), and its total kept an hour per place and phrase, like have(). A phrase that changes by
++     * the minute ("open now") gets no number (B2); one that finds nothing, or can't be run, shows no number rather than a
++     * wrong one. The phrases come from the device. A count is kept an hour by phrase and place (its key a hash of both),
++     * never with who asked; counts past their hour are cleared (sweepMine).
++     * @param list<string> $phrases at most 12, as kept by js/search-panel.js
++     * @return list<array{q: string, count: ?int}>
++     */
++    public static function mine(PDO $pdo, array $ctx, array $phrases): array
++    {
++        self::sweepMine($pdo);
++        $out = []; $seen = [];
++        foreach (array_slice($phrases, 0, 12) as $q) {
++            if (!is_string($q)) continue;
++            $q = mb_substr(trim(preg_replace('/\s+/u', ' ', $q)), 0, 80);
++            $low = mb_strtolower($q);
++            if (mb_strlen($q) < 2 || isset($seen[$low])) continue;
++            $seen[$low] = 1;
++            $out[] = ['q' => $q, 'count' => self::countMine($pdo, $ctx, $q)];
++        }
++        return $out;
++    }
++
++    /** Clears the own-phrase counts past their hour (at most once every 10 minutes), so they don't pile up. */
++    public static function sweepMine(PDO $pdo): void
++    {
++        try {
++            $m = SearchIndex::state($pdo, 'pmsweep');
++            if ($m !== '' && (int) $m > time() - 600) return;
++            SearchIndex::setState($pdo, 'pmsweep', (string) time());
++            $old = [];
++            foreach ($pdo->query("SELECT k, v FROM search_index_state WHERE k LIKE 'pm:%' LIMIT 2000")->fetchAll(PDO::FETCH_ASSOC) as $r) {
++                $j = json_decode((string) $r['v'], true);
++                if (!is_array($j) || (int) ($j['t'] ?? 0) < time() - 3600) $old[] = (string) $r['k'];
++            }
++            foreach (array_chunk($old, 200) as $ch) $pdo->prepare('DELETE FROM search_index_state WHERE k IN (' . implode(',', array_fill(0, count($ch), '?')) . ')')->execute($ch);
++        } catch (Throwable $e) { error_log('quick search sweep: ' . $e->getMessage()); }
++    }
++
++    private static function countMine(PDO $pdo, array $ctx, string $q): ?int
++    {
++        try {
++            $u = UniversalSearch::understand($pdo, $q, $ctx, []);
++            foreach ($u['chips'] as $c) if (($c['type'] ?? '') === 'when' && ($c['value'] ?? '') === 'now') return null;   // by the minute (B2)
++            $where = [$ctx['level'] ?? '', $ctx['slug'] ?? '', $ctx['town'] ?? '', $ctx['city'] ?? '', $ctx['state'] ?? '', $ctx['zip'] ?? '',
++                isset($ctx['lat']) ? round((float) $ctx['lat'], 2) : '', isset($ctx['lon']) ? round((float) $ctx['lon'], 2) : '', $ctx['reach'] ?? '', $ctx['track'] ?? ''];
++            $key = 'pm:' . substr(md5(json_encode([$where, mb_strtolower($q)])), 0, 20);
++            $c = SearchIndex::state($pdo, $key);
++            if ($c !== '' && ($j = json_decode($c, true)) && ($j['t'] ?? 0) > time() - 3600) return $j['n'] ?? null;
++            $r = UniversalSearch::search($pdo, $q, $ctx + ['no_side' => 1]);
++            $n = (int) ($r['results']['total'] ?? 0);   // what its Results tab says
++            $n = $n > 0 ? $n : null;
++            try { SearchIndex::setState($pdo, $key, json_encode(['t' => time(), 'n' => $n])); } catch (Throwable) {}
++            return $n;
++        } catch (Throwable $e) { error_log('quick search count: ' . $e->getMessage()); return null; }
++    }
++
+     /** How many things in the place answer each question (cached an hour per place). */
+     /** How many listings here are in a category (its own and its sub-categories), for its Quick Search line (Jason,
+      * 2026-11-22: counts on the rest); null when it can't be counted, so no number shows rather than a wrong one. */
+--- a/app/ui/faq.md
++++ b/app/ui/faq.md
+@@ -238,7 +238,7 @@
+ - **Distance**: slide from **My place only** to **∞** (no limit), or pick a distance like 25 miles. It starts at **10 mi** around your place and goes back to 10 mi whenever you change your place, so search doesn't look outside your place unless you widen it. Your place stays as you set it: searching, tapping a town in search, or opening another area's page never changes it. That page shows its area, and your place changes only when you choose a new one (or tap **Make it my place**). A link to an area sets your place only when you haven't chosen one yet. With no place chosen there's nothing to measure from, so the slider rests at ∞ until you choose one.
+ - **Search Results** on the left. Each one says which part of the site it's in: **Directory**, **Discovery** or **Community**, and the tabs over them use the same names ("Discovery 1", "Directory 4"). The tabs count only what's listed under them, so they add up to the Results count; the categories your words might mean are in Suggestions.
+ - **Suggestions** under them, one per line: the categories that match a word you typed ("All Churches in Saint Johns"), each word on its own when nothing has them all, and other searches for the place. When your words describe a situation, its answer already says what kind of place helps, so no category lines show.
+-- **Quick Search** on the right: one-tap searches for the place, with how many each finds (**Open now** has no number: it changes by the minute), your own, and the filters (**Near me**, **Open now**, **Has a phone**, **Has a website**, **Favorites**). **Recent Searches** are under them.
++- **Quick Search** on the right: your own quick searches and one-tap searches for the place, each with how many it finds where you are (**Open now** has no number: it changes by the minute; nor does one that finds nothing there), and the filters (**Near me**, **Open now**, **Has a phone**, **Has a website**, **Favorites**). **Recent Searches** are under them.
+ - **Show in directory list** opens your results as a list.
+ 
+ ### How does search read what I type?
+@@ -688,7 +688,7 @@
+ No. Search starts in the place you set and never changes it. Results in your place come first. Anything that matches beyond it follows under **Beyond (your place)**, nearest first, with how far away it is. If you chose a town, like "Saint Johns, AZ", that town comes first, and the rest of its area follows under **Beyond**. To search somewhere else for one search, say so: "pizza in Show Low". Your place stays as you set it. A town outside our regions counts only when you say "in" or "near" it, or name its state.
+ 
+ ### Can I save my own search phrases?
+-Yes. In the search panel, **⊕** next to **Quick Search** adds the words you've typed as one of your quick searches, and **✎** lets you add, change or remove them. For now they're saved in this browser. To keep a search on your account, with its place, use **☆ Save** on its results.
++Yes. In the search panel, **⊕** next to **Quick Search** adds the words you've typed as one of your quick searches, and **✎** lets you add, change or remove them. Each shows how many it finds where you are, counted the way its search would find them (none for what changes by the minute, like open now). For now they're saved in this browser. To count them, the words are sent with the search; each count is kept for an hour by phrase and place, never with who asked, and then cleared. To keep a search on your account, with its place, use **☆ Save** on its results.
+ 
+ ### How do I switch between the list and the map?
+ Use **List**, **Table** or **Map** at the top right of Get Local (a phone has List and Map). **Map** opens full screen with every result as a pin; **Exit map** brings you back to the list, which keeps any filters you changed on the map. **Table** shows the same results as rows: tap a column's name to sort it (A to Z, Z to A, or nearest first), search it, or untick values to hide them ("Show Restaurants (6)"); the column menus work on the results on the page, and **Clear the column filters** brings every row back. On a computer you may see the list **beside the map** instead: the numbered businesses on the left, their numbered pins on the right, a dashed ring for how far you chose, and **Search this area** once you move the map. We're trying both layouts to see which helps people more (we count which one a device has and what's tapped there, never who); **Arrange** lets you pick the one you like.
+--- a/website/api/search.php
++++ b/website/api/search.php
+@@ -7,7 +7,8 @@
+ //     map (/api/search_listings.php?…&view=map).
+ //     at=DOW,MIN: the visitor's day and time, for "open now". With the 5W index built, `results` holds everything that
+ //     matches in one ordered list ({items: [{kind, id, label, sub, url, open, peek}], kinds, total, more, note}).
+-//   GET ?presets=1[&level&slug | &near=Show Low][&at] -> {place, presets: [{label, q, count}]}
++//   GET ?presets=1[&level&slug | &near=Show Low][&at][&mine=["your phrase",…]] -> {place, presets: [{label, q, count}],
++//                                          mine: [{q, count}]}: your own quick searches counted here (SearchPresets::mine)
+ //   ?count=1&q=…[&level&slug] (a beacon when someone acts on a search) -> counts the reading only, per place and day
+ //   GET ?suggest=1&q=[&level&slug] -> {items: [{label, crumb, url|q, kind, here, peek?, id?}], here, place}: as you type
+ //   GET ?peek=LISTING_ID -> {listing}: the peek card's public details (a confidential location shows its phone only).
+@@ -79,7 +80,9 @@
+         $near = mb_substr(trim((string) ($_GET['near'] ?? '')), 0, 60);
+         $place = UniversalSearch::scopePlace($pdo, $ctx);
+         if (!$place && $near !== '') { foreach (UniversalSearch::understand($pdo, $near)['chips'] as $c) if ($c['type'] === 'place') { $place = $c; break; } }
+-        Response::json(['ok' => true, 'place' => $place['label'] ?? null, 'presets' => SearchPresets::forPlace($pdo, $place, $at, $place && empty($place['scope']) && $near !== '' ? $near : '')]);
++        $mine = json_decode((string) ($_GET['mine'] ?? ''), true);   // your own quick searches, from this device (Jason, 2026-11-22: "Count them")
++        $mine = is_array($mine) ? SearchPresets::mine($pdo, $ctx + ['track' => in_array($_GET['track'] ?? '', ['explore', 'local', 'social', 'market', 'home', 'member'], true) ? (string) $_GET['track'] : ''], array_values(array_filter((array) Response::unwrap($mine), 'is_string'))) : [];
++        Response::json(['ok' => true, 'place' => $place['label'] ?? null, 'presets' => SearchPresets::forPlace($pdo, $place, $at, $place && empty($place['scope']) && $near !== '' ? $near : ''), 'mine' => $mine]);
+     }
+     // Someone acted on a search: count its reading for this place and day (never the words, never who)
+     // "near me" found too little within 5 mi (Jason, 2026-11-10): recorded for the team as search demand ("results lacking",
+--- a/website/js/search-panel.js
++++ b/website/js/search-panel.js
+@@ -377,7 +377,7 @@
+   }
+   // One-tap searches: the person's own phrases (🔖, kept on this device) and the place's suggestions. One ✎ Edit
+   // turns the list into a small editor: change or remove a phrase, add a new one, or add a suggestion to yours.
+-  var lastPresets = { title: 'Try', list: [] };
++  var lastPresets = { title: 'Try', list: [], mine: {} };   // mine: your own quick searches' counts here, by their words
+   function myList() {
+     try { var a = JSON.parse(localStorage.getItem('tv_my_searches') || '[]'); return Array.isArray(a) ? a.filter(function (x) { return typeof x === 'string' && x.trim(); }).slice(0, 12) : []; } catch (x) { return []; }
+   }
+@@ -389,11 +389,12 @@
+   function presetRow(label, q, count) {
+     return '<button type="button" class="tvs-qr" data-recent="' + esc(q) + '"><span>' + esc(label) + '</span>' + (count ? '<i class="tvs-n">' + count + '</i>' : '') + '</button>';
+   }
+-  // Quick Search: your own searches (kept on this device) first, then the place's, each with how many it finds
++  // Quick Search: your own searches (kept on this device) first, then the place's, each with how many it finds (yours
++  // counted for where you are too: Jason, 2026-11-22, "Count them"; none for what changes by the minute)
+   function presetList(title, list) {
+-    lastPresets = { title: title, list: list };
++    lastPresets = { title: title, list: list, mine: lastPresets.mine || {} };
+     var mine = myList(), low = mine.map(function (m) { return m.toLowerCase(); });
+-    return mine.map(function (q) { return presetRow(q, q, 0); }).join('')
++    return mine.map(function (q) { return presetRow(q, q, lastPresets.mine[q.toLowerCase()] || 0); }).join('')
+       + list.filter(function (x) { return low.indexOf(String(x.q).toLowerCase()) < 0; }).slice(0, 6).map(function (x) { return presetRow(x.label, x.q, x.count); }).join('');
+   }
+   function editPhrases() {
+@@ -443,8 +444,16 @@
+     if (/^(set location|current location)$/i.test(near)) near = '';
+     if (s) { p.set('level', s.level); p.set('slug', s.slug); if (s.town) p.set('town', s.town); } else if (!loose(p) && near) p.set('near', near);
+     p.set('at', now.getDay() + ',' + (now.getHours() * 60 + now.getMinutes()));
++    var mine = myList();
++    if (mine.length) {   // your own, counted as their search would find them here: the same reach and section as a search
++      p.set('mine', JSON.stringify(window.tvSafe ? tvSafe(mine) : mine));
++      if (!radius) p.set('reach', String(REACH[reachI][0]));
++      var sec0 = document.querySelector('meta[name="tv-sec"]'); if (sec0 && sec0.content) p.set('track', sec0.content);
++    }
+     fetch(API + '?' + p.toString(), { credentials: 'include' }).then(function (r) { return r.json(); }).then(function (d) {
+-      var box = panel && panel.querySelector('.tvs-presets'); if (!box || !d.presets || !d.presets.length) return;
++      var mc = {}; (d.mine || []).forEach(function (x) { if (x && x.q) mc[String(x.q).toLowerCase()] = x.count || 0; }); lastPresets.mine = mc;
++      var box = panel && panel.querySelector('.tvs-presets'); if (!box || ((!d.presets || !d.presets.length) && !mine.length)) return;
++      d.presets = d.presets || [];
+       if (box.querySelector('.tvs-pe')) { lastPresets = { title: d.place ? 'Around ' + d.place : 'Try', list: d.presets }; return; }   // editing: don't replace it
+       box.innerHTML = presetList(d.place ? 'Around ' + d.place : 'Try', d.presets);
+       sugs(input.value.trim().length >= 2 ? last : null);
+@@ -1212,6 +1221,7 @@
+       var qa = input.value.trim();
+       if (qa.length < 2) { editPhrases(); return; }
+       setMyList([qa].concat(myList())); var pb0 = panel.querySelector('.tvs-presets'); if (pb0 && !pb0.querySelector('.tvs-pe')) pb0.innerHTML = presetList(lastPresets.title, lastPresets.list);
++      presets();   // its count for here
+       return;
+     }
+     if ((t = e.target.closest('[data-edit]'))) {   // put the suggestion in the field to change it first
+@@ -1225,7 +1235,7 @@
+     if (e.target.closest('[data-tier2]')) { keepNext = input.value.trim(); clearTimeout(timer); clearTimeout(sTimer); run(); return; }
+     if (e.target.closest('[data-here]')) { if (nearGate()) { run(); return; } if (ptrack) ptrack.done = true; var qh2 = input.value.trim(); remember(qh2); window.tvSearchHere(qh2); applied = true; pushed = false; close(); return; }
+     if (e.target.closest('[data-pedit]')) { editPhrases(); return; }
+-    if (e.target.closest('[data-pdone]')) { setMyList(editedList()); var pb = panel.querySelector('.tvs-presets'); if (pb) pb.innerHTML = presetList(lastPresets.title, lastPresets.list); return; }
++    if (e.target.closest('[data-pdone]')) { setMyList(editedList()); var pb = panel.querySelector('.tvs-presets'); if (pb) pb.innerHTML = presetList(lastPresets.title, lastPresets.list); presets(); return; }
+     if ((t = e.target.closest('[data-pdel]'))) { t.closest('.tvs-li').remove(); setMyList(editedList()); return; }
+     if (e.target.closest('[data-pnew]')) { var ai = panel.querySelector('.tvs-padd .tvs-phr'); addPhrase(ai && ai.value); return; }
+     if ((t = e.target.closest('[data-padd]'))) { addPhrase(t.getAttribute('data-padd')); t.closest('.tvs-li').remove(); return; }

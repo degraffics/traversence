@@ -1,0 +1,13 @@
+{
+ "title": "Sign-in (3f): the tabs say which is chosen, the social buttons say their names, no cart or bell on sign-in pages, a code box that signs in at the 6th digit, and a lost work email that's never a dead end",
+ "why": "Jason's screenshots of sign-in, approved 2026-11-22 (handoffs/screens-proposal-2026-11-22.md A7, A9-A12, B7, B8). Member sign-in: the chosen tab is marked in brown with an underline and the other is quiet (A7); tabs and buttons in sentence case and Forgot password? in the one link style (B7); Google, Microsoft and Facebook say Continue with... beside their logos (A9). The sign-in pages (sign in, register, forgot and reset password, staff sign-in and setup) leave out the cart, bell and search, which looked switched off with nothing to show yet (A10). The staff code step says 6 digits, says until what clock time the code works in the viewer's zone, takes a pasted code with spaces or dashes and signs in at the 6th digit; the email's Sign in with this code signs in by itself (A11); the code email says Tap or click the code (A12). B8 (decisions/0100's note of 2026-11-22): on the staff code step, Can't get the email? sends the owners a Pulse case with the person's name and a phone or other email. The case shows who the login is, its work email, its last sign-in and the contact marked not verified, then Change work email, Reset the mailbox password and New setup link, each asking Have you confirmed this is them? first and greyed with the reason for anyone not an owner; the setup link and the new mailbox password are shown to the owner once to hand over. Every step goes in the staff log and the case's notes; the old address is told when the email changes. Staff with no authenticator app get one notice on the admin side to add it, Not now remembered. One new table, staff_mail_requests (made by the code, class never). FAQ updated. No outside calls but cPanel's own mailbox reset (our host, no cost); emails are the site's own system emails.",
+ "changes": [
+  {"what": "Sign in or create an account", "where": "https://traversence.com/login.php"},
+  {"what": "Staff sign-in and its code step", "where": "https://traversence.com/admin/login.php"},
+  {"what": "Two-step sign-in", "where": "https://traversence.com/two-step.php"},
+  {"what": "A lost work email: the owners' case in Pulse", "where": "https://traversence.com/admin/dashboard/stream"},
+  {"what": "The add-an-authenticator notice on the admin side", "where": "https://traversence.com/admin/staff.php#my-app"}
+ ],
+ "proposals": [],
+ "switch": ""
+}

@@ -551,3 +551,11 @@ a town's listings still fanned out from one spot (180 in St. Johns).
   spread out as if they were real places (`js/map-view.js`). Tapping it lists them A to Z in the side panel, with a
   line saying their location is approximate, and each one opens its card, which already tries to place its address
   (`api/locate.php`). The map key explains the dashed spot.
+
+## Note (Jason, 2026-11-22): Quick Search's counts
+From the screens proposal (`handoffs/screens-proposal-2026-11-22.md`, B2, approved in his pop-up): **no counts on links
+whose answer changes by the minute (Open now), counts on the rest**; a row that can't be counted shows no number rather
+than a wrong one (built in `search-fixes.zip`, live as #248). Then, of a person's own quick searches: **"Count them"**.
+Built as `own-quick-counts.zip` (2026-11-22, Sync 13:57 UTC): each of your own phrases is run as the search it opens,
+with no side effects (`no_side`, as while typing), and shows its Results total for where you are, kept an hour per place
+and phrase (`SearchPresets::mine`); open now and a phrase that finds nothing show no number; the words go with the search, and the count is kept an hour by phrase and place, never with who asked, then cleared.

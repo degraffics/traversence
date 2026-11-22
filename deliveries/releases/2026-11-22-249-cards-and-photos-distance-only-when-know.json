@@ -1,0 +1,118 @@
+{
+    "id": 249,
+    "title": "Cards and photos: distance only when known, credits with their licence on the photo, a readable corner icon, stock photos not repeated, public places say who ru",
+    "why": "Jason's screenshots of Parks & Landmarks and a memorial's page (approved 2026-11-22, handoffs/screens-proposal-2026-11-22.md A4-A6, A13, B3), with the session manager's three fixes. A card shows no distance when the place's point is only its ZIP's middle (Geocoder::APPROX, the geocoder's own rule): that read '0 mi' from its own town; a real point under half a mile says 'under ½ mi' (decisions/0060). Each photo's credit moves from a line under every card onto the photo, written out: who took it and its licence ('© Ken Lund · CC BY-SA 2.0', 'Public domain', decisions/0164: the licence decides the use), or 'Stock photo' for a representative stock photo, with an i for the full credit (Jason 2026-11-17); the name wraps before it's shortened and the licence is never cut. The icon in a card's corner sits on a dark disc. The same stock photo never shows twice in one list (the pattern instead), and memorials and monuments never get a stock photo (decisions/0143's order otherwise kept). A public place shows who runs it, from its Nexus, never 'Unclaimed' (decisions/0070's claim-kinds note). No outside calls, no cost.",
+    "proposals": "",
+    "zip": "card-fixes.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "live",
+    "step": 3,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": "2026-11-22 12:52:27",
+    "staged_at": "2026-11-22 12:52:28",
+    "vetted_at": "2026-11-22 12:52:31",
+    "live_at": "2026-11-22 12:52:31",
+    "files": {
+        "app/ui/explore-hero.php": {
+            "sha": "069131eef4e6b3d2350130154356b5d9867643de2adc3a8ab2455f470fe2f45a",
+            "size": 46218,
+            "live_was": "a53628a95e55e80f99dfc32ac79f3088a0004b9507609faf542698bd309021f7",
+            "existed": true,
+            "old_sha": "a53628a95e55e80f99dfc32ac79f3088a0004b9507609faf542698bd309021f7"
+        },
+        "app/ui/faq.md": {
+            "sha": "b1f14b9d1c28eeb96782d5b2cade9f2059306ff980a656254804b0e4d75b5ecc",
+            "size": 417787,
+            "live_was": "4eaf3ec8b49cc25a782d1cd0644be14105846ca9c55ad57b87caf58db6766a30",
+            "existed": true,
+            "old_sha": "4eaf3ec8b49cc25a782d1cd0644be14105846ca9c55ad57b87caf58db6766a30"
+        },
+        "app/lib/PlacePhotos.php": {
+            "sha": "0d12ce45038cc18025f50cdecbba420f367d5c39fa261c12de7e7cfc96feff01",
+            "size": 10650,
+            "live_was": "b557070e0fa9569719f8bcd2ca91d7a10d0880eb01171647500b32ed3f2481f8",
+            "existed": true,
+            "old_sha": "b557070e0fa9569719f8bcd2ca91d7a10d0880eb01171647500b32ed3f2481f8"
+        },
+        "app/lib/Landmarks.php": {
+            "sha": "6886706fdb2d6dc171bed7b2fb872acd07a99655f2caaa9e40f10360c667e21a",
+            "size": 58513,
+            "live_was": "4f2b5b89c12ac231a5b7f6765d0ad0c1d12c4b1da2f252a496bd5527b8f26a28",
+            "existed": true,
+            "old_sha": "4f2b5b89c12ac231a5b7f6765d0ad0c1d12c4b1da2f252a496bd5527b8f26a28"
+        },
+        "website/listing/view.php": {
+            "sha": "150bfee791e541599cb093d13278e234b2156241494332691892ce9d38144f64",
+            "size": 62699,
+            "live_was": "b40880f3a6d7c4b2427986d3d78aa794fbffee16d486c0d333160273d4966426",
+            "existed": true,
+            "old_sha": "b40880f3a6d7c4b2427986d3d78aa794fbffee16d486c0d333160273d4966426"
+        },
+        "website/discovery/index.php": {
+            "sha": "e294da3b68684b39b50672cd094877894d93bf456493aeeaf98e35fe8b8fcbc1",
+            "size": 97868,
+            "live_was": "4913117f471319f38fdd351d9215b5d53f05fbfc3662da8c70d7e22c404b9187",
+            "existed": true,
+            "old_sha": "4913117f471319f38fdd351d9215b5d53f05fbfc3662da8c70d7e22c404b9187"
+        }
+    },
+    "migrations": [],
+    "checks": {
+        "ok": true,
+        "where": "live",
+        "at": "2026-11-22T12:52:31+00:00",
+        "items": [
+            [
+                "PHP files parse",
+                true,
+                "5 checked"
+            ],
+            [
+                "Pages answer",
+                true,
+                "4 pages answered on traversence.com"
+            ],
+            [
+                "No new fatal errors in the logs",
+                true,
+                "5 logs read"
+            ]
+        ],
+        "first_fail": ""
+    },
+    "log": [
+        {
+            "at": "2026-11-22T12:52:25+00:00",
+            "by": 0,
+            "msg": "Uploaded card-fixes.zip: 6 files."
+        },
+        {
+            "at": "2026-11-22T12:52:27+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/card-fixes.zip (git b3bdfa54b0)."
+        },
+        {
+            "at": "2026-11-22T12:52:27+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
+        },
+        {
+            "at": "2026-11-22T12:52:29+00:00",
+            "by": 0,
+            "msg": "Put on staging (6 files); its checks passed."
+        },
+        {
+            "at": "2026-11-22T12:52:31+00:00",
+            "by": 0,
+            "msg": "Approved in chat before it was sent through git, and its checks on staging passed: publishing by itself."
+        },
+        {
+            "at": "2026-11-22T12:52:31+00:00",
+            "by": 0,
+            "msg": "Published: 6 files; everyone at once (no switch)."
+        }
+    ]
+}

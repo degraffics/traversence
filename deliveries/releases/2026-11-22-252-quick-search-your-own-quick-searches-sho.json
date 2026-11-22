@@ -1,0 +1,104 @@
+{
+    "id": 252,
+    "title": "Quick Search: your own quick searches show how many they find where you are",
+    "why": "Jason, 2026-11-22: \"Count them\" (B2's follow-up, handoffs/screens-proposal-2026-11-22.md). In the search panel, each of your own quick searches (kept on your device) now shows the number its search finds for where you are, as the place's own quick searches do. Each phrase is run as the search it opens, with no side effects (as while typing: nothing to the crawler, nothing counted as demand), and kept an hour per place and phrase. Open now has no number (it changes by the minute, B2); a phrase that finds nothing shows none. The words go with the search; each count is kept an hour by phrase and place, never with who asked, then cleared. FAQ updated. No outside calls, no cost.",
+    "proposals": "",
+    "zip": "own-quick-counts.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "live",
+    "step": 3,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": "2026-11-22 14:10:50",
+    "staged_at": "2026-11-22 14:10:52",
+    "vetted_at": "2026-11-22 14:10:54",
+    "live_at": "2026-11-22 14:10:54",
+    "files": {
+        "app/ui/faq.md": {
+            "sha": "d57340790d80ed59f8dd448242732b6929180561859735e98b7c15abd5fdbbed",
+            "size": 420485,
+            "live_was": "0c7d876bab45eb36c278307f8067167b90067162d24639c285c5875f4061320c",
+            "existed": true,
+            "old_sha": "0c7d876bab45eb36c278307f8067167b90067162d24639c285c5875f4061320c"
+        },
+        "app/lib/SearchPresets.php": {
+            "sha": "7dc9579e50c9369bab47fa19df30a8795bed1e500de47e86398e9f8205381139",
+            "size": 13609,
+            "live_was": "47f977f5f4aa46a7c73225759ea15d6c25fb8a68611fa69d7a7beb06a86e766f",
+            "existed": true,
+            "old_sha": "47f977f5f4aa46a7c73225759ea15d6c25fb8a68611fa69d7a7beb06a86e766f"
+        },
+        "website/api/search.php": {
+            "sha": "6809a67dd798939849f02f8c17207ed278ac6a4af8272372259d648aa97cf312",
+            "size": 14926,
+            "live_was": "f3eb0738ee2e4c115c1ae98c257536e7eb7ec9b735f1862c87689088a1a8b596",
+            "existed": true,
+            "old_sha": "f3eb0738ee2e4c115c1ae98c257536e7eb7ec9b735f1862c87689088a1a8b596"
+        },
+        "website/js/search-panel.js": {
+            "sha": "ac69a931379a1f5ecfc57f3efc19615cc82725fad37ba1ee027e2c29ec13e81b",
+            "size": 138644,
+            "live_was": "58e626ef84e49355ba4dcb359bb9a2cfb727bd66feafe165a6f3e86c02c00e58",
+            "existed": true,
+            "old_sha": "58e626ef84e49355ba4dcb359bb9a2cfb727bd66feafe165a6f3e86c02c00e58"
+        }
+    },
+    "migrations": [],
+    "checks": {
+        "ok": true,
+        "where": "live",
+        "at": "2026-11-22T14:10:55+00:00",
+        "items": [
+            [
+                "PHP files parse",
+                true,
+                "2 checked"
+            ],
+            [
+                "Pages answer",
+                true,
+                "2 pages answered on traversence.com"
+            ],
+            [
+                "No new fatal errors in the logs",
+                true,
+                "4 logs read"
+            ]
+        ],
+        "first_fail": ""
+    },
+    "log": [
+        {
+            "at": "2026-11-22T14:10:49+00:00",
+            "by": 0,
+            "msg": "Uploaded own-quick-counts.zip: 4 files."
+        },
+        {
+            "at": "2026-11-22T14:10:50+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/own-quick-counts.zip (git af03cf13f0)."
+        },
+        {
+            "at": "2026-11-22T14:10:50+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
+        },
+        {
+            "at": "2026-11-22T14:10:53+00:00",
+            "by": 0,
+            "msg": "Put on staging (4 files); its checks passed."
+        },
+        {
+            "at": "2026-11-22T14:10:54+00:00",
+            "by": 0,
+            "msg": "Approved in chat before it was sent through git, and its checks on staging passed: publishing by itself."
+        },
+        {
+            "at": "2026-11-22T14:10:54+00:00",
+            "by": 0,
+            "msg": "Published: 4 files; everyone at once (no switch)."
+        }
+    ]
+}

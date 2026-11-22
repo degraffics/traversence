@@ -1,0 +1,26 @@
+{
+ "zip": "search-fixes.zip",
+ "built_on": "e229587 Sync: 2026-11-21 22:55 UTC",
+ "recorded": "2026-11-22 12:16 UTC",
+ "note": "Search fixes (screens proposal A1-A3, B1, B2, approved 2026-11-22) + Esc closes only the pop-up over the panel; built on Sync 22:55 UTC 2026-11-21 (e229587) Sent through git (releases/inbox).",
+ "status": "live",
+ "live_in": "ca2f7ab Sync: 2026-11-22 12:25 UTC",
+ "files": {
+  "app/lib/SearchIndex.php": {
+   "sha256": "f1cf4f12bc5ffd4e9e8b504a00ddc4bebddbf3798d9d40127a8b1b2096387c93",
+   "live": true
+  },
+  "app/lib/SearchPresets.php": {
+   "sha256": "47f977f5f4aa46a7c73225759ea15d6c25fb8a68611fa69d7a7beb06a86e766f",
+   "live": true
+  },
+  "app/ui/faq.md": {
+   "sha256": "4eaf3ec8b49cc25a782d1cd0644be14105846ca9c55ad57b87caf58db6766a30",
+   "live": true
+  },
+  "website/js/search-panel.js": {
+   "sha256": "58e626ef84e49355ba4dcb359bb9a2cfb727bd66feafe165a6f3e86c02c00e58",
+   "live": true
+  }
+ }
+}

@@ -1,0 +1,10 @@
+{
+ "title": "Search: tabs that add up, Peek on every result, the lacking note and the guide offer where they belong",
+ "why": "Jason's screenshot of Quick Search (\"places to swim near me\", St. Johns; approved 2026-11-22, handoffs/screens-proposal-2026-11-22.md A1-A3, B1, B2). The section tabs counted the categories your words might mean, which aren't listed, so Get Local said 5 over 4 rows: they now count only what's listed, and take Search Directory's names (Discovery, Directory, Community), the same as each row's tag (decisions/0058 §38). Every result has Peek: a listing or an outdoor place opens the quick card, anything else its page in a window. 'Our results … are lacking' (decisions/0060) shows above the results instead of under them. The offer to build a place's guide sits under the results. Quick Search counts a category people ask about here; Open now keeps no number (it changes by the minute). No outside calls, no cost.",
+ "changes": [
+  {"what": "Search: open it from any page's search box", "where": "https://traversence.com/"},
+  {"what": "FAQ: What does Peek do in search?", "where": "https://traversence.com/faq.php#what-does-peek-do-in-search"}
+ ],
+ "proposals": [],
+ "switch": ""
+}
