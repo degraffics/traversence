@@ -56,6 +56,11 @@ was stored, so no question was needed); zip check clean; run.php 16/16, parks.cj
    landmark. The probe measured the `<nav>` inside the bar (ending at 53px), so it read the bar's own 4px padding and
    1px border as a gap. Fixed at that cause in `tools/page-audit/layout-probe.mjs` (it measures `#top-bar` and the
    account strip); no site release.
+5. **Progress (2026-11-22): the phone menu** (the old queue's item): the two defects fixed without asking (the session
+   manager's review), Jason picked option B for the look; built as `phone-menu.zip` on 25cb67e (`phone-menu.md`), with
+   the probe fix (#1256) in the same PR. The Link icon in the photo's corner was already answered on 2026-11-22 for
+   #250: "Use link icon in right top corner and ... tool kit just to the left of it" (the card's corner, live). The
+   account bar on a listing stays open (his to look at).
 5. Then the old queue (`design-and-trips-2026-11-20.md` §2): the phone menu fixes (Jason hasn't picked; the three
    questions were posted in chat 2026-11-20), 3e (Marketplace, checkout, storefronts, domains), 3f's leftovers, the map
    release, 0174 R5.
