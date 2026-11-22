@@ -97,7 +97,9 @@ final class ControlEngine
         if (is_callable(self::$checker) && ($r = (self::$checker)($comp)) !== null) return $r + ['pass' => null, 'proof' => '', 'ms' => 0];
         $t0 = microtime(true);
         try {
-            if (str_starts_with($comp, 'ep:')) return self::checkEndpoint($pdo, substr($comp, 3));
+            // the video worker's endpoints hand out work on any call: they're checked through its heartbeat, never called
+            if (str_starts_with($comp, 'ep:video/')) $comp = 'wk:video-worker';
+            elseif (str_starts_with($comp, 'ep:')) return self::checkEndpoint($pdo, substr($comp, 3));
             if ($comp === 'wk:crawler') {
                 $r = $pdo->query("SELECT id, status, started_at, ended_at FROM crawl_runs ORDER BY id DESC LIMIT 1")->fetch(PDO::FETCH_ASSOC);
                 $ok = $r && $r['ended_at'] !== null && $r['status'] !== 'failed' && strtotime((string) $r['started_at']) > time() - 40 * 60;

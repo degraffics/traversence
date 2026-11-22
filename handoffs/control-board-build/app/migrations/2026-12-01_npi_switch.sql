@@ -1,0 +1,6 @@
+-- NPI's monthly load: off since 2026-11-02 (Jason: CMS took its file page down "until further notice"), held until now
+-- by a constant in code (NpiBulk::OFF). The control board's build (D12, 03 §22 NPI 1) moves it to the npi_bulk task's own
+-- switch, with its why, so it's seen and switched there. Sets it once, only where no reason is recorded yet, and logs it as
+-- Jason's 2026-11-02 choice. Safe to run twice: a task already off with a reason, or switched by a person since, is left.
+UPDATE crawl_capture_tasks SET enabled = 0, off_why = 'Off on purpose: CMS took its NPI file page down until further notice (Jason, Nov 2, 2026)', off_at = UTC_TIMESTAMP() WHERE task = 'npi_bulk' AND (off_why IS NULL OR off_why = '') AND NOT EXISTS (SELECT 1 FROM automation_log WHERE kind = 'task' AND ref = 'npi_bulk');
+INSERT INTO automation_log (at, kind, ref, paused, why, by_uid, by_name) SELECT UTC_TIMESTAMP(), 'task', 'npi_bulk', 1, 'Off on purpose: CMS took its NPI file page down until further notice (Jason, Nov 2, 2026; moved from code to its switch)', NULL, 'Jason' FROM DUAL WHERE EXISTS (SELECT 1 FROM crawl_capture_tasks WHERE task = 'npi_bulk' AND enabled = 0) AND NOT EXISTS (SELECT 1 FROM automation_log WHERE kind = 'task' AND ref = 'npi_bulk');
