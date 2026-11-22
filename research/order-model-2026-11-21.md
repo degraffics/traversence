@@ -92,6 +92,8 @@ statement."
 - The vendor work order waits for payment in full (2026-11-21: "Paid in full before order is released to vendor"),
   except on a deposit order, where the deposit overrides it, and except an admin's override (2026-11-21: "Admin can
   override payment requirements to initiate vendor work orders pre funding").
+- The override is for **admins only, with a reason recorded** (2026-11-22: "Admins only, with a reason recorded."). Today
+  any staff member with order edit rights can release an order to production before payment (c2); that narrows.
 - The balance must be paid before the order is released for delivery; a late balance holds it before shipping.
 - What a deposit is: "Deposit does not control progress, it is a requirement of partial payment when needed to ensure
   we risk incurring expenses that might be incurred upon entering to production stage."
@@ -148,7 +150,7 @@ the pass is the product. It shapes 1.2's client-configured items and 1.8's money
 | What a deposit does | Any money in puts print "In production" and a work order can go (`received`, §3 steps 10–11) | 1.8, 1.9 | **Fits more closely than thought:** a deposit order can go to the vendor; new are the cancel window, the balance due on scheduling, and the hold before shipping |
 | Vendor needs full payment | Work order allowed from paid or in production (§3 step 11; `workflows.php`) | 1.9 | **Changes built behaviour** for orders on full-payment terms (and invoice later); deposit orders keep today's behaviour |
 | Invoice later | 0101: "With invoice-later terms, production starts on approval"; due terms on receipt, Net 15, Net 30 (`DUE_TERMS`) | 1.8 | **Changes 0101:** replaced by credit account terms (new: no credit account exists; today's "credits" are credit memos) or an admin override |
-| Who can override | Release to production before payment: staff with order edit rights (c2) | 1.9 "Admin" | Narrows who can (to confirm) |
+| Who can override | Release to production before payment: staff with order edit rights (c2) | 1.9: admins only, reason recorded | Narrows who can |
 | Reorders | Same art reuses the proof with initials; changes start a new round; today's prices; becomes a draft for staff (`Collateral::reorder`) | 1.11 | Fits; only where it ends changes |
 | Design-only | Finals released when there's no print, once paid in full (§3a) | 1.8 | Delivery fits; the money rule (paid in full, or a deposit when terms may change) applies |
 | Preflight, client upload | Nothing checks art; the client can't upload (§3a); 0176 to come, Replace file decided | 1.10 | Fits 0176; to build |
@@ -168,7 +170,7 @@ the pass is the product. It shapes 1.2's client-configured items and 1.8's money
 1. ~~"Production" now means two things~~ Answered by 1.13 and 1.9 (2026-11-22). To confirm: whether Delivered ends the
    order, or the client's "Yes, I have it" (Complete) still follows. Invoice-later terms: answered in 1.8 (credit
    account terms or an admin override).
-2. The admin override: admins only (and managers?), with a reason recorded.
+2. ~~The admin override~~ Answered: admins only, with a reason recorded (1.9).
 3. Approve for the client: is the "yes given in person, by phone or email" use dropped (1.6 vs the map)?
 4. Which route an order takes, and whether invoice-later, wire and check stay on the invoice route only. (B.4 as
    confirmed exempts "invoice later" from paid in full; 1.9 removes that exemption.)
