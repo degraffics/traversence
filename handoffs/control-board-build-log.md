@@ -180,6 +180,18 @@ says which schema it needs.
 - A `job:` alarm's tries are its next runs; an `ep:video/*` is checked through the video worker's heartbeat (a call to
   `video/jobs` hands out work).
 
+## Taken over (2026-11-22 22:22 UTC, session_01CXLi5mF3yZ2ZE7oz8RpDsq)
+
+- The build session at the hold above is replaced by session_01CXLi5mF3yZ2ZE7oz8RpDsq, which owns the build until it's live.
+- **Claims moved:** the old session's 43 claims released (`checkout.py release --session session_01CXLi5ibQFnVmXNfkdFarwR`)
+  and the same files claimed at once as this session's, release `control-board.zip` (36 change, 7 add), until 02:22 UTC.
+  The views' files were already among them. Design and trips (session_01CXLi5grMsUgrRMJv3a71F9) holds only
+  `website/js/location-scope.js`: no clash. `app/lib/Pulse.php` is claimed by function once its functions are known.
+- **Mirror:** still `7c99b2c` (Sync 2026-11-22 21:29 UTC), cloned shallow and sparse at `/home/user/traverse-3way-sync`.
+  No file changed since the build started, so nothing to re-apply.
+- **Outside this zip (recorded, per the brief):** the crawler worker's 432 fix (`workers/crawler/crawler.py`
+  `note_issue`: report any status >= 400 with its status and body) is a separate worker release after the board is live.
+
 ## Next, in the plan's order (§2.2) (superseded by the hand-off above)
 1. Read C15 on staging (§6), and the Ledger tab's rows: read-only, wanted from a runner or Jason.
 2. Remaining callers: Operations, ControlSensor, ControlMaintenance and ControlHistorian (they raise through the store,
