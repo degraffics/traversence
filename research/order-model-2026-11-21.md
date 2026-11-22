@@ -59,6 +59,10 @@ productions actual schedule."
 - **A deposit** is the exception, for orders whose terms may still change after approval: taken at approval, it lowers
   what's due until the order is released into production's actual schedule. Then the balance is due.
 - A set price is paid when ordered (2026-11-21: "Paid at time of order").
+- **Delayed payment** (2026-11-22, on invoice-later terms): "Credit account terms needed for delayed payments. Or admin
+  override to proceed without payment." So invoice later, as a pay mode anyone can be given, is replaced by a client's
+  credit account terms, or an admin's override on the order. To confirm: who grants a credit account and its terms, and
+  whether the balance-before-delivery rule (1.9) applies to it.
 - **A deposit on an estimate** (2026-11-22): "an estimate is used for when we dont have all things confirmed, so it could
   easily be used a tool to secure the deposit and enter into the stage where we can firm up things before releasing an
   estimate to become an invoice/order." So a deposit may also be taken before approval, on an estimate, to secure the
@@ -137,7 +141,7 @@ the pass is the product. It shapes 1.2's client-configured items and 1.8's money
 | Estimate, quote | None in our sales: 0101 "not an Estimate before"; the Shop's print card emails for a quote; Back-Office "Quotes & deals" coming (§2). Businesses have Quotes & invoices (`b_biz_quotes`, 0118, 0120), walled off (§1) | 1.7 | New for our sales; must not share the businesses' tables |
 | What a deposit does | Any money in puts print "In production" and a work order can go (`received`, §3 steps 10–11) | 1.8, 1.9 | **Fits more closely than thought:** a deposit order can go to the vendor; new are the cancel window, the balance due on scheduling, and the hold before shipping |
 | Vendor needs full payment | Work order allowed from paid or in production (§3 step 11; `workflows.php`) | 1.9 | **Changes built behaviour** for orders on full-payment terms (and invoice later); deposit orders keep today's behaviour |
-| Invoice later | 0101: "With invoice-later terms, production starts on approval" | 1.8, 1.9 | **To confirm:** invoice later isn't in the model; does it stay, and on which rule? |
+| Invoice later | 0101: "With invoice-later terms, production starts on approval"; due terms on receipt, Net 15, Net 30 (`DUE_TERMS`) | 1.8 | **Changes 0101:** replaced by credit account terms (new: no credit account exists; today's "credits" are credit memos) or an admin override |
 | Who can override | Release to production before payment: staff with order edit rights (c2) | 1.9 "Admin" | Narrows who can (to confirm) |
 | Reorders | Same art reuses the proof with initials; changes start a new round; today's prices; becomes a draft for staff (`Collateral::reorder`) | 1.11 | Fits; only where it ends changes |
 | Design-only | Finals released when there's no print, once paid in full (§3a) | 1.8 | Delivery fits; the money rule (paid in full, or a deposit when terms may change) applies |
@@ -156,7 +160,8 @@ the pass is the product. It shapes 1.2's client-configured items and 1.8's money
 ## 4. Open, to walk through with Jason one at a time
 
 1. ~~"Production" now means two things~~ Answered by 1.13 and 1.9 (2026-11-22). To confirm: whether Delivered ends the
-   order, or the client's "Yes, I have it" (Complete) still follows; and invoice-later terms (0101) under 1.8.
+   order, or the client's "Yes, I have it" (Complete) still follows. Invoice-later terms: answered in 1.8 (credit
+   account terms or an admin override).
 2. The admin override: admins only (and managers?), with a reason recorded.
 3. Approve for the client: is the "yes given in person, by phone or email" use dropped (1.6 vs the map)?
 4. Which route an order takes, and whether invoice-later, wire and check stay on the invoice route only. (B.4 as
