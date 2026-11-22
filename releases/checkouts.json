@@ -75,14 +75,12 @@
   },
   {
    "path": "app/lib/Mailer.php",
-   "functions": [
-    "sendCode"
-   ],
+   "functions": [],
    "kind": "change",
    "session": "session_01CXLi5jNQCN3zFZ2Fh3qUNf",
-   "why": "3f sign-in: tabs, words, sign-in pages without cart/bell/search, the code box, a lost work email (B8)",
+   "why": "3f: header comments and the staging register line",
    "since": "2026-11-22T13:18:32Z",
-   "expires": "2026-11-22T17:18:32Z",
+   "expires": "2026-11-22T17:45:12Z",
    "release": "signin-3f.zip",
    "callers": {
     "sendCode": [
