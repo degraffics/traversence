@@ -6,27 +6,29 @@
     "zip": "phone-menu.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "staged",
-    "step": 0,
+    "state": "live",
+    "step": 3,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
     "plan_at": "2026-11-22 14:36:14",
     "staged_at": "2026-11-22 14:36:16",
-    "vetted_at": null,
-    "live_at": null,
+    "vetted_at": "2026-11-22 14:36:18",
+    "live_at": "2026-11-22 14:36:18",
     "files": {
         "app/ui/header.php": {
             "sha": "7e36ef2092f7f3d853bdd733b64b35df8d9fc8b8ff852f75b2c13c0e792dfb62",
             "size": 68441,
-            "live_was": "3cdc2402c4bc49f2e597a720f11b6c1c3646500f6c032e3b7f8b2f6f4aa5c9b4"
+            "live_was": "3cdc2402c4bc49f2e597a720f11b6c1c3646500f6c032e3b7f8b2f6f4aa5c9b4",
+            "existed": true,
+            "old_sha": "3cdc2402c4bc49f2e597a720f11b6c1c3646500f6c032e3b7f8b2f6f4aa5c9b4"
         }
     },
     "migrations": [],
     "checks": {
         "ok": true,
-        "where": "staging",
-        "at": "2026-11-22T14:36:17+00:00",
+        "where": "live",
+        "at": "2026-11-22T14:36:18+00:00",
         "items": [
             [
                 "PHP files parse",
@@ -36,7 +38,7 @@
             [
                 "Pages answer",
                 true,
-                "2 pages answered on staging.trvgo.us"
+                "2 pages answered on traversence.com"
             ],
             [
                 "No new fatal errors in the logs",
@@ -66,6 +68,16 @@
             "at": "2026-11-22T14:36:17+00:00",
             "by": 0,
             "msg": "Put on staging (1 files); its checks passed."
+        },
+        {
+            "at": "2026-11-22T14:36:18+00:00",
+            "by": 0,
+            "msg": "Approved in chat before it was sent through git, and its checks on staging passed: publishing by itself."
+        },
+        {
+            "at": "2026-11-22T14:36:18+00:00",
+            "by": 0,
+            "msg": "Published: 1 files; everyone at once (no switch)."
         }
     ]
 }
