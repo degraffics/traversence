@@ -1997,6 +1997,13 @@ reference** (Q21 and SM 172–189, `step1-requirements.md`), by Jason's directio
     but is never output. Checked by `devgauges-check.cjs` and `workflows-check.cjs` (`ring-check.cjs`): every gauge one
     Arc, the band within 1% of the score, 50 at the top centre, the number, the label and the stage pill, no Ring, no
     style switch, no needle. Generator: `mockups/src/scorering.py`.
+- **The Workflows page (Jason, 2026-11-22; `workflows-page.md`, `board/workflows.html`):** the page: **"Approve"**. The
+  workflow targets: **"Approve as proposed"**: each workflow's measure and target is approved, so "target set" is met;
+  "check passing" is met only when the measure meets its approved target on a real reading. W3's two switches:
+  **"After the re-read"**: they stay off, waiting on the re-read of IR-0001's timings and Common Crawl's index
+  (`asks.md`); no live action. With the session manager's rulings (R118 wins in the case; `/api/crawl/loads.php` a
+  component with its own check, a build requirement; W13 a list, not a gauge; "alarm wired" through the one alarm
+  engine), no question on the page remains open.
 
 ---
 

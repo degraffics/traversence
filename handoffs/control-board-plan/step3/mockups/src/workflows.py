@@ -3,7 +3,7 @@
 #   step3/board/workflows.html   the standalone mockup (1280 and 390)
 #   the board's Workflows view   (board.py calls view() and panels())
 # Real data only: the live mirror (Sync e229587), the alarms snapshot (3:19 AM MST, Nov 21), 03 §28.1, the crawler worker.
-# What isn't real today is marked "illustration" or "proposed". Score gauges in Arc (no needle; Jason's choice, 2026-11-22).
+# What isn't real today is marked "illustration"; the measures and targets are approved (Jason, 2026-11-22). Score gauges in Arc (no needle; Jason's choice, 2026-11-22).
 # Design mockup, not site code.
 import html, json, os, re
 
@@ -100,7 +100,7 @@ STATE = {
     'W0': ('n', 'Off: shipped off until the team starts it', 'Built and shipped switched off (release #79; app/ui/faq.md:870). Whether it has been started is live data, not in the snapshot.'),
     'W1': ('r', 'Paused by the system (a trip): 2 tasks', 'overture_bulk failed (run #1290, 08:31 UTC Nov 21) and foursquare_bulk failed (run #1288, 08:20 UTC): two trips that paused W1 whole. "Records: 0 in, 0 stored, 0 refused" in 24 hours. Root cause so far: the response path at /api/crawl/loads.php, unconfirmed (IR-0001).'),
     'W2': ('a', 'Warning: its refresh count', '/api/crawl/refresh counted more than it received (received 1, counted 2; 09:05 UTC Nov 21), so its counts can\'t be trusted yet (03 §28.2).'),
-    'W3': ('a', 'Off by the system: 2 switches', 'Its trip (Common Crawl #35, 09:00 UTC Nov 20) closed when Jason pressed Check and start again (Nov 21). Its two task switches, Read a source and Common Crawl, stay Off by the system, left by the closed trip, so W3 does nothing. Also: 77 sources are read regularly outside our region (a warning since Nov 18).'),
+    'W3': ('a', 'Off by the system: 2 switches', 'Its trip (Common Crawl #35, 09:00 UTC Nov 20) closed when Jason pressed Check and start again (Nov 21). Its two task switches, Read a source and Common Crawl, stay Off by the system, left by the closed trip, so W3 does nothing. They stay off, waiting on the re-read (Jason, 2026-11-22). His answer, "After the re-read": IR-0001\'s timings and Common Crawl\'s index are read first (asks.md visits 1 and 2, items [1] and [16]); no live action until then. Also: 77 sources are read regularly outside our region (a warning since Nov 18).'),
     'W13': ('n', 'Nothing to switch: people write', 'W13 is people\'s own (SystemStart.php:43): no crawler, no switch.'),
     'W14': ('n', 'Not built: licence_lookup', 'Its licence_lookup (AZCC, NM SoS) isn\'t built yet (03 §26.9–26.10, §28.3).'),
 }
@@ -116,7 +116,7 @@ TASK_STATE = {   # task switches the snapshot or §28.1 names; everything else "
 # setup: [the probe built, its target set, its check passing, its alarm wired to the board]; the measure and target are proposals
 CRAWL_PROBE = 'the Workflow board\'s Last 24 h per task (CrawlService::taskStats, operations-console.php:377) and the ledger\'s records'
 JOB_PROBE = 'the watch\'s late and stuck check on its site job (R44; tools/control-board-tests/quiet-job.php)'
-MEASURE = {   # (the proposed measure, the proposed target, its probe or None)
+MEASURE = {   # (the measure, the target: both approved as proposed, Jason 2026-11-22; its probe or None)
     'W0': ('Pages read and classified: its heartbeat inside every 5-minute watch', 'every watch', 'the worker\'s heartbeat line rw:beat (Preflight::NEEDS "pages")'),
     'W1': ('Records reconciled per run: in = stored + updated + sent to Review + refused (the "accounted" check, R25)', 'every run', CRAWL_PROBE),
     'W2': ('Listings due a recheck, rechecked on schedule', '95% within their due day', CRAWL_PROBE),
@@ -156,12 +156,23 @@ WIRED = {
 LIST_ONLY = {'W13': 'W13 is a list, not a gauge: people write stories, so it has no machine steps to measure (the session manager, 2026-11-22).'}
 
 
+# "Check passing": met only if the workflow's measure meets its approved target today (Jason, 2026-11-22). From what's read today:
+MEETS = {
+    'W0': 'no reading: shipped off; whether it has started is live data (asks.md visit 17)',
+    'W1': 'not met: paused by two trips, "Records: 0 in, 0 stored, 0 refused" in 24 hours (the alarms snapshot)',
+    'W2': 'not met: its counts can\'t be trusted (/api/crawl/refresh received 1, counted 2)',
+    'W3': 'not met: it does nothing while its two switches stay off',
+    'W14': 'not met: licence_lookup isn\'t built',
+}
+NO_READING = 'not met yet: its reading today (the Last 24 h, its job\'s runs) is live data the snapshot doesn\'t hold'
+
+
 def setup(w):
     m, t, probe = MEASURE[w]
     alarm = w in WIRED
     return [('The probe built', probe is not None, probe or ('licence_lookup isn\'t built' if w == 'W14' else 'person-written: nothing runs to read')),
-            ('Its target set', False, 'proposed: ' + t + ' (ours, for Jason)'),
-            ('Its check passing', False, 'no target yet; its gate (pf:wf:' + w + ') is part of this check' + ('; ' + STATE[w][1].lower() if w in ('W1', 'W2', 'W3') else '')),
+            ('Its target set', True, t + ': ' + 'approved (Jason, 2026-11-22)'),
+            ('Its check passing', False, MEETS.get(w, NO_READING) + '; its gate (pf:wf:' + w + ') is part of this check'),
             ('Its alarm wired to the board', alarm, ('its failures raise through the one alarm engine: ' + WIRED[w]) if alarm else ('licence_lookup isn\'t built: nothing raises yet' if w == 'W14' else 'nothing raises'))]
 
 
@@ -364,14 +375,14 @@ def card(w, links):
     return (f'<article class="wfg s-{k}" id="wf-{w}" data-wf-g="{groups(w)}"><button type="button" class="wfg-open" data-open-panel="p-wfp-{w}" aria-label="Open {w} {E(wname(w))}: {E(words)}; {E(st)}, setup {nsu} of 4">'
             f'<span class="wfg-h"><b>{w}</b> {E(wname(w))}</span>{ring(w)}<span class="band-word stage st-{SK[st]}">{E(st)}</span>'
             f'<span class="wfg-su">setup: {nsu} of 4</span>{B.lt(k, words)}'
-            f'<span class="wfg-m"><span class="proposed">proposed</span> {E(m)}</span></button>'
+            f'<span class="wfg-m"><span class="appr">approved</span> {E(m)}</span></button>'
             f'<div class="btns"><button class="btn path" data-open-panel="p-wfa-{w}">Workflows ▸</button><button class="btn path" data-open-panel="p-wfc-{w}">Core Services ▸</button>'
             f'<button class="btn path" data-open-panel="p-wfr-{w}">Registered Services ▸</button></div></article>')
 
 
 def paused_now():
     att = [('W1', 'Two trips: overture_bulk (#1290) and foursquare_bulk (#1288) failed at /api/crawl/loads.php; W1 is paused whole. Its fix: IR-0001 (the endpoint\'s timings), then Check and start again.'),
-           ('W3', 'Read a source and Common Crawl: Off by the system, left by a closed trip (Common Crawl #35). Its fix: switch them on (nothing switches them back by itself, R98).')]
+           ('W3', 'Read a source and Common Crawl: Off by the system, left by a closed trip (Common Crawl #35). Waiting on the re-read (Jason, 2026-11-22): they stay off until IR-0001\'s timings and Common Crawl\'s index are read (asks.md [1], [16]); nothing switches them back by itself (R98).')]
     warn = [('W2', '/api/crawl/refresh counted more than it received (received 1, counted 2).'), ('W3', '77 sources are read regularly outside our region (ebi.ac.uk, va.gov, jcis.jp and more).')]
     off = [('W0', 'shipped off until the team starts it (release #79)'), ('W13', 'people\'s own: nothing to switch'), ('W14', 'licence_lookup isn\'t built'),
            ('W2', 'its identity recheck task, shipped off (R155)')]
@@ -419,9 +430,9 @@ LOADS = ('<div class="wp-comp"><h3 class="h3">A Core Services component: <code>/
 
 def body(links=True):
     cards = ''.join(card(w, links) for w, *_ in B.WORKFLOWS)
-    return (f'<div class="wp-head"><h1>Workflows</h1><span class="dg-draft">draft for the session manager, then Jason</span></div>'
+    return (f'<div class="wp-head"><h1>Workflows</h1><span class="dg-draft">approved by Jason, 2026-11-22</span></div>'
             f'<p class="sub">W0–W14 from the live <code>Automation::WORKFLOWS</code>, each one a gauge under the approved lifecycle: setup % through Planning to Implementation, '
-            f'its live reading against its target at Monitoring (Jason, 2026-11-22). The measures and targets are <span class="proposed">proposed</span>, ours. '
+            f'its live reading against its target at Monitoring (Jason, 2026-11-22). The measures and targets are <span class="appr">approved (Jason, 2026-11-22)</span>, as proposed. '
             f'A call happens only when the master switch, its workflow, its task and its service are all on (R140); a source down holds only what uses it (R88).</p>'
             f'{paused_now()}{clocks()}<div class="wp-grid" id="wp-grid">{cards}</div>{case_html()}{kmd_html()}'
             f'<details class="more"><summary>By workflow, this month</summary><p class="sub">Operations::costs is live data the snapshot doesn\'t hold: not read here. '
@@ -459,7 +470,7 @@ def page_panel(w, links):
             + (f'<h3 class="h3">Its alarms <span class="live">live · {E(B.T_AL)}</span></h3><ul class="wp-l">{alh}</ul>' if al else '')
             + (f'<h3 class="h3">A list, not a gauge</h3><p class="sub">{E(LIST_ONLY[w])}</p>' if w in LIST_ONLY else
                f'<h3 class="h3">Its gauge</h3><div class="wp-gz">{ring(w, True)}<span class="band-word stage st-{SK[st]}">{E(st)}</span></div>'
-               f'<p class="sub">Setup through Planning to Implementation (Jason approved, 2026-11-22). <span class="proposed">proposed</span> measure: {E(m)}; target: {E(t)}.</p><ul class="wp-l wp-su">{su}</ul>')
+               f'<p class="sub">Setup through Planning to Implementation (Jason approved, 2026-11-22). Measure: {E(m)}; target: {E(t)} <span class="appr">approved (Jason, 2026-11-22)</span>.</p><ul class="wp-l wp-su">{su}</ul>')
             + f'<h3 class="h3">What starts it (the run schedule)</h3><p class="sub">{E(st_src[0])} <span class="micro">({E(st_src[1])})</span></p>'
             f'<h3 class="h3">Its steps and their switches</h3>'
             + (f'<table class="wp-t"><thead><tr><th>Task</th><th>Its needs: sources in order, then the fallback</th><th>Its switch</th></tr></thead><tbody>{tk}</tbody></table>' if tk else '<p class="sub">No tasks: nothing runs.</p>')
@@ -505,7 +516,7 @@ CSS = r"""
 .wp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.5rem;margin:.6rem 0}
 .wfg{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--card-edge);border-radius:.5rem;padding:.5rem;min-width:0}.wfg.s-r{border-color:var(--red)}.wfg.hit{box-shadow:0 0 0 2px var(--copper)}
 .wfg[hidden]{display:none}.wfg-open{display:flex;flex-direction:column;align-items:center;gap:.2rem;background:none;border:0;font:inherit;color:inherit;cursor:pointer;text-align:center;padding:0}
-.wfg .lt{font-size:12.5px;font-weight:600}.wfg-list{font-size:12.5px;color:var(--meta);line-height:1.35;margin:.3rem 0}.wfg-h{font-size:13.5px;line-height:1.25;min-height:2.5em}.wfg-su{font-size:12px;color:var(--meta)}.wfg-m{font-size:11.5px;color:var(--meta);line-height:1.3}
+.wfg .lt{font-size:12.5px;font-weight:600}.appr{font-size:10.5px;border:1px solid #3d6b52;color:#3d6b52;border-radius:3px;padding:0 4px}.wfg-list{font-size:12.5px;color:var(--meta);line-height:1.35;margin:.3rem 0}.wfg-h{font-size:13.5px;line-height:1.25;min-height:2.5em}.wfg-su{font-size:12px;color:var(--meta)}.wfg-m{font-size:11.5px;color:var(--meta);line-height:1.3}
 .wfg .btns{justify-content:center;margin-top:.35rem}.wfg .btn.path{font-size:11.5px;padding:.1rem .5rem}
 .wp-case{background:var(--card);border:1px solid var(--card-edge);border-radius:.5rem;padding:.5rem .7rem;margin:.8rem 0}.wp-case .h2{font-size:16px;margin:0 0 .2rem}
 .wp-csl{margin:.3rem 0 0 1.1rem;padding:0;display:flex;flex-direction:column;gap:.45rem}.wp-csh{display:flex;flex-wrap:wrap;gap:.35rem;align-items:center}.wp-cs .sub{margin:.15rem 0 0}
@@ -567,11 +578,11 @@ def spec():
     rows, total = reqs()
     W = [w for w, *_ in B.WORKFLOWS]
     st = {w: stage(w) for w in W}
-    out = ['# The board\'s Workflows page (a draft for the session manager, then Jason)', '',
+    out = ['# The board\'s Workflows page (approved by Jason, 2026-11-22)', '',
            'Step 3, 2026-11-22. A spec and a mockup: nothing is built. The mockup is `board/workflows.html` (standalone, 1280 and 390) and the board\'s',
            'Workflows view (`board/index.html`), both generated by `mockups/src/workflows.py`. Real data only: the live mirror (' + MIRROR + '), the alarms',
            'snapshot (' + B.T_AL + '), 03 §28.1 and the crawler worker (`workers/crawler/crawler.py`). What isn\'t real today is marked',
-           '**illustration** or **proposed**. Every gauge is a score gauge in Arc (no needle; Jason\'s choice, 2026-11-22).', '',
+           '**illustration**; the measures and targets are approved (Jason, 2026-11-22). Every gauge is a score gauge in Arc (no needle; Jason\'s choice, 2026-11-22).', '',
            '## 1. What the page is', '',
            '- One page for the Knowledge Engine\'s workflows, W0–W14, on the System Control Board (R8, R17). It merges today\'s Workflows page and the folded-in',
            '  Workflow board (decisions/0175 L421–422: "Each workflow\'s page has its steps, services, backups and task switches"; release #243).',
@@ -619,16 +630,17 @@ def spec():
     out += ['', '## 5. Each workflow as a gauge (the approved lifecycle)', '',
             'Each workflow is a runtime gauge under the lifecycle Jason approved (2026-11-22; `sections/gauge-lifecycle.md` §7): four setup criteria (the probe',
             'built, its target set, its check passing, its alarm wired to the board). Below Monitoring the score is setup %, in the stage\'s colour; at Monitoring it',
-            'is the live reading against its target, coloured by it. The measures and targets are **proposed** (ours) for Jason to set.', '',
-            '| Workflow | Stage | Setup | Proposed measure | Proposed target | The probe |', '|---|---|---|---|---|---|']
+            'is the live reading against its target, coloured by it. The measures and targets are **approved (Jason, 2026-11-22)**: "Approve as proposed".',
+            '"Check passing" is met only if the measure meets its approved target today.', '',
+            '| Workflow | Stage | Setup | Measure | Target, approved (Jason, 2026-11-22) | Check passing today | The probe |', '|---|---|---|---|---|---|---|']
     for w in W:
         if w in LIST_ONLY:
-            out.append(f'| {w} | a list, not a gauge | — | {LIST_ONLY[w]} | — | — |')
+            out.append(f'| {w} | a list, not a gauge | — | {LIST_ONLY[w]} | — | — | — |')
             continue
         m, t, p = MEASURE[w]
-        out.append(f'| {w} | {st[w]} | {sum(1 for x in setup(w) if x[1])} of 4 ({pct(w):.0f}%) | {m} | {t} | {p or "none: " + setup(w)[0][2]} |')
+        out.append(f'| {w} | {st[w]} | {sum(1 for x in setup(w) if x[1])} of 4 ({pct(w):.0f}%) | {m} | {t} | {MEETS.get(w, NO_READING)} | {p or "none: " + setup(w)[0][2]} |')
     cnt = {s: sum(1 for w in W if st[w] == s and w not in LIST_ONLY) for s in STAGES}
-    out += ['', 'Today: ' + '; '.join(f'{s} {n}' for s, n in cnt.items() if n) + '. No workflow passes Audit & Review until Jason sets its target (proposed above).',
+    out += ['', 'Today: ' + '; '.join(f'{s} {n}' for s, n in cnt.items() if n) + '. With the targets set, no workflow passes Audit & Review until its measure meets its target on a real reading.',
             '**Alarm wired** (the session manager, 2026-11-22) means the workflow\'s failures raise through the one alarm engine, with their Fix it or Check it now',
             'landing on one item; a `pf:wf:W#` gate is part of "check passing", not this. From the mirror: a crawler task\'s failed runs raise on its workflow',
             '(ControlBoard.php:446–470; ControlAlarms.php:44–52); a site job tied to a workflow raises on it and pauses it (Automation::JOBS, Automation.php:50–61;',
@@ -673,15 +685,17 @@ def spec():
             '  its score, every panel closing three ways with Back, the filters, the case\'s six steps, the validator.',
             '- The board\'s Workflows view (`board/index.html`, `board.py` calls `workflows.view()`), and its review-pack part.', '',
             '## 10. Settled by the session manager (2026-11-22)', '',
-            '- **Fix it in the case: R118 wins.** A 504 is their trouble: no Fix it, only Check it now and Pause it, with "the system is waiting on them". (Was open question 1.)',
-            '- **The loads endpoint** is a component with its own check: a build requirement (§3). (Was open question 2.)',
-            '- **W13 is a list, not a gauge**: it has no machine steps to measure. (Was open question 6.)',
-            '- **Spend and last runs** come from the build\'s data, as written. (Was open question 7.)',
-            '- **"Alarm wired"** is the one alarm engine, not a pf:wf gate (§5); the setup recounted. (Was open question 8.)',
-            '- **W0 started** stays in `asks.md` (visit 17) as live data. (Was open question 5.)', '',
-            '## 11. Open questions', '',
-            '1. **W3\'s two switches.** They were written Off by the older trip and stay off (R98). Switch them on now, or wait for IR-0001 and the Common Crawl',
-            '   index to be read again?',
-            '2. **The measures and targets** in §5 are ours. Jason sets each (the "target set" criterion); until then every workflow stays at or below Audit & Review.']
+            '- **Fix it in the case: R118 wins.** A 504 is their trouble: no Fix it, only Check it now and Pause it, with "the system is waiting on them".',
+            '- **The loads endpoint** is a component with its own check: a build requirement (§3).',
+            '- **W13 is a list, not a gauge**: it has no machine steps to measure.',
+            '- **Spend and last runs** come from the build\'s data, as written.',
+            '- **"Alarm wired"** is the one alarm engine, not a pf:wf gate (§5); the setup recounted.',
+            '- **W0 started** stays in `asks.md` (visit 17) as live data.', '',
+            '## 11. Decided by Jason (2026-11-22)', '',
+            '- **W3\'s two switches: "After the re-read".** They stay off until IR-0001\'s timings and Common Crawl\'s index are read (`asks.md` items [1] and [16]);',
+            '  W3\'s page says "waiting on the re-read (Jason, 2026-11-22)". No live action.',
+            '- **The workflow targets: "Approve as proposed".** Each measure and target in §5 is approved; "target set" is met, and the stages are recounted (§5).',
+            '- **The page: "Approve".** This spec and its mockup are approved as drawn.', '',
+            'No open questions remain.']
     open(STEP3 + 'workflows-page.md', 'w').write('\n'.join(out) + '\n')
     return dict(cited=len(rows), total=total, stages=cnt, kmd=n, case=len(CASE))

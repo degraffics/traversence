@@ -25,20 +25,22 @@ const dir = '/home/user/traversence/handoffs/control-board-plan/step3/board/';
       const cards = await p.evaluate(() => [...document.querySelectorAll('#wp-grid .wfg')].map(c => [c.id, c.querySelectorAll('.sr').length, (c.querySelector('.band-word.stage') || {}).textContent, c.querySelectorAll('.btn.path').length, !!c.querySelector('.lt'), !!c.querySelector('.proposed'), c.classList.contains('wfl')]));
       const STG = ['Planning', 'Phased Development', 'Audit & Review', 'Implementation', 'Monitoring'];
       const gs = cards.filter(c => !c[6]), ls = cards.filter(c => c[6]);
-      ok(cards.length === 15 && cards.map(c => c[0]).join(',') === Array.from({ length: 15 }, (_, i) => 'wf-W' + i).join(',') && gs.length === 14 && gs.every(c => c[1] === 1 && STG.includes(c[2]) && c[3] === 3 && c[4] && c[5])
+      ok(cards.length === 15 && cards.map(c => c[0]).join(',') === Array.from({ length: 15 }, (_, i) => 'wf-W' + i).join(',') && gs.length === 14 && gs.every(c => c[1] === 1 && STG.includes(c[2]) && c[3] === 3 && c[4])
          && ls.length === 1 && ls[0][0] === 'wf-W13' && ls[0][1] === 0 && ls[0][3] === 3,
         `${tag}: W0–W14: 14 gauges, each one score gauge with its stage pill, its state with a reason, a proposed measure and three paths; W13 a list, not a gauge`);
-      ok(await p.evaluate(() => [...document.querySelectorAll('#wp-grid .wfg:not(.wfl)')].every(c => (c.id === 'wf-W14') === (c.querySelector('.sr-n').textContent === '0%') && (c.id === 'wf-W14' || c.querySelector('.sr-n').textContent === '50%'))),
-        `${tag}: the recount: W0–W12 at 2 of 4 (50%, the probe built and the alarm wired through the one engine), W14 at 0`);
+      ok(await p.evaluate(() => [...document.querySelectorAll('#wp-grid .wfg:not(.wfl)')].every(c => { const n = c.querySelector('.sr-n').textContent, st = c.querySelector('.band-word.stage').textContent;
+          return c.id === 'wf-W14' ? n === '25%' && st === 'Phased Development' : n === '75%' && st === 'Audit & Review'; }) && document.querySelectorAll('#wp-grid .appr').length === 14),
+        `${tag}: the recount with Jason's approved targets: W0–W12 at 3 of 4 (75%, Audit & Review: no measure meets its target on a real reading yet), W14 at 1 of 4 (Phased Development); each target approved`);
+      ok(await p.evaluate(() => /waiting on the re-read \(Jason, 2026-11-22\)/i.test(document.getElementById('p-wfp-W3').textContent)), `${tag}: W3's page: its switches waiting on the re-read (Jason, 2026-11-22)`);
       ok(await p.evaluate(() => { const a = document.getElementById('p-wfp-W1'), c = document.getElementById('p-wfc-W1'); return /build requirement/.test(a.textContent) && /\/api\/crawl\/loads\.php/.test(c.textContent) && /geofabrik_bulk/.test(c.textContent); }),
         `${tag}: W1's page and its Core Services path show /api/crawl/loads.php as a component with its check and what it holds (a build requirement)`);
-      ok(await p.evaluate(() => { const g = id => document.querySelector('#wf-' + id + ' .band-word.stage').textContent; return g('W1') === 'Audit & Review' && g('W14') === 'Planning' && /Paused by the system \(a trip\)/.test(document.querySelector('#wf-W1 .lt').textContent) && /Off by the system/.test(document.querySelector('#wf-W3 .lt').textContent); }),
-        `${tag}: real states: W1 paused by the system (a trip), W3 off by the system; W14 in Planning`);
+      ok(await p.evaluate(() => { const g = id => document.querySelector('#wf-' + id + ' .band-word.stage').textContent; return g('W1') === 'Audit & Review' && g('W14') === 'Phased Development' && /Paused by the system \(a trip\)/.test(document.querySelector('#wf-W1 .lt').textContent) && /Off by the system/.test(document.querySelector('#wf-W3 .lt').textContent); }),
+        `${tag}: real states: W1 paused by the system (a trip), W3 off by the system; W14 in Phased Development`);
       {
         const rp = await p.evaluate(ringProblems);
         const s = await sw();
-        ok(rp.nbad === 0 && rp.needles === 0 && rp.rings === 0 && rp.switches === 0 && rp.top50 >= 1 && s <= w,
-          `${tag}: every score gauge one Arc, band within 1% of its score, number, label, stage pill; 50 at the top centre (${rp.top50}); ${rp.rings} Rings, ${rp.switches} style switches, ${rp.needles} needles; scrollWidth ${s}` + (rp.nbad ? ': ' + rp.bad.join(' | ') : ''));
+        ok(rp.nbad === 0 && rp.needles === 0 && rp.rings === 0 && rp.switches === 0 && s <= w,
+          `${tag}: every score gauge one Arc, band within 1% of its score, number, label, stage pill; each band ending where its score says (50 at the top centre, checked on the Development strip); ${rp.rings} Rings, ${rp.switches} style switches, ${rp.needles} needles; scrollWidth ${s}` + (rp.nbad ? ': ' + rp.bad.join(' | ') : ''));
         if (file === 'workflows.html') await p.screenshot({ path: `${dir}shots/workflows-arc-${w}.png`, fullPage: true });
       }
       // every workflow's own page and its three paths: open, and close by ×
