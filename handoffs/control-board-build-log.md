@@ -86,7 +86,101 @@ Built in `handoffs/control-board-build/` (each file started from its live copy a
   `note_issue`: no kind, no report), so Tavily's plan limit reaches the site only once the worker reports any status ≥ 400.
   A worker release; for the session manager to place.
 
-## Next, in the plan's order (§2.2)
+### 6. The dispatcher path (22:20 UTC)
+- A person's close (Check and start again that passes) updates the same thread on every channel: "…: Fixed by <name>"
+  (P10; g4 F3). `Notify`'s push title knows the actions by name, since "Down: the system is still trying" holds a colon.
+- A trip with nobody to receive it says "Reached no one" on its row and raises the dispatcher's own trip, routed to
+  https://traversence.com/admin/config/communications#cs-controls (P11; g4 F4).
+- An open trip counts whether or not it's been seen (g4 F1). **Still to match in the views:** the board's Open list
+  and `control-console.php:781` filter on `ack_at IS NULL`, so an acknowledged trip must stay in them too (D5).
+- 1,095 checks pass (the bench's own `zz_test` endpoint is the one failure, as on live).
+
+## Hand-off at a hold (2026-11-22 22:25 UTC)
+
+This session (session_01CXLi5ibQFnVmXNfkdFarwR) stops here at a hold, its context long (CLAUDE.md, 2026-11-20: hand off
+at a hold, never mid-step). Everything below is on the branch `claude/control-board-build`, **not in `main`**, and
+nothing is zipped, sent or live. A fresh session takes it over after the session manager's review, and builds the rest
+of the one release (the plan's step 4); this file and `handoffs/control-board-build.md` are its brief.
+
+**Built on:** Sync 2026-11-22 21:29 UTC (`7c99b2c`). Fetch the mirror again before touching any file: a file changed
+there since gets only this build's change re-applied (CLAUDE.md, "Just before zipping").
+
+**What's built (the zip's files so far, each started from its live copy), in `handoffs/control-board-build/`:**
+- new: `app/lib/ControlEngine.php`, `app/lib/ControlIncidents.php`, `app/migrations/2026-12-01_control_engine.sql`,
+  `2026-12-01_control_incidents.sql`, `2026-12-01_npi_switch.sql` (has an `UPDATE`: `release.json` needs
+  `"data_reason"`).
+- changed: `app/lib/` `Automation.php`, `Captcha.php`, `ControlAlarms.php`, `ControlBoard.php`, `ControlReport.php`,
+  `Notify.php`, `Preflight.php`, `ServiceHealth.php`, `SystemStart.php`, `Thresholds.php` (`irs_floor_pct`),
+  `service-defs.php` (`role`, Tavily's `answers`), `staging-tables.php` (`control_incidents` in OWN),
+  `crawler/CrawlService.php`, `crawler/IrsBulk.php`, `crawler/NpiBulk.php`; `website/api/crawl/_auth.php`,
+  `website/api/crawl/irs.php`, `website/admin/crawler.php`, `website/admin/data.php`, `website/admin/api/data.php`.
+- repo: `workers/video/railway.json` (D14; reaches `main` only in the release's merge, after Jason's Approve);
+  `tools/control-board-tests/engine.php` (new) and 13 moved test files, `tools/dispatcher-tests/r1.php`, `r2-notice.php`.
+
+**Defects done (§4 of the plan):** D1, D2, D3, D4 (raisers' stale words; W13/W14's "Running" still in the views), D6,
+D7, D8, D10 (site side), D11, D12, D13, D14, D19, D21, D22 (records; their page in the views). Partly: D5 (counts; the
+Open list in the views), D18 (roles in the manifest; hosts and endpoints as parts on the board in the views), D20
+(critical duties as before, now on the engine's clock).
+
+**Left, in order (each sourced in `handoffs/control-board-build.md`):**
+1. **Renew or take over the claims.** This session's claims (`releases/checkouts.json`, release `control-board.zip`)
+   lapse between 01:40 and 02:15 UTC on 2026-11-23. The next session releases them
+   (`checkout.py release --session session_01CXLi5ibQFnVmXNfkdFarwR <paths>`) and claims the same files as its own at
+   once, plus the views' files (`app/admin/control-console.php`, `operations-console.php`, `preflight-console.php`,
+   `automation-console.php`, `index-console.php`, `website/js/admin-control.js`, `app/ui/score-gauge.php`,
+   `website/js/tv-copy.js`, `app/lib/ControlGauges.php`, `app/lib/Pulse.php` by function, `app/lib/Thread.php`,
+   `app/lib/SiteHealth.php`, `app/lib/ControlRegister.php`, `app/lib/OutsideServices.php`). Check Design and trips'
+   claims first (0174 R5).
+2. **The views (D15–D17, D5's list, D9, D16, D18):** 03 §27 (Arc, Jason's choice), the 16 development gauges and the
+   runtime lifecycle (`step3/sections/gauge-lifecycle.md`, `check-register.md`), the four-zone cards with PL's two rows
+   (02 §0 PL, §8), the Workflows page (`step3/workflows-page.md` §7: 8 kept, 2 moved, 3 dropped), the folded Reports
+   (D16), Copy by section (`tv-copy.js`, D15), the Incident Reports' page (IR-####), W13 as a list and W14 "Not built".
+   **Since a workflow's line now raises nothing**, the two live notices that came from workflow lines ("The route of W14
+   Authority sources: Nothing carries it yet" and "W1 Listings: Needs: …") close on the first read; their facts must show
+   on the workflow's own page (W14 "Not built"; W1's needs on its card), never be lost (playbook: replacing a screen
+   keeps everything it did).
+3. **The outside heartbeat (D23):** `.github/workflows/heartbeat.yml`, on the branch only; its cell runs as "not set up
+   (ALARM_TO)" until Jason sets the two secrets (close.md A1).
+4. **The scenario test** over step 2's 173 cells and 02 §4.9's 135 scenarios, on the bench (below) with
+   `ControlEngine::$checker` as the stand-in for outside checks; then the rendered checks at 1280 and 390.
+5. FAQ entries (plan §7), the release summary (every behaviour with its source; the admin's test per new state; kept,
+   moved, dropped), zip check, `send.py` with `"review": true`, the session manager's review, Jason's pop-up.
+
+**Open items for the session manager to place:**
+- **The ledger's live read:** the Ledger tab's newest rows and `crawl_capture_tasks`' names per workflow (read-only,
+  runner or Jason), to confirm which endpoints the board was missing. The fix doesn't wait on it.
+- **The crawler worker drops a 432** before reporting it (`workers/crawler/crawler.py` `note_issue` returns when its
+  classifier gives no kind): Tavily's plan limit reaches the site only once the worker reports any status ≥ 400 with its
+  status and body. A worker release, outside this zip.
+- **C15 (`irs_loads` on staging)** is still unread; the IRS fix (D11) doesn't depend on it.
+
+**Rulings this build applied where a test said otherwise (each in the test's own words):**
+- A task failing in its own code holds nothing; its next run failing too is a trip that holds nothing (ruling 3),
+  replacing 3c's "a trip stops its workflow" (r3c, paused, dispatcher r1, r2-notice).
+- The system's tries are its own checks of what failed at 5, 15 and 35 minutes (ruling 2, P3), replacing the count of
+  repeats and ServiceHealth's 6-failure case limit (expire-tries, critical, backoff-gate, r3c, r5a-rate).
+- A workflow's line is a roll-up and raises nothing (02 §2.2), replacing its own trips and their settle (legacy, r4c,
+  r3a's seed).
+- A used-up quota whose probe answers again closes as Recovered (§3c; principle 1's exception is only a block): this
+  test was already failing on the live code (start-issue).
+- Start the system's setting isn't a person's (ruling 4): a switch only Start set stays off for a person (paused).
+- A person's check goes past a back-off and a refused key or quota (P7, g2 F2), never past a block (principle 1, r4f).
+
+**The bench (to run every test on the build):** MariaDB 10.11 and PHP 8.3 in the session. A root holding the mirror's
+`sync-app` as `app/` and `sync-storage` as `website/`, with `handoffs/control-board-build/` laid over it, and a `.env`
+four folders above `app/lib/` (`DB_*` for a local `lv_main`, `CRAWLER_API_TOKEN=testtoken`, `VIDEO_WORKER_TOKEN=vtoken`,
+**`APP_URL=http://127.0.0.1:8765`**: without it the engine's endpoint check calls the live site). The ledger's tables'
+migration was deleted after it ran; the bench makes them from `ControlLedger::finish`'s columns. Each test's `Run:` line
+says which schema it needs.
+
+**Pitfalls learned:**
+- Tests that `DROP TABLE control_alarms` make it again through `ControlAlarms::ensure()`, which carries the engine's
+  columns; on live they come from Migration A, which runs first at Publish.
+- The dispatcher tests stub `Database`: an engine file must never `require` `Database.php` itself.
+- A `job:` alarm's tries are its next runs; an `ep:video/*` is checked through the video worker's heartbeat (a call to
+  `video/jobs` hands out work).
+
+## Next, in the plan's order (§2.2) (superseded by the hand-off above)
 1. Read C15 on staging (§6), and the Ledger tab's rows: read-only, wanted from a runner or Jason.
 2. Remaining callers: Operations, ControlSensor, ControlMaintenance and ControlHistorian (they raise through the store,
    so through the engine already; their own words to move to state).
