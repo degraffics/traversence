@@ -10,7 +10,7 @@
   var st = document.createElement('style');
   st.textContent = '.tv-copy-b{font:600 11px/1.2 system-ui,sans-serif;padding:.12rem .45rem;border:1px solid var(--tv-card-edge,#E3DBC6);border-radius:.3rem;background:#FFFDF8;color:var(--tv-meta,#6b5d49);cursor:pointer;margin-left:.4rem;vertical-align:middle;float:right}'
     + '.tv-copy-b:hover{border-color:#B45309;color:#92400E}.tv-copy-b:focus-visible{outline:2px solid var(--tv-river,#3B5A6B);outline-offset:1px}'
-    + 'summary>.tv-copy-b{float:none;margin-left:auto}'
+    + 'summary>.tv-copy-b{float:none;margin-left:auto}.tv-copy-b.tv-copy-abs{position:absolute;top:.25rem;right:.25rem;float:none;margin:0;z-index:1}'
     + '[data-tv-copying] .tv-copy-b,[data-tv-copying] svg,[data-tv-copying] [data-copy-skip],[data-tv-copying] .cb-spx,[data-tv-copying] [aria-label=Close]{display:none!important}';
   (document.head || document.documentElement).appendChild(st);
 
@@ -28,7 +28,11 @@
     var b = document.createElement('button');
     b.type = 'button'; b.className = 'tv-copy-b'; b.textContent = 'Copy';
     b.setAttribute('aria-label', 'Copy ' + name(el)); b.title = 'Copy what this shows, as text';
-    if (at) at.appendChild(b); else el.insertBefore(b, el.firstChild);
+    if (at) at.appendChild(b);
+    else {   // straight inside a card or a grid: in its top-right corner, never taking a cell of its layout
+      b.classList.add('tv-copy-abs'); if (getComputedStyle(el).position === 'static') el.style.position = 'relative';
+      el.insertBefore(b, el.firstChild);
+    }
     el.__tvCopy = 1;
   }
   // what the section shows, as text: the layout's own line breaks (innerText), icons and the Copy buttons left out

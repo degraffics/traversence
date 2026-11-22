@@ -153,7 +153,7 @@ sc('lift', 'S-A12', 'foursquare_bulk the same, 11 min apart: the same alarm at t
 });
 
 sc('lift', 'S-A13', 'the engine\'s check of /api/crawl/loads passes: Cleared', ['g1:24', 'g1:2'], function () {
-    report(['overture_bulk' => ['failed', "TimeoutError('The read operation timed out')", []]]);
+    report(['overture_bulk' => ['failed', "TimeoutError('The read operation timed out')", []], 'coverage' => ['done', '']]);
     $k = 'task:failed:overture_bulk';
     checks(['ep:crawl/loads' => pass('/api/crawl/loads answered 200 in 400 ms.')]); due($k, 5); tick();
     chk('guard: its check called the endpoint', in_array('ep:crawl/loads', called(), true), called());
@@ -161,9 +161,9 @@ sc('lift', 'S-A13', 'the engine\'s check of /api/crawl/loads passes: Cleared', [
 });
 
 sc('lift', 'S-A14', 'the next night\'s window: the bulk loads run (nothing holds them)', ['g1:2', 'g4:2B'], function () {
-    report(['overture_bulk' => ['failed', "TimeoutError('The read operation timed out')", []], 'foursquare_bulk' => ['failed', "TimeoutError('The read operation timed out')", []]]);
+    report(['overture_bulk' => ['failed', "TimeoutError('The read operation timed out')", []], 'foursquare_bulk' => ['failed', "TimeoutError('The read operation timed out')", []], 'coverage' => ['done', '']]);
     chk('neither bulk task nor W1 is held, so their next window runs', !array_intersect(['task:overture_bulk', 'task:foursquare_bulk', 'wf:W1', 'master:all'], holds()), holds());
-    report(['overture_bulk' => ['done', ''], 'foursquare_bulk' => ['done', '']]);
+    report(['overture_bulk' => ['done', ''], 'foursquare_bulk' => ['done', ''], 'coverage' => ['done', '']]);
     chk('their run doing its work clears what was open', alarm('task:failed:overture_bulk') === null && alarm('task:failed:foursquare_bulk') === null);
 });
 

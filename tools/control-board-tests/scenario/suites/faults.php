@@ -82,7 +82,11 @@ sc('faults', 'S-B23', 'Bluehost\'s bot check (409 humans_) or ModSecurity (406) 
     chk('hold: the tasks that call that endpoint', holds() === LOADS_TASKS, holds());
 });
 // -- outside services: back kinds (24–28) ---------------------------------------------------------------------------------
-sc('faults', 'S-B24', 'timeouts in a burst inside one run: one fault, a Warning trying again (1 of 3)', ['g2:18', 'g2:16', 'g1:4', 'g1:11', 'g2:26'], function () {
+sc('faults', 'S-B24', 'timeouts in a burst inside one run: one fault, a Warning trying again (1 of 3)', ['g2:18', 'g2:16', 'g1:4', 'g1:11', 'g2:26', 'g1:5', 'g2:31', 'g2:3', 'g2:25'], function () {
+    chk('a DuckDB read failing at Overture\'s regional S3 host is Overture\'s, never Amazon Web Services\' (g1 row 5; g2 row 31)', ControlEngine::classifyTask($GLOBALS['pdo'], 'overture_bulk', 'IO Error: HTTP 503', ['overturemaps-us-west-2.s3.us-west-2.amazonaws.com' => [4, 4, 'HTTP 503']]) === 'svc:overture', ControlEngine::classifyTask($GLOBALS['pdo'], 'overture_bulk', 'IO Error: HTTP 503', ['overturemaps-us-west-2.s3.us-west-2.amazonaws.com' => [4, 4, 'HTTP 503']]));
+    chk('…and a refused Hugging Face token on Foursquare\'s read is Foursquare\'s key (g2 row 3)', ControlEngine::classifyTask($GLOBALS['pdo'], 'foursquare_bulk', 'HTTP 401', ['huggingface.co' => [1, 1, '401 Unauthorized']]) === 'svc:foursquare', ControlEngine::classifyTask($GLOBALS['pdo'], 'foursquare_bulk', 'HTTP 401', ['huggingface.co' => [1, 1, '401 Unauthorized']]));
+    $mk = ServiceHealth::siteFailed($GLOBALS['pdo'], 'https://generativelanguage.googleapis.com/v1beta/models/x:generateContent', 200, '<html>unreadable</html>', '', 'Gemini');
+    chk('a malformed 200 at a site caller is a back-off fault (g2 row 25: classify(200) is nothing)', $mk === 'malformed', $mk);
     $id = svcFail('api.tavily.com', 'timeout', 'crawler', ['error' => 'timed out'], 6); $a = issueAlarm($id);
     chk('state: a Warning, never a trip from one burst (g2 row 18)', $a && $a['level'] === 'warning', $a['level'] ?? null);
     chk('…its tries are the engine\'s checks (next try due)', $a && $a['next_try_at'] !== null, $a['next_try_at'] ?? null);
@@ -119,7 +123,8 @@ sc('faults', 'S-B27', '429, S3 SlowDown, Google\'s per-minute limit: a rate wait
     chk('classify: Google\'s per-minute RESOURCE_EXHAUSTED is a rate wait, not a quota (g2 row 6)', ServiceHealth::classify(429, '{"error":{"status":"RESOURCE_EXHAUSTED","message":"Quota exceeded for quota metric \'Generate Content API requests per minute\'"}}', '', 'generativelanguage.googleapis.com') === 'rate', ServiceHealth::classify(429, 'Quota exceeded for quota metric \'Generate Content API requests per minute\'', '', 'generativelanguage.googleapis.com'));
     $id = svcFail('query.wikidata.org', 'rate', 'crawler', ['status' => 429, 'retry_after' => '120']); $a = issueAlarm($id);
     chk('state: a Warning (a rate wait)', $a && $a['level'] === 'warning', $a);
-    for ($i = 0; $i < 4; $i++) { due('svc:issue:' . $id, 20); tick(); }
+    // the hour passing with the system's clock running (a rate wait has no tries of its own: none is forced here)
+    for ($i = 0; $i < 4; $i++) { $GLOBALS['pdo']->prepare('UPDATE control_alarms SET first_at = first_at - INTERVAL 20 MINUTE WHERE akey = ?')->execute(['svc:issue:' . $id]); tick(); }
     chk('never a trip, even past the hour', ($x = issueAlarm($id)) && $x['level'] === 'warning', issueAlarm($id)['level'] ?? null);
     chk('hold: nothing (a wait isn\'t a hold)', holds() === [] && hostHolds() === [], [holds(), hostHolds()]);
     chk('messages: none', quiet());
@@ -143,6 +148,8 @@ sc('faults', 'S-B29', 'a refused key (401): Paused by the system at once, calls 
     chk('words: its status "Paused by the system (…)"', str_starts_with($fx['status'], 'Paused by the system'), $fx['status']);
     chk('Fix it → the card\'s Its key (#svc-tavily-key)', (ControlAlarms::fixOf($GLOBALS['pdo'], $a)['url'] ?? '') === '/admin/config/register#svc-tavily-key', ControlAlarms::fixOf($GLOBALS['pdo'], $a));
     chk('messages: one thread', msgN() === [1, 1, 1], msgN());
+    $b = issueAlarm(svcFail('api.anthropic.com', 'auth', 'site', ['status' => 401]));
+    chk('the site\'s own caller (Claude): its calls are held, so its status says "Paused by the system", never "Down: nothing could be held"', ServiceHealth::holding(issue((int) substr((string) $b['akey'], 10))) && str_starts_with(facts($b)['status'], 'Paused by the system'), facts($b)['status']);
 });
 sc('faults', 'S-B30', 'a Railway key the worker hasn\'t reported yet: Not checked yet, holds nothing', ['g1:21', 'g2:4'], function () {
     notHere('the key\'s state comes from Operations::status over the worker\'s stored report and the register (Operations::switchOnCheck, gateFor); its line is drawn on the Modules card being rebuilt (M). views: pending; covered today by tools/control-board-tests/keys.php');
@@ -250,7 +257,7 @@ sc('faults', 'S-B42', 'a backup\'s own check fails while the primary works: its 
     chk('a Trip on the backup', ($a = issueAlarm($id)) && $a['level'] === 'trip');
     chk('hold: the backup\'s calls only; no task (Tavily, their first choice, works)', in_array('api.search.brave.com', hostHolds(), true) && !array_filter(holds(), fn ($h) => !in_array($h, ['task:source', 'task:howto'], true)), [hostHolds(), holds()]);
 });
-sc('faults', 'S-B43', 'a first source paused: its task On a backup, said as a Notice naming both', ['g2:27', 'g2:30', 'g4:8B', 'g4:8P', 'g4:8E', 'g4:8Pu'], function () {
+sc('faults', 'S-B43', 'a first source paused: its task On a backup, said as a Notice naming both', ['g2:27', 'g2:30', 'g4:8B', 'g4:8P', 'g4:8E', 'g4:8Pu', 'g1:23'], function () {
     $id = svcFail('api.tavily.com', 'auth', 'crawler', ['status' => 401]);
     report(['identity' => ['done', 'search: brave instead (tavily held)'], 'coverage' => ['done', '']], ['search_switches' => [['task' => 'identity', 'from' => 'tavily', 'to' => 'brave', 'n' => 3]]]);
     chk('the task isn\'t held (it runs on Brave)', !in_array('task:identity', holds(), true));
@@ -272,7 +279,10 @@ sc('faults', 'S-B46', 'every task of a workflow held: the workflow waits whole, 
     chk('no alarm on W1 of its own while tasks are held', !array_filter(ControlAlarms::ofProc($GLOBALS['pdo'], 'wf:W1'), fn ($x) => $x['akey'] === 'pf:wf:W1' || str_starts_with($x['akey'], 'wf:')), ControlAlarms::ofProc($GLOBALS['pdo'], 'wf:W1'));
 });
 // -- the worker (47–52) ---------------------------------------------------------------------------------------------------
-sc('faults', 'S-B47', 'no run reported, or one abandoned: a Warning, the crawler\'s check its tries', ['g1:28', 'g1:30', 'g1:31', 'g1:27'], function () {
+sc('faults', 'S-B47', 'no run reported, or one abandoned: a Warning, the crawler\'s check its tries', ['g1:28', 'g1:30', 'g1:31', 'g1:27', 'g1:12'], function () {
+    report(['second_look' => ['not_reached', ''], 'refresh' => ['not_reached', '']]);
+    chk('a starved run: a Warning on the crawler, never a trip (g1 row 12)', ($st = alarm('run:starved')) && $st['level'] === 'warning' && holds() === [], alarm('run:starved'));
+    fresh();
     $GLOBALS['pdo']->exec("INSERT INTO crawl_runs (run_key, started_at, status) VALUES ('late1', NOW() - INTERVAL 40 MINUTE, 'running')");
     watch(); $a = alarm('silent:run');
     chk('state: a Warning, trying again (its component the crawler)', $a && $a['level'] === 'warning' && $a['component'] === 'wk:crawler', $a);
@@ -280,7 +290,8 @@ sc('faults', 'S-B47', 'no run reported, or one abandoned: a Warning, the crawler
     $GLOBALS['pdo']->exec("UPDATE crawl_runs SET status = 'abandoned' WHERE run_key = 'late1'"); watch();
     chk('an abandoned run counts as a failure: it doesn\'t clear (g1 row 30: four killed runs never trip)', alarm('silent:run') !== null, last('silent:run')['cleared_how'] ?? null);
 });
-sc('faults', 'S-B48', 'the crawler\'s 3 tries fail: a Trip holding all gathering; W0, the site and its jobs unaffected', ['g1:29', 'g1:30', 'g1:31', 'g1:32'], function () {
+sc('faults', 'S-B48', 'the crawler\'s 3 tries fail: a Trip holding all gathering; W0, the site and its jobs unaffected', ['g1:29', 'g1:30', 'g1:31', 'g1:32', 'g1:35'], function () {
+    chk('no crawler part carries a critical duty (g1 row 35)', ControlRegister::duty($GLOBALS['pdo'], 'wk:crawler') === '' && ControlRegister::duty($GLOBALS['pdo'], 'wf:W1') === '');
     $s0 = snap(); report(['second_look' => ['failed', 'x'], 'refresh' => ['failed', 'y']], ['status' => 'failed', 'why' => 'every task failed']);
     checks(['wk:crawler' => red('The crawler\'s last run failed.')]); triesOut('run:failed'); $a = alarm('run:failed');
     chk('state: a Trip after the engine\'s tries', $a && $a['level'] === 'trip' && (int) $a['try_n'] === 3, $a);
@@ -342,7 +353,7 @@ sc('faults', 'S-B62', 'a site job serving no workflow fails: a Warning, nothing 
     chk('state: a Warning (its next run is its check: no try clock)', $a && $a['level'] === 'warning' && $a['next_try_at'] === null, $a);
     chk('hold: nothing', holds() === [], holds());
     chk('messages: none for the job', !msgOf($a), msgOf($a));
-    $GLOBALS['pdo']->exec("UPDATE control_alarms SET first_at = first_at - INTERVAL 61 MINUTE"); tick();
+    $GLOBALS['pdo']->exec("UPDATE control_alarms SET first_at = first_at - INTERVAL 61 MINUTE WHERE akey = 'job:sales_tick'"); tick();
     chk('the hour passing makes no trip with no try made (g3 J1)', ($x = alarm('job:sales_tick')) && $x['level'] === 'warning', alarm('job:sales_tick')['level'] ?? null);
 });
 sc('faults', 'S-B63', 'a job tied to workflows fails: a Warning on the job; the workflows\' crawler tasks unaffected', ['g3:J2', 'g3:J3'], function () {
@@ -379,8 +390,9 @@ sc('faults', 'S-B68', 'billing_tick fails or is stuck; releases_tick quiet: a cr
     fresh(); jobRun('billing_tick', 0, 'renewals: card declined handler threw'); watch(); $b = alarm('job:billing_tick');
     chk('failed billing: a Trip at once, still trying', $b && $b['level'] === 'trip' && $b['retrying_at'] !== null, $b);
     chk('words: "Down: the system is still trying" (nothing held)', $b && str_contains(title($b), 'Down: the system is still trying'), title($b));
-    $GLOBALS['pdo']->exec("UPDATE control_alarms SET first_at = first_at - INTERVAL 61 MINUTE, next_try_at = UTC_TIMESTAMP() - INTERVAL 1 SECOND"); tick();
-    chk('no Escalation Notice with no retry made (g3 J12: its next run is 24 h away)', !array_filter(msgs(), fn ($m) => $m['kind'] === 'alarm.escalated'), array_column(msgs(), 'kind'));
+    chk('messages: one at once for billing', count(msgOf($b)) === 1, msgOf($b));
+    due('job:billing_tick', 61); tick();
+    chk('no Escalation Notice with no retry made (g3 J12: its next run is 24 h away)', !array_filter(msgOf(alarm('job:billing_tick') ?? last('job:billing_tick')), fn ($m) => $m['kind'] === 'alarm.escalated'), msgOf(last('job:billing_tick')));
     fresh(); raiseAs('rel:job:quiet', 'job:releases_tick', 'warning', 'check', 'The 10-minute release job hasn\'t looked in git', '', false);
     chk('releases_tick quiet 30 min: a critical Trip (g3 J9)', ($c = alarm('rel:job:quiet')) && $c['level'] === 'trip', alarm('rel:job:quiet')['level'] ?? null);
 });

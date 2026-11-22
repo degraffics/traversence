@@ -94,6 +94,11 @@ function fresh(): void
     $pdo->exec("INSERT INTO staff_accounts (user_id, email, name, status, level, department, role) VALUES (7, 'founder@example.test', 'Jason', 'active', 'founder', '', '')");
     $pdo->exec("INSERT INTO push_subs (user_id, endpoint) VALUES (7, 'https://push.example.test/x')");
     try { SearchIndex::setState($pdo, 'control:duties', '[]'); } catch (Throwable $x) {}
+    try { $pdo->exec("DELETE FROM preflight_results"); } catch (Throwable $x) {}
+    // per-request caches the libraries keep (each test request is one scenario here)
+    foreach ([['ControlMaintenance', 'out', null], ['Preflight', 'cache', null], ['Preflight', 'fresh', []]] as [$cl, $pr, $v]) {
+        if (!class_exists($cl, false)) continue; try { $rp = new ReflectionProperty($cl, $pr); $rp->setAccessible(true); $rp->setValue(null, $v); } catch (Throwable $x) {}
+    }
     Automation::forget(); ControlRegister::forget();
     Mailer::$sent = []; WebPush::$sent = []; $GLOBALS['checks'] = []; $GLOBALS['called'] = [];
 }
@@ -170,7 +175,7 @@ $GLOBALS['cur'] = null; $GLOBALS['results'] = []; $GLOBALS['cellsOf'] = [];
 /** One of the scenario's assertions; the scenario fails on its first false one, naming what was expected and what came. */
 function chk(string $expected, bool $ok, $got = null): bool
 {
-    if (!$ok && $GLOBALS['cur'] !== null && $GLOBALS['cur']['fail'] === null) $GLOBALS['cur']['fail'] = [$expected, $got];
+    if (!$ok && $GLOBALS['cur'] !== null) { if ($GLOBALS['cur']['fail'] === null) $GLOBALS['cur']['fail'] = [$expected, $got]; else $GLOBALS['cur']['more'][] = [$expected, $got]; }
     if ($GLOBALS['cur'] !== null) $GLOBALS['cur']['n']++;
     return $ok;
 }
@@ -181,12 +186,16 @@ function sc(string $suite, string $id, string $what, array $cells, callable $fn)
     $only = $GLOBALS['only'];
     if ($only && !in_array($suite, $only, true)) return;
     fresh();
-    $GLOBALS['cur'] = ['fail' => null, 'n' => 0, 'skip' => null];
+    $GLOBALS['cur'] = ['fail' => null, 'more' => [], 'n' => 0, 'skip' => null];
     try { $fn(); } catch (Throwable $x) { if ($GLOBALS['cur']['fail'] === null) $GLOBALS['cur']['fail'] = ['no exception', get_class($x) . ': ' . $x->getMessage() . ' @' . basename($x->getFile()) . ':' . $x->getLine()]; }
     $c = $GLOBALS['cur']; $GLOBALS['cur'] = null;
     if ($c['skip'] !== null) { echo '  --  ' . $id . ' ' . $what . ' — ' . $c['skip'] . "\n"; $st = 'skip'; }
     elseif ($c['fail'] === null) { echo '  ok  ' . $id . ' ' . $what . ' (' . $c['n'] . ")\n"; $st = 'ok'; }
-    else { echo 'FAIL  ' . $id . ' ' . $what . ' — expected ' . $c['fail'][0] . '; got ' . j($c['fail'][1]) . "\n"; $st = 'fail'; }
+    else {
+        echo 'FAIL  ' . $id . ' ' . $what . ' — expected ' . $c['fail'][0] . '; got ' . j($c['fail'][1]) . ($c['more'] ? ' (and ' . count($c['more']) . ' more below)' : '') . "\n";
+        foreach ($c['more'] as [$e, $g]) echo '        · also expected ' . $e . '; got ' . mb_substr(j($g), 0, 160) . "\n";   // not a result line: the runner counts only "  ok  " and "FAIL  "
+        $st = 'fail';
+    }
     $GLOBALS['results'][] = [$suite, $id, $st];
     foreach ($cells as $cell) $GLOBALS['cellsOf'][$cell][] = [$id, $st];
 }
