@@ -50,20 +50,31 @@ its an estimate, if its a tentative price which requires processing to generate 
   and pays: a **transaction**.
 - A price already set when ordering goes straight to the transaction.
 
-**1.8 Money at ordering, and if it stops.** "Paid at time of order." And: "paid a time of ordering, if its an estimate,
-a deposit could be an option, because starts a process, paid in full at approval. Rejection or cancelation means only
-to deposit is paid no balance owned if not approved."
-- Set price: paid in full when ordered.
-- Estimate: a deposit may be taken when ordered (it starts the work); paid in full at approval.
-- Rejected or cancelled before approval: only the deposit is kept; no balance is owed.
+**1.8 Money: paid in full, or a deposit** (2026-11-22, replacing the 2026-11-21 reading of a deposit before approval).
+Jason: "A deposit required is terms may change after approval is released into production vs paid in full upon approval
+all terms are final and releasing to production." And: "Orders are expected to be paid in full at the time of
+approval, so a deposit lowers the payment required to a less than full amount, but only until it is released into the
+productions actual schedule."
+- **Paid in full** is the rule: at approval, with all terms final; then released to production.
+- **A deposit** is the exception, for orders whose terms may still change after approval: taken at approval, it lowers
+  what's due until the order is released into production's actual schedule. Then the balance is due.
+- A set price is paid when ordered (2026-11-21: "Paid at time of order").
 
-**1.9 Paid in full before the vendor.** "Paid in full before order is released to vendor." And: "Admin can override
-payment requirements to initiate vendor work orders pre funding."
-- The vendor gets the work order only once it's paid in full. An admin can override that and send the vendor work
-  order before funding.
-- What a deposit is (2026-11-22, correcting my "a deposit starts our own work"): "Deposit does not control progress, it
-  is a requirement of partial payment when needed to ensure we risk incurring expenses that might be incurred upon
-  entering to production stage." See 1.13.
+**1.9 Cancelling, the vendor and the balance** (2026-11-22): "Deposit required at time of approval. There is a small
+window where an order can be canceled while we process it for production, but once production schedules it and enters
+into the in production phase it can no longer be canceled. Deposits are non-refundable at this point and the remaining
+balance becomes due. Balance must be paid before order is release for delivery, delays may result in orders being held
+for payment before shipping." And: "(a) says the vendor work order waits for payment in full: a deposit overrides this
+statement."
+- While the order is staged, it can still be cancelled.
+- Once production schedules it (the work order to the vendor), it can't be cancelled; the deposit is non-refundable and
+  the balance is due.
+- The vendor work order waits for payment in full (2026-11-21: "Paid in full before order is released to vendor"),
+  except on a deposit order, where the deposit overrides it, and except an admin's override (2026-11-21: "Admin can
+  override payment requirements to initiate vendor work orders pre funding").
+- The balance must be paid before the order is released for delivery; a late balance holds it before shipping.
+- What a deposit is: "Deposit does not control progress, it is a requirement of partial payment when needed to ensure
+  we risk incurring expenses that might be incurred upon entering to production stage."
 
 **1.10 File preflight.** "we will need file preflight checks." The checks are 0176's (resolution, bleed, size); the
 limits are Jason's to set ("I'll set the limits", 0176).
@@ -114,35 +125,33 @@ the pass is the product. It shapes 1.2's client-configured items and 1.8's money
 | Client vs backend | Uploads staff-only; the client sees proofs, downloads only the one awaiting approval; vendor and files on the work order (§3a) | 1.4 | Fits |
 | Approve for the client | Its page says "Use it when the client said yes in person, on the phone or by email; their proofs count as approved." The outside path is "Handled outside: create the work order" (c2) | 1.6 | **Differs:** today it also covers a yes given off the site. Is that use dropped? |
 | Estimate, quote | None in our sales: 0101 "not an Estimate before"; the Shop's print card emails for a quote; Back-Office "Quotes & deals" coming (§2). Businesses have Quotes & invoices (`b_biz_quotes`, 0118, 0120), walled off (§1) | 1.7 | New for our sales; must not share the businesses' tables |
-| What a deposit does | Any money in puts print "In production" and a work order can go (`received`, §3 steps 10–11) | 1.9 | **Changes built behaviour** |
-| Vendor needs full payment | Work order allowed from paid or in production (§3 step 11; `workflows.php`) | 1.9 | **Changes built behaviour** |
-| Invoice later | 0101: "With invoice-later terms, production starts on approval" | 1.9 | **Changes 0101** (needs a dated note) |
+| What a deposit does | Any money in puts print "In production" and a work order can go (`received`, §3 steps 10–11) | 1.8, 1.9 | **Fits more closely than thought:** a deposit order can go to the vendor; new are the cancel window, the balance due on scheduling, and the hold before shipping |
+| Vendor needs full payment | Work order allowed from paid or in production (§3 step 11; `workflows.php`) | 1.9 | **Changes built behaviour** for orders on full-payment terms (and invoice later); deposit orders keep today's behaviour |
+| Invoice later | 0101: "With invoice-later terms, production starts on approval" | 1.8, 1.9 | **To confirm:** invoice later isn't in the model; does it stay, and on which rule? |
 | Who can override | Release to production before payment: staff with order edit rights (c2) | 1.9 "Admin" | Narrows who can (to confirm) |
 | Reorders | Same art reuses the proof with initials; changes start a new round; today's prices; becomes a draft for staff (`Collateral::reorder`) | 1.11 | Fits; only where it ends changes |
-| Design-only | Finals released when there's no print, once paid in full (§3a) | 1.8 | Delivery fits; the money rule is new |
+| Design-only | Finals released when there's no print, once paid in full (§3a) | 1.8 | Delivery fits; the money rule (paid in full, or a deposit when terms may change) applies |
 | Preflight, client upload | Nothing checks art; the client can't upload (§3a); 0176 to come, Replace file decided | 1.10 | Fits 0176; to build |
 | Shipping price | Set by staff per item (`Shipments`, `setLineShip`) | 1.2 (client sets shipping) | **Gap:** no price without staff |
 | Payment reminders | Three on the order page (`pay_wait_tick`); none in the cart | 1.3 | **Gap** on the cart route |
 
 ## 3. What this changes in the confirmed rulings
 
-- **B.3** ("A recorded part payment that reaches the required deposit amount releases production"): under 1.9 a
-  deposit releases our own work only, never the vendor. To reword: "releases our own work; the vendor waits for payment
-  in full".
+- **B.3** ("A recorded part payment that reaches the required deposit amount releases production"): fits 1.8–1.9 for
+  deposit orders. New: the balance is due once production schedules it, and must be paid before delivery.
 - **B.4** (paid in full before Shipped or Ready, except Release to production before payment, invoice later, outside):
-  under 1.9 the check moves earlier, to the vendor work order, and its exceptions become the admin override and the
-  outside path. Invoice later is no longer an exception.
+  under 1.9 the balance is checked before release for delivery (close to B.4), and also before the vendor work order on
+  full-payment terms. Release to production before payment becomes the admin override; invoice later is to confirm.
 
 ## 4. Open, to walk through with Jason one at a time
 
-1. ~~"Production" now means two things~~ Answered by 1.13 (2026-11-22). To confirm: whether payment in full (or the
-   admin override) is one of the "production requirements" checked at staging, and whether Delivered ends the order or
-   the client's "Yes, I have it" (Complete) still follows.
+1. ~~"Production" now means two things~~ Answered by 1.13 and 1.9 (2026-11-22). To confirm: whether Delivered ends the
+   order, or the client's "Yes, I have it" (Complete) still follows; and invoice-later terms (0101) under 1.8.
 2. The admin override: admins only (and managers?), with a reason recorded.
 3. Approve for the client: is the "yes given in person, by phone or email" use dropped (1.6 vs the map)?
 4. Which route an order takes, and whether invoice-later, wire and check stay on the invoice route only. (B.4 as
    confirmed exempts "invoice later" from paid in full; 1.9 removes that exemption.)
-5. The estimate's deposit: how much and who sets it, shown before paying.
+5. The deposit: how much and who sets it, shown before paying; how long the cancel window lasts.
 6. How long a quote's price holds, and a vendor cost that changes.
 7. A change after release (back to held), and after payment but before the vendor.
 8. Shipping price on a client-configured order.
@@ -155,5 +164,6 @@ the pass is the product. It shapes 1.2's client-configured items and 1.8's money
 ## 5. The parked work
 
 - **#1212** (the chargeFor refund fix): unaffected; rests on "Fix in first release".
-- **#1224** (the rulings release): B.1, B.2, B.5 and B.6 fit. Its B.3 starts production at the deposit and its B.4
-  checks at Shipped and Ready with invoice later exempt; both change under 1.9 once Jason confirms §3 above.
+- **#1224** (the rulings release): B.1, B.2, B.5 and B.6 fit. Its B.3 (production at the deposit) fits 1.8–1.9; its B.4
+  (checked at Shipped and Ready) is close to 1.9's "before release for delivery" but its exceptions change, and the
+  vendor check on full-payment terms, the cancel window and the balance due on scheduling are new.
