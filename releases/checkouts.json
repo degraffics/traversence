@@ -43,10 +43,10 @@
    ],
    "kind": "change",
    "session": "session_01CXLi5kMXdmwb4aE7hWkGeU",
-   "why": "card-fixes.zip, taken over from session_01CXLi5hFvhtEKj2JuNVmjWZ (screens proposal A4-A6, A13, B3)",
+   "why": "The listing page, B5 Option 1 (screens proposal, Jason 2026-11-22)",
    "since": "2026-11-22T12:37:44Z",
-   "expires": "2026-11-22T16:48:28Z",
-   "release": "card-fixes.zip",
+   "expires": "2026-11-22T16:55:00Z",
+   "release": "listing-page.zip",
    "callers": {}
   },
   {
