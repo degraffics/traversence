@@ -140,12 +140,20 @@ statement."
     "Fix it, credit, then refund" applies. The difference is a credit on the client's account (12 months, not cash,
     0098's addendum of 2026-10-28), used toward anything we sell; a refund only when a credit doesn't work. Gap: credits
     aren't applied at checkout today (`credit_used` is read but never written; map §6).
+  - Needed (2026-11-22): "will need a way to handle account credits applied to ordering balances." Account credits are
+    applied to what an order owes, on both routes.
 - The balance must be paid before the order is released for delivery; a late balance holds it before shipping.
 - What a deposit is: "Deposit does not control progress, it is a requirement of partial payment when needed to ensure
   we risk incurring expenses that might be incurred upon entering to production stage."
 
 **1.10 File preflight.** "we will need file preflight checks." The checks are 0176's (resolution, bleed, size); the
 limits are Jason's to set ("I'll set the limits", 0176).
+
+**1.14 Shipping** (2026-11-22): "Need a shipping module integrated into the platform for calculating shipping costs
+and shipping vendor management." Shipping costs are calculated by the platform (so a client configuring an item sees
+its shipping before checkout), and shipping vendors (carriers) are managed there. Built today: shipping set by hand per
+item, manifests, carriers named on lines (`Shipments`, `setLineShip`, `CARRIERS`); the Marketplace has its own,
+separate. A module of its own, to be scoped.
 
 **1.13 The stages after approval** (2026-11-22): "Staged for production when an order is approved. Deposit does not
 control progress, it is a requirement of partial payment when needed to ensure we risk incurring expenses that might be
@@ -201,7 +209,7 @@ the pass is the product. It shapes 1.2's client-configured items and 1.8's money
 | Reorders | Same art reuses the proof with initials; changes start a new round; today's prices; becomes a draft for staff (`Collateral::reorder`) | 1.11 | Fits; only where it ends changes |
 | Design-only | Finals released when there's no print, once paid in full (§3a) | 1.8 | Delivery fits; the money rule (paid in full, or a deposit when terms may change) applies |
 | Preflight, client upload | Nothing checks art; the client can't upload (§3a); 0176 to come, Replace file decided | 1.10 | Fits 0176; to build |
-| Shipping price | Set by staff per item (`Shipments`, `setLineShip`) | 1.2 (client sets shipping) | **Gap:** no price without staff |
+| Shipping price | Set by staff per item (`Shipments`, `setLineShip`) | 1.14 | **Gap:** a shipping module (costs, carriers) to build |
 | Payment reminders | Three on the order page (`pay_wait_tick`); none in the cart | 1.3 | **Gap** on the cart route |
 
 ## 3. What this changes in the confirmed rulings
@@ -228,7 +236,7 @@ the pass is the product. It shapes 1.2's client-configured items and 1.8's money
    Accept with its job number and the production scheduled ends it.
 6. ~~How long a quote's price holds~~ Answered (1.8): 14 days, then refreshed.
 7. ~~A change after release~~ Answered (1.9), with 0098's "Fix it, credit, then refund" for a lower total.
-8. Shipping price on a client-configured order.
+8. ~~Shipping price~~ Answered (1.14): a shipping module, to be scoped.
 9. A mixed cart: pay for what's ready, or wait for all.
 10. Reminders and an end date for released items not paid.
 11. The order page as the conversation (1.12), and reorders (1.11): to confirm.
