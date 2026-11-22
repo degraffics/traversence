@@ -1,0 +1,10 @@
+{
+ "title": "Cards and photos: distance only when known, credits on the photo, a readable corner icon, stock photos not repeated, public places say who runs them",
+ "why": "Jason's screenshots of Parks & Landmarks and a memorial's page (approved 2026-11-22, handoffs/screens-proposal-2026-11-22.md A4-A6, A13, B3). A card shows a distance only when it says something: a park placed only by its town showed '0 mi'. Each photo's credit moves from a line under every card onto the photo itself, with an i (Jason 2026-11-17: credit on the photo with an i). The icon in a card's corner sits on a dark disc, so it reads on a pale sky. The same stock photo never shows twice in one list (the pattern instead), and memorials and monuments never get a stock photo (their own, Commons, else the pattern; decisions/0143's order otherwise kept). A public place (an agency's park or memorial) shows who runs it, from its Nexus, never 'Unclaimed' (decisions/0070's claim-kinds note). No outside calls, no cost.",
+ "changes": [
+  {"what": "Let's Explore → Parks & Landmarks", "where": "https://traversence.com/discovery/?view=parks"},
+  {"what": "FAQ: Where do I find parks and landmarks?", "where": "https://traversence.com/faq.php#where-do-i-find-parks-and-landmarks"}
+ ],
+ "proposals": [],
+ "switch": ""
+}
