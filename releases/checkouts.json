@@ -8,9 +8,16 @@
    "session": "session_01CXLi5grMsUgrRMJv3a71F9",
    "why": "The map release: js/map-view.js onto the tokens (Leaflet's SVG options read the token at run time), the trip page's day lines on --tv-route over --tv-route-casing (brand.md \u00a74 note 2026-11-19), the chosen day lime, others casing faded",
    "since": "2026-11-22T20:57:02Z",
-   "expires": "2026-11-23T00:57:02Z",
+   "expires": "2026-11-23T01:04:07Z",
    "release": "map-tokens.zip",
-   "callers": {}
+   "callers": {
+    "reload": [
+     "website/directory/classic.php",
+     "website/directory/index.php",
+     "website/discovery/index.php",
+     "website/js/search-panel.js"
+    ]
+   }
   },
   {
    "path": "website/user/trips/trip.php",
@@ -19,7 +26,7 @@
    "session": "session_01CXLi5grMsUgrRMJv3a71F9",
    "why": "The map release: js/map-view.js onto the tokens (Leaflet's SVG options read the token at run time), the trip page's day lines on --tv-route over --tv-route-casing (brand.md \u00a74 note 2026-11-19), the chosen day lime, others casing faded",
    "since": "2026-11-22T20:57:02Z",
-   "expires": "2026-11-23T00:57:02Z",
+   "expires": "2026-11-23T01:04:07Z",
    "release": "map-tokens.zip",
    "callers": {}
   }
