@@ -1,7 +1,7 @@
 # For Jason's review: the control board, step 3
 
-One page, in step with `03-cards.md`'s "For Jason's review" list (items 1–8). Each item says what it is, what we
-recommend, and where it comes from. **Decided:** 1 item (5). **Open:** 7 items.
+One page, in step with `03-cards.md`'s "For Jason's review" list (items 1–11). Each item says what it is, what we
+recommend, and where it comes from. **Decided:** 2 items (5, 9). **Open:** 9 items.
 
 | # | Item | Status |
 |---|---|---|
@@ -13,6 +13,9 @@ recommend, and where it comes from. **Decided:** 1 item (5). **Open:** 7 items.
 | 6 | Overture's and Foursquare's licences | Open |
 | 7 | The trvgo.us redirect while the edge is down | Open |
 | 8 | Thresholds still marked des | Open |
+| 9 | Delivery objectives: "Is it delivering?" | **Adopted: drawn in `board/index.html` (Jason, 2026-11-21)** |
+| 10 | 1Password for our own staff | Open |
+| 11 | The two sages | Open |
 
 **1. QuickBooks' processing fees (open).** QuickBooks' card shows "fees not read yet", because nothing reads what
 Intuit charged us. **Recommended:** read the fees in step 4's ledger export, as a spec item. It's a read of our own
@@ -55,7 +58,7 @@ on trvgo.us while the board's edge check (the spec sensor on `/__edge`) is red. 
 
 *Source: 03 §25.4, 3.*
 
-**9. Delivery objectives: is the platform delivering for users? (open; the session manager's proposal, not drawn yet).**
+**9. Delivery objectives: is the platform delivering for users? (adopted: drawn in the interactive board, `board/index.html`, approved by Jason, 2026-11-21).**
 A fourth top-line question on the board, "Is it delivering?", with objectives and targets in seven groups:
 1. the site is there: pages under about 2.5 s, 99.5% of the time; sign-in working end to end; the phone layout;
 2. people find what they came for: search quality; at least 3 results within 5 mi (30 for the outdoors, decisions/0060);
@@ -69,4 +72,10 @@ A fourth top-line question on the board, "Is it delivering?", with objectives an
 Each objective is a Service module with its own check, radius, and Fix it pointing to its parts. Each is a warning
 first. Many of the measures already exist: the search, layout, paths and photos probes, and the health report.
 **Recommended:** add them to step 3's design; you set the targets once. *Source: the session manager's proposal,
-2026-11-21; no mockup yet.*
+2026-11-21; drawn as the board's first view.*
+
+**10. 1Password for our own staff (open).** It's linked from each card and called by nothing (03 §26.24), and decisions/0156's
+Vault now holds staff logins. **Recommended:** Retired for our own staff once the Vault is in use; kept only as 0156's
+"1Password through us" option for customers. *Source: 03 §26.24; the session manager, 2026-11-21.*
+
+**11. Two sages (#92BEA5 brand token, #8FBCA8 icon active in CLAUDE.md): one, or both on purpose? (open).** The board keeps both as they are. *Source: brand.md §4; CLAUDE.md, phone layout; 03 §28.5.*
