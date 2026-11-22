@@ -1,6 +1,7 @@
 {
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
- "claims": [
+ "claims": [],
+ "lapsed": [
   {
    "path": "website/market/index.php",
    "functions": [],
@@ -10,7 +11,8 @@
    "since": "2026-11-22T14:45:07Z",
    "expires": "2026-11-22T18:58:45Z",
    "release": "design-3e.zip",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-22T19:18:29Z"
   },
   {
    "path": "website/market/view.php",
@@ -21,7 +23,8 @@
    "since": "2026-11-22T14:45:07Z",
    "expires": "2026-11-22T18:58:45Z",
    "release": "design-3e.zip",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-22T19:18:29Z"
   },
   {
    "path": "website/market/item.php",
@@ -32,7 +35,8 @@
    "since": "2026-11-22T14:45:07Z",
    "expires": "2026-11-22T18:58:45Z",
    "release": "design-3e.zip",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-22T19:18:29Z"
   },
   {
    "path": "website/market/cart.php",
@@ -43,7 +47,8 @@
    "since": "2026-11-22T14:45:07Z",
    "expires": "2026-11-22T18:58:45Z",
    "release": "design-3e.zip",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-22T19:18:29Z"
   },
   {
    "path": "website/market/order.php",
@@ -54,7 +59,8 @@
    "since": "2026-11-22T14:45:07Z",
    "expires": "2026-11-22T18:58:45Z",
    "release": "design-3e.zip",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-22T19:18:29Z"
   },
   {
    "path": "website/market/rules.php",
@@ -65,7 +71,8 @@
    "since": "2026-11-22T14:45:07Z",
    "expires": "2026-11-22T18:58:45Z",
    "release": "design-3e.zip",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-22T19:18:29Z"
   },
   {
    "path": "website/market/ticket.php",
@@ -76,7 +83,8 @@
    "since": "2026-11-22T14:45:07Z",
    "expires": "2026-11-22T18:58:45Z",
    "release": "design-3e.zip",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-22T19:18:29Z"
   },
   {
    "path": "website/market/download.php",
@@ -87,7 +95,8 @@
    "since": "2026-11-22T14:45:07Z",
    "expires": "2026-11-22T18:58:45Z",
    "release": "design-3e.zip",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-22T19:18:29Z"
   },
   {
    "path": "website/shop/index.php",
@@ -98,7 +107,8 @@
    "since": "2026-11-22T14:45:07Z",
    "expires": "2026-11-22T18:58:45Z",
    "release": "design-3e.zip",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-22T19:18:29Z"
   },
   {
    "path": "app/ui/market-ui.php",
@@ -118,7 +128,8 @@
      "website/market/view.php",
      "website/user/market/index.php"
     ]
-   }
+   },
+   "lapsed": "2026-11-22T19:18:29Z"
   },
   {
    "path": "app/ui/domains-view.php",
@@ -135,7 +146,8 @@
      "website/shop/domains.php",
      "website/user/domains/index.php"
     ]
-   }
+   },
+   "lapsed": "2026-11-22T19:18:29Z"
   },
   {
    "path": "app/ui/storefront-view.php",
@@ -146,7 +158,8 @@
    "since": "2026-11-22T14:45:07Z",
    "expires": "2026-11-22T18:58:45Z",
    "release": "design-3e.zip",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-22T19:18:29Z"
   },
   {
    "path": "trvgo/index.php",
@@ -159,7 +172,8 @@
    "since": "2026-11-22T14:45:07Z",
    "expires": "2026-11-22T18:58:45Z",
    "release": "design-3e.zip",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-22T19:18:29Z"
   },
   {
    "path": "app/business/storefront.php",
@@ -174,7 +188,8 @@
     "tv_biz_storefront_act": [
      "website/business/api.php"
     ]
-   }
+   },
+   "lapsed": "2026-11-22T19:18:29Z"
   },
   {
    "path": "app/lib/Storefront.php",
@@ -191,7 +206,8 @@
     "save": [
      "app/business/storefront.php"
     ]
-   }
+   },
+   "lapsed": "2026-11-22T19:18:29Z"
   },
   {
    "path": "app/lib/Storefront.php",
@@ -202,10 +218,9 @@
    "since": "2026-11-22T14:58:45Z",
    "expires": "2026-11-22T18:58:45Z",
    "release": "design-3e.zip",
-   "callers": {}
-  }
- ],
- "lapsed": [
+   "callers": {},
+   "lapsed": "2026-11-22T19:18:29Z"
+  },
   {
    "path": "app/lib/Operations.php",
    "functions": [],
@@ -770,252 +785,6 @@
    "release": "orders-rulings.zip",
    "callers": {},
    "lapsed": "2026-11-20T23:27:17Z"
-  },
-  {
-   "path": "website/admin/order.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5iruQZSTYKyuR7b1SN",
-   "why": "Orders: the order map's rulings (decisions/0101 note 2026-11-20, B.1-B.6)",
-   "since": "2026-11-20T18:56:24Z",
-   "expires": "2026-11-20T22:57:22Z",
-   "release": "orders-rulings.zip",
-   "callers": {},
-   "lapsed": "2026-11-20T23:27:17Z"
-  },
-  {
-   "path": "website/admin/client-order.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5iruQZSTYKyuR7b1SN",
-   "why": "Orders: the order map's rulings (decisions/0101 note 2026-11-20, B.1-B.6)",
-   "since": "2026-11-20T18:56:26Z",
-   "expires": "2026-11-20T22:57:22Z",
-   "release": "orders-rulings.zip",
-   "callers": {},
-   "lapsed": "2026-11-20T23:27:17Z"
-  },
-  {
-   "path": "website/order.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5iruQZSTYKyuR7b1SN",
-   "why": "Orders: the order map's rulings (decisions/0101 note 2026-11-20, B.1-B.6)",
-   "since": "2026-11-20T18:56:28Z",
-   "expires": "2026-11-20T22:57:22Z",
-   "release": "orders-rulings.zip",
-   "callers": {},
-   "lapsed": "2026-11-20T23:27:17Z"
-  },
-  {
-   "path": "app/ui/pulse-ui.php",
-   "functions": [
-    "(top)",
-    "api",
-    "apply",
-    "openMsg",
-    "paintFilters",
-    "paintMarks",
-    "regroup",
-    "sortRows",
-    "toggleGroup",
-    "tv_pulse_board"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5hFvhtEKj2JuNVmjWZ",
-   "why": "Pulse filters in one button, saved views (table-standard note 2026-11-20)",
-   "since": "2026-11-20T19:01:21Z",
-   "expires": "2026-11-20T23:02:10Z",
-   "release": "pulse-filter-panel.zip",
-   "callers": {
-    "api": [
-     "app/ui/card-scanner.php",
-     "app/ui/lead-panel.php",
-     "website/admin/listing-edit.php",
-     "website/admin/listing-intake.php",
-     "website/admin/listings.php",
-     "website/admin/nexus.php",
-     "website/admin/rebuild.php",
-     "website/admin/sales.php",
-     "website/js/gallery.js",
-     "website/js/hero-media.js",
-     "website/js/stg-bar.js",
-     "website/js/tv-domains.js",
-     "website/js/tv-editor.js",
-     "website/js/tv-vault.js",
-     "website/plans.php",
-     "website/qr/manage.php",
-     "website/user/dashboard.php"
-    ],
-    "tv_pulse_board": [
-     "app/admin/sections.php",
-     "website/admin/w.php"
-    ],
-    "paintFilters": [
-     "website/directory/classic.php"
-    ],
-    "apply": [
-     "app/lib/Rebuild.php",
-     "app/lib/SearchEdits.php",
-     "app/lib/SuggestionActions.php",
-     "app/lib/Thresholds.php",
-     "app/lib/Uploads.php",
-     "app/lib/crawler/ClusterRecluster.php",
-     "website/js/consent.js"
-    ],
-    "paintMarks": [
-     "website/js/tv-pulse.js"
-    ]
-   },
-   "lapsed": "2026-11-20T23:27:17Z"
-  },
-  {
-   "path": "app/lib/staging-tables.php",
-   "functions": [
-    "(top)"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5hFvhtEKj2JuNVmjWZ",
-   "why": "Pulse filters in one button, saved views (table-standard note 2026-11-20)",
-   "since": "2026-11-20T19:01:21Z",
-   "expires": "2026-11-20T23:02:10Z",
-   "release": "pulse-filter-panel.zip",
-   "callers": {},
-   "lapsed": "2026-11-20T23:27:17Z"
-  },
-  {
-   "path": "app/migrations/2026-11-20_pulse_views.sql",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5hFvhtEKj2JuNVmjWZ",
-   "why": "release pulse-filter-panel.zip",
-   "since": "2026-11-20T19:02:10Z",
-   "expires": "2026-11-20T23:02:10Z",
-   "release": "pulse-filter-panel.zip",
-   "callers": {},
-   "lapsed": "2026-11-20T23:27:17Z"
-  },
-  {
-   "path": "app/lib/PulseViews.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5hFvhtEKj2JuNVmjWZ",
-   "why": "release pulse-filter-panel.zip",
-   "since": "2026-11-20T19:02:10Z",
-   "expires": "2026-11-20T23:02:10Z",
-   "release": "pulse-filter-panel.zip",
-   "callers": {},
-   "lapsed": "2026-11-20T23:27:17Z"
-  },
-  {
-   "path": "website/user/api/pulse-views.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5hFvhtEKj2JuNVmjWZ",
-   "why": "release pulse-filter-panel.zip",
-   "since": "2026-11-20T19:02:10Z",
-   "expires": "2026-11-20T23:02:10Z",
-   "release": "pulse-filter-panel.zip",
-   "callers": {},
-   "lapsed": "2026-11-20T23:27:17Z"
-  },
-  {
-   "path": "app/lib/crawler/CrawlService.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "0175 release 1: a trip places the system's pause, never a switch; it lifts when its check passes",
-   "since": "2026-11-20T13:29:57Z",
-   "expires": "2026-11-20T17:29:57Z",
-   "release": "",
-   "callers": {},
-   "lapsed": "2026-11-20T17:34:36Z"
-  },
-  {
-   "path": "website/place/landmark.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5jkgtUikcdUQ4Wmv28",
-   "why": "Send to Maps (decisions/0174 release 1)",
-   "since": "2026-11-20T04:01:48Z",
-   "expires": "2026-11-20T08:01:48Z",
-   "release": "",
-   "callers": {},
-   "lapsed": "2026-11-20T13:10:06Z"
-  },
-  {
-   "path": "app/lib/Automation.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "0173 R3: defined once, Propose, Retire, Removed",
-   "since": "2026-11-19T22:42:17Z",
-   "expires": "2026-11-20T03:15:45Z",
-   "release": "",
-   "callers": {},
-   "lapsed": "2026-11-20T03:44:22Z"
-  },
-  {
-   "path": "app/lib/ControlBoard.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "0173 R1: one home (Service register takes in Outside services)",
-   "since": "2026-11-19T22:42:19Z",
-   "expires": "2026-11-20T02:42:19Z",
-   "release": "",
-   "callers": {},
-   "lapsed": "2026-11-20T03:44:22Z"
-  },
-  {
-   "path": "website/admin/api.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "0173 R1: one home (Service register takes in Outside services)",
-   "since": "2026-11-19T22:42:33Z",
-   "expires": "2026-11-20T02:42:33Z",
-   "release": "",
-   "callers": {},
-   "lapsed": "2026-11-20T03:44:22Z"
-  },
-  {
-   "path": "website/js/admin-outside.js",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "0173 R1: one home (Service register takes in Outside services)",
-   "since": "2026-11-19T22:42:39Z",
-   "expires": "2026-11-20T02:42:39Z",
-   "release": "",
-   "callers": {},
-   "lapsed": "2026-11-20T03:44:22Z"
-  },
-  {
-   "path": "app/lib/WebPush.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "push-polish: one push per thing, a pace per person, the badge and the app manifest",
-   "since": "2026-11-19T23:31:42Z",
-   "expires": "2026-11-20T03:31:42Z",
-   "release": "",
-   "callers": {},
-   "lapsed": "2026-11-20T03:44:22Z"
-  },
-  {
-   "path": "app/admin/operations-console.php",
-   "functions": [
-    "tv_admin_mod_register"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5ivMY6BdkfHK1xdLWS",
-   "why": "control-board-card (Jason 2026-11-19: how am I supposed to fix this? the card shows its issue and its buttons)",
-   "since": "2026-11-19T17:42:17Z",
-   "expires": "2026-11-19T21:42:17Z",
-   "release": "",
-   "callers": {},
-   "lapsed": "2026-11-19T21:44:52Z"
   }
  ]
 }
