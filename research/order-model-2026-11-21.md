@@ -71,6 +71,9 @@ productions actual schedule."
 - **A deposit** is the exception, for orders whose terms may still change after approval: taken at approval, it lowers
   what's due until the order is released into production's actual schedule. Then the balance is due.
 - A set price is paid when ordered (2026-11-21: "Paid at time of order").
+- **How long a quote holds** (2026-11-22): "14 days, then the quote must be refreshed". A quote released to the cart or
+  sent as an invoice holds its price for 14 days; after that it's refreshed before checkout. (Today an order's link
+  works 14 days, `ClientOrders::DAYS`, and prices refresh from the catalog at Send.)
 - **Delayed payment** (2026-11-22, on invoice-later terms): "Credit account terms needed for delayed payments. Or admin
   override to proceed without payment." So invoice later, as a pay mode anyone can be given, is replaced by a client's
   credit account terms, or an admin's override on the order.
@@ -212,7 +215,7 @@ the pass is the product. It shapes 1.2's client-configured items and 1.8's money
    confirmed exempts "invoice later" from paid in full; 1.9 removes that exemption.)
 5. ~~The deposit's amount~~ Answered (1.8): a % per order set by staff, 65% default. Cancel window: answered (1.9); the vendor's
    Accept with its job number and the production scheduled ends it.
-6. How long a quote's price holds, and a vendor cost that changes.
+6. ~~How long a quote's price holds~~ Answered (1.8): 14 days, then refreshed.
 7. A change after release (back to held), and after payment but before the vendor.
 8. Shipping price on a client-configured order.
 9. A mixed cart: pay for what's ready, or wait for all.
