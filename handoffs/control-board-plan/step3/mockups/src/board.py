@@ -494,7 +494,7 @@ def board_view():
     boxes = ''
     for num, title, objs in PROMISES:
         worst = 'r' if any(o['state'] == 'r' for o in objs) else 'a' if any(o['state'] == 'a' for o in objs) else 'g'
-        boxes += f'<section class="pbox s-{worst}"><h2><span class="pn">{num}</span>{E(title)}</h2>{"".join(objective(o) for o in objs)}</section>'
+        boxes += f'<section class="pbox s-{worst}"><h2><span class="pn">{num}</span>{E(title)}</h2><div class="ggrid">{"".join(gauge_card(o) for o in objs)}</div></section>'
     grp = ''
     for gi, g in enumerate(GROUPS):
         ps = [PAGES[i] for i in g['rows']]
@@ -503,7 +503,7 @@ def board_view():
                 f'<span class="cnt">{len(ps)} pages · {cnt["g"]} working · {cnt["a"]} less than optimal · {cnt["r"]} failing · {cnt["n"]} not checked yet</span>{ico("chev")}</button>'
                 f'<div class="rt" id="rt-{gi}" hidden></div></div>')
     return f"""<section class="view" id="view-board" data-title="Board: is it delivering?">
-<div class="vh"><div><h1>Is it delivering?</h1><p class="sub">The seven delivery promises (for-jason-review item 9), as four boxes. Each objective: its measure, its target, the reading, a bar, its trend, and Fix it or Improve to its parts. Each is a warning first. Readings are the real ones, each with its time.</p></div>
+<div class="vh"><div><h1>Is it delivering?</h1><p class="sub">Every snapshot is one gauge card (Jason, 2026-11-22): its dial or bar against its target's bands, the band's word under the needle, the reading with its time, and its trend. Tap a card for its snapshot; Workflows ▸ and Services ▸ drill down to the root, computed from the association map (step3/association-map.md). This supersedes step 1's "skip big gauges" (Q21; SM 172–189).</p></div>
 <div class="seg" role="group" aria-label="Layout"><button data-layout="grid" aria-pressed="true">2 columns</button><button data-layout="rows" aria-pressed="false">Stacked</button></div></div>
 <div class="pgrid" id="pgrid">{boxes}</div>
 <div class="vh" style="margin-top:1.2rem"><div><h2 class="h2">The pages, as monitored units</h2><p class="sub">Every page in <code>site-audit/pages.md</code> (live and coming) and every admin route in the mirror's <code>app/admin/manifests.php</code>: {len(PAGES)} pages in {len(GROUPS)} groups. Open a group for its route table; Manage opens a page.</p></div></div>
@@ -841,6 +841,244 @@ def level(cid, i, n, kind, name, state, why, evidence, nexts, root=None):
             f'<details class="more ev"><summary><span class="pill">Evidence</span></summary>{evidence}</details>{rt}<div class="btns navb">{back}{nx}</div></aside>')
 
 
+# ------------------------------------------------------------------ gauge cards and their two drill paths (Jason, 2026-11-22)
+import assoc
+import math
+
+NEED_BY = {n['key']: n for n in NEEDS}
+OBJ_BY = {o['id']: o for _, _, objs in PROMISES for o in objs}
+TASK_ALARM = {a['key'].split(':', 2)[2]: a for a in ALARMS['open'] if a['key'].startswith('task:failed:')}
+MOD_BY = {m['id']: m for m in MODULES}
+# bands drawn from a target: (lo, hi, scale) in the dial's units; None = no edges yet ("target: set by Jason")
+BANDS = {'o-claude': ('cap', [(0, 50, 'g'), (50, 95, 'a'), (95, 100, 'r')], 'the warning bands at 50, 75 and 95% of the cap (02 row 39)'),
+         'o-places': ('cap', [(0, 50, 'g'), (50, 95, 'a'), (95, 100, 'r')], 'the warning bands at 50, 75 and 95% of the cap (02 row 39)'),
+         'o-uptime': ('up', [(95, 99, 'r'), (99, 99.5, 'a'), (99.5, 100, 'g')], '99.5% proposed (des): target set by Jason'),
+         'o-speed': ('up', [(95, 99, 'r'), (99, 99.5, 'a'), (99.5, 100, 'g')], 'under 2.5 s, 99.5% of the time, proposed (des)')}
+SCALE = {'o-uptime': (95, 100), 'o-speed': (95, 100)}
+
+
+def _pt(f, r=46, cx=60, cy=58):
+    a = math.pi * (1 - f)
+    return cx + r * math.cos(a), cy - r * math.sin(a)
+
+
+def _arc(f0, f1, cls, r=46):
+    x0, y0 = _pt(f0, r); x1, y1 = _pt(f1, r)
+    return f'<path class="band {cls}" d="M{x0:.1f},{y0:.1f} A{r},{r} 0 0 1 {x1:.1f},{y1:.1f}"/>'
+
+
+def dial(o):
+    st, pct = o['state'], o['pct']
+    if st == 'n':
+        return '<svg class="dial" viewBox="0 0 120 66" aria-hidden="true">' + _arc(0, 1, 'empty') + '</svg>'
+    lo, hi = SCALE.get(o['id'], (0, 100))
+    b = BANDS.get(o['id'])
+    arcs = ''.join(_arc((a - lo) / (hi - lo), (z - lo) / (hi - lo), c) for a, z, c in b[1]) if b else _arc(0, 1, 'neutral')
+    needle = ''
+    if pct is not None:
+        f = max(0, min(1, (pct - lo) / (hi - lo)))
+        x, y = _pt(f, 38)
+        needle = f'<line class="needle" x1="60" y1="58" x2="{x:.1f}" y2="{y:.1f}"/><circle class="hub" cx="60" cy="58" r="4"/>'
+    return f'<svg class="dial" viewBox="0 0 120 66" aria-hidden="true">{arcs}{needle}</svg>'
+
+
+def linear(o, value, label):
+    return (f'<div class="lin s-{o["state"]}" role="img" aria-label="{E(label)}"><b style="left:{value:.0f}%"></b></div>')
+
+
+def gauge_card(o):
+    unchecked = o['state'] == 'n'
+    snap = assoc.SNAP[o['id']]
+    edges = BANDS.get(o['id'])
+    edge_words = edges[2] if edges else 'target: set by Jason'
+    if o['id'] == 'o-gather':
+        g = linear(o, 0, '0 records in, 24 hours')
+    elif o['id'] == 'o-grow':
+        g = linear(o, 100, '8,976 published, the most yet')
+    else:
+        g = dial(o)
+    metric = ('needs: ' + NEEDS_PROBE.get(o['id'], 'its check').split(' (')[0]) if unchecked else METRIC.get(o['id'], '')
+    live = '' if unchecked else (f'<span class="live">live · <time>{E(o["when"].split(", ", 1)[-1])}</time></span>' if o['when'] else '')
+    trend = '' if unchecked else f'<div class="gtrend">{o["trend"]}</div>'
+    setup = ''
+    if unchecked:
+        need = NEEDS_PROBE.get(o['id'], 'its check')
+        setup = (f'<details class="imp pop"><summary class="btn imp">Set up its check</summary><div class="popb"><button class="px" type="button" aria-label="Close">×</button>'
+                 f'<div class="micro">Build: {E(need)}</div><button class="btn imp" title="Drawn: inert in the mockup">Set up: {E(need.split(" (")[0])}</button></div></details>')
+    unm = ' <span class="sctag">association not mapped</span>' if snap['unmapped'] else ''
+    return f"""<article class="obj gcard s-{o['state']}" id="{o['id']}" role="button" tabindex="0" data-card="{o['id']}" aria-label="{E(o['name'])}: open its snapshot">
+<div class="gh"><b>{E(o['name'])}</b></div>{g}<div class="band-word s-{o['state']}">{E(LT[o['state']])}</div>
+<div class="om2"><span class="metric pillm">{E(metric)}</span>{live}</div>{trend}
+<div class="micro edges">{E(edge_words)}</div>
+<div class="btns"><button class="btn path" data-open-panel="p-wf-{o['id']}">Workflows ▸</button><button class="btn path" data-open-panel="p-sv-{o['id']}">Services ▸</button>{setup}</div>{unm}</article>"""
+
+
+def _lv(kind, light, name, why, share=None, link=''):
+    sh = ''
+    if share:
+        basis, txt = share
+        sh = f'<div class="share">{"<span class=\'live\'>live</span>" if basis == "obs" else "<span class=\'sctag\'>scenario</span>"} {E(re.sub(r"^scenario: ", "", txt))}</div>'
+    return f'<div class="lvl"><div class="lvrow"><span class="lk">{E(kind)}</span>{light}<b class="lvn">{name}</b>{link}</div><div class="why1">{why}</div>{sh}</div>'
+
+
+def _wf_state(w):
+    al = WF_ALARMS.get(w, [])
+    if any(a['level'] == 'trip' for a in al):
+        return 'r', 'Paused by the system'
+    if al:
+        return 'a', 'Warning'
+    return 'n', 'no open alarm'
+
+
+def _task_state(t):
+    a = TASK_ALARM.get(t)
+    if a:
+        return 'r', 'Trip'
+    return 'n', 'no open alarm'
+
+
+def _needs_of(oid):
+    snap = assoc.SNAP[oid]
+    keys = []
+    for w, tasks in (snap['wf'] or {}).items():
+        for t in tasks:
+            for n in assoc.TASK_NEEDS.get(t, []):
+                if n in NEED_BY and n not in keys:
+                    keys.append(n)
+    for n in snap['needs']:
+        if n in NEED_BY and n not in keys:
+            keys.append(n)
+    return keys
+
+
+def _mods_of(oid):
+    mods = []
+    for n in _needs_of(oid):
+        for k, v, lab in NEED_BY[n]['srcs']:
+            m = mod_for(k, v)
+            if m and m in MOD_BY and m not in mods:
+                mods.append(m)
+    return mods
+
+
+def _head(o, path):
+    return (f'<div class="crumb">{E(o["name"])} · the {path} path</div><div class="lvrow">{lt(o["state"], LT[o["state"]])}<b class="lvn">{E(o["name"])}</b></div>'
+            f'<div class="micro">{E(METRIC.get(o["id"], "not checked yet") if o["state"] != "n" else "not checked yet: " + NEEDS_PROBE.get(o["id"], ""))}</div>')
+
+
+def wf_panel(o):
+    snap = assoc.SNAP[o['id']]
+    body = _lv('Records', lt(o['state'], LT[o['state']]), E(snap['records']), 'What this snapshot counts.')
+    if not snap['wf']:
+        body += _lv('Workflows', lt('n', 'none'), 'none: no workflow makes this', 'It rests on the site\'s own parts, not on gathering. Its Services path leads to them.')
+    else:
+        for w, tasks in snap['wf'].items():
+            k, words = _wf_state(w)
+            name = next((n for ww, n, _, _ in WORKFLOWS if ww == w), '')
+            why = 'Red: ' + '; '.join(E(a['title'][:110]) for a in WF_ALARMS.get(w, []) if a['level'] == 'trip') if k == 'r' else ('Amber: an open warning.' if k == 'a' else 'No open alarm at ' + T_AL + '.')
+            body += _lv('Workflow', lt(k, words), f'{w} {E(name)}', why, assoc.SHARES.get((o['id'], w)))
+            for t in tasks:
+                tk, tw = _task_state(t)
+                a = TASK_ALARM.get(t)
+                why = (f'Red: {E(a["reading"])}, its tries ran out ({E(a["title"])}).' if a else f'Calls: {E(", ".join(NEED_BY[n]["label"] for n in assoc.TASK_NEEDS.get(t, []) if n in NEED_BY) or "its own job")}.')
+                body += _lv('Task', lt(tk, tw), f'<code>{E(t)}</code>', why, assoc.SHARES.get((o['id'], t)))
+    extra = ''
+    if o['id'] in ('o-gather', 'o-ir'):
+        extra = '<div class="btns"><button class="btn f" data-open-panel="p-c1-0">IR-0001\'s chain, level by level</button></div>'
+    if o['id'] == 'o-search':
+        extra = '<div class="btns"><button class="btn f" data-open-panel="p-c2-0">The search chain, level by level</button></div>'
+    tmods = []
+    for w, tasks in (snap['wf'] or {}).items():
+        for t in tasks:
+            for n in assoc.TASK_NEEDS.get(t, []):
+                for k, v, lab in (NEED_BY[n]['srcs'] if n in NEED_BY else []):
+                    m = mod_for(k, v)
+                    if m and m in MOD_BY and m not in tmods:
+                        tmods.append(m)
+    links = ', '.join(f'<a href="#" class="mlink" data-go-mod="{m}">{E(SHORT(MOD_BY[m]["label"]))}</a>' for m in tmods)
+    end = '<div class="pend">' + ('Ends at: none, no workflow makes this.' if not snap['wf'] else ('Its tasks call: ' + links + ' (in order on the Services path).' if links else 'Ends at its tasks: their needs name no module with a card (association not mapped).')) + '</div>'
+    return (f'<aside class="panel" id="p-wf-{o["id"]}" hidden role="dialog" aria-label="{E(o["name"])}: workflows"><button class="x" aria-label="Close">×</button>'
+            + _head(o, 'Workflows') + body + extra + end
+            + f'<div class="btns navb"><button class="btn back" data-open-panel="p-snap-{o["id"]}">← Back</button><button class="btn" data-open-panel="p-sv-{o["id"]}">Services ▸</button></div></aside>')
+
+
+def sv_panel(o):
+    snap = assoc.SNAP[o['id']]
+    body = ''
+    for n in _needs_of(o['id']):
+        nd = NEED_BY[n]
+        body += _lv('Need', '', E(nd['label']), f'Else: {E(nd["fallback"])}.', assoc.SHARES.get((o['id'], n)))
+        for i, (k, v, lab) in enumerate(nd['srcs']):
+            m = mod_for(k, v)
+            role = 'first choice' if i == 0 else 'backup'
+            if m and m in MOD_BY:
+                mm = MOD_BY[m]
+                rank = {'r': 0, 'a': 1, 'h': 1, 'n': 2, 'g': 3}
+                cur = sorted([x for x in mm['scns'] if x['real']] or mm['scns'][:1], key=lambda x: rank.get(x['light'][0], 2))[0]
+                l0 = cur['light']
+                live = '<span class="live">live</span>' if cur['real'] else '<span class="sctag">scenario</span>'
+                fx = f'<button class="btn" data-go-mod="{m}">Fix it: {E(SHORT(mm["label"]))}</button>'
+                imp = f'<button class="btn imp" data-go-mod="{m}">Improve</button>'
+                why = f'{"Red" if l0[0] == "r" else "Amber" if l0[0] in "ah" else "Its reading"}: {E(l0[1])} {live}'
+                body += _lv(f'Source · {role}', lt(*l0), f'<a href="#" class="mlink" data-go-mod="{m}">{E(mm["label"])}</a>', why, None, f'<span class="btns inl">{fx}{imp}</span>')
+            else:
+                body += _lv(f'Source · {role}', lt('n', 'ours' if k in ('ours', 'paid') else 'no card'), E(lab if k != 'svc' else v), 'Our own copy, read first.' if k == 'ours' else ('A paid backup, off at 0.' if k == 'paid' else 'No card for it yet.'))
+    if not body:
+        body = _lv('Need', lt('n', 'none'), 'none', 'No need in Preflight::NEEDS is named for it.')
+    unm = ''.join(_lv('Not mapped', lt('n', 'association not mapped'), E(u), 'Listed in Coverage.') for u in snap['unmapped'])
+    end = '<div class="pend">Ends at: ' + (', '.join(f'<a href="#" class="mlink" data-go-mod="{m}">{E(SHORT(MOD_BY[m]["label"]))}</a>' for m in _mods_of(o['id'])) or 'none') + ('; association not mapped (above)' if snap['unmapped'] else '') + '.</div>'
+    return (f'<aside class="panel" id="p-sv-{o["id"]}" hidden role="dialog" aria-label="{E(o["name"])}: services"><button class="x" aria-label="Close">×</button>'
+            + _head(o, 'Services') + body + unm + end
+            + f'<div class="btns navb"><button class="btn back" data-open-panel="p-snap-{o["id"]}">← Back</button><button class="btn" data-open-panel="p-wf-{o["id"]}">Workflows ▸</button></div></aside>')
+
+
+def snap_panel(o):
+    mods = _mods_of(o['id'])
+    fix = ''.join(f'<button class="btn" data-go-mod="{m}">Fix it: {E(SHORT(MOD_BY[m]["label"]))}</button>' for m in mods) or '<span class="micro">no module: association not mapped</span>'
+    imp = ''.join(f'<button class="btn imp" title="Drawn: inert in the mockup">{E(t)}</button>' for t in o['improve'])
+    return (f'<aside class="panel" id="p-snap-{o["id"]}" hidden role="dialog" aria-label="{E(o["name"])}"><button class="x" aria-label="Close">×</button>'
+            f'<div class="crumb">Snapshot</div><div class="lvrow">{lt(o["state"], LT[o["state"]])}<b class="lvn">{E(o["name"])}</b></div>'
+            f'<div class="gbig">{dial(o) if o["id"] not in ("o-gather", "o-grow") else ""}</div>'
+            f'<dl class="dl"><dt>Measure</dt><dd>{E(o["measure"])}</dd><dt>Target</dt><dd>{E(o["target"])}</dd><dt>Reading</dt><dd>{E(o["reading"])}{" · <time>" + E(o["when"]) + "</time>" if o["when"] else ""} <span class="basis">{o["basis"]}</span></dd></dl>'
+            f'<div class="btns"><button class="btn f" data-open-panel="p-wf-{o["id"]}">Workflows ▸</button><button class="btn f" data-open-panel="p-sv-{o["id"]}">Services ▸</button></div>'
+            f'<div class="h3">Fix it (from the association map)</div><div class="btns">{fix}</div>' + (f'<div class="h3">Improve</div><div class="btns">{imp}</div>' if imp else '') + '</aside>')
+
+
+def assoc_rows():
+    rows = []
+    for oid, snap in assoc.SNAP.items():
+        name = OBJ_BY[oid]['name']
+        wfs = snap['wf'] or {None: [None]}
+        for w, tasks in wfs.items():
+            for t in tasks:
+                needs = [n for n in assoc.TASK_NEEDS.get(t, []) if n in NEED_BY] if t else []
+                for n in needs or [None]:
+                    rows.append((name, snap['records'], w or 'none', t or 'none', n or '—', ' → '.join((lab if k != 'svc' else v) for k, v, lab in NEED_BY[n]['srcs']) if n else '—', NEED_BY[n]['fallback'] if n else '—'))
+        for n in snap['needs']:
+            if n in NEED_BY:
+                rows.append((name, snap['records'], 'none (the site)', 'none', n, ' → '.join((lab if k != 'svc' else v) for k, v, lab in NEED_BY[n]['srcs']), NEED_BY[n]['fallback']))
+        for u in snap['unmapped']:
+            rows.append((name, snap['records'], '—', '—', '**association not mapped**', u, '—'))
+    return rows
+
+
+def write_assoc_md():
+    rows = assoc_rows()
+    unm = sum(1 for r in rows if 'not mapped' in r[4])
+    L = ['# The association map: snapshot → records → workflow → task → need → sources', '',
+         'Generated by `mockups/src/board.py` from `assoc.py` and the live mirror (`aeb5f31`): workflows from `Automation::WORKFLOWS`,',
+         'each workflow\'s tasks from `research/crawler-how-it-runs-2026-11-14.md` §2 and `SystemStart::TASKS`, each need\'s sources in',
+         'the map\'s order and its fallback from `Preflight::NEEDS`, the modules from `service-defs.php`. The board\'s gauge cards read',
+         'the same data: every "Fix it: <module>" on a card comes from this table (Jason, 2026-11-22). A link the code can\'t give is',
+         '**association not mapped**, listed here and in the board\'s Coverage.', '',
+         f'**Size:** {len(rows)} rows for {len(assoc.SNAP)} snapshots; {unm} not mapped.', '',
+         '| Snapshot | Records it counts | Workflow | Task | Need | Sources, in order | Fallback |', '|---|---|---|---|---|---|---|']
+    for r in rows:
+        L.append('| ' + ' | '.join(x.replace('|', '/') for x in r) + ' |')
+    open(STEP3 + 'association-map.md', 'w').write('\n'.join(L) + '\n')
+    return len(rows), unm
+
+
 def chains():
     c1 = [
         ('Snapshot (promise 5)', 'Gathering reconciles', lt('r', 'Trip'),
@@ -907,6 +1145,7 @@ def coverage():
          + sec(len(unmeasured), N_OBJ, 'objectives not checked yet', f'<ul>{li(E(o["name"]) + ": " + E(o["reading"]) for o in unmeasured)}</ul>')
          + sec(len(nochk), len(PAGES), 'pages no probe covers yet', f'<ul class="cols2">{li("<code>" + E(p["route"]) + "</code>" for p in nochk)}</ul>')
          + sec(len(coming), 0, 'coming, designed not built', f'<ul>{li("<code>" + E(p["route"]) + "</code>" for p in coming)}</ul>')
+         + sec(sum(len(x['unmapped']) for x in assoc.SNAP.values()), 0, 'associations not mapped', '<ul>' + ''.join(f'<li>{E(OBJ_BY[k]["name"])}: {E(u)}</li>' for k, x in assoc.SNAP.items() for u in x['unmapped']) + '</ul>')
          + sec(len(NO_CARD), 0, 'services the needs name with no card yet', f'<ul class="cols2">{li("<code>" + E(s) + "</code>" for s in NO_CARD)}</ul>') + '</aside>')
     return h, len(unmeasured), len(nochk), len(coming)
 
@@ -1004,7 +1243,16 @@ details.pop{display:inline-block;position:relative}details.pop>summary{list-styl
 .crow.hr{background:#a62b2b10}.crow.hl{background:#8f560010}.crow>details{flex:1;min-width:0}.crow>.btns{margin:0;flex:0 0 auto}
 details.cr>summary{display:flex;flex-wrap:wrap;gap:.25rem .55rem;align-items:center;cursor:pointer;list-style:none}details.cr>summary::-webkit-details-marker{display:none}
 details.cr>summary::before{content:"▸";color:var(--taupe);font-size:11px}details.cr[open]>summary::before{content:"▾"}
-.cn{font-weight:600;white-space:nowrap;flex:0 0 auto}.narrow{display:none}.top details.pop>summary{cursor:pointer;list-style:none;color:inherit;background:none}.top .popb{color:var(--ink)}@media (max-width:767px){.top{gap:.3rem .5rem}.top .chip{font-size:12px}.top .wide{display:none}.top .narrow{display:inline}.top .popb{position:absolute;right:0;left:auto}}article.card .z>.stage:has(>details.pillx),article.card .z>details:not(.more):not(.kgrp){display:inline-block;vertical-align:top;margin:.15rem .3rem .15rem 0}article.card .z>details[open]:not(.more):not(.kgrp){display:block}article.card .slot{padding:.35rem .5rem}article.card .slot .src{font-size:10.5px;padding:0 .35rem}article.card .slot .ty{font-size:11px}@media (max-width:767px){.crow:not(.hr):not(.hl) summary:has(.lt) .micro.m{display:none}details.cr>summary:not(:has(.lt)){flex-wrap:nowrap}details.cr>summary:not(:has(.lt)) .micro.m{min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}.crow.hr details.cr>summary .micro.m,.crow.hl details.cr>summary .micro.m{max-width:100%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}article.card .z{padding:.55rem .5rem}article.card .thread{padding:.5rem .55rem}article.card .pl{font-size:12px;margin:.1rem 0}article.card .zh{margin-bottom:.35rem}article.card .rp{padding:.2rem .4rem}article.card .act{margin:.25rem 0;gap:.3rem}}.micro.m{border:1px solid var(--card-edge);border-radius:999px;padding:0 .45rem;background:var(--sec)}.crb{padding:.3rem 0 .2rem 1rem;font-size:13px}
+.ggrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.5rem}.gcard{background:var(--sec);border:1px solid var(--card-edge);border-radius:.55rem;padding:.55rem .6rem;cursor:pointer;display:flex;flex-direction:column;gap:.2rem;min-width:0}
+.gcard:focus-visible{outline:2px solid var(--copper);outline-offset:2px}.gcard.s-r{border-color:var(--red)}.gh b{font-size:13.5px}
+.dial{width:100%;max-width:170px;height:auto;align-self:center;display:block}.dial .band{fill:none;stroke-width:11}.band.g{stroke:var(--sage)}.band.a{stroke:var(--amber)}.band.r{stroke:var(--red)}.band.neutral{stroke:#CFC4AE}.band.empty{stroke:#D9D2C2;stroke-dasharray:3 3}
+.needle{stroke:var(--umber);stroke-width:3;stroke-linecap:round}.hub{fill:var(--umber)}.gbig .dial{max-width:240px}
+.band-word{align-self:center;font-weight:700;font-size:13px;margin-top:-.2rem}.band-word.s-a{color:var(--amber)}.band-word.s-r{color:var(--red)}.band-word.s-g{color:#4f7d63}.band-word.s-n{color:var(--taupe)}
+.lin{position:relative;height:12px;border-radius:999px;background:#CFC4AE;margin:.9rem .3rem .5rem}.lin.s-r{background:linear-gradient(90deg,var(--red) 0 20%,#CFC4AE 20%)}.lin.s-g{background:linear-gradient(90deg,#CFC4AE,var(--sage))}.lin b{position:absolute;top:-5px;width:4px;height:22px;background:var(--umber);border-radius:2px;transform:translateX(-50%)}
+.pillm{border:1px solid var(--card-edge);border-radius:999px;padding:0 .5rem;background:var(--card);font-size:12.5px}.gtrend{align-self:center}.edges{text-align:center}
+.lvl{border-top:1px solid var(--sec-edge);padding:.4rem 0}.lk{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--meta)}.why1{font-size:13px;color:var(--meta)}.share{font-size:12.5px;margin-top:.15rem}.btns.inl{display:inline-flex;margin:0}
+.pend{margin:.6rem 0;font-size:13px;font-weight:600}
+.cn{font-weight:600;white-space:nowrap;flex:0 0 auto}.narrow{display:none}.top details.narrow,.top .narrow{display:none}.top details.pop>summary{cursor:pointer;list-style:none;color:inherit;background:none}.top .popb{color:var(--ink)}@media (max-width:767px){.top{gap:.3rem .5rem}.top .chip{font-size:12px}.top .wide{display:none}.top .narrow{display:inline}.top details.narrow{display:inline-block}.top .popb{position:absolute;right:0;left:auto}}article.card .z>.stage:has(>details.pillx),article.card .z>details:not(.more):not(.kgrp){display:inline-block;vertical-align:top;margin:.15rem .3rem .15rem 0}article.card .z>details[open]:not(.more):not(.kgrp){display:block}article.card .slot{padding:.35rem .5rem}article.card .slot .src{font-size:10.5px;padding:0 .35rem}article.card .slot .ty{font-size:11px}@media (max-width:767px){.crow:not(.hr):not(.hl) summary:has(.lt) .micro.m{display:none}details.cr>summary:not(:has(.lt)){flex-wrap:nowrap}details.cr>summary:not(:has(.lt)) .micro.m{min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}.crow.hr details.cr>summary .micro.m,.crow.hl details.cr>summary .micro.m{max-width:100%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}article.card .z{padding:.55rem .5rem}article.card .thread{padding:.5rem .55rem}article.card .pl{font-size:12px;margin:.1rem 0}article.card .zh{margin-bottom:.35rem}article.card .rp{padding:.2rem .4rem}article.card .act{margin:.25rem 0;gap:.3rem}}.micro.m{border:1px solid var(--card-edge);border-radius:999px;padding:0 .45rem;background:var(--sec)}.crb{padding:.3rem 0 .2rem 1rem;font-size:13px}
 details.kgrp{border:1px solid var(--card-edge);border-radius:.45rem;padding:.3rem .45rem;margin:.3rem 0}details.kgrp>summary{cursor:pointer;list-style:none}details.kgrp>summary::-webkit-details-marker{display:none}
 .spill{display:inline-block;font-size:12px;font-weight:600;border-radius:999px;padding:.05rem .6rem;background:var(--sec);border:1px solid var(--card-edge)}details.key{padding:.15rem 0}
 details.pillx{display:inline-block;max-width:100%}details.pillx>summary{display:inline-block;cursor:pointer;list-style:none;font-size:12.5px;border:1px solid var(--field-edge);border-radius:999px;padding:.05rem .6rem;background:var(--card)}
@@ -1056,6 +1304,8 @@ document.addEventListener('click',function(e){var t=e.target.closest('[data-open
  if(t.hasAttribute('data-layout')){var L=t.getAttribute('data-layout');document.getElementById('pgrid').classList.toggle('rows',L==='rows');document.querySelectorAll('[data-layout]').forEach(function(x){x.setAttribute('aria-pressed',x===t);});try{localStorage.setItem('tvb-layout',L);}catch(e){}return;}
  if(t.hasAttribute('data-role-f')){var R=t.getAttribute('data-role-f');document.querySelectorAll('#view-modules [data-role]').forEach(function(x){x.hidden=R!=='all'&&x.getAttribute('data-role')!==R;});document.querySelectorAll('[data-role-f]').forEach(function(x){x.setAttribute('aria-pressed',x===t);});return;}
 });
+document.addEventListener('click',function(e){var c=e.target.closest('[data-card]');if(!c||e.target.closest('button,a,summary,details'))return;openPanel('p-snap-'+c.getAttribute('data-card'));});
+document.addEventListener('keydown',function(e){var c=e.target.closest&&e.target.closest('[data-card]');if(c&&e.target===c&&(e.key==='Enter'||e.key===' ')){e.preventDefault();openPanel('p-snap-'+c.getAttribute('data-card'));}});
 document.addEventListener('keydown',function(e){if(e.key==='Escape'){close();document.querySelectorAll('details.pop[open]').forEach(function(d){d.open=false;});}});
 document.addEventListener('click',function(e){document.querySelectorAll('details.pop[open]').forEach(function(d){if(!d.contains(e.target)||e.target.closest('.px'))d.open=false;});},true);
 // Clamp: any block of prose over 120 characters at a card's or an objective's top level moves into a detail, its first words as
@@ -1090,6 +1340,8 @@ def fold_intros(h):
 def build():
     os.makedirs(OUT, exist_ok=True)
     chain_html, c1, c2 = chains()
+    n_assoc, n_unmapped = write_assoc_md()
+    gpanels = ''.join(snap_panel(o) + wf_panel(o) + sv_panel(o) for _, _, objs in PROMISES for o in objs)
     cov_html, n_unm, n_noch, n_coming = coverage()
     held = sum(1 for a in ALARMS['open'] if a['level'] == 'trip')
     mods_js = {m['id']: m['label'] for m in MODULES}
@@ -1106,14 +1358,14 @@ def build():
 <button data-nav="workflows" aria-current="false">{ico('wf')}Workflows<span class="cnt">{len(WORKFLOWS)}</span></button>
 <button data-nav="diagnostics" aria-current="false">{ico('diag')}Diagnostics<span class="cnt">{len(MODULES)}</span></button></nav>
 <main class="main">{fold_intros(board_view() + modules_view() + workflows_view() + diag_view())}</main></div>
-<div class="scrim"></div>{chain_html}{cov_html}{manage_panel()}{''.join(unplaceholder(v) for v in PANELS.values())}
+<div class="scrim"></div>{gpanels}{chain_html}{cov_html}{manage_panel()}{''.join(unplaceholder(v) for v in PANELS.values())}
 <script>window.__PAGES={json.dumps(pages_js)};window.__GROUPS={json.dumps([{'rows': g['rows']} for g in GROUPS])};window.__MODS={json.dumps(mods_js)};</script>{JS}"""
     doc = f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>System Control Board</title><meta name="description" content="Step 3's interactive board mockup: is it delivering, the pages, modules, workflows and diagnostics.">
 <style>{CSS}</style></head><body>{body}</body></html>"""
     open(OUT + 'index.html', 'w').write(doc)
     stats = dict(pages=len(PAGES), groups=len(GROUPS), modules=len(MODULES), scenarios=N_SCN, objectives=N_OBJ, unmeasured=n_unm, pages_unchecked=n_noch,
-                 coming=n_coming, no_card=NO_CARD, workflows=len(WORKFLOWS), chain1=c1, chain2=c2, size=len(doc))
+                 coming=n_coming, no_card=NO_CARD, assoc_rows=n_assoc, assoc_unmapped=n_unmapped, workflows=len(WORKFLOWS), chain1=c1, chain2=c2, size=len(doc))
     json.dump(stats, open(OUT + 'stats.json', 'w'), indent=1)
     print(json.dumps(stats, indent=1))
 

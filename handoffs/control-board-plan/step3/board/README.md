@@ -4,6 +4,10 @@
 mockup, not site code. It makes no outside call and uses no library. Approved by Jason on 2026-11-21, with Gemini's
 draft as the structure.
 
+**The Board view is gauge cards** (Jason, 2026-11-22; 03 §27). Every snapshot is one gauge card with two drill paths,
+Workflows ▸ and Services ▸, computed from `../association-map.md`. This supersedes step 1's "skip big gauges" (Q21;
+SM 172–189).
+
 **Views**
 - **Board: "Is it delivering?"** The seven delivery promises (for-jason-review item 9) as four boxes, 23 objectives.
   Each objective shows:

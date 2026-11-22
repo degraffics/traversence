@@ -8,6 +8,8 @@
  "pages_unchecked": 112,
  "coming": 37,
  "no_card": [],
+ "assoc_rows": 103,
+ "assoc_unmapped": 4,
  "workflows": 15,
  "chain1": [
   "Gathering reconciles",
@@ -23,5 +25,5 @@
   "W1 Listings (places by kind and town), W9 Landmarks, W12 Search learning",
   "Geofabrik (our OpenStreetMap copy) and Overture"
  ],
- "size": 1843902
+ "size": 2022784
 }

@@ -23,7 +23,7 @@ const url = 'file://' + dir + 'index.html';
       await p.click(`.rail [data-nav="${v}"]`);
       if (v !== 'board') await p.evaluate(v => document.querySelectorAll('#view-' + v + ' details.mod').forEach(d => d.open = true), v);
       const s = await sw(); ok(s <= w, `@${w} view ${v}: scrollWidth ${s}`);
-      await p.screenshot({ path: `${dir}shots/${v}-${w}.png`, fullPage: v === 'board' });
+      await p.screenshot({ path: `${dir}shots/${v === 'board' ? 'gauge-board' : v}-${w}.png`, fullPage: v === 'board' });
     }
     // every scenario switch renders
     await p.click('.rail [data-nav="modules"]');
@@ -108,6 +108,28 @@ const url = 'file://' + dir + 'index.html';
     if (w === 390) { for (const how of ['x', 'esc', 'outside']) { await p.click('.top details.rd > summary'); const o1 = await p.evaluate(() => document.querySelector('.top details.rd').open);
       if (how === 'x') await p.click('.top details.rd .px'); if (how === 'esc') await p.keyboard.press('Escape'); if (how === 'outside') await p.mouse.click(5, 600);
       ok(o1 && !(await p.evaluate(() => document.querySelector('.top details.rd').open)), `@390 the Readings pill opens and closes by ${how}`); } }
+    // gauge cards: every snapshot a gauge card with both paths and its band word; every path ends at a module card, "none" or "not mapped"
+    const gc = await p.evaluate(() => { const cs = [...document.querySelectorAll('#view-board .gcard')]; return [cs.length, cs.filter(c => c.querySelector('[data-open-panel^="p-wf-"]') && c.querySelector('[data-open-panel^="p-sv-"]')).length,
+      cs.filter(c => (c.querySelector('.band-word') || {}).textContent).length,
+      cs.filter(c => { const id = c.id; return ['p-wf-' + id, 'p-sv-' + id].every(pid => { const e = document.querySelector('#' + pid + ' .pend'); return e && (e.querySelector('[data-go-mod]') || /none|not mapped/.test(e.textContent)); }); }).length]; });
+    ok(gc[0] === 23 && gc[1] === 23 && gc[2] === 23 && gc[3] === 23, `@${w} every snapshot is a gauge card (${gc[0]}), with both paths (${gc[1]}), its band word (${gc[2]}), each path ending at a module, "none" or "not mapped" (${gc[3]})`);
+    await p.click('.rail [data-nav="board"]');
+    for (const ex of ['o-speed', 'o-complete', 'o-gather']) {
+      let okx = true;
+      await p.evaluate(id => document.getElementById(id).scrollIntoView({ block: 'center' }), ex);
+      await p.click(`#${ex} .gh`); okx = okx && await isOpen('p-snap-' + ex);
+      await p.click(`#p-snap-${ex} [data-open-panel="p-wf-${ex}"]`); okx = okx && await isOpen('p-wf-' + ex) && (await sw()) <= w;
+      if (w === 390) await p.screenshot({ path: `${dir}shots/example-${ex}-workflows-390.png` });
+      await p.click(`#p-wf-${ex} .navb .back`); okx = okx && await isOpen('p-snap-' + ex);
+      await p.click(`#p-snap-${ex} [data-open-panel="p-sv-${ex}"]`); okx = okx && await isOpen('p-sv-' + ex) && (await sw()) <= w;
+      if (w === 390) await p.screenshot({ path: `${dir}shots/example-${ex}-services-390.png` });
+      const mod = await p.$(`#p-sv-${ex} .pend [data-go-mod]`);
+      await p.click(`#p-sv-${ex} .navb .back`); okx = okx && await isOpen('p-snap-' + ex);
+      await p.keyboard.press('Escape'); okx = okx && !(await isOpen('p-snap-' + ex));
+      ok(okx && !!mod, `@${w} worked example ${ex}: card → snapshot → Workflows → back → Services → back, ending at a module card`);
+    }
+    // the card opens by keyboard
+    await p.focus('#o-pages'); await p.keyboard.press('Enter'); ok(await isOpen('p-snap-o-pages'), `@${w} a gauge card opens by keyboard`); await p.keyboard.press('Escape');
     // every detail, accordion and popover opens and closes
     const dt = await p.evaluate(() => { let n = 0, bad = 0; document.querySelectorAll('details').forEach(d => { const s = d.querySelector(':scope > summary'); if (!s) { bad++; return; } const was = d.open; s.click(); const a = d.open !== was; s.click(); const b2 = d.open === was; n++; if (!(a && b2)) bad++; }); return [n, bad]; });
     ok(dt[1] === 0, `@${w} every detail and accordion opens and closes: ${dt[0]} checked, ${dt[1]} failed`);
