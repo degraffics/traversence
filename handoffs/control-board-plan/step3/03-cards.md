@@ -1956,6 +1956,13 @@ reference** (Q21 and SM 172–189, `step1-requirements.md`), by Jason's directio
   `o-paths`, `o-gather`, `o-complete`, `o-ir`, `o-search-cap`; `o-signin` acceptable as one pass/fail) are listed with
   a single measure each in `sections/crossover.md`. The build gauges' measure is Complete (live and passing its check,
   over the signed scope); their proposed set and owners are in the same file.
+- **The development gauges' measure is configured (Jason, 2026-11-22).** "the measurement of the gauge should be
+  configured, so let's create a process that would be initially 0 and determine what is needed to make the gauge reach
+  100." This **replaces** the "Complete = live and passing its check" rule and options A, B and C for the development
+  gauges. Each gauge starts at 0 in Planning; its configuration (scope items, each item's criteria, phases, weights) is
+  signed off by Jason; the needle is the share of configured criteria met; the word under it is one of his five
+  (Planning, Phased Development, Audit & Review, Implementation, Monitoring), read as process stages or as % bands (our
+  inference, both shown for his choice). Spec: `sections/gauge-lifecycle.md`.
 
 ---
 

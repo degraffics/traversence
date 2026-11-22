@@ -1595,6 +1595,7 @@ def review_pack(gpanels, chain_html, cov_html, held, mods_js, pages_js, ngaps):
     for blob in (gpanels, chain_html, cov_html, manage_panel(), devgauges.panels(), ''.join(unplaceholder(v) for v in PANELS.values())):
         for m in re.finditer(r'<aside class="panel" id="([^"]+)"', blob):
             all_panels[m.group(1)] = balanced(blob, m.start(), 'aside')
+    css_nodev = _min_css(CSS.replace(devgauges.CSS, '')) + '.rnote{background:var(--card);border:1px solid var(--copper);border-radius:.5rem;padding:.4rem .6rem;margin:.5rem 16px;font-size:13px}'
     css = _min_css(CSS) + '.rnote{background:var(--card);border:1px solid var(--copper);border-radius:.5rem;padding:.4rem .6rem;margin:.5rem 16px;font-size:13px}'
     M = len(parts)
     sizes = []
@@ -1621,7 +1622,7 @@ def review_pack(gpanels, chain_html, cov_html, held, mods_js, pages_js, ngaps):
                 + f'<script>window.__PAGES={json.dumps(pages_data)};window.__GROUPS={json.dumps(groups_data)};window.__MODS={json.dumps(mods_js)};window.__PARTOF={json.dumps(partof)};</script>{JS}{devgauges.JS}')
         body = _fix_body(body)
         doc = (f'<!doctype html><!-- {note} -->\n<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">'
-               f'<title>Control board review, part {i} of {M}</title><style>{css}</style></head><body>{body}</body></html>')
+               f'<title>Control board review, part {i} of {M}</title><style>{css if slug == "development" else css_nodev}</style></head><body>{body}</body></html>')
         fn_ = f'part-{i:02d}-{slug}.html'
         open(rv + fn_, 'w').write(doc)
         sizes.append((fn_, len(doc.encode()), what))
