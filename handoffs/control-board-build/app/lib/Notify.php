@@ -59,6 +59,9 @@ final class Notify
         'alarm.warning' => ['ControlAlarms.php', 'ControlAlarms', 'pulseBody'],
         'alarm.recovered' => ['ControlAlarms.php', 'ControlAlarms', 'pulseBody'],
         'alarm.escalated' => ['ControlAlarms.php', 'ControlAlarms', 'pulseBody'],
+        // Site health on one path (Jason, 2026-11-22, check-register.md: "Failures = notifications" → one path): a finding of the
+        // site audit (a build regression) is a Pulse item through the dispatcher, never a push, once per finding
+        'sitehealth.finding' => ['A site audit finding (Site health)', 'A check of the site audit found something new on a page: a build regression. In Pulse only, no push; the audit\'s full list is on the System Control Board.', 'notice', 'staff', 'Team', false, true, 'system', ''],
         'upload.place_photo' => ['UploadThreads.php', 'UploadThreads', 'pulseBody'],   // people's uploads as threads (decisions/0176 §6)
         'upload.place_photo.reported' => ['UploadThreads.php', 'UploadThreads', 'pulseBody'],
         'upload.order_file' => ['UploadThreads.php', 'UploadThreads', 'pulseBody'],
@@ -115,7 +118,7 @@ final class Notify
      */
     public const IN_PLACE = ['alarm.trip', 'alarm.warning', 'alarm.escalated', 'alarm.recovered', 'upload.place_photo', 'upload.place_photo.reported', 'upload.order_file'];
     /** Kinds that never send a push, whatever a person chose (decisions/0176 §6: uploads' staff threads; 0176 "no new kinds of push"). */
-    public const NO_PUSH = ['upload.place_photo', 'upload.place_photo.reported', 'upload.order_file'];
+    public const NO_PUSH = ['upload.place_photo', 'upload.place_photo.reported', 'upload.order_file', 'sitehealth.finding'];
 
     /** Notices' levels (0172 §2): the rest are General. */
     private const NOTICE_LEVELS = ['group_join' => 'notice', 'group_charter' => 'notice', 'group_post' => 'alert', 'group_chapter' => 'notice', 'group_about' => 'notice',

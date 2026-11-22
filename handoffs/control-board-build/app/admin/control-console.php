@@ -1,0 +1,1013 @@
+<?php
+// app/admin/control-console.php — System Configuration → System Control Board (decisions/0171, release 2b; laid out again
+// after Jason's example board, 2026-11-18: "adjust the page layout and presentation of data so I can better use and
+// understand our system board"). From the top:
+// - a status strip: what's held now, the three core hosts and when the pre-flight last ran;
+// - the six stages, and where the system stands;
+// - the system's own controls, with a filter and Open all / Close all;
+// - two panels: what's holding now (each opens its process) and the four query timings against their limits;
+// - each system a card, its processes rows in columns (Process, Where it stands, Last 24 hours). Each row opens under its
+//   name to its whole process: Route, Its check, Needs (each source in order, ours first, which works), Last 24 hours
+//   (what came in and where every one went), runs, Records touched, and its controls.
+// Buttons answer in place (js/admin-control.js); the board draws itself again every 30 seconds while it's open. The data
+// is ControlBoard's (app/lib/ControlBoard.php), read from the pre-flight's stored lines and the ledger: nothing is tested
+// by opening the page.
+declare(strict_types=1);
+
+require_once __DIR__ . '/../lib/ControlBoard.php';
+require_once __DIR__ . '/../lib/ControlAlarms.php';
+require_once __DIR__ . '/../lib/ControlMaintenance.php';
+require_once __DIR__ . '/../lib/ControlIncidents.php';
+require_once __DIR__ . '/../ui/score-gauge.php';
+// the gauges' one reader (the build log §7's contract: runtime, development, workflows, source), written beside this view
+if (!class_exists('ControlGauges') && is_file(__DIR__ . '/../lib/ControlGauges.php')) require_once __DIR__ . '/../lib/ControlGauges.php';
+if (!function_exists('tv_w_e')) require_once __DIR__ . '/widgets.php';
+
+function tv_cb_mark(string $light): string
+{
+    // red only for a trip or a core host down; amber for what's held, timing out, on a backup or near a limit (Jason,
+    // 2026-11-18: --tv-fail var(--cb-fail), --tv-hold var(--cb-hold), the palette's tokens shared with Pulse)
+    // blue: out for maintenance on purpose (0171 §2.5), never a failure; a wrench
+    if ($light === 'maint') return '<span class="cb-m" role="img" aria-label="In maintenance: out on purpose" title="In maintenance: out on purpose" style="background:var(--cb-maint-bg);color:var(--cb-maint)"><svg class="cb-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L4 17l3 3 5.3-5.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.5-.5-.5-2.5z"/></svg></span>';
+    // an open warning: amber with "!", its level's mark, never a ✓ beside a warning (0175 R2a, item 7)
+    if ($light === 'alarm') return '<span class="cb-m" role="img" aria-label="Warning: the system is handling it" title="Warning: the system is handling it" style="background:var(--cb-hold-bg);color:var(--cb-hold)"><svg class="cb-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M12 6v8M12 18.5v.01"/></svg></span>';
+    if ($light === 'hold') return '<span class="cb-m" role="img" aria-label="Held: waiting on what it needs" title="Held: waiting on what it needs" style="background:var(--cb-hold-bg);color:var(--cb-hold)"><svg class="cb-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M9 6v12M15 6v12"/></svg></span>';
+    $m = ['ok' => ['#DCFCE7', '#15803D', 'check', 'Working'], 'bad' => ['var(--cb-fail-bg)', 'var(--cb-fail)', 'x', 'Stopped: needs an admin'], 'warn' => ['var(--cb-hold-bg)', 'var(--cb-hold)', 'check', 'On a backup or near a limit'],
+          'off' => ['#F1EDE6', '#8a7a68', 'dash', 'Switched off'], 'wait' => ['#F1EDE6', '#8a7a68', 'clock', 'Not tested yet'], 'new' => ['#F1EDE6', '#8a7a68', 'clock', 'Not tested yet'], 'na' => ['#F1EDE6', '#8a7a68', 'dash', 'Nothing to do']][$light] ?? ['#F1EDE6', '#8a7a68', 'dash', ''];
+    $ic = function_exists('tv_icon') ? tv_icon($m[2], 'cb-svg') : ($light === 'bad' ? '✗' : '✓');
+    return '<span class="cb-m" role="img" aria-label="' . tv_w_e($m[3]) . '" title="' . tv_w_e($m[3]) . '" style="background:' . $m[0] . ';color:' . $m[1] . '">' . $ic . '</span>';
+}
+
+function tv_cb_record_link(string $kind, int $id, string $what = ''): string
+{
+    $u = $kind === 'listing' ? '/admin/listing-edit.php?id=' . $id : ($kind === 'review' ? '/admin/listing-intake.php?row=' . $id : '');
+    $label = ($kind === 'listing' ? 'Listing #' : ($kind === 'review' ? 'Review item #' : ucfirst($kind) . ' #')) . $id . ($what !== '' ? ' (' . $what . ')' : '');
+    return $u !== '' ? '<a href="' . tv_w_e($u) . '" data-peek-frame class="underline cb-rec">' . tv_w_e($label) . '</a>' : tv_w_e($label);
+}
+
+function tv_cb_time(int $at): string
+{
+    return $at ? '<time datetime="' . gmdate('c', $at) . '" data-tv-time>' . gmdate('M j, H:i', $at) . ' UTC</time>' : 'not run yet';
+}
+
+/** One line of a process's detail: its label, then what it says, on the same line (above it, on a phone). */
+function tv_cb_kv(string $label, string $html): string
+{
+    return '<div class="cb-kv"><span class="cb-lb">' . tv_w_e($label) . ':</span><div class="cb-kd">' . $html . '</div></div>';
+}
+
+/**
+ * A row's columns (laid out after Jason's example, 2026-11-18): the line under its name, its stage, where it stands in a
+ * few words, the last 24 hours (runs; what came in and how much of it is accounted for), its speed, and its OK rate.
+ */
+function tv_cb_row(string $id, array $p, array $needs, string $sysStage = 'observe'): array
+{
+    require_once __DIR__ . '/../lib/Preflight.php';
+    $c = $p['calls'];
+    // under its name: the phases a workflow runs in (0164 §7), or what kind of thing it is
+    $sub = '';
+    if (str_starts_with($id, 'wf:')) { $ph = []; foreach (Preflight::PHASES as $n => [$pn, $wfs]) if (in_array(substr($id, 3), $wfs, true)) $ph[] = $n;
+        $sub = $ph ? (count($ph) === 1 ? 'Phase ' . $ph[0] . ' · ' . Preflight::PHASES[$ph[0]][0] : 'Phases ' . implode(', ', $ph)) : 'Workflow'; }
+    elseif (str_starts_with($id, 't:')) $sub = 'A task';
+    elseif (str_starts_with($id, 'wk:')) $sub = 'A worker on Railway';
+    elseif (str_starts_with($id, 'svc:')) $sub = 'An outside service';
+    elseif (str_starts_with($id, 'job:')) $sub = 'A site job';
+    // a critical part says the duty it carries (0171 §5's note, 2026-11-19): "Search: critical"
+    try { require_once __DIR__ . '/../lib/ControlRegister.php'; $du = ControlRegister::duty(Database::connection(), $id); if ($du !== '') $sub = ControlRegister::DUTIES[$du][0] . ': critical' . ($sub !== '' ? ' · ' . $sub : ''); } catch (Throwable $x) {}
+    // its stage
+    $stage = $p['light'] === 'bad' ? ['bad', 'Tripped'] : ($p['light'] === 'maint' ? ['maint', 'In maintenance'] : ($p['switch'] === 'off' ? ['off', str_starts_with($id, 'svc:') ? 'Paused' : 'Shut down'] : ($p['light'] === 'hold' ? ['hold', $p['switch'] === 'on' ? 'Holding' : 'Held']
+        : ($p['switch'] === 'on' ? ($sysStage === 'shutdown' ? ['new', 'Standby'] : ['ok', 'Observation']) : (in_array($p['light'], ['ok', 'warn'], true) ? ['ok', 'Working'] : ['new', 'Pre-flight'])))));
+    // where it stands, in a few words: what holds it, else why it's off, else its needs
+    $where = '';
+    foreach ((array) ($p['line']['extra']['parts'] ?? []) as [$txt, $st]) if ($st === 'bad') { $where = 'Holds it: ' . $txt; break; }
+    if ($where === '') $where = (string) preg_replace('/^[^:]{0,40} is paused: /u', 'Paused: ', $p['words']);
+    if ($needs) { $ok = count(array_filter($needs, fn ($x) => in_array($x[1], ['ok', 'warn'], true))); $where = rtrim($where, '.') . '. ' . $ok . ' of ' . count($needs) . ' needs answered.'; }
+    if ($id === 'site:pulse') {   // its usual gathering time (2026-11-19): the middle of its last 20 opens, against its limit
+        try { require_once __DIR__ . '/../lib/ControlSensor.php'; $pdo0 = Database::connection(); [$pm, $pn] = ControlSensor::pulseUsual($pdo0); $pl = ControlSensor::pulseLimit($pdo0);
+            $where = $pm === null ? 'No opens timed yet: it\'s timed each time staff open Pulse.' : 'Usually gathers in ' . number_format($pm / 1000, 1) . ' s (the last ' . $pn . ' opens; the limit is ' . number_format($pl / 1000, 1) . ' s).'; } catch (Throwable $x) {} }
+    // the last 24 hours
+    $nRuns = array_sum($p['outcomes']) + $p['jobs'][0] + $p['jobs'][1];
+    $sorted = $c['stored'] + $c['updated'] + $c['review'] + $c['refused'];
+    $runs = $nRuns ? [number_format($nRuns) . ' run' . ($nRuns === 1 ? '' : 's'), '', false] : ($c['calls'] ? [number_format($c['calls']) . ' call' . ($c['calls'] === 1 ? '' : 's'), '', false] : ['—', '', false]);
+    if ($c['received'] > 0) { $pct = (int) floor(100 * min($sorted, $c['received']) / $c['received']); $runs[1] = number_format($c['received']) . ' in · ' . $pct . '% accounted'; $runs[2] = $pct === 100; }
+    $speed = $c['calls'] ? [($c['received'] > 0 ? round($c['ms'] * $c['calls'] / $c['received']) . ' ms/rec' : $c['ms'] . ' ms a call'), $c['received'] > 0 ? $c['ms'] . ' ms a call' : ''] : ['—', ''];
+    // its OK rate: calls without a server error, runs without a failure
+    $good = ($c['calls'] - $c['errors']) + $p['jobs'][0] + (array_sum($p['outcomes']) - (int) ($p['outcomes']['failed'] ?? 0));
+    $all = $c['calls'] + $p['jobs'][0] + $p['jobs'][1] + array_sum($p['outcomes']);
+    return ['sub' => $sub, 'stage' => $stage, 'where' => $where, 'runs' => $runs, 'speed' => $speed, 'ok' => $all ? round(100 * $good / $all, 1) . '%' : '—'];
+}
+
+/**
+ * Text that might be long: one line, and More opens the same line in place (Jason, 2026-11-18: "show a line of text with a
+ * toggle or see more to expand its presentation, not repeat it in full"). Short text is just the text.
+ */
+function tv_cb_more(string $text, int $short = 140, string $lead = ''): string
+{
+    $e = 'tv_w_e';
+    if (mb_strlen($text) <= $short) return $lead . $e($text);
+    // a toggle, not "…" and More (Jason, 2026-11-18): closed, the line runs to the edge and fades; ▸ opens it in place
+    return '<span class="cb-tg" data-cb-clamp><button type="button" class="cb-tgb" data-cb-more aria-expanded="false" aria-label="Show all of it" title="Show all of it">'
+        . '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></button>'
+        . '<span class="cb-tgt" data-cb-more>' . $lead . $e($text) . '</span></span>';
+}
+
+/** Its check in a line: what holds it first, else that every part passes; the other parts on a toggle, never repeated. */
+function tv_cb_check(array $line): string
+{
+    $e = 'tv_w_e'; $s = (string) ($line['s'] ?? 'new'); $parts = (array) ($line['extra']['parts'] ?? []);
+    $at = ' <small>' . tv_cb_time((int) ($line['at'] ?? 0)) . '</small>';
+    if ($parts) {
+        $bad = array_values(array_filter($parts, fn ($x) => ($x[1] ?? null) === 'bad'));
+        $rest = array_values(array_filter($parts, fn ($x) => ($x[1] ?? null) !== 'bad'));
+        $head = $bad ? tv_cb_more(implode(' ', array_column($bad, 0)), 140, '<b class="cb-bad">Holds it:</b> ') : $e('Every part passes: ' . implode(', ', array_map(fn ($x) => strtolower((string) strtok((string) $x[0], ':')), array_filter($parts, fn ($x) => ($x[1] ?? null) !== null)))) . '.';
+        $li = ''; foreach ($rest as [$txt, $st]) $li .= '<li>' . ($st !== null ? tv_cb_mark((string) $st) : '<span class="cb-m" aria-hidden="true"></span>') . '<span>' . tv_cb_more((string) $txt) . '</span></li>';
+        return '<div class="cb-ck">' . tv_cb_mark($s) . (str_starts_with($head, '<span class="cb-tg"') ? $head : '<span class="cb-ckt">' . $head . '</span>') . '</div>' . $at . ($bad && $rest ? '<details class="cb-more"><summary>Its other ' . count($rest) . ' part' . (count($rest) === 1 ? '' : 's') . '</summary><ul class="cb-parts">' . $li . '</ul></details>' : '');
+    }
+    // a line from before checks were kept part by part: said so, with the way to run it again
+    $said = (string) preg_replace('/^What holds it:\s*/u', '', (string) ($line['said'] ?? ''));
+    $said = tv_cb_more($said);
+    return '<div class="cb-ck">' . tv_cb_mark($s) . (str_starts_with($said, '<span class="cb-tg"') ? $said : '<span class="cb-ckt">' . $said . '</span>') . '</div>' . $at . ($s === 'bad' && str_contains((string) ($line['said'] ?? ''), 'What holds it:') ? ' <small class="cb-old">Tested before checks were shown part by part: press Check to see which part holds it.</small>' : '');
+}
+
+/** The needs as chips: each need, ✓ or ✗, and the source that answered it (all its sources in order on hover); a chip tests it. */
+function tv_cb_needs(array $needs, bool $canTest, string $whyTest): string
+{
+    $e = 'tv_w_e'; $h = '<div class="cb-chips">';
+    foreach ($needs as $k => [$name, $s, $src, $fallback, $soft, $at]) {
+        $by = ''; foreach ($src as $x) if ($x[2] === true) { $by = (string) $x[0]; break; }
+        $what = $s === 'new' ? 'not tested' : ($by !== '' ? ($s === 'warn' ? 'on a backup: ' : '') . preg_replace('/^Ours \((.*)\)$/u', '$1', $by) : 'nothing works: ' . $fallback);
+        $title = 'Its sources, ours first: ' . implode(' → ', array_map(fn ($i, $x) => ($i + 1) . '. ' . $x[0] . ($x[2] === null ? '' : ($x[2] ? ' ✓' : ' ✗')), array_keys($src), $src)) . ($canTest ? '. Press to test it.' : '');
+        $mk = ['ok' => '✓', 'warn' => '✓', 'bad' => '✗'][$s] ?? '…';
+        $h .= '<button type="button" class="cb-chip cb-chip-' . $e(in_array($s, ['ok', 'warn', 'bad'], true) ? $s : 'new') . '" id="cb-nd-' . $e($k) . '" data-cb="check" data-cb-id="nd:' . $e($k) . '" title="' . $e($title) . '" aria-label="' . $e($name . ': ' . $what . '. ' . $title) . '"' . ($canTest ? '' : ' disabled') . '>'
+            . $e($name) . ' <b>' . $mk . '</b> <small>(' . $e($what) . ')</small></button>';
+    }
+    return $h . '</div>';
+}
+
+/**
+ * #maintenance (0171 §2.5, §12; release 4a): what's out and planned, with Put back and Cancel; a window set ahead (any
+ * workflow, or a task with its own switch: from, Back by, why); and the upkeep calendar, what's due from what the code
+ * already schedules. Its list and calendar are drawn again with the board; the form isn't, so what's typed stays.
+ */
+function tv_cb_maintenance(PDO $pdo, array $names, callable $btn, bool $canRun, string $wNo): string
+{
+    $e = 'tv_w_e';
+    $rows = ControlMaintenance::listing($pdo);
+    $out = array_values(array_filter($rows, fn ($r) => $r['state'] === 'out'));
+    $plan = array_values(array_filter($rows, fn ($r) => $r['state'] === 'planned'));
+    $nm = fn (string $p) => $names[$p] ?? $p;
+    $at = fn (?string $d) => $d ? tv_cb_time((int) strtotime($d . ' UTC')) : '';
+    $sum = $out ? count($out) . ' out' . ($plan ? ', ' . count($plan) . ' planned' : '') : ($plan ? count($plan) . ' planned' : 'nothing out');
+    $h = '<details class="ak-card tv-bleed cb-panel" id="maintenance"' . ($out ? ' open' : '') . '><summary class="cb-ph"><span class="cb-caret" aria-hidden="true">▾</span>' . tv_cb_mark($out ? 'maint' : 'na') . '<b>Maintenance</b> <small>' . $e($sum) . '</small></summary><div class="cb-mt">';
+    // what's out, planned, and back in the last two days
+    $li = '';
+    foreach ($rows as $r) {
+        $st = (string) $r['state'];
+        $words = $st === 'out' ? 'Out since ' . $at($r['out_at']) . ', back by ' . $at($r['until_at'])
+            : ($st === 'planned' ? 'Goes out ' . $at($r['from_at']) . ', back by ' . $at($r['until_at'])
+            : ($st === 'back' ? 'Back ' . $at($r['back_at']) . ($r['back_by'] ? ' (' . $e((string) $r['back_by']) . ')' : '') : 'Cancelled'));
+        $b = $st === 'out' ? $btn('maintback', 'Put back', $canRun, $wNo, (string) $r['id'], ['class' => 'ak-b cb-xs', 'data-confirm' => 'Put it back? Its check runs first; it starts again only if the check isn\'t red.', 'data-yes' => 'Put it back'])
+            : ($st === 'planned' ? $btn('maintcancel', 'Cancel', $canRun, $wNo, (string) $r['id'], ['class' => 'ak-b cb-xs', 'data-confirm' => 'Cancel this window? It won\'t go out.', 'data-yes' => 'Cancel it']) : '');
+        $li .= '<li id="cb-mt-' . (int) $r['id'] . '"><span class="cb-pill cb-pill-' . ($st === 'out' ? 'maint' : 'new') . '">' . $e(['out' => 'Out', 'planned' => 'Planned', 'back' => 'Back', 'cancelled' => 'Cancelled'][$st] ?? $st) . '</span>'
+            . '<b>' . $e($nm((string) $r['proc'])) . '</b><span>' . $words . '</span><span>Why: ' . $e((string) $r['why']) . ($r['by_name'] ? ' (' . $e((string) $r['by_name']) . ')' : '') . '</span>'
+            . ($r['note'] ? '<span data-tv-status="bad" data-tv-label="Still out:">' . $e((string) $r['note']) . '</span>' : '') . ($b !== '' ? '<span class="cb-acts">' . $b . '</span>' : '') . '</li>';
+    }
+    $h .= '<div class="cb-mlist">' . ($li !== '' ? '<ul class="cb-ml">' . $li . '</ul>' : '<p class="ak-note">Nothing is out for maintenance, and no window is planned.</p>') . '</div>';
+    // a window set ahead (or now): any workflow, or a task with its own switch
+    $opts = '';
+    foreach ($names as $pid => $n) if (ControlMaintenance::canTake($pid)) $opts .= '<option value="' . $e($pid) . '">' . $e($n) . '</option>';
+    if ($opts !== '') $h .= '<form id="cb-mt-form"><label>Process<select name="proc">' . $opts . '</select></label>'
+        . '<label>Goes out<input type="datetime-local" name="from" aria-label="When it goes out (empty: now)"></label>'
+        . '<label>Back by<input type="datetime-local" name="until" required aria-label="When it comes back by itself"></label>'
+        . '<label class="cb-why">Why<input type="text" name="why" maxlength="255" required data-spell placeholder="New keys for its service"></label>'
+        . $btn('maintplan', 'Take it out', $canRun, $wNo, '', ['data-cb-form' => 'cb-mt-form']) . '</form>'
+        . '<p class="ak-note">Empty "Goes out" takes it out now. It\'s shut down in order (its tasks, then the workflow), shows blue, its alarms are notices and Start skips it. At its Back by it comes back by itself, after its check; a red check keeps it out and raises a warning. Times are in your time zone.</p>';
+    // the upkeep calendar
+    $up = '';
+    // each opens in place: its process's row on the board, or its scheduled task in a drawer (the session manager's note)
+    foreach (ControlMaintenance::upkeep($pdo) as [$what, $when, $often, $note, $proc]) {
+        $rid = 'cb-p-' . str_replace(':', '-', $proc);
+        $link = isset($names[$proc]) ? '<a class="underline" href="#' . $e($rid) . '" data-cb-go="' . $e($rid) . '">' . $e($what) . '</a>'
+            : (str_starts_with($proc, 'job:') ? '<a class="underline" href="/admin/config/scheduler#job-' . $e(substr($proc, 4)) . '" data-peek-frame>' . $e($what) . '</a>' : $e($what));
+        $up .= '<li><span class="cb-when">' . ($when ? tv_cb_time($when) : 'not scheduled') . '</span><b>' . $link . '</b><span>' . $e($often) . '</span><small class="ak-note">' . $e($note) . '</small></li>';
+    }
+    $h .= '<div class="cb-uplist"><h4 style="margin:.3rem 0 .2rem">Upkeep calendar: what\'s due</h4>' . ($up !== '' ? '<ul class="cb-up">' . $up . '</ul>' : '<p class="ak-note">Nothing scheduled.</p>') . '</div>';
+    return $h . '</div></details>';
+}
+
+/**
+ * The alarm list's one filter: a dropdown button like Shortcuts (icon, current choice, count, ▾), moved up into the page's
+ * header by admin-kit.js (data-ak-cmd; it stays here inside a drawer). Its choices and their counts are kept by
+ * admin-control.js through each redraw (CLAUDE.md "Filters on a list or queue are one dropdown button"; the session
+ * manager, 2026-11-18: it was a native select and a gear on their own row).
+ */
+function tv_cb_afilter(): string
+{
+    $ic = function_exists('tv_icon') ? tv_icon('filter', 'ak-svg') : '';
+    $h = '<span class="ak-fw cb-afw" data-ak-cmd><button type="button" class="ak-fb" aria-expanded="false" aria-haspopup="true" title="Which alarms to show" data-cb-afb>' . $ic . '<span data-cb-afname>Open alarms</span> <b data-cb-afcount>0</b></button><span class="ak-fl" hidden>';
+    foreach (['open' => 'Open alarms', 'ack' => 'Acknowledged', 'trip' => 'Trips', 'warning' => 'Warnings', 'notice' => 'Notices'] as $k => $l)   // cleared ones are in the logbook
+        $h .= '<button type="button" data-cb-afv="' . $k . '"' . ($k === 'open' ? ' class="on"' : '') . '>' . tv_w_e($l) . '<i data-cb-afn="' . $k . '">0</i></button>';
+    return $h . '</span></span>';
+}
+
+/**
+ * The logbook's rows (0171 §10, release 5a): newest first, 50 at a time, each with its time in the zone where it happened
+ * (labelled), what happened, who (staff, or the system) and why; "Show older" carries on from the last one.
+ */
+function tv_cb_log_rows(PDO $pdo, string $scope = '', int $before = 0): string
+{
+    require_once __DIR__ . '/../lib/ControlLog.php';
+    $e = 'tv_w_e'; $rows = ControlLog::feed($pdo, $scope, $before, 50);
+    if (!$rows) return $before ? '<li class="cb-lg-end"><small class="ak-note">Nothing older.</small></li>' : '<li class="cb-lg-end"><small class="ak-note">Nothing logged yet' . ($scope !== '' ? ' for this' : '') . '.</small></li>';
+    $h = '';
+    foreach ($rows as [$at, $tz, $kind, $proc, $what, $who, $why])
+        $h .= '<li><time datetime="' . gmdate('c', $at) . '" data-tv-time' . ($tz !== '' ? ' data-tz="' . $e($tz) . '"' : '') . '>' . gmdate('M j, H:i', $at) . ' UTC</time>'
+            . '<span class="cb-pill cb-pill-new">' . $e(ControlLog::KINDS[$kind] ?? $kind) . '</span><span class="cb-lg-w">' . $e($what) . ($why !== '' ? ' <small>' . $e($why) . '</small>' : '') . '</span><small class="cb-lg-who">' . $e($who) . '</small></li>';
+    $last = end($rows)[0];
+    return $h . (count($rows) >= 50 ? '<li class="cb-lg-more"><button type="button" class="ak-b cb-xs" data-cb-logmore="' . (int) $last . '">Show older</button></li>' : '');
+}
+
+/** A report's cell: a moment in the reader's zone (labelled), else its words. */
+function tv_cb_rcell($c): string
+{
+    return is_array($c) && isset($c['t']) ? tv_cb_time((int) $c['t']) : tv_w_e((string) $c);
+}
+
+/** #reports: open a report for the system, a system or one process, over a day or a week (decisions/0171 §11, 5b). */
+function tv_cb_reports_panel(PDO $pdo): string
+{
+    $e = 'tv_w_e';
+    require_once __DIR__ . '/../lib/ControlReport.php';
+    $opts = ''; foreach (ControlReport::scopes($pdo) as $k => $n) $opts .= '<option value="' . $e($k) . '">' . $e($n) . '</option>';
+    $sum = ControlReport::summary($pdo);
+    return '<details class="ak-card tv-bleed cb-panel" id="reports"><summary class="cb-ph"><span class="cb-caret" aria-hidden="true">▾</span>' . tv_cb_mark('na') . '<b>Reports</b> <small>uptime, what ran, records, alarms, spend and switches, for any system or process</small></summary>'
+        . ($sum ? '<ul class="cb-rsum">' . implode('', array_map(fn ($l) => '<li>' . $e($l) . '</li>', $sum)) . '</ul>' : '')
+        . '<form class="cb-rf" method="get" action="/admin/config/control"><label>Report on<select name="report">' . $opts . '</select></label>'
+        . '<label>Over<select name="range"><option value="day">the last 24 hours</option><option value="week">the last 7 days</option></select></label>'
+        . '<button type="submit" class="ak-b">Open the report</button></form>'
+        . '<p class="ak-note">Made from what the site already keeps, so it costs nothing. Each opens as a page with Download (CSV, and the page as a file); the daily report at 5 am carries the summary, and Monday\'s the week.</p></details>';
+}
+
+/** The report as a page on the board (?report=<scope>&range=day|week): its summary, each section a table, its downloads. */
+function tv_cb_report_page(PDO $pdo, string $scope, string $range, string $csrf): string
+{
+    $e = 'tv_w_e';
+    require_once __DIR__ . '/../lib/ControlReport.php';
+    $r = ControlReport::build($pdo, $scope, $range);
+    $q = fn (string $rg) => '/admin/config/control?report=' . rawurlencode($r['scope']) . '&range=' . $rg;
+    $h = '<div id="cb" class="cb-report" data-csrf="' . $e($csrf) . '"><p class="cb-rback"><a href="/admin/config/control#reports" class="underline">← The board</a></p>'
+        . '<h2 class="ak-h">' . $e($r['name']) . ': ' . $e($r['label']) . '</h2>'
+        . '<p class="ak-note">' . tv_cb_time($r['from']) . ' to ' . tv_cb_time($r['to']) . '</p>'
+        . '<div class="cb-acts"><a class="ak-b' . ($r['range'] === 'day' ? ' on' : '') . '" href="' . $e($q('day')) . '">Last 24 hours</a><a class="ak-b' . ($r['range'] === 'week' ? ' on' : '') . '" href="' . $e($q('week')) . '">Last 7 days</a>'
+        . '<button type="button" class="ak-b" data-cb-dl="csv" data-cb-scope="' . $e($r['scope']) . '" data-cb-range="' . $e($r['range']) . '">Download CSV</button>'
+        . '<button type="button" class="ak-b" data-cb-dl="file" data-cb-scope="' . $e($r['scope']) . '" data-cb-range="' . $e($r['range']) . '">Download the page</button></div>'
+        . '<ul class="cb-rsum">' . implode('', array_map(fn ($l) => '<li>' . $e($l) . '</li>', $r['summary'])) . '</ul>';
+    foreach ($r['sections'] as $k => [$title, $cols, $rows, $note]) {
+        $h .= '<section class="ak-card tv-bleed cb-rsec" id="r-' . $e($k) . '"><h3 class="cb-title">' . $e($title) . '</h3>';
+        if ($rows) {
+            $h .= '<div class="cb-rtw"><table class="cb-tt"><thead><tr>' . implode('', array_map(fn ($c) => '<th>' . $e($c) . '</th>', $cols)) . '</tr></thead><tbody>';
+            foreach ($rows as $row) $h .= '<tr>' . implode('', array_map(fn ($c, $i) => '<td data-th="' . $e($cols[$i] ?? '') . '">' . tv_cb_rcell($c) . '</td>', $row, array_keys($row))) . '</tr>';
+            $h .= '</tbody></table></div>';
+        }
+        if ($note !== '') $h .= '<p class="ak-note">' . $e($note) . '</p>';
+        $h .= '</section>';
+    }
+    return $h . '<style>#cb.cb-report{display:grid;gap:.6rem}#cb .cb-rsec{padding:.6rem .8rem}#cb .cb-title{margin:0 0 .4rem;font-size:15px}#cb .cb-rsum{margin:0;padding-left:1.1rem}#cb .cb-rtw{overflow-x:auto}'
+        . '#cb .cb-acts{display:flex;flex-wrap:wrap;gap:.4rem}#cb .cb-acts .on{background:#8FBCA8}#cb .cb-tt{width:100%;border-collapse:collapse;font-size:13px}#cb .cb-tt th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.03em;color:#8a7a68;padding:.2rem .3rem;border-bottom:1px solid #EFE6D6}#cb .cb-tt td{padding:.3rem;border-bottom:1px solid #F3ECE0;vertical-align:top}'
+        . '@media (max-width:767px){#cb .cb-tt thead{display:none}#cb .cb-tt tr{display:block;padding:.35rem 0;border-bottom:1px solid #EFE6D6}#cb .cb-tt td{display:flex;gap:.5rem;border:0;padding:.1rem 0}#cb .cb-tt td::before{content:attr(data-th);flex:0 0 7.5rem;font-size:11px;text-transform:uppercase;color:#8a7a68}}</style>'
+        . '<script src="/js/tv-time.js?v=' . (int) @filemtime(__DIR__ . '/../../website/js/tv-time.js') . '" defer></script>'
+        . '<script src="/js/admin-control.js?v=' . (int) @filemtime(__DIR__ . '/../../website/js/admin-control.js') . '" defer></script></div>';
+}
+
+/** #log: the logbook, its one filter (the system, a system, or one process) and Log an entry (spell-checked, with its zone). */
+function tv_cb_logbook(PDO $pdo, array $names, bool $canNote): string
+{
+    $e = 'tv_w_e';
+    // the one filter, a dropdown button like Shortcuts (icon, current choice, ▾): the whole system, a system, or a process
+    $ic = function_exists('tv_icon') ? tv_icon('filter', 'ak-svg') : '';
+    // grouped by system, the parts with entries this week first (with their count), a box to find one (Jason, 2026-11-19:
+    // "this drop down is very messy": every part in one flat list)
+    $procs = ControlRegister::processes($pdo); $n7 = [];
+    try { foreach ($pdo->query("SELECT proc, COUNT(*) FROM control_log WHERE at >= UTC_TIMESTAMP() - INTERVAL 7 DAY AND proc <> '' GROUP BY proc")->fetchAll(PDO::FETCH_KEY_PAIR) as $k => $v) $n7[(string) $k] = (int) $v; } catch (Throwable $x) {}
+    $groups = []; foreach ($names as $pid => $n) $groups[(string) ($procs[$pid][0] ?? 'other')][$pid] = (string) $n;
+    $sysNames = ControlRegister::SYSTEMS + ['other' => 'Other parts'];
+    $opts = '<span class="cb-lgf"><input type="search" class="ak-q" placeholder="Find a part" aria-label="Find a part" data-cb-logq></span>'
+          . '<button type="button" data-cb-logv="" data-label="The whole system" class="on cb-lgh">The whole system</button>';
+    $nopts = '<option value="">The whole system</option>';
+    foreach ($sysNames as $sk => $sn) {
+        if (empty($groups[$sk])) continue;
+        $g = $groups[$sk];
+        uksort($g, fn ($a, $b) => (empty($n7[$a]) <=> empty($n7[$b])) ?: strnatcasecmp($g[$a], $g[$b]));   // with entries first, then A to Z (W2 before W10)
+        $busy = count(array_filter(array_keys($g), fn ($p) => !empty($n7[$p])));
+        $opts .= '<span class="cb-lgs" data-cb-lgs>' . ($sk !== 'other' ? '<button type="button" class="cb-lgh" data-cb-logv="sys:' . $e($sk) . '" data-label="' . $e($sn) . '" data-q="' . $e(mb_strtolower($sn)) . '">' . $e($sn) . ' <small>' . count($g) . ' parts' . ($busy ? ', ' . $busy . ' with entries this week' : '') . '</small></button>' : '<span class="cb-lgh cb-lght">' . $e($sn) . '</span>');
+        $nopts .= '<optgroup label="' . $e($sn) . '">';
+        foreach ($g as $pid => $n) {
+            $c = $n7[$pid] ?? 0;
+            $opts .= '<button type="button" class="cb-lgp' . ($c ? '' : ' quiet') . '" data-cb-logv="' . $e($pid) . '" data-label="' . $e($n) . '" data-q="' . $e(mb_strtolower($n . ' ' . $pid)) . '"><span>' . $e($n) . '</span>' . ($c ? '<i title="Entries in the last 7 days">' . $c . '</i>' : '') . '</button>';
+            $nopts .= '<option value="' . $e($pid) . '">' . $e($n) . '</option>';
+        }
+        $opts .= '</span>'; $nopts .= '</optgroup>';
+    }
+    $opts .= '<p class="ak-note cb-lgnone" hidden>No part has those words.</p>';
+    return '<details class="ak-card tv-bleed cb-panel" id="log"><summary class="cb-ph"><span class="cb-caret" aria-hidden="true">▾</span>' . tv_cb_mark('na') . '<b>Logbook</b> <small>every switch, control, alarm and note, newest first</small></summary>'
+        . '<div class="cb-lg"><span class="ak-fw cb-lgw"><button type="button" class="ak-fb" aria-expanded="false" aria-haspopup="true" title="Whose log to show" data-cb-logb>' . $ic . '<span data-cb-logname>The whole system</span></button><span class="ak-fl cb-lgfl" hidden>' . $opts . '</span></span>'
+        . '<ul class="cb-lgl" data-cb-loglist>' . tv_cb_log_rows($pdo) . '</ul>'
+        . '<form class="cb-lg-n" id="cb-log-form"><label class="cb-why">Log an entry<textarea name="text" rows="2" maxlength="400" required data-spell placeholder="What happened, or what you did"></textarea></label>'
+        . '<label>On<select name="scope">' . $nopts . '</select></label>'
+        . '<button type="button" class="ak-b" data-cb-lognote' . ($canNote ? '' : ' disabled title="Only staff who can view the board log an entry."') . '>Log it</button></form>'
+        . '<p class="ak-note">Read from where each is kept (switches, Start\'s sessions, the pre-flight\'s runs, outside services\' issues, site jobs that stopped, releases), and the board\'s own log. Who is a staff member or the system; times are where they happened.</p></div></details>';
+}
+
+/** Every process, read once, by system: the board and its table share it (2026-11-19). */
+function tv_cb_by_system(PDO $pdo, array $res): array
+{
+    $by = [];
+    // red is for a trip or a core host down only (Jason, 2026-11-18); a process held by its check, a timeout or a deferred
+    // source is amber, "held"
+    $tripped = []; foreach (ControlAlarms::list($pdo) as $x) if ($x['cleared_at'] === null && $x['level'] === 'trip') $tripped[(string) $x['proc']] = true;
+    foreach (ControlRegister::processes($pdo) as $id => $p) {
+        $row = ControlBoard::process($pdo, $id, $p, $res);
+        // the board's light rules, shared with the historian so its trend shows what the board showed (release 4b)
+        [$row['light'], $row['means']] = ControlBoard::boardLight($pdo, $id, $row, $tripped);
+        if ($row['light'] === 'maint' && ($mt = ControlMaintenance::outFor($pdo, $id))) { $row['maint'] = $mt; $row['words'] = ControlMaintenance::words($mt) . '.'; }
+        $by[$p[0]][$id] = $row;
+    }
+    return $by;
+}
+
+/** The board's tables and pages as tabs beside its stages (decisions/0175's note, release 2b part A): key => [label, what]. */
+const TV_CB_TABS = ['alarms' => ['Alarms', 'Every alarm, open or cleared, with its drawer'], 'log' => ['Logbook', 'Every switch, alarm and note, by time'],
+    'ledger' => ['Ledger', 'Every worker call and the records it touched'], 'upkeep' => ['Upkeep', 'Maintenance windows, set ahead and done'],
+    'reports' => ['Reports', 'The whole system, a system or a part, over a period'], 'scheduler' => ['Scheduled tasks', 'Every scheduled job, its line and its runs']];
+
+/** A light as the table shows it: [tone, word] (colour with its word, never colour alone). */
+const TV_CB_LIGHTS = ['bad' => ['bad', 'Tripped'], 'alarm' => ['warn', 'Warning'], 'hold' => ['warn', 'Held'], 'warn' => ['warn', 'On a backup'], 'maint' => ['info', 'In maintenance'],
+    'off' => ['info', 'Off'], 'wait' => ['info', 'Not tested'], 'ok' => ['ok', 'Working']];
+
+/**
+ * The board's process table (design/table-standard.md, T1; the session manager, 2026-11-19): a group row per system, its
+ * parts under it; each part's status, stage, where it stands, last 24 hours, speed and OK; Check, and ⋯ with words (a
+ * greyed item says why). A part opens its own page in a drawer (the standard's rule 6). $q: q (words), show (a light).
+ * Returns [rows, total, counts by light].
+ */
+function tv_cb_table_rows(PDO $pdo, array $q): array
+{
+    require_once __DIR__ . '/../lib/Preflight.php'; require_once __DIR__ . '/../lib/SystemStart.php'; require_once __DIR__ . '/../lib/Staging.php';
+    $res = Preflight::results($pdo); $by = tv_cb_by_system($pdo, $res);
+    $alarms = array_values(array_filter(ControlAlarms::list($pdo), fn ($x) => $x['cleared_at'] === null));
+    [$sysStage] = ControlBoard::stage($pdo);
+    [$canRun, $whyRun] = SystemStart::can(); [$canPf, $whyPf] = Preflight::can();
+    $staging = Staging::here(); $wNo = $staging ? 'Nothing runs on staging: these work on the live site.' : (string) $whyRun; $canRun = $canRun && !$staging;
+    $words = array_values(array_filter(explode(' ', mb_strtolower(trim((string) ($q['q'] ?? ''))))));
+    $show = (string) ($q['show'] ?? '');
+    $out = []; $counts = ['' => 0];
+    foreach (ControlRegister::SYSTEMS as $sk => $sname) {
+        $kids = []; $n = [];
+        foreach ($by[$sk] ?? [] as $id => $p) {
+            $needs = str_starts_with($id, 'wf:') ? ControlBoard::needs($res, (array) ($p['parts']['needs'] ?? [])) : [];
+            $mine = array_values(array_filter($alarms, fn ($x) => $x['proc'] === $id));
+            if ($mine && $mine[0]['level'] === 'trip') $p['light'] = 'bad';
+            // an open warning shows its level's mark on the row, never a green ✓ beside it (playbook §2, principle 4: words
+            // follow the state); a held, out or off part keeps its own
+            elseif ($mine && in_array((string) $p['light'], ['ok', 'warn', 'wait'], true) && array_filter($mine, fn ($x) => $x['level'] === 'warning')) $p['light'] = 'alarm';
+            $lt = (string) $p['light']; $counts[$lt] = ($counts[$lt] ?? 0) + 1; $counts['']++; $n[$lt] = ($n[$lt] ?? 0) + 1;
+            if ($show !== '' && $lt !== $show) continue;
+            $hay = mb_strtolower($p['name'] . ' ' . $p['words'] . ' ' . $id . ' ' . implode(' ', array_map(fn ($x) => $x[0] . ' ' . implode(' ', array_column((array) ($x[2] ?? []), 0)), $needs)));   // its needs and their sources, as the old Find box
+            foreach ($words as $w) if (!str_contains($hay, $w)) continue 2;
+            $r = tv_cb_row($id, $p, $needs, $sysStage);
+            $where = $mine ? ControlAlarms::LEVELS[$mine[0]['level']] . ': ' . $mine[0]['title'] . (count($mine) > 1 ? ' (and ' . (count($mine) - 1) . ' more)' : '') . '.' : (string) $r['where'];
+            if (preg_match('/^(working|observation|' . preg_quote(mb_strtolower($r['stage'][1]), '/') . ')\.?$/u', mb_strtolower(trim($where)))) $where = '';   // "Working." doesn't repeat the pill
+            // its actions: Check, and ⋯ with words; one not open to it says why
+            $hasCheck = isset($res[$id]) || str_starts_with($id, 'wf:') || str_starts_with($id, 't:') || str_starts_with($id, 'svc:') || str_starts_with($id, 'site:') || (str_starts_with($id, 'wk:') && (string) (ControlRegister::WORKERS[substr($id, 3)][3] ?? '') !== '');
+            $trip = null; foreach ($mine as $al) if ($al['level'] === 'trip' && !empty($al['tripped_at'])) { $trip = $al; break; }
+            $mt = $p['maint'] ?? null; $off = [];
+            if (!$hasCheck) $off['check'] = 'It has no check of its own yet.'; elseif (!$canPf) $off['check'] = (string) $whyPf;
+            if (!$trip) $off['resolve'] = 'Nothing to resolve: it isn\'t tripped.'; elseif (!$canRun) $off['resolve'] = $wNo;
+            if ($trip) $off['start'] = 'It\'s tripped: Check and start again is the way back.'; elseif (($p['switch'] ?? '') !== 'off') $off['start'] = ($p['switch'] ?? '') === 'on' ? 'It\'s already on.' : 'It has no switch of its own.'; elseif (!$canRun) $off['start'] = $wNo;
+            if (($p['switch'] ?? '') !== 'on') $off['stop'] = 'It isn\'t on.'; elseif (!$canRun) $off['stop'] = $wNo;
+            if ($mt) $off['maintout'] = 'It\'s already out for maintenance.'; elseif (!ControlMaintenance::canTake($id)) $off['maintout'] = 'Only a workflow, or a task with its own switch, is taken out.'; elseif (!$canRun) $off['maintout'] = $wNo;
+            if (!$mt) $off['maintback'] = 'It isn\'t out for maintenance.'; elseif (!$canRun) $off['maintback'] = $wNo;
+            [$tone, $word] = TV_CB_LIGHTS[$lt] ?? ['info', 'Not tested'];
+            $kids[] = ['id' => $id, 'ref' => str_replace(':', '-', $id), 'name' => (string) $p['name'], 'sub' => (string) $r['sub'], 'light' => ['tone' => $tone, 'word' => $word],
+                'stage' => (string) $r['stage'][1], 'where' => $where,
+                'runs' => $r['runs'][0] === '—' ? null : $r['runs'][0] . ($r['runs'][1] !== '' ? ' · ' . $r['runs'][1] : ''),
+                'speed' => $r['speed'][0] === '—' ? null : (string) $r['speed'][0], 'ok' => $r['ok'] === '—' ? null : (string) $r['ok'],
+                'maint_id' => $mt ? (int) $mt['id'] : 0, 'trip_id' => $trip ? (int) $trip['id'] : 0, '_off' => $off];
+        }
+        if (!$kids) continue;
+        $worst = !empty($n['bad']) ? 'bad' : (!empty($n['alarm']) ? 'alarm' : (!empty($n['hold']) ? 'hold' : (!empty($n['warn']) ? 'warn' : (!empty($n['ok']) ? 'ok' : 'wait'))));
+        $sum = []; foreach (TV_CB_LIGHTS as $k => [, $w]) if (!empty($n[$k])) $sum[] = $n[$k] . ' ' . mb_strtolower($w);
+        [$tone, $word] = TV_CB_LIGHTS[$worst];
+        $out[] = ['id' => 'sys:' . $sk, '_group' => ['label' => $sname, 'n' => count($kids), 'status' => ['tone' => $tone, 'word' => $word], 'sub' => implode(' · ', $sum), 'rows' => $kids]];
+    }
+    return [$out, count($out), $counts];
+}
+
+/**
+ * A process's own data (Jason, 2026-11-19): every record the calls of its endpoints created or changed, newest first, from
+ * control_records (ids and what happened, never contents: 0171 §4). $q: proc (its ref, wf-W1), what, q, page, per.
+ * Returns [rows, total, counts by what]; paged in SQL so a long history loads a page at a time.
+ */
+function tv_cb_proc_records(PDO $pdo, array $q): array
+{
+    $proc = (string) preg_replace('/^([a-z]{1,5})-/', '$1:', (string) ($q['proc'] ?? ''), 1);
+    $eps = [];
+    foreach (array_keys(ControlRegister::ENDPOINTS) as $ep) if (ControlAlarms::procOfEndpoint($pdo, $ep) === $proc) $eps[] = $ep;
+    if (str_starts_with($proc, 'wk:')) foreach ((array) (ControlRegister::WORKERS[substr($proc, 3)][2] ?? []) as $ep) $eps[] = $ep;
+    $eps = array_values(array_unique($eps));
+    if (!$eps) return [[], 0, ['' => 0]];
+    $w = ['l.endpoint IN (' . implode(',', array_fill(0, count($eps), '?')) . ')']; $a = $eps;
+    $counts = ['' => 0];
+    try { $st = $pdo->prepare('SELECT r.what, COUNT(*) FROM control_records r JOIN control_ledger l ON l.id = r.ledger_id WHERE ' . implode(' AND ', $w) . ' GROUP BY r.what'); $st->execute($a);
+        foreach ($st->fetchAll(PDO::FETCH_KEY_PAIR) as $k => $n) { $counts[(string) $k] = (int) $n; $counts[''] += (int) $n; } } catch (Throwable $x) { return [[], 0, ['' => 0]]; }
+    $what = (string) ($q['what'] ?? ''); if ($what !== '') { $w[] = 'r.what = ?'; $a[] = $what; }
+    $t = trim((string) ($q['q'] ?? '')); if ($t !== '') { $w[] = '(r.kind LIKE ? OR r.ref_id = ?)'; $a[] = '%' . $t . '%'; $a[] = (int) preg_replace('/\D/', '', $t); }
+    $per = max(10, min(100, (int) ($q['per'] ?? 25))); $page = max(0, (int) ($q['page'] ?? 0));
+    $total = 0; $rows = [];
+    try {
+        $st = $pdo->prepare('SELECT COUNT(*) FROM control_records r JOIN control_ledger l ON l.id = r.ledger_id WHERE ' . implode(' AND ', $w)); $st->execute($a); $total = (int) $st->fetchColumn();
+        $st = $pdo->prepare('SELECT r.id, r.kind, r.ref_id, r.what, r.at, r.ledger_id, l.endpoint, l.run_id FROM control_records r JOIN control_ledger l ON l.id = r.ledger_id WHERE ' . implode(' AND ', $w) . ' ORDER BY r.id DESC LIMIT ' . $per . ' OFFSET ' . ($page * $per));
+        $st->execute($a);
+        foreach ($st->fetchAll(PDO::FETCH_ASSOC) as $r) {
+            $k = (string) $r['kind']; $id = (int) $r['ref_id'];
+            $href = $k === 'listing' ? '/admin/listing-edit.php?id=' . $id : ($k === 'review' ? '/admin/listing-intake.php?row=' . $id : '/admin/config/ledger#open=config/ledger:' . (int) $r['ledger_id']);   // no page of its own: the call that touched it, with its records
+            $rows[] = ['id' => (int) $r['id'], 'label' => ($k === 'listing' ? 'Listing' : ($k === 'review' ? 'Review item' : ucfirst(str_replace('_', ' ', $k)))) . ' #' . $id, 'href' => $href,
+                'what' => ['stored' => 'Stored', 'updated' => 'Updated', 'review' => 'Sent to Review', 'refused' => 'Refused'][(string) $r['what']] ?? (string) $r['what'],
+                'call' => '/api/' . $r['endpoint'] . ($r['run_id'] ? ' · run #' . (int) $r['run_id'] : ''), 'at' => gmdate('c', (int) strtotime((string) $r['at'] . ' UTC'))];   // a moment, labelled where it's shown
+        }
+    } catch (Throwable $x) { error_log('proc records: ' . $x->getMessage()); }
+    return [$rows, $total, $counts];
+}
+
+/**
+ * Watching Railway and the sync (decisions/0163 §5), on the board since the Service register took in Outside services
+ * (decisions/0173 §1's table): what it looks at, each key named (never shown), its last look, and its switch.
+ */
+function tv_cb_watch(PDO $pdo, callable $btn): string
+{
+    $e = 'tv_w_e';
+    require_once __DIR__ . '/../lib/Operations.php';
+    [$can, $why] = Operations::can();
+    $w = Operations::watching($pdo); $seen = Operations::watched($pdo); $on = !empty($w['on']);
+    $b = '<p class="ak-note">The site looks at Railway\'s latest deploy and the sync\'s runs itself, every hour, and raises an alarm here when one fails or stalls, so it no longer depends on a Claude session. Free status reads only. Shipped off: it needs its keys in .env first, never shown here.</p><table class="cb-tt"><thead><tr><th>What</th><th>Its key</th><th>Where it looks</th><th>Last look</th></tr></thead><tbody>';
+    foreach (Operations::WATCH as $k => [$name, $key, $where]) {
+        $s = $seen[$k] ?? null; $has = getenv($key) !== false && getenv($key) !== '';
+        $b .= '<tr><td><b>' . $e($name) . '</b></td><td><code>' . $e($key) . '</code> ' . ($has ? '<span data-tv-status="ok">in .env</span>' : '<span data-tv-status="info">not in .env yet</span>') . '</td><td><small>' . $e($where) . '</small></td><td>'
+            . ($s ? '<span data-tv-status="' . (($s['ok'] ?? null) === true ? 'ok' : (($s['ok'] ?? null) === false ? 'bad' : 'info')) . '">' . $e((string) $s['what']) . '</span> <time datetime="' . $e(str_replace(' ', 'T', (string) $s['at']) . ':00Z') . '" data-tv-time data-tz="UTC">' . $e((string) $s['at']) . ' UTC</time>' : '<small>Never looked</small>') . '</td></tr>';
+    }
+    $b .= '</tbody></table><div class="cb-acts">' . ($on ? $btn('watch', 'Switch watching off', $can, (string) $why, 'off', ['data-confirm' => 'Stop watching Railway and the sync? Their alarms stop too.', 'data-yes' => 'Switch it off'])
+        : $btn('watch', 'Switch watching on', $can, (string) $why, 'on', ['data-confirm' => 'Start watching Railway and the sync? The hourly job reads their status (free); nothing else changes.', 'data-yes' => 'Switch it on'])) . '</div>';
+    return '<details class="ak-card tv-bleed cb-panel" id="cb-watch"><summary class="cb-ph"><span class="cb-caret" aria-hidden="true">▾</span>' . tv_cb_mark($on ? 'ok' : 'new') . '<b>Watching Railway and the sync</b> <small>' . ($on ? 'on' : 'off (shipped off)') . '</small></summary>' . $b . '</details>';
+}
+
+/** The board's process table, drawn by the admin kit's one table (tv_table: rows from config/processes). */
+function tv_cb_process_table(): string
+{
+    require_once __DIR__ . '/kit-table.php';
+    $show = ['' => 'Every part']; foreach (TV_CB_LIGHTS as $k => [, $w]) $show[$k] = $w;
+    return '<div id="cb-systems" class="cb-systems">' . tv_table(['tool' => 'config/processes', 'title' => 'The parts of the system', 'open' => '/admin/config/control?proc={ref}',
+        'columns' => [['name', 'Process', 'name'], ['light', 'Status', 'status'], ['stage', 'Stage', 'pill'], ['where', 'Where it stands', 'text'], ['runs', 'Last 24 hours', 'text'], ['speed', 'Speed', 'text'], ['ok', 'OK', 'text']],
+        'sub' => 'sub', 'act' => ['check', 'Check'],
+        'menu' => [['page', 'Its own page'], ['resolve', 'Check and start again'], ['start', 'Start it'], ['stop', 'Shut it down'], ['maintout', 'Take out for maintenance'], ['maintback', 'Put back']],
+        'filters' => [['show', 'Show', array_map(null, array_keys($show), array_values($show))]], 'countBy' => 'show', 'noData' => 'no history yet'])
+        . '<p class="cb-lfon"><button type="button" class="cb-lf" data-cb-all="1">Open every system</button> · <button type="button" class="cb-lf" data-cb-all="0">Close them</button></p></div>';   // the old board's Open all / Close all
+}
+
+/** A process's controls: short on its row (Check, Start, Shut down), named in full under it. */
+function tv_cb_controls(string $id, array $p, array $res, callable $btn, bool $canPf, string $whyPf, bool $canRun, string $wNo, bool $short): string
+{
+    $x = ['class' => $short ? 'ak-b cb-xs' : 'ak-b'];
+    $a = '';
+    if (isset($res[$id]) || str_starts_with($id, 'wf:') || str_starts_with($id, 't:') || str_starts_with($id, 'svc:') || str_starts_with($id, 'site:') || (str_starts_with($id, 'wk:') && ControlRegister::WORKERS[substr($id, 3)][3] !== ''))
+        $a .= $btn('check', $short ? 'Check' : 'Run its check', $canPf, $whyPf, $id, $x);
+    // maintenance (0171 §2.5): Put back when it's out; Take out for a workflow or a task with its own switch
+    $mt = $p['maint'] ?? null;
+    if ($mt) return $a . $btn('maintback', 'Put back', $canRun, $wNo, (string) $mt['id'], $x + ['data-confirm' => 'Put ' . $p['name'] . ' back? Its check runs first; it starts again only if the check isn\'t red.', 'data-yes' => 'Put it back']);
+    $isSvc = str_starts_with($id, 'svc:');   // an outside service's switch is Pause and Activate (decisions/0173 §2)
+    if ($p['switch'] === 'on') $a .= $isSvc ? $btn('stop', 'Pause', $canRun, $wNo, $id, $x + ['data-confirm' => 'Pause ' . $p['name'] . '? Nothing of ours calls it until it\'s activated again; its key stays.', 'data-yes' => 'Pause it'])
+        : $btn('stop', $short ? 'Shut down' : 'Shut it down', $canRun, $wNo, $id, $x + ['data-confirm' => 'Shut ' . $p['name'] . ' down? Its tasks first, then the workflow. What\'s running finishes.', 'data-yes' => 'Shut it down']);
+    // an open trip on it (0171 §7's 3c note): only its Resolve starts it again, so the row offers that, never a bare Start
+    // that would leave the trip red (Jason, 2026-11-19: "why is the red x still present if the notice says cleared?")
+    $trip = null; try { foreach (ControlAlarms::ofProc(Database::connection(), $id) as $al) if ($al['level'] === 'trip' && !empty($al['tripped_at'])) { $trip = $al; break; } } catch (Throwable $e2) {}
+    if ($trip) return $a . $btn('resolve', 'Check and start again', $canRun, $wNo, (string) $trip['id'], $x);
+    if ($p['switch'] === 'off') $a .= $btn('start1', $isSvc ? 'Activate' : ($short ? 'Start' : 'Start it'), $canRun, $wNo, $id, $x);
+    static $mh = null; if ($mh === null) { try { $mh = ControlMaintenance::defaultHours(Database::connection()); } catch (Throwable $x) { $mh = 2; } }
+    if (!$short && ControlMaintenance::canTake($id)) $a .= $btn('maintout', 'Take out for maintenance', $canRun, $wNo, $id, $x + ['data-cb-ask' => 'Why is it going out? (It comes back by itself in ' . $mh . ' hour' . ($mh === 1 ? '' : 's') . '; set other times under Maintenance.)', 'data-cb-val' => '', 'data-cb-yes' => 'Take it out']);
+    if (!$short && str_starts_with($id, 'svc:')) $a .= '<a class="ak-b" href="/admin/config/register#svc-' . tv_w_e(substr($id, 4)) . '" data-peek-frame>Its card</a>';
+    return $a;
+}
+
+/**
+ * The component an alarm's main button opens, in the side panel (decisions/0175 §6: "The board opens the component or the
+ * workflow in a drawer, whichever the failure's source is"; release 2a, routed by the component; 0176 release 3 routes a
+ * cause to its exact spot inside it): an outside service's card, a pre-flight line, a task's or workflow's own page (where
+ * its row, its check and its switch are), a site job on Scheduled tasks; anything else its own page on the board. [label, url].
+ */
+function tv_cb_component(array $a, array $names = []): array
+{
+    $p = (string) $a['proc']; $k = (string) $a['akey'];
+    if (str_starts_with($p, 'svc:')) return ['Open its card', '/admin/config/register#svc-' . substr($p, 4)];
+    if (str_starts_with($k, 'pf:') && !str_starts_with($p, 'wf:') && !str_starts_with($p, 't:')) return ['Open its pre-flight line', '/admin/config/preflight#pf-' . str_replace(':', '-', substr($k, 3))];
+    if (str_starts_with($p, 'wf:')) return ['Open ' . substr($p, 3), '/admin/config/control/wf-' . substr($p, 3)];
+    if (str_starts_with($p, 't:')) return ['Open its page', '/admin/config/control/t-' . substr($p, 2)];   // its row, its check and its switch (0171 §12)
+    if (str_starts_with($p, 'job:')) return ['Open its job', '/admin/config/scheduler#job-' . substr($p, 4)];
+    if (preg_match('/^([a-z]{1,5}):([A-Za-z0-9_.-]{1,60})$/', $p, $m) && isset($names[$p])) return ['Open its page', '/admin/config/control/' . $m[1] . '-' . $m[2]];
+    return ['', ''];
+}
+
+/**
+ * A workflow's steps on its own page (decisions/0175 §6, Jason 2026-11-20: "Workflows are multi-step tasks or procedures
+ * that use services…"; "A task is a step of its workflow, so its switch is on the workflow's own page on the board, with the
+ * services each step uses and its backup"): each crawler task, what it does, the services it uses and each one's backup
+ * (the workflow's needs that name it, Preflight::NEEDS), where it stands, and its one switch (Automation::setTask, with who
+ * and why). Anchored #task-<key> so the card, Automation and Insights → Crawler land on it.
+ */
+function tv_cb_steps(PDO $pdo, string $wf, array $res, callable $btn): string
+{
+    $e = 'tv_w_e';
+    require_once __DIR__ . '/../lib/Automation.php'; require_once __DIR__ . '/../lib/OutsideServices.php'; require_once __DIR__ . '/Access.php';
+    try { require_once __DIR__ . '/../lib/crawler/CrawlService.php'; $tasks = CrawlService::ready($pdo) ? array_filter(CrawlService::tasks($pdo), fn ($t) => (string) $t['wf'] === $wf) : []; } catch (Throwable $x) { $tasks = []; }
+    if (!$tasks) return '';
+    [$canA, $whyA] = Access::can('config.automation', ['min' => 'executive', 'depts' => []]);
+    $needKeys = array_keys(array_filter(Preflight::NEEDS, fn ($n) => in_array($wf, $n[2], true)));
+    $needs = ControlBoard::needs($res, $needKeys);
+    $on = count(array_filter($tasks, fn ($t) => (int) $t['enabled']));
+    $h = '<details class="ak-card tv-bleed cb-panel" id="cb-steps" open><summary class="cb-ph"><span class="cb-caret" aria-hidden="true">▾</span>' . tv_cb_mark($on === count($tasks) ? 'ok' : 'off') . '<b>Its steps and their switches</b> <small>' . count($tasks) . ' task' . (count($tasks) === 1 ? '' : 's') . ', ' . $on . ' on</small></summary><ul class="cb-steps">';
+    foreach ($tasks as $tk => $t) {
+        $svcs = []; foreach (OutsideServices::CONTROLS as $svc => $c) if (in_array($tk, (array) ($c['tasks'] ?? []), true)) $svcs[] = $svc;
+        $uses = [];
+        foreach ($svcs as $svc) {
+            $nm = (string) (OutsideServices::COMPANIES[$svc][0] ?? $svc); $bk = [];
+            foreach ($needKeys as $nk) if (isset($needs[$nk]) && array_filter(Preflight::NEEDS[$nk][3], fn ($sr) => $sr[0] === 'svc' && $sr[1] === $svc))
+                foreach ($needs[$nk][2] as [$sn]) if ($sn !== $nm) $bk[(string) $sn] = true;
+            $uses[] = '<a class="underline" href="/admin/config/register#svc-' . $e($svc) . '" data-peek-frame>' . $e($nm) . '</a>' . ($bk ? ' <small>(its backup: ' . $e(implode(', then ', array_keys($bk))) . ')</small>' : ' <small>(no backup named)</small>');
+        }
+        $isOn = (int) $t['enabled'] === 1;
+        // where it stands, as Automation's Tasks table said it (kept: 0175 R2a's list): off with why, who and when; on, held by
+        // the master switch or its paused workflow; on and paused by the system; on
+        $wfr = Automation::workflows($pdo)[$wf] ?? null; $master = Automation::master($pdo);
+        $sp = Automation::taskOff($pdo, (string) $tk) ?? Automation::sysOff($pdo, 'wf', $wf) ?? Automation::sysOff($pdo, 'master', 'all');
+        $offBy = ''; if (!empty($t['off_by'])) { try { $q = $pdo->prepare('SELECT display_name FROM users WHERE id = ?'); $q->execute([(int) $t['off_by']]); $offBy = (string) ($q->fetchColumn() ?: ''); } catch (Throwable $x) {} }
+        $said = !$isOn ? Automation::line(['why' => (string) ($t['off_why'] ?? ''), 'by_user' => $offBy, 'at' => $t['off_at'] ?? null], 'no run takes it until it\'s on again') . '.'
+              : ($master ? 'held by the master switch.' : ($wfr && (int) $wfr['paused'] ? 'held by ' . $wf . ' (paused).' : ($sp !== null ? $sp : 'the next runs take it.')));
+        $sw = $isOn ? $btn('taskoff', 'Switch off', $canA, (string) $whyA, (string) $tk, ['class' => 'ak-b cb-xs', 'data-cb-ask' => 'Why is ' . (string) $t['name'] . ' going off? (Shown with it; no run takes it until it\'s on again.)', 'data-cb-val' => '', 'data-cb-yes' => 'Switch it off'])
+                    : $btn('taskon', 'Switch on', $canA, (string) $whyA, (string) $tk, ['class' => 'ak-b cb-xs go']);
+        $h .= '<li id="task-' . $e((string) $tk) . '"><div><b>' . $e((string) $t['name']) . '</b> <small>' . $e((string) $t['what']) . '</small></div>'
+            . '<div><small>Uses:</small> ' . ($uses ? implode('; ', $uses) : '<small>no outside service (our own data and the site)</small>') . '</div>'
+            . '<p data-tv-status="' . ($isOn && $sp === null && !$master && !($wfr && (int) $wfr['paused']) ? 'ok' : 'info') . '" data-tv-label="' . ($isOn ? 'On:' : 'Off:') . '">' . $e($said) . '</p>'
+            . '<div class="cb-acts">' . $sw . '</div></li>';
+    }
+    return $h . '</ul><p class="ak-note">One switch per task, here: the service\'s card, Automation and Insights → Crawler link to it. Who pressed it and why is kept in Automation\'s Changes. Its share, timing and last runs: <a class="underline" href="/admin/insights/crawler" data-peek-frame>Insights → Crawler</a>.</p></details>';
+}
+
+/** Where an alarm's evidence is, in a drawer: its runs, its card, its jobs, or its pre-flight line. */
+function tv_cb_evidence(array $a): array
+{
+    $p = (string) $a['proc']; $k = (string) $a['akey'];
+    if (str_starts_with($k, 'pf:')) return ['Open its line', '/admin/config/preflight#pf-' . str_replace(':', '-', substr($k, 3))];
+    if ($p === 'wk:crawler' || str_starts_with($p, 'wf:') || str_starts_with($p, 't:')) {   // its run, never the list (Jason, 2026-11-19: "Open card shows the specific place to fix issues")
+        if (preg_match('#/admin/insights/crawler\?run=(\d+)#', str_replace('\\/', '/', is_array($a['fix'] ?? null) ? json_encode($a['fix']) : (string) ($a['fix'] ?? '')), $m)) return ['Open its run', '/admin/insights/crawler?run=' . $m[1]];   // the run its own fix names
+        try { $st = Database::connection()->prepare('SELECT id FROM crawl_runs WHERE started_at <= ? + INTERVAL TIMESTAMPDIFF(SECOND, UTC_TIMESTAMP(), NOW()) SECOND ORDER BY started_at DESC, id DESC LIMIT 1');   // else the run going when it was last seen (alarms keep UTC, runs the server's clock)
+            $st->execute([(string) ($a['last_at'] ?? gmdate('Y-m-d H:i:s'))]); if ($rid = (int) $st->fetchColumn()) return ['Open its latest run', '/admin/insights/crawler?run=' . $rid]; } catch (Throwable $x) {}
+        return ['Open its runs', '/admin/insights/crawler'];   // no run yet: the runs list says so
+    }
+    if (str_starts_with($p, 'svc:')) return ['Open its card', '/admin/config/register#svc-' . substr($p, 4)];
+    if (str_starts_with($p, 'job:')) return ['Open its runs', '/admin/config/scheduler'];
+    return ['Open its process', ''];
+}
+
+/**
+ * The queue (0171 §7, release 3a): one row per issue, never per process, Trip then Warning then Notice, newest first;
+ * what happened, what it means, what to do, its fix in place, its evidence in a drawer, Acknowledge (Undo), its count and
+ * last seen, and the processes it holds. One dropdown filters it (Open, Acknowledged, Cleared; by level). Open on load
+ * whenever anything is open.
+ */
+function tv_cb_alarms(array $alarms, array $ac, array $names, callable $pid, bool $canPf, string $whyPf, callable $btn, array $redChecks = [], string $focus = ''): string
+{
+    $e = 'tv_w_e';
+    require_once __DIR__ . '/../lib/Operations.php'; [$canOps, $whyOps] = Operations::can();   // the cap and empty steps' own permission
+    [$canBoard, $whyBoard] = ControlBoard::can();   // an admin's Resolve (executive, 0171 §13)
+    $nOpen = $ac['trip'] + $ac['warning'] + $ac['notice'];
+    $sum = $nOpen ? implode(', ', array_filter([$ac['trip'] ? $ac['trip'] . ' trip' . ($ac['trip'] === 1 ? '' : 's') : '', $ac['warning'] ? $ac['warning'] . ' warning' . ($ac['warning'] === 1 ? '' : 's') : '', $ac['notice'] ? $ac['notice'] . ' notice' . ($ac['notice'] === 1 ? '' : 's') : ''])) . ' open' : 'nothing open';
+    $h = '<details class="ak-card tv-bleed cb-panel cb-alarms" id="cb-alarms"' . ($nOpen ? ' open' : '') . '><summary class="cb-ph"><span class="cb-caret" aria-hidden="true">▾</span>' . tv_cb_mark($ac['trip'] ? 'bad' : ($ac['warning'] ? 'hold' : 'ok')) . '<b>Alarms</b> <small>' . $e($sum) . '</small></summary>';
+    if (!$alarms) return $h . '<p data-tv-status="ok" data-tv-label="All clear:">No alarm is open. A problem raises one the moment it happens; a warning clears by itself when its reading is good again, and moves to the <a class="underline" href="#log">logbook</a>.</p></details>';
+    $h .= '<ul class="cb-al">';   // its filter is one dropdown button in the page's header (tv_cb_afilter)
+    // one alarm's row; two or more sharing a system, level and kind are one group row that opens to them (0171 §8's
+    // note, Jason 2026-11-18: "Board and Pulse"), each keeping its own buttons
+    $one = function (array $a) use ($e, $btn, $canPf, $whyPf, $canOps, $whyOps, $canBoard, $whyBoard, $names, $pid, $focus): string {
+        $cl = $a['cleared_at'] !== null; $lv = (string) $a['level']; $ack = $a['ack_at'] !== null; $id = (int) $a['id'];
+        $state = $cl ? 'cleared' : ($ack ? 'ack' : 'open');
+        $fx = (array) $a['fix']; $proc = (string) $a['proc'];
+        $ev = tv_cb_evidence($a);
+        $fxs = $fx && isset($fx[0]) && is_array($fx[0]) ? $fx : ($fx ? [$fx] : []);
+        // no Mark resolved (Jason, 2026-11-19: "it should be the result of an issue being fixed"): a passing check closes it   // as its old Pulse case had
+        $isTrip = $lv === 'trip' && !empty($a['tripped_at']);
+        if ($isTrip && !$cl) $fxs = array_values(array_filter($fxs, fn ($f) => !in_array($f[1] ?? '', ['svcresolve', 'svccheck', 'check'], true)));   // an admin's Resolve stands for them
+        $fb = ''; foreach ($fxs as $f) $fb .= ($f[1] ?? '') === 'link' ? '<a class="ak-b cb-xs" href="' . $e((string) $f[2]) . '" target="_blank" rel="noopener">' . $e((string) $f[0]) . ' ↗</a>'
+            : (($f[1] ?? '') === 'peek' ? '<a class="ak-b cb-xs" href="' . $e((string) $f[2]) . '" data-peek-frame>' . $e((string) $f[0]) . '</a>'
+            : (in_array($f[1] ?? '', ['ops', 'opsask'], true)   // the old Pulse case's steps, acting in place (0171 §7, §8): [label, 'ops'|'opsask', 'what', confirm|[ask label, value]]
+                ? $btn('opsdo', (string) $f[0], $canOps, $whyOps, (string) $a['akey'] . '|' . (string) $f[2], ['class' => 'ak-b cb-xs']
+                    + ($f[1] === 'opsask' ? ['data-cb-ask' => (string) ($f[3][0] ?? ''), 'data-cb-val' => (string) ($f[3][1] ?? '')] : (is_string($f[3] ?? null) ? ['data-confirm' => $f[3], 'data-yes' => (string) $f[0]] : [])))
+            : (is_string($f[3] ?? null) && str_starts_with($f[3], '#wait:')   // a button the system holds for now, greyed with its reason (a 429's Check it now)
+                ? $btn((string) $f[1], (string) $f[0], false, substr($f[3], 6), (string) ($f[2] ?? ''), ['class' => 'ak-b cb-xs']) . '<span class="cb-wt">' . $e(substr($f[3], 6)) . '</span>'   // shown, not only on hover (a phone has none)
+            : $btn((string) $f[1], (string) $f[0], $canPf, $whyPf, (string) ($f[2] ?? ''), ['class' => 'ak-b cb-xs'] + (($f[1] ?? '') === 'svcresolve' ? ['data-confirm' => 'Mark it resolved? Calls to it start again; a new failure opens a new issue.', 'data-yes' => 'Mark resolved'] : [])))));
+        // a trip waits for an admin (decisions/0171 §7's note, release 3c): Resolve asks what fixed it; Undo for a day after
+        $sw = ControlAlarms::stoppedWords($a);
+        // the system does it: check, then start again what the trip stopped; never a question to get past (Jason, 2026-11-19)
+        if ($isTrip && !$cl) {
+            $redAt = ''; foreach ((array) json_decode((string) ($a['stopped'] ?? ''), true) as $sx) if (($sx[0] ?? '') === 'proc' && isset($redChecks[(string) $sx[1]])) { $redAt = (string) $sx[2] . '\'s check is red: ' . $redChecks[(string) $sx[1]]; break; }
+            // its own check red (a pre-flight trip): greyed with the part, never a press that reads "Resolved" and trips again
+            if ($redAt === '' && str_starts_with((string) $a['akey'], 'pf:') && isset($redChecks[substr((string) $a['akey'], 3)])) $redAt = 'Its check is red: ' . $redChecks[substr((string) $a['akey'], 3)];
+            $fb = $btn('resolve', 'Check and start again', $canBoard && $redAt === '', $redAt !== '' ? $redAt . ' Fix that first (its Check is beside it); the system starts it again once it passes.' : $whyBoard, (string) $id, ['class' => 'ak-b cb-xs']) . $fb;
+        }
+        $undo = $cl && !empty($a['resolved_at']) && strtotime($a['resolved_at'] . ' UTC') > time() - 86400 ? $btn('unresolve', 'Undo the Resolve', $canBoard, $whyBoard, (string) $id, ['class' => 'ak-b cb-xs', 'data-confirm' => 'Open the trip again' . ($sw !== '' ? ' and stop ' . $sw . ' again' : '') . '?', 'data-yes' => 'Undo it']) : '';
+        // its main button: the component that fixes it, in the side panel, one panel at a time (0175 §6, release 2a); not on
+        // that component's own page, and never twice when its evidence is the same place
+        $co = tv_cb_component($a, $names); $here = $co[1] !== '' && $focus !== '' && $co[1] === '/admin/config/control/' . str_replace(':', '-', $focus);
+        $main = $co[1] !== '' && !$cl && !$here ? '<a class="ak-b cb-xs go cb-main" href="' . $e($co[1]) . '" data-peek-frame>' . $e($co[0]) . '</a>' : '';
+        // Fix it (decisions/0176 §5, A5): where its cause names one spot, Fix it opens that spot in the same side panel and
+        // stands first, in place of its component; its component's page stays only when it's another page
+        require_once __DIR__ . '/../lib/Thread.php';
+        $fix = $cl ? null : Thread::fixOf(['fix' => ControlAlarms::fixOf(Database::connection(), $a)]);
+        if ($fix && $focus !== '' && strtok($fix['url'], '#') === '/admin/config/control/' . str_replace(':', '-', $focus)) $fix['url'] = substr($fix['url'], strpos($fix['url'], '#'));   // already on that page: it lands there
+        if ($fix) { $fpage = strtok($fix['url'], '#'); $main = Thread::fixButton($fix, 'ak-b cb-xs go cb-main') . ($co[1] !== '' && !$here && strtok($co[1], '#') !== $fpage ? '<a class="ak-b cb-xs" href="' . $e($co[1]) . '" data-peek-frame>' . $e($co[0]) . '</a>' : ''); }
+        $acts = $main . (!$cl ? $fb : $undo)
+            . ($ev[1] !== '' && ($main === '' || $ev[1] !== $co[1]) && !in_array($ev[1], array_map(fn ($f) => (string) ($f[2] ?? ''), $cl ? [] : $fxs), true) ? '<a class="ak-b cb-xs" href="' . $e($ev[1]) . '" data-peek-frame>' . $e($ev[0]) . '</a>' : '')
+            // no Acknowledge on a warning: the system is handling it, and it clears itself or becomes a trip (0171 §7's 3c note,
+            // "only a trip waits for a person"; Jason, 2026-11-19: "This is a notification, not need for me to acknowledge")
+            . ($lv === 'warning' && !$cl ? '' : ($ack ? $btn('unack', 'Undo', true, '', (string) $id, ['class' => 'ak-b cb-xs']) : $btn('ack', $cl ? 'Seen' : 'Acknowledge', true, '', (string) $id, ['class' => 'ak-b cb-xs'])));
+        $holds = isset($names[$proc]) ? '<a href="#' . $e($pid($proc)) . '" data-cb-go="' . $e($pid($proc)) . '" class="underline">' . $e($names[$proc]) . '</a>' : $e($proc);
+        // the dispatcher's one shape (decisions/0176 §2: the board shows all of it): Title; Status; What it affects (Holds,
+        // what its trip paused, an outside service's needs and their backups); What the system is doing; What to do and
+        // the buttons; Details ▾ (its reading, kind and counts), folded. Every part read from the alarm as it is now.
+        require_once __DIR__ . '/../lib/Thread.php';
+        $f = ControlAlarms::facts(Database::connection(), $a);
+        $aff = '<b>Holds:</b> ' . $holds . ($f['affects'] ? '; ' . $e(implode('; ', $f['affects'])) : '');
+        $th = Thread::html(['buttons' => [], 'pill_class' => 'cb-pill cb-pill-' . ($cl ? 'ok' : ($lv === 'trip' ? 'bad' : 'warn')), 'acts_class' => 'cb-acts'] + $f, 'board', $acts, '', $aff);
+        $li = '<li id="cb-alarm-' . $id . '" class="cb-al-' . $e($cl ? 'cleared' : $lv) . '" data-astate="' . $state . '" data-alevel="' . $e($lv) . '">' . tv_cb_mark($cl ? 'ok' : ($lv === 'trip' ? 'bad' : ($lv === 'warning' ? 'hold' : 'new')))
+            . '<div class="cb-am">' . $th . '</div></li>';
+        return $li;
+    };
+    $groups = ControlAlarms::groups($alarms); $of = []; foreach ($groups as $gk => $g) foreach ($g['ids'] as $gid) $of[$gid] = $gk;
+    $byId = array_column($alarms, null, 'id'); $done = [];
+    foreach ($alarms as $a) {
+        $id = (int) $a['id'];
+        if (!isset($of[$id])) { $h .= $one($a); continue; }
+        $gk = $of[$id]; if (isset($done[$gk])) continue; $done[$gk] = true; $g = $groups[$gk];
+        $members = array_map(fn ($x) => $byId[$x], $g['ids']); $lv = $g['level'];
+        $acked = !array_filter($members, fn ($x) => $x['ack_at'] === null);
+        $nm = array_values(array_unique(array_map(fn ($x) => $names[$x['proc']] ?? (string) preg_replace('/:.*$/', '', (string) $x['title']), $members)));
+        $h .= '<li id="cb-group-' . $e(str_replace(':', '-', $gk)) . '" class="cb-al-grp cb-al-' . $e($lv) . '" data-astate="' . ($acked ? 'ack' : 'open') . '" data-alevel="' . $e($lv) . '">' . tv_cb_mark($lv === 'trip' ? 'bad' : ($lv === 'warning' ? 'hold' : 'new'))
+            . '<details class="cb-grp" id="cb-grpd-' . $e(str_replace(':', '-', $gk)) . '"><summary><span class="cb-pill cb-pill-' . ($lv === 'trip' ? 'bad' : 'hold') . '">' . $e(ControlAlarms::LEVELS[$lv]) . '</span> <b>' . $e($g['title']) . '</b> <span class="cb-caret" aria-hidden="true">▾</span>'
+            // its Holds line is plain words: a press anywhere on the header opens the group (Jason, 2026-11-19: the ▸ beside Holds
+            // only unfolded its own short text, so it looked like it did nothing)
+            . '<div class="cb-am"><span><b>Holds:</b> ' . $e(implode(', ', $nm)) . ' <small class="cb-gopen">(open to see each)</small></span></div></summary>'
+            . '<div class="cb-acts">' . (!$acked && $lv !== 'warning' ? $btn('ackgroup', 'Acknowledge all ' . count($members), true, '', $gk, ['class' => 'ak-b cb-xs']) : '') . '</div>'
+            . '<ul class="cb-al cb-al-in">' . implode('', array_map($one, $members)) . '</ul></details></li>';
+    }
+    return $h . '</ul><p class="ak-note cb-anone" hidden>Nothing here for this filter.</p><p class="ak-note">An alarm that clears leaves this list for the <a class="underline" href="#log">logbook</a>.</p></details>';
+}
+
+/**
+ * The statement to the OpenStreetMap community, opened in the board's drawer from the Overpass alarm (Jason, 2026-11-18:
+ * a step never leaves the page). Its source is research/osm-overpass-2026-11-13.md §2 in the docs repo; kept the same.
+ */
+function tv_cb_statement_osm(): string
+{
+    $e = 'tv_w_e';
+    $subject = 'Traversence: our Overpass requests get 406. What we did wrong, what we\'ve changed, and a question';
+    $body = "Hello. I run Traversence (traversence.com), a local directory and travel guide for rural towns in Arizona and New Mexico. Our crawler uses the Overpass API to find the places in a town (cafés, garages, clinics, campgrounds) so we can check each one on its own website. Since 2026-11-13 our requests to overpass-api.de get 406 Not Acceptable. Our User-Agents were TraversenceCrawler/1.0 (+https://traversence.com; local directory of community resources) (the crawler, on Railway) and Traversence/1.0 (+https://traversence.com) (our site, when a visitor's search finds little nearby); both now end with our contact, support@traversence.com.\n\n"
+        . "How we use OpenStreetMap. It's a layer of its own on our site, always credited \"© OpenStreetMap contributors\" with a link to the copyright page. We don't copy its data into our listings: a place OpenStreetMap shows tells us where to look, and what we list comes from the business's own website or official records.\n\n"
+        . "How we recognized our failures. Our crawler's logs show every request to overpass-api.de answered 406 from 16:51 UTC on 2026-11-13, and again at 12:54 UTC on 2026-11-14. Reading your guidance, we saw that the fault was ours:\n- our queries were large: every kind of place in a town in one query, over a box around all its ZIP codes, with [timeout:110];\n- our crawler ran every 5 minutes and retried failed towns run after run, with no back-off;\n- when your server answered 406, our code asked again at once with the same query as a GET;\n- our site also asked overpass-api.de first, before any other instance;\n- nothing told us a server had refused us: the 406s were logged as ordinary failures, and nothing stopped.\n\n"
+        . "What we've changed so it won't happen again.\n- We've stopped asking overpass-api.de, from the crawler and from our site, until we hear from you. We won't change our User-Agent or address to get round the block.\n- We no longer use Overpass for bulk reading. Our crawler reads OpenStreetMap from Geofabrik's weekly state extracts (Arizona and New Mexico), kept in a table of its own on our site. Overpass is only a fallback: for a town or kind our copy doesn't hold, and on our site when a visitor's search finds little near a place; and only on a server that hasn't refused us.\n- Each server has a circuit breaker. A 406, 403 or 401 stops every request to that server at once and alerts a person on our team. We never retry a refused server on our own; only a person turns it back on, after you tell us we may. While it's blocked, we don't contact it at all, not even its /api/status page.\n- A 429 makes us follow your Retry-After, or without one wait twice as long. A timeout or server error backs off (10 minutes, doubling to 6 hours).\n- Our queries are split by kind (one kind of place per query), kept to a small area, with [timeout:25], and sent one at a time.\n- A town and kind that has been answered isn't asked again for 3 months.\n- Our own daily budget is a quarter of the published guidance for the public instances (2,500 queries and 250 MB a day, crawler and site together), and half that while any server blocks us and for two weeks after.\n\n"
+        . "Could you tell us whether we're banned, and why, and what you'd like us to change to be allowed back? Our crawler's bulk reading has already moved to Geofabrik's extracts. If even single lookups are more than you'd like on the public instance, we'll keep to the extracts or run our own instance.\n\nJason, Traversence, support@traversence.com";
+    return '<div id="cb" class="cb-statement"><h2 class="ak-h">The statement to the OpenStreetMap community</h2>'
+        . '<p data-tv-status="info" data-tv-label="Where to send it:">Post it on the OpenStreetMap Community Forum, in <b>Help and support</b> with the tag <b>overpass</b>: <a class="underline" href="https://community.openstreetmap.org/c/help/" target="_blank" rel="noopener">community.openstreetmap.org</a> (sign in with an OpenStreetMap account). FOSSGIS runs overpass-api.de; its terms are on fossgis.de. When they answer, come back to the alarm: Reactivate on OpenStreetMap\'s card, then Mark resolved.</p>'
+        . '<p><b>Subject:</b> <span data-cb-copy-src="s">' . $e($subject) . '</span> <button type="button" class="ak-b cb-xs" data-cb-copy="s">Copy the subject</button></p>'
+        . '<pre class="cb-stmt" data-cb-copy-src="b">' . $e($body) . '</pre><p><button type="button" class="ak-b" data-cb-copy="b">Copy the statement</button></p>'
+        . '<p class="ak-note">Its source, with the evidence and where each fix stands: research/osm-overpass-2026-11-13.md in the docs repo.</p></div>'
+        . '<style>.cb-statement{max-width:52rem}.cb-stmt{white-space:pre-wrap;font:14px/1.5 system-ui,sans-serif;background:#FFFDF8;border:1px solid #EFE6D6;border-radius:.4rem;padding:.7rem .8rem}</style>'
+        . '<script>document.addEventListener("click",function(e){var b=e.target.closest("[data-cb-copy]");if(!b)return;var t=document.querySelector("[data-cb-copy-src=\'"+b.getAttribute("data-cb-copy")+"\']");if(!t)return;'
+        . 'navigator.clipboard.writeText(t.textContent).then(function(){if(window.TvAsk)TvAsk.say("Copied.",{anchor:b});},function(){if(window.TvAsk)TvAsk.say("Your browser didn\'t allow copying: select the text and copy it.",{anchor:b,bad:true});});});</script>';
+}
+
+function tv_admin_mod_control(PDO $pdo): string
+{
+    if (($_GET['show'] ?? '') === 'osm-statement') return tv_cb_statement_osm();
+    $e = 'tv_w_e';
+    [$can, $why] = ControlBoard::can();
+    if (!$can) return '<p data-tv-status="info" data-tv-label="Not for your role:">' . $e((string) $why) . '. The System Control Board is for executives: ask one, or write to support@traversence.com.</p>';
+    // a process's own page (decisions/0171 §12): /admin/config/control/<kind>-<name> (wf-W1, svc-anthropic), opened as a
+    // drawer from its row; the board drawn for that one process, with its alarms, its logbook and its report
+    $focus = '';
+    if (preg_match('/^([a-z]{1,5})[-:]([A-Za-z0-9_.-]{1,60})$/', (string) ($_GET['proc'] ?? ''), $gm)) $focus = $gm[1] . ':' . $gm[2];   // a part opened from the table, in a drawer
+    if (preg_match('#^/admin/config/control/([a-z]{1,5})[-:]([A-Za-z0-9_.-]{1,60})(?:[/?\#]|$)#', (string) parse_url((string) ($_SERVER['REQUEST_URI'] ?? ''), PHP_URL_PATH) . '/', $fm)) $focus = $fm[1] . ':' . $fm[2];
+    // a report, as a section of the board (decisions/0171 §11, release 5b): a query on config/control, never a page of its own
+    if (isset($_GET['report'])) return tv_cb_report_page($pdo, (string) $_GET['report'], (string) ($_GET['range'] ?? 'day'), (string) ($_SESSION['csrf_token'] ?? ''));
+    require_once __DIR__ . '/../lib/SystemStart.php';
+    require_once __DIR__ . '/../lib/Preflight.php';
+    require_once __DIR__ . '/../lib/Staging.php';
+    [$canRun, $whyRun] = SystemStart::can();
+    [$canPf, $whyPf] = Preflight::can();
+    $staging = Staging::here();
+    $csrf = (string) ($_SESSION['csrf_token'] ?? '');
+    $btn = function (string $act, string $label, bool $ok, string $why, string $id = '', array $attr = []) use ($e): string {
+        $cls = $attr['class'] ?? 'ak-b'; unset($attr['class']);
+        $a = ''; foreach ($attr as $k => $v) $a .= ' ' . $k . '="' . $e($v) . '"';
+        return '<button type="button" class="' . $e($cls) . '" data-cb="' . $e($act) . '"' . ($id !== '' ? ' data-cb-id="' . $e($id) . '"' : '') . ($ok ? $a : ' disabled title="' . $e($why) . '"') . '>' . $e($label) . '</button>';
+    };
+    ControlBoard::settle($pdo);
+    [$stage, $stageWords] = ControlBoard::stage($pdo);
+    $wNo = $staging ? 'Nothing runs on staging: these work on the live site.' : $whyRun;
+
+    // every process, read once
+    $res = Preflight::results($pdo);
+    $by = tv_cb_by_system($pdo, $res);
+    $siteNeeds = ControlBoard::needs($res, array_keys(array_filter(Preflight::NEEDS, fn ($n) => $n[0] === 'siteneeds')));
+    $core = ControlBoard::core($res);
+    $lastAt = 0; foreach ($res as $r) $lastAt = max($lastAt, (int) ($r['at'] ?? 0));
+    $pid = fn (string $id) => 'cb-p-' . str_replace(':', '-', $id);
+
+    $h = '<div id="cb" data-csrf="' . $e($csrf) . '"' . ($focus === '' ? ' data-tab="' . $e((string) (ControlBoard::stage($pdo)[0] ?? 'observe')) . '"' : '') . '>';
+
+    // ---- the alarms first: the board's queue (decisions/0171 §7, release 3a), and what the result line says
+    // open alarms only (Jason, 2026-11-19: "if alarms are cleared they should not be present, moved to log"): a cleared one
+    // is in the logbook (written when it clears) and in the Alarms table; nothing waits to be marked Seen
+    $alarms = array_values(array_filter(ControlAlarms::list($pdo), fn ($x) => $x['cleared_at'] === null)); $ac = ControlAlarms::counts($pdo);
+    $names = []; foreach ($by as $rowsN) foreach ($rowsN as $idN => $pN) $names[$idN] = $pN['name'];
+    $open = array_values(array_filter($alarms, fn ($x) => $x['cleared_at'] === null));
+    if ($focus !== '' && !isset($names[$focus])) return $h . '<p data-tv-status="info" data-tv-label="Not found:">There\'s no process called ' . $e($focus) . ' on the board. <a class="underline" href="/admin/config/control">Open the board</a> to see every process.</p></div>';
+    if ($focus !== '') {   // the process's page: its name, then its alarms, its row (open), its logbook and its report
+        $mineAll = array_values(array_filter($alarms, fn ($x) => $x['proc'] === $focus && $x['cleared_at'] === null));
+        $h .= '<p class="cb-rback"><a href="/admin/config/control" class="underline">← The board</a></p><h2 class="ak-h">' . $e($names[$focus]) . '</h2>'
+            . ($mineAll ? tv_cb_alarms($mineAll, ['open' => count($mineAll)] + array_count_values(array_column($mineAll, 'level')) + ['trip' => 0, 'warning' => 0, 'notice' => 0], $names, $pid, $canPf, (string) $whyPf, $btn, [], $focus) : '<p data-tv-status="ok" data-tv-label="No alarm:">Nothing is open for it now.</p>');
+        if (str_starts_with($focus, 'wf:')) $h .= tv_cb_steps($pdo, substr($focus, 3), $res, $btn);   // its steps and their switches (0175 §6)
+    }
+    if ($focus === '') {
+    // ---- the result line (Jason, 2026-11-18: "a result notice from a procedure where within the notice I should be able
+    // to go to the report or section to further review"): the procedure and its time, what it found, each name opening its
+    // alarm, the report in a drawer, and running it again in place; older than an hour, it says so
+    $coreBad = array_filter($core, fn ($c) => $c[1] === 'bad');
+    $runAt = 0; try { $runAt = (int) (Preflight::summary($pdo)['at'] ?? 0); } catch (Throwable $x) {}
+    $pfOpen = array_values(array_filter($open, fn ($x) => str_starts_with((string) $x['akey'], 'pf:') && $x['level'] !== 'notice'));
+    $go = fn (array $x) => '<a href="#cb-alarm-' . (int) $x['id'] . '" data-cb-go="cb-alarm-' . (int) $x['id'] . '" class="underline">' . $e($names[$x['proc']] ?? preg_replace('/:.*$/', '', (string) $x['title'])) . '</a>';
+    $pfNames = []; foreach ($pfOpen as $x) { $nm = $names[$x['proc']] ?? (string) $x['proc']; if (!isset($pfNames[$nm])) $pfNames[$nm] = $go($x); }
+    $old = $runAt && time() - $runAt > 3600;
+    $result = $stage === 'shutdown' ? ['off', 'Stopped: the master switch is off.']
+        : ($coreBad ? ['bad', 'A core host is down: everything holds.'] : null);
+    // the top line is live diagnostics: what's paused now, by the system or a person, and why, each opening its fix in the
+    // side panel (0175's note: "once something is active it is not longer preflight, it is diagnostics"; "The board's top
+    // line becomes live diagnostics … No stale snapshot"). The pre-flight's result moves to the Start-up stage, below.
+    $h .= '<div class="cb-top cb-strip" role="status">';
+    if ($result) $h .= '<span class="cb-beacon cb-b-' . $result[0] . '">' . tv_cb_mark($result[0]) . $e($result[1]) . '</span>';
+    $lit = []; foreach ($by as $rowsL) foreach ($rowsL as $pid0 => $r0) $lit[$pid0] = (string) $r0['light'];
+    $h .= ControlBoard::pausedHtml($pdo, 'cb-paused', $lit);
+    $pfres = '';
+    // the worst real state (the session manager, 2026-11-18, against css-theme-brand.md): red only for a line really
+    // tripped (tripped_at: the system tried and gave up) or a core host down; a line only held is amber with the pause mark
+    $pfL = $pfOpen ? (array_filter($pfOpen, fn ($x) => $x['level'] === 'trip' && !empty($x['tripped_at'])) || $coreBad ? 'bad' : 'hold') : '';
+    $pfres .= '<span class="cb-result cb-b-' . ($pfOpen ? $pfL : ($runAt ? 'ok' : 'off')) . '">' . tv_cb_mark($pfOpen ? $pfL : ($runAt ? 'ok' : 'new')) . '<span class="cb-rt"><b>Pre-flight, ' . ($runAt ? tv_cb_time($runAt) : 'not run yet') . ':</b> '
+        . ($pfOpen ? '<a href="#cb-alarms" data-cb-go="cb-alarms" class="underline">' . count($pfNames) . ' held</a>: ' . implode(', ', array_slice(array_values($pfNames), 0, 3)) . (count($pfNames) > 3 ? ' and <a href="#cb-alarms" data-cb-go="cb-alarms" class="underline">' . (count($pfNames) - 3) . ' more</a>' : '') . '.' : ($runAt ? 'every line passed or is on a backup.' : 'press Run it again.'))
+        . ($old ? ' <small class="cb-age">This result is over an hour old.</small>' : '') . '</span>'
+        . '<span class="cb-ra"><a class="ak-b cb-xs" href="#preflight">Open the report</a>' . $btn('preflight', 'Run it again', $canPf && !$staging, $staging ? $wNo : (string) $whyPf, '', ['class' => 'ak-b cb-xs']) . '</span></span>';
+    $h .= '<span class="cb-core"><b>Core hosts</b> ' . implode(' ', array_map(fn ($c) => '<span class="cb-ch">' . tv_cb_mark($c[1]) . $e($c[0]) . '</span>', $core)) . '</span></div>';
+
+    // ---- the six stages, and where the system stands
+    $stageTo = [
+        'preflight' => ['#preflight', 'Tests every service and setting, read only. Run it before Start.'],
+        'startup' => ['#cb-controls', 'Start the system: checks each workflow and task, then switches them on in order.'],
+        'observe' => ['#cb-alarms', 'Running and watched: what needs you is in Alarms.'],
+        'shutdown' => ['#cb-controls', 'Shut down in order, or Pause everything to stop at once.'],
+        'maintenance' => ['#maintenance', 'Take a part out on purpose, and put it back after its check.'],
+        'history' => ['#log', 'The logbook: every switch, alarm and note; Reports for a period.'],
+    ];
+    // the stage's words follow the state: running with something held says so, and where (words follow the state)
+    if ($stage === 'observe') { try { $nHeld = (int) $pdo->query("SELECT COUNT(*) FROM control_alarms WHERE cleared_at IS NULL AND ack_at IS NULL AND level IN ('trip','warning')")->fetchColumn(); } catch (Throwable $x) { $nHeld = 0; }   // the top bar's count (unacknowledged trips and warnings)
+        if ($nHeld) $stageWords = 'Running, watched. ' . $nHeld . ' alarm' . ($nHeld === 1 ? '' : 's') . ' open: the rest runs; each one\'s fix is under Observation and reporting.'; }
+    // the six stages are tabs (Jason, 2026-11-19: "these are jump links, not good design. When clicked that information is
+    // what is on page, everything else goes away"): a tile shows only its part of the board; the one the system is in opens
+    // first and says "now"; a link to a part (#maintenance, an alarm) opens its tab (admin-control.js)
+    $h .= '<div class="cb-stages" role="tablist" aria-label="The board\'s stages: each shows its part">';
+    $i = 0;
+    foreach (ControlBoard::STAGES as $k => $label) {
+        $i++;   // each stage is a route to its own part of the board, with what it is (Jason, 2026-11-19: "I don't understand how the section works")
+        [$to, $what] = $stageTo[$k] ?? ['#cb', ''];
+        $h .= '<button type="button" role="tab" data-cb-tab="' . $k . '" aria-selected="' . ($k === $stage ? 'true' : 'false') . '" class="cb-st' . ($k === $stage ? ' on now' : '') . '"' . ($k === $stage ? ' aria-current="step"' : '') . ' title="' . $e($what) . '"><small>' . $i . ($k === $stage ? ' · now' : '') . '</small>' . $e($label) . '<span class="cb-stw">' . $e($what) . '</span></button>';
+    }
+    $h .= '</div>';
+    // its tables and Scheduled tasks as tabs (decisions/0175's note "one control board in the menu", release 2b part A: "its
+    // tabs Alarms, Logbook, Ledger, Upkeep and Reports"; "Scheduled tasks as a tab"): one place, nothing hunted for
+    $h .= '<div class="cb-stages cb-tabs2" role="tablist" aria-label="The board\'s tables">';
+    foreach (TV_CB_TABS as $k => [$label, $what]) $h .= '<button type="button" role="tab" data-cb-tab="' . $k . '" aria-selected="false" class="cb-st cb-st2" title="' . $e($what) . '">' . $e($label) . '<span class="cb-stw">' . $e($what) . '</span></button>';
+    $h .= '</div><p class="cb-stage" data-tv-status="' . ($stage === 'observe' ? 'ok' : 'info') . '" data-tv-label="' . $e(ControlBoard::STAGES[$stage]) . ':">' . $e($stageWords) . '</p>';
+    // each tab's part: the tables drawn here (the admin's one table, rows loaded as it opens); a page with its own forms
+    // (Scheduled tasks, Automation, Pre-flight's runs) loaded in place when its tab first opens, its links using the side panel
+    require_once __DIR__ . '/widgets.php';
+    foreach (['alarms' => 'config/alarms', 'log' => 'config/log', 'ledger' => 'config/ledger', 'upkeep' => 'config/upkeep'] as $k => $tool)
+        $h .= '<div class="cb-tabp" id="cb-tab-' . $k . '">' . tv_w_table($pdo, $tool, false) . '</div>';
+    $h .= '<div class="cb-tabp" id="cb-tab-scheduler" data-cb-lazy="/admin/config/scheduler?panel=1&amp;peek=1" data-cb-lazyt="Scheduled tasks"><p class="ak-note">Opens with its tab: every scheduled job, its line and its last runs.</p></div>';
+    // the Start-up stage holds Automation: its master switch, Start the system, Pause everything, the switch-on check, its
+    // workflows, services and changes (the note: "Automation's master switch, Start the system and Pause everything as its
+    // Start-up and Shut-down stages"); release 2b's parts B and C move its services to Modules and its workflows to Workflows
+    $h .= '<div class="cb-tabp" id="cb-tab-startup" data-cb-lazy="/admin/config/automation?panel=1&amp;peek=1" data-cb-lazyt="Start-up: the master switch and Start the system"><p class="ak-note">Opens with its stage: the master switch, Start the system and Pause everything.</p></div>';
+    $h .= '<div class="cb-tabp" id="cb-tab-pfpage" data-cb-lazy="/admin/config/preflight?panel=1&amp;peek=1" data-cb-lazyt="The system pre-flight"><p class="ak-note">Opens with its stage: Run all, each line\'s Test, its runs and its report.</p></div>';
+    // the system pre-flight's result: in the Start-up stage (and Pre-flight's), with Run it again, never the top line (0175's
+    // note: "The system pre-flight runs at Start the system … It's shown in the Start-up stage, with Run it again")
+    $h .= '<div class="cb-top cb-pfres" id="cb-pfres">' . $pfres . '</div>';
+
+    // ---- the system's own controls; find, open all, close all
+    $h .= '<div class="cb-bar" id="cb-controls"><div class="cb-acts">'
+        . $btn('preflight', 'Run the pre-flight', $canPf && !$staging, $staging ? $wNo : $whyPf)
+        . $btn('start', 'Start the system', $canRun && !$staging, $wNo, '', ['data-confirm' => 'Start the system? It confirms each workflow and task, then switches them on in order.', 'data-yes' => 'Start it'])
+        . $btn('shutdown', 'Shut down in order', $canRun && !$staging, $wNo, '', ['data-confirm' => 'Shut the whole system down in order? The tasks, then the workflows in reverse order, then the master switch and the crawler\'s schedule. What\'s running finishes.', 'data-yes' => 'Shut it down'])
+        . $btn('pauseall', 'Pause everything', $canRun && !$staging, $wNo, '', ['class' => 'ak-b cb-danger', 'data-confirm' => 'Pause everything at once? The emergency stop: the master switch off and the crawler\'s schedule removed.', 'data-yes' => 'Pause everything', 'data-danger' => '1'])
+        . '</div></div>';   // finding a part is the parts table's own search now (its rows open in a drawer: nothing to open or close all)
+
+    // ---- the queue: the alarm list, one row per issue (it replaces "Holding now": Jason, 2026-11-18, "does the system board
+    // have a queue where issues can be found and addressed"); open on load whenever anything is open
+    $h .= tv_cb_afilter();
+    // a process whose check is red, with the part that holds it: Check and start again waits for it, greyed with the reason
+    // (the session manager, 2026-11-19: never a silent restart)
+    $redChecks = [];
+    foreach ($res as $rid => $rr) if (($rr['s'] ?? '') === 'bad') { $hold = ''; foreach ((array) ($rr['extra']['parts'] ?? []) as [$pt, $ps]) if ($ps === 'bad') { $hold = (string) $pt; break; }
+        $redChecks[(string) $rid] = ControlBoard::sentence($hold !== '' ? $hold : (string) ($rr['said'] ?? '')); }
+    $h .= tv_cb_alarms($alarms, $ac, $names, $pid, $canPf, (string) $whyPf, $btn, $redChecks);
+    $tms = ControlBoard::timings($pdo, $res); $slow = count(array_filter($tms, fn ($x) => $x[1] !== null && $x[3] === 'bad')); $untested = count(array_filter($tms, fn ($x) => $x[1] === null));
+    $h .= '<div class="cb-panels"><details class="ak-card tv-bleed cb-panel" id="cb-times"><summary class="cb-ph"><span class="cb-caret" aria-hidden="true">▾</span>' . tv_cb_mark($slow ? 'bad' : ($untested === count($tms) ? 'new' : 'ok')) . '<b>Query timings</b> <small>' . ($slow ? $slow . ' of ' . count($tms) . ' over its limit' : ($untested === count($tms) ? 'not run yet' : 'all ' . count($tms) . ' within their limits')) . '</small></summary><table class="cb-tt"><thead><tr><th>Query</th><th>Took</th><th><a class="underline" href="/admin/config/thresholds" title="Change a limit on Thresholds">Limit</a></th><th></th></tr></thead><tbody>';
+    foreach ($tms as $k => [$what, $ms, $lim, $s, $at])
+        $h .= '<tr><td>' . $e(preg_replace('/ \(.*$/', '', $what)) . '<br><small>' . $e((string) (preg_match('/\((.*)\)/', $what, $mm) ? $mm[1] : '')) . '</small></td><td class="cb-num">' . ($ms === null ? '—' : number_format($ms) . ' ms') . '</td><td class="cb-num">' . ($lim ? number_format($lim) . ' ms' : '—') . '</td><td>' . tv_cb_mark($ms === null ? 'new' : $s) . '</td></tr>';
+    $h .= '</tbody></table><div class="cb-acts">' . $btn('timings', 'Re-test the four', $canPf, (string) $whyPf) . '<small class="ak-note">Read only; a slow one is noted and holds nothing.</small></div></details>' . tv_cb_watch($pdo, $btn) . '</div>';
+    $h .= tv_cb_maintenance($pdo, $names, $btn, $canRun && !$staging, $wNo);
+    $h .= tv_cb_logbook($pdo, $names, (bool) $can);
+    $h .= tv_cb_reports_panel($pdo);
+    }
+
+    // ---- the parts of the system: the admin's one table (design/table-standard.md, T1; the session manager, 2026-11-19):
+    // a group row per system, each part opening its own page in a drawer (rule 6, in place of opening under itself, 0171
+    // §2's note); a process's own page keeps its row opened in place, below
+    if ($focus === '') {
+        $h .= tv_cb_process_table();
+        if ($siteNeeds) {   // the site's own needs, each with its sources: a panel of their own
+            $sn = array_count_values(array_column($siteNeeds, 1)); $sl = !empty($sn['bad']) ? 'bad' : (!empty($sn['warn']) ? 'warn' : (!empty($sn['ok']) ? 'ok' : 'wait'));
+            $h .= '<details class="ak-card tv-bleed cb-panel" id="cb-site-needs"><summary class="cb-ph"><span class="cb-caret" aria-hidden="true">▾</span>' . tv_cb_mark($sl) . '<b>What the site needs from outside</b> <small>' . count($siteNeeds) . ' needs, each with its sources</small></summary>'
+                . tv_cb_kv('Needs', tv_cb_needs($siteNeeds, $canPf, (string) $whyPf)) . '</details>';
+        }
+        $tr = ''; foreach (ControlRegister::SYSTEMS as $sk => $sname) $tr .= tv_cb_kv($sname, '<div class="cb-trend" data-cb-trend="sys:' . $e($sk) . '"><small class="ak-note">Loads when this opens: its processes summed.</small></div>');
+        $h .= '<details class="ak-card tv-bleed cb-panel cb-trends" id="cb-trends"><summary class="cb-ph"><span class="cb-caret" aria-hidden="true">▾</span>' . tv_cb_mark('na') . '<b>Trends by system</b> <small>each system\'s processes summed, over 24 hours, 7 or 30 days</small></summary>' . $tr . '</details>';
+    }
+    foreach ($focus !== '' ? ControlRegister::SYSTEMS : [] as $sk => $sname) {
+        $rows = $by[$sk] ?? [];
+        if ($focus !== '') { if (!isset($rows[$focus])) continue; $rows = [$focus => $rows[$focus]]; }
+        $n = array_count_values(array_column($rows, 'light'));
+        $worst = !empty($n['bad']) ? 'bad' : (!empty($n['alarm']) ? 'alarm' : (!empty($n['hold']) ? 'hold' : (!empty($n['warn']) ? 'warn' : (!empty($n['ok']) ? 'ok' : 'wait'))));
+        $sum = [];
+        foreach (['ok' => 'working', 'bad' => 'tripped', 'hold' => 'held', 'warn' => 'on a backup', 'maint' => 'in maintenance', 'off' => 'off', 'wait' => 'not tested'] as $k => $w) if (!empty($n[$k])) $sum[] = '<button type="button" class="cb-lf" data-cb-lf="' . $k . '" title="Show only the ' . $e($w) . ' ones in ' . $e($sname) . '">' . $n[$k] . ' ' . $e($w) . '</button>';   // each count filters the system's rows (Jason, 2026-11-19)
+        $h .= '<details class="ak-card tv-bleed cb-sys" id="cb-' . $e($sk) . '" data-cb-sys="' . $e($sk) . '"' . ($focus !== '' ? ' open' : '') . '>'   // closed on load, held or not (Jason, 2026-11-18): its header counts the held
+            . '<summary class="cb-sh"><span class="cb-caret" aria-hidden="true">▾</span>' . tv_cb_mark($worst) . '<h3 class="cb-title">' . $e($sname) . '</h3><small class="cb-sum">' . implode(' · ', $sum) . '</small></summary>'
+            . '<p class="cb-lfon" hidden><span data-cb-lfw></span> <button type="button" class="ak-b cb-xs" data-cb-lf="">Show all</button></p>'
+            . '<div class="cb-sys-tr">' . tv_cb_kv('Trend', '<div class="cb-trend" data-cb-trend="sys:' . $e($sk) . '"><small class="ak-note">Opens with the system: its processes summed.</small></div>') . '</div>'   // the historian (0171 §6, 4b), loaded when the system opens
+            . '<div class="cb-row cb-head" aria-hidden="true"><span></span><span></span><span>Process</span><span>Stage</span><span>Where it stands</span><span>Last 24 hours</span><span>Speed</span><span>OK</span><span></span></div>';
+        foreach ($rows as $id => $p) {
+            $c = $p['calls']; $lt0 = (string) $p['light'];   // the light its system's header counted
+            $needs = str_starts_with($id, 'wf:') ? ControlBoard::needs($res, (array) ($p['parts']['needs'] ?? [])) : [];
+            $q = mb_strtolower($p['name'] . ' ' . $p['words'] . ' ' . implode(' ', array_map(fn ($x) => $x[0] . ' ' . implode(' ', array_column($x[2], 0)), $needs)));
+            // its open alarms: a trip marks it red, and the alarm is where it stands
+            $mine = array_values(array_filter($alarms, fn ($x) => $x['proc'] === $id && $x['cleared_at'] === null));
+            if ($mine && $mine[0]['level'] === 'trip') $p['light'] = 'bad';
+            // an open warning shows its level's mark on the row, never a green ✓ beside it (playbook §2, principle 4: words
+            // follow the state); a held, out or off part keeps its own
+            elseif ($mine && in_array((string) $p['light'], ['ok', 'warn', 'wait'], true) && array_filter($mine, fn ($x) => $x['level'] === 'warning')) $p['light'] = 'alarm';
+            $r = tv_cb_row($id, $p, $needs, $stage);
+            if ($mine) $r['where'] = ControlAlarms::LEVELS[$mine[0]['level']] . ': ' . $mine[0]['title'] . (count($mine) > 1 ? ' (and ' . (count($mine) - 1) . ' more in the alarm list)' : '') . '.';   // switched on while the system is stopped: Standby, not Observation
+            $h .= '<details class="cb-p" id="' . $e($pid($id)) . '" data-cb-p="' . $e($id) . '" data-light="' . $e($lt0) . '" data-q="' . $e($q) . '"' . ($focus !== '' ? ' open' : '') . '>'
+                . '<summary class="cb-row"><span class="cb-caret" aria-hidden="true">▾</span>' . tv_cb_mark($p['light'])
+                . '<span class="cb-nm"><b class="cb-n">' . $e($p['name']) . '</b>' . ($r['sub'] !== '' ? '<small>' . $e($r['sub']) . '</small>' : '') . '</span>'
+                . '<span class="cb-pill cb-pill-' . $e($r['stage'][0]) . '">' . $e($r['stage'][1]) . '</span>'
+                . '<span class="cb-c">' . $e($r['where']) . (!empty($p['means']) ? ' <small class="cb-means">' . $e($p['means']) . '</small>' : '') . '</span>'
+                . '<span class="cb-k' . ($r['runs'][0] === '—' ? ' cb-none0' : '') . '"><b>' . $e($r['runs'][0]) . '</b>' . ($r['runs'][1] !== '' ? '<small class="' . ($r['runs'][2] ? 'cb-good' : '') . '">' . $e($r['runs'][1]) . '</small>' : '') . '</span>'
+                . '<span class="cb-k' . ($r['speed'][0] === '—' ? ' cb-none0' : '') . '"><b>' . $e($r['speed'][0]) . '</b>' . ($r['speed'][1] !== '' ? '<small>' . $e($r['speed'][1]) . '</small>' : '') . '</span>'
+                . '<span class="cb-k cb-okr"><b>' . $e($r['ok']) . '</b></span>'
+                . '<span class="cb-ra">' . tv_cb_controls($id, $p, $res, $btn, $canPf, (string) $whyPf, $canRun && !$staging, $wNo, true) . '</span></summary>'
+                . '<div class="cb-b cb-l-' . $e($p['light']) . '">'
+                . ($focus === '' ? '<p class="cb-own"><a class="ak-b cb-xs" href="/admin/config/control/' . $e(str_replace(':', '-', $id)) . '" data-peek-frame>Its own page</a> <small class="ak-note">its alarms, logbook, trend and report in one place</small></p>' : '');
+            // Route
+            if ($p['route']) $h .= tv_cb_kv('Route', '<code class="cb-route">' . $e((string) $p['route']['said']) . '</code>');
+            if ($mine) $h .= tv_cb_kv('Alarms', implode('<br>', array_map(fn ($x) => tv_cb_mark($x['level'] === 'trip' ? 'bad' : 'warn') . ' ' . '<a class="underline" href="#cb-alarm-' . (int) $x['id'] . '" title="Its alarm, with its fix">' . $e($x['title']) . '</a>' . ' <small>(' . ControlAlarms::KINDS[$x['kind']] . ', ×' . (int) $x['n_times'] . ', since ' . tv_cb_time((int) strtotime($x['first_at'] . ' UTC')) . ')</small>', $mine)));
+            // Its check: one line, what holds it first; its parts on a toggle
+            $h .= tv_cb_kv('Trend', '<div class="cb-trend" data-cb-trend="' . $e($id) . '"><small class="ak-note">Loads when the row opens.</small></div>');   // the historian (0171 §6, 4b)
+            if ($p['line']) $h .= tv_cb_kv('Its check', tv_cb_check($p['line']));
+            elseif (!str_starts_with($id, 'wk:') || ControlRegister::WORKERS[substr($id, 3)][3] !== '') $h .= tv_cb_kv('Its check', 'Not run yet: press Check.');
+            // Needs, as chips
+            if ($needs) $h .= tv_cb_kv('Needs', tv_cb_needs($needs, $canPf, (string) $whyPf));
+            if (str_starts_with($id, 'svc:') && ($u = ControlBoard::usedBy(substr($id, 4)))) $h .= tv_cb_kv('Used by', $e(implode(', ', $u)) . '.');
+            // Accounting: every one accounted for
+            if ($c['calls']) {
+                $rest = $c['received'] - ($c['stored'] + $c['updated'] + $c['review'] + $c['refused']);
+                $h .= tv_cb_kv('Accounting', '<span class="cb-acct">Received <b>' . number_format($c['received']) . '</b> = Stored <b class="cb-good">' . number_format($c['stored']) . '</b> + Updated <b>' . number_format($c['updated']) . '</b> + To Review <b>' . number_format($c['review']) . '</b> + Refused <b>' . number_format($c['refused']) . '</b>'
+                    . ($rest > 0 ? ' + No change <b>' . number_format($rest) . '</b>' : '') . ' <small>(' . number_format($c['calls']) . ' worker call' . ($c['calls'] === 1 ? '' : 's') . ', ' . $c['ms'] . ' ms each' . ($c['errors'] ? ', <b class="cb-bad">' . $c['errors'] . ' server error' . ($c['errors'] === 1 ? '' : 's') . '</b>' : '') . ')</small></span>');
+            }
+            if (!empty($c['last_error'])) { $le = $c['last_error'];
+                $h .= tv_cb_kv('Last error', '<b class="cb-bad">' . $e('/api/' . $le['endpoint'] . ($le['code'] >= 500 ? ' answered ' . $le['code'] : ' set a record aside')) . ':</b> ' . $e((string) preg_replace('/^answered \d+: /', '', $le['said'])) . ' <small>' . tv_cb_time($le['at']) . '</small>'); }
+            $runs = [];
+            if ($p['outcomes']) foreach ($p['outcomes'] as $k => $v) $runs[] = $v . ' ' . str_replace('_', ' ', (string) $k);
+            if ($p['jobs'][0] + $p['jobs'][1]) $runs[] = 'site jobs ' . $p['jobs'][0] . ' ran' . ($p['jobs'][1] ? ', ' . $p['jobs'][1] . ' stopped' : '');
+            if ($runs) $h .= tv_cb_kv('Runs, 24 h', $e(implode(' · ', $runs)));
+            $dry = ''; foreach ((array) ($p['line']['extra']['parts'] ?? []) as [$txt, $sst]) if (str_starts_with((string) $txt, 'Dry run: ')) $dry = (string) $txt;
+            if ($dry !== '') $h .= tv_cb_kv('Dry run', $e(substr($dry, 9)));
+            // Records touched lately
+            $eps = $p['parts']['endpoints'] ?? [];
+            if (str_starts_with($id, 'wk:')) { $k = substr($id, 3); $eps = ControlRegister::WORKERS[$k][2]; foreach (ControlRegister::ENDPOINTS as $ep => [, $for]) if (in_array('@' . $k, $for, true) || ($k === 'crawler' && !array_filter($for, fn ($f) => $f[0] === '@' || $f === 'W0'))) $eps[] = $ep; }
+            $recs = ControlBoard::records($pdo, array_values(array_filter($eps, fn ($ep) => !in_array($ep, ['crawl/service', 'crawl/usage'], true))), 12);
+            if ($recs) $h .= tv_cb_kv('Records touched lately', implode(' · ', array_map(fn ($r) => tv_cb_record_link((string) $r[0], (int) $r[1], (string) $r[2]), $recs)));
+            if ($id === 'wk:crawler') {
+                $rr = '';
+                foreach (ControlBoard::runs($pdo, 5) as [$run, $calls, $rrs]) {
+                    $sumc = ['stored' => 0, 'review' => 0, 'updated' => 0, 'refused' => 0]; foreach ($calls as $cl) foreach ($sumc as $k => $_) $sumc[$k] += (int) $cl['n_' . $k];
+                    $rr .= '<details class="cb-run"><summary>Run #' . (int) $run['id'] . ' · ' . $e((string) $run['status']) . ' · ' . tv_cb_time((int) strtotime((string) $run['started_at'])) . ' · ' . count($calls) . ' calls: ' . $sumc['stored'] . ' stored, ' . $sumc['updated'] . ' updated, ' . $sumc['review'] . ' to Review, ' . $sumc['refused'] . ' refused</summary>'
+                        . ($rrs ? '<p class="ak-note">' . implode(' · ', array_map(fn ($r) => tv_cb_record_link((string) $r['kind'], (int) $r['ref_id'], (string) $r['what']), $rrs)) . '</p>' : '<p class="ak-note">No records touched.</p>') . '</details>';
+                }
+                if ($rr !== '') $h .= tv_cb_kv('Its last runs', $rr);
+            }
+            // its controls, named in full
+            $acts = tv_cb_controls($id, $p, $res, $btn, $canPf, (string) $whyPf, $canRun && !$staging, $wNo, false);
+            if ($acts !== '') $h .= '<div class="cb-acts">' . $acts . '</div>';
+            $h .= '</div></details>';
+        }
+        // the site: what it needs from outside, each with its sources
+        if ($sk === 'site' && $siteNeeds && $focus === '') {
+            $sn = array_count_values(array_column($siteNeeds, 1));
+            $sl = !empty($sn['bad']) ? 'bad' : (!empty($sn['warn']) ? 'warn' : (!empty($sn['ok']) ? 'ok' : 'wait'));
+            $h .= '<details class="cb-p" id="cb-p-site-needs" data-cb-p="site:needs" data-q="' . $e(mb_strtolower('what the site needs ' . implode(' ', array_map(fn ($x) => $x[0] . ' ' . implode(' ', array_column($x[2], 0)), $siteNeeds)))) . '">'
+                . '<summary class="cb-row"><span class="cb-caret" aria-hidden="true">▾</span>' . tv_cb_mark($sl) . '<span class="cb-nm"><b class="cb-n">What the site needs from outside</b><small>The site\'s own needs</small></span><span class="cb-pill cb-pill-' . $sl . '">' . ($sl === 'bad' ? 'Needs a look' : 'Working') . '</span><span class="cb-c">' . count($siteNeeds) . ' needs: ' . (int) ($sn['ok'] ?? 0) . ' answered first, ' . (int) ($sn['warn'] ?? 0) . ' on a backup or their fallback, ' . (int) ($sn['bad'] ?? 0) . ' with nothing working. None of them holds the engine.</span><span class="cb-k"><b>—</b></span><span class="cb-k"><b>—</b></span><span class="cb-k cb-okr"><b>—</b></span><span class="cb-ra"></span></summary>'
+                . '<div class="cb-b cb-l-' . $sl . '">' . tv_cb_kv('Needs', tv_cb_needs($siteNeeds, $canPf, (string) $whyPf)) . '</div></details>';
+        }
+        $h .= '</details>';
+    }
+
+    if ($focus === 'wf:W0' && is_file(__DIR__ . '/../lib/crawler/Frontier.php')) {   // the sites that blocked W0, each with Reactivate: the source's rule on its process page (decisions/0176 §5; 0175 §6, the board is the one place to act; Jason, 2026-11-20)
+        try {
+            require_once __DIR__ . '/../lib/crawler/Frontier.php'; require_once __DIR__ . '/../lib/EngineCase.php'; require_once __DIR__ . '/Access.php';
+            $held = Frontier::heldSites($pdo, 100);
+            [$canR, $whyR] = Access::can('insights.crawler.edit', ['min' => 'staff', 'depts' => ['ops']]);   // Reactivate's own permission (Operations::pulseDo)
+            $hr = '';
+            foreach ($held as $r) $hr .= '<li id="' . $e(ControlAlarms::heldAnchor((string) $r['host'])) . '"><div><b>' . $e((string) $r['host']) . '</b> <small>' . $e(EngineCase::blockReason((string) $r['held_why'])) . ', since ' . tv_cb_time((int) strtotime((string) $r['held_at'])) . '</small></div>'
+                . '<div><small>' . $e(mb_strimwidth((string) $r['held_why'], 0, 200, '…')) . '</small></div>'
+                . '<div class="cb-acts">' . $btn('opsdo', 'Reactivate', (bool) $canR, (string) $whyR, 'ops:w0:held|ops_w0_reactivate:' . (string) $r['host'], ['class' => 'ak-b cb-xs go', 'data-confirm' => 'Reactivate ' . $r['host'] . '? One polite try when W0 next reads it; still blocked, it\'s held again.', 'data-yes' => 'Reactivate']) . '</div></li>';
+            $h .= '<details class="ak-card tv-bleed cb-panel" id="cb-held"' . ($held ? ' open' : '') . '><summary class="cb-ph"><span class="cb-caret" aria-hidden="true">▾</span>' . tv_cb_mark($held ? 'hold' : 'ok') . '<b>Sites that blocked us</b> <small>' . ($held ? count($held) . ' held' : 'none') . '</small></summary>'
+                . ($held ? '<ul class="cb-steps">' . $hr . '</ul>' : '<p data-tv-status="ok" data-tv-label="None:">No site has blocked the indexer.</p>')
+                . '<p class="ak-note">A site that blocks us (a sign-in wall, 403, 406 or 451, a challenge) is never retried by itself (decisions/0164 §1.2, 5). Reactivate gives it one polite try.</p></details>';
+        } catch (Throwable $x) { error_log('W0 held sites: ' . $x->getMessage()); }
+    }
+    if ($focus !== '') {   // its data (Jason, 2026-11-19: "How do I see what data the workflow is creating"): the records its calls touched
+        require_once __DIR__ . '/kit-table.php';
+        $ref = str_replace(':', '-', $focus); $idx = '';
+        if ($focus === 'wf:W0' && is_file(__DIR__ . '/../lib/crawler/Frontier.php')) {   // W0's own data is its index: every address it logged
+            try { require_once __DIR__ . '/../lib/crawler/Frontier.php'; $sc = []; foreach ($pdo->query('SELECT state, COUNT(*) FROM ' . Database::t('crawl_frontier') . ' GROUP BY state')->fetchAll(PDO::FETCH_KEY_PAIR) as $k => $v) $sc[] = number_format((int) $v) . ' ' . mb_strtolower(explode(' (', Frontier::STATES[$k] ?? $k)[0]);
+                $idx = '<p class="ak-note">Its index: ' . $e(implode(' · ', $sc)) . '. <a class="underline" href="/admin/insights/index" data-peek-frame>Every address it logged</a></p>'; } catch (Throwable $x) {}
+        }
+        $h .= '<section class="ak-card tv-bleed cb-panel" id="its-data">'   // one heading: the table's own
+            . tv_table(['tool' => 'config/proc_records', 'src' => '/admin/api/config/proc_records?proc=' . rawurlencode($ref), 'title' => 'Its data', 'open' => '',
+                'columns' => [['label', 'Record', 'name'], ['what', 'What happened', 'pill'], ['call', 'Its call', 'text'], ['at', 'When', 'when']],
+                'filters' => [['what', 'Show', [['', 'Everything'], ['stored', 'Stored'], ['updated', 'Updated'], ['review', 'Sent to Review'], ['refused', 'Refused']]]], 'countBy' => 'what',
+                'noData' => 'nothing yet']) . '<p class="ak-note">Every record its calls created or changed, newest first: which record and what happened, never its contents.</p>' . $idx . '</section>';
+    }
+    if ($focus !== '') {   // its logbook and its report, then the board's style and scripts
+        $h .= '<section class="ak-card tv-bleed cb-panel" id="log"><h3 class="cb-title" style="margin:.5rem .8rem">Its logbook</h3><ul class="cb-lgl" data-cb-loglist>' . tv_cb_log_rows($pdo, $focus) . '</ul></section>'
+            . '<p class="cb-acts" style="margin:.6rem 0"><a class="ak-b" href="/admin/config/control?report=' . $e(rawurlencode($focus)) . '&amp;range=day">Its report</a><a class="ak-b" href="/admin/config/control?report=' . $e(rawurlencode($focus)) . '&amp;range=week">Its week</a></p>';
+    } else {
+    // ---- the pre-flight, every line (its own section stays: /admin/config/preflight)
+    $h .= '<details class="ak-card tv-bleed" id="preflight" style="margin-top:.6rem"><summary class="cb-sh"><span class="cb-caret" aria-hidden="true">▾</span><span></span><h3 class="cb-title">Pre-flight: every line, as tested last</h3></summary>'
+        . '<p class="ak-note">Each line as tested last, with its Test; Run all, the runs and the report are <a class="underline" href="#cb-tab-pfpage">below</a>.</p>'
+        . (function_exists('tv_admin_mod_preflight') ? tv_admin_mod_preflight($pdo) : '') . '</details>';
+    $h .= '<div class="cb-none" hidden><p data-tv-status="info" data-tv-label="Nothing found:">No process, need or source has those words. Clear the box to see them all.</p></div></div>';
+    }
+
+    $h .= '<style>'
+        . '#cb .cb-m{display:inline-flex;width:1.35rem;height:1.35rem;border-radius:.3rem;align-items:center;justify-content:center;flex:0 0 auto;vertical-align:middle}#cb .cb-svg{width:.9rem;height:.9rem;fill:none;stroke:currentColor;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}'
+        . '#cb summary{list-style:none;cursor:pointer}#cb summary::-webkit-details-marker{display:none}#cb details:not([open])>summary .cb-caret{display:inline-block;transform:rotate(-90deg)}#cb .cb-caret{color:#8a7a68;font-size:12px}'
+        . '#cb .cb-strip{display:flex;flex-wrap:wrap;gap:.4rem .9rem;align-items:center;padding:.45rem .7rem;border:1px solid #E5D9C3;border-radius:.5rem;background:#F6F0E4;font-size:13px}#cb .cb-paused{flex:1 1 30rem;margin:0;min-width:0}#cb .cb-pl{margin:.2rem 0 0 1.1rem;padding:0}.cb-health{margin:0 0 .3rem}.cb-pn{margin:0}.cb-pg{margin:.3rem 0 0}#cb .cb-pl li{margin:.1rem 0;overflow-wrap:anywhere}#cb .cb-plm summary{cursor:pointer;font-weight:600}#cb .cb-pfres{display:flex;flex-wrap:wrap;gap:.4rem;margin:.5rem 0;font-size:13px}#cb .cb-pfres:empty{display:none}#cb .cb-tabs2{margin-top:.3rem}#cb .cb-st2 .cb-stw{display:none}#cb .cb-tabp{margin:.6rem 0;min-width:0}#cb .cb-lazyf{width:100%;border:0;min-height:12rem;display:block}#cb .cb-steps{list-style:none;margin:.3rem 0;padding:0;display:grid;gap:.4rem}#cb .cb-steps>li{border:1px solid #E5D9C3;border-radius:.5rem;padding:.45rem .6rem;min-width:0;overflow-wrap:anywhere}#cb .cb-steps p{margin:.25rem 0}'
+        . '#cb .cb-wt{display:block;flex-basis:100%;margin-top:.15rem;font-size:.8rem;color:var(--tv-muted,#6B5B4B)}#cb .cb-beacon{display:inline-flex;gap:.4rem;align-items:center;font-weight:700;padding:.15rem .55rem .15rem .2rem;border-radius:.4rem}#cb .cb-b-ok{background:#E8F3EC;color:#15803D}#cb{--cb-fail:var(--tv-fail,#a62b2b);--cb-hold:var(--tv-hold,#8f5600);--cb-fail-bg:color-mix(in srgb,var(--cb-fail) 8%,#fff);--cb-fail-line:color-mix(in srgb,var(--cb-fail) 30%,#fff);--cb-hold-bg:color-mix(in srgb,var(--cb-hold) 11%,#fff);--cb-hold-line:color-mix(in srgb,var(--cb-hold) 35%,#fff);--cb-maint:var(--tv-maint,var(--tv-river,#3B5A6B));--cb-up:var(--tv-ok,#15803D);--cb-bar:var(--tv-copper,#B45309);--cb-none:var(--tv-line,#E5D9C3);--cb-maint-bg:color-mix(in srgb,var(--cb-maint) 10%,#fff);--cb-maint-line:color-mix(in srgb,var(--cb-maint) 32%,#fff)}#cb .cb-pill-maint{background:var(--cb-maint-bg);border-color:var(--cb-maint-line);color:var(--cb-maint)}#cb .cb-b.cb-l-maint{border-left-color:var(--cb-maint-line)}#cb .cb-sys-tr{padding:.3rem .8rem 0}#cb .cb-tr{display:grid;gap:.25rem;min-width:0}#cb .cb-trb{display:flex;gap:.25rem}#cb .cb-trb .on{background:var(--tv-sage,#8FBCA8);border-color:var(--tv-sage,#8FBCA8)}#cb .cb-trs{width:100%;max-width:32rem;height:3.4rem;display:block}#cb .cb-trw{margin:0;font-size:13px}#cb .cb-tre{margin:0;font-size:12.5px;color:#6b5d4f}#cb .cb-lg{display:grid;gap:.5rem;min-width:0}#cb .cb-lg>*{min-width:0;max-width:100%}#cb .cb-lgl{list-style:none;margin:0;padding:0;display:grid;gap:.3rem}#cb .cb-lgl li{display:flex;flex-wrap:wrap;gap:.2rem .55rem;align-items:baseline;padding:.3rem .5rem;border:1px solid #EFE6D6;border-radius:.4rem;background:#FFFDF8;min-width:0}#cb .cb-lgl time{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px;color:#6b5d4f;white-space:nowrap}#cb .cb-lg-w{flex:1 1 14rem;min-width:0}#cb .cb-lg-w small,#cb .cb-lg-who{color:#6b5d4f}#cb .cb-lg-more,#cb .cb-lg-end{border:0 !important;background:none !important}#cb .cb-lg-n{display:flex;flex-wrap:wrap;gap:.4rem .6rem;align-items:flex-end}#cb .cb-lg-n label{display:flex;flex-direction:column;font-size:12.5px;color:#6b5d4f;min-width:0}#cb .cb-lg-n textarea,#cb .cb-lg-n select{font:inherit;font-size:13px;border:1px solid #E5D9C3;border-radius:.35rem;padding:.25rem .4rem;background:#FFFDF8;max-width:100%}#cb .cb-lg-n .cb-why{flex:1 1 16rem}#cb .cb-trw small{color:#6b5d4f}#cb .cb-mt{display:grid;gap:.5rem}#cb .cb-mt form{display:flex;flex-wrap:wrap;gap:.4rem .6rem;align-items:flex-end}#cb .cb-mt label{display:flex;flex-direction:column;font-size:12.5px;color:#6b5d4f;min-width:0}#cb .cb-mt input,#cb .cb-mt select{font:inherit;font-size:13px;border:1px solid #E5D9C3;border-radius:.35rem;padding:.2rem .4rem;background:#FFFDF8;max-width:100%}#cb .cb-mt .cb-why{flex:1 1 14rem}#cb .cb-ml,#cb .cb-up{list-style:none;margin:0;padding:0;display:grid;gap:.35rem}#cb .cb-ml li,#cb .cb-up li{display:flex;flex-wrap:wrap;gap:.2rem .6rem;align-items:baseline;padding:.35rem .5rem;border:1px solid #EFE6D6;border-radius:.4rem;background:#FFFDF8;min-width:0}#cb .cb-ml li>span,#cb .cb-up li>span{min-width:0}#cb .cb-up .cb-when{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12.5px;min-width:9.5rem}#cb .cb-b-bad{background:var(--cb-fail-bg);color:var(--cb-fail)}#cb .cb-b-hold{background:var(--cb-hold-bg);color:var(--cb-hold)}#cb .cb-b-off{background:#F1EDE6;color:#6b5d4f}'
+        . '#cb .cb-core{display:inline-flex;gap:.5rem;align-items:center;flex-wrap:wrap}#cb .cb-ch{display:inline-flex;gap:.25rem;align-items:center}#cb .cb-core .cb-m,#cb .cb-beacon .cb-m{width:1.1rem;height:1.1rem}#cb .cb-last{color:#6b5d4f;margin-left:auto}#cb .cb-means{display:block;color:#6b5d4f;font-size:12px}#cb .cb-result{display:flex;flex-wrap:wrap;gap:.3rem .6rem;align-items:center;padding:.25rem .5rem;border-radius:.4rem;flex:1 1 30rem}#cb .cb-result .cb-rt{flex:1 1 16rem}#cb .cb-afl{display:flex;gap:.5rem;align-items:center;margin:.2rem 0 .4rem}#cb .cb-dd select{font:inherit;font-size:13px;border:1px solid #E5D9C3;border-radius:.35rem;padding:.15rem .4rem;background:#FFFDF8}#cb .cb-am{display:grid;gap:.15rem;font-size:13px;margin-top:.2rem}#cb .cb-panels{grid-template-columns:1fr}'
+        . '#cb .cb-stages{display:grid;grid-template-columns:repeat(6,1fr);gap:.35rem;margin:.6rem 0 .4rem}#cb .cb-st{border:1px solid #E5D9C3;border-radius:.4rem;padding:.4rem .55rem;font-size:13px;background:#FFFBF2}#cb .cb-st small{display:block;color:#8a7a68;font-size:11px}#cb button.cb-st{display:block;width:100%;text-align:left;color:inherit;font:inherit;cursor:pointer}#cb button.cb-st:hover{border-color:#B45309}#cb button.cb-st[aria-selected=true]{background:#92400E;border-color:#92400E;color:#FFFBF2}#cb button.cb-st[aria-selected=true] small,#cb button.cb-st[aria-selected=true] .cb-stw{color:#F7EFDC}#cb .cb-offtab{display:none!important}@media (min-width:768px){#cb-systems td.ak-tn{width:22%;min-width:12rem}#cb-systems td[data-col=where]{min-width:16rem;width:34%}#cb-systems td[data-col=light],#cb-systems td[data-col=stage]{white-space:nowrap}}#cb .cb-lgfl{width:min(24rem,calc(100vw - 2.5rem));padding:.3rem}#cb .cb-lgfl button.cb-lgh.on,#cb .cb-lgfl button.cb-lgp.on,#cb .cb-lgfl button.on small{color:#FFFBF2}#cb .cb-lgf{display:block;position:sticky;top:-.3rem;background:var(--tv-card-a,#FFFBF2);padding:.2rem 0 .3rem;z-index:1}#cb .cb-lgf .ak-q{width:100%}#cb .cb-lgs{display:block;border-top:1px solid #EFE6D6;margin-top:.25rem;padding-top:.25rem}#cb .cb-lgfl button.cb-lgh,#cb .cb-lght{display:block;width:100%;font-weight:700;color:#92400E}#cb .cb-lgh small{font-weight:400;color:#8a7a68;margin-left:.3rem}#cb .cb-lght{padding:.35rem .6rem;font-size:.85rem}#cb .cb-lgfl button.cb-lgp{display:flex;justify-content:space-between;align-items:center;gap:.5rem;width:100%;padding-left:1.4rem;font-weight:500}#cb .cb-lgp.quiet{color:#8a7a68}#cb .cb-lgp i{font-style:normal;font-size:.75rem;background:#F7EFDC;border-radius:1rem;padding:0 .45rem;color:#5C4632}#cb .cb-stw{display:block;color:#8a7a68;font-size:11px;line-height:1.3;margin-top:.15rem}'
+        . '#cb .cb-st.on{background:#E8F3EC;border-color:#8FBCA8;box-shadow:0 0 6px #8FBCA8;font-weight:600}#cb .cb-st.soon{opacity:.55}'
+        . '#cb .cb-bar{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.4rem;margin:.5rem 0}#cb .cb-acts{display:flex;gap:.35rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}#cb .cb-bar .cb-acts{margin:0}#cb .cb-find .ak-q{width:15rem;max-width:100%}'
+        . '#cb .cb-danger{color:var(--cb-fail);border-color:var(--cb-fail-line)}#cb .cb-xs{padding:.15rem .5rem;font-size:12px;min-height:0}'
+        . '#cb .cb-panels{display:grid;grid-template-columns:1fr;gap:.6rem;margin:.4rem 0 .6rem}#cb .cb-panel{padding:.6rem .8rem;margin:0}#cb .cb-ph{font-size:14px;display:flex;gap:.45rem;align-items:center;flex-wrap:wrap}#cb .cb-panel[open]>.cb-ph{margin:0 0 .4rem;padding-bottom:.3rem;border-bottom:1px solid #EFE6D6}#cb .cb-panels{align-items:start}#cb .cb-ph small{font-weight:400;color:#8a7a68;margin-left:.3rem}'
+        . '#cb .cb-hl{list-style:none;margin:0;padding:0;display:grid;gap:.4rem}#cb .cb-hl li{display:flex;gap:.45rem;align-items:flex-start;font-size:13.5px}'
+        . '#cb .cb-tt{width:100%;border-collapse:collapse;font-size:13px}#cb .cb-tt th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.03em;color:#8a7a68;padding:.2rem .3rem;border-bottom:1px solid #EFE6D6}#cb .cb-tt td{padding:.3rem;border-bottom:1px solid #F3ECE0;vertical-align:top}#cb .cb-tt small{color:#8a7a68}#cb .cb-num{white-space:nowrap;font-variant-numeric:tabular-nums}'
+        . '#cb .cb-sys{margin:.0 0 .6rem;padding:0;overflow:hidden}#cb .cb-sh{display:flex;gap:.55rem;align-items:center;padding:.55rem .8rem;background:#F6F0E4}#cb .cb-title{margin:0;font-size:1.05rem;font-weight:700}#cb .cb-sum{margin-left:auto;color:#6b5d4f;text-align:right}#cb .cb-lf{background:none;border:0;padding:.1rem .15rem;color:inherit;font:inherit;text-decoration:underline;text-underline-offset:2px;cursor:pointer;border-radius:.3rem}#cb .cb-lf.on{background:#8FBCA8;color:#1f2a24;text-decoration:none}#cb .cb-lfon{margin:.3rem .8rem;font-size:13px;display:flex;gap:.5rem;align-items:center;flex-wrap:wrap}'
+        . '#cb .cb-row{display:grid;grid-template-columns:.9rem 1.35rem minmax(8rem,13rem) 6.6rem minmax(0,1fr) 9.5rem 6.5rem 3.6rem 10rem;gap:.2rem .7rem;align-items:center;padding:.5rem .8rem}#cb .cb-nm{display:flex;flex-direction:column}#cb .cb-nm small{color:#8a7a68;font-size:11.5px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}#cb .cb-pill{justify-self:start;font-size:11.5px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;padding:.12rem .45rem;border-radius:.3rem;border:1px solid;white-space:nowrap}#cb .cb-pill-ok{background:#E8F3EC;border-color:#B6D9C4;color:#14532D}#cb .cb-pill-bad{background:var(--cb-fail-bg);border-color:var(--cb-fail-line);color:var(--cb-fail)}#cb .cb-pill-hold{background:var(--cb-hold-bg);border-color:var(--cb-hold-line);color:var(--cb-hold)}#cb .cb-pill-off,#cb .cb-pill-new,#cb .cb-pill-warn,#cb .cb-pill-wait{background:#F6F0E4;border-color:#E5D9C3;color:#6b5d4f}#cb .cb-c{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}#cb .cb-k{display:flex;flex-direction:column;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12.5px;font-variant-numeric:tabular-nums}#cb .cb-k b{font-weight:600}#cb .cb-k small{font-size:11.5px;color:#6b5d4f}#cb .cb-k small.cb-good{color:#15803D}#cb .cb-ra{display:flex;gap:.3rem;justify-content:flex-end}'
+        . '#cb .cb-head{padding:.35rem .8rem;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:#8a7a68;border-bottom:1px solid #EFE6D6;background:#FFFBF2}'
+        . '#cb .cb-p{border-top:1px solid #EFE6D6}#cb .cb-p:first-of-type{border-top:0}#cb .cb-p>summary:hover{background:#FBF6EC}#cb .cb-c{font-size:13.5px;color:#4a3f35}#cb .cb-nc{color:#6b5d4f;white-space:nowrap}'
+        . '#cb .cb-b{margin:0 .8rem .7rem 2.9rem;padding:.5rem .8rem;border-left:3px solid #8FBCA8;display:grid;gap:.4rem;background:#FAF5EA;border-radius:0 .4rem .4rem 0}#cb .cb-l-bad{border-left-color:var(--cb-fail)}#cb .cb-l-hold{border-left-color:var(--cb-hold-line)}#cb .cb-l-warn{border-left-color:var(--cb-hold-line)}#cb .cb-l-off,#cb .cb-l-wait,#cb .cb-l-na{border-left-color:#D6CBB8}'
+        . '#cb .cb-kv{display:flex;flex-wrap:wrap;gap:.2rem .5rem;align-items:baseline;font-size:13.5px}#cb .cb-kd{flex:1 1 20rem;min-width:0}#cb .cb-lb{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11.5px;text-transform:uppercase;letter-spacing:.04em;color:#6b5d4f;white-space:nowrap}#cb .cb-chips{display:flex;flex-wrap:wrap;gap:.35rem}#cb .cb-chip{font:inherit;font-size:13px;padding:.2rem .55rem;border-radius:.35rem;border:1px solid #E5D9C3;background:#FFFDF8;color:#2b241d;cursor:pointer;text-align:left}#cb .cb-chip small{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11.5px;color:#6b5d4f}#cb .cb-chip-ok b,#cb .cb-chip-warn b{color:#15803D}#cb .cb-chip-bad{border-color:var(--cb-hold-line);background:var(--cb-hold-bg)}#cb .cb-chip-bad b{color:var(--cb-hold)}#cb .cb-chip-warn{border-color:var(--cb-hold-line)}#cb .cb-chip:hover{border-color:#B45309}#cb .cb-more>summary{font-size:12.5px;color:#92400E;text-decoration:underline;margin-top:.15rem}#cb .cb-rec{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12.5px;color:#15803D}'
+        . '#cb .cb-route{font-size:12.5px;background:#FFFBF2;border:1px solid #EFE6D6;border-radius:.3rem;padding:.15rem .45rem;display:inline-block;white-space:normal}'
+        . '#cb .cb-parts{list-style:none;margin:.3rem 0 0;padding:0;display:grid;gap:.3rem}#cb .cb-parts li{display:flex;gap:.45rem;align-items:flex-start}#cb .cb-parts .cb-m{width:1.15rem;height:1.15rem;margin-top:.1rem}#cb .cb-alarms{margin:.4rem 0}#cb .cb-al{list-style:none;margin:.3rem 0 0;padding:0;display:grid;gap:.5rem}#cb .cb-al li{display:flex;gap:.5rem;align-items:flex-start;padding:.45rem .55rem;border:1px solid #EFE6D6;border-radius:.4rem;background:#FFFDF8}#cb .cb-al li.cb-al-trip{border-color:var(--cb-fail-line);background:var(--cb-fail-bg)}#cb .cb-al li.cb-al-warning{border-color:var(--cb-hold-line)}#cb .cb-al li.cb-al-grp{display:flex}#cb .cb-grp{flex:1 1 auto;min-width:0}#cb .cb-grp>summary{cursor:pointer;list-style:none}#cb .cb-grp>summary::-webkit-details-marker{display:none}#cb .cb-grp[open]>summary .cb-caret{transform:rotate(180deg)}#cb .cb-al-in{margin:.5rem 0 0}#cb .cb-al-in li{background:#fff}#cb .cb-al .cb-acts{margin:.3rem 0 0}#cb .cb-mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11.5px;color:#6b5d4f}#cb .cb-b>*,#cb .cb-kd,#cb .cb-al li>div,#cb .cb-am>span{min-width:0}#cb .cb-al li>div{flex:1 1 auto}#cb .cb-ck{display:flex;gap:.35rem;align-items:flex-start;min-width:0}#cb .cb-ck>.cb-m{flex:none}#cb .cb-ck>.cb-tg,#cb .cb-ck>.cb-ckt{flex:1 1 auto;min-width:0}#cb .cb-tg{display:flex;gap:.3rem;align-items:flex-start;min-width:0;max-width:100%}#cb .cb-tgb{flex:none;display:inline-flex;align-items:center;justify-content:center;width:1.2rem;height:1.2rem;margin-top:.12rem;padding:0;border:1px solid #E5D9C3;border-radius:50%;background:#FFFDF8;color:#B45309;cursor:pointer;transition:transform .15s}#cb .cb-tgb:hover{border-color:#B45309}#cb .cb-tgt{flex:1 1 auto;min-width:0;overflow:hidden;white-space:nowrap;cursor:pointer;-webkit-mask-image:linear-gradient(90deg,#000 80%,transparent);mask-image:linear-gradient(90deg,#000 80%,transparent)}#cb .cb-tg.open .cb-tgb{transform:rotate(90deg)}#cb .cb-tg.open .cb-tgt{white-space:normal;-webkit-mask-image:none;mask-image:none}#cb .cb-old{display:block;color:#6b5d4f}#cb a{color:#92400E}#cb a.ak-b{color:inherit}#cb .cb-good{color:#15803D}#cb .cb-bad{color:var(--cb-fail)}#cb .cb-acct{font-variant-numeric:tabular-nums}#cb .cb-run>summary{font-size:13px;color:#4a3f35}'
+        . '#cb .cb-al,#cb .cb-al li,#cb .cb-al li>*,#cb .cb-grp,#cb .cb-grp>summary,#cb .cb-am,#cb .cb-row>*,#cb .cb-c,#cb a,#cb .cb-lgl li,#cb .cb-lgl li>*{min-width:0;overflow-wrap:anywhere}@media (max-width:767px){#cb .cb-panels>*{min-width:0}#cb .cb-tt{table-layout:fixed}#cb .cb-tt th,#cb .cb-tt td{overflow-wrap:anywhere}#cb #cb-systems td,#cb #cb-systems .akt-sub{overflow-wrap:anywhere}#cb .cb-panel code{word-break:break-all}}@media (max-width:900px){#cb .cb-panels{grid-template-columns:1fr}#cb .cb-stages{grid-template-columns:repeat(3,1fr)}}@media (max-width:600px){#cb .cb-stages{grid-template-columns:repeat(2,1fr)}#cb .cb-row{grid-template-columns:.9rem 1.35rem minmax(0,1fr) auto auto auto}#cb .cb-c{grid-column:3/-1;order:9}#cb .cb-head{display:none}}'
+        . '@media (max-width:767px){#cb .cb-row{grid-template-columns:.9rem 1.35rem minmax(0,1fr) auto;padding:.5rem .6rem;row-gap:.3rem}#cb .cb-pill{grid-column:4;grid-row:1;justify-self:end}#cb .cb-c,#cb .cb-k,#cb .cb-ra{grid-column:3/-1}#cb .cb-c{order:0}#cb .cb-k{flex-direction:row;gap:.4rem;flex-wrap:wrap}#cb .cb-okr{display:none}#cb .cb-none0{display:none}#cb .cb-ra{justify-content:flex-start}#cb .cb-head{display:none}#cb .cb-b{margin:0 .4rem .6rem .4rem}#cb .cb-sh{flex-wrap:wrap;padding:.5rem .6rem}#cb .cb-sum{margin-left:0;flex-basis:100%;text-align:left}#cb .cb-last{margin-left:0}#cb .cb-find .ak-q{flex:1 1 100%;width:auto}}'
+        . '#cb .cb-rsum{margin:.4rem .8rem;padding-left:1.1rem;font-size:13.5px}#cb .cb-rf{display:flex;flex-wrap:wrap;gap:.5rem;align-items:flex-end;margin:.3rem .8rem}#cb .cb-rf label{display:grid;gap:.15rem;font-size:12.5px;min-width:0;max-width:100%}#cb .cb-rf select{max-width:100%}#cb #reports .ak-note{margin:.3rem .8rem .6rem}'
+        . '</style>'
+        . '<script src="/js/tv-time.js?v=' . (int) @filemtime(__DIR__ . '/../../website/js/tv-time.js') . '" defer></script>'
+        . '<script src="/js/admin-control.js?v=' . (int) @filemtime(__DIR__ . '/../../website/js/admin-control.js') . '" defer></script>';
+    return $h;
+}

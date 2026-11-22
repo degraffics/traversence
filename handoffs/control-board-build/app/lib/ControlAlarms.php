@@ -961,6 +961,8 @@ final class ControlAlarms
         try { require_once __DIR__ . '/ControlMaintenance.php'; foreach (ControlMaintenance::tick($pdo) as $m) $did[] = 'maintenance: ' . $m; } catch (Throwable $x) {}
         // the outside heartbeat's records, raised while the site was down, numbered now it's back (02 §0a ruling 6)
         try { require_once __DIR__ . '/ControlIncidents.php'; if ($hb = ControlIncidents::importHeartbeat($pdo)) $did[] = $hb . ' heartbeat record(s) imported'; } catch (Throwable $x) {}
+        // Site health on one path: each new finding of the site audit as a Pulse item, no push (check-register.md, Jason, 2026-11-22)
+        try { require_once __DIR__ . '/SiteHealth.php'; if ($sh = SiteHealth::dispatch($pdo)) $did[] = $sh . ' site audit finding(s) to Pulse'; } catch (Throwable $x) {}
         require_once __DIR__ . '/Automation.php';
         $masterOn = Automation::master($pdo) === null;
         // W0 Indexer: its check-in (every minute or so while it runs)

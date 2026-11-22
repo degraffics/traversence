@@ -192,7 +192,7 @@ says which schema it needs.
 - **Outside this zip (recorded, per the brief):** the crawler worker's 432 fix (`workers/crawler/crawler.py`
   `note_issue`: report any status >= 400 with its status and body) is a separate worker release after the board is live.
 
-### 7. The views: how they're split, and their one contract (2026-11-22 22:50 UTC)
+### 7. The views: how they're split, and their one contract (2026-11-22 22:30 UTC)
 
 Built in parallel by helpers inside this session, each owning its files, all in `handoffs/control-board-build/` (a file
 not yet there starts from its live copy at `7c99b2c`):
@@ -225,6 +225,26 @@ not yet there starts from its live copy at `7c99b2c`):
 - `ControlGauges::workflows(PDO): array` — W0–W14, each `wf, name, kind` (`gauge|list|not_built`), `stage, score,
   setup, measure, target, reading_text, band`.
 - `ControlGauges::source(PDO): array` — `ok, at, from` (where the configuration was read, its time).
+
+### 8. Done by this session (2026-11-22, 22:25–22:40 UTC)
+- **`app/ui/score-gauge.php`** (new): the Arc gauge, from `scorering.py`, on the site's tokens (no new tokens needed:
+  taupe, `--tv-hold`, copper, river, sage's text shade, `--tv-fail`).
+- **The outside heartbeat (D23):** `.github/workflows/heartbeat.yml` (every 20 min, on the branch only; scheduled
+  workflows run only from `main`), `tools/heartbeat/heartbeat.py` and `test_heartbeat.py` (14 pass): page, databases and
+  the watch (rows 53–55); a trip at once; one message while down; Recovered in the same thread; records in
+  `site-audit/heartbeat/records.json`; "not set up (ALARM_TO)" until close.md A1's secrets (`ALARM_TO`,
+  `HEARTBEAT_SES_KEY_ID`, `HEARTBEAT_SES_SECRET`). The site's side: `ControlIncidents::importHeartbeat` from the watch
+  (`tick`), a closed record as a trip with its real times and its IR, source heartbeat, once, nothing sent
+  (`tools/control-board-tests/heartbeat-import.php`, 7 pass).
+- **Site health on one path** (check-register.md, Jason 2026-11-22): `Pulse::items` no longer adds the Site health case
+  (claimed `app/lib/Pulse.php::items`); `SiteHealth::dispatch` (from the watch) sends each open finding once as a Pulse item
+  with no push (`Notify` kind `sitehealth.finding`, in `NO_PUSH`), opening the audit's list on the board's Development tab
+  (`#site-health`, helper B); a stale audit check, a line of the old case, is now a board warning `audit:stale` with its Run
+  links. The case's actions (`sh_mark`, `sh_refresh`, `sh_run`) stay in `Pulse::manage` for the list's buttons.
+- **The test runner:** `tools/control-board-tests/run-all.sh` (each test on a fresh `lv_main` with its Run line's schema;
+  the deleted migrations' tables recreated). On the build: **1,151 pass, 3 known failures** (the bench's `zz_test`
+  endpoint; two `register.php` checks against live files outside this build: `<dt id=…>Its key` and the decisions index
+  quoting `/admin/config/services`). The 12 `.cjs` rendered tests run separately.
 
 ## Next, in the plan's order (§2.2) (superseded by the hand-off above)
 1. Read C15 on staging (§6), and the Ledger tab's rows: read-only, wanted from a runner or Jason.
