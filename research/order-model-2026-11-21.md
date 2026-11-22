@@ -121,8 +121,11 @@ statement."
   - It can't always be stopped: the vendor's answer decides.
   - Built today: the vendor's Accept and its statuses on /wo.php; Cancel on a work order emails the vendor "Please stop
     work order … Reply if anything is already done" (`WorkOrders::cancel`); Reopen for changes only works with no work
-    order out. To confirm: which vendor status marks "entered into the production schedule" (Accepted, or In
-    production).
+    order out.
+  - What closes it (2026-11-22): "once the vendor gives the job number and has enter scheduled the production, so
+    production queue set." The vendor's Accept, with its job number and the production scheduled, sets the order's
+    **Production queue**; that ends the window. (Today's Accept already asks for the job number and who received it,
+    and accepts the must-have date.)
 - The balance must be paid before the order is released for delivery; a late balance holds it before shipping.
 - What a deposit is: "Deposit does not control progress, it is a requirement of partial payment when needed to ensure
   we risk incurring expenses that might be incurred upon entering to production stage."
@@ -139,7 +142,8 @@ movement will be monitored. Once production is complete, pack and ship happens. 
 for delivery. Once received it marks delivered."
 1. **Staged for production:** set when the order is approved. We confirm the product and order meet the production
    requirements.
-2. **Production queue:** on confirming the stage, the work order is created and released to the vendor.
+2. **Production queue:** on confirming the stage, the work order is created and released to the vendor; the queue is
+   set once the vendor accepts it with its job number and has scheduled the production (2026-11-22).
 3. **Work orders processed,** each step of their movement monitored.
 4. **Pack and ship,** once production is complete.
 5. **Released for delivery,** once that's done.
@@ -206,8 +210,8 @@ the pass is the product. It shapes 1.2's client-configured items and 1.8's money
 4. ~~Which route an order takes~~ Answered (1.1): Send cart or Send invoice when sending.
    Wire and check: not in the cart, invoice route only (1.1). (B.4 as
    confirmed exempts "invoice later" from paid in full; 1.9 removes that exemption.)
-5. ~~The deposit's amount~~ Answered (1.8): a % per order set by staff, 65% default. Cancel window: answered (1.9), to confirm
-   which vendor status ends it.
+5. ~~The deposit's amount~~ Answered (1.8): a % per order set by staff, 65% default. Cancel window: answered (1.9); the vendor's
+   Accept with its job number and the production scheduled ends it.
 6. How long a quote's price holds, and a vendor cost that changes.
 7. A change after release (back to held), and after payment but before the vendor.
 8. Shipping price on a client-configured order.
