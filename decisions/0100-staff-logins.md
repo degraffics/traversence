@@ -156,3 +156,14 @@ themselves (the Privacy box and its code are gone; `/user/api/staff-link.php` on
 > `/user/dashboard.php` sends a staff login on to the admin (its password and 2FA stay at `/admin/staff.php`; its member
 > side is the linked member account, through the account switch), and the member Pulse in an admin-only context points
 > to the admin's Pulse. Members, and members with admin access, keep their own dashboard and bell.
+
+## Note (Jason, 2026-11-22): a lost work email is never a dead end
+
+Jason: "The bigger issue over wasnt me is that if someone no longer has access to email of record." Today the code step
+offers only Send a new code and Start again, and a reset's setup link goes to the same mailbox. Approved ("Yes, all of
+it", 2026-11-22), built in Release 3f: **Can't get the email?** on the code step opens a short form (name, a phone or
+another email to reach them) that becomes an owners' Pulse case (CLAUDE.md "never a dead end"; Pulse buttons). Its
+buttons: **Change work email** (`StaffLogin::setEmail`), **Reset the mailbox password** (`CPanelMail`, our own domain),
+and **New setup link** shown to the owner to hand over in person or by phone. After sign-in, staff with no
+authenticator app get one dismissable notice to add it. Recovery codes stay gone (the note above). A "This wasn't me"
+button and the sign-in's location were dropped: the code only reaches the email of record.

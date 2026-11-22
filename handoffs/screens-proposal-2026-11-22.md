@@ -60,7 +60,7 @@ under Ancient America. Not design work.
 1. **Search** (A1–A3, B1, B2): `js/search-panel.js`, `api/search.php` counts.
 2. **Cards and photos** (A4–A6, A13, B3).
 3. **The listing page** (B5).
-4. **3f: sign-in** (A7, A9–A12, B6, B7), as part of Release 3f.
+4. **3f: sign-in** (A7, A9–A12, B7, B8), as part of Release 3f.
 Each its own PR and pop-up; the order set by the session manager.
 
 ## Jason's answers (2026-11-22, pop-up reviewed by the session manager)
@@ -68,5 +68,12 @@ Each its own PR and pop-up; the order set by the session manager.
 - **B1** guide card under the results; **B2** no counts on by-the-minute links, counts on the rest; **B3** no stock photo
   repeated on neighbouring cards and none on memorials; **B7** sentence case and the one link style: all yes.
 - **B5:** Option 1.
-- **B6:** "not sure / explain concerns": explained in chat; waiting on his answer. Not built until he says.
+- **B6:** dropped. Jason, 2026-11-22: "we send an email with a token to from the system so no one can get email unless
+  its the email of records. The bigger issue over wasnt me is that if someone no longer has access to email of record."
+  In its place (his pop-up answer "Yes, all of it", asked after the session manager's review of the proposal, not of
+  this follow-up): **B8, a lost work email**, built into 3f. "Can't get the email?" on the code step opens a short form
+  (name, a phone or other email to reach them) that becomes an owners' Pulse case; the case's buttons are Change work
+  email (`StaffLogin::setEmail`), Reset the mailbox password (`CPanelMail`, our own domain) and New setup link to hand
+  over (shown to the owner, not only emailed); after sign-in, staff with no authenticator app get one dismissable notice
+  to add it. Recorded in decisions/0100 as a dated note.
 Each answer goes into its decision as a dated note when its release is built (0060 for B1–B2, 0143 for B3, 0058 for B5).
