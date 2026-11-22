@@ -53,7 +53,7 @@ def load(path, default):
 
 
 def row(item, result, measured, now, evidence=None, **extra):
-    fid = 'f-' + hashlib.sha1(f'audit|{item}'.encode('utf-8')).hexdigest()[:10]
+    fid = 'f-' + hashlib.sha1(f'audit|{item}|{extra.get("kind", "")}'.encode('utf-8')).hexdigest()[:10]
     return {'check': 'AUDIT', 'item': item, 'who': None, 'target': TARGET, 'result': result, 'measured': measured, 'at': iso(now),
             'evidence': evidence, 'finding': fid if result == 'fail' else None, **extra}
 
@@ -95,7 +95,7 @@ def build(res, now=None):
             result, why = judge_run(run)
             rows.append(row(f'{run.get("check", d.get("check"))} {mode} run ({run.get("started_at", "")[:16].replace("T", " ")} UTC)', result,
                             {k: run.get(k) for k in ('requests', 'page_views', 'calls', 'subrequests', 'seconds', 'gap_ms', 'min_gap_ms', 'one_at_a_time', 'skipped', 'shared_by')},
-                            now, d.get('run_url') or None, why=why))
+                            now, d.get('run_url') or None, kind='run', why=why))
 
     # 2. the probe pages' response times: this light run's sample against each page's 7-day median
     light = (load_json or {}).get('runs', {}).get('light') or {}
@@ -107,14 +107,14 @@ def build(res, now=None):
                 continue
             ms = (r.get('measured') or {}).get('ttfb_ms')
             if isinstance(ms, (int, float)):
-                per_page.setdefault(r['item'].split(' @')[0], []).append(ms)
+                per_page.setdefault(r['item'], []).append(ms)
         fresh = light.get('id') not in sampled
         for page, xs in sorted(per_page.items()):
             ms = statistics.median(xs)
             before = [h['ms'] for h in history if h.get('page') == page]
             if not before:
-                rows.append(row(f'{page} response time', 'no check', {'ms': ms, 'median_7d_ms': None, 'samples': 0}, now, load_json.get('run_url') or None,
-                                why='no earlier sample to compare with yet'))
+                rows.append(row(page, 'no check', {'ms': ms, 'median_7d_ms': None, 'samples': 0}, now, load_json.get('run_url') or None,
+                                kind='response time', why='no earlier sample to compare with yet'))
             else:
                 med = statistics.median(before)
                 ratio = round(ms / med, 2) if med else None
@@ -122,8 +122,8 @@ def build(res, now=None):
                 judged += 1
                 if not ok:
                     slow.append(f'{page} {ms:.0f} ms against a 7-day median of {med:.0f} ms')
-                rows.append(row(f'{page} response time', 'pass' if ok else 'fail', {'ms': ms, 'median_7d_ms': med, 'ratio': ratio, 'samples': len(before)}, now,
-                                load_json.get('run_url') or None))
+                rows.append(row(page, 'pass' if ok else 'fail', {'ms': ms, 'median_7d_ms': med, 'ratio': ratio, 'samples': len(before)}, now,
+                                load_json.get('run_url') or None, kind='response time'))
             if fresh:
                 history.append({'at': light.get('started_at') or iso(now), 'page': page, 'ms': ms})
         if fresh and light.get('id'):

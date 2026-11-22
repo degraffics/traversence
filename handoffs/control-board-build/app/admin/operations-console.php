@@ -420,6 +420,12 @@ function tv_ops_wf_gauges(PDO $pdo): array
     } catch (Throwable $x) { error_log('workflows gauges: ' . $x->getMessage()); return []; }
 }
 
+/** A gauge's colour: its stage's, or at Monitoring its reading against its target (score-gauge.php). */
+function tv_ops_wf_gk(array $g, string $st): string
+{
+    return $st === 'monitor' ? (string) (($g['band'] ?? '') ?: 'none') : $st;
+}
+
 /** A stage as score-gauge.php's key (planning|phased|audit|impl|monitor), from a key or its word. */
 function tv_ops_wf_stage(string $s): string
 {
@@ -501,8 +507,8 @@ function tv_ops_wf_state(PDO $pdo, array $d, string $wf): array
     $on = array_filter($tasks, fn ($t) => (int) $t['enabled'] === 1);
     $g = $d['gauges'][$wf] ?? []; $kind = (string) ($g['kind'] ?? '');
     $serves = $tasks || !empty($d['jobs'][$wf]) || !empty($d['feat'][$wf]);
-    $isList = $kind === 'list' || ($kind === '' && isset(TV_WFP_LIST[$wf]));
-    $notBuilt = !$isList && ($kind === 'not_built' || ($kind === '' && !$serves && $wf !== 'W0'));
+    $isList = $kind === 'list' || isset(TV_WFP_LIST[$wf]);
+    $notBuilt = !$isList && ($kind === 'not_built' || (!$serves && $wf !== 'W0'));
     $r = $d['wfs'][$wf] ?? null; $pp = $r && (int) $r['paused'];
     $groups = [];
     $failed = $d['failed'] && ($d['taskWf']['coverage'] ?? 'W1') === $wf ? (int) $d['failed'] : 0;
@@ -519,6 +525,12 @@ function tv_ops_wf_state(PDO $pdo, array $d, string $wf): array
     } elseif ($left) {   // switches a closed trip left off (R98): amber, under Needs attention
         [$k, $words, $why] = ['a', 'Off by the system: ' . count($left) . ' switch' . (count($left) === 1 ? '' : 'es') . ', left by a closed trip', 'Left off by a trip that has closed (' . (string) $left[0]['left'] . '). Nobody had set these switches before, so they stay off until someone switches them on (R98).'];
         $groups[] = 'att';
+    } elseif ($isList) {
+        [$k, $words, $why] = ['n', 'Nothing to switch: people write', 'W13 is people\'s own: no crawler task, no site job, no switch (SystemStart.php: "W13 is people\'s own").'];
+        $groups[] = 'off';
+    } elseif ($notBuilt) {   // W14 (live-reads C6: it said "Running" with nothing serving it)
+        [$k, $words, $why] = ['n', 'Not built' . (isset(TV_WFP_NOT_BUILT[$wf]) ? ': ' . strtok(TV_WFP_NOT_BUILT[$wf], ' ') : ''), 'Nothing carries it yet: no crawler task, site job or AI feature names ' . $wf . '.' . (isset(TV_WFP_NOT_BUILT[$wf]) ? ' Its ' . TV_WFP_NOT_BUILT[$wf] . ' (03 §26.9–26.10).' : '')];
+        $groups[] = 'off';
     } elseif ($red) {   // a red switch-on line that holds it whole (moved onto its card: §7, R88, R99)
         [$k, $words, $why] = ['a', 'Held by its check: ' . (string) $red[0]['line'], rtrim((string) $red[0]['why'], '. ') . '.'];
         $groups[] = 'att';
@@ -529,12 +541,6 @@ function tv_ops_wf_state(PDO $pdo, array $d, string $wf): array
         $groups[] = 'off';
     } elseif ($pp) {   // a person's pause: paused, never a failure (R109)
         [$k, $words, $why] = ['n', 'Paused: ' . rtrim(trim((string) ($r['paused_why'] ?? '')) ?: 'paused', '. '), 'Set by ' . (trim((string) ($r['by_user'] ?? '')) ?: 'a person') . (!empty($r['paused_at']) ? ', ' . date('M j', (int) strtotime((string) $r['paused_at'])) : '') . '.'];
-        $groups[] = 'off';
-    } elseif ($isList) {
-        [$k, $words, $why] = ['n', 'Nothing to switch: people write', 'W13 is people\'s own: no crawler task, no site job, no switch (SystemStart.php: "W13 is people\'s own").'];
-        $groups[] = 'off';
-    } elseif ($notBuilt) {   // W14 (live-reads C6: it said "Running" with nothing serving it)
-        [$k, $words, $why] = ['n', 'Not built' . (isset(TV_WFP_NOT_BUILT[$wf]) ? ': ' . strtok(TV_WFP_NOT_BUILT[$wf], ' ') : ''), 'Nothing carries it yet: no crawler task, site job or AI feature names ' . $wf . '.' . (isset(TV_WFP_NOT_BUILT[$wf]) ? ' Its ' . TV_WFP_NOT_BUILT[$wf] . ' (03 §26.9–26.10).' : '')];
         $groups[] = 'off';
     } elseif ($tasks && !$on) {
         $p0 = $purpose[0] ?? null;
@@ -649,13 +655,13 @@ function tv_ops_wf_card(array $d, string $wf): string
     $h = '<article class="wfp-card wfp-s-' . $e($s['k']) . '" id="wfp-card-' . $e($wf) . '" data-wfp-g="' . $e(implode(' ', $s['groups'])) . '">'
         . '<button type="button" class="wfp-open" data-wfp-open="wfp-' . $e($wf) . '" aria-label="' . $e('Open ' . $wf . ' ' . $name . ': ' . $s['words']) . '"><span class="wfp-nm"><b>' . $e($wf) . '</b> ' . $e($name) . '</span>';
     if ($s['list']) $h .= '<span class="wfp-list">' . $e(TV_WFP_LIST[$wf] ?? 'A list, not a gauge.') . '</span>';
-    elseif ($g) {
-        $st = tv_ops_wf_stage((string) ($g['stage'] ?? 'planning'));
+    elseif ($g && ($g['stage'] ?? null) !== null) {
+        $st = tv_ops_wf_stage((string) $g['stage']);
         $su = $g['setup'] ?? null; $n = is_array($su) ? count(array_filter($su)) : (is_numeric($su) ? (int) $su : null);
         $sc = isset($g['score']) && $g['score'] !== null ? (float) $g['score'] : null;
-        $h .= tv_score_gauge($sc, $wf . ' ' . $name . ': ' . ($sc === null ? 'no score' : round($sc) . ' percent') . ', ' . TV_SG_STAGES[$st][0], $st === 'monitor' ? (string) ($g['band'] ?? 'none') : $st)
+        $h .= tv_score_gauge($sc, $wf . ' ' . $name . ': ' . ($sc === null ? 'no score' : round($sc) . ' percent') . ', ' . TV_SG_STAGES[$st][0], tv_ops_wf_gk($g, $st))
             . tv_score_stage_pill($st) . ($n !== null && $st !== 'monitor' ? '<span class="wfp-su">setup: ' . $n . ' of 4</span>' : (($g['reading_text'] ?? '') !== '' ? '<span class="wfp-su">' . $e((string) $g['reading_text']) . '</span>' : ''));
-    } else $h .= '<span class="wfp-su">Its gauge isn\'t read yet</span>';
+    } else $h .= tv_score_gauge(null, $wf . ' ' . $name . ': its gauge isn\'t checked yet', 'none') . '<span class="wfp-su">Its gauge: ' . $e((string) ($g['reading_text'] ?? 'not checked yet')) . '</span>';
     $h .= tv_ops_wf_lt($s['k'], $s['words']);
     if ($s['failed']) $h .= tv_ops_wf_lt('a', $s['failed'] . ' crawl job' . ($s['failed'] === 1 ? '' : 's') . ' failed');
     if ($s['empty']) $h .= tv_ops_wf_lt('a', 'Returns empty: ' . implode(', ', array_column($s['empty'], 'name')));
@@ -721,12 +727,13 @@ function tv_ops_wf_page(PDO $pdo, string $wf, ?array $d = null, string $csrf = '
     }
     // its gauge (§5)
     if ($s['list']) $h .= '<h4 class="wfp-g">A list, not a gauge</h4><p class="ak-note">' . $e(TV_WFP_LIST[$wf] ?? '') . '</p>';
-    elseif ($g) {
-        $st = tv_ops_wf_stage((string) ($g['stage'] ?? 'planning')); $sc = isset($g['score']) && $g['score'] !== null ? (float) $g['score'] : null;
-        $h .= '<h4 class="wfp-g">Its gauge</h4><div class="wfp-gz">' . tv_score_gauge($sc, $wf . ': ' . ($sc === null ? 'no score' : round($sc) . ' percent') . ', ' . TV_SG_STAGES[$st][0], $st === 'monitor' ? (string) ($g['band'] ?? 'none') : $st, ['big' => true]) . tv_score_stage_pill($st) . '</div>'
+    elseif ($g && ($g['stage'] ?? null) !== null) {
+        $st = tv_ops_wf_stage((string) $g['stage']); $sc = isset($g['score']) && $g['score'] !== null ? (float) $g['score'] : null;
+        $h .= '<h4 class="wfp-g">Its gauge</h4><div class="wfp-gz">' . tv_score_gauge($sc, $wf . ': ' . ($sc === null ? 'no score' : round($sc) . ' percent') . ', ' . TV_SG_STAGES[$st][0], tv_ops_wf_gk($g, $st), ['big' => true]) . tv_score_stage_pill($st) . '</div>'
             . '<p class="ak-note">Measure: ' . $e((string) ($g['measure'] ?? '')) . '; target: ' . $e((string) ($g['target'] ?? 'set by Jason')) . ' <span class="wfp-appr">approved (Jason, 2026-11-22)</span>.' . (($g['reading_text'] ?? '') !== '' ? ' Reading: ' . $e((string) $g['reading_text']) . '.' : '') . '</p>';
-        if (is_array($g['setup'] ?? null)) { $h .= '<ul class="wfp-l wfp-su2">'; foreach (['probe' => 'The probe built', 'target' => 'Its target set', 'check' => 'Its check passing', 'alarm' => 'Its alarm wired to the board'] as $sk => $sl) if (array_key_exists($sk, $g['setup'])) $h .= '<li>' . ($g['setup'][$sk] ? '✓' : '·') . ' ' . $e($sl) . '</li>'; $h .= '</ul>'; }
+        if (is_array($g['setup'] ?? null)) { $h .= '<ul class="wfp-l wfp-su2">'; foreach (['probe' => 'The probe built', 'target' => 'Its target set', 'check' => 'Its check passing', 'alarm' => 'Its alarm wired to the board'] as $sk => $sl) if (array_key_exists($sk, $g['setup'])) $h .= '<li>' . ($g['setup'][$sk] ? '✓' : '·') . ' ' . $e($sl) . (!empty($g['setup_why'][$sk]) ? ': ' . $e((string) $g['setup_why'][$sk]) : '') . '</li>'; $h .= '</ul>'; }
     }
+    elseif (!$s['list']) $h .= '<h4 class="wfp-g">Its gauge</h4><p class="ak-note">' . $e((string) ($g['reading_text'] ?? 'Not checked yet')) . ': its setup and reading come from the gauges\' file (ControlGauges).</p>';
     // what starts it (the run schedule) and what serves it (R27, R142, R164)
     $spec = null; try { $spec = WorkflowSettings::current($pdo, $wf); } catch (Throwable $x) {}
     if ($spec) $h .= '<h4 class="wfp-g">What starts it</h4><p class="ak-note">' . $e((string) $spec['starts']['schedule']) . ((string) ($spec['starts']['triggers'] ?? '') !== '' ? ' ' . $e((string) $spec['starts']['triggers']) : '') . '</p>';
@@ -869,6 +876,7 @@ function tv_ops_wf_paths(array $d, string $wf): string
     $ul = fn (array $xs, string $none) => $xs ? '<ul class="wfp-l"><li>' . implode('</li><li>', $xs) . '</li></ul>' : '<p class="ak-note">' . $e($none) . '</p>';
     // Workflows ▸: the board's gauges it feeds (ControlGauges::runtime paths), who it sends work to and who sends it work (§4)
     $feeds = [];
+    foreach ((array) ($d['gauges'][$wf]['feeds'] ?? []) as $fd) $feeds[] = '<b>' . $e(is_array($fd) ? (string) ($fd[1] ?? $fd['title'] ?? $fd[0] ?? '') : (string) (class_exists('ControlGauges') ? (ControlGauges::RT_FALLBACK[$fd] ?? $fd) : $fd)) . '</b>';
     foreach ($d['runtime'] as $rg) foreach ((array) ($rg['paths']['workflows'] ?? []) as $p) if ((string) ($p[0] ?? '') === $wf || (string) ($p[0] ?? '') === 'wf:' . $wf) $feeds[] = '<b>' . $e((string) ($rg['title'] ?? $rg['id'] ?? '')) . '</b>';
     $to = []; $from = [];
     foreach (TV_WFP_SENDS as [$a, $b, $why, $ln]) { if ($a === $wf) $to[] = $wn($b) . ': ' . $e($why) . ' <small>(research/crawler-how-it-runs-2026-11-14.md' . $e($ln) . ')</small>'; if ($b === $wf) $from[] = $wn($a) . ': ' . $e($why) . ' <small>(research/crawler-how-it-runs-2026-11-14.md' . $e($ln) . ')</small>'; }

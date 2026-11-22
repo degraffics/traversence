@@ -56,9 +56,12 @@ const sha = (s) => createHash('sha1').update(s).digest('hex');
 /** A finding id like findings.py's ('f-' + 10 hex), stable for the check and the item. */
 export const fid = (check, item) => 'f-' + sha(`${check.toLowerCase()}|${item}`).slice(0, 10);
 /** One row of the register's one results format (check-register.md "One results format"). */
+// item is the bare route (as in site-audit/pages.md), so the gauges (gauges.py) match rows by route; the size, the input
+// and why ride beside it. The finding id also takes the size and input, so each row's failure has its own id.
 export function row(check, item, who, result, measured, evidence = RUN_URL || null, extra = {}) {
+  const key = [item, extra.size, extra.input].filter(Boolean).join(' ');
   return { check, item, who: who || null, target: REGISTER[check].target, result, measured, at: new Date().toISOString().replace(/\.\d+Z$/, 'Z'),
-    evidence, finding: result === 'fail' ? fid(check, item) : null, ...extra };
+    evidence, finding: result === 'fail' ? fid(check, key) : null, ...extra };
 }
 export const p75 = (xs) => { const a = xs.filter((x) => typeof x === 'number' && isFinite(x)).sort((x, y) => x - y); if (!a.length) return null; return a[Math.min(a.length - 1, Math.ceil(0.75 * a.length) - 1)]; };
 
@@ -181,7 +184,7 @@ export async function runPass({ checks, mode = process.env.LOAD_MODE || 'full', 
     const ctx = await checkContext(browser); meter.attach(ctx); await ctx.addInitScript(INIT);
     try { if (signIn) { await meter.pace(); await signIn(ctx); } } catch (e) { skipped.push(...urls.map((u) => [u, who, 'sign-in failed: ' + String(e).slice(0, 120)])); await ctx.close(); continue; }
     for (const url of urls) for (const size of sizes) {
-      const item = `${url} @${size === 'phone' ? 390 : 1280}`;
+      const item = url;
       if (Date.now() > deadline) { skipped.push([url, who, `out of the run's time (LOAD_BUDGET_S=${budgetS})`, size]); continue; }
       const p = await ctx.newPage(); await p.setViewportSize(SIZES[size]);
       try {
@@ -210,7 +213,7 @@ export async function runPass({ checks, mode = process.env.LOAD_MODE || 'full', 
   }
   await browser.close();
   for (const [url, who, why, size] of skipped) for (const c of checks) for (const s of size ? [size] : sizes)
-    out[c].push(row(c, `${url} @${s === 'phone' ? 390 : 1280}`, who, 'no check', null, null, { size: s, why }));
+    out[c].push(row(c, url, who, 'no check', null, null, { size: s, why }));
   const run = meter.summary({ shared_by: checks, pages: pages.length });
   // LOAD's summary row: the 75th percentile over every page measured, against the target
   if (out.LOAD) {
