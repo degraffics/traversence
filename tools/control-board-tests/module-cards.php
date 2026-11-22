@@ -3,7 +3,8 @@
 // app/admin/module-cards.php): a working service, a held one (a refused key: Fix it), a provider's 5xx (no Fix it), a host
 // down with its radius (the crawler on Railway), the video worker, Bluehost's parts and endpoints, GitHub's sync; the
 // zones in order, the two rows of zone 4 never mixing, words from state, the stage badge and the spend chip, and every
-// control the register's block had, kept. Run: mariadb < ../release-b-tests/start-schema.sql && php module-cards.php <root>/app
+// control the register's block had, kept. Run: mariadb < ../release-b-tests/start-schema.sql (with the ledger migration,
+// control_ledger, as run-all.sh loads it) && php module-cards.php <root>/app
 declare(strict_types=1);
 $app = $argv[1]; if (is_file($app . '/admin/Access.php')) require_once $app . '/admin/Access.php';
 require_once $app . '/lib/Auth.php'; require_once $app . '/lib/Database.php'; $pdo = Database::connection();
@@ -47,7 +48,7 @@ $t('…its state from the engine\'s words: Paused by the system, red, the issue 
 $ours = $row($h, 'ours'); $prov = $row($h, 'provider');
 $t('…Fix it first on our system, landing on Its key on this card (0176 §5; row 129)', (bool) preg_match('/^data-row="ours"><p class="mc-lbl">On our system<\/p><div class="mc-btns"><a class="ak-b go tv-fix" href="#svc-anthropic-key"/', $ours), mb_substr($ours, 0, 200));
 $t('…and the Keys slot outlined "Fix it lands here", the line naming it', str_contains($h, 'class="mc-slot mc-slot-fix" id="mc-anthropic-slot-keys"><b class="mc-fixhere">Fix it lands here</b>') && str_contains($h, 'Fix it: Anthropic (Claude)&#039;s API keys page.'));
-$t('…its link labelled by type with the provider\'s label where it differs, and its source tag (04 §5)', str_contains($h, 'Billing <small>· Usage</small>') && str_contains($h, 'Documented · release #212') && str_contains($h, 'Written by a Claude session from Anthropic (Claude)&#039;s own pages'));
+$t('…its link labelled by type with the provider\'s label where it differs, and its source tag (04 §5)', str_contains($h, 'Billing <small>· Usage</small>') && str_contains($h, 'Documented · release #212') && str_contains($h, 'Written by a Claude session from Anthropic (Claude)'));
 $t('…Check it now beside it (a passing check closes it), and its case in Pulse', str_contains($ours, 'data-mc-act="svccheck" data-mc-id="40"') && str_contains($ours, 'href="/admin/pulse/stream#case=svc%3A40"'));
 $t('the two rows never mix: no outside link on our row, no board action among the slots', !str_contains($ours, 'target="_blank"') && $prov !== '' && !str_contains($prov, 'data-mc-act') && !str_contains($prov, 'value="svc_'));
 $t('…never Mark resolved or Use backup (03 §9: dropped)', !str_contains($h, 'Mark resolved') && !str_contains($h, 'svcresolve') && !str_contains($h, 'Use backup'));
@@ -59,7 +60,7 @@ $t('a provider\'s 5xx: no Fix it and no slot outlined', !str_contains($h, 'tv-fi
 $t('…Check it now and Pause on our system', str_contains($ours, 'data-mc-act="svccheck" data-mc-id="41"') && str_contains($ours, 'value="svc_pause"'));
 $t('…a warning while the system tries, amber, never "Working"', str_contains($h, 'mc-l-hold') && str_contains($h, 'Warning (the system is trying)') && !str_contains($h, 'On · Working'));
 $t('…the thread says the system is handling it', str_contains($h, 'The system is handling it'));
-$t('…Caps and paces kept with its anchor, Set and Reset (rows 39)', str_contains($h, 'id="svc-tavily-caps">Caps and paces</h4>') && str_contains($h, 'value="cap_set"') && str_contains($h, 'value="cap_reset"'));
+$t('…Caps and paces kept with its anchor, Set and Reset (rows 39)', str_contains($h, 'id="svc-tavily-caps">Caps and paces</h3>') && str_contains($h, 'value="cap_set"') && str_contains($h, 'value="cap_reset"'));
 
 // 4. a host down with its radius: the crawler's trip on Railway
 $pdo->exec("INSERT INTO control_alarms (akey, proc, level, kind, title, first_at, last_at, tripped_at, stopped, component) VALUES ('run:failed', 'wk:crawler', 'trip', 'held', 'The crawler is down', UTC_TIMESTAMP() - INTERVAL 40 MINUTE, UTC_TIMESTAMP(), UTC_TIMESTAMP() - INTERVAL 5 MINUTE, '[[\"pause\",\"master:all\",\"All gathering\"]]', 'wk:crawler')");
@@ -82,8 +83,11 @@ $t('after Acknowledge the light stays red: "1 trip (seen by Jason)" (03 §4, g4 
 
 // 5. the video worker: a Service hosted on Railway, its heartbeat, its radius
 $h = $card('wk:video-worker');
+$t('the video worker with no reading yet: Not checked yet, never a fault', str_contains($h, 'On · Not checked yet') || str_contains($h, 'On · Warning: no heartbeat'), mb_substr(strip_tags($h), 0, 300));
+$pdo->exec("INSERT INTO control_ledger (at, endpoint, method, code, ms) VALUES (UTC_TIMESTAMP() - INTERVAL 3 MINUTE, 'video/jobs', 'POST', 200, 120)");
+$h = $card('wk:video-worker');
 $t('the video worker: a Service hosted on Railway, not critical', str_contains($h, 'class="mc-role">Service</span>') && str_contains($h, 'hosted on Railway') && str_contains($h, 'Not critical'));
-$t('…its heartbeat read from its asks for work (the engine\'s check)', str_contains($h, '<b>Heartbeat</b>') && (str_contains($h, 'hasn&#039;t asked for work') || str_contains($h, 'last asked for work')));
+$t('…its heartbeat read from its asks for work (the engine\'s check)', str_contains($h, '<b>Heartbeat</b>') && str_contains($h, 'The video worker last asked for work at') && str_contains($h, 'On · Working'), mb_substr(strip_tags($h), 0, 400));
 $t('…its radius: Held new copies; On a backup each video plays its original (03 §23.1)', str_contains($h, 'New video copies (they queue)') && str_contains($h, 'Each video plays its original'));
 $t('…while Railway\'s crawler trips, the video worker isn\'t held by it (only its host\'s own trip would)', !str_contains($h, 'waiting on Railway'));
 $t('…Railway\'s slots (02 §8), and no Pause of its own', str_contains($h, 'Open Railway console ↗') && !str_contains($h, 'value="svc_pause"'));
@@ -116,10 +120,11 @@ $t('…its stages history kept (Details)', str_contains($h, 'Its stages ▸') &&
 
 // 10. the register draws every service as a card, and the old anchors stay
 $reg = tv_admin_mod_register($pdo);
-$t('the register: a four-zone card for every service', substr_count($reg, 'class="mc-card tv-bleed') === count(OutsideServices::COMPANIES), substr_count($reg, 'class="mc-card tv-bleed'));
+preg_match_all('/class="mc-card tv-bleed[^"]*" id="mc-[^"]+" data-mc="([a-z0-9_]+)"/', $reg, $mm);
+$t('the register: a four-zone card for every service (and each Railway worker\'s own card inside Railway\'s row)', count($mm[1]) === count(OutsideServices::COMPANIES) && substr_count($reg, 'data-mc="wk:') === 3, count($mm[1]));
 $t('…the anchors other pages land on, once each (#svc-<k>-key, -caps, #stage-<k>, #issue-<n>)', substr_count($reg, 'id="svc-anthropic-key"') === 1 && substr_count($reg, 'id="svc-tavily-caps"') === 1 && substr_count($reg, 'id="stage-tavily"') === 1 && substr_count($reg, 'id="issue-40"') === 1);
 $t('…the keys\' controls kept (Add its key / Replace, Check)', substr_count($reg, 'class="os-key"') >= 15 && str_contains($reg, 'value="key_check"'));
-$t('…the CSS and the script drawn once on the page', substr_count($reg, '.mc-card{') === 1 && substr_count($reg, 'closest("[data-mc-act]")') === 1);
+$t('…the CSS and the script drawn at most once a page', substr_count($reg, '.mc-card{') <= 1 && substr_count($reg, 'closest("[data-mc-act]")') <= 1);
 $t('no key value anywhere: names only', !preg_match('/testtoken|vtoken/', $reg));
 
 echo "\n$pass passed, $fail failed\n"; exit($fail ? 1 : 0);

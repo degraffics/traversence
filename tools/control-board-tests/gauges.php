@@ -151,31 +151,70 @@ $t('9c. a failure is kept 10 minutes, not refetched on every page', is_array(Pag
 
 // ---- 10. a signed gauge, and a regression from the file ------------------------------------------------------------
 $cfg = json_decode((string) file_get_contents($file), true);
-$one = ['id' => 'x', 'title' => 'X', 'signed' => true, 'list' => [$item('a', $all), $item('b', $all)], 'paths' => []];
+$one = ['id' => 'x', 'title' => 'X', 'signed' => true, 'm' => [['111111', 1, 0], ['111111', 1, 0]], 'paths' => []];   // the compact form: six characters an item
 $cfg['development'] = [$one]; file_put_contents($tmp . '/one.json', json_encode($cfg));
 $pdo->exec("DELETE FROM page_cache WHERE cache_key LIKE 'gauges:%'"); ControlGauges::forget(); ControlGauges::$source = $tmp . '/one.json';
 $d = ControlGauges::development($pdo)[0];
 $t('10a. signed and every criterion met: Monitoring at 100', $d['stage'] === 'Monitoring' && $d['score'] === 100.0 && $d['k'] === 'monitor', $d);
-$cfg['development'][0]['list'][1]['met'] = ['decided', 'built', 'checked', 'reviewed', 'live'];   // its path check stopped passing: "proved" taken away
+$cfg['development'][0]['m'][1][0] = '111110';   // its path check stopped passing: "proved" taken away
 file_put_contents($tmp . '/one.json', json_encode($cfg));
 $pdo->exec("DELETE FROM page_cache WHERE cache_key = 'gauges:now'"); ControlGauges::forget();
 $d = ControlGauges::development($pdo)[0];
 $t('10b. a criterion stops holding: the score drops and the stage moves back to Implementation, with its reason', $d['stage'] === 'Implementation' && round($d['score'], 1) === 91.7
-   && ($d['moved_back']['from'] ?? '') === 'Monitoring' && str_contains($d['moved_back']['why'] ?? '', 'b: not proved'), $d);
-$t('10c. logged in the logbook', (int) $pdo->query("SELECT COUNT(*) FROM control_log WHERE proc = 'gauge:dev:x' AND why LIKE 'b: not proved%'")->fetchColumn() === 1);
+   && ($d['moved_back']['from'] ?? '') === 'Monitoring' && ($d['moved_back']['why'] ?? '') === '1 of 2 items not proved', $d);
+$t('10c. logged in the logbook', (int) $pdo->query("SELECT COUNT(*) FROM control_log WHERE proc = 'gauge:dev:x' AND why = '1 of 2 items not proved'")->fetchColumn() === 1);
+
+// ---- 10b. what the site caches stays under 60 KB, and reads back whole or not at all -----------------------------------
+// (the live page_cache.body column's size isn't known: only SiteHealth's ~15 KB is proven; the coordinator, 2026-11-22)
+$pdo->exec("DELETE FROM page_cache WHERE cache_key LIKE 'gauges:%'"); ControlGauges::forget(); ControlGauges::$source = $file;
+ControlGauges::development($pdo);
+$len = (int) $pdo->query("SELECT MAX(LENGTH(body)) FROM page_cache WHERE cache_key LIKE 'gauges:%'")->fetchColumn();
+$t('10d. the configuration the site caches is under 60 KB as stored', $len > 0 && $len <= ControlGauges::CACHE_MAX, $len);
+$pdo->exec("UPDATE page_cache SET body = LEFT(body, 20000) WHERE cache_key = 'gauges:now'");   // a column that cut it short
+ControlGauges::forget(); ControlGauges::$source = $tmp . '/gone.json';
+$src = ControlGauges::source($pdo); $dev = ControlGauges::development($pdo);
+$t('10e. a truncated cached value is unreadable: the last good copy is kept', $src['ok'] && $src['kept'] && $dev[0]['checked'] && count($dev) === 16, $src);
+$pdo->exec("UPDATE page_cache SET body = LEFT(body, 20000) WHERE cache_key LIKE 'gauges:%'"); ControlGauges::forget();
+$src = ControlGauges::source($pdo); $dev = ControlGauges::development($pdo);
+$t('10f. the last good copy truncated too: not checked yet, never a half-read gauge', !$src['ok'] && !$dev[0]['checked'] && $dev[0]['text'] === 'not checked yet', $src);
+// a file over the limit: the app's own file cache where there is one, else read again at most hourly, saying why
+$big = json_decode($raw0 = (string) file_get_contents($file), true); $big['runtime'][0]['measure'] = str_repeat('x', 70000);   // a field the site keeps
+file_put_contents($tmp . '/big.json', json_encode($big)); @mkdir($tmp . '/store');
+$pdo->exec("DELETE FROM page_cache WHERE cache_key LIKE 'gauges:%'"); ControlGauges::forget(); ControlGauges::$source = $tmp . '/big.json'; ControlGauges::$fileCache = $tmp . '/store';
+$src = ControlGauges::source($pdo);
+$inDb = (int) $pdo->query("SELECT COUNT(*) FROM page_cache WHERE cache_key LIKE 'gauges:%'")->fetchColumn();
+$t('10g. over 60 KB: never put in page_cache; kept in the file cache instead', $src['ok'] && $inDb === 0 && is_file($tmp . '/store/gauges-cache-gauges-now.json'), [$src, $inDb]);
+ControlGauges::forget(); ControlGauges::$source = $tmp . '/gone.json';
+$t('10h. read back from the file cache', ControlGauges::source($pdo)['ok']);
+array_map('unlink', glob($tmp . '/store/*') ?: []); ControlGauges::$fileCache = $tmp . '/no-such-dir'; ControlGauges::forget(); ControlGauges::$source = $tmp . '/big.json';
+$src = ControlGauges::source($pdo);
+$marker = PageCache::get($pdo, 'gauges:now');
+$t('10i. over 60 KB with no file cache: not checked yet, why said, read again at most hourly (a small marker kept)', !$src['ok'] && str_contains($src['error'], 'too big') && is_array($marker) && strlen((string) json_encode($marker)) < 1000, $src);
+ControlGauges::$fileCache = null;
+// a drawer's detail: gauges-items.json, read when it opens, kept per gauge under 60 KB
+$pdo->exec("DELETE FROM page_cache WHERE cache_key LIKE 'gauges:%'"); ControlGauges::forget(); ControlGauges::$source = $file;
+$dd = ControlGauges::detail($pdo, 'development', 'discovery');
+$t('10j. a development gauge\'s detail: its 30 items by name, each with criteria met, checks and review', is_array($dd) && count($dd['list']) === 30 && isset($dd['list'][0]['name'], $dd['list'][0]['met'], $dd['list'][0]['review']), $dd ? array_keys($dd) : null);
+$rd = ControlGauges::detail($pdo, 'runtime', 'o-told');
+$t('10k. a runtime gauge\'s detail: setup\'s words, needs and sources', is_array($rd) && isset($rd['setup_why']['check'], $rd['needs']), $rd);
+$len = (int) $pdo->query("SELECT MAX(LENGTH(body)) FROM page_cache WHERE cache_key LIKE 'gauges:item:%'")->fetchColumn();
+$cnt = (int) $pdo->query("SELECT COUNT(*) FROM page_cache WHERE cache_key LIKE 'gauges:item:%'")->fetchColumn();
+$t('10l. one read keeps every gauge\'s detail, each under 60 KB', $cnt === 16 + 23 + 15 && $len <= ControlGauges::CACHE_MAX, [$cnt, $len]);
+$t('10m. a detail not there: null', ControlGauges::detail($pdo, 'runtime', 'o-nothing') === null && ControlGauges::detail($pdo, 'bad', 'x') === null);
 
 // ---- 11. gauges.py --check ------------------------------------------------------------------------------------------
 $py = $repo . '/tools/page-audit/gauges.py';
 exec('python3 ' . escapeshellarg($py) . ' --check 2>&1', $o1, $rc1);
-$t('11a. the committed gauges.json is current', $rc1 === 0, implode("\n", $o1));
+$t('11a. the committed gauges.json and gauges-items.json are current', $rc1 === 0, implode("\n", $o1));
 $raw = (string) file_get_contents($file);   // edited as text: a PHP round trip would turn {} into []
+copy(dirname($file) . '/gauges-items.json', $tmp . '/gauges-items.json');   // --check reads both, side by side
 file_put_contents($tmp . '/same.json', preg_replace('/"generated_at": "[^"]*"/', '"generated_at": "2000-01-01T00:00:00Z"', $raw, 1));
 exec('python3 ' . escapeshellarg($py) . ' --check --out ' . escapeshellarg($tmp . '/same.json') . ' 2>&1', $o2, $rc2);
 $t('11b. only generated_at differing: still current', $rc2 === 0, implode("\n", $o2));
-file_put_contents($tmp . '/stale.json', preg_replace('/"preview": [0-9.]+/', '"preview": 1.5', $raw, 1));
+file_put_contents($tmp . '/stale.json', str_replace('"title": "Discovery"', '"title": "Discovery (edited)"', $raw));
 exec('python3 ' . escapeshellarg($py) . ' --check --out ' . escapeshellarg($tmp . '/stale.json') . ' 2>&1', $o3, $rc3);
 $t('11c. a stale file fails, saying how to remake it', $rc3 === 1 && str_contains(implode("\n", $o3), 'stale'), implode("\n", $o3));
 
-array_map('unlink', glob($tmp . '/*') ?: []); @rmdir($tmp);
+@rmdir($tmp . '/store'); array_map('unlink', glob($tmp . '/*') ?: []); @rmdir($tmp);
 echo "\n$pass passed, $fail failed\n";
 exit($fail ? 1 : 0);

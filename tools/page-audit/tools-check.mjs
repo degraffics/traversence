@@ -14,8 +14,9 @@
 //     a clean answer in the site's one format, never a server error (0145 §1: "with good input, bad input and empty input").
 // A tool fails when it answers with a server error or not in the one format, refuses without a reason, or lets in someone
 // signed out or a member (0145 §1: "lets in someone it shouldn't fails"). A staff answer that differs from the code's rule is
-// "partial" (a rule saved in System Configuration → Permissions can change who may). Every other tool is "partial" until
-// site-audit/tools.md exists to say what its result should be: the target compares against it, and it isn't written yet.
+// "partial" (a rule saved in System Configuration → Permissions can change who may). A refusal with the reason, where the
+// rule says so, passes. A tool that lets in whom it should is "partial" until site-audit/tools.md exists to say what its
+// result should be: the target compares against it, and it isn't written yet.
 // The business portal's tools (business/…) are reached in the portal, not this endpoint: listed as "no check".
 //
 //   SITE=https://traversence.com CHECK_ACCOUNTS='{…}' TOOLS_PHP=mirror/sync-app/admin/tools.php \
@@ -122,7 +123,8 @@ export async function main() {
       if (a.answer === 'broken') result = 'fail';
       else if (!acct && a.answer === 'used') { result = 'fail'; a.why = 'let in someone who isn\'t staff'; }
       else if (acct && expected !== null && (a.answer === 'used') !== expected) { result = 'partial'; a.why = `${a.answer} where the code's rule says ${a.expected}: a rule saved in System Configuration → Permissions may have changed it`; }
-      else result = 'partial';   // right answer, right access: what it should return waits on site-audit/tools.md
+      else if (a.answer === 'refused') result = 'pass';   // refused with the reason, as the rule says: the target's second half, fully read
+      else result = 'partial';   // let in, as the rule says: what it should return waits on site-audit/tools.md
       if (result === 'partial' && !a.why) a.why = hasInventory ? 'its expected result isn\'t compared yet' : 'site-audit/tools.md doesn\'t exist yet';
       rows.push(row('TOOLS', item, who, result, a, RUN_URL || null, { input: 'good' }));
       if (acct && a.answer === 'used' && !firstMay[t.key]) firstMay[t.key] = who;

@@ -1,6 +1,6 @@
 <?php
 // app/admin/automation-console.php — System Configuration → Automation (Jason, 2026-11-14; decisions/0163 §9): the master
-// switch over everything that gathers or creates content, each workflow W1–W13, each capture task, and each outside
+// switch over everything that gathers or creates content, each workflow W0–W14, each capture task, and each outside
 // service, with who set each switch, when and why. The rule (app/lib/Automation.php): a call happens only when the master,
 // its workflow, its task and its service are all on. A paused thing shows as paused, never as a failure.
 declare(strict_types=1);
@@ -18,7 +18,7 @@ function tv_admin_mod_automation(PDO $pdo): string
     // the switch-on check (decisions/0163 §10): a red line keeps its part paused; the master waits for every line
     $gate = function (string $scope, string $what) use ($pdo): void {
         $red = Operations::blocking($pdo, $scope);
-        if ($red) throw new RuntimeException($what . ' stays off: the switch-on check has ' . count($red) . ' red line' . (count($red) === 1 ? '' : 's') . ($scope === 'all' ? '' : ' for it') . ', first "' . $red[0]['line'] . '" (' . $red[0]['why'] . '). See Check before switching on, on the Workflow board.');
+        if ($red) throw new RuntimeException($what . ' stays off: the switch-on check has ' . count($red) . ' red line' . (count($red) === 1 ? '' : 's') . ($scope === 'all' ? '' : ' for it') . ', first "' . $red[0]['line'] . '" (' . $red[0]['why'] . '). See Check before switching on, in the board\'s Pre-flight.');
     };
     [$can, $why] = Access::can('config.automation', ['min' => 'executive', 'depts' => []]);
     $me = Access::staff(); $uid = (int) (Auth::currentUserId() ?? 0);
@@ -90,13 +90,13 @@ function tv_admin_mod_automation(PDO $pdo): string
     $h .= '<div class="ak-card tv-bleed au-m">' . ControlBoard::pausedHtml($pdo, 'au-paused') . '</div>';
     // Start the system (Jason, 2026-11-15): the whole switch-on in one press, carried on by the server
     $h .= SystemStart::panel($pdo, $csrf, $can, (string) $why);
-    // the switch-on check, in short (the lines are on the Workflow board)
+    // the switch-on check, in short (the lines are in the board's Pre-flight, its switchon group)
     $chk = Operations::switchOnCheck($pdo); $red = array_values(array_filter($chk, fn ($l) => !$l['ok']));
     // what each red line holds, as it is now (2026-11-18: it said "Switch automation on is refused … until Release B" while
     // the master was on and Release B long shipped): a line for everything holds the master; any other holds only its part
     $redAll = array_values(array_filter($red, fn ($l) => $l['scope'] === 'all'));
     $holds = fn ($l) => $l['scope'] === 'all' ? 'holds everything' : (in_array($l['scope'], ['keys', 'schedule'], true) ? 'Start sees to it' : 'holds only ' . $l['scope']);
-    $see = '<p class="ak-note"><a class="underline" href="/admin/config/board#check">See each line and its fix</a></p>';
+    $see = '<p class="ak-note"><a class="underline" href="/admin/config/control?tab=preflight#pf-g-switchon" data-peek-frame>See each line and its fix</a></p>';   // the check moved to Start-up's pre-flight (workflows-page.md §7)
     // "Check before switching on" only before Start or while the master is off; once the system is on, the same lines are its
     // diagnostics (0175's note: "once something is active it is not longer preflight, it is diagnostics")
     $before = $master || !in_array((string) (SystemStart::state($pdo)['state'] ?? 'idle'), ['done', 'running'], true);
@@ -124,8 +124,11 @@ function tv_admin_mod_automation(PDO $pdo): string
         $r = $wfs[$wf] ?? null; $p = $r && (int) $r['paused'];
         $mine = array_filter($tasks, fn ($t) => $t['wf'] === $wf);
         $serves = array_filter(['Crawler tasks: ' . implode(', ', array_map(fn ($t) => (string) $t['name'], $mine)) => (bool) $mine, 'Jobs: ' . implode(', ', $jobs[$wf] ?? []) => isset($jobs[$wf]), 'AI: ' . implode(', ', $feat[$wf] ?? []) => isset($feat[$wf])]);
+        // words follow the state (live-reads C6, D4): W13 is a list (people write; nothing runs to pause) and a workflow
+        // nothing carries yet (W14: licence_lookup isn't built) is "Not built", never "Running" (workflows-page.md §5, §6)
+        $built = $serves || $wf === 'W0';
         $st = !$r ? ['info', 'Not set up yet (the database update adds it)'] : ($p ? ['info', 'Paused: ' . Automation::line(['why' => $r['paused_why'] ?? '', 'by_user' => $r['by_user'] ?? ''], 'paused') . (!empty($r['paused_at']) ? ', since ' . date('M j', (int) strtotime((string) $r['paused_at'])) : '')]
-              : ($master ? ['info', 'On, held by the master switch'] : (($sp = Automation::sysOff($pdo, 'wf', $wf) ?? Automation::sysOff($pdo, 'master', 'all')) !== null ? ['info', 'On · ' . $sp] : ['ok', 'Running'])));
+              : ($wf === 'W13' ? ['info', 'A list: people write stories, so nothing runs and there\'s nothing to pause'] : (!$built ? ['info', 'Not built: nothing carries it yet (no crawler task, site job or AI feature names ' . $wf . ')'] : ($master ? ['info', 'On, held by the master switch'] : (($sp = Automation::sysOff($pdo, 'wf', $wf) ?? Automation::sysOff($pdo, 'master', 'all')) !== null ? ['info', 'On · ' . $sp] : ['ok', 'Running'])))));
         $act = !$r || $wf === 'W13' ? '' : ($p ? $sw('wf_on', $wf, 'Resume ' . $wf, false, 'Resume ' . $wf . ' ' . $name . '?') : $sw('wf_off', $wf, 'Pause ' . $wf, true, 'Pause ' . $wf . ' ' . $name . '? Its work waits, untouched.'));
         $wbody .= '<tr><td><b>' . $e($wf . ' ' . $name) . '</b><br><small>' . $e($what) . '</small></td><td>' . $e($where) . '</td><td><small>' . ($serves ? $e(implode(' · ', array_keys($serves))) : ($wf === 'W13' ? 'People write stories: nothing to pause.' : 'Nothing yet')) . '</small></td>'
             . '<td><span data-tv-status="' . $st[0] . '">' . $e($st[1]) . '</span></td><td>' . $act . '</td></tr>';

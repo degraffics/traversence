@@ -13,6 +13,9 @@
 //     live with its time: Trips reach a person (control_alarms' trips and their email), Incident Reports close
 //     (control_incidents); an alarm-wired gauge's parts tripped make it red and its check not passing.
 //   - workflows(): W0–W14 (step3/workflows-page.md §5): W13 a list, W14 not built; each one's holds from the engine.
+// What the site keeps is the compact gauges.json (about 34 KB), never over CACHE_MAX (60 KB: the live page_cache column's
+// size isn't known); a value that doesn't read back whole counts as none. Each gauge's detail (items by name, setup's words,
+// needs and sources) is gauges-items.json, read by detail() when a drawer opens and kept per gauge.
 // A stage that moves back is logged in the Control Board's logbook with its reason (§3: "the drop is logged").
 // Ids, words and readings only: nothing about a person.
 declare(strict_types=1);
@@ -53,7 +56,7 @@ final class ControlGauges
     private static ?array $alarms = null;
     private static bool $alarmsRead = false;
 
-    public static function forget(): void { self::$loaded = null; self::$alarms = null; self::$alarmsRead = false; }
+    public static function forget(): void { self::$loaded = null; self::$opened = null; self::$alarms = null; self::$alarmsRead = false; }
 
     // ---- the configuration: read, kept an hour, the last good copy a month (SiteHealth's pattern) ------------------
 
@@ -78,41 +81,81 @@ final class ControlGauges
     {
         if (self::$loaded !== null && !$fresh) return self::$loaded;
         try {
-            if ($fresh) PageCache::forget($pdo, 'gauges:now');
-            $now = PageCache::get($pdo, 'gauges:now');
-            if (is_array($now) && isset($now['ok'])) return self::$loaded = $now;
+            if ($fresh) { self::drop($pdo, 'gauges:now'); self::$opened = null; }
+            // a cached value that doesn't read back whole (cut short by its column, or not this shape) is no copy at all
+            $now = self::recall($pdo, 'gauges:now');
+            if ($now !== null) return self::$loaded = $now;
             $got = self::fetch();
-            if ($got['ok']) PageCache::put($pdo, 'gauges:last', 30 * 86400, $got);
+            if ($got['ok']) self::keep($pdo, 'gauges:last', 30 * 86400, $got);
             else {
-                $last = PageCache::get($pdo, 'gauges:last');
-                if (is_array($last) && !empty($last['ok'])) $got = ['error' => $got['error'], 'kept' => true] + $last;   // the last good copy, with why it's not newer
+                $last = self::recall($pdo, 'gauges:last');
+                if ($last !== null && !empty($last['ok'])) $got = ['error' => $got['error'], 'kept' => true] + $last;   // the last good copy, with why it's not newer
             }
-            PageCache::put($pdo, 'gauges:now', $got['ok'] ? 3600 : 600, $got);
+            if (!self::keep($pdo, 'gauges:now', $got['ok'] ? 3600 : 600, $got)) {
+                // too big for the cache and no file cache to hold it: read again at most hourly, saying why (a guard:
+                // gauges.py refuses a file over CACHE_MAX)
+                self::keep($pdo, 'gauges:now', 3600, $got = ['ok' => false, 'error' => 'The gauges\' file is too big for the site to keep (' . strlen((string) json_encode($got)) . ' bytes).', 'from' => self::where(), 'read_at' => time()]);
+            }
             return self::$loaded = $got;
         } catch (Throwable $x) {
             return self::$loaded = ['ok' => false, 'error' => 'The gauges couldn\'t be read: ' . $x->getMessage(), 'from' => self::where()];
         }
     }
 
+    private static ?array $opened = null;
+    private static function opened(PDO $pdo): array
+    {
+        if (self::$opened !== null) return self::$opened;
+        $c = self::config($pdo);
+        return self::$opened = !empty($c['ok']) ? self::expand($c) : $c;
+    }
+
+    /** The most the site puts in page_cache at once: the column's size on live isn't known; SiteHealth's ~15 KB is proven. */
+    public const CACHE_MAX = 60000;
+    /** Tests point the file cache elsewhere; null is the app's own storage (as SocialAuth keeps its keys, SocialAuth.php:247). */
+    public static ?string $fileCache = null;
+
+    private static function fileOf(string $key): ?string
+    {
+        $dir = self::$fileCache ?? dirname(__DIR__) . '/storage';
+        return is_dir($dir) && is_writable($dir) ? rtrim($dir, '/') . '/gauges-cache-' . preg_replace('/[^a-z0-9]+/i', '-', $key) . '.json' : null;
+    }
+
+    /** Keeps a value: in page_cache when it encodes under CACHE_MAX, else in the file cache if there is one. False: not kept. */
+    private static function keep(PDO $pdo, string $key, int $ttl, array $v): bool
+    {
+        $body = (string) json_encode(['v' => $v]);
+        if (strlen($body) <= self::CACHE_MAX) { PageCache::put($pdo, $key, $ttl, $v); return true; }
+        $f = self::fileOf($key);
+        return $f !== null && @file_put_contents($f, json_encode(['until' => time() + $ttl, 'v' => $v])) !== false;
+    }
+
+    /** A kept configuration that reads back whole, or null. */
+    private static function recall(PDO $pdo, string $key): ?array
+    {
+        $v = PageCache::get($pdo, $key);
+        if ($v === null && ($f = self::fileOf($key)) !== null && is_file($f)) {
+            $d = json_decode((string) @file_get_contents($f), true);
+            if (is_array($d) && (int) ($d['until'] ?? 0) > time()) $v = $d['v'] ?? null;
+        }
+        if (!is_array($v) || !isset($v['ok'])) return null;
+        if (!empty($v['ok']) && (!is_array($v['development'] ?? null) || !is_array($v['runtime'] ?? null) || !is_array($v['workflows'] ?? null))) return null;
+        return $v;
+    }
+
+    private static function drop(PDO $pdo, string $key): void
+    {
+        PageCache::forget($pdo, $key);
+        if (($f = self::fileOf($key)) !== null && is_file($f)) @unlink($f);
+    }
+
     private static function fetch(): array
     {
         $from = self::where();
-        $bad = function (string $why) use ($from): array { return ['ok' => false, 'error' => $why, 'from' => $from, 'read_at' => time()]; };
-        if (!preg_match('#^https://#', $from)) {   // a local copy (tests, a bench)
-            $body = is_file($from) ? @file_get_contents($from) : false;
-            return $body === false ? $bad('The gauges\' file isn\'t there (' . $from . ').') : self::parse((string) $body, $from);
-        }
-        if (!function_exists('curl_init')) return $bad('This server can\'t make web requests (curl).');
-        try { require_once __DIR__ . '/StagingGate.php'; if (($w = StagingGate::hold($from, 'the gauges\' configuration')) !== null) return $bad($w); } catch (Throwable $x) {}
-        $ch = curl_init($from);
-        curl_setopt_array($ch, [CURLOPT_RETURNTRANSFER => true, CURLOPT_TIMEOUT => 8, CURLOPT_CONNECTTIMEOUT => 4, CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_USERAGENT => 'Traversence control board', CURLOPT_HTTPHEADER => ['Accept: application/json']]);
-        $body = curl_exec($ch);
-        $code = (int) curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        $err = curl_error($ch);
-        curl_close($ch);
-        if ($body === false || $code !== 200) return $bad('GitHub didn\'t answer (' . ($err !== '' ? $err : 'HTTP ' . $code) . ').');
-        return self::parse((string) $body, $from);
+        if (preg_match('#^https://#', $from) && !function_exists('curl_init')) return ['ok' => false, 'error' => 'This server can\'t make web requests (curl).', 'from' => $from, 'read_at' => time()];
+        $body = self::read($from);
+        if ($body === null) return ['ok' => false, 'error' => preg_match('#^https://#', $from) ? 'GitHub didn\'t answer, or staging holds the call.' : 'The gauges\' file isn\'t there (' . $from . ').', 'from' => $from, 'read_at' => time()];
+        return self::parse($body, $from);
     }
 
     /** The file, checked: the three lists present, links only to this site or https. */
@@ -121,10 +164,79 @@ final class ControlGauges
         $d = json_decode($body, true);
         if (!is_array($d) || !is_array($d['development'] ?? null) || !is_array($d['runtime'] ?? null) || !is_array($d['workflows'] ?? null))
             return ['ok' => false, 'error' => 'The gauges\' file couldn\'t be read.', 'from' => $from, 'read_at' => time()];
+        // kept as the file has it (compact, under CACHE_MAX); expand() opens it on each read
         return ['ok' => true, 'at' => mb_substr((string) ($d['generated_at'] ?? ''), 0, 30), 'from' => $from, 'read_at' => time(), 'error' => '', 'kept' => false,
-                'checks' => is_array($d['checks'] ?? null) ? $d['checks'] : [],
+                'parts' => is_array($d['parts'] ?? null) ? $d['parts'] : [],
                 'development' => array_values(array_filter($d['development'], 'is_array')), 'runtime' => array_values(array_filter($d['runtime'], 'is_array')),
                 'workflows' => array_values(array_filter($d['workflows'], 'is_array'))];
+    }
+
+    /** The compact configuration opened: each item's criteria from its six characters, each path's parts by name and link. */
+    private static function expand(array $c): array
+    {
+        $crit = self::CRITERIA;
+        $parts = (array) ($c['parts'] ?? []);
+        $ids = function ($l, string $k) use ($parts): array {   // a path's part ids => [id, name, null, null, href]
+            $o = [];
+            foreach ((array) $l as $id) { if (!is_string($id)) continue; $p = (array) ($parts[$k][$id] ?? []); $o[] = [$id, (string) ($p[0] ?? $id), null, null, (string) ($p[1] ?? '')]; }
+            return $o;
+        };
+        $paths = function ($p) use ($ids): array { $p = (array) $p; return ['workflows' => $ids($p['workflows'] ?? [], 'workflows'), 'core' => $ids($p['core'] ?? [], 'core'), 'registered' => $ids($p['registered'] ?? [], 'registered')]; };
+        $dev = [];
+        foreach ($c['development'] as $g) {
+            $list = [];
+            foreach ((array) ($g['m'] ?? []) as $m) {   // [six characters in CRITERIA's order: 1 met, 0 unmet, - not its criterion; weight; checks missing]
+                $code = (string) ($m[0] ?? ''); if (strlen($code) !== count($crit)) continue;
+                $cr = []; $met = [];
+                foreach ($crit as $i => $k) { if ($code[$i] === '-') continue; $cr[] = $k; if ($code[$i] === '1') $met[] = $k; }
+                $list[] = ['criteria' => $cr, 'met' => $met, 'weight' => (float) ($m[1] ?? 1), 'no_check_n' => (int) ($m[2] ?? 0)];
+            }
+            unset($g['m']);
+            $dev[] = ['list' => $list, 'paths' => $paths($g['paths'] ?? [])] + $g;
+        }
+        $rt = []; foreach ($c['runtime'] as $g) $rt[] = ['paths' => $paths($g['paths'] ?? [])] + $g;
+        $wf = []; foreach ($c['workflows'] as $g) $wf[] = ['core' => $ids($g['core'] ?? [], 'core'), 'registered' => $ids($g['registered'] ?? [], 'registered')] + $g;
+        return ['development' => $dev, 'runtime' => $rt, 'workflows' => $wf] + $c;
+    }
+
+    /**
+     * A gauge's detail for its drawer (gauges-items.json beside gauges.json): a development gauge's items by name, with each
+     * one's criteria met, checks, review and source; a runtime gauge's or workflow's setup words, needs and sources. Read
+     * when a drawer opens, kept an hour per gauge (each under CACHE_MAX). $kind: development | runtime | workflows. Null: not read.
+     */
+    public static function detail(PDO $pdo, string $kind, string $id): ?array
+    {
+        if (!in_array($kind, ['development', 'runtime', 'workflows'], true) || !preg_match('/^[A-Za-z0-9_-]{1,60}$/', $id)) return null;
+        $key = 'gauges:item:' . $kind . ':' . $id;
+        try {
+            $v = PageCache::get($pdo, $key);
+            if (is_array($v)) return $v ?: null;
+            $from = self::where();
+            $from = preg_match('/gauges\.json$/', $from) ? (string) preg_replace('/gauges\.json$/', 'gauges-items.json', $from) : dirname($from) . '/gauges-items.json';
+            $body = self::read($from);
+            $d = $body !== null ? json_decode($body, true) : null;
+            if (!is_array($d)) { PageCache::put($pdo, $key, 600, []); return null; }
+            $out = null;
+            foreach (['development', 'runtime', 'workflows'] as $k) foreach ((array) ($d[$k] ?? []) as $gid => $g) {
+                if (!is_array($g)) continue;
+                if (strlen((string) json_encode(['v' => $g])) <= self::CACHE_MAX) PageCache::put($pdo, 'gauges:item:' . $k . ':' . $gid, 3600, $g);
+                if ($k === $kind && (string) $gid === $id) $out = $g;
+            }
+            return $out;
+        } catch (Throwable $x) { return null; }
+    }
+
+    /** A file's body: a local copy (tests, a bench), or https through the staging gate. Null when it can't be read. */
+    private static function read(string $from): ?string
+    {
+        if (!preg_match('#^https://#', $from)) { $b = is_file($from) ? @file_get_contents($from) : false; return $b === false ? null : (string) $b; }
+        if (!function_exists('curl_init')) return null;
+        try { require_once __DIR__ . '/StagingGate.php'; if (StagingGate::hold($from, 'the gauges\' detail') !== null) return null; } catch (Throwable $x) {}
+        $ch = curl_init($from);
+        curl_setopt_array($ch, [CURLOPT_RETURNTRANSFER => true, CURLOPT_TIMEOUT => 8, CURLOPT_CONNECTTIMEOUT => 4, CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_USERAGENT => 'Traversence control board', CURLOPT_HTTPHEADER => ['Accept: application/json']]);
+        $b = curl_exec($ch); $code = (int) curl_getinfo($ch, CURLINFO_HTTP_CODE); curl_close($ch);
+        return ($b === false || $code !== 200) ? null : (string) $b;
     }
 
     // ---- the rules ----------------------------------------------------------------------------------------------
@@ -138,12 +250,13 @@ final class ControlGauges
         if (!$signed) return ['Planning', 'configuration awaiting Jason\'s sign-off'];
         if (!$items) return ['Planning', 'no configuration yet'];
         $steps = [['Phased Development', ['built']], ['Audit & Review', ['checked', 'reviewed']], ['Implementation', ['live', 'proved']]];
-        foreach ($steps as [$stage, $need]) {
-            foreach ($items as $it) {
-                $crit = (array) ($it['criteria'] ?? self::CRITERIA); $met = (array) ($it['met'] ?? []);
-                foreach ($need as $c) if (in_array($c, $crit, true) && !in_array($c, $met, true))
-                    return [$stage, (string) ($it['name'] ?? 'an item') . ': not ' . $c . (($c === 'checked' && !empty($it['no_check'])) ? ' (no check yet: ' . implode(', ', (array) $it['no_check']) . ')' : '')];
-            }
+        foreach ($steps as [$stage, $need]) foreach ($need as $c) {
+            $held = array_values(array_filter($items, function ($it) use ($c) { return in_array($c, (array) ($it['criteria'] ?? self::CRITERIA), true) && !in_array($c, (array) ($it['met'] ?? []), true); }));
+            if (!$held) continue;
+            $it = $held[0];
+            // the drawer's detail names each item; the compact configuration has no names, so it counts them
+            if (!isset($it['name'])) return [$stage, count($held) . ' of ' . count($items) . ' items not ' . $c . ($c === 'checked' && array_filter(array_column($held, 'no_check_n')) ? ' (some with no check yet)' : '')];
+            return [$stage, (string) $it['name'] . ': not ' . $c . (($c === 'checked' && !empty($it['no_check'])) ? ' (no check yet: ' . implode(', ', (array) $it['no_check']) . ')' : '') . (count($held) > 1 ? ' (and ' . (count($held) - 1) . ' more)' : '')];
         }
         return ['Monitoring', 'every configured criterion met'];
     }
@@ -186,7 +299,7 @@ final class ControlGauges
     /** The 16 development gauges (contract: id, title, stage, score, signed, items, criteria, met, preview, no_check, paths). */
     public static function development(PDO $pdo): array
     {
-        $c = self::config($pdo);
+        $c = self::opened($pdo);
         if (empty($c['ok'])) {
             $out = [];
             foreach (self::DEV_FALLBACK as $g) $out[] = ['id' => self::slug($g), 'title' => $g, 'stage' => 'Planning', 'k' => 'planning', 'score' => null, 'signed' => false,
@@ -210,16 +323,16 @@ final class ControlGauges
                 'score' => $signed ? $pv : 0.0, 'signed' => $signed, 'signed_at' => $g['signed_at'] ?? null,
                 'items' => count($list), 'criteria' => (int) $n, 'met' => (int) $m, 'preview' => $pv, 'preview_stage' => $pst,
                 'no_check' => array_values(array_map('strval', (array) ($g['no_check'] ?? []))), 'paths' => self::paths($pdo, (array) ($g['paths'] ?? [])),
-                'list' => $list, 'out_of_scope' => (array) ($g['out_of_scope'] ?? []), 'checked' => true, 'text' => $text, 'why' => $why,
+                'list' => $list, 'out' => (int) ($g['out'] ?? 0), 'checked' => true, 'text' => $text, 'why' => $why,
                 'moved_back' => self::movedBack($pdo, 'dev:' . $id, $stage, $why)];
         }
         return $out;
     }
 
-    /** The 23 runtime gauges (the contract's fields, plus setup_why, target_text, alarms and unmapped for the drawer). */
+    /** The 23 runtime gauges (the contract's fields, plus k, why, check_why, target_text, alarms; the drawer's words: detail()). */
     public static function runtime(PDO $pdo): array
     {
-        $c = self::config($pdo);
+        $c = self::opened($pdo);
         $rows = !empty($c['ok']) ? $c['runtime'] : array_map(function ($id, $t) { return ['id' => $id, 'title' => $t, '_none' => true]; }, array_keys(self::RT_FALLBACK), self::RT_FALLBACK);
         $al = self::alarms($pdo);
         $out = [];
@@ -245,12 +358,14 @@ final class ControlGauges
             $out[] = ['id' => $id, 'box' => (string) ($g['box'] ?? ''), 'title' => (string) ($g['title'] ?? self::RT_FALLBACK[$id] ?? $id), 'measure' => (string) ($g['measure'] ?? ''),
                 'target' => $target, 'target_text' => $target ?? self::NO_TARGET, 'target_proposed' => $g['target_proposed'] ?? null, 'unit' => (string) ($g['unit'] ?? '%'),
                 'reading' => $r['reading'], 'reading_text' => $r['reading_text'], 'at' => $r['at'], 'live' => $r['live'], 'band' => $r['band'],
-                'stage' => $stage, 'k' => $mon ? $r['band'] : self::STAGES[$stage], 'why' => $swhy, 'setup' => $setup, 'setup_why' => $why,
+                'stage' => $stage, 'k' => $mon ? $r['band'] : self::STAGES[$stage], 'why' => $swhy, 'setup' => $setup,
+                // the site's own words for the check, where a live reading or a trip decides it (setup's words: detail())
+                'check_why' => $why['check'] ?? null,
                 // below Monitoring the score is the setup %; at it, the reading against its target (§7)
                 'score' => $mon ? $r['reading'] : self::setupPct($setup),
                 'paths' => self::paths($pdo, (array) ($g['paths'] ?? [])), 'fix' => self::fix((array) ($g['fix'] ?? [])),
                 'no_check' => array_values(array_map('strval', (array) ($g['no_check'] ?? []))), 'needs_probe' => $g['needs_probe'] ?? null,
-                'unmapped' => (array) ($g['unmapped'] ?? []), 'alarms' => ['trip' => $trips, 'warning' => $warn], 'checked' => empty($g['_none']),
+                'alarms' => ['trip' => $trips, 'warning' => $warn], 'checked' => empty($g['_none']),
                 'moved_back' => empty($g['_none']) ? self::movedBack($pdo, 'rt:' . $id, $stage, $swhy) : null];
         }
         return $out;
@@ -259,7 +374,7 @@ final class ControlGauges
     /** W0–W14 (contract: wf, name, kind gauge|list|not_built, stage, score, setup, measure, target, reading_text, band). */
     public static function workflows(PDO $pdo): array
     {
-        $c = self::config($pdo);
+        $c = self::opened($pdo);
         $rows = [];
         if (!empty($c['ok'])) $rows = $c['workflows'];
         else { try { require_once __DIR__ . '/Automation.php'; foreach (Automation::WORKFLOWS as $w => $d) $rows[] = ['wf' => $w, 'name' => $d[0], '_none' => true]; } catch (Throwable $x) {} }
@@ -274,10 +389,10 @@ final class ControlGauges
                     'target' => isset($g['target']) && $g['target'] !== '' ? (string) $g['target'] : null, 'reading' => null, 'reading_text' => self::NOT_CHECKED, 'band' => 'none',
                     'at' => null, 'live' => false, 'checked' => empty($g['_none']), 'feeds' => (array) ($g['feeds'] ?? []),
                     'core' => self::paths($pdo, ['core' => (array) ($g['core'] ?? [])])['core'], 'registered' => self::paths($pdo, ['registered' => (array) ($g['registered'] ?? [])])['registered']];
-            if (!empty($g['_none'])) { $out[] = $row + ['stage' => null, 'k' => 'none', 'score' => null, 'setup' => null, 'setup_why' => null]; continue; }
+            if (!empty($g['_none'])) { $out[] = $row + ['stage' => null, 'k' => 'none', 'score' => null, 'setup' => null, 'check_why' => null]; continue; }
             if ($kind === 'list') {
                 // W13: a list, not a gauge: people write stories, nothing runs to measure (workflows-page.md §5)
-                $out[] = ['stage' => null, 'k' => 'none', 'score' => null, 'setup' => null, 'setup_why' => null] + array_merge($row, ['reading_text' => 'a list, not a gauge: people write']);
+                $out[] = ['stage' => null, 'k' => 'none', 'score' => null, 'setup' => null, 'check_why' => null] + array_merge($row, ['reading_text' => 'a list, not a gauge: people write']);
                 continue;
             }
             $setup = []; foreach (array_keys(self::SETUP) as $k) $setup[$k] = !empty($g['setup'][$k]);
@@ -296,7 +411,7 @@ final class ControlGauges
             [$stage, $swhy] = self::rtStage($setup);
             $out[] = $row + ['stage' => $stage, 'k' => $stage === 'Monitoring' ? $row['band'] : self::STAGES[$stage], 'why' => $swhy,
                              // no workflow's measure is read on the site yet: at Monitoring its score would be that reading (§7)
-                             'score' => $stage === 'Monitoring' ? null : self::setupPct($setup), 'setup' => $setup, 'setup_why' => $why,
+                             'score' => $stage === 'Monitoring' ? null : self::setupPct($setup), 'setup' => $setup, 'check_why' => $why['check'] ?? null,
                              'moved_back' => self::movedBack($pdo, 'wf:' . $w, $stage, $swhy)];
         }
         return $out;

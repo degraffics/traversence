@@ -57,9 +57,9 @@ const sha = (s) => createHash('sha1').update(s).digest('hex');
 export const fid = (check, item) => 'f-' + sha(`${check.toLowerCase()}|${item}`).slice(0, 10);
 /** One row of the register's one results format (check-register.md "One results format"). */
 // item is the bare route (as in site-audit/pages.md), so the gauges (gauges.py) match rows by route; the size, the input
-// and why ride beside it. The finding id also takes the size and input, so each row's failure has its own id.
+// and why ride beside it. The finding id also takes the account, size and input, so each row's failure has its own id.
 export function row(check, item, who, result, measured, evidence = RUN_URL || null, extra = {}) {
-  const key = [item, extra.size, extra.input].filter(Boolean).join(' ');
+  const key = [item, who, extra.size, extra.input].filter(Boolean).join(' ');
   return { check, item, who: who || null, target: REGISTER[check].target, result, measured, at: new Date().toISOString().replace(/\.\d+Z$/, 'Z'),
     evidence, finding: result === 'fail' ? fid(check, key) : null, ...extra };
 }
@@ -95,7 +95,8 @@ export function writeResults(check, rows, run, extra = {}) {
   const R = REGISTER[check]; const file = `${RES}/${R.file}`;
   let old = {}; try { old = JSON.parse(readFileSync(file, 'utf8')); } catch {}
   const mode = run.mode;
-  const keep = (old.results || []).filter((r) => (r.mode || 'full') !== mode);
+  // a run that backed off keeps the rows it would have replaced: the last reading stands, and its run says why it's old
+  const keep = (old.results || []).filter((r) => run.skipped || (r.mode || 'full') !== mode);
   const results = [...keep, ...rows.map((r) => ({ ...r, mode }))];
   const counts = {}; for (const r of results) counts[r.result] = (counts[r.result] || 0) + 1;
   const data = { version: 1, check, name: R.name, generated_at: new Date().toISOString().replace(/\.\d+Z$/, 'Z'), site: SITE, run_url: RUN_URL,

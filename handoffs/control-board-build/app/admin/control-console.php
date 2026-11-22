@@ -873,7 +873,7 @@ function tv_cb_deliver(PDO $pdo, array $alarms, array $ac, array $names): string
     if (!class_exists('ControlGauges')) return $h . '<p data-tv-status="bad" data-tv-label="Gauges not installed:">The gauges\' reader (app/lib/ControlGauges.php) isn\'t on the site, so no gauge can be drawn. The rest of the board works.</p></section>';
     try { $gs = ControlGauges::runtime($pdo); $src = ControlGauges::source($pdo); }
     catch (Throwable $x) { error_log('board gauges: ' . $x->getMessage()); return $h . '<p data-tv-status="bad" data-tv-label="Couldn\'t read the gauges:">' . $e($x->getMessage()) . ' The rest of the board works; reload the page to try again.</p></section>'; }
-    $h .= !empty($src['ok']) ? '<p class="ak-note cb-gsrc">Each gauge\'s setup is read from ' . $e((string) ($src['from'] ?? 'its configuration')) . (!empty($src['at']) ? ', made ' . tv_cb_at((int) $src['at']) : '') . '. Press a card for its snapshot; its three paths lead to what feeds it.</p>'
+    $h .= !empty($src['ok']) ? '<p class="ak-note cb-gsrc">Each gauge\'s setup is read from ' . $e((string) ($src['from'] ?? 'its configuration')) . (!empty($src['at']) ? ', made ' . tv_cb_at(is_numeric($src['at']) ? (int) $src['at'] : ((int) strtotime((string) $src['at']) ?: null)) : '') . (!empty($src['kept']) ? ' (the last good copy: ' . $e((string) ($src['error'] ?? '')) . ')' : '') . '. Press a card for its snapshot; its three paths lead to what feeds it.</p>'
         : '<p data-tv-status="info" data-tv-label="Configuration not read:">' . $e((string) ($src['from'] ?? 'The gauges\' configuration file')) . ' couldn\'t be read, so each gauge shows what the board itself knows.</p>';
     $boxes = []; foreach ($gs as $g) $boxes[(string) ($g['box'] ?? 'Other')][] = $g;
     $panels = '';

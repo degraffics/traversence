@@ -240,7 +240,8 @@ function tv_module_card(PDO $pdo, string $key, array $ctx = []): string
     if ($isWk && $light === 'grey') {   // a worker's check is its heartbeat or its last run (the engine's, DB reads only: 02 §2.7)
         $ck = ControlEngine::check($pdo, $key);
         if ($ck['pass'] === true) { $light = 'ok'; $first = 'On · Working'; $rest = (string) $ck['proof']; }
-        elseif ($ck['pass'] === false) { $light = 'hold'; $first = 'On · Warning: no heartbeat in its window'; $rest = (string) $ck['proof']; }
+        elseif ($ck['pass'] === false && !str_starts_with((string) $ck['proof'], 'Its check failed to run')) { $light = 'hold'; $first = 'On · Warning: no heartbeat in its window'; $rest = (string) $ck['proof']; }
+        elseif ($ck['pass'] === false) $rest = 'Its heartbeat couldn\'t be read yet.';   // a reading that couldn't be taken is "not checked yet", never a fault (02 §3b; P4)
     }
     $faultOpen = (bool) ($alarms || $issues);
     $dutyMap = ControlRegister::dutyMap($pdo);
@@ -287,7 +288,7 @@ function tv_module_card(PDO $pdo, string $key, array $ctx = []): string
     $z3 .= '<p class="mc-row"><b>Its check</b> ' . ($line === '' ? '<span class="mc-sub">No check of its own yet' . ($isWk ? ': its heartbeat is read from its asks for work' : '') . '.</span>'
         : ($pfRow ? tv_mc_light(($pfRow['s'] ?? '') === 'ok' ? 'ok' : (($pfRow['s'] ?? '') === 'bad' ? 'bad' : 'grey'), Preflight::markOf($line, (string) ($pfRow['s'] ?? ''))) . ' <span class="mc-sub">' . $e((string) ($pfRow['said'] ?? '')) . ' · ' . tv_mc_t((int) ($pfRow['at'] ?? 0)) . '</span>'
                   : tv_mc_light('grey', 'Not checked yet'))) . '</p>';
-    if ($isWk) { $ck = ControlEngine::check($pdo, $key); $z3 .= '<p class="mc-row"><b>' . ($man['worker'] === 'crawler' ? 'Runs' : 'Heartbeat') . '</b> <span class="mc-sub">' . $e($ck['proof'] !== '' ? (string) $ck['proof'] : 'not read yet') . '</span></p>'; }
+    if ($isWk) { $ck = ControlEngine::check($pdo, $key); $z3 .= '<p class="mc-row"><b>' . ($man['worker'] === 'crawler' ? 'Runs' : 'Heartbeat') . '</b> <span class="mc-sub">' . $e($ck['proof'] !== '' && !str_starts_with((string) $ck['proof'], 'Its check failed to run') ? (string) $ck['proof'] : 'not read yet') . '</span></p>'; }
     if (!$isWk) {
         $keys = is_array($r) ? (array) ($r['keys'] ?? []) : Operations::keys($key);
         $z3 .= '<dl class="ak-note os-dl"><dt id="svc-' . $e($key) . '-key">Its key</dt><dd>' . ($keys ? (function_exists('tv_ops_keys') ? tv_ops_keys($key, $keys, $csrf) : $e(implode(', ', array_column($keys, 0)))) : 'None needed') . '</dd></dl>';
@@ -334,7 +335,7 @@ function tv_mc_part_row(PDO $pdo, string $pp, array $pt, array $alarms, array $p
     $mine = array_values(array_filter($alarms, fn ($a) => $a['proc'] === $pp || ($a['component'] ?? '') === $pp));
     $pfRow = $pt['line'] !== '' ? ($pf[$pt['line']] ?? null) : null;
     [$light, $first, $rest] = tv_mc_state($pdo, $pp, $mine, null, null, null, false, $pfRow);
-    if (str_starts_with($pp, 'wk:') && $light === 'grey') { $ck = ControlEngine::check($pdo, $pp); if ($ck['pass'] !== null) { $light = $ck['pass'] ? 'ok' : 'hold'; $first = $ck['pass'] ? 'On · Working' : 'On · Warning: no heartbeat in its window'; $rest = (string) $ck['proof']; } }
+    if (str_starts_with($pp, 'wk:') && $light === 'grey') { $ck = ControlEngine::check($pdo, $pp); if ($ck['pass'] !== null && !str_starts_with((string) $ck['proof'], 'Its check failed to run')) { $light = $ck['pass'] ? 'ok' : 'hold'; $first = $ck['pass'] ? 'On · Working' : 'On · Warning: no heartbeat in its window'; $rest = (string) $ck['proof']; } }
     $duty = ControlRegister::dutyMap($pdo)[$pp] ?? '';
     $hasLine = $pt['line'] !== '' && isset($pf[$pt['line']]) || ($pt['line'] !== '' && method_exists('Preflight', 'lines') && isset(Preflight::lines($pdo)[$pt['line']]));
     $h = '<div class="mc-part' . ($mine ? ' mc-tint-' . ($light === 'bad' ? 'bad' : 'hold') : '') . '" id="mc-part-' . $e(preg_replace('/[^a-z0-9-]/i', '-', $pp)) . '">'
@@ -492,7 +493,7 @@ function tv_mc_zone4(PDO $pdo, string $key, array $man, string $proc, array $slo
     // the caps (rows 39: Raise the cap / Lower the cap): the register's Set and Reset, kept with their anchors
     $caps = '';
     if (is_array($r) && $r['caps']) {
-        $caps = '<h4 class="os-h" id="svc-' . $e($key) . '-caps">Caps and paces</h4><table class="ak-aa mc-caps"><thead><tr><th>Setting</th><th>Now</th><th>Set it</th><th>History</th></tr></thead><tbody>';
+        $caps = '<h3 class="os-h" id="svc-' . $e($key) . '-caps">Caps and paces</h3><table class="ak-aa mc-caps"><thead><tr><th>Setting</th><th>Now</th><th>Set it</th><th>History</th></tr></thead><tbody>';
         foreach ($r['caps'] as $c) {
             $hist = Thresholds::history($pdo, $c['gate'], 6);
             $caps .= '<tr id="cap-' . $e($c['gate']) . '"><td><b>' . $e($c['label']) . '</b><br><small>' . $e($c['where']) . '</small></td><td>' . $e(Operations::num($c['value']) . ' ' . $c['unit']) . '<br><small>' . $e($c['how']) . '</small></td><td>'
@@ -559,7 +560,7 @@ function tv_mc_css(): string
         . '.mc-slots{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.4rem}.mc-slot{border:1px solid var(--tv-line);border-radius:.5rem;padding:.4rem}.mc-none{opacity:.85}'
         . '.mc-slot-fix{outline:2px solid var(--tv-copper);outline-offset:1px}.mc-fixhere{display:block;color:var(--tv-copper);font-size:.78rem}.mc-ty{font-weight:600;margin:0 0 .2rem}'
         . '.mc-tag{display:inline-block;font-size:.72rem;border:1px solid var(--tv-line-strong);border-radius:999px;padding:0 .4rem;color:var(--tv-meta)}'
-        . '.mc-fold>summary,.mc-setup>summary,.mc-rl>summary{cursor:pointer}.mc-caps{display:block;overflow-x:auto;max-width:100%}'
+        . '.mc-fold>summary,.mc-setup>summary,.mc-rl>summary{cursor:pointer}.mc-caps{display:block;overflow-x:auto;max-width:100%}.mc-card .ak-b{max-width:100%;white-space:normal;overflow-wrap:anywhere;text-align:left}.mc-card .os-stage form{max-width:100%;flex-wrap:wrap}.mc-card .ak-in{max-width:100%}'
         . '@media (max-width:767px){.mc-card{margin:3px 0;border-radius:.5rem;padding:.5rem}.mc-rad{grid-template-columns:1fr}.mc-slots{grid-template-columns:repeat(2,minmax(0,1fr))}.mc-btns{flex-direction:row}}'
         . '</style>';
 }

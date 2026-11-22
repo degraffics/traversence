@@ -22,7 +22,8 @@ A check with a result file in the one results format (check-register.md "One res
 result) counts for an item whose route is its `item`; with none, the register's own state stands, and a check that
 doesn't exist yet is "no check yet", counted unmet (gauge-lifecycle.md §4).
 
-  python3 tools/page-audit/gauges.py            write site-audit/results/gauges.json
+  python3 tools/page-audit/gauges.py            write site-audit/results/gauges.json (compact, under 60 KB: the site caches
+                                                it) and gauges-items.json (each gauge's detail, read when its drawer opens)
   python3 tools/page-audit/gauges.py --check    exit 1 if the committed file is stale (everything but generated_at)
   python3 tools/page-audit/gauges.py --out F    write elsewhere (tests)
 """
@@ -279,50 +280,88 @@ def workflows():
     return out
 
 
+CACHE_MAX = 60000   # the site keeps gauges.json in page_cache, whose column size on live isn't known: SiteHealth's ~15 KB is proven
+
+
+def pack(met, crit):
+    """An item's criteria as six characters in CRIT's order: 1 met, 0 unmet, - not one of its criteria (§4)."""
+    return ''.join(('1' if k in met else '0') if k in crit else '-' for k in CRIT)
+
+
+PARTS = {'workflows': {}, 'core': {}, 'registered': {}}   # each part's [name, href] once; the paths name parts by id
+
+
+def short(rows, kind):
+    for r in rows:
+        PARTS[kind][r[0]] = [r[1], r[4]]
+    return [r[0] for r in rows]   # the state is the site's, read live
+
+
 def build():
+    """Two files: gauges.json, the compact configuration the site keeps an hour (under CACHE_MAX), and gauges-items.json,
+    each gauge's detail (its items by name, setup's words, needs and sources), read only when a gauge's drawer opens."""
     reg = {c['id']: {'name': c['name'], 'status': c['status'], 'result': c['result'], 'latest': c['latest'], 'target': c['target'],
                      'evidence': c['evidence'] if c['evidence'].startswith('http') else None} for c in C.CHECKS}
-    dev = development()
-    return {
-        'version': 1,
-        'generated_by': 'tools/page-audit/gauges.py',
-        'note': 'The gauges\' configuration and evidence (handoffs/control-board-plan/step3/sections/gauge-lifecycle.md). The site '
-                'computes every stage from it (app/lib/ControlGauges.php); nothing here is a stage.',
-        'stages': STAGES, 'criteria': CRIT,
-        'checks': reg,
-        'results_read': sorted({r['file'] for r in ROWS.values()}),
-        'development': dev,
-        'counts': {'scope': sum(g['items'] for g in dev), 'no_check': sum(1 for g in dev for i in g['list'] if i['no_check'])},   # §4: 236 of 292 today
-        'runtime': runtime(),
-        'workflows': workflows(),
-    }
+    dev, rt, wfs = development(), runtime(), workflows()
+    head = {'version': 2, 'generated_by': 'tools/page-audit/gauges.py'}
+    summary = dict(head, note='The gauges\' configuration (handoffs/control-board-plan/step3/sections/gauge-lifecycle.md), compact: the site '
+                   'computes every stage from it (app/lib/ControlGauges.php); each gauge\'s detail is in gauges-items.json.',
+                   stages=STAGES, criteria=CRIT,
+                   counts={'scope': sum(g['items'] for g in dev), 'no_check': sum(1 for g in dev for i in g['list'] if i['no_check'])},   # §4: 236 of 292
+                   development=[{'id': g['id'], 'title': g['title'], 'side': g['side'], 'signed': g['signed'], 'signed_at': g['signed_at'],
+                                 'm': [[pack(i['met'], i.get('criteria', CRIT)), i['weight'], len(i['no_check'])] for i in g['list']],
+                                 'no_check': g['no_check'], 'out': len(g['out_of_scope']),
+                                 'paths': {k: short(v, k) for k, v in g['paths'].items()}} for g in dev],
+                   runtime=[{k: g[k] for k in ('id', 'box', 'title', 'measure', 'target', 'target_proposed', 'unit', 'setup', 'procs', 'fix', 'no_check', 'needs_probe')}
+                            | {'paths': {k: short(g['paths'][k], k) for k in ('workflows', 'core', 'registered')}} for g in rt],
+                   workflows=[{k: w[k] for k in ('wf', 'name', 'kind', 'measure', 'target', 'setup', 'tasks')}
+                              | {'core': short(w['core'], 'core'), 'registered': short(w['registered'], 'registered')} for w in wfs])
+    summary['parts'] = {k: dict(sorted(v.items())) for k, v in PARTS.items()}
+    detail = dict(head, note='Each gauge\'s detail for its drawer (ControlGauges::detail): read when the drawer opens.',
+                  checks=reg, results_read=sorted({r['file'] for r in ROWS.values()}),
+                  development={g['id']: {'list': g['list'], 'out_of_scope': g['out_of_scope']} for g in dev},
+                  runtime={g['id']: {'setup_why': g['setup_why'], 'records': g['records'], 'tasks': g['paths']['tasks'], 'needs': g['paths']['needs'],
+                                     'unmapped': g['unmapped']} for g in rt},
+                  workflows={w['wf']: {k: w.get(k) for k in ('what', 'probe', 'target_approved', 'setup_why', 'feeds', 'needs')} for w in wfs})
+    return summary, detail
 
 
 def body_of(d):
     return json.dumps(d, indent=1, ensure_ascii=False, sort_keys=False) + '\n'
 
 
+def stale(path, d):
+    try:
+        old = json.load(open(path))
+    except Exception as e:
+        return f'can\'t read {path} ({e})'
+    old.pop('generated_at', None)
+    return None if old == json.loads(body_of(d)) else f'{os.path.basename(path)} is stale: its inputs changed since it was made'
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split('\n')[0])
-    ap.add_argument('--check', action='store_true', help='fail if the committed gauges.json is stale')
-    ap.add_argument('--out', default=OUT)
+    ap.add_argument('--check', action='store_true', help='fail if the committed gauges.json or gauges-items.json is stale')
+    ap.add_argument('--out', default=OUT, help='gauges.json; gauges-items.json is written beside it')
     a = ap.parse_args()
-    d = build()
+    items_out = os.path.join(os.path.dirname(a.out), 'gauges-items.json')
+    summary, detail = build()
+    compact = len(json.dumps(summary, ensure_ascii=False, separators=(',', ':')).encode())
+    if compact > CACHE_MAX:
+        print(f'gauges.json would be {compact} bytes compact, over the site\'s {CACHE_MAX}: move detail to gauges-items.json')
+        return 1
     if a.check:
-        try:
-            old = json.load(open(a.out))
-        except Exception as e:
-            print(f'gauges.json: can\'t read {a.out} ({e}); run python3 tools/page-audit/gauges.py')
+        bad = [m for m in (stale(a.out, summary), stale(items_out, detail)) if m]
+        if bad:
+            print('; '.join(bad) + '; run python3 tools/page-audit/gauges.py')
             return 1
-        old.pop('generated_at', None)
-        if old != json.loads(body_of(d)):
-            print(f'gauges.json is stale: its inputs changed since it was made; run python3 tools/page-audit/gauges.py')
-            return 1
-        print('gauges.json is current')
+        print('gauges.json and gauges-items.json are current')
         return 0
-    d = {'generated_at': datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'), **d}
-    open(a.out, 'w').write(body_of(d))
-    print(f'wrote {a.out}: {len(d["development"])} development, {len(d["runtime"])} runtime, {len(d["workflows"])} workflows')
+    at = datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')
+    open(a.out, 'w').write(body_of({'generated_at': at, **summary}))
+    open(items_out, 'w').write(body_of({'generated_at': at, **detail}))
+    print(f'wrote {a.out} ({compact} bytes compact): {len(summary["development"])} development, {len(summary["runtime"])} runtime, '
+          f'{len(summary["workflows"])} workflows; and {items_out}')
     return 0
 
 

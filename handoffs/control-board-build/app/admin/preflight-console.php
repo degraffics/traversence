@@ -46,6 +46,7 @@ function tv_preflight_line(PDO $pdo, string $id, ?array $r = null, ?array $line 
         $h .= '<p data-tv-status="' . ($s === 'ok' ? 'ok' : ($s === 'bad' ? 'bad' : 'info')) . '" data-tv-label="' . tv_w_e(Preflight::markOf($id, $s)) . ':">' . tv_w_e((string) $r['said']) . '</p>';
         if (($r['tested'] ?? '') !== '') $h .= '<p class="ak-note"><b>What was tested:</b> ' . tv_w_e((string) $r['tested']) . ' (' . (int) $r['ms'] . ' ms' . (($r['by'] ?? '') !== '' ? ', run by ' . tv_w_e((string) $r['by']) : '') . ').</p>';
         if (!$line[2] && $s === 'bad') $h .= '<p class="ak-note">Optional for launch: a red line here holds only what it\'s for.</p>';
+        $h .= tv_preflight_engine($pdo, $id, $s);
         $fx = '';
         foreach ((array) ($r['fix'] ?? []) as $f) {
             if ($f[0] === 'do') $fx .= '<button type="button" class="ak-b go" data-pf-fix="' . tv_w_e((string) $f[1]) . '"' . $dis . '>' . tv_w_e((string) $f[2]) . '</button> ';
@@ -58,6 +59,29 @@ function tv_preflight_line(PDO $pdo, string $id, ?array $r = null, ?array $line 
         if (count($hist) > 1) $h .= '<p class="ak-note">Its last runs: ' . implode(' ', array_map(fn ($x) => tv_preflight_mark((string) $x[1]) . (isset($x[2]) ? '<small>' . tv_w_e(Preflight::took(null, (int) $x[2])) . '</small>' : ''), $hist)) . '</p>';
     }
     return $h . '</div></details></li>';
+}
+
+/**
+ * A line read through the one engine (R58–R60, R71; handoffs/control-board-build.md §2.1 row 34): a workflow's own line
+ * is a roll-up that raises nothing (02 §2.2: its parts' own lines and alarms say what holds it, each only what uses it);
+ * any other red or amber line is a fault on the component it checks, so it shows the engine's words for its alarm as it
+ * stands now (still trying n of 3, or paused by the system and what that holds) and opens its alarm on the board.
+ */
+function tv_preflight_engine(PDO $pdo, string $id, string $s): string
+{
+    if (str_starts_with($id, 'wf:') || str_starts_with($id, 'ph:'))
+        return '<p class="ak-note">' . (str_starts_with($id, 'wf:') ? 'A workflow\'s line adds up its parts and raises nothing itself: a red part holds only what uses it, the rest of ' . tv_w_e(substr($id, 3)) . ' runs. <a class="underline" href="/admin/config/workflows#wfp-' . tv_w_e(substr($id, 3)) . '">Its page under Workflows</a>.' : 'A phase adds up its workflows and raises nothing itself.') . '</p>';
+    if (!in_array($s, ['bad', 'warn'], true)) return '';
+    try {
+        require_once __DIR__ . '/../lib/ControlAlarms.php'; require_once __DIR__ . '/../lib/Thread.php';
+        $a = ControlAlarms::openOf($pdo, 'pf:' . $id);
+        if (!$a) return '';
+        $f = ControlAlarms::facts($pdo, $a);
+        $aff = array_values(array_filter((array) ($f['affects'] ?? []), 'is_string'));
+        return '<p data-tv-status="' . ($a['level'] === 'trip' && !empty($a['tripped_at']) ? 'bad' : 'info') . '" data-tv-label="Now:">' . Thread::times(tv_w_e((string) $f['status'])) . '</p>'
+            . ($aff ? '<p class="ak-note"><b>What it holds:</b> ' . Thread::times(tv_w_e(implode('; ', $aff))) . '</p>' : '')
+            . '<p class="pf-fx"><a class="ak-b" href="/admin/config/control#cb-alarm-' . (int) $a['id'] . '">Its alarm on the board</a></p>';
+    } catch (Throwable $x) { error_log('preflight engine ' . $id . ': ' . $x->getMessage()); return ''; }
 }
 
 /** The counts at the top: "41 ✓ · 3 ✗", the ✗ opening the first red line. */
@@ -116,7 +140,7 @@ function tv_preflight_live(PDO $pdo, int $from): array
 }
 
 /**
- * The pre-flight page, or one group of it on its own ($only): Check before switching on, drawn on the Workflow board under
+ * The pre-flight page, or one group of it on its own ($only): Check before switching on, drawn in the board's Start-up under
  * Start the system (Jason, 2026-11-17: "act like the preflight queue"), with its latest answers, Run the check (a run of that
  * group alone, on the server), its filters and the run log. One engine: the same lines, run and results as the pre-flight.
  */

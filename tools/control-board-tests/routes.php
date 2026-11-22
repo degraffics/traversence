@@ -73,7 +73,9 @@ $acj = (string) file_get_contents($root . '/website/js/admin-control.js');
 foreach (['preflight' => 'id="preflight"', 'cb-controls' => 'id="cb-controls"', 'cb-alarms' => 'id="cb-alarms"', 'maintenance' => 'id="maintenance"', 'log' => 'id="log"'] as $h => $id)
     $t('a stage tab shows its part #' . $h . ', which is on the board', str_contains($acj, "['#" . $h . "', ") && str_contains($cc, $id));
 $t('the stage tiles are tabs (Jason: "everything else goes away"), each saying what its part is', str_contains($cc, 'role="tab" data-cb-tab="') && str_contains($cc, 'class="cb-stw"') && str_contains($cc, '#cb .cb-offtab{display:none!important}'));
-$t('…the one the system is in opens first; a link to a part opens its tab; kept through redraws', str_contains($cc, "' data-tab=\"' . ") && str_contains($acj, "window.addEventListener('hashchange', fromHash)") && str_contains($acj, 'lfApply(); tabsApply();'));
+// "Is it delivering?" opens first now (03-cards.md §4, "The board's first view", and §27, Jason 2026-11-22), replacing "the
+// one the system is in opens first"; the system's stage tile still says "now"
+$t('…"Is it delivering?" opens first, the system\'s stage marked now; a link to a part opens its tab; kept through redraws', str_contains($cc, "' data-tab=\"deliver\"'") && str_contains($cc, "' · now' : ''") && str_contains($acj, "window.addEventListener('hashchange', fromHash)") && str_contains($acj, 'lfApply(); tabsApply();'));
 $t('cleared alarms leave the list for the logbook (no Cleared or All choice, nothing to mark Seen)', str_contains($cc, "fn (\$x) => \$x['cleared_at'] === null)") && !str_contains($cc, "'cleared' => 'Cleared (2 days)'"));
 $t('running with alarms open says so (words follow the state)', str_contains($cc, "alarm' . (\$nHeld === 1 ? '' : 's') . ' open"));
 $t('Open the report goes to the board\'s own pre-flight, not a second copy', str_contains($cc, '<a class="ak-b cb-xs" href="#preflight">Open the report</a>') && !str_contains($cc, 'href="/admin/config/preflight" data-peek-frame>Open the report'));
