@@ -23,7 +23,8 @@ const dir = '/home/user/traversence/handoffs/control-board-plan/step3/board/';
       const STAGES = ['Planning', 'Phased Development', 'Audit & Review', 'Implementation', 'Monitoring'];
       await p.click('[data-dev-preview]');
       const pv = await p.evaluate(() => [...document.querySelectorAll('.dg-g')].map(x => [x.querySelector('.dg-word').textContent, x.querySelector('.dg-pct').textContent, x.querySelectorAll('.dg-needle').length, x.querySelector('.dg-needle').getAttribute('x2')]));
-      ok(pv.every(x => STAGES.includes(x[0]) && /^\d+%$/.test(x[1]) && x[2] === 1) && pv.some(x => x[1] !== '0%'), `${tag}: the preview shows each gauge's draft % and stage, still one needle (${[...new Set(pv.map(x => x[0]))].join(', ')})`);
+      ok(pv.every(x => STAGES.includes(x[0]) && x[0] !== 'Planning' && /^\d+%$/.test(x[1]) && x[2] === 1) && pv.some(x => x[1] !== '0%'), `${tag}: the preview shows each gauge's real stage and draft %, still one needle (${[...new Set(pv.map(x => x[0]))].join(', ')})`);
+      ok(await p.evaluate(() => [...document.querySelectorAll('.dg-g .dg-of')].every(x => /^no check yet: TOOLS/.test(x.textContent))), `${tag}: each previewed gauge says which checks it has no check for yet (TOOLS first)`);
       const bd = [];
       const allWords = pv.map(x => x[0]).concat(bd.map(x => x[0]), g.map(x => x[2]));
       ok(!allWords.some(t => /Working|Less than optimal|Trip|Paused|Failing|Warning|Held|not checked|Behind|Under way|Nearly there/i.test(t)), `${tag}: build gauges use only Jason's five words, never the runtime words`);
@@ -36,8 +37,19 @@ const dir = '/home/user/traversence/handoffs/control-board-plan/step3/board/';
         `${tag}: Pages load fast across the five stages, one needle each, Planning today and the rest illustrations, Monitoring on its reading against its target`);
       const ex = await p.evaluate(() => { const d = document.querySelector('.dg-ex'); return [...d.querySelectorAll('tbody tr')].map(r => r.cells[0].textContent.split(' ')[0] + ':' + r.cells[1].textContent); });
       ok(['R01–R15:passes', 'RENDER:passes', 'PATHS:passes', 'PATHS:fails', 'LOAD:no check yet', 'PHOTOS-SHOWN:no check yet', 'BRAND:partial', 'TOOLS:no check yet'].every(x => ex.includes(x)), `${tag}: Get Local's check list in full, with its "no check yet" rows (${ex.length} checks)`);
-      ok(await p.evaluate(() => document.querySelectorAll('.dg-reg li').length === 25 && document.querySelectorAll('.dg-it .dg-ck').length > 200 && [...document.querySelectorAll('aside[id^="p-dev-"]')].filter(a => a.id !== 'p-dev-questions').every(a => [...a.querySelectorAll('button[disabled]')].some(b => /Run checks now/.test(b.textContent)))),
-        `${tag}: the register (25 checks), each item's checks in its gauge's drawer, and Run checks now (drawn, inert) in every drawer`);
+      ok(await p.evaluate(() => document.querySelectorAll('.dg-reg li').length === 26 && document.querySelectorAll('.dg-it .dg-ck').length > 200 && [...document.querySelectorAll('aside[id^="p-dev-"]')].filter(a => a.id !== 'p-dev-questions' && a.id !== 'p-dev-paths').every(a => [...a.querySelectorAll('button[disabled]')].some(b => /Run checks now/.test(b.textContent)))),
+        `${tag}: the register (26 checks), each item's checks in its gauge's drawer, and Run checks now (drawn, inert) in every drawer`);
+      const three = await p.evaluate(() => [...document.querySelectorAll('.dg-it[id] .dg-3')].length);
+      await p.click('.dg-g >> nth=1'); await p.click('#p-dev-directory .dg-it[id] [data-dev-path="rs"] >> nth=0');
+      const rs = await p.evaluate(() => [document.getElementById('dgp-title').textContent, document.querySelectorAll('#dgp-body a[data-go-mod]').length, !document.getElementById('p-dev-paths').hidden]);
+      await p.click('#p-dev-paths [data-dev-back]'); await p.waitForTimeout(40);
+      const back = await p.evaluate(() => !document.getElementById('p-dev-directory').hidden && document.body.classList.contains('open'));
+      await p.click('#p-dev-directory .dg-it[id] [data-dev-path="cs"] >> nth=0');
+      const cs = await p.evaluate(() => [document.getElementById('dgp-title').textContent, document.querySelectorAll('#dgp-body li').length]);
+      await p.keyboard.press('Escape');
+      ok(three > 250 && rs[0] === 'Registered Services' && rs[1] > 3 && rs[2] && back && cs[0] === 'Core Services' && cs[1] > 1,
+        `${tag}: every item has Workflows ▸, Core Services ▸ and Registered Services ▸ (${three}); each opens its list, Back returns to the gauge`);
+      ok(await p.evaluate(() => /236 of the 292 items need a check that isn.t built yet/.test(document.querySelector('.dg').textContent) && /TOOLS first, is what moves every gauge forward/.test(document.querySelector('.dg').textContent)), `${tag}: the 236-items line and "TOOLS first" show`);
       ok(await p.evaluate(() => document.querySelectorAll('.dg-rev').length > 0 && /audited, awaiting sign-off/.test(document.body.textContent) && !/accepted at sign-off/.test(document.body.textContent)), `${tag}: "signed off" and "audited, awaiting sign-off" marks show; no "accepted at sign-off"`);
       ok(await p.evaluate(() => /Complete needs a path or function check; a page that only renders isn.t complete/.test(document.querySelector('.dg').textContent)), `${tag}: the check-level rule is on the page`);
       ok(await p.evaluate(() => /awaiting Jason.s sign-off/.test(document.querySelector('.dg').textContent) && /the stage of the work/.test(document.querySelector('.dg').textContent) && !document.querySelector('[data-dev-reading]')), `${tag}: the sign-off note and "the stage of the work" show; no reading switch`);

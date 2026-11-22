@@ -548,9 +548,11 @@ def objective(o):
 <dt>Reading</dt><dd>{E(o['reading'])}{' · <time>' + E(o['when']) + '</time>' if o['when'] else ''} <span class="basis">{o['basis']}</span></dd>{extra}</dl></details></div>"""
 
 
-def board_view(with_gauges=True, with_pages=True, with_dev=True):
+def board_view(with_gauges=True, with_pages=True, with_dev=True, groups=None):
     boxes = ''
-    for num, title, objs in PROMISES:
+    for gi, (num, title, objs) in enumerate(PROMISES):
+        if groups is not None and gi not in groups:
+            continue
         worst = 'r' if any(o['state'] == 'r' for o in objs) else 'a' if any(o['state'] == 'a' for o in objs) else 'g'
         boxes += f'<section class="pbox s-{worst}"><h2><span class="pn">{num}</span>{E(title)}</h2><div class="ggrid">{"".join(gauge_card(o) for o in objs)}</div></section>'
     grp = ''
@@ -1084,7 +1086,7 @@ def gauge_card(o):
 <span class="gh"><b>{E(o['name'])}</b>{prop}</span>{g}<span class="band-word s-{o['state']}{'' if edges else ' notarget'}">{E(LT[o['state']])}</span>
 <span class="om2"><span class="metric pillm">{E(metric)}</span>{live}</span>{trend}
 <span class="micro edges">{E(edge_words)}</span></button>
-<div class="btns"><button class="btn path" data-open-panel="p-wf-{o['id']}">Workflows ▸</button><button class="btn path" data-open-panel="p-sv-{o['id']}">Services ▸</button><button class="btn path" data-open-panel="p-snap-{o['id']}" data-cfg="1">Configure</button>{setup}</div>{unm}<span class="rtstage">Monitoring</span></article>"""
+<div class="btns"><button class="btn path" data-open-panel="p-wf-{o['id']}">Workflows ▸</button><button class="btn path" data-open-panel="p-cs-{o['id']}">Core Services ▸</button><button class="btn path" data-open-panel="p-sv-{o['id']}">Registered Services ▸</button><button class="btn path" data-open-panel="p-snap-{o['id']}" data-cfg="1">Configure</button>{setup}</div>{unm}<span class="rtstage">Monitoring</span></article>"""
 
 
 def rt_setup_card(o, stg):
@@ -1104,7 +1106,7 @@ def rt_setup_card(o, stg):
             f'<span class="gh"><b>{E(o["name"])}</b></span>{setup_dial(pct)}<span class="band-word stage st-{RT_STAGE_K[stg]}">{E(stg)}</span>'
             f'<span class="om2"><span class="metric pillm">setup: {n} of 4 · {pct:.0f}%</span></span>'
             f'<span class="om2"><span class="micro">{E(metric)}</span>{live}</span></button>'
-            f'<div class="btns"><button class="btn path" data-open-panel="p-wf-{o["id"]}">Workflows ▸</button><button class="btn path" data-open-panel="p-sv-{o["id"]}">Services ▸</button>'
+            f'<div class="btns"><button class="btn path" data-open-panel="p-wf-{o["id"]}">Workflows ▸</button><button class="btn path" data-open-panel="p-cs-{o["id"]}">Core Services ▸</button><button class="btn path" data-open-panel="p-sv-{o["id"]}">Registered Services ▸</button>'
             f'<button class="btn path" data-open-panel="p-snap-{o["id"]}" data-cfg="1">Configure</button>{pop}</div>{unm}</article>')
 
 
@@ -1196,7 +1198,7 @@ def wf_panel(o):
     end = '<div class="pend">' + ('Ends at: none, no workflow makes this.' if not snap['wf'] else ('Its tasks call: ' + links + ' (in order on the Services path).' if links else 'Ends at its tasks: their needs name no module with a card (association not mapped).')) + '</div>'
     return (f'<aside class="panel" id="p-wf-{o["id"]}" hidden role="dialog" aria-label="{E(o["name"])}: workflows"><button class="x" aria-label="Close">×</button>'
             + _head(o, 'Workflows') + body + extra + end
-            + f'<div class="btns navb"><button class="btn back" data-open-panel="p-snap-{o["id"]}">← Back</button><button class="btn" data-open-panel="p-sv-{o["id"]}">Services ▸</button></div></aside>')
+            + f'<div class="btns navb"><button class="btn back" data-open-panel="p-snap-{o["id"]}">← Back</button><button class="btn" data-open-panel="p-cs-{o["id"]}">Core Services ▸</button><button class="btn" data-open-panel="p-sv-{o["id"]}">Registered Services ▸</button></div></aside>')
 
 
 def sv_panel(o):
@@ -1225,9 +1227,23 @@ def sv_panel(o):
         body = _lv('Need', lt('n', 'none'), 'none', 'No need in Preflight::NEEDS is named for it.')
     unm = ''.join(_lv('Not mapped', lt('n', 'association not mapped'), E(u), 'Listed in Coverage.') for u in snap['unmapped'])
     end = '<div class="pend">Ends at: ' + (', '.join(f'<a href="#" class="mlink" data-go-mod="{m}">{E(SHORT(MOD_BY[m]["label"]))}</a>' for m in _mods_of(o['id'])) or 'none') + ('; association not mapped (above)' if snap['unmapped'] else '') + '.</div>'
-    return (f'<aside class="panel" id="p-sv-{o["id"]}" hidden role="dialog" aria-label="{E(o["name"])}: services"><button class="x" aria-label="Close">×</button>'
-            + _head(o, 'Services') + body + unm + end
+    return (f'<aside class="panel" id="p-sv-{o["id"]}" hidden role="dialog" aria-label="{E(o["name"])}: registered services"><button class="x" aria-label="Close">×</button>'
+            + _head(o, 'Registered Services') + body + unm + end
             + f'<div class="btns navb"><button class="btn back" data-open-panel="p-snap-{o["id"]}">← Back</button><button class="btn" data-open-panel="p-wf-{o["id"]}">Workflows ▸</button></div></aside>')
+
+
+def cs_panel(o):
+    """Core Services: our own platform dependencies (Jason, 2026-11-22), each linked to the card it's drawn on."""
+    body = ''
+    for k in assoc.CORE.get(o['id'], ['db']):
+        lab, m, src = assoc.CORE_PARTS[k]
+        mm = MOD_BY.get(m)
+        cur = _cur_light(mm) if mm else ('n', 'no card')
+        body += _lv('Core service', lt(*cur), f'<a href="#" class="mlink" data-go-mod="{m}">{E(lab)}</a>', E(src) + (f' · drawn on {E(SHORT(mm["label"]))}\'s card' if mm else ''))
+    return (f'<aside class="panel" id="p-cs-{o["id"]}" hidden role="dialog" aria-label="{E(o["name"])}: core services"><button class="x" aria-label="Close">×</button>'
+            + _head(o, 'Core Services') + '<p class="sub">Our own platform: the databases, jobs, staging, the sync, the workers on Railway and the dispatcher.</p>' + body
+            + '<div class="pend">Ends at: ' + ', '.join(f'<a href="#" class="mlink" data-go-mod="{assoc.CORE_PARTS[k][1]}">{E(assoc.CORE_PARTS[k][0])}</a>' for k in assoc.CORE.get(o['id'], ['db'])) + '.</div>'
+            + f'<div class="btns navb"><button class="btn back" data-open-panel="p-snap-{o["id"]}">← Back</button><button class="btn" data-open-panel="p-wf-{o["id"]}">Workflows ▸</button><button class="btn" data-open-panel="p-sv-{o["id"]}">Registered Services ▸</button></div></aside>')
 
 
 SNAP_FRAME = {'o-gather': ['W1', 'W3'], 'o-ir': ['W1'], 'o-complete': ['W2'], 'o-places': ['W2'], 'o-grow': ['W2']}
@@ -1253,7 +1269,7 @@ def snap_panel(o):
             f'<div class="gbig">{dial(o) if o["id"] not in ("o-gather", "o-grow") else ""}</div>'
             f'<dl class="dl"><dt>Measure</dt><dd>{E(o["measure"])}</dd><dt>Target</dt><dd>{E(o["target"])}</dd><dt>Reading</dt><dd>{E(o["reading"])}{" · <time>" + E(o["when"]) + "</time>" if o["when"] else ""} <span class="basis">{o["basis"]}</span></dd></dl>'
             f'<div class="h3">Configure: its setup ({E(rt_stage(o))})</div><ul class="rtsu">' + ''.join(f'<li class="{"ok" if m else ""}">{"✓" if m else "·"} <b>{E(l)}</b> <span class="micro">{E(w)}</span></li>' for l, m, w in rt_setup(o)) + '</ul>'
-            f'{snap_frame(o["id"])}<div class="btns"><button class="btn f" data-open-panel="p-wf-{o["id"]}">Workflows ▸</button><button class="btn f" data-open-panel="p-sv-{o["id"]}">Services ▸</button></div>'
+            f'{snap_frame(o["id"])}<div class="btns"><button class="btn f" data-open-panel="p-wf-{o["id"]}">Workflows ▸</button><button class="btn f" data-open-panel="p-cs-{o["id"]}">Core Services ▸</button><button class="btn f" data-open-panel="p-sv-{o["id"]}">Registered Services ▸</button></div>'
             f'<div class="h3">Its modules (from the association map): Fix it where one is amber or red</div><div class="btns">{fix}</div>' + (f'<div class="h3">Improve</div><div class="btns">{imp}</div>' if imp else '') + '</aside>')
 
 
@@ -1285,9 +1301,16 @@ def write_assoc_md():
          'the same data: every "Fix it: <module>" on a card comes from this table (Jason, 2026-11-22). A link the code can\'t give is',
          '**association not mapped**, listed here and in the board\'s Coverage.', '',
          f'**Size:** {len(rows)} rows for {len(assoc.SNAP)} snapshots; {unm} not mapped.', '',
-         '| Snapshot | Records it counts | Workflow | Task | Need | Sources, in order | Fallback |', '|---|---|---|---|---|---|---|']
+         'The services split two ways (Jason, 2026-11-22): **Registered Services** are the outside companies in the Service register (0173),',
+         'the needs\' sources below; **Core Services** are our own platform, listed per snapshot after the table.', '',
+         '| Snapshot | Records it counts | Workflow | Task | Need | Registered Services, in order | Fallback |', '|---|---|---|---|---|---|---|']
     for r in rows:
         L.append('| ' + ' | '.join(x.replace('|', '/') for x in r) + ' |')
+    L += ['', '## Core Services per snapshot (ours: the databases, jobs, staging, the sync, the workers on Railway, the dispatcher)', '',
+          '| Snapshot | Core Services | Drawn on |', '|---|---|---|']
+    for oid in assoc.SNAP:
+        ks = assoc.CORE.get(oid, ['db'])
+        L.append(f'| {OBJ_BY[oid]["name"]} | {", ".join(assoc.CORE_PARTS[k][0] for k in ks)} | {", ".join(sorted({assoc.CORE_PARTS[k][1] for k in ks}))} |')
     open(STEP3 + 'association-map.md', 'w').write('\n'.join(L) + '\n')
     return len(rows), unm
 
@@ -1631,12 +1654,15 @@ def review_pack(gpanels, chain_html, cov_html, held, mods_js, pages_js, ngaps):
     s26r = [m['id'] for m in MODULES if m.get('more') and m['role'] == 'Source']
     first = lambda m: m['label'].replace('The ', '')[0].upper()
     parts = [
-        ('development', 'the Board view\'s Development rows: the 16 development gauges, one needle each, and each gauge\'s items', lambda: '<section class="view" id="view-board" data-title="Development">' + devgauges.rows('h1') + '</section>', False),
-        ('board', 'the Board view: the gauge cards, each snapshot\'s panel and both drill paths, the three worked examples and the two chains', lambda: board_view(True, False, False), True),
+        ('development-front', 'the Development rows (all 16 gauges) and the 6 front-end gauges\' items, each with its checks and its three paths', lambda: '<section class="view" id="view-board" data-title="Development: front end">' + devgauges.rows('h1') + '</section>', False),
+        ('development-back', 'the Development rows (all 16 gauges) and the 10 back-end gauges\' items, each with its checks and its three paths', lambda: '<section class="view" id="view-board" data-title="Development: back end">' + devgauges.rows('h1') + '</section>', False),
+        ('board', 'the Board view, promises 1–2 and 3 and 5: the runtime gauge cards, each snapshot\'s panel and its three drill paths, the worked examples and the two chains', lambda: board_view(True, False, False, groups={0, 1}), True),
+        ('board-b', 'the Board view, promises 4 and 6, and 7: the runtime gauge cards, each snapshot\'s panel and its three drill paths', lambda: board_view(True, False, False, groups={2, 3}), False),
         ('host-bluehost-fly', 'Hosts: Bluehost and Fly.io', lambda: sec('Hosts: Bluehost and Fly.io', ['bluehost', 'fly'], 'Two of the four hosts, every state on their switches.'), False),
         ('host-railway', 'Hosts: Railway', lambda: sec('Hosts: Railway', ['railway'], 'Railway, every state on its switch.'), False),
         ('host-github', 'Hosts: GitHub', lambda: sec('Hosts: GitHub', ['github'], 'GitHub, every state on its switch.'), False),
-        ('services-a-c', 'Services A–C: Amazon Web Services, Anthropic, Cloudflare, the Communications Dispatcher', lambda: sec('Services A–C', [m['id'] for m in svc if first(m) <= 'C'], 'Amazon Web Services, Anthropic (Claude), Cloudflare, the Communications Dispatcher.'), False),
+        ('services-a', 'Services A: Amazon Web Services, Anthropic', lambda: sec('Services A', [m['id'] for m in svc if first(m) == 'A'], 'Amazon Web Services and Anthropic.'), False),
+        ('services-c', 'Services C: Cloudflare, the Communications Dispatcher', lambda: sec('Services C', [m['id'] for m in svc if first(m) in ('B', 'C')], 'Cloudflare and the Communications Dispatcher.'), False),
         ('services-d-m', 'Services D–M: Google Cloud, Google AI Studio (Gemini)', lambda: sec('Services D–M', [m['id'] for m in svc if 'D' <= first(m) <= 'M'], 'Google Cloud and Google AI Studio (Gemini).'), False),
         ('services-n-z', 'Services N–Z: QuickBooks, the video worker', lambda: sec('Services N–Z', [m['id'] for m in svc if first(m) >= 'N'], 'QuickBooks (Intuit), the video worker.'), False),
         ('sources-web-search', 'Sources: Google Places, Tavily and Brave (web search)', lambda: sec('Sources: Google Places and web search', ['places', 'tavily', 'brave'], 'Tavily first, Brave its backup; Google Places for Still open?'), False),
@@ -1653,7 +1679,7 @@ def review_pack(gpanels, chain_html, cov_html, held, mods_js, pages_js, ngaps):
         for m in re.findall(r'<details class="mod" id="mod-([\w-]+)"', fn()):
             partof.setdefault(m, f'part-{i:02d}-{slug}.html')
     all_panels = {}
-    for blob in (gpanels, chain_html, cov_html, manage_panel(), devgauges.panels(), ''.join(unplaceholder(v) for v in PANELS.values())):
+    for blob in (gpanels, chain_html, cov_html, manage_panel(), devgauges.panels() + devgauges.paths_panel(), ''.join(unplaceholder(v) for v in PANELS.values())):
         for m in re.finditer(r'<aside class="panel" id="([^"]+)"', blob):
             all_panels[m.group(1)] = balanced(blob, m.start(), 'aside')
     css_nodev = _min_css(CSS.replace(devgauges.CSS, '')) + '.rnote{background:var(--card);border:1px solid var(--copper);border-radius:.5rem;padding:.4rem .6rem;margin:.5rem 16px;font-size:13px}'
@@ -1665,13 +1691,28 @@ def review_pack(gpanels, chain_html, cov_html, held, mods_js, pages_js, ngaps):
         need = set(re.findall(r'data-open-panel="([^"]+)"', view))
         if slug == 'pages-coverage':
             need |= {'p-manage', 'p-coverage'}
+        mine, _away = set(), None
+        if slug.startswith('development'):
+            need |= {'p-dev-paths'}
+            mine = {f'p-dev-{devgauges.slug(g)}' for g in (devgauges.FRONT if slug == 'development-front' else devgauges.BACK)} | {'p-dev-questions', 'p-dev-paths'}
+            other = 'part-{:02d}-{}.html'.format(next(n for n, x in enumerate(parts, 1) if x[0] == ('development-back' if slug == 'development-front' else 'development-front')),
+                                                 'development-back' if slug == 'development-front' else 'development-front')
+            def _away(m, mine=mine, other=other):
+                pid = m.group(1)
+                return m.group(0) if pid in mine or not pid.startswith('p-dev-') else f'data-dev-part="{other}#{pid}"'
+            view = re.sub(r'data-open-panel="(p-dev-[^"]+)"', _away, view)
+            need = {x for x in need if not x.startswith('p-dev-') or x in mine}
         got, todo = {}, list(need)
         while todo:
             pid = todo.pop()
             if pid in got or pid not in all_panels:
                 continue
+            if slug.startswith('development') and pid.startswith('p-dev-') and pid not in mine:
+                continue
             got[pid] = all_panels[pid]
             todo += re.findall(r'data-open-panel="([^"]+)"', got[pid])
+        if slug.startswith('development'):
+            got = {k: re.sub(r'data-open-panel="(p-dev-[^"]+)"', _away, v) for k, v in got.items()}
         pages_data = pages_js if slug == 'pages-coverage' else []
         groups_data = [{'rows': g['rows']} for g in GROUPS] if slug == 'pages-coverage' else []
         note = f'Part {i} of {M} of the control board review pack: {what}. The full board is index.html.'
@@ -1680,7 +1721,7 @@ def review_pack(gpanels, chain_html, cov_html, held, mods_js, pages_js, ngaps):
                 f'<span class="sp" style="flex:1"></span><span class="chip">{held} trips · 21 alarms</span>{cov_btn}</header>'
                 f'<p class="rnote" role="note">{E(note)}</p>' + (f'<nav class="qbar" aria-label="What\'s wrong now">{quick()}</nav>' if quick_bar else '')
                 + f'<main class="main">{view}</main><div class="scrim"></div>{"".join(got.values())}'
-                + f'<script>window.__PAGES={json.dumps(pages_data)};window.__GROUPS={json.dumps(groups_data)};window.__MODS={json.dumps(mods_js)};window.__PARTOF={json.dumps(partof)};</script>{JS}{devgauges.JS}')
+                + f'<script>window.__PAGES={json.dumps(pages_data)};window.__GROUPS={json.dumps(groups_data)};window.__MODS={json.dumps(mods_js)};window.__PARTOF={json.dumps(partof)};{"window.__DEVPATHS=" + json.dumps(devgauges.paths_data(), separators=(",", ":"), ensure_ascii=False) + ";" if slug.startswith("development") else ""}</script>{JS}{devgauges.JS if slug.startswith("development") else ""}')
         body = _fix_body(body)
         doc = (f'<!doctype html><!-- {note} -->\n<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">'
                f'<title>Control board review, part {i} of {M}</title><style>{devgauges.dev_css(css) if slug == "development" else css_nodev}</style></head><body>{body}</body></html>')
@@ -1710,7 +1751,7 @@ def build():
     os.makedirs(OUT, exist_ok=True)
     chain_html, c1, c2 = chains()
     n_assoc, n_unmapped = write_assoc_md()
-    gpanels = ''.join(snap_panel(o) + wf_panel(o) + sv_panel(o) for _, _, objs in PROMISES for o in objs)
+    gpanels = ''.join(snap_panel(o) + wf_panel(o) + cs_panel(o) + sv_panel(o) for _, _, objs in PROMISES for o in objs)
     cov_html, n_unm, n_noch, n_coming = coverage()
     held = sum(1 for a in ALARMS['open'] if a['level'] == 'trip')
     mods_js = {m['id']: m['label'] for m in MODULES}
@@ -1727,8 +1768,8 @@ def build():
 <button data-nav="workflows" aria-current="false">{ico('wf')}Workflows<span class="cnt">{len(WORKFLOWS)}</span></button>
 <button data-nav="diagnostics" aria-current="false">{ico('diag')}Diagnostics<span class="cnt">{len(MODULES)}</span></button></nav>
 <main class="main">{fold_intros(board_view() + modules_view() + workflows_view() + diag_view())}</main></div>
-<div class="scrim"></div>{gpanels}{chain_html}{cov_html}{manage_panel()}{search_panel()}{devgauges.panels()}{''.join(unplaceholder(v) for v in PANELS.values())}
-<script>window.__PAGES={json.dumps(pages_js)};window.__GROUPS={json.dumps([{'rows': g['rows']} for g in GROUPS])};window.__MODS={json.dumps(mods_js)};window.__CMD={json.dumps(search_index())};</script>{JS}{devgauges.JS}"""
+<div class="scrim"></div>{gpanels}{chain_html}{cov_html}{manage_panel()}{search_panel()}{devgauges.panels()}{devgauges.paths_panel()}{''.join(unplaceholder(v) for v in PANELS.values())}
+<script>window.__PAGES={json.dumps(pages_js)};window.__GROUPS={json.dumps([{'rows': g['rows']} for g in GROUPS])};window.__MODS={json.dumps(mods_js)};window.__CMD={json.dumps(search_index())};window.__DEVPATHS={json.dumps(devgauges.paths_data())};</script>{JS}{devgauges.JS}"""
     # native buttons for "Publish from your Vault"; aria-labels as plain text (no escaped tags)
     body, n_pub = re.subn(r'<span class="pub" role="button" tabindex="0">(.*?)</span>', r'<button type="button" class="pub">\1</button>', body)
     def _plain_aria(m):

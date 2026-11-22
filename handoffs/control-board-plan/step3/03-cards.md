@@ -1968,6 +1968,12 @@ reference** (Q21 and SM 172–189, `step1-requirements.md`), by Jason's directio
   reviewed needs no open finding and his sign-off on record, per 0145 §5); and the **runtime lifecycle is approved**
   ("Approve"): every runtime snapshot gauge shows its setup % (the probe built, its target set, its check passing, its alarm
   wired) through Planning to Implementation, and at Monitoring the live reading against its target, setup only in Configure.
+- **Three drill paths (Jason, 2026-11-22):** "Workflows: what feeds the item. Core Services: the platform specific
+  dependencies. Registered Services: the outside specific dependencies." Every runtime card and every development item carries
+  Workflows ▸, Core Services ▸ (ours: databases, jobs, staging, the sync, the Railway workers, the dispatcher) and Registered
+  Services ▸ (the Service register's outside companies). The checks behind the gauges are one register
+  (`sections/check-register.md`): targets proposed with their sources, the schedule with each run's load, Site health's one path
+  as a recommendation.
 
 ---
 

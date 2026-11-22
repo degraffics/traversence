@@ -31,13 +31,13 @@ A gauge's stage comes from its process state, never from fixed % bands.
 
 | Stage | Entry | Exit | What the gauge shows |
 |---|---|---|---|
-| **Planning** | A new gauge is created. It starts at **0**. | Jason signs off the configuration ("what 100 means"), **and no criterion has "no check yet"** (every check it needs is in the register and built). His sign-off is written to the Control Board's logbook with its date. | 0 · "Planning" · "configuration drafted: N items, M criteria, awaiting sign-off" (or "no configuration yet") |
+| **Planning** | A new gauge is created. It starts at **0**. | Jason signs off the configuration ("what 100 means"). His sign-off is written to the Control Board's logbook with its date. | 0 · "Planning" · "configuration drafted: N items, M criteria, awaiting sign-off" (or "no configuration yet") |
 | **Phased Development** | Sign-off, while any in-scope item isn't built. | Every item meets "built". | criteria met / configured · "Phased Development" |
 | **Audit & Review** | Every item is built, while any item lacks its check or its review. **Audit & Review checks the work before it goes live:** staging, the checks (path or function), the review. | Every item meets "checked" and "reviewed". | the % · "Audit & Review" |
 | **Implementation** | Checked and reviewed, while any item isn't live or isn't proved. **Implementation is putting it live and proving it on real data.** | Every item meets "live" and "proved". | the % · "Implementation" |
 | **Monitoring** | 100: every configured criterion met. | A regression: a criterion that stops holding. The needle drops, the stage moves back to where that criterion belongs, with its reason, and the drop is logged. | 100 · "Monitoring" · the last time every criterion was checked |
 
-**The rule, in order:** not signed off, or any criterion with no check yet → Planning; else any item not built → Phased Development; else any item without its
+**The rule, in order:** not signed off → Planning; else any item not built → Phased Development; else any item without its
 check or review → Audit & Review; else any item not live or not proved → Implementation; else Monitoring. A gauge sits at the
 earliest stage any of its items is still in.
 
@@ -83,8 +83,28 @@ check is one entry in **`check-register.md`** (25: 21 existing, 4 proposed), and
   where a path runs through it; SEARCH or LAYOUT where they measure it; BOARD for a workflow or a service; and the four
   proposed checks where they apply: TOOLS (each tool and endpoint by every type of account), LOAD (load time against a
   target), PHOTOS-SHOWN (every photo drawn), BRAND (most of brand.md). A missing check shows **"no check yet"**.
-- **A gauge can't leave Planning while any of its criteria has "no check yet".** Today every gauge has some, so all 16 stay
-  in Planning even with the draft signed off; the needle still shows the share met.
+- **A criterion with no check yet counts as unmet**, and is shown as such: the needle falls (the recount: −182 points, 11.4 on
+  average). **Planning ends at Jason's sign-off of the scope**, as in the lifecycle he approved.
+- **Missing checks block only the move from Audit & Review to Implementation:** nothing passes the audit without its checks.
+  The gauge shows which are missing ("no check yet: TOOLS, LOAD…").
+- **236 of the 292 items need a check that isn't built yet**, which is why no gauge can pass Audit & Review today. Building the
+  four missing checks, TOOLS first, is what moves every gauge forward.
+
+### Three drill paths (Jason, 2026-11-22)
+
+"Workflows: what feeds the item. Core Services: the platform specific dependencies. Registered Services: the outside specific
+dependencies."
+- **Workflows:** what feeds the item (W0–W14, from the association map).
+- **Core Services:** ours: the databases, the scheduled jobs, staging, the sync, the workers on Railway and the dispatcher.
+- **Registered Services:** the outside companies in the Service register (decisions/0173).
+
+Every runtime card's "Services ▸" is now **Core Services ▸** and **Registered Services ▸**; the association map splits the same
+way (`assoc.py`, `association-map.md`); and every item on the development gauges has the three buttons.
+
+### How often, and Site health
+
+The schedule (five runs, each with its load on the site) and the recommendation for Site health (one notification path through
+the dispatcher, with the side-by-side week as the alternative) are in **`check-register.md`**.
 
 ### What a failure does
 
@@ -119,8 +139,9 @@ Every gauge is in **Planning at 0**, its configuration drafted from the inventor
 draft configuration"** shows what each would read if the draft were signed off, with the criteria from the page audit:
 Discovery 45%, Directory 52%, Community 39%, Marketplace 44%, TRVGO – Storefront 41%, Accounts 48%, Dashboard & Pulse 50%,
 Get Local 360° 48%, Let's Explore 360° 46%, Market 360° 49%, Social 360° 44%, Sales & Growth 46%, White Glove Concierge 23%,
-Back-Office 43%, Insights & Research 46%, System Configuration 48%. All 16 stay in Planning: each has a criterion with no
-check yet (`gauge-criteria-from-audit.md` §7). The nine placements Jason marked "Needs changes" stay where they are,
+Back-Office 43%, Insights & Research 46%, System Configuration 48%. Each shows its real stage: 15 in Phased Development (a
+decided item not built) and Dashboard & Pulse in Audit & Review (every item built; its missing checks hold it there), each with
+its "no check yet" line. The nine placements Jason marked "Needs changes" stay where they are,
 pending Jason, under the Questions pill.
 
 ## 7. Runtime gauges under the lifecycle (approved by Jason, 2026-11-22)
@@ -143,9 +164,9 @@ Jason approved the runtime lifecycle: "Approve". Every runtime snapshot gauge on
 
 1. **Reviewed:** as recommended in `gauge-criteria-from-audit.md` (no open finding and your sign-off on record); the chat
    approval stays an option, with its note in 0145.
-2. **Targets:** your own, or the proposed target per check (`check-register.md`)?
-3. **How often** each check runs.
-4. **Site health:** through the one alarm engine (a failing check is a sensor with Fix it), replacing the separate Pulse case?
+2. **Targets:** the proposed target per check, each with its source (`check-register.md`), or your own?
+3. **The schedule:** the five runs and their load (`check-register.md`), as proposed?
+4. **Site health:** one notification path (recommended) or side by side for a trial week?
 5. **The nine placements:** "Needs changes"; they wait for your detail.
 
 Settled by the session manager (2026-11-22): weights stay at 1; the owning sessions map releases #60–#69 to items, through

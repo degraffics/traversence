@@ -72,6 +72,54 @@ CHECKS += [
                  'Today only R10 (icons), R11 (breadcrumbs) and the rendered 3px edges are automatic', target='every readable standard met; the rest to the review',
          runs='proposed: with the rendered check', evidence='partial today: R10, R11 (scorecard.md) and RENDER\'s edges', status='not built (partial)', latest='partial: R10, R11 and the 3px edges only', result='partial'),
 ]
+CHECKS.append(dict(id='AUDIT', name='The audit\'s own load: what each run asks of the site', source='Jason, 2026-11-22: "wont bog our platform or resources down creating slowness issues"',
+                   scope='every run of every check', measure='each run\'s requests to the site, its time, and the probe pages\' response times against their baseline',
+                   target='', runs='every run reports it', evidence='proposed: an "Audit" runtime card on the board', status='not built', latest='no check yet', result='no check'))
+TARGETS = {   # one target per check, with its source; every one proposed until Jason sets it
+    **{f'R{n:02d}': ('0 failures in the files it reads', 'site-audit/rules.md (its rule); decisions/0145 §6 (the zip check blocks the "yes" rules)') for n in range(1, 16)},
+    'RENDER': ('every page answers, with no console error, no failed request, no sideways scroll at 390 and card edges at 3px, as each account; the accessibility basics at WCAG 2.2 AA',
+               'decisions/0145 §1; CLAUDE.md "Phone layout and visual standard"; decisions/0058 §11; W3C WCAG 2.2, level AA'),
+    'PATHS': ('every path reaches its goal: 3 taps or fewer from home to a place to eat and to a town\'s guide, 5 or fewer for the rest', 'site-audit/punch-list.md A6 (decided 2026-11-08); rules.md J01'),
+    'SEARCH': ('every probe case passes; typing suggestions answer within 300 ms', 'the search probe\'s own bar (site-audit/search-scorecard.md); decisions/0088 ("never wait")'),
+    'LAYOUT': ('no gap between the top bar and the hero; nothing drawn over a card\'s action icons', 'decisions/0058 §21'),
+    'PHOTOS': ('a real stock and member photo answer 200 as an image; every kind reaches media.php', 'decisions/0123; the 2026-11-15 404'),
+    'BOARD': ('its process working, with no open trip', 'decisions/0171, 0175'),
+    'TOOLS': ('every tool does what site-audit/tools.md says, for every account that may use it, and is refused with the reason for every account that may not', 'decisions/0145 §1 ("Function and tool checks")'),
+    'LOAD': ('Core Web Vitals "good": LCP ≤ 2.5 s, CLS ≤ 0.1, INP ≤ 200 ms, each at the 75th percentile', 'Google\'s Core Web Vitals thresholds; the board\'s "Pages load fast" (about 2.5 s, des)'),
+    'PHOTOS-SHOWN': ('every image on the page loaded and drawn (decoded, wider than 0) and with a text alternative', 'Jason, 2026-11-22 ("the photo loads and display"); W3C WCAG 2.2 SC 1.1.1 Non-text Content'),
+    'BRAND': ('the readable standards of brand.md met: its tokens, one header per view, filters as one dropdown, card anatomy, icons; text contrast at least 4.5:1, focus visible',
+              'brand.md §4; design/css-theme-brand.md; CLAUDE.md; W3C WCAG 2.2 SC 1.4.3 Contrast (Minimum) and 2.4.7 Focus Visible'),
+    'AUDIT': ('a light run asks at most about 20 requests, one at a time with a 1 s gap; the probe pages\' response times stay within 20% of their 7-day median, or the next run backs off',
+              'Jason, 2026-11-22 (the schedule below); the 20% is ours, proposed'),
+}
+RUNS = {   # Jason, 2026-11-22: "what would be an acceptable time, and wont bog our platform or resources down creating slowness issues"
+    **{f'R{n:02d}': '1. on every zip and after every sync, on GitHub (no load on the site)' for n in range(1, 16)},
+    'RENDER': '3. daily at 09:40 UTC (2:40 AM Arizona), and on staging with every release',
+    'PATHS': '3. daily after RENDER, and on staging with every release; changing paths on staging only (4)',
+    'SEARCH': '2. one search in the hourly light probe; the full probe daily with RENDER (3)',
+    'LAYOUT': '3. daily with RENDER',
+    'PHOTOS': '2. one photo in the hourly light probe; the full check daily (3)',
+    'BOARD': 'the board\'s own watch, every 10 minutes (the operational clock; not the audit\'s)',
+    'TOOLS': '3. read-only tools daily; 4. tools that change anything on staging only, per release',
+    'LOAD': '2. key pages in the hourly light probe; 3. every page daily; 4. heavy speed tests with EXPLAIN on staging only, per release',
+    'PHOTOS-SHOWN': '3. daily with RENDER',
+    'BRAND': '3. daily with RENDER',
+    'AUDIT': 'every run reports its own load',
+}
+for c in CHECKS:
+    c['target'], c['target_source'] = TARGETS[c['id']]
+    c['target_status'] = 'proposed'
+    c['runs'] = RUNS[c['id']]
+SCHEDULE = [
+    ('1. Code checks', 'R01–R15', 'on every zip and after every sync', 'none to the site (reads the mirror and the zip)', 'a few minutes', 'GitHub\'s runners'),
+    ('2. Light live probes', 'LOAD (key pages), SEARCH (one search), the sign-in page, PHOTOS (one photo), the payment page\'s answer', 'every hour',
+     'about 20, read-only, signed out, one at a time with a 1 s gap', 'about 40 seconds', 'GitHub\'s runners, against the live site'),
+    ('3. The full rendered check and the paths', 'RENDER (412 views), PATHS (25), LAYOUT, PHOTOS-SHOWN, BRAND, read-only TOOLS, the full SEARCH probe', 'daily at 09:40 UTC (2:40 AM Arizona), as today; and on staging with every release',
+     'about 412 page views and the paths\' steps, a page at a time', 'the paths\' last run took 192 s of a 420 s budget; the rendered check runs inside the job\'s 120 minutes', 'GitHub\'s runners'),
+    ('4. Function checks that change anything, and heavy speed tests with EXPLAIN', 'TOOLS (those that change things), LOAD\'s query plans', 'per release', 'on staging only, never on live (live: read-only checks and the test accounts\' own records)', 'per release', 'staging.trvgo.us'),
+    ('5. Run checks now', 'only that gauge\'s checks', 'on a press: one run at a time, at most once per 10 minutes per gauge', 'the gauge\'s checks only', 'minutes', 'GitHub\'s runners (as 2 and 3)'),
+]
+
 BY = {c['id']: c for c in CHECKS}
 CODE_IDS = [f'R{n:02d}' for n in range(1, 16)]
 
@@ -93,9 +141,29 @@ def write():
          '`scorecard.md`, the results in `site-audit/results/` and the workflows (`site-audit.yml`, `site-checks.yml`, `search-probe.yml`);',
          'also as `check-register.json`. A spec: nothing here is built.', '',
          f'**{len(CHECKS)} checks: {sum(1 for c in CHECKS if c["status"] == "built")} existing, {sum(1 for c in CHECKS if c["status"] != "built")} proposed** (the four gaps Jason\'s question found).', '',
-         '| ID | Check | Source rule | Scope | Measure | Target | When it runs | Latest | Evidence | Status |', '|---|---|---|---|---|---|---|---|---|---|']
+         '| ID | Check | Source rule | Scope | Measure | When it runs | Latest | Evidence | Status |', '|---|---|---|---|---|---|---|---|---|']
     for c in CHECKS:
-        L.append(f'| **{c["id"]}** | {c["name"]} | {c["source"]} | {c["scope"]} | {c["measure"]} | {c["target"]} | {c["runs"]} | {c["latest"]} | {c["evidence"]} | {c["status"]} |'.replace('\n', ' '))
+        L.append(f'| **{c["id"]}** | {c["name"]} | {c["source"]} | {c["scope"]} | {c["measure"]} | {c["runs"]} | {c["latest"]} | {c["evidence"]} | {c["status"]} |'.replace('\n', ' '))
+    L += ['', '## Targets: one per check, with its source (every one proposed)', '',
+          'Each check has one target. Where a published standard fits, it\'s cited by name (Google\'s Core Web Vitals; W3C WCAG 2.2);',
+          'otherwise the decision line it comes from. Every target is **proposed** until Jason sets it.', '',
+          '| Check | Target (proposed) | Source |', '|---|---|---|']
+    L += ['| R01–R15 | 0 failures in the files each reads | site-audit/rules.md (each rule); decisions/0145 §6 |']
+    L += [f'| {c["id"]} | {c["target"]} | {c["target_source"]} |' for c in CHECKS if not re.match(r'R\d\d$', c['id'])]
+    L += ['', '## How often, and what each run asks of the site', '',
+          'Jason (2026-11-22): "what would be an acceptable time, and wont bog our platform or resources down creating slowness issues".', '',
+          '| Run | Checks | When | Requests to the site | Time | Where |', '|---|---|---|---|---|---|']
+    L += [f'| {a} | {b} | {c} | {d} | {e} | {f} |' for a, b, c, d, e, f in SCHEDULE]
+    L += ['', '**Load measured:** each run\'s requests and time show on the audit\'s own card (the **AUDIT** row above; a proposed "Audit"',
+          'runtime card on the board). If a run slows the site (the probe pages\' response times more than 20% over their 7-day median), the',
+          'next run backs off (an hour later, then two) and says so on that card. Live checks only read; anything that changes data runs on staging.', '',
+          '## Notes', '',
+          '- **PHOTOS keeps only its exit code:** no result is kept in git (`photos-check.sh` exits 1 and the run fails). Its results go',
+          '  into the one results format (build order, 3).',
+          '- **A live finding, handed to the Design and trips session (not fixed here):** LAYOUT measures a **5px gap above the hero** on a',
+          '  landmark page (`/place/landmark.php?id=900000013`) and on `/discovery/` (`site-audit/layout-probe.md`, 2026-11-21 10:19 UTC),',
+          '  against decisions/0058 §21 (no gap). The layout probe doesn\'t feed `findings.py` today, so it isn\'t in `results/findings.json`',
+          '  (which is generated, never hand-edited); feeding it there is on the build order (3).', '']
     L += ['', '## The four gaps (proposed checks)', '',
           'Jason asked whether the audit checks "end to end … search on a page and its end points function correctly, the page load speed, the function speed, the photo loads and display … the brand of design standards". Four of those have no check today:', '',
           '1. **TOOLS:** each tool and endpoint by every type of account. `site-audit/tools.md` doesn\'t exist, and 0145 §1\'s function and tool checks aren\'t built.',
@@ -106,10 +174,18 @@ def write():
     L += [f'| `{k}` | {v} |' for k, v in RESULTS_FORMAT['fields'].items()]
     L += ['', 'Example: `' + json.dumps(RESULTS_FORMAT['example']) + '`', '',
           '## Build order (a spec note)', '', '1. **The register** (this file), its IDs referenced by every gauge criterion.',
-          '2. **The four gaps:** TOOLS (with `site-audit/tools.md`), LOAD, PHOTOS-SHOWN, BRAND.', '3. **One results format** for every check, extending findings.json.',
+          '2. **The four gaps:** TOOLS first (with `site-audit/tools.md`), then LOAD, PHOTOS-SHOWN, BRAND; and the AUDIT card (each run\'s load).',
+          '3. **One results format** for every check, extending findings.json: PHOTOS\'s results (today only an exit code) and LAYOUT\'s go into it.',
           '4. **The gauges read the register**, with **Run checks now** in each gauge\'s drawer.', '',
-          '## Open questions (Jason\'s calls)', '', '1. **Targets:** his own, or the proposed target per check?', '2. **How often** each check runs.',
-          '3. **Site health:** should it go through the one alarm engine (a check that fails is a sensor, with Fix it), replacing the separate Pulse case?']
+          '## Site health: one notification path (a recommendation; Jason\'s question)', '',
+          'Jason (2026-11-22): "Failures = notifications, not sure if this is a replacement or side-by-side". **Recommended: one path.**',
+          '- Each failure goes through the dispatcher once (decisions/0172, 0176). A **build regression** is a Pulse item with no push. A',
+          '  **runtime failure** is an alarm, with a push only for a trip or a critical part.',
+          '- **Site health stops sending its own notices.** Its list stays as the audit\'s view, reached from a gauge\'s drill-down.',
+          '- **The alternative:** side by side for a trial week, then choose.',
+          '- The audit stays the scheduled diagnostic: a failing check never trips anything on its own (the two clocks, decisions/0175).', '',
+          '## Open questions (Jason\'s calls)', '', '1. **Targets:** the proposed target per check (above), or his own?',
+          '2. **The schedule** above: acceptable as proposed?', '3. **Site health:** one path (recommended), or side by side for a trial week?']
     open(OUT + 'check-register.md', 'w').write('\n'.join(L) + '\n')
     json.dump(dict(checks=CHECKS, results_format=RESULTS_FORMAT), open(OUT + 'check-register.json', 'w'), indent=1)
 
@@ -117,3 +193,6 @@ def write():
 if __name__ == '__main__':
     write()
     print(len(CHECKS), sum(1 for c in CHECKS if c['status'] == 'built'))
+    for c in CHECKS:
+        if not re.match(r'R\d\d$', c['id']):
+            print(c['id'], '|', c['target'][:80], '|', c['target_source'][:80])

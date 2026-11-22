@@ -70,3 +70,24 @@ SHARES = {
 }
 # the worked examples, drawn end to end (Jason, 2026-11-22)
 EXAMPLES = ['o-speed', 'o-complete', 'o-gather']
+
+# Core Services (Jason, 2026-11-22: "Core Services: the platform specific dependencies. Registered Services: the outside specific
+# dependencies."). Ours: the databases, jobs, staging, the sync, the workers on Railway and the dispatcher. Registered Services are the
+# outside companies in the Service register (0173): the needs' sources above. Each core part: its label, the card it's drawn on, its source.
+CORE_PARTS = {
+    'db': ('The site and its databases', 'bluehost', 'Database::t, decisions/0110 (on Bluehost)'),
+    'jobs': ('The scheduled jobs', 'bluehost', 'Scheduler::JOBS through the cPanel API, decisions/0113'),
+    'staging': ('Staging and releases', 'github', 'decisions/0165, 0159 §5'),
+    'sync': ('The 3-way sync', 'github', 'degraffics/traverse-3way-sync'),
+    'workers': ('The workers on Railway: the crawler and W0 Indexer', 'railway', 'decisions/0160, 0164 §1.4'),
+    'video': ('The video worker', 'video', 'decisions/0153 §8'),
+    'dispatcher': ('The dispatcher', 'dispatcher', 'decisions/0172, 0176'),
+}
+_GATHER = ['db', 'jobs', 'workers']
+CORE = {
+    'o-pages': ['db', 'staging', 'sync'], 'o-speed': ['db'], 'o-signin': ['db', 'dispatcher'], 'o-phone': ['db', 'staging'], 'o-search': ['db', 'jobs'],
+    'o-near': ['db', 'workers'], 'o-paths': ['db', 'staging'], 'o-fresh': _GATHER, 'o-complete': _GATHER, 'o-leak': ['db', 'workers'],
+    'o-photos': ['db', 'video'], 'o-gather': _GATHER, 'o-grow': _GATHER, 'o-pay': ['db', 'jobs', 'dispatcher'], 'o-renew': ['db', 'jobs', 'dispatcher'],
+    'o-email': ['dispatcher', 'jobs'], 'o-claude': ['db', 'jobs'], 'o-places': ['db', 'workers'], 'o-search-cap': ['db', 'workers'],
+    'o-told': ['dispatcher', 'jobs'], 'o-uptime': ['db', 'jobs', 'workers', 'dispatcher'], 'o-ir': ['db', 'workers', 'dispatcher'], 'o-selfrec': ['db', 'jobs', 'workers'],
+}

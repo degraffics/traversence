@@ -8,7 +8,10 @@ the same data: every "Fix it: <module>" on a card comes from this table (Jason, 
 
 **Size:** 103 rows for 23 snapshots; 4 not mapped.
 
-| Snapshot | Records it counts | Workflow | Task | Need | Sources, in order | Fallback |
+The services split two ways (Jason, 2026-11-22): **Registered Services** are the outside companies in the Service register (0173),
+the needs' sources below; **Core Services** are our own platform, listed per snapshot after the table.
+
+| Snapshot | Records it counts | Workflow | Task | Need | Registered Services, in order | Fallback |
 |---|---|---|---|---|---|---|
 | Pages answer | page answers (the rendered check: every page as each visitor, 1280 and 390) | none | none | — | — | — |
 | Pages answer | page answers (the rendered check: every page as each visitor, 1280 and 390) | none (the site) | none | hosting | Bluehost: the site and its databases | the site is down |
@@ -113,3 +116,31 @@ the same data: every "Fix it: <module>" on a card comes from this table (Jason, 
 | Incident Reports close | open Incident Reports | none (the site) | none | hosting | Bluehost: the site and its databases | the site is down |
 | The system recovers by itself | trips closed by their own check (the historian) | none | none | — | — | — |
 | The system recovers by itself | trips closed by their own check (the historian) | — | — | **association not mapped** | the self-recovery rate: no part owns it yet | — |
+
+## Core Services per snapshot (ours: the databases, jobs, staging, the sync, the workers on Railway, the dispatcher)
+
+| Snapshot | Core Services | Drawn on |
+|---|---|---|
+| Pages answer | The site and its databases, Staging and releases, The 3-way sync | bluehost, github |
+| Pages load fast | The site and its databases | bluehost |
+| Sign-in works end to end | The site and its databases, The dispatcher | bluehost, dispatcher |
+| The phone layout | The site and its databases, Staging and releases | bluehost, github |
+| Search finds what they came for | The site and its databases, The scheduled jobs | bluehost |
+| 3 within 5 mi | The site and its databases, The workers on Railway: the crawler and W0 Indexer | bluehost, railway |
+| Paths complete | The site and its databases, Staging and releases | bluehost, github |
+| Fresh | The site and its databases, The scheduled jobs, The workers on Railway: the crawler and W0 Indexer | bluehost, railway |
+| Complete | The site and its databases, The scheduled jobs, The workers on Railway: the crawler and W0 Indexer | bluehost, railway |
+| Nothing private or sacred leaks | The site and its databases, The workers on Railway: the crawler and W0 Indexer | bluehost, railway |
+| Photos load | The site and its databases, The video worker | bluehost, video |
+| Gathering reconciles | The site and its databases, The scheduled jobs, The workers on Railway: the crawler and W0 Indexer | bluehost, railway |
+| Knowledge keeps growing | The site and its databases, The scheduled jobs, The workers on Railway: the crawler and W0 Indexer | bluehost, railway |
+| Payments go through | The site and its databases, The scheduled jobs, The dispatcher | bluehost, dispatcher |
+| Renewals run | The site and its databases, The scheduled jobs, The dispatcher | bluehost, dispatcher |
+| Email is delivered | The dispatcher, The scheduled jobs | bluehost, dispatcher |
+| Within our means: Claude (AI) | The site and its databases, The scheduled jobs | bluehost |
+| Within our means: Google Places | The site and its databases, The workers on Railway: the crawler and W0 Indexer | bluehost, railway |
+| Within our means: web search | The site and its databases, The workers on Railway: the crawler and W0 Indexer | bluehost, railway |
+| Trips reach a person | The dispatcher, The scheduled jobs | bluehost, dispatcher |
+| Things recover | The site and its databases, The scheduled jobs, The workers on Railway: the crawler and W0 Indexer, The dispatcher | bluehost, dispatcher, railway |
+| Incident Reports close | The site and its databases, The workers on Railway: the crawler and W0 Indexer, The dispatcher | bluehost, dispatcher, railway |
+| The system recovers by itself | The site and its databases, The scheduled jobs, The workers on Railway: the crawler and W0 Indexer | bluehost, railway |

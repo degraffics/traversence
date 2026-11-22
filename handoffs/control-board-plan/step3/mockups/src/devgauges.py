@@ -183,11 +183,11 @@ CSS = r"""
 """
 
 JS = r"""<script>
-(function(){var trail=[];
+(function(){var trail=window.__DEVTRAIL=[];
 document.addEventListener('click',function(e){var a=e.target.closest('[data-dev-item]');if(a){var cur=document.querySelector('aside.panel:not([hidden])');if(cur)trail.push(cur.id);var id=a.getAttribute('data-dev-item');
   setTimeout(function(){var it=document.getElementById(id);if(it){document.querySelectorAll('.dg-it.hit').forEach(function(x){x.classList.remove('hit');});it.classList.add('hit');it.scrollIntoView({block:'center'});}},30);return;}
  var b=e.target.closest('[data-dev-back]');if(b){e.preventDefault();var p=trail.pop();if(p){var t=document.createElement('a');t.setAttribute('data-open-panel',p);t.hidden=true;document.body.appendChild(t);t.click();t.remove();}else{var x=b.closest('aside.panel').querySelector('.x');if(x)x.click();}}
- if(e.target.closest('.dg-g'))trail=[];},true);
+ if(e.target.closest('.dg-g'))trail.length=0;},true);
 })();
 </script>"""
 
@@ -326,8 +326,7 @@ def stage_of(its, signed_off=True):
     """The stage comes from the process state, not from % bands."""
     if not signed_off:
         return 'Planning'
-    if any(r == 'no check' for i in its for _, r, _ in item_checks(i)):
-        return 'Planning'   # a gauge can't leave Planning while any of its criteria has "no check yet" (gauge-lifecycle.md)
+    # a criterion with no check yet is unmet: it holds the gauge in Audit & Review at most (nothing passes the audit without its checks)
     cm = [crit_met(i) for i in its]
     if any(not c['built'] for c in cm):
         return 'Phased Development'
@@ -356,12 +355,23 @@ def dial2(p):
             f'<line class="dg-needle" x1="60" y1="58" x2="{x0:.1f}" y2="{y0:.1f}" data-now="{x0:.1f},{y0:.1f}" data-prev="{x1:.1f},{y1:.1f}"/><circle class="dg-hub" cx="60" cy="58" r="4"/></svg>')
 
 
+def missing_line(its):
+    ids = []
+    for i in its:
+        for cid, r, _ in item_checks(i):
+            if r == 'no check' and cid not in ids:
+                ids.append(cid)
+    order = ['TOOLS', 'LOAD', 'PHOTOS-SHOWN', 'BRAND', 'PHOTOS', 'RENDER', 'BOARD']
+    ids.sort(key=lambda x: order.index(x) if x in order else 99)
+    return ('no check yet: ' + ', '.join(ids)) if ids else 'every check built'
+
+
 def gauge(g, side):
     c = config(g)
     st = c['stage']
     bw = band5(round(c['pct']))
     return (f'<div class="dg-gw"><button type="button" class="dg-g" data-open-panel="p-dev-{slug(g)}" data-gauge="{E(g)}" data-prev-pct="{c["pct"]:.0f}" data-prev-stage="{E(st)}" data-prev-k="{SK[st]}" '
-            f'data-prev-band="{E(bw)}" data-prev-bk="{SK[bw]}" '
+            f'data-prev-band="{E(bw)}" data-prev-bk="{SK[bw]}" data-prev-of="{E(missing_line(c["items"]))}" '
             f'aria-label="{E(g)}: Planning, 0%. Configuration drafted: {len(c["items"])} items, {c["total"]} criteria, awaiting sign-off. Open its configuration">'
             f'<span class="dg-name">{E(g)}</span>{dial2(c["pct"])}<span class="dg-word s-pl" data-now="Planning">Planning</span>'
             f'<span class="dg-pct" data-now="0%">0%</span><span class="dg-of" data-now="configuration drafted: {len(c["items"])} items, {c["total"]} criteria, awaiting sign-off">'
@@ -381,6 +391,8 @@ def rows(heading='h2'):
             f'Reviewed: the page review has no open finding, and Jason has signed off (his UI, UX and Functional approval on a release, or his ruling on the page\'s proposal). '
             f'Proved: the path or function check on live data. Past work without his sign-off on record shows "audited, awaiting sign-off", never "reviewed". '
             f'Complete needs a path or function check; a page that only renders isn\'t complete.</p>'
+            f'<p class="dg-rule"><b>{N_NOCHECK} of the {N_SCOPE} items need a check that isn\'t built yet</b>, so no item is "checked" and no gauge can pass Audit & Review until they exist. '
+            f'Building the four missing checks, TOOLS first, is what moves every gauge forward.</p>'
             f'<p class="dg-rule">One item not yet built keeps the whole gauge in Phased Development; the needle still shows progress.</p>'
             f'{runtime_strip()}<h3 class="dg-row">Front end <span>6</span></h3><div class="dg-grid">{"".join(gauge(g, "front") for g in FRONT)}</div>'
             f'<h3 class="dg-row">Back end <span>10</span> <small>the admin\'s modules, as manifests.php has them</small></h3><div class="dg-grid">{"".join(gauge(g, "back") for g in BACK)}</div>'
@@ -412,6 +424,8 @@ def runtime_strip():
             f'against its target, and setup shows only in Configure. One needle at a time.</p><div class="dg-rts">{cards}</div></div>')
 
 
+N_SCOPE = sum(1 for i in ITEMS if i['status'] != 'proposed')
+N_NOCHECK = sum(1 for i in ITEMS if i['status'] != 'proposed' and any(r == 'no check' for _, r, _ in item_checks(i)))
 RES_W = {'pass': 'passes', 'fail': 'fails', 'partial': 'partial', 'no check': 'no check yet'}
 
 
@@ -438,7 +452,7 @@ def _citem(it):
     for f in it.get('other_face') or []:
         o = _face(f)
         if o:
-            faces.append(f'<a href="#" class="dg-face" data-open-panel="p-dev-{slug(o["owner16"])}" data-dev-item="{o["id"]}">Other face: {E(_short_name(o["name"]))} · {E(o["owner16"])} ›</a>')
+            faces.append(f'<a href="#" class="dg-face" data-open-panel="p-dev-{slug(o["owner16"])}" data-dev-item="{o["id"]}">↔ {E(_short_name(o["name"]))} · {E(o["owner16"])} ›</a>')
     m = crit_met(it)
     cr = ''.join(f'<i{" class=ok" if m[k] else ""}>{k[:3]}</i>' for k, w in CRIT)
     lvl = ''
@@ -462,7 +476,7 @@ def _short_name(t):
 
 def _short_src(t):
     t = t.replace('app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):', 'manifests.php:').replace(f'; in the mirror (Sync e229587, 22:55 UTC Nov 21)', '; in the mirror')
-    return t if len(t) <= 62 else t[:60].rsplit(' ', 1)[0] + '…'
+    return t if len(t) <= 50 else t[:48].rsplit(' ', 1)[0] + '…'
 
 
 def panel(g):
@@ -527,6 +541,7 @@ CSS += r"""
 .dg-ext{width:100%;border-collapse:collapse;font-size:12.5px}.dg-ext td,.dg-ext th{border-top:1px solid var(--card-edge);padding:.3rem .35rem;text-align:left;vertical-align:top}
 .dg-reg{list-style:none;margin:.3rem 0;padding:0;font-size:12.5px;display:flex;flex-direction:column;gap:.25rem}
 @media (max-width:767px){.dg-ext thead{display:none}.dg-ext tr{display:block;border-top:1px solid var(--card-edge);padding:.3rem 0}.dg-ext td{display:block;border:0;padding:.1rem 0}}
+.dg-3{display:flex;flex-wrap:wrap;gap:.25rem;margin-top:.2rem}.dg-3 .btn{font-size:11.5px;padding:.1rem .5rem}
 .dg-crs{display:flex;flex-wrap:wrap;gap:.2rem}.dg-c{font-size:11px;border:1px solid var(--card-edge);border-radius:999px;padding:0 .4rem;color:var(--meta);background:var(--sec)}
 .dg-gw{display:flex;flex-direction:column;gap:3px;min-width:0}.dg-gw .dg-g{flex:1}.dg-cfg{border:1px solid var(--field-edge);background:var(--card);border-radius:.4rem;padding:.15rem .5rem;font:inherit;font-size:12px;cursor:pointer;color:var(--brown)}
 .dg-rd{display:inline-flex;flex-wrap:wrap;gap:.25rem;align-items:center}.dg-rdl{font-size:12px;color:var(--meta)}.dg-rd button{border:1px solid var(--field-edge);background:var(--card);border-radius:999px;padding:.15rem .6rem;font:inherit;font-size:12px;cursor:pointer;color:var(--ink)}
@@ -545,7 +560,7 @@ document.addEventListener('click',function(e){var b=e.target.closest('[data-dev-
    f.setAttribute('stroke-dasharray',on?(f.getAttribute('data-len')+' 100'):'0 100');
    w.textContent=on?g.getAttribute('data-prev-stage'):w.getAttribute('data-now');w.className='dg-word s-'+(on?g.getAttribute('data-prev-k'):'pl');
    pc.textContent=on?g.getAttribute('data-prev-pct')+'%':pc.getAttribute('data-now');
-   var of=g.querySelector('.dg-of');of.textContent=on?'if the draft were signed off':of.getAttribute('data-now');});word();}
+   var of=g.querySelector('.dg-of');of.textContent=on?g.getAttribute('data-prev-of'):of.getAttribute('data-now');});word();}
  var o=e.target.closest('[data-dev-open-tab]');if(o){setTimeout(function(){var t=document.getElementById('t-'+o.getAttribute('data-open-panel').replace(/^p-dev-/,'')+'-'+o.getAttribute('data-dev-open-tab'));if(t)tab(t);},10);}
  var gg=e.target.closest('.dg-g');if(gg){setTimeout(function(){var t=document.getElementById('t-'+gg.getAttribute('data-open-panel').replace(/^p-dev-/,'')+'-conf');if(t)tab(t);},10);}});
 document.addEventListener('click',function(e){var r=e.target.closest('[data-rt]');if(!r)return;var k=r.getAttribute('data-rt');
@@ -566,7 +581,7 @@ def page(base_css):
     body = (f'<header class="bhead"><b>System Control Board</b><span class="chip">Development gauges · design mockup · step 3 · not site code</span></header>'
             f'<main class="dg-main">{rows("h1")}<p class="dg-sub">From <code>step3/sections/inventory.json</code> ({len(ITEMS)} items, each owned by one of the 16 gauges; {q} of them recommended, pending Jason). '
             f'Live means on the live site (mirror Sync e229587 or a live release record). The lifecycle: sections/gauge-lifecycle.md.</p></main>'
-            f'<div class="scrim"></div>{panels()}{JS}{JS_PAGE}')
+            f'<div class="scrim"></div>{panels()}{paths_panel()}<script>window.__DEVPATHS={json.dumps(paths_data(), separators=(",", ":"), ensure_ascii=False)};</script>{JS}{JS_PAGE}')
     return (f'<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">'
             f'<title>Development Gauges</title><meta name="description" content="Step 3 mockup: the 16 development gauges, each starting at 0 in Planning, configured to say what 100 means.">'
             f'<style>{dev_css(base_css)}.dg-main{{padding:1rem 16px 3rem;max-width:1280px;margin:0 auto}}@media (max-width:767px){{.dg-main{{padding:.6rem 3px 3rem}}}}</style></head><body>{body}</body></html>')
@@ -605,3 +620,68 @@ def dev_css(css):
             out.append(css[i:k + 1])
         i = k + 1
     return ''.join(out)
+
+
+# ---- the three drill paths from an item (Jason, 2026-11-22): "Workflows: what feeds the item. Core Services: the platform specific
+# dependencies. Registered Services: the outside specific dependencies." Per gauge (the association map is per snapshot; an item
+# reads its gauge's), drawn by the JS on each item so the page stays under 300 KB.
+_W = {w['name'].split(' ', 1)[0]: w['name'] for w in ITEMS if re.match(r'W\d+ ', w['name'])}
+_ws = lambda *ks: [(_W[k], None) for k in ks]
+CORE_L = {'db': ('The site and its databases', 'bluehost'), 'jobs': ('The scheduled jobs', 'bluehost'), 'staging': ('Staging and releases', 'github'),
+          'sync': ('The 3-way sync', 'github'), 'workers': ('The workers on Railway (the crawler, W0 Indexer)', 'railway'), 'video': ('The video worker', 'video'),
+          'dispatcher': ('The dispatcher', 'dispatcher')}
+_cs = lambda *ks: [CORE_L[k] for k in ks]
+REG_L = {'bluehost': 'Bluehost', 'railway': 'Railway', 'github': 'GitHub', 'fly': 'Fly.io', 'anthropic': 'Anthropic (Claude)', 'gemini': 'Google AI Studio (Gemini)',
+         'places': 'Google Places', 'tavily': 'Tavily', 'brave': 'Brave Search', 'overture': 'Overture Maps', 'foursquare': 'Foursquare', 'geofabrik': 'Geofabrik (OpenStreetMap)',
+         'cms': 'NPI Registry (CMS)', 'irs': 'IRS', 'wikimedia': 'Wikimedia', 'commoncrawl': 'Common Crawl', 'census': 'The Census geocoder', 'nws': 'National Weather Service',
+         'aws': 'Amazon Web Services (S3, SES)', 'cloudflare': 'Cloudflare (R2, Turnstile)', 'quickbooks': 'QuickBooks', 'stripe': 'Stripe', 'square': 'Square', 'namecom': 'Name.com',
+         'microsoft': 'Microsoft', 'apple': 'Apple', 'meta': 'Meta', 'googlecloud': 'Google Cloud', 'osm': 'OpenStreetMap (tiles)', 'usgs': 'USGS', 'ridb': 'Recreation.gov (RIDB)'}
+_rs = lambda *ks: [(REG_L[k], k) for k in ks]
+DEVPATHS = {
+    'Discovery': (_ws('W3', 'W4', 'W5', 'W6', 'W7', 'W8', 'W9', 'W10', 'W11', 'W13'), _cs('db', 'jobs', 'workers'), _rs('bluehost', 'anthropic', 'gemini', 'wikimedia', 'commoncrawl', 'geofabrik', 'osm', 'usgs', 'ridb', 'nws', 'cloudflare')),
+    'Directory': (_ws('W1', 'W2', 'W12'), _cs('db', 'jobs', 'workers', 'dispatcher'), _rs('bluehost', 'places', 'tavily', 'brave', 'overture', 'foursquare', 'geofabrik', 'census', 'cms', 'irs')),
+    'Community': ([], _cs('db', 'jobs', 'dispatcher', 'video'), _rs('bluehost', 'aws', 'cloudflare')),
+    'Marketplace': ([], _cs('db', 'jobs', 'dispatcher'), _rs('bluehost', 'stripe', 'square', 'quickbooks', 'aws')),
+    'TRVGO – Storefront': ([], _cs('db', 'jobs'), _rs('fly', 'namecom', 'bluehost', 'cloudflare')),
+    'Accounts': ([], _cs('db', 'dispatcher', 'video'), _rs('bluehost', 'cloudflare', 'googlecloud', 'apple', 'microsoft', 'meta', 'aws')),
+    'Dashboard & Pulse': ([], _cs('db', 'jobs', 'dispatcher'), _rs('bluehost', 'aws', 'microsoft')),
+    'Get Local 360°': (_ws('W1', 'W2'), _cs('db', 'jobs', 'workers'), _rs('bluehost', 'places', 'geofabrik', 'census')),
+    'Let\'s Explore 360°': (_ws('W4', 'W5', 'W7', 'W9', 'W10', 'W11', 'W13'), _cs('db', 'jobs', 'workers'), _rs('bluehost', 'anthropic', 'wikimedia')),
+    'Market 360°': ([], _cs('db', 'jobs', 'dispatcher'), _rs('bluehost', 'stripe', 'square', 'fly', 'namecom')),
+    'Social 360°': ([], _cs('db', 'dispatcher'), _rs('bluehost', 'aws')),
+    'Sales & Growth': ([], _cs('db', 'jobs', 'dispatcher'), _rs('bluehost', 'places', 'aws')),
+    'White Glove Concierge': ([], _cs('db'), _rs('bluehost')),
+    'Back-Office': ([], _cs('db', 'jobs', 'dispatcher'), _rs('bluehost', 'quickbooks', 'aws')),
+    'Insights & Research': (_ws('W0', 'W1', 'W2', 'W3', 'W12'), _cs('db', 'jobs', 'workers'), _rs('bluehost', 'railway', 'anthropic', 'gemini', 'commoncrawl')),
+    'System Configuration': (_ws('W0', 'W1', 'W2', 'W3', 'W4', 'W5', 'W6', 'W7', 'W8', 'W9', 'W10', 'W11', 'W12', 'W13', 'W14'), _cs('db', 'jobs', 'staging', 'sync', 'workers', 'video', 'dispatcher'),
+                             _rs('bluehost', 'railway', 'github', 'fly', 'anthropic', 'aws', 'cloudflare')),
+}
+
+
+def paths_data():
+    return {slug(g): {'g': g, 'wf': [x[0] for x in wf], 'cs': [[a, b] for a, b in cs], 'rs': [[a, b] for a, b in rs]} for g, (wf, cs, rs) in DEVPATHS.items()}
+
+
+def paths_panel():
+    return ('<aside class="panel" id="p-dev-paths" hidden role="dialog" aria-label="An item\'s paths"><button class="x" aria-label="Close">×</button>'
+            '<div class="crumb" id="dgp-crumb">Development</div><h2 class="h2" id="dgp-title">Paths</h2><div id="dgp-body"></div>'
+            '<div class="btns navb"><button class="btn back" data-dev-back>← Back</button></div></aside>')
+
+
+JS += r"""<script>
+(function(){document.addEventListener('click',function(e){var a=e.target.closest('[data-dev-part]');if(a){e.preventDefault();e.stopPropagation();location.href=a.getAttribute('data-dev-part');}},true);
+ var h=location.hash.slice(1);if(/^p-dev-/.test(h)&&document.getElementById(h)){setTimeout(function(){var t=document.createElement('a');t.setAttribute('data-open-panel',h);t.hidden=true;document.body.appendChild(t);t.click();t.remove();},50);}})();
+(function(){var D=window.__DEVPATHS||{},W={wf:'Workflows',cs:'Core Services',rs:'Registered Services'},
+ WHY={wf:'What feeds the item.',cs:'Our own platform: the databases, jobs, staging, the sync, the workers on Railway and the dispatcher.',rs:'The outside companies in the Service register (0173).'};
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+document.querySelectorAll('aside.panel[id^="p-dev-"] .dg-it[id]').forEach(function(li){var g=li.closest('aside').id.slice(6);if(!D[g])return;
+ var d=document.createElement('div');d.className='dg-3';['wf','cs','rs'].forEach(function(k){var b=document.createElement('button');b.type='button';b.className='btn path';b.setAttribute('data-dev-path',k);b.setAttribute('data-g',g);b.setAttribute('data-item',li.id);b.textContent=W[k]+' ▸';d.appendChild(b);});li.appendChild(d);});
+document.addEventListener('click',function(e){var b=e.target.closest('[data-dev-path]');if(!b)return;var k=b.getAttribute('data-dev-path'),g=D[b.getAttribute('data-g')],li=document.getElementById(b.getAttribute('data-item'));
+ var L=g[k]||[],h='<p class="sub">'+WHY[k]+(k==='wf'?'':' From the gauge: the services its items depend on (the association map).')+'</p>';
+ if(!L.length)h+='<p class="sub">none: no workflow feeds it; people make it, or it\'s the site\'s own.</p>';
+ else h+='<ul class="dg-list">'+L.map(function(x){if(typeof x==='string')return '<li class="dg-it"><span class="dg-in">'+esc(x)+'</span></li>';return '<li class="dg-it"><a href="index.html#mod-'+esc(x[1])+'" data-go-mod="'+esc(x[1])+'">'+esc(x[0])+' ›</a></li>';}).join('')+'</ul>';
+ document.getElementById('dgp-crumb').textContent=g.g+' · '+(li?li.querySelector('.dg-in').textContent:'');document.getElementById('dgp-title').textContent=W[k];document.getElementById('dgp-body').innerHTML=h;
+ var t=document.createElement('a');t.setAttribute('data-open-panel','p-dev-paths');t.hidden=true;document.body.appendChild(t);var cur=document.querySelector('aside.panel:not([hidden])');
+ if(cur&&window.__DEVTRAIL)window.__DEVTRAIL.push(cur.id);t.click();t.remove();},true);
+})();
+</script>"""

@@ -46,8 +46,8 @@ offered to Jason as an option (§3).
 
 ## 3. The recommendation
 
-- **checked:** every check in the register that applies to the item passes (§7). A missing check shows "no check yet", and
-  the gauge can't leave Planning while one remains.
+- **checked:** every check in the register that applies to the item passes (§7). A missing check shows "no check yet" and
+  counts as unmet; it blocks the move from Audit & Review to Implementation.
 - **reviewed:** the page review has **no open finding** for it (`results/findings.json`), **and** Jason has signed off, through
   his UI, UX and Functional approval on a release, or his ruling on that page's proposal in `site-audit/proposals.md`.
 - **proved:** the path check (for a page or a flow) or a function reading (for a data job, a workflow or an integration) on
@@ -143,8 +143,9 @@ to it passes, so a page that needs a missing check isn't checked.
 | Insights & Research | 59 | 46 | −13 |
 | System Configuration | 59 | 48 | −11 |
 
-The gauges lose **182 points in all, 11.4 on average**. Every gauge stays in **Planning**: none can leave it while a criterion
-has no check yet. The workflows have no checked item either: their board readings are failing (W1, W2, W3) or not yet read.
+The gauges lose **182 points in all, 11.4 on average**. A criterion with no check yet counts as unmet; it doesn't hold a gauge in
+Planning (that ends at sign-off), but no gauge can pass Audit & Review until its checks exist. With the draft signed off, 15 gauges
+are in Phased Development and Dashboard & Pulse in Audit & Review. The workflows have no checked item either: their board readings are failing (W1, W2, W3) or not yet read.
 
 **One item's check list in full (Get Local, the Directory page):** R01–R15 passes (0 failures) · RENDER passes (Working) ·
 PATHS passes ("eat-near-me") · PATHS fails ("set-place", the finding P9 decided) · LOAD no check yet · PHOTOS not recorded
