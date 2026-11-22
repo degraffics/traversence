@@ -484,6 +484,27 @@
    "expires": "2026-11-23T02:22:17Z",
    "release": "control-board.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/Pulse.php",
+   "functions": [
+    "items"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5mF3yZ2ZE7oz8RpDsq",
+   "why": "control board build (step 4): Site health on one path (check-register.md, Jason 2026-11-22)",
+   "since": "2026-11-22T22:32:17Z",
+   "expires": "2026-11-23T02:32:17Z",
+   "release": "control-board.zip",
+   "callers": {
+    "items": [
+     "app/lib/DailyReport.php",
+     "app/ui/pulse-ui.php",
+     "website/admin/staff-profile.php",
+     "website/admin/w.php",
+     "website/user/api/bell.php"
+    ]
+   }
   }
  ],
  "lapsed": [
