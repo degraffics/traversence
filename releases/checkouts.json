@@ -13,7 +13,7 @@
    "session": "session_01CXLi5kMXdmwb4aE7hWkGeU",
    "why": "card-fixes.zip, taken over from session_01CXLi5hFvhtEKj2JuNVmjWZ (screens proposal A4-A6, A13, B3)",
    "since": "2026-11-22T12:37:44Z",
-   "expires": "2026-11-22T16:37:44Z",
+   "expires": "2026-11-22T16:48:28Z",
    "release": "card-fixes.zip",
    "callers": {}
   },
@@ -27,7 +27,7 @@
    "session": "session_01CXLi5kMXdmwb4aE7hWkGeU",
    "why": "card-fixes.zip, taken over from session_01CXLi5hFvhtEKj2JuNVmjWZ (screens proposal A4-A6, A13, B3)",
    "since": "2026-11-22T12:37:44Z",
-   "expires": "2026-11-22T16:37:44Z",
+   "expires": "2026-11-22T16:48:28Z",
    "release": "card-fixes.zip",
    "callers": {
     "tv_explore_card": [
@@ -45,7 +45,7 @@
    "session": "session_01CXLi5kMXdmwb4aE7hWkGeU",
    "why": "card-fixes.zip, taken over from session_01CXLi5hFvhtEKj2JuNVmjWZ (screens proposal A4-A6, A13, B3)",
    "since": "2026-11-22T12:37:44Z",
-   "expires": "2026-11-22T16:37:44Z",
+   "expires": "2026-11-22T16:48:28Z",
    "release": "card-fixes.zip",
    "callers": {}
   },
@@ -58,7 +58,7 @@
    "session": "session_01CXLi5kMXdmwb4aE7hWkGeU",
    "why": "card-fixes.zip: the card's visible credit carries the photo's licence (session manager's review, 2026-11-22)",
    "since": "2026-11-22T12:38:46Z",
-   "expires": "2026-11-22T16:38:46Z",
+   "expires": "2026-11-22T16:48:28Z",
    "release": "card-fixes.zip",
    "callers": {
     "for": [
@@ -75,7 +75,7 @@
    "session": "session_01CXLi5kMXdmwb4aE7hWkGeU",
    "why": "card-fixes.zip: landmark cards' visible credit carries the photo's licence (image_license selected)",
    "since": "2026-11-22T12:39:25Z",
-   "expires": "2026-11-22T16:39:25Z",
+   "expires": "2026-11-22T16:48:28Z",
    "release": "card-fixes.zip",
    "callers": {
     "top": [
