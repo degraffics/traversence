@@ -50,7 +50,7 @@ its an estimate, if its a tentative price which requires processing to generate 
   and pays: a **transaction**.
 - A price already set when ordering goes straight to the transaction.
 
-**1.8 Money: paid in full, or a deposit** (2026-11-22, replacing the 2026-11-21 reading of a deposit before approval).
+**1.8 Money: paid in full, or a deposit** (2026-11-21 and 22).
 Jason: "A deposit required is terms may change after approval is released into production vs paid in full upon approval
 all terms are final and releasing to production." And: "Orders are expected to be paid in full at the time of
 approval, so a deposit lowers the payment required to a less than full amount, but only until it is released into the
@@ -59,6 +59,12 @@ productions actual schedule."
 - **A deposit** is the exception, for orders whose terms may still change after approval: taken at approval, it lowers
   what's due until the order is released into production's actual schedule. Then the balance is due.
 - A set price is paid when ordered (2026-11-21: "Paid at time of order").
+- **A deposit on an estimate** (2026-11-22): "an estimate is used for when we dont have all things confirmed, so it could
+  easily be used a tool to secure the deposit and enter into the stage where we can firm up things before releasing an
+  estimate to become an invoice/order." So a deposit may also be taken before approval, on an estimate, to secure the
+  work of firming it up into the quote that becomes the order. To confirm: whether it counts toward the order, and what
+  happens to it if the client doesn't go ahead (2026-11-21: "Rejection or cancelation means only to deposit is paid no
+  balance owned if not approved").
 
 **1.9 Cancelling, the vendor and the balance** (2026-11-22): "Deposit required at time of approval. There is a small
 window where an order can be canceled while we process it for production, but once production schedules it and enters
