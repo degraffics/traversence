@@ -311,6 +311,17 @@
    "expires": "2026-11-23T00:37:18Z",
    "release": "design-3f-leftovers.zip",
    "callers": {}
+  },
+  {
+   "path": "app/business/portal.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5grMsUgrRMJv3a71F9",
+   "why": "3f leftovers: the business overview card onto the tokens, colours only",
+   "since": "2026-11-22T20:39:20Z",
+   "expires": "2026-11-23T00:39:20Z",
+   "release": "design-3f-leftovers.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
