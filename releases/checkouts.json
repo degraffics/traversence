@@ -505,6 +505,28 @@
      "website/user/api/bell.php"
     ]
    }
+  },
+  {
+   "path": "website/admin/api.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5mF3yZ2ZE7oz8RpDsq",
+   "why": "control board build (step 4): Check now for workers and endpoints through the engine; no doubled lists under the module card",
+   "since": "2026-11-22T22:45:15Z",
+   "expires": "2026-11-23T02:45:15Z",
+   "release": "control-board.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/outside-services.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5mF3yZ2ZE7oz8RpDsq",
+   "why": "control board build (step 4): Check now for workers and endpoints through the engine; no doubled lists under the module card",
+   "since": "2026-11-22T22:45:15Z",
+   "expires": "2026-11-23T02:45:15Z",
+   "release": "control-board.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
