@@ -162,17 +162,23 @@ newest sync and change it. "New" files are new.
 
 ### 2.2 Build order inside the release
 
-1. Fetch the newest sync, and claim (§2.3).
-2. Read C15 on staging (§6).
-3. **The manifest** (`service-defs.php`, file 24) and its generated lists (file 25), so the engine reads one definition.
-4. **The engine** (files 1–2) and Migrations A and B, with its unit suite.
-5. **The callers onto the engine**, one at a time with their tests rerun: CrawlService → ServiceHealth → Preflight →
+1. Fetch the newest sync, and claim (§2.3). **First check Design and trips' claims** (it's on 0174 R5,
+   openrouteservice, next, likely touching `faq.md` and possibly `manifests.php` and `tools.php`). On a clash, follow
+   CLAUDE.md's `faq.md` rule: wait for its release to go live, then re-apply only this build's entries on the live copy.
+   The session manager sequences the two.
+2. **The ledger's 0 calls comes first** (session manager, 2026-11-22): read `control_ledger` on staging, and find why
+   the workers' calls aren't recorded (`ControlLedger::begin` `:38` via `api/crawl/_auth.php`, `finish` `:146`), before
+   the engine. Every "records in" gauge depends on it.
+3. Read C15 on staging (§6).
+4. **The manifest** (`service-defs.php`, file 24) and its generated lists (file 25), so the engine reads one definition.
+5. **The engine** (files 1–2) and Migrations A and B, with its unit suite.
+6. **The callers onto the engine**, one at a time with their tests rerun: CrawlService → ServiceHealth → Preflight →
    Operations → ControlSensor and ControlLedger → Maintenance and Historian → Scheduler and Automation and SystemStart.
-6. **The dispatcher path** (Thread, Notify, Pulse, SiteHealth).
-7. **The fixes decided:** IRS, NPI, Captcha, the ledger, the Data browser, Tavily's 432, the video worker's restart rule.
-8. **The views:** the gauges, cards, Workflows page, Reports, Copy, and Arc (files 3–5, 32–35, 38).
-9. **The scenario test and the rendered checks**, all green.
-10. FAQ, the release summary, zip check, send (§7).
+7. **The dispatcher path** (Thread, Notify, Pulse, SiteHealth).
+8. **The fixes decided:** IRS, NPI, Captcha, the ledger, the Data browser, Tavily's 432, the video worker's restart rule.
+9. **The views:** the gauges, cards, Workflows page, Reports, Copy, and Arc (files 3–5, 32–35, 38).
+10. **The scenario test and the rendered checks**, all green.
+11. FAQ, the release summary, zip check, send (§7).
 
 ### 2.3 Claims at the start (`tools/page-audit/checkout.py claim`, decisions/0161)
 
@@ -372,9 +378,13 @@ against the map. A mismatch is a case for the building session and the session m
    Check `grep -rn "faq.php#"` before rewording any.
 4. `tools/page-audit/send.py <zip> --mirror <checkout> --note "… built on Sync: <time>"`, then
    `tools/page-audit/deliveries.py record`.
-5. **Jason's approval in his own chat** (the decision pop-up, after the session manager's review) before the inbox PR
+5. **Repo files that act on their own go into main only with the release** (session manager, 2026-11-22). Merging
+   `.github/workflows/heartbeat.yml` starts a schedule that sends email, and a change to the video worker's
+   `railway.json` can redeploy on Railway. Both are live actions: they reach `main` only after Jason's Approve of the
+   release, in the same merge as the zip, never before. Until then they stay on the build branch.
+6. **Jason's approval in his own chat** (the decision pop-up, after the session manager's review) before the inbox PR
    merges. On staging he approves UI, UX and Functional before Publish.
-6. Watch its record (`deliveries/releases/`). After "Release #N: Live", the session manager runs the sync. The builder
+7. Watch its record (`deliveries/releases/`). After "Release #N: Live", the session manager runs the sync. The builder
    checks the mirror matches the zip byte for byte. A release withdrawn on staging is fixed at its cause and sent as `-2`.
 
 ## 8. Rulings to honour, what's open, and pitfalls
