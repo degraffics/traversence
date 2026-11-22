@@ -1,6 +1,154 @@
 {
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
- "claims": [],
+ "claims": [
+  {
+   "path": "website/login.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jNQCN3zFZ2Fh3qUNf",
+   "why": "3f sign-in: tabs, words, sign-in pages without cart/bell/search, the code box, a lost work email (B8)",
+   "since": "2026-11-22T13:18:32Z",
+   "expires": "2026-11-22T17:18:32Z",
+   "release": "signin-3f.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/admin/login.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jNQCN3zFZ2Fh3qUNf",
+   "why": "3f sign-in: tabs, words, sign-in pages without cart/bell/search, the code box, a lost work email (B8)",
+   "since": "2026-11-22T13:18:32Z",
+   "expires": "2026-11-22T17:18:32Z",
+   "release": "signin-3f.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/two-step.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jNQCN3zFZ2Fh3qUNf",
+   "why": "3f sign-in: tabs, words, sign-in pages without cart/bell/search, the code box, a lost work email (B8)",
+   "since": "2026-11-22T13:18:32Z",
+   "expires": "2026-11-22T17:18:32Z",
+   "release": "signin-3f.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/js/code-link.js",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jNQCN3zFZ2Fh3qUNf",
+   "why": "3f sign-in: tabs, words, sign-in pages without cart/bell/search, the code box, a lost work email (B8)",
+   "since": "2026-11-22T13:18:32Z",
+   "expires": "2026-11-22T17:18:32Z",
+   "release": "signin-3f.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/header.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jNQCN3zFZ2Fh3qUNf",
+   "why": "3f sign-in: tabs, words, sign-in pages without cart/bell/search, the code box, a lost work email (B8)",
+   "since": "2026-11-22T13:18:32Z",
+   "expires": "2026-11-22T17:18:32Z",
+   "release": "signin-3f.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/social-buttons.php",
+   "functions": [
+    "tv_social_buttons"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jNQCN3zFZ2Fh3qUNf",
+   "why": "3f sign-in: tabs, words, sign-in pages without cart/bell/search, the code box, a lost work email (B8)",
+   "since": "2026-11-22T13:18:32Z",
+   "expires": "2026-11-22T17:18:32Z",
+   "release": "signin-3f.zip",
+   "callers": {
+    "tv_social_buttons": [
+     "app/ui/header.php",
+     "website/login.php",
+     "website/register.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/Mailer.php",
+   "functions": [
+    "sendCode"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jNQCN3zFZ2Fh3qUNf",
+   "why": "3f sign-in: tabs, words, sign-in pages without cart/bell/search, the code box, a lost work email (B8)",
+   "since": "2026-11-22T13:18:32Z",
+   "expires": "2026-11-22T17:18:32Z",
+   "release": "signin-3f.zip",
+   "callers": {
+    "sendCode": [
+     "app/lib/AddBusiness.php",
+     "app/lib/Claims.php",
+     "app/lib/StaffLogin.php",
+     "app/lib/TwoStep.php",
+     "website/admin/api/vault.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/Pulse.php",
+   "functions": [
+    "items",
+    "manage",
+    "playbook"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jNQCN3zFZ2Fh3qUNf",
+   "why": "3f sign-in: tabs, words, sign-in pages without cart/bell/search, the code box, a lost work email (B8)",
+   "since": "2026-11-22T13:18:32Z",
+   "expires": "2026-11-22T17:18:32Z",
+   "release": "signin-3f.zip",
+   "callers": {
+    "items": [
+     "app/lib/DailyReport.php",
+     "app/ui/pulse-ui.php",
+     "website/admin/staff-profile.php",
+     "website/admin/w.php",
+     "website/user/api/bell.php"
+    ],
+    "playbook": [
+     "app/lib/DailyReport.php",
+     "app/ui/pulse-ui.php"
+    ],
+    "manage": [
+     "website/admin/api/pulse.php"
+    ]
+   }
+  },
+  {
+   "path": "app/ui/pulse-ui.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jNQCN3zFZ2Fh3qUNf",
+   "why": "3f sign-in: tabs, words, sign-in pages without cart/bell/search, the code box, a lost work email (B8)",
+   "since": "2026-11-22T13:18:32Z",
+   "expires": "2026-11-22T17:18:32Z",
+   "release": "signin-3f.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/admin/api/pulse.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jNQCN3zFZ2Fh3qUNf",
+   "why": "3f sign-in: tabs, words, sign-in pages without cart/bell/search, the code box, a lost work email (B8)",
+   "since": "2026-11-22T13:18:32Z",
+   "expires": "2026-11-22T17:18:32Z",
+   "release": "signin-3f.zip",
+   "callers": {}
+  }
+ ],
  "lapsed": [
   {
    "path": "app/lib/Operations.php",
