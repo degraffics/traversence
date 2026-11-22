@@ -1,0 +1,44 @@
+{
+    "id": 256,
+    "title": "The map release: the shared map on the site's colours; a trip's route in Electric Lime over a Deep Umber casing, the chosen day lime",
+    "why": "brand.md §4's note (Jason, 2026-11-19): routes and trails are Electric Lime #B6F22E over a Deep Umber #3E2B1F casing (--tv-route, --tv-route-casing); admin-design.md: the first map that draws routes uses both, the casing 2px wider. js/map-view.js, every full-screen map, moves onto the tokens, colours only (the panel's words read at 4.5:1 or better: 6 under it before, 0 after); Leaflet's lines are SVG, where var() doesn't resolve, so the radius ring reads its token's value at run time. The trip page's day lines become the route colour: the chosen day lime over its casing, the other days casing only, faded (option B, Jason's pick in the release's pop-up); a Route row over the map (Day 1, Day 2…) or tapping a day's stop chooses a day; a one-day trip has no row. Pins keep their day colours. FAQ: the trip entry says so. No data changes, no outside calls, no cost.",
+    "proposals": "",
+    "zip": "map-tokens.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/ui/faq.md": {
+            "sha": "8cdc2787480b10b8eadaf2dab3f3ee3974ee76e4ba942939cfe502a49a607fa4",
+            "size": 421254,
+            "live_was": "810d9ce8f6dfdd37ae65550cd2ae78af581b70bb15159bf0025748b29a3f0c1e"
+        },
+        "website/user/trips/trip.php": {
+            "sha": "966d1d8e7980aeaff2af3eb3316008d6c3f174c372abd1904138b6233fcaccb0",
+            "size": 38407,
+            "live_was": "8bede7030e6f50e3da4035753d5c92cb765129dc1abb5bdbde07329c965d4ed3"
+        },
+        "website/js/map-view.js": {
+            "sha": "d236e8715f6b04e75998f14ceea2d873d9244015e041fde7f6178f0d6c4e10a2",
+            "size": 73070,
+            "live_was": "bc29a2e3996c3d80bd1f4fe76f7e947e2b1e12a5509b4b3d3e7014bba0593132"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-22T21:27:05+00:00",
+            "by": 0,
+            "msg": "Uploaded map-tokens.zip: 3 files."
+        }
+    ]
+}
