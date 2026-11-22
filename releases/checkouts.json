@@ -1,6 +1,318 @@
 {
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
- "claims": [],
+ "claims": [
+  {
+   "path": "website/login.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5grMsUgrRMJv3a71F9",
+   "why": "3f leftovers: sign-in, long text, standalone pages, member pages and the portal shell onto the tokens, colours only, layouts kept (css-theme-brand \u00a74 Release 3)",
+   "since": "2026-11-22T20:30:20Z",
+   "expires": "2026-11-23T00:30:20Z",
+   "release": "design-3f-leftovers.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/register.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5grMsUgrRMJv3a71F9",
+   "why": "3f leftovers: sign-in, long text, standalone pages, member pages and the portal shell onto the tokens, colours only, layouts kept (css-theme-brand \u00a74 Release 3)",
+   "since": "2026-11-22T20:30:20Z",
+   "expires": "2026-11-23T00:30:20Z",
+   "release": "design-3f-leftovers.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/verify-email.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5grMsUgrRMJv3a71F9",
+   "why": "3f leftovers: sign-in, long text, standalone pages, member pages and the portal shell onto the tokens, colours only, layouts kept (css-theme-brand \u00a74 Release 3)",
+   "since": "2026-11-22T20:30:20Z",
+   "expires": "2026-11-23T00:30:20Z",
+   "release": "design-3f-leftovers.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/reset-password.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5grMsUgrRMJv3a71F9",
+   "why": "3f leftovers: sign-in, long text, standalone pages, member pages and the portal shell onto the tokens, colours only, layouts kept (css-theme-brand \u00a74 Release 3)",
+   "since": "2026-11-22T20:30:20Z",
+   "expires": "2026-11-23T00:30:20Z",
+   "release": "design-3f-leftovers.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/two-step.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5grMsUgrRMJv3a71F9",
+   "why": "3f leftovers: sign-in, long text, standalone pages, member pages and the portal shell onto the tokens, colours only, layouts kept (css-theme-brand \u00a74 Release 3)",
+   "since": "2026-11-22T20:30:20Z",
+   "expires": "2026-11-23T00:30:20Z",
+   "release": "design-3f-leftovers.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/faq.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5grMsUgrRMJv3a71F9",
+   "why": "3f leftovers: sign-in, long text, standalone pages, member pages and the portal shell onto the tokens, colours only, layouts kept (css-theme-brand \u00a74 Release 3)",
+   "since": "2026-11-22T20:30:20Z",
+   "expires": "2026-11-23T00:30:20Z",
+   "release": "design-3f-leftovers.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/pages/view.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5grMsUgrRMJv3a71F9",
+   "why": "3f leftovers: sign-in, long text, standalone pages, member pages and the portal shell onto the tokens, colours only, layouts kept (css-theme-brand \u00a74 Release 3)",
+   "since": "2026-11-22T20:30:20Z",
+   "expires": "2026-11-23T00:30:20Z",
+   "release": "design-3f-leftovers.zip",
+   "callers": {},
+   "zones": [
+    "page.<id>"
+   ]
+  },
+  {
+   "path": "website/guide/how.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5grMsUgrRMJv3a71F9",
+   "why": "3f leftovers: sign-in, long text, standalone pages, member pages and the portal shell onto the tokens, colours only, layouts kept (css-theme-brand \u00a74 Release 3)",
+   "since": "2026-11-22T20:30:20Z",
+   "expires": "2026-11-23T00:30:20Z",
+   "release": "design-3f-leftovers.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/guide/resources.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5grMsUgrRMJv3a71F9",
+   "why": "3f leftovers: sign-in, long text, standalone pages, member pages and the portal shell onto the tokens, colours only, layouts kept (css-theme-brand \u00a74 Release 3)",
+   "since": "2026-11-22T20:30:20Z",
+   "expires": "2026-11-23T00:30:20Z",
+   "release": "design-3f-leftovers.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/plans.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5grMsUgrRMJv3a71F9",
+   "why": "3f leftovers: sign-in, long text, standalone pages, member pages and the portal shell onto the tokens, colours only, layouts kept (css-theme-brand \u00a74 Release 3)",
+   "since": "2026-11-22T20:30:20Z",
+   "expires": "2026-11-23T00:30:20Z",
+   "release": "design-3f-leftovers.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/q.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5grMsUgrRMJv3a71F9",
+   "why": "3f leftovers: sign-in, long text, standalone pages, member pages and the portal shell onto the tokens, colours only, layouts kept (css-theme-brand \u00a74 Release 3)",
+   "since": "2026-11-22T20:30:20Z",
+   "expires": "2026-11-23T00:30:20Z",
+   "release": "design-3f-leftovers.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/nexus.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5grMsUgrRMJv3a71F9",
+   "why": "3f leftovers: sign-in, long text, standalone pages, member pages and the portal shell onto the tokens, colours only, layouts kept (css-theme-brand \u00a74 Release 3)",
+   "since": "2026-11-22T20:30:20Z",
+   "expires": "2026-11-23T00:30:20Z",
+   "release": "design-3f-leftovers.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/vendor.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5grMsUgrRMJv3a71F9",
+   "why": "3f leftovers: sign-in, long text, standalone pages, member pages and the portal shell onto the tokens, colours only, layouts kept (css-theme-brand \u00a74 Release 3)",
+   "since": "2026-11-22T20:30:20Z",
+   "expires": "2026-11-23T00:30:20Z",
+   "release": "design-3f-leftovers.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/verify-listing.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5grMsUgrRMJv3a71F9",
+   "why": "3f leftovers: sign-in, long text, standalone pages, member pages and the portal shell onto the tokens, colours only, layouts kept (css-theme-brand \u00a74 Release 3)",
+   "since": "2026-11-22T20:30:20Z",
+   "expires": "2026-11-23T00:30:20Z",
+   "release": "design-3f-leftovers.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/claim.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5grMsUgrRMJv3a71F9",
+   "why": "3f leftovers: sign-in, long text, standalone pages, member pages and the portal shell onto the tokens, colours only, layouts kept (css-theme-brand \u00a74 Release 3)",
+   "since": "2026-11-22T20:30:20Z",
+   "expires": "2026-11-23T00:30:20Z",
+   "release": "design-3f-leftovers.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/ai/index.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5grMsUgrRMJv3a71F9",
+   "why": "3f leftovers: sign-in, long text, standalone pages, member pages and the portal shell onto the tokens, colours only, layouts kept (css-theme-brand \u00a74 Release 3)",
+   "since": "2026-11-22T20:30:20Z",
+   "expires": "2026-11-23T00:30:20Z",
+   "release": "design-3f-leftovers.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/listing/location.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5grMsUgrRMJv3a71F9",
+   "why": "3f leftovers: sign-in, long text, standalone pages, member pages and the portal shell onto the tokens, colours only, layouts kept (css-theme-brand \u00a74 Release 3)",
+   "since": "2026-11-22T20:30:20Z",
+   "expires": "2026-11-23T00:30:20Z",
+   "release": "design-3f-leftovers.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/listing/businessportal.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5grMsUgrRMJv3a71F9",
+   "why": "3f leftovers: sign-in, long text, standalone pages, member pages and the portal shell onto the tokens, colours only, layouts kept (css-theme-brand \u00a74 Release 3)",
+   "since": "2026-11-22T20:30:20Z",
+   "expires": "2026-11-23T00:30:20Z",
+   "release": "design-3f-leftovers.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/hub/build.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5grMsUgrRMJv3a71F9",
+   "why": "3f leftovers: sign-in, long text, standalone pages, member pages and the portal shell onto the tokens, colours only, layouts kept (css-theme-brand \u00a74 Release 3)",
+   "since": "2026-11-22T20:30:20Z",
+   "expires": "2026-11-23T00:30:20Z",
+   "release": "design-3f-leftovers.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/user/notice.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5grMsUgrRMJv3a71F9",
+   "why": "3f leftovers: sign-in, long text, standalone pages, member pages and the portal shell onto the tokens, colours only, layouts kept (css-theme-brand \u00a74 Release 3)",
+   "since": "2026-11-22T20:30:20Z",
+   "expires": "2026-11-23T00:30:20Z",
+   "release": "design-3f-leftovers.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/user/profile.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5grMsUgrRMJv3a71F9",
+   "why": "3f leftovers: sign-in, long text, standalone pages, member pages and the portal shell onto the tokens, colours only, layouts kept (css-theme-brand \u00a74 Release 3)",
+   "since": "2026-11-22T20:30:20Z",
+   "expires": "2026-11-23T00:30:20Z",
+   "release": "design-3f-leftovers.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/user/accounts.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5grMsUgrRMJv3a71F9",
+   "why": "3f leftovers: sign-in, long text, standalone pages, member pages and the portal shell onto the tokens, colours only, layouts kept (css-theme-brand \u00a74 Release 3)",
+   "since": "2026-11-22T20:30:20Z",
+   "expires": "2026-11-23T00:30:20Z",
+   "release": "design-3f-leftovers.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/user/market/index.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5grMsUgrRMJv3a71F9",
+   "why": "3f leftovers: sign-in, long text, standalone pages, member pages and the portal shell onto the tokens, colours only, layouts kept (css-theme-brand \u00a74 Release 3)",
+   "since": "2026-11-22T20:30:20Z",
+   "expires": "2026-11-23T00:30:20Z",
+   "release": "design-3f-leftovers.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/user/experiences/index.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5grMsUgrRMJv3a71F9",
+   "why": "3f leftovers: sign-in, long text, standalone pages, member pages and the portal shell onto the tokens, colours only, layouts kept (css-theme-brand \u00a74 Release 3)",
+   "since": "2026-11-22T20:30:20Z",
+   "expires": "2026-11-23T00:30:20Z",
+   "release": "design-3f-leftovers.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/user/journeys/index.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5grMsUgrRMJv3a71F9",
+   "why": "3f leftovers: sign-in, long text, standalone pages, member pages and the portal shell onto the tokens, colours only, layouts kept (css-theme-brand \u00a74 Release 3)",
+   "since": "2026-11-22T20:30:20Z",
+   "expires": "2026-11-23T00:30:20Z",
+   "release": "design-3f-leftovers.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/user/journeys/compose.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5grMsUgrRMJv3a71F9",
+   "why": "3f leftovers: sign-in, long text, standalone pages, member pages and the portal shell onto the tokens, colours only, layouts kept (css-theme-brand \u00a74 Release 3)",
+   "since": "2026-11-22T20:30:20Z",
+   "expires": "2026-11-23T00:30:20Z",
+   "release": "design-3f-leftovers.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/user/trips/trip.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5grMsUgrRMJv3a71F9",
+   "why": "3f leftovers: sign-in, long text, standalone pages, member pages and the portal shell onto the tokens, colours only, layouts kept (css-theme-brand \u00a74 Release 3)",
+   "since": "2026-11-22T20:30:20Z",
+   "expires": "2026-11-23T00:30:20Z",
+   "release": "design-3f-leftovers.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/business/router.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5grMsUgrRMJv3a71F9",
+   "why": "3f leftovers: sign-in, long text, standalone pages, member pages and the portal shell onto the tokens, colours only, layouts kept (css-theme-brand \u00a74 Release 3)",
+   "since": "2026-11-22T20:30:20Z",
+   "expires": "2026-11-23T00:30:20Z",
+   "release": "design-3f-leftovers.zip",
+   "callers": {}
+  }
+ ],
  "lapsed": [
   {
    "path": "website/market/index.php",
