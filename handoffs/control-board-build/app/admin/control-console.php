@@ -1079,6 +1079,12 @@ function tv_cb_ir_page(PDO $pdo, int $id, string $csrf): string
     $h .= '<section class="ak-card tv-bleed cb-rsec" data-copy="Root cause"><h3 class="cb-title">Root cause</h3>'
         . ($confirmed ? '<p data-tv-status="ok" data-tv-label="Confirmed:">' . $e((string) $r['root_cause']) . ($r['root_cause_by'] ? ' <small>(' . $e((string) $r['root_cause_by']) . ')</small>' : '') . '</p>'
             : '<p data-tv-status="info" data-tv-label="Unconfirmed:">No one has written its root cause yet, so this report doesn\'t name one.</p>')
+        . (function () use ($r, $e, $confirmed) {   // a person writes it (02 §2.6, P12: "Unconfirmed until a person writes it"); greyed with the reason for anyone who can't
+            [$okC, $whyC] = ControlBoard::can();
+            return '<p><button type="button" class="ak-b" data-cb-ircause="' . (int) $r['id'] . '" data-cb-cur="' . $e($confirmed ? (string) $r['root_cause'] : '') . '"'
+                . ($okC ? '' : ' disabled title="' . $e((string) $whyC) . '"') . '>' . ($confirmed ? 'Change the root cause' : 'Write the root cause') . '</button>'
+                . ($okC ? '' : ' <small class="ak-note">' . $e((string) $whyC) . '</small>') . '</p>';
+        })()
         . '<p class="ak-note">Signature: ' . $e((string) $r['signature']) . ' (its host and kind; trips with the same signature within ' . ControlIncidents::WINDOW_MIN . ' minutes join it).</p></section>';
     $mh = '';
     foreach ($members as $m) {
