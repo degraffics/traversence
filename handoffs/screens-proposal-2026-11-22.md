@@ -87,3 +87,8 @@ Each answer goes into its decision as a dated note when its release is built (00
   sole owner can be reset only from the server. Recommendation: the new setup link is shown to the owner to hand over,
   never only emailed (B8 does this; the live text "you'll get a new setup link by email" changes to match), and keep a
   second owner or admin as the safety net.
+
+## Search release answers (Jason, 2026-11-22, pop-up reviewed by the session manager)
+- `search-fixes.zip` (#1245): **Approve**, with the tabs on Search Directory's names (0058 §38).
+- Your own Quick Searches: **"Count them"**: a later release counts each of a person's own quick searches for the place
+  they're in, as the place's suggested ones are (B2's follow-up). Not built yet.
