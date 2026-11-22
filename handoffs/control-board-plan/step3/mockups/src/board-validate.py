@@ -4,7 +4,7 @@
 import re, sys
 from html.parser import HTMLParser
 
-PATH = '/home/user/traversence/handoffs/control-board-plan/step3/board/index.html'
+PATH = sys.argv[1] if len(sys.argv) > 1 else '/home/user/traversence/handoffs/control-board-plan/step3/board/index.html'
 doc = open(PATH).read()
 fails = 0
 

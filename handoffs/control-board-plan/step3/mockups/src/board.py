@@ -490,7 +490,7 @@ def objective(o):
 <dt>Reading</dt><dd>{E(o['reading'])}{' · <time>' + E(o['when']) + '</time>' if o['when'] else ''} <span class="basis">{o['basis']}</span></dd>{extra}</dl></details></div>"""
 
 
-def board_view():
+def board_view(with_gauges=True, with_pages=True):
     boxes = ''
     for num, title, objs in PROMISES:
         worst = 'r' if any(o['state'] == 'r' for o in objs) else 'a' if any(o['state'] == 'a' for o in objs) else 'g'
@@ -502,12 +502,17 @@ def board_view():
         grp += (f'<div class="sg"><button class="sgh" data-group="{gi}" aria-expanded="false">{ico("pages")}<b>{E(g["name"])}</b>'
                 f'<span class="cnt">{len(ps)} pages · {cnt["g"]} working · {cnt["a"]} less than optimal · {cnt["r"]} failing · {cnt["n"]} not checked yet</span>{ico("chev")}</button>'
                 f'<div class="rt" id="rt-{gi}" hidden></div></div>')
-    return f"""<section class="view" id="view-board" data-title="Board: is it delivering?">
+    out = f"""<section class="view" id="view-board" data-title="Board: is it delivering?">
 <div class="vh"><div><h1>Is it delivering?</h1><p class="sub">Every snapshot is one gauge card (Jason, 2026-11-22): its dial or bar against its target's bands, the band's word under the needle, the reading with its time, and its trend. Tap a card for its snapshot; Workflows ▸ and Services ▸ drill down to the root, computed from the association map (step3/association-map.md). This supersedes step 1's "skip big gauges" (Q21; SM 172–189).</p></div>
 <div class="seg" role="group" aria-label="Layout"><button data-layout="grid" aria-pressed="true">2 columns</button><button data-layout="rows" aria-pressed="false">Stacked</button></div></div>
-<div class="pgrid" id="pgrid">{boxes}</div>
-<div class="vh" style="margin-top:1.2rem"><div><h2 class="h2">The pages, as monitored units</h2><p class="sub">Every page in <code>site-audit/pages.md</code> (live and coming) and every admin route in the mirror's <code>app/admin/manifests.php</code>: {len(PAGES)} pages in {len(GROUPS)} groups. Open a group for its route table; Manage opens a page.</p></div></div>
+{'<div class="pgrid" id="pgrid">' + boxes + '</div>' if with_gauges else ''}
+{'' if not with_pages else ''}<div class="vh pagesh" style="margin-top:1.2rem"><div><h2 class="h2">The pages, as monitored units</h2><p class="sub">Every page in <code>site-audit/pages.md</code> (live and coming) and every admin route in the mirror's <code>app/admin/manifests.php</code>: {len(PAGES)} pages in {len(GROUPS)} groups. Open a group for its route table; Manage opens a page.</p></div></div>
 <div class="sgs">{grp}</div></section>"""
+    if not with_pages:
+        out = out.split('<div class="vh pagesh"')[0] + '</section>'
+    if not with_gauges:
+        out = out.replace('<h1>Is it delivering?</h1>', '<h1>The pages</h1>', 1)
+    return out
 
 
 def _plain(t):
@@ -1292,7 +1297,7 @@ function show(v){document.querySelectorAll('.view').forEach(function(s){s.hidden
 function setScn(m,i){document.querySelectorAll('.scn[data-mod="'+m+'"]').forEach(function(x){x.hidden=x.getAttribute('data-scn')!==String(i);});
  document.querySelectorAll('.sc-b[data-mod="'+m+'"]').forEach(function(x){x.setAttribute('aria-pressed',x.getAttribute('data-scn')===String(i)?'true':'false');});
  var sc=document.querySelector('#view-modules .scn[data-mod="'+m+'"][data-scn="'+i+'"]'),sel=sc&&sc.querySelector('.lt');if(sel)document.querySelectorAll('[data-mod-state="'+m+'"]').forEach(function(x){x.innerHTML=sel.outerHTML+(sc.getAttribute('data-real')==='1'?' <span class="live">live</span>':' <span class="sctag">scenario</span>');});}
-function goMod(m,i){close();show('modules');var d=document.getElementById('mod-'+m);if(!d)return;d.open=true;if(i!==null&&i!==undefined)setScn(m,i);setTimeout(function(){d.scrollIntoView({block:'start'});},0);}
+function goMod(m,i){close();var d=document.getElementById('mod-'+m);if(!d){if(window.__PARTOF&&__PARTOF[m])location.href=__PARTOF[m]+'#mod-'+m;return;}show('modules');d.open=true;if(i!==null&&i!==undefined)setScn(m,i);setTimeout(function(){d.scrollIntoView({block:'start'});},0);}
 function lt(k,w){return '<span class="lt '+k+'"><i aria-hidden="true"></i>'+esc(w)+'</span>';}
 function table(gi){var g=G[gi],h='<div class="tw"><table class="rtab"><thead><tr><th>Route</th><th>What it does</th><th>Status</th><th>Probe</th><th></th></tr></thead><tbody>';
  g.rows.forEach(function(i){var p=P[i];h+='<tr class="mrow"><td><code>'+esc(p.route)+'</code>'+(p.sub?'<div class="sub">'+esc(p.sub)+'</div>':'')+'</td><td>'+esc(p.purpose).slice(0,220)+'</td><td>'+lt(p.state,p.words)+'<div class="sub">'+esc(p.status).slice(0,120)+'</div></td><td class="sub">'+(p.probes.length?esc(p.probes[0]).slice(0,90):'not checked yet')+'</td><td><button class="btn" data-manage="'+i+'">Manage</button></td></tr>';});
@@ -1343,7 +1348,8 @@ document.addEventListener('click',function(e){document.querySelectorAll('details
 })();
 var L=null,V=null;try{L=localStorage.getItem('tvb-layout');V=localStorage.getItem('tvb-view');}catch(e){}
 if(L==='rows'){var bb=document.querySelector('[data-layout="rows"]');if(bb)bb.click();}
-show(V&&document.getElementById('view-'+V)?V:'board');
+var FV=document.querySelector('.view');show(V&&document.getElementById('view-'+V)?V:(document.getElementById('view-board')?'board':(FV?FV.id.slice(5):'board')));
+if(/^#mod-/.test(location.hash))goMod(location.hash.slice(5));
 })();
 </script>"""
 
@@ -1352,6 +1358,104 @@ def fold_intros(h):
     """Each view's intro sentence moves into "About this view" (Jason, 2026-11-21: scannable first)."""
     return re.sub(r'(<h[12] class="?[^>]*>[^<]*</h[12]>|<h1>[^<]*</h1>)<p class="sub">(.*?)</p>',
                   r'\1<details class="more"><summary>About this view</summary><p class="sub">\2</p></details>', h, flags=re.S)
+
+
+def _fix_body(body):
+    body = re.sub(r'<span class="pub" role="button" tabindex="0">(.*?)</span>', r'<button type="button" class="pub">\1</button>', body)
+    return re.sub(r'aria-label="([^"]*&lt;[^"]*)"', lambda m: 'aria-label="' + E(re.sub(r'\s+', ' ', re.sub(r'<[^>]+>', '', html.unescape(m.group(1)))).strip()) + '"', body)
+
+
+def _min_css(c):
+    c = re.sub(r'/\*.*?\*/', '', c, flags=re.S)
+    return re.sub(r'\s*\n\s*', '', c)
+
+
+def review_pack(gpanels, chain_html, cov_html, held, mods_js, pages_js, ngaps):
+    """Standalone parts of the board, each under 300 KB, for reviewers that read only the start of a file (Jason, 2026-11-22)."""
+    rv = OUT + 'review/'
+    os.makedirs(rv, exist_ok=True)
+    for f in os.listdir(rv):
+        if f.endswith('.html') or f.endswith('.zip'):
+            os.remove(rv + f)
+    by = {m['id']: m for m in MODULES}
+    sec = lambda title, ids, intro: (f'<section class="view" id="view-modules" data-title="{E(title)}"><div class="vh"><div><h1>{E(title)}</h1><p class="sub">{E(intro)}</p></div></div>'
+                                     + ''.join(mod_card(by[i]) for i in ids) + '</section>')
+    svc = sorted([m for m in MODULES if m['role'] == 'Service' and not m.get('more')], key=lambda m: m['label'].replace('The ', '').lower())
+    s26s = [m['id'] for m in MODULES if m.get('more') and m['role'] == 'Service']
+    s26r = [m['id'] for m in MODULES if m.get('more') and m['role'] == 'Source']
+    first = lambda m: m['label'].replace('The ', '')[0].upper()
+    parts = [
+        ('board', 'the Board view: the gauge cards, each snapshot\'s panel and both drill paths, the three worked examples and the two chains', lambda: board_view(True, False), True),
+        ('host-bluehost-fly', 'Hosts: Bluehost and Fly.io', lambda: sec('Hosts: Bluehost and Fly.io', ['bluehost', 'fly'], 'Two of the four hosts, every state on their switches.'), False),
+        ('host-railway', 'Hosts: Railway', lambda: sec('Hosts: Railway', ['railway'], 'Railway, every state on its switch.'), False),
+        ('host-github', 'Hosts: GitHub', lambda: sec('Hosts: GitHub', ['github'], 'GitHub, every state on its switch.'), False),
+        ('services-a-c', 'Services A–C: Anthropic, AWS, Cloudflare', lambda: sec('Services A–C', [m['id'] for m in svc if first(m) <= 'C'], 'Anthropic (Claude), Amazon Web Services, Cloudflare.'), False),
+        ('services-d-m', 'Services D–M: the Dispatcher, Google Cloud, Gemini', lambda: sec('Services D–M', [m['id'] for m in svc if 'D' <= first(m) <= 'M'], 'The Communications Dispatcher, Google Cloud, Google AI Studio (Gemini).'), False),
+        ('services-n-z', 'Services N–Z: QuickBooks, the video worker', lambda: sec('Services N–Z', [m['id'] for m in svc if first(m) >= 'N'], 'QuickBooks (Intuit), the video worker.'), False),
+        ('sources-web-search', 'Sources: Google Places, Tavily and Brave (web search)', lambda: sec('Sources: Google Places and web search', ['places', 'tavily', 'brave'], 'Tavily first, Brave its backup; Google Places for Still open?'), False),
+        ('sources-batched', 'Sources: the batched sources (Overture, Foursquare, Geofabrik, NPI, the IRS)', lambda: sec('Sources: the batched sources', ['overture', 'foursquare', 'geofabrik', 'cms', 'irs'], 'Five free bulk files the worker loads for W1.'), False),
+        ('s26-services', '§26\'s services', lambda: sec('§26: services', s26s, 'The services the needs named with no card before (03 §26).'), False),
+        ('s26-sources', '§26\'s sources', lambda: sec('§26: sources', s26r, 'The sources the needs named with no card before (03 §26); Common Crawl, Wikimedia and the Census carry their real faults.'), False),
+        ('workflows', 'Workflows', lambda: workflows_view().replace('id="view-workflows" hidden', 'id="view-workflows"'), False),
+        ('diagnostics', 'Diagnostics: each module\'s Incident Radius and where the work gets done', lambda: diag_view().replace('id="view-diagnostics" hidden', 'id="view-diagnostics"'), False),
+        ('pages-coverage', 'Pages and Coverage: every page as a monitored unit, Manage, and every gap named', lambda: board_view(False, True), False),
+    ]
+    # which part holds each module, for links between parts
+    partof = {}
+    for i, (slug, what, fn, _) in enumerate(parts, 1):
+        for m in re.findall(r'<details class="mod" id="mod-([\w-]+)"', fn()):
+            partof.setdefault(m, f'part-{i:02d}-{slug}.html')
+    all_panels = {}
+    for blob in (gpanels, chain_html, cov_html, manage_panel(), ''.join(unplaceholder(v) for v in PANELS.values())):
+        for m in re.finditer(r'<aside class="panel" id="([^"]+)"', blob):
+            all_panels[m.group(1)] = balanced(blob, m.start(), 'aside')
+    css = _min_css(CSS) + '.rnote{background:var(--card);border:1px solid var(--copper);border-radius:.5rem;padding:.4rem .6rem;margin:.5rem 16px;font-size:13px}'
+    M = len(parts)
+    sizes = []
+    for i, (slug, what, fn, quick_bar) in enumerate(parts, 1):
+        view = fold_intros(fn())
+        need = set(re.findall(r'data-open-panel="([^"]+)"', view))
+        if slug == 'pages-coverage':
+            need |= {'p-manage', 'p-coverage'}
+        got, todo = {}, list(need)
+        while todo:
+            pid = todo.pop()
+            if pid in got or pid not in all_panels:
+                continue
+            got[pid] = all_panels[pid]
+            todo += re.findall(r'data-open-panel="([^"]+)"', got[pid])
+        pages_data = pages_js if slug == 'pages-coverage' else []
+        groups_data = [{'rows': g['rows']} for g in GROUPS] if slug == 'pages-coverage' else []
+        note = f'Part {i} of {M} of the control board review pack: {what}. The full board is index.html.'
+        cov_btn = f'<button class="chip" style="background:none;color:inherit;cursor:pointer;font:inherit" data-open-panel="p-coverage">{ico("gap", 14)} Coverage: {ngaps} gaps named</button>' if 'p-coverage' in got else ''
+        body = (f'<header class="bhead"><b>System Control Board</b><span class="chip">Review pack · part {i} of {M}</span><span id="trail" class="tm"></span>'
+                f'<span class="sp" style="flex:1"></span><span class="chip">{held} trips · 21 alarms</span>{cov_btn}</header>'
+                f'<p class="rnote" role="note">{E(note)}</p>' + (f'<nav class="qbar" aria-label="What\'s wrong now">{quick()}</nav>' if quick_bar else '')
+                + f'<main class="main">{view}</main><div class="scrim"></div>{"".join(got.values())}'
+                + f'<script>window.__PAGES={json.dumps(pages_data)};window.__GROUPS={json.dumps(groups_data)};window.__MODS={json.dumps(mods_js)};window.__PARTOF={json.dumps(partof)};</script>{JS}')
+        body = _fix_body(body)
+        doc = (f'<!doctype html><!-- {note} -->\n<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">'
+               f'<title>Control board review, part {i} of {M}</title><style>{css}</style></head><body>{body}</body></html>')
+        fn_ = f'part-{i:02d}-{slug}.html'
+        open(rv + fn_, 'w').write(doc)
+        sizes.append((fn_, len(doc.encode()), what))
+    import zipfile
+    with zipfile.ZipFile(rv + 'control-board-review-pack.zip', 'w', zipfile.ZIP_DEFLATED) as z:
+        for f, _, _ in sizes:
+            z.write(rv + f, f)
+    L = ['# The control board review pack', '',
+         'Standalone parts of the interactive board (`../index.html`), each under 300 KB, for a reviewer that reads only the start',
+         'of a file. Each part opens on its own in a browser, with its own CSS and only the data it needs; links to a module in',
+         'another part open that part. Generated by `mockups/src/board.py` with the board; nothing is dropped.', '',
+         '**For Jason:** Give Gemini one part at a time; each is complete.', '',
+         '| Part | File | Size | What\'s in it |', '|---|---|---|---|']
+    for n_, (f, b, w) in enumerate(sizes, 1):
+        L.append(f'| {n_} | `{f}` | {b / 1024:.0f} KB | {w} |')
+    L += ['', 'All parts zipped: `control-board-review-pack.zip`. Checks: `mockups/src/review-check.cjs` (size, console, width at 1280',
+          'and 390) and `board-validate.py` on each part.', '']
+    open(rv + 'README.md', 'w').write('\n'.join(L))
+    for f, b, w in sizes:
+        print(f'{f}\t{b / 1024:.0f} KB')
 
 
 def build():
@@ -1387,6 +1491,7 @@ def build():
 <title>System Control Board</title><meta name="description" content="Step 3's interactive board mockup: is it delivering, the pages, modules, workflows and diagnostics.">
 <style>{CSS}</style></head><body>{body}</body></html>"""
     open(OUT + 'index.html', 'w').write(doc)
+    review_pack(gpanels, chain_html, cov_html, held, mods_js, pages_js, n_unm + n_noch)
     stats = dict(pages=len(PAGES), groups=len(GROUPS), modules=len(MODULES), scenarios=N_SCN, objectives=N_OBJ, unmeasured=n_unm, pages_unchecked=n_noch,
                  coming=n_coming, no_card=NO_CARD, pub_buttons=n_pub, aria_fixed=n_aria, assoc_rows=n_assoc, assoc_unmapped=n_unmapped, workflows=len(WORKFLOWS), chain1=c1, chain2=c2, size=len(doc))
     json.dump(stats, open(OUT + 'stats.json', 'w'), indent=1)
