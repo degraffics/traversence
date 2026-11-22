@@ -136,6 +136,10 @@ statement."
     held/prepared process to adjust the cart for approval again. Payments take are applied to current cart, so due is
     easy to understand." The pulled order returns to pending approval, goes through held and prepared again, and comes
     back to the cart for approval; what's already paid is applied to the new cart, which shows what's left due.
+  - When the changed order costs less than what's paid (2026-11-22: "we have a rule for this already"): decisions/0098's
+    "Fix it, credit, then refund" applies. The difference is a credit on the client's account (12 months, not cash,
+    0098's addendum of 2026-10-28), used toward anything we sell; a refund only when a credit doesn't work. Gap: credits
+    aren't applied at checkout today (`credit_used` is read but never written; map §6).
 - The balance must be paid before the order is released for delivery; a late balance holds it before shipping.
 - What a deposit is: "Deposit does not control progress, it is a requirement of partial payment when needed to ensure
   we risk incurring expenses that might be incurred upon entering to production stage."
@@ -223,7 +227,7 @@ the pass is the product. It shapes 1.2's client-configured items and 1.8's money
 5. ~~The deposit's amount~~ Answered (1.8): a % per order set by staff, 65% default. Cancel window: answered (1.9); the vendor's
    Accept with its job number and the production scheduled ends it.
 6. ~~How long a quote's price holds~~ Answered (1.8): 14 days, then refreshed.
-7. ~~A change after release~~ Answered (1.9). To confirm: when the changed order costs less than what's paid.
+7. ~~A change after release~~ Answered (1.9), with 0098's "Fix it, credit, then refund" for a lower total.
 8. Shipping price on a client-configured order.
 9. A mixed cart: pay for what's ready, or wait for all.
 10. Reminders and an end date for released items not paid.
