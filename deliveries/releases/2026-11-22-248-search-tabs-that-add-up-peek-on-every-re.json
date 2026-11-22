@@ -1,0 +1,49 @@
+{
+    "id": 248,
+    "title": "Search: tabs that add up, Peek on every result, the lacking note and the guide offer where they belong",
+    "why": "Jason's screenshot of Quick Search (\"places to swim near me\", St. Johns; approved 2026-11-22, handoffs/screens-proposal-2026-11-22.md A1-A3, B1, B2). The section tabs counted the categories your words might mean, which aren't listed, so Get Local said 5 over 4 rows: they now count only what's listed, and take Search Directory's names (Discovery, Directory, Community), the same as each row's tag (decisions/0058 §38). Every result has Peek: a listing or an outdoor place opens the quick card, anything else its page in a window. 'Our results … are lacking' (decisions/0060) shows above the results instead of under them. The offer to build a place's guide sits under the results. Quick Search counts a category people ask about here; Open now keeps no number (it changes by the minute). No outside calls, no cost.",
+    "proposals": "",
+    "zip": "search-fixes.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/ui/faq.md": {
+            "sha": "4eaf3ec8b49cc25a782d1cd0644be14105846ca9c55ad57b87caf58db6766a30",
+            "size": 417143,
+            "live_was": "f22899008ceaaa0e6ba232da9494c63d6f4d6067a15efc1f4523b9f8f7890d0a"
+        },
+        "app/lib/SearchPresets.php": {
+            "sha": "47f977f5f4aa46a7c73225759ea15d6c25fb8a68611fa69d7a7beb06a86e766f",
+            "size": 9790,
+            "live_was": "77edea08b5bb8fe6be3a8a91402adbc938a45c87d24476de13593563be4a4fa4"
+        },
+        "app/lib/SearchIndex.php": {
+            "sha": "f1cf4f12bc5ffd4e9e8b504a00ddc4bebddbf3798d9d40127a8b1b2096387c93",
+            "size": 71371,
+            "live_was": "aad4a464983557629c8da663a4de0ef47f695250b12f2349a6a66ef12d0155d8"
+        },
+        "website/js/search-panel.js": {
+            "sha": "58e626ef84e49355ba4dcb359bb9a2cfb727bd66feafe165a6f3e86c02c00e58",
+            "size": 137730,
+            "live_was": "489287c6fa00468cdcbde38bb8bf4a467ef74fdce68d8d3a4ee47d6715a2a478"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-22T12:23:26+00:00",
+            "by": 0,
+            "msg": "Uploaded search-fixes.zip: 4 files."
+        }
+    ]
+}
