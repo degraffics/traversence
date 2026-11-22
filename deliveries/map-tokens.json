@@ -1,0 +1,22 @@
+{
+ "zip": "map-tokens.zip",
+ "built_on": "73d3782 Sync: 2026-11-22 20:55 UTC",
+ "recorded": "2026-11-22 21:04 UTC",
+ "note": "The map release: map-view.js on the tokens; a trip's route lime over the umber casing, the chosen day (B). Built on Sync: 2026-11-22 20:55 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/ui/faq.md": {
+   "sha256": "8cdc2787480b10b8eadaf2dab3f3ee3974ee76e4ba942939cfe502a49a607fa4",
+   "live": false
+  },
+  "website/js/map-view.js": {
+   "sha256": "d236e8715f6b04e75998f14ceea2d873d9244015e041fde7f6178f0d6c4e10a2",
+   "live": false
+  },
+  "website/user/trips/trip.php": {
+   "sha256": "966d1d8e7980aeaff2af3eb3316008d6c3f174c372abd1904138b6233fcaccb0",
+   "live": false
+  }
+ }
+}
