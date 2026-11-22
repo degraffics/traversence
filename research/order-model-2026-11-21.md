@@ -162,6 +162,18 @@ its shipping before checkout), and shipping vendors (carriers) are managed there
 item, manifests, carriers named on lines (`Shipments`, `setLineShip`, `CARRIERS`); the Marketplace has its own,
 separate. A module of its own, to be scoped.
 
+**1.15 Waiting states and their notices** (2026-11-22): "Abandoned cart, stalled processing, saved for later,
+reorders... all need notifications and definitions." Then: "4hr, 24hr, 72hr, 7 business days, 14 days." and "Reorder:
+suggestions 3 to 6 months after initial order, give client a way to set when to reorder alert."
+- **Reminder schedule:** 4 hours, 24 hours, 72 hours, 7 business days, 14 days (the 14th day is also when a quote's
+  price lapses, 1.8). To confirm: that it applies to an abandoned cart and to stalled processing alike, to whoever
+  holds the next step.
+- **Saved for later:** an item moved out of the cart on purpose (definition described; its notices to confirm).
+- **Reorder:** a suggestion 3 to 6 months after the first order; the client can set when their reorder alert comes.
+- The definitions (from the Orders session's table, 2026-11-22): **stalled processing**, an item in the ordering queue
+  that hasn't moved, waiting on the client, us or the vendor; **abandoned cart**, released items not checked out;
+  **saved for later**, moved out of the cart on purpose; **reorder**, a completed item that can be ordered again.
+
 **1.13 The stages after approval** (2026-11-22): "Staged for production when an order is approved. Deposit does not
 control progress, it is a requirement of partial payment when needed to ensure we risk incurring expenses that might be
 incurred upon entering to production stage. Vendors only get the jump once we confirm product and order meets the
@@ -245,7 +257,8 @@ the pass is the product. It shapes 1.2's client-configured items and 1.8's money
 7. ~~A change after release~~ Answered (1.9), with 0098's "Fix it, credit, then refund" for a lower total.
 8. ~~Shipping price~~ Answered (1.14): a shipping module, to be scoped.
 9. ~~A mixed cart~~ Answered (1.3): the cart only holds ready items; items being prepared are in the ordering queue.
-10. Reminders and an end date for released items not paid.
+10. ~~Reminders~~ Answered (1.15); to confirm the schedule covers both an abandoned cart and stalled processing, and
+    saved-for-later's notices.
 11. The order page as the conversation (1.12), and reorders (1.11): to confirm.
 12. Still open from before: the file check's limits (at the build), design capacity, a fingerprint of the approved file,
     nudges for missing art, order mail onto the one dispatcher.
