@@ -11,3 +11,5 @@ live mirror alone on :8791 (trvgo.us's router on :8792 and :8793), with Tailwind
 Seed: member user 2 owns listing 10 (plan `core`, `listing_memberships` owner), a live storefront `pine-cafe` (canyon,
 accent #C2701F), five `market_posts`, two `market_items` in user 2's cart, one manual (Zelle) `market_orders` row with
 its lines and `hold_until`.
+- Also seeded for the review's ask: a paid ticket ABCDEFGH23 (market_tickets) and two market_downloads tokens (aaaa… used up,
+  bbbb… expired).

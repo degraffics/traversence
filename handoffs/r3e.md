@@ -50,10 +50,14 @@ colour-only files (the byte-for-byte check above). Nothing moved, nothing droppe
 | /market/order.php (a Zelle order) | 1 → 0 | none |
 | /market/rules.php, /user/domains/, /shop/domains.php | 0 → 0 | none |
 | trvgo.us not found, storefront not open | 0 → 0, page on #E4DCC5 | none |
+| /market/ticket.php (a paid ticket, team view with Check in) | 0 → 0, card on #F6F1E4 | none |
+| /market/download.php (used its 3 times; expired) | 0 → 0 | none |
 | Storefront & pages, the accent note | 16 of 16 pressed checks | none |
-Not rendered: ticket.php and download.php (colour-only, 8 and 1 values, the byte check covers them); a domain row in
-tv-domains.js's list (the harness has no domains; its styles are in domains-view.php, checked by the byte check).
+Ticket and download added at the session manager's review (2026-11-22): the byte check proves only colours changed, not
+that they read at 4.5:1. download.php draws a page only when a link can't be used. Not rendered: a domain row in
+tv-domains.js's list (the harness has no domains; its styles are domains-view.php's, on the tokens).
 Found, not 3e's: /login.php's "(or your staff ID)" at 3.04:1 (`text-[#8A7355]`), for 3f's leftovers.
 
 ## State
-Built and sent (this PR); waiting for the session manager's review, then Jason's Approve.
+Built and sent (PR #1261). Reviewed by the session manager: clear to ask once ticket and download were rendered (done);
+waiting for Jason's Approve.
