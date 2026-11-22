@@ -47,6 +47,8 @@ was stored, so no question was needed); zip check clean; run.php 16/16, parks.cj
    `signin-3f.md` "Built". Waiting for the session manager's review, then Jason's OK.
 3. **Own quick searches counted** (Jason: "Count them", 2026-11-22): B2's follow-up in `search-panel.js` /
    `SearchPresets`; mind the cost (one count per phrase, cached like `have()`).
+   **Progress (2026-11-22):** 3f live as #251 (70d0cb1). Own quick searches built on 70d0cb1 as `own-quick-counts.zip`
+   (`own-quick-counts.md`), waiting for review and Jason's OK.
 4. **The 5px gap above the hero** on Discovery and landmark pages (session manager, 2026-11-22; `site-audit/layout-probe.md`
    10:20 UTC): fix at its cause when it fits a release, never a one-off patch.
 5. Then the old queue (`design-and-trips-2026-11-20.md` §2): the phone menu fixes (Jason hasn't picked; the three
