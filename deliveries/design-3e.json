@@ -3,72 +3,72 @@
  "built_on": "b735f56 Sync: 2026-11-22 14:38 UTC",
  "recorded": "2026-11-22 14:59 UTC",
  "note": "3e: the Marketplace, checkout, storefronts and domains on the tokens, layouts kept; the owner's accent note under 4.5:1. Built on Sync: 2026-11-22 14:38 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "72e2070 Sync: 2026-11-22 20:28 UTC",
  "files": {
   "app/business/storefront.php": {
    "sha256": "e37e821929b19665c22b9c9e3ce0a478985210f39ac54313d98f07f07482d90f",
-   "live": false
+   "live": true
   },
   "app/lib/Storefront.php": {
    "sha256": "ce630553a4c697810ed91753f9797f05e2170d94511940e9af4c4e47bf959afb",
-   "live": false
+   "live": true
   },
   "app/ui/domains-view.php": {
    "sha256": "b8759a043e715ccee7426d745dd97899a9184949954960f3bcaaac50fe8c7496",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "810d9ce8f6dfdd37ae65550cd2ae78af581b70bb15159bf0025748b29a3f0c1e",
-   "live": false
+   "live": true
   },
   "app/ui/market-ui.php": {
    "sha256": "84b29d7ec1518431fb7d9f74770b5862c9293c740033e44e8e8d430358d41358",
-   "live": false
+   "live": true
   },
   "app/ui/storefront-view.php": {
    "sha256": "33205abaa84cada925b3fdd4baaee92400b41f389b4b062e54225a0c4c4b8e55",
-   "live": false
+   "live": true
   },
   "trvgo/index.php": {
    "sha256": "106778d6fe62bf1ab2b19f2dac3d6b4b9c62884c5c9397d5595e1d05c409a819",
-   "live": false
+   "live": true
   },
   "website/market/cart.php": {
    "sha256": "66178257ee955445876116311d3bbafd6dc713e78a470ed60fbd32ebbd4c3d52",
-   "live": false
+   "live": true
   },
   "website/market/download.php": {
    "sha256": "2a12691e2c6a8c0f4e9cbeeacc7849b319ca8459fe94d9258635813530e867ee",
-   "live": false
+   "live": true
   },
   "website/market/index.php": {
    "sha256": "727e396f7d6f2ffe40f240b141b99ba551b60348e6030b305c7f9bb89b4af99b",
-   "live": false
+   "live": true
   },
   "website/market/item.php": {
    "sha256": "ecfe858898e46501b6036baa4c12e607fffdfbece7b41a89ea8c93306fda2622",
-   "live": false
+   "live": true
   },
   "website/market/order.php": {
    "sha256": "53ff18784d154ed7c9c550c0591039b826090737f58ce10fd79e1a2fe2d3e046",
-   "live": false
+   "live": true
   },
   "website/market/rules.php": {
    "sha256": "6238ef26e87bb609f3342c61321edf3ffb723088c357196a869bb01291670efc",
-   "live": false
+   "live": true
   },
   "website/market/ticket.php": {
    "sha256": "a5cc258635bf0a2f34732f7a2f86caf82284ac6ddd36c07b1f63eff845cb65ce",
-   "live": false
+   "live": true
   },
   "website/market/view.php": {
    "sha256": "89b5abe5d689f5db98eb97cb330ca69c5780a647294e4d6a0ec9dc069360da9a",
-   "live": false
+   "live": true
   },
   "website/shop/index.php": {
    "sha256": "f0e183013d6305cc3d5800ec34bd49eeaa2edb4a1fb02d53586dc1feb07d9338",
-   "live": false
+   "live": true
   }
  }
 }
