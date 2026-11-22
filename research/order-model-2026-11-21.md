@@ -237,7 +237,8 @@ the pass is the product. It shapes 1.2's client-configured items and 1.8's money
 6. ~~How long a quote's price holds~~ Answered (1.8): 14 days, then refreshed.
 7. ~~A change after release~~ Answered (1.9), with 0098's "Fix it, credit, then refund" for a lower total.
 8. ~~Shipping price~~ Answered (1.14): a shipping module, to be scoped.
-9. A mixed cart: pay for what's ready, or wait for all.
+9. A mixed cart: pay for what's ready, or wait for all. Jason is thinking it over (2026-11-22: "Maybe we should have a
+   save, or buy now, vs held item in processing with no processing need item.... let me think on this.").
 10. Reminders and an end date for released items not paid.
 11. The order page as the conversation (1.12), and reorders (1.11): to confirm.
 12. Still open from before: the file check's limits (at the build), design capacity, a fingerprint of the approved file,
