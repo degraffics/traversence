@@ -122,6 +122,10 @@ sessions take over, holding until Jason says resume. Live through Release #228 (
   built and sent, PR #1193, waiting for his OK. Next: the phone menu fixes if he picks, then 3d.
   **Progress (2026-11-20, 3d):** vault icons live as #235; 3d built and sent (Community to the mockup, adapted; a group's
   page and the member dashboard on the tokens), PR #1201, waiting for Jason's OK.
+  **Progress (2026-11-22, 3f sign-in):** built on Sync 13:09 UTC (5237f07) by session_01CXLi5jNQCN3zFZ2Fh3qUNf as
+  `signin-3f.zip` (A7, A9–A12, B7, B8 the lost work email; `handoffs/signin-3f.md` "Built"; 0100's note "built as");
+  rendered test `tools/design-tests/signin-3f/run.cjs` 128/128 at 1280 and 390. Waiting for the session manager's review,
+  then Jason's OK.
 - **Orders held** (Jason, 2026-11-21: "It is obvious you are not able to see how the order system should work, so before I
   put more work time i need to think about how we move forward"): no pop-ups, merges or builds; #1212 (chargeFor) and
   #1224 (rulings) stay drafts outside main, out of the release order, until he says how to proceed.

@@ -43,6 +43,8 @@ was stored, so no question was needed); zip check clean; run.php 16/16, parks.cj
    last section; decisions/0100's note of 2026-11-22), and the open question for its summary (setup link shown to the
    owner, never only emailed; a second owner as the safety net). Files: `login.php`, `admin/login.php`,
    `app/lib/StaffLogin.php`, the code email, Pulse case, faq.md.
+   **Progress (2026-11-22, session_01CXLi5jNQCN3zFZ2Fh3qUNf):** built and sent as `signin-3f.zip` on 5237f07; see
+   `signin-3f.md` "Built". Waiting for the session manager's review, then Jason's OK.
 3. **Own quick searches counted** (Jason: "Count them", 2026-11-22): B2's follow-up in `search-panel.js` /
    `SearchPresets`; mind the cost (one count per phrase, cached like `have()`).
 4. **The 5px gap above the hero** on Discovery and landmark pages (session manager, 2026-11-22; `site-audit/layout-probe.md`

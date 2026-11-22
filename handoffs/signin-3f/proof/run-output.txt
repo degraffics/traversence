@@ -1,0 +1,131 @@
+— 1280px
+  ✓ A7: the chosen tab is marked, brown words and a brown underline
+  ✓ A7: the other tab is quiet (rgb(92, 70, 50))
+  ✓ B7: tabs and buttons in sentence case ("Sign in")
+  ✓ B7: Forgot password? in the one link style (brown, underlined, the UI face)
+  ✓ A9: the social buttons carry their words: Continue with Google | Continue with Microsoft | Continue with Facebook
+  ✓ A7: Create account, once chosen, is the marked tab
+  ✓ /login.php: no sideways scroll (1280)
+  ✓ A10: /login.php has no cart, bell or search
+  ✓ A10: /forgot-password.php has no cart, bell or search
+  ✓ A10: /admin/login.php has no cart, bell or search
+  ✓ A10: /admin/setup.php has no cart, bell or search
+  ✓ A10: other pages keep the cart and bell (/faq.php)
+  ✓ A11: the box says "6 digits"
+  ✓ A11: "It works until 6:52 AM MST" (the clock time, in the viewer's zone, 10.0 min away)
+  ✓ A12: the email says "Tap or click the code"
+  ✓ A12: the email's button says it signs you in
+  ✓ A11: a pasted "000 000" is sent at the 6th digit, and a wrong one is refused: "That code doesn't match. Use the newest code we emailed."
+  ✓ A11: the right code pasted as "116 822" signs in by itself (/admin/dashboard/today)
+  ✓ B8: no authenticator app: the notice to add it, with Add it (/admin/staff.php#my-app)
+  ✓ B8: the notice is on top and wholly in the window (not under the admin's fixed headers)
+  ✓ the admin with the notice: no sideways scroll (1280)
+  ✓ B8: Not now comes back to the same page, the notice gone
+  ✓ B8: Not now is remembered for this staff login (staff_settings appnudge:2)
+  ✓ A11: "Sign in with this code" from the email signs in by itself (/admin/dashboard/today)
+  ✓ B8: the form starts closed
+  ✓ B8: Can't get the email? opens the form in place
+  ✓ B8: × closes it
+  ✓ B8: Esc closes it
+  ✓ B8: a click outside closes it while it's empty
+  ✓ B8: a click outside keeps it open once something is typed
+  ✓ the code step with the form: no sideways scroll (1280)
+  ✓ B8: a contact that isn't a phone or email is refused, the form still open with what was typed
+  ✓ B8: sent: "Sent to the owners. One of them will contact you at (928) 555-0142 to check it's…", the code step still there
+  ✓ B8: the request is kept for TRV-0002 with the device's zone (America/Phoenix)
+  ✓ B8: the request is in Sam's staff log
+  ✓ B8: sending again at once is refused ("Your request was sent a moment ago. An owner will …")
+  ✓ B8: a non-owner sees the 4 buttons greyed with the reason ("Only an owner can do this: it changes how someone signs in.")
+  ✓ B8: the owner (with an authenticator app) gets no notice
+  ✓ B8: the owners' case is in Pulse: "Can't get their work email: TRV-0002 · Sam RiveraStaff logins Asked from the sign-in page after the right staff ID and password. Reach them at (928) 555-0142 (not verified). Check it's them before changing anything."
+  ✓ B8: the first step is to check it's them, before any button
+  ✓ B8: it shows the login, its email now, its last sign-in and the contact, not verified [Staff login: TRV-0002 · Sam Rivera (Manager). Work email now: sam.rivera@trvgo.com. Last sign-in: Nov 22, 2026, 1:42 PM UTC. Name given: Sam Rivera. Contact given: (928) 555-0142 — not verified: anyone who knows their password could have sent this. Asked Nov 22, 2026, 6:42 AM MST from Chrome on another device. Call or write to them there, or on a number you already have for them, before you press anything below.]
+  ✓ B8: when it was asked, labelled with its zone
+  ✓ B8: the three buttons each ask "Have you confirmed this is them?" first
+  ✓ B8: with cPanel off, Reset the mailbox password is greyed with the reason
+  ✓ the case: no sideways scroll (1280)
+  ✓ B8: New setup link asks first (danger)
+  ✓ B8: Esc on the question changes nothing
+  ✓ B8: the setup link is shown to the owner, hidden until asked (Setup link for TRV-0002)
+  ✓ B8: their sessions ended, password and authenticator cleared, waiting for setup
+  ✓ B8: Show reveals it
+  ✓ B8: Copy puts the link on the clipboard
+  ✓ B8: on the case's notes and in the staff log
+  ✓ B8: Yes opens the form for the new address
+  ✓ B8: an address outside our work domain is refused: "Use the work email, first.last@trvgo.com."
+  ✓ B8: the work email changed, and the old address told (masked new address)
+  ✓ B8: the change is in the staff log
+  ✓ B8: with cPanel connected, Reset the mailbox password is on
+  ✓ B8: the mailbox's new password set in cPanel and shown once to the owner
+  ✓ B8: the mailbox is told its password was reset
+  ✓ B8: Close it asks nothing first (it changes no sign-in)
+  ✓ B8: Close it closes the request and the case
+  ✓ B8: every step is in the staff log (asked; the setup link, the email and the mailbox each as done and as from the request; closed)
+  ✓ B8: the closed case leaves the open list
+  ✓ no script errors
+— 390px
+  ✓ A7: the chosen tab is marked, brown words and a brown underline
+  ✓ A7: the other tab is quiet (rgb(92, 70, 50))
+  ✓ B7: tabs and buttons in sentence case ("Sign in")
+  ✓ B7: Forgot password? in the one link style (brown, underlined, the UI face)
+  ✓ A9: the social buttons carry their words: Continue with Google | Continue with Microsoft | Continue with Facebook
+  ✓ A7: Create account, once chosen, is the marked tab
+  ✓ /login.php: no sideways scroll (390)
+  ✓ A10: /login.php has no cart, bell or search
+  ✓ A10: /forgot-password.php has no cart, bell or search
+  ✓ A10: /admin/login.php has no cart, bell or search
+  ✓ A10: /admin/setup.php has no cart, bell or search
+  ✓ A10: other pages keep the cart and bell (/faq.php)
+  ✓ A11: the box says "6 digits"
+  ✓ A11: "It works until 6:53 AM MST" (the clock time, in the viewer's zone, 10.0 min away)
+  ✓ A12: the email says "Tap or click the code"
+  ✓ A12: the email's button says it signs you in
+  ✓ A11: a pasted "000 000" is sent at the 6th digit, and a wrong one is refused: "That code doesn't match. Use the newest code we emailed."
+  ✓ A11: the right code pasted as "782 163" signs in by itself (/admin/dashboard/today)
+  ✓ B8: no authenticator app: the notice to add it, with Add it (/admin/staff.php#my-app)
+  ✓ B8: the notice is on top and wholly in the window (not under the admin's fixed headers)
+  ✓ the admin with the notice: no sideways scroll (390)
+  ✓ B8: × comes back to the same page, the notice gone
+  ✓ B8: Not now is remembered for this staff login (staff_settings appnudge:2)
+  ✓ A11: "Sign in with this code" from the email signs in by itself (/admin/dashboard/today)
+  ✓ B8: the form starts closed
+  ✓ B8: Can't get the email? opens the form in place
+  ✓ B8: × closes it
+  ✓ B8: Esc closes it
+  ✓ B8: a click outside closes it while it's empty
+  ✓ B8: a click outside keeps it open once something is typed
+  ✓ the code step with the form: no sideways scroll (390)
+  ✓ B8: a contact that isn't a phone or email is refused, the form still open with what was typed
+  ✓ B8: sent: "Sent to the owners. One of them will contact you at (928) 555-0142 to check it's…", the code step still there
+  ✓ B8: the request is kept for TRV-0002 with the device's zone (America/Phoenix)
+  ✓ B8: the request is in Sam's staff log
+  ✓ B8: sending again at once is refused ("Your request was sent a moment ago. An owner will …")
+  ✓ B8: a non-owner sees the 4 buttons greyed with the reason ("Only an owner can do this: it changes how someone signs in.")
+  ✓ B8: the owner (with an authenticator app) gets no notice
+  ✓ B8: the owners' case is in Pulse: "Can't get their work email: TRV-0002 · Sam RiveraStaff logins"
+  ✓ B8: the first step is to check it's them, before any button
+  ✓ B8: it shows the login, its email now, its last sign-in and the contact, not verified [Staff login: TRV-0002 · Sam Rivera (Manager). Work email now: sam.rivera@trvgo.com. Last sign-in: Nov 22, 2026, 1:43 PM UTC. Name given: Sam Rivera. Contact given: (928) 555-0142 — not verified: anyone who knows their password could have sent this. Asked Nov 22, 2026, 6:43 AM MST from Chrome on another device. Call or write to them there, or on a number you already have for them, before you press anything below.]
+  ✓ B8: when it was asked, labelled with its zone
+  ✓ B8: the three buttons each ask "Have you confirmed this is them?" first
+  ✓ B8: with cPanel off, Reset the mailbox password is greyed with the reason
+  ✓ the case: no sideways scroll (390)
+  ✓ B8: New setup link asks first (danger)
+  ✓ B8: Esc on the question changes nothing
+  ✓ B8: the setup link is shown to the owner, hidden until asked (Setup link for TRV-0002)
+  ✓ B8: their sessions ended, password and authenticator cleared, waiting for setup
+  ✓ B8: Show reveals it
+  ✓ B8: Copy puts the link on the clipboard
+  ✓ B8: on the case's notes and in the staff log
+  ✓ B8: Yes opens the form for the new address
+  ✓ B8: an address outside our work domain is refused: "Use the work email, first.last@trvgo.com."
+  ✓ B8: the work email changed, and the old address told (masked new address)
+  ✓ B8: the change is in the staff log
+  ✓ B8: with cPanel connected, Reset the mailbox password is on
+  ✓ B8: the mailbox's new password set in cPanel and shown once to the owner
+  ✓ B8: the mailbox is told its password was reset
+  ✓ B8: Close it asks nothing first (it changes no sign-in)
+  ✓ B8: Close it closes the request and the case
+  ✓ B8: every step is in the staff log (asked; the setup link, the email and the mailbox each as done and as from the request; closed)
+  ✓ B8: the closed case leaves the open list
+  ✓ no script errors
+128 passed, 0 failed

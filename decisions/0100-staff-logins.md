@@ -167,3 +167,10 @@ buttons: **Change work email** (`StaffLogin::setEmail`), **Reset the mailbox pas
 and **New setup link** shown to the owner to hand over in person or by phone. After sign-in, staff with no
 authenticator app get one dismissable notice to add it. Recovery codes stay gone (the note above). A "This wasn't me"
 button and the sign-in's location were dropped: the code only reaches the email of record.
+**Built as (2026-11-22):** Release 3f, `signin-3f.zip` on Sync 13:09 UTC (5237f07); `app/lib/StaffMailHelp.php` and
+`handoffs/signin-3f.md` "Built". The request is tied to the browser's sign-in step (right staff ID and password, within 10
+minutes) and limited (3 a day per login, 6 a day per network address, one every 2 minutes per browser; a second request
+while one is open updates it). The case is for owners: anyone else who sees Security cases sees its buttons greyed with
+the reason. The setup link and the new mailbox password are shown to the owner once (Show, Copy, Done), never only
+emailed. The add-an-authenticator notice is a small bar at the foot of admin pages; Not now (or ×) is remembered per
+staff login.

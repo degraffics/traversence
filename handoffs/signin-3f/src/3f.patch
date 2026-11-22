@@ -1,0 +1,895 @@
+--- a/app/lib/Mailer.php
++++ b/app/lib/Mailer.php
+@@ -45,7 +45,8 @@
+      * staff sign-in code"), which Gmail and phones read to offer Copy code and fill the code box. One card, laid out in
+      * tables so Outlook draws it as other mail apps do: the code once, large, in a box that selects with one click; and,
+      * with $url, a button that opens the sign-in page with the code filled in (after #, so it never reaches the server,
+-     * its logs or a mail scanner, and it signs no one in by itself). Plain text kept for mail apps without HTML.
++     * its logs or a mail scanner; the page sends it on by itself, js/code-link.js). Plain text kept for mail apps without
++     * HTML. "Tap or click the code" (3f A12, Jason 2026-11-22: phones first).
+      */
+     public static function sendCode(string $toEmail, string $code, string $what, string $textBody, ?string $toName = null, string $url = ''): void
+     {
+@@ -59,18 +60,18 @@
+         $font = 'font-family:Segoe UI,Roboto,Helvetica,Arial,sans-serif;';
+         $btn = $url !== '' ? '<tr><td align="center" style="padding:6px 28px 22px"><table role="presentation" cellpadding="0" cellspacing="0"><tr>'
+              . '<td bgcolor="#92400E" style="border-radius:8px;padding:12px 28px;mso-padding-alt:12px 28px"><a href="' . $e($url) . '" style="display:inline-block;' . $font . 'font-size:16px;font-weight:700;color:#FFFBF2;text-decoration:none"><span style="color:#FFFBF2;text-decoration:none">Sign in with this code</span></a></td>'   // Outlook: its padding on the cell, its colour on the text (2026-11-11: purple and tight)
+-             . '</tr></table><p style="margin:10px 0 0;' . $font . 'font-size:12px;color:#8A7355">Opens the sign-in page with the code filled in, on the device where you signed in.</p></td></tr>' : '';
++             . '</tr></table><p style="margin:10px 0 0;' . $font . 'font-size:12px;color:#8A7355">Signs you in with this code, on the device where you started.</p></td></tr>' : '';
+         $html = '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" bgcolor="#EFE3C8" style="background:#EFE3C8"><tr><td align="center" style="padding:24px 12px">'
+               . '<table role="presentation" width="480" cellpadding="0" cellspacing="0" bgcolor="#FFFBF2" style="width:480px;max-width:100%;background:#FFFBF2;border:1px solid #CBB98D;border-radius:12px">'
+               . '<tr><td bgcolor="#3E2B1F" style="padding:14px 28px;border-radius:12px 12px 0 0;font-family:Georgia,serif;font-size:20px;font-weight:700;color:#F7EFDC">Traversence</td></tr>'
+               . '<tr><td style="padding:24px 28px 8px;' . $font . 'font-size:17px;font-weight:700;color:#3E2B1F">Your ' . $e($what) . '</td></tr>'
+               . '<tr><td align="center" style="padding:8px 28px 6px"><table role="presentation" cellpadding="0" cellspacing="0"><tr><td bgcolor="#F7EFDC" style="border:1px solid #CBB98D;border-radius:10px;padding:14px 26px;font-family:Consolas,Menlo,monospace;font-size:34px;font-weight:700;letter-spacing:10px;color:#3E2B1F;user-select:all;-webkit-user-select:all">' . $e($code) . '</td></tr></table></td></tr>'
+-              . '<tr><td align="center" style="padding:4px 28px 18px;' . $font . 'font-size:12px;color:#8A7355">Click the code once to select it, then copy.</td></tr>'
++              . '<tr><td align="center" style="padding:4px 28px 18px;' . $font . 'font-size:12px;color:#8A7355">Tap or click the code to select it, then copy.</td></tr>'
+               . $btn
+               . '<tr><td style="padding:0 28px 18px;' . $font . '">' . $rest . '</td></tr>'
+               . '<tr><td style="padding:12px 28px;border-top:1px solid #EADFC4;' . $font . 'font-size:12px;color:#8A7355">Traversence · traversence.com · a code is never asked for by phone or chat</td></tr>'
+               . '</table></td></tr></table>';
+-        self::send($toEmail, $code . ' is your Traversence ' . $what, $textBody . ($url !== '' ? "\n\nOr open the sign-in page with the code filled in:\n" . $url : ''), $toName, '', $html);
++        self::send($toEmail, $code . ' is your Traversence ' . $what, $textBody . ($url !== '' ? "\n\nOr sign in with this code, on the device where you started:\n" . $url : ''), $toName, '', $html);
+     }
+ 
+     /** Set by Notify while it emails one of its own messages: it writes that message's route itself, so no second row. */
+--- a/app/lib/Pulse.php
++++ b/app/lib/Pulse.php
+@@ -323,6 +323,16 @@
+             $f = $rows("SELECT COUNT(*) n, MAX(created_at) t FROM " . Database::t('staff_log') . " WHERE event = 'failed' AND created_at >= ?", [date('Y-m-d H:i:s', strtotime('-1 hour'))])[0] ?? ['n' => 0];
+             if ((int) $f['n'] >= 5)
+                 $add('spike:' . substr((string) $f['t'], 0, 13), 'security', 'critical', 'Failed sign-in spike: ' . (int) $f['n'] . ' in the last hour', 'Someone may be guessing staff passwords. Check the staff log.', $f['t'], '/admin/logs.php', 'View logs');
++            // "Can't get the email?" from the staff code step: one case per request, for the owners (decisions/0100's note
++            // of 2026-11-22, Release 3f B8); its steps and buttons are StaffMailHelp's
++            try {
++                require_once __DIR__ . '/StaffMailHelp.php';
++                foreach (StaffMailHelp::open($pdo) as $smr) {
++                    [$smt, $smw] = StaffMailHelp::row($smr);
++                    $add('staffmail:' . (int) $smr['id'], 'security', 'alert', $smt, $smw, (string) $smr['updated_at'], '/admin/staff.php', 'Staff logins');
++                    $out['staffmail:' . (int) $smr['id']]['staffmail'] = $smr;
++                }
++            } catch (Throwable $x) { error_log('pulse staffmail: ' . $x->getMessage()); }
+         }
+         if ($sees('system') && is_file(__DIR__ . '/SesMail.php')) {   // email sending through Amazon SES, set up step by step (decisions/0137 §8)
+             try {
+@@ -697,12 +707,24 @@
+         Audit::log($pdo, ['user' => $uid, 'route' => 'pulse', 'action' => 'pulse.' . $kind, 'detail' => $key . ($to !== '' ? ' → ' . $to : '')]);
+     }
+ 
++    /** A value a case's action shows its owner one time (a setup link, a new password): [label, value]; the API sends it. */
++    public static ?array $once = null;
++
+     /**
+      * The case panel's own actions (decisions/0107): on an order (resend, record a payment, due date, note, void), on a
+      * team post (edit, delete: its author only) and on a note (edit, delete: its writer only). Returns the message to show.
+      */
+     public static function manage(PDO $pdo, string $key, string $what, array $a, int $uid): string
+     {
++        self::$once = null;
++        if (preg_match('/^staffmail:(\d+)$/', $key, $m) && str_starts_with($what, 'sm_')) {   // a lost work email, done from its case (owners only)
++            require_once __DIR__ . '/StaffMailHelp.php';
++            $r = StaffMailHelp::act($pdo, (int) $m[1], $what, $a, $uid);
++            self::note($pdo, $key, $uid, 'note', (string) $r['note']);
++            if (!empty($r['close'])) self::mark($pdo, $key, 'done', $uid);
++            self::$once = $r['once'];
++            return (string) $r['message'];
++        }
+         if (preg_match('/^order:(\d+)$/', $key, $m)) {
+             require_once __DIR__ . '/ClientOrders.php';
+             $oid = (int) $m[1];
+@@ -1263,6 +1285,9 @@
+                 $s('Decide: keep, change or lift the notice', 'In Safety → Standing. They\'re told either way.', ['tool', $url]),
+                 $s('Resolve the case', '', ['resolve']),
+             ];
++            case 'staffmail':   // a lost work email (StaffMailHelp, Release 3f B8)
++                require_once __DIR__ . '/StaffMailHelp.php';
++                return StaffMailHelp::steps($it, $s);
+             case 'locked': return [
+                 $s('Check it was them', 'Ask the staff member if they mistyped. If not, someone may be guessing.', ['tool', '/admin/logs.php?log=signins']),
+                 $s('Reset their login if needed', 'Staff logins → Reset sends a new setup link; their sessions end.', ['tool', $url]),
+--- a/app/lib/StaffLogin.php
++++ b/app/lib/StaffLogin.php
+@@ -231,6 +231,14 @@
+         return true;
+     }
+ 
++    /** When the code waiting for $slot stops working (a Unix time), or 0 when none is waiting (3f A11: "until 4:42 AM MST"). */
++    public static function codeUntil(string $slot, int $sid): int
++    {
++        $m = $_SESSION['tv_staff_code_' . $slot] ?? null;
++        $end = $m && (int) $m['id'] === $sid ? (int) $m['at'] + self::CODE_MINUTES * 60 : 0;
++        return $end > time() ? $end : 0;
++    }
++
+     /** Where the last code for $slot went (masked), if one is waiting. */
+     public static function codeSentTo(string $slot, int $sid): string
+     {
+--- a/app/lib/StaffMailHelp.php
++++ b/app/lib/StaffMailHelp.php
+@@ -0,0 +1,255 @@
++<?php
++// app/lib/StaffMailHelp.php — "Can't get the email?": a lost work email is never a dead end (decisions/0100's note of
++// 2026-11-22; screens proposal B8 with the session manager's guard rails; built in Release 3f).
++//
++// On the staff code step (/admin/login.php, after the right staff ID and password), the person can ask for help: their
++// name and a phone or another email to reach them. It becomes an owners' Pulse case (Security, key staffmail:<id>, one
++// case per request). The form isn't signed in, so the case shows first who the login is, its work email now, its last
++// sign-in and the contact given, marked not verified; each button asks "Have you confirmed this is them?" first:
++//   Change work email          StaffLogin::setEmail; the old address is told
++//   Reset the mailbox password CPanelMail::setPassword (our own work domain only); shown once to the owner
++//   New setup link             StaffLogin::reset (their sessions end, password and authenticator cleared); the link is
++//                              shown to the owner to hand over, never only emailed to the mailbox they can't reach
++// Every action goes in the staff log (StaffLogin::log) and on the case (Pulse notes). Owners only.
++// Requests are held in staff_mail_requests (class "never" in staging-tables.php: sign-in recovery, empty on staging).
++declare(strict_types=1);
++
++require_once __DIR__ . '/StaffLogin.php';
++
++final class StaffMailHelp
++{
++    public const PER_LOGIN_DAY = 3;      // requests (and updates) for one staff login in 24 hours
++    public const PER_ADDRESS_DAY = 6;    // from one network address in 24 hours
++    public const SESSION_WAIT = 120;     // seconds between two sends from one browser
++
++    private static bool $ready = false;
++
++    public static function ensure(PDO $pdo): void
++    {
++        if (self::$ready) return;
++        $pdo->exec('CREATE TABLE IF NOT EXISTS ' . Database::t('staff_mail_requests') . ' (
++            id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
++            staff_account_id INT UNSIGNED NOT NULL,
++            name VARCHAR(120) NOT NULL DEFAULT \'\',
++            contact VARCHAR(190) NOT NULL DEFAULT \'\',
++            ip_hash CHAR(64) NOT NULL DEFAULT \'\',
++            device VARCHAR(120) NOT NULL DEFAULT \'\',
++            tz VARCHAR(64) NOT NULL DEFAULT \'\',
++            sends INT UNSIGNED NOT NULL DEFAULT 1,
++            status VARCHAR(12) NOT NULL DEFAULT \'open\',
++            outcome VARCHAR(300) NOT NULL DEFAULT \'\',
++            done_by INT UNSIGNED NULL,
++            created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
++            updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
++            done_at DATETIME NULL,
++            KEY by_login (staff_account_id, status),
++            KEY by_ip (ip_hash, updated_at)
++        ) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci');
++        self::$ready = true;
++    }
++
++    /** A phone (7+ digits) or an email address; '' when it's neither. */
++    public static function cleanContact(string $c): string
++    {
++        $c = trim(preg_replace('/\s+/', ' ', $c));
++        if ($c === '' || mb_strlen($c) > 190) return '';
++        if (filter_var($c, FILTER_VALIDATE_EMAIL)) return strtolower($c);
++        return preg_match('/^[+()\d .\-x]+$/i', $c) && strlen(preg_replace('/\D/', '', $c)) >= 7 ? $c : '';
++    }
++
++    /**
++     * From the code step: tied to this browser's sign-in step (the right staff ID and password, in the last 10 minutes).
++     * Returns the words to show. An open request for the same login is updated in place (one case per request).
++     */
++    public static function request(PDO $pdo, string $name, string $contact, string $tz = ''): string
++    {
++        $step = $_SESSION['tv_staff_step'] ?? null;
++        if (!$step || time() - (int) $step['at'] > StaffLogin::CODE_MINUTES * 60) throw new RuntimeException('That took too long. Start again with your staff ID and password, then choose Can\'t get the email?');
++        $s = StaffLogin::get($pdo, (int) $step['id']);
++        if (!$s || $s['status'] !== 'active') throw new RuntimeException('This staff login isn\'t active. Write to support@traversence.com.');
++        $name = trim(preg_replace('/\s+/', ' ', $name));
++        if (mb_strlen($name) < 2 || mb_strlen($name) > 120) throw new RuntimeException('Write your name.');
++        $c = self::cleanContact($contact);
++        if ($c === '') throw new RuntimeException('Write a phone number or another email where an owner can reach you.');
++        $last = (int) ($_SESSION['tv_staffmail_at'] ?? 0);
++        if ($last && time() - $last < self::SESSION_WAIT) throw new RuntimeException('Your request was sent a moment ago. An owner will contact you; there\'s no need to send it again.');
++        self::ensure($pdo);
++        $ip = hash('sha256', (string) ($_SERVER['REMOTE_ADDR'] ?? '') . '|staffmail');
++        $day = date('Y-m-d H:i:s', time() - 86400);
++        $q = $pdo->prepare('SELECT COALESCE(SUM(sends), 0) FROM ' . Database::t('staff_mail_requests') . ' WHERE staff_account_id = ? AND updated_at >= ?'); $q->execute([(int) $s['id'], $day]);
++        if ((int) $q->fetchColumn() >= self::PER_LOGIN_DAY) throw new RuntimeException('The owners already have your request. They\'ll contact you; if it\'s urgent, write to support@traversence.com.');
++        $q = $pdo->prepare('SELECT COALESCE(SUM(sends), 0) FROM ' . Database::t('staff_mail_requests') . ' WHERE ip_hash = ? AND updated_at >= ?'); $q->execute([$ip, $day]);
++        if ((int) $q->fetchColumn() >= self::PER_ADDRESS_DAY) throw new RuntimeException('Too many requests from here today. Write to support@traversence.com.');
++        $dev = self::device();
++        $tz = preg_match('#^[A-Za-z_]+(?:/[A-Za-z0-9_+\-]+){0,2}$#', $tz) ? $tz : '';
++        $o = $pdo->prepare("SELECT id FROM " . Database::t('staff_mail_requests') . " WHERE staff_account_id = ? AND status = 'open' ORDER BY id DESC LIMIT 1"); $o->execute([(int) $s['id']]);
++        if ($id = (int) $o->fetchColumn()) {
++            $pdo->prepare('UPDATE ' . Database::t('staff_mail_requests') . ' SET name = ?, contact = ?, ip_hash = ?, device = ?, tz = ?, sends = sends + 1, updated_at = NOW() WHERE id = ?')->execute([$name, $c, $ip, $dev, $tz, $id]);
++            StaffLogin::log($pdo, (int) $s['id'], 'mail_help', 'Asked again for help with the work email, from the sign-in page · ' . $dev);
++        } else {
++            $pdo->prepare('INSERT INTO ' . Database::t('staff_mail_requests') . ' (staff_account_id, name, contact, ip_hash, device, tz) VALUES (?, ?, ?, ?, ?, ?)')->execute([(int) $s['id'], $name, $c, $ip, $dev, $tz]);
++            StaffLogin::log($pdo, (int) $s['id'], 'mail_help', 'Asked for help with the work email, from the sign-in page · ' . $dev);
++        }
++        $_SESSION['tv_staffmail_at'] = time();
++        return 'Sent to the owners. One of them will contact you at ' . $c . ' to check it\'s you, then give you a new way in. Nothing changes on your login until then.';
++    }
++
++    public static function get(PDO $pdo, int $id): ?array
++    {
++        self::ensure($pdo);
++        $st = $pdo->prepare('SELECT * FROM ' . Database::t('staff_mail_requests') . ' WHERE id = ?'); $st->execute([$id]);
++        return $st->fetch(PDO::FETCH_ASSOC) ?: null;
++    }
++
++    /** Open requests, newest first, each with its staff login (for Pulse::items). */
++    public static function open(PDO $pdo): array
++    {
++        self::ensure($pdo);
++        $out = [];
++        foreach ($pdo->query("SELECT * FROM " . Database::t('staff_mail_requests') . " WHERE status = 'open' ORDER BY updated_at DESC LIMIT 50")->fetchAll(PDO::FETCH_ASSOC) as $r) {
++            $s = StaffLogin::get($pdo, (int) $r['staff_account_id']);
++            if (!$s) continue;
++            $out[] = $r + ['staff' => $s];
++        }
++        return $out;
++    }
++
++    /** Pulse's row for one open request: [title, why]. */
++    public static function row(array $r): array
++    {
++        $s = $r['staff'];
++        return ['Can\'t get their work email: ' . $s['staff_id'] . ' · ' . $s['name'],
++            'Asked from the sign-in page after the right staff ID and password. Reach them at ' . $r['contact'] . ' (not verified). Check it\'s them before changing anything.'];
++    }
++
++    /** Is the person looking an owner? [ok, why not] */
++    public static function ownerCheck(PDO $pdo): array
++    {
++        $me = StaffLogin::inSession($pdo);
++        if (!$me || $me['role'] !== 'owner') return [false, 'Only an owner can do this: it changes how someone signs in'];
++        return [true, ''];
++    }
++
++    /**
++     * The case's steps (Pulse::playbook): what's known first, then the three buttons, each confirmed first; greyed with the
++     * reason where it can't work. $s is Pulse's step maker.
++     */
++    public static function steps(array $it, callable $s): array
++    {
++        $pdo = Database::connection();
++        $r = $it['staffmail'] ?? null;
++        if (!$r) return [$s('This request is closed', '', null)];
++        $t = $r['staff'];
++        [$own, $why] = self::ownerCheck($pdo);
++        $email = (string) $t['email'];
++        $last = self::when($t['last_sign_in_at'] ? (string) $t['last_sign_in_at'] : null);
++        $ask = ['confirm' => 'Have you confirmed this is them?', 'danger' => true];
++        $off = fn (string $w) => $ask + ['off' => $w];
++        $mine = $own ? $ask : $off($why);
++        require_once __DIR__ . '/CPanelMail.php';
++        $boxWhy = '';
++        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) $boxWhy = 'This login has no work email yet: use Change work email';
++        elseif (strtolower(substr(strrchr($email, '@'), 1)) !== StaffLogin::workDomain()) $boxWhy = 'Not one of our mailboxes (' . StaffLogin::workDomain() . ')';
++        elseif (!CPanelMail::ready()) $boxWhy = 'cPanel isn\'t connected (CPANEL_HOST, CPANEL_USER, CPANEL_TOKEN in .env)';
++        return [
++            $s('Check it\'s them', 'Staff login: ' . $t['staff_id'] . ' · ' . $t['name'] . ' (' . explode(' (', (string) (StaffLogin::ROLES[$t['role']] ?? $t['role']))[0] . '). Work email now: ' . ($email !== '' ? $email : 'none')
++                . '. Last sign-in: ' . $last . '. Name given: ' . $r['name'] . '. Contact given: ' . $r['contact'] . ' — not verified: anyone who knows their password could have sent this.'
++                . ' Asked ' . self::when((string) $r['updated_at'], (string) $r['tz']) . ($r['device'] !== '' ? ' from ' . $r['device'] : '') . ((int) $r['sends'] > 1 ? ' (sent ' . (int) $r['sends'] . ' times)' : '')
++                . '. Call or write to them there, or on a number you already have for them, before you press anything below.', null),
++            $s('Change work email', 'For a new address (first.last@' . StaffLogin::workDomain() . '). Sign-in codes go there from now on; the old address is told.',
++                ['form', 'sm_email', 'Change work email', [['email', 'New work email', 'email', '']], $mine]),
++            $s('Reset the mailbox password', 'When the mailbox is ours but they can\'t sign in to it. A new password for ' . ($email ?: 'it') . ', shown to you once to pass on.',
++                ['do', 'sm_mailbox', 'Reset the mailbox password', $boxWhy !== '' && $own ? $off($boxWhy) : $mine]),
++            $s('New setup link', 'Ends their sessions and clears their password and authenticator app; they choose new ones with the link. Shown to you to hand over in person or by phone (it\'s also emailed to the work email, which they can\'t reach now).',
++                ['do', 'sm_setup', 'New setup link', $mine]),
++            $s('Close the request', 'When they\'re back in, or it wasn\'t them. What you write goes in their staff log.',
++                ['form', 'sm_close', 'Close it', [['why', 'What happened', 'text', '']], $own ? [] : ['off' => $why]]),
++        ];
++    }
++
++    /**
++     * A button on the case. Returns ['message', 'once' => [label, value]|null shown to the owner one time, 'note' => for the
++     * case's notes, 'close' => bool]. Pulse::manage writes the note and closes the case.
++     */
++    public static function act(PDO $pdo, int $id, string $what, array $a, int $uid): array
++    {
++        [$own, $why] = self::ownerCheck($pdo);
++        if (!$own) throw new RuntimeException($why . '.');
++        $me = StaffLogin::inSession($pdo);
++        $r = self::get($pdo, $id);
++        if (!$r || $r['status'] !== 'open') throw new RuntimeException('This request is closed already.');
++        $t = StaffLogin::get($pdo, (int) $r['staff_account_id']);
++        if (!$t || $t['status'] === 'ended') throw new RuntimeException('That staff login has ended.');
++        $actor = (int) $me['id'];
++        require_once __DIR__ . '/Mailer.php';
++        switch ($what) {
++            case 'sm_email':
++                $old = (string) $t['email'];
++                StaffLogin::setEmail($pdo, (int) $t['id'], (string) ($a['email'] ?? ''), $actor);
++                $new = (string) StaffLogin::get($pdo, (int) $t['id'])['email'];
++                if ($new === strtolower($old)) throw new RuntimeException('That\'s the work email it has now.');
++                $told = self::tell($old, 'Your Traversence work email was changed',
++                    "An owner ({$me['staff_id']}) changed the work email on staff login {$t['staff_id']} from $old to " . StaffLogin::mask($new) . ' on ' . date('M j, Y, g:i A T') . ", after a request from the sign-in page.\n\nSign-in codes go to the new address from now on. If you didn't ask for this, write to support@traversence.com at once.\n\nTraversence");
++                StaffLogin::log($pdo, (int) $t['id'], 'mail_help', 'Work email changed from the help request (' . ($told ? 'the old address was told' : 'the old address couldn\'t be told') . ')', $actor);
++                return ['message' => 'Work email changed to ' . $new . '. Sign-in codes go there now' . ($told ? ', and the old address was told.' : '.'), 'once' => null,
++                    'note' => 'Changed the work email from ' . ($old ?: 'none') . ' to ' . $new . '. ' . ($told ? 'The old address was told.' : 'The old address couldn\'t be told.'), 'close' => false];
++            case 'sm_mailbox':
++                $email = strtolower((string) $t['email']);
++                if (!filter_var($email, FILTER_VALIDATE_EMAIL) || substr(strrchr($email, '@'), 1) !== StaffLogin::workDomain()) throw new RuntimeException('Not one of our mailboxes.');
++                require_once __DIR__ . '/CPanelMail.php';
++                if (!CPanelMail::ready()) throw new RuntimeException('cPanel isn\'t connected, so the mailbox can\'t be reset from here.');
++                $pw = self::password();
++                CPanelMail::setPassword($email, $pw);
++                self::tell($email, 'Your mailbox password was reset', "An owner ({$me['staff_id']}) reset the password of this mailbox on " . date('M j, Y, g:i A T') . ", after a request from the Traversence sign-in page. They'll give you the new one.\n\nIf you didn't ask for this, write to support@traversence.com at once.\n\nTraversence");
++                StaffLogin::log($pdo, (int) $t['id'], 'mailbox', 'Mailbox password reset from the help request', $actor);
++                return ['message' => 'Mailbox password reset. Pass it on to them; it isn\'t shown again. Webmail: ' . CPanelMail::webmail($email), 'once' => ['New password for ' . $email, $pw],
++                    'note' => 'Reset the mailbox password of ' . $email . ' (shown once to the owner).', 'close' => false];
++            case 'sm_setup':
++                $res = StaffLogin::reset($pdo, (int) $t['id'], $actor);
++                StaffLogin::log($pdo, (int) $t['id'], 'mail_help', 'New setup link made from the help request, shown to the owner to hand over', $actor);
++                return ['message' => 'New setup link made: hand it to them yourself. It works for ' . StaffLogin::SETUP_HOURS . ' hours and once; their sessions have ended.', 'once' => ['Setup link for ' . $t['staff_id'], (string) $res['url']],
++                    'note' => 'Made a new setup link and saw it to hand over. Their sessions ended; password and authenticator cleared.', 'close' => false];
++            case 'sm_close':
++                $w = mb_substr(trim((string) ($a['why'] ?? '')), 0, 280);
++                if ($w === '') throw new RuntimeException('Write what happened, for their staff log.');
++                $pdo->prepare("UPDATE " . Database::t('staff_mail_requests') . " SET status = 'done', outcome = ?, done_by = ?, done_at = NOW() WHERE id = ?")->execute([$w, $uid, $id]);
++                StaffLogin::log($pdo, (int) $t['id'], 'mail_help', 'Help request closed: ' . $w, $actor);
++                return ['message' => 'Closed. It\'s in their staff log.', 'once' => null, 'note' => 'Closed: ' . $w, 'close' => true];
++        }
++        throw new RuntimeException('That isn\'t something this case can do.');
++    }
++
++    /** A system email to $to (it costs nothing; CLAUDE.md "No income, no expense"). False when it couldn't go. */
++    private static function tell(string $to, string $subject, string $text): bool
++    {
++        if (!filter_var($to, FILTER_VALIDATE_EMAIL)) return false;
++        try { Mailer::send($to, $subject, $text); return true; } catch (Throwable $e) { error_log('staff mail help: ' . $e->getMessage()); return false; }
++    }
++
++    /** A moment in the zone it's labelled in: $tz (the device's, stored with it) or the site's own. "Nov 22, 4:42 AM MST" */
++    public static function when(?string $at, string $tz = ''): string
++    {
++        if (!$at || !strtotime($at)) return 'never';
++        try {
++            $d = new DateTime($at);
++            if ($tz !== '') $d->setTimezone(new DateTimeZone($tz));
++            return $d->format('M j, Y, g:i A T');
++        } catch (Throwable) { return date('M j, Y, g:i A T', strtotime($at)); }
++    }
++
++    private static function password(): string
++    {
++        $a = 'abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789';
++        $p = '';
++        for ($i = 0; $i < 16; $i++) $p .= $a[random_int(0, strlen($a) - 1)];
++        return substr($p, 0, 4) . '-' . substr($p, 4, 4) . '-' . substr($p, 8, 4) . '-' . substr($p, 12, 4) . '!7';
++    }
++
++    private static function device(): string
++    {
++        $ua = (string) ($_SERVER['HTTP_USER_AGENT'] ?? '');
++        $os = preg_match('/iPhone|iPad/i', $ua) ? 'iPhone/iPad' : (preg_match('/Android/i', $ua) ? 'Android' : (preg_match('/Windows/i', $ua) ? 'Windows' : (preg_match('/Mac OS/i', $ua) ? 'Mac' : 'another device')));
++        $br = preg_match('/Edg\//', $ua) ? 'Edge' : (preg_match('/Chrome\//', $ua) ? 'Chrome' : (preg_match('/Firefox\//', $ua) ? 'Firefox' : (preg_match('/Safari\//', $ua) ? 'Safari' : 'a browser')));
++        return "$br on $os";
++    }
++}
+--- a/app/lib/staging-tables.php
++++ b/app/lib/staging-tables.php
+@@ -84,7 +84,7 @@
+ 
+     /** Never copied: empty on staging (StagingSite::EMPTY_TABLES and live's own records of staging and releases). */
+     public const NEVER = ['tv_vectors' /* Supabase's, not MySQL: the vector index (Vectors.php), never copied */, 'comms_mailboxes', 'comms_mail', 'push_subs' /* connected mailboxes' sealed passwords and private mail, and push devices (decisions/0172 §4.6, §4.7): staging never connects or pushes */, 'vault_meta', 'vault_creds', 'vault_items', 'vault_ext', 'vault_log', 'email_confirmations', 'user_otp_challenges', 'user_identities', 'two_step_devices',
+-        'staff_recovery_codes', 'guest_devices', 'support_grants', 'page_cache', 'staging_state', 'site_releases', 'site_release_settings', 'stg_outbox', 'identities'];
++        'staff_recovery_codes', 'staff_mail_requests' /* Can't get the email? requests: sign-in recovery (Release 3f B8) */, 'guest_devices', 'support_grants', 'page_cache', 'staging_state', 'site_releases', 'site_release_settings', 'stg_outbox', 'identities'];
+ 
+     /**
+      * Kinds: the word a "kind:id" string, a Pulse key or a link uses, => its table. Every id of these tables found in
+--- a/app/ui/faq.md
++++ b/app/ui/faq.md
+@@ -265,6 +265,9 @@
+ ### I'm on the Traversence team. How do my staff login and my own account fit together?
+ They're separate: the staff login (a staff ID like TRV-0001, your work email and a password) opens the admin side; your own account is for everything else. An owner links them for you from the admin (People → Staff logins → Link a member account), and we email your own account to confirm: sign in as it, open the link and tap **Link them**. You can unlink from your own account (Dashboard → Privacy → Staff login) at any time. After you sign in with the staff login, the account menu switches to your own account and back without signing in again, for up to 12 hours after you last used the admin side in that browser; after that, the switch back asks you to sign in with the staff login again. While you're on the admin side, the menu's **Your listings** shows your own account's listings: tapping one switches to your own account and opens it. Signing in with your own account never opens the admin side.
+ 
++### I'm on the Traversence team and can't get into my work email. How do I sign in?
++Sign in at the staff sign-in (https://traversence.com/admin/login.php) with your staff ID and password as usual. On the code step, choose **Can't get the email?** and give your name and a phone number or another email where we can reach you. It goes to the owners as a case in Pulse; nothing changes on your login until one of them has contacted you to check it's you. Then they can change your work email, reset your work mailbox's password, or make a new setup link and hand it to you in person or by phone (never only by email, since that's the mailbox you can't reach). Every step is kept in your staff log, and your old work email is told when it's changed. Forgot your password as well? Ask an owner directly, or write to support@traversence.com. Once you're back in, add an authenticator app (People → Staff logins → Authenticator app, https://traversence.com/admin/staff.php#my-app): the admin side reminds you once until you add it or choose **Not now**, and its code signs you in even when email is slow or out of reach.
++
+ ### I'm on the Traversence team. Where do I see what our outside services cost, and their limits?
+ **System Configuration → Modules (Service register)** has a row for every outside service we call (Claude, Google Places, Tavily, Amazon SES, OpenStreetMap, the free registries…): which workflows use it, where its key lives (named, never shown), its caps and paces (the one setting the site reads, kept with who changed it and when, its history and a Reset), this month's use and cost by our count, and its status with the reason (active, paced, held, off, or out of budget). A service with an open issue shows it on its card: what came back, how many times and since when, from where, what it means and what to do, with the button that does it: **Check and start again** when it tripped, else **Check it now** (a service that asked us to slow down just waits its turn), and **Its case in Pulse** (2026-11-19; since 2026-11-20 the issue is the alarm itself, one thread, so there's no separate "Its alarm on the board"). There's no Mark resolved: an issue is resolved when its check passes, the result of it being fixed. When it's the service's own server failing, there's nothing to change on our side: the check asks once, and if it answers, what waited carries on. **Costs** puts this month's spend together, by service and by workflow, against last month's revenue and the community budget, with the AI cap's share per workflow. Pulse opens one case per service at 50%, 75% and 95% of a cap, with the step that fixes it as a button (raise the cap, top up, pause the work), and one case for tasks that **return empty** (they had work and got answers, but nothing came back). **Workflow board** shows each workflow (W1 to W13) with its last run, output and cost, and every setting it has (its tasks' schedule and limits, the services each may use, its budgets, gates, score weights, retry ladder and the steps that need a person); each save is a version with **Go back to it**. **Check before switching on** lists what must be green before automation runs again, line by line like the pre-flight: each line a ✓ or ✗ that opens to its answer and its fix, with **Run the check** (on the server, one line at a time, so you can leave the page), **Show only what's red**, **Show the slow ones** and the run log with each run's report. It's read each time the page opens and at each Start, and the same lines are a group of the pre-flight, so the board, Start and the pre-flight always agree. A line that holds everything keeps the master switch off; any other red line holds only its own part (a hub's licence sources, for instance, hold only W14, the workflow that reads them). Watching Railway's deploys and the sync from the site is built but switched off until its keys are added; its panel, with its switch, is on the **System Control Board** (Watching Railway and the sync). **Start the system** (System Configuration → Automation, and the Workflow board) does the whole switch-on in one press, on the server, so the page can close: it checks the keys, switches on watching, runs the check and fixes what it safely can, sets the crawler's schedule on Railway, turns the master switch on, then starts W1 to W12 one at a time and then the new tasks, each only after the one before has run cleanly (2 good runs or 6 hours by default, no new service issue, nothing out of budget). A missing key or a red line holds only what it's for, and becomes a step in Pulse's **Starting the system** case; fix it and the start carries on by itself. **Pause everything** turns the master off and stops Railway's schedule in one press. The Start card shows its steps as a queue, like the pre-flight: one line per step with a ✓ when done, a spinner while it runs, ! when held and a dash while it waits its turn, with the counts on top; while it runs, the card follows it without a reload. It stands on its own: each step opens to what holds it and its fix right there (a button where the site can do it, the exact page where only you can) and **Check again**, which looks again at once and carries on if it's clear; each workflow and task opens to **Started**, **Running** (its good runs so far), **Complete** (when it passed its gate) and **Active status** (on or paused now, and its last run). The **run log** has one line per Start (how it ended, when it started and ended, who pressed it, its counts), and each opens to its report: every step with where it ended up, then every event of that Start in order. The pre-flight is a separate, deeper check, linked from the card; Start doesn't wait on it. Start first confirms that every workflow and task is operational, within minutes, the way the pre-flight tests them (its services, keys, scheduled jobs, gate, and a dry run where there is one), shown on the card as **Confirm each workflow and task is operational**; one that isn't is held with its answer and fix, and the rest go on. Then the master switch comes on and the confirmed ones switch on in order straight away, each new task once its workflow is on, so nothing that others rely on is left off for hours. Each one is then watched by itself (two good runs or six hours by default, in **Thresholds & gates**). A workflow stops at its gate only for a real hold on a service it uses (a block, a refused key, a used-up quota, or every server down with nothing else to answer), not for one server timing out while others answer. A stopped step carries its fixes on the card itself: **Try it again**, **Leave it paused, carry on**, and for a service issue its one button: **Check and start again** when it tripped, else **Check issue now** (a passing check closes it; **It's fixed: try it again** only where nothing can check it); once the issue no longer holds the service, **Check again** carries on by itself. Pulse gets a notice, never the only way to fix it. A fix is always done on the card itself: a hub's licence sources are listed under W14, each with **Read its terms** (the source's own terms, opened beside the page) and **Terms read: allowed**; any other page a fix needs opens in a drawer over the card, never by leaving it. Every press on the card brings you back to the card, with its answer at the top of it. A workflow someone paused after its turn shows as **Paused** with **Switch it on**. A line held by a service's problem says on the card what happened and what to do: when it's the service's own server failing, nothing (the site asks again by itself, and **Check issue now** tries at once); when it refused us or our key, what a person does, then its button once it's sorted: a passing check is what closes it, and it closes everywhere at once (the card, the board, Pulse and the logbook), saying how (2026-11-19). A stopped step also says **What to do**: the one button that fits, and why. While it's confirming or switching things on, a Start reads **Starting**; once everything confirmed is on it reads **Operational**, with how many are on, still watched, held or stopped. Each Start in the run log has **Download report** (a text file) and **Open** (the same report as a page you can read, save or share, on a phone too). A workflow held only by its own gate, such as W14 waiting for a hub's licence terms to be read, shows amber (it waits) and doesn't count against launch. Before it, **System Configuration → Pre-flight** tests every service, setting, workflow and task; **Run all** runs on the server, so it carries on if you leave the page, and the page shows how far it has got when you come back (a run the server cut off waits for you: the page asks whether to continue it from where it stopped or cancel it, and Pulse has both as buttons). Every run, finished or not, is one line in the run log with its status, its start and end, who started it, and its report as far as it got.
+ 
+@@ -1710,7 +1713,7 @@
+ On the [Privacy page](/privacy.php#choices), signed in or not, or in Privacy Settings → Your tools when you're signed in. Signed in, your choices follow you to any device you sign in on.
+ 
+ ### Can I sign in with Google?
+-Yes, and with Apple, Microsoft or Facebook too. Their buttons are under the email and password on the sign-in and sign-up pages (each shows once it's switched on). Each tells us only your name, your email address and an ID for your account with them, never your password or anything else in that account. Apple may give a "Hide My Email" address that forwards to you. If you already have an account with the same confirmed email, you're signed into it. If you're new, you finish signing up as everyone does: confirm you're 18 or older, choose about verification and privacy, and agree to the terms. With a work or school Microsoft account, we email you a link to confirm your address, the same as signing up with a password. There's no password to choose; to sign in another way too, use **Forgot password?** to set one. To disconnect one, or to have your data deleted, see [Deleting your data](/data-deletion.php).
++Yes, and with Apple, Microsoft or Facebook too. Their buttons are under the email and password on the sign-in and sign-up pages, each with its name (**Continue with Google**…), and each shows once it's switched on. Each tells us only your name, your email address and an ID for your account with them, never your password or anything else in that account. Apple may give a "Hide My Email" address that forwards to you. If you already have an account with the same confirmed email, you're signed into it. If you're new, you finish signing up as everyone does: confirm you're 18 or older, choose about verification and privacy, and agree to the terms. With a work or school Microsoft account, we email you a link to confirm your address, the same as signing up with a password. There's no password to choose; to sign in another way too, use **Forgot password?** to set one. To disconnect one, or to have your data deleted, see [Deleting your data](/data-deletion.php).
+ 
+ ### Does signing in with Google, Facebook or Microsoft connect my account to Traversence?
+ No. Signing in only tells us who you are. Connecting a platform so you can bring your business details, events or products in and manage them here in one place is a separate step, asked for only when you use it and only for what it needs. That's coming.
+@@ -1884,7 +1887,7 @@
+ It stops bots from guessing passwords and making fake accounts. It's Cloudflare Turnstile: usually it passes on its own in a second, with no puzzle to solve. If you press the button before it's done, the form waits for it (a few seconds at most) and tries it again on its own if it stalls; you don't need to do anything. If it still can't finish, reload the page, or turn off any ad or script blocker for this site, or sign in with Google, Microsoft or Facebook instead. It's on the sign-in, sign-up and "forgot password" forms (signing in with Google, Apple, Microsoft or Facebook skips it, since they check already). It isn't used for ads.
+ 
+ ### How is the Traversence team's access protected?
+-Anyone on our team who can use the admin side signs in in two steps: their password (or Google and the others), then a 6-digit code we email them, before any admin page opens. Every code we email (signing in, claiming or adding a business) puts the code first in the subject, so Gmail offers Copy code and a phone can fill it in for you; in the email it's shown once, large, in a box that selects with one click. A sign-in code also has **Sign in with this code**: it opens the sign-in page with the code filled in, and you tap Sign in. It works in the browser where you started signing in; anywhere else the page says so, and signing in there sends a new code. They can trust their own browser for 30 days, and changing their password makes every browser ask again. Two-step sign-in for business owners is coming, before businesses can connect payments.
++Anyone on our team who can use the admin side signs in in two steps: their password (or Google and the others), then a 6-digit code we email them, before any admin page opens. Every code we email (signing in, claiming or adding a business) puts the code first in the subject, so Gmail offers Copy code and a phone can fill it in for you; in the email it's shown once, large, in a box that selects with one tap or click. A sign-in code also has **Sign in with this code**: it opens the sign-in page with the code in and signs you in by itself. It works in the browser where you started signing in; anywhere else the page says so, and signing in there sends a new code. On the code step, the box says **6 digits**, and the page says until what time the code works, in your own time zone ("until 4:42 AM MST"). Type or paste the code (spaces and dashes are fine): it signs you in as soon as the 6th digit is in. They can trust their own browser for 30 days, and changing their password makes every browser ask again. Two-step sign-in for business owners is coming, before businesses can connect payments.
+ 
+ ### Does Traversence have a password vault?
+ Our own team has one now: the logins for the outside services we use are kept in a vault that only its owner's browser can open. Each password is sealed (encrypted) in the browser before it's saved, so what we store can't be read by anyone at Traversence, or by anyone who got into our server. Setting it up takes five short steps: the device's passkey (fingerprint, face or PIN); a vault passphrase, which isn't a password (it never leaves the browser, so it has its own rules: four or more words, or 20 characters, hard to guess, and used nowhere else; the page can suggest one); the recovery words; and two recommended extra checks, an authenticator app (whose code is then needed to add a device or use the recovery words) and a spare passkey or security key. Opening a password takes the passkey and the passphrase; each password opens only for its exact sign-in page; and every password opened is emailed to its owner with a link to lock the vault. If you lose your devices or passphrase, 24 recovery words you saved at the start (printed or downloaded, never emailed) get you back in, once: using them makes new ones. You type three of them back from your saved copy before they're kept, so a mistyped kit is caught at the start. We keep nothing that could open a vault, so lost words with no other device means the vault can't be opened, by anyone. A vault for members and businesses is coming, only if you choose it and agree to its terms, alongside 1Password through us or the password manager you already use. Our team also has a browser extension for Chrome and Edge: connected from the vault for up to 12 hours (the key stays in the browser's memory, gone when the browser closes or the vault is locked), it lists the saved logins under a site's sign-in box only on that exact site, so a look-alike site gets nothing, fills the one picked, and after a sign-in offers to save it or update the saved password. A public version for members and businesses comes with their vault. The vault page's bar across the top shows how long it stays open, with Close and Lock at its end: after 5 minutes unused it asks if you're still there and closes 2 minutes later, like a bank's sign-in. Reloading the page keeps it open (in that tab only, for that time); leaving by a link asks first, since leaving closes it, and closing the tab ends it. A connected extension shows how long it has left. The extension keeps its connection for 12 hours or until the browser closes, in every tab; every 30 minutes it checks with the vault and lets go at once if the vault was locked or it was disconnected. When it isn't connected, its Connect button opens the Vault page, and unlocking brings you back to the tab you were on, connected. On a sign-in that asks for the email first, Fill puts in the email and then the password when the next screen asks for it. In a new-password box it offers a strong password (within the length the page states), and after a password change on a page with no user name it asks which saved login the new password is for. The vault opens three ways: with the passphrase, with the authenticator app's code, or with a code emailed to the email on the account; the second and third are then finished by the device's own PIN, fingerprint or face (or a phone or security key), whose secret never leaves the device, so a code alone opens nothing. PIN unlock turns on for a computer the first time the vault is opened there with the passphrase, and can be turned off under Devices. Its owner chooses what the vault emails and how often (its Emails button): passwords opened, logins the extension saved, the extension connected, and the vault unlocked after a lock can each be emailed each time, the first time each day, in an hourly or daily summary, or not at all (always kept in the vault's own record). Each email, summaries included, says who did each thing: the person and the staff login, or the extension and who connected it. What would show someone else in the vault (devices, recovery words, the authenticator app, a lock, many deletes, and changes to these settings) is always emailed at once. In the list, each login has **Copy password** beside it; the rest (**Show the password for 10 seconds**, **Copy the user name**, **Change it** and **Delete it**) is under its **⋯** (2026-11-20). The extension downloads from the vault page, with its install steps for Chrome and Edge.
+--- a/app/ui/header.php
++++ b/app/ui/header.php
+@@ -51,7 +51,11 @@
+ $tv_search = !preg_match('#^/(user/dashboard|listing/businessportal|login|register|forgot-password|reset-password|verify-email|join|directory/classic)#', $tv_path);
+ // on admin pages the header's box searches the admin (Jason, 2026-11-12): pages, tools and the records themselves, Ctrl+K
+ // from anywhere (js/admin-search.js); its Site switch opens the public search, which stays on the page, out of sight
+-$tv_admin_search = (bool) preg_match('#^/admin(/|$)#', $tv_path);
++// The sign-in pages (screens proposal A10, Jason 2026-11-22): nothing to show yet, so no cart, no bell and no admin search
++// there (they looked switched off with no reason); the menu stays. One flag, read below.
++$tv_signin = (bool) preg_match('#^/(login|register|forgot-password|reset-password|admin/login|admin/setup)(\.php)?$#', $tv_path);
++$tv_admin_search = !$tv_signin && (bool) preg_match('#^/admin(/|$)#', $tv_path);
++$tv_search = $tv_search && !$tv_signin;
+ // The home page holds the search in its hero (decisions/0138 §2): the same bar, so the header leaves it out there and the
+ // page prints $tv_search_bar where it wants it. Every other page keeps it in the header.
+ $tv_home = in_array($tv_path, ['/', '/index.php'], true);
+@@ -371,13 +375,14 @@
+       . '<button type="button" class="tvs-open" data-tva aria-label="Search the admin">' . $tv_i['search'] . '<span>Search the admin…</span></button></div><div hidden>' . $tv_search_bar . '</div>';
+   elseif ($tv_fold) echo str_replace('class="tvs-bar" role="search"', 'class="tvs-bar tvs-fold" role="search"', $tv_search_bar);   // the page has its own bar: the header's folds to ⌕ (2026-11-19)
+   elseif (!$tv_home) echo $tv_search_bar; endif; ?>
+-  <?php require_once __DIR__ . '/section-rails.php'; $tv_cart = tv_go_cart_count(); ?>
++  <?php if (!$tv_signin): require_once __DIR__ . '/section-rails.php'; $tv_cart = tv_go_cart_count(); ?>
+   <a id="tv-cart" class="tvn-bell tvn-cart" href="/qr/cart.php" title="Cart<?= $tv_cart ? ' (' . $tv_cart . ')' : '' ?>" aria-label="Cart<?= $tv_cart ? ', ' . $tv_cart . ' item' . ($tv_cart === 1 ? '' : 's') : '' ?>">
+     <?= $tv_i['cart'] ?><span class="tvn-badge" data-go-count<?= $tv_cart ? '' : ' hidden' ?>><?= $tv_cart ?: '' ?></span>
+   </a>
+   <a id="tv-bell" class="tvn-bell" href="/user/dashboard.php#notifications" title="Notifications" aria-label="Notifications">
+     <?= $tv_i['bell'] ?><span class="tvn-badge" id="tv-bell-n" hidden></span>
+   </a>
++  <?php endif; ?>
+   <button type="button" class="tvn-tab" data-tv-toggle="nav" aria-label="Collapse or expand the menu icons" title="Collapse or expand">
+     <svg viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+   </button>
+@@ -488,6 +493,27 @@
+ <script<?= tv_nonce() ?>>(function () { var n = document.getElementById('tv-notice'), t = document.getElementById('top-bar'); if (n && t && t.parentNode) t.parentNode.insertBefore(n, t.nextSibling); })();</script>
+ <?php endif;
+ }
++// Staff signed in with no authenticator app (3f B8, decisions/0100's note of 2026-11-22): one notice on the admin side to add
++// it, so a lost work email still leaves a way in; "Not now" (or its ×) is remembered for that staff login (staff.php
++// app_nudge_off). A small bar fixed at the foot of the window, clear of the admin's fixed headers.
++if (!$tv_signin && preg_match('#^/admin(/|$)#', $tv_path) && class_exists('Database') && is_file(__DIR__ . '/../lib/StaffLogin.php')) {
++    try {
++        require_once __DIR__ . '/../lib/StaffLogin.php';
++        $tv_pdo = $tv_pdo ?? Database::connection();
++        $tv_sl = StaffLogin::ready($tv_pdo) ? StaffLogin::inSession($tv_pdo) : null;
++        if ($tv_sl && !StaffLogin::hasApp($tv_sl)) {
++            $tv_q = $tv_pdo->prepare('SELECT 1 FROM ' . Database::t('staff_settings') . ' WHERE name = ?'); $tv_q->execute(['appnudge:' . (int) $tv_sl['id']]);
++            if (!$tv_q->fetchColumn()): ?>
++<div id="tv-appnudge" role="status" style="position:fixed;left:50%;transform:translateX(-50%);bottom:.75rem;z-index:1300;width:min(42rem,calc(100% - 6px));box-sizing:border-box;background:var(--tv-card-b,#F7EFDC);color:var(--tv-ink,#3E2B1F);border:1px solid var(--tv-line-strong,#CBB98D);border-radius:.6rem;box-shadow:0 6px 20px rgba(62,43,31,.25);font-size:.88rem;line-height:1.4;padding:.55rem 2.2rem .55rem .9rem;display:flex;gap:.3rem .8rem;align-items:center;flex-wrap:wrap">
++  <span style="flex:1 1 16rem">Add an authenticator app to your staff login: if your work email is slow or out of reach, its code still signs you in.</span>
++  <a href="/admin/staff.php#my-app" style="color:var(--tv-link);font-weight:700;text-decoration:underline;white-space:nowrap">Add it</a>
++  <form method="post" action="/admin/staff.php" style="display:contents"><input type="hidden" name="csrf" value="<?= $tv_e((string) ($_SESSION['csrf_token'] ?? '')) ?>"><input type="hidden" name="do" value="app_nudge_off"><input type="hidden" name="back" value="<?= $tv_e((string) ($_SERVER['REQUEST_URI'] ?? '/admin/')) ?>"><button style="background:none;border:0;color:var(--tv-meta,#6B5A45);text-decoration:underline;cursor:pointer;font-size:.85rem;padding:0;white-space:nowrap">Not now</button><button aria-label="Not now" title="Not now" style="position:absolute;top:.2rem;right:.35rem;background:none;border:0;font-size:1.3rem;line-height:1;color:var(--tv-meta,#6B5A45);cursor:pointer;padding:.2rem .3rem">&times;</button></form>
++</div>
++<script<?= tv_nonce() ?>>document.addEventListener('DOMContentLoaded', function () { var n = document.getElementById('tv-appnudge'); if (n) document.body.appendChild(n); });   // out of the header's stacking, over the page</script>
++<?php       endif;
++        }
++    } catch (Throwable $tv_x) { error_log('app nudge: ' . $tv_x->getMessage()); }
++}
+ // The zone on every page under the header (decisions/0159 step 4c, Blocks::site): what staff publish there shows on the
+ // browsing pages, never on the admin, sign-in or payment pages. The footer's zone follows this page's answer.
+ // This file is drawn inside the top bar's own row (a flex row, sticky), so the zone is kept hidden there and moved at
+--- a/app/ui/pulse-ui.php
++++ b/app/ui/pulse-ui.php
+@@ -477,6 +477,8 @@
+   @media (max-width:767px){.pb-dr{grid-template-columns:1fr;background:none}.pb-case{grid-column:1;grid-row:1}.pb-tool{grid-column:1;grid-row:1;z-index:2}.pb-shade{display:none}}
+   .pb-msg{font-size:.9rem;margin:.3rem 0 0;color:#1F5C43;font-weight:600}
+   .pb-msg.no{color:#991B1B}
++  .pb-off{display:block;color:var(--tv-meta,#6B5A45);font-style:italic}   /* a greyed step button's reason */
++  .pb-once-v{width:100%;margin:.4rem 0;padding:.45rem .55rem;border:1px solid var(--tv-field-edge,#CBB98D);border-radius:.45rem;background:var(--tv-field,#FFFBF2);font:600 .9rem ui-monospace,Menlo,Consolas,monospace}
+   @media (max-width:900px){.pb-top{grid-template-columns:1fr}}
+   @media (max-width:767px){
+     .ps-hd{display:flex;flex-wrap:wrap;gap:.25rem .6rem}.ps-hd>span:nth-child(2){display:none}.ps-grip{display:none}
+@@ -1207,13 +1209,17 @@
+       var tx = el('div'); var b = el('b', st.t); tx.appendChild(b); if (st.auto) tx.appendChild(el('span', 'done')).className = 'auto'; if (st.h) tx.appendChild(el('small', st.h));
+       (st.exts || (st.ext ? [st.ext] : [])).forEach(function (x) { var xa = el('a', 'Open ' + x[0] + ' ↗'); xa.href = x[1]; xa.target = '_blank'; xa.rel = 'noopener'; xa.className = 'pb-ext'; tx.appendChild(xa); });   // the outside service this step needs, right here (exts: more than one, e.g. a site health finding's page, screenshot and proposal)
+       li.appendChild(tx);
+-      var a = st.act, btn = null;
++      var a = st.act, btn = null, opt = null;
+       if (a && a[0] === 'tool') { btn = el('button', st.t === 'Fix it' ? 'Fix it' : 'Open'); btn.dataset.toolUrl = a[1]; }   // an alarm's Fix it (decisions/0176 §5)
+       if (a && a[0] === 'reply' && it.reply_to) { btn = el('button', 'Write it'); btn.dataset.write = n; }
+       if (a && a[0] === 'reply' && !it.reply_to && it.key.indexOf('post:') === 0) { btn = el('button', 'Write it'); btn.dataset.write = n; }
+       if (a && a[0] === 'stage') { btn = el('button', a[2]); btn.dataset.stage = a[1]; }
+-      if (a && a[0] === 'do' && it.state !== 'done') { btn = el('button', a[2]); btn.dataset.doWhat = a[1]; }
+-      if (a && a[0] === 'form' && it.state !== 'done') { btn = el('button', a[2]); btn.dataset.formStep = n; }
++      if (a && a[0] === 'do' && it.state !== 'done') { btn = el('button', a[2]); btn.dataset.doWhat = a[1]; opt = a[3]; }
++      if (a && a[0] === 'form' && it.state !== 'done') { btn = el('button', a[2]); btn.dataset.formStep = n; opt = a[4]; }
++      // a do or form step's options (Release 3f B8): {confirm, yes, danger} asks first (TvAsk.gate); {off: why} greys the
++      // button with its reason beside it, never hidden (CLAUDE.md, the admin's access rule)
++      if (btn && opt && opt.off) { btn.disabled = true; btn.title = opt.off; btn.setAttribute('aria-disabled', 'true'); var ow = el('small', opt.off + '.'); ow.className = 'pb-off'; tx.appendChild(ow); }
++      if (btn && opt && opt.confirm) { btn.dataset.ask = opt.confirm; btn.dataset.askYes = opt.yes || a[2]; if (opt.danger) btn.dataset.askDanger = '1'; }
+       if (a && a[0] === 'resolve' && it.state !== 'done') { btn = el('button', 'Resolve'); btn.dataset.dr = 'done'; }
+       if (btn) { btn.type = 'button'; btn.className = 'pb-btn sm'; li.appendChild(btn); } else li.appendChild(el('span'));
+       pl.appendChild(li);
+@@ -1363,16 +1369,18 @@
+     if (e.target.closest('[data-tool-open]')) { showTool(true); return; }
+     var tu = e.target.closest('[data-tool-url]'); if (tu) { showTool(true, tu.dataset.toolUrl); return; }
+     var dw = e.target.closest('[data-do-what]'); if (dw && cur) {   // a step's button: a spinner while it works, its answer beside it, then the case refreshed
++      if (dw.disabled || !asked(dw)) return;
+       TvAsk.busy(dw, true);
+       api({ do: 'manage', key: cur, what: dw.dataset.doWhat, args: {} }).then(function (j) {
+         TvAsk.busy(dw, false);
+         if (!j.ok) { TvAsk.say(j.error && j.error.message || 'That didn\u2019t work.', { bad: true }); return; }   // the site's notice, in the middle; it stays until closed
++        if (j.once) { showOnce(j.once, j.message || 'Done.'); return; }   // a setup link or a password: shown to you once, here, before the case refreshes
+         try { sessionStorage.setItem('pb_said', j.message || 'Done.'); } catch (x) {}   // shown once the case is back with its steps up to date
+         location.hash = 'case=' + encodeURIComponent(cur); location.reload();
+       }).catch(function () { TvAsk.busy(dw, false); TvAsk.say('That didn\u2019t reach the site. Try again.', { bad: true }); });
+       return;
+     }
+-    var fs = e.target.closest('[data-form-step]'); if (fs && cur) { var st2 = D[cur].play[+fs.dataset.formStep], a2 = st2.act; form(st2.t, a2[3], a2[2], function (v) { manage(a2[1], v, true); }); return; }   // a step that does the work: its form, here
++    var fs = e.target.closest('[data-form-step]'); if (fs && cur) { if (fs.disabled || !asked(fs)) return; var st2 = D[cur].play[+fs.dataset.formStep], a2 = st2.act; form(st2.t, a2[3], a2[2], function (v) { manage(a2[1], v, true); }); return; }   // a step that does the work: its form, here
+     var ex = e.target.closest('[data-ex]');
+     if (ex && cur) {
+       var box = document.getElementById('pb-dr-ex'), on = ex.getAttribute('aria-pressed') !== 'true', E = D[cur].explain || {};
+@@ -1431,9 +1439,31 @@
+     if (vs) { var sync = function () { ['vendor', 'vendor_order_no'].forEach(function (n) { var x = f.querySelector('[name=' + n + ']'); if (x) x.closest('label').hidden = vs.value !== ''; }); }; vs.addEventListener('change', sync); sync(); }
+     var first = f.querySelector('input,textarea,select'); if (first) first.focus(); f.scrollIntoView({ block: 'nearest' });
+   }
++  // a step button that asks first (data-ask, Release 3f B8): false until "yes" clicks it again (TvAsk.gate)
++  function asked(b) { return !b.dataset.ask || TvAsk.gate(b, b.dataset.ask, { yes: b.dataset.askYes || 'Yes', danger: !!b.dataset.askDanger }); }
++  // a value shown to you one time (a setup link to hand over, a mailbox's new password; Release 3f B8): hidden until you
++  // ask (Show), Copy, and Done when it's passed on, which brings the case back up to date. Closed without it? Do it again:
++  // a new link or password replaces this one.
++  function showOnce(o, msg) {
++    var f = document.getElementById('pb-dr-form'); f.textContent = ''; f.hidden = false;
++    f.appendChild(el('b', o[0]));
++    var p = el('p', msg); p.className = 'pb-msg'; f.appendChild(p);
++    var v = el('input'); v.type = 'password'; v.readOnly = true; v.value = o[1]; v.className = 'pb-once-v'; v.setAttribute('aria-label', o[0]); f.appendChild(v);
++    var r = el('div'); r.className = 'row';
++    var sh = el('button', 'Show'); sh.type = 'button'; sh.className = 'pb-btn sm';
++    sh.onclick = function () { var on = v.type === 'password'; v.type = on ? 'text' : 'password'; sh.textContent = on ? 'Hide' : 'Show'; };
++    var cp = el('button', 'Copy'); cp.type = 'button'; cp.className = 'pb-btn sm';
++    cp.onclick = function () { var ok = function () { TvAsk.say('Copied.', { anchor: cp }); }; try { navigator.clipboard.writeText(o[1]).then(ok, function () { v.type = 'text'; v.select(); document.execCommand('copy'); ok(); }); } catch (x) { v.type = 'text'; v.select(); document.execCommand('copy'); ok(); } };
++    var dn = el('button', 'Done'); dn.type = 'button'; dn.className = 'pb-btn go';
++    dn.onclick = function () { try { sessionStorage.setItem('pb_said', msg); } catch (x) {} location.hash = 'case=' + encodeURIComponent(cur); location.reload(); };
++    r.appendChild(sh); r.appendChild(cp); r.appendChild(dn); f.appendChild(r);
++    f.appendChild(el('small', 'Shown once. Closed before passing it on? Do the step again: the new one replaces this.'));
++    f.scrollIntoView({ block: 'nearest' }); sh.focus();
++  }
+   function done(j, reload) {
+     var m = document.getElementById('pb-dr-msg'); m.className = 'pb-msg' + (j.ok ? '' : ' no'); m.textContent = j.ok ? (j.message || '') : j.error.message;
+     if (!j.ok) return;
++    if (j.once) { m.textContent = ''; showOnce(j.once, j.message || 'Done.'); return; }
+     if (reload) { try { sessionStorage.setItem('pb_said', j.message || 'Done.'); } catch (x) {} location.hash = 'case=' + encodeURIComponent(cur); location.reload(); return; }   // its answer as the site's notice once the case is back (site audit P11)
+     document.getElementById('pb-dr-form').hidden = true; if (j.history) fill(j);
+   }
+--- a/app/ui/social-buttons.php
++++ b/app/ui/social-buttons.php
+@@ -1,7 +1,7 @@
+ <?php
+ // app/ui/social-buttons.php — the row of sign-in buttons under the email form (decisions/0090): Google, Apple, Microsoft
+-// and Facebook, each shown only when it's set up. Square white tiles with each company's own logo (all four allow a
+-// logo-only button), named for screen readers and on hover ("Continue with Apple").
++// and Facebook, each shown only when it's set up. One white button each, its company's own logo and its words beside it
++// ("Continue with Google"; screens proposal A9, Jason 2026-11-22: logos alone left people guessing), stacked full width.
+ declare(strict_types=1);
+ 
+ require_once __DIR__ . '/google-button.php';
+@@ -29,12 +29,12 @@
+         'facebook' => '<svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><path fill="#1877F2" d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/><path fill="#fff" d="M16.671 15.563l.532-3.49h-3.328v-2.25c0-.949.465-1.874 1.956-1.874h1.513V4.996s-1.374-.235-2.686-.235c-2.741 0-4.533 1.662-4.533 4.669v2.643H7.078v3.49h3.047V24a12.2 12.2 0 003.75 0v-8.437z"/></svg>',
+     ];
+     $h = '<div class="tv-or" style="display:flex;align-items:center;gap:.6rem;margin:1.1rem 0 .9rem;color:#5C4632;font:600 .8rem/1 var(--tv-font-head,Georgia,serif)"><span style="flex:1;height:1px;background:#B9A57A"></span>or<span style="flex:1;height:1px;background:#B9A57A"></span></div>'
+-       . '<div class="tv-social" style="display:flex;justify-content:center;gap:.6rem;flex-wrap:wrap">';
++       . '<div class="tv-social" style="display:flex;flex-direction:column;gap:.5rem">';
+     foreach ($list as $k => [$label, $href]) {
+         $name = $verb . ' ' . $label;
+-        $h .= '<a href="' . htmlspecialchars($href, ENT_QUOTES) . '" title="' . htmlspecialchars($name) . '" aria-label="' . htmlspecialchars($name) . '" class="tv-sbtn"'
+-            . ' style="display:flex;align-items:center;justify-content:center;width:3.5rem;height:3.1rem;background:#fff;border:1px solid #CBB98D;border-radius:.6rem;box-shadow:0 1px 2px rgba(62,43,31,.08)">'
+-            . $logo[$k] . '</a>';
++        $h .= '<a href="' . htmlspecialchars($href, ENT_QUOTES) . '" class="tv-sbtn"'
++            . ' style="display:flex;align-items:center;justify-content:center;gap:.65rem;min-height:2.9rem;padding:.4rem .9rem;background:#fff;border:1px solid #CBB98D;border-radius:.6rem;box-shadow:0 1px 2px rgba(62,43,31,.08);color:#3E2B1F;font:600 .92rem/1.2 system-ui,sans-serif;text-decoration:none">'
++            . '<span style="display:flex;flex:none;width:26px;justify-content:center">' . $logo[$k] . '</span><span>' . htmlspecialchars($name) . '</span></a>';
+     }
+     return $h . '</div><style>.tv-sbtn:hover,.tv-sbtn:focus-visible{border-color:#92400E;box-shadow:0 0 0 3px rgba(143,188,168,.45)!important;outline:none}</style>';
+ }
+--- a/website/admin/api/pulse.php
++++ b/website/admin/api/pulse.php
+@@ -6,7 +6,9 @@
+ //   {do: post, key, mode: reply|team, body} Post on a case: reply to the sender (email), or a note to the team
+ //   {do: post, dept, body}                 a post to a department's stream ('' = everyone)
+ //   {do: step, key, n, on, label}         ticks a step of the case's procedure by hand
+-//   {do: manage, key, what, args}         orders: resend, pay, due, note, void; notes and posts: *_edit, *_delete (your own)
++//   {do: manage, key, what, args}         orders: resend, pay, due, note, void; notes and posts: *_edit, *_delete (your own);
++//                                          a lost work email (staffmail:N): sm_email, sm_mailbox, sm_setup, sm_close. 'once' in
++//                                          the answer: [label, value] to show the owner one time (a setup link, a password)
+ //   {do: vendor, key: order:ID, job}       adds a vendor job without changing the stage
+ //   {do: parse4, text} / {do: import4, key, text, order_for}  Paste from 4OVER: read the page, then save it
+ //   {do: vjob, key: order:ID, id, job}     updates a vendor job (status, tracking, completion date, costs, the item it's for)
+@@ -49,7 +51,7 @@
+             Response::json(['ok' => true] + Pulse::caseOf($pdo, $key));
+         case 'manage':
+             $msg = Pulse::manage($pdo, $key, (string) ($in['what'] ?? ''), (array) ($in['args'] ?? []), $uid);
+-            Response::json(['ok' => true, 'message' => $msg, 'me' => $uid] + (str_starts_with($key, 'post:') && str_ends_with((string) $in['what'], 'delete') ? [] : Pulse::caseOf($pdo, $key)));
++            Response::json(['ok' => true, 'message' => $msg, 'me' => $uid] + (Pulse::$once ? ['once' => Pulse::$once] : []) + (str_starts_with($key, 'post:') && str_ends_with((string) $in['what'], 'delete') ? [] : Pulse::caseOf($pdo, $key)));
+         case 'vendor':
+             if (!preg_match('/^order:(\d+)$/', $key, $vm)) throw new RuntimeException('That isn\'t an order.');
+             $vj = (array) ($in['job'] ?? []);
+--- a/website/admin/login.php
++++ b/website/admin/login.php
+@@ -2,6 +2,9 @@
+ // /admin/login.php — the staff sign-in (decisions/0100): staff ID and password, then the 6-digit code we email to the
+ // work email (or, if they've added one, the authenticator app's code). Member accounts sign in at /login.php and don't
+ // open the admin side. ?next= a path on this site.
++// The code box (3f A11): "6 digits", when the code stops working as a clock time in the viewer's zone, signs in at the
++// 6th digit, takes a pasted code with spaces (js/code-link.js). Can't get the email? (3f B8, decisions/0100's note of
++// 2026-11-22): a short form that becomes an owners' Pulse case (app/lib/StaffMailHelp.php).
+ declare(strict_types=1);
+ 
+ require_once __DIR__ . '/../../app/bootstrap.php';
+@@ -15,7 +18,7 @@
+ $next = (string) ($_GET['next'] ?? $_POST['next'] ?? '/admin/');
+ if (!preg_match('#^/(?!/)[^\s\\\\]*$#', $next)) $next = '/admin/';
+ $csrf = (string) ($_SESSION['csrf_token'] ?? '');
+-$err = ''; $msg = '';
++$err = ''; $msg = ''; $helped = false;
+ 
+ if (!StaffLogin::ready($pdo)) { tv_page_start('Staff sign-in', ['no_crumbs' => true, 'app' => true]); echo '<p class="p-4">Run <code>app/migrations/2026-12-05_staff_logins.sql</code> first.</p>'; tv_page_end(); exit; }
+ if (StaffLogin::inSession($pdo) && $_SERVER['REQUEST_METHOD'] === 'GET' && empty($_GET['again'])) { header('Location: ' . $next, true, 302); exit; }
+@@ -37,6 +40,11 @@
+             case 'restart':
+                 unset($_SESSION['tv_staff_step']);
+                 break;
++            case 'help':   // Can't get the email? (tied to this browser's sign-in step; StaffMailHelp checks it and its limits)
++                require_once __DIR__ . '/../../app/lib/StaffMailHelp.php';
++                $msg = StaffMailHelp::request($pdo, (string) ($_POST['help_name'] ?? ''), (string) ($_POST['help_contact'] ?? ''), (string) ($_POST['tz'] ?? ''));
++                $helped = true;
++                break;
+         }
+     } catch (Throwable $ex) { $err = $ex instanceof RuntimeException ? $ex->getMessage() : 'Something went wrong. Try again.'; if (!($ex instanceof RuntimeException)) error_log('staff login: ' . $ex->getMessage()); }
+ }
+@@ -47,6 +55,7 @@
+ $sentTo = $who ? StaffLogin::codeSentTo('signin', (int) $who['id']) : '';
+ $mailable = $who && filter_var((string) $who['email'], FILTER_VALIDATE_EMAIL);
+ $app = $who && StaffLogin::hasApp($who);
++$until = $who ? StaffLogin::codeUntil('signin', (int) $who['id']) : 0;   // when the emailed code stops working
+ 
+ // the sign-in card alone: no admin menu and none of its counts until you're signed in as staff (Jason, 2026-11-05); signed in
+ // as yourself, the account bar says why you're here
+@@ -60,6 +69,10 @@
+   .sl label{display:block;font-size:.82rem;font-weight:700;margin:.6rem 0 .2rem}
+   .sl input{width:100%;font-size:1rem;padding:.55rem .65rem;border:1px solid #CBB98D;border-radius:.6rem;background:#FFFBF2;color:#3E2B1F}
+   .sl input.code{font-size:1.5rem;letter-spacing:.3em;text-align:center}
++  .sl input.code::placeholder{letter-spacing:normal;font-size:1.05rem}
++  .sl-help{margin-top:.8rem;border-top:1px solid #E2D3B0;padding-top:.6rem}
++  .sl-help .hd{display:flex;align-items:center;justify-content:space-between;gap:.5rem}
++  .sl-help .x{border:0;background:none;font-size:1.4rem;line-height:1;color:#5C4632;cursor:pointer;padding:0 .2rem}
+   .sl .b{width:100%;margin-top:.9rem;border:1px solid #92400E;background:var(--tv-btn);color:var(--tv-btn-text);border-radius:.6rem;padding:.6rem;font-weight:700;font-size:.95rem;cursor:pointer}
+   .sl .l{background:none;border:0;color:#92400E;text-decoration:underline;cursor:pointer;font-size:.85rem;padding:0}
+   .sl .ok{background:#DCFCE7;border-radius:.5rem;padding:.45rem .6rem}.sl .no{background:#FEE2E2;border-radius:.5rem;padding:.45rem .6rem}
+@@ -78,20 +91,53 @@
+       <label for="pw">Password</label><input id="pw" name="password" type="password" autocomplete="current-password" required<?= !empty($_GET['sid']) || !empty($_POST['staff_id']) ? ' autofocus' : '' ?>>
+       <button class="b">Next</button>
+     </form>
+-    <small>Forgot your password, or can't get the email? Ask an owner to reset your staff login: you'll get a new setup link by email.</small>
++    <small>Forgot your password? Ask an owner to reset your staff login: they'll hand you a new setup link. Can't get your work email? Sign in with your staff ID and password, then choose <b>Can't get the email?</b> Stuck? Write to <a class="underline" href="mailto:support@traversence.com">support@traversence.com</a>.</small>
+   <?php else: ?>
+     <p><b><?= $e($who['staff_id']) ?></b> · <?= $e($who['name']) ?></p>
+-    <?php if ($sentTo !== ''): ?><p>We emailed a 6-digit code to <b><?= $e($sentTo) ?></b>. It works for <?= StaffLogin::CODE_MINUTES ?> minutes.</p><?php endif; ?>
++    <?php if ($sentTo !== ''): ?><p>We emailed a 6-digit code to <b><?= $e($sentTo) ?></b>. It works until <?= $until ? '<time datetime="' . $e(date('c', $until)) . '" data-tv-time data-tv-clock>' . $e(date('g:i A T', $until)) . '</time>' : StaffLogin::CODE_MINUTES . ' minutes after it was sent' ?>.</p><?php endif; ?>
+     <form method="post" autocomplete="off">
+       <input type="hidden" name="csrf" value="<?= $e($csrf) ?>"><input type="hidden" name="next" value="<?= $e($next) ?>"><input type="hidden" name="do" value="code">
+       <label for="code"><?= $sentTo !== '' ? 'The code from the email' : 'The code from your authenticator app' ?></label>
+-      <input id="code" class="code" name="code" inputmode="numeric" autocomplete="one-time-code" maxlength="7" placeholder="000000" required autofocus>
++      <input id="code" class="code" name="code" inputmode="numeric" autocomplete="one-time-code" maxlength="12" placeholder="6 digits" required autofocus data-tv-code>
+       <button class="b">Sign in</button>
+     </form>
+     <?php if ($app && $sentTo !== ''): ?><small>Email slow? The code your authenticator app shows works here too.</small><?php endif; ?>
+     <?php if ($mailable): ?><form method="post" style="margin-top:.5rem"><input type="hidden" name="csrf" value="<?= $e($csrf) ?>"><input type="hidden" name="next" value="<?= $e($next) ?>"><button class="l" name="do" value="resend">Send a new code</button></form><?php endif; ?>
+     <form method="post" style="margin-top:.5rem"><input type="hidden" name="csrf" value="<?= $e($csrf) ?>"><input type="hidden" name="next" value="<?= $e($next) ?>"><button class="l" name="do" value="restart">Not you? Start again</button></form>
++    <?php // a lost work email is never a dead end (decisions/0100's note, 2026-11-22): the owners are asked, and call back ?>
++    <?php if (!$helped): ?>
++    <div class="sl-help">
++      <button type="button" class="l" id="sl-help-open" aria-expanded="<?= $err !== '' && ($_POST['do'] ?? '') === 'help' ? 'true' : 'false' ?>" aria-controls="sl-help">Can't get the email?</button>
++      <form method="post" id="sl-help"<?= $err !== '' && ($_POST['do'] ?? '') === 'help' ? '' : ' hidden' ?>>
++        <div class="hd"><p style="margin:.4rem 0 0"><b>Ask an owner for a new way in</b></p><button type="button" class="x" data-help-x aria-label="Close" title="Close">&times;</button></div>
++        <p>If you can't reach <?= $sentTo !== '' ? '<b>' . $e($sentTo) . '</b>' : 'your work email' ?> any more, tell the owners how to reach you. One of them will contact you to check it's you, then change your work email or give you a new setup link.</p>
++        <input type="hidden" name="csrf" value="<?= $e($csrf) ?>"><input type="hidden" name="next" value="<?= $e($next) ?>"><input type="hidden" name="do" value="help"><input type="hidden" name="tz" value="">
++        <label for="help-name">Your name</label><input id="help-name" name="help_name" autocomplete="name" maxlength="120" required data-spell value="<?= $e(mb_substr((string) ($_POST['help_name'] ?? ''), 0, 120)) ?>">
++        <label for="help-contact">A phone, or another email, to reach you</label><input id="help-contact" name="help_contact" autocomplete="tel" maxlength="190" spellcheck="false" required value="<?= $e(mb_substr((string) ($_POST['help_contact'] ?? ''), 0, 190)) ?>">
++        <button class="b">Send to the owners</button>
++      </form>
++    </div>
++    <?php endif; ?>
+   <?php endif; ?>
+ </div>
++<script src="/js/tv-time.js" defer></script>
+ <script src="/js/code-link.js" defer></script>
++<script<?= function_exists('tv_nonce') ? tv_nonce() : '' ?>>
++// Can't get the email?: opens in place; ×, Esc and a click outside close it (a click outside only while it's empty, so
++// nothing typed is lost); the device's time zone goes with it (times where they happened)
++(function () {
++  var o = document.getElementById('sl-help-open'), f = document.getElementById('sl-help'); if (!o || !f) return;
++  var tz = f.querySelector('[name=tz]'); try { tz.value = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (e) {}
++  function show(on) { f.hidden = !on; o.setAttribute('aria-expanded', String(on)); if (on) { var n = f.querySelector('#help-name'); if (n) n.focus(); } else o.focus(); }
++  o.addEventListener('click', function () { show(f.hidden); });
++  f.querySelector('[data-help-x]').addEventListener('click', function () { show(false); });
++  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !f.hidden) show(false); });
++  document.addEventListener('click', function (e) {
++    if (f.hidden || f.contains(e.target) || o.contains(e.target)) return;
++    var typed = Array.prototype.some.call(f.querySelectorAll('input:not([type=hidden])'), function (i) { return i.value.trim() !== ''; });
++    if (!typed) show(false);
++  });
++  f.addEventListener('submit', function () { var b = f.querySelector('button.b'); if (b && window.TvAsk) TvAsk.busy(b, true); });
++})();
++</script>
+ <?php tv_page_end();
+--- a/website/admin/staff.php
++++ b/website/admin/staff.php
+@@ -36,7 +36,7 @@
+             if (!$t || !(StaffLogin::canReset($mine, $t) || (!$enforced && $canManage && $t['status'] === 'setup'))) throw new RuntimeException('Only an owner can reset that login.');
+         } elseif (in_array($do, ['add', 'mailbox', 'end', 'role', 'set_email', 'tidy', 'app_off', 'link_member', 'unlink_member'], true) && !$canManage) throw new RuntimeException('Only an owner can do that.');
+         elseif (!$enforced && in_array($do, ['end', 'role', 'tidy', 'app_off'], true) && !$owner) throw new RuntimeException('Set up the owner login first, then sign in with it.');
+-        if (in_array($do, ['password', 'app_key', 'app_add', 'app_remove'], true) && !$mine) throw new RuntimeException('Sign in with your staff login first.');
++        if (in_array($do, ['password', 'app_key', 'app_add', 'app_remove', 'app_nudge_off'], true) && !$mine) throw new RuntimeException('Sign in with your staff login first.');
+         switch ($do) {
+             case 'add':
+                 $role = $enforced ? (string) ($_POST['role'] ?? 'manager') : 'owner';
+@@ -118,6 +118,11 @@
+                 StaffLogin::removeApp($pdo, (int) $mine['id'], (int) $mine['id']);
+                 tv_crawler_flash(['type' => 'ok', 'text' => 'Authenticator app removed. Sign-in codes come by email.']);
+                 break;
++            case 'app_nudge_off':   // "Not now" on the add-an-authenticator notice (3f B8): remembered for this staff login; back to the page
++                $pdo->prepare('INSERT INTO ' . Database::t('staff_settings') . ' (name, value) VALUES (?, ?) ON DUPLICATE KEY UPDATE value = VALUES(value)')->execute(['appnudge:' . (int) $mine['id'], date('c')]);
++                StaffLogin::log($pdo, (int) $mine['id'], 'app_nudge', 'Chose Not now on the authenticator app notice', (int) $mine['id']);
++                $back = (string) ($_POST['back'] ?? '');
++                header('Location: ' . (preg_match('#^/admin(?:/[^\s\\]*)?$#', $back) && !str_starts_with($back, '//') ? $back : $self), true, 303); exit;
+             case 'tidy':   // after the switch-over: member accounts lose their old admin roles (they no longer open admin anyway)
+                 $n = $pdo->exec("UPDATE users SET is_admin = 0 WHERE is_admin = 1 AND email NOT LIKE '%@staff.traversence.invalid'");
+                 $pdo->exec("DELETE a FROM " . Database::t('admin_access') . " a JOIN users u ON u.id = a.user_id WHERE u.email NOT LIKE '%@staff.traversence.invalid'");
+--- a/website/js/code-link.js
++++ b/website/js/code-link.js
+@@ -1,13 +1,42 @@
+-// js/code-link.js — "Sign in with this code" from a code email (Jason, 2026-11-11): the page opens at #code=123456 and the
+-// code box fills in; the person taps Sign in. The code travels after # (never sent to the server or kept in its logs) and
+-// the address is cleaned at once, so it isn't left in history. Where the box isn't on the page (another browser, or a
+-// sign-in that ended), it says so and how to go on: a code works only where the sign-in started.
++// js/code-link.js — the 6-digit code box on the sign-in code steps (/admin/login.php, /two-step.php).
++// "Sign in with this code" from a code email (Jason, 2026-11-11): the page opens at #code=123456 and the code box fills
++// in. The code travels after # (never sent to the server or kept in its logs) and the address is cleaned at once, so it
++// isn't left in history. Where the box isn't on the page (another browser, or a sign-in that ended), it says so and how
++// to go on: a code works only where the sign-in started.
++// A box marked data-tv-code (3f A11, Jason 2026-11-22: the system does it, principle 1): anything but digits is dropped
++// as it's typed or pasted ("123 456", "123-456"), and the 6th digit sends the form, as its own button would, with that
++// button's spinner. A code filled in from the email's link sends itself the same way.
+ (function () {
+-  var m = /[#&]code=(\d{6})\b/.exec(location.hash || ''); if (!m) return;
+-  try { history.replaceState(null, '', location.pathname + location.search); } catch (e) {}
++  function box() { return document.querySelector('input[autocomplete="one-time-code"]'); }
++  function btnOf(i) { return i.form && i.form.querySelector('button.b, button[type="submit"], button:not([type])'); }
++  function send(i) {
++    if (!i.form || i.form.dataset.tvSent) return;
++    if (!/^\d{6}$/.test(i.value)) return;
++    i.form.dataset.tvSent = '1';
++    var b = btnOf(i);
++    if (b && window.TvAsk) TvAsk.busy(b, true);
++    if (i.form.requestSubmit) i.form.requestSubmit(b || undefined); else if (b) b.click(); else i.form.submit();
++  }
++  function arm(i) {
++    if (!i || !i.hasAttribute('data-tv-code') || i.dataset.tvArmed) return;
++    i.dataset.tvArmed = '1';
++    i.addEventListener('input', function () {
++      var d = i.value.replace(/\D+/g, '').slice(0, 6);
++      if (d !== i.value) i.value = d;
++      if (d.length === 6) send(i);
++    });
++    if (i.form) i.form.addEventListener('submit', function () { i.value = i.value.replace(/\D+/g, ''); });   // the server strips spaces too
++  }
+   function go() {
+-    var i = document.querySelector('input[autocomplete="one-time-code"]');
+-    if (i) { i.value = m[1]; i.focus(); var b = i.form && i.form.querySelector('button.b, button[type="submit"], button:not([type])'); if (b && window.TvAsk) TvAsk.say('Your code is filled in: tap ' + (b.textContent || 'Sign in').trim() + '.', { anchor: b }); return; }
++    var i = box(); arm(i);
++    var m = /[#&]code=(\d{6})\b/.exec(location.hash || ''); if (!m) return;
++    try { history.replaceState(null, '', location.pathname + location.search); } catch (e) {}
++    if (i) {
++      i.value = m[1]; i.focus();
++      if (i.hasAttribute('data-tv-code')) { send(i); return; }
++      var b = btnOf(i); if (b && window.TvAsk) TvAsk.say('Your code is filled in: tap ' + (b.textContent || 'Sign in').trim() + '.', { anchor: b });
++      return;
++    }
+     var msg = 'That code works only in the browser where you signed in. Sign in here, and we’ll email a new code.';
+     if (window.TvAsk) TvAsk.say(msg); else { var p = document.createElement('p'); p.setAttribute('data-tv-status', 'info'); p.textContent = msg; (document.querySelector('form') || document.body).before(p); }
+   }
+--- a/website/js/tv-time.js
++++ b/website/js/tv-time.js
+@@ -6,17 +6,18 @@
+  *   <time datetime="2026-11-09T18:00:12+00:00" data-tv-time data-tz="America/Los_Angeles"></time>  → painted on load
+  *   TvTime.fmt(iso, tz)  → the same words in script;  TvTime.zone() → this device's zone (sent with what it does)
+  *   TvTime.paint(el)     → paints the <time data-tv-time> inside el (after drawing new content)
++ *   data-tv-clock        → the clock time and zone only ("4:42 AM MST"), for a moment minutes away (a code's end, 3f A11)
+  */
+ (function () {
+   if (window.TvTime) return;
+   var here = '';
+   try { here = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (e) {}
+ 
+-  function fmt(iso, tz) {
++  function fmt(iso, tz, clock) {
+     var d = new Date(iso);
+     if (!iso || isNaN(d.getTime())) return '';
+-    var o = { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', timeZoneName: 'short' };
+-    if (d.getFullYear() !== new Date().getFullYear()) o.year = 'numeric';
++    var o = clock ? { hour: 'numeric', minute: '2-digit', timeZoneName: 'short' } : { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', timeZoneName: 'short' };
++    if (!clock && d.getFullYear() !== new Date().getFullYear()) o.year = 'numeric';
+     var zones = [tz, here].filter(Boolean);
+     for (var i = 0; i < zones.length; i++) {
+       try { return new Intl.DateTimeFormat('en-US', Object.assign({ timeZone: zones[i] }, o)).format(d); } catch (e) {}   // an unknown zone name: the next one
+@@ -27,10 +28,10 @@
+   function paint(root) {
+     var list = (root || document).querySelectorAll('time[data-tv-time]');
+     for (var i = 0; i < list.length; i++) {
+-      var t = list[i], s = fmt(t.getAttribute('datetime'), t.getAttribute('data-tz') || '');
++      var t = list[i], ck = t.hasAttribute('data-tv-clock'), s = fmt(t.getAttribute('datetime'), t.getAttribute('data-tz') || '', ck);
+       if (!s) continue;
+       t.textContent = s;
+-      var mine = t.getAttribute('data-tz') && t.getAttribute('data-tz') !== here ? fmt(t.getAttribute('datetime'), here) : '';
++      var mine = t.getAttribute('data-tz') && t.getAttribute('data-tz') !== here ? fmt(t.getAttribute('datetime'), here, ck) : '';
+       if (mine && mine !== s) t.title = 'Your time: ' + mine;   // where it happened, and where you are now
+     }
+   }
+--- a/website/login.php
++++ b/website/login.php
+@@ -79,8 +79,8 @@
+     </form>
+     </div>
+     <?php require_once __DIR__ . '/../app/lib/Captcha.php'; echo Captcha::widget(); ?>
+-    <button type="submit" form="login-form" id="go-in" class="au-go w-full bg-[#92400E] text-white rounded-lg py-2.5 text-sm font-semibold tracking-wide uppercase hover:bg-[#7C2D12] transition" style="margin-top:1rem"<?= $tab === 'in' ? '' : ' hidden' ?>>Sign in</button>
+-    <button type="submit" form="register-form" id="go-up" class="au-go w-full bg-[#C75A28] text-white rounded-lg py-2.5 text-sm font-semibold tracking-wide uppercase hover:bg-[#A8481F] transition" style="margin-top:1rem"<?= $tab === 'create' ? '' : ' hidden' ?>>Create account</button>
++    <button type="submit" form="login-form" id="go-in" class="au-go w-full bg-[#92400E] text-white rounded-lg py-2.5 text-sm font-semibold hover:bg-[#7C2D12] transition" style="margin-top:1rem"<?= $tab === 'in' ? '' : ' hidden' ?>>Sign in</button>
++    <button type="submit" form="register-form" id="go-up" class="au-go w-full bg-[#C75A28] text-white rounded-lg py-2.5 text-sm font-semibold hover:bg-[#A8481F] transition" style="margin-top:1rem"<?= $tab === 'create' ? '' : ' hidden' ?>>Create account</button>
+     <div id="status" class="text-sm text-center mt-3"></div>
+     <div id="au-sent" class="text-center" hidden>
+       <p class="text-lg font-serif font-bold mt-2">Check your email</p>
+@@ -88,7 +88,7 @@
+       <p class="text-xs text-[#8A7355] mt-2">No email after a few minutes? Check your spam folder, or</p>
+       <button type="button" id="au-resend" class="mt-2 border border-[#92400E] text-[#92400E] rounded-lg px-4 py-2 text-sm font-semibold">Send the link again</button>
+     </div>
+-    <p class="text-sm mt-4 font-serif text-center" data-for="in"<?= $tab === 'in' ? '' : ' hidden' ?>><a href="forgot-password.php" class="text-[#B45309] hover:text-[#92400E] font-semibold">Forgot password?</a></p>
++    <p class="text-sm mt-4 text-center" data-for="in"<?= $tab === 'in' ? '' : ' hidden' ?>><a href="forgot-password.php" class="au-link">Forgot password?</a></p>
+     <?= tv_social_buttons('Continue with', (string) ($_GET['next'] ?? '')) ?>
+   </div>
+   <style>
+@@ -97,11 +97,17 @@
+     .au-card{overflow:hidden;padding:1.75rem 1.5rem;position:relative}
+     .au-card .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;margin:0;padding:0}
+     @media (min-width:640px){.au-card{padding-left:2.5rem;padding-right:2.5rem}}
+-    .au-tabs{display:flex;gap:0;margin:-1.75rem -1.5rem 1.4rem;border-bottom:2px solid #C75A28}
++    .au-tabs{display:flex;gap:0;margin:-1.75rem -1.5rem 1.4rem;border-bottom:1px solid #B9A57A}
+     @media (min-width:640px){.au-tabs{margin-left:-2.5rem;margin-right:-2.5rem}}
+-    .au-t{flex:1;border:0;border-radius:0;background:#C75A28;color:#FCE9C4;padding:.85rem .4rem;font:800 .9rem/1.1 system-ui,sans-serif;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;margin-bottom:-2px}
+-    .au-t[aria-selected=true]{background:#E3D3AC;color:#2A1B12;box-shadow:inset 0 3px 0 #C75A28}
+-    .au-t:focus-visible{outline:2px solid #3E2B1F;outline-offset:2px}
++    /* the chosen tab is marked: brown words on the card's own colour, a brown underline; the other is quiet (screens
++       proposal A7, Jason 2026-11-22). Sentence case (B7). */
++    .au-t{flex:1;border:0;border-radius:0;background:#D8C496;color:#5C4632;padding:.85rem .4rem;font:600 .95rem/1.1 system-ui,sans-serif;cursor:pointer;margin-bottom:-2px;border-bottom:3px solid transparent}
++    .au-t:hover{color:#3E2B1F}
++    .au-t[aria-selected=true]{background:#E3D3AC;color:var(--tv-link,#92400E);font-weight:800;border-bottom-color:var(--tv-link,#92400E)}
++    .au-t:focus-visible{outline:2px solid #3E2B1F;outline-offset:-2px}
++    /* the site's one link style (B7): brand brown, underlined, the UI face */
++    .au-link{color:var(--tv-link,#92400E);text-decoration:underline;text-underline-offset:2px;font-weight:600}
++    .au-link:hover{color:#7C2D12}
+   </style>
+   </main>
+   <?php tv_nav_foot(); ?>
+--- a/website/two-step.php
++++ b/website/two-step.php
+@@ -49,6 +49,7 @@
+   .ts h1{font-family:var(--tv-font-head,Georgia,serif);font-weight:700;font-size:1.5rem;margin:0 0 .4rem}
+   .ts p{font-size:.92rem;line-height:1.5;margin:.4rem 0}
+   .ts input[type=text]{width:100%;font-size:1.6rem;letter-spacing:.4em;text-align:center;padding:.5rem;border:1px solid #CBB98D;border-radius:.6rem;background:#FFFBF2;margin:.4rem 0}
++  .ts input[type=text]::placeholder{letter-spacing:normal;font-size:1.05rem}
+   .ts .b{border:1px solid #92400E;background:var(--tv-btn);color:var(--tv-btn-text);border-radius:.6rem;padding:.55rem 1rem;font-weight:700;font-size:.95rem;cursor:pointer;width:100%}
+   .ts .l{border:1px solid #CBB98D;background:#FFFBF2;color:#3E2B1F;border-radius:.6rem;padding:.4rem .8rem;font-weight:600;font-size:.85rem;cursor:pointer}
+   .ts .ok{background:#DCFCE7;border-radius:.5rem;padding:.45rem .6rem}.ts .no{background:#FEE2E2;border-radius:.5rem;padding:.45rem .6rem}
+@@ -69,10 +70,11 @@
+     <p>Two-step sign-in is switched off on this site for now (TV_TWO_STEP=off).</p>
+     <p><a class="underline text-[#92400E]" href="<?= $e($next) ?>">Continue</a></p>
+   <?php elseif ($need): ?>
+-    <p>The admin side asks for a second step: a 6-digit code <?= $err === '' ? 'we emailed' : 'we email' ?> to <b><?= $e(TwoStep::masked((string) $me['email'])) ?></b>. It works for 10 minutes.</p>
++    <?php $tsUntil = (int) ($_SESSION['tv_2s']['exp'] ?? 0); if (($_SESSION['tv_2s']['uid'] ?? 0) != $me['id'] || $tsUntil <= time()) $tsUntil = 0;   // when the code stops working (3f A11) ?>
++    <p>The admin side asks for a second step: a 6-digit code <?= $err === '' ? 'we emailed' : 'we email' ?> to <b><?= $e(TwoStep::masked((string) $me['email'])) ?></b>. It works <?= $tsUntil ? 'until <time datetime="' . $e(date('c', $tsUntil)) . '" data-tv-time data-tv-clock>' . $e(date('g:i A T', $tsUntil)) . '</time>' : 'for 10 minutes after it\'s sent' ?>.</p>
+     <form method="post" autocomplete="off">
+       <input type="hidden" name="csrf" value="<?= $e($csrf) ?>"><input type="hidden" name="next" value="<?= $e($next) ?>">
+-      <input type="text" name="code" inputmode="numeric" pattern="[0-9 ]*" maxlength="8" autocomplete="one-time-code" placeholder="000000" aria-label="The 6-digit code" required autofocus>
++      <input type="text" name="code" inputmode="numeric" maxlength="12" autocomplete="one-time-code" placeholder="6 digits" aria-label="The 6-digit code" required autofocus data-tv-code>
+       <label><input type="checkbox" name="trust" value="1" checked> Trust this browser for <?= TwoStep::DEVICE_DAYS ?> days</label>
+       <button class="b" name="do" value="check">Continue</button>
+     </form>
+@@ -91,5 +93,6 @@
+     <?php else: ?><p style="font-size:.88rem">None.</p><?php endif; ?>
+   <?php endif; ?>
+ </div>
++<script src="/js/tv-time.js" defer></script>
+ <script src="/js/code-link.js" defer></script>
+ <?php tv_page_end();
