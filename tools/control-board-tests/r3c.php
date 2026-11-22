@@ -1,5 +1,7 @@
 <?php
-// The Control Board's release 3c (decisions/0171 §5, §7's note; Jason, 2026-11-18): a trip is what the system couldn't
+// The Control Board's release 3c (decisions/0171 §5, §7's note; Jason, 2026-11-18), as the one engine applies it since
+// the control board's build (step 4): the tries are its checks of what failed (P3) and a hold covers only what its cause
+// touches (P6); sections 1, 4 and 5 test that. Release 3c: a trip is what the system couldn't
 // fix. It tries first (a warning, control_fix_tries or control_fix_minutes), then a trip goes to an admin: what it holds
 // is stopped, as narrow as its cause, and only an executive's Resolve clears it (what it stopped starts again once its
 // check passes, Undo for a day). A refusal or being out of budget trips at once. Slow calls and jobs, a back-off at its
@@ -22,15 +24,16 @@ Automation::set($pdo, 'master', 'all', false, 'test', 7, 'Jason'); Automation::f
 $on = fn (string $wf) => Automation::gathering($pdo, '', $wf) === null;   // the switch and the system's pause (decisions/0175)
 Automation::setWorkflow($pdo, 'W1', false, 'test', 7, 'Jason'); Automation::setWorkflow($pdo, 'W2', false, 'test', 7, 'Jason'); Automation::forget();
 
-// 1. the system tries first: a crash is a warning for its tries, then a trip
+// 1. the system tries first. A task failing in its own code has no check but its next run (the control board's build,
+// step 4: the state model's ruling 3, replacing 3c's "a trip stops its workflow", case #51): a warning, then a trip when
+// its next run fails too, holding nothing, so its next scheduled run still goes ahead
 $crash = fn () => ControlAlarms::raise($pdo, 'task:failed:second_look', 'wf:W2', 'trip', 'crash', 'W2: its task second_look failed', 'Its work goes back.', 'Read the why.', 'boom');
 $crash(); $a = ControlAlarms::openOf($pdo, 'task:failed:second_look');
-$t('a crash: a warning while the system tries again (1 of 3)', $a['level'] === 'warning' && str_contains((string) $a['means'], '1 of 3 tries') && $a['tripped_at'] === null, $a);
-$crash(); $t('…the second try still a warning', ControlAlarms::openOf($pdo, 'task:failed:second_look')['level'] === 'warning');
+$t('a crash in a task\'s own code: a warning, its next run its check', $a['level'] === 'warning' && $a['tripped_at'] === null && str_contains(ControlAlarms::facts($pdo, $a)['doing'], 'No check can run before its next run'), $a);
 $crash(); Automation::forget(); $a = ControlAlarms::openOf($pdo, 'task:failed:second_look');
-$t('…the third: a trip, marked tripped', $a['level'] === 'trip' && $a['tripped_at'] !== null, $a);
-$t('…it stopped only its own workflow (W2), not W1', !$on('W2') && $on('W1') && Automation::master($pdo) === null, ControlAlarms::stoppedWords($a));
-$t('…and it says what it stopped (a pause since decisions/0175: W2\'s switch is untouched)', ControlAlarms::stoppedWords($a) === 'W2 (its tasks wait with it)', ControlAlarms::stoppedWords($a));
+$t('…its next run failing too: a trip, marked tripped', $a['level'] === 'trip' && $a['tripped_at'] !== null, $a);
+$t('…it holds nothing: W2 and W1 run on (only what its cause touches is held: P6)', $on('W2') && $on('W1') && Automation::master($pdo) === null, ControlAlarms::stoppedWords($a));
+$t('…and it says so, from its state', ControlAlarms::stoppedWords($a) === '' && str_contains(ControlAlarms::facts($pdo, $a)['status'], 'nothing is held, so its next run still goes ahead'), ControlAlarms::facts($pdo, $a)['status']);
 
 // 2. the time limit: an hour from the first failure, even with fewer tries
 ControlAlarms::raise($pdo, 'job:slowpoke', 'job:slowpoke', 'trip', 'crash', 'The job stopped');
@@ -44,28 +47,35 @@ $t('…a site job tied to no workflow can\'t be stopped from here: it only trips
 ControlAlarms::raise($pdo, 'x:held', 'svc:tavily', 'trip', 'held', 'Tavily refused our key');
 $t('a refusal (held) trips at once', ControlAlarms::openOf($pdo, 'x:held')['level'] === 'trip');
 
-// 4. the crawler itself down: the master switch; Resolve starts again only what it stopped, Undo puts it back
+// 4. the crawler itself down: its tries are the engine's checks of the crawler (P3); then all gathering is paused.
+// Check and start again checks the crawler first (P4), then starts again only what it held; Undo puts it back
+require_once $app . '/lib/ControlEngine.php';
+$crawlerOk = false; ControlEngine::$checker = function (string $c) use (&$crawlerOk) { return $c === 'wk:crawler' ? ['pass' => $crawlerOk, 'proof' => $crawlerOk ? 'The crawler\'s last run (#12) ended ok.' : 'The crawler\'s last run (#3) ended failed.', 'ms' => 0] : null; };
 foreach ([1, 2, 3] as $i) ControlAlarms::raise($pdo, 'run:failed', 'wk:crawler', 'trip', 'crash', 'A crawler run failed (#' . $i . ')');
+$t('three failed runs inside its tries are one fault: a warning (P3)', ControlAlarms::openOf($pdo, 'run:failed')['level'] === 'warning');
+foreach (ControlEngine::TRY_AT as $_) { $pdo->exec("UPDATE control_alarms SET next_try_at = UTC_TIMESTAMP() - INTERVAL 1 SECOND WHERE akey = 'run:failed' AND cleared_at IS NULL"); ControlAlarms::expireTries($pdo); }
 Automation::forget(); $r = ControlAlarms::openOf($pdo, 'run:failed');
-$t('a run that failed outright, three times: a trip that pauses all gathering (paused by the system; the master switch untouched, 0175)', $r['level'] === 'trip' && Automation::gathering($pdo) !== null && Automation::master($pdo) === null, ControlAlarms::stoppedWords($r));
-// (4e, Jason 2026-11-19: "no dead ends, system fixes first": Resolve no longer asks what fixed it; r4e tests that)
+$t('its three checks failing: a trip that pauses all gathering (paused by the system; the master switch untouched, 0175)', $r['level'] === 'trip' && Automation::gathering($pdo) !== null && Automation::master($pdo) === null, ControlAlarms::stoppedWords($r));
+[$ok, $msg] = ControlAlarms::resolve($pdo, (int) $r['id'], 7, 'Jason', 'Redeployed the worker');
+$t('…Check and start again with the crawler still failing: not resolved, saying why', !$ok && str_contains($msg, 'its check is still red') && Automation::gathering($pdo) !== null, $msg);
+$crawlerOk = true;
 [$ok, $msg] = ControlAlarms::resolve($pdo, (int) $r['id'], 7, 'Jason', 'Redeployed the worker');
 Automation::forget(); $r2 = ControlAlarms::byId($pdo, (int) $r['id']);
-$t('…resolved: the master switch is back on, and it says how', $ok && Automation::gathering($pdo) === null && $r2['cleared_at'] !== null && str_contains((string) $r2['cleared_how'], 'Redeployed the worker') && str_contains((string) $r2['cleared_how'], 'All gathering'), $r2['cleared_how']);
+$t('…resolved once its check passes: gathering runs again, and it says how', $ok && Automation::gathering($pdo) === null && $r2['cleared_at'] !== null && str_contains((string) $r2['cleared_how'], 'Redeployed the worker') && str_contains((string) $r2['cleared_how'], 'All gathering'), $r2['cleared_how']);
 [$ok, $msg] = ControlAlarms::unresolve($pdo, (int) $r['id'], 7, 'Jason');
 Automation::forget(); $r3 = ControlAlarms::byId($pdo, (int) $r['id']);
 $t('…Undo: open again, and gathering paused again', $ok && $r3['cleared_at'] === null && Automation::gathering($pdo) !== null, $msg);
 ControlAlarms::resolve($pdo, (int) $r['id'], 7, 'Jason', 'Redeployed again'); Automation::forget();
+ControlEngine::$checker = null;
 
-// 5. a check still red: the trip stays, with the reason on its row
+// 5. Check and start again on a task's own code: its next run is its check (R122, "It's fixed: try it again"); never
+// closed on the press alone (NG). Its next run doing its work closes it, Fixed by the person
 $w = ControlAlarms::openOf($pdo, 'task:failed:second_look');
 [$ok, $msg] = ControlAlarms::resolve($pdo, (int) $w['id'], 7, 'Jason', 'Fixed its source');
 $w2 = ControlAlarms::byId($pdo, (int) $w['id']);
-$t('Resolve where W2\'s check is red: not resolved, the reason kept on the row, W2 still off', !$ok && $w2['cleared_at'] === null && str_starts_with((string) $w2['resolve_note'], 'Not resolved') && !$on('W2'), $msg);
-// decisions/0175 §3 (Jason, 2026-11-19: "If this was resolved by system ... it should be handled"): its reading good again
-// closes it as Recovered and lifts its pause (before 0175 it waited for Resolve)
+$t('Check and start again on a task\'s own code: noted, still open until its next run', $ok && $w2['cleared_at'] === null && str_contains($msg, 'Its next run is its check') && $on('W2'), $msg);
 ControlAlarms::clear($pdo, 'task:failed:second_look', 'It did its work in run #9.'); Automation::forget(); $w3 = ControlAlarms::byId($pdo, (int) $w['id']);
-$t('…its reading good again: the trip closes itself as Recovered, and W2 runs again (0175 §3; Jason, 2026-11-20: "Close as Recovered")', $w3['cleared_at'] !== null && str_starts_with((string) $w3['cleared_how'], 'Recovered:') && $on('W2'), $w3['cleared_how']);
+$t('…its next run doing its work: closed as Fixed by Jason, W2 running throughout', $w3['cleared_at'] !== null && str_starts_with((string) $w3['cleared_how'], 'Fixed by Jason:') && $on('W2'), $w3['cleared_how']);
 
 // 6. a back-off at its limit: a trip holding the server's calls; a person's resolve closes it
 $pdo->exec("DELETE FROM service_issues");

@@ -36,7 +36,7 @@ $t('a part that isn\'t critical: a warning while the system tries (3c)', $a['lev
 $id = ControlAlarms::raise($pdo, 'x:qb', 'svc:quickbooks', 'trip', 'crash', 'QuickBooks failed', 'Payments fail.', 'Check its key.');
 $a = ControlAlarms::byId($pdo, $id);
 $t('a critical part\'s first failure: a trip at once', $a['level'] === 'trip' && !empty($a['tripped_at']), $a);
-$t('…still retrying, nothing stopped', !empty($a['retrying_at']) && empty($a['stopped']) && str_contains((string) $a['means'], 'the system keeps trying'));
+$t('…still retrying, nothing stopped (its status from state: Down, the system is still trying, its next try named)', !empty($a['retrying_at']) && empty($a['stopped']) && str_starts_with(ControlAlarms::facts($pdo, $a)['status'], 'Down: the system is still trying, 0 of 3, next at'), ControlAlarms::facts($pdo, $a)['status']);
 $t('…its words name the duty', str_contains((string) $a['means'], 'Payments'));
 $id2 = ControlAlarms::raise($pdo, 'x:aws', 'svc:aws', 'warning', 'retry', 'SES retrying');
 $t('a critical part\'s retry warning is a trip too', ControlAlarms::byId($pdo, $id2)['level'] === 'trip');
@@ -51,8 +51,10 @@ $t('…and it\'s in the logbook', (int) $pdo->query("SELECT COUNT(*) FROM contro
 
 // its tries run out: the Escalation Notice
 $id = ControlAlarms::raise($pdo, 'x:gh', 'svc:github', 'trip', 'crash', 'GitHub failed');
-[$max] = ControlAlarms::limits($pdo, 'crash');
-for ($i = 1; $i < $max; $i++) ControlAlarms::raise($pdo, 'x:gh', 'svc:github', 'trip', 'crash', 'GitHub failed');
+// its tries are the engine's own checks (the control board's build, P3), never its repeats: three failed checks run them out
+require_once $app . '/lib/ControlEngine.php'; ControlEngine::$checker = fn (string $c) => ['pass' => false, 'proof' => 'no answer', 'ms' => 1];
+for ($i = 0; $i < count(ControlEngine::TRY_AT); $i++) { $pdo->exec("UPDATE control_alarms SET next_try_at = UTC_TIMESTAMP() - INTERVAL 1 SECOND WHERE id = $id"); ControlAlarms::expireTries($pdo); }
+ControlEngine::$checker = null;
 $a = ControlAlarms::byId($pdo, $id);
 $t('its tries run out: no longer retrying, an ordinary trip', $a['level'] === 'trip' && empty($a['retrying_at']) && !empty($a['tripped_at']), $a);
 $t('…the Escalation Notice in the logbook', (int) $pdo->query("SELECT COUNT(*) FROM control_log WHERE what LIKE 'Escalation Notice: retries unsuccessful, now admin required: GitHub, System-critical procedures%'")->fetchColumn() === 1);

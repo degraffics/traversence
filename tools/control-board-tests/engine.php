@@ -50,7 +50,7 @@ $raiseTask('second_look', 'W2'); $a = $open('task:failed:second_look');
 $t('its next run failing too is a trip', $a['level'] === 'trip' && $a['tripped_at'] !== null, $a['level']);
 $t('…that holds nothing: W2 isn\'t paused, nor the task', !$paused('wf', 'W2') && !$paused('task', 'second_look') && (string) $a['stopped'] === '', $a['stopped']);
 $f = ControlAlarms::facts($pdo, $a);
-$t('…its status: Down, the system is still trying; its words: its next scheduled run still goes ahead', str_starts_with($f['status'], 'Down: the system is still trying') && str_contains($f['doing'], 'next scheduled run still goes ahead'), $f);
+$t('…its status: Tripped, nothing is held; its words: its next scheduled run still goes ahead', str_starts_with($f['status'], 'Tripped {t:') && str_contains($f['status'], 'nothing is held') && str_contains($f['doing'], 'next scheduled run still goes ahead'), $f);
 $t('…its Incident Report is open, IR-#### with its trip id', (int) $a['incident_id'] > 0 && ControlIncidents::get($pdo, (int) $a['incident_id'])['members'][0]['id'] == $a['id']);
 [$ok, $w] = ControlAlarms::resolve($pdo, (int) $a['id'], 7, 'Jason', 'Fixed the parser');
 $t('Check and start again on a task\'s own code: noted, stays open until its next run does its work (never closed on the press: NG)', $ok && str_contains($w, 'Its next run is its check') && $open('task:failed:second_look') !== null, $w);

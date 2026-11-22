@@ -43,7 +43,7 @@ require $app . '/lib/ControlLedger.php';
 $ref = new ReflectionMethod('ControlLedger', 'alarms'); $ref->setAccessible(true);
 $ref->invoke(null, $pdo, 'crawl/results', 500, 3, ['stored' => 0, 'updated' => 0, 'review' => 0, 'refused' => 0], ['answered 500: boom']);
 $o = ControlAlarms::openOf($pdo, 'ep:crawl/results:5xx');
-$t('the ledger: a 500 from /api/crawl/results is a warning on its process while the system tries again (3c)', $o && $o['level'] === 'warning' && str_starts_with((string) $o['proc'], 'wf:') && str_contains((string) $o['reading'], 'boom') && str_contains((string) $o['means'], '1 of 3 tries'), $o);
+$t('the ledger: a 500 from /api/crawl/results is a warning on its process while the system tries again (3c)', $o && $o['level'] === 'warning' && str_starts_with((string) $o['proc'], 'wf:') && str_contains((string) $o['reading'], 'boom') && $o['component'] === 'ep:crawl/results' && str_contains(ControlAlarms::facts($pdo, $o)['status'], '0 of 3, next at'), $o);   // its tries: the one engine's checks of the endpoint (P3)
 $ref->invoke(null, $pdo, 'crawl/results', 200, 3, ['stored' => 2, 'updated' => 0, 'review' => 1, 'refused' => 1], []);
 $t('…a good answer clears it; more outcomes than received is a wrong count', ControlAlarms::openOf($pdo, 'ep:crawl/results:5xx') === null && ControlAlarms::openOf($pdo, 'ep:crawl/results:count')['level'] === 'warning');
 $ref->invoke(null, $pdo, 'crawl/results', 200, 3, ['stored' => 2, 'updated' => 0, 'review' => 1, 'refused' => 0], []);

@@ -17,7 +17,6 @@
 // ControlAlarms is its store: raise(), clear(), resolve() and tick() call in here. Never throws to a caller.
 declare(strict_types=1);
 
-require_once __DIR__ . '/Database.php';
 
 final class ControlEngine
 {
@@ -31,15 +30,15 @@ final class ControlEngine
     // ---- the component ---------------------------------------------------------------------------------------------
 
     /** The part that failed, from the alarm's key and process (P2): ep:, svc:, nd:, task:, job:, wk:, wf:, site:, or its proc. */
-    public static function componentOf(PDO $pdo, string $key, string $proc): string
+    public static function componentOf(PDO $pdo, string $key, string $proc, string $reading = ''): string
     {
         if (preg_match('#^ep:([a-z0-9_/]+):#', $key, $m)) return 'ep:' . $m[1];
-        if (preg_match('/^task:failed:(.+)$/', $key, $m)) return 'task:' . $m[1];
+        if (preg_match('/^task:failed:(.+)$/', $key, $m)) return self::classifyTask($pdo, $m[1], $reading, []);
         if (preg_match('/^svc:issue:(\d+)$/', $key, $m)) {
             try { $st = $pdo->prepare('SELECT service FROM service_issues WHERE id = ?'); $st->execute([(int) $m[1]]); $s = (string) $st->fetchColumn(); if ($s !== '') return 'svc:' . $s; } catch (Throwable $x) {}
             return $proc;
         }
-        if (preg_match('/^pf:(svc|nd|wf|t|site|rw|wk):(.+)$/', $key, $m)) return ($m[1] === 't' ? 'task' : $m[1]) . ':' . $m[2];
+        if (preg_match('/^pf:(svc|nd|wf|t|site|rw|wk):(.+)$/', $key, $m)) return $m[1] . ':' . $m[2];   // t: a Start task's line (its services)
         if (preg_match('/^(?:job|jobslow):([a-z0-9_]+)/', $key, $m)) return 'job:' . $m[1];
         if (in_array($key, ['run:failed', 'run:starved', 'silent:run'], true)) return 'wk:crawler';
         if ($key === 'silent:w0') return 'wk:w0-indexer';
@@ -80,7 +79,7 @@ final class ControlEngine
     public static function checkable(PDO $pdo, string $comp): bool
     {
         if (str_starts_with($comp, 'ep:') || str_starts_with($comp, 'wk:')) return true;
-        if (preg_match('/^(svc|nd|site|rw):(.+)$/', $comp, $m)) {
+        if (preg_match('/^(svc|nd|site|rw|t):(.+)$/', $comp, $m)) {
             try { require_once __DIR__ . '/Preflight.php'; return isset(Preflight::lines($pdo)[$comp]); } catch (Throwable $x) { return false; }
         }
         return false;
@@ -278,8 +277,8 @@ final class ControlEngine
         // W0 Indexer's own trips: W0
         if ($comp === 'wk:w0-indexer' || $proc === 'wk:w0-indexer') { if (Automation::wfOff($pdo, 'W0') === null) $out[] = ['pause', 'wf:W0', 'W0 (its tasks wait with it)']; return $out; }
         // a Start task's line (t:<x>): its crawler tasks
-        if (str_starts_with($proc, 't:')) {
-            require_once __DIR__ . '/SystemStart.php'; $d = SystemStart::TASKS[substr($proc, 2)] ?? null;
+        if (str_starts_with($comp, 't:') || str_starts_with($proc, 't:')) {
+            require_once __DIR__ . '/SystemStart.php'; $d = SystemStart::TASKS[substr(str_starts_with($comp, 't:') ? $comp : $proc, 2)] ?? null;
             if ($d && $d[4]) foreach ($d[4] as $tk) $out[] = ['pause', 'task:' . $tk, (string) $d[0]];
             return $out;
         }
@@ -343,7 +342,7 @@ final class ControlEngine
         $comp = (string) ($a['component'] ?? '');
         if ($heldWords !== '') $lead = 'Paused by the system (' . $heldWords . ')';
         elseif ($critical) $lead = 'Down: the system is still trying';
-        elseif (str_starts_with($comp, 'task:') || str_starts_with($comp, 'job:')) $lead = 'Tripped: nothing is held, so its next run still goes ahead';
+        elseif (str_starts_with($comp, 'task:') || str_starts_with($comp, 'job:')) return 'Tripped ' . $since . ': nothing is held, so its next run still goes ahead.';
         else $lead = 'Down: nothing could be held';
         if ($next && $critical) return $lead . ', ' . $n . ' of ' . $of . ', next at ' . $nx . '.';
         if ($next && $n > 0) return $lead . ' since ' . $since . '. Its last check (' . $n . ') was still red; next check at ' . $nx . '.';

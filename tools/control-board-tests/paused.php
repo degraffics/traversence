@@ -13,7 +13,8 @@ $pdo = Database::connection();
 $pass = 0; $fail = 0;
 $t = function (string $n, bool $ok, $got = null) use (&$pass, &$fail) { if ($ok) { $pass++; echo "  ok  $n\n"; } else { $fail++; echo "FAIL  $n" . ($got !== null ? ' — ' . mb_substr(json_encode($got, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE), 0, 500) : '') . "\n"; } };
 $pdo->exec('DROP TABLE IF EXISTS control_alarms'); $pdo->exec('DROP TABLE IF EXISTS system_pauses');
-foreach (array_filter(array_map('trim', explode(';', preg_replace('/^--.*$/m', '', (string) file_get_contents($app . '/migrations/2026-11-20_system_pauses.sql'))))) as $q) { $pdo->exec($q); $pdo->exec($q === '' ? 'DO 0' : $q); }
+if (!is_file($app . '/migrations/2026-11-20_system_pauses.sql')) { require_once $app . '/lib/Automation.php'; Automation::ensurePauses($pdo); }   // run on live and deleted: the table as the code makes it
+else foreach (array_filter(array_map('trim', explode(';', preg_replace('/^--.*$/m', '', (string) file_get_contents($app . '/migrations/2026-11-20_system_pauses.sql'))))) as $q) { $pdo->exec($q); $pdo->exec($q === '' ? 'DO 0' : $q); }
 $t('its database update runs twice cleanly', (bool) $pdo->query("SHOW TABLES LIKE 'system_pauses'")->fetchColumn());
 require_once $app . '/lib/staging-tables.php';
 $t('system_pauses names its staging class (each site\'s own, as its alarms are)', StagingTables::classOf('system_pauses') === StagingTables::classOf('control_alarms'), StagingTables::classOf('system_pauses'));
@@ -23,43 +24,50 @@ Automation::set($pdo, 'master', 'all', false, 'test', 7, 'Jason');
 Automation::setWorkflow($pdo, 'W1', false, 'test', 7, 'Jason'); Automation::setWorkflow($pdo, 'W2', false, 'test', 7, 'Jason'); Automation::forget();
 $wfPaused = fn (string $wf) => (int) $pdo->query('SELECT paused FROM crawl_workflows WHERE wf = ' . $pdo->quote($wf))->fetchColumn();
 
-// 1. a trip places the pause; the switch stays the person's
-$crash = fn (bool $ev = true) => ControlAlarms::raise($pdo, 'task:failed:second_look', 'wf:W2', 'trip', 'crash', 'W2: its task second_look failed', 'Its work goes back.', 'Read the why.', 'boom', [], $ev, false);
-$crash(); Automation::forget(); $a = ControlAlarms::openOf($pdo, 'task:failed:second_look');
+// 1. a trip places the pause; the switch stays the person's. Since the control board's build (step 4) a trip holds only
+// what its cause touches (P6): /api/crawl/verify's server error holds second_look, the task that calls it, never W2 whole
+require_once $app . '/lib/ControlEngine.php';
+$red = true; ControlEngine::$checker = function (string $c) use (&$red) { return $c === 'ep:crawl/verify' ? ['pass' => !$red, 'proof' => '/api/crawl/verify answered ' . ($red ? '500' : '200') . ' in 90 ms.', 'ms' => 90] : null; };
+$crash = fn (bool $ev = true) => ControlAlarms::raise($pdo, 'ep:crawl/verify:5xx', 'wf:W2', 'trip', 'crash', '/api/crawl/verify answered a server error (500)', '', '', 'boom', [], $ev, false);
+$held = fn () => Automation::forget() || Automation::taskOff($pdo, 'second_look') !== null;
+$crash(); Automation::forget(); $a = ControlAlarms::openOf($pdo, 'ep:crawl/verify:5xx');
 $t('a trip: the alarm is a trip', ($a['level'] ?? '') === 'trip' && $a['tripped_at'] !== null, $a);
 $t('…W2\'s switch is untouched (still on, as Jason left it; Automation::wfOff reads only the switch)', $wfPaused('W2') === 0 && Automation::wfOff($pdo, 'W2') === null);
-$t('…and W2 is paused by the system, with its reason, where a person\'s pause would show', str_contains((string) Automation::gathering($pdo, '', 'W2'), 'W2: Paused by the system (a trip): W2: its task second_look failed') && str_contains((string) Automation::gathering($pdo, '', 'W2'), 'It resumes when its check passes'), Automation::gathering($pdo, '', 'W2'));
-$t('…its record names the alarm', (int) $pdo->query("SELECT alarm_id FROM system_pauses WHERE kind = 'wf' AND ref = 'W2' AND cleared_at IS NULL")->fetchColumn() === (int) $a['id']);
-$t('…what it stopped reads as a pause', str_contains((string) $a['stopped'], '"pause","wf:W2"'), $a['stopped']);
-$t('…W1 runs on: only what the fault touches is paused', Automation::gathering($pdo, '', 'W1') === null);
+$t('…and second_look is paused by the system, with its reason', str_contains((string) Automation::taskOff($pdo, 'second_look'), 'Paused by the system (a trip): /api/crawl/verify answered a server error') && str_contains((string) Automation::taskOff($pdo, 'second_look'), 'It resumes when its check passes'), Automation::taskOff($pdo, 'second_look'));
+$t('…its record names the alarm', (int) $pdo->query("SELECT alarm_id FROM system_pauses WHERE kind = 'task' AND ref = 'second_look' AND cleared_at IS NULL")->fetchColumn() === (int) $a['id']);
+$t('…what it stopped reads as a pause', str_contains((string) $a['stopped'], '"pause","task:second_look"'), $a['stopped']);
+$t('…W2 and W1 run on: only what the fault touches is paused', Automation::gathering($pdo, '', 'W1') === null && Automation::sysOff($pdo, 'wf', 'W2') === null);
 $t('the log has no switch written by the board', (int) $pdo->query("SELECT COUNT(*) FROM automation_log WHERE by_name LIKE 'the Control Board%'")->fetchColumn() === 0);
 
 // 2. the crawler's plan leaves out what the system paused
 $src = (string) file_get_contents($app . '/lib/crawler/CrawlService.php');
-$t('the crawler\'s plan leaves out a task whose workflow or self the system paused', str_contains($src, 'if (Automation::sysAny($pdo, [\'wf:\' . (string) $r[\'wf\'], \'task:\' . (string) $t]) !== null) continue;') && Automation::sysOff($pdo, 'wf', 'W2') !== null && Automation::sysOff($pdo, 'wf', 'W1') === null);
+$t('the crawler\'s plan leaves out a task whose workflow or self the system paused', str_contains($src, 'if (Automation::sysAny($pdo, [\'wf:\' . (string) $r[\'wf\'], \'task:\' . (string) $t]) !== null) continue;') && Automation::sysOff($pdo, 'task', 'second_look') !== null && Automation::sysOff($pdo, 'wf', 'W1') === null);
 $ol = (string) file_get_contents($app . '/lib/crawler/OpenLoads.php'); $li = (string) file_get_contents($app . '/lib/ListingIdentity.php');
 $t('…and so do the open-data loads and the identity recheck', str_contains($ol, "'task:' . $task") && str_contains($li, "'task:' . self::TASK"));
 
 // 3. it failed again: still paused (no second pause); its check passes: Recovered, the pause lifts
-$crash(); $t('the same fault again: one pause, not two', (int) $pdo->query("SELECT COUNT(*) FROM system_pauses WHERE ref = 'W2' AND cleared_at IS NULL")->fetchColumn() === 1);
-ControlAlarms::clear($pdo, 'task:failed:second_look', 'Its next run finished.'); Automation::forget();
+$crash(); $t('the same fault again: one pause, not two', (int) $pdo->query("SELECT COUNT(*) FROM system_pauses WHERE ref = 'second_look' AND cleared_at IS NULL")->fetchColumn() === 1);
+ControlAlarms::clear($pdo, 'ep:crawl/verify:5xx', 'It answered 200.'); Automation::forget();
 $c = ControlAlarms::byId($pdo, (int) $a['id']);
 $t('its check passes: the trip closes itself as Recovered, escalated or not (Jason, 2026-11-20: "Close as Recovered")', ControlAlarms::ESCALATED_RECOVERS === true && $c['cleared_at'] !== null && str_starts_with((string) $c['cleared_how'], 'Recovered:'), $c['cleared_how']);
-$t('…and its pause lifts: W2 runs again', Automation::gathering($pdo, '', 'W2') === null && (string) $pdo->query("SELECT cleared_how FROM system_pauses WHERE ref = 'W2'")->fetchColumn() !== '');
+$t('…and its pause lifts: second_look runs again', !$held() && (string) $pdo->query("SELECT cleared_how FROM system_pauses WHERE ref = 'second_look'")->fetchColumn() !== '');
 
-// 4. no try of the system's own (Jason, 2026-11-20: "Why is this session inventing things instead of check what's already
-// set by adr?"): a pause lifts only when its check passes or on a person's Check and start again; the watch never lifts it
-$crash(); $crash(); $crash(); $crash(); Automation::forget(); $a2 = ControlAlarms::openOf($pdo, 'task:failed:second_look');
-$t('a new trip: paused again', Automation::gathering($pdo, '', 'W2') !== null, $a2);
+// 4. no lift without a check passing (Jason, 2026-11-20: "Why is this session inventing things instead of check what's
+// already set by adr?"): the watch's checks after a trip (the state model §7) lift it only when the check passes
+$crash(); Automation::forget(); $a2 = ControlAlarms::openOf($pdo, 'ep:crawl/verify:5xx');
+$t('a new trip: paused again', $held(), $a2);
 $pdo->exec("UPDATE system_pauses SET at = UTC_TIMESTAMP() - INTERVAL 5 HOUR WHERE cleared_at IS NULL");
+$pdo->exec("UPDATE control_alarms SET next_try_at = UTC_TIMESTAMP() - INTERVAL 1 SECOND WHERE id = " . (int) $a2['id']);
 try { ControlAlarms::tick($pdo); } catch (Throwable $x) {} Automation::forget();
-$t('hours later, the watch hasn\'t lifted it: no try is made without a check passing', Automation::gathering($pdo, '', 'W2') !== null && !method_exists('ControlAlarms', 'tryPaused'));
+$t('hours later, its check still red: the watch hasn\'t lifted it', $held() && !method_exists('ControlAlarms', 'tryPaused'));
 
 // 5. a person's Check and start again runs its check first: red keeps the pause, saying why; once the check passes, it lifts
 [$ok, $msg] = ControlAlarms::resolve($pdo, (int) $a2['id'], 7, 'Jason', ''); Automation::forget();
-$t('Check and start again with W2\'s check red: not started, the pause stays, saying why', !$ok && str_contains($msg, 'its check is red') && Automation::gathering($pdo, '', 'W2') !== null && $wfPaused('W2') === 0, $msg);
-ControlAlarms::clear($pdo, 'task:failed:second_look', 'Its check passed.'); Automation::forget();
-$t('…and its check passing lifts it (Recovered); the switch was never touched', Automation::gathering($pdo, '', 'W2') === null && $wfPaused('W2') === 0);
+$t('Check and start again with its check red: not started, the pause stays, saying why', !$ok && str_contains($msg, 'its check is still red') && $held() && $wfPaused('W2') === 0, $msg);
+$red = false;
+[$ok, $msg] = ControlAlarms::resolve($pdo, (int) $a2['id'], 7, 'Jason', ''); Automation::forget();
+$t('…and its check passing lifts it; the switch was never touched', $ok && !$held() && $wfPaused('W2') === 0, $msg);
+ControlEngine::$checker = null;
 
 // 6. out of budget: the service paused by the system, its switch untouched
 $pdo->exec("DELETE FROM automation_switches WHERE kind = 'service' AND ref = 'tavily'"); Automation::forget();
@@ -72,8 +80,10 @@ $tk = ''; $tid = ''; foreach (SystemStart::TASKS as $id => $d) if (!empty($d[4])
 if ($tk !== '') {
     $pdo->prepare("INSERT IGNORE INTO crawl_capture_tasks (task, wf, enabled, name) VALUES (?, 'W1', 1, ?)")->execute([$tk, $tk]);
     $pdo->prepare('UPDATE crawl_capture_tasks SET enabled = 1 WHERE task = ?')->execute([$tk]);
-    ControlAlarms::raise($pdo, 'task:failed:' . $tk, 't:' . $tid, 'trip', 'crash', 'Its task ' . $tk . ' failed', '', '', '', [], true, false); Automation::forget();
-    $t('a task\'s trip: the task is paused by the system, its switch still on', Automation::taskOff($pdo, $tk) !== null && (int) $pdo->query('SELECT enabled FROM crawl_capture_tasks WHERE task = ' . $pdo->quote($tk))->fetchColumn() === 1);
+    // a Start task's line red (its services: the one engine's t: component) holds its crawler tasks; a task failing in its
+    // own code holds nothing (ruling 3), so the line is what's raised here
+    ControlAlarms::raise($pdo, 'pf:t:' . $tid, 't:' . $tid, 'trip', 'crash', 'Its task ' . $tk . ': its sources don\'t answer', '', '', '', [], true, false); Automation::forget();
+    $t('a Start task\'s trip: the task is paused by the system, its switch still on', Automation::taskOff($pdo, $tk) !== null && (int) $pdo->query('SELECT enabled FROM crawl_capture_tasks WHERE task = ' . $pdo->quote($tk))->fetchColumn() === 1);
 }
 
 // 8. once: today's switches a trip wrote into go back to what a person set; an open legacy trip now pauses
@@ -91,11 +101,11 @@ $t('Geofabrik\'s task goes back on: what Jason last set', (int) $pdo->query("SEL
 $t('…logged: "Put back to what Jason set on …"', (bool) $pdo->query("SELECT 1 FROM automation_log WHERE ref = 'geofabrik_bulk' AND why LIKE 'Put back to what Jason set on %'")->fetchColumn());
 $t('a task nobody ever set stays as it is', (int) $pdo->query("SELECT enabled FROM crawl_capture_tasks WHERE task = 'never_set'")->fetchColumn() === 0);
 $t('W3 goes back to what Start the system set (on)', $wfPaused('W3') === 0);
-$t('…and its open trip now pauses W3 instead', Automation::gathering($pdo, '', 'W3') !== null && str_contains((string) ControlAlarms::byId($pdo, $legacy)['stopped'], '"pause","wf:W3"'), ControlAlarms::byId($pdo, $legacy)['stopped']);
+$t('…and its open trip now holds only what its cause touches: a job holds nothing beyond its own work (the one engine, P7)', Automation::sysOff($pdo, 'wf', 'W3') === null && !str_contains((string) ControlAlarms::byId($pdo, $legacy)['stopped'], '"wf:W3"'), ControlAlarms::byId($pdo, $legacy)['stopped']);
 $again = ControlAlarms::settle0175($pdo);
 $t('run again: nothing more to do', $again === [], $again);
 
 // 9. the words: Automation's task row and a service's card say On · Paused by the system
-$t('the reason reads as a trip that placed a pause', str_starts_with((string) Automation::sysOff($pdo, 'wf', 'W3'), 'Paused by the system (a trip): W3: page reads failed'));
+if ($tk !== '') $t('the reason reads as a trip that placed a pause', str_starts_with((string) Automation::taskOff($pdo, $tk), 'Paused by the system (a trip): Its task ' . $tk), Automation::taskOff($pdo, $tk));
 
 echo "\n$pass passed, $fail failed\n"; exit($fail ? 1 : 0);

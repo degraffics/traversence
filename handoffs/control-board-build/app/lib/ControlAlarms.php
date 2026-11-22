@@ -85,7 +85,7 @@ final class ControlAlarms
      * $event false: a reading still bad, said again (a cap, a red line, a quiet worker): last seen moves, the count doesn't.
      * Returns its id. Never throws: a failing alarm must not break what raised it.
      */
-    public static function raise(PDO $pdo, string $key, string $proc, string $level, string $kind, string $title, string $means = '', string $todo = '', string $reading = '', array $fix = [], bool $event = true, bool $tryFirst = true): int
+    public static function raise(PDO $pdo, string $key, string $proc, string $level, string $kind, string $title, string $means = '', string $todo = '', string $reading = '', array $fix = [], bool $event = true, bool $tryFirst = true, string $component = ''): int
     {
         try {
             self::ensure($pdo);
@@ -107,7 +107,7 @@ final class ControlAlarms
             $early = false; $escalate = false; $comp = ''; $next = null;
             // the one engine (02 §5, P2, P3, P8): the component that failed, and its tries on the diagnostic clock
             require_once __DIR__ . '/ControlEngine.php';
-            $comp = ControlEngine::componentOf($pdo, $key, $proc);
+            $comp = $component !== '' ? $component : ControlEngine::componentOf($pdo, $key, $proc, $reading);
             $d = ControlEngine::decide($pdo, self::openOf($pdo, $key), $comp, $level, $kind, $tryFirst, $event, $duty);
             [$level, $early, $escalate, $next] = [$d['level'], $d['early'], $d['escalate'], $d['next']];
             $cut = fn (string $s, int $n) => mb_substr(trim($s), 0, $n);
@@ -674,7 +674,10 @@ final class ControlAlarms
     /** The action as the state is now: "Paused by the system" only when it holds something (the one engine, §5.4). */
     public static function actionOf(array $a, string $state): string
     {
-        if ($state === 'trip' && self::stoppedWords($a) === '') return 'Down: the system is still trying';
+        if ($state === 'trip' && self::stoppedWords($a) === '') {
+            $c = (string) ($a['component'] ?? '');
+            return empty($a['retrying_at']) && (str_starts_with($c, 'task:') || str_starts_with($c, 'job:')) ? 'Tripped: nothing is held' : 'Down: the system is still trying';
+        }
         return (string) (self::ACTIONS[$state] ?? self::ACTIONS['trip']);
     }
 
@@ -688,7 +691,7 @@ final class ControlAlarms
         // the action once: a status that already starts with it ("Paused by the system (a trip) since …") isn't prefixed again
         $st = (string) preg_replace(['/^Recovered: /', '/^Escalation Notice [^:]*(?::\d\d[^:]*)*: retries unsuccessful, an admin is needed\.\s*/u'], '', $st);
         $act = $state === '' ? '' : self::actionOf($a, $state);
-        if ($st !== '' && preg_match('/^(Paused by the system|Down: |Tripped: |Retries unsuccessful)/', $st)) $act = '';   // its status already says it
+        if ($state === 'trip' && $st !== '' && preg_match('/^(Paused by the system|Down: |Tripped)/', $st)) $act = '';   // its status already says it
         $first = $st === '' ? $act . '.' : ($act === '' || stripos($st, $act) === 0 ? $st : $act . ': ' . $st);
         return $first . "\n"
             . 'What\'s going on: ' . (string) $a['title'] . ($extra !== '' ? '. ' . $extra : '') . "\n"
@@ -731,7 +734,7 @@ final class ControlAlarms
         if (!$cl && self::$engine) {
             require_once __DIR__ . '/ControlEngine.php';
             $es = ControlEngine::status($a, $sw);
-            if ($es !== '') { $esc0 = $isTrip ? self::escalatedAt($pdo, $a) : ''; $status = ($esc0 !== '' ? 'Retries unsuccessful, now admin required ' . self::at($esc0) . '. ' : '') . $es; }
+            if ($es !== '') { $esc0 = $isTrip ? self::escalatedAt($pdo, $a) : ''; $status = ($esc0 !== '' ? 'Escalation Notice ' . self::at($esc0) . ': retries unsuccessful, an admin is needed. ' : '') . $es; }
             $held = []; foreach ((array) json_decode((string) ($a['stopped'] ?? ''), true) as $st) if (is_array($st) && isset($st[2])) $held[] = (string) $st[2];
             $ed = ControlEngine::doing($pdo, $a, $held);
             if ($ed !== '') $doing = $ed;

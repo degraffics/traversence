@@ -8,7 +8,6 @@
 // imported with source 'heartbeat' and numbered then (ruling 6). Kept 365 days (Q19). Never throws to a caller.
 declare(strict_types=1);
 
-require_once __DIR__ . '/Database.php';
 
 final class ControlIncidents
 {

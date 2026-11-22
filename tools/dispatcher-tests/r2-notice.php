@@ -42,21 +42,28 @@ $msgs = fn () => $pdo->query("SELECT * FROM comms_messages ORDER BY id")->fetchA
 // decisions/0176's notes of 2026-11-20 (release 2 part 2): the alarm notice, one thread on every channel.
 // ---- a trip: SYSTEM ALARM NOTICE, at once, even in quiet hours ----------------------------------------------------------
 $pdo->exec("INSERT INTO comms_quiet (user_id, quiet_from, quiet_to, tz, changed_at) VALUES (7, 0, 1439, 'UTC', NOW())");   // quiet all day
-$raise = fn () => ControlAlarms::raise($pdo, 'task:failed:second_look', 'wf:W2', 'trip', 'crash', 'W2: its task second_look failed', 'Its work goes back to the queue.', 'Read why on its run.', 'boom: HTTP 500');
-$id = $raise(); $raise(); $raise();
+// the one engine (step 4): the fault is on /api/crawl/verify, second_look's endpoint (P2); its tries are checks (P3), and a
+// trip holds second_look, the task that calls it (P6), so the notice says "Paused by the system"
+require_once $app . '/lib/ControlEngine.php'; require_once $app . '/lib/ControlRegister.php';
+$pdo->exec("CREATE TABLE IF NOT EXISTS crawl_capture_tasks (task VARCHAR(40) PRIMARY KEY, wf VARCHAR(8), enabled TINYINT NOT NULL DEFAULT 1, name VARCHAR(80) NULL, off_why VARCHAR(255) NULL, sort INT NOT NULL DEFAULT 0)");
+$pdo->exec("INSERT IGNORE INTO crawl_capture_tasks (task, wf, enabled) VALUES ('second_look', 'W2', 1)"); ControlRegister::forget();
+ControlEngine::$checker = fn (string $c) => ['pass' => false, 'proof' => $c . ' still failing', 'ms' => 1];
+$tryOut = function (int $id) use ($pdo) { foreach (ControlEngine::TRY_AT as $_) { $pdo->exec("UPDATE control_alarms SET next_try_at = UTC_TIMESTAMP() - INTERVAL 1 SECOND WHERE id = $id AND cleared_at IS NULL"); ControlAlarms::expireTries($pdo); } };
+$raise = fn () => ControlAlarms::raise($pdo, 'task:failed:second_look', 'wf:W2', 'trip', 'crash', 'W2: its task second_look failed', 'Its work goes back to the queue.', 'Read why on its run.', 'boom: HTTP 500', [], true, true, 'ep:crawl/verify');
+$id = $raise(); $raise(); $raise(); $tryOut($id);
 $t('a trip, in the founder\'s quiet hours: emailed and pushed at once ("any hour")', count(Mailer::$sent) === 1 && count(WebPush::$sent) === 1, [count(Mailer::$sent), count(WebPush::$sent)]);
 $e1 = Mailer::$sent[0] ?? ['', '', '', null];
 $t('the email\'s subject: "SYSTEM ALARM NOTICE: <item>: Paused by the system"', $e1[1] === 'SYSTEM ALARM NOTICE: W2 Keeping listings current: Paused by the system', $e1[1]);
 // the link is the thread's Pulse row since 0176 R3 (§5: "From a push, it opens the app at the thread's Pulse row")
-$t('…its body: the action and status, what\'s going on, what it means, what to do, and the link', (bool) preg_match("~^SYSTEM ALARM NOTICE: .*\n\nPaused by the system \(a trip\) since .*\nWhat's going on: W2: its task second_look failed\nWhat it means: Its work goes back to the queue\.\nWhat to do: Read why on its run\..*Open it: https://traversence\.com/admin/dashboard/stream#case=alarm:" . $id . '~s', $e1[2]), $e1[2]);
+$t('…its body: the action and status, what\'s going on, what it means, what to do, and the link', (bool) preg_match("~^SYSTEM ALARM NOTICE: .*\n\nPaused by the system \(second_look \(W2\)\) since .*\nWhat's going on: W2: its task second_look failed\nWhat it means: Its work goes back to the queue\.\nWhat to do: Read why on its run\..*Open it: https://traversence\.com/admin/dashboard/stream#case=alarm:" . $id . '~s', $e1[2]), $e1[2]);
 $t('…it starts the alarm\'s email thread (its own Message-ID, no parent)', is_array($e1[3]) && ($e1[3]['id'] ?? '') !== '' && empty($e1[3]['parent']), $e1[3]);
 $t('the push: "SYSTEM ALARM: <item>", its body starting with the action', (WebPush::$sent[0]['title'] ?? '') === 'SYSTEM ALARM: W2 Keeping listings current' && str_starts_with((string) (WebPush::$sent[0]['body'] ?? ''), 'Paused by the system'), WebPush::$sent);
 // ---- the Escalation Notice: a reply in the same email thread ----------------------------------------------------------
 $qb = fn () => ControlAlarms::raise($pdo, 'x:qb', 'svc:quickbooks', 'trip', 'crash', 'QuickBooks failed', 'Payments fail.', 'Check its key.');
 Mailer::$sent = []; WebPush::$sent = [];
-$q = $qb(); $qb(); $qb();
+$q = $qb(); $qb(); $qb(); $tryOut($q);
 $mails = array_values(array_filter(Mailer::$sent, fn ($x) => str_contains((string) $x[1], 'QuickBooks')));
-$t('a critical part: its first email "…: Paused by the system", then its Escalation Notice "…: Retries unsuccessful, now admin required"', count($mails) === 2 && str_ends_with((string) $mails[0][1], ': Paused by the system') && str_ends_with((string) $mails[1][1], ': Retries unsuccessful, now admin required'), array_column($mails, 1));
+$t('a critical part: its first email "…: Down: the system is still trying" (nothing it holds: §7), then its Escalation Notice "…: Retries unsuccessful, now admin required"', count($mails) === 2 && str_ends_with((string) $mails[0][1], ': Down: the system is still trying') && str_ends_with((string) $mails[1][1], ': Retries unsuccessful, now admin required'), array_column($mails, 1));
 $t('…the second replies in the first\'s thread (In-Reply-To and References to its Message-ID)', count($mails) === 2 && ($mails[1][3]['parent'] ?? '') === ($mails[0][3]['id'] ?? 'x') && ($mails[1][3]['id'] ?? '') !== ($mails[0][3]['id'] ?? ''), array_column($mails, 3));
 $m = array_values(array_filter($msgs(), fn ($x) => $x['thing'] === 'alarm:' . $q));
 $t('…still one message in Pulse, its row the notice', count($m) === 1 && str_starts_with((string) $m[0]['title'], 'SYSTEM ALARM NOTICE: QuickBooks'), $m);
