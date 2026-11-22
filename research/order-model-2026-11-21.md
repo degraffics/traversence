@@ -47,6 +47,8 @@ check out for them. Orders handled outside the system go through the staff's out
   approved it so payments must still function properly." So staff can still record the client's approval given by
   email (or another way); the order is then processed as if the client approved it, and payment still runs as normal
   (the invoice is made and the client pays it). It approves; it never pays.
+- Who and the record (2026-11-22): "Any staff with order edit rights, and attach the email." Today's rights stay;
+  new is the client's email attached to the order as the record of the approval.
 
 **1.7 Estimate → quote → transaction.** "if service is priced at time of ordering its a transaction if it can be priced
 its an estimate, if its a tentative price which requires processing to generate final price its a quote." Then:
@@ -177,7 +179,8 @@ the pass is the product. It shapes 1.2's client-configured items and 1.8's money
    account terms or an admin override).
 2. ~~The admin override~~ Answered: admins only, with a reason recorded (1.9).
 3. ~~Approve for the client~~ Answered (1.6): kept for approvals given by email or another way, processed as if the
-   client approved, payment as normal. To confirm: who may use it, and whether the email is attached as the record.
+   client approved, payment as normal.
+   Who and the record answered too: staff with order edit rights; the email attached.
 4. Which route an order takes, and whether invoice-later, wire and check stay on the invoice route only. (B.4 as
    confirmed exempts "invoice later" from paid in full; 1.9 removes that exemption.)
 5. The deposit: how much and who sets it, shown before paying; how long the cancel window lasts.
