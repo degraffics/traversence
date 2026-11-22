@@ -72,9 +72,9 @@
    "functions": [],
    "kind": "change",
    "session": "session_01CXLi5mF3yZ2ZE7oz8RpDsq",
-   "why": "control board build (step 4), taken over from session_01CXLi5ibQFnVmXNfkdFarwR",
+   "why": "control board build (step 4): Gemini's notice (S-B37a), maintenance takes out any part (02 \u00a75.3), Retire closes its trip (row 116)",
    "since": "2026-11-22T22:22:15Z",
-   "expires": "2026-11-23T02:51:32Z",
+   "expires": "2026-11-23T03:14:42Z",
    "release": "control-board.zip",
    "callers": {}
   },
@@ -516,6 +516,42 @@
    "expires": "2026-11-23T02:51:32Z",
    "release": "control-board.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/Gemini.php",
+   "functions": [
+    "refused"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5mF3yZ2ZE7oz8RpDsq",
+   "why": "control board build (step 4): Gemini's notice (S-B37a), maintenance takes out any part (02 \u00a75.3), Retire closes its trip (row 116)",
+   "since": "2026-11-22T23:14:42Z",
+   "expires": "2026-11-23T03:14:42Z",
+   "release": "control-board.zip",
+   "callers": {
+    "refused": [
+     "app/lib/AiClient.php",
+     "app/lib/GeminiCompare.php",
+     "app/lib/Vectors.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/ServiceStages.php",
+   "functions": [
+    "retire"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5mF3yZ2ZE7oz8RpDsq",
+   "why": "control board build (step 4): Gemini's notice (S-B37a), maintenance takes out any part (02 \u00a75.3), Retire closes its trip (row 116)",
+   "since": "2026-11-22T23:14:42Z",
+   "expires": "2026-11-23T03:14:42Z",
+   "release": "control-board.zip",
+   "callers": {
+    "retire": [
+     "app/admin/operations-console.php"
+    ]
+   }
   }
  ],
  "lapsed": [
