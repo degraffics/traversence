@@ -360,6 +360,9 @@ final class ControlAlarms
             ->execute([mb_substr($how, 0, 255), $uid ?: null, mb_substr($who, 0, 80) ?: null, mb_substr($note, 0, 400), $uid ?: null, mb_substr($who, 0, 80) ?: null, $id]);
         self::log($pdo, 'resolve', (string) $a['proc'], 'Resolved: ' . (string) $a['title'], $who, $note . ($started ? ' Started again: ' . implode(', ', $started) . '.' : ''));
         if (self::$engine) { $pdo->prepare('UPDATE control_alarms SET next_try_at = NULL WHERE id = ?')->execute([$id]); try { require_once __DIR__ . '/ControlIncidents.php'; ControlIncidents::memberClosed($pdo, $id, $how); } catch (Throwable $x) {} }
+        // a person's close updates the same thread on every channel (the one engine, P10; g4 F3: it never reached Pulse or
+        // the email): "…: Fixed by <name>", quietly, as Recovered does
+        if (!empty($a['tripped_at']) && ($c = self::byId($pdo, $id))) self::notifyOne($pdo, 'alarm.recovered', $c, self::noticeTitle($pdo, $c, 'recovered'), self::noticeBody($pdo, $c, 'recovered', 'Fixed by ' . $who . ': ' . $how), null, false);
         return [true, $how];
     }
 
@@ -548,7 +551,9 @@ final class ControlAlarms
             self::ensure($pdo);
             // what's open and not acknowledged: the same alarms the board's Open filter shows, so the top bar, the panel and the
             // filter give one number (Jason, 2026-11-19: "alarms everywhere": 15, 23 and 5 for the same list)
-            foreach ($pdo->query('SELECT level, COUNT(*) FROM control_alarms WHERE cleared_at IS NULL AND ack_at IS NULL GROUP BY level')->fetchAll(PDO::FETCH_KEY_PAIR) as $l => $c) if (isset($z[$l])) $z[$l] = (int) $c;
+            // an open trip counts whether or not someone has seen it (the one engine; g4 F1: acknowledging turned the light
+            // green while the trip still held its parts); warnings and notices count until seen
+            foreach ($pdo->query("SELECT level, COUNT(*) FROM control_alarms WHERE cleared_at IS NULL AND (ack_at IS NULL OR level = 'trip') GROUP BY level")->fetchAll(PDO::FETCH_KEY_PAIR) as $l => $c) if (isset($z[$l])) $z[$l] = (int) $c;
             $z['unseen'] = (int) $pdo->query("SELECT COUNT(*) FROM control_alarms WHERE level = 'trip' AND ack_at IS NULL AND cleared_at >= UTC_TIMESTAMP() - INTERVAL 24 HOUR")->fetchColumn();
         } catch (Throwable $x) {}
         return $z;
@@ -625,7 +630,19 @@ final class ControlAlarms
         try {
             require_once __DIR__ . '/Notify.php'; require_once __DIR__ . '/CommsSetup.php';
             if (!isset(Notify::KINDS[$kind])) return;
-            $to = CommsSetup::founders($pdo); if (!$to) return;
+            $to = CommsSetup::founders($pdo);
+            if (!$to) {
+                // a trip always reaches someone (the one engine, P11; g4 F4): with nobody to receive it, the trip says so and the
+                // dispatcher's own fault is raised, on the board, where it's seen
+                if (in_array($kind, ['alarm.trip', 'alarm.escalated'], true)) {
+                    $pdo->prepare('UPDATE control_alarms SET reading = ? WHERE id = ?')->execute([mb_substr('Reached no one: no founder account to receive it. ' . (string) $a['reading'], 0, 255), (int) $a['id']]);
+                    if ((string) $a['akey'] !== 'dispatch:nobody') self::raise($pdo, 'dispatch:nobody', 'site:pulse', 'trip', 'held', 'The dispatcher reached no one with a trip',
+                        'A trip (' . mb_substr((string) $a['title'], 0, 120) . ') had nobody to receive it: no founder account. It stands on the board.',
+                        'Name a founder in Communications, so trips reach someone by Pulse, email and push.', 'no founder account',
+                        [['Communications (who receives trips)', 'peek', '/admin/config/communications#cs-controls']], true, false, 'site:pulse');
+                }
+                return;
+            }
             // one thread per alarm (decisions/0176 §1): the trip, its Escalation Notice and Recovered are one message, updated in place
             $about = ['thing' => 'alarm:' . (int) $a['id'], 'url' => $kind === 'alarm.recovered' ? '/admin/config/control#cb-alarm-' . (int) $a['id'] : self::pulseUrl($pdo, $a), 'from' => ['system', null, 'Control Board']];
             if ($pulseRef !== null) $about['pulse_ref'] = $pulseRef;   // the trip's own Pulse item shows it: no second row
@@ -674,6 +691,7 @@ final class ControlAlarms
     /** The action as the state is now: "Paused by the system" only when it holds something (the one engine, §5.4). */
     public static function actionOf(array $a, string $state): string
     {
+        if ($state === 'recovered' && !empty($a['resolved_name']) && $a['cleared_at'] !== null) return 'Fixed by ' . (string) $a['resolved_name'];
         if ($state === 'trip' && self::stoppedWords($a) === '') {
             $c = (string) ($a['component'] ?? '');
             return empty($a['retrying_at']) && (str_starts_with($c, 'task:') || str_starts_with($c, 'job:')) ? 'Tripped: nothing is held' : 'Down: the system is still trying';

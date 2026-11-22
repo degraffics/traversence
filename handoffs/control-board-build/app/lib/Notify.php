@@ -377,7 +377,7 @@ final class Notify
             // an alarm's push: "SYSTEM ALARM: <item>", its body starting with the action (decisions/0176's note, 2026-11-20:
             // "Push shortened"; a phone cuts a title at about 40 characters)
             // its action may hold a colon ("Down: the system is still trying", the one engine's §5.4), so it's matched by name
-            $ptitle = preg_match('/^SYSTEM ALARM NOTICE: (.+?): (?:Paused by the system|Down: the system is still trying|Tripped: nothing is held|Retries unsuccessful, now admin required|Recovered)$/u', (string) $m['title'], $nm) ? 'SYSTEM ALARM: ' . $nm[1] : (string) $m['title'];
+            $ptitle = preg_match('/^SYSTEM ALARM NOTICE: (.+?): (?:Paused by the system|Down: the system is still trying|Tripped: nothing is held|Retries unsuccessful, now admin required|Recovered|Fixed by .+)$/u', (string) $m['title'], $nm) ? 'SYSTEM ALARM: ' . $nm[1] : (string) $m['title'];
             $msg = ['title' => $ptitle, 'body' => mb_substr($pbody, 0, 240), 'url' => $url,
                     'stop' => self::stopUrl($mid, $u), 'tag' => $tag, 'renotify' => $renotify, 'level' => $lvl];
             // a pace per person: past PUSH_PACE pushes in PUSH_WINDOW minutes the rest fold into one summary that updates
