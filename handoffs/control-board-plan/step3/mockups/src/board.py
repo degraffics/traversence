@@ -925,7 +925,7 @@ def workflows_view():
                 parts.append(modlink(mm) if mm else (f'<span class="own">{E(lab)}</span>' if k in ('ours', 'paid') else f'<span class="nocard" title="no card yet">{E(lab if k != "svc" else v)}</span>'))
             nh += f'<li><b>{E(n["label"])}</b>: {" → ".join(parts)} <span class="sub">· else {E(n["fallback"])}</span></li>'
         st += wf_note(w)
-        rows += f'<tr id="wf-{w}"><td><b>{w}</b> {E(name.replace(chr(92), ""))}<div class="sub">{E(what.replace(chr(92), ""))[:180]}</div></td><td><ul class="needs">{nh or "<li class=sub>no need in the map</li>"}</ul></td><td>{st}</td></tr>'
+        rows += f'<tr id="wfn-{w}"><td><b>{w}</b> {E(name.replace(chr(92), ""))}<div class="sub">{E(what.replace(chr(92), ""))[:180]}</div></td><td><ul class="needs">{nh or "<li class=sub>no need in the map</li>"}</ul></td><td>{st}</td></tr>'
     duty = ''
     for n in [n for n in NEEDS if n['kind'] == 'siteneeds']:
         parts = []
@@ -933,10 +933,9 @@ def workflows_view():
             mm = mod_for(k, v)
             parts.append(modlink(mm) if mm else (f'<span class="own">{E(lab)}</span>' if k in ('ours', 'paid') else f'<span class="nocard" title="no card yet">{E(lab if k != "svc" else v)}</span>'))
         duty += f'<tr><td><b>{E(n["label"])}</b></td><td>{" → ".join(parts)}<div class="sub">else {E(n["fallback"])}{" (soft: its fallback always works)" if n["soft"] else ""}</div></td></tr>'
-    return f"""<section class="view" id="view-workflows" hidden data-title="Workflows">
-<div class="vh"><div><h1>Workflows</h1><p class="sub">W0–W14 from the live <code>Automation::WORKFLOWS</code>, each need from <code>Preflight::NEEDS</code> in the map's order, linked to its card; the fallback is the need's own rule. State: the alarms snapshot, <time>{T_AL}</time>. A source with no card yet is greyed and listed under Coverage.</p></div></div>
-<div class="tw"><table class="wt"><thead><tr><th>Workflow</th><th>Its needs: sources in order, then the fallback</th><th>State</th></tr></thead><tbody>{rows}</tbody></table></div>
-<h2 class="h2">The operational duties (the site's needs)</h2><div class="tw"><table class="wt"><thead><tr><th>Duty</th><th>Its modules in order, then the fallback</th></tr></thead><tbody>{duty}</tbody></table></div></section>"""
+    return f"""<section class="view" id="view-workflows" hidden data-title="Workflows">{workflows.view()}
+<details class="more"><summary>Each workflow's needs in one table (from the live <code>Preflight::NEEDS</code>)</summary><div class="tw"><table class="wt"><thead><tr><th>Workflow</th><th>Its needs: sources in order, then the fallback</th><th>State</th></tr></thead><tbody>{rows}</tbody></table></div></details>
+<details class="more"><summary>The operational duties (the site's needs)</summary><div class="tw"><table class="wt"><thead><tr><th>Duty</th><th>Its modules in order, then the fallback</th></tr></thead><tbody>{duty}</tbody></table></div></details></section>"""
 
 
 def diag_view():
@@ -981,6 +980,7 @@ import assoc
 import math
 import devgauges
 import scorering
+import workflows
 
 NEED_BY = {n['key']: n for n in NEEDS}
 OBJ_BY = {o['id']: o for _, _, objs in PROMISES for o in objs}
@@ -1423,7 +1423,7 @@ def quick():
     return out
 
 
-CSS = kit.CSS + devgauges.CSS + scorering.CSS + r"""
+CSS = kit.CSS + devgauges.CSS + scorering.CSS + workflows.CSS + r"""
 .bhead{position:sticky;top:0;z-index:40;background:var(--umber);color:var(--btn-text);padding:.5rem 16px;display:flex;flex-wrap:wrap;gap:.4rem .8rem;align-items:center}
 .bhead b{font-family:var(--serif)}.bhead .tm{font-size:12px;color:#E3C9A8}.bhead .chip{border:1px solid #E3C9A866;border-radius:999px;padding:.05rem .55rem;font-size:12px}
 .qbar{display:flex;flex-wrap:wrap;gap:.4rem;padding:.5rem 16px;background:var(--sec);border-bottom:1px solid var(--sec-edge)}
@@ -1660,7 +1660,7 @@ def review_pack(gpanels, chain_html, cov_html, held, mods_js, pages_js, ngaps):
         for m in re.findall(r'<details class="mod" id="mod-([\w-]+)"', fn()):
             partof.setdefault(m, f'part-{i:02d}-{slug}.html')
     all_panels = {}
-    for blob in (gpanels, chain_html, cov_html, manage_panel(), devgauges.panels() + devgauges.paths_panel(), ''.join(unplaceholder(v) for v in PANELS.values())):
+    for blob in (gpanels, chain_html, cov_html, manage_panel(), devgauges.panels() + devgauges.paths_panel(), workflows.panels(), ''.join(unplaceholder(v) for v in PANELS.values())):
         for m in re.finditer(r'<aside class="panel" id="([^"]+)"', blob):
             all_panels[m.group(1)] = balanced(blob, m.start(), 'aside')
     css_nodev = _min_css(CSS.replace(devgauges.CSS, '')) + '.rnote{background:var(--card);border:1px solid var(--copper);border-radius:.5rem;padding:.4rem .6rem;margin:.5rem 16px;font-size:13px}'
@@ -1702,7 +1702,7 @@ def review_pack(gpanels, chain_html, cov_html, held, mods_js, pages_js, ngaps):
                 f'<span class="sp" style="flex:1"></span><span class="chip">{held} trips · 21 alarms</span>{cov_btn}</header>'
                 f'<p class="rnote" role="note">{E(note)}</p>' + (f'<nav class="qbar" aria-label="What\'s wrong now">{quick()}</nav>' if quick_bar else '')
                 + f'<main class="main">{view}</main><div class="scrim"></div>{"".join(got.values())}'
-                + f'<script>window.__PAGES={json.dumps(pages_data)};window.__GROUPS={json.dumps(groups_data)};window.__MODS={json.dumps(mods_js)};window.__PARTOF={json.dumps(partof)};{"window.__DEVPATHS=" + json.dumps(devgauges.paths_data(), separators=(",", ":"), ensure_ascii=False) + ";" if slug.startswith("development") else ""}</script>{JS}{devgauges.JS if slug.startswith("development") else ""}')
+                + f'<script>window.__PAGES={json.dumps(pages_data)};window.__GROUPS={json.dumps(groups_data)};window.__MODS={json.dumps(mods_js)};window.__PARTOF={json.dumps(partof)};{"window.__DEVPATHS=" + json.dumps(devgauges.paths_data(), separators=(",", ":"), ensure_ascii=False) + ";" if slug.startswith("development") else ""}</script>{JS}{devgauges.JS if slug.startswith("development") else ""}{workflows.JS if slug == "workflows" else ""}')
         body = _fix_body(body)
         doc = (f'<!doctype html><!-- {note} -->\n<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">'
                f'<title>Control board review, part {i} of {M}</title><style>{devgauges.dev_css(css) if slug == "development" else css_nodev}</style></head><body>{body}</body></html>')
@@ -1749,8 +1749,8 @@ def build():
 <button data-nav="workflows" aria-current="false">{ico('wf')}Workflows<span class="cnt">{len(WORKFLOWS)}</span></button>
 <button data-nav="diagnostics" aria-current="false">{ico('diag')}Diagnostics<span class="cnt">{len(MODULES)}</span></button></nav>
 <main class="main">{fold_intros(board_view() + modules_view() + workflows_view() + diag_view())}</main></div>
-<div class="scrim"></div>{gpanels}{chain_html}{cov_html}{manage_panel()}{search_panel()}{devgauges.panels()}{devgauges.paths_panel()}{''.join(unplaceholder(v) for v in PANELS.values())}
-<script>window.__PAGES={json.dumps(pages_js)};window.__GROUPS={json.dumps([{'rows': g['rows']} for g in GROUPS])};window.__MODS={json.dumps(mods_js)};window.__CMD={json.dumps(search_index())};window.__DEVPATHS={json.dumps(devgauges.paths_data())};</script>{JS}{devgauges.JS}"""
+<div class="scrim"></div>{gpanels}{chain_html}{cov_html}{manage_panel()}{search_panel()}{devgauges.panels()}{devgauges.paths_panel()}{workflows.panels()}{''.join(unplaceholder(v) for v in PANELS.values())}
+<script>window.__PAGES={json.dumps(pages_js)};window.__GROUPS={json.dumps([{'rows': g['rows']} for g in GROUPS])};window.__MODS={json.dumps(mods_js)};window.__CMD={json.dumps(search_index())};window.__DEVPATHS={json.dumps(devgauges.paths_data())};</script>{JS}{devgauges.JS}{workflows.JS}"""
     # native buttons for "Publish from your Vault"; aria-labels as plain text (no escaped tags)
     body, n_pub = re.subn(r'<span class="pub" role="button" tabindex="0">(.*?)</span>', r'<button type="button" class="pub">\1</button>', body)
     def _plain_aria(m):
@@ -1762,6 +1762,8 @@ def build():
 <style>{CSS}</style></head><body>{body}</body></html>"""
     open(OUT + 'index.html', 'w').write(doc)
     dg = devgauges.page(_min_css(CSS))
+    open(OUT + 'workflows.html', 'w').write(workflows.page(_min_css(CSS), devgauges.dev_css))
+    print(json.dumps(workflows.spec()))
     open(OUT + 'dev-gauges.html', 'w').write(dg)
     review_pack(gpanels, chain_html, cov_html, held, mods_js, pages_js, n_unm + n_noch)
     stats = dict(pages=len(PAGES), groups=len(GROUPS), modules=len(MODULES), scenarios=N_SCN, objectives=N_OBJ, unmeasured=n_unm, pages_unchecked=n_noch,
@@ -1769,6 +1771,8 @@ def build():
     json.dump(stats, open(OUT + 'stats.json', 'w'), indent=1)
     print(json.dumps(stats, indent=1))
 
+
+workflows.init(sys.modules[__name__])
 
 if __name__ == '__main__':
     build()
