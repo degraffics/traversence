@@ -48,7 +48,9 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Discovery",
-     "listed_in": "Discovery"
+     "listed_in": "Discovery",
+     "owner16": "Discovery",
+     "other_face": []
     },
     {
      "name": "Hub, geo-hub and cluster landing page",
@@ -66,7 +68,11 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Discovery",
-     "listed_in": "Discovery"
+     "listed_in": "Discovery",
+     "owner16": "Discovery",
+     "other_face": [
+      "Taxonomy & clusters (/admin/local/taxonomy) (Get Local 360\u00b0)"
+     ]
     },
     {
      "name": "A guide built while you wait for a searched place (0147)",
@@ -84,7 +90,11 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Discovery",
-     "listed_in": "Discovery"
+     "listed_in": "Discovery",
+     "owner16": "Discovery",
+     "other_face": [
+      "Guides (/admin/explore/place_guides) (Let's Explore 360\u00b0)"
+     ]
     },
     {
      "name": "Natural landmark page (USGS names)",
@@ -102,7 +112,11 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Discovery",
-     "listed_in": "Discovery"
+     "listed_in": "Discovery",
+     "owner16": "Discovery",
+     "other_face": [
+      "Landmarks (/admin/local/places) (Get Local 360\u00b0)"
+     ]
     },
     {
      "name": "Public recreation place page (Recreation.gov)",
@@ -120,7 +134,11 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Discovery",
-     "listed_in": "Discovery"
+     "listed_in": "Discovery",
+     "owner16": "Discovery",
+     "other_face": [
+      "Recreation sites (/admin/local/recreation) (Get Local 360\u00b0)"
+     ]
     },
     {
      "name": "The place page: photo corner, what's in the photo, the numbers, \u22ef toolkit, Plan a trip here",
@@ -138,7 +156,11 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Discovery",
-     "listed_in": "Discovery"
+     "listed_in": "Discovery",
+     "owner16": "Discovery",
+     "other_face": [
+      "Stories (/admin/explore/stories) (Let's Explore 360\u00b0)"
+     ]
     },
     {
      "name": "Card photos for parks and landmarks (real photos first, looked up on open, on-the-spot photos)",
@@ -156,7 +178,11 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Discovery",
-     "listed_in": "Discovery"
+     "listed_in": "Discovery",
+     "owner16": "Discovery",
+     "other_face": [
+      "Stock library (/admin/config/stock) (System Configuration)"
+     ]
     },
     {
      "name": "Hero tidy (\u22ef starts Link to, Claim, Add to a trip)",
@@ -174,7 +200,9 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Discovery",
-     "listed_in": "Discovery"
+     "listed_in": "Discovery",
+     "owner16": "Discovery",
+     "other_face": []
     },
     {
      "name": "Park Service photos (NPS photo API)",
@@ -190,7 +218,11 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Discovery",
-     "listed_in": "Discovery"
+     "listed_in": "Discovery",
+     "owner16": "Discovery",
+     "other_face": [
+      "Modules (Service register) (/admin/config/register) (System Configuration)"
+     ]
     },
     {
      "name": "One experience (0059)",
@@ -208,7 +240,11 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Discovery",
-     "listed_in": "Discovery"
+     "listed_in": "Discovery",
+     "owner16": "Discovery",
+     "other_face": [
+      "Experiences (/admin/explore/experiences) (Let's Explore 360\u00b0)"
+     ]
     },
     {
      "name": "Your experiences",
@@ -226,7 +262,11 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Discovery",
-     "listed_in": "Discovery"
+     "listed_in": "Discovery",
+     "owner16": "Discovery",
+     "other_face": [
+      "Experiences (/admin/explore/experiences) (Let's Explore 360\u00b0)"
+     ]
     },
     {
      "name": "One journey (0056)",
@@ -244,7 +284,11 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Discovery",
-     "listed_in": "Discovery"
+     "listed_in": "Discovery",
+     "owner16": "Discovery",
+     "other_face": [
+      "Journeys (/admin/explore/journeys) (Let's Explore 360\u00b0)"
+     ]
     },
     {
      "name": "Suggested journeys built from a guide's places (0146)",
@@ -262,7 +306,11 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Discovery",
-     "listed_in": "Discovery"
+     "listed_in": "Discovery",
+     "owner16": "Discovery",
+     "other_face": [
+      "Journeys (/admin/explore/journeys) (Let's Explore 360\u00b0)"
+     ]
     },
     {
      "name": "Your journeys: write or edit (contributors)",
@@ -280,7 +328,11 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Discovery",
-     "listed_in": "Discovery"
+     "listed_in": "Discovery",
+     "owner16": "Discovery",
+     "other_face": [
+      "Journeys (/admin/explore/journeys) (Let's Explore 360\u00b0)"
+     ]
     },
     {
      "name": "Journeys' Link button resolves (place:jr:N)",
@@ -296,7 +348,9 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Discovery",
-     "listed_in": "Discovery"
+     "listed_in": "Discovery",
+     "owner16": "Discovery",
+     "other_face": []
     },
     {
      "name": "How-to guides from official pages (0063)",
@@ -314,7 +368,11 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Discovery",
-     "listed_in": "Discovery"
+     "listed_in": "Discovery",
+     "owner16": "Discovery",
+     "other_face": [
+      "How-to guides (/admin/explore/howto) (Let's Explore 360\u00b0)"
+     ]
     },
     {
      "name": "Resource guides: who to call in an area (0061)",
@@ -332,7 +390,11 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Discovery",
-     "listed_in": "Discovery"
+     "listed_in": "Discovery",
+     "owner16": "Discovery",
+     "other_face": [
+      "Who to call (/admin/explore/guides) (Let's Explore 360\u00b0)"
+     ]
     },
     {
      "name": "Place guides at every level of the funnel (0043, 0131)",
@@ -350,7 +412,11 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Discovery",
-     "listed_in": "Discovery"
+     "listed_in": "Discovery",
+     "owner16": "Discovery",
+     "other_face": [
+      "Guides (/admin/explore/place_guides) (Let's Explore 360\u00b0)"
+     ]
     },
     {
      "name": "Guides and journeys on demand (0147), within the AI cap",
@@ -368,7 +434,11 @@
      "alternative": "Knowledge Engine (W5)",
      "cross_links": "Knowledge Engine",
      "option_b": "Discovery",
-     "listed_in": "Discovery"
+     "listed_in": "Discovery",
+     "owner16": "Discovery",
+     "other_face": [
+      "AI use (/admin/config/ai) (System Configuration)"
+     ]
     },
     {
      "name": "Stories for place pages (Admin \u2192 Explore \u2192 Stories)",
@@ -386,7 +456,9 @@
      "alternative": "Knowledge Engine",
      "cross_links": "\u2014",
      "option_b": "Discovery",
-     "listed_in": "Discovery"
+     "listed_in": "Discovery",
+     "owner16": "replaced by explore/stories",
+     "other_face": []
     },
     {
      "name": "Live events from the crawler in guides and on venue listings (0133)",
@@ -404,7 +476,11 @@
      "alternative": "Events, under option B; Community",
      "cross_links": "Community (Events)",
      "option_b": "Events",
-     "listed_in": "Discovery"
+     "listed_in": "Discovery",
+     "owner16": "Discovery",
+     "other_face": [
+      "Live events (/admin/explore/events) (Let's Explore 360\u00b0)"
+     ]
     },
     {
      "name": "Trips R1: Send to Maps",
@@ -422,7 +498,9 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Discovery",
-     "listed_in": "Discovery"
+     "listed_in": "Discovery",
+     "owner16": "Discovery",
+     "other_face": []
     },
     {
      "name": "Trips R2: Add to a trip, Your trips, a guest's trip on the device",
@@ -440,7 +518,9 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Discovery",
-     "listed_in": "Discovery"
+     "listed_in": "Discovery",
+     "owner16": "Discovery",
+     "other_face": []
     },
     {
      "name": "Trips R3: the trip page (days, order, times against hours, the map, Print)",
@@ -458,7 +538,9 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Discovery",
-     "listed_in": "Discovery"
+     "listed_in": "Discovery",
+     "owner16": "Discovery",
+     "other_face": []
     },
     {
      "name": "Trips R4: share a link, Personal Guides, counts",
@@ -476,7 +558,9 @@
      "alternative": "Community (member-published)",
      "cross_links": "Community",
      "option_b": "Discovery",
-     "listed_in": "Discovery"
+     "listed_in": "Discovery",
+     "owner16": "Discovery",
+     "other_face": []
     },
     {
      "name": "Trips R5: routes on our own site (openrouteservice)",
@@ -492,7 +576,11 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Discovery",
-     "listed_in": "Discovery"
+     "listed_in": "Discovery",
+     "owner16": "Discovery",
+     "other_face": [
+      "Waypoints & routes (/admin/explore/routes) (Let's Explore 360\u00b0)"
+     ]
     },
     {
      "name": "The map release: trails and routes in their own colour (--tv-route)",
@@ -508,7 +596,9 @@
      "alternative": "Platform (js/map-view.js serves every map)",
      "cross_links": "Platform",
      "option_b": "Discovery",
-     "listed_in": "Discovery"
+     "listed_in": "Discovery",
+     "owner16": "Discovery",
+     "other_face": []
     },
     {
      "name": "Clean hub, geo-hub and cluster addresses /{hub}/{geohub}/{cluster}",
@@ -524,7 +614,9 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Discovery",
-     "listed_in": "Discovery"
+     "listed_in": "Discovery",
+     "owner16": "Discovery",
+     "other_face": []
     },
     {
      "name": "Editorial guides /guide/{slug} with a [directory_feed] shortcode",
@@ -540,7 +632,9 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Discovery",
-     "listed_in": "Discovery"
+     "listed_in": "Discovery",
+     "owner16": "Discovery",
+     "other_face": []
     },
     {
      "name": "Waypoints & routes: map waypoints and GPX/KML for journeys and guides",
@@ -556,7 +650,9 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Discovery",
-     "listed_in": "Discovery"
+     "listed_in": "Discovery",
+     "owner16": "replaced by explore/routes",
+     "other_face": []
     },
     {
      "name": "Everything placed in the discovery funnel, active or planned (0170)",
@@ -574,7 +670,9 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Discovery",
-     "listed_in": "Discovery"
+     "listed_in": "Discovery",
+     "owner16": "Discovery",
+     "other_face": []
     },
     {
      "name": "Am here: live check-ins",
@@ -590,7 +688,9 @@
      "alternative": "Community (a check-in is social)",
      "cross_links": "Community",
      "option_b": "Discovery",
-     "listed_in": "Discovery"
+     "listed_in": "Discovery",
+     "owner16": "Discovery",
+     "other_face": []
     },
     {
      "name": "The area data: micro-clusters misnamed under Ancient Borderlands",
@@ -606,7 +706,11 @@
      "alternative": "Knowledge Engine (Data cleanup is the tool)",
      "cross_links": "Knowledge Engine",
      "option_b": "Discovery",
-     "listed_in": "Discovery"
+     "listed_in": "Discovery",
+     "owner16": "Discovery",
+     "other_face": [
+      "Taxonomy & clusters (/admin/local/taxonomy) (Get Local 360\u00b0)"
+     ]
     }
    ]
   },
@@ -650,7 +754,9 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Directory",
-     "listed_in": "Directory"
+     "listed_in": "Directory",
+     "owner16": "Directory",
+     "other_face": []
     },
     {
      "name": "Get Local R2: Filters, Arrange, Sort, Table, the list beside the map, the comments box, the card tools",
@@ -668,7 +774,9 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Directory",
-     "listed_in": "Directory"
+     "listed_in": "Directory",
+     "owner16": "Directory",
+     "other_face": []
     },
     {
      "name": "Set my place and distance on Get Local",
@@ -686,7 +794,9 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Directory",
-     "listed_in": "Directory"
+     "listed_in": "Directory",
+     "owner16": "Directory",
+     "other_face": []
     },
     {
      "name": "A business's page (hero, engage bar, comments, Link)",
@@ -704,7 +814,11 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Directory",
-     "listed_in": "Directory"
+     "listed_in": "Directory",
+     "owner16": "Directory",
+     "other_face": [
+      "Listings (/admin/local/listings) (Get Local 360\u00b0)"
+     ]
     },
     {
      "name": "Where a listing is: move the pin, I'm here",
@@ -722,7 +836,11 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Directory",
-     "listed_in": "Directory"
+     "listed_in": "Directory",
+     "owner16": "Directory",
+     "other_face": [
+      "Map pins (/admin/local/pins) (Get Local 360\u00b0)"
+     ]
     },
     {
      "name": "Claim a listing (email or text code, who might claim, the form that fits)",
@@ -740,7 +858,12 @@
      "alternative": "Business tools",
      "cross_links": "\u2014",
      "option_b": "Business tools",
-     "listed_in": "Directory"
+     "listed_in": "Directory",
+     "owner16": "Directory",
+     "other_face": [
+      "Claims (/admin/local/claims) (Get Local 360\u00b0)",
+      "Verification vault (/admin/backoffice/vault) (Back-Office)"
+     ]
     },
     {
      "name": "Verify a listing from its link",
@@ -758,7 +881,11 @@
      "alternative": "Business tools",
      "cross_links": "\u2014",
      "option_b": "Business tools",
-     "listed_in": "Directory"
+     "listed_in": "Directory",
+     "owner16": "Directory",
+     "other_face": [
+      "Claims (/admin/local/claims) (Get Local 360\u00b0)"
+     ]
     },
     {
      "name": "The business portal: claims, plan, the listing editor (listing side)",
@@ -776,7 +903,9 @@
      "alternative": "Business tools, under option B",
      "cross_links": "Marketplace",
      "option_b": "Business tools",
-     "listed_in": "Directory"
+     "listed_in": "Directory",
+     "owner16": "Directory",
+     "other_face": []
     },
     {
      "name": "An owner opens their own hidden listing's editor (case #22)",
@@ -794,7 +923,11 @@
      "alternative": "Business tools",
      "cross_links": "\u2014",
      "option_b": "Business tools",
-     "listed_in": "Directory"
+     "listed_in": "Directory",
+     "owner16": "Directory",
+     "other_face": [
+      "Hidden places (/admin/local/hidden) (Get Local 360\u00b0)"
+     ]
     },
     {
      "name": "Edit my listing as its owner",
@@ -812,7 +945,9 @@
      "alternative": "Business tools",
      "cross_links": "\u2014",
      "option_b": "Business tools",
-     "listed_in": "Directory"
+     "listed_in": "Directory",
+     "owner16": "Directory",
+     "other_face": []
     },
     {
      "name": "A guest's message to an unclaimed listing: confirm the email",
@@ -830,7 +965,9 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Directory",
-     "listed_in": "Directory"
+     "listed_in": "Directory",
+     "owner16": "Directory",
+     "other_face": []
     },
     {
      "name": "Stop requests / report spam for an unclaimed listing's email",
@@ -848,7 +985,9 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Directory",
-     "listed_in": "Directory"
+     "listed_in": "Directory",
+     "owner16": "Directory",
+     "other_face": []
     },
     {
      "name": "Message a business (guest inquiry, listing messages)",
@@ -866,7 +1005,9 @@
      "alternative": "Platform (messages)",
      "cross_links": "Platform",
      "option_b": "Directory",
-     "listed_in": "Directory"
+     "listed_in": "Directory",
+     "owner16": "Directory",
+     "other_face": []
     },
     {
      "name": "Adding a business: live in minutes, verified with one tap (0071)",
@@ -884,7 +1025,11 @@
      "alternative": "Business tools",
      "cross_links": "\u2014",
      "option_b": "Business tools",
-     "listed_in": "Directory"
+     "listed_in": "Directory",
+     "owner16": "Directory",
+     "other_face": [
+      "Review (/admin/local/review) (Get Local 360\u00b0)"
+     ]
     },
     {
      "name": "Help us find this business (a public request)",
@@ -902,7 +1047,9 @@
      "alternative": "Knowledge Engine",
      "cross_links": "Knowledge Engine",
      "option_b": "Directory",
-     "listed_in": "Directory"
+     "listed_in": "Directory",
+     "owner16": "Directory",
+     "other_face": []
     },
     {
      "name": "The Nexus: organizations with many locations (0054)",
@@ -920,7 +1067,11 @@
      "alternative": "Business tools",
      "cross_links": "\u2014",
      "option_b": "Business tools",
-     "listed_in": "Directory"
+     "listed_in": "Directory",
+     "owner16": "Directory",
+     "other_face": [
+      "Nexus (/admin/local/nexus) (Get Local 360\u00b0)"
+     ]
     },
     {
      "name": "Directory search, categories, \"near me\" with miles (0044, 0053, 0060 A\u2013B, 0068)",
@@ -938,7 +1089,11 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Directory",
-     "listed_in": "Directory"
+     "listed_in": "Directory",
+     "owner16": "Directory",
+     "other_face": [
+      "Categories (/admin/local/categories) (Get Local 360\u00b0)"
+     ]
     },
     {
      "name": "Search Phase C (0060)",
@@ -956,7 +1111,11 @@
      "alternative": "Directory",
      "cross_links": "Directory",
      "option_b": "Platform",
-     "listed_in": "Directory"
+     "listed_in": "Directory",
+     "owner16": "Question (no gauge yet)",
+     "other_face": [
+      "Search workbench (/admin/insights/search) (Insights & Research)"
+     ]
     },
     {
      "name": "\"3 within 5 mi\" coverage promise (0060)",
@@ -974,7 +1133,9 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Directory",
-     "listed_in": "Directory"
+     "listed_in": "Directory",
+     "owner16": "Directory",
+     "other_face": []
     },
     {
      "name": "OpenStreetMap businesses where we have no listings yet (0065)",
@@ -992,7 +1153,9 @@
      "alternative": "Knowledge Engine",
      "cross_links": "Knowledge Engine",
      "option_b": "Directory",
-     "listed_in": "Directory"
+     "listed_in": "Directory",
+     "owner16": "Directory",
+     "other_face": []
     },
     {
      "name": "W2's refresh count (L9: counted more than received)",
@@ -1008,7 +1171,9 @@
      "alternative": "Directory",
      "cross_links": "Directory",
      "option_b": "Knowledge Engine",
-     "listed_in": "Directory"
+     "listed_in": "Directory",
+     "owner16": "System Configuration",
+     "other_face": []
     },
     {
      "name": "Data cleanup: find, preview and act on what the old crawler made",
@@ -1026,7 +1191,11 @@
      "alternative": "Directory",
      "cross_links": "Directory",
      "option_b": "Knowledge Engine",
-     "listed_in": "Directory"
+     "listed_in": "Directory",
+     "owner16": "System Configuration",
+     "other_face": [
+      "Data cleanup (/admin/insights/cleanup) (Insights & Research)"
+     ]
     },
     {
      "name": "The duplicates fix: one identity check, the recheck, Vet this place",
@@ -1044,7 +1213,11 @@
      "alternative": "Directory",
      "cross_links": "Directory",
      "option_b": "Knowledge Engine",
-     "listed_in": "Directory"
+     "listed_in": "Directory",
+     "owner16": "System Configuration",
+     "other_face": [
+      "Identities (/admin/local/identities) (Get Local 360\u00b0)"
+     ]
     },
     {
      "name": "Clean listing addresses /listing/{slug}",
@@ -1060,7 +1233,9 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Directory",
-     "listed_in": "Directory"
+     "listed_in": "Directory",
+     "owner16": "Directory",
+     "other_face": []
     },
     {
      "name": "Single Home Rule: one home anchor per listing, conflicts settled",
@@ -1076,7 +1251,9 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Directory",
-     "listed_in": "Directory"
+     "listed_in": "Directory",
+     "owner16": "replaced by local/homes",
+     "other_face": []
     },
     {
      "name": "Admin \u2192 Local: listings, find/merge/bulk, intake, review, claims, identities, map pins, categories, taxonomy",
@@ -1094,7 +1271,9 @@
      "alternative": "Platform (the admin)",
      "cross_links": "Platform",
      "option_b": "Directory",
-     "listed_in": "Directory"
+     "listed_in": "Directory",
+     "owner16": "replaced by local/listings",
+     "other_face": []
     },
     {
      "name": "Plans made for agencies and nonprofits",
@@ -1110,7 +1289,9 @@
      "alternative": "Directory (agencies claim listings)",
      "cross_links": "Directory",
      "option_b": "Marketplace",
-     "listed_in": "Directory"
+     "listed_in": "Directory",
+     "owner16": "Marketplace",
+     "other_face": []
     },
     {
      "name": "Checking a phone with a texted code (claim)",
@@ -1126,7 +1307,11 @@
      "alternative": "Business tools",
      "cross_links": "Platform",
      "option_b": "Business tools",
-     "listed_in": "Directory"
+     "listed_in": "Directory",
+     "owner16": "Directory",
+     "other_face": [
+      "Text messages (/admin/config/notify) (System Configuration)"
+     ]
     }
    ]
   },
@@ -1178,7 +1363,11 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Community",
-     "listed_in": "Community"
+     "listed_in": "Community",
+     "owner16": "Community",
+     "other_face": [
+      "Groups (/admin/social/groups) (Social 360\u00b0)"
+     ]
     },
     {
      "name": "One group as a content page (0137 \u00a74)",
@@ -1196,7 +1385,11 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Community",
-     "listed_in": "Community"
+     "listed_in": "Community",
+     "owner16": "Community",
+     "other_face": [
+      "Groups (/admin/social/groups) (Social 360\u00b0)"
+     ]
     },
     {
      "name": "Join a group",
@@ -1214,7 +1407,9 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Community",
-     "listed_in": "Community"
+     "listed_in": "Community",
+     "owner16": "Community",
+     "other_face": []
     },
     {
      "name": "Group roles: owner, moderator, member",
@@ -1232,7 +1427,9 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Community",
-     "listed_in": "Community"
+     "listed_in": "Community",
+     "owner16": "Community",
+     "other_face": []
     },
     {
      "name": "Charters, business-owned groups, moderation run by the group, notices sent once (0137 steps 1\u20135)",
@@ -1250,7 +1447,11 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Community",
-     "listed_in": "Community"
+     "listed_in": "Community",
+     "owner16": "Community",
+     "other_face": [
+      "Reports (/admin/social/reports) (Social 360\u00b0)"
+     ]
     },
     {
      "name": "Tags on groups, places a group is about, chapters, topic plus place in search, growing a group (0136)",
@@ -1268,7 +1469,9 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Community",
-     "listed_in": "Community"
+     "listed_in": "Community",
+     "owner16": "Community",
+     "other_face": []
     },
     {
      "name": "Admin \u2192 Social \u2192 Groups, Reports, Standing, Takedowns, Galleries",
@@ -1286,7 +1489,9 @@
      "alternative": "Platform (the admin)",
      "cross_links": "Platform",
      "option_b": "Community",
-     "listed_in": "Community"
+     "listed_in": "Community",
+     "owner16": "replaced by social/groups",
+     "other_face": []
     },
     {
      "name": "Private circles; groups in Universal Search; the Community feed",
@@ -1304,7 +1509,9 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Community",
-     "listed_in": "Community"
+     "listed_in": "Community",
+     "owner16": "Community",
+     "other_face": []
     },
     {
      "name": "Invite link",
@@ -1322,7 +1529,9 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Community",
-     "listed_in": "Community"
+     "listed_in": "Community",
+     "owner16": "Community",
+     "other_face": []
     },
     {
      "name": "Moments and Keep (0153 zip 1)",
@@ -1340,7 +1549,9 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Community",
-     "listed_in": "Community"
+     "listed_in": "Community",
+     "owner16": "Community",
+     "other_face": []
     },
     {
      "name": "Snaps (0153 zip 2)",
@@ -1358,7 +1569,9 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Community",
-     "listed_in": "Community"
+     "listed_in": "Community",
+     "owner16": "Community",
+     "other_face": []
     },
     {
      "name": "Posting as a business, inviting from the To line, the visitor view (0153 zip 3)",
@@ -1376,7 +1589,9 @@
      "alternative": "Business tools",
      "cross_links": "Directory",
      "option_b": "Community",
-     "listed_in": "Community"
+     "listed_in": "Community",
+     "owner16": "Community",
+     "other_face": []
     },
     {
      "name": "0153 zip 4",
@@ -1392,7 +1607,9 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Community",
-     "listed_in": "Community"
+     "listed_in": "Community",
+     "owner16": "Community",
+     "other_face": []
     },
     {
      "name": "A person's public profile (Posts tab)",
@@ -1410,7 +1627,9 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Community",
-     "listed_in": "Community"
+     "listed_in": "Community",
+     "owner16": "Accounts",
+     "other_face": []
     },
     {
      "name": "The profile's Videos tab: the Channel and playlists (0153 \u00a77)",
@@ -1428,7 +1647,9 @@
      "alternative": "Platform",
      "cross_links": "Platform",
      "option_b": "Community",
-     "listed_in": "Community"
+     "listed_in": "Community",
+     "owner16": "Accounts",
+     "other_face": []
     },
     {
      "name": "The member Dashboard: Pulse, Address Book, links, saved searches, roles",
@@ -1446,7 +1667,9 @@
      "alternative": "Community",
      "cross_links": "Community",
      "option_b": "Platform",
-     "listed_in": "Community"
+     "listed_in": "Community",
+     "owner16": "Accounts",
+     "other_face": []
     },
     {
      "name": "The member's Pulse: needs as rows, notices",
@@ -1464,7 +1687,11 @@
      "alternative": "Community",
      "cross_links": "Community",
      "option_b": "Platform",
-     "listed_in": "Community"
+     "listed_in": "Community",
+     "owner16": "Dashboard & Pulse",
+     "other_face": [
+      "Pulse stream (/admin/dashboard/stream) (Dashboard & Pulse)"
+     ]
     },
     {
      "name": "Likes and comments on content pages (engage bar)",
@@ -1482,7 +1709,9 @@
      "alternative": "Community",
      "cross_links": "all four",
      "option_b": "Platform",
-     "listed_in": "Community"
+     "listed_in": "Community",
+     "owner16": "Community",
+     "other_face": []
     },
     {
      "name": "Like as a guest (3, then Keep going)",
@@ -1500,7 +1729,9 @@
      "alternative": "Community",
      "cross_links": "all four",
      "option_b": "Platform",
-     "listed_in": "Community"
+     "listed_in": "Community",
+     "owner16": "Community",
+     "other_face": []
     },
     {
      "name": "Messages and notices through the one dispatcher (0172 steps 2\u20137)",
@@ -1518,7 +1749,11 @@
      "alternative": "Community",
      "cross_links": "all four",
      "option_b": "Platform",
-     "listed_in": "Community"
+     "listed_in": "Community",
+     "owner16": "Dashboard & Pulse",
+     "other_face": [
+      "Communications (/admin/config/communications) (System Configuration)"
+     ]
     },
     {
      "name": "Email through Amazon SES, live mode",
@@ -1534,7 +1769,11 @@
      "alternative": "Community",
      "cross_links": "\u2014",
      "option_b": "Platform",
-     "listed_in": "Community"
+     "listed_in": "Community",
+     "owner16": "Dashboard & Pulse",
+     "other_face": [
+      "Communications (/admin/config/communications) (System Configuration)"
+     ]
     },
     {
      "name": "Pushes: one per thing, paced, the site installable as an app",
@@ -1552,7 +1791,11 @@
      "alternative": "Community",
      "cross_links": "\u2014",
      "option_b": "Platform",
-     "listed_in": "Community"
+     "listed_in": "Community",
+     "owner16": "Dashboard & Pulse",
+     "other_face": [
+      "Communications (/admin/config/communications) (System Configuration)"
+     ]
     },
     {
      "name": "The Gallery: your photos and files (0126)",
@@ -1570,7 +1813,11 @@
      "alternative": "Community (people's albums)",
      "cross_links": "Community",
      "option_b": "Platform",
-     "listed_in": "Community"
+     "listed_in": "Community",
+     "owner16": "Accounts",
+     "other_face": [
+      "Galleries (/admin/social/galleries) (Social 360\u00b0)"
+     ]
     },
     {
      "name": "Gallery item, album and drop pages",
@@ -1588,7 +1835,9 @@
      "alternative": "Community",
      "cross_links": "Community",
      "option_b": "Platform",
-     "listed_in": "Community"
+     "listed_in": "Community",
+     "owner16": "Accounts",
+     "other_face": []
     },
     {
      "name": "Events, one tool for the whole site (0134 steps 1\u20138)",
@@ -1604,7 +1853,11 @@
      "alternative": "Events, under option B",
      "cross_links": "Discovery",
      "option_b": "Events",
-     "listed_in": "Community"
+     "listed_in": "Community",
+     "owner16": "Community",
+     "other_face": [
+      "Events (/admin/social/events) (Social 360\u00b0)"
+     ]
     },
     {
      "name": "Ticket Sales for events (0134 \u00a76b)",
@@ -1620,7 +1873,9 @@
      "alternative": "Marketplace (tickets on the order system); Events under option B",
      "cross_links": "Marketplace",
      "option_b": "Events",
-     "listed_in": "Community"
+     "listed_in": "Community",
+     "owner16": "Community",
+     "other_face": []
     },
     {
      "name": "Inactivity and the lifecycle job for groups (C4, 0103 \u00a76)",
@@ -1636,7 +1891,9 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Community",
-     "listed_in": "Community"
+     "listed_in": "Community",
+     "owner16": "Community",
+     "other_face": []
     },
     {
      "name": "A member's private home place (C3)",
@@ -1652,7 +1909,9 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Community",
-     "listed_in": "Community"
+     "listed_in": "Community",
+     "owner16": "Community",
+     "other_face": []
     },
     {
      "name": "Flyers and badges (0137 step 7, C7)",
@@ -1668,7 +1927,9 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Community",
-     "listed_in": "Community"
+     "listed_in": "Community",
+     "owner16": "Community",
+     "other_face": []
     },
     {
      "name": "A business's bulk invitations, non-system mail to SES (C1)",
@@ -1684,7 +1945,9 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Community",
-     "listed_in": "Community"
+     "listed_in": "Community",
+     "owner16": "Community",
+     "other_face": []
     },
     {
      "name": "Steward member reports and Level 2 escalation",
@@ -1700,7 +1963,9 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Community",
-     "listed_in": "Community"
+     "listed_in": "Community",
+     "owner16": "Community",
+     "other_face": []
     },
     {
      "name": "Admin \u2192 Social \u2192 Business groups",
@@ -1716,7 +1981,9 @@
      "alternative": "Platform (the admin)",
      "cross_links": "Platform",
      "option_b": "Community",
-     "listed_in": "Community"
+     "listed_in": "Community",
+     "owner16": "Social 360\u00b0",
+     "other_face": []
     },
     {
      "name": "Group creation gated by trust score; signal-based visibility",
@@ -1732,7 +1999,9 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Community",
-     "listed_in": "Community"
+     "listed_in": "Community",
+     "owner16": "Community",
+     "other_face": []
     },
     {
      "name": "Community threads into the AI corpus (abstraction only)",
@@ -1748,7 +2017,9 @@
      "alternative": "Knowledge Engine",
      "cross_links": "Knowledge Engine",
      "option_b": "Community",
-     "listed_in": "Community"
+     "listed_in": "Community",
+     "owner16": "Community",
+     "other_face": []
     },
     {
      "name": "Facebook and Instagram for members (0168 Phase 1)",
@@ -1764,7 +2035,9 @@
      "alternative": "Community",
      "cross_links": "Community",
      "option_b": "Platform",
-     "listed_in": "Community"
+     "listed_in": "Community",
+     "owner16": "Accounts",
+     "other_face": []
     }
    ]
   },
@@ -1813,7 +2086,9 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Marketplace",
-     "listed_in": "Marketplace"
+     "listed_in": "Marketplace",
+     "owner16": "Marketplace",
+     "other_face": []
     },
     {
      "name": "One Marketplace post",
@@ -1831,7 +2106,11 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Marketplace",
-     "listed_in": "Marketplace"
+     "listed_in": "Marketplace",
+     "owner16": "Marketplace",
+     "other_face": [
+      "Items (/admin/market/items) (Market 360\u00b0)"
+     ]
     },
     {
      "name": "One Marketplace item",
@@ -1849,7 +2128,11 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Marketplace",
-     "listed_in": "Marketplace"
+     "listed_in": "Marketplace",
+     "owner16": "Marketplace",
+     "other_face": [
+      "Items (/admin/market/items) (Market 360\u00b0)"
+     ]
     },
     {
      "name": "The Marketplace cart",
@@ -1867,7 +2150,9 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Marketplace",
-     "listed_in": "Marketplace"
+     "listed_in": "Marketplace",
+     "owner16": "Marketplace",
+     "other_face": []
     },
     {
      "name": "A Marketplace order",
@@ -1885,7 +2170,9 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Marketplace",
-     "listed_in": "Marketplace"
+     "listed_in": "Marketplace",
+     "owner16": "Marketplace",
+     "other_face": []
     },
     {
      "name": "The Marketplace rules",
@@ -1903,7 +2190,11 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Marketplace",
-     "listed_in": "Marketplace"
+     "listed_in": "Marketplace",
+     "owner16": "Marketplace",
+     "other_face": [
+      "Marketplace rules (/admin/market/rules) (Market 360\u00b0)"
+     ]
     },
     {
      "name": "A ticket bought on the Marketplace",
@@ -1921,7 +2212,9 @@
      "alternative": "Events, under option B",
      "cross_links": "Community",
      "option_b": "Events",
-     "listed_in": "Marketplace"
+     "listed_in": "Marketplace",
+     "owner16": "Marketplace",
+     "other_face": []
     },
     {
      "name": "A bought download",
@@ -1939,7 +2232,9 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Marketplace",
-     "listed_in": "Marketplace"
+     "listed_in": "Marketplace",
+     "owner16": "Marketplace",
+     "other_face": []
     },
     {
      "name": "Your Marketplace posts",
@@ -1957,7 +2252,11 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Marketplace",
-     "listed_in": "Marketplace"
+     "listed_in": "Marketplace",
+     "owner16": "Marketplace",
+     "other_face": [
+      "Items (/admin/market/items) (Market 360\u00b0)"
+     ]
     },
     {
      "name": "Your orders",
@@ -1975,7 +2274,11 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Marketplace",
-     "listed_in": "Marketplace"
+     "listed_in": "Marketplace",
+     "owner16": "Marketplace",
+     "other_face": [
+      "Orders (/admin/backoffice/orders) (Back-Office)"
+     ]
     },
     {
      "name": "Post on the Marketplace; offers, Sold / Got it (0135 steps 1\u20132)",
@@ -1993,7 +2296,11 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Marketplace",
-     "listed_in": "Marketplace"
+     "listed_in": "Marketplace",
+     "owner16": "Marketplace",
+     "other_face": [
+      "Offers & disputes (/admin/market/exchange) (Market 360\u00b0)"
+     ]
     },
     {
      "name": "Businesses' items (0135 step 3)",
@@ -2011,7 +2318,11 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Marketplace",
-     "listed_in": "Marketplace"
+     "listed_in": "Marketplace",
+     "owner16": "Marketplace",
+     "other_face": [
+      "Business items (/admin/market/bizitems) (Market 360\u00b0)"
+     ]
     },
     {
      "name": "Checkout through the business's own gateway (0135 step 4a)",
@@ -2029,7 +2340,11 @@
      "alternative": "Business tools",
      "cross_links": "\u2014",
      "option_b": "Business tools",
-     "listed_in": "Marketplace"
+     "listed_in": "Marketplace",
+     "owner16": "Marketplace",
+     "other_face": [
+      "Gateways (/admin/market/gateways) (Market 360\u00b0)"
+     ]
     },
     {
      "name": "Square catalog sync, card-page protection (0135 step 4b)",
@@ -2047,7 +2362,9 @@
      "alternative": "Business tools",
      "cross_links": "\u2014",
      "option_b": "Business tools",
-     "listed_in": "Marketplace"
+     "listed_in": "Marketplace",
+     "owner16": "Marketplace",
+     "other_face": []
     },
     {
      "name": "Market 360\u00b0 Phase A: the modules and the Trust score (zip 1)",
@@ -2065,7 +2382,9 @@
      "alternative": "Business tools",
      "cross_links": "Directory",
      "option_b": "Business tools",
-     "listed_in": "Marketplace"
+     "listed_in": "Marketplace",
+     "owner16": "Marketplace",
+     "other_face": []
     },
     {
      "name": "Market 360\u00b0 Phase B: acceptance log, store policies, seller agreement, rulebook, chargeback packet (zips 2\u20133)",
@@ -2083,7 +2402,11 @@
      "alternative": "Business tools",
      "cross_links": "Directory",
      "option_b": "Business tools",
-     "listed_in": "Marketplace"
+     "listed_in": "Marketplace",
+     "owner16": "Marketplace",
+     "other_face": [
+      "Seller compliance (/admin/market/compliance) (Market 360\u00b0)"
+     ]
     },
     {
      "name": "Market 360\u00b0 Phase C: the nine item kinds (zips 4\u20136 as one build: physical, service, made to order, tickets, digital, perishables, rentals, bookings, subscriptions)",
@@ -2101,7 +2424,9 @@
      "alternative": "Business tools",
      "cross_links": "Directory",
      "option_b": "Business tools",
-     "listed_in": "Marketplace"
+     "listed_in": "Marketplace",
+     "owner16": "Marketplace",
+     "other_face": []
     },
     {
      "name": "Market 360\u00b0 catalog: photos, publishing, deleting; the acting-as bar; the account bar",
@@ -2119,7 +2444,11 @@
      "alternative": "Business tools",
      "cross_links": "Directory",
      "option_b": "Business tools",
-     "listed_in": "Marketplace"
+     "listed_in": "Marketplace",
+     "owner16": "Marketplace",
+     "other_face": [
+      "Catalog rules (/admin/market/catalog) (Market 360\u00b0)"
+     ]
     },
     {
      "name": "Market 360\u00b0 zip 7, Phase D and E: bundles, tax-exempt buyers, legal identity fields, support line, storefront themes, local deals digest, email campaigns",
@@ -2135,7 +2464,9 @@
      "alternative": "Business tools",
      "cross_links": "Directory",
      "option_b": "Business tools",
-     "listed_in": "Marketplace"
+     "listed_in": "Marketplace",
+     "owner16": "Marketplace",
+     "other_face": []
     },
     {
      "name": "Owner ID check (Stripe Identity)",
@@ -2151,7 +2482,9 @@
      "alternative": "Business tools",
      "cross_links": "\u2014",
      "option_b": "Business tools",
-     "listed_in": "Marketplace"
+     "listed_in": "Marketplace",
+     "owner16": "Marketplace",
+     "other_face": []
     },
     {
      "name": "State-record checks (AZCC, Arizona TPT, NM SoS)",
@@ -2167,7 +2500,9 @@
      "alternative": "Knowledge Engine",
      "cross_links": "Knowledge Engine",
      "option_b": "Business tools",
-     "listed_in": "Marketplace"
+     "listed_in": "Marketplace",
+     "owner16": "Marketplace",
+     "other_face": []
     },
     {
      "name": "Legal texts published (terms, privacy, policies), an attorney's pass",
@@ -2183,7 +2518,11 @@
      "alternative": "Marketplace (where 0141 asked for it)",
      "cross_links": "Marketplace",
      "option_b": "Platform",
-     "listed_in": "Marketplace"
+     "listed_in": "Marketplace",
+     "owner16": "Question (no gauge yet)",
+     "other_face": [
+      "Content templates (/admin/config/content) (System Configuration)"
+     ]
     },
     {
      "name": "Catalog rules: pricing rules for businesses' catalogs",
@@ -2199,7 +2538,9 @@
      "alternative": "Business tools",
      "cross_links": "\u2014",
      "option_b": "Business tools",
-     "listed_in": "Marketplace"
+     "listed_in": "Marketplace",
+     "owner16": "replaced by market/catalog",
+     "other_face": []
     },
     {
      "name": "Admin \u2192 Market: items, rules, business items, offers, storefronts, gateways, compliance, domains, GO Codes, our pages, form entries",
@@ -2217,7 +2558,9 @@
      "alternative": "Platform (the admin)",
      "cross_links": "Platform",
      "option_b": "Marketplace",
-     "listed_in": "Marketplace"
+     "listed_in": "Marketplace",
+     "owner16": "replaced by market/items",
+     "other_face": []
     },
     {
      "name": "Storefronts on trvgo.us/<shop> (0139 step 5a)",
@@ -2235,7 +2578,11 @@
      "alternative": "Business tools",
      "cross_links": "\u2014",
      "option_b": "Business tools",
-     "listed_in": "Marketplace"
+     "listed_in": "Marketplace",
+     "owner16": "TRVGO \u2013 Storefront",
+     "other_face": [
+      "Storefronts (/admin/market/storefronts) (Market 360\u00b0)"
+     ]
     },
     {
      "name": "Connect your domain, bought or brought (0139 step 5b), through the Fly.io edge",
@@ -2253,7 +2600,11 @@
      "alternative": "Business tools",
      "cross_links": "\u2014",
      "option_b": "Business tools",
-     "listed_in": "Marketplace"
+     "listed_in": "Marketplace",
+     "owner16": "TRVGO \u2013 Storefront",
+     "other_face": [
+      "Custom domains (/admin/market/domains) (Market 360\u00b0)"
+     ]
     },
     {
      "name": "Storefront Studio 5a: a business's pages as blocks",
@@ -2271,7 +2622,11 @@
      "alternative": "Business tools",
      "cross_links": "\u2014",
      "option_b": "Business tools",
-     "listed_in": "Marketplace"
+     "listed_in": "Marketplace",
+     "owner16": "TRVGO \u2013 Storefront",
+     "other_face": [
+      "Storefronts (/admin/market/storefronts) (Market 360\u00b0)"
+     ]
     },
     {
      "name": "Storefront Studio 5b: the four themes",
@@ -2289,7 +2644,9 @@
      "alternative": "Business tools",
      "cross_links": "\u2014",
      "option_b": "Business tools",
-     "listed_in": "Marketplace"
+     "listed_in": "Marketplace",
+     "owner16": "TRVGO \u2013 Storefront",
+     "other_face": []
     },
     {
      "name": "Storefront Studio 5c commerce blocks, 5d the studio bar",
@@ -2305,7 +2662,9 @@
      "alternative": "Business tools",
      "cross_links": "\u2014",
      "option_b": "Business tools",
-     "listed_in": "Marketplace"
+     "listed_in": "Marketplace",
+     "owner16": "TRVGO \u2013 Storefront",
+     "other_face": []
     },
     {
      "name": "Builder step 6: AI writing, by plan",
@@ -2321,7 +2680,9 @@
      "alternative": "Platform (it writes our pages too)",
      "cross_links": "Platform",
      "option_b": "Business tools",
-     "listed_in": "Marketplace"
+     "listed_in": "Marketplace",
+     "owner16": "TRVGO \u2013 Storefront",
+     "other_face": []
     },
     {
      "name": "The Traversence Shop: plans, packs, GO Codes, one cart (0154)",
@@ -2339,7 +2700,9 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Marketplace",
-     "listed_in": "Marketplace"
+     "listed_in": "Marketplace",
+     "owner16": "Marketplace",
+     "other_face": []
     },
     {
      "name": "Plans and prices",
@@ -2357,7 +2720,11 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Marketplace",
-     "listed_in": "Marketplace"
+     "listed_in": "Marketplace",
+     "owner16": "Marketplace",
+     "other_face": [
+      "Plans & subscriptions (/admin/backoffice/plans) (Back-Office)"
+     ]
     },
     {
      "name": "A promotion's page",
@@ -2375,7 +2742,11 @@
      "alternative": "Marketplace",
      "cross_links": "Marketplace",
      "option_b": "Platform",
-     "listed_in": "Marketplace"
+     "listed_in": "Marketplace",
+     "owner16": "Marketplace",
+     "other_face": [
+      "Promotions (/admin/growth/promotions) (Sales & Growth)"
+     ]
     },
     {
      "name": "GO Codes and QR codes (0094\u20130096)",
@@ -2393,7 +2764,11 @@
      "alternative": "Platform (trvgo.us short links serve every section)",
      "cross_links": "Platform",
      "option_b": "Marketplace",
-     "listed_in": "Marketplace"
+     "listed_in": "Marketplace",
+     "owner16": "Marketplace",
+     "other_face": [
+      "GO Codes & short links (/admin/market/codes) (Market 360\u00b0)"
+     ]
     },
     {
      "name": "Buying GO Codes",
@@ -2411,7 +2786,9 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Marketplace",
-     "listed_in": "Marketplace"
+     "listed_in": "Marketplace",
+     "owner16": "Marketplace",
+     "other_face": []
     },
     {
      "name": "Managing your GO Codes",
@@ -2429,7 +2806,11 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Marketplace",
-     "listed_in": "Marketplace"
+     "listed_in": "Marketplace",
+     "owner16": "Marketplace",
+     "other_face": [
+      "GO Codes & short links (/admin/market/codes) (Market 360\u00b0)"
+     ]
     },
     {
      "name": "Shop \u2192 Domains: search, price, add to cart (0169 \u00a71a)",
@@ -2447,7 +2828,9 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Marketplace",
-     "listed_in": "Marketplace"
+     "listed_in": "Marketplace",
+     "owner16": "TRVGO \u2013 Storefront",
+     "other_face": []
     },
     {
      "name": "Your domains and your wallet (0169 \u00a71a, 0166 \u00a76a)",
@@ -2465,7 +2848,9 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Marketplace",
-     "listed_in": "Marketplace"
+     "listed_in": "Marketplace",
+     "owner16": "TRVGO \u2013 Storefront",
+     "other_face": []
     },
     {
      "name": "Domain sales switched on (Domain sales setting)",
@@ -2481,7 +2866,9 @@
      "alternative": "\u2014",
      "cross_links": "\u2014",
      "option_b": "Marketplace",
-     "listed_in": "Marketplace"
+     "listed_in": "Marketplace",
+     "owner16": "TRVGO \u2013 Storefront",
+     "other_face": []
     },
     {
      "name": "The Shop's App store and one lifecycle for every app (0169 \u00a71\u2013\u00a76)",
@@ -2497,7 +2884,9 @@
      "alternative": "Business tools (most apps are a business's)",
      "cross_links": "\u2014",
      "option_b": "Business tools",
-     "listed_in": "Marketplace"
+     "listed_in": "Marketplace",
+     "owner16": "Marketplace",
+     "other_face": []
     },
     {
      "name": "First apps: QuickBooks Bookkeeper, QuickBooks Payments, Stripe Payments, Facebook Personal, Facebook Business, Storefront (0169 build order 2)",
@@ -2513,7 +2902,9 @@
      "alternative": "Business tools",
      "cross_links": "\u2014",
      "option_b": "Business tools",
-     "listed_in": "Marketplace"
+     "listed_in": "Marketplace",
+     "owner16": "Marketplace",
+     "other_face": []
     },
     {
      "name": "Provider-neutral payments and our own ledger (0166 steps 1\u20133)",
@@ -2529,7 +2920,9 @@
      "alternative": "Platform (our ledger)",
      "cross_links": "Platform",
      "option_b": "Business tools",
-     "listed_in": "Marketplace"
+     "listed_in": "Marketplace",
+     "owner16": "Marketplace",
+     "other_face": []
     },
     {
      "name": "Add-ons and 1Password resold (0155)",
@@ -2545,7 +2938,9 @@
      "alternative": "Platform",
      "cross_links": "\u2014",
      "option_b": "Marketplace",
-     "listed_in": "Marketplace"
+     "listed_in": "Marketplace",
+     "owner16": "Marketplace",
+     "other_face": []
     },
     {
      "name": "Checkout and storefronts on the design tokens (Release 3e)",
@@ -2561,7 +2956,9 @@
      "alternative": "Platform (design)",
      "cross_links": "Platform",
      "option_b": "Marketplace",
-     "listed_in": "Marketplace"
+     "listed_in": "Marketplace",
+     "owner16": "Marketplace",
+     "other_face": []
     }
    ]
   },
@@ -2607,7 +3004,9 @@
      "alternative": "Discovery (its search and doors lead there first)",
      "cross_links": "all four",
      "option_b": "Platform",
-     "listed_in": "Platform"
+     "listed_in": "Platform",
+     "owner16": "Question (no gauge yet)",
+     "other_face": []
     },
     {
      "name": "Sign in; create an account (18+, consent)",
@@ -2625,7 +3024,9 @@
      "alternative": "none",
      "cross_links": "\u2014",
      "option_b": "Platform",
-     "listed_in": "Platform"
+     "listed_in": "Platform",
+     "owner16": "Accounts",
+     "other_face": []
     },
     {
      "name": "Sign in, including the human check; sign out",
@@ -2643,7 +3044,9 @@
      "alternative": "none",
      "cross_links": "\u2014",
      "option_b": "Platform",
-     "listed_in": "Platform"
+     "listed_in": "Platform",
+     "owner16": "Accounts",
+     "other_face": []
     },
     {
      "name": "Sign up (all steps)",
@@ -2661,7 +3064,9 @@
      "alternative": "none",
      "cross_links": "\u2014",
      "option_b": "Platform",
-     "listed_in": "Platform"
+     "listed_in": "Platform",
+     "owner16": "Accounts",
+     "other_face": []
     },
     {
      "name": "Sign in with Google, Apple, Microsoft, Facebook (0085, 0090)",
@@ -2679,7 +3084,9 @@
      "alternative": "none",
      "cross_links": "\u2014",
      "option_b": "Platform",
-     "listed_in": "Platform"
+     "listed_in": "Platform",
+     "owner16": "Accounts",
+     "other_face": []
     },
     {
      "name": "Two-step sign-in for staff; captcha (0097)",
@@ -2697,7 +3104,9 @@
      "alternative": "none",
      "cross_links": "\u2014",
      "option_b": "Platform",
-     "listed_in": "Platform"
+     "listed_in": "Platform",
+     "owner16": "Accounts",
+     "other_face": []
     },
     {
      "name": "Delete my account; restore (0091)",
@@ -2715,7 +3124,9 @@
      "alternative": "none",
      "cross_links": "\u2014",
      "option_b": "Platform",
-     "listed_in": "Platform"
+     "listed_in": "Platform",
+     "owner16": "Accounts",
+     "other_face": []
     },
     {
      "name": "Data access requests, the export (DSAR, 0026)",
@@ -2731,7 +3142,9 @@
      "alternative": "none",
      "cross_links": "\u2014",
      "option_b": "Platform",
-     "listed_in": "Platform"
+     "listed_in": "Platform",
+     "owner16": "Accounts",
+     "other_face": []
     },
     {
      "name": "DMCA notices and counter-notices (0019)",
@@ -2747,7 +3160,11 @@
      "alternative": "Community (posts are most takedowns)",
      "cross_links": "Community",
      "option_b": "Platform",
-     "listed_in": "Platform"
+     "listed_in": "Platform",
+     "owner16": "Question (no gauge yet)",
+     "other_face": [
+      "DMCA queue (/admin/backoffice/dmca) (Back-Office)"
+     ]
     },
     {
      "name": "The FAQ (0057)",
@@ -2765,7 +3182,9 @@
      "alternative": "none",
      "cross_links": "\u2014",
      "option_b": "Platform",
-     "listed_in": "Platform"
+     "listed_in": "Platform",
+     "owner16": "Question (no gauge yet)",
+     "other_face": []
     },
     {
      "name": "Ask Traversence (AI page)",
@@ -2783,7 +3202,9 @@
      "alternative": "Discovery",
      "cross_links": "Discovery",
      "option_b": "Platform",
-     "listed_in": "Platform"
+     "listed_in": "Platform",
+     "owner16": "Question (no gauge yet)",
+     "other_face": []
     },
     {
      "name": "Universal search, in place (0053, 0061, 0063, 0067)",
@@ -2801,7 +3222,11 @@
      "alternative": "Directory (most searches are for businesses)",
      "cross_links": "Discovery, Directory",
      "option_b": "Platform",
-     "listed_in": "Platform"
+     "listed_in": "Platform",
+     "owner16": "Question (no gauge yet)",
+     "other_face": [
+      "Search workbench (/admin/insights/search) (Insights & Research)"
+     ]
     },
     {
      "name": "The Vault (0156)",
@@ -2819,7 +3244,9 @@
      "alternative": "none",
      "cross_links": "\u2014",
      "option_b": "Platform",
-     "listed_in": "Platform"
+     "listed_in": "Platform",
+     "owner16": "replaced by config/vault",
+     "other_face": []
     },
     {
      "name": "The admin engine: 10 modules, manifests, widgets, workflows (0109)",
@@ -2837,7 +3264,9 @@
      "alternative": "none",
      "cross_links": "\u2014",
      "option_b": "Platform",
-     "listed_in": "Platform"
+     "listed_in": "Platform",
+     "owner16": "Question (no gauge yet)",
+     "other_face": []
     },
     {
      "name": "The admin's Pulse and Support inbox (0172, 0176)",
@@ -2855,7 +3284,9 @@
      "alternative": "none",
      "cross_links": "\u2014",
      "option_b": "Platform",
-     "listed_in": "Platform"
+     "listed_in": "Platform",
+     "owner16": "replaced by dashboard/stream",
+     "other_face": []
     },
     {
      "name": "The System Control Board (0171, 0175, 0176)",
@@ -2873,7 +3304,9 @@
      "alternative": "a runtime board, not a build gauge",
      "cross_links": "\u2014",
      "option_b": "Platform",
-     "listed_in": "Platform"
+     "listed_in": "Platform",
+     "owner16": "replaced by config/control",
+     "other_face": []
     },
     {
      "name": "Staging in safe mode, releases through git (0145, 0159 steps 1\u20132, 0165)",
@@ -2891,7 +3324,9 @@
      "alternative": "none",
      "cross_links": "\u2014",
      "option_b": "Platform",
-     "listed_in": "Platform"
+     "listed_in": "Platform",
+     "owner16": "replaced by config/staging, config/releases",
+     "other_face": []
     },
     {
      "name": "The page builder for our own pages (0159 steps 3\u20134)",
@@ -2909,7 +3344,9 @@
      "alternative": "Marketplace",
      "cross_links": "Marketplace",
      "option_b": "Platform",
-     "listed_in": "Platform"
+     "listed_in": "Platform",
+     "owner16": "replaced by market/pages",
+     "other_face": []
     },
     {
      "name": "One uploader; files on S3 and Cloudflare R2 (0122\u20130127, 0151)",
@@ -2927,7 +3364,11 @@
      "alternative": "none",
      "cross_links": "\u2014",
      "option_b": "Platform",
-     "listed_in": "Platform"
+     "listed_in": "Platform",
+     "owner16": "System Configuration",
+     "other_face": [
+      "Storage & backups (/admin/config/storage) (System Configuration)"
+     ]
     },
     {
      "name": "The video worker (0153 \u00a78)",
@@ -2945,7 +3386,11 @@
      "alternative": "Community",
      "cross_links": "Community",
      "option_b": "Platform",
-     "listed_in": "Platform"
+     "listed_in": "Platform",
+     "owner16": "System Configuration",
+     "other_face": [
+      "Modules (Service register) (/admin/config/register) (System Configuration)"
+     ]
     },
     {
      "name": "Back-office: our orders, products, vendors, work orders, QuickBooks (0098\u20130101, 0106, 0128, 0150)",
@@ -2963,7 +3408,9 @@
      "alternative": "Marketplace (\"orders, payments\")",
      "cross_links": "Marketplace",
      "option_b": "Platform",
-     "listed_in": "Platform"
+     "listed_in": "Platform",
+     "owner16": "replaced by backoffice/orders",
+     "other_face": []
     },
     {
      "name": "The order system's improvements (the first release carries the chargeFor fix)",
@@ -2979,7 +3426,11 @@
      "alternative": "Marketplace",
      "cross_links": "Marketplace",
      "option_b": "Platform",
-     "listed_in": "Platform"
+     "listed_in": "Platform",
+     "owner16": "Back-Office",
+     "other_face": [
+      "Orders (/admin/backoffice/orders) (Back-Office)"
+     ]
     },
     {
      "name": "Growth: calls, prospects, customers, scan cards, promotions, territories, funnel (0081, 0108)",
@@ -2997,7 +3448,9 @@
      "alternative": "Directory (prospects are listings)",
      "cross_links": "Directory",
      "option_b": "Platform",
-     "listed_in": "Platform"
+     "listed_in": "Platform",
+     "owner16": "replaced by growth/calls",
+     "other_face": []
     },
     {
      "name": "Quotes & deals; Concierge (White Glove clients, engagements, service catalog, asset studio)",
@@ -3013,7 +3466,9 @@
      "alternative": "none",
      "cross_links": "\u2014",
      "option_b": "Platform",
-     "listed_in": "Platform"
+     "listed_in": "Platform",
+     "owner16": "replaced by growth/quotes, concierge/clients",
+     "other_face": []
     },
     {
      "name": "Fulfillment; Inventory & COGS; Consent hub; Verification vault",
@@ -3029,7 +3484,9 @@
      "alternative": "Directory (the verification vault)",
      "cross_links": "Directory",
      "option_b": "Platform",
-     "listed_in": "Platform"
+     "listed_in": "Platform",
+     "owner16": "replaced by backoffice/fulfillment, backoffice/inventory, backoffice/consent, backoffice/vault",
+     "other_face": []
     },
     {
      "name": "Templates; Branding & SEO; Storage & backups",
@@ -3045,7 +3502,9 @@
      "alternative": "none",
      "cross_links": "\u2014",
      "option_b": "Platform",
-     "listed_in": "Platform"
+     "listed_in": "Platform",
+     "owner16": "replaced by config/templates, config/branding, config/storage",
+     "other_face": []
     },
     {
      "name": "Text messages (Twilio)",
@@ -3061,7 +3520,9 @@
      "alternative": "none",
      "cross_links": "\u2014",
      "option_b": "Platform",
-     "listed_in": "Platform"
+     "listed_in": "Platform",
+     "owner16": "replaced by config/notify",
+     "other_face": []
     },
     {
      "name": "5 W's lexicon; Emergency resources",
@@ -3077,7 +3538,9 @@
      "alternative": "Discovery (Emergency resources is a map of places)",
      "cross_links": "Discovery",
      "option_b": "Platform",
-     "listed_in": "Platform"
+     "listed_in": "Platform",
+     "owner16": "replaced by insights/fivew, insights/emergency",
+     "other_face": []
     },
     {
      "name": "Terms and privacy pages",
@@ -3095,7 +3558,9 @@
      "alternative": "Marketplace",
      "cross_links": "Marketplace",
      "option_b": "Platform",
-     "listed_in": "Platform"
+     "listed_in": "Platform",
+     "owner16": "Question (no gauge yet)",
+     "other_face": []
     }
    ]
   },
@@ -3133,7 +3598,12 @@
      "alternative": "Platform",
      "cross_links": "Platform (its index)",
      "option_b": "Knowledge Engine",
-     "listed_in": "Knowledge Engine"
+     "listed_in": "Knowledge Engine",
+     "owner16": "System Configuration",
+     "other_face": [
+      "The index (W0) (/admin/insights/index) (Insights & Research)",
+      "Workflows (/admin/config/workflows) (System Configuration)"
+     ]
     },
     {
      "name": "W1 Listings",
@@ -3151,7 +3621,12 @@
      "alternative": "Platform",
      "cross_links": "Directory (listings)",
      "option_b": "Knowledge Engine",
-     "listed_in": "Knowledge Engine"
+     "listed_in": "Knowledge Engine",
+     "owner16": "System Configuration",
+     "other_face": [
+      "Crawler (/admin/insights/crawler) (Insights & Research)",
+      "Workflows (/admin/config/workflows) (System Configuration)"
+     ]
     },
     {
      "name": "W2 Keeping listings current",
@@ -3169,7 +3644,12 @@
      "alternative": "Platform",
      "cross_links": "Directory (listings)",
      "option_b": "Knowledge Engine",
-     "listed_in": "Knowledge Engine"
+     "listed_in": "Knowledge Engine",
+     "owner16": "System Configuration",
+     "other_face": [
+      "Crawler (/admin/insights/crawler) (Insights & Research)",
+      "Workflows (/admin/config/workflows) (System Configuration)"
+     ]
     },
     {
      "name": "W3 Sources and the place store",
@@ -3187,7 +3667,13 @@
      "alternative": "Platform",
      "cross_links": "Discovery (what it makes)",
      "option_b": "Knowledge Engine",
-     "listed_in": "Knowledge Engine"
+     "listed_in": "Knowledge Engine",
+     "owner16": "System Configuration",
+     "other_face": [
+      "Crawler (/admin/insights/crawler) (Insights & Research)",
+      "Sources (/admin/insights/sources) (Insights & Research)",
+      "Workflows (/admin/config/workflows) (System Configuration)"
+     ]
     },
     {
      "name": "W4 Place guides",
@@ -3205,7 +3691,12 @@
      "alternative": "Platform",
      "cross_links": "Discovery (what it makes)",
      "option_b": "Knowledge Engine",
-     "listed_in": "Knowledge Engine"
+     "listed_in": "Knowledge Engine",
+     "owner16": "System Configuration",
+     "other_face": [
+      "Crawler (/admin/insights/crawler) (Insights & Research)",
+      "Workflows (/admin/config/workflows) (System Configuration)"
+     ]
     },
     {
      "name": "W5 Guides on demand",
@@ -3223,7 +3714,12 @@
      "alternative": "Platform",
      "cross_links": "Discovery (what it makes)",
      "option_b": "Knowledge Engine",
-     "listed_in": "Knowledge Engine"
+     "listed_in": "Knowledge Engine",
+     "owner16": "System Configuration",
+     "other_face": [
+      "Crawler (/admin/insights/crawler) (Insights & Research)",
+      "Workflows (/admin/config/workflows) (System Configuration)"
+     ]
     },
     {
      "name": "W6 Heritage and topics",
@@ -3241,7 +3737,13 @@
      "alternative": "Platform",
      "cross_links": "Discovery (what it makes)",
      "option_b": "Knowledge Engine",
-     "listed_in": "Knowledge Engine"
+     "listed_in": "Knowledge Engine",
+     "owner16": "System Configuration",
+     "other_face": [
+      "Crawler (/admin/insights/crawler) (Insights & Research)",
+      "Topic index (/admin/insights/topics) (Insights & Research)",
+      "Workflows (/admin/config/workflows) (System Configuration)"
+     ]
     },
     {
      "name": "W7 Suggested journeys",
@@ -3259,7 +3761,12 @@
      "alternative": "Platform",
      "cross_links": "Discovery (what it makes)",
      "option_b": "Knowledge Engine",
-     "listed_in": "Knowledge Engine"
+     "listed_in": "Knowledge Engine",
+     "owner16": "System Configuration",
+     "other_face": [
+      "Crawler (/admin/insights/crawler) (Insights & Research)",
+      "Workflows (/admin/config/workflows) (System Configuration)"
+     ]
     },
     {
      "name": "W8 Find it",
@@ -3277,7 +3784,12 @@
      "alternative": "Platform",
      "cross_links": "Discovery (what it makes)",
      "option_b": "Knowledge Engine",
-     "listed_in": "Knowledge Engine"
+     "listed_in": "Knowledge Engine",
+     "owner16": "System Configuration",
+     "other_face": [
+      "Crawler (/admin/insights/crawler) (Insights & Research)",
+      "Workflows (/admin/config/workflows) (System Configuration)"
+     ]
     },
     {
      "name": "W9 Landmarks and places on demand",
@@ -3295,7 +3807,12 @@
      "alternative": "Platform",
      "cross_links": "Discovery (what it makes)",
      "option_b": "Knowledge Engine",
-     "listed_in": "Knowledge Engine"
+     "listed_in": "Knowledge Engine",
+     "owner16": "System Configuration",
+     "other_face": [
+      "Crawler (/admin/insights/crawler) (Insights & Research)",
+      "Workflows (/admin/config/workflows) (System Configuration)"
+     ]
     },
     {
      "name": "W10 Live events",
@@ -3313,7 +3830,12 @@
      "alternative": "Platform",
      "cross_links": "Discovery (what it makes)",
      "option_b": "Knowledge Engine",
-     "listed_in": "Knowledge Engine"
+     "listed_in": "Knowledge Engine",
+     "owner16": "System Configuration",
+     "other_face": [
+      "Crawler (/admin/insights/crawler) (Insights & Research)",
+      "Workflows (/admin/config/workflows) (System Configuration)"
+     ]
     },
     {
      "name": "W11 How-to guides",
@@ -3331,7 +3853,12 @@
      "alternative": "Platform",
      "cross_links": "Discovery (what it makes)",
      "option_b": "Knowledge Engine",
-     "listed_in": "Knowledge Engine"
+     "listed_in": "Knowledge Engine",
+     "owner16": "System Configuration",
+     "other_face": [
+      "Crawler (/admin/insights/crawler) (Insights & Research)",
+      "Workflows (/admin/config/workflows) (System Configuration)"
+     ]
     },
     {
      "name": "W12 Search learning",
@@ -3349,7 +3876,12 @@
      "alternative": "Platform",
      "cross_links": "Platform (its index)",
      "option_b": "Knowledge Engine",
-     "listed_in": "Knowledge Engine"
+     "listed_in": "Knowledge Engine",
+     "owner16": "System Configuration",
+     "other_face": [
+      "Crawler (/admin/insights/crawler) (Insights & Research)",
+      "Workflows (/admin/config/workflows) (System Configuration)"
+     ]
     },
     {
      "name": "W13 Stories",
@@ -3367,7 +3899,12 @@
      "alternative": "Platform",
      "cross_links": "Discovery (what it makes)",
      "option_b": "Knowledge Engine",
-     "listed_in": "Knowledge Engine"
+     "listed_in": "Knowledge Engine",
+     "owner16": "System Configuration",
+     "other_face": [
+      "Crawler (/admin/insights/crawler) (Insights & Research)",
+      "Workflows (/admin/config/workflows) (System Configuration)"
+     ]
     },
     {
      "name": "W14 Authority sources",
@@ -3385,7 +3922,12 @@
      "alternative": "Platform",
      "cross_links": "Discovery (what it makes)",
      "option_b": "Knowledge Engine",
-     "listed_in": "Knowledge Engine"
+     "listed_in": "Knowledge Engine",
+     "owner16": "System Configuration",
+     "other_face": [
+      "Crawler (/admin/insights/crawler) (Insights & Research)",
+      "Workflows (/admin/config/workflows) (System Configuration)"
+     ]
     }
    ]
   }
@@ -3591,6 +4133,2236 @@
    "name": "Sign-in works end to end",
    "today": "two paths (sign in, sign out) in one reading",
    "one_measure": "acceptable as one pass/fail of the whole path; or one measure: steps passed out of steps"
+  }
+ ],
+ "manifest_items": [
+  {
+   "name": "Today (/admin/dashboard/today)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):18 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "dashboard/today",
+   "owner16": "Dashboard & Pulse",
+   "other_face": [],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Pulse stream (/admin/dashboard/stream)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):20 ($W)",
+   "owner": "",
+   "note": "Also Pulse \u2192 Stream (Workspaces::MERGED, the same section)",
+   "outline": false,
+   "manifest": "dashboard/stream",
+   "owner16": "Dashboard & Pulse",
+   "other_face": [
+    "The member's Pulse: needs as rows, notices (Dashboard & Pulse)"
+   ],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Quick actions (/admin/dashboard/quick)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):21 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "dashboard/quick",
+   "owner16": "Dashboard & Pulse",
+   "other_face": [],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Helper (/admin/dashboard/helper)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):22 ($B)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "dashboard/helper",
+   "owner16": "Dashboard & Pulse",
+   "other_face": [],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Support inbox (/admin/dashboard/mail)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):23 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "dashboard/mail",
+   "owner16": "Dashboard & Pulse",
+   "other_face": [],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "My inbox (/admin/dashboard/inbox)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):24 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "dashboard/inbox",
+   "owner16": "Dashboard & Pulse",
+   "other_face": [],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Your communications (/admin/dashboard/comms)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):25 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "dashboard/comms",
+   "owner16": "Dashboard & Pulse",
+   "other_face": [],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Stream settings (/admin/dashboard/streamset)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):26 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "dashboard/streamset",
+   "owner16": "Dashboard & Pulse",
+   "other_face": [],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Listings (/admin/local/listings)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):36 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "local/listings",
+   "owner16": "Get Local 360\u00b0",
+   "other_face": [
+    "A business's page (hero, engage bar, comments, Link) (Directory)"
+   ],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Find, merge & bulk edit (/admin/local/bulk)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):37 ($B)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "local/bulk",
+   "owner16": "Get Local 360\u00b0",
+   "other_face": [],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Intake from a website (/admin/local/intake)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):38 ($B)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "local/intake",
+   "owner16": "Get Local 360\u00b0",
+   "other_face": [],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Review (/admin/local/review)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):39 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "local/review",
+   "owner16": "Get Local 360\u00b0",
+   "other_face": [
+    "Adding a business: live in minutes, verified with one tap (0071) (Directory)"
+   ],
+   "status": "live",
+   "check": "not passing",
+   "check_by": "the rendered check at 1280 and 390: Less than optimal: sideways scroll"
+  },
+  {
+   "name": "Claims (/admin/local/claims)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):40 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "local/claims",
+   "owner16": "Get Local 360\u00b0",
+   "other_face": [
+    "Claim a listing (email or text code, who might claim, the form that fits) (Directory)",
+    "Verify a listing from its link (Directory)"
+   ],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Nexus (/admin/local/nexus)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):41 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "local/nexus",
+   "owner16": "Get Local 360\u00b0",
+   "other_face": [
+    "The Nexus: organizations with many locations (0054) (Directory)"
+   ],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Identities (/admin/local/identities)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):42 ($B)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "local/identities",
+   "owner16": "Get Local 360\u00b0",
+   "other_face": [
+    "The duplicates fix: one identity check, the recheck, Vet this place (System Configuration)"
+   ],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Landmarks (/admin/local/places)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):43 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "local/places",
+   "owner16": "Get Local 360\u00b0",
+   "other_face": [
+    "Natural landmark page (USGS names) (Discovery)"
+   ],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Recreation sites (/admin/local/recreation)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):44 ($B)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "local/recreation",
+   "owner16": "Get Local 360\u00b0",
+   "other_face": [
+    "Public recreation place page (Recreation.gov) (Discovery)"
+   ],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Map pins (/admin/local/pins)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):45 ($B)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "local/pins",
+   "owner16": "Get Local 360\u00b0",
+   "other_face": [
+    "Where a listing is: move the pin, I'm here (Directory)"
+   ],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Nations (/admin/local/nations)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):46 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "local/nations",
+   "owner16": "Get Local 360\u00b0",
+   "other_face": [],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Hidden places (/admin/local/hidden)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):47 ($B)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "local/hidden",
+   "owner16": "Get Local 360\u00b0",
+   "other_face": [
+    "An owner opens their own hidden listing's editor (case #22) (Directory)"
+   ],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Categories (/admin/local/categories)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):48 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "local/categories",
+   "owner16": "Get Local 360\u00b0",
+   "other_face": [
+    "Directory search, categories, \"near me\" with miles (0044, 0053, 0060 A\u2013B, 0068) (Directory)"
+   ],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Taxonomy & clusters (/admin/local/taxonomy)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):49 ($B, partial)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "local/taxonomy",
+   "owner16": "Get Local 360\u00b0",
+   "other_face": [
+    "Hub, geo-hub and cluster landing page (Discovery)",
+    "The area data: micro-clusters misnamed under Ancient Borderlands (Discovery)"
+   ],
+   "status": "live",
+   "check": "not passing",
+   "check_by": "manifests.php marks it partial"
+  },
+  {
+   "name": "Single Home Rule (/admin/local/homes)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):50 ($C)",
+   "owner": "",
+   "note": "Coming: The rule to be defined (Jason).",
+   "outline": false,
+   "manifest": "local/homes",
+   "owner16": "Get Local 360\u00b0",
+   "other_face": [],
+   "status": "proposed"
+  },
+  {
+   "name": "Journeys (/admin/explore/journeys)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):54 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "explore/journeys",
+   "owner16": "Let's Explore 360\u00b0",
+   "other_face": [
+    "One journey (0056) (Discovery)",
+    "Your journeys: write or edit (contributors) (Discovery)",
+    "Suggested journeys built from a guide's places (0146) (Discovery)"
+   ],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Experiences (/admin/explore/experiences)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):55 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "explore/experiences",
+   "owner16": "Let's Explore 360\u00b0",
+   "other_face": [
+    "One experience (0059) (Discovery)",
+    "Your experiences (Discovery)"
+   ],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Stories (/admin/explore/stories)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):56 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "explore/stories",
+   "owner16": "Let's Explore 360\u00b0",
+   "other_face": [
+    "The place page: photo corner, what's in the photo, the numbers, \u22ef toolkit, Plan a trip here (Discovery)"
+   ],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Guides (/admin/explore/place_guides)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):57 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "explore/place_guides",
+   "owner16": "Let's Explore 360\u00b0",
+   "other_face": [
+    "Place guides at every level of the funnel (0043, 0131) (Discovery)",
+    "A guide built while you wait for a searched place (0147) (Discovery)"
+   ],
+   "status": "live",
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: not checked yet"
+  },
+  {
+   "name": "Live events (/admin/explore/events)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):59 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "explore/events",
+   "owner16": "Let's Explore 360\u00b0",
+   "other_face": [
+    "Live events from the crawler in guides and on venue listings (0133) (Discovery)"
+   ],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Who to call (/admin/explore/guides)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):60 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "explore/guides",
+   "owner16": "Let's Explore 360\u00b0",
+   "other_face": [
+    "Resource guides: who to call in an area (0061) (Discovery)"
+   ],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "How-to guides (/admin/explore/howto)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):61 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "explore/howto",
+   "owner16": "Let's Explore 360\u00b0",
+   "other_face": [
+    "How-to guides from official pages (0063) (Discovery)"
+   ],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Waypoints & routes (/admin/explore/routes)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):62 ($C)",
+   "owner": "",
+   "note": "Coming: A later wave.",
+   "outline": false,
+   "manifest": "explore/routes",
+   "owner16": "Let's Explore 360\u00b0",
+   "other_face": [
+    "Trips R5: routes on our own site (openrouteservice) (Discovery)"
+   ],
+   "status": "decided"
+  },
+  {
+   "name": "Items (/admin/market/items)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):68 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "market/items",
+   "owner16": "Market 360\u00b0",
+   "other_face": [
+    "One Marketplace post (Marketplace)",
+    "One Marketplace item (Marketplace)",
+    "Your Marketplace posts (Marketplace)"
+   ],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Marketplace rules (/admin/market/rules)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):69 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "market/rules",
+   "owner16": "Market 360\u00b0",
+   "other_face": [
+    "The Marketplace rules (Marketplace)"
+   ],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Business items (/admin/market/bizitems)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):70 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "market/bizitems",
+   "owner16": "Market 360\u00b0",
+   "other_face": [
+    "Businesses' items (0135 step 3) (Marketplace)"
+   ],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Offers & disputes (/admin/market/exchange)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):71 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "market/exchange",
+   "owner16": "Market 360\u00b0",
+   "other_face": [
+    "Post on the Marketplace; offers, Sold / Got it (0135 steps 1\u20132) (Marketplace)"
+   ],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Storefronts (/admin/market/storefronts)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):72 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "market/storefronts",
+   "owner16": "Market 360\u00b0",
+   "other_face": [
+    "Storefronts on trvgo.us/<shop> (0139 step 5a) (TRVGO \u2013 Storefront)",
+    "Storefront Studio 5a: a business's pages as blocks (TRVGO \u2013 Storefront)"
+   ],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Catalog rules (/admin/market/catalog)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):73 ($C)",
+   "owner": "",
+   "note": "Coming: A later step.",
+   "outline": false,
+   "manifest": "market/catalog",
+   "owner16": "Market 360\u00b0",
+   "other_face": [
+    "Market 360\u00b0 catalog: photos, publishing, deleting; the acting-as bar; the account bar (Marketplace)"
+   ],
+   "status": "decided"
+  },
+  {
+   "name": "Gateways (/admin/market/gateways)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):74 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "market/gateways",
+   "owner16": "Market 360\u00b0",
+   "other_face": [
+    "Checkout through the business's own gateway (0135 step 4a) (Marketplace)"
+   ],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Seller compliance (/admin/market/compliance)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):75 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "market/compliance",
+   "owner16": "Market 360\u00b0",
+   "other_face": [
+    "Market 360\u00b0 Phase B: acceptance log, store policies, seller agreement, rulebook, chargeback packet (zips 2\u20133) (Marketplace)"
+   ],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Custom domains (/admin/market/domains)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):76 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "market/domains",
+   "owner16": "Market 360\u00b0",
+   "other_face": [
+    "Connect your domain, bought or brought (0139 step 5b), through the Fly.io edge (TRVGO \u2013 Storefront)"
+   ],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "GO Codes & short links (/admin/market/codes)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):77 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "market/codes",
+   "owner16": "Market 360\u00b0",
+   "other_face": [
+    "GO Codes and QR codes (0094\u20130096) (Marketplace)",
+    "Managing your GO Codes (Marketplace)"
+   ],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Our pages (/admin/market/pages)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):78 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "market/pages",
+   "owner16": "Market 360\u00b0",
+   "other_face": [],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Form entries (/admin/market/leads)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):79 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "market/leads",
+   "owner16": "Market 360\u00b0",
+   "other_face": [],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Reports (/admin/social/reports)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):83 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "social/reports",
+   "owner16": "Social 360\u00b0",
+   "other_face": [
+    "Charters, business-owned groups, moderation run by the group, notices sent once (0137 steps 1\u20135) (Community)"
+   ],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Standing (/admin/social/standing)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):84 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "social/standing",
+   "owner16": "Social 360\u00b0",
+   "other_face": [],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Takedowns (/admin/social/takedowns)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):85 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "social/takedowns",
+   "owner16": "Social 360\u00b0",
+   "other_face": [],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Galleries (/admin/social/galleries)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):86 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "social/galleries",
+   "owner16": "Social 360\u00b0",
+   "other_face": [
+    "The Gallery: your photos and files (0126) (Accounts)"
+   ],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Procedures (/admin/social/procedures)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):87 ($B)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "social/procedures",
+   "owner16": "Social 360\u00b0",
+   "other_face": [],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Groups (/admin/social/groups)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):88 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "social/groups",
+   "owner16": "Social 360\u00b0",
+   "other_face": [
+    "Community groups: find, join or start one (built to the mockup, adapted) (Community)",
+    "One group as a content page (0137 \u00a74) (Community)"
+   ],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Events (/admin/social/events)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):89 ($C)",
+   "owner": "",
+   "note": "Coming: Its definition (Jason).",
+   "outline": false,
+   "manifest": "social/events",
+   "owner16": "Social 360\u00b0",
+   "other_face": [
+    "Events, one tool for the whole site (0134 steps 1\u20138) (Community)"
+   ],
+   "status": "proposed"
+  },
+  {
+   "name": "Calls today (/admin/growth/calls)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):93 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "growth/calls",
+   "owner16": "Sales & Growth",
+   "other_face": [],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Prospects (/admin/growth/prospects)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):94 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "growth/prospects",
+   "owner16": "Sales & Growth",
+   "other_face": [],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Customers (/admin/growth/customers)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):95 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "growth/customers",
+   "owner16": "Sales & Growth",
+   "other_face": [],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Scan cards (/admin/growth/cards)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):96 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "growth/cards",
+   "owner16": "Sales & Growth",
+   "other_face": [],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Add from the field (/admin/growth/field)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):97 ($B)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "growth/field",
+   "owner16": "Sales & Growth",
+   "other_face": [],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Promotions (/admin/growth/promotions)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):98 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "growth/promotions",
+   "owner16": "Sales & Growth",
+   "other_face": [
+    "A promotion's page (Marketplace)"
+   ],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Territories (/admin/growth/territories)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):99 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "growth/territories",
+   "owner16": "Sales & Growth",
+   "other_face": [],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Funnel (/admin/growth/funnel)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):100 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "growth/funnel",
+   "owner16": "Sales & Growth",
+   "other_face": [],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Quotes & deals (/admin/growth/quotes)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):101 ($C)",
+   "owner": "",
+   "note": "Coming: Its own build, after this one.",
+   "outline": false,
+   "manifest": "growth/quotes",
+   "owner16": "Sales & Growth",
+   "other_face": [],
+   "status": "decided"
+  },
+  {
+   "name": "Clients (/admin/concierge/clients)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):105 ($C)",
+   "owner": "",
+   "note": "Coming: The White Glove build (after this one).",
+   "outline": false,
+   "manifest": "concierge/clients",
+   "owner16": "White Glove Concierge",
+   "other_face": [],
+   "status": "decided"
+  },
+  {
+   "name": "Engagements (/admin/concierge/engagement)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):106 ($C)",
+   "owner": "",
+   "note": "Coming: The White Glove build.",
+   "outline": false,
+   "manifest": "concierge/engagement",
+   "owner16": "White Glove Concierge",
+   "other_face": [],
+   "status": "decided"
+  },
+  {
+   "name": "Service catalog (/admin/concierge/catalog)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):107 ($C)",
+   "owner": "",
+   "note": "Coming: The White Glove build.",
+   "outline": false,
+   "manifest": "concierge/catalog",
+   "owner16": "White Glove Concierge",
+   "other_face": [],
+   "status": "decided"
+  },
+  {
+   "name": "Asset studio (/admin/concierge/studio)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):108 ($C)",
+   "owner": "",
+   "note": "Coming: The studio build.",
+   "outline": false,
+   "manifest": "concierge/studio",
+   "owner16": "White Glove Concierge",
+   "other_face": [],
+   "status": "decided"
+  },
+  {
+   "name": "Imports (/admin/concierge/imports)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):109 ($B, partial)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "concierge/imports",
+   "owner16": "White Glove Concierge",
+   "other_face": [],
+   "status": "live",
+   "check": "not passing",
+   "check_by": "manifests.php marks it partial"
+  },
+  {
+   "name": "Orders (/admin/backoffice/orders)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):113 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "backoffice/orders",
+   "owner16": "Back-Office",
+   "other_face": [
+    "Your orders (Marketplace)",
+    "The order system's improvements (the first release carries the chargeFor fix) (Back-Office)"
+   ],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Products (/admin/backoffice/products)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):115 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "backoffice/products",
+   "owner16": "Back-Office",
+   "other_face": [],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Order management (/admin/backoffice/production)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):116 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "backoffice/production",
+   "owner16": "Back-Office",
+   "other_face": [],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Work orders (/admin/backoffice/work_orders)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):117 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "backoffice/work_orders",
+   "owner16": "Back-Office",
+   "other_face": [],
+   "status": "live",
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: not checked yet"
+  },
+  {
+   "name": "Clients (/admin/backoffice/clients)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):118 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "backoffice/clients",
+   "owner16": "Back-Office",
+   "other_face": [],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "QuickBooks items (/admin/backoffice/qb_items)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):119 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "backoffice/qb_items",
+   "owner16": "Back-Office",
+   "other_face": [],
+   "status": "live",
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: not checked yet"
+  },
+  {
+   "name": "Collateral (/admin/backoffice/collateral)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):120 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "backoffice/collateral",
+   "owner16": "Back-Office",
+   "other_face": [],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Vendors (/admin/backoffice/vendor_list)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):121 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "backoffice/vendor_list",
+   "owner16": "Back-Office",
+   "other_face": [],
+   "status": "live",
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: not checked yet"
+  },
+  {
+   "name": "Materials & services (/admin/backoffice/cost_list)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):122 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "backoffice/cost_list",
+   "owner16": "Back-Office",
+   "other_face": [],
+   "status": "live",
+   "check": "not checked",
+   "check_by": "the rendered check at 1280 and 390: not checked yet"
+  },
+  {
+   "name": "Vendor orders (/admin/backoffice/vendors)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):123 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "backoffice/vendors",
+   "owner16": "Back-Office",
+   "other_face": [],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Price lists (/admin/backoffice/pricelists)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):124 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "backoffice/pricelists",
+   "owner16": "Back-Office",
+   "other_face": [],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Taxes & shipping (/admin/backoffice/taxes)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):125 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "backoffice/taxes",
+   "owner16": "Back-Office",
+   "other_face": [],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Plans & subscriptions (/admin/backoffice/plans)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):126 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "backoffice/plans",
+   "owner16": "Back-Office",
+   "other_face": [
+    "Plans and prices (Marketplace)"
+   ],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Payments (/admin/backoffice/payments)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):127 ($B)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "backoffice/payments",
+   "owner16": "Back-Office",
+   "other_face": [],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Money reports (/admin/backoffice/money)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):128 ($B, partial)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "backoffice/money",
+   "owner16": "Back-Office",
+   "other_face": [],
+   "status": "live",
+   "check": "not passing",
+   "check_by": "manifests.php marks it partial"
+  },
+  {
+   "name": "People (/admin/backoffice/people)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):129 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "backoffice/people",
+   "owner16": "Back-Office",
+   "other_face": [],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Staff logins (/admin/backoffice/logins)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):130 ($B)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "backoffice/logins",
+   "owner16": "Back-Office",
+   "other_face": [],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Staff levels (/admin/backoffice/levels)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):131 ($B)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "backoffice/levels",
+   "owner16": "Back-Office",
+   "other_face": [],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Fulfillment (/admin/backoffice/fulfillment)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):132 ($C)",
+   "owner": "",
+   "note": "Coming: A later step.",
+   "outline": false,
+   "manifest": "backoffice/fulfillment",
+   "owner16": "Back-Office",
+   "other_face": [],
+   "status": "decided"
+  },
+  {
+   "name": "Import & export (/admin/backoffice/imports)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):133 ($B, partial)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "backoffice/imports",
+   "owner16": "Back-Office",
+   "other_face": [],
+   "status": "live",
+   "check": "not passing",
+   "check_by": "manifests.php marks it partial"
+  },
+  {
+   "name": "Inventory & COGS (/admin/backoffice/inventory)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):134 ($C)",
+   "owner": "",
+   "note": "Coming: A later wave.",
+   "outline": false,
+   "manifest": "backoffice/inventory",
+   "owner16": "Back-Office",
+   "other_face": [],
+   "status": "decided"
+  },
+  {
+   "name": "Consent hub (/admin/backoffice/consent)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):135 ($C)",
+   "owner": "",
+   "note": "Coming: Its definition (Jason).",
+   "outline": false,
+   "manifest": "backoffice/consent",
+   "owner16": "Back-Office",
+   "other_face": [],
+   "status": "proposed"
+  },
+  {
+   "name": "DMCA queue (/admin/backoffice/dmca)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):136 ($C)",
+   "owner": "",
+   "note": "Coming: A later wave.",
+   "outline": false,
+   "manifest": "backoffice/dmca",
+   "owner16": "Back-Office",
+   "other_face": [
+    "DMCA notices and counter-notices (0019) (Question (no gauge yet))"
+   ],
+   "status": "decided"
+  },
+  {
+   "name": "Verification vault (/admin/backoffice/vault)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):137 ($C)",
+   "owner": "",
+   "note": "Coming: A later wave.",
+   "outline": false,
+   "manifest": "backoffice/vault",
+   "owner16": "Back-Office",
+   "other_face": [
+    "Claim a listing (email or text code, who might claim, the form that fits) (Directory)"
+   ],
+   "status": "decided"
+  },
+  {
+   "name": "Insights (/admin/insights/numbers)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):141 ($B)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "insights/numbers",
+   "owner16": "Insights & Research",
+   "other_face": [],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Search workbench (/admin/insights/search)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):142 ($B)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "insights/search",
+   "owner16": "Insights & Research",
+   "other_face": [
+    "Universal search, in place (0053, 0061, 0063, 0067) (Question (no gauge yet))",
+    "Search Phase C (0060) (Question (no gauge yet))"
+   ],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Crawler (/admin/insights/crawler)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):144 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "insights/crawler",
+   "owner16": "Insights & Research",
+   "other_face": [
+    "W1 Listings (System Configuration)",
+    "W2 Keeping listings current (System Configuration)",
+    "W3 Sources and the place store (System Configuration)",
+    "W4 Place guides (System Configuration)",
+    "W5 Guides on demand (System Configuration)",
+    "W6 Heritage and topics (System Configuration)",
+    "W7 Suggested journeys (System Configuration)",
+    "W8 Find it (System Configuration)",
+    "W9 Landmarks and places on demand (System Configuration)",
+    "W10 Live events (System Configuration)",
+    "W11 How-to guides (System Configuration)",
+    "W12 Search learning (System Configuration)",
+    "W13 Stories (System Configuration)",
+    "W14 Authority sources (System Configuration)"
+   ],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Sources (/admin/insights/sources)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):145 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "insights/sources",
+   "owner16": "Insights & Research",
+   "other_face": [
+    "W3 Sources and the place store (System Configuration)"
+   ],
+   "status": "live",
+   "check": "not passing",
+   "check_by": "the rendered check at 1280 and 390: No answer"
+  },
+  {
+   "name": "The index (W0) (/admin/insights/index)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):147 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "insights/index",
+   "owner16": "Insights & Research",
+   "other_face": [
+    "W0 Indexer (System Configuration)"
+   ],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Data cleanup (/admin/insights/cleanup)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):149 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "insights/cleanup",
+   "owner16": "Insights & Research",
+   "other_face": [
+    "Data cleanup: find, preview and act on what the old crawler made (System Configuration)"
+   ],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "The Seeker (/admin/insights/seeker)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):150 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "insights/seeker",
+   "owner16": "Insights & Research",
+   "other_face": [],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Topic index (/admin/insights/topics)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):151 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "insights/topics",
+   "owner16": "Insights & Research",
+   "other_face": [
+    "W6 Heritage and topics (System Configuration)"
+   ],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Quarterly audit (/admin/insights/audit)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):152 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "insights/audit",
+   "owner16": "Insights & Research",
+   "other_face": [],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "AI Assist (/admin/insights/aiassist)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):153 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "insights/aiassist",
+   "owner16": "Insights & Research",
+   "other_face": [],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Data browser (/admin/insights/data)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):154 ($B)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "insights/data",
+   "owner16": "Insights & Research",
+   "other_face": [],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "5 W's lexicon (/admin/insights/fivew)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):155 ($C)",
+   "owner": "",
+   "note": "Coming: The parser's output (Jason).",
+   "outline": false,
+   "manifest": "insights/fivew",
+   "owner16": "Insights & Research",
+   "other_face": [],
+   "status": "proposed"
+  },
+  {
+   "name": "Emergency resources (/admin/insights/emergency)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):156 ($C)",
+   "owner": "",
+   "note": "Coming: Its definition (Jason).",
+   "outline": false,
+   "manifest": "insights/emergency",
+   "owner16": "Insights & Research",
+   "other_face": [],
+   "status": "proposed"
+  },
+  {
+   "name": "Telemetry (/admin/insights/telemetry)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):157 ($C)",
+   "owner": "",
+   "note": "Coming: Its trends are on the System Control Board (decisions/0171 \u00a76): each process and system, open it to see the last 24 hours, 7 days or 30 days, with uptime.",
+   "outline": false,
+   "manifest": "insights/telemetry",
+   "owner16": "Insights & Research",
+   "other_face": [],
+   "status": "decided"
+  },
+  {
+   "name": "System Control Board (/admin/config/control)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):162 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "config/control",
+   "owner16": "System Configuration",
+   "other_face": [],
+   "status": "live",
+   "check": "not passing",
+   "check_by": "the rendered check at 1280 and 390: Less than optimal: card edges"
+  },
+  {
+   "name": "Control Board: Alarms (/admin/config/alarms)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):164 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "config/alarms",
+   "owner16": "System Configuration",
+   "other_face": [],
+   "status": "live",
+   "check": "not passing",
+   "check_by": "the rendered check at 1280 and 390: Less than optimal: card edges"
+  },
+  {
+   "name": "Control Board: Logbook (/admin/config/log)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):165 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "config/log",
+   "owner16": "System Configuration",
+   "other_face": [],
+   "status": "live",
+   "check": "not passing",
+   "check_by": "the rendered check at 1280 and 390: Less than optimal: card edges"
+  },
+  {
+   "name": "Control Board: Ledger (/admin/config/ledger)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):166 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "config/ledger",
+   "owner16": "System Configuration",
+   "other_face": [],
+   "status": "live",
+   "check": "not passing",
+   "check_by": "the rendered check at 1280 and 390: Less than optimal: card edges"
+  },
+  {
+   "name": "Control Board: Upkeep (/admin/config/upkeep)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):167 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "config/upkeep",
+   "owner16": "System Configuration",
+   "other_face": [],
+   "status": "live",
+   "check": "not passing",
+   "check_by": "the rendered check at 1280 and 390: Less than optimal: card edges"
+  },
+  {
+   "name": "Workflows (/admin/config/workflows)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):168 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "config/workflows",
+   "owner16": "System Configuration",
+   "other_face": [
+    "W0 Indexer (System Configuration)",
+    "W1 Listings (System Configuration)",
+    "W2 Keeping listings current (System Configuration)",
+    "W3 Sources and the place store (System Configuration)",
+    "W4 Place guides (System Configuration)",
+    "W5 Guides on demand (System Configuration)",
+    "W6 Heritage and topics (System Configuration)",
+    "W7 Suggested journeys (System Configuration)",
+    "W8 Find it (System Configuration)",
+    "W9 Landmarks and places on demand (System Configuration)",
+    "W10 Live events (System Configuration)",
+    "W11 How-to guides (System Configuration)",
+    "W12 Search learning (System Configuration)",
+    "W13 Stories (System Configuration)",
+    "W14 Authority sources (System Configuration)"
+   ],
+   "status": "live",
+   "check": "not passing",
+   "check_by": "the rendered check at 1280 and 390: Less than optimal: card edges"
+  },
+  {
+   "name": "Permissions (/admin/config/permissions)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):169 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "config/permissions",
+   "owner16": "System Configuration",
+   "other_face": [],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Data separation (/admin/config/datacheck)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):170 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "config/datacheck",
+   "owner16": "System Configuration",
+   "other_face": [],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Scheduled tasks (/admin/config/scheduler)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):171 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "config/scheduler",
+   "owner16": "System Configuration",
+   "other_face": [],
+   "status": "live",
+   "check": "not passing",
+   "check_by": "the rendered check at 1280 and 390: Less than optimal: card edges"
+  },
+  {
+   "name": "Pre-flight (/admin/config/preflight)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):172 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "config/preflight",
+   "owner16": "System Configuration",
+   "other_face": [],
+   "status": "live",
+   "check": "not passing",
+   "check_by": "the rendered check at 1280 and 390: Less than optimal: card edges"
+  },
+  {
+   "name": "Automation (/admin/config/automation)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):173 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "config/automation",
+   "owner16": "System Configuration",
+   "other_face": [],
+   "status": "live",
+   "check": "not passing",
+   "check_by": "the rendered check at 1280 and 390: Less than optimal: card edges"
+  },
+  {
+   "name": "Modules (Service register) (/admin/config/register)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):174 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "config/register",
+   "owner16": "System Configuration",
+   "other_face": [
+    "The video worker (0153 \u00a78) (System Configuration)",
+    "Park Service photos (NPS photo API) (Discovery)"
+   ],
+   "status": "live",
+   "check": "not passing",
+   "check_by": "the rendered check at 1280 and 390: Less than optimal: card edges"
+  },
+  {
+   "name": "Costs (/admin/config/costs)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):175 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "config/costs",
+   "owner16": "System Configuration",
+   "other_face": [],
+   "status": "live",
+   "check": "not passing",
+   "check_by": "the rendered check at 1280 and 390: Less than optimal: card edges"
+  },
+  {
+   "name": "Workflow board (/admin/config/board)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):176 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "config/board",
+   "owner16": "System Configuration",
+   "other_face": [],
+   "status": "live",
+   "check": "not passing",
+   "check_by": "the rendered check at 1280 and 390: Less than optimal: card edges"
+  },
+  {
+   "name": "AI use (/admin/config/ai)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):177 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "config/ai",
+   "owner16": "System Configuration",
+   "other_face": [
+    "Guides and journeys on demand (0147), within the AI cap (Discovery)"
+   ],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Communications (/admin/config/communications)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):178 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "config/communications",
+   "owner16": "System Configuration",
+   "other_face": [
+    "Messages and notices through the one dispatcher (0172 steps 2\u20137) (Dashboard & Pulse)",
+    "Email through Amazon SES, live mode (Dashboard & Pulse)",
+    "Pushes: one per thing, paced, the site installable as an app (Dashboard & Pulse)"
+   ],
+   "status": "live",
+   "check": "not passing",
+   "check_by": "the rendered check at 1280 and 390: Less than optimal: card edges"
+  },
+  {
+   "name": "Vault (/admin/config/vault)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):179 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "config/vault",
+   "owner16": "System Configuration",
+   "other_face": [],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Thresholds & gates (/admin/config/thresholds)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):180 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "config/thresholds",
+   "owner16": "System Configuration",
+   "other_face": [],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Content templates (/admin/config/content)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):181 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "config/content",
+   "owner16": "System Configuration",
+   "other_face": [
+    "Legal texts published (terms, privacy, policies), an attorney's pass (Question (no gauge yet))"
+   ],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Stock library (/admin/config/stock)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):182 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "config/stock",
+   "owner16": "System Configuration",
+   "other_face": [
+    "Card photos for parks and landmarks (real photos first, looked up on open, on-the-spot photos) (Discovery)"
+   ],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Jurisdictions (/admin/config/jurisdictions)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):183 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "config/jurisdictions",
+   "owner16": "System Configuration",
+   "other_face": [],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Database updates (/admin/config/dbupdates)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):184 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "config/dbupdates",
+   "owner16": "System Configuration",
+   "other_face": [],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Switches (/admin/config/switches)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):185 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "config/switches",
+   "owner16": "System Configuration",
+   "other_face": [],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Test accounts (/admin/config/testaccounts)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):186 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "config/testaccounts",
+   "owner16": "System Configuration",
+   "other_face": [],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Staging (/admin/config/staging)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):187 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "config/staging",
+   "owner16": "System Configuration",
+   "other_face": [],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Releases (/admin/config/releases)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):188 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "config/releases",
+   "owner16": "System Configuration",
+   "other_face": [],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Settings (/admin/config/settings)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):189 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "config/settings",
+   "owner16": "System Configuration",
+   "other_face": [],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Logs (/admin/config/logs)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):190 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "config/logs",
+   "owner16": "System Configuration",
+   "other_face": [],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Site map (/admin/config/sitemap)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):191 ($B)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "config/sitemap",
+   "owner16": "System Configuration",
+   "other_face": [],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Decisions (/admin/config/decisions)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):192 ($W)",
+   "owner": "",
+   "note": "",
+   "outline": false,
+   "manifest": "config/decisions",
+   "owner16": "System Configuration",
+   "other_face": [],
+   "status": "live",
+   "check": "passing",
+   "check_by": "the rendered check at 1280 and 390: Working"
+  },
+  {
+   "name": "Templates (/admin/config/templates)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):193 ($C)",
+   "owner": "",
+   "note": "Coming: A later step.",
+   "outline": false,
+   "manifest": "config/templates",
+   "owner16": "System Configuration",
+   "other_face": [],
+   "status": "decided"
+  },
+  {
+   "name": "Branding & SEO (/admin/config/branding)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):194 ($C)",
+   "owner": "",
+   "note": "Coming: A later wave.",
+   "outline": false,
+   "manifest": "config/branding",
+   "owner16": "System Configuration",
+   "other_face": [],
+   "status": "decided"
+  },
+  {
+   "name": "Text messages (/admin/config/notify)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):195 ($C)",
+   "owner": "",
+   "note": "Coming: Its own decision first (decisions/0172 \u00a75), then its build, only where revenue covers it.",
+   "outline": false,
+   "manifest": "config/notify",
+   "owner16": "System Configuration",
+   "other_face": [
+    "Checking a phone with a texted code (claim) (Directory)"
+   ],
+   "status": "proposed"
+  },
+  {
+   "name": "Storage & backups (/admin/config/storage)",
+   "kind": "admin tool",
+   "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):196 ($C)",
+   "owner": "",
+   "note": "Coming: A later step.",
+   "outline": false,
+   "manifest": "config/storage",
+   "owner16": "System Configuration",
+   "other_face": [
+    "One uploader; files on S3 and Cloudflare R2 (0122\u20130127, 0151) (System Configuration)"
+   ],
+   "status": "decided"
+  }
+ ],
+ "gauges16": {
+  "Discovery": {
+   "items": 31,
+   "in_scope": 29,
+   "complete": 14,
+   "pct": 48.3,
+   "held": 1,
+   "decided": 5,
+   "not_passing": 0,
+   "not_checked": 9,
+   "proposed": 2
+  },
+  "Directory": {
+   "items": 21,
+   "in_scope": 20,
+   "complete": 9,
+   "pct": 45.0,
+   "held": 0,
+   "decided": 1,
+   "not_passing": 1,
+   "not_checked": 9,
+   "proposed": 1
+  },
+  "Community": {
+   "items": 23,
+   "in_scope": 22,
+   "complete": 4,
+   "pct": 18.2,
+   "held": 0,
+   "decided": 9,
+   "not_passing": 0,
+   "not_checked": 9,
+   "proposed": 1
+  },
+  "Marketplace": {
+   "items": 33,
+   "in_scope": 31,
+   "complete": 10,
+   "pct": 32.3,
+   "held": 2,
+   "decided": 5,
+   "not_passing": 2,
+   "not_checked": 12,
+   "proposed": 2
+  },
+  "TRVGO \u2013 Storefront": {
+   "items": 9,
+   "in_scope": 9,
+   "complete": 2,
+   "pct": 22.2,
+   "held": 1,
+   "decided": 2,
+   "not_passing": 0,
+   "not_checked": 4,
+   "proposed": 0
+  },
+  "Accounts": {
+   "items": 13,
+   "in_scope": 13,
+   "complete": 7,
+   "pct": 53.8,
+   "held": 0,
+   "decided": 2,
+   "not_passing": 1,
+   "not_checked": 3,
+   "proposed": 0
+  },
+  "Dashboard & Pulse": {
+   "items": 12,
+   "in_scope": 12,
+   "complete": 8,
+   "pct": 66.7,
+   "held": 1,
+   "decided": 0,
+   "not_passing": 0,
+   "not_checked": 3,
+   "proposed": 0
+  },
+  "Get Local 360\u00b0": {
+   "items": 15,
+   "in_scope": 14,
+   "complete": 12,
+   "pct": 85.7,
+   "held": 0,
+   "decided": 0,
+   "not_passing": 2,
+   "not_checked": 0,
+   "proposed": 1
+  },
+  "Let's Explore 360\u00b0": {
+   "items": 8,
+   "in_scope": 8,
+   "complete": 6,
+   "pct": 75.0,
+   "held": 0,
+   "decided": 1,
+   "not_passing": 0,
+   "not_checked": 1,
+   "proposed": 0
+  },
+  "Market 360\u00b0": {
+   "items": 12,
+   "in_scope": 12,
+   "complete": 11,
+   "pct": 91.7,
+   "held": 0,
+   "decided": 1,
+   "not_passing": 0,
+   "not_checked": 0,
+   "proposed": 0
+  },
+  "Social 360\u00b0": {
+   "items": 8,
+   "in_scope": 7,
+   "complete": 6,
+   "pct": 85.7,
+   "held": 0,
+   "decided": 1,
+   "not_passing": 0,
+   "not_checked": 0,
+   "proposed": 1
+  },
+  "Sales & Growth": {
+   "items": 9,
+   "in_scope": 9,
+   "complete": 8,
+   "pct": 88.9,
+   "held": 0,
+   "decided": 1,
+   "not_passing": 0,
+   "not_checked": 0,
+   "proposed": 0
+  },
+  "White Glove Concierge": {
+   "items": 5,
+   "in_scope": 5,
+   "complete": 0,
+   "pct": 0.0,
+   "held": 0,
+   "decided": 4,
+   "not_passing": 1,
+   "not_checked": 0,
+   "proposed": 0
+  },
+  "Back-Office": {
+   "items": 25,
+   "in_scope": 24,
+   "complete": 13,
+   "pct": 54.2,
+   "held": 1,
+   "decided": 4,
+   "not_passing": 2,
+   "not_checked": 4,
+   "proposed": 1
+  },
+  "Insights & Research": {
+   "items": 14,
+   "in_scope": 12,
+   "complete": 10,
+   "pct": 83.3,
+   "held": 0,
+   "decided": 1,
+   "not_passing": 1,
+   "not_checked": 0,
+   "proposed": 2
+  },
+  "System Configuration": {
+   "items": 54,
+   "in_scope": 53,
+   "complete": 17,
+   "pct": 32.1,
+   "held": 1,
+   "decided": 4,
+   "not_passing": 16,
+   "not_checked": 15,
+   "proposed": 1
+  }
+ },
+ "gauges16_rule": "Ownership is where the item lives; admin sections by manifests.php; two faces are two items, each linking the other (Jason, 2026-11-22).",
+ "questions16": [
+  {
+   "name": "Search Phase C (0060)",
+   "why": "the learning search, with Universal search"
+  },
+  {
+   "name": "Legal texts published (terms, privacy, policies), an attorney's pass",
+   "why": "site-wide legal text; no front-end gauge holds site-wide pages, and its admin face (Content templates?) isn't named"
+  },
+  {
+   "name": "Home: search first, four doors, five tabs (0138)",
+   "why": "the way into all four; no front-end gauge holds it"
+  },
+  {
+   "name": "DMCA notices and counter-notices (0019)",
+   "why": "its public pages (proposed) have no front-end gauge; its admin face is Back-Office \u2192 DMCA queue (owned there)"
+  },
+  {
+   "name": "The FAQ (0057)",
+   "why": "a site-wide public page; its admin face is none"
+  },
+  {
+   "name": "Ask Traversence (AI page)",
+   "why": "a site-wide public page"
+  },
+  {
+   "name": "Universal search, in place (0053, 0061, 0063, 0067)",
+   "why": "its public face is on every page; its admin face is Insights \u2192 Search workbench (owned there)"
+  },
+  {
+   "name": "The admin engine: 10 modules, manifests, widgets, workflows (0109)",
+   "why": "the admin's shell (router, manifests, the one endpoint) is no module's section"
+  },
+  {
+   "name": "Terms and privacy pages",
+   "why": "a site-wide public page with no front-end gauge"
   }
  ]
 }
