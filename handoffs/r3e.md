@@ -59,5 +59,4 @@ tv-domains.js's list (the harness has no domains; its styles are domains-view.ph
 Found, not 3e's: /login.php's "(or your staff ID)" at 3.04:1 (`text-[#8A7355]`), for 3f's leftovers.
 
 ## State
-Built and sent (PR #1261). Reviewed by the session manager: clear to ask once ticket and download were rendered (done);
-waiting for Jason's Approve.
+Live as #254 (Sync 20:28 UTC, 72e2070): all 16 files byte for byte, verified by the session manager and this session.
