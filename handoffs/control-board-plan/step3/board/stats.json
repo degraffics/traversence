@@ -8,6 +8,8 @@
  "pages_unchecked": 112,
  "coming": 37,
  "no_card": [],
+ "pub_buttons": 406,
+ "aria_fixed": 10,
  "assoc_rows": 103,
  "assoc_unmapped": 4,
  "workflows": 15,
@@ -25,5 +27,5 @@
   "W1 Listings (places by kind and town), W9 Landmarks, W12 Search learning",
   "Geofabrik (our OpenStreetMap copy) and Overture"
  ],
- "size": 2016165
+ "size": 2012093
 }

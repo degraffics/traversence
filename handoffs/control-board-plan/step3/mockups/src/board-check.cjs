@@ -103,11 +103,11 @@ const url = 'file://' + dir + 'index.html';
     const rep = await p.evaluate(() => [...document.querySelectorAll('.obj')].map(o => { const c = o.cloneNode(true); c.querySelectorAll('details').forEach(d => { const s = d.querySelector(':scope > summary'); d.replaceWith(s ? s.cloneNode(true) : document.createTextNode('')); }); return [o.id, (c.textContent.match(/not checked yet/g) || []).length]; }).filter(x => x[1] > 1));
     ok(rep.length === 0, `@${w} no objective says "not checked yet" more than once at its top level` + (rep.length ? ': ' + rep.map(x => x.join(' ')).join(', ') : ''));
     // the header: at 390 the readings sit behind one pill, and the header stays short
-    const hh = await p.evaluate(() => Math.round(document.querySelector('.top').getBoundingClientRect().height));
+    const hh = await p.evaluate(() => Math.round(document.querySelector('.bhead').getBoundingClientRect().height));
     ok(hh <= 80, `@${w} the header is ${hh} px tall (two lines at most)`);
-    if (w === 390) { for (const how of ['x', 'esc', 'outside']) { await p.click('.top details.rd > summary'); const o1 = await p.evaluate(() => document.querySelector('.top details.rd').open);
-      if (how === 'x') await p.click('.top details.rd .px'); if (how === 'esc') await p.keyboard.press('Escape'); if (how === 'outside') await p.mouse.click(5, 600);
-      ok(o1 && !(await p.evaluate(() => document.querySelector('.top details.rd').open)), `@390 the Readings pill opens and closes by ${how}`); } }
+    if (w === 390) { for (const how of ['x', 'esc', 'outside']) { await p.click('.bhead details.rd > summary'); const o1 = await p.evaluate(() => document.querySelector('.bhead details.rd').open);
+      if (how === 'x') await p.click('.bhead details.rd .px'); if (how === 'esc') await p.keyboard.press('Escape'); if (how === 'outside') await p.mouse.click(5, 600);
+      ok(o1 && !(await p.evaluate(() => document.querySelector('.bhead details.rd').open)), `@390 the Readings pill opens and closes by ${how}`); } }
     // gauge cards: every snapshot a gauge card with both paths and its band word; every path ends at a module card, "none" or "not mapped"
     const gc = await p.evaluate(() => { const cs = [...document.querySelectorAll('#view-board .gcard')]; return [cs.length, cs.filter(c => c.querySelector('[data-open-panel^="p-wf-"]') && c.querySelector('[data-open-panel^="p-sv-"]')).length,
       cs.filter(c => (c.querySelector('.band-word') || {}).textContent).length,
@@ -142,8 +142,29 @@ const url = 'file://' + dir + 'index.html';
         const n = c.querySelector('.needle'); const st = c.classList.contains('s-r') ? 'r' : 'a';
         return (!n || n.classList.contains('t-' + st)) && c.querySelector('.band-word.notarget.s-' + st) ? 0 : c.id; }).filter(Boolean));
     ok(tint.length === 0, `@${w} every amber or red dial with no target has a tinted needle and word` + (tint.length ? ': ' + tint.join(', ') : ''));
+    // every control works: quick jumps, role filters
+    await p.keyboard.press('Escape');
+    const qj = await p.$$eval('.qbar .qj', bs => bs.length);
+    let qok = 0;
+    for (let i = 0; i < qj; i++) {
+      await p.click('.rail [data-nav="board"]');
+      const before = await p.evaluate(() => [document.body.classList.contains('open'), [...document.querySelectorAll('.view')].find(v => !v.hidden).id, scrollY]);
+      await p.click(`.qbar .qj >> nth=${i}`);
+      const after = await p.evaluate(() => [document.body.classList.contains('open'), [...document.querySelectorAll('.view')].find(v => !v.hidden).id, scrollY]);
+      if (after[0] !== before[0] || after[1] !== before[1] || after[2] !== before[2]) qok++;
+      await p.keyboard.press('Escape');
+    }
+    ok(qok === qj, `@${w} every quick jump does something: ${qok} of ${qj}`);
+    await p.click('.rail [data-nav="modules"]');
+    const rf = [];
+    for (const role of ['Host', 'Service', 'Source', 'all']) {
+      await p.click(`[data-role-f="${role}"]`);
+      rf.push(await p.evaluate(r => { const ds = [...document.querySelectorAll('#view-modules [data-role]')]; return r === 'all' ? ds.every(d => !d.hidden) : ds.every(d => d.hidden === (d.getAttribute('data-role') !== r)); }, role));
+    }
+    ok(rf.every(Boolean), `@${w} the role filters show only their role (Hosts, Services, Sources, All)`);
+    await p.click('.rail [data-nav="board"]');
     // the card opens by keyboard
-    await p.focus('#o-pages'); await p.keyboard.press('Enter'); ok(await isOpen('p-snap-o-pages'), `@${w} a gauge card opens by keyboard`); await p.keyboard.press('Escape');
+    await p.focus('#o-pages .gopen'); await p.keyboard.press('Enter'); ok(await isOpen('p-snap-o-pages'), `@${w} a gauge card opens by keyboard`); await p.keyboard.press('Escape');
     // every detail, accordion and popover opens and closes
     const dt = await p.evaluate(() => { let n = 0, bad = 0; document.querySelectorAll('details').forEach(d => { const s = d.querySelector(':scope > summary'); if (!s) { bad++; return; } const was = d.open; s.click(); const a = d.open !== was; s.click(); const b2 = d.open === was; n++; if (!(a && b2)) bad++; }); return [n, bad]; });
     ok(dt[1] === 0, `@${w} every detail and accordion opens and closes: ${dt[0]} checked, ${dt[1]} failed`);
@@ -188,5 +209,8 @@ const url = 'file://' + dir + 'index.html';
     await ctx.close();
   }
   await b.close();
+  // the HTML and CSS validator (ids, nesting, aria-labels, CSS duplicates, fault classes)
+  const v = require('child_process').spawnSync('python3', [__dirname + '/board-validate.py'], { encoding: 'utf8' });
+  for (const line of v.stdout.trim().split('\n')) ok(line.startsWith('PASS'), 'validator: ' + line.replace(/^(PASS|FAIL) /, ''));
   console.log(out.join('\n')); console.log(fails ? `${fails} FAILED` : 'ALL PASS');
 })();
