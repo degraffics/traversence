@@ -1,6 +1,61 @@
 {
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
- "claims": [],
+ "claims": [
+  {
+   "path": "app/lib/SearchIndex.php",
+   "functions": [
+    "find"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5hFvhtEKj2JuNVmjWZ",
+   "why": "Search fixes approved 2026-11-22 (screens proposal A1-A3, B1, B2)",
+   "since": "2026-11-22T12:11:00Z",
+   "expires": "2026-11-22T16:11:00Z",
+   "release": "search-fixes.zip",
+   "callers": {
+    "find": [
+     "app/lib/UniversalSearch.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/SearchPresets.php",
+   "functions": [
+    "(top)",
+    "forPlace"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5hFvhtEKj2JuNVmjWZ",
+   "why": "Search fixes approved 2026-11-22 (screens proposal A1-A3, B1, B2)",
+   "since": "2026-11-22T12:11:00Z",
+   "expires": "2026-11-22T16:11:00Z",
+   "release": "search-fixes.zip",
+   "callers": {
+    "forPlace": [
+     "website/api/search.php",
+     "website/discovery/index.php"
+    ]
+   }
+  },
+  {
+   "path": "website/js/search-panel.js",
+   "functions": [
+    "(top)",
+    "item",
+    "peek",
+    "peekBtn",
+    "render",
+    "resultsHtml"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5hFvhtEKj2JuNVmjWZ",
+   "why": "Search fixes approved 2026-11-22 (screens proposal A1-A3, B1, B2)",
+   "since": "2026-11-22T12:11:00Z",
+   "expires": "2026-11-22T16:11:00Z",
+   "release": "search-fixes.zip",
+   "callers": {}
+  }
+ ],
  "lapsed": [
   {
    "path": "app/lib/Operations.php",
