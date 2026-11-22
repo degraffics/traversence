@@ -17,6 +17,9 @@ and `research/order-rulings-2026-11-20.md` (his confirmed rulings B.1–B.7, §1
 - The **cart route**: items are prepared, released into the client's cart, and the client checks out.
 - Both start the same way (an order, its items, proofs) and finish the same way (receipt, work order, vendor,
   shipping, completion).
+- **Which route** (2026-11-22): "Send cart or send invoice as send option". On an order staff build, Send offers both:
+  **Send cart** (the cart route) or **Send invoice** (the invoice route), chosen when sending. An order the client
+  configures in the Shop is already in the cart **(described, to confirm)**.
 
 **1.2 Ways into the cart route.**
 - Staff configure it (2026-11-20: "our orders either configured by us with separate building processes to yield
@@ -181,7 +184,8 @@ the pass is the product. It shapes 1.2's client-configured items and 1.8's money
 3. ~~Approve for the client~~ Answered (1.6): kept for approvals given by email or another way, processed as if the
    client approved, payment as normal.
    Who and the record answered too: staff with order edit rights; the email attached.
-4. Which route an order takes, and whether invoice-later, wire and check stay on the invoice route only. (B.4 as
+4. ~~Which route an order takes~~ Answered (1.1): Send cart or Send invoice when sending. Still to confirm: whether wire
+   and check stay on the invoice route only (invoice later is answered in 1.8). (B.4 as
    confirmed exempts "invoice later" from paid in full; 1.9 removes that exemption.)
 5. The deposit: how much and who sets it, shown before paying; how long the cancel window lasts.
 6. How long a quote's price holds, and a vendor cost that changes.
