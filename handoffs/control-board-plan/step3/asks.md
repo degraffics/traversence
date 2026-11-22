@@ -6,7 +6,7 @@ The reads are grouped by the page they come from, so each page is one visit. Eve
 pressed, switched or edited. Where a read has no admin page today, it goes through the admin's **Data browser**, read
 only. Step 4's ledger export is proposed to replace those reads later.
 
-The numbers in brackets are the 14 asks as listed:
+The numbers in brackets are the 15 asks as listed:
 1. IR-0001's timings and run #1290's task
 2. alarms, pauses and Pulse cases
 3. the lift's reads
@@ -22,6 +22,7 @@ The numbers in brackets are the 14 asks as listed:
 13. the Vault's provider pages
 14. §26's names (the session manager, 2026-11-21): the services' keys and modes, `ors_matrix_daily`, Apple's Developer
     Program and Meta's app review
+15. the seeded workflow → task table (the association map)
 
 ---
 
@@ -138,6 +139,10 @@ These tables have no admin page of their own. Choose each table in the browser a
   - `npi_loads`: the newest row.
   - **Settles:** the "Last load" column on `sources-a-list` and each source card; 03 §22.6.
   - The NPI and IRS last-finished times also show on the admin's Today page: https://traversence.com/admin/dashboard/today.
+- **[15] The seeded workflow → task table** (`crawl_capture_tasks`: each task's workflow, read only). It's the database's
+  seed: no live code holds it.
+  - **Why:** it settles the association map's workflow → task links (`association-map.md`), which today come from
+    `research/crawler-how-it-runs-2026-11-14.md` and `SystemStart::TASKS`.
 - **[10] `video_jobs`.**
   - **Needed:** counts by status: queued or leased, done today, failed.
   - **Settles:** the video worker's zone 2, 03 §23.4, 4.

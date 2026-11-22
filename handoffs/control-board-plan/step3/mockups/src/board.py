@@ -869,16 +869,18 @@ def _arc(f0, f1, cls, r=46):
 
 def dial(o):
     st, pct = o['state'], o['pct']
-    if st == 'n':
-        return '<svg class="dial" viewBox="0 0 120 66" aria-hidden="true">' + _arc(0, 1, 'empty') + '</svg>'
     lo, hi = SCALE.get(o['id'], (0, 100))
     b = BANDS.get(o['id'])
+    if st == 'n':
+        arcs = ''.join(_arc((a - lo) / (hi - lo), (z - lo) / (hi - lo), c + ' faint') for a, z, c in b[1]) if b else _arc(0, 1, 'empty')
+        return f'<svg class="dial" viewBox="0 0 120 66" aria-hidden="true">{arcs}</svg>'
     arcs = ''.join(_arc((a - lo) / (hi - lo), (z - lo) / (hi - lo), c) for a, z, c in b[1]) if b else _arc(0, 1, 'neutral')
     needle = ''
     if pct is not None:
         f = max(0, min(1, (pct - lo) / (hi - lo)))
         x, y = _pt(f, 38)
-        needle = f'<line class="needle" x1="60" y1="58" x2="{x:.1f}" y2="{y:.1f}"/><circle class="hub" cx="60" cy="58" r="4"/>'
+        tint = '' if b else f' t-{st}'
+        needle = f'<line class="needle{tint}" x1="60" y1="58" x2="{x:.1f}" y2="{y:.1f}"/><circle class="hub{tint}" cx="60" cy="58" r="4"/>'
     return f'<svg class="dial" viewBox="0 0 120 66" aria-hidden="true">{arcs}{needle}</svg>'
 
 
@@ -891,6 +893,7 @@ def gauge_card(o):
     snap = assoc.SNAP[o['id']]
     edges = BANDS.get(o['id'])
     edge_words = edges[2] if edges else 'target: set by Jason'
+    prop = '<span class="proposed">proposed</span>' if edges else ''
     if o['id'] == 'o-gather':
         g = linear(o, 0, '0 records in, 24 hours')
     elif o['id'] == 'o-grow':
@@ -907,7 +910,7 @@ def gauge_card(o):
                  f'<div class="micro">Build: {E(need)}</div><button class="btn imp" title="Drawn: inert in the mockup">Set up: {E(need.split(" (")[0])}</button></div></details>')
     unm = ' <span class="sctag">association not mapped</span>' if snap['unmapped'] else ''
     return f"""<article class="obj gcard s-{o['state']}" id="{o['id']}" role="button" tabindex="0" data-card="{o['id']}" aria-label="{E(o['name'])}: open its snapshot">
-<div class="gh"><b>{E(o['name'])}</b></div>{g}<div class="band-word s-{o['state']}">{E(LT[o['state']])}</div>
+<div class="gh"><b>{E(o['name'])}</b>{prop}</div>{g}<div class="band-word s-{o['state']}{'' if edges else ' notarget'}">{E(LT[o['state']])}</div>
 <div class="om2"><span class="metric pillm">{E(metric)}</span>{live}</div>{trend}
 <div class="micro edges">{E(edge_words)}</div>
 <div class="btns"><button class="btn path" data-open-panel="p-wf-{o['id']}">Workflows ▸</button><button class="btn path" data-open-panel="p-sv-{o['id']}">Services ▸</button>{setup}</div>{unm}</article>"""
@@ -975,12 +978,12 @@ def wf_panel(o):
         for w, tasks in snap['wf'].items():
             k, words = _wf_state(w)
             name = next((n for ww, n, _, _ in WORKFLOWS if ww == w), '')
-            why = 'Red: ' + '; '.join(E(a['title'][:110]) for a in WF_ALARMS.get(w, []) if a['level'] == 'trip') if k == 'r' else ('Amber: an open warning.' if k == 'a' else 'No open alarm at ' + T_AL + '.')
+            why = '; '.join(E(a['title'][:110]) for a in WF_ALARMS.get(w, []) if a['level'] == 'trip') if k == 'r' else ('; '.join(E(a['title'][:110]) for a in WF_ALARMS.get(w, [])) if k == 'a' else 'At ' + T_AL + '.')
             body += _lv('Workflow', lt(k, words), f'{w} {E(name)}', why, assoc.SHARES.get((o['id'], w)))
             for t in tasks:
                 tk, tw = _task_state(t)
                 a = TASK_ALARM.get(t)
-                why = (f'Red: {E(a["reading"])}, its tries ran out ({E(a["title"])}).' if a else f'Calls: {E(", ".join(NEED_BY[n]["label"] for n in assoc.TASK_NEEDS.get(t, []) if n in NEED_BY) or "its own job")}.')
+                why = (f'{E(a["reading"])}; its tries ran out at {E(mst(a["tripped"]) if a.get("tripped") else "")}; what waits: {E(a.get("stopped") or "")}.' if a else f'Calls: {E(", ".join(NEED_BY[n]["label"] for n in assoc.TASK_NEEDS.get(t, []) if n in NEED_BY) or "its own job")}.')
                 body += _lv('Task', lt(tk, tw), f'<code>{E(t)}</code>', why, assoc.SHARES.get((o['id'], t)))
     extra = ''
     if o['id'] in ('o-gather', 'o-ir'):
@@ -1017,10 +1020,11 @@ def sv_panel(o):
                 cur = sorted([x for x in mm['scns'] if x['real']] or mm['scns'][:1], key=lambda x: rank.get(x['light'][0], 2))[0]
                 l0 = cur['light']
                 live = '<span class="live">live</span>' if cur['real'] else '<span class="sctag">scenario</span>'
-                fx = f'<button class="btn" data-go-mod="{m}">Fix it: {E(SHORT(mm["label"]))}</button>'
+                bad = l0[0] in 'rah'
+                fx = f'<button class="btn" data-go-mod="{m}">Fix it: {E(SHORT(mm["label"]))}</button>' if bad else ''
                 imp = f'<button class="btn imp" data-go-mod="{m}">Improve</button>'
-                why = f'{"Red" if l0[0] == "r" else "Amber" if l0[0] in "ah" else "Its reading"}: {E(l0[1])} {live}'
-                body += _lv(f'Source · {role}', lt(*l0), f'<a href="#" class="mlink" data-go-mod="{m}">{E(mm["label"])}</a>', why, None, f'<span class="btns inl">{fx}{imp}</span>')
+                why = E(cur["title"]) if bad and cur['title'] else ''
+                body += _lv(f'Source · {role}', lt(*l0), f'<a href="#" class="mlink" data-go-mod="{m}">{E(mm["label"])}</a> {live}', why, None, f'<span class="btns inl">{fx}{imp}</span>')
             else:
                 body += _lv(f'Source · {role}', lt('n', 'ours' if k in ('ours', 'paid') else 'no card'), E(lab if k != 'svc' else v), 'Our own copy, read first.' if k == 'ours' else ('A paid backup, off at 0.' if k == 'paid' else 'No card for it yet.'))
     if not body:
@@ -1034,14 +1038,17 @@ def sv_panel(o):
 
 def snap_panel(o):
     mods = _mods_of(o['id'])
-    fix = ''.join(f'<button class="btn" data-go-mod="{m}">Fix it: {E(SHORT(MOD_BY[m]["label"]))}</button>' for m in mods) or '<span class="micro">no module: association not mapped</span>'
+    def _cur(m):
+        rank = {'r': 0, 'a': 1, 'h': 1, 'n': 2, 'g': 3}
+        return sorted([x for x in MOD_BY[m]['scns'] if x['real']] or MOD_BY[m]['scns'][:1], key=lambda x: rank.get(x['light'][0], 2))[0]['light'][0]
+    fix = ''.join(f'<button class="btn" data-go-mod="{m}">Fix it: {E(SHORT(MOD_BY[m]["label"]))}</button>' if _cur(m) in 'rah' else f'<a href="#" class="mlink" data-go-mod="{m}">{E(SHORT(MOD_BY[m]["label"]))}</a>' for m in mods) or '<span class="micro">no module: association not mapped</span>'
     imp = ''.join(f'<button class="btn imp" title="Drawn: inert in the mockup">{E(t)}</button>' for t in o['improve'])
     return (f'<aside class="panel" id="p-snap-{o["id"]}" hidden role="dialog" aria-label="{E(o["name"])}"><button class="x" aria-label="Close">×</button>'
             f'<div class="crumb">Snapshot</div><div class="lvrow">{lt(o["state"], LT[o["state"]])}<b class="lvn">{E(o["name"])}</b></div>'
             f'<div class="gbig">{dial(o) if o["id"] not in ("o-gather", "o-grow") else ""}</div>'
             f'<dl class="dl"><dt>Measure</dt><dd>{E(o["measure"])}</dd><dt>Target</dt><dd>{E(o["target"])}</dd><dt>Reading</dt><dd>{E(o["reading"])}{" · <time>" + E(o["when"]) + "</time>" if o["when"] else ""} <span class="basis">{o["basis"]}</span></dd></dl>'
             f'<div class="btns"><button class="btn f" data-open-panel="p-wf-{o["id"]}">Workflows ▸</button><button class="btn f" data-open-panel="p-sv-{o["id"]}">Services ▸</button></div>'
-            f'<div class="h3">Fix it (from the association map)</div><div class="btns">{fix}</div>' + (f'<div class="h3">Improve</div><div class="btns">{imp}</div>' if imp else '') + '</aside>')
+            f'<div class="h3">Its modules (from the association map): Fix it where one is amber or red</div><div class="btns">{fix}</div>' + (f'<div class="h3">Improve</div><div class="btns">{imp}</div>' if imp else '') + '</aside>')
 
 
 def assoc_rows():
@@ -1246,7 +1253,7 @@ details.cr>summary::before{content:"▸";color:var(--taupe);font-size:11px}detai
 .ggrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.5rem}.gcard{background:var(--sec);border:1px solid var(--card-edge);border-radius:.55rem;padding:.55rem .6rem;cursor:pointer;display:flex;flex-direction:column;gap:.2rem;min-width:0}
 .gcard:focus-visible{outline:2px solid var(--copper);outline-offset:2px}.gcard.s-r{border-color:var(--red)}.gh b{font-size:13.5px}
 .dial{width:100%;max-width:170px;height:auto;align-self:center;display:block}.dial .band{fill:none;stroke-width:11}.band.g{stroke:var(--sage)}.band.a{stroke:var(--amber)}.band.r{stroke:var(--red)}.band.neutral{stroke:#CFC4AE}.band.empty{stroke:#D9D2C2;stroke-dasharray:3 3}
-.needle{stroke:var(--umber);stroke-width:3;stroke-linecap:round}.hub{fill:var(--umber)}.gbig .dial{max-width:240px}
+.needle.t-a{stroke:var(--amber)}.needle.t-r{stroke:var(--red)}.hub.t-a{fill:var(--amber)}.hub.t-r{fill:var(--red)}.band.faint{opacity:.35}.proposed{font-size:10.5px;border:1px dotted var(--copper);color:var(--copper);border-radius:3px;padding:0 4px;margin-left:.4rem;font-weight:500}.gh{display:flex;align-items:baseline;flex-wrap:wrap}.band-word.notarget.s-a,.band-word.notarget.s-r{padding:0 .5rem;border-radius:999px;color:#fff}.band-word.notarget.s-a{background:var(--amber)}.band-word.notarget.s-r{background:var(--red)}.needle{stroke:var(--umber);stroke-width:3;stroke-linecap:round}.hub{fill:var(--umber)}.gbig .dial{max-width:240px}
 .band-word{align-self:center;font-weight:700;font-size:13px;margin-top:-.2rem}.band-word.s-a{color:var(--amber)}.band-word.s-r{color:var(--red)}.band-word.s-g{color:#4f7d63}.band-word.s-n{color:var(--taupe)}
 .lin{position:relative;height:12px;border-radius:999px;background:#CFC4AE;margin:.9rem .3rem .5rem}.lin.s-r{background:linear-gradient(90deg,var(--red) 0 20%,#CFC4AE 20%)}.lin.s-g{background:linear-gradient(90deg,#CFC4AE,var(--sage))}.lin b{position:absolute;top:-5px;width:4px;height:22px;background:var(--umber);border-radius:2px;transform:translateX(-50%)}
 .pillm{border:1px solid var(--card-edge);border-radius:999px;padding:0 .5rem;background:var(--card);font-size:12.5px}.gtrend{align-self:center}.edges{text-align:center}

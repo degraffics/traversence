@@ -128,6 +128,20 @@ const url = 'file://' + dir + 'index.html';
       await p.keyboard.press('Escape'); okx = okx && !(await isOpen('p-snap-' + ex));
       ok(okx && !!mod, `@${w} worked example ${ex}: card → snapshot → Workflows → back → Services → back, ending at a module card`);
     }
+    // Fix it only where something is wrong; no path row repeats its status; tinted needles and words where no target is set
+    const rows = await p.evaluate(() => { let fixOnOk = 0, rep = 0; document.querySelectorAll('aside[id^="p-sv-"] .lvl, aside[id^="p-wf-"] .lvl').forEach(l => {
+        const lt = l.querySelector('.lvrow .lt'); const words = lt ? lt.textContent.trim() : '';
+        const fx = [...l.querySelectorAll('button')].some(b => /^Fix it/.test(b.textContent));
+        if (fx && !(lt && /lt (r|a|h)/.test(lt.className))) fixOnOk++;
+        const why = (l.querySelector('.why1') || {}).textContent || '';
+        if (words && words.length > 4 && why.includes(words)) rep++; });
+      return [fixOnOk, rep]; });
+    ok(rows[0] === 0, `@${w} no "Fix it" on a Working row (${rows[0]} found)`);
+    ok(rows[1] === 0, `@${w} no path row repeats its status text (${rows[1]} found)`);
+    const tint = await p.evaluate(() => [...document.querySelectorAll('#view-board .gcard.s-a, #view-board .gcard.s-r')].filter(c => !c.querySelector('.proposed')).map(c => {
+        const n = c.querySelector('.needle'); const st = c.classList.contains('s-r') ? 'r' : 'a';
+        return (!n || n.classList.contains('t-' + st)) && c.querySelector('.band-word.notarget.s-' + st) ? 0 : c.id; }).filter(Boolean));
+    ok(tint.length === 0, `@${w} every amber or red dial with no target has a tinted needle and word` + (tint.length ? ': ' + tint.join(', ') : ''));
     // the card opens by keyboard
     await p.focus('#o-pages'); await p.keyboard.press('Enter'); ok(await isOpen('p-snap-o-pages'), `@${w} a gauge card opens by keyboard`); await p.keyboard.press('Escape');
     // every detail, accordion and popover opens and closes
