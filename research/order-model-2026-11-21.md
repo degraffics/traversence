@@ -42,6 +42,11 @@ supported by admin and once approved, released, and the cart can be finalized."
 **1.6 Approve for the client.** "This is something we dont really want. It was a back up to push orders when they have
 been handled by payments outside what the system can handle." So the client always checks out themselves; staff never
 check out for them. Orders handled outside the system go through the staff's outside path.
+- **Kept for approvals given another way** (2026-11-22): "I see email approvals mostly, so having a way to click
+  approval based on alternative means is important for not. It will require orders to be processed as if client
+  approved it so payments must still function properly." So staff can still record the client's approval given by
+  email (or another way); the order is then processed as if the client approved it, and payment still runs as normal
+  (the invoice is made and the client pays it). It approves; it never pays.
 
 **1.7 Estimate → quote → transaction.** "if service is priced at time of ordering its a transaction if it can be priced
 its an estimate, if its a tentative price which requires processing to generate final price its a quote." Then:
@@ -145,7 +150,7 @@ the pass is the product. It shapes 1.2's client-configured items and 1.8's money
 | Guests | GO Codes yes; plans, one-offs, domains need a member (c3 §1.10) | 1.5 | Fits for GO Codes; new for the rest |
 | Held item | No held state in the cart; items have "Before approval" statuses (Incoming, Under Review, Pending Approval, Changes Requested, Response Required) | 1.3 | New in the cart; the item statuses could carry the staff side |
 | Client vs backend | Uploads staff-only; the client sees proofs, downloads only the one awaiting approval; vendor and files on the work order (§3a) | 1.4 | Fits |
-| Approve for the client | Its page says "Use it when the client said yes in person, on the phone or by email; their proofs count as approved." The outside path is "Handled outside: create the work order" (c2) | 1.6 | **Differs:** today it also covers a yes given off the site. Is that use dropped? |
+| Approve for the client | Its page says "Use it when the client said yes in person, on the phone or by email; their proofs count as approved." The outside path is "Handled outside: create the work order" (c2) | 1.6 | **Fits:** kept for a yes given by email or another way; payment runs as normal |
 | Estimate, quote | None in our sales: 0101 "not an Estimate before"; the Shop's print card emails for a quote; Back-Office "Quotes & deals" coming (§2). Businesses have Quotes & invoices (`b_biz_quotes`, 0118, 0120), walled off (§1) | 1.7 | New for our sales; must not share the businesses' tables |
 | What a deposit does | Any money in puts print "In production" and a work order can go (`received`, §3 steps 10–11) | 1.8, 1.9 | **Fits more closely than thought:** a deposit order can go to the vendor; new are the cancel window, the balance due on scheduling, and the hold before shipping |
 | Vendor needs full payment | Work order allowed from paid or in production (§3 step 11; `workflows.php`) | 1.9 | **Changes built behaviour** for orders on full-payment terms (and invoice later); deposit orders keep today's behaviour |
@@ -171,7 +176,8 @@ the pass is the product. It shapes 1.2's client-configured items and 1.8's money
    order, or the client's "Yes, I have it" (Complete) still follows. Invoice-later terms: answered in 1.8 (credit
    account terms or an admin override).
 2. ~~The admin override~~ Answered: admins only, with a reason recorded (1.9).
-3. Approve for the client: is the "yes given in person, by phone or email" use dropped (1.6 vs the map)?
+3. ~~Approve for the client~~ Answered (1.6): kept for approvals given by email or another way, processed as if the
+   client approved, payment as normal. To confirm: who may use it, and whether the email is attached as the record.
 4. Which route an order takes, and whether invoice-later, wire and check stay on the invoice route only. (B.4 as
    confirmed exempts "invoice later" from paid in full; 1.9 removes that exemption.)
 5. The deposit: how much and who sets it, shown before paying; how long the cancel window lasts.
