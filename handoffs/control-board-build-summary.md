@@ -40,7 +40,7 @@ Known PHP failures, the same three as before this build (listed in `run-all.sh`'
 `NpiBulk::OFF` (the constant that kept NPI's load off) is removed: D12 replaces it with the npi_bulk task's own switch and
 its why (03 §22 NPI 1, in step 3, approved by Jason 2026-11-22). Its one other reader, `website/admin/crawler.php`, is in
 the zip and reads the switch. The zip check names it with `--drops OFF` on that approval; **the session manager to
-confirm the approval covers it**, else it goes to Jason in the pop-up.
+confirm**: it named it in Jason's pop-up, so his Approve covers it.
 
 ### 2c. The zip
 
@@ -137,25 +137,29 @@ pre-flight. Dropped: the interlocks note; the list of W1–W14 buttons (the card
 push); the case's buttons (Mark fixed, Check again, Run the checks now) kept on the list (check-register.md, Jason
 2026-11-22).
 
-## 7. Questions for Jason, as one (principle 7)
+## 7. Questions for Jason, as one (principle 7), each with a recommendation
 
-1. **The gauges' sign-off has no recorder yet:** all 16 development gauges stay in Planning until he signs each off
-   (B10–B19). Should the next release add a Sign off button on each gauge (his name and date, Undo), or does he sign in
-   chat and a session records it?
-2. **BRAND's three standards a browser can't read** (one header per view, filters as one dropdown, card anatomy): judged
-   by the page review (0145) as a reviewer's line, marked "not read by the check"?
-3. **The format of `site-audit/tools.md`** the tools check reads, and **the light probe's key pages** (default `/`,
-   `/discovery/`, `/directory/`, `/login.php`).
-4. **"Half its budget in 14 days" (R153)** has no data source yet: left out until one is registered.
-5. **A server's own check** runs its module's whole pre-flight line; a check per server needs a `probe` in its manifest.
-6. **The heartbeat's secrets (close.md A1):** `ALARM_TO`, `HEARTBEAT_SES_KEY_ID`, `HEARTBEAT_SES_SECRET` at
-   https://github.com/degraffics/traversence/settings/secrets/actions. Until then it sends nothing and says so.
+None blocks Publish, so none is asked in the release's pop-up; each goes to him later, as one question.
 
-None blocks the release.
+| # | Question | Recommendation | When |
+|---|---|---|---|
+| 1 | The gauges' sign-off has no recorder yet: all 16 development gauges stay in Planning (B10–B19) | A **Sign off** button on each gauge (his name and date, with Undo), in a follow-up release | later |
+| 2 | BRAND's three standards a browser can't read (one header per view, filters as one dropdown, card anatomy) | The page review (0145) checks them as a reviewer's line, marked "not read by the check" | later |
+| 3 | The format of `site-audit/tools.md`, and the light probe's key pages | Keep the default pages (`/`, `/discovery/`, `/directory/`, `/login.php`); tools.md as one row per tool, as the check reads it now | later |
+| 4 | "Half its budget in 14 days" (R153) has no data source | Leave it out until a spend history per day is registered | later |
+| 5 | A server's own check runs its module's whole pre-flight line | Add a `probe` to a module's manifest only when a server needs its own | later |
+
+**A reminder, not a question:** the heartbeat's secrets (close.md A1), `ALARM_TO`, `HEARTBEAT_SES_KEY_ID` and
+`HEARTBEAT_SES_SECRET`, at https://github.com/degraffics/traversence/settings/secrets/actions. Until they're set it
+sends nothing and says so.
+
+**Named in the pop-up, so his Approve covers them** (the session manager, 2026-11-23):
+- Removes `NpiBulk::OFF`, replaced by NPI's switch (D12).
+- The service card's issue now uses its alarm's title and status (0176 §3), replacing R2's card title.
 
 ## 8. Still to do around it
 
-- **Staging, read-only, after it lands:** the Ledger tab (https://staging.trvgo.us/admin/config/control?tab=ledger) and
+- **Staging, read-only, after the merge and before Publish** (it lands on staging with `"review": true`): the Ledger tab (https://staging.trvgo.us/admin/config/control?tab=ledger) and
   C15 (`irs_loads`). Live's https://traversence.com/admin/config/control?tab=ledger only on Jason's call.
 - **Repo files that act by themselves reach `main` only in this release's merge, after his Approve:**
   `.github/workflows/heartbeat.yml` (starts a schedule that emails), `.github/workflows/site-checks.yml` (starts the
