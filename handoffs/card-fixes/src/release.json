@@ -1,0 +1,16 @@
+{
+ "title": "Cards and photos: distance only when known, credits with their licence on the photo, a readable corner icon, stock photos not repeated, public places say who runs them",
+ "why": "Jason's screenshots of Parks & Landmarks and a memorial's page (approved 2026-11-22, handoffs/screens-proposal-2026-11-22.md A4-A6, A13, B3), with the session manager's three fixes. A card shows no distance when the place's point is only its ZIP's middle (Geocoder::APPROX, the geocoder's own rule): that read '0 mi' from its own town; a real point under half a mile says 'under ½ mi' (decisions/0060). Each photo's credit moves from a line under every card onto the photo, written out: who took it and its licence ('© Ken Lund · CC BY-SA 2.0', 'Public domain', decisions/0164: the licence decides the use), or 'Stock photo' for a representative stock photo, with an i for the full credit (Jason 2026-11-17); the name wraps before it's shortened and the licence is never cut. The icon in a card's corner sits on a dark disc. The same stock photo never shows twice in one list (the pattern instead), and memorials and monuments never get a stock photo (decisions/0143's order otherwise kept). A public place shows who runs it, from its Nexus, never 'Unclaimed' (decisions/0070's claim-kinds note). No outside calls, no cost.",
+ "changes": [
+  {
+   "what": "Let's Explore → Parks & Landmarks",
+   "where": "https://traversence.com/discovery/?view=parks"
+  },
+  {
+   "what": "FAQ: Where do I find parks and landmarks?",
+   "where": "https://traversence.com/faq.php#where-do-i-find-parks-and-landmarks"
+  }
+ ],
+ "proposals": [],
+ "switch": ""
+}

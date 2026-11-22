@@ -1,0 +1,1 @@
+<?php final class StockLibrary { public static $n = 0; public static function forSlot($p, $slot, $owner, $subj, $place, $o) { self::$n++; return ['id' => 7, 'card' => '/img/road.jpg', 'url' => '/img/road.jpg', 'author' => 'Ann Lee', 'source_name' => 'Unsplash']; } }
