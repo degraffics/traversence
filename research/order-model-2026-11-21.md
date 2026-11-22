@@ -129,6 +129,13 @@ statement."
     production queue set." The vendor's Accept, with its job number and the production scheduled, sets the order's
     **Production queue**; that ends the window. (Today's Accept already asks for the job number and who received it,
     and accepts the must-have date.)
+- **Changes after release** (2026-11-22):
+  - In the cart, before checkout: the item goes back to held, is prepared again (a new proof if needed), and is
+    released again ("Yes").
+  - After payment, before the vendor accepts: "if cancelled, we go back to order pending approval, and follow the
+    held/prepared process to adjust the cart for approval again. Payments take are applied to current cart, so due is
+    easy to understand." The pulled order returns to pending approval, goes through held and prepared again, and comes
+    back to the cart for approval; what's already paid is applied to the new cart, which shows what's left due.
 - The balance must be paid before the order is released for delivery; a late balance holds it before shipping.
 - What a deposit is: "Deposit does not control progress, it is a requirement of partial payment when needed to ensure
   we risk incurring expenses that might be incurred upon entering to production stage."
@@ -216,7 +223,7 @@ the pass is the product. It shapes 1.2's client-configured items and 1.8's money
 5. ~~The deposit's amount~~ Answered (1.8): a % per order set by staff, 65% default. Cancel window: answered (1.9); the vendor's
    Accept with its job number and the production scheduled ends it.
 6. ~~How long a quote's price holds~~ Answered (1.8): 14 days, then refreshed.
-7. A change after release (back to held), and after payment but before the vendor.
+7. ~~A change after release~~ Answered (1.9). To confirm: when the changed order costs less than what's paid.
 8. Shipping price on a client-configured order.
 9. A mixed cart: pay for what's ready, or wait for all.
 10. Reminders and an end date for released items not paid.
