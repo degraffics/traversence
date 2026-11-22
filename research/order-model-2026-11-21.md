@@ -67,7 +67,8 @@ productions actual schedule."
   Product, due at time of ordering/approval with small windows to cancel before becoming non-refundable."
   - **Made to order (design and the like):** due when ordered; a deposit on it is non-refundable.
   - **Product:** due when ordered or approved, with a small window to cancel before it becomes non-refundable (1.9).
-  - To confirm: whether a deposit on an estimate counts toward the order it becomes.
+  - A deposit on an estimate counts toward the order it becomes (2026-11-22: "Yes, the estimate deposit counts toward
+    the order.").
 
 **1.9 Cancelling, the vendor and the balance** (2026-11-22): "Deposit required at time of approval. There is a small
 window where an order can be canceled while we process it for production, but once production schedules it and enters
