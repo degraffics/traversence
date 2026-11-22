@@ -6,7 +6,14 @@ sc('correlation', 'S-F124', 'Trip B on the same host and signature inside the wi
     [$a, $b] = twoOnOurSite();
     chk('B joins A\'s Incident Report (IR-####)', (int) $a['incident_id'] > 0 && $a['incident_id'] === $b['incident_id'], [$a['incident_id'] ?? null, $b['incident_id'] ?? null]);
     chk('each member\'s own radius, unioned', holds() === array_values(array_unique(array_merge(LOADS_TASKS, ['task:second_look']))) || count(holds()) === 4, holds());
-    chk('one thread: one Pulse row, one email, one push for the incident (g4 rows 10, 11: two of each)', msgN() === [1, 1, 1], msgN());
+    chk('one thread: one Pulse row and one push for the incident (g4 rows 10, 11: two of each)', count(msgs()) === 1 && count(pushes()) === 1, msgN());
+    // the session manager's ruling (2026-11-22, row 124): B updates the incident's Pulse item and replies in its email thread,
+    // no new subject, no push
+    $m = msgs()[0] ?? []; $ml = mails();
+    chk('B\'s join updated the incident\'s Pulse item in place: its words name the incident and both parts', str_contains((string) ($m['body'] ?? ''), 'IR-') && str_contains((string) ($m['body'] ?? ''), 'Correlated · 2 parts') && (int) ($m['times'] ?? 0) === 2, mb_substr((string) ($m['body'] ?? ''), 0, 200));
+    chk('…the Pulse item stays A\'s (its thing and subject)', ($m['thing'] ?? '') === 'alarm:' . $a['id'] && str_starts_with((string) ($m['title'] ?? ''), 'SYSTEM ALARM NOTICE: '), [$m['thing'] ?? null, $m['title'] ?? null]);
+    chk('a reply in the incident\'s email thread: two emails, the same subject, the second In-Reply-To the first', count($ml) === 2 && $ml[0][1] === $ml[1][1] && ($ml[1][3]['parent'] ?? '') === ($ml[0][3]['id'] ?? '-') && ($ml[0][3]['id'] ?? '') !== '', array_map(fn ($x) => [$x[1], $x[3]], $ml));
+    chk('…and no push for the join (the push route says why)', (int) $GLOBALS['pdo']->query("SELECT COUNT(*) FROM comms_route WHERE via = 'push' AND stage = 'skipped' AND detail LIKE 'A reply on a thread%'")->fetchColumn() === 1, $GLOBALS['pdo']->query("SELECT via, stage, detail FROM comms_route WHERE via = 'push'")->fetchAll(PDO::FETCH_ASSOC));
 });
 sc('correlation', 'S-F125', 'one member\'s check passes: that member closed, the incident still open', [], function () {
     [$a, $b] = twoOnOurSite(); checks(['ep:crawl/verify' => pass()]); due('ep:crawl/verify:5xx'); tick();

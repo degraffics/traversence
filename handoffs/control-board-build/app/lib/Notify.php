@@ -159,7 +159,8 @@ final class Notify
      *         the kind (0102 §4, RBAC); ['staff' => [user ids]] our staff.
      * $about  'thing' (once per person, kind and thing; required), 'thread' (adds to an unread message of the same
      *         thread instead of sending another), 'url' (where it opens: a path on the site), 'pulse_ref' (when the
-     *         sender's own table already shows it in Pulse, e.g. a business conversation), 'from' [type, id, name].
+     *         sender's own table already shows it in Pulse, e.g. a business conversation), 'from' [type, id, name],
+     *         'no_push' (a reply on a thread already pushed: Pulse and email only, e.g. a trip joining its incident, 02 row 124).
      * $words  'title', 'body'.
      */
     public static function send(PDO $pdo, string $kind, array $to, array $about, array $words): int
@@ -202,7 +203,8 @@ final class Notify
                         elseif ($quiet && in_array($def[2], self::WAITS, true)) self::route($pdo, $mid, 'email', 'held', 'Quiet hours: it goes when they end');
                         else self::deliverEmail($pdo, $mid);
                     }
-                    if (self::pushOn($pdo, $u, $kind)) {
+                    if (!empty($about['no_push'])) self::route($pdo, $mid, 'push', 'skipped', 'A reply on a thread already pushed: no second push');
+                    elseif (self::pushOn($pdo, $u, $kind)) {
                         if (($why = self::pausedFor($pdo, $kind, 'push')) !== '') self::route($pdo, $mid, 'push', 'held', $why);
                         elseif ($quiet && in_array($def[2], self::WAITS_PUSH, true)) self::route($pdo, $mid, 'push', 'held', 'Quiet hours: it goes when they end');
                         else self::deliverPush($pdo, $mid, $was);
@@ -223,7 +225,7 @@ final class Notify
                 $n++;
                 self::route($pdo, $mid, 'pulse', 'created', $fName ? 'From ' . $fName : 'From the system');
                 $email = self::emailOn($pdo, $u, $kind);
-                $push = self::pushOn($pdo, $u, $kind);
+                $push = empty($about['no_push']) && self::pushOn($pdo, $u, $kind);
                 self::route($pdo, $mid, 'pulse', 'addressed', 'Pulse' . ($email ? ', email' : '') . ($push ? ', push' : '') . ($email ? '' : ' (email off for this kind)'));
                 self::route($pdo, $mid, 'pulse', 'delivered', $pulseRef ? 'Shown in Pulse by ' . strtok($pulseRef, ':') : 'In their Pulse');
                 $quiet = self::quietNow($pdo, $u) && !in_array($def[2], ['critical', 'urgent'], true);

@@ -22,7 +22,7 @@ $only = array_slice($argv, 2);
 $app = dirname($src, 2) . '/sctest-' . getmypid() . '/app';
 @mkdir(dirname($app), 0777, true); exec('cp -r ' . escapeshellarg($src) . ' ' . escapeshellarg($app));
 register_shutdown_function(fn () => exec('rm -rf ' . escapeshellarg(dirname($app))));
-file_put_contents($app . '/lib/Mailer.php', "<?php\nfinal class Mailer { public static array \$sent = []; public static bool \$routed = false;\n public static function send(\$to, \$subj, \$text, \$name = null, \$as = ''): void { self::\$sent[] = [\$to, \$subj, \$text]; } }\n");
+file_put_contents($app . '/lib/Mailer.php', "<?php\nfinal class Mailer { public static array \$sent = []; public static bool \$routed = false; public static ?array \$thread = null;\n public static function send(\$to, \$subj, \$text, \$name = null, \$as = ''): void { self::\$sent[] = [\$to, \$subj, \$text, self::\$thread]; } }\n");
 file_put_contents($app . '/lib/WebPush.php', "<?php\nfinal class WebPush { public static array \$sent = [];\n public static function sendToUser(PDO \$p, int \$u, array \$m): array { self::\$sent[] = ['u' => \$u] + \$m; return ['sent' => 1, 'failed' => 0, 'held' => 0]; } }\n");
 if (is_file($app . '/admin/Access.php')) require_once $app . '/admin/Access.php';
 foreach (['Database', 'ControlAlarms', 'ControlEngine', 'ControlIncidents', 'Automation', 'ControlRegister', 'ControlLog', 'Thread', 'Notify', 'Mailer', 'WebPush',

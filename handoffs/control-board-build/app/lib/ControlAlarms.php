@@ -684,8 +684,9 @@ final class ControlAlarms
                     $pdo->prepare('UPDATE control_alarms SET reading = ? WHERE id = ?')->execute([mb_substr('Reached no one: no founder account to receive it. ' . (string) $a['reading'], 0, 255), (int) $a['id']]);
                     if ((string) $a['akey'] !== 'dispatch:nobody') self::raise($pdo, 'dispatch:nobody', 'site:pulse', 'trip', 'held', 'The dispatcher reached no one with a trip',
                         'A trip (' . mb_substr((string) $a['title'], 0, 120) . ') had nobody to receive it: no founder account. It stands on the board.',
-                        'Name a founder in Communications, so trips reach someone by Pulse, email and push.', 'no founder account',
-                        [['Communications (who receives trips)', 'peek', '/admin/config/communications#cs-controls']], true, false, 'site:pulse');
+                        'Give a staff login the Founder level in Staff levels, so trips reach someone by Pulse, email and push.', 'no founder account',
+                        // where a founder is named (manifests.php: backoffice → levels, /admin/staff-levels.php; CommsSetup::founders reads it)
+                        [['Staff levels (who receives trips)', 'peek', '/admin/backoffice/levels']], true, false, 'site:pulse');
                 }
                 return;
             }
@@ -712,13 +713,28 @@ final class ControlAlarms
             if (!isset(Notify::KINDS[$kind])) return;
             $to = CommsSetup::founders($pdo);
             if (!$to) { self::notifyOne($pdo, $kind, $a, '', '', null); return; }   // P11: nobody to receive it is the dispatcher's own fault
-            // one thread per incident (02 row 124, S-F124): a trip that joined another's Incident Report is told on that thread,
-            // its incident's timeline, never a second email and push
+            // one thread per incident (02 row 124, S-F124; the session manager's ruling, 2026-11-22): a trip that joined another's
+            // Incident Report updates the incident's Pulse item and replies in its email thread, under the first trip's subject;
+            // no new subject and no push (decisions/0176 §1: one thread, updated in place)
             if (self::$engine && (int) ($a['incident_id'] ?? 0) > 0) {
                 $mt = $pdo->prepare('SELECT id FROM control_alarms WHERE incident_id = ? AND id <> ? AND mailed_at IS NOT NULL ORDER BY id LIMIT 1'); $mt->execute([(int) $a['incident_id'], $id]);
                 if ($first = (int) $mt->fetchColumn()) {
-                    try { require_once __DIR__ . '/ControlIncidents.php'; ControlIncidents::note($pdo, (int) $a['incident_id'], 'Correlated: ' . self::noticeName($pdo, $a) . ' joined (' . ControlIncidents::tripId($id) . '), on the thread of ' . ControlIncidents::tripId($first) . '.'); } catch (Throwable $x) {}
+                    require_once __DIR__ . '/ControlIncidents.php';
+                    $ir = (int) $a['incident_id'];
+                    try { ControlIncidents::note($pdo, $ir, 'Correlated: ' . self::noticeName($pdo, $a) . ' joined (' . ControlIncidents::tripId($id) . '), on the thread of ' . ControlIncidents::tripId($first) . '.'); } catch (Throwable $x) {}
                     $pdo->prepare('UPDATE control_alarms SET mailed_at = UTC_TIMESTAMP() WHERE id = ?')->execute([$id]);
+                    $fa = self::byId($pdo, $first);
+                    if ($fa) {
+                        $ms = $pdo->prepare('SELECT * FROM control_alarms WHERE incident_id = ? ORDER BY id'); $ms->execute([$ir]);
+                        $parts = []; foreach ($ms->fetchAll(PDO::FETCH_ASSOC) as $m) $parts[] = self::noticeName($pdo, $m);
+                        $parts = array_values(array_unique($parts));
+                        $line = ControlIncidents::number($ir) . ' · Correlated · ' . count($parts) . ' parts: ' . implode(', ', $parts) . ' · ' . self::actionOf($a, 'trip');
+                        $body = $line . "\n" . self::noticeName($pdo, $a) . ' joined this incident (same host and kind within ' . ControlIncidents::WINDOW_MIN . ' minutes).' . "\n\n"
+                              . self::noticeBody($pdo, $a, 'trip') . ((string) $a['reading'] !== '' ? 'Reading: ' . $a['reading'] : '');
+                        Notify::send($pdo, $kind, ['staff' => $to], ['thing' => 'alarm:' . $first, 'url' => self::pulseUrl($pdo, $fa), 'from' => ['system', null, 'Control Board'],
+                            'pulse_ref' => 'alarm:' . $first, 'no_push' => true],
+                            ['title' => self::noticeTitle($pdo, $fa, 'trip'), 'body' => trim($body)]);
+                    }
                     return;
                 }
             }

@@ -345,6 +345,39 @@ databases (lv_b, lv_e…) so runs don't collide.
 - Two helpers on one file: only with targeted edits; the register (M) and the Workflows page (W) shared
   `operations-console.php` this way without loss.
 
+## Taken over (2026-11-22 23:24 UTC, session_01CXLi5iMkDf1xiJ4V9rScRe)
+
+**The session manager's rulings (2026-11-22, recorded first):**
+1. **Rows of the state model (`step3/02-state-model.md`) are approved sources:** Jason approved step 3 on 2026-11-22. The
+   summary cites them by row number.
+2. **Row 124:** a trip that joins an incident updates the incident's Pulse item and sends a reply in the incident's
+   existing email thread; no new subject and no push (0176 §1: one thread per alarm, updated in place). This replaces
+   the earlier build (a timeline note only, nothing sent) and closes the hand-off's "row 124's contradiction" question.
+3. **The dispatcher card's link is confirmed from `app/admin/manifests.php`, not guessed.**
+
+**Done:**
+- **Claims:** the old session's 48 released; the same 48 plus `app/admin/module-cards.php` (add) claimed by this session
+  (23:25 UTC, until 03:25 UTC, release `control-board.zip`).
+- **Mirror:** Sync 2026-11-22 23:05 UTC (`8d3afbd`), the same the build is on: nothing to re-apply.
+- **Branch:** `origin/main` merged into `claude/control-board-build` (no rebase, no force-push).
+- **Row 124 built** (ruling 2): `ControlAlarms::mail` sends a joining trip on the first member's thread
+  (`thing` `alarm:<first>`, its subject `SYSTEM ALARM NOTICE: <A>: Paused by the system`), its words first
+  "IR-#### · Correlated · 2 parts: <A>, <B> · Paused by the system", then "<B> joined this incident (same host and kind
+  within 15 minutes)" and B's notice; `Notify::send` takes `'no_push' => true` (Pulse and email only; the push route
+  reads "A reply on a thread already pushed: no second push"). The email is a reply: `Notify::deliverEmail` already
+  threads an in-place alarm's later emails (In-Reply-To the first). **Test:** `scenario/suites/correlation.php` S-F124,
+  7 checks (one Pulse row updated in place, `times` 2, A's thing and subject; two emails, the same subject, the second's
+  parent the first's id; one push; the skipped push route). The scenario runner's stand-in `Mailer` records
+  `Mailer::$thread` now.
+- **Ruling 3, the dispatcher card's link:** `manifests.php` `config` → `communications` ("Communications": senders,
+  mailboxes, routing, domain health, message control; `tv_admin_mod_comms`, founder-only) is the dispatcher's settings,
+  so the card's `/admin/config/communications` (`ControlGauges` parts.core.dispatcher; runtime o-signin, o-email,
+  o-told) **is right and kept**. One fix was wrong: the dispatcher's own "reached no one" trip (P11) said "Name a founder
+  in Communications" and opened `#cs-controls`, but founders are read from staff logins' level
+  (`CommsSetup::founders` → `Workspaces::levelOf`), set at `manifests.php` `backoffice` → `levels` ("Staff levels",
+  `/admin/staff-levels.php`). It now says "Give a staff login the Founder level in Staff levels" and opens
+  `/admin/backoffice/levels`.
+
 ## Next, in the plan's order (§2.2) (superseded by the hand-off above)
 1. Read C15 on staging (§6), and the Ledger tab's rows: read-only, wanted from a runner or Jason.
 2. Remaining callers: Operations, ControlSensor, ControlMaintenance and ControlHistorian (they raise through the store,
