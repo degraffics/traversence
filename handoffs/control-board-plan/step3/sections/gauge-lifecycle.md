@@ -31,13 +31,13 @@ A gauge's stage comes from its process state, never from fixed % bands.
 
 | Stage | Entry | Exit | What the gauge shows |
 |---|---|---|---|
-| **Planning** | A new gauge is created. It starts at **0**. | Jason signs off the configuration ("what 100 means"). His sign-off is written to the Control Board's logbook with its date. | 0 · "Planning" · "configuration drafted: N items, M criteria, awaiting sign-off" (or "no configuration yet") |
+| **Planning** | A new gauge is created. It starts at **0**. | Jason signs off the configuration ("what 100 means"), **and no criterion has "no check yet"** (every check it needs is in the register and built). His sign-off is written to the Control Board's logbook with its date. | 0 · "Planning" · "configuration drafted: N items, M criteria, awaiting sign-off" (or "no configuration yet") |
 | **Phased Development** | Sign-off, while any in-scope item isn't built. | Every item meets "built". | criteria met / configured · "Phased Development" |
 | **Audit & Review** | Every item is built, while any item lacks its check or its review. **Audit & Review checks the work before it goes live:** staging, the checks (path or function), the review. | Every item meets "checked" and "reviewed". | the % · "Audit & Review" |
 | **Implementation** | Checked and reviewed, while any item isn't live or isn't proved. **Implementation is putting it live and proving it on real data.** | Every item meets "live" and "proved". | the % · "Implementation" |
 | **Monitoring** | 100: every configured criterion met. | A regression: a criterion that stops holding. The needle drops, the stage moves back to where that criterion belongs, with its reason, and the drop is logged. | 100 · "Monitoring" · the last time every criterion was checked |
 
-**The rule, in order:** not signed off → Planning; else any item not built → Phased Development; else any item without its
+**The rule, in order:** not signed off, or any criterion with no check yet → Planning; else any item not built → Phased Development; else any item without its
 check or review → Audit & Review; else any item not live or not proved → Implementation; else Monitoring. A gauge sits at the
 earliest stage any of its items is still in.
 
@@ -75,6 +75,33 @@ work without his sign-off shows "audited, awaiting sign-off". This replaces the 
 
 - **One item not yet built keeps the whole gauge in Phased Development; the needle still shows progress.**
 
+### A gauge's setup is a list of checks (the check register)
+
+The page audit becomes the diagnostics tool the gauges use (the session manager's proposal to Jason, 2026-11-22). Every
+check is one entry in **`check-register.md`** (25: 21 existing, 4 proposed), and every criterion links to a check ID:
+- **checked** needs **every check that applies to the item** passing: the code checks R01–R15; RENDER for a page; PATHS
+  where a path runs through it; SEARCH or LAYOUT where they measure it; BOARD for a workflow or a service; and the four
+  proposed checks where they apply: TOOLS (each tool and endpoint by every type of account), LOAD (load time against a
+  target), PHOTOS-SHOWN (every photo drawn), BRAND (most of brand.md). A missing check shows **"no check yet"**.
+- **A gauge can't leave Planning while any of its criteria has "no check yet".** Today every gauge has some, so all 16 stay
+  in Planning even with the draft signed off; the needle still shows the share met.
+
+### What a failure does
+
+- **On a build gauge:** the item drops back a stage (a check that stops passing takes its "checked", "reviewed" or "proved"
+  away), and the drop is logged with the check, its result and its evidence.
+- **On a runtime gauge:** a failing check is a **sensor into the one alarm engine**, with Fix it, the same as every other
+  alarm. This replaces the separate Pulse "Site health" case.
+- **The two clocks stay:** the audit is the **scheduled diagnostic**, never a trip on its own. A trip comes only from the
+  operational clock, as decisions/0175 sets out.
+
+### Build order (a spec note)
+
+1. **The register** (`check-register.md`), its IDs on every criterion.
+2. **The four gaps:** TOOLS (with `site-audit/tools.md`), LOAD, PHOTOS-SHOWN, BRAND.
+3. **One results format** for every check, extending `site-audit/results/findings.json`.
+4. **The gauges read the register**, with **Run checks now** in each gauge's drawer.
+
 ## 5. Where the configuration lives (a proposal)
 
 - **On the gauge:** the gauge holds its configuration. **Configure** opens from the gauge in a drawer on the board, on its
@@ -90,10 +117,10 @@ work without his sign-off shows "audited, awaiting sign-off". This replaces the 
 
 Every gauge is in **Planning at 0**, its configuration drafted from the inventory and awaiting sign-off. **"Preview with the
 draft configuration"** shows what each would read if the draft were signed off, with the criteria from the page audit:
-Discovery 57%, Directory 63%, Community 46%, Marketplace 53%, TRVGO – Storefront 52%, Accounts 59%, Dashboard & Pulse 65%,
-Get Local 360° 62%, Let's Explore 360° 58%, Market 360° 64%, Social 360° 56%, Sales & Growth 61%, White Glove Concierge 27%,
-Back-Office 53%, Insights & Research 59%, System Configuration 59%. All are in Phased Development but Dashboard & Pulse
-(Audit & Review: every item built, few reviewed). The nine placements Jason marked "Needs changes" stay where they are,
+Discovery 45%, Directory 52%, Community 39%, Marketplace 44%, TRVGO – Storefront 41%, Accounts 48%, Dashboard & Pulse 50%,
+Get Local 360° 48%, Let's Explore 360° 46%, Market 360° 49%, Social 360° 44%, Sales & Growth 46%, White Glove Concierge 23%,
+Back-Office 43%, Insights & Research 46%, System Configuration 48%. All 16 stay in Planning: each has a criterion with no
+check yet (`gauge-criteria-from-audit.md` §7). The nine placements Jason marked "Needs changes" stay where they are,
 pending Jason, under the Questions pill.
 
 ## 7. Runtime gauges under the lifecycle (approved by Jason, 2026-11-22)
@@ -112,10 +139,14 @@ Jason approved the runtime lifecycle: "Approve". Every runtime snapshot gauge on
 - **The strip on the Development page** shows Pages load fast across all five stages: Planning is today, the other four are
   illustrations (Monitoring's reading is a scenario).
 
-## 8. Open questions
+## 8. Open questions (Jason's calls)
 
-1. **Reviewed:** as recommended in `gauge-criteria-from-audit.md` (no open finding and your sign-off on record), or Claude's
-   review alone, or your chat approval of each build?
-2. **Weights:** all 1, or 2 for items on a core path?
-3. **Release B and Start the system:** their approvals (#60–#69) don't map to one item each. Should their owners map them?
-4. **The nine placements:** "Needs changes"; they wait for your detail.
+1. **Reviewed:** as recommended in `gauge-criteria-from-audit.md` (no open finding and your sign-off on record); the chat
+   approval stays an option, with its note in 0145.
+2. **Targets:** your own, or the proposed target per check (`check-register.md`)?
+3. **How often** each check runs.
+4. **Site health:** through the one alarm engine (a failing check is a sensor with Fix it), replacing the separate Pulse case?
+5. **The nine placements:** "Needs changes"; they wait for your detail.
+
+Settled by the session manager (2026-11-22): weights stay at 1; the owning sessions map releases #60–#69 to items, through
+the session manager.

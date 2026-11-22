@@ -249,6 +249,52 @@ for f in FIND['findings']:
         OPEN.setdefault(name, []).append(f'{f["id"]}: {f["title"]}')
 
 
+import checkreg
+REG = checkreg.BY
+SEARCH_ITEMS = ('Universal search', 'Search Phase C', 'Directory search')
+LAYOUT_ITEMS = ('Natural landmark page', 'Let\'s Explore: overview')
+FRONT6 = ('Discovery', 'Directory', 'Community', 'Marketplace', 'TRVGO – Storefront', 'Accounts')
+
+
+def item_checks(it):
+    """The checks that apply to an item (the register), each with its latest result: pass, fail, partial or no check."""
+    st, lvl, by = it['status'], it.get('level'), it.get('check_by') or ''
+    built = st in ('live', 'held')
+    rows = []
+    if built:
+        rows.append(('R01–R15', 'pass', 'the code checks: 0 failures (' + checkreg.AT_SCORE + ')'))
+    if not st == 'live':
+        return rows
+    if has_page(it):
+        ok = 'Working' in by or 'Answers (404' in by or '(render only' in by
+        rows.append(('RENDER', 'pass' if ok else ('fail' if 'not passing' in (it.get('check16') or it.get('check') or '') else 'no check'), by.split(': ', 1)[-1].replace(' (render only: Complete needs a path or function check)', '')))
+    for pid in PAGE_PATHS.get(it['name'], []):
+        stt = PATHS_BY.get(pid, 'not run')
+        rows.append(('PATHS', 'pass' if stt == 'passed' else 'fail', f'"{pid}": {stt}'))
+    if lvl == 'path' and by.startswith('the paths check'):
+        rows.append(('PATHS', 'pass' if it.get('check') == 'passing' else 'fail', by.split(': ', 1)[-1]))
+    if it['name'].startswith(SEARCH_ITEMS):
+        rows.append(('SEARCH', REG['SEARCH']['result'], REG['SEARCH']['latest']))
+    if it['name'].startswith(LAYOUT_ITEMS):
+        rows.append(('LAYOUT', REG['LAYOUT']['result'], REG['LAYOUT']['latest']))
+    if it['kind'] in ('workflow', 'integration'):
+        r = it.get('check')
+        rows.append(('BOARD', 'pass' if r == 'passing' else ('fail' if r == 'not passing' else 'no check'), by or 'no reading yet'))
+        return rows
+    if has_page(it):
+        rows.append(('LOAD', 'no check', 'no check yet'))
+        if it['owner16'] in FRONT6:
+            rows.append(('PHOTOS', 'no check', REG['PHOTOS']['latest']))
+            rows.append(('PHOTOS-SHOWN', 'no check', 'no check yet'))
+        rows.append(('BRAND', 'partial', REG['BRAND']['latest']))
+    rows.append(('TOOLS', 'no check', 'no check yet: endpoints and tools by every type of account'))
+    return rows
+
+
+PATHS_BY = {p.get('id'): p['status'] for p in json.load(open(STEP3 + '../../../site-audit/results/paths.json'))['results']}
+PAGE_PATHS = {'Get Local: businesses near you, list and map': ['eat-near-me', 'set-place']}
+
+
 def has_page(it):
     return (it.get('check_by') or '').startswith('the rendered check')
 
@@ -258,12 +304,7 @@ def crit_met(it):
     st, lvl, by = it['status'], it.get('level'), it.get('check_by') or ''
     live = st == 'live'
     render_ok = 'Working' in by or 'Answers (404' in by or '(render only' in by
-    if has_page(it):
-        checked = live and render_ok
-    elif lvl == 'path':
-        checked = live and it.get('check') == 'passing'
-    else:
-        checked = live   # code checks only: R01–R15 at 0 failures on the scorecard (2026-11-21)
+    checked = live and all(r == 'pass' for _, r, _ in item_checks(it))   # every applicable check in the register passing
     reviewed = live and it['name'] in SIGNOFF and it['name'] not in OPEN
     proved = live and it.get('check') == 'passing' and lvl in ('path', 'function')
     return {'decided': True, 'built': st in ('live', 'held'), 'checked': checked, 'reviewed': reviewed, 'live': live, 'proved': proved}
@@ -285,6 +326,8 @@ def stage_of(its, signed_off=True):
     """The stage comes from the process state, not from % bands."""
     if not signed_off:
         return 'Planning'
+    if any(r == 'no check' for i in its for _, r, _ in item_checks(i)):
+        return 'Planning'   # a gauge can't leave Planning while any of its criteria has "no check yet" (gauge-lifecycle.md)
     cm = [crit_met(i) for i in its]
     if any(not c['built'] for c in cm):
         return 'Phased Development'
@@ -340,7 +383,8 @@ def rows(heading='h2'):
             f'Complete needs a path or function check; a page that only renders isn\'t complete.</p>'
             f'<p class="dg-rule">One item not yet built keeps the whole gauge in Phased Development; the needle still shows progress.</p>'
             f'{runtime_strip()}<h3 class="dg-row">Front end <span>6</span></h3><div class="dg-grid">{"".join(gauge(g, "front") for g in FRONT)}</div>'
-            f'<h3 class="dg-row">Back end <span>10</span> <small>the admin\'s modules, as manifests.php has them</small></h3><div class="dg-grid">{"".join(gauge(g, "back") for g in BACK)}</div></section>')
+            f'<h3 class="dg-row">Back end <span>10</span> <small>the admin\'s modules, as manifests.php has them</small></h3><div class="dg-grid">{"".join(gauge(g, "back") for g in BACK)}</div>'
+            f'{example_checks()}{register_block()}</section>')
 
 
 RT_SETUP = ['the probe built', 'its target set by Jason', 'its check passing on its clock', 'its alarm wired to the board']
@@ -368,15 +412,38 @@ def runtime_strip():
             f'against its target, and setup shows only in Configure. One needle at a time.</p><div class="dg-rts">{cards}</div></div>')
 
 
+RES_W = {'pass': 'passes', 'fail': 'fails', 'partial': 'partial', 'no check': 'no check yet'}
+
+
+def example_checks():
+    it = BYNAME['Get Local: businesses near you, list and map']
+    rows = ''.join(f'<tr><td><b>{E(cid)}</b> {E((REG.get(cid) or {"name": "the code checks R01–R15"})["name"])}</td><td><span class="dg-ck"><i class={ {"pass": "p", "fail": "f", "partial": "h"}.get(r, "n")}>{RES_W[r]}</i></span></td>'
+                   f'<td>{E(latest)}</td><td><a href="{E((REG.get(cid) or REG["R01"])["evidence"]) if (REG.get(cid) or REG["R01"])["evidence"].startswith("http") else "#ck-" + cid}" target="_blank" rel="noopener">evidence ↗</a></td></tr>' for cid, r, latest in item_checks(it))
+    return (f'<details class="dg-ex" open><summary><b>One item\'s check list in full:</b> Get Local (Directory)</summary>'
+            f'<p class="dg-sub">Every check that applies to the page, with its latest result and its evidence. "Checked" needs them all passing; today it isn\'t: '
+            f'one path fails (set-place, a finding with P9), and four have no check yet. Its Workflows and Services paths are the Board\'s (Board → the pages).</p>'
+            f'<div class="tw"><table class="dg-ext"><thead><tr><th>Check</th><th>Result</th><th>Latest</th><th>Evidence</th></tr></thead><tbody>{rows}</tbody></table></div>'
+            f'<div class="btns"><button type="button" class="btn" disabled title="Drawn: inert in the mockup">Run checks now</button></div></details>')
+
+
+def register_block():
+    rows = ''.join(f'<li id="ck-{E(c["id"])}"><b>{E(c["id"])}</b> {E(c["name"])} · <span class="dg-ck"><i class={ {"pass": "p", "fail": "f", "partial": "h"}.get(c["result"], "n")}>{E(c["status"])}</i></span> '
+                   + (f'<a href="{E(c["evidence"])}" target="_blank" rel="noopener">evidence ↗</a>' if c['evidence'].startswith('http') else f'<span class="micro">{E(c["evidence"])}</span>') + '</li>' for c in checkreg.CHECKS)
+    return (f'<details class="dg-ex"><summary><b>The check register</b>: {len(checkreg.CHECKS)} checks, {sum(1 for c in checkreg.CHECKS if c["status"] == "built")} existing and '
+            f'{sum(1 for c in checkreg.CHECKS if c["status"] != "built")} proposed (sections/check-register.md)</summary><ul class="dg-reg">{rows}</ul></details>')
+
+
 def _citem(it):
     faces = []
     for f in it.get('other_face') or []:
         o = _face(f)
         if o:
-            faces.append(f'<a href="#" class="dg-face" data-open-panel="p-dev-{slug(o["owner16"])}" data-dev-item="{o["id"]}">Other face: {E(o["name"])} · {E(o["owner16"])} ›</a>')
+            faces.append(f'<a href="#" class="dg-face" data-open-panel="p-dev-{slug(o["owner16"])}" data-dev-item="{o["id"]}">Other face: {E(_short_name(o["name"]))} · {E(o["owner16"])} ›</a>')
     m = crit_met(it)
-    cr = ''.join(f'<i{" class=ok" if m[k] else ""}>{k}</i>' for k, w in CRIT)
-    lvl = f' · check level: {E(it.get("level", "none"))}' if it['status'] == 'live' else ''
+    cr = ''.join(f'<i{" class=ok" if m[k] else ""}>{k[:3]}</i>' for k, w in CRIT)
+    lvl = ''
+    ck = ''.join(f'<i class={ {"pass": "p", "fail": "f", "partial": "h", "no check": "n"}.get(r, "n")}>{E(cid)}</i>' for cid, r, _ in item_checks(it))
+    ck = f'<span class="dg-ck">{ck}</span>' if ck else ''
     pend = f'<span class="dg-pend">{E(it["pending"])}</span>' if it.get('pending') else ''
     if it['status'] == 'live':
         if it['name'] in OPEN:
@@ -385,8 +452,17 @@ def _citem(it):
             pend += f'<span class="dg-rev">signed off: {E(SIGNOFF[it["name"]])}</span>'
         elif it['name'] not in OPEN:
             pend += '<span class="dg-acc">audited, awaiting sign-off</span>'
-    return (f'<li class="dg-it" id="{it["id"]}"><span class="dg-in">{E(it["name"])}</span><span class="dg-crs">{cr}</span>'
-            f'<span class="dg-src">{E(it["source"])}{lvl} · weight 1</span>{pend}' + ''.join(faces) + '</li>')
+    return (f'<li class="dg-it" id="{it["id"]}"><span class="dg-in">{E(it["name"])}</span><span class="dg-crs">{cr}</span>{ck}'
+            f'<span class="dg-src">{E(_short_src(it["source"]))}</span>{pend}' + ''.join(faces) + '</li>')
+
+
+def _short_name(t):
+    return t if len(t) <= 38 else t[:36].rsplit(' ', 1)[0] + '…'
+
+
+def _short_src(t):
+    t = t.replace('app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):', 'manifests.php:').replace(f'; in the mirror (Sync e229587, 22:55 UTC Nov 21)', '; in the mirror')
+    return t if len(t) <= 62 else t[:60].rsplit(' ', 1)[0] + '…'
 
 
 def panel(g):
@@ -414,8 +490,11 @@ def panel(g):
             f'<div class="dg-sum"><b>Planning · 0%</b>: configuration drafted, {len(c["items"])} items, {c["total"]} criteria, awaiting sign-off. '
             f'With the draft signed off: <b>{c["pct"]:.0f}%</b>, {E(c["stage"])} ({c["met"]} of {c["total"]} criteria met).</div>'
             f'<div class="dg-tabs" role="tablist" aria-label="{E(g)}">{tabs}</div>'
-            f'<div class="dg-tp" role="tabpanel" id="tp-{pid}-conf" aria-labelledby="t-{pid}-conf"><p class="dg-sub">✓ met · not met. Each item\'s definition of done: {" · ".join(w.split(" (")[0].lower() for _, w in CRIT)}. Phases and weights (1 each) are drafted from the inventory.</p>'
-            f'<div class="btns"><button type="button" class="btn f" disabled title="Drawn: inert in the mockup">Sign off (Jason)</button></div>{conf}</div>'
+            f'<div class="dg-tp" role="tabpanel" id="tp-{pid}-conf" aria-labelledby="t-{pid}-conf"><p class="dg-sub">✓ met · not met (dec, bui, che, rev, liv, pro). Each item\'s definition of done: {" · ".join(w.split(" (")[0].lower() for _, w in CRIT)}. Phases and weights (1 each) are drafted from the inventory.</p>'
+            f'<div class="btns"><button type="button" class="btn f" disabled title="Drawn: inert in the mockup">Sign off (Jason)</button>'
+            f'<button type="button" class="btn" disabled title="Drawn: inert in the mockup">Run checks now</button></div>'
+            f'<p class="dg-sub">Each item\'s checks, from the register: <span class="dg-ck"><i class=p>passes</i><i class=f>fails</i><i class=h>partial</i><i class=n>no check yet</i></span> '
+            f'Each check\'s evidence is in the register (below the gauges, and <code>sections/check-register.md</code>). Then its Workflows and Services paths on the Board.</p>{conf}</div>'
             f'<div class="dg-tp" role="tabpanel" id="tp-{pid}-prog" aria-labelledby="t-{pid}-prog" hidden><p class="dg-sub">Criteria met, by phase, if the draft were signed off.</p>{prog}</div>'
             f'<div class="dg-tp" role="tabpanel" id="tp-{pid}-mon" aria-labelledby="t-{pid}-mon" hidden><p class="dg-sub">Once at 100, every criterion is checked again on its own clock; a regression drops the needle, moves the stage back with its reason, and is logged here.</p>'
             f'<p class="nohist">No history yet</p><p class="dg-sub">Sign-off: none yet. Jason\'s sign-off of the scope is written to the Control Board\'s logbook with its date. '
@@ -442,6 +521,12 @@ CSS += r"""
 .dg-seg{display:inline-flex;flex-wrap:wrap;gap:.25rem}.dg-seg button{border:1px solid var(--field-edge);background:var(--card);border-radius:999px;padding:.15rem .6rem;font:inherit;font-size:12px;cursor:pointer;color:var(--ink)}
 .dg-seg button[aria-pressed="true"]{background:var(--btn);color:var(--btn-text);border-color:var(--btn)}
 @media (max-width:767px){.dg-rts{grid-template-columns:repeat(2,minmax(0,1fr));gap:3px}}
+.dg-ck{display:flex;flex-wrap:wrap;gap:.2rem}.dg-ck i{font-style:normal;font-size:10.5px;border-radius:3px;padding:0 .35rem;border:1px solid var(--card-edge);background:var(--sec);color:var(--meta)}
+.dg-ck i.p{border-color:#3d6b52;color:#3d6b52;background:#EEF4EF}.dg-ck i.f{border-color:var(--red);color:var(--red)}.dg-ck i.h{border-color:var(--amber);color:var(--amber)}.dg-ck i.n{border-style:dashed}
+.dg-ex{border:1px solid var(--card-edge);background:var(--card);border-radius:.5rem;padding:.5rem .6rem;margin:.6rem 0}.dg-ex>summary{cursor:pointer;font-size:13.5px}
+.dg-ext{width:100%;border-collapse:collapse;font-size:12.5px}.dg-ext td,.dg-ext th{border-top:1px solid var(--card-edge);padding:.3rem .35rem;text-align:left;vertical-align:top}
+.dg-reg{list-style:none;margin:.3rem 0;padding:0;font-size:12.5px;display:flex;flex-direction:column;gap:.25rem}
+@media (max-width:767px){.dg-ext thead{display:none}.dg-ext tr{display:block;border-top:1px solid var(--card-edge);padding:.3rem 0}.dg-ext td{display:block;border:0;padding:.1rem 0}}
 .dg-crs{display:flex;flex-wrap:wrap;gap:.2rem}.dg-c{font-size:11px;border:1px solid var(--card-edge);border-radius:999px;padding:0 .4rem;color:var(--meta);background:var(--sec)}
 .dg-gw{display:flex;flex-direction:column;gap:3px;min-width:0}.dg-gw .dg-g{flex:1}.dg-cfg{border:1px solid var(--field-edge);background:var(--card);border-radius:.4rem;padding:.15rem .5rem;font:inherit;font-size:12px;cursor:pointer;color:var(--brown)}
 .dg-rd{display:inline-flex;flex-wrap:wrap;gap:.25rem;align-items:center}.dg-rdl{font-size:12px;color:var(--meta)}.dg-rd button{border:1px solid var(--field-edge);background:var(--card);border-radius:999px;padding:.15rem .6rem;font:inherit;font-size:12px;cursor:pointer;color:var(--ink)}
@@ -484,4 +569,39 @@ def page(base_css):
             f'<div class="scrim"></div>{panels()}{JS}{JS_PAGE}')
     return (f'<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">'
             f'<title>Development Gauges</title><meta name="description" content="Step 3 mockup: the 16 development gauges, each starting at 0 in Planning, configured to say what 100 means.">'
-            f'<style>{base_css}{CSS}.dg-main{{padding:1rem 16px 3rem;max-width:1280px;margin:0 auto}}@media (max-width:767px){{.dg-main{{padding:.6rem 3px 3rem}}}}</style></head><body>{body}</body></html>')
+            f'<style>{dev_css(base_css)}.dg-main{{padding:1rem 16px 3rem;max-width:1280px;margin:0 auto}}@media (max-width:767px){{.dg-main{{padding:.6rem 3px 3rem}}}}</style></head><body>{body}</body></html>')
+
+
+
+KEEP = re.compile(r'(:root|^html|^body|^\*|\.bhead|\.chip|\.panel|\.scrim|\.x\b|\.crumb|\.h2|\.h3|\.btn|\.btns|\.micro|\.tw\b|\.nohist|\.sub\b|\.live|\.sctag|code|\.lt\b|\.dg|\.dl\b|body\.open|\.rnote|details|summary|button|a\b|a:|\.navb|\.back|\.imp)')
+
+
+def dev_css(css):
+    """Only the rules the Development page uses, from the board's minified CSS (keeps the page under 300 KB)."""
+    out, i, n = [], 0, len(css)
+    while i < n:
+        if css.startswith('@media', i):
+            depth, j = 0, css.index('{', i)
+            k = j
+            while True:
+                if css[k] == '{':
+                    depth += 1
+                elif css[k] == '}':
+                    depth -= 1
+                    if depth == 0:
+                        break
+                k += 1
+            inner = dev_css(css[j + 1:k])
+            if inner:
+                out.append(css[i:j + 1] + inner + '}')
+            i = k + 1
+            continue
+        j = css.find('{', i)
+        if j < 0:
+            break
+        k = css.index('}', j)
+        sel = css[i:j]
+        if any(KEEP.search(x.strip()) for x in sel.split(',')):
+            out.append(css[i:k + 1])
+        i = k + 1
+    return ''.join(out)

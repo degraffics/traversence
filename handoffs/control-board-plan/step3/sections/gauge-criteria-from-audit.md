@@ -14,7 +14,7 @@ proposals), the page review skill (`.claude/skills/page-review/`), `tools/page-a
 |---|---|---|---|
 | **decided** | A decision (`decisions/*.md`, Accepted), or a manifest section marked coming that an accepted decision covers | **human** (Jason accepts the decision) | the decision's Status line; `app/admin/manifests.php` |
 | **built** | A release or zip: `tools/page-audit/send.py` → the zip check (`zipcheck.py`) → the release pipeline | **machine** | `deliveries/releases/<n>.json`, `deliveries/` (each file matched to live) |
-| **checked** | The code checks R01–R15 (`audit.py` on the mirror after every sync; `zipcheck.py` on every zip), the rendered check at 1280 and 390 (`rendered.mjs`), and the paths check where a path runs through it (`paths.mjs`) | **machine** | `site-audit/scorecard.md`; `site-audit/results/rendered.json`, `paths.json` |
+| **checked** | Every check in the register (`check-register.md`) that applies to the item: the code checks R01–R15 (`audit.py`, `zipcheck.py`), the rendered check (`rendered.mjs`), the paths (`paths.mjs`), the search and layout probes, the board's readings; and, once built, TOOLS, LOAD, PHOTOS-SHOWN and BRAND | **machine** | the register's evidence: `scorecard.md`, `results/*.json`, the board |
 | **reviewed** | Phase 4's page review: Claude's verdicts (fix, amend, missing, conflict) on each finding, appended to `site-audit/proposals.md`; then **Jason's ruling** on each proposal, and his **UI, UX and Functional** approval on a release sent for review | the verdicts are **machine** (a Claude Code session); the ruling and the approval are **human** | `site-audit/proposals.md` (the "Decided (Jason, …)" lines); `results/findings.json` (open findings); the release log's "Review UI / UX / Functional: approved" lines |
 | **live** | The live mirror after the sync, or a release record in state live | **machine** | the mirror (`degraffics/traverse-3way-sync`); `deliveries/releases/` |
 | **proved** | The paths check on the live site (a visitor's whole task, end to end), or a function reading on real data (a runtime snapshot, the health report, the alarms) | **machine** | `results/paths.json`; the runtime snapshots |
@@ -46,9 +46,8 @@ offered to Jason as an option (§3).
 
 ## 3. The recommendation
 
-- **checked:** the audit's code, rendered and path checks pass at 1280 and 390. An item with a page needs its rendered check
-  passing; an item with a path needs its path passing; an item with neither (a workflow, a library) needs the code checks,
-  at 0 failures on the scorecard (2026-11-21).
+- **checked:** every check in the register that applies to the item passes (§7). A missing check shows "no check yet", and
+  the gauge can't leave Planning while one remains.
 - **reviewed:** the page review has **no open finding** for it (`results/findings.json`), **and** Jason has signed off, through
   his UI, UX and Functional approval on a release, or his ruling on that page's proposal in `site-audit/proposals.md`.
 - **proved:** the path check (for a page or a flow) or a function reading (for a data job, a workflow or an integration) on
@@ -70,7 +69,7 @@ decisions/0145 §1 separates the two:
   and "Data and integrations… calls, failures, throttling and cost… spend against each cap". On the board that's a runtime
   snapshot (W1's records in, a cap's spend, the alarms), read on live data.
 
-## 5. Weights: keep 1
+## 5. Weights: 1 (settled by the session manager)
 
 The audit's rankings rank **fixes**, not items: findings by "how many paths a finding blocks… then severity, then how many
 paths it touches" (`SKILL.md` §4; `findings.py`), the scorecard by rule, the punch list by what Jason provides. None says
@@ -114,9 +113,48 @@ Of the 292 in-scope items (the 16 gauges, Proposed left out):
 The rise is "checked": a page whose rendered check passes now meets it (the audit's own check), where before only a path or
 function check did. "Proved" still needs a path or function check, so **a page that only renders isn't complete**.
 
-## 7. For Jason
+## 7. "Checked" was too generous: the recount under the check register
 
-1. "Reviewed" as recommended (no open finding, and your sign-off on record), or Claude's review alone, or your chat approval?
-2. Weights all 1, or 2 for items on a core path?
-3. The 18 sign-offs mapped here: release B's parts and Start the system (#60–#69) carried several items each and aren't
-   mapped; their owners can map them.
+Jason's question ("does the page audit check end to end … search on a page and its end points function correctly, the page
+load speed, the function speed, the photo loads and display … the brand of design standards?") found four gaps with no check
+today: TOOLS, LOAD, PHOTOS-SHOWN and BRAND (`check-register.md`). An item is now checked only when every check that applies
+to it passes, so a page that needs a missing check isn't checked.
+
+- **Applies today:** TOOLS to 221 items, LOAD to 168, BRAND to 168, PHOTOS-SHOWN and PHOTOS to 57. 236 of the 292 items have
+  at least one "no check yet".
+- **Per criterion:** decided 292 · built 247 · **checked 0 (was 197)** · reviewed 14 · live 239 · proved 7.
+
+| Gauge | Preview before | After | Points |
+|---|---|---|---|
+| Discovery | 57 | 45 | −12 |
+| Directory | 63 | 52 | −11 |
+| Community | 46 | 39 | −7 |
+| Marketplace | 53 | 44 | −9 |
+| TRVGO – Storefront | 52 | 41 | −11 |
+| Accounts | 59 | 48 | −11 |
+| Dashboard & Pulse | 65 | 50 | −15 |
+| Get Local 360° | 62 | 48 | −14 |
+| Let's Explore 360° | 58 | 46 | −12 |
+| Market 360° | 64 | 49 | −15 |
+| Social 360° | 56 | 44 | −12 |
+| Sales & Growth | 61 | 46 | −15 |
+| White Glove Concierge | 27 | 23 | −4 |
+| Back-Office | 53 | 43 | −10 |
+| Insights & Research | 59 | 46 | −13 |
+| System Configuration | 59 | 48 | −11 |
+
+The gauges lose **182 points in all, 11.4 on average**. Every gauge stays in **Planning**: none can leave it while a criterion
+has no check yet. The workflows have no checked item either: their board readings are failing (W1, W2, W3) or not yet read.
+
+**One item's check list in full (Get Local, the Directory page):** R01–R15 passes (0 failures) · RENDER passes (Working) ·
+PATHS passes ("eat-near-me") · PATHS fails ("set-place", the finding P9 decided) · LOAD no check yet · PHOTOS not recorded
+(no result kept in git) · PHOTOS-SHOWN no check yet · BRAND partial (R10, R11 and the 3px edges only) · TOOLS no check yet.
+
+## 8. For Jason
+
+1. "Reviewed" as recommended (no open finding, and your sign-off on record). The chat approval stays an option, with its note
+   in 0145.
+2. Targets: your own, or the proposed target per check? How often each check runs? Site health through the one alarm engine?
+
+Settled by the session manager (2026-11-22): weights stay at 1; releases #60–#69 are mapped to items by their owning
+sessions, through the session manager.
