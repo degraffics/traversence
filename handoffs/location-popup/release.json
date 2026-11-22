@@ -1,0 +1,7 @@
+{
+ "title": "The location pop-up's Log in and Not sure? readable (4.5:1 or better)",
+ "why": "css-theme-brand §3 (4.5:1 for text). In \"We need a location to search\" (js/location-scope.js, Jason's drawing of 2026-11-12), Log in (orange #E07A2F) and Not sure? (#A09080) read 2.9:1 on the cream. They move onto existing tokens: Log in on the site's link brown (--tv-link), Not sure? on --tv-meta. The drawing's orange borders, icon, divider and Go are kept. Colours only; no data, no outside calls, no cost.",
+ "changes": [{"what": "The location pop-up (any search with no place set)", "where": "https://traversence.com/directory/"}],
+ "proposals": [],
+ "switch": ""
+}
