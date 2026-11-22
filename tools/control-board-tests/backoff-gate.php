@@ -31,11 +31,14 @@ $id = $add('timeout');
 ServiceHealth::alarm($pdo, $id, 'wikimedia', 'query.wikidata.org', 'timeout', ['status' => 0, 'error' => 'timed out', 'body' => ''], 'site');
 $t('a timeout below its case limit (a warning): paced', $st()[0] === 'paced', $st());
 
-// 3. a back-off tripped at its case limit: held (the rule: it trips at its limit, and its trip holds)
-$pdo->prepare('UPDATE service_issues SET hits = 7 WHERE id = ?')->execute([$id]);
-ServiceHealth::alarm($pdo, $id, 'wikimedia', 'query.wikidata.org', 'timeout', ['status' => 0, 'error' => 'timed out', 'body' => ''], 'site');
+// 3. a back-off tripped when its tries run out: held (since the control board's build, the tries are the one engine's
+// checks of the service, P3, not its own case limit; its trip holds)
+require_once $app . '/lib/ControlEngine.php';
+ControlEngine::$checker = fn (string $c) => ['pass' => false, 'proof' => 'query.wikidata.org didn\'t answer.', 'ms' => 15000];
+foreach (ControlEngine::TRY_AT as $_) { $pdo->exec("UPDATE control_alarms SET next_try_at = UTC_TIMESTAMP() - INTERVAL 1 SECOND WHERE akey = 'svc:issue:$id' AND cleared_at IS NULL"); ControlAlarms::expireTries($pdo); }
+ControlEngine::$checker = null;
 $a = ControlAlarms::openOf($pdo, 'svc:issue:' . $id);
-$t('a back-off tripped at its case limit: its alarm a trip, and the service held', $a && $a['level'] === 'trip' && $st()[0] === 'held', [$a['level'] ?? null, $st()]);
+$t('a back-off tripped when its tries ran out: its alarm a trip, and the service held', $a && $a['level'] === 'trip' && $st()[0] === 'held', [$a['level'] ?? null, $st()]);
 
 // 4. a refusal: held at once
 $id = $add('ban');

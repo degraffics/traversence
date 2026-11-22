@@ -358,13 +358,16 @@ final class ServiceHealth
             $r = $pdo->prepare('SELECT hits, first_at, hold_until FROM service_issues WHERE id = ?'); $r->execute([$id]); $r = $r->fetch(PDO::FETCH_ASSOC) ?: ['hits' => 1, 'first_at' => gmdate('Y-m-d H:i:s'), 'hold_until' => null];
             // a 429 asks us to go slower, not to stop (the session manager, 2026-11-19, principles 1 and 2): its back-off (Retry-After,
             // else 20 minutes doubling) is the slowing, and it stays a warning that clears itself; never spent into a trip
-            $spent = !$stop && $kind !== 'rate' && ((int) $r['hits'] >= self::CASE_AFTER || strtotime((string) $r['first_at'] . ' UTC') < time() - 6 * 3600);
-            ControlAlarms::raise($pdo, 'svc:issue:' . $id, 'svc:' . $svc, $stop || $spent ? 'trip' : 'warning', $stop ? 'held' : 'retry',
+            // a back-off's tries are the one engine's checks of this service (its diagnostic clock, P3), never its own count:
+            // asked for as a trip that tries first, it's a warning until three checks fail inside the hour
+            $spent = false;
+            $back = !$stop && $kind !== 'rate';
+            ControlAlarms::raise($pdo, 'svc:issue:' . $id, 'svc:' . $svc, $stop || $back ? 'trip' : 'warning', $stop ? 'held' : 'retry',
                 $host . ': ' . $what . ' (' . (self::CALLERS[$caller] ?? $caller) . ')',
                 $stop ? 'Nothing calls ' . $host . ' until this is resolved; what needs it waits, everything else runs.'
-                      : ($spent ? 'Its back-off ran out (' . (int) $r['hits'] . ' failures in a row): calls to ' . $host . ' are held until an admin resolves it.' : ($kind === 'rate' ? 'It asked us to slow down: calls to ' . $host . ' wait twice as long as usual, longer each time, and start again by themselves. A request to go slower, never a stop.' : 'Calls to ' . $host . ' wait a little and try again by themselves, longer each time (' . (int) $r['hits'] . ' of ' . self::CASE_AFTER . ').')),
+                      : ($back ? 'Calls to ' . $host . ' wait a little and try again by themselves; the system checks it on its own clock, and closes this when it answers.' : ($kind === 'rate' ? 'It asked us to slow down: calls to ' . $host . ' wait twice as long as usual, longer each time, and start again by themselves. A request to go slower, never a stop.' : '')),
                 $stop || $spent ? 'Read the evidence on its card, fix the cause (its key, its block, its server), then press Check and start again: it checks first, and closes it when the check passes.' : 'Nothing, unless it keeps happening: it clears when the server answers again.',
-                mb_substr(trim(($e['status'] ? $e['status'] . ' ' : '') . ($e['error'] !== '' ? $e['error'] : $e['body'])), 0, 255), $stop || $spent ? [] : ($kind === 'rate' ? self::rateFix($host, (string) $r['hold_until'], $id) : ['Check it now', 'svccheck', (string) $id]), true, false);
+                mb_substr(trim(($e['status'] ? $e['status'] . ' ' : '') . ($e['error'] !== '' ? $e['error'] : $e['body'])), 0, 255), $stop || $spent ? [] : ($kind === 'rate' ? self::rateFix($host, (string) $r['hold_until'], $id) : ['Check it now', 'svccheck', (string) $id]), true, $back, 'svc:' . $svc);
         } catch (Throwable $x) { error_log('service alarm: ' . $x->getMessage()); }
     }
 

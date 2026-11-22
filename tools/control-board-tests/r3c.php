@@ -82,7 +82,10 @@ $pdo->exec("DELETE FROM service_issues");
 $pdo->exec("INSERT INTO service_issues (id, service, host, caller, kind, hits, first_at, last_at, evidence) VALUES (40, 'tavily', 'api.tavily.com', 'crawler', 'timeout', 6, UTC_TIMESTAMP(), UTC_TIMESTAMP(), '{}')");
 ServiceHealth::alarm($pdo, 40, 'tavily', 'api.tavily.com', 'timeout', ['status' => 0, 'error' => 'timed out', 'body' => ''], 'crawler');
 $s = ControlAlarms::openOf($pdo, 'svc:issue:40');
-$t('a back-off that ran out (6 in a row): a trip, its calls held until resolved', $s['level'] === 'trip' && $pdo->query('SELECT hold_until FROM service_issues WHERE id = 40')->fetchColumn() === '2099-01-01 00:00:00', $s);
+require_once $app . '/lib/ControlEngine.php'; ControlEngine::$checker = fn (string $c) => ['pass' => false, 'proof' => 'api.tavily.com didn\'t answer.', 'ms' => 15000];
+foreach (ControlEngine::TRY_AT as $_) { $pdo->exec("UPDATE control_alarms SET next_try_at = UTC_TIMESTAMP() - INTERVAL 1 SECOND WHERE akey = 'svc:issue:40' AND cleared_at IS NULL"); ControlAlarms::expireTries($pdo); }
+ControlEngine::$checker = null; $s = ControlAlarms::openOf($pdo, 'svc:issue:40');
+$t('a back-off whose tries ran out (the one engine\'s three checks, P3): a trip, its calls held until its check passes', $s['level'] === 'trip' && $pdo->query('SELECT hold_until FROM service_issues WHERE id = 40')->fetchColumn() === '2099-01-01 00:00:00', $s);
 ServiceHealth::resolve($pdo, 40, 0, 'It answered.');
 // Jason, 2026-11-19 ("If this was resolved by system or marked as resolved by admin it should be handled"): the service
 // answering (its check passing) closes its trip too, through the board's resolve, saying how
@@ -94,7 +97,7 @@ ServiceHealth::resolve($pdo, 40, 7, 'Fixed by Jason, check passed.');
 $t('…and a person\'s fix closes it, saying who', ControlAlarms::openOf($pdo, 'svc:issue:40') === null);
 $pdo->exec("INSERT INTO service_issues (id, service, host, caller, kind, hits, first_at, last_at, evidence) VALUES (41, 'tavily', 'api.tavily.com', 'crawler', 'timeout', 2, UTC_TIMESTAMP(), UTC_TIMESTAMP(), '{}')");
 ServiceHealth::alarm($pdo, 41, 'tavily', 'api.tavily.com', 'timeout', ['status' => 0, 'error' => 'timed out', 'body' => ''], 'crawler');
-$t('…while it backs off it\'s a warning, counting its tries', ControlAlarms::openOf($pdo, 'svc:issue:41')['level'] === 'warning' && str_contains((string) ControlAlarms::openOf($pdo, 'svc:issue:41')['means'], '2 of 6'));
+$t('…while it backs off it\'s a warning, its tries counted from state (0 of 3, next at …)', ControlAlarms::openOf($pdo, 'svc:issue:41')['level'] === 'warning' && str_contains(ControlAlarms::facts($pdo, ControlAlarms::openOf($pdo, 'svc:issue:41'))['status'], '0 of 3, next at'), ControlAlarms::facts($pdo, ControlAlarms::openOf($pdo, 'svc:issue:41'))['status']);
 
 // 7. Overpass retired (Jason, 2026-11-19): nothing about it is held for a person
 $pdo->exec("INSERT INTO service_issues (id, service, host, caller, kind, hits, first_at, last_at, evidence) VALUES (50, 'osm', 'overpass-api.de', 'crawler', 'ban', 1, UTC_TIMESTAMP(), UTC_TIMESTAMP(), '{}')");

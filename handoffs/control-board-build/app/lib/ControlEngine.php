@@ -113,7 +113,9 @@ final class ControlEngine
             }
             if (self::checkable($pdo, $comp)) {
                 require_once __DIR__ . '/Preflight.php';
-                $r = Preflight::run($pdo, $comp, $by);
+                // a person's check goes past its own hold (P7); the system's own try past a back-off's wait only (principle 1)
+                [$was, $wasSys] = [Preflight::$now, Preflight::$systemTry]; Preflight::$now = $by !== 'the system'; Preflight::$systemTry = $by === 'the system';
+                try { $r = Preflight::run($pdo, $comp, $by); } finally { Preflight::$now = $was; Preflight::$systemTry = $wasSys; }
                 $s = (string) ($r['s'] ?? '');
                 return ['pass' => $s !== 'bad' && $s !== '', 'ms' => (int) round((microtime(true) - $t0) * 1000), 'proof' => mb_substr(trim((string) ($r['said'] ?? '')), 0, 240)];
             }
