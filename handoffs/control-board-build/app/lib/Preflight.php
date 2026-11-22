@@ -299,6 +299,9 @@ final class Preflight
             // a phase only adds up its workflows, each with its own alarm: it raises none of its own, and one open from before
             // closes (release 5a, 2026-11-19: six phase trips repeated the eight workflow ones)
             if (str_starts_with($id, 'ph:')) { if (ControlAlarms::openOf($pdo, $key)) ControlAlarms::closeKey($pdo, $key, 'A phase only adds up its workflows; their own alarms say what holds them.'); return; }
+            // a workflow's own line is a roll-up, never a fault (the one engine, 02 §2.2; Lift (a): W3's line tripped W3 whole on
+            // a line that had turned amber): its parts' own alarms say what holds it, and one open from before closes
+            if (str_starts_with($id, 'wf:')) { if (($ow = ControlAlarms::openOf($pdo, $key)) !== null) { require_once __DIR__ . '/Automation.php'; Automation::sysResume($pdo, (int) $ow['id'], 'A workflow\'s line is a roll-up: its parts\' own alarms hold only what they touch'); ControlAlarms::closeKey($pdo, $key, 'A workflow\'s line only adds up its parts; their own alarms say what holds it.'); } return; }
             $nm = (string) ($line[1] ?? $id);
             $o0 = ControlAlarms::openOf($pdo, $key); $held = $o0 && $o0['level'] === 'trip';   // a trip stays open until Resolve (one raised before 3c too)
             // its check passes: a warning clears; a trip's pause lifts (decisions/0175 §3) and, as an escalated trip, it says it

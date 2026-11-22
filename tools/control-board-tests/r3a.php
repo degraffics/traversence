@@ -77,7 +77,8 @@ $pdo->exec("INSERT INTO $rs (host, status) VALUES ('helsinki.fi', 'read'), ('cup
 SearchIndex::setState($pdo, 'control:alarms_seeded', '');
 $n = ControlAlarms::seed($pdo);
 $w2 = ControlAlarms::openOf($pdo, 'pf:wf:W2'); $ep = ControlAlarms::openOf($pdo, 'ep:crawl/verify:5xx'); $off = ControlAlarms::openOf($pdo, 'w3:offregion');
-$t('the seed: a red pre-flight line, named by the part that holds it, with what it means', $w2 && str_starts_with((string) $w2['title'], 'W2') && str_contains((string) $w2['title'], 'Its gate') && str_contains((string) $w2['means'], "won't start"), $w2);
+$t('the seed: a workflow\'s red line raises nothing of its own (a roll-up since the control board\'s build, 02 §2.2); its part\'s alarm carries it', $w2 === null && $ep !== null, $w2);
+$w2 = $ep;   // the Pulse body below is read from the part's alarm
 $t('…W2\'s server error at /api/crawl/verify.php, in its own words', $ep && $ep['proc'] === 'wf:W2' && str_contains((string) $ep['reading'], 'Unknown column'), $ep);
 // sources outside our region moved from the seed to the watch's hourly recount (control-board-offregion, 2026-11-19)
 SearchIndex::setState($pdo, 'control:offregion_at', ''); try { ControlAlarms::tick($pdo); } catch (Throwable $x) {}
