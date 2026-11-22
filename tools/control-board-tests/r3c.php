@@ -90,14 +90,15 @@ ServiceHealth::resolve($pdo, 40, 0, 'It answered.');
 // Jason, 2026-11-19 ("If this was resolved by system or marked as resolved by admin it should be handled"): the service
 // answering (its check passing) closes its trip too, through the board's resolve, saying how
 $t('…the server answering closes its trip too, saying "Cleared by its check"', ControlAlarms::openOf($pdo, 'svc:issue:40') === null
-    && str_contains((string) $pdo->query("SELECT cleared_how FROM control_alarms WHERE akey = 'svc:issue:40' ORDER BY id DESC LIMIT 1")->fetchColumn(), 'Cleared by its check'));
+    // 02 §3c, row 90: the system's passing check closes a trip as "Recovered: … the system fixed it", never "Resolved by the system"
+    && str_starts_with((string) $pdo->query("SELECT cleared_how FROM control_alarms WHERE akey = 'svc:issue:40' ORDER BY id DESC LIMIT 1")->fetchColumn(), 'Recovered:'));
 $pdo->exec("UPDATE service_issues SET state = 'open', resolved_at = NULL WHERE id = 40");
 ServiceHealth::alarm($pdo, 40, 'tavily', 'api.tavily.com', 'timeout', ['status' => 0, 'error' => 'timed out', 'body' => ''], 'crawler');
 ServiceHealth::resolve($pdo, 40, 7, 'Fixed by Jason, check passed.');
 $t('…and a person\'s fix closes it, saying who', ControlAlarms::openOf($pdo, 'svc:issue:40') === null);
 $pdo->exec("INSERT INTO service_issues (id, service, host, caller, kind, hits, first_at, last_at, evidence) VALUES (41, 'tavily', 'api.tavily.com', 'crawler', 'timeout', 2, UTC_TIMESTAMP(), UTC_TIMESTAMP(), '{}')");
 ServiceHealth::alarm($pdo, 41, 'tavily', 'api.tavily.com', 'timeout', ['status' => 0, 'error' => 'timed out', 'body' => ''], 'crawler');
-$t('…while it backs off it\'s a warning, its tries counted from state (0 of 3, next at …)', ControlAlarms::openOf($pdo, 'svc:issue:41')['level'] === 'warning' && str_contains(ControlAlarms::facts($pdo, ControlAlarms::openOf($pdo, 'svc:issue:41'))['status'], '0 of 3, next at'), ControlAlarms::facts($pdo, ControlAlarms::openOf($pdo, 'svc:issue:41'))['status']);
+$t('…while it backs off it\'s a warning, its tries counted from state (0 of 3, next at …)', ControlAlarms::openOf($pdo, 'svc:issue:41')['level'] === 'warning' && str_contains(ControlAlarms::facts($pdo, ControlAlarms::openOf($pdo, 'svc:issue:41'))['status'], 'of 3): ') /* 02 §4.8 row 1: "Trying again (1 of 3): …" */, ControlAlarms::facts($pdo, ControlAlarms::openOf($pdo, 'svc:issue:41'))['status']);
 
 // 7. Overpass retired (Jason, 2026-11-19): nothing about it is held for a person
 $pdo->exec("INSERT INTO service_issues (id, service, host, caller, kind, hits, first_at, last_at, evidence) VALUES (50, 'osm', 'overpass-api.de', 'crawler', 'ban', 1, UTC_TIMESTAMP(), UTC_TIMESTAMP(), '{}')");

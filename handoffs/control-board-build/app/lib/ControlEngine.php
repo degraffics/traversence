@@ -35,7 +35,9 @@ final class ControlEngine
         if (preg_match('#^ep:([a-z0-9_/]+):#', $key, $m)) return 'ep:' . $m[1];
         if (preg_match('/^task:failed:(.+)$/', $key, $m)) return self::classifyTask($pdo, $m[1], $reading, []);
         if (preg_match('/^svc:issue:(\d+)$/', $key, $m)) {
-            try { $st = $pdo->prepare('SELECT service FROM service_issues WHERE id = ?'); $st->execute([(int) $m[1]]); $s = (string) $st->fetchColumn(); if ($s !== '') return 'svc:' . $s; } catch (Throwable $x) {}
+            // the server that failed, when its module lists its servers as parts (02 §2.2; P2: the part that failed)
+            try { $st = $pdo->prepare('SELECT service, host FROM service_issues WHERE id = ?'); $st->execute([(int) $m[1]]); $r = $st->fetch(PDO::FETCH_ASSOC);
+                  if ($r && (string) $r['service'] !== '') { $hp = self::hostPart((string) $r['host']); return $hp && $hp['svc'] === (string) $r['service'] ? $hp['comp'] : 'svc:' . $r['service']; } } catch (Throwable $x) {}
             return $proc;
         }
         if (preg_match('/^pf:(svc|nd|wf|t|site|rw|wk):(.+)$/', $key, $m)) return $m[1] . ':' . $m[2];   // t: a Start task's line (its services)
@@ -59,11 +61,43 @@ final class ControlEngine
         $ours = strtolower((string) parse_url((string) (getenv('APP_URL') ?: 'https://traversence.com'), PHP_URL_HOST));
         try {
             require_once __DIR__ . '/OutsideServices.php';
-            foreach (array_keys($failing) as $h) { if ($h === $ours || $h === 'www.' . $ours) continue; $s = OutsideServices::serviceOfHost($h); if ($s !== '') return 'svc:' . $s; }
+            foreach (array_keys($failing) as $h) { if ($h === $ours || $h === 'www.' . $ours) continue;
+                if ($hp = self::hostPart($h)) return $hp['comp'];   // a module's own server, as its manifest lists it
+                $s = OutsideServices::serviceOfHost($h); if ($s !== '') return 'svc:' . $s; }
         } catch (Throwable $x) {}
         $ep = self::endpointOfTask($task);
         if ($ep !== '' && (isset($failing[$ours]) || isset($failing['www.' . $ours]) || ($failing === [] && preg_match('/timed? ?out|timeout/i', $why)))) return 'ep:' . $ep;
         return 'task:' . $task;
+    }
+
+    /** Every module's manifest (service-defs.php), read once. */
+    public static function defs(): array
+    {
+        static $d = null;
+        if ($d === null) { $d = []; try { $d = (array) (require __DIR__ . '/service-defs.php'); } catch (Throwable $x) {} }
+        return $d;
+    }
+
+    /**
+     * A host's part in its module (the manifest's 'components', 02 §2.2 "Server of a module"): ['svc', 'comp' (svc:<id> for
+     * the module's own line, svc:<id>:<part> for another server), 'name' ('' the module's), 'tasks' (null: computed)], or null.
+     */
+    public static function hostPart(string $host): ?array
+    {
+        $h = strtolower($host);
+        foreach (self::defs() as $id => $d) foreach ((array) ($d['components'] ?? []) as $ch => $c) {
+            if ($h !== $ch && !str_ends_with($h, '.' . $ch)) continue;
+            return ['svc' => (string) $id, 'comp' => 'svc:' . $id . ((string) ($c[0] ?? '') !== '' ? ':' . $c[0] : ''), 'name' => (string) ($c[1] ?? ''), 'tasks' => $c[2] ?? null];
+        }
+        return null;
+    }
+
+    /** A component's own name from its manifest ('' when it's the module's): "Common Crawl's index". */
+    public static function partName(string $comp): string
+    {
+        if (!preg_match('/^svc:([a-z0-9_]+)(?::([a-z0-9_]+))?$/', $comp, $m)) return '';
+        foreach ((array) (self::defs()[$m[1]]['components'] ?? []) as $c) if ((string) ($c[0] ?? '') === (string) ($m[2] ?? '')) return (string) ($c[1] ?? '');
+        return '';
     }
 
     /** The endpoint of ours a crawler task sends its work to ('' if none): ControlRegister::ENDPOINTS. */
@@ -80,10 +114,14 @@ final class ControlEngine
     {
         if (str_starts_with($comp, 'ep:') || str_starts_with($comp, 'wk:')) return true;
         if (preg_match('/^(svc|nd|site|rw|t):(.+)$/', $comp, $m)) {
-            try { require_once __DIR__ . '/Preflight.php'; return isset(Preflight::lines($pdo)[$comp]); } catch (Throwable $x) { return false; }
+            // another server of a module (svc:<id>:<part>) is checked by its module's line, which calls each of its servers
+            try { require_once __DIR__ . '/Preflight.php'; return isset(Preflight::lines($pdo)[self::lineOf($comp)]); } catch (Throwable $x) { return false; }
         }
         return false;
     }
+
+    /** The pre-flight line that checks a component: a module's other server is checked by its module's line. */
+    public static function lineOf(string $comp): string { return preg_match('/^(svc:[a-z0-9_]+):[a-z0-9_]+$/', $comp, $m) ? $m[1] : $comp; }
 
     /** Tests' stand-in for the checks: fn(string $comp): array|null (null: run the real one). */
     public static $checker = null;
@@ -93,6 +131,40 @@ final class ControlEngine
      * ['pass' => bool, 'proof' => words, 'ms' => int]. A component with no check of its own: ['pass' => null].
      */
     public static function check(PDO $pdo, string $comp, string $by = 'the system'): array
+    {
+        $r = self::run($pdo, $comp, $by);
+        if ($by !== 'the system' && $r['pass'] !== null) self::personTried($pdo, $comp, $r, $by);
+        return $r;
+    }
+
+    /**
+     * A person's Check now on a part with a warning open (02 row 91: "pass Cleared; fail counts as a try"): a fail is that
+     * warning's next try (its tries running out is a trip, as the system's are); a pass clears it, naming the proof.
+     */
+    private static function personTried(PDO $pdo, string $comp, array $r, string $by): void
+    {
+        try {
+            require_once __DIR__ . '/ControlAlarms.php';
+            $st = $pdo->prepare("SELECT * FROM control_alarms WHERE cleared_at IS NULL AND level = 'warning' AND component = ? AND next_try_at IS NOT NULL"); $st->execute([$comp]);
+            foreach ($st->fetchAll(PDO::FETCH_ASSOC) as $a) {
+                $at = gmdate('H:i') . ' UTC';
+                if ($r['pass']) { ControlAlarms::clear($pdo, (string) $a['akey'], 'Checked by ' . $by . ' at ' . $at . ': ' . $r['proof']); self::issueAnswered($pdo, (string) $a['akey'], 'Checked by ' . $by . ': ' . $r['proof']); continue; }
+                $n = (int) $a['try_n'] + 1;
+                $pdo->prepare('UPDATE control_alarms SET try_n = ?, reading = ? WHERE id = ?')->execute([$n, mb_substr('Try ' . $n . ' at ' . $at . ' (' . $by . '\'s check): ' . $r['proof'], 0, 255), (int) $a['id']]);
+                if ($n >= count(self::TRY_AT)) ControlAlarms::triesOut($pdo, (int) $a['id']);
+            }
+        } catch (Throwable $x) { error_log('control engine person check: ' . $x->getMessage()); }
+    }
+
+    /** An outside service's issue whose alarm's check passed: the issue resolved too (its calls start again). */
+    private static function issueAnswered(PDO $pdo, string $akey, string $how): void
+    {
+        if (!preg_match('/^svc:issue:(\d+)$/', $akey, $m)) return;
+        try { require_once __DIR__ . '/ServiceHealth.php'; ServiceHealth::resolve($pdo, (int) $m[1], 0, $how); } catch (Throwable $x) {}
+    }
+
+    /** Runs a component's check (the stand-in on the bench). */
+    private static function run(PDO $pdo, string $comp, string $by): array
     {
         if (is_callable(self::$checker) && ($r = (self::$checker)($comp)) !== null) return $r + ['pass' => null, 'proof' => '', 'ms' => 0];
         $t0 = microtime(true);
@@ -117,7 +189,7 @@ final class ControlEngine
                 require_once __DIR__ . '/Preflight.php';
                 // a person's check goes past its own hold (P7); the system's own try past a back-off's wait only (principle 1)
                 [$was, $wasSys] = [Preflight::$now, Preflight::$systemTry]; Preflight::$now = $by !== 'the system'; Preflight::$systemTry = $by === 'the system';
-                try { $r = Preflight::run($pdo, $comp, $by); } finally { Preflight::$now = $was; Preflight::$systemTry = $wasSys; }
+                try { $r = Preflight::run($pdo, self::lineOf($comp), $by); } finally { Preflight::$now = $was; Preflight::$systemTry = $wasSys; }
                 $s = (string) ($r['s'] ?? '');
                 return ['pass' => $s !== 'bad' && $s !== '', 'ms' => (int) round((microtime(true) - $t0) * 1000), 'proof' => mb_substr(trim((string) ($r['said'] ?? '')), 0, 240)];
             }
@@ -197,16 +269,42 @@ final class ControlEngine
         try {
             require_once __DIR__ . '/ControlAlarms.php'; ControlAlarms::ensure($pdo);
             $due = $pdo->query("SELECT * FROM control_alarms WHERE cleared_at IS NULL AND next_try_at IS NOT NULL AND next_try_at <= UTC_TIMESTAMP() ORDER BY id LIMIT 50")->fetchAll(PDO::FETCH_ASSOC);
+            // a rate wait that ended (02 row 28; g2 row 12: "open 3 days"): checked by the engine whether or not a task calls it
+            try { foreach ($pdo->query("SELECT a.* FROM control_alarms a JOIN service_issues i ON a.akey = CONCAT('svc:issue:', i.id) WHERE a.cleared_at IS NULL AND i.state = 'open' AND i.kind = 'rate' AND i.hold_until IS NOT NULL AND i.hold_until <= UTC_TIMESTAMP() AND (a.next_try_at IS NULL OR a.next_try_at > UTC_TIMESTAMP()) LIMIT 20")->fetchAll(PDO::FETCH_ASSOC) as $ra) $due[] = $ra; } catch (Throwable $x) {}
             foreach ($due as $a) {
                 $comp = (string) ($a['component'] ?: self::componentOf($pdo, (string) $a['akey'], (string) $a['proc']));
                 $r = self::check($pdo, $comp);
-                if ($r['pass'] === null) { $pdo->prepare('UPDATE control_alarms SET next_try_at = NULL WHERE id = ?')->execute([(int) $a['id']]); continue; }
-                $n = (int) $a['try_n'] + 1;
                 $at = gmdate('H:i') . ' UTC';
+                if ($r['pass'] === null) {
+                    // no check of its own (a task's or job's next run is its check): nothing to try
+                    if (!self::checkable($pdo, $comp) && !is_callable(self::$checker)) { $pdo->prepare('UPDATE control_alarms SET next_try_at = NULL WHERE id = ?')->execute([(int) $a['id']]); continue; }
+                    if (preg_match('/^(task|job|wf):/', $comp)) { $pdo->prepare('UPDATE control_alarms SET next_try_at = NULL WHERE id = ?')->execute([(int) $a['id']]); continue; }
+                    // its check couldn't run (02 row 86; P4): never a try and never a trip on the clock alone; it says why and
+                    // keeps a next check, so it never stops trying
+                    $pdo->prepare('UPDATE control_alarms SET next_try_at = UTC_TIMESTAMP() + INTERVAL ' . self::TRY_AT[0] . ' MINUTE, reading = ? WHERE id = ?')
+                        ->execute([mb_substr('No check could run at ' . $at . ($r['proof'] !== '' ? ': ' . $r['proof'] : '') . '.', 0, 255), (int) $a['id']]);
+                    $did[] = 'no check could run #' . (int) $a['id'];
+                    continue;
+                }
+                $issue = null;
+                if (preg_match('/^svc:issue:(\d+)$/', (string) $a['akey'], $im)) { try { $is = $pdo->prepare('SELECT * FROM service_issues WHERE id = ?'); $is->execute([(int) $im[1]]); $issue = $is->fetch(PDO::FETCH_ASSOC) ?: null; } catch (Throwable $x) {} }
+                $n = (int) $a['try_n'] + 1;
                 if ($r['pass']) {
                     $pdo->prepare('UPDATE control_alarms SET try_n = ?, next_try_at = NULL WHERE id = ?')->execute([$n, (int) $a['id']]);
-                    ControlAlarms::clear($pdo, (string) $a['akey'], 'Its check passed at ' . $at . ' (try ' . $n . ' of ' . count(self::TRY_AT) . '): ' . $r['proof']);
+                    ControlAlarms::clear($pdo, (string) $a['akey'], 'Its check passed at ' . $at . ($issue && $issue['kind'] === 'rate' ? ' after its wait' : ' (try ' . $n . ' of ' . count(self::TRY_AT) . ')') . ': ' . $r['proof']);
+                    self::issueAnswered($pdo, (string) $a['akey'], 'Its check passed at ' . $at . ': ' . $r['proof']);
                     $did[] = 'cleared #' . (int) $a['id'];
+                    continue;
+                }
+                // a rate wait is never a trip (builder-playbook §2; 02 row 27): a failed check waits again, never counts
+                if ($issue && $issue['kind'] === 'rate') {
+                    $pdo->prepare('UPDATE service_issues SET hold_until = UTC_TIMESTAMP() + INTERVAL 20 MINUTE WHERE id = ?')->execute([(int) $issue['id']]);
+                    $pdo->prepare('UPDATE control_alarms SET next_try_at = UTC_TIMESTAMP() + INTERVAL 20 MINUTE, reading = ? WHERE id = ?')->execute([mb_substr('Checked at ' . $at . ' after its wait: ' . $r['proof'] . ' It waits again.', 0, 255), (int) $a['id']]);
+                    continue;
+                }
+                // a used-up per-day quota: its next check is at its next reset (02 row 36), never a count of tries
+                if ($issue && $issue['kind'] === 'quota' && ($rs = self::nextReset((string) $issue['service'])) !== null) {
+                    $pdo->prepare('UPDATE control_alarms SET next_try_at = ?, reading = ? WHERE id = ?')->execute([$rs, mb_substr('Checked at ' . $at . ': ' . $r['proof'] . ' Its next check is at its reset.', 0, 255), (int) $a['id']]);
                     continue;
                 }
                 $first = (int) strtotime($a['first_at'] . ' UTC');
@@ -222,6 +320,14 @@ final class ControlEngine
             }
         } catch (Throwable $x) { error_log('control engine tick: ' . $x->getMessage()); }
         return $did;
+    }
+
+    /** A service's next per-day quota reset (its manifest's quota_reset: [zone, 'H:i']), UTC 'Y-m-d H:i:s', or null. */
+    public static function nextReset(string $svc): ?string
+    {
+        $q = self::defs()[$svc]['quota_reset'] ?? null; if (!is_array($q) || count($q) < 2) return null;
+        try { $tz = new DateTimeZone((string) $q[0]); $t = new DateTime('today ' . (string) $q[1], $tz); if ($t->getTimestamp() <= time()) $t->modify('+1 day'); return gmdate('Y-m-d H:i:s', $t->getTimestamp()); }
+        catch (Throwable $x) { return null; }
     }
 
     // ---- the hold: the Incident Radius -----------------------------------------------------------------------------
@@ -259,7 +365,13 @@ final class ControlEngine
         if (preg_match('/^svc:issue:(\d+)$/', $key, $m)) {
             require_once __DIR__ . '/ServiceHealth.php';
             if (ServiceHealth::holdForTrip($pdo, (int) $m[1])) $out[] = ['issue', $m[1], 'Calls to it'];
-            return array_merge($out, self::sourceTasks($pdo, substr($comp, 4)));
+            else {   // a refusal, a refused key or a used-up quota holds its calls by itself (ServiceHealth::holding): said as held (row 29)
+                try { $st = $pdo->prepare("SELECT * FROM service_issues WHERE id = ? AND state = 'open'"); $st->execute([(int) $m[1]]); $ir = $st->fetch(PDO::FETCH_ASSOC);
+                      if ($ir && ServiceHealth::holding($ir)) $out[] = ['issue', $m[1], self::heldCalls($ir)]; } catch (Throwable $x) {}
+            }
+            // a server listed as its own part holds only the tasks that call it (02 §2.2, P6; workflows-page §8 step 2)
+            $tasks = null; try { $st = $pdo->prepare('SELECT host FROM service_issues WHERE id = ?'); $st->execute([(int) $m[1]]); $hp = self::hostPart((string) $st->fetchColumn()); if ($hp) $tasks = $hp['tasks']; } catch (Throwable $x) {}
+            return array_merge($out, self::sourceTasks($pdo, (string) preg_replace('/^svc:([a-z0-9_]+).*$/', '$1', $comp), $tasks));
         }
         if ($key === 'svc:osm:held') return $out;
         // out of budget: its automatic calls
@@ -289,17 +401,29 @@ final class ControlEngine
         return $out;
     }
 
+    /** What a stop kind's hold holds, in words (02 row 29: "calls with ANTHROPIC_API_KEY wait for a new key"). */
+    public static function heldCalls(array $ir): string
+    {
+        $svc = (string) $ir['service']; $keys = (array) (self::defs()[$svc]['keys'] ?? []);
+        $place = (string) $ir['caller'] === 'crawler' ? 'Railway' : '.env'; $key = '';
+        foreach ($keys as $k) if ((string) ($k[1] ?? '') === $place) { $key = (string) $k[0]; break; }
+        if ($key === '' && $keys) $key = (string) $keys[0][0];
+        if ((string) $ir['kind'] === 'auth' && $key !== '') return 'calls with ' . $key . ' wait for a new key';
+        if ((string) $ir['kind'] === 'quota') return 'calls to it wait for its allowance';
+        return 'calls to it wait for a person';
+    }
+
     /**
      * The crawler tasks that use an outside service (OutsideServices::CONTROLS) and wait on it: those whose need has no
      * other working source (P6: "each task reroutes to its next working source, or waits"). A need's other source works
      * when its pre-flight line isn't red.
      */
-    public static function sourceTasks(PDO $pdo, string $svc): array
+    public static function sourceTasks(PDO $pdo, string $svc, ?array $only = null): array
     {
         $out = [];
         try {
             require_once __DIR__ . '/OutsideServices.php'; require_once __DIR__ . '/Preflight.php'; require_once __DIR__ . '/Automation.php'; require_once __DIR__ . '/ControlRegister.php';
-            $tasks = (array) (OutsideServices::CONTROLS[$svc]['tasks'] ?? []); if (!$tasks) return [];
+            $tasks = $only ?? (array) (OutsideServices::CONTROLS[$svc]['tasks'] ?? []); if (!$tasks) return [];
             $tw = ControlRegister::taskWorkflows($pdo); $res = Preflight::results($pdo);
             foreach ($tasks as $tk) {
                 if (!isset($tw[$tk]) || Automation::taskOff($pdo, (string) $tk) !== null) continue;
@@ -310,23 +434,34 @@ final class ControlEngine
         return $out;
     }
 
-    /** The working later source a workflow's need has besides this service ('' if none): the first source after it whose line isn't red. */
+    /**
+     * The working other source a workflow's need has besides this service ('' if none): the first source after it whose line
+     * isn't red, or an outside source before it that works (P6, §2.3: "a need is answered while any of its sources' checks
+     * pass"): a backup failing while its first choice works holds nothing (row 42).
+     */
     public static function backupFor(PDO $pdo, string $svc, string $wf, ?array $res = null): string
     {
         require_once __DIR__ . '/Preflight.php';
         $res = $res ?? Preflight::results($pdo);
         foreach (Preflight::NEEDS as $nd) {
             if (!in_array($wf, (array) $nd[2], true)) continue;
-            $srcs = (array) $nd[3]; $seen = false;
+            $srcs = (array) $nd[3]; $seen = false; $before = '';
             foreach ($srcs as $sr) {
-                if (($sr[0] ?? '') === 'svc' && (string) ($sr[1] ?? '') === $svc) { $seen = true; continue; }
-                if (!$seen) continue;
+                if (($sr[0] ?? '') === 'svc' && (string) ($sr[1] ?? '') === $svc) { if ($before !== '') return $before; $seen = true; continue; }
+                if (!$seen) { if ($before === '' && ($sr[0] ?? '') === 'svc' && (($res['svc:' . (string) $sr[1]]['s'] ?? '') !== 'bad') && !self::svcTripped($pdo, (string) $sr[1])) $before = (string) $sr[1]; continue; }
                 if (($sr[0] ?? '') === 'paid') continue;   // a paid backup only under a director's override (R61)
                 $line = ($sr[0] ?? '') === 'svc' ? 'svc:' . (string) $sr[1] : (($sr[0] ?? '') === 'line' ? (string) $sr[1] : '');
                 if ($line === '' || (($res[$line]['s'] ?? '') !== 'bad')) return (string) (($sr[0] ?? '') === 'svc' ? $sr[1] : ($sr[2] ?? $sr[1] ?? 'its next source'));
             }
         }
         return '';
+    }
+
+    /** Whether an outside service has an open trip (its calls held): it isn't a working source. */
+    public static function svcTripped(PDO $pdo, string $svc): bool
+    {
+        try { $st = $pdo->prepare("SELECT 1 FROM control_alarms WHERE cleared_at IS NULL AND level = 'trip' AND (component = ? OR component LIKE ?) LIMIT 1"); $st->execute(['svc:' . $svc, 'svc:' . $svc . ':%']); return (bool) $st->fetchColumn(); }
+        catch (Throwable $x) { return false; }
     }
 
     // ---- words from state ------------------------------------------------------------------------------------------
@@ -340,11 +475,15 @@ final class ControlEngine
         [$n, $of, $next] = self::tries($a);
         $nx = $next ? self::at(gmdate('Y-m-d H:i:s', $next)) : '';
         $trip = $a['level'] === 'trip' && !empty($a['tripped_at']);
-        if (!$trip) return $a['level'] === 'warning' && $next ? 'Warning: the system is trying again by itself (' . $n . ' of ' . $of . ', next at ' . $nx . '). Nothing is held.' : '';
+        // a warning (02 §4.8 rows 1, 24, 83): "Trying again (n of 3): <answer>. Next check <time>." (n counts from the first try)
+        $rd = trim((string) ($a['reading'] ?? ''));
+        if (!$trip) return $a['level'] === 'warning' && $next ? 'Trying again (' . max(1, $n) . ' of ' . $of . ')' . ($rd !== '' ? ': ' . rtrim((string) preg_replace('/^Try \d+ at [0-9:]+ UTC: /', '', $rd), '.') : '') . '. Next check at ' . $nx . '. Nothing is held.' : '';
         $since = self::at((string) $a['tripped_at']);
         $critical = !empty($a['retrying_at']);
         $comp = (string) ($a['component'] ?? '');
-        if ($heldWords !== '') $lead = 'Paused by the system (' . $heldWords . ')';
+        // how many tasks wait on it (02 row 21: "Paused by the system (a trip): 3 tasks wait on it."), from the holds
+        $nt = 0; foreach ((array) json_decode((string) ($a['stopped'] ?? ''), true) as $h) if (is_array($h) && ($h[0] ?? '') === 'pause' && str_starts_with((string) ($h[1] ?? ''), 'task:')) $nt++;
+        if ($heldWords !== '') $lead = 'Paused by the system (' . $heldWords . ')' . ($nt > 1 ? ': ' . $nt . ' tasks wait on it' : '');
         elseif ($critical) $lead = 'Down: the system is still trying';
         elseif (str_starts_with($comp, 'task:') || str_starts_with($comp, 'job:')) return 'Tripped ' . $since . ': nothing is held, so its next run still goes ahead.';
         else $lead = 'Down: nothing could be held';

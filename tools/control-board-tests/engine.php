@@ -69,7 +69,8 @@ $ep = fn () => ControlAlarms::raise($pdo, 'ep:crawl/loads:5xx', 'wf:W1', 'trip',
 $ep(); $a = $open('ep:crawl/loads:5xx');
 $t('an endpoint\'s server error is a warning first, its first try about 5 min after', $a['level'] === 'warning' && $a['component'] === 'ep:crawl/loads' && abs(strtotime($a['next_try_at'] . ' UTC') - strtotime($a['first_at'] . ' UTC') - 300) < 3, $a);
 $f = ControlAlarms::facts($pdo, $a);
-$t('…its words: trying again, 0 of 3, next at its time; nothing held', str_contains($f['status'], 'trying again by itself (0 of 3, next at {t:') && str_contains($f['status'], 'Nothing is held'), $f['status']);
+// 02 §4.8 row 1 replaced "trying again by itself (0 of 3, next at …)" with "Trying again (1 of 3): <answer>. Next check <time>."
+$t('…its words: trying again, 1 of 3, its next check; nothing held', str_contains($f['status'], 'Trying again (1 of 3)') && str_contains($f['status'], 'Next check at {t:') && str_contains($f['status'], 'Nothing is held'), $f['status']);
 $ep(); $ep(); $ep(); $a = $open('ep:crawl/loads:5xx');
 $t('a burst of reports inside the tries is one fault, not tries (P3)', $a['level'] === 'warning' && (int) $a['try_n'] === 0, [$a['level'], $a['try_n']]);
 $checks['ep:crawl/loads'] = ['pass' => false, 'proof' => '/api/crawl/loads answered 500 in 210 ms.', 'ms' => 210];

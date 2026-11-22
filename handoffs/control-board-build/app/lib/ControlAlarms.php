@@ -103,7 +103,11 @@ final class ControlAlarms
             // it was system critical, this is one that should immediately trip"): one carrying a duty (ControlRegister::duty) trips
             // on its first failure, while the system keeps trying; its retry warnings count as failures too
             $duty = ''; try { require_once __DIR__ . '/ControlRegister.php'; $duty = ControlRegister::duty($pdo, $proc); } catch (Throwable $x) {}
-            if ($duty !== '' && $level === 'warning' && in_array($kind, ['retry', 'crash', 'silent'], true)) { $level = 'trip'; $tryFirst = true; }
+            // P8 (02 §1): "Critical is decided by the part's duty, never by the alarm's kind or the master switch": any fault on
+            // a critical part trips at once (rows 68, 72), but slow is never a trip and a cap's band is only a warning (BL)
+            // A module's red pre-flight line ('check' on svc:…) may be a part of it that carries no duty (row 56: cPanel's API on
+            // Bluehost is "board only", never Page load), so a check trips at once only on the site's own parts and jobs
+            if ($duty !== '' && $level === 'warning' && !in_array($kind, ['slow', 'limit'], true) && ($kind !== 'check' || preg_match('/^(site|job):/', $proc))) { $level = 'trip'; $tryFirst = true; }
             $early = false; $escalate = false; $comp = ''; $next = null;
             // the one engine (02 §5, P2, P3, P8): the component that failed, and its tries on the diagnostic clock
             require_once __DIR__ . '/ControlEngine.php';
@@ -122,7 +126,10 @@ final class ControlAlarms
                 $pdo->prepare('UPDATE control_alarms SET n_times = n_times + ' . ($event ? 1 : 0) . ', last_at = UTC_TIMESTAMP(), level = ?, title = ?, means = ?, todo = ?, reading = ?, fix = ? WHERE id = ?')
                     ->execute([$lv, $cut($title, 200), $cut($means, 400), $cut($todo, 400), $cut($reading, 255), mb_substr($fx, 0, 400), (int) $o['id']]);
                 if (self::$engine) $pdo->prepare('UPDATE control_alarms SET component = ?, next_try_at = ? WHERE id = ?')->execute([$cut($comp, 80) ?: null, $lv === 'trip' && empty($early) && $o['level'] !== 'trip' ? null : $next, (int) $o['id']]);
-                if ($lv === 'trip' && $o['level'] !== 'trip') { if ($early) self::trippedEarly($pdo, (int) $o['id'], $duty); else self::tripped($pdo, (int) $o['id']); }   // it got worse: a trip now
+                if ($lv === 'trip' && $o['level'] !== 'trip') {   // it got worse: a trip now, and the logbook keeps that moment (g4 row 16)
+                    self::log($pdo, 'alarm', $proc, 'Trip: ' . $cut($title, 200), '', 'Its next run failed too at ' . gmdate('H:i') . ' UTC: ' . $cut($reading, 200));
+                    if ($early) self::trippedEarly($pdo, (int) $o['id'], $duty); else self::tripped($pdo, (int) $o['id']);
+                }
                 elseif ($escalate) self::escalated($pdo, (int) $o['id'], $duty);
                 return (int) $o['id'];
             }
@@ -224,7 +231,8 @@ final class ControlAlarms
             $stopped = self::stop($pdo, $a);
             $pdo->prepare('UPDATE control_alarms SET stopped = ? WHERE id = ?')->execute([$stopped ? mb_substr(json_encode($stopped, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE), 0, 400) : null, $id]);
             self::incident($pdo, $id, $stopped);
-            try { require_once __DIR__ . '/Pulse.php'; Pulse::escalateTo($pdo, 'alarm:' . $id, 2, 'A trip: the system couldn\'t fix it itself. The Founder was emailed. It closes as Recovered when its check passes; Check and start again is on its row.'); } catch (Throwable $x) { error_log('trip pulse: ' . $x->getMessage()); }
+            // the Founder at once by the thread; Pulse's clock raises it to the Manager at 2 h and the Director at 4 h (R76; 02
+            // §3c, §5.3 removes "escalateTo(…, 2) at a trip": g3 C15)
         } catch (Throwable $x) { error_log('control trip ' . $id . ': ' . $x->getMessage()); }
         self::mail($pdo, $id);
     }
@@ -393,10 +401,23 @@ final class ControlAlarms
     public const GROUP_WORDS = ['engine' => ['engine feed', 'engine feeds'], 'workers' => ['worker', 'workers'], 'services' => ['outside service', 'outside services'], 'site' => ['site part', 'site parts']];
     public const FAMILY_WORDS = ['held' => 'held', 'failing' => 'failing', 'slow' => 'slow', 'check' => 'with a red check'];
 
-    /** An open alarm's group key: system:level:family. */
+    /**
+     * An open alarm's group key (02 row 127, §5.3: "groups and groupKey group by cause or incident"; "the board-system
+     * grouping 'engine feeds'" is removed): its Incident Report (ir:<id>) when it has one, else the part that failed
+     * (part:<component>). Two alarms share a group only when they share that cause.
+     */
     public static function groupKey(array $a): string
     {
-        return self::systemOf((string) $a['proc']) . ':' . (string) $a['level'] . ':' . self::familyOf((string) $a['kind']);
+        if ((int) ($a['incident_id'] ?? 0) > 0) return 'ir:' . (int) $a['incident_id'];
+        return 'part:' . (string) (($a['component'] ?? '') ?: $a['proc']);
+    }
+
+    /** A group's words, naming the cause (row 127: "<the cause in words>: 3 parts"; row 124: "IR-0001 · Correlated · 2 parts"). */
+    public static function groupTitle(string $key, int $n, array $first = []): string
+    {
+        if (preg_match('/^ir:(\d+)$/', $key, $m)) { require_once __DIR__ . '/ControlIncidents.php'; return ControlIncidents::number((int) $m[1]) . ' · Correlated · ' . $n . ' parts'; }
+        $name = ''; try { $name = $first ? self::noticeName(Database::connection(), $first) : ''; } catch (Throwable $x) {}
+        return ($name !== '' ? $name : (string) preg_replace('/^part:/', '', $key)) . ': ' . $n . ' parts';
     }
 
     /**
@@ -405,13 +426,12 @@ final class ControlAlarms
      */
     public static function groups(array $alarms): array
     {
-        $g = [];
-        foreach ($alarms as $a) if ($a['cleared_at'] === null) $g[self::groupKey($a)][] = (int) $a['id'];
+        $g = []; $first = []; $lv = [];
+        foreach ($alarms as $a) if ($a['cleared_at'] === null) { $k = self::groupKey($a); $g[$k][] = (int) $a['id']; $first[$k] = $first[$k] ?? $a; $lv[$k] = max($lv[$k] ?? 0, self::RANK[(string) $a['level']] ?? 0); }
         $out = [];
         foreach ($g as $k => $ids) {
             if (count($ids) < 2) continue;
-            [$sys, $lv, $fam] = explode(':', $k);
-            $out[$k] = ['title' => count($ids) . ' ' . self::GROUP_WORDS[$sys][1] . ' ' . self::FAMILY_WORDS[$fam], 'level' => $lv, 'ids' => $ids];
+            $out[$k] = ['title' => self::groupTitle($k, count($ids), $first[$k]), 'level' => (string) array_search($lv[$k], self::RANK, true), 'ids' => $ids];
         }
         return $out;
     }
@@ -442,7 +462,7 @@ final class ControlAlarms
             if (count($ch) < 2) { foreach ($ch as $c) $rest[] = $c; continue; }
             $first = $ch[0]; $whens = array_filter(array_map(fn ($c) => (string) $c['when'], $ch)); $dues = array_filter(array_map(fn ($c) => (string) ($c['sla_due'] ?? ''), $ch));
             $rest[] = ['key' => 'alarms:' . $k, 'source' => 'system', 'severity' => in_array('critical', array_column($ch, 'severity'), true) ? 'critical' : 'alert',
-                'title' => count($ch) . ' ' . self::GROUP_WORDS[explode(':', $k)[0]][1] . ' ' . self::FAMILY_WORDS[explode(':', $k)[2]],
+                'title' => (string) $groups[$k]['title'],
                 'why' => implode('; ', array_map(fn ($c) => (string) $c['title'], $ch)) . '.', 'when' => $whens ? min($whens) : '', 'url' => '/admin/config/control#cb-alarms', 'action' => 'Open it',
                 'about' => '', 'reply_to' => null, 'dept' => $first['dept'] ?? '', 'sla_due' => $dues ? min($dues) : null, 'state' => '', 'over' => (bool) array_filter(array_column($ch, 'over')),
                 'mine' => false, 'who' => '', 'case_no' => 0, 'esc' => max(array_map(fn ($c) => (int) ($c['esc'] ?? 0), $ch)), 'esc_to_me' => (bool) array_filter(array_column($ch, 'esc_to_me')), 'children' => $ch];
@@ -486,6 +506,26 @@ final class ControlAlarms
         return is_array($st) && $st ? implode(', ', array_map(fn ($x) => (string) ($x[2] ?? ''), $st)) : '';
     }
 
+    /**
+     * A module deleted (Retire, 02 row 116): each open alarm on it closes as "Closed: <part> was deleted by <name>; its history
+     * is kept.", its holds lifted (its issues resolved), on every channel. NG allows this close without a check: nothing
+     * becomes active. Returns how many.
+     */
+    public static function retired(PDO $pdo, string $svc, string $who): int
+    {
+        self::ensure($pdo); $n = 0;
+        $st = $pdo->prepare("SELECT * FROM control_alarms WHERE cleared_at IS NULL AND (proc = ? OR component = ? OR component LIKE ?)"); $st->execute(['svc:' . $svc, 'svc:' . $svc, 'svc:' . $svc . ':%']);
+        foreach ($st->fetchAll(PDO::FETCH_ASSOC) as $a) {
+            $how = 'Closed: ' . self::noticeName($pdo, $a) . ' was deleted by ' . $who . '; its history is kept.';
+            require_once __DIR__ . '/Automation.php'; Automation::sysResume($pdo, (int) $a['id'], $how);
+            if (!self::close($pdo, (int) $a['id'], $how)) continue;
+            $n++;
+            if (preg_match('/^svc:issue:(\d+)$/', (string) $a['akey'], $m)) { try { require_once __DIR__ . '/ServiceHealth.php'; ServiceHealth::resolve($pdo, (int) $m[1], 0, $how); } catch (Throwable $x) {} }
+            if (!empty($a['tripped_at']) && ($c = self::byId($pdo, (int) $a['id']))) self::notifyOne($pdo, 'alarm.recovered', $c, 'SYSTEM ALARM NOTICE: ' . self::noticeName($pdo, $c) . ': Closed', self::noticeBody($pdo, $c, 'recovered', $how), null, false);
+        }
+        return $n;
+    }
+
     /** Undo a Resolve (within a day): the trip is open again and what it had stopped is stopped again. */
     public static function unresolve(PDO $pdo, int $id, int $uid, string $who): array
     {
@@ -498,6 +538,9 @@ final class ControlAlarms
         $stopped = self::stop($pdo, self::byId($pdo, $id));
         $pdo->prepare('UPDATE control_alarms SET stopped = ? WHERE id = ?')->execute([$stopped ? mb_substr(json_encode($stopped, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE), 0, 400) : null, $id]);
         self::log($pdo, 'resolve', (string) $a['proc'], 'Resolve undone: ' . (string) $a['title'], $who, $stopped ? implode(', ', array_column($stopped, 2)) . ' stopped again' : '');
+        // its thread raised again on every channel (02 row 98, P10): "Reopened by <name>: the trip is open again; <scope> waits
+        // again." Pulse unread, an email reply, one push
+        if ($c = self::byId($pdo, $id)) self::notifyOne($pdo, 'alarm.trip', $c, self::noticeTitle($pdo, $c, 'trip'), self::noticeBody($pdo, $c, 'trip', 'Reopened by ' . $who . ': the trip is open again' . ($stopped ? '; ' . implode(', ', array_column($stopped, 2)) . ' waits again' : '') . '.'), 'alarm:' . $id);
         return [true, 'Undone: the trip is open again' . ($stopped ? ', and ' . implode(', ', array_column($stopped, 2)) . ' stopped again.' : '.')];
     }
 
@@ -579,7 +622,6 @@ final class ControlAlarms
         try {
             $pdo->prepare('UPDATE control_alarms SET tripped_at = UTC_TIMESTAMP(), retrying_at = UTC_TIMESTAMP() WHERE id = ? AND tripped_at IS NULL')->execute([$id]);
             self::incident($pdo, $id, []);
-            try { require_once __DIR__ . '/Pulse.php'; Pulse::escalateTo($pdo, 'alarm:' . $id, 2, 'A critical part\'s first failure: the Founder was told at once; the system is still trying.'); } catch (Throwable $x) { error_log('early trip pulse: ' . $x->getMessage()); }
         } catch (Throwable $x) { error_log('control early trip ' . $id . ': ' . $x->getMessage()); }
         self::mail($pdo, $id);
     }
@@ -669,7 +711,17 @@ final class ControlAlarms
             require_once __DIR__ . '/Notify.php'; require_once __DIR__ . '/CommsSetup.php';
             if (!isset(Notify::KINDS[$kind])) return;
             $to = CommsSetup::founders($pdo);
-            if (!$to) return;
+            if (!$to) { self::notifyOne($pdo, $kind, $a, '', '', null); return; }   // P11: nobody to receive it is the dispatcher's own fault
+            // one thread per incident (02 row 124, S-F124): a trip that joined another's Incident Report is told on that thread,
+            // its incident's timeline, never a second email and push
+            if (self::$engine && (int) ($a['incident_id'] ?? 0) > 0) {
+                $mt = $pdo->prepare('SELECT id FROM control_alarms WHERE incident_id = ? AND id <> ? AND mailed_at IS NOT NULL ORDER BY id LIMIT 1'); $mt->execute([(int) $a['incident_id'], $id]);
+                if ($first = (int) $mt->fetchColumn()) {
+                    try { require_once __DIR__ . '/ControlIncidents.php'; ControlIncidents::note($pdo, (int) $a['incident_id'], 'Correlated: ' . self::noticeName($pdo, $a) . ' joined (' . ControlIncidents::tripId($id) . '), on the thread of ' . ControlIncidents::tripId($first) . '.'); } catch (Throwable $x) {}
+                    $pdo->prepare('UPDATE control_alarms SET mailed_at = UTC_TIMESTAMP() WHERE id = ?')->execute([$id]);
+                    return;
+                }
+            }
             // the alarm notice (decisions/0176's note, 2026-11-20): subject "SYSTEM ALARM NOTICE: <item>: Paused by the system"
             $body = self::noticeBody($pdo, $a, 'trip') . ($a['reading'] !== '' ? 'Reading: ' . $a['reading'] : '');
             Notify::send($pdo, $kind, ['staff' => $to], ['thing' => 'alarm:' . $id, 'url' => self::pulseUrl($pdo, $a), 'from' => ['system', null, 'Control Board'],
@@ -689,7 +741,31 @@ final class ControlAlarms
     public static function noticeTitle(PDO $pdo, array $a, string $state = ''): string
     {
         if ($state === '') $state = $a['cleared_at'] !== null ? 'recovered' : (self::escalatedAt($pdo, $a) !== '' ? 'escalated' : 'trip');
-        return 'SYSTEM ALARM NOTICE: ' . self::partName($pdo, (string) $a['proc']) . ': ' . self::actionOf($a, $state);
+        return 'SYSTEM ALARM NOTICE: ' . self::noticeName($pdo, $a) . ': ' . self::actionOf($a, $state);
+    }
+
+    /**
+     * The thread's plain name (02 §4.8 rows 2, 21, 47, 62, 69; §5.4: "the part's plain name … never job:, wf: or svc:"): the
+     * component's own name from its manifest (Common Crawl's index), our endpoint's path, "The crawler is down" (row 47),
+     * a job's name from Scheduler::JOBS with "(job)", else the part's name on the board.
+     */
+    public static function noticeName(PDO $pdo, array $a): string
+    {
+        require_once __DIR__ . '/ControlEngine.php';
+        $comp = (string) (($a['component'] ?? '') ?: ControlEngine::componentOf($pdo, (string) $a['akey'], (string) $a['proc']));
+        if (($n = ControlEngine::partName($comp)) !== '') return $n;
+        if (str_starts_with($comp, 'ep:')) return '/api/' . substr($comp, 3);
+        if ($comp === 'wk:crawler') return 'The crawler is down';
+        if (str_starts_with($comp, 'job:')) return self::jobName(substr($comp, 4));
+        if (str_starts_with($comp, 'svc:')) { try { require_once __DIR__ . '/OutsideServices.php'; $co = (string) (OutsideServices::COMPANIES[(string) preg_replace('/:.*$/', '', substr($comp, 4))][0] ?? ''); if ($co !== '') return $co; } catch (Throwable $x) {} }
+        return self::partName($pdo, (string) $a['proc']);
+    }
+
+    /** A job's plain name (02 §5.4: a job's from Scheduler::JOBS): "Lead scores (job)"; its id only when it has no entry. */
+    public static function jobName(string $job): string
+    {
+        try { require_once __DIR__ . '/Scheduler.php'; $l = (string) (Scheduler::JOBS[$job][0] ?? ''); if ($l !== '') return $l . ' (job)'; } catch (Throwable $x) {}
+        return $job . ' (job)';
     }
 
     /** The action as the state is now: "Paused by the system" only when it holds something (the one engine, §5.4). */
@@ -715,10 +791,35 @@ final class ControlAlarms
         $act = $state === '' ? '' : self::actionOf($a, $state);
         if ($state === 'trip' && $st !== '' && preg_match('/^(Paused by the system|Down: |Tripped)/', $st)) $act = '';   // its status already says it
         $first = $st === '' ? $act . '.' : ($act === '' || stripos($st, $act) === 0 ? $st : $act . ': ' . $st);
+        $portal = $state === 'recovered' ? '' : self::portalLine($pdo, $a);
         return $first . "\n"
             . 'What\'s going on: ' . (string) $a['title'] . ($extra !== '' ? '. ' . $extra : '') . "\n"
+            . ($portal !== '' ? $portal . "\n" : '')
             . ((string) $a['means'] !== '' ? 'What it means: ' . (string) $a['means'] . "\n" : '')
             . ((string) $a['todo'] !== '' && $state !== 'recovered' ? 'What to do: ' . (string) $a['todo'] . "\n" : ($state === 'recovered' ? "What to do: nothing; this is a notice.\n" : ''));
+    }
+
+    /**
+     * The provider's page that matches the fix (02 §0 PL, group G rows 128-135): a quota's billing, a key's API keys page, a
+     * ban's console; from the manifest's portal_links, else its company links mapped by label (02 §8), never borrowed from
+     * another type. "<Type> at <Provider>: <url>", or "No <type> page registered for <Provider> yet". '' for no outside cause.
+     */
+    public static function portalLine(PDO $pdo, array $a): string
+    {
+        $fix = self::fixOf($pdo, $a); $c = (string) ($fix['cause'] ?? '');
+        $type = ['quota' => 'billing', 'key' => 'keys', 'blocked' => 'console'][$c] ?? '';
+        if ($type === '' || !preg_match('/^svc:([a-z0-9_]+)/', (string) ($a['component'] ?? $a['proc']), $m)) {
+            if ($type === '' || !preg_match('/^svc:([a-z0-9_]+)/', (string) $a['proc'], $m)) return '';
+        }
+        require_once __DIR__ . '/ControlEngine.php';
+        $d = (array) (ControlEngine::defs()[$m[1]] ?? []); $co = (string) ($d['company'][0] ?? $m[1]); $prov = trim((string) preg_replace('/\s*\(.*\)$/', '', $co));
+        $words = ['billing' => 'Billing', 'keys' => 'API keys', 'console' => 'Console'][$type];
+        $url = (string) ($d['portal_links'][$type][1] ?? '');
+        if ($url === '') {
+            $want = ['billing' => ['billing', 'limits', 'usage'], 'keys' => ['keys', 'key', 'credentials', 'api settings'], 'console' => ['dashboard', 'console']][$type];
+            foreach ($want as $w) { foreach ((array) ($d['company'][3] ?? []) as $ln) if (str_contains(mb_strtolower((string) ($ln[0] ?? '')), $w) && str_starts_with((string) ($ln[1] ?? ''), 'http')) { $url = (string) $ln[1]; break 2; } }
+        }
+        return $url !== '' ? $words . ' at ' . $prov . ': ' . $url : 'No ' . ['billing' => 'billing', 'keys' => 'keys', 'console' => 'console'][$type] . ' page registered for ' . $prov . ' yet.';
     }
 
     /** The thread's status as its words' first line, read now (the push shows it: decisions/0176 §2). */
@@ -791,6 +892,8 @@ final class ControlAlarms
             require_once __DIR__ . '/ServiceHealth.php'; return ServiceHealth::fixOf($r);
         }
         if (preg_match('/^ops:cap:([a-z0-9_]+)$/', $k, $m)) return ['cause' => 'quota', 'url' => '/admin/config/register#' . ($m[1] === 'community' ? 'costs' : 'svc-' . $m[1] . '-caps')];
+        // QuickBooks refusing our token (row 70; g4 (b)): a key a person fixes, Connect QuickBooks again on its card
+        if ($k === 'crit:site:payments:token') return ['cause' => 'key', 'url' => '/admin/config/register#svc-quickbooks-key'];
         if ($k === 'ops:w0:held') return ['cause' => 'blocked', 'url' => '/admin/config/control/wf-W0#cb-held'];
         if (str_starts_with($k, 'ops:w0:held:')) return ['cause' => 'blocked', 'url' => '/admin/config/control/wf-W0#' . self::heldAnchor(substr($k, 12))];
         return null;
@@ -851,7 +954,8 @@ final class ControlAlarms
         if (!$a) return ['html' => '<p>This alarm is no longer kept.</p>', 'state' => 'Gone'];
         $state = $a['cleared_at'] !== null ? 'Cleared: ' . (string) $a['cleared_how'] : ($a['ack_at'] !== null ? 'Acknowledged by ' . ($a['ack_name'] ?? 'staff') . '; open until its reading is good' : 'Open');
         $f = self::facts($pdo, $a);
-        $f['buttons'] = array_merge($a['cleared_at'] === null && $a['ack_at'] === null ? [['Acknowledge', 'ack', (string) $id]] : [], [['Open it on the board', 'href', '/admin/config/control#cb-alarm-' . $id]]);
+        // Acknowledge only on a trip (R80; 02 §3c: a warning has "no Acknowledge"; row 97)
+        $f['buttons'] = array_merge($a['cleared_at'] === null && $a['ack_at'] === null && $a['level'] === 'trip' ? [['Acknowledge', 'ack', (string) $id]] : [], [['Open it on the board', 'href', '/admin/config/control#cb-alarm-' . $id]]);
         return ['html' => Thread::html($f, 'pulse', null, '/admin/api/config/control'), 'state' => $state];
     }
 
@@ -869,7 +973,9 @@ final class ControlAlarms
         // a trip: the same buttons as its row on the board, where an admin's Resolve (Check and start again) stands for these
         // (a trip closes as Recovered when its check passes, 0175 §3, or by Check and start again; Jason, 2026-11-19: Pulse's
         // buttons differing from the board's "don't work")
-        if ($a['level'] === 'trip' && !empty($a['tripped_at'])) $fx = array_values(array_filter($fx, fn ($f) => !in_array($f[1] ?? '', ['svcresolve', 'svccheck', 'check'], true)));
+        // Mark resolved is removed everywhere (02 §5.3; row 95): an old button stored on a row is never drawn
+        $fx = array_values(array_filter($fx, fn ($f) => ($f[1] ?? '') !== 'svc' . 'resolve'));
+        if ($a['level'] === 'trip' && !empty($a['tripped_at'])) $fx = array_values(array_filter($fx, fn ($f) => !in_array($f[1] ?? '', ['svccheck', 'check'], true)));
         $out = [];
         // Fix it first (0176 §5, A5): its one spot in the case's panel; a spot still to come, greyed with its reason
         require_once __DIR__ . '/Thread.php';
@@ -881,7 +987,6 @@ final class ControlAlarms
             elseif ($k === 'opsask') $out[] = $s($l, 'Now ' . (string) ($f[3][1] ?? '') . '. Kept with who and when.', ['form', 'alarm_' . (string) $f[2], 'Set it', [['value', (string) ($f[3][0] ?? 'Value'), 'text', (string) ($f[3][1] ?? '')]]]);
             elseif ($k === 'ops') $out[] = $s($l, is_string($f[3] ?? null) ? (string) $f[3] : 'Done in place.', ['do', 'alarm_' . (string) $f[2], $l]);
             elseif ($k === 'link') $out[] = $s($l, 'Opens on their site, in a new tab; nothing is changed from here.', null, false, (string) ($f[3] ?? ''));
-            elseif ($k === 'svcresolve') $out[] = $s($l, 'Calls to it start again; a new failure opens a new issue and its alarm.', ['do', 'alarm_svcresolve:' . (string) $f[2], $l]);
         }
         if ($a['cleared_at'] === null && $a['level'] === 'trip' && !empty($a['tripped_at']))
             $out[] = $s('Check and start again', 'The system checks it first' . (self::stoppedWords($a) !== '' ? ', then starts again ' . self::stoppedWords($a) : '') . '; if the check is still red, it says which part holds it. Undo is kept for a day.', ['do', 'alarm_resolve', 'Check and start again']);
@@ -924,13 +1029,6 @@ final class ControlAlarms
             [$done, $msg] = $what === 'alarm_resolve' ? self::resolve($pdo, $id, $uid, $who, (string) ($in['note'] ?? '')) : self::unresolve($pdo, $id, $uid, $who);
             if (!$done) throw new RuntimeException($msg);
             return $msg;
-        }
-        if (preg_match('/^alarm_svcresolve:(osm|\d+)$/', $what, $m)) {
-            require_once __DIR__ . '/ServiceHealth.php'; require_once __DIR__ . '/Preflight.php';
-            [$ok, $why] = Preflight::can(); if (!$ok) throw new RuntimeException($why . '.');
-            $ids = $m[1] === 'osm' ? array_map(fn ($i) => (int) $i['id'], array_filter(ServiceHealth::openAll($pdo), fn ($i) => $i['service'] === 'osm')) : [(int) $m[1]];
-            $n = 0; foreach ($ids as $iid) if (ServiceHealth::resolve($pdo, $iid, $uid, 'Marked resolved by ' . $who . ' in Pulse.')) $n++;
-            return $n ? 'Resolved: calls start again; a new failure opens a new issue and its alarm.' : 'Nothing to resolve: it was already resolved.';
         }
         throw new RuntimeException('Unknown step.');
     }
@@ -981,7 +1079,9 @@ final class ControlAlarms
         try {
             $late = $pdo->query("SELECT id, started_at FROM crawl_runs WHERE status = 'running' AND started_at < NOW() - INTERVAL 35 MINUTE ORDER BY id DESC LIMIT 1")->fetch(PDO::FETCH_ASSOC);
             if ($late) { self::raise($pdo, 'silent:run', 'wk:crawler', 'trip', 'silent', 'A crawler run never reported (#' . (int) $late['id'] . ')', 'It started over 35 minutes ago and hasn\'t said how it ended: it was stopped, or it crashed on Railway.', 'Open the run (beside this) for what it did before it went quiet, and the crawler on Railway for its last log lines; the site marks it abandoned.', 'started ' . (string) $late['started_at'], [['Run #' . (int) $late['id'], 'peek', '/admin/insights/crawler?run=' . (int) $late['id']], ['Railway: crawler', 'link', 'https://railway.com/dashboard', 'railway'], ['Check', 'check', 'wk:crawler']]); $did[] = 'run quiet'; }
-            elseif (self::clear($pdo, 'silent:run', 'No run is overdue (' . gmdate('H:i') . ' UTC).')) $did[] = 'run cleared';
+            // an abandoned run is a failure, never "no run is overdue" (02 row 47; g1 row 30: four killed runs never tripped): it
+            // clears only once a later run reports back
+            elseif ((string) $pdo->query("SELECT status FROM crawl_runs ORDER BY id DESC LIMIT 1")->fetchColumn() !== 'abandoned' && self::clear($pdo, 'silent:run', 'No run is overdue (' . gmdate('H:i') . ' UTC).')) $did[] = 'run cleared';
         } catch (Throwable $x) {}
         // site jobs: the last run of each, stopped or never finished
         try {
@@ -998,9 +1098,11 @@ final class ControlAlarms
                     $rs = $pdo->prepare("SELECT ok FROM $t WHERE job = ? AND finished_at IS NOT NULL AND note NOT LIKE 'Paused:%' ORDER BY id DESC LIMIT 20"); $rs->execute([$job]);
                     $fails = 0; foreach ($rs->fetchAll(PDO::FETCH_COLUMN) as $ok) { if ((int) $ok === 1) break; $fails++; }
                     [$max] = self::limits($pdo, 'crash');
-                    self::raise($pdo, 'job:' . $job, 'job:' . $job, 'trip', 'crash', 'The job "' . $job . '" stopped', 'Its last run ended with a problem (' . $fails . ' in a row); what it does waits until it runs well again.', 'Open its job (beside this): its note says why it stopped. Fix the cause; its next good run clears this.', mb_substr((string) $j['note'], 0, 255), [['Its job: ' . $job, 'peek', '/admin/config/scheduler#job-' . $job]], false, $fails < $max);
+                    self::raise($pdo, 'job:' . $job, 'job:' . $job, 'trip', 'crash', self::jobName($job) . ' failed', 'Its last run ended with a problem (' . $fails . ' in a row); what it does waits until it runs well again.', 'Open its job (beside this): its note says why it stopped. Fix the cause; its next good run clears this.', mb_substr((string) $j['note'], 0, 255), [['Its job: ' . $job, 'peek', '/admin/config/scheduler#job-' . $job]], false, $fails < $max);
                 }
-                elseif ($j['finished_at'] === null && strtotime((string) $j['started_at']) < time() - 7200) { $stuck[] = 'job:' . $job . ':stuck'; self::raise($pdo, 'job:' . $job . ':stuck', 'job:' . $job, 'warning', 'slow', 'The job "' . $job . '" never finished', 'Its run started over 2 hours ago and never said it ended: it was killed, or it hangs.', 'Open its job (beside this) for its runs; the server\'s error log says why it hung. The next run starts as usual.', 'started ' . (string) $j['started_at'], [['Its job: ' . $job, 'peek', '/admin/config/scheduler#job-' . $job]], false); }
+                // stuck over 2 h is a fault, not slow (02 row 66; g3 J5: "slow" could never trip): a warning, its next runs its
+                // tries; a critical job (billing) trips at once (P8, row 68)
+                elseif ($j['finished_at'] === null && strtotime((string) $j['started_at']) < time() - 7200) { $stuck[] = 'job:' . $job . ':stuck'; self::raise($pdo, 'job:' . $job . ':stuck', 'job:' . $job, 'trip', 'crash', self::jobName($job) . ': its run of ' . gmdate('M j, H:i', (int) strtotime((string) $j['started_at'])) . ' UTC never finished (killed or hung)', 'Its run started over 2 hours ago and never said it ended: it was killed, or it hangs.', 'Open its job (beside this) for its runs; the server\'s error log says why it hung. The next run starts as usual.', 'started ' . (string) $j['started_at'], [['Its job: ' . $job, 'peek', '/admin/config/scheduler#job-' . $job]], false); }
             }
             $n = 0; foreach ($good as $gj) foreach (['job:' . $gj, 'job:' . $gj . ':stuck'] as $gk) if (!in_array($gk, array_merge($bad, $stuck), true) && self::clear($pdo, $gk, 'Its last run ended well (' . gmdate('H:i') . ' UTC).')) $n++;
             // slow (0171 §5, 3c): a job's last runs against its usual time (the middle of its last 20, 5 at least) × control_slow_factor,
@@ -1015,6 +1117,18 @@ final class ControlAlarms
                     'Its last run took ' . $d[0] . ' s against its usual ' . $usual . ' s (' . $run . ' slow in a row): what follows it waits.', 'Open its job (beside this) for its runs and times; a large backlog or a slow query is the usual cause.', $d[0] . ' s (usual ' . $usual . ')', [['Its job: ' . $job, 'peek', '/admin/config/scheduler#job-' . $job]], false, false); }
             }
             self::clearOthers($pdo, 'jobslow:', $slow, 'Its last run took its usual time (' . gmdate('H:i') . ' UTC).');
+            // late (02 row 65; g3 J7: red text on Scheduled tasks only): a job that ran in the last 2 days and hasn't started by
+            // its time plus 5 minutes, by its schedule (Scheduler::JOBS); a skipped run ("Paused: …") still started on time
+            try { require_once __DIR__ . '/Scheduler.php'; $every = ['minute' => 1, '5min' => 5, '10min' => 10, '15min' => 15, '30min' => 30, 'hourly' => 60, 'daily' => 1440];
+                $late = [];
+                foreach ($pdo->query("SELECT job, MAX(started_at) s FROM $t WHERE started_at > NOW() - INTERVAL 2 DAY GROUP BY job")->fetchAll(PDO::FETCH_KEY_PAIR) as $job => $st0) {
+                    $mins = $every[(string) (Scheduler::JOBS[$job][2] ?? '')] ?? 0; if (!$mins) continue;
+                    $due = (int) strtotime((string) $st0) + $mins * 60;
+                    if (time() > $due + 300) { $late[] = 'joblate:' . $job; self::raise($pdo, 'joblate:' . $job, 'job:' . $job, 'warning', 'silent', self::jobName($job) . ' is late: it was due at ' . gmdate('M j, H:i', $due) . ' UTC and hasn\'t started',
+                        'Its cron line may be missing, or the server\'s cron stopped; what it does waits.', 'Open Scheduled tasks (beside this): its line and its last runs. Set them up now adds a missing line.', 'last started ' . (string) $st0, [['Its job: ' . $job, 'peek', '/admin/config/scheduler#job-' . $job]], false, false); }
+                }
+                self::clearOthers($pdo, 'joblate:', $late, 'It started on time (' . gmdate('H:i') . ' UTC).');
+            } catch (Throwable $x) { error_log('job lateness: ' . $x->getMessage()); }
             if ($bad) $did[] = count($bad) . ' job(s) stopped'; if ($n) $did[] = $n . ' job alarm(s) cleared';
         } catch (Throwable $x) {}
         // Overpass retired (Jason, 2026-11-19, "Stop entirely"; ServiceHealth::OSM_RETIRED): what was open about it, the

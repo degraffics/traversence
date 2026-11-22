@@ -186,8 +186,8 @@ try {
                 $sc = (string) ($in['scope'] ?? ''); if ($sc !== '' && !preg_match('/^(wf|t|wk|svc|job|site):[A-Za-z0-9_.-]{1,50}$/', $sc)) $sc = '';
                 Response::success(['message' => ControlLog::note($pdo, $sc, (string) ($in['text'] ?? ''), $who, (string) ($in['tz'] ?? ''))]); }
             // each control pressed on the board, in the logbook (the ones that don't log themselves)
-            if (in_array($act, ['check', 'start', 'pauseall', 'svccheck', 'svcresolve', 'opsdo'], true) && (in_array($act, ['check', 'svccheck', 'svcresolve'], true) ? Preflight::can()[0] : ($act === 'opsdo' ? true : SystemStart::can()[0]))) { require_once __DIR__ . '/../../app/lib/ControlLog.php';
-                ControlLog::add($pdo, 'control', $act === 'opsdo' ? '' : (str_contains($pid, ':') ? $pid : ''), ['check' => 'Run its check', 'start' => 'Start the system', 'pauseall' => 'Pause everything', 'svccheck' => 'Check it now', 'svcresolve' => 'Mark resolved', 'opsdo' => 'A step on an alarm'][$act] . ($pid !== '' && !str_contains($pid, ':') ? ' (#' . $pid . ')' : ''), $who, '', (string) ($in['tz'] ?? '')); }
+            if (in_array($act, ['check', 'start', 'pauseall', 'svccheck', 'opsdo'], true) && (in_array($act, ['check', 'svccheck'], true) ? Preflight::can()[0] : ($act === 'opsdo' ? true : SystemStart::can()[0]))) { require_once __DIR__ . '/../../app/lib/ControlLog.php';
+                ControlLog::add($pdo, 'control', $act === 'opsdo' ? '' : (str_contains($pid, ':') ? $pid : ''), ['check' => 'Run its check', 'start' => 'Start the system', 'pauseall' => 'Pause everything', 'svccheck' => 'Check it now', 'opsdo' => 'A step on an alarm'][$act] . ($pid !== '' && !str_contains($pid, ':') ? ' (#' . $pid . ')' : ''), $who, '', (string) ($in['tz'] ?? '')); }
             // a trend (the historian, 0171 §6, release 4b): read only, for whoever may view the board; a process, or sys:<key>
             if ($act === 'trend') { require_once __DIR__ . '/../../app/lib/ControlHistorian.php';
                 $rg = isset(ControlHistorian::RANGES[(string) ($in['range'] ?? '')]) ? (string) $in['range'] : '24h';
@@ -204,12 +204,18 @@ try {
             if ($act === 'unack') { require_once __DIR__ . '/../../app/lib/ControlAlarms.php';
                 if (!ControlAlarms::unack($pdo, (int) $pid)) Response::error('It wasn\'t acknowledged.', 422);
                 Response::success(['message' => 'Undone: it\'s open and unacknowledged again.']); }
-            // Mark resolved (as a service issue's old Pulse case had): one issue, or every OpenStreetMap server held ('osm')
-            if ($act === 'svcresolve') { require_once __DIR__ . '/../../app/lib/ServiceHealth.php'; [$okP, $whyP] = Preflight::can(); if (!$okP) Response::error($whyP . '.', 403);
-                $ids = $pid === 'osm' ? array_map(fn ($i) => (int) $i['id'], array_filter(ServiceHealth::openAll($pdo), fn ($i) => $i['service'] === 'osm')) : [(int) $pid];
-                $n = 0; foreach ($ids as $iid) if (ServiceHealth::resolve($pdo, $iid, $uid, 'Marked resolved by ' . $who . ' on the Control Board.')) $n++;
-                if (!$n) Response::error('Nothing to resolve: it was already resolved.', 422);
-                Response::success(['message' => 'Resolved: calls start again; a new failure opens a new issue and its alarm.']); }
+            // Mark resolved (svcresolve) is removed everywhere (02 §5.3, row 95): a passing check closes an issue, Check it now or,
+            // on a trip, Check and start again
+            // an Incident Report's root cause, written by a person (02 §2.6, P12: "Unconfirmed until a person writes it"):
+            // id = the incident's number, value = the cause in words; the board's own permission (ControlBoard::can, above)
+            if ($act === 'ircause') { require_once __DIR__ . '/../../app/lib/ControlIncidents.php'; require_once __DIR__ . '/../../app/lib/ControlLog.php';
+                $cause = trim((string) ($in['value'] ?? ''));
+                if ($cause === '') Response::error('Write the root cause in words: it\'s kept on the Incident Report with your name.', 422);
+                $ir = ControlIncidents::get($pdo, (int) $pid);
+                if (!$ir) Response::error('That Incident Report isn\'t here any more.', 422);
+                if (!ControlIncidents::setCause($pdo, (int) $pid, $cause, $who)) Response::error('It wasn\'t written: the same words were already its root cause.', 422);
+                ControlLog::add($pdo, 'control', '', 'Root cause written on ' . ControlIncidents::number((int) $pid) . ': ' . mb_substr($cause, 0, 200), $who, '', (string) ($in['tz'] ?? ''));
+                Response::success(['message' => 'Root cause written: ' . mb_substr($cause, 0, 300)]); }
             // a cap or "returns empty" alarm's steps, done in place as their old Pulse case did them (Operations::pulseDo, its own permission)
             if ($act === 'opsdo') { require_once __DIR__ . '/../../app/lib/ControlAlarms.php';
                 [$akey, $what] = array_pad(explode('|', $pid, 2), 2, '');

@@ -23,7 +23,7 @@ $checks['ep:crawl/loads'] = ['pass' => false, 'proof' => '/api/crawl/loads didn\
 $id = ControlAlarms::raise($pdo, 'task:failed:overture_bulk', 'wf:W1', 'trip', 'crash', 'W1: its task overture_bulk failed (run #1005)', 'Its work goes back.', 'Read its why.', "TimeoutError('The read operation timed out')");
 $a = ControlAlarms::byId($pdo, $id);
 $f = ControlAlarms::facts($pdo, $a);
-$t('one failure: a warning on our endpoint (its component), the system trying (0 of 3, next at a time to come)', $a['level'] === 'warning' && $a['component'] === 'ep:crawl/loads' && str_contains($f['status'], '0 of 3, next at {t:') && strtotime($a['next_try_at'] . ' UTC') > time(), [$a, $f['status']]);
+$t('one failure: a warning on our endpoint (its component), the system trying (0 of 3, next at a time to come)', $a['level'] === 'warning' && $a['component'] === 'ep:crawl/loads' && str_contains($f['status'], 'Trying again (1 of 3)') && str_contains($f['status'], 'Next check at {t:') /* 02 §4.8 row 1 */ && strtotime($a['next_try_at'] . ' UTC') > time(), [$a, $f['status']]);
 ControlAlarms::expireTries($pdo);
 $t('inside its hour, before its first try is due, the watch leaves it a warning', ControlAlarms::byId($pdo, $id)['level'] === 'warning');
 

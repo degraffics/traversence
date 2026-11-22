@@ -236,7 +236,8 @@ final class CrawlService
         $why = mb_substr(trim((string) ($b['why'] ?? '')), 0, 500);
         if (($b['status'] ?? '') === 'failed') $status = 'failed';
         elseif ($n['done'] === 0 && $n['not_reached'] > 0) $status = 'starved';
-        elseif ($n['done'] === 0 && $n['failed'] > 0) $status = 'failed';
+        // failed only when every task it ran failed: tasks idle beside one failure are that task's own row (02 row 49; g1 F4)
+        elseif ($n['done'] === 0 && $n['failed'] > 0 && $n['idle'] === 0 && $n['held'] === 0) $status = 'failed';
         elseif ($n['not_reached'] > 0 || $n['failed'] > 0) $status = 'partial';
         elseif ($n['done'] === 0) $status = 'idle';
         else $status = 'ok';
@@ -260,14 +261,72 @@ final class CrawlService
             if ($status !== 'failed') foreach ($taskOut as $t => [$o, $tw]) {
                 // what failed, read from the task's own calls (the one engine, P2): an outside service's host, our endpoint
                 // or the task's own code; the engine decides its tries, its hold and its words (P1, P9)
-                if ($o === 'failed') ControlAlarms::raise($pdo, 'task:failed:' . $t, 'wf:' . $tasks[$t]['wf'], 'trip', 'crash', $tasks[$t]['wf'] . ': its task ' . $t . ' failed (run #' . $runId . ')',
-                    'Its work goes back and its next run tries it again.', 'Read its why in run #' . $runId . ' (beside this) and fix its source or its settings; then Try it first on the next run. Or Pause the task.', $tw !== '' ? $tw : 'failed', [['Run #' . $runId, 'peek', '/admin/insights/crawler?run=' . $runId], ['Try it first on the next run', 'ops', 'ops_runnext:' . $t], ['Pause the task', 'ops', 'ops_task_off:' . $t, 'Pause the task ' . $t . '? It\'s switched off on Automation with this reason; its work waits.']], true, true, (function () use ($pdo, $t, $tw, $itemCalls) { require_once __DIR__ . '/../ControlEngine.php'; return ControlEngine::classifyTask($pdo, $t, (string) $tw, (array) ($itemCalls[$t] ?? [])); })());
+                if ($o === 'failed') {
+                    require_once __DIR__ . '/../ControlEngine.php';
+                    $comp = ControlEngine::classifyTask($pdo, $t, (string) $tw, (array) ($itemCalls[$t] ?? []));
+                    // an outside service's host failing in the task's calls is that service's fault: the same fault as its issue,
+                    // one alarm, never a second on the task (02 row 24; g1 row 4)
+                    if (str_starts_with($comp, 'svc:') && self::svcFault($pdo, $t, (string) $tw, (array) ($itemCalls[$t] ?? []))) continue;
+                    $ep = str_starts_with($comp, 'ep:') ? substr($comp, 3) : '';
+                    // its title in plain words (02 §4.8 rows 11, 16): our endpoint's ("/api/crawl/loads is slow"), or the task's own code
+                    $title = $ep !== '' ? '/api/' . $ep . (preg_match('/timed? ?out|timeout/i', (string) $tw) ? ' is slow' : ' keeps failing') : $t . ' failed in its own code (run #' . $runId . ')';
+                    ControlAlarms::raise($pdo, 'task:failed:' . $t, 'wf:' . $tasks[$t]['wf'], 'trip', 'crash', $title,
+                        $ep !== '' ? 'It didn\'t reply to the crawler in time; the work goes back and is sent again.' : 'Its work goes back and its next run tries it again.', 'Read its why in run #' . $runId . ' (beside this) and fix its source or its settings; then Try it first on the next run. Or Pause the task.', $tw !== '' ? $tw : 'failed', [['Run #' . $runId, 'peek', '/admin/insights/crawler?run=' . $runId], ['Try it first on the next run', 'ops', 'ops_runnext:' . $t], ['Pause the task', 'ops', 'ops_task_off:' . $t, 'Pause the task ' . $t . '? It\'s switched off on Automation with this reason; its work waits.']], true, true, $comp);
+                }
                 elseif ($o === 'done') ControlAlarms::clear($pdo, 'task:failed:' . $t, 'It did its work in run #' . $runId . ' (' . gmdate('H:i') . ' UTC).');
             }
+            // our endpoint refused the worker before our code ran (Bluehost's bot check, 409 humans_; ModSecurity, 406): a
+            // refusal on that endpoint, held at once for a person (02 row 23; g1 rows 25, 26: site_blocked was read by nothing)
+            foreach (array_slice((array) ($b['site_blocked'] ?? []), 0, 10, true) as $bep => $bi) {
+                $bep = (string) preg_replace('#[^a-z0-9_/]#', '', (string) $bep); if ($bep === '') continue; $bi = is_array($bi) ? $bi : [];
+                self::blocked($pdo, $bep, (int) ($bi['status'] ?? 0), (string) ($bi['body'] ?? ''));
+            }
+            // a task on its backup (02 rows 43-44; g2 row 27: search_switches were read by nothing): a Notice naming both,
+            // and "Back on its first choice" when a run of it no longer switches
+            $sw = [];
+            foreach (array_slice((array) ($b['search_switches'] ?? []), 0, 20) as $x) if (is_array($x) && isset($tasks[(string) ($x['task'] ?? '')])) $sw[(string) $x['task']] = $x;
+            require_once __DIR__ . '/../OutsideServices.php';
+            foreach ($sw as $t => $x) {
+                $from = (string) ($x['from'] ?? ''); $to = (string) ($x['to'] ?? '');
+                $fn = (string) (OutsideServices::COMPANIES[$from][0] ?? $from); $tn = (string) (OutsideServices::COMPANIES[$to][0] ?? $to);
+                ControlAlarms::raise($pdo, 'backup:' . $t, 'wf:' . $tasks[$t]['wf'], 'notice', 'check', $t . ' is on its backup (' . $tn . ') while ' . $fn . ' is paused',
+                    'It carries on with ' . $tn . '; it goes back to ' . $fn . ' by itself once ' . $fn . '\'s check passes.', '', (int) ($x['n'] ?? 0) . ' search(es) by ' . $tn . ' in run #' . $runId, [], false, false);
+            }
+            foreach ($taskOut as $t => [$o]) if ($o === 'done' && !isset($sw[$t]) && ($bo = ControlAlarms::openOf($pdo, 'backup:' . $t)))
+                ControlAlarms::clear($pdo, 'backup:' . $t, 'Back on its first choice in run #' . $runId . '.');
         } catch (Throwable $x) { error_log('crawl run alarms: ' . $x->getMessage()); }
         // Railway's minutes, for the ledger (no price: the plan's bill is the record)
         self::cost($pdo, 'railway', '', '', max(0, (int) ($b['seconds'] ?? 0)), $runId, 'seconds the run took', 0);
         return ['status' => $status, 'counts' => $n];
+    }
+
+    /**
+     * A task's failure at an outside service's host, filed as that service's fault (ServiceHealth::failed, the crawler as
+     * its caller): the same issue and alarm its own report opens. Returns whether one was filed.
+     */
+    private static function svcFault(PDO $pdo, string $task, string $why, array $calls): bool
+    {
+        require_once __DIR__ . '/../ServiceHealth.php';
+        foreach ($calls as $h => $c) {
+            if (!is_array($c) || (int) ($c[1] ?? 0) <= 0) continue;
+            $err = (string) ($c[2] ?? ''); $st = preg_match('/\b([1-5]\d\d)\b/', $err, $m) ? (int) $m[1] : 0;
+            $kind = $st > 0 ? ServiceHealth::classify($st, $err, '', (string) $h) : (preg_match('/timed? ?out|timeout|reset|refused/i', $err . ' ' . $why) ? 'timeout' : 'server');
+            if ($kind === '' ) $kind = 'server';
+            if (ServiceHealth::failed($pdo, (string) $h, $kind, 'crawler', ['status' => $st, 'error' => $err, 'task' => $task, 'what' => 'its task ' . $task], max(1, (int) ($c[1] ?? 1))) > 0) return true;
+        }
+        return false;
+    }
+
+    /** Our endpoint refused the worker (a bot check or ModSecurity): its refusal, a trip at once holding the tasks that call it. */
+    public static function blocked(PDO $pdo, string $ep, int $status, string $body): void
+    {
+        try {
+            require_once __DIR__ . '/../ControlAlarms.php';
+            $what = $status === 409 || str_contains($body, 'humans_') ? 'Bluehost\'s bot check' : ($status === 406 ? 'ModSecurity' : 'The site');
+            ControlAlarms::raise($pdo, 'ep:' . $ep . ':blocked', ControlAlarms::procOfEndpoint($pdo, $ep), 'trip', 'held', $what . ' refused the crawler at /api/' . $ep,
+                'The worker\'s calls never reach our code: ' . $what . ' answers first. What calls /api/' . $ep . ' waits; nothing is lost.', 'Ask Bluehost to exempt /api/' . $ep . ' from its bot check (research/bluehost-bot-check-2026-11-15.md); then press Check and start again.',
+                mb_substr(trim(($status ? $status . ' ' : '') . $body), 0, 255), [['Its calls', 'peek', '/admin/config/ledger?q=' . rawurlencode($ep)]], true, false, 'ep:' . $ep);
+        } catch (Throwable $x) { error_log('crawl blocked: ' . $x->getMessage()); }
     }
 
     /**

@@ -53,11 +53,11 @@ $raise = fn () => ControlAlarms::raise($pdo, 'task:failed:second_look', 'wf:W2',
 $id = $raise(); $raise(); $raise(); $tryOut($id);
 $t('a trip, in the founder\'s quiet hours: emailed and pushed at once ("any hour")', count(Mailer::$sent) === 1 && count(WebPush::$sent) === 1, [count(Mailer::$sent), count(WebPush::$sent)]);
 $e1 = Mailer::$sent[0] ?? ['', '', '', null];
-$t('the email\'s subject: "SYSTEM ALARM NOTICE: <item>: Paused by the system"', $e1[1] === 'SYSTEM ALARM NOTICE: W2 Keeping listings current: Paused by the system', $e1[1]);
+$t('the email\'s subject: "SYSTEM ALARM NOTICE: <item>: Paused by the system"', $e1[1] === 'SYSTEM ALARM NOTICE: /api/crawl/verify: Paused by the system' /* 02 §4.8 row 21: the subject names the component (our endpoint), never its first workflow */, $e1[1]);
 // the link is the thread's Pulse row since 0176 R3 (§5: "From a push, it opens the app at the thread's Pulse row")
 $t('…its body: the action and status, what\'s going on, what it means, what to do, and the link', (bool) preg_match("~^SYSTEM ALARM NOTICE: .*\n\nPaused by the system \(second_look \(W2\)\) since .*\nWhat's going on: W2: its task second_look failed\nWhat it means: Its work goes back to the queue\.\nWhat to do: Read why on its run\..*Open it: https://traversence\.com/admin/dashboard/stream#case=alarm:" . $id . '~s', $e1[2]), $e1[2]);
 $t('…it starts the alarm\'s email thread (its own Message-ID, no parent)', is_array($e1[3]) && ($e1[3]['id'] ?? '') !== '' && empty($e1[3]['parent']), $e1[3]);
-$t('the push: "SYSTEM ALARM: <item>", its body starting with the action', (WebPush::$sent[0]['title'] ?? '') === 'SYSTEM ALARM: W2 Keeping listings current' && str_starts_with((string) (WebPush::$sent[0]['body'] ?? ''), 'Paused by the system'), WebPush::$sent);
+$t('the push: "SYSTEM ALARM: <item>", its body starting with the action', (WebPush::$sent[0]['title'] ?? '') === 'SYSTEM ALARM: /api/crawl/verify' && str_starts_with((string) (WebPush::$sent[0]['body'] ?? ''), 'Paused by the system'), WebPush::$sent);
 // ---- the Escalation Notice: a reply in the same email thread ----------------------------------------------------------
 $qb = fn () => ControlAlarms::raise($pdo, 'x:qb', 'svc:quickbooks', 'trip', 'crash', 'QuickBooks failed', 'Payments fail.', 'Check its key.');
 Mailer::$sent = []; WebPush::$sent = [];

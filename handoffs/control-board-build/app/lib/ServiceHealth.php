@@ -187,7 +187,14 @@ final class ServiceHealth
         if ($status > 0 && $host !== '' && ($ans = self::answersOf($host)) && isset($ans[$status])) return (string) $ans[$status];
         if ($status === 401) return 'auth';
         if ($status === 402) return 'quota';
+        // a per-minute limit is a rate wait even when it says "quota" (Google's RESOURCE_EXHAUSTED "…requests per minute"):
+        // only a per-day or plan allowance is a quota (02 row 27, row 36; g2 row 6)
+        if ($status === 429 && preg_match('/per ?minute|perminute|per_minute|per second|rate limit/', $b)) return 'rate';
         if ($status === 429) return preg_match('/quota|credit|exceeded your|monthly|plan limit|usage limit|billing/', $b) ? 'quota' : 'rate';
+        // a 400 that is an account's allowance or an account-level pause (02 rows 38, 38a; g2 rows 7, 20): Anthropic's "credit
+        // balance is too low" is a quota; SES's AccountSendingPausedException is the provider pausing us, a stop kind
+        if ($status === 400 && preg_match('/credit balance is too low|insufficient[_ ]credit|out of credits?/', $b)) return 'quota';
+        if ($status === 400 && preg_match('/accountsendingpaused|sending is disabled for this account|account (is )?suspended/', $b)) return 'ban';
         if (in_array($status, [403, 406, 418, 451], true)) {
             if (preg_match('/quota|credits?\b|exceeded|billing/', $b)) return 'quota';
             if (preg_match('/api[ _-]?key|invalid key|unauthori[sz]ed|invalid token|subscription token/', $b)) return 'auth';
@@ -197,6 +204,9 @@ final class ServiceHealth
         // rate") is a request to slow down, not a broken server: a rate wait, as a 429 is
         if ($status === 503 && preg_match('/slowdown|reduce your request rate/', $b)) return 'rate';
         if ($status >= 500 && $status <= 599) return 'server';
+        // a 200 we can't read (02 row 25; g2 row 25: classify(200) was nothing): an HTML page or an error remark where the
+        // service promises JSON, said only for a service's own host, never a website's page
+        if ($status >= 200 && $status < 300) return $host !== '' && OutsideServices::serviceOfHost($host) !== '' && $body !== '' && !in_array(substr(ltrim($body), 0, 1), ['{', '['], true) ? 'malformed' : '';
         if ($status > 0) return '';
         return $err !== '' ? 'timeout' : '';
     }
@@ -272,6 +282,9 @@ final class ServiceHealth
             return (int) $r['id'];
         }
         $p = self::PROBES[$host] ?? self::probeFor($pdo, $host);
+        // a ban's probe (02 rows 32-34; decisions/0164 §6.1): one polite request to the host once a day, as the refused agent,
+        // for 3 days; probed() stops it then and it waits for a person
+        if (!$p && $kind === 'ban') $p = ['https://' . $host . '/', 1440, 'as_refused'];
         $pdo->prepare("INSERT INTO service_issues (service, host, caller, kind, state, hits, first_at, last_at, evidence, hold_until, probe_url, probe_every_min, probe_agent, next_probe_at) VALUES (?, ?, ?, ?, 'open', ?, ?, ?, ?, ?, ?, ?, ?, ?)")
             ->execute([$svc, $host, $caller, $kind, $n, $e['at'], $e['at'], json_encode(['first' => $e, 'latest' => $e], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE),
                        self::holdUntil($kind, $n, $e['retry_after']), $p[0] ?? null, $p[1] ?? null, $p[2] ?? null, $p && $stop && !self::noProbe(['service' => $svc, 'kind' => $kind]) ? gmdate('Y-m-d H:i:s', time() + 60 * (int) $p[1]) : null]);
@@ -329,10 +342,10 @@ final class ServiceHealth
                 // a passing check; a refusal, a refused key or a used-up quota (a stop kind) always waits for a person's
                 // button (principle 1's exception; the session manager, 2026-11-19)
                 $kd = $pdo->prepare('SELECT kind FROM service_issues WHERE id = ?'); $kd->execute([$id]); $back = (self::KINDS[(string) $kd->fetchColumn()][1] ?? 'back') === 'back';
-                $close = function (string $k, string $h) use ($pdo, $uid, $back) {
+                // closed by its check (uid 0): the alarm's own clear, which closes a trip as Recovered and lifts its hold (02 §3c;
+                // row 90: never "Resolved by the system")
+                $close = function (string $k, string $h) use ($pdo, $uid) {
                     if ($uid > 0) return ControlAlarms::closeKey($pdo, $k, $h);
-                    $o = ControlAlarms::openOf($pdo, $k);
-                    if ($back && $o && $o['level'] === 'trip' && !empty($o['tripped_at'])) return ControlAlarms::resolve($pdo, (int) $o['id'], 0, 'the system', 'Cleared by its check: ' . $h);
                     return ControlAlarms::clear($pdo, $k, $h);
                 };
                 $close('svc:issue:' . $id, $how);
@@ -362,12 +375,21 @@ final class ServiceHealth
             // asked for as a trip that tries first, it's a warning until three checks fail inside the hour
             $spent = false;
             $back = !$stop && $kind !== 'rate';
+            // its title in plain words (02 §4.8 rows 1, 27, 29, 32, 36; R102): the part's name and what happened, never a host or
+            // a caller (they stay in its evidence)
+            require_once __DIR__ . '/ControlEngine.php';
+            $hp = ControlEngine::hostPart($host); $nm = $hp && $hp['svc'] === $svc && $hp['name'] !== '' ? $hp['name'] : (string) (OutsideServices::COMPANIES[$svc][0] ?? $svc);
+            $phrase = ['server' => 'isn\'t answering', 'timeout' => 'isn\'t answering', 'rate' => 'asked us to slow down', 'auth' => 'refused our key', 'quota' => 'used its allowance', 'ban' => 'refused us', 'malformed' => 'answered with something we can\'t read'][$kind] ?? mb_strtolower($what);
             ControlAlarms::raise($pdo, 'svc:issue:' . $id, 'svc:' . $svc, $stop || $back ? 'trip' : 'warning', $stop ? 'held' : 'retry',
-                $host . ': ' . $what . ' (' . (self::CALLERS[$caller] ?? $caller) . ')',
+                $nm . ' ' . $phrase,
                 $stop ? 'Nothing calls ' . $host . ' until this is resolved; what needs it waits, everything else runs.'
                       : ($back ? 'Calls to ' . $host . ' wait a little and try again by themselves; the system checks it on its own clock, and closes this when it answers.' : ($kind === 'rate' ? 'It asked us to slow down: calls to ' . $host . ' wait twice as long as usual, longer each time, and start again by themselves. A request to go slower, never a stop.' : '')),
                 $stop || $spent ? 'Read the evidence on its card, fix the cause (its key, its block, its server), then press Check and start again: it checks first, and closes it when the check passes.' : 'Nothing, unless it keeps happening: it clears when the server answers again.',
-                mb_substr(trim(($e['status'] ? $e['status'] . ' ' : '') . ($e['error'] !== '' ? $e['error'] : $e['body'])), 0, 255), $stop || $spent ? [] : ($kind === 'rate' ? self::rateFix($host, (string) $r['hold_until'], $id) : ['Check it now', 'svccheck', (string) $id]), true, $back, 'svc:' . $svc);
+                mb_substr(trim(($e['status'] ? $e['status'] . ' ' : '') . ($e['error'] !== '' ? $e['error'] : $e['body'])), 0, 255), $stop || $spent ? [] : ($kind === 'rate' ? self::rateFix($host, (string) $r['hold_until'], $id) : ['Check it now', 'svccheck', (string) $id]), true, $back, $hp && $hp['svc'] === $svc ? $hp['comp'] : 'svc:' . $svc);
+            // the engine's clock for what has no tries of its own: a rate wait is checked when its wait ends (row 28), a per-day
+            // quota at its reset (row 36)
+            $nx = $kind === 'rate' ? (string) ($r['hold_until'] ?? '') : ($kind === 'quota' ? (string) (ControlEngine::nextReset($svc) ?? '') : '');
+            if ($nx !== '') $pdo->prepare('UPDATE control_alarms SET next_try_at = ? WHERE akey = ? AND cleared_at IS NULL')->execute([$nx, 'svc:issue:' . $id]);
         } catch (Throwable $x) { error_log('service alarm: ' . $x->getMessage()); }
     }
 
@@ -463,6 +485,9 @@ final class ServiceHealth
             $when = self::fmt(self::utc((string) ($p['at'] ?? '')));
             if ($status === 200 && $r['kind'] === 'quota') self::resolve($pdo, $id, 0, 'Its probe answered 200 on ' . $when . ': the quota hold is over.');
             elseif ($status === 200) {
+                // on the trip's own thread (P10; 02 row 33): it stays Paused; its words say it looks lifted, with Reactivate
+                try { require_once __DIR__ . '/ControlAlarms.php'; $ao = ControlAlarms::openOf($pdo, 'svc:issue:' . $id);
+                      if ($ao) ControlAlarms::retitle($pdo, 'svc:issue:' . $id, (string) $ao['title'], mb_substr('Its ban looks lifted (probe 200 at ' . $when . '). Reactivate it, or keep it held.', 0, 255)); } catch (Throwable $x) {}
                 EngineCase::raise($pdo, 'service', 'issue:' . $id, self::KINDS[$r['kind']][0] . ' at ' . $r['host'] . ' looks lifted: its check answered 200 on ' . $when . '. Reactivate it, or keep it held.', ['issue' => $id, 'host' => (string) $r['host'], 'lifted' => true]);
                 $pdo->prepare('UPDATE service_issues SET next_probe_at = NULL WHERE id = ?')->execute([$id]);   // no more checks until a person decides
             } elseif (strtotime((string) $r['first_at'] . ' UTC') < time() - self::EVAL_AFTER) {

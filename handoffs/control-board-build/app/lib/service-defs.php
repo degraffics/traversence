@@ -14,6 +14,10 @@
 //   whose own codes mean more than HTTP's (Tavily's 432 is its plan's limit, 03 §17), read by ServiceHealth::classify
 //   incident_radius_rules: ['held' => [...], 'backup' => [...], 'unaffected' => [...]], the rare overrides of the computed
 //   Incident Radius (02 §6, §8), each list as its card spec writes it; a list left out is computed (app/admin/module-cards.php)
+//   components: [host => [part, name, tasks]] a module's servers as parts of their own (02 §2.2 "Server of a module": Common
+//   Crawl's index and its data host); part '' is the module's own line (its check), else 'svc:<id>:<part>'; tasks: the crawler
+//   tasks that call that host (what its trip holds, 02 §6, P6), null to compute them from the module's tasks
+//   quota_reset: [time zone, 'H:i'] when a per-day quota renews (02 §8 answers' reset time; row 36): its check is set for then
 //   portal_links: [type => [label, url, release]] for a portal page documented outside the company links (02 §8's field;
 //   type billing | keys | console | login), drawn in its slot with "Documented · release #<release>" (04 §5 rule 3)
 // A new service is one entry here and its connector; run the generator, then send the release.
@@ -252,7 +256,8 @@ return [
             [], ''],
         'hosts' => ['generativelanguage.googleapis.com'],   // the longest match wins over Google's googleapis.com (serviceOfHost)
         'keys' => [['GEMINI_API_KEY', '.env']],
-        'caps' => ['gemini_daily', 'gemini_per_minute', 'gemini_reserve_pct'],   // Release B (decisions/0163 §8 stage 7, §11): the new services' caps and paces, all Thresholds gates
+        'caps' => ['gemini_daily', 'gemini_per_minute', 'gemini_reserve_pct'],
+        'quota_reset' => ['America/Los_Angeles', '00:00'],   // its per-day limits renew at midnight Pacific (ai.google.dev rate limits; 02 row 36)   // Release B (decisions/0163 §8 stage 7, §11): the new services' caps and paces, all Thresholds gates
         'staging' => 'hold',
         'added_off' => true,
     ],
@@ -278,6 +283,8 @@ return [
             [['Overture Maps', 'https://overturemaps.org/'], ['Places schema', 'https://docs.overturemaps.org/schema/reference/places/place/'], ['Releases', 'https://docs.overturemaps.org/release/latest/'], ['Attribution', 'https://docs.overturemaps.org/attribution/']],
             [], ''],
         'hosts' => ['overturemaps-us-west-2.s3.amazonaws.com', 'overturemaps.org'],
+        // its files' regional S3 address (DuckDB reads it): Overture's, never Amazon Web Services' (g1 row 5; g2 row 31)
+        'components' => ['overturemaps-us-west-2.s3.us-west-2.amazonaws.com' => ['', '', null]],
         'caps' => ['load_towns_per_run'],
         'staging' => 'hold',
         'added_off' => true,
@@ -447,6 +454,10 @@ return [
             [['Index', 'https://index.commoncrawl.org/'], ['Terms', 'https://commoncrawl.org/terms-of-use']],
             [], ''],
         'hosts' => ['index.commoncrawl.org', 'data.commoncrawl.org'],
+        // its two servers are two parts (02 §2.2; workflows-page §8 step 2): the index down holds only calls to it (W3's
+        // per-site copy and W2's re-read fall back on it: crawler.py:1672-1680, :1880, :2415); the bulk reads (commoncrawl)
+        // go to the data host and hold only on it (crawler.py:1697-1703, worker 2.16.1)
+        'components' => ['index.commoncrawl.org' => ['', 'Common Crawl\'s index', []], 'data.commoncrawl.org' => ['data', 'Common Crawl\'s data host', ['commoncrawl']]],
         'contact' => [['Common Crawl group', 'https://groups.google.com/g/common-crawl'], ['Terms of use', 'https://commoncrawl.org/terms-of-use']],
         'staging' => 'hold',
     ],

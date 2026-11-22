@@ -66,7 +66,7 @@ $raise = fn () => ControlAlarms::raise($pdo, 'task:failed:second_look', 'wf:W2',
 $id = $raise(); $a = ControlAlarms::byId($pdo, $id);
 $fa = ControlAlarms::facts($pdo, $a);
 $t('a first failure: a warning while the system tries (3c)', $a['level'] === 'warning', $a['level']);
-$t('…its status says so, from its state: "Warning: the system is trying again by itself (0 of 3, next at …). Nothing is held."', str_starts_with($fa['status'], 'Warning: the system is trying again by itself (0 of 3, next at {t:') && str_contains($fa['status'], 'Nothing is held.'), $fa['status']);
+$t('…its status says so, from its state: "Warning: the system is trying again by itself → 02 §4.8 row 1: "Trying again (1 of 3)… Next check …". Nothing is held."', str_starts_with($fa['status'], 'Trying again (1 of 3)') && str_contains($fa['status'], 'Next check at {t:') && str_contains($fa['status'], 'Nothing is held.'), $fa['status']);
 $t('…the evidence is in the details', in_array(['Reading', 'boom: HTTP 500'], $fa['details'], true));
 $t('…and nobody is told: no message, no push', !$msgs() && !WebPush::$sent);
 
@@ -81,8 +81,8 @@ $t('…what the system is doing: only what uses it waits, and it closes as Recov
 $t('…one message to the founder, thing alarm:<id>, shown by its Pulse item (no second row)', count($m) === 1 && $m[0]['kind'] === 'alarm.trip' && $m[0]['thing'] === 'alarm:' . $id && $m[0]['pulse_ref'] === 'alarm:' . $id, $m);
 // the alarm notice (0176's notes, 2026-11-20, release 2 part 2): the title "SYSTEM ALARM NOTICE: <item>: <action>"; the words
 // start with the action and its status, then what's going on, what it means, what to do
-$t('…its title is the alarm notice, its words begin with its status', $m[0]['title'] === 'SYSTEM ALARM NOTICE: W2 Keeping listings current: Paused by the system' && str_starts_with((string) $m[0]['body'], 'Paused by the system (second_look (W2)) since ') && str_contains((string) $m[0]['body'], "\nWhat's going on: W2: its task second_look failed"), [$m[0]['title'], $m[0]['body'] ?? '']);
-$t('…one push: "SYSTEM ALARM: <item>", its body the action and status only', count(WebPush::$sent) === 1 && WebPush::$sent[0]['title'] === 'SYSTEM ALARM: W2 Keeping listings current' && str_starts_with(WebPush::$sent[0]['body'], 'Paused by the system (second_look (W2)) since ') && !str_contains(WebPush::$sent[0]['body'], 'What it means'), WebPush::$sent);
+$t('…its title is the alarm notice, its words begin with its status', $m[0]['title'] === 'SYSTEM ALARM NOTICE: /api/crawl/verify: Paused by the system' /* 02 §4.8 row 21: the subject names the component (our endpoint), never its first workflow */ && str_starts_with((string) $m[0]['body'], 'Paused by the system (second_look (W2)) since ') && str_contains((string) $m[0]['body'], "\nWhat's going on: W2: its task second_look failed"), [$m[0]['title'], $m[0]['body'] ?? '']);
+$t('…one push: "SYSTEM ALARM: <item>", its body the action and status only', count(WebPush::$sent) === 1 && WebPush::$sent[0]['title'] === 'SYSTEM ALARM: /api/crawl/verify' && str_starts_with(WebPush::$sent[0]['body'], 'Paused by the system (second_look (W2)) since ') && !str_contains(WebPush::$sent[0]['body'], 'What it means'), WebPush::$sent);
 $t('…and an email (0171 §7: every trip emails the founder at once)', count(Mailer::$sent) === 1);
 $raise(); $t('the same fault again: still one message, nothing re-sent', count($msgs()) === 1 && count(WebPush::$sent) === 1 && count(Mailer::$sent) === 1);
 

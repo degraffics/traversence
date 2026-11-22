@@ -51,7 +51,7 @@ foreach ($calls as $cl) {
 $ca = (string) file_get_contents($app . '/lib/ControlAlarms.php'); $cl = (string) file_get_contents($app . '/lib/ControlLedger.php');
 $cs = (string) file_get_contents($app . '/lib/crawler/CrawlService.php'); $pf = (string) file_get_contents($app . '/lib/Preflight.php');
 $t('a server error opens the failing call in the Ledger', str_contains($cl, "'/admin/config/ledger#open=config/ledger:' . \$id") && str_contains($ca, "'/admin/config/ledger#open=config/ledger:' . (int) \$r['id']"));
-$t('a stopped, stuck or slow job opens its own job', substr_count($ca, "'/admin/config/scheduler#job-' . \$job") === 3);
+$t('a stopped, stuck or slow job opens its own job', substr_count($ca, "'/admin/config/scheduler#job-' . \$job") >= 3);   // a late job (02 row 65) opens its own job too
 $t('a quiet worker: Railway as a link only (never a restart from the site)', substr_count($ca, "'link', 'https://railway.com/dashboard', 'railway'") === 2 && !preg_match('/railway[^\n]{0,80}(redeploy|restart)\'\s*,\s*\'ops/i', $ca));
 $t('a failed run, a starved run and a failed task open their run', substr_count($cs, "'/admin/insights/crawler?run=' . \$runId") >= 3);
 $t('a failed task: Try it first on the next run, or Pause the task, in place', str_contains($cs, "'ops_runnext:'") && str_contains($ca, "'/^task:failed:[a-z0-9_]+\$/' => ['', '/^ops_(runnext|task_off):[a-z0-9_]+\$/']"));

@@ -14,6 +14,9 @@ $data = ['ok' => true, 'at' => gmdate('Y-m-d\TH:i:s\Z', time() - 3600), 'run_url
     'findings' => [$f('f-aaaaaa01', 'A slow card list', 0, 'update'), $f('f-bbbbbb02', 'Get Local doesn\'t open for a guest', 2, 'alert')]];
 $pdo->prepare('REPLACE INTO page_cache (cache_key, body, expires_at) VALUES (?, ?, ?)')->execute(['sitehealth:now', json_encode(['v' => $data]), date('Y-m-d H:i:s', time() + 3600)]);
 ControlAlarms::raise($pdo, 'wf:W1:test', 'wf:W1', 'trip', 'crash', 'W1 Listings: its runs failed', 'Its work waits.', 'Check and start again.', 'TimeoutError after 600 s', [], false, false);
+// the bench has no founder account, so the trip above raised the dispatcher's own trip (02 P11: "a trip always reaches
+// someone"; scenario S-B80 tests it); the views draw the seed's trip and warning only
+$pdo->exec("DELETE FROM control_alarms WHERE akey = 'dispatch:nobody'");
 ControlAlarms::raise($pdo, 'svc:issue:92', 'svc:commoncrawl', 'warning', 'retry', 'data.commoncrawl.org: SlowDown, please reduce your request rate', 'It waits.', 'Nothing.', '503', [], false, false);
 $id = (int) $pdo->query("SELECT id FROM control_alarms WHERE akey = 'wf:W1:test'")->fetchColumn();
 $pdo->exec("UPDATE control_alarms SET tripped_at = COALESCE(tripped_at, UTC_TIMESTAMP()) WHERE id = $id");

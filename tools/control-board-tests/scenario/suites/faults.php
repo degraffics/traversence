@@ -93,7 +93,8 @@ sc('faults', 'S-B24', 'timeouts in a burst inside one run: one fault, a Warning 
     chk('hold: nothing while it tries (a back-off in its wait isn\'t a hold)', holds() === [] && hostHolds() === [], [holds(), hostHolds()]);
     chk('messages: none', quiet());
     report(['identity' => ['failed', 'timed out', ['api.tavily.com' => [3, 3, 'timed out']]], 'coverage' => ['done', '']]);
-    $n = (int) $GLOBALS['pdo']->query("SELECT COUNT(*) FROM control_alarms WHERE cleared_at IS NULL")->fetchColumn();
+    // Tavily's open alarms only: the malformed 200 above opened Gemini's own (harness: it counted every open alarm)
+    $n = (int) $GLOBALS['pdo']->query("SELECT COUNT(*) FROM control_alarms WHERE cleared_at IS NULL AND component = 'svc:tavily'")->fetchColumn();
     chk('the same cause in a task\'s report is the same fault: one alarm, not two (g1 row 4)', $n === 1, $GLOBALS['pdo']->query("SELECT akey, component FROM control_alarms WHERE cleared_at IS NULL")->fetchAll(PDO::FETCH_ASSOC));
     $a2 = alarm('svc:issue:' . svcFail('api.tavily.com', 'malformed', 'site', ['status' => 200, 'body' => 'not json']));
     chk('a malformed answer is a back kind too: a warning on the diagnostic clock', $a2 && $a2['level'] === 'warning', $a2);

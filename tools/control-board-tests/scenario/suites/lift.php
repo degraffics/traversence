@@ -19,7 +19,7 @@ sc('lift', 'S-A1', 'a 504 at Common Crawl\'s index: a warning, its first try at 
     chk('hold: nothing held while it tries', holds() === [] && hostHolds() === [], [holds(), hostHolds()]);
     chk('no switch value changed (CS-1)', snap() === $s0);
     $f = facts($a);
-    chk('words: trying again by itself, n of 3, its next time; nothing held', str_contains($f['status'], 'trying again') && str_contains($f['status'], 'of 3') && str_contains($f['status'], 'Nothing is held'), $f['status']);
+    chk('words: trying again by itself, n of 3, its next time; nothing held', stripos($f['status'], 'trying again') !== false && str_contains($f['status'], 'of 3') && str_contains($f['status'], 'Nothing is held'), $f['status']);
     chk('messages: a warning goes to the board only (no Pulse row, email or push)', quiet(), [count(msgs()), count(mails()), count(pushes())]);
 });
 

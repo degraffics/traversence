@@ -34,7 +34,7 @@ $t('nothing can check it: It\'s fixed: try it again', str_contains($h31, 'value=
 // closed by the system's check: the tripped alarm closes too, saying how
 ServiceHealth::resolve($pdo, 28, 0, 'It answered again.');
 $a = $pdo->query("SELECT cleared_at, cleared_how FROM control_alarms WHERE id = $aid")->fetch(PDO::FETCH_ASSOC);
-$t('the system\'s check closes the issue and its tripped alarm, saying how', $a['cleared_at'] !== null && str_contains((string) $a['cleared_how'], 'Cleared by its check'), $a);
+$t('the system\'s check closes the issue and its tripped alarm, saying how', $a['cleared_at'] !== null && str_starts_with((string) $a['cleared_how'], 'Recovered:'), $a);   // 02 §3c, row 90: Recovered, never "Resolved by the system"
 // a person's Check and start again closes the issue too
 $pdo->exec("INSERT INTO service_issues (id, service, host, caller, kind, hits, first_at, last_at, evidence, probe_url) VALUES (40, 'brave', 'api.search.brave.com', 'site', 'server', 6, UTC_TIMESTAMP(), UTC_TIMESTAMP(), '{}', 'https://api.search.brave.com/')");
 $a2 = ControlAlarms::raise($pdo, 'svc:issue:40', 'svc:brave', 'trip', 'held', 'Brave: Its server failed', '', '', '', [], true, false);
