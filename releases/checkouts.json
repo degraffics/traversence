@@ -451,6 +451,17 @@
    "expires": "2026-11-23T01:40:22Z",
    "release": "control-board.zip",
    "callers": {}
+  },
+  {
+   "path": "website/api/crawl/irs.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ibQFnVmXNfkdFarwR",
+   "why": "control board build (step 4): the IRS load's shape check before any write (02 row 38b, D11)",
+   "since": "2026-11-22T22:12:03Z",
+   "expires": "2026-11-23T02:12:03Z",
+   "release": "control-board.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
