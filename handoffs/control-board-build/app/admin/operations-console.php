@@ -549,6 +549,7 @@ function tv_ops_wf_state(PDO $pdo, array $d, string $wf): array
     } else {
         [$k, $words, $why] = ['g', 'Running', ($tasks ? count($on) . ' of ' . count($tasks) . ' tasks on' : 'Its site jobs and AI features run by their own switches') . ($purpose ? '; ' . count($purpose) . ' off on purpose' : '') . '.'];
     }
+    if ($red && $k !== 'n' && !in_array('att', $groups, true)) $groups[] = 'att';   // a red line holds it, whatever else shows first
     if ($warns || $failed || $empty) $groups[] = 'warn';
     if ($purpose && !in_array('off', $groups, true)) $groups[] = 'off';
     if (!$groups) $groups[] = 'none';
@@ -663,6 +664,7 @@ function tv_ops_wf_card(array $d, string $wf): string
             . tv_score_stage_pill($st) . ($n !== null && $st !== 'monitor' ? '<span class="wfp-su">setup: ' . $n . ' of 4</span>' : (($g['reading_text'] ?? '') !== '' ? '<span class="wfp-su">' . $e((string) $g['reading_text']) . '</span>' : ''));
     } else $h .= tv_score_gauge(null, $wf . ' ' . $name . ': its gauge isn\'t checked yet', 'none') . '<span class="wfp-su">Its gauge: ' . $e((string) ($g['reading_text'] ?? 'not checked yet')) . '</span>';
     $h .= tv_ops_wf_lt($s['k'], $s['words']);
+    if ($s['red'] && !str_starts_with($s['words'], 'Held by its check')) $h .= tv_ops_wf_lt('a', 'Held by its check: ' . (string) $s['red'][0]['line'] . (count($s['red']) > 1 ? ' and ' . (count($s['red']) - 1) . ' more' : ''));
     if ($s['failed']) $h .= tv_ops_wf_lt('a', $s['failed'] . ' crawl job' . ($s['failed'] === 1 ? '' : 's') . ' failed');
     if ($s['empty']) $h .= tv_ops_wf_lt('a', 'Returns empty: ' . implode(', ', array_column($s['empty'], 'name')));
     if ($g && !$s['list'] && ($g['measure'] ?? '') !== '') $h .= '<span class="wfp-m"><span class="wfp-appr">approved</span> ' . $e((string) $g['measure']) . '</span>';
