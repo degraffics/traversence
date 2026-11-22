@@ -1,7 +1,7 @@
 # For Jason's review: the control board, step 3
 
-One page, in step with `03-cards.md`'s "For Jason's review" list (items 1–10). Each item says what it is, what we
-recommend, and where it comes from. **Decided:** 2 items (5, 9). **Open:** 8 items.
+One page, in step with `03-cards.md`'s "For Jason's review" list (items 1–11). Each item says what it is, what we
+recommend, and where it comes from. **Decided:** 2 items (5, 9). **Open:** 9 items.
 
 | # | Item | Status |
 |---|---|---|
@@ -15,6 +15,7 @@ recommend, and where it comes from. **Decided:** 2 items (5, 9). **Open:** 8 ite
 | 8 | Thresholds still marked des | Open |
 | 9 | Delivery objectives: "Is it delivering?" | **Adopted: drawn in `board/index.html` (Jason, 2026-11-21)** |
 | 10 | 1Password for our own staff | Open |
+| 11 | The two sages | Open |
 
 **1. QuickBooks' processing fees (open).** QuickBooks' card shows "fees not read yet", because nothing reads what
 Intuit charged us. **Recommended:** read the fees in step 4's ledger export, as a spec item. It's a read of our own
@@ -76,3 +77,5 @@ first. Many of the measures already exist: the search, layout, paths and photos 
 **10. 1Password for our own staff (open).** It's linked from each card and called by nothing (03 §26.24), and decisions/0156's
 Vault now holds staff logins. **Recommended:** Retired for our own staff once the Vault is in use; kept only as 0156's
 "1Password through us" option for customers. *Source: 03 §26.24; the session manager, 2026-11-21.*
+
+**11. Two sages (#92BEA5 brand token, #8FBCA8 icon active in CLAUDE.md): one, or both on purpose? (open).** The board keeps both as they are. *Source: brand.md §4; CLAUDE.md, phone layout; 03 §28.5.*

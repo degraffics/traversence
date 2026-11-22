@@ -1485,7 +1485,7 @@ key and no account has all four slots Not registered with "Open data: no account
 | slots (04) | none registered; the rest Not registered, "Open data: no account" | obs; des |
 | states (02) | working, from its callers; Trip at index.commoncrawl.org (#35); Asked us to slow down at data.commoncrawl.org (#22) | obs (alarms) · rows 24–27, 130 |
 
-**Open words, answered (the session manager, 2026-11-21; verify steps and build status, Gemini's hand-off note, 2026-11-22):** (1) #35: W3 can run while index.commoncrawl.org is tripped: its columnar reads use only data.commoncrawl.org (crawler.py:1697–1703). Since release #247 (live 12:22 UTC Nov 21) the pre-flight gates on data.commoncrawl.org only and the index is a second part that holds only the per-site copy (Preflight.php:1110–1113, reachAll :895–907). The snapshot's "W3 held whole" is from before #247. (2) #22: a rate wait under the contract (row 27). Today's wording, "Its server failed", is shown beside it as the defect.
+**Open words, answered (the session manager, 2026-11-21; verify steps and build status, Gemini's hand-off note, 2026-11-22):** (1) #35: W3 can run while index.commoncrawl.org is tripped: its columnar reads use only data.commoncrawl.org (crawler.py:1697–1703). Since release #247 (live 12:22 UTC Nov 21) the pre-flight gates on data.commoncrawl.org only and the index is a second part that holds only the per-site copy (Preflight.php:1110–1113, reachAll :895–907). W3 now does nothing only while its two switches stay Off by the system (left by a closed trip): Switch on, each with its check. (2) #22: a rate wait under the contract (row 27). Today's wording, "Its server failed", is shown beside it as the defect.
 
 ### 26.3 Wikimedia (Wikipedia, Wikidata, Commons) (`wikimedia`)
 
@@ -1976,17 +1976,26 @@ IR-0001's chain at its first and last levels:
   Crawl's pre-flight line checks data.commoncrawl.org first, then the index as a second part (Preflight.php:1110–1113).
   `reachAll()` (:895–907) makes a failing second part amber, "Only the copy of one site's page waits; the rest works",
   shown "Partly working" (:41–44). Before #247 the line asked only the index (mirror `077a3ec`), so its 504 turned it
-  red and tripped `pf:wf:W3`, holding W3 whole. The alarms snapshot (3:19 AM MST = 10:19 UTC) predates #247.
+  red and tripped `pf:wf:W3`. The alarms snapshot (3:19 AM MST = 10:19 UTC) predates #247.
 - A SlowDown at data.commoncrawl.org (#22) is a rate wait that pauses the bulk reads while its back-off runs
   (crawler.py:1602–1609, :1701).
 - **Its radius (the contract):** Held: only the needs that go through index.commoncrawl.org (the per-site copies: W3's
   fallback copy, W2's Re-read websites; each reads the site directly first). On a backup: the columnar reads, from
   data.commoncrawl.org. Unaffected: every other need.
-- **#35 recovers when** its check passes against index.commoncrawl.org (`collinfo.json` answers 200, Preflight.php:1113),
-  closing as Recovered. W3's pause lifts when its line passes (Preflight.php:304–306; `ControlAlarms::ESCALATED_RECOVERS`
-  is true, :212).
-- **Live, to confirm (asks.md, visit 11):** that Railway runs worker 2.16.1, and that `pf:wf:W3` closed after #247. The
-  step-4 item is that confirmation, not a split: #247 made the split.
+- **#35** closed when the same press got a 200 from index.commoncrawl.org (`01-lift-reconstruction.md` (b)); a later
+  failure would trip it again and hold only the per-site copies, recovering when `collinfo.json` answers 200
+  (Preflight.php:1113).
+- **Confirmed (the session manager, 2026-11-22):** Railway runs crawler 2.16.1, checked through Railway's API at ~12:3x
+  UTC Nov 21 (the traversence and w0-indexer deploys SUCCESS at 12:22:18 UTC, commit `b2ab69e`); recorded on Railway's
+  and Common Crawl's cards. `pf:wf:W3` is closed: Jason's own Check and start again closed it on Nov 21
+  (`01-lift-reconstruction.md` (b)). No step-4 split is needed: #247 made it.
+- **What's true now: W3 isn't held.** W3 does nothing while its two switches stay Off by the system (left by a closed
+  trip): **Read a source** (task `source`) and **Common Crawl** (task `commoncrawl`), `crawl_capture_tasks.enabled = 0`,
+  written by a trip before decisions/0175 (`01-lift-reconstruction.md` (c)). Nothing switches them on by itself (0175's
+  note of 2026-11-20, "Keep for a person").
+- **Fix it:** Switch on: Read a source, then Switch on: Common Crawl, each running its switch-on check first (02 row 64)
+  and logged with who. **Its way back:** Switch off on the same row (02 row 398), logged. On W3's row, its Workflows
+  path, Common Crawl's card and the Warnings rollup.
 
 On Common Crawl's card (zone 2's "Can W3 run…?" row, its radius, #35's state) and W3's row in Workflows.
 
@@ -2106,3 +2115,4 @@ Items noted for Jason's review of the step-3 design. None is asked now.
    add them to step 3's design; Jason sets the targets once.
 10. **1Password** (§26.24): Retired for our own staff once the Vault (decisions/0156) is in use; kept only as 0156's
     "1Password through us" option for customers. Recommended by the session manager, 2026-11-21.
+11. **Two sages (#92BEA5 brand token, #8FBCA8 icon active in CLAUDE.md): one, or both on purpose?** The board keeps both as they are (§28.5).

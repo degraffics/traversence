@@ -335,10 +335,17 @@ W1_RECOVER = ('Recovers when: /api/crawl/loads.php\'s check passes (it replies w
               '(a town loaded, its records sent). Then W1\'s two trips close as Recovered.')
 W3_ANSWER = ('W3 can run while index.commoncrawl.org is tripped: its columnar bulk reads ask only data.commoncrawl.org (crawler.py:1697–1703; worker 2.16.1, :215). '
              'Only the per-site page copy waits on the index (cc_home, crawler.py:1672–1680). Since release #247 (live 12:22 UTC Nov 21) the gate checks data.commoncrawl.org '
-             'first and the index as a second part that holds only that copy (Preflight.php:1110–1113; reachAll, :895–907). The snapshot\'s "W3 held whole" is from before #247.')
+             'first and the index as a second part that holds only that copy (Preflight.php:1110–1113; reachAll, :895–907). Railway runs that worker (2.16.1).')
+W3_NOW = ('W3 does nothing while its two switches stay Off by the system (left by a closed trip): Read a source (task source) and Common Crawl '
+          '(task commoncrawl), crawl_capture_tasks.enabled = 0, written by a trip before decisions/0175 (01-lift-reconstruction.md (c)). Its trip, pf:wf:W3, '
+          'is closed: Jason\'s own Check and start again closed it on Nov 21 (01-lift-reconstruction.md (b)). Nothing switches them on by itself '
+          '(0175\'s note of 2026-11-20, "Keep for a person").')
+W3_FIX = ('Switch on: Read a source, then Switch on: Common Crawl. Each runs its switch-on check first (02 row 64) and is logged with who. '
+          'Its way back: Switch off on the same row (02 row 398), logged.')
+RW_241 = ('Railway runs crawler 2.16.1: the session manager confirmed it through Railway\'s API, ~12:3x UTC Nov 21 (the traversence and w0-indexer deploys SUCCESS at 12:22:18 UTC, commit b2ab69e).')
 W3_RADIUS = 'Held: only the needs that go through index.commoncrawl.org (the per-site copies). On a backup: the columnar reads, from data.commoncrawl.org.'
-W3_RECOVER = ('Recovers when: #35\'s check passes against index.commoncrawl.org (collinfo.json answers 200, Preflight.php:1113), so it closes as Recovered; '
-              'W3\'s pause lifts when its line passes (Preflight.php:304–306; ControlAlarms::ESCALATED_RECOVERS, :212). Whether it closed after #247: live data (asks.md, visit 11).')
+W3_RECOVER = ('Recovers when: a person switches on its two tasks (above). #35 and pf:wf:W3 have closed: the same press on Nov 21 got a 200 from '
+              'index.commoncrawl.org and closed #35 as Recovered (01-lift-reconstruction.md (b)); a later 504 would trip #35 again and hold only the per-site copies.')
 W2_COUNT = ('The count can\'t be trusted until the step-4 fix. Cause: "received" counts only the lists in the POST (ControlLedger.php:162, listed() :77–86): the other '
             'locations found, never the listing being refreshed (entity_id) or its fields (found). The outcomes count that listing too: updated once (CrawlerIngest.php:571, '
             'one line per record, ControlLedger.php:47–56), plus each location sent to Review (IntakeStager.php:222). One listing with one other location: received 1, counted 2 (L9). '
@@ -350,8 +357,12 @@ SYNC_HISTORY = [('22:55 UTC Nov 21 (3:55 PM MST)', 'the 18:00 UTC slot, run late
                 ('12:26 UTC Nov 21 (5:26 AM MST)', 'sync 37a212e: release #247 mirrored (live 12:22 UTC)'),
                 ('03:19 UTC Nov 21 (8:19 PM MST Nov 20)', 'the snapshot\'s reading: the mirror behind since this sync (#689 by hand), the 06:00 UTC slot passed with no run')]
 WF_NOTE = {'W1': [('Root cause so far', W1_CAUSE.split(': ', 1)[1]), ('Recovers when', W1_RECOVER.split(': ', 1)[1])],
-           'W3': [('Can W3 run?', W3_ANSWER), ('Its radius (the contract)', W3_RADIUS), ('Recovers when', W3_RECOVER.split(': ', 1)[1])],
+           'W3': [('Now', W3_NOW), ('Fix it', W3_FIX), ('Can W3 run?', W3_ANSWER), ('Its radius (the contract)', W3_RADIUS), ('Recovers when', W3_RECOVER.split(': ', 1)[1])],
            'W2': [('Its count (L9)', W2_COUNT)]}
+
+
+# what's true now, where it differs from the alarms snapshot (the session manager, 2026-11-22)
+WF_NOW = {'W3': ('a', 'Off by the system: 2 switches', 'Its trip closed (Jason\'s Check and start again, Nov 21); its two task switches stay Off by the system, left by a closed trip.')}
 
 
 def wf_note(w, cls='wfn'):
@@ -428,7 +439,7 @@ PROMISES = [
             'not checked yet: no probe reads it', 'n', None, sparkline([])),
         obj('o-photos', 'Photos load', 'the photos check (daily, site-checks.yml)', 'every kind loads', 'not checked yet: its results aren\'t in site-audit/results', 'n', None, sparkline([]), fix=['aws', 'cloudflare']),
         obj('o-gather', 'Gathering reconciles', 'workflows running, and records in and stored (the alarms snapshot)', 'every workflow on; records in every day',
-            f'W1 paused whole by two trips (overture_bulk #1290, foursquare_bulk #1288); W3 tripped (Common Crawl #35). "Records: 0 in, 0 stored, 0 refused" in 24 hours. Root cause and recovery: below',
+            f'W1 paused whole by two trips (overture_bulk #1290, foursquare_bulk #1288); W3 does nothing while its two switches stay Off by the system (left by a closed trip). "Records: 0 in, 0 stored, 0 refused" in 24 hours. Root cause and recovery: below',
             'r', None, sparkline([]), chain='c1', fix=['railway', 'bluehost', 'overture', 'foursquare'], when=T_AL),
         obj('o-grow', 'Knowledge keeps growing', 'published listings (the crawler snapshot, daily)', SET,
             f'{c21["finds"]["published"]:,} published (from {pub_trend[0]:,} on Nov 13); {c21["staged"]["review"]} waiting in Review; the Review queue\'s age: not checked yet',
@@ -462,7 +473,7 @@ LT = {'g': 'Working', 'a': 'Less than optimal', 'r': 'Trip', 'n': 'not checked y
 pct = lambda a, b: f'{a / b * 100:.1f}%'
 METRIC = {'o-pages': f'{r200}/{rN} answered · {pct(r200, rN)}', 'o-signin': 'sign-in and sign-out passed', 'o-phone': f'{len(scroll_pages)} sideways · {len(edge_pages)} edges off',
           'o-search': f'{SCORE["pass"]}/{SCORE["of"]} cases · {pct(SCORE["pass"], SCORE["of"])}', 'o-paths': f'{pc["passed"]}/{ran} passed · {pc["failed"]} failed',
-          'o-fresh': 'NPI Registry: warn', 'o-complete': f'{c21["map_points"]["approximate"]:,} of {c21["map_points"]["public"]:,} approximate', 'o-gather': 'W1, W3 paused · 0 records in',
+          'o-fresh': 'NPI Registry: warn', 'o-complete': f'{c21["map_points"]["approximate"]:,} of {c21["map_points"]["public"]:,} approximate', 'o-gather': 'W1 paused · W3 off · 0 records in',
           'o-grow': f'{c21["finds"]["published"]:,} published', 'o-renew': 'Scheduled tasks: bad', 'o-claude': '$27.05 / $40 · 68%', 'o-places': '544 / 1,000 · 54%',
           'o-search-cap': '26 searches · 20.8¢', 'o-told': '4 of 4 trips sent', 'o-uptime': '97.5% uptime · 24 h', 'o-ir': 'IR-0001 open · Unconfirmed'}
 SHORT = lambda lab: re.sub(r'^The Communications ', '', re.sub(r'\s*\(.*?\)', '', lab)) or lab
@@ -823,13 +834,14 @@ MOD_NOTE = {
     'github': _mnote('info', 'The sync, now:', E(SYNC_NOW),
                      '<div class="micro">History</div><ul class="hist">' + ''.join(f'<li><time>{E(t)}</time>: {E(x)}</li>' for t, x in SYNC_HISTORY) + '</ul>'
                      '<p class="sub">The card\'s states below keep the snapshot\'s readings (3:19 AM MST); the missed-slot state is the 03:19 UTC record.</p>'),
+    'railway': _mnote('info', 'The crawler worker:', E(RW_241)),
     'gemini': _mnote('info', 'From stage 2 to 3 (Activate), it needs:',
                      'its key checked, its pre-flight passing, and the privacy guard\'s test passing.',
                      '<ul><li><b>Its key checked:</b> <code>GEMINI_API_KEY</code> in .env, then the models list with our key answers (free, nothing generated): Preflight.php:1061–1065. Set or not is on the asks (visit 5).</li>'
                      '<li><b>Its pre-flight passing:</b> its line reads Ready; Activate is offered then (02 row 102).</li>'
                      '<li><b>The privacy guard\'s test:</b> <code>tools/release-b-tests/gemini.php</code> passes: every feature that isn\'t public input is refused (<code>Gemini::refused()</code>, Gemini.php:38–43; decisions/0164 §0.8).</li></ul>'),
-    'commoncrawl': _mnote('info', 'W3 while index.commoncrawl.org is tripped:', 'it can run. Its columnar reads use only data.commoncrawl.org; only the per-site copies wait.',
-                          f'<p class="sub">{E(W3_ANSWER)}</p><p class="sub">{E(W3_RADIUS)}</p><p class="sub">{E(W3_RECOVER)}</p>'),
+    'commoncrawl': _mnote('info', 'W3 while index.commoncrawl.org is tripped:', 'it can run. Its columnar reads use only data.commoncrawl.org; only the per-site copies wait. ' + E(W3_NOW),
+                          f'<p class="sub"><b>Fix it:</b> {E(W3_FIX)}</p><p class="sub">{E(W3_ANSWER)}</p><p class="sub"><b>Source:</b> {E(RW_241)}</p><p class="sub">{E(W3_RADIUS)}</p><p class="sub">{E(W3_RECOVER)}</p>'),
 }
 
 
@@ -895,7 +907,9 @@ def workflows_view():
     for w, name, what, where in WORKFLOWS:
         needs = [n for n in NEEDS if w in n['wfs']]
         al = WF_ALARMS.get(w, [])
-        if any(a['level'] == 'trip' for a in al):
+        if w in WF_NOW:
+            st = lt(*WF_NOW[w][:2]) + f'<div class="sub">{E(WF_NOW[w][2])}</div>'
+        elif any(a['level'] == 'trip' for a in al):
             st = lt('r', 'Paused by the system') + ''.join(f'<div class="sub">{E(a["title"][:140])}</div>' for a in al if a['level'] == 'trip')
         elif al:
             st = lt('a', 'Warning') + ''.join(f'<div class="sub">{E(a["title"][:140])}</div>' for a in al)
@@ -1044,6 +1058,8 @@ def _lv(kind, light, name, why, share=None, link=''):
 
 
 def _wf_state(w):
+    if w in WF_NOW:
+        return WF_NOW[w][:2]
     al = WF_ALARMS.get(w, [])
     if any(a['level'] == 'trip' for a in al):
         return 'r', 'Paused by the system'
@@ -1097,7 +1113,7 @@ def wf_panel(o):
         for w, tasks in snap['wf'].items():
             k, words = _wf_state(w)
             name = next((n for ww, n, _, _ in WORKFLOWS if ww == w), '')
-            why = '; '.join(E(a['title'][:110]) for a in WF_ALARMS.get(w, []) if a['level'] == 'trip') if k == 'r' else ('; '.join(E(a['title'][:110]) for a in WF_ALARMS.get(w, [])) if k == 'a' else 'At ' + T_AL + '.')
+            why = E(WF_NOW[w][2]) if w in WF_NOW else '; '.join(E(a['title'][:110]) for a in WF_ALARMS.get(w, []) if a['level'] == 'trip') if k == 'r' else ('; '.join(E(a['title'][:110]) for a in WF_ALARMS.get(w, [])) if k == 'a' else 'At ' + T_AL + '.')
             body += _lv('Workflow', lt(k, words), f'{w} {E(name)}', why + wf_note(w), assoc.SHARES.get((o['id'], w)))
             for t in tasks:
                 tk, tw = _task_state(t)
@@ -1219,7 +1235,7 @@ def write_assoc_md():
 def chains():
     c1 = [
         ('Snapshot (promise 5)', 'Gathering reconciles', lt('r', 'Trip'),
-         f'W1 is paused whole by two task trips, and W3 by Common Crawl\'s trip. "Records: 0 in, 0 stored, 0 refused" in the last 24 hours. {E(W1_CAUSE)} {E(W1_RECOVER)}',
+         f'W1 is paused whole by two task trips, and W3 does nothing while its two switches stay Off by the system (left by a closed trip). "Records: 0 in, 0 stored, 0 refused" in the last 24 hours. {E(W1_CAUSE)} {E(W1_RECOVER)}',
          f'<ul><li>The alarms snapshot, <time>{T_AL}</time>: 4 trips open (pf:wf:W3, task:failed:overture_bulk, task:failed:foursquare_bulk, svc:issue:35)</li><li>Summary: {E(TODAY)}</li></ul>', ['Workflow W1 Listings']),
         ('Workflow', 'W1 Listings', lt('r', 'Paused by the system (twice)'),
          'Each task trip paused all of W1 ("W1 (its tasks wait with it)"). Under the contract a timeout reading our own reply is a warning on the Site endpoint, and the tasks aren\'t held (02 rows 11–14).',
@@ -1311,8 +1327,8 @@ def quick():
     """Grouped rollups (design/css-theme-brand.md: "grouped summary banners", system feeds only): one button per group, its items inside."""
     groups = [
         ('r', 'Trips', [('c', 'p-c1-0', 'W1 paused: IR-0001 (the response path, Unconfirmed)', 'r', '2 trips'),
-                        ('m', 'commoncrawl:1', 'W3: Common Crawl #35 (its bulk reads can run)', 'r', 'trip')]),
-        ('a', 'Warnings', [('w', 'workflows', 'Paused now: W3\'s source and commoncrawl tasks left off', 'a', '2 off'),
+                        ]),
+        ('a', 'Warnings', [('f', 'W3', 'W3 does nothing: 2 switches Off by the system (Switch on)', 'a', '2 off'),
                            ('f', 'W2', 'W2: refresh\'s count can\'t be trusted (L9)', 'a', 'step 4'),
                            ('o', 'o-paths', 'Paths: set-place failed', 'a', '1 failed'),
                            ('m', 'irs:0', 'IRS: Fix in the build, pending', 'a', 'step 4'),

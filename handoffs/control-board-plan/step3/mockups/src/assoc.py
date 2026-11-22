@@ -54,7 +54,7 @@ SNAP = {
 # real shares, by level, where the readings hold them (obs); anything else drawn is marked scenario
 SHARES = {
     ('o-gather', 'W1'): ('obs', '2 of 2 open W1 trips (overture_bulk #1290, foursquare_bulk #1288): W1 paused whole (alarms, 3:19 AM MST)'),
-    ('o-gather', 'W3'): ('obs', '1 trip (pf:wf:W3, Common Crawl #35): W3 held by its gate'),
+    ('o-gather', 'W3'): ('obs', 'W3 does nothing while its two switches (source, commoncrawl) stay Off by the system, left by a closed trip (01-lift-reconstruction.md (b), (c))'),
     ('o-gather', 'overture_bulk'): ('obs', 'run #1290: TimeoutError reading /api/crawl/loads.php, 08:31:41 UTC'),
     ('o-gather', 'foursquare_bulk'): ('obs', 'run #1288: TimeoutError reading /api/crawl/loads.php, 08:20:34 UTC'),
     ('o-ir', 'W1'): ('obs', 'IR-0001: 2 members, root cause Unconfirmed'),

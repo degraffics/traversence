@@ -23,8 +23,8 @@ The numbers in brackets are the 16 asks as listed:
 14. §26's names (the session manager, 2026-11-21): the services' keys and modes, `ors_matrix_daily`, Apple's Developer
     Program and Meta's app review
 15. the seeded workflow → task table (the association map)
-16. Gemini's hand-off note (2026-11-22): W2's count call, W3 after release #247, the worker's version, and §26's verify
-    steps' live parts (03 §28)
+16. Gemini's hand-off note (2026-11-22): W2's count call and §26's verify steps' live parts (03 §28). Answered, so not
+    asked: Railway runs crawler 2.16.1 and `pf:wf:W3` is closed (the session manager, 2026-11-22)
 
 ---
 
@@ -56,9 +56,6 @@ The numbers in brackets are the 16 asks as listed:
   - `pf:so:commoncrawl-common-crawl-a5bbfe76`.
 
   For each, its level, cleared at and how, resolved by and its note, acknowledged by, stopped, and last seen. *Settles:* `01-lift-reconstruction.md` (what "Check and start again" closed, and when).
-- **[16] W3 after release #247 (live 12:22 UTC Nov 21).** Is `pf:wf:W3` still open, and has #35 (index.commoncrawl.org)
-  recovered? **Why:** since #247 the gate holds only Common Crawl's per-site copy; the snapshot (3:19 AM MST) predates
-  it. **Settles:** 03 §28.1; Common Crawl's card.
 
 
 ## Visit 3. The Control Board's Logbook: https://traversence.com/admin/config/log
@@ -173,9 +170,8 @@ https://railway.com/project/a445f0be-b6de-46bb-a422-51ff835ca6e4/service/8d254c0
   - **Settles:** 03 §22.1, §22.2; `step2/ir-0001.md`.
 
 - **[14] `RIDB_API_KEY`:** set or not (Recreation.gov's monthly load). **Settles:** 03 §26.6.
-- **[16] The worker's version:** the crawler service's latest deployment and the version its run log prints (2.16.1 or
-  not). It decides whether the bulk reads run while the index is tripped (crawler.py:215). Its run report also names
-  `RIDB_API_KEY` present or not (names only). **Settles:** 03 §28.1, §28.3.
+- **[16] `RIDB_API_KEY` in the run report:** the crawler's latest run log names it present or not (names only).
+  **Settles:** 03 §28.3.
 
 
 ## Visit 12. GitHub, degraffics/traversence → Settings → Secrets
