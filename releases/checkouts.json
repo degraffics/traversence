@@ -407,6 +407,83 @@
    "expires": "2026-11-23T02:22:15Z",
    "release": "control-board.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/staging-tables.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5mF3yZ2ZE7oz8RpDsq",
+   "why": "control board build (step 4), taken over",
+   "since": "2026-11-22T22:22:17Z",
+   "expires": "2026-11-23T02:22:17Z",
+   "release": "control-board.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/manifests.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5mF3yZ2ZE7oz8RpDsq",
+   "why": "control board build (step 4), taken over",
+   "since": "2026-11-22T22:22:17Z",
+   "expires": "2026-11-23T02:22:17Z",
+   "release": "control-board.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ControlEngine.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5mF3yZ2ZE7oz8RpDsq",
+   "why": "control board build (step 4), taken over",
+   "since": "2026-11-22T22:22:17Z",
+   "expires": "2026-11-23T02:22:17Z",
+   "release": "control-board.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ControlIncidents.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5mF3yZ2ZE7oz8RpDsq",
+   "why": "control board build (step 4), taken over",
+   "since": "2026-11-22T22:22:17Z",
+   "expires": "2026-11-23T02:22:17Z",
+   "release": "control-board.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ControlGauges.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5mF3yZ2ZE7oz8RpDsq",
+   "why": "control board build (step 4), taken over",
+   "since": "2026-11-22T22:22:17Z",
+   "expires": "2026-11-23T02:22:17Z",
+   "release": "control-board.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/score-gauge.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5mF3yZ2ZE7oz8RpDsq",
+   "why": "control board build (step 4), taken over",
+   "since": "2026-11-22T22:22:17Z",
+   "expires": "2026-11-23T02:22:17Z",
+   "release": "control-board.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/js/tv-copy.js",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5mF3yZ2ZE7oz8RpDsq",
+   "why": "control board build (step 4), taken over",
+   "since": "2026-11-22T22:22:17Z",
+   "expires": "2026-11-23T02:22:17Z",
+   "release": "control-board.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
