@@ -6,12 +6,12 @@
     "zip": "phone-menu.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "planned",
+    "state": "approved",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
-    "plan_at": null,
+    "plan_at": "2026-11-22 14:36:14",
     "staged_at": null,
     "vetted_at": null,
     "live_at": null,
@@ -29,6 +29,16 @@
             "at": "2026-11-22T14:36:13+00:00",
             "by": 0,
             "msg": "Uploaded phone-menu.zip: 1 files."
+        },
+        {
+            "at": "2026-11-22T14:36:14+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/phone-menu.zip (git 20a9790ccf)."
+        },
+        {
+            "at": "2026-11-22T14:36:14+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
         }
     ]
 }
