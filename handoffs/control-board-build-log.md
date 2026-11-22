@@ -246,6 +246,17 @@ not yet there starts from its live copy at `7c99b2c`):
   endpoint; two `register.php` checks against live files outside this build: `<dt id=…>Its key` and the decisions index
   quoting `/admin/config/services`). The 12 `.cjs` rendered tests run separately.
 
+### 9. Helpers' results (open questions for the summary)
+- **G, gauges' data:** done, 77 checks. `gauges.json` (34 KB, what the site caches) and `gauges-items.json` (each drawer's
+  detail, `ControlGauges::detail`). Questions: the site can't record Jason's sign-off yet, so every development gauge stays
+  in Planning until B10–B19 (gauge-lifecycle §5 is a proposal); "Trips reach a person" reads 24 hours; the dispatcher's
+  link is the Communications page.
+- **C, the register's checks:** done on fixtures; results in `site-audit/results/{load,photos-shown,brand,tools,audit}.json`.
+  Hourly light run (`7 * * * *`) and the daily full run, as the register's approved schedule. Questions: how BRAND reads
+  three standards (one header, filters as one dropdown, card anatomy); the format of `site-audit/tools.md`; the light
+  probe's key pages (default `/`, `/discovery/`, `/directory/`, `/login.php`); `findings.py` doesn't read the new files yet.
+  `site-checks.yml` starts live runs: it reaches `main` only with the release.
+
 ## Next, in the plan's order (§2.2) (superseded by the hand-off above)
 1. Read C15 on staging (§6), and the Ledger tab's rows: read-only, wanted from a runner or Jason.
 2. Remaining callers: Operations, ControlSensor, ControlMaintenance and ControlHistorian (they raise through the store,
