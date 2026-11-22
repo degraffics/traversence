@@ -33,9 +33,10 @@ for (const [label, url] of pages) {
     const m = await p.evaluate(() => {
       const r = (el) => (el ? el.getBoundingClientRect() : null);
       const hero = document.querySelector('.xh');
-      // the bottom of what's fixed or sticky at the top (the account strip and the tool bar)
+      // the bottom of what's fixed or sticky at the top (the account strip and the tool bar). #top-bar is the bar itself:
+      // measuring only the <nav> inside it read its own 4px padding and 1px border as a 5px gap (2026-11-22)
       let barBottom = 0;
-      for (const el of document.querySelectorAll('header, nav, .tv-top, .tv-bar, [class*="topbar"], [class*="toolbar"]')) {
+      for (const el of document.querySelectorAll('#top-bar, body > .tv-as, header, nav, .tv-top, .tv-bar, [class*="topbar"], [class*="toolbar"]')) {
         const b = r(el); const cs = getComputedStyle(el);
         if (b && b.top < 200 && b.height > 20 && b.height < 220 && (cs.position === 'sticky' || cs.position === 'fixed' || b.top < 5)) barBottom = Math.max(barBottom, b.bottom);
       }

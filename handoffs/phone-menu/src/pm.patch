@@ -1,0 +1,56 @@
+--- a/app/ui/header.php
++++ b/app/ui/header.php
+@@ -9,7 +9,7 @@
+  * visitors: Create account and Sign in at its top (Jason, 2026-11-05: only in the menu, not beside it), and the essential pages.
+  *
+  * The small tab collapses the funnel box to just the menu; the choice is remembered. Phones always show the bell and
+- * the menu, and the menu opens the full-screen menu (Let's Explore, Get Local, Connect, Market, Login, Ai Assist,
++ * the menu, and the menu opens the full-screen menu (Let's Explore, Get Local, Connect, Market, Login, AI Assist,
+  * Help Center). The current funnel glows. No animated transitions. Funnels without a page yet show as "coming soon".
+  *
+  * Menu items tagged data-auth="out" | "in" | "admin" are shown by js/header-nav.js from window.appAuthActive /
+@@ -348,16 +348,17 @@
+   .tvpm .hidden{display:none !important}   /* signed in: Login stays hidden (the menu's own display would win) */
+   .tvpm-x{position:absolute;top:.9rem;right:1rem;width:40px;height:40px;border:0;background:none;color:var(--tv-ink);font-size:2rem;line-height:1;cursor:pointer}
+   .tvpm-in{max-width:22rem;margin:0 auto;padding:1.5rem 1.5rem 2.5rem;display:flex;flex-direction:column;align-items:center}
+-  .tvpm-logo{width:150px;height:150px;margin:.5rem 0 1.2rem}
+-  .tvpm-list{display:flex;flex-direction:column;gap:.55rem;align-self:stretch;padding-left:1.2rem}
+-  .tvpm-a{display:flex;align-items:center;gap:.9rem;font-weight:800;font-size:1.9rem;color:var(--tv-ink);text-decoration:none;font-family:ui-sans-serif,var(--tv-font-ui);letter-spacing:-.01em}
+-  .tvpm-a .ic{flex:none;display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:999px;border:2.5px solid var(--tv-umber);background:var(--tv-card-a)}
+-  .tvpm-a .ic svg{width:22px;height:22px}
++  /* the quieter menu (Jason, 2026-11-22, option B): 1.35rem/700 words, a 96px logo, Help Center in sentence case, so it fits one screen */
++  .tvpm-logo{width:96px;height:96px;margin:.2rem 0 .9rem}
++  .tvpm-list{display:flex;flex-direction:column;gap:.65rem;align-self:stretch;padding-left:1.2rem}
++  .tvpm-a{display:flex;align-items:center;gap:.7rem;font-weight:700;font-size:1.35rem;color:var(--tv-ink);text-decoration:none;font-family:ui-sans-serif,var(--tv-font-ui);letter-spacing:-.01em}
++  .tvpm-a .ic{flex:none;display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:999px;border:2.5px solid var(--tv-umber);background:var(--tv-card-a)}
++  .tvpm-a .ic svg{width:19px;height:19px}
+   .tvpm-a.soon{opacity:.5}.tvpm-a small{font-size:.8rem;font-weight:600;color:var(--tv-meta)}
+-  .tvpm-help{margin-top:1.4rem;background:var(--tv-btn);color:var(--tv-btn-text);border-radius:999px;padding:.45rem 2.3rem;text-transform:uppercase;letter-spacing:.04em;text-decoration:none;font-size:1rem}
++  .tvpm-help{margin-top:1.4rem;background:var(--tv-btn);color:var(--tv-btn-text);border-radius:999px;padding:.45rem 2.3rem;font-weight:700;text-decoration:none;font-size:1rem}
+   .tvpm-acct{align-self:stretch;display:flex;flex-direction:column;gap:.55rem;margin:0 0 1.3rem}
+   .tvpm-up{display:block;text-align:center;background:var(--tv-btn);color:var(--tv-btn-text);border-radius:.7rem;padding:.75rem;font:800 1.1rem var(--tv-font-ui);text-decoration:none}
+-  .tvpm-in{display:block;text-align:center;border:2px solid var(--tv-umber);color:var(--tv-ink);border-radius:.7rem;padding:.6rem;font:700 1rem var(--tv-font-ui);text-decoration:none}
++  .tvpm-sin{display:block;text-align:center;border:2px solid var(--tv-umber);color:var(--tv-ink);border-radius:.7rem;padding:.6rem;font:700 1rem var(--tv-font-ui);text-decoration:none}   /* Sign in: its own class (it shared .tvpm-in with the menu's column, which took its outline and width, 2026-11-20) */
+   .tvpm-sub{margin-top:1.1rem;display:flex;flex-wrap:wrap;gap:.4rem 1.1rem;justify-content:center;font-size:.9rem}
+   .tvpm-sub a,.tvpm-sub button{color:var(--tv-meta);text-decoration:underline;background:none;border:0;cursor:pointer;font-size:.9rem}
+ </style>
+@@ -446,7 +447,7 @@
+   <button type="button" class="tvpm-x" data-tvpm-close aria-label="Close menu">&times;</button>
+   <div class="tvpm-in">
+     <a href="/" aria-label="Traversence home"><img class="tvpm-logo" src="/image/North-Star-logo.svg" alt="Traversence"></a>
+-    <div class="tvpm-acct<?= $tv_in ? ' hidden' : '' ?>" data-auth="out"><a class="tvpm-up" href="/login.php?tab=create">Create account</a><a class="tvpm-in" href="/login.php">Sign in</a></div>
++    <div class="tvpm-acct<?= $tv_in ? ' hidden' : '' ?>" data-auth="out"><a class="tvpm-up" href="/login.php?tab=create">Create account</a><a class="tvpm-sin" href="/login.php">Sign in</a></div>
+     <div class="tvpm-list">
+       <?php // the compass: where you can go, the same on every page (the ☰ / your photo holds what you can do here; Jason, 2026-10-23)
+       foreach ([['explore', "Let's Explore", 'explore'], ['local', 'Get Local', 'local'], ['social', 'Connect', 'social'], ['market', 'Marketplace', 'market'], ['plan', 'Trip planner', 'route']] as [$tv_k, $tv_label, $tv_icon]):
+@@ -456,8 +457,8 @@
+       <?php endforeach; ?>
+       <a class="tvpm-a hidden" href="/user/dashboard.php" data-auth="in"><span class="ic"><?= $tv_i['person'] ?></span>Dashboard</a>
+       <?php $tv_ai = $tv_funnels[0][2]; ?>
+-      <?php if ($tv_ai): ?><a class="tvpm-a" href="<?= $tv_e($tv_ai) ?>"><span class="ic"><?= $tv_i['ai'] ?></span>Ai Assist</a>
+-      <?php else: ?><span class="tvpm-a soon"><span class="ic"><?= $tv_i['ai'] ?></span>Ai Assist <small>soon</small></span><?php endif; ?>
++      <?php if ($tv_ai): ?><a class="tvpm-a" href="<?= $tv_e($tv_ai) ?>"><span class="ic"><?= $tv_i['ai'] ?></span>AI Assist</a>
++      <?php else: ?><span class="tvpm-a soon"><span class="ic"><?= $tv_i['ai'] ?></span>AI Assist <small>soon</small></span><?php endif; ?>
+     </div>
+     <a class="tvpm-help" href="/faq.php">Help Center</a>
+     <div class="tvpm-sub">

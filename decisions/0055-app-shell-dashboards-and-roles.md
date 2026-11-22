@@ -365,3 +365,9 @@ to edge. Zip `bar-colours_20261105.zip`, built on the 13:53 UTC sync: `app/ui/co
 
 **Note (2026-11-05): signing out must really sign out.** The bar's sign-out icon could fail without a word: it sent the page's security token, which on some pages hadn't arrived, so the server refused and the page went home still signed in (Jason saw the menu with no Sign in, and his Listing bar on the Marketplace). Now it asks for a fresh token and tries again, goes home only once the server confirms, and otherwise says it couldn't sign you out, beside the icon.
 The home page now starts the sign-in session and draws the account bar like every other page; before, it had no bar (so no sign-out) and only a script hid Sign in from the menu (2026-11-05).
+
+## Note (Jason, 2026-11-22): the phone menu's look
+From his screenshot of 2026-11-20 and his pick in the pop-up of 2026-11-22 (reviewed by the session manager): **option B,
+quieter**: the menu's words 1.35rem/700 (were 1.9rem/800), a 96px logo (was 150px), Help Center in sentence case like
+the rest of the site, so the menu fits one phone screen. Built with the two defects (Sign in's own class, so the menu no
+longer draws its outline; "AI Assist") as `phone-menu.zip` on Sync 14:20 UTC (`handoffs/phone-menu.md`).

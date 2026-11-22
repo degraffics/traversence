@@ -1,0 +1,7 @@
+{
+ "title": "The phone menu: fixed (no outline, full-width Sign in, Help Center clear of the last line, AI Assist) and quieter (Jason's option B)",
+ "why": "Jason's screenshot of the phone menu (2026-11-20). Two defects fixed: Sign in shared the class .tvpm-in with the menu's own column, so the whole menu drew Sign in's outline, Sign in shrank to 76px and Help Center overlapped the last line by 7px (Sign in has its own class now); 'Ai Assist' reads 'AI Assist' as everywhere else. And his pick of the look on 2026-11-22, option B: the menu's words at 1.35rem/700, a 96px logo, Help Center in sentence case, so the menu fits one phone screen. Phones only; wider screens unchanged. No outside calls, no cost.",
+ "changes": [{"what": "The phone menu (tap the compass at the top left on a phone)", "where": "https://traversence.com/"}],
+ "proposals": [],
+ "switch": ""
+}

@@ -1,0 +1,15 @@
+— 390
+  ✓ a tap on the compass opens the phone menu
+  ✓ no outline round the menu; Sign in full width (342px)
+  ✓ "AI Assist", no "Ai"
+  ✓ Help Center sits below the last line (22px), no overlap
+  ✓ option B: 1.35rem/700 words, 96px logo, Help Center in sentence case
+  ✓ the whole menu fits one 844px screen
+  ✓ no sideways scroll
+  ✓ × closes it
+  ✓ Esc closes it
+  ✓ no script errors
+— 1280
+  ✓ 1280: the page unchanged, no sideways scroll
+  ✓ no script errors
+12 passed, 0 failed
