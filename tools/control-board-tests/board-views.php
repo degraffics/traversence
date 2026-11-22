@@ -84,6 +84,16 @@ $pdo->exec("UPDATE feature_switches SET state = 'off' WHERE switch_key = 'site_h
 $off = shell_exec('php -r ' . escapeshellarg('$a=$argv[1]; require $a."/lib/Database.php"; require $a."/admin/widgets.php"; require $a."/admin/control-console.php"; echo tv_cb_site_health(Database::connection());') . ' ' . escapeshellarg($app) . ' 2>&1');
 $t('…switched off: said, never a silent gap', str_contains((string) $off, 'Site health is off'), mb_substr((string) $off, 0, 200));
 
+// ---- a gauge's detail, loaded as its panel opens (ControlGauges::detail; the session, 2026-11-22: not on the first draw)
+$dd = ControlGauges::detail($pdo, 'development', 'discovery'); $first = (string) ($dd['list'][0]['name'] ?? '');
+$t('a gauge\'s detail isn\'t in the board\'s first draw: its panel carries a slot that loads it', $first !== '' && !str_contains($html, htmlspecialchars($first, ENT_QUOTES)) && str_contains($html, 'data-cb-gd="development:discovery"') && str_contains($html, 'data-cb-gd="runtime:o-pages"'));
+$gd = tv_cb_gauge_detail($pdo, 'development:discovery');
+$t('…?gauge=development:<id>: its items by status, each with its criteria met, checks, review and source', str_contains($gd, 'id="cb-gd"') && str_contains($gd, htmlspecialchars($first, ENT_QUOTES)) && str_contains($gd, 'Its items, by status') && str_contains($gd, 'Source: '));
+$gr = tv_cb_gauge_detail($pdo, 'runtime:o-pages');
+$t('…?gauge=runtime:<id>: its setup words, what it counts, its needs with their sources in order', str_contains($gr, 'Its setup, in words') && str_contains($gr, 'What it counts:') && str_contains($gr, 'Its needs, sources in order'));
+$t('…a gauge with no detail says so, never a blank', str_contains(tv_cb_gauge_detail($pdo, 'runtime:nope'), 'data-tv-label="No detail:"'));
+$t('…the board\'s script loads it on open, with Try again on a failure', str_contains($js, "'?gauge=' + encodeURIComponent(slot.getAttribute('data-cb-gd'))") && str_contains($js, 'data-cb-gdre'));
+
 // ---- Incidents and IR-0001's page
 $t('Incidents: the IR-#### list, each opening its page', str_contains($sec('cb-irs'), 'href="/admin/config/control?ir=1" data-peek-frame>IR-0001</a>') && str_contains($txt($sec('cb-irs')), 'Unconfirmed'));
 $ir = tv_cb_ir_page($pdo, 1, 'x'); $it = $txt($ir);

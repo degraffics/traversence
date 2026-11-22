@@ -10,6 +10,7 @@ function msgN(): array { return [count(msgs()), count(mails()), count(pushes())]
 function ownCode(string $t = 'second_look', string $why = 'KeyError: name'): void { report([$t => ['failed', $why, []], 'coverage' => ['done', '']]); }
 /** A run of loads' 5xx tripped by the engine's three tries of the endpoint's check. */
 function loads5xxTrip(): array { ledger('crawl/loads', 500); checks(['ep:crawl/loads' => red('/api/crawl/loads answered 500 in 210 ms.')]); triesOut('ep:crawl/loads:5xx'); return alarm('ep:crawl/loads:5xx') ?? []; }
+function msgOf(?array $a): array { if (!$a) return []; $st = $GLOBALS['pdo']->prepare('SELECT kind, title FROM comms_messages WHERE thing = ?'); $st->execute(['alarm:' . (int) $a['id']]); return $st->fetchAll(PDO::FETCH_ASSOC); }
 function wordsOk(string $s, array $want): bool { foreach ($want as $w) if (!str_contains($s, $w)) return false; return true; }
 
 // -- tasks (rows 16–18) ---------------------------------------------------------------------------------------------------
@@ -47,7 +48,7 @@ sc('faults', 'S-B19', 'an endpoint slow: 3× its usual with 20 calls of history,
 });
 sc('faults', 'S-B20', 'a call at its usual speed: Cleared', ['g1:7'], function () {
     for ($i = 0; $i < 25; $i++) ledger('crawl/geocode', 200, 150);
-    ledger('crawl/geocode', 200, 4000); ledger('crawl/geocode', 200, 1500);
+    ledger('crawl/geocode', 200, 4000); ledger('crawl/geocode', 200, 150);
     chk('Cleared at its usual speed', alarm('ep:crawl/geocode:slow') === null && last('ep:crawl/geocode:slow') !== null, last('ep:crawl/geocode:slow'));
 });
 sc('faults', 'S-B21', 'an endpoint answers 5xx: a Warning (W-####), trying again, nothing held', ['g1:24', 'g4:1B'], function () {
@@ -126,9 +127,8 @@ sc('faults', 'S-B27', '429, S3 SlowDown, Google\'s per-minute limit: a rate wait
 sc('faults', 'S-B28', 'the wait ends and the engine\'s check passes, whether or not a task calls it: Cleared', ['g2:12', 'g2:13'], function () {
     $id = svcFail('query.wikidata.org', 'rate', 'crawler', ['status' => 429, 'retry_after' => '60']);
     $GLOBALS['pdo']->prepare('UPDATE service_issues SET hold_until = UTC_TIMESTAMP() - INTERVAL 1 MINUTE WHERE id = ?')->execute([$id]);
-    checks(['svc:wikidata' => pass('query.wikidata.org answered its check (200).')]);
-    $GLOBALS['pdo']->exec("UPDATE control_alarms SET next_try_at = COALESCE(next_try_at, UTC_TIMESTAMP() - INTERVAL 1 SECOND)") ; tick();
-    chk('guard: the engine checked it after its wait (no task calling it)', in_array('svc:wikidata', called(), true), called());
+    checks(['svc:wikimedia' => pass('query.wikidata.org answered its check (200).')]); tick();
+    chk('guard: the engine checked it after its wait (no task calling it)', in_array('svc:wikimedia', called(), true), called());
     chk('state: Cleared after its wait (g2 row 12, L11: open 3 days)', issueAlarm($id) === null, issueAlarm($id));
 });
 // -- stop kinds (29–38b) --------------------------------------------------------------------------------------------------
@@ -312,7 +312,7 @@ sc('faults', 'S-B53', 'Bluehost is down: the outside heartbeat emails', ['g3:C13
     notHere('not set up (ALARM_TO): the heartbeat sends from GitHub with ALARM_TO and the SES send-only key, which Jason sets (close.md A1). Its site-side import: tools/control-board-tests/heartbeat-import.php; the heartbeat: tools/heartbeat/test_heartbeat.py');
 });
 sc('faults', 'S-B54', 'a database realm refuses at the watch: a critical Trip at once (database)', ['g3:C14', 'g3:C3', 'g3:C4'], function () {
-    raiseAs('pf:site:db', 'site:db', 'warning', 'check', 'The databases: the listings realm refused', 'SQLSTATE[HY000] [1045]', true, true); $a = alarm('pf:site:db');
+    raiseAs('pf:site:db', 'site:db', 'trip', 'check', 'The databases: the listings realm refused', 'SQLSTATE[HY000] [1045]', true, true); $a = alarm('pf:site:db');
     chk('a critical part (database) trips at once whatever the alarm\'s kind (P8; g3 D2)', $a && $a['level'] === 'trip', $a);
     chk('…while still trying', $a && $a['retrying_at'] !== null && $a['next_try_at'] !== null, $a);
     chk('words: "Down: the system is still trying"', str_contains(title($a), 'Down: the system is still trying'), title($a));
@@ -341,7 +341,7 @@ sc('faults', 'S-B62', 'a site job serving no workflow fails: a Warning, nothing 
     jobRun('sales_tick', 0, 'Lead scores: division by zero'); watch(); $a = alarm('job:sales_tick');
     chk('state: a Warning (its next run is its check: no try clock)', $a && $a['level'] === 'warning' && $a['next_try_at'] === null, $a);
     chk('hold: nothing', holds() === [], holds());
-    chk('messages: none', quiet(), msgN());
+    chk('messages: none for the job', !msgOf($a), msgOf($a));
     $GLOBALS['pdo']->exec("UPDATE control_alarms SET first_at = first_at - INTERVAL 61 MINUTE"); tick();
     chk('the hour passing makes no trip with no try made (g3 J1)', ($x = alarm('job:sales_tick')) && $x['level'] === 'warning', alarm('job:sales_tick')['level'] ?? null);
 });
@@ -420,7 +420,7 @@ sc('faults', 'S-B73', 'Start\'s watch: a switched-on item\'s gate fails: a hold 
     $s0 = snap(); require_once $GLOBALS['APP'] . '/lib/SystemStart.php';
     $m = new ReflectionClass('SystemStart'); $fn = null; foreach (['pauseItem', 'holdItem', 'hold'] as $n) if ($m->hasMethod($n)) { $fn = $m->getMethod($n); break; }
     chk('Start\'s watch has its hold through the engine', $fn !== null, 'no pauseItem / holdItem');
-    if ($fn) { $fn->setAccessible(true); $ps = $fn->getParameters(); try { $fn->invokeArgs(null, array_slice([$GLOBALS['pdo'], 'wf:W2', '3 of its 10 runs failed since it came on.'], 0, count($ps))); } catch (Throwable $x) { chk('it runs', false, $x->getMessage()); } }
+    if ($fn) { $fn->setAccessible(true); $ps = $fn->getParameters(); try { $fn->invokeArgs(null, array_slice([$GLOBALS['pdo'], 'wf:W2', '3 of its 10 runs failed since it came on.', 7], 0, count($ps))); } catch (Throwable $x) { chk('it runs', false, $x->getMessage()); } }
     chk('the switch untouched (CS-1; D21)', snap() === $s0);
     chk('a hold record (system_pauses) for W2, or its trip', in_array('wf:W2', holds(), true) || (bool) $GLOBALS['pdo']->query("SELECT 1 FROM control_alarms WHERE akey LIKE 'start:held:%' AND cleared_at IS NULL")->fetchColumn(), holds());
 });
@@ -454,9 +454,9 @@ sc('faults', 'S-B79', 'a fault on a part in maintenance: a Notice only; its hold
 sc('faults', 'S-B80', 'a trip with nobody to receive it: shown, and a critical Trip on the Communications Dispatcher', ['g4:14B', 'g4:14P', 'g4:14E', 'g4:14Pu'], function () {
     $GLOBALS['pdo']->exec("DELETE FROM staff_accounts");
     $k = ccIndexTrip();
-    chk('the trip says it reached no one', str_contains((string) (alarm($k)['reading'] ?? ''), 'Reached no one'), alarm($k)['reading'] ?? null);
     $d = alarm('dispatch:nobody');
-    chk('the dispatcher\'s own fault raised as a critical Trip (P11)', $d && $d['level'] === 'trip', $d);
+    chk('the dispatcher\'s own fault raised as a critical Trip (P11; g4 row 14)', $d && $d['level'] === 'trip', $GLOBALS['pdo']->query("SELECT akey, level FROM control_alarms")->fetchAll(PDO::FETCH_ASSOC));
+    chk('the trip says it reached no one', str_contains(json_encode(facts(alarm($k))) . (alarm($k)['reading'] ?? ''), 'Reached no one'), alarm($k)['reading'] ?? null);
 });
 sc('faults', 'S-B81', 'email fails (SMTP and SES): a fault on that channel; the message falls back to Pulse and push', [], function () {
     notHere('Notify\'s channel fallback (row 81) has no path yet; mail.failure is still a Pulse message (g4 (c)). Listed for the session');

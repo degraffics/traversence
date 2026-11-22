@@ -319,7 +319,22 @@
     var x = p.querySelector('[data-cb-spx]'); if (x) x.focus();
     var t = at && document.getElementById(at); if (t) setTimeout(function () { t.scrollIntoView({ block: 'start' }); }, 30); else p.scrollTop = 0;
     if (window.TvTime) TvTime.paint(p); if (window.TvCopy) TvCopy.scan(p);
+    gdLoad(p);
   }
+  // a gauge's detail (its items, criteria and setup words: ControlGauges::detail) loads when its panel first opens, so the
+  // board's first draw never fetches it (the session, 2026-11-22); a failure says so with Try again
+  function gdLoad(p) {
+    p.querySelectorAll('[data-cb-gd]:not([data-loaded])').forEach(function (slot) {
+      slot.setAttribute('data-loaded', '1'); slot.setAttribute('aria-busy', 'true');
+      fetch(location.pathname + '?gauge=' + encodeURIComponent(slot.getAttribute('data-cb-gd')), { credentials: 'include' }).then(function (r) { return r.ok ? r.text() : Promise.reject(new Error('HTTP ' + r.status)); }).then(function (html) {
+        var d = new DOMParser().parseFromString(html, 'text/html').getElementById('cb-gd'); slot.removeAttribute('aria-busy');
+        if (!d) throw new Error('no detail in the answer');
+        slot.innerHTML = d.innerHTML; if (window.TvTime) TvTime.paint(slot);
+      }).catch(function (err) { slot.removeAttribute('aria-busy'); slot.removeAttribute('data-loaded');
+        slot.innerHTML = '<p data-tv-status="bad" data-tv-label="Couldn\'t load its detail:">' + String(err.message || err).replace(/[<&]/g, '') + ' <button type="button" class="ak-b cb-xs" data-cb-gdre>Try again</button></p>'; });
+    });
+  }
+  box.addEventListener('click', function (e) { var b = e.target.closest('[data-cb-gdre]'); if (b) { e.preventDefault(); gdLoad(b.closest('.cb-sp')); } });
   box.addEventListener('click', function (e) {
     var x = e.target.closest('[data-cb-spx]'); if (x && box.contains(x)) { e.preventDefault(); spClose(); return; }
     var o = e.target.closest('[data-cb-sp]'); if (o && box.contains(o)) { e.preventDefault(); spOpen(o.getAttribute('data-cb-sp'), o, o.getAttribute('data-cb-spat')); }

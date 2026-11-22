@@ -12,6 +12,7 @@
 // Outside calls: none. Every check goes through ControlEngine::$checker (02 §4.9: "a stand-in host records it"); the
 // process's proxy is pointed at a closed port, so a call that escaped the stand-in fails instead of reaching a live host.
 declare(strict_types=1);
+ini_set('log_errors', '1'); ini_set('display_errors', 'stderr'); ini_set('error_log', sys_get_temp_dir() . '/scenario-errors-' . getmypid() . '.log');   // the engine's own error_log lines, kept off the output
 foreach (['http_proxy', 'https_proxy', 'HTTP_PROXY', 'HTTPS_PROXY', 'ALL_PROXY', 'all_proxy'] as $pv) putenv($pv . '=http://127.0.0.1:9');
 putenv('no_proxy='); putenv('NO_PROXY=');
 $src = rtrim($argv[1] ?? '', '/');

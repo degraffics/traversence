@@ -568,7 +568,7 @@ function tv_mc_css(): string
         . '.mc-slot-fix{outline:2px solid var(--tv-copper);outline-offset:1px}.mc-fixhere{display:block;color:var(--tv-copper);font-size:.78rem}.mc-ty{font-weight:600;margin:0 0 .2rem}'
         . '.mc-tag{display:inline-block;font-size:.72rem;border:1px solid var(--tv-line-strong);border-radius:999px;padding:0 .4rem;color:var(--tv-meta)}'
         . '.mc-fold>summary,.mc-setup>summary,.mc-rl>summary{cursor:pointer}.mc-card .ak-b{max-width:100%;white-space:normal;overflow-wrap:break-word;text-align:left}.mc-card .os-stage form{max-width:100%;flex-wrap:wrap}.mc-card .ak-in{max-width:100%}'
-        . '@media (max-width:767px){.mc-card{margin:3px 0;border-radius:.5rem;padding:.5rem}.mc-rad{grid-template-columns:1fr}.mc-slots{grid-template-columns:repeat(2,minmax(0,1fr))}.mc-btns{flex-direction:row}}'
+        . '@media (max-width:767px){.mc-card{margin:3px 0;border-radius:.5rem;padding:.5rem}.mc-rad{grid-template-columns:1fr}.mc-slots{grid-template-columns:repeat(2,minmax(0,1fr))}.mc-btns{flex-direction:row}.mc-card .ak-aa td>b,.mc-card .ak-aa td>small{display:block}.mc-card .ak-aa td{flex-direction:column;align-items:flex-start}}'
         . '</style>';
 }
 

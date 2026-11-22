@@ -859,10 +859,69 @@ function tv_cb_gauge_card(array $g): array
         . '<dt>Reading</dt><dd>' . $rd . '</dd><dt>Trend</dt><dd>' . $e($trend) . '</dd></dl>'
         . '<h4 id="' . $e($pid . '-setup') . '" class="cb-h4">Configure: its setup (' . $e($sw) . ')</h4><ul class="cb-su">' . $li . '</ul>'
         . ($nc ? '<p class="cb-nc" data-tv-status="info" data-tv-label="No check yet:">' . $e(implode(', ', $nc)) . '</p>' : '')
+        . tv_cb_gd_slot('runtime', (string) ($g['id'] ?? $id))
         . ($fix !== '' ? '<div class="cb-acts"><b class="cb-lb">Fix it</b>' . $fix . '</div>' : '')
         . '<div class="cb-acts">' . tv_cb_drill_btns($pid) . '</div></aside>'
         . tv_cb_path_panels($pid, $title, (array) ($g['paths'] ?? []), $pid . '-snap');
     return [$card, $panels];
+}
+
+/** A gauge's detail, loaded when its panel opens (ControlGauges::detail; the session, 2026-11-22: "lazy-load it in the
+ * drawer … so the board's first draw doesn't fetch the detail"): the placeholder the panel fills in. */
+function tv_cb_gd_slot(string $kind, string $id): string
+{
+    return '<div class="cb-gdl" data-cb-gd="' . tv_w_e($kind . ':' . $id) . '"><p class="ak-note">Its items, criteria and setup words load as this opens.</p></div>';
+}
+
+/**
+ * ?gauge=<kind>:<id> — a gauge's detail as a fragment (#cb-gd) for its panel: a development gauge's items by status, each
+ * with its criteria met, its checks, its review and its source (gauge-lifecycle.md §4; board/README.md: "A gauge opens its
+ * items by status … each item's source"); a runtime gauge's setup words, what it counts, its needs with their sources in
+ * order and its fallback (03 §27: "Services: needs → sources in order (first choice, backup)"), and what isn't mapped.
+ */
+function tv_cb_gauge_detail(PDO $pdo, string $ref): string
+{
+    $e = 'tv_w_e';
+    [$kind, $id] = array_pad(explode(':', $ref, 2), 2, '');
+    $d = class_exists('ControlGauges') ? ControlGauges::detail($pdo, $kind, $id) : null;
+    $h = '<div id="cb"><div id="cb-gd">';
+    if (!$d) return $h . '<p data-tv-status="info" data-tv-label="No detail:">This gauge\'s detail (its items and setup words) couldn\'t be read from the gauges\' detail file. Its score and stage above are as configured.</p></div></div>';
+    if ($kind === 'development') {
+        $by = []; foreach ((array) ($d['list'] ?? []) as $it) if (is_array($it)) $by[(string) ($it['status'] ?? 'other')][] = $it;
+        $words = ['live' => 'Live', 'built' => 'Built, held', 'decided' => 'Decided, not built', 'proposed' => 'Proposed'];
+        uksort($by, fn ($a, $b) => (array_search($a, array_keys($words), true) === false ? 9 : array_search($a, array_keys($words), true)) <=> (array_search($b, array_keys($words), true) === false ? 9 : array_search($b, array_keys($words), true)));
+        $h .= '<h4 class="cb-h4">Its items, by status</h4>';
+        foreach ($by as $st => $items) {
+            $h .= '<details class="cb-rg"' . (count($by) === 1 ? ' open' : '') . '><summary><b>' . $e($words[$st] ?? ucfirst($st)) . '</b> ×' . count($items) . '</summary><ul class="cb-pathl">';
+            foreach ($items as $it) {
+                $ck = implode(', ', array_map(fn ($c) => (string) ($c[0] ?? '') . ' ' . (string) ($c[1] ?? ''), array_filter((array) ($it['checks'] ?? []), 'is_array')));
+                $h .= '<li><b>' . $e((string) ($it['name'] ?? '')) . '</b> <small>' . $e((string) ($it['kind'] ?? '')) . ($it['phase'] ?? '' ? ' · ' . $e((string) $it['phase']) : '') . '</small>'
+                    . '<br><small>Met: ' . $e(implode(', ', (array) ($it['met'] ?? [])) ?: 'none') . ($ck !== '' ? ' · checks: ' . $e($ck) : '') . '</small>'
+                    . (!empty($it['no_check']) ? '<br><small class="cb-nc">no check yet: ' . $e(implode(', ', (array) $it['no_check'])) . '</small>' : '')
+                    . (!empty($it['review']) ? '<br><small>Review: ' . $e((string) $it['review']) . '</small>' : '')
+                    . (!empty($it['source']) ? '<br><small class="ak-note">Source: ' . $e((string) $it['source']) . '</small>' : '') . '</li>';
+            }
+            $h .= '</ul></details>';
+        }
+        if (!$by) $h .= '<p class="ak-note">No item is configured yet.</p>';
+        return $h . '</div></div>';
+    }
+    $sw = (array) ($d['setup_why'] ?? []);
+    if ($sw) { $h .= '<h4 class="cb-h4">Its setup, in words</h4><dl class="cb-dl">'; foreach (['probe' => 'The probe', 'target' => 'Its target', 'check' => 'Its check', 'alarm' => 'Its alarm'] as $k => $l) if (isset($sw[$k])) $h .= '<dt>' . $e($l) . '</dt><dd>' . $e((string) $sw[$k]) . '</dd>'; $h .= '</dl>'; }
+    if (!empty($d['records'])) $h .= '<p><b>What it counts:</b> ' . $e((string) $d['records']) . '</p>';
+    $needs = array_values(array_filter((array) ($d['needs'] ?? []), 'is_array'));
+    if ($needs) {
+        $h .= '<h4 class="cb-h4">Its needs, sources in order</h4><ul class="cb-pathl">';
+        foreach ($needs as $n) {
+            $src = array_map(fn ($x) => is_array($x) ? (string) ($x[2] ?? $x[1] ?? $x[0] ?? '') : (string) $x, (array) ($n['sources'] ?? []));
+            $h .= '<li><b>' . $e((string) ($n['label'] ?? $n['need'] ?? '')) . '</b>: ' . ($src ? $e(implode(' → ', array_map(fn ($i, $x) => ($i === 0 ? 'first choice ' : 'backup ') . $x, array_keys($src), $src))) : 'no outside source') . (!empty($n['fallback']) ? '; else ' . $e((string) $n['fallback']) : '') . '</li>';
+        }
+        $h .= '</ul>';
+    }
+    $tasks = (array) ($d['tasks'] ?? []);
+    if ($tasks) { $h .= '<h4 class="cb-h4">Its workflows\' tasks</h4><ul class="cb-pathl">'; foreach ($tasks as $w => $ts) $h .= '<li><b>' . $e((string) $w) . '</b>: ' . $e(implode(', ', array_map('strval', (array) $ts))) . '</li>'; $h .= '</ul>'; }
+    foreach ((array) ($d['unmapped'] ?? []) as $u) $h .= '<p>' . $e(is_array($u) ? implode(' ', array_map('strval', $u)) : (string) $u) . ' <span class="cb-unm">association not mapped</span></p>';
+    return $h . '</div></div>';
 }
 
 /** "Is it delivering?": the three questions, then the runtime gauges by their promise box (03 §4, §27; board/README.md "Board: Is it delivering?"). */
@@ -909,13 +968,22 @@ function tv_cb_development(PDO $pdo, callable $btn): string
                 $prev = $g['preview'] ?? null;
                 $nc = (array) ($g['no_check'] ?? []);
                 $sd = trim((string) ($g['side'] ?? '')); $side[$sd] = true;
+                $glabel = $title . ': ' . number_format($score, 0) . ' percent, ' . TV_SG_STAGES[$stage][0];
                 $cards[$sd] = ($cards[$sd] ?? '') . '<article class="cb-gc cb-dc" id="cb-d-' . $e($id) . '" data-copy="' . $e($title) . '" data-stage="' . $e($stage) . '">'
-                    . '<span class="cb-gh">' . $e($title) . '</span>' . tv_score_gauge($score, $title . ': ' . number_format($score, 0) . ' percent, ' . TV_SG_STAGES[$stage][0], $stage) . '<span class="cb-gst">' . tv_score_stage_pill($stage) . '</span>'
-                    . '<span class="cb-dl1">' . $e($line) . '</span>'
+                    . '<button type="button" class="cb-gopen" data-cb-sp="' . $e($pid . '-snap') . '" aria-label="' . $e('Open ' . $title . ': ' . TV_SG_STAGES[$stage][0] . ', its items') . '">'
+                    . '<span class="cb-gh">' . $e($title) . '</span>' . tv_score_gauge($score, $glabel, $stage) . '<span class="cb-gst">' . tv_score_stage_pill($stage) . '</span>'
+                    . '<span class="cb-dl1">' . $e($line) . '</span></button>'
                     . (!$signed && $prev !== null ? '<details class="cb-prev"><summary>Preview with the draft configuration</summary><p>' . $e(number_format((float) $prev, 0)) . '% if the draft were signed off' . (!empty($g['preview_stage']) ? ' (' . $e((string) $g['preview_stage']) . ')' : '') . ', with the criteria from the page audit. A preview only: the gauge stays at 0 until Jason signs it off.</p></details>' : '')
                     . ($nc ? '<span class="cb-nc">no check yet: ' . $e(implode(', ', $nc)) . '</span>' : '')
                     . '<div class="cb-gb">' . tv_cb_drill_btns($pid) . '</div></article>';
-                $panels .= tv_cb_path_panels($pid, $title, (array) ($g['paths'] ?? []), '');
+                // its panel: its stage and why, its items by status (loaded as it opens), its three paths (gauge-lifecycle.md §3, §4)
+                $panels .= '<aside class="cb-sp" id="' . $e($pid . '-snap') . '" role="dialog" aria-label="' . $e($title) . '" hidden data-copy="' . $e($title) . '">'
+                    . '<button type="button" class="cb-spx" data-cb-spx aria-label="Close">×</button><p class="cb-crumb">Development' . ($sd !== '' ? ' · ' . $e($sd) : '') . '</p><h3 class="cb-title">' . $e($title) . '</h3>'
+                    . '<div class="cb-gbig">' . tv_score_gauge($score, $glabel, $stage, ['big' => true]) . tv_score_stage_pill($stage) . '</div>'
+                    . '<p>' . $e($line) . (trim((string) ($g['why'] ?? '')) !== '' ? '. Why ' . $e(TV_SG_STAGES[$stage][0]) . ': ' . $e((string) $g['why']) : '') . '.</p>'
+                    . ($nc ? '<p class="cb-nc" data-tv-status="info" data-tv-label="No check yet:">' . $e(implode(', ', $nc)) . '</p>' : '')
+                    . tv_cb_gd_slot('development', (string) ($g['id'] ?? $id)) . '<div class="cb-acts">' . tv_cb_drill_btns($pid) . '</div></aside>'
+                    . tv_cb_path_panels($pid, $title, (array) ($g['paths'] ?? []), $pid . '-snap');
             }
             $h .= '<section class="ak-card tv-bleed cb-box" data-copy="Development: the 16 gauges"><h3 class="cb-title">Development <small>' . count($ds) . ' gauges; each starts at 0 in Planning, its configuration signed off by Jason</small></h3>'
                 . '<p class="ak-note">The score is the share of the gauge\'s configured criteria that are met; the word under it is the stage of the work. A criterion with no check yet counts as unmet. Site health\'s findings are <a class="underline" href="#site-health" data-cb-go="site-health">below</a>: the audit\'s view, which feeds each gauge\'s "checked".</p>'
@@ -1111,6 +1179,7 @@ function tv_admin_mod_control(PDO $pdo): string
     if (preg_match('/^([a-z]{1,5})[-:]([A-Za-z0-9_.-]{1,60})$/', (string) ($_GET['proc'] ?? ''), $gm)) $focus = $gm[1] . ':' . $gm[2];   // a part opened from the table, in a drawer
     if (preg_match('#^/admin/config/control/([a-z]{1,5})[-:]([A-Za-z0-9_.-]{1,60})(?:[/?\#]|$)#', (string) parse_url((string) ($_SERVER['REQUEST_URI'] ?? ''), PHP_URL_PATH) . '/', $fm)) $focus = $fm[1] . ':' . $fm[2];
     // a report, as a section of the board (decisions/0171 §11, release 5b): a query on config/control, never a page of its own
+    if (isset($_GET['gauge'])) return tv_cb_gauge_detail($pdo, (string) $_GET['gauge']);   // a gauge's detail for its panel, fetched as it opens
     if (isset($_GET['ir'])) return tv_cb_ir_page($pdo, (int) $_GET['ir'], (string) ($_SESSION['csrf_token'] ?? ''));   // an Incident Report's page (03 §7)
     if (isset($_GET['report'])) return tv_cb_report_page($pdo, (string) $_GET['report'], (string) ($_GET['range'] ?? 'day'), (string) ($_SESSION['csrf_token'] ?? ''));
     require_once __DIR__ . '/../lib/SystemStart.php';
