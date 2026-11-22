@@ -41,4 +41,4 @@ brand.md §4's note.
   2.9:1 (orange on cream). For the next design pass.
 
 ## State
-Built and sent; waiting for the session manager's review, then Jason's pick in the release's pop-up.
+Reviewed by the session manager; Jason picked **B** in the release's pop-up (2026-11-22, "Approve B"), recorded in brand.md §4's note. Merged.
