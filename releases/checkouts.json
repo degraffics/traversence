@@ -1,6 +1,464 @@
 {
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
- "claims": [],
+ "claims": [
+  {
+   "path": "app/lib/ControlAlarms.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
+   "since": "2026-11-22T23:25:22Z",
+   "expires": "2026-11-23T03:25:22Z",
+   "release": "control-board.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ControlBoard.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
+   "since": "2026-11-22T23:25:22Z",
+   "expires": "2026-11-23T03:25:22Z",
+   "release": "control-board.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ControlRegister.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
+   "since": "2026-11-22T23:25:22Z",
+   "expires": "2026-11-23T03:25:22Z",
+   "release": "control-board.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ControlSensor.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
+   "since": "2026-11-22T23:25:22Z",
+   "expires": "2026-11-23T03:25:22Z",
+   "release": "control-board.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ControlLedger.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
+   "since": "2026-11-22T23:25:22Z",
+   "expires": "2026-11-23T03:25:22Z",
+   "release": "control-board.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ControlReport.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
+   "since": "2026-11-22T23:25:22Z",
+   "expires": "2026-11-23T03:25:22Z",
+   "release": "control-board.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ControlMaintenance.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
+   "since": "2026-11-22T23:25:22Z",
+   "expires": "2026-11-23T03:25:22Z",
+   "release": "control-board.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ControlHistorian.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
+   "since": "2026-11-22T23:25:22Z",
+   "expires": "2026-11-23T03:25:22Z",
+   "release": "control-board.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ServiceHealth.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
+   "since": "2026-11-22T23:25:22Z",
+   "expires": "2026-11-23T03:25:22Z",
+   "release": "control-board.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Preflight.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
+   "since": "2026-11-22T23:25:22Z",
+   "expires": "2026-11-23T03:25:22Z",
+   "release": "control-board.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Operations.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
+   "since": "2026-11-22T23:25:22Z",
+   "expires": "2026-11-23T03:25:22Z",
+   "release": "control-board.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Automation.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
+   "since": "2026-11-22T23:25:22Z",
+   "expires": "2026-11-23T03:25:22Z",
+   "release": "control-board.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/SystemStart.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
+   "since": "2026-11-22T23:25:22Z",
+   "expires": "2026-11-23T03:25:22Z",
+   "release": "control-board.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Scheduler.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
+   "since": "2026-11-22T23:25:22Z",
+   "expires": "2026-11-23T03:25:22Z",
+   "release": "control-board.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Thread.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
+   "since": "2026-11-22T23:25:22Z",
+   "expires": "2026-11-23T03:25:22Z",
+   "release": "control-board.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Notify.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
+   "since": "2026-11-22T23:25:22Z",
+   "expires": "2026-11-23T03:25:22Z",
+   "release": "control-board.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/SiteHealth.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
+   "since": "2026-11-22T23:25:22Z",
+   "expires": "2026-11-23T03:25:22Z",
+   "release": "control-board.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/service-defs.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
+   "since": "2026-11-22T23:25:22Z",
+   "expires": "2026-11-23T03:25:22Z",
+   "release": "control-board.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/OutsideServices.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
+   "since": "2026-11-22T23:25:22Z",
+   "expires": "2026-11-23T03:25:22Z",
+   "release": "control-board.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Captcha.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
+   "since": "2026-11-22T23:25:22Z",
+   "expires": "2026-11-23T03:25:22Z",
+   "release": "control-board.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/crawler/CrawlService.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
+   "since": "2026-11-22T23:25:22Z",
+   "expires": "2026-11-23T03:25:22Z",
+   "release": "control-board.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/crawler/NpiBulk.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
+   "since": "2026-11-22T23:25:22Z",
+   "expires": "2026-11-23T03:25:22Z",
+   "release": "control-board.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/crawler/IrsBulk.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
+   "since": "2026-11-22T23:25:22Z",
+   "expires": "2026-11-23T03:25:22Z",
+   "release": "control-board.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Thresholds.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
+   "since": "2026-11-22T23:25:22Z",
+   "expires": "2026-11-23T03:25:22Z",
+   "release": "control-board.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/control-console.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
+   "since": "2026-11-22T23:25:22Z",
+   "expires": "2026-11-23T03:25:22Z",
+   "release": "control-board.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/operations-console.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
+   "since": "2026-11-22T23:25:22Z",
+   "expires": "2026-11-23T03:25:22Z",
+   "release": "control-board.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/preflight-console.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
+   "since": "2026-11-22T23:25:22Z",
+   "expires": "2026-11-23T03:25:22Z",
+   "release": "control-board.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/automation-console.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
+   "since": "2026-11-22T23:25:22Z",
+   "expires": "2026-11-23T03:25:22Z",
+   "release": "control-board.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/index-console.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
+   "since": "2026-11-22T23:25:22Z",
+   "expires": "2026-11-23T03:25:22Z",
+   "release": "control-board.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/js/admin-control.js",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
+   "since": "2026-11-22T23:25:22Z",
+   "expires": "2026-11-23T03:25:22Z",
+   "release": "control-board.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/admin/api/data.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
+   "since": "2026-11-22T23:25:22Z",
+   "expires": "2026-11-23T03:25:22Z",
+   "release": "control-board.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/api/crawl/_auth.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
+   "since": "2026-11-22T23:25:22Z",
+   "expires": "2026-11-23T03:25:22Z",
+   "release": "control-board.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/api/crawl/loads.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
+   "since": "2026-11-22T23:25:22Z",
+   "expires": "2026-11-23T03:25:22Z",
+   "release": "control-board.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/api/crawl/irs.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
+   "since": "2026-11-22T23:25:22Z",
+   "expires": "2026-11-23T03:25:22Z",
+   "release": "control-board.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/admin/crawler.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
+   "since": "2026-11-22T23:25:22Z",
+   "expires": "2026-11-23T03:25:22Z",
+   "release": "control-board.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/admin/data.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
+   "since": "2026-11-22T23:25:22Z",
+   "expires": "2026-11-23T03:25:22Z",
+   "release": "control-board.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Pulse.php",
+   "functions": [
+    "items"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
+   "since": "2026-11-22T23:25:22Z",
+   "expires": "2026-11-23T03:25:22Z",
+   "release": "control-board.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/admin/api.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
+   "since": "2026-11-22T23:25:22Z",
+   "expires": "2026-11-23T03:25:22Z",
+   "release": "control-board.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/outside-services.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
+   "since": "2026-11-22T23:25:22Z",
+   "expires": "2026-11-23T03:25:22Z",
+   "release": "control-board.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Gemini.php",
+   "functions": [
+    "refused"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
+   "since": "2026-11-22T23:25:22Z",
+   "expires": "2026-11-23T03:25:22Z",
+   "release": "control-board.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ServiceStages.php",
+   "functions": [
+    "retire"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
+   "since": "2026-11-22T23:25:22Z",
+   "expires": "2026-11-23T03:25:22Z",
+   "release": "control-board.zip",
+   "callers": {}
+  }
+ ],
  "lapsed": [
   {
    "path": "website/market/index.php",
