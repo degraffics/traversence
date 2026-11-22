@@ -62,3 +62,11 @@ under Ancient America. Not design work.
 3. **The listing page** (B5).
 4. **3f: sign-in** (A7, A9–A12, B6, B7), as part of Release 3f.
 Each its own PR and pop-up; the order set by the session manager.
+
+## Jason's answers (2026-11-22, pop-up reviewed by the session manager)
+- **A (all 13 fixes):** Approve.
+- **B1** guide card under the results; **B2** no counts on by-the-minute links, counts on the rest; **B3** no stock photo
+  repeated on neighbouring cards and none on memorials; **B7** sentence case and the one link style: all yes.
+- **B5:** Option 1.
+- **B6:** "not sure / explain concerns": explained in chat; waiting on his answer. Not built until he says.
+Each answer goes into its decision as a dated note when its release is built (0060 for B1–B2, 0143 for B3, 0058 for B5).
