@@ -3,24 +3,24 @@
  "built_on": "70d0cb1 Sync: 2026-11-22 13:57 UTC",
  "recorded": "2026-11-22 14:08 UTC",
  "note": "Own quick searches counted (Jason 'Count them'), built on Sync: 13:57 UTC 2026-11-22 (70d0cb1) Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "0b58101 Sync: 2026-11-22 14:13 UTC",
  "files": {
   "app/lib/SearchPresets.php": {
    "sha256": "7dc9579e50c9369bab47fa19df30a8795bed1e500de47e86398e9f8205381139",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "d57340790d80ed59f8dd448242732b6929180561859735e98b7c15abd5fdbbed",
-   "live": false
+   "live": true
   },
   "website/api/search.php": {
    "sha256": "6809a67dd798939849f02f8c17207ed278ac6a4af8272372259d648aa97cf312",
-   "live": false
+   "live": true
   },
   "website/js/search-panel.js": {
    "sha256": "ac69a931379a1f5ecfc57f3efc19615cc82725fad37ba1ee027e2c29ec13e81b",
-   "live": false
+   "live": true
   }
  }
 }
