@@ -100,7 +100,7 @@ $did = ControlAlarms::settle0175($pdo); Automation::forget();
 $t('Geofabrik\'s task goes back on: what Jason last set', (int) $pdo->query("SELECT enabled FROM crawl_capture_tasks WHERE task = 'geofabrik_bulk'")->fetchColumn() === 1, $did);
 $t('…logged: "Put back to what Jason set on …"', (bool) $pdo->query("SELECT 1 FROM automation_log WHERE ref = 'geofabrik_bulk' AND why LIKE 'Put back to what Jason set on %'")->fetchColumn());
 $t('a task nobody ever set stays as it is', (int) $pdo->query("SELECT enabled FROM crawl_capture_tasks WHERE task = 'never_set'")->fetchColumn() === 0);
-$t('W3 goes back to what Start the system set (on)', $wfPaused('W3') === 0);
+$t('W3, set only by Start the system, stays off for a person (02 §0a ruling 4: Start\'s setting isn\'t a person\'s; CS-3 "None")', $wfPaused('W3') === 1);
 $t('…and its open trip now holds only what its cause touches: a job holds nothing beyond its own work (the one engine, P7)', Automation::sysOff($pdo, 'wf', 'W3') === null && !str_contains((string) ControlAlarms::byId($pdo, $legacy)['stopped'], '"wf:W3"'), ControlAlarms::byId($pdo, $legacy)['stopped']);
 $again = ControlAlarms::settle0175($pdo);
 $t('run again: nothing more to do', $again === [], $again);

@@ -960,18 +960,23 @@ final class ControlAlarms
         // site jobs: the last run of each, stopped or never finished
         try {
             $t = Database::t('job_runs'); $bad = []; $stuck = [];
-            foreach ($pdo->query("SELECT r.job, r.ok, r.note, r.started_at, r.finished_at FROM $t r JOIN (SELECT job, MAX(id) id FROM $t WHERE started_at > NOW() - INTERVAL 2 DAY GROUP BY job) m ON m.id = r.id")->fetchAll(PDO::FETCH_ASSOC) as $j) {
+            // a skipped run ("Paused: …", written as ok) is never a good run (the one engine; g3 F1, J2): each job is read by
+            // its last real run, and only a real run that ended well clears its alarm; a job with no real run in the window
+            // keeps what's open (no evidence is never a clear)
+            $good = [];
+            foreach ($pdo->query("SELECT r.job, r.ok, r.note, r.started_at, r.finished_at FROM $t r JOIN (SELECT job, MAX(id) id FROM $t WHERE started_at > NOW() - INTERVAL 2 DAY AND note NOT LIKE 'Paused:%' GROUP BY job) m ON m.id = r.id")->fetchAll(PDO::FETCH_ASSOC) as $j) {
                 $job = (string) $j['job'];
+                if ($j['ok'] !== null && (int) $j['ok'] === 1) $good[] = $job;
                 if ($j['ok'] !== null && (int) $j['ok'] === 0) {   // its own next runs are the system's tries (3c): a trip once they fail too
                     $bad[] = 'job:' . $job;
-                    $rs = $pdo->prepare("SELECT ok FROM $t WHERE job = ? AND finished_at IS NOT NULL ORDER BY id DESC LIMIT 20"); $rs->execute([$job]);
+                    $rs = $pdo->prepare("SELECT ok FROM $t WHERE job = ? AND finished_at IS NOT NULL AND note NOT LIKE 'Paused:%' ORDER BY id DESC LIMIT 20"); $rs->execute([$job]);
                     $fails = 0; foreach ($rs->fetchAll(PDO::FETCH_COLUMN) as $ok) { if ((int) $ok === 1) break; $fails++; }
                     [$max] = self::limits($pdo, 'crash');
                     self::raise($pdo, 'job:' . $job, 'job:' . $job, 'trip', 'crash', 'The job "' . $job . '" stopped', 'Its last run ended with a problem (' . $fails . ' in a row); what it does waits until it runs well again.', 'Open its job (beside this): its note says why it stopped. Fix the cause; its next good run clears this.', mb_substr((string) $j['note'], 0, 255), [['Its job: ' . $job, 'peek', '/admin/config/scheduler#job-' . $job]], false, $fails < $max);
                 }
                 elseif ($j['finished_at'] === null && strtotime((string) $j['started_at']) < time() - 7200) { $stuck[] = 'job:' . $job . ':stuck'; self::raise($pdo, 'job:' . $job . ':stuck', 'job:' . $job, 'warning', 'slow', 'The job "' . $job . '" never finished', 'Its run started over 2 hours ago and never said it ended: it was killed, or it hangs.', 'Open its job (beside this) for its runs; the server\'s error log says why it hung. The next run starts as usual.', 'started ' . (string) $j['started_at'], [['Its job: ' . $job, 'peek', '/admin/config/scheduler#job-' . $job]], false); }
             }
-            $n = self::clearOthers($pdo, 'job:', array_merge($bad, $stuck), 'Its last run ended well (' . gmdate('H:i') . ' UTC).');
+            $n = 0; foreach ($good as $gj) foreach (['job:' . $gj, 'job:' . $gj . ':stuck'] as $gk) if (!in_array($gk, array_merge($bad, $stuck), true) && self::clear($pdo, $gk, 'Its last run ended well (' . gmdate('H:i') . ' UTC).')) $n++;
             // slow (0171 §5, 3c): a job's last runs against its usual time (the middle of its last 20, 5 at least) × control_slow_factor,
             // and over a minute; a warning, a trip after control_slow_trips slow runs in a row
             require_once __DIR__ . '/Thresholds.php'; $f = (float) (Thresholds::get($pdo, 'control_slow_factor') ?? 3); [$sMax] = self::limits($pdo, 'slow'); $slow = [];
