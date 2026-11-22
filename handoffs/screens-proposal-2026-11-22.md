@@ -77,3 +77,18 @@ Each its own PR and pop-up; the order set by the session manager.
   over (shown to the owner, not only emailed); after sign-in, staff with no authenticator app get one dismissable notice
   to add it. Recorded in decisions/0100 as a dated note.
 Each answer goes into its decision as a dated note when its release is built (0060 for B1–B2, 0143 for B3, 0058 for B5).
+
+## For the 3f build: B8's guard rails (the session manager's review, 2026-11-22)
+- The form is unauthenticated, so the owners' case shows, before any button: the account named, its current email, its
+  last sign-in, and the contact the requester gave, marked **not verified**. Each of the three buttons asks
+  `data-confirm="Have you confirmed this is them?"` with `data-danger`; every action goes in the logbook; the old work
+  email gets a notice that the change was made.
+- Open question for 3f's release summary (no separate pop-up): a reset's setup link today goes to the lost mailbox, and a
+  sole owner can be reset only from the server. Recommendation: the new setup link is shown to the owner to hand over,
+  never only emailed (B8 does this; the live text "you'll get a new setup link by email" changes to match), and keep a
+  second owner or admin as the safety net.
+
+## Search release answers (Jason, 2026-11-22, pop-up reviewed by the session manager)
+- `search-fixes.zip` (#1245): **Approve**, with the tabs on Search Directory's names (0058 §38).
+- Your own Quick Searches: **"Count them"**: a later release counts each of a person's own quick searches for the place
+  they're in, as the place's suggested ones are (B2's follow-up). Not built yet.
