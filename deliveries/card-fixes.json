@@ -1,0 +1,26 @@
+{
+ "zip": "card-fixes.zip",
+ "built_on": "ca2f7ab Sync: 2026-11-22 12:25 UTC",
+ "recorded": "2026-11-22 12:33 UTC",
+ "note": "Cards and photos (screens proposal A4-A6, A13, B3, approved 2026-11-22); built on Sync 12:25 UTC (ca2f7ab) Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/ui/explore-hero.php": {
+   "sha256": "c1d13f0780d8babf8f29a7703a95d350206fe17694a50f4c434c06e2ddb992d7",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "07bc2829bc4207aace9e6137530bcc84b2144555aede0a7148be45f3337807f5",
+   "live": false
+  },
+  "website/discovery/index.php": {
+   "sha256": "94f28c7bc1df707849c573fdf2e5e0abfe43fc2aff33c7d5a4e0d689f74ff372",
+   "live": false
+  },
+  "website/listing/view.php": {
+   "sha256": "150bfee791e541599cb093d13278e234b2156241494332691892ce9d38144f64",
+   "live": false
+  }
+ }
+}
