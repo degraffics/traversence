@@ -146,7 +146,7 @@ is the live reading against its target, coloured by it. The measures and targets
 
 | Workflow | Stage | Setup | Measure | Target, approved (Jason, 2026-11-22) | Check passing today | The probe |
 |---|---|---|---|---|---|---|
-| W0 | Audit & Review | 3 of 4 (75%) | Pages read and classified: its heartbeat inside every 5-minute watch | every watch | no reading: shipped off; whether it has started is live data (asks.md visit 17) | the worker's heartbeat line rw:beat (Preflight::NEEDS "pages") |
+| W0 | Audit & Review | 3 of 4 (75%) | Pages read and classified: its heartbeat inside every 5-minute watch | every watch | no reading: shipped off; whether it has started is live data (asks.md check C18) | the worker's heartbeat line rw:beat (Preflight::NEEDS "pages") |
 | W1 | Audit & Review | 3 of 4 (75%) | Records reconciled per run: in = stored + updated + sent to Review + refused (the "accounted" check, R25) | every run | not met: paused by two trips, "Records: 0 in, 0 stored, 0 refused" in 24 hours (the alarms snapshot) | the Workflow board's Last 24 h per task (CrawlService::taskStats, operations-console.php:377) and the ledger's records |
 | W2 | Audit & Review | 3 of 4 (75%) | Listings due a recheck, rechecked on schedule | 95% within their due day | not met: its counts can't be trusted (/api/crawl/refresh received 1, counted 2) | the Workflow board's Last 24 h per task (CrawlService::taskStats, operations-console.php:377) and the ledger's records |
 | W3 | Audit & Review | 3 of 4 (75%) | Sources due a read, read on schedule (changed pages only) | 95% within their due day | not met: it does nothing while its two switches stay off | the Workflow board's Last 24 h per task (CrawlService::taskStats, operations-console.php:377) and the ledger's records |
@@ -231,7 +231,7 @@ Each workflow's tasks (with where each is described), its needs with sources in 
 
 - **What it does:** The source register: sites we read regularly, and what they name. Runs on: crawler and site.
 - **What starts it:** sites linked from pages we read, sites a second look accepted, Common Crawl's local public sites (research/crawler-how-it-runs-2026-11-14.md:173).
-- **State (Nov 21, 3:19 AM MST):** Off by the system: 2 switches. Its trip (Common Crawl #35, 09:00 UTC Nov 20) closed when Jason pressed Check and start again (Nov 21). Its two task switches, Read a source and Common Crawl, stay Off by the system, left by the closed trip, so W3 does nothing. They stay off, waiting on the re-read (Jason, 2026-11-22). His answer, "After the re-read": IR-0001's timings and Common Crawl's index are read first (asks.md visits 1 and 2, items [1] and [16]); no live action until then. Also: 77 sources are read regularly outside our region (a warning since Nov 18).
+- **State (Nov 21, 3:19 AM MST):** Off by the system: 2 switches. Its trip (Common Crawl #35, 09:00 UTC Nov 20) closed when Jason pressed Check and start again (Nov 21). Its two task switches, Read a source and Common Crawl, stay Off by the system, left by the closed trip, so W3 does nothing. They stay off, waiting on the re-read (Jason, 2026-11-22). His answer, "After the re-read": IR-0001's timings and Common Crawl's index are read first (asks.md checks C1 and C7); no live action until then. Also: 77 sources are read regularly outside our region (a warning since Nov 18).
 - **Tasks:**
   - `source`: Reads one "read regularly" source, only pages that changed; its fallback copy is cc_home() (research/crawler-how-it-runs-2026-11-14.md:231; crawler.py:1880). Switch: Off by the system (left by a closed trip).
   - `commoncrawl`: Our states' local public sites, from Common Crawl's columnar index on data.commoncrawl.org (research/crawler-how-it-runs-2026-11-14.md:232; crawler.py:1697–1703). Switch: Off by the system (left by a closed trip).
@@ -404,11 +404,11 @@ Drawn on the page (and the board's view) as six steps. From 03 §28.1.
 - **W13 is a list, not a gauge**: it has no machine steps to measure.
 - **Spend and last runs** come from the build's data, as written.
 - **"Alarm wired"** is the one alarm engine, not a pf:wf gate (§5); the setup recounted.
-- **W0 started** stays in `asks.md` (visit 17) as live data.
+- **W0 started** stays in `asks.md` (check C18) as live data.
 
 ## 11. Decided by Jason (2026-11-22)
 
-- **W3's two switches: "After the re-read".** They stay off until IR-0001's timings and Common Crawl's index are read (`asks.md` items [1] and [16]);
+- **W3's two switches: "After the re-read".** They stay off until IR-0001's timings and Common Crawl's index are read (`asks.md` checks C1 and C7);
   W3's page says "waiting on the re-read (Jason, 2026-11-22)". No live action.
 - **The workflow targets: "Approve as proposed".** Each measure and target in §5 is approved; "target set" is met, and the stages are recounted (§5).
 - **The page: "Approve".** This spec and its mockup are approved as drawn.

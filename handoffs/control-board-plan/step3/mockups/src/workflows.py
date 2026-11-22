@@ -100,7 +100,7 @@ STATE = {
     'W0': ('n', 'Off: shipped off until the team starts it', 'Built and shipped switched off (release #79; app/ui/faq.md:870). Whether it has been started is live data, not in the snapshot.'),
     'W1': ('r', 'Paused by the system (a trip): 2 tasks', 'overture_bulk failed (run #1290, 08:31 UTC Nov 21) and foursquare_bulk failed (run #1288, 08:20 UTC): two trips that paused W1 whole. "Records: 0 in, 0 stored, 0 refused" in 24 hours. Root cause so far: the response path at /api/crawl/loads.php, unconfirmed (IR-0001).'),
     'W2': ('a', 'Warning: its refresh count', '/api/crawl/refresh counted more than it received (received 1, counted 2; 09:05 UTC Nov 21), so its counts can\'t be trusted yet (03 §28.2).'),
-    'W3': ('a', 'Off by the system: 2 switches', 'Its trip (Common Crawl #35, 09:00 UTC Nov 20) closed when Jason pressed Check and start again (Nov 21). Its two task switches, Read a source and Common Crawl, stay Off by the system, left by the closed trip, so W3 does nothing. They stay off, waiting on the re-read (Jason, 2026-11-22). His answer, "After the re-read": IR-0001\'s timings and Common Crawl\'s index are read first (asks.md visits 1 and 2, items [1] and [16]); no live action until then. Also: 77 sources are read regularly outside our region (a warning since Nov 18).'),
+    'W3': ('a', 'Off by the system: 2 switches', 'Its trip (Common Crawl #35, 09:00 UTC Nov 20) closed when Jason pressed Check and start again (Nov 21). Its two task switches, Read a source and Common Crawl, stay Off by the system, left by the closed trip, so W3 does nothing. They stay off, waiting on the re-read (Jason, 2026-11-22). His answer, "After the re-read": IR-0001\'s timings and Common Crawl\'s index are read first (asks.md checks C1 and C7); no live action until then. Also: 77 sources are read regularly outside our region (a warning since Nov 18).'),
     'W13': ('n', 'Nothing to switch: people write', 'W13 is people\'s own (SystemStart.php:43): no crawler, no switch.'),
     'W14': ('n', 'Not built: licence_lookup', 'Its licence_lookup (AZCC, NM SoS) isn\'t built yet (03 §26.9–26.10, §28.3).'),
 }
@@ -158,7 +158,7 @@ LIST_ONLY = {'W13': 'W13 is a list, not a gauge: people write stories, so it has
 
 # "Check passing": met only if the workflow's measure meets its approved target today (Jason, 2026-11-22). From what's read today:
 MEETS = {
-    'W0': 'no reading: shipped off; whether it has started is live data (asks.md visit 17)',
+    'W0': 'no reading: shipped off; whether it has started is live data (asks.md check C18)',
     'W1': 'not met: paused by two trips, "Records: 0 in, 0 stored, 0 refused" in 24 hours (the alarms snapshot)',
     'W2': 'not met: its counts can\'t be trusted (/api/crawl/refresh received 1, counted 2)',
     'W3': 'not met: it does nothing while its two switches stay off',
@@ -382,7 +382,7 @@ def card(w, links):
 
 def paused_now():
     att = [('W1', 'Two trips: overture_bulk (#1290) and foursquare_bulk (#1288) failed at /api/crawl/loads.php; W1 is paused whole. Its fix: IR-0001 (the endpoint\'s timings), then Check and start again.'),
-           ('W3', 'Read a source and Common Crawl: Off by the system, left by a closed trip (Common Crawl #35). Waiting on the re-read (Jason, 2026-11-22): they stay off until IR-0001\'s timings and Common Crawl\'s index are read (asks.md [1], [16]); nothing switches them back by itself (R98).')]
+           ('W3', 'Read a source and Common Crawl: Off by the system, left by a closed trip (Common Crawl #35). Waiting on the re-read (Jason, 2026-11-22): they stay off until IR-0001\'s timings and Common Crawl\'s index are read (asks.md C1, C7); nothing switches them back by itself (R98).')]
     warn = [('W2', '/api/crawl/refresh counted more than it received (received 1, counted 2).'), ('W3', '77 sources are read regularly outside our region (ebi.ac.uk, va.gov, jcis.jp and more).')]
     off = [('W0', 'shipped off until the team starts it (release #79)'), ('W13', 'people\'s own: nothing to switch'), ('W14', 'licence_lookup isn\'t built'),
            ('W2', 'its identity recheck task, shipped off (R155)')]
@@ -690,9 +690,9 @@ def spec():
             '- **W13 is a list, not a gauge**: it has no machine steps to measure.',
             '- **Spend and last runs** come from the build\'s data, as written.',
             '- **"Alarm wired"** is the one alarm engine, not a pf:wf gate (§5); the setup recounted.',
-            '- **W0 started** stays in `asks.md` (visit 17) as live data.', '',
+            '- **W0 started** stays in `asks.md` (check C18) as live data.', '',
             '## 11. Decided by Jason (2026-11-22)', '',
-            '- **W3\'s two switches: "After the re-read".** They stay off until IR-0001\'s timings and Common Crawl\'s index are read (`asks.md` items [1] and [16]);',
+            '- **W3\'s two switches: "After the re-read".** They stay off until IR-0001\'s timings and Common Crawl\'s index are read (`asks.md` checks C1 and C7);',
             '  W3\'s page says "waiting on the re-read (Jason, 2026-11-22)". No live action.',
             '- **The workflow targets: "Approve as proposed".** Each measure and target in §5 is approved; "target set" is met, and the stages are recounted (§5).',
             '- **The page: "Approve".** This spec and its mockup are approved as drawn.', '',
