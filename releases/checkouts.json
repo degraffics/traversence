@@ -376,28 +376,6 @@
    "callers": {}
   },
   {
-   "path": "website/api/video/jobs.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5ibQFnVmXNfkdFarwR",
-   "why": "control board build (step 4, handoffs/control-board-build.md)",
-   "since": "2026-11-22T21:40:16Z",
-   "expires": "2026-11-23T01:40:16Z",
-   "release": "control-board.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/api/video/results.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5ibQFnVmXNfkdFarwR",
-   "why": "control board build (step 4, handoffs/control-board-build.md)",
-   "since": "2026-11-22T21:40:16Z",
-   "expires": "2026-11-23T01:40:16Z",
-   "release": "control-board.zip",
-   "callers": {}
-  },
-  {
    "path": "app/lib/staging-tables.php",
    "functions": [],
    "kind": "add",
