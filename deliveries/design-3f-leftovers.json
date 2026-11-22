@@ -1,0 +1,126 @@
+{
+ "zip": "design-3f-leftovers.zip",
+ "built_on": "72e2070 Sync: 2026-11-22 20:28 UTC",
+ "recorded": "2026-11-22 20:44 UTC",
+ "note": "3f's leftovers: sign-in, long text, standalone pages, member pages and the portal on the tokens, colours only. Built on Sync: 2026-11-22 20:28 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/business/portal.php": {
+   "sha256": "11854e0f5feae2414249e096c86791ea11616aa97557ffd5714a9cf302556fca",
+   "live": false
+  },
+  "website/ai/index.php": {
+   "sha256": "3aeba5391aefec7768ca21b301bf898779645dccfa6b00efb5380ee3ddc72609",
+   "live": false
+  },
+  "website/business/router.php": {
+   "sha256": "b9598b271568d025eeedfa54254624a5e4dff859996ec9f0652cd0fc9e51ed0e",
+   "live": false
+  },
+  "website/claim.php": {
+   "sha256": "973283c5c2e6b239aaf16831a15fb28bd804b6be00f61264158e5085ec865248",
+   "live": false
+  },
+  "website/faq.php": {
+   "sha256": "83ce911bcca1cdafb2e68d3681c2f9247ed66c49cb044f0657f7d1ef827fa076",
+   "live": false
+  },
+  "website/guide/how.php": {
+   "sha256": "a2c0dd4b10f5b592f9f975247de695d8a54309a3540973e653726b0537ce57b4",
+   "live": false
+  },
+  "website/guide/resources.php": {
+   "sha256": "e744aac0262822677dece82b59ddcc3af2ca6b70537936b290d0b24599a6e9db",
+   "live": false
+  },
+  "website/hub/build.php": {
+   "sha256": "ae8724d17f8bc7e590e22011321f265d5765e8620620041e6bf61a03adafa6f3",
+   "live": false
+  },
+  "website/js/tv-password.js": {
+   "sha256": "88fbe27fac497296c3a0ee2f7bd72c906703f4c750bdc473a2f5c8de4ec2bda9",
+   "live": false
+  },
+  "website/listing/businessportal.php": {
+   "sha256": "0fcd953b33b385c84868bec5c744d43ea9afccfdca2a5057e1c5d87611167bcb",
+   "live": false
+  },
+  "website/listing/location.php": {
+   "sha256": "1685f815b8aa90f50d4a826f389d6abd8a0f904a3bae564d0d349aec50175752",
+   "live": false
+  },
+  "website/login.php": {
+   "sha256": "fca2495029546808a4e8f4afb5590cc122a62560cfa94ceba8465ef3d0c6f207",
+   "live": false
+  },
+  "website/nexus.php": {
+   "sha256": "2f1b6c1df9cc6fe48d2d25c41ebb338749fe9ac1982bdda789e18f5e868272e9",
+   "live": false
+  },
+  "website/pages/view.php": {
+   "sha256": "670d1283c4e1793e59404c51c562a1dc606da68d16bf76f583136918cc4adea1",
+   "live": false
+  },
+  "website/plans.php": {
+   "sha256": "fb883570b512b5d215466c8ae2160bb8a2f37cb9839fa46895b7c1d6e3bd77b8",
+   "live": false
+  },
+  "website/q.php": {
+   "sha256": "9622458e41903d6e1592f22289c3c877df324b85bca91ff70ee8b68f6532c524",
+   "live": false
+  },
+  "website/register.php": {
+   "sha256": "15e9624db9bcf6d2ab79c86396aabd9a99532d9ef1172c8f0d44a938f1660676",
+   "live": false
+  },
+  "website/reset-password.php": {
+   "sha256": "68a08cdd80a3b8b1dcac496679024a77108954f58049d2b12114b4ec4dab1081",
+   "live": false
+  },
+  "website/two-step.php": {
+   "sha256": "96de794145267fef94de1538419208bc25dc67eeb208f9c51fb301da07c11733",
+   "live": false
+  },
+  "website/user/accounts.php": {
+   "sha256": "dbfe08b773211a97960a8d0a7a6964fba61eac2f6466ce4b36866c1d3a128307",
+   "live": false
+  },
+  "website/user/experiences/index.php": {
+   "sha256": "8c24521796426ee3238e6064943f1b634f1a9fcbb17164e0d4157ff20d8318ef",
+   "live": false
+  },
+  "website/user/journeys/compose.php": {
+   "sha256": "a818e66fd260827360349142faba89cfc5f94b0372846d5917f32e3224e92976",
+   "live": false
+  },
+  "website/user/journeys/index.php": {
+   "sha256": "4d80ed694421c7b946b789b1b79c5b09497d3d3e2e317fbee965a86c00c97f42",
+   "live": false
+  },
+  "website/user/market/index.php": {
+   "sha256": "972a7e9f96d5e2225e9ee4c24946ddedd34e2944fcf14ca56c37171f1f652eb1",
+   "live": false
+  },
+  "website/user/notice.php": {
+   "sha256": "d01687f77f0b8cebcb77a6ce6e7f693151fa2f532e4a9df13d400cf26f6340a6",
+   "live": false
+  },
+  "website/user/profile.php": {
+   "sha256": "120be5fac6987b182d43c5800c5c6b451fdfedd6f40d26a42c8122f20553f30c",
+   "live": false
+  },
+  "website/user/trips/trip.php": {
+   "sha256": "8bede7030e6f50e3da4035753d5c92cb765129dc1abb5bdbde07329c965d4ed3",
+   "live": false
+  },
+  "website/verify-email.php": {
+   "sha256": "7817ad0c7041b863526b02194bf444ec9dd61ccda907cb099b37d684595bc468",
+   "live": false
+  },
+  "website/verify-listing.php": {
+   "sha256": "7222fe5353bc0f93db32bd49255d5d0fb04bfa09e16d76ae0b5a669e5425e31d",
+   "live": false
+  }
+ }
+}
