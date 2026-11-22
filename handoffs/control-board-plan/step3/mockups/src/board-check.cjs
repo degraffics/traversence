@@ -108,7 +108,7 @@ const url = 'file://' + dir + 'index.html';
     ok(hh <= 80, `@${w} the header is ${hh} px tall (two lines at most)`);
     if (w === 390) { for (const how of ['x', 'esc', 'outside']) { await p.click('.bhead details.rd > summary'); const o1 = await p.evaluate(() => document.querySelector('.bhead details.rd').open);
       if (how === 'x') await p.click('.bhead details.rd .px'); if (how === 'esc') await p.keyboard.press('Escape'); if (how === 'outside') await p.mouse.click(5, 600);
-      ok(o1 && !(await p.evaluate(() => document.querySelector('.bhead details.rd').open)), `@390 the Readings pill opens and closes by ${how}`); } }
+      ok(o1 && !(await p.evaluate(() => document.querySelector('.bhead details.rd').open)), `@390 the Readings pill opens and closes by ${how}`); await p.keyboard.press('Escape'); } }
     // gauge cards: every snapshot a gauge card with both paths and its band word; every path ends at a module card, "none" or "not mapped"
     const gc = await p.evaluate(() => { const cs = [...document.querySelectorAll('#view-board .gcard')]; return [cs.length, cs.filter(c => c.querySelector('[data-open-panel^="p-wf-"]') && c.querySelector('[data-open-panel^="p-sv-"]')).length,
       cs.filter(c => (c.querySelector('.band-word') || {}).textContent).length,

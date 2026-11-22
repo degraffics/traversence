@@ -548,7 +548,7 @@ def objective(o):
 <dt>Reading</dt><dd>{E(o['reading'])}{' · <time>' + E(o['when']) + '</time>' if o['when'] else ''} <span class="basis">{o['basis']}</span></dd>{extra}</dl></details></div>"""
 
 
-def board_view(with_gauges=True, with_pages=True):
+def board_view(with_gauges=True, with_pages=True, with_dev=True):
     boxes = ''
     for num, title, objs in PROMISES:
         worst = 'r' if any(o['state'] == 'r' for o in objs) else 'a' if any(o['state'] == 'a' for o in objs) else 'g'
@@ -563,7 +563,7 @@ def board_view(with_gauges=True, with_pages=True):
     out = f"""<section class="view" id="view-board" data-title="Board: is it delivering?">
 <div class="vh"><div><h1>Is it delivering?</h1><p class="sub">Every snapshot is one gauge card (Jason, 2026-11-22): its dial or bar against its target's bands, the band's word under the needle, the reading with its time, and its trend. Tap a card for its snapshot; Workflows ▸ and Services ▸ drill down to the root, computed from the association map (step3/association-map.md). This supersedes step 1's "skip big gauges" (Q21; SM 172–189).</p></div>
 <div class="seg" role="group" aria-label="Layout"><button data-layout="grid" aria-pressed="true">2 columns</button><button data-layout="rows" aria-pressed="false">Stacked</button></div></div>
-{'<div class="pgrid" id="pgrid">' + boxes + '</div>' if with_gauges else ''}
+{devgauges.rows() if with_dev and with_gauges else ''}{'<h2 class="h2 rtime">Runtime: is it delivering?</h2>' if with_dev and with_gauges else ''}{'<div class="pgrid" id="pgrid">' + boxes + '</div>' if with_gauges else ''}
 {'' if not with_pages else ''}<div class="vh pagesh" style="margin-top:1.2rem"><div><h2 class="h2">The pages, as monitored units</h2><p class="sub">Every page in <code>site-audit/pages.md</code> (live and coming) and every admin route in the mirror's <code>app/admin/manifests.php</code>: {len(PAGES)} pages in {len(GROUPS)} groups. Open a group for its route table; Manage opens a page.</p></div></div>
 <div class="sgs">{grp}</div></section>"""
     if not with_pages:
@@ -977,6 +977,7 @@ def level(cid, i, n, kind, name, state, why, evidence, nexts, root=None):
 # ------------------------------------------------------------------ gauge cards and their two drill paths (Jason, 2026-11-22)
 import assoc
 import math
+import devgauges
 
 NEED_BY = {n['key']: n for n in NEEDS}
 OBJ_BY = {o['id']: o for _, _, objs in PROMISES for o in objs}
@@ -1359,7 +1360,7 @@ def quick():
     return out
 
 
-CSS = kit.CSS + r"""
+CSS = kit.CSS + devgauges.CSS + r"""
 .bhead{position:sticky;top:0;z-index:40;background:var(--umber);color:var(--btn-text);padding:.5rem 16px;display:flex;flex-wrap:wrap;gap:.4rem .8rem;align-items:center}
 .bhead b{font-family:var(--serif)}.bhead .tm{font-size:12px;color:#E3C9A8}.bhead .chip{border:1px solid #E3C9A866;border-radius:999px;padding:.05rem .55rem;font-size:12px}
 .qbar{display:flex;flex-wrap:wrap;gap:.4rem;padding:.5rem 16px;background:var(--sec);border-bottom:1px solid var(--sec-edge)}
@@ -1454,6 +1455,7 @@ article.card details:not(.cr):not(.rp):not(.pillx):not(.kgrp):not(.more):not(.cl
 .rtab thead{display:none}.rtab tr{display:block;border-top:1px solid var(--card-edge);padding:.35rem 0}.rtab td{display:block;border:0;padding:.1rem .2rem}
 .wt thead{display:none}.wt tr{display:block;border-top:1px solid var(--card-edge);padding:.35rem 0}.wt td{display:block;border:0;padding:.15rem .2rem}}
 @media (max-width:767px){.pbox,.chainbox{padding-left:0;padding-right:0;border-left-width:0;border-right-width:0}.pbox>h2,.chainbox>h3,.chainbox>p,.chainbox>.chain{padding-left:.5rem;padding-right:.5rem}.ggrid{gap:3px}.mnote{margin-left:0;margin-right:0}}
+@media (max-width:767px){.panel{width:calc(100% - 24px)}}
 """
 
 JS = r"""<script>
@@ -1568,7 +1570,8 @@ def review_pack(gpanels, chain_html, cov_html, held, mods_js, pages_js, ngaps):
     s26r = [m['id'] for m in MODULES if m.get('more') and m['role'] == 'Source']
     first = lambda m: m['label'].replace('The ', '')[0].upper()
     parts = [
-        ('board', 'the Board view: the gauge cards, each snapshot\'s panel and both drill paths, the three worked examples and the two chains', lambda: board_view(True, False), True),
+        ('development', 'the Board view\'s Development rows: the 16 development gauges, one needle each, and each gauge\'s items', lambda: '<section class="view" id="view-board" data-title="Development">' + devgauges.rows('h1') + '</section>', False),
+        ('board', 'the Board view: the gauge cards, each snapshot\'s panel and both drill paths, the three worked examples and the two chains', lambda: board_view(True, False, False), True),
         ('host-bluehost-fly', 'Hosts: Bluehost and Fly.io', lambda: sec('Hosts: Bluehost and Fly.io', ['bluehost', 'fly'], 'Two of the four hosts, every state on their switches.'), False),
         ('host-railway', 'Hosts: Railway', lambda: sec('Hosts: Railway', ['railway'], 'Railway, every state on its switch.'), False),
         ('host-github', 'Hosts: GitHub', lambda: sec('Hosts: GitHub', ['github'], 'GitHub, every state on its switch.'), False),
@@ -1589,7 +1592,7 @@ def review_pack(gpanels, chain_html, cov_html, held, mods_js, pages_js, ngaps):
         for m in re.findall(r'<details class="mod" id="mod-([\w-]+)"', fn()):
             partof.setdefault(m, f'part-{i:02d}-{slug}.html')
     all_panels = {}
-    for blob in (gpanels, chain_html, cov_html, manage_panel(), ''.join(unplaceholder(v) for v in PANELS.values())):
+    for blob in (gpanels, chain_html, cov_html, manage_panel(), devgauges.panels(), ''.join(unplaceholder(v) for v in PANELS.values())):
         for m in re.finditer(r'<aside class="panel" id="([^"]+)"', blob):
             all_panels[m.group(1)] = balanced(blob, m.start(), 'aside')
     css = _min_css(CSS) + '.rnote{background:var(--card);border:1px solid var(--copper);border-radius:.5rem;padding:.4rem .6rem;margin:.5rem 16px;font-size:13px}'
@@ -1615,7 +1618,7 @@ def review_pack(gpanels, chain_html, cov_html, held, mods_js, pages_js, ngaps):
                 f'<span class="sp" style="flex:1"></span><span class="chip">{held} trips · 21 alarms</span>{cov_btn}</header>'
                 f'<p class="rnote" role="note">{E(note)}</p>' + (f'<nav class="qbar" aria-label="What\'s wrong now">{quick()}</nav>' if quick_bar else '')
                 + f'<main class="main">{view}</main><div class="scrim"></div>{"".join(got.values())}'
-                + f'<script>window.__PAGES={json.dumps(pages_data)};window.__GROUPS={json.dumps(groups_data)};window.__MODS={json.dumps(mods_js)};window.__PARTOF={json.dumps(partof)};</script>{JS}')
+                + f'<script>window.__PAGES={json.dumps(pages_data)};window.__GROUPS={json.dumps(groups_data)};window.__MODS={json.dumps(mods_js)};window.__PARTOF={json.dumps(partof)};</script>{JS}{devgauges.JS}')
         body = _fix_body(body)
         doc = (f'<!doctype html><!-- {note} -->\n<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">'
                f'<title>Control board review, part {i} of {M}</title><style>{css}</style></head><body>{body}</body></html>')
@@ -1662,8 +1665,8 @@ def build():
 <button data-nav="workflows" aria-current="false">{ico('wf')}Workflows<span class="cnt">{len(WORKFLOWS)}</span></button>
 <button data-nav="diagnostics" aria-current="false">{ico('diag')}Diagnostics<span class="cnt">{len(MODULES)}</span></button></nav>
 <main class="main">{fold_intros(board_view() + modules_view() + workflows_view() + diag_view())}</main></div>
-<div class="scrim"></div>{gpanels}{chain_html}{cov_html}{manage_panel()}{search_panel()}{''.join(unplaceholder(v) for v in PANELS.values())}
-<script>window.__PAGES={json.dumps(pages_js)};window.__GROUPS={json.dumps([{'rows': g['rows']} for g in GROUPS])};window.__MODS={json.dumps(mods_js)};window.__CMD={json.dumps(search_index())};</script>{JS}"""
+<div class="scrim"></div>{gpanels}{chain_html}{cov_html}{manage_panel()}{search_panel()}{devgauges.panels()}{''.join(unplaceholder(v) for v in PANELS.values())}
+<script>window.__PAGES={json.dumps(pages_js)};window.__GROUPS={json.dumps([{'rows': g['rows']} for g in GROUPS])};window.__MODS={json.dumps(mods_js)};window.__CMD={json.dumps(search_index())};</script>{JS}{devgauges.JS}"""
     # native buttons for "Publish from your Vault"; aria-labels as plain text (no escaped tags)
     body, n_pub = re.subn(r'<span class="pub" role="button" tabindex="0">(.*?)</span>', r'<button type="button" class="pub">\1</button>', body)
     def _plain_aria(m):
@@ -1674,6 +1677,8 @@ def build():
 <title>System Control Board</title><meta name="description" content="Step 3's interactive board mockup: is it delivering, the pages, modules, workflows and diagnostics.">
 <style>{CSS}</style></head><body>{body}</body></html>"""
     open(OUT + 'index.html', 'w').write(doc)
+    dg = devgauges.page(_min_css(CSS))
+    open(OUT + 'dev-gauges.html', 'w').write(dg)
     review_pack(gpanels, chain_html, cov_html, held, mods_js, pages_js, n_unm + n_noch)
     stats = dict(pages=len(PAGES), groups=len(GROUPS), modules=len(MODULES), scenarios=N_SCN, objectives=N_OBJ, unmeasured=n_unm, pages_unchecked=n_noch,
                  coming=n_coming, no_card=NO_CARD, pub_buttons=n_pub, aria_fixed=n_aria, assoc_rows=n_assoc, assoc_unmapped=n_unmapped, workflows=len(WORKFLOWS), chain1=c1, chain2=c2, size=len(doc))
