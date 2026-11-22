@@ -11,16 +11,32 @@ spec and a mockup: nothing is built.
 
 ## 1. One gauge, one measure
 
-- **The needle is one number:** the share of the gauge's configured criteria that are met, weighted per item (default weight 1).
-- **The word under the needle is a label,** never a second needle and never a second measure. Anything else (items by phase,
+- **The score is one number:** the share of the gauge's configured criteria that are met, weighted per item (default weight 1).
+- **The word under the gauge is a label,** never a second measure. Anything else (items by phase,
   criteria by kind, the regression log) is in the gauge's drawer.
 - Build gauges use only Jason's five words. They never use the runtime words (Working, Less than optimal, Trip, Paused…),
   so the two kinds of gauge can't be confused. A check enforces it (`devgauges-check.cjs`).
 
+### Score gauges, not needles (Jason's direction, 2026-11-22)
+
+"how about we dont use a needle and instead use the score like gauge." Score gauges **replace the needle dials** and
+supersede the semicircle dial from his earlier gauge sheet, on every gauge (the 16 development gauges, the 23 runtime gauges,
+the five-stage strip, the board's Development rows).
+
+- The number sits in the gauge with a small "%"; the coloured band fills in proportion to it over a faint track.
+- The band and the number take the stage's colour (Planning taupe, Phased Development amber, Audit & Review orange,
+  Implementation slate, Monitoring sage). At Monitoring a runtime gauge takes its reading against its target instead: sage
+  met, amber below, red a trip. The stage pill stays under it, so colour is never the only signal.
+- `role="img"` with a label such as "Directory: 52 percent, Phased Development".
+- **Two styles, pending his choice:** **Ring** (a full circle, the number in the middle) and **Arc** (his follow-up: "just
+  show the top half of the circle and make the band go 0 - 100 with 50 being the half way mark": 0 at the left end, 50 at
+  the top, 100 at the right end, the number in the opening). The page's "Gauge style: Ring | Arc" switch shows one,
+  remembered on the device; Ring until he chooses. Spec in 03 §27; generator `mockups/src/scorering.py`.
+
 ## 2. The five words: the stage of the work (Jason's choice)
 
 Jason gave the five words as the answer to the band question, and then chose how to read them (2026-11-22): **"(a) Stage of
-the work".** The word under the needle is the gauge's stage, from its process state (§3), whatever the %.
+the work".** The word under the gauge is the gauge's stage, from its process state (§3), whatever the %.
 
 **Rejected alternative (b), % bands:** 0–25 Planning, 25–50 Phased Development, 50–75 Audit & Review, 75–99 Implementation,
 100 Monitoring. Kept here as the record; the mockup's switch between the two readings is removed.
@@ -35,7 +51,7 @@ A gauge's stage comes from its process state, never from fixed % bands.
 | **Phased Development** | Sign-off, while any in-scope item isn't built. | Every item meets "built". | criteria met / configured · "Phased Development" |
 | **Audit & Review** | Every item is built, while any item lacks its check or its review. **Audit & Review checks the work before it goes live:** staging, the checks (path or function), the review. | Every item meets "checked" and "reviewed". | the % · "Audit & Review" |
 | **Implementation** | Checked and reviewed, while any item isn't live or isn't proved. **Implementation is putting it live and proving it on real data.** | Every item meets "live" and "proved". | the % · "Implementation" |
-| **Monitoring** | 100: every configured criterion met. | A regression: a criterion that stops holding. The needle drops, the stage moves back to where that criterion belongs, with its reason, and the drop is logged. | 100 · "Monitoring" · the last time every criterion was checked |
+| **Monitoring** | 100: every configured criterion met. | A regression: a criterion that stops holding. The score drops, the stage moves back to where that criterion belongs, with its reason, and the drop is logged. | 100 · "Monitoring" · the last time every criterion was checked |
 
 **The rule, in order:** not signed off → Planning; else any item not built → Phased Development; else any item without its
 check or review → Audit & Review; else any item not live or not proved → Implementation; else Monitoring. A gauge sits at the
@@ -73,7 +89,7 @@ checks; reviewed is no open finding **and** Jason's sign-off on record (his UI, 
 his ruling on the page's proposal), as decisions/0145 §5 requires; proved is the path or function check on live data. Past
 work without his sign-off shows "audited, awaiting sign-off". This replaces the "accepted at sign-off" mark.
 
-- **One item not yet built keeps the whole gauge in Phased Development; the needle still shows progress.**
+- **One item not yet built keeps the whole gauge in Phased Development; the number still shows progress.**
 
 ### A gauge's setup is a list of checks (the check register)
 
@@ -83,7 +99,7 @@ check is one entry in **`check-register.md`** (25: 21 existing, 4 proposed), and
   where a path runs through it; SEARCH or LAYOUT where they measure it; BOARD for a workflow or a service; and the four
   proposed checks where they apply: TOOLS (each tool and endpoint by every type of account), LOAD (load time against a
   target), PHOTOS-SHOWN (every photo drawn), BRAND (most of brand.md). A missing check shows **"no check yet"**.
-- **A criterion with no check yet counts as unmet**, and is shown as such: the needle falls (the recount: −182 points, 11.4 on
+- **A criterion with no check yet counts as unmet**, and is shown as such: the score falls (the recount: −182 points, 11.4 on
   average). **Planning ends at Jason's sign-off of the scope**, as in the lifecycle he approved.
 - **Missing checks block only the move from Audit & Review to Implementation:** nothing passes the audit without its checks.
   The gauge shows which are missing ("no check yet: TOOLS, LOAD…").
@@ -131,7 +147,7 @@ The schedule (five runs, each with its load on the site; approved) and Site heal
   built from the table widget: each gauge, its stage, its %, its scope size, its sign-off date, the last change.
 - **Sign-off:** Jason's sign-off of each scope goes in the **logbook**, with its date.
 - **A scope change after sign-off** needs his OK again, and **shows on the gauge** ("scope changed: +3 items, awaiting OK"),
-  so the denominator never moves quietly. Until he OKs it, the needle keeps the signed scope.
+  so the denominator never moves quietly. Until he OKs it, the score keeps the signed scope.
 
 ## 6. Today, in the mockup
 
@@ -149,9 +165,9 @@ pending Jason, under the Questions pill.
 Jason approved the runtime lifecycle: "Approve". Every runtime snapshot gauge on the Board view now follows it:
 - **Its setup:** the probe built, its target set, its check passing, its alarm wired to the board (its reading comes from the
   alarms). Configure (on each card) opens the setup.
-- **Planning to Implementation:** the needle is its setup %, with its stage under it; the live reading it has stays on the
+- **Planning to Implementation:** the score is its setup %, with its stage under it; the live reading it has stays on the
   card, marked live.
-- **At Monitoring:** the needle switches to the live reading against its target; setup shows only in Configure.
+- **At Monitoring:** the score switches to the live reading against its target; setup shows only in Configure.
 - **The stage:** Planning with none of the four; Phased Development while the probe isn't built; Audit & Review while its
   target isn't set or its check isn't passing; Implementation while its alarm isn't wired; Monitoring with all four.
 - **Today (the 23 runtime gauges):** 1 at Monitoring (Trips reach a person), 1 in Implementation (Sign-in works end to end),

@@ -1,5 +1,5 @@
-# The 16 development gauges as a mockup (Jason, 2026-11-22): two rows, Front end (6) and Back end (10), one dial each with one
-# needle, Complete (live and passing, over the in-scope items). A gauge opens a side panel of its items by status, each with its
+# The 16 development gauges as a mockup (Jason, 2026-11-22): two rows, Front end (6) and Back end (10), one score gauge each (Ring or Arc,
+# no needle; Jason, 2026-11-22), Complete (live and passing, over the in-scope items). A gauge opens a side panel of its items by status, each with its
 # source, a two-faced item linking its other face. Read from step3/sections/inventory.json (sections16.py). Used by board.py for
 # the Board view's "Development" rows, and written standalone as step3/board/dev-gauges.html. Design mockup, not site code.
 import html, json, math, os, re
@@ -69,42 +69,6 @@ def band(p):
     return next(b for b in BANDS if b[0] <= p < b[1] or (p >= 100 and b[1] == 100))
 
 
-def _pt(f, r=46, cx=60, cy=58):
-    a = math.pi * (1 - f)
-    return cx + r * math.cos(a), cy - r * math.sin(a)
-
-
-def _arc(f0, f1, cls, r=46):
-    (x0, y0), (x1, y1) = _pt(f0, r), _pt(f1, r)
-    return f'<path class="dg-band {cls}" d="M{x0:.1f} {y0:.1f} A{r} {r} 0 0 1 {x1:.1f} {y1:.1f}"/>'
-
-
-def dial(p, k):
-    x, y = _pt(p / 100, 38)
-    bands = ''.join(_arc(a / 100, b / 100, c) for a, b, c, _ in BANDS)
-    return (f'<svg class="dg-dial" viewBox="0 0 120 66" aria-hidden="true">{bands}'
-            f'<line class="dg-needle t-{k}" x1="60" y1="58" x2="{x:.1f}" y2="{y:.1f}"/><circle class="dg-hub" cx="60" cy="58" r="4"/></svg>')
-
-
-def gauge(g, side):
-    s = stats(g)
-    lo, hi, k, word = band(s['pct'])
-    return (f'<button type="button" class="dg-g" data-open-panel="p-dev-{slug(g)}" data-gauge="{E(g)}" aria-label="{E(g)}: {s["pct"]:.0f}% complete, {s["done"]} of {s["scope"]} items. Open its items">'
-            f'<span class="dg-name">{E(g)}</span>{dial(s["pct"], k)}<span class="dg-word s-{k}">{word}</span>'
-            f'<span class="dg-pct">{s["pct"]:.0f}%</span><span class="dg-of">{s["done"]} of {s["scope"]} items</span></button>')
-
-
-def rows(heading='h2'):
-    q = [i for i in ITEMS if i.get('pending')]
-    return (f'<section class="dg" aria-label="Development"><div class="dg-head"><{heading} class="dg-h">Development</{heading}>'
-            f'<span class="dg-draft">draft: the scope isn\'t signed off</span><span class="dg-prop">bands proposed: under 50 · 50–80 · 80 and up</span>'
-            f'<button type="button" class="dg-q" data-open-panel="p-dev-questions">Questions: recommended, pending Jason <b>{len(q)}</b></button></div>'
-            f'<p class="dg-sub">One needle each: Complete, live and passing its check over the gauge\'s in-scope items (Jason, 2026-11-22). Tap a gauge for its items.</p>'
-            f'<p class="dg-rule"><b>Complete needs a path or function check; a page that only renders isn\'t complete.</b> Each item names its level: render (the page answers), path (the flow completes), function (it does its job on real data).</p>'
-            f'<h3 class="dg-row">Front end <span>6</span></h3><div class="dg-grid">{"".join(gauge(g, "front") for g in FRONT)}</div>'
-            f'<h3 class="dg-row">Back end <span>10</span> <small>the admin\'s modules, as manifests.php has them</small></h3><div class="dg-grid">{"".join(gauge(g, "back") for g in BACK)}</div></section>')
-
-
 def _item(it):
     faces = []
     for f in it.get('other_face') or []:
@@ -166,8 +130,6 @@ CSS = r"""
 .dg-g{display:flex;flex-direction:column;align-items:center;gap:.1rem;background:var(--card);border:1px solid var(--card-edge);border-radius:.5rem;padding:.5rem .4rem .55rem;font:inherit;color:var(--ink);cursor:pointer;min-width:0}
 .dg-g:hover,.dg-g:focus-visible{border-color:var(--copper);outline:none;box-shadow:0 0 0 2px #C85A1733}
 .dg-name{font-weight:600;font-size:13px;text-align:center;line-height:1.2;min-height:2.4em;display:flex;align-items:center}
-.dg-dial{width:100%;max-width:130px;height:auto}.dg-band{fill:none;stroke-width:9}.dg-band.r{stroke:#E7B9AC}.dg-band.a{stroke:#EBCF9B}.dg-band.g{stroke:#BFD8C8}
-.dg-needle{stroke-width:3.5;stroke-linecap:round}.dg-needle.t-r{stroke:var(--red)}.dg-needle.t-a{stroke:var(--amber)}.dg-needle.t-g{stroke:#3d6b52}.dg-hub{fill:var(--ink)}
 .dg-word{font-size:11.5px;font-weight:600;border-radius:999px;padding:0 .5rem;color:#fff}.dg-word.s-r{background:var(--red)}.dg-word.s-a{background:var(--amber)}.dg-word.s-g{background:#3d6b52}
 .dg-pct{font:700 20px/1.1 var(--sans)}.dg-of{font-size:11.5px;color:var(--meta)}
 .dg-sum{font-size:13px;margin:.2rem 0 .5rem}.dg-bar{display:flex;height:12px;border-radius:999px;overflow:hidden;background:var(--sec)}
@@ -250,6 +212,7 @@ for f in FIND['findings']:
 
 
 import checkreg
+import scorering
 REG = checkreg.BY
 SEARCH_ITEMS = ('Universal search', 'Search Phase C', 'Directory search')
 LAYOUT_ITEMS = ('Natural landmark page', 'Let\'s Explore: overview')
@@ -347,14 +310,6 @@ def band5(p):
 SK = {'Planning': 'pl', 'Phased Development': 'pd', 'Audit & Review': 'ar', 'Implementation': 'im', 'Monitoring': 'mo'}
 
 
-def dial2(p):
-    x0, y0 = _pt(0, 38)
-    x1, y1 = _pt(p / 100, 38)
-    track = '<path class="dg-track" d="M14 58 A46 46 0 0 1 106 58"/>'
-    return (f'<svg class="dg-dial" viewBox="0 0 120 66" aria-hidden="true">{track}<path class="dg-fill" data-len="{p:.1f}" d="M14 58 A46 46 0 0 1 106 58" pathLength="100" stroke-dasharray="0 100"/>'
-            f'<line class="dg-needle" x1="60" y1="58" x2="{x0:.1f}" y2="{y0:.1f}" data-now="{x0:.1f},{y0:.1f}" data-prev="{x1:.1f},{y1:.1f}"/><circle class="dg-hub" cx="60" cy="58" r="4"/></svg>')
-
-
 def missing_line(its):
     ids = []
     for i in its:
@@ -370,11 +325,13 @@ def gauge(g, side):
     c = config(g)
     st = c['stage']
     bw = band5(round(c['pct']))
+    ring = scorering.score(0, 'pl', f'{g}: 0 percent, Planning', ncls='dg-pct',
+                           extra=f' data-now-label="{E(g)}: 0 percent, Planning" data-prev-label="{E(g)}: {c["pct"]:.0f} percent, {E(st)}"')
     return (f'<div class="dg-gw"><button type="button" class="dg-g" data-open-panel="p-dev-{slug(g)}" data-gauge="{E(g)}" data-prev-pct="{c["pct"]:.0f}" data-prev-stage="{E(st)}" data-prev-k="{SK[st]}" '
             f'data-prev-band="{E(bw)}" data-prev-bk="{SK[bw]}" data-prev-of="{E(missing_line(c["items"]))}" '
             f'aria-label="{E(g)}: Planning, 0%. Configuration drafted: {len(c["items"])} items, {c["total"]} criteria, awaiting sign-off. Open its configuration">'
-            f'<span class="dg-name">{E(g)}</span>{dial2(c["pct"])}<span class="dg-word s-pl" data-now="Planning">Planning</span>'
-            f'<span class="dg-pct" data-now="0%">0%</span><span class="dg-of" data-now="configuration drafted: {len(c["items"])} items, {c["total"]} criteria, awaiting sign-off">'
+            f'<span class="dg-name">{E(g)}</span>{ring}<span class="dg-word s-pl" data-now="Planning">Planning</span>'
+            f'<span class="dg-of" data-now="configuration drafted: {len(c["items"])} items, {c["total"]} criteria, awaiting sign-off">'
             f'configuration drafted: {len(c["items"])} items, {c["total"]} criteria, awaiting sign-off</span></button>'
             f'<button type="button" class="dg-cfg" data-open-panel="p-dev-{slug(g)}" data-dev-open-tab="conf" aria-label="Configure {E(g)}">Configure</button></div>')
 
@@ -382,18 +339,18 @@ def gauge(g, side):
 def rows(heading='h2'):
     q = [i for i in ITEMS if i.get('pending')]
     return (f'<section class="dg" aria-label="Development"><div class="dg-head"><{heading} class="dg-h">Development</{heading}>'
-            f'<span class="dg-draft">configurations drafted, awaiting Jason\'s sign-off</span>'
+            f'<span class="dg-draft">configurations drafted, awaiting Jason\'s sign-off</span>{scorering.switch()}'
             f'<button type="button" class="dg-pv" data-dev-preview aria-pressed="false">Preview with the draft configuration</button>'
             f'<button type="button" class="dg-q" data-open-panel="p-dev-questions">Questions: pending Jason <b>{len(q)}</b></button></div>'
-            f'<p class="dg-sub">Each gauge starts at 0 in Planning and is configured to say what 100 means (Jason, 2026-11-22). The word under the needle is its stage: '
-            f'{" → ".join(STAGES)}, the stage of the work (Jason, 2026-11-22). One needle: criteria met over criteria configured; the word is a label, never a second needle.</p>'
+            f'<p class="dg-sub">Each gauge starts at 0 in Planning and is configured to say what 100 means (Jason, 2026-11-22). The pill under the gauge is its stage: '
+            f'{" → ".join(STAGES)}, the stage of the work (Jason, 2026-11-22). One measure (Jason, 2026-11-22: score gauges replace the dials): the number and the coloured band are criteria met over criteria configured, in the stage\'s colour; the pill is a label, never a second measure.</p>'
             f'<p class="dg-rule"><b>The criteria come from the page audit (decisions/0145).</b> Checked: the audit\'s code, rendered and path checks pass at 1280 and 390. '
             f'Reviewed: the page review has no open finding, and Jason has signed off (his UI, UX and Functional approval on a release, or his ruling on the page\'s proposal). '
             f'Proved: the path or function check on live data. Past work without his sign-off on record shows "audited, awaiting sign-off", never "reviewed". '
             f'Complete needs a path or function check; a page that only renders isn\'t complete.</p>'
             f'<p class="dg-rule"><b>{N_NOCHECK} of the {N_SCOPE} items need a check that isn\'t built yet</b>, so no item is "checked" and no gauge can pass Audit & Review until they exist. '
             f'Building the four missing checks, TOOLS first, is what moves every gauge forward.</p>'
-            f'<p class="dg-rule">One item not yet built keeps the whole gauge in Phased Development; the needle still shows progress.</p>'
+            f'<p class="dg-rule">One item not yet built keeps the whole gauge in Phased Development; the number still shows progress.</p>'
             f'{runtime_strip()}<h3 class="dg-row">Front end <span>6</span></h3><div class="dg-grid">{"".join(gauge(g, "front") for g in FRONT)}</div>'
             f'<h3 class="dg-row">Back end <span>10</span> <small>the admin\'s modules, as manifests.php has them</small></h3><div class="dg-grid">{"".join(gauge(g, "back") for g in BACK)}</div>'
             f'{example_checks()}{register_block()}</section>')
@@ -410,18 +367,18 @@ def runtime_strip():
              ('Monitoring', 99.1, 4, 'pages under 2.5 s · target 99.5%', False)]
     cards = ''
     for st, p, n, sub, today in steps:
-        x, y = _pt(p / 100, 38)
         mon = st == 'Monitoring'
+        k = 'a' if mon else SK[st]   # at Monitoring the colour follows the reading against its target: 99.1 is below 99.5, so amber
+        lab = f'Pages load fast: {p:g} percent{" of pages under 2.5 s, below its 99.5 percent target" if mon else " setup"}, {st}'
         cards += (f'<div class="dg-rtg" role="group" aria-label="Pages load fast at {st}{": today" if today else ": an illustration"}">'
                   f'<span class="dg-rtk">{"today" if today else "illustration" + (" (scenario)" if mon else "")}</span>'
-                  f'<svg class="dg-dial" viewBox="0 0 120 66" aria-hidden="true"><path class="dg-track" d="M14 58 A46 46 0 0 1 106 58"/>'
-                  f'<line class="dg-needle" x1="60" y1="58" x2="{x:.1f}" y2="{y:.1f}"/><circle class="dg-hub" cx="60" cy="58" r="4"/></svg>'
-                  f'<span class="dg-word s-{SK[st]}">{E(st)}</span><span class="dg-pct">{p:g}%</span><span class="dg-of">{E(sub)}</span>'
-                  f'<span class="dg-rtn">{"the live reading against its target" if mon else "setup %"}</span></div>')
+                  f'{scorering.score(p, k, lab, shown=f"{p:g}")}'
+                  f'<span class="dg-word s-{SK[st]}">{E(st)}</span><span class="dg-of">{E(sub)}</span>'
+                  f'<span class="dg-rtn">{"the live reading against its target: amber, below it" if mon else "setup %"}</span></div>')
     return (f'<div class="dg-rt"><div class="dg-rth"><b>A runtime gauge under the lifecycle: Pages load fast, stage by stage</b> '
             f'<span class="dg-draft">approved by Jason, 2026-11-22; only Planning is today, the rest are illustrations</span></div>'
-            f'<p class="dg-sub">Setup ({", ".join(RT_SETUP)}) is the needle through Planning to Implementation. At Monitoring the needle switches to the live reading '
-            f'against its target, and setup shows only in Configure. One needle at a time.</p><div class="dg-rts">{cards}</div></div>')
+            f'<p class="dg-sub">Setup ({", ".join(RT_SETUP)}) is the score through Planning to Implementation, in the stage\'s colour. At Monitoring the score switches to the live reading '
+            f'against its target, coloured by it: sage when met, amber when below, red on a trip. Setup shows only in Configure. One measure at a time.</p><div class="dg-rts">{cards}</div></div>')
 
 
 N_SCOPE = sum(1 for i in ITEMS if i['status'] != 'proposed')
@@ -504,15 +461,12 @@ def panel(g):
             f'<div class="dg-sum"><b>Planning · 0%</b>: configuration drafted, {len(c["items"])} items, {c["total"]} criteria, awaiting sign-off. '
             f'With the draft signed off: <b>{c["pct"]:.0f}%</b>, {E(c["stage"])} ({c["met"]} of {c["total"]} criteria met).</div>'
             f'<div class="dg-tabs" role="tablist" aria-label="{E(g)}">{tabs}</div>'
-            f'<div class="dg-tp" role="tabpanel" id="tp-{pid}-conf" aria-labelledby="t-{pid}-conf"><p class="dg-sub">✓ met · not met (dec, bui, che, rev, liv, pro). Each item\'s definition of done: {" · ".join(w.split(" (")[0].lower() for _, w in CRIT)}. Phases and weights (1 each) are drafted from the inventory.</p>'
+            f'<div class="dg-tp" role="tabpanel" id="tp-{pid}-conf" aria-labelledby="t-{pid}-conf"><p class="dg-sub" data-dev-txt="legend"></p>'
             f'<div class="btns"><button type="button" class="btn f" disabled title="Drawn: inert in the mockup">Sign off (Jason)</button>'
             f'<button type="button" class="btn" disabled title="Drawn: inert in the mockup">Run checks now</button></div>'
-            f'<p class="dg-sub">Each item\'s checks, from the register: <span class="dg-ck"><i class=p>passes</i><i class=f>fails</i><i class=h>partial</i><i class=n>no check yet</i></span> '
-            f'Each check\'s evidence is in the register (below the gauges, and <code>sections/check-register.md</code>). Then its Workflows and Services paths on the Board.</p>{conf}</div>'
+            f'<p class="dg-sub" data-dev-txt="checks"></p>{conf}</div>'
             f'<div class="dg-tp" role="tabpanel" id="tp-{pid}-prog" aria-labelledby="t-{pid}-prog" hidden><p class="dg-sub">Criteria met, by phase, if the draft were signed off.</p>{prog}</div>'
-            f'<div class="dg-tp" role="tabpanel" id="tp-{pid}-mon" aria-labelledby="t-{pid}-mon" hidden><p class="dg-sub">Once at 100, every criterion is checked again on its own clock; a regression drops the needle, moves the stage back with its reason, and is logged here.</p>'
-            f'<p class="nohist">No history yet</p><p class="dg-sub">Sign-off: none yet. Jason\'s sign-off of the scope is written to the Control Board\'s logbook with its date. '
-            f'A scope change after sign-off needs his OK again and shows on the gauge ("scope changed: +3 items, awaiting OK"), so the denominator never moves quietly.</p></div>'
+            f'<div class="dg-tp" role="tabpanel" id="tp-{pid}-mon" aria-labelledby="t-{pid}-mon" hidden><p class="dg-sub" data-dev-txt="mon"></p><p class="nohist">No history yet</p><p class="dg-sub" data-dev-txt="signoff"></p></div>'
             f'<div class="btns navb"><button class="btn back" data-dev-back>← Back</button></div></aside>')
 
 
@@ -524,7 +478,6 @@ def _qitem(it):
 CSS += r"""
 .dg-pv{border:1px solid var(--field-edge);background:var(--card);border-radius:999px;padding:.2rem .7rem;font:inherit;font-size:12.5px;cursor:pointer;color:var(--ink)}
 .dg-pv[aria-pressed="true"]{background:var(--btn);color:var(--btn-text);border-color:var(--btn)}
-.dg-track{fill:none;stroke:#E6DDC8;stroke-width:9}.dg-fill{fill:none;stroke:var(--sage);stroke-width:9;transition:stroke-dasharray 150ms ease-out}.dg-needle{stroke:var(--ink)}
 .dg-word.s-pl{background:#7A6A52}.dg-word.s-pd{background:var(--amber)}.dg-word.s-ar{background:var(--copper)}.dg-word.s-im{background:#3B5A6B}.dg-word.s-mo{background:#3d6b52}
 .dg-of{text-align:center;line-height:1.25}.dg-tabs{display:flex;gap:.3rem;margin:.6rem 0 .3rem;flex-wrap:wrap}
 .dg-tab{border:1px solid var(--field-edge);background:var(--card);border-radius:999px;padding:.2rem .7rem;font:inherit;font-size:12.5px;cursor:pointer;color:var(--ink)}
@@ -549,25 +502,30 @@ CSS += r"""
 .dg-c.ok{border-color:#3d6b52;color:#3d6b52;background:#EEF4EF}.dg-plist{margin:.1rem 0 .4rem 1rem;padding:0;font-size:12.5px}
 """
 
+# the words every gauge's panel shares, written once and filled into each panel on load (keeps the page under 300 KB)
+DEVTXT = {
+    'legend': '✓ met · not met (dec, bui, che, rev, liv, pro). Each item\'s definition of done: ' + ' · '.join(w.split(' (')[0].lower() for _, w in CRIT) + '. Phases and weights (1 each) are drafted from the inventory.',
+    'checks': 'Each item\'s checks, from the register: <span class="dg-ck"><i class=p>passes</i><i class=f>fails</i><i class=h>partial</i><i class=n>no check yet</i></span> '
+              'Each check\'s evidence is in the register (below the gauges, and <code>sections/check-register.md</code>). Then its Workflows and Services paths on the Board.',
+    'mon': 'Once at 100, every criterion is checked again on its own clock; a regression drops the score, moves the stage back with its reason, and is logged here.',
+    'signoff': 'Sign-off: none yet. Jason\'s sign-off of the scope is written to the Control Board\'s logbook with its date. A scope change after sign-off needs his OK again '
+               'and shows on the gauge ("scope changed: +3 items, awaiting OK"), so the denominator never moves quietly.',
+}
+JS += ('<script>(function(){var T=' + json.dumps(DEVTXT, ensure_ascii=False) + ';function f(){document.querySelectorAll("[data-dev-txt]").forEach(function(p){'
+       'if(!p.innerHTML)p.innerHTML=T[p.getAttribute("data-dev-txt")]||"";});}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",f);else f();})();</script>')
+JS += scorering.JS
 JS += r"""<script>
 (function(){
 function tab(b){var pid=b.id.replace(/^t-/,'').replace(/-(conf|prog|mon)$/,''),t=b.getAttribute('data-dev-tab');['conf','prog','mon'].forEach(function(k){var x=document.getElementById('t-'+pid+'-'+k),p=document.getElementById('tp-'+pid+'-'+k);if(x)x.setAttribute('aria-selected',k===t?'true':'false');if(p)p.hidden=k!==t;});}
 document.addEventListener('click',function(e){var b=e.target.closest('[data-dev-tab]');if(b){tab(b);return;}
  var a=e.target.closest('[data-dev-item]');if(a){var id=a.getAttribute('data-dev-item');setTimeout(function(){var it=document.getElementById(id),tp=it&&it.closest('.dg-tp');if(tp&&tp.hidden){var t=document.getElementById(tp.id.replace(/^tp-/,'t-'));if(t)tab(t);it.scrollIntoView({block:'center'});}},10);}
  var v=e.target.closest('[data-dev-preview]');if(v){var on=v.getAttribute('aria-pressed')!=='true';v.setAttribute('aria-pressed',on?'true':'false');
-  document.querySelectorAll('.dg-g').forEach(function(g){var n=g.querySelector('.dg-needle'),w=g.querySelector('.dg-word'),pc=g.querySelector('.dg-pct'),f=g.querySelector('.dg-fill');
-   var xy=(on?n.getAttribute('data-prev'):n.getAttribute('data-now')).split(',');n.setAttribute('x2',xy[0]);n.setAttribute('y2',xy[1]);
-   f.setAttribute('stroke-dasharray',on?(f.getAttribute('data-len')+' 100'):'0 100');
+  document.querySelectorAll('.dg-g').forEach(function(g){var r=g.querySelector('.sr'),w=g.querySelector('.dg-word');
+   var pv=g.getAttribute('data-prev-pct');window.tvScore(r,on?pv:0,on?g.getAttribute('data-prev-k'):'pl',r.getAttribute(on?'data-prev-label':'data-now-label'),(on?pv:'0')+'<small>%</small>');
    w.textContent=on?g.getAttribute('data-prev-stage'):w.getAttribute('data-now');w.className='dg-word s-'+(on?g.getAttribute('data-prev-k'):'pl');
-   pc.textContent=on?g.getAttribute('data-prev-pct')+'%':pc.getAttribute('data-now');
    var of=g.querySelector('.dg-of');of.textContent=on?g.getAttribute('data-prev-of'):of.getAttribute('data-now');});word();}
  var o=e.target.closest('[data-dev-open-tab]');if(o){setTimeout(function(){var t=document.getElementById('t-'+o.getAttribute('data-open-panel').replace(/^p-dev-/,'')+'-'+o.getAttribute('data-dev-open-tab'));if(t)tab(t);},10);}
  var gg=e.target.closest('.dg-g');if(gg){setTimeout(function(){var t=document.getElementById('t-'+gg.getAttribute('data-open-panel').replace(/^p-dev-/,'')+'-conf');if(t)tab(t);},10);}});
-document.addEventListener('click',function(e){var r=e.target.closest('[data-rt]');if(!r)return;var k=r.getAttribute('data-rt');
- document.querySelectorAll('[data-rt]').forEach(function(x){x.setAttribute('aria-pressed',x===r?'true':'false');});
- var g=document.querySelector('.dg-rtg');if(!g)return;var n=g.querySelector('.dg-needle'),xy=n.getAttribute('data-'+(k==='mon'?'mon':'setup')).split(',');n.setAttribute('x2',xy[0]);n.setAttribute('y2',xy[1]);
- ['.dg-word','.dg-pct','.dg-of'].forEach(function(s){var el=g.querySelector(s);el.textContent=el.getAttribute('data-'+(k==='mon'?'mon':'setup'));});
- g.querySelector('.dg-word').className='dg-word s-'+(k==='mon'?'mo':'pl');});
 function word(){var on=(document.querySelector('[data-dev-preview]')||{}).getAttribute&&document.querySelector('[data-dev-preview]').getAttribute('aria-pressed')==='true';
  var band=false;
  document.querySelectorAll('.dg-g').forEach(function(g){var w=g.querySelector('.dg-word');if(!on){w.textContent='Planning';w.className='dg-word s-pl';return;}
@@ -588,7 +546,7 @@ def page(base_css):
 
 
 
-KEEP = re.compile(r'(:root|^html|^body|^\*|\.bhead|\.chip|\.panel|\.scrim|\.x\b|\.crumb|\.h2|\.h3|\.btn|\.btns|\.micro|\.tw\b|\.nohist|\.sub\b|\.live|\.sctag|code|\.lt\b|\.dg|\.dl\b|body\.open|\.rnote|details|summary|button|a\b|a:|\.navb|\.back|\.imp)')
+KEEP = re.compile(r'(:root|\.sr\b|\.sr-|^html|^body|^\*|\.bhead|\.chip|\.panel|\.scrim|\.x\b|\.crumb|\.h2|\.h3|\.btn|\.btns|\.micro|\.tw\b|\.nohist|\.sub\b|\.live|\.sctag|code|\.lt\b|\.dg|\.dl\b|body\.open|\.rnote|details|summary|button|a\b|a:|\.navb|\.back|\.imp)')
 
 
 def dev_css(css):

@@ -129,7 +129,7 @@ const url = 'file://' + dir + 'index.html';
       await p.keyboard.press('Escape'); okx = okx && !(await isOpen('p-snap-' + ex));
       ok(okx && !!mod, `@${w} worked example ${ex}: card → snapshot → Workflows → back → Services → back, ending at a module card`);
     }
-    // Fix it only where something is wrong; no path row repeats its status; tinted needles and words where no target is set
+    // Fix it only where something is wrong; no path row repeats its status; Monitoring gauges coloured by their reading, with the word
     const rows = await p.evaluate(() => { let fixOnOk = 0, rep = 0; document.querySelectorAll('aside[id^="p-sv-"] .lvl, aside[id^="p-wf-"] .lvl').forEach(l => {
         const lt = l.querySelector('.lvrow .lt'); const words = lt ? lt.textContent.trim() : '';
         const fx = [...l.querySelectorAll('button')].some(b => /^Fix it/.test(b.textContent));
@@ -139,9 +139,9 @@ const url = 'file://' + dir + 'index.html';
       return [fixOnOk, rep]; });
     ok(rows[0] === 0, `@${w} no "Fix it" on a Working row (${rows[0]} found)`);
     ok(rows[1] === 0, `@${w} no path row repeats its status text (${rows[1]} found)`);
-    const rts = await p.evaluate(() => [...document.querySelectorAll('#view-board .gcard')].map(c => [c.id, c.classList.contains('mon'), c.querySelectorAll('.needle').length, (c.querySelector('.band-word') || {}).textContent, /setup: \d of 4/.test(c.textContent)]));
+    const rts = await p.evaluate(() => [...document.querySelectorAll('#view-board .gcard')].map(c => [c.id, c.classList.contains('mon'), c.querySelectorAll('.sr').length, (c.querySelector('.band-word') || {}).textContent, /setup: \d of 4/.test(c.textContent)]));
     const STG = ['Planning', 'Phased Development', 'Audit & Review', 'Implementation'];
-    ok(rts.length === 23 && rts.every(x => x[1] ? x[2] === 1 : (x[2] === 1 && STG.includes(x[3]) && x[4])), `@${w} every runtime gauge under the lifecycle: below Monitoring its one needle is setup % with its stage and "setup: n of 4"; at Monitoring its live reading (${rts.filter(x => x[1]).map(x => x[0]).join(', ')} at Monitoring)`);
+    ok(rts.length === 23 && rts.every(x => x[1] ? x[2] === 1 : (x[2] === 1 && STG.includes(x[3]) && x[4])), `@${w} every runtime gauge under the lifecycle: below Monitoring its one score gauge is setup % in its stage's colour with its stage and "setup: n of 4"; at Monitoring its live reading (${rts.filter(x => x[1]).map(x => x[0]).join(', ')} at Monitoring)`);
     const cs3 = await p.evaluate(() => [...document.querySelectorAll('#view-board .gcard')].filter(c => c.querySelector('[data-open-panel^="p-wf-"]') && c.querySelector('[data-open-panel^="p-cs-"]') && c.querySelector('[data-open-panel^="p-sv-"]') && /Core Services/.test(c.textContent) && /Registered Services/.test(c.textContent)).length);
     await p.click('#o-gather [data-open-panel="p-cs-o-gather"]');
     const csok = await p.evaluate(() => { const a = document.getElementById('p-cs-o-gather'); return !a.hidden && a.querySelectorAll('[data-go-mod]').length >= 3; });
@@ -150,10 +150,11 @@ const url = 'file://' + dir + 'index.html';
     await p.click('#o-speed [data-cfg]');
     ok(await isOpen('p-snap-o-speed') && await p.evaluate(() => /Configure: its setup/.test(document.getElementById('p-snap-o-speed').textContent)), `@${w} Configure opens the gauge's setup`);
     await p.keyboard.press('Escape');
-    const tint = await p.evaluate(() => [...document.querySelectorAll('#view-board .gcard.mon.s-a, #view-board .gcard.mon.s-r')].filter(c => !c.querySelector('.proposed')).map(c => {
-        const n = c.querySelector('.needle'); const st = c.classList.contains('s-r') ? 'r' : 'a';
-        return (!n || n.classList.contains('t-' + st)) && c.querySelector('.band-word.notarget.s-' + st) ? 0 : c.id; }).filter(Boolean));
-    ok(tint.length === 0, `@${w} every amber or red Monitoring dial with no target has a tinted needle and word` + (tint.length ? ': ' + tint.join(', ') : ''));
+    const tint = await p.evaluate(() => [...document.querySelectorAll('#view-board .gcard.mon')].map(c => {
+        const st = ['g', 'a', 'r', 'n'].find(k => c.classList.contains('s-' + k)); const r = c.querySelector('.sr');
+        return r && r.classList.contains('k-' + st) && c.querySelector('.band-word.s-' + st) ? 0 : c.id; }).filter(Boolean));
+    const stg = await p.evaluate(() => [...document.querySelectorAll('#view-board .gcard.setupc')].filter(c => { const w = c.querySelector('.band-word.stage'); const k = (w.className.match(/st-(\w+)/) || [])[1]; return !c.querySelector('.sr.k-' + k); }).map(c => c.id));
+    ok(tint.length === 0 && stg.length === 0, `@${w} every Monitoring score gauge takes its reading's colour (sage met, amber below, red a trip) with its word; every setup gauge takes its stage's colour` + (tint.length + stg.length ? ': ' + tint.concat(stg).join(', ') : ''));
     // every control works: quick jumps, role filters
     await p.keyboard.press('Escape');
     const qj = await p.$$eval('.qbar .qj', bs => bs.length);

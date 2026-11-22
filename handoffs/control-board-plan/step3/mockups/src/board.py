@@ -563,7 +563,7 @@ def board_view(with_gauges=True, with_pages=True, with_dev=True, groups=None):
                 f'<span class="cnt">{len(ps)} pages · {cnt["g"]} working · {cnt["a"]} less than optimal · {cnt["r"]} failing · {cnt["n"]} not checked yet</span>{ico("chev")}</button>'
                 f'<div class="rt" id="rt-{gi}" hidden></div></div>')
     out = f"""<section class="view" id="view-board" data-title="Board: is it delivering?">
-<div class="vh"><div><h1>Is it delivering?</h1><p class="sub">Every snapshot is one gauge card (Jason, 2026-11-22): its dial or bar against its target's bands, the band's word under the needle, the reading with its time, and its trend. Tap a card for its snapshot; Workflows ▸ and Services ▸ drill down to the root, computed from the association map (step3/association-map.md). This supersedes step 1's "skip big gauges" (Q21; SM 172–189).</p></div>
+<div class="vh"><div><h1>Is it delivering?</h1><p class="sub">Every snapshot is one gauge card (Jason, 2026-11-22): its dial or bar against its target's bands, the band's word under the gauge, the reading with its time, and its trend. Tap a card for its snapshot; Workflows ▸ and Services ▸ drill down to the root, computed from the association map (step3/association-map.md). This supersedes step 1's "skip big gauges" (Q21; SM 172–189).</p></div>
 <div class="seg" role="group" aria-label="Layout"><button data-layout="grid" aria-pressed="true">2 columns</button><button data-layout="rows" aria-pressed="false">Stacked</button></div></div>
 {devgauges.rows() if with_dev and with_gauges else ''}{'<h2 class="h2 rtime">Runtime: is it delivering?</h2>' if with_dev and with_gauges else ''}{'<div class="pgrid" id="pgrid">' + boxes + '</div>' if with_gauges else ''}
 {'' if not with_pages else ''}<div class="vh pagesh" style="margin-top:1.2rem"><div><h2 class="h2">The pages, as monitored units</h2><p class="sub">Every page in <code>site-audit/pages.md</code> (live and coming) and every admin route in the mirror's <code>app/admin/manifests.php</code>: {len(PAGES)} pages in {len(GROUPS)} groups. Open a group for its route table; Manage opens a page.</p></div></div>
@@ -980,6 +980,7 @@ def level(cid, i, n, kind, name, state, why, evidence, nexts, root=None):
 import assoc
 import math
 import devgauges
+import scorering
 
 NEED_BY = {n['key']: n for n in NEEDS}
 OBJ_BY = {o['id']: o for _, _, objs in PROMISES for o in objs}
@@ -993,31 +994,13 @@ BANDS = {'o-claude': ('cap', [(0, 50, 'g'), (50, 95, 'a'), (95, 100, 'r')], 'the
 SCALE = {'o-uptime': (95, 100), 'o-speed': (95, 100)}
 
 
-def _pt(f, r=46, cx=60, cy=58):
-    a = math.pi * (1 - f)
-    return cx + r * math.cos(a), cy - r * math.sin(a)
-
-
-def _arc(f0, f1, cls, r=46):
-    x0, y0 = _pt(f0, r); x1, y1 = _pt(f1, r)
-    return f'<path class="band {cls}" d="M{x0:.1f},{y0:.1f} A{r},{r} 0 0 1 {x1:.1f},{y1:.1f}"/>'
-
-
-def dial(o):
-    st, pct = o['state'], o['pct']
-    lo, hi = SCALE.get(o['id'], (0, 100))
-    b = BANDS.get(o['id'])
-    if st == 'n':
-        arcs = ''.join(_arc((a - lo) / (hi - lo), (z - lo) / (hi - lo), c + ' faint') for a, z, c in b[1]) if b else _arc(0, 1, 'empty')
-        return f'<svg class="dial" viewBox="0 0 120 66" aria-hidden="true">{arcs}</svg>'
-    arcs = ''.join(_arc((a - lo) / (hi - lo), (z - lo) / (hi - lo), c) for a, z, c in b[1]) if b else _arc(0, 1, 'neutral')
-    needle = ''
-    if pct is not None:
-        f = max(0, min(1, (pct - lo) / (hi - lo)))
-        x, y = _pt(f, 38)
-        tint = '' if b else f' t-{st}'
-        needle = f'<line class="needle{tint}" x1="60" y1="58" x2="{x:.1f}" y2="{y:.1f}"/><circle class="hub{tint}" cx="60" cy="58" r="4"/>'
-    return f'<svg class="dial" viewBox="0 0 120 66" aria-hidden="true">{arcs}{needle}</svg>'
+def dial(o, big=False):
+    """The live reading as a score gauge (Ring or Arc, no needle; Jason, 2026-11-22), coloured by the reading against its target:
+    sage when met, amber when below, red on a trip, taupe with no reading. The band word stays under it."""
+    pct, k = o['pct'], o['state']
+    shown = None if pct is None else (f'{pct:.1f}'.rstrip('0').rstrip('.') if pct % 1 else f'{pct:.0f}')
+    label = f"{o['name']}: " + (f"{shown} percent, {LT[k]}" if pct is not None else f"no reading yet, {LT[k]}")
+    return scorering.score(pct, k, label, shown=shown, cls='big' if big else '')
 
 
 def linear(o, value, label):
@@ -1025,7 +1008,7 @@ def linear(o, value, label):
 
 
 # Runtime gauges under the lifecycle (Jason approved, 2026-11-22; sections/gauge-lifecycle.md §7): setup % through Planning to
-# Implementation; at Monitoring the needle is the live reading against its target, and setup shows only in Configure.
+# Implementation; at Monitoring the score is the live reading against its target, and setup shows only in Configure.
 RT_STAGE_K = {'Planning': 'pl', 'Phased Development': 'pd', 'Audit & Review': 'ar', 'Implementation': 'im', 'Monitoring': 'mo'}
 
 
@@ -1052,10 +1035,8 @@ def rt_stage(o):
     return 'Implementation'
 
 
-def setup_dial(pct):
-    x, y = _pt(pct / 100, 38)
-    return (f'<svg class="dial" viewBox="0 0 120 66" aria-hidden="true">{_arc(0, 1, "empty")}'
-            f'<line class="needle setup" x1="60" y1="58" x2="{x:.1f}" y2="{y:.1f}"/><circle class="hub" cx="60" cy="58" r="4"/></svg>')
+def setup_dial(pct, stg, name):
+    return scorering.score(pct, RT_STAGE_K[stg], f'{name}: setup {pct:.0f} percent, {stg}')
 
 
 def gauge_card(o):
@@ -1103,7 +1084,7 @@ def rt_setup_card(o, stg):
         pop = (f'<details class="imp pop"><summary class="btn imp">Set up its check</summary><div class="popb"><button class="px" type="button" aria-label="Close">×</button>'
                f'<div class="micro">Build: {E(need)}</div><button class="btn imp" title="Drawn: inert in the mockup">Set up: {E(need.split(" (")[0])}</button></div></details>')
     return (f'<article class="obj gcard setupc s-{o["state"]}" id="{o["id"]}"><button type="button" class="gopen" data-card="{o["id"]}" aria-label="Open {E(o["name"])}: {E(stg)}, setup {n} of 4">'
-            f'<span class="gh"><b>{E(o["name"])}</b></span>{setup_dial(pct)}<span class="band-word stage st-{RT_STAGE_K[stg]}">{E(stg)}</span>'
+            f'<span class="gh"><b>{E(o["name"])}</b></span>{setup_dial(pct, stg, o["name"])}<span class="band-word stage st-{RT_STAGE_K[stg]}">{E(stg)}</span>'
             f'<span class="om2"><span class="metric pillm">setup: {n} of 4 · {pct:.0f}%</span></span>'
             f'<span class="om2"><span class="micro">{E(metric)}</span>{live}</span></button>'
             f'<div class="btns"><button class="btn path" data-open-panel="p-wf-{o["id"]}">Workflows ▸</button><button class="btn path" data-open-panel="p-cs-{o["id"]}">Core Services ▸</button><button class="btn path" data-open-panel="p-sv-{o["id"]}">Registered Services ▸</button>'
@@ -1266,7 +1247,7 @@ def snap_panel(o):
     imp = ''.join(f'<button class="btn imp" title="Drawn: inert in the mockup">{E(t)}</button>' for t in o['improve'])
     return (f'<aside class="panel" id="p-snap-{o["id"]}" hidden role="dialog" aria-label="{E(o["name"])}"><button class="x" aria-label="Close">×</button>'
             f'<div class="crumb">Snapshot</div><div class="lvrow">{lt(o["state"], LT[o["state"]])}<b class="lvn">{E(o["name"])}</b></div>'
-            f'<div class="gbig">{dial(o) if o["id"] not in ("o-gather", "o-grow") else ""}</div>'
+            f'<div class="gbig">{dial(o, True) if o["id"] not in ("o-gather", "o-grow") else ""}</div>'
             f'<dl class="dl"><dt>Measure</dt><dd>{E(o["measure"])}</dd><dt>Target</dt><dd>{E(o["target"])}</dd><dt>Reading</dt><dd>{E(o["reading"])}{" · <time>" + E(o["when"]) + "</time>" if o["when"] else ""} <span class="basis">{o["basis"]}</span></dd></dl>'
             f'<div class="h3">Configure: its setup ({E(rt_stage(o))})</div><ul class="rtsu">' + ''.join(f'<li class="{"ok" if m else ""}">{"✓" if m else "·"} <b>{E(l)}</b> <span class="micro">{E(w)}</span></li>' for l, m, w in rt_setup(o)) + '</ul>'
             f'{snap_frame(o["id"])}<div class="btns"><button class="btn f" data-open-panel="p-wf-{o["id"]}">Workflows ▸</button><button class="btn f" data-open-panel="p-cs-{o["id"]}">Core Services ▸</button><button class="btn f" data-open-panel="p-sv-{o["id"]}">Registered Services ▸</button></div>'
@@ -1442,7 +1423,7 @@ def quick():
     return out
 
 
-CSS = kit.CSS + devgauges.CSS + r"""
+CSS = kit.CSS + devgauges.CSS + scorering.CSS + r"""
 .bhead{position:sticky;top:0;z-index:40;background:var(--umber);color:var(--btn-text);padding:.5rem 16px;display:flex;flex-wrap:wrap;gap:.4rem .8rem;align-items:center}
 .bhead b{font-family:var(--serif)}.bhead .tm{font-size:12px;color:#E3C9A8}.bhead .chip{border:1px solid #E3C9A866;border-radius:999px;padding:.05rem .55rem;font-size:12px}
 .qbar{display:flex;flex-wrap:wrap;gap:.4rem;padding:.5rem 16px;background:var(--sec);border-bottom:1px solid var(--sec-edge)}
@@ -1519,8 +1500,8 @@ details.cr>summary{display:flex;flex-wrap:wrap;gap:.25rem .55rem;align-items:cen
 details.cr>summary::before{content:"▸";color:var(--taupe);font-size:11px}details.cr[open]>summary::before{content:"▾"}
 .gopen{display:flex;flex-direction:column;gap:.2rem;align-items:stretch;width:100%;background:none;border:0;padding:0;margin:0;text-align:center;font:inherit;color:inherit;cursor:pointer;border-radius:.4rem}.gopen>span{display:block}.gopen .om2{display:flex;justify-content:center}.gopen .gh{text-align:left}.gopen:focus-visible{outline:2px solid var(--copper);outline-offset:2px}.lin{display:block}.ggrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.5rem}.gcard{background:var(--sec);border:1px solid var(--card-edge);border-radius:.55rem;padding:.55rem .6rem;display:flex;flex-direction:column;gap:.2rem;min-width:0}
 .gcard:focus-visible{outline:2px solid var(--copper);outline-offset:2px}.gcard.s-r{border-color:var(--red)}.gh b{font-size:13.5px}
-.dial{width:100%;max-width:170px;height:auto;align-self:center;display:block}.dial .band{fill:none;stroke-width:11}.band.g{stroke:var(--sage)}.band.a{stroke:var(--amber)}.band.r{stroke:var(--red)}.band.neutral{stroke:#CFC4AE}.band.empty{stroke:#D9D2C2;stroke-dasharray:3 3}
-.needle.t-a{stroke:var(--amber)}.needle.t-r{stroke:var(--red)}.hub.t-a{fill:var(--amber)}.hub.t-r{fill:var(--red)}.band.faint{opacity:.35}.proposed{font-size:10.5px;border:1px dotted var(--copper);color:var(--copper);border-radius:3px;padding:0 4px;margin-left:.4rem;font-weight:500}.gh{display:flex;align-items:baseline;flex-wrap:wrap}.band-word.notarget.s-a,.band-word.notarget.s-r{padding:0 .5rem;border-radius:999px;color:#fff}.band-word.notarget.s-a{background:var(--amber)}.band-word.notarget.s-r{background:var(--red)}.needle{stroke:var(--umber);stroke-width:3;stroke-linecap:round}.hub{fill:var(--umber)}.gbig .dial{max-width:240px}
+
+.proposed{font-size:10.5px;border:1px dotted var(--copper);color:var(--copper);border-radius:3px;padding:0 4px;margin-left:.4rem;font-weight:500}.gh{display:flex;align-items:baseline;flex-wrap:wrap}.band-word.notarget.s-a,.band-word.notarget.s-r{padding:0 .5rem;border-radius:999px;color:#fff}.band-word.notarget.s-a{background:var(--amber)}.band-word.notarget.s-r{background:var(--red)}
 .band-word{align-self:center;font-weight:700;font-size:13px;margin-top:-.2rem}.band-word.s-a{color:var(--amber)}.band-word.s-r{color:var(--red)}.band-word.s-g{color:#4f7d63}.band-word.s-n{color:var(--taupe)}
 .lin{position:relative;height:12px;border-radius:999px;background:#CFC4AE;margin:.9rem .3rem .5rem}.lin.s-r{background:linear-gradient(90deg,var(--red) 0 20%,#CFC4AE 20%)}.lin.s-g{background:linear-gradient(90deg,#CFC4AE,var(--sage))}.lin b{position:absolute;top:-5px;width:4px;height:22px;background:var(--umber);border-radius:2px;transform:translateX(-50%)}
 .pillm{border:1px solid var(--card-edge);border-radius:999px;padding:0 .5rem;background:var(--card);font-size:12.5px}.gtrend{align-self:center}.edges{text-align:center}
@@ -1538,11 +1519,11 @@ article.card details:not(.cr):not(.rp):not(.pillx):not(.kgrp):not(.more):not(.cl
 .wt thead{display:none}.wt tr{display:block;border-top:1px solid var(--card-edge);padding:.35rem 0}.wt td{display:block;border:0;padding:.15rem .2rem}}
 @media (max-width:767px){.pbox,.chainbox{padding-left:0;padding-right:0;border-left-width:0;border-right-width:0}.pbox>h2,.chainbox>h3,.chainbox>p,.chainbox>.chain{padding-left:.5rem;padding-right:.5rem}.ggrid{gap:3px}.mnote{margin-left:0;margin-right:0}}
 @media (max-width:767px){.panel{width:calc(100% - 24px)}}
-.needle.setup{stroke:var(--ink)}.band-word.stage{color:#fff;border-radius:999px;padding:0 .5rem;font-size:11.5px;font-weight:600}.st-pl{background:#7A6A52}.st-pd{background:var(--amber)}.st-ar{background:var(--copper)}.st-im{background:#3B5A6B}.st-mo{background:#3d6b52}
+.band-word.stage{color:#fff;border-radius:999px;padding:0 .5rem;font-size:11.5px;font-weight:600}.st-pl{background:#7A6A52}.st-pd{background:var(--amber)}.st-ar{background:var(--copper)}.st-im{background:#3B5A6B}.st-mo{background:#3d6b52}
 .rtstage{font-size:10.5px;color:#3d6b52;border:1px solid #3d6b52;border-radius:999px;padding:0 .4rem;margin:.2rem .4rem}.rtsu{list-style:none;margin:.2rem 0 .5rem;padding:0;font-size:13px}.rtsu li{padding:.15rem 0}.rtsu li.ok b{color:#3d6b52}
 """
 
-JS = r"""<script>
+JS = scorering.JS + r"""<script>
 (function(){
 var b=document.body,P=window.__PAGES,G=window.__GROUPS,LT={g:'Working',a:'Less than optimal',r:'Failing',n:'not checked yet'};
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}

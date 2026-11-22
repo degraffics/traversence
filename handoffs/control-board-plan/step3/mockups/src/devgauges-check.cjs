@@ -1,8 +1,9 @@
 // Checks the 16 development gauges (step3/board/dev-gauges.html, and the Board view's Development rows in index.html) at 1280 and 390:
-// 16 gauges, each with one needle; every gauge's panel and the Questions panel open and close by ×, Esc and a click outside; the
+// 16 gauges, each one score gauge (Ring or Arc, no needle; Jason, 2026-11-22), both styles, the switch remembered; every gauge's panel and the Questions panel open and close by ×, Esc and a click outside; the
 // other-face links open the other gauge's panel at that item; no sideways scroll; two gauges per row at 390; no console errors;
 // the validator passes on the standalone page.
 const { chromium } = require('playwright');
+const { ringProblems } = require('./ring-check.cjs');
 const dir = '/home/user/traversence/handoffs/control-board-plan/step3/board/';
 (async () => {
   const b = await chromium.launch();
@@ -18,12 +19,12 @@ const dir = '/home/user/traversence/handoffs/control-board-plan/step3/board/';
       await p.goto('file://' + dir + file);
       if (file === 'index.html') { await p.evaluate(() => { try { localStorage.clear(); } catch (e) {} }); await p.reload(); await p.click('.rail [data-nav="board"]'); }
       const tag = `${file} @${w}`;
-      const g = await p.evaluate(() => [...document.querySelectorAll('.dg-g')].map(x => [x.dataset.gauge, x.querySelectorAll('.dg-needle').length, (x.querySelector('.dg-word') || {}).textContent, x.querySelector('.dg-pct').textContent, /configuration drafted: \d+ items, \d+ criteria, awaiting sign-off/.test(x.textContent)]));
-      ok(g.length === 16 && g.every(x => x[1] === 1 && x[2] === 'Planning' && x[3] === '0%' && x[4]), `${tag}: 16 gauges, each with one needle, at 0 in Planning, "configuration drafted: N items, M criteria, awaiting sign-off" (${g.length} found)`);
+      const g = await p.evaluate(() => [...document.querySelectorAll('.dg-g')].map(x => [x.dataset.gauge, x.querySelectorAll('.sr').length, (x.querySelector('.dg-word') || {}).textContent, x.querySelector('.dg-pct').textContent, /configuration drafted: \d+ items, \d+ criteria, awaiting sign-off/.test(x.textContent)]));
+      ok(g.length === 16 && g.every(x => x[1] === 1 && x[2] === 'Planning' && x[3] === '0%' && x[4]), `${tag}: 16 gauges, each with one score gauge, at 0 in Planning, "configuration drafted: N items, M criteria, awaiting sign-off" (${g.length} found)`);
       const STAGES = ['Planning', 'Phased Development', 'Audit & Review', 'Implementation', 'Monitoring'];
       await p.click('[data-dev-preview]');
-      const pv = await p.evaluate(() => [...document.querySelectorAll('.dg-g')].map(x => [x.querySelector('.dg-word').textContent, x.querySelector('.dg-pct').textContent, x.querySelectorAll('.dg-needle').length, x.querySelector('.dg-needle').getAttribute('x2')]));
-      ok(pv.every(x => STAGES.includes(x[0]) && x[0] !== 'Planning' && /^\d+%$/.test(x[1]) && x[2] === 1) && pv.some(x => x[1] !== '0%'), `${tag}: the preview shows each gauge's real stage and draft %, still one needle (${[...new Set(pv.map(x => x[0]))].join(', ')})`);
+      const pv = await p.evaluate(() => [...document.querySelectorAll('.dg-g')].map(x => [x.querySelector('.dg-word').textContent, x.querySelector('.dg-pct').textContent, x.querySelectorAll('.sr').length, x.querySelector('.sr').className]));
+      ok(pv.every(x => STAGES.includes(x[0]) && x[0] !== 'Planning' && /^\d+%$/.test(x[1]) && x[2] === 1 && /k-(pl|pd|ar|im|mo)/.test(x[3])) && pv.some(x => x[1] !== '0%'), `${tag}: the preview shows each gauge's real stage and draft %, still one score gauge, in its stage's colour (${[...new Set(pv.map(x => x[0]))].join(', ')})`);
       ok(await p.evaluate(() => [...document.querySelectorAll('.dg-g .dg-of')].every(x => /^no check yet: TOOLS/.test(x.textContent))), `${tag}: each previewed gauge says which checks it has no check for yet (TOOLS first)`);
       const bd = [];
       const allWords = pv.map(x => x[0]).concat(bd.map(x => x[0]), g.map(x => x[2]));
@@ -31,10 +32,10 @@ const dir = '/home/user/traversence/handoffs/control-board-plan/step3/board/';
       await p.click('[data-dev-preview]');
       ok(await p.evaluate(() => [...document.querySelectorAll('.dg-g')].every(x => x.querySelector('.dg-word').textContent === 'Planning' && x.querySelector('.dg-pct').textContent === '0%')), `${tag}: turning the preview off returns every gauge to Planning, 0%`);
       ok(await p.evaluate(() => document.querySelectorAll('.dg-grid')[0].querySelectorAll('.dg-g').length === 6 && document.querySelectorAll('.dg-grid')[1].querySelectorAll('.dg-g').length === 10), `${tag}: Front end 6, Back end 10`);
-      ok(await p.evaluate(() => /One item not yet built keeps the whole gauge in Phased Development; the needle still shows progress/.test(document.querySelector('.dg').textContent)), `${tag}: the Phased Development line is on the page`);
-      const rts = await p.evaluate(() => [...document.querySelectorAll('.dg-rtg')].map(g => [g.querySelectorAll('.dg-needle').length, g.querySelector('.dg-word').textContent, g.querySelector('.dg-rtk').textContent, g.querySelector('.dg-of').textContent]));
+      ok(await p.evaluate(() => /One item not yet built keeps the whole gauge in Phased Development; the number still shows progress/.test(document.querySelector('.dg').textContent)), `${tag}: the Phased Development line is on the page`);
+      const rts = await p.evaluate(() => [...document.querySelectorAll('.dg-rtg')].map(g => [g.querySelectorAll('.sr').length, g.querySelector('.dg-word').textContent, g.querySelector('.dg-rtk').textContent, g.querySelector('.dg-of').textContent]));
       ok(rts.length === 5 && rts.every(x => x[0] === 1) && rts.map(x => x[1]).join('|') === 'Planning|Phased Development|Audit & Review|Implementation|Monitoring' && rts[0][2] === 'today' && rts.slice(1).every(x => /illustration/.test(x[2])) && /target/.test(rts[4][3]),
-        `${tag}: Pages load fast across the five stages, one needle each, Planning today and the rest illustrations, Monitoring on its reading against its target`);
+        `${tag}: Pages load fast across the five stages, one score gauge each, Planning today and the rest illustrations, Monitoring on its reading against its target`);
       const ex = await p.evaluate(() => { const d = document.querySelector('.dg-ex'); return [...d.querySelectorAll('tbody tr')].map(r => r.cells[0].textContent.split(' ')[0] + ':' + r.cells[1].textContent); });
       ok(['R01–R15:passes', 'RENDER:passes', 'PATHS:passes', 'PATHS:fails', 'LOAD:no check yet', 'PHOTOS-SHOWN:no check yet', 'BRAND:partial', 'TOOLS:no check yet'].every(x => ex.includes(x)), `${tag}: Get Local's check list in full, with its "no check yet" rows (${ex.length} checks)`);
       ok(await p.evaluate(() => document.querySelectorAll('.dg-reg li').length === 26 && document.querySelectorAll('.dg-it .dg-ck').length > 200 && [...document.querySelectorAll('aside[id^="p-dev-"]')].filter(a => a.id !== 'p-dev-questions' && a.id !== 'p-dev-paths').every(a => [...a.querySelectorAll('button[disabled]')].some(b => /Run checks now/.test(b.textContent)))),
@@ -110,6 +111,20 @@ const dir = '/home/user/traversence/handoffs/control-board-plan/step3/board/';
       await p.click(`#${f0[1]} [data-dev-back]`); await p.waitForTimeout(60);
       ok(await isOpen(f0[0]), `${tag}: Back returns to the gauge the link came from`);
       await p.keyboard.press('Escape');
+      // score gauges: both styles render, bands match scores within 1%, Arc's 50 at the top centre, no needle anywhere; the switch is remembered
+      await p.click('[data-dev-preview]');
+      for (const st of ['ring', 'arc']) {
+        await p.click(`[data-gstyle-set="${st}"]`);
+        const rp = await p.evaluate(ringProblems);
+        ok(rp.style === st && rp.n >= 21 && rp.nbad === 0 && rp.needles === 0 && (st === 'ring' || rp.top50 >= 1) && (await p.evaluate(() => document.documentElement.scrollWidth)) <= w,
+          `${tag}: ${st}: ${rp.n} score gauges, each one ${st} with its band within 1% of its score, its number, its label and its stage pill; ${rp.needles} needles${st === 'arc' ? `; 50 ends at the top centre (${rp.top50})` : ''}` + (rp.nbad ? ': ' + rp.bad.join(' | ') : ''));
+        if (file === 'dev-gauges.html') { await p.click('[data-dev-preview]'); await p.screenshot({ path: `${dir}shots/dev-gauges-${st}-${w}.png`, fullPage: true }); await p.click('[data-dev-preview]'); }
+      }
+      await p.reload(); if (file === 'index.html') await p.click('.rail [data-nav="board"]');
+      const kept = await p.evaluate(() => [document.documentElement.getAttribute('data-gstyle'), document.querySelector('[data-gstyle-set="arc"]').getAttribute('aria-pressed')]);
+      await p.click('[data-gstyle-set="ring"]'); await p.reload(); if (file === 'index.html') await p.click('.rail [data-nav="board"]');
+      const back2 = await p.evaluate(() => document.documentElement.getAttribute("data-gstyle"));
+      ok(kept[0] === 'arc' && kept[1] === 'true' && back2 === "ring", `${tag}: the Gauge style switch works and is remembered after a reload (arc kept: ${kept.join(", ")}; back to ${back2})`);
       ok(errs.length === 0, `${tag}: no console errors` + (errs.length ? ': ' + errs.slice(0, 3).join(' | ') : ''));
       if (file === 'dev-gauges.html') await p.screenshot({ path: `${dir}shots/dev-gauges-${w}.png`, fullPage: true });
       if (file === 'dev-gauges.html') { await p.click('.dg-g >> nth=15'); await p.screenshot({ path: `${dir}shots/dev-gauges-panel-${w}.png` }); await p.keyboard.press('Escape'); }

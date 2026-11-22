@@ -1927,9 +1927,9 @@ Jason: "each snapshot, example page load speed snap shot is a single gauge card 
 this maybe card two drill down path leads: 1. workflow 2. Services." **This supersedes step 1's "skip big gauges"
 reference** (Q21 and SM 172–189, `step1-requirements.md`), by Jason's direction of 2026-11-22.
 
-- **The card:** a semicircle dial (inline SVG), or a linear gauge with a marker for counts. Three bands come from its
-  target: poor (red), below target (amber) and good (sage). The band's word always sits under the needle, never colour
-  alone.
+- **The card:** a score gauge (inline SVG, no needle; see "Score gauges" below), or a linear gauge with a marker for counts.
+  Its colour comes from its target: poor (red), below target (amber) and good (sage). The band's word always sits under the
+  gauge, never colour alone. (Until 2026-11-22 this was a semicircle dial with a needle and three bands.)
   - The reading is in a pill, with its time ("live · 2:40 AM MST") or "scenario", and a trend under it ("No history yet"
     where there's none).
   - Until Jason sets a target, the edges read "target: set by Jason". Proposed edges are drawn as des: 2.5 s at 99.5%, and
@@ -1949,7 +1949,7 @@ reference** (Q21 and SM 172–189, `step1-requirements.md`), by Jason's directio
   - Pages load fast: Workflows "none: no workflow makes this"; Services → Bluehost, Cloudflare.
   - Complete: Workflows → W2's tasks; Services → "A missing phone or website" → Tavily → Brave.
   - Gathering reconciles: IR-0001 on both paths.
-- **One gauge, one measure, one needle (Jason, 2026-11-22):** "dont combine or split the focus of the gauge. if a two needs
+- **One gauge, one measure, one needle (Jason, 2026-11-22; the needle since replaced by a score gauge, below):** "dont combine or split the focus of the gauge. if a two needs
   are required it's no longer a gauge is is a graph or some other representation of the measured data." Each gauge carries
   one measure on its dial. Anything else (live, held, not checked; a second count; money beside a count) goes to its
   drill-down as a small breakdown, or to a graph beside it. The runtime gauges showing two readings today (`o-phone`,
@@ -1980,6 +1980,23 @@ reference** (Q21 and SM 172–189, `step1-requirements.md`), by Jason's directio
   sign-off on record (a release approval or his ruling on the page's proposal); past work without it shows "audited, awaiting
   sign-off"; Claude's review alone and the chat approval are rejected. (3) **The register's targets and schedule are approved**;
   the AUDIT row's 20% is ours, approved with the schedule.
+- **Score gauges replace the needle dials (Jason's direction, 2026-11-22):** "how about we dont use a needle and instead use
+  the score like gauge". This **supersedes the semicircle needle dial from his earlier gauge sheet**, on every gauge: the 16
+  development gauges, the 23 runtime gauges, the five-stage strip, the board's Development rows and a snapshot's big reading.
+  - The number sits in the gauge, with "%" small beside it; the coloured band fills in proportion to the score over a faint
+    track. One measure per gauge, as before.
+  - **Colour:** the stage's, as on the strip's pills (Planning taupe, Phased Development amber, Audit & Review orange,
+    Implementation slate, Monitoring sage). At Monitoring a runtime gauge takes its live reading against its target: sage
+    when met, amber below, red on a trip. The stage word stays as the pill under it, so colour is never the only signal.
+  - About 68 px on cards, 60 px on phone grids, two per row at 390. `role="img"` with a label ("Directory: 52 percent,
+    Phased Development") and the visible number.
+  - **Two styles, pending Jason's choice** (his follow-up: "you could also just show the top half of the circle and make the
+    band go 0 - 100 with 50 being the half way mark"): **Ring**, a full circle with the number in the middle, and **Arc**,
+    the top half only, 0 at the left end, 50 at the top, 100 at the right end, the number in the opening and tiny "0" and
+    "100" at the ends. A "Gauge style: Ring | Arc" switch on `dev-gauges.html` and the board, remembered on the device;
+    Ring until he chooses. Checked by `devgauges-check.cjs` (`ring-check.cjs`): one drawing per gauge in each style, the band
+    within 1% of the score, Arc's 50 at the top centre, the number, the label and the stage pill, no needle anywhere, the
+    switch remembered. Generator: `mockups/src/scorering.py`.
 
 ---
 
