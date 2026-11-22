@@ -155,8 +155,12 @@ final class ControlAlarms
                 require_once __DIR__ . '/Automation.php';
                 Automation::sysResume($pdo, (int) $o['id'], 'Its check passed: ' . $how);
                 if (self::ESCALATED_RECOVERS) {
+                    // closed as Recovered first (02 §3c: "Recovered: <part> was down <n> min, the system fixed it"), then its
+                    // issue's hold lifts: resolving the issue first closed the alarm as "Resolved by the system" (S-A10, S-C90)
+                    $ok = self::recovered($pdo, $o, $how);
                     foreach ((array) json_decode((string) ($o['stopped'] ?? ''), true) as $st) if (($st[0] ?? '') === 'issue') { try { require_once __DIR__ . '/ServiceHealth.php'; ServiceHealth::resolve($pdo, (int) $st[1], 0, 'Its check passed: the system fixed it'); } catch (Throwable $x) {} }
-                    return self::recovered($pdo, $o, $how);
+                    if (preg_match('/^svc:issue:(\d+)$/', (string) $o['akey'], $m)) { try { require_once __DIR__ . '/ServiceHealth.php'; ServiceHealth::resolve($pdo, (int) $m[1], 0, 'Its check passed: the system fixed it'); } catch (Throwable $x) {} }
+                    return $ok;
                 }
                 if (empty($o['good_at'])) $pdo->prepare('UPDATE control_alarms SET good_at = UTC_TIMESTAMP(), good_how = ? WHERE id = ?')->execute([mb_substr($how, 0, 255), (int) $o['id']]);
                 return false;
