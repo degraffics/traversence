@@ -396,6 +396,83 @@
    "expires": "2026-11-23T01:40:16Z",
    "release": "control-board.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/staging-tables.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ibQFnVmXNfkdFarwR",
+   "why": "control board build (step 4)",
+   "since": "2026-11-22T21:40:22Z",
+   "expires": "2026-11-23T01:40:22Z",
+   "release": "control-board.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/manifests.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ibQFnVmXNfkdFarwR",
+   "why": "control board build (step 4)",
+   "since": "2026-11-22T21:40:22Z",
+   "expires": "2026-11-23T01:40:22Z",
+   "release": "control-board.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ControlEngine.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ibQFnVmXNfkdFarwR",
+   "why": "control board build (step 4)",
+   "since": "2026-11-22T21:40:22Z",
+   "expires": "2026-11-23T01:40:22Z",
+   "release": "control-board.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ControlIncidents.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ibQFnVmXNfkdFarwR",
+   "why": "control board build (step 4)",
+   "since": "2026-11-22T21:40:22Z",
+   "expires": "2026-11-23T01:40:22Z",
+   "release": "control-board.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ControlGauges.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ibQFnVmXNfkdFarwR",
+   "why": "control board build (step 4)",
+   "since": "2026-11-22T21:40:22Z",
+   "expires": "2026-11-23T01:40:22Z",
+   "release": "control-board.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/score-gauge.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ibQFnVmXNfkdFarwR",
+   "why": "control board build (step 4)",
+   "since": "2026-11-22T21:40:22Z",
+   "expires": "2026-11-23T01:40:22Z",
+   "release": "control-board.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/js/tv-copy.js",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5ibQFnVmXNfkdFarwR",
+   "why": "control board build (step 4)",
+   "since": "2026-11-22T21:40:22Z",
+   "expires": "2026-11-23T01:40:22Z",
+   "release": "control-board.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
