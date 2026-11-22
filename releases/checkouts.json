@@ -1,6 +1,55 @@
 {
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
- "claims": [],
+ "claims": [
+  {
+   "path": "website/discovery/index.php",
+   "functions": [
+    "(top)",
+    "dv_card_photos",
+    "dv_landmark_cards",
+    "dv_park_cards"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kMXdmwb4aE7hWkGeU",
+   "why": "card-fixes.zip, taken over from session_01CXLi5hFvhtEKj2JuNVmjWZ (screens proposal A4-A6, A13, B3)",
+   "since": "2026-11-22T12:37:44Z",
+   "expires": "2026-11-22T16:37:44Z",
+   "release": "card-fixes.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/explore-hero.php",
+   "functions": [
+    "tv_explore_card",
+    "tv_explore_card_css"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kMXdmwb4aE7hWkGeU",
+   "why": "card-fixes.zip, taken over from session_01CXLi5hFvhtEKj2JuNVmjWZ (screens proposal A4-A6, A13, B3)",
+   "since": "2026-11-22T12:37:44Z",
+   "expires": "2026-11-22T16:37:44Z",
+   "release": "card-fixes.zip",
+   "callers": {
+    "tv_explore_card": [
+     "app/ui/experience-ui.php",
+     "website/discovery/index.php"
+    ]
+   }
+  },
+  {
+   "path": "website/listing/view.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kMXdmwb4aE7hWkGeU",
+   "why": "card-fixes.zip, taken over from session_01CXLi5hFvhtEKj2JuNVmjWZ (screens proposal A4-A6, A13, B3)",
+   "since": "2026-11-22T12:37:44Z",
+   "expires": "2026-11-22T16:37:44Z",
+   "release": "card-fixes.zip",
+   "callers": {}
+  }
+ ],
  "lapsed": [
   {
    "path": "app/lib/Operations.php",
