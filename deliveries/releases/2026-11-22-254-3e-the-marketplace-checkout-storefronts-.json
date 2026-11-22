@@ -1,0 +1,109 @@
+{
+    "id": 254,
+    "title": "3e: the Marketplace, checkout, storefronts and domains on the site's colours, layouts kept; a note to a business owner whose accent colour is hard to read",
+    "why": "design/css-theme-brand.md §4 Release 3, area 3e (handoffs/admin-design.md). The layouts are Jason's own choices (decisions/0135 'The landing page, reviewed', 2026-11-03, and its exceptions of 2026-11-13), so nothing moves: each fixed colour on the Marketplace, an item, the cart, an order, a ticket, the rules, Shop, Domains and trvgo.us's own pages goes onto the site's tokens and the three levels (brand.md §4's note, 2026-11-19), keeping its old value as the fallback. Words the probe found under 4.5:1 (16 on the pages checked) now read at 4.5:1 or better. Storefronts keep the business's own colours (admin-design.md: 'business colours kept, owner warned below 4.5:1'): the one new behaviour is that note. In Storefront & pages, an accent that reads under 4.5:1 on the theme's cards says 'Hard to read' with its number, as the owner picks it and whenever the page opens; it's kept and saved, and the note goes when the colour reads well. Under 3:1 saving still asks for another, as before. No data changes, no outside calls, no cost.",
+    "proposals": "",
+    "zip": "design-3e.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/ui/storefront-view.php": {
+            "sha": "33205abaa84cada925b3fdd4baaee92400b41f389b4b062e54225a0c4c4b8e55",
+            "size": 20487,
+            "live_was": "8c5c8ffad6f138f6dffe6c3ce67163b9e82f725ecc654c177eb4d7abd66c414f"
+        },
+        "app/ui/market-ui.php": {
+            "sha": "84b29d7ec1518431fb7d9f74770b5862c9293c740033e44e8e8d430358d41358",
+            "size": 12131,
+            "live_was": "9946cf9215f8f870d4e463e434ca3f81ce460f8930401269743f7b37577f66ce"
+        },
+        "app/ui/domains-view.php": {
+            "sha": "b8759a043e715ccee7426d745dd97899a9184949954960f3bcaaac50fe8c7496",
+            "size": 4118,
+            "live_was": "ba1378b5878ec6b49556cbf4e9ce8e171e2d72e9956739a02f26152f06c9a28e"
+        },
+        "app/ui/faq.md": {
+            "sha": "810d9ce8f6dfdd37ae65550cd2ae78af581b70bb15159bf0025748b29a3f0c1e",
+            "size": 421129,
+            "live_was": "d57340790d80ed59f8dd448242732b6929180561859735e98b7c15abd5fdbbed"
+        },
+        "app/business/storefront.php": {
+            "sha": "e37e821929b19665c22b9c9e3ce0a478985210f39ac54313d98f07f07482d90f",
+            "size": 44057,
+            "live_was": "0e07eea3f48062c7a11a2a3124b5682dc45e51f6a834313022e6ee5442d2d669"
+        },
+        "app/lib/Storefront.php": {
+            "sha": "ce630553a4c697810ed91753f9797f05e2170d94511940e9af4c4e47bf959afb",
+            "size": 23378,
+            "live_was": "a79bd8861025d29a2bf6840316cb9246e3b17cbec422e7ad9be85d8bf50de00f"
+        },
+        "trvgo/index.php": {
+            "sha": "106778d6fe62bf1ab2b19f2dac3d6b4b9c62884c5c9397d5595e1d05c409a819",
+            "size": 14939,
+            "live_was": "a088b83378d2ddb91c8f20919c5235b2fb498012356a142417f9ef3569af1c70"
+        },
+        "website/shop/index.php": {
+            "sha": "f0e183013d6305cc3d5800ec34bd49eeaa2edb4a1fb02d53586dc1feb07d9338",
+            "size": 12717,
+            "live_was": "5eb04e4aede4b0dd7fcb9eac651e647319fdcc30550a50362e601817b145d1cd"
+        },
+        "website/market/order.php": {
+            "sha": "53ff18784d154ed7c9c550c0591039b826090737f58ce10fd79e1a2fe2d3e046",
+            "size": 13400,
+            "live_was": "fca9ec46af4c6675e9b59692df52c3ee593b9a979324d3aa71c8211a06668942"
+        },
+        "website/market/ticket.php": {
+            "sha": "a5cc258635bf0a2f34732f7a2f86caf82284ac6ddd36c07b1f63eff845cb65ce",
+            "size": 4952,
+            "live_was": "551f5c665ccfa6283307657cc9aaacf32d940c398e4f5da964e8dbb11f74775b"
+        },
+        "website/market/cart.php": {
+            "sha": "66178257ee955445876116311d3bbafd6dc713e78a470ed60fbd32ebbd4c3d52",
+            "size": 25220,
+            "live_was": "58e0c5932bcbca67e544284d1f5d4750b8182c1593bbe5b2085a84a79082f4ab"
+        },
+        "website/market/download.php": {
+            "sha": "2a12691e2c6a8c0f4e9cbeeacc7849b319ca8459fe94d9258635813530e867ee",
+            "size": 1909,
+            "live_was": "98be167afa8bd63ceb28bb3ef04955da3365fbb4a231848bae9b8fc7d94a5c4b"
+        },
+        "website/market/index.php": {
+            "sha": "727e396f7d6f2ffe40f240b141b99ba551b60348e6030b305c7f9bb89b4af99b",
+            "size": 26941,
+            "live_was": "c2b22f13c413d65302b0d5626e621987c61cc7ffde5ae35061c7a7e9cbb6083c"
+        },
+        "website/market/view.php": {
+            "sha": "89b5abe5d689f5db98eb97cb330ca69c5780a647294e4d6a0ec9dc069360da9a",
+            "size": 19251,
+            "live_was": "69b34eb56c4c27bb9ce3c7455836b08df9762cf80d514967c27d6922ec498715"
+        },
+        "website/market/rules.php": {
+            "sha": "6238ef26e87bb609f3342c61321edf3ffb723088c357196a869bb01291670efc",
+            "size": 5901,
+            "live_was": "cf5d8a43ab9591739189e5ac641f2e17113706b08fd51e866c460cde5908ef0e"
+        },
+        "website/market/item.php": {
+            "sha": "ecfe858898e46501b6036baa4c12e607fffdfbece7b41a89ea8c93306fda2622",
+            "size": 22010,
+            "live_was": "40e135bc90146bb6a84a42e46c89a5d251c1c75fed2be0059193e1bb39e334e7"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-22T20:26:07+00:00",
+            "by": 0,
+            "msg": "Uploaded design-3e.zip: 16 files."
+        }
+    ]
+}
