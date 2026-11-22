@@ -81,6 +81,8 @@ productions actual schedule."
   - The balance is due per those terms (not before delivery, as in 1.9).
   - Deposits can still be taken to offset risk.
   - To walk through later: what the credit process asks for, and who approves.
+- **How much** (2026-11-22): "Percentage set per order by staff, 65% default." Today staff set the % per order with a
+  50% default (`ClientOrders::setField`, 1227); the default becomes 65%.
 - **A deposit on an estimate** (2026-11-22): "an estimate is used for when we dont have all things confirmed, so it could
   easily be used a tool to secure the deposit and enter into the stage where we can firm up things before releasing an
   estimate to become an invoice/order." So a deposit may also be taken before approval, on an estimate, to secure the
@@ -189,7 +191,8 @@ the pass is the product. It shapes 1.2's client-configured items and 1.8's money
 4. ~~Which route an order takes~~ Answered (1.1): Send cart or Send invoice when sending.
    Wire and check: not in the cart, invoice route only (1.1). (B.4 as
    confirmed exempts "invoice later" from paid in full; 1.9 removes that exemption.)
-5. The deposit: how much and who sets it, shown before paying; how long the cancel window lasts.
+5. ~~The deposit's amount~~ Answered (1.8): a % per order set by staff, 65% default. Still open: how long the cancel
+   window lasts.
 6. How long a quote's price holds, and a vendor cost that changes.
 7. A change after release (back to held), and after payment but before the vendor.
 8. Shipping price on a client-configured order.
