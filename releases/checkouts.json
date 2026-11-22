@@ -137,17 +137,6 @@
    "callers": {}
   },
   {
-   "path": "website/vendor.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5grMsUgrRMJv3a71F9",
-   "why": "3f leftovers: sign-in, long text, standalone pages, member pages and the portal shell onto the tokens, colours only, layouts kept (css-theme-brand \u00a74 Release 3)",
-   "since": "2026-11-22T20:30:20Z",
-   "expires": "2026-11-23T00:30:20Z",
-   "release": "design-3f-leftovers.zip",
-   "callers": {}
-  },
-  {
    "path": "website/verify-listing.php",
    "functions": [],
    "kind": "change",
