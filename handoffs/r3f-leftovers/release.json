@@ -1,0 +1,12 @@
+{
+ "title": "3f's leftovers: sign-in, long text, standalone pages, member pages and the business portal on the site's colours, layouts kept",
+ "why": "design/css-theme-brand.md §4 Release 3, area 3f (handoffs/admin-design.md: '3f sign-in, long text, standalone pages, leftovers'); scope reviewed by the session manager (2026-11-22). Colours only: each fixed colour on 29 files goes onto the site's tokens and the three levels (brand.md §4's note, 2026-11-19), keeping its old value as the fallback; layouts, buttons, links and scripts unchanged. Three contrast failures fixed with existing tokens: Create account on the site's primary button colour (--tv-btn; white read 4.27:1 on #C75A28), a trip stop that's off on meta over the section colour (--tv-sec, --tv-meta; its dash read 1.93:1), and the password checklist's words on --tv-meta (3.62:1). Words under 4.5:1 on the pages checked: 586 before, 3 after, all the page shell's '|' divider, hidden from screen readers and not in this release (the FAQ alone had 526). The order pages and vendor.php wait for the orders hold (Jason, 2026-11-21). No data changes, no outside calls, no cost.",
+ "changes": [
+  {"what": "Sign in and Create account", "where": "https://traversence.com/login.php"},
+  {"what": "FAQ", "where": "https://traversence.com/faq.php"},
+  {"what": "Your Marketplace", "where": "https://traversence.com/user/market/"},
+  {"what": "Business portal", "where": "https://traversence.com/business/"}
+ ],
+ "proposals": [],
+ "switch": ""
+}

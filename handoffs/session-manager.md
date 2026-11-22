@@ -138,6 +138,9 @@ sessions take over, holding until Jason says resume. Live through Release #228 (
   pre-build ask. 3e built on b735f56 as `design-3e.zip` (`handoffs/r3e.md`): colours only on the Marketplace, checkout,
   trvgo.us's own pages and domains, layouts kept; the owner's accent note under 4.5:1 (16/16). Waiting for review and
   Jason's OK.
+  **Progress (2026-11-22, later):** 3e live as #254 (72e2070). 3f's leftovers built on 72e2070 as
+  `design-3f-leftovers.zip` (`handoffs/r3f-leftovers.md`): 29 files, colours only, three contrast fixes on existing tokens;
+  586 → 3 words under 4.5:1. The order pages and vendor.php wait for the orders hold. Waiting for review and Jason's OK.
 - **Orders held** (Jason, 2026-11-21: "It is obvious you are not able to see how the order system should work, so before I
   put more work time i need to think about how we move forward"): no pop-ups, merges or builds; #1212 (chargeFor) and
   #1224 (rulings) stay drafts outside main, out of the release order, until he says how to proceed.

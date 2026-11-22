@@ -1,0 +1,108 @@
+before 1280 /login.php                                 under 1 sw 1280 / 1280  
+before 390 /login.php                                 under 1 sw 390 / 390  
+before 1280 /login.php?tab=create                      under 8 sw 1280 / 1280  
+before 390 /login.php?tab=create                      under 8 sw 390 / 390  
+before 1280 /verify-email.php                          under 0 sw 1280 / 1280  
+before 390 /verify-email.php                          under 0 sw 390 / 390  
+before 1280 /reset-password.php                        under 7 sw 1280 / 1280  
+before 390 /reset-password.php                        under 7 sw 390 / 390  
+before 1280 /faq.php                                   under 526 sw 1280 / 1280  
+before 390 /faq.php                                   under 526 sw 390 / 390  
+before 1280 /pages/view.php?s=about                    under 0 sw 1280 / 1280  
+before 390 /pages/view.php?s=about                    under 0 sw 390 / 390  
+before 1280 /guide/how.php?id=1                        under 0 sw 1280 / 1280  
+before 390 /guide/how.php?id=1                        under 0 sw 390 / 390  
+before 1280 /guide/resources.php?id=1                  under 0 sw 1280 / 1280  
+before 390 /guide/resources.php?id=1                  under 0 sw 390 / 390  
+before 1280 /q.php?t=10.cccccccccccccccccccccccccccccc under 12 sw 1280 / 1280  
+before 390 /q.php?t=10.cccccccccccccccccccccccccccccc under 12 sw 390 / 390  
+before 1280 /nexus.php?slug=apache-sitgreaves          under 1 sw 1280 / 1280  
+before 390 /nexus.php?slug=apache-sitgreaves          under 1 sw 390 / 390  
+before 1280 /verify-listing.php                        under 0 sw 1280 / 1280  
+before 390 /verify-listing.php                        under 0 sw 390 / 390  
+before 1280 /claim.php                                 under 3 sw 1280 / 1280  
+before 390 /claim.php                                 under 3 sw 390 / 390  
+before 1280 /ai/                                       under 0 sw 1280 / 1280  
+before 390 /ai/                                       under 0 sw 390 / 390  
+before 1280 /listing/location.php?id=10                under 0 sw 1280 / 1280  
+before 390 /listing/location.php?id=10                under 0 sw 390 / 390  
+before 1280 /hub/build.php                             under 0 sw 1280 / 1280  
+before 390 /hub/build.php                             under 0 sw 390 / 390  
+after 1280 /login.php                                 under 0 sw 1280 / 1280  []
+after 390 /login.php                                 under 0 sw 390 / 390  []
+after 1280 /login.php?tab=create                      under 0 sw 1280 / 1280  []
+after 390 /login.php?tab=create                      under 0 sw 390 / 390  []
+after 1280 /verify-email.php                          under 0 sw 1280 / 1280  []
+after 390 /verify-email.php                          under 0 sw 390 / 390  []
+after 1280 /reset-password.php                        under 0 sw 1280 / 1280  []
+after 390 /reset-password.php                        under 0 sw 390 / 390  []
+after 1280 /faq.php                                   under 1 sw 1280 / 1280  ['3.83 SPAN.text-[color:var(--tv-taup "|"']
+after 390 /faq.php                                   under 1 sw 390 / 390  ['3.83 SPAN.text-[color:var(--tv-taup "|"']
+after 1280 /pages/view.php?s=about                    under 0 sw 1280 / 1280  []
+after 390 /pages/view.php?s=about                    under 0 sw 390 / 390  []
+after 1280 /guide/how.php?id=1                        under 0 sw 1280 / 1280  []
+after 390 /guide/how.php?id=1                        under 0 sw 390 / 390  []
+after 1280 /guide/resources.php?id=1                  under 0 sw 1280 / 1280  []
+after 390 /guide/resources.php?id=1                  under 0 sw 390 / 390  []
+after 1280 /q.php?t=10.cccccccccccccccccccccccccccccc under 0 sw 1280 / 1280  []
+after 390 /q.php?t=10.cccccccccccccccccccccccccccccc under 0 sw 390 / 390  []
+after 1280 /nexus.php?slug=apache-sitgreaves          under 0 sw 1280 / 1280  []
+after 390 /nexus.php?slug=apache-sitgreaves          under 0 sw 390 / 390  []
+after 1280 /verify-listing.php                        under 0 sw 1280 / 1280  []
+after 390 /verify-listing.php                        under 0 sw 390 / 390  []
+after 1280 /claim.php                                 under 0 sw 1280 / 1280  []
+after 390 /claim.php                                 under 0 sw 390 / 390  []
+after 1280 /ai/                                       under 0 sw 1280 / 1280  []
+after 390 /ai/                                       under 0 sw 390 / 390  []
+after 1280 /listing/location.php?id=10                under 0 sw 1280 / 1280  []
+after 390 /listing/location.php?id=10                under 0 sw 390 / 390  []
+after 1280 /hub/build.php                             under 0 sw 1280 / 1280  []
+after 390 /hub/build.php                             under 0 sw 390 / 390  []
+before 1280 /user/notice.php                           under 0 sw 1280 / 1280  
+before 390 /user/notice.php                           under 0 sw 390 / 390  
+before 1280 /user/profile.php                          under 0 sw 1280 / 1280  
+before 390 /user/profile.php                          under 0 sw 390 / 390  
+before 1280 /user/accounts.php                         under 3 sw 1280 / 1280  
+before 390 /user/accounts.php                         under 3 sw 390 / 390  
+before 1280 /user/market/                              under 5 sw 1280 / 1280  
+before 390 /user/market/                              under 5 sw 390 / 390  
+before 1280 /user/experiences/                         under 7 sw 1280 / 1280  
+before 390 /user/experiences/                         under 7 sw 390 / 390  
+before 1280 /user/journeys/                            under 1 sw 1280 / 1280  
+before 390 /user/journeys/                            under 1 sw 390 / 390  
+before 1280 /user/journeys/compose.php                 under 1 sw 1280 / 1280  
+before 390 /user/journeys/compose.php                 under 1 sw 390 / 390  
+before 1280 /user/trips/trip.php?id=1                  under 1 sw 1280 / 1280  
+before 390 /user/trips/trip.php?id=1                  under 1 sw 390 / 390  
+before 1280 /plans.php                                 under 0 sw 1280 / 1280  
+before 390 /plans.php                                 under 0 sw 390 / 390  
+before 1280 /two-step.php                              under 0 sw 1280 / 1280  
+before 390 /two-step.php                              under 0 sw 390 / 390  
+before 1280 /listing/businessportal.php                under 0 sw 1280 / 1280  
+before 390 /listing/businessportal.php                under 0 sw 390 / 390  
+before 1280 /business/10                               under 10 sw 1280 / 1280  
+before 390 /business/10                               under 10 sw 390 / 390  
+after 1280 /user/notice.php                           under 0 sw 1280 / 1280  []
+after 390 /user/notice.php                           under 0 sw 390 / 390  []
+after 1280 /user/profile.php                          under 0 sw 1280 / 1280  []
+after 390 /user/profile.php                          under 0 sw 390 / 390  []
+after 1280 /user/accounts.php                         under 0 sw 1280 / 1280  []
+after 390 /user/accounts.php                         under 0 sw 390 / 390  []
+after 1280 /user/market/                              under 0 sw 1280 / 1280  []
+after 390 /user/market/                              under 0 sw 390 / 390  []
+after 1280 /user/experiences/                         under 0 sw 1280 / 1280  []
+after 390 /user/experiences/                         under 0 sw 390 / 390  []
+after 1280 /user/journeys/                            under 1 sw 1280 / 1280  ['3.83 SPAN.text-[color:var(--tv-taup "|"']
+after 390 /user/journeys/                            under 1 sw 390 / 390  ['3.83 SPAN.text-[color:var(--tv-taup "|"']
+after 1280 /user/journeys/compose.php                 under 1 sw 1280 / 1280  ['3.83 SPAN.text-[color:var(--tv-taup "|"']
+after 390 /user/journeys/compose.php                 under 1 sw 390 / 390  ['3.83 SPAN.text-[color:var(--tv-taup "|"']
+after 1280 /user/trips/trip.php?id=1                  under 0 sw 1280 / 1280  []
+after 390 /user/trips/trip.php?id=1                  under 0 sw 390 / 390  []
+after 1280 /plans.php                                 under 0 sw 1280 / 1280  []
+after 390 /plans.php                                 under 0 sw 390 / 390  []
+after 1280 /two-step.php                              under 0 sw 1280 / 1280  []
+after 390 /two-step.php                              under 0 sw 390 / 390  []
+after 1280 /listing/businessportal.php                under 0 sw 1280 / 1280  []
+after 390 /listing/businessportal.php                under 0 sw 390 / 390  []
+after 1280 /business/10                               under 0 sw 1280 / 1280  []
+after 390 /business/10                               under 0 sw 390 / 390  []
