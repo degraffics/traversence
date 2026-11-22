@@ -199,3 +199,18 @@ and `website/api/` (the mirror's `sync-storage/api/crawl` and `api/video`). Put 
 - `board-menu.cjs`: the board's parts table, every system open and the last row at the window's bottom: its ⋯ menu
   is wholly in the window, each item tappable, and Esc closes it, at 1280 and 390 (T4's fix, on the board itself). 6 tests:
   after the start schema and 2a's migration, `node board-menu.cjs <root>`.
+
+## The control board's build (step 4, `handoffs/control-board-build.md`)
+- `run-all.sh <root>`: every PHP test here and in `../dispatcher-tests/` on the bench, each on a fresh `lv_main` with
+  its Run line's schema (the deleted migrations' tables recreated), with the worker endpoint served on 127.0.0.1:8765.
+- `engine.php`: the one engine (P2–P12, D1–D4, D8). `gauges.php`: the gauges' data (`ControlGauges`, the lifecycle
+  rule, the compact cache under 60 KB, each drawer's detail). `heartbeat-import.php`: the outside heartbeat's records
+  numbered when the site is back.
+- `module-cards.php` and `module-cards.cjs` (with `module-cards-page.php`): the four-zone card (03 §1–§9), its two rows,
+  Fix it only for what a person can fix, Check now through the engine, at 1280 and 390.
+- `workflows-page.php` and `workflows-page.cjs` (with `workflows-page-fixture.php`): the Workflows page
+  (`workflows-page.md` §5, §7: 8 kept, 2 moved, 3 dropped), W13 a list, W14 Not built, D8, D9.
+- `board-views.php` and `board-views.cjs` (with `board-views-page.php`, `board-views-seed.php`): Is it delivering?,
+  Development with Site health's list, Incidents, the folded report, Copy by section, an acknowledged trip kept open (D5).
+- `scenario/`: the scenario test over step 2's failure map (`scenario/cells.md`: 173 cells to 02 §4.9's 135 scenarios).
+- Repo-side: `../heartbeat/test_heartbeat.py` (the outside heartbeat).

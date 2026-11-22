@@ -174,7 +174,8 @@ function tv_admin_mod_register(PDO $pdo): string
     require_once __DIR__ . '/../ui/outside-services.php';
     $pf = '';
     try { require_once __DIR__ . '/../lib/Preflight.php'; $n = Preflight::summary($pdo); $pf = '<p class="ak-note">Each company\'s real test is on <a href="/admin/config/preflight#pf-g-services">Pre-flight</a>' . ($n['at'] ? ' (' . (int) $n['bad'] . ' ✗ at its last run)' : '') . '.</p>'; } catch (Throwable $x) {}
-    return $h . $pf . tv_outside_services($pdo, ['blocks' => $blocks, 'stages' => $stages]) . tv_ops_retired($pdo) . tv_ops_proposed($pdo, $csrf, $can, (string) $why) . tv_ops_tz_js();
+    return $h . $pf . tv_outside_services($pdo, ['blocks' => $blocks, 'stages' => $stages]) . tv_ops_retired($pdo) . tv_ops_proposed($pdo, $csrf, $can, (string) $why) . tv_ops_tz_js()
+        . '<script src="/js/tv-copy.js?v=' . (int) @filemtime(__DIR__ . '/../../website/js/tv-copy.js') . '" defer></script>';   // Copy by section on the module cards (D15)
 }
 
 /**
