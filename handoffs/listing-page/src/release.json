@@ -1,0 +1,12 @@
+{
+ "title": "The listing page: Link with the ⋯ toolkit in the corner, the name over the address, quiet categories, how sure we are in words, a shorter photo",
+ "why": "Jason's screenshot of a listing page (approved 2026-11-22, handoffs/screens-proposal-2026-11-22.md B5, Option 1), refined by him the same day. The card's top-right corner holds the Link and, just left of it, ⋯ with the actions by name (Call, Email, Directions, Map, Website, Contact, Message, Save contact, QR code): 'Use link icon in right top corner and ... tool kit just to the left of it', 'dont change to pills'. The listing's name heads its address, town and phone ('add title above address so it blocks the whole location info'); the categories follow as small words that still search ('the detail pills are distracting from the contact'), any 'Other' last. How sure we are is said in words with How we know (decisions/0133), not the ring. The photo is capped lower. Fix the pin shows only where there's a pin (not on a PO box). About isn't drawn for visitors when it has nothing to say. FAQ updated. No outside calls, no cost.",
+ "changes": [
+  {
+   "what": "A listing's page",
+   "where": "https://traversence.com/listing/view.php"
+  }
+ ],
+ "proposals": [],
+ "switch": ""
+}
