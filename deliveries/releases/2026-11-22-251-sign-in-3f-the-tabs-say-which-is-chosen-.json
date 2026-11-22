@@ -6,12 +6,12 @@
     "zip": "signin-3f.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "planned",
+    "state": "approved",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
-    "plan_at": null,
+    "plan_at": "2026-11-22 13:54:57",
     "staged_at": null,
     "vetted_at": null,
     "live_at": null,
@@ -104,6 +104,16 @@
             "at": "2026-11-22T13:54:55+00:00",
             "by": 0,
             "msg": "Uploaded signin-3f.zip: 16 files."
+        },
+        {
+            "at": "2026-11-22T13:54:57+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/signin-3f.zip (git a2672277b0)."
+        },
+        {
+            "at": "2026-11-22T13:54:57+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
         }
     ]
 }
