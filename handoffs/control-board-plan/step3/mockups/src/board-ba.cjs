@@ -11,7 +11,7 @@ const tag = process.argv[2] || 'after';
     await p.evaluate(() => { try { localStorage.clear(); } catch (e) {} });
     await p.reload();
     await p.screenshot({ path: `${dir}shots/${tag}-board-${w}.png` });
-    await p.click('[data-go-mod="railway"]').catch(() => {});
+    await p.click('.rail [data-nav="modules"]'); await p.evaluate(() => { document.getElementById('mod-railway').open = true; });
     await p.evaluate(() => { const b = document.querySelector('.sc-b[data-mod="railway"][data-scn="2"]'); if (b) b.click(); });
     await p.evaluate(() => { document.querySelector('.top').style.position = 'static'; });
     await (await p.$('#mod-railway')).screenshot({ path: `${dir}shots/${tag}-fault-card-${w}.png` });
