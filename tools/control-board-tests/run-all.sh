@@ -77,7 +77,9 @@ fresh() {   # $1: start | r2a | empty
 
 printf '%-34s %6s %6s  %s\n' TEST PASS FAIL NOTE
 TP=0; TF=0; BAD=0; ALLFAIL="$WORK/fails"; : > "$ALLFAIL"
-for f in "$HERE"/*.php "$TOOLS"/dispatcher-tests/*.php; do
+# scenario/run.php: the scenario test (control-board-build.md §5; its table scenario/cells.md): 02 §4.9's 135 scenarios
+# over step 2's 173 cells; its "  --  " lines (not on the bench, e.g. the heartbeat's "not set up (ALARM_TO)") aren't counted
+for f in "$HERE"/*.php "$TOOLS"/dispatcher-tests/*.php "$HERE"/scenario/run.php; do
     head="$(sed -n '1,14p' "$f")"
     grep -q '^// .*Run:' <<<"$head" || continue                  # fixtures (pages, seeds, zz_test) have no Run line
     name="$(basename "$(dirname "$f")")/$(basename "$f")"
