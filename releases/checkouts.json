@@ -1,18 +1,6 @@
 {
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
- "claims": [
-  {
-   "path": "app/ui/header.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5jNQCN3zFZ2Fh3qUNf",
-   "why": "Phone menu: Sign in's class clash with the menu column; AI Assist",
-   "since": "2026-11-22T14:17:44Z",
-   "expires": "2026-11-22T18:27:45Z",
-   "release": "phone-menu.zip",
-   "callers": {}
-  }
- ],
+ "claims": [],
  "lapsed": [
   {
    "path": "app/lib/Operations.php",
