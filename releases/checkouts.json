@@ -48,6 +48,23 @@
    "expires": "2026-11-22T16:37:44Z",
    "release": "card-fixes.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/PlacePhotos.php",
+   "functions": [
+    "for"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kMXdmwb4aE7hWkGeU",
+   "why": "card-fixes.zip: the card's visible credit carries the photo's licence (session manager's review, 2026-11-22)",
+   "since": "2026-11-22T12:38:46Z",
+   "expires": "2026-11-22T16:38:46Z",
+   "release": "card-fixes.zip",
+   "callers": {
+    "for": [
+     "website/discovery/index.php"
+    ]
+   }
   }
  ],
  "lapsed": [
