@@ -65,8 +65,23 @@ earliest stage any of its items is still in.
 | status Live | decided, built, live |
 | a passing path or function check | + checked |
 | a passing function check | + proved |
-| a review | never yet: no review is recorded per item, so "reviewed" is unmet everywhere until reviews are recorded |
+| a review | **reviewed**: Jason's UI, UX and Functional approvals where a release record holds them, or the session manager's recorded review (below) |
 | a render-only pass | nothing more: a page that only renders isn't checked |
+
+### Reviewed, and "accepted at sign-off"
+
+- **Reviewed** means Jason's UI, UX and Functional approvals where a release record holds them (the log's "Review UI / UX /
+  Functional: approved" lines in `deliveries/releases/`), or the session manager's recorded review.
+- **The release records were rechecked:** 11 releases hold all three approvals (#54, #55, #56, #58, #60, #63, #64, #66, #67,
+  #68, #69). Where what a release carried maps plainly to an item, that item is **reviewed**: 8 items (data cleanup, both
+  faces; the duplicates fix; Modules (Service register), Costs and the Workflow board, #55; Staging, #56; the Stock library,
+  #68). Release B's parts (#60–#67) and Start the system (#69) don't map to one item each; they're left for the owner to map.
+- **Accepted at sign-off:** past work that's live with no recorded review carries a separate mark, "accepted at sign-off",
+  shown in the drill-down. **It counts only if Jason says so.** His choice, at sign-off:
+  1. **Count it:** every item marked "accepted at sign-off" meets "reviewed".
+  2. **Don't count it:** it stays unmet until a review is recorded.
+  3. **Review item by item:** each is reviewed in turn, its approval recorded, before it counts.
+- **One item not yet built keeps the whole gauge in Phased Development; the needle still shows progress.**
 
 ## 5. Where the configuration lives (a proposal)
 
@@ -100,21 +115,29 @@ draft configuration"** shows what each would read if the draft were signed off (
 | Sales & Growth | 9 · 54 | 46% | Phased Development | Phased Development |
 | White Glove Concierge | 5 · 30 | 23% | Phased Development | Planning |
 | Back-Office | 25 · 150 | 43% | Phased Development | Phased Development |
-| Insights & Research | 13 · 78 | 45% | Phased Development | Phased Development |
-| System Configuration | 53 · 318 | 47% | Phased Development | Phased Development |
+| Insights & Research | 13 · 78 | 46% | Phased Development | Phased Development |
+| System Configuration | 53 · 318 | 49% | Phased Development | Phased Development |
 
 Fifteen preview in Phased Development because each has at least one decided item not built. Dashboard & Pulse has every
-item built, so it's in Audit & Review: no item is reviewed yet, and most have only a render check. The nine placements Jason
+item built, so it's in Audit & Review: none of its items is reviewed yet, and most have only a render check. The nine placements Jason
 marked "Needs changes" stay where they are, pending Jason, under the Questions pill.
 
-## 7. Open questions
+## 7. Runtime gauges under the lifecycle (a proposal; not applied to the runtime gauges yet)
+
+One runtime gauge, "Pages load fast", is drawn both ways in the mockup's "Runtime gauges under the lifecycle (proposal)" strip:
+- **Planning to Implementation:** the needle is its **setup %**, what's configured toward its check: the probe built, its
+  target set by Jason (about 2.5 s, 99.5% of the time; des), its check running on its clock and passing, its alarm wired to
+  the board. Today: 0 of 4.
+- **At Monitoring:** the needle switches to **the live reading against its target** (drawn as an illustration: 99.1% of
+  pages under 2.5 s, against 99.5%; scenario). Setup then shows only in Configure.
+- One needle at a time. It's a proposal and isn't applied to the runtime gauges yet.
+
+## 8. Open questions
 
 1. **The two readings:** stages of the process (a) or % bands (b)?
-2. **Live before reviewed:** most of today's items went live before any review was recorded. Under (a) a gauge can't pass
-   Audit & Review until each is reviewed after the fact. Should past work be signed as reviewed in bulk at sign-off, or
-   reviewed item by item?
-3. **What counts as "reviewed":** Jason's UI, UX and Functional approvals on a release (`"review": true`), the session
-   manager's review, or a per-item tick on the gauge?
+2. **Accepted at sign-off:** count it, don't count it, or review item by item (§4)?
+3. **Release B and Start the system:** their approvals (#60–#69) don't map to one item each. Should their owners map them,
+   or do they stay unmapped?
 4. **Proved for pages:** does every page need a function check ("does its job on real data"), or does a path check prove a
    page? The draft asks both of every item.
 5. **Weights:** all 1, or core features weighted (the outline's "a page 1, a core feature 3")?

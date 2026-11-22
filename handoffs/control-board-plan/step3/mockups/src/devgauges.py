@@ -211,10 +211,29 @@ PHASES = [('p1', 'Phase 1: what\'s live, checked, reviewed and proved'), ('p2', 
 RUNTIME_WORDS = ['Working', 'Less than optimal', 'Trip', 'Paused', 'Failing', 'Warning', 'Held', 'not checked']
 
 
+# "Reviewed": Jason's UI, UX and Functional approvals where a release record holds them (deliveries/releases/, the log's
+# "Review UI/UX/Functional: approved" lines), or the session manager's recorded review. 11 releases hold all three (#54, #55,
+# #56, #58, #60, #63, #64, #66, #67, #68, #69); these items are what those releases carried, where the carry is plain.
+REVIEWED = {
+    'Data cleanup: find, preview and act on what the old crawler made': 'release #54 (UI, UX and Functional approved by Jason)',
+    'Data cleanup (/admin/insights/cleanup)': 'release #54 (UI, UX and Functional approved by Jason)',
+    'The duplicates fix: one identity check, the recheck, Vet this place': 'release #58 (UI, UX and Functional approved by Jason)',
+    'Modules (Service register) (/admin/config/register)': 'release #55 (UI, UX and Functional approved by Jason)',
+    'Costs (/admin/config/costs)': 'release #55 (UI, UX and Functional approved by Jason)',
+    'Workflow board (/admin/config/board)': 'release #55 (UI, UX and Functional approved by Jason)',
+    'Staging (/admin/config/staging)': 'release #56 (UI, UX and Functional approved by Jason)',
+    'Stock library (/admin/config/stock)': 'release #68 (UI, UX and Functional approved by Jason)',
+}
+
+
+def accepted_mark(it):
+    return it['status'] == 'live' and it['name'] not in REVIEWED
+
+
 def crit_met(it):
     """The draft's criteria met, read from the inventory: status -> decided, built, live; check level -> checked, proved."""
     st, lvl, ok = it['status'], it.get('level'), it.get('check') == 'passing'
-    m = {'decided': True, 'built': st in ('live', 'held'), 'live': st == 'live', 'reviewed': False,
+    m = {'decided': True, 'built': st in ('live', 'held'), 'live': st == 'live', 'reviewed': it['name'] in REVIEWED,
          'checked': st == 'live' and ok and lvl in ('path', 'function'), 'proved': st == 'live' and ok and lvl == 'function'}
     return m
 
@@ -289,9 +308,30 @@ def rows(heading='h2'):
             f'Reading the five words as process stages is our inference from Jason\'s band answer, so both readings are shown: (a) the stage of the process, '
             f'(b) % bands (0–25 Planning, 25–50 Phased Development, 50–75 Audit & Review, 75–99 Implementation, 100 Monitoring; proposed).</p>'
             f'<p class="dg-rule"><b>Complete needs a path or function check; a page that only renders isn\'t complete.</b> The preview fills each item\'s criteria from the inventory: '
-            f'decided, built and live from its status; checked from a path or function check; proved from a function check; reviewed is never met until a review is recorded.</p>'
-            f'<h3 class="dg-row">Front end <span>6</span></h3><div class="dg-grid">{"".join(gauge(g, "front") for g in FRONT)}</div>'
+            f'decided, built and live from its status; checked from a path or function check; proved from a function check; reviewed from Jason\'s UI, UX and Functional approvals on a release ({len(REVIEWED)} items). '
+            f'Past work with no recorded review carries "accepted at sign-off (not counted)": counted only if Jason says so.</p>'
+            f'<p class="dg-rule">One item not yet built keeps the whole gauge in Phased Development; the needle still shows progress.</p>'
+            f'{runtime_strip()}<h3 class="dg-row">Front end <span>6</span></h3><div class="dg-grid">{"".join(gauge(g, "front") for g in FRONT)}</div>'
             f'<h3 class="dg-row">Back end <span>10</span> <small>the admin\'s modules, as manifests.php has them</small></h3><div class="dg-grid">{"".join(gauge(g, "back") for g in BACK)}</div></section>')
+
+
+def runtime_strip():
+    """One runtime gauge under the lifecycle (proposal): setup % until Monitoring, then the live reading against its target."""
+    setup = [('A page-speed probe built (2.5 s at 1280 and 390)', False), ('Its target set by Jason (about 2.5 s, 99.5% of the time; des)', False),
+             ('Its check runs on its clock and passes', False), ('Its alarm wired to the board', False)]
+    sx, sy = _pt(0, 38)
+    mx, my = _pt(0.991, 38)
+    crit = ''.join(f'<li>{"✓" if ok else "·"} {E(t)}</li>' for t, ok in setup)
+    return (f'<div class="dg-rt"><div class="dg-rth"><b>Runtime gauges under the lifecycle (proposal)</b> <span class="dg-draft">proposal: not applied to the runtime gauges yet</span></div>'
+            f'<div class="dg-rtb"><div class="dg-rtg" role="group" aria-label="Pages load fast, a runtime gauge under the lifecycle"><span class="dg-name">Pages load fast</span>'
+            f'<svg class="dg-dial" viewBox="0 0 120 66" aria-hidden="true"><path class="dg-track" d="M14 58 A46 46 0 0 1 106 58"/>'
+            f'<line class="dg-needle" x1="60" y1="58" x2="{sx:.1f}" y2="{sy:.1f}" data-setup="{sx:.1f},{sy:.1f}" data-mon="{mx:.1f},{my:.1f}"/><circle class="dg-hub" cx="60" cy="58" r="4"/></svg>'
+            f'<span class="dg-word s-pl" data-setup="Planning" data-mon="Monitoring">Planning</span><span class="dg-pct" data-setup="0%" data-mon="99.1%">0%</span>'
+            f'<span class="dg-of" data-setup="setup: 0 of 4 configured toward its check" data-mon="pages under 2.5 s, target 99.5% (scenario)">setup: 0 of 4 configured toward its check</span></div>'
+            f'<div class="dg-rtt"><div class="dg-seg" role="group" aria-label="Which phase to show"><button type="button" data-rt="setup" aria-pressed="true">Setup (today)</button>'
+            f'<button type="button" data-rt="mon" aria-pressed="false">At Monitoring (an illustration)</button></div>'
+            f'<p class="dg-sub">Through Planning to Implementation the needle is its setup %: what\'s configured toward its check. At Monitoring the needle switches to the live reading '
+            f'against its target, and setup shows only in Configure. One needle at a time.</p><ul class="dg-plist">{crit}</ul></div></div></div>')
 
 
 def _citem(it):
@@ -304,6 +344,10 @@ def _citem(it):
     cr = ''.join(f'<i{" class=ok" if m[k] else ""}>{k}</i>' for k, w in CRIT)
     lvl = f' · check level: {E(it.get("level", "none"))}' if it['status'] == 'live' else ''
     pend = f'<span class="dg-pend">{E(it["pending"])}</span>' if it.get('pending') else ''
+    if it['name'] in REVIEWED:
+        pend += f'<span class="dg-rev">reviewed: {E(REVIEWED[it["name"]])}</span>'
+    elif accepted_mark(it):
+        pend += '<span class="dg-acc">accepted at sign-off (not counted)</span>'
     return (f'<li class="dg-it" id="{it["id"]}"><span class="dg-in">{E(it["name"])}</span><span class="dg-crs">{cr}</span>'
             f'<span class="dg-src">{E(it["source"])}{lvl} · weight 1</span>{pend}' + ''.join(faces) + '</li>')
 
@@ -355,6 +399,12 @@ CSS += r"""
 .dg-of{text-align:center;line-height:1.25}.dg-tabs{display:flex;gap:.3rem;margin:.6rem 0 .3rem;flex-wrap:wrap}
 .dg-tab{border:1px solid var(--field-edge);background:var(--card);border-radius:999px;padding:.2rem .7rem;font:inherit;font-size:12.5px;cursor:pointer;color:var(--ink)}
 .dg-tab[aria-selected="true"]{background:var(--btn);color:var(--btn-text);border-color:var(--btn)}
+.dg-rev{font-size:11.5px;color:#3d6b52}.dg-acc{font-size:11.5px;color:var(--meta);font-style:italic}
+.dg-rt{border:1px dashed var(--field-edge);border-radius:.5rem;padding:.5rem .6rem;margin:.5rem 0}.dg-rth{display:flex;flex-wrap:wrap;gap:.4rem;align-items:baseline;font-size:13.5px}
+.dg-rtb{display:grid;grid-template-columns:170px minmax(0,1fr);gap:.6rem;margin-top:.4rem;align-items:start}.dg-rtg{display:flex;flex-direction:column;align-items:center;gap:.1rem;background:var(--card);border:1px solid var(--card-edge);border-radius:.5rem;padding:.5rem .4rem .55rem;min-width:0}
+.dg-seg{display:inline-flex;flex-wrap:wrap;gap:.25rem}.dg-seg button{border:1px solid var(--field-edge);background:var(--card);border-radius:999px;padding:.15rem .6rem;font:inherit;font-size:12px;cursor:pointer;color:var(--ink)}
+.dg-seg button[aria-pressed="true"]{background:var(--btn);color:var(--btn-text);border-color:var(--btn)}
+@media (max-width:767px){.dg-rtb{grid-template-columns:minmax(0,1fr)}}
 .dg-crs{display:flex;flex-wrap:wrap;gap:.2rem}.dg-c{font-size:11px;border:1px solid var(--card-edge);border-radius:999px;padding:0 .4rem;color:var(--meta);background:var(--sec)}
 .dg-gw{display:flex;flex-direction:column;gap:3px;min-width:0}.dg-gw .dg-g{flex:1}.dg-cfg{border:1px solid var(--field-edge);background:var(--card);border-radius:.4rem;padding:.15rem .5rem;font:inherit;font-size:12px;cursor:pointer;color:var(--brown)}
 .dg-rd{display:inline-flex;flex-wrap:wrap;gap:.25rem;align-items:center}.dg-rdl{font-size:12px;color:var(--meta)}.dg-rd button{border:1px solid var(--field-edge);background:var(--card);border-radius:999px;padding:.15rem .6rem;font:inherit;font-size:12px;cursor:pointer;color:var(--ink)}
@@ -377,6 +427,11 @@ document.addEventListener('click',function(e){var b=e.target.closest('[data-dev-
  var r=e.target.closest('[data-dev-reading]');if(r){document.querySelectorAll('[data-dev-reading]').forEach(function(x){x.setAttribute('aria-pressed',x===r?'true':'false');});word();}
  var o=e.target.closest('[data-dev-open-tab]');if(o){setTimeout(function(){var t=document.getElementById('t-'+o.getAttribute('data-open-panel').replace(/^p-dev-/,'')+'-'+o.getAttribute('data-dev-open-tab'));if(t)tab(t);},10);}
  var gg=e.target.closest('.dg-g');if(gg){setTimeout(function(){var t=document.getElementById('t-'+gg.getAttribute('data-open-panel').replace(/^p-dev-/,'')+'-conf');if(t)tab(t);},10);}});
+document.addEventListener('click',function(e){var r=e.target.closest('[data-rt]');if(!r)return;var k=r.getAttribute('data-rt');
+ document.querySelectorAll('[data-rt]').forEach(function(x){x.setAttribute('aria-pressed',x===r?'true':'false');});
+ var g=document.querySelector('.dg-rtg');if(!g)return;var n=g.querySelector('.dg-needle'),xy=n.getAttribute('data-'+(k==='mon'?'mon':'setup')).split(',');n.setAttribute('x2',xy[0]);n.setAttribute('y2',xy[1]);
+ ['.dg-word','.dg-pct','.dg-of'].forEach(function(s){var el=g.querySelector(s);el.textContent=el.getAttribute('data-'+(k==='mon'?'mon':'setup'));});
+ g.querySelector('.dg-word').className='dg-word s-'+(k==='mon'?'mo':'pl');});
 function word(){var on=(document.querySelector('[data-dev-preview]')||{}).getAttribute&&document.querySelector('[data-dev-preview]').getAttribute('aria-pressed')==='true';
  var band=(document.querySelector('[data-dev-reading][aria-pressed="true"]')||{}).getAttribute&&document.querySelector('[data-dev-reading][aria-pressed="true"]').getAttribute('data-dev-reading')==='band';
  document.querySelectorAll('.dg-g').forEach(function(g){var w=g.querySelector('.dg-word');if(!on){w.textContent='Planning';w.className='dg-word s-pl';return;}

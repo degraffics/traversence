@@ -32,6 +32,13 @@ const dir = '/home/user/traversence/handoffs/control-board-plan/step3/board/';
       await p.click('[data-dev-reading="stage"]'); await p.click('[data-dev-preview]');
       ok(await p.evaluate(() => [...document.querySelectorAll('.dg-g')].every(x => x.querySelector('.dg-word').textContent === 'Planning' && x.querySelector('.dg-pct').textContent === '0%')), `${tag}: turning the preview off returns every gauge to Planning, 0%`);
       ok(await p.evaluate(() => document.querySelectorAll('.dg-grid')[0].querySelectorAll('.dg-g').length === 6 && document.querySelectorAll('.dg-grid')[1].querySelectorAll('.dg-g').length === 10), `${tag}: Front end 6, Back end 10`);
+      ok(await p.evaluate(() => /One item not yet built keeps the whole gauge in Phased Development; the needle still shows progress/.test(document.querySelector('.dg').textContent)), `${tag}: the Phased Development line is on the page`);
+      const rtg = await p.evaluate(() => { const g = document.querySelector('.dg-rtg'); return [g.querySelectorAll('.dg-needle').length, g.querySelector('.dg-word').textContent, g.querySelector('.dg-pct').textContent, /not applied to the runtime gauges yet/.test(document.querySelector('.dg-rt').textContent)]; });
+      await p.click('[data-rt="mon"]');
+      const rtm = await p.evaluate(() => { const g = document.querySelector('.dg-rtg'); return [g.querySelectorAll('.dg-needle').length, g.querySelector('.dg-word').textContent, g.querySelector('.dg-pct').textContent, g.querySelector('.dg-of').textContent]; });
+      await p.click('[data-rt="setup"]');
+      ok(rtg[0] === 1 && rtg[1] === 'Planning' && rtg[2] === '0%' && rtg[3] && rtm[0] === 1 && rtm[1] === 'Monitoring' && /target/.test(rtm[3]), `${tag}: the runtime proposal gauge shows setup (${rtg[1]} ${rtg[2]}) or, at Monitoring, its reading against its target (${rtm[2]}), one needle at a time`);
+      ok(await p.evaluate(() => document.querySelectorAll('.dg-rev').length > 0 && document.querySelectorAll('.dg-acc').length > 0), `${tag}: reviewed items (from release approvals) and "accepted at sign-off" marks show in the drill-downs`);
       ok(await p.evaluate(() => /Complete needs a path or function check; a page that only renders isn.t complete/.test(document.querySelector('.dg').textContent)), `${tag}: the check-level rule is on the page`);
       ok(await p.evaluate(() => /awaiting Jason.s sign-off/.test(document.querySelector('.dg').textContent) && /our inference/.test(document.querySelector('.dg').textContent)), `${tag}: the sign-off and inference notes show`);
       if (w === 390) {
