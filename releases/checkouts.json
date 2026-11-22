@@ -10,7 +10,7 @@
    "session": "session_01CXLi5kMXdmwb4aE7hWkGeU",
    "why": "The listing page, B5 Option 1 (screens proposal, Jason 2026-11-22)",
    "since": "2026-11-22T12:37:44Z",
-   "expires": "2026-11-22T16:55:00Z",
+   "expires": "2026-11-22T17:04:32Z",
    "release": "listing-page.zip",
    "callers": {}
   },
@@ -26,6 +26,24 @@
    "expires": "2026-11-22T16:55:02Z",
    "release": "listing-page.zip",
    "callers": {}
+  },
+  {
+   "path": "app/ui/confidence-ui.php",
+   "functions": [
+    "(top)",
+    "tv_confidence_assets"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kMXdmwb4aE7hWkGeU",
+   "why": "release listing-page.zip",
+   "since": "2026-11-22T13:04:32Z",
+   "expires": "2026-11-22T17:04:32Z",
+   "release": "listing-page.zip",
+   "callers": {
+    "tv_confidence_assets": [
+     "website/listing/view.php"
+    ]
+   }
   }
  ],
  "lapsed": [
