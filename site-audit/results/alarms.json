@@ -1,17 +1,6 @@
 {
- "at": "2026-11-21T10:19:49.003Z",
+ "at": "2026-11-22T10:19:58.712Z",
  "open": [
-  {
-   "key": "pf:wf:W3",
-   "level": "trip",
-   "process": "wf:W3",
-   "title": "W3 Sources and the place store: Its gate: 1 red line(s) in the switch-on check: \"Common Crawl (W3)\" (Held: Issue #35: Common Crawl: its server failed at index.commoncrawl.org).",
-   "reading": "Its gate: 1 red line(s) in the switch-on check: \"Common Crawl (W3)\" (Held: Issue #35: Common Crawl: its server failed at index.commoncrawl.org).",
-   "means": "W3 won't start until this is fixed; the rest of the system runs.",
-   "since": "2026-11-20T09:00:26+00:00",
-   "tripped": "2026-11-20T15:05:02+00:00",
-   "stopped": "W3 (its tasks wait with it)"
-  },
   {
    "key": "task:failed:overture_bulk",
    "level": "trip",
@@ -35,23 +24,12 @@
    "stopped": "W1 (its tasks wait with it)"
   },
   {
-   "key": "svc:issue:35",
-   "level": "trip",
-   "process": "svc:commoncrawl",
-   "title": "index.commoncrawl.org: Its server failed (the crawler, on Railway)",
-   "reading": "504 504 Gateway Time-out 504 Gateway Time-out nginx/1.31.9",
-   "means": "Its back-off ran out (5 failures in a row): calls to index.commoncrawl.org are held until an admin resolves it.",
-   "since": "2026-11-20T01:01:01+00:00",
-   "tripped": "2026-11-20T07:06:34+00:00",
-   "stopped": "Calls to it"
-  },
-  {
    "key": "ops:cap:anthropic",
    "level": "warning",
    "process": "svc:anthropic",
    "title": "Anthropic (Claude) at 50%",
-   "reading": "67%",
-   "means": "Claude (AI): $27.05 of $40.00 (67%).",
+   "reading": "73%",
+   "means": "Claude (AI): $29.21 of $40.00 (73%).",
    "since": "2026-11-19T07:20:02+00:00",
    "tripped": null,
    "stopped": ""
@@ -61,8 +39,8 @@
    "level": "warning",
    "process": "svc:google",
    "title": "Google Cloud at 50%",
-   "reading": "54%",
-   "means": "Google Places check: 544 of 1,000 checks (54%).",
+   "reading": "57%",
+   "means": "Google Places check: 575 of 1,000 checks (57%).",
    "since": "2026-11-19T22:21:02+00:00",
    "tripped": null,
    "stopped": ""
@@ -72,9 +50,31 @@
    "level": "warning",
    "process": "job:identity_recheck_tick",
    "title": "The job \"identity_recheck_tick\" never finished",
-   "reading": "started 2026-11-20 06:13:02",
+   "reading": "started 2026-11-21 06:13:02",
    "means": "Its run started over 2 hours ago and never said it ended: it was killed, or it hangs.",
-   "since": "2026-11-20T15:15:02+00:00",
+   "since": "2026-11-21T15:15:02+00:00",
+   "tripped": null,
+   "stopped": ""
+  },
+  {
+   "key": "jobslow:guide_finds_tick",
+   "level": "warning",
+   "process": "job:guide_finds_tick",
+   "title": "The job \"guide_finds_tick\" is slow",
+   "reading": "64 s (usual 4)",
+   "means": "Its last run took 64 s against its usual 4 s (2 slow in a row): what follows it waits.",
+   "since": "2026-11-22T09:45:03+00:00",
+   "tripped": null,
+   "stopped": ""
+  },
+  {
+   "key": "svc:issue:41",
+   "level": "warning",
+   "process": "svc:commoncrawl",
+   "title": "index.commoncrawl.org: Its server failed (the crawler, on Railway)",
+   "reading": "504 504 Gateway Time-out 504 Gateway Time-out nginx/1.31.9",
+   "means": "Calls to index.commoncrawl.org wait a little and try again by themselves, longer each time (1 of 6).",
+   "since": "2026-11-22T09:40:31+00:00",
    "tripped": null,
    "stopped": ""
   },
@@ -94,72 +94,39 @@
    "level": "warning",
    "process": "wf:W2",
    "title": "/api/crawl/refresh counted more than it received",
-   "reading": "received 1, counted 2",
+   "reading": "received 2, counted 3",
    "means": "Its record of what it stored, updated, sent to Review or refused doesn't add up, so its numbers on the board can't be trusted.",
-   "since": "2026-11-21T09:05:42+00:00",
+   "since": "2026-11-22T09:15:57+00:00",
    "tripped": null,
    "stopped": ""
   },
   {
-   "key": "pf:so:commoncrawl-common-crawl-a5bbfe76",
+   "key": "pf:svc:loc",
    "level": "warning",
-   "process": "so:commoncrawl-common-crawl-a5bbfe76",
-   "title": "Common Crawl (W3): Held: Issue #35: Common Crawl: its server failed at index.commoncrawl.org.",
-   "reading": "Held: Issue #35: Common Crawl: its server failed at index.commoncrawl.org. It holds only what it's for (commoncrawl); the rest can start.",
-   "means": "Its check didn't pass; what depends on it waits.",
-   "since": "2026-11-20T09:00:27+00:00",
-   "tripped": null,
-   "stopped": ""
-  },
-  {
-   "key": "svc:issue:26",
-   "level": "warning",
-   "process": "svc:wikimedia",
-   "title": "query.wikidata.org: Asked us to slow down (the site, on Bluehost)",
-   "reading": "429",
-   "means": "It asked us to slow down: calls to query.wikidata.org wait twice as long as usual, longer each time, and start again by themselves. A request to go slower, never a stop.",
-   "since": "2026-11-18T20:05:05+00:00",
-   "tripped": null,
-   "stopped": ""
-  },
-  {
-   "key": "svc:issue:22",
-   "level": "warning",
-   "process": "svc:commoncrawl",
-   "title": "data.commoncrawl.org: Its server failed (the crawler, on Railway)",
-   "reading": "503 SlowDown Please reduce your request rate. VW75DWS2C65QCXBT X+mtV4ZBhAKwi6VhKDQaIkOOWlDyDY/X2eJ2OlyVw88UYj2pg5qvXlfdzsZorCuI8nmqZ6puWmHtjHdl4Lh/7j5gQs5D4ASd",
-   "means": "Calls to data.commoncrawl.org wait a little and try again by themselves, longer each time.",
-   "since": "2026-11-18T20:05:05+00:00",
-   "tripped": null,
-   "stopped": ""
-  },
-  {
-   "key": "svc:issue:18",
-   "level": "warning",
-   "process": "svc:census",
-   "title": "geocoding.geo.census.gov: Didn't answer (the site, on Bluehost)",
-   "reading": "OpenSSL SSL_read: Connection reset by peer, errno 104",
-   "means": "Calls to geocoding.geo.census.gov wait a little and try again by themselves, longer each time.",
-   "since": "2026-11-18T20:05:05+00:00",
+   "process": "svc:loc",
+   "title": "Library of Congress: No answer: Operation timed out after 15002 milliseconds with 0 bytes received.",
+   "reading": "No answer: Operation timed out after 15002 milliseconds with 0 bytes received.",
+   "means": "What needs this company waits; everything else runs.",
+   "since": "2026-11-22T09:00:41+00:00",
    "tripped": null,
    "stopped": ""
   }
  ],
  "summary": [
-  "The whole system, the last 24 hours: uptime 97.5%.",
-  "2 trips raised; 21 alarms open now.",
+  "The whole system, the last 24 hours: uptime 98.1%.",
+  "1 trip raised; 18 alarms open now.",
   "Records: 0 in, 0 stored, 0 refused.",
-  "Nearest a cap: Claude (AI) at 67%."
+  "Nearest a cap: Claude (AI) at 73%."
  ],
  "releases_looked": [
   {
    "who": "the 10-minute job",
-   "at": "2026-11-21T10:00:02+00:00",
+   "at": "2026-11-22T10:00:02+00:00",
    "found": -1
   },
   {
    "who": "the ping from git",
-   "at": "2026-11-21T03:17:56+00:00",
+   "at": "2026-11-21T12:23:42+00:00",
    "found": 0
   },
   {

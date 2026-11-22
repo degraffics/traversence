@@ -6,7 +6,7 @@
    "expect": "Dana Point, CA and its guide (it has one), not Point, TX",
    "url": "/api/search.php?q=Dana%20point",
    "status": 200,
-   "ms": 646,
+   "ms": 545,
    "place": "Dana Point, CA",
    "chips": [
     "place: Dana Point, CA"
@@ -90,7 +90,7 @@
    "expect": "Dana Point, CA",
    "url": "/api/search.php?q=dana%20point%20california",
    "status": 200,
-   "ms": 115,
+   "ms": 117,
    "place": "Dana Point, CA",
    "chips": [
     "place: Dana Point, CA"
@@ -132,7 +132,7 @@
    "expect": "places to eat in Dana Point",
    "url": "/api/search.php?q=restaurants%20in%20Dana%20Point%2C%20CA",
    "status": 200,
-   "ms": 183,
+   "ms": 170,
    "place": "Dana Point, CA",
    "chips": [
     "place: Dana Point, CA",
@@ -179,7 +179,7 @@
    "expect": "places to eat in Dana Point",
    "url": "/api/search.php?q=Places%20to%20eat%20around%20dana%20point%2C%20ca",
    "status": 200,
-   "ms": 140,
+   "ms": 115,
    "place": "Dana Point, CA",
    "chips": [
     "why: Somewhere to eat",
@@ -226,7 +226,7 @@
    "expect": "Phoenix, AZ: its guide, listings, places",
    "url": "/api/search.php?q=Phoenix%2C%20az",
    "status": 200,
-   "ms": 119,
+   "ms": 112,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ"
@@ -270,7 +270,7 @@
    "expect": "Phoenix, AZ (the pilot state first)",
    "url": "/api/search.php?q=Phoenix",
    "status": 200,
-   "ms": 111,
+   "ms": 82,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ"
@@ -315,7 +315,7 @@
    "expect": "places to eat in Phoenix",
    "url": "/api/search.php?q=restaurants&city=Phoenix&state=AZ&reach=25",
    "status": 200,
-   "ms": 176,
+   "ms": 135,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ",
@@ -324,31 +324,31 @@
    "text": "",
    "guide": "Phoenix, AZ [new]: We don't have a guide to Phoenix, AZ yet. We can build one now: a first look in about two minutes.",
    "ask": "",
-   "total": 58,
+   "total": 337,
    "kinds": [
     {
      "kind": "listing",
      "label": "Listing",
      "plural": "Listings",
-     "count": 58
+     "count": 337
     }
    ],
    "note": "",
    "osm": "",
    "mentions": 0,
    "first": [
+    "7th & McDowell (listing · Restaurants · Phoenix, AZ · 1 mi)",
     "Ahipoki (listing · Restaurants · Phoenix, AZ · 1 mi)",
     "Ahipoki (listing · Restaurants · Phoenix, AZ · <1 mi)",
-    "Cartel Coffee Lab (listing · Restaurants · Phoenix, AZ · <1 mi)",
-    "Centrico (listing · Restaurants · Phoenix, AZ · <1 mi)",
-    "CiBO Pizzeria (listing · Restaurants · Phoenix, AZ · <1 mi)",
-    "CiBO Pizzeria (listing · Restaurants · Phoenix, AZ · <1 mi)"
+    "All Star Catering (listing · Restaurants · Phoenix, AZ · 2 mi)",
+    "Anhelo Restaurant (listing · Restaurants · Phoenix, AZ · <1 mi)",
+    "Arizona Law Enforcement Canine Memorial (listing · Restaurants · Phoenix, AZ · 1 mi)"
    ],
    "groups": [
     "Listings 5"
    ],
    "funnels": [
-    "Get Local 58 → /directory/?lat=33.4484&lon=-112.074&radius=25&near=Phoenix%2C+AZ&q=restaurants"
+    "Get Local 337 → /directory/?lat=33.4484&lon=-112.074&radius=25&near=Phoenix%2C+AZ&q=restaurants"
    ],
    "intent": "",
    "near": "",
@@ -360,7 +360,7 @@
    "expect": "pizza places in Phoenix",
    "url": "/api/search.php?q=pizza%20in%20phoenix",
    "status": 200,
-   "ms": 180,
+   "ms": 158,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ",
@@ -369,23 +369,25 @@
    "text": "",
    "guide": "",
    "ask": "",
-   "total": 4,
+   "total": 17,
    "kinds": [
     {
      "kind": "listing",
      "label": "Listing",
      "plural": "Listings",
-     "count": 4
+     "count": 17
     }
    ],
    "note": "",
    "osm": "",
    "mentions": 0,
    "first": [
+    "Amelio's Pizza & Grill (listing · Pizza · Phoenix, AZ)",
+    "Angie & Jimmie's Italian Pizza (listing · Pizza · Phoenix, AZ)",
+    "Barro's Pizza (listing · Pizza · Phoenix, AZ)",
+    "Boogie Down Pizzeria & Bodega (listing · Restaurants · Phoenix, AZ)",
     "CiBO Pizzeria (listing · Restaurants · Phoenix, AZ)",
-    "CiBO Pizzeria (listing · Restaurants · Phoenix, AZ)",
-    "Domino's (listing · Restaurants · Phoenix, AZ)",
-    "Yum Pizza 3 Llc (listing · Pizza · Phoenix, AZ)"
+    "CiBO Pizzeria (listing · Restaurants · Phoenix, AZ)"
    ],
    "groups": [
     "Places 1",
@@ -393,7 +395,7 @@
    ],
    "funnels": [
     "Let's Explore 1 → /hub/?cluster=cluster-auto-phoenix",
-    "Get Local 4 → /directory/"
+    "Get Local 17 → /directory/"
    ],
    "intent": "",
    "near": "",
@@ -405,7 +407,7 @@
    "expect": "coffee near Glendale, AZ 85302",
    "url": "/api/search.php?q=coffee&zip=85302&reach=10",
    "status": 200,
-   "ms": 138,
+   "ms": 173,
    "place": "Glendale, AZ",
    "chips": [
     "place: Glendale, AZ"
@@ -413,13 +415,13 @@
    "text": "coffee",
    "guide": "Glendale, AZ [new]: We don't have a guide to Glendale, AZ yet. We can build one now: a first look in about two minutes.",
    "ask": "",
-   "total": 5,
+   "total": 9,
    "kinds": [
     {
      "kind": "listing",
      "label": "Listing",
      "plural": "Listings",
-     "count": 2
+     "count": 6
     },
     {
      "kind": "topic",
@@ -429,20 +431,21 @@
     }
    ],
    "note": "",
-   "osm": "coffee around Glendale, AZ",
+   "osm": "",
    "mentions": 0,
    "first": [
     "Lifeboat Coffee Co (listing · Restaurants · Phoenix, AZ · 6 mi)",
+    "Peets Coffee Shop (listing · Restaurants · Phoenix, AZ · 5 mi)",
+    "Cactus Cloud Cafe (listing · Restaurants · Phoenix, AZ · 10 mi)",
+    "Caffio Espresso Bar (listing · Bars · Phoenix, AZ · 9 mi)",
     "Fair Trade Cafe (listing · Restaurants · Phoenix, AZ · 9 mi)",
-    "Coffee & Tea (manufacturer) (topic · Category in Food & Dining)",
-    "Coffee & Tea Shops (topic · Category in Food & Dining)",
-    "Coffee Shops (topic · Category in Food & Dining)"
+    "Mis Raices Cafe (listing · Restaurants · Phoenix, AZ · 9 mi)"
    ],
    "groups": [
     "Listings 5"
    ],
    "funnels": [
-    "Get Local 5 → /directory/?lat=33.5675&lon=-112.1753&radius=10&near=Glendale%2C+AZ&q=coffee"
+    "Get Local 9 → /directory/?lat=33.5675&lon=-112.1753&radius=10&near=Glendale%2C+AZ&q=coffee"
    ],
    "intent": "",
    "near": "",
@@ -454,7 +457,7 @@
    "expect": "trails and hikes within 2 mi of Phoenix, then 5",
    "url": "/api/search.php?q=hiking%20near%20me&city=Phoenix&state=AZ&reach=2",
    "status": 200,
-   "ms": 484,
+   "ms": 535,
    "place": "Phoenix, AZ",
    "chips": [
     "do: Hiking",
@@ -497,7 +500,7 @@
    "expect": "trails and hikes around Phoenix",
    "url": "/api/search.php?q=hiking&city=Phoenix&state=AZ&reach=25",
    "status": 200,
-   "ms": 151,
+   "ms": 249,
    "place": "Phoenix, AZ",
    "chips": [
     "do: Hiking",
@@ -542,7 +545,7 @@
    "expect": "coffee shops in Phoenix (OpenStreetMap at once, ours once crawled)",
    "url": "/api/search.php?q=coffee%20near%20me&city=Phoenix&state=AZ&reach=10",
    "status": 200,
-   "ms": 272,
+   "ms": 238,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ"
@@ -550,13 +553,13 @@
    "text": "coffee",
    "guide": "Phoenix, AZ [new]: We don't have a guide to Phoenix, AZ yet. We can build one now: a first look in about two minutes.",
    "ask": "",
-   "total": 31,
+   "total": 35,
    "kinds": [
     {
      "kind": "listing",
      "label": "Listing",
      "plural": "Listings",
-     "count": 27
+     "count": 31
     },
     {
      "kind": "outdoors",
@@ -572,25 +575,25 @@
     }
    ],
    "note": "",
-   "osm": "coffee around Phoenix, AZ",
+   "osm": "",
    "mentions": 0,
    "first": [
     "Cartel Coffee Lab (listing · Restaurants · Phoenix, AZ · <1 mi)",
+    "Cactus Cloud Cafe (listing · Restaurants · Phoenix, AZ · <1 mi)",
     "Fair Trade Cafe (listing · Restaurants · Phoenix, AZ · <1 mi)",
-    "Lifeboat Coffee Co (listing · Restaurants · Phoenix, AZ · 8 mi)",
-    "Coffee & Tea (manufacturer) (topic · Category in Food & Dining)",
-    "Coffee & Tea Shops (topic · Category in Food & Dining)",
-    "Coffee Shops (topic · Category in Food & Dining)"
+    "Caffio Espresso Bar (listing · Bars · Phoenix, AZ · <1 mi)",
+    "Mis Raices Cafe (listing · Restaurants · Phoenix, AZ · 1 mi)",
+    "Peets Coffee Shop (listing · Restaurants · Phoenix, AZ · 5 mi)"
    ],
    "groups": [
     "Listings 5"
    ],
    "funnels": [
     "Let's Explore 1 → /discovery/?view=outdoors",
-    "Get Local 30 → /directory/?lat=33.4484&lon=-112.074&radius=250&near=Phoenix%2C+AZ&q=coffee"
+    "Get Local 34 → /directory/?lat=33.4484&lon=-112.074&radius=250&near=Phoenix%2C+AZ&q=coffee"
    ],
    "intent": "",
-   "near": "2 within undefined mi",
+   "near": "5 within undefined mi",
    "did_you_mean": ""
   },
   {
@@ -599,7 +602,7 @@
    "expect": "things to do around 85302",
    "url": "/api/search.php?q=Things%20to%20do%20near%20me&zip=85302&reach=25",
    "status": 200,
-   "ms": 250,
+   "ms": 234,
    "place": "Glendale, AZ",
    "chips": [
     "why: Things to do",
@@ -626,7 +629,7 @@
    "expect": "Glendale, AZ: its guide (built on demand) and listings",
    "url": "/api/search.php?q=Glendale%2C%20AZ",
    "status": 200,
-   "ms": 117,
+   "ms": 92,
    "place": "Glendale, AZ",
    "chips": [
     "place: Glendale, AZ"
@@ -670,7 +673,7 @@
    "expect": "places to stay in Sedona",
    "url": "/api/search.php?q=hotels%20in%20sedona",
    "status": 200,
-   "ms": 370,
+   "ms": 356,
    "place": "Sedona, AZ",
    "chips": [
     "place: Sedona, AZ"
@@ -721,7 +724,7 @@
    "expect": "Show Low, AZ (a pilot town)",
    "url": "/api/search.php?q=show%20low",
    "status": 200,
-   "ms": 130,
+   "ms": 106,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ"
@@ -762,7 +765,7 @@
    "expect": "Greer, AZ (a pilot town)",
    "url": "/api/search.php?q=greer%20arizona",
    "status": 200,
-   "ms": 113,
+   "ms": 79,
    "place": "Greer, AZ",
    "chips": [
     "place: Greer, AZ"
@@ -806,7 +809,7 @@
    "expect": "Four Corners Monument, not Four Corners, WY",
    "url": "/api/search.php?q=Four%20Corners",
    "status": 200,
-   "ms": 208,
+   "ms": 194,
    "place": "Four Corners, WY",
    "chips": [
     "place: Four Corners, WY"
@@ -834,13 +837,13 @@
    "expect": "Grand Canyon National Park",
    "url": "/api/search.php?q=grand%20canyon",
    "status": 200,
-   "ms": 984,
+   "ms": 456,
    "place": "",
    "chips": [],
    "text": "grand canyon",
    "guide": "Grand Canyon, AZ [new]: Looking for Grand Canyon, AZ? We don't have a guide to it yet. We can build one now: a first look in about two minutes.",
    "ask": "",
-   "total": 150,
+   "total": 152,
    "kinds": [
     {
      "kind": "outdoors",
@@ -852,7 +855,7 @@
      "kind": "listing",
      "label": "Listing",
      "plural": "Listings",
-     "count": 2
+     "count": 4
     }
    ],
    "note": "",
@@ -871,7 +874,7 @@
    ],
    "funnels": [
     "Let's Explore 148 → /discovery/?view=outdoors",
-    "Get Local 2 → /directory/?q=grand%20canyon"
+    "Get Local 4 → /directory/?q=grand%20canyon"
    ],
    "intent": "",
    "near": "",
@@ -883,7 +886,7 @@
    "expect": "Four Corners Monument (a landmark added by hand)",
    "url": "/api/search.php?q=four%20corners%20monument",
    "status": 200,
-   "ms": 578,
+   "ms": 542,
    "place": "",
    "chips": [],
    "text": "four corners monument",
@@ -918,7 +921,7 @@
    "expect": "Laguna Art Museum (found for the Laguna Beach guide)",
    "url": "/api/search.php?q=laguna%20art%20museum",
    "status": 200,
-   "ms": 495,
+   "ms": 458,
    "place": "",
    "chips": [],
    "text": "laguna art museum",
@@ -962,7 +965,7 @@
    "expect": "plumbers in Show Low",
    "url": "/api/search.php?q=plumber%20in%20show%20low",
    "status": 200,
-   "ms": 213,
+   "ms": 201,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ",
@@ -1050,7 +1053,7 @@
     "pizza in Phoenix, NY (place · Search there · no listings yet)",
     "pizza in Phoenix, OR (place · Search there · no listings yet)",
     "pizza in Phoenixville, PA (place · Search there · no listings yet)",
-    "Pizza (category · 64 listed · for “pizza in photographer”)"
+    "Pizza (category · 76 listed · for “pizza in photographer”)"
    ]
   },
   {
@@ -1115,7 +1118,7 @@
    "q": "four corners mon",
    "ctx": "",
    "first": [
-    "Schools (category · 311 listed · for “four corners mon”)",
+    "Schools (category · 354 listed · for “four corners mon”)",
     "Building Contractors (category · 6 listed · for “four corners mon”)",
     "Dishchii'Bikoh Community Sch (listing · Show Low › Schools)",
     "Linden Elementary (listing · Show Low › Schools)",
