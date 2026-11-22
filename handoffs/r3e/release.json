@@ -1,0 +1,12 @@
+{
+ "title": "3e: the Marketplace, checkout, storefronts and domains on the site's colours, layouts kept; a note to a business owner whose accent colour is hard to read",
+ "why": "design/css-theme-brand.md §4 Release 3, area 3e (handoffs/admin-design.md). The layouts are Jason's own choices (decisions/0135 'The landing page, reviewed', 2026-11-03, and its exceptions of 2026-11-13), so nothing moves: each fixed colour on the Marketplace, an item, the cart, an order, a ticket, the rules, Shop, Domains and trvgo.us's own pages goes onto the site's tokens and the three levels (brand.md §4's note, 2026-11-19), keeping its old value as the fallback. Words the probe found under 4.5:1 (16 on the pages checked) now read at 4.5:1 or better. Storefronts keep the business's own colours (admin-design.md: 'business colours kept, owner warned below 4.5:1'): the one new behaviour is that note. In Storefront & pages, an accent that reads under 4.5:1 on the theme's cards says 'Hard to read' with its number, as the owner picks it and whenever the page opens; it's kept and saved, and the note goes when the colour reads well. Under 3:1 saving still asks for another, as before. No data changes, no outside calls, no cost.",
+ "changes": [
+  {"what": "Marketplace", "where": "https://traversence.com/market/"},
+  {"what": "Your cart", "where": "https://traversence.com/market/cart.php"},
+  {"what": "Storefront & pages (business portal): Accent color", "where": "https://traversence.com/business/"},
+  {"what": "FAQ: Why does it say my accent color is hard to read?", "where": "https://traversence.com/faq.php#why-does-it-say-my-accent-color-is-hard-to-read"}
+ ],
+ "proposals": [],
+ "switch": ""
+}
