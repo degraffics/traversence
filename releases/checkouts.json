@@ -457,6 +457,94 @@
    "expires": "2026-11-23T03:25:22Z",
    "release": "control-board.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/staging-tables.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
+   "since": "2026-11-22T23:25:24Z",
+   "expires": "2026-11-23T03:25:24Z",
+   "release": "control-board.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/manifests.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
+   "since": "2026-11-22T23:25:24Z",
+   "expires": "2026-11-23T03:25:24Z",
+   "release": "control-board.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ControlEngine.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
+   "since": "2026-11-22T23:25:24Z",
+   "expires": "2026-11-23T03:25:24Z",
+   "release": "control-board.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ControlIncidents.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
+   "since": "2026-11-22T23:25:24Z",
+   "expires": "2026-11-23T03:25:24Z",
+   "release": "control-board.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ControlGauges.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
+   "since": "2026-11-22T23:25:24Z",
+   "expires": "2026-11-23T03:25:24Z",
+   "release": "control-board.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/score-gauge.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
+   "since": "2026-11-22T23:25:24Z",
+   "expires": "2026-11-23T03:25:24Z",
+   "release": "control-board.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/js/tv-copy.js",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
+   "since": "2026-11-22T23:25:24Z",
+   "expires": "2026-11-23T03:25:24Z",
+   "release": "control-board.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/module-cards.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
+   "since": "2026-11-22T23:25:24Z",
+   "expires": "2026-11-23T03:25:24Z",
+   "release": "control-board.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
