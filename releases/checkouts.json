@@ -82,6 +82,19 @@
      "website/discovery/index.php"
     ]
    }
+  },
+  {
+   "path": "app/ui/confidence-ui.php",
+   "functions": [
+    "tv_confidence_words"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5kMXdmwb4aE7hWkGeU",
+   "why": "B5: how sure we are, in words",
+   "since": "2026-11-22T12:55:02Z",
+   "expires": "2026-11-22T16:55:02Z",
+   "release": "listing-page.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
