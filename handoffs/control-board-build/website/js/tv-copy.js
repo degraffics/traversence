@@ -11,7 +11,7 @@
   st.textContent = '.tv-copy-b{font:600 11px/1.2 system-ui,sans-serif;padding:.12rem .45rem;border:1px solid var(--tv-card-edge,#E3DBC6);border-radius:.3rem;background:#FFFDF8;color:var(--tv-meta,#6b5d49);cursor:pointer;margin-left:.4rem;vertical-align:middle;float:right}'
     + '.tv-copy-b:hover{border-color:#B45309;color:#92400E}.tv-copy-b:focus-visible{outline:2px solid var(--tv-river,#3B5A6B);outline-offset:1px}'
     + 'summary>.tv-copy-b{float:none;margin-left:auto}'
-    + '[data-tv-copying] .tv-copy-b,[data-tv-copying] svg,[data-tv-copying] [data-copy-skip],[data-tv-copying] .cb-spx{display:none!important}';
+    + '[data-tv-copying] .tv-copy-b,[data-tv-copying] svg,[data-tv-copying] [data-copy-skip],[data-tv-copying] .cb-spx,[data-tv-copying] [aria-label=Close]{display:none!important}';
   (document.head || document.documentElement).appendChild(st);
 
   function name(el) {

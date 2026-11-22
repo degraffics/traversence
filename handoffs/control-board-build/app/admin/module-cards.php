@@ -19,21 +19,13 @@
 declare(strict_types=1);
 
 /**
- * Overrides for a radius the register can't compute (02 §8 `incident_radius_rules`, "rare overrides"), each as its spec
- * wrote it. Held · On a backup · Unaffected. (To move into service-defs.php's manifest with that field.)
+ * The workers' radius (they have no service-defs.php entry: their manifest is ControlRegister::WORKERS), as the spec wrote
+ * it: Held · On a backup · Unaffected. A module's overrides are its manifest's incident_radius_rules (02 §8).
  */
-const TV_MC_RADIUS = [
-    // 03 §14.4, "Bluehost down"
-    'bluehost' => [['Everything that runs on it: pages, search, sign-in, payments, the admin, Pulse and the board, every site job, staging, trvgo.us', 'Our crawl and video endpoints, so the workers\' reports wait'], [],
-                   ['Railway\'s workers keep running but can\'t report', 'GitHub (releases wait in the inbox)', 'The mirror and OneDrive', 'Everything already stored']],
-    // 03 §12.2, "GitHub down"
-    'github' => [['Releases (builds wait in the inbox; records aren\'t written)', 'The sync, the mirror and OneDrive', 'New Railway deploys (they build from GitHub)'], [],
-                 ['Bluehost\'s pages, search, sign-in, payments, databases', 'Gathering on current versions', 'Everything already stored']],
-    // 03 §25.2, "The edge down"
-    'fly' => [['Every storefront on its own domain, and those shops\' trvgo.us addresses (they redirect to the domain)'], [],
-              ['trvgo.us itself (short codes, GO Codes, storefronts without their own domain)', 'The site']],
-    // 03 §23.1, the video worker's radius
-    'wk:video-worker' => [['New video copies (they queue)'], ['Each video plays its original'], ['Everything else, including the crawler and W0 on the same host']],
+const TV_MC_WORKER_RADIUS = [
+    'wk:video-worker' => [['New video copies (they queue)'], ['Each video plays its original'], ['Everything else, including the crawler and W0 on the same host']],   // 03 §23.1
+    'wk:crawler' => [['All gathering the crawler runs'], [], ['W0 Indexer, the video worker, Bluehost\'s pages, search, sign-in, payments, databases and jobs, GitHub, everything stored']],   // 03 §5 c2
+    'wk:w0-indexer' => [['W0'], [], ['The crawler, the video worker, Bluehost, GitHub']],   // 03 §5 c3
 ];
 
 /** What each Railway worker holds when it (or Railway) is down (03 §4 "Railway's host tile"; §23.1). */
@@ -68,7 +60,8 @@ function tv_mc_manifest(string $key): array
     if (!is_array($d) || !isset($d['company'])) return [];
     $c = (array) $d['company'];
     return ['key' => $key, 'name' => (string) $c[0], 'role' => (string) ($d['role'] ?? ''), 'hosted_by' => '', 'purpose' => (string) ($c[1] ?? ''), 'pricing' => (string) ($c[2] ?? ''),
-            'links' => (array) ($c[3] ?? []), 'provider' => (string) $c[0], 'keys' => (array) ($d['keys'] ?? []), 'stage' => (string) ($d['stage'] ?? '')];
+            'links' => (array) ($c[3] ?? []), 'provider' => (string) $c[0], 'keys' => (array) ($d['keys'] ?? []), 'stage' => (string) ($d['stage'] ?? ''),
+            'radius_rules' => (array) ($d['incident_radius_rules'] ?? []), 'portal_links' => (array) ($d['portal_links'] ?? [])];
 }
 
 /**
@@ -92,6 +85,9 @@ function tv_mc_slots(array $man): array
             break;
         }
     }
+    // a portal page documented outside the company links, by its release (02 §8 portal_links; Fly's Tokens, release #97, 03 §25.1)
+    foreach ((array) ($man['portal_links'] ?? []) as $type => $pl) if (isset($out[$type]) && is_array($pl) && (string) ($pl[1] ?? '') !== '')
+        array_unshift($out[$type], [(string) $pl[0], (string) $pl[1], 'documented:' . (int) ($pl[2] ?? 212)]);
     if (($man['key'] ?? '') === 'bluehost') {
         $h = trim((string) (getenv('CPANEL_HOST') ?: ''));
         if ($h !== '' && preg_match('/^[a-z0-9.-]+$/i', $h)) $out['console'] = [['cPanel', 'https://' . $h . ':2083', 'site']];
@@ -99,11 +95,29 @@ function tv_mc_slots(array $man): array
     return $out;
 }
 
+/** The company's links that are no portal slot (02 §8's mapping) and no row of their own: [[label, url], …]. The sync is
+ *  GitHub's sync row (03 §12.1); Bluehost's cPanel folds into Sign in · Account (03 14.6a §6). */
+function tv_mc_pages(array $man): array
+{
+    $out = []; $slot = '/\b(billing|usage|limits|keys?|credentials|api settings|dashboard|console|account)\b/i';
+    foreach ($man['links'] as $l) {
+        [$lab, $url] = array_pad((array) $l, 2, ''); $lab = (string) $lab;
+        if (strcasecmp(trim($lab), 'The sync') === 0 || (($man['key'] ?? '') === 'bluehost' && stripos($lab, 'cpanel') !== false)) continue;
+        if (preg_match($slot, $lab) && !preg_match('/^rate limits$/i', trim($lab))) continue;
+        $u = method_exists('OutsideServices', 'link') ? OutsideServices::link((string) $url) : (string) $url;
+        if ($u !== '' && !str_starts_with($u, '{')) $out[] = [$lab, $u];
+    }
+    return $out;
+}
+
+/** The release a documented link came with: 'documented:<n>', else #212 (the release that carried service-defs.php, 03 §1). */
+function tv_mc_rel(string $tag): int { return preg_match('/^documented:(\d+)$/', $tag, $m) ? (int) $m[1] : 212; }
+
 /** A source tag (04 rule 3, locked by Jason): Documented · release #212 (service-defs.php's release), or Site settings. */
 function tv_mc_tag(string $tag, string $provider): string
 {
     if ($tag === 'site') return '<span class="mc-tag" title="Built from a setting in the site\'s .env">Site settings</span>';
-    return '<span class="mc-tag" title="Written by a Claude session from ' . tv_w_e($provider) . '\'s own pages">Documented · release #212</span>';
+    return '<span class="mc-tag" title="Written by a Claude session from ' . tv_w_e($provider) . '\'s own pages">Documented · release #' . tv_mc_rel($tag) . '</span>';
 }
 
 /** Jason's stage for a 0173 stage (02 §3a's table): [n, name, words]. keyin waits for Activate: 3 once its pre-flight passed, else 2. */
@@ -281,6 +295,10 @@ function tv_module_card(PDO $pdo, string $key, array $ctx = []): string
             . ($r['tasks'] ? '<br><small>Tasks: ' . $e(implode(', ', $r['tasks'])) . '</small>' : '') . ($r['jobs'] ? '<br><small>Jobs: ' . $e(implode(', ', $r['jobs'])) . '</small>' : '') . '</dd>'
             . ((string) ($r['produced'] ?? '') !== '' ? '<dt>Produced</dt><dd>' . $e($r['produced']) . '</dd>' : '') . '</dl>';
     }
+    // the company's other pages, not portal slots (03 §24.1 "pages, linked on their zone 2 lines, not slots"; §26 "any other
+    // link is 'Its pages'"; Rate limits on its own line, 03 §1): moved here from the register's "On <company>" list
+    $other = tv_mc_pages($man);
+    if ($other) $z2 .= '<p class="mc-row"><b>Its pages</b> ' . implode(' ', array_map(fn ($x) => '<a class="os-go" href="' . $e($x[1]) . '" target="_blank" rel="noopener">' . $e($x[0]) . ' ↗</a>', $other)) . '</p>';
     if ($key === 'github') foreach ($man['links'] as [$lab, $url]) if (strcasecmp((string) $lab, 'The sync') === 0) {   // 03 §12.1: the sync's runs on its row, not a slot
         $w = []; try { $w = Operations::watched($pdo)['sync'] ?? []; } catch (Throwable $x) {}
         $z2 .= '<div class="mc-part"><p><b>The sync</b> <span class="mc-sub">sync.yml, 06:00 and 18:00 UTC or on demand → the live mirror and OneDrive</span></p>'
@@ -292,7 +310,7 @@ function tv_module_card(PDO $pdo, string $key, array $ctx = []): string
 
     // ---- zone 3: sensors and key readiness ----
     $z3 = '<section class="mc-z mc-z3" data-copy="' . $e($name . ': sensors and keys') . '"><h3 class="mc-zh">Sensors and key readiness</h3>';
-    $z3 .= '<p class="mc-row"><b>Its check</b> ' . ($line === '' ? '<span class="mc-sub">No check of its own yet' . ($isWk ? ': its heartbeat is read from its asks for work' : '') . '.</span>'
+    $z3 .= '<p class="mc-row"><b>Its check</b> ' . ($line === '' ? '<span class="mc-sub">' . ($isWk ? 'No pre-flight line: Check now runs its own check (its heartbeat, read from its asks for work).' : 'No check of its own yet.') . '</span>'
         : ($pfRow ? tv_mc_light(($pfRow['s'] ?? '') === 'ok' ? 'ok' : (($pfRow['s'] ?? '') === 'bad' ? 'bad' : 'grey'), Preflight::markOf($line, (string) ($pfRow['s'] ?? ''))) . ' <span class="mc-sub">' . $e((string) ($pfRow['said'] ?? '')) . ' · ' . tv_mc_t((int) ($pfRow['at'] ?? 0)) . '</span>'
                   : tv_mc_light('grey', 'Not checked yet'))) . '</p>';
     if ($isWk) { $ck = ControlEngine::check($pdo, $key); $z3 .= '<p class="mc-row"><b>' . ($man['worker'] === 'crawler' ? 'Runs' : 'Heartbeat') . '</b> <span class="mc-sub">' . $e($ck['proof'] !== '' && !str_starts_with((string) $ck['proof'], 'Its check failed to run') ? (string) $ck['proof'] : 'not read yet') . '</span></p>'; }
@@ -344,7 +362,8 @@ function tv_mc_part_row(PDO $pdo, string $pp, array $pt, array $alarms, array $p
     [$light, $first, $rest] = tv_mc_state($pdo, $pp, $mine, null, null, null, false, $pfRow);
     if (str_starts_with($pp, 'wk:') && $light === 'grey') { $ck = ControlEngine::check($pdo, $pp); if ($ck['pass'] !== null && !str_starts_with((string) $ck['proof'], 'Its check failed to run')) { $light = $ck['pass'] ? 'ok' : 'hold'; $first = $ck['pass'] ? 'On · Working' : 'On · Warning: no heartbeat in its window'; $rest = (string) $ck['proof']; } }
     $duty = ControlRegister::dutyMap($pdo)[$pp] ?? '';
-    $hasLine = $pt['line'] !== '' && isset($pf[$pt['line']]) || ($pt['line'] !== '' && method_exists('Preflight', 'lines') && isset(Preflight::lines($pdo)[$pt['line']]));
+    // a worker or an endpoint of ours: the engine's own check (the board's check routes wk: and ep: to ControlEngine::check, 02 §2.7)
+    $hasLine = (bool) preg_match('/^(wk|ep):/', $pp) || ($pt['line'] !== '' && (isset($pf[$pt['line']]) || isset(Preflight::lines($pdo)[$pt['line']])));
     $h = '<div class="mc-part' . ($mine ? ' mc-tint-' . ($light === 'bad' ? 'bad' : 'hold') : '') . '" id="mc-part-' . $e(preg_replace('/[^a-z0-9-]/i', '-', $pp)) . '">'
         . '<p><b>' . $e($pt['name']) . '</b> <span class="mc-role mc-role-s">' . $e($pt['role']) . '</span>' . ($duty !== '' ? ' <span class="mc-crit">Critical: ' . $e($duty) . '</span>' : '') . '</p>'
         . ($pt['what'] !== '' ? '<p class="mc-sub">' . $e($pt['what']) . '</p>' : '') . ($pt['feeds'] !== '' ? '<p class="mc-sub">Feeds: ' . $e($pt['feeds']) . '</p>' : '')
@@ -363,7 +382,7 @@ function tv_mc_setup(array $man, array $slots): string
     foreach (TV_MC_SLOTS as $t => [$lab]) if (!$slots[$t]) { if ($t === 'login') $gaps[] = 'Sign in not recorded'; else $why[] = $lab; }
     if ($why) $gaps[] = implode(', ', $why) . ': why not recorded';
     $keys = ''; foreach ($man['keys'] as $k) { [$kn, $kw] = array_pad((array) $k, 2, ''); $keys .= '<li><code>' . $e($kn) . '</code>: ' . $e($kw) . '</li>'; }
-    $sl = ''; foreach (TV_MC_SLOTS as $t => [$lab]) $sl .= '<li>' . $e($lab) . ': ' . ($slots[$t] ? $e($lab . ' · ' . $slots[$t][0][0]) . ' · ' . ($slots[$t][0][2] === 'site' ? 'Site settings' : 'Documented · release #212') : 'Not registered · no why yet') . '</li>';
+    $sl = ''; foreach (TV_MC_SLOTS as $t => [$lab]) $sl .= '<li>' . $e($lab) . ': ' . ($slots[$t] ? $e($lab . ' · ' . $slots[$t][0][0]) . ' · ' . ($slots[$t][0][2] === 'site' ? 'Site settings' : 'Documented · release #' . tv_mc_rel((string) $slots[$t][0][2])) : 'Not registered · no why yet') . '</li>';
     return '<details class="mc-setup"><summary class="mc-sub">' . ($gaps ? 'Setup capture: ' . $e(implode(' · ', $gaps)) : 'Setup capture: complete') . ' <span>Record ▸</span></summary>'
         . '<p class="mc-sub">Names only, never values. Credentials live only in the Vault.</p>'
         . '<p><b>Where its keys live</b></p>' . ($keys !== '' ? '<ul class="mc-list">' . $keys . '</ul>' : '<p class="mc-sub">No keys of its own.</p>')
@@ -402,19 +421,25 @@ function tv_mc_spend(PDO $pdo, string $key, array $man, ?array $r, array $slots)
 /**
  * Its Incident Radius if it fails (02 §6): Held · On a backup · Unaffected, each list one tap away. A Host: what it hosts;
  * a Source or Service: its calls, and each task that uses it either on its next working source or waiting; Unaffected:
- * every other workflow. Rare overrides from the spec (TV_MC_RADIUS).
+ * every other workflow. The manifest's incident_radius_rules override a list (02 §8); the workers' are TV_MC_WORKER_RADIUS.
  */
 function tv_mc_radius(PDO $pdo, string $key, array $man, array $parts): array
 {
-    if (isset(TV_MC_RADIUS[$key])) return TV_MC_RADIUS[$key];
+    if (isset(TV_MC_WORKER_RADIUS[$key])) return TV_MC_WORKER_RADIUS[$key];
+    [$held, $back, $un] = tv_mc_radius_computed($pdo, $key, $man, $parts);
+    // the manifest's rare overrides (02 §8 incident_radius_rules): a list it names stands as written
+    $rr = (array) ($man['radius_rules'] ?? []);
+    return [array_key_exists('held', $rr) ? (array) $rr['held'] : $held, array_key_exists('backup', $rr) ? (array) $rr['backup'] : $back, array_key_exists('unaffected', $rr) ? (array) $rr['unaffected'] : $un];
+}
+
+/** The radius computed from the register (02 §6): a Host's workers; a Source's or Service's calls and the tasks that use it. */
+function tv_mc_radius_computed(PDO $pdo, string $key, array $man, array $parts): array
+{
     $held = []; $back = []; $un = [];
     if ($key === 'railway') {
         foreach ($parts as $pp => $pt) $held[] = TV_MC_WORKER_HELD[substr($pp, 3)] ?? ($pt['name'] . ': all gathering (' . preg_replace('/^Gathering: /', '', $pt['feeds']) . ')');
-        $un = ['Bluehost: pages, search, sign-in, payments, the databases', 'GitHub: releases, the sync', 'Everything already stored'];   // 03 §4
-        return [$held, $back, $un];
+        return [$held, $back, ['Everything already stored']];
     }
-    if ($key === 'crawler' || $key === 'wk:crawler') return [['All gathering the crawler runs'], [], ['W0 Indexer, the video worker, Bluehost\'s pages, search, sign-in, payments, databases and jobs, GitHub, everything stored']];   // 03 §5 c2
-    if ($key === 'wk:w0-indexer') return [['W0'], [], ['The crawler, the video worker, Bluehost, GitHub']];   // 03 §5 c3
     $held[] = 'Calls to ' . $man['name'] . ' (' . rtrim($man['purpose'], '.') . ')';
     $tasks = (array) (OutsideServices::CONTROLS[$key]['tasks'] ?? []); $tw = ControlRegister::taskWorkflows($pdo); $touched = [];
     $res = []; try { $res = Preflight::results($pdo); } catch (Throwable $x) {}
@@ -482,7 +507,7 @@ function tv_mc_zone4(PDO $pdo, string $key, array $man, string $proc, array $slo
     if ($fixHtml === '' && $fixType !== '') $fixHtml = '<a class="ak-b go tv-fix" href="#mc-' . $e(str_replace(':', '-', $key)) . '-slot-' . $fixType . '" data-fix="' . $e($fixType) . '">Fix it</a> ';
     if ($fixHtml !== '') array_unshift($ours, $fixHtml);
     // the board's actions with their guards
-    $hasLine = $line !== '' && (isset($pf[$line]) || isset(Preflight::lines($pdo)[$line]));
+    $hasLine = $isWk || ($line !== '' && (isset($pf[$line]) || isset(Preflight::lines($pdo)[$line])));   // a worker: the engine's check
     $ours[] = tv_mc_btn('check', $proc, 'Check now', $hasLine && $canPf, !$hasLine ? 'It has no check of its own yet.' : $whyPf); if ($hasLine && $canPf) $allowed[] = 'Check now';
     if (!$isWk) {
         $np = Automation::NOT_PAUSABLE[$key] ?? null;

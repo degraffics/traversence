@@ -12,6 +12,10 @@
 //   role: host (runs our code) | source (supplies data) | service (does a platform job): what a fault holds (the board's
 //   one engine, ControlEngine::radius; control-board-plan step3/02 §2.1, §6); answers: [status => issue kind] for a service
 //   whose own codes mean more than HTTP's (Tavily's 432 is its plan's limit, 03 §17), read by ServiceHealth::classify
+//   incident_radius_rules: ['held' => [...], 'backup' => [...], 'unaffected' => [...]], the rare overrides of the computed
+//   Incident Radius (02 §6, §8), each list as its card spec writes it; a list left out is computed (app/admin/module-cards.php)
+//   portal_links: [type => [label, url, release]] for a portal page documented outside the company links (02 §8's field;
+//   type billing | keys | console | login), drawn in its slot with "Documented · release #<release>" (04 §5 rule 3)
 // A new service is one entry here and its connector; run the generator, then send the release.
 declare(strict_types=1);
 
@@ -79,6 +83,7 @@ return [
     ],
     'railway' => [
         'role' => 'host',
+        'incident_radius_rules' => ['unaffected' => ['Bluehost: pages, search, sign-in, payments, the databases', 'GitHub: releases, the sync', 'Everything already stored']],   // 03 §4; held: its workers, computed
         'company' => ['Railway', 'Runs the crawler worker every 5 minutes, and W0 Indexer all the time (it sleeps while W0 is off).',
             'Hobby plan: $5 a month including $5 of usage; more only if the worker uses over $5 in a month.',
             [['Dashboard', 'https://railway.com/dashboard'], ['Usage', 'https://railway.com/account/usage']],
@@ -92,6 +97,8 @@ return [
     ],
     'bluehost' => [
         'role' => 'host',
+        'incident_radius_rules' => ['held' => ['Everything that runs on it: pages, search, sign-in, payments, the admin, Pulse and the board, every site job, staging, trvgo.us', 'Our crawl and video endpoints, so the workers\' reports wait'], 'backup' => [],
+            'unaffected' => ['Railway\'s workers keep running but can\'t report', 'GitHub (releases wait in the inbox)', 'The mirror and OneDrive', 'Everything already stored']],   // 03 §14.4, "Bluehost down"
         'company' => ['Bluehost', 'The web host: the site itself, cPanel (jobs, mailboxes, through its API), and the site\'s own email (sign-in links, notices).',
             'A flat hosting plan. Its price goes in the monthly total once it\'s set (Settings: Bluehost plan, a month).',
             [['Account', 'https://my.bluehost.com/'], ['cPanel', 'https://my.bluehost.com/hosting/app#/cpanel']],
@@ -138,6 +145,9 @@ return [
     ],
     'fly' => [
         'role' => 'host',
+        'incident_radius_rules' => ['held' => ['Every storefront on its own domain, and those shops\' trvgo.us addresses (they redirect to the domain)'], 'backup' => [],
+            'unaffected' => ['trvgo.us itself (short codes, GO Codes, storefronts without their own domain)', 'The site']],   // 03 §25.2, "The edge down"
+        'portal_links' => ['keys' => ['Tokens', 'https://fly.io/dashboard/traversence/tokens', 97]],   // 03 §25.1, §25.4 (4): release #97 (live 2026-11-17)
         'company' => ['Fly.io', 'The edge for businesses\' own domains on their storefronts (decisions/0139).',
             'Per machine and certificate; small while few businesses use their own domain.',
             [['Dashboard', 'https://fly.io/dashboard'], ['Billing', 'https://fly.io/dashboard/personal/billing']],
@@ -147,6 +157,8 @@ return [
     ],
     'github' => [
         'role' => 'host',
+        'incident_radius_rules' => ['held' => ['Releases (builds wait in the inbox; records aren\'t written)', 'The sync, the mirror and OneDrive', 'New Railway deploys (they build from GitHub)'], 'backup' => [],
+            'unaffected' => ['Bluehost\'s pages, search, sign-in, payments, databases', 'Gathering on current versions', 'Everything already stored']],   // 03 §12.2, "GitHub down"
         'company' => ['GitHub', 'The 3-way sync between the server and OneDrive, the site checks, and the docs.',
             'Actions minutes: within the free allowance on the current plan.',
             [['The sync', 'https://github.com/degraffics/traverse-3way-sync/actions'], ['Billing', 'https://github.com/settings/billing']],

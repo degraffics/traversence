@@ -82,8 +82,8 @@ $t('…the card opens it in the side panel', count(array_filter($wfs, fn ($w) =>
 $t('kept 3: By workflow, this month: the fold, and the month\'s spend on W1\'s card', str_contains($tx, 'By workflow, this month') && str_contains($h, '$1.50') && str_contains($text($card('W1')), 'This month: $1.50'));
 $t('kept 4: each workflow\'s switch line: a trip in 0175\'s words, never "paused by a person"', str_contains($text($card('W1')), 'Paused by the system (a trip)') && !preg_match('/paused by a person/i', $tx), $text($card('W1')));
 $free = array_values(array_filter(['W4', 'W5', 'W6', 'W7', 'W8', 'W9', 'W10', 'W11'], function ($w) use ($pdo) { try { return !Operations::blocking($pdo, $w); } catch (Throwable $x) { return false; } }));
-$t('…Running where nothing holds it (a workflow with no red line on this bench)', $free !== [] && str_contains($text($card($free[0])), 'Running') && str_contains($card($free[0]), 'wfp-lt wfp-g'), [$free, $text($card($free[0] ?? 'W11'))]);
-$t('…a person\'s pause: "Paused: <why>", off on purpose, never a failure', str_contains($text($card('W12')), 'Paused: Until the search review') && str_contains($card('W12'), 'wfp-lt wfp-n') && str_contains($card('W12'), 'data-wfp-g="off'));
+$t('…Running where nothing holds it (a workflow with no red line on this bench)', $free !== [] && str_contains($text($card($free[0])), 'Running') && str_contains($card($free[0]), 'wfp-lt wfp-k-g'), [$free, $text($card($free[0] ?? 'W11'))]);
+$t('…a person\'s pause: "Paused: <why>", off on purpose, never a failure', str_contains($text($card('W12')), 'Paused: Until the search review') && str_contains($card('W12'), 'wfp-lt wfp-k-n') && str_contains($card('W12'), 'data-wfp-g="off'));
 $t('kept 5: last run, labelled with its zone (<time datetime data-tv-time>)', (bool) preg_match('~Last run: <time datetime="2026-11-22T13:55:00[^"]*" data-tv-time>Nov 22, 1:55 PM [A-Z]{2,5}</time>, did its work~', $panel('wfp-W1')), mb_substr($text($panel('wfp-W1')), 0, 200));
 // Returns empty (R62): a frequent task with work and answers but nothing back
 $pdo->exec("INSERT INTO crawl_run_items (wf, task, outcome, at, fetches, counts) VALUES " . implode(',', array_fill(0, 12, "('W11', 'howto', 'done', NOW(), 3, '{}')")));
@@ -136,7 +136,7 @@ $t('each item opens its workflow\'s page in the side panel', str_contains($now, 
 echo "D8, D9\n";
 $p2 = $panel('wfp-W2');
 $t('D8: identity_recheck_tick\'s hang shows on W2\'s page, holding only recheck', str_contains($text($p2), 'The job "identity_recheck_tick" never finished') && str_contains($text($p2), 'It is W2\'s recheck task: its hang holds only recheck; the rest of W2 runs'), mb_substr($text($p2), 0, 900));
-$t('…on recheck\'s own step too, and as a warning on W2\'s card, not a loose job', str_contains($text($p2), 'The job "identity_recheck_tick" never finished. It holds only recheck.') && str_contains($text($card('W2')), 'Warning') === true || str_contains($card('W2'), 'warn'), $text($card('W2')));
+$t('…on recheck\'s own step too, and as a warning on W2\'s card, not a loose job', str_contains($text($p2), 'The job "identity_recheck_tick" never finished. It holds only recheck.') && str_contains($text($card('W2')), 'Warning: The job "identity_recheck_tick" never finished') && (bool) preg_match('/data-wfp-g="[^"]*\bwarn\b/', $card('W2')), $text($card('W2')));
 $t('…its job\'s runs a tap away (the alarm\'s own link, in a drawer)', str_contains($p2, '/admin/config/control/job-identity_recheck_tick" data-peek-frame>Open it</a>'));
 $t('D9: 8 failed crawl jobs, a count on W1 (the coverage task\'s workflow)', str_contains($text($card('W1')), '8 crawl jobs failed') && str_contains($p1, 'data-tv-label="8 crawl jobs failed:"'), $text($card('W1')));
 $t('…with Try again there (coverage)', str_contains($p1, 'data-wfp-retry="coverage"') && str_contains($p1, '>Try again</button>'));

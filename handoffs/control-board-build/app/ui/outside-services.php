@@ -82,6 +82,10 @@ function tv_outside_services(PDO $pdo, array $with = []): string
     $pf = []; try { require_once __DIR__ . '/../lib/Preflight.php'; $pf = Preflight::results($pdo); [$canTest, $whyTest] = Preflight::can(); } catch (Throwable $x) { $canTest = false; $whyTest = 'The pre-flight isn\'t ready'; }
     foreach (OutsideServices::COMPANIES as $k => [$name, $what, $pricing, $links, $usageKeys, $planKey]) {
         $cUsd = 0.0;   // this company's month so far: its plan and its use
+        // the four-zone card drawn (app/admin/module-cards.php; control-board-plan step3/03-cards.md §1, §3, §9): its spend chip
+        // and its four portal slots carry "What it costs" and the company's links, so they aren't drawn twice here; where the
+        // card couldn't draw (the old block instead), they stay
+        $card4 = isset($blocks[$k]) && str_contains((string) $blocks[$k], 'class="mc-card');
         $parts = []; try { $parts = OutsideServices::parts($pdo, $k); } catch (Throwable $x) { $parts = [['Check', 'Couldn\'t check: ' . $x->getMessage(), 'bad', '', '']]; }
         $bad = array_filter($parts, fn ($p) => $p[2] === 'bad');
         $b = '<p class="os-what">' . $e($what) . '</p>';
@@ -178,19 +182,21 @@ function tv_outside_services(PDO $pdo, array $with = []): string
         }
         $free = str_starts_with($pricing, 'Free ($0)');
         if ($k === 'namecom') $b .= tv_os_namecom_prices();   // what our account pays per ending, beside Name.com's public price (Jason, 2026-11-17)
-        $b .= '<h3 class="os-h">What it costs</h3>' . ($cost !== '' ? $cost : ($free ? '<p class="os-line"><b>$0</b>: free, within its usage rules below.</p>' : '<p class="os-line">No use counted by the site; see its own billing.</p>')) . '<p class="os-note">' . $e($pricing) . '</p>';
+        if (!$card4) $b .= '<h3 class="os-h">What it costs</h3>' . ($cost !== '' ? $cost : ($free ? '<p class="os-line"><b>$0</b>: free, within its usage rules below.</p>' : '<p class="os-line">No use counted by the site; see its own billing.</p>')) . '<p class="os-note">' . $e($pricing) . '</p>';
         // its settings changed here (the rest stay in .env: the names under each part above)
         if ($mine = OutsideServices::settingsOf($k)) $b .= '<h3 class="os-h">Its settings</h3>' . tv_os_env_rows($mine);
         // where it's set up in our admin, then the company's own pages
         if ($in = OutsideServices::linked($k)) {
             $b .= '<h3 class="os-h">In our admin</h3><div class="os-links">';
             foreach ($in as [$lt, $lu]) $b .= '<a class="ak-b" href="' . $e($lu) . '">' . $e($lt) . '</a>';
-            $b .= '</div><h3 class="os-h">On ' . $e($name) . '</h3>';
+            $b .= '</div>' . ($card4 ? '' : '<h3 class="os-h">On ' . $e($name) . '</h3>');
         }
-        $b .= '<div class="os-links">';
-        foreach ($links as [$lt, $lu]) { $u = OutsideServices::link($lu); $ext = !str_starts_with($u, '/');
-            $b .= '<a class="ak-b" href="' . $e($u) . '"' . ($ext ? ' target="_blank" rel="noopener"' : '') . '>' . $e($lt) . ($ext ? ' ↗' : '') . '</a>'; }
-        $b .= '</div>';
+        if (!$card4) {
+            $b .= '<div class="os-links">';
+            foreach ($links as [$lt, $lu]) { $u = OutsideServices::link($lu); $ext = !str_starts_with($u, '/');
+                $b .= '<a class="ak-b" href="' . $e($u) . '"' . ($ext ? ' target="_blank" rel="noopener"' : '') . '>' . $e($lt) . ($ext ? ' ↗' : '') . '</a>'; }
+            $b .= '</div>';
+        }
         // its terms and where to reach it or its community when something's wrong
         if ($ct = OutsideServices::CONTACT[$k] ?? []) {
             $b .= '<h3 class="os-h">Terms and who to ask</h3><div class="os-links">';

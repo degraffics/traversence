@@ -108,6 +108,44 @@ $h = $card('github');
 $t('GitHub: the sync on its row with Its runs, never a portal slot (04 §5)', str_contains($h, '<b>The sync</b>') && str_contains($h, '>Its runs ↗</a>') && !preg_match('/mc-slot[^"]*" id="mc-github-slot-console"><p class="mc-ty">Console <small>· The sync/', $h));
 $t('…Critical: procedures', str_contains($h, 'Critical: procedures'));
 
+// 7b. the manifest: Fly's Keys · Tokens from release #97; its other pages; the radius overrides read from service-defs.php
+$h = $card('fly');
+$t('Fly.io: Keys · Tokens, tagged Documented · release #97 (03 §25.1, the manifest\'s portal_links)', str_contains($h, 'Keys <small>· Tokens</small>') && str_contains($h, 'https://fly.io/dashboard/traversence/tokens') && str_contains($h, 'Documented · release #97'));
+$t('…its radius from its manifest\'s incident_radius_rules (03 §25.2)', str_contains($h, 'Every storefront on its own domain'));
+$defs = require $app . '/lib/service-defs.php';
+$t('the overrides live in service-defs.php, not the card (02 §8 incident_radius_rules)', isset($defs['bluehost']['incident_radius_rules']['held'], $defs['github']['incident_radius_rules']['held'], $defs['fly']['incident_radius_rules']['held'], $defs['railway']['incident_radius_rules']['unaffected']) && !str_contains((string) file_get_contents($app . '/admin/module-cards.php'), 'Every storefront on its own domain'));
+$h = $card('cloudflare');
+$t('a company\'s other pages (R2 buckets, Turnstile) on zone 2\'s "Its pages", not slots (03 §24.1, §26)', (bool) preg_match('/<b>Its pages<\/b> .*R2 buckets ↗.*Turnstile ↗/', $h) && !str_contains($h, 'Console <small>· R2'));
+$h = $card('railway');
+$t('Check now on each worker and each endpoint, never greyed (the engine\'s check, 02 §2.7)', str_contains($h, 'data-mc-act="check" data-mc-id="wk:video-worker">Check now</button>') && str_contains($h, 'data-mc-act="check" data-mc-id="wk:crawler">Check now</button>'));
+$hb = $card('bluehost');
+$t('…and on /api/crawl/loads.php', str_contains($hb, 'data-mc-act="check" data-mc-id="ep:crawl/loads">Check now</button>'));
+$t('…and on the video worker\'s own card', str_contains($card('wk:video-worker'), 'data-mc-act="check" data-mc-id="wk:video-worker">Check now</button>'));
+
+// 7c. the board's endpoint: Check now on a worker or an endpoint runs the engine's check (website/admin/api.php). Its block
+// is run here as written, with Response standing in (it answers by throwing), and ControlEngine::$checker seeing the call.
+$api = (string) file_get_contents(dirname($app) . '/website/admin/api.php');
+$i = strpos($api, "if (\$act === 'check' && preg_match('/^(wk|ep):(.+)\$/', \$pid, \$pm)) {"); $j = $i === false ? false : strpos($api, "            if (\$act === 'check') {\n                \$lid", $i);
+$t('api.php routes Check now for wk: and ep: parts to the engine, after the same permission gate and logbook line', $i !== false && $j !== false && $i > strpos($api, "if (\$act === 'check') { [\$okP, \$whyP] = Preflight::can();") && $i > strpos($api, "'check' => 'Run its check'"));
+if ($i !== false && $j !== false) {
+    $block = str_replace('Response::', 'TvMcResp::', substr($api, $i, $j - $i));
+    eval('final class TvMcResp { public static function success(array $d) { throw new TvMcAnswer(json_encode([\'ok\' => true] + $d)); } public static function error(string $m, int $c = 400) { throw new TvMcAnswer(json_encode([\'ok\' => false, \'error\' => [\'message\' => $m]])); } } final class TvMcAnswer extends Exception {}');
+    $run = function (string $pid) use ($pdo, $block, $app) { $act = 'check'; $who = 'Tester'; $GLOBALS['tvmc_called'] = [];
+        $dir = dirname($app) . '/website/admin'; $code = str_replace('__DIR__', var_export($dir, true), $block);
+        try { eval($code); } catch (TvMcAnswer $x) { return json_decode($x->getMessage(), true); } return null; };
+    require_once $app . '/lib/ControlEngine.php';
+    ControlEngine::$checker = function (string $comp) { $GLOBALS['tvmc_called'][] = $comp; return ['pass' => $comp !== 'ep:crawl/loads', 'proof' => $comp === 'ep:crawl/loads' ? '/api/crawl/loads didn\'t answer in 120,000 ms.' : 'The video worker last asked for work at 22:40 UTC.']; };
+    $a = $run('wk:video-worker');
+    $t('…the video worker: the engine checked it, and its proof is the answer', ($GLOBALS['tvmc_called'] ?? []) === ['wk:video-worker'] && ($a['ok'] ?? false) && str_starts_with((string) $a['message'], 'Passed: The video worker last asked') && empty($a['bad']), $a);
+    $a = $run('ep:crawl/loads');
+    $t('…an endpoint: checked by the engine; a failing check answers bad, beside the button', ($GLOBALS['tvmc_called'] ?? []) === ['ep:crawl/loads'] && ($a['ok'] ?? false) && !empty($a['bad']) && str_starts_with((string) $a['message'], 'Failed: /api/crawl/loads'), $a);
+    $a = $run('ep:nope');
+    $t('…a part not on the board is refused', ($a['ok'] ?? true) === false && ($GLOBALS['tvmc_called'] ?? []) === [], $a);
+    $a = $run('wk:crawler');
+    $t('…a worker with a pre-flight line keeps that line\'s check (falls through to it)', $a === null && ($GLOBALS['tvmc_called'] ?? []) === [] || isset(Preflight::lines($pdo)['rw:crawler']) === false, $a);
+    ControlEngine::$checker = null;
+}
+
 // 8. the spend chip: the percentage from the two numbers printed (03 §3), the band decides the tone
 $r = Operations::register($pdo)['anthropic']; $r['use'] = [['what' => 'Claude this month', 'used' => 3.85, 'cap' => 5.0, 'money' => true, 'unit' => 'dollars', 'pct' => 0]];
 $h = $card('anthropic', ['r' => $r]);
@@ -126,6 +164,8 @@ $t('the register: a four-zone card for every service (and each Railway worker\'s
 $t('…the anchors other pages land on, once each (#svc-<k>-key, -caps, #stage-<k>, #issue-<n>)', substr_count($reg, 'id="svc-anthropic-key"') === 1 && substr_count($reg, 'id="svc-tavily-caps"') === 1 && substr_count($reg, 'id="stage-tavily"') === 1 && substr_count($reg, 'id="issue-40"') === 1);
 $t('…the keys\' controls kept (Add its key / Replace, Check)', substr_count($reg, 'class="os-key"') >= 15 && str_contains($reg, 'value="key_check"'));
 $t('…the CSS and the script drawn at most once a page', substr_count($reg, '.mc-card{') <= 1 && substr_count($reg, 'closest("[data-mc-act]")') <= 1);
+$gi = substr($reg, (int) strpos($reg, 'id="svc-tavily"')); $gi = substr($gi, 0, (int) strpos($gi, 'class="os-card os-r"', 20) ?: strlen($gi));
+$t('…the old "What it costs" and "On <company>" list aren\'t drawn twice under a card (moved into the spend chip and the slots)', !str_contains($gi, '<h3 class="os-h">What it costs</h3>') && !str_contains($gi, '<h3 class="os-h">On Tavily</h3>') && str_contains($gi, 'mc-spend'));
 $t('no key value anywhere: names only', !preg_match('/testtoken|vtoken/', $reg));
 
 echo "\n$pass passed, $fail failed\n"; exit($fail ? 1 : 0);

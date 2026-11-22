@@ -65,7 +65,10 @@ $GLOBALS['checks'] = []; $GLOBALS['called'] = [];
 ControlEngine::$checker = function (string $c) {
     $GLOBALS['called'][] = $c;
     if (array_key_exists($c, $GLOBALS['checks'])) return $GLOBALS['checks'][$c];
-    return ['pass' => false, 'proof' => 'stand-in: ' . $c . ' gave no answer', 'ms' => 0];   // never a real outside call
+    // a task's, job's or workflow's own code has no check of its own (its next run is: ControlEngine::checkable); any other
+    // part with no answer set fails, never a real outside call
+    if (preg_match('/^(task|job|wf):/', $c)) return ['pass' => null, 'proof' => '', 'ms' => 0];
+    return ['pass' => false, 'proof' => 'stand-in: ' . $c . ' gave no answer', 'ms' => 0];
 };
 function pass(string $proof = 'answered 200 in 180 ms.'): array { return ['pass' => true, 'proof' => $proof, 'ms' => 180]; }
 function red(string $proof = 'answered 504 Gateway Time-out.'): array { return ['pass' => false, 'proof' => $proof, 'ms' => 30000]; }
@@ -76,7 +79,7 @@ function fresh(): void
 {
     $pdo = $GLOBALS['pdo'];
     foreach (['control_alarms', 'control_log', 'system_pauses', 'control_incidents', 'comms_messages', 'comms_route', 'comms_prefs', 'comms_quiet', 'push_subs', 'staff_accounts',
-              'pulse_marks', 'pulse_notes', 'service_issues', 'control_ledger', 'crawl_runs', 'crawl_run_items', 'crawl_service_calls', 'job_runs', 'automation_log', 'automation_switches', 'crawl_capture_tasks'] as $t) {
+              'pulse_marks', 'pulse_notes', 'service_issues', 'control_ledger', 'control_maintenance', 'crawl_runs', 'crawl_run_items', 'crawl_service_calls', 'job_runs', 'automation_log', 'automation_switches', 'crawl_capture_tasks'] as $t) {
         try { $pdo->exec("DELETE FROM $t"); } catch (Throwable $x) {}
     }
     try { $pdo->exec("DELETE FROM search_index_state WHERE k LIKE 'control:%' OR k LIKE 'sh:%'"); } catch (Throwable $x) {}

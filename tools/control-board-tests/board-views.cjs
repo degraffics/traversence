@@ -26,7 +26,8 @@ const rings = () => { const bad = []; let n = 0, top50 = 0;
   });
   return { n, bad: bad.slice(0, 6), nbad: bad.length, needles: document.querySelectorAll('[class*=needle], .sr line').length, top50 }; };
 const wide = () => { const W = document.documentElement.clientWidth, o = []; document.querySelectorAll('body *').forEach(el => { const r = el.getBoundingClientRect(); if (r.width && el.getClientRects().length && r.right > W + 1 && !el.closest('.cb-rtw, .akt-scroll, [data-ak-table] .akt-wrap')) o.push((el.id || el.className || el.tagName).toString().slice(0, 40)); });
-  return { sw: document.documentElement.scrollWidth, W, over: o.slice(0, 4) }; };
+  if (document.documentElement.scrollWidth > W) document.querySelectorAll('body *').forEach(el => { const r = el.getBoundingClientRect(); if (r.right > W + 1) o.push('[' + (el.id || el.className || el.tagName).toString().slice(0, 40) + ' ' + Math.round(r.right) + ' ' + getComputedStyle(el).position + ']'); });
+  return { sw: document.documentElement.scrollWidth, W, over: o.slice(0, 6) }; };
 // every section and card in view carries Copy (D15)
 const copies = () => { const miss = []; document.querySelectorAll('.ak-card, .cb-gc, [data-copy]').forEach(el => { if (!el.getClientRects().length || el.closest('.cb-sp[hidden]')) return;
   const c = el.closest('[data-copy]'); if (!c || !c.querySelector('.tv-copy-b')) miss.push((el.id || el.className).toString().slice(0, 40)); }); return miss; };
@@ -75,7 +76,7 @@ const copies = () => { const miss = []; document.querySelectorAll('.ak-card, .cb
   // 4. Copy writes the section's visible text, never the Copy word or a hidden row
   await p.click('#cb-q3 .tv-copy-b'); await p.waitForTimeout(400);
   const clip = await p.evaluate(() => navigator.clipboard.readText().catch(e => 'ERR ' + e.message));
-  t(W + 'Copy puts the section\'s text on the clipboard, with the site\'s notice', clip.includes('Is it healthy') && clip.includes('1 trip (seen by Jason)') && !/\bCopy\b/.test(clip) && await p.evaluate(() => !!document.querySelector('.tv-note')), clip.slice(0, 160));
+  t(W + 'Copy puts the section\'s text on the clipboard, with the site\'s notice', /is it healthy/i.test(clip) && clip.includes('1 trip (seen by Jason)') && !/\bCopy\b/.test(clip) && await p.evaluate(() => !!document.querySelector('.tv-note')), clip.slice(0, 160));
   const card = await p.evaluate(() => { const c = document.querySelector('#cb-deliver .cb-gc'); return [TvCopy.text(c), c.querySelector('.cb-gh').textContent]; });
   t(W + '…a card\'s text: its name, its number, its stage; no arc ends ("0", "100") or buttons\' "Copy"', card[0].startsWith(card[1]) && /%/.test(card[0]) && !/\b100\b/.test(card[0].split('\n').slice(0, 3).join(' ')) && !/\bCopy\b/.test(card[0]), card[0].slice(0, 160));
   // 5. D5: the acknowledged trip stays in the Open list

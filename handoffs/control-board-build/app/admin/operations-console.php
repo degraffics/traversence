@@ -560,7 +560,7 @@ function tv_ops_wf_state(PDO $pdo, array $d, string $wf): array
 /** A light and its words (the board's marks: R107; colour is never the only signal, the words carry it). */
 function tv_ops_wf_lt(string $k, string $words): string
 {
-    return '<span class="wfp-lt wfp-' . tv_w_e($k) . '"><i aria-hidden="true"></i>' . tv_w_e($words) . '</span>';
+    return '<span class="wfp-lt wfp-k-' . tv_w_e($k) . '"><i aria-hidden="true"></i>' . tv_w_e($words) . '</span>';
 }
 
 /** The section: the crawler's workflows on the System Control Board (manifests.php:168, under the stage workflows' builder). */
@@ -945,12 +945,12 @@ function tv_ops_wf_css(): string
         . '#wfp .wfp-nm{font-size:.85rem;line-height:1.25;min-height:2.5em;overflow-wrap:anywhere}#wfp .wfp-su,#wfp .wfp-m{font-size:.75rem;color:var(--tv-meta,#6b5d49);line-height:1.3;overflow-wrap:anywhere}#wfp .wfp-list{font-size:.8rem;color:var(--tv-meta,#6b5d49);line-height:1.35;margin:.3rem 0}'
         . '#wfp .wfp-appr{font-size:.68rem;border:1px solid #3d6b52;color:#3d6b52;border-radius:3px;padding:0 4px}'
         . '#wfp .wfp-lt{display:inline-flex;gap:.3rem;align-items:baseline;font-size:.8rem;font-weight:600;overflow-wrap:anywhere;text-align:left}#wfp .wfp-lt i{flex:0 0 auto;width:.6rem;height:.6rem;border-radius:50%;background:var(--tv-taupe,#7A6A52);display:inline-block}'
-        . '#wfp .wfp-r i{background:var(--tv-fail,#a62b2b)}#wfp .wfp-r{color:var(--tv-fail,#a62b2b)}#wfp .wfp-a i{background:var(--tv-hold,#8f5600)}#wfp .wfp-a{color:var(--tv-hold,#8f5600)}#wfp .wfp-g i{background:#3d6b52}#wfp .wfp-n i{background:var(--tv-taupe,#B8AC97)}'
+        . '#wfp .wfp-k-r i{background:var(--tv-fail,#a62b2b)}#wfp .wfp-k-r{color:var(--tv-fail,#a62b2b)}#wfp .wfp-k-a i{background:var(--tv-hold,#8f5600)}#wfp .wfp-k-a{color:var(--tv-hold,#8f5600)}#wfp .wfp-k-g i{background:#3d6b52}#wfp .wfp-k-g{color:#3d6b52}#wfp .wfp-k-n i{background:var(--tv-taupe,#B8AC97)}'
         . '#wfp .wfp-btns{display:flex;flex-wrap:wrap;gap:.3rem;justify-content:center;margin:.35rem 0 0}#wfp .wfp-path{font-size:.72rem;padding:.1rem .5rem}'
         . '#wfp .wfp-more{margin:.6rem 0}#wfp .wfp-more>summary{cursor:pointer;font-weight:600;color:var(--tv-copper,#92400E)}#wfp .wfp-2{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}'
         . '#wfp .wfp-csl{margin:.3rem 0 0 1.1rem;padding:0;display:flex;flex-direction:column;gap:.45rem}#wfp .wfp-tag{font-size:.7rem;color:var(--tv-meta,#6b5d49);border:1px solid currentColor;border-radius:999px;padding:0 .35rem}'
         . '#wfp .wfp-scrim{position:fixed;inset:0;background:rgba(40,28,18,.35);z-index:80}'
-        . '#wfp .wfp-panel{position:fixed;top:0;right:0;bottom:0;width:min(640px,100vw);background:var(--tv-bg,#FFFBF2);border-left:1px solid var(--tv-line-strong,#CBB98D);z-index:81;overflow-y:auto;overflow-x:hidden;padding:.8rem 1rem 1.2rem;box-shadow:-6px 0 18px rgba(0,0,0,.12)}'
+        . '#wfp .wfp-panel{position:fixed;top:0;right:0;bottom:0;width:min(640px,calc(100vw - 32px));background:var(--tv-bg,#FFFBF2);border-left:1px solid var(--tv-line-strong,#CBB98D);z-index:81;overflow-y:auto;overflow-x:hidden;padding:.8rem 1rem 1.2rem;box-shadow:-6px 0 18px rgba(0,0,0,.12)}'
         . '#wfp .wfp-panel[hidden]{display:none}#wfp .wfp-x{position:sticky;top:0;float:right;font-size:1.4rem;line-height:1;border:0;background:var(--tv-bg,#FFFBF2);cursor:pointer;padding:.1rem .4rem;color:inherit}'
         . '#wfp .wfp-crumb{font-size:.75rem;color:var(--tv-meta,#6b5d49);margin:0;overflow-wrap:anywhere}#wfp .wfp-t{margin:.2rem 0 .4rem;font-size:1.1rem}#wfp .wfp-panel .wfp-btns{justify-content:flex-start}'
         . '#wfp .wfp-gz{display:flex;flex-direction:column;align-items:center;gap:.2rem}#wfp .wfp-steps{list-style:none;margin:.2rem 0;padding:0;display:grid;gap:.4rem}#wfp .wfp-steps>li{border:1px solid var(--tv-line-strong,#E3DBC6);border-radius:.4rem;padding:.35rem .5rem;min-width:0;overflow-wrap:anywhere}'
