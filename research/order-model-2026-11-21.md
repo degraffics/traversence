@@ -108,6 +108,21 @@ statement."
   override payment requirements to initiate vendor work orders pre funding").
 - The override is for **admins only, with a reason recorded** (2026-11-22: "Admins only, with a reason recorded."). Today
   any staff member with order edit rights can release an order to production before payment (c2); that narrows.
+- **When the cancel window ends** (2026-11-22): "When the work order issued has been confirmed by the vendor or admin as
+  entered into the production schedule. My past experience is that a client will call asking if production has
+  started, i contact the vendor for a status check and if printing has not started I can pull the order allowing it to
+  be modified and then resubmitted. It does require real time status and it cant always be stopped so if there is a
+  specific trigger I would say the vendor must be addressed and if able can cancel the progress without requiring
+  compensation."
+  - The window closes once the vendor, or an admin, confirms the work order has entered the production schedule.
+  - Until then, a client's request to cancel or change goes to the vendor for a real-time status check. If printing
+    hasn't started and the vendor can stop it without compensation, the order is pulled, can be modified, and is
+    resubmitted.
+  - It can't always be stopped: the vendor's answer decides.
+  - Built today: the vendor's Accept and its statuses on /wo.php; Cancel on a work order emails the vendor "Please stop
+    work order … Reply if anything is already done" (`WorkOrders::cancel`); Reopen for changes only works with no work
+    order out. To confirm: which vendor status marks "entered into the production schedule" (Accepted, or In
+    production).
 - The balance must be paid before the order is released for delivery; a late balance holds it before shipping.
 - What a deposit is: "Deposit does not control progress, it is a requirement of partial payment when needed to ensure
   we risk incurring expenses that might be incurred upon entering to production stage."
@@ -191,8 +206,8 @@ the pass is the product. It shapes 1.2's client-configured items and 1.8's money
 4. ~~Which route an order takes~~ Answered (1.1): Send cart or Send invoice when sending.
    Wire and check: not in the cart, invoice route only (1.1). (B.4 as
    confirmed exempts "invoice later" from paid in full; 1.9 removes that exemption.)
-5. ~~The deposit's amount~~ Answered (1.8): a % per order set by staff, 65% default. Still open: how long the cancel
-   window lasts.
+5. ~~The deposit's amount~~ Answered (1.8): a % per order set by staff, 65% default. Cancel window: answered (1.9), to confirm
+   which vendor status ends it.
 6. How long a quote's price holds, and a vendor cost that changes.
 7. A change after release (back to held), and after payment but before the vendor.
 8. Shipping price on a client-configured order.
