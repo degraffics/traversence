@@ -142,7 +142,7 @@ if ($i !== false && $j !== false) {
     $a = $run('ep:nope');
     $t('…a part not on the board is refused', ($a['ok'] ?? true) === false && ($GLOBALS['tvmc_called'] ?? []) === [], $a);
     $a = $run('wk:crawler');
-    $t('…a worker with a pre-flight line keeps that line\'s check (falls through to it)', $a === null && ($GLOBALS['tvmc_called'] ?? []) === [] || isset(Preflight::lines($pdo)['rw:crawler']) === false, $a);
+    $t('…a worker with a pre-flight line keeps that line\'s check (falls through to it); without one, the engine\'s', isset(Preflight::lines($pdo)['rw:crawler']) ? ($a === null && ($GLOBALS['tvmc_called'] ?? []) === []) : (($GLOBALS['tvmc_called'] ?? []) === ['wk:crawler']), $a);
     ControlEngine::$checker = null;
 }
 

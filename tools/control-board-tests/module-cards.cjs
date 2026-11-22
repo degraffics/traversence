@@ -35,13 +35,13 @@ const html = execFileSync('php', [pg, app, 'page']).toString();
   const tv = await p.evaluate(() => { const c = document.querySelector('#mc-tavily'); return { fix: c.querySelectorAll('.tv-fix,.mc-slot-fix').length, acts: [...c.querySelectorAll('[data-row="ours"] button')].map(x => x.textContent.trim()) }; });
   t(w + 'px: Tavily\'s 5xx: no Fix it, Check it now and Pause', tv.fix === 0 && tv.acts.includes('Check it now') && tv.acts.includes('Pause'), tv);
   // press each board button once
-  for (const [sel, act] of [['#mc-railway > .mc-z4 [data-mc-act="resolve"]', 'resolve'], ['#mc-railway > .mc-z4 [data-mc-act="ack"]', 'ack'], ['#mc-anthropic [data-mc-act="svccheck"]', 'svccheck'], ['#mc-railway > .mc-z4 [data-mc-act="check"]', 'check']]) {
+  for (const [sel, act] of [['#mc-railway > .mc-z4 [data-mc-act="resolve"]', 'resolve'], ['#mc-railway > .mc-z4 [data-mc-act="ack"]', 'ack'], ['#mc-anthropic [data-mc-act="svccheck"]', 'svccheck'], ['#mc-railway > .mc-z4 [data-mc-act="check"]', 'check'], ['#mc-wk-video-worker > .mc-z4 [data-mc-act="check"]', 'check'], ['#mc-part-ep-crawl-loads [data-mc-act="check"]', 'check']]) {
    const el = await p.$(sel); if (!el) { t(w + 'px: ' + act + ' is on the card', false, sel); continue; }
    const before = posts.length; await el.scrollIntoViewIfNeeded(); const dis = await el.isDisabled();
-   if (dis) { const why = await el.getAttribute('title'); t(w + 'px: ' + act + ' greyed with its reason (' + why + ')', !!why); continue; }
+   if (dis) { const why = await el.getAttribute('title'); t(w + 'px: ' + act + ' greyed with its reason (' + why + ')', !!why && !/video-worker|crawl-loads/.test(sel), sel); continue; }
    await el.click(); await p.waitForTimeout(500);
    const said = await p.evaluate(() => document.body.innerText.includes('Answered:'));
-   t(w + 'px: ' + act + ' pressed: posts {action: ' + act + '} and the answer shows', posts.length === before + 1 && posts[posts.length - 1].action === act && said, posts.slice(-1));
+   t(w + 'px: ' + act + ' pressed: posts {action: ' + act + '} and the answer shows', posts.length === before + 1 && posts[posts.length - 1].action === act && posts[posts.length - 1].id === (await el.getAttribute('data-mc-id')) && said, posts.slice(-1));
    await p.keyboard.press('Escape'); await p.waitForTimeout(150);
   }
   await p.screenshot({ path: path.join(process.env.SHOTS || '/tmp', 'module-cards-' + w + '.png'), fullPage: true });

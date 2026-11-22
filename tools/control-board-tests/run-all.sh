@@ -35,6 +35,7 @@ DB_PASSWORD=tv
 CRAWLER_API_TOKEN=testtoken
 VIDEO_WORKER_TOKEN=vtoken
 APP_URL=http://127.0.0.1:8765
+GAUGES_URL=$(cd "$(dirname "$0")/../.." && pwd)/site-audit/results/gauges.json
 E
 
 # The test-only worker endpoint r2a calls (never shipped).
