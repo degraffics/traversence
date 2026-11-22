@@ -14,4 +14,4 @@ to take it (2026-11-22).
 - **Admin's test:** no new state.
 
 ## State
-Built and sent; waiting for the session manager's review, then Jason's Approve.
+Live as #257 (Sync 23:05 UTC, 8d3afbd), verified byte for byte.

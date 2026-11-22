@@ -143,7 +143,9 @@ sessions take over, holding until Jason says resume. Live through Release #228 (
   586 → 3 words under 4.5:1. The order pages and vendor.php wait for the orders hold. Live as #255 (73d3782).
   **Progress (2026-11-22, the map release):** built on 73d3782 as `map-tokens.zip` (`handoffs/map-tokens.md`): map-view.js on
   the tokens; a trip's route lime over the umber casing, option B (the chosen day), A and C as images for his pick. 22/22.
-  Waiting for review and Jason's pick.
+  Live as #256. The location pop-up's words live as #257 (8d3afbd).
+  **Progress (2026-11-22, hold):** hand-off `handoffs/design-and-trips-2026-11-22c.md`; next is 0174 R5, waiting for
+  Jason to allow openrouteservice.org and account.heigit.org (its terms are read first, 0174 §5).
 - **Orders held** (Jason, 2026-11-21: "It is obvious you are not able to see how the order system should work, so before I
   put more work time i need to think about how we move forward"): no pop-ups, merges or builds; #1212 (chargeFor) and
   #1224 (rulings) stay drafts outside main, out of the release order, until he says how to proceed.
