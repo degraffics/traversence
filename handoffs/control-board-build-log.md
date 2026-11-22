@@ -271,6 +271,80 @@ not yet there starts from its live copy at `7c99b2c`):
 - **Suite:** 1,419 pass; known failures r1 (`zz_test`), register.php ×2; r3d (a literal amber in B's new CSS, being fixed).
 - Claims renewed at 22:51 UTC (until 02:51).
 
+## Hand-off at a hold (2026-11-22 23:25 UTC, session_01CXLi5mF3yZ2ZE7oz8RpDsq)
+
+This session stops at a hold, its context long (CLAUDE.md, 2026-11-20). **The whole build is on the branch
+`claude/control-board-build`, not in `main`; nothing is zipped, sent or live.** The next session takes it from here after
+the session manager's review; this section is its brief, with the plan (`handoffs/control-board-build.md`).
+
+**Built on:** the mirror at **Sync 2026-11-22 23:05 UTC (`8d3afbd`)**. Since 7c99b2c only `website/js/location-scope.js`
+changed (Design and trips), not one of this build's files. Fetch again before zipping.
+
+**Claims:** this session's, release `control-board.zip`, renewed 22:51 UTC (until 02:51 UTC): the 43 files of §3, plus
+`app/lib/Pulse.php::items`, `website/admin/api.php`, `app/ui/outside-services.php`, `app/lib/Gemini.php::refused`,
+`app/lib/ControlMaintenance.php`, `app/lib/ServiceStages.php::retire`. The next session releases them
+(`checkout.py release --session session_01CXLi5mF3yZ2ZE7oz8RpDsq`) and claims the same at once. New files to claim as
+add: `app/admin/module-cards.php`, `app/lib/ControlLedger.php` is a change (already claimed), `app/lib/SiteHealth.php`
+(claimed). `app/ui/faq.md` is never claimed.
+
+**Done (each in §5–§10 above):** the engine and its callers (D1–D4, D6–D8, D10–D14, D19–D22), **37 + 2 more scenario
+fixes: the scenario test passes in full** (`scenario/run.php`: 173 of 173 cells, 135 designed scenarios: 0 fail, the
+rest pass or can't run on the bench, listed in `scenario/cells.md`); the views: Is it delivering?, Development with Site
+health's list, Incidents with Write the root cause (`ircause`), the folded report (D16), Copy by section (D15), D5, the
+Workflows page (§7: 8 kept, 2 moved, 3 dropped; W13 a list, W14 Not built; D8, D9), the four-zone module cards (D18), the
+Arc gauge, the gauges' data (`ControlGauges`, `gauges.py`, `gauges.json` + `gauges-items.json`), Site health on one path,
+the outside heartbeat (D23) and its import, the register's five checks with `site-checks.yml`.
+**Suite:** `run-all.sh` 1,549 pass, 3 known failures (r1 `zz_test`; register.php ×2 against live files outside the build).
+
+**Left, in order:**
+1. **Rendered sweep at 1280 and 390** over every board view and page: all `.cjs` tests (board-views, module-cards,
+   workflows-page, board-rendered, board-tabs, board-phone, one-panel, one-place, lines, board-menu, peek-anchor, and
+   dispatcher r2–r4) on one bench run; **press Write the root cause once** (not yet pressed in a rendered test); the
+   board-rendered seed needs a founder (else the dispatcher's own "no one to tell" trip gives "Tripped 2", P11); the
+   Arc bands within 1% (ring-check model); `layout-probe.mjs` on each page.
+2. **The 55 "views: pending" cells** in `scenario/cells.md`: add their board/card/Pulse words now the views are in.
+3. **FAQ** (plan §7): new entries (the gauges; Paused by the system; Copy by section; the Workflows page; Recovered;
+   the heartbeat's email) and **rewrite the entries the build makes untrue**: `faq.md` "Where are the crawler's workflows
+   and the Workflow board?", "What is the System Control Board?" (its tabs: Is it delivering?, Development, Incidents
+   first), "Why does an alarm read the same…" (Recovered, Fixed by), any Site health entry (no longer a Pulse case),
+   W13/W14 mentions. `grep -rn "faq.php#"` before rewording a question. On the newest live copy, just before zipping.
+4. **The release summary:** every behaviour with its source (each helper's report is summarised in §9–§10 and the
+   commits); one "Admin's test:" line per new state; kept/moved/dropped (03 §9, workflows-page §7, M's list, B's list);
+   the **questions for Jason** gathered as one (playbook principle 7): the gauges' sign-off has no recorder yet (all 16
+   stay in Planning; B10–B19); BRAND's three standards a browser can't read; `site-audit/tools.md`'s format; the light
+   probe's key pages; half budget for 14 days (R153, no data source); row 124's contradiction (one email vs. a reply;
+   built: nothing sent for a joining trip); a server's own check runs its module's whole pre-flight line (a per-server
+   probe needs a manifest `probe`); the dispatcher's card links to Communications.
+5. **The zip:** only files differing from the live mirror byte for byte, from `handoffs/control-board-build/` (check
+   none is identical to live), with `release.json`: title, why, proposals, `"switch": ""`, **`"review": true`**,
+   **`"data_reason"`** (Migration `2026-12-01_npi_switch.sql` has one guarded `UPDATE`). zipcheck, then
+   `send.py <zip> --mirror <checkout> --note "… built on Sync 23:05 UTC"`, `deliveries.py record`.
+6. **Repo files reach `main` only with the release's merge, after Jason's Approve:** `.github/workflows/heartbeat.yml`
+   (starts email), `.github/workflows/site-checks.yml` (starts the new live probes, hourly), `workers/video/railway.json`
+   (can redeploy). Everything else on the branch may go with the same PR.
+7. **Staging run:** the read-only look at the Ledger tab on staging
+   (https://staging.trvgo.us/admin/config/control?tab=ledger, and live's
+   https://traversence.com/admin/config/control?tab=ledger only on Jason's call), and C15 (`irs_loads`), read-only.
+8. **The session manager's review** (session_01CXLi5mGX2sg5QS11gg3Wrh) of the summary with its full proof; Jason's
+   pop-up only after "clear to ask"; merge after his Approve; a Progress line in `handoffs/session-manager.md`.
+
+**Outside this zip:** the crawler worker's 432 fix (`workers/crawler/crawler.py` `note_issue`), a worker release after
+the board is live.
+
+**The bench:** `bench.sh` in the session's scratch (recreate it: a root holding the mirror's `sync-app` as `app/` and
+`sync-storage` as `website/`, the overlay over it, four folders deep, `.env` with `DB_DATABASE=lv_main`, `DB_USERNAME`,
+`DB_PASSWORD`, `CRAWLER_API_TOKEN=testtoken`, `VIDEO_WORKER_TOKEN=vtoken`, `APP_URL=http://127.0.0.1:8765`,
+**`GAUGES_URL=<repo>/site-audit/results/gauges.json`** so no test reaches GitHub). `run-all.sh <root>` writes the
+`.env` itself. MariaDB: `apt-get install -y mariadb-server php8.3-mysql`, a user with all grants. Helpers used their own
+databases (lv_b, lv_e…) so runs don't collide.
+
+**Pitfalls learned this round:**
+- `page_cache.body`'s live type is unknown: anything cached stays under 60 KB (`ControlGauges` keeps the compact file;
+  bigger goes to `app/storage/`).
+- A bench with no founder raises the dispatcher's own trip on every trip (P11): seeds that count trips must add one.
+- Two helpers on one file: only with targeted edits; the register (M) and the Workflows page (W) shared
+  `operations-console.php` this way without loss.
+
 ## Next, in the plan's order (§2.2) (superseded by the hand-off above)
 1. Read C15 on staging (§6), and the Ledger tab's rows: read-only, wanted from a runner or Jason.
 2. Remaining callers: Operations, ControlSensor, ControlMaintenance and ControlHistorian (they raise through the store,
