@@ -31,8 +31,15 @@ and `research/order-rulings-2026-11-20.md` (his confirmed rulings B.1–B.7, §1
 
 **1.3 Held, then released.** "items requiring processing to be released for purchase are handled by the system
 supported by admin and once approved, released, and the cart can be finalized."
-- An item that needs preparing waits in the cart, not buyable, until it is released. One that needs none (a GO Code, a
-  plan, a domain) is buyable at once, as today **(described, to confirm)**.
+- **The ordering queue and the cart** (2026-11-22, replacing "held in the cart"): Jason chose option B, "B: yes,
+  approval moves item to cart or invoice."
+  - **Add to cart** (or Buy now) for an item that needs no processing (a GO Code, a plan, a domain, a stocked item).
+  - **Place order** for an item that needs processing: it goes into the client's **ordering queue** and is prepared
+    there (proof, preflight, our backend work). The queue is the order while it's being prepared, on its order page.
+  - **Approval moves the item** to the cart (cart route) or the invoice (invoice route), by itself.
+  - **The cart only ever holds items ready to buy;** checkout pays everything in it.
+  - On the cart page, the ordering queue is shown first ("Being prepared": each item, where it stands, its proof to
+    approve), the ready items below with Checkout.
 - Each line keeps its own process (2026-11-20): "it can be graphic design, printed product, etc handles as separate
   processes, but becomes on cart (Invoice) for approval(confirmation) and payment".
 - What releases a printed item (2026-11-20): "proofs get approved, production files get uploaded, vendor is selected,
@@ -130,8 +137,8 @@ statement."
     **Production queue**; that ends the window. (Today's Accept already asks for the job number and who received it,
     and accepts the must-have date.)
 - **Changes after release** (2026-11-22):
-  - In the cart, before checkout: the item goes back to held, is prepared again (a new proof if needed), and is
-    released again ("Yes").
+  - In the cart, before checkout: the item goes back to the ordering queue ("held"), is prepared again (a new proof if
+    needed), and moves to the cart again on approval ("Yes").
   - After payment, before the vendor accepts: "if cancelled, we go back to order pending approval, and follow the
     held/prepared process to adjust the cart for approval again. Payments take are applied to current cart, so due is
     easy to understand." The pulled order returns to pending approval, goes through held and prepared again, and comes
@@ -198,7 +205,7 @@ the pass is the product. It shapes 1.2's client-configured items and 1.8's money
 | Checkout makes the invoice | The cart's checkout makes the QuickBooks invoice with tax (c3 §5.1); the order page at approval (0101) | 1.3 | Fits: same moment |
 | Ways to pay in the cart | Card or QuickBooks' page only; deposit, wire, check, cash, payment hold, invoice later only on the order page (§3 step 9) | 1.1, 1.8 | Wire and check stay out of the cart (fits). **Gap:** the cart can't take a deposit today |
 | Guests | GO Codes yes; plans, one-offs, domains need a member (c3 §1.10) | 1.5 | Fits for GO Codes; new for the rest |
-| Held item | No held state in the cart; items have "Before approval" statuses (Incoming, Under Review, Pending Approval, Changes Requested, Response Required) | 1.3 | New in the cart; the item statuses could carry the staff side |
+| Ordering queue | The order while draft or sent, on its private page, with "Before approval" item statuses (Incoming, Under Review, Pending Approval, Changes Requested, Response Required) | 1.3 | Fits: the queue is the order being prepared; new are Place order from the Shop, the queue shown on the cart page, and approval moving items to the cart |
 | Client vs backend | Uploads staff-only; the client sees proofs, downloads only the one awaiting approval; vendor and files on the work order (§3a) | 1.4 | Fits |
 | Approve for the client | Its page says "Use it when the client said yes in person, on the phone or by email; their proofs count as approved." The outside path is "Handled outside: create the work order" (c2) | 1.6 | **Fits:** kept for a yes given by email or another way; payment runs as normal |
 | Estimate, quote | None in our sales: 0101 "not an Estimate before"; the Shop's print card emails for a quote; Back-Office "Quotes & deals" coming (§2). Businesses have Quotes & invoices (`b_biz_quotes`, 0118, 0120), walled off (§1) | 1.7 | New for our sales; must not share the businesses' tables |
@@ -237,8 +244,7 @@ the pass is the product. It shapes 1.2's client-configured items and 1.8's money
 6. ~~How long a quote's price holds~~ Answered (1.8): 14 days, then refreshed.
 7. ~~A change after release~~ Answered (1.9), with 0098's "Fix it, credit, then refund" for a lower total.
 8. ~~Shipping price~~ Answered (1.14): a shipping module, to be scoped.
-9. A mixed cart: pay for what's ready, or wait for all. Jason is thinking it over (2026-11-22: "Maybe we should have a
-   save, or buy now, vs held item in processing with no processing need item.... let me think on this.").
+9. ~~A mixed cart~~ Answered (1.3): the cart only holds ready items; items being prepared are in the ordering queue.
 10. Reminders and an end date for released items not paid.
 11. The order page as the conversation (1.12), and reorders (1.11): to confirm.
 12. Still open from before: the file check's limits (at the build), design capacity, a fingerprint of the approved file,
