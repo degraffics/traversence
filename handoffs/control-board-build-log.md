@@ -257,6 +257,20 @@ not yet there starts from its live copy at `7c99b2c`):
   probe's key pages (default `/`, `/discovery/`, `/directory/`, `/login.php`); `findings.py` doesn't read the new files yet.
   `site-checks.yml` starts live runs: it reaches `main` only with the release.
 
+### 10. More helpers' results (22:50 UTC)
+- **M, module cards:** done. `app/admin/module-cards.php` (74 + 25 rendered checks), hooked into the register; Check now
+  for workers and endpoints through `ControlEngine::check` (`website/admin/api.php`, claimed); no doubled lists under the
+  card (`app/ui/outside-services.php`, claimed); `incident_radius_rules` in the manifest; `task-on.php` and
+  `register.php` read the card. Gaps left: Fly's slot "Documented · release #97"; a slot's why needs `setup_capture`.
+- **W, Workflows page:** done (56 + 35 rendered checks). Left out as questions: half budget for 14 days (R153, no data
+  source); failed identity jobs.
+- **S, the scenario test:** done. `tools/control-board-tests/scenario/` (run.php, suites, `cells.md`): 173 of 173 cells
+  covered; of 135 designed scenarios 66 pass, **39 fail on the engine**, 30 can't run on the bench (outside reads, raisers
+  not built). 55 cells "views: pending". The FAILs are being fixed by helper E (engine files), the list in the session's
+  scratch `s-report.md`, summarised in cells.md.
+- **Suite:** 1,419 pass; known failures r1 (`zz_test`), register.php ×2; r3d (a literal amber in B's new CSS, being fixed).
+- Claims renewed at 22:51 UTC (until 02:51).
+
 ## Next, in the plan's order (§2.2) (superseded by the hand-off above)
 1. Read C15 on staging (§6), and the Ledger tab's rows: read-only, wanted from a runner or Jason.
 2. Remaining callers: Operations, ControlSensor, ControlMaintenance and ControlHistorian (they raise through the store,

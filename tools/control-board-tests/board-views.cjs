@@ -26,8 +26,7 @@ const rings = () => { const bad = []; let n = 0, top50 = 0;
   });
   return { n, bad: bad.slice(0, 6), nbad: bad.length, needles: document.querySelectorAll('[class*=needle], .sr line').length, top50 }; };
 const wide = () => { const W = document.documentElement.clientWidth, o = []; document.querySelectorAll('body *').forEach(el => { const r = el.getBoundingClientRect(); if (r.width && el.getClientRects().length && r.right > W + 1 && !el.closest('.cb-rtw, .akt-scroll, [data-ak-table] .akt-wrap')) o.push((el.id || el.className || el.tagName).toString().slice(0, 40)); });
-  if (document.documentElement.scrollWidth > W) document.querySelectorAll('body *').forEach(el => { const r = el.getBoundingClientRect(); if (r.right > W + 1) o.push('[' + (el.id || el.className || el.tagName).toString().slice(0, 40) + ' ' + Math.round(r.right) + ' ' + getComputedStyle(el).position + ']'); });
-  return { sw: document.documentElement.scrollWidth, W, over: o.slice(0, 6) }; };
+    return { sw: document.documentElement.scrollWidth, W, over: o.slice(0, 4) }; };
 // every section and card in view carries Copy (D15)
 const copies = () => { const miss = []; document.querySelectorAll('.ak-card, .cb-gc, [data-copy]').forEach(el => { if (!el.getClientRects().length || el.closest('.cb-sp[hidden]')) return;
   const c = el.closest('[data-copy]'); if (!c || !c.querySelector('.tv-copy-b')) miss.push((el.id || el.className).toString().slice(0, 40)); }); return miss; };

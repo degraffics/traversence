@@ -858,7 +858,7 @@ function tv_cb_gauge_card(array $g): array
         . '<dl class="cb-dl"><dt>Measure</dt><dd>' . $e((string) ($g['measure'] ?? '')) . '</dd><dt>Target</dt><dd>' . $e($target === null || $target === '' ? 'set by Jason' : (string) $target) . '</dd>'
         . '<dt>Reading</dt><dd>' . $rd . '</dd><dt>Trend</dt><dd>' . $e($trend) . '</dd></dl>'
         . '<h4 id="' . $e($pid . '-setup') . '" class="cb-h4">Configure: its setup (' . $e($sw) . ')</h4><ul class="cb-su">' . $li . '</ul>'
-        . ($nc ? '<p class="cb-nc" data-tv-status="info" data-tv-label="No check yet:">' . $e(implode(', ', $nc)) . '</p>' : '')
+        . ($nc ? '<p class="cb-nochk" data-tv-status="info" data-tv-label="No check yet:">' . $e(implode(', ', $nc)) . '</p>' : '')
         . tv_cb_gd_slot('runtime', (string) ($g['id'] ?? $id))
         . ($fix !== '' ? '<div class="cb-acts"><b class="cb-lb">Fix it</b>' . $fix . '</div>' : '')
         . '<div class="cb-acts">' . tv_cb_drill_btns($pid) . '</div></aside>'
@@ -897,7 +897,7 @@ function tv_cb_gauge_detail(PDO $pdo, string $ref): string
                 $ck = implode(', ', array_map(fn ($c) => (string) ($c[0] ?? '') . ' ' . (string) ($c[1] ?? ''), array_filter((array) ($it['checks'] ?? []), 'is_array')));
                 $h .= '<li><b>' . $e((string) ($it['name'] ?? '')) . '</b> <small>' . $e((string) ($it['kind'] ?? '')) . ($it['phase'] ?? '' ? ' · ' . $e((string) $it['phase']) : '') . '</small>'
                     . '<br><small>Met: ' . $e(implode(', ', (array) ($it['met'] ?? [])) ?: 'none') . ($ck !== '' ? ' · checks: ' . $e($ck) : '') . '</small>'
-                    . (!empty($it['no_check']) ? '<br><small class="cb-nc">no check yet: ' . $e(implode(', ', (array) $it['no_check'])) . '</small>' : '')
+                    . (!empty($it['no_check']) ? '<br><small class="cb-nochk">no check yet: ' . $e(implode(', ', (array) $it['no_check'])) . '</small>' : '')
                     . (!empty($it['review']) ? '<br><small>Review: ' . $e((string) $it['review']) . '</small>' : '')
                     . (!empty($it['source']) ? '<br><small class="ak-note">Source: ' . $e((string) $it['source']) . '</small>' : '') . '</li>';
             }
@@ -974,14 +974,14 @@ function tv_cb_development(PDO $pdo, callable $btn): string
                     . '<span class="cb-gh">' . $e($title) . '</span>' . tv_score_gauge($score, $glabel, $stage) . '<span class="cb-gst">' . tv_score_stage_pill($stage) . '</span>'
                     . '<span class="cb-dl1">' . $e($line) . '</span></button>'
                     . (!$signed && $prev !== null ? '<details class="cb-prev"><summary>Preview with the draft configuration</summary><p>' . $e(number_format((float) $prev, 0)) . '% if the draft were signed off' . (!empty($g['preview_stage']) ? ' (' . $e((string) $g['preview_stage']) . ')' : '') . ', with the criteria from the page audit. A preview only: the gauge stays at 0 until Jason signs it off.</p></details>' : '')
-                    . ($nc ? '<span class="cb-nc">no check yet: ' . $e(implode(', ', $nc)) . '</span>' : '')
+                    . ($nc ? '<span class="cb-nochk">no check yet: ' . $e(implode(', ', $nc)) . '</span>' : '')
                     . '<div class="cb-gb">' . tv_cb_drill_btns($pid) . '</div></article>';
                 // its panel: its stage and why, its items by status (loaded as it opens), its three paths (gauge-lifecycle.md §3, §4)
                 $panels .= '<aside class="cb-sp" id="' . $e($pid . '-snap') . '" role="dialog" aria-label="' . $e($title) . '" hidden data-copy="' . $e($title) . '">'
                     . '<button type="button" class="cb-spx" data-cb-spx aria-label="Close">×</button><p class="cb-crumb">Development' . ($sd !== '' ? ' · ' . $e($sd) : '') . '</p><h3 class="cb-title">' . $e($title) . '</h3>'
                     . '<div class="cb-gbig">' . tv_score_gauge($score, $glabel, $stage, ['big' => true]) . tv_score_stage_pill($stage) . '</div>'
                     . '<p>' . $e($line) . (trim((string) ($g['why'] ?? '')) !== '' ? '. Why ' . $e(TV_SG_STAGES[$stage][0]) . ': ' . $e((string) $g['why']) : '') . '.</p>'
-                    . ($nc ? '<p class="cb-nc" data-tv-status="info" data-tv-label="No check yet:">' . $e(implode(', ', $nc)) . '</p>' : '')
+                    . ($nc ? '<p class="cb-nochk" data-tv-status="info" data-tv-label="No check yet:">' . $e(implode(', ', $nc)) . '</p>' : '')
                     . tv_cb_gd_slot('development', (string) ($g['id'] ?? $id)) . '<div class="cb-acts">' . tv_cb_drill_btns($pid) . '</div></aside>'
                     . tv_cb_path_panels($pid, $title, (array) ($g['paths'] ?? []), $pid . '-snap');
             }
@@ -1155,7 +1155,7 @@ function tv_cb_view_assets(): string
         . '#cb .cb-gc{border:1px solid var(--tv-card-edge,#E3DBC6);border-radius:.5rem;background:#FFFDF8;padding:.45rem;display:flex;flex-direction:column;gap:.3rem;min-width:0}'
         . '#cb .cb-gopen{display:flex;flex-direction:column;align-items:center;gap:.2rem;background:none;border:0;padding:.2rem;font:inherit;color:inherit;cursor:pointer;text-align:center;border-radius:.4rem;width:100%}#cb .cb-gopen:hover{background:#FBF6EC}#cb .cb-gopen:focus-visible{outline:2px solid var(--tv-river,#3B5A6B);outline-offset:1px}'
         . '#cb .cb-gh{font-weight:700;font-size:13.5px;text-align:center}#cb .cb-dc .cb-gh{display:block}#cb .cb-gst,#cb .cb-dc>.cb-gst{display:block;text-align:center}#cb .cb-rd{font-size:12.5px;display:flex;flex-wrap:wrap;gap:.25rem;justify-content:center}#cb .cb-rdp{border:1px solid var(--tv-card-edge,#E3DBC6);border-radius:999px;padding:.05rem .45rem;background:#fff}#cb .cb-rdn{color:var(--tv-meta,#6b5d49)}'
-        . '#cb .cb-live{font-size:11.5px;color:#3d6b52}#cb .cb-scn{font-size:11px;color:var(--tv-copper,#C85A17);border:1px dotted currentColor;border-radius:.3rem;padding:0 .3rem}#cb .cb-gtr,#cb .cb-gtg,#cb .cb-dl1,#cb .cb-nc{font-size:11.5px;color:var(--tv-meta,#6b5d49);text-align:center}#cb .cb-nc{color:var(--cb-hold,var(--tv-hold));overflow-wrap:anywhere;white-space:normal;display:block}#cb .cb-gc>*{min-width:0;max-width:100%}#cb .cb-gc .cb-gh{padding:0 2.6rem}'
+        . '#cb .cb-live{font-size:11.5px;color:#3d6b52}#cb .cb-scn{font-size:11px;color:var(--tv-copper,#C85A17);border:1px dotted currentColor;border-radius:.3rem;padding:0 .3rem}#cb .cb-gtr,#cb .cb-gtg,#cb .cb-dl1,#cb .cb-nochk{font-size:11.5px;color:var(--tv-meta,#6b5d49);text-align:center}#cb .cb-nochk{color:var(--cb-hold,var(--tv-hold));overflow-wrap:anywhere;white-space:normal;display:block}#cb .cb-gc>*{min-width:0;max-width:100%}#cb .cb-gc .cb-gh{padding:0 2.6rem}'
         . '#cb .cb-gb{display:flex;flex-wrap:wrap;gap:.25rem;justify-content:center}#cb .cb-unm{font-size:11px;color:var(--tv-meta,#6b5d49);font-style:italic;text-align:center}#cb .cb-prev{font-size:12px;text-align:center}#cb .cb-prev summary{cursor:pointer;text-decoration:underline}#cb .cb-prev p{margin:.2rem 0}'
         . '#cb .cb-spbg{position:fixed;inset:0;background:rgba(40,30,20,.28);z-index:9990}#cb .cb-sp{position:fixed;top:0;right:0;bottom:0;width:min(30rem,calc(100vw - 6px));overflow:auto;z-index:9991;background:#FFFBF2;border-left:1px solid var(--tv-card-edge,#E3DBC6);box-shadow:-6px 0 18px rgba(0,0,0,.12);padding:.8rem 1rem 1.4rem;box-sizing:border-box}'
         . '#cb .cb-sp[hidden]{display:none}#cb .cb-spx{position:absolute;top:.35rem;right:.5rem;font-size:22px;line-height:1;background:none;border:0;cursor:pointer;color:var(--tv-meta,#6b5d49);padding:.2rem .4rem}#cb .cb-crumb{margin:0 2rem .2rem 0;font-size:12px;color:var(--tv-meta,#6b5d49)}'
