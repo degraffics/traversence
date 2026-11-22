@@ -20,6 +20,8 @@ and `research/order-rulings-2026-11-20.md` (his confirmed rulings B.1–B.7, §1
 - **Which route** (2026-11-22): "Send cart or send invoice as send option". On an order staff build, Send offers both:
   **Send cart** (the cart route) or **Send invoice** (the invoice route), chosen when sending. An order the client
   configures in the Shop is already in the cart **(described, to confirm)**.
+- **How the cart is paid** (2026-11-22): "Dont alllow wire and check in the cart." The cart takes a card or QuickBooks'
+  own page, as today; wire, check, cash and the payment hold stay on the invoice route.
 
 **1.2 Ways into the cart route.**
 - Staff configure it (2026-11-20: "our orders either configured by us with separate building processes to yield
@@ -151,7 +153,7 @@ the pass is the product. It shapes 1.2's client-configured items and 1.8's money
 |---|---|---|---|
 | Two routes | Client order ends on the private order page as the invoice (§2 row 1, §3); the one cart is a separate way for GO Codes, one-offs, domains, plans (§2 rows 5–7) | 1.1 | Fits: both exist; new is client orders ending in the cart |
 | Checkout makes the invoice | The cart's checkout makes the QuickBooks invoice with tax (c3 §5.1); the order page at approval (0101) | 1.3 | Fits: same moment |
-| Ways to pay in the cart | Card or QuickBooks' page only; deposit, wire, check, cash, payment hold, invoice later only on the order page (§3 step 9) | 1.8 | **Gap:** the cart can't take a deposit or wire today |
+| Ways to pay in the cart | Card or QuickBooks' page only; deposit, wire, check, cash, payment hold, invoice later only on the order page (§3 step 9) | 1.1, 1.8 | Wire and check stay out of the cart (fits). **Gap:** the cart can't take a deposit today |
 | Guests | GO Codes yes; plans, one-offs, domains need a member (c3 §1.10) | 1.5 | Fits for GO Codes; new for the rest |
 | Held item | No held state in the cart; items have "Before approval" statuses (Incoming, Under Review, Pending Approval, Changes Requested, Response Required) | 1.3 | New in the cart; the item statuses could carry the staff side |
 | Client vs backend | Uploads staff-only; the client sees proofs, downloads only the one awaiting approval; vendor and files on the work order (§3a) | 1.4 | Fits |
@@ -184,8 +186,8 @@ the pass is the product. It shapes 1.2's client-configured items and 1.8's money
 3. ~~Approve for the client~~ Answered (1.6): kept for approvals given by email or another way, processed as if the
    client approved, payment as normal.
    Who and the record answered too: staff with order edit rights; the email attached.
-4. ~~Which route an order takes~~ Answered (1.1): Send cart or Send invoice when sending. Still to confirm: whether wire
-   and check stay on the invoice route only (invoice later is answered in 1.8). (B.4 as
+4. ~~Which route an order takes~~ Answered (1.1): Send cart or Send invoice when sending.
+   Wire and check: not in the cart, invoice route only (1.1). (B.4 as
    confirmed exempts "invoice later" from paid in full; 1.9 removes that exemption.)
 5. The deposit: how much and who sets it, shown before paying; how long the cancel window lasts.
 6. How long a quote's price holds, and a vendor cost that changes.
