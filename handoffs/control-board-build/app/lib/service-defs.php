@@ -17,6 +17,7 @@
 //   components: [host => [part, name, tasks]] a module's servers as parts of their own (02 §2.2 "Server of a module": Common
 //   Crawl's index and its data host); part '' is the module's own line (its check), else 'svc:<id>:<part>'; tasks: the crawler
 //   tasks that call that host (what its trip holds, 02 §6, P6), null to compute them from the module's tasks
+//   probe: a ban's daily probe URL (02 §8 'probe'; rows 32-34), else the host's own root page
 //   quota_reset: [time zone, 'H:i'] when a per-day quota renews (02 §8 answers' reset time; row 36): its check is set for then
 //   portal_links: [type => [label, url, release]] for a portal page documented outside the company links (02 §8's field;
 //   type billing | keys | console | login), drawn in its slot with "Documented · release #<release>" (04 §5 rule 3)

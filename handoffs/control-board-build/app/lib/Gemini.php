@@ -39,7 +39,18 @@ final class Gemini
     {
         require_once __DIR__ . '/AiClient.php';
         $class = AiClient::INPUT[$feature] ?? 'unknown';
-        if ($class !== 'public') return 'Gemini\'s free tier lets Google use what it\'s sent, so only public pages go to it (decisions/0164 §0.8); this feature carries ' . (AiClient::INPUT_CLASSES[$class] ?? 'something not declared') . ', so it stays on Claude.';
+        if ($class !== 'public') {
+            // a Notice on Gemini's card only, through the one engine (the session manager's ruling, 2026-11-21; 02 row 37a:
+            // "Kept on Claude: this carries a person's own words (nothing private to Gemini's free tier)"; no message, no hold).
+            // The words returned to the caller are unchanged
+            try {
+                require_once __DIR__ . '/ControlAlarms.php';
+                if (class_exists('Database')) ControlAlarms::raise(Database::connection(), 'gemini:kept:' . substr((string) preg_replace('/[^a-z0-9_]/i', '', $feature), 0, 60), 'svc:gemini', 'notice', 'check',
+                    'Kept on Claude: ' . $feature . ' carries ' . (AiClient::INPUT_CLASSES[$class] ?? 'something not declared') . ' (nothing private to Gemini\'s free tier)',
+                    'Gemini\'s free tier lets Google use what it\'s sent, so only public pages go to it (decisions/0164 §0.8). Nothing was sent and nothing is held.', '', $feature, [], false, false, 'svc:gemini');
+            } catch (Throwable $x) {}
+            return 'Gemini\'s free tier lets Google use what it\'s sent, so only public pages go to it (decisions/0164 §0.8); this feature carries ' . (AiClient::INPUT_CLASSES[$class] ?? 'something not declared') . ', so it stays on Claude.';
+        }
         return null;
     }
 

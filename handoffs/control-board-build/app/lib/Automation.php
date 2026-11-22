@@ -424,9 +424,6 @@ final class Automation
         self::log($pdo, $kind, $ref, $pause, $why, $uid, $byName);
         self::forget();
         if ($kind === 'master' && !$pause) self::resumed($pdo, array_keys(self::WORKFLOWS), 'all');
-        // Retire (ServiceStages::retire switches it off "Retired: …" first): its open trips close as Retired, their holds lift and
-        // their history is kept (02 row 116, §3c; NG: a close without a check, the one allowed for a deleted part)
-        if ($kind === 'service' && $pause && str_starts_with($why, 'Retired: ')) { try { require_once __DIR__ . '/ControlAlarms.php'; ControlAlarms::retired($pdo, $ref, $byName); } catch (Throwable $x) { error_log('retired alarms: ' . $x->getMessage()); } }
     }
 
     /** Switched back on: due dates move on by the pause (decisions/0164 §6.1, X1); the backlog then drains at half (Clocks::ramp). */

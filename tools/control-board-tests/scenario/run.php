@@ -67,7 +67,8 @@ ControlEngine::$checker = function (string $c) {
     if (array_key_exists($c, $GLOBALS['checks'])) return $GLOBALS['checks'][$c];
     // a task's, job's or workflow's own code has no check of its own (its next run is: ControlEngine::checkable); any other
     // part with no answer set fails, never a real outside call
-    if (preg_match('/^(task|job|wf):/', $c)) return ['pass' => null, 'proof' => '', 'ms' => 0];
+    // (a stuck job's run, job:<job>:run, has a check of its own: 02 row 66)
+    if (preg_match('/^(task|job|wf):[^:]+$/', $c)) return ['pass' => null, 'proof' => '', 'ms' => 0];
     return ['pass' => false, 'proof' => 'stand-in: ' . $c . ' gave no answer', 'ms' => 0];
 };
 function pass(string $proof = 'answered 200 in 180 ms.'): array { return ['pass' => true, 'proof' => $proof, 'ms' => 180]; }

@@ -25,12 +25,17 @@ final class ControlMaintenance
         self::$ready = true;
     }
 
-    /** Whether a process can be taken out from here: a workflow, or a task with a switch of its own. */
+    /**
+     * Whether a part can be taken out from here (02 §5.3: "extended to every part"; row 103: "for any module, host, job,
+     * worker or part"): a workflow, a task with a switch of its own, a module (svc:), a job, a worker or a site part. A
+     * workflow or task is stopped in order; any other part is marked out: its faults are Notices and Start skips it, and
+     * nothing of it is switched (P5: maintenance never writes another switch).
+     */
     public static function canTake(string $proc): bool
     {
         if (str_starts_with($proc, 'wf:')) return true;
         if (str_starts_with($proc, 't:')) { require_once __DIR__ . '/SystemStart.php'; $d = SystemStart::TASKS[substr($proc, 2)] ?? null; return (bool) ($d && $d[4]); }
-        return false;
+        return (bool) preg_match('/^(svc|job|wk|site|ep|nd|rw):[A-Za-z0-9_.\/-]{1,50}$/', $proc);
     }
 
     /** Take out's default length, in hours: Thresholds & gates' control_maint_hours (2 until set). */
@@ -80,7 +85,7 @@ final class ControlMaintenance
     {
         self::ensure($pdo);
         $why = trim($why);
-        if (!self::canTake($proc)) throw new RuntimeException('It can\'t be taken out from here: only a workflow, or a task with its own switch.');
+        if (!self::canTake($proc)) throw new RuntimeException('It can\'t be taken out from here: that isn\'t a part on the board.');
         if ($why === '') throw new RuntimeException('Say why, so whoever sees it out knows.');
         $now = time(); $from = max($now, $from);
         if ($until <= $from + 60) throw new RuntimeException('Its Back by has to be after it goes out.');
@@ -110,7 +115,8 @@ final class ControlMaintenance
         }
         $lateWords = $late > 600 ? ' It went out ' . (int) round($late / 60) . ' minutes late: the watch didn\'t run at its start (the site or its jobs were down).' : '';
         require_once __DIR__ . '/Automation.php';
-        $on = str_starts_with($proc, 'wf:') ? Automation::wfOff($pdo, substr($proc, 3)) === null : true;
+        // only a workflow or a task is stopped in order; any other part is only marked out (canTake)
+        $on = str_starts_with($proc, 'wf:') ? Automation::wfOff($pdo, substr($proc, 3)) === null : str_starts_with($proc, 't:');
         if ($on) { try { require_once __DIR__ . '/ControlBoard.php'; ControlBoard::stopOne($pdo, $proc, (int) ($r['by_uid'] ?? 0), 'maintenance: ' . (string) ($r['by_name'] ?? '')); $stopped = $proc; } catch (Throwable $x) { $stopped = ''; } }
         $pdo->prepare("UPDATE control_maintenance SET state = 'out', out_at = UTC_TIMESTAMP(), stopped = ? WHERE id = ?")->execute([$stopped !== '' ? $stopped : null, $id]);
         self::$out = null;

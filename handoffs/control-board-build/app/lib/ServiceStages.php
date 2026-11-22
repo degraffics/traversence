@@ -87,6 +87,9 @@ final class ServiceStages
         $why = trim($why); if ($why === '') throw new InvalidArgumentException('Say why it\'s retired, so the record tells its story.');
         if (Automation::serviceOff($pdo, $svc) === null) Automation::set($pdo, 'service', $svc, true, 'Retired: ' . $why, $uid, $who);
         self::log($pdo, $svc, 'retired', $why, $uid, $who, trim($replaced));
+        // its open trips close as Retired, their holds lift, their history kept (02 row 116, §3c; NG: the one close allowed
+        // without a check, nothing becomes active)
+        try { require_once __DIR__ . '/ControlAlarms.php'; ControlAlarms::retired($pdo, $svc, $who); } catch (Throwable $x) { error_log('retired alarms: ' . $x->getMessage()); }
         return $name . ' is retired: nothing of ours calls it, and its card keeps why' . (trim($replaced) !== '' ? ' and what replaced it' : '') . '. Bring it back undoes it.';
     }
 

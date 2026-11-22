@@ -20,7 +20,8 @@ $fresh = function () { $r = new ReflectionProperty('ControlMaintenance', 'out');
 $refused = function (callable $f) { try { $f(); return ''; } catch (RuntimeException $x) { return $x->getMessage(); } };
 
 // 1. what can be taken out, and what's refused
-$t('a workflow, or a task with its own switch, can be taken out; a service or a site job can\'t', ControlMaintenance::canTake('wf:W1') && ControlMaintenance::canTake('t:overture') && !ControlMaintenance::canTake('t:vectors') && !ControlMaintenance::canTake('svc:tavily') && !ControlMaintenance::canTake('job:preflight_tick'));
+// 02 §5.3 and row 103 extend Take out to every part (module, host, job, worker): a task without its own switch still can't
+$t('a workflow, a task with its own switch, a service and a site job can be taken out (02 row 103)', ControlMaintenance::canTake('wf:W1') && ControlMaintenance::canTake('t:overture') && !ControlMaintenance::canTake('t:vectors') && ControlMaintenance::canTake('svc:tavily') && ControlMaintenance::canTake('job:preflight_tick'));
 $t('no why: refused', str_contains($refused(fn () => ControlMaintenance::take($pdo, 'wf:W2', time(), time() + 3600, '  ', 7, 'Jason')), 'Say why'));
 $t('a Back by before it goes out: refused', str_contains($refused(fn () => ControlMaintenance::take($pdo, 'wf:W2', time() + 3600, time() + 60, 'keys', 7, 'Jason')), 'Back by'));
 

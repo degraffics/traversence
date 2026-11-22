@@ -520,7 +520,7 @@ function tv_mc_zone4(PDO $pdo, string $key, array $man, string $proc, array $slo
             '<input class="ak-in" name="why" maxlength="250" required placeholder="Why it\'s retired" data-spell><input class="ak-in" name="replaced" maxlength="250" placeholder="What replaced it (optional)" data-spell>', $canAu, $whyAu)) . '</details>'; if ($canAu) $allowed[] = 'Retire (stage 8)'; }
         $ours[] = $st . '</div>';
     }
-    $ours[] = tv_mc_btn('maintout', $proc, 'Take out', ControlMaintenance::canTake($proc), 'It can\'t be taken out from here: only a workflow, or a task with its own switch.');   // rows 103–104; g3 M5
+    $ours[] = tv_mc_btn('maintout', $proc, 'Take out', ControlMaintenance::canTake($proc), 'It can\'t be taken out from here: a task without its own switch is taken out with its workflow (02 §5.3).');   // rows 103–104; g3 M5
     if ($key === 'railway') { [$okS, $whyS] = SystemStart::can(); $ours[] = tv_mc_btn('pauseall', '', 'Pause everything', $okS, (string) $whyS, 'Pause everything? Every workflow stops, and the crawler\'s schedule with it, until Start the system.', true); if ($okS) $allowed[] = 'Pause everything'; }   // row 111; 03 §10 answer 9
     // the caps (rows 39: Raise the cap / Lower the cap): the register's Set and Reset, kept with their anchors
     $caps = '';

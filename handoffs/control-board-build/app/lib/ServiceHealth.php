@@ -284,7 +284,9 @@ final class ServiceHealth
         $p = self::PROBES[$host] ?? self::probeFor($pdo, $host);
         // a ban's probe (02 rows 32-34; decisions/0164 §6.1): one polite request to the host once a day, as the refused agent,
         // for 3 days; probed() stops it then and it waits for a person
-        if (!$p && $kind === 'ban') $p = ['https://' . $host . '/', 1440, 'as_refused'];
+        // (the manifest's 'probe' URL when it declares one, 02 §8; else the host's own root page). It goes out only past
+        // StagingGate::hold (held() / allowed()) and at most once a day per issue (next_probe_at moves on before it's sent)
+        if (!$p && $kind === 'ban') { require_once __DIR__ . '/ControlEngine.php'; $pu = (string) (ControlEngine::defs()[$svc]['probe'] ?? ''); $p = [$pu !== '' ? $pu : 'https://' . $host . '/', 1440, 'as_refused']; }
         $pdo->prepare("INSERT INTO service_issues (service, host, caller, kind, state, hits, first_at, last_at, evidence, hold_until, probe_url, probe_every_min, probe_agent, next_probe_at) VALUES (?, ?, ?, ?, 'open', ?, ?, ?, ?, ?, ?, ?, ?, ?)")
             ->execute([$svc, $host, $caller, $kind, $n, $e['at'], $e['at'], json_encode(['first' => $e, 'latest' => $e], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE),
                        self::holdUntil($kind, $n, $e['retry_after']), $p[0] ?? null, $p[1] ?? null, $p[2] ?? null, $p && $stop && !self::noProbe(['service' => $svc, 'kind' => $kind]) ? gmdate('Y-m-d H:i:s', time() + 60 * (int) $p[1]) : null]);

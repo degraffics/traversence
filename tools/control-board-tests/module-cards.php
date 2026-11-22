@@ -36,7 +36,8 @@ $t('…an empty slot says so in words, with Publish from your Vault (owner only)
 $t('…every section carries data-copy (Copy by section)', substr_count($h, 'class="mc-z ') === substr_count($h, '" data-copy="') - 2 || preg_match_all('/<section class="mc-z mc-z\d" data-copy="/', $h) === 4);
 $t('…kept: Pause with its why, Retire it… folded, its stage anchor', str_contains($h, 'id="stage-usgs"') && str_contains($h, 'value="svc_pause"') && str_contains($h, 'placeholder="Why pause it"') && str_contains($h, '<summary>Retire it…</summary>') && str_contains($h, 'data-yes="Retire" data-danger'));
 $t('…kept: Its key with its anchor, Used by, Known price, This month (with the caps anchor where it has no caps)', str_contains($h, '<dt id="svc-usgs-key">Its key</dt>') && str_contains($h, '<dt>Used by</dt>') && str_contains($h, '<dt>Known price</dt>') && str_contains($h, '<dt id="svc-usgs-caps">This month</dt>'));
-$t('…Take out greyed with the reason (a module can\'t be taken out today, g3 M5)', (bool) preg_match('/data-mc-act="maintout"[^>]*disabled title="It can&#039;t be taken out from here/', $h));
+// 02 row 103 (§5.3: canTake extended to every part): a module's Take out is offered, no longer greyed
+$t('…Take out offered on a module (02 row 103; was greyed, g3 M5)', (bool) preg_match('/data-mc-act="maintout"/', $h) && !preg_match('/data-mc-act="maintout"[^>]*disabled/', $h));
 $t('…phone layout: edge to edge class, slots two per row and the radius stacked under 768px', str_contains($h, 'mc-card tv-bleed') && str_contains($h, '.mc-slots{grid-template-columns:repeat(2,minmax(0,1fr))}') && str_contains($h, '.mc-rad{grid-template-columns:1fr}') && str_contains($h, 'overflow-wrap:anywhere'));
 
 // 2. a held one: a refused key, Fix it to Its key, the Keys slot named (row 129), zone 4 moved up

@@ -41,6 +41,8 @@ final class ControlEngine
             return $proc;
         }
         if (preg_match('/^pf:(svc|nd|wf|t|site|rw|wk):(.+)$/', $key, $m)) return $m[1] . ':' . $m[2];   // t: a Start task's line (its services)
+        // a stuck run has a check of its own (02 row 66: "is it still running? did it finish?"): job:<job>:run
+        if (preg_match('/^job:([a-z0-9_]+):stuck$/', $key, $m)) return 'job:' . $m[1] . ':run';
         if (preg_match('/^(?:job|jobslow):([a-z0-9_]+)/', $key, $m)) return 'job:' . $m[1];
         if (in_array($key, ['run:failed', 'run:starved', 'silent:run'], true)) return 'wk:crawler';
         if ($key === 'silent:w0') return 'wk:w0-indexer';
@@ -112,7 +114,7 @@ final class ControlEngine
     /** Whether a component has a check of its own the system can run (§2.7); a task's or job's is its next run. */
     public static function checkable(PDO $pdo, string $comp): bool
     {
-        if (str_starts_with($comp, 'ep:') || str_starts_with($comp, 'wk:')) return true;
+        if (str_starts_with($comp, 'ep:') || str_starts_with($comp, 'wk:') || preg_match('/^job:[a-z0-9_]+:run$/', $comp)) return true;
         if (preg_match('/^(svc|nd|site|rw|t):(.+)$/', $comp, $m)) {
             // another server of a module (svc:<id>:<part>) is checked by its module's line, which calls each of its servers
             try { require_once __DIR__ . '/Preflight.php'; return isset(Preflight::lines($pdo)[self::lineOf($comp)]); } catch (Throwable $x) { return false; }
@@ -176,6 +178,12 @@ final class ControlEngine
                 $r = $pdo->query("SELECT id, status, started_at, ended_at FROM crawl_runs ORDER BY id DESC LIMIT 1")->fetch(PDO::FETCH_ASSOC);
                 $ok = $r && $r['ended_at'] !== null && $r['status'] !== 'failed' && strtotime((string) $r['started_at']) > time() - 40 * 60;
                 return ['pass' => (bool) $ok, 'ms' => 0, 'proof' => $r ? 'The crawler\'s last run (#' . (int) $r['id'] . ') ' . ($r['ended_at'] === null ? 'hasn\'t reported yet' : 'ended ' . $r['status']) . '.' : 'The crawler has no run yet.'];
+            }
+            if (preg_match('/^job:([a-z0-9_]+):run$/', $comp, $jm)) {
+                // a stuck run's check (row 66): its latest run finished, or a later one started less than 2 h ago
+                $st = $pdo->prepare('SELECT id, started_at, finished_at FROM ' . (class_exists('Database') ? Database::t('job_runs') : 'job_runs') . ' WHERE job = ? ORDER BY id DESC LIMIT 1'); $st->execute([$jm[1]]); $r = $st->fetch(PDO::FETCH_ASSOC);
+                $ok = $r && ($r['finished_at'] !== null || strtotime((string) $r['started_at']) > time() - 7200);
+                return ['pass' => (bool) $ok, 'ms' => 0, 'proof' => !$r ? 'It has no run.' : ($r['finished_at'] !== null ? 'Its run #' . (int) $r['id'] . ' finished at ' . substr((string) $r['finished_at'], 11, 5) . '.' : 'Its run #' . (int) $r['id'] . ' (started ' . substr((string) $r['started_at'], 0, 16) . ') still hasn\'t finished.')];
             }
             if ($comp === 'wk:w0-indexer') {
                 require_once __DIR__ . '/crawler/Frontier.php'; $beat = (int) (Frontier::lastBeat($pdo)['at'] ?? 0);
@@ -357,8 +365,10 @@ final class ControlEngine
         // a task's own code, a job, a workflow's roll-up: nothing beyond its own work (P7, §2.2; ruling 3)
         if (str_starts_with($comp, 'task:') || str_starts_with($comp, 'wf:')) return [];
         if (str_starts_with($comp, 'job:')) {
-            // a job that is a workflow's task holds only that task (D8: identity_recheck_tick is W2's recheck)
-            try { require_once __DIR__ . '/SystemStart.php'; foreach (SystemStart::TASKS as $d) if (in_array(substr($comp, 4), (array) $d[3], true)) foreach ((array) $d[4] as $tk) if (Automation::taskOff($pdo, (string) $tk) === null) $out[] = ['pause', 'task:' . $tk, (string) $d[0]]; } catch (Throwable $x) {}
+            // a job that is a workflow's task holds only that task (D8: identity_recheck_tick is W2's recheck); a stuck run
+            // (job:<job>:run) holds its own work the same way (row 66: "Held: its own work only")
+            $jb = (string) preg_replace('/:run$/', '', substr($comp, 4));
+            try { require_once __DIR__ . '/SystemStart.php'; foreach (SystemStart::TASKS as $d) if (in_array($jb, (array) $d[3], true)) foreach ((array) $d[4] as $tk) if (Automation::taskOff($pdo, (string) $tk) === null) $out[] = ['pause', 'task:' . $tk, (string) $d[0]]; } catch (Throwable $x) {}
             return $out;
         }
         // an outside service's issue: its calls wait on its own check (its host hold)

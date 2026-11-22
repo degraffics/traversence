@@ -377,6 +377,10 @@ sc('faults', 'S-B66', 'a job stuck over 2 h: a fault (not slow): a Warning, then
     jobRun('identity_recheck_tick', null, '', 150, null); watch(); $a = alarm('job:identity_recheck_tick:stuck');
     chk('raised', $a !== null);
     chk('a fault on the diagnostic clock, not "slow" that can never trip (g3 J5)', $a && $a['kind'] !== 'slow', $a['kind'] ?? null);
+    chk('a Warning first, its first try due (02 row 66: "Warning, then a Trip after 3 tries")', $a && $a['level'] === 'warning' && $a['next_try_at'] !== null && $a['component'] === 'job:identity_recheck_tick:run', $a);
+    triesOut('job:identity_recheck_tick:stuck'); $b = alarm('job:identity_recheck_tick:stuck');
+    chk('guard: each try asked whether its run is still running (job:<job>:run)', count(array_filter(called(), fn ($c) => $c === 'job:identity_recheck_tick:run')) === 3, called());
+    chk('three failed tries: a Trip holding its own work only (no workflow, no master)', $b && $b['level'] === 'trip' && !array_filter(holds(), fn ($h) => str_starts_with($h, 'wf:') || $h === 'master:all'), [$b['level'] ?? null, holds()]);
     $GLOBALS['pdo']->exec("DELETE FROM job_runs"); jobRun('identity_recheck_tick', 1, 'ok', 3000); watch();
     chk('no false clear when no run comes in 2 days (g3 J4)', alarm('job:identity_recheck_tick:stuck') !== null, last('job:identity_recheck_tick:stuck')['cleared_how'] ?? null);
 });
