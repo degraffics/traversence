@@ -158,7 +158,7 @@ function tv_cb_maintenance(PDO $pdo, array $names, callable $btn, bool $canRun, 
     $nm = fn (string $p) => $names[$p] ?? $p;
     $at = fn (?string $d) => $d ? tv_cb_time((int) strtotime($d . ' UTC')) : '';
     $sum = $out ? count($out) . ' out' . ($plan ? ', ' . count($plan) . ' planned' : '') : ($plan ? count($plan) . ' planned' : 'nothing out');
-    $h = '<details class="ak-card tv-bleed cb-panel" id="maintenance"' . ($out ? ' open' : '') . '><summary class="cb-ph"><span class="cb-caret" aria-hidden="true">▾</span>' . tv_cb_mark($out ? 'maint' : 'na') . '<b>Maintenance</b> <small>' . $e($sum) . '</small></summary><div class="cb-mt">';
+    $h = '<details class="ak-card tv-bleed cb-panel" id="maintenance" data-copy="Maintenance"' . ($out ? ' open' : '') . '><summary class="cb-ph"><span class="cb-caret" aria-hidden="true">▾</span>' . tv_cb_mark($out ? 'maint' : 'na') . '<b>Maintenance</b> <small>' . $e($sum) . '</small></summary><div class="cb-mt">';
     // what's out, planned, and back in the last two days
     $li = '';
     foreach ($rows as $r) {
@@ -240,12 +240,20 @@ function tv_cb_reports_panel(PDO $pdo): string
     require_once __DIR__ . '/../lib/ControlReport.php';
     $opts = ''; foreach (ControlReport::scopes($pdo) as $k => $n) $opts .= '<option value="' . $e($k) . '">' . $e($n) . '</option>';
     $sum = ControlReport::summary($pdo);
-    return '<details class="ak-card tv-bleed cb-panel" id="reports"><summary class="cb-ph"><span class="cb-caret" aria-hidden="true">▾</span>' . tv_cb_mark('na') . '<b>Reports</b> <small>uptime, what ran, records, alarms, spend and switches, for any system or process</small></summary>'
+    return '<details class="ak-card tv-bleed cb-panel" id="reports" data-copy="Reports"><summary class="cb-ph"><span class="cb-caret" aria-hidden="true">▾</span>' . tv_cb_mark('na') . '<b>Reports</b> <small>uptime, what ran, records, alarms, spend and switches, for any system or process</small></summary>'
         . ($sum ? '<ul class="cb-rsum">' . implode('', array_map(fn ($l) => '<li>' . $e($l) . '</li>', $sum)) . '</ul>' : '')
         . '<form class="cb-rf" method="get" action="/admin/config/control"><label>Report on<select name="report">' . $opts . '</select></label>'
         . '<label>Over<select name="range"><option value="day">the last 24 hours</option><option value="week">the last 7 days</option></select></label>'
         . '<button type="submit" class="ak-b">Open the report</button></form>'
         . '<p class="ak-note">Made from what the site already keeps, so it costs nothing. Each opens as a page with Download (CSV, and the page as a file); the daily report at 5 am carries the summary, and Monday\'s the week.</p></details>';
+}
+
+/** The report page's style, shared with an Incident Report's page. */
+function tv_cb_report_css(): string
+{
+    return '<style>#cb.cb-report{display:grid;gap:.6rem}#cb .cb-rsec{padding:.6rem .8rem}#cb .cb-title{margin:0 0 .4rem;font-size:15px}#cb .cb-rsum{margin:0;padding-left:1.1rem}#cb .cb-rtw{overflow-x:auto}'
+        . '#cb .cb-acts{display:flex;flex-wrap:wrap;gap:.4rem}#cb .cb-acts .on{background:#8FBCA8}#cb .cb-tt{width:100%;border-collapse:collapse;font-size:13px}#cb .cb-tt th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.03em;color:#8a7a68;padding:.2rem .3rem;border-bottom:1px solid #EFE6D6}#cb .cb-tt td{padding:.3rem;border-bottom:1px solid #F3ECE0;vertical-align:top}'
+        . '@media (max-width:767px){#cb .cb-tt thead{display:none}#cb .cb-tt tr{display:block;padding:.35rem 0;border-bottom:1px solid #EFE6D6}#cb .cb-tt td{display:flex;gap:.5rem;border:0;padding:.1rem 0}#cb .cb-tt td::before{content:attr(data-th);flex:0 0 7.5rem;font-size:11px;text-transform:uppercase;color:#8a7a68}}</style>';
 }
 
 /** The report as a page on the board (?report=<scope>&range=day|week): its summary, each section a table, its downloads. */
@@ -261,22 +269,11 @@ function tv_cb_report_page(PDO $pdo, string $scope, string $range, string $csrf)
         . '<div class="cb-acts"><a class="ak-b' . ($r['range'] === 'day' ? ' on' : '') . '" href="' . $e($q('day')) . '">Last 24 hours</a><a class="ak-b' . ($r['range'] === 'week' ? ' on' : '') . '" href="' . $e($q('week')) . '">Last 7 days</a>'
         . '<button type="button" class="ak-b" data-cb-dl="csv" data-cb-scope="' . $e($r['scope']) . '" data-cb-range="' . $e($r['range']) . '">Download CSV</button>'
         . '<button type="button" class="ak-b" data-cb-dl="file" data-cb-scope="' . $e($r['scope']) . '" data-cb-range="' . $e($r['range']) . '">Download the page</button></div>'
-        . '<ul class="cb-rsum">' . implode('', array_map(fn ($l) => '<li>' . $e($l) . '</li>', $r['summary'])) . '</ul>';
-    foreach ($r['sections'] as $k => [$title, $cols, $rows, $note]) {
-        $h .= '<section class="ak-card tv-bleed cb-rsec" id="r-' . $e($k) . '"><h3 class="cb-title">' . $e($title) . '</h3>';
-        if ($rows) {
-            $h .= '<div class="cb-rtw"><table class="cb-tt"><thead><tr>' . implode('', array_map(fn ($c) => '<th>' . $e($c) . '</th>', $cols)) . '</tr></thead><tbody>';
-            foreach ($rows as $row) $h .= '<tr>' . implode('', array_map(fn ($c, $i) => '<td data-th="' . $e($cols[$i] ?? '') . '">' . tv_cb_rcell($c) . '</td>', $row, array_keys($row))) . '</tr>';
-            $h .= '</tbody></table></div>';
-        }
-        if ($note !== '') $h .= '<p class="ak-note">' . $e($note) . '</p>';
-        $h .= '</section>';
-    }
-    return $h . '<style>#cb.cb-report{display:grid;gap:.6rem}#cb .cb-rsec{padding:.6rem .8rem}#cb .cb-title{margin:0 0 .4rem;font-size:15px}#cb .cb-rsum{margin:0;padding-left:1.1rem}#cb .cb-rtw{overflow-x:auto}'
-        . '#cb .cb-acts{display:flex;flex-wrap:wrap;gap:.4rem}#cb .cb-acts .on{background:#8FBCA8}#cb .cb-tt{width:100%;border-collapse:collapse;font-size:13px}#cb .cb-tt th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.03em;color:#8a7a68;padding:.2rem .3rem;border-bottom:1px solid #EFE6D6}#cb .cb-tt td{padding:.3rem;border-bottom:1px solid #F3ECE0;vertical-align:top}'
-        . '@media (max-width:767px){#cb .cb-tt thead{display:none}#cb .cb-tt tr{display:block;padding:.35rem 0;border-bottom:1px solid #EFE6D6}#cb .cb-tt td{display:flex;gap:.5rem;border:0;padding:.1rem 0}#cb .cb-tt td::before{content:attr(data-th);flex:0 0 7.5rem;font-size:11px;text-transform:uppercase;color:#8a7a68}}</style>'
+        . '<section class="ak-card tv-bleed cb-rsec" id="r-summary" data-copy="Summary"><h3 class="cb-title">Summary</h3><ul class="cb-rsum">' . implode('', array_map(fn ($l) => '<li>' . $e($l) . '</li>', $r['summary'])) . '</ul></section>';
+    $h .= tv_cb_report_folded($r);   // folded (D16): the summary and spend first, uptime below 100%, alarms grouped
+    return $h . tv_cb_report_css()
         . '<script src="/js/tv-time.js?v=' . (int) @filemtime(__DIR__ . '/../../website/js/tv-time.js') . '" defer></script>'
-        . '<script src="/js/admin-control.js?v=' . (int) @filemtime(__DIR__ . '/../../website/js/admin-control.js') . '" defer></script></div>';
+        . '<script src="/js/admin-control.js?v=' . (int) @filemtime(__DIR__ . '/../../website/js/admin-control.js') . '" defer></script></div>' . tv_cb_view_assets();
 }
 
 /** #log: the logbook, its one filter (the system, a system, or one process) and Log an entry (spell-checked, with its zone). */
@@ -309,7 +306,7 @@ function tv_cb_logbook(PDO $pdo, array $names, bool $canNote): string
         $opts .= '</span>'; $nopts .= '</optgroup>';
     }
     $opts .= '<p class="ak-note cb-lgnone" hidden>No part has those words.</p>';
-    return '<details class="ak-card tv-bleed cb-panel" id="log"><summary class="cb-ph"><span class="cb-caret" aria-hidden="true">▾</span>' . tv_cb_mark('na') . '<b>Logbook</b> <small>every switch, control, alarm and note, newest first</small></summary>'
+    return '<details class="ak-card tv-bleed cb-panel" id="log" data-copy="Logbook"><summary class="cb-ph"><span class="cb-caret" aria-hidden="true">▾</span>' . tv_cb_mark('na') . '<b>Logbook</b> <small>every switch, control, alarm and note, newest first</small></summary>'
         . '<div class="cb-lg"><span class="ak-fw cb-lgw"><button type="button" class="ak-fb" aria-expanded="false" aria-haspopup="true" title="Whose log to show" data-cb-logb>' . $ic . '<span data-cb-logname>The whole system</span></button><span class="ak-fl cb-lgfl" hidden>' . $opts . '</span></span>'
         . '<ul class="cb-lgl" data-cb-loglist>' . tv_cb_log_rows($pdo) . '</ul>'
         . '<form class="cb-lg-n" id="cb-log-form"><label class="cb-why">Log an entry<textarea name="text" rows="2" maxlength="400" required data-spell placeholder="What happened, or what you did"></textarea></label>'
@@ -339,6 +336,18 @@ function tv_cb_by_system(PDO $pdo, array $res): array
 const TV_CB_TABS = ['alarms' => ['Alarms', 'Every alarm, open or cleared, with its drawer'], 'log' => ['Logbook', 'Every switch, alarm and note, by time'],
     'ledger' => ['Ledger', 'Every worker call and the records it touched'], 'upkeep' => ['Upkeep', 'Maintenance windows, set ahead and done'],
     'reports' => ['Reports', 'The whole system, a system or a part, over a period'], 'scheduler' => ['Scheduled tasks', 'Every scheduled job, its line and its runs']];
+
+/**
+ * W13 a list and W14 "Not built", wherever the board names a workflow's state (workflows-page.md §6 and §5's table; the
+ * session manager, 2026-11-22: "W13 is a list, not a gauge"; the build log's hand-off item 2: W14's "Nothing carries it
+ * yet" notice closes, its fact shown on its own page). [stage, where] or null.
+ */
+function tv_cb_wf_kind(string $id): ?array
+{
+    if ($id === 'wf:W13') return ['A list', 'People write stories: nothing to switch and no machine steps to measure (W13 is a list, not a gauge).'];
+    if ($id === 'wf:W14') return ['Not built', 'Not built: licence_lookup (the states\' licence lists, AZCC and NM SoS) isn\'t built yet, so nothing carries it.'];
+    return null;
+}
 
 /** A light as the table shows it: [tone, word] (colour with its word, never colour alone). */
 const TV_CB_LIGHTS = ['bad' => ['bad', 'Tripped'], 'alarm' => ['warn', 'Warning'], 'hold' => ['warn', 'Held'], 'warn' => ['warn', 'On a backup'], 'maint' => ['info', 'In maintenance'],
@@ -376,6 +385,7 @@ function tv_cb_table_rows(PDO $pdo, array $q): array
             foreach ($words as $w) if (!str_contains($hay, $w)) continue 2;
             $r = tv_cb_row($id, $p, $needs, $sysStage);
             $where = $mine ? ControlAlarms::LEVELS[$mine[0]['level']] . ': ' . $mine[0]['title'] . (count($mine) > 1 ? ' (and ' . (count($mine) - 1) . ' more)' : '') . '.' : (string) $r['where'];
+            if ($wk = tv_cb_wf_kind($id)) { $r['stage'][1] = $wk[0]; if (!$mine) $where = $wk[1]; }
             if (preg_match('/^(working|observation|' . preg_quote(mb_strtolower($r['stage'][1]), '/') . ')\.?$/u', mb_strtolower(trim($where)))) $where = '';   // "Working." doesn't repeat the pill
             // its actions: Check, and ⋯ with words; one not open to it says why
             $hasCheck = isset($res[$id]) || str_starts_with($id, 'wf:') || str_starts_with($id, 't:') || str_starts_with($id, 'svc:') || str_starts_with($id, 'site:') || (str_starts_with($id, 'wk:') && (string) (ControlRegister::WORKERS[substr($id, 3)][3] ?? '') !== '');
@@ -457,7 +467,7 @@ function tv_cb_watch(PDO $pdo, callable $btn): string
     }
     $b .= '</tbody></table><div class="cb-acts">' . ($on ? $btn('watch', 'Switch watching off', $can, (string) $why, 'off', ['data-confirm' => 'Stop watching Railway and the sync? Their alarms stop too.', 'data-yes' => 'Switch it off'])
         : $btn('watch', 'Switch watching on', $can, (string) $why, 'on', ['data-confirm' => 'Start watching Railway and the sync? The hourly job reads their status (free); nothing else changes.', 'data-yes' => 'Switch it on'])) . '</div>';
-    return '<details class="ak-card tv-bleed cb-panel" id="cb-watch"><summary class="cb-ph"><span class="cb-caret" aria-hidden="true">▾</span>' . tv_cb_mark($on ? 'ok' : 'new') . '<b>Watching Railway and the sync</b> <small>' . ($on ? 'on' : 'off (shipped off)') . '</small></summary>' . $b . '</details>';
+    return '<details class="ak-card tv-bleed cb-panel" id="cb-watch" data-copy="Watching Railway and the sync"><summary class="cb-ph"><span class="cb-caret" aria-hidden="true">▾</span>' . tv_cb_mark($on ? 'ok' : 'new') . '<b>Watching Railway and the sync</b> <small>' . ($on ? 'on' : 'off (shipped off)') . '</small></summary>' . $b . '</details>';
 }
 
 /** The board's process table, drawn by the admin kit's one table (tv_table: rows from config/processes). */
@@ -465,7 +475,7 @@ function tv_cb_process_table(): string
 {
     require_once __DIR__ . '/kit-table.php';
     $show = ['' => 'Every part']; foreach (TV_CB_LIGHTS as $k => [, $w]) $show[$k] = $w;
-    return '<div id="cb-systems" class="cb-systems">' . tv_table(['tool' => 'config/processes', 'title' => 'The parts of the system', 'open' => '/admin/config/control?proc={ref}',
+    return '<div id="cb-systems" class="cb-systems" data-copy="The parts of the system">' . tv_table(['tool' => 'config/processes', 'title' => 'The parts of the system', 'open' => '/admin/config/control?proc={ref}',
         'columns' => [['name', 'Process', 'name'], ['light', 'Status', 'status'], ['stage', 'Stage', 'pill'], ['where', 'Where it stands', 'text'], ['runs', 'Last 24 hours', 'text'], ['speed', 'Speed', 'text'], ['ok', 'OK', 'text']],
         'sub' => 'sub', 'act' => ['check', 'Check'],
         'menu' => [['page', 'Its own page'], ['resolve', 'Check and start again'], ['start', 'Start it'], ['stop', 'Shut it down'], ['maintout', 'Take out for maintenance'], ['maintback', 'Put back']],
@@ -532,7 +542,7 @@ function tv_cb_steps(PDO $pdo, string $wf, array $res, callable $btn): string
     $needKeys = array_keys(array_filter(Preflight::NEEDS, fn ($n) => in_array($wf, $n[2], true)));
     $needs = ControlBoard::needs($res, $needKeys);
     $on = count(array_filter($tasks, fn ($t) => (int) $t['enabled']));
-    $h = '<details class="ak-card tv-bleed cb-panel" id="cb-steps" open><summary class="cb-ph"><span class="cb-caret" aria-hidden="true">▾</span>' . tv_cb_mark($on === count($tasks) ? 'ok' : 'off') . '<b>Its steps and their switches</b> <small>' . count($tasks) . ' task' . (count($tasks) === 1 ? '' : 's') . ', ' . $on . ' on</small></summary><ul class="cb-steps">';
+    $h = '<details class="ak-card tv-bleed cb-panel" id="cb-steps" data-copy="Its steps and their switches" open><summary class="cb-ph"><span class="cb-caret" aria-hidden="true">▾</span>' . tv_cb_mark($on === count($tasks) ? 'ok' : 'off') . '<b>Its steps and their switches</b> <small>' . count($tasks) . ' task' . (count($tasks) === 1 ? '' : 's') . ', ' . $on . ' on</small></summary><ul class="cb-steps">';
     foreach ($tasks as $tk => $t) {
         $svcs = []; foreach (OutsideServices::CONTROLS as $svc => $c) if (in_array($tk, (array) ($c['tasks'] ?? []), true)) $svcs[] = $svc;
         $uses = [];
@@ -589,7 +599,7 @@ function tv_cb_alarms(array $alarms, array $ac, array $names, callable $pid, boo
     [$canBoard, $whyBoard] = ControlBoard::can();   // an admin's Resolve (executive, 0171 §13)
     $nOpen = $ac['trip'] + $ac['warning'] + $ac['notice'];
     $sum = $nOpen ? implode(', ', array_filter([$ac['trip'] ? $ac['trip'] . ' trip' . ($ac['trip'] === 1 ? '' : 's') : '', $ac['warning'] ? $ac['warning'] . ' warning' . ($ac['warning'] === 1 ? '' : 's') : '', $ac['notice'] ? $ac['notice'] . ' notice' . ($ac['notice'] === 1 ? '' : 's') : ''])) . ' open' : 'nothing open';
-    $h = '<details class="ak-card tv-bleed cb-panel cb-alarms" id="cb-alarms"' . ($nOpen ? ' open' : '') . '><summary class="cb-ph"><span class="cb-caret" aria-hidden="true">▾</span>' . tv_cb_mark($ac['trip'] ? 'bad' : ($ac['warning'] ? 'hold' : 'ok')) . '<b>Alarms</b> <small>' . $e($sum) . '</small></summary>';
+    $h = '<details class="ak-card tv-bleed cb-panel cb-alarms" id="cb-alarms" data-copy="Alarms"' . ($nOpen ? ' open' : '') . '><summary class="cb-ph"><span class="cb-caret" aria-hidden="true">▾</span>' . tv_cb_mark($ac['trip'] ? 'bad' : ($ac['warning'] ? 'hold' : 'ok')) . '<b>Alarms</b> <small>' . $e($sum) . '</small></summary>';
     if (!$alarms) return $h . '<p data-tv-status="ok" data-tv-label="All clear:">No alarm is open. A problem raises one the moment it happens; a warning clears by itself when its reading is good again, and moves to the <a class="underline" href="#log">logbook</a>.</p></details>';
     $h .= '<ul class="cb-al">';   // its filter is one dropdown button in the page's header (tv_cb_afilter)
     // one alarm's row; two or more sharing a system, level and kind are one group row that opens to them (0171 §8's
@@ -645,7 +655,7 @@ function tv_cb_alarms(array $alarms, array $ac, array $names, callable $pid, boo
         $aff = '<b>Holds:</b> ' . $holds . ($f['affects'] ? '; ' . $e(implode('; ', $f['affects'])) : '');
         $th = Thread::html(['buttons' => [], 'pill_class' => 'cb-pill cb-pill-' . ($cl ? 'ok' : ($lv === 'trip' ? 'bad' : 'warn')), 'acts_class' => 'cb-acts'] + $f, 'board', $acts, '', $aff);
         $li = '<li id="cb-alarm-' . $id . '" class="cb-al-' . $e($cl ? 'cleared' : $lv) . '" data-astate="' . $state . '" data-alevel="' . $e($lv) . '">' . tv_cb_mark($cl ? 'ok' : ($lv === 'trip' ? 'bad' : ($lv === 'warning' ? 'hold' : 'new')))
-            . '<div class="cb-am">' . $th . '</div></li>';
+            . '<div class="cb-am">' . $th . ($lv === 'trip' && $ack && !$cl ? '<p class="cb-seen" data-tv-status="bad" data-tv-label="Seen:">by ' . $e((string) ($a['ack_name'] ?: 'staff')) . '. It stays open while it holds (the light stays red); Check and start again is still here.</p>' : '') . '</div></li>';
         return $li;
     };
     $groups = ControlAlarms::groups($alarms); $of = []; foreach ($groups as $gk => $g) foreach ($g['ids'] as $gid) $of[$gid] = $gk;
@@ -691,6 +701,404 @@ function tv_cb_statement_osm(): string
         . 'navigator.clipboard.writeText(t.textContent).then(function(){if(window.TvAsk)TvAsk.say("Copied.",{anchor:b});},function(){if(window.TvAsk)TvAsk.say("Your browser didn\'t allow copying: select the text and copy it.",{anchor:b,bad:true});});});</script>';
 }
 
+// ===================================================================================================================
+// The board's views (the control board's build, step 4: plan §2.1 rows 32 and 38; §4 D5, D15, D16, D17, D22's page).
+// "Is it delivering?" first (03-cards.md §4: "The board's first view: healthy, held, needs me"; §27: "each snapshot … is a
+// single gauge card that i can click to drill down", Jason, 2026-11-22), then Development (gauge-lifecycle.md §1–§6), then
+// Incidents (IR-####, 03 §7; 02 P12). Arc only (03 §27, Jason's choice, 2026-11-22). Every section and card carries
+// data-copy, for js/tv-copy.js's Copy (D15; Jason, live-reads C6: "Probably need a copy by section feature").
+// ===================================================================================================================
+
+/** The views as tabs, before the stages (03 §27: the Board view is the gauge cards; "Is it delivering?" is the first view). */
+const TV_CB_VIEWS = ['deliver' => ['Is it delivering?', 'Healthy, held, needs me; every snapshot a gauge card'],
+    'development' => ['Development', 'The 16 development gauges, from Planning to Monitoring; Site health\'s list'],
+    'incidents' => ['Incidents', 'Every Incident Report, IR-####, with its members, radius and timeline']];
+
+/** A moment, labelled with its zone (CLAUDE.md "Times where they happened": shown in the viewer's zone when none is stored). */
+function tv_cb_at(?int $at): string
+{
+    return $at ? '<time datetime="' . gmdate('c', $at) . '" data-tv-time>' . gmdate('M j, H:i', $at) . ' UTC</time>' : '';
+}
+
+/** The three questions, in one line at the top (03 §4; Jason's answers §10.1: "as drawn"). The light stays red while any trip holds, seen or not (g4 F1; 02 row 15). */
+function tv_cb_three(PDO $pdo, array $alarms, array $ac, array $names): string
+{
+    $e = 'tv_w_e';
+    $trips = array_values(array_filter($alarms, fn ($a) => $a['level'] === 'trip' && $a['cleared_at'] === null));
+    $seen = array_values(array_filter($trips, fn ($a) => $a['ack_at'] !== null));
+    $off = 0; try { foreach (ControlBoard::pausedNow($pdo) as $x) if (($x['g'] ?? '') === 'sys' && isset($x['left'])) $off++; } catch (Throwable $x) {}   // switches still off, left by a closed trip (02 CS-3)
+    $parts = [];
+    if ($ac['trip']) $parts[] = $ac['trip'] . ' trip' . ($ac['trip'] === 1 ? '' : 's') . ($seen ? ' (' . (count($seen) === count($trips) ? 'seen by ' . implode(', ', array_unique(array_map(fn ($a) => (string) ($a['ack_name'] ?: 'staff'), $seen))) : count($seen) . ' seen') . ')' : '');
+    if ($ac['warning']) $parts[] = $ac['warning'] . ' warning' . ($ac['warning'] === 1 ? '' : 's');
+    if ($off) $parts[] = $off . ' switch' . ($off === 1 ? '' : 'es') . ' still off';
+    $light = $ac['trip'] ? 'bad' : ($ac['warning'] || $off ? 'info' : 'ok');
+    $healthy = '<p data-tv-status="' . $light . '" data-tv-label="' . ($ac['trip'] ? 'Not healthy:' : ($parts ? 'Mostly:' : 'Healthy:')) . '">' . $e($parts ? implode(' · ', $parts) : 'Nothing open: no trip, no warning, no switch left off.') . '</p>';
+    // what's held and why: each hold by its cause, with its Incident Report (03 §4)
+    $held = '';
+    foreach ($trips as $a) {
+        $sw = ControlAlarms::stoppedWords($a);
+        $ir = !empty($a['incident_id']) ? ' <a class="underline" href="/admin/config/control?ir=' . (int) $a['incident_id'] . '" data-peek-frame>' . $e(ControlIncidents::number((int) $a['incident_id'])) . '</a>' : '';
+        $held .= '<li><a class="underline" href="#cb-alarm-' . (int) $a['id'] . '" data-cb-go="cb-alarm-' . (int) $a['id'] . '">' . $e(rtrim((string) $a['title'], '. ')) . '</a>' . $ir . ': '
+            . $e($sw !== '' ? 'holds ' . $sw . '.' : (empty($a['tripped_at']) ? 'the system is still trying; nothing is held yet.' : 'it holds what uses ' . ($names[$a['proc']] ?? $a['proc']) . '.')) . '</li>';
+    }
+    $held = $held !== '' ? '<ul class="cb-q3l">' . $held . '</ul>' : '<p data-tv-status="ok" data-tv-label="Nothing held:">No trip holds anything now.</p>';
+    $need = $ac['trip'] + $off;
+    $me = $need ? '<p data-tv-status="bad" data-tv-label="Waiting on you:">' . $e(implode(' and ', array_filter([$ac['trip'] ? $ac['trip'] . ' trip' . ($ac['trip'] === 1 ? '' : 's') : '', $off ? $off . ' switch' . ($off === 1 ? '' : 'es') . ' still off' : '']))) . '. '
+        . '<a class="underline" href="#cb-alarms" data-cb-go="cb-alarms">The Open list</a>' . ($off ? ' · <a class="underline" href="#cb-paused" data-cb-go="cb-paused">Paused now</a>' : '') . '</p>'
+        : '<p data-tv-status="ok" data-tv-label="Nothing:">Nothing waits on you.</p>';
+    return '<div class="ak-card tv-bleed cb-q3" id="cb-q3" data-copy="Is it delivering: healthy, held, needs me">'
+        . '<div class="cb-q"><h3 class="cb-qh">Is it healthy</h3>' . $healthy . '</div>'
+        . '<div class="cb-q"><h3 class="cb-qh">What\'s held and why</h3>' . $held . '</div>'
+        . '<div class="cb-q"><h3 class="cb-qh">What needs me</h3>' . $me . '</div></div>';
+}
+
+/** A gauge's stage as a key (the reader gives the word, "Phased Development", and its key 'k'). */
+function tv_cb_gstage(array $g): string
+{
+    $st = (string) ($g['stage'] ?? 'planning');
+    if (isset(TV_SG_STAGES[$st])) return $st;
+    foreach (TV_SG_STAGES as $k => [$w]) if ($w === $st) return $k;
+    return 'planning';
+}
+
+/** A gauge's key for tv_score_gauge: its stage below Monitoring, its band at it (gauge-lifecycle.md §1, §7). */
+function tv_cb_gk(array $g): string
+{
+    $st = tv_cb_gstage($g);
+    return $st === 'monitor' ? (in_array($g['band'] ?? '', ['good', 'below', 'poor', 'none'], true) ? (string) $g['band'] : 'none') : $st;
+}
+
+/** A share on a drill path: real where the readings hold it, else marked scenario (03 §27). */
+function tv_cb_share($s): string
+{
+    if ($s === null || $s === '' || $s === []) return '';
+    [$basis, $txt] = is_array($s) ? [(string) ($s[0] ?? ''), (string) ($s[1] ?? '')] : ['', (string) $s];
+    $scn = $basis === 'scn' || $basis === 'scenario' || preg_match('/^scenario\b/i', $txt);
+    $txt = (string) preg_replace('/^scenario:?\s*/i', '', $txt);
+    return ' <span class="cb-share">' . ($scn ? '<span class="cb-scn">scenario</span> ' : '<span class="cb-live">live</span> ') . tv_w_e($txt) . '</span>';
+}
+
+/** One drill path's rows: [id, name, state, share|null, href]; a link the map can't give says "association not mapped" (03 §27). */
+function tv_cb_path_rows(array $rows, string $none): string
+{
+    $e = 'tv_w_e';
+    if (!$rows) return '<p class="ak-note">' . $e($none) . '</p>';
+    $h = '<ul class="cb-pathl">';
+    foreach ($rows as $r) {
+        $r = array_values((array) $r); [$id, $name, $state, $share, $href] = $r + ['', '', '', null, ''];
+        $nm = (string) $name !== '' ? (string) $name : (string) $id;
+        $h .= '<li><span class="cb-pathn">' . ((string) $href !== '' ? '<a class="underline" href="' . $e((string) $href) . '" data-peek-frame>' . $e($nm) . '</a>' : $e($nm) . ' <span class="cb-unm">association not mapped</span>') . '</span>'
+            . ' <span class="cb-pill cb-pill-' . ((string) $state === '' ? 'ok' : (str_starts_with((string) $state, 'Trip') ? 'bad' : 'warn')) . '">' . $e((string) $state !== '' ? (string) $state : 'no open alarm') . '</span>' . tv_cb_share($share) . '</li>';
+    }
+    return $h . '</ul>';
+}
+
+/** The three drill buttons (Jason, 2026-11-22: "Workflows: what feeds the item. Core Services: the platform specific dependencies. Registered Services: the outside specific dependencies."). */
+function tv_cb_drill_btns(string $pid): string
+{
+    $b = fn (string $k, string $l) => '<button type="button" class="ak-b cb-xs cb-drill" data-cb-sp="' . tv_w_e($pid . '-' . $k) . '">' . $l . '</button>';
+    return $b('wf', 'Workflows ▸') . $b('cs', 'Core Services ▸') . $b('rs', 'Registered Services ▸');
+}
+
+/** A gauge's three path panels, each a side panel with Back (to its snapshot, or none for a development gauge), × and a click outside. */
+function tv_cb_path_panels(string $pid, string $title, array $paths, string $back): string
+{
+    $e = 'tv_w_e'; $h = '';
+    $kinds = ['wf' => ['workflows', 'Workflows', 'None: no workflow makes this.'], 'cs' => ['core', 'Core Services', 'association not mapped'], 'rs' => ['registered', 'Registered Services', 'association not mapped']];
+    foreach ($kinds as $k => [$key, $label, $none]) {
+        $nav = ($back !== '' ? '<button type="button" class="ak-b cb-xs" data-cb-sp="' . $e($back) . '">← Back</button>' : '');
+        foreach ($kinds as $k2 => [, $l2]) if ($k2 !== $k) $nav .= '<button type="button" class="ak-b cb-xs" data-cb-sp="' . $e($pid . '-' . $k2) . '">' . $e($l2) . ' ▸</button>';
+        $h .= '<aside class="cb-sp" id="' . $e($pid . '-' . $k) . '" role="dialog" aria-label="' . $e($title . ': ' . $label) . '" hidden data-copy="' . $e($title . ': ' . $label) . '">'
+            . '<button type="button" class="cb-spx" data-cb-spx aria-label="Close">×</button><p class="cb-crumb">' . $e($title) . ' · the ' . $e($label) . ' path</p>'
+            . '<h3 class="cb-title">' . $e($label) . '</h3>'
+            . ($k === 'cs' ? '<p class="ak-note">Our own platform: the databases, jobs, staging, the sync, the workers on Railway and the dispatcher.</p>' : ($k === 'rs' ? '<p class="ak-note">The outside companies in the Service register, in the order each need reads them.</p>' : '<p class="ak-note">What feeds it: the workflows and their tasks, each with its state and its share.</p>'))
+            . tv_cb_path_rows((array) ($paths[$key] ?? []), $none) . '<div class="cb-acts">' . $nav . '</div></aside>';
+    }
+    return $h;
+}
+
+/** One runtime gauge card and its panels (03 §27; gauge-lifecycle.md §7). Returns [card, panels]. */
+function tv_cb_gauge_card(array $g): array
+{
+    $e = 'tv_w_e';
+    $id = (string) preg_replace('/[^A-Za-z0-9_-]/', '-', (string) ($g['id'] ?? 'g')); $pid = 'cb-sp-' . $id;
+    $title = (string) ($g['title'] ?? $id); $stage = tv_cb_gstage($g);
+    $reading = $g['reading'] ?? null; $live = !empty($g['live']); $at = isset($g['at']) ? (int) $g['at'] : 0;
+    $unchecked = $reading === null && !$live;   // no reading: "not checked yet", once (03 §27)
+    $k = tv_cb_gk($g); $score = isset($g['score']) ? (float) $g['score'] : null;
+    // at Monitoring with no reading: the empty grey dial (03 §27 "Not checked yet: an empty grey dial")
+    if ($stage === 'monitor' && $unchecked) { $score = null; $k = 'none'; }
+    $sw = TV_SG_STAGES[$stage][0];
+    $label = $title . ': ' . ($score === null ? 'no reading yet' : number_format($score, 0) . ' percent') . ', ' . $sw . ($stage === 'monitor' && $k !== 'none' ? ' (' . ['good' => 'on target', 'below' => 'below target', 'poor' => 'poor'][$k] . ')' : '');
+    $target = $g['target'] ?? null;
+    $tgt = $target === null || $target === '' ? 'target: set by Jason' : 'target: ' . (string) $target;   // 03 §27: "Until Jason sets a target, the edges read 'target: set by Jason'"
+    // the reading in a pill with its time ("live · 2:40 AM MST"), "scenario" where not real, or "not checked yet" once (03 §27)
+    $rd = $unchecked ? '<span class="cb-rdp cb-rdn">not checked yet</span>'
+        : '<span class="cb-rdp">' . $e((string) ($g['reading_text'] ?? '')) . '</span> ' . ($live ? '<span class="cb-live">live' . ($at ? ' · ' . tv_cb_at($at) : '') . '</span>' : '<span class="cb-scn">scenario</span>');
+    $trend = trim((string) ($g['trend'] ?? '')) !== '' ? (string) $g['trend'] : 'No history yet';
+    $su = (array) ($g['setup'] ?? []);
+    $card = '<article class="cb-gc" id="cb-g-' . $e($id) . '" data-copy="' . $e($title) . '" data-stage="' . $e($stage) . '">'
+        . '<button type="button" class="cb-gopen" data-cb-sp="' . $e($pid . '-snap') . '" aria-label="' . $e('Open ' . $title . ': ' . $sw) . '">'
+        . '<span class="cb-gh">' . $e($title) . '</span>' . tv_score_gauge($score, $label, $k) . '<span class="cb-gst">' . tv_score_stage_pill($stage) . '</span>'
+        . '<span class="cb-rd">' . $rd . '</span><span class="cb-gtr">' . $e($trend) . '</span><span class="cb-gtg">' . $e($tgt) . '</span></button>'
+        . '<div class="cb-gb">' . ($unchecked ? '<button type="button" class="ak-b cb-xs cb-setup" data-cb-sp="' . $e($pid . '-snap') . '" data-cb-spat="' . $e($pid . '-setup') . '">Set up its check</button>' : '')
+        . tv_cb_drill_btns($pid) . '</div>' . (empty($g['paths']['workflows']) && empty($g['paths']['core']) && empty($g['paths']['registered']) ? '<small class="cb-unm">association not mapped</small>' : '') . '</article>';
+    // its snapshot: the big reading, measure, target, reading; its setup (Configure, gauge-lifecycle.md §7); Fix it; the three paths
+    $li = ''; $sw2 = (array) ($g['setup_why'] ?? []);
+    foreach (['probe' => 'The probe built', 'target' => 'Its target set', 'check' => 'Its check passing', 'alarm' => 'Its alarm wired to the board'] as $sk => $sl)
+        $li .= '<li class="' . (!empty($su[$sk]) ? 'ok' : 'no') . '"><span aria-hidden="true">' . (!empty($su[$sk]) ? '✓' : '·') . '</span> ' . $e($sl) . ' <small>' . $e(trim((string) ($sw2[$sk] ?? '')) !== '' ? (string) $sw2[$sk] : (!empty($su[$sk]) ? 'met' : 'not yet')) . '</small></li>';
+    if (!empty($g['needs_probe'])) $li .= '<li class="no"><span aria-hidden="true">·</span> To build: ' . $e(is_array($g['needs_probe']) ? implode('; ', array_map('strval', $g['needs_probe'])) : (string) $g['needs_probe']) . '</li>';
+    $nc = (array) ($g['no_check'] ?? []);
+    $fix = ''; foreach ((array) ($g['fix'] ?? []) as $f) { $f = array_values((array) $f); $fix .= (string) ($f[1] ?? '') !== '' ? '<a class="ak-b cb-xs go" href="' . $e((string) $f[1]) . '" data-peek-frame>' . $e((string) ($f[0] ?? 'Fix it')) . '</a>' : '<span>' . $e((string) ($f[0] ?? '')) . ' <span class="cb-unm">association not mapped</span></span>'; }
+    foreach ((array) ($g['unmapped'] ?? []) as $u) $fix .= '<span>' . $e(is_array($u) ? implode(' ', array_map('strval', $u)) : (string) $u) . ' <span class="cb-unm">association not mapped</span></span>';
+    $panels = '<aside class="cb-sp" id="' . $e($pid . '-snap') . '" role="dialog" aria-label="' . $e($title) . '" hidden data-copy="' . $e($title) . '">'
+        . '<button type="button" class="cb-spx" data-cb-spx aria-label="Close">×</button><p class="cb-crumb">Snapshot · ' . $e((string) ($g['box'] ?? '')) . '</p><h3 class="cb-title">' . $e($title) . '</h3>'
+        . '<div class="cb-gbig">' . tv_score_gauge($score, $label, $k, ['big' => true]) . tv_score_stage_pill($stage) . '</div>'
+        . (trim((string) ($g['why'] ?? '')) !== '' ? '<p class="ak-note">Why ' . $e($sw) . ': ' . $e((string) $g['why']) . '</p>' : '')
+        . '<dl class="cb-dl"><dt>Measure</dt><dd>' . $e((string) ($g['measure'] ?? '')) . '</dd><dt>Target</dt><dd>' . $e($target === null || $target === '' ? 'set by Jason' : (string) $target) . '</dd>'
+        . '<dt>Reading</dt><dd>' . $rd . '</dd><dt>Trend</dt><dd>' . $e($trend) . '</dd></dl>'
+        . '<h4 id="' . $e($pid . '-setup') . '" class="cb-h4">Configure: its setup (' . $e($sw) . ')</h4><ul class="cb-su">' . $li . '</ul>'
+        . ($nc ? '<p class="cb-nc" data-tv-status="info" data-tv-label="No check yet:">' . $e(implode(', ', $nc)) . '</p>' : '')
+        . ($fix !== '' ? '<div class="cb-acts"><b class="cb-lb">Fix it</b>' . $fix . '</div>' : '')
+        . '<div class="cb-acts">' . tv_cb_drill_btns($pid) . '</div></aside>'
+        . tv_cb_path_panels($pid, $title, (array) ($g['paths'] ?? []), $pid . '-snap');
+    return [$card, $panels];
+}
+
+/** "Is it delivering?": the three questions, then the runtime gauges by their promise box (03 §4, §27; board/README.md "Board: Is it delivering?"). */
+function tv_cb_deliver(PDO $pdo, array $alarms, array $ac, array $names): string
+{
+    $e = 'tv_w_e';
+    $h = '<section class="cb-view" id="cb-deliver">' . tv_cb_three($pdo, $alarms, $ac, $names);
+    if (!class_exists('ControlGauges')) return $h . '<p data-tv-status="bad" data-tv-label="Gauges not installed:">The gauges\' reader (app/lib/ControlGauges.php) isn\'t on the site, so no gauge can be drawn. The rest of the board works.</p></section>';
+    try { $gs = ControlGauges::runtime($pdo); $src = ControlGauges::source($pdo); }
+    catch (Throwable $x) { error_log('board gauges: ' . $x->getMessage()); return $h . '<p data-tv-status="bad" data-tv-label="Couldn\'t read the gauges:">' . $e($x->getMessage()) . ' The rest of the board works; reload the page to try again.</p></section>'; }
+    $h .= !empty($src['ok']) ? '<p class="ak-note cb-gsrc">Each gauge\'s setup is read from ' . $e((string) ($src['from'] ?? 'its configuration')) . (!empty($src['at']) ? ', made ' . tv_cb_at((int) $src['at']) : '') . '. Press a card for its snapshot; its three paths lead to what feeds it.</p>'
+        : '<p data-tv-status="info" data-tv-label="Configuration not read:">' . $e((string) ($src['from'] ?? 'The gauges\' configuration file')) . ' couldn\'t be read, so each gauge shows what the board itself knows.</p>';
+    $boxes = []; foreach ($gs as $g) $boxes[(string) ($g['box'] ?? 'Other')][] = $g;
+    $panels = '';
+    foreach ($boxes as $box => $list) {
+        $cards = ''; foreach ($list as $g) { [$c, $p] = tv_cb_gauge_card($g); $cards .= $c; $panels .= $p; }
+        $n = count($list); $mon = count(array_filter($list, fn ($g) => ($g['stage'] ?? '') === 'monitor'));
+        $h .= '<section class="ak-card tv-bleed cb-box" data-copy="' . $e($box) . '"><h3 class="cb-title">' . $e($box) . ' <small>' . $n . ' gauge' . ($n === 1 ? '' : 's') . ', ' . $mon . ' at Monitoring</small></h3><div class="cb-gg">' . $cards . '</div></section>';
+    }
+    if (!$gs) $h .= '<p data-tv-status="info" data-tv-label="No gauges yet:">No runtime gauge is configured.</p>';
+    return $h . '<div class="cb-sps">' . $panels . '</div></section>';
+}
+
+/** Development: the 16 development gauges (gauge-lifecycle.md §1–§6; 03 §27), then Site health's list (check-register.md). */
+function tv_cb_development(PDO $pdo, callable $btn): string
+{
+    $e = 'tv_w_e';
+    $h = '<section class="cb-view" id="cb-dev">';
+    $panels = '';
+    if (!class_exists('ControlGauges')) $h .= '<p data-tv-status="bad" data-tv-label="Gauges not installed:">The gauges\' reader (app/lib/ControlGauges.php) isn\'t on the site.</p>';
+    else {
+        try { $ds = ControlGauges::development($pdo); } catch (Throwable $x) { $ds = null; $h .= '<p data-tv-status="bad" data-tv-label="Couldn\'t read the gauges:">' . $e($x->getMessage()) . ' Reload the page to try again.</p>'; }
+        if (is_array($ds)) {
+            $cards = []; $side = [];
+            foreach ($ds as $g) {
+                $id = (string) preg_replace('/[^A-Za-z0-9_-]/', '-', (string) ($g['id'] ?? 'd')); $pid = 'cb-sp-d-' . $id; $title = (string) ($g['title'] ?? $id);
+                $signed = !empty($g['signed']);
+                // Planning at 0 until Jason signs off the configuration ("initially 0", Jason, 2026-11-22; gauge-lifecycle.md §3, the rule's first step)
+                $stage = $signed ? tv_cb_gstage($g) : 'planning';
+                $score = $signed ? (float) ($g['score'] ?? 0) : 0.0;
+                $items = (int) ($g['items'] ?? 0); $crit = (int) ($g['criteria'] ?? 0); $met = (int) ($g['met'] ?? 0);
+                $line = trim((string) ($g['text'] ?? '')) !== '' ? (string) $g['text'] : (!$signed ? ($items || $crit ? 'configuration drafted: ' . $items . ' item' . ($items === 1 ? '' : 's') . ', ' . $crit . ' criteri' . ($crit === 1 ? 'on' : 'a') . ', awaiting sign-off' : 'no configuration yet')
+                    : $met . ' of ' . $crit . ' criteri' . ($crit === 1 ? 'on' : 'a') . ' met, over ' . $items . ' item' . ($items === 1 ? '' : 's'));
+                $prev = $g['preview'] ?? null;
+                $nc = (array) ($g['no_check'] ?? []);
+                $sd = trim((string) ($g['side'] ?? '')); $side[$sd] = true;
+                $cards[$sd] = ($cards[$sd] ?? '') . '<article class="cb-gc cb-dc" id="cb-d-' . $e($id) . '" data-copy="' . $e($title) . '" data-stage="' . $e($stage) . '">'
+                    . '<span class="cb-gh">' . $e($title) . '</span>' . tv_score_gauge($score, $title . ': ' . number_format($score, 0) . ' percent, ' . TV_SG_STAGES[$stage][0], $stage) . '<span class="cb-gst">' . tv_score_stage_pill($stage) . '</span>'
+                    . '<span class="cb-dl1">' . $e($line) . '</span>'
+                    . (!$signed && $prev !== null ? '<details class="cb-prev"><summary>Preview with the draft configuration</summary><p>' . $e(number_format((float) $prev, 0)) . '% if the draft were signed off' . (!empty($g['preview_stage']) ? ' (' . $e((string) $g['preview_stage']) . ')' : '') . ', with the criteria from the page audit. A preview only: the gauge stays at 0 until Jason signs it off.</p></details>' : '')
+                    . ($nc ? '<span class="cb-nc">no check yet: ' . $e(implode(', ', $nc)) . '</span>' : '')
+                    . '<div class="cb-gb">' . tv_cb_drill_btns($pid) . '</div></article>';
+                $panels .= tv_cb_path_panels($pid, $title, (array) ($g['paths'] ?? []), '');
+            }
+            $h .= '<section class="ak-card tv-bleed cb-box" data-copy="Development: the 16 gauges"><h3 class="cb-title">Development <small>' . count($ds) . ' gauges; each starts at 0 in Planning, its configuration signed off by Jason</small></h3>'
+                . '<p class="ak-note">The score is the share of the gauge\'s configured criteria that are met; the word under it is the stage of the work. A criterion with no check yet counts as unmet. Site health\'s findings are <a class="underline" href="#site-health" data-cb-go="site-health">below</a>: the audit\'s view, which feeds each gauge\'s "checked".</p>'
+                . implode('', array_map(fn ($sd) => ($sd !== '' && count($side) > 1 ? '<h4 class="cb-h4">' . $e($sd) . '</h4>' : '') . '<div class="cb-gg">' . $cards[$sd] . '</div>', array_keys($cards))) . '</section>';   // Front end (6) and Back end (10), as the inventory has them (board/README.md "Development gauges")
+        }
+    }
+    return $h . tv_cb_site_health($pdo) . '<div class="cb-sps">' . $panels . '</div></section>';
+}
+
+/**
+ * Site health's list on the board (check-register.md, "Site health: one notification path", Jason 2026-11-22: "its list
+ * stays as the audit's view, reached from a gauge's drill-down"): moved from Pulse's Site health case (SiteHealth::steps).
+ * Each open finding, most paths blocked first (SiteHealth::open), with the case's actions kept: Mark fixed, Set aside (with
+ * why), Check again (reads the newest), Run the checks now; through Pulse's own manage actions for sitehealth:open.
+ */
+function tv_cb_site_health(PDO $pdo): string
+{
+    $e = 'tv_w_e';
+    $h = '<section class="ak-card tv-bleed cb-panel" id="site-health" data-copy="Site health"><h3 class="cb-title">Site health <small>the site audit\'s open findings, most paths blocked first</small></h3>';
+    $b = fn (string $what, string $label, bool $ok, string $why, array $at = []) => '<button type="button" class="ak-b cb-xs" data-cb-sh="' . $e($what) . '"' . ($ok ? '' : ' disabled title="' . $e($why) . '"')
+        . implode('', array_map(fn ($k, $v) => ' ' . $k . '="' . $e($v) . '"', array_keys($at), $at)) . '>' . $e($label) . '</button>';
+    try {
+        require_once __DIR__ . '/../lib/SiteHealth.php';
+        if (!SiteHealth::on($pdo)) return $h . '<p data-tv-status="info" data-tv-label="Switched off:">Site health is off (its switch, site_health, on <a class="underline" href="/admin/config/switches" data-peek-frame>Switches</a>), so the audit\'s findings aren\'t read here.</p></section>';
+        $d = SiteHealth::load($pdo);
+    } catch (Throwable $x) { $d = ['ok' => false, 'findings' => [], 'error' => $x->getMessage(), 'at' => '', 'run_url' => '']; }
+    $canMark = true; $whyMark = '';
+    try { require_once __DIR__ . '/Access.php'; [$canMark, $whyMark] = Access::can('insights/site_health.decide', ['min' => 'staff', 'depts' => ['eng', 'ops']]); $whyMark = ($whyMark ?: 'Your role can\'t record site health findings') . '.'; } catch (Throwable $x) {}
+    $again = $b('sh_refresh', 'Check again', true, '');
+    if (!$d['ok'] && !$d['findings']) return $h . '<p data-tv-status="bad" data-tv-label="Couldn\'t read the findings:">' . $e((string) $d['error']) . ' The list fills in once they can be read.</p><div class="cb-acts">' . $again . '</div></section>';
+    $open = SiteHealth::open($pdo, $d);
+    $h .= '<p class="ak-note">From the site audit' . ($d['at'] !== '' ? ' of ' . tv_cb_at((int) strtotime((string) $d['at'])) : '') . ($d['error'] !== '' ? '. Newer findings couldn\'t be read: ' . $e((string) $d['error']) : '') . '. Each finding was sent once to Pulse, with no push; a check that stopped running is a warning in the alarms.</p>';
+    if (!$open) $h .= '<p data-tv-status="ok" data-tv-label="All clear:">No open finding.</p>';
+    else {
+        $h .= '<ul class="cb-shl">';
+        foreach ($open as $f) {
+            $page = str_starts_with((string) $f['page'], '/') ? (string) $f['page'] : '';
+            $links = ($page !== '' ? '<a class="underline" href="' . $e($page) . '" data-peek-frame>the page</a>' : '') . ($f['shot_url'] !== '' ? ' <a class="underline" href="' . $e($f['shot_url']) . '" target="_blank" rel="noopener">the screenshot ↗</a>' : '')
+                . ($f['proposal_url'] !== '' ? ' <a class="underline" href="' . $e($f['proposal_url']) . '" target="_blank" rel="noopener">proposal ' . $e((string) $f['proposal']) . ' ↗</a>' : '');
+            $h .= '<li id="site-health-' . $e((string) $f['id']) . '"><div><span class="cb-pill cb-pill-' . ($f['severity'] === 'update' ? 'new' : ($f['severity'] === 'critical' ? 'bad' : 'warn')) . '">' . $e(ucfirst((string) $f['severity'])) . '</span> '
+                . '<b>' . $e(($f['rule'] !== '' ? $f['rule'] . ': ' : '') . $f['title']) . '</b></div>'
+                . '<div class="cb-shd">' . $e((string) $f['detail']) . '</div>'
+                . '<div><small>' . ($f['blocks'] ? 'In the way of ' . (int) $f['blocks'] . ' path' . ((int) $f['blocks'] === 1 ? '' : 's') . ($f['paths'] ? ' (' . $e(implode(', ', array_slice((array) $f['paths'], 0, 4))) . ')' : '') . ' · ' : 'No path blocked · ')
+                . ($f['first_seen'] !== '' ? 'first seen ' . tv_cb_at((int) strtotime((string) $f['first_seen'])) : 'first seen: not said') . ($f['who'] ? ' · seen as ' . $e(implode(', ', (array) $f['who'])) : '') . '</small></div>'
+                . ($links !== '' ? '<div><small>' . $links . '</small></div>' : '')
+                . '<div class="cb-acts">' . $b('sh_mark:' . $f['id'], 'Mark fixed', (bool) $canMark, (string) $whyMark, ['data-state' => 'fixed', 'data-confirm' => 'Mark it fixed? It stays off the list unless the next audit run still finds it.', 'data-yes' => 'Mark fixed'])
+                . $b('sh_mark:' . $f['id'], 'Set aside', (bool) $canMark, (string) $whyMark, ['data-state' => 'aside', 'data-ask' => 'Why is it fine as it is? (The next review reads it.)']) . '</div></li>';
+        }
+        $h .= '</ul>';
+    }
+    return $h . '<div class="cb-acts">' . $again . $b('sh_run:site-checks', 'Run the checks now', true, '', ['data-confirm' => 'Ask GitHub to run the browser checks and the paths now? About 15 minutes.', 'data-yes' => 'Run them'])
+        . '<a class="ak-b cb-xs" href="' . $e(SiteHealth::PATHS_PAGE) . '" target="_blank" rel="noopener">Every path ↗</a></div></section>';
+}
+
+/** Incidents: every Incident Report (02 P12; 03 §7), newest first, each opening its page. */
+function tv_cb_incidents(PDO $pdo, array $names): string
+{
+    $e = 'tv_w_e';
+    $list = ControlIncidents::list($pdo, 100);
+    $h = '<section class="cb-view" id="cb-incidents"><section class="ak-card tv-bleed cb-panel" id="cb-irs" data-copy="Incident Reports"><h3 class="cb-title">Incident Reports <small>' . count($list) . ' kept; every trip opens one or joins an open one; kept ' . ControlIncidents::KEEP_DAYS . ' days</small></h3>';
+    if (!$list) return $h . '<p data-tv-status="ok" data-tv-label="None yet:">No trip has opened an Incident Report.</p></section></section>';
+    $h .= '<table class="cb-tt"><thead><tr><th>Report</th><th>Opened</th><th>State</th><th>Root cause</th></tr></thead><tbody>';
+    foreach ($list as $r) {
+        $num = ControlIncidents::number((int) $r['id']);
+        $h .= '<tr id="cb-ir-' . (int) $r['id'] . '"><td data-th="Report"><a class="underline" href="/admin/config/control?ir=' . (int) $r['id'] . '" data-peek-frame>' . $e($num) . '</a> ' . $e((string) $r['title']) . '</td>'
+            . '<td data-th="Opened">' . tv_cb_at((int) strtotime($r['opened_at'] . ' UTC')) . '</td>'
+            . '<td data-th="State">' . ($r['closed_at'] ? 'Closed ' . tv_cb_at((int) strtotime($r['closed_at'] . ' UTC')) : '<span class="cb-pill cb-pill-bad">Open</span>') . '</td>'
+            . '<td data-th="Root cause">' . ($r['root_cause_state'] === 'confirmed' ? 'Confirmed' : 'Unconfirmed') . '</td></tr>';
+    }
+    return $h . '</tbody></table></section></section>';
+}
+
+/**
+ * An Incident Report's page (?ir=<n>; 03 §7, mockup e for IR-0001; 02 P12): its title ("IR-0001 · Correlated · 2 parts: … ·
+ * <state>"), its root cause ("Unconfirmed" in its own row until a person writes it), its members with their warning and trip
+ * ids and real times, its timeline, its radius and its evidence.
+ */
+function tv_cb_ir_page(PDO $pdo, int $id, string $csrf): string
+{
+    $e = 'tv_w_e';
+    $r = ControlIncidents::get($pdo, $id);
+    $h = '<div id="cb" class="cb-report" data-csrf="' . $e($csrf) . '"><p class="cb-rback"><a href="/admin/config/control?tab=incidents" class="underline">← Incident Reports</a></p>';
+    if (!$r) return $h . '<p data-tv-status="info" data-tv-label="Not found:">There\'s no ' . $e(ControlIncidents::number($id)) . '. It may be older than ' . ControlIncidents::KEEP_DAYS . ' days. <a class="underline" href="/admin/config/control?tab=incidents">Every Incident Report</a></p></div>' . tv_cb_report_css() . tv_cb_view_assets();
+    $names = []; try { foreach (ControlRegister::processes($pdo) as $pid => $p) $names[$pid] = (string) $p[1]; } catch (Throwable $x) {}
+    $members = (array) $r['members'];
+    $parts = []; foreach ($members as $m) { $st = $pdo->prepare('SELECT proc FROM control_alarms WHERE id = ?'); $st->execute([(int) $m['id']]); $pr = (string) $st->fetchColumn(); $parts[] = $names[$pr] ?? ($pr !== '' ? $pr : (string) $m['akey']); }
+    $parts = array_values(array_unique($parts));
+    $holding = array_filter($members, fn ($m) => $m['cleared_at'] === null && !empty($m['tripped_at']));
+    $state = $r['closed_at'] ? 'Closed' : ($holding ? 'Paused by the system' : 'Open: the system is still trying');
+    $title = ControlIncidents::number((int) $r['id']) . (count($members) > 1 ? ' · Correlated' : '') . ' · ' . count($parts) . ' part' . (count($parts) === 1 ? '' : 's') . ': ' . implode(', ', $parts) . ' · ' . $state;
+    $h .= '<h2 class="ak-h">' . $e($title) . '</h2><p class="ak-note">Opened ' . tv_cb_at((int) strtotime($r['opened_at'] . ' UTC')) . ($r['closed_at'] ? ' · closed ' . tv_cb_at((int) strtotime($r['closed_at'] . ' UTC')) : ' · open') . ' · ' . $e((string) $r['title']) . '</p>';
+    $confirmed = $r['root_cause_state'] === 'confirmed' && trim((string) $r['root_cause']) !== '';
+    $h .= '<section class="ak-card tv-bleed cb-rsec" data-copy="Root cause"><h3 class="cb-title">Root cause</h3>'
+        . ($confirmed ? '<p data-tv-status="ok" data-tv-label="Confirmed:">' . $e((string) $r['root_cause']) . ($r['root_cause_by'] ? ' <small>(' . $e((string) $r['root_cause_by']) . ')</small>' : '') . '</p>'
+            : '<p data-tv-status="info" data-tv-label="Unconfirmed:">No one has written its root cause yet, so this report doesn\'t name one.</p>')
+        . '<p class="ak-note">Signature: ' . $e((string) $r['signature']) . ' (its host and kind; trips with the same signature within ' . ControlIncidents::WINDOW_MIN . ' minutes join it).</p></section>';
+    $mh = '';
+    foreach ($members as $m) {
+        $aid = (int) $m['id'];
+        $mh .= '<tr><td data-th="Part">' . $e((string) $m['title']) . '</td><td data-th="Warning">' . $e(ControlIncidents::warningId($aid)) . '</td><td data-th="First failure">' . tv_cb_at((int) strtotime($m['first_at'] . ' UTC')) . '</td>'
+            . '<td data-th="Trip">' . $e(ControlIncidents::tripId($aid)) . '</td><td data-th="Tripped">' . ($m['tripped_at'] ? tv_cb_at((int) strtotime($m['tripped_at'] . ' UTC')) : 'not yet') . '</td>'
+            . '<td data-th="Closed">' . ($m['cleared_at'] ? tv_cb_at((int) strtotime($m['cleared_at'] . ' UTC')) . ($m['cleared_how'] ? ' <small>' . $e((string) $m['cleared_how']) . '</small>' : '') : 'open') . '</td></tr>';
+    }
+    $h .= '<section class="ak-card tv-bleed cb-rsec" data-copy="Members"><h3 class="cb-title">Members, warning and trip ids</h3>' . ($mh !== '' ? '<div class="cb-rtw"><table class="cb-tt"><thead><tr><th>Part</th><th>Warning</th><th>First failure</th><th>Trip</th><th>Tripped</th><th>Closed</th></tr></thead><tbody>' . $mh . '</tbody></table></div>' : '<p class="ak-note">No member is kept (its alarms are older than the alarms\' record).</p>') . '</section>';
+    $rad = (array) $r['radius'];
+    $h .= '<section class="ak-card tv-bleed cb-rsec" data-copy="Incident Radius"><h3 class="cb-title">Incident Radius, as recorded</h3><dl class="cb-dl"><dt>Held</dt><dd>' . $e(((array) ($rad['held'] ?? [])) ? implode('; ', (array) $rad['held']) : 'nothing recorded as held') . '</dd>'
+        . '<dt>On a backup</dt><dd>' . $e(((array) ($rad['on_backup'] ?? [])) ? implode('; ', (array) $rad['on_backup']) : 'none') . '</dd></dl></section>';
+    $tl = ''; foreach ((array) $r['timeline'] as $t) { $t = array_values((array) $t); $tl .= '<li>' . tv_cb_at((int) strtotime((string) ($t[0] ?? '') . ' UTC')) . ' ' . $e((string) ($t[1] ?? '')) . '</li>'; }
+    $h .= '<section class="ak-card tv-bleed cb-rsec" data-copy="Timeline"><h3 class="cb-title">Timeline</h3>' . ($tl !== '' ? '<ul class="cb-tl">' . $tl . '</ul>' : '<p class="ak-note">Nothing on its timeline yet.</p>') . '</section>';
+    $h .= '<section class="ak-card tv-bleed cb-rsec" data-copy="Evidence"><h3 class="cb-title">Evidence</h3><p>' . $e(trim((string) $r['evidence']) !== '' ? (string) $r['evidence'] : 'No reading was kept with its first trip.') . '</p></section>';
+    return $h . '</div>' . tv_cb_report_css() . '<script src="/js/tv-time.js?v=' . (int) @filemtime(__DIR__ . '/../../website/js/tv-time.js') . '" defer></script>' . tv_cb_view_assets();
+}
+
+/** The report folded (D16; Jason on the 7-day report, live-reads C3: "this page is ridiculously long"): the summary and spend first; uptime only below 100% (the rest one line); alarms grouped by part and alarm with a count, opened to the rows on tap; switches as they are; the CSV and the file unchanged. */
+function tv_cb_report_folded(array $r): string
+{
+    $e = 'tv_w_e';
+    $sec = $r['sections'];
+    $table = function (array $cols, array $rows) use ($e): string {
+        $h = '<div class="cb-rtw"><table class="cb-tt"><thead><tr>' . implode('', array_map(fn ($c) => '<th>' . $e($c) . '</th>', $cols)) . '</tr></thead><tbody>';
+        foreach ($rows as $row) $h .= '<tr>' . implode('', array_map(fn ($c, $i) => '<td data-th="' . $e($cols[$i] ?? '') . '">' . tv_cb_rcell($c) . '</td>', $row, array_keys($row))) . '</tr>';
+        return $h . '</tbody></table></div>';
+    };
+    $one = function (string $k, string $title, string $body, bool $fold = false, string $sum = '') use ($e): string {
+        return $fold ? '<details class="ak-card tv-bleed cb-rsec" id="r-' . $e($k) . '" data-copy="' . $e($title) . '"><summary class="cb-title">' . $e($title) . ($sum !== '' ? ' <small>' . $e($sum) . '</small>' : '') . '</summary>' . $body . '</details>'
+            : '<section class="ak-card tv-bleed cb-rsec" id="r-' . $e($k) . '" data-copy="' . $e($title) . '"><h3 class="cb-title">' . $e($title) . ($sum !== '' ? ' <small>' . $e($sum) . '</small>' : '') . '</h3>' . $body . '</section>';
+    };
+    $note = fn (string $n) => $n !== '' ? '<p class="ak-note">' . $e($n) . '</p>' : '';
+    $h = '';
+    // spend, as it is
+    if (isset($sec['spend'])) { [$t, $c, $rows, $n] = $sec['spend']; $h .= $one('spend', $t, ($rows ? $table($c, $rows) : '') . $note($n)); }
+    // uptime: only what was below 100%; the rest in one line
+    if (isset($sec['uptime'])) {
+        [$t, $c, $rows, $n] = $sec['uptime'];
+        $below = array_values(array_filter($rows, fn ($x) => preg_match('/^([\d.]+)%$/', (string) $x[2], $m) && (float) $m[1] < 100));
+        $full = count(array_filter($rows, fn ($x) => (string) $x[2] === '100%')); $nd = count($rows) - count($below) - $full;
+        usort($below, fn ($a, $b) => (float) $a[2] <=> (float) $b[2]);
+        $rest = $rows ? ($full ? $full . ' part' . ($full === 1 ? '' : 's') . ' at 100%' : '') . ($nd ? ($full ? '; ' : '') . $nd . ' not due to be on' : '') . '.' : '';
+        $h .= $one('uptime', $t, ($below ? $table($c, $below) : ($rows ? '<p data-tv-status="ok" data-tv-label="All up:">Every part was up whenever it was due.</p>' : '')) . ($rest !== '.' && $rest !== '' ? '<p class="ak-note">And ' . $e($rest) . '</p>' : '') . $note($n), false, $below ? count($below) . ' below 100%' : '');
+    }
+    // alarms: grouped by part and alarm, with a count, each opened to its rows on tap
+    if (isset($sec['alarms'])) {
+        [$t, $c, $rows, $n] = $sec['alarms'];
+        $g = []; foreach ($rows as $row) $g[(string) $row[2] . '|' . (string) $row[3]][] = $row;
+        uasort($g, fn ($a, $b) => count($b) <=> count($a));
+        $body = '';
+        foreach ($g as $rs) {
+            $first = min(array_map(fn ($x) => (int) ($x[0]['t'] ?? 0), $rs)); $openN = count(array_filter($rs, fn ($x) => $x[6] === 'open'));
+            $body .= '<details class="cb-rg"><summary><b>' . $e((string) $rs[0][3]) . '</b> <small>' . $e((string) $rs[0][2]) . ' · ' . $e((string) $rs[0][1]) . '</small> ×' . count($rs) . ' <small>· first ' . tv_cb_at($first) . ($openN ? ' · ' . $openN . ' open now' : '') . '</small></summary>' . $table($c, $rs) . '</details>';
+        }
+        $h .= $one('alarms', $t, $body . $note($n), false, $rows ? count($rows) . ' alarm' . (count($rows) === 1 ? '' : 's') . ' in ' . count($g) . ' group' . (count($g) === 1 ? '' : 's') : '');
+    }
+    // switches, as they are
+    if (isset($sec['changes'])) { [$t, $c, $rows, $n] = $sec['changes']; $h .= $one('changes', $t, ($rows ? $table($c, $rows) : '') . $note($n)); }
+    // the rest, folded with what they hold in their line
+    foreach (['ran', 'faults', 'trend'] as $k) if (isset($sec[$k])) { [$t, $c, $rows, $n] = $sec[$k]; $h .= $one($k, $t, ($rows ? $table($c, $rows) : '') . $note($n), true, count($rows) . ' row' . (count($rows) === 1 ? '' : 's')); }
+    foreach ($sec as $k => [$t, $c, $rows, $n]) if (!in_array($k, ['spend', 'uptime', 'alarms', 'changes', 'ran', 'faults', 'trend'], true)) $h .= $one((string) $k, $t, ($rows ? $table($c, $rows) : '') . $note($n), true, count($rows) . ' rows');   // a section added later is never dropped
+    return $h;
+}
+
+/** The views' style and scripts (Copy, the side panels), once per page. */
+function tv_cb_view_assets(): string
+{
+    static $done = false; if ($done) return ''; $done = true;
+    return tv_score_gauge_css() . '<style>'
+        . '#cb .cb-views{grid-template-columns:repeat(3,1fr)}#cb .cb-view{display:grid;gap:.6rem;margin:.4rem 0}'
+        . '#cb .cb-q3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.6rem;padding:.6rem .8rem}#cb .cb-qh{margin:0 0 .25rem;font-size:13px;text-transform:uppercase;letter-spacing:.03em;color:var(--tv-meta,#6b5d49)}#cb .cb-q p{margin:0}#cb .cb-q3l{margin:0;padding-left:1.1rem;font-size:13.5px}'
+        . '#cb .cb-box{padding:.6rem .8rem}#cb .cb-box>.cb-title small{font-weight:400;color:var(--tv-meta,#6b5d49);font-size:12px}#cb .cb-gg{display:grid;grid-template-columns:repeat(auto-fill,minmax(11rem,1fr));gap:.5rem;margin-top:.4rem}'
+        . '#cb .cb-gc{border:1px solid var(--tv-card-edge,#E3DBC6);border-radius:.5rem;background:#FFFDF8;padding:.45rem;display:flex;flex-direction:column;gap:.3rem;min-width:0}'
+        . '#cb .cb-gopen{display:flex;flex-direction:column;align-items:center;gap:.2rem;background:none;border:0;padding:.2rem;font:inherit;color:inherit;cursor:pointer;text-align:center;border-radius:.4rem;width:100%}#cb .cb-gopen:hover{background:#FBF6EC}#cb .cb-gopen:focus-visible{outline:2px solid var(--tv-river,#3B5A6B);outline-offset:1px}'
+        . '#cb .cb-gh{font-weight:700;font-size:13.5px;text-align:center}#cb .cb-dc .cb-gh{display:block}#cb .cb-gst,#cb .cb-dc>.cb-gst{display:block;text-align:center}#cb .cb-rd{font-size:12.5px;display:flex;flex-wrap:wrap;gap:.25rem;justify-content:center}#cb .cb-rdp{border:1px solid var(--tv-card-edge,#E3DBC6);border-radius:999px;padding:.05rem .45rem;background:#fff}#cb .cb-rdn{color:var(--tv-meta,#6b5d49)}'
+        . '#cb .cb-live{font-size:11.5px;color:#3d6b52}#cb .cb-scn{font-size:11px;color:var(--tv-copper,#C85A17);border:1px dotted currentColor;border-radius:.3rem;padding:0 .3rem}#cb .cb-gtr,#cb .cb-gtg,#cb .cb-dl1,#cb .cb-nc{font-size:11.5px;color:var(--tv-meta,#6b5d49);text-align:center}#cb .cb-nc{color:var(--tv-hold,#8f5600)}'
+        . '#cb .cb-gb{display:flex;flex-wrap:wrap;gap:.25rem;justify-content:center}#cb .cb-unm{font-size:11px;color:var(--tv-meta,#6b5d49);font-style:italic;text-align:center}#cb .cb-prev{font-size:12px;text-align:center}#cb .cb-prev summary{cursor:pointer;text-decoration:underline}#cb .cb-prev p{margin:.2rem 0}'
+        . '#cb .cb-spbg{position:fixed;inset:0;background:rgba(40,30,20,.28);z-index:9990}#cb .cb-sp{position:fixed;top:0;right:0;bottom:0;width:min(30rem,calc(100vw - 6px));overflow:auto;z-index:9991;background:#FFFBF2;border-left:1px solid var(--tv-card-edge,#E3DBC6);box-shadow:-6px 0 18px rgba(0,0,0,.12);padding:.8rem 1rem 1.4rem;box-sizing:border-box}'
+        . '#cb .cb-sp[hidden]{display:none}#cb .cb-spx{position:absolute;top:.35rem;right:.5rem;font-size:22px;line-height:1;background:none;border:0;cursor:pointer;color:var(--tv-meta,#6b5d49);padding:.2rem .4rem}#cb .cb-crumb{margin:0 2rem .2rem 0;font-size:12px;color:var(--tv-meta,#6b5d49)}'
+        . '#cb .cb-gbig{display:flex;flex-direction:column;align-items:center;gap:.3rem;margin:.3rem 0}#cb .cb-dl{display:grid;grid-template-columns:7rem minmax(0,1fr);gap:.25rem .6rem;font-size:13.5px;margin:.4rem 0}#cb .cb-dl dt{color:var(--tv-meta,#6b5d49)}#cb .cb-dl dd{margin:0;min-width:0;overflow-wrap:anywhere}'
+        . '#cb .cb-h4{margin:.6rem 0 .2rem;font-size:13.5px}#cb .cb-su{list-style:none;margin:0;padding:0;font-size:13.5px}#cb .cb-su li.ok{color:#3d6b52}#cb .cb-pathl{list-style:none;margin:.3rem 0;padding:0;display:grid;gap:.35rem;font-size:13.5px}#cb .cb-pathl li{overflow-wrap:anywhere}#cb .cb-share{font-size:12px;color:var(--tv-meta,#6b5d49)}'
+        . '#cb .cb-shl{list-style:none;margin:.3rem 0;padding:0;display:grid;gap:.5rem}#cb .cb-shl li{border:1px solid #EFE6D6;border-radius:.4rem;padding:.45rem .55rem;background:#FFFDF8;overflow-wrap:anywhere}#cb .cb-shd{font-size:13.5px}'
+        . '#cb .cb-rg{border-top:1px solid #EFE6D6;padding:.3rem 0}#cb .cb-rg>summary{cursor:pointer;overflow-wrap:anywhere}#cb details.cb-rsec>summary{cursor:pointer}#cb .cb-tl{margin:0;padding-left:1.1rem;font-size:13.5px}'
+        . '@media (max-width:767px){#cb .cb-q3{grid-template-columns:1fr}#cb .cb-gg{grid-template-columns:repeat(2,minmax(0,1fr));gap:3px}#cb .cb-box{padding:.5rem .4rem}#cb .cb-dl{grid-template-columns:1fr}#cb .cb-views{grid-template-columns:repeat(3,minmax(0,1fr))}#cb .cb-gb .ak-b{font-size:11.5px;padding:.1rem .35rem}}'
+        . '</style><script src="/js/tv-copy.js?v=' . (int) @filemtime(__DIR__ . '/../../website/js/tv-copy.js') . '" defer></script>';
+}
+
 function tv_admin_mod_control(PDO $pdo): string
 {
     if (($_GET['show'] ?? '') === 'osm-statement') return tv_cb_statement_osm();
@@ -703,6 +1111,7 @@ function tv_admin_mod_control(PDO $pdo): string
     if (preg_match('/^([a-z]{1,5})[-:]([A-Za-z0-9_.-]{1,60})$/', (string) ($_GET['proc'] ?? ''), $gm)) $focus = $gm[1] . ':' . $gm[2];   // a part opened from the table, in a drawer
     if (preg_match('#^/admin/config/control/([a-z]{1,5})[-:]([A-Za-z0-9_.-]{1,60})(?:[/?\#]|$)#', (string) parse_url((string) ($_SERVER['REQUEST_URI'] ?? ''), PHP_URL_PATH) . '/', $fm)) $focus = $fm[1] . ':' . $fm[2];
     // a report, as a section of the board (decisions/0171 §11, release 5b): a query on config/control, never a page of its own
+    if (isset($_GET['ir'])) return tv_cb_ir_page($pdo, (int) $_GET['ir'], (string) ($_SESSION['csrf_token'] ?? ''));   // an Incident Report's page (03 §7)
     if (isset($_GET['report'])) return tv_cb_report_page($pdo, (string) $_GET['report'], (string) ($_GET['range'] ?? 'day'), (string) ($_SESSION['csrf_token'] ?? ''));
     require_once __DIR__ . '/../lib/SystemStart.php';
     require_once __DIR__ . '/../lib/Preflight.php';
@@ -728,7 +1137,7 @@ function tv_admin_mod_control(PDO $pdo): string
     $lastAt = 0; foreach ($res as $r) $lastAt = max($lastAt, (int) ($r['at'] ?? 0));
     $pid = fn (string $id) => 'cb-p-' . str_replace(':', '-', $id);
 
-    $h = '<div id="cb" data-csrf="' . $e($csrf) . '"' . ($focus === '' ? ' data-tab="' . $e((string) (ControlBoard::stage($pdo)[0] ?? 'observe')) . '"' : '') . '>';
+    $h = '<div id="cb" data-csrf="' . $e($csrf) . '"' . ($focus === '' ? ' data-tab="deliver"' : '') . '>';
 
     // ---- the alarms first: the board's queue (decisions/0171 §7, release 3a), and what the result line says
     // open alarms only (Jason, 2026-11-19: "if alarms are cleared they should not be present, moved to log"): a cleared one
@@ -758,7 +1167,7 @@ function tv_admin_mod_control(PDO $pdo): string
     // the top line is live diagnostics: what's paused now, by the system or a person, and why, each opening its fix in the
     // side panel (0175's note: "once something is active it is not longer preflight, it is diagnostics"; "The board's top
     // line becomes live diagnostics … No stale snapshot"). The pre-flight's result moves to the Start-up stage, below.
-    $h .= '<div class="cb-top cb-strip" role="status">';
+    $h .= '<div class="cb-top cb-strip" role="status" data-copy="Paused now and the core hosts">';
     if ($result) $h .= '<span class="cb-beacon cb-b-' . $result[0] . '">' . tv_cb_mark($result[0]) . $e($result[1]) . '</span>';
     $lit = []; foreach ($by as $rowsL) foreach ($rowsL as $pid0 => $r0) $lit[$pid0] = (string) $r0['light'];
     $h .= ControlBoard::pausedHtml($pdo, 'cb-paused', $lit);
@@ -782,11 +1191,15 @@ function tv_admin_mod_control(PDO $pdo): string
         'history' => ['#log', 'The logbook: every switch, alarm and note; Reports for a period.'],
     ];
     // the stage's words follow the state: running with something held says so, and where (words follow the state)
-    if ($stage === 'observe') { try { $nHeld = (int) $pdo->query("SELECT COUNT(*) FROM control_alarms WHERE cleared_at IS NULL AND ack_at IS NULL AND level IN ('trip','warning')")->fetchColumn(); } catch (Throwable $x) { $nHeld = 0; }   // the top bar's count (unacknowledged trips and warnings)
+    if ($stage === 'observe') { $nHeld = (int) $ac['trip'] + (int) $ac['warning'];   // one count on every surface (D5; g4 F1): ControlAlarms::counts, an acknowledged trip still counted
         if ($nHeld) $stageWords = 'Running, watched. ' . $nHeld . ' alarm' . ($nHeld === 1 ? '' : 's') . ' open: the rest runs; each one\'s fix is under Observation and reporting.'; }
     // the six stages are tabs (Jason, 2026-11-19: "these are jump links, not good design. When clicked that information is
     // what is on page, everything else goes away"): a tile shows only its part of the board; the one the system is in opens
     // first and says "now"; a link to a part (#maintenance, an alarm) opens its tab (admin-control.js)
+    // the views first, "Is it delivering?" the first of them (03 §4, §27): each a tab like the stages
+    $h .= '<div class="cb-stages cb-views" role="tablist" aria-label="The board\'s views">';
+    foreach (TV_CB_VIEWS as $k => [$label, $what]) $h .= '<button type="button" role="tab" data-cb-tab="' . $k . '" aria-selected="' . ($k === 'deliver' ? 'true' : 'false') . '" class="cb-st cb-stv" title="' . $e($what) . '">' . $e($label) . '<span class="cb-stw">' . $e($what) . '</span></button>';
+    $h .= '</div>';
     $h .= '<div class="cb-stages" role="tablist" aria-label="The board\'s stages: each shows its part">';
     $i = 0;
     foreach (ControlBoard::STAGES as $k => $label) {
@@ -804,7 +1217,7 @@ function tv_admin_mod_control(PDO $pdo): string
     // (Scheduled tasks, Automation, Pre-flight's runs) loaded in place when its tab first opens, its links using the side panel
     require_once __DIR__ . '/widgets.php';
     foreach (['alarms' => 'config/alarms', 'log' => 'config/log', 'ledger' => 'config/ledger', 'upkeep' => 'config/upkeep'] as $k => $tool)
-        $h .= '<div class="cb-tabp" id="cb-tab-' . $k . '">' . tv_w_table($pdo, $tool, false) . '</div>';
+        $h .= '<div class="cb-tabp" id="cb-tab-' . $k . '" data-copy="' . $e(TV_CB_TABS[$k][0]) . '">' . tv_w_table($pdo, $tool, false) . '</div>';
     $h .= '<div class="cb-tabp" id="cb-tab-scheduler" data-cb-lazy="/admin/config/scheduler?panel=1&amp;peek=1" data-cb-lazyt="Scheduled tasks"><p class="ak-note">Opens with its tab: every scheduled job, its line and its last runs.</p></div>';
     // the Start-up stage holds Automation: its master switch, Start the system, Pause everything, the switch-on check, its
     // workflows, services and changes (the note: "Automation's master switch, Start the system and Pause everything as its
@@ -814,6 +1227,8 @@ function tv_admin_mod_control(PDO $pdo): string
     // the system pre-flight's result: in the Start-up stage (and Pre-flight's), with Run it again, never the top line (0175's
     // note: "The system pre-flight runs at Start the system … It's shown in the Start-up stage, with Run it again")
     $h .= '<div class="cb-top cb-pfres" id="cb-pfres">' . $pfres . '</div>';
+    // the views' parts (03 §4, §27; gauge-lifecycle.md; 03 §7)
+    $h .= tv_cb_deliver($pdo, $alarms, $ac, $names) . tv_cb_development($pdo, $btn) . tv_cb_incidents($pdo, $names);
 
     // ---- the system's own controls; find, open all, close all
     $h .= '<div class="cb-bar" id="cb-controls"><div class="cb-acts">'
@@ -833,7 +1248,7 @@ function tv_admin_mod_control(PDO $pdo): string
         $redChecks[(string) $rid] = ControlBoard::sentence($hold !== '' ? $hold : (string) ($rr['said'] ?? '')); }
     $h .= tv_cb_alarms($alarms, $ac, $names, $pid, $canPf, (string) $whyPf, $btn, $redChecks);
     $tms = ControlBoard::timings($pdo, $res); $slow = count(array_filter($tms, fn ($x) => $x[1] !== null && $x[3] === 'bad')); $untested = count(array_filter($tms, fn ($x) => $x[1] === null));
-    $h .= '<div class="cb-panels"><details class="ak-card tv-bleed cb-panel" id="cb-times"><summary class="cb-ph"><span class="cb-caret" aria-hidden="true">▾</span>' . tv_cb_mark($slow ? 'bad' : ($untested === count($tms) ? 'new' : 'ok')) . '<b>Query timings</b> <small>' . ($slow ? $slow . ' of ' . count($tms) . ' over its limit' : ($untested === count($tms) ? 'not run yet' : 'all ' . count($tms) . ' within their limits')) . '</small></summary><table class="cb-tt"><thead><tr><th>Query</th><th>Took</th><th><a class="underline" href="/admin/config/thresholds" title="Change a limit on Thresholds">Limit</a></th><th></th></tr></thead><tbody>';
+    $h .= '<div class="cb-panels"><details class="ak-card tv-bleed cb-panel" id="cb-times" data-copy="Query timings"><summary class="cb-ph"><span class="cb-caret" aria-hidden="true">▾</span>' . tv_cb_mark($slow ? 'bad' : ($untested === count($tms) ? 'new' : 'ok')) . '<b>Query timings</b> <small>' . ($slow ? $slow . ' of ' . count($tms) . ' over its limit' : ($untested === count($tms) ? 'not run yet' : 'all ' . count($tms) . ' within their limits')) . '</small></summary><table class="cb-tt"><thead><tr><th>Query</th><th>Took</th><th><a class="underline" href="/admin/config/thresholds" title="Change a limit on Thresholds">Limit</a></th><th></th></tr></thead><tbody>';
     foreach ($tms as $k => [$what, $ms, $lim, $s, $at])
         $h .= '<tr><td>' . $e(preg_replace('/ \(.*$/', '', $what)) . '<br><small>' . $e((string) (preg_match('/\((.*)\)/', $what, $mm) ? $mm[1] : '')) . '</small></td><td class="cb-num">' . ($ms === null ? '—' : number_format($ms) . ' ms') . '</td><td class="cb-num">' . ($lim ? number_format($lim) . ' ms' : '—') . '</td><td>' . tv_cb_mark($ms === null ? 'new' : $s) . '</td></tr>';
     $h .= '</tbody></table><div class="cb-acts">' . $btn('timings', 'Re-test the four', $canPf, (string) $whyPf) . '<small class="ak-note">Read only; a slow one is noted and holds nothing.</small></div></details>' . tv_cb_watch($pdo, $btn) . '</div>';
@@ -849,11 +1264,11 @@ function tv_admin_mod_control(PDO $pdo): string
         $h .= tv_cb_process_table();
         if ($siteNeeds) {   // the site's own needs, each with its sources: a panel of their own
             $sn = array_count_values(array_column($siteNeeds, 1)); $sl = !empty($sn['bad']) ? 'bad' : (!empty($sn['warn']) ? 'warn' : (!empty($sn['ok']) ? 'ok' : 'wait'));
-            $h .= '<details class="ak-card tv-bleed cb-panel" id="cb-site-needs"><summary class="cb-ph"><span class="cb-caret" aria-hidden="true">▾</span>' . tv_cb_mark($sl) . '<b>What the site needs from outside</b> <small>' . count($siteNeeds) . ' needs, each with its sources</small></summary>'
+            $h .= '<details class="ak-card tv-bleed cb-panel" id="cb-site-needs" data-copy="What the site needs from outside"><summary class="cb-ph"><span class="cb-caret" aria-hidden="true">▾</span>' . tv_cb_mark($sl) . '<b>What the site needs from outside</b> <small>' . count($siteNeeds) . ' needs, each with its sources</small></summary>'
                 . tv_cb_kv('Needs', tv_cb_needs($siteNeeds, $canPf, (string) $whyPf)) . '</details>';
         }
         $tr = ''; foreach (ControlRegister::SYSTEMS as $sk => $sname) $tr .= tv_cb_kv($sname, '<div class="cb-trend" data-cb-trend="sys:' . $e($sk) . '"><small class="ak-note">Loads when this opens: its processes summed.</small></div>');
-        $h .= '<details class="ak-card tv-bleed cb-panel cb-trends" id="cb-trends"><summary class="cb-ph"><span class="cb-caret" aria-hidden="true">▾</span>' . tv_cb_mark('na') . '<b>Trends by system</b> <small>each system\'s processes summed, over 24 hours, 7 or 30 days</small></summary>' . $tr . '</details>';
+        $h .= '<details class="ak-card tv-bleed cb-panel cb-trends" id="cb-trends" data-copy="Trends by system"><summary class="cb-ph"><span class="cb-caret" aria-hidden="true">▾</span>' . tv_cb_mark('na') . '<b>Trends by system</b> <small>each system\'s processes summed, over 24 hours, 7 or 30 days</small></summary>' . $tr . '</details>';
     }
     foreach ($focus !== '' ? ControlRegister::SYSTEMS : [] as $sk => $sname) {
         $rows = $by[$sk] ?? [];
@@ -878,7 +1293,8 @@ function tv_admin_mod_control(PDO $pdo): string
             // follow the state); a held, out or off part keeps its own
             elseif ($mine && in_array((string) $p['light'], ['ok', 'warn', 'wait'], true) && array_filter($mine, fn ($x) => $x['level'] === 'warning')) $p['light'] = 'alarm';
             $r = tv_cb_row($id, $p, $needs, $stage);
-            if ($mine) $r['where'] = ControlAlarms::LEVELS[$mine[0]['level']] . ': ' . $mine[0]['title'] . (count($mine) > 1 ? ' (and ' . (count($mine) - 1) . ' more in the alarm list)' : '') . '.';   // switched on while the system is stopped: Standby, not Observation
+            if ($mine) $r['where'] = ControlAlarms::LEVELS[$mine[0]['level']] . ': ' . $mine[0]['title'] . (count($mine) > 1 ? ' (and ' . (count($mine) - 1) . ' more in the alarm list)' : '') . '.';
+            if ($wk = tv_cb_wf_kind($id)) { $r['stage'] = ['new', $wk[0]]; if (!$mine) $r['where'] = $wk[1]; }   // W13 a list, W14 Not built   // switched on while the system is stopped: Standby, not Observation
             $h .= '<details class="cb-p" id="' . $e($pid($id)) . '" data-cb-p="' . $e($id) . '" data-light="' . $e($lt0) . '" data-q="' . $e($q) . '"' . ($focus !== '' ? ' open' : '') . '>'
                 . '<summary class="cb-row"><span class="cb-caret" aria-hidden="true">▾</span>' . tv_cb_mark($p['light'])
                 . '<span class="cb-nm"><b class="cb-n">' . $e($p['name']) . '</b>' . ($r['sub'] !== '' ? '<small>' . $e($r['sub']) . '</small>' : '') . '</span>'
@@ -953,7 +1369,7 @@ function tv_admin_mod_control(PDO $pdo): string
             foreach ($held as $r) $hr .= '<li id="' . $e(ControlAlarms::heldAnchor((string) $r['host'])) . '"><div><b>' . $e((string) $r['host']) . '</b> <small>' . $e(EngineCase::blockReason((string) $r['held_why'])) . ', since ' . tv_cb_time((int) strtotime((string) $r['held_at'])) . '</small></div>'
                 . '<div><small>' . $e(mb_strimwidth((string) $r['held_why'], 0, 200, '…')) . '</small></div>'
                 . '<div class="cb-acts">' . $btn('opsdo', 'Reactivate', (bool) $canR, (string) $whyR, 'ops:w0:held|ops_w0_reactivate:' . (string) $r['host'], ['class' => 'ak-b cb-xs go', 'data-confirm' => 'Reactivate ' . $r['host'] . '? One polite try when W0 next reads it; still blocked, it\'s held again.', 'data-yes' => 'Reactivate']) . '</div></li>';
-            $h .= '<details class="ak-card tv-bleed cb-panel" id="cb-held"' . ($held ? ' open' : '') . '><summary class="cb-ph"><span class="cb-caret" aria-hidden="true">▾</span>' . tv_cb_mark($held ? 'hold' : 'ok') . '<b>Sites that blocked us</b> <small>' . ($held ? count($held) . ' held' : 'none') . '</small></summary>'
+            $h .= '<details class="ak-card tv-bleed cb-panel" id="cb-held" data-copy="Sites that blocked us"' . ($held ? ' open' : '') . '><summary class="cb-ph"><span class="cb-caret" aria-hidden="true">▾</span>' . tv_cb_mark($held ? 'hold' : 'ok') . '<b>Sites that blocked us</b> <small>' . ($held ? count($held) . ' held' : 'none') . '</small></summary>'
                 . ($held ? '<ul class="cb-steps">' . $hr . '</ul>' : '<p data-tv-status="ok" data-tv-label="None:">No site has blocked the indexer.</p>')
                 . '<p class="ak-note">A site that blocks us (a sign-in wall, 403, 406 or 451, a challenge) is never retried by itself (decisions/0164 §1.2, 5). Reactivate gives it one polite try.</p></details>';
         } catch (Throwable $x) { error_log('W0 held sites: ' . $x->getMessage()); }
@@ -965,24 +1381,24 @@ function tv_admin_mod_control(PDO $pdo): string
             try { require_once __DIR__ . '/../lib/crawler/Frontier.php'; $sc = []; foreach ($pdo->query('SELECT state, COUNT(*) FROM ' . Database::t('crawl_frontier') . ' GROUP BY state')->fetchAll(PDO::FETCH_KEY_PAIR) as $k => $v) $sc[] = number_format((int) $v) . ' ' . mb_strtolower(explode(' (', Frontier::STATES[$k] ?? $k)[0]);
                 $idx = '<p class="ak-note">Its index: ' . $e(implode(' · ', $sc)) . '. <a class="underline" href="/admin/insights/index" data-peek-frame>Every address it logged</a></p>'; } catch (Throwable $x) {}
         }
-        $h .= '<section class="ak-card tv-bleed cb-panel" id="its-data">'   // one heading: the table's own
+        $h .= '<section class="ak-card tv-bleed cb-panel" id="its-data" data-copy="Its data">'   // one heading: the table's own
             . tv_table(['tool' => 'config/proc_records', 'src' => '/admin/api/config/proc_records?proc=' . rawurlencode($ref), 'title' => 'Its data', 'open' => '',
                 'columns' => [['label', 'Record', 'name'], ['what', 'What happened', 'pill'], ['call', 'Its call', 'text'], ['at', 'When', 'when']],
                 'filters' => [['what', 'Show', [['', 'Everything'], ['stored', 'Stored'], ['updated', 'Updated'], ['review', 'Sent to Review'], ['refused', 'Refused']]]], 'countBy' => 'what',
                 'noData' => 'nothing yet']) . '<p class="ak-note">Every record its calls created or changed, newest first: which record and what happened, never its contents.</p>' . $idx . '</section>';
     }
     if ($focus !== '') {   // its logbook and its report, then the board's style and scripts
-        $h .= '<section class="ak-card tv-bleed cb-panel" id="log"><h3 class="cb-title" style="margin:.5rem .8rem">Its logbook</h3><ul class="cb-lgl" data-cb-loglist>' . tv_cb_log_rows($pdo, $focus) . '</ul></section>'
+        $h .= '<section class="ak-card tv-bleed cb-panel" id="log" data-copy="Logbook"><h3 class="cb-title" style="margin:.5rem .8rem">Its logbook</h3><ul class="cb-lgl" data-cb-loglist>' . tv_cb_log_rows($pdo, $focus) . '</ul></section>'
             . '<p class="cb-acts" style="margin:.6rem 0"><a class="ak-b" href="/admin/config/control?report=' . $e(rawurlencode($focus)) . '&amp;range=day">Its report</a><a class="ak-b" href="/admin/config/control?report=' . $e(rawurlencode($focus)) . '&amp;range=week">Its week</a></p>';
     } else {
     // ---- the pre-flight, every line (its own section stays: /admin/config/preflight)
-    $h .= '<details class="ak-card tv-bleed" id="preflight" style="margin-top:.6rem"><summary class="cb-sh"><span class="cb-caret" aria-hidden="true">▾</span><span></span><h3 class="cb-title">Pre-flight: every line, as tested last</h3></summary>'
+    $h .= '<details class="ak-card tv-bleed" id="preflight" data-copy="Pre-flight" style="margin-top:.6rem"><summary class="cb-sh"><span class="cb-caret" aria-hidden="true">▾</span><span></span><h3 class="cb-title">Pre-flight: every line, as tested last</h3></summary>'
         . '<p class="ak-note">Each line as tested last, with its Test; Run all, the runs and the report are <a class="underline" href="#cb-tab-pfpage">below</a>.</p>'
         . (function_exists('tv_admin_mod_preflight') ? tv_admin_mod_preflight($pdo) : '') . '</details>';
     $h .= '<div class="cb-none" hidden><p data-tv-status="info" data-tv-label="Nothing found:">No process, need or source has those words. Clear the box to see them all.</p></div></div>';
     }
 
-    $h .= '<style>'
+    $h .= tv_cb_view_assets() . '<style>'
         . '#cb .cb-m{display:inline-flex;width:1.35rem;height:1.35rem;border-radius:.3rem;align-items:center;justify-content:center;flex:0 0 auto;vertical-align:middle}#cb .cb-svg{width:.9rem;height:.9rem;fill:none;stroke:currentColor;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}'
         . '#cb summary{list-style:none;cursor:pointer}#cb summary::-webkit-details-marker{display:none}#cb details:not([open])>summary .cb-caret{display:inline-block;transform:rotate(-90deg)}#cb .cb-caret{color:#8a7a68;font-size:12px}'
         . '#cb .cb-strip{display:flex;flex-wrap:wrap;gap:.4rem .9rem;align-items:center;padding:.45rem .7rem;border:1px solid #E5D9C3;border-radius:.5rem;background:#F6F0E4;font-size:13px}#cb .cb-paused{flex:1 1 30rem;margin:0;min-width:0}#cb .cb-pl{margin:.2rem 0 0 1.1rem;padding:0}.cb-health{margin:0 0 .3rem}.cb-pn{margin:0}.cb-pg{margin:.3rem 0 0}#cb .cb-pl li{margin:.1rem 0;overflow-wrap:anywhere}#cb .cb-plm summary{cursor:pointer;font-weight:600}#cb .cb-pfres{display:flex;flex-wrap:wrap;gap:.4rem;margin:.5rem 0;font-size:13px}#cb .cb-pfres:empty{display:none}#cb .cb-tabs2{margin-top:.3rem}#cb .cb-st2 .cb-stw{display:none}#cb .cb-tabp{margin:.6rem 0;min-width:0}#cb .cb-lazyf{width:100%;border:0;min-height:12rem;display:block}#cb .cb-steps{list-style:none;margin:.3rem 0;padding:0;display:grid;gap:.4rem}#cb .cb-steps>li{border:1px solid #E5D9C3;border-radius:.5rem;padding:.45rem .6rem;min-width:0;overflow-wrap:anywhere}#cb .cb-steps p{margin:.25rem 0}'

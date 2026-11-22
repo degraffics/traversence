@@ -270,6 +270,7 @@ def workflows():
             row.update({'measure': m, 'target': t, 'target_approved': 'Jason, 2026-11-22: "Approve as proposed"', 'probe': probe,
                         'setup': {'probe': su[0][1], 'target': su[1][1], 'check': su[2][1], 'alarm': su[3][1]},
                         'setup_why': {'probe': su[0][2], 'target': su[1][2], 'check': su[2][2], 'alarm': su[3][2]}})
+        row['tasks'] = list(W.TASKS.get(w, []))   # its tasks (workflows.py TASKS: assoc.WF_TASKS + SystemStart's), for its holds
         row['feeds'] = [[o, n] for o, n, _ in W.feeds(w)]
         row['core'] = core_list([c for c in W.core(w) if c in A.CORE_PARTS])
         regs, chain = registered([n['key'] for n in W.needs_of(w)])
@@ -291,7 +292,7 @@ def build():
         'checks': reg,
         'results_read': sorted({r['file'] for r in ROWS.values()}),
         'development': dev,
-        'counts': {'scope': sum(g['items'] for g in dev), 'no_check': D.N_NOCHECK},
+        'counts': {'scope': sum(g['items'] for g in dev), 'no_check': sum(1 for g in dev for i in g['list'] if i['no_check'])},   # §4: 236 of 292 today
         'runtime': runtime(),
         'workflows': workflows(),
     }

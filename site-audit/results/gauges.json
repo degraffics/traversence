@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-22T22:33:54Z",
+ "generated_at": "2026-11-22T22:38:21Z",
  "version": 1,
  "generated_by": "tools/page-audit/gauges.py",
  "note": "The gauges' configuration and evidence (handoffs/control-board-plan/step3/sections/gauge-lifecycle.md). The site computes every stage from it (app/lib/ControlGauges.php); nothing here is a stage.",
@@ -15920,6 +15920,9 @@
     "check": "no reading: shipped off; whether it has started is live data (asks.md check C18); its gate (pf:wf:W0) is part of this check",
     "alarm": "its failures raise through the one alarm engine: its worker raises on wf:W0, its held sites on W0's page (ControlAlarms.php:278, 743–744)"
    },
+   "tasks": [
+    "indexer"
+   ],
    "feeds": [],
    "core": [
     [
@@ -15976,6 +15979,16 @@
     "check": "not met: paused by two trips, \"Records: 0 in, 0 stored, 0 refused\" in 24 hours (the alarms snapshot); its gate (pf:wf:W1) is part of this check",
     "alarm": "its failures raise through the one alarm engine: its crawler tasks' failed runs (ControlBoard.php:446–470) and listings_tick, data_cleanup_tick (Automation::JOBS)"
    },
+   "tasks": [
+    "coverage",
+    "second_look",
+    "targets",
+    "npi_bulk",
+    "irs_bulk",
+    "overture_bulk",
+    "foursquare_bulk",
+    "geofabrik_bulk"
+   ],
    "feeds": [
     [
      "o-search",
@@ -16244,6 +16257,13 @@
     "check": "not met: its counts can't be trusted (/api/crawl/refresh received 1, counted 2); its gate (pf:wf:W2) is part of this check",
     "alarm": "its failures raise through the one alarm engine: its crawler tasks' failed runs and identity_recheck_tick (Automation::JOBS)"
    },
+   "tasks": [
+    "refresh",
+    "identity",
+    "geocode",
+    "places",
+    "recheck"
+   ],
    "feeds": [
     [
      "o-complete",
@@ -16453,6 +16473,11 @@
     "check": "not met: it does nothing while its two switches stay off; its gate (pf:wf:W3) is part of this check",
     "alarm": "its failures raise through the one alarm engine: its crawler tasks' failed runs and page_read_tick, vectors_tick (Automation::JOBS)"
    },
+   "tasks": [
+    "source",
+    "commoncrawl",
+    "vectors"
+   ],
    "feeds": [
     [
      "o-gather",
@@ -16574,6 +16599,9 @@
     "check": "not met yet: its reading today (the Last 24 h, its job's runs) is live data the snapshot doesn't hold; its gate (pf:wf:W4) is part of this check",
     "alarm": "its failures raise through the one alarm engine: guide_finds_tick raises on it and pauses it (Automation::JOBS; ControlAlarms.php:279–285)"
    },
+   "tasks": [
+    "guide job"
+   ],
    "feeds": [
     [
      "o-claude",
@@ -16648,6 +16676,9 @@
     "check": "not met yet: its reading today (the Last 24 h, its job's runs) is live data the snapshot doesn't hold; its gate (pf:wf:W5) is part of this check",
     "alarm": "its failures raise through the one alarm engine: guide_ondemand_tick (Automation::JOBS)"
    },
+   "tasks": [
+    "on-demand guide"
+   ],
    "feeds": [
     [
      "o-claude",
@@ -16722,6 +16753,9 @@
     "check": "not met yet: its reading today (the Last 24 h, its job's runs) is live data the snapshot doesn't hold; its gate (pf:wf:W6) is part of this check",
     "alarm": "its failures raise through the one alarm engine: heritage tasks' failed runs and heritage_tick (Automation::JOBS)"
    },
+   "tasks": [
+    "heritage"
+   ],
    "feeds": [
     [
      "o-claude",
@@ -16843,6 +16877,9 @@
     "check": "not met yet: its reading today (the Last 24 h, its job's runs) is live data the snapshot doesn't hold; its gate (pf:wf:W7) is part of this check",
     "alarm": "its failures raise through the one alarm engine: journeys_tick (Automation::JOBS)"
    },
+   "tasks": [
+    "journeys job"
+   ],
    "feeds": [],
    "core": [
     [
@@ -16912,6 +16949,9 @@
     "check": "not met yet: its reading today (the Last 24 h, its job's runs) is live data the snapshot doesn't hold; its gate (pf:wf:W8) is part of this check",
     "alarm": "its failures raise through the one alarm engine: guide_finds_tick (Automation::JOBS)"
    },
+   "tasks": [
+    "find it"
+   ],
    "feeds": [
     [
      "o-claude",
@@ -17019,6 +17059,10 @@
     "check": "not met yet: its reading today (the Last 24 h, its job's runs) is live data the snapshot doesn't hold; its gate (pf:wf:W9) is part of this check",
     "alarm": "its failures raise through the one alarm engine: its bulk tasks' failed runs and landmark_photos_tick (Automation::JOBS)"
    },
+   "tasks": [
+    "landmarks_bulk",
+    "rec_bulk"
+   ],
    "feeds": [
     [
      "o-search",
@@ -17141,6 +17185,9 @@
     "check": "not met yet: its reading today (the Last 24 h, its job's runs) is live data the snapshot doesn't hold; its gate (pf:wf:W10) is part of this check",
     "alarm": "its failures raise through the one alarm engine: guide_finds_tick (Automation::JOBS)"
    },
+   "tasks": [
+    "live events"
+   ],
    "feeds": [
     [
      "o-claude",
@@ -17262,6 +17309,9 @@
     "check": "not met yet: its reading today (the Last 24 h, its job's runs) is live data the snapshot doesn't hold; its gate (pf:wf:W11) is part of this check",
     "alarm": "its failures raise through the one alarm engine: howto's failed runs (ControlBoard.php:446–470)"
    },
+   "tasks": [
+    "howto"
+   ],
    "feeds": [
     [
      "o-search-cap",
@@ -17372,6 +17422,9 @@
     "check": "not met yet: its reading today (the Last 24 h, its job's runs) is live data the snapshot doesn't hold; its gate (pf:wf:W12) is part of this check",
     "alarm": "its failures raise through the one alarm engine: learn's failed runs (ControlBoard.php:446–470)"
    },
+   "tasks": [
+    "learn"
+   ],
    "feeds": [
     [
      "o-search",
@@ -17457,6 +17510,7 @@
    "setup": null,
    "setup_why": null,
    "probe": null,
+   "tasks": [],
    "feeds": [],
    "core": [
     [
@@ -17492,6 +17546,9 @@
     "check": "not met: licence_lookup isn't built; its gate (pf:wf:W14) is part of this check",
     "alarm": "licence_lookup isn't built: nothing raises yet"
    },
+   "tasks": [
+    "licence_lookup"
+   ],
    "feeds": [],
    "core": [
     [

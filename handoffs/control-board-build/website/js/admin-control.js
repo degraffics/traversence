@@ -59,7 +59,7 @@
       var doc = new DOMParser().parseFromString(html, 'text/html'), nb = doc.getElementById('cb');
       if (!nb) return;
       if (box.querySelector('[aria-busy="true"]')) return;   // a press is still working: next time
-      ['.cb-strip', '.cb-stages', '.cb-stage', '#cb-alarms', '#cb-times', '#maintenance > summary', '#maintenance .cb-mlist', '#maintenance .cb-uplist', '#cb-p-site-needs'].forEach(function (sel) { var a = box.querySelector(sel), b = nb.querySelector(sel); if (!a || !b) return; var nu = document.importNode(b, true);
+      ['.cb-strip', '#cb-q3', '.cb-stage', '#cb-alarms', '#cb-times', '#maintenance > summary', '#maintenance .cb-mlist', '#maintenance .cb-uplist', '#cb-p-site-needs'].forEach(function (sel) { var a = box.querySelector(sel), b = nb.querySelector(sel); if (!a || !b) return; var nu = document.importNode(b, true);
         if (nu.id && nu.id in open) nu.open = open[nu.id]; nu.querySelectorAll('details[id]').forEach(function (d) { if (d.id in open) d.open = open[d.id]; });   // what's open stays open
         a.parentNode.replaceChild(nu, a); });
       nb.querySelectorAll('details.cb-sys').forEach(function (n) {
@@ -145,13 +145,15 @@
   // the queue's one filter: a dropdown button (icon, current choice, count, ▾) that admin-kit.js moves into the page's header
   // (Open, Acknowledged, Cleared, All; or a level), kept through each redraw, with each choice's count
   var aShow = 'open', fw = document.querySelector('.cb-afw');
-  function hit(li, k) { var st = li.getAttribute('data-astate'), lv = li.getAttribute('data-alevel');
-    return k === 'all' || k === st || (['trip', 'warning', 'notice'].indexOf(k) >= 0 && lv === k && st === 'open'); }   // a level is its open ones; the acknowledged are under Acknowledged
+  // an acknowledged trip stays in the Open list and its counts while it holds (D5: one count on every surface; 02 row 15,
+  // g4 F1: "Acknowledge never turns it green"); an acknowledged warning or notice moves under Acknowledged
+  function hit(li, k) { var st = li.getAttribute('data-astate'), lv = li.getAttribute('data-alevel'), open = st === 'open' || (st === 'ack' && lv === 'trip');
+    return k === 'all' || k === st || (k === 'open' && open) || (['trip', 'warning', 'notice'].indexOf(k) >= 0 && lv === k && open); }
   function afilter() {
     var list = box.querySelectorAll('#cb-alarms ul.cb-al:not(.cb-al-in) > li[data-astate]'), n = 0;   // a group counts once; its alarms show inside it
     list.forEach(function (li) { var h = hit(li, aShow); li.hidden = !h; if (h) n++; });
     // inside a group, its members follow the same choice (2026-11-19: an acknowledged warning still showed in an open group)
-    box.querySelectorAll('#cb-alarms ul.cb-al-in > li[data-astate]').forEach(function (li) { li.hidden = aShow !== 'all' && !hit(li, aShow) && !(aShow === 'open' && li.getAttribute('data-astate') === 'open'); });
+    box.querySelectorAll('#cb-alarms ul.cb-al-in > li[data-astate]').forEach(function (li) { li.hidden = aShow !== 'all' && !hit(li, aShow); });
     var none = box.querySelector('#cb-alarms .cb-anone'); if (none) none.hidden = n > 0 || !list.length;
     if (!fw) return;
     // counts are alarms, not rows: a group counts each of its alarms, as the panel and the top bar do (Jason, 2026-11-19)
@@ -183,20 +185,20 @@
   afilter();
   // the six stages are tabs (Jason, 2026-11-19: "When clicked that information is what is on page, everything else goes
   // away"): each shows only its part; the one the system is in opens first; a link to a part opens its tab; kept through redraws
-  var PARTS = [['#preflight', 'preflight'], ['#cb-pfres', 'preflight startup'], ['#cb-controls', 'startup observe shutdown maintenance'], ['#cb-alarms', 'observe'], ['#cb-times', 'observe'],
+  var PARTS = [['#cb-deliver', 'deliver'], ['#cb-dev', 'development'], ['#cb-incidents', 'incidents'], ['#preflight', 'preflight'], ['#cb-pfres', 'preflight startup'], ['#cb-controls', 'startup observe shutdown maintenance'], ['#cb-alarms', 'observe'], ['#cb-times', 'observe'],
     ['#maintenance', 'maintenance'], ['#log', 'history'], ['#reports', 'history reports'],
     // the board's tables and pages as tabs (decisions/0175's note, release 2b part A): Alarms, Logbook, Ledger, Upkeep,
     // Reports, Scheduled tasks; Automation in Start-up; the system pre-flight's page in Pre-flight and Start-up
     ['#cb-tab-alarms', 'alarms'], ['#cb-tab-log', 'log'], ['#cb-tab-ledger', 'ledger'], ['#cb-tab-upkeep', 'upkeep'], ['#cb-tab-scheduler', 'scheduler'],
     ['#cb-tab-startup', 'startup'], ['#cb-tab-pfpage', 'preflight startup'], ['#cb-trends', 'history'], ['#cb-site-needs', 'preflight observe'], ['#cb-systems', 'startup observe shutdown maintenance'], ['details.cb-sys', 'startup observe shutdown maintenance']];
-  var tab = box.getAttribute('data-tab') || 'observe';
+  var tab = box.getAttribute('data-tab') || 'deliver';   // "Is it delivering?" is the first view (03 §4, §27)
   function tabsApply() {
     if (!box.hasAttribute('data-tab')) return;   // a process's own page: everything shows
     PARTS.forEach(function (p) { box.querySelectorAll(p[0]).forEach(function (el) { el.classList.toggle('cb-offtab', (' ' + p[1] + ' ').indexOf(' ' + tab + ' ') < 0); }); });
     box.querySelectorAll('[data-cb-tab]').forEach(function (b) { b.setAttribute('aria-selected', b.getAttribute('data-cb-tab') === tab ? 'true' : 'false'); });
   }
   function tabOf(el) { for (var i = 0; i < PARTS.length; i++) { var c = el.closest(PARTS[i][0]); if (c) return PARTS[i][1].split(' ')[0]; } return ''; }
-  function toTab(t) { if (!t) return; tab = t; box.setAttribute('data-tab', t); tabsApply(); lazy(); }
+  function toTab(t) { if (!t) return; if (t !== tab) spClose(); tab = t; box.setAttribute('data-tab', t); tabsApply(); lazy(); }
   // a tab's page with its own forms, loaded in place the first time its tab opens (Scheduled tasks, Automation, the
   // pre-flight's page): a frame the height of its page, its links opening in the board's one side panel (peek=1); a link's
   // own spot (#job-<key>, #pf-<line>) goes with it when the board doesn't have it itself
@@ -304,6 +306,44 @@
     go();
   });
 
+  // the views' side panels (03 §27: "each a side panel with Back, closing by ×, Esc and a click outside"; CLAUDE.md
+  // "Everything that pops open closes"): one at a time; a card or a drill button opens one, Back opens its snapshot again
+  var spBg = null, spFrom = null;
+  function spClose() { var o = box.querySelector('.cb-sp:not([hidden])'); if (!o) return; o.hidden = true; if (spBg) spBg.hidden = true; document.documentElement.style.overflow = ''; if (spFrom && document.body.contains(spFrom)) { try { spFrom.focus(); } catch (x) {} } spFrom = null; }
+  function spOpen(id, from, at) {
+    var p = document.getElementById(id); if (!p || !box.contains(p)) return;
+    box.querySelectorAll('.cb-sp:not([hidden])').forEach(function (x) { x.hidden = true; });
+    if (!spBg) { spBg = document.createElement('div'); spBg.className = 'cb-spbg'; spBg.addEventListener('click', spClose); box.appendChild(spBg); }
+    spBg.hidden = false; p.hidden = false; document.documentElement.style.overflow = 'hidden';   // one scrollbar: the panel's (03 §28.5)
+    if (from && !from.closest('.cb-sp')) spFrom = from;
+    var x = p.querySelector('[data-cb-spx]'); if (x) x.focus();
+    var t = at && document.getElementById(at); if (t) setTimeout(function () { t.scrollIntoView({ block: 'start' }); }, 30); else p.scrollTop = 0;
+    if (window.TvTime) TvTime.paint(p); if (window.TvCopy) TvCopy.scan(p);
+  }
+  box.addEventListener('click', function (e) {
+    var x = e.target.closest('[data-cb-spx]'); if (x && box.contains(x)) { e.preventDefault(); spClose(); return; }
+    var o = e.target.closest('[data-cb-sp]'); if (o && box.contains(o)) { e.preventDefault(); spOpen(o.getAttribute('data-cb-sp'), o, o.getAttribute('data-cb-spat')); }
+  });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && box.querySelector('.cb-sp:not([hidden])')) { e.stopPropagation(); spClose(); } }, true);
+
+  // Site health on the board (check-register.md, "Site health: one notification path", Jason 2026-11-22): its old Pulse
+  // case's actions kept, through Pulse's own manage actions for sitehealth:open (Mark fixed, Set aside with why, Check
+  // again, Run the checks now); the list is drawn again from the board after each
+  box.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-cb-sh]'); if (!b || b.disabled || !box.contains(b)) return;
+    e.preventDefault();
+    var what = b.getAttribute('data-cb-sh'), args = b.hasAttribute('data-state') ? { state: b.getAttribute('data-state') } : {};
+    var send = function () { TvAsk.busy(b, true);
+      post('/admin/api/pulse', { do: 'manage', key: 'sitehealth:open', what: what, args: args }).then(function (j) { TvAsk.busy(b, false); say(j.message || 'Done.', b);
+        setTimeout(function () { fetch(location.pathname + location.search, { credentials: 'include' }).then(function (r) { return r.ok ? r.text() : ''; }).then(function (html) {
+          var nu = html && new DOMParser().parseFromString(html, 'text/html').getElementById('site-health'), cur = document.getElementById('site-health');
+          if (nu && cur) { cur.parentNode.replaceChild(document.importNode(nu, true), cur); if (window.TvTime) TvTime.paint(box); if (window.TvCopy) TvCopy.scan(box); } }).catch(function () {}); }, 900); },
+        function (err) { TvAsk.busy(b, false); say(err.message, b, true); }); };
+    if (b.hasAttribute('data-ask')) { TvAsk.ask(b.getAttribute('data-ask'), '', { yes: 'Set it aside' }).then(function (v) { if (v === null || v === undefined || v === false || !String(v).trim()) return; args.note = String(v); send(); }); return; }
+    if (b.hasAttribute('data-confirm') && !TvAsk.gate(b, b.getAttribute('data-confirm'), { yes: b.getAttribute('data-yes') || 'Yes' })) return;
+    send();
+  });
+
   document.addEventListener('click', function (e) {
     var b = e.target.closest('[data-cb]');
     if (!b || b.disabled || !box.contains(b)) return;
@@ -335,6 +375,8 @@
         li.remove(); say((j.message || 'Resolved.') + ' It\'s in the logbook.', host || box, false); redraw(); return; }
       // acknowledged: out of the open list at once, and where it went (Jason, 2026-11-19: "I acknowledged this but it is still listed")
       var ak = act === 'ack' && !j.bad && aShow === 'open' ? b.closest('li[id^="cb-alarm-"]') : null;
+      // a trip acknowledged stays where it is, seen (D5; 02 row 96: "the light stays red"), and the board says so
+      if (ak && ak.getAttribute('data-alevel') === 'trip') { ak.setAttribute('data-astate', 'ack'); say('Acknowledged: marked seen. It stays in the Open list while it holds; Check and start again is still on it.', ak, false); afilter(); setTimeout(redraw, 1200); return; }
       if (ak) { ak.setAttribute('data-astate', 'ack'); ak.hidden = true; say('Acknowledged: it\'s under Acknowledged (the filter), and comes back if it gets worse.', ak.parentNode.closest('details') || box, false); afilter(); setTimeout(redraw, 1200); return; }
       say(j.message || 'Done.', at, !!j.bad); setTimeout(redraw, 1200); },
       function (err) { TvAsk.busy(b, false); say(err.message, at, true); });
