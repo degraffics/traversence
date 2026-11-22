@@ -1,0 +1,14 @@
+{
+ "zip": "location-popup.zip",
+ "built_on": "7c99b2c Sync: 2026-11-22 21:29 UTC",
+ "recorded": "2026-11-22 21:37 UTC",
+ "note": "The location pop-up's Log in and Not sure? readable. Built on Sync: 2026-11-22 21:29 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "website/js/location-scope.js": {
+   "sha256": "f0a5bd0687253ce6bdc928efa5d485dd6b799819716445929d69dbc1e19e67b7",
+   "live": false
+  }
+ }
+}
