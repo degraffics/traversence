@@ -128,7 +128,7 @@ SECTIONS['Discovery'] = dict(construct="Let's Explore", owners='Design and trips
     I('Waypoints & routes: map waypoints and GPX/KML for journeys and guides', 'admin tool', 'decided', 'app/admin/manifests.php:62 (Coming: "A later wave"); aos-gap-review.md §8'),
     I('Everything placed in the discovery funnel, active or planned (0170)', 'feature', 'live', 'decisions/0170; app/lib/HubOpening.php in the mirror', O_OPS, note='Built parts by section to confirm with 0170\'s own notes'),
     I('Am here: live check-ins', 'feature', 'proposed', 'app/ui/faq.md:1121 ("coming as a separate feature"); no decision found'),
-    I('Knowledge Engine W3–W14 feeding Discovery (sources, guides, landmarks, events, research)', 'workflow', 'live', 'decisions/0164; ' + rel(247), O_OPS, W3_RUN, note='Counted here only as the runtime state of W3; the engine itself is Platform'),
+    I('The engine\'s discovery workflows W3–W14 (sources, guides, landmarks, events, research)', 'workflow', 'live', 'decisions/0164; ' + rel(247), O_OPS, W3_RUN, note='Counted here only as the runtime state of W3; the engine itself is Platform'),
     I('The area data: micro-clusters misnamed under Ancient Borderlands', 'feature', 'decided', 'handoffs/design.md §4; sections-outline.md §1 (owned by the session manager, not started)', O_SM, outline=True),
 ])
 
@@ -154,7 +154,7 @@ SECTIONS['Directory'] = dict(construct='Get Local', owners='Design and trips (Ge
     I('Search Phase C (0060)', 'feature', 'live', 'decisions/0061:7 replaces 0060\'s Phase C and is built in three batches; settles the outline\'s "decided, not built"', check=('run', 'the search scorecard: 101 of 106 cases pass (Nov 21)', 'not passing')),
     I('"3 within 5 mi" coverage promise (0060)', 'feature', 'live', 'decisions/0060; the runtime board\'s "3 within 5 mi" snapshot', check=('run', 'no probe reads it as defined (runtime board: not checked yet)', 'not checked'), outline=True),
     I('OpenStreetMap businesses where we have no listings yet (0065)', 'feature', 'live', '/api/open-places.php (' + pg('/api/open-places.php') + '); decisions/0065'),
-    I('Listings found and kept current: W1 Listings, W2 Keep current', 'workflow', 'live', 'decisions/0160, 0164; ' + rel(20, 22, 28), O_OPS, W1_RUN, outline=True),
+    I('The engine\'s listing workflows: W1 Listings, W2 Keep current', 'workflow', 'live', 'decisions/0160, 0164; ' + rel(20, 22, 28), O_OPS, W1_RUN, outline=True),
     I('W2\'s refresh count (L9: counted more than received)', 'workflow', 'decided', '03-cards.md §28.2: a step-4 fix, count at the boundary', O_OPS),
     I('Data cleanup: find, preview and act on what the old crawler made', 'admin tool', 'live', rel(49, 50, 52, 53, 54) + '; decisions/0163 §8 stage 1b; settles the outline\'s "to confirm"', O_OPS),
     I('The duplicates fix: one identity check, the recheck, Vet this place', 'workflow', 'live', rel(58) + ' (Release B part 1); handoffs/duplicates.md; decisions/0164 §3.1–3.2; settles the outline\'s "to confirm"', O_OPS),
@@ -272,7 +272,7 @@ SECTIONS['Platform'] = dict(construct='(the platform underneath)', owners='Opera
     I('The admin engine: 10 modules, manifests, widgets, workflows (0109)', 'admin tool', 'live', 'decisions/0109; app/admin/manifests.php'),
     I('The admin\'s Pulse and Support inbox (0172, 0176)', 'admin tool', 'live', rel(138, 141, 147, 241), O_DISP),
     I('The System Control Board (0171, 0175, 0176)', 'admin tool', 'live', rel(127, 229, 231, 238, 239, 243, 245), O_BOARD),
-    I('The Knowledge Engine and its workflows W0–W14 (0160, 0163, 0164)', 'workflow', 'live', 'decisions/0164; ' + rel(16, 20, 22, 247), O_OPS, W1_RUN),
+    I('The Knowledge Engine\'s shared parts: W0 Indexer, the crawler service, its console, switches and source map (0160, 0163, 0164)', 'workflow', 'live', 'decisions/0164; ' + rel(16, 79, 88, 247), O_OPS),
     I('Staging in safe mode, releases through git (0145, 0159 steps 1–2, 0165)', 'workflow', 'live', rel(7, 10, 56, 57)),
     I('The page builder for our own pages (0159 steps 3–4)', 'feature', 'live', rel(18, 23, 27, 33, 34), O_BUILDER),
     I('One uploader; files on S3 and Cloudflare R2 (0122–0127, 0151)', 'feature', 'live', 'decisions/0127, 0151'),
@@ -391,5 +391,8 @@ def write():
         print(name, json.dumps(data['sections'][name]['summary']['counts']), data['sections'][name]['summary']['complete_pct'], 'held', data['sections'][name]['summary']['held'], 'live%', data['sections'][name]['summary']['live_pct'])
 
 
+exec(open(os.path.join(HERE, 'sections_crossover.py')).read())
+
 if __name__ == '__main__':
     write()
+    write_crossover()

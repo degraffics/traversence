@@ -1949,6 +1949,13 @@ reference** (Q21 and SM 172–189, `step1-requirements.md`), by Jason's directio
   - Pages load fast: Workflows "none: no workflow makes this"; Services → Bluehost, Cloudflare.
   - Complete: Workflows → W2's tasks; Services → "A missing phone or website" → Tavily → Brave.
   - Gathering reconciles: IR-0001 on both paths.
+- **One gauge, one measure, one needle (Jason, 2026-11-22):** "dont combine or split the focus of the gauge. if a two needs
+  are required it's no longer a gauge is is a graph or some other representation of the measured data." Each gauge carries
+  one measure on its dial. Anything else (live, held, not checked; a second count; money beside a count) goes to its
+  drill-down as a small breakdown, or to a graph beside it. The runtime gauges showing two readings today (`o-phone`,
+  `o-paths`, `o-gather`, `o-complete`, `o-ir`, `o-search-cap`; `o-signin` acceptable as one pass/fail) are listed with
+  a single measure each in `sections/crossover.md`. The build gauges' measure is Complete (live and passing its check,
+  over the signed scope); their proposed set and owners are in the same file.
 
 ---
 

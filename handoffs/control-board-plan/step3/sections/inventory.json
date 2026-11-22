@@ -41,7 +41,14 @@
      "note": "",
      "outline": false,
      "check": "passing",
-     "check_by": "the rendered check at 1280 and 390: Working"
+     "check_by": "the rendered check at 1280 and 390: Working",
+     "agency": "Discovery",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Discovery",
+     "listed_in": "Discovery"
     },
     {
      "name": "Hub, geo-hub and cluster landing page",
@@ -52,7 +59,14 @@
      "note": "",
      "outline": false,
      "check": "passing",
-     "check_by": "the rendered check at 1280 and 390: Working"
+     "check_by": "the rendered check at 1280 and 390: Working",
+     "agency": "Discovery",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Discovery",
+     "listed_in": "Discovery"
     },
     {
      "name": "A guide built while you wait for a searched place (0147)",
@@ -63,7 +77,14 @@
      "note": "",
      "outline": false,
      "check": "passing",
-     "check_by": "the rendered check at 1280 and 390: Working"
+     "check_by": "the rendered check at 1280 and 390: Working",
+     "agency": "Discovery",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Discovery",
+     "listed_in": "Discovery"
     },
     {
      "name": "Natural landmark page (USGS names)",
@@ -74,7 +95,14 @@
      "note": "",
      "outline": false,
      "check": "passing",
-     "check_by": "the rendered check at 1280 and 390: Working"
+     "check_by": "the rendered check at 1280 and 390: Working",
+     "agency": "Discovery",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Discovery",
+     "listed_in": "Discovery"
     },
     {
      "name": "Public recreation place page (Recreation.gov)",
@@ -85,7 +113,14 @@
      "note": "",
      "outline": false,
      "check": "passing",
-     "check_by": "the rendered check at 1280 and 390: Working"
+     "check_by": "the rendered check at 1280 and 390: Working",
+     "agency": "Discovery",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Discovery",
+     "listed_in": "Discovery"
     },
     {
      "name": "The place page: photo corner, what's in the photo, the numbers, \u22ef toolkit, Plan a trip here",
@@ -96,7 +131,14 @@
      "note": "",
      "outline": false,
      "check": "not checked",
-     "check_by": "no live check reads it yet"
+     "check_by": "no live check reads it yet",
+     "agency": "Discovery",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Discovery",
+     "listed_in": "Discovery"
     },
     {
      "name": "Card photos for parks and landmarks (real photos first, looked up on open, on-the-spot photos)",
@@ -107,7 +149,14 @@
      "note": "",
      "outline": false,
      "check": "not checked",
-     "check_by": "no live check reads it yet"
+     "check_by": "no live check reads it yet",
+     "agency": "Discovery",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Discovery",
+     "listed_in": "Discovery"
     },
     {
      "name": "Hero tidy (\u22ef starts Link to, Claim, Add to a trip)",
@@ -118,7 +167,14 @@
      "note": "",
      "outline": false,
      "check": "not checked",
-     "check_by": "no live check reads it yet"
+     "check_by": "no live check reads it yet",
+     "agency": "Discovery",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Discovery",
+     "listed_in": "Discovery"
     },
     {
      "name": "Park Service photos (NPS photo API)",
@@ -127,7 +183,14 @@
      "source": "handoffs/design.md \u00a73.8: built, skipped until NPS_API_KEY is set; decisions/0143",
      "owner": "Design and trips (handoffs/design.md, session_01CXLi5jkgtUikcdUQ4Wmv28)",
      "note": "held for a key",
-     "outline": false
+     "outline": false,
+     "agency": "Discovery",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Discovery",
+     "listed_in": "Discovery"
     },
     {
      "name": "One experience (0059)",
@@ -138,7 +201,14 @@
      "note": "",
      "outline": false,
      "check": "not checked",
-     "check_by": "the rendered check at 1280 and 390: not checked yet"
+     "check_by": "the rendered check at 1280 and 390: not checked yet",
+     "agency": "Discovery",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Discovery",
+     "listed_in": "Discovery"
     },
     {
      "name": "Your experiences",
@@ -149,7 +219,14 @@
      "note": "",
      "outline": false,
      "check": "passing",
-     "check_by": "the rendered check at 1280 and 390: Working"
+     "check_by": "the rendered check at 1280 and 390: Working",
+     "agency": "Discovery",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Discovery",
+     "listed_in": "Discovery"
     },
     {
      "name": "One journey (0056)",
@@ -160,7 +237,14 @@
      "note": "",
      "outline": false,
      "check": "not checked",
-     "check_by": "the rendered check at 1280 and 390: not checked yet"
+     "check_by": "the rendered check at 1280 and 390: not checked yet",
+     "agency": "Discovery",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Discovery",
+     "listed_in": "Discovery"
     },
     {
      "name": "Suggested journeys built from a guide's places (0146)",
@@ -171,7 +255,14 @@
      "note": "",
      "outline": false,
      "check": "passing",
-     "check_by": "the rendered check at 1280 and 390: Answers (404 without its id)"
+     "check_by": "the rendered check at 1280 and 390: Answers (404 without its id)",
+     "agency": "Discovery",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Discovery",
+     "listed_in": "Discovery"
     },
     {
      "name": "Your journeys: write or edit (contributors)",
@@ -182,7 +273,14 @@
      "note": "",
      "outline": false,
      "check": "passing",
-     "check_by": "the rendered check at 1280 and 390: Working"
+     "check_by": "the rendered check at 1280 and 390: Working",
+     "agency": "Discovery",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Discovery",
+     "listed_in": "Discovery"
     },
     {
      "name": "Journeys' Link button resolves (place:jr:N)",
@@ -191,7 +289,14 @@
      "source": "handoffs/design.md \u00a74: no case in Links::resolve (a gap found 2026-11-20)",
      "owner": "Design and trips (handoffs/design.md, session_01CXLi5jkgtUikcdUQ4Wmv28)",
      "note": "",
-     "outline": true
+     "outline": true,
+     "agency": "Discovery",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Discovery",
+     "listed_in": "Discovery"
     },
     {
      "name": "How-to guides from official pages (0063)",
@@ -202,7 +307,14 @@
      "note": "",
      "outline": false,
      "check": "passing",
-     "check_by": "the rendered check at 1280 and 390: Answers (404 without its id)"
+     "check_by": "the rendered check at 1280 and 390: Answers (404 without its id)",
+     "agency": "Discovery",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Discovery",
+     "listed_in": "Discovery"
     },
     {
      "name": "Resource guides: who to call in an area (0061)",
@@ -213,7 +325,14 @@
      "note": "",
      "outline": false,
      "check": "passing",
-     "check_by": "the rendered check at 1280 and 390: Answers (404 without its id)"
+     "check_by": "the rendered check at 1280 and 390: Answers (404 without its id)",
+     "agency": "Discovery",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Discovery",
+     "listed_in": "Discovery"
     },
     {
      "name": "Place guides at every level of the funnel (0043, 0131)",
@@ -224,7 +343,14 @@
      "note": "",
      "outline": false,
      "check": "passing",
-     "check_by": "the paths check \"town-guide\": passed"
+     "check_by": "the paths check \"town-guide\": passed",
+     "agency": "Discovery",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Discovery",
+     "listed_in": "Discovery"
     },
     {
      "name": "Guides and journeys on demand (0147), within the AI cap",
@@ -235,7 +361,14 @@
      "note": "",
      "outline": false,
      "check": "not checked",
-     "check_by": "no live check reads it yet"
+     "check_by": "no live check reads it yet",
+     "agency": "Discovery",
+     "crossover": true,
+     "reason": "an output counted where it shows",
+     "alternative": "Knowledge Engine (W5)",
+     "cross_links": "Knowledge Engine",
+     "option_b": "Discovery",
+     "listed_in": "Discovery"
     },
     {
      "name": "Stories for place pages (Admin \u2192 Explore \u2192 Stories)",
@@ -246,7 +379,14 @@
      "note": "",
      "outline": false,
      "check": "not checked",
-     "check_by": "no live check reads it yet"
+     "check_by": "no live check reads it yet",
+     "agency": "Discovery",
+     "crossover": true,
+     "reason": "shown on place pages",
+     "alternative": "Knowledge Engine",
+     "cross_links": "\u2014",
+     "option_b": "Discovery",
+     "listed_in": "Discovery"
     },
     {
      "name": "Live events from the crawler in guides and on venue listings (0133)",
@@ -257,7 +397,14 @@
      "note": "Shown in Things to do; the events tool itself is counted in Community",
      "outline": false,
      "check": "not checked",
-     "check_by": "no live check reads it yet"
+     "check_by": "no live check reads it yet",
+     "agency": "Discovery",
+     "crossover": true,
+     "reason": "an engine output, counted where it shows (Things to do, guides)",
+     "alternative": "Events, under option B; Community",
+     "cross_links": "Community (Events)",
+     "option_b": "Events",
+     "listed_in": "Discovery"
     },
     {
      "name": "Trips R1: Send to Maps",
@@ -268,7 +415,14 @@
      "note": "",
      "outline": false,
      "check": "not checked",
-     "check_by": "no live check reads it yet"
+     "check_by": "no live check reads it yet",
+     "agency": "Discovery",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Discovery",
+     "listed_in": "Discovery"
     },
     {
      "name": "Trips R2: Add to a trip, Your trips, a guest's trip on the device",
@@ -279,7 +433,14 @@
      "note": "",
      "outline": false,
      "check": "passing",
-     "check_by": "the rendered check at 1280 and 390: Working"
+     "check_by": "the rendered check at 1280 and 390: Working",
+     "agency": "Discovery",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Discovery",
+     "listed_in": "Discovery"
     },
     {
      "name": "Trips R3: the trip page (days, order, times against hours, the map, Print)",
@@ -290,7 +451,14 @@
      "note": "",
      "outline": false,
      "check": "passing",
-     "check_by": "the rendered check at 1280 and 390: Answers (404 without its id)"
+     "check_by": "the rendered check at 1280 and 390: Answers (404 without its id)",
+     "agency": "Discovery",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Discovery",
+     "listed_in": "Discovery"
     },
     {
      "name": "Trips R4: share a link, Personal Guides, counts",
@@ -301,7 +469,14 @@
      "note": "",
      "outline": false,
      "check": "passing",
-     "check_by": "the rendered check at 1280 and 390: Working"
+     "check_by": "the rendered check at 1280 and 390: Working",
+     "agency": "Discovery",
+     "crossover": true,
+     "reason": "Personal Guides are trips published as guides (0174)",
+     "alternative": "Community (member-published)",
+     "cross_links": "Community",
+     "option_b": "Discovery",
+     "listed_in": "Discovery"
     },
     {
      "name": "Trips R5: routes on our own site (openrouteservice)",
@@ -310,7 +485,14 @@
      "source": "decisions/0174 \u00a75; handoffs/design.md \u00a73.2: not started, its terms to check first",
      "owner": "Design and trips (handoffs/design.md, session_01CXLi5jkgtUikcdUQ4Wmv28)",
      "note": "",
-     "outline": true
+     "outline": true,
+     "agency": "Discovery",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Discovery",
+     "listed_in": "Discovery"
     },
     {
      "name": "The map release: trails and routes in their own colour (--tv-route)",
@@ -319,7 +501,14 @@
      "source": "brand.md \u00a74 note (Jason, 2026-11-18); handoffs/design.md \u00a73.5",
      "owner": "Design and trips (handoffs/design.md, session_01CXLi5jkgtUikcdUQ4Wmv28)",
      "note": "",
-     "outline": true
+     "outline": true,
+     "agency": "Discovery",
+     "crossover": true,
+     "reason": "trails and routes",
+     "alternative": "Platform (js/map-view.js serves every map)",
+     "cross_links": "Platform",
+     "option_b": "Discovery",
+     "listed_in": "Discovery"
     },
     {
      "name": "Clean hub, geo-hub and cluster addresses /{hub}/{geohub}/{cluster}",
@@ -328,7 +517,14 @@
      "source": "decisions/0013; site-audit/pages.md:269 (Coming)",
      "owner": "",
      "note": "",
-     "outline": true
+     "outline": true,
+     "agency": "Discovery",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Discovery",
+     "listed_in": "Discovery"
     },
     {
      "name": "Editorial guides /guide/{slug} with a [directory_feed] shortcode",
@@ -337,7 +533,14 @@
      "source": "site-audit/pages.md:271 (Coming, \"Designed in \u2014\": no decision)",
      "owner": "",
      "note": "",
-     "outline": true
+     "outline": true,
+     "agency": "Discovery",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Discovery",
+     "listed_in": "Discovery"
     },
     {
      "name": "Waypoints & routes: map waypoints and GPX/KML for journeys and guides",
@@ -346,7 +549,14 @@
      "source": "app/admin/manifests.php:62 (Coming: \"A later wave\"); aos-gap-review.md \u00a78",
      "owner": "",
      "note": "",
-     "outline": false
+     "outline": false,
+     "agency": "Discovery",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Discovery",
+     "listed_in": "Discovery"
     },
     {
      "name": "Everything placed in the discovery funnel, active or planned (0170)",
@@ -357,7 +567,14 @@
      "note": "Built parts by section to confirm with 0170's own notes",
      "outline": false,
      "check": "not checked",
-     "check_by": "no live check reads it yet"
+     "check_by": "no live check reads it yet",
+     "agency": "Discovery",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Discovery",
+     "listed_in": "Discovery"
     },
     {
      "name": "Am here: live check-ins",
@@ -366,10 +583,17 @@
      "source": "app/ui/faq.md:1121 (\"coming as a separate feature\"); no decision found",
      "owner": "",
      "note": "",
-     "outline": false
+     "outline": false,
+     "agency": "Discovery",
+     "crossover": true,
+     "reason": "beside \"Was here\" on journeys",
+     "alternative": "Community (a check-in is social)",
+     "cross_links": "Community",
+     "option_b": "Discovery",
+     "listed_in": "Discovery"
     },
     {
-     "name": "Knowledge Engine W3\u2013W14 feeding Discovery (sources, guides, landmarks, events, research)",
+     "name": "The engine's discovery workflows W3\u2013W14 (sources, guides, landmarks, events, research)",
      "kind": "workflow",
      "status": "live",
      "source": "decisions/0164; release #247 (live 2026-11-21)",
@@ -377,7 +601,14 @@
      "note": "Counted here only as the runtime state of W3; the engine itself is Platform",
      "outline": false,
      "check": "not passing",
-     "check_by": "the runtime board: W3 does nothing while its two switches stay Off by the system (01-lift-reconstruction.md (b), (c))"
+     "check_by": "the runtime board: W3 does nothing while its two switches stay Off by the system (01-lift-reconstruction.md (b), (c))",
+     "agency": "Knowledge Engine",
+     "crossover": true,
+     "reason": "the engine; guides, journeys, landmarks and events it makes are counted in Discovery",
+     "alternative": "Discovery",
+     "cross_links": "Discovery",
+     "option_b": "Knowledge Engine",
+     "listed_in": "Discovery"
     },
     {
      "name": "The area data: micro-clusters misnamed under Ancient Borderlands",
@@ -386,7 +617,14 @@
      "source": "handoffs/design.md \u00a74; sections-outline.md \u00a71 (owned by the session manager, not started)",
      "owner": "Session manager (handoffs/session-manager.md, session_01CXLi5iruQZSTYKyuR7b1SN)",
      "note": "",
-     "outline": true
+     "outline": true,
+     "agency": "Discovery",
+     "crossover": true,
+     "reason": "the place taxonomy",
+     "alternative": "Knowledge Engine (Data cleanup is the tool)",
+     "cross_links": "Knowledge Engine",
+     "option_b": "Discovery",
+     "listed_in": "Discovery"
     }
    ]
   },
@@ -423,7 +661,14 @@
      "note": "",
      "outline": false,
      "check": "passing",
-     "check_by": "the rendered check at 1280 and 390: Working"
+     "check_by": "the rendered check at 1280 and 390: Working",
+     "agency": "Directory",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Directory",
+     "listed_in": "Directory"
     },
     {
      "name": "Get Local R2: Filters, Arrange, Sort, Table, the list beside the map, the comments box, the card tools",
@@ -434,7 +679,14 @@
      "note": "",
      "outline": false,
      "check": "passing",
-     "check_by": "the paths check \"eat-near-me\": passed"
+     "check_by": "the paths check \"eat-near-me\": passed",
+     "agency": "Directory",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Directory",
+     "listed_in": "Directory"
     },
     {
      "name": "Set my place and distance on Get Local",
@@ -445,7 +697,14 @@
      "note": "",
      "outline": false,
      "check": "not passing",
-     "check_by": "the paths check \"set-place\": failed"
+     "check_by": "the paths check \"set-place\": failed",
+     "agency": "Directory",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Directory",
+     "listed_in": "Directory"
     },
     {
      "name": "A business's page (hero, engage bar, comments, Link)",
@@ -456,7 +715,14 @@
      "note": "",
      "outline": false,
      "check": "passing",
-     "check_by": "the rendered check at 1280 and 390: Working"
+     "check_by": "the rendered check at 1280 and 390: Working",
+     "agency": "Directory",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Directory",
+     "listed_in": "Directory"
     },
     {
      "name": "Where a listing is: move the pin, I'm here",
@@ -467,7 +733,14 @@
      "note": "",
      "outline": false,
      "check": "passing",
-     "check_by": "the rendered check at 1280 and 390: Working"
+     "check_by": "the rendered check at 1280 and 390: Working",
+     "agency": "Directory",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Directory",
+     "listed_in": "Directory"
     },
     {
      "name": "Claim a listing (email or text code, who might claim, the form that fits)",
@@ -478,7 +751,14 @@
      "note": "",
      "outline": false,
      "check": "passing",
-     "check_by": "the rendered check at 1280 and 390: Working"
+     "check_by": "the rendered check at 1280 and 390: Working",
+     "agency": "Directory",
+     "crossover": true,
+     "reason": "claim (ruling)",
+     "alternative": "Business tools",
+     "cross_links": "\u2014",
+     "option_b": "Business tools",
+     "listed_in": "Directory"
     },
     {
      "name": "Verify a listing from its link",
@@ -489,7 +769,14 @@
      "note": "",
      "outline": false,
      "check": "passing",
-     "check_by": "the rendered check at 1280 and 390: Working"
+     "check_by": "the rendered check at 1280 and 390: Working",
+     "agency": "Directory",
+     "crossover": true,
+     "reason": "claim (ruling)",
+     "alternative": "Business tools",
+     "cross_links": "\u2014",
+     "option_b": "Business tools",
+     "listed_in": "Directory"
     },
     {
      "name": "The business portal: claims, plan, the listing editor (listing side)",
@@ -500,7 +787,14 @@
      "note": "",
      "outline": false,
      "check": "passing",
-     "check_by": "the rendered check at 1280 and 390: Working"
+     "check_by": "the rendered check at 1280 and 390: Working",
+     "agency": "Directory",
+     "crossover": true,
+     "reason": "its listing face (claims, plan, the listing editor); the selling face is Marketplace's",
+     "alternative": "Business tools, under option B",
+     "cross_links": "Marketplace",
+     "option_b": "Business tools",
+     "listed_in": "Directory"
     },
     {
      "name": "An owner opens their own hidden listing's editor (case #22)",
@@ -511,7 +805,14 @@
      "note": "",
      "outline": false,
      "check": "passing",
-     "check_by": "the paths check \"my-listing\": passed"
+     "check_by": "the paths check \"my-listing\": passed",
+     "agency": "Directory",
+     "crossover": true,
+     "reason": "the listing face",
+     "alternative": "Business tools",
+     "cross_links": "\u2014",
+     "option_b": "Business tools",
+     "listed_in": "Directory"
     },
     {
      "name": "Edit my listing as its owner",
@@ -522,7 +823,14 @@
      "note": "",
      "outline": false,
      "check": "not checked",
-     "check_by": "the paths check \"edit-listing\": skipped"
+     "check_by": "the paths check \"edit-listing\": skipped",
+     "agency": "Directory",
+     "crossover": true,
+     "reason": "the listing face",
+     "alternative": "Business tools",
+     "cross_links": "\u2014",
+     "option_b": "Business tools",
+     "listed_in": "Directory"
     },
     {
      "name": "A guest's message to an unclaimed listing: confirm the email",
@@ -533,7 +841,14 @@
      "note": "",
      "outline": false,
      "check": "not checked",
-     "check_by": "the rendered check at 1280 and 390: not opened yet (pages.md still says Coming; the page is in the mirror)"
+     "check_by": "the rendered check at 1280 and 390: not opened yet (pages.md still says Coming; the page is in the mirror)",
+     "agency": "Directory",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Directory",
+     "listed_in": "Directory"
     },
     {
      "name": "Stop requests / report spam for an unclaimed listing's email",
@@ -544,7 +859,14 @@
      "note": "",
      "outline": false,
      "check": "not checked",
-     "check_by": "the rendered check at 1280 and 390: not opened yet (pages.md still says Coming; the page is in the mirror)"
+     "check_by": "the rendered check at 1280 and 390: not opened yet (pages.md still says Coming; the page is in the mirror)",
+     "agency": "Directory",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Directory",
+     "listed_in": "Directory"
     },
     {
      "name": "Message a business (guest inquiry, listing messages)",
@@ -555,7 +877,14 @@
      "note": "",
      "outline": false,
      "check": "not checked",
-     "check_by": "the paths check \"message-business\": skipped"
+     "check_by": "the paths check \"message-business\": skipped",
+     "agency": "Directory",
+     "crossover": true,
+     "reason": "a visitor reaching a listing",
+     "alternative": "Platform (messages)",
+     "cross_links": "Platform",
+     "option_b": "Directory",
+     "listed_in": "Directory"
     },
     {
      "name": "Adding a business: live in minutes, verified with one tap (0071)",
@@ -566,7 +895,14 @@
      "note": "",
      "outline": false,
      "check": "not checked",
-     "check_by": "no live check reads it yet"
+     "check_by": "no live check reads it yet",
+     "agency": "Directory",
+     "crossover": true,
+     "reason": "a listing",
+     "alternative": "Business tools",
+     "cross_links": "\u2014",
+     "option_b": "Business tools",
+     "listed_in": "Directory"
     },
     {
      "name": "Help us find this business (a public request)",
@@ -577,7 +913,14 @@
      "note": "",
      "outline": false,
      "check": "not checked",
-     "check_by": "no live check reads it yet"
+     "check_by": "no live check reads it yet",
+     "agency": "Directory",
+     "crossover": true,
+     "reason": "a listing request people see on Get Local",
+     "alternative": "Knowledge Engine",
+     "cross_links": "Knowledge Engine",
+     "option_b": "Directory",
+     "listed_in": "Directory"
     },
     {
      "name": "The Nexus: organizations with many locations (0054)",
@@ -588,7 +931,14 @@
      "note": "",
      "outline": false,
      "check": "not checked",
-     "check_by": "no live check reads it yet"
+     "check_by": "no live check reads it yet",
+     "agency": "Directory",
+     "crossover": true,
+     "reason": "many locations as listings",
+     "alternative": "Business tools",
+     "cross_links": "\u2014",
+     "option_b": "Business tools",
+     "listed_in": "Directory"
     },
     {
      "name": "Directory search, categories, \"near me\" with miles (0044, 0053, 0060 A\u2013B, 0068)",
@@ -599,7 +949,14 @@
      "note": "",
      "outline": false,
      "check": "passing",
-     "check_by": "the paths check \"eat-near-me\": passed"
+     "check_by": "the paths check \"eat-near-me\": passed",
+     "agency": "Directory",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Directory",
+     "listed_in": "Directory"
     },
     {
      "name": "Search Phase C (0060)",
@@ -610,7 +967,14 @@
      "note": "",
      "outline": false,
      "check": "not passing",
-     "check_by": "the search scorecard: 101 of 106 cases pass (Nov 21)"
+     "check_by": "the search scorecard: 101 of 106 cases pass (Nov 21)",
+     "agency": "Platform",
+     "crossover": true,
+     "reason": "the learning search (0061) serves every kind, not only listings",
+     "alternative": "Directory",
+     "cross_links": "Directory",
+     "option_b": "Platform",
+     "listed_in": "Directory"
     },
     {
      "name": "\"3 within 5 mi\" coverage promise (0060)",
@@ -621,7 +985,14 @@
      "note": "",
      "outline": true,
      "check": "not checked",
-     "check_by": "no probe reads it as defined (runtime board: not checked yet)"
+     "check_by": "no probe reads it as defined (runtime board: not checked yet)",
+     "agency": "Directory",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Directory",
+     "listed_in": "Directory"
     },
     {
      "name": "OpenStreetMap businesses where we have no listings yet (0065)",
@@ -632,10 +1003,17 @@
      "note": "",
      "outline": false,
      "check": "not checked",
-     "check_by": "no live check reads it yet"
+     "check_by": "no live check reads it yet",
+     "agency": "Directory",
+     "crossover": true,
+     "reason": "shown on Get Local",
+     "alternative": "Knowledge Engine",
+     "cross_links": "Knowledge Engine",
+     "option_b": "Directory",
+     "listed_in": "Directory"
     },
     {
-     "name": "Listings found and kept current: W1 Listings, W2 Keep current",
+     "name": "The engine's listing workflows: W1 Listings, W2 Keep current",
      "kind": "workflow",
      "status": "live",
      "source": "decisions/0160, 0164; release #20 (live 2026-11-13), release #22 (live 2026-11-13), release #28 (live 2026-11-13)",
@@ -643,7 +1021,14 @@
      "note": "",
      "outline": true,
      "check": "not passing",
-     "check_by": "the runtime board's \"Gathering reconciles\": W1 paused by two trips, 0 records in for 24 hours (alarms snapshot, Nov 21)"
+     "check_by": "the runtime board's \"Gathering reconciles\": W1 paused by two trips, 0 records in for 24 hours (alarms snapshot, Nov 21)",
+     "agency": "Knowledge Engine",
+     "crossover": true,
+     "reason": "the engine; the listings are counted in Directory",
+     "alternative": "Directory",
+     "cross_links": "Directory",
+     "option_b": "Knowledge Engine",
+     "listed_in": "Directory"
     },
     {
      "name": "W2's refresh count (L9: counted more than received)",
@@ -652,7 +1037,14 @@
      "source": "03-cards.md \u00a728.2: a step-4 fix, count at the boundary",
      "owner": "Operations (handoffs/operations-2026-11-20.md, session_01CXLi5mGX2sg5QS11gg3Wrh)",
      "note": "",
-     "outline": false
+     "outline": false,
+     "agency": "Knowledge Engine",
+     "crossover": true,
+     "reason": "a fix in the engine's ledger",
+     "alternative": "Directory",
+     "cross_links": "Directory",
+     "option_b": "Knowledge Engine",
+     "listed_in": "Directory"
     },
     {
      "name": "Data cleanup: find, preview and act on what the old crawler made",
@@ -663,7 +1055,14 @@
      "note": "",
      "outline": false,
      "check": "not checked",
-     "check_by": "no live check reads it yet"
+     "check_by": "no live check reads it yet",
+     "agency": "Knowledge Engine",
+     "crossover": true,
+     "reason": "brings the engine's old output into line",
+     "alternative": "Directory",
+     "cross_links": "Directory",
+     "option_b": "Knowledge Engine",
+     "listed_in": "Directory"
     },
     {
      "name": "The duplicates fix: one identity check, the recheck, Vet this place",
@@ -674,7 +1073,14 @@
      "note": "",
      "outline": false,
      "check": "not checked",
-     "check_by": "no live check reads it yet"
+     "check_by": "no live check reads it yet",
+     "agency": "Knowledge Engine",
+     "crossover": true,
+     "reason": "the engine's identity check (0164 \u00a73)",
+     "alternative": "Directory",
+     "cross_links": "Directory",
+     "option_b": "Knowledge Engine",
+     "listed_in": "Directory"
     },
     {
      "name": "Clean listing addresses /listing/{slug}",
@@ -683,7 +1089,14 @@
      "source": "site-audit/pages.md:270 (Coming, \"Designed in \u2014\": no decision)",
      "owner": "",
      "note": "",
-     "outline": true
+     "outline": true,
+     "agency": "Directory",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Directory",
+     "listed_in": "Directory"
     },
     {
      "name": "Single Home Rule: one home anchor per listing, conflicts settled",
@@ -692,7 +1105,14 @@
      "source": "app/admin/manifests.php:50 (Coming: \"The rule to be defined (Jason)\"); aos-gap-review.md \u00a78",
      "owner": "",
      "note": "",
-     "outline": true
+     "outline": true,
+     "agency": "Directory",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Directory",
+     "listed_in": "Directory"
     },
     {
      "name": "Admin \u2192 Local: listings, find/merge/bulk, intake, review, claims, identities, map pins, categories, taxonomy",
@@ -703,7 +1123,14 @@
      "note": "",
      "outline": false,
      "check": "not checked",
-     "check_by": "no live check reads it yet"
+     "check_by": "no live check reads it yet",
+     "agency": "Directory",
+     "crossover": true,
+     "reason": "its face's admin",
+     "alternative": "Platform (the admin)",
+     "cross_links": "Platform",
+     "option_b": "Directory",
+     "listed_in": "Directory"
     },
     {
      "name": "Plans made for agencies and nonprofits",
@@ -712,7 +1139,14 @@
      "source": "app/ui/faq.md:938, 948 (\"coming\"); no decision found",
      "owner": "",
      "note": "",
-     "outline": false
+     "outline": false,
+     "agency": "Marketplace",
+     "crossover": true,
+     "reason": "plans are sold in the Shop",
+     "alternative": "Directory (agencies claim listings)",
+     "cross_links": "Directory",
+     "option_b": "Marketplace",
+     "listed_in": "Directory"
     },
     {
      "name": "Checking a phone with a texted code (claim)",
@@ -721,7 +1155,14 @@
      "source": "app/ui/faq.md:1867 (\"coming\"); decisions/0070; texts wait on 0172 \u00a75",
      "owner": "Communications (handoffs/communications.md, session_01CXLi5krYPakdEQtKuVw14F)",
      "note": "",
-     "outline": false
+     "outline": false,
+     "agency": "Directory",
+     "crossover": true,
+     "reason": "claim; texts themselves are Platform's",
+     "alternative": "Business tools",
+     "cross_links": "Platform",
+     "option_b": "Business tools",
+     "listed_in": "Directory"
     }
    ]
   },
@@ -766,7 +1207,14 @@
      "note": "",
      "outline": false,
      "check": "passing",
-     "check_by": "the rendered check at 1280 and 390: Working"
+     "check_by": "the rendered check at 1280 and 390: Working",
+     "agency": "Community",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Community",
+     "listed_in": "Community"
     },
     {
      "name": "One group as a content page (0137 \u00a74)",
@@ -777,7 +1225,14 @@
      "note": "",
      "outline": false,
      "check": "not checked",
-     "check_by": "the rendered check at 1280 and 390: not checked yet"
+     "check_by": "the rendered check at 1280 and 390: not checked yet",
+     "agency": "Community",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Community",
+     "listed_in": "Community"
     },
     {
      "name": "Join a group",
@@ -788,7 +1243,14 @@
      "note": "",
      "outline": false,
      "check": "not checked",
-     "check_by": "the paths check \"join-group\": skipped"
+     "check_by": "the paths check \"join-group\": skipped",
+     "agency": "Community",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Community",
+     "listed_in": "Community"
     },
     {
      "name": "Group roles: owner, moderator, member",
@@ -799,7 +1261,14 @@
      "note": "",
      "outline": false,
      "check": "not checked",
-     "check_by": "no live check reads it yet"
+     "check_by": "no live check reads it yet",
+     "agency": "Community",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Community",
+     "listed_in": "Community"
     },
     {
      "name": "Charters, business-owned groups, moderation run by the group, notices sent once (0137 steps 1\u20135)",
@@ -810,7 +1279,14 @@
      "note": "",
      "outline": false,
      "check": "not checked",
-     "check_by": "no live check reads it yet"
+     "check_by": "no live check reads it yet",
+     "agency": "Community",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Community",
+     "listed_in": "Community"
     },
     {
      "name": "Tags on groups, places a group is about, chapters, topic plus place in search, growing a group (0136)",
@@ -821,7 +1297,14 @@
      "note": "",
      "outline": false,
      "check": "not checked",
-     "check_by": "no live check reads it yet"
+     "check_by": "no live check reads it yet",
+     "agency": "Community",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Community",
+     "listed_in": "Community"
     },
     {
      "name": "Admin \u2192 Social \u2192 Groups, Reports, Standing, Takedowns, Galleries",
@@ -832,7 +1315,14 @@
      "note": "",
      "outline": false,
      "check": "not checked",
-     "check_by": "the paths check \"staff-report\": skipped"
+     "check_by": "the paths check \"staff-report\": skipped",
+     "agency": "Community",
+     "crossover": true,
+     "reason": "its face's admin",
+     "alternative": "Platform (the admin)",
+     "cross_links": "Platform",
+     "option_b": "Community",
+     "listed_in": "Community"
     },
     {
      "name": "Private circles; groups in Universal Search; the Community feed",
@@ -843,7 +1333,14 @@
      "note": "",
      "outline": false,
      "check": "not checked",
-     "check_by": "no live check reads it yet"
+     "check_by": "no live check reads it yet",
+     "agency": "Community",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Community",
+     "listed_in": "Community"
     },
     {
      "name": "Invite link",
@@ -854,7 +1351,14 @@
      "note": "",
      "outline": false,
      "check": "passing",
-     "check_by": "the rendered check at 1280 and 390: Working"
+     "check_by": "the rendered check at 1280 and 390: Working",
+     "agency": "Community",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Community",
+     "listed_in": "Community"
     },
     {
      "name": "Moments and Keep (0153 zip 1)",
@@ -865,7 +1369,14 @@
      "note": "",
      "outline": false,
      "check": "not checked",
-     "check_by": "the rendered check at 1280 and 390: not checked yet"
+     "check_by": "the rendered check at 1280 and 390: not checked yet",
+     "agency": "Community",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Community",
+     "listed_in": "Community"
     },
     {
      "name": "Snaps (0153 zip 2)",
@@ -876,7 +1387,14 @@
      "note": "",
      "outline": false,
      "check": "not checked",
-     "check_by": "no live check reads it yet"
+     "check_by": "no live check reads it yet",
+     "agency": "Community",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Community",
+     "listed_in": "Community"
     },
     {
      "name": "Posting as a business, inviting from the To line, the visitor view (0153 zip 3)",
@@ -887,7 +1405,14 @@
      "note": "",
      "outline": false,
      "check": "not checked",
-     "check_by": "no live check reads it yet"
+     "check_by": "no live check reads it yet",
+     "agency": "Community",
+     "crossover": true,
+     "reason": "posts",
+     "alternative": "Business tools",
+     "cross_links": "Directory",
+     "option_b": "Community",
+     "listed_in": "Community"
     },
     {
      "name": "0153 zip 4",
@@ -896,7 +1421,14 @@
      "source": "decisions/0153:3 (\"zips 2\u20134 to come\"; zips 2 and 3 have Built notes, zip 4 none)",
      "owner": "",
      "note": "",
-     "outline": false
+     "outline": false,
+     "agency": "Community",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Community",
+     "listed_in": "Community"
     },
     {
      "name": "A person's public profile (Posts tab)",
@@ -907,7 +1439,14 @@
      "note": "",
      "outline": false,
      "check": "passing",
-     "check_by": "the rendered check at 1280 and 390: Working"
+     "check_by": "the rendered check at 1280 and 390: Working",
+     "agency": "Community",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Community",
+     "listed_in": "Community"
     },
     {
      "name": "The profile's Videos tab: the Channel and playlists (0153 \u00a77)",
@@ -918,7 +1457,14 @@
      "note": "",
      "outline": false,
      "check": "passing",
-     "check_by": "the rendered check at 1280 and 390: Working"
+     "check_by": "the rendered check at 1280 and 390: Working",
+     "agency": "Community",
+     "crossover": true,
+     "reason": "the profile",
+     "alternative": "Platform",
+     "cross_links": "Platform",
+     "option_b": "Community",
+     "listed_in": "Community"
     },
     {
      "name": "The member Dashboard: Pulse, Address Book, links, saved searches, roles",
@@ -929,7 +1475,14 @@
      "note": "",
      "outline": false,
      "check": "passing",
-     "check_by": "the rendered check at 1280 and 390: Working"
+     "check_by": "the rendered check at 1280 and 390: Working",
+     "agency": "Platform",
+     "crossover": true,
+     "reason": "the account's home across all four",
+     "alternative": "Community",
+     "cross_links": "Community",
+     "option_b": "Platform",
+     "listed_in": "Community"
     },
     {
      "name": "The member's Pulse: needs as rows, notices",
@@ -940,7 +1493,14 @@
      "note": "",
      "outline": false,
      "check": "not checked",
-     "check_by": "no live check reads it yet"
+     "check_by": "no live check reads it yet",
+     "agency": "Platform",
+     "crossover": true,
+     "reason": "Pulse and messages",
+     "alternative": "Community",
+     "cross_links": "Community",
+     "option_b": "Platform",
+     "listed_in": "Community"
     },
     {
      "name": "Likes and comments on content pages (engage bar)",
@@ -951,7 +1511,14 @@
      "note": "",
      "outline": false,
      "check": "passing",
-     "check_by": "the paths check \"comment\": passed"
+     "check_by": "the paths check \"comment\": passed",
+     "agency": "Platform",
+     "crossover": true,
+     "reason": "the engage bar sits on every content page",
+     "alternative": "Community",
+     "cross_links": "all four",
+     "option_b": "Platform",
+     "listed_in": "Community"
     },
     {
      "name": "Like as a guest (3, then Keep going)",
@@ -962,7 +1529,14 @@
      "note": "",
      "outline": false,
      "check": "passing",
-     "check_by": "the paths check \"like-guest\": passed"
+     "check_by": "the paths check \"like-guest\": passed",
+     "agency": "Platform",
+     "crossover": true,
+     "reason": "the engage bar",
+     "alternative": "Community",
+     "cross_links": "all four",
+     "option_b": "Platform",
+     "listed_in": "Community"
     },
     {
      "name": "Messages and notices through the one dispatcher (0172 steps 2\u20137)",
@@ -973,7 +1547,14 @@
      "note": "",
      "outline": false,
      "check": "not checked",
-     "check_by": "no live check reads it yet"
+     "check_by": "no live check reads it yet",
+     "agency": "Platform",
+     "crossover": true,
+     "reason": "Pulse and messages",
+     "alternative": "Community",
+     "cross_links": "all four",
+     "option_b": "Platform",
+     "listed_in": "Community"
     },
     {
      "name": "Email through Amazon SES, live mode",
@@ -982,7 +1563,14 @@
      "source": "community-scope.md:244\u2013246 (mock until AWS production access); live mode is .env data: to confirm (asks)",
      "owner": "Communications (handoffs/communications.md, session_01CXLi5krYPakdEQtKuVw14F)",
      "note": "to confirm: SES_MODE",
-     "outline": true
+     "outline": true,
+     "agency": "Platform",
+     "crossover": true,
+     "reason": "Pulse and messages",
+     "alternative": "Community",
+     "cross_links": "\u2014",
+     "option_b": "Platform",
+     "listed_in": "Community"
     },
     {
      "name": "Pushes: one per thing, paced, the site installable as an app",
@@ -993,7 +1581,14 @@
      "note": "",
      "outline": false,
      "check": "not checked",
-     "check_by": "no live check reads it yet"
+     "check_by": "no live check reads it yet",
+     "agency": "Platform",
+     "crossover": true,
+     "reason": "Pulse and messages",
+     "alternative": "Community",
+     "cross_links": "\u2014",
+     "option_b": "Platform",
+     "listed_in": "Community"
     },
     {
      "name": "The Gallery: your photos and files (0126)",
@@ -1004,7 +1599,14 @@
      "note": "Ambiguous: Community or Platform (asked below)",
      "outline": false,
      "check": "passing",
-     "check_by": "the rendered check at 1280 and 390: Working"
+     "check_by": "the rendered check at 1280 and 390: Working",
+     "agency": "Platform",
+     "crossover": true,
+     "reason": "every file is chosen through it (0143), not only albums",
+     "alternative": "Community (people's albums)",
+     "cross_links": "Community",
+     "option_b": "Platform",
+     "listed_in": "Community"
     },
     {
      "name": "Gallery item, album and drop pages",
@@ -1015,7 +1617,14 @@
      "note": "Answered 404 without an id in the rendered check",
      "outline": false,
      "check": "not passing",
-     "check_by": "the rendered check at 1280 and 390: Answered 404"
+     "check_by": "the rendered check at 1280 and 390: Answered 404",
+     "agency": "Platform",
+     "crossover": true,
+     "reason": "with the Gallery",
+     "alternative": "Community",
+     "cross_links": "Community",
+     "option_b": "Platform",
+     "listed_in": "Community"
     },
     {
      "name": "Events, one tool for the whole site (0134 steps 1\u20138)",
@@ -1024,7 +1633,14 @@
      "source": "decisions/0134:248 Build order; no events store in the mirror; Admin \u2192 Social \u2192 Events is Coming (manifests.php:89)",
      "owner": "",
      "note": "Shown in Discovery's Things to do as a cross-link, counted here (the session manager's ruling)",
-     "outline": true
+     "outline": true,
+     "agency": "Community",
+     "crossover": true,
+     "reason": "people host them (ruling); shown in Discovery's Things to do, never counted there",
+     "alternative": "Events, under option B",
+     "cross_links": "Discovery",
+     "option_b": "Events",
+     "listed_in": "Community"
     },
     {
      "name": "Ticket Sales for events (0134 \u00a76b)",
@@ -1033,7 +1649,14 @@
      "source": "decisions/0134 \u00a76a\u20136b, build step 6; app/ui/faq.md:17 (\"Buying tickets is coming\")",
      "owner": "",
      "note": "",
-     "outline": true
+     "outline": true,
+     "agency": "Community",
+     "crossover": true,
+     "reason": "part of the Events tool (0134 \u00a76b)",
+     "alternative": "Marketplace (tickets on the order system); Events under option B",
+     "cross_links": "Marketplace",
+     "option_b": "Events",
+     "listed_in": "Community"
     },
     {
      "name": "Inactivity and the lifecycle job for groups (C4, 0103 \u00a76)",
@@ -1042,7 +1665,14 @@
      "source": "community-scope.md:216, 250; no lifecycle table in the mirror",
      "owner": "The Community build (community-scope.md; finished)",
      "note": "",
-     "outline": true
+     "outline": true,
+     "agency": "Community",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Community",
+     "listed_in": "Community"
     },
     {
      "name": "A member's private home place (C3)",
@@ -1051,7 +1681,14 @@
      "source": "community-scope.md:215, 251",
      "owner": "The Community build (community-scope.md; finished)",
      "note": "",
-     "outline": true
+     "outline": true,
+     "agency": "Community",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Community",
+     "listed_in": "Community"
     },
     {
      "name": "Flyers and badges (0137 step 7, C7)",
@@ -1060,7 +1697,14 @@
      "source": "community-scope.md:219, 251",
      "owner": "The Community build (community-scope.md; finished)",
      "note": "",
-     "outline": true
+     "outline": true,
+     "agency": "Community",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Community",
+     "listed_in": "Community"
     },
     {
      "name": "A business's bulk invitations, non-system mail to SES (C1)",
@@ -1069,7 +1713,14 @@
      "source": "community-scope.md:213, 252",
      "owner": "The Community build (community-scope.md; finished)",
      "note": "",
-     "outline": true
+     "outline": true,
+     "agency": "Community",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Community",
+     "listed_in": "Community"
     },
     {
      "name": "Steward member reports and Level 2 escalation",
@@ -1078,7 +1729,14 @@
      "source": "community-scope.md:33; master-aos \u00a76",
      "owner": "The Community build (community-scope.md; finished)",
      "note": "",
-     "outline": true
+     "outline": true,
+     "agency": "Community",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Community",
+     "listed_in": "Community"
     },
     {
      "name": "Admin \u2192 Social \u2192 Business groups",
@@ -1087,7 +1745,14 @@
      "source": "community-scope.md:35; admin-architecture \u00a76",
      "owner": "The Community build (community-scope.md; finished)",
      "note": "",
-     "outline": true
+     "outline": true,
+     "agency": "Community",
+     "crossover": true,
+     "reason": "its face's admin",
+     "alternative": "Platform (the admin)",
+     "cross_links": "Platform",
+     "option_b": "Community",
+     "listed_in": "Community"
     },
     {
      "name": "Group creation gated by trust score; signal-based visibility",
@@ -1096,7 +1761,14 @@
      "source": "community-scope.md:41 (architecture \u00a727; not in a decision)",
      "owner": "",
      "note": "",
-     "outline": true
+     "outline": true,
+     "agency": "Community",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Community",
+     "listed_in": "Community"
     },
     {
      "name": "Community threads into the AI corpus (abstraction only)",
@@ -1105,7 +1777,14 @@
      "source": "community-scope.md:42; decisions/0010, 0011",
      "owner": "",
      "note": "",
-     "outline": true
+     "outline": true,
+     "agency": "Community",
+     "crossover": true,
+     "reason": "community talk",
+     "alternative": "Knowledge Engine",
+     "cross_links": "Knowledge Engine",
+     "option_b": "Community",
+     "listed_in": "Community"
     },
     {
      "name": "Facebook and Instagram for members (0168 Phase 1)",
@@ -1114,7 +1793,14 @@
      "source": "decisions/0168:5 (\"accepted as the outline\u2026 Not built\")",
      "owner": "",
      "note": "",
-     "outline": false
+     "outline": false,
+     "agency": "Platform",
+     "crossover": true,
+     "reason": "sign-in and sharing are account-level; the business apps are Marketplace's (0169)",
+     "alternative": "Community",
+     "cross_links": "Community",
+     "option_b": "Platform",
+     "listed_in": "Community"
     }
    ]
   },
@@ -1156,7 +1842,14 @@
      "note": "",
      "outline": false,
      "check": "passing",
-     "check_by": "the rendered check at 1280 and 390: Working"
+     "check_by": "the rendered check at 1280 and 390: Working",
+     "agency": "Marketplace",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Marketplace",
+     "listed_in": "Marketplace"
     },
     {
      "name": "One Marketplace post",
@@ -1167,7 +1860,14 @@
      "note": "",
      "outline": false,
      "check": "not checked",
-     "check_by": "the rendered check at 1280 and 390: not checked yet"
+     "check_by": "the rendered check at 1280 and 390: not checked yet",
+     "agency": "Marketplace",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Marketplace",
+     "listed_in": "Marketplace"
     },
     {
      "name": "One Marketplace item",
@@ -1178,7 +1878,14 @@
      "note": "",
      "outline": false,
      "check": "not checked",
-     "check_by": "the rendered check at 1280 and 390: not checked yet"
+     "check_by": "the rendered check at 1280 and 390: not checked yet",
+     "agency": "Marketplace",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Marketplace",
+     "listed_in": "Marketplace"
     },
     {
      "name": "The Marketplace cart",
@@ -1189,7 +1896,14 @@
      "note": "",
      "outline": false,
      "check": "passing",
-     "check_by": "the rendered check at 1280 and 390: Working"
+     "check_by": "the rendered check at 1280 and 390: Working",
+     "agency": "Marketplace",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Marketplace",
+     "listed_in": "Marketplace"
     },
     {
      "name": "A Marketplace order",
@@ -1200,7 +1914,14 @@
      "note": "",
      "outline": false,
      "check": "not checked",
-     "check_by": "the rendered check at 1280 and 390: not checked yet"
+     "check_by": "the rendered check at 1280 and 390: not checked yet",
+     "agency": "Marketplace",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Marketplace",
+     "listed_in": "Marketplace"
     },
     {
      "name": "The Marketplace rules",
@@ -1211,7 +1932,14 @@
      "note": "",
      "outline": false,
      "check": "passing",
-     "check_by": "the rendered check at 1280 and 390: Working"
+     "check_by": "the rendered check at 1280 and 390: Working",
+     "agency": "Marketplace",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Marketplace",
+     "listed_in": "Marketplace"
     },
     {
      "name": "A ticket bought on the Marketplace",
@@ -1222,7 +1950,14 @@
      "note": "",
      "outline": false,
      "check": "not passing",
-     "check_by": "the rendered check at 1280 and 390: Answered 404"
+     "check_by": "the rendered check at 1280 and 390: Answered 404",
+     "agency": "Marketplace",
+     "crossover": true,
+     "reason": "an item kind (tickets, 0141)",
+     "alternative": "Events, under option B",
+     "cross_links": "Community",
+     "option_b": "Events",
+     "listed_in": "Marketplace"
     },
     {
      "name": "A bought download",
@@ -1233,7 +1968,14 @@
      "note": "",
      "outline": false,
      "check": "not passing",
-     "check_by": "the rendered check at 1280 and 390: Answered 404"
+     "check_by": "the rendered check at 1280 and 390: Answered 404",
+     "agency": "Marketplace",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Marketplace",
+     "listed_in": "Marketplace"
     },
     {
      "name": "Your Marketplace posts",
@@ -1244,7 +1986,14 @@
      "note": "",
      "outline": false,
      "check": "passing",
-     "check_by": "the rendered check at 1280 and 390: Working"
+     "check_by": "the rendered check at 1280 and 390: Working",
+     "agency": "Marketplace",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Marketplace",
+     "listed_in": "Marketplace"
     },
     {
      "name": "Your orders",
@@ -1255,7 +2004,14 @@
      "note": "",
      "outline": false,
      "check": "passing",
-     "check_by": "the rendered check at 1280 and 390: Working"
+     "check_by": "the rendered check at 1280 and 390: Working",
+     "agency": "Marketplace",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Marketplace",
+     "listed_in": "Marketplace"
     },
     {
      "name": "Post on the Marketplace; offers, Sold / Got it (0135 steps 1\u20132)",
@@ -1266,7 +2022,14 @@
      "note": "",
      "outline": false,
      "check": "not checked",
-     "check_by": "the paths check \"market-post\": skipped"
+     "check_by": "the paths check \"market-post\": skipped",
+     "agency": "Marketplace",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Marketplace",
+     "listed_in": "Marketplace"
     },
     {
      "name": "Businesses' items (0135 step 3)",
@@ -1277,7 +2040,14 @@
      "note": "",
      "outline": false,
      "check": "not checked",
-     "check_by": "no live check reads it yet"
+     "check_by": "no live check reads it yet",
+     "agency": "Marketplace",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Marketplace",
+     "listed_in": "Marketplace"
     },
     {
      "name": "Checkout through the business's own gateway (0135 step 4a)",
@@ -1288,7 +2058,14 @@
      "note": "",
      "outline": false,
      "check": "not checked",
-     "check_by": "no live check reads it yet"
+     "check_by": "no live check reads it yet",
+     "agency": "Marketplace",
+     "crossover": true,
+     "reason": "selling",
+     "alternative": "Business tools",
+     "cross_links": "\u2014",
+     "option_b": "Business tools",
+     "listed_in": "Marketplace"
     },
     {
      "name": "Square catalog sync, card-page protection (0135 step 4b)",
@@ -1299,7 +2076,14 @@
      "note": "",
      "outline": false,
      "check": "not checked",
-     "check_by": "no live check reads it yet"
+     "check_by": "no live check reads it yet",
+     "agency": "Marketplace",
+     "crossover": true,
+     "reason": "selling",
+     "alternative": "Business tools",
+     "cross_links": "\u2014",
+     "option_b": "Business tools",
+     "listed_in": "Marketplace"
     },
     {
      "name": "Market 360\u00b0 Phase A: the modules and the Trust score (zip 1)",
@@ -1310,7 +2094,14 @@
      "note": "",
      "outline": false,
      "check": "not checked",
-     "check_by": "no live check reads it yet"
+     "check_by": "no live check reads it yet",
+     "agency": "Marketplace",
+     "crossover": true,
+     "reason": "the selling face (ruling)",
+     "alternative": "Business tools",
+     "cross_links": "Directory",
+     "option_b": "Business tools",
+     "listed_in": "Marketplace"
     },
     {
      "name": "Market 360\u00b0 Phase B: acceptance log, store policies, seller agreement, rulebook, chargeback packet (zips 2\u20133)",
@@ -1321,7 +2112,14 @@
      "note": "",
      "outline": false,
      "check": "not checked",
-     "check_by": "no live check reads it yet"
+     "check_by": "no live check reads it yet",
+     "agency": "Marketplace",
+     "crossover": true,
+     "reason": "the selling face (ruling)",
+     "alternative": "Business tools",
+     "cross_links": "Directory",
+     "option_b": "Business tools",
+     "listed_in": "Marketplace"
     },
     {
      "name": "Market 360\u00b0 Phase C: the nine item kinds (zips 4\u20136 as one build: physical, service, made to order, tickets, digital, perishables, rentals, bookings, subscriptions)",
@@ -1332,7 +2130,14 @@
      "note": "",
      "outline": false,
      "check": "not checked",
-     "check_by": "no live check reads it yet"
+     "check_by": "no live check reads it yet",
+     "agency": "Marketplace",
+     "crossover": true,
+     "reason": "the selling face (ruling)",
+     "alternative": "Business tools",
+     "cross_links": "Directory",
+     "option_b": "Business tools",
+     "listed_in": "Marketplace"
     },
     {
      "name": "Market 360\u00b0 catalog: photos, publishing, deleting; the acting-as bar; the account bar",
@@ -1343,7 +2148,14 @@
      "note": "",
      "outline": false,
      "check": "not checked",
-     "check_by": "no live check reads it yet"
+     "check_by": "no live check reads it yet",
+     "agency": "Marketplace",
+     "crossover": true,
+     "reason": "the selling face (ruling)",
+     "alternative": "Business tools",
+     "cross_links": "Directory",
+     "option_b": "Business tools",
+     "listed_in": "Marketplace"
     },
     {
      "name": "Market 360\u00b0 zip 7, Phase D and E: bundles, tax-exempt buyers, legal identity fields, support line, storefront themes, local deals digest, email campaigns",
@@ -1352,7 +2164,14 @@
      "source": "market360-build-briefs.md:149\u2013162; decisions/0141 \u00a72\u20138; no Built note; settles the outline's \"zip 7\" (storefront themes are live as Studio 5b, #42)",
      "owner": "",
      "note": "",
-     "outline": false
+     "outline": false,
+     "agency": "Marketplace",
+     "crossover": true,
+     "reason": "the selling face (ruling)",
+     "alternative": "Business tools",
+     "cross_links": "Directory",
+     "option_b": "Business tools",
+     "listed_in": "Marketplace"
     },
     {
      "name": "Owner ID check (Stripe Identity)",
@@ -1361,7 +2180,14 @@
      "source": "market360-build-briefs.md:166 (\"Waiting on setup\"); decisions/0141 \u00a73",
      "owner": "",
      "note": "held for setup",
-     "outline": true
+     "outline": true,
+     "agency": "Marketplace",
+     "crossover": true,
+     "reason": "a seller check (0141 \u00a73)",
+     "alternative": "Business tools",
+     "cross_links": "\u2014",
+     "option_b": "Business tools",
+     "listed_in": "Marketplace"
     },
     {
      "name": "State-record checks (AZCC, Arizona TPT, NM SoS)",
@@ -1370,7 +2196,14 @@
      "source": "market360-build-briefs.md:167; 03-cards.md \u00a728.3 (AZCC answers 403 pending our records request)",
      "owner": "",
      "note": "held for setup",
-     "outline": true
+     "outline": true,
+     "agency": "Marketplace",
+     "crossover": true,
+     "reason": "a seller check (0141 \u00a73); W14's licence lookup uses the same registries",
+     "alternative": "Knowledge Engine",
+     "cross_links": "Knowledge Engine",
+     "option_b": "Business tools",
+     "listed_in": "Marketplace"
     },
     {
      "name": "Legal texts published (terms, privacy, policies), an attorney's pass",
@@ -1379,7 +2212,14 @@
      "source": "site-audit/pages.md:44 (placeholder \"to replace before launch\"); market360-build-briefs.md:169",
      "owner": "",
      "note": "held for the attorney",
-     "outline": true
+     "outline": true,
+     "agency": "Platform",
+     "crossover": true,
+     "reason": "the attorney's pass covers the whole site, not only selling",
+     "alternative": "Marketplace (where 0141 asked for it)",
+     "cross_links": "Marketplace",
+     "option_b": "Platform",
+     "listed_in": "Marketplace"
     },
     {
      "name": "Catalog rules: pricing rules for businesses' catalogs",
@@ -1388,7 +2228,14 @@
      "source": "app/admin/manifests.php:73 (Coming: \"A later step\")",
      "owner": "",
      "note": "",
-     "outline": false
+     "outline": false,
+     "agency": "Marketplace",
+     "crossover": true,
+     "reason": "selling",
+     "alternative": "Business tools",
+     "cross_links": "\u2014",
+     "option_b": "Business tools",
+     "listed_in": "Marketplace"
     },
     {
      "name": "Admin \u2192 Market: items, rules, business items, offers, storefronts, gateways, compliance, domains, GO Codes, our pages, form entries",
@@ -1399,7 +2246,14 @@
      "note": "",
      "outline": false,
      "check": "not checked",
-     "check_by": "the paths check \"staff-held-post\": skipped"
+     "check_by": "the paths check \"staff-held-post\": skipped",
+     "agency": "Marketplace",
+     "crossover": true,
+     "reason": "its face's admin",
+     "alternative": "Platform (the admin)",
+     "cross_links": "Platform",
+     "option_b": "Marketplace",
+     "listed_in": "Marketplace"
     },
     {
      "name": "Storefronts on trvgo.us/<shop> (0139 step 5a)",
@@ -1410,7 +2264,14 @@
      "note": "",
      "outline": false,
      "check": "not checked",
-     "check_by": "no live check reads it yet"
+     "check_by": "no live check reads it yet",
+     "agency": "Marketplace",
+     "crossover": true,
+     "reason": "storefronts (ruling)",
+     "alternative": "Business tools",
+     "cross_links": "\u2014",
+     "option_b": "Business tools",
+     "listed_in": "Marketplace"
     },
     {
      "name": "Connect your domain, bought or brought (0139 step 5b), through the Fly.io edge",
@@ -1421,7 +2282,14 @@
      "note": "Review item 7: a failing custom domain also takes trvgo.us/<shop> down",
      "outline": false,
      "check": "not checked",
-     "check_by": "no live check reads it yet"
+     "check_by": "no live check reads it yet",
+     "agency": "Marketplace",
+     "crossover": true,
+     "reason": "storefronts",
+     "alternative": "Business tools",
+     "cross_links": "\u2014",
+     "option_b": "Business tools",
+     "listed_in": "Marketplace"
     },
     {
      "name": "Storefront Studio 5a: a business's pages as blocks",
@@ -1432,7 +2300,14 @@
      "note": "",
      "outline": false,
      "check": "not checked",
-     "check_by": "no live check reads it yet"
+     "check_by": "no live check reads it yet",
+     "agency": "Marketplace",
+     "crossover": true,
+     "reason": "storefronts (ruling)",
+     "alternative": "Business tools",
+     "cross_links": "\u2014",
+     "option_b": "Business tools",
+     "listed_in": "Marketplace"
     },
     {
      "name": "Storefront Studio 5b: the four themes",
@@ -1443,7 +2318,14 @@
      "note": "",
      "outline": false,
      "check": "not checked",
-     "check_by": "no live check reads it yet"
+     "check_by": "no live check reads it yet",
+     "agency": "Marketplace",
+     "crossover": true,
+     "reason": "storefronts (ruling)",
+     "alternative": "Business tools",
+     "cross_links": "\u2014",
+     "option_b": "Business tools",
+     "listed_in": "Marketplace"
     },
     {
      "name": "Storefront Studio 5c commerce blocks, 5d the studio bar",
@@ -1452,7 +2334,14 @@
      "source": "decisions/0159:7 (\"Next: 5c\u2026 then 5d\"); handoffs/0159-the-builder.md \u00a70",
      "owner": "The builder (handoffs/0159-the-builder.md)",
      "note": "",
-     "outline": true
+     "outline": true,
+     "agency": "Marketplace",
+     "crossover": true,
+     "reason": "storefronts (ruling)",
+     "alternative": "Business tools",
+     "cross_links": "\u2014",
+     "option_b": "Business tools",
+     "listed_in": "Marketplace"
     },
     {
      "name": "Builder step 6: AI writing, by plan",
@@ -1461,7 +2350,14 @@
      "source": "decisions/0159 Build order 6",
      "owner": "The builder (handoffs/0159-the-builder.md)",
      "note": "",
-     "outline": false
+     "outline": false,
+     "agency": "Marketplace",
+     "crossover": true,
+     "reason": "AI writing by plan is sold with Studio",
+     "alternative": "Platform (it writes our pages too)",
+     "cross_links": "Platform",
+     "option_b": "Business tools",
+     "listed_in": "Marketplace"
     },
     {
      "name": "The Traversence Shop: plans, packs, GO Codes, one cart (0154)",
@@ -1472,7 +2368,14 @@
      "note": "",
      "outline": false,
      "check": "passing",
-     "check_by": "the rendered check at 1280 and 390: Working"
+     "check_by": "the rendered check at 1280 and 390: Working",
+     "agency": "Marketplace",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Marketplace",
+     "listed_in": "Marketplace"
     },
     {
      "name": "Plans and prices",
@@ -1483,7 +2386,14 @@
      "note": "",
      "outline": false,
      "check": "passing",
-     "check_by": "the rendered check at 1280 and 390: Working"
+     "check_by": "the rendered check at 1280 and 390: Working",
+     "agency": "Marketplace",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Marketplace",
+     "listed_in": "Marketplace"
     },
     {
      "name": "A promotion's page",
@@ -1494,7 +2404,14 @@
      "note": "",
      "outline": false,
      "check": "not checked",
-     "check_by": "the rendered check at 1280 and 390: not checked yet"
+     "check_by": "the rendered check at 1280 and 390: not checked yet",
+     "agency": "Platform",
+     "crossover": true,
+     "reason": "our own promotions (0108, Growth)",
+     "alternative": "Marketplace",
+     "cross_links": "Marketplace",
+     "option_b": "Platform",
+     "listed_in": "Marketplace"
     },
     {
      "name": "GO Codes and QR codes (0094\u20130096)",
@@ -1505,7 +2422,14 @@
      "note": "",
      "outline": false,
      "check": "passing",
-     "check_by": "the rendered check at 1280 and 390: Working"
+     "check_by": "the rendered check at 1280 and 390: Working",
+     "agency": "Marketplace",
+     "crossover": true,
+     "reason": "sold in the Shop (ruling)",
+     "alternative": "Platform (trvgo.us short links serve every section)",
+     "cross_links": "Platform",
+     "option_b": "Marketplace",
+     "listed_in": "Marketplace"
     },
     {
      "name": "Buying GO Codes",
@@ -1516,7 +2440,14 @@
      "note": "",
      "outline": false,
      "check": "passing",
-     "check_by": "the rendered check at 1280 and 390: Working"
+     "check_by": "the rendered check at 1280 and 390: Working",
+     "agency": "Marketplace",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Marketplace",
+     "listed_in": "Marketplace"
     },
     {
      "name": "Managing your GO Codes",
@@ -1527,7 +2458,14 @@
      "note": "",
      "outline": false,
      "check": "passing",
-     "check_by": "the rendered check at 1280 and 390: Working"
+     "check_by": "the rendered check at 1280 and 390: Working",
+     "agency": "Marketplace",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Marketplace",
+     "listed_in": "Marketplace"
     },
     {
      "name": "Shop \u2192 Domains: search, price, add to cart (0169 \u00a71a)",
@@ -1538,7 +2476,14 @@
      "note": "",
      "outline": false,
      "check": "passing",
-     "check_by": "the rendered check at 1280 and 390: Working"
+     "check_by": "the rendered check at 1280 and 390: Working",
+     "agency": "Marketplace",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Marketplace",
+     "listed_in": "Marketplace"
     },
     {
      "name": "Your domains and your wallet (0169 \u00a71a, 0166 \u00a76a)",
@@ -1549,7 +2494,14 @@
      "note": "",
      "outline": false,
      "check": "passing",
-     "check_by": "the rendered check at 1280 and 390: Working"
+     "check_by": "the rendered check at 1280 and 390: Working",
+     "agency": "Marketplace",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Marketplace",
+     "listed_in": "Marketplace"
     },
     {
      "name": "Domain sales switched on (Domain sales setting)",
@@ -1558,7 +2510,14 @@
      "source": "release #72 (live 2026-11-17), release #75 (live 2026-11-17) (its own switch; Test only until set); sections-outline.md \u00a74",
      "owner": "Domains (handoffs/domains.md)",
      "note": "held for a setting",
-     "outline": true
+     "outline": true,
+     "agency": "Marketplace",
+     "crossover": false,
+     "reason": "its own section",
+     "alternative": "\u2014",
+     "cross_links": "\u2014",
+     "option_b": "Marketplace",
+     "listed_in": "Marketplace"
     },
     {
      "name": "The Shop's App store and one lifecycle for every app (0169 \u00a71\u2013\u00a76)",
@@ -1567,7 +2526,14 @@
      "source": "decisions/0169:141 Build order 1",
      "owner": "",
      "note": "",
-     "outline": true
+     "outline": true,
+     "agency": "Marketplace",
+     "crossover": true,
+     "reason": "a Shop department (0169)",
+     "alternative": "Business tools (most apps are a business's)",
+     "cross_links": "\u2014",
+     "option_b": "Business tools",
+     "listed_in": "Marketplace"
     },
     {
      "name": "First apps: QuickBooks Bookkeeper, QuickBooks Payments, Stripe Payments, Facebook Personal, Facebook Business, Storefront (0169 build order 2)",
@@ -1576,7 +2542,14 @@
      "source": "decisions/0169:145\u2013156; decisions/0166, 0168",
      "owner": "",
      "note": "",
-     "outline": false
+     "outline": false,
+     "agency": "Marketplace",
+     "crossover": true,
+     "reason": "sold in the App store",
+     "alternative": "Business tools",
+     "cross_links": "\u2014",
+     "option_b": "Business tools",
+     "listed_in": "Marketplace"
     },
     {
      "name": "Provider-neutral payments and our own ledger (0166 steps 1\u20133)",
@@ -1585,7 +2558,14 @@
      "source": "decisions/0166:5 (\"queue for future work\"; \u00a76a wallet built)",
      "owner": "",
      "note": "",
-     "outline": false
+     "outline": false,
+     "agency": "Marketplace",
+     "crossover": true,
+     "reason": "businesses' payments; our own books ride on it",
+     "alternative": "Platform (our ledger)",
+     "cross_links": "Platform",
+     "option_b": "Business tools",
+     "listed_in": "Marketplace"
     },
     {
      "name": "Add-ons and 1Password resold (0155)",
@@ -1594,7 +2574,14 @@
      "source": "decisions/0155:5 (Proposed)",
      "owner": "",
      "note": "",
-     "outline": false
+     "outline": false,
+     "agency": "Marketplace",
+     "crossover": true,
+     "reason": "resold in the Shop",
+     "alternative": "Platform",
+     "cross_links": "\u2014",
+     "option_b": "Marketplace",
+     "listed_in": "Marketplace"
     },
     {
      "name": "Checkout and storefronts on the design tokens (Release 3e)",
@@ -1603,7 +2590,14 @@
      "source": "handoffs/design.md \u00a73.4; design/css-theme-brand.md",
      "owner": "Design and trips (handoffs/design.md, session_01CXLi5jkgtUikcdUQ4Wmv28)",
      "note": "",
-     "outline": true
+     "outline": true,
+     "agency": "Marketplace",
+     "crossover": true,
+     "reason": "its pages",
+     "alternative": "Platform (design)",
+     "cross_links": "Platform",
+     "option_b": "Marketplace",
+     "listed_in": "Marketplace"
     }
    ]
   },
@@ -1618,8 +2612,8 @@
      "proposed": 2
     },
     "live_passing": 7,
-    "live_not_passing": 2,
-    "live_not_checked": 13,
+    "live_not_passing": 1,
+    "live_not_checked": 14,
     "held": 1,
     "in_scope": 28,
     "complete_pct": 25.0,
@@ -1642,7 +2636,14 @@
      "note": "Ambiguous: the way into all four",
      "outline": false,
      "check": "passing",
-     "check_by": "the rendered check at 1280 and 390: Working"
+     "check_by": "the rendered check at 1280 and 390: Working",
+     "agency": "Platform",
+     "crossover": true,
+     "reason": "the way into all four sections; none owns it",
+     "alternative": "Discovery (its search and doors lead there first)",
+     "cross_links": "all four",
+     "option_b": "Platform",
+     "listed_in": "Platform"
     },
     {
      "name": "Sign in; create an account (18+, consent)",
@@ -1653,7 +2654,14 @@
      "note": "",
      "outline": false,
      "check": "passing",
-     "check_by": "the rendered check at 1280 and 390: Working"
+     "check_by": "the rendered check at 1280 and 390: Working",
+     "agency": "Platform",
+     "crossover": true,
+     "reason": "accounts serve every section",
+     "alternative": "none",
+     "cross_links": "\u2014",
+     "option_b": "Platform",
+     "listed_in": "Platform"
     },
     {
      "name": "Sign in, including the human check; sign out",
@@ -1664,7 +2672,14 @@
      "note": "",
      "outline": false,
      "check": "passing",
-     "check_by": "the paths check \"sign-in\": passed"
+     "check_by": "the paths check \"sign-in\": passed",
+     "agency": "Platform",
+     "crossover": true,
+     "reason": "accounts serve every section",
+     "alternative": "none",
+     "cross_links": "\u2014",
+     "option_b": "Platform",
+     "listed_in": "Platform"
     },
     {
      "name": "Sign up (all steps)",
@@ -1675,7 +2690,14 @@
      "note": "",
      "outline": false,
      "check": "not checked",
-     "check_by": "the paths check \"sign-up\": skipped"
+     "check_by": "the paths check \"sign-up\": skipped",
+     "agency": "Platform",
+     "crossover": true,
+     "reason": "accounts serve every section",
+     "alternative": "none",
+     "cross_links": "\u2014",
+     "option_b": "Platform",
+     "listed_in": "Platform"
     },
     {
      "name": "Sign in with Google, Apple, Microsoft, Facebook (0085, 0090)",
@@ -1686,7 +2708,14 @@
      "note": "Apple needs the Developer Program; Meta's app review (asks.md visit 16)",
      "outline": false,
      "check": "not checked",
-     "check_by": "no live check reads it yet"
+     "check_by": "no live check reads it yet",
+     "agency": "Platform",
+     "crossover": true,
+     "reason": "accounts serve every section",
+     "alternative": "none",
+     "cross_links": "\u2014",
+     "option_b": "Platform",
+     "listed_in": "Platform"
     },
     {
      "name": "Two-step sign-in for staff; captcha (0097)",
@@ -1697,7 +2726,14 @@
      "note": "",
      "outline": false,
      "check": "not checked",
-     "check_by": "the rendered check at 1280 and 390: not checked yet"
+     "check_by": "the rendered check at 1280 and 390: not checked yet",
+     "agency": "Platform",
+     "crossover": true,
+     "reason": "accounts",
+     "alternative": "none",
+     "cross_links": "\u2014",
+     "option_b": "Platform",
+     "listed_in": "Platform"
     },
     {
      "name": "Delete my account; restore (0091)",
@@ -1708,7 +2744,14 @@
      "note": "",
      "outline": false,
      "check": "passing",
-     "check_by": "the rendered check at 1280 and 390: Working"
+     "check_by": "the rendered check at 1280 and 390: Working",
+     "agency": "Platform",
+     "crossover": true,
+     "reason": "accounts",
+     "alternative": "none",
+     "cross_links": "\u2014",
+     "option_b": "Platform",
+     "listed_in": "Platform"
     },
     {
      "name": "Data access requests, the export (DSAR, 0026)",
@@ -1717,7 +2760,14 @@
      "source": "site-audit/pages.md:272 (Coming); decisions/0026; nothing in the mirror",
      "owner": "",
      "note": "",
-     "outline": false
+     "outline": false,
+     "agency": "Platform",
+     "crossover": true,
+     "reason": "accounts and privacy",
+     "alternative": "none",
+     "cross_links": "\u2014",
+     "option_b": "Platform",
+     "listed_in": "Platform"
     },
     {
      "name": "DMCA notices and counter-notices (0019)",
@@ -1726,7 +2776,14 @@
      "source": "decisions/0019 (Proposed); site-audit/pages.md:275; manifests.php:136 (Coming)",
      "owner": "",
      "note": "",
-     "outline": false
+     "outline": false,
+     "agency": "Platform",
+     "crossover": true,
+     "reason": "site-wide takedowns",
+     "alternative": "Community (posts are most takedowns)",
+     "cross_links": "Community",
+     "option_b": "Platform",
+     "listed_in": "Platform"
     },
     {
      "name": "The FAQ (0057)",
@@ -1737,7 +2794,14 @@
      "note": "",
      "outline": false,
      "check": "passing",
-     "check_by": "the rendered check at 1280 and 390: Working"
+     "check_by": "the rendered check at 1280 and 390: Working",
+     "agency": "Platform",
+     "crossover": true,
+     "reason": "site-wide",
+     "alternative": "none",
+     "cross_links": "\u2014",
+     "option_b": "Platform",
+     "listed_in": "Platform"
     },
     {
      "name": "Ask Traversence (AI page)",
@@ -1748,7 +2812,14 @@
      "note": "",
      "outline": false,
      "check": "passing",
-     "check_by": "the rendered check at 1280 and 390: Working"
+     "check_by": "the rendered check at 1280 and 390: Working",
+     "agency": "Platform",
+     "crossover": true,
+     "reason": "site-wide AI page",
+     "alternative": "Discovery",
+     "cross_links": "Discovery",
+     "option_b": "Platform",
+     "listed_in": "Platform"
     },
     {
      "name": "Universal search, in place (0053, 0061, 0063, 0067)",
@@ -1759,7 +2830,14 @@
      "note": "",
      "outline": false,
      "check": "not passing",
-     "check_by": "the paths check \"search-typo\": issues"
+     "check_by": "the paths check \"search-typo\": issues",
+     "agency": "Platform",
+     "crossover": true,
+     "reason": "one search for every section (0053)",
+     "alternative": "Directory (most searches are for businesses)",
+     "cross_links": "Discovery, Directory",
+     "option_b": "Platform",
+     "listed_in": "Platform"
     },
     {
      "name": "The Vault (0156)",
@@ -1770,7 +2848,14 @@
      "note": "",
      "outline": false,
      "check": "not checked",
-     "check_by": "no live check reads it yet"
+     "check_by": "no live check reads it yet",
+     "agency": "Platform",
+     "crossover": true,
+     "reason": "staff logins",
+     "alternative": "none",
+     "cross_links": "\u2014",
+     "option_b": "Platform",
+     "listed_in": "Platform"
     },
     {
      "name": "The admin engine: 10 modules, manifests, widgets, workflows (0109)",
@@ -1781,7 +2866,14 @@
      "note": "",
      "outline": false,
      "check": "not checked",
-     "check_by": "no live check reads it yet"
+     "check_by": "no live check reads it yet",
+     "agency": "Platform",
+     "crossover": true,
+     "reason": "the admin",
+     "alternative": "none",
+     "cross_links": "\u2014",
+     "option_b": "Platform",
+     "listed_in": "Platform"
     },
     {
      "name": "The admin's Pulse and Support inbox (0172, 0176)",
@@ -1792,7 +2884,14 @@
      "note": "",
      "outline": false,
      "check": "not checked",
-     "check_by": "no live check reads it yet"
+     "check_by": "no live check reads it yet",
+     "agency": "Platform",
+     "crossover": true,
+     "reason": "Pulse and messages (0172, 0176)",
+     "alternative": "none",
+     "cross_links": "\u2014",
+     "option_b": "Platform",
+     "listed_in": "Platform"
     },
     {
      "name": "The System Control Board (0171, 0175, 0176)",
@@ -1803,18 +2902,32 @@
      "note": "",
      "outline": false,
      "check": "not checked",
-     "check_by": "no live check reads it yet"
+     "check_by": "no live check reads it yet",
+     "agency": "Platform",
+     "crossover": true,
+     "reason": "the admin",
+     "alternative": "a runtime board, not a build gauge",
+     "cross_links": "\u2014",
+     "option_b": "Platform",
+     "listed_in": "Platform"
     },
     {
-     "name": "The Knowledge Engine and its workflows W0\u2013W14 (0160, 0163, 0164)",
+     "name": "The Knowledge Engine's shared parts: W0 Indexer, the crawler service, its console, switches and source map (0160, 0163, 0164)",
      "kind": "workflow",
      "status": "live",
-     "source": "decisions/0164; release #16 (live 2026-11-13), release #20 (live 2026-11-13), release #22 (live 2026-11-13), release #247 (live 2026-11-21)",
+     "source": "decisions/0164; release #16 (live 2026-11-13), release #79 (live 2026-11-17), release #88 (live 2026-11-17), release #247 (live 2026-11-21)",
      "owner": "Operations (handoffs/operations-2026-11-20.md, session_01CXLi5mGX2sg5QS11gg3Wrh)",
      "note": "",
      "outline": false,
-     "check": "not passing",
-     "check_by": "the runtime board's \"Gathering reconciles\": W1 paused by two trips, 0 records in for 24 hours (alarms snapshot, Nov 21)"
+     "check": "not checked",
+     "check_by": "no live check reads it yet",
+     "agency": "Knowledge Engine",
+     "crossover": true,
+     "reason": "the engine",
+     "alternative": "Platform",
+     "cross_links": "\u2014",
+     "option_b": "Knowledge Engine",
+     "listed_in": "Platform"
     },
     {
      "name": "Staging in safe mode, releases through git (0145, 0159 steps 1\u20132, 0165)",
@@ -1825,7 +2938,14 @@
      "note": "",
      "outline": false,
      "check": "not checked",
-     "check_by": "no live check reads it yet"
+     "check_by": "no live check reads it yet",
+     "agency": "Platform",
+     "crossover": true,
+     "reason": "releases",
+     "alternative": "none",
+     "cross_links": "\u2014",
+     "option_b": "Platform",
+     "listed_in": "Platform"
     },
     {
      "name": "The page builder for our own pages (0159 steps 3\u20134)",
@@ -1836,7 +2956,14 @@
      "note": "",
      "outline": false,
      "check": "not checked",
-     "check_by": "no live check reads it yet"
+     "check_by": "no live check reads it yet",
+     "agency": "Platform",
+     "crossover": true,
+     "reason": "our own pages; the same builder's Storefront Studio is Marketplace's",
+     "alternative": "Marketplace",
+     "cross_links": "Marketplace",
+     "option_b": "Platform",
+     "listed_in": "Platform"
     },
     {
      "name": "One uploader; files on S3 and Cloudflare R2 (0122\u20130127, 0151)",
@@ -1847,7 +2974,14 @@
      "note": "",
      "outline": false,
      "check": "not checked",
-     "check_by": "no live check reads it yet"
+     "check_by": "no live check reads it yet",
+     "agency": "Platform",
+     "crossover": true,
+     "reason": "every file in every section goes through it (0127)",
+     "alternative": "none",
+     "cross_links": "\u2014",
+     "option_b": "Platform",
+     "listed_in": "Platform"
     },
     {
      "name": "The video worker (0153 \u00a78)",
@@ -1858,7 +2992,14 @@
      "note": "",
      "outline": false,
      "check": "not checked",
-     "check_by": "no live check reads it yet"
+     "check_by": "no live check reads it yet",
+     "agency": "Platform",
+     "crossover": true,
+     "reason": "infrastructure for every video; the Channel tab is Community's",
+     "alternative": "Community",
+     "cross_links": "Community",
+     "option_b": "Platform",
+     "listed_in": "Platform"
     },
     {
      "name": "Back-office: our orders, products, vendors, work orders, QuickBooks (0098\u20130101, 0106, 0128, 0150)",
@@ -1869,7 +3010,14 @@
      "note": "Ambiguous: Traversence's own orders, or Marketplace (asked below)",
      "outline": false,
      "check": "not checked",
-     "check_by": "the paths check \"send-order\": skipped"
+     "check_by": "the paths check \"send-order\": skipped",
+     "agency": "Platform",
+     "crossover": true,
+     "reason": "our own orders, vendors and QuickBooks: Traversence's business, not a member's or a business's market",
+     "alternative": "Marketplace (\"orders, payments\")",
+     "cross_links": "Marketplace",
+     "option_b": "Platform",
+     "listed_in": "Platform"
     },
     {
      "name": "The order system's improvements (the first release carries the chargeFor fix)",
@@ -1878,7 +3026,14 @@
      "source": "handoffs/order-processing.md; research/order-system-map-2026-11-19.md (Jason reviewing)",
      "owner": "Order processing (handoffs/order-processing.md)",
      "note": "held for Jason's review",
-     "outline": true
+     "outline": true,
+     "agency": "Platform",
+     "crossover": true,
+     "reason": "the same back-office",
+     "alternative": "Marketplace",
+     "cross_links": "Marketplace",
+     "option_b": "Platform",
+     "listed_in": "Platform"
     },
     {
      "name": "Growth: calls, prospects, customers, scan cards, promotions, territories, funnel (0081, 0108)",
@@ -1889,7 +3044,14 @@
      "note": "",
      "outline": false,
      "check": "not checked",
-     "check_by": "no live check reads it yet"
+     "check_by": "no live check reads it yet",
+     "agency": "Platform",
+     "crossover": true,
+     "reason": "our sales to businesses",
+     "alternative": "Directory (prospects are listings)",
+     "cross_links": "Directory",
+     "option_b": "Platform",
+     "listed_in": "Platform"
     },
     {
      "name": "Quotes & deals; Concierge (White Glove clients, engagements, service catalog, asset studio)",
@@ -1898,7 +3060,14 @@
      "source": "app/admin/manifests.php:101, 105\u2013108 (Coming)",
      "owner": "",
      "note": "",
-     "outline": false
+     "outline": false,
+     "agency": "Platform",
+     "crossover": true,
+     "reason": "our sales and White Glove",
+     "alternative": "none",
+     "cross_links": "\u2014",
+     "option_b": "Platform",
+     "listed_in": "Platform"
     },
     {
      "name": "Fulfillment; Inventory & COGS; Consent hub; Verification vault",
@@ -1907,7 +3076,14 @@
      "source": "app/admin/manifests.php:132, 134, 135, 137 (Coming)",
      "owner": "",
      "note": "",
-     "outline": false
+     "outline": false,
+     "agency": "Platform",
+     "crossover": true,
+     "reason": "the admin's Coming cards; the verification vault holds claim documents",
+     "alternative": "Directory (the verification vault)",
+     "cross_links": "Directory",
+     "option_b": "Platform",
+     "listed_in": "Platform"
     },
     {
      "name": "Templates; Branding & SEO; Storage & backups",
@@ -1916,7 +3092,14 @@
      "source": "app/admin/manifests.php:193, 194, 196 (Coming)",
      "owner": "",
      "note": "",
-     "outline": false
+     "outline": false,
+     "agency": "Platform",
+     "crossover": true,
+     "reason": "site-wide",
+     "alternative": "none",
+     "cross_links": "\u2014",
+     "option_b": "Platform",
+     "listed_in": "Platform"
     },
     {
      "name": "Text messages (Twilio)",
@@ -1925,7 +3108,14 @@
      "source": "app/admin/manifests.php:195 (Coming: \"Its own decision first\", 0172 \u00a75)",
      "owner": "",
      "note": "",
-     "outline": false
+     "outline": false,
+     "agency": "Platform",
+     "crossover": true,
+     "reason": "one channel for every section (0172 \u00a75)",
+     "alternative": "none",
+     "cross_links": "\u2014",
+     "option_b": "Platform",
+     "listed_in": "Platform"
     },
     {
      "name": "5 W's lexicon; Emergency resources",
@@ -1934,7 +3124,14 @@
      "source": "app/admin/manifests.php:155\u2013156 (Coming)",
      "owner": "",
      "note": "",
-     "outline": false
+     "outline": false,
+     "agency": "Platform",
+     "crossover": true,
+     "reason": "the search parser; Emergency resources rides with it as an admin Coming card",
+     "alternative": "Discovery (Emergency resources is a map of places)",
+     "cross_links": "Discovery",
+     "option_b": "Platform",
+     "listed_in": "Platform"
     },
     {
      "name": "Terms and privacy pages",
@@ -1945,9 +3142,219 @@
      "note": "Live as placeholders; the real texts are held (Marketplace's legal texts item)",
      "outline": false,
      "check": "passing",
-     "check_by": "the rendered check at 1280 and 390: Working"
+     "check_by": "the rendered check at 1280 and 390: Working",
+     "agency": "Platform",
+     "crossover": true,
+     "reason": "site-wide legal pages",
+     "alternative": "Marketplace",
+     "cross_links": "Marketplace",
+     "option_b": "Platform",
+     "listed_in": "Platform"
     }
    ]
   }
- }
+ },
+ "gauge_rule": "One gauge, one measure, one needle: Complete = live and passing its check, over its signed scope; the rest in the drill-down (Jason, 2026-11-22).",
+ "gauges_recommended": {
+  "Discovery": {
+   "items": 33,
+   "in_scope": 31,
+   "complete": 14,
+   "pct": 45.2,
+   "held": 1,
+   "decided": 6,
+   "live_not_passing": 0,
+   "live_not_checked": 10,
+   "proposed": 2
+  },
+  "Directory": {
+   "items": 23,
+   "in_scope": 22,
+   "complete": 9,
+   "pct": 40.9,
+   "held": 0,
+   "decided": 2,
+   "live_not_passing": 1,
+   "live_not_checked": 10,
+   "proposed": 1
+  },
+  "Community": {
+   "items": 25,
+   "in_scope": 24,
+   "complete": 4,
+   "pct": 16.7,
+   "held": 0,
+   "decided": 10,
+   "live_not_passing": 0,
+   "live_not_checked": 10,
+   "proposed": 1
+  },
+  "Marketplace": {
+   "items": 43,
+   "in_scope": 41,
+   "complete": 12,
+   "pct": 29.3,
+   "held": 3,
+   "decided": 8,
+   "live_not_passing": 2,
+   "live_not_checked": 16,
+   "proposed": 2
+  },
+  "Platform": {
+   "items": 42,
+   "in_scope": 40,
+   "complete": 11,
+   "pct": 27.5,
+   "held": 3,
+   "decided": 6,
+   "live_not_passing": 3,
+   "live_not_checked": 17,
+   "proposed": 2
+  },
+  "Knowledge Engine": {
+   "items": 6,
+   "in_scope": 6,
+   "complete": 0,
+   "pct": 0.0,
+   "held": 0,
+   "decided": 1,
+   "live_not_passing": 2,
+   "live_not_checked": 3,
+   "proposed": 0
+  }
+ },
+ "gauges_option_b": {
+  "Discovery": {
+   "items": 32,
+   "in_scope": 30,
+   "complete": 14,
+   "pct": 46.7,
+   "held": 1,
+   "decided": 6,
+   "live_not_passing": 0,
+   "live_not_checked": 9,
+   "proposed": 2
+  },
+  "Directory": {
+   "items": 15,
+   "in_scope": 14,
+   "complete": 5,
+   "pct": 35.7,
+   "held": 0,
+   "decided": 1,
+   "live_not_passing": 1,
+   "live_not_checked": 7,
+   "proposed": 1
+  },
+  "Community": {
+   "items": 23,
+   "in_scope": 22,
+   "complete": 4,
+   "pct": 18.2,
+   "held": 0,
+   "decided": 8,
+   "live_not_passing": 0,
+   "live_not_checked": 10,
+   "proposed": 1
+  },
+  "Marketplace": {
+   "items": 23,
+   "in_scope": 21,
+   "complete": 12,
+   "pct": 57.1,
+   "held": 1,
+   "decided": 1,
+   "live_not_passing": 1,
+   "live_not_checked": 6,
+   "proposed": 2
+  },
+  "Platform": {
+   "items": 42,
+   "in_scope": 40,
+   "complete": 11,
+   "pct": 27.5,
+   "held": 3,
+   "decided": 6,
+   "live_not_passing": 3,
+   "live_not_checked": 17,
+   "proposed": 2
+  },
+  "Knowledge Engine": {
+   "items": 6,
+   "in_scope": 6,
+   "complete": 0,
+   "pct": 0.0,
+   "held": 0,
+   "decided": 1,
+   "live_not_passing": 2,
+   "live_not_checked": 3,
+   "proposed": 0
+  },
+  "Business tools": {
+   "items": 27,
+   "in_scope": 27,
+   "complete": 4,
+   "pct": 14.8,
+   "held": 2,
+   "decided": 8,
+   "live_not_passing": 0,
+   "live_not_checked": 13,
+   "proposed": 0
+  },
+  "Events": {
+   "items": 4,
+   "in_scope": 4,
+   "complete": 0,
+   "pct": 0.0,
+   "held": 0,
+   "decided": 2,
+   "live_not_passing": 1,
+   "live_not_checked": 1,
+   "proposed": 0
+  }
+ },
+ "runtime_two_readings": [
+  {
+   "id": "o-phone",
+   "name": "The phone layout",
+   "today": "\"1 sideways \u00b7 13 edges off\": two measures (sideways scroll, card edges)",
+   "one_measure": "one measure: pages passing the phone check (both rules) out of pages checked; the two counts to the drill-down"
+  },
+  {
+   "id": "o-paths",
+   "name": "Paths complete",
+   "today": "\"N passed \u00b7 1 failed\"",
+   "one_measure": "one measure: paths passed out of paths run; failed and skipped to the drill-down"
+  },
+  {
+   "id": "o-gather",
+   "name": "Gathering reconciles",
+   "today": "\"W1 paused \u00b7 W3 off \u00b7 0 records in\": two workflows' states and a count",
+   "one_measure": "one measure: records in over 24 hours against the day's expected; each workflow's state to the drill-down (it already has the Workflows path)"
+  },
+  {
+   "id": "o-complete",
+   "name": "Complete",
+   "today": "the reading also counts staged finds with no kind beside the map points",
+   "one_measure": "one measure: share of public listings with an exact map point; \"no kind\" to the drill-down or its own gauge"
+  },
+  {
+   "id": "o-ir",
+   "name": "Incident Reports close",
+   "today": "\"IR-0001 open \u00b7 Unconfirmed\": a count and a state",
+   "one_measure": "one measure: IRs closed with a confirmed cause out of IRs raised; each IR's state to the drill-down"
+  },
+  {
+   "id": "o-search-cap",
+   "name": "Within our means: web search",
+   "today": "\"26 searches \u00b7 20.8\u00a2\": two units",
+   "one_measure": "one measure: searches against websearch_monthly; the money beside it as a note or a graph"
+  },
+  {
+   "id": "o-signin",
+   "name": "Sign-in works end to end",
+   "today": "two paths (sign in, sign out) in one reading",
+   "one_measure": "acceptable as one pass/fail of the whole path; or one measure: steps passed out of steps"
+  }
+ ]
 }
