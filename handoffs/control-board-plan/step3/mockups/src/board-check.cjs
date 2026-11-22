@@ -139,10 +139,16 @@ const url = 'file://' + dir + 'index.html';
       return [fixOnOk, rep]; });
     ok(rows[0] === 0, `@${w} no "Fix it" on a Working row (${rows[0]} found)`);
     ok(rows[1] === 0, `@${w} no path row repeats its status text (${rows[1]} found)`);
-    const tint = await p.evaluate(() => [...document.querySelectorAll('#view-board .gcard.s-a, #view-board .gcard.s-r')].filter(c => !c.querySelector('.proposed')).map(c => {
+    const rts = await p.evaluate(() => [...document.querySelectorAll('#view-board .gcard')].map(c => [c.id, c.classList.contains('mon'), c.querySelectorAll('.needle').length, (c.querySelector('.band-word') || {}).textContent, /setup: \d of 4/.test(c.textContent)]));
+    const STG = ['Planning', 'Phased Development', 'Audit & Review', 'Implementation'];
+    ok(rts.length === 23 && rts.every(x => x[1] ? x[2] === 1 : (x[2] === 1 && STG.includes(x[3]) && x[4])), `@${w} every runtime gauge under the lifecycle: below Monitoring its one needle is setup % with its stage and "setup: n of 4"; at Monitoring its live reading (${rts.filter(x => x[1]).map(x => x[0]).join(', ')} at Monitoring)`);
+    await p.click('#o-speed [data-cfg]');
+    ok(await isOpen('p-snap-o-speed') && await p.evaluate(() => /Configure: its setup/.test(document.getElementById('p-snap-o-speed').textContent)), `@${w} Configure opens the gauge's setup`);
+    await p.keyboard.press('Escape');
+    const tint = await p.evaluate(() => [...document.querySelectorAll('#view-board .gcard.mon.s-a, #view-board .gcard.mon.s-r')].filter(c => !c.querySelector('.proposed')).map(c => {
         const n = c.querySelector('.needle'); const st = c.classList.contains('s-r') ? 'r' : 'a';
         return (!n || n.classList.contains('t-' + st)) && c.querySelector('.band-word.notarget.s-' + st) ? 0 : c.id; }).filter(Boolean));
-    ok(tint.length === 0, `@${w} every amber or red dial with no target has a tinted needle and word` + (tint.length ? ': ' + tint.join(', ') : ''));
+    ok(tint.length === 0, `@${w} every amber or red Monitoring dial with no target has a tinted needle and word` + (tint.length ? ': ' + tint.join(', ') : ''));
     // every control works: quick jumps, role filters
     await p.keyboard.press('Escape');
     const qj = await p.$$eval('.qbar .qj', bs => bs.length);

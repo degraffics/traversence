@@ -1963,6 +1963,11 @@ reference** (Q21 and SM 172–189, `step1-requirements.md`), by Jason's directio
   signed off by Jason; the needle is the share of configured criteria met; the word under it is one of his five
   (Planning, Phased Development, Audit & Review, Implementation, Monitoring), read as process stages or as % bands (our
   inference, both shown for his choice). Spec: `sections/gauge-lifecycle.md`.
+- **Jason's answers (2026-11-22):** the five words read as **"(a) Stage of the work"** (the % bands, (b), are rejected);
+  the criteria come from the page audit ("I think this is the page audit process"; `sections/gauge-criteria-from-audit.md`:
+  reviewed needs no open finding and his sign-off on record, per 0145 §5); and the **runtime lifecycle is approved**
+  ("Approve"): every runtime snapshot gauge shows its setup % (the probe built, its target set, its check passing, its alarm
+  wired) through Planning to Implementation, and at Monitoring the live reading against its target, setup only in Configure.
 
 ---
 

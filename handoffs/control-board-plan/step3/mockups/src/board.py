@@ -1022,7 +1022,44 @@ def linear(o, value, label):
     return (f'<span class="lin s-{o["state"]}" role="img" aria-label="{E(label)}"><b style="left:{value:.0f}%"></b></span>')
 
 
+# Runtime gauges under the lifecycle (Jason approved, 2026-11-22; sections/gauge-lifecycle.md §7): setup % through Planning to
+# Implementation; at Monitoring the needle is the live reading against its target, and setup shows only in Configure.
+RT_STAGE_K = {'Planning': 'pl', 'Phased Development': 'pd', 'Audit & Review': 'ar', 'Implementation': 'im', 'Monitoring': 'mo'}
+
+
+def rt_setup(o):
+    t = o['target']
+    target_set = not any(w in t for w in ('set by Jason', 'des', 'proposal', 'not read yet', 'inf'))
+    return [('The probe built', o['state'] != 'n', 'needs ' + NEEDS_PROBE.get(o['id'], 'its check').split(' (')[0] if o['state'] == 'n' else o['measure']),
+            ('Its target set', target_set, t),
+            ('Its check passing', o['state'] == 'g', LT[o['state']] + (' · ' + o['when'] if o['when'] else '')),
+            ('Its alarm wired to the board', o['when'] == T_AL, 'read from the alarms snapshot' if o['when'] == T_AL else 'its reading isn\'t from the alarms yet')]
+
+
+def rt_stage(o):
+    su = rt_setup(o)
+    m = [x[1] for x in su]
+    if all(m):
+        return 'Monitoring'
+    if not any(m):
+        return 'Planning'
+    if not m[0]:
+        return 'Phased Development'
+    if not (m[1] and m[2]):
+        return 'Audit & Review'
+    return 'Implementation'
+
+
+def setup_dial(pct):
+    x, y = _pt(pct / 100, 38)
+    return (f'<svg class="dial" viewBox="0 0 120 66" aria-hidden="true">{_arc(0, 1, "empty")}'
+            f'<line class="needle setup" x1="60" y1="58" x2="{x:.1f}" y2="{y:.1f}"/><circle class="hub" cx="60" cy="58" r="4"/></svg>')
+
+
 def gauge_card(o):
+    stg = rt_stage(o)
+    if stg != 'Monitoring':
+        return rt_setup_card(o, stg)
     unchecked = o['state'] == 'n'
     snap = assoc.SNAP[o['id']]
     edges = BANDS.get(o['id'])
@@ -1043,11 +1080,32 @@ def gauge_card(o):
         setup = (f'<details class="imp pop"><summary class="btn imp">Set up its check</summary><div class="popb"><button class="px" type="button" aria-label="Close">×</button>'
                  f'<div class="micro">Build: {E(need)}</div><button class="btn imp" title="Drawn: inert in the mockup">Set up: {E(need.split(" (")[0])}</button></div></details>')
     unm = ' <span class="sctag">association not mapped</span>' if snap['unmapped'] else ''
-    return f"""<article class="obj gcard s-{o['state']}" id="{o['id']}"><button type="button" class="gopen" data-card="{o['id']}" aria-label="Open {E(o['name'])}">
+    return f"""<article class="obj gcard mon s-{o['state']}" id="{o['id']}"><button type="button" class="gopen" data-card="{o['id']}" aria-label="Open {E(o['name'])}">
 <span class="gh"><b>{E(o['name'])}</b>{prop}</span>{g}<span class="band-word s-{o['state']}{'' if edges else ' notarget'}">{E(LT[o['state']])}</span>
 <span class="om2"><span class="metric pillm">{E(metric)}</span>{live}</span>{trend}
 <span class="micro edges">{E(edge_words)}</span></button>
-<div class="btns"><button class="btn path" data-open-panel="p-wf-{o['id']}">Workflows ▸</button><button class="btn path" data-open-panel="p-sv-{o['id']}">Services ▸</button>{setup}</div>{unm}</article>"""
+<div class="btns"><button class="btn path" data-open-panel="p-wf-{o['id']}">Workflows ▸</button><button class="btn path" data-open-panel="p-sv-{o['id']}">Services ▸</button><button class="btn path" data-open-panel="p-snap-{o['id']}" data-cfg="1">Configure</button>{setup}</div>{unm}<span class="rtstage">Monitoring</span></article>"""
+
+
+def rt_setup_card(o, stg):
+    su = rt_setup(o)
+    n = sum(1 for x in su if x[1])
+    pct = n / len(su) * 100
+    snap = assoc.SNAP[o['id']]
+    metric = ('needs: ' + NEEDS_PROBE.get(o['id'], 'its check').split(' (')[0]) if o['state'] == 'n' else METRIC.get(o['id'], '')
+    live = '' if o['state'] == 'n' else (f'<span class="live">live · <time>{E(o["when"].split(", ", 1)[-1])}</time></span>' if o['when'] else '')
+    unm = ' <span class="sctag">association not mapped</span>' if snap['unmapped'] else ''
+    pop = ''
+    if o['state'] == 'n':
+        need = NEEDS_PROBE.get(o['id'], 'its check')
+        pop = (f'<details class="imp pop"><summary class="btn imp">Set up its check</summary><div class="popb"><button class="px" type="button" aria-label="Close">×</button>'
+               f'<div class="micro">Build: {E(need)}</div><button class="btn imp" title="Drawn: inert in the mockup">Set up: {E(need.split(" (")[0])}</button></div></details>')
+    return (f'<article class="obj gcard setupc s-{o["state"]}" id="{o["id"]}"><button type="button" class="gopen" data-card="{o["id"]}" aria-label="Open {E(o["name"])}: {E(stg)}, setup {n} of 4">'
+            f'<span class="gh"><b>{E(o["name"])}</b></span>{setup_dial(pct)}<span class="band-word stage st-{RT_STAGE_K[stg]}">{E(stg)}</span>'
+            f'<span class="om2"><span class="metric pillm">setup: {n} of 4 · {pct:.0f}%</span></span>'
+            f'<span class="om2"><span class="micro">{E(metric)}</span>{live}</span></button>'
+            f'<div class="btns"><button class="btn path" data-open-panel="p-wf-{o["id"]}">Workflows ▸</button><button class="btn path" data-open-panel="p-sv-{o["id"]}">Services ▸</button>'
+            f'<button class="btn path" data-open-panel="p-snap-{o["id"]}" data-cfg="1">Configure</button>{pop}</div>{unm}</article>')
 
 
 def _lv(kind, light, name, why, share=None, link=''):
@@ -1194,6 +1252,7 @@ def snap_panel(o):
             f'<div class="crumb">Snapshot</div><div class="lvrow">{lt(o["state"], LT[o["state"]])}<b class="lvn">{E(o["name"])}</b></div>'
             f'<div class="gbig">{dial(o) if o["id"] not in ("o-gather", "o-grow") else ""}</div>'
             f'<dl class="dl"><dt>Measure</dt><dd>{E(o["measure"])}</dd><dt>Target</dt><dd>{E(o["target"])}</dd><dt>Reading</dt><dd>{E(o["reading"])}{" · <time>" + E(o["when"]) + "</time>" if o["when"] else ""} <span class="basis">{o["basis"]}</span></dd></dl>'
+            f'<div class="h3">Configure: its setup ({E(rt_stage(o))})</div><ul class="rtsu">' + ''.join(f'<li class="{"ok" if m else ""}">{"✓" if m else "·"} <b>{E(l)}</b> <span class="micro">{E(w)}</span></li>' for l, m, w in rt_setup(o)) + '</ul>'
             f'{snap_frame(o["id"])}<div class="btns"><button class="btn f" data-open-panel="p-wf-{o["id"]}">Workflows ▸</button><button class="btn f" data-open-panel="p-sv-{o["id"]}">Services ▸</button></div>'
             f'<div class="h3">Its modules (from the association map): Fix it where one is amber or red</div><div class="btns">{fix}</div>' + (f'<div class="h3">Improve</div><div class="btns">{imp}</div>' if imp else '') + '</aside>')
 
@@ -1456,6 +1515,8 @@ article.card details:not(.cr):not(.rp):not(.pillx):not(.kgrp):not(.more):not(.cl
 .wt thead{display:none}.wt tr{display:block;border-top:1px solid var(--card-edge);padding:.35rem 0}.wt td{display:block;border:0;padding:.15rem .2rem}}
 @media (max-width:767px){.pbox,.chainbox{padding-left:0;padding-right:0;border-left-width:0;border-right-width:0}.pbox>h2,.chainbox>h3,.chainbox>p,.chainbox>.chain{padding-left:.5rem;padding-right:.5rem}.ggrid{gap:3px}.mnote{margin-left:0;margin-right:0}}
 @media (max-width:767px){.panel{width:calc(100% - 24px)}}
+.needle.setup{stroke:var(--ink)}.band-word.stage{color:#fff;border-radius:999px;padding:0 .5rem;font-size:11.5px;font-weight:600}.st-pl{background:#7A6A52}.st-pd{background:var(--amber)}.st-ar{background:var(--copper)}.st-im{background:#3B5A6B}.st-mo{background:#3d6b52}
+.rtstage{font-size:10.5px;color:#3d6b52;border:1px solid #3d6b52;border-radius:999px;padding:0 .4rem;margin:.2rem .4rem}.rtsu{list-style:none;margin:.2rem 0 .5rem;padding:0;font-size:13px}.rtsu li{padding:.15rem 0}.rtsu li.ok b{color:#3d6b52}
 """
 
 JS = r"""<script>
