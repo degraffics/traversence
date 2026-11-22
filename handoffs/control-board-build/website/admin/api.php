@@ -245,8 +245,24 @@ try {
                 require_once __DIR__ . '/../../app/lib/ControlSensor.php';
                 if (isset(ControlSensor::PARTS[$pid])) { [$bad, $words] = ControlSensor::checkOne($pdo, $pid); Response::success(['message' => $words, 'bad' => $bad]); }
             }
+            // a worker with no pre-flight line (the video worker) and each of our endpoints: the one engine's own check
+            // (control-board-plan step3/02 §2.7: a worker's heartbeat or last run; an endpoint's no-work request inside its
+            // speed gate), the same permission and logbook line as above, the same answer shape
+            if ($act === 'check' && preg_match('/^(wk|ep):(.+)$/', $pid, $pm)) {
+                require_once __DIR__ . '/../../app/lib/ControlRegister.php'; require_once __DIR__ . '/../../app/lib/ControlEngine.php';
+                $known = $pm[1] === 'ep' ? isset(ControlRegister::ENDPOINTS[$pm[2]]) : isset(ControlRegister::WORKERS[$pm[2]]);
+                if (!$known) Response::error('That part isn\'t on the board.', 422);
+                $wline = $pm[1] === 'wk' ? (string) (ControlRegister::WORKERS[$pm[2]][3] ?? '') : '';
+                if ($wline === '' || !isset(Preflight::lines($pdo)[$wline])) {
+                    $ck = ControlEngine::check($pdo, $pid, $who);
+                    if ($ck['pass'] === null) Response::error('It has no check of its own yet.', 422);
+                    $tw = ''; require_once __DIR__ . '/../../app/lib/ControlAlarms.php';
+                    foreach (ControlAlarms::ofProc($pdo, $pid) as $al) if ($al['level'] === 'trip' && !empty($al['tripped_at'])) { $tw = 'Checked: its trip from ' . gmdate('M j, g:i A', (int) strtotime($al['tripped_at'] . ' UTC')) . ' UTC stays red until you press Check and start again on this row' . ($ck['pass'] ? '; it would start now' : ' once this passes') . '. '; break; }
+                    Response::success(['message' => $tw . ($ck['pass'] ? 'Passed: ' : 'Failed: ') . mb_substr((string) $ck['proof'], 0, 280), 'bad' => !$ck['pass']]);
+                }
+            }
             if ($act === 'check') {
-                $lid = $pid === 't:W14' ? 'wf:W14' : (str_starts_with($pid, 'wk:') ? (string) (ControlRegister::WORKERS[substr($pid, 3)][3] ?? '') : $pid);
+                $lid =$pid === 't:W14' ? 'wf:W14' : (str_starts_with($pid, 'wk:') ? (string) (ControlRegister::WORKERS[substr($pid, 3)][3] ?? '') : $pid);
                 if ($lid === '' || !isset(Preflight::lines($pdo)[$lid])) Response::error('It has no check of its own yet.', 422);
                 Preflight::refreshFor($pdo, $lid, time() + 30, $who);
                 $r = Preflight::run($pdo, $lid, $who);

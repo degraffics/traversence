@@ -445,7 +445,7 @@ sc('faults', 'S-B78', 'a query over its limit: a Warning (Slow)', [], function (
 });
 sc('faults', 'S-B79', 'a fault on a part in maintenance: a Notice only; its holds stand', ['g3:M4'], function () {
     require_once $GLOBALS['APP'] . '/lib/ControlMaintenance.php';
-    $ok = true; try { ControlMaintenance::take($GLOBALS['pdo'], 'wf:W2', 'testing a new reader', gmdate('Y-m-d H:i:s', time() + 3600), 7, 'Jason'); } catch (Throwable $x) { $ok = $x->getMessage(); }
+    $ok = true; try { ControlMaintenance::take($GLOBALS['pdo'], 'wf:W2', time(), time() + 3600, 'testing a new reader', 7, 'Jason'); } catch (Throwable $x) { $ok = $x->getMessage(); }
     if ($ok !== true) { notHere('ControlMaintenance::take on the bench: ' . mb_substr((string) $ok, 0, 120)); return; }
     raiseAs('task:failed:second_look', 'wf:W2', 'trip', 'crash', 'second_look failed', 'boom');
     chk('a Notice only', ($a = alarm('task:failed:second_look')) && $a['level'] === 'notice', alarm('task:failed:second_look'));
