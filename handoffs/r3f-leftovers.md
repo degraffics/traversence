@@ -48,4 +48,4 @@ taupe for rules): not in this release. register.php only redirects to login.php?
 member (user 2) who owns listing 10 (Core).
 
 ## State
-Built and sent; waiting for the session manager's review, then Jason's Approve.
+Live as #255 (Sync 20:55 UTC, 73d3782): all 29 files byte for byte, verified by the session manager and this session.

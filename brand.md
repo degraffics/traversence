@@ -117,6 +117,10 @@ This confirms the mobile menu reviewed 2026-09-25 is a faithful implementation o
     over a Deep Umber `#3E2B1F` casing (`--tv-route`, `--tv-route-casing` in `app/ui/theme-tokens.php`). Lime alone is
     1.05:1 on the vellum, so it is a line colour only, never text, and never without its casing (10:1). River Blue, Moss
     and Crimson stay for map features; no map draws routes yet.
+  - *Note (Jason, 2026-11-22, the map release, pop-up "Approve B"):* a trip's map draws **the chosen day's route lime over
+    its casing, the other days casing only, faded**; a **Route: Day 1 / Day 2** row over the map (or tapping a day's stop)
+    chooses the day; pins keep their day colours. Offered beside A (every day lime) and C (one colour a day); B chosen.
+    The first map to draw routes (`user/trips/trip.php`; `handoffs/map-tokens.md`).
 
 ## 5. The Compass Axiom & The Chameleon Filter Architecture
 
