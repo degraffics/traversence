@@ -62,9 +62,12 @@ productions actual schedule."
 - **A deposit on an estimate** (2026-11-22): "an estimate is used for when we dont have all things confirmed, so it could
   easily be used a tool to secure the deposit and enter into the stage where we can firm up things before releasing an
   estimate to become an invoice/order." So a deposit may also be taken before approval, on an estimate, to secure the
-  work of firming it up into the quote that becomes the order. To confirm: whether it counts toward the order, and what
-  happens to it if the client doesn't go ahead (2026-11-21: "Rejection or cancelation means only to deposit is paid no
-  balance owned if not approved").
+  work of firming it up into the quote that becomes the order.
+- **By kind** (2026-11-22): "1. A deposit for made to order is non-refundable, so design due at time of ordering. 2.
+  Product, due at time of ordering/approval with small windows to cancel before becoming non-refundable."
+  - **Made to order (design and the like):** due when ordered; a deposit on it is non-refundable.
+  - **Product:** due when ordered or approved, with a small window to cancel before it becomes non-refundable (1.9).
+  - To confirm: whether a deposit on an estimate counts toward the order it becomes.
 
 **1.9 Cancelling, the vendor and the balance** (2026-11-22): "Deposit required at time of approval. There is a small
 window where an order can be canceled while we process it for production, but once production schedules it and enters
