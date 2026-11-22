@@ -378,6 +378,22 @@ databases (lv_b, lv_e…) so runs don't collide.
   `/admin/staff-levels.php`). It now says "Give a staff login the Founder level in Staff levels" and opens
   `/admin/backoffice/levels`.
 
+### The hand-off's Left list, done (2026-11-22 23:30 – 2026-11-23 00:00 UTC)
+1. **Rendered sweep:** `tools/control-board-tests/rendered-all.sh` runs all 14 `.cjs` tests on one bench, each with its
+   seed (`board-rendered-seed.php` new: a founder and W1's trip, so no "Tripped 2"): **310 pass, 0 fail**. Write the root
+   cause pressed at 1280 and 390 (board-views.cjs). It found two defects: the IR page didn't load its script; the line
+   stayed Unconfirmed until a reload. Both fixed.
+2. **The 55 view cells:** `views()` in `scenario/run.php` draws every alarm a scenario leaves on the board's row, its
+   Pulse item and its module card, and checks the words. 159 of 173 cells drawn; `cells.md` regenerated from the run
+   (results and the views column; no "views: pending" left). It found: raw ids for jobs and Start's watch, the card's raw
+   time token, the card's issue in words other than its alarm's. All fixed; 0176 has a note for the last.
+3. **FAQ:** `handoffs/control-board-build-faq.py` (re-appliable), applied on Sync 23:26 UTC: 3 entries corrected, 7 added.
+4. **Summary:** `handoffs/control-board-build-summary.md`.
+5. **Zip:** zipcheck clean (`--drops OFF`, the approved D12), `send.py` → `releases/inbox/control-board.zip`, 43 files,
+   recorded pending. Claims added: `app/lib/staging-tables.php` (top), `app/lib/Pulse.php::'square'`.
+6. **Suite:** 1,549 PHP pass (3 known); scenario 135/135, 173/173 cells.
+Left: the staging read-only look (Ledger tab, C15) once it lands; the session manager's review; Jason's pop-up; merge.
+
 ## Next, in the plan's order (§2.2) (superseded by the hand-off above)
 1. Read C15 on staging (§6), and the Ledger tab's rows: read-only, wanted from a runner or Jason.
 2. Remaining callers: Operations, ControlSensor, ControlMaintenance and ControlHistorian (they raise through the store,
