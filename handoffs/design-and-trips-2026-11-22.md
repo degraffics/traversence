@@ -35,6 +35,8 @@ was stored, so no question was needed); zip check clean; run.php 16/16, parks.cj
 1. **The listing page (B5, Option 1):** photo capped lower; the actions in one row under the title, names on wide screens,
    icons on phones; the score ring in words or removed; no empty card; real categories before "Other"; "Fix the pin" only
    with a pin (not on a PO box); one Link. CLAUDE.md content-page header and card anatomy. Read `listing/view.php` first.
+   **Progress (2026-11-22):** card-fixes live as #249. The listing page built as `listing-page.zip` on 114f938, with Jason's
+   refinements in chat (the Link with ⋯ beside it, the name over the address, categories as quiet words); `listing-page.md`.
 2. **3f sign-in:** A7 (tab state), A9 (social buttons' words), A10 (cart, bell, admin search off sign-in pages), A11 (code
    box "6 digits", expiry clock time, sign in at the 6th digit, paste with spaces), A12 ("Tap or click" in the email), B7
    (sentence case, one link style), **B8** the lost work email with the session manager's guard rails (the proposal's

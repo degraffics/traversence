@@ -1,0 +1,22 @@
+{
+ "zip": "listing-page.zip",
+ "built_on": "114f938 Sync: 2026-11-22 12:55 UTC",
+ "recorded": "2026-11-22 13:04 UTC",
+ "note": "The listing page (B5 Option 1, Jason 2026-11-22, refined the same day): Link with the \u22ef toolkit, name over the address, quiet categories, how sure we are in words; built on Sync 12:55 UTC (114f938) Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/ui/confidence-ui.php": {
+   "sha256": "30a97d81de456b015626b2e6df43b0e1ab1efc68176e1760b0cd751b9599144a",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "d3cfa2c30120b4d3438327eb1bed871db5a0f6c81b5c0b8cf62358e5d9f3621f",
+   "live": false
+  },
+  "website/listing/view.php": {
+   "sha256": "be8722a0fa5ff0ff2a7b31dc15bba4a75ee0e557c7b8d34d7389fa7b8e6dcb79",
+   "live": false
+  }
+ }
+}

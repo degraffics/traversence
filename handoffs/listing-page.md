@@ -1,9 +1,7 @@
 # The listing page (Design and trips, 2026-11-22)
 
 B5, Option 1 of `handoffs/screens-proposal-2026-11-22.md`, approved by Jason 2026-11-22. Build:
-`listing-page/build-lp.py` (reads the mirror; rerun to rebuild). **Not sent yet:** `website/listing/view.php` is also in
-`card-fixes.zip` (A13, merged as #1247, waiting to go live), so this zip is rebuilt on the sync that has card-fixes live,
-never on top of a zip that isn't live (CLAUDE.md).
+`listing-page/build-lp.py` (reads the mirror; rerun to rebuild). Built on Sync 12:55 UTC (114f938), after card-fixes.zip went live as #249 (both change `listing/view.php`).
 
 | Behaviour | Source |
 |---|---|
