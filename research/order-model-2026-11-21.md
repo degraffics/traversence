@@ -59,11 +59,29 @@ to deposit is paid no balance owned if not approved."
 
 **1.9 Paid in full before the vendor.** "Paid in full before order is released to vendor." And: "Admin can override
 payment requirements to initiate vendor work orders pre funding."
-- A deposit starts our own work (files, proofs, design); the vendor gets the work order only once it's paid in full.
-- An admin can override that and send the vendor work order before funding.
+- The vendor gets the work order only once it's paid in full. An admin can override that and send the vendor work
+  order before funding.
+- What a deposit is (2026-11-22, correcting my "a deposit starts our own work"): "Deposit does not control progress, it
+  is a requirement of partial payment when needed to ensure we risk incurring expenses that might be incurred upon
+  entering to production stage." See 1.13.
 
 **1.10 File preflight.** "we will need file preflight checks." The checks are 0176's (resolution, bleed, size); the
 limits are Jason's to set ("I'll set the limits", 0176).
+
+**1.13 The stages after approval** (2026-11-22): "Staged for production when an order is approved. Deposit does not
+control progress, it is a requirement of partial payment when needed to ensure we risk incurring expenses that might be
+incurred upon entering to production stage. Vendors only get the jump once we confirm product and order meets the
+production requirements (since staging). Upon stage confirm we will have the created work order that will be released
+to the vendor which marks the order has entered the production queue. Workorders will be processed and its step of
+movement will be monitored. Once production is complete, pack and ship happens. Once completed, the orders is released
+for delivery. Once received it marks delivered."
+1. **Staged for production:** set when the order is approved. We confirm the product and order meet the production
+   requirements.
+2. **Production queue:** on confirming the stage, the work order is created and released to the vendor.
+3. **Work orders processed,** each step of their movement monitored.
+4. **Pack and ship,** once production is complete.
+5. **Released for delivery,** once that's done.
+6. **Delivered,** once it's received.
 
 **1.11 Reorders (described, to confirm).**
 - Exact: the system checks it's the same (product, options, and our vendor in the backend), and the earlier approved
@@ -117,8 +135,9 @@ the pass is the product. It shapes 1.2's client-configured items and 1.8's money
 
 ## 4. Open, to walk through with Jason one at a time
 
-1. "Production" now means two things (our work after a deposit; the vendor after payment in full): the stages, screens
-   and emails need the two told apart.
+1. ~~"Production" now means two things~~ Answered by 1.13 (2026-11-22). To confirm: whether payment in full (or the
+   admin override) is one of the "production requirements" checked at staging, and whether Delivered ends the order or
+   the client's "Yes, I have it" (Complete) still follows.
 2. The admin override: admins only (and managers?), with a reason recorded.
 3. Approve for the client: is the "yes given in person, by phone or email" use dropped (1.6 vs the map)?
 4. Which route an order takes, and whether invoice-later, wire and check stay on the invoice route only. (B.4 as
