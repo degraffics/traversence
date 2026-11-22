@@ -147,6 +147,28 @@
    "expires": "2026-11-22T17:18:32Z",
    "release": "signin-3f.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/StaffMailHelp.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jNQCN3zFZ2Fh3qUNf",
+   "why": "3f B8: a lost work email",
+   "since": "2026-11-22T13:18:47Z",
+   "expires": "2026-11-22T17:18:47Z",
+   "release": "signin-3f.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/staging-tables.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jNQCN3zFZ2Fh3qUNf",
+   "why": "3f B8: a lost work email",
+   "since": "2026-11-22T13:18:47Z",
+   "expires": "2026-11-22T17:18:47Z",
+   "release": "signin-3f.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
