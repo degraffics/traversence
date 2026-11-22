@@ -462,6 +462,17 @@
    "expires": "2026-11-23T02:12:03Z",
    "release": "control-board.zip",
    "callers": {}
+  },
+  {
+   "path": "website/admin/crawler.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5ibQFnVmXNfkdFarwR",
+   "why": "control board build (step 4): NPI's OFF constant becomes its task's switch (D12, 03 \u00a722)",
+   "since": "2026-11-22T22:12:53Z",
+   "expires": "2026-11-23T02:12:53Z",
+   "release": "control-board.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
