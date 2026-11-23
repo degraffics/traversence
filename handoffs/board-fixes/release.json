@@ -1,0 +1,11 @@
+{
+ "title": "Jobs and words: scheduled jobs' upkeep once an hour, the lateness check fixed, refused starts recorded, the health report's jobs section; alarm titles in today's words; Google's sign-in account; the Sync chip",
+ "why": "Jason's screenshot of the live board, 2026-11-23: four jobs late at once; at 10:20 UTC thirteen were, and Lead scores hadn't started since Nov 22 01:17 UTC. Every job's start ran five upkeep steps (up to 300 listings re-scored) before Scheduler::sync's once-an-hour guard: with about 40 jobs, ai_worker every minute, starts piled up on the server's processes and database connections. They now run once an hour. The lateness check (#258) read each job's default schedule rather than its cron line, dropped a job silent over 2 days, judged jobs that log only when they have work, and gave times in Arizona time unlabelled: fixed. A start the database refuses is now kept, and the health report shows each job's last start in UTC, its cron line as cPanel holds it, the refused starts and the database's connection counts, so the next gap is visible without anyone looking by hand. Alarms raised before #258 kept their old words ('index.commoncrawl.org: Its server failed (the crawler, on Railway)', 'The job \"identity_recheck_tick\" never finished'): the board's watch redraws them from their state, their Pulse titles in place, nothing sent. Google Cloud's cap alarm said 'at 50%' while its card read 61%: its title now carries the reading. Google's card didn't say which account it signs in as (Jason guessed at Billing): the card says 'Signs in as', its Google links open in that account and project, and 'Sign in not recorded' is a one-field Record with Undo. The opening view's Sync chip (03 §27): Railway and the sync's watch in its own chip.",
+ "changes": [
+  {"what": "Scheduled tasks: each job's line and runs; the lateness alarms", "where": "https://traversence.com/admin/config/scheduler"},
+  {"what": "Google Cloud's card: Signs in as, Record it, links in that account", "where": "https://traversence.com/admin/config/register#svc-google"},
+  {"what": "The board's What's wrong now: the Sync chip; alarm titles in today's words", "where": "https://traversence.com/admin/config/control"}
+ ],
+ "proposals": [],
+ "switch": ""
+}
