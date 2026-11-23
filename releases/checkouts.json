@@ -158,7 +158,7 @@
    "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
    "why": "The fast money fix (Jason 2026-11-23, option b): no card on outside orders, client orders paid only on their own page, an approved total keeps its tax",
    "since": "2026-11-23T14:29:34Z",
-   "expires": "2026-11-23T18:29:34Z",
+   "expires": "2026-11-23T18:29:53Z",
    "release": "orders-money-fix.zip",
    "callers": {
     "orders": [
@@ -176,7 +176,18 @@
    "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
    "why": "The fast money fix (Jason 2026-11-23, option b): no card on outside orders, client orders paid only on their own page, an approved total keeps its tax",
    "since": "2026-11-23T14:29:34Z",
-   "expires": "2026-11-23T18:29:34Z",
+   "expires": "2026-11-23T18:29:53Z",
+   "release": "orders-money-fix.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ClientOrders.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
+   "why": "release orders-money-fix.zip",
+   "since": "2026-11-23T14:29:53Z",
+   "expires": "2026-11-23T18:29:53Z",
    "release": "orders-money-fix.zip",
    "callers": {}
   }
