@@ -1,0 +1,59 @@
+{
+    "id": 268,
+    "title": "The board's opening view: the rail of views, What's wrong now as chips, Board landing on Is it delivering?, Development its own page; one part in the panel; the",
+    "why": "Jason, 2026-11-23: the board's opening view wasn't the one he approved (handoffs/control-board-plan/step3/board/index.html). It opened on the Needs attention text, the healthy, held and needs-me boxes and three rows of tiles, with Development a tab away. 'it should have been built, so if it is not I want it ... built now!' Now: a rail of views on the left (Development · Board · Modules · Workflows · Diagnostics, his ruling, 03 §27); What's wrong now as one row of chips (Trips, Warnings, Caps, Checks, Paused now), each item opening its part in the one side panel; Board lands on Is it delivering?, full width; Development is its own page from the rail (his ruling: 'development is its own page, not side by side on control board'). Nothing is lost: the strip and the three boxes are the Paused now page, the six stages and the tables are Diagnostics. Also his note on the panel fix (live as the last release): 'back and title conflict. also panel should have some margin'. The drawer's Back had taken the page header's round back button's class; it has its own now, and a framed page sits inset in the drawer. A part opened in the side panel (an alarm's service, its register entry) shows that part's card alone ('Open the full page' has the list), and the gauge cards' Copy is at their foot, so their titles are whole.",
+    "proposals": "",
+    "zip": "board-view-3.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/admin/control-console.php": {
+            "sha": "32389bc0211013cd43680aafc3efab5441b72713ec889618fbcd3005a33828ea",
+            "size": 197392,
+            "live_was": "ef6c4f17e948d23b79fc82362251bbfd1626a4bf7e0922108e03667d20f66280"
+        },
+        "app/admin/kit-css.php": {
+            "sha": "460d5cfb8bee91f191ebf73a019b65c4a942e5392986ea3309c86faded1d69ff",
+            "size": 37753,
+            "live_was": "9f023766b1ac7531eb90e25b3b129b3ef82fb01ff2d7b9ce1efbf05836e239d1"
+        },
+        "app/ui/faq.md": {
+            "sha": "6bdbf1307fa87eeaaa6378be0273c162a770bc786e589b2c8b2e685f5d7bef8b",
+            "size": 430258,
+            "live_was": "df840d5cdbd61012c39db3f93c89f4ec9934d6fead3a4ca2ef4f197354b4c303"
+        },
+        "website/js/tv-ask.js": {
+            "sha": "c71c8eca2e02d30d096759c97884d23b88f5d4bf6032736907ea2e4267deef95",
+            "size": 54936,
+            "live_was": "8d7e53a8c1b047deb3cf3ca0d03f3e97c6b46912382dbe66fd4b39b5e8aab9d0"
+        },
+        "website/js/admin-kit.js": {
+            "sha": "00bec641e5106ed0710168fcc97f4ac52a7025c4118d073bf22fd395a77fc4a2",
+            "size": 61056,
+            "live_was": "10a391fa5682a888af6be292b183f177e992d168b48a31b9348595edacd2805f"
+        },
+        "website/js/admin-control.js": {
+            "sha": "1672012b01df0d8ccc157f458d44f243d34951153bc1402e42b5d17581f1dd20",
+            "size": 42689,
+            "live_was": "15b55bf4c2364daff7625148b02825e5351a18e874aee3aea2a5655745fe9845"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-23T14:51:30+00:00",
+            "by": 0,
+            "msg": "Uploaded board-view-3.zip: 6 files."
+        }
+    ]
+}
