@@ -26,7 +26,10 @@
   {
    "path": "app/admin/control-console.php",
    "functions": [
+    "(top)",
     "tv_cb_gauge_card",
+    "tv_cb_gauge_detail",
+    "tv_cb_view_assets",
     "tv_cbg_dev",
     "tv_cbg_links",
     "tv_cbg_row",
@@ -34,9 +37,9 @@
    ],
    "kind": "change",
    "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
-   "why": "Request a fix: the gauge panel's queued buttons say what they do (Jason, 2026-11-23)",
+   "why": "Request a fix and \u22ef on the gauge panel (Jason, 2026-11-23)",
    "since": "2026-11-23T21:08:49Z",
-   "expires": "2026-11-24T01:08:49Z",
+   "expires": "2026-11-24T01:26:37Z",
    "release": "kit-buttons.zip",
    "callers": {}
   },
