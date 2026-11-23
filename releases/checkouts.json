@@ -35,6 +35,19 @@
    "expires": "2026-11-23T04:42:04Z",
    "release": "control-board-fix.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/ControlAlarms.php",
+   "functions": [
+    "raisedInError"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "fix #258: close an alarm raised in error, on its thread",
+   "since": "2026-11-23T00:42:06Z",
+   "expires": "2026-11-23T04:42:06Z",
+   "release": "control-board-fix.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
