@@ -434,3 +434,11 @@ No Cloudflare Turnstile and no analytics on these pages. Tested under the enforc
 form paying through a stand-in for Intuit's sandbox, and the proof viewer. To check on the live site: an Intuit
 sandbox payment on each page with the browser console open.
 
+
+## Note (Jason, 2026-11-23): credits applied to balances
+
+From Jason's order model (`research/order-model-2026-11-21.md`, confirmed "Good to go"): "will need a way to handle
+account credits applied to ordering balances." Credits (fix, credit, then refund; 12 months, not cash) are applied to
+what an order owes, on both the invoice and the cart route. Built today only as QuickBooks credit memos: `credit_used`
+is read but never written (the order map, §6). A lower total after an order is changed follows this decision's fix,
+credit, then refund.

@@ -163,3 +163,14 @@ The Costs page (0163, Release A) knows each service's monthly spend. It may post
 - More to build than today's single path. The ledger must be exactly right, so step 1 runs side by side with today's
   code before taking over.
 - Customers re-enter a card when we change processor for them. That's the price of never holding card numbers.
+
+## Note (Jason, 2026-11-20): two layers; QuickBooks stays primary for the books
+
+Confirmed with the order rulings (`research/order-rulings-2026-11-20.md`, §3): "The payment processing layer (the app +
+QuickBooks Payments) handles card charges, deposits, part payments, refunds and webhooks, updating `order_ledger` as the
+real-time operational transaction log that drives order states and production release gates. The books (QuickBooks
+Online) remain the authoritative accounting record for invoices, taxes, credits and financial reporting. Because 0166
+§2's full double-entry ledger is not yet built (only the wallet is live) and QuickBooks holds years of accurate, verified
+data, QuickBooks stays primary for the books unless and until an internal double-entry ledger is completely built,
+reconciled in parallel against QuickBooks, and explicitly promoted." So §2's "the site's own double-entry ledger is the
+true record" waits on that promotion; until then `order_ledger` is the operational log and QuickBooks the books.
