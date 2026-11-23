@@ -16,6 +16,10 @@ on:
         description: "The order's number (for: order)"
         type: string
         default: ''
+      to_log:
+        description: "Also print the pages' text in this run's log (deleted by the session once read)"
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -46,6 +50,7 @@ jobs:
           READ: ${{ inputs.read }}
           ORDER_ID: ${{ inputs.order_id }}
           OUT: live-read
+          TO_LOG: ${{ inputs.to_log && '1' || '0' }}
         run: node tools/page-audit/live-read.mjs
       - name: Keep it with the run for one day (never committed)
         if: always()
