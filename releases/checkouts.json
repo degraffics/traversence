@@ -245,6 +245,32 @@
    "expires": "2026-11-24T00:56:29Z",
    "release": "kit-buttons.zip",
    "callers": {}
+  },
+  {
+   "path": "app/admin/tools.php",
+   "functions": [
+    "(top)",
+    "backoffice/orders",
+    "tv_order_next_step"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jrE1f1iCSbBQssAAe",
+   "why": "Order management M1: the state model and the board (research/order-management-design-2026-11-23.md \u00a76, decisions/0178 \u00a76)",
+   "since": "2026-11-23T20:57:00Z",
+   "expires": "2026-11-24T00:57:00Z",
+   "release": "order-m1.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/command-strip.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jrE1f1iCSbBQssAAe",
+   "why": "Order management M1: the state model and the board (research/order-management-design-2026-11-23.md \u00a76, decisions/0178 \u00a76)",
+   "since": "2026-11-23T20:57:00Z",
+   "expires": "2026-11-24T00:57:00Z",
+   "release": "order-m1.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
