@@ -264,6 +264,10 @@ or sign-off); 4. **The next step**, only within a process (Jason, 2026-11-23: "D
 (one alarm, one payment) ends at its confirmation, the lists and counts updating; a process (placing an order, an
 order's life) is single tasks chained by a workflow, so its next step, routed by the choices made, is its own button. No
 accounting-only buttons, no form left open after it's done, no notice repeating the new state.
+**More than one way forward** (Jason, 2026-11-23: "tool kit for moving something to where it needs to be or edit icon
+to modify what has happened so it can get back on track"): each task or state line offers its suggested action, ✎ to
+correct what happened (with History), and ⋯ for every other valid move from its state (greyed with the reason when not
+allowed).
 **Edit or Undo** (Jason, 2026-11-23: "Undo is for processes that must be rolled back as if they were never done"):
 a record someone entered (an email, an id, an address, a note, a setting) shows its value with **Edit**, reopening it
 in place, the old value kept in History, never Undo. **Undo** is only for an action that did something (a payment

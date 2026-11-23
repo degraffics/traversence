@@ -14,7 +14,7 @@
    "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
    "why": "Gauge panel as a drill-down, approved by Jason 2026-11-23 (handoffs/gauge-panel.md)",
    "since": "2026-11-23T19:46:07Z",
-   "expires": "2026-11-24T00:21:35Z",
+   "expires": "2026-11-24T00:23:56Z",
    "release": "gauge-panel.zip",
    "callers": {}
   },
@@ -29,7 +29,7 @@
    "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
    "why": "Gauge panel as a drill-down, approved by Jason 2026-11-23 (handoffs/gauge-panel.md)",
    "since": "2026-11-23T19:46:07Z",
-   "expires": "2026-11-24T00:21:35Z",
+   "expires": "2026-11-24T00:23:56Z",
    "release": "gauge-panel.zip",
    "callers": {
     "development": [
@@ -59,7 +59,7 @@
    "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
    "why": "Gauge panel as a drill-down, approved by Jason 2026-11-23 (handoffs/gauge-panel.md)",
    "since": "2026-11-23T19:46:07Z",
-   "expires": "2026-11-24T00:21:35Z",
+   "expires": "2026-11-24T00:23:56Z",
    "release": "gauge-panel.zip",
    "callers": {}
   },
@@ -70,7 +70,7 @@
    "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
    "why": "Gauge panel as a drill-down, approved by Jason 2026-11-23 (handoffs/gauge-panel.md): Fix it requests and approvals",
    "since": "2026-11-23T19:46:11Z",
-   "expires": "2026-11-24T00:21:35Z",
+   "expires": "2026-11-24T00:23:56Z",
    "release": "gauge-panel.zip",
    "callers": {}
   },
@@ -81,13 +81,14 @@
    "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
    "why": "Gauge panel release: Retire it\u2026 drawn as an outlined button, not the 28px icon ring (the Design reviewer, 2026-11-23)",
    "since": "2026-11-23T19:57:52Z",
-   "expires": "2026-11-24T00:21:35Z",
+   "expires": "2026-11-24T00:23:56Z",
    "release": "gauge-panel.zip",
    "callers": {}
   },
   {
    "path": "app/admin/module-cards.php",
    "functions": [
+    "(top)",
     "tv_mc_css",
     "tv_mc_light",
     "tv_mc_setup",
@@ -95,22 +96,23 @@
    ],
    "kind": "change",
    "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
-   "why": "Gauge panel as a drill-down, approved by Jason 2026-11-23 (handoffs/gauge-panel.md)",
+   "why": "Gauge panel release: Edit for records, icons with titles on the card (Jason, 2026-11-23)",
    "since": "2026-11-23T19:58:00Z",
-   "expires": "2026-11-24T00:21:35Z",
+   "expires": "2026-11-24T00:38:14Z",
    "release": "gauge-panel.zip",
    "callers": {}
   },
   {
    "path": "app/admin/operations-console.php",
    "functions": [
-    "tv_ops_ctx"
+    "tv_ops_ctx",
+    "tv_ops_keys"
    ],
    "kind": "change",
    "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
-   "why": "Gauge panel release: a finished step replaces its form on the cards (Jason, 2026-11-23)",
+   "why": "Gauge panel release: the keys' Railway link as an icon (Jason, 2026-11-23)",
    "since": "2026-11-23T19:58:00Z",
-   "expires": "2026-11-24T00:21:35Z",
+   "expires": "2026-11-24T00:41:06Z",
    "release": "gauge-panel.zip",
    "callers": {}
   },
@@ -135,7 +137,7 @@
    "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
    "why": "Gauge panel as a drill-down, approved by Jason 2026-11-23 (handoffs/gauge-panel.md)",
    "since": "2026-11-23T19:59:17Z",
-   "expires": "2026-11-24T00:21:35Z",
+   "expires": "2026-11-24T00:23:56Z",
    "release": "gauge-panel.zip",
    "callers": {
     "summary": [
@@ -171,7 +173,7 @@
    "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
    "why": "Gauge panel release: a check's transport error read as the service's own words",
    "since": "2026-11-23T19:59:54Z",
-   "expires": "2026-11-24T00:21:35Z",
+   "expires": "2026-11-24T00:23:56Z",
    "release": "gauge-panel.zip",
    "callers": {}
   },
@@ -225,7 +227,7 @@
    "session": "session_01CXLi5jrE1f1iCSbBQssAAe",
    "why": "Order management M1: the state model and the board (research/order-management-design-2026-11-23.md \u00a76, decisions/0178 \u00a76)",
    "since": "2026-11-23T20:18:47Z",
-   "expires": "2026-11-24T00:20:33Z",
+   "expires": "2026-11-24T00:35:40Z",
    "release": "order-m1.zip",
    "callers": {
     "confirmReceived": [
@@ -252,7 +254,7 @@
    "session": "session_01CXLi5jrE1f1iCSbBQssAAe",
    "why": "Order management M1: the state model and the board (research/order-management-design-2026-11-23.md \u00a76, decisions/0178 \u00a76)",
    "since": "2026-11-23T20:18:47Z",
-   "expires": "2026-11-24T00:20:33Z",
+   "expires": "2026-11-24T00:35:40Z",
    "release": "order-m1.zip",
    "callers": {}
   },
@@ -266,7 +268,7 @@
    "session": "session_01CXLi5jrE1f1iCSbBQssAAe",
    "why": "Order management M1: the state model and the board (research/order-management-design-2026-11-23.md \u00a76, decisions/0178 \u00a76)",
    "since": "2026-11-23T20:18:47Z",
-   "expires": "2026-11-24T00:18:47Z",
+   "expires": "2026-11-24T00:35:40Z",
    "release": "order-m1.zip",
    "callers": {
     "tv_w_table": [
@@ -316,7 +318,7 @@
    "session": "session_01CXLi5jrE1f1iCSbBQssAAe",
    "why": "Order management M1: the state model and the board (research/order-management-design-2026-11-23.md \u00a76, decisions/0178 \u00a76)",
    "since": "2026-11-23T20:18:47Z",
-   "expires": "2026-11-24T00:20:33Z",
+   "expires": "2026-11-24T00:35:40Z",
    "release": "order-m1.zip",
    "callers": {
     "items": [
@@ -342,7 +344,7 @@
    "session": "session_01CXLi5jrE1f1iCSbBQssAAe",
    "why": "Order management M1: the state model and the board (research/order-management-design-2026-11-23.md \u00a76, decisions/0178 \u00a76)",
    "since": "2026-11-23T20:18:47Z",
-   "expires": "2026-11-24T00:20:33Z",
+   "expires": "2026-11-24T00:35:40Z",
    "release": "order-m1.zip",
    "callers": {
     "orders": [
@@ -389,9 +391,25 @@
    "session": "session_01CXLi5jrE1f1iCSbBQssAAe",
    "why": "Order management M1: the state model and the board (research/order-management-design-2026-11-23.md \u00a76, decisions/0178 \u00a76)",
    "since": "2026-11-23T20:18:47Z",
-   "expires": "2026-11-24T00:18:47Z",
+   "expires": "2026-11-24T00:35:40Z",
    "release": "order-m1.zip",
-   "callers": {}
+   "callers": {
+    "tv_command_strip": [
+     "app/admin/crawler-console.php",
+     "app/admin/legal-editor.php",
+     "website/admin/client-order.php",
+     "website/admin/content-template.php",
+     "website/admin/guide-edit.php"
+    ],
+    "fit": [
+     "app/admin/widgets.php",
+     "app/lib/CategoryClassifier.php",
+     "app/ui/app-shell.php",
+     "website/admin/router.php",
+     "website/js/admin-control.js",
+     "website/js/tv-moments.js"
+    ]
+   }
   },
   {
    "path": "website/admin/client-order.php",
@@ -400,7 +418,7 @@
    "session": "session_01CXLi5jrE1f1iCSbBQssAAe",
    "why": "Order management M1: the state model and the board (research/order-management-design-2026-11-23.md \u00a76, decisions/0178 \u00a76)",
    "since": "2026-11-23T20:18:47Z",
-   "expires": "2026-11-24T00:18:47Z",
+   "expires": "2026-11-24T00:35:40Z",
    "release": "order-m1.zip",
    "callers": {}
   },
@@ -411,7 +429,7 @@
    "session": "session_01CXLi5jrE1f1iCSbBQssAAe",
    "why": "Order management M1: the state model and the board (research/order-management-design-2026-11-23.md \u00a76, decisions/0178 \u00a76)",
    "since": "2026-11-23T20:18:47Z",
-   "expires": "2026-11-24T00:18:47Z",
+   "expires": "2026-11-24T00:35:40Z",
    "release": "order-m1.zip",
    "callers": {}
   },
@@ -422,7 +440,7 @@
    "session": "session_01CXLi5jrE1f1iCSbBQssAAe",
    "why": "Order management M1: the state model and the board (research/order-management-design-2026-11-23.md \u00a76, decisions/0178 \u00a76)",
    "since": "2026-11-23T20:18:47Z",
-   "expires": "2026-11-24T00:18:47Z",
+   "expires": "2026-11-24T00:35:40Z",
    "release": "order-m1.zip",
    "callers": {}
   },
@@ -433,7 +451,7 @@
    "session": "session_01CXLi5jrE1f1iCSbBQssAAe",
    "why": "Order management M1: the state model and the board (research/order-management-design-2026-11-23.md \u00a76, decisions/0178 \u00a76)",
    "since": "2026-11-23T20:18:47Z",
-   "expires": "2026-11-24T00:18:47Z",
+   "expires": "2026-11-24T00:35:40Z",
    "release": "order-m1.zip",
    "callers": {}
   },
@@ -444,7 +462,7 @@
    "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
    "why": "release gauge-panel.zip",
    "since": "2026-11-23T20:21:35Z",
-   "expires": "2026-11-24T00:21:35Z",
+   "expires": "2026-11-24T00:23:56Z",
    "release": "gauge-panel.zip",
    "callers": {}
   },
@@ -455,7 +473,7 @@
    "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
    "why": "release gauge-panel.zip",
    "since": "2026-11-23T20:21:35Z",
-   "expires": "2026-11-24T00:21:35Z",
+   "expires": "2026-11-24T00:23:56Z",
    "release": "gauge-panel.zip",
    "callers": {}
   },
@@ -466,7 +484,7 @@
    "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
    "why": "release gauge-panel.zip",
    "since": "2026-11-23T20:21:35Z",
-   "expires": "2026-11-24T00:21:35Z",
+   "expires": "2026-11-24T00:23:56Z",
    "release": "gauge-panel.zip",
    "callers": {}
   },
@@ -477,7 +495,56 @@
    "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
    "why": "release gauge-panel.zip",
    "since": "2026-11-23T20:21:35Z",
-   "expires": "2026-11-24T00:21:35Z",
+   "expires": "2026-11-24T00:23:56Z",
+   "release": "gauge-panel.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/workflows.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jrE1f1iCSbBQssAAe",
+   "why": "release order-m1.zip",
+   "since": "2026-11-23T20:22:30Z",
+   "expires": "2026-11-24T00:35:40Z",
+   "release": "order-m1.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/Workflow.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jrE1f1iCSbBQssAAe",
+   "why": "release order-m1.zip",
+   "since": "2026-11-23T20:22:30Z",
+   "expires": "2026-11-24T00:35:40Z",
+   "release": "order-m1.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/kit-css.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jrE1f1iCSbBQssAAe",
+   "why": "release order-m1.zip",
+   "since": "2026-11-23T20:22:30Z",
+   "expires": "2026-11-24T00:35:40Z",
+   "release": "order-m1.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/SignIns.php",
+   "functions": [
+    "(top)",
+    "canUndo",
+    "set",
+    "undo"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
+   "why": "Gauge panel release: Edit for records, icons with titles on the card (Jason, 2026-11-23)",
+   "since": "2026-11-23T20:27:40Z",
+   "expires": "2026-11-24T00:38:14Z",
    "release": "gauge-panel.zip",
    "callers": {}
   }
