@@ -1,0 +1,18 @@
+{
+ "zip": "control-board-health.zip",
+ "built_on": "791f665 Sync: 2026-11-23 00:15 UTC",
+ "recorded": "2026-11-23 00:22 UTC",
+ "note": "The board's daily consistency check in the health report (control-board-plan.md step 5). Built on Sync: 2026-11-23 00:15 UTC. Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/ControlConsistency.php": {
+   "sha256": "fe7ebce634650daf3aec831157d06c1515360c9b4b0ff4cd68e237fd00bfe63e",
+   "live": false
+  },
+  "website/api/health.php": {
+   "sha256": "b1ee2efd8f70b0261ec7afaba15be8101fbce8974db579c756dd50645cc6d9e7",
+   "live": false
+  }
+ }
+}
