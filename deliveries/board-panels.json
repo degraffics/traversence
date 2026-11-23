@@ -3,40 +3,40 @@
  "built_on": "368b89b Sync: 2026-11-23 04:13 UTC",
  "recorded": "2026-11-23 13:27 UTC",
  "note": "The panel fix: one panel at a time in the admin's drawers, Copy all, panels titled by the part; built on Sync 04:13 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "8b3ea37 Sync: 2026-11-23 13:42 UTC",
  "files": {
   "app/admin/control-console.php": {
    "sha256": "ef6c4f17e948d23b79fc82362251bbfd1626a4bf7e0922108e03667d20f66280",
-   "live": false
+   "live": true
   },
   "app/admin/operations-console.php": {
    "sha256": "0a88b6938fa3f0270173f210dd7da8eb15e018964575d3156f9aa5c435785461",
-   "live": false
+   "live": true
   },
   "app/admin/tools.php": {
    "sha256": "c5c3ee6107813c95869b327d790f0791908d8a56e57a79c9b9f3bade46510aec",
-   "live": false
+   "live": true
   },
   "app/lib/Operations.php": {
    "sha256": "75b164f98337ff2ffc365b83b9ccea8046701298ab1d631d8a81349a32d08abe",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "916da33d07c6fbf7a0dcf9ab4843cdd5d3051c32e14163211f0039d888046df9",
-   "live": false
+   "live": true
   },
   "website/js/admin-kit.js": {
    "sha256": "10a391fa5682a888af6be292b183f177e992d168b48a31b9348595edacd2805f",
-   "live": false
+   "live": true
   },
   "website/js/tv-ask.js": {
    "sha256": "8d7e53a8c1b047deb3cf3ca0d03f3e97c6b46912382dbe66fd4b39b5e8aab9d0",
-   "live": false
+   "live": true
   },
   "website/js/tv-copy.js": {
    "sha256": "09c45aca18123d81e473f4d8a0e50c027da66a2ea29171d87495b25b74eb2115",
-   "live": false
+   "live": true
   }
  }
 }
