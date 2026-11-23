@@ -374,7 +374,7 @@
    "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
    "why": "Orders release A: ordering ironclad (Jason, 2026-11-23; research/ordering-ironclad-2026-11-23.md, decisions/0177)",
    "since": "2026-11-23T15:50:43Z",
-   "expires": "2026-11-23T20:03:46Z",
+   "expires": "2026-11-23T20:07:36Z",
    "release": "orders-release-a.zip",
    "callers": {}
   },
@@ -388,7 +388,7 @@
    "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
    "why": "Orders release A: ordering ironclad (Jason, 2026-11-23; research/ordering-ironclad-2026-11-23.md, decisions/0177)",
    "since": "2026-11-23T15:50:46Z",
-   "expires": "2026-11-23T20:03:46Z",
+   "expires": "2026-11-23T20:07:36Z",
    "release": "orders-release-a.zip",
    "callers": {}
   },
@@ -401,7 +401,7 @@
    "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
    "why": "Orders release A: ordering ironclad (Jason, 2026-11-23; research/ordering-ironclad-2026-11-23.md, decisions/0177)",
    "since": "2026-11-23T15:50:50Z",
-   "expires": "2026-11-23T20:03:46Z",
+   "expires": "2026-11-23T20:07:36Z",
    "release": "orders-release-a.zip",
    "callers": {}
   },
@@ -415,7 +415,7 @@
    "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
    "why": "Orders release A: ordering ironclad (Jason, 2026-11-23; research/ordering-ironclad-2026-11-23.md, decisions/0177)",
    "since": "2026-11-23T15:50:53Z",
-   "expires": "2026-11-23T20:03:46Z",
+   "expires": "2026-11-23T20:07:36Z",
    "release": "orders-release-a.zip",
    "callers": {
     "tv_w_section": [
@@ -437,7 +437,7 @@
    "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
    "why": "Orders release A: ordering ironclad (Jason, 2026-11-23; research/ordering-ironclad-2026-11-23.md, decisions/0177)",
    "since": "2026-11-23T15:50:57Z",
-   "expires": "2026-11-23T20:03:46Z",
+   "expires": "2026-11-23T20:07:36Z",
    "release": "orders-release-a.zip",
    "callers": {
     "tv_qb_merge_box": [
@@ -464,7 +464,7 @@
    "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
    "why": "Orders release A: ordering ironclad (Jason, 2026-11-23; research/ordering-ironclad-2026-11-23.md, decisions/0177)",
    "since": "2026-11-23T15:51:00Z",
-   "expires": "2026-11-23T20:03:46Z",
+   "expires": "2026-11-23T20:07:36Z",
    "release": "orders-release-a.zip",
    "callers": {
     "dueNow": [
@@ -510,7 +510,7 @@
    "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
    "why": "Orders release A: ordering ironclad (Jason, 2026-11-23; research/ordering-ironclad-2026-11-23.md, decisions/0177)",
    "since": "2026-11-23T15:51:04Z",
-   "expires": "2026-11-23T20:03:46Z",
+   "expires": "2026-11-23T20:07:36Z",
    "release": "orders-release-a.zip",
    "callers": {
     "merge": [
@@ -532,7 +532,7 @@
    "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
    "why": "Orders release A: ordering ironclad (Jason, 2026-11-23; research/ordering-ironclad-2026-11-23.md, decisions/0177)",
    "since": "2026-11-23T15:51:06Z",
-   "expires": "2026-11-23T20:03:46Z",
+   "expires": "2026-11-23T20:07:36Z",
    "release": "orders-release-a.zip",
    "callers": {
     "decide": [
@@ -553,7 +553,7 @@
    "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
    "why": "Orders release A: ordering ironclad (Jason, 2026-11-23; research/ordering-ironclad-2026-11-23.md, decisions/0177)",
    "since": "2026-11-23T15:51:08Z",
-   "expires": "2026-11-23T20:03:46Z",
+   "expires": "2026-11-23T20:07:36Z",
    "release": "orders-release-a.zip",
    "callers": {
     "cancelUnpaid": [
@@ -572,7 +572,7 @@
    "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
    "why": "Orders release A: ordering ironclad (Jason, 2026-11-23; research/ordering-ironclad-2026-11-23.md, decisions/0177)",
    "since": "2026-11-23T15:51:10Z",
-   "expires": "2026-11-23T20:03:46Z",
+   "expires": "2026-11-23T20:07:36Z",
    "release": "orders-release-a.zip",
    "callers": {
     "cancelMine": [
@@ -589,7 +589,7 @@
    "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
    "why": "Orders release A: ordering ironclad (Jason, 2026-11-23; research/ordering-ironclad-2026-11-23.md, decisions/0177)",
    "since": "2026-11-23T15:51:12Z",
-   "expires": "2026-11-23T20:03:46Z",
+   "expires": "2026-11-23T20:07:36Z",
    "release": "orders-release-a.zip",
    "callers": {
     "invoiceFor": [
@@ -604,7 +604,7 @@
    "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
    "why": "Orders release A: ordering ironclad (Jason, 2026-11-23; research/ordering-ironclad-2026-11-23.md, decisions/0177)",
    "since": "2026-11-23T15:51:14Z",
-   "expires": "2026-11-23T20:03:46Z",
+   "expires": "2026-11-23T20:07:36Z",
    "release": "orders-release-a.zip",
    "callers": {}
   },
@@ -615,7 +615,7 @@
    "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
    "why": "Orders release A: ordering ironclad (Jason, 2026-11-23; research/ordering-ironclad-2026-11-23.md, decisions/0177)",
    "since": "2026-11-23T15:51:16Z",
-   "expires": "2026-11-23T20:03:46Z",
+   "expires": "2026-11-23T20:07:36Z",
    "release": "orders-release-a.zip",
    "callers": {}
   },
@@ -626,7 +626,7 @@
    "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
    "why": "Orders release A: ordering ironclad (Jason, 2026-11-23; research/ordering-ironclad-2026-11-23.md, decisions/0177)",
    "since": "2026-11-23T15:51:18Z",
-   "expires": "2026-11-23T20:03:46Z",
+   "expires": "2026-11-23T20:07:36Z",
    "release": "orders-release-a.zip",
    "callers": {}
   },
@@ -637,7 +637,7 @@
    "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
    "why": "Orders release A: ordering ironclad (Jason, 2026-11-23; research/ordering-ironclad-2026-11-23.md, decisions/0177)",
    "since": "2026-11-23T15:51:20Z",
-   "expires": "2026-11-23T20:03:46Z",
+   "expires": "2026-11-23T20:07:36Z",
    "release": "orders-release-a.zip",
    "callers": {}
   },
@@ -648,7 +648,7 @@
    "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
    "why": "Orders release A: ordering ironclad (Jason, 2026-11-23; research/ordering-ironclad-2026-11-23.md, decisions/0177)",
    "since": "2026-11-23T15:51:22Z",
-   "expires": "2026-11-23T20:03:46Z",
+   "expires": "2026-11-23T20:07:36Z",
    "release": "orders-release-a.zip",
    "callers": {}
   },
@@ -661,7 +661,7 @@
    "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
    "why": "Orders release A: ordering ironclad (Jason, 2026-11-23; research/ordering-ironclad-2026-11-23.md, decisions/0177)",
    "since": "2026-11-23T15:51:25Z",
-   "expires": "2026-11-23T20:03:46Z",
+   "expires": "2026-11-23T20:07:36Z",
    "release": "orders-release-a.zip",
    "callers": {}
   },
@@ -672,7 +672,7 @@
    "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
    "why": "release orders-release-a.zip",
    "since": "2026-11-23T15:52:23Z",
-   "expires": "2026-11-23T20:03:46Z",
+   "expires": "2026-11-23T20:07:36Z",
    "release": "orders-release-a.zip",
    "callers": {}
   },
@@ -683,7 +683,7 @@
    "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
    "why": "release orders-release-a.zip",
    "since": "2026-11-23T15:52:23Z",
-   "expires": "2026-11-23T20:03:46Z",
+   "expires": "2026-11-23T20:07:36Z",
    "release": "orders-release-a.zip",
    "callers": {}
   },
@@ -694,7 +694,7 @@
    "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
    "why": "release orders-release-a.zip",
    "since": "2026-11-23T15:52:23Z",
-   "expires": "2026-11-23T20:03:46Z",
+   "expires": "2026-11-23T20:07:36Z",
    "release": "orders-release-a.zip",
    "callers": {}
   },
@@ -705,7 +705,7 @@
    "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
    "why": "release orders-release-a.zip",
    "since": "2026-11-23T15:52:23Z",
-   "expires": "2026-11-23T20:03:46Z",
+   "expires": "2026-11-23T20:07:36Z",
    "release": "orders-release-a.zip",
    "callers": {}
   },
@@ -716,7 +716,7 @@
    "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
    "why": "release orders-release-a.zip",
    "since": "2026-11-23T15:52:23Z",
-   "expires": "2026-11-23T20:03:46Z",
+   "expires": "2026-11-23T20:07:36Z",
    "release": "orders-release-a.zip",
    "callers": {}
   },
@@ -729,8 +729,27 @@
    "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
    "why": "Orders release A: ordering ironclad (Jason, 2026-11-23; the design review: one notices box carries its fix)",
    "since": "2026-11-23T16:07:33Z",
-   "expires": "2026-11-23T20:07:33Z",
-   "release": "",
+   "expires": "2026-11-23T20:07:36Z",
+   "release": "orders-release-a.zip",
+   "callers": {
+    "tv_command_strip": [
+     "app/admin/crawler-console.php",
+     "app/admin/legal-editor.php",
+     "website/admin/client-order.php",
+     "website/admin/content-template.php",
+     "website/admin/guide-edit.php"
+    ]
+   }
+  },
+  {
+   "path": "website/js/tv-ask.js",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
+   "why": "release orders-release-a.zip",
+   "since": "2026-11-23T16:07:36Z",
+   "expires": "2026-11-23T20:07:36Z",
+   "release": "orders-release-a.zip",
    "callers": {}
   }
  ],
