@@ -234,6 +234,94 @@
    "expires": "2026-11-23T20:09:58Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/admin/tools.php",
+   "functions": [
+    "tv_order_next_step"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
+   "why": "Collect the balance on an order out the door (session manager's review of #270)",
+   "since": "2026-11-23T19:07:43Z",
+   "expires": "2026-11-23T23:26:37Z",
+   "release": "collect-balance.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/command-strip.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
+   "why": "Collect the balance on an order out the door (session manager's review of #270)",
+   "since": "2026-11-23T19:07:45Z",
+   "expires": "2026-11-23T23:07:45Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/command-strip.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
+   "why": "release collect-balance.zip",
+   "since": "2026-11-23T19:08:14Z",
+   "expires": "2026-11-23T23:26:37Z",
+   "release": "collect-balance.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/admin/client-order.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
+   "why": "Collect the balance: the payment hold said once on the order page (Design reviewer, 2026-11-23)",
+   "since": "2026-11-23T19:15:24Z",
+   "expires": "2026-11-23T23:26:37Z",
+   "release": "collect-balance.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ClientOrders.php",
+   "functions": [
+    "completeHold",
+    "completeOwed"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
+   "why": "Collect the balance: Complete the order waits for the money, or an admin's override with a reason (session manager and Design reviewer on #1307)",
+   "since": "2026-11-23T19:26:27Z",
+   "expires": "2026-11-23T23:26:27Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/workflows.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
+   "why": "Collect the balance: Complete the order waits for the money, or an admin's override with a reason (session manager and Design reviewer on #1307)",
+   "since": "2026-11-23T19:26:30Z",
+   "expires": "2026-11-23T23:26:37Z",
+   "release": "collect-balance.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ClientOrders.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
+   "why": "release collect-balance.zip",
+   "since": "2026-11-23T19:26:37Z",
+   "expires": "2026-11-23T23:26:37Z",
+   "release": "collect-balance.zip",
+   "callers": {}
   }
  ],
  "lapsed": [

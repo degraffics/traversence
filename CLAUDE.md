@@ -255,6 +255,14 @@ A step doable from the case is a button that does it (`['do', …]` / `['form', 
 needing an outside service (Railway, QuickBooks, AWS, Cloudflare…) carries its link (`Pulse::SERVICES`, the step's
 `ext`); never "go to Railway" without it. One case per kind of chore, a step per item.
 
+## Every action is a task: see it, do it, confirmed, next (Jason, 2026-11-23): every page
+
+Anything that needs someone to act follows four steps: 1. **See the task** (the issue and its evidence, in place);
+2. **Do the task** (one button that does it, where it's shown); 3. **Done and confirmed** (the result checked, the
+status shown in place of the form, Undo beside it; an issue clears itself when its check passes, never by a "mark done"
+or sign-off); 4. **The next step** (what follows, as its own button). No accounting-only buttons, no form left open
+after it's done, no notice repeating the new state.
+
 ## No browser dialogs; one look for notices (`js/tv-ask.js`): every page
 
 Never `alert()`, `confirm()` or `prompt()`.
