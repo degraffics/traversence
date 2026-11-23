@@ -1,0 +1,22 @@
+{
+ "zip": "board-fixes-5.zip",
+ "built_on": "a71303b Sync: 2026-11-23 18:40 UTC",
+ "recorded": "2026-11-23 18:55 UTC",
+ "note": "Restores board-fixes-4's (#269) changes to kit-css.php, tools.php and faq.md, overwritten by #270 a minute later; built on Sync 18:40 UTC (a71303b), every #270 line kept Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/kit-css.php": {
+   "sha256": "f762819310852c155239a865e6e65c39a740e9caad1fa7be256e3dee44a66050",
+   "live": false
+  },
+  "app/admin/tools.php": {
+   "sha256": "6279b6ad2610f58dc4fd70c989a72cbd8f5d513d22f2ec5c3391cfa2efc27c8b",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "2de80c421db37a137a2458cbdade8e62c5342e65446eeaa5e4d4a61eff0da5bb",
+   "live": false
+  }
+ }
+}

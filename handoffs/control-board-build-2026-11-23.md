@@ -20,9 +20,15 @@ come before Jason's pop-up.
 | #268 | board-view-3.zip | `handoffs/board-view/` (+ `.md`, `board-view-proof/`) | The opening view: rail (Development · Board · Modules · Workflows · Diagnostics), What's wrong now chips, Board alone, Development its own page, one part in the panel, the drawer's Back and margin, gauge titles whole |
 | #269 | board-fixes-4.zip | `handoffs/board-fixes/` (+ `.md`, `board-fixes-proof/`) | Jobs and words: upkeep once an hour, the lateness check on each job's cron line, refused starts kept, health.php's jobs section (`jobs.json` daily), old titles redrawn, short alarm titles with one labelled UTC time and one fix, Google's Signs in as, the Sync chip. Live 18:37 UTC; Jason approved in the pop-up after the Design reviewer and the session manager |
 
-## Held
+## Held: board-fixes-5, restoring #269's three files (`releases/inbox/board-fixes-5.zip`)
 
-Nothing. Release 2 is live (#269); its claims end with its byte-check.
+#269 and #270 (Orders release A) went live a minute apart. #270 was built before #269 and carried `app/admin/kit-css.php`,
+`app/admin/tools.php` and `app/ui/faq.md`, so after Sync 18:40 UTC (a71303b) those three hold #270's copies and #269's
+changes to them are gone; its other nine files are live byte for byte. board-fixes-5 starts from the live copies and
+re-applies only #269's changes (a three-way merge with no conflicts; every #270 line kept, checked line by line). It was
+tested on a bench built from a71303b: board-panels 43/43, board-opening 64/64. Proof:
+`handoffs/board-fixes-proof/restore-alarm-drawer-{1280,390}.png`. It goes to the Design reviewer, the session manager
+and Jason ("Restores three files the orders release overwrote"); once live, byte-check all three against the mirror.
 
 ## Next, in order
 
