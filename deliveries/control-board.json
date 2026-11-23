@@ -3,180 +3,180 @@
  "built_on": "6b67f7e Sync: 2026-11-22 23:26 UTC",
  "recorded": "2026-11-23 00:11 UTC",
  "note": "The System Control Board as one release (handoffs/control-board-build.md, step 4): the one engine, the board's views, D1-D23. Approved by Jason in the pop-up (reviewed by the session manager). Built on Sync: 2026-11-22 23:26 UTC. Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "791f665 Sync: 2026-11-23 00:15 UTC",
  "files": {
   "app/admin/automation-console.php": {
    "sha256": "c775be1149a88d247e8cff596c7fe35066919838d3a1d7e598aba436bae2bfc1",
-   "live": false
+   "live": true
   },
   "app/admin/control-console.php": {
    "sha256": "c42842a89b2150a19253fa1839856c10b0599357f1aea708c00c9c0b4368217a",
-   "live": false
+   "live": true
   },
   "app/admin/module-cards.php": {
    "sha256": "fed2330568eef413d43b4daed619641ccfb394a5067306fdedb69b94d0eb7285",
-   "live": false
+   "live": true
   },
   "app/admin/operations-console.php": {
    "sha256": "200237d4108fb3b8ce2c2a7398b1aedbb6f09eccef947e8751a95a316be15dd5",
-   "live": false
+   "live": true
   },
   "app/admin/preflight-console.php": {
    "sha256": "4252cc6c35aec8708d643ceb4f05744b63e4802d85c1bdad3bf5a88cc838b511",
-   "live": false
+   "live": true
   },
   "app/lib/Automation.php": {
    "sha256": "bc7df1a5a357e302b0f5a2b28b85464f84075a67dcf9b3cee461a969293de742",
-   "live": false
+   "live": true
   },
   "app/lib/Captcha.php": {
    "sha256": "bbd0d692d6abd84b97147db84c1c886324129c41c5110d9b65f6a6def6105737",
-   "live": false
+   "live": true
   },
   "app/lib/ControlAlarms.php": {
    "sha256": "7700e1a8cc0caf14df002858f0ed99e1a8aa923d138351f8ca7386e01fdc054d",
-   "live": false
+   "live": true
   },
   "app/lib/ControlBoard.php": {
    "sha256": "27b4fc99e5967f6a575b99771957fa3354168b9b3c334b84576bf97f1fb08f81",
-   "live": false
+   "live": true
   },
   "app/lib/ControlEngine.php": {
    "sha256": "5d835e03f18e784c0373b6f475e78cd58cb9f3989094c1f8043896176d748868",
-   "live": false
+   "live": true
   },
   "app/lib/ControlGauges.php": {
    "sha256": "8eb4c0a9d12520542c99571629048679575bb632585eb22ea8bfdf9a226a5fcd",
-   "live": false
+   "live": true
   },
   "app/lib/ControlIncidents.php": {
    "sha256": "6bc627510ace06772ecfe460bd308a2aa88e1e937878ebb0fd9d1b7415b54b2d",
-   "live": false
+   "live": true
   },
   "app/lib/ControlLedger.php": {
    "sha256": "d38862945a236012c0a3fe5fbbf9f50d8219f27d01e7aac24e8622672f90c2fd",
-   "live": false
+   "live": true
   },
   "app/lib/ControlMaintenance.php": {
    "sha256": "2db35c9180c21a5cbfd5e82a01fe49a1e80dbb20959de62ea788ebff4330a45f",
-   "live": false
+   "live": true
   },
   "app/lib/ControlReport.php": {
    "sha256": "4fa9752082f7e8f3ac53fbf875462e649008c0dde2a1bcb09b213c6cf7960478",
-   "live": false
+   "live": true
   },
   "app/lib/Gemini.php": {
    "sha256": "dd5a2de4dbfa7831edacbbfe95919edb515972d4701e96c14623ee3bc54afe5b",
-   "live": false
+   "live": true
   },
   "app/lib/Notify.php": {
    "sha256": "02da765c5ff95d3f9dbf7f9905b8d00239ebaa15b02e2dacb4aadee3b5e20961",
-   "live": false
+   "live": true
   },
   "app/lib/Preflight.php": {
    "sha256": "a068cfa86ac683597f298a9a23b444fcd793561e2d17c3efb6f612382b5ce364",
-   "live": false
+   "live": true
   },
   "app/lib/Pulse.php": {
    "sha256": "3f99ff201f8ae6d0f90e5cbd3ed0479819217902e240d1460ef8e9986fa81157",
-   "live": false
+   "live": true
   },
   "app/lib/ServiceHealth.php": {
    "sha256": "0d9e581c97a8c309bf3c268adf116538ec86a9583b69efe47d3b63115f1d48c1",
-   "live": false
+   "live": true
   },
   "app/lib/ServiceStages.php": {
    "sha256": "2e3f1438acb08d62954a9f09100b4cff77713eb2890409de0047262f7b0a6cb0",
-   "live": false
+   "live": true
   },
   "app/lib/SiteHealth.php": {
    "sha256": "ea9e34a056cf4cb9df7e25b4505867a9d7201c43e2f7f44fb9f9bf2be547747b",
-   "live": false
+   "live": true
   },
   "app/lib/SystemStart.php": {
    "sha256": "10e01ce9492b634fb9adfbe951c009eea1481683ffd24ecbae39f3ed78bedd06",
-   "live": false
+   "live": true
   },
   "app/lib/Thresholds.php": {
    "sha256": "6e12a08bdc38d9be9761568d7d7393d08b91f486fd357268f15c731b6515af4e",
-   "live": false
+   "live": true
   },
   "app/lib/crawler/CrawlService.php": {
    "sha256": "2f6bd0e9f01ea595b9b44948dde24941aa54d176b57d092b477347cf2b7dea00",
-   "live": false
+   "live": true
   },
   "app/lib/crawler/IrsBulk.php": {
    "sha256": "17e8d564be0e9d9c08528bbb34cc02a204dead0c7dda51754c3866778190d5d5",
-   "live": false
+   "live": true
   },
   "app/lib/crawler/NpiBulk.php": {
    "sha256": "7f61a10c1f0a5e5c1e794b6cd6cede859b8d1b8af927216a73a7d0e8fb9b2fb4",
-   "live": false
+   "live": true
   },
   "app/lib/service-defs.php": {
    "sha256": "c936833282aadff48b9cfe39e01dd27d0480927322b2586db55466e9ca700aad",
-   "live": false
+   "live": true
   },
   "app/lib/staging-tables.php": {
    "sha256": "115cf27b3eec2c7d4ee4c71626f04647b6343f521e7a6b4e3d857fda06bb09d6",
-   "live": false
+   "live": true
   },
   "app/migrations/2026-12-01_control_engine.sql": {
    "sha256": "e00debd46686b4f1505eabd78172fd5bdd234382dc66b2c09675594a75a7239b",
-   "live": false
+   "live": true
   },
   "app/migrations/2026-12-01_control_incidents.sql": {
    "sha256": "37a1e4d4d045f419088e3a07f236ef2979f7c008df79e2fafaf87e70adc896b8",
-   "live": false
+   "live": true
   },
   "app/migrations/2026-12-01_npi_switch.sql": {
    "sha256": "960a02db0e273ff37eb5c01485161da43440e15e88c63b7fb9c998fa9ddf5ab0",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "33f740f827c6f5a9714eff5a11f7042bd9ac4548c37a6b758222c246ebcf0bf9",
-   "live": false
+   "live": true
   },
   "app/ui/outside-services.php": {
    "sha256": "1a291c2aa1621b23d6020e7c151ac776454e8187d65617c9469d351854230b35",
-   "live": false
+   "live": true
   },
   "app/ui/score-gauge.php": {
    "sha256": "8cb359721eebd3d45621358f5bba7f621ec89a128d907fe8214622b2e9d9e551",
-   "live": false
+   "live": true
   },
   "website/admin/api.php": {
    "sha256": "3fc81c7d68ae30b466e72a6f6921ca547a9a1454352a6bad86f1a396b4a9c421",
-   "live": false
+   "live": true
   },
   "website/admin/api/data.php": {
    "sha256": "73aff3255cd440fa83dfc7fedf9ed4af915c8ec4b7e61b87c009133d87dc920d",
-   "live": false
+   "live": true
   },
   "website/admin/crawler.php": {
    "sha256": "bd6249ce3885f8fbfbdb51e58313d1c5a90beb606a1a51d8bf4d4ac76211ee66",
-   "live": false
+   "live": true
   },
   "website/admin/data.php": {
    "sha256": "cb295fd850dda29b3328ae8e783cfa449ec0786f570469187adc896b823a69f8",
-   "live": false
+   "live": true
   },
   "website/api/crawl/_auth.php": {
    "sha256": "f024ed40980869fcb8cebe74198b7673ee14ea464cce282dae512ab5aff26e74",
-   "live": false
+   "live": true
   },
   "website/api/crawl/irs.php": {
    "sha256": "740547607fb6bc04dc9de595a35fc72dad7b432811e0ff7336541990dea3107d",
-   "live": false
+   "live": true
   },
   "website/js/admin-control.js": {
    "sha256": "15b55bf4c2364daff7625148b02825e5351a18e874aee3aea2a5655745fe9845",
-   "live": false
+   "live": true
   },
   "website/js/tv-copy.js": {
    "sha256": "db4dcbbfb921d0d401edacbeac4c0232633aa82041c49817a9423d6738b5b20f",
-   "live": false
+   "live": true
   }
  }
 }
