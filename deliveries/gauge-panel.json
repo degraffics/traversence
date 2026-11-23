@@ -3,68 +3,68 @@
  "built_on": "8a94377 Sync: 2026-11-23 19:36 UTC",
  "recorded": "2026-11-23 20:49 UTC",
  "note": "The gauge panel as a drill-down (approved by Jason 2026-11-23 20:43 UTC): each item one task, Fix it and its line, cleared by its check; Approve the scope and the target; the service cards' records with Edit and History, action icons; Retire it as a button; the Library of Congress title. Built on Sync 19:36 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "d889f6c Sync: 2026-11-23 20:53 UTC",
  "files": {
   "app/admin/control-console.php": {
    "sha256": "c646dbb0d538fdd940b6e86ff0f386e7209cdb2299793d2b0acde5dc942ea915",
-   "live": false
+   "live": true
   },
   "app/admin/module-cards.php": {
    "sha256": "5e5f6224a705ec557b0800c23fd95b00eb0a1fced1c79e827aac69e7d998efc3",
-   "live": false
+   "live": true
   },
   "app/admin/operations-console.php": {
    "sha256": "fe3a7d915cbf7e7f26d36fc9a7f98aaae24028759dd43d5c9727e401d98eb16b",
-   "live": false
+   "live": true
   },
   "app/lib/ControlAlarms.php": {
    "sha256": "e67be2f967718c362ae7e1860e5c97270fd1207f70350a5331bf285f0bf723bd",
-   "live": false
+   "live": true
   },
   "app/lib/ControlGauges.php": {
    "sha256": "d7cf9e53dee3e84cb0ba2bcc187805be8b6b5ad3e17a44de0c08e22dcf97795d",
-   "live": false
+   "live": true
   },
   "app/lib/GaugeTasks.php": {
    "sha256": "b0a72156ee7e9402e87214f8b1fdbbdd5e32eb704bd089b19814947f8225de62",
-   "live": false
+   "live": true
   },
   "app/lib/Preflight.php": {
    "sha256": "803f52e1c79ba83c7536f462cffef187b4dd29c90b2d1e30d5bc4cc71d8280c7",
-   "live": false
+   "live": true
   },
   "app/lib/ServiceHealth.php": {
    "sha256": "ec30b92630afb255039488bb20e61712eec4bf78115ce9e906e73a88c0f8178e",
-   "live": false
+   "live": true
   },
   "app/lib/SignIns.php": {
    "sha256": "97540dfd4ce33c505ed594e9c6f0f0f53799be34b3e57de0f02f9d357a91b65e",
-   "live": false
+   "live": true
   },
   "app/lib/staging-tables.php": {
    "sha256": "fc8c7b6c888a56619b030278f56c264fddcb18bba2fc4e4609629c7903d0e6ca",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "34ff2cdcd3d39989113d5c2ef3cbc897251892dc3781d1b831e1556f1c44e94c",
-   "live": false
+   "live": true
   },
   "app/ui/outside-services.php": {
    "sha256": "2a8841787fb54ddfc7bc2aa20d7f45c1ec7e1dc005bb56d0bbb5ebd2abeb14c1",
-   "live": false
+   "live": true
   },
   "website/admin/api.php": {
    "sha256": "c24207c067871cd4af319b731e8e0a2af7ba04e77be0e330a99a5e755bd63601",
-   "live": false
+   "live": true
   },
   "website/api/health.php": {
    "sha256": "73da7eec76e5767b77611a2bf8c6011093a7ee4fdd42e09460ff22dd9e234ad3",
-   "live": false
+   "live": true
   },
   "website/js/admin-control.js": {
    "sha256": "11dea999b8c645388642e42f61978d5f3169d4c9ce15e9bd7f397aebef79f746",
-   "live": false
+   "live": true
   }
  }
 }
