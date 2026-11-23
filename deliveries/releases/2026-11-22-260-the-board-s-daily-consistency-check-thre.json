@@ -1,0 +1,39 @@
+{
+    "id": 260,
+    "title": "The board's daily consistency check: three sections in the health report (every alarm's words on the board, in Pulse and on its card; the ledger's 24 hours; the",
+    "why": "handoffs/control-board-plan.md step 5 (a daily consistency check on live: each open alarm's hold, words and Fix it match the map), built on the existing health report as the session manager asked (2026-11-23): (1) consistency: app/lib/ControlConsistency.php draws each alarm on the board's row, its Pulse item and its module card and checks its title, status, plain names, time tokens, Fix it and its Incident Report, the same code the bench's scenario test runs; (2) ledger: worker calls over 24 hours by endpoint and workflow (D6's read); (3) irs_loads: each load's rows and removed (C15). Read by GitHub's daily health job into site-audit/results/consistency.json; no Pulse case, no email.",
+    "proposals": "",
+    "zip": "control-board-health.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/lib/ControlConsistency.php": {
+            "sha": "fe7ebce634650daf3aec831157d06c1515360c9b4b0ff4cd68e237fd00bfe63e",
+            "size": 9249,
+            "live_was": null
+        },
+        "website/api/health.php": {
+            "sha": "b1ee2efd8f70b0261ec7afaba15be8101fbce8974db579c756dd50645cc6d9e7",
+            "size": 24742,
+            "live_was": "c896b1f7fc420047400fd68e406c4bd0fc95fdbf018b5b2b8d141813ee984faa"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-23T00:41:11+00:00",
+            "by": 0,
+            "msg": "Uploaded control-board-health.zip: 2 files."
+        }
+    ]
+}
