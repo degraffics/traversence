@@ -1,0 +1,130 @@
+# The gauge panel as a drill-down (Control Board build session, 2026-11-23): mockup for review
+
+Session `session_01CXLi5hL7DpeN9WxT3oMXQK` took over from `session_01CXLi5iMkDf1xiJ4V9rScRe` (`handoffs/control-board-build-2026-11-23.md`,
+Next §1). Built on Sync 19:01 UTC (130f41a). Data: `gauges-items.json` of 2026-11-23 14:39 UTC. **A mockup only: nothing
+here is sent or live.**
+
+## The ask
+
+- Jason: "The gauge opened side panel and presents a ton of overwhelming text. I want a visual drill down into things I can
+  act on." And: "every single listed item is a dead end."
+- The session manager's shape (2026-11-23): the gauge, its stage and "What moves it: N things"; one stacked bar by status,
+  each segment filtering the list; "What you can do", 3–5 cards with one button each; items as compact rows with 6 dots,
+  opening in place with pass/fail chips and the three paths; sources behind a Details fold. Every item and reading leads
+  somewhere you can act. Applied to every gauge panel, runtime gauges included, with a rendered test that nothing is inert.
+
+## The mockup
+
+`handoffs/gauge-panel/mockup.html` (drawn by `gen.py` from the real files; open it in a browser). Screens:
+`dev-1280.png`, `dev-390.png` (Discovery), `dev-{1280,390}-fail-open.png` (filtered to Failing, one row open),
+`dev-{1280,390}-finding.png` (a failing check opened in place, with Back), `rt-{1280,390}.png` (Search finds what they came
+for). No sideways scroll at 390 (scrollWidth 390); 1280 likewise.
+
+### A development gauge (Discovery, 30 things)
+
+1. **Top:** the dial, its stage pill, "What moves it: 30 things", and the draft preview in words ("44% once you sign off the
+   draft").
+2. **One bar** of the 30 by where each stands, in the lifecycle's order (gauge-lifecycle.md §3: an item sits where its
+   earliest unmet criterion is). Each segment and its legend chip is a button that filters the list; pressed again, all.
+   - **Failing a check** (amber; 3): a check ran and failed, or an open finding.
+   - **Not built yet** (taupe; 6): decided, or built and held.
+   - **Awaiting your sign-off** (copper; 20): live and audited, "reviewed" waits only for Jason (§8 decided 2).
+   - **Needs a check built** (river blue; 1): signed off, but a check it needs doesn't exist yet.
+   - **Live and checked** (sage; 0 today).
+   - No red: css-theme-brand.md §2 keeps System Red for trips and halting failures; a build gauge's failing check is amber.
+3. **What you can do:** up to five cards, one sentence and one button: Sign off the scope; Show the 3 failing; Review the 20
+   awaiting sign-off; TOOLS isn't built and 23 wait on it → What it needs; Show the 6 not built.
+4. **The list,** what needs you first: each row its name (the link), 6 dots (decided · built · live · checked · reviewed ·
+   proved: filled met, amber failing, dashed no check yet, hatched awaiting sign-off, hollow not yet) and ▾.
+5. **A row opened in place:** one sentence of where it stands; a chip per check (passes ↗ its result; fails → its finding;
+   no check yet → what building it needs; partly built → what's missing); its one next action; Open the page; its row in
+   Site health; Workflows · Core Services · Registered Services; "Where this comes from" folded, every reference a link.
+6. **A finding or a check opens over the panel with ← Back** (one panel at a time, 0175 release 2a): a finding's detail,
+   its screenshot, paths blocked, Open the page, its fix route (the proposal), Send to a build, Mark fixed, Set aside; a
+   check's last run, what passes, when it runs, its full result; a check not built: what building it needs and where it is
+   in the queue.
+7. **Details** (folded): the gauges' files and the rule, as links. The three paths at the foot.
+
+### A runtime gauge (Search finds what they came for, Audit & Review, 2 of 4 setup steps)
+
+The same pattern: the dial and stage; "What moves it: 2 of 4 setup steps, then its reading"; a 4-part bar of its setup;
+What you can do (Approve the proposed target; See the failing cases; each Fix it's service card); its setup as rows, each
+with its action; its needs with each source a chip opening that service's card in the Service register; an unmapped line
+gets Send to a build in place of "association not mapped".
+
+## Every element and where it leads
+
+| Element | Leads to | Today |
+|---|---|---|
+| An item's name | the page itself, Peek (`data-peek-frame`) | **Gap:** `route` is set for 134 of 292 items. gauges.py adds it from pages.md's row (62 refs) and the admin manifests; else the name opens its source |
+| Its row in Site health | `#site-health-<id>` on the Development page | exists (tv_cb_site_health) |
+| A passing check chip | the check's result (scorecard.md, rendered.md, paths.md…) | exists (register `evidence`) |
+| A failing check chip | its finding (screenshot, fix route) | **Gap:** findings.json holds J/V/D findings; a RENDER, LAYOUT or SEARCH fail on an item has no finding id. gauges.py links each failing check to its finding, else to its report |
+| "no check yet: X" | X's register entry: what building it needs, its queue place | the register exists; **no queue place** (no session owns TOOLS, LOAD, PHOTOS-SHOWN, BRAND, AUDIT yet) |
+| An open finding | its evidence and fix route | exists (findings.json: shot_url, proposal_url) |
+| Awaiting sign-off | Sign off, in place | **new** (Q2) |
+| Not built / a failing finding / no check | Send to a build | **new** (Q1) |
+| Sign off the scope; Approve the target | written to the logbook, the gauge moves | **new**; source: gauge-lifecycle.md §3 (approved), §5 (proposal) (Q3) |
+| A runtime need's source | that service's card (`/admin/config/register#svc-…`) | exists |
+| An unmapped line | Send to a build (map it) | today "association not mapped", inert |
+| The three paths | the path panels (rows open their own page) | exists (tv_cb_path_panels) |
+
+## Today's panel: kept, moved, dropped
+
+- **Kept:** the dial and stage pill; the × and Esc and a click outside; the lazy-loaded detail (`?gauge=` fragment); the
+  three path buttons; Fix it links (as "What you can do" cards); "no check yet"; the draft preview (now in the top line);
+  Configure's four setup lines (runtime: now rows with actions).
+- **Moved:** Measure, Target, Trend and "What it counts" into Details; each item's source line into "Where this comes from"
+  as links; items by status (`<details>` per status) into the bar's filters.
+- **Dropped:** nothing, pending review.
+
+## Data defects the mockup found (fixed in gauges.py in the same release)
+
+1. **LAYOUT reads a stale failure.** The register and the gauges say "5px above the hero … (2026-11-21)", failing two
+   Discovery items; `site-audit/layout-probe.md` of 2026-11-23 10:20 UTC shows a 0px gap on the landmark, Discovery and
+   Parks. Words follow the state (playbook principle 4).
+2. **The step-3 register's latest lines are older than the gauges'** (SEARCH 101 of 106 there, 94 of 106 in
+   gauges-items.json). The panel reads gauges-items.json's `checks` only.
+3. **158 items have no route** and **failing checks have no finding id** (table above).
+
+## Questions (one review, then Jason once)
+
+- **Q1. Send to a build: what it does.** No decision states it. Proposed: it writes a request (the item, the gauge, the
+  reason, who pressed, when) to the board's logbook and shows "In a build: queued <time>" with Undo; health.php carries open
+  requests; the daily health fetch writes them to `site-audit/results/build-requests.json`; the session manager places each
+  in its working queue under the owning session (by area) and the row then names that session. Alternative: a Pulse step
+  for staff only (no build session reads Pulse).
+- **Q2. Sign off on an item: what it records.** Reviewed needs "his sign-off on record (a release approval, or his ruling on
+  the page's proposal)" (lifecycle §8 decided 2; 0145 §5 asks UI, UX and Functional approval on a release). Proposed: Sign
+  off in the panel is his ruling, written to the logbook with his name and time, Executive only (greyed with the reason for
+  others), Undo for a day. Or: it opens the item's release record for the three approvals instead.
+- **Q3. Sign off the scope / Approve the target.** Lifecycle §3 (approved) writes the scope sign-off to the logbook with its
+  date. Today `signed` comes only from gauges.json (repo). Proposed: the site reads its logbook's sign-off over the file's,
+  at once, and health.php reports it so gauges.py records it.
+- **Q4. Five bar segments, not four:** "Failing a check" separated from "Needs a check", so a fix and a missing check
+  aren't one colour.
+
+## Also in this release (the hand-off's queue)
+
+- "Retire it…'s spinner": asked the session manager what it saw (2026-11-23, no answer yet); reproduce on the bench first.
+- Anthropic's card: "Recording a why is to come: the manifest's setup_capture field … isn't built" (`app/admin/module-cards.php:409`):
+  either it does the thing or it isn't shown.
+- "Library of Congress: No answer: Operation timed out after 15004 milliseconds…" → "Library of Congress isn't answering",
+  the timeout in the Reading, through `ServiceHealth::alarmTitle()` (line 365) so `redrawTitles()` fixes open ones; a case
+  in `old-titles.php`.
+
+## The admin's test (each new state)
+
+- Bar segment pressed: sees only those things; the heading says "3 failing a check"; pressing again or Show all, all.
+- A failing row: reads why in one sentence, presses "Open the finding" or "See what LAYOUT found", sees the screenshot,
+  presses Send to a build or Mark fixed; ← Back returns to the row.
+- Awaiting sign-off row: presses Sign off; the dot fills, the counts move, Undo is beside the notice.
+- No check yet: presses the chip; reads what building it needs and whether it's queued; presses Send to a build.
+- Runtime, target not set: presses Approve the proposed target; the setup bar's second step fills.
+
+## Next after review
+
+The build (one release): `app/admin/control-console.php` (tv_cb_gauge_card, tv_cb_gauge_detail, the development panel, CSS),
+`app/lib/ControlGauges.php` (the logbook's sign-offs), the board's script, `tools/page-audit/gauges.py` (routes, finding
+links, the newest check results), the three queued fixes, `faq.md`; a rendered test (`gauge-panel.cjs`) that every row,
+chip and segment in every gauge panel is a link or a button, at 1280 and 390.
