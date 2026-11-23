@@ -211,48 +211,13 @@ function sc(string $suite, string $id, string $what, array $cells, callable $fn)
  */
 function views(): int
 {
-    $pdo = $GLOBALS['pdo']; $app = $GLOBALS['APP'];
-    static $loaded = false;
-    if (!$loaded) { require_once $app . '/admin/widgets.php'; require_once $app . '/ui/app-shell.php'; $_SESSION = ['csrf_token' => 'x'];
-        require_once $app . '/admin/preflight-console.php'; require_once $app . '/admin/control-console.php'; require_once $app . '/admin/operations-console.php'; require_once $app . '/admin/module-cards.php'; $loaded = true; }
-    $rows = $pdo->query('SELECT * FROM control_alarms ORDER BY id')->fetchAll(PDO::FETCH_ASSOC);
-    if (!$rows) return 0;
-    $names = []; try { foreach (ControlRegister::processes($pdo) as $k => $p) $names[$k] = (string) $p[1]; } catch (Throwable $x) {}
-    $btn = fn (string $act, string $label, bool $ok, string $why, string $id = '', array $attr = []) => '<button data-cb="' . $act . '"' . ($ok ? '' : ' disabled') . '>' . htmlspecialchars($label) . '</button>';
-    $pid = fn (string $x) => 'cb-p-' . str_replace(':', '-', $x);
-    $txt = fn (string $h) => trim((string) preg_replace('/\s+/u', ' ', html_entity_decode(strip_tags((string) preg_replace(['~<(style|script)\b.*?</\1>~s', '/<(details|summary|dt|dd|p|li|div)\b[^>]*>/'], ['', ' '], $h)), ENT_QUOTES | ENT_HTML5)));
-    // a raw id in what a person reads (02 §5.4: "the part's plain name … never job:, wf: or svc:")
-    // the bench's own checker words ("stand-in: wk:crawler gave no answer"), never shown live
-    $raw = fn (string $t) => preg_match_all('/(?<![\w\/.@-])(?:job|wf|svc|task|ep|wk|run|pf):[a-z0-9_][\w:.-]*/i', (string) preg_replace('/stand-in: \S+/', '', $t), $m, PREG_OFFSET_CAPTURE) ? array_map(fn ($x) => $x[0] . ' in "…' . mb_substr($t, max(0, (int) $x[1] - 70), 110) . '…"', array_slice($m[0], 0, 2)) : [];
-    $open = array_values(array_filter(ControlAlarms::list($pdo), fn ($a) => $a['cleared_at'] === null));   // as the console reads them (fix decoded)
-    $board = $open ? $txt(tv_cb_alarms($open, ControlAlarms::counts($pdo), $names, $pid, true, '', $btn)) : '';
-    foreach ($rows as $a) {
-        $id = (int) $a['id']; $k = (string) $a['akey'];
-        $f = ControlAlarms::facts($pdo, $a); $push = Thread::push($f);
-        $title = (string) ($f['title'] ?? ''); $status = (string) ($push['body'] ?? '');
-        // its words up to its first moment (a time is drawn per surface: in the viewer's zone on a page, UTC in text)
-        $statusHead = trim((string) preg_replace('/\s*(\{t:|(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \d).*$/su', '', mb_substr($status, 0, 70)), " .:,");
-        $pulse = $txt((string) (ControlAlarms::pulseBody($pdo, ['thing' => 'alarm:' . $id], 7)['html'] ?? ''));
-        $fix = $a['cleared_at'] === null ? Thread::fixOf(['fix' => ControlAlarms::fixOf($pdo, $a)]) : null;
-        if ($a['cleared_at'] === null) {
-            $li = ''; if (preg_match('~<li id="cb-alarm-' . $id . '".*?</li>~s', tv_cb_alarms($open, ControlAlarms::counts($pdo), $names, $pid, true, '', $btn), $mm)) $li = $txt($mm[0]);
-            chk("views $k: the board's row has its title and status", $li !== '' && str_contains($li, $title) && ($statusHead === '' || str_contains($li, $statusHead)), [$title, $statusHead, mb_substr($li, 0, 240)]);
-            chk("views $k: the board's row names parts, never a raw id", !$raw($li), $raw($li));
-            if ($fix) chk("views $k: Fix it on the board's row", str_contains($li, (string) ($fix['label'] ?? 'Fix it')), [$fix, mb_substr($li, 0, 200)]);
-        } else chk("views $k: a closed alarm is off the board", !str_contains($board, 'cb-alarm-' . $id) && !preg_match('~id="cb-alarm-' . $id . '"~', tv_cb_alarms($open ?: [], ControlAlarms::counts($pdo), $names, $pid, true, '', $btn)), $id);
-        chk("views $k: its Pulse item has the same title and status", str_contains($pulse, $title) && ($statusHead === '' || str_contains($pulse, $statusHead)), [$title, $statusHead, mb_substr($pulse, 0, 240)]);
-        chk("views $k: its Pulse item names parts, never a raw id", !$raw($pulse), $raw($pulse));
-        chk("views $k: no raw time token on the board or in Pulse", !str_contains($pulse . $board, '{t:'), mb_substr($pulse . $board, max(0, (int) mb_strpos($pulse . $board, '{t:') - 60), 120));
-        $proc = (string) $a['proc']; $key = str_starts_with($proc, 'svc:') ? substr($proc, 4) : (str_starts_with($proc, 'wk:') ? $proc : '');
-        if ($key !== '' && tv_mc_manifest($key) && $a['cleared_at'] === null) {
-            $card = $txt(tv_module_card($pdo, $key, ['can' => true]));
-            $ti = mb_strpos($card, $title);
-            chk("views $k: its module card shows the thread (title and status)", $ti !== false && ($statusHead === '' || str_contains($card, $statusHead)), [$title, $ti !== false, $statusHead, $statusHead === '' || str_contains($card, $statusHead), mb_substr($card, max(0, ($ti !== false ? $ti : (int) mb_strpos($card, "Status:")) - 200), 500)]);
-            chk("views $k: its module card names parts, never a raw id", !$raw($card), $raw($card));
-            chk("views $k: its module card shows no raw time token", !str_contains($card, '{t:'), mb_substr($card, max(0, (int) mb_strpos($card, '{t:') - 60), 120));
-        }
-    }
-    return count($rows);
+    // the same code as the live health report's "consistency" section (app/lib/ControlConsistency.php, step 5)
+    require_once $GLOBALS['APP'] . '/lib/ControlConsistency.php';
+    $r = ControlConsistency::check($GLOBALS['pdo']);
+    if (!$r['alarms']) return 0;
+    chk('views: every surface checked (' . $r['checks'] . ' checks over ' . $r['alarms'] . ' alarms)', $r['checks'] > 0, $r);
+    foreach ($r['mismatches'] as $m) chk('views ' . $m['key'] . ': ' . $m['surface'] . ' ' . $m['check'] . ' (' . (ControlConsistency::CHECKS[$m['check']] ?? '') . ')', false, [$m['expected'], $m['got']]);
+    return (int) $r['alarms'];
 }
 
 /** A scenario that can't be caused on the bench (cells.md says why): neither a pass nor a fail. */

@@ -32,6 +32,10 @@ else {
     if (r.ok && Array.isArray(d.alarms)) writeFileSync('site-audit/results/alarms.json', JSON.stringify({ at: new Date().toISOString(),
       open: d.alarms.map(a => ({ key: a.key, level: a.level, process: a.process, title: a.title, reading: a.reading, means: a.means, since: a.since, tripped: a.tripped, stopped: a.stopped })),
       summary: d.alarms_summary || null, releases_looked: d.releases_looked || null }, null, 1) + '\n');   // 5b's summary and the release job's last look
+    // the board's daily consistency check (control-board-plan.md step 5), the ledger's 24 hours and the nonprofits' loads:
+    // alarm ids, keys and words, and counts only. A mismatch is for the building session and the session manager, never Jason.
+    if (r.ok && (d.consistency || d.ledger || d.irs_loads)) writeFileSync('site-audit/results/consistency.json', JSON.stringify({ at: new Date().toISOString(),
+      consistency: d.consistency || null, ledger: d.ledger || null, irs_loads: d.irs_loads || null }, null, 1) + '\n');
     if (r.ok && d.crawler) crawlerSnapshot(d.crawler);   // the crawler revamp's numbers (handoffs/crawler-revamp.md Phase 0)
     if (!r.ok || d.ok === false) md += `The health report answered ${r.status}: ${s(d.error?.message || '')}\n`;
     else if (!d.towns) md += 'The health report has no towns section yet (it comes with health.php from towns-health_20261110.zip).\n';
