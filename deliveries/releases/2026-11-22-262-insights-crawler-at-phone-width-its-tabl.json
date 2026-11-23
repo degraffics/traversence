@@ -1,0 +1,34 @@
+{
+    "id": 262,
+    "title": "Insights → Crawler at phone width: its tables as cards, failures in plain words",
+    "why": "Jason's screenshot (2026-11-23): Insights → Crawler, opened from an alarm's side panel on a phone, showed its task table cut off on the left: the table was 622px wide inside a 334px box that scrolled sideways. Below 768px each row is now a card with labelled lines (decisions/0058 §11; design/table-standard.md, phones), at 1280 it stays a table. A failure reads in words through OutsideServices::plainWhy ('503 Service Unavailable', never the server's HTML page); no 'From .' for a task with no source named; an empty queue says 'nothing waiting'.",
+    "proposals": "",
+    "zip": "crawler-phone.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/admin/crawler-console.php": {
+            "sha": "df23c555554c53692fc8764bf3ada26d843eae04ce7cdf718ff9137e4abdd569",
+            "size": 26461,
+            "live_was": "47a966f5abb0a7b754e37aacbc312c833cf251c6bee26db3a0476665310529c9"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-23T01:50:45+00:00",
+            "by": 0,
+            "msg": "Uploaded crawler-phone.zip: 1 files."
+        }
+    ]
+}
