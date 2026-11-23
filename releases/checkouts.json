@@ -793,6 +793,19 @@
    "expires": "2026-11-23T04:10:27Z",
    "release": "control-board.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/QuickBooksPay.php",
+   "functions": [
+    "chargeFor"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iruQZSTYKyuR7b1SN",
+   "why": "R0: chargeFor fix (Jason 2026-11-19 'Fix in first release'; approved 2026-11-23)",
+   "since": "2026-11-23T00:11:28Z",
+   "expires": "2026-11-23T04:11:28Z",
+   "release": "orders-chargefor.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
