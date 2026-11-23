@@ -259,15 +259,28 @@ needing an outside service (Railway, QuickBooks, AWS, Cloudflare…) carries its
 
 Anything that needs someone to act follows four steps: 1. **See the task** (the issue and its evidence, in place);
 2. **Do the task** (one button that does it, where it's shown); 3. **Done and confirmed** (the result checked, the
-status shown in place of the form, Undo beside it; an issue clears itself when its check passes, never by a "mark done"
+status shown in place of the form; an issue clears itself when its check passes, never by a "mark done"
 or sign-off); 4. **The next step**, only within a process (Jason, 2026-11-23: "Don't convolute processes or tasks"): a single task
 (one alarm, one payment) ends at its confirmation, the lists and counts updating; a process (placing an order, an
 order's life) is single tasks chained by a workflow, so its next step, routed by the choices made, is its own button. No
 accounting-only buttons, no form left open after it's done, no notice repeating the new state.
+**More than one way forward** (Jason, 2026-11-23: "tool kit for moving something to where it needs to be or edit icon
+to modify what has happened so it can get back on track"): each task or state line offers its suggested action, ✎ to
+correct what happened (with History), and ⋯ for every other valid move from its state (greyed with the reason when not
+allowed).
+**Edit or Undo** (Jason, 2026-11-23: "Undo is for processes that must be rolled back as if they were never done"):
+a record someone entered (an email, an id, an address, a note, a setting) shows its value with **Edit**, reopening it
+in place, the old value kept in History, never Undo. **Undo** is only for an action that did something (a payment
+recorded, a split, a work order sent, Fix it, a scope approved) and can be rolled back as if never done; where it can't
+(an email delivered), say so instead.
+**Icons for inline actions** (Jason, 2026-11-23: "action icons with tool tips over text saying action urls"): a
+record's or row's inline actions (Edit ✎, Copy, Open in a service ↗, Evidence, History, ⋯) are 30px round `tv_icon()`
+buttons in the card style, `title` and `aria-label` naming the action and target ("Open Google Cloud billing as …").
+The view's one primary action (Fix it, Take a payment, Place an order) and state sentences stay words.
 **A list or a process?** (Jason, 2026-11-23) It's a process if step B needs step A's result, or they all build to one
 outcome; a list if they could sensibly be done in any order. A list is a queue (what needs you first, filtered by its
 tiles), each row its own cycle, counts dropping as items clear, a batch action only where one fix applies to many. A
-process is a guided flow: finished steps fold to a line with Change, one "next" button, branches by choice. A process may
+process is a guided flow: finished steps fold to a line with Edit, one "next" button, branches by choice. A process may
 create list items (proofs, a balance); a workflow may report a list's progress without making it a sequence.
 
 ## No browser dialogs; one look for notices (`js/tv-ask.js`): every page

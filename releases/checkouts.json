@@ -4,6 +4,569 @@
   {
    "path": "app/admin/control-console.php",
    "functions": [
+    "tv_cb_deliver",
+    "tv_cb_development",
+    "tv_cb_gauge_card",
+    "tv_cb_gauge_detail",
+    "tv_cb_gd_slot"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
+   "why": "Gauge panel as a drill-down, approved by Jason 2026-11-23 (handoffs/gauge-panel.md)",
+   "since": "2026-11-23T19:46:07Z",
+   "expires": "2026-11-24T00:23:56Z",
+   "release": "gauge-panel.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ControlGauges.php",
+   "functions": [
+    "development",
+    "forget",
+    "runtime"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
+   "why": "Gauge panel as a drill-down, approved by Jason 2026-11-23 (handoffs/gauge-panel.md)",
+   "since": "2026-11-23T19:46:07Z",
+   "expires": "2026-11-24T00:23:56Z",
+   "release": "gauge-panel.zip",
+   "callers": {
+    "development": [
+     "app/admin/control-console.php"
+    ],
+    "runtime": [
+     "app/admin/control-console.php",
+     "app/admin/operations-console.php"
+    ]
+   }
+  },
+  {
+   "path": "website/js/admin-control.js",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
+   "why": "Gauge panel as a drill-down, approved by Jason 2026-11-23 (handoffs/gauge-panel.md)",
+   "since": "2026-11-23T19:46:07Z",
+   "expires": "2026-11-23T23:46:07Z",
+   "release": "gauge-panel.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/staging-tables.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
+   "why": "Gauge panel as a drill-down, approved by Jason 2026-11-23 (handoffs/gauge-panel.md)",
+   "since": "2026-11-23T19:46:07Z",
+   "expires": "2026-11-24T00:23:56Z",
+   "release": "gauge-panel.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/GaugeTasks.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
+   "why": "Gauge panel as a drill-down, approved by Jason 2026-11-23 (handoffs/gauge-panel.md): Fix it requests and approvals",
+   "since": "2026-11-23T19:46:11Z",
+   "expires": "2026-11-24T00:23:56Z",
+   "release": "gauge-panel.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/outside-services.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
+   "why": "Gauge panel release: Retire it\u2026 drawn as an outlined button, not the 28px icon ring (the Design reviewer, 2026-11-23)",
+   "since": "2026-11-23T19:57:52Z",
+   "expires": "2026-11-24T00:23:56Z",
+   "release": "gauge-panel.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/module-cards.php",
+   "functions": [
+    "(top)",
+    "tv_mc_css",
+    "tv_mc_light",
+    "tv_mc_setup",
+    "tv_module_card"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
+   "why": "Gauge panel release: Edit for records, icons with titles on the card (Jason, 2026-11-23)",
+   "since": "2026-11-23T19:58:00Z",
+   "expires": "2026-11-24T00:38:14Z",
+   "release": "gauge-panel.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/operations-console.php",
+   "functions": [
+    "tv_ops_ctx",
+    "tv_ops_keys"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
+   "why": "Gauge panel release: the keys' Railway link as an icon (Jason, 2026-11-23)",
+   "since": "2026-11-23T19:58:00Z",
+   "expires": "2026-11-24T00:41:06Z",
+   "release": "gauge-panel.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/api/health.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
+   "why": "Gauge panel release: health.php reports Fix it requests and approvals",
+   "since": "2026-11-23T19:58:02Z",
+   "expires": "2026-11-23T23:58:02Z",
+   "release": "gauge-panel.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Preflight.php",
+   "functions": [
+    "alarm",
+    "summary"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
+   "why": "Gauge panel as a drill-down, approved by Jason 2026-11-23 (handoffs/gauge-panel.md)",
+   "since": "2026-11-23T19:59:17Z",
+   "expires": "2026-11-24T00:23:56Z",
+   "release": "gauge-panel.zip",
+   "callers": {
+    "summary": [
+     "app/admin/control-console.php",
+     "app/admin/job-line.php",
+     "app/admin/operations-console.php",
+     "app/admin/preflight-console.php"
+    ],
+    "alarm": [
+     "app/lib/ControlAlarms.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/ControlAlarms.php",
+   "functions": [
+    "redrawTitles"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
+   "why": "Gauge panel release: a check's raw transport error never a title (the Design reviewer, 2026-11-23: Library of Congress)",
+   "since": "2026-11-23T19:59:17Z",
+   "expires": "2026-11-23T23:59:17Z",
+   "release": "gauge-panel.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ServiceHealth.php",
+   "functions": [
+    "lineTitle"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
+   "why": "Gauge panel release: a check's transport error read as the service's own words",
+   "since": "2026-11-23T19:59:54Z",
+   "expires": "2026-11-24T00:23:56Z",
+   "release": "gauge-panel.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/admin/api.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
+   "why": "Gauge panel release: the gauge panel's Fix it and Approve actions on the one endpoint",
+   "since": "2026-11-23T20:10:03Z",
+   "expires": "2026-11-24T00:10:03Z",
+   "release": "gauge-panel.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ClientOrders.php",
+   "functions": [
+    "boardState",
+    "releasedAt"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5jrE1f1iCSbBQssAAe",
+   "why": "Order management M1: the state model and the board (research/order-management-design-2026-11-23.md \u00a76, decisions/0178 \u00a76)",
+   "since": "2026-11-23T20:18:25Z",
+   "expires": "2026-11-24T00:18:25Z",
+   "release": "order-m1.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/tools.php",
+   "functions": [
+    "tv_order_board"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5jrE1f1iCSbBQssAAe",
+   "why": "Order management M1: the state model and the board (research/order-management-design-2026-11-23.md \u00a76, decisions/0178 \u00a76)",
+   "since": "2026-11-23T20:18:25Z",
+   "expires": "2026-11-24T00:18:25Z",
+   "release": "order-m1.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ClientOrders.php",
+   "functions": [
+    "confirmReceived",
+    "gotItTick",
+    "received",
+    "setItemStatus"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jrE1f1iCSbBQssAAe",
+   "why": "Order management M1: the state model and the board (research/order-management-design-2026-11-23.md \u00a76, decisions/0178 \u00a76)",
+   "since": "2026-11-23T20:18:47Z",
+   "expires": "2026-11-24T00:35:40Z",
+   "release": "order-m1.zip",
+   "callers": {
+    "confirmReceived": [
+     "website/order.php"
+    ],
+    "gotItTick": [
+     "app/scripts/got_it_tick.php"
+    ],
+    "setItemStatus": [
+     "app/lib/VendorOrders.php",
+     "app/lib/WorkOrders.php",
+     "website/admin/client-order.php"
+    ]
+   }
+  },
+  {
+   "path": "app/admin/tools.php",
+   "functions": [
+    "(top)",
+    "backoffice/orders",
+    "tv_order_next_step"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jrE1f1iCSbBQssAAe",
+   "why": "Order management M1: the state model and the board (research/order-management-design-2026-11-23.md \u00a76, decisions/0178 \u00a76)",
+   "since": "2026-11-23T20:18:47Z",
+   "expires": "2026-11-24T00:35:40Z",
+   "release": "order-m1.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/widgets.php",
+   "functions": [
+    "tv_w_metrics",
+    "tv_w_table"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jrE1f1iCSbBQssAAe",
+   "why": "Order management M1: the state model and the board (research/order-management-design-2026-11-23.md \u00a76, decisions/0178 \u00a76)",
+   "since": "2026-11-23T20:18:47Z",
+   "expires": "2026-11-24T00:35:40Z",
+   "release": "order-m1.zip",
+   "callers": {
+    "tv_w_table": [
+     "app/admin/control-console.php",
+     "app/admin/sections.php"
+    ]
+   }
+  },
+  {
+   "path": "app/admin/Workflow.php",
+   "functions": [
+    "moves"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jrE1f1iCSbBQssAAe",
+   "why": "Order management M1: the state model and the board (research/order-management-design-2026-11-23.md \u00a76, decisions/0178 \u00a76)",
+   "since": "2026-11-23T20:18:47Z",
+   "expires": "2026-11-24T00:18:47Z",
+   "release": "order-m1.zip",
+   "callers": {
+    "moves": [
+     "website/admin/api.php"
+    ]
+   }
+  },
+  {
+   "path": "app/admin/workflows.php",
+   "functions": [
+    "client_order"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jrE1f1iCSbBQssAAe",
+   "why": "Order management M1: the state model and the board (research/order-management-design-2026-11-23.md \u00a76, decisions/0178 \u00a76)",
+   "since": "2026-11-23T20:18:47Z",
+   "expires": "2026-11-24T00:18:47Z",
+   "release": "order-m1.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Pulse.php",
+   "functions": [
+    "'square'",
+    "items",
+    "playbook"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jrE1f1iCSbBQssAAe",
+   "why": "Order management M1: the state model and the board (research/order-management-design-2026-11-23.md \u00a76, decisions/0178 \u00a76)",
+   "since": "2026-11-23T20:18:47Z",
+   "expires": "2026-11-24T00:35:40Z",
+   "release": "order-m1.zip",
+   "callers": {
+    "items": [
+     "app/lib/DailyReport.php",
+     "app/ui/pulse-ui.php",
+     "website/admin/staff-profile.php",
+     "website/admin/w.php",
+     "website/user/api/bell.php"
+    ],
+    "playbook": [
+     "app/lib/DailyReport.php",
+     "app/ui/pulse-ui.php"
+    ]
+   }
+  },
+  {
+   "path": "app/admin/manifests.php",
+   "functions": [
+    "'backoffice'",
+    "orders"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jrE1f1iCSbBQssAAe",
+   "why": "Order management M1: the state model and the board (research/order-management-design-2026-11-23.md \u00a76, decisions/0178 \u00a76)",
+   "since": "2026-11-23T20:18:47Z",
+   "expires": "2026-11-24T00:35:40Z",
+   "release": "order-m1.zip",
+   "callers": {
+    "orders": [
+     "app/admin/sections.php",
+     "app/admin/tools.php",
+     "app/lib/AccountDomains.php",
+     "app/lib/BizQuotes.php",
+     "app/lib/Books.php",
+     "app/lib/ClientOrders.php",
+     "app/lib/Clients.php",
+     "app/lib/Inform.php",
+     "app/lib/MarketCheckout.php",
+     "app/lib/OneOffs.php",
+     "app/lib/Orders.php",
+     "app/lib/QrIssue.php",
+     "app/lib/RecordFiles.php",
+     "app/lib/UploadThreads.php",
+     "app/lib/WorkOrders.php",
+     "app/lib/upload-targets.php",
+     "app/ui/section-rails.php",
+     "website/admin/client-order.php",
+     "website/admin/ecommerce.php",
+     "website/admin/settings.php",
+     "website/admin/vendors.php",
+     "website/js/go-codes.js"
+    ]
+   }
+  },
+  {
+   "path": "app/admin/kit-css.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jrE1f1iCSbBQssAAe",
+   "why": "Order management M1: the state model and the board (research/order-management-design-2026-11-23.md \u00a76, decisions/0178 \u00a76)",
+   "since": "2026-11-23T20:18:47Z",
+   "expires": "2026-11-24T00:18:47Z",
+   "release": "order-m1.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/command-strip.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jrE1f1iCSbBQssAAe",
+   "why": "Order management M1: the state model and the board (research/order-management-design-2026-11-23.md \u00a76, decisions/0178 \u00a76)",
+   "since": "2026-11-23T20:18:47Z",
+   "expires": "2026-11-24T00:35:40Z",
+   "release": "order-m1.zip",
+   "callers": {
+    "tv_command_strip": [
+     "app/admin/crawler-console.php",
+     "app/admin/legal-editor.php",
+     "website/admin/client-order.php",
+     "website/admin/content-template.php",
+     "website/admin/guide-edit.php"
+    ],
+    "fit": [
+     "app/admin/widgets.php",
+     "app/lib/CategoryClassifier.php",
+     "app/ui/app-shell.php",
+     "website/admin/router.php",
+     "website/js/admin-control.js",
+     "website/js/tv-moments.js"
+    ]
+   }
+  },
+  {
+   "path": "website/admin/client-order.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jrE1f1iCSbBQssAAe",
+   "why": "Order management M1: the state model and the board (research/order-management-design-2026-11-23.md \u00a76, decisions/0178 \u00a76)",
+   "since": "2026-11-23T20:18:47Z",
+   "expires": "2026-11-24T00:35:40Z",
+   "release": "order-m1.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/js/admin-kit.js",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jrE1f1iCSbBQssAAe",
+   "why": "Order management M1: the state model and the board (research/order-management-design-2026-11-23.md \u00a76, decisions/0178 \u00a76)",
+   "since": "2026-11-23T20:18:47Z",
+   "expires": "2026-11-24T00:35:40Z",
+   "release": "order-m1.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/order.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jrE1f1iCSbBQssAAe",
+   "why": "Order management M1: the state model and the board (research/order-management-design-2026-11-23.md \u00a76, decisions/0178 \u00a76)",
+   "since": "2026-11-23T20:18:47Z",
+   "expires": "2026-11-24T00:35:40Z",
+   "release": "order-m1.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/scripts/got_it_tick.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5jrE1f1iCSbBQssAAe",
+   "why": "Order management M1: the state model and the board (research/order-management-design-2026-11-23.md \u00a76, decisions/0178 \u00a76)",
+   "since": "2026-11-23T20:18:47Z",
+   "expires": "2026-11-24T00:35:40Z",
+   "release": "order-m1.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ControlAlarms.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
+   "why": "release gauge-panel.zip",
+   "since": "2026-11-23T20:21:35Z",
+   "expires": "2026-11-24T00:23:56Z",
+   "release": "gauge-panel.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/admin/api.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
+   "why": "release gauge-panel.zip",
+   "since": "2026-11-23T20:21:35Z",
+   "expires": "2026-11-24T00:23:56Z",
+   "release": "gauge-panel.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/api/health.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
+   "why": "release gauge-panel.zip",
+   "since": "2026-11-23T20:21:35Z",
+   "expires": "2026-11-24T00:23:56Z",
+   "release": "gauge-panel.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/js/admin-control.js",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
+   "why": "release gauge-panel.zip",
+   "since": "2026-11-23T20:21:35Z",
+   "expires": "2026-11-24T00:23:56Z",
+   "release": "gauge-panel.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/workflows.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jrE1f1iCSbBQssAAe",
+   "why": "release order-m1.zip",
+   "since": "2026-11-23T20:22:30Z",
+   "expires": "2026-11-24T00:35:40Z",
+   "release": "order-m1.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/Workflow.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jrE1f1iCSbBQssAAe",
+   "why": "release order-m1.zip",
+   "since": "2026-11-23T20:22:30Z",
+   "expires": "2026-11-24T00:35:40Z",
+   "release": "order-m1.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/kit-css.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jrE1f1iCSbBQssAAe",
+   "why": "release order-m1.zip",
+   "since": "2026-11-23T20:22:30Z",
+   "expires": "2026-11-24T00:35:40Z",
+   "release": "order-m1.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/SignIns.php",
+   "functions": [
+    "(top)",
+    "canUndo",
+    "set",
+    "undo"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
+   "why": "Gauge panel release: Edit for records, icons with titles on the card (Jason, 2026-11-23)",
+   "since": "2026-11-23T20:27:40Z",
+   "expires": "2026-11-24T00:38:14Z",
+   "release": "gauge-panel.zip",
+   "callers": {}
+  }
+ ],
+ "lapsed": [
+  {
+   "path": "website/admin/api.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
+   "why": "Orders release A: a row action's Copy the link (the design review, 2026-11-23)",
+   "since": "2026-11-23T16:09:58Z",
+   "expires": "2026-11-23T20:09:58Z",
+   "release": "",
+   "callers": {},
+   "lapsed": "2026-11-23T20:10:03Z"
+  },
+  {
+   "path": "app/admin/control-console.php",
+   "functions": [
     "(top)",
     "tv_admin_mod_control",
     "tv_cb_alarms",
@@ -20,7 +583,8 @@
     "tv_cb_alarms": [
      "app/lib/ControlConsistency.php"
     ]
-   }
+   },
+   "lapsed": "2026-11-23T19:57:52Z"
   },
   {
    "path": "app/admin/module-cards.php",
@@ -38,7 +602,8 @@
    "since": "2026-11-23T14:57:52Z",
    "expires": "2026-11-23T19:48:52Z",
    "release": "board-fixes-4.zip",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-23T19:57:52Z"
   },
   {
    "path": "app/lib/ServiceHealth.php",
@@ -55,7 +620,8 @@
     "alarm": [
      "app/lib/ControlAlarms.php"
     ]
-   }
+   },
+   "lapsed": "2026-11-23T19:57:52Z"
   },
   {
    "path": "app/lib/Scheduler.php",
@@ -126,7 +692,8 @@
      "app/scripts/vectors_tick.php",
      "app/scripts/work_orders_tick.php"
     ]
-   }
+   },
+   "lapsed": "2026-11-23T19:57:52Z"
   },
   {
    "path": "app/lib/Operations.php",
@@ -144,7 +711,8 @@
      "app/admin/operations-console.php",
      "app/lib/ControlAlarms.php"
     ]
-   }
+   },
+   "lapsed": "2026-11-23T19:57:52Z"
   },
   {
    "path": "app/lib/ControlAlarms.php",
@@ -172,7 +740,8 @@
      "app/lib/Pulse.php",
      "app/lib/ServiceHealth.php"
     ]
-   }
+   },
+   "lapsed": "2026-11-23T19:57:52Z"
   },
   {
    "path": "website/api/health.php",
@@ -183,7 +752,8 @@
    "since": "2026-11-23T14:58:03Z",
    "expires": "2026-11-23T19:48:52Z",
    "release": "board-fixes-4.zip",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-23T19:57:52Z"
   },
   {
    "path": "app/lib/SignIns.php",
@@ -194,7 +764,8 @@
    "since": "2026-11-23T14:58:14Z",
    "expires": "2026-11-23T19:48:52Z",
    "release": "board-fixes-4.zip",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-23T19:57:52Z"
   },
   {
    "path": "app/admin/operations-console.php",
@@ -205,50 +776,9 @@
    "since": "2026-11-23T15:04:02Z",
    "expires": "2026-11-23T19:48:52Z",
    "release": "board-fixes-4.zip",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-23T19:57:52Z"
   },
-  {
-   "path": "website/admin/api.php",
-   "functions": [
-    "(top)"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
-   "why": "Orders release A: a row action's Copy the link (the design review, 2026-11-23)",
-   "since": "2026-11-23T16:09:58Z",
-   "expires": "2026-11-23T20:09:58Z",
-   "release": "",
-   "callers": {}
-  },
-  {
-   "path": "app/ui/command-strip.php",
-   "functions": [
-    "(top)"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
-   "why": "Collect the balance on an order out the door (session manager's review of #270)",
-   "since": "2026-11-23T19:07:45Z",
-   "expires": "2026-11-23T23:07:45Z",
-   "release": "",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/ClientOrders.php",
-   "functions": [
-    "completeHold",
-    "completeOwed"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
-   "why": "Collect the balance: Complete the order waits for the money, or an admin's override with a reason (session manager and Design reviewer on #1307)",
-   "since": "2026-11-23T19:26:27Z",
-   "expires": "2026-11-23T23:26:27Z",
-   "release": "",
-   "callers": {}
-  }
- ],
- "lapsed": [
   {
    "path": "app/lib/ControlAlarms.php",
    "functions": [
@@ -830,168 +1360,6 @@
    "release": "workflow-holds.zip",
    "callers": {},
    "lapsed": "2026-11-21T09:17:36Z"
-  },
-  {
-   "path": "website/admin/api.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
-   "why": "Workflow audit: a source down holds only what uses it",
-   "since": "2026-11-21T03:28:58Z",
-   "expires": "2026-11-21T07:28:58Z",
-   "release": "workflow-holds.zip",
-   "callers": {},
-   "lapsed": "2026-11-21T09:17:36Z"
-  },
-  {
-   "path": "app/lib/Operations.php",
-   "functions": [
-    "forgetGate",
-    "gateFor",
-    "taskHeld"
-   ],
-   "kind": "add",
-   "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
-   "why": "Workflow audit",
-   "since": "2026-11-21T03:29:10Z",
-   "expires": "2026-11-21T07:29:10Z",
-   "release": "workflow-holds.zip",
-   "callers": {},
-   "lapsed": "2026-11-21T09:17:36Z"
-  },
-  {
-   "path": "app/lib/Preflight.php",
-   "functions": [
-    "markOf",
-    "reachAll"
-   ],
-   "kind": "add",
-   "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
-   "why": "Workflow audit",
-   "since": "2026-11-21T03:29:10Z",
-   "expires": "2026-11-21T07:29:10Z",
-   "release": "workflow-holds.zip",
-   "callers": {},
-   "lapsed": "2026-11-21T09:17:36Z"
-  },
-  {
-   "path": "app/admin/operations-console.php",
-   "functions": [
-    "tv_ops_issues"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
-   "why": "0176 R2: service issues as threads",
-   "since": "2026-11-20T16:59:46Z",
-   "expires": "2026-11-20T21:00:54Z",
-   "release": "0176-issues.zip",
-   "callers": {},
-   "lapsed": "2026-11-20T23:27:17Z"
-  },
-  {
-   "path": "app/ui/outside-services.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
-   "why": "0176 R2: service issues as threads",
-   "since": "2026-11-20T16:59:49Z",
-   "expires": "2026-11-20T21:00:54Z",
-   "release": "0176-issues.zip",
-   "callers": {},
-   "lapsed": "2026-11-20T23:27:17Z"
-  },
-  {
-   "path": "app/lib/ServiceHealth.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
-   "why": "0176 R2: service issues as threads",
-   "since": "2026-11-20T16:59:51Z",
-   "expires": "2026-11-20T21:00:54Z",
-   "release": "0176-issues.zip",
-   "callers": {
-    "describe": [
-     "app/lib/Operations.php",
-     "app/lib/OutsideServices.php",
-     "app/lib/Preflight.php",
-     "app/lib/Pulse.php",
-     "app/lib/SystemStart.php"
-    ],
-    "osmUse": [
-     "app/lib/crawler/CrawlService.php"
-    ]
-   },
-   "lapsed": "2026-11-20T23:27:17Z"
-  },
-  {
-   "path": "app/lib/OutsideServices.php",
-   "functions": [
-    "working"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
-   "why": "0176 R2: service issues as threads",
-   "since": "2026-11-20T16:59:54Z",
-   "expires": "2026-11-20T21:00:54Z",
-   "release": "0176-issues.zip",
-   "callers": {
-    "working": [
-     "app/ui/outside-services.php"
-    ]
-   },
-   "lapsed": "2026-11-20T23:27:17Z"
-  },
-  {
-   "path": "app/lib/SystemStart.php",
-   "functions": [
-    "issueInline"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
-   "why": "0176 R2: service issues as threads",
-   "since": "2026-11-20T17:00:03Z",
-   "expires": "2026-11-20T21:00:54Z",
-   "release": "0176-issues.zip",
-   "callers": {},
-   "lapsed": "2026-11-20T23:27:17Z"
-  },
-  {
-   "path": "website/js/tv-ask.js",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
-   "why": "0176 R2: service issues as threads",
-   "since": "2026-11-20T17:00:08Z",
-   "expires": "2026-11-20T21:00:54Z",
-   "release": "0176-issues.zip",
-   "callers": {
-    "statuses": [
-     "website/js/tv-domains.js",
-     "website/js/tv-vault.js"
-    ]
-   },
-   "lapsed": "2026-11-20T23:27:17Z"
-  },
-  {
-   "path": "app/lib/QuickBooksPay.php",
-   "functions": [
-    "chargeFor",
-    "paid"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5iruQZSTYKyuR7b1SN",
-   "why": "Orders: the order map's rulings (decisions/0101 note 2026-11-20, B.1-B.6)",
-   "since": "2026-11-20T18:15:43Z",
-   "expires": "2026-11-20T22:57:22Z",
-   "release": "orders-rulings.zip",
-   "callers": {
-    "paid": [
-     "app/lib/QrIssue.php",
-     "website/admin/order.php",
-     "website/api/qb-webhook.php"
-    ]
-   },
-   "lapsed": "2026-11-20T23:27:17Z"
   }
  ]
 }
