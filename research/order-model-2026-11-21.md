@@ -19,7 +19,7 @@ and `research/order-rulings-2026-11-20.md` (his confirmed rulings B.1–B.7, §1
   shipping, completion).
 - **Which route** (2026-11-22): "Send cart or send invoice as send option". On an order staff build, Send offers both:
   **Send cart** (the cart route) or **Send invoice** (the invoice route), chosen when sending. An order the client
-  configures in the Shop is already in the cart **(described, to confirm)**.
+  configures in the Shop goes into the ordering queue and moves to the cart on approval (1.3).
 - **How the cart is paid** (2026-11-22): "Dont alllow wire and check in the cart." The cart takes a card or QuickBooks'
   own page, as today; wire, check, cash and the payment hold stay on the invoice route.
 
@@ -189,18 +189,20 @@ for delivery. Once received it marks delivered."
 3. **Work orders processed,** each step of their movement monitored.
 4. **Pack and ship,** once production is complete.
 5. **Released for delivery,** once that's done.
-6. **Delivered,** once it's received.
+6. **Delivered,** once it's received. Then the order completes as decided in 0101's addendum of 2026-10-30 (2026-11-23:
+   "Delivered: previously determined"): the client presses "Yes, I have it", or our team completes it; one reminder 72
+   hours after it went out; "Something isn't right" opens a support ticket; the thank-you with a reorder link.
 
-**1.11 Reorders (described, to confirm).**
+**1.11 Reorders (described; confirmed 2026-11-23: "descriptions: yes").**
 - Exact: the system checks it's the same (product, options, and our vendor in the backend), and the earlier approved
   proof is reused, confirmed with initials (B.2 path 2).
 - Changed: prepared like a new item (new proof, preflight on new art).
 - Either way it ends in the cart.
 
-**1.12 The order page as the conversation (my suggestion, to confirm).** Jason asked how the conversation should be
+**1.12 The order page as the conversation (suggested; confirmed 2026-11-23: "descriptions: yes").** Jason asked how the conversation should be
 handled if we use the cart. Suggested: the same order record and private order page on both routes, keeping proofs,
 changes, notes, files, status and receipts there, with the cart only the checkout and each released item linking back
-to its order page. Not yet confirmed.
+to its order page. Confirmed.
 
 **Kept from the confirmed rulings, not changed today:** B.1 (ship-to prefill), B.2 (three proof paths), B.5 (refund
 with an open work order), B.6 (delete the six actions after a live search), B.7 (no watermark), §3 (the two ledger
@@ -242,8 +244,8 @@ the pass is the product. It shapes 1.2's client-configured items and 1.8's money
 
 ## 4. Open, to walk through with Jason one at a time
 
-1. ~~"Production" now means two things~~ Answered by 1.13 and 1.9 (2026-11-22). To confirm: whether Delivered ends the
-   order, or the client's "Yes, I have it" (Complete) still follows. Invoice-later terms: answered in 1.8 (credit
+1. ~~"Production" now means two things~~ Answered by 1.13 and 1.9 (2026-11-22). Delivered, then Complete: as
+   0101 (2026-10-30) decided. Invoice-later terms: answered in 1.8 (credit
    account terms or an admin override).
 2. ~~The admin override~~ Answered: admins only, with a reason recorded (1.9).
 3. ~~Approve for the client~~ Answered (1.6): kept for approvals given by email or another way, processed as if the
