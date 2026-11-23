@@ -305,6 +305,20 @@
    "expires": "2026-11-24T01:24:40Z",
    "release": "order-m1b.zip",
    "callers": {}
+  },
+  {
+   "path": "website/js/admin-control.js",
+   "functions": [
+    "cbgEsc",
+    "redraw"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
+   "why": "A row's \u22ef menu: Esc and a click outside",
+   "since": "2026-11-23T21:26:47Z",
+   "expires": "2026-11-24T01:26:47Z",
+   "release": "kit-buttons.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
