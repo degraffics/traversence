@@ -1,0 +1,74 @@
+{
+    "id": 275,
+    "title": "Kit buttons: filled buttons in brand brown, Copy as an icon; the gauge panel's Request a fix, its pickup named, and ⋯ for each item's other moves",
+    "why": "Jason, 2026-11-23: 'fix it sounds like an action to be done right now' (Fix it only where the site acts on the spot; Request a fix where it queues a build), 'action icons with tool tips over text saying action urls', and each task's suggested action with ⋯ for every other valid move (CLAUDE.md). Reviewed by the Design reviewer and the session manager (handoffs/kit-buttons/).",
+    "proposals": "",
+    "zip": "kit-buttons.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/admin/control-console.php": {
+            "sha": "aef1dd1c73465e484872b7c3fde2405f507baa012ecaf831c6dcb005a5a987c1",
+            "size": 235800,
+            "live_was": "c646dbb0d538fdd940b6e86ff0f386e7209cdb2299793d2b0acde5dc942ea915"
+        },
+        "app/admin/kit-css.php": {
+            "sha": "8d1e8e9bd0c492529ba662f6fbe1a7e1f8a05ef7b51ff81ec363faf1c5b9e8fe",
+            "size": 40012,
+            "live_was": "f762819310852c155239a865e6e65c39a740e9caad1fa7be256e3dee44a66050"
+        },
+        "app/ui/faq.md": {
+            "sha": "720782abbc5a8bc864ba7317b25c539821ec45bd8e868e7a4614a4fcc8330c7d",
+            "size": 437379,
+            "live_was": "b520e844448361d0f86a1ee4d77fa01e79728d4052a8c7e51cc1f0bad20d438a"
+        },
+        "app/lib/GaugeTasks.php": {
+            "sha": "8cbd27bdd37c1012ded67334d993ea3f8dd7c2a597203ca6077bc382010e805d",
+            "size": 11028,
+            "live_was": "b0a72156ee7e9402e87214f8b1fdbbdd5e32eb704bd089b19814947f8225de62"
+        },
+        "app/lib/ControlGauges.php": {
+            "sha": "7000e4188a2751f71878d3b5d83708771c06a4d2585c6d0e2486dde36a950966",
+            "size": 39879,
+            "live_was": "d7cf9e53dee3e84cb0ba2bcc187805be8b6b5ad3e17a44de0c08e22dcf97795d"
+        },
+        "website/admin/api.php": {
+            "sha": "ef6ef6f676fd2eef4e405e6f0abe2532de373dd94af509f83c73e0ba2f597d5d",
+            "size": 50090,
+            "live_was": "c24207c067871cd4af319b731e8e0a2af7ba04e77be0e330a99a5e755bd63601"
+        },
+        "website/api/health.php": {
+            "sha": "d59a8a55a44afebf03f3e17646eb70b5a637ae2d8b8478cb097f2f494dde0034",
+            "size": 27685,
+            "live_was": "73da7eec76e5767b77611a2bf8c6011093a7ee4fdd42e09460ff22dd9e234ad3"
+        },
+        "website/js/tv-copy.js": {
+            "sha": "a870120a2b1bd81a2ae6c0ef8e05deedc136083b148941f4ff55315bc7d4fb99",
+            "size": 6440,
+            "live_was": "09c45aca18123d81e473f4d8a0e50c027da66a2ea29171d87495b25b74eb2115"
+        },
+        "website/js/admin-control.js": {
+            "sha": "f352dc101ecbc83b94af576165398b24aa6b95c8dc20c40688c3f35afb597bb1",
+            "size": 50405,
+            "live_was": "11dea999b8c645388642e42f61978d5f3169d4c9ce15e9bd7f397aebef79f746"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-23T22:00:01+00:00",
+            "by": 0,
+            "msg": "Uploaded kit-buttons.zip: 9 files."
+        }
+    ]
+}
