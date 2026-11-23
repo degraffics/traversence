@@ -1,7 +1,7 @@
-# Jason's order model (2026-11-21), for review
+# Jason's order model (2026-11-21, confirmed 2026-11-23)
 
-Status: **Jason's model, written from his words in the Orders session (2026-11-20 to 21), for his review.** It is not a
-decision yet, and nothing is built from it. Each point quotes him. Where a point is my description that he didn't
+Status: **confirmed by Jason, 2026-11-23 ("Good to go")**, with §0's five changes to earlier decisions; written into
+decisions/0101's note "the order model" and 0098's note of the same day. Nothing is built yet. Each point quotes him. Where a point is my description that he didn't
 object to but hasn't confirmed either, it is marked **(described, to confirm)**. It replaces the draft
 `research/one-cart-proposal-2026-11-20.md`, which drew its own shape of the cart (Jason, 2026-11-21: "It is obvious you
 are not able to see how the order system should work").

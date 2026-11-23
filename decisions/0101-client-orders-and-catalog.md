@@ -869,3 +869,28 @@ Plans: "no dunning/retry loop on plans; a declined plan drops to Free" (0108). S
 production money ("remains an open question to ask, not an assumed rule"); the order file check's limits (0176, when
 the build reaches them); design capacity; a fingerprint of the approved file; order mail onto the one dispatcher (0172).
 Each ruling is built in a release that cites this note.
+
+## Note (Jason, 2026-11-23): the order model
+
+Jason confirmed his order model, `research/order-model-2026-11-21.md` ("Good to go"), walked through with the Orders
+session from the order flow as built (the map, §3), his words quoted point by point. It is the source for the order
+releases from here. What it changes in this decision (its §0), each confirmed:
+1. **Invoice later** ("With invoice-later terms, production starts on approval"; "or approve now and pay the invoice
+   later") is replaced: delayed payment is a **credit account** on its terms (granted by an admin after a credit
+   process, with approvals; "balance due per terms. Deposits used to offset risks"), or an **admin override** on one
+   order.
+2. **How payment is chosen** ("in full on approval, a deposit on approval and the rest before delivery, or …"): paid in
+   full at approval is the rule. A **deposit** is the exception, "required [when] terms may change after approval": it
+   lowers what's due "only until it is released into the productions actual schedule", then the balance is due, and it
+   must be paid before the order is released for delivery. A deposit doesn't move the order forward. Default 65%, set
+   per order by staff (the 50% default was only in the code).
+3. **B.4** (rulings note, 2026-11-20): the "invoice later" exception is removed. Release to production before payment
+   becomes the admin override: "Admins only, with a reason recorded."
+4. **The vendor work order waits for payment in full** ("Paid in full before order is released to vendor"), except a
+   deposit order (the deposit covers it) and the admin override. The cancel window closes when the vendor accepts with
+   its job number and has scheduled production.
+5. **Two routes:** today's invoice route stays, and a cart route sits beside it ("Send cart or send invoice"). Place
+   order puts an item needing processing into the client's ordering queue; approval moves it to the cart or the
+   invoice; the cart holds only ready items, paid by card or QuickBooks' page (no wire or check).
+The rest (estimate → quote → transaction, the stages, reorders, waiting states and reminders, the shipping module) is in
+the model. B.3 (rulings note) stands for deposit orders. Built from it one release at a time, each citing this note.
