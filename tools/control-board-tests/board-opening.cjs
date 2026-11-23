@@ -18,6 +18,15 @@ const srv = spawn('php', ['-S', '127.0.0.1:' + port, path.join(__dirname, 'board
 const vis = (p, sel) => p.evaluate(s => { const e = document.querySelector(s); return !!e && !!e.getClientRects().length && getComputedStyle(e).display !== 'none'; }, sel);
 const box = (p, sel) => p.evaluate(s => { const e = document.querySelector(s); if (!e) return null; const r = e.getBoundingClientRect(); return { l: Math.round(r.left), t: Math.round(r.top), r: Math.round(r.right), b: Math.round(r.bottom), w: Math.round(r.width) }; }, sel);
 const noSide = p => p.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth + 1);
+// every visible gauge title whole: not cut (its words fit its box), no button over it, at most 3 lines (the session
+// manager, 2026-11-23: "Communit", "Marketplac" were cut by the per-card Copy, and titles wrapped to 4 lines)
+const titles = p => p.evaluate(() => { const bad = []; let n = 0;
+  document.querySelectorAll('#cb .cb-gc .cb-gh').forEach(h => { if (!h.getClientRects().length) return; n++; const r = h.getBoundingClientRect(), lh = parseFloat(getComputedStyle(h).lineHeight) || 18;
+    const over = [...h.closest('.cb-gc').querySelectorAll('button, a, .tv-copy-b')].filter(b => b.getClientRects().length && !h.contains(b) && !b.contains(h)).some(b => { const q = b.getBoundingClientRect(); return q.left < r.right - 1 && r.left < q.right - 1 && q.top < r.bottom - 1 && r.top < q.bottom - 1; });
+    const cut = h.scrollWidth > h.clientWidth + 1 || [...h.textContent.split(/\s+/)].some(w => { const sp = document.createElement('span'); sp.textContent = w; sp.style.cssText = 'position:absolute;visibility:hidden;white-space:nowrap;font:' + getComputedStyle(h).font; document.body.appendChild(sp); const ww = sp.getBoundingClientRect().width; sp.remove(); return ww > r.width + 1; });
+    const lines = Math.round(r.height / lh);
+    if (over || cut || lines > 3) bad.push({ t: h.textContent, over, cut, lines }); });
+  return { n, bad: bad.slice(0, 5) }; });
 (async () => {
   await new Promise(r => setTimeout(r, 900));
   const b = await chromium.launch();
@@ -50,6 +59,12 @@ const noSide = p => p.evaluate(() => document.documentElement.scrollWidth <= doc
         t(L + '…and is kept on reload', d2.t >= d1.b - 2 && await p.getAttribute('[data-cb-layout="rows"]', 'aria-pressed') === 'true', { d1, d2 });
         await p.click('[data-cb-layout="grid"]'); await p.waitForTimeout(300);
       } else t(L + '…stacked on a phone (Development under it), the switch out of the way', d2.t >= d1.b - 2 && !(await vis(p, '.cb-seg')), { d1, d2 });
+      let tt = await titles(p);
+      t(L + 'every gauge title whole: not cut, nothing over it, at most 3 lines (' + (w > 767 ? '2 columns' : 'phone') + ')', tt.n > 10 && !tt.bad.length, tt);
+      if (w > 767) { await p.click('[data-cb-layout="rows"]'); await p.waitForTimeout(300); tt = await titles(p);
+        t(L + '…and Stacked', tt.n > 10 && !tt.bad.length, tt); await p.click('[data-cb-layout="grid"]'); await p.waitForTimeout(300); }
+      const cpy = await p.evaluate(() => [...document.querySelectorAll('#cb .cb-gc')].filter(c => c.getClientRects().length).every(c => { const b = c.querySelector(':scope > .cb-gcopy > .tv-copy-b'); return !!b; }));
+      t(L + '…each card keeps its Copy, under its buttons (a slot at the card\'s foot), none on the title line', cpy);
       if (shots) await p.screenshot({ path: shots + '/build-landing-' + w + '.png' });
       // every chip pressed
       const n = await p.locator('details.cb-pop').count();
