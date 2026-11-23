@@ -6,32 +6,35 @@
     "zip": "control-board-health.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "staged",
-    "step": 0,
+    "state": "live",
+    "step": 3,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
     "plan_at": "2026-11-23 00:41:13",
     "staged_at": "2026-11-23 00:41:14",
-    "vetted_at": null,
-    "live_at": null,
+    "vetted_at": "2026-11-23 00:41:17",
+    "live_at": "2026-11-23 00:41:17",
     "files": {
         "app/lib/ControlConsistency.php": {
             "sha": "fe7ebce634650daf3aec831157d06c1515360c9b4b0ff4cd68e237fd00bfe63e",
             "size": 9249,
-            "live_was": null
+            "live_was": null,
+            "existed": false
         },
         "website/api/health.php": {
             "sha": "b1ee2efd8f70b0261ec7afaba15be8101fbce8974db579c756dd50645cc6d9e7",
             "size": 24742,
-            "live_was": "c896b1f7fc420047400fd68e406c4bd0fc95fdbf018b5b2b8d141813ee984faa"
+            "live_was": "c896b1f7fc420047400fd68e406c4bd0fc95fdbf018b5b2b8d141813ee984faa",
+            "existed": true,
+            "old_sha": "c896b1f7fc420047400fd68e406c4bd0fc95fdbf018b5b2b8d141813ee984faa"
         }
     },
     "migrations": [],
     "checks": {
         "ok": true,
-        "where": "staging",
-        "at": "2026-11-23T00:41:15+00:00",
+        "where": "live",
+        "at": "2026-11-23T00:41:17+00:00",
         "items": [
             [
                 "PHP files parse",
@@ -41,7 +44,7 @@
             [
                 "Pages answer",
                 true,
-                "2 pages answered on staging.trvgo.us"
+                "2 pages answered on traversence.com"
             ],
             [
                 "No new fatal errors in the logs",
@@ -71,6 +74,16 @@
             "at": "2026-11-23T00:41:15+00:00",
             "by": 0,
             "msg": "Put on staging (2 files); its checks passed."
+        },
+        {
+            "at": "2026-11-23T00:41:17+00:00",
+            "by": 0,
+            "msg": "Approved in chat before it was sent through git, and its checks on staging passed: publishing by itself."
+        },
+        {
+            "at": "2026-11-23T00:41:17+00:00",
+            "by": 0,
+            "msg": "Published: 2 files; everyone at once (no switch)."
         }
     ]
 }
