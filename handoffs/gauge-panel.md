@@ -121,6 +121,25 @@ The build also moves gauges.py to the new rule: reviewed is met on a live item w
 Walked again: `walk.cjs`, all passed at 1280 and 390. It now also checks that no item has a Sign off, and that Fix it
 turns into its Fixing line, which Undo turns back.
 
+## Revision 4: step 4, the next step (Jason's standing rule, CLAUDE.md #1308, 2026-11-23)
+
+"Every action is a task: see it, do it, confirmed, next." After "Fixing…":
+- **Step 3, confirmed:** the item's check passes and the row reads "Cleared: its check passed, <time>". The issue's buttons
+  and its failing chip go.
+- **Step 4, next:** what follows, as its own button, worked out per item: "Next: Add a check: the photos check", "Next:
+  Put it live: its release" or "Next: Prove it on live data: add a path check". If nothing follows: "Nothing more: every
+  step met".
+- The mockup shows step 3 with a "(mockup: show it cleared)" link. On the site it comes from the check's next pass.
+  walk.cjs checks step 3, then step 4's button, and that the issue's buttons are gone, at 1280 and 390.
+
+Joining this release (the session manager, 2026-11-23): Jason's "a finished step replaces its form" across every
+tv_ops_form on the cards.
+- After a press, one line: "Signs in as … · recorded by …, <time>", with Change and Undo. The form folds away.
+- No notice repeats the line, and no notice promises a button that isn't on screen.
+
+Open: the session manager's revision-3 list also names "Sign off the scope". Its Q3 ruling keeps the scope sign-off, so
+the mockup keeps it until it says which stands.
+
 ## Every element and where it leads
 
 | Element | Leads to | Today |

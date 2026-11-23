@@ -183,6 +183,18 @@ def state_sentence(item, b):
     return 'Done: every step met.'
 
 
+def next_step(item, after):
+    """Step 4: the next unmet step once this one clears, as its own button's words."""
+    nc = [c for c in item.get('no_check', [])]
+    if after != 'check' and nc:
+        return 'Add a check: ' + nm(nc[0]).lower()
+    if item['status'] != 'live':
+        return 'Put it live: its release'
+    if 'proved' not in item.get('met', []):
+        return 'Prove it on live data: add a path check'
+    return ''
+
+
 def item_row(n, item):
     b = bucket(item)
     rt = route_of(item)
@@ -195,16 +207,16 @@ def item_row(n, item):
     if b == 'fail':
         fc = [c[0] for c in item['checks'] if c[1] == 'fail']
         what = (f['title'] if f else nm(fc[0]) + ' fails').rstrip('.')
-        acts.append('<button type="button" class="b go" data-send="%d" data-what="%s">Fix it</button>' % (n, e(what)))
+        acts.append('<button type="button" class="b go" data-send="%d" data-what="%s" data-next="%s">Fix it</button>' % (n, e(what), e(next_step(item, 'fail'))))
         if f:
             acts.append('<button type="button" class="b ol" data-open="finding" data-id="%s">See the evidence</button>' % e(f['id']))
         else:
             acts.append('<button type="button" class="b ol" data-open="check" data-id="%s">See what %s found</button>' % (e(fc[0]), e(nm(fc[0]).lower())))
     elif b == 'build':
-        acts.append('<button type="button" class="b go" data-send="%d" data-what="building it">Fix it: build it</button>' % n)
+        acts.append('<button type="button" class="b go" data-send="%d" data-what="building it" data-next="%s">Fix it: build it</button>' % (n, e(next_step(item, 'build'))))
     elif b == 'check':
         c0 = item['no_check'][0]
-        acts.append('<button type="button" class="b go" data-send="%d" data-what="adding %s">Add a check</button>' % (n, e(nm(c0).lower())))
+        acts.append('<button type="button" class="b go" data-send="%d" data-what="adding %s" data-next="%s">Add a check</button>' % (n, e(nm(c0).lower()), e(next_step(item, 'check'))))
         acts.append('<button type="button" class="b ol" data-open="%s" data-id="%s">Why it isn\'t checked</button>' % ('reach' if REG.get(c0, {}).get('status', '').startswith('built') else 'check', e(c0)))
     if rt:
         acts.append('<a class="b ol" href="%s" data-peek-frame>Open the page</a>' % e(rt))
@@ -352,7 +364,7 @@ REGJSON = json.dumps({k: {'name': nm(k) + ': ' + v.get('name', ''), 'status': v.
 FJSON = json.dumps({k: {'title': v['title'], 'detail': v['detail'], 'page': v['page'], 'shot': v['shot_url'], 'blocks': v['blocks'], 'rule': v['rule'], 'proposal': v.get('proposal_url', '')} for k, v in FIND.items()})
 out = '''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Gauge panel mockup</title><style>%s</style></head><body>
-<header class="mh"><b>Mockup: the gauge panel as a drill-down (revision 3)</b> <span class="meta">Real data: gauges-items.json of %s. Nothing here writes; buttons show what they'd do.</span>
+<header class="mh"><b>Mockup: the gauge panel as a drill-down (revision 4)</b> <span class="meta">Real data: gauges-items.json of %s. Nothing here writes; buttons show what they'd do.</span>
 <nav><button type="button" class="b sm" data-show="dev" aria-pressed="true">Development: %s</button><button type="button" class="b sm" data-show="rt" aria-pressed="false">Runtime: %s</button></nav></header>
 <main><section data-view="dev">%s</section><section data-view="rt" hidden>%s</section></main>
 <div class="toast" role="status" hidden></div>

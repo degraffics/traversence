@@ -15,7 +15,11 @@ function filt(sp,f){const on=f&&f!=='all'&&sp._f!==f?f:null;sp._f=on;const ul=$(
  if(on)ul.scrollIntoView({block:'nearest',behavior:'smooth'});}
 // a finished step replaces its form (Jason, 2026-11-23): the line, then Undo puts the button back
 function done(btn,line){const box=btn.closest('.acts')||btn.parentNode;const d=document.createElement('div');d.className='done';
- d.innerHTML='<span>'+line+'</span><button type="button" class="sl">Undo</button>';d.querySelector('.sl').onclick=()=>{btn.hidden=false;d.remove();toast('Undone.');};
+ d.innerHTML='<span>'+line+'</span><button type="button" class="sl" data-undo>Undo</button>'+(btn.dataset.send!==undefined?'<button type="button" class="sl" data-demo>(mockup: show it cleared)</button>':'');
+ d.querySelector('[data-undo]').onclick=()=>{btn.hidden=false;d.remove();toast('Undone.');};
+ // step 3 confirmed by its check, then step 4: the next step as its own button (CLAUDE.md "Every action is a task")
+ const demo=d.querySelector('[data-demo]');if(demo)demo.onclick=()=>{const nx=btn.dataset.next||'';box.hidden=true;const it=btn.closest('.it');if(it)$$('.chip.c-fail',it).forEach(c=>c.remove());
+  d.innerHTML='<span><b class="ok">Cleared:</b> its check passed, '+now()+'.</span>'+(nx?'<button type="button" class="b go sm" data-send="next" data-what="'+esc(nx)+'">Next: '+esc(nx)+'</button>':'<span>Nothing more: every step met.</span>');};
  btn.hidden=true;box.after(d);}
 document.addEventListener('click',ev=>{const t=ev.target.closest('button,a');const leg=$('.dleg:not([hidden])');
  if(leg&&!ev.target.closest('.dleg,.info')){leg.hidden=true;$('.info[aria-expanded=true]').setAttribute('aria-expanded','false');}

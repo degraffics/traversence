@@ -19,7 +19,10 @@ for(const w of [1280,390]){const p=await b.newPage({viewport:{width:w,height:900
  // Jason's process (Q2): view the issue, Fix it, the row reads Fixing with Undo; no sign-off anywhere
  ok(await p.locator('[data-sign]:not([data-sign=scope]):not([data-sign=target])').count()===0,w+' no Sign off on items');
  await p.click('[data-view=dev] .ib:visible .acts [data-send]');ok(await p.locator('[data-view=dev] .ib:visible .done').count()===1&&!(await p.locator('[data-view=dev] .ib:visible .acts [data-send]').isVisible()),w+' Fixing line replaces Fix it');
- await p.screenshot({path:`${out}/dev-${w}-fixing.png`,fullPage:true});await p.click('[data-view=dev] .ib:visible .done .sl');ok(await p.locator('[data-view=dev] .ib:visible .acts [data-send]').isVisible(),w+' Undo puts it back');
+ await p.screenshot({path:`${out}/dev-${w}-fixing.png`,fullPage:true});
+ await p.click('[data-view=dev] .ib:visible .done [data-demo]');ok(await p.locator('[data-view=dev] .ib:visible .done b.ok').count()===1,w+' cleared shows');
+ ok(await p.locator('[data-view=dev] .ib:visible .done .b').count()===1,w+' step 4: a Next button');ok(await p.locator('[data-view=dev] .ib:visible .acts:visible').count()===0&&await p.locator('[data-view=dev] .ib:visible .c-fail').count()===0,w+' cleared: the issue buttons and chip go');await p.screenshot({path:`${out}/dev-${w}-next.png`,fullPage:true});
+ await p.click('[data-view=dev] .ex[aria-expanded=true]');await p.click('[data-view=dev] .it:visible .ex >> nth=1');await p.click('[data-view=dev] .ib:visible .acts [data-send]');await p.click('[data-view=dev] .ib:visible .done [data-undo]');ok(await p.locator('[data-view=dev] .ib:visible .acts [data-send]').isVisible(),w+' Undo puts it back');
  await p.click('[data-view=dev] .lg[data-f=fail]');await p.click('[data-view=dev] .more');ok(await p.locator('[data-view=dev] .it:visible').count()===30,w+' Show all 30');
  for(const c of await p.locator('[data-view=dev] .ac .b').all()){await c.click();if(await p.locator('.sub').count())await p.click('.sub [data-back]');}
  await p.click('[data-show=rt]');await p.screenshot({path:`${out}/rt-${w}.png`,fullPage:true});ok(await p.evaluate(()=>document.documentElement.scrollWidth)<=w,w+' rt sideways');

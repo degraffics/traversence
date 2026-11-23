@@ -52,3 +52,4 @@ details.src,details.nd{margin-top:.5rem;font-size:12.5px}details.src summary,det
 .mh nav{margin-left:0}.nm{white-space:normal}.ih{flex-wrap:wrap}.dots{display:none}.dword{display:inline;flex-basis:100%;padding-left:calc(10px + .45rem)}}
 .acts[hidden]{display:none}@media (max-width:767px){.dword{order:3}.ih .ex{margin-left:auto}}
 .b[hidden]{display:none}
+.done b.ok{color:var(--sage-ink)}
