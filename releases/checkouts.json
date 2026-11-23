@@ -3,24 +3,12 @@
  "claims": [
   {
    "path": "app/lib/ClientOrders.php",
-   "functions": [
-    "approve",
-    "duplicate",
-    "paidInQuickBooks",
-    "received",
-    "releaseHold",
-    "reportPay",
-    "saveTerms",
-    "send",
-    "setField",
-    "setItemStatus",
-    "setStage"
-   ],
+   "functions": [],
    "kind": "change",
    "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
-   "why": "Orders: the rulings release rebuilt on Jason's order model (decisions/0101 note 2026-11-23): paid in full before the vendor and delivery, the admin override, invoice later retired",
+   "why": "Orders: the rulings release rebuilt on Jason's order model: the pay terms' constants (OFFERED, DEPOSIT_DEFAULT, RELEASE_RULE, OUT_DOOR) and the header",
    "since": "2026-11-23T01:35:04Z",
-   "expires": "2026-11-23T06:09:17Z",
+   "expires": "2026-11-23T06:09:58Z",
    "release": "orders-rulings-2.zip",
    "callers": {
     "send": [
