@@ -247,6 +247,19 @@
    "expires": "2026-11-23T23:07:43Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/ui/command-strip.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
+   "why": "Collect the balance on an order out the door (session manager's review of #270)",
+   "since": "2026-11-23T19:07:45Z",
+   "expires": "2026-11-23T23:07:45Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
