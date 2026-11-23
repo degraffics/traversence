@@ -221,14 +221,15 @@
   {
    "path": "app/lib/ControlAlarms.php",
    "functions": [
+    "facts",
     "pulseSteps",
     "tick"
    ],
    "kind": "change",
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
-   "why": "board-fixes: jobs and words, Signs in as, the Sync chip (Jason, 2026-11-23)",
+   "why": "board-fixes: the Design reviewer changes (one button, short titles, true words, one time format)",
    "since": "2026-11-23T14:58:01Z",
-   "expires": "2026-11-23T19:07:28Z",
+   "expires": "2026-11-23T19:32:41Z",
    "release": "board-fixes-2.zip",
    "callers": {
     "pulseSteps": [
