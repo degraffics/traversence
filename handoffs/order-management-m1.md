@@ -210,3 +210,10 @@ without AI, one "What's open" list) reached this session after M1 was built. Ask
 - Held (the session manager, 20:43): the gauge panel goes first. My claims on tools.php, command-strip.php and
   kit-css.php are released and the pending record is off this branch; once it's live and synced, M1's shared files are
   rebuilt on the live copies, claimed again, zip-checked, then the session manager and Jason's pop-up.
+
+### Approved (Jason, 2026-11-23, pop-up, reviewed by the session manager and the Design reviewer)
+M1 approved → PR #1320 merged. M1b's design approved; (b) post payments to a linked hand-made QuickBooks invoice: yes;
+(c) create vendor bills in QuickBooks: yes (decisions/0178 note). **Next: M1b**, built on M1's state function once M1 is
+live and synced: QuickBooks first (a linked invoice's payments read and applied, a payment recorded here posted to it),
+the Vendor line (the vendor invoice dropped through the one uploader, read without AI, matched by PO, the bill recorded
+here and in QuickBooks), the questions on the lines.

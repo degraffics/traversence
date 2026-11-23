@@ -54,3 +54,13 @@ QuickBooks invoice) has **Refund…**, with his OK (§1). Agreed by the session 
 "Edit or Undo" says it once. Also decided by the session manager the same day (M1b, design §3.6 (a)): a payment
 QuickBooks already shows on a linked invoice is applied at once, said as "Paid in QuickBooks <date> · <method/ref>",
 corrected with ✎, History kept; it writes nothing outside our records.
+
+**Note (2026-11-23, Jason, in the Orders session's pop-up, reviewed by the session manager): M1b's two QuickBooks
+answers**, for design §3.6 (built in M1b):
+- **(b) "Yes, post it":** a payment recorded on an order whose QuickBooks invoice was made by hand and linked by its
+  number is also received on that invoice in QuickBooks (`QuickBooksPay::recordOtherPayment()`), so it's never entered
+  twice. `guardReal()` / `testHere()` hold.
+- **(c) "Yes, create it":** a vendor bill recorded on an order (typed, or from their dropped invoice) is also created in
+  QuickBooks as a Bill against the vendor (amount, number, date, due), linked to the order. Paying vendors stays a
+  separate decision.
+He also approved M1b's design (mockups `open`, `open-after`) and M1 (PR #1320) in the same pop-up.

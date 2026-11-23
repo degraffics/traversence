@@ -232,9 +232,9 @@ once: "Paid in QuickBooks <date> · <method/ref>", ✎ to correct it, History ke
 Delivery line's question (2 in part). **M1b** builds 1, the Vendor line (2's bill, 3) and 4 on M1's state function
 (mockups `open`, `open-after`).
 
-**For Jason, in M1b's pop-up (they write to the books):** (b) should recording a payment here post it to a hand-made
-QuickBooks invoice once linked by its number? (c) should recording a vendor bill here also create it in QuickBooks
-(against the vendor)? Paying vendors stays a separate decision.
+**Jason's answers (2026-11-23, pop-up; decisions/0178 note):** (b) yes: a payment recorded here is also received on a
+hand-made QuickBooks invoice linked by its number; (c) yes: a vendor bill recorded here is also created in QuickBooks
+against the vendor. Paying vendors stays a separate decision. M1b's mockups approved the same day.
 
 ## 4. Pages and drill-down
 
