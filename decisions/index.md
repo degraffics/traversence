@@ -183,3 +183,4 @@ decision may be stale, or the file moved.
 | 0175 | [0175: One lifecycle for every module: our services and account apps, from selection to removal, acted on from the board](0175-one-lifecycle-for-every-module.md) | accepted |  | 11 | 1 |  |
 | 0176 | [0176: The dispatcher presents and routes every thread](0176-the-dispatcher-presents-and-routes-every-thread.md) | accepted |  | 8 | 2 |  |
 | 0177 | [0177: One order, several destinations: invoices, tax and the deposit](0177-one-order-several-destinations.md) | accepted |  |  | 0 |  |
+| 0178 | [0178: Order money policy: refunds, cancelling, credit, terms, cards and delivery with a balance](0178-order-money-policy.md) | accepted |  |  | 0 |  |

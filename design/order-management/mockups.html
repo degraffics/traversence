@@ -1,0 +1,240 @@
+<!doctype html>
+<!-- Order management mockups (research/order-management-design-2026-11-23.md §4), round 2 after the Design reviewer.
+     Open with ?v= board | board-empty | board-after | place | place-after | order | order-after | money | money-pay | money-after | catalog.
+     Static, made-up clients; tokens from brand.md and design/css-theme-brand.md. Rendered by render.cjs at 1280 and 390.
+     Buttons (brand.md §4): one filled per view, brand brown #92400E with page-colour text (5.18:1); the rest outlined. -->
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Order management mockups</title>
+<style>
+:root{--page:#E4DCC5;--section:#EDE6D5;--card:#F6F1E4;--edge:#D9CDB0;--ink:#2A1D14;--meta:#6B5843;--umber:#3E2B1F;--void:#231D17;
+  --brown:#92400E;--sage:#92BEA5;--amber:#8f5600;--amber-bg:#FBF1DC;--red:#a62b2b;--focus:#C85A17}
+*{box-sizing:border-box}html,body{margin:0}body{background:var(--page);color:var(--ink);font:15px/1.45 Inter,system-ui,sans-serif}
+h1,h2,h3{font-family:Merriweather,Georgia,serif;margin:0}a{color:var(--brown);font-weight:600}
+svg.i{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;vertical-align:-3px}
+.top{height:34px;background:#8C3A23;color:#fff;display:flex;align-items:center;padding:0 12px;font-size:13px;font-weight:700}
+.rail{position:fixed;left:0;top:34px;bottom:0;width:64px;background:var(--umber)}
+.main{margin-left:64px;padding:14px 28px 40px}
+.strip{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:10px;background:var(--umber);color:var(--card);border-radius:.7rem;padding:6px 8px;margin:0 0 12px}
+.strip h1{font-size:17px;color:var(--card);flex:1}.strip .b{background:var(--section);border:0}
+.back{width:32px;height:32px;border-radius:.45rem;background:var(--section);display:grid;place-items:center;color:var(--brown);font-weight:800}
+.b{display:inline-flex;align-items:center;gap:.35rem;border:1px solid #B8A57F;background:var(--card);color:var(--ink);border-radius:.5rem;padding:.38rem .75rem;font:600 14px Inter,system-ui;cursor:pointer;white-space:nowrap}
+.b.go{background:var(--brown);border-color:var(--brown);color:var(--page)}.b.sm{padding:.25rem .55rem;font-size:13px}
+.b[disabled]{opacity:.55;cursor:not-allowed}.b:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.head{display:flex;align-items:center;gap:12px;margin:4px 0 12px}.head h1{font-size:22px;flex:1}
+.tilerow{display:grid;grid-template-columns:repeat(4,1fr) 1.25fr;gap:8px;margin-bottom:12px;align-items:stretch}
+.tile{background:var(--card);border:1px solid var(--edge);border-radius:.6rem;padding:.55rem .75rem;text-align:left;cursor:pointer;font:inherit;color:inherit}
+.tile b{display:block;font-size:22px;font-family:Merriweather,Georgia,serif}.tile span{font-size:13px;color:var(--meta);font-weight:600}
+.tile.on{border:2px solid var(--brown);background:#FFF8EE}
+.tile.money{border-left:5px solid var(--amber);margin-left:10px}.tile.money b{color:var(--amber)}.tile.money small{display:block;color:var(--meta);font-size:12px}
+.bar{display:flex;gap:8px;margin-bottom:10px;align-items:center}.search{flex:1;border:1px solid var(--edge);background:var(--card);border-radius:999px;padding:.45rem .9rem;color:var(--meta)}
+.filter{border-radius:999px}
+table{width:100%;border-collapse:separate;border-spacing:0;background:var(--card);border:1px solid var(--edge);border-radius:.6rem;overflow:hidden}
+th{font-size:12px;text-transform:uppercase;letter-spacing:.03em;color:var(--meta);text-align:left;padding:.55rem .75rem;border-bottom:1px solid var(--edge);background:var(--section)}
+td{padding:.6rem .75rem;border-bottom:1px solid #EADFC4;vertical-align:top}tr:last-child td{border-bottom:0}
+td.n{text-align:right;font-variant-numeric:tabular-nums}
+.st{display:block;font-weight:700}.st+small,.sub{color:var(--meta);font-size:12.5px;display:block}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:1px;background:var(--meta)}
+.dot.wait{background:var(--amber)}.dot.ok{background:#4E8A6A}.dot.go{background:var(--brown)}
+.owed{color:var(--amber);font-weight:800}
+.foot{display:flex;justify-content:space-between;align-items:center;color:var(--meta);font-size:13px;padding:.5rem .2rem}
+.empty{background:var(--card);border:1px dashed #B8A57F;border-radius:.6rem;padding:26px;text-align:center}
+.empty p{margin:.2rem 0 .8rem;color:var(--meta)}
+.done{display:inline-flex;gap:.45rem;align-items:center;font-size:13px;font-weight:700;color:#2F5E45}
+.done a{font-weight:700}
+.card{background:var(--card);border:1px solid var(--edge);border-radius:.6rem;padding:14px 16px;margin-bottom:12px}
+.sec{background:var(--section);border-radius:.8rem;padding:12px;margin-bottom:14px}.sec>h2{font-size:17px;margin:2px 4px 10px}
+.news{background:var(--card);border:1px solid var(--edge);border-radius:.6rem;margin-bottom:14px}
+.line{display:grid;grid-template-columns:110px 1fr auto;gap:12px;align-items:center;padding:.6rem .9rem;border-bottom:1px solid #EADFC4}.line:last-child{border:0}
+.line .k{font-size:12px;text-transform:uppercase;color:var(--meta);font-weight:700;letter-spacing:.03em}
+.line .why{display:block;font-size:12px;color:var(--meta);text-align:right;margin-top:2px}
+.figs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}.fig{background:var(--card);border:1px solid var(--edge);border-radius:.5rem;padding:.5rem .7rem}
+.fig span{font-size:12px;color:var(--meta);font-weight:700;text-transform:uppercase}.fig b{display:block;font-size:19px;font-family:Merriweather,Georgia,serif}
+.acts{display:flex;flex-wrap:wrap;gap:6px}
+.kv{display:grid;grid-template-columns:140px 1fr;gap:4px 12px;font-size:14px}.kv dt{color:var(--meta);font-weight:600}.kv dd{margin:0}
+.steps{display:grid;grid-template-columns:1fr 300px;gap:16px;align-items:start}
+.step{background:var(--card);border:1px solid var(--edge);border-radius:.6rem;margin-bottom:8px}
+.step>header{display:flex;align-items:center;gap:10px;padding:.65rem .9rem}.step>header h3{font-size:15px;flex:0 0 auto}
+.step>header .say{flex:1;color:var(--meta);font-size:14px}
+.num{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:13px;background:var(--section);color:var(--meta);flex:0 0 26px}
+.step.fin .num{background:var(--sage);color:var(--void)}.step.now{border:2px solid var(--brown)}.step.now .num{background:var(--brown);color:var(--page)}
+.step.later{opacity:.6}.step .body{padding:0 .9rem .9rem}
+.pick{display:flex;gap:8px;align-items:center;border:1px solid var(--edge);border-radius:.5rem;padding:.5rem .7rem;margin-bottom:6px;background:#fff;flex-wrap:wrap}
+.pick b{flex:1}.pick small{color:var(--meta)}
+.opt{display:flex;gap:8px;align-items:flex-start;border:1px solid var(--edge);border-radius:.5rem;padding:.55rem .7rem;margin-bottom:6px;background:#fff}
+.opt.on{border:2px solid var(--brown)}.opt small{display:block;color:var(--meta)}
+.sum{position:sticky;top:60px}.sum .row{display:flex;justify-content:space-between;padding:.25rem 0}.sum .tot{border-top:1px solid var(--edge);margin-top:6px;padding-top:8px;font-weight:800}
+.tabs{display:flex;flex-wrap:wrap;gap:4px;border-bottom:1px solid var(--edge);margin-bottom:12px}.tabs a{padding:.5rem .8rem;text-decoration:none;color:var(--meta)}
+.tabs a.on{color:var(--ink);border-bottom:3px solid var(--brown)}
+.aging{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:12px}
+.mcard{display:none}
+.pill{display:inline-block;font-size:12px;font-weight:700;padding:.1rem .5rem;border-radius:999px;background:var(--section);color:var(--meta)}
+.pill.wait{background:var(--amber-bg);color:var(--amber)}
+.drawer{position:fixed;right:0;top:34px;bottom:0;width:420px;background:var(--card);border-left:1px solid var(--edge);box-shadow:-10px 0 30px -18px rgba(0,0,0,.6);padding:16px;z-index:9;overflow:auto}
+.drawer header{display:flex;align-items:center;gap:8px;margin-bottom:10px}.drawer header h2{font-size:18px;flex:1}
+.x{width:30px;height:30px;border-radius:50%;border:1px solid #B8A57F;background:var(--card);font-weight:800}
+label{display:block;font-size:13px;font-weight:600;color:var(--meta);margin:.5rem 0 .2rem}.in{width:100%;border:1px solid #B8A57F;background:#fff;border-radius:.45rem;padding:.45rem .6rem;font:inherit;color:var(--ink)}
+.shade{position:fixed;inset:34px 0 0 64px;background:rgba(35,29,23,.35);z-index:8}
+.chk{display:flex;gap:.5rem;align-items:center;border:1px solid var(--edge);border-radius:.45rem;padding:.45rem .6rem;margin-bottom:5px;background:#fff;font-size:14px}.chk b{flex:1}
+.views>section{display:none}.views>section.on{display:block}
+@media (max-width:767px){
+  .rail{display:none}.main{margin-left:0;padding:8px 3px 30px}.head{padding:0 8px}.bar{padding:0 3px}
+  .tilerow{grid-template-columns:1fr 1fr;gap:3px}.tile.money{grid-column:span 2;margin:6px 0 0}
+  table.big{display:none}.mcard{display:block;background:var(--card);border:1px solid var(--edge);border-radius:.5rem;padding:10px 12px;margin-bottom:3px}
+  .mcard .t{display:flex;justify-content:space-between;align-items:baseline;gap:8px}.mcard .t .pill{margin-left:auto}.mcard .g{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:8px 0;font-size:13.5px}
+  .steps{grid-template-columns:1fr}.sum{position:static}.figs{gap:3px}.aging{grid-template-columns:1fr 1fr;gap:3px}
+  .line{grid-template-columns:1fr;gap:4px}.line .why{text-align:left}.kv{grid-template-columns:1fr}.kv dt{margin-top:6px}
+  .sec{padding:8px 3px;border-radius:.5rem}.card,.step,.news{border-radius:.5rem}.strip{border-radius:0;margin:0 -3px 8px}
+  .step>header{flex-wrap:wrap}.step>header .say{flex-basis:100%;order:3}
+  .bar .search{min-width:0}.bar .b{white-space:normal}
+  .drawer{width:100%;left:0;top:34px}.shade{left:0}.foot{padding:.5rem .6rem}
+}
+</style></head><body>
+<svg width="0" height="0" style="position:absolute"><symbol id="filter" viewBox="0 0 24 24"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></symbol></svg>
+<div class="top">J · User: Jordan</div><div class="rail"></div>
+<div class="main views">
+
+<!-- ============================== 1. The job board ============================== -->
+<section id="board" data-v="board board-after board-empty">
+  <div class="head"><h1>Orders</h1><button class="b go">＋ Place an order</button></div>
+  <div class="tilerow" role="group" aria-label="Show orders where…">
+    <button class="tile on" aria-pressed="true"><b data-only="board board-empty">4</b><b data-only="board-after">3</b><span>Needs us</span></button>
+    <button class="tile" aria-pressed="false"><b data-only="board board-empty">3</b><b data-only="board-after">4</b><span>Waiting on the client</span></button>
+    <button class="tile" aria-pressed="false"><b>2</b><span>In production</span></button>
+    <button class="tile" aria-pressed="false"><b>2</b><span>Out the door</span></button>
+    <button class="tile money" aria-pressed="false" title="Any order with money owed, whatever its stage"><b data-only="board board-empty">$3,214.60</b><b data-only="board-after">$2,802.60</b><span>Money owed</span><small data-only="board board-empty">5 orders, in any stage</small><small data-only="board-after">4 orders, in any stage</small></button>
+  </div>
+  <div class="bar"><div class="search">Search orders: number, client, email</div><button class="b filter"><svg class="i"><use href="#filter"/></svg> Everyone's · Open ▾</button></div>
+  <div data-only="board board-after">
+  <table class="big"><thead><tr><th>Order</th><th>Client</th><th>Where it stands</th><th>Money</th><th>Delivery</th><th>Next step</th></tr></thead><tbody>
+    <tr><td><a href="#">#12</a></td><td>Mesa Ridge Lodge</td><td><span class="st"><i class="dot ok"></i>Out the door</span><small>ready since Nov 2</small></td>
+      <td><span class="st owed">$809.10 owed</span><small>released before payment</small></td><td><span class="st">Ready for pickup</span></td><td><button class="b sm">Collect the balance</button></td></tr>
+    <tr><td><a href="#">#21</a></td><td>Canyon Feed &amp; Supply</td><td><span class="st"><i class="dot wait"></i>Changes asked</span><small>proof v2 · 1 day</small></td>
+      <td><span class="st">Not due yet</span></td><td><span class="st">Not started</span></td><td><button class="b sm">Upload the new proof</button></td></tr>
+    <tr><td><a href="#">#19</a></td><td>Pinon Hills Dental</td><td><span class="st"><i class="dot go"></i>Approved</span><small>today</small></td>
+      <td data-only="board"><span class="st owed">$412.00 deposit due</span><small>cost + 15%</small></td><td data-only="board-after"><span class="st">Deposit paid</span><small>$412.00 · $1,374.00 to come</small></td>
+      <td><span class="st">Not started</span></td>
+      <td data-only="board"><button class="b sm">Take a payment</button></td><td data-only="board-after"><span class="done">✓ Paid $412.00 by check · <a href="#">Undo</a></span><br><button class="b sm" style="margin-top:6px">Send the work order</button></td></tr>
+    <tr><td><a href="#">#7</a></td><td>Little Colorado Outfitters</td><td data-only="board"><span class="st"><i class="dot wait"></i>Link expired</span><small>sent Nov 4</small></td><td data-only="board-after"><span class="st"><i class="dot wait"></i>With the client</span><small>sent again today</small></td>
+      <td><span class="st">Not due yet</span></td><td><span class="st">Not started</span></td>
+      <td data-only="board"><button class="b sm">Send it again</button></td><td data-only="board-after"><span class="done">✓ Sent Nov 23 · <a href="#">Copy the link</a></span><span class="sub">Moved to Waiting on the client</span></td></tr>
+  </tbody></table>
+  <div class="mcard"><div class="t"><a href="#">Order #12</a><span class="pill wait">$809.10 owed</span></div>
+    <div class="g"><span>Mesa Ridge Lodge</span><span>Out the door · ready since Nov 2</span><span>Released before payment</span><span>Ready for pickup</span></div><button class="b sm">Collect the balance</button></div>
+  <div class="mcard"><div class="t"><a href="#">Order #21</a><span class="pill">Not due yet</span></div>
+    <div class="g"><span>Canyon Feed &amp; Supply</span><span>Changes asked · 1 day</span><span>Not started</span></div><button class="b sm">Upload the new proof</button></div>
+  <div class="mcard"><div class="t"><a href="#">Order #19</a><span class="pill wait" data-only="board">$412.00 deposit due</span><span class="pill" data-only="board-after">Deposit paid</span></div>
+    <div class="g"><span>Pinon Hills Dental</span><span>Approved · today</span><span>Not started</span></div><button class="b sm" data-only="board">Take a payment</button><span data-only="board-after"><span class="done">✓ Paid $412.00 by check · <a href="#">Undo</a></span><br><button class="b sm" style="margin-top:6px">Send the work order</button></span></div>
+  <div class="mcard"><div class="t"><a href="#">Order #7</a><span class="pill">Not due yet</span></div>
+    <div class="g"><span>Little Colorado Outfitters</span><span data-only="board">Link expired · sent Nov 4</span><span data-only="board-after">With the client · sent again today</span></div><button class="b sm" data-only="board">Send it again</button><span data-only="board-after"><span class="done">✓ Sent Nov 23 · <a href="#">Copy the link</a></span><span class="sub">Moved to Waiting on the client</span></span></div>
+  <div class="foot"><span data-only="board board-empty">1–4 of 4 that need us</span><span data-only="board-after">3 need us · #7 moved to Waiting on the client (shown until you refresh)</span><span>‹ 1 ›</span></div>
+  </div>
+  <div data-only="board-empty" class="empty"><h3 style="font-size:17px">Nothing needs you</h3><p>Every order is with the client, at the vendor, or done.</p><button class="b">＋ Place an order</button> <button class="b">Show waiting on the client (3)</button></div>
+</section>
+
+<!-- ============================== 2. Place an order (guided) ============================== -->
+<section id="place" data-v="place place-after">
+  <div class="strip"><span class="back">←</span><h1>New order</h1><button class="b sm">Save draft</button><button class="b sm">☰</button></div>
+  <div class="steps"><div>
+    <div class="step fin"><header><span class="num">✓</span><h3>Client</h3><span class="say">Mesa Ridge Lodge · Ana Ortiz · ana@mesaridge.example · bills to 410 W Main St, Springerville AZ</span><button class="b sm">Change</button></header></div>
+    <div class="step now" data-only="place"><header><span class="num">2</span><h3>Items</h3></header><div class="body">
+      <div class="search" style="margin-bottom:8px">Search the catalog: product, service or category</div>
+      <div class="pick"><b>Door hangers</b><small>Print · 4.25 × 11 · full color · 100# gloss</small><span>5,000</span><span>$809.10</span><button class="b sm">Edit</button></div>
+      <div class="pick"><b>Design: door hanger layout</b><small>Service · 2 hours</small><span>1</span><span>$150.00</span><button class="b sm">Edit</button></div>
+      <div class="acts" style="margin-top:8px"><button class="b sm">＋ Custom line</button><button class="b sm">＋ New product or service</button><button class="b sm">＋ Shipping</button></div>
+      <div style="margin-top:12px;display:flex;justify-content:space-between"><button class="b">Back</button><button class="b go">Next: where and tax</button></div></div></div>
+    <div class="step fin" data-only="place-after"><header><span class="num">✓</span><h3>Items</h3><span class="say">2 items · $959.10 before tax: door hangers × 5,000; design, 2 hours</span><button class="b sm">Change</button></header></div>
+    <div class="step later" data-only="place"><header><span class="num">3</span><h3>Where and tax</h3><span class="say">Pickup, shipped (one or several addresses), or nothing to send · Taxable</span></header></div>
+    <div class="step now" data-only="place-after"><header><span class="num">3</span><h3>Where and tax</h3></header><div class="body">
+      <div class="opt on"><input type="radio" checked aria-label="Pickup"><div><b>Pickup at our shop</b><small>Taxed at our address. Nothing to fill in.</small></div></div>
+      <div class="opt"><input type="radio" aria-label="Shipped"><div><b>Shipped</b><small>To one address, or several (one invoice each)</small></div></div>
+      <div class="opt"><input type="radio" aria-label="Nothing to send"><div><b>Nothing to send</b><small>A service or digital work</small></div></div>
+      <label>Sales tax</label><select class="in"><option>Taxable</option><option>Reseller</option><option>Exempt</option><option>Out of state</option></select>
+      <div style="margin-top:12px;display:flex;justify-content:space-between"><button class="b">Back</button><button class="b go">Next: payment terms</button></div></div></div>
+    <div class="step later"><header><span class="num">4</span><h3>Payment terms</h3><span class="say">Paid in full, or a deposit (cost + 15%)</span></header></div>
+    <div class="step later"><header><span class="num">5</span><h3>Review and send</h3><span class="say">What the client will see, then Send the order</span></header></div>
+  </div>
+  <aside class="card sum"><h3 style="font-size:15px;margin-bottom:8px">This order</h3>
+    <div class="row"><span>2 items</span><b>$959.10</b></div><div class="row"><span>Tax</span><span>at approval</span></div>
+    <div class="row"><span>Deposit (cost + 15%)</span><span>$483.30</span></div><div class="row tot"><span>Before tax</span><span>$959.10</span></div>
+    <p class="sub" style="margin:.6rem 0 0">Saved as a draft at every step.</p></aside></div>
+</section>
+
+<!-- ============================== 3. The order page ============================== -->
+<section id="order" data-v="order order-after">
+  <div class="strip"><span class="back">←</span><h1>Order #12</h1><button class="b sm">Close ▾</button><button class="b sm">☰</button></div>
+  <div class="news" role="status">
+    <div class="line"><span class="k">Order</span><span><b>Out the door.</b> Ready for pickup since Nov 2; the client was asked to tell us they have it.</span>
+      <span data-only="order"><button class="b sm" disabled title="$809.10 still owed: collect the balance first">Complete</button><span class="why">$809.10 still owed</span></span>
+      <span data-only="order-after"><button class="b go">Complete the order</button></span></div>
+    <div class="line"><span class="k">Money</span>
+      <span data-only="order"><b class="owed">$809.10 owed.</b> Released before payment by an admin on Oct 27 (agreed terms). Its QuickBooks invoice 1044 was made by hand.</span>
+      <span data-only="order-after"><b>Paid.</b> $809.10 by check #2231 today, recorded on QuickBooks invoice 1044.</span>
+      <span data-only="order"><button class="b go">Collect the balance</button></span><span data-only="order-after" class="done">✓ Recorded · <a href="#">Undo</a></span></div>
+    <div class="line"><span class="k">Delivery</span><span><b>Ready for pickup</b> at our shop.</span><span></span></div>
+  </div>
+  <div class="sec"><h2>Client</h2><div class="card"><dl class="kv"><dt>Client</dt><dd>Mesa Ridge Lodge · Ana Ortiz · <a href="#">ana@mesaridge.example</a></dd><dt>Bill to</dt><dd>410 W Main St, Springerville AZ 85938 <a href="#">Edit</a></dd><dt>Terms</dt><dd>Released before payment · due on receipt (Oct 27)</dd></dl></div></div>
+  <div class="sec"><h2>Money</h2>
+    <div class="figs"><div class="fig"><span>Total</span><b>$809.10</b></div><div class="fig"><span>Paid</span><b data-only="order">$0.00</b><b data-only="order-after">$809.10</b></div><div class="fig"><span>Owed</span><b class="owed" data-only="order">$809.10</b><b data-only="order-after">$0.00</b></div></div>
+    <div class="card"><div class="acts"><button class="b">Apply a credit</button><button class="b">Issue a credit memo</button><button class="b">Refund…</button><button class="b">Cancel the order…</button></div>
+      <p class="sub" style="margin:.6rem 0 0">Something wrong? Fix it first, then a credit; a refund only when neither works.</p></div>
+    <table><thead><tr><th>Payments and credits</th><th>How</th><th class="n">Amount</th><th></th></tr></thead><tbody>
+      <tr data-only="order"><td colspan="4" class="sub">None yet.</td></tr>
+      <tr data-only="order-after"><td>Nov 23 · Jordan</td><td>Check #2231 · receipt emailed</td><td class="n">$809.10</td><td><button class="b sm" aria-label="More for this payment">⋯</button></td></tr></tbody></table></div>
+  <div class="sec"><h2>Items</h2><div class="card"><b>Door hangers · 5,000</b> · $809.10<br><small class="sub">Proof v1 approved · made by our print vendor · Ready for pickup</small></div></div>
+  <div class="sec"><h2>History ▸</h2></div>
+</section>
+
+<!-- ============================== 4. Money ============================== -->
+<section id="money" data-v="money money-pay money-after">
+  <div class="head"><h1>Money</h1><button class="b go">Take a payment</button></div>
+  <nav class="tabs" aria-label="Money views"><a class="on" href="#">Outstanding</a><a href="#">Credits on account</a><a href="#">Refunds &amp; credit memos</a></nav>
+  <div class="aging"><div class="fig"><span>Current</span><b>$1,620.60</b></div><div class="fig"><span>1–30 days</span><b>$784.90</b></div><div class="fig"><span>31–60</span><b class="owed">$809.10</b></div><div class="fig"><span>61–90</span><b>$0.00</b></div><div class="fig"><span>90+</span><b>$0.00</b></div></div>
+  <div class="bar"><div class="search">Search clients or orders</div><button class="b filter"><svg class="i"><use href="#filter"/></svg> Everyone's ▾</button></div>
+  <table class="big"><thead><tr><th>Client</th><th>Orders</th><th class="n">Owed</th><th>Oldest</th><th>Last reminder</th><th>Next step</th></tr></thead><tbody>
+    <tr><td>Mesa Ridge Lodge</td><td><a href="#">#12</a></td><td class="n owed">$809.10</td><td>Oct 27 · 27 days</td>
+      <td data-only="money money-pay">Nov 5</td><td data-only="money-after">today</td>
+      <td data-only="money money-pay"><button class="b sm">Take a payment</button> <button class="b sm">Remind</button></td><td data-only="money-after"><button class="b sm">Take a payment</button> <span class="done">✓ Reminded today · <a href="#">Undo</a></span></td></tr>
+    <tr><td>Pinon Hills Dental</td><td><a href="#">#19</a> deposit</td><td class="n owed">$412.00</td><td>today</td><td>—</td><td><button class="b sm">Take a payment</button></td></tr>
+    <tr><td>White Mountain Grange</td><td><a href="#">#15</a>, <a href="#">#17</a></td><td class="n owed">$1,993.50</td><td>Nov 9 · 14 days</td><td>Nov 16</td><td><button class="b sm">Take a payment</button> <button class="b sm">Remind</button></td></tr>
+  </tbody></table>
+  <div class="mcard"><div class="t"><b>Mesa Ridge Lodge</b><span class="owed">$809.10</span></div><div class="g"><span>Order <a href="#">#12</a></span><span>27 days</span><span data-only="money money-pay">Reminded Nov 5</span></div><button class="b sm">Take a payment</button> <button class="b sm" data-only="money money-pay">Remind</button><span class="done" data-only="money-after">✓ Reminded today · <a href="#">Undo</a></span></div>
+  <div class="mcard"><div class="t"><b>Pinon Hills Dental</b><span class="owed">$412.00</span></div><div class="g"><span>Order <a href="#">#19</a> deposit</span><span>today</span></div><button class="b sm">Take a payment</button></div>
+  <div class="mcard"><div class="t"><b>White Mountain Grange</b><span class="owed">$1,993.50</span></div><div class="g"><span>Orders <a href="#">#15</a>, <a href="#">#17</a></span><span>14 days</span><span>Reminded Nov 16</span></div><button class="b sm">Take a payment</button> <button class="b sm">Remind</button></div>
+  <div class="foot"><span>1–3 of 3 clients · $3,214.60 owed</span><span>‹ 1 ›</span></div>
+  <div data-only="money-pay"><div class="shade"></div><aside class="drawer" role="dialog" aria-label="Take a payment"><header><h2>Take a payment</h2><button class="x" aria-label="Close">×</button></header>
+    <label>Client</label><div class="in">White Mountain Grange</div>
+    <label>Amount received</label><input class="in" value="1,993.50" aria-label="Amount received">
+    <label>How it came in</label><select class="in"><option>Check</option><option>Wire transfer</option><option>Cash</option></select>
+    <label>Reference</label><input class="in" value="#4410" aria-label="Reference">
+    <label>Applied to (oldest first)</label>
+    <div class="chk"><input type="checkbox" checked aria-label="Order 15"><b>Order #15</b><span>$1,204.00</span></div>
+    <div class="chk"><input type="checkbox" checked aria-label="Order 17"><b>Order #17</b><span>$789.50</span></div>
+    <label class="chk" style="color:var(--ink);font-weight:600"><input type="checkbox" checked> Email the client a receipt</label>
+    <div style="display:flex;gap:8px;margin-top:12px;justify-content:flex-end"><button class="b">Cancel</button><button class="b go">Record $1,993.50</button></div>
+    <p class="sub">Posted to each order's QuickBooks invoice. Undo stays on each order for 10 minutes.</p></aside></div>
+</section>
+
+<!-- ============================== 5. Catalog ============================== -->
+<section id="catalog" data-v="catalog">
+  <div class="head"><h1>Catalog</h1><button class="b go">＋ New product</button></div>
+  <nav class="tabs" aria-label="Catalog views"><a class="on" href="#">Products</a><a href="#">Services</a><a href="#">Categories</a><a href="#">Materials &amp; services (COGS)</a><a href="#">Price lists</a></nav>
+  <div class="bar"><div class="search">Search products</div><button class="b filter"><svg class="i"><use href="#filter"/></svg> All categories · Shown, hidden ▾</button></div>
+  <table class="big"><thead><tr><th>Product</th><th>Category</th><th>From</th><th>Cost checked</th><th>Shown</th><th></th></tr></thead><tbody>
+    <tr><td><a href="#">Door hangers</a><span class="sub">4.25 × 11 · 3 stocks · 5 run sizes</span></td><td>Print · Mailers &amp; hangers</td><td>$189.00</td><td>Yes · Nov 12</td><td>Shown</td><td><button class="b sm" aria-label="More for Door hangers">⋯</button></td></tr>
+    <tr><td><a href="#">Business cards</a><span class="sub">3.5 × 2 · 4 stocks · 6 run sizes</span></td><td>Print · Cards</td><td>$42.00</td><td>Yes · Nov 3</td><td>Shown</td><td><button class="b sm" aria-label="More for Business cards">⋯</button></td></tr>
+    <tr><td><a href="#">Vinyl banner</a><span class="sub">by the square foot</span></td><td>Signs</td><td>$6.50 / sq ft</td><td><span class="owed">Not checked</span><br><button class="b sm" style="margin-top:4px">Check its cost</button></td><td>Hidden</td><td><button class="b sm" aria-label="More for Vinyl banner">⋯</button></td></tr>
+  </tbody></table>
+  <div class="mcard"><div class="t"><a href="#">Door hangers</a><span class="pill">Shown</span><button class="b sm" aria-label="More for Door hangers">⋯</button></div><div class="g"><span>Print · Mailers &amp; hangers</span><span>From $189.00</span><span>Cost checked Nov 12</span></div></div>
+  <div class="mcard"><div class="t"><a href="#">Business cards</a><span class="pill">Shown</span><button class="b sm" aria-label="More for Business cards">⋯</button></div><div class="g"><span>Print · Cards</span><span>From $42.00</span><span>Cost checked Nov 3</span></div></div>
+  <div class="mcard"><div class="t"><a href="#">Vinyl banner</a><span class="pill">Hidden</span><button class="b sm" aria-label="More for Vinyl banner">⋯</button></div><div class="g"><span>Signs</span><span>$6.50 / sq ft</span><span class="owed">Cost not checked</span></div><button class="b sm">Check its cost</button></div>
+  <div class="foot"><span>1–3 of 3 products</span><span>‹ 1 ›</span></div>
+  <p class="sub" style="margin-top:10px">Services (design, setup, installation) are their own tab with ＋ New service; Categories lists each with its products and ＋ New category. A category groups the Shop and Place an order's catalog search.</p>
+</section>
+</div>
+<script>
+var v = new URLSearchParams(location.search).get('v') || 'board';
+document.querySelectorAll('.views>section').forEach(function (s) { if ((' ' + s.getAttribute('data-v') + ' ').indexOf(' ' + v + ' ') >= 0) s.classList.add('on'); });
+document.querySelectorAll('[data-only]').forEach(function (el) { if ((' ' + el.getAttribute('data-only') + ' ').indexOf(' ' + v + ' ') < 0) el.remove(); });
+if (v === 'board-empty') document.querySelectorAll('.tile').forEach(function (t) { var b = t.querySelector('b'); if (t.classList.contains('on')) b.textContent = '0'; });
+</script>
+</body></html>
