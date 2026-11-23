@@ -6,9 +6,9 @@
    "functions": [],
    "kind": "change",
    "session": "session_01CXLi5kW2cGfR4Ya7fh2s3y",
-   "why": "M1b: what the system knows, what it asks (new functions and lists at the file's top level)",
+   "why": "M1b: the client's \u2709 (Send the client an update) says Sent only when the email went",
    "since": "2026-11-23T21:18:56Z",
-   "expires": "2026-11-24T01:46:06Z",
+   "expires": "2026-11-24T02:02:58Z",
    "release": "order-m1b.zip",
    "callers": {
     "boardState": [
@@ -17,6 +17,9 @@
     ],
     "recordPayment": [
      "app/lib/Pulse.php",
+     "website/admin/client-order.php"
+    ],
+    "sendUpdate": [
      "website/admin/client-order.php"
     ]
    }
