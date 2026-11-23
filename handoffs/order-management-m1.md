@@ -163,3 +163,8 @@ Tests (design harness, MariaDB, `tools/order-tests/m1-seed.php` seeds 15 orders 
 
 Open: task #4 (Payment reminders catching up after the board's release 2) needs a read of System Configuration →
 Scheduled tasks, which `live-read.yml` doesn't offer (orders, order only): asked of the session manager.
+
+Live read (`live-read.yml`, orders, 2026-11-23 20:24 UTC; its log deleted once read): 4 open orders. By the model they read
+as: Order #12 Out the door, $809.10 owed, released before payment, Collect the balance (Needs us); two orders with the
+printer, paid (In production, Follow the work order); one sent Oct 29, its 14-day link run out (Link expired, Send it
+again: Needs us, the design's §1.2 case). Money owed: $809.10, 1 order. The live tiles today say 0 Waiting for payment.
