@@ -1,0 +1,22 @@
+{
+ "zip": "live-read.zip",
+ "built_on": "8b3ea37 Sync: 2026-11-23 13:42 UTC",
+ "recorded": "2026-11-23 14:35 UTC",
+ "note": "Live reads for building (Jason, 2026-11-23): /api/live-read.php, two named read-only reads of client orders, its key made by the Founder's button press (POST), 60 an hour failing closed, each read in the Logbook. Built on Sync: 2026-11-23 13:42 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/ControlLog.php": {
+   "sha256": "fba0924134303032671643a1d045eaec0cbee74d8306620780e4548d94fec04c",
+   "live": false
+  },
+  "app/lib/EnvSettings.php": {
+   "sha256": "78b8f81d893ee89fc212e87b763fec86f094f45a44c109bcda0c7e12f24fc1b6",
+   "live": false
+  },
+  "website/api/live-read.php": {
+   "sha256": "b017ae543428337c89b0058693495f5468ec526a27177047da4a14597295d579",
+   "live": false
+  }
+ }
+}
