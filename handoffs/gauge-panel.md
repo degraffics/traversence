@@ -243,3 +243,72 @@ The build (one release): `app/admin/control-console.php` (tv_cb_gauge_card, tv_c
 `app/lib/ControlGauges.php` (the logbook's sign-offs), the board's script, `tools/page-audit/gauges.py` (routes, finding
 links, the newest check results), the three queued fixes, `faq.md`; a rendered test (`gauge-panel.cjs`) that every row,
 chip and segment in every gauge panel is a link or a button, at 1280 and 390.
+
+## The release: `gauge-panel.zip` (built on Sync 19:36 UTC, 8a94377)
+
+Jason approved the shape in his pop-up (2026-11-23, about 19:37 UTC; reviewed by the session manager and the Design reviewer).
+The build is in `gauge-panel/build/` (the zip's files at their real paths, with `release.json`); the proof screens, from the
+real board page on the bench, are in `gauge-panel/release-proof/`.
+
+### Files (15, each only where it differs from the live copy)
+
+| File | What changes |
+|---|---|
+| `app/admin/control-console.php` | The development panel's drill-down (`tv_cbg_dev`, `tv_cbg_row`, `tv_cbg_sub`), the runtime panel (`tv_cb_gauge_card`), the detail fragment, the panel's CSS on the site's tokens |
+| `app/lib/GaugeTasks.php` (new) | Fix it requests, Approve the scope and the target, Undo for a day; `control_gauge_tasks` (staging class: own); every press in the logbook |
+| `app/lib/ControlGauges.php` | Approvals over the file's; `checks()` (the register, for chips and check views) |
+| `website/admin/api.php` | `gaugefix`, `gaugeapprove` (Executive only, `config.gauges.approve`), `gaugeundo` on `/admin/api/config/control` |
+| `website/js/admin-control.js` | The bar and legend filters, rows in place, a finding or check over the panel with Back, Fix it and Approve as one cycle each; Esc closes the legend, then a sub view, before the panel |
+| `website/api/health.php` | `gauge_tasks`: open Fix it requests and approvals (items and times, no names) |
+| `app/lib/staging-tables.php` | `control_gauge_tasks` among OWN |
+| `app/admin/module-cards.php` | The sign-in record as one line with Change and Undo; the identity line links to it; dead-end sentences gone |
+| `app/admin/operations-console.php` | Notices that only confirm ("Recorded.", "paused.", "activated, its check passed.") |
+| `app/ui/outside-services.php` | Retire it… drawn as an outlined button, not the 28px icon ring |
+| `app/lib/ServiceHealth.php` | `lineTitle()`: a check that got no answer reads as the service's words |
+| `app/lib/Preflight.php` | Its line titles through `lineTitle()` |
+| `app/lib/ControlAlarms.php` | `redrawTitles()` fixes an open one (pf:svc:…) |
+| `app/ui/faq.md` | The sign-in entry; the gauges entry; "How do I fix something a gauge shows?" |
+
+The repo side (on this branch, merged with the release): `gauges.py` (reviewed = live with no open issue; approvals read from
+`gauge-approvals.json`; routes; finding links; the newest check results), `checkreg.py` (LAYOUT from its newest run; the checks
+built today read from their results), `towns.mjs` and `search-probe.yml` (`build-requests.json`, `gauge-approvals.json`), the
+regenerated gauge files, gauge-lifecycle §6 and §8's note, and the tests.
+
+### Kept, moved, dropped (the old panel)
+
+- **Kept:** the dial and stage pill; ×, Esc and a click outside; the detail loaded as the panel opens (`?gauge=`); the three
+  paths; Fix it links to a service's card (now cards in What you can do); the draft preview (now "N% once you approve the draft").
+- **Moved:** measure, target, reading and trend into Details; each item's source into "Where this comes from", as links; items
+  by status into the bar's filters; a runtime gauge's setup words onto its four setup rows; its needs into one folded line.
+- **Dropped:** nothing a person acts on. The words "association not mapped" (inert) became a Fix it; "no check yet: X" (a
+  line) became each item's chip and the card that says how many it holds.
+
+### The admin's test (each new state)
+
+- **A bar part or legend chip pressed:** only that group, the heading "6 · Issues to fix"; pressed again, the first ten.
+- **An issue:** one sentence, its chips (each opening its result, its finding or what it found), one filled Fix it; pressed:
+  "Fixing: … · sent to the Discovery build · Jason, <time> · Undo", the button gone; Undo brings it back; once its check passes,
+  "Cleared: its check passed" and the counts drop.
+- **No check yet:** Add a check, the same cycle; "Why it isn't checked" opens the check's view.
+- **Not built yet:** Fix it: build it, the same cycle.
+- **Approve the scope (Executive):** "Scope approved by Jason, <time> · Undo"; the gauge leaves Planning at once. Greyed for
+  others with the reason.
+- **A runtime gauge:** "What moves it: 2 of 4 setup steps done"; Approve the target with today's evidence; each setup row's
+  state, its link bringing its card into view.
+- **A service card's sign-in:** one line, Change and Undo; the notice "Recorded.".
+
+### Tests (the bench: the mirror at 19:36 UTC with the build over it)
+
+- `gauge-panel.cjs` 58/58 (new); `google-signin.cjs` 38/38 (updated to the new pattern); the rendered subset 358/358 (board-views,
+  board-panels, board-opening, board-tabs, board-menu, board-phone, one-panel, module-cards, google-signin, gauge-panel);
+  both added to `rendered-all.sh`.
+- `run-all.sh`: 1544 passed, 8 failed, the same 8 as the live code (engine.php migrations, lines.php, r1, r2a, register's
+  two known). Updated with reasons: board-views.php (the new panel), module-cards.php (no "why not recorded"), register.php
+  (the short notices), old-titles.php (the Library of Congress case), gauges.php (§6's numbers).
+
+### Open
+
+- **Send:** blocked only by `faq.md` in order-m1's pending zip. CLAUDE.md: wait for it to go live, re-apply only this build's
+  FAQ entries on the live copy, send, run the zip check again just before merging.
+- **Calls to recheck once order-m1 is live:** `tv_w_table` (widgets.php), `Workflow::moves`, `command-strip.php::fit`.
+- **Bench-only:** the runtime "Today:" reads "not checked yet" (no live readings on the bench).
