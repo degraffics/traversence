@@ -6,7 +6,7 @@ const path = require('path');
   const b = await chromium.launch(); let bad = 0;
   for (const w of [1280, 390]) {
     const p = await (await b.newContext({ viewport: { width: w, height: 900 }, deviceScaleFactor: 2 })).newPage();
-    for (const v of ['board', 'board-after', 'board-empty', 'place', 'place-after', 'order', 'order-after', 'money', 'money-pay', 'money-after', 'catalog']) {
+    for (const v of ['board', 'board-after', 'board-empty', 'place', 'place-after', 'order', 'order-after', 'open', 'open-after', 'money', 'money-pay', 'money-after', 'catalog']) {
       await p.goto('file://' + path.join(__dirname, 'mockups.html') + '?v=' + v);
       const wide = await p.evaluate(() => document.documentElement.scrollWidth > innerWidth);
       if (wide) { bad++; console.log(`FAIL ${v} at ${w}: scrolls sideways`); }

@@ -1,6 +1,7 @@
 <!doctype html>
 <!-- Order management mockups (research/order-management-design-2026-11-23.md §4), round 2 after the Design reviewer.
-     Open with ?v= board | board-empty | board-after | place | place-after | order | order-after | money | money-pay | money-after | catalog.
+     Open with ?v= board | board-empty | board-after | place | place-after | order | order-after | open | open-after | money | money-pay | money-after | catalog.
+     open, open-after: M1b's "What's open" for Order #12 (design §3.6), before and after the vendor's invoice is dropped and QuickBooks read.
      Static, made-up clients; tokens from brand.md and design/css-theme-brand.md. Rendered by render.cjs at 1280 and 390.
      Buttons (brand.md §4): one filled per view, brand brown #92400E with page-colour text (5.18:1); the rest outlined. -->
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -58,6 +59,16 @@ td.n{text-align:right;font-variant-numeric:tabular-nums}
 .num{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:13px;background:var(--section);color:var(--meta);flex:0 0 26px}
 .step.fin .num{background:var(--sage);color:var(--void)}.step.now{border:2px solid var(--brown)}.step.now .num{background:var(--brown);color:var(--page)}
 .step.later{opacity:.6}.step .body{padding:0 .9rem .9rem}
+/* M1b: What's open (design §3.6) */
+.open{background:var(--card);border:1px solid var(--edge);border-radius:.6rem;margin-bottom:14px}.open>h2{font-size:16px;padding:.7rem .9rem .2rem}
+.oi{display:grid;grid-template-columns:22px 1fr auto;gap:10px;align-items:start;padding:.7rem .9rem;border-top:1px solid #EADFC4}.oi:first-of-type{border-top:0}
+.oi .tag{font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--meta);font-weight:700;display:block}
+.oi .q{font-weight:700}.oi .acts{justify-content:flex-end}.oi .mk{width:20px;height:20px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:800;margin-top:2px}
+.mk.ask{background:var(--amber-bg);color:var(--amber);border:1px solid #E6C98F}.mk.ok{background:#DCEBE1;color:#2F5E45}
+.ib{width:30px;height:30px;border-radius:50%;border:1px solid #B8A57F;background:#FFFBF2;color:#B45309;display:inline-grid;place-items:center;cursor:pointer;padding:0}
+.drop{border:1.5px dashed #B8A57F;border-radius:.5rem;padding:.6rem .8rem;color:var(--meta);font-size:13.5px;margin-top:.45rem;background:#FFFBF2}
+.read{width:100%;margin-top:.5rem;font-size:13.5px}.read td,.read th{padding:.35rem .55rem}.read .y{color:#2F5E45;font-weight:700}.read .ne{color:var(--amber);font-weight:700}
+@media (max-width:767px){.oi{grid-template-columns:22px 1fr}.oi .acts{grid-column:2;justify-content:flex-start}}
 .pick{display:flex;gap:8px;align-items:center;border:1px solid var(--edge);border-radius:.5rem;padding:.5rem .7rem;margin-bottom:6px;background:#fff;flex-wrap:wrap}
 .pick b{flex:1}.pick small{color:var(--meta)}
 .opt{display:flex;gap:8px;align-items:flex-start;border:1px solid var(--edge);border-radius:.5rem;padding:.55rem .7rem;margin-bottom:6px;background:#fff}
@@ -182,6 +193,32 @@ label{display:block;font-size:13px;font-weight:600;color:var(--meta);margin:.5re
       <tr data-only="order-after"><td>Nov 23 · Jordan</td><td>Check #2231 · receipt emailed</td><td class="n">$809.10</td><td><button class="b sm" aria-label="More for this payment">⋯</button></td></tr></tbody></table></div>
   <div class="sec"><h2>Items</h2><div class="card"><b>Door hangers · 5,000</b> · $809.10<br><small class="sub">Proof v1 approved · made by our print vendor · Ready for pickup</small></div></div>
   <div class="sec"><h2>History ▸</h2></div>
+</section>
+
+
+<!-- ============================== 3b. What's open (M1b, design §3.6) ============================== -->
+<section id="open" data-v="open open-after">
+  <div class="strip"><span class="back">←</span><h1>Order #12</h1><button class="b sm">Close ▾</button><button class="b sm">☰</button></div>
+  <div class="news" role="status">
+    <div class="line"><span class="k">Order</span><span><b>Out the door.</b> Ready for pickup since Nov 2.</span>
+      <span data-only="open"><button class="b sm" disabled title="Picked up? asked below">Complete</button><span class="why">once it's picked up</span></span><span data-only="open-after"><button class="b go">Complete the order</button></span></div>
+    <div class="line"><span class="k">Money</span><span><b>Paid.</b> $809.10 by check 2231 on Oct 19, read from QuickBooks invoice 1044.</span><span class="done">✓ Recorded · <a href="#">Undo</a></span></div>
+    <div class="line"><span class="k">Delivery</span><span data-only="open"><b>Ready for pickup</b> at our shop.</span><span data-only="open-after"><b>Picked up</b> Nov 23, recorded by Jordan.</span><span data-only="open-after" class="done">✓ · <a href="#">Undo</a></span><span data-only="open"></span></div>
+  </div>
+  <div class="open"><h2>What's open</h2>
+    <div class="oi" data-only="open"><span class="mk ask">?</span><div><span class="tag">Delivery</span><span class="q">Ready for pickup 21 days. Has Ana picked it up?</span><small class="sub">The work order says Will Call; she was reminded Nov 5.</small></div>
+      <div class="acts"><button class="b go">Yes, picked up</button><button class="b">Remind Ana</button></div></div>
+    <div class="oi" data-only="open"><span class="mk ask">?</span><div><span class="tag">Vendor</span><span class="q">The print vendor's $256.83 (work order 20261027-WO0001): billed yet?</span><small class="sub">Nothing in QuickBooks bills for it yet.</small>
+      <div class="drop">Drop their invoice here (PDF), or <a href="#">choose a file</a>. It's read here, never sent anywhere.</div></div>
+      <div class="acts"><button class="b">Record the bill by hand</button></div></div>
+    <div class="oi" data-only="open-after"><span class="mk ask">?</span><div><span class="tag">Vendor's invoice 130929 · Nov 17</span><span class="q">The vendor says it shipped by USPS Priority Mail; the work order says pickup. Which is right?</span>
+      <table class="read"><tbody><tr><td>PO</td><td>20261027-WO0001</td><td class="y">✓ our work order</td></tr><tr><td>Amount</td><td>$256.83</td><td class="y">✓ the agreed cost</td></tr><tr><td>Tax · shipping</td><td>$0.00 · $0.00</td><td class="y">✓</td></tr><tr><td>Ship via</td><td>USPS Priority Mail</td><td class="ne">≠ Will Call</td></tr></tbody></table></div>
+      <div class="acts"><button class="b">It was picked up</button><button class="b">It shipped: add tracking</button></div></div>
+    <div class="oi" data-only="open-after"><span class="mk ask">$</span><div><span class="tag">Vendor</span><span class="q">Record the vendor's bill: $256.83, due on receipt</span><small class="sub">Invoice 130929, kept with the order's files <button class="ib" title="Open the vendor's invoice 130929" aria-label="Open the vendor's invoice 130929">↗</button></small></div>
+      <div class="acts"><button class="b">Record the vendor bill</button></div></div>
+  </div>
+  <div class="sec"><h2>Client</h2><div class="card"><dl class="kv"><dt>Client</dt><dd>Mesa Ridge Lodge · Ana Ortiz <button class="ib" title="Email ana@mesaridge.example" aria-label="Email ana@mesaridge.example">✉</button></dd><dt>Bill to</dt><dd>410 W Main St, Springerville AZ 85938 <button class="ib" title="Edit the bill-to address" aria-label="Edit the bill-to address">✎</button></dd><dt>QuickBooks</dt><dd>Invoice 1044, linked by its number <button class="ib" title="Open QuickBooks invoice 1044" aria-label="Open QuickBooks invoice 1044">↗</button></dd></dl></div></div>
+  <p class="sub" style="margin:0 4px">Not shown, as it no longer applies: the client's checkout line and the payment form (nothing is owed).</p>
 </section>
 
 <!-- ============================== 4. Money ============================== -->
