@@ -186,21 +186,6 @@
    "callers": {}
   },
   {
-   "path": "app/lib/ControlAlarms.php",
-   "functions": [
-    "atUtc",
-    "jobPlain",
-    "redrawTitles"
-   ],
-   "kind": "add",
-   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
-   "why": "board-fixes: the Design reviewer changes (one button, short titles, true words, one time format)",
-   "since": "2026-11-23T14:58:10Z",
-   "expires": "2026-11-23T19:32:43Z",
-   "release": "",
-   "callers": {}
-  },
-  {
    "path": "app/lib/SignIns.php",
    "functions": [],
    "kind": "add",
@@ -236,19 +221,6 @@
    "callers": {}
   },
   {
-   "path": "app/admin/tools.php",
-   "functions": [
-    "tv_order_next_step"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
-   "why": "Collect the balance on an order out the door (session manager's review of #270)",
-   "since": "2026-11-23T19:07:43Z",
-   "expires": "2026-11-23T23:15:33Z",
-   "release": "collect-balance.zip",
-   "callers": {}
-  },
-  {
    "path": "app/ui/command-strip.php",
    "functions": [
     "(top)"
@@ -262,31 +234,37 @@
    "callers": {}
   },
   {
-   "path": "app/ui/command-strip.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
-   "why": "release collect-balance.zip",
-   "since": "2026-11-23T19:08:14Z",
-   "expires": "2026-11-23T23:15:33Z",
-   "release": "collect-balance.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/admin/client-order.php",
+   "path": "app/lib/ClientOrders.php",
    "functions": [
-    "(top)"
+    "completeHold",
+    "completeOwed"
    ],
    "kind": "change",
    "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
-   "why": "Collect the balance: the payment hold said once on the order page (Design reviewer, 2026-11-23)",
-   "since": "2026-11-23T19:15:24Z",
-   "expires": "2026-11-23T23:15:33Z",
-   "release": "collect-balance.zip",
+   "why": "Collect the balance: Complete the order waits for the money, or an admin's override with a reason (session manager and Design reviewer on #1307)",
+   "since": "2026-11-23T19:26:27Z",
+   "expires": "2026-11-23T23:26:27Z",
+   "release": "",
    "callers": {}
   }
  ],
  "lapsed": [
+  {
+   "path": "app/lib/ControlAlarms.php",
+   "functions": [
+    "atUtc",
+    "jobPlain",
+    "redrawTitles"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "board-fixes: the Design reviewer changes (one button, short titles, true words, one time format)",
+   "since": "2026-11-23T14:58:10Z",
+   "expires": "2026-11-23T19:32:43Z",
+   "release": "",
+   "callers": {},
+   "lapsed": "2026-11-23T19:36:43Z"
+  },
   {
    "path": "app/admin/operations-console.php",
    "functions": [
@@ -1011,26 +989,6 @@
      "app/lib/QrIssue.php",
      "website/admin/order.php",
      "website/api/qb-webhook.php"
-    ]
-   },
-   "lapsed": "2026-11-20T23:27:17Z"
-  },
-  {
-   "path": "app/lib/ControlBoard.php",
-   "functions": [
-    "pausedHtml",
-    "pausedNow"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
-   "why": "0175's note 2026-11-20: Paused now gives a clear picture",
-   "since": "2026-11-20T18:42:29Z",
-   "expires": "2026-11-20T22:44:21Z",
-   "release": "0175-paused-now.zip",
-   "callers": {
-    "pausedHtml": [
-     "app/admin/automation-console.php",
-     "app/admin/control-console.php"
     ]
    },
    "lapsed": "2026-11-20T23:27:17Z"

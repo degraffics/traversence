@@ -1,6 +1,6 @@
 # Decision register
 
-Decision 0145 §1a. Generated on 2026-11-23 07:17 UTC from `decisions/` and the live mirror (`368b89b`). Don't edit by hand:
+Decision 0145 §1a. Generated on 2026-11-23 19:17 UTC from `decisions/` and the live mirror (`130f41a`). Don't edit by hand:
 edit the decision, and this follows. "Missing files" are files a decision names that the site no longer has: the
 decision may be stale, or the file moved.
 
@@ -182,3 +182,4 @@ decision may be stale, or the file moved.
 | 0174 | [0174: Trips you can save: Add to a trip, the trip page, sending it to Maps, and routes on our own site](0174-trips-you-can-save.md) | accepted |  | 4 | 1 |  |
 | 0175 | [0175: One lifecycle for every module: our services and account apps, from selection to removal, acted on from the board](0175-one-lifecycle-for-every-module.md) | accepted |  | 11 | 1 |  |
 | 0176 | [0176: The dispatcher presents and routes every thread](0176-the-dispatcher-presents-and-routes-every-thread.md) | accepted |  | 8 | 2 |  |
+| 0177 | [0177: One order, several destinations: invoices, tax and the deposit](0177-one-order-several-destinations.md) | accepted |  |  | 0 |  |
