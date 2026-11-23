@@ -141,6 +141,17 @@
    "expires": "2026-11-23T23:58:00Z",
    "release": "gauge-panel.zip",
    "callers": {}
+  },
+  {
+   "path": "website/api/health.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
+   "why": "Gauge panel release: health.php reports Fix it requests and approvals",
+   "since": "2026-11-23T19:58:02Z",
+   "expires": "2026-11-23T23:58:02Z",
+   "release": "gauge-panel.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
