@@ -87,8 +87,8 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "board-fixes: jobs and words, Signs in as, the Sync chip (Jason, 2026-11-23)",
    "since": "2026-11-23T14:57:50Z",
-   "expires": "2026-11-23T18:58:39Z",
-   "release": "",
+   "expires": "2026-11-23T19:04:02Z",
+   "release": "board-fixes.zip",
    "callers": {}
   },
   {
@@ -105,8 +105,8 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "board-fixes: jobs and words, Signs in as, the Sync chip (Jason, 2026-11-23)",
    "since": "2026-11-23T14:57:52Z",
-   "expires": "2026-11-23T18:58:41Z",
-   "release": "",
+   "expires": "2026-11-23T19:04:02Z",
+   "release": "board-fixes.zip",
    "callers": {}
   },
   {
@@ -118,9 +118,13 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "board-fixes: jobs and words, Signs in as, the Sync chip (Jason, 2026-11-23)",
    "since": "2026-11-23T14:57:55Z",
-   "expires": "2026-11-23T18:57:55Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-23T19:04:02Z",
+   "release": "board-fixes.zip",
+   "callers": {
+    "alarm": [
+     "app/lib/ControlAlarms.php"
+    ]
+   }
   },
   {
    "path": "app/lib/Scheduler.php",
@@ -132,9 +136,66 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "board-fixes: jobs and words, Signs in as, the Sync chip (Jason, 2026-11-23)",
    "since": "2026-11-23T14:57:57Z",
-   "expires": "2026-11-23T18:57:57Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-23T19:04:02Z",
+   "release": "board-fixes.zip",
+   "callers": {
+    "sync": [
+     "app/admin/sections.php",
+     "app/lib/Preflight.php",
+     "app/scripts/control_tick.php"
+    ],
+    "run": [
+     "app/scripts/ai_worker.php",
+     "app/scripts/audit_clock_tick.php",
+     "app/scripts/billing_tick.php",
+     "app/scripts/booking_remind.php",
+     "app/scripts/control_tick.php",
+     "app/scripts/daily_report.php",
+     "app/scripts/data_cleanup_tick.php",
+     "app/scripts/domains_tick.php",
+     "app/scripts/earned_storage_tick.php",
+     "app/scripts/files_tick.php",
+     "app/scripts/frontier_tick.php",
+     "app/scripts/got_it_tick.php",
+     "app/scripts/guest_tick.php",
+     "app/scripts/guide_finds_tick.php",
+     "app/scripts/guide_live_tick.php",
+     "app/scripts/guide_ondemand_tick.php",
+     "app/scripts/heritage_tick.php",
+     "app/scripts/identity_recheck_tick.php",
+     "app/scripts/journeys_tick.php",
+     "app/scripts/landmark_photos_tick.php",
+     "app/scripts/like_watch_tick.php",
+     "app/scripts/listing_messages_tick.php",
+     "app/scripts/listings_tick.php",
+     "app/scripts/mail_keep.php",
+     "app/scripts/mail_sync.php",
+     "app/scripts/market_tick.php",
+     "app/scripts/moments_tick.php",
+     "app/scripts/notice_digest.php",
+     "app/scripts/notify_release.php",
+     "app/scripts/page_read_tick.php",
+     "app/scripts/pay_wait_tick.php",
+     "app/scripts/preflight_tick.php",
+     "app/scripts/pulse_followup.php",
+     "app/scripts/region_tick.php",
+     "app/scripts/releases_tick.php",
+     "app/scripts/sales_tick.php",
+     "app/scripts/services_tick.php",
+     "app/scripts/ses_setup_tick.php",
+     "app/scripts/staging_carry_tick.php",
+     "app/scripts/staging_night_tick.php",
+     "app/scripts/staging_publish_tick.php",
+     "app/scripts/staging_push_tick.php",
+     "app/scripts/standing_tick.php",
+     "app/scripts/supabase_keepalive.php",
+     "app/scripts/system_start_tick.php",
+     "app/scripts/takedowns_tick.php",
+     "app/scripts/vault_digest_tick.php",
+     "app/scripts/vectors_tick.php",
+     "app/scripts/work_orders_tick.php"
+    ]
+   }
   },
   {
    "path": "app/lib/Operations.php",
@@ -145,9 +206,14 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "board-fixes: jobs and words, Signs in as, the Sync chip (Jason, 2026-11-23)",
    "since": "2026-11-23T14:57:59Z",
-   "expires": "2026-11-23T18:57:59Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-23T19:04:02Z",
+   "release": "board-fixes.zip",
+   "callers": {
+    "alarms": [
+     "app/admin/operations-console.php",
+     "app/lib/ControlAlarms.php"
+    ]
+   }
   },
   {
    "path": "app/lib/ControlAlarms.php",
@@ -159,9 +225,13 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "board-fixes: jobs and words, Signs in as, the Sync chip (Jason, 2026-11-23)",
    "since": "2026-11-23T14:58:01Z",
-   "expires": "2026-11-23T18:58:01Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-23T19:04:02Z",
+   "release": "board-fixes.zip",
+   "callers": {
+    "pulseSteps": [
+     "app/lib/Pulse.php"
+    ]
+   }
   },
   {
    "path": "website/api/health.php",
@@ -170,8 +240,8 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "board-fixes: jobs and words, Signs in as, the Sync chip (Jason, 2026-11-23)",
    "since": "2026-11-23T14:58:03Z",
-   "expires": "2026-11-23T18:58:03Z",
-   "release": "",
+   "expires": "2026-11-23T19:04:02Z",
+   "release": "board-fixes.zip",
    "callers": {}
   },
   {
@@ -235,8 +305,19 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "board-fixes: jobs and words, Signs in as, the Sync chip (Jason, 2026-11-23)",
    "since": "2026-11-23T14:58:14Z",
-   "expires": "2026-11-23T18:58:14Z",
-   "release": "",
+   "expires": "2026-11-23T19:04:02Z",
+   "release": "board-fixes.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/operations-console.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "release board-fixes.zip",
+   "since": "2026-11-23T15:04:02Z",
+   "expires": "2026-11-23T19:04:02Z",
+   "release": "board-fixes.zip",
    "callers": {}
   }
  ],
