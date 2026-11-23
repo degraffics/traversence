@@ -1,0 +1,44 @@
+{
+    "id": 271,
+    "title": "Restores three files the orders release overwrote: the Alarms list's plain names and its drawer's fix first, the drawer title on two lines, two FAQ entries",
+    "why": "#269 (Jobs and words, Jason approved) and #270 (Orders release A) went live a minute apart. #270 was built before #269 and carried app/admin/kit-css.php, app/admin/tools.php and app/ui/faq.md, so after Sync 18:40 UTC those three match #270 and #269's changes to them are gone from the live site. This release starts from the live copies (Sync 18:40 UTC, a71303b) and re-applies only #269's changes to them: the Alarms list names a part plainly (never job:identity_re…), an alarm's drawer leads with its fix (Open its job / Open its card) and gives its times in one labelled UTC format, a drawer's title wraps to two lines instead of being cut, and the FAQ's Sync chip line and 'Which account does each outside service sign in as?'. Every line of #270 is kept. Nothing else changes.",
+    "proposals": "",
+    "zip": "board-fixes-5.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/admin/tools.php": {
+            "sha": "6279b6ad2610f58dc4fd70c989a72cbd8f5d513d22f2ec5c3391cfa2efc27c8b",
+            "size": 271147,
+            "live_was": "609da4dfecbc411fbd8a0247fe2925db9da7393f692d7930810f1c2d1acf84ae"
+        },
+        "app/admin/kit-css.php": {
+            "sha": "f762819310852c155239a865e6e65c39a740e9caad1fa7be256e3dee44a66050",
+            "size": 39424,
+            "live_was": "7c48a35260ef2f4df1eb472e503950f1d1b9f2e906fbd16e184b2976a2a98203"
+        },
+        "app/ui/faq.md": {
+            "sha": "2de80c421db37a137a2458cbdade8e62c5342e65446eeaa5e4d4a61eff0da5bb",
+            "size": 432061,
+            "live_was": "bea98fa3e91c1e4884382004300d90fb115b9fc99c55c7bae13458ae15041209"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-23T18:59:48+00:00",
+            "by": 0,
+            "msg": "Uploaded board-fixes-5.zip: 3 files."
+        }
+    ]
+}
