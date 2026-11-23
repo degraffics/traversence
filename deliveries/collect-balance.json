@@ -1,0 +1,22 @@
+{
+ "zip": "collect-balance.zip",
+ "built_on": "130f41a Sync: 2026-11-23 19:01 UTC",
+ "recorded": "2026-11-23 19:08 UTC",
+ "note": "Collect the balance on an order shipped or ready with money owed; section links land below the command strip; FAQ. Built on Sync: 2026-11-23 19:01 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/tools.php": {
+   "sha256": "f5ea067e8eb347c9f035d55d4208019738359793839ebb2c7ffdedcbf8af4fc1",
+   "live": false
+  },
+  "app/ui/command-strip.php": {
+   "sha256": "d1ec5e3002c8c25cb24108568a87231847e61f3c863e921a84e86a2737dfde2d",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "87b186cd216be2564d9b3ad4fdb0479511e2291d4a91ee1e12bd64608952f44f",
+   "live": false
+  }
+ }
+}
