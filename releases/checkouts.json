@@ -32,13 +32,14 @@
   {
    "path": "website/js/tv-copy.js",
    "functions": [
+    "(top)",
     "place"
    ],
    "kind": "change",
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "board-panels: one panel at a time, Copy all, panels titled by the part (Jason, 2026-11-23)",
    "since": "2026-11-23T13:15:06Z",
-   "expires": "2026-11-23T17:15:06Z",
+   "expires": "2026-11-23T17:25:18Z",
    "release": "",
    "callers": {}
   },
