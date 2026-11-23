@@ -41,6 +41,12 @@ else {
     if (r.ok && Array.isArray(d.jobs) && d.jobs.length) writeFileSync('site-audit/results/jobs.json', JSON.stringify({ at: new Date().toISOString(),
       jobs: d.jobs.map(j => ({ job: j.job, last_utc: j.last_utc ?? null, ok: j.ok ?? null, fails_today: j.fails_today ?? 0, quiet: !!j.quiet, default: j.default ?? null, line: j.line ?? null, line_preset: j.line_preset ?? null })),
       missed: d.jobs_missed || null, db_connections: d.db_connections || null }, null, 1) + '\n');
+    // a gauge panel's Fix it requests still open (the build queue the session manager places under each session) and Jason's
+    // scope and target approvals, which gauges.py reads (GaugeTasks; the rulings on Q1 and Q3, 2026-11-23): items and times, no names
+    if (r.ok && d.gauge_tasks && !d.gauge_tasks.error) {
+      writeFileSync('site-audit/results/build-requests.json', JSON.stringify({ at: new Date().toISOString(), requests: d.gauge_tasks.requests || [] }, null, 1) + '\n');
+      writeFileSync('site-audit/results/gauge-approvals.json', JSON.stringify({ at: new Date().toISOString(), approvals: d.gauge_tasks.approvals || [] }, null, 1) + '\n');
+    }
     if (r.ok && d.crawler) crawlerSnapshot(d.crawler);   // the crawler revamp's numbers (handoffs/crawler-revamp.md Phase 0)
     if (!r.ok || d.ok === false) md += `The health report answered ${r.status}: ${s(d.error?.message || '')}\n`;
     else if (!d.towns) md += 'The health report has no towns section yet (it comes with health.php from towns-health_20261110.zip).\n';

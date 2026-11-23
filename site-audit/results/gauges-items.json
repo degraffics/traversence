@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-23T19:14:36Z",
+ "generated_at": "2026-11-23T19:45:30Z",
  "version": 2,
  "generated_by": "tools/page-audit/gauges.py",
  "note": "Each gauge's detail for its drawer (ControlGauges::detail): read when the drawer opens.",
@@ -8,7 +8,7 @@
    "name": "Every method a file calls exists (a zip can't drop one still in use)",
    "status": "built",
    "result": "pass",
-   "latest": "0 failures (2026-11-23 07:17 UTC)",
+   "latest": "0 failures (2026-11-23 19:17 UTC)",
    "target": "0 failures in the files it reads",
    "evidence": "https://github.com/degraffics/traversence/blob/main/site-audit/scorecard.md"
   },
@@ -16,7 +16,7 @@
    "name": "No alert(), confirm(), prompt(); use TvAsk",
    "status": "built",
    "result": "pass",
-   "latest": "0 failures (2026-11-23 07:17 UTC)",
+   "latest": "0 failures (2026-11-23 19:17 UTC)",
    "target": "0 failures in the files it reads",
    "evidence": "https://github.com/degraffics/traversence/blob/main/site-audit/scorecard.md"
   },
@@ -24,7 +24,7 @@
    "name": "Uploads only through Uploads.php and /api/upload.php",
    "status": "built",
    "result": "pass",
-   "latest": "0 failures (2026-11-23 07:17 UTC)",
+   "latest": "0 failures (2026-11-23 19:17 UTC)",
    "target": "0 failures in the files it reads",
    "evidence": "https://github.com/degraffics/traversence/blob/main/site-audit/scorecard.md"
   },
@@ -32,7 +32,7 @@
    "name": "No PHP the server can't run (readonly, enum, never on a function that can return (P8), first-class callables, array_is_list, json_validate, typed constants, new in defaults)",
    "status": "built",
    "result": "pass",
-   "latest": "0 failures (2026-11-23 07:17 UTC)",
+   "latest": "0 failures (2026-11-23 19:17 UTC)",
    "target": "0 failures in the files it reads",
    "evidence": "https://github.com/degraffics/traversence/blob/main/site-audit/scorecard.md"
   },
@@ -40,7 +40,7 @@
    "name": "Pages load the session and draw the account bar",
    "status": "built",
    "result": "pass",
-   "latest": "0 failures (2026-11-23 07:17 UTC)",
+   "latest": "0 failures (2026-11-23 19:17 UTC)",
    "target": "0 failures in the files it reads",
    "evidence": "https://github.com/degraffics/traversence/blob/main/site-audit/scorecard.md"
   },
@@ -48,7 +48,7 @@
    "name": "FAQ links point at questions that exist",
    "status": "built",
    "result": "pass",
-   "latest": "0 failures (2026-11-23 07:17 UTC)",
+   "latest": "0 failures (2026-11-23 19:17 UTC)",
    "target": "0 failures in the files it reads",
    "evidence": "https://github.com/degraffics/traversence/blob/main/site-audit/scorecard.md"
   },
@@ -56,7 +56,7 @@
    "name": "Endpoints that change things check the security token (or a signature)",
    "status": "built",
    "result": "pass",
-   "latest": "0 failures (2026-11-23 07:17 UTC)",
+   "latest": "0 failures (2026-11-23 19:17 UTC)",
    "target": "0 failures in the files it reads",
    "evidence": "https://github.com/degraffics/traversence/blob/main/site-audit/scorecard.md"
   },
@@ -64,7 +64,7 @@
    "name": "Migrations: add-only, safe twice, no IF NOT EXISTS in ALTER, no routines",
    "status": "built",
    "result": "pass",
-   "latest": "0 failures (2026-11-23 07:17 UTC)",
+   "latest": "0 failures (2026-11-23 19:17 UTC)",
    "target": "0 failures in the files it reads",
    "evidence": "https://github.com/degraffics/traversence/blob/main/site-audit/scorecard.md"
   },
@@ -72,7 +72,7 @@
    "name": "Every page is in site-audit/pages.md or archive.md",
    "status": "built",
    "result": "pass",
-   "latest": "0 failures (2026-11-23 07:17 UTC)",
+   "latest": "0 failures (2026-11-23 19:17 UTC)",
    "target": "0 failures in the files it reads",
    "evidence": "https://github.com/degraffics/traversence/blob/main/site-audit/scorecard.md"
   },
@@ -80,7 +80,7 @@
    "name": "The brand's icons, not emoji",
    "status": "built",
    "result": "pass",
-   "latest": "0 failures (2026-11-23 07:17 UTC)",
+   "latest": "0 failures (2026-11-23 19:17 UTC)",
    "target": "0 failures in the files it reads",
    "evidence": "https://github.com/degraffics/traversence/blob/main/site-audit/scorecard.md"
   },
@@ -88,7 +88,7 @@
    "name": "No breadcrumbs on content pages",
    "status": "built",
    "result": "pass",
-   "latest": "0 failures (2026-11-23 07:17 UTC)",
+   "latest": "0 failures (2026-11-23 19:17 UTC)",
    "target": "0 failures in the files it reads",
    "evidence": "https://github.com/degraffics/traversence/blob/main/site-audit/scorecard.md"
   },
@@ -96,7 +96,7 @@
    "name": "Every outside service the code calls has its card in Outside services: a host the site, its pages or the workers call that's on no card (OutsideServices::HOSTS or a card's links), or a standing source on Sources with no card (ignored hosts: site-audit/services-ignore.txt)",
    "status": "built",
    "result": "pass",
-   "latest": "0 failures (2026-11-23 07:17 UTC)",
+   "latest": "0 failures (2026-11-23 19:17 UTC)",
    "target": "0 failures in the files it reads",
    "evidence": "https://github.com/degraffics/traversence/blob/main/site-audit/scorecard.md"
   },
@@ -104,7 +104,7 @@
    "name": "A new outside call (curl, an http file read, a socket) goes through staging's gate (StagingGate::hold(), or another gate), or says why not with an @gate note; the message names the function, so only a new one counts",
    "status": "built",
    "result": "pass",
-   "latest": "0 failures (2026-11-23 07:17 UTC)",
+   "latest": "0 failures (2026-11-23 19:17 UTC)",
    "target": "0 failures in the files it reads",
    "evidence": "https://github.com/degraffics/traversence/blob/main/site-audit/scorecard.md"
   },
@@ -112,7 +112,7 @@
    "name": "A new table (a migration's or code's CREATE TABLE, AdminTables::make) has its class in app/lib/staging-tables.php",
    "status": "built",
    "result": "pass",
-   "latest": "0 failures (2026-11-23 07:17 UTC)",
+   "latest": "0 failures (2026-11-23 19:17 UTC)",
    "target": "0 failures in the files it reads",
    "evidence": "https://github.com/degraffics/traversence/blob/main/site-audit/scorecard.md"
   },
@@ -120,7 +120,7 @@
    "name": "A worker's endpoint is named by a process in app/lib/ControlRegister.php (decisions/0171 §3)",
    "status": "built",
    "result": "pass",
-   "latest": "0 failures (2026-11-23 07:17 UTC)",
+   "latest": "0 failures (2026-11-23 19:17 UTC)",
    "target": "0 failures in the files it reads",
    "evidence": "https://github.com/degraffics/traversence/blob/main/site-audit/scorecard.md"
   },
@@ -272,7 +272,7 @@
       "PHOTOS",
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/discovery/",
      "source": "site-audit/pages.md:18; in the mirror (Sync e229587, 22:55 UTC Nov 21); release #158 (live 2026-11-19), release #159 (live 2026-11-19), release #202 (live 2026-11-19)"
     },
@@ -370,7 +370,7 @@
       "PHOTOS",
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: LOAD, BRAND fails",
      "route": "/hub/build.php",
      "source": "site-audit/pages.md:22; in the mirror (Sync e229587, 22:55 UTC Nov 21); settles \"live once uploaded\": hub/build.php is in the mirror"
     },
@@ -383,6 +383,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -425,7 +426,7 @@
       "PHOTOS-SHOWN",
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": "/place/landmark.php",
      "source": "site-audit/pages.md:25; in the mirror (Sync e229587, 22:55 UTC Nov 21)"
     },
@@ -438,6 +439,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -476,7 +478,7 @@
       "PHOTOS-SHOWN",
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": "/place/recreation.php",
      "source": "site-audit/pages.md:26; in the mirror (Sync e229587, 22:55 UTC Nov 21)"
     },
@@ -489,6 +491,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -504,7 +507,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": null,
      "source": "release #211 (live 2026-11-19); decisions/0058 notes 2026-11-19"
     },
@@ -517,6 +520,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -532,7 +536,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": null,
      "source": "release #205 (live 2026-11-19), release #213 (live 2026-11-19), release #217 (live 2026-11-20); decisions/0143 notes"
     },
@@ -545,6 +549,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -560,7 +565,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": null,
      "source": "release #230 (live 2026-11-20); handoffs/hero-tidy.md"
     },
@@ -594,6 +599,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -633,7 +639,7 @@
       "PHOTOS-SHOWN",
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": "/experiences/view.php",
      "source": "site-audit/pages.md:27; in the mirror (Sync e229587, 22:55 UTC Nov 21)"
     },
@@ -682,7 +688,7 @@
       "PHOTOS",
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/user/experiences/",
      "source": "site-audit/pages.md:92; in the mirror (Sync e229587, 22:55 UTC Nov 21)"
     },
@@ -695,6 +701,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -734,7 +741,7 @@
       "PHOTOS-SHOWN",
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": "/journeys/view.php",
      "source": "site-audit/pages.md:28; in the mirror (Sync e229587, 22:55 UTC Nov 21)"
     },
@@ -747,6 +754,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -785,7 +793,7 @@
       "PHOTOS-SHOWN",
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": "/journeys/suggested.php",
      "source": "site-audit/pages.md:29; in the mirror (Sync e229587, 22:55 UTC Nov 21); decisions/0146:163 Built; settles \"live once uploaded\""
     },
@@ -834,7 +842,7 @@
       "PHOTOS",
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: LOAD fails",
      "route": "/journeys/",
      "source": "site-audit/pages.md:30; in the mirror (Sync e229587, 22:55 UTC Nov 21)"
     },
@@ -862,6 +870,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -900,7 +909,7 @@
       "PHOTOS-SHOWN",
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": "/guide/how.php",
      "source": "site-audit/pages.md:33; in the mirror (Sync e229587, 22:55 UTC Nov 21)"
     },
@@ -913,6 +922,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -951,7 +961,7 @@
       "PHOTOS-SHOWN",
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": "/guide/resources.php",
      "source": "site-audit/pages.md:34; in the mirror (Sync e229587, 22:55 UTC Nov 21)"
     },
@@ -985,7 +995,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "signed off: P7, decided by Jason 2026-11-13 (site-audit/proposals.md:129)",
+     "review": "no open issue",
      "route": null,
      "source": "decisions/0131:105 Built (2026-10-30); admin explore/place_guides (manifests.php:57)"
     },
@@ -998,6 +1008,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -1013,7 +1024,7 @@
      "no_check": [
       "BOARD"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": null,
      "source": "decisions/0147; release #32 (live 2026-11-13)"
     },
@@ -1026,6 +1037,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -1041,7 +1053,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": null,
      "source": "community-scope.md:23; app/lib/LiveEvents.php in the mirror"
     },
@@ -1054,6 +1066,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -1069,7 +1082,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": null,
      "source": "release #219 (live 2026-11-20); decisions/0174 §4"
     },
@@ -1082,6 +1095,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -1120,7 +1134,7 @@
       "PHOTOS-SHOWN",
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": null,
      "source": "release #220 (live 2026-11-20); decisions/0174 §2"
     },
@@ -1133,6 +1147,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -1171,7 +1186,7 @@
       "PHOTOS-SHOWN",
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": null,
      "source": "release #221 (live 2026-11-20); decisions/0174 §3"
     },
@@ -1184,6 +1199,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -1222,7 +1238,7 @@
       "PHOTOS-SHOWN",
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": null,
      "source": "release #227 (live 2026-11-20); decisions/0174"
     },
@@ -1280,6 +1296,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -1295,7 +1312,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": null,
      "source": "decisions/0170; app/lib/HubOpening.php in the mirror"
     },
@@ -1359,7 +1376,7 @@
       "PHOTOS",
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/ai/",
      "source": "site-audit/pages.md:45; in the mirror (Sync e229587, 22:55 UTC Nov 21)"
     }
@@ -1438,6 +1455,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live",
       "proved"
      ],
@@ -1458,7 +1476,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": null,
      "source": "release #208 (live 2026-11-19); handoffs/get-local-r2.md"
     },
@@ -1490,7 +1508,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: PATHS fails",
      "route": null,
      "source": "the paths check \"set-place\"; rule J01"
     },
@@ -1503,6 +1521,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -1541,7 +1560,7 @@
       "PHOTOS-SHOWN",
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": "/listing/view.php",
      "source": "site-audit/pages.md:23; in the mirror (Sync e229587, 22:55 UTC Nov 21); release #240 (live 2026-11-20)"
     },
@@ -1590,7 +1609,7 @@
       "PHOTOS",
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: LOAD, BRAND fails",
      "route": "/listing/location.php",
      "source": "site-audit/pages.md:24; in the mirror (Sync e229587, 22:55 UTC Nov 21)"
     },
@@ -1639,7 +1658,7 @@
       "PHOTOS",
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/claim.php",
      "source": "site-audit/pages.md:39; in the mirror (Sync e229587, 22:55 UTC Nov 21); release #215 (live 2026-11-19); decisions/0070"
     },
@@ -1688,7 +1707,7 @@
       "PHOTOS",
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: LOAD, BRAND fails",
      "route": "/verify-listing.php",
      "source": "site-audit/pages.md:70; in the mirror (Sync e229587, 22:55 UTC Nov 21)"
     },
@@ -1701,6 +1720,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -1737,7 +1757,7 @@
       "PHOTOS",
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": "/dashboard.php",
      "source": "site-audit/pages.md:93; in the mirror (Sync e229587, 22:55 UTC Nov 21); decisions/0070, 0115"
     },
@@ -1771,7 +1791,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "signed off: P11 (3), decided by Jason 2026-11-13 (site-audit/proposals.md:208)",
+     "review": "no open issue",
      "route": null,
      "source": "release #191 (live 2026-11-19); handoffs/business-listings.md"
     },
@@ -1803,7 +1823,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: PATHS fails",
      "route": "/listing/api/*",
      "source": "/listing/api/update-metadata (site-audit/pages.md:222)"
     },
@@ -1853,7 +1873,7 @@
       "PHOTOS",
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/listing/confirm.php",
      "source": "site-audit/pages.md:114; in the mirror (Sync e229587, 22:55 UTC Nov 21); decisions/0172; release #135 (live 2026-11-18) (comms-all)"
     },
@@ -1903,7 +1923,7 @@
       "PHOTOS",
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/listing/requests.php",
      "source": "site-audit/pages.md:115; in the mirror (Sync e229587, 22:55 UTC Nov 21); decisions/0172; release #135 (live 2026-11-18)"
     },
@@ -1935,7 +1955,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: PATHS fails",
      "route": "/api/guest-inquiry.php",
      "source": "/api/guest-inquiry.php (site-audit/pages.md:211); decisions/0052, 0172"
     },
@@ -1948,6 +1968,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -1963,7 +1984,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": "/claim.php",
      "source": "decisions/0071; claim.php?new=1 (site-audit/pages.md:39); app/lib/AddBusiness.php"
     },
@@ -1976,6 +1997,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -1991,7 +2013,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": null,
      "source": "release #51 (live 2026-11-15); app/lib/HelpFind.php"
     },
@@ -2004,6 +2026,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -2019,7 +2042,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": null,
      "source": "decisions/0054; app/lib/Nexus.php; Admin → Local → Nexus (manifests.php:41)"
     },
@@ -2032,7 +2055,6 @@
      "met": [
       "decided",
       "built",
-      "reviewed",
       "live",
       "proved"
      ],
@@ -2057,7 +2079,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "signed off: P10, decided by Jason 2026-11-13 (site-audit/proposals.md:182)",
+     "review": "open issue: SEARCH fails",
      "route": "/api/search_listings.php",
      "source": "/api/search_listings.php, /api/categories.php (site-audit/pages.md:199); decisions/0060 Phases A and B built"
     },
@@ -2089,7 +2111,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: SEARCH fails",
      "route": null,
      "source": "decisions/0061:7 replaces 0060's Phase C and is built in three batches; settles the outline's \"decided, not built\""
     },
@@ -2102,6 +2124,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -2117,7 +2140,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": null,
      "source": "decisions/0060; the runtime board's \"3 within 5 mi\" snapshot"
     },
@@ -2130,6 +2153,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -2145,7 +2169,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": "/api/open-places.php",
      "source": "/api/open-places.php (site-audit/pages.md:206); decisions/0065"
     },
@@ -2196,7 +2220,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: PATHS, SEARCH fails",
      "route": "/api/search.php",
      "source": "/api/search.php (site-audit/pages.md:198)"
     }
@@ -2252,7 +2276,7 @@
       "PHOTOS",
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: LOAD, BRAND fails",
      "route": "/community/",
      "source": "site-audit/pages.md:31; in the mirror (Sync e229587, 22:55 UTC Nov 21); release #237 (live 2026-11-20) (3d); settles the outline's \"is 3d live\""
     },
@@ -2265,6 +2289,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -2304,7 +2329,7 @@
       "PHOTOS-SHOWN",
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": "/community/group.php",
      "source": "site-audit/pages.md:32; in the mirror (Sync e229587, 22:55 UTC Nov 21); release #237 (live 2026-11-20)"
     },
@@ -2336,7 +2361,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: PATHS fails",
      "route": null,
      "source": "community-scope.md:10; decisions/0047"
     },
@@ -2349,6 +2374,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -2364,7 +2390,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": null,
      "source": "community-scope.md:12; decisions/0102 §4b"
     },
@@ -2377,6 +2403,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -2392,7 +2419,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": null,
      "source": "community-scope.md:16–20, 242"
     },
@@ -2405,6 +2432,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -2420,7 +2448,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": null,
      "source": "community-scope.md:247–250 (live 2026-11-02)"
     },
@@ -2433,6 +2461,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -2448,7 +2477,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": null,
      "source": "community-scope.md:21–22"
     },
@@ -2461,6 +2490,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -2497,7 +2527,7 @@
       "PHOTOS",
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": "/join.php",
      "source": "site-audit/pages.md:38; in the mirror (Sync e229587, 22:55 UTC Nov 21)"
     },
@@ -2510,6 +2540,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -2549,7 +2580,7 @@
       "PHOTOS-SHOWN",
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": null,
      "source": "decisions/0153:147 Built; /user/post.php in the mirror"
     },
@@ -2562,6 +2593,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -2577,7 +2609,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": null,
      "source": "decisions/0153:172 Built"
     },
@@ -2590,6 +2622,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -2605,7 +2638,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": null,
      "source": "decisions/0153:190 Built"
     },
@@ -2654,7 +2687,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "signed off: P11 (7), decided by Jason 2026-11-13 (site-audit/proposals.md:208)",
+     "review": "no open issue",
      "route": "/api/engage.php",
      "source": "/api/engage.php (site-audit/pages.md:208); decisions/0058"
     },
@@ -2667,6 +2700,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live",
       "proved"
      ],
@@ -2687,7 +2721,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": null,
      "source": "decisions/0058"
     },
@@ -2863,7 +2897,7 @@
       "PHOTOS",
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/market/",
      "source": "site-audit/pages.md:35; in the mirror (Sync e229587, 22:55 UTC Nov 21); pages.md: \"Live, placeholder\"; decisions/0135"
     },
@@ -2876,6 +2910,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -2915,7 +2950,7 @@
       "PHOTOS-SHOWN",
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": "/market/view.php",
      "source": "site-audit/pages.md:58; in the mirror (Sync e229587, 22:55 UTC Nov 21)"
     },
@@ -2928,6 +2963,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -2967,7 +3003,7 @@
       "PHOTOS-SHOWN",
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": "/market/item.php",
      "source": "site-audit/pages.md:54; in the mirror (Sync e229587, 22:55 UTC Nov 21)"
     },
@@ -3016,7 +3052,7 @@
       "PHOTOS",
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: LOAD fails",
      "route": "/market/cart.php",
      "source": "site-audit/pages.md:52; in the mirror (Sync e229587, 22:55 UTC Nov 21)"
     },
@@ -3029,6 +3065,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -3068,7 +3105,7 @@
       "PHOTOS-SHOWN",
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": "/market/order.php",
      "source": "site-audit/pages.md:55; in the mirror (Sync e229587, 22:55 UTC Nov 21)"
     },
@@ -3117,7 +3154,7 @@
       "PHOTOS",
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/market/rules.php",
      "source": "site-audit/pages.md:56; in the mirror (Sync e229587, 22:55 UTC Nov 21)"
     },
@@ -3168,7 +3205,7 @@
       "PHOTOS-SHOWN",
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: RENDER fails",
      "route": "/market/ticket.php",
      "source": "site-audit/pages.md:57; in the mirror (Sync e229587, 22:55 UTC Nov 21)"
     },
@@ -3219,7 +3256,7 @@
       "PHOTOS-SHOWN",
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: RENDER fails",
      "route": "/market/download.php",
      "source": "site-audit/pages.md:53; in the mirror (Sync e229587, 22:55 UTC Nov 21)"
     },
@@ -3268,7 +3305,7 @@
       "PHOTOS",
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/user/market/",
      "source": "site-audit/pages.md:97; in the mirror (Sync e229587, 22:55 UTC Nov 21)"
     },
@@ -3317,7 +3354,7 @@
       "PHOTOS",
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/user/orders.php",
      "source": "site-audit/pages.md:99; in the mirror (Sync e229587, 22:55 UTC Nov 21)"
     },
@@ -3349,7 +3386,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: PATHS fails",
      "route": null,
      "source": "decisions/0135:161, 190 Built"
     },
@@ -3362,6 +3399,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -3377,7 +3415,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": null,
      "source": "decisions/0135:226 Built"
     },
@@ -3390,6 +3428,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -3405,7 +3444,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": null,
      "source": "decisions/0135:353 Built; /business/pay-connect.php in the mirror"
     },
@@ -3418,6 +3457,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -3433,7 +3473,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": null,
      "source": "decisions/0135:405 Built; settles the outline's \"decided, not built\""
     },
@@ -3446,6 +3486,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -3461,7 +3502,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": null,
      "source": "decisions/0141:126 Built"
     },
@@ -3474,6 +3515,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -3489,7 +3531,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": null,
      "source": "decisions/0142:123, 151 Built"
     },
@@ -3502,6 +3544,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -3517,7 +3560,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": null,
      "source": "decisions/0141:152 Built; market360-build-briefs.md:99 (\"Built with zips 5 and 6 as one build\"); settles the outline's \"zips 5–6\""
     },
@@ -3530,6 +3573,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -3545,7 +3589,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": null,
      "source": "decisions/0141:193, 203, 210, 221, 232"
     },
@@ -3651,7 +3695,7 @@
       "PHOTOS",
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/shop/",
      "source": "site-audit/pages.md:42; in the mirror (Sync e229587, 22:55 UTC Nov 21); decisions/0154:116, 143 Built"
     },
@@ -3700,7 +3744,7 @@
       "PHOTOS",
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: LOAD fails",
      "route": "/plans.php",
      "source": "site-audit/pages.md:62; in the mirror (Sync e229587, 22:55 UTC Nov 21)"
     },
@@ -3713,6 +3757,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -3752,7 +3797,7 @@
       "PHOTOS-SHOWN",
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": "/promo.php",
      "source": "site-audit/pages.md:63; in the mirror (Sync e229587, 22:55 UTC Nov 21)"
     },
@@ -3801,7 +3846,7 @@
       "PHOTOS",
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/qr/",
      "source": "site-audit/pages.md:65; in the mirror (Sync e229587, 22:55 UTC Nov 21)"
     },
@@ -3850,7 +3895,7 @@
       "PHOTOS",
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/qr/cart.php",
      "source": "site-audit/pages.md:66; in the mirror (Sync e229587, 22:55 UTC Nov 21)"
     },
@@ -3899,7 +3944,7 @@
       "PHOTOS",
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/qr/manage.php",
      "source": "site-audit/pages.md:67; in the mirror (Sync e229587, 22:55 UTC Nov 21)"
     },
@@ -3980,6 +4025,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -3995,7 +4041,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": null,
      "source": "decisions/0139:58 Built; trvgo/index.php in the mirror"
     },
@@ -4008,6 +4054,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -4023,7 +4070,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": null,
      "source": "decisions/0139:91 Built; release #93 (live 2026-11-17)"
     },
@@ -4036,6 +4083,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -4051,7 +4099,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": null,
      "source": "release #41 (live 2026-11-14); decisions/0159; settles the outline's \"to confirm\""
     },
@@ -4064,6 +4112,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -4079,7 +4128,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": null,
      "source": "release #42 (live 2026-11-14); decisions/0159"
     },
@@ -4158,7 +4207,7 @@
       "PHOTOS",
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/shop/domains.php",
      "source": "site-audit/pages.md:43; in the mirror (Sync e229587, 22:55 UTC Nov 21); release #71 (live 2026-11-17), release #76 (live 2026-11-17)"
     },
@@ -4207,7 +4256,7 @@
       "PHOTOS",
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: LOAD, BRAND fails",
      "route": "/user/domains/",
      "source": "site-audit/pages.md:96; in the mirror (Sync e229587, 22:55 UTC Nov 21); release #71 (live 2026-11-17)"
     },
@@ -4282,7 +4331,7 @@
       "PHOTOS",
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/user/profile.php",
      "source": "site-audit/pages.md:88; in the mirror (Sync e229587, 22:55 UTC Nov 21)"
     },
@@ -4295,6 +4344,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -4333,7 +4383,7 @@
       "PHOTOS-SHOWN",
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": "/user/profile.php?id=&tab=videos",
      "source": "site-audit/pages.md:90; in the mirror (Sync e229587, 22:55 UTC Nov 21); decisions/0154:116 Built"
     },
@@ -4382,7 +4432,7 @@
       "PHOTOS",
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/user/dashboard.php",
      "source": "site-audit/pages.md:87; in the mirror (Sync e229587, 22:55 UTC Nov 21); release #237 (live 2026-11-20)"
     },
@@ -4431,7 +4481,7 @@
       "PHOTOS",
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: LOAD fails",
      "route": "/gallery/",
      "source": "site-audit/pages.md:47; in the mirror (Sync e229587, 22:55 UTC Nov 21)"
     },
@@ -4482,7 +4532,7 @@
       "PHOTOS-SHOWN",
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: RENDER fails",
      "route": "/gallery/album.php",
      "source": "site-audit/pages.md:48; in the mirror"
     },
@@ -4580,7 +4630,6 @@
      "met": [
       "decided",
       "built",
-      "reviewed",
       "live"
      ],
      "checks": [
@@ -4619,7 +4668,7 @@
       "PHOTOS-SHOWN",
       "TOOLS"
      ],
-     "review": "signed off: P2, decided by Jason 2026-11-08 (site-audit/proposals.md:38)",
+     "review": "open issue: LOAD fails",
      "route": "/login.php",
      "source": "site-audit/pages.md:78; in the mirror (Sync e229587, 22:55 UTC Nov 21)"
     },
@@ -4632,6 +4681,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live",
       "proved"
      ],
@@ -4652,7 +4702,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": null,
      "source": "decisions/0014, 0097"
     },
@@ -4665,7 +4715,6 @@
      "met": [
       "decided",
       "built",
-      "reviewed",
       "live"
      ],
      "checks": [
@@ -4685,7 +4734,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "signed off: P11 (1, 2), decided by Jason 2026-11-13 (site-audit/proposals.md:208)",
+     "review": "open issue: PATHS fails",
      "route": "/login.php",
      "source": "site-audit/pages.md:78"
     },
@@ -4698,6 +4747,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -4713,7 +4763,7 @@
      "no_check": [
       "BOARD"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": null,
      "source": "decisions/0090; app/lib/SocialAuth.php"
     },
@@ -4726,6 +4776,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -4765,7 +4816,7 @@
       "PHOTOS-SHOWN",
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": null,
      "source": "decisions/0097; /two-step.php in the mirror"
     },
@@ -4778,6 +4829,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -4816,7 +4868,7 @@
       "PHOTOS-SHOWN",
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": null,
      "source": "decisions/0091; /user/delete-account.php in the mirror"
     },
@@ -4880,7 +4932,7 @@
       "PHOTOS",
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/faq.php",
      "source": "site-audit/pages.md:36; in the mirror (Sync e229587, 22:55 UTC Nov 21)"
     },
@@ -4929,7 +4981,7 @@
       "PHOTOS",
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/terms.php",
      "source": "site-audit/pages.md:44"
     }
@@ -4949,6 +5001,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -4964,7 +5017,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": null,
      "source": "app/lib/MemberPulse.php; tools/notify-tests/member-pulse.php; release #237 (live 2026-11-20)"
     },
@@ -4977,6 +5030,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -4992,7 +5046,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": null,
      "source": "release #130 (live 2026-11-18), release #135 (live 2026-11-18)"
     },
@@ -5026,6 +5080,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -5041,7 +5096,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": null,
      "source": "release #214 (live 2026-11-19); handoffs/push-polish.md"
     },
@@ -5054,6 +5109,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -5069,7 +5125,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": null,
      "source": "decisions/0109; app/admin/manifests.php"
     },
@@ -5109,7 +5165,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: LOAD, BRAND fails",
      "route": "/admin/dashboard/today",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):18 ($W)"
     },
@@ -5190,7 +5246,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/admin/dashboard/quick",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):21 ($W)"
     },
@@ -5230,7 +5286,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: LOAD, BRAND fails",
      "route": "/admin/dashboard/helper",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):22 ($B)"
     },
@@ -5270,7 +5326,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/admin/dashboard/mail",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):23 ($W)"
     },
@@ -5310,7 +5366,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/admin/dashboard/inbox",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):24 ($W)"
     },
@@ -5350,7 +5406,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: LOAD, BRAND fails",
      "route": "/admin/dashboard/comms",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):25 ($W)"
     },
@@ -5390,7 +5446,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/admin/dashboard/streamset",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):26 ($W)"
     }
@@ -5435,7 +5491,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/admin/local/listings",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):36 ($W)"
     },
@@ -5475,7 +5531,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/admin/local/bulk",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):37 ($B)"
     },
@@ -5515,7 +5571,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: LOAD, BRAND fails",
      "route": "/admin/local/intake",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):38 ($B)"
     },
@@ -5555,7 +5611,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: RENDER, LOAD, BRAND fails",
      "route": "/admin/local/review",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):39 ($W)"
     },
@@ -5595,7 +5651,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/admin/local/claims",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):40 ($W)"
     },
@@ -5635,7 +5691,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/admin/local/nexus",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):41 ($W)"
     },
@@ -5675,7 +5731,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: LOAD, BRAND fails",
      "route": "/admin/local/identities",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):42 ($B)"
     },
@@ -5715,7 +5771,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: LOAD, BRAND fails",
      "route": "/admin/local/places",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):43 ($W)"
     },
@@ -5755,7 +5811,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/admin/local/recreation",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):44 ($B)"
     },
@@ -5795,7 +5851,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: LOAD, BRAND fails",
      "route": "/admin/local/pins",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):45 ($B)"
     },
@@ -5835,7 +5891,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: LOAD, BRAND fails",
      "route": "/admin/local/nations",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):46 ($W)"
     },
@@ -5875,7 +5931,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: LOAD, BRAND fails",
      "route": "/admin/local/hidden",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):47 ($B)"
     },
@@ -5915,7 +5971,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/admin/local/categories",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):48 ($W)"
     },
@@ -5928,6 +5984,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -5943,7 +6000,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": "/admin/local/taxonomy",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):49 ($B, partial)"
     },
@@ -6003,7 +6060,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/admin/explore/journeys",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):54 ($W)"
     },
@@ -6043,7 +6100,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/admin/explore/experiences",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):55 ($W)"
     },
@@ -6083,7 +6140,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/admin/explore/stories",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):56 ($W)"
     },
@@ -6124,7 +6181,7 @@
       "RENDER",
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/admin/explore/place_guides",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):57 ($W)"
     },
@@ -6164,7 +6221,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/admin/explore/events",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):59 ($W)"
     },
@@ -6204,7 +6261,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: LOAD, BRAND fails",
      "route": "/admin/explore/guides",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):60 ($W)"
     },
@@ -6244,7 +6301,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/admin/explore/howto",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):61 ($W)"
     },
@@ -6304,7 +6361,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/admin/market/items",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):68 ($W)"
     },
@@ -6344,7 +6401,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/admin/market/rules",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):69 ($W)"
     },
@@ -6384,7 +6441,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/admin/market/bizitems",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):70 ($W)"
     },
@@ -6424,7 +6481,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: LOAD, BRAND fails",
      "route": "/admin/market/exchange",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):71 ($W)"
     },
@@ -6464,7 +6521,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: LOAD, BRAND fails",
      "route": "/admin/market/storefronts",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):72 ($W)"
     },
@@ -6492,7 +6549,6 @@
      "met": [
       "decided",
       "built",
-      "reviewed",
       "live"
      ],
      "checks": [
@@ -6520,7 +6576,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "signed off: P12, decided by Jason 2026-11-13 (site-audit/proposals.md:221)",
+     "review": "open issue: LOAD, BRAND fails",
      "route": "/admin/market/gateways",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):74 ($W)"
     },
@@ -6560,7 +6616,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: LOAD, BRAND fails",
      "route": "/admin/market/compliance",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):75 ($W)"
     },
@@ -6600,7 +6656,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: LOAD, BRAND fails",
      "route": "/admin/market/domains",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):76 ($W)"
     },
@@ -6640,7 +6696,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: LOAD, BRAND fails",
      "route": "/admin/market/codes",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):77 ($W)"
     },
@@ -6680,7 +6736,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/admin/market/pages",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):78 ($W)"
     },
@@ -6720,7 +6776,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/admin/market/leads",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):79 ($W)"
     }
@@ -6753,7 +6809,6 @@
      "met": [
       "decided",
       "built",
-      "reviewed",
       "live"
      ],
      "checks": [
@@ -6781,7 +6836,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "signed off: P11 (6), decided by Jason 2026-11-13 (site-audit/proposals.md:208)",
+     "review": "open issue: BRAND fails",
      "route": "/admin/social/reports",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):83 ($W)"
     },
@@ -6821,7 +6876,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/admin/social/standing",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):84 ($W)"
     },
@@ -6861,7 +6916,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/admin/social/takedowns",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):85 ($W)"
     },
@@ -6901,7 +6956,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: LOAD, BRAND fails",
      "route": "/admin/social/galleries",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):86 ($W)"
     },
@@ -6941,7 +6996,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: LOAD, BRAND fails",
      "route": "/admin/social/procedures",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):87 ($B)"
     },
@@ -6981,7 +7036,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/admin/social/groups",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):88 ($W)"
     },
@@ -7041,7 +7096,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/admin/growth/calls",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):93 ($W)"
     },
@@ -7081,7 +7136,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: LOAD, BRAND fails",
      "route": "/admin/growth/prospects",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):94 ($W)"
     },
@@ -7121,7 +7176,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/admin/growth/customers",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):95 ($W)"
     },
@@ -7161,7 +7216,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/admin/growth/cards",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):96 ($W)"
     },
@@ -7201,7 +7256,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: LOAD, BRAND fails",
      "route": "/admin/growth/field",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):97 ($B)"
     },
@@ -7241,7 +7296,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/admin/growth/promotions",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):98 ($W)"
     },
@@ -7281,7 +7336,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/admin/growth/territories",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):99 ($W)"
     },
@@ -7321,7 +7376,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/admin/growth/funnel",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):100 ($W)"
     },
@@ -7414,6 +7469,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -7429,7 +7485,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": "/admin/concierge/imports",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):109 ($B, partial)"
     }
@@ -7495,7 +7551,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: LOAD, BRAND fails",
      "route": "/admin/backoffice/orders",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):113 ($W)"
     },
@@ -7535,7 +7591,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: LOAD, BRAND fails",
      "route": "/admin/backoffice/products",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):115 ($W)"
     },
@@ -7575,7 +7631,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/admin/backoffice/production",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):116 ($W)"
     },
@@ -7616,7 +7672,7 @@
       "RENDER",
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/admin/backoffice/work_orders",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):117 ($W)"
     },
@@ -7656,7 +7712,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: LOAD, BRAND fails",
      "route": "/admin/backoffice/clients",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):118 ($W)"
     },
@@ -7697,7 +7753,7 @@
       "RENDER",
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/admin/backoffice/qb_items",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):119 ($W)"
     },
@@ -7737,7 +7793,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/admin/backoffice/collateral",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):120 ($W)"
     },
@@ -7778,7 +7834,7 @@
       "RENDER",
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/admin/backoffice/vendor_list",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):121 ($W)"
     },
@@ -7819,7 +7875,7 @@
       "RENDER",
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/admin/backoffice/cost_list",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):122 ($W)"
     },
@@ -7859,7 +7915,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/admin/backoffice/vendors",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):123 ($W)"
     },
@@ -7899,7 +7955,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/admin/backoffice/pricelists",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):124 ($W)"
     },
@@ -7939,7 +7995,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: LOAD, BRAND fails",
      "route": "/admin/backoffice/taxes",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):125 ($W)"
     },
@@ -7979,7 +8035,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/admin/backoffice/plans",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):126 ($W)"
     },
@@ -8019,7 +8075,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: LOAD, BRAND fails",
      "route": "/admin/backoffice/payments",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):127 ($B)"
     },
@@ -8032,6 +8088,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -8047,7 +8104,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": "/admin/backoffice/money",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):128 ($B, partial)"
     },
@@ -8087,7 +8144,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: LOAD, BRAND fails",
      "route": "/admin/backoffice/people",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):129 ($W)"
     },
@@ -8127,7 +8184,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/admin/backoffice/logins",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):130 ($B)"
     },
@@ -8167,7 +8224,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/admin/backoffice/levels",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):131 ($B)"
     },
@@ -8195,6 +8252,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -8210,7 +8268,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": "/admin/backoffice/imports",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):133 ($B, partial)"
     },
@@ -8315,7 +8373,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/admin/insights/numbers",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):141 ($B)"
     },
@@ -8355,7 +8413,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: LOAD, BRAND fails",
      "route": "/admin/insights/search",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):142 ($B)"
     },
@@ -8395,7 +8453,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/admin/insights/crawler",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):144 ($W)"
     },
@@ -8476,7 +8534,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/admin/insights/index",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):147 ($W)"
     },
@@ -8489,7 +8547,6 @@
      "met": [
       "decided",
       "built",
-      "reviewed",
       "live"
      ],
      "checks": [
@@ -8517,7 +8574,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "signed off: release #54: UI, UX and Functional approved by Jason",
+     "review": "open issue: LOAD, BRAND fails",
      "route": "/admin/insights/cleanup",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):149 ($W)"
     },
@@ -8557,7 +8614,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/admin/insights/seeker",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):150 ($W)"
     },
@@ -8597,7 +8654,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: LOAD, BRAND fails",
      "route": "/admin/insights/topics",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):151 ($W)"
     },
@@ -8637,7 +8694,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: LOAD, BRAND fails",
      "route": "/admin/insights/audit",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):152 ($W)"
     },
@@ -8677,7 +8734,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: LOAD, BRAND fails",
      "route": "/admin/insights/aiassist",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):153 ($W)"
     },
@@ -8717,7 +8774,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/admin/insights/data",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):154 ($B)"
     },
@@ -8798,7 +8855,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "signed off: release #54: UI, UX and Functional approved by Jason",
+     "review": "no open issue",
      "route": null,
      "source": "release #49 (live 2026-11-14), release #50 (live 2026-11-14), release #52 (live 2026-11-15), release #53 (live 2026-11-15), release #54 (live 2026-11-15); decisions/0163 §8 stage 1b; settles the outline's \"to confirm\""
     },
@@ -8827,7 +8884,7 @@
      "no_check": [
       "BOARD"
      ],
-     "review": "signed off: release #58: UI, UX and Functional approved by Jason",
+     "review": "no open issue",
      "route": null,
      "source": "release #58 (live 2026-11-15) (Release B part 1); handoffs/duplicates.md; decisions/0164 §3.1–3.2; settles the outline's \"to confirm\""
     },
@@ -8840,6 +8897,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -8855,7 +8913,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": null,
      "source": "decisions/0127, 0151"
     },
@@ -8868,6 +8926,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -8883,7 +8942,7 @@
      "no_check": [
       "BOARD"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": null,
      "source": "/api/video/jobs.php in the mirror; decisions/0153 §8"
     },
@@ -8930,7 +8989,7 @@
       ]
      ],
      "no_check": [],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BOARD fails",
      "route": null,
      "source": "app/lib/Automation.php WORKFLOWS (mirror); decisions/0164; carried by: crawler and site"
     },
@@ -8956,7 +9015,7 @@
       ]
      ],
      "no_check": [],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BOARD fails",
      "route": null,
      "source": "app/lib/Automation.php WORKFLOWS (mirror); decisions/0164; carried by: crawler"
     },
@@ -8982,7 +9041,7 @@
       ]
      ],
      "no_check": [],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BOARD fails",
      "route": null,
      "source": "app/lib/Automation.php WORKFLOWS (mirror); decisions/0164; carried by: crawler and site"
     },
@@ -8995,6 +9054,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -9010,7 +9070,7 @@
      "no_check": [
       "BOARD"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": null,
      "source": "app/lib/Automation.php WORKFLOWS (mirror); decisions/0164; carried by: site"
     },
@@ -9023,6 +9083,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -9038,7 +9099,7 @@
      "no_check": [
       "BOARD"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": null,
      "source": "app/lib/Automation.php WORKFLOWS (mirror); decisions/0164; carried by: site"
     },
@@ -9051,6 +9112,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -9066,7 +9128,7 @@
      "no_check": [
       "BOARD"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": null,
      "source": "app/lib/Automation.php WORKFLOWS (mirror); decisions/0164; carried by: crawler and site"
     },
@@ -9079,6 +9141,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -9094,7 +9157,7 @@
      "no_check": [
       "BOARD"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": null,
      "source": "app/lib/Automation.php WORKFLOWS (mirror); decisions/0164; carried by: site"
     },
@@ -9107,6 +9170,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -9122,7 +9186,7 @@
      "no_check": [
       "BOARD"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": null,
      "source": "app/lib/Automation.php WORKFLOWS (mirror); decisions/0164; carried by: site"
     },
@@ -9135,6 +9199,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -9150,7 +9215,7 @@
      "no_check": [
       "BOARD"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": null,
      "source": "app/lib/Automation.php WORKFLOWS (mirror); decisions/0164; carried by: crawler and site"
     },
@@ -9163,6 +9228,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -9178,7 +9244,7 @@
      "no_check": [
       "BOARD"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": null,
      "source": "app/lib/Automation.php WORKFLOWS (mirror); decisions/0164; carried by: site"
     },
@@ -9191,6 +9257,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -9206,7 +9273,7 @@
      "no_check": [
       "BOARD"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": null,
      "source": "app/lib/Automation.php WORKFLOWS (mirror); decisions/0164; carried by: crawler"
     },
@@ -9219,6 +9286,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -9234,7 +9302,7 @@
      "no_check": [
       "BOARD"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": null,
      "source": "app/lib/Automation.php WORKFLOWS (mirror); decisions/0164; carried by: crawler"
     },
@@ -9247,6 +9315,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -9262,7 +9331,7 @@
      "no_check": [
       "BOARD"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": null,
      "source": "app/lib/Automation.php WORKFLOWS (mirror); decisions/0164; carried by: people"
     },
@@ -9275,6 +9344,7 @@
      "met": [
       "decided",
       "built",
+      "reviewed",
       "live"
      ],
      "checks": [
@@ -9290,7 +9360,7 @@
      "no_check": [
       "BOARD"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "no open issue",
      "route": null,
      "source": "app/lib/Automation.php WORKFLOWS (mirror); decisions/0164; carried by: crawler and site"
     },
@@ -9576,7 +9646,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/admin/config/permissions",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):169 ($W)"
     },
@@ -9616,7 +9686,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/admin/config/datacheck",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):170 ($W)"
     },
@@ -9902,7 +9972,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: LOAD, BRAND fails",
      "route": "/admin/config/ai",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):177 ($W)"
     },
@@ -9983,7 +10053,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: LOAD, BRAND fails",
      "route": "/admin/config/vault",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):179 ($W)"
     },
@@ -10023,7 +10093,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: LOAD, BRAND fails",
      "route": "/admin/config/thresholds",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):180 ($W)"
     },
@@ -10063,7 +10133,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: LOAD, BRAND fails",
      "route": "/admin/config/content",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):181 ($W)"
     },
@@ -10076,7 +10146,6 @@
      "met": [
       "decided",
       "built",
-      "reviewed",
       "live"
      ],
      "checks": [
@@ -10104,7 +10173,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "signed off: release #68: UI, UX and Functional approved by Jason",
+     "review": "open issue: LOAD, BRAND fails",
      "route": "/admin/config/stock",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):182 ($W)"
     },
@@ -10144,7 +10213,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: LOAD, BRAND fails",
      "route": "/admin/config/jurisdictions",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):183 ($W)"
     },
@@ -10184,7 +10253,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/admin/config/dbupdates",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):184 ($W)"
     },
@@ -10224,7 +10293,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/admin/config/switches",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):185 ($W)"
     },
@@ -10264,7 +10333,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/admin/config/testaccounts",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):186 ($W)"
     },
@@ -10277,7 +10346,6 @@
      "met": [
       "decided",
       "built",
-      "reviewed",
       "live"
      ],
      "checks": [
@@ -10305,7 +10373,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "signed off: release #56: UI, UX and Functional approved by Jason",
+     "review": "open issue: BRAND fails",
      "route": "/admin/config/staging",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):187 ($W)"
     },
@@ -10345,7 +10413,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: LOAD, BRAND fails",
      "route": "/admin/config/releases",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):188 ($W)"
     },
@@ -10385,7 +10453,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/admin/config/settings",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):189 ($W)"
     },
@@ -10425,7 +10493,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/admin/config/logs",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):190 ($W)"
     },
@@ -10465,7 +10533,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: BRAND fails",
      "route": "/admin/config/sitemap",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):191 ($B)"
     },
@@ -10505,7 +10573,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open issue: LOAD, BRAND fails",
      "route": "/admin/config/decisions",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):192 ($W)"
     },
