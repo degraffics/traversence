@@ -305,5 +305,6 @@ the session manager and Jason.
 
 `design/order-management/` (HTML, rendered at 1280 and 390), each with its after-state: the board (and after a
 payment and a resend; and empty), Place an order (and a step folded after Next), the order page (and after a payment),
-Money (Outstanding, the Take a payment drawer, after a reminder), the Catalog. They are what the Design reviewer checks against brand.md, `design/css-theme-brand.md`,
+Money (Outstanding, the Take a payment drawer, after a reminder), the Catalog. Approved by the Design reviewer, round 3 (2026-11-23), with one build-time note: at 390 a list's filter button goes on
+its own line under the search, so the search never wraps. They are what the Design reviewer checks against brand.md, `design/css-theme-brand.md`,
 `design/table-standard.md` and 0058 §11.
