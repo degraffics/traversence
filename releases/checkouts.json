@@ -186,32 +186,6 @@
    "callers": {}
   },
   {
-   "path": "app/admin/operations-console.php",
-   "functions": [
-    "tv_ops_ctx"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
-   "why": "board-fixes: jobs and words, Signs in as, the Sync chip (Jason, 2026-11-23)",
-   "since": "2026-11-23T14:58:06Z",
-   "expires": "2026-11-23T18:58:06Z",
-   "release": "",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/ServiceHealth.php",
-   "functions": [
-    "alarmTitle"
-   ],
-   "kind": "add",
-   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
-   "why": "board-fixes: jobs and words, Signs in as, the Sync chip (Jason, 2026-11-23)",
-   "since": "2026-11-23T14:58:08Z",
-   "expires": "2026-11-23T18:58:08Z",
-   "release": "",
-   "callers": {}
-  },
-  {
    "path": "app/lib/ControlAlarms.php",
    "functions": [
     "atUtc",
@@ -223,21 +197,6 @@
    "why": "board-fixes: the Design reviewer changes (one button, short titles, true words, one time format)",
    "since": "2026-11-23T14:58:10Z",
    "expires": "2026-11-23T19:32:43Z",
-   "release": "",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/Scheduler.php",
-   "functions": [
-    "missFile",
-    "missed",
-    "misses"
-   ],
-   "kind": "add",
-   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
-   "why": "board-fixes: jobs and words, Signs in as, the Sync chip (Jason, 2026-11-23)",
-   "since": "2026-11-23T14:58:12Z",
-   "expires": "2026-11-23T18:58:12Z",
    "release": "",
    "callers": {}
   },
@@ -264,31 +223,6 @@
    "callers": {}
   },
   {
-   "path": "app/admin/tools.php",
-   "functions": [
-    "'config/alarms'",
-    "config/alarms"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
-   "why": "Restores board-fixes-4's (#269, Jason approved) changes to three files the orders release (#270) overwrote a minute later: the drawer title on two lines, the Alarms list's plain part names, its drawer's fix first and labelled times, and the two FAQ entries",
-   "since": "2026-11-23T15:06:08Z",
-   "expires": "2026-11-23T22:55:15Z",
-   "release": "board-fixes-5.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/admin/kit-css.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
-   "why": "Restores board-fixes-4's (#269, Jason approved) changes to three files the orders release (#270) overwrote a minute later: the drawer title on two lines, the Alarms list's plain part names, its drawer's fix first and labelled times, and the two FAQ entries",
-   "since": "2026-11-23T15:06:11Z",
-   "expires": "2026-11-23T22:55:15Z",
-   "release": "board-fixes-5.zip",
-   "callers": {}
-  },
-  {
    "path": "website/admin/api.php",
    "functions": [
     "(top)"
@@ -303,6 +237,50 @@
   }
  ],
  "lapsed": [
+  {
+   "path": "app/admin/operations-console.php",
+   "functions": [
+    "tv_ops_ctx"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "board-fixes: jobs and words, Signs in as, the Sync chip (Jason, 2026-11-23)",
+   "since": "2026-11-23T14:58:06Z",
+   "expires": "2026-11-23T18:58:06Z",
+   "release": "",
+   "callers": {},
+   "lapsed": "2026-11-23T19:01:44Z"
+  },
+  {
+   "path": "app/lib/ServiceHealth.php",
+   "functions": [
+    "alarmTitle"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "board-fixes: jobs and words, Signs in as, the Sync chip (Jason, 2026-11-23)",
+   "since": "2026-11-23T14:58:08Z",
+   "expires": "2026-11-23T18:58:08Z",
+   "release": "",
+   "callers": {},
+   "lapsed": "2026-11-23T19:01:44Z"
+  },
+  {
+   "path": "app/lib/Scheduler.php",
+   "functions": [
+    "missFile",
+    "missed",
+    "misses"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "board-fixes: jobs and words, Signs in as, the Sync chip (Jason, 2026-11-23)",
+   "since": "2026-11-23T14:58:12Z",
+   "expires": "2026-11-23T18:58:12Z",
+   "release": "",
+   "callers": {},
+   "lapsed": "2026-11-23T19:01:44Z"
+  },
   {
    "path": "website/js/tv-ask.js",
    "functions": [
@@ -1005,51 +983,6 @@
      "app/admin/control-console.php"
     ]
    },
-   "lapsed": "2026-11-20T23:27:17Z"
-  },
-  {
-   "path": "app/admin/control-console.php",
-   "functions": [
-    "tv_admin_mod_control"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
-   "why": "0175's note 2026-11-20: Paused now gives a clear picture",
-   "since": "2026-11-20T18:42:29Z",
-   "expires": "2026-11-20T22:44:21Z",
-   "release": "0175-paused-now.zip",
-   "callers": {},
-   "lapsed": "2026-11-20T23:27:17Z"
-  },
-  {
-   "path": "app/lib/ControlBoard.php",
-   "functions": [
-    "duties",
-    "health",
-    "openTrips",
-    "tripOf"
-   ],
-   "kind": "add",
-   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
-   "why": "0175's note 2026-11-20: Paused now gives a clear picture",
-   "since": "2026-11-20T18:42:34Z",
-   "expires": "2026-11-20T22:42:34Z",
-   "release": "0175-paused-now",
-   "callers": {},
-   "lapsed": "2026-11-20T23:27:17Z"
-  },
-  {
-   "path": "app/admin/manifests.php",
-   "functions": [
-    "'config'"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
-   "why": "0175 R2b part C: the Workflow board folded into Workflows",
-   "since": "2026-11-20T18:46:17Z",
-   "expires": "2026-11-20T22:46:17Z",
-   "release": "0175-r2b-workflows",
-   "callers": {},
    "lapsed": "2026-11-20T23:27:17Z"
   }
  ]
