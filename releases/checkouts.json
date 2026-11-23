@@ -2,19 +2,6 @@
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
  "claims": [
   {
-   "path": "website/admin/api.php",
-   "functions": [
-    "(top)"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
-   "why": "Orders release A: a row action's Copy the link (the design review, 2026-11-23)",
-   "since": "2026-11-23T16:09:58Z",
-   "expires": "2026-11-23T20:09:58Z",
-   "release": "",
-   "callers": {}
-  },
-  {
    "path": "app/ui/command-strip.php",
    "functions": [
     "(top)"
@@ -191,9 +178,34 @@
    "expires": "2026-11-23T23:59:54Z",
    "release": "gauge-panel.zip",
    "callers": {}
+  },
+  {
+   "path": "website/admin/api.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
+   "why": "Gauge panel release: the gauge panel's Fix it and Approve actions on the one endpoint",
+   "since": "2026-11-23T20:10:03Z",
+   "expires": "2026-11-24T00:10:03Z",
+   "release": "gauge-panel.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
+  {
+   "path": "website/admin/api.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
+   "why": "Orders release A: a row action's Copy the link (the design review, 2026-11-23)",
+   "since": "2026-11-23T16:09:58Z",
+   "expires": "2026-11-23T20:09:58Z",
+   "release": "",
+   "callers": {},
+   "lapsed": "2026-11-23T20:10:03Z"
+  },
   {
    "path": "app/admin/control-console.php",
    "functions": [
@@ -982,18 +994,6 @@
    "functions": [
     "tv_ops_ctx"
    ],
-   "kind": "change",
-   "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
-   "why": "Workflow audit: a source down holds only what uses it",
-   "since": "2026-11-21T03:28:58Z",
-   "expires": "2026-11-21T07:28:58Z",
-   "release": "workflow-holds.zip",
-   "callers": {},
-   "lapsed": "2026-11-21T09:17:36Z"
-  },
-  {
-   "path": "website/admin/api.php",
-   "functions": [],
    "kind": "change",
    "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
    "why": "Workflow audit: a source down holds only what uses it",
