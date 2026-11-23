@@ -277,6 +277,17 @@
    "expires": "2026-11-24T01:23:38Z",
    "release": "kit-buttons.zip",
    "callers": {}
+  },
+  {
+   "path": "website/api/health.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
+   "why": "?part=gauge_tasks for the hourly pickup",
+   "since": "2026-11-23T21:23:40Z",
+   "expires": "2026-11-24T01:23:40Z",
+   "release": "kit-buttons.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
