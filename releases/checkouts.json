@@ -271,6 +271,32 @@
    "expires": "2026-11-23T06:18:05Z",
    "release": "orders-rulings-2.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/ControlAlarms.php",
+   "functions": [
+    "tick"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "words follow the state for alarms raised before #258: titles redrawn from state; a slow job by its plain name (the session manager, 2026-11-23)",
+   "since": "2026-11-23T04:07:07Z",
+   "expires": "2026-11-23T08:07:07Z",
+   "release": "old-titles.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ServiceHealth.php",
+   "functions": [
+    "alarm"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "words follow the state for alarms raised before #258: titles redrawn from state; a slow job by its plain name (the session manager, 2026-11-23)",
+   "since": "2026-11-23T04:07:07Z",
+   "expires": "2026-11-23T08:07:07Z",
+   "release": "old-titles.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
