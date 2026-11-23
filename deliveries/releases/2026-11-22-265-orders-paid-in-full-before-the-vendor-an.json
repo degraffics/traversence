@@ -6,12 +6,12 @@
     "zip": "orders-rulings-2.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "planned",
+    "state": "approved",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
-    "plan_at": null,
+    "plan_at": "2026-11-23 04:10:16",
     "staged_at": null,
     "vetted_at": null,
     "live_at": null,
@@ -89,6 +89,16 @@
             "at": "2026-11-23T04:10:14+00:00",
             "by": 0,
             "msg": "Uploaded orders-rulings-2.zip: 13 files."
+        },
+        {
+            "at": "2026-11-23T04:10:16+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/orders-rulings-2.zip (git 053b599325)."
+        },
+        {
+            "at": "2026-11-23T04:10:16+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
         }
     ]
 }
