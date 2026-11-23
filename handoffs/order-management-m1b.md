@@ -80,3 +80,67 @@ it (this session or a fresh one, the session manager's call).
   `widgets.php::tv_w_board_css()`; keep M1b's there or on the order page.
 - Claim per function; rebuild on the newest sync just before zipping; zip check just before merging.
 - Task #4 (Payment reminders) moved to the Control Board session.
+
+## Built: M1b (the Orders session, session_01CXLi5kW2cGfR4Ya7fh2s3y), 2026-11-23
+
+Release `order-m1b.zip`, built on Sync 2026-11-23 21:07 UTC (`64c28ed`), no release live since. Zip check: clean but
+for one hold, `app/ui/faq.md`, carried by the Control Board's kit-buttons zip (not live yet): per CLAUDE.md, wait for it
+to go live, re-apply only M1b's two FAQ entries (and the one sentence added to "What does Next step mean") on the live
+copy, and send. Claims under `order-m1b.zip`.
+
+Files: `app/lib/ClientOrders.php` (readQuickBooks, applyQuickBooks, qbApplied, qbOrdersTick added; boardState: Paid in
+QuickBooks, the vendor state and its Next step; recordPayment posts to a linked invoice), `app/lib/QuickBooksPay.php`
+(invoiceByNumber's payments carry ref, method and ours; webUrl and createBill added), `app/lib/VendorBills.php` (new),
+`app/lib/WorkOrders.php` (setInvoiceNo drops an old link), `app/lib/upload-targets.php` (target `order_vendor_bill`),
+`app/lib/staging-tables.php` (`order_vendor_bills`: money), `app/lib/Scheduler.php` + `app/scripts/qb_orders_tick.php`
+(the hourly pull), `app/admin/job-line.php` (its page), `app/migrations/2026-11-23_m1b_vendor_bills.sql` (add-only:
+`orders.qb_link_id`, `qb_link_customer`, `qb_read_at`; table `order_vendor_bills`), `website/admin/client-order.php`,
+`website/js/vendor-bill.js` (new), `app/ui/faq.md`.
+
+Each behaviour and its source:
+- A hand-made invoice is linked by its own column (`qb_link_id`), never `invoice_id`: `invoicePaid()`, the webhook, cancel's
+  void and `WorkOrders` all read `invoice_id` and would rewrite totals or void it (brief: "decide the smallest way").
+- Read when the order opens (5-minute cache) and hourly (§3.6.1; brief 1). **The hourly pull is a new job** ("QuickBooks
+  invoices on orders"): none existed. One invoice links one order only.
+- A payment QuickBooks shows is applied at once, as method QuickBooks with its date and reference (0178 note, decision
+  (a)); no receipt to the client and nothing written to QuickBooks ("it writes nothing outside our records"); staff are
+  told and the chain moves on as for any payment (paid in full completes a delivered order, 0178 §6). Payments the site
+  posted carry our mark and are skipped. Ledger key `qbpay-<order>-<payment>`.
+- Money line: "Paid in QuickBooks Oct 19 · check 2231 · $… on invoice …" with ↗ (CLAUDE.md #1316) and M1's ✎ (the
+  payments, History kept), no Undo (0178's note).
+- A payment recorded here is received on the linked invoice (0178 note (b), "Yes, post it"); guardReal holds.
+- The Vendor line (§3.6.2–4, mockups open, open-after): shown only when a sent work order has an agreed cost; drop zone
+  through the one uploader (0127), "Kept with this order's files; not sent to anyone", no team thread; read in the
+  browser with pdf.js 3.11.174, no AI (§3.6.3, 0164); matched by PO = our work order number (or its PO), else vendor and
+  amount; with two work orders and no PO, "Which work order is it for?"; ✓ beside matches, each mismatch asked once with
+  its two answers (PO not ours, amount, tax and shipping added, ship via); Record waits for the answers (greyed, with why);
+  "It shipped" asks for tracking (kept on the bill and on the work order when it has none); a scan asks the four fields.
+- Record the vendor bill → also a QuickBooks Bill against the vendor (0178 note (c)), the vendor found or added, one line
+  to the Cost of Goods Sold account (`QB_COGS_ACCOUNT_ID`, else the first COGS account: **a build reading, in the summary**),
+  guardReal and StagingGate::hold first (R13). QuickBooks not answering: kept with why, **Send it to QuickBooks** retries
+  (principle 1: the system fixes first).
+- Money never has Undo (0178's note): **Cancel the record** only before QuickBooks; after, "void it there (↗)". ✎ edits a
+  bill's number, date, total and due (History) only before QuickBooks; after, greyed "change it there".
+- ⋯ (brief): Drop their invoice · Not billed by them (with why; **They billed after all** puts it back) · Dispute… (greyed
+  until billed; records why on the bill; **Dispute settled**) · Cancel the record · Work orders. Dispute… doesn't email the
+  vendor (nothing decided says it should).
+- The board (brief 3): Next step **Record the vendor bill** (Needs us) once a work order is shipped, ready, complete or
+  received and its bill isn't recorded, after money owed and before Complete.
+- Stale blocks (brief 1): the client's checkout line hidden once released or handled outside (unless the client chose a
+  way to pay); the payment form already showed only while something is owed.
+- Words kept true: the payment step and the work orders' "invoice #" field no longer say "nothing is posted to it".
+
+Admin's test: Paid in QuickBooks → nothing to do, ↗ to see it. Vendor not billed → drop their invoice or Record the bill
+by hand. Read with a question → press the right answer, then Record. Billed → ↗ to see it in QuickBooks. Not in
+QuickBooks yet → Send it to QuickBooks. Disputed → Dispute settled when it is. Not billed by them → They billed after all.
+
+Kept, moved, dropped: nothing dropped. The client's checkout line hidden when it no longer applies (brief).
+
+Not built: the mockup's ✉ beside the client's name (Client section): what it should do (mail from their own app, or
+Send the client an update) isn't decided; asked in the review.
+
+Tests (design harness): `m1b.php` 45 checks; `m1b.cjs` 37 × 1280 and 390 (74), every new button pressed, a real PDF
+upload read in the browser (`m1b/make-invoice.py`, made up), pdf.js served from npm's pdfjs-dist 3.11.174 where cdnjs
+isn't reachable (PDFJS_DIR); M1's `m1.php` (42), `m1.cjs`, `collect-balance.cjs`, `complete-owed.cjs` all pass. Screens
+in `handoffs/order-m1b/`. Harness notes: `wf_*` tables made by hand; the Mailer stand-in returns while
+`<root>/harness-mail-ok` exists (never shipped); the staff user is named "Staff".
