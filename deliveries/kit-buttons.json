@@ -1,0 +1,46 @@
+{
+ "zip": "kit-buttons.zip",
+ "built_on": "64c28ed Sync: 2026-11-23 21:07 UTC",
+ "recorded": "2026-11-23 21:27 UTC",
+ "note": "Kit buttons: brand-brown filled buttons, Copy as an icon; the gauge panel's Request a fix with its pickup named, \u22ef for each item's other moves. Built on Sync 21:07 UTC. Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/control-console.php": {
+   "sha256": "aef1dd1c73465e484872b7c3fde2405f507baa012ecaf831c6dcb005a5a987c1",
+   "live": false
+  },
+  "app/admin/kit-css.php": {
+   "sha256": "8d1e8e9bd0c492529ba662f6fbe1a7e1f8a05ef7b51ff81ec363faf1c5b9e8fe",
+   "live": false
+  },
+  "app/lib/ControlGauges.php": {
+   "sha256": "7000e4188a2751f71878d3b5d83708771c06a4d2585c6d0e2486dde36a950966",
+   "live": false
+  },
+  "app/lib/GaugeTasks.php": {
+   "sha256": "8cbd27bdd37c1012ded67334d993ea3f8dd7c2a597203ca6077bc382010e805d",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "720782abbc5a8bc864ba7317b25c539821ec45bd8e868e7a4614a4fcc8330c7d",
+   "live": false
+  },
+  "website/admin/api.php": {
+   "sha256": "ef6ef6f676fd2eef4e405e6f0abe2532de373dd94af509f83c73e0ba2f597d5d",
+   "live": false
+  },
+  "website/api/health.php": {
+   "sha256": "d59a8a55a44afebf03f3e17646eb70b5a637ae2d8b8478cb097f2f494dde0034",
+   "live": false
+  },
+  "website/js/admin-control.js": {
+   "sha256": "f352dc101ecbc83b94af576165398b24aa6b95c8dc20c40688c3f35afb597bb1",
+   "live": false
+  },
+  "website/js/tv-copy.js": {
+   "sha256": "a870120a2b1bd81a2ae6c0ef8e05deedc136083b148941f4ff55315bc7d4fb99",
+   "live": false
+  }
+ }
+}
