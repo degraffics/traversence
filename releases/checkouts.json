@@ -85,13 +85,14 @@
    "path": "website/js/admin-kit.js",
    "functions": [
     "head",
+    "shutAll",
     "stepBack"
    ],
    "kind": "add",
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "board-panels: one panel at a time, Copy all, panels titled by the part (Jason, 2026-11-23)",
    "since": "2026-11-23T13:15:14Z",
-   "expires": "2026-11-23T17:15:16Z",
+   "expires": "2026-11-23T17:15:18Z",
    "release": "",
    "callers": {}
   }
