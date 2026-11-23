@@ -251,6 +251,19 @@
    "expires": "2026-11-24T01:19:03Z",
    "release": "order-m1b.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/ControlGauges.php",
+   "functions": [
+    "parse"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
+   "why": "Keeps the pickups (which session has a request)",
+   "since": "2026-11-23T21:23:34Z",
+   "expires": "2026-11-24T01:23:34Z",
+   "release": "kit-buttons.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
