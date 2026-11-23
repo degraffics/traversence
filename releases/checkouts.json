@@ -203,19 +203,6 @@
    "callers": {}
   },
   {
-   "path": "app/admin/tools.php",
-   "functions": [
-    "tv_order_board"
-   ],
-   "kind": "add",
-   "session": "session_01CXLi5jrE1f1iCSbBQssAAe",
-   "why": "Order management M1: the state model and the board (research/order-management-design-2026-11-23.md \u00a76, decisions/0178 \u00a76)",
-   "since": "2026-11-23T20:18:25Z",
-   "expires": "2026-11-24T00:18:25Z",
-   "release": "order-m1.zip",
-   "callers": {}
-  },
-  {
    "path": "app/lib/ClientOrders.php",
    "functions": [
     "confirmReceived",
@@ -242,21 +229,6 @@
      "website/admin/client-order.php"
     ]
    }
-  },
-  {
-   "path": "app/admin/tools.php",
-   "functions": [
-    "(top)",
-    "backoffice/orders",
-    "tv_order_next_step"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5jrE1f1iCSbBQssAAe",
-   "why": "Order management M1: the state model and the board (research/order-management-design-2026-11-23.md \u00a76, decisions/0178 \u00a76)",
-   "since": "2026-11-23T20:18:47Z",
-   "expires": "2026-11-24T00:47:48Z",
-   "release": "order-m1.zip",
-   "callers": {}
   },
   {
    "path": "app/admin/widgets.php",
@@ -374,44 +346,6 @@
    }
   },
   {
-   "path": "app/admin/kit-css.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5jrE1f1iCSbBQssAAe",
-   "why": "Order management M1: the state model and the board (research/order-management-design-2026-11-23.md \u00a76, decisions/0178 \u00a76)",
-   "since": "2026-11-23T20:18:47Z",
-   "expires": "2026-11-24T00:18:47Z",
-   "release": "order-m1.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/ui/command-strip.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5jrE1f1iCSbBQssAAe",
-   "why": "Order management M1: the state model and the board (research/order-management-design-2026-11-23.md \u00a76, decisions/0178 \u00a76)",
-   "since": "2026-11-23T20:18:47Z",
-   "expires": "2026-11-24T00:47:48Z",
-   "release": "order-m1.zip",
-   "callers": {
-    "tv_command_strip": [
-     "app/admin/crawler-console.php",
-     "app/admin/legal-editor.php",
-     "website/admin/client-order.php",
-     "website/admin/content-template.php",
-     "website/admin/guide-edit.php"
-    ],
-    "fit": [
-     "app/admin/widgets.php",
-     "app/lib/CategoryClassifier.php",
-     "app/ui/app-shell.php",
-     "website/admin/router.php",
-     "website/js/admin-control.js",
-     "website/js/tv-moments.js"
-    ]
-   }
-  },
-  {
    "path": "website/admin/client-order.php",
    "functions": [],
    "kind": "change",
@@ -512,17 +446,6 @@
   },
   {
    "path": "app/admin/Workflow.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5jrE1f1iCSbBQssAAe",
-   "why": "release order-m1.zip",
-   "since": "2026-11-23T20:22:30Z",
-   "expires": "2026-11-24T00:47:48Z",
-   "release": "order-m1.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/admin/kit-css.php",
    "functions": [],
    "kind": "add",
    "session": "session_01CXLi5jrE1f1iCSbBQssAAe",
