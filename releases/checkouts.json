@@ -227,7 +227,7 @@
    "session": "session_01CXLi5jrE1f1iCSbBQssAAe",
    "why": "Order management M1: the state model and the board (research/order-management-design-2026-11-23.md \u00a76, decisions/0178 \u00a76)",
    "since": "2026-11-23T20:18:47Z",
-   "expires": "2026-11-24T00:35:40Z",
+   "expires": "2026-11-24T00:47:48Z",
    "release": "order-m1.zip",
    "callers": {
     "confirmReceived": [
@@ -254,7 +254,7 @@
    "session": "session_01CXLi5jrE1f1iCSbBQssAAe",
    "why": "Order management M1: the state model and the board (research/order-management-design-2026-11-23.md \u00a76, decisions/0178 \u00a76)",
    "since": "2026-11-23T20:18:47Z",
-   "expires": "2026-11-24T00:35:40Z",
+   "expires": "2026-11-24T00:47:48Z",
    "release": "order-m1.zip",
    "callers": {}
   },
@@ -268,7 +268,7 @@
    "session": "session_01CXLi5jrE1f1iCSbBQssAAe",
    "why": "Order management M1: the state model and the board (research/order-management-design-2026-11-23.md \u00a76, decisions/0178 \u00a76)",
    "since": "2026-11-23T20:18:47Z",
-   "expires": "2026-11-24T00:35:40Z",
+   "expires": "2026-11-24T00:47:48Z",
    "release": "order-m1.zip",
    "callers": {
     "tv_w_table": [
@@ -318,7 +318,7 @@
    "session": "session_01CXLi5jrE1f1iCSbBQssAAe",
    "why": "Order management M1: the state model and the board (research/order-management-design-2026-11-23.md \u00a76, decisions/0178 \u00a76)",
    "since": "2026-11-23T20:18:47Z",
-   "expires": "2026-11-24T00:35:40Z",
+   "expires": "2026-11-24T00:47:48Z",
    "release": "order-m1.zip",
    "callers": {
     "items": [
@@ -344,7 +344,7 @@
    "session": "session_01CXLi5jrE1f1iCSbBQssAAe",
    "why": "Order management M1: the state model and the board (research/order-management-design-2026-11-23.md \u00a76, decisions/0178 \u00a76)",
    "since": "2026-11-23T20:18:47Z",
-   "expires": "2026-11-24T00:35:40Z",
+   "expires": "2026-11-24T00:47:48Z",
    "release": "order-m1.zip",
    "callers": {
     "orders": [
@@ -391,7 +391,7 @@
    "session": "session_01CXLi5jrE1f1iCSbBQssAAe",
    "why": "Order management M1: the state model and the board (research/order-management-design-2026-11-23.md \u00a76, decisions/0178 \u00a76)",
    "since": "2026-11-23T20:18:47Z",
-   "expires": "2026-11-24T00:35:40Z",
+   "expires": "2026-11-24T00:47:48Z",
    "release": "order-m1.zip",
    "callers": {
     "tv_command_strip": [
@@ -418,7 +418,7 @@
    "session": "session_01CXLi5jrE1f1iCSbBQssAAe",
    "why": "Order management M1: the state model and the board (research/order-management-design-2026-11-23.md \u00a76, decisions/0178 \u00a76)",
    "since": "2026-11-23T20:18:47Z",
-   "expires": "2026-11-24T00:35:40Z",
+   "expires": "2026-11-24T00:47:48Z",
    "release": "order-m1.zip",
    "callers": {}
   },
@@ -429,7 +429,7 @@
    "session": "session_01CXLi5jrE1f1iCSbBQssAAe",
    "why": "Order management M1: the state model and the board (research/order-management-design-2026-11-23.md \u00a76, decisions/0178 \u00a76)",
    "since": "2026-11-23T20:18:47Z",
-   "expires": "2026-11-24T00:35:40Z",
+   "expires": "2026-11-24T00:47:48Z",
    "release": "order-m1.zip",
    "callers": {}
   },
@@ -440,7 +440,7 @@
    "session": "session_01CXLi5jrE1f1iCSbBQssAAe",
    "why": "Order management M1: the state model and the board (research/order-management-design-2026-11-23.md \u00a76, decisions/0178 \u00a76)",
    "since": "2026-11-23T20:18:47Z",
-   "expires": "2026-11-24T00:35:40Z",
+   "expires": "2026-11-24T00:47:48Z",
    "release": "order-m1.zip",
    "callers": {}
   },
@@ -451,7 +451,7 @@
    "session": "session_01CXLi5jrE1f1iCSbBQssAAe",
    "why": "Order management M1: the state model and the board (research/order-management-design-2026-11-23.md \u00a76, decisions/0178 \u00a76)",
    "since": "2026-11-23T20:18:47Z",
-   "expires": "2026-11-24T00:35:40Z",
+   "expires": "2026-11-24T00:47:48Z",
    "release": "order-m1.zip",
    "callers": {}
   },
@@ -506,7 +506,7 @@
    "session": "session_01CXLi5jrE1f1iCSbBQssAAe",
    "why": "release order-m1.zip",
    "since": "2026-11-23T20:22:30Z",
-   "expires": "2026-11-24T00:35:40Z",
+   "expires": "2026-11-24T00:47:48Z",
    "release": "order-m1.zip",
    "callers": {}
   },
@@ -517,7 +517,7 @@
    "session": "session_01CXLi5jrE1f1iCSbBQssAAe",
    "why": "release order-m1.zip",
    "since": "2026-11-23T20:22:30Z",
-   "expires": "2026-11-24T00:35:40Z",
+   "expires": "2026-11-24T00:47:48Z",
    "release": "order-m1.zip",
    "callers": {}
   },
@@ -528,7 +528,7 @@
    "session": "session_01CXLi5jrE1f1iCSbBQssAAe",
    "why": "release order-m1.zip",
    "since": "2026-11-23T20:22:30Z",
-   "expires": "2026-11-24T00:35:40Z",
+   "expires": "2026-11-24T00:47:48Z",
    "release": "order-m1.zip",
    "callers": {}
   },
