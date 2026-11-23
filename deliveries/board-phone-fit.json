@@ -3,12 +3,12 @@
  "built_on": "4a94342 Sync: 2026-11-23 01:52 UTC",
  "recorded": "2026-11-23 02:05 UTC",
  "note": "The board fits a phone with live content. Built on Sync: 2026-11-23 01:36 UTC. Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "1fba680 Sync: 2026-11-23 04:09 UTC",
  "files": {
   "app/admin/control-console.php": {
    "sha256": "d894e164a3d368bf9748d0b71e6db20d1375c3b908f3a7e6483bcc3eb32b1a1d",
-   "live": false
+   "live": true
   }
  }
 }
