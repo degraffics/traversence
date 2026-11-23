@@ -23,6 +23,19 @@ next build: "Go for it" (2026-11-23), after R0 went live. Session manager: `sess
 - Gemini's text is a review to weigh, never his answer, until he confirms it.
 - **The session manager reviews the summary before the pop-up**, every time (this session once asked first).
 
+## Now (Orders session `session_01CXLi5kEUy5gPJ4PG34SZhy`, 2026-11-23)
+
+**Built, waiting for the session manager's review, then Jason's Approve:** `releases/inbox/orders-rulings-2.zip` (branch
+`claude/orders-rulings-2`), the rulings release rebuilt on the model with the seven changes below. It replaces the held
+`orders-rulings.zip` (#1224, never sent; close #1224 when this merges). Built on Sync 01:52 UTC (4a94342); its files were
+the same at 00:15 (791f665). Files: `app/lib/{ClientOrders,QuickBooksPay,QrIssue,WorkOrders,VendorOrders,Collateral,Pulse}.php`,
+`app/admin/Workflow.php`, `app/ui/faq.md`, `website/order.php`, `website/admin/{order,client-order}.php`,
+`website/api/qb-webhook.php`. Tests: `tools/order-tests/rulings.php` (67/67, MariaDB 10.11) and `rulings.cjs` with
+`rulings-seed.php` (45/45 in the design harness at 1280 and 390). Proof pictures: `handoffs/orders-rulings-2/`.
+- Open: the count of open invoice-later orders on live (asked of the session manager, 2026-11-23 01:3x UTC).
+- Open, for Jason: deleting `saveAddress`, `setLineShip`, `setOptions` (uncalled since B.6).
+- Before merging: fetch the mirror, rebuild `faq.md` if it moved, rerun `zipcheck.py`.
+
 ## Next build: the held rulings release, rebuilt on the model
 
 Held: `releases/inbox/orders-rulings.zip` on branch `claude/orders-rulings`, PR #1224 (draft, stacked on the old #1212
