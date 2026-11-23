@@ -271,10 +271,10 @@
    ],
    "kind": "change",
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
-   "why": "board-fixes: plain part names in the Alarms table",
+   "why": "Restores board-fixes-4's (#269, Jason approved) changes to three files the orders release (#270) overwrote a minute later: the drawer title on two lines, the Alarms list's plain part names, its drawer's fix first and labelled times, and the two FAQ entries",
    "since": "2026-11-23T15:06:08Z",
-   "expires": "2026-11-23T19:48:52Z",
-   "release": "board-fixes-4.zip",
+   "expires": "2026-11-23T22:51:04Z",
+   "release": "board-fixes-5.zip",
    "callers": {}
   },
   {
@@ -282,10 +282,10 @@
    "functions": [],
    "kind": "change",
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
-   "why": "board-fixes: plain part names in the Alarms table, a drawer title on two lines (design review, 2026-11-23)",
+   "why": "Restores board-fixes-4's (#269, Jason approved) changes to three files the orders release (#270) overwrote a minute later: the drawer title on two lines, the Alarms list's plain part names, its drawer's fix first and labelled times, and the two FAQ entries",
    "since": "2026-11-23T15:06:11Z",
-   "expires": "2026-11-23T19:48:52Z",
-   "release": "board-fixes-4.zip",
+   "expires": "2026-11-23T22:51:04Z",
+   "release": "board-fixes-5.zip",
    "callers": {}
   },
   {
