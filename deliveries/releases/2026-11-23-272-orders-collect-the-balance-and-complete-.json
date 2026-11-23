@@ -1,0 +1,59 @@
+{
+    "id": 272,
+    "title": "Orders: Collect the balance, and Complete waits for the money",
+    "why": "The session manager's review of release A (#270): an order an admin released before payment can be shipped or ready for pickup with money still owed, and Back-Office -> Orders told staff to Mark complete. The money comes first (decisions/0177 §4, the order model 1.9).",
+    "proposals": "",
+    "zip": "collect-balance.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/admin/workflows.php": {
+            "sha": "cba541a17a7f1d554cfe1a390ebbd50086222e141ed3045a65d052b2f045a779",
+            "size": 37076,
+            "live_was": "0cbeedf7bf5900c8f642904c3c1eb3903f4318dbf333bdf4a118c7e3235f6624"
+        },
+        "app/admin/tools.php": {
+            "sha": "f5ea067e8eb347c9f035d55d4208019738359793839ebb2c7ffdedcbf8af4fc1",
+            "size": 271383,
+            "live_was": "6279b6ad2610f58dc4fd70c989a72cbd8f5d513d22f2ec5c3391cfa2efc27c8b"
+        },
+        "app/ui/command-strip.php": {
+            "sha": "d1ec5e3002c8c25cb24108568a87231847e61f3c863e921a84e86a2737dfde2d",
+            "size": 13841,
+            "live_was": "6f0bee1c2ea9d596305b098df6e1beddbe57a32ad3918e2ffb774f259c383db4"
+        },
+        "app/ui/faq.md": {
+            "sha": "3c36871883f7ae1eefa6f29a1ffd61176dd848ba3d4fde0c8a4e451476a8e3bf",
+            "size": 433092,
+            "live_was": "2de80c421db37a137a2458cbdade8e62c5342e65446eeaa5e4d4a61eff0da5bb"
+        },
+        "app/lib/ClientOrders.php": {
+            "sha": "0378e82dc95630205fcdbb3fcfec8ba7578c0acdf85bcc97db0d34469553fda8",
+            "size": 212500,
+            "live_was": "83ed2e77c37fb35d64872e933c44c13dde5e641b0fa4f4ba90af7759387fc1b1"
+        },
+        "website/admin/client-order.php": {
+            "sha": "81d3b507b73520f71ab194eb0e8fbd61a3bc85eb18dc534b8e05d32449d546db",
+            "size": 243769,
+            "live_was": "8e5c8b087d203d610bdbe7a0cbcdac8fc502ced4d27e6f56f477d65f9dc50893"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-23T19:33:51+00:00",
+            "by": 0,
+            "msg": "Uploaded collect-balance.zip: 6 files."
+        }
+    ]
+}
