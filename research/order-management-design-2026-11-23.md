@@ -140,6 +140,15 @@ the spot that does it:
 4. Money owed (deposit or balance) → **Take a payment**.
 5. Fulfilment's next action.
 
+**Every Next step is a task** (Jason's standing rule, 2026-11-23, CLAUDE.md #1308): **1. see the task** (the row's
+or line's one button, where the problem shows), **2. do the task** (the button does it there: a form in place or a
+drawer, never a trip to another page), **3. the task completes and its status is confirmed in place** (the button is
+replaced by what happened, checked against the record, with Undo: "✓ Paid $412.00 by check · Undo"), **4. the next
+step** (the row's state and Next step move on by §3's rule; nothing claims success without the check). The same holds on
+the money pages: Outstanding's Take a payment and Remind, Credits on account's Apply to an order, Refunds & credit
+memos' Issue; each confirms in its row with Undo (a refund, which can't be unsent, confirms the amount before and shows
+QuickBooks' reference after).
+
 Board columns: **Order** (state + age), **Money** (state + amount), **Delivery** (state), **Next step** (one button).
 The order page's notice: three short lines in the same words, in the strip's notices box; nothing repeated below.
 
