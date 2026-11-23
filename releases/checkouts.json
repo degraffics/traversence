@@ -90,8 +90,8 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "board-fixes: the Design reviewer changes (one button, short titles, true words, one time format)",
    "since": "2026-11-23T14:57:50Z",
-   "expires": "2026-11-23T19:32:59Z",
-   "release": "board-fixes-3.zip",
+   "expires": "2026-11-23T19:48:52Z",
+   "release": "board-fixes-4.zip",
    "callers": {
     "tv_cb_alarms": [
      "app/lib/ControlConsistency.php"
@@ -112,8 +112,8 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "board-fixes: jobs and words, Signs in as, the Sync chip (Jason, 2026-11-23)",
    "since": "2026-11-23T14:57:52Z",
-   "expires": "2026-11-23T19:32:59Z",
-   "release": "board-fixes-3.zip",
+   "expires": "2026-11-23T19:48:52Z",
+   "release": "board-fixes-4.zip",
    "callers": {}
   },
   {
@@ -125,8 +125,8 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "board-fixes: jobs and words, Signs in as, the Sync chip (Jason, 2026-11-23)",
    "since": "2026-11-23T14:57:55Z",
-   "expires": "2026-11-23T19:32:59Z",
-   "release": "board-fixes-3.zip",
+   "expires": "2026-11-23T19:48:52Z",
+   "release": "board-fixes-4.zip",
    "callers": {
     "alarm": [
      "app/lib/ControlAlarms.php"
@@ -143,8 +143,8 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "board-fixes: jobs and words, Signs in as, the Sync chip (Jason, 2026-11-23)",
    "since": "2026-11-23T14:57:57Z",
-   "expires": "2026-11-23T19:32:59Z",
-   "release": "board-fixes-3.zip",
+   "expires": "2026-11-23T19:48:52Z",
+   "release": "board-fixes-4.zip",
    "callers": {
     "sync": [
      "app/admin/sections.php",
@@ -213,8 +213,8 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "board-fixes: jobs and words, Signs in as, the Sync chip (Jason, 2026-11-23)",
    "since": "2026-11-23T14:57:59Z",
-   "expires": "2026-11-23T19:32:59Z",
-   "release": "board-fixes-3.zip",
+   "expires": "2026-11-23T19:48:52Z",
+   "release": "board-fixes-4.zip",
    "callers": {
     "alarms": [
      "app/admin/operations-console.php",
@@ -233,8 +233,8 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "board-fixes: the Design reviewer changes (one button, short titles, true words, one time format)",
    "since": "2026-11-23T14:58:01Z",
-   "expires": "2026-11-23T19:32:59Z",
-   "release": "board-fixes-3.zip",
+   "expires": "2026-11-23T19:48:52Z",
+   "release": "board-fixes-4.zip",
    "callers": {
     "pulseSteps": [
      "app/lib/Pulse.php"
@@ -257,8 +257,8 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "board-fixes: jobs and words, Signs in as, the Sync chip (Jason, 2026-11-23)",
    "since": "2026-11-23T14:58:03Z",
-   "expires": "2026-11-23T19:32:59Z",
-   "release": "board-fixes-3.zip",
+   "expires": "2026-11-23T19:48:52Z",
+   "release": "board-fixes-4.zip",
    "callers": {}
   },
   {
@@ -324,8 +324,8 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "board-fixes: jobs and words, Signs in as, the Sync chip (Jason, 2026-11-23)",
    "since": "2026-11-23T14:58:14Z",
-   "expires": "2026-11-23T19:32:59Z",
-   "release": "board-fixes-3.zip",
+   "expires": "2026-11-23T19:48:52Z",
+   "release": "board-fixes-4.zip",
    "callers": {}
   },
   {
@@ -335,8 +335,8 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "release board-fixes.zip",
    "since": "2026-11-23T15:04:02Z",
-   "expires": "2026-11-23T19:32:59Z",
-   "release": "board-fixes-3.zip",
+   "expires": "2026-11-23T19:48:52Z",
+   "release": "board-fixes-4.zip",
    "callers": {}
   },
   {
@@ -349,8 +349,8 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "board-fixes: plain part names in the Alarms table",
    "since": "2026-11-23T15:06:08Z",
-   "expires": "2026-11-23T19:32:59Z",
-   "release": "board-fixes-3.zip",
+   "expires": "2026-11-23T19:48:52Z",
+   "release": "board-fixes-4.zip",
    "callers": {}
   },
   {
@@ -360,8 +360,8 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "board-fixes: plain part names in the Alarms table, a drawer title on two lines (design review, 2026-11-23)",
    "since": "2026-11-23T15:06:11Z",
-   "expires": "2026-11-23T19:32:59Z",
-   "release": "board-fixes-3.zip",
+   "expires": "2026-11-23T19:48:52Z",
+   "release": "board-fixes-4.zip",
    "callers": {}
   }
  ],
