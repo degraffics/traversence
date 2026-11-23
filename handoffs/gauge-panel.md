@@ -52,6 +52,40 @@ What you can do (Approve the proposed target; See the failing cases; each Fix it
 with its action; its needs with each source a chip opening that service's card in the Service register; an unmapped line
 gets Send to a build in place of "association not mapped".
 
+## Revision 2: the Design reviewer's 9 changes (2026-11-23)
+
+The Design reviewer asked for changes on 4ba32ad and c75238a and approved Q4 (five segments). Each change, as made:
+1. **One filled button per box:** brand brown #92400E with page-colour text (5.18:1); the rest outlined in brown. Copper is
+   no longer used.
+2. **Awaiting your sign-off is amethyst:** #7D6B8D as a fill, #6B5A7C where it's text (5.51:1 on the card).
+3. **The dots have a legend:** an ⓘ beside the key opens the five states with a sample of each, and closes with ×, Esc or
+   a click outside. Each dot has a title, and the row's dots carry one aria-label. At 390 the dots become one phrase
+   ("Failing at checked").
+4. **Runtime's colour-only setup bar is gone.** "Its setup" lists the four steps in words (✓ done, needs you, failing,
+   not wired yet).
+5. **Each action is in one place: the cards.** A setup row reads its state, with a small link that brings its card into
+   view.
+6. **One time format,** labelled: "Nov 23, 10:20 AM UTC". The site will use TvTime.
+7. **Plain names:** "The tools check", "Page speed", "Code checks", "Runs daily with the page check". The ids stay in
+   "Where this comes from".
+8. **No gauge paths in an opened row.** The three paths stay at the panel's foot.
+9. **First view:** the first 10 rows, then "Show all 30". A segment shows all of its own. Runtime's needs fold to one line
+   ("7 needs, 12 sources ▸").
+
+Also applied, from Jason's rule of 2026-11-23 ("a finished step replaces its form"): Sign off, Send to a build, Approve
+the target, Mark fixed and Set aside each turn into their line in place, for example "Signed off by Jason, Nov 23, 7:21 PM
+UTC · Undo", and the button goes. Undo puts the button back.
+
+A failing check's row says "failed on this page on its last run (time)", never the check's site-wide totals.
+
+**Walked:** `gauge-panel/walk.cjs`, at 1280 and 390, all passed. It:
+- presses every segment, every card button, every chip in a failing row and Back;
+- opens and closes the legend by ⓘ, Esc, × and a click outside;
+- signs off and presses Undo, and Show all 30;
+- checks no sideways scroll, no page error, and no inert row name, chip or segment.
+
+Screens: `dev-{1280,390}*.png`, `rt-{1280,390}*.png`, including `-legend`, `-fail-open`, `-finding`, `-signed` and `-needs`.
+
 ## Every element and where it leads
 
 | Element | Leads to | Today |
@@ -114,7 +148,7 @@ After it, Discovery reads 6 failing (BRAND's contrast on its pages), 6 not built
 - **Q5. The new checks' failures in Site health?** BRAND alone fails 198 page views (contrast). Feeding them all to
   findings.py would flood Site health and Pulse. Proposed: one finding per check and page (not per view), BRAND and LOAD
   as "update" severity.
-- **Q4. Five bar segments, not four:** "Failing a check" separated from "Needs a check", so a fix and a missing check
+- **Q4. Five bar segments, not four:** approved by the Design reviewer (2026-11-23). "Failing a check" separated from "Needs a check", so a fix and a missing check
   aren't one colour.
 
 ## Also in this release (the hand-off's queue)

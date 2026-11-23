@@ -3,10 +3,14 @@
 
 Reads site-audit/results/gauges.json, gauges-items.json, findings.json and the check register, and writes
 handoffs/gauge-panel/mockup.html: a development gauge's panel (Discovery) and a runtime gauge's (Search finds what they
-came for), each as a visual drill-down where every item and chip leads somewhere. A mockup only: nothing here is the site.
+came for), each a visual drill-down where every item and chip leads somewhere. A mockup only: nothing here is the site.
+Revision 2 (the Design reviewer's 9 changes, 2026-11-23): one filled button per box (brand brown), amethyst for sign-off,
+a dots legend, no colour-only bar, one place per action, one time format, plain names (ids in Details), no gauge paths in a
+row, 10 rows then Show all, needs folded.
 Run: python3 handoffs/gauge-panel/gen.py [dev-id] [runtime-id]
 """
-import html, json, re, sys
+import html, json, math, re, sys
+from datetime import datetime, timedelta
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -14,52 +18,71 @@ R = ROOT / 'site-audit/results'
 G = json.load(open(R / 'gauges.json'))
 IT = json.load(open(R / 'gauges-items.json'))
 FIND = {f['id']: f for f in json.load(open(R / 'findings.json'))['findings']}
-REG = {c['id']: c for c in json.load(open(ROOT / 'handoffs/control-board-plan/step3/sections/check-register.json'))['checks']}
+REG = {c['id']: dict(c) for c in json.load(open(ROOT / 'handoffs/control-board-plan/step3/sections/check-register.json'))['checks']}
 for _k, _v in IT.get('checks', {}).items():   # the gauges' own newest reading of each check wins over the register's
     REG.setdefault(_k, {}).update({x: _v[x] for x in ('status', 'result', 'latest', 'evidence') if x in _v})
-PAGES = (ROOT / 'site-audit/pages.md').read_text().splitlines()
 GH = 'https://github.com/degraffics/traversence/blob/main/'
 RELS = sorted(p.name for p in (ROOT / 'deliveries/releases').glob('*.json'))
 DECS = {p.name[:4]: p.name for p in (ROOT / 'decisions').glob('0*.md')}
 e = html.escape
+FIRST = 10   # rows shown before "Show all" (table-standard §9)
 
-# the order the lifecycle reads an item (gauge-lifecycle.md §3): the earliest unmet criterion is where it is
+# plain names for the register's ids (the Design reviewer's change 7); the ids stay in "Where this comes from"
+NAMES = {'R01–R15': 'Code checks', 'RENDER': 'The page check', 'PATHS': 'The path check', 'SEARCH': 'The search check',
+         'LAYOUT': 'The phone layout check', 'PHOTOS': 'The photos check', 'PHOTOS-SHOWN': 'Photos shown', 'LOAD': 'Page speed',
+         'BRAND': 'Brand standards', 'TOOLS': 'The tools check', 'BOARD': "The board's readings", 'AUDIT': "The audit's own load"}
+
+
+def nm(cid):
+    return NAMES.get(cid, NAMES['R01–R15'] if re.match(r'R\d\d', cid) else cid)
+
+
+MON = 'Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec'.split()
+
+
+def tfmt(dt):
+    h = dt.hour % 12 or 12
+    return '%s %d, %d:%02d %s UTC' % (MON[dt.month - 1], dt.day, h, dt.minute, 'AM' if dt.hour < 12 else 'PM')
+
+
+def times(s):
+    """Every time in one format, labelled (CLAUDE.md "Times"; change 6): "Nov 23, 10:20 AM UTC"."""
+    s = re.sub(r'(\d{4})-(\d\d)-(\d\d)[ T](\d\d):(\d\d)(?::\d\d)?Z?(?: UTC)?', lambda m: tfmt(datetime(*map(int, m.groups()))), s)
+    def mst(m):
+        mo, d, h, mi, ap = MON.index(m.group(1)) + 1, int(m.group(2)), int(m.group(3)) % 12, int(m.group(4)), m.group(5)
+        return tfmt(datetime(2026, mo, d, h + (12 if ap == 'PM' else 0), mi) + timedelta(hours=7))
+    return re.sub(r'(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) (\d+), (\d+):(\d\d) (AM|PM) MST', mst, s)
+
+
+def plain(s):
+    """Register ids in running text into names; "3. daily with RENDER" into words; "(W3)" dropped."""
+    s = re.sub(r'^\d\.\s*', '', s)
+    s = re.sub(r'\s*\((?:W\d+(?:[,–-]\s*W?\d+)*(?:,\s*W\d+)*)\)', '', s)
+    for k in sorted(NAMES, key=len, reverse=True):
+        s = re.sub(r'(?<![\w-])' + re.escape(k) + r'(?![\w-])', NAMES[k].lower() if not s.startswith(k) else NAMES[k], s)
+    return times(s)
+
+
 CRIT = [('decided', 'Decided'), ('built', 'Built'), ('live', 'Live'), ('checked', 'Checked'), ('reviewed', 'Reviewed'), ('proved', 'Proved')]
-BUCKETS = [  # key, words, colour token, what pressing it shows
-    ('fail', 'Failing a check', 'amber', 'a check that ran and failed, or an open finding'),
-    ('build', 'Not built yet', 'taupe', 'decided, or built and held'),
-    ('sign', 'Awaiting your sign-off', 'copper', 'built and live, audited, waiting for Jason\'s sign-off'),
-    ('check', 'Needs a check built', 'river', 'signed off, but a check it needs doesn\'t exist yet'),
-    ('ok', 'Live and checked', 'sage', 'every configured criterion met'),
-]
+BUCKETS = [  # key, words
+    ('fail', 'Failing a check'), ('build', 'Not built yet'), ('sign', 'Awaiting your sign-off'),
+    ('check', 'Needs a check built'), ('ok', 'Live and checked')]
+BW = dict(BUCKETS)
 
 
 def route_of(item):
-    """The page the item is: the first path in its pages.md row (gauges.py to add it as `route`)."""
-    if item.get('route'):
-        return item['route']
-    m = re.search(r'site-audit/pages\.md:(\d+)', item.get('source', ''))
-    if not m:
-        return None
-    row = PAGES[int(m.group(1)) - 1] if int(m.group(1)) <= len(PAGES) else ''
-    p = re.search(r'`(/[^`\s]*)`', row)
-    if not p:
-        return None
-    r = p.group(1)
-    return re.sub(r'\?[^/]*=$', '', r).split('?id=')[0] if '=' in r and r.endswith('=') else r
+    return item.get('route')   # gauges.py sets it (pages.md's row, the manifests, a path in the name)
 
 
 def links(src):
-    """Every reference in a source line as a link: a .md file and line, a release record, a decision."""
     out = []
     for m in re.finditer(r'([\w./-]+\.md)(?::(\d+))?', src):
-        f = m.group(1) if '/' in m.group(1) or (ROOT / m.group(1)).exists() else None
-        if f and (ROOT / f).exists():
+        f = m.group(1)
+        if (ROOT / f).exists():
             out.append((f + (':' + m.group(2) if m.group(2) else ''), GH + f + ('#L' + m.group(2) if m.group(2) else '')))
     for m in re.finditer(r'release #(\d+)', src):
-        n = m.group(1)
-        hit = [r for r in RELS if re.search(r'-' + n + r'-', r)]
-        out.append(('release #' + n, GH + 'deliveries/releases/' + hit[0] if hit else GH + 'deliveries/releases'))
+        hit = [r for r in RELS if re.search(r'-' + m.group(1) + r'-', r)]
+        out.append(('release #' + m.group(1), GH + 'deliveries/releases/' + hit[0] if hit else GH + 'deliveries/releases'))
     for m in re.finditer(r'(?:decisions/)?\b(0\d{3})\b', src):
         if m.group(1) in DECS:
             out.append(('decisions/' + m.group(1), GH + 'decisions/' + DECS[m.group(1)]))
@@ -72,12 +95,16 @@ def links(src):
 
 def finding_of(item):
     m = re.search(r'open finding: (f-[0-9a-f]+)', item.get('review') or '')
-    return FIND.get(m.group(1)) if m else None
+    if m and m.group(1) in FIND:
+        return FIND[m.group(1)]
+    for c in item.get('checks', []):
+        if c[1] == 'fail' and len(c) > 2 and c[2] in FIND:
+            return FIND[c[2]]
+    return None
 
 
 def bucket(item):
-    fails = [c for c in item.get('checks', []) if c[1] == 'fail']
-    if fails or finding_of(item):
+    if any(c[1] == 'fail' for c in item.get('checks', [])) or finding_of(item):
         return 'fail'
     if item['status'] in ('decided', 'held'):
         return 'build'
@@ -89,8 +116,7 @@ def bucket(item):
 
 
 def dot_state(item, crit):
-    met = crit in item.get('met', [])
-    if met:
+    if crit in item.get('met', []):
         return 'met'
     if crit == 'checked':
         if any(c[1] == 'fail' for c in item.get('checks', [])):
@@ -108,75 +134,40 @@ DOTW = {'met': 'met', 'fail': 'failing', 'nocheck': 'no check yet', 'sign': 'awa
 
 
 def dots(item):
-    return '<span class="dots" aria-hidden="true">' + ''.join(
-        '<i class="d d-%s" title="%s: %s"></i>' % (dot_state(item, k), w, DOTW[dot_state(item, k)]) for k, w in CRIT) + '</span>'
+    lab = '; '.join('%s: %s' % (w.lower(), DOTW[dot_state(item, k)]) for k, w in CRIT)
+    ds = ''.join('<i class="d d-%s" title="%s: %s"></i>' % (dot_state(item, k), w.lower(), DOTW[dot_state(item, k)]) for k, w in CRIT)
+    # at 390 one phrase in place of the dots (change 3): where it's stuck
+    first = next(((k, w) for k, w in CRIT if dot_state(item, k) != 'met'), None)
+    word = 'Every step met' if not first else '%s at %s' % (DOTW[dot_state(item, first[0])].capitalize(), first[1].lower())
+    return '<span class="dots" role="img" aria-label="%s">%s</span><span class="dword">%s</span>' % (e(lab), ds, e(word))
 
 
-def dots_label(item):
-    return '; '.join('%s %s' % (w, DOTW[dot_state(item, k)]) for k, w in CRIT)
-
-
-def gauge_svg(score, stage, big=False):
+def gauge_svg(score, big=False):
     s = max(0.0, min(100.0, float(score or 0)))
-    w = 120 if big else 64
-    r = 50
-    import math
     a = math.pi * (1 - s / 100)
-    x, y = 60 + r * math.cos(a), 60 - r * math.sin(a)
-    arc = '' if s <= 0 else '<path d="M10 60 A50 50 0 0 1 %.1f %.1f" class="g-on g-%s"/>' % (x, y, stage)
-    return ('<svg class="gs" width="%d" viewBox="0 0 120 68" role="img" aria-label="%s percent">'
-            '<path d="M10 60 A50 50 0 0 1 110 60" class="g-off"/>%s<text x="60" y="58" text-anchor="middle" class="g-t">%d</text></svg>') % (w, int(s), arc, int(s))
+    x, y = 60 + 50 * math.cos(a), 60 - 50 * math.sin(a)
+    arc = '' if s <= 0 else '<path d="M10 60 A50 50 0 0 1 %.1f %.1f" class="g-on"/>' % (x, y)
+    return ('<svg class="gs" width="%d" viewBox="0 0 120 68" role="img" aria-label="%d percent"><path d="M10 60 A50 50 0 0 1 110 60" class="g-off"/>'
+            '%s<text x="60" y="58" text-anchor="middle" class="g-t">%d</text></svg>') % (120 if big else 64, int(s), arc, int(s))
 
 
 def chip_for(check, item):
-    cid, res = check
+    cid, res = check[0], check[1]
     reg = REG.get(cid) or REG.get('R01')
+    n = nm(cid)
     if res == 'pass':
-        return '<a class="chip c-pass" href="%s" target="_blank" rel="noopener" title="Its latest run">%s passes ↗</a>' % (e(reg['evidence'] if reg['evidence'].startswith('http') else GH + 'site-audit/scorecard.md'), e(cid))
+        ev = reg.get('evidence', '')
+        return '<a class="chip c-pass" href="%s" target="_blank" rel="noopener" title="Its latest run">%s: passes ↗</a>' % (e(ev if ev.startswith('http') else GH + 'site-audit/scorecard.md'), e(n))
     if res == 'fail':
         f = finding_of(item)
-        return '<button type="button" class="chip c-fail" data-open="finding" data-id="%s">%s fails · open it</button>' % (e(f['id'] if f else cid), e(cid))
-    if res == 'partial':
-        return '<button type="button" class="chip c-part" data-open="check" data-id="%s">%s partly built · what\'s missing</button>' % (e(cid), e(cid))
-    if (REG.get(cid) or {}).get('status', '').startswith('built'):
-        return '<button type="button" class="chip c-none" data-open="reach" data-id="%s">%s doesn\'t reach it yet · why</button>' % (e(cid), e(cid))
-    return '<button type="button" class="chip c-none" data-open="check" data-id="%s">%s: no check yet · what it needs</button>' % (e(cid), e(cid))
-
-
-def item_row(i, n, item, paths):
-    b = bucket(item)
-    rt = route_of(item)
-    name = e(item['name'])
-    nm = ('<a class="nm" href="%s" data-peek-frame title="Open the page beside the board">%s</a>' % (e(rt), name)) if rt else (
-        '<a class="nm" href="%s" target="_blank" rel="noopener" title="Its source">%s</a>' % (e(links(item['source'])[0][1]) if links(item['source']) else GH, name))
-    f = finding_of(item)
-    acts = []
-    if b == 'fail':
         if f:
-            acts.append('<button type="button" class="b go" data-open="finding" data-id="%s">Open the finding</button>' % e(f['id']))
-        else:
-            fc = [c[0] for c in item['checks'] if c[1] == 'fail'][0]
-            acts.append('<button type="button" class="b go" data-open="check" data-id="%s">See what %s found</button>' % (e(fc), e(fc)))
-        acts.append('<button type="button" class="b" data-send="%d">Send to a build</button>' % n)
-    elif b == 'build':
-        acts.append('<button type="button" class="b go" data-send="%d">Send to a build</button>' % n)
-    elif b == 'sign':
-        acts.append('<button type="button" class="b go" data-sign="%d">Sign off</button>' % n)
-    elif b == 'check':
-        acts.append('<button type="button" class="b go" data-open="%s" data-id="%s">What its check needs</button>' % ('reach' if REG.get(item['no_check'][0], {}).get('status', '').startswith('built') else 'check', e(item['no_check'][0])))
-    if rt:
-        acts.append('<a class="b" href="%s" data-peek-frame>Open the page</a>' % e(rt))
-    if f:
-        acts.append('<a class="b" href="#site-health-%s">Its row in Site health</a>' % e(f['id']))
-    chips = ''.join(chip_for(c, item) for c in item.get('checks', [])) or '<button type="button" class="chip c-none" data-open="nocheck">No check applies until it\'s built · what will check it</button>'
-    pth = ''.join('<button type="button" class="b sm" data-path="%s">%s · %d ▸</button>' % (k, w, len(paths.get(k, []))) for k, w in (('workflows', 'Workflows'), ('core', 'Core Services'), ('registered', 'Registered Services')))
-    src = ''.join('<a href="%s" target="_blank" rel="noopener">%s ↗</a>' % (e(u), e(t)) for t, u in links(item['source']))
-    return ('<li class="it" data-b="%s"><div class="ih"><span class="bk bk-%s" title="%s"></span>%s%s'
-            '<button type="button" class="ex" aria-expanded="false" aria-label="Open %s: %s">▾</button></div>'
-            '<div class="ib" hidden><p class="st">%s</p><div class="chips">%s</div><div class="acts">%s</div>'
-            '<div class="acts paths">%s</div><details class="src"><summary>Where this comes from</summary><p>%s</p><p class="meta">%s</p></details></div></li>') % (
-        b, b, e(dict((k, w) for k, w, *_ in BUCKETS)[b]), nm, dots(item), name, e(dots_label(item)),
-        e(state_sentence(item, b)), chips, ''.join(acts), pth, src or 'its source line names no file', e(item['source']))
+            return '<button type="button" class="chip c-fail" data-open="finding" data-id="%s">%s: fails · open the finding</button>' % (e(f['id']), e(n))
+        return '<button type="button" class="chip c-fail" data-open="check" data-id="%s">%s: fails · see what it found</button>' % (e(cid), e(n))
+    if res == 'partial':
+        return '<button type="button" class="chip c-part" data-open="check" data-id="%s">%s: partly · what\'s missing</button>' % (e(cid), e(n))
+    if reg.get('status', '').startswith('built'):
+        return '<button type="button" class="chip c-none" data-open="reach" data-id="%s">%s: doesn\'t reach it yet · why</button>' % (e(cid), e(n))
+    return '<button type="button" class="chip c-none" data-open="check" data-id="%s">%s: no check yet · what it needs</button>' % (e(cid), e(n))
 
 
 def state_sentence(item, b):
@@ -185,73 +176,121 @@ def state_sentence(item, b):
         if f:
             return 'Open finding: %s. In the way of %d path%s.' % (f['title'], f['blocks'], '' if f['blocks'] == 1 else 's')
         fc = [c[0] for c in item['checks'] if c[1] == 'fail']
-        return '%s failed on its last run: %s' % (', '.join(fc), REG.get(fc[0], {}).get('latest', ''))
+        at = re.search(r'\(([^()]*UTC)\)', plain(REG.get(fc[0], {}).get('latest', '')))   # the run's time only: its totals are the whole site's
+        return '%s failed on this page on its last run%s.' % (nm(fc[0]), ' (' + at.group(1) + ')' if at else '')
     if b == 'build':
         return 'Built and held: it goes live with its release.' if item['status'] == 'held' else 'Decided, not built yet. It moves the gauge once a build makes it.'
     if b == 'sign':
-        return 'Live and audited. It counts as reviewed once you sign it off (gauge-lifecycle.md §8, decided 2).'
+        return 'Live and audited. It counts as reviewed once you sign it off.'
     if b == 'check':
-        return 'Signed off. Not yet checked by %s.' % ', '.join(item['no_check'])
-    return 'Every configured criterion met.'
+        return 'Signed off. Not yet reached by: %s.' % ', '.join(nm(c).lower() for c in item['no_check'])
+    return 'Every step met.'
+
+
+def item_row(n, item):
+    b = bucket(item)
+    rt = route_of(item)
+    name = e(item['name'])
+    lk = links(item['source'])
+    nml = ('<a class="nm" href="%s" data-peek-frame title="Open the page beside the board">%s</a>' % (e(rt), name)) if rt else (
+        '<a class="nm" href="%s" target="_blank" rel="noopener" title="Where it\'s decided">%s</a>' % (e(lk[0][1]) if lk else GH, name))
+    f = finding_of(item)
+    acts = []   # one filled button per box: the first; the rest outlined (change 1)
+    if b == 'fail':
+        if f:
+            acts.append('<button type="button" class="b go" data-open="finding" data-id="%s">Open the finding</button>' % e(f['id']))
+        else:
+            fc = [c[0] for c in item['checks'] if c[1] == 'fail'][0]
+            acts.append('<button type="button" class="b go" data-open="check" data-id="%s">See what %s found</button>' % (e(fc), e(nm(fc).lower())))
+        acts.append('<button type="button" class="b ol" data-send="%d">Send to a build</button>' % n)
+    elif b == 'build':
+        acts.append('<button type="button" class="b go" data-send="%d">Send to a build</button>' % n)
+    elif b == 'sign':
+        acts.append('<button type="button" class="b go" data-sign="%d">Sign off</button>' % n)
+    elif b == 'check':
+        c0 = item['no_check'][0]
+        acts.append('<button type="button" class="b go" data-open="%s" data-id="%s">Why it isn\'t checked</button>' % ('reach' if REG.get(c0, {}).get('status', '').startswith('built') else 'check', e(c0)))
+    if rt:
+        acts.append('<a class="b ol" href="%s" data-peek-frame>Open the page</a>' % e(rt))
+    if f:
+        acts.append('<a class="b ol" href="#site-health-%s">Its row in Site health</a>' % e(f['id']))
+    chips = ''.join(chip_for(c, item) for c in item.get('checks', [])) or '<button type="button" class="chip c-none" data-open="nocheck">No check yet: it isn\'t built · what will check it</button>'
+    ids = ', '.join(c[0] for c in item.get('checks', []))
+    src = ''.join('<a href="%s" target="_blank" rel="noopener">%s ↗</a>' % (e(u), e(t)) for t, u in lk)
+    return ('<li class="it" data-b="%s"%s><div class="ih"><span class="bk bk-%s" title="%s"></span>%s%s'
+            '<button type="button" class="ex" aria-expanded="false" aria-label="Open %s">▾</button></div>'
+            '<div class="ib" hidden><p class="st">%s</p><div class="chips">%s</div><div class="acts">%s</div>'
+            '<details class="src"><summary>Where this comes from</summary><p>%s</p><p class="meta">%s%s</p></details></div></li>') % (
+        b, ' data-more' if n >= FIRST else '', b, e(BW[b]), nml, dots(item), name,
+        e(state_sentence(item, b)), chips, ''.join(acts), src or 'its source line names no file', e(item['source']),
+        e(' · check ids: ' + ids) if ids else '')
+
+
+LEGEND = ('<button type="button" class="info" aria-expanded="false" aria-controls="dl-%s" title="What the dots mean">ⓘ</button>'
+          '<div class="dleg" id="dl-%s" hidden><button type="button" class="dlx" data-dlx aria-label="Close">×</button><p><b>Each dot is one step</b>: decided · built · live · checked · reviewed · proved.</p><ul>'
+          '<li><i class="d d-met"></i> met</li><li><i class="d d-fail"></i> failing</li><li><i class="d d-nocheck"></i> no check yet</li>'
+          '<li><i class="d d-sign"></i> awaiting your sign-off</li><li><i class="d d-no"></i> not yet</li></ul></div>')
+
+
+def card(primary, colour, text, button):
+    if not primary:
+        button = button.replace('class="b go"', 'class="b ol"')
+    return '<div class="ac ac-%s"><p>%s</p>%s</div>' % (colour, e(text), button)
 
 
 def dev_panel(gid):
     g = next(x for x in G['development'] if x['id'] == gid)
-    d = IT['development'][gid]
-    items = d['list']
+    items = IT['development'][gid]['list']
     paths = g['paths']
-    counts = {k: sum(1 for i in items if bucket(i) == k) for k, *_ in BUCKETS}
+    counts = {k: sum(1 for i in items if bucket(i) == k) for k, _ in BUCKETS}
     n = len(items)
-    bar = ''.join('<button type="button" class="seg s-%s" style="flex:%d" data-f="%s" aria-label="%s: %d of %d" title="%s: %d">%s</button>' % (
-        k, counts[k], k, e(w), counts[k], n, e(w), counts[k], counts[k] if counts[k] * 100 / n >= 7 else '') for k, w, *_ in BUCKETS if counts[k])
-    legend = ''.join('<button type="button" class="lg" data-f="%s" aria-pressed="false"><span class="bk bk-%s"></span>%s <b>%d</b></button>' % (k, k, e(w), counts[k]) for k, w, *_ in BUCKETS if counts[k])
-    # what holds the most items back, for the action cards
+    bar = ''.join('<button type="button" class="seg s-%s" style="flex:%d" data-f="%s" aria-pressed="false" aria-label="%s: %d of %d" title="%s: %d">%s</button>' % (
+        k, counts[k], k, e(w), counts[k], n, e(w), counts[k], counts[k] if counts[k] * 100 / n >= 7 else '') for k, w in BUCKETS if counts[k])
+    legend = ''.join('<button type="button" class="lg" data-f="%s" aria-pressed="false"><span class="bk bk-%s"></span>%s <b>%d</b></button>' % (k, k, e(w), counts[k]) for k, w in BUCKETS if counts[k])
     nc = {}
     for i in items:
         for c in i.get('no_check', []):
             nc[c] = nc.get(c, 0) + 1
-    top_nc = sorted(nc.items(), key=lambda x: -x[1])[:1]
-    cards = []
-    cards.append(('copper', 'It stays at 0 in Planning until you sign off what 100 means: these %d things, each with its criteria.' % n,
-                  '<button type="button" class="b go" data-sign="scope">Sign off the scope</button>', 'gauge-lifecycle.md §3'))
+    cards = [('sign', 'It stays at 0 in Planning until you sign off what 100 means: these %d things, each with its six steps.' % n,
+              '<button type="button" class="b go" data-sign="scope">Sign off the scope</button>')]
     if counts['fail']:
-        cards.append(('amber', '%d thing%s failing a check. Each opens its finding with the screenshot.' % (counts['fail'], ' is' if counts['fail'] == 1 else 's are'),
-                      '<button type="button" class="b go" data-f="fail">Show the %d</button>' % counts['fail'], 'findings.json; check-register.md'))
+        cards.append(('fail', '%d thing%s failing a check. Each opens what the check found.' % (counts['fail'], ' is' if counts['fail'] == 1 else 's are'),
+                      '<button type="button" class="b go" data-f="fail">Show the %d</button>' % counts['fail']))
     if counts['sign']:
-        cards.append(('copper', '%d live thing%s audited and waiting for your sign-off.' % (counts['sign'], ' is' if counts['sign'] == 1 else 's are'),
-                      '<button type="button" class="b go" data-f="sign">Review them</button>', 'gauge-lifecycle.md §8 decided 2'))
-    for cid, k in top_nc:
-        reg = REG[cid]
-        built = reg.get('status', '').startswith('built')
-        cards.append(('river', ('%s is built but doesn\'t reach %d of these yet. %s' if built else '%s isn\'t built yet, and %d of these wait on it. %s') % (cid, k, reg['name'] + '.'),
-                      '<button type="button" class="b go" data-open="%s" data-id="%s">%s</button>' % ('reach' if built else 'check', e(cid), 'Why not' if built else 'What it needs'), 'check-register.md'))
+        cards.append(('sign', '%d live thing%s audited and waiting for your sign-off.' % (counts['sign'], ' is' if counts['sign'] == 1 else 's are'),
+                      '<button type="button" class="b go" data-f="sign">Review them</button>'))
+    for cid, k in sorted(nc.items(), key=lambda x: -x[1])[:1]:
+        built = REG[cid].get('status', '').startswith('built')
+        cards.append(('check', ('%s runs, but doesn\'t reach %d of these yet.' if built else '%s isn\'t built yet, and %d of these wait on it.') % (nm(cid), k),
+                      '<button type="button" class="b go" data-open="%s" data-id="%s">%s</button>' % ('reach' if built else 'check', e(cid), 'Why not' if built else 'What it needs')))
     if counts['build']:
-        cards.append(('taupe', '%d thing%s decided or held, not live yet.' % (counts['build'], '' if counts['build'] == 1 else 's'),
-                      '<button type="button" class="b go" data-f="build">Show them</button>', 'inventory.json'))
-    cards = cards[:5]
-    ch = ''.join('<div class="ac ac-%s"><p>%s</p>%s</div>' % (c, e(t), b) for c, t, b, _ in cards)
-    order = [k for k, *_ in BUCKETS]
-    rows = ''.join(item_row(k, k, it_, paths) for k, it_ in sorted(enumerate(items), key=lambda x: (order.index(bucket(x[1])), x[0])))   # what needs you first
+        cards.append(('build', '%d thing%s decided or held, not live yet.' % (counts['build'], '' if counts['build'] == 1 else 's'),
+                      '<button type="button" class="b go" data-f="build">Show them</button>'))
+    ch = ''.join(card(j == 0, c, t, b) for j, (c, t, b) in enumerate(cards[:5]))
+    order = [k for k, _ in BUCKETS]
+    rows = ''.join(item_row(j, it_) for j, it_ in enumerate(sorted(items, key=lambda x: order.index(bucket(x)))))
     prev = g.get('preview')
+    if prev is None:   # the site computes the preview (ControlGauges::devScore); the draft's share of steps met, as §6
+        prev = round(100 * sum(len(i.get('met', [])) for i in items) / (6 * n))
     return '''<aside class="sp" aria-label="%(t)s">
 <button type="button" class="spx" aria-label="Close">×</button>
 <p class="crumb">Development · %(side)s</p>
-<div class="top">%(gauge)s<div><h3>%(t)s</h3><p><span class="pill p-planning">Planning</span> <span class="meta">%(prev)s</span></p>
+<div class="top">%(gauge)s<div><h3>%(t)s</h3><p><span class="pill">Planning</span> <span class="meta">%(prev)d%% once you sign off the draft</span></p>
 <p class="moves">What moves it: <b>%(n)d things</b></p></div></div>
 <div class="bar" role="group" aria-label="Its %(n)d things by where they stand">%(bar)s</div>
 <div class="legend">%(legend)s</div>
 <h4>What you can do</h4><div class="acs">%(cards)s</div>
-<div class="lh"><h4 id="lh-t">All %(n)d things</h4><button type="button" class="b sm" data-f="all" hidden>Show all</button></div>
-<p class="key meta"><span class="dots">%(key)s</span> decided · built · live · checked · reviewed · proved</p>
+<div class="lh"><h4 id="lh-t">What needs you first</h4><button type="button" class="b sm ol" data-f="all" hidden>Show all</button></div>
+<div class="key meta"><span>Steps: decided · built · live · checked · reviewed · proved</span>%(leg)s</div>
 <ul class="items">%(rows)s</ul>
+<button type="button" class="b sm ol more" data-more>Show all %(n)d</button>
 <details class="src"><summary>Details: where these numbers come from</summary><p><a href="%(gh)ssite-audit/results/gauges.json" target="_blank" rel="noopener">gauges.json ↗</a>
 <a href="%(gh)ssite-audit/results/gauges-items.json" target="_blank" rel="noopener">gauges-items.json ↗</a> made %(at)s by <a href="%(gh)stools/page-audit/gauges.py" target="_blank" rel="noopener">gauges.py ↗</a>;
 the rule: <a href="%(gh)shandoffs/control-board-plan/step3/sections/gauge-lifecycle.md" target="_blank" rel="noopener">gauge-lifecycle.md ↗</a>.</p></details>
 <div class="acts paths">%(paths)s</div>
-</aside>''' % dict(t=e(g['title']), side='Front end' if g['side'] == 'front' else 'Back end', gauge=gauge_svg(0, 'planning', True),
-                   prev=e('%d%% once you sign off the draft' % prev if prev is not None else ''), n=n, bar=bar, legend=legend, cards=ch, rows=rows,
-                   key=''.join('<i class="d d-met"></i>' for _ in CRIT), gh=GH, at=e(IT['generated_at'][:16].replace('T', ' ') + ' UTC'),
-                   paths=''.join('<button type="button" class="b sm" data-path="%s">%s · %d ▸</button>' % (k, w, len(paths.get(k, []))) for k, w in (('workflows', 'Workflows'), ('core', 'Core Services'), ('registered', 'Registered Services'))))
+</aside>''' % dict(t=e(g['title']), side='Front end' if g['side'] == 'front' else 'Back end', gauge=gauge_svg(0, True), prev=prev, n=n, bar=bar,
+                   legend=legend, cards=ch, rows=rows, leg=LEGEND % (gid, gid), gh=GH, at=e(times(IT['generated_at'])),
+                   paths=''.join('<button type="button" class="b sm ol" data-path="%s">%s · %d ▸</button>' % (k, w, len(paths.get(k, []))) for k, w in (('workflows', 'Workflows'), ('core', 'Core Services'), ('registered', 'Registered Services'))))
 
 
 SETUP = [('probe', 'Its probe built'), ('target', 'Its target set'), ('check', 'Its check passing'), ('alarm', 'Its alarm wired to the board')]
@@ -262,63 +301,69 @@ def rt_panel(gid):
     d = IT['runtime'][gid]
     su = g['setup']
     done = sum(1 for k, _ in SETUP if su.get(k))
-    stage = 'planning' if done == 0 else ('phased' if not su['probe'] else ('audit' if not (su['target'] and su['check']) else ('impl' if not su['alarm'] else 'monitor')))
-    sw = {'planning': 'Planning', 'phased': 'Phased Development', 'audit': 'Audit & Review', 'impl': 'Implementation', 'monitor': 'Monitoring'}[stage]
-    needs = d.get('needs', [])
+    stage = 'Planning' if done == 0 else ('Phased Development' if not su['probe'] else ('Audit & Review' if not (su['target'] and su['check']) else ('Implementation' if not su['alarm'] else 'Monitoring')))
+    sc = REG['SEARCH']
+    # the actions live only in the cards (change 5); the setup rows say their state, with a small link to the card
+    cards = []
+    if not su.get('target'):
+        cards.append(('tgt', 'sign', 'Its target isn\'t set. Proposed: every search case passes.', '<button type="button" class="b go" data-sign="target">Approve the target</button>'))
+    if not su.get('check'):
+        cards.append(('chk', 'fail', 'Its check isn\'t passing: %s.' % plain(sc['latest']), '<button type="button" class="b go" data-open="check" data-id="SEARCH">See the failing cases</button>'))
+    for t, u in g.get('fix', []):
+        if u:
+            cards.append(('', 'ok', t.replace('Fix it: ', '') + ' feeds it. Its card shows its state and keys.', '<a class="b go" href="%s" data-peek-frame>Open its card</a>' % e(u)))
+    ch = ''.join('<div class="ac ac-%s"%s><p>%s</p>%s</div>' % (c, ' id="ac-%s"' % a if a else '', e(t), b if j == 0 else b.replace('class="b go"', 'class="b ol"')) for j, (a, c, t, b) in enumerate(cards[:4]))
     steps = ''
     for k, w in SETUP:
         ok = bool(su.get(k))
-        why = d['setup_why'].get(k, '')
         if ok:
-            act = '<a class="b sm" href="%s" target="_blank" rel="noopener">Its evidence ↗</a>' % e(REG.get('SEARCH', {}).get('evidence', GH)) if k in ('probe',) else '<a class="b sm" href="/admin/config/alarms" data-peek-frame>Its alarms</a>'
+            st, link = '✓ done', ('<a class="sl" href="%s" target="_blank" rel="noopener">its evidence ↗</a>' % e(sc.get('evidence', GH)) if k == 'probe' else '<a class="sl" href="/admin/config/alarms" data-peek-frame>its alarms</a>')
         elif k == 'target':
-            act = '<button type="button" class="b sm go" data-sign="target">Approve the proposed target</button>'
+            st, link = 'needs you', '<a class="sl" href="#ac-tgt">Approve the target ↑</a>'
         elif k == 'check':
-            act = '<button type="button" class="b sm go" data-open="check" data-id="SEARCH">See the failing cases</button>'
+            st, link = 'failing', '<a class="sl" href="#ac-chk">See the failing cases ↑</a>'
         else:
-            act = '<button type="button" class="b sm go" data-send="alarm">Send to a build</button>'
-        steps += '<li class="it"><div class="ih"><span class="bk bk-%s"></span><span class="nm2">%s</span><span class="meta">%s</span>%s</div></li>' % ('ok' if ok else ('fail' if k == 'check' else 'sign' if k == 'target' else 'build'), e(w), e(why), act)
+            st, link = 'not wired yet', '<button type="button" class="sl" data-send="alarm">Send to a build</button>'
+        b = 'ok' if ok else ('fail' if k == 'check' else 'sign' if k == 'target' else 'build')
+        steps += '<li class="it"><div class="ih"><span class="bk bk-%s"></span><span class="nm2">%s</span><span class="sw sw-%s">%s</span>%s</div><p class="meta">%s</p></li>' % (
+            b, e(w), b, e(st), link, e(plain(d['setup_why'].get(k, ''))))
+    needs = d.get('needs', [])
+    nsrc = sum(len(x['sources']) for x in needs)
     nrows = ''
     for nd in needs:
         srcs = ''.join('<a class="chip c-pass" href="/admin/config/register#svc-%s" data-peek-frame>%s%s</a>' % (e(s[0]), 'first: ' if j == 0 else 'backup: ', e(s[1])) for j, s in enumerate(nd['sources'])) or '<span class="chip c-none">no outside source</span>'
-        nrows += '<li class="it"><div class="ih"><span class="nm2">%s</span></div><div class="chips">%s</div><p class="meta">Else: %s</p></li>' % (e(nd['label']), srcs, e(nd.get('fallback', '')))
+        nrows += '<li class="it"><div class="ih"><span class="nm2">%s</span></div><div class="chips">%s</div><p class="meta">Else: %s</p></li>' % (e(plain(nd['label'])), srcs, e(plain(nd.get('fallback', ''))))
     for u in d.get('unmapped', []):
         nrows += '<li class="it"><div class="ih"><span class="bk bk-build"></span><span class="nm2">%s</span><button type="button" class="b sm go" data-send="map">Send to a build</button></div><p class="meta">Not mapped to a need yet: a build maps it.</p></li>' % e(u)
-    cards = [('copper', 'Its target isn\'t set. Proposed: %s.' % g.get('target_proposed', '').replace('target: set by Jason ', '').strip('()'), '<button type="button" class="b go" data-sign="target">Approve the target</button>'),
-             ('amber', 'Its check isn\'t passing: %s.' % REG['SEARCH']['latest'], '<button type="button" class="b go" data-open="check" data-id="SEARCH">See the failing cases</button>')]
-    for t, u in g.get('fix', []):
-        if u:
-            cards.append(('sage', t.replace('Fix it: ', '') + ' feeds it. Its card shows its state and keys.', '<a class="b go" href="%s" data-peek-frame>Open its card</a>' % e(u)))
-    ch = ''.join('<div class="ac ac-%s"><p>%s</p>%s</div>' % (c, e(t), b) for c, t, b in cards[:4])
     return '''<aside class="sp" aria-label="%(t)s">
 <button type="button" class="spx" aria-label="Close">×</button>
 <p class="crumb">Board · %(box)s</p>
-<div class="top">%(gauge)s<div><h3>%(t)s</h3><p><span class="pill p-%(stage)s">%(sw)s</span> <span class="meta">%(rd)s</span></p>
-<p class="moves">What moves it: <b>%(done)d of 4 setup steps</b>, then its reading</p></div></div>
-<div class="bar" role="group" aria-label="Its setup">%(bar)s</div>
+<div class="top">%(gauge)s<div><h3>%(t)s</h3><p><span class="pill">%(stage)s</span></p>
+<p class="moves">What moves it: <b>%(done)d of 4 setup steps done</b>, then its reading</p></div></div>
 <h4>What you can do</h4><div class="acs">%(cards)s</div>
 <h4>Its setup</h4><ul class="items">%(steps)s</ul>
-<h4>What it needs, sources in order</h4><ul class="items">%(needs)s</ul>
-<details class="src"><summary>Details: what it counts</summary><p>%(rec)s. Measure: %(measure)s.</p></details>
+<details class="nd"><summary><b>What it needs:</b> %(nn)d needs, %(ns)d sources ▸</summary><ul class="items">%(needs)s</ul></details>
+<details class="src"><summary>Details: what it counts</summary><p>%(rec)s. Measure: %(measure)s. Check id: SEARCH.</p></details>
 <div class="acts paths">%(paths)s</div>
-</aside>''' % dict(t=e(g['title']), box=e(g['box']), gauge=gauge_svg(done * 25, stage, True), stage=stage, sw=sw, rd=e(REG['SEARCH']['latest']), done=done,
-                   bar=''.join('<button type="button" class="seg s-%s" style="flex:1" title="%s">%s</button>' % ('ok' if su.get(k) else ('fail' if k == 'check' else 'sign' if k == 'target' else 'build'), e(w), '✓' if su.get(k) else '') for k, w in SETUP),
-                   cards=ch, steps=steps, needs=nrows, rec=e(d.get('records', '')), measure=e(g['measure']),
-                   paths=''.join('<button type="button" class="b sm" data-path="%s">%s · %d ▸</button>' % (k, w, len(g['paths'].get(k, []))) for k, w in (('workflows', 'Workflows'), ('core', 'Core Services'), ('registered', 'Registered Services'))))
+</aside>''' % dict(t=e(g['title']), box=e(g['box']), gauge=gauge_svg(done * 25, True), stage=stage, done=done, cards=ch, steps=steps,
+                   nn=len(needs) + len(d.get('unmapped', [])), ns=nsrc, needs=nrows, rec=e(d.get('records', '')), measure=e(g['measure']),
+                   paths=''.join('<button type="button" class="b sm ol" data-path="%s">%s · %d ▸</button>' % (k, w, len(g['paths'].get(k, []))) for k, w in (('workflows', 'Workflows'), ('core', 'Core Services'), ('registered', 'Registered Services'))))
 
 
 CSS = (Path(__file__).parent / 'mockup.css').read_text()
 JS = (Path(__file__).parent / 'mockup.js').read_text()
 dev = sys.argv[1] if len(sys.argv) > 1 else 'discovery'
 rt = sys.argv[2] if len(sys.argv) > 2 else 'o-search'
-REGJSON = json.dumps({k: {'name': v['name'], 'status': v['status'], 'latest': v['latest'], 'evidence': v['evidence'], 'runs': v['runs'], 'target': v['target']} for k, v in REG.items()})
+REGJSON = json.dumps({k: {'name': nm(k) + ': ' + v.get('name', ''), 'status': v.get('status', ''), 'latest': plain(v.get('latest', '')), 'evidence': v.get('evidence', ''),
+                          'runs': plain(v.get('runs', '')), 'target': v.get('target', '')} for k, v in REG.items()})
 FJSON = json.dumps({k: {'title': v['title'], 'detail': v['detail'], 'page': v['page'], 'shot': v['shot_url'], 'blocks': v['blocks'], 'rule': v['rule'], 'proposal': v.get('proposal_url', '')} for k, v in FIND.items()})
 out = '''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Gauge panel mockup</title><style>%s</style></head><body>
-<header class="mh"><b>Mockup: the gauge panel as a drill-down</b> <span class="meta">Real data: gauges-items.json of %s. Nothing here writes; buttons show what they'd do.</span>
+<header class="mh"><b>Mockup: the gauge panel as a drill-down (revision 2)</b> <span class="meta">Real data: gauges-items.json of %s. Nothing here writes; buttons show what they'd do.</span>
 <nav><button type="button" class="b sm" data-show="dev" aria-pressed="true">Development: %s</button><button type="button" class="b sm" data-show="rt" aria-pressed="false">Runtime: %s</button></nav></header>
 <main><section data-view="dev">%s</section><section data-view="rt" hidden>%s</section></main>
 <div class="toast" role="status" hidden></div>
-<script>const REG=%s, FIND=%s;%s</script></body></html>''' % (CSS, IT['generated_at'][:10], e(next(x for x in G['development'] if x['id'] == dev)['title']), e(next(x for x in G['runtime'] if x['id'] == rt)['title']), dev_panel(dev), rt_panel(rt), REGJSON, FJSON, JS)
+<script>const REG=%s, FIND=%s;%s</script></body></html>''' % (CSS, e(times(IT['generated_at'])), e(next(x for x in G['development'] if x['id'] == dev)['title']),
+                                                               e(next(x for x in G['runtime'] if x['id'] == rt)['title']), dev_panel(dev), rt_panel(rt), REGJSON, FJSON, JS)
 (Path(__file__).parent / 'mockup.html').write_text(out)
 print('wrote', Path(__file__).parent / 'mockup.html', len(out))
