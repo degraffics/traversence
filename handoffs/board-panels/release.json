@@ -1,0 +1,10 @@
+{
+ "title": "One panel at a time in the admin's drawers, one Copy per heading, panels titled by the part's name",
+ "why": "Jason's screenshot of the live board (2026-11-23): an alarm opened from the Alarms tab, then 'Its process's page', then 'Its register entry', stacked three panels: two headers, two × and two 'Open the full page'. The admin's drawers kept their own stack, two deep, and a link inside a drawer's frame opened a panel inside it. Now a drawer is the one panel: what opens from it (its own page, a register entry, a link inside either) replaces what it shows, with ← Back to each step, as the site's side panel already did (decisions/0175 §6). Google Cloud's card showed 'Copy' twice, stacked: the card's own button sat in its corner over its first section's; it is now 'Copy all' on that heading's line. The panels and their links are titled by the part's name ('Google Cloud', 'Google Cloud in the register'), and the alarm's drawer names the part, never svc:google.",
+ "changes": [
+  {"what": "The board's Alarms tab: an alarm, its part's own page and its register entry in one drawer, with Back", "where": "https://traversence.com/admin/config/control?tab=alarms"},
+  {"what": "A service's card: Copy all beside its first section's Copy", "where": "https://traversence.com/admin/config/register#svc-google"}
+ ],
+ "proposals": [],
+ "switch": ""
+}
