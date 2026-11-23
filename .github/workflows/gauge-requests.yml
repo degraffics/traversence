@@ -4,6 +4,8 @@
 name: Gauge requests
 
 on:
+  repository_dispatch:
+    types: [gauge-requests]  # the site's clock asks hourly (AuditClock), since GitHub skipped this schedule (0 runs, 22:23 and 23:23 UTC, 2026-11-23)
   schedule:
     - cron: '23 * * * *'
   workflow_dispatch:
