@@ -1,4 +1,92 @@
-# Order processing: the session's hand-off (2026-11-20)
+# Order processing: the session's hand-off (2026-11-23)
+
+**For the fresh Orders session.** The Orders session (`session_01CXLi5iruQZSTYKyuR7b1SN`) hands over at a hold because it
+grew too large (CLAUDE.md, the session manager: "at a hold, it writes a complete hand-off"). Jason's go-ahead for the
+next build: "Go for it" (2026-11-23), after R0 went live. Session manager: `session_01CXLi5mGX2sg5QS11gg3Wrh`.
+
+## Live and decided
+
+- **R0 is live** as release #259 (the chargeFor fix; verified in mirror 791f665, recorded in #1274).
+- **Jason's order model is confirmed** ("Good to go", 2026-11-23): `research/order-model-2026-11-21.md`, written into
+  decisions/0101's note "the order model" and 0098's note "credits applied to balances" (both 2026-11-23). It is the
+  source for every order release from here. Read its §0 (changes to earlier decisions) and §1 (the model, each point in
+  his words) before building anything.
+- The map (`research/order-system-map-2026-11-19.md`) and the rulings (`research/order-rulings-2026-11-20.md`, B.1–B.7)
+  stand where the model doesn't change them.
+
+## How Jason wants to work (learned the hard way in this session)
+
+- **Start from what's built, in plain steps; change only what his words change.** Never design the shape and ask him to
+  approve it ("It is obvious you are not able to see how the order system should work", 2026-11-21).
+- One open point at a time, plainly in chat first; write each answer in his words into the model or decision; then build.
+- **Check decisions before asking** (he had to point to 0098's "Fix it, credit, then refund").
+- Gemini's text is a review to weigh, never his answer, until he confirms it.
+- **The session manager reviews the summary before the pop-up**, every time (this session once asked first).
+
+## Next build: the held rulings release, rebuilt on the model
+
+Held: `releases/inbox/orders-rulings.zip` on branch `claude/orders-rulings`, PR #1224 (draft, stacked on the old #1212
+branch: rebase it onto `main` or rebuild fresh). It was built on Sync 18:34 UTC 2026-11-20 (5674a94); **rebuild every
+file from the newest mirror**. Its files: `app/lib/{ClientOrders,QuickBooksPay,QrIssue,WorkOrders}.php`,
+`app/admin/Workflow.php`, `app/ui/faq.md`, `website/order.php`, `website/admin/{order,client-order}.php`,
+`website/api/qb-webhook.php`; test `tools/order-tests/rulings.php` (24/24 on MariaDB 10.11; it installs and runs with
+`apt-get install mariadb-server`, then `mariadbd --user=root --skip-grant-tables`, a test root holding the live lib with
+the release's files over it, a `.env` two folders above it, and a stub `Mailer.php`).
+
+**Keep as built** (each still fits the model): B.1 (ship-to prefill, `website/order.php`); B.2 paths 1–2 (the proof gate
+in `ClientOrders::send`/`approve`, `proofGaps`, reuse only with the same product and options); B.3 (part payments on
+QuickBooks' page recorded as they arrive, `QuickBooksPay::invoicePaid`, `ClientOrders::fromQuickBooks`,
+`QrIssue::checkPaid`, used by the webhook, Check payment and the buyer's refresh); B.5 (refund shows each open work
+order's status, then "Cancel the work order and notify the vendor"); B.6 (the six dead builder actions deleted; three
+library functions then uncalled, `saveAddress`, `setLineShip`, `setOptions`, need Jason's OK to delete: still unasked).
+
+**Change, per the model (0101 note 2026-11-23):**
+1. **The vendor work order waits for payment in full** (model 1.9: "Paid in full before order is released to vendor"),
+   except (a) a deposit order with its deposit paid (`ClientOrders::releaseAt` reached), (b) an admin's override, (c) the
+   outside path (`WorkOrders::processOutside`). Gate `WorkOrders::create`/`send` (today only "Approve the order first").
+2. **Release for delivery (Shipped/Ready) waits for payment in full** (1.9: "Balance must be paid before order is release
+   for delivery"), except the admin override and outside terms. **Remove the invoice-later exemption** (§0 item 3) from
+   `ClientOrders::shipHold` and the workflow's `paid_in_full`.
+3. **The override is admins only, with a reason recorded** (1.9). Today `releaseHold` ("Release to production before
+   payment", `website/admin/client-order.php` lines 104–106 and 1201) is open to staff with order edit rights. Find how
+   the admin checks a role (`Access::can`, `tv_admin_require`) on the live mirror, gate it, ask the reason
+   (`TvAsk.ask`), keep the `released` event with the reason. `processOutside` calls `releaseHold` too: that's the outside
+   path, not the override; keep it working and say so in its event.
+4. **The vendor's own Shipped on a deposit order with the balance unpaid** (the old Q2, now settled by 1.9: "delays may
+   result in orders being held for payment before shipping"): save the vendor's status and tracking on the work order,
+   hold the order's stage (don't tell the client it shipped), and give staff a step to collect the balance (Pulse rule:
+   one case per kind of chore, a button that does it).
+5. **Deposit default 65%** (model 1.8; only in code: `ClientOrders::setField`, line 1227, `= 50`).
+6. **Invoice later stops being offered** for new orders (§0 item 1; `ClientOrders::PAY_MODES['invoice']`, `saveTerms`
+   line 211). Keep it readable for existing orders. Side effect to state in the summary: existing open invoice-later
+   orders then need the admin override to reach the vendor or ship. Count them on live first and list them for Jason.
+   Credit accounts (its replacement) aren't built: a separate build.
+7. **Words stay true:** the deposit email ("due before delivery"), the client page's notes ("printing starts right
+   away" for invoice later, order.php ~367), the builder's pay-mode list, the FAQ's "Do I have to pay for the whole order
+   up front?". Rebuild `faq.md` on the live copy just before zipping.
+
+Before code (CLAUDE.md, "End to end, verified"): map every state transition and entry point (order page, Pulse, work
+orders, the vendor's page, the drawer, staff approve, outside path), every exit and side effect; test each against the
+model, including failures (a refused vendor work order says why and offers the override to an admin, greyed with the
+reason to others).
+
+## After that, in order (each its own build, each from the model)
+
+1. The stage names (1.13: Staged for production, Production queue at the vendor's Accept with its job number,
+   processed, pack and ship, released for delivery, delivered; then Complete per 0101 2026-10-30) and the cancel window
+   (1.9: closes at the vendor's Accept; before it, pull, change, resubmit).
+2. Credit accounts (1.8) and credits applied to balances (0098 note 2026-11-23): the credit process is still to walk
+   through with Jason.
+3. The cart route (1.1, 1.3): Send cart / Send invoice, Place order and the ordering queue, approval moving items to the
+   cart or invoice, deposits in the cart, no wire or check there, guests.
+4. Client artwork upload, the file preflight (0176; Jason sets the limits when the build reaches them), our proof of it.
+5. The shipping module (1.14), waiting states and reminders (1.15), reorder alerts.
+6. Still open, to walk through with Jason: design capacity, a fingerprint of the approved file, nudges for missing art,
+   order mail onto the one dispatcher, the credit process.
+
+---
+
+# The earlier record (2026-11-20)
 
 **Since the restart (Orders session `session_01CXLi5iruQZSTYKyuR7b1SN`, 2026-11-20):** the map is confirmed and every §5 item
 is ruled, in Jason's confirmed text (`research/order-rulings-2026-11-20.md`), written into decisions/0101's note "rulings
