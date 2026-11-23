@@ -227,6 +227,19 @@
    "expires": "2026-11-23T06:05:11Z",
    "release": "board-phone-fit.zip",
    "callers": {}
+  },
+  {
+   "path": "app/admin/crawler-console.php",
+   "functions": [
+    "tv_admin_mod_crawler"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "fix #261: each service's count in its own unit (Railway's are seconds running, not calls)",
+   "since": "2026-11-23T02:06:32Z",
+   "expires": "2026-11-23T06:06:32Z",
+   "release": "spend-units.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
