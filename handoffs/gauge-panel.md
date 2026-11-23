@@ -308,6 +308,9 @@ regenerated gauge files, gauge-lifecycle §6 and §8's note, and the tests.
 
 ### Open
 
+- **Approved by Jason** in this session's pop-up (2026-11-23, 20:43 UTC), reviewed by the Design reviewer ("Design: approved",
+  2a305ab, standing for 5fa878e) and the session manager ("clear to ask"). Next: the kit's buttons in brand brown, Copy as an
+  icon, the ⋯ toolkit on gauge rows and card tasks (CLAUDE.md #1317).
 - **Send:** blocked only by `faq.md` in order-m1's pending zip. CLAUDE.md: wait for it to go live, re-apply only this build's
   FAQ entries on the live copy, send, run the zip check again just before merging.
 - **Calls to recheck once order-m1 is live:** `tv_w_table` (widgets.php), `Workflow::moves`, `command-strip.php::fit`.
