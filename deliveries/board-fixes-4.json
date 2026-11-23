@@ -8,7 +8,7 @@
  "files": {
   "app/admin/control-console.php": {
    "sha256": "fb0adb9da48b1568276cb875dbe12ce6cb63018382b36335092021eb12a38b3f",
-   "live": true
+   "live": false
   },
   "app/admin/kit-css.php": {
    "sha256": "ed2dce33671a2a4b911fcc692697ddd5c96cf28d398acc2ebf0db2b42c05f5da",
@@ -16,11 +16,11 @@
   },
   "app/admin/module-cards.php": {
    "sha256": "ff5db0a2e850781f4ff4f99ad803950de3fcfd28e5c04fa52ef257b4edc21ce1",
-   "live": true
+   "live": false
   },
   "app/admin/operations-console.php": {
    "sha256": "bb8848a2d9d401ca5fcc68c54a10fe05efa48f8af982afe94ee854526c06f1c6",
-   "live": true
+   "live": false
   },
   "app/admin/tools.php": {
    "sha256": "211c763e0e9854404d9f8dcf9eda02fb160a35c702aae3b11f96717e79ecd4e9",
@@ -28,7 +28,7 @@
   },
   "app/lib/ControlAlarms.php": {
    "sha256": "8d08c3a197b761c6ad5b49dcbab874c6483c32a1baa51f2339b98aca3fcc25ad",
-   "live": true
+   "live": false
   },
   "app/lib/Operations.php": {
    "sha256": "98c18614b51b1e7c707f080327dac206421437e6f065dcc991f94719cb18e034",
@@ -40,11 +40,11 @@
   },
   "app/lib/ServiceHealth.php": {
    "sha256": "40ba0685455da02b43bdab0b5165acf64242c2111da053cdd0f9f23159391169",
-   "live": true
+   "live": false
   },
   "app/lib/SignIns.php": {
    "sha256": "e5dea7dd8bfa1b84511d3ecea8184832f03385045439ea8a42b71a549a8d6898",
-   "live": true
+   "live": false
   },
   "app/ui/faq.md": {
    "sha256": "e2678a156edaa37dca5d88a156a26be7219fa198902ff044a27a47c2259628df",
@@ -52,7 +52,7 @@
   },
   "website/api/health.php": {
    "sha256": "33d0de982919c060ef5e222d81139d8fdcd67c8c0079275e825fe1f5865f128e",
-   "live": true
+   "live": false
   }
  }
 }
