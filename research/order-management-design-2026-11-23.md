@@ -152,6 +152,41 @@ QuickBooks' reference after).
 Board columns: **Order** (state + age), **Money** (state + amount), **Delivery** (state), **Next step** (one button).
 The order page's notice: three short lines in the same words, in the strip's notices box; nothing repeated below.
 
+### 3.5 Single tasks and the order's chain
+
+Jason, 2026-11-23 (CLAUDE.md #1309): "Placing an order will have multiple chained tasks and variations of choice
+routing compared to single view/act/confirm step."
+
+- **A single task** ends at its confirmation, with Undo, and nothing follows from it: record a payment, send a
+  reminder, issue a credit, apply a credit, refund (confirmed before, QuickBooks' reference after; no Undo, money
+  sent can't be unsent).
+- **An order is a process**: single tasks chained by the order workflow, each link see → do → confirm, and the next
+  link **routed by the choices already made**. The row's Next step is always the chain's next link; a single task done
+  inside it (a payment) confirms in place, then the chain shows its next link beside it ("✓ Paid $412.00 by check ·
+  Undo", then **Send the work order**).
+
+**The order's chain** (each line is one link; ⟶ shows where a choice routes it):
+
+```
+Place an order:  Client ─ Items ─ Where and tax ─ Payment terms ─ Review and send
+                                  │                │
+                                  ├ pickup ⟶ no address; tax at our shop
+                                  ├ shipped, one address ⟶ one invoice
+                                  ├ shipped, several ⟶ one invoice per destination (0177 §1, release B)
+                                  └ nothing to send ⟶ no delivery links later
+                                                   ├ paid in full ⟶ payment due at approval
+                                                   ├ deposit (cost + 15%) ⟶ deposit at approval, balance before delivery
+                                                   └ credit terms (§5 Q4) ⟶ due by the terms' date
+The client:      Open ─ Approve proofs (⟶ Changes asked: Upload the new proof ⟶ back to the client) ─ Approve the order
+Money:           Take the payment (full) | Take the deposit (deposit) | — (terms)   ⟶ an admin's Release before payment skips it, with a reason
+Production:      Confirm it's ready to make ─ Send the work order ─ Vendor accepts ─ Made
+Delivery:        Ready for pickup ─ Confirm pickup  |  Shipped ─ Confirm delivery  |  — (nothing to send)
+Close:           Collect the balance (if owed) ─ Complete (greyed while owed; an admin's override with a reason)
+```
+
+Each link is the board's one Next step while it's current; the order page's three lines show the current link of the
+Order, Money and Delivery parts of the chain.
+
 ## 4. Pages and drill-down
 
 ```
@@ -183,7 +218,8 @@ Back-Office
 ### 4.2 Place an order (guided)
 
 One record page that fills in from the top; a finished step folds to one line with **Change** (Jason's rule, 2026-11-23:
-a finished step replaces its form):
+a finished step replaces its form) and the steps that follow are **routed by the choices made** (§3.5): pickup asks for no address; several
+destinations open one invoice each; a deposit shows how it's figured; credit terms show the due date:
 
 1. **Client**: find a client (listing, member, email) or add one; their billing address from their record.
 2. **Items**: search the catalog; **New product or service** in place (the existing `new_product`), with a category.

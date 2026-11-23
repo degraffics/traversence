@@ -80,11 +80,12 @@ label{display:block;font-size:13px;font-weight:600;color:var(--meta);margin:.5re
   .rail{display:none}.main{margin-left:0;padding:8px 3px 30px}.head{padding:0 8px}.bar{padding:0 3px}
   .tilerow{grid-template-columns:1fr 1fr;gap:3px}.tile.money{grid-column:span 2;margin:6px 0 0}
   table.big{display:none}.mcard{display:block;background:var(--card);border:1px solid var(--edge);border-radius:.5rem;padding:10px 12px;margin-bottom:3px}
-  .mcard .t{display:flex;justify-content:space-between;align-items:baseline;gap:8px}.mcard .g{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:8px 0;font-size:13.5px}
+  .mcard .t{display:flex;justify-content:space-between;align-items:baseline;gap:8px}.mcard .t .pill{margin-left:auto}.mcard .g{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:8px 0;font-size:13.5px}
   .steps{grid-template-columns:1fr}.sum{position:static}.figs{gap:3px}.aging{grid-template-columns:1fr 1fr;gap:3px}
   .line{grid-template-columns:1fr;gap:4px}.line .why{text-align:left}.kv{grid-template-columns:1fr}.kv dt{margin-top:6px}
   .sec{padding:8px 3px;border-radius:.5rem}.card,.step,.news{border-radius:.5rem}.strip{border-radius:0;margin:0 -3px 8px}
   .step>header{flex-wrap:wrap}.step>header .say{flex-basis:100%;order:3}
+  .bar .search{min-width:0}.bar .b{white-space:normal}
   .drawer{width:100%;left:0;top:34px}.shade{left:0}.foot{padding:.5rem .6rem}
 }
 </style></head><body>
@@ -96,11 +97,11 @@ label{display:block;font-size:13px;font-weight:600;color:var(--meta);margin:.5re
 <section id="board" data-v="board board-after board-empty">
   <div class="head"><h1>Orders</h1><button class="b go">＋ Place an order</button></div>
   <div class="tilerow" role="group" aria-label="Show orders where…">
-    <button class="tile on" aria-pressed="true"><b>4</b><span>Needs us</span></button>
-    <button class="tile" aria-pressed="false"><b>3</b><span>Waiting on the client</span></button>
+    <button class="tile on" aria-pressed="true"><b data-only="board board-empty">4</b><b data-only="board-after">3</b><span>Needs us</span></button>
+    <button class="tile" aria-pressed="false"><b data-only="board board-empty">3</b><b data-only="board-after">4</b><span>Waiting on the client</span></button>
     <button class="tile" aria-pressed="false"><b>2</b><span>In production</span></button>
     <button class="tile" aria-pressed="false"><b>2</b><span>Out the door</span></button>
-    <button class="tile money" aria-pressed="false" title="Any order with money owed, whatever its stage"><b>$3,214.60</b><span>Money owed</span><small>5 orders, in any stage</small></button>
+    <button class="tile money" aria-pressed="false" title="Any order with money owed, whatever its stage"><b data-only="board board-empty">$3,214.60</b><b data-only="board-after">$2,802.60</b><span>Money owed</span><small data-only="board board-empty">5 orders, in any stage</small><small data-only="board-after">4 orders, in any stage</small></button>
   </div>
   <div class="bar"><div class="search">Search orders: number, client, email</div><button class="b filter"><svg class="i"><use href="#filter"/></svg> Everyone's · Open ▾</button></div>
   <div data-only="board board-after">
@@ -112,20 +113,20 @@ label{display:block;font-size:13px;font-weight:600;color:var(--meta);margin:.5re
     <tr><td><a href="#">#19</a></td><td>Pinon Hills Dental</td><td><span class="st"><i class="dot go"></i>Approved</span><small>today</small></td>
       <td data-only="board"><span class="st owed">$412.00 deposit due</span><small>cost + 15%</small></td><td data-only="board-after"><span class="st">Deposit paid</span><small>$412.00 · $1,374.00 to come</small></td>
       <td><span class="st">Not started</span></td>
-      <td data-only="board"><button class="b sm">Take a payment</button></td><td data-only="board-after"><span class="done">✓ Paid $412.00 by check · <a href="#">Undo</a></span></td></tr>
+      <td data-only="board"><button class="b sm">Take a payment</button></td><td data-only="board-after"><span class="done">✓ Paid $412.00 by check · <a href="#">Undo</a></span><br><button class="b sm" style="margin-top:6px">Send the work order</button></td></tr>
     <tr><td><a href="#">#7</a></td><td>Little Colorado Outfitters</td><td data-only="board"><span class="st"><i class="dot wait"></i>Link expired</span><small>sent Nov 4</small></td><td data-only="board-after"><span class="st"><i class="dot wait"></i>With the client</span><small>sent again today</small></td>
       <td><span class="st">Not due yet</span></td><td><span class="st">Not started</span></td>
-      <td data-only="board"><button class="b sm">Send it again</button></td><td data-only="board-after"><span class="done">✓ Sent Nov 23 · <a href="#">Copy the link</a></span></td></tr>
+      <td data-only="board"><button class="b sm">Send it again</button></td><td data-only="board-after"><span class="done">✓ Sent Nov 23 · <a href="#">Copy the link</a></span><span class="sub">Moved to Waiting on the client</span></td></tr>
   </tbody></table>
   <div class="mcard"><div class="t"><a href="#">Order #12</a><span class="pill wait">$809.10 owed</span></div>
     <div class="g"><span>Mesa Ridge Lodge</span><span>Out the door · ready since Nov 2</span><span>Released before payment</span><span>Ready for pickup</span></div><button class="b sm">Collect the balance</button></div>
   <div class="mcard"><div class="t"><a href="#">Order #21</a><span class="pill">Not due yet</span></div>
     <div class="g"><span>Canyon Feed &amp; Supply</span><span>Changes asked · 1 day</span><span>Not started</span></div><button class="b sm">Upload the new proof</button></div>
   <div class="mcard"><div class="t"><a href="#">Order #19</a><span class="pill wait" data-only="board">$412.00 deposit due</span><span class="pill" data-only="board-after">Deposit paid</span></div>
-    <div class="g"><span>Pinon Hills Dental</span><span>Approved · today</span><span>Not started</span></div><button class="b sm" data-only="board">Take a payment</button><span class="done" data-only="board-after">✓ Paid $412.00 by check · <a href="#">Undo</a></span></div>
+    <div class="g"><span>Pinon Hills Dental</span><span>Approved · today</span><span>Not started</span></div><button class="b sm" data-only="board">Take a payment</button><span data-only="board-after"><span class="done">✓ Paid $412.00 by check · <a href="#">Undo</a></span><br><button class="b sm" style="margin-top:6px">Send the work order</button></span></div>
   <div class="mcard"><div class="t"><a href="#">Order #7</a><span class="pill">Not due yet</span></div>
-    <div class="g"><span>Little Colorado Outfitters</span><span data-only="board">Link expired · sent Nov 4</span><span data-only="board-after">With the client · sent again today</span></div><button class="b sm" data-only="board">Send it again</button><span class="done" data-only="board-after">✓ Sent Nov 23 · <a href="#">Copy the link</a></span></div>
-  <div class="foot"><span>1–4 of 4 that need us</span><span>‹ 1 ›</span></div>
+    <div class="g"><span>Little Colorado Outfitters</span><span data-only="board">Link expired · sent Nov 4</span><span data-only="board-after">With the client · sent again today</span></div><button class="b sm" data-only="board">Send it again</button><span data-only="board-after"><span class="done">✓ Sent Nov 23 · <a href="#">Copy the link</a></span><span class="sub">Moved to Waiting on the client</span></span></div>
+  <div class="foot"><span data-only="board board-empty">1–4 of 4 that need us</span><span data-only="board-after">3 need us · #7 moved to Waiting on the client (shown until you refresh)</span><span>‹ 1 ›</span></div>
   </div>
   <div data-only="board-empty" class="empty"><h3 style="font-size:17px">Nothing needs you</h3><p>Every order is with the client, at the vendor, or done.</p><button class="b">＋ Place an order</button> <button class="b">Show waiting on the client (3)</button></div>
 </section>
@@ -164,7 +165,7 @@ label{display:block;font-size:13px;font-weight:600;color:var(--meta);margin:.5re
   <div class="news" role="status">
     <div class="line"><span class="k">Order</span><span><b>Out the door.</b> Ready for pickup since Nov 2; the client was asked to tell us they have it.</span>
       <span data-only="order"><button class="b sm" disabled title="$809.10 still owed: collect the balance first">Complete</button><span class="why">$809.10 still owed</span></span>
-      <span data-only="order-after"><button class="b sm">Complete</button></span></div>
+      <span data-only="order-after"><button class="b go">Complete the order</button></span></div>
     <div class="line"><span class="k">Money</span>
       <span data-only="order"><b class="owed">$809.10 owed.</b> Released before payment by an admin on Oct 27 (agreed terms). Its QuickBooks invoice 1044 was made by hand.</span>
       <span data-only="order-after"><b>Paid.</b> $809.10 by check #2231 today, recorded on QuickBooks invoice 1044.</span>
@@ -217,15 +218,15 @@ label{display:block;font-size:13px;font-weight:600;color:var(--meta);margin:.5re
 <section id="catalog" data-v="catalog">
   <div class="head"><h1>Catalog</h1><button class="b go">＋ New product</button></div>
   <nav class="tabs" aria-label="Catalog views"><a class="on" href="#">Products</a><a href="#">Services</a><a href="#">Categories</a><a href="#">Materials &amp; services (COGS)</a><a href="#">Price lists</a></nav>
-  <div class="bar"><div class="search">Search products</div><button class="b filter"><svg class="i"><use href="#filter"/></svg> All categories · Shown ▾</button></div>
+  <div class="bar"><div class="search">Search products</div><button class="b filter"><svg class="i"><use href="#filter"/></svg> All categories · Shown, hidden ▾</button></div>
   <table class="big"><thead><tr><th>Product</th><th>Category</th><th>From</th><th>Cost checked</th><th>Shown</th><th></th></tr></thead><tbody>
     <tr><td><a href="#">Door hangers</a><span class="sub">4.25 × 11 · 3 stocks · 5 run sizes</span></td><td>Print · Mailers &amp; hangers</td><td>$189.00</td><td>Yes · Nov 12</td><td>Shown</td><td><button class="b sm" aria-label="More for Door hangers">⋯</button></td></tr>
     <tr><td><a href="#">Business cards</a><span class="sub">3.5 × 2 · 4 stocks · 6 run sizes</span></td><td>Print · Cards</td><td>$42.00</td><td>Yes · Nov 3</td><td>Shown</td><td><button class="b sm" aria-label="More for Business cards">⋯</button></td></tr>
-    <tr><td><a href="#">Vinyl banner</a><span class="sub">by the square foot</span></td><td>Signs</td><td>$6.50 / sq ft</td><td><span class="owed">Not checked</span></td><td>Hidden</td><td><button class="b sm" aria-label="More for Vinyl banner">⋯</button></td></tr>
+    <tr><td><a href="#">Vinyl banner</a><span class="sub">by the square foot</span></td><td>Signs</td><td>$6.50 / sq ft</td><td><span class="owed">Not checked</span><br><button class="b sm" style="margin-top:4px">Check its cost</button></td><td>Hidden</td><td><button class="b sm" aria-label="More for Vinyl banner">⋯</button></td></tr>
   </tbody></table>
-  <div class="mcard"><div class="t"><a href="#">Door hangers</a><span class="pill">Shown</span></div><div class="g"><span>Print · Mailers &amp; hangers</span><span>From $189.00</span><span>Cost checked Nov 12</span></div></div>
-  <div class="mcard"><div class="t"><a href="#">Business cards</a><span class="pill">Shown</span></div><div class="g"><span>Print · Cards</span><span>From $42.00</span><span>Cost checked Nov 3</span></div></div>
-  <div class="mcard"><div class="t"><a href="#">Vinyl banner</a><span class="pill">Hidden</span></div><div class="g"><span>Signs</span><span>$6.50 / sq ft</span><span class="owed">Cost not checked</span></div></div>
+  <div class="mcard"><div class="t"><a href="#">Door hangers</a><span class="pill">Shown</span><button class="b sm" aria-label="More for Door hangers">⋯</button></div><div class="g"><span>Print · Mailers &amp; hangers</span><span>From $189.00</span><span>Cost checked Nov 12</span></div></div>
+  <div class="mcard"><div class="t"><a href="#">Business cards</a><span class="pill">Shown</span><button class="b sm" aria-label="More for Business cards">⋯</button></div><div class="g"><span>Print · Cards</span><span>From $42.00</span><span>Cost checked Nov 3</span></div></div>
+  <div class="mcard"><div class="t"><a href="#">Vinyl banner</a><span class="pill">Hidden</span><button class="b sm" aria-label="More for Vinyl banner">⋯</button></div><div class="g"><span>Signs</span><span>$6.50 / sq ft</span><span class="owed">Cost not checked</span></div><button class="b sm">Check its cost</button></div>
   <div class="foot"><span>1–3 of 3 products</span><span>‹ 1 ›</span></div>
   <p class="sub" style="margin-top:10px">Services (design, setup, installation) are their own tab with ＋ New service; Categories lists each with its products and ＋ New category. A category groups the Shop and Place an order's catalog search.</p>
 </section>
