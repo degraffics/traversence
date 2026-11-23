@@ -6,27 +6,29 @@
     "zip": "board-phone-fit.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "staged",
-    "step": 0,
+    "state": "live",
+    "step": 3,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
     "plan_at": "2026-11-23 04:05:50",
     "staged_at": "2026-11-23 04:05:52",
-    "vetted_at": null,
-    "live_at": null,
+    "vetted_at": "2026-11-23 04:05:54",
+    "live_at": "2026-11-23 04:05:54",
     "files": {
         "app/admin/control-console.php": {
             "sha": "d894e164a3d368bf9748d0b71e6db20d1375c3b908f3a7e6483bcc3eb32b1a1d",
             "size": 184672,
-            "live_was": "c42842a89b2150a19253fa1839856c10b0599357f1aea708c00c9c0b4368217a"
+            "live_was": "c42842a89b2150a19253fa1839856c10b0599357f1aea708c00c9c0b4368217a",
+            "existed": true,
+            "old_sha": "c42842a89b2150a19253fa1839856c10b0599357f1aea708c00c9c0b4368217a"
         }
     },
     "migrations": [],
     "checks": {
         "ok": true,
-        "where": "staging",
-        "at": "2026-11-23T04:05:53+00:00",
+        "where": "live",
+        "at": "2026-11-23T04:05:54+00:00",
         "items": [
             [
                 "PHP files parse",
@@ -36,7 +38,7 @@
             [
                 "Pages answer",
                 true,
-                "2 pages answered on staging.trvgo.us"
+                "2 pages answered on traversence.com"
             ],
             [
                 "No new fatal errors in the logs",
@@ -66,6 +68,16 @@
             "at": "2026-11-23T04:05:53+00:00",
             "by": 0,
             "msg": "Put on staging (1 files); its checks passed."
+        },
+        {
+            "at": "2026-11-23T04:05:54+00:00",
+            "by": 0,
+            "msg": "Approved in chat before it was sent through git, and its checks on staging passed: publishing by itself."
+        },
+        {
+            "at": "2026-11-23T04:05:54+00:00",
+            "by": 0,
+            "msg": "Published: 1 files; everyone at once (no switch)."
         }
     ]
 }
