@@ -43,6 +43,20 @@
    "expires": "2026-11-23T17:53:51Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/admin/control-console.php",
+   "functions": [
+    "tv_cb_qbar",
+    "tv_cb_rail"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "board-view: the opening view as approved (rail, chips, landing) and the drawer Back and margin (Jason, 2026-11-23)",
+   "since": "2026-11-23T13:53:53Z",
+   "expires": "2026-11-23T17:53:53Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
