@@ -2,212 +2,6 @@
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
  "claims": [
   {
-   "path": "app/admin/control-console.php",
-   "functions": [
-    "(top)",
-    "tv_admin_mod_control",
-    "tv_cb_alarms",
-    "tv_cb_evidence",
-    "tv_cb_qbar"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
-   "why": "board-fixes: the Design reviewer changes (one button, short titles, true words, one time format)",
-   "since": "2026-11-23T14:57:50Z",
-   "expires": "2026-11-23T19:48:52Z",
-   "release": "board-fixes-4.zip",
-   "callers": {
-    "tv_cb_alarms": [
-     "app/lib/ControlConsistency.php"
-    ]
-   }
-  },
-  {
-   "path": "app/admin/module-cards.php",
-   "functions": [
-    "(top)",
-    "tv_mc_css",
-    "tv_mc_light",
-    "tv_mc_setup",
-    "tv_mc_zone4",
-    "tv_module_card"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
-   "why": "board-fixes: jobs and words, Signs in as, the Sync chip (Jason, 2026-11-23)",
-   "since": "2026-11-23T14:57:52Z",
-   "expires": "2026-11-23T19:48:52Z",
-   "release": "board-fixes-4.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/ServiceHealth.php",
-   "functions": [
-    "alarm"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
-   "why": "board-fixes: jobs and words, Signs in as, the Sync chip (Jason, 2026-11-23)",
-   "since": "2026-11-23T14:57:55Z",
-   "expires": "2026-11-23T19:48:52Z",
-   "release": "board-fixes-4.zip",
-   "callers": {
-    "alarm": [
-     "app/lib/ControlAlarms.php"
-    ]
-   }
-  },
-  {
-   "path": "app/lib/Scheduler.php",
-   "functions": [
-    "run",
-    "sync"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
-   "why": "board-fixes: jobs and words, Signs in as, the Sync chip (Jason, 2026-11-23)",
-   "since": "2026-11-23T14:57:57Z",
-   "expires": "2026-11-23T19:48:52Z",
-   "release": "board-fixes-4.zip",
-   "callers": {
-    "sync": [
-     "app/admin/sections.php",
-     "app/lib/Preflight.php",
-     "app/scripts/control_tick.php"
-    ],
-    "run": [
-     "app/scripts/ai_worker.php",
-     "app/scripts/audit_clock_tick.php",
-     "app/scripts/billing_tick.php",
-     "app/scripts/booking_remind.php",
-     "app/scripts/control_tick.php",
-     "app/scripts/daily_report.php",
-     "app/scripts/data_cleanup_tick.php",
-     "app/scripts/domains_tick.php",
-     "app/scripts/earned_storage_tick.php",
-     "app/scripts/files_tick.php",
-     "app/scripts/frontier_tick.php",
-     "app/scripts/got_it_tick.php",
-     "app/scripts/guest_tick.php",
-     "app/scripts/guide_finds_tick.php",
-     "app/scripts/guide_live_tick.php",
-     "app/scripts/guide_ondemand_tick.php",
-     "app/scripts/heritage_tick.php",
-     "app/scripts/identity_recheck_tick.php",
-     "app/scripts/journeys_tick.php",
-     "app/scripts/landmark_photos_tick.php",
-     "app/scripts/like_watch_tick.php",
-     "app/scripts/listing_messages_tick.php",
-     "app/scripts/listings_tick.php",
-     "app/scripts/mail_keep.php",
-     "app/scripts/mail_sync.php",
-     "app/scripts/market_tick.php",
-     "app/scripts/moments_tick.php",
-     "app/scripts/notice_digest.php",
-     "app/scripts/notify_release.php",
-     "app/scripts/page_read_tick.php",
-     "app/scripts/pay_wait_tick.php",
-     "app/scripts/preflight_tick.php",
-     "app/scripts/pulse_followup.php",
-     "app/scripts/region_tick.php",
-     "app/scripts/releases_tick.php",
-     "app/scripts/sales_tick.php",
-     "app/scripts/services_tick.php",
-     "app/scripts/ses_setup_tick.php",
-     "app/scripts/staging_carry_tick.php",
-     "app/scripts/staging_night_tick.php",
-     "app/scripts/staging_publish_tick.php",
-     "app/scripts/staging_push_tick.php",
-     "app/scripts/standing_tick.php",
-     "app/scripts/supabase_keepalive.php",
-     "app/scripts/system_start_tick.php",
-     "app/scripts/takedowns_tick.php",
-     "app/scripts/vault_digest_tick.php",
-     "app/scripts/vectors_tick.php",
-     "app/scripts/work_orders_tick.php"
-    ]
-   }
-  },
-  {
-   "path": "app/lib/Operations.php",
-   "functions": [
-    "alarms"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
-   "why": "board-fixes: jobs and words, Signs in as, the Sync chip (Jason, 2026-11-23)",
-   "since": "2026-11-23T14:57:59Z",
-   "expires": "2026-11-23T19:48:52Z",
-   "release": "board-fixes-4.zip",
-   "callers": {
-    "alarms": [
-     "app/admin/operations-console.php",
-     "app/lib/ControlAlarms.php"
-    ]
-   }
-  },
-  {
-   "path": "app/lib/ControlAlarms.php",
-   "functions": [
-    "facts",
-    "pulseSteps",
-    "tick"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
-   "why": "board-fixes: the Design reviewer changes (one button, short titles, true words, one time format)",
-   "since": "2026-11-23T14:58:01Z",
-   "expires": "2026-11-23T19:48:52Z",
-   "release": "board-fixes-4.zip",
-   "callers": {
-    "pulseSteps": [
-     "app/lib/Pulse.php"
-    ],
-    "facts": [
-     "app/admin/control-console.php",
-     "app/admin/module-cards.php",
-     "app/admin/operations-console.php",
-     "app/admin/preflight-console.php",
-     "app/lib/ControlConsistency.php",
-     "app/lib/Pulse.php",
-     "app/lib/ServiceHealth.php"
-    ]
-   }
-  },
-  {
-   "path": "website/api/health.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
-   "why": "board-fixes: jobs and words, Signs in as, the Sync chip (Jason, 2026-11-23)",
-   "since": "2026-11-23T14:58:03Z",
-   "expires": "2026-11-23T19:48:52Z",
-   "release": "board-fixes-4.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/SignIns.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
-   "why": "board-fixes: jobs and words, Signs in as, the Sync chip (Jason, 2026-11-23)",
-   "since": "2026-11-23T14:58:14Z",
-   "expires": "2026-11-23T19:48:52Z",
-   "release": "board-fixes-4.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/admin/operations-console.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
-   "why": "release board-fixes.zip",
-   "since": "2026-11-23T15:04:02Z",
-   "expires": "2026-11-23T19:48:52Z",
-   "release": "board-fixes-4.zip",
-   "callers": {}
-  },
-  {
    "path": "website/admin/api.php",
    "functions": [
     "(top)"
@@ -309,9 +103,235 @@
    "expires": "2026-11-23T23:46:11Z",
    "release": "gauge-panel.zip",
    "callers": {}
+  },
+  {
+   "path": "app/ui/outside-services.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
+   "why": "Gauge panel release: Retire it\u2026 drawn as an outlined button, not the 28px icon ring (the Design reviewer, 2026-11-23)",
+   "since": "2026-11-23T19:57:52Z",
+   "expires": "2026-11-23T23:57:52Z",
+   "release": "gauge-panel.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
+  {
+   "path": "app/admin/control-console.php",
+   "functions": [
+    "(top)",
+    "tv_admin_mod_control",
+    "tv_cb_alarms",
+    "tv_cb_evidence",
+    "tv_cb_qbar"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "board-fixes: the Design reviewer changes (one button, short titles, true words, one time format)",
+   "since": "2026-11-23T14:57:50Z",
+   "expires": "2026-11-23T19:48:52Z",
+   "release": "board-fixes-4.zip",
+   "callers": {
+    "tv_cb_alarms": [
+     "app/lib/ControlConsistency.php"
+    ]
+   },
+   "lapsed": "2026-11-23T19:57:52Z"
+  },
+  {
+   "path": "app/admin/module-cards.php",
+   "functions": [
+    "(top)",
+    "tv_mc_css",
+    "tv_mc_light",
+    "tv_mc_setup",
+    "tv_mc_zone4",
+    "tv_module_card"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "board-fixes: jobs and words, Signs in as, the Sync chip (Jason, 2026-11-23)",
+   "since": "2026-11-23T14:57:52Z",
+   "expires": "2026-11-23T19:48:52Z",
+   "release": "board-fixes-4.zip",
+   "callers": {},
+   "lapsed": "2026-11-23T19:57:52Z"
+  },
+  {
+   "path": "app/lib/ServiceHealth.php",
+   "functions": [
+    "alarm"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "board-fixes: jobs and words, Signs in as, the Sync chip (Jason, 2026-11-23)",
+   "since": "2026-11-23T14:57:55Z",
+   "expires": "2026-11-23T19:48:52Z",
+   "release": "board-fixes-4.zip",
+   "callers": {
+    "alarm": [
+     "app/lib/ControlAlarms.php"
+    ]
+   },
+   "lapsed": "2026-11-23T19:57:52Z"
+  },
+  {
+   "path": "app/lib/Scheduler.php",
+   "functions": [
+    "run",
+    "sync"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "board-fixes: jobs and words, Signs in as, the Sync chip (Jason, 2026-11-23)",
+   "since": "2026-11-23T14:57:57Z",
+   "expires": "2026-11-23T19:48:52Z",
+   "release": "board-fixes-4.zip",
+   "callers": {
+    "sync": [
+     "app/admin/sections.php",
+     "app/lib/Preflight.php",
+     "app/scripts/control_tick.php"
+    ],
+    "run": [
+     "app/scripts/ai_worker.php",
+     "app/scripts/audit_clock_tick.php",
+     "app/scripts/billing_tick.php",
+     "app/scripts/booking_remind.php",
+     "app/scripts/control_tick.php",
+     "app/scripts/daily_report.php",
+     "app/scripts/data_cleanup_tick.php",
+     "app/scripts/domains_tick.php",
+     "app/scripts/earned_storage_tick.php",
+     "app/scripts/files_tick.php",
+     "app/scripts/frontier_tick.php",
+     "app/scripts/got_it_tick.php",
+     "app/scripts/guest_tick.php",
+     "app/scripts/guide_finds_tick.php",
+     "app/scripts/guide_live_tick.php",
+     "app/scripts/guide_ondemand_tick.php",
+     "app/scripts/heritage_tick.php",
+     "app/scripts/identity_recheck_tick.php",
+     "app/scripts/journeys_tick.php",
+     "app/scripts/landmark_photos_tick.php",
+     "app/scripts/like_watch_tick.php",
+     "app/scripts/listing_messages_tick.php",
+     "app/scripts/listings_tick.php",
+     "app/scripts/mail_keep.php",
+     "app/scripts/mail_sync.php",
+     "app/scripts/market_tick.php",
+     "app/scripts/moments_tick.php",
+     "app/scripts/notice_digest.php",
+     "app/scripts/notify_release.php",
+     "app/scripts/page_read_tick.php",
+     "app/scripts/pay_wait_tick.php",
+     "app/scripts/preflight_tick.php",
+     "app/scripts/pulse_followup.php",
+     "app/scripts/region_tick.php",
+     "app/scripts/releases_tick.php",
+     "app/scripts/sales_tick.php",
+     "app/scripts/services_tick.php",
+     "app/scripts/ses_setup_tick.php",
+     "app/scripts/staging_carry_tick.php",
+     "app/scripts/staging_night_tick.php",
+     "app/scripts/staging_publish_tick.php",
+     "app/scripts/staging_push_tick.php",
+     "app/scripts/standing_tick.php",
+     "app/scripts/supabase_keepalive.php",
+     "app/scripts/system_start_tick.php",
+     "app/scripts/takedowns_tick.php",
+     "app/scripts/vault_digest_tick.php",
+     "app/scripts/vectors_tick.php",
+     "app/scripts/work_orders_tick.php"
+    ]
+   },
+   "lapsed": "2026-11-23T19:57:52Z"
+  },
+  {
+   "path": "app/lib/Operations.php",
+   "functions": [
+    "alarms"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "board-fixes: jobs and words, Signs in as, the Sync chip (Jason, 2026-11-23)",
+   "since": "2026-11-23T14:57:59Z",
+   "expires": "2026-11-23T19:48:52Z",
+   "release": "board-fixes-4.zip",
+   "callers": {
+    "alarms": [
+     "app/admin/operations-console.php",
+     "app/lib/ControlAlarms.php"
+    ]
+   },
+   "lapsed": "2026-11-23T19:57:52Z"
+  },
+  {
+   "path": "app/lib/ControlAlarms.php",
+   "functions": [
+    "facts",
+    "pulseSteps",
+    "tick"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "board-fixes: the Design reviewer changes (one button, short titles, true words, one time format)",
+   "since": "2026-11-23T14:58:01Z",
+   "expires": "2026-11-23T19:48:52Z",
+   "release": "board-fixes-4.zip",
+   "callers": {
+    "pulseSteps": [
+     "app/lib/Pulse.php"
+    ],
+    "facts": [
+     "app/admin/control-console.php",
+     "app/admin/module-cards.php",
+     "app/admin/operations-console.php",
+     "app/admin/preflight-console.php",
+     "app/lib/ControlConsistency.php",
+     "app/lib/Pulse.php",
+     "app/lib/ServiceHealth.php"
+    ]
+   },
+   "lapsed": "2026-11-23T19:57:52Z"
+  },
+  {
+   "path": "website/api/health.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "board-fixes: jobs and words, Signs in as, the Sync chip (Jason, 2026-11-23)",
+   "since": "2026-11-23T14:58:03Z",
+   "expires": "2026-11-23T19:48:52Z",
+   "release": "board-fixes-4.zip",
+   "callers": {},
+   "lapsed": "2026-11-23T19:57:52Z"
+  },
+  {
+   "path": "app/lib/SignIns.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "board-fixes: jobs and words, Signs in as, the Sync chip (Jason, 2026-11-23)",
+   "since": "2026-11-23T14:58:14Z",
+   "expires": "2026-11-23T19:48:52Z",
+   "release": "board-fixes-4.zip",
+   "callers": {},
+   "lapsed": "2026-11-23T19:57:52Z"
+  },
+  {
+   "path": "app/admin/operations-console.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "release board-fixes.zip",
+   "since": "2026-11-23T15:04:02Z",
+   "expires": "2026-11-23T19:48:52Z",
+   "release": "board-fixes-4.zip",
+   "callers": {},
+   "lapsed": "2026-11-23T19:57:52Z"
+  },
   {
    "path": "app/lib/ControlAlarms.php",
    "functions": [
@@ -905,156 +925,6 @@
    "release": "workflow-holds.zip",
    "callers": {},
    "lapsed": "2026-11-21T09:17:36Z"
-  },
-  {
-   "path": "app/lib/Operations.php",
-   "functions": [
-    "forgetGate",
-    "gateFor",
-    "taskHeld"
-   ],
-   "kind": "add",
-   "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
-   "why": "Workflow audit",
-   "since": "2026-11-21T03:29:10Z",
-   "expires": "2026-11-21T07:29:10Z",
-   "release": "workflow-holds.zip",
-   "callers": {},
-   "lapsed": "2026-11-21T09:17:36Z"
-  },
-  {
-   "path": "app/lib/Preflight.php",
-   "functions": [
-    "markOf",
-    "reachAll"
-   ],
-   "kind": "add",
-   "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
-   "why": "Workflow audit",
-   "since": "2026-11-21T03:29:10Z",
-   "expires": "2026-11-21T07:29:10Z",
-   "release": "workflow-holds.zip",
-   "callers": {},
-   "lapsed": "2026-11-21T09:17:36Z"
-  },
-  {
-   "path": "app/admin/operations-console.php",
-   "functions": [
-    "tv_ops_issues"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
-   "why": "0176 R2: service issues as threads",
-   "since": "2026-11-20T16:59:46Z",
-   "expires": "2026-11-20T21:00:54Z",
-   "release": "0176-issues.zip",
-   "callers": {},
-   "lapsed": "2026-11-20T23:27:17Z"
-  },
-  {
-   "path": "app/ui/outside-services.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
-   "why": "0176 R2: service issues as threads",
-   "since": "2026-11-20T16:59:49Z",
-   "expires": "2026-11-20T21:00:54Z",
-   "release": "0176-issues.zip",
-   "callers": {},
-   "lapsed": "2026-11-20T23:27:17Z"
-  },
-  {
-   "path": "app/lib/ServiceHealth.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
-   "why": "0176 R2: service issues as threads",
-   "since": "2026-11-20T16:59:51Z",
-   "expires": "2026-11-20T21:00:54Z",
-   "release": "0176-issues.zip",
-   "callers": {
-    "describe": [
-     "app/lib/Operations.php",
-     "app/lib/OutsideServices.php",
-     "app/lib/Preflight.php",
-     "app/lib/Pulse.php",
-     "app/lib/SystemStart.php"
-    ],
-    "osmUse": [
-     "app/lib/crawler/CrawlService.php"
-    ]
-   },
-   "lapsed": "2026-11-20T23:27:17Z"
-  },
-  {
-   "path": "app/lib/OutsideServices.php",
-   "functions": [
-    "working"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
-   "why": "0176 R2: service issues as threads",
-   "since": "2026-11-20T16:59:54Z",
-   "expires": "2026-11-20T21:00:54Z",
-   "release": "0176-issues.zip",
-   "callers": {
-    "working": [
-     "app/ui/outside-services.php"
-    ]
-   },
-   "lapsed": "2026-11-20T23:27:17Z"
-  },
-  {
-   "path": "app/lib/SystemStart.php",
-   "functions": [
-    "issueInline"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
-   "why": "0176 R2: service issues as threads",
-   "since": "2026-11-20T17:00:03Z",
-   "expires": "2026-11-20T21:00:54Z",
-   "release": "0176-issues.zip",
-   "callers": {},
-   "lapsed": "2026-11-20T23:27:17Z"
-  },
-  {
-   "path": "website/js/tv-ask.js",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
-   "why": "0176 R2: service issues as threads",
-   "since": "2026-11-20T17:00:08Z",
-   "expires": "2026-11-20T21:00:54Z",
-   "release": "0176-issues.zip",
-   "callers": {
-    "statuses": [
-     "website/js/tv-domains.js",
-     "website/js/tv-vault.js"
-    ]
-   },
-   "lapsed": "2026-11-20T23:27:17Z"
-  },
-  {
-   "path": "app/lib/QuickBooksPay.php",
-   "functions": [
-    "chargeFor",
-    "paid"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5iruQZSTYKyuR7b1SN",
-   "why": "Orders: the order map's rulings (decisions/0101 note 2026-11-20, B.1-B.6)",
-   "since": "2026-11-20T18:15:43Z",
-   "expires": "2026-11-20T22:57:22Z",
-   "release": "orders-rulings.zip",
-   "callers": {
-    "paid": [
-     "app/lib/QrIssue.php",
-     "website/admin/order.php",
-     "website/api/qb-webhook.php"
-    ]
-   },
-   "lapsed": "2026-11-20T23:27:17Z"
   }
  ]
 }
