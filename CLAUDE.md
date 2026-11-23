@@ -259,11 +259,16 @@ needing an outside service (Railway, QuickBooks, AWS, Cloudflare…) carries its
 
 Anything that needs someone to act follows four steps: 1. **See the task** (the issue and its evidence, in place);
 2. **Do the task** (one button that does it, where it's shown); 3. **Done and confirmed** (the result checked, the
-status shown in place of the form, Undo beside it; an issue clears itself when its check passes, never by a "mark done"
+status shown in place of the form; an issue clears itself when its check passes, never by a "mark done"
 or sign-off); 4. **The next step**, only within a process (Jason, 2026-11-23: "Don't convolute processes or tasks"): a single task
 (one alarm, one payment) ends at its confirmation, the lists and counts updating; a process (placing an order, an
 order's life) is single tasks chained by a workflow, so its next step, routed by the choices made, is its own button. No
 accounting-only buttons, no form left open after it's done, no notice repeating the new state.
+**Change or Undo** (Jason, 2026-11-23: "Undo is for processes that must be rolled back as if they were never done"):
+a record someone entered (an email, an id, an address, a note, a setting) shows its value with **Change**, reopening it
+in place, the old value kept in History, never Undo. **Undo** is only for an action that did something (a payment
+recorded, a split, a work order sent, Fix it, a scope approved) and can be rolled back as if never done; where it can't
+(an email delivered), say so instead.
 **A list or a process?** (Jason, 2026-11-23) It's a process if step B needs step A's result, or they all build to one
 outcome; a list if they could sensibly be done in any order. A list is a queue (what needs you first, filtered by its
 tiles), each row its own cycle, counts dropping as items clear, a batch action only where one fix applies to many. A
