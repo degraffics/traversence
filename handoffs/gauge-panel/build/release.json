@@ -1,0 +1,12 @@
+{
+ "title": "The gauge panel as a drill-down: every item one task you can see, fix and watch clear; a finished step replaces its form on the service cards",
+ "why": "Jason, 2026-11-23: the gauge's side panel 'presents a ton of overwhelming text. I want a visual drill down into things I can act on' and 'every single listed item is a dead end'. Approved in his pop-up after the Design reviewer and the session manager (handoffs/gauge-panel.md, revision 4). Each panel now has: what moves it; one bar of its items by where they stand (Issues to fix, Not built yet, No check yet, Done), each part filtering the list; What you can do (one sentence, one button each); the items, what needs you first, ten then Show all, each opening in place with its evidence. Every item is one cycle (Jason: 'I need to view the issue. then press a button to fix it. once fixed it should clear the issue'): Fix it sends it to its gauge's build ('Fixing: … · sent to the Discovery build', Undo for a day), and it clears by itself once its check passes. No sign-off on items; Approve the scope and Approve the target are his decisions, recorded in the logbook and read at once. The health report carries open Fix it requests and approvals for the build queue and the gauges. On the service cards (Jason, 2026-11-23): after Record, 'The account it signs in as' is one line with Change and Undo, the form gone, the notice just 'Recorded.'; the other card forms' notices stop repeating the card. Retire it… is an outlined button in line with Pause and Take out, not squeezed into the 28px icon ring. A check that got no answer reads 'Library of Congress isn't answering', the timeout kept in its reading. The dead-end sentence 'Recording a why is to come…' is gone from every card.",
+ "changes": [
+  {"what": "Development: each gauge's panel as a drill-down, Fix it and Approve the scope", "where": "https://traversence.com/admin/config/control"},
+  {"what": "Board: each runtime gauge's panel, its setup in words, Approve the target", "where": "https://traversence.com/admin/config/control"},
+  {"what": "Service register: the sign-in record as one line with Change and Undo; Retire it… as a button", "where": "https://traversence.com/admin/config/register#svc-google"},
+  {"what": "Alarms: a check that got no answer in the service's own words", "where": "https://traversence.com/admin/config/alarms"}
+ ],
+ "proposals": [],
+ "switch": ""
+}

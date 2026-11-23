@@ -54,7 +54,7 @@ $f = $post(['op_do' => 'svc_pause', 'ref' => 'wikimedia']);
 $t('Pause needs a why (as Automation\'s own)', str_contains($f, 'data-tv-flash="error"'), $f);
 $f = $post(['op_do' => 'svc_pause', 'ref' => 'wikimedia', 'why' => 'Testing the register']);
 Automation::forget();
-$t('Pause: the service is paused, and the card says so', str_contains($f, 'is paused') && Automation::serviceOff($pdo, 'wikimedia') !== null, $f);
+$t('Pause: the service is paused, and the card says so (the notice just confirms: "paused.")', str_contains($f, ': paused.') && Automation::serviceOff($pdo, 'wikimedia') !== null, $f);
 $h = ServiceStages::history($pdo, 'wikimedia');
 $t('…its stage logged with who and why, never a key', ($h[0]['stage'] ?? '') === 'paused' && ($h[0]['why'] ?? '') === 'Testing the register');
 $st = ServiceStages::all($pdo);
@@ -62,7 +62,7 @@ $t('…its stage is now Paused (it was on before)', ($st['wikimedia'][0] ?? '') 
 $f = $post(['op_do' => 'svc_activate', 'ref' => 'wikimedia']);
 Automation::forget();
 $red = Operations::blocking($pdo, 'wikimedia');
-$t('Activate: the switch-on check first; on when it has no red line, else held with the reason', $red ? (str_contains($f, 'stays paused') && Automation::serviceOff($pdo, 'wikimedia') !== null) : (str_contains($f, 'is active') && Automation::serviceOff($pdo, 'wikimedia') === null), $f);
+$t('Activate: the switch-on check first; on when it has no red line, else held with the reason', $red ? (str_contains($f, 'stays paused') && Automation::serviceOff($pdo, 'wikimedia') !== null) : (str_contains($f, ': activated, its check passed.') && Automation::serviceOff($pdo, 'wikimedia') === null), $f);
 $t('…a red line keeps it paused and logs nothing new', $red ? count(ServiceStages::history($pdo, 'wikimedia')) === 1 : (ServiceStages::history($pdo, 'wikimedia')[0]['stage'] ?? '') === 'active');
 $f = $post(['op_do' => 'svc_pause', 'ref' => 'bluehost', 'why' => 'x']);
 $t('Bluehost can\'t be paused (business operations)', str_contains($f, 'data-tv-flash="error"'), $f);

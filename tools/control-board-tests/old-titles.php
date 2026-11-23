@@ -47,12 +47,16 @@ $t('a task\'s failure as its raiser words it today (' . $want . ')', $title('tas
 $pdo->exec("INSERT INTO control_alarms (akey, proc, level, kind, title, means, todo, reading, fix, component, first_at, last_at, tripped_at) SELECT 'task:failed:own_code', proc, level, kind, 'W1: its task own_code failed (run #1301)', means, todo, 'KeyError: name', fix, 'task:own_code', first_at, last_at, tripped_at FROM control_alarms WHERE akey = 'task:failed:overture_bulk'");
 ControlAlarms::redrawTitles($pdo);
 $t('…and one failing in its own code keeps its run', $title('task:failed:own_code') === 'own_code failed in its own code (run #1301)', $title('task:failed:own_code'));
-$same = array_filter(array_keys($before), fn ($k) => !preg_match('/^(svc:issue:|jobslow:|joblate:|job:|task:failed:)/', $k));   // the rest of the snapshot, already in today's words
+$same = array_filter(array_keys($before), fn ($k) => !preg_match('/^(svc:issue:|jobslow:|joblate:|job:|task:failed:|pf:svc:loc$)/', $k));   // the rest of the snapshot, already in today's words (pf:svc:loc: its raw timeout title redrawn, 2026-11-23)
 $t('the rest, already in today\'s words, unchanged', !array_filter($same, fn ($k) => $title($k) !== $before[$k]), array_map(fn ($k) => [$k, $title($k)], $same));
 $m = $pdo->query("SELECT title, read_at FROM comms_messages WHERE thing = 'alarm:$id41'")->fetch(PDO::FETCH_ASSOC);
 $a41 = ControlAlarms::byId($pdo, $id41);
 $t('its Pulse thread takes today\'s notice title, in place, still read', $m['title'] === ControlAlarms::noticeTitle($pdo, $a41) && !str_contains((string) $m['title'], 'index.commoncrawl.org') && $m['read_at'] !== null, $m);
 $t('nothing sent', (int) $pdo->query('SELECT COUNT(*) FROM comms_messages')->fetchColumn() === $msgs0);
+// a check's raw transport error as a title (the Design reviewer, 2026-11-23): "Library of Congress: No answer: Operation timed
+// out after 15004 milliseconds…" reads "Library of Congress isn't answering", the timeout kept in its reading
+$loc = ControlAlarms::openOf($pdo, 'pf:svc:loc');
+$t('a check that got no answer reads as the service\'s words, its timeout in the reading', $loc && $loc['title'] === 'Library of Congress isn\'t answering' && str_contains((string) $loc['reading'], 'timed out'), $loc ? [$loc['title'], $loc['reading']] : null);
 $t('a second pass changes nothing', ControlAlarms::redrawTitles($pdo) === 0);
 $c = ControlConsistency::check($pdo);
 $names = array_values(array_filter($c['mismatches'], fn ($x) => in_array($x['check'], ['names', 'title'], true)));

@@ -7,6 +7,10 @@
 //   project, Billing authuser only (a billing account's page, not a project's), each "opens as <email>";
 //   Undo (asks first) puts back "not recorded"; a provider with no account hint (Tavily) names the account beside its link,
 //   its address unchanged; nothing wider than the window.
+// A finished step replaces its form, and a record is edited, never undone (Jason, 2026-11-23; CLAUDE.md #1315): after
+//   Record, Setup capture is one line "Signs in as … · recorded by …, <time>" with a pencil to Edit (the field, reopened in
+//   place), the value before it under History, no Undo anywhere; no email box left open; the notice only "Recorded."; the
+//   portal links are icons whose titles name where they open and as which account ("action icons with tool tips").
 // Run after the start schema: node google-signin.cjs <root>
 const { chromium } = require('playwright'); const { spawn } = require('child_process'); const path = require('path');
 const root = path.resolve(process.argv[2]);
@@ -14,9 +18,12 @@ let pass = 0, fail = 0; const t = (n, ok, got) => { if (ok) { pass++; console.lo
 const port = 8960 + Math.floor(Math.random() * 30);
 const srv = spawn('php', ['-S', '127.0.0.1:' + port, path.join(__dirname, 'board-panels-router.php')], { env: { ...process.env, ROOT: root, REGISTER: 'full' }, stdio: 'ignore' });
 const card = (p, k) => p.evaluate(k => { const c = document.getElementById('mc-' + k); if (!c) return null; const s = c.querySelector('.mc-signin'); const st = c.querySelector('.mc-setup');
-  const links = [...c.querySelectorAll('.mc-slot a[target=_blank]')].map(a => ({ text: a.textContent.trim(), href: a.getAttribute('href'), as: (() => { const m = a.parentElement.querySelector('.mc-as'); return m ? m.firstChild.textContent.trim() + ' ' + m.querySelector('.mc-asv').textContent : ''; })() }));
+  const links = [...c.querySelectorAll('.mc-slot a[target=_blank]')].map(a => ({ text: a.textContent.trim(), href: a.getAttribute('href'), title: a.getAttribute('title') || '', label: a.getAttribute('aria-label') || '' }));
   return { signin: s ? (() => { const k = s.cloneNode(true); k.querySelectorAll('form').forEach(f => f.remove()); return k.textContent.replace(/\s+/g, ' ').trim(); })() : null, setup: st ? st.querySelector('summary').textContent.replace(/\s+/g, ' ').trim() : '', open: st ? st.open : null,
-    form: !!(st && st.querySelector('input[name=email]')), undo: !!(s && [...s.querySelectorAll('button')].some(b => b.textContent.trim() === 'Undo')), links }; }, k);
+    form: !!(st && [...st.querySelectorAll('input[name=email]')].some(i => i.getBoundingClientRect().width > 0)), undo: [...c.querySelectorAll('button, summary, a')].some(b => b.textContent.trim() === 'Undo'), hist: st && st.querySelector('.mc-hist') ? st.querySelector('.mc-hist').textContent.replace(/\s+/g, ' ').trim() : '',
+    line: st && st.querySelector('.mc-done > span') ? st.querySelector('.mc-done > span').textContent.replace(/\s+/g, ' ').trim() : '', change: !!(st && st.querySelector('.mc-done .mc-change > summary')), links }; }, k);
+// the record put back to "not recorded" between the two widths (a record has no Undo: the site's own state store, on the bench)
+const forget = () => require('child_process').spawnSync('php', ['-r', 'require $argv[1] . "/lib/Database.php"; require $argv[1] . "/lib/SearchIndex.php"; $p = Database::connection(); foreach (["google", "tavily"] as $s) SearchIndex::setState($p, "signin:" . $s, "");', root + '/app']);
 const flash = p => p.evaluate(() => [...document.querySelectorAll('[data-tv-flash]')].map(x => x.getAttribute('data-tv-flash') + ': ' + x.textContent.trim()).join(' | '));
 (async () => {
   await new Promise(r => setTimeout(r, 900));
@@ -39,28 +46,28 @@ const flash = p => p.evaluate(() => [...document.querySelectorAll('[data-tv-flas
       await p.fill('#mc-google-setup input[name=email]', 'Ops@Traversence.example'); await p.fill('#mc-google-setup input[name=project]', 'traversence-prod');
       await Promise.all([p.waitForNavigation().catch(() => {}), p.click('#mc-google-setup form button:has-text("Record")')]); await p.waitForTimeout(600);
       c = await card(p, 'google');
-      t(L + 'Record saves it: its notice, and the top line "Signs in as: ops@traversence.example · project traversence-prod"', /^ok: Google Cloud: Recorded: it signs in as ops@traversence\.example, project traversence-prod/.test(await flash(p)) && c.signin === 'Signs in as: ops@traversence.example · project traversence-prod', [await flash(p), c.signin]);
-      t(L + '…Setup capture no longer says "Sign in not recorded", and folds', !/Sign in not recorded/.test(c.setup) && c.open === false, c.setup);
-      const by = n => c.links.find(l => new RegExp(n).test(l.text) || new RegExp(n).test(l.href)) || {};
+      t(L + 'Record saves it: the notice says only "Recorded.", and the top line "Signs in as: ops@traversence.example · project traversence-prod"', /^ok: Google Cloud: Recorded\.$/.test(await flash(p)) && c.signin === 'Signs in as: ops@traversence.example · project traversence-prod', [await flash(p), c.signin]);
+      t(L + '…its Edit beside it is an icon titled "Edit the sign-in email"', await p.getAttribute('#mc-google .mc-signin .mc-ic', 'title') === 'Edit the sign-in email');
+      t(L + '…Setup capture no longer says "Sign in not recorded"; one line, "Signs in as … · recorded …", with Edit (a pencil)', !/Sign in not recorded/.test(c.setup) && /^Signs in as ops@traversence\.example, project traversence-prod · recorded/.test(c.line) && c.change, c);
+      t(L + '…no Undo anywhere on the card: a record is edited, never undone', !c.undo, c);
+      const boxes = await p.locator('#mc-google-setup input[name=email]').evaluateAll(a => a.length);
+      const shown = await p.locator('#mc-google-setup input[name=email]').first().isVisible();
+      t(L + '…no email box left open beside it (the form replaced by its line)', boxes === 1 && !shown, { boxes, shown });
+      t(L + '…Setup capture\'s summary has one arrow (the fold\'s own) and no stray "Record"', /^Setup capture: (complete|Sign in not recorded.*)$/.test(c.setup) && !/▸/.test(c.setup), c.setup);
+      const by = n => c.links.find(l => new RegExp(n).test(l.title) || new RegExp(n).test(l.href)) || {};
       const con = by('console.cloud.google.com/(\\?|$)'), bill = by('/billing'), cred = by('apis/credentials');
       const q = h => { try { return Object.fromEntries(new URL(h).searchParams); } catch (e) { return {}; } };
       t(L + 'its Console and Credentials links open in that account and project (authuser, project)', q(con.href).authuser === 'ops@traversence.example' && q(con.href).project === 'traversence-prod' && (!cred.href || (q(cred.href).authuser === 'ops@traversence.example' && q(cred.href).project === 'traversence-prod')), [con, cred]);
       t(L + '…Billing in that account, with no project (a billing account\'s page)', bill.href && q(bill.href).authuser === 'ops@traversence.example' && !('project' in q(bill.href)), bill);
-      t(L + '…each says "opens as ops@traversence.example"', c.links.filter(l => /google\.com/.test(l.href) && l.as).every(l => l.as === 'opens as ops@traversence.example') && c.links.some(l => l.as), c.links);
-      t(L + '…and Undo is there', c.undo, c);
-      const ux = await p.evaluate(() => { const b = [...document.querySelectorAll('#mc-google .mc-signin button')].find(x => x.textContent.trim() === 'Undo'); return b ? b.getAttribute('data-confirm') : ''; });
-      t(L + '…its question in plain words: "Forget the recorded sign-in (ops@traversence.example)?"', ux === 'Forget the recorded sign-in (ops@traversence.example)?', ux);
-      const whole = await p.evaluate(() => [...document.querySelectorAll('#mc-google .mc-asv')].every(x => x.getClientRects().length === 1 && x.getAttribute('title') === x.textContent));
-      t(L + '…each "opens as" keeps the address whole on its own line (an ellipsis, its title the full address)', whole);
-      const sum = await p.evaluate(() => document.querySelector('#mc-google-setup > summary').textContent.replace(/\s+/g, ' ').trim());
-      t(L + '…Setup capture\'s summary has no stray "Record"', /^Setup capture: (complete|Sign in not recorded.*) ▸$/.test(sum) && !/Record ▸/.test(sum), sum);
-      p.once('dialog', d => d.accept());   // never a browser dialog: TvAsk's own yes
-      await p.click('#mc-google .mc-signin button:has-text("Undo")'); await p.waitForTimeout(400);
-      const yes = p.locator('.tv-ask button:has-text("Undo"), [role=dialog] button:has-text("Undo")').last();
-      if (await yes.count()) await Promise.all([p.waitForNavigation().catch(() => {}), yes.click()]); await p.waitForTimeout(700);
+      t(L + '…each is an icon whose title says where it opens and as which account ("Open Google Cloud billing as ops@traversence.example")', c.links.filter(l => /google\.com/.test(l.href)).every(l => / as ops@traversence\.example$/.test(l.title) && l.title === l.label && l.text === '') && c.links.some(l => /^Open Google Cloud billing as /.test(l.title)), c.links);
+      // Edit: the field reopened in place, filled; saved with another email, the one before it under History
+      t(L + '…and the setup fold closes: the top line is the record now', c.open === false, c.open);
+      await p.click('#mc-google .mc-signin [data-mc-edit]'); await p.waitForTimeout(250);
+      t(L + 'Edit (the top line\'s pencil) reopens the one-field form in place, filled with the email, focused', await p.evaluate(() => { const i = document.querySelector('#mc-google-setup .mc-change input[name=email]'); return !!i && i.getBoundingClientRect().width > 0 && i.value === 'ops@traversence.example' && document.activeElement === i; }));
+      await p.fill('#mc-google-setup .mc-change input[name=email]', 'billing@traversence.example');
+      await Promise.all([p.waitForNavigation().catch(() => {}), p.click('#mc-google-setup .mc-change form button')]); await p.waitForTimeout(600);
       c = await card(p, 'google');
-      t(L + 'Undo (asked first) puts back "not recorded"', /^ok: Google Cloud: Undone: its sign-in isn't recorded again/.test(await flash(p)) && /not recorded/.test(c.signin), [await flash(p), c.signin]);
-      t(L + '…its links are as they were', c.links.every(l => !/authuser=/.test(l.href)), c.links);
+      t(L + '…saved: the line has the new email, the one before it under History', /^Signs in as billing@traversence\.example/.test(c.line) && /^History ?Before: ops@traversence\.example, project traversence-prod$/.test(c.hist), [c.line, c.hist]);
       // a provider with no account hint
       const tv = await card(p, 'tavily');
       if (tv) {
@@ -68,12 +75,11 @@ const flash = p => p.evaluate(() => [...document.querySelectorAll('[data-tv-flas
         await p.fill('#mc-tavily-setup input[name=email]', 'ops@traversence.example');
         await Promise.all([p.waitForNavigation().catch(() => {}), p.click('#mc-tavily-setup form button:has-text("Record")')]); await p.waitForTimeout(600);
         const c2 = await card(p, 'tavily');
-        t(L + 'a provider with no account hint (Tavily): its address unchanged, the account named beside it', c2.links.length && c2.links.every(l => !/authuser/.test(l.href)) && c2.links[0].as === 'sign in as ops@traversence.example' && !(await p.$('#mc-tavily-setup input[name=project]')), c2.links);
-        await p.click('#mc-tavily .mc-signin button:has-text("Undo")'); await p.waitForTimeout(300);
-        const y2 = p.locator('.tv-ask button:has-text("Undo"), [role=dialog] button:has-text("Undo")').last(); if (await y2.count()) await Promise.all([p.waitForNavigation().catch(() => {}), y2.click()]); await p.waitForTimeout(600);
+        t(L + 'a provider with no account hint (Tavily): its address unchanged, its title names the account to sign in as', c2.links.length && c2.links.every(l => !/authuser/.test(l.href)) && /\(sign in as ops@traversence\.example\)$/.test(c2.links[0].title) && !(await p.$('#mc-tavily-setup input[name=project]')), c2.links);
       }
       const sw = await p.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth + 1);
       t(L + 'nothing wider than the window', sw);
+      forget();
       await p.close();
     } catch (x) { t(w + 'px: the walk through finished', false, String(x.message).split('\n')[0]); } }
   } finally { srv.kill(); await b.close(); }

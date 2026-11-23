@@ -1,0 +1,180 @@
+{
+    "id": 273,
+    "title": "The gauge panel as a drill-down: every item one task you can see, fix and watch clear; a finished step replaces its form on the service cards",
+    "why": "Jason, 2026-11-23: the gauge's side panel 'presents a ton of overwhelming text. I want a visual drill down into things I can act on' and 'every single listed item is a dead end'. Approved in his pop-up after the Design reviewer and the session manager (handoffs/gauge-panel.md, revision 4). Each panel now has: what moves it; one bar of its items by where they stand (Issues to fix, Not built yet, No check yet, Done), each part filtering the list; What you can do (one sentence, one button each); the items, what needs you first, ten then Show all, each opening in place with its evidence. Every item is one cycle (Jason: 'I need to view the issue. then press a button to fix it. once fixed it should clear the issue'): Fix it sends it to its gauge's build ('Fixing: … · sent to the Discovery build', Undo for a day), and it clears by itself once its check passes. No sign-off on items; Approve the scope and Approve the target are his decisions, recorded in the logbook and read at once. The health report carries open Fix it requests and approvals for the build queue and the gauges. On the service cards (Jason, 2026-11-23): after Record, 'The account it signs in as' is one line with Change and Undo, the form gone, the notice just 'Recorded.'; the other card forms' notices stop repeating the card. Retire it… is an outlined button in line with Pause and Take out, not squeezed into the 28px icon ring. A check that got no answer reads 'Library of Congress isn't answering', the timeout kept in its reading. The dead-end sentence 'Recording a why is to come…' is gone from every card.",
+    "proposals": "",
+    "zip": "gauge-panel.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "live",
+    "step": 3,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": "2026-11-23 20:50:41",
+    "staged_at": "2026-11-23 20:50:42",
+    "vetted_at": "2026-11-23 20:50:45",
+    "live_at": "2026-11-23 20:50:45",
+    "files": {
+        "app/admin/control-console.php": {
+            "sha": "c646dbb0d538fdd940b6e86ff0f386e7209cdb2299793d2b0acde5dc942ea915",
+            "size": 234082,
+            "live_was": "fb0adb9da48b1568276cb875dbe12ce6cb63018382b36335092021eb12a38b3f",
+            "existed": true,
+            "old_sha": "fb0adb9da48b1568276cb875dbe12ce6cb63018382b36335092021eb12a38b3f"
+        },
+        "app/admin/module-cards.php": {
+            "sha": "5e5f6224a705ec557b0800c23fd95b00eb0a1fced1c79e827aac69e7d998efc3",
+            "size": 63709,
+            "live_was": "ff5db0a2e850781f4ff4f99ad803950de3fcfd28e5c04fa52ef257b4edc21ce1",
+            "existed": true,
+            "old_sha": "ff5db0a2e850781f4ff4f99ad803950de3fcfd28e5c04fa52ef257b4edc21ce1"
+        },
+        "app/admin/operations-console.php": {
+            "sha": "fe3a7d915cbf7e7f26d36fc9a7f98aaae24028759dd43d5c9727e401d98eb16b",
+            "size": 113824,
+            "live_was": "bb8848a2d9d401ca5fcc68c54a10fe05efa48f8af982afe94ee854526c06f1c6",
+            "existed": true,
+            "old_sha": "bb8848a2d9d401ca5fcc68c54a10fe05efa48f8af982afe94ee854526c06f1c6"
+        },
+        "app/lib/ControlAlarms.php": {
+            "sha": "e67be2f967718c362ae7e1860e5c97270fd1207f70350a5331bf285f0bf723bd",
+            "size": 116669,
+            "live_was": "8d08c3a197b761c6ad5b49dcbab874c6483c32a1baa51f2339b98aca3fcc25ad",
+            "existed": true,
+            "old_sha": "8d08c3a197b761c6ad5b49dcbab874c6483c32a1baa51f2339b98aca3fcc25ad"
+        },
+        "app/lib/ControlGauges.php": {
+            "sha": "d7cf9e53dee3e84cb0ba2bcc187805be8b6b5ad3e17a44de0c08e22dcf97795d",
+            "size": 39318,
+            "live_was": "8eb4c0a9d12520542c99571629048679575bb632585eb22ea8bfdf9a226a5fcd",
+            "existed": true,
+            "old_sha": "8eb4c0a9d12520542c99571629048679575bb632585eb22ea8bfdf9a226a5fcd"
+        },
+        "app/lib/GaugeTasks.php": {
+            "sha": "b0a72156ee7e9402e87214f8b1fdbbdd5e32eb704bd089b19814947f8225de62",
+            "size": 10787,
+            "live_was": null,
+            "existed": false
+        },
+        "app/lib/Preflight.php": {
+            "sha": "803f52e1c79ba83c7536f462cffef187b4dd29c90b2d1e30d5bc4cc71d8280c7",
+            "size": 162458,
+            "live_was": "a068cfa86ac683597f298a9a23b444fcd793561e2d17c3efb6f612382b5ce364",
+            "existed": true,
+            "old_sha": "a068cfa86ac683597f298a9a23b444fcd793561e2d17c3efb6f612382b5ce364"
+        },
+        "app/lib/ServiceHealth.php": {
+            "sha": "ec30b92630afb255039488bb20e61712eec4bf78115ce9e906e73a88c0f8178e",
+            "size": 73459,
+            "live_was": "40ba0685455da02b43bdab0b5165acf64242c2111da053cdd0f9f23159391169",
+            "existed": true,
+            "old_sha": "40ba0685455da02b43bdab0b5165acf64242c2111da053cdd0f9f23159391169"
+        },
+        "app/lib/SignIns.php": {
+            "sha": "97540dfd4ce33c505ed594e9c6f0f0f53799be34b3e57de0f02f9d357a91b65e",
+            "size": 6111,
+            "live_was": "e5dea7dd8bfa1b84511d3ecea8184832f03385045439ea8a42b71a549a8d6898",
+            "existed": true,
+            "old_sha": "e5dea7dd8bfa1b84511d3ecea8184832f03385045439ea8a42b71a549a8d6898"
+        },
+        "app/lib/staging-tables.php": {
+            "sha": "fc8c7b6c888a56619b030278f56c264fddcb18bba2fc4e4609629c7903d0e6ca",
+            "size": 29056,
+            "live_was": "115cf27b3eec2c7d4ee4c71626f04647b6343f521e7a6b4e3d857fda06bb09d6",
+            "existed": true,
+            "old_sha": "115cf27b3eec2c7d4ee4c71626f04647b6343f521e7a6b4e3d857fda06bb09d6"
+        },
+        "app/ui/faq.md": {
+            "sha": "34ff2cdcd3d39989113d5c2ef3cbc897251892dc3781d1b831e1556f1c44e94c",
+            "size": 434592,
+            "live_was": "3c36871883f7ae1eefa6f29a1ffd61176dd848ba3d4fde0c8a4e451476a8e3bf",
+            "existed": true,
+            "old_sha": "3c36871883f7ae1eefa6f29a1ffd61176dd848ba3d4fde0c8a4e451476a8e3bf"
+        },
+        "app/ui/outside-services.php": {
+            "sha": "2a8841787fb54ddfc7bc2aa20d7f45c1ec7e1dc005bb56d0bbb5ebd2abeb14c1",
+            "size": 52417,
+            "live_was": "1a291c2aa1621b23d6020e7c151ac776454e8187d65617c9469d351854230b35",
+            "existed": true,
+            "old_sha": "1a291c2aa1621b23d6020e7c151ac776454e8187d65617c9469d351854230b35"
+        },
+        "website/admin/api.php": {
+            "sha": "c24207c067871cd4af319b731e8e0a2af7ba04e77be0e330a99a5e755bd63601",
+            "size": 50014,
+            "live_was": "2ac0fb241eb1695ea93686facf8a36cd8b54cbd272c2392150c5288f7008599d",
+            "existed": true,
+            "old_sha": "2ac0fb241eb1695ea93686facf8a36cd8b54cbd272c2392150c5288f7008599d"
+        },
+        "website/api/health.php": {
+            "sha": "73da7eec76e5767b77611a2bf8c6011093a7ee4fdd42e09460ff22dd9e234ad3",
+            "size": 27132,
+            "live_was": "33d0de982919c060ef5e222d81139d8fdcd67c8c0079275e825fe1f5865f128e",
+            "existed": true,
+            "old_sha": "33d0de982919c060ef5e222d81139d8fdcd67c8c0079275e825fe1f5865f128e"
+        },
+        "website/js/admin-control.js": {
+            "sha": "11dea999b8c645388642e42f61978d5f3169d4c9ce15e9bd7f397aebef79f746",
+            "size": 49087,
+            "live_was": "1672012b01df0d8ccc157f458d44f243d34951153bc1402e42b5d17581f1dd20",
+            "existed": true,
+            "old_sha": "1672012b01df0d8ccc157f458d44f243d34951153bc1402e42b5d17581f1dd20"
+        }
+    },
+    "migrations": [],
+    "checks": {
+        "ok": true,
+        "where": "live",
+        "at": "2026-11-23T20:50:46+00:00",
+        "items": [
+            [
+                "PHP files parse",
+                true,
+                "13 checked"
+            ],
+            [
+                "Pages answer",
+                true,
+                "3 pages answered on traversence.com"
+            ],
+            [
+                "No new fatal errors in the logs",
+                true,
+                "4 logs read"
+            ]
+        ],
+        "first_fail": ""
+    },
+    "log": [
+        {
+            "at": "2026-11-23T20:50:39+00:00",
+            "by": 0,
+            "msg": "Uploaded gauge-panel.zip: 15 files."
+        },
+        {
+            "at": "2026-11-23T20:50:41+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/gauge-panel.zip (git caad81490d)."
+        },
+        {
+            "at": "2026-11-23T20:50:41+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
+        },
+        {
+            "at": "2026-11-23T20:50:44+00:00",
+            "by": 0,
+            "msg": "Put on staging (15 files); its checks passed."
+        },
+        {
+            "at": "2026-11-23T20:50:45+00:00",
+            "by": 0,
+            "msg": "Approved in chat before it was sent through git, and its checks on staging passed: publishing by itself."
+        },
+        {
+            "at": "2026-11-23T20:50:45+00:00",
+            "by": 0,
+            "msg": "Published: 15 files; everyone at once (no switch)."
+        }
+    ]
+}
