@@ -100,6 +100,19 @@ $k3 = ClientOrders::split($pdo, $s3, $staff);
 foreach (Orders::lines($pdo, $k3[0]) as $l) ClientOrders::removeLine($pdo, $k3[0], (int) $l['id'], $staff);
 $m = thrown(fn () => ClientOrders::unsplit($pdo, $s3, $staff));
 ok('Undo with nothing to bring back is refused, nothing changed', str_contains($m, 'Nothing was changed') && $o($k3[0])['status'] !== 'void', $m . ' · the other order ' . $o($k3[0])['status']);
+// an item that can't move back (the database refuses that one row): Undo rolls everything back and cancels nothing
+$s4 = $sent(['ship_name' => 'Dana', 'ship_street' => '12 Main St', 'ship_city' => 'Springerville', 'ship_state' => 'AZ', 'ship_zip' => '85938', 'delivery' => 'ship']);
+ClientOrders::addCustom($pdo, $s4, 'Banner', 1, '40.00', true, '', $staff); ClientOrders::addCustom($pdo, $s4, 'Flag', 1, '30.00', true, '', $staff);
+foreach (array_slice(Orders::lines($pdo, $s4), -2) as $l) $pdo->prepare('UPDATE order_lines SET ship_address = ? WHERE id = ?')->execute(["Mesa office\n55 Center St\nMesa, AZ 85201", (int) $l['id']]);
+$k4 = ClientOrders::split($pdo, $s4, $staff); $kidLines = array_map(fn ($l) => (int) $l['id'], Orders::lines($pdo, $k4[0])); $parentN = count(Orders::lines($pdo, $s4));
+$stuck = end($kidLines);
+$pdo->exec('DROP TRIGGER IF EXISTS release_a_stuck');
+$pdo->exec("CREATE TRIGGER release_a_stuck BEFORE UPDATE ON order_lines FOR EACH ROW BEGIN IF OLD.id = $stuck AND NEW.order_id <> OLD.order_id THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'held'; END IF; END");
+$m = thrown(fn () => ClientOrders::unsplit($pdo, $s4, $staff));
+$pdo->exec('DROP TRIGGER IF EXISTS release_a_stuck');
+ok('An item that can\'t move back: Undo changes nothing and says so', str_contains($m, 'Nothing was changed') && $o($k4[0])['status'] === 'draft' && count(Orders::lines($pdo, $k4[0])) === count($kidLines) && count(Orders::lines($pdo, $s4)) === $parentN && ClientOrders::splitUndoable($pdo, $s4) === $k4, $m . ' · the other order ' . $o($k4[0])['status'] . ' with ' . count(Orders::lines($pdo, $k4[0])) . ' of ' . count($kidLines) . ' items; this one ' . count(Orders::lines($pdo, $s4)));
+ClientOrders::unsplit($pdo, $s4, $staff);
+ok('...and once it can, Undo brings every item back', count(Orders::lines($pdo, $s4)) === $parentN + count($kidLines) && $o($k4[0])['status'] === 'void', count(Orders::lines($pdo, $s4)) . ' items here; the other order ' . $o($k4[0])['status']);
 $m = thrown(fn () => ClientOrders::split($pdo, $sent(), $staff));
 ok('One address: nothing to split', str_contains($m, 'one address'), $m);
 
