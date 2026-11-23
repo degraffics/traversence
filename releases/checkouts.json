@@ -216,13 +216,14 @@
   {
    "path": "app/admin/crawler-console.php",
    "functions": [
+    "(top)",
     "tv_admin_mod_crawler"
    ],
    "kind": "change",
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "Insights \u2192 Crawler at phone width: its tables as cards, failures in plain words (Jason's screenshot, 2026-11-23; decisions/0058 \u00a711)",
    "since": "2026-11-23T01:40:16Z",
-   "expires": "2026-11-23T05:40:16Z",
+   "expires": "2026-11-23T05:41:34Z",
    "release": "crawler-phone.zip",
    "callers": {}
   }
