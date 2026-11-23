@@ -1,13 +1,13 @@
 {
  "zip": "orders-release-a.zip",
  "built_on": "8283c24 Sync: 2026-11-23 14:53 UTC",
- "recorded": "2026-11-23 16:04 UTC",
+ "recorded": "2026-11-23 16:09 UTC",
  "note": "Orders release A: placing, configuring and paying for an order, ironclad, with Split into one order per address and the design review's changes (Jason, 2026-11-23); built on Sync: 2026-11-23 14:53 UTC Sent through git (releases/inbox).",
  "status": "pending",
  "live_in": "",
  "files": {
   "app/admin/kit-css.php": {
-   "sha256": "9c1b7f39911b470e133902d09b458e94610600d0bebdd364a762585c6bd55fc6",
+   "sha256": "35a65dcdbc2ae674daf68d8d0a6717e14301c26e31ddce0d257ba5e071421304",
    "live": false
   },
   "app/admin/manifests.php": {
@@ -66,6 +66,10 @@
    "sha256": "e97a2dbf4decf7ba5108f6569d3b85c1e0a901c2545a469e5a7bf9c52df42f3f",
    "live": false
   },
+  "app/ui/command-strip.php": {
+   "sha256": "6f0bee1c2ea9d596305b098df6e1beddbe57a32ad3918e2ffb774f259c383db4",
+   "live": false
+  },
   "app/ui/faq.md": {
    "sha256": "bea98fa3e91c1e4884382004300d90fb115b9fc99c55c7bae13458ae15041209",
    "live": false
@@ -75,7 +79,7 @@
    "live": false
   },
   "website/admin/client-order.php": {
-   "sha256": "97260bb19dbe1ff36824487b578bb9343cac711eaa675ebd1cbe33be1388402e",
+   "sha256": "a9f2e015f1febe7d39b9485de518e3f27524eea8bd72905b4d955a3dedc64020",
    "live": false
   },
   "website/api/client-order.php": {
