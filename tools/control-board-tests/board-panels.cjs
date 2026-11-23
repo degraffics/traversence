@@ -59,12 +59,12 @@ const drawer = p => p.evaluate(() => { const d = document.querySelector('.ak-dr'
         all: document.querySelectorAll('.os-r').length, other: [...document.body.children].filter(x => x.getClientRects().length && !x.contains(document.getElementById('svc-google')) && !/^(SCRIPT|STYLE)$/.test(x.tagName)).map(x => x.tagName + '.' + x.className).slice(0, 4) }));
       t(L + '…the panel shows Google Cloud\'s card alone, never the whole register (Jason, 2026-11-23; "Open the full page" has the list)', one && one.all > 5 && one.shown.length === 1 && one.shown[0] === 'svc-google' && !one.other.length, one);
       const rf = p.frames().find(f => /config\/register/.test(f.url()));
-      const cp = rf && await rf.evaluate(() => { const g = document.getElementById('svc-google') || document; const h = g.querySelector('.mc-z1 > h3'); const hb = h ? [...h.querySelectorAll('.tv-copy-b')].map(x => x.textContent) : [];
+      const cp = rf && await rf.evaluate(() => { const g = document.getElementById('svc-google') || document; const h = g.querySelector('.mc-z1 > h3'); const hb = h ? [...h.querySelectorAll('.tv-copy-b')].map(x => x.hasAttribute('data-copy-all') ? 'Copy all' : 'Copy') : []; const labs = h ? [...h.querySelectorAll('.tv-copy-b')].map(x => [x.title, x.getAttribute('aria-label'), x.textContent.trim()]) : [];
         const card = g.querySelector('.mc-card'); const abs = card ? [...card.children].filter(x => x.classList.contains('tv-copy-b')).length : -1;
         const rects = [...g.querySelectorAll('.mc-z1 .tv-copy-b, .mc-card > .tv-copy-b')].map(x => x.getBoundingClientRect()).map(r => [Math.round(r.left), Math.round(r.top), Math.round(r.right), Math.round(r.bottom)]);
         let overlap = false; for (let i = 0; i < rects.length; i++) for (let j = i + 1; j < rects.length; j++) { const a = rects[i], c = rects[j]; if (a[0] < c[2] && c[0] < a[2] && a[1] < c[3] && c[1] < a[3]) overlap = true; }
-        return { hb, abs, overlap, sc: document.documentElement.scrollWidth, cw: document.documentElement.clientWidth }; });
-      t(L + 'Identity and role\'s heading: one "Copy" and one "Copy all", none stacked in the card\'s corner (item 3)', cp && cp.hb.filter(x => x === 'Copy').length === 1 && cp.hb.filter(x => x === 'Copy all').length === 1 && cp.abs === 0 && !cp.overlap, cp);
+        return { hb, labs, abs, overlap, sc: document.documentElement.scrollWidth, cw: document.documentElement.clientWidth }; });
+      t(L + 'Identity and role\'s heading: one Copy and one Copy all icon, each titled with what it copies, none stacked in the card\'s corner (item 3)', cp && cp.hb.filter(x => x === 'Copy').length === 1 && cp.hb.filter(x => x === 'Copy all').length === 1 && cp.abs === 0 && !cp.overlap && cp.labs.every(([t, a, x]) => /^Copy /.test(t) && t === a && x === ''), cp);   // both are icons, titled with what they copy (Jason, 2026-11-23)
       t(L + '…the card has no sideways scroll in the panel', cp && cp.sc <= cp.cw + 1, cp);
       if (w === 1280 && rf) {
         await p.context().grantPermissions(['clipboard-read', 'clipboard-write'], { origin: `http://127.0.0.1:${port}` });

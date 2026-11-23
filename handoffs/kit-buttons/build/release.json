@@ -1,0 +1,11 @@
+{
+ "title": "Kit buttons: filled buttons in brand brown, Copy as an icon; the gauge panel's Request a fix, its pickup named, and ⋯ for each item's other moves",
+ "why": "Jason, 2026-11-23: 'fix it sounds like an action to be done right now' (Fix it only where the site acts on the spot; Request a fix where it queues a build), 'action icons with tool tips over text saying action urls', and each task's suggested action with ⋯ for every other valid move (CLAUDE.md). Reviewed by the Design reviewer and the session manager (handoffs/kit-buttons/).",
+ "changes": [
+  {"what": "Admin kit: filled buttons in brand brown, reversed on dark bars; Copy as a round icon titled with what it copies", "where": "https://traversence.com/admin/config/control"},
+  {"what": "Development: each gauge item's Request a fix / the build / the check; its line names the build session that has it, Not picked up yet after a day; ⋯ for its evidence, page, Site health row and source", "where": "https://traversence.com/admin/config/control"},
+  {"what": "The health report's gauge requests on their own (?part=gauge_tasks), for the hourly pickup", "where": "https://traversence.com/api/health.php"}
+ ],
+ "proposals": [],
+ "switch": ""
+}

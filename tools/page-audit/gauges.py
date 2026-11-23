@@ -164,6 +164,15 @@ def _approvals():
 APPROVED_SCOPE, APPROVED_TARGET = _approvals()
 
 
+def _pickups():
+    """Requests a build session has taken (releases/gauge-pickups.json; the session manager's routing, 2026-11-23): id => [session, release]."""
+    try:
+        d = json.load(open(os.path.join(os.path.dirname(__file__), '..', '..', 'releases', 'gauge-pickups.json')))
+    except (OSError, ValueError):
+        return {}
+    return {str(int(p['id'])): [str(p.get('session') or ''), str(p.get('release') or '')] for p in d.get('pickups') or [] if str(p.get('id', '')).isdigit() and p.get('session')}
+
+
 PAGES_MD = open(ROOT + 'site-audit/pages.md').read().splitlines()
 FINDINGS = json.load(open(RESULTS + 'findings.json')).get('findings', [])
 FINDING_IDS = {f['id'] for f in FINDINGS}   # only a finding Site health has: any other id would open nothing
@@ -376,6 +385,7 @@ def build():
                    workflows=[{k: w[k] for k in ('wf', 'name', 'kind', 'measure', 'target', 'setup', 'tasks')}
                               | {'core': short(w['core'], 'core'), 'registered': short(w['registered'], 'registered')} for w in wfs])
     summary['parts'] = {k: dict(sorted(v.items())) for k, v in PARTS.items()}
+    summary['pickups'] = _pickups()   # the session that has each open request (releases/gauge-pickups.json), by request id
     detail = dict(head, note='Each gauge\'s detail for its drawer (ControlGauges::detail): read when the drawer opens.',
                   checks=reg, results_read=sorted({r['file'] for r in ROWS.values()}),
                   development={g['id']: {'list': g['list'], 'out_of_scope': g['out_of_scope']} for g in dev},
