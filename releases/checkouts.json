@@ -529,6 +529,21 @@
    "expires": "2026-11-24T00:22:30Z",
    "release": "order-m1.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/SignIns.php",
+   "functions": [
+    "canUndo",
+    "set",
+    "undo"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
+   "why": "Gauge panel release: a record is edited, never undone (Jason, 2026-11-23, CLAUDE.md #1315): SignIns' Undo removed, its previous value kept as History",
+   "since": "2026-11-23T20:27:40Z",
+   "expires": "2026-11-24T00:27:40Z",
+   "release": "gauge-panel.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
