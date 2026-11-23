@@ -33,23 +33,6 @@
   {
    "path": "app/admin/control-console.php",
    "functions": [
-    "tv_admin_mod_control",
-    "tv_cb_deliver",
-    "tv_cb_development",
-    "tv_cb_gauge_card",
-    "tv_cb_view_assets"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
-   "why": "board-view: the opening view as approved, gauge cards Copy at their foot (Jason, 2026-11-23)",
-   "since": "2026-11-23T13:53:51Z",
-   "expires": "2026-11-23T18:49:44Z",
-   "release": "board-view-3.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/admin/control-console.php",
-   "functions": [
     "tv_cb_qbar",
     "tv_cb_rail"
    ],
@@ -59,45 +42,6 @@
    "since": "2026-11-23T13:53:53Z",
    "expires": "2026-11-23T17:53:53Z",
    "release": "",
-   "callers": {}
-  },
-  {
-   "path": "app/admin/kit-css.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
-   "why": "board-view: the opening view as approved (rail, chips, landing) and the drawer Back and margin (Jason, 2026-11-23)",
-   "since": "2026-11-23T13:53:55Z",
-   "expires": "2026-11-23T18:49:44Z",
-   "release": "board-view-3.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/js/admin-kit.js",
-   "functions": [
-    "head",
-    "layer"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
-   "why": "board-view: the opening view as approved (rail, chips, landing) and the drawer Back and margin (Jason, 2026-11-23)",
-   "since": "2026-11-23T13:53:58Z",
-   "expires": "2026-11-23T18:49:44Z",
-   "release": "board-view-3.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/js/admin-control.js",
-   "functions": [
-    "redraw",
-    "tabsApply"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
-   "why": "board-view: the opening view as approved (rail, chips, landing) and the drawer Back and margin (Jason, 2026-11-23)",
-   "since": "2026-11-23T13:54:00Z",
-   "expires": "2026-11-23T18:49:44Z",
-   "release": "board-view-3.zip",
    "callers": {}
   },
   {
@@ -131,17 +75,6 @@
    "since": "2026-11-23T14:15:30Z",
    "expires": "2026-11-23T18:34:48Z",
    "release": "live-read.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/js/tv-ask.js",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
-   "why": "release board-view-2.zip",
-   "since": "2026-11-23T14:38:25Z",
-   "expires": "2026-11-23T18:49:44Z",
-   "release": "board-view-3.zip",
    "callers": {}
   }
  ],
