@@ -44,3 +44,13 @@ answers. Each is built in the release named.
 
 0177 §4 (the vendor and delivery wait for the whole order's payment, or an admin's release with a reason), 0098's
 order of remedies (fix, credit, refund), and `QuickBooksPay::guardReal()` (no test moves real money).
+
+**Note (2026-11-23, Jason, asked in the Orders session's chat about a mockup's "Paid … read from QuickBooks · ✓ Recorded ·
+Undo"): "for money, would a undo be correct or would it be cancel unless processed then it would be refunded."** Money
+never has Undo. A payment read from QuickBooks shows ↗ to open it there (QuickBooks is the record; a correction is made
+there and read again). A payment recorded here and not processed (a check noted, nothing charged or posted to
+QuickBooks) has **Cancel the record**, gone as if never recorded. One processed (a card charged, or posted to a
+QuickBooks invoice) has **Refund…**, with his OK (§1). Agreed by the session manager as the standing rule; CLAUDE.md's
+"Edit or Undo" says it once. Also decided by the session manager the same day (M1b, design §3.6 (a)): a payment
+QuickBooks already shows on a linked invoice is applied at once, said as "Paid in QuickBooks <date> · <method/ref>",
+corrected with ✎, History kept; it writes nothing outside our records.
