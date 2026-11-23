@@ -1,0 +1,55 @@
+// tools/page-audit/live-read.mjs — a build session's read of live data (Jason, 2026-11-23: "this is why we have those
+// accounts, we use them for building and audits, so we should not be reinventing things when we already have the tools to
+// do our job"). It signs in as the test Executive from CHECK_ACCOUNTS (check-kit.mjs, as the page checks do), opens only
+// the named admin pages, presses nothing, and saves what each page shows (its text, its links' addresses, a picture at
+// 1280 and 390) to OUT. The workflow keeps OUT with the run for one day; it is never committed.
+// Read-only by construction: after the sign-in, every request that isn't a GET or HEAD is refused in the browser.
+// READ (one per run): orders (Back-Office → Orders) or order (one order, ORDER_ID).
+import { chromium } from 'playwright';
+import { mkdirSync, writeFileSync } from 'node:fs';
+import { SITE, ACC, staffIn, checkContext } from './check-kit.mjs';
+
+const READ = process.env.READ || 'orders';
+const ID = String(process.env.ORDER_ID || '').trim();
+const OUT = process.env.OUT || 'live-read';
+const PAGES = { orders: () => ['/admin/backoffice/orders'], order: () => (/^\d{1,9}$/.test(ID) ? [`/admin/backoffice/orders/${ID}`] : null) };
+
+const fail = (m) => { console.log(`::error::${m}`); process.exit(1); };
+if (!PAGES[READ]) fail(`READ must be one of: ${Object.keys(PAGES).join(', ')}.`);
+const paths = PAGES[READ]();
+if (!paths) fail('ORDER_ID must be the order\'s number (digits only).');
+const exec = ACC?.staff?.executive;
+if (!exec) fail('CHECK_ACCOUNTS has no staff.executive login (System Configuration → Test accounts).');
+mkdirSync(OUT, { recursive: true });
+
+const browser = await chromium.launch();
+const summary = [];
+try {
+  for (const w of [1280, 390]) {
+    const ctx = await checkContext(browser, { context: { viewport: { width: w, height: w > 500 ? 900 : 844 } } });
+    await staffIn(ctx, exec);
+    let refused = 0;
+    await ctx.route('**/*', (r) => (['GET', 'HEAD'].includes(r.request().method()) ? r.continue() : (refused++, r.abort())));   // nothing but reads from here
+    const p = await ctx.newPage();
+    for (const path of paths) {
+      const res = await p.goto(SITE + path, { waitUntil: 'load', timeout: 60000 }).catch((e) => ({ status: () => 0, err: String(e) }));
+      await p.waitForTimeout(800);
+      const name = `${READ}${ID ? '-' + ID : ''}-${w}`;
+      const read = await p.evaluate(() => ({
+        url: location.pathname + location.search,
+        title: document.title,
+        text: document.body.innerText,
+        links: [...document.querySelectorAll('a[href]')].map((a) => [a.textContent.trim().replace(/\s+/g, ' ').slice(0, 80), a.getAttribute('href')]).filter((x) => x[1].startsWith('/admin/')),
+        wide: document.documentElement.scrollWidth <= window.innerWidth + 1,
+      }));
+      writeFileSync(`${OUT}/${name}.json`, JSON.stringify({ path, width: w, status: res.status(), refused_writes: refused, ...read }, null, 1));
+      writeFileSync(`${OUT}/${name}.txt`, read.text);
+      await p.screenshot({ path: `${OUT}/${name}.png`, fullPage: true });
+      const line = `${w}px ${path}: HTTP ${res.status()}, landed on ${read.url}, ${read.text.length} characters, ${read.links.length} admin links, no sideways scroll: ${read.wide}, writes refused: ${refused}`;
+      summary.push(line); console.log(line);
+      if (/\/admin\/login\.php/.test(read.url)) fail(`${path} sent the test Executive back to sign in.`);
+    }
+    await ctx.close();
+  }
+} finally { await browser.close(); }
+writeFileSync(`${OUT}/summary.txt`, summary.join('\n') + '\n');

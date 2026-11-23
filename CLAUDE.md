@@ -61,7 +61,7 @@ No piecemeal patches and no unverified recovery flows. Before code is done:
 4. **Proof before hand-off:** the happy path, failures, edge cases, recovery and side effects are tested against the
    contract.
 
-**Build with live data** (Jason, 2026-11-23: "for building we must use live data"): read-only, through a locked channel; what's read never enters the repo.
+**Builds and audits use the test accounts (CHECK_ACCOUNTS) for live data; never invent a new access path when one exists** (Jason, 2026-11-23). A build reads through the manual `live-read.yml` workflow (a 1-day artifact); what's read never enters the repo.
 
 Live-site actions only on Jason's explicit call.
 
