@@ -107,6 +107,17 @@
    "expires": "2026-11-23T18:12:08Z",
    "release": "live-read.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/ControlLog.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
+   "why": "The Logbook's kind for a live read",
+   "since": "2026-11-23T14:12:11Z",
+   "expires": "2026-11-23T18:12:11Z",
+   "release": "live-read.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
