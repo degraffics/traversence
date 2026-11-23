@@ -5,8 +5,9 @@ manager's review, then Jason's pop-up. The plan is `handoffs/control-board-build
 is `handoffs/control-board-build-log.md`. **Not yet in `main`, not sent, not live.**
 
 **Built on:** the mirror at **Sync 2026-11-22 23:05 UTC (`8d3afbd`)**. Fetched again before zipping (CLAUDE.md).
-**Sent as:** `control-board.zip`, `"review": true`: Jason sees it on staging and approves UI, UX and Functional before
-Publish. `"data_reason"` for the one `UPDATE` (NPI's switch, below).
+**Sent as:** `control-board.zip`, approved by Jason in the pop-up (2026-11-23, reviewed by the session manager): "Releases
+built in claude and approved here go to staging and move to live". So no `"review"`: the site takes it onto staging, runs
+its checks and publishes it by itself when they pass (CLAUDE.md). `"data_reason"` for the one `UPDATE` (NPI's switch, below).
 
 ## 1. What it is, in a few lines
 
@@ -46,7 +47,7 @@ confirm**: it named it in Jason's pop-up, so his Approve covers it.
 
 `releases/inbox/control-board.zip`: 43 site files (34 changed from their live copies, 9 new, including 3 migrations:
 `2026-12-01_control_engine.sql` and `2026-12-01_control_incidents.sql` add only; `2026-12-01_npi_switch.sql` one guarded
-`UPDATE`, hence `data_reason`), each differing from live byte for byte; `release.json` with `"review": true`,
+`UPDATE`, hence `data_reason`), each differing from live byte for byte; `release.json` with no `"review"` (Jason's answer above),
 `"switch": ""`. Built on Sync 2026-11-22 23:26 UTC (`6b67f7e`; no site file changed since 23:05). Recorded in
 `deliveries/control-board.json` (pending).
 
@@ -159,7 +160,7 @@ sends nothing and says so.
 
 ## 8. Still to do around it
 
-- **Staging, read-only, after the merge and before Publish** (it lands on staging with `"review": true`): the Ledger tab (https://staging.trvgo.us/admin/config/control?tab=ledger) and
+- **Read-only, once it's live** (no staging hold, per Jason's answer): the Ledger tab (https://staging.trvgo.us/admin/config/control?tab=ledger) and
   C15 (`irs_loads`). Live's https://traversence.com/admin/config/control?tab=ledger only on Jason's call.
 - **Repo files that act by themselves reach `main` only in this release's merge, after his Approve:**
   `.github/workflows/heartbeat.yml` (starts a schedule that emails), `.github/workflows/site-checks.yml` (starts the
