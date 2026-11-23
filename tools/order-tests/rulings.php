@@ -3,7 +3,8 @@
 // of 2026-11-20, "rulings on the order map", and 2026-11-23, "the order model"; research/order-model-2026-11-21.md), on
 // MariaDB or MySQL. <root> holds app/ (the live lib with the release's files over it); Database::envPath() reads a .env
 // two folders above <root> (DB_HOST, DB_PORT, DB_DATABASE, DB_USERNAME, DB_PASSWORD; QB_ENV=mock). It makes its own
-// small tables in that database and drops them before and after. Mail goes to a stub Mailer in <root>/app/lib that
+// small tables in that database and drops them before and after: give it a database of its own, never the design
+// harness's (it drops orders, order_lines and users there). Mail goes to a stub Mailer in <root>/app/lib that
 // only records ([to, subject, body]). Checks, each against its source:
 //   B.2   a proof for every printed item before Send and approval; an exact reorder's reuse only with the same product and options
 //   B.3   a part payment on QuickBooks' page recorded as it arrives; production at the deposit (or at full payment)
