@@ -104,7 +104,7 @@
    "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
    "why": "Live reads for building (Jason, 2026-11-23: 'for building we must use live data'; his Approve of the channel)",
    "since": "2026-11-23T14:12:08Z",
-   "expires": "2026-11-23T18:15:32Z",
+   "expires": "2026-11-23T18:34:48Z",
    "release": "live-read.zip",
    "callers": {}
   },
@@ -115,7 +115,7 @@
    "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
    "why": "The Logbook's kind for a live read",
    "since": "2026-11-23T14:12:11Z",
-   "expires": "2026-11-23T18:15:32Z",
+   "expires": "2026-11-23T18:34:48Z",
    "release": "live-read.zip",
    "callers": {}
   },
@@ -126,7 +126,7 @@
    "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
    "why": "The live reads' key made by the site (WRITE_ONLY)",
    "since": "2026-11-23T14:15:30Z",
-   "expires": "2026-11-23T18:15:32Z",
+   "expires": "2026-11-23T18:34:48Z",
    "release": "live-read.zip",
    "callers": {}
   },
