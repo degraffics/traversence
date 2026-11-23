@@ -26,13 +26,14 @@
   {
    "path": "app/lib/crawler/CrawlService.php",
    "functions": [
+    "(top)",
     "report"
    ],
    "kind": "change",
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "fix #258: site_blocked read as a count, not a map (a false trip on /api/0); close the false trip as raised in error",
    "since": "2026-11-23T00:42:04Z",
-   "expires": "2026-11-23T04:42:04Z",
+   "expires": "2026-11-23T05:29:48Z",
    "release": "control-board-fix.zip",
    "callers": {}
   },
@@ -45,7 +46,7 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "fix #258: close an alarm raised in error, on its thread",
    "since": "2026-11-23T00:42:06Z",
-   "expires": "2026-11-23T04:42:06Z",
+   "expires": "2026-11-23T05:29:48Z",
    "release": "control-board-fix.zip",
    "callers": {}
   },
@@ -66,13 +67,14 @@
   {
    "path": "app/admin/crawler-console.php",
    "functions": [
+    "(top)",
     "tv_admin_mod_crawler"
    ],
    "kind": "change",
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "money always in dollars, counts with their unit (Jason, 2026-11-23: 'Railway=$62 WHAT?', 'Cents vs dollars': 65.2\u00a2 read as $62)",
    "since": "2026-11-23T01:27:57Z",
-   "expires": "2026-11-23T05:27:57Z",
+   "expires": "2026-11-23T05:29:48Z",
    "release": "control-board-fix.zip",
    "callers": {}
   },
@@ -85,7 +87,7 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "money always in dollars, counts with their unit (Jason, 2026-11-23: 'Railway=$62 WHAT?', 'Cents vs dollars': 65.2\u00a2 read as $62)",
    "since": "2026-11-23T01:27:57Z",
-   "expires": "2026-11-23T05:27:57Z",
+   "expires": "2026-11-23T05:29:48Z",
    "release": "control-board-fix.zip",
    "callers": {}
   }
