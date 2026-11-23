@@ -48,7 +48,8 @@ const copies = () => { const miss = []; document.querySelectorAll('.ak-card, .cb
   await p.goto('http://localhost/admin/config/control'); await p.waitForTimeout(1200);
   const shown = () => p.evaluate(() => ['cb-deliver', 'cb-dev', 'cb-incidents', 'cb-alarms'].filter(id => { const e = document.getElementById(id); return e && e.getClientRects().length; }));
   // 1. "Is it delivering?" first
-  t(W + '"Is it delivering?" is the view on load, alone', (await shown()).join() === 'cb-deliver', await shown());
+  // Board lands on "Is it delivering?" alone (Jason, 2026-11-23: "development is its own page, not side by side on control board")
+  t(W + '"Is it delivering?" is the view on load, alone (Board; Development its own page)', (await shown()).join() === 'cb-deliver', await shown());
   const q3 = await p.evaluate(() => document.getElementById('cb-q3').innerText);
   t(W + 'the three questions; the light honest after Acknowledge ("1 trip (seen by Jason)")', /Is it healthy/i.test(q3) && /held and why/i.test(q3) && /needs me/i.test(q3) && q3.includes('1 trip (seen by Jason)'), q3.slice(0, 200));
   const rg = await p.evaluate(rings); t(W + 'every gauge one Arc, its band within 1% of its score, the number, its label and stage pill, no needle (' + rg.n + ')', rg.n >= 20 && rg.nbad === 0 && rg.needles === 0 && rg.top50 === rg.n, rg);
@@ -75,17 +76,20 @@ const copies = () => { const miss = []; document.querySelectorAll('.ak-card, .cb
   await p.click('#' + first + ' .cb-drill:has-text("Registered")'); await p.waitForTimeout(300); t(W + '…Registered Services ▸ from the snapshot', /-rs$/.test((await open())[0] || ''));
   await p.keyboard.press('Escape'); await p.waitForTimeout(200);
   // 4. Copy writes the section's visible text, never the Copy word or a hidden row
+  // since the opening view (2026-11-23) healthy, held and needs me are on the Paused now page, from its chip
+  await p.evaluate(() => document.querySelector('[data-cb-tab="paused"]').click()); await p.waitForTimeout(300);
   await p.click('#cb-q3 .tv-copy-b'); await p.waitForTimeout(400);
   const clip = await p.evaluate(() => navigator.clipboard.readText().catch(e => 'ERR ' + e.message));
   t(W + 'Copy puts the section\'s text on the clipboard, with the site\'s notice', /is it healthy/i.test(clip) && clip.includes('1 trip (seen by Jason)') && !/\bCopy\b/.test(clip) && await p.evaluate(() => !!document.querySelector('.tv-note')), clip.slice(0, 160));
+  await p.click('[data-cb-rail="deliver"]'); await p.waitForTimeout(300);   // back to Board, where the cards are
   const card = await p.evaluate(() => { const c = document.querySelector('#cb-deliver .cb-gc'); return [TvCopy.text(c), c.querySelector('.cb-gh').textContent]; });
   t(W + '…a card\'s text: its name, its number, its stage; no arc ends ("0", "100") or buttons\' "Copy"', card[0].startsWith(card[1]) && /%/.test(card[0]) && !/\b100\b/.test(card[0].split('\n').slice(0, 3).join(' ')) && !/\bCopy\b/.test(card[0]), card[0].slice(0, 160));
   // 5. D5: the acknowledged trip stays in the Open list
-  await p.click('[data-cb-tab="observe"]'); await p.waitForTimeout(300);
+  await p.click('[data-cb-rail="diagnostics"]'); await p.waitForTimeout(200); await p.click('.cb-diagnav [data-cb-tab="observe"]'); await p.waitForTimeout(300);   // under Diagnostics since the opening view
   const al = await p.evaluate(() => { const li = document.getElementById('cb-alarm-1'); return { shown: !!(li && !li.hidden && li.getClientRects().length), seen: li ? li.innerText.includes('by Jason') : false, n: (document.querySelector('[data-cb-afcount]') || {}).textContent }; });
   t(W + 'D5: the acknowledged trip stays in the Open list, "Seen: by Jason", counted (2 open)', al.shown && al.seen && al.n === '2', al);
   // 6. Development: 16 gauges at Planning 0, its panel and items, Site health and its actions
-  await p.click('[data-cb-tab="development"]'); await p.waitForTimeout(300);
+  await p.click('[data-cb-rail="development"]'); await p.waitForTimeout(300);   // the rail's Development since the opening view
   t(W + 'Development: its tab shows the 16 gauges and Site health', (await shown()).join() === 'cb-dev' && await p.evaluate(() => document.querySelectorAll('#cb-dev .cb-dc').length === 16 && !!document.getElementById('site-health').getClientRects().length));
   const dz = await p.evaluate(() => [...document.querySelectorAll('#cb-dev .cb-dc')].filter(c => /awaiting sign-off|no configuration yet/.test(c.innerText)).every(c => c.querySelector('.sr').dataset.score === '0.0' && c.querySelector('.sr-pill').textContent === 'Planning'));
   t(W + '…each unsigned one at 0 in Planning, "configuration drafted … awaiting sign-off"', dz);
@@ -114,7 +118,7 @@ const copies = () => { const miss = []; document.querySelectorAll('.ak-card, .cb
   const land = await p2.evaluate(() => { const li = document.getElementById('site-health-f-aaaaaa01'); const r = li.getBoundingClientRect(); return { vis: !!li.getClientRects().length, inView: r.top >= 0 && r.top < innerHeight }; });
   t(W + '…a Pulse item\'s link (?tab=development#site-health-<id>) lands on its finding, in view', land.vis && land.inView, land); await p2.close();
   // 7. Incidents and IR-0001's page
-  await p.click('[data-cb-tab="incidents"]'); await p.waitForTimeout(300);
+  await p.click('[data-cb-rail="diagnostics"]'); await p.waitForTimeout(200); await p.click('.cb-diagnav [data-cb-tab="incidents"]'); await p.waitForTimeout(300);   // under Diagnostics since the opening view
   t(W + 'Incidents: the IR list, IR-0001 in it', (await shown()).join() === 'cb-incidents' && (await p.evaluate(() => document.getElementById('cb-irs').innerText)).includes('IR-0001'));
   ws = await p.evaluate(wide); t(W + '…no sideways scroll', ws.sw <= w && !ws.over.length, ws);
   await p.goto('http://localhost/admin/config/control?ir=1'); await p.waitForTimeout(900);

@@ -413,3 +413,13 @@ Left: the staging read-only look (Ledger tab, C15) once it lands; the session ma
   result, with Run it again, is its own block for the Start-up stage") on the live code without the fix too.
 - **Next in the queue:** (a) Insights → Crawler's task table clipped on the left in the case's side panel at phone width
   (Jason's screenshot); (b) W0's Railway cost from Railway's own usage, not the per-call estimate.
+
+## 2026-11-23: the opening view (board-view)
+
+- **Pre-existing, found by the sweep's new stop check:** `dispatcher/r3` (r3.cjs) stops at
+  `#pb-dr-play li button … 'Open'`, Pulse's playbook drawer, on the live code as well as the build. The old rendered-all
+  counted it as 16 passed. It isn't this build's code. It's recorded for the dispatcher's owner, via the session manager.
+- **gauges.py --check** broke on main's `rendered.json` (rows of timed-out staff sign-ins with no `status`). Fixed in
+  board.py in this release; regenerating the gauges waits on the session manager (it moves System Configuration's preview 48 → 49).
+- **rendered-all.sh** reports a test that stops part way as a failure. Before, board-views read 16/0 after stopping at 16
+  of 90.

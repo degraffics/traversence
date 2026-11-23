@@ -26,6 +26,11 @@ if (str_starts_with($path, '/admin/api/')) { header('Content-Type: application/j
 require_once $app . '/ui/theme-tokens.php'; ob_start(); include $app . '/admin/kit-css.php'; $css = tv_theme_tokens() . ob_get_clean();
 $js = '<script src="/js/tv-ask.js"></script><script src="/js/tv-time.js"></script><script src="/js/admin-kit.js"></script><script src="/js/tv-copy.js"></script>';
 $page = fn (string $title, string $body) => '<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>' . htmlspecialchars($title) . '</title>' . $css . '</head><body>' . $body . $js . '</body></html>';
+if ($path === '/admin/config/register' && getenv('REGISTER') === 'full') {   // the whole Service register, its forms posting to its own handler (google-signin.cjs)
+    require_once $app . '/lib/Auth.php'; require_once $app . '/admin/sections.php'; require_once $app . '/admin/operations-console.php'; require_once $app . '/admin/control-console.php';
+    if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') $_POST['csrf'] = $_POST['csrf'] ?? '';
+    echo $page('Service register', @tv_admin_mod_register($pdo)); return true;
+}
 if ($path === '/admin/config/register') {
     require_once $app . '/admin/preflight-console.php'; require_once $app . '/admin/control-console.php'; require_once $app . '/admin/operations-console.php'; require_once $app . '/admin/module-cards.php';
     echo $page('Service register', '<h1>Service register</h1>' . tv_module_card($pdo, 'google', ['can' => true])); return true;

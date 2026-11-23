@@ -1,0 +1,20 @@
+{
+ "title": "The board's opening view: the rail of views, What's wrong now as chips, Board landing on Is it delivering?, Development its own page; one part in the panel; the panel's Back and margin",
+ "why": "Jason, 2026-11-23: the board's opening view wasn't the one he approved (handoffs/control-board-plan/step3/board/index.html). It opened on the Needs attention text, the healthy, held and needs-me boxes and three rows of tiles, with Development a tab away. 'it should have been built, so if it is not I want it ... built now!' Now: a rail of views on the left (Development · Board · Modules · Workflows · Diagnostics, his ruling, 03 §27); What's wrong now as one row of chips (Trips, Warnings, Caps, Checks, Paused now), each item opening its part in the one side panel; Board lands on Is it delivering?, full width; Development is its own page from the rail (his ruling: 'development is its own page, not side by side on control board'). Nothing is lost: the strip and the three boxes are the Paused now page, the six stages and the tables are Diagnostics. Also his note on the panel fix (live as the last release): 'back and title conflict. also panel should have some margin'. The drawer's Back had taken the page header's round back button's class; it has its own now, and a framed page sits inset in the drawer. A part opened in the side panel (an alarm's service, its register entry) shows that part's card alone ('Open the full page' has the list), and the gauge cards' Copy is at their foot, so their titles are whole.",
+ "changes": [
+  {
+   "what": "The System Control Board's opening view: the rail, the chips, Board's landing, Development's own page",
+   "where": "https://traversence.com/admin/config/control"
+  },
+  {
+   "what": "Paused now, its own page from its chip",
+   "where": "https://traversence.com/admin/config/control?tab=paused"
+  },
+  {
+   "what": "A drawer's Back and margin (the Alarms tab, an alarm, its part, its register entry)",
+   "where": "https://traversence.com/admin/config/control?tab=alarms"
+  }
+ ],
+ "proposals": [],
+ "switch": ""
+}
