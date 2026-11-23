@@ -332,6 +332,17 @@
    "expires": "2026-11-23T19:06:08Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/admin/kit-css.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "board-fixes: plain part names in the Alarms table, a drawer title on two lines (design review, 2026-11-23)",
+   "since": "2026-11-23T15:06:11Z",
+   "expires": "2026-11-23T19:06:11Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
