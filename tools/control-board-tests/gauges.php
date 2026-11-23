@@ -73,7 +73,7 @@ $t('5a. source read, with the file\'s time', $src['ok'] && $src['at'] !== '' && 
 $dev = $by(ControlGauges::development($pdo), 'title');
 $six = ['Discovery' => 45, 'Directory' => 52, 'Community' => 39, 'Marketplace' => 44, 'TRVGO – Storefront' => 41, 'Accounts' => 48, 'Dashboard & Pulse' => 50,
         'Get Local 360°' => 48, 'Let\'s Explore 360°' => 46, 'Market 360°' => 49, 'Social 360°' => 44, 'Sales & Growth' => 46, 'White Glove Concierge' => 23,
-        'Back-Office' => 43, 'Insights & Research' => 46, 'System Configuration' => 48];
+        'Back-Office' => 43, 'Insights & Research' => 46, 'System Configuration' => 49];   // 49 since 2026-11-23: its inputs moved (gauge-lifecycle.md §6)
 $got = []; foreach ($six as $g => $p) $got[$g] = isset($dev[$g]) ? (int) round($dev[$g]['preview']) : null;
 $t('5b. each preview, recomputed on the site from its criteria, is §6\'s number', $got === $six, $got);
 $t('5c. every gauge in Planning at 0 until Jason signs off (§6)', count($dev) === 16 && !array_filter($dev, function ($g) { return $g['signed'] || $g['stage'] !== 'Planning' || $g['score'] !== 0.0 || $g['k'] !== 'planning'; }));

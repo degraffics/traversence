@@ -30,6 +30,9 @@ def jload(n):
 
 # ------------------------------------------------------------------ real readings
 ALARMS = jload('alarms.json'); RENDERED = jload('rendered.json'); PATHS = jload('paths.json'); PHIST = jload('paths-history.json')
+# a row the browser check couldn't load (a staff sign-in that timed out: 'error', no status or size) counts as no answer
+for _r in RENDERED.get('results', []):
+    _r.setdefault('status', 0); _r.setdefault('size', '-'); _r.setdefault('scroll', False); _r.setdefault('edges', 0)
 SCORE = jload('search-scorecard.json'); PROBE = jload('search-probe.json'); CRAWL = jload('crawler-snapshot.json')
 T_AL, T_RE, T_PA, T_SC = mst(ALARMS['at']), mst(RENDERED['at']), mst(PATHS['at']), mst(SCORE['at'])
 LAYOUT_MD = open(ROOT + 'site-audit/layout-probe.md').read()

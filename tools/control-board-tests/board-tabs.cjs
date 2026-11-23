@@ -17,8 +17,10 @@ let pass = 0, fail = 0; const t = (n, ok, got) => { if (ok) { pass++; console.lo
    await p.goto(url); await p.waitForTimeout(1200); return p; };
   let p = await open('http://t.local/admin/config/control');
   const tabs = await p.$$eval('.cb-tabs2 [data-cb-tab]', a => a.map(x => x.firstChild.textContent));
-  t(w + ': the board has its tables as tabs', JSON.stringify(tabs) === JSON.stringify(['Alarms', 'Logbook', 'Ledger', 'Upkeep', 'Reports', 'Scheduled tasks']), tabs);
+  t(w + ': the board has its tables as tabs (Incidents among them since the opening view, under Diagnostics)', JSON.stringify(tabs) === JSON.stringify(['Incidents', 'Alarms', 'Logbook', 'Ledger', 'Upkeep', 'Reports', 'Scheduled tasks']), tabs);
   t(w + ': on Observation, no tab\'s part shows, and nothing loads in place yet', await p.locator('#cb-tab-alarms').isHidden() && loaded.length === 0, loaded);
+  // since the opening view (2026-11-23) the tables are Diagnostics': the rail's Diagnostics first, as a person does
+  await p.click('[data-cb-rail="diagnostics"]'); await p.waitForTimeout(300);
   await p.click('.cb-tabs2 [data-cb-tab="alarms"]'); await p.waitForTimeout(400);
   t(w + ': Alarms shows the Alarms table, the alarm queue hidden', await p.locator('#cb-tab-alarms').isVisible() && await p.locator('#cb-tab-alarms .ak-list[data-ak-table]').count() >= 1 && await p.locator('#cb-alarms').isHidden());
   await p.click('.cb-tabs2 [data-cb-tab="reports"]'); await p.waitForTimeout(300);
