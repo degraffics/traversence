@@ -161,6 +161,31 @@ const press = async (p, sel, yes) => {   // a button that asks first: its yes in
     v = await line(p, 'Vendor');
     ok(`${w}: They billed after all: the drop zone is back`, v && /not billed yet\.$/.test(v.text) && await p.evaluate(() => !!document.querySelector('[data-vb-drop]')), v);
 
+    // ---- the client's ✉ (the session manager's decision, the Design reviewer, 2026-11-23) ----
+    await open(O);
+    const mail = () => p.evaluate(() => { const b = document.querySelector('[data-co-mail]'), f = document.querySelector('.co-mail-f'), s = document.querySelector('.co-sent'); return b && { title: b.getAttribute('title'), open: !f.hidden, sent: s ? s.textContent : '', near: [...b.parentNode.querySelectorAll('button')].map((x) => x.getAttribute('title') || x.textContent) }; });
+    let ml = await mail();
+    ok(`${w}: the ✉ beside the client's name: "Send Ana an update", its form closed, nothing sent yet`, ml && ml.title === 'Send Ana an update' && !ml.open && !ml.sent, ml);
+    await p.click('[data-co-mail]'); await p.waitForTimeout(150);
+    ok(`${w}: ✉ opens Send the client an update in place, at its note`, (await mail()).open && await p.evaluate(() => document.activeElement && document.activeElement.name === 'note'));
+    await p.click('[data-co-mail-x]'); await p.waitForTimeout(100);
+    const closedX = !(await mail()).open;
+    await p.click('[data-co-mail]'); await p.waitForTimeout(100); await p.keyboard.press('Escape'); await p.waitForTimeout(100);
+    ok(`${w}: its form closes by Cancel and by Esc`, closedX && !(await mail()).open);
+    await p.click('[data-co-mail]'); await p.waitForTimeout(100); await p.fill('.co-mail-f textarea', 'Your certificates are ready next week.');
+    await press(p, '.co-mail-f button.go', 'Send it');   // the harness's mail isn't set up: the email fails
+    ml = await mail();
+    ok(`${w}: an update that didn't go says so, and no "✓ Sent" (nothing recorded)`, !ml.sent && await p.evaluate(() => /The update didn't go to ana@example\.com/.test(document.body.textContent)) && sql(`SELECT COUNT(*) FROM order_events WHERE order_id = ${O} AND event = 'update_sent'`) === '0', ml);
+    if (process.env.MAILOK) fs.writeFileSync(process.env.MAILOK, '1');
+    await p.click('[data-co-mail]'); await p.waitForTimeout(100); await p.fill('.co-mail-f textarea', 'Your certificates are ready next week.');
+    await press(p, '.co-mail-f button.go', 'Send it');
+    if (process.env.MAILOK) fs.rmSync(process.env.MAILOK, { force: true });
+    ml = await mail();
+    ok(`${w}: sent: "✓ Sent <day, time and zone>" beside the ✉, no Undo and no ✎; recorded in the History with its note`, /^✓ Sent [A-Z][a-z]{2} \d{1,2}, \d{1,2}:\d\d [AP]M [A-Z+0-9:-]+$/.test(ml.sent) && !ml.near.some((t) => /Undo|Edit/.test(t)) && sql(`SELECT note FROM order_events WHERE order_id = ${O} AND event = 'update_sent'`).includes('Your certificates are ready next week.'), ml);
+    await p.evaluate(() => { document.querySelectorAll('body *').forEach((x) => { const ps = getComputedStyle(x).position; if (ps === 'sticky' || ps === 'fixed') x.style.position = 'static'; }); document.getElementById('co-who').scrollIntoView({ block: 'center' }); });
+    await p.keyboard.press('Escape'); await p.waitForTimeout(200);
+    const bx = await p.$('.co-box:has(#co-who)'); if (bx) await bx.screenshot({ path: `${shots}/m1b-mail-sent-${w}.png` });
+
     // ---- (b): a payment recorded on the linked invoice ----
     await open(O);
     ok(`${w}: QB Open Co: Order details say invoice 112907 is linked by its number`, await p.evaluate(() => /Invoice 112907, linked by its number/.test(document.body.textContent)));

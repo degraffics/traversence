@@ -83,7 +83,7 @@ it (this session or a fresh one, the session manager's call).
 
 ## Built: M1b (the Orders session, session_01CXLi5kW2cGfR4Ya7fh2s3y), 2026-11-23
 
-Release `order-m1b.zip`, built on Sync 2026-11-23 21:07 UTC (`64c28ed`), no release live since. Zip check: clean but
+Release `order-m1b.zip`, first built on Sync 2026-11-23 21:07 UTC (`64c28ed`), rebuilt on 22:02 (below). Zip check (first build): clean but
 for one hold, `app/ui/faq.md`, carried by the Control Board's kit-buttons zip (not live yet): per CLAUDE.md, wait for it
 to go live, re-apply only M1b's two FAQ entries (and the one sentence added to "What does Next step mean") on the live
 copy, and send. Claims under `order-m1b.zip`.
@@ -159,3 +159,15 @@ in `handoffs/order-m1b/`. Harness notes: `wf_*` tables made by hand; the Mailer 
 M1's tests updated to the reviewed behaviour (m1.cjs: Delivery's one action, Complete greyed then Yes, delivered;
 complete-owed.cjs: a paid order's #finish Complete pressable). All pass: m1b.php 45, m1b.cjs 41 × 2 widths (82), m1.php
 42, m1.cjs, collect-balance.cjs, complete-owed.cjs. New screens: m1b-read-answered, m1b-delivery-first.
+
+### The client's ✉ (the session manager's decision via the Design reviewer, 2026-11-23 21:49 UTC), made
+A round ✉ beside the client's name in Bill to, titled "Send Ana an update": opens Send the client an update in place
+(the note optional; Cancel and Esc close it); after it, "✓ Sent <day, time, zone>" (`data-tv-time`), no Undo, no ✎;
+recorded in the History (`update_sent`). It uses the existing sender, `ClientOrders::sendUpdate` (the site's Mailer, a
+system email), not the 0172 dispatcher: rerouting client order emails through it is its own change, **asked in the
+summary**. `sendUpdate` now says Sent only when the email went (it ignored a failed send): a failure says so and records
+nothing. FAQ: "How do I send a client an update on their order?".
+
+Rebuilt on Sync 2026-11-23 22:02 UTC (`2caf2a1`): only `faq.md` had changed live; M1b's four entries re-applied on it.
+Zip check: clean, no blocks. Tests: m1b.cjs 46 × 2 widths (92), m1b.php 45, m1.php 42, m1.cjs, collect-balance.cjs,
+complete-owed.cjs all pass.
