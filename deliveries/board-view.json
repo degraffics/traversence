@@ -1,0 +1,30 @@
+{
+ "zip": "board-view.zip",
+ "built_on": "8b3ea37 Sync: 2026-11-23 13:42 UTC",
+ "recorded": "2026-11-23 14:21 UTC",
+ "note": "The board's opening view as approved (rail, chips, landing) and the drawer's Back and margin; built on Sync 13:42 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/control-console.php": {
+   "sha256": "c9760a99da8b599b62438d705d21bb929533cc5b76d4a3c4c5d9d2199e654ee8",
+   "live": false
+  },
+  "app/admin/kit-css.php": {
+   "sha256": "460d5cfb8bee91f191ebf73a019b65c4a942e5392986ea3309c86faded1d69ff",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "f28a596d2a139287fb055e838f02eb27ddef69319ea74f1adebbb538cf583854",
+   "live": false
+  },
+  "website/js/admin-control.js": {
+   "sha256": "9c97a46b29a82eb92d30beb201a40bf577fda09f3ab8aad0980f9654d9fe1566",
+   "live": false
+  },
+  "website/js/admin-kit.js": {
+   "sha256": "00bec641e5106ed0710168fcc97f4ac52a7025c4118d073bf22fd395a77fc4a2",
+   "live": false
+  }
+ }
+}

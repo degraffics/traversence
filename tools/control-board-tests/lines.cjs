@@ -17,7 +17,9 @@ let pass = 0, fail = 0; const t = (n, ok, got) => { if (ok) { pass++; console.lo
     return r.fulfill({ body: html, contentType: 'text/html' }); });
    await p.goto('http://t.local/admin/config/control'); await p.waitForTimeout(1200); return p; };
   let p = await open(board);
-  t(w + ': the top line is "Paused now", listing each', await p.locator('.cb-strip .cb-pl li').count() >= 3);
+  // since the opening view (2026-11-23) Paused now is its own page, from its chip (or ?tab=paused): open it first
+  await p.evaluate(() => { const b = document.querySelector('[data-cb-tab="paused"]'); if (b) b.click(); }); await p.waitForTimeout(300);
+  t(w + ': "Paused now" (its page, from its chip), listing each', await p.locator('.cb-strip .cb-pl li').count() >= 3);
   await p.locator('.cb-strip a[href="/admin/config/register#svc-commoncrawl"]').click(); await p.waitForTimeout(600);
   t(w + ': a paused item opens its fix in the side panel, the board kept', await p.locator('.tv-pk').count() === 1 && p.url().endsWith('/admin/config/control'));
   await p.keyboard.press('Escape'); await p.waitForTimeout(300);

@@ -29,7 +29,9 @@ $js = file_get_contents(dirname($app) . '/website/js/admin-control.js');
 $t('D5: the Open filter keeps an acknowledged trip (hit: open or a trip acknowledged)', str_contains($js, "open = st === 'open' || (st === 'ack' && lv === 'trip')") && str_contains($js, "(k === 'open' && open)"));
 
 // ---- "Is it delivering?" first
-$t('the views are tabs before the stages, "Is it delivering?" first and shown on load (03 §4, §27)', (bool) preg_match('/cb-views.*?data-cb-tab="deliver".*?data-cb-tab="development".*?data-cb-tab="incidents"/s', $html) && str_contains($html, 'data-tab="deliver"') && strpos($html, 'cb-views') < strpos($html, 'aria-label="The board\'s stages'));
+// since the opening view (2026-11-23, step3/board/index.html; Jason's ruling, 03 §27): the views are the rail, before the
+// stages, Development then Board ("Is it delivering?", shown on load); Incidents is among Diagnostics' tables
+$t('the views are the rail before the stages: Development, Board ("Is it delivering?", shown on load), Incidents among the tables (03 §4, §27)', (bool) preg_match('/cb-rail.*?data-cb-tab="development".*?data-cb-tab="deliver".*?aria-label="The board\'s stages.*?data-cb-tab="incidents"/s', $html) && str_contains($html, 'data-tab="deliver"') && strpos($html, 'cb-rail') < strpos($html, 'aria-label="The board\'s stages'));
 $q3 = $txt(substr($sec('cb-q3'), 0, 4000));
 $t('the three questions in one line: healthy, held, needs me (03 §4)', str_contains($q3, 'Is it healthy') && str_contains($q3, 'What\'s held and why') && str_contains($q3, 'What needs me'), mb_substr($q3, 0, 200));
 $t('…the light stays honest after Acknowledge: "1 trip (seen by Jason)", red (g4 F1)', str_contains($q3, '1 trip (seen by Jason)') && (bool) preg_match('/id="cb-q3".*?data-tv-status="bad" data-tv-label="Not healthy:"/s', $html));

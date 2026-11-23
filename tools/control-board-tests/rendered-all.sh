@@ -9,6 +9,7 @@ set -u
 HERE="$(cd "$(dirname "$0")" && pwd)"
 TOOLS="$(dirname "$HERE")"
 R="$(cd "$1" && pwd)"
+ONLY="${2:-}"   # a name pattern: only those tests (rendered-all.sh <root> 'board-views|board-tabs'), each with its full output
 SQL="mariadb -utv -ptv -h127.0.0.1"
 WORK="$(mktemp -d)"; trap 'rm -rf "$WORK"' EXIT
 cat > "$WORK/ledger.sql" <<'E'
@@ -29,6 +30,7 @@ TESTS=(
 "board-tabs|php board-phone-seed.php $R/app|node board-tabs.cjs $R"
 "board-views|php board-views-seed.php $R/app|node board-views.cjs $R"
 "board-panels|php board-panels-seed.php $R/app|node board-panels.cjs $R"
+"board-opening|php board-panels-seed.php $R/app|node board-opening.cjs $R"
 "board-live|php board-live-seed.php $R/app $TOOLS/../site-audit/results/alarms.json|node board-live.cjs $R"
 "lines|php lines.php $R/app|node lines.cjs $R"
 "module-cards|php module-cards-page.php $R/app seed|node module-cards.cjs $R"
@@ -44,15 +46,19 @@ printf '%-22s %6s %6s  %s\n' TEST PASS FAIL NOTE
 TP=0; TF=0; ALL="$WORK/fails"; : > "$ALL"
 for t in "${TESTS[@]}"; do
     IFS='|' read -r name setup test <<<"$t"
+    if [ -n "$ONLY" ] && ! [[ "$name" =~ ^($ONLY)$ ]]; then continue; fi
     fresh
     (cd "$HERE" && eval "$setup") > "$WORK/seed" 2>&1
     (cd "$HERE" && eval "timeout 600 $test") > "$WORK/out" 2>&1; rc=$?
     p=$(grep -c '^  ok  ' "$WORK/out"); n=$(grep -c '^FAIL  ' "$WORK/out"); note=""
     [ "$p$n" = "00" ] && { note="did not run (exit $rc): $(tail -1 "$WORK/out" | cut -c1-90)"; n=1; }
+    # a test that stopped part way (an exception after some checks) is a failure, never a pass with fewer checks (2026-11-23)
+    [ "$rc" != 0 ] && [ "$n" = 0 ] && { note="stopped part way (exit $rc): $(grep -m1 -E 'Error|locator|waiting for' "$WORK/out" | cut -c1-110)"; n=1; }
     grep -q '^FAIL' "$WORK/seed" && note="seed: $(grep -m1 '^FAIL' "$WORK/seed" | cut -c1-80)"
     grep '^FAIL  ' "$WORK/out" | sed "s|^|$name: |" >> "$ALL"
     [ -n "$note" ] && echo "$name: $note" >> "$ALL"
     printf '%-22s %6s %6s  %s\n' "$name" "$p" "$n" "$note"
+    [ -n "$ONLY" ] && { tail -15 "$WORK/out" | cut -c1-300; }
     TP=$((TP + p)); TF=$((TF + n))
 done
 printf '\n%-22s %6s %6s\n' TOTAL "$TP" "$TF"
