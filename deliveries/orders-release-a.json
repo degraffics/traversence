@@ -1,0 +1,102 @@
+{
+ "zip": "orders-release-a.zip",
+ "built_on": "8283c24 Sync: 2026-11-23 14:53 UTC",
+ "recorded": "2026-11-23 15:53 UTC",
+ "note": "Orders release A: placing, configuring and paying for an order, ironclad (Jason, 2026-11-23); built on Sync: 2026-11-23 14:53 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/kit-css.php": {
+   "sha256": "2e681b62facf97a61f6f4895f6b72cba4b88bcdf197c853a0b89aeec88c5d1e0",
+   "live": false
+  },
+  "app/admin/manifests.php": {
+   "sha256": "151772abb5e417aa9e69322e1823d5dbcb1653cd4b9690377e678586501e113c",
+   "live": false
+  },
+  "app/admin/sections.php": {
+   "sha256": "50fb5f7b0d0470183508f91f078d30fad2395bca8615181482a3c3a79b9747d1",
+   "live": false
+  },
+  "app/admin/tools.php": {
+   "sha256": "d60f2fbd4590edc6b8bbf05fd754a350bc00f8a023d86031498fb6df17c4b6af",
+   "live": false
+  },
+  "app/admin/widgets.php": {
+   "sha256": "8e406bbe3358a0da46a81cfb819ee384386c3d74895ff1f6754d5ee46bf254c3",
+   "live": false
+  },
+  "app/lib/AccountDomains.php": {
+   "sha256": "24d4261a09633762eee0170bfdb619113de57541df65e84312009ce5df494118",
+   "live": false
+  },
+  "app/lib/Billing.php": {
+   "sha256": "dfc855f6c61a3c2aa961c5b8158fe0913cef936f652593d67b5c114af357a04c",
+   "live": false
+  },
+  "app/lib/Books.php": {
+   "sha256": "292b762712e53de92dd963b467abbe9de54b7103f77b707ad7b0b0bb1014b445",
+   "live": false
+  },
+  "app/lib/ClientOrders.php": {
+   "sha256": "c1edf28e4aebbcca6a7d66d47157267e4de20828e29971406657323f733b5340",
+   "live": false
+  },
+  "app/lib/OneOffs.php": {
+   "sha256": "a6a859de6c6c2de7b25b6953a43f5b2f34dacae91c990bfca1e312b0b0336a7f",
+   "live": false
+  },
+  "app/lib/Orders.php": {
+   "sha256": "2356b79c1c0288b551d44494146a450dc1cab1cb381d73b6c52dc4726abd9e7e",
+   "live": false
+  },
+  "app/lib/QbPull.php": {
+   "sha256": "020ce7f26099f9681b20d5fc9ae48e240280fe1ffde7aa7556058060997c5545",
+   "live": false
+  },
+  "app/lib/QrIssue.php": {
+   "sha256": "ba1f4820fa6b61f9ea1f6e64e3af5d363cdccb614f3184d025920e27d68e9232",
+   "live": false
+  },
+  "app/lib/QuickBooksPay.php": {
+   "sha256": "c89e5d8cb0bb6995d2422656d74f54324e0ac7bc576e3938fb3e09397cfc05fd",
+   "live": false
+  },
+  "app/migrations/2027-03-30_order_tax_choice.sql": {
+   "sha256": "e97a2dbf4decf7ba5108f6569d3b85c1e0a901c2545a469e5a7bf9c52df42f3f",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "bea98fa3e91c1e4884382004300d90fb115b9fc99c55c7bae13458ae15041209",
+   "live": false
+  },
+  "app/ui/qb-merge.php": {
+   "sha256": "620d8d6dd9ef0baa13a7e72947f78b696e31bc10e8c8b235360b6e9a5a09031d",
+   "live": false
+  },
+  "website/admin/client-order.php": {
+   "sha256": "63330524c5a1cf46f8f0d8c5abe62a0034b298e40637f10a70bbee154fff1028",
+   "live": false
+  },
+  "website/api/client-order.php": {
+   "sha256": "fc896275e44068e5f186a955ed7b74f131c14764514ea3df41b9e37f4ae1be76",
+   "live": false
+  },
+  "website/api/qb-webhook.php": {
+   "sha256": "b1a94c2e5f4267d7994e8ed8f430520e4d0d4bd5d94585287283c6d7c4282823",
+   "live": false
+  },
+  "website/js/admin-kit.js": {
+   "sha256": "3c2bd835c91215855e2034e07e8c041ce51ef3c4f238dce4c4434fc47f91d90a",
+   "live": false
+  },
+  "website/order.php": {
+   "sha256": "2e3354a83f16b87aff427be21d7fe5559108cc150b24731c7e8bcb319abf9384",
+   "live": false
+  },
+  "website/terms.php": {
+   "sha256": "3e5ab5a03eae3fa4e4f87bba16d3dc6396fb0cefbd2cc57db3aae66a5d6c35c3",
+   "live": false
+  }
+ }
+}
