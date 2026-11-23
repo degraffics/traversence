@@ -113,8 +113,8 @@ $pl = $q("SELECT title, tags, unit_cents FROM order_lines WHERE order_id = ? AND
 ok('An exemption item makes the pulled order exempt, named by it', $o($po)['tax_choice'] === 'exempt' && str_contains((string) $o($po)['tax_note'], 'Shrink Wrapping'), $o($po)['tax_choice'] . ' · ' . $o($po)['tax_note']);
 ok('A left item comes in as written, not a charge', (bool) array_filter($pl, fn ($l) => str_contains($l['title'], 'Product will be shipped') || ($l['tags'] === '' && (int) $l['unit_cents'] === 1800)), count($pl) . ' lines');
 ok('The pulled total still matches QuickBooks', (int) $o($po)['total_cents'] === 111114, 'total ' . $o($po)['total_cents'] . '¢');
-$h = QbPull::itemChoices([1 => 'Business Cards'], '504 Interstate Commerce');
-ok('The pull\'s list offers the exemption, picked for an "interstate" item', str_contains($h, 'value="tax" selected') && str_contains($h, 'Leave it') && str_contains($h, '<optgroup'), 'tax option selected; groups and meanings shown');
+$h = QbPull::itemChoices([1 => 'Business Cards'], '504 Interstate Commerce', 'item[9]');
+ok('The pull\'s list: names only, each meaning behind its i, the exemption picked for an "interstate" item', str_contains($h, 'value="tax" selected') && str_contains($h, '>Leave it</option>') && str_contains($h, 'data-ak-info') && str_contains($h, '<small>Like Arizona'), 'tax selected; meanings in the i');
 foreach (['4', '3', '2'] as $ref) Books::decide($pdo, $ref, 'clear', 0, $staff);
 
 // ---- a cancel voids the invoice (#18); a guest's Back to the cart (#11)
@@ -137,7 +137,11 @@ $tool = $tools['backoffice/orders'] ?? null;
 if ($tool) {
     [$rows] = ($tool['list'])($pdo, [], $staff);
     $row = array_values(array_filter($rows, fn ($r) => $r['id'] === $d))[0] ?? null;
-    ok('The list shows Balance due and a Next step', $row && $row['balance'] === (int) $o($d)['total_cents'] && $row['next'][0] === 'Record a payment', $row ? 'balance ' . $row['balance'] . '¢, next "' . $row['next'][0] . '"' : 'row missing');
+    ok('The list shows Balance due and a Next step (where it stands, one verb)', $row && $row['balance'] === (int) $o($d)['total_cents'] && $row['next']['label'] === 'Record a payment' && $row['next']['state'] === 'Waiting for payment', $row ? 'balance ' . json_encode($row['balance']) . ', ' . $row['next']['state'] . ' → "' . $row['next']['label'] . '"' : 'row missing');
+    $sentRow = array_values(array_filter($rows, fn ($r) => $r['stage'] === 'sent'))[0] ?? null;
+    ok('A sent order: "Not due yet" and Send again run in place', $sentRow && $sentRow['balance'] === ['word' => 'Not due yet'] && $sentRow['next']['act'] === 'resend' && $sentRow['next']['label'] === 'Send again', $sentRow ? json_encode($sentRow['balance']) . ', ' . json_encode($sentRow['next']) : 'none');
+    $said = thrown(fn () => ($tool['act'])($pdo, (int) $sentRow['id'], 'resend', [], $staff));   // the harness has no mail server: it must say so
+    ok('Send again from the list says what happened (here: the email didn\'t go)', str_contains($said, 'didn\'t go') && $o((int) $sentRow['id'])['status'] === 'sent', $said);
     $cancelled = array_filter($rows, fn ($r) => in_array($r['stage'], ['cancelled', 'void', 'complete'], true));
     [$all] = ($tool['list'])($pdo, ['show' => 'all'], $staff);
     ok('Open orders by default; every order on asking', !$cancelled && count($all) > count($rows), count($rows) . ' open, ' . count($all) . ' in all');
