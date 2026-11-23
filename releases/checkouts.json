@@ -2,6 +2,21 @@
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
  "claims": [
   {
+   "path": "website/js/admin-kit.js",
+   "functions": [
+    "layer"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "board-panels: one panel at a time, Copy all, panels titled by the part (Jason, 2026-11-23)",
+   "since": "2026-11-23T13:14:56Z",
+   "expires": "2026-11-23T17:14:56Z",
+   "release": "",
+   "callers": {}
+  }
+ ],
+ "lapsed": [
+  {
    "path": "app/lib/ControlAlarms.php",
    "functions": [
     "pulseSteps",
@@ -17,7 +32,8 @@
     "pulseSteps": [
      "app/lib/Pulse.php"
     ]
-   }
+   },
+   "lapsed": "2026-11-23T13:14:56Z"
   },
   {
    "path": "app/lib/ServiceHealth.php",
@@ -34,7 +50,8 @@
     "alarm": [
      "app/lib/ControlAlarms.php"
     ]
-   }
+   },
+   "lapsed": "2026-11-23T13:14:56Z"
   },
   {
    "path": "app/lib/ControlAlarms.php",
@@ -48,7 +65,8 @@
    "since": "2026-11-23T04:07:09Z",
    "expires": "2026-11-23T08:07:43Z",
    "release": "old-titles.zip",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-23T13:14:56Z"
   },
   {
    "path": "app/lib/ServiceHealth.php",
@@ -61,10 +79,9 @@
    "since": "2026-11-23T04:07:09Z",
    "expires": "2026-11-23T08:07:09Z",
    "release": "old-titles.zip",
-   "callers": {}
-  }
- ],
- "lapsed": [
+   "callers": {},
+   "lapsed": "2026-11-23T13:14:56Z"
+  },
   {
    "path": "website/market/index.php",
    "functions": [],
@@ -782,71 +799,6 @@
      "website/admin/client-order.php"
     ]
    },
-   "lapsed": "2026-11-20T23:27:17Z"
-  },
-  {
-   "path": "app/lib/QrIssue.php",
-   "functions": [
-    "refresh"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5iruQZSTYKyuR7b1SN",
-   "why": "Orders: the order map's rulings (decisions/0101 note 2026-11-20, B.1-B.6)",
-   "since": "2026-11-20T18:56:08Z",
-   "expires": "2026-11-20T22:57:22Z",
-   "release": "orders-rulings.zip",
-   "callers": {
-    "refresh": [
-     "website/api/go-codes.php"
-    ]
-   },
-   "lapsed": "2026-11-20T23:27:17Z"
-  },
-  {
-   "path": "app/lib/WorkOrders.php",
-   "functions": [
-    "moveItems",
-    "staffMove"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5iruQZSTYKyuR7b1SN",
-   "why": "Orders: the order map's rulings (decisions/0101 note 2026-11-20, B.1-B.6)",
-   "since": "2026-11-20T18:56:13Z",
-   "expires": "2026-11-20T22:57:22Z",
-   "release": "orders-rulings.zip",
-   "callers": {
-    "staffMove": [
-     "app/lib/Pulse.php"
-    ]
-   },
-   "lapsed": "2026-11-20T23:27:17Z"
-  },
-  {
-   "path": "app/admin/Workflow.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5iruQZSTYKyuR7b1SN",
-   "why": "Orders: B.4 one paid-in-full rule in the workflow's check (decisions/0101 note 2026-11-20)",
-   "since": "2026-11-20T18:56:19Z",
-   "expires": "2026-11-20T22:57:22Z",
-   "release": "orders-rulings.zip",
-   "callers": {
-    "checks": [
-     "app/admin/sections.php"
-    ]
-   },
-   "lapsed": "2026-11-20T23:27:17Z"
-  },
-  {
-   "path": "website/api/qb-webhook.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5iruQZSTYKyuR7b1SN",
-   "why": "Orders: the order map's rulings (decisions/0101 note 2026-11-20, B.1-B.6)",
-   "since": "2026-11-20T18:56:22Z",
-   "expires": "2026-11-20T22:57:22Z",
-   "release": "orders-rulings.zip",
-   "callers": {},
    "lapsed": "2026-11-20T23:27:17Z"
   }
  ]
