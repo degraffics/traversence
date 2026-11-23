@@ -6,87 +6,113 @@
     "zip": "order-m1.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "staged",
-    "step": 0,
+    "state": "live",
+    "step": 3,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
     "plan_at": "2026-11-23 21:05:17",
     "staged_at": "2026-11-23 21:05:18",
-    "vetted_at": null,
-    "live_at": null,
+    "vetted_at": "2026-11-23 21:05:21",
+    "live_at": "2026-11-23 21:05:21",
     "files": {
         "app/admin/workflows.php": {
             "sha": "687182c3ba87a75c791c8440f4eb64e6a987cbae3e99d61d83d48b403e227633",
             "size": 37757,
-            "live_was": "cba541a17a7f1d554cfe1a390ebbd50086222e141ed3045a65d052b2f045a779"
+            "live_was": "cba541a17a7f1d554cfe1a390ebbd50086222e141ed3045a65d052b2f045a779",
+            "existed": true,
+            "old_sha": "cba541a17a7f1d554cfe1a390ebbd50086222e141ed3045a65d052b2f045a779"
         },
         "app/admin/Workflow.php": {
             "sha": "ab20e8da3701881160b6283edae6f749f0843db23974eec91c8c0635c001a741",
             "size": 23231,
-            "live_was": "81b1aab3788638de053dccb6d0beb88312960a763357a2c4d9bfdabb855614d6"
+            "live_was": "81b1aab3788638de053dccb6d0beb88312960a763357a2c4d9bfdabb855614d6",
+            "existed": true,
+            "old_sha": "81b1aab3788638de053dccb6d0beb88312960a763357a2c4d9bfdabb855614d6"
         },
         "app/admin/tools.php": {
             "sha": "cf288f9904dfb98a51e7bd3b811cc804e1048c8cca49fc537acce1b49443b889",
             "size": 273693,
-            "live_was": "f5ea067e8eb347c9f035d55d4208019738359793839ebb2c7ffdedcbf8af4fc1"
+            "live_was": "f5ea067e8eb347c9f035d55d4208019738359793839ebb2c7ffdedcbf8af4fc1",
+            "existed": true,
+            "old_sha": "f5ea067e8eb347c9f035d55d4208019738359793839ebb2c7ffdedcbf8af4fc1"
         },
         "app/admin/manifests.php": {
             "sha": "a89e36eac49526cbcc1310b729f1ea24f6057cc8b2110907827638de020dcdef",
             "size": 23591,
-            "live_was": "151772abb5e417aa9e69322e1823d5dbcb1653cd4b9690377e678586501e113c"
+            "live_was": "151772abb5e417aa9e69322e1823d5dbcb1653cd4b9690377e678586501e113c",
+            "existed": true,
+            "old_sha": "151772abb5e417aa9e69322e1823d5dbcb1653cd4b9690377e678586501e113c"
         },
         "app/admin/widgets.php": {
             "sha": "cde45dd3b938deedff702e510f9a411cfc394aaf3d36ad56392de07fe89535f1",
             "size": 12702,
-            "live_was": "8e406bbe3358a0da46a81cfb819ee384386c3d74895ff1f6754d5ee46bf254c3"
+            "live_was": "8e406bbe3358a0da46a81cfb819ee384386c3d74895ff1f6754d5ee46bf254c3",
+            "existed": true,
+            "old_sha": "8e406bbe3358a0da46a81cfb819ee384386c3d74895ff1f6754d5ee46bf254c3"
         },
         "app/ui/command-strip.php": {
             "sha": "fa3c9c68248269d8a6c8aa1847e741cf93545655e7c18c1b53da75dc1d0d170a",
             "size": 22449,
-            "live_was": "d1ec5e3002c8c25cb24108568a87231847e61f3c863e921a84e86a2737dfde2d"
+            "live_was": "d1ec5e3002c8c25cb24108568a87231847e61f3c863e921a84e86a2737dfde2d",
+            "existed": true,
+            "old_sha": "d1ec5e3002c8c25cb24108568a87231847e61f3c863e921a84e86a2737dfde2d"
         },
         "app/ui/faq.md": {
             "sha": "b520e844448361d0f86a1ee4d77fa01e79728d4052a8c7e51cc1f0bad20d438a",
             "size": 436936,
-            "live_was": "34ff2cdcd3d39989113d5c2ef3cbc897251892dc3781d1b831e1556f1c44e94c"
+            "live_was": "34ff2cdcd3d39989113d5c2ef3cbc897251892dc3781d1b831e1556f1c44e94c",
+            "existed": true,
+            "old_sha": "34ff2cdcd3d39989113d5c2ef3cbc897251892dc3781d1b831e1556f1c44e94c"
         },
         "app/scripts/got_it_tick.php": {
             "sha": "8bc09d18443fd257c398863d409ceb59b917337989ed9f6f186e92a81a747b69",
             "size": 902,
-            "live_was": "75fbbb76218dad80205d8ff03cab245dd1cf120164ecf9f7ddb148a12801d7e0"
+            "live_was": "75fbbb76218dad80205d8ff03cab245dd1cf120164ecf9f7ddb148a12801d7e0",
+            "existed": true,
+            "old_sha": "75fbbb76218dad80205d8ff03cab245dd1cf120164ecf9f7ddb148a12801d7e0"
         },
         "app/lib/ClientOrders.php": {
             "sha": "2c4c5457e0391efade7141e7bf16df08445bba395f6d0c13d4fac17252208dfc",
             "size": 233296,
-            "live_was": "0378e82dc95630205fcdbb3fcfec8ba7578c0acdf85bcc97db0d34469553fda8"
+            "live_was": "0378e82dc95630205fcdbb3fcfec8ba7578c0acdf85bcc97db0d34469553fda8",
+            "existed": true,
+            "old_sha": "0378e82dc95630205fcdbb3fcfec8ba7578c0acdf85bcc97db0d34469553fda8"
         },
         "app/lib/Pulse.php": {
             "sha": "0045dab72e7d7d517a18cbbb1a5137823416027ed3f20167435cc3470b3efdd5",
             "size": 165671,
-            "live_was": "784d724986f52396719fae53820a407e201e9f8418e205a9750cb402f6c1d3be"
+            "live_was": "784d724986f52396719fae53820a407e201e9f8418e205a9750cb402f6c1d3be",
+            "existed": true,
+            "old_sha": "784d724986f52396719fae53820a407e201e9f8418e205a9750cb402f6c1d3be"
         },
         "website/admin/client-order.php": {
             "sha": "869949fc06e49a0f6f37643da8bfb4def816f0ba20479a0d9480c25a8d69bcff",
             "size": 261060,
-            "live_was": "81d3b507b73520f71ab194eb0e8fbd61a3bc85eb18dc534b8e05d32449d546db"
+            "live_was": "81d3b507b73520f71ab194eb0e8fbd61a3bc85eb18dc534b8e05d32449d546db",
+            "existed": true,
+            "old_sha": "81d3b507b73520f71ab194eb0e8fbd61a3bc85eb18dc534b8e05d32449d546db"
         },
         "website/order.php": {
             "sha": "cf7223e45ac1386bb81fac6ef4efc263d7f2722b7e0a07d523a4c2409d28c4f9",
             "size": 67789,
-            "live_was": "7adf0ce26d2b4bc044ea8992785bb86b95f94f747d7aa18ea2f9ab5a0ad3b82d"
+            "live_was": "7adf0ce26d2b4bc044ea8992785bb86b95f94f747d7aa18ea2f9ab5a0ad3b82d",
+            "existed": true,
+            "old_sha": "7adf0ce26d2b4bc044ea8992785bb86b95f94f747d7aa18ea2f9ab5a0ad3b82d"
         },
         "website/js/admin-kit.js": {
             "sha": "0edfc8d0ed2899778707aa6c11035cf2793992cd73aff85730342dd96392d7f4",
             "size": 69377,
-            "live_was": "908e25a1fc31aa89d7dd3c67ccb5cf1182b9de242ea14ea0cb04957390b030f4"
+            "live_was": "908e25a1fc31aa89d7dd3c67ccb5cf1182b9de242ea14ea0cb04957390b030f4",
+            "existed": true,
+            "old_sha": "908e25a1fc31aa89d7dd3c67ccb5cf1182b9de242ea14ea0cb04957390b030f4"
         }
     },
     "migrations": [],
     "checks": {
         "ok": true,
-        "where": "staging",
-        "at": "2026-11-23T21:05:19+00:00",
+        "where": "live",
+        "at": "2026-11-23T21:05:22+00:00",
         "items": [
             [
                 "PHP files parse",
@@ -96,7 +122,7 @@
             [
                 "Pages answer",
                 true,
-                "4 pages answered on staging.trvgo.us"
+                "4 pages answered on traversence.com"
             ],
             [
                 "No new fatal errors in the logs",
@@ -126,6 +152,16 @@
             "at": "2026-11-23T21:05:19+00:00",
             "by": 0,
             "msg": "Put on staging (13 files); its checks passed."
+        },
+        {
+            "at": "2026-11-23T21:05:21+00:00",
+            "by": 0,
+            "msg": "Approved in chat before it was sent through git, and its checks on staging passed: publishing by itself."
+        },
+        {
+            "at": "2026-11-23T21:05:21+00:00",
+            "by": 0,
+            "msg": "Published: 13 files; everyone at once (no switch)."
         }
     ]
 }
