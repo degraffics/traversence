@@ -20,6 +20,7 @@ for(const w of [1280,390]){const p=await b.newPage({viewport:{width:w,height:900
  ok(await p.locator('[data-sign]:not([data-sign=scope]):not([data-sign=target])').count()===0,w+' no Sign off on items');
  await p.click('[data-view=dev] .ib:visible .acts [data-send]');ok(await p.locator('[data-view=dev] .ib:visible .done').count()===1&&!(await p.locator('[data-view=dev] .ib:visible .acts [data-send]').isVisible()),w+' Fixing line replaces Fix it');
  await p.screenshot({path:`${out}/dev-${w}-fixing.png`,fullPage:true});
+ ok(/^Next issue: /.test(await p.locator('[data-view=dev] .ib:visible .done .b').textContent()),w+' step 4 after Fixing: Next issue');
  await p.click('[data-view=dev] .ib:visible .done [data-demo]');ok(await p.locator('[data-view=dev] .ib:visible .done b.ok').count()===1,w+' cleared shows');
  ok(await p.locator('[data-view=dev] .ib:visible .done .b').count()===1,w+' step 4: a Next button');ok(await p.locator('[data-view=dev] .ib:visible .acts:visible').count()===0&&await p.locator('[data-view=dev] .ib:visible .c-fail').count()===0,w+' cleared: the issue buttons and chip go');await p.screenshot({path:`${out}/dev-${w}-next.png`,fullPage:true});
  await p.click('[data-view=dev] .ex[aria-expanded=true]');await p.click('[data-view=dev] .it:visible .ex >> nth=1');await p.click('[data-view=dev] .ib:visible .acts [data-send]');await p.click('[data-view=dev] .ib:visible .done [data-undo]');ok(await p.locator('[data-view=dev] .ib:visible .acts [data-send]').isVisible(),w+' Undo puts it back');

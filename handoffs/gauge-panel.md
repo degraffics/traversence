@@ -137,8 +137,13 @@ tv_ops_form on the cards.
 - After a press, one line: "Signs in as … · recorded by …, <time>", with Change and Undo. The form folds away.
 - No notice repeats the line, and no notice promises a button that isn't on screen.
 
-Open: the session manager's revision-3 list also names "Sign off the scope". Its Q3 ruling keeps the scope sign-off, so
-the mockup keeps it until it says which stands.
+Also in revision 4, from the Design reviewer's revision 3 review and the session manager's ruling (2026-11-23):
+- **Step 4 right after Fixing:** "Next issue: <its name> ▸" opens the next issue in the same group. On the last one it
+  reads "All 6 sent: back to the gauge". Once the item clears, its own Next replaces it.
+- **The Fixing line names the build:** "sent to the Discovery build". The issue reads "Brand standards failed".
+- **The scope card stays,** as "Approve the scope" (not "Sign off"). The session manager: "Approving a scope is a real
+  decision of Jason's, not an issue being cleared". It's what moves a gauge out of Planning (§3). Its done line reads
+  "Scope approved by Jason, <time> · Undo". The target works the same way, with "Approve the target".
 
 ## Every element and where it leads
 

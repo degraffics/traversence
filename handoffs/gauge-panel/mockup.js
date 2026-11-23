@@ -21,6 +21,13 @@ function done(btn,line){const box=btn.closest('.acts')||btn.parentNode;const d=d
  const demo=d.querySelector('[data-demo]');if(demo)demo.onclick=()=>{const nx=btn.dataset.next||'';box.hidden=true;const it=btn.closest('.it');if(it)$$('.chip.c-fail',it).forEach(c=>c.remove());
   d.innerHTML='<span><b class="ok">Cleared:</b> its check passed, '+now()+'.</span>'+(nx?'<button type="button" class="b go sm" data-send="next" data-what="'+esc(nx)+'">Next: '+esc(nx)+'</button>':'<span>Nothing more: every step met.</span>');};
  btn.hidden=true;box.after(d);}
+// step 4 right after Fixing: the next issue opens, or the last one goes back to the gauge (Design reviewer, 2026-11-23)
+function nextIssue(btn){const it=btn.closest('.it[data-b]');if(!it)return;const sp=it.closest('.sp');const d=it.querySelector('.done');
+ const rest=$$('.it[data-b='+it.dataset.b+']',sp).filter(x=>x!==it&&!x.querySelector('.done'));const b=document.createElement('button');b.type='button';b.className='b go sm';
+ if(rest.length){const nx=rest[0];b.textContent='Next issue: '+nx.querySelector('.nm').textContent+' ▸';b.onclick=()=>{it.querySelector('.ib').hidden=true;it.querySelector('.ex').setAttribute('aria-expanded','false');
+  $('.items',sp).classList.add('all');nx.hidden=false;nx.querySelector('.ib').hidden=false;nx.querySelector('.ex').setAttribute('aria-expanded','true');nx.scrollIntoView({block:'nearest',behavior:'smooth'});nx.querySelector('.ib .b.go').focus({preventScroll:true});};}
+ else{const n=$$('.it[data-b='+it.dataset.b+']',sp).length;b.textContent='All '+n+' sent: back to the gauge';b.onclick=()=>{sp.scrollIntoView({block:'start',behavior:'smooth'});};}
+ d.querySelector('[data-demo]').before(b);}
 document.addEventListener('click',ev=>{const t=ev.target.closest('button,a');const leg=$('.dleg:not([hidden])');
  if(leg&&!ev.target.closest('.dleg,.info')){leg.hidden=true;$('.info[aria-expanded=true]').setAttribute('aria-expanded','false');}
  if(!t)return;const sp=t.closest('.sp');
@@ -34,8 +41,8 @@ document.addEventListener('click',ev=>{const t=ev.target.closest('button,a');con
  const href=t.getAttribute('href')||'';
  if(href.startsWith('#ac-')){ev.preventDefault();const c=$(href);c.scrollIntoView({block:'center',behavior:'smooth'});c.classList.add('flash');setTimeout(()=>c.classList.remove('flash'),1400);c.querySelector('.b').focus({preventScroll:true});return;}
  if(href.startsWith('#site-health')){ev.preventDefault();toast('Scrolls to its row in Site health, on the Development page under the gauges.');return;}
- if(t.dataset.send!==undefined){done(t,'<b>Fixing:</b> '+esc(t.dataset.what||'the issue')+' · sent to a build for its owning session · Jason, '+now()+'. It clears itself once its check passes.');return;}
- if(t.dataset.sign!==undefined){const s=t.dataset.sign;done(t,s==='scope'?'<b>Scope signed off</b> by Jason, '+now()+'. The gauge leaves Planning.':s==='target'?'<b>Target approved</b> by Jason, '+now()+'.':'<b>Done</b> by Jason, '+now()+'.');return;}
+ if(t.dataset.send!==undefined){const g=(sp&&sp.dataset.gauge)||'its';done(t,'<b>Fixing:</b> '+esc(t.dataset.what||'the issue')+' · sent to the '+esc(g)+' build · Jason, '+now()+'. It clears itself once its check passes.');nextIssue(t);return;}
+ if(t.dataset.sign!==undefined){const s=t.dataset.sign;done(t,s==='scope'?'<b>Scope approved</b> by Jason, '+now()+'. The gauge leaves Planning.':s==='target'?'<b>Target approved</b> by Jason, '+now()+'.':'<b>Done</b> by Jason, '+now()+'.');return;}
  if(t.dataset.path){toast('Opens the '+t.textContent.replace(/\s*·.*/,'')+' path: each one a row that opens its own page.');return;}
  if(t.dataset.open&&sp){ev.preventDefault();sub(sp,t.dataset.open,t.dataset.id);return;}
  if(t.dataset.back!==undefined&&sp){t.closest('.sub').remove();return;}

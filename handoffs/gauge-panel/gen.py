@@ -206,7 +206,7 @@ def item_row(n, item):
     acts = []   # one filled button per box: the first; the rest outlined (change 1)
     if b == 'fail':
         fc = [c[0] for c in item['checks'] if c[1] == 'fail']
-        what = (f['title'] if f else nm(fc[0]) + ' fails').rstrip('.')
+        what = (f['title'] if f else nm(fc[0]) + ' failed').rstrip('.')
         acts.append('<button type="button" class="b go" data-send="%d" data-what="%s" data-next="%s">Fix it</button>' % (n, e(what), e(next_step(item, 'fail'))))
         if f:
             acts.append('<button type="button" class="b ol" data-open="finding" data-id="%s">See the evidence</button>' % e(f['id']))
@@ -259,8 +259,8 @@ def dev_panel(gid):
     for i in items:
         for c in i.get('no_check', []):
             nc[c] = nc.get(c, 0) + 1
-    cards = [('sign', 'It stays at 0 in Planning until you sign off what 100 means: these %d things, each with its six steps.' % n,
-              '<button type="button" class="b go" data-sign="scope">Sign off the scope</button>')]
+    cards = [('sign', 'It stays at 0 in Planning until you approve what 100 means: these %d things, each with its six steps.' % n,
+              '<button type="button" class="b go" data-sign="scope">Approve the scope</button>')]
     if counts['fail']:
         cards.append(('fail', '%d issue%s to fix. Each opens its evidence and its Fix it; it clears itself once its check passes.' % (counts['fail'], '' if counts['fail'] == 1 else 's'),
                       '<button type="button" class="b go" data-f="fail">Show the %d</button>' % counts['fail']))
@@ -277,10 +277,10 @@ def dev_panel(gid):
     prev = g.get('preview')
     if prev is None:   # the site computes the preview (ControlGauges::devScore); the draft's share of steps met, as §6
         prev = round(100 * sum(len(i.get('met', [])) for i in items) / (6 * n))
-    return '''<aside class="sp" aria-label="%(t)s">
+    return '''<aside class="sp" aria-label="%(t)s" data-gauge="%(t)s">
 <button type="button" class="spx" aria-label="Close">×</button>
 <p class="crumb">Development · %(side)s</p>
-<div class="top">%(gauge)s<div><h3>%(t)s</h3><p><span class="pill">Planning</span> <span class="meta">%(prev)d%% once you sign off the draft</span></p>
+<div class="top">%(gauge)s<div><h3>%(t)s</h3><p><span class="pill">Planning</span> <span class="meta">%(prev)d%% once you approve the draft</span></p>
 <p class="moves">What moves it: <b>%(n)d things</b></p></div></div>
 <div class="bar" role="group" aria-label="Its %(n)d things by where they stand">%(bar)s</div>
 <div class="legend">%(legend)s</div>
@@ -340,7 +340,7 @@ def rt_panel(gid):
         nrows += '<li class="it"><div class="ih"><span class="nm2">%s</span></div><div class="chips">%s</div><p class="meta">Else: %s</p></li>' % (e(plain(nd['label'])), srcs, e(plain(nd.get('fallback', ''))))
     for u in d.get('unmapped', []):
         nrows += '<li class="it"><div class="ih"><span class="bk bk-build"></span><span class="nm2">%s</span><button type="button" class="b sm go" data-send="map">Send to a build</button></div><p class="meta">Not mapped to a need yet: a build maps it.</p></li>' % e(u)
-    return '''<aside class="sp" aria-label="%(t)s">
+    return '''<aside class="sp" aria-label="%(t)s" data-gauge="%(t)s">
 <button type="button" class="spx" aria-label="Close">×</button>
 <p class="crumb">Board · %(box)s</p>
 <div class="top">%(gauge)s<div><h3>%(t)s</h3><p><span class="pill">%(stage)s</span></p>
