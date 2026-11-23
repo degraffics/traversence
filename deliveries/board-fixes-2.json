@@ -1,13 +1,17 @@
 {
- "zip": "board-fixes.zip",
+ "zip": "board-fixes-2.zip",
  "built_on": "8283c24 Sync: 2026-11-23 14:53 UTC",
- "recorded": "2026-11-23 15:04 UTC",
- "note": "Jobs and words: upkeep once an hour, the lateness check, refused starts, the health jobs section; alarm titles; Google's sign-in account; the Sync chip; built on Sync 14:53 UTC Sent through git (releases/inbox).",
+ "recorded": "2026-11-23 15:07 UTC",
+ "note": "Jobs and words, alarm titles, Google's sign-in account, the Sync chip; plain names in the Alarms table, drawer titles on two lines; built on Sync 14:53 UTC (replaces the unsent board-fixes.zip) Sent through git (releases/inbox).",
  "status": "pending",
  "live_in": "",
  "files": {
   "app/admin/control-console.php": {
    "sha256": "33e776e5d91f782d9e6e8927c1684897939972e33bdaa7379e7da79b8d875266",
+   "live": false
+  },
+  "app/admin/kit-css.php": {
+   "sha256": "ed2dce33671a2a4b911fcc692697ddd5c96cf28d398acc2ebf0db2b42c05f5da",
    "live": false
   },
   "app/admin/module-cards.php": {
@@ -16,6 +20,10 @@
   },
   "app/admin/operations-console.php": {
    "sha256": "bb8848a2d9d401ca5fcc68c54a10fe05efa48f8af982afe94ee854526c06f1c6",
+   "live": false
+  },
+  "app/admin/tools.php": {
+   "sha256": "2f421890935e3995b6f12eb584a4e4b085eaa05af63261308f3bbd83c1fee335",
    "live": false
   },
   "app/lib/ControlAlarms.php": {

@@ -26,7 +26,7 @@ What was found:
   - it didn't exclude QUIET and RETIRED jobs, or one taken out on purpose;
   - its times were Arizona time, unlabelled.
 
-## What changed (11 files)
+## What changed (13 files)
 
 - **`app/lib/Scheduler.php`:**
   - `sync()`: its upkeep is behind the hourly guard, batch sizes unchanged;
@@ -58,6 +58,9 @@ What was found:
   - the handler: `svc_signin`, `svc_signin_undo` (the register's permission).
 - **`app/admin/control-console.php`:** the Sync chip. `ops:watch:*` alarms (Railway and the sync) get their own chip and
   are never also under Warnings.
+- **`app/admin/tools.php`, `app/admin/kit-css.php`** (found in the design screenshots): the Alarms table's Process column
+  names a part plainly when the board has no row for it (it showed `job:identity_re…`), and a drawer's title wraps to two
+  lines instead of being cut.
 - **`app/ui/faq.md`:** the Sync chip, and "Which account does each outside service sign in as?".
 
 No migration, no switch. The one outside call is cPanel's API, through `CPanel::api2`'s own gate.
