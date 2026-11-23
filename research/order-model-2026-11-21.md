@@ -166,9 +166,10 @@ separate. A module of its own, to be scoped.
 reorders... all need notifications and definitions." Then: "4hr, 24hr, 72hr, 7 business days, 14 days." and "Reorder:
 suggestions 3 to 6 months after initial order, give client a way to set when to reorder alert."
 - **Reminder schedule:** 4 hours, 24 hours, 72 hours, 7 business days, 14 days (the 14th day is also when a quote's
-  price lapses, 1.8). To confirm: that it applies to an abandoned cart and to stalled processing alike, to whoever
-  holds the next step.
-- **Saved for later:** an item moved out of the cart on purpose (definition described; its notices to confirm).
+  price lapses, 1.8). It applies to an abandoned cart and to stalled processing alike (2026-11-23: "Abandoned, stalled
+  follow 4,24,72..."), sent to whoever holds the next step.
+- **Saved for later:** an item moved out of the cart on purpose. Its reminder follows the reorder timing (2026-11-23:
+  "Saved: use reorder time"): a suggestion 3 to 6 months on, or when the client sets it.
 - **Reorder:** a suggestion 3 to 6 months after the first order; the client can set when their reorder alert comes.
 - The definitions (from the Orders session's table, 2026-11-22): **stalled processing**, an item in the ordering queue
   that hasn't moved, waiting on the client, us or the vendor; **abandoned cart**, released items not checked out;
@@ -257,8 +258,7 @@ the pass is the product. It shapes 1.2's client-configured items and 1.8's money
 7. ~~A change after release~~ Answered (1.9), with 0098's "Fix it, credit, then refund" for a lower total.
 8. ~~Shipping price~~ Answered (1.14): a shipping module, to be scoped.
 9. ~~A mixed cart~~ Answered (1.3): the cart only holds ready items; items being prepared are in the ordering queue.
-10. ~~Reminders~~ Answered (1.15); to confirm the schedule covers both an abandoned cart and stalled processing, and
-    saved-for-later's notices.
+10. ~~Reminders~~ Answered (1.15).
 11. The order page as the conversation (1.12), and reorders (1.11): to confirm.
 12. Still open from before: the file check's limits (at the build), design capacity, a fingerprint of the approved file,
     nudges for missing art, order mail onto the one dispatcher.
