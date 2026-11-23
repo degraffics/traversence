@@ -105,13 +105,14 @@
   {
    "path": "app/admin/operations-console.php",
    "functions": [
-    "tv_ops_ctx"
+    "tv_ops_ctx",
+    "tv_ops_keys"
    ],
    "kind": "change",
    "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
-   "why": "Gauge panel release: a finished step replaces its form on the cards (Jason, 2026-11-23)",
+   "why": "Gauge panel release: the keys' Railway link as an icon (Jason, 2026-11-23)",
    "since": "2026-11-23T19:58:00Z",
-   "expires": "2026-11-24T00:23:56Z",
+   "expires": "2026-11-24T00:41:06Z",
    "release": "gauge-panel.zip",
    "callers": {}
   },
