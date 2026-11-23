@@ -246,6 +246,58 @@
    "expires": "2026-11-23T23:26:27Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/admin/control-console.php",
+   "functions": [
+    "tv_cb_development",
+    "tv_cb_gauge_card",
+    "tv_cb_gauge_detail",
+    "tv_cb_gd_slot"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
+   "why": "Gauge panel as a drill-down, approved by Jason 2026-11-23 (handoffs/gauge-panel.md)",
+   "since": "2026-11-23T19:46:07Z",
+   "expires": "2026-11-23T23:46:07Z",
+   "release": "gauge-panel.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ControlGauges.php",
+   "functions": [
+    "development",
+    "runtime"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
+   "why": "Gauge panel as a drill-down, approved by Jason 2026-11-23 (handoffs/gauge-panel.md)",
+   "since": "2026-11-23T19:46:07Z",
+   "expires": "2026-11-23T23:46:07Z",
+   "release": "gauge-panel.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/js/admin-control.js",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
+   "why": "Gauge panel as a drill-down, approved by Jason 2026-11-23 (handoffs/gauge-panel.md)",
+   "since": "2026-11-23T19:46:07Z",
+   "expires": "2026-11-23T23:46:07Z",
+   "release": "gauge-panel.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/staging-tables.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
+   "why": "Gauge panel as a drill-down, approved by Jason 2026-11-23 (handoffs/gauge-panel.md)",
+   "since": "2026-11-23T19:46:07Z",
+   "expires": "2026-11-23T23:46:07Z",
+   "release": "gauge-panel.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
