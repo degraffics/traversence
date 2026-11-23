@@ -271,6 +271,19 @@
    "expires": "2026-11-23T23:08:14Z",
    "release": "collect-balance.zip",
    "callers": {}
+  },
+  {
+   "path": "website/admin/client-order.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
+   "why": "Collect the balance: the payment hold said once on the order page (Design reviewer, 2026-11-23)",
+   "since": "2026-11-23T19:15:24Z",
+   "expires": "2026-11-23T23:15:24Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
