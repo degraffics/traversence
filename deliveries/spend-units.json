@@ -3,12 +3,12 @@
  "built_on": "4a94342 Sync: 2026-11-23 01:52 UTC",
  "recorded": "2026-11-23 02:07 UTC",
  "note": "Fix #261: counts in their own unit. Built on Sync: 2026-11-23 01:52 UTC. Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "1fba680 Sync: 2026-11-23 04:09 UTC",
  "files": {
   "app/admin/crawler-console.php": {
    "sha256": "a87f8717119117d2a3ccd08bc20750e4cd658ebbda5e43937a45d8b3db7cf06a",
-   "live": false
+   "live": true
   }
  }
 }
