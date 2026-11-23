@@ -113,7 +113,9 @@ at 6:00 and 18:00 UTC or on demand (its workflow's Run button), committing the r
   - **Before writing any file for a zip**, fetch the mirror and start every file from its live copy, never from a copy
     held earlier in the session. If a release was published since the newest sync, run the sync first.
   - **Just before zipping**, fetch once more. A file changed there since gets only this build's change re-applied
-    (most often `faq.md`, `manifests.php`, `tools.php`, `Pulse.php`, `section-rails.php`, `portal.php`, the router).
+    (most often `faq.md`, `manifests.php`, `tools.php`, `Pulse.php`, `section-rails.php`, `portal.php`, the router),
+    and no other release in flight (Planned/On staging) touches a file you carry; if one does, wait for its sync and
+    rebuild that file (2026-11-23: #270 overwrote #269's lines in three files merged a minute apart).
   - **A zip blocked only by `faq.md`** in another session's pending zip (Jason, 2026-11-13): wait for that release to go
     live, re-apply only your own entries on the live copy, and send. FAQ edits only add, so don't ask Jason.
   - The hand-off names the sync it's built on ("built on 17:44 UTC") and lists the zip's files. Never build on another

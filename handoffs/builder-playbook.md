@@ -19,6 +19,10 @@ Each rule below comes from a real mistake (in brackets) so it isn't repeated.
 - **Start from the newest sync**: fetch the mirror, and if a release went live after its last "Sync:" commit, ask the
   session manager to run one. Never build on a copy held earlier in the session. [#117's follow-up was nearly built on 01:32.]
 - **Claim before writing** (`checkout.py claim`), as CLAUDE.md says.
+- **Nothing else in flight on your files, just before merging.** Check main's release records for another release
+  Planned or On staging that touches a file you carry; if one does, wait for it to go live and sync, then rebuild that
+  file on the new live copy. [#270 (Orders release A) overwrote #269's (the board's) lines in kit-css.php, tools.php and
+  faq.md: both were merged a minute apart, and the mirror check ran before #269 had synced.]
 - **Build with live data, through the test accounts** (Jason, 2026-11-23: "this is why we have those accounts, we use them
   for building and audits, so we should not be reinventing things when we already have the tools to do our job"): check a
   build's state, examples and mockups against the live site's own records, never by guessing or sample rows alone. Start
