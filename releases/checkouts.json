@@ -178,6 +178,19 @@
    "expires": "2026-11-23T23:59:17Z",
    "release": "gauge-panel.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/ServiceHealth.php",
+   "functions": [
+    "lineTitle"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
+   "why": "Gauge panel release: a check's transport error read as the service's own words",
+   "since": "2026-11-23T19:59:54Z",
+   "expires": "2026-11-23T23:59:54Z",
+   "release": "gauge-panel.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
