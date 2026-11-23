@@ -1,0 +1,66 @@
+{
+ "zip": "order-m1.zip",
+ "built_on": "8a94377 Sync: 2026-11-23 19:36 UTC",
+ "recorded": "2026-11-23 20:23 UTC",
+ "note": "Order management M1: the state model and the board; built on Sync 2026-11-23 19:36 UTC (8a94377) Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/Workflow.php": {
+   "sha256": "ab20e8da3701881160b6283edae6f749f0843db23974eec91c8c0635c001a741",
+   "live": false
+  },
+  "app/admin/kit-css.php": {
+   "sha256": "12865bbe7de3a504abb20b168f1b3c7df65930409e584993310e1e9fda2efb5a",
+   "live": false
+  },
+  "app/admin/manifests.php": {
+   "sha256": "a89e36eac49526cbcc1310b729f1ea24f6057cc8b2110907827638de020dcdef",
+   "live": false
+  },
+  "app/admin/tools.php": {
+   "sha256": "cf288f9904dfb98a51e7bd3b811cc804e1048c8cca49fc537acce1b49443b889",
+   "live": false
+  },
+  "app/admin/widgets.php": {
+   "sha256": "3bb3b8f2b3f426eb6fa4756f79087a702ff582cc02297d2db6b2bfa86656b234",
+   "live": false
+  },
+  "app/admin/workflows.php": {
+   "sha256": "687182c3ba87a75c791c8440f4eb64e6a987cbae3e99d61d83d48b403e227633",
+   "live": false
+  },
+  "app/lib/ClientOrders.php": {
+   "sha256": "429d8214c52d57dc96da92234a6157a6e5faf564393b1b233e5a45a7c0ba5a8b",
+   "live": false
+  },
+  "app/lib/Pulse.php": {
+   "sha256": "a57d51e29d43a7ea8114b188de044af4da32b55c646e4d816702170224f8090c",
+   "live": false
+  },
+  "app/scripts/got_it_tick.php": {
+   "sha256": "8bc09d18443fd257c398863d409ceb59b917337989ed9f6f186e92a81a747b69",
+   "live": false
+  },
+  "app/ui/command-strip.php": {
+   "sha256": "72984dbe54565e3579895839ba422c84a1d6b2ce28bd32475241c5527a273f53",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "49e4a67385ba3f332c265f8f0b6eea8cd7e4b28e3d481fb22b5fc06920b3b761",
+   "live": false
+  },
+  "website/admin/client-order.php": {
+   "sha256": "7d971ff6636e4cccf0fd12a8fde9b9c140a0bdda65952092e0d3eda2b8de8dbf",
+   "live": false
+  },
+  "website/js/admin-kit.js": {
+   "sha256": "0edfc8d0ed2899778707aa6c11035cf2793992cd73aff85730342dd96392d7f4",
+   "live": false
+  },
+  "website/order.php": {
+   "sha256": "cf7223e45ac1386bb81fac6ef4efc263d7f2722b7e0a07d523a4c2409d28c4f9",
+   "live": false
+  }
+ }
+}

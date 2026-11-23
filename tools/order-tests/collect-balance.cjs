@@ -2,7 +2,9 @@
 // harness000…0), at 1280 and 390. Prints PASS/FAIL; exit 1 on a FAIL.
 //  - Back-Office → Orders: an order an admin released before payment that's shipped or ready with a balance due says
 //    "Out the door" with Collect the balance, opening the order at its payment step (#payhold, Record the payment), its
-//    heading in view below the command strip, never under it; one paid in full says Mark complete.
+//    heading in view below the command strip, never under it; one paid in full says Complete the order (under Out the
+//    door). Since M1 (the board, research/order-management-design-2026-11-23.md §4.1) where it stands is the row's own
+//    column, Where it stands, and the board opens on Needs us.
 //  - One fact, shown once (Design reviewer, 2026-11-23): an order waiting for payment (the held id: approved, unpaid, not
 //    released) says the hold and offers Release before payment only under Waiting for payment; Work orders carries one
 //    amber line, Held until it's paid: <that section's heading> ↑, with no ×, and it goes back up to the payment step.
@@ -20,8 +22,9 @@ const below = (p) => p.evaluate(() => { const h = document.getElementById('payho
     const p = await c.newPage();
     await p.goto(base + '/admin/backoffice/orders', { waitUntil: 'domcontentloaded' }); await p.waitForTimeout(1500);
     const step = (id) => p.evaluate((id) => {
-      const a = [...document.querySelectorAll('a,button')].find((x) => (x.getAttribute('href') || '').startsWith('/admin/backoffice/orders/' + id) && /Collect|Mark|Record|Start|Send|Finish|Open/.test(x.textContent));
-      return a ? { text: a.textContent.trim(), href: a.getAttribute('href'), state: (a.parentElement.textContent || '').replace(a.textContent, '').trim().slice(0, 40), seen: !!a.offsetParent } : null;
+      const a = [...document.querySelectorAll('a,button')].find((x) => (x.getAttribute('href') || '').startsWith('/admin/backoffice/orders/' + id) && /Collect|Mark|Record|Start|Send|Finish|Open|Complete/.test(x.textContent));
+      const row = a && a.closest('tr'), where = row && row.querySelector('[data-col=where] .akt-st');
+      return a ? { text: a.textContent.trim(), href: a.getAttribute('href'), state: where ? where.textContent.trim() : '', seen: !!a.offsetParent } : null;
     }, id);
     // the list, both rows framed (the Design reviewer's proof)
     await p.evaluate((id) => { const a = document.querySelector(`a[href^="/admin/backoffice/orders/${id}"]`); const r = a && a.closest('tr, .akt-card, [data-id]'); if (r) { r.scrollIntoView({ block: 'start' }); const bar = document.querySelector('.cs, .ak-bar, [class*=cmd]'); window.scrollBy(0, -((bar ? bar.getBoundingClientRect().bottom : 120) + 12)); r.style.outline = '2px solid #B45309'; } }, owed);
@@ -29,8 +32,10 @@ const below = (p) => p.evaluate(() => { const h = document.getElementById('payho
     await p.evaluate(() => document.querySelectorAll('[style*="outline"]').forEach((r) => { r.style.outline = ''; }));
     const s1 = await step(owed);
     ok(`${w}: shipped with a balance says Out the door, Collect the balance`, s1 && s1.text === 'Collect the balance' && s1.state === 'Out the door' && s1.href === `/admin/backoffice/orders/${owed}#payhold` && s1.seen, JSON.stringify(s1));
+    await p.click('[data-ak-stage="backoffice/orders|door"]'); await p.waitForTimeout(900);   // the paid one waits on the client: Out the door
     const s2 = await step(paid);
-    ok(`${w}: paid in full and ready says Mark complete`, s2 && s2.text === 'Mark complete', JSON.stringify(s2));
+    ok(`${w}: paid in full and out the door says Complete the order`, s2 && s2.text === 'Complete the order' && s2.state === 'Out the door', JSON.stringify(s2));
+    await p.click('[data-ak-stage="backoffice/orders|needs"]'); await p.waitForTimeout(900);
     if (s1) {
       await Promise.all([p.waitForURL(/#payhold/, { timeout: 8000 }).catch(() => {}), p.click(`a[href="${s1.href}"]`)]);
       await p.waitForTimeout(1200);

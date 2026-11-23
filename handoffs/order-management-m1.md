@@ -111,3 +111,55 @@ balance (0178 §6's three ways), complete; the drawer's Complete greyed with the
 
 - Task: check Payment reminders catches up after the board's release 2 (`pay_wait_tick`).
 - Release B (0177 §1, one invoice per destination) is M5.
+
+## Built: M1 (the Orders session after the hand-off, session_01CXLi5jrE1f1iCSbBQssAAe), 2026-11-23
+
+Release `order-m1.zip`, built on Sync 2026-11-23 19:36 UTC (`8a94377`), no release live since. Not sent yet: Design
+reviewer, then the session manager, then Jason. Files (each differs from the live copy; claims under `order-m1.zip`):
+`app/lib/ClientOrders.php` (boardState, releasedAt added; confirmReceived, received, gotItTick, a comment in
+setItemStatus), `app/admin/tools.php` (tv_order_board added; tv_order_next_step now hands back boardState's Next step;
+`backoffice/orders`), `app/admin/widgets.php` (a list's search words, first tile, empty states, range; a metric's sub-line
+and money tile), `app/admin/manifests.php` (`orders`: the board is a table, not the stage pipeline),
+`app/admin/kit-css.php`, `app/admin/Workflow.php` (moves: the adapter's guard greys a move), `app/admin/workflows.php`
+(client_order's guard: Complete while owed), `app/lib/Pulse.php` (the `delbal` case), `app/ui/command-strip.php`
+(`lines`: labeled lines each with a button; `news` still works), `app/ui/faq.md`, `app/scripts/got_it_tick.php` (a
+comment), `website/admin/client-order.php`, `website/js/admin-kit.js`, `website/order.php`. No migration.
+`website/admin/api.php` is NOT in it: the Control Board session holds it (gauge panel); the board re-reads its row instead.
+
+Each behaviour and its source:
+- One state function, three states and one Next step (§3, §3.4) → `ClientOrders::boardState()`; the board, the order
+  page's lines and the drawer's fields read it. Order states §3.1 incl. Link expired and Changes asked (newest proof
+  `changes`); Money §3.2 (Released before payment = an admin's `released` event; a deposit order's balance isn't owed
+  until it's out the door, mockup board-after's totals); Delivery §3.3.
+- "Past due" only with a due date or Net terms (a build reading of §3.4 rule 2: Due on receipt has no later date to be
+  past). **Asked in the summary.**
+- Tiles count by state and filter (§4.1, mockup board); Money owed apart; opens on Needs us (mockup); one filter button
+  (Design reviewer, round 3); count under the table; each tile's empty state (mockup board-empty).
+- Send it again / Send a reminder in the row: ✓ Sent with a Copy icon (CLAUDE.md #1316 icons), Moved to…, tiles recount
+  (mockup board-after; CLAUDE.md #1308). The email that didn't go says so in red with the Copy icon (release A's rule).
+- The order page's three lines (§4.3, mockups order, order-after); Complete greyed with "$X still owed" (#1307); the
+  ▾ menu's Complete/Collect moved to the lines (said once); the email in Bill to; pickup: no address fields; Payment
+  terms in words that never read as paid (the live read of Order #12).
+- 0178 §6 as written: confirmReceived with money owed keeps the delivery and words, thanks the client (their page says
+  "Thank you!", nothing about money), event `delivered_owed`, staff emailed, Pulse `delbal` with the three ways; paid in
+  full then completes it (`received()`); an admin's override is #1307's `completeOwed`. The got-it reminder skips it.
+- The drawer's Complete greyed (M1 part 5) by a code guard the adapter exposes, not the stored definition.
+
+Kept, moved, dropped (playbook §3): Stage column → Where it stands; Total → the drawer and the order; Balance due →
+Money; Updated → dropped (the mockup has no column; sorting by the other columns stays); Show and Whose filters → the one
+button's four choices; tiles Drafts / With clients / Waiting for payment / To make → Needs us / Waiting on the client /
+In production / Out the door + Money owed; the Stage pipeline menu → the tiles (the workflow's stages stay in System
+Configuration → Workflows and the drawer); the strip's ▾ Complete the order / Collect the balance → the Order and Money
+lines; the notice's stacked strings → three lines (sandbox and an open ticket still said under them); the #finish
+"Waiting on the client" notice → the Order line. **Updated is the one drop: in the summary for Jason.**
+
+Tests (design harness, MariaDB, `tools/order-tests/m1-seed.php` seeds 15 orders in every state; the harness's Mailer
+"sends" while `<root>/harness-mail-ok` exists):
+- `m1.php <root>`: 38 checks (each state, tiles, Money owed, Mine/All, the guard, 0178 §6 end to end, Pulse, got-it).
+- `m1.cjs <base> <seed>`: 31 checks × 1280 and 390 (60 + the copy check), every new button pressed; screens in
+  `handoffs/order-m1/`. Against the live files it fails at once (no tiles, no lines).
+- `collect-balance.cjs` and `complete-owed.cjs`: updated to where those buttons live now (the Where it stands column;
+  the Money line instead of ▾); all pass.
+
+Open: task #4 (Payment reminders catching up after the board's release 2) needs a read of System Configuration →
+Scheduled tasks, which `live-read.yml` doesn't offer (orders, order only): asked of the session manager.
