@@ -27,6 +27,8 @@ export async function memberIn(ctx, a, site = SITE, token = CHECK_TOKEN) {
   if (!r.ok()) throw new Error(`member sign-in ${a.email}: ${r.status()} ${(await r.text()).slice(0, 160)}`);
 }
 
+const USED = new Map();   // each login's last code step, this run
+
 /** A staff login signs in on the admin's page: staff ID and password, then the two-step code. */
 export async function staffIn(ctx, a, site = SITE) {
   const p = await ctx.newPage();
@@ -34,9 +36,13 @@ export async function staffIn(ctx, a, site = SITE) {
   await p.fill('#sid', a.staff_id); await p.fill('#pw', a.password);
   await Promise.all([p.waitForNavigation({ waitUntil: 'domcontentloaded', timeout: 30000 }), p.click('button.b')]);   // the password step reloads the page with the code box
   if (await p.$('#code')) {
+    // a two-step code works once: a second sign-in of the same login in the same 30 s window waits for the next code
+    const key = a.totp || a.staff_id; let step = Math.floor(Date.now() / 30000);
+    if (USED.get(key) >= step) { await p.waitForTimeout((step + 1) * 30000 - Date.now() + 500); step = Math.floor(Date.now() / 30000); }
+    USED.set(key, step);
     // the code box sends itself on the 6th digit (js/code-link.js, 3f A11, 2026-11-22), so wait for that first; press
     // Sign in only if the page is still on the code step (an older page, or the script not loaded)
-    await Promise.all([p.waitForNavigation({ waitUntil: 'domcontentloaded', timeout: 10000 }).catch(() => {}), p.fill('#code', totp(a.totp))]);
+    await Promise.all([p.waitForNavigation({ waitUntil: 'domcontentloaded', timeout: 10000 }).catch(() => {}), p.fill('#code', totp(a.totp, step))]);
     if (await p.$('#code')) await Promise.all([p.waitForNavigation({ waitUntil: 'domcontentloaded', timeout: 30000 }).catch(() => {}), p.click('button.b')]);
   }
   const ok = !/\/admin\/login\.php/.test(p.url());
