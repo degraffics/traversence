@@ -10,7 +10,7 @@
    "runs": "1. on every zip and after every sync, on GitHub (no load on the site)",
    "evidence": "https://github.com/degraffics/traversence/blob/main/site-audit/scorecard.md",
    "status": "built",
-   "latest": "0 failures (2026-11-21 19:17 UTC)",
+   "latest": "0 failures (2026-11-23 07:17 UTC)",
    "result": "pass",
    "target_source": "site-audit/rules.md (its rule); decisions/0145 \u00a76 (the zip check blocks the \"yes\" rules)",
    "target_status": "approved (Jason, 2026-11-22)"
@@ -25,7 +25,7 @@
    "runs": "1. on every zip and after every sync, on GitHub (no load on the site)",
    "evidence": "https://github.com/degraffics/traversence/blob/main/site-audit/scorecard.md",
    "status": "built",
-   "latest": "0 failures (2026-11-21 19:17 UTC)",
+   "latest": "0 failures (2026-11-23 07:17 UTC)",
    "result": "pass",
    "target_source": "site-audit/rules.md (its rule); decisions/0145 \u00a76 (the zip check blocks the \"yes\" rules)",
    "target_status": "approved (Jason, 2026-11-22)"
@@ -40,7 +40,7 @@
    "runs": "1. on every zip and after every sync, on GitHub (no load on the site)",
    "evidence": "https://github.com/degraffics/traversence/blob/main/site-audit/scorecard.md",
    "status": "built",
-   "latest": "0 failures (2026-11-21 19:17 UTC)",
+   "latest": "0 failures (2026-11-23 07:17 UTC)",
    "result": "pass",
    "target_source": "site-audit/rules.md (its rule); decisions/0145 \u00a76 (the zip check blocks the \"yes\" rules)",
    "target_status": "approved (Jason, 2026-11-22)"
@@ -55,7 +55,7 @@
    "runs": "1. on every zip and after every sync, on GitHub (no load on the site)",
    "evidence": "https://github.com/degraffics/traversence/blob/main/site-audit/scorecard.md",
    "status": "built",
-   "latest": "0 failures (2026-11-21 19:17 UTC)",
+   "latest": "0 failures (2026-11-23 07:17 UTC)",
    "result": "pass",
    "target_source": "site-audit/rules.md (its rule); decisions/0145 \u00a76 (the zip check blocks the \"yes\" rules)",
    "target_status": "approved (Jason, 2026-11-22)"
@@ -70,7 +70,7 @@
    "runs": "1. on every zip and after every sync, on GitHub (no load on the site)",
    "evidence": "https://github.com/degraffics/traversence/blob/main/site-audit/scorecard.md",
    "status": "built",
-   "latest": "0 failures (2026-11-21 19:17 UTC)",
+   "latest": "0 failures (2026-11-23 07:17 UTC)",
    "result": "pass",
    "target_source": "site-audit/rules.md (its rule); decisions/0145 \u00a76 (the zip check blocks the \"yes\" rules)",
    "target_status": "approved (Jason, 2026-11-22)"
@@ -85,7 +85,7 @@
    "runs": "1. on every zip and after every sync, on GitHub (no load on the site)",
    "evidence": "https://github.com/degraffics/traversence/blob/main/site-audit/scorecard.md",
    "status": "built",
-   "latest": "0 failures (2026-11-21 19:17 UTC)",
+   "latest": "0 failures (2026-11-23 07:17 UTC)",
    "result": "pass",
    "target_source": "site-audit/rules.md (its rule); decisions/0145 \u00a76 (the zip check blocks the \"yes\" rules)",
    "target_status": "approved (Jason, 2026-11-22)"
@@ -100,7 +100,7 @@
    "runs": "1. on every zip and after every sync, on GitHub (no load on the site)",
    "evidence": "https://github.com/degraffics/traversence/blob/main/site-audit/scorecard.md",
    "status": "built",
-   "latest": "0 failures (2026-11-21 19:17 UTC)",
+   "latest": "0 failures (2026-11-23 07:17 UTC)",
    "result": "pass",
    "target_source": "site-audit/rules.md (its rule); decisions/0145 \u00a76 (the zip check blocks the \"yes\" rules)",
    "target_status": "approved (Jason, 2026-11-22)"
@@ -115,7 +115,7 @@
    "runs": "1. on every zip and after every sync, on GitHub (no load on the site)",
    "evidence": "https://github.com/degraffics/traversence/blob/main/site-audit/scorecard.md",
    "status": "built",
-   "latest": "0 failures (2026-11-21 19:17 UTC)",
+   "latest": "0 failures (2026-11-23 07:17 UTC)",
    "result": "pass",
    "target_source": "site-audit/rules.md (its rule); decisions/0145 \u00a76 (the zip check blocks the \"yes\" rules)",
    "target_status": "approved (Jason, 2026-11-22)"
@@ -130,7 +130,7 @@
    "runs": "1. on every zip and after every sync, on GitHub (no load on the site)",
    "evidence": "https://github.com/degraffics/traversence/blob/main/site-audit/scorecard.md",
    "status": "built",
-   "latest": "0 failures (2026-11-21 19:17 UTC)",
+   "latest": "0 failures (2026-11-23 07:17 UTC)",
    "result": "pass",
    "target_source": "site-audit/rules.md (its rule); decisions/0145 \u00a76 (the zip check blocks the \"yes\" rules)",
    "target_status": "approved (Jason, 2026-11-22)"
@@ -145,7 +145,7 @@
    "runs": "1. on every zip and after every sync, on GitHub (no load on the site)",
    "evidence": "https://github.com/degraffics/traversence/blob/main/site-audit/scorecard.md",
    "status": "built",
-   "latest": "0 failures (2026-11-21 19:17 UTC)",
+   "latest": "0 failures (2026-11-23 07:17 UTC)",
    "result": "pass",
    "target_source": "site-audit/rules.md (its rule); decisions/0145 \u00a76 (the zip check blocks the \"yes\" rules)",
    "target_status": "approved (Jason, 2026-11-22)"
@@ -160,7 +160,7 @@
    "runs": "1. on every zip and after every sync, on GitHub (no load on the site)",
    "evidence": "https://github.com/degraffics/traversence/blob/main/site-audit/scorecard.md",
    "status": "built",
-   "latest": "0 failures (2026-11-21 19:17 UTC)",
+   "latest": "0 failures (2026-11-23 07:17 UTC)",
    "result": "pass",
    "target_source": "site-audit/rules.md (its rule); decisions/0145 \u00a76 (the zip check blocks the \"yes\" rules)",
    "target_status": "approved (Jason, 2026-11-22)"
@@ -175,7 +175,7 @@
    "runs": "1. on every zip and after every sync, on GitHub (no load on the site)",
    "evidence": "https://github.com/degraffics/traversence/blob/main/site-audit/scorecard.md",
    "status": "built",
-   "latest": "0 failures (2026-11-21 19:17 UTC)",
+   "latest": "0 failures (2026-11-23 07:17 UTC)",
    "result": "pass",
    "target_source": "site-audit/rules.md (its rule); decisions/0145 \u00a76 (the zip check blocks the \"yes\" rules)",
    "target_status": "approved (Jason, 2026-11-22)"
@@ -190,7 +190,7 @@
    "runs": "1. on every zip and after every sync, on GitHub (no load on the site)",
    "evidence": "https://github.com/degraffics/traversence/blob/main/site-audit/scorecard.md",
    "status": "built",
-   "latest": "0 failures (2026-11-21 19:17 UTC)",
+   "latest": "0 failures (2026-11-23 07:17 UTC)",
    "result": "pass",
    "target_source": "site-audit/rules.md (its rule); decisions/0145 \u00a76 (the zip check blocks the \"yes\" rules)",
    "target_status": "approved (Jason, 2026-11-22)"
@@ -205,7 +205,7 @@
    "runs": "1. on every zip and after every sync, on GitHub (no load on the site)",
    "evidence": "https://github.com/degraffics/traversence/blob/main/site-audit/scorecard.md",
    "status": "built",
-   "latest": "0 failures (2026-11-21 19:17 UTC)",
+   "latest": "0 failures (2026-11-23 07:17 UTC)",
    "result": "pass",
    "target_source": "site-audit/rules.md (its rule); decisions/0145 \u00a76 (the zip check blocks the \"yes\" rules)",
    "target_status": "approved (Jason, 2026-11-22)"
@@ -220,7 +220,7 @@
    "runs": "1. on every zip and after every sync, on GitHub (no load on the site)",
    "evidence": "https://github.com/degraffics/traversence/blob/main/site-audit/scorecard.md",
    "status": "built",
-   "latest": "0 failures (2026-11-21 19:17 UTC)",
+   "latest": "0 failures (2026-11-23 07:17 UTC)",
    "result": "pass",
    "target_source": "site-audit/rules.md (its rule); decisions/0145 \u00a76 (the zip check blocks the \"yes\" rules)",
    "target_status": "approved (Jason, 2026-11-22)"
@@ -235,7 +235,7 @@
    "runs": "3. daily at 09:40 UTC (2:40 AM Arizona), and on staging with every release",
    "evidence": "https://github.com/degraffics/traversence/blob/main/site-audit/rendered.md",
    "status": "built",
-   "latest": "run 2026-11-21 09:40 UTC",
+   "latest": "run 2026-11-23 15:26 UTC",
    "result": "per page",
    "target_source": "decisions/0145 \u00a71; CLAUDE.md \"Phone layout and visual standard\"; decisions/0058 \u00a711; W3C WCAG 2.2, level AA",
    "target_status": "approved (Jason, 2026-11-22)"
@@ -250,7 +250,7 @@
    "runs": "3. daily after RENDER, and on staging with every release; changing paths on staging only (4)",
    "evidence": "https://github.com/degraffics/traversence/blob/main/site-audit/paths.md",
    "status": "built",
-   "latest": "run 2026-11-21 09:43 UTC",
+   "latest": "run 2026-11-23 15:31 UTC",
    "result": "per path",
    "target_source": "site-audit/punch-list.md A6 (decided 2026-11-08); rules.md J01",
    "target_status": "approved (Jason, 2026-11-22)"
@@ -265,7 +265,7 @@
    "runs": "2. one search in the hourly light probe; the full probe daily with RENDER (3)",
    "evidence": "https://github.com/degraffics/traversence/blob/main/site-audit/search-scorecard.md",
    "status": "built",
-   "latest": "101 of 106 cases pass (2026-11-21 10:19 UTC)",
+   "latest": "94 of 106 cases pass (2026-11-23 10:20 UTC)",
    "result": "fail",
    "target_source": "the search probe's own bar (site-audit/search-scorecard.md); decisions/0088 (\"never wait\")",
    "target_status": "approved (Jason, 2026-11-22)"
@@ -280,8 +280,8 @@
    "runs": "3. daily with RENDER",
    "evidence": "https://github.com/degraffics/traversence/blob/main/site-audit/layout-probe.md",
    "status": "built",
-   "latest": "5px above the hero on a landmark and on Discovery (2026-11-21 10:19 UTC)",
-   "result": "fail",
+   "latest": "no gap above the hero on 3 pages (2026-11-23 10:20 UTC)",
+   "result": "pass",
    "target_source": "decisions/0058 \u00a721",
    "target_status": "approved (Jason, 2026-11-22)"
   },
@@ -323,10 +323,10 @@
    "measure": "used by each account that may (good, bad and empty input; the result against site-audit/tools.md) and refused, greyed with the reason, for each that may not",
    "target": "every tool does what site-audit/tools.md says, for every account that may use it, and is refused with the reason for every account that may not",
    "runs": "3. read-only tools daily; 4. tools that change anything on staging only, per release",
-   "evidence": "site-audit/tools.md (doesn't exist yet)",
-   "status": "not built",
-   "latest": "no check yet",
-   "result": "no check",
+   "evidence": "https://github.com/degraffics/traversence/actions/runs/45200820152",
+   "status": "built",
+   "latest": "3 no check, 628 pass, 324 partial (2026-11-23 15:48 UTC)",
+   "result": "per item",
    "target_source": "decisions/0145 \u00a71 (\"Function and tool checks\")",
    "target_status": "approved (Jason, 2026-11-22)"
   },
@@ -338,10 +338,10 @@
    "measure": "time to load at 1280 and 390, each page, each account",
    "target": "Core Web Vitals \"good\": LCP \u2264 2.5 s, CLS \u2264 0.1, INP \u2264 200 ms, each at the 75th percentile",
    "runs": "2. key pages in the hourly light probe; 3. every page daily; 4. heavy speed tests with EXPLAIN on staging only, per release",
-   "evidence": "proposed: rendered.json timings for every page (today only paths flag a page over 4 s, and rendered records only failures)",
-   "status": "not built",
-   "latest": "no check yet",
-   "result": "no check",
+   "evidence": "https://github.com/degraffics/traversence/actions/runs/45200820152",
+   "status": "built",
+   "latest": "264 pass, 106 fail (2026-11-23 16:14 UTC)",
+   "result": "per item",
    "target_source": "Google's Core Web Vitals thresholds; the board's \"Pages load fast\" (about 2.5 s, des)",
    "target_status": "approved (Jason, 2026-11-22)"
   },
@@ -353,10 +353,10 @@
    "measure": "each image on the page loaded and drawn (natural size above 0, no broken image), at 1280 and 390",
    "target": "every image on the page loaded and drawn (decoded, wider than 0) and with a text alternative",
    "runs": "3. daily with RENDER",
-   "evidence": "proposed: a field per page in rendered.json",
-   "status": "not built",
-   "latest": "no check yet",
-   "result": "no check",
+   "evidence": "https://github.com/degraffics/traversence/actions/runs/45200820152",
+   "status": "built",
+   "latest": "357 pass (2026-11-23 16:14 UTC)",
+   "result": "per item",
    "target_source": "Jason, 2026-11-22 (\"the photo loads and display\"); W3C WCAG 2.2 SC 1.1.1 Non-text Content",
    "target_status": "approved (Jason, 2026-11-22)"
   },
@@ -368,10 +368,10 @@
    "measure": "the standards a browser can read: tokens and colours, one header per view, filters as one dropdown, card anatomy, icons, notices, busy states, forms. Today only R10 (icons), R11 (breadcrumbs) and the rendered 3px edges are automatic",
    "target": "the readable standards of brand.md met: its tokens, one header per view, filters as one dropdown, card anatomy, icons; text contrast at least 4.5:1, focus visible",
    "runs": "3. daily with RENDER",
-   "evidence": "partial today: R10, R11 (scorecard.md) and RENDER's edges",
-   "status": "not built (partial)",
-   "latest": "partial: R10, R11 and the 3px edges only",
-   "result": "partial",
+   "evidence": "https://github.com/degraffics/traversence/actions/runs/45200820152",
+   "status": "built",
+   "latest": "198 fail, 162 partial (2026-11-23 16:14 UTC)",
+   "result": "per item",
    "target_source": "brand.md \u00a74; design/css-theme-brand.md; CLAUDE.md; W3C WCAG 2.2 SC 1.4.3 Contrast (Minimum) and 2.4.7 Focus Visible",
    "target_status": "approved (Jason, 2026-11-22)"
   },
@@ -383,10 +383,10 @@
    "measure": "each run's requests to the site, its time, and the probe pages' response times against their baseline",
    "target": "a light run asks at most about 20 requests, one at a time with a 1 s gap; the probe pages' response times stay within 20% of their 7-day median, or the next run backs off",
    "runs": "every run reports its own load",
-   "evidence": "proposed: an \"Audit\" runtime card on the board",
-   "status": "not built",
-   "latest": "no check yet",
-   "result": "no check",
+   "evidence": "https://github.com/degraffics/traversence/actions/runs/45200820152",
+   "status": "built",
+   "latest": "7 pass (2026-11-23 16:14 UTC)",
+   "result": "per item",
    "target_source": "Jason, 2026-11-22 (the schedule below); the 20% is ours, approved with the schedule",
    "target_status": "ours, approved with the schedule (Jason, 2026-11-22)"
   }

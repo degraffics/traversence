@@ -215,6 +215,11 @@ session, then build. Waiting on: a discussion with Jason.
   Jason in the build session's pop-up, reviewed by the session manager: `control-board.zip` (43 files; the one engine,
   Is it delivering?, Development, Incidents, the Arc gauges, the Workflows page, the four-zone cards, D1–D23), merged
   with PR #1273; summary `handoffs/control-board-build-summary.md`. Live once staging's checks pass.
+- **Progress (2026-11-23, evening):** the gauge panel as a drill-down, the Control Board build session's
+  (`session_01CXLi5hL7DpeN9WxT3oMXQK`) first release: the mockup approved by Jason in its pop-up (reviewed by the Design
+  reviewer and the session manager); the release `gauge-panel.zip` built on Sync 19:36 UTC and tested on the bench
+  (`handoffs/gauge-panel.md`, "The release"). Waiting for the Design reviewer's walk; its send waits for order-m1's
+  `faq.md` to go live.
 
 **Widen the OpenStreetMap copy** (Jason, 2026-11-19: "Seems like we could use everything openstreet has as long as it is
 cited", "Yea add to work que"; "the score could account for provided data so these entries would show lower than our

@@ -123,7 +123,7 @@ def wf_list(wfs):
 
 
 # ------------------------------------------------------------------ check results in the one results format
-def result_rows():
+def result_rows():   # noqa: the worst-first order is WORST, set below before the call
     """Rows from site-audit/results/*.json in the one results format (check-register.md): {check, item, result, at, evidence}.
     paths.json, rendered.json and the rest have no 'check' field, so they aren't read as such."""
     rows = {}
@@ -136,18 +136,69 @@ def result_rows():
             continue
         for r in (d.get('results') or []) if isinstance(d, dict) else []:
             if isinstance(r, dict) and r.get('check') and 'item' in r and r.get('result') in ('pass', 'fail', 'partial', 'no check'):
-                rows[(r['check'], str(r['item']))] = {'result': r['result'], 'at': r.get('at'), 'file': os.path.basename(f)}
+                # one item can have several rows (each account, phone and desktop): the worst stands, with its finding
+                k = (r['check'], str(r['item']))
+                if k not in rows or WORST.index(r['result']) < WORST.index(rows[k]['result']):
+                    rows[k] = {'result': r['result'], 'at': r.get('at'), 'file': os.path.basename(f), 'finding': r.get('finding')}
     return rows
 
 
+WORST = ['fail', 'partial', 'no check', 'pass']
 ROWS = result_rows()
+
+# Jason's approvals on the board (GaugeTasks), as the daily health report wrote them: gauge => when (scope) or the value (target)
+def _approvals():
+    try:
+        d = json.load(open(RESULTS + 'gauge-approvals.json'))
+    except Exception:
+        return {}, {}
+    sc, tg = {}, {}
+    for a in d.get('approvals') or []:
+        if a.get('kind') == 'scope':
+            sc[a['gauge']] = a.get('at_utc')
+        elif a.get('kind') == 'target' and a.get('value'):
+            tg[a['gauge']] = a['value']
+    return sc, tg
+
+
+APPROVED_SCOPE, APPROVED_TARGET = _approvals()
+
+
+PAGES_MD = open(ROOT + 'site-audit/pages.md').read().splitlines()
+FINDINGS = json.load(open(RESULTS + 'findings.json')).get('findings', [])
+FINDING_IDS = {f['id'] for f in FINDINGS}   # only a finding Site health has: any other id would open nothing
 
 
 def route_of(it):
+    """The page an item is, so its name opens it (the gauge panel, handoffs/gauge-panel.md): its admin section, a path at the
+    end of its name, or the first path in its row of site-audit/pages.md (the page register). None: its source is the link."""
     if it.get('manifest'):
         return '/admin/' + it['manifest']
     m = re.search(r'\((/[^)\s]*)\)$', it['name'])
-    return m.group(1) if m else None
+    if m:
+        return m.group(1)
+    m = re.search(r'site-audit/pages\.md:(\d+)', it.get('source', ''))
+    if m and int(m.group(1)) <= len(PAGES_MD):
+        p = re.search(r'`(/[^`\s]*)`', PAGES_MD[int(m.group(1)) - 1])
+        if p:
+            r = p.group(1)
+            return r.split('?')[0] if re.search(r'=$', r) else r   # "/listing/view.php?id=" names a kind of page, not one
+    return None
+
+
+def finding_for(route, cid):
+    """The open Site health finding a failing check on this page is, if the audit wrote one (findings.json), else None."""
+    if not route:
+        return None
+    for f in FINDINGS:
+        pg = (f.get('page') or '').split('?')[0]
+        rule = f.get('rule') or ''
+        # the check that writes a finding of this rule (findings.py): J01-J03 the paths, V06 a layout shift (LOAD's CLS),
+        # the other V rules the rendered check, D the board's own status checks
+        owner = 'PATHS' if rule.startswith('J') else ('LOAD' if rule == 'V06' else ('RENDER' if rule.startswith('V') else ('BOARD' if rule.startswith('D') else '')))
+        if pg and pg == route.split('?')[0] and owner == cid:
+            return f['id']
+    return None
 
 
 def item_checks(it):
@@ -163,20 +214,25 @@ def item_checks(it):
 
 
 def crit_met(it, checks):
-    """devgauges.crit_met, with 'checked' read from the checks above (every applicable check passing; §4)."""
+    """devgauges.crit_met, with 'checked' read from the checks above (every applicable check passing; §4), and 'reviewed'
+    as Jason's process has it (gauge-lifecycle §8 decided 2's note, 2026-11-23): live with no open issue, no sign-off."""
     m = D.crit_met(it)
     m['checked'] = it['status'] == 'live' and all(r == 'pass' for _, r, _ in checks)
+    m['reviewed'] = it['status'] == 'live' and it['name'] not in D.OPEN and not any(r == 'fail' for _, r, _ in checks)
     return m
 
 
-def review_line(it):
+def review_line(it, checks=()):
+    """Where an item stands on review (gauge-lifecycle §8 decided 2's note, Jason 2026-11-23: "I need to view the issue. then
+    press a button to fix it. once fixed it should clear the issue"): an open issue, or none. No sign-off state."""
     if it['status'] != 'live':
         return ''
     if it['name'] in D.OPEN:
         return 'open finding: ' + '; '.join(D.OPEN[it['name']])
-    if it['name'] in D.SIGNOFF:
-        return 'signed off: ' + D.SIGNOFF[it['name']]
-    return 'audited, awaiting sign-off'   # gauge-lifecycle.md §8 decided 2; gauge-criteria-from-audit.md
+    fails = [c for c, r, _ in checks if r == 'fail']
+    if fails:
+        return 'open issue: ' + ', '.join(fails) + ' fails'
+    return 'no open issue'
 
 
 # ------------------------------------------------------------------ the 16 development gauges
@@ -192,8 +248,10 @@ def development():
             # criteria would carry its own 'criteria' (none does in the draft)
             items.append({'name': it['name'], 'kind': it['kind'], 'status': it['status'], 'phase': D.phase_of(it), 'weight': 1,
                           'met': [k for k in CRIT if met[k]],
-                          'checks': [[c, r] for c, r, _ in checks], 'no_check': [c for c, r, _ in checks if r == 'no check'],
-                          'review': review_line(it), 'route': route_of(it), 'source': it['source']})
+                          # a failing check carries its finding's id where Site health has it (the panel opens it; else the check's report)
+                          'checks': [[c, r] + ([fnd] if r == 'fail' and (fnd := ((ROWS.get((c, route_of(it))) or {}).get('finding') if (ROWS.get((c, route_of(it))) or {}).get('finding') in FINDING_IDS else None) or finding_for(route_of(it), c)) else []) for c, r, _ in checks],
+                          'no_check': [c for c, r, _ in checks if r == 'no check'],
+                          'review': review_line(it, checks), 'route': route_of(it), 'source': it['source']})
         total = sum(len(i.get('criteria', CRIT)) * i['weight'] for i in items)
         mt = sum(len(i['met']) * i['weight'] for i in items)
         wfs, cs, rs = D.DEVPATHS[g]
@@ -206,8 +264,9 @@ def development():
         nochk.sort(key=lambda x: order.index(x) if x in order else 99)
         out.append({
             'id': D.slug(g), 'title': g, 'side': 'front' if g in D.FRONT else 'back',
-            # Planning at 0 until Jason signs off the configuration (gauge-lifecycle.md §3, §6); his sign-off goes in the logbook
-            'signed': False, 'signed_at': None,
+            # Planning until Jason approves the scope on the board (gauge-lifecycle §3; GaugeTasks, read from the daily health
+            # report's gauge-approvals.json: the session manager's ruling on Q3, 2026-11-23)
+            'signed': ('dev:' + D.slug(g)) in APPROVED_SCOPE, 'signed_at': APPROVED_SCOPE.get('dev:' + D.slug(g)),
             'items': len(items), 'criteria': total, 'met': mt, 'preview': round(mt / total * 100, 1) if total else 0.0,
             'no_check': nochk, 'list': items,
             'out_of_scope': [i['name'] for i in cfg['out']],   # Proposed: waiting on Jason's own definition (§4)
@@ -242,11 +301,11 @@ def runtime():
                 'id': o['id'], 'box': box, 'title': o['name'],
                 'measure': ONE_MEASURE.get(o['id'], o['measure']),
                 # a target not set (or only proposed) is null: "target: set by Jason" (board.rt_setup's rule; 03 §27)
-                'target': o['target'] if target_set else None,
+                'target': o['target'] if target_set else (APPROVED_TARGET.get('rt:' + o['id']) or None),
                 'target_proposed': None if target_set else (None if 'set by Jason' in o['target'] and o['target'].strip() == B.SET else o['target']),
                 'unit': '%',
-                'setup': {'probe': su[0][1], 'target': su[1][1], 'check': su[2][1], 'alarm': su[3][1]},
-                'setup_why': {'probe': su[0][2], 'target': su[1][2], 'check': su[2][2], 'alarm': su[3][2]},
+                'setup': {'probe': su[0][1], 'target': su[1][1] or ('rt:' + o['id']) in APPROVED_TARGET, 'check': su[2][1], 'alarm': su[3][1]},
+                'setup_why': {'probe': su[0][2], 'target': su[1][2] if not (not su[1][1] and ('rt:' + o['id']) in APPROVED_TARGET) else 'approved on the board', 'check': su[2][2], 'alarm': su[3][2]},
                 'needs_probe': B.NEEDS_PROBE.get(o['id']),
                 'records': snap['records'],
                 'paths': {'workflows': wf_list(wfs), 'tasks': {w: ts for w, ts in (snap['wf'] or {}).items()},

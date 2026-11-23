@@ -98,7 +98,7 @@ const copies = () => { const miss = []; document.querySelectorAll('.ak-card, .cb
   cm = await p.evaluate(copies); t(W + '…Copy on every section and card', cm.length === 0, cm);
   await p.click('#cb-dev .cb-dc .cb-gopen'); await p.waitForTimeout(900);
   const dp = await p.evaluate(() => { const x = [...document.querySelectorAll('.cb-sp')].find(s => !s.hidden); return x ? x.innerText : ''; });
-  t(W + '…a gauge opens its panel: its items by status (loaded as it opens), its three paths', dp.includes('Its items, by status') && dp.includes('Registered Services'), dp.slice(0, 200));
+  t(W + '…a gauge opens its panel: its drill-down (loaded as it opens: the bar, What you can do, What needs you first; the gauge panel, approved 2026-11-23), its three paths', dp.includes('What you can do') && dp.includes('What needs you first') && dp.includes('Registered Services'), dp.slice(0, 200));
   await p.keyboard.press('Escape'); await p.waitForTimeout(200);
   posts.length = 0;
   await p.click('#site-health-f-bbbbbb02 [data-state="fixed"]'); await p.waitForTimeout(300);
