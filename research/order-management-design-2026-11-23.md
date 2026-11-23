@@ -159,10 +159,17 @@ Back-Office
 
 ### 4.1 Orders (the job board)
 
-- Tiles count from the three states, not the stage, and **filter the table** when pressed: Needs us, Waiting on the
-  client, Money owed (with the total), In production, Out the door.
-- One table (`design/table-standard.md`): Order, Client, Order state, Money (state + amount), Delivery, Next step.
-- **Place an order** stays the page's one primary button.
+- Four state tiles count from the order state, not the workflow stage, and **are the state filter** (pressed = on):
+  Needs us, Waiting on the client, In production, Out the door. **Money owed** stands apart as its own tile (the total
+  and how many orders, in any stage), so the five never read as a sum.
+- One filter button beside the search holds only the other filters (Everyone's / Mine, Open / All), showing its
+  choice, with the brand's filter icon.
+- One table (`design/table-standard.md`): Order, Client, Where it stands, Money (state + amount), Delivery, Next step;
+  the count and paging under it ("1–4 of 4 that need us"); each tile's empty state with its way forward ("Nothing
+  needs you" · Place an order · Show waiting on the client).
+- Buttons (brand.md §4): **Place an order** is the page's one filled button; each row's Next step is outlined.
+- A finished step replaces its button in the row, with its way back: "✓ Paid $412.00 by check · Undo", "✓ Sent Nov
+  23 · Copy the link".
 
 ### 4.2 Place an order (guided)
 
@@ -180,30 +187,40 @@ Every step has Back; a draft is kept at every step (nothing lost).
 ### 4.3 The order page
 
 - Strip (0129): Back, "Order #N", Save/Close; ☰ for Duplicate, Reorder, Test copy, Cancel.
-- **Three state lines** (§3) in the notices box, each with its one button.
+- **Three state lines** (§3) in the notices box, each with its one button. The Money line's action (Collect the
+  balance) is the page's one filled button. The Order line's Complete is greyed with "$X still owed" while money is
+  owed (#1307: an admin's override with a reason).
 - Sections: **Client** (Bill to, the email, never loose), **Items**, **Delivery** (only what applies: pickup shows our
   address and no fields), **Money** (§4.3a), **Work orders**, **Tell the client**, **History**.
 - Fields that don't apply aren't shown (a pickup order has no ship-to fields; an order paid outside has no card text).
 
 **4.3a Money on the order** (replaces `admin/order.php`):
-- What's owed, paid, credited and refunded, in one figure row.
-- **Take a payment** (record wire, check, cash; card by phone when QuickBooks allows it), **Apply a credit** (from the
-  client's account), **Issue a credit memo**, **Refund** (from a payment's drawer, the amount and reason confirmed),
-  **Cancel** (by the cancel window, §5 Q2).
+- Total, Paid and Owed always; Credits and Refunded only when they aren't $0.00.
+- Taking a payment is the Money line's button (one action, once). Here, outlined: **Apply a credit** (from the
+  client's account), **Issue a credit memo**, **Refund…** (from a payment's ⋯, the amount and reason confirmed),
+  **Cancel the order…** (by the cancel window, §5 Q2).
+- After a payment: the Money line reads "Paid. $809.10 by check #2231 today" with "✓ Recorded · Undo", and the payment
+  is a row with its ⋯.
 - The policy order shown on screen: fix it first, then a credit, a refund only when neither works (0098).
 - The ledger and history below, only ever added to.
 
 ### 4.4 Money
 
+- Views (tabs that wrap on a phone): **Outstanding**, **Credits on account**, **Refunds & credit memos**. **Take a
+  payment** is an action, not a view: the header's one filled button, and outlined on each row; it opens a drawer.
 - **Outstanding**: every order with money owed, by client: amount, oldest due, aging (current, 1–30, 31–60, 61–90, 90+),
-  last reminder; Take a payment and Send a reminder on each row.
-- **Take a payment**: choose the client, see their open orders, apply one payment across them (oldest first, 0177 §4).
+  last reminder; Take a payment and Remind on each row ("✓ Reminded today · Undo" after).
+- **Take a payment** (drawer): the client, the amount, how it came in, the reference, the open orders ticked oldest
+  first (0177 §4), a receipt; Record $X; Undo on each order afterwards.
 - **Credits on account**: each client's credit, issued and used, expiring (90 days, 0098); Apply to an order.
 - **Refunds & credit memos**: every one made, here or in QuickBooks (the webhook's), with its order.
 
 ### 4.5 Catalog
 
-- **Products** and **Services** as two lists of one catalog (`Products`, by kind), each with **New**.
+- Tabs: **Products**, **Services**, **Categories**, Materials & services (COGS), Price lists; the header's one filled
+  button is New for the tab shown.
+- **Products** and **Services** as two lists of one catalog (`Products`, by kind): name, category, from price, whether
+  its cost is checked (0177 §3's deposit needs it), shown or hidden; ⋯ per row.
 - **Categories**: a new list; a product or service has one; the Shop and Place an order's search group by it.
 - Materials & services and Price lists stay where they are, under Catalog.
 
@@ -220,6 +237,9 @@ Collected here for the one review, not asked one by one.
    Net 30), and who besides Jason may grant them?
 5. **Card by phone.** Should staff be able to take a card by phone (QuickBooks Payments, keyed in), or only send the
    client their link?
+6. **"Yes, I have it" with money owed.** When the client confirms they have an order that still owes money, should it
+   complete (today: it does, and staff are emailed what's still open), or stay open as "Delivered, balance due" until
+   it's paid?
 
 ## 6. Releases, money paths first
 
@@ -238,6 +258,7 @@ the session manager and Jason.
 
 ## 7. Mockups
 
-`design/order-management/` (HTML, rendered at 1280 and 390): the board, Place an order, the order page, Money →
-Outstanding. They are what the Design reviewer checks against brand.md, `design/css-theme-brand.md`,
+`design/order-management/` (HTML, rendered at 1280 and 390), each with its after-state: the board (and after a
+payment and a resend; and empty), Place an order (and a step folded after Next), the order page (and after a payment),
+Money (Outstanding, the Take a payment drawer, after a reminder), the Catalog. They are what the Design reviewer checks against brand.md, `design/css-theme-brand.md`,
 `design/table-standard.md` and 0058 §11.
