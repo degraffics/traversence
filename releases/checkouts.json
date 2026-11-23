@@ -273,7 +273,7 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "Restores board-fixes-4's (#269, Jason approved) changes to three files the orders release (#270) overwrote a minute later: the drawer title on two lines, the Alarms list's plain part names, its drawer's fix first and labelled times, and the two FAQ entries",
    "since": "2026-11-23T15:06:08Z",
-   "expires": "2026-11-23T22:51:04Z",
+   "expires": "2026-11-23T22:55:15Z",
    "release": "board-fixes-5.zip",
    "callers": {}
   },
@@ -284,7 +284,7 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "Restores board-fixes-4's (#269, Jason approved) changes to three files the orders release (#270) overwrote a minute later: the drawer title on two lines, the Alarms list's plain part names, its drawer's fix first and labelled times, and the two FAQ entries",
    "since": "2026-11-23T15:06:11Z",
-   "expires": "2026-11-23T22:51:04Z",
+   "expires": "2026-11-23T22:55:15Z",
    "release": "board-fixes-5.zip",
    "callers": {}
   },
