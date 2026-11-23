@@ -244,7 +244,7 @@
    "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
    "why": "Collect the balance on an order out the door (session manager's review of #270)",
    "since": "2026-11-23T19:07:43Z",
-   "expires": "2026-11-23T23:08:14Z",
+   "expires": "2026-11-23T23:15:33Z",
    "release": "collect-balance.zip",
    "callers": {}
   },
@@ -268,7 +268,7 @@
    "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
    "why": "release collect-balance.zip",
    "since": "2026-11-23T19:08:14Z",
-   "expires": "2026-11-23T23:08:14Z",
+   "expires": "2026-11-23T23:15:33Z",
    "release": "collect-balance.zip",
    "callers": {}
   },
@@ -281,8 +281,8 @@
    "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
    "why": "Collect the balance: the payment hold said once on the order page (Design reviewer, 2026-11-23)",
    "since": "2026-11-23T19:15:24Z",
-   "expires": "2026-11-23T23:15:24Z",
-   "release": "",
+   "expires": "2026-11-23T23:15:33Z",
+   "release": "collect-balance.zip",
    "callers": {}
   }
  ],
