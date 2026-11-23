@@ -48,6 +48,20 @@
    "expires": "2026-11-23T04:42:06Z",
    "release": "control-board-fix.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/ControlAlarms.php",
+   "functions": [
+    "noticeBody",
+    "partName"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "fix #258: an endpoint's plain name; a close is never 'Recovered: Closed'",
+   "since": "2026-11-23T00:43:24Z",
+   "expires": "2026-11-23T04:43:24Z",
+   "release": "control-board-fix.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
