@@ -264,6 +264,11 @@ or sign-off); 4. **The next step**, only within a process (Jason, 2026-11-23: "D
 (one alarm, one payment) ends at its confirmation, the lists and counts updating; a process (placing an order, an
 order's life) is single tasks chained by a workflow, so its next step, routed by the choices made, is its own button. No
 accounting-only buttons, no form left open after it's done, no notice repeating the new state.
+**A list or a process?** (Jason, 2026-11-23) It's a process if step B needs step A's result, or they all build to one
+outcome; a list if they could sensibly be done in any order. A list is a queue (what needs you first, filtered by its
+tiles), each row its own cycle, counts dropping as items clear, a batch action only where one fix applies to many. A
+process is a guided flow: finished steps fold to a line with Change, one "next" button, branches by choice. A process may
+create list items (proofs, a balance); a workflow may report a list's progress without making it a sequence.
 
 ## No browser dialogs; one look for notices (`js/tv-ask.js`): every page
 
