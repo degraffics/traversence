@@ -99,13 +99,14 @@
   {
    "path": "app/admin/tools.php",
    "functions": [
+    "'config/alarms'",
     "config/alarms"
    ],
    "kind": "change",
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "board-panels: one panel at a time, Copy all, panels titled by the part (Jason, 2026-11-23)",
    "since": "2026-11-23T13:15:20Z",
-   "expires": "2026-11-23T17:15:20Z",
+   "expires": "2026-11-23T17:25:15Z",
    "release": "",
    "callers": {}
   }
