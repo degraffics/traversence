@@ -1,6 +1,6 @@
 # 0177: One order, several destinations: invoices, tax and the deposit
 
-**Status:** accepted (Jason, 2026-11-23). Built in the full ordering release.
+**Status:** accepted (Jason, 2026-11-23). Release A (orders-release-a.zip) builds §2, §3 and one destination's Ship to; §1's several destinations, one invoice each, are release B. Until then an order shipping to more than one address isn't approved: it says to send each address as its own order.
 **Builds on:** 0101 (client orders), the order model (`research/order-model-2026-11-21.md` §1.8, §1.9), QuickBooks Online's
 automated sales tax.
 

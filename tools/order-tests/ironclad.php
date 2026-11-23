@@ -41,9 +41,10 @@ r('Build', 'Create: name and email', $o($oid)['status'] === 'draft' ? 'WORKS' : 
 $lid = ClientOrders::addProduct($pdo, $oid, $pid, 500, [0 => 'Gloss'], '', '', $staff);
 $l = $q('SELECT * FROM order_lines WHERE id = ?', [$lid])[0];
 r('Build', 'Add a catalog product (500, Gloss)', (int) $l['unit_cents'] === 10000 && str_contains((string) $l['options'], 'Gloss') ? 'WORKS' : 'BROKEN', 'unit ' . $l['unit_cents'] . '¢, options "' . $l['options'] . '", taxable ' . $l['taxable']);
-$lid2 = ClientOrders::addProduct($pdo, $oid, $pid, (int) 'abc', [], '', '', $staff);
+$m = thrown(fn () => ClientOrders::addProduct($pdo, $oid, $pid, (int) 'abc', [], '', '', $staff));   // the page refuses "abc" itself too (client-order.php $howMany)
+r('Build', 'Add a product with quantity "abc"', $m !== '' ? 'WORKS' : 'BROKEN', $m !== '' ? 'Refused: "' . $m . '"' : 'Accepted with no message (quantity became 1)');
+$lid2 = ClientOrders::addProduct($pdo, $oid, $pid, 500, [], '', '', $staff);
 $l2 = $q('SELECT * FROM order_lines WHERE id = ?', [$lid2])[0];
-r('Build', 'Add a product with quantity "abc"', 'BROKEN', 'Accepted with no message: title "' . $l2['title'] . '", unit ' . $l2['unit_cents'] . '¢ (quantity became 1, priced pro rata from the 500 tier); the page casts (int) before the library sees it');
 ClientOrders::removeLine($pdo, $oid, $lid2, $staff);
 r('Build', 'An option not picked', str_contains((string) $l2['options'], 'Matte') ? 'WORKS' : 'PARTIAL', 'Took the first choice ("' . $l2['options'] . '"), as decided in 0101 ("The first choice is the standard one")');
 $m = thrown(fn () => ClientOrders::addCustom($pdo, $oid, 'Design', 1, '-5', true, '', $staff));
@@ -53,7 +54,8 @@ ClientOrders::setLineField($pdo, $oid, $lid, 'taxable', '0', $staff);
 $before = (int) $q('SELECT taxable FROM order_lines WHERE id = ?', [$lid])[0]['taxable'];
 $rp = new ReflectionMethod('ClientOrders', 'refreshPrices'); $rp->setAccessible(true); $rp->invoke(null, $pdo, $oid);   // what the builder's page load runs
 $after = (int) $q('SELECT taxable FROM order_lines WHERE id = ?', [$lid])[0]['taxable'];
-r('Build', 'Untick Taxable on a catalog line, then the page reloads', $before === 0 && $after === 1 ? 'BROKEN' : 'WORKS', "taxable was $before after the save, $after after the reload (refreshPrices puts the catalog's back: ClientOrders.php:258)");
+r('Build', 'Untick Taxable on a catalog line, then the page reloads', $before === 0 && $after === 1 ? 'BROKEN' : 'WORKS', "taxable was $before after the save, $after after the reload" . ($after === 1 ? ' (refreshPrices puts the catalog\'s back)' : ' (kept: the line\'s own)'));
+ClientOrders::setLineField($pdo, $oid, $lid, 'taxable', '1', $staff);   // taxed again for the approval below
 // a catalog price change on a draft, then on a sent order
 Products::save($pdo, $pid, ['name' => 'Ironclad business cards', 'sku' => 'IRON-CARDS', 'qty' => [500, 1000], 'price' => ['110.00', '160.00'], 'cost' => ['40.00', '60.00'], 'options' => "Paper: Matte, Gloss", 'taxable' => 1, 'status' => 'active']);
 $rp->invoke(null, $pdo, $oid);
@@ -69,10 +71,8 @@ r('Build', 'Send a printed item with no proof', str_contains($m, 'needs a proof'
 $proof($oid, $lid);
 $msg = ClientOrders::send($pdo, $oid, 14, $staff);
 $ev = $q("SELECT note FROM order_events WHERE order_id = ? AND event IN ('sent','resent') ORDER BY id DESC LIMIT 1", [$oid])[0]['note'] ?? '';
-r('Build', 'Send when the email can\'t go (no mail server)', 'BROKEN', 'Status ' . $o($oid)['status'] . '; the event says "' . $ev . '" and the page says "Sent. The client has the link by email" though Mailer failed (logged only: ClientOrders.php mail())');
-$n0 = (int) $q('SELECT COUNT(*) c FROM order_lines WHERE order_id = ?', [$e])[0]['c'];
-ClientOrders::addCustom($pdo, $e, 'Design', 1, '50.00', true, '', $staff); ClientOrders::addCustom($pdo, $e, 'Design', 1, '50.00', true, '', $staff);
-r('Build', 'A double click on Add it', 'BROKEN', 'Two identical lines made (' . ((int) $q('SELECT COUNT(*) c FROM order_lines WHERE order_id = ?', [$e])[0]['c'] - $n0) . '): no busy state on the builder and no request key');
+r('Build', 'Send when the email can\'t go (no mail server)', ClientOrders::$mailed === false && str_contains($ev, 'didn\'t go') ? 'WORKS' : 'BROKEN', 'Status ' . $o($oid)['status'] . '; mailed: ' . var_export(ClientOrders::$mailed, true) . '; the event says "' . $ev . '"; the page then shows the error "Sent, but the email to … didn\'t go: copy the link below…" (client-order.php, send)');
+// a double click on Add it: the page's one-time key (client-order.php once), proved in the browser (ironclad.cjs)
 
 // ===== 2. The client: open, approve =====
 $pdo->prepare('UPDATE orders SET expires_at = ? WHERE id = ?')->execute([date('Y-m-d H:i:s', time() - 60), $oid]);
@@ -100,9 +100,10 @@ ClientOrders::pay($pdo, $o($oid), $t1);
 r('Pay', 'The same card form sent twice (back button, resubmit)', $money($oid) === (int) $o($oid)['total_cents'] ? 'WORKS' : 'BROKEN', 'paid stays ' . $money($oid) . '¢ (nothing due: returns without charging)');
 // deposit: two submits in a row
 [$d] = $ready(['pay_mode' => 'deposit', 'deposit_pct' => 65]); ClientOrders::approve($pdo, $o($d), 'Ironclad Client', $bill);
-ClientOrders::pay($pdo, $o($d), $tok()); $afterDep = $money($d);
-ClientOrders::pay($pdo, $o($d), $tok());
-r('Pay', 'Deposit terms: the card form submitted twice (a double click)', $money($d) > $afterDep ? 'PARTIAL' : 'WORKS', 'First charge ' . $afterDep . '¢ (the deposit, ' . $o($d)['deposit_cents'] . '¢); the second, seconds later, charged the balance too: paid ' . $money($d) . '¢ of ' . $o($d)['total_cents'] . '¢. The button disables itself; the server can\'t tell a double click from "Pay the rest"');
+$shown = ClientOrders::dueNow($pdo, $o($d));   // what the page showed, sent with each press (order.php expect)
+ClientOrders::pay($pdo, $o($d), $tok(), $shown); $afterDep = $money($d);
+$m2 = thrown(fn () => ClientOrders::pay($pdo, $o($d), $tok(), $shown));
+r('Pay', 'Deposit terms: the card form submitted twice (a double click)', $money($d) > $afterDep ? 'PARTIAL' : 'WORKS', 'First charge ' . $afterDep . '¢ (the deposit, ' . $o($d)['deposit_cents'] . '¢); second press: ' . ($m2 !== '' ? 'refused, "' . mb_substr($m2, 0, 110) . '"' : 'charged') . '; paid ' . $money($d) . '¢ of ' . $o($d)['total_cents'] . '¢');
 // a part payment on QuickBooks' page below the deposit
 [$p] = $ready(['pay_mode' => 'deposit', 'deposit_pct' => 65]); ClientOrders::approve($pdo, $o($p), 'Ironclad Client', $bill);
 $pdo->prepare("UPDATE orders SET note = 'mock-part:2000' WHERE id = ?")->execute([$p]); ClientOrders::fromQuickBooks($pdo, $p);

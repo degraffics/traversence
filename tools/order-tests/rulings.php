@@ -3,7 +3,8 @@
 // of 2026-11-20, "rulings on the order map", and 2026-11-23, "the order model"; research/order-model-2026-11-21.md), on
 // MariaDB or MySQL. <root> holds app/ (the live lib with the release's files over it); Database::envPath() reads a .env
 // two folders above <root> (DB_HOST, DB_PORT, DB_DATABASE, DB_USERNAME, DB_PASSWORD; QB_ENV=mock). It makes its own
-// small tables in that database and drops them before and after. Mail goes to a stub Mailer in <root>/app/lib that
+// small tables in that database and drops them before and after: give it a database of its own, never the design
+// harness's (it drops orders, order_lines and users there). Mail goes to a stub Mailer in <root>/app/lib that
 // only records ([to, subject, body]). Checks, each against its source:
 //   B.2   a proof for every printed item before Send and approval; an exact reorder's reuse only with the same product and options
 //   B.3   a part payment on QuickBooks' page recorded as it arrives; production at the deposit (or at full payment)
@@ -12,7 +13,7 @@
 //   1.9c  the override: admins only, with a reason recorded; the outside path isn't the override and needs no admin
 //   1.9d  the vendor's own Shipped with the balance unpaid: kept on the work order, the order held, the client not told,
 //         our team's Pulse step to collect it; the payment moves it all on
-//   1.8   65% deposit default; invoice later not offered for new orders, still readable on old ones, a copy starts as full
+//   1.8 (0177 §3)   65% deposit default; invoice later not offered for new orders, still readable on old ones, a copy starts as full
 declare(strict_types=1);
 $root = $argv[1];
 putenv('QB_ENV=mock');
@@ -222,10 +223,10 @@ ClientOrders::releaseHold($pdo, $o12, 1, 'Paying on delivery, agreed');
 as_level(null);
 t('1.9d an admin\'s release moves what the vendor shipped on at once', Orders::get($pdo, $o12)['stage'] === 'shipped');
 
-// ---- 1.8: the deposit's default; invoice later not offered
+// ---- 1.8 as changed by decisions/0177 §3 (Jason, 2026-11-23: cost + 15% replaces the 65% default); invoice later not offered
 $o13 = $order(['status' => 'draft', 'approved_at' => null]);
 ClientOrders::setField($pdo, $o13, 'pay_mode', 'deposit', 1);
-t('1.8 choosing a deposit starts at 65%', (int) Orders::get($pdo, $o13)['deposit_pct'] === 65 && ClientOrders::DEPOSIT_DEFAULT === 65);
+t('0177 §3 choosing a deposit starts figured from cost (no % set; 65% only for an item with no cost)', (int) Orders::get($pdo, $o13)['deposit_pct'] === 0 && ClientOrders::DEPOSIT_DEFAULT === 65 && ClientOrders::DEPOSIT_MARKUP === 15);
 t('§0 item 1: invoice later can\'t be chosen for an order', str_contains(thrown(fn () => ClientOrders::setField($pdo, $o13, 'pay_mode', 'invoice', 1)), 'Invoice later isn\'t offered any more') && Orders::get($pdo, $o13)['pay_mode'] === 'deposit');
 $o14 = $order(['status' => 'draft', 'approved_at' => null, 'pay_mode' => 'invoice']);
 t('§0 item 1: an order that has it still saves its other terms', thrown(fn () => ClientOrders::setField($pdo, $o14, 'note', 'Same as last time', 1)) === '' && Orders::get($pdo, $o14)['pay_mode'] === 'invoice');
