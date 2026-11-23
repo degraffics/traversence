@@ -740,17 +740,6 @@
      "website/admin/guide-edit.php"
     ]
    }
-  },
-  {
-   "path": "website/js/tv-ask.js",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
-   "why": "release orders-release-a.zip",
-   "since": "2026-11-23T16:07:36Z",
-   "expires": "2026-11-23T20:07:36Z",
-   "release": "orders-release-a.zip",
-   "callers": {}
   }
  ],
  "lapsed": [
