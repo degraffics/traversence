@@ -284,6 +284,20 @@
    "expires": "2026-11-23T23:15:33Z",
    "release": "collect-balance.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/ClientOrders.php",
+   "functions": [
+    "completeHold",
+    "completeOwed"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
+   "why": "Collect the balance: Complete the order waits for the money, or an admin's override with a reason (session manager and Design reviewer on #1307)",
+   "since": "2026-11-23T19:26:27Z",
+   "expires": "2026-11-23T23:26:27Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
