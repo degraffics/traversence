@@ -298,6 +298,19 @@
    "expires": "2026-11-23T23:26:27Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/admin/workflows.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
+   "why": "Collect the balance: Complete the order waits for the money, or an admin's override with a reason (session manager and Design reviewer on #1307)",
+   "since": "2026-11-23T19:26:30Z",
+   "expires": "2026-11-23T23:26:30Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
