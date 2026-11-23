@@ -2,23 +2,6 @@
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
  "claims": [
   {
-   "path": "website/js/admin-kit.js",
-   "functions": [
-    "detail",
-    "draw",
-    "frame",
-    "layer",
-    "paint"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
-   "why": "board-panels: one panel at a time, Copy all, panels titled by the part (Jason, 2026-11-23)",
-   "since": "2026-11-23T13:14:56Z",
-   "expires": "2026-11-23T17:26:39Z",
-   "release": "board-panels.zip",
-   "callers": {}
-  },
-  {
    "path": "website/js/tv-ask.js",
    "functions": [
     "peek"
@@ -30,68 +13,6 @@
    "expires": "2026-11-23T17:15:03Z",
    "release": "",
    "callers": {}
-  },
-  {
-   "path": "website/js/tv-copy.js",
-   "functions": [
-    "(top)",
-    "place"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
-   "why": "board-panels: one panel at a time, Copy all, panels titled by the part (Jason, 2026-11-23)",
-   "since": "2026-11-23T13:15:06Z",
-   "expires": "2026-11-23T17:26:39Z",
-   "release": "board-panels.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/admin/control-console.php",
-   "functions": [
-    "tv_cb_alarms"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
-   "why": "board-panels: one panel at a time, Copy all, panels titled by the part (Jason, 2026-11-23)",
-   "since": "2026-11-23T13:15:08Z",
-   "expires": "2026-11-23T17:26:39Z",
-   "release": "board-panels.zip",
-   "callers": {
-    "tv_cb_alarms": [
-     "app/lib/ControlConsistency.php"
-    ]
-   }
-  },
-  {
-   "path": "app/admin/operations-console.php",
-   "functions": [
-    "tv_ops_wf_page"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
-   "why": "board-panels: one panel at a time, Copy all, panels titled by the part (Jason, 2026-11-23)",
-   "since": "2026-11-23T13:15:10Z",
-   "expires": "2026-11-23T17:26:39Z",
-   "release": "board-panels.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/Operations.php",
-   "functions": [
-    "alarms"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
-   "why": "board-panels: one panel at a time, Copy all, panels titled by the part (Jason, 2026-11-23)",
-   "since": "2026-11-23T13:15:12Z",
-   "expires": "2026-11-23T17:26:39Z",
-   "release": "board-panels.zip",
-   "callers": {
-    "alarms": [
-     "app/admin/operations-console.php",
-     "app/lib/ControlAlarms.php"
-    ]
-   }
   },
   {
    "path": "website/js/admin-kit.js",
@@ -106,31 +27,6 @@
    "since": "2026-11-23T13:15:14Z",
    "expires": "2026-11-23T17:15:18Z",
    "release": "",
-   "callers": {}
-  },
-  {
-   "path": "app/admin/tools.php",
-   "functions": [
-    "'config/alarms'",
-    "config/alarms"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
-   "why": "board-panels: one panel at a time, Copy all, panels titled by the part (Jason, 2026-11-23)",
-   "since": "2026-11-23T13:15:20Z",
-   "expires": "2026-11-23T17:26:39Z",
-   "release": "board-panels.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/js/tv-ask.js",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
-   "why": "release board-panels.zip",
-   "since": "2026-11-23T13:26:39Z",
-   "expires": "2026-11-23T17:26:39Z",
-   "release": "board-panels.zip",
    "callers": {}
   }
  ],
