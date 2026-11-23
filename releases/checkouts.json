@@ -8,7 +8,7 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
    "since": "2026-11-22T23:25:22Z",
-   "expires": "2026-11-23T03:50:33Z",
+   "expires": "2026-11-23T04:10:27Z",
    "release": "control-board.zip",
    "callers": {
     "counts": [
@@ -104,7 +104,7 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
    "since": "2026-11-22T23:25:22Z",
-   "expires": "2026-11-23T03:50:33Z",
+   "expires": "2026-11-23T04:10:27Z",
    "release": "control-board.zip",
    "callers": {}
   },
@@ -115,7 +115,7 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
    "since": "2026-11-22T23:25:22Z",
-   "expires": "2026-11-23T03:50:33Z",
+   "expires": "2026-11-23T04:10:27Z",
    "release": "control-board.zip",
    "callers": {
     "build": [
@@ -131,7 +131,7 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
    "since": "2026-11-22T23:25:22Z",
-   "expires": "2026-11-23T03:50:33Z",
+   "expires": "2026-11-23T04:10:27Z",
    "release": "control-board.zip",
    "callers": {
     "take": [
@@ -160,7 +160,7 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
    "since": "2026-11-22T23:25:22Z",
-   "expires": "2026-11-23T03:50:33Z",
+   "expires": "2026-11-23T04:10:27Z",
    "release": "control-board.zip",
    "callers": {
     "resolve": [
@@ -192,7 +192,7 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
    "since": "2026-11-22T23:25:22Z",
-   "expires": "2026-11-23T03:50:33Z",
+   "expires": "2026-11-23T04:10:27Z",
    "release": "control-board.zip",
    "callers": {}
   },
@@ -214,7 +214,7 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
    "since": "2026-11-22T23:25:22Z",
-   "expires": "2026-11-23T03:50:33Z",
+   "expires": "2026-11-23T04:10:27Z",
    "release": "control-board.zip",
    "callers": {
     "putBackTripSwitches": [
@@ -229,7 +229,7 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
    "since": "2026-11-22T23:25:22Z",
-   "expires": "2026-11-23T03:50:33Z",
+   "expires": "2026-11-23T04:10:27Z",
    "release": "control-board.zip",
    "callers": {}
   },
@@ -262,7 +262,7 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
    "since": "2026-11-22T23:25:22Z",
-   "expires": "2026-11-23T03:50:33Z",
+   "expires": "2026-11-23T04:10:27Z",
    "release": "control-board.zip",
    "callers": {
     "send": [
@@ -302,7 +302,7 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
    "since": "2026-11-22T23:25:22Z",
-   "expires": "2026-11-23T03:50:33Z",
+   "expires": "2026-11-23T04:10:27Z",
    "release": "control-board.zip",
    "callers": {}
   },
@@ -324,7 +324,7 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
    "since": "2026-11-22T23:25:22Z",
-   "expires": "2026-11-23T03:50:33Z",
+   "expires": "2026-11-23T04:10:27Z",
    "release": "control-board.zip",
    "callers": {}
   },
@@ -335,7 +335,7 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
    "since": "2026-11-22T23:25:22Z",
-   "expires": "2026-11-23T03:50:33Z",
+   "expires": "2026-11-23T04:10:27Z",
    "release": "control-board.zip",
    "callers": {
     "report": [
@@ -350,7 +350,7 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
    "since": "2026-11-22T23:25:22Z",
-   "expires": "2026-11-23T03:50:33Z",
+   "expires": "2026-11-23T04:10:27Z",
    "release": "control-board.zip",
    "callers": {
     "status": [
@@ -387,7 +387,7 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
    "since": "2026-11-22T23:25:22Z",
-   "expires": "2026-11-23T03:50:33Z",
+   "expires": "2026-11-23T04:10:27Z",
    "release": "control-board.zip",
    "callers": {
     "tv_cb_process_table": [
@@ -402,7 +402,7 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
    "since": "2026-11-22T23:25:22Z",
-   "expires": "2026-11-23T03:50:33Z",
+   "expires": "2026-11-23T04:10:27Z",
    "release": "control-board.zip",
    "callers": {}
   },
@@ -413,7 +413,7 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
    "since": "2026-11-22T23:25:22Z",
-   "expires": "2026-11-23T03:50:33Z",
+   "expires": "2026-11-23T04:10:27Z",
    "release": "control-board.zip",
    "callers": {}
   },
@@ -424,7 +424,7 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
    "since": "2026-11-22T23:25:22Z",
-   "expires": "2026-11-23T03:50:33Z",
+   "expires": "2026-11-23T04:10:27Z",
    "release": "control-board.zip",
    "callers": {}
   },
@@ -446,7 +446,7 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
    "since": "2026-11-22T23:25:22Z",
-   "expires": "2026-11-23T03:50:33Z",
+   "expires": "2026-11-23T04:10:27Z",
    "release": "control-board.zip",
    "callers": {}
   },
@@ -457,7 +457,7 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
    "since": "2026-11-22T23:25:22Z",
-   "expires": "2026-11-23T03:50:33Z",
+   "expires": "2026-11-23T04:10:27Z",
    "release": "control-board.zip",
    "callers": {}
   },
@@ -501,7 +501,7 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
    "since": "2026-11-22T23:25:22Z",
-   "expires": "2026-11-23T03:50:33Z",
+   "expires": "2026-11-23T04:10:27Z",
    "release": "control-board.zip",
    "callers": {}
   },
@@ -512,7 +512,7 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
    "since": "2026-11-22T23:25:22Z",
-   "expires": "2026-11-23T03:50:33Z",
+   "expires": "2026-11-23T04:10:27Z",
    "release": "control-board.zip",
    "callers": {}
   },
@@ -527,7 +527,7 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "control board build (step 4): Site health on one path (Pulse's own case stops)",
    "since": "2026-11-22T23:25:22Z",
-   "expires": "2026-11-23T03:50:33Z",
+   "expires": "2026-11-23T04:10:27Z",
    "release": "control-board.zip",
    "callers": {}
   },
@@ -538,7 +538,7 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
    "since": "2026-11-22T23:25:22Z",
-   "expires": "2026-11-23T03:50:33Z",
+   "expires": "2026-11-23T04:10:27Z",
    "release": "control-board.zip",
    "callers": {}
   },
@@ -549,7 +549,7 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
    "since": "2026-11-22T23:25:22Z",
-   "expires": "2026-11-23T03:50:33Z",
+   "expires": "2026-11-23T04:10:27Z",
    "release": "control-board.zip",
    "callers": {}
   },
@@ -562,7 +562,7 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
    "since": "2026-11-22T23:25:22Z",
-   "expires": "2026-11-23T03:50:33Z",
+   "expires": "2026-11-23T04:10:27Z",
    "release": "control-board.zip",
    "callers": {
     "refused": [
@@ -614,7 +614,7 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
    "since": "2026-11-22T23:25:24Z",
-   "expires": "2026-11-23T03:50:33Z",
+   "expires": "2026-11-23T04:10:27Z",
    "release": "control-board.zip",
    "callers": {}
   },
@@ -625,7 +625,7 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
    "since": "2026-11-22T23:25:24Z",
-   "expires": "2026-11-23T03:50:33Z",
+   "expires": "2026-11-23T04:10:27Z",
    "release": "control-board.zip",
    "callers": {}
   },
@@ -636,7 +636,7 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
    "since": "2026-11-22T23:25:24Z",
-   "expires": "2026-11-23T03:50:33Z",
+   "expires": "2026-11-23T04:10:27Z",
    "release": "control-board.zip",
    "callers": {}
   },
@@ -647,7 +647,7 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
    "since": "2026-11-22T23:25:24Z",
-   "expires": "2026-11-23T03:50:33Z",
+   "expires": "2026-11-23T04:10:27Z",
    "release": "control-board.zip",
    "callers": {}
   },
@@ -658,7 +658,7 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
    "since": "2026-11-22T23:25:24Z",
-   "expires": "2026-11-23T03:50:33Z",
+   "expires": "2026-11-23T04:10:27Z",
    "release": "control-board.zip",
    "callers": {}
   },
@@ -669,7 +669,7 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "control board build (step 4), taken over from session_01CXLi5mF3yZ2ZE7oz8RpDsq at its hold",
    "since": "2026-11-22T23:25:24Z",
-   "expires": "2026-11-23T03:50:33Z",
+   "expires": "2026-11-23T04:10:27Z",
    "release": "control-board.zip",
    "callers": {}
   },
@@ -680,7 +680,7 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "control board build (step 4): control_incidents in OWN (R14); Site health on one path (Pulse's own case stops)",
    "since": "2026-11-22T23:49:17Z",
-   "expires": "2026-11-23T03:50:33Z",
+   "expires": "2026-11-23T04:10:27Z",
    "release": "control-board.zip",
    "callers": {}
   },
@@ -691,7 +691,7 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "release control-board.zip",
    "since": "2026-11-22T23:50:33Z",
-   "expires": "2026-11-23T03:50:33Z",
+   "expires": "2026-11-23T04:10:27Z",
    "release": "control-board.zip",
    "callers": {}
   },
@@ -702,7 +702,7 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "release control-board.zip",
    "since": "2026-11-22T23:50:33Z",
-   "expires": "2026-11-23T03:50:33Z",
+   "expires": "2026-11-23T04:10:27Z",
    "release": "control-board.zip",
    "callers": {}
   },
@@ -713,7 +713,7 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "release control-board.zip",
    "since": "2026-11-22T23:50:33Z",
-   "expires": "2026-11-23T03:50:33Z",
+   "expires": "2026-11-23T04:10:27Z",
    "release": "control-board.zip",
    "callers": {}
   },
@@ -724,7 +724,7 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "release control-board.zip",
    "since": "2026-11-22T23:50:33Z",
-   "expires": "2026-11-23T03:50:33Z",
+   "expires": "2026-11-23T04:10:27Z",
    "release": "control-board.zip",
    "callers": {}
   },
@@ -735,7 +735,7 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "release control-board.zip",
    "since": "2026-11-22T23:50:33Z",
-   "expires": "2026-11-23T03:50:33Z",
+   "expires": "2026-11-23T04:10:27Z",
    "release": "control-board.zip",
    "callers": {}
   },
@@ -746,7 +746,7 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "release control-board.zip",
    "since": "2026-11-22T23:50:33Z",
-   "expires": "2026-11-23T03:50:33Z",
+   "expires": "2026-11-23T04:10:27Z",
    "release": "control-board.zip",
    "callers": {}
   },
@@ -757,7 +757,7 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "release control-board.zip",
    "since": "2026-11-22T23:50:33Z",
-   "expires": "2026-11-23T03:50:33Z",
+   "expires": "2026-11-23T04:10:27Z",
    "release": "control-board.zip",
    "callers": {}
   },
@@ -768,7 +768,7 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "release control-board.zip",
    "since": "2026-11-22T23:50:33Z",
-   "expires": "2026-11-23T03:50:33Z",
+   "expires": "2026-11-23T04:10:27Z",
    "release": "control-board.zip",
    "callers": {}
   },
@@ -779,7 +779,7 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "release control-board.zip",
    "since": "2026-11-22T23:50:33Z",
-   "expires": "2026-11-23T03:50:33Z",
+   "expires": "2026-11-23T04:10:27Z",
    "release": "control-board.zip",
    "callers": {}
   },
@@ -790,7 +790,7 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "release control-board.zip",
    "since": "2026-11-22T23:50:33Z",
-   "expires": "2026-11-23T03:50:33Z",
+   "expires": "2026-11-23T04:10:27Z",
    "release": "control-board.zip",
    "callers": {}
   }
