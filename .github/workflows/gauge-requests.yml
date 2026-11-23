@@ -1,0 +1,41 @@
+# The gauge panel's requests, hourly (the session manager's OK, 2026-11-23): tools/page-audit/gauge-requests.mjs reads only
+# health.php?part=gauge_tasks and rewrites build-requests.json and gauge-approvals.json when they changed. A commit only then.
+# The daily search probe (search-probe.yml, towns.mjs) still writes them too. Only reads the site.
+name: Gauge requests
+
+on:
+  schedule:
+    - cron: '23 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: gauge-requests
+  cancel-in-progress: false
+
+jobs:
+  read:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Read the open requests
+        env:
+          SITE: https://traversence.com
+          HEALTH_TOKEN: ${{ secrets.HEALTH_TOKEN }}
+          CHECK_ACCOUNTS: ${{ secrets.CHECK_ACCOUNTS }}
+        run: node tools/page-audit/gauge-requests.mjs
+      - name: Commit only when they changed
+        run: |
+          git add site-audit/results/build-requests.json site-audit/results/gauge-approvals.json
+          if git diff --cached --quiet; then echo "No change."; exit 0; fi
+          git config user.name "gauge-requests"
+          git config user.email "gauge-requests@users.noreply.github.com"
+          git commit -m "Gauge requests: the panel's open requests"
+          git pull --rebase -X theirs -q
+          git push

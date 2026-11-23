@@ -15,10 +15,16 @@
 const { chromium } = require('playwright'); const { spawn } = require('child_process'); const path = require('path');
 const root = path.resolve(process.argv[2]); const shots = process.argv[3] || '';
 let pass = 0, fail = 0; const t = (n, ok, got) => { if (ok) { pass++; console.log('  ok  ' + n); } else { fail++; console.log('FAIL  ' + n + (got !== undefined ? ' — ' + JSON.stringify(got).slice(0, 300) : '')); } };
+const fs = require('fs'); const gdir = fs.mkdtempSync(path.join(require('os').tmpdir(), 'gauge-panel-')); const gfile = path.join(gdir, 'gauges.json');
+for (const f of ['gauges.json', 'gauges-items.json']) fs.copyFileSync(path.join(__dirname, '../../site-audit/results/', f), path.join(gdir, f));   // the detail is read beside it
 const port = 8960 + Math.floor(Math.random() * 30);
 const srv = spawn('php', ['-S', '127.0.0.1:' + port, path.join(__dirname, 'board-panels-router.php')],
-  { env: { ...process.env, ROOT: root, GAUGES_FILE: path.join(__dirname, '../../site-audit/results/gauges.json') }, stdio: 'ignore' });
+  { env: { ...process.env, ROOT: root, GAUGES_FILE: gfile }, stdio: 'ignore' });
 const home = 'http://127.0.0.1:' + port + '/admin/config/control';
+// a pickup written into a copy of gauges.json (never the repo's), the site's copy of it forgotten so the page reads it again
+function regauge(edit) { const gj = JSON.parse(fs.readFileSync(gfile, 'utf8')); edit(gj); fs.writeFileSync(gfile, JSON.stringify(gj));
+  require('child_process').spawnSync('mariadb', ['-utv', '-ptv', '-h127.0.0.1', 'lv_main', '-e', "DELETE FROM page_cache WHERE cache_key LIKE 'gauges:%'"]);
+  for (const f of (fs.existsSync(root + '/app/storage') ? fs.readdirSync(root + '/app/storage') : [])) if (/^gauges-cache-/.test(f)) fs.unlinkSync(root + '/app/storage/' + f); }
 const noSide = p => p.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth + 1);
 // an element that is text a person might press, but neither a link nor a button
 const inert = (p, sel) => p.evaluate(s => [...document.querySelectorAll(s)].filter(e => e.getClientRects().length).flatMap(sp =>
@@ -81,7 +87,7 @@ const red = (p, sel) => p.evaluate(s => [...document.querySelectorAll(s + ' *')]
       // one cycle: Request a fix → Requested with Undo; Undo puts it back; no Next
       await p.locator(row).locator('[data-cbg="fix"]').click(); await p.waitForSelector(sp + ' .cbg-done', { timeout: 8000 });
       const line = await p.locator(row).locator('.cbg-done').textContent();
-      t(L + 'Request a fix → "Requested: the Discovery build has it", Undo beside it, the button gone', /^Requested: the Discovery build has it/.test(line) && !/Fixing/.test(line) && /Undo/.test(line) && !(await p.locator(row).locator('[data-cbg="fix"]').isVisible()), line);
+      t(L + 'Request a fix → "Requested · waiting for a build to take it" (no session has it yet), Undo beside it, the button gone', /^Requested · waiting for a build to take it/.test(line) && !/Fixing/.test(line) && /Undo/.test(line) && !(await p.locator(row).locator('[data-cbg="fix"]').isVisible()), line);
       t(L + '…and no Next: the cycle ends there', !/Next/.test(line) && (await p.locator(row).locator('.cbg-done .cbg-b').count()) === 0);
       if (shots) await p.screenshot({ path: shots + '/gauge-requested-' + w + '.png' });
       await p.locator(row).locator('.cbg-done [data-cbg="undo"]').click(); await p.waitForTimeout(600);
@@ -91,14 +97,29 @@ const red = (p, sel) => p.evaluate(s => [...document.querySelectorAll(s + ' *')]
       await p.goto(home); await p.waitForTimeout(900); await p.click('[data-cb-rail="development"]'); await p.waitForTimeout(400);
       await p.click('#cb-d-discovery .cb-gopen'); await p.waitForSelector(sp + ' .cbg', { timeout: 15000 });
       await p.click(sp + ' .cbg-lg[data-cbg-f="fail"]'); await p.click(row + ' >> .cbg-ex');
-      t(L + 'a request is kept: drawn again with its Requested line and Undo', /^Requested: /.test(await p.locator(row).locator('.cbg-done').textContent()));
+      t(L + 'a request is kept: drawn again with its Requested line and Undo', /^Requested · waiting/.test(await p.locator(row).locator('.cbg-done').textContent()));
       t(L + '…and within its first day it doesn\'t say "Not picked up yet"', !/Not picked up yet/.test(await p.locator(row).locator('.cbg-done').textContent()));
       // a day later with no build taking it: "Not picked up yet", the session manager told
       require('child_process').spawnSync('mariadb', ['-utv', '-ptv', '-h127.0.0.1', 'lv_main', '-e', "UPDATE control_gauge_tasks SET at = UTC_TIMESTAMP() - INTERVAL 25 HOUR WHERE kind = 'fix' AND undone_at IS NULL"]);
       await p.goto(home); await p.waitForTimeout(900); await p.click('[data-cb-rail="development"]'); await p.waitForTimeout(400);
       await p.click('#cb-d-discovery .cb-gopen'); await p.waitForSelector(sp + ' .cbg', { timeout: 15000 });
       await p.click(sp + ' .cbg-lg[data-cbg-f="fail"]'); await p.click(row + ' >> .cbg-ex');
-      t(L + 'past a day untaken: "Not picked up yet: the session manager has been told", and still Undo (a request is withdrawn at any age)', /Not picked up yet: the session manager has been told/.test(await p.locator(row).locator('.cbg-done').textContent()) && (await p.locator(row).locator('.cbg-done [data-cbg="undo"]').count()) === 1);
+      t(L + 'past a day untaken: "Not picked up yet: the session manager has been told", in amber (--cb-hold), and still Undo (a request is withdrawn at any age)', /Not picked up yet: the session manager has been told/.test(await p.locator(row).locator('.cbg-done').textContent()) && (await p.locator(row).locator('.cbg-done [data-cbg="undo"]').count()) === 1 && await p.locator(row).locator('.cbg-late').evaluate(b => getComputedStyle(b).color) === 'rgb(143, 86, 0)');
+      // a session takes it (releases/gauge-pickups.json through gauges.json): the line names it, then its release
+      const tid = (require('child_process').spawnSync('mariadb', ['-utv', '-ptv', '-h127.0.0.1', '-N', 'lv_main', '-e', "SELECT MAX(id) FROM control_gauge_tasks WHERE kind = 'fix' AND undone_at IS NULL"]).stdout + '').trim();
+      for (const [rel, want] of [['', /^Requested: the Control Board build session has it · Jason/], ['kit-buttons.zip', /^Requested: the Control Board build session has it · Being fixed in kit-buttons\.zip · Jason/]]) {
+        regauge(gj => { gj.pickups = { [tid]: ['Control Board build session', rel] }; });
+        await p.goto(home); await p.waitForTimeout(900); await p.click('[data-cb-rail="development"]'); await p.waitForTimeout(400);
+        await p.click('#cb-d-discovery .cb-gopen'); await p.waitForSelector(sp + ' .cbg', { timeout: 15000 });
+        await p.click(sp + ' .cbg-lg[data-cbg-f="fail"]'); await p.click(row + ' >> .cbg-ex');
+        const ln = (await p.locator(row).locator('.cbg-done').textContent()).trim();
+        if (shots && rel) await p.screenshot({ path: shots + '/gauge-pickedup-' + w + '.png' });
+        t(L + (rel ? '…its release named: "Being fixed in kit-buttons.zip"' : 'taken by a session: "Requested: the Control Board build session has it", no "Not picked up yet"'), want.test(ln) && !/Not picked up yet/.test(ln), ln);
+      }
+      { regauge(gj => { delete gj.pickups; });
+        await p.goto(home); await p.waitForTimeout(900); await p.click('[data-cb-rail="development"]'); await p.waitForTimeout(400);
+        await p.click('#cb-d-discovery .cb-gopen'); await p.waitForSelector(sp + ' .cbg', { timeout: 15000 });
+        await p.click(sp + ' .cbg-lg[data-cbg-f="fail"]'); await p.click(row + ' >> .cbg-ex'); }
       if (shots) await p.screenshot({ path: shots + '/gauge-notpicked-' + w + '.png' });
       await p.locator(row).locator('.cbg-done [data-cbg="undo"]').click(); await p.waitForTimeout(500);
       // Approve the scope: its line in place, Undo

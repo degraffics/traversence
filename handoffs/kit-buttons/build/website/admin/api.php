@@ -216,7 +216,7 @@ try {
                     $nid = GaugeTasks::fix($pdo, $pid, (string) ($in['item'] ?? ''), (string) ($in['b'] ?? ''), $what, $build, $who, $uid, $tz);
                     // Request a fix queues it for a build, so its words say that, never "Fixing" (Jason, 2026-11-23)
                     Response::success(['id' => $nid, 'message' => 'Requested.',
-                        'line' => '<b>Requested:</b> the ' . $h($build) . ' build has it (' . $h($what) . ') · ' . $h($who) . ', ' . $when . '. It clears by itself once its check passes.']); }
+                        'line' => '<b>Requested</b> · waiting for a build to take it · ' . $h($who) . ', ' . $when . '. It clears by itself once its check passes.']); }
                 [$okA, $whyA] = Access::can('config.gauges.approve', ['min' => 'executive', 'depts' => []]);
                 if (!$okA) Response::error($whyA . '.', 403);
                 $kind = (string) ($in['kind'] ?? '') === 'target' ? 'target' : 'scope';

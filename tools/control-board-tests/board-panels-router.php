@@ -29,7 +29,7 @@ if ($path === '/admin/api/config/control' && ($_SERVER['REQUEST_METHOD'] ?? '') 
     try {
         if ($act === 'gaugeundo') { echo json_encode(['ok' => true, 'message' => GaugeTasks::undo($pdo, (int) $pid, 'Jason (test)')]); return true; }
         if ($act === 'gaugefix') { $nid = GaugeTasks::fix($pdo, $pid, (string) $in['item'], (string) $in['b'], (string) $in['what'], (string) $in['build'], 'Jason (test)', 1);
-            echo json_encode(['ok' => true, 'id' => $nid, 'line' => '<b>Requested:</b> the ' . htmlspecialchars((string) $in['build']) . ' build has it (' . htmlspecialchars((string) $in['what']) . ') · Jason (test), now. It clears by itself once its check passes.']); return true; }
+            echo json_encode(['ok' => true, 'id' => $nid, 'line' => '<b>Requested</b> · waiting for a build to take it · Jason (test), now. It clears by itself once its check passes.']); return true; }
         if ($act === 'gaugeapprove') { $k = ($in['kind'] ?? '') === 'target' ? 'target' : 'scope'; $nid = GaugeTasks::approve($pdo, $pid, $k, (string) ($in['value'] ?? ''), (string) ($in['title'] ?? ''), 'Jason (test)', 1);
             echo json_encode(['ok' => true, 'id' => $nid, 'line' => '<b>' . ($k === 'scope' ? 'Scope approved' : 'Target approved') . '</b> by Jason (test), now.']); return true; }
     } catch (Throwable $x) { echo json_encode(['ok' => false, 'error' => ['message' => $x->getMessage()]]); return true; }
