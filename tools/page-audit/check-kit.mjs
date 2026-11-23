@@ -34,8 +34,10 @@ export async function staffIn(ctx, a, site = SITE) {
   await p.fill('#sid', a.staff_id); await p.fill('#pw', a.password);
   await Promise.all([p.waitForNavigation({ waitUntil: 'domcontentloaded', timeout: 30000 }), p.click('button.b')]);   // the password step reloads the page with the code box
   if (await p.$('#code')) {
-    await p.fill('#code', totp(a.totp));
-    await Promise.all([p.waitForNavigation({ waitUntil: 'domcontentloaded', timeout: 30000 }).catch(() => {}), p.click('button.b')]);
+    // the code box sends itself on the 6th digit (js/code-link.js, 3f A11, 2026-11-22), so wait for that first; press
+    // Sign in only if the page is still on the code step (an older page, or the script not loaded)
+    await Promise.all([p.waitForNavigation({ waitUntil: 'domcontentloaded', timeout: 10000 }).catch(() => {}), p.fill('#code', totp(a.totp))]);
+    if (await p.$('#code')) await Promise.all([p.waitForNavigation({ waitUntil: 'domcontentloaded', timeout: 30000 }).catch(() => {}), p.click('button.b')]);
   }
   const ok = !/\/admin\/login\.php/.test(p.url());
   const said = ok ? '' : ((await p.locator('p.no[role=alert], [data-tv-flash], [data-tv-status="bad"]').first().innerText().catch(() => '')) || '').slice(0, 160);
