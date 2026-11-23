@@ -301,13 +301,14 @@
   {
    "path": "app/lib/ControlAlarms.php",
    "functions": [
+    "redrawTitles",
     "retitle"
    ],
    "kind": "add",
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
-   "why": "words follow the state: one title per alarm from its state",
+   "why": "words follow the state: titles redrawn from state",
    "since": "2026-11-23T04:07:09Z",
-   "expires": "2026-11-23T08:07:09Z",
+   "expires": "2026-11-23T08:07:43Z",
    "release": "old-titles.zip",
    "callers": {}
   },
