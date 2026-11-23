@@ -403,6 +403,20 @@
    "expires": "2026-11-23T19:50:50Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/admin/widgets.php",
+   "functions": [
+    "tv_w_section",
+    "tv_w_table"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
+   "why": "Orders release A: ordering ironclad (Jason, 2026-11-23; research/ordering-ironclad-2026-11-23.md, decisions/0177)",
+   "since": "2026-11-23T15:50:53Z",
+   "expires": "2026-11-23T19:50:53Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
