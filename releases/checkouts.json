@@ -57,6 +57,17 @@
    "expires": "2026-11-23T17:53:53Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/admin/kit-css.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "board-view: the opening view as approved (rail, chips, landing) and the drawer Back and margin (Jason, 2026-11-23)",
+   "since": "2026-11-23T13:53:55Z",
+   "expires": "2026-11-23T17:53:55Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
