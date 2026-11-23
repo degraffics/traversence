@@ -1,0 +1,69 @@
+{
+    "id": 266,
+    "title": "One panel at a time in the admin's drawers, one Copy per heading, panels titled by the part's name",
+    "why": "Jason's screenshot of the live board (2026-11-23): an alarm opened from the Alarms tab, then 'Its process's page', then 'Its register entry', stacked three panels: two headers, two × and two 'Open the full page'. The admin's drawers kept their own stack, two deep, and a link inside a drawer's frame opened a panel inside it. Now a drawer is the one panel: what opens from it (its own page, a register entry, a link inside either) replaces what it shows, with ← Back to each step, as the site's side panel already did (decisions/0175 §6). Google Cloud's card showed 'Copy' twice, stacked: the card's own button sat in its corner over its first section's; it is now 'Copy all' on that heading's line. The panels and their links are titled by the part's name ('Google Cloud', 'Google Cloud in the register'), and the alarm's drawer names the part, never svc:google.",
+    "proposals": "",
+    "zip": "board-panels.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/admin/control-console.php": {
+            "sha": "ef6c4f17e948d23b79fc82362251bbfd1626a4bf7e0922108e03667d20f66280",
+            "size": 184824,
+            "live_was": "d894e164a3d368bf9748d0b71e6db20d1375c3b908f3a7e6483bcc3eb32b1a1d"
+        },
+        "app/admin/tools.php": {
+            "sha": "c5c3ee6107813c95869b327d790f0791908d8a56e57a79c9b9f3bade46510aec",
+            "size": 266911,
+            "live_was": "ad82bd325f637c6d45f5b3c837c74d05c2513d039e311f3d8c1f86c8c277a6ff"
+        },
+        "app/admin/operations-console.php": {
+            "sha": "0a88b6938fa3f0270173f210dd7da8eb15e018964575d3156f9aa5c435785461",
+            "size": 112556,
+            "live_was": "200237d4108fb3b8ce2c2a7398b1aedbb6f09eccef947e8751a95a316be15dd5"
+        },
+        "app/ui/faq.md": {
+            "sha": "916da33d07c6fbf7a0dcf9ab4843cdd5d3051c32e14163211f0039d888046df9",
+            "size": 429111,
+            "live_was": "45845a1cc2375b0350701ee6822a19b0145d737f8a5ec6eddcc8b25213ef5083"
+        },
+        "app/lib/Operations.php": {
+            "sha": "75b164f98337ff2ffc365b83b9ccea8046701298ab1d631d8a81349a32d08abe",
+            "size": 79162,
+            "live_was": "b8e02ab9b346d63575c3575121b0ddb4747a4ad1a6383ede756ab4a4eb91a59b"
+        },
+        "website/js/tv-ask.js": {
+            "sha": "8d7e53a8c1b047deb3cf3ca0d03f3e97c6b46912382dbe66fd4b39b5e8aab9d0",
+            "size": 53086,
+            "live_was": "e701bb165da96d8559a9529777de744944cc20068c74d44e81e538b374004d56"
+        },
+        "website/js/tv-copy.js": {
+            "sha": "09c45aca18123d81e473f4d8a0e50c027da66a2ea29171d87495b25b74eb2115",
+            "size": 5856,
+            "live_was": "db4dcbbfb921d0d401edacbeac4c0232633aa82041c49817a9423d6738b5b20f"
+        },
+        "website/js/admin-kit.js": {
+            "sha": "10a391fa5682a888af6be292b183f177e992d168b48a31b9348595edacd2805f",
+            "size": 61050,
+            "live_was": "d82f138b2de7f98484fa0ac7f0fe3ed06427490235dfc130955f867456ea39dd"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-23T13:40:17+00:00",
+            "by": 0,
+            "msg": "Uploaded board-panels.zip: 8 files."
+        }
+    ]
+}
