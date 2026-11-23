@@ -31,6 +31,7 @@
   {
    "path": "app/admin/control-console.php",
    "functions": [
+    "tv_cb_deliver",
     "tv_cb_development",
     "tv_cb_gauge_card",
     "tv_cb_gauge_detail",
@@ -40,7 +41,7 @@
    "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
    "why": "Gauge panel as a drill-down, approved by Jason 2026-11-23 (handoffs/gauge-panel.md)",
    "since": "2026-11-23T19:46:07Z",
-   "expires": "2026-11-23T23:46:07Z",
+   "expires": "2026-11-24T00:10:37Z",
    "release": "gauge-panel.zip",
    "callers": {}
   },
@@ -48,13 +49,14 @@
    "path": "app/lib/ControlGauges.php",
    "functions": [
     "development",
+    "forget",
     "runtime"
    ],
    "kind": "change",
    "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
    "why": "Gauge panel as a drill-down, approved by Jason 2026-11-23 (handoffs/gauge-panel.md)",
    "since": "2026-11-23T19:46:07Z",
-   "expires": "2026-11-23T23:46:07Z",
+   "expires": "2026-11-24T00:10:37Z",
    "release": "gauge-panel.zip",
    "callers": {}
   },
@@ -105,14 +107,16 @@
   {
    "path": "app/admin/module-cards.php",
    "functions": [
+    "tv_mc_css",
+    "tv_mc_light",
     "tv_mc_setup",
     "tv_module_card"
    ],
    "kind": "change",
    "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
-   "why": "Gauge panel release: a finished step replaces its form on the cards (Jason, 2026-11-23)",
+   "why": "Gauge panel as a drill-down, approved by Jason 2026-11-23 (handoffs/gauge-panel.md)",
    "since": "2026-11-23T19:58:00Z",
-   "expires": "2026-11-23T23:58:00Z",
+   "expires": "2026-11-24T00:10:37Z",
    "release": "gauge-panel.zip",
    "callers": {}
   },
@@ -143,13 +147,14 @@
   {
    "path": "app/lib/Preflight.php",
    "functions": [
-    "alarm"
+    "alarm",
+    "summary"
    ],
    "kind": "change",
    "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
-   "why": "Gauge panel release: a check's raw transport error never a title (the Design reviewer, 2026-11-23: Library of Congress)",
+   "why": "Gauge panel as a drill-down, approved by Jason 2026-11-23 (handoffs/gauge-panel.md)",
    "since": "2026-11-23T19:59:17Z",
-   "expires": "2026-11-23T23:59:17Z",
+   "expires": "2026-11-24T00:10:37Z",
    "release": "gauge-panel.zip",
    "callers": {}
   },
