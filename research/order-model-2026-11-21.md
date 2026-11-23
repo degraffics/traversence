@@ -9,6 +9,16 @@ are not able to see how the order system should work").
 Checked against: `research/order-system-map-2026-11-19.md` (the map, Jason's confirmed baseline), its nine readings,
 and `research/order-rulings-2026-11-20.md` (his confirmed rulings B.1–B.7, §1, §3).
 
+## 0. What this changes in earlier decisions (to confirm one by one; each gets a dated note once confirmed)
+
+| # | The decision's line now | The model | Where |
+|---|---|---|---|
+| 1 | 0101, How it works: "With invoice-later terms, production starts on approval." And its Decision: "Payment, chosen per order: … or approve now and pay the invoice later." | Invoice later as a pay mode goes; delayed payment is a credit account on its terms, or an admin override on one order | 1.8 |
+| 2 | 0101's Decision: "Payment, chosen per order: in full on approval, a deposit on approval and the rest before delivery, or …" (with the built rule that any money in, a deposit included, puts printed work into production: `ClientOrders::received`, map §3 step 10) | Paid in full at approval is the rule; a deposit is the exception, for orders whose terms may still change, and covers the order only until production schedules it. Changes built behaviour | 1.8, 1.9 |
+| 3 | Confirmed B.4 (0101 note, 2026-11-20): paid in full before Shipped or Ready, "except where Release to production before payment, invoice later, or outside terms apply" | The "invoice later" exemption is removed; Release to production before payment becomes the admin override (admins only, with a reason) | 1.9 |
+| 4 | Not a decision: the deposit's 50% default is only in code (`ClientOrders::setField`, line 1227). 0101 says only "Deposit is off unless chosen; choosing it asks for the %" | 65% default; still set per order by staff | 1.8 |
+| 5 | 0098: credits are "used toward anything we sell", with `credit_used` "applied at checkout" in the ledger; built only as QuickBooks credit memos (map §6: `credit_used` is read, never written) | Account credits applied to what an order owes, on both routes | 1.9 |
+
 ## 1. The model
 
 **1.1 Two routes in the middle.** "Middle is two routes, not a change."
@@ -156,13 +166,13 @@ statement."
 **1.10 File preflight.** "we will need file preflight checks." The checks are 0176's (resolution, bleed, size); the
 limits are Jason's to set ("I'll set the limits", 0176).
 
-**1.14 Shipping** (2026-11-22): "Need a shipping module integrated into the platform for calculating shipping costs
+**1.14 Shipping (new scope, not yet decided)** (2026-11-22): "Need a shipping module integrated into the platform for calculating shipping costs
 and shipping vendor management." Shipping costs are calculated by the platform (so a client configuring an item sees
 its shipping before checkout), and shipping vendors (carriers) are managed there. Built today: shipping set by hand per
 item, manifests, carriers named on lines (`Shipments`, `setLineShip`, `CARRIERS`); the Marketplace has its own,
 separate. A module of its own, to be scoped.
 
-**1.15 Waiting states and their notices** (2026-11-22): "Abandoned cart, stalled processing, saved for later,
+**1.15 Waiting states and their notices (new scope, not yet decided)** (2026-11-22): "Abandoned cart, stalled processing, saved for later,
 reorders... all need notifications and definitions." Then: "4hr, 24hr, 72hr, 7 business days, 14 days." and "Reorder:
 suggestions 3 to 6 months after initial order, give client a way to set when to reorder alert."
 - **Reminder schedule:** 4 hours, 24 hours, 72 hours, 7 business days, 14 days (the 14th day is also when a quote's
@@ -174,6 +184,8 @@ suggestions 3 to 6 months after initial order, give client a way to set when to 
 - The definitions (from the Orders session's table, 2026-11-22): **stalled processing**, an item in the ordering queue
   that hasn't moved, waiting on the client, us or the vendor; **abandoned cart**, released items not checked out;
   **saved for later**, moved out of the cart on purpose; **reorder**, a completed item that can be ordered again.
+- Cost: these are system emails the site sends itself, which cost nothing (CLAUDE.md, "No income, no expense": "System
+  emails the site sends itself … cost nothing and aren't limited by this").
 
 **1.13 The stages after approval** (2026-11-22): "Staged for production when an order is approved. Deposit does not
 control progress, it is a requirement of partial payment when needed to ensure we risk incurring expenses that might be
