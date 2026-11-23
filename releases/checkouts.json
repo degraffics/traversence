@@ -2,82 +2,6 @@
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
  "claims": [
   {
-   "path": "website/js/tv-ask.js",
-   "functions": [
-    "(top)",
-    "peek"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
-   "why": "board-view: one part in the panel (Jason, 2026-11-23)",
-   "since": "2026-11-23T13:15:03Z",
-   "expires": "2026-11-23T18:37:08Z",
-   "release": "",
-   "callers": {}
-  },
-  {
-   "path": "website/js/admin-kit.js",
-   "functions": [
-    "head",
-    "shutAll",
-    "stepBack"
-   ],
-   "kind": "add",
-   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
-   "why": "board-panels: one panel at a time, Copy all, panels titled by the part (Jason, 2026-11-23)",
-   "since": "2026-11-23T13:15:14Z",
-   "expires": "2026-11-23T17:15:18Z",
-   "release": "",
-   "callers": {}
-  },
-  {
-   "path": "app/admin/control-console.php",
-   "functions": [
-    "tv_cb_qbar",
-    "tv_cb_rail"
-   ],
-   "kind": "add",
-   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
-   "why": "board-view: the opening view as approved (rail, chips, landing) and the drawer Back and margin (Jason, 2026-11-23)",
-   "since": "2026-11-23T13:53:53Z",
-   "expires": "2026-11-23T17:53:53Z",
-   "release": "",
-   "callers": {}
-  },
-  {
-   "path": "website/api/live-read.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
-   "why": "Live reads for building (Jason, 2026-11-23: 'for building we must use live data'; his Approve of the channel)",
-   "since": "2026-11-23T14:12:08Z",
-   "expires": "2026-11-23T18:34:48Z",
-   "release": "live-read.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/ControlLog.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
-   "why": "The Logbook's kind for a live read",
-   "since": "2026-11-23T14:12:11Z",
-   "expires": "2026-11-23T18:34:48Z",
-   "release": "live-read.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/EnvSettings.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
-   "why": "The live reads' key made by the site (WRITE_ONLY)",
-   "since": "2026-11-23T14:15:30Z",
-   "expires": "2026-11-23T18:34:48Z",
-   "release": "live-read.zip",
-   "callers": {}
-  },
-  {
    "path": "app/admin/control-console.php",
    "functions": [
     "(top)",
@@ -365,383 +289,6 @@
    "callers": {}
   },
   {
-   "path": "app/admin/tools.php",
-   "functions": [
-    "'backoffice/orders'",
-    "(top)"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
-   "why": "Orders release A: ordering ironclad (Jason, 2026-11-23; research/ordering-ironclad-2026-11-23.md, decisions/0177)",
-   "since": "2026-11-23T15:50:43Z",
-   "expires": "2026-11-23T20:23:50Z",
-   "release": "orders-release-a.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/admin/sections.php",
-   "functions": [
-    "tv_admin_mod_qb_items",
-    "tv_admin_mod_qb_pull"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
-   "why": "Orders release A: ordering ironclad (Jason, 2026-11-23; research/ordering-ironclad-2026-11-23.md, decisions/0177)",
-   "since": "2026-11-23T15:50:46Z",
-   "expires": "2026-11-23T20:23:50Z",
-   "release": "orders-release-a.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/admin/manifests.php",
-   "functions": [
-    "'backoffice'"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
-   "why": "Orders release A: ordering ironclad (Jason, 2026-11-23; research/ordering-ironclad-2026-11-23.md, decisions/0177)",
-   "since": "2026-11-23T15:50:50Z",
-   "expires": "2026-11-23T20:23:50Z",
-   "release": "orders-release-a.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/admin/widgets.php",
-   "functions": [
-    "tv_w_section",
-    "tv_w_table"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
-   "why": "Orders release A: ordering ironclad (Jason, 2026-11-23; research/ordering-ironclad-2026-11-23.md, decisions/0177)",
-   "since": "2026-11-23T15:50:53Z",
-   "expires": "2026-11-23T20:23:50Z",
-   "release": "orders-release-a.zip",
-   "callers": {
-    "tv_w_section": [
-     "app/admin/job-line.php",
-     "website/admin/router.php"
-    ],
-    "tv_w_table": [
-     "app/admin/control-console.php",
-     "app/admin/sections.php"
-    ]
-   }
-  },
-  {
-   "path": "app/ui/qb-merge.php",
-   "functions": [
-    "tv_qb_merge_box"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
-   "why": "Orders release A: ordering ironclad (Jason, 2026-11-23; research/ordering-ironclad-2026-11-23.md, decisions/0177)",
-   "since": "2026-11-23T15:50:57Z",
-   "expires": "2026-11-23T20:23:50Z",
-   "release": "orders-release-a.zip",
-   "callers": {
-    "tv_qb_merge_box": [
-     "website/admin/client-order.php"
-    ]
-   }
-  },
-  {
-   "path": "app/lib/ClientOrders.php",
-   "functions": [
-    "(top)",
-    "addProduct",
-    "dueNow",
-    "duplicate",
-    "mail",
-    "pay",
-    "refreshPrices",
-    "saveTerms",
-    "send",
-    "setField",
-    "shipping"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
-   "why": "Orders release A: ordering ironclad (Jason, 2026-11-23; research/ordering-ironclad-2026-11-23.md, decisions/0177)",
-   "since": "2026-11-23T15:51:00Z",
-   "expires": "2026-11-23T20:23:50Z",
-   "release": "orders-release-a.zip",
-   "callers": {
-    "dueNow": [
-     "website/admin/client-order.php",
-     "website/api/client-order.php",
-     "website/order.php"
-    ],
-    "shipping": [
-     "website/admin/client-order.php",
-     "website/order.php"
-    ],
-    "addProduct": [
-     "website/admin/client-order.php"
-    ],
-    "duplicate": [
-     "website/admin/client-order.php"
-    ],
-    "refreshPrices": [
-     "website/admin/client-order.php"
-    ],
-    "send": [
-     "app/admin/workflows.php",
-     "app/lib/Pulse.php",
-     "website/admin/client-order.php"
-    ],
-    "pay": [
-     "website/api/client-order.php"
-    ],
-    "setField": [
-     "website/api/admin/client-order.php"
-    ]
-   }
-  },
-  {
-   "path": "app/lib/QbPull.php",
-   "functions": [
-    "(top)",
-    "insertLine",
-    "merge",
-    "pull"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
-   "why": "Orders release A: ordering ironclad (Jason, 2026-11-23; research/ordering-ironclad-2026-11-23.md, decisions/0177)",
-   "since": "2026-11-23T15:51:04Z",
-   "expires": "2026-11-23T20:23:50Z",
-   "release": "orders-release-a.zip",
-   "callers": {
-    "merge": [
-     "app/ui/qb-merge.php",
-     "website/admin/client-order.php"
-    ],
-    "pull": [
-     "app/admin/sections.php"
-    ]
-   }
-  },
-  {
-   "path": "app/lib/Books.php",
-   "functions": [
-    "decide",
-    "setRoles"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
-   "why": "Orders release A: ordering ironclad (Jason, 2026-11-23; research/ordering-ironclad-2026-11-23.md, decisions/0177)",
-   "since": "2026-11-23T15:51:06Z",
-   "expires": "2026-11-23T20:23:50Z",
-   "release": "orders-release-a.zip",
-   "callers": {
-    "decide": [
-     "app/admin/sections.php",
-     "app/lib/QbPull.php"
-    ],
-    "setRoles": [
-     "app/admin/sections.php"
-    ]
-   }
-  },
-  {
-   "path": "app/lib/Orders.php",
-   "functions": [
-    "cancelUnpaid"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
-   "why": "Orders release A: ordering ironclad (Jason, 2026-11-23; research/ordering-ironclad-2026-11-23.md, decisions/0177)",
-   "since": "2026-11-23T15:51:08Z",
-   "expires": "2026-11-23T20:23:50Z",
-   "release": "orders-release-a.zip",
-   "callers": {
-    "cancelUnpaid": [
-     "app/lib/ClientOrders.php",
-     "app/lib/QrIssue.php",
-     "website/admin/order.php"
-    ]
-   }
-  },
-  {
-   "path": "app/lib/QrIssue.php",
-   "functions": [
-    "cancelMine"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
-   "why": "Orders release A: ordering ironclad (Jason, 2026-11-23; research/ordering-ironclad-2026-11-23.md, decisions/0177)",
-   "since": "2026-11-23T15:51:10Z",
-   "expires": "2026-11-23T20:23:50Z",
-   "release": "orders-release-a.zip",
-   "callers": {
-    "cancelMine": [
-     "website/api/go-codes.php"
-    ]
-   }
-  },
-  {
-   "path": "app/lib/QuickBooksPay.php",
-   "functions": [
-    "invoiceFor"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
-   "why": "Orders release A: ordering ironclad (Jason, 2026-11-23; research/ordering-ironclad-2026-11-23.md, decisions/0177)",
-   "since": "2026-11-23T15:51:12Z",
-   "expires": "2026-11-23T20:23:50Z",
-   "release": "orders-release-a.zip",
-   "callers": {
-    "invoiceFor": [
-     "app/lib/ClientOrders.php"
-    ]
-   }
-  },
-  {
-   "path": "website/admin/client-order.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
-   "why": "Orders release A: ordering ironclad (Jason, 2026-11-23; research/ordering-ironclad-2026-11-23.md, decisions/0177)",
-   "since": "2026-11-23T15:51:14Z",
-   "expires": "2026-11-23T20:23:50Z",
-   "release": "orders-release-a.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/order.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
-   "why": "Orders release A: ordering ironclad (Jason, 2026-11-23; research/ordering-ironclad-2026-11-23.md, decisions/0177)",
-   "since": "2026-11-23T15:51:16Z",
-   "expires": "2026-11-23T20:23:50Z",
-   "release": "orders-release-a.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/api/qb-webhook.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
-   "why": "Orders release A: ordering ironclad (Jason, 2026-11-23; research/ordering-ironclad-2026-11-23.md, decisions/0177)",
-   "since": "2026-11-23T15:51:18Z",
-   "expires": "2026-11-23T20:23:50Z",
-   "release": "orders-release-a.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/api/client-order.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
-   "why": "Orders release A: ordering ironclad (Jason, 2026-11-23; research/ordering-ironclad-2026-11-23.md, decisions/0177)",
-   "since": "2026-11-23T15:51:20Z",
-   "expires": "2026-11-23T20:23:50Z",
-   "release": "orders-release-a.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/terms.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
-   "why": "Orders release A: ordering ironclad (Jason, 2026-11-23; research/ordering-ironclad-2026-11-23.md, decisions/0177)",
-   "since": "2026-11-23T15:51:22Z",
-   "expires": "2026-11-23T20:23:50Z",
-   "release": "orders-release-a.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/js/admin-kit.js",
-   "functions": [
-    "esc"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
-   "why": "Orders release A: ordering ironclad (Jason, 2026-11-23; research/ordering-ironclad-2026-11-23.md, decisions/0177)",
-   "since": "2026-11-23T15:51:25Z",
-   "expires": "2026-11-23T20:23:50Z",
-   "release": "orders-release-a.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/admin/kit-css.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
-   "why": "release orders-release-a.zip",
-   "since": "2026-11-23T15:52:23Z",
-   "expires": "2026-11-23T20:23:50Z",
-   "release": "orders-release-a.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/migrations/2027-03-30_order_tax_choice.sql",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
-   "why": "release orders-release-a.zip",
-   "since": "2026-11-23T15:52:23Z",
-   "expires": "2026-11-23T20:23:50Z",
-   "release": "orders-release-a.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/Billing.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
-   "why": "release orders-release-a.zip",
-   "since": "2026-11-23T15:52:23Z",
-   "expires": "2026-11-23T20:23:50Z",
-   "release": "orders-release-a.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/AccountDomains.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
-   "why": "release orders-release-a.zip",
-   "since": "2026-11-23T15:52:23Z",
-   "expires": "2026-11-23T20:23:50Z",
-   "release": "orders-release-a.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/OneOffs.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
-   "why": "release orders-release-a.zip",
-   "since": "2026-11-23T15:52:23Z",
-   "expires": "2026-11-23T20:23:50Z",
-   "release": "orders-release-a.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/ui/command-strip.php",
-   "functions": [
-    "tv_command_strip"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
-   "why": "Orders release A: ordering ironclad (Jason, 2026-11-23; the design review: one notices box carries its fix)",
-   "since": "2026-11-23T16:07:33Z",
-   "expires": "2026-11-23T20:23:50Z",
-   "release": "orders-release-a.zip",
-   "callers": {
-    "tv_command_strip": [
-     "app/admin/crawler-console.php",
-     "app/admin/legal-editor.php",
-     "website/admin/client-order.php",
-     "website/admin/content-template.php",
-     "website/admin/guide-edit.php"
-    ]
-   }
-  },
-  {
    "path": "website/admin/api.php",
    "functions": [
     "(top)"
@@ -753,20 +300,91 @@
    "expires": "2026-11-23T20:09:58Z",
    "release": "",
    "callers": {}
-  },
-  {
-   "path": "website/admin/api.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
-   "why": "release orders-release-a.zip",
-   "since": "2026-11-23T16:12:46Z",
-   "expires": "2026-11-23T20:23:50Z",
-   "release": "orders-release-a.zip",
-   "callers": {}
   }
  ],
  "lapsed": [
+  {
+   "path": "website/js/tv-ask.js",
+   "functions": [
+    "(top)",
+    "peek"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "board-view: one part in the panel (Jason, 2026-11-23)",
+   "since": "2026-11-23T13:15:03Z",
+   "expires": "2026-11-23T18:37:08Z",
+   "release": "",
+   "callers": {},
+   "lapsed": "2026-11-23T18:41:20Z"
+  },
+  {
+   "path": "website/js/admin-kit.js",
+   "functions": [
+    "head",
+    "shutAll",
+    "stepBack"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "board-panels: one panel at a time, Copy all, panels titled by the part (Jason, 2026-11-23)",
+   "since": "2026-11-23T13:15:14Z",
+   "expires": "2026-11-23T17:15:18Z",
+   "release": "",
+   "callers": {},
+   "lapsed": "2026-11-23T18:41:20Z"
+  },
+  {
+   "path": "app/admin/control-console.php",
+   "functions": [
+    "tv_cb_qbar",
+    "tv_cb_rail"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "board-view: the opening view as approved (rail, chips, landing) and the drawer Back and margin (Jason, 2026-11-23)",
+   "since": "2026-11-23T13:53:53Z",
+   "expires": "2026-11-23T17:53:53Z",
+   "release": "",
+   "callers": {},
+   "lapsed": "2026-11-23T18:41:20Z"
+  },
+  {
+   "path": "website/api/live-read.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
+   "why": "Live reads for building (Jason, 2026-11-23: 'for building we must use live data'; his Approve of the channel)",
+   "since": "2026-11-23T14:12:08Z",
+   "expires": "2026-11-23T18:34:48Z",
+   "release": "live-read.zip",
+   "callers": {},
+   "lapsed": "2026-11-23T18:41:20Z"
+  },
+  {
+   "path": "app/lib/ControlLog.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
+   "why": "The Logbook's kind for a live read",
+   "since": "2026-11-23T14:12:11Z",
+   "expires": "2026-11-23T18:34:48Z",
+   "release": "live-read.zip",
+   "callers": {},
+   "lapsed": "2026-11-23T18:41:20Z"
+  },
+  {
+   "path": "app/lib/EnvSettings.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
+   "why": "The live reads' key made by the site (WRITE_ONLY)",
+   "since": "2026-11-23T14:15:30Z",
+   "expires": "2026-11-23T18:34:48Z",
+   "release": "live-read.zip",
+   "callers": {},
+   "lapsed": "2026-11-23T18:41:20Z"
+  },
   {
    "path": "app/lib/ControlAlarms.php",
    "functions": [
@@ -1432,124 +1050,6 @@
    "expires": "2026-11-20T22:46:17Z",
    "release": "0175-r2b-workflows",
    "callers": {},
-   "lapsed": "2026-11-20T23:27:17Z"
-  },
-  {
-   "path": "website/admin/router.php",
-   "functions": [
-    "'config/scheduler'",
-    "(top)"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
-   "why": "0175 R2b part C: the Workflow board folded into Workflows",
-   "since": "2026-11-20T18:46:17Z",
-   "expires": "2026-11-20T22:46:17Z",
-   "release": "0175-r2b-workflows",
-   "callers": {},
-   "lapsed": "2026-11-20T23:27:17Z"
-  },
-  {
-   "path": "app/admin/operations-console.php",
-   "functions": [
-    "tv_admin_mod_workflows_crawler"
-   ],
-   "kind": "add",
-   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
-   "why": "0175 R2b part C",
-   "since": "2026-11-20T18:46:20Z",
-   "expires": "2026-11-20T22:46:20Z",
-   "release": "0175-r2b-workflows",
-   "callers": {},
-   "lapsed": "2026-11-20T23:27:17Z"
-  },
-  {
-   "path": "app/lib/Geocoder.php",
-   "functions": [
-    "post",
-    "run"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
-   "why": "0175's note: the Census geocoder's backup",
-   "since": "2026-11-20T18:51:44Z",
-   "expires": "2026-11-20T22:52:11Z",
-   "release": "census-backup",
-   "callers": {
-    "run": [
-     "app/scripts/geocode_listings.php",
-     "website/admin/geocode.php",
-     "website/api/crawl/geocode.php"
-    ]
-   },
-   "lapsed": "2026-11-20T23:27:17Z"
-  },
-  {
-   "path": "website/api/crawl/geocode.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
-   "why": "0175's note: the Census geocoder's backup",
-   "since": "2026-11-20T18:51:44Z",
-   "expires": "2026-11-20T22:51:44Z",
-   "release": "census-backup",
-   "callers": {},
-   "lapsed": "2026-11-20T23:27:17Z"
-  },
-  {
-   "path": "app/lib/Geocoder.php",
-   "functions": [
-    "apply",
-    "connectionHeld",
-    "prepare",
-    "runOrHandOff",
-    "takeAnswers"
-   ],
-   "kind": "add",
-   "session": "session_01CXLi5iPPT6FpHPEMPUcaw4",
-   "why": "0175's note: the Census geocoder's backup",
-   "since": "2026-11-20T18:52:14Z",
-   "expires": "2026-11-20T22:52:14Z",
-   "release": "census-backup",
-   "callers": {},
-   "lapsed": "2026-11-20T23:27:17Z"
-  },
-  {
-   "path": "app/lib/ClientOrders.php",
-   "functions": [
-    "approve",
-    "paidInQuickBooks",
-    "received",
-    "send",
-    "setStage"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5iruQZSTYKyuR7b1SN",
-   "why": "Orders: the order map's rulings (decisions/0101 note 2026-11-20, B.1-B.6)",
-   "since": "2026-11-20T18:55:46Z",
-   "expires": "2026-11-20T22:57:22Z",
-   "release": "orders-rulings.zip",
-   "callers": {
-    "send": [
-     "app/admin/workflows.php",
-     "app/lib/Pulse.php",
-     "website/admin/client-order.php"
-    ],
-    "approve": [
-     "app/lib/WorkOrders.php",
-     "website/admin/client-order.php",
-     "website/order.php"
-    ],
-    "paidInQuickBooks": [
-     "app/lib/QrIssue.php"
-    ],
-    "setStage": [
-     "app/admin/workflows.php",
-     "app/lib/Pulse.php",
-     "app/lib/WorkOrders.php",
-     "website/admin/client-order.php"
-    ]
-   },
    "lapsed": "2026-11-20T23:27:17Z"
   }
  ]
