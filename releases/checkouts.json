@@ -2,274 +2,65 @@
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
  "claims": [
   {
-   "path": "app/lib/ClientOrders.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
-   "why": "Orders: the rulings release rebuilt on Jason's order model: the pay terms' constants (OFFERED, DEPOSIT_DEFAULT, RELEASE_RULE, OUT_DOOR) and the header",
-   "since": "2026-11-23T01:35:04Z",
-   "expires": "2026-11-23T06:18:05Z",
-   "release": "orders-rulings-2.zip",
-   "callers": {
-    "send": [
-     "app/admin/workflows.php",
-     "app/lib/Pulse.php",
-     "website/admin/client-order.php"
-    ],
-    "setStage": [
-     "app/admin/workflows.php",
-     "app/lib/Pulse.php",
-     "app/lib/WorkOrders.php",
-     "website/admin/client-order.php"
-    ],
-    "approve": [
-     "app/lib/WorkOrders.php",
-     "website/admin/client-order.php",
-     "website/order.php"
-    ],
-    "paidInQuickBooks": [
-     "app/lib/QrIssue.php"
-    ],
-    "releaseHold": [
-     "app/lib/WorkOrders.php",
-     "website/admin/client-order.php"
-    ],
-    "saveTerms": [
-     "website/admin/client-order.php"
-    ],
-    "setField": [
-     "website/api/admin/client-order.php"
-    ],
-    "setItemStatus": [
-     "app/lib/VendorOrders.php",
-     "app/lib/WorkOrders.php",
-     "website/admin/client-order.php"
-    ],
-    "duplicate": [
-     "website/admin/client-order.php"
-    ],
-    "reportPay": [
-     "website/order.php"
-    ]
-   }
-  },
-  {
-   "path": "app/lib/QuickBooksPay.php",
+   "path": "app/lib/ControlAlarms.php",
    "functions": [
-    "paid"
+    "pulseSteps",
+    "tick"
    ],
    "kind": "change",
-   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
-   "why": "Orders: the rulings release rebuilt on Jason's order model (decisions/0101 note 2026-11-23): paid in full before the vendor and delivery, the admin override, invoice later retired",
-   "since": "2026-11-23T01:35:04Z",
-   "expires": "2026-11-23T06:18:05Z",
-   "release": "orders-rulings-2.zip",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "old-titles: the slow-job alarm's title by the job's plain name (02 \u00a75.4)",
+   "since": "2026-11-23T04:07:07Z",
+   "expires": "2026-11-23T08:16:45Z",
+   "release": "old-titles.zip",
    "callers": {
-    "paid": [
-     "app/lib/QrIssue.php",
-     "website/admin/order.php",
-     "website/api/qb-webhook.php"
-    ]
-   }
-  },
-  {
-   "path": "app/lib/QrIssue.php",
-   "functions": [
-    "refresh"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
-   "why": "Orders: the rulings release rebuilt on Jason's order model (decisions/0101 note 2026-11-23): paid in full before the vendor and delivery, the admin override, invoice later retired",
-   "since": "2026-11-23T01:35:04Z",
-   "expires": "2026-11-23T06:18:05Z",
-   "release": "orders-rulings-2.zip",
-   "callers": {
-    "refresh": [
-     "website/api/go-codes.php"
-    ]
-   }
-  },
-  {
-   "path": "app/lib/WorkOrders.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
-   "why": "Orders: the rulings release rebuilt on Jason's order model (decisions/0101 note 2026-11-23): paid in full before the vendor and delivery, the admin override, invoice later retired",
-   "since": "2026-11-23T01:35:04Z",
-   "expires": "2026-11-23T06:18:05Z",
-   "release": "orders-rulings-2.zip",
-   "callers": {
-    "create": [
-     "website/admin/client-order.php"
-    ],
-    "send": [
-     "app/admin/tools.php",
-     "website/admin/client-order.php"
-    ],
-    "handLink": [
-     "app/admin/tools.php",
-     "website/admin/client-order.php",
-     "website/api/admin/client-order.php"
-    ],
-    "processOutside": [
-     "website/admin/client-order.php"
-    ],
-    "vendorMove": [
-     "website/wo.php"
-    ],
-    "staffMove": [
+    "pulseSteps": [
      "app/lib/Pulse.php"
     ]
    }
   },
   {
-   "path": "app/lib/VendorOrders.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
-   "why": "Orders: the rulings release rebuilt on Jason's order model (decisions/0101 note 2026-11-23): paid in full before the vendor and delivery, the admin override, invoice later retired",
-   "since": "2026-11-23T01:35:04Z",
-   "expires": "2026-11-23T06:18:05Z",
-   "release": "orders-rulings-2.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/Collateral.php",
+   "path": "app/lib/ServiceHealth.php",
    "functions": [
-    "reorder"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
-   "why": "Orders: the rulings release rebuilt on Jason's order model (decisions/0101 note 2026-11-23): paid in full before the vendor and delivery, the admin override, invoice later retired",
-   "since": "2026-11-23T01:35:04Z",
-   "expires": "2026-11-23T06:18:05Z",
-   "release": "orders-rulings-2.zip",
-   "callers": {
-    "reorder": [
-     "app/admin/tools.php",
-     "website/admin/client-order.php"
-    ]
-   }
-  },
-  {
-   "path": "app/lib/Pulse.php",
-   "functions": [
-    "'square'",
-    "byOrder",
-    "items",
-    "mark",
-    "playbook"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
-   "why": "Orders: the rulings release rebuilt on Jason's order model (decisions/0101 note 2026-11-23): paid in full before the vendor and delivery, the admin override, invoice later retired",
-   "since": "2026-11-23T01:35:04Z",
-   "expires": "2026-11-23T06:18:05Z",
-   "release": "orders-rulings-2.zip",
-   "callers": {
-    "items": [
-     "app/lib/DailyReport.php",
-     "app/ui/pulse-ui.php",
-     "website/admin/staff-profile.php",
-     "website/admin/w.php",
-     "website/user/api/bell.php"
-    ],
-    "playbook": [
-     "app/lib/DailyReport.php",
-     "app/ui/pulse-ui.php"
-    ],
-    "mark": [
-     "app/lib/ClientOrders.php",
-     "website/admin/api/pulse.php"
-    ]
-   }
-  },
-  {
-   "path": "app/admin/Workflow.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
-   "why": "Orders: the rulings release rebuilt on Jason's order model (decisions/0101 note 2026-11-23): paid in full before the vendor and delivery, the admin override, invoice later retired",
-   "since": "2026-11-23T01:35:04Z",
-   "expires": "2026-11-23T06:18:05Z",
-   "release": "orders-rulings-2.zip",
-   "callers": {
-    "checks": [
-     "app/admin/sections.php"
-    ]
-   }
-  },
-  {
-   "path": "app/admin/control-console.php",
-   "functions": [
-    "tv_cb_deliver",
-    "tv_cb_maintenance",
-    "tv_cb_view_assets"
+    "alarm"
    ],
    "kind": "change",
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
-   "why": "the board at phone width with live content: the gauge source's address and the maintenance picker widened the page (Jason's screenshot, 2026-11-23)",
-   "since": "2026-11-23T01:54:04Z",
-   "expires": "2026-11-23T06:05:11Z",
-   "release": "board-phone-fit.zip",
-   "callers": {}
+   "why": "words follow the state for alarms raised before #258: titles redrawn from state; a slow job by its plain name (the session manager, 2026-11-23)",
+   "since": "2026-11-23T04:07:07Z",
+   "expires": "2026-11-23T08:16:45Z",
+   "release": "old-titles.zip",
+   "callers": {
+    "alarm": [
+     "app/lib/ControlAlarms.php"
+    ]
+   }
   },
   {
-   "path": "app/admin/crawler-console.php",
+   "path": "app/lib/ControlAlarms.php",
    "functions": [
-    "(top)",
-    "tv_admin_mod_crawler"
+    "redrawTitles",
+    "retitle"
    ],
-   "kind": "change",
+   "kind": "add",
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
-   "why": "fix #261: each service's count in its own unit (Railway's are seconds running, not calls)",
-   "since": "2026-11-23T02:06:32Z",
-   "expires": "2026-11-23T06:07:24Z",
-   "release": "spend-units.zip",
+   "why": "words follow the state: titles redrawn from state",
+   "since": "2026-11-23T04:07:09Z",
+   "expires": "2026-11-23T08:07:43Z",
+   "release": "old-titles.zip",
    "callers": {}
   },
   {
-   "path": "website/admin/order.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
-   "why": "Orders: the rulings release rebuilt on Jason's order model (decisions/0101 note 2026-11-23): paid in full before the vendor and delivery, the admin override, invoice later retired",
-   "since": "2026-11-23T02:09:17Z",
-   "expires": "2026-11-23T06:18:05Z",
-   "release": "orders-rulings-2.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/admin/client-order.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
-   "why": "Orders: the rulings release rebuilt on Jason's order model (decisions/0101 note 2026-11-23): paid in full before the vendor and delivery, the admin override, invoice later retired",
-   "since": "2026-11-23T02:09:17Z",
-   "expires": "2026-11-23T06:18:05Z",
-   "release": "orders-rulings-2.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/order.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
-   "why": "Orders: the rulings release rebuilt on Jason's order model (decisions/0101 note 2026-11-23): paid in full before the vendor and delivery, the admin override, invoice later retired",
-   "since": "2026-11-23T02:09:17Z",
-   "expires": "2026-11-23T06:18:05Z",
-   "release": "orders-rulings-2.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/api/qb-webhook.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
-   "why": "Orders: the rulings release rebuilt on Jason's order model (decisions/0101 note 2026-11-23): paid in full before the vendor and delivery, the admin override, invoice later retired",
-   "since": "2026-11-23T02:09:17Z",
-   "expires": "2026-11-23T06:18:05Z",
-   "release": "orders-rulings-2.zip",
+   "path": "app/lib/ServiceHealth.php",
+   "functions": [
+    "alarmTitle"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "words follow the state: one title per alarm from its state",
+   "since": "2026-11-23T04:07:09Z",
+   "expires": "2026-11-23T08:07:09Z",
+   "release": "old-titles.zip",
    "callers": {}
   }
  ],

@@ -1,0 +1,167 @@
+{
+    "id": 265,
+    "title": "Orders: paid in full before the vendor and before delivery, the admin's release with a reason, invoice later retired (the rulings, on the order model)",
+    "why": "Jason's order model, confirmed 2026-11-23 (\"Good to go\"; decisions/0101 note \"the order model\", research/order-model-2026-11-21.md 1.8, 1.9, §0), on the order map's rulings (decisions/0101 note 2026-11-20, B.1-B.6). Jason: \"Go for it\" (2026-11-23). Rebuilds the held orders-rulings.zip (#1224) on Sync 01:52 UTC. Jason approved it 2026-11-23 (Approve; 'paid outside QuickBooks' waits for its recorded payment; delete the three uncalled functions).",
+    "proposals": "",
+    "zip": "orders-rulings-2.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "live",
+    "step": 3,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": "2026-11-23 04:10:16",
+    "staged_at": "2026-11-23 04:10:17",
+    "vetted_at": "2026-11-23 04:10:20",
+    "live_at": "2026-11-23 04:10:20",
+    "files": {
+        "app/admin/Workflow.php": {
+            "sha": "81b1aab3788638de053dccb6d0beb88312960a763357a2c4d9bfdabb855614d6",
+            "size": 22868,
+            "live_was": "592fb5dba2af019f9cfbf645b0709bd7906e3573b08f9f0be4ca3f2629e2c759",
+            "existed": true,
+            "old_sha": "592fb5dba2af019f9cfbf645b0709bd7906e3573b08f9f0be4ca3f2629e2c759"
+        },
+        "app/ui/faq.md": {
+            "sha": "45845a1cc2375b0350701ee6822a19b0145d737f8a5ec6eddcc8b25213ef5083",
+            "size": 428548,
+            "live_was": "33f740f827c6f5a9714eff5a11f7042bd9ac4548c37a6b758222c246ebcf0bf9",
+            "existed": true,
+            "old_sha": "33f740f827c6f5a9714eff5a11f7042bd9ac4548c37a6b758222c246ebcf0bf9"
+        },
+        "app/lib/ClientOrders.php": {
+            "sha": "c88fd3411bd360064aa6567ad9eafbe11580ee11bcff0922b3db08601c45d898",
+            "size": 189683,
+            "live_was": "7976faacaa1bd1a7ededc75d5da5fbe09c2845bd8e658f3e2fc13dd7948df492",
+            "existed": true,
+            "old_sha": "7976faacaa1bd1a7ededc75d5da5fbe09c2845bd8e658f3e2fc13dd7948df492"
+        },
+        "app/lib/Collateral.php": {
+            "sha": "90a63f48d7de8401d34cf1b02da5d9e11afa0b5503c126721e5ef95e3ce7d010",
+            "size": 19544,
+            "live_was": "1bd08ecad9a63884003791a2470dc26c3c1ec45b03b5247e2e4333ba9bff6b52",
+            "existed": true,
+            "old_sha": "1bd08ecad9a63884003791a2470dc26c3c1ec45b03b5247e2e4333ba9bff6b52"
+        },
+        "app/lib/VendorOrders.php": {
+            "sha": "e439cd0cdc86533a169f85a085acd8f63a5583038b4690ad1560dad179750d38",
+            "size": 28684,
+            "live_was": "62900f802d8135639da5b27632aea34e6f75c1edddce798966ee0803f465bd35",
+            "existed": true,
+            "old_sha": "62900f802d8135639da5b27632aea34e6f75c1edddce798966ee0803f465bd35"
+        },
+        "app/lib/QrIssue.php": {
+            "sha": "cf81cff570575aa22a152e003b918a1938f7904f39efb3238506800b1b12c0e4",
+            "size": 45647,
+            "live_was": "f8f5f43f11e1cbf70aaba918d9176357c0ef1869ea91e4f3942f37999a711c9d",
+            "existed": true,
+            "old_sha": "f8f5f43f11e1cbf70aaba918d9176357c0ef1869ea91e4f3942f37999a711c9d"
+        },
+        "app/lib/QuickBooksPay.php": {
+            "sha": "49e9878742c2a4eb06ea8675677b4337938b4f6e53e2e3c51aa33285692680db",
+            "size": 81142,
+            "live_was": "d2222925e26fd7206c1b25432d9dd1ef2b1d2f9b677bb72af71e8d062ce47b41",
+            "existed": true,
+            "old_sha": "d2222925e26fd7206c1b25432d9dd1ef2b1d2f9b677bb72af71e8d062ce47b41"
+        },
+        "app/lib/WorkOrders.php": {
+            "sha": "a6696d59958d60638bfa13c73510dad6e182a8dc142acdf5490c3af4a8e3da11",
+            "size": 66171,
+            "live_was": "cb2662a2e2692e74589c2c5128d1a9772c12278029c85baa1475a046a76d05ee",
+            "existed": true,
+            "old_sha": "cb2662a2e2692e74589c2c5128d1a9772c12278029c85baa1475a046a76d05ee"
+        },
+        "app/lib/Pulse.php": {
+            "sha": "784d724986f52396719fae53820a407e201e9f8418e205a9750cb402f6c1d3be",
+            "size": 162730,
+            "live_was": "3f99ff201f8ae6d0f90e5cbd3ed0479819217902e240d1460ef8e9986fa81157",
+            "existed": true,
+            "old_sha": "3f99ff201f8ae6d0f90e5cbd3ed0479819217902e240d1460ef8e9986fa81157"
+        },
+        "website/admin/order.php": {
+            "sha": "0493cff98ca4ef1de9a2b9b65eab5a43b9c9e247ecd94909f20861cf07022473",
+            "size": 30099,
+            "live_was": "41da70afcbaa65186f2fedcabdb039dd54aad461efa908b0fe9b0e18b5554e46",
+            "existed": true,
+            "old_sha": "41da70afcbaa65186f2fedcabdb039dd54aad461efa908b0fe9b0e18b5554e46"
+        },
+        "website/admin/client-order.php": {
+            "sha": "0c1dc36a48c6969fac76841352fed95fe2d751113e10517eeba973e47173ad72",
+            "size": 234504,
+            "live_was": "a0733786d81f5c76bc974bc25b92ce2bcddc66236bc28862884800bf39dfeace",
+            "existed": true,
+            "old_sha": "a0733786d81f5c76bc974bc25b92ce2bcddc66236bc28862884800bf39dfeace"
+        },
+        "website/order.php": {
+            "sha": "3e9f4fcba4582b719eecfb8b737669329866c88da8ec39582e6fe1cf257aa388",
+            "size": 66234,
+            "live_was": "c4f12701897d94f2eeaa9f427efa9b686e3447bea23f751f48c604d37641b441",
+            "existed": true,
+            "old_sha": "c4f12701897d94f2eeaa9f427efa9b686e3447bea23f751f48c604d37641b441"
+        },
+        "website/api/qb-webhook.php": {
+            "sha": "b516ca020a568e217d957ed720945beb9389e2319ce7317e2ad97e6a4891b929",
+            "size": 2915,
+            "live_was": "678fa34b460654f42049b526ab25c41ed830bda62b1c48676bcdce0cdd9f8ccb",
+            "existed": true,
+            "old_sha": "678fa34b460654f42049b526ab25c41ed830bda62b1c48676bcdce0cdd9f8ccb"
+        }
+    },
+    "migrations": [],
+    "checks": {
+        "ok": true,
+        "where": "live",
+        "at": "2026-11-23T04:10:20+00:00",
+        "items": [
+            [
+                "PHP files parse",
+                true,
+                "12 checked"
+            ],
+            [
+                "Pages answer",
+                true,
+                "5 pages answered on traversence.com"
+            ],
+            [
+                "No new fatal errors in the logs",
+                true,
+                "3 logs read"
+            ]
+        ],
+        "first_fail": ""
+    },
+    "log": [
+        {
+            "at": "2026-11-23T04:10:14+00:00",
+            "by": 0,
+            "msg": "Uploaded orders-rulings-2.zip: 13 files."
+        },
+        {
+            "at": "2026-11-23T04:10:16+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/orders-rulings-2.zip (git 053b599325)."
+        },
+        {
+            "at": "2026-11-23T04:10:16+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
+        },
+        {
+            "at": "2026-11-23T04:10:18+00:00",
+            "by": 0,
+            "msg": "Put on staging (13 files); its checks passed."
+        },
+        {
+            "at": "2026-11-23T04:10:20+00:00",
+            "by": 0,
+            "msg": "Approved in chat before it was sent through git, and its checks on staging passed: publishing by itself."
+        },
+        {
+            "at": "2026-11-23T04:10:20+00:00",
+            "by": 0,
+            "msg": "Published: 13 files; everyone at once (no switch)."
+        }
+    ]
+}

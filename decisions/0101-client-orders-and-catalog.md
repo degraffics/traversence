@@ -894,3 +894,16 @@ releases from here. What it changes in this decision (its §0), each confirmed:
    invoice; the cart holds only ready items, paid by card or QuickBooks' page (no wire or check).
 The rest (estimate → quote → transaction, the stages, reorders, waiting states and reminders, the shipping module) is in
 the model. B.3 (rulings note) stands for deposit orders. Built from it one release at a time, each citing this note.
+
+## Note (Jason, 2026-11-23): the rulings release on the model, its open points
+Approved in the Orders session's pop-up (reviewed by the session manager), with the release orders-rulings-2.zip (#1283):
+1. **An order paid outside QuickBooks** (cash or check later) that wasn't processed as Handled outside **waits at the
+   vendor for its recorded payment**, as its own "payment hold" says (his choice: "(A) Wait for payment"). Its delivery
+   stays exempt, as B.4 confirmed ("outside terms").
+2. **A part payment on a full-payment order no longer starts production**: production starts at what releases it, the
+   deposit on a deposit order or the whole otherwise (B.3's rule, made the same on every path).
+3. **Orders already on invoice later** wait for payment like any order once it's retired; one Pulse case lists them
+   for a choice each (Send invoice, or an admin's release with a reason); nothing about one changes until chosen.
+4. **Release before payment's "admins"** are Executive and up (the old Admin role's level), changeable in Permissions
+   (`backoffice.release_unpaid`).
+5. `saveAddress`, `setLineShip` and `setOptions`, uncalled since B.6, deleted ("Delete").
