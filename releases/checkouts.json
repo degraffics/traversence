@@ -288,6 +288,19 @@
    "expires": "2026-11-24T01:23:40Z",
    "release": "kit-buttons.zip",
    "callers": {}
+  },
+  {
+   "path": "app/admin/job-line.php",
+   "functions": [
+    "tv_job_pages"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kW2cGfR4Ya7fh2s3y",
+   "why": "M1b: the hourly QuickBooks pull's page (qb_orders_tick)",
+   "since": "2026-11-23T21:24:40Z",
+   "expires": "2026-11-24T01:24:40Z",
+   "release": "order-m1b.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
