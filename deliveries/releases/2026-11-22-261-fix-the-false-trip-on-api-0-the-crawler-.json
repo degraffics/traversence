@@ -1,17 +1,17 @@
 {
     "id": 261,
-    "title": "Fix: the false trip on /api/0 (the crawler's refused-call count read as an endpoint), closed as raised in error; plain names for our endpoints; money always in ",
+    "title": "Fix: the false trip on /api/0 (the crawler's refused-call count read as an endpoint), closed as raised in error; plain names for our endpoints; money always in",
     "why": "Found live after #258 (Jason's screenshots, 2026-11-23): (1) the crawler reports site_blocked as a count (crawler.py SITE_BLOCKED); #258 read it as a map of endpoints, so every report raised a trip on '/api/0'. Now a count over 0 is one refusal on /api/crawl/, and a map is read by named endpoints only. (2) That trip closes on its thread as 'Closed: raised in error', never Recovered; a close that isn't a recovery (Retire too) no longer reads 'Recovered: Closed'. (3) An endpoint with no register row reads by its path, never 'ep:…' (02 §5.4). (4) Money always in dollars ('/bin/bash.65', never '65.2¢', which read as $62) and a count with its unit ('469,266 calls'): Jason, 2026-11-23, 'Cents vs dollars'.",
     "proposals": "",
     "zip": "control-board-fix.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "planned",
+    "state": "approved",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
-    "plan_at": null,
+    "plan_at": "2026-11-23 01:34:26",
     "staged_at": null,
     "vetted_at": null,
     "live_at": null,
@@ -44,6 +44,16 @@
             "at": "2026-11-23T01:34:24+00:00",
             "by": 0,
             "msg": "Uploaded control-board-fix.zip: 4 files."
+        },
+        {
+            "at": "2026-11-23T01:34:26+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/control-board-fix.zip (git db99232033)."
+        },
+        {
+            "at": "2026-11-23T01:34:26+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
         }
     ]
 }
