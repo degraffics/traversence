@@ -740,6 +740,19 @@
      "website/admin/guide-edit.php"
     ]
    }
+  },
+  {
+   "path": "website/admin/api.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
+   "why": "Orders release A: a row action's Copy the link (the design review, 2026-11-23)",
+   "since": "2026-11-23T16:09:58Z",
+   "expires": "2026-11-23T20:09:58Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
