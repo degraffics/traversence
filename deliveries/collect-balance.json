@@ -1,8 +1,8 @@
 {
  "zip": "collect-balance.zip",
  "built_on": "130f41a Sync: 2026-11-23 19:01 UTC",
- "recorded": "2026-11-23 19:15 UTC",
- "note": "Collect the balance on an order shipped or ready with money owed; section links land below the command strip; the payment hold said once on the order page; FAQ. Built on Sync: 2026-11-23 19:01 UTC Sent through git (releases/inbox).",
+ "recorded": "2026-11-23 19:26 UTC",
+ "note": "Collect the balance on an order out the door; section links land below the strip; the payment hold said once; Complete the order waits for the money or an admin's override with a reason; FAQ. Built on Sync: 2026-11-23 19:01 UTC Sent through git (releases/inbox).",
  "status": "pending",
  "live_in": "",
  "files": {
@@ -10,16 +10,24 @@
    "sha256": "f5ea067e8eb347c9f035d55d4208019738359793839ebb2c7ffdedcbf8af4fc1",
    "live": false
   },
+  "app/admin/workflows.php": {
+   "sha256": "cba541a17a7f1d554cfe1a390ebbd50086222e141ed3045a65d052b2f045a779",
+   "live": false
+  },
+  "app/lib/ClientOrders.php": {
+   "sha256": "0378e82dc95630205fcdbb3fcfec8ba7578c0acdf85bcc97db0d34469553fda8",
+   "live": false
+  },
   "app/ui/command-strip.php": {
    "sha256": "d1ec5e3002c8c25cb24108568a87231847e61f3c863e921a84e86a2737dfde2d",
    "live": false
   },
   "app/ui/faq.md": {
-   "sha256": "87b186cd216be2564d9b3ad4fdb0479511e2291d4a91ee1e12bd64608952f44f",
+   "sha256": "3c36871883f7ae1eefa6f29a1ffd61176dd848ba3d4fde0c8a4e451476a8e3bf",
    "live": false
   },
   "website/admin/client-order.php": {
-   "sha256": "fdd90d5f3411e9729e8d403aa41e9c2b0fa8c37c6a847165f9e5edc203323eae",
+   "sha256": "81d3b507b73520f71ab194eb0e8fbd61a3bc85eb18dc534b8e05d32449d546db",
    "live": false
   }
  }
