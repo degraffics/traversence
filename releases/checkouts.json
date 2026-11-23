@@ -40,8 +40,8 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "board-view: the opening view as approved (rail, chips, landing) and the drawer Back and margin (Jason, 2026-11-23)",
    "since": "2026-11-23T13:53:51Z",
-   "expires": "2026-11-23T17:53:51Z",
-   "release": "",
+   "expires": "2026-11-23T18:21:02Z",
+   "release": "board-view.zip",
    "callers": {}
   },
   {
@@ -65,8 +65,8 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "board-view: the opening view as approved (rail, chips, landing) and the drawer Back and margin (Jason, 2026-11-23)",
    "since": "2026-11-23T13:53:55Z",
-   "expires": "2026-11-23T17:53:55Z",
-   "release": "",
+   "expires": "2026-11-23T18:21:02Z",
+   "release": "board-view.zip",
    "callers": {}
   },
   {
@@ -79,8 +79,8 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "board-view: the opening view as approved (rail, chips, landing) and the drawer Back and margin (Jason, 2026-11-23)",
    "since": "2026-11-23T13:53:58Z",
-   "expires": "2026-11-23T17:53:58Z",
-   "release": "",
+   "expires": "2026-11-23T18:21:02Z",
+   "release": "board-view.zip",
    "callers": {}
   },
   {
@@ -93,8 +93,8 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "board-view: the opening view as approved (rail, chips, landing) and the drawer Back and margin (Jason, 2026-11-23)",
    "since": "2026-11-23T13:54:00Z",
-   "expires": "2026-11-23T17:54:00Z",
-   "release": "",
+   "expires": "2026-11-23T18:21:02Z",
+   "release": "board-view.zip",
    "callers": {}
   },
   {
@@ -104,7 +104,7 @@
    "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
    "why": "Live reads for building (Jason, 2026-11-23: 'for building we must use live data'; his Approve of the channel)",
    "since": "2026-11-23T14:12:08Z",
-   "expires": "2026-11-23T18:12:22Z",
+   "expires": "2026-11-23T18:15:32Z",
    "release": "live-read.zip",
    "callers": {}
   },
@@ -115,7 +115,7 @@
    "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
    "why": "The Logbook's kind for a live read",
    "since": "2026-11-23T14:12:11Z",
-   "expires": "2026-11-23T18:12:22Z",
+   "expires": "2026-11-23T18:15:32Z",
    "release": "live-read.zip",
    "callers": {}
   },
@@ -126,8 +126,58 @@
    "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
    "why": "The live reads' key made by the site (WRITE_ONLY)",
    "since": "2026-11-23T14:15:30Z",
-   "expires": "2026-11-23T18:15:30Z",
+   "expires": "2026-11-23T18:15:32Z",
    "release": "live-read.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ClientOrders.php",
+   "functions": [
+    "pay",
+    "recalc"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
+   "why": "The fast money fix (Jason 2026-11-23, option b): no card on outside orders, client orders paid only on their own page, an approved total keeps its tax",
+   "since": "2026-11-23T14:29:34Z",
+   "expires": "2026-11-23T18:29:34Z",
+   "release": "orders-money-fix.zip",
+   "callers": {
+    "pay": [
+     "website/api/client-order.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/QrIssue.php",
+   "functions": [
+    "orders",
+    "payCard"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
+   "why": "The fast money fix (Jason 2026-11-23, option b): no card on outside orders, client orders paid only on their own page, an approved total keeps its tax",
+   "since": "2026-11-23T14:29:34Z",
+   "expires": "2026-11-23T18:29:34Z",
+   "release": "orders-money-fix.zip",
+   "callers": {
+    "orders": [
+     "website/api/go-codes.php"
+    ],
+    "payCard": [
+     "website/api/go-codes.php"
+    ]
+   }
+  },
+  {
+   "path": "website/order.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
+   "why": "The fast money fix (Jason 2026-11-23, option b): no card on outside orders, client orders paid only on their own page, an approved total keeps its tax",
+   "since": "2026-11-23T14:29:34Z",
+   "expires": "2026-11-23T18:29:34Z",
+   "release": "orders-money-fix.zip",
    "callers": {}
   }
  ],
