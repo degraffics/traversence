@@ -14,7 +14,7 @@
    "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
    "why": "Gauge panel as a drill-down, approved by Jason 2026-11-23 (handoffs/gauge-panel.md)",
    "since": "2026-11-23T19:46:07Z",
-   "expires": "2026-11-24T00:23:22Z",
+   "expires": "2026-11-24T00:23:56Z",
    "release": "gauge-panel.zip",
    "callers": {}
   },
@@ -29,7 +29,7 @@
    "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
    "why": "Gauge panel as a drill-down, approved by Jason 2026-11-23 (handoffs/gauge-panel.md)",
    "since": "2026-11-23T19:46:07Z",
-   "expires": "2026-11-24T00:23:22Z",
+   "expires": "2026-11-24T00:23:56Z",
    "release": "gauge-panel.zip",
    "callers": {
     "development": [
@@ -59,7 +59,7 @@
    "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
    "why": "Gauge panel as a drill-down, approved by Jason 2026-11-23 (handoffs/gauge-panel.md)",
    "since": "2026-11-23T19:46:07Z",
-   "expires": "2026-11-24T00:23:22Z",
+   "expires": "2026-11-24T00:23:56Z",
    "release": "gauge-panel.zip",
    "callers": {}
   },
@@ -70,7 +70,7 @@
    "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
    "why": "Gauge panel as a drill-down, approved by Jason 2026-11-23 (handoffs/gauge-panel.md): Fix it requests and approvals",
    "since": "2026-11-23T19:46:11Z",
-   "expires": "2026-11-24T00:23:22Z",
+   "expires": "2026-11-24T00:23:56Z",
    "release": "gauge-panel.zip",
    "callers": {}
   },
@@ -81,7 +81,7 @@
    "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
    "why": "Gauge panel release: Retire it\u2026 drawn as an outlined button, not the 28px icon ring (the Design reviewer, 2026-11-23)",
    "since": "2026-11-23T19:57:52Z",
-   "expires": "2026-11-24T00:23:22Z",
+   "expires": "2026-11-24T00:23:56Z",
    "release": "gauge-panel.zip",
    "callers": {}
   },
@@ -97,7 +97,7 @@
    "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
    "why": "Gauge panel as a drill-down, approved by Jason 2026-11-23 (handoffs/gauge-panel.md)",
    "since": "2026-11-23T19:58:00Z",
-   "expires": "2026-11-24T00:23:22Z",
+   "expires": "2026-11-24T00:23:56Z",
    "release": "gauge-panel.zip",
    "callers": {}
   },
@@ -110,7 +110,7 @@
    "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
    "why": "Gauge panel release: a finished step replaces its form on the cards (Jason, 2026-11-23)",
    "since": "2026-11-23T19:58:00Z",
-   "expires": "2026-11-24T00:23:22Z",
+   "expires": "2026-11-24T00:23:56Z",
    "release": "gauge-panel.zip",
    "callers": {}
   },
@@ -135,7 +135,7 @@
    "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
    "why": "Gauge panel as a drill-down, approved by Jason 2026-11-23 (handoffs/gauge-panel.md)",
    "since": "2026-11-23T19:59:17Z",
-   "expires": "2026-11-24T00:23:22Z",
+   "expires": "2026-11-24T00:23:56Z",
    "release": "gauge-panel.zip",
    "callers": {
     "summary": [
@@ -171,7 +171,7 @@
    "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
    "why": "Gauge panel release: a check's transport error read as the service's own words",
    "since": "2026-11-23T19:59:54Z",
-   "expires": "2026-11-24T00:23:22Z",
+   "expires": "2026-11-24T00:23:56Z",
    "release": "gauge-panel.zip",
    "callers": {}
   },
@@ -460,7 +460,7 @@
    "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
    "why": "release gauge-panel.zip",
    "since": "2026-11-23T20:21:35Z",
-   "expires": "2026-11-24T00:23:22Z",
+   "expires": "2026-11-24T00:23:56Z",
    "release": "gauge-panel.zip",
    "callers": {}
   },
@@ -471,7 +471,7 @@
    "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
    "why": "release gauge-panel.zip",
    "since": "2026-11-23T20:21:35Z",
-   "expires": "2026-11-24T00:23:22Z",
+   "expires": "2026-11-24T00:23:56Z",
    "release": "gauge-panel.zip",
    "callers": {}
   },
@@ -482,7 +482,7 @@
    "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
    "why": "release gauge-panel.zip",
    "since": "2026-11-23T20:21:35Z",
-   "expires": "2026-11-24T00:23:22Z",
+   "expires": "2026-11-24T00:23:56Z",
    "release": "gauge-panel.zip",
    "callers": {}
   },
@@ -493,7 +493,7 @@
    "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
    "why": "release gauge-panel.zip",
    "since": "2026-11-23T20:21:35Z",
-   "expires": "2026-11-24T00:23:22Z",
+   "expires": "2026-11-24T00:23:56Z",
    "release": "gauge-panel.zip",
    "callers": {}
   },
