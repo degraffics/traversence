@@ -1,0 +1,18 @@
+{
+ "zip": "live-read.zip",
+ "built_on": "8b3ea37 Sync: 2026-11-23 13:42 UTC",
+ "recorded": "2026-11-23 14:12 UTC",
+ "note": "Live reads for building (Jason, 2026-11-23): /api/live-read.php, two named read-only reads of client orders, its own token, 60 an hour, each read in the Logbook. Built on Sync: 2026-11-23 13:42 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/ControlLog.php": {
+   "sha256": "fba0924134303032671643a1d045eaec0cbee74d8306620780e4548d94fec04c",
+   "live": false
+  },
+  "website/api/live-read.php": {
+   "sha256": "092e5e36dbbbdd68e33291cd7304e506b904d46443c89d2b6c90a7e95545b441",
+   "live": false
+  }
+ }
+}
