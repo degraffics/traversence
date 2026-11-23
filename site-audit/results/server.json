@@ -1,11 +1,11 @@
 {
- "at": "2026-11-22T10:19:58.711Z",
+ "at": "2026-11-23T10:20:45.622Z",
  "php": "8.0.31",
  "php_major_minor": "8.0",
  "mysql": "5.7.44-48",
  "db": {
-  "tables": 414,
-  "mb": 667.91,
+  "tables": 416,
+  "mb": 693.53,
   "biggest": [
    {
     "table": "identity_fact_sources",
@@ -16,12 +16,12 @@
     "mb": 88.41
    },
    {
-    "table": "crawl_frontier",
-    "mb": 69.16
+    "table": "page_cache",
+    "mb": 81.5
    },
    {
-    "table": "page_cache",
-    "mb": 62.48
+    "table": "crawl_frontier",
+    "mb": 69.16
    },
    {
     "table": "_moved_npi_orgs",
@@ -45,7 +45,7 @@
    },
    {
     "table": "search_index",
-    "mb": 19.67
+    "mb": 20.64
    }
   ],
   "open_places": {
