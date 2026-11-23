@@ -654,7 +654,8 @@ function tv_cb_alarms(array $alarms, array $ac, array $names, callable $pid, boo
         // the buttons; Details ▾ (its reading, kind and counts), folded. Every part read from the alarm as it is now.
         require_once __DIR__ . '/../lib/Thread.php';
         $f = ControlAlarms::facts(Database::connection(), $a);
-        $aff = '<b>Holds:</b> ' . $holds . ($f['affects'] ? '; ' . $e(implode('; ', $f['affects'])) : '');
+        // only a trip holds its part; anything else names it and says nothing is held (words true to state; the design review, 2026-11-23)
+        $aff = ($lv === 'trip' && !empty($a['tripped_at']) && !$cl ? '<b>Holds:</b> ' . $holds : $holds . ' <small>(nothing held)</small>') . ($f['affects'] ? '; ' . $e(implode('; ', $f['affects'])) : '');
         $th = Thread::html(['buttons' => [], 'pill_class' => 'cb-pill cb-pill-' . ($cl ? 'ok' : ($lv === 'trip' ? 'bad' : 'warn')), 'acts_class' => 'cb-acts'] + $f, 'board', $acts, '', $aff);
         $li = '<li id="cb-alarm-' . $id . '" class="cb-al-' . $e($cl ? 'cleared' : $lv) . '" data-astate="' . $state . '" data-alevel="' . $e($lv) . '">' . tv_cb_mark($cl ? 'ok' : ($lv === 'trip' ? 'bad' : ($lv === 'warning' ? 'hold' : 'new')))
             . '<div class="cb-am">' . $th . ($lv === 'trip' && $ack && !$cl ? '<p class="cb-seen" data-tv-status="bad" data-tv-label="Seen:">by ' . $e((string) ($a['ack_name'] ?: 'staff')) . '. It stays open while it holds (the light stays red); Check and start again is still here.</p>' : '') . '</div></li>';

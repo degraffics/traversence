@@ -71,8 +71,8 @@ No migration, no switch. The one outside call is cPanel's API, through `CPanel::
    job" beside a fix to the same place, and "Open its runs" (Scheduled tasks with no anchor) is gone for jobs.
 2. Short titles: "Lead scores is late", "Identity recheck: its run never finished", "… is slow", without "(job)". When it
    was due, and when it last started, moved into the Reading.
-3. Words true to state: a warning holds nothing, so its thread no longer says "Holds: <part>" ('holds' is set only for a
-   trip).
+3. Words true to state: a warning holds nothing. Its thread no longer says "Holds: <part>" ('holds' is set only for a
+   trip), and the board's panel says "<part> (nothing held)" (its second review).
 4. One labelled time format per alarm ("Nov 23, 3:08 PM UTC"): the Reading, and the drawer's Times, Acknowledged and
    Cleared.
 5. Never a dead end: the alarm's drawer leads with its fix ("Open its job: …", "Open its card: …").

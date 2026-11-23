@@ -77,5 +77,7 @@ $q = tv_cb_qbar($pdo, $openA, [], [], 'observe');
 $chip = function (string $label) use ($q) { return preg_match('~<summary class="cb-qgs"><span>' . preg_quote($label, '~') . '</span><b>(\d+)</b>.*?</details>~s', $q, $m) ? $m[0] : ''; };
 $t('the Sync chip: the watch\'s alarm in its own chip, with its count', (bool) preg_match('~<span>Sync</span><b>1</b>~', $q) && str_contains($chip('Sync'), 'The sync: needs a look'), mb_substr($q, 0, 300));
 $t('…never also under Warnings', !str_contains($chip('Warnings'), 'The sync: needs a look') && str_contains($chip('Warnings'), 'Tavily asked us to slow down'), mb_substr($chip('Warnings'), 0, 300));
+$wa = $open('joblate:work_orders_tick'); $wl = (string) preg_replace('/\s+/', ' ', strip_tags(@tv_cb_alarms([array_merge($wa, ['fix' => json_decode((string) $wa['fix'], true) ?: []])], ControlAlarms::counts($pdo), [], fn ($x) => 'p', true, '', fn ($a, $l) => '')));
+$t('…and on the board\'s panel: "<part> (nothing held)", never "Holds:" on a warning', str_contains($wl, 'Work order reminders (nothing held)') && !str_contains($wl, 'Holds:'), mb_substr($wl, (int) max(0, mb_strpos($wl, 'What it affects') - 10), 160));
 echo "\n$pass passed, $fail failed\n";
 exit($fail ? 1 : 0);

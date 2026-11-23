@@ -1,13 +1,13 @@
 {
- "zip": "board-fixes-3.zip",
+ "zip": "board-fixes-4.zip",
  "built_on": "8283c24 Sync: 2026-11-23 14:53 UTC",
- "recorded": "2026-11-23 15:33 UTC",
- "note": "Jobs and words with the Design reviewer's changes; built on Sync 14:53 UTC (replaces the unsent board-fixes-2.zip) Sent through git (releases/inbox).",
+ "recorded": "2026-11-23 15:49 UTC",
+ "note": "Jobs and words with both design reviews; built on Sync 14:53 UTC (replaces the unsent board-fixes-3.zip) Sent through git (releases/inbox).",
  "status": "pending",
  "live_in": "",
  "files": {
   "app/admin/control-console.php": {
-   "sha256": "0a31aa066c3c9f2c9f0fc8dca2f2794d06e36d04c926242b6e84e20892db3d9b",
+   "sha256": "fb0adb9da48b1568276cb875dbe12ce6cb63018382b36335092021eb12a38b3f",
    "live": false
   },
   "app/admin/kit-css.php": {
