@@ -6,12 +6,12 @@
     "zip": "board-fixes-5.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "planned",
+    "state": "approved",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
-    "plan_at": null,
+    "plan_at": "2026-11-23 18:59:50",
     "staged_at": null,
     "vetted_at": null,
     "live_at": null,
@@ -39,6 +39,16 @@
             "at": "2026-11-23T18:59:48+00:00",
             "by": 0,
             "msg": "Uploaded board-fixes-5.zip: 3 files."
+        },
+        {
+            "at": "2026-11-23T18:59:50+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/board-fixes-5.zip (git a2a73146d3)."
+        },
+        {
+            "at": "2026-11-23T18:59:50+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
         }
     ]
 }
