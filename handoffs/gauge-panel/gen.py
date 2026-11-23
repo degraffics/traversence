@@ -225,11 +225,12 @@ def item_row(n, item):
     chips = ''.join(chip_for(c, item) for c in item.get('checks', [])) or '<button type="button" class="chip c-none" data-open="nocheck">No check yet: it isn\'t built · what will check it</button>'
     ids = ', '.join(c[0] for c in item.get('checks', []))
     src = ''.join('<a href="%s" target="_blank" rel="noopener">%s ↗</a>' % (e(u), e(t)) for t, u in lk)
-    return ('<li class="it" data-b="%s"%s><div class="ih"><span class="bk bk-%s" title="%s"></span>%s%s'
+    after = 'check' if (b == 'fail' and item.get('no_check')) else 'ok'
+    return ('<li class="it" data-b="%s" data-after="%s"%s><div class="ih"><span class="bk bk-%s" title="%s"></span>%s%s'
             '<button type="button" class="ex" aria-expanded="false" aria-label="Open %s">▾</button></div>'
             '<div class="ib" hidden><p class="st">%s</p><div class="chips">%s</div><div class="acts">%s</div>'
             '<details class="src"><summary>Where this comes from</summary><p>%s</p><p class="meta">%s%s</p></details></div></li>') % (
-        b, ' data-more' if n >= FIRST else '', b, e(BW[b]), nml, dots(item), name,
+        b, after, ' data-more' if n >= FIRST else '', b, e(BW[b]), nml, dots(item), name,
         e(state_sentence(item, b)), chips, ''.join(acts), src or 'its source line names no file', e(item['source']),
         e(' · check ids: ' + ids) if ids else '')
 
@@ -252,9 +253,9 @@ def dev_panel(gid):
     paths = g['paths']
     counts = {k: sum(1 for i in items if bucket(i) == k) for k, _ in BUCKETS}
     n = len(items)
-    bar = ''.join('<button type="button" class="seg s-%s" style="flex:%d" data-f="%s" aria-pressed="false" aria-label="%s: %d of %d" title="%s: %d">%s</button>' % (
-        k, counts[k], k, e(w), counts[k], n, e(w), counts[k], counts[k] if counts[k] * 100 / n >= 7 else '') for k, w in BUCKETS if counts[k])
-    legend = ''.join('<button type="button" class="lg" data-f="%s" aria-pressed="false"><span class="bk bk-%s"></span>%s <b>%d</b></button>' % (k, k, e(w), counts[k]) for k, w in BUCKETS if counts[k])
+    bar = ''.join('<button type="button" class="seg s-%s" style="flex:%d" data-f="%s" aria-pressed="false" aria-label="%s: %d of %d" title="%s: %d"%s>%s</button>' % (
+        k, counts[k], k, e(w), counts[k], n, e(w), counts[k], '' if counts[k] else ' hidden', counts[k] if counts[k] * 100 / n >= 7 else '') for k, w in BUCKETS)
+    legend = ''.join('<button type="button" class="lg" data-f="%s" aria-pressed="false"%s><span class="bk bk-%s"></span>%s <b data-count="%s">%d</b></button>' % (k, '' if counts[k] else ' hidden', k, e(w), k, counts[k]) for k, w in BUCKETS)
     nc = {}
     for i in items:
         for c in i.get('no_check', []):
@@ -263,7 +264,7 @@ def dev_panel(gid):
               '<button type="button" class="b go" data-sign="scope">Approve the scope</button>')]
     if counts['fail']:
         cards.append(('fail', '%d issue%s to fix. Each opens its evidence and its Fix it; it clears itself once its check passes.' % (counts['fail'], '' if counts['fail'] == 1 else 's'),
-                      '<button type="button" class="b go" data-f="fail">Show the %d</button>' % counts['fail']))
+                      '<button type="button" class="b go" data-f="fail">Show the <span data-count="fail">%d</span></button>' % counts['fail']))
     for cid, k in sorted(nc.items(), key=lambda x: -x[1])[:1]:
         built = REG[cid].get('status', '').startswith('built')
         cards.append(('check', ('%s runs, but doesn\'t reach %d of these yet.' if built else '%s isn\'t built yet, and %d of these wait on it.') % (nm(cid), k),
@@ -272,6 +273,7 @@ def dev_panel(gid):
         cards.append(('build', '%d thing%s decided or held, not live yet.' % (counts['build'], '' if counts['build'] == 1 else 's'),
                       '<button type="button" class="b go" data-f="build">Show them</button>'))
     ch = ''.join(card(j == 0, c, t, b) for j, (c, t, b) in enumerate(cards[:5]))
+    ch = ch.replace('<p>%d issue' % counts['fail'], '<p><span data-count="fail">%d</span> issue' % counts['fail'], 1)
     order = [k for k, _ in BUCKETS]
     rows = ''.join(item_row(j, it_) for j, it_ in enumerate(sorted(items, key=lambda x: order.index(bucket(x)))))
     prev = g.get('preview')

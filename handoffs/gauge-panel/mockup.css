@@ -53,3 +53,4 @@ details.src,details.nd{margin-top:.5rem;font-size:12.5px}details.src summary,det
 .acts[hidden]{display:none}@media (max-width:767px){.dword{order:3}.ih .ex{margin-left:auto}}
 .b[hidden]{display:none}
 .done b.ok{color:var(--sage-ink)}
+.seg[hidden],.lg[hidden]{display:none}

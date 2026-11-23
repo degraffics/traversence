@@ -8,7 +8,7 @@ for(const w of [1280,390]){const p=await b.newPage({viewport:{width:w,height:900
  // inert text: every row's name, every chip, every segment is a link or a button
  const inert=await p.evaluate(()=>[...document.querySelectorAll('.sp .it .ih > :first-child + *, .sp .chip, .sp .seg, .sp .lg')].filter(e=>!/^(A|BUTTON)$/.test(e.tagName)&&!e.classList.contains('nm2')&&!e.classList.contains('dots')).map(e=>e.outerHTML.slice(0,80)));
  ok(inert.length===0,w+' inert: '+inert.slice(0,3));
- for(const s of await p.locator('[data-view=dev] .seg').all()){await s.click();const n=await p.locator('[data-view=dev] .it:visible').count();ok(n>0,w+' segment shows rows');await s.click();}
+ for(const s of await p.locator('[data-view=dev] .seg:visible').all()){await s.click();const n=await p.locator('[data-view=dev] .it:visible').count();ok(n>0,w+' segment shows rows');await s.click();}
  await p.click('[data-view=dev] .info');ok(await p.locator('.dleg').isVisible(),w+' legend opens');await p.screenshot({path:`${out}/dev-${w}-legend.png`});
  await p.keyboard.press('Escape');ok(!(await p.locator('.dleg').isVisible()),w+' legend Esc');
  await p.click('[data-view=dev] .info');await p.click('.dlx');ok(!(await p.locator('.dleg').isVisible()),w+' legend ×');
@@ -22,7 +22,8 @@ for(const w of [1280,390]){const p=await b.newPage({viewport:{width:w,height:900
  await p.screenshot({path:`${out}/dev-${w}-fixing.png`,fullPage:true});
  ok(/^Next issue: /.test(await p.locator('[data-view=dev] .ib:visible .done .b').textContent()),w+' step 4 after Fixing: Next issue');
  await p.click('[data-view=dev] .ib:visible .done [data-demo]');ok(await p.locator('[data-view=dev] .ib:visible .done b.ok').count()===1,w+' cleared shows');
- ok(await p.locator('[data-view=dev] .ib:visible .done .b').count()===1,w+' step 4: a Next button');ok(await p.locator('[data-view=dev] .ib:visible .acts:visible').count()===0&&await p.locator('[data-view=dev] .ib:visible .c-fail').count()===0,w+' cleared: the issue buttons and chip go');await p.screenshot({path:`${out}/dev-${w}-next.png`,fullPage:true});
+ ok(await p.locator('[data-view=dev] .ib:visible .done .b').count()===1,w+' step 4: a Next button');
+ ok(await p.locator('[data-view=dev] .lg[data-f=fail] b').textContent()==='5'&&await p.locator('[data-view=dev] .ac [data-count=fail] >> nth=0').textContent()==='5',w+' counts follow: 6 issues -> 5');ok(/^5 · /.test(await p.locator('[data-view=dev] #lh-t').textContent()),w+' heading follows');ok(await p.locator('[data-view=dev] .ib:visible .acts:visible').count()===0&&await p.locator('[data-view=dev] .ib:visible .c-fail').count()===0,w+' cleared: the issue buttons and chip go');await p.screenshot({path:`${out}/dev-${w}-next.png`,fullPage:true});
  await p.click('[data-view=dev] .ex[aria-expanded=true]');await p.click('[data-view=dev] .it:visible .ex >> nth=1');await p.click('[data-view=dev] .ib:visible .acts [data-send]');await p.click('[data-view=dev] .ib:visible .done [data-undo]');ok(await p.locator('[data-view=dev] .ib:visible .acts [data-send]').isVisible(),w+' Undo puts it back');
  await p.click('[data-view=dev] .lg[data-f=fail]');await p.click('[data-view=dev] .more');ok(await p.locator('[data-view=dev] .it:visible').count()===30,w+' Show all 30');
  for(const c of await p.locator('[data-view=dev] .ac .b').all()){await c.click();if(await p.locator('.sub').count())await p.click('.sub [data-back]');}

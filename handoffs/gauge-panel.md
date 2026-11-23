@@ -141,6 +141,9 @@ Also in revision 4, from the Design reviewer's revision 3 review and the session
 - **Step 4 right after Fixing:** "Next issue: <its name> ▸" opens the next issue in the same group. On the last one it
   reads "All 6 sent: back to the gauge". Once the item clears, its own Next replaces it.
 - **The Fixing line names the build:** "sent to the Discovery build". The issue reads "Brand standards failed".
+- **Counts follow the state.** Once an item clears, it leaves its group: the bar, the chips, the card's "Show the 5",
+  the heading ("5 · Issues to fix (1 just cleared, still shown)") and its dots all drop at once. The row stays in view
+  with its Cleared line and Next until the list is filtered again. An empty group's segment and chip hide.
 - **The scope card stays,** as "Approve the scope" (not "Sign off"). The session manager: "Approving a scope is a real
   decision of Jason's, not an issue being cleared". It's what moves a gauge out of Planning (§3). Its done line reads
   "Scope approved by Jason, <time> · Undo". The target works the same way, with "Approve the target".

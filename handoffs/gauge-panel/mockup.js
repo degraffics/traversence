@@ -18,10 +18,20 @@ function done(btn,line){const box=btn.closest('.acts')||btn.parentNode;const d=d
  d.innerHTML='<span>'+line+'</span><button type="button" class="sl" data-undo>Undo</button>'+(btn.dataset.send!==undefined?'<button type="button" class="sl" data-demo>(mockup: show it cleared)</button>':'');
  d.querySelector('[data-undo]').onclick=()=>{btn.hidden=false;d.remove();toast('Undone.');};
  // step 3 confirmed by its check, then step 4: the next step as its own button (CLAUDE.md "Every action is a task")
- const demo=d.querySelector('[data-demo]');if(demo)demo.onclick=()=>{const nx=btn.dataset.next||'';box.hidden=true;const it=btn.closest('.it');if(it)$$('.chip.c-fail',it).forEach(c=>c.remove());
+ const demo=d.querySelector('[data-demo]');if(demo)demo.onclick=()=>{const nx=btn.dataset.next||'';box.hidden=true;const it=btn.closest('.it');if(it){$$('.chip.c-fail',it).forEach(c=>c.remove());move(it);}
   d.innerHTML='<span><b class="ok">Cleared:</b> its check passed, '+now()+'.</span>'+(nx?'<button type="button" class="b go sm" data-send="next" data-what="'+esc(nx)+'">Next: '+esc(nx)+'</button>':'<span>Nothing more: every step met.</span>');};
  btn.hidden=true;box.after(d);}
 // step 4 right after Fixing: the next issue opens, or the last one goes back to the gauge (Design reviewer, 2026-11-23)
+// counts follow the state (Design reviewer, 2026-11-23): a cleared item leaves its group, every count drops with it
+function move(it){const sp=it.closest('.sp');const to=it.dataset.after||'ok';it.dataset.b=to;const bk=it.querySelector('.ih .bk');if(bk)bk.className='bk bk-'+to;
+ const n=$$('.it[data-b]',sp).length,c={};$$('.it[data-b]',sp).forEach(x=>c[x.dataset.b]=(c[x.dataset.b]||0)+1);
+ $$('.seg',sp).forEach(g=>{const k=g.dataset.f,v=c[k]||0;g.hidden=!v;g.style.flex=v;g.textContent=v*100/n>=7?v:'';g.title=g.title.replace(/\d+$/,v);g.setAttribute('aria-label',g.getAttribute('aria-label').replace(/\d+ of/,v+' of'));});
+ $$('.lg',sp).forEach(g=>g.hidden=!(c[g.dataset.f]||0));$$('[data-count]',sp).forEach(x=>x.textContent=c[x.dataset.count]||0);
+ $$('.d-fail',it).forEach(d=>{d.className='d '+(to==='check'?'d-nocheck':'d-met');d.title=d.title.replace(/: .*$/,to==='check'?': no check yet':': met');});
+ const dl=it.querySelector('.dots');if(dl)dl.setAttribute('aria-label',dl.getAttribute('aria-label').replace(/an issue/g,to==='check'?'no check yet':'met'));
+ const dw=it.querySelector('.dword');if(dw)dw.textContent=to==='check'?'No check yet at checked':'Every step met';
+ const h=$('#lh-t',sp);if(h&&sp._f){const lg=$('.lg[data-f='+sp._f+']',sp);h.textContent=(c[sp._f]||0)+' · '+lg.textContent.replace(/\s*\d+$/,'').trim()+' (1 just cleared, still shown)';}
+}   // the row stays in view with its Cleared line and Next; it leaves the list the next time the list is filtered
 function nextIssue(btn){const it=btn.closest('.it[data-b]');if(!it)return;const sp=it.closest('.sp');const d=it.querySelector('.done');
  const rest=$$('.it[data-b='+it.dataset.b+']',sp).filter(x=>x!==it&&!x.querySelector('.done'));const b=document.createElement('button');b.type='button';b.className='b go sm';
  if(rest.length){const nx=rest[0];b.textContent='Next issue: '+nx.querySelector('.nm').textContent+' ▸';b.onclick=()=>{it.querySelector('.ib').hidden=true;it.querySelector('.ex').setAttribute('aria-expanded','false');
