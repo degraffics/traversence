@@ -3,7 +3,8 @@
 // database (handoffs/design-harness: root/ holds app/ and website/, the .env four folders above app/lib). Test only, never
 // shipped. Empties (never drops) the order tables, so columns the harness's fix.py added stay. 101: approved, Pay in full,
 // nothing paid, a work order saved; 102: a deposit order, its deposit in, the vendor's Shipped before the balance;
-// 103: a draft; 104: an old draft on invoice-later terms; 105: sent on deposit terms (the client's page, t=e…e).
+// 103: a draft; 104: an old draft on invoice-later terms; 105: sent on deposit terms (the client's page, t=e…e);
+// 106: approved on invoice-later terms; 107: pulled from QuickBooks (pay_mode 'invoice').
 declare(strict_types=1);
 $root = $argv[1] ?? (__DIR__ . '/root');
 putenv('QB_ENV=mock');
@@ -14,13 +15,14 @@ require_once $root . '/app/lib/ClientOrders.php';
 require_once $root . '/app/lib/WorkOrders.php';
 $pdo = Database::connection();
 foreach (['orders', 'order_lines', 'order_ledger', 'order_events', 'order_proofs', 'order_projects', 'order_work_orders', 'order_work_order_log', 'qr_issued', 'order_line_parts'] as $t) { try { $pdo->exec("TRUNCATE TABLE $t"); } catch (Throwable) {} }
+foreach (['pulse_marks', 'pulse_notes'] as $t) { try { $pdo->exec("TRUNCATE TABLE $t"); } catch (Throwable) {} }
 $pdo->exec("CREATE TABLE IF NOT EXISTS orders (id INT AUTO_INCREMENT PRIMARY KEY, created_by INT NULL, user_id INT NULL, guest_key CHAR(64) NULL, status VARCHAR(20), stage VARCHAR(20) DEFAULT '',
   review VARCHAR(20) DEFAULT '', pay_mode VARCHAR(20) DEFAULT 'full', deposit_pct INT DEFAULT 0, deposit_cents INT DEFAULT 0, subtotal_cents INT DEFAULT 0,
   tax_cents INT DEFAULT 0, total_cents INT DEFAULT 0, invoice_id VARCHAR(20) NULL, invoice_no VARCHAR(20) DEFAULT '', qb_env VARCHAR(20) DEFAULT '', note VARCHAR(300) DEFAULT '',
   bill_name VARCHAR(120) DEFAULT 'Pat Client', bill_email VARCHAR(160) DEFAULT 'pat@example.com', client_company VARCHAR(120) DEFAULT '', client_phone VARCHAR(40) DEFAULT '', tracking VARCHAR(160) DEFAULT '',
   bill_street VARCHAR(160) DEFAULT '', bill_city VARCHAR(80) DEFAULT '', bill_state VARCHAR(40) DEFAULT '', bill_zip VARCHAR(12) DEFAULT '',
   ship_name VARCHAR(120) DEFAULT '', ship_street VARCHAR(160) DEFAULT '', ship_city VARCHAR(80) DEFAULT '', ship_state VARCHAR(40) DEFAULT '', ship_zip VARCHAR(12) DEFAULT '',
-  paid_at DATETIME NULL, approved_at DATETIME NULL, sent_at DATETIME NULL, expires_at DATETIME NULL, access_token CHAR(40) DEFAULT 'tok', notify_progress TINYINT DEFAULT 1,
+  paid_at DATETIME NULL, approved_at DATETIME NULL, approved_name VARCHAR(160) DEFAULT '', sent_at DATETIME NULL, expires_at DATETIME NULL, access_token CHAR(40) DEFAULT 'tok', notify_progress TINYINT DEFAULT 1,
   updated_at DATETIME NULL, created_at DATETIME NULL, order_no VARCHAR(20) NULL, pay_method VARCHAR(20) DEFAULT '', pay_report VARCHAR(80) DEFAULT '', due_terms VARCHAR(20) DEFAULT 'receipt', due_date DATE NULL, po_number VARCHAR(60) DEFAULT '')");
 $pdo->exec("CREATE TABLE IF NOT EXISTS order_lines (id INT AUTO_INCREMENT PRIMARY KEY, order_id INT, product VARCHAR(20), product_id INT NULL, ref_id INT NULL, title VARCHAR(160), qty INT DEFAULT 1,
   unit_cents INT DEFAULT 0, options TEXT, note VARCHAR(300) DEFAULT '', service_type VARCHAR(20) DEFAULT '', status VARCHAR(20) DEFAULT 'open', item_status VARCHAR(30) DEFAULT '', tracking VARCHAR(160) DEFAULT '',
@@ -60,4 +62,7 @@ $c = $o(['status' => 'draft', 'approved_at' => null, 'invoice_id' => null, 'invo
 $d = $o(['status' => 'draft', 'approved_at' => null, 'invoice_id' => null, 'invoice_no' => '', 'pay_mode' => 'invoice', 'bill_name' => 'Kim Lopez']); $l($d);
 // 105: sent to the client on deposit terms (the client page's note)
 $e = $o(['status' => 'sent', 'approved_at' => null, 'invoice_id' => null, 'invoice_no' => '', 'pay_mode' => 'deposit', 'deposit_pct' => 65, 'bill_name' => 'Ruth Chee', 'access_token' => str_repeat('e', 40), 'expires_at' => date('Y-m-d H:i:s', time() + 10 * 86400)]); $l($e);
-echo "seeded 101-105\n";
+// 106: approved on invoice-later terms, unpaid; 107: pulled from QuickBooks (pay_mode 'invoice' too); with 104, the Pulse case's three
+$f = $o(['pay_mode' => 'invoice', 'bill_name' => 'Ava Tso', 'client_company' => 'Mesa Tours']); $l($f);
+$g = $o(['pay_mode' => 'invoice', 'bill_name' => 'Ben Ortiz', 'client_company' => 'Ortiz Feed', 'approved_name' => 'QuickBooks invoice 2201']); $l($g);
+echo "seeded 101-107\n";

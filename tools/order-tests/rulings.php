@@ -36,7 +36,7 @@ function as_level(?string $level) {
     $p = $r->getProperty('staff'); $p->setAccessible(true); $p->setValue(null, $level === null ? null : ['id' => 1, 'level' => $level, 'department' => 'svc', 'role' => '']);
 }
 $mails = function (): string { return implode("\n----\n", array_map(fn ($m) => $m[1] . "\n" . $m[2], Mailer::$sent)); };
-$tables = 'orders, order_lines, order_ledger, order_events, order_proofs, order_projects, order_work_orders, qr_issued, users, order_work_order_log, order_feedback, vendor_orders, admin_permissions, order_line_parts';
+$tables = 'orders, order_lines, order_ledger, order_events, order_proofs, order_projects, order_work_orders, qr_issued, users, order_work_order_log, order_feedback, vendor_orders, admin_permissions, order_line_parts, pulse_marks, pulse_notes';
 $pdo->exec("DROP TABLE IF EXISTS $tables");
 $pdo->exec("CREATE TABLE orders (id INT AUTO_INCREMENT PRIMARY KEY, created_by INT NULL, user_id INT NULL, guest_key CHAR(64) NULL, status VARCHAR(20), stage VARCHAR(20) DEFAULT '',
   review VARCHAR(20) DEFAULT '', pay_mode VARCHAR(20) DEFAULT 'full', deposit_pct INT DEFAULT 0, deposit_cents INT DEFAULT 0, subtotal_cents INT DEFAULT 0,
@@ -44,7 +44,7 @@ $pdo->exec("CREATE TABLE orders (id INT AUTO_INCREMENT PRIMARY KEY, created_by I
   bill_name VARCHAR(120) DEFAULT 'Pat Client', bill_email VARCHAR(160) DEFAULT 'pat@example.com', client_company VARCHAR(120) DEFAULT '', client_phone VARCHAR(40) DEFAULT '', tracking VARCHAR(160) DEFAULT '',
   bill_street VARCHAR(160) DEFAULT '', bill_city VARCHAR(80) DEFAULT '', bill_state VARCHAR(40) DEFAULT '', bill_zip VARCHAR(12) DEFAULT '',
   ship_name VARCHAR(120) DEFAULT '', ship_street VARCHAR(160) DEFAULT '', ship_city VARCHAR(80) DEFAULT '', ship_state VARCHAR(40) DEFAULT '', ship_zip VARCHAR(12) DEFAULT '',
-  paid_at DATETIME NULL, approved_at DATETIME NULL, sent_at DATETIME NULL, expires_at DATETIME NULL, access_token CHAR(40) DEFAULT 'tok', notify_progress TINYINT DEFAULT 1,
+  paid_at DATETIME NULL, approved_at DATETIME NULL, approved_name VARCHAR(160) DEFAULT '', sent_at DATETIME NULL, expires_at DATETIME NULL, access_token CHAR(40) DEFAULT 'tok', notify_progress TINYINT DEFAULT 1,
   updated_at DATETIME NULL, created_at DATETIME NULL, order_no VARCHAR(20) NULL, pay_method VARCHAR(20) DEFAULT '', pay_report VARCHAR(80) DEFAULT '', due_terms VARCHAR(20) DEFAULT 'receipt', due_date DATE NULL, po_number VARCHAR(60) DEFAULT '')");
 $pdo->exec("CREATE TABLE order_lines (id INT AUTO_INCREMENT PRIMARY KEY, order_id INT, product VARCHAR(20), product_id INT NULL, ref_id INT NULL, title VARCHAR(160), qty INT DEFAULT 1,
   unit_cents INT DEFAULT 0, options TEXT, note VARCHAR(300) DEFAULT '', service_type VARCHAR(20) DEFAULT '', status VARCHAR(20) DEFAULT 'open', item_status VARCHAR(30) DEFAULT '', tracking VARCHAR(160) DEFAULT '',
@@ -64,6 +64,8 @@ $pdo->exec("CREATE TABLE order_work_order_log (id INT AUTO_INCREMENT PRIMARY KEY
 $pdo->exec("CREATE TABLE qr_issued (id INT AUTO_INCREMENT PRIMARY KEY, order_id INT, status VARCHAR(20), issued_at DATETIME NULL, user_id INT NULL, guest_key CHAR(64) NULL)");
 $pdo->exec("CREATE TABLE order_line_parts (id INT AUTO_INCREMENT PRIMARY KEY, line_id INT, title VARCHAR(160), qty INT DEFAULT 1, unit_cents INT DEFAULT 0, cost_cents INT DEFAULT 0, position INT DEFAULT 0, created_at DATETIME NULL)");
 $pdo->exec("CREATE TABLE users (id INT PRIMARY KEY, email VARCHAR(160), display_name VARCHAR(120), role VARCHAR(20))");
+$pdo->exec("CREATE TABLE pulse_marks (id INT AUTO_INCREMENT PRIMARY KEY, item_key VARCHAR(120) UNIQUE, case_no INT NULL, assigned_to INT NULL, done_at DATETIME NULL, done_by INT NULL, esc_at DATETIME NULL, esc_level INT DEFAULT 0, created_at DATETIME DEFAULT CURRENT_TIMESTAMP)");
+$pdo->exec("CREATE TABLE pulse_notes (id INT AUTO_INCREMENT PRIMARY KEY, item_key VARCHAR(120), user_id INT, kind VARCHAR(20), body TEXT, to_email VARCHAR(160), created_at DATETIME DEFAULT CURRENT_TIMESTAMP)");
 $pdo->exec("INSERT INTO users VALUES (1, 'staff@example.com', 'Staff', 'admin')");
 
 $order = function (array $f = []) use ($pdo): int {
@@ -230,6 +232,41 @@ t('§0 item 1: an order that has it still saves its other terms', thrown(fn () =
 t('§0 item 1: it still reads', ClientOrders::PAY_MODES['invoice'] === 'Approve now, pay the invoice later' && !in_array('invoice', ClientOrders::OFFERED, true));
 t('§0 item 1: a copy of it (duplicate, reorder) starts as Pay in full', ClientOrders::offeredMode('invoice') === 'full' && ClientOrders::offeredMode('deposit') === 'deposit' && ClientOrders::offeredMode('outside') === 'outside');
 t('1.9 words: the deposit terms say when the rest is due', ClientOrders::PAY_MODES['deposit'] === 'A deposit on approval, the rest once production schedules it, before delivery');
+
+// ---- §0 item 1, live orders: one Pulse case lists the orders still on invoice later; nothing changes until chosen
+$pdo->exec("UPDATE orders SET pay_mode = 'full' WHERE pay_mode = 'invoice'");   // the earlier checks' orders out of the way
+t('no open invoice-later orders: no case', !isset($pulse()['invlater:open']));
+$i1 = $order(['pay_mode' => 'invoice', 'bill_name' => 'Ours Pending']); $line($i1);
+$i2 = $order(['pay_mode' => 'invoice', 'approved_name' => 'QuickBooks invoice 2201', 'bill_name' => 'From QB']); $line($i2);
+$i3 = $order(['pay_mode' => 'invoice', 'status' => 'draft', 'approved_at' => null, 'bill_name' => 'Ours Draft']); $line($i3);
+$order(['pay_mode' => 'invoice', 'qb_env' => 'sandbox']); $order(['pay_mode' => 'invoice', 'status' => 'paid']);
+$i6 = $order(['pay_mode' => 'invoice']); $pdo->exec("INSERT INTO order_events (order_id, event, note) VALUES ($i6, 'released', 'old release')");
+$il = ClientOrders::invoiceLaterOpen($pdo);
+t('§0.1 the open ones listed (a sandbox, a paid one and one already released aren\'t)', array_map(fn ($x) => (int) $x['id'], $il) === [$i1, $i2, $i3]);
+t('§0.1 the QuickBooks-pulled one is marked so', array_column($il, 'pulled', 'id') === [$i1 => false, $i2 => true, $i3 => false]);
+$ilCase = $pulse()['invlater:open'] ?? null;
+t('§0.1 one Pulse case, with the count and what it means', $ilCase !== null && str_contains($ilCase['title'], 'choose for each (3)') && str_contains($ilCase['why'], '1 came from QuickBooks'));
+as_level('staff');
+$st = Pulse::playbook($ilCase);
+$labels = array_column($st, 't');
+t('§0.1 one step per order, ours first, then those from QuickBooks, named so', count($st) === 4 && str_contains($labels[0], 'Ours Pending') && str_contains($labels[1], 'Ours Draft') && str_starts_with($labels[2], 'From QuickBooks: order') && str_contains($labels[2], 'From QB'));
+t('§0.1 each step is a form that does it (a choice and a reason)', ($st[0]['act'][0] ?? '') === 'form' && ($st[0]['act'][1] ?? '') === 'inv_choose:' . $i1);
+t('§0.1 Staff level: release isn\'t offered, and the step says why', count($st[0]['act'][3][0][4]) === 1 && str_contains($st[0]['h'], 'Needs an Executive or above'));
+t('§0.1 Staff level: choosing release anyway is refused', str_contains(thrown(fn () => Pulse::manage($pdo, 'invlater:open', 'inv_choose:' . $i1, ['choice' => 'release', 'why' => 'x y z'], 1)), 'Only an admin'));
+t('§0.1 nothing changed by looking', Orders::get($pdo, $i1)['pay_mode'] === 'invoice' && !ClientOrders::overridden($pdo, $i1));
+as_level('executive');
+t('§0.1 an admin is offered the release', count(Pulse::playbook($ilCase)[0]['act'][3][0][4]) === 2);
+$m = Pulse::manage($pdo, 'invlater:open', 'inv_choose:' . $i2, ['choice' => 'release', 'why' => 'Net 30 on the QuickBooks invoice'], 1);
+t('§0.1 Release before payment, with its reason: released, terms kept', str_contains($m, 'released before payment') && ClientOrders::overridden($pdo, $i2) && Orders::get($pdo, $i2)['pay_mode'] === 'invoice');
+Mailer::$sent = [];
+$m = Pulse::manage($pdo, 'invlater:open', 'inv_choose:' . $i1, ['choice' => 'invoice'], 1);
+t('§0.1 Send invoice on an approved one: Pay in full, and the client is emailed it\'s due, with the link', Orders::get($pdo, $i1)['pay_mode'] === 'full' && str_contains($m, 'was emailed') && (bool) array_filter(Mailer::$sent, fn ($x) => str_contains($x[1], 'your invoice is due now') && str_contains($x[2], '$100.00')));
+t('§0.1 a release on a draft is refused, saying what to do', str_contains(thrown(fn () => Pulse::manage($pdo, 'invlater:open', 'inv_choose:' . $i3, ['choice' => 'release', 'why' => 'reason'], 1)), 'isn\'t approved yet'));
+$m = Pulse::manage($pdo, 'invlater:open', 'inv_choose:' . $i3, ['choice' => 'invoice'], 1);
+t('§0.1 Send invoice on a draft: Pay in full, nothing emailed yet', Orders::get($pdo, $i3)['pay_mode'] === 'full' && str_contains($m, 'when it\'s sent'));
+t('§0.1 every one chosen: the case is gone', ClientOrders::invoiceLaterOpen($pdo) === [] && !isset($pulse()['invlater:open']));
+t('§0.1 choosing one twice says it\'s been chosen for', str_contains(thrown(fn () => Pulse::manage($pdo, 'invlater:open', 'inv_choose:' . $i1, ['choice' => 'invoice'], 1)), 'chosen for'));
+as_level(null);
 
 $pdo->exec("DROP TABLE IF EXISTS $tables");
 echo "$ok passed, $bad failed\n";

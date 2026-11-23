@@ -136,6 +136,43 @@ const ADMIN = 'harness0000000000000000000000', STAFF = 'harness00000000000000000
     }
     await c.close();
   }
+  // Pulse: the orders still on invoice later, one case, one step each (seed: 104 draft, 106 approved, 107 from QuickBooks)
+  const openCase = async (p) => { await p.goto(base + '/admin/dashboard/stream', { waitUntil: 'load' }); await p.waitForTimeout(600);
+    const row = p.locator('[data-key="invlater:open"]').first(); if (!(await row.count())) return null; await row.click(); await p.waitForTimeout(900); return row; };
+  const choose = async (p, n, choice, why) => {
+    await p.locator(`[data-form-step="${n}"]`).first().click(); await p.waitForTimeout(400);
+    await p.selectOption('select[name=choice]', choice); if (why) await p.locator('input[name=why]').fill(why);
+    await p.locator('button:has-text("Do it")').last().click(); await p.waitForTimeout(2500);
+    return p.evaluate(() => document.body.innerText); };
+  for (const w of [1280, 390]) {
+    const c = await ctx(STAFF, w), p = await c.newPage();
+    const row = await openCase(p);
+    t(`${w}: Staff level: one case for the orders still on invoice later, with the count`, row !== null && (await row.getAttribute('data-text')).includes('choose for each (3)'));
+    const body = await p.evaluate(() => document.body.innerText);
+    t(`${w}: its steps: ours first, then the one from QuickBooks, named so; each says nothing changes until chosen`, body.indexOf('White Mountain Outfitters') < body.indexOf('Mesa Tours') && body.indexOf('Mesa Tours') < body.indexOf('From QuickBooks: order') && body.includes('Ortiz Feed') && body.includes('Until you choose, nothing about it changes'));
+    t(`${w}: Staff level: release isn't offered, the step says why`, body.includes('Needs an Executive or above (admins only)'));
+    t(`${w}: no sideways scroll with the case open`, await noSideways(p));
+    await p.screenshot({ path: `${out}/invlater-staff-${w}.png` });
+    if (w === 1280) { await p.locator('[data-form-step="1"]').first().click(); await p.waitForTimeout(400);
+      t('1280: Staff level: the form offers Send invoice only', (await p.locator('select[name=choice] option').allTextContents()).join('|') === 'Send invoice: due now (the client is emailed)'); }
+    await c.close();
+  }
+  { const c = await ctx(ADMIN, 390), p = await c.newPage(); await openCase(p);
+    await p.locator('[data-form-step="2"]').first().click(); await p.waitForTimeout(400);
+    t('390: an admin is offered Release before payment too', (await p.locator('select[name=choice] option').count()) === 2);
+    await p.locator('button:has-text("Close")').last().click().catch(() => {});
+    const said = await choose(p, 2, 'release', 'Net 30 on the QuickBooks invoice');
+    t('390: Release before payment on the QuickBooks order: done, said beside it', said.includes('released before payment'));
+    await p.screenshot({ path: `${out}/invlater-released-390.png` });
+    t('390: the case now lists two', ((await p.locator('[data-key="invlater:open"]').first().getAttribute('data-text')) || '').includes('(2)'));
+    await c.close(); }
+  { const c = await ctx(ADMIN, 1280), p = await c.newPage(); await openCase(p);
+    const said = await choose(p, 1, 'invoice');
+    t('1280: Send invoice on the approved order: Pay in full, the client emailed, said beside it', said.includes('Pay in full now') && said.includes('was emailed'));
+    await p.screenshot({ path: `${out}/invlater-invoice-1280.png` });
+    await p.goto(base + '/admin/backoffice/orders/106', { waitUntil: 'load' });
+    t('1280: order 106 now reads Pay in full', (await p.locator('select[data-f=pay_mode], dd').allTextContents()).join(' ').includes('Pay in full'));
+    await c.close(); }
   await b.close();
   console.log(`${ok} passed, ${bad} failed`);
   process.exit(bad ? 1 : 0);

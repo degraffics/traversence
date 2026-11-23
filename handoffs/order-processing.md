@@ -30,9 +30,10 @@ next build: "Go for it" (2026-11-23), after R0 went live. Session manager: `sess
 `orders-rulings.zip` (#1224, never sent; close #1224 when this merges). Built on Sync 01:52 UTC (4a94342); its files were
 the same at 00:15 (791f665). Files: `app/lib/{ClientOrders,QuickBooksPay,QrIssue,WorkOrders,VendorOrders,Collateral,Pulse}.php`,
 `app/admin/Workflow.php`, `app/ui/faq.md`, `website/order.php`, `website/admin/{order,client-order}.php`,
-`website/api/qb-webhook.php`. Tests: `tools/order-tests/rulings.php` (67/67, MariaDB 10.11) and `rulings.cjs` with
-`rulings-seed.php` (45/45 in the design harness at 1280 and 390). Proof pictures: `handoffs/orders-rulings-2/`.
-- Open: the count of open invoice-later orders on live (asked of the session manager, 2026-11-23 01:3x UTC).
+`website/api/qb-webhook.php`. Tests: `tools/order-tests/rulings.php` (83/83, MariaDB 10.11) and `rulings.cjs` with
+`rulings-seed.php` (59/59 in the design harness at 1280 and 390). Proof pictures: `handoffs/orders-rulings-2/`.
+- Orders still on invoice later on live: no live read (the session manager, 2026-11-23: it lists clients' names). Once
+  live, one Pulse case ("Open invoice-later orders: choose for each") lists them, a step each; their count is known then.
 - Open, for Jason: deleting `saveAddress`, `setLineShip`, `setOptions` (uncalled since B.6).
 - Before merging: fetch the mirror, rebuild `faq.md` if it moved, rerun `zipcheck.py`.
 

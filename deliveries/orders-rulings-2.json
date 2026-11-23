@@ -1,8 +1,8 @@
 {
  "zip": "orders-rulings-2.zip",
  "built_on": "4a94342 Sync: 2026-11-23 01:52 UTC",
- "recorded": "2026-11-23 02:11 UTC",
- "note": "Orders: the rulings rebuilt on Jason's order model (decisions/0101 note 2026-11-23): paid in full before the vendor and delivery, the admin's release with a reason, the vendor's Shipped held for the balance, 65% deposits, invoice later retired; B.1-B.3, B.5, B.6 kept. Built on Sync: 2026-11-23 01:52 UTC Sent through git (releases/inbox).",
+ "recorded": "2026-11-23 02:18 UTC",
+ "note": "Orders: the rulings rebuilt on Jason's order model (decisions/0101 note 2026-11-23): paid in full before the vendor and delivery, the admin's release with a reason, the vendor's Shipped held for the balance, one Pulse case for orders still on invoice later, 65% deposits, invoice later retired; B.1-B.3, B.5, B.6 kept. Built on Sync: 2026-11-23 01:52 UTC Sent through git (releases/inbox).",
  "status": "pending",
  "live_in": "",
  "files": {
@@ -11,7 +11,7 @@
    "live": false
   },
   "app/lib/ClientOrders.php": {
-   "sha256": "08cd5cd3e92831a3f0df84357671bec913795b74c6e01a02c85a8017effe9290",
+   "sha256": "c43d5e5e67897fcda10a8d5113b351eb113c656e1c77e8ac17795e240de251af",
    "live": false
   },
   "app/lib/Collateral.php": {
@@ -19,7 +19,7 @@
    "live": false
   },
   "app/lib/Pulse.php": {
-   "sha256": "35fb988109cb58fd4558399cd2449f159f3ec5b9c2cf54cede2b4aacbd8ff70a",
+   "sha256": "784d724986f52396719fae53820a407e201e9f8418e205a9750cb402f6c1d3be",
    "live": false
   },
   "app/lib/QrIssue.php": {
