@@ -1,26 +1,24 @@
 {
- "at": "2026-11-23T09:43:20.938Z",
+ "at": "2026-11-23T15:31:31.162Z",
  "site": "https://traversence.com",
- "run_url": "https://github.com/degraffics/traversence/actions/runs/45145623951",
+ "run_url": "https://github.com/degraffics/traversence/actions/runs/45200820152",
  "staging": "https://staging.trvgo.us",
  "signed_in": true,
  "full": false,
  "budget_s": 1100,
- "took_s": 367,
+ "took_s": 302,
  "guides": {
   "source": "endpoint",
   "total": 6,
   "this_run": [
-   "town:66",
-   "town:67",
-   "town:68",
-   "town:72"
+   "town:73",
+   "town:84"
   ],
   "per_run": 4
  },
  "rotation": {
-  "from": 0,
-  "next": 4
+  "from": 4,
+  "next": 0
  },
  "measures": {
   "eat-near-me": 3,
@@ -37,7 +35,7 @@
    "goal": true,
    "stuck": "",
    "steps": {
-    "taps": 3,
+    "taps": 2,
     "pages": 2,
     "limit": 3,
     "over": false
@@ -68,15 +66,15 @@
    "timings": [
     {
      "page": "/",
-     "ms": 1785
+     "ms": 1606
     },
     {
      "page": "/listing/view.php?id=7952",
-     "ms": 2118
+     "ms": 2020
     }
    ],
    "where": "live",
-   "ms": 11136
+   "ms": 8853
   },
   {
    "id": "eat-near-me",
@@ -118,22 +116,22 @@
    "timings": [
     {
      "page": "/",
-     "ms": 1832
+     "ms": 1597
     },
     {
      "page": "/listing/view.php?id=7952",
-     "ms": 2122
+     "ms": 2028
     }
    ],
    "where": "live",
-   "ms": 9175
+   "ms": 8871
   },
   {
    "id": "town-guide",
    "kind": "core",
    "title": "Read a town's guide",
    "who": "guest",
-   "status": "passed",
+   "status": "issues",
    "goal": true,
    "stuck": "",
    "steps": {
@@ -144,32 +142,39 @@
    },
    "counts": {
     "dead_ends": 0,
-    "surprises": 0,
+    "surprises": 1,
     "accuracy": 0,
     "clarity": 0,
     "slow": 0
    },
-   "problems": [],
+   "problems": [
+    {
+     "kind": "surprise",
+     "rule": "V06",
+     "page": "/hub/?town=phoenix-az-2",
+     "what": "the page jumps as it loads (layout shift 0.35)"
+    }
+   ],
    "notes": [
-    "the town: Dana Point, CA"
+    "the town: Phoenix, AZ"
    ],
    "pages": [
     "/",
-    "/hub/?cluster=cluster-auto-laguna-niguel"
+    "/hub/?town=phoenix-az-2"
    ],
    "shots": [],
    "timings": [
     {
      "page": "/",
-     "ms": 1234
+     "ms": 1152
     },
     {
-     "page": "/hub/?cluster=cluster-auto-laguna-niguel",
-     "ms": 2243
+     "page": "/hub/?town=phoenix-az-2",
+     "ms": 2585
     }
    ],
    "where": "live",
-   "ms": 10015
+   "ms": 10154
   },
   {
    "id": "search-typo",
@@ -209,15 +214,15 @@
    "timings": [
     {
      "page": "/",
-     "ms": 1087
+     "ms": 1059
     },
     {
      "page": "/hub/?cluster=cluster-auto-show-low",
-     "ms": 2971
+     "ms": 2784
     }
    ],
    "where": "live",
-   "ms": 10904
+   "ms": 10673
   },
   {
    "id": "set-place",
@@ -256,11 +261,11 @@
    "timings": [
     {
      "page": "/directory/",
-     "ms": 1060
+     "ms": 1036
     }
    ],
    "where": "live",
-   "ms": 7269
+   "ms": 7241
   },
   {
    "id": "sign-in",
@@ -294,11 +299,11 @@
    "timings": [
     {
      "page": "/",
-     "ms": 1723
+     "ms": 1621
     }
    ],
    "where": "live",
-   "ms": 3335
+   "ms": 3232
   },
   {
    "id": "sign-out",
@@ -331,15 +336,15 @@
    "timings": [
     {
      "page": "/user/dashboard.php",
-     "ms": 1541
+     "ms": 1341
     },
     {
      "page": "/",
-     "ms": 1538
+     "ms": 1536
     }
    ],
    "where": "live",
-   "ms": 5668
+   "ms": 5480
   },
   {
    "id": "my-listing",
@@ -372,33 +377,33 @@
    "timings": [
     {
      "page": "/",
-     "ms": 1811
+     "ms": 1649
     },
     {
      "page": "/listing/view.php?id=8916",
-     "ms": 2026
+     "ms": 1949
     }
    ],
    "where": "live",
-   "ms": 4378
+   "ms": 4134
   },
   {
    "id": "sign-up",
    "kind": "core",
    "title": "Sign up (all steps)",
    "who": "guest",
-   "status": "stuck",
+   "status": "failed",
    "goal": false,
-   "stuck": "the runner stopped: Error: staff-executive: TimeoutError: page.click: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator('button.b')\n",
+   "stuck": "",
    "steps": {
-    "taps": 4,
-    "pages": 2,
+    "taps": 6,
+    "pages": 3,
     "limit": 5,
-    "over": false
+    "over": true
    },
    "counts": {
-    "dead_ends": 0,
-    "surprises": 1,
+    "dead_ends": 1,
+    "surprises": 2,
     "accuracy": 0,
     "clarity": 0,
     "slow": 0
@@ -409,39 +414,62 @@
      "rule": "V06",
      "page": "/login.php?tab=create",
      "what": "the page jumps as it loads (layout shift 0.45)"
+    },
+    {
+     "kind": "surprise",
+     "rule": "V06",
+     "page": "/verify-email.php?token=bdd9be741aee79abb185ee5de4e877ddb76b47e4be9fcf278b9836dac137217f",
+     "what": "the page jumps as it loads (layout shift 0.40)"
+    },
+    {
+     "kind": "dead_end",
+     "rule": "J01",
+     "page": "/verify-email.php?token=bdd9be741aee79abb185ee5de4e877ddb76b47e4be9fcf278b9836dac137217f",
+     "what": "after the questions, no way on (\"You're all set\" and its link didn't show)"
+    },
+    {
+     "kind": "steps",
+     "rule": "J01",
+     "page": "/verify-email.php?token=bdd9be741aee79abb185ee5de4e877ddb76b47e4be9fcf278b9836dac137217f",
+     "what": "6 taps to the goal (the measure is 5 or fewer)"
     }
    ],
    "notes": [],
    "pages": [
     "/",
-    "/login.php?tab=create"
+    "/login.php?tab=create",
+    "/verify-email.php?token=bdd9be741aee79abb185ee5de4e877ddb76b47e4be9fcf278b9836dac137217f"
    ],
    "shots": [
-    "path-sign-up-guest-1-error.png"
+    "path-sign-up-guest-1-noend.png"
    ],
    "timings": [
     {
      "page": "/",
-     "ms": 2463
+     "ms": 2187
     },
     {
      "page": "/login.php?tab=create",
-     "ms": 2086
+     "ms": 2046
+    },
+    {
+     "page": "/verify-email.php?token=bdd9be741aee79abb185ee5de4e877ddb76b47e4be9fcf278b9836dac137217f",
+     "ms": 1406
     }
    ],
    "where": "staging",
-   "ms": 49519
+   "ms": 25131
   },
   {
    "id": "like-guest",
    "kind": "core",
    "title": "Like as a guest (3, then Keep going as a guest)",
    "who": "guest",
-   "status": "passed",
-   "goal": true,
+   "status": "failed",
+   "goal": false,
    "stuck": "",
    "steps": {
-    "taps": 5,
+    "taps": 4,
     "pages": 4,
     "limit": 5,
     "over": false
@@ -449,39 +477,46 @@
    "counts": {
     "dead_ends": 0,
     "surprises": 0,
-    "accuracy": 0,
+    "accuracy": 1,
     "clarity": 0,
     "slow": 0
    },
-   "problems": [],
+   "problems": [
+    {
+     "kind": "accuracy",
+     "rule": "J02",
+     "page": "/journeys/suggested.php?id=9",
+     "what": "after several likes, the account panel with Keep going as a guest didn't come, or the like didn't take"
+    }
+   ],
    "notes": [],
    "pages": [
-    "/journeys/suggested.php?id=14",
-    "/journeys/suggested.php?id=15",
-    "/journeys/suggested.php?id=16",
-    "/journeys/suggested.php?id=17"
+    "/journeys/suggested.php?id=8",
+    "/journeys/suggested.php?id=10",
+    "/journeys/suggested.php?id=32",
+    "/journeys/suggested.php?id=9"
    ],
    "shots": [],
    "timings": [
     {
-     "page": "/journeys/suggested.php?id=14",
-     "ms": 1720
+     "page": "/journeys/suggested.php?id=8",
+     "ms": 1314
     },
     {
-     "page": "/journeys/suggested.php?id=15",
-     "ms": 1338
+     "page": "/journeys/suggested.php?id=10",
+     "ms": 1205
     },
     {
-     "page": "/journeys/suggested.php?id=16",
-     "ms": 1326
+     "page": "/journeys/suggested.php?id=32",
+     "ms": 1205
     },
     {
-     "page": "/journeys/suggested.php?id=17",
-     "ms": 1320
+     "page": "/journeys/suggested.php?id=9",
+     "ms": 1211
     }
    ],
    "where": "staging",
-   "ms": 13449
+   "ms": 11166
   },
   {
    "id": "like-member",
@@ -526,28 +561,28 @@
    "problems": [],
    "notes": [],
    "pages": [
-    "/journeys/suggested.php?id=14"
+    "/journeys/suggested.php?id=8"
    ],
    "shots": [],
    "timings": [
     {
-     "page": "/journeys/suggested.php?id=14",
-     "ms": 1769
+     "page": "/journeys/suggested.php?id=8",
+     "ms": 1540
     }
    ],
    "where": "staging",
-   "ms": 7484
+   "ms": 7262
   },
   {
    "id": "claim",
    "kind": "core",
    "title": "Claim my business",
    "who": "member",
-   "status": "stuck",
-   "goal": false,
-   "stuck": "the runner stopped: Error: staff-executive: TimeoutError: page.click: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator('button.b')\n",
+   "status": "passed",
+   "goal": true,
+   "stuck": "",
    "steps": {
-    "taps": 2,
+    "taps": 3,
     "pages": 2,
     "limit": 5,
     "over": false
@@ -560,26 +595,26 @@
     "slow": 0
    },
    "problems": [],
-   "notes": [],
+   "notes": [
+    "the claim stands at: Managed by owner"
+   ],
    "pages": [
-    "/listing/view.php?id=9033",
-    "/claim.php?listing=9033"
+    "/listing/view.php?id=9116",
+    "/claim.php?listing=9116"
    ],
-   "shots": [
-    "path-claim-member-1-error.png"
-   ],
+   "shots": [],
    "timings": [
     {
-     "page": "/listing/view.php?id=9033",
-     "ms": 1692
+     "page": "/listing/view.php?id=9116",
+     "ms": 1449
     },
     {
-     "page": "/claim.php?listing=9033",
-     "ms": 2239
+     "page": "/claim.php?listing=9116",
+     "ms": 2090
     }
    ],
    "where": "staging",
-   "ms": 6074
+   "ms": 12946
   },
   {
    "id": "edit-listing",
@@ -614,19 +649,19 @@
    "timings": [
     {
      "page": "/business/9035",
-     "ms": 2155
+     "ms": 1751
     },
     {
      "page": "/listing/businessportal.php?id=9035",
-     "ms": 2185
+     "ms": 2063
     },
     {
      "page": "/listing/view.php?id=9035",
-     "ms": 2467
+     "ms": 2200
     }
    ],
    "where": "staging",
-   "ms": 16332
+   "ms": 15465
   },
   {
    "id": "market-post",
@@ -656,21 +691,21 @@
    "pages": [
     "/market/",
     "/user/market/?new=1",
-    "/user/market/?x=1795426805734#p13"
+    "/user/market/?x=1795447735855#p14"
    ],
    "shots": [],
    "timings": [
     {
      "page": "/market/",
-     "ms": 1680
+     "ms": 1567
     },
     {
      "page": "/user/market/?new=1",
-     "ms": 2170
+     "ms": 2023
     }
    ],
    "where": "staging",
-   "ms": 14794
+   "ms": 14208
   },
   {
    "id": "message-business",
@@ -705,11 +740,11 @@
    "timings": [
     {
      "page": "/user/dashboard.php#addressbook:biz=9035",
-     "ms": 1636
+     "ms": 1450
     }
    ],
    "where": "staging",
-   "ms": 16502
+   "ms": 16059
   },
   {
    "id": "join-group",
@@ -743,29 +778,58 @@
    "timings": [
     {
      "page": "/community/",
-     "ms": 1691
+     "ms": 1552
     }
    ],
    "where": "staging",
-   "ms": 16753
+   "ms": 16607
   },
   {
    "id": "staff-report",
    "kind": "core",
    "title": "Staff: decide a report",
    "who": "staff-ops-staff",
-   "status": "skipped",
-   "notes": [
-    "TimeoutError: page.click: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator('button.b')\n"
-   ],
-   "problems": [],
+   "status": "issues",
+   "goal": true,
+   "stuck": "",
    "steps": {
-    "taps": 0,
-    "pages": 0,
+    "taps": 3,
+    "pages": 1,
     "limit": 5,
     "over": false
    },
-   "counts": {}
+   "counts": {
+    "dead_ends": 0,
+    "surprises": 1,
+    "accuracy": 0,
+    "clarity": 0,
+    "slow": 0
+   },
+   "problems": [
+    {
+     "kind": "surprise",
+     "rule": "V06",
+     "page": "/admin/dashboard/stream",
+     "what": "2 dialogs open on top of each other"
+    }
+   ],
+   "notes": [
+    "a report case for a Marketplace post is still listed after the decision (it may be another report)"
+   ],
+   "pages": [
+    "/admin/dashboard/stream"
+   ],
+   "shots": [
+    "path-staff-report-staff-ops-staff-1-stacked.png"
+   ],
+   "timings": [
+    {
+     "page": "/admin/dashboard/stream",
+     "ms": 1726
+    }
+   ],
+   "where": "staging",
+   "ms": 19337
   },
   {
    "id": "staff-like-check",
@@ -774,7 +838,7 @@
    "who": "staff-ops-staff",
    "status": "skipped",
    "notes": [
-    "TimeoutError: page.click: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator('button.b')\n"
+    "no like check waiting: three guest likes on a test item were made, so the hourly Like checks job opens one for the next run"
    ],
    "problems": [],
    "steps": {
@@ -783,167 +847,120 @@
     "limit": 5,
     "over": false
    },
-   "counts": {}
+   "counts": {},
+   "where": "staging"
   },
   {
    "id": "staff-held-post",
    "kind": "core",
    "title": "Staff: decide a held Marketplace post",
    "who": "staff-ops-staff",
-   "status": "skipped",
-   "notes": [
-    "TimeoutError: page.click: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator('button.b')\n"
-   ],
-   "problems": [],
+   "status": "passed",
+   "goal": true,
+   "stuck": "",
    "steps": {
-    "taps": 0,
-    "pages": 0,
+    "taps": 1,
+    "pages": 1,
     "limit": 5,
     "over": false
    },
-   "counts": {}
+   "counts": {
+    "dead_ends": 0,
+    "surprises": 0,
+    "accuracy": 0,
+    "clarity": 0,
+    "slow": 0
+   },
+   "problems": [],
+   "notes": [],
+   "pages": [
+    "/admin/dashboard/stream#case=mkt%3Aheld"
+   ],
+   "shots": [],
+   "timings": [
+    {
+     "page": "/admin/dashboard/stream#case=mkt%3Aheld",
+     "ms": 1936
+    }
+   ],
+   "where": "staging",
+   "ms": 13660
   },
   {
    "id": "send-order",
    "kind": "core",
    "title": "Staff: send an order",
    "who": "staff-sal-staff",
-   "status": "skipped",
-   "notes": [
-    "TimeoutError: page.click: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator('button.b')\n"
-   ],
-   "problems": [],
+   "status": "failed",
+   "goal": false,
+   "stuck": "",
    "steps": {
-    "taps": 0,
-    "pages": 0,
+    "taps": 5,
+    "pages": 3,
     "limit": 5,
     "over": false
    },
-   "counts": {}
-  },
-  {
-   "id": "guide:town:66",
-   "kind": "guide",
-   "title": "Follow the Dana Point, CA guide",
-   "who": "guest",
-   "status": "passed",
-   "goal": true,
-   "stuck": "",
-   "steps": {
-    "taps": 1,
-    "pages": 14,
-    "limit": 3,
-    "over": false
-   },
    "counts": {
-    "dead_ends": 0,
-    "surprises": 0,
+    "dead_ends": 2,
+    "surprises": 2,
     "accuracy": 0,
     "clarity": 0,
     "slow": 0
    },
-   "problems": [],
-   "notes": [],
-   "pages": [
-    "/hub/?town=dana-point-ca",
-    "/journeys/suggested.php?id=14",
-    "/place/landmark.php?id=900000005",
-    "/journeys/suggested.php?id=14",
-    "/place/landmark.php?id=900000004",
-    "/journeys/suggested.php?id=14",
-    "/listing/view.php?id=9033",
-    "/journeys/suggested.php?id=14",
-    "/place/landmark.php?id=900000001",
-    "/journeys/suggested.php?id=14",
-    "/place/landmark.php?id=900000003",
-    "/journeys/suggested.php?id=14",
-    "/place/landmark.php?id=900000796",
-    "/journeys/suggested.php?id=14"
-   ],
-   "shots": [],
-   "timings": [
+   "problems": [
     {
-     "page": "/hub/?town=dana-point-ca",
-     "ms": 1621
+     "kind": "surprise",
+     "rule": "V14",
+     "page": "/admin/backoffice/orders/16",
+     "what": "a script error: TypeError: Cannot read properties of null (reading 'hasAttribute')"
     },
     {
-     "page": "/journeys/suggested.php?id=14",
-     "ms": 1811
+     "kind": "dead_end",
+     "rule": "J01",
+     "page": "/admin/backoffice/orders/16",
+     "what": "\"Test copy, billed to you\" couldn't be tapped: TimeoutError: locator.click: Timeout 8000ms exceeded.\nCall log:\n  - waiting for "
     },
     {
-     "page": "/place/landmark.php?id=900000005",
-     "ms": 1857
+     "kind": "dead_end",
+     "rule": "J01",
+     "page": "/admin/backoffice/orders/17",
+     "what": "the test copy has no Send"
     },
     {
-     "page": "/place/landmark.php?id=900000004",
-     "ms": 1847
-    },
-    {
-     "page": "/listing/view.php?id=9033",
-     "ms": 1944
-    },
-    {
-     "page": "/place/landmark.php?id=900000001",
-     "ms": 1830
-    },
-    {
-     "page": "/place/landmark.php?id=900000003",
-     "ms": 1835
-    },
-    {
-     "page": "/place/landmark.php?id=900000796",
-     "ms": 1840
+     "kind": "surprise",
+     "rule": "V14",
+     "page": "/admin/backoffice/orders/17",
+     "what": "a script error: TypeError: Cannot read properties of null (reading 'hasAttribute')"
     }
    ],
-   "where": "live",
-   "ms": 23947,
-   "guide": {
-    "key": "town:66",
-    "name": "Dana Point",
-    "url": "/hub/?town=dana-point-ca",
-    "journeys": 4,
-    "stops": [
-     {
-      "name": "Salt Creek Beach Park",
-      "url": "/place/landmark.php?id=900000005",
-      "opened": true
-     },
-     {
-      "name": "Ocean Institute",
-      "url": "/place/landmark.php?id=900000004",
-      "opened": true
-     },
-     {
-      "name": "Starbucks",
-      "url": "/listing/view.php?id=9033",
-      "opened": true,
-      "phone": true,
-      "open_shown": true
-     },
-     {
-      "name": "Doheny State Beach",
-      "url": "/place/landmark.php?id=900000001",
-      "opened": true
-     },
-     {
-      "name": "Mission San Juan Capistrano",
-      "url": "/place/landmark.php?id=900000003",
-      "opened": true
-     },
-     {
-      "name": "Chet Holifield Federal Building",
-      "url": "/place/landmark.php?id=900000796",
-      "opened": true
-     }
-    ]
-   }
+   "notes": [],
+   "pages": [
+    "/admin/backoffice/orders",
+    "/admin/backoffice/orders/16",
+    "/admin/backoffice/orders/17"
+   ],
+   "shots": [
+    "path-send-order-staff-sal-staff-1-nosend.png"
+   ],
+   "timings": [
+    {
+     "page": "/admin/backoffice/orders",
+     "ms": 1450
+    },
+    {
+     "page": "/admin/backoffice/orders/16",
+     "ms": 3093
+    }
+   ],
+   "where": "staging",
+   "ms": 34261
   },
   {
-   "id": "guide:town:67",
+   "id": "guide:town:73",
    "kind": "guide",
-   "title": "Follow the Laguna Niguel, CA guide",
+   "title": "Follow the Phoenix, AZ guide",
    "who": "guest",
-   "status": "passed",
+   "status": "issues",
    "goal": true,
    "stuck": "",
    "steps": {
@@ -955,341 +972,213 @@
    "counts": {
     "dead_ends": 0,
     "surprises": 0,
-    "accuracy": 0,
+    "accuracy": 1,
     "clarity": 0,
     "slow": 0
    },
-   "problems": [],
+   "problems": [
+    {
+     "kind": "accuracy",
+     "rule": "J02",
+     "page": "/listing/view.php?id=9116",
+     "what": "Subway's page says closed; our data says Open · Closes 10 PM"
+    }
+   ],
    "notes": [],
    "pages": [
-    "/hub/?town=laguna-niguel-ca",
-    "/journeys/suggested.php?id=1",
-    "/listing/view.php?id=9043",
-    "/journeys/suggested.php?id=1",
-    "/place/landmark.php?id=900000003",
-    "/journeys/suggested.php?id=1",
-    "/place/landmark.php?id=900000007",
-    "/journeys/suggested.php?id=1",
-    "/listing/view.php?id=9038",
-    "/journeys/suggested.php?id=1",
-    "/place/landmark.php?id=900000006",
-    "/journeys/suggested.php?id=1",
-    "/place/landmark.php?id=900000773",
-    "/journeys/suggested.php?id=1"
+    "/hub/?town=phoenix-az",
+    "/journeys/suggested.php?id=8",
+    "/listing/view.php?id=9116",
+    "/journeys/suggested.php?id=8",
+    "/place/landmark.php?id=900000029",
+    "/journeys/suggested.php?id=8",
+    "/place/landmark.php?id=900000023",
+    "/journeys/suggested.php?id=8",
+    "/listing/view.php?id=9113",
+    "/journeys/suggested.php?id=8",
+    "/place/landmark.php?id=900000030",
+    "/journeys/suggested.php?id=8",
+    "/place/recreation.php?id=f247732",
+    "/journeys/suggested.php?id=8"
    ],
    "shots": [],
    "timings": [
     {
-     "page": "/hub/?town=laguna-niguel-ca",
-     "ms": 1465
+     "page": "/hub/?town=phoenix-az",
+     "ms": 2147
     },
     {
-     "page": "/journeys/suggested.php?id=1",
-     "ms": 1812
+     "page": "/journeys/suggested.php?id=8",
+     "ms": 1791
     },
     {
-     "page": "/listing/view.php?id=9043",
-     "ms": 1876
+     "page": "/listing/view.php?id=9116",
+     "ms": 1894
     },
     {
-     "page": "/place/landmark.php?id=900000003",
-     "ms": 2020
+     "page": "/place/landmark.php?id=900000029",
+     "ms": 1877
     },
     {
-     "page": "/place/landmark.php?id=900000007",
-     "ms": 1838
+     "page": "/place/landmark.php?id=900000023",
+     "ms": 1915
     },
     {
-     "page": "/listing/view.php?id=9038",
+     "page": "/listing/view.php?id=9113",
      "ms": 1862
     },
     {
-     "page": "/place/landmark.php?id=900000006",
-     "ms": 1840
-    },
-    {
-     "page": "/place/landmark.php?id=900000773",
-     "ms": 1823
-    }
-   ],
-   "where": "live",
-   "ms": 23265,
-   "guide": {
-    "key": "town:67",
-    "name": "Laguna Niguel",
-    "url": "/hub/?town=laguna-niguel-ca",
-    "journeys": 4,
-    "stops": [
-     {
-      "name": "Pizza Hut",
-      "url": "/listing/view.php?id=9043",
-      "opened": true,
-      "phone": true,
-      "open_shown": true
-     },
-     {
-      "name": "Mission San Juan Capistrano",
-      "url": "/place/landmark.php?id=900000003",
-      "opened": true
-     },
-     {
-      "name": "Laguna Niguel Regional Park",
-      "url": "/place/landmark.php?id=900000007",
-      "opened": true
-     },
-     {
-      "name": "Wendy's",
-      "url": "/listing/view.php?id=9038",
-      "opened": true,
-      "phone": true,
-      "open_shown": true
-     },
-     {
-      "name": "Esslinger Building",
-      "url": "/place/landmark.php?id=900000006",
-      "opened": true
-     },
-     {
-      "name": "Laguna Niguel Lake",
-      "url": "/place/landmark.php?id=900000773",
-      "opened": true
-     }
-    ]
-   }
-  },
-  {
-   "id": "guide:town:68",
-   "kind": "guide",
-   "title": "Follow the Laguna Beach, CA guide",
-   "who": "guest",
-   "status": "passed",
-   "goal": true,
-   "stuck": "",
-   "steps": {
-    "taps": 1,
-    "pages": 14,
-    "limit": 3,
-    "over": false
-   },
-   "counts": {
-    "dead_ends": 0,
-    "surprises": 0,
-    "accuracy": 0,
-    "clarity": 0,
-    "slow": 0
-   },
-   "problems": [],
-   "notes": [],
-   "pages": [
-    "/hub/?town=laguna-beach-ca",
-    "/journeys/suggested.php?id=18",
-    "/listing/view.php?id=9028",
-    "/journeys/suggested.php?id=18",
-    "/place/landmark.php?id=900000003",
-    "/journeys/suggested.php?id=18",
-    "/place/landmark.php?id=900000796",
-    "/journeys/suggested.php?id=18",
-    "/place/landmark.php?id=900000800",
-    "/journeys/suggested.php?id=18",
-    "/listing/view.php?id=9031",
-    "/journeys/suggested.php?id=18",
-    "/place/landmark.php?id=900000008",
-    "/journeys/suggested.php?id=18"
-   ],
-   "shots": [],
-   "timings": [
-    {
-     "page": "/hub/?town=laguna-beach-ca",
-     "ms": 1544
-    },
-    {
-     "page": "/journeys/suggested.php?id=18",
-     "ms": 1820
-    },
-    {
-     "page": "/listing/view.php?id=9028",
-     "ms": 1886
-    },
-    {
-     "page": "/place/landmark.php?id=900000003",
-     "ms": 1879
-    },
-    {
-     "page": "/place/landmark.php?id=900000796",
-     "ms": 1826
-    },
-    {
-     "page": "/place/landmark.php?id=900000800",
-     "ms": 1845
-    },
-    {
-     "page": "/listing/view.php?id=9031",
-     "ms": 1891
-    },
-    {
-     "page": "/place/landmark.php?id=900000008",
-     "ms": 1852
-    }
-   ],
-   "where": "live",
-   "ms": 23333,
-   "guide": {
-    "key": "town:68",
-    "name": "Laguna Beach",
-    "url": "/hub/?town=laguna-beach-ca",
-    "journeys": 4,
-    "stops": [
-     {
-      "name": "The Habit Burger Grill",
-      "url": "/listing/view.php?id=9028",
-      "opened": true,
-      "phone": true,
-      "open_shown": true
-     },
-     {
-      "name": "Mission San Juan Capistrano",
-      "url": "/place/landmark.php?id=900000003",
-      "opened": true
-     },
-     {
-      "name": "Chet Holifield Federal Building",
-      "url": "/place/landmark.php?id=900000796",
-      "opened": true
-     },
-     {
-      "name": "Laguna South Coast Cinemas",
-      "url": "/place/landmark.php?id=900000800",
-      "opened": true
-     },
-     {
-      "name": "The Cliff",
-      "url": "/listing/view.php?id=9031",
-      "opened": true,
-      "phone": true,
-      "open_shown": true
-     },
-     {
-      "name": "St. Francis by-the-Sea American Catholic Church",
-      "url": "/place/landmark.php?id=900000008",
-      "opened": true
-     }
-    ]
-   }
-  },
-  {
-   "id": "guide:town:72",
-   "kind": "guide",
-   "title": "Follow the Glendale, AZ guide",
-   "who": "guest",
-   "status": "passed",
-   "goal": true,
-   "stuck": "",
-   "steps": {
-    "taps": 1,
-    "pages": 14,
-    "limit": 3,
-    "over": false
-   },
-   "counts": {
-    "dead_ends": 0,
-    "surprises": 0,
-    "accuracy": 0,
-    "clarity": 0,
-    "slow": 0
-   },
-   "problems": [],
-   "notes": [],
-   "pages": [
-    "/hub/?town=glendale-az",
-    "/journeys/suggested.php?id=5",
-    "/listing/view.php?id=9051",
-    "/journeys/suggested.php?id=5",
-    "/place/recreation.php?id=f247732",
-    "/journeys/suggested.php?id=5",
-    "/listing/view.php?id=9047",
-    "/journeys/suggested.php?id=5",
-    "/place/landmark.php?id=8747",
-    "/journeys/suggested.php?id=5",
-    "/place/landmark.php?id=900000012",
-    "/journeys/suggested.php?id=5",
-    "/place/landmark.php?id=900000011",
-    "/journeys/suggested.php?id=5"
-   ],
-   "shots": [],
-   "timings": [
-    {
-     "page": "/hub/?town=glendale-az",
-     "ms": 2137
-    },
-    {
-     "page": "/journeys/suggested.php?id=5",
-     "ms": 1801
-    },
-    {
-     "page": "/listing/view.php?id=9051",
-     "ms": 1927
+     "page": "/place/landmark.php?id=900000030",
+     "ms": 1800
     },
     {
      "page": "/place/recreation.php?id=f247732",
-     "ms": 1880
-    },
-    {
-     "page": "/listing/view.php?id=9047",
-     "ms": 1886
-    },
-    {
-     "page": "/place/landmark.php?id=8747",
-     "ms": 1847
-    },
-    {
-     "page": "/place/landmark.php?id=900000012",
-     "ms": 1879
-    },
-    {
-     "page": "/place/landmark.php?id=900000011",
-     "ms": 1874
+     "ms": 1770
     }
    ],
    "where": "live",
-   "ms": 23934,
+   "ms": 23430,
    "guide": {
-    "key": "town:72",
-    "name": "Glendale",
-    "url": "/hub/?town=glendale-az",
-    "journeys": 4,
+    "key": "town:73",
+    "name": "Phoenix",
+    "url": "/hub/?town=phoenix-az",
+    "journeys": 5,
     "stops": [
      {
-      "name": "Cheese 'N Stuff Deli",
-      "url": "/listing/view.php?id=9051",
+      "name": "Subway",
+      "url": "/listing/view.php?id=9116",
       "opened": true,
       "phone": true,
       "open_shown": true
+     },
+     {
+      "name": "Executive Towers",
+      "url": "/place/landmark.php?id=900000029",
+      "opened": true
+     },
+     {
+      "name": "Orpheum Theatre",
+      "url": "/place/landmark.php?id=900000023",
+      "opened": true
+     },
+     {
+      "name": "Domino's",
+      "url": "/listing/view.php?id=9113",
+      "opened": true,
+      "phone": true,
+      "open_shown": true
+     },
+     {
+      "name": "Bragg's Pies Building",
+      "url": "/place/landmark.php?id=900000030",
+      "opened": true
      },
      {
       "name": "Hotel San Carlos",
       "url": "/place/recreation.php?id=f247732",
       "opened": true
-     },
+     }
+    ]
+   }
+  },
+  {
+   "id": "guide:town:84",
+   "kind": "guide",
+   "title": "Follow the Globe, AZ guide",
+   "who": "guest",
+   "status": "passed",
+   "goal": true,
+   "stuck": "",
+   "steps": {
+    "taps": 1,
+    "pages": 10,
+    "limit": 3,
+    "over": false
+   },
+   "counts": {
+    "dead_ends": 0,
+    "surprises": 0,
+    "accuracy": 0,
+    "clarity": 0,
+    "slow": 0
+   },
+   "problems": [],
+   "notes": [],
+   "pages": [
+    "/hub/?town=globe-az",
+    "/journeys/suggested.php?id=40",
+    "/place/landmark.php?id=900000192",
+    "/journeys/suggested.php?id=40",
+    "/place/landmark.php?id=900000191",
+    "/journeys/suggested.php?id=40",
+    "/place/landmark.php?id=900000190",
+    "/journeys/suggested.php?id=40",
+    "/place/landmark.php?id=900000196",
+    "/journeys/suggested.php?id=40"
+   ],
+   "shots": [],
+   "timings": [
+    {
+     "page": "/hub/?town=globe-az",
+     "ms": 1378
+    },
+    {
+     "page": "/journeys/suggested.php?id=40",
+     "ms": 2134
+    },
+    {
+     "page": "/place/landmark.php?id=900000192",
+     "ms": 1805
+    },
+    {
+     "page": "/place/landmark.php?id=900000191",
+     "ms": 1818
+    },
+    {
+     "page": "/place/landmark.php?id=900000190",
+     "ms": 1813
+    },
+    {
+     "page": "/place/landmark.php?id=900000196",
+     "ms": 1804
+    }
+   ],
+   "where": "live",
+   "ms": 16765,
+   "guide": {
+    "key": "town:84",
+    "name": "Globe",
+    "url": "/hub/?town=globe-az",
+    "journeys": 4,
+    "stops": [
      {
-      "name": "Akaihana",
-      "url": "/listing/view.php?id=9047",
-      "opened": true,
-      "phone": true,
-      "open_shown": true
-     },
-     {
-      "name": "North Mountain",
-      "url": "/place/landmark.php?id=8747",
+      "name": "Copper Bean Coffee",
+      "url": "https://www.openstreetmap.org/way/1557525401",
       "opened": true
      },
      {
-      "name": "Glendale Grammar School One-room Class Building",
-      "url": "/place/landmark.php?id=900000012",
+      "name": "International House",
+      "url": "/place/landmark.php?id=900000192",
       "opened": true
      },
      {
-      "name": "Glendale High School Auditorium",
-      "url": "/place/landmark.php?id=900000011",
+      "name": "Elks Building",
+      "url": "/place/landmark.php?id=900000191",
+      "opened": true
+     },
+     {
+      "name": "Gila Valley Bank and Trust Building",
+      "url": "/place/landmark.php?id=900000190",
+      "opened": true
+     },
+     {
+      "name": "Taco Bell",
+      "url": "https://www.openstreetmap.org/way/1149205695",
+      "opened": true
+     },
+     {
+      "name": "Holy Angels Church",
+      "url": "/place/landmark.php?id=900000196",
       "opened": true
      }
     ]
@@ -1300,8 +1189,8 @@
   "php": "8.0",
   "jobs": [],
   "cache": {
-   "entries": 15149,
-   "expired": 7,
+   "entries": 16000,
+   "expired": 2,
    "expired_share": 0
   },
   "ai": {
@@ -1330,7 +1219,7 @@
    },
    {
     "name": "page_cache",
-    "mb": 78.5
+    "mb": 82.5
    },
    {
     "name": "crawl_frontier",
