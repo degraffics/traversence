@@ -2,15 +2,15 @@
  "version": 1,
  "check": "AUDIT",
  "name": "The audit's own load: what each run asks of the site",
- "generated_at": "2026-11-23T08:55:01Z",
+ "generated_at": "2026-11-23T09:57:02Z",
  "site": "https://traversence.com",
- "run_url": "https://github.com/degraffics/traversence/actions/runs/45142342276",
+ "run_url": "https://github.com/degraffics/traversence/actions/runs/45145623951",
  "target": "a light run asks at most about 20 requests, one at a time with a 1 s gap; the probe pages' response times stay within 20% of their 7-day median, or the next run backs off",
  "target_source": "Jason, 2026-11-22 (the schedule below); the 20% is ours, approved with the schedule",
  "source": "handoffs/control-board-plan/step3/sections/check-register.md",
  "runs": {
   "sample": {
-   "id": "audit-2026-11-23T08:55:01Z",
+   "id": "audit-2026-11-23T09:57:02Z",
    "check": "AUDIT",
    "mode": "sample",
    "requests": 0,
@@ -18,8 +18,7 @@
   }
  },
  "counts": {
-  "pass": 1,
-  "no check": 4
+  "pass": 7
  },
  "backoff": {
   "level": 0,
@@ -56,6 +55,34 @@
  "results": [
   {
    "check": "AUDIT",
+   "item": "LOAD+PHOTOS-SHOWN+BRAND full run (2026-11-23 09:51 UTC)",
+   "who": null,
+   "target": "a light run asks at most about 20 requests, one at a time with a 1 s gap; the probe pages' response times stay within 20% of their 7-day median, or the next run backs off",
+   "result": "pass",
+   "measured": {
+    "requests": 162,
+    "page_views": 162,
+    "calls": 0,
+    "subrequests": 3530,
+    "seconds": 303.2,
+    "gap_ms": 1000,
+    "min_gap_ms": 998,
+    "one_at_a_time": true,
+    "skipped": null,
+    "shared_by": [
+     "LOAD",
+     "PHOTOS-SHOWN",
+     "BRAND"
+    ]
+   },
+   "at": "2026-11-23T09:57:02Z",
+   "evidence": "https://github.com/degraffics/traversence/actions/runs/45145623951",
+   "finding": null,
+   "kind": "run",
+   "why": "162 requests one at a time, 998 ms apart at the least"
+  },
+  {
+   "check": "AUDIT",
    "item": "LOAD light run (2026-11-23 08:54 UTC)",
    "who": null,
    "target": "a light run asks at most about 20 requests, one at a time with a 1 s gap; the probe pages' response times stay within 20% of their 7-day median, or the next run backs off",
@@ -74,79 +101,103 @@
      "LOAD"
     ]
    },
-   "at": "2026-11-23T08:55:01Z",
-   "evidence": "https://github.com/degraffics/traversence/actions/runs/45142342276",
+   "at": "2026-11-23T09:57:02Z",
+   "evidence": "https://github.com/degraffics/traversence/actions/runs/45145623951",
    "finding": null,
    "kind": "run",
    "why": "8 requests, one at a time, 1614 ms apart at the least"
   },
   {
    "check": "AUDIT",
+   "item": "TOOLS full run (2026-11-23 09:43 UTC)",
+   "who": null,
+   "target": "a light run asks at most about 20 requests, one at a time with a 1 s gap; the probe pages' response times stay within 20% of their 7-day median, or the next run backs off",
+   "result": "pass",
+   "measured": {
+    "requests": 176,
+    "page_views": 64,
+    "calls": 112,
+    "subrequests": 1048,
+    "seconds": 518.1,
+    "gap_ms": 1000,
+    "min_gap_ms": 999,
+    "one_at_a_time": true,
+    "skipped": null,
+    "shared_by": null
+   },
+   "at": "2026-11-23T09:57:02Z",
+   "evidence": "https://github.com/degraffics/traversence/actions/runs/45145623951",
+   "finding": null,
+   "kind": "run",
+   "why": "176 requests one at a time, 999 ms apart at the least"
+  },
+  {
+   "check": "AUDIT",
    "item": "/",
    "who": null,
    "target": "a light run asks at most about 20 requests, one at a time with a 1 s gap; the probe pages' response times stay within 20% of their 7-day median, or the next run backs off",
-   "result": "no check",
+   "result": "pass",
    "measured": {
     "ms": 85.0,
-    "median_7d_ms": null,
-    "samples": 0
+    "median_7d_ms": 85.0,
+    "ratio": 1.0,
+    "samples": 1
    },
-   "at": "2026-11-23T08:55:01Z",
-   "evidence": "https://github.com/degraffics/traversence/actions/runs/45142342276",
+   "at": "2026-11-23T09:57:02Z",
+   "evidence": "https://github.com/degraffics/traversence/actions/runs/45145623951",
    "finding": null,
-   "kind": "response time",
-   "why": "no earlier sample to compare with yet"
+   "kind": "response time"
   },
   {
    "check": "AUDIT",
    "item": "/directory/",
    "who": null,
    "target": "a light run asks at most about 20 requests, one at a time with a 1 s gap; the probe pages' response times stay within 20% of their 7-day median, or the next run backs off",
-   "result": "no check",
+   "result": "pass",
    "measured": {
     "ms": 42.0,
-    "median_7d_ms": null,
-    "samples": 0
+    "median_7d_ms": 42.0,
+    "ratio": 1.0,
+    "samples": 1
    },
-   "at": "2026-11-23T08:55:01Z",
-   "evidence": "https://github.com/degraffics/traversence/actions/runs/45142342276",
+   "at": "2026-11-23T09:57:02Z",
+   "evidence": "https://github.com/degraffics/traversence/actions/runs/45145623951",
    "finding": null,
-   "kind": "response time",
-   "why": "no earlier sample to compare with yet"
+   "kind": "response time"
   },
   {
    "check": "AUDIT",
    "item": "/discovery/",
    "who": null,
    "target": "a light run asks at most about 20 requests, one at a time with a 1 s gap; the probe pages' response times stay within 20% of their 7-day median, or the next run backs off",
-   "result": "no check",
+   "result": "pass",
    "measured": {
     "ms": 41.0,
-    "median_7d_ms": null,
-    "samples": 0
+    "median_7d_ms": 41.0,
+    "ratio": 1.0,
+    "samples": 1
    },
-   "at": "2026-11-23T08:55:01Z",
-   "evidence": "https://github.com/degraffics/traversence/actions/runs/45142342276",
+   "at": "2026-11-23T09:57:02Z",
+   "evidence": "https://github.com/degraffics/traversence/actions/runs/45145623951",
    "finding": null,
-   "kind": "response time",
-   "why": "no earlier sample to compare with yet"
+   "kind": "response time"
   },
   {
    "check": "AUDIT",
    "item": "/login.php",
    "who": null,
    "target": "a light run asks at most about 20 requests, one at a time with a 1 s gap; the probe pages' response times stay within 20% of their 7-day median, or the next run backs off",
-   "result": "no check",
+   "result": "pass",
    "measured": {
     "ms": 43.5,
-    "median_7d_ms": null,
-    "samples": 0
+    "median_7d_ms": 43.5,
+    "ratio": 1.0,
+    "samples": 1
    },
-   "at": "2026-11-23T08:55:01Z",
-   "evidence": "https://github.com/degraffics/traversence/actions/runs/45142342276",
+   "at": "2026-11-23T09:57:02Z",
+   "evidence": "https://github.com/degraffics/traversence/actions/runs/45145623951",
    "finding": null,
-   "kind": "response time",
-   "why": "no earlier sample to compare with yet"
+   "kind": "response time"
   }
  ]
 }
