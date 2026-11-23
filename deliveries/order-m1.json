@@ -1,7 +1,7 @@
 {
  "zip": "order-m1.zip",
  "built_on": "8a94377 Sync: 2026-11-23 19:36 UTC",
- "recorded": "2026-11-23 20:32 UTC",
+ "recorded": "2026-11-23 20:36 UTC",
  "note": "Order management M1 with the Design reviewer's fixes 1-6; built on Sync 2026-11-23 19:36 UTC (8a94377) Sent through git (releases/inbox).",
  "status": "pending",
  "live_in": "",
@@ -51,7 +51,7 @@
    "live": false
   },
   "website/admin/client-order.php": {
-   "sha256": "ea54427cb6adb492d65b63a3ecced5431b22680fc0d3deb68c4045bfc110ade3",
+   "sha256": "1f3b61d5b88854726044d6f891bf3dcff63405e34d8c44fc4dbf5773e94b40bb",
    "live": false
   },
   "website/js/admin-kit.js": {

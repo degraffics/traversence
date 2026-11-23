@@ -26,7 +26,7 @@ $i = $o('Deposit Paid Co', ['pay_mode' => 'deposit', 'deposit_cents' => 41200, '
 $i = $o('Paid Co', ['status' => 'paid', 'stage' => 'production', 'paid_at' => $d(-3)]); $pay($i, 80910);
 $i = $o('Vendor Co', ['status' => 'paid', 'stage' => 'ordered', 'paid_at' => $d(-3)]); $pay($i, 80910);
 $pdo->prepare("INSERT INTO order_work_orders (order_id, wo_no, vendor, status, sent_at) VALUES (?, 'WO-1', 'Print Vendor', 'accepted', NOW())")->execute([$i]);
-$i = $o('Mesa Ridge Lodge', ['stage' => 'ready', 'pay_mode' => 'outside', 'invoice_no' => '1044', 'delivery' => 'pickup'], ['item_status' => 'ready']); $ev($i, 'released', 'Released before payment by an admin: agreed terms', -27); $ev($i, 'stage', 'Ready for pickup', -21);
+$i = $o('Mesa Ridge Lodge', ['stage' => 'ready', 'pay_mode' => 'outside', 'invoice_no' => '1044', 'delivery' => ''], ['item_status' => 'ready']); $ev($i, 'released', 'Released before payment by an admin: agreed terms', -27); $ev($i, 'stage', 'Ready for pickup', -21);
 $i = $o('Released Co', ['stage' => 'ready', 'pay_mode' => 'full'], ['item_status' => 'ready']); $ev($i, 'released', 'Released before payment by an admin: agreed terms', -27); $ev($i, 'stage', 'Ready for pickup', -2);
 $i = $o('Shipped Paid Co', ['status' => 'paid', 'stage' => 'shipped', 'tracking' => '1Z999'], ['item_status' => 'shipped']); $pay($i, 80910); $ev($i, 'stage', 'Shipped', -2);
 $i = $o('Delivered Owed Co', ['stage' => 'shipped', 'received_at' => $d(-1)], ['item_status' => 'shipped']); $ev($i, 'released', 'Released before payment by an admin: net terms', -9); $ev($i, 'stage', 'Shipped', -3);
