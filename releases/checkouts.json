@@ -114,6 +114,33 @@
    "expires": "2026-11-23T23:57:52Z",
    "release": "gauge-panel.zip",
    "callers": {}
+  },
+  {
+   "path": "app/admin/module-cards.php",
+   "functions": [
+    "tv_mc_setup",
+    "tv_module_card"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
+   "why": "Gauge panel release: a finished step replaces its form on the cards (Jason, 2026-11-23)",
+   "since": "2026-11-23T19:58:00Z",
+   "expires": "2026-11-23T23:58:00Z",
+   "release": "gauge-panel.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/operations-console.php",
+   "functions": [
+    "tv_ops_ctx"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
+   "why": "Gauge panel release: a finished step replaces its form on the cards (Jason, 2026-11-23)",
+   "since": "2026-11-23T19:58:00Z",
+   "expires": "2026-11-23T23:58:00Z",
+   "release": "gauge-panel.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
