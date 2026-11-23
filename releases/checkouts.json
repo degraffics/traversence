@@ -1,6 +1,18 @@
 {
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
- "claims": [],
+ "claims": [
+  {
+   "path": "website/api/health.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "step 5: the health report's consistency, ledger and irs_loads sections (the session manager, 2026-11-23)",
+   "since": "2026-11-23T00:18:52Z",
+   "expires": "2026-11-23T04:18:52Z",
+   "release": "control-board-health.zip",
+   "callers": {}
+  }
+ ],
  "lapsed": [
   {
    "path": "website/market/index.php",
