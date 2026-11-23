@@ -1,0 +1,34 @@
+{
+    "id": 259,
+    "title": "Orders: a test copy that took real money can be refunded",
+    "why": "Jason, 2026-11-19, on the order map's chargeFor bug: \"Fix in first release.\" QuickBooksPay::chargeFor refused test copies before looking up the card, against guardReal's own rule (Jason, 2026-11-10: refunds only send money back, so a test copy that once took real money can still be refunded). decisions/0101's note of 2026-11-20 (rulings on the order map).",
+    "proposals": "",
+    "zip": "orders-chargefor.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/lib/QuickBooksPay.php": {
+            "sha": "d2222925e26fd7206c1b25432d9dd1ef2b1d2f9b677bb72af71e8d062ce47b41",
+            "size": 80181,
+            "live_was": "f0297d75f42973c9bf4bd0511c5663517b89466c2939be05084b3c1b3dd9312b"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-23T00:13:43+00:00",
+            "by": 0,
+            "msg": "Uploaded orders-chargefor.zip: 1 files."
+        }
+    ]
+}
