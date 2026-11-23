@@ -46,14 +46,15 @@
   {
    "path": "app/lib/GaugeTasks.php",
    "functions": [
+    "(top)",
     "fix",
     "undo"
    ],
    "kind": "change",
    "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
-   "why": "Its logbook words: Fix requested",
+   "why": "Request a fix's words; an open request withdrawn at any age",
    "since": "2026-11-23T21:08:49Z",
-   "expires": "2026-11-24T01:09:05Z",
+   "expires": "2026-11-24T01:26:42Z",
    "release": "kit-buttons.zip",
    "callers": {
     "undo": [
