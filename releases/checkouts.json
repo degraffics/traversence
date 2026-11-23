@@ -67,6 +67,19 @@
    "expires": "2026-11-24T01:08:49Z",
    "release": "kit-buttons.zip",
    "callers": {}
+  },
+  {
+   "path": "app/admin/control-console.php",
+   "functions": [
+    "tv_cbg_req"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
+   "why": "An open request's line",
+   "since": "2026-11-23T21:09:03Z",
+   "expires": "2026-11-24T01:09:03Z",
+   "release": "kit-buttons.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
