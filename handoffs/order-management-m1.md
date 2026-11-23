@@ -168,3 +168,24 @@ Live read (`live-read.yml`, orders, 2026-11-23 20:24 UTC; its log deleted once r
 as: Order #12 Out the door, $809.10 owed, released before payment, Collect the balance (Needs us); two orders with the
 printer, paid (In production, Follow the work order); one sent Oct 29, its 14-day link run out (Link expired, Send it
 again: Needs us, the design's §1.2 case). Money owed: $809.10, 1 order. The live tiles today say 0 Waiting for payment.
+
+### The Design reviewer's changes (2026-11-23 20:24 UTC), made
+1. A row's result (✓ Sent, the Copy icon, its notice, "Moved to…") stacks at full width in a phone card; no "Next step"
+   label there (`kit-css.php`).
+2. Known values as text with a ✎ Edit icon (CLAUDE.md #1315, #1316): the due date "Nov 15, 2026 (from the terms)";
+   Shipping "Pickup at our shop" or "Delivered Nov 22", its select and address fields behind ✎.
+3. Aged items ask: the Delivery line says "Ready 21 days. Picked up?" (or "Shipped N days. Delivered?") with **Yes, picked
+   up** (asked first; `ClientOrders::markReceived`: paid → complete, owed → Delivered, balance due with **Undo**,
+   `unmarkReceived`) and **Remind the client** (`remindReceived`, the got-it email now; an email can't be undone, so the
+   line says "Reminded Nov 23").
+4. "Collect the balance" beside Record the payment is now **Ask the client to pay** (`askToPay`: an email with what's left
+   and their link; "Asked Nov 23"); Override with a reason stays outlined (`data-danger`). The Pulse step is renamed.
+5. The seed's line is a custom item (a catalog product with no run size read Qty 0); the page was right.
+6. The Business line's "Change ▾" is a ✎ titled "Edit the business".
+7. Filled buttons' umber: left to the Control Board session's kit release (the session manager's ruling).
+Tests: `m1.php` 42 checks, `m1.cjs` 37 × 2 widths, `collect-balance.cjs` and `complete-owed.cjs` all pass.
+
+### Waiting on the session manager
+Its "intelligent system" messages (QuickBooks first, the vendor's open questions, the vendor invoice dropped and read
+without AI, one "What's open" list) reached this session after M1 was built. Asked: ship M1 after these fixes and build
+"What's open" as M1b (the design amendment, a live read of #12, the mockup first), or hold M1 for it.

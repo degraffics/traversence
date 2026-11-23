@@ -80,13 +80,20 @@ $items = []; try { $items = Pulse::items($pdo, null, 1); } catch (Throwable $x) 
 $byKey = fn (array $its, string $k) => array_values(array_filter($its, fn ($i) => ($i['key'] ?? '') === $k))[0] ?? null;
 $case = $byKey($items, 'order:' . $ids['Released Co']);
 $steps = $case ? array_column(Pulse::playbook($case), 't') : [];
-$t('0178 §6: its Pulse case offers the three ways', $case && $case['order']['issue'] === 'delbal' && count(array_filter($steps, fn ($l) => preg_match('/record the payment|collect the balance|complete it with a reason/i', $l))) === 3, [$case['why'] ?? null, $steps]);
+$t('0178 §6: its Pulse case offers the three ways', $case && $case['order']['issue'] === 'delbal' && count(array_filter($steps, fn ($l) => preg_match('/record the payment|ask the client to pay|complete it with a reason/i', $l))) === 3, [$case['why'] ?? null, $steps]);
 $t('got-it: the reminder skips an order the client said they have', (function () use ($pdo, $ids) { $pdo->exec("UPDATE order_events SET created_at = NOW() - INTERVAL 4 DAY WHERE order_id = {$ids['Released Co']} AND event = 'stage'"); ClientOrders::gotItTick($pdo); return !(int) $pdo->query("SELECT COUNT(*) FROM order_events WHERE order_id = {$ids['Released Co']} AND event = 'got_it_reminder'")->fetchColumn(); })());
 ClientOrders::recordPayment($pdo, $ids['Released Co'], 80910, 'check', '2231', 1, false);
 $o = Orders::get($pdo, $ids['Released Co']);
 $t('0178 §6: recording the payment completes it ("then proceed")', $o['stage'] === 'complete' && $o['status'] === 'paid', [$o['stage'], $o['status']]);
 $items = []; try { $items = Pulse::items($pdo, null, 1); } catch (Throwable) {}
 $t('0178 §6: and its Pulse step is gone', ($byKey($items, 'order:' . $ids['Released Co'])['order']['issue'] ?? '') !== 'delbal', $byKey($items, 'order:' . $ids['Released Co']));
+// our team answers the Delivery line's question (the Design reviewer on M1): owed → Delivered, balance due, with Undo; paid → complete
+$r = ClientOrders::markReceived($pdo, $ids['Mesa Ridge Lodge'], 1); $o = Orders::get($pdo, $ids['Mesa Ridge Lodge']);
+$t('Picked up (by our team) with money owed: Delivered, balance due, not complete', $r === 'owed' && !empty($o['received_at']) && $o['stage'] === 'ready' && ClientOrders::boardState($pdo, $o)['next']['state'] === 'Delivered, balance due', [$r, $o['stage']]);
+ClientOrders::unmarkReceived($pdo, $ids['Mesa Ridge Lodge'], 1); $o = Orders::get($pdo, $ids['Mesa Ridge Lodge']);
+$t('its Undo puts it back to waiting for the client', empty($o['received_at']) && ClientOrders::boardState($pdo, $o)['delivery']['key'] === 'ready');
+$t('Ask the client to pay is recorded (when the email goes)', (function () use ($pdo, $ids) { try { ClientOrders::askToPay($pdo, $ids['Mesa Ridge Lodge'], 1); } catch (RuntimeException $x) { return str_contains($x->getMessage(), 'didn\'t go'); } return ClientOrders::lastEvent($pdo, $ids['Mesa Ridge Lodge'], 'pay_asked') > 0; })());
+try { ClientOrders::askToPay($pdo, $ids['Paid Co'], 1); $t('Ask the client to pay refuses an order that owes nothing', false); } catch (RuntimeException $x) { $t('Ask the client to pay refuses an order that owes nothing', str_contains($x->getMessage(), 'Nothing is owed')); }
 $o = Orders::get($pdo, $ids['Shipped Paid Co']); ClientOrders::confirmReceived($pdo, $o, 0, '', false);
 $t('as before: a paid order completes on the client\'s word', Orders::get($pdo, $ids['Shipped Paid Co'])['stage'] === 'complete');
 echo "\n$ok passed, $bad failed\n"; exit($bad ? 1 : 0);

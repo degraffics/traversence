@@ -52,6 +52,8 @@ const id = (name) => +sql(`SELECT id FROM orders WHERE client_company = '${name}
     t = await tiles();
     ok(`${w}: Send it again: ✓ Sent with Copy the link in the row, its new state, "Moved to Waiting on the client"`, done && /✓ Sent/.test(done.cell) && done.copy && /With the client/.test(done.where) && /Moved to Waiting on the client/.test(done.cell) && /moved to Waiting on the client \(shown until you refresh\)/.test(done.foot), done);
     ok(`${w}: the tiles recount: Needs us 9, Waiting on the client 2`, t[0].n === '9' && t[1].n === '2', t);
+    const stack = await p.evaluate((ex) => { const td = document.querySelector(`tr[data-id="${ex}"] [data-col=next]`); const d = td.querySelector('.akt-done'), m = td.querySelector('.akt-sl'); return { dir: getComputedStyle(td).flexDirection, label: getComputedStyle(td, '::before').display, doneW: d.getBoundingClientRect().width, tdW: td.getBoundingClientRect().width, movedW: m ? m.getBoundingClientRect().width : 0 }; }, ex);
+    if (w === 390) ok(`${w}: the row's result stacks at full width, no "Next step" label`, stack.dir === 'column' && stack.label === 'none' && stack.doneW > stack.tdW * 0.8 && stack.movedW > stack.tdW * 0.8, stack);
     await c.grantPermissions(['clipboard-read', 'clipboard-write'], { origin: base });
     await p.click(`tr[data-id="${ex}"] [data-akt-copy]`); await p.waitForTimeout(500);
     const cpy = await p.evaluate((ex) => ({ title: document.querySelector(`tr[data-id="${ex}"] [data-akt-copy]`).title, said: /Copied the link/.test(document.body.textContent), clip: '' }), ex);
@@ -78,9 +80,9 @@ const id = (name) => +sql(`SELECT id FROM orders WHERE client_company = '${name}
     const lines = async (oid) => { await p.goto(base + '/admin/backoffice/orders/' + oid, { waitUntil: 'domcontentloaded' }); await p.waitForTimeout(900);
       return p.evaluate(() => [...document.querySelectorAll('.cs-line')].map((l) => ({ label: l.querySelector('.cs-ll').textContent, text: l.querySelector('.cs-lt').textContent, btns: [...l.querySelectorAll('.cs-la button, .cs-la a')].map((x) => ({ t: x.textContent, go: x.classList.contains('go'), off: x.disabled })), note: (l.querySelector('.cs-la small') || {}).textContent || '' }))); };
     let L = await lines(id('Mesa Ridge Lodge'));
-    ok(`${w}: Order #12's page: Order · Money · Delivery, one line each`, L.map((x) => x.label).join(',') === 'Order,Money,Delivery' && /^Out the door\. Ready for pickup since/.test(L[0].text) && /^\$809\.10 owed\. Released before payment by an admin on/.test(L[1].text) && /^Ready for pickup at our shop\.$/.test(L[2].text), L);
+    ok(`${w}: Order #12's page: Order · Money · Delivery, one line each`, L.map((x) => x.label).join(',') === 'Order,Money,Delivery' && /^Out the door\. Ready for pickup since/.test(L[0].text) && /^\$809\.10 owed\. Released before payment by an admin on/.test(L[1].text) && /^Ready for pickup at our shop\. Ready \d+ days\. Picked up\?$/.test(L[2].text), L);
     ok(`${w}: Complete greyed with "$809.10 still owed"; Collect the balance the one filled button`, L[0].btns[0].t === 'Complete' && L[0].btns[0].off && L[0].note === '$809.10 still owed' && L[1].btns.length === 1 && L[1].btns[0].t === 'Collect the balance' && L[1].btns[0].go, L);
-    const page = await p.evaluate(() => ({ menu: [...document.querySelectorAll('.cs-menu button')].map((b) => b.textContent), mail: !!document.querySelector('.co-mail'), billMail: /ana@example\.com/.test((document.querySelector('.co-inv .co-box') || {}).textContent || ''), pickup: /Picked up at our shop/.test(document.body.textContent), shipFields: !!document.querySelector('[data-f="ship_street"], [data-ef="ship_street"]'), filled: document.querySelectorAll('.cs-lines .hb-b.go').length, pay: (document.body.textContent.match(/Outside QuickBooks: recorded here when it comes in/) || []).length, wide: document.documentElement.scrollWidth > innerWidth }));
+    const page = await p.evaluate(() => ({ menu: [...document.querySelectorAll('.cs-menu button')].map((b) => b.textContent), mail: !!document.querySelector('.co-mail'), billMail: /ana@example\.com/.test((document.querySelector('.co-inv .co-box') || {}).textContent || ''), pickup: (document.querySelector('.co-known span') || {}).textContent === 'Pickup at our shop', shipFields: !!document.querySelector('[data-f="ship_street"], [data-ef="ship_street"]'), filled: document.querySelectorAll('.cs-lines .hb-b.go').length, pay: (document.body.textContent.match(/Outside QuickBooks: recorded here when it comes in/) || []).length, wide: document.documentElement.scrollWidth > innerWidth }));
     ok(`${w}: said once: no Complete in ▾; the email in Bill to; pickup without address fields; the terms never read as paid; one filled button`, !page.menu.some((m) => /Complete the order|Collect the balance/.test(m)) && !page.mail && page.billMail && page.pickup && !page.shipFields && page.filled === 1 && page.pay === 1 && !page.wide, page);
     await p.screenshot({ path: `${shots}/m1-order-${w}.png` });
     await p.click('.cs-lines button:has-text("Collect the balance")'); await p.waitForTimeout(900);
@@ -88,15 +90,33 @@ const id = (name) => +sql(`SELECT id FROM orders WHERE client_company = '${name}
     ok(`${w}: Collect the balance goes into the payment step's Amount`, at);
     await p.click('.cs-lx'); await p.waitForTimeout(200);
     ok(`${w}: × closes the lines`, await p.evaluate(() => document.querySelector('.cs-news').hidden));
+    await p.evaluate(() => localStorage.clear());   // closed once read, back when they change: open them again for the steps below
     L = await lines(id('Delivered Owed Co'));
-    ok(`${w}: Delivered, balance due: three ways on the Money line (0178 §6)`, L[1].btns.map((x) => x.t).join('|') === 'Record the payment|Collect the balance|Override with a reason' && L[1].btns[0].go && /The client told us they have it on .*; it completes once the balance is settled\./.test(L[0].text) && /^Delivered: the client told us/.test(L[2].text), L);
+    ok(`${w}: Delivered, balance due: three ways on the Money line (0178 §6)`, L[1].btns.map((x) => x.t).join('|') === 'Record the payment|Ask the client to pay|Override with a reason' && L[1].btns[0].go && /The client told us they have it on .*; it completes once the balance is settled\./.test(L[0].text) && /^Delivered: the client told us/.test(L[2].text), L);
     await p.screenshot({ path: `${shots}/m1-delivered-owed-${w}.png` });
     await p.click('.cs-lines button:has-text("Record the payment")'); await p.waitForTimeout(800);
     ok(`${w}: Record the payment puts you in the amount`, await p.evaluate(() => document.activeElement && document.activeElement.id === 'co-pay-amt'));
     await p.click('.cs-lines button:has-text("Override with a reason")'); await p.waitForTimeout(800);
     ok(`${w}: Override with a reason opens its form, in the reason`, await p.evaluate(() => document.activeElement && document.activeElement.id === 'co-owed-why' && document.activeElement.closest('details').open));
+    // the Delivery line's question (Design reviewer): Ready N days. Picked up?
+    L = await lines(id('Mesa Ridge Lodge'));
+    ok(`${w}: an aged pickup asks: "Ready 21 days. Picked up?" with Yes, picked up and Remind the client`, /Ready 21 days\. Picked up\?/.test(L[2].text) && L[2].btns.map((x) => x.t).join('|') === 'Yes, picked up|Remind the client', L[2]);
+    const known = await p.evaluate(() => ({ due: (document.querySelector('[data-co-val]') || {}).textContent, dueIn: !!document.querySelector('input[data-f=due_date]:not([hidden])'), ship: (document.querySelector('.co-known span') || {}).textContent, shipSel: !!document.querySelector('.co-modef select') && !!document.querySelector('.co-modef select').offsetParent, biz: (document.querySelector('.co-biz summary .co-ib') || {}).title, change: /Change ▾/.test(document.body.textContent) }));
+    ok(`${w}: known values as text with ✎: the due date (from the terms), Pickup at our shop; Edit the business, no "Change ▾"`, /\(from the terms\)$/.test(known.due) && !known.dueIn && known.ship === 'Pickup at our shop' && !known.shipSel && known.biz === 'Edit the business' && !known.change, known);
+    await p.click('button[title="Edit the due date"]'); await p.waitForTimeout(200);
+    ok(`${w}: ✎ opens the due date's box in place`, await p.evaluate(() => document.activeElement && document.activeElement.getAttribute('data-f') === 'due_date'));
+    await p.click('.cs-lines button:has-text("Yes, picked up")'); await p.waitForTimeout(500);
+    const yes1 = await p.$('.tv-ask button:has-text("Record it"), [role=dialog] button:has-text("Record it")');
+    if (yes1) { await Promise.all([p.waitForNavigation({ timeout: 10000 }).catch(() => {}), yes1.click()]); await p.waitForTimeout(800); }
+    L = await p.evaluate(() => [...document.querySelectorAll('.cs-line')].map((l) => ({ text: l.querySelector('.cs-lt').textContent, btns: [...l.querySelectorAll('.cs-la button')].map((x) => x.textContent) })));
+    ok(`${w}: Yes, picked up (asked first): Delivered, the balance still owed, its Undo; Money offers the three ways`, !!yes1 && /^Delivered/.test(L[2].text) && L[2].btns.join('|') === 'Undo' && L[1].btns.join('|') === 'Record the payment|Ask the client to pay|Override with a reason', L);
+    await p.screenshot({ path: `${shots}/m1-picked-up-${w}.png` });
+    await p.click('.cs-lines button:has-text("Undo")'); await p.waitForTimeout(500);
+    const yes2 = await p.$('.tv-ask button:has-text("Undo it"), [role=dialog] button:has-text("Undo it")');
+    if (yes2) { await Promise.all([p.waitForNavigation({ timeout: 10000 }).catch(() => {}), yes2.click()]); await p.waitForTimeout(800); }
+    ok(`${w}: Undo puts the question back`, !!yes2 && sql(`SELECT received_at IS NULL FROM orders WHERE id = ${id('Mesa Ridge Lodge')}`) === '1');
     L = await lines(id('Shipped Paid Co'));
-    ok(`${w}: paid and out the door: Complete is the filled button`, L[0].btns[0].t === 'Complete' && L[0].btns[0].go && !L[0].btns[0].off && !L[1].btns.length, L);
+    ok(`${w}: paid and out the door: Complete is the filled button, and Shipped 2 days. Delivered? asks`, L[0].btns[0].t === 'Complete' && L[0].btns[0].go && !L[0].btns[0].off && !L[1].btns.length && /Shipped 2 days\. Delivered\?/.test(L[2].text), L);
     await p.click('.cs-lines button:has-text("Complete")'); await p.waitForTimeout(900);
     ok(`${w}: Complete asks first (its confirm)`, await p.evaluate(() => !!document.querySelector('.tv-ask, [role=dialog], .tv-confirm')));
     await p.screenshot({ path: `${shots}/m1-order-after-${w}.png` });

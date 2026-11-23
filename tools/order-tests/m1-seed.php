@@ -9,7 +9,7 @@ $o = function (string $name, array $f, array $line = []) use ($pdo, $d, &$ids) {
     $f += ['created_by' => 1, 'status' => 'pending', 'total_cents' => 80910, 'subtotal_cents' => 80910, 'bill_name' => 'Ana Ortiz', 'bill_email' => 'ana@example.com', 'client_company' => $name, 'created_at' => $d(-20), 'updated_at' => $d(-1), 'sent_at' => $d(-10), 'approved_at' => $d(-8), 'expires_at' => $d(4), 'access_token' => bin2hex(random_bytes(20))];
     $pdo->prepare('INSERT INTO orders (' . implode(',', array_keys($f)) . ') VALUES (' . implode(',', array_fill(0, count($f), '?')) . ')')->execute(array_values($f));
     $id = (int) $pdo->lastInsertId();
-    $pdo->prepare("INSERT INTO order_lines (order_id, product, title, qty, unit_cents, item_status, created_at) VALUES (?, 'product', 'Door hangers', 5000, 16, ?, ?)")->execute([$id, $line['item_status'] ?? '', $d(-20)]);
+    $pdo->prepare("INSERT INTO order_lines (order_id, product, title, qty, unit_cents, item_status, created_at) VALUES (?, 'custom', 'Door hangers', 5000, 16, ?, ?)")->execute([$id, $line['item_status'] ?? '', $d(-20)]);
     $ids[$name] = $id; return $id;
 };
 $pay = fn ($id, $c, $kind = 'charge') => $pdo->prepare("INSERT INTO order_ledger (order_id, kind, amount_cents, method, request_key, created_at) VALUES (?, ?, ?, 'Check', ?, NOW())")->execute([$id, $kind, $c, 'k' . $id . $kind . $c]);
