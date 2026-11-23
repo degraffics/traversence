@@ -4,13 +4,14 @@
   {
    "path": "website/js/tv-ask.js",
    "functions": [
+    "(top)",
     "peek"
    ],
    "kind": "change",
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
-   "why": "board-panels: one panel at a time, Copy all, panels titled by the part (Jason, 2026-11-23)",
+   "why": "board-view: one part in the panel (Jason, 2026-11-23)",
    "since": "2026-11-23T13:15:03Z",
-   "expires": "2026-11-23T17:15:03Z",
+   "expires": "2026-11-23T18:37:08Z",
    "release": "",
    "callers": {}
   },
@@ -34,14 +35,16 @@
    "functions": [
     "tv_admin_mod_control",
     "tv_cb_deliver",
-    "tv_cb_development"
+    "tv_cb_development",
+    "tv_cb_gauge_card",
+    "tv_cb_view_assets"
    ],
    "kind": "change",
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
-   "why": "board-view: the opening view as approved (rail, chips, landing) and the drawer Back and margin (Jason, 2026-11-23)",
+   "why": "board-view: the opening view as approved, gauge cards Copy at their foot (Jason, 2026-11-23)",
    "since": "2026-11-23T13:53:51Z",
-   "expires": "2026-11-23T17:53:51Z",
-   "release": "",
+   "expires": "2026-11-23T18:49:44Z",
+   "release": "board-view-3.zip",
    "callers": {}
   },
   {
@@ -65,8 +68,8 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "board-view: the opening view as approved (rail, chips, landing) and the drawer Back and margin (Jason, 2026-11-23)",
    "since": "2026-11-23T13:53:55Z",
-   "expires": "2026-11-23T17:53:55Z",
-   "release": "",
+   "expires": "2026-11-23T18:49:44Z",
+   "release": "board-view-3.zip",
    "callers": {}
   },
   {
@@ -79,8 +82,8 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "board-view: the opening view as approved (rail, chips, landing) and the drawer Back and margin (Jason, 2026-11-23)",
    "since": "2026-11-23T13:53:58Z",
-   "expires": "2026-11-23T17:53:58Z",
-   "release": "",
+   "expires": "2026-11-23T18:49:44Z",
+   "release": "board-view-3.zip",
    "callers": {}
   },
   {
@@ -93,8 +96,8 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "board-view: the opening view as approved (rail, chips, landing) and the drawer Back and margin (Jason, 2026-11-23)",
    "since": "2026-11-23T13:54:00Z",
-   "expires": "2026-11-23T17:54:00Z",
-   "release": "",
+   "expires": "2026-11-23T18:49:44Z",
+   "release": "board-view-3.zip",
    "callers": {}
   },
   {
@@ -104,7 +107,7 @@
    "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
    "why": "Live reads for building (Jason, 2026-11-23: 'for building we must use live data'; his Approve of the channel)",
    "since": "2026-11-23T14:12:08Z",
-   "expires": "2026-11-23T18:15:32Z",
+   "expires": "2026-11-23T18:34:48Z",
    "release": "live-read.zip",
    "callers": {}
   },
@@ -115,7 +118,7 @@
    "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
    "why": "The Logbook's kind for a live read",
    "since": "2026-11-23T14:12:11Z",
-   "expires": "2026-11-23T18:15:32Z",
+   "expires": "2026-11-23T18:34:48Z",
    "release": "live-read.zip",
    "callers": {}
   },
@@ -126,8 +129,19 @@
    "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
    "why": "The live reads' key made by the site (WRITE_ONLY)",
    "since": "2026-11-23T14:15:30Z",
-   "expires": "2026-11-23T18:15:32Z",
+   "expires": "2026-11-23T18:34:48Z",
    "release": "live-read.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/js/tv-ask.js",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "release board-view-2.zip",
+   "since": "2026-11-23T14:38:25Z",
+   "expires": "2026-11-23T18:49:44Z",
+   "release": "board-view-3.zip",
    "callers": {}
   }
  ],

@@ -1,0 +1,104 @@
+{
+    "id": 267,
+    "title": "Orders: the money fix (no card on an outside order, a client's order paid only on its own page, an approved total keeps its tax)",
+    "why": "Jason, 2026-11-23, Q0 'Live money, now': '(b) Fast fix first', ahead of the full ordering release (research/ordering-ironclad-2026-11-23.md, breaks 1, 2 and 4). Each fixed at its cause and proved by the same cases that found it.",
+    "proposals": "",
+    "zip": "orders-money-fix.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "live",
+    "step": 3,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": "2026-11-23 14:33:58",
+    "staged_at": "2026-11-23 14:33:59",
+    "vetted_at": "2026-11-23 14:34:02",
+    "live_at": "2026-11-23 14:34:02",
+    "files": {
+        "app/ui/faq.md": {
+            "sha": "df840d5cdbd61012c39db3f93c89f4ec9934d6fead3a4ca2ef4f197354b4c303",
+            "size": 429293,
+            "live_was": "916da33d07c6fbf7a0dcf9ab4843cdd5d3051c32e14163211f0039d888046df9",
+            "existed": true,
+            "old_sha": "916da33d07c6fbf7a0dcf9ab4843cdd5d3051c32e14163211f0039d888046df9"
+        },
+        "app/lib/ClientOrders.php": {
+            "sha": "1bc3d1c8e116582a20888741454c083861f71c33bcfd58a6e544b7633d565faf",
+            "size": 190457,
+            "live_was": "c88fd3411bd360064aa6567ad9eafbe11580ee11bcff0922b3db08601c45d898",
+            "existed": true,
+            "old_sha": "c88fd3411bd360064aa6567ad9eafbe11580ee11bcff0922b3db08601c45d898"
+        },
+        "app/lib/QrIssue.php": {
+            "sha": "6c31f555ec5564ed121d88d87319a633f5f1040fa27073ff32020435e88796a5",
+            "size": 46077,
+            "live_was": "cf81cff570575aa22a152e003b918a1938f7904f39efb3238506800b1b12c0e4",
+            "existed": true,
+            "old_sha": "cf81cff570575aa22a152e003b918a1938f7904f39efb3238506800b1b12c0e4"
+        },
+        "website/order.php": {
+            "sha": "571bd0b31088ace4ca9678c08c2ce41e693cd9b206cd14ed2c88d7bdd6b566d4",
+            "size": 66304,
+            "live_was": "3e9f4fcba4582b719eecfb8b737669329866c88da8ec39582e6fe1cf257aa388",
+            "existed": true,
+            "old_sha": "3e9f4fcba4582b719eecfb8b737669329866c88da8ec39582e6fe1cf257aa388"
+        }
+    },
+    "migrations": [],
+    "checks": {
+        "ok": true,
+        "where": "live",
+        "at": "2026-11-23T14:34:03+00:00",
+        "items": [
+            [
+                "PHP files parse",
+                true,
+                "3 checked"
+            ],
+            [
+                "Pages answer",
+                true,
+                "3 pages answered on traversence.com"
+            ],
+            [
+                "No new fatal errors in the logs",
+                true,
+                "3 logs read"
+            ]
+        ],
+        "first_fail": ""
+    },
+    "log": [
+        {
+            "at": "2026-11-23T14:33:56+00:00",
+            "by": 0,
+            "msg": "Uploaded orders-money-fix.zip: 4 files."
+        },
+        {
+            "at": "2026-11-23T14:33:58+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/orders-money-fix.zip (git 8ef88e88e1)."
+        },
+        {
+            "at": "2026-11-23T14:33:58+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
+        },
+        {
+            "at": "2026-11-23T14:34:00+00:00",
+            "by": 0,
+            "msg": "Put on staging (4 files); its checks passed."
+        },
+        {
+            "at": "2026-11-23T14:34:02+00:00",
+            "by": 0,
+            "msg": "Approved in chat before it was sent through git, and its checks on staging passed: publishing by itself."
+        },
+        {
+            "at": "2026-11-23T14:34:02+00:00",
+            "by": 0,
+            "msg": "Published: 4 files; everyone at once (no switch)."
+        }
+    ]
+}

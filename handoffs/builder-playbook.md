@@ -19,6 +19,10 @@ Each rule below comes from a real mistake (in brackets) so it isn't repeated.
 - **Start from the newest sync**: fetch the mirror, and if a release went live after its last "Sync:" commit, ask the
   session manager to run one. Never build on a copy held earlier in the session. [#117's follow-up was nearly built on 01:32.]
 - **Claim before writing** (`checkout.py claim`), as CLAUDE.md says.
+- **Build with live data** (Jason, 2026-11-23: "for building we must use live data"): check a build's state, examples
+  and mockups against the live site's own records, through a read-only channel, never by guessing or sample rows alone.
+  What's read stays out of the repo (clients' names and details are private: CLAUDE.md, decisions/0066); the health report
+  stays totals only (0145 §1).
 
 ## 2. Building
 
