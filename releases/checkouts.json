@@ -15,6 +15,19 @@
    "expires": "2026-11-23T17:15:01Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "website/js/tv-ask.js",
+   "functions": [
+    "peek"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "board-panels: one panel at a time, Copy all, panels titled by the part (Jason, 2026-11-23)",
+   "since": "2026-11-23T13:15:03Z",
+   "expires": "2026-11-23T17:15:03Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
