@@ -204,3 +204,9 @@ without AI, one "What's open" list) reached this session after M1 was built. Ask
   money Undo; the M1b mockup's Money line now has the QuickBooks icon.
 - Tests: `m1.cjs` 50 checks × 2 widths (every ⋯ opened and closed by ×, Esc, a click outside; ✎ Edit the delivery saved
   with History), `m1.php` 42, `collect-balance.cjs`, `complete-owed.cjs` (selectors scoped past the toolkit): all pass.
+- Round 3 (Design reviewer 20:49): the Money line's one suggested action (Record the payment); Ask the client to pay
+  and Override with a reason only in its ⋯. Delivered names who said so: "recorded by <first name>", or "the client told
+  us on <date>". Tests pass (m1.cjs, m1.php, collect-balance.cjs, complete-owed.cjs).
+- Held (the session manager, 20:43): the gauge panel goes first. My claims on tools.php, command-strip.php and
+  kit-css.php are released and the pending record is off this branch; once it's live and synced, M1's shared files are
+  rebuilt on the live copies, claimed again, zip-checked, then the session manager and Jason's pop-up.

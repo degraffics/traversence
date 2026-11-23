@@ -107,11 +107,14 @@ const id = (name) => +sql(`SELECT id FROM orders WHERE client_company = '${name}
     ok(`${w}: a move goes where it's done (Duplicate or reorder opens its menu) and the toolkit closes`, await p.evaluate(() => document.getElementById('co-dup').open && [...document.querySelectorAll('.cs-tk')].every((m) => m.hidden)));
     await p.keyboard.press('Escape'); await p.evaluate(() => { document.querySelectorAll('details[open]').forEach((d) => d.open = false); });
     L = await lines(id('Delivered Owed Co'));
-    ok(`${w}: Delivered, balance due: three ways on the Money line (0178 §6)`, L[1].btns.map((x) => x.t).join('|') === 'Record the payment|Ask the client to pay|Override with a reason' && L[1].btns[0].go && /Delivered on .*; it completes once the balance is settled\./.test(L[0].text) && /^Delivered: the client told us/.test(L[2].text), L);
+    ok(`${w}: Delivered, balance due: Record the payment on the Money line, the other two ways in its ⋯ (0178 §6)`, L[1].btns.map((x) => x.t).join('|') === 'Record the payment' && L[1].btns[0].go && /Delivered on .*; it completes once the balance is settled\./.test(L[0].text) && /^Delivered: the client told us/.test(L[2].text), L);
     await p.screenshot({ path: `${shots}/m1-delivered-owed-${w}.png` });
     await p.click('.cs-lines button:has-text("Record the payment")'); await p.waitForTimeout(800);
     ok(`${w}: Record the payment puts you in the amount`, await p.evaluate(() => document.activeElement && document.activeElement.id === 'co-pay-amt'));
-    await p.click('.cs-lines button:has-text("Override with a reason")'); await p.waitForTimeout(800);
+    await p.click('.cs-line:nth-of-type(2) [data-cs-tk]'); await p.waitForTimeout(200);
+    const mm = await p.evaluate(() => [...document.querySelectorAll('.cs-line:nth-of-type(2) .cs-tki')].map((x) => x.querySelector('button, a').textContent + (x.querySelector('[disabled]') ? ' (greyed)' : '')));
+    ok(`${w}: Money ⋯ holds Ask the client to pay and Override with a reason`, mm.includes('Ask the client to pay') && mm.includes('Override with a reason'), mm);
+    await p.click('.cs-line:nth-of-type(2) .cs-tk button:has-text("Override with a reason")'); await p.waitForTimeout(800);
     ok(`${w}: Override with a reason opens its form, in the reason`, await p.evaluate(() => document.activeElement && document.activeElement.id === 'co-owed-why' && document.activeElement.closest('details').open));
     // the Delivery line's question (Design reviewer): Ready N days. Picked up?
     L = await lines(id('Mesa Ridge Lodge'));
@@ -124,7 +127,7 @@ const id = (name) => +sql(`SELECT id FROM orders WHERE client_company = '${name}
     const yes1 = await p.$('.tv-ask button:has-text("Record it"), [role=dialog] button:has-text("Record it")');
     if (yes1) { await Promise.all([p.waitForNavigation({ timeout: 10000 }).catch(() => {}), yes1.click()]); await p.waitForTimeout(800); }
     L = await p.evaluate(() => [...document.querySelectorAll('.cs-line')].map((l) => ({ text: l.querySelector('.cs-lt').innerText.trim(), btns: [...l.querySelectorAll('.cs-lb > .hb-b, .cs-lb > .cs-ways > .hb-b')].map((x) => x.textContent), edit: (l.querySelector('.cs-ib[title^="Edit"]') || {}).title })));
-    ok(`${w}: Yes, picked up (asked first): Delivered, recorded by our team, with ✎ Edit the delivery (a recorded fact: no Undo); Money offers the three ways`, !!yes1 && /^Delivered on .*, recorded by our team\.$/.test(L[2].text) && !L[2].btns.length && L[2].edit === 'Edit the delivery' && L[1].btns.join('|') === 'Record the payment|Ask the client to pay|Override with a reason', L);
+    ok(`${w}: Yes, picked up (asked first): Delivered, recorded by name, with ✎ Edit the delivery (a recorded fact: no Undo); the Money line's one action`, !!yes1 && /^Delivered on .*, recorded by Staff\.$/.test(L[2].text) && !L[2].btns.length && L[2].edit === 'Edit the delivery' && L[1].btns.join('|') === 'Record the payment', L);
     await p.screenshot({ path: `${shots}/m1-picked-up-${w}.png` });
     await p.click('.cs-line:nth-of-type(3) .cs-ib[title="Edit the delivery"]'); await p.waitForTimeout(600);
     const ed = await p.evaluate(() => ({ focus: document.activeElement && document.activeElement.id, shown: !document.querySelector('[data-cs-edf]').hidden }));
