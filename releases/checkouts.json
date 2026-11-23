@@ -118,6 +118,17 @@
    "expires": "2026-11-23T18:12:22Z",
    "release": "live-read.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/EnvSettings.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
+   "why": "The live reads' key made by the site (WRITE_ONLY)",
+   "since": "2026-11-23T14:15:30Z",
+   "expires": "2026-11-23T18:15:30Z",
+   "release": "live-read.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
