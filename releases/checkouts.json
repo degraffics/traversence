@@ -4,13 +4,14 @@
   {
    "path": "website/js/admin-kit.js",
    "functions": [
+    "frame",
     "layer"
    ],
    "kind": "change",
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "board-panels: one panel at a time, Copy all, panels titled by the part (Jason, 2026-11-23)",
    "since": "2026-11-23T13:14:56Z",
-   "expires": "2026-11-23T17:14:56Z",
+   "expires": "2026-11-23T17:14:59Z",
    "release": "",
    "callers": {}
   }
