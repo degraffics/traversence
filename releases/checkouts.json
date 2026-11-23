@@ -234,6 +234,19 @@
    "expires": "2026-11-23T20:09:58Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/admin/tools.php",
+   "functions": [
+    "tv_order_next_step"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
+   "why": "Collect the balance on an order out the door (session manager's review of #270)",
+   "since": "2026-11-23T19:07:43Z",
+   "expires": "2026-11-23T23:07:43Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
