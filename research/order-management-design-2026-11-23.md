@@ -216,18 +216,25 @@ nothing saying whether they've billed us.
    work order says pickup. Which is right?"); then **Record the vendor bill** (Undo), after which the vendor's line reads
    "Billed $256.83 (inv 130929, Nov 17) · due". A scan with no text says so and offers the four key fields to type; AI
    reading only within the cap and never Gemini's free tier (it's private, decisions/0164).
-4. **One "What's open" list** under the three state lines, money first; each item one see → do → confirm task (CLAUDE.md
-   #1308), Undo only for actions that roll back (#1314), Edit for entered values (#1315), inline actions as icons (#1316).
-   Stale or irrelevant blocks don't show at all (the checkout line once released or outside; the payment form when nothing
-   is owed). Its items feed the board: the Next step and the tiles count from them.
+4. **The questions live on the lines, said once** (the Design reviewer, 2026-11-23: no separate "What's open" card, one
+   fact shown once): Order, Money, Delivery and a fourth line, **Vendor** ("$256.83 to the print vendor (work order …),
+   not billed yet", its drop zone and Record the bill by hand, then the invoice's check in place). Each line carries its
+   one suggested action, ✎ to edit what happened and ⋯ for every other move (decisions/0129's note of 2026-11-23); each
+   task see → do → confirm (CLAUDE.md #1308); money never has Undo (decisions/0178's note); Edit for recorded facts
+   (#1315); inline actions as icons (#1316). The drop zone is the one uploader's (decisions/0127), and says "Kept with
+   this order's files; not sent to anyone". Stale or irrelevant blocks don't show at all (the checkout line once
+   released or outside; the payment form when nothing is owed). The lines feed the board: its Next step and tiles.
 
-**What's built where:** M1 builds the state function, the three lines, Delivered, balance due and the Delivery line's
-question (2 in part). **M1b** builds 1, 2's vendor bill, 3 and 4 on M1's state function (mockups `open`, `open-after`).
+**Decided** (the session manager, 2026-11-23): (a) a payment QuickBooks already shows on a linked invoice is applied at
+once: "Paid in QuickBooks <date> · <method/ref>", ✎ to correct it, History kept (it writes nothing outside our records).
 
-**For Jason, in one pop-up (money policy):** (a) when QuickBooks shows a linked invoice paid, record it here at once (with
-Undo) or ask first? (b) should recording a payment here post it to a hand-made QuickBooks invoice once linked by its
-number? (c) should recording a vendor bill here also create it in QuickBooks (against the vendor)? Paying vendors stays a
-separate decision.
+**What's built where:** M1 builds the state function, the three lines with ✎ and ⋯, Delivered, balance due and the
+Delivery line's question (2 in part). **M1b** builds 1, the Vendor line (2's bill, 3) and 4 on M1's state function
+(mockups `open`, `open-after`).
+
+**For Jason, in M1b's pop-up (they write to the books):** (b) should recording a payment here post it to a hand-made
+QuickBooks invoice once linked by its number? (c) should recording a vendor bill here also create it in QuickBooks
+(against the vendor)? Paying vendors stays a separate decision.
 
 ## 4. Pages and drill-down
 
