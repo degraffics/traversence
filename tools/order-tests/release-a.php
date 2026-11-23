@@ -93,6 +93,13 @@ $n0 = count(Orders::lines($pdo, $s2)); $k2 = ClientOrders::split($pdo, $s2, $sta
 ok('Undo is offered while the new order is untouched', ClientOrders::splitUndoable($pdo, $s2) === $k2, json_encode(ClientOrders::splitUndoable($pdo, $s2)));
 ClientOrders::unsplit($pdo, $s2, $staff);
 ok('Undo puts the items back and cancels the new order', count(Orders::lines($pdo, $s2)) === $n0 && $o($k2[0])['status'] === 'void' && !ClientOrders::splitUndoable($pdo, $s2), count(Orders::lines($pdo, $s2)) . ' items back; order ' . $k2[0] . ' ' . $o($k2[0])['status']);
+$s3 = $sent(['ship_name' => 'Dana', 'ship_street' => '12 Main St', 'ship_city' => 'Springerville', 'ship_state' => 'AZ', 'ship_zip' => '85938', 'delivery' => 'ship']);
+ClientOrders::addCustom($pdo, $s3, 'Banner', 1, '40.00', true, '', $staff);
+$ls = Orders::lines($pdo, $s3); $pdo->prepare('UPDATE order_lines SET ship_address = ? WHERE id = ?')->execute(["Mesa office\n55 Center St\nMesa, AZ 85201", (int) end($ls)['id']]);
+$k3 = ClientOrders::split($pdo, $s3, $staff);
+foreach (Orders::lines($pdo, $k3[0]) as $l) ClientOrders::removeLine($pdo, $k3[0], (int) $l['id'], $staff);
+$m = thrown(fn () => ClientOrders::unsplit($pdo, $s3, $staff));
+ok('Undo with nothing to bring back is refused, nothing changed', str_contains($m, 'Nothing was changed') && $o($k3[0])['status'] !== 'void', $m . ' · the other order ' . $o($k3[0])['status']);
 $m = thrown(fn () => ClientOrders::split($pdo, $sent(), $staff));
 ok('One address: nothing to split', str_contains($m, 'one address'), $m);
 
