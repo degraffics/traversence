@@ -81,13 +81,16 @@
    "path": "app/admin/control-console.php",
    "functions": [
     "(top)",
+    "tv_admin_mod_control",
+    "tv_cb_alarms",
+    "tv_cb_evidence",
     "tv_cb_qbar"
    ],
    "kind": "change",
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
-   "why": "board-fixes: jobs and words, Signs in as, the Sync chip (Jason, 2026-11-23)",
+   "why": "board-fixes: the Design reviewer changes (one button, short titles, true words, one time format)",
    "since": "2026-11-23T14:57:50Z",
-   "expires": "2026-11-23T19:07:28Z",
+   "expires": "2026-11-23T19:32:39Z",
    "release": "board-fixes-2.zip",
    "callers": {}
   },
