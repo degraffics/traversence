@@ -152,6 +152,32 @@
    "expires": "2026-11-23T23:58:02Z",
    "release": "gauge-panel.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/Preflight.php",
+   "functions": [
+    "alarm"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
+   "why": "Gauge panel release: a check's raw transport error never a title (the Design reviewer, 2026-11-23: Library of Congress)",
+   "since": "2026-11-23T19:59:17Z",
+   "expires": "2026-11-23T23:59:17Z",
+   "release": "gauge-panel.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ControlAlarms.php",
+   "functions": [
+    "redrawTitles"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
+   "why": "Gauge panel release: a check's raw transport error never a title (the Design reviewer, 2026-11-23: Library of Congress)",
+   "since": "2026-11-23T19:59:17Z",
+   "expires": "2026-11-23T23:59:17Z",
+   "release": "gauge-panel.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
