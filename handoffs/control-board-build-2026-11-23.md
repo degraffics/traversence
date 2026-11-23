@@ -63,10 +63,23 @@ and Jason ("Restores three files the orders release overwrote"); once live, byte
      form on the register's row (`app/admin/operations-console.php:205`), and Retire it as a row action in
      `app/admin/tools.php:2339`. Whatever it is, the rule is CLAUDE.md's Busy rule: a spinner on the button, then the
      answer as the site's notice, never a button left spinning or dead.
+   - **Also in its queue (the session manager, 2026-11-23): a dead-end sentence on Anthropic's card.** "Recording a why is
+     to come: the manifest's setup_capture field isn't built…" Either it does the thing, or it isn't shown.
 2. **The provider usage spec**, specs only, to the session manager first: "the provider's own usage and spend, within the
    service's budget".
    - Google first: Cloud Monitoring for request counts; the billing export to BigQuery, or the budget feed, for actual
      cost after the free allowance.
+   - **Anthropic, from Jason's console (relayed 2026-11-23):**
+     - spend $30.93 this month, against our card's $30.85 of our $40 cap, so the estimate is close;
+     - Anthropic's own monthly limit is $50, with emails at $20 and $35;
+     - credits: a $12.92 balance with auto-reload to $20 below $5, and $91.38 of $100 promotional credit expiring Nov 29,
+       2026, 5:00 PM MST;
+     - daily cost $0.23–$2.80.
+
+     Its card must show, from Anthropic's own usage and cost report (the Admin API; reading it costs nothing):
+     - spend, with credits used first;
+     - the provider's own limit beside our cap;
+     - credits and their expiry.
    - Then Railway (Jason adds RAILWAY_API_TOKEN via Add key at
      https://traversence.com/admin/config/register#svc-railway-key) and Anthropic.
    - Reading the figure must cost nothing or fit inside that service's budget; AWS Cost Explorer stays an estimate.
