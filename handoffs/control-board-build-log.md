@@ -404,3 +404,12 @@ Left: the staging read-only look (Ledger tab, C15) once it lands; the session ma
 5. The outside heartbeat (D23, `.github/workflows/heartbeat.yml`, on this branch until the release merges).
 6. The scenario test over the failure map, and the rendered checks at 1280 and 390.
 7. FAQ, the release summary, zip check, send with `"review": true`.
+
+### After #258 live (2026-11-23)
+- **#1275 (the health report's consistency, ledger and irs_loads) merged**, approved by Jason; reviewed by the session manager.
+- **control-board-fix.zip (#1277), approved by Jason:** the false /api/0 trip (site_blocked is a count), closed as raised
+  in error; plain endpoint names; money always in dollars. `handoffs/control-board-fix.md`.
+- **Pre-existing, recorded (the session manager, 2026-11-23):** `lines.php` fails one check ("…and the pre-flight's
+  result, with Run it again, is its own block for the Start-up stage") on the live code without the fix too.
+- **Next in the queue:** (a) Insights → Crawler's task table clipped on the left in the case's side panel at phone width
+  (Jason's screenshot); (b) W0's Railway cost from Railway's own usage, not the per-call estimate.
