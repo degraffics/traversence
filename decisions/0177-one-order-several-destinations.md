@@ -70,3 +70,4 @@ multiple shipment orders than this should be factored."
   (65% where an item's cost isn't recorded); staff can still set a % per order." It replaces 1.8's 65% default.
 - §4, Jason, 2026-11-23: "Paid in full or overrides. single invoices are tied to the whole order status."
 - The shipping we pay (`ship_cost_cents`) is a cost of goods, so it's in the COGS (session manager, 2026-11-23).
+- The money policy around it (refunds, the cancel window, credit, terms, cards, delivery with a balance): `decisions/0178`, Jason, 2026-11-23.

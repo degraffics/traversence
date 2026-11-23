@@ -1,6 +1,7 @@
 # Order management, designed as one (2026-11-23)
 
-Status: **design for review**: the Design reviewer first, then the session manager, then Jason, once, as one review.
+Status: **approved as the plan** (Jason, 2026-11-23, pop-up; reviewed by the Design reviewer and the session manager).
+His money-policy answers (§5) are `decisions/0178-order-money-policy.md`.
 Nothing here is built. Release B (0177's several destinations) and every other order release wait on this; only #1307
 (Collect the balance) goes ahead, because it closes a real money gap on Order #12.
 
@@ -269,7 +270,14 @@ Every step has Back; a draft is kept at every step (nothing lost).
 - **Categories**: a new list; a product or service has one; the Shop and Place an order's search group by it.
 - Materials & services and Price lists stay where they are, under Catalog.
 
-## 5. Questions for Jason: money policy only
+## 5. Questions for Jason: money policy only (answered: decisions/0178)
+
+**Answers** (2026-11-23): 1. refunds: always ask him; 2. cancel until the vendor accepts the work order; 3. credit:
+staff apply it, the system suggests it; 4. terms: Net 15 and Net 30, granted by him only; 5. no keyed cards, the link
+only; 6. "Yes, I have it" with money owed doesn't complete: it prompts the admin (received → mark paid; not → collect;
+override with a reason), then the order proceeds.
+
+The questions as asked:
 
 Collected here for the one review, not asked one by one.
 
@@ -293,12 +301,12 @@ the session manager and Jason.
 
 | # | Release | What it closes |
 |---|---|---|
-| M1 | **State model and the board**: the three states, Next step by rule, tiles that count from money and filter; the order page's three state lines | §1.3, §1.4, §1.5's stacked notice |
-| M2 | **Money on the order page**: `admin/order.php` folded in (payments, credit memo, refund, dispute, cancel); Take a payment | Refund, credit memo, cancel, take a payment |
+| M1 | **State model and the board**: the three states, Next step by rule, tiles that count from money and filter; the order page's three state lines; Delivered, balance due (0178 §6); the drawer's Complete greyed | §1.3, §1.4, §1.5's stacked notice |
+| M2 | **Money on the order page**: `admin/order.php` folded in (payments, credit memo, refund with Jason's OK (0178 §1), dispute, cancel until the vendor accepts (0178 §2)); Take a payment | Refund, credit memo, cancel, take a payment |
 | M3 | **Money section**: Outstanding (aging), Take a payment across orders, Credits on account (and their use), Refunds & credit memos | Outstanding payments, credit account |
 | M4 | **Place an order, guided**; the archived E-Commerce orders redirect | §1.1, §1.2 |
 | M5 | **Release B**: one invoice per destination (0177 §1) inside the new flow | Several destinations |
-| M6 | **Catalog**: Services as their own list, Categories | New service, catalog category |
+| M6 | **Catalog**: Services as their own list, Categories (at 390 a list's filter button on its own line under the search) | New service, catalog category |
 | M7 | Credit terms on accounts (once §5 Q4 is answered) | Delayed payment by terms |
 
 ## 7. Mockups
