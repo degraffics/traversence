@@ -84,6 +84,74 @@
    "expires": "2026-11-24T01:09:03Z",
    "release": "kit-buttons.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/ClientOrders.php",
+   "functions": [
+    "boardState",
+    "recordPayment"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kW2cGfR4Ya7fh2s3y",
+   "why": "M1b: what the system knows, what it asks (QuickBooks first, the Vendor line, vendor bills; decisions/0178 notes 2026-11-23)",
+   "since": "2026-11-23T21:18:56Z",
+   "expires": "2026-11-24T01:18:56Z",
+   "release": "order-m1b.zip",
+   "callers": {
+    "boardState": [
+     "app/admin/tools.php",
+     "website/admin/client-order.php"
+    ],
+    "recordPayment": [
+     "app/lib/Pulse.php",
+     "website/admin/client-order.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/QuickBooksPay.php",
+   "functions": [
+    "invoiceByNumber"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kW2cGfR4Ya7fh2s3y",
+   "why": "M1b: what the system knows, what it asks (QuickBooks first, the Vendor line, vendor bills; decisions/0178 notes 2026-11-23)",
+   "since": "2026-11-23T21:18:56Z",
+   "expires": "2026-11-24T01:18:56Z",
+   "release": "order-m1b.zip",
+   "callers": {
+    "invoiceByNumber": [
+     "app/lib/QbPull.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/WorkOrders.php",
+   "functions": [
+    "setInvoiceNo"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kW2cGfR4Ya7fh2s3y",
+   "why": "M1b: what the system knows, what it asks (QuickBooks first, the Vendor line, vendor bills; decisions/0178 notes 2026-11-23)",
+   "since": "2026-11-23T21:18:56Z",
+   "expires": "2026-11-24T01:18:56Z",
+   "release": "order-m1b.zip",
+   "callers": {
+    "setInvoiceNo": [
+     "website/admin/client-order.php"
+    ]
+   }
+  },
+  {
+   "path": "website/admin/client-order.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5kW2cGfR4Ya7fh2s3y",
+   "why": "M1b: what the system knows, what it asks (QuickBooks first, the Vendor line, vendor bills; decisions/0178 notes 2026-11-23)",
+   "since": "2026-11-23T21:18:56Z",
+   "expires": "2026-11-24T01:18:56Z",
+   "release": "order-m1b.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
