@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-23T21:23:22Z",
+ "generated_at": "2026-11-23T23:52:51Z",
  "version": 2,
  "generated_by": "tools/page-audit/gauges.py",
  "note": "The gauges' configuration (handoffs/control-board-plan/step3/sections/gauge-lifecycle.md), compact: the site computes every stage from it (app/lib/ControlGauges.php); each gauge's detail is in gauges-items.json.",
@@ -3789,5 +3789,10 @@
    ]
   }
  },
- "pickups": {}
+ "pickups": {
+  "1": [
+   "Control Board build session",
+   "loads-reply.zip"
+  ]
+ }
 }
