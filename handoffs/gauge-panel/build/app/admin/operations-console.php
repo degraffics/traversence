@@ -273,7 +273,8 @@ function tv_ops_keys(string $svc, array $keys, string $csrf): string
                 . '</div>';
         } elseif (str_starts_with($where, 'Railway') || str_contains($where, 'Railway')) {
             $railway = true;
-            $h .= ' <a class="os-go" href="https://railway.com/project/a445f0be-b6de-46bb-a422-51ff835ca6e4/service/8d254c0d-abcb-4520-b9ae-dfbdd362b243/variables" target="_blank" rel="noopener">Set it on Railway: the crawler\'s Variables ↗</a>';
+            // an action as an icon, its title naming where it opens (Jason, 2026-11-23: "action icons with tool tips over text saying action urls")
+            $h .= ' <a class="mc-ic" href="https://railway.com/project/a445f0be-b6de-46bb-a422-51ff835ca6e4/service/8d254c0d-abcb-4520-b9ae-dfbdd362b243/variables" target="_blank" rel="noopener" title="Set it on Railway: open the crawler\'s Variables" aria-label="Set it on Railway: open the crawler\'s Variables">' . (function_exists('tv_icon') ? tv_icon('link', 'mc-svg') : '↗') . '</a>';
         }
         $h .= '</div>';
     }

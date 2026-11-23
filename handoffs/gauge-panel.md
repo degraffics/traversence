@@ -329,7 +329,8 @@ regenerated gauge files, gauge-lifecycle §6 and §8's note, and the tests.
   - In the panel: its alarms (a bell), a check's full result and a finding's proposal (link icons).
   - A passing chip keeps its words, its target in its title, with no ↗.
 - **One arrow** on Setup capture's fold. **"Sign in: not registered"** carries its action: "register it from your Vault".
-- **Not in this release** (for the next one, the kit's buttons): Copy as an icon on the board's cards and panels, and the keys'
-  "Set it on Railway: the crawler's Variables ↗" (operations-console's keys block).
+- **The keys' "Set it on Railway: the crawler's Variables ↗"** is an icon too, titled "Set it on Railway: open the crawler's
+  Variables" (operations-console's keys block).
+- **Not in this release** (for the next one, the kit's buttons): Copy as an icon on the board's cards and panels.
 - Tests: google-signin.cjs rewritten to the new pattern (36/36: Edit, History, no Undo, icons' titles); module-cards.php 74/74;
   the rendered subset 356/356; the PHP sweep matches live.
