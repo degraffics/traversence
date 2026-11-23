@@ -1,0 +1,161 @@
+<!doctype html>
+<!-- Order management mockups (research/order-management-design-2026-11-23.md §4). Open with ?v=board|place|order|money.
+     Static, made-up clients; the tokens are brand.md's and design/css-theme-brand.md's. Rendered by render.cjs at 1280 and 390. -->
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Order management mockups</title>
+<style>
+:root{--page:#E4DCC5;--section:#EDE6D5;--card:#F6F1E4;--edge:#D9CDB0;--ink:#2A1D14;--meta:#7A6A52;--umber:#3E2B1F;--void:#231D17;
+  --copper:#C85A17;--sage:#92BEA5;--amber:#8f5600;--amber-bg:#FBF1DC;--red:#a62b2b;--link:#92400E;--focus:#C85A17}
+*{box-sizing:border-box}html,body{margin:0}body{background:var(--page);color:var(--ink);font:15px/1.45 Inter,system-ui,sans-serif}
+h1,h2,h3{font-family:Merriweather,Georgia,serif;margin:0}a{color:var(--link);font-weight:600}
+.top{height:34px;background:#8C3A23;color:#fff;display:flex;align-items:center;padding:0 12px;font-size:13px;font-weight:700}
+.rail{position:fixed;left:0;top:34px;bottom:0;width:64px;background:var(--umber)}
+.main{margin-left:64px;padding:14px 28px 40px}
+.strip{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:10px;background:var(--umber);color:var(--card);border-radius:.7rem;padding:6px 8px;margin:0 0 12px}
+.strip h1{font-size:17px;color:var(--card);flex:1}.strip .b{background:var(--section);color:var(--ink);border:0}
+.back{width:32px;height:32px;border-radius:.45rem;background:var(--section);display:grid;place-items:center;color:var(--link);font-weight:800}
+.b{display:inline-flex;align-items:center;gap:.35rem;border:1px solid var(--edge);background:var(--card);color:var(--ink);border-radius:.5rem;padding:.38rem .75rem;font:600 14px Inter,system-ui;cursor:pointer;white-space:nowrap}
+.b.go{background:var(--copper);border-color:var(--copper);color:#fff}.b.sm{padding:.25rem .55rem;font-size:13px}
+.b:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.head{display:flex;align-items:center;gap:12px;margin:4px 0 12px}.head h1{font-size:22px;flex:1}
+.tiles{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:12px}
+.tile{background:var(--card);border:1px solid var(--edge);border-radius:.6rem;padding:.55rem .75rem;text-align:left;cursor:pointer}
+.tile b{display:block;font-size:22px;font-family:Merriweather,Georgia,serif}.tile span{font-size:13px;color:var(--meta);font-weight:600}
+.tile.on{border:2px solid var(--copper);background:#FFF8EE}.tile small{display:block;color:var(--amber);font-weight:700}
+.bar{display:flex;gap:8px;margin-bottom:10px}.search{flex:1;border:1px solid var(--edge);background:var(--card);border-radius:999px;padding:.45rem .9rem;color:var(--meta)}
+.filter{border-radius:999px}
+table{width:100%;border-collapse:separate;border-spacing:0;background:var(--card);border:1px solid var(--edge);border-radius:.6rem;overflow:hidden}
+th{font-size:12px;text-transform:uppercase;letter-spacing:.03em;color:var(--meta);text-align:left;padding:.55rem .75rem;border-bottom:1px solid var(--edge);background:var(--section)}
+td{padding:.6rem .75rem;border-bottom:1px solid #EADFC4;vertical-align:top}tr:last-child td{border-bottom:0}
+td.n{text-align:right;font-variant-numeric:tabular-nums}
+.st{display:block;font-weight:700}.st+small{color:var(--meta);font-size:12.5px}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:1px;background:var(--meta)}
+.dot.wait{background:var(--amber)}.dot.ok{background:#4E8A6A}.dot.bad{background:var(--red)}.dot.go{background:var(--copper)}
+.owed{color:var(--amber);font-weight:800}
+.card{background:var(--card);border:1px solid var(--edge);border-radius:.6rem;padding:14px 16px;margin-bottom:12px}
+.sec{background:var(--section);border-radius:.8rem;padding:12px;margin-bottom:14px}.sec>h2{font-size:17px;margin:2px 4px 10px}
+.news{background:var(--card);border:1px solid var(--edge);border-radius:.6rem;margin-bottom:14px}
+.line{display:grid;grid-template-columns:110px 1fr auto;gap:12px;align-items:center;padding:.6rem .9rem;border-bottom:1px solid #EADFC4}.line:last-child{border:0}
+.line .k{font-size:12px;text-transform:uppercase;color:var(--meta);font-weight:700;letter-spacing:.03em}
+.figs{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:12px}.fig{background:var(--card);border:1px solid var(--edge);border-radius:.5rem;padding:.5rem .7rem}
+.fig span{font-size:12px;color:var(--meta);font-weight:700;text-transform:uppercase}.fig b{display:block;font-size:19px;font-family:Merriweather,Georgia,serif}
+.acts{display:flex;flex-wrap:wrap;gap:6px}
+.kv{display:grid;grid-template-columns:140px 1fr;gap:4px 12px;font-size:14px}.kv dt{color:var(--meta);font-weight:600}.kv dd{margin:0}
+.steps{display:grid;grid-template-columns:1fr 300px;gap:16px;align-items:start}
+.step{background:var(--card);border:1px solid var(--edge);border-radius:.6rem;margin-bottom:8px}
+.step>header{display:flex;align-items:center;gap:10px;padding:.65rem .9rem}.step>header h3{font-size:15px;flex:1}
+.num{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:13px;background:var(--section);color:var(--meta)}
+.step.done .num{background:var(--sage);color:var(--void)}.step.now{border:2px solid var(--copper)}.step.now .num{background:var(--copper);color:#fff}
+.step.later{opacity:.6}.step .body{padding:0 .9rem .9rem}.done-say{color:var(--meta);font-size:14px}
+.pick{display:flex;gap:8px;align-items:center;border:1px solid var(--edge);border-radius:.5rem;padding:.5rem .7rem;margin-bottom:6px;background:#fff}
+.pick b{flex:1}.pick small{color:var(--meta)}
+.sum{position:sticky;top:60px}.sum .row{display:flex;justify-content:space-between;padding:.25rem 0}.sum .tot{border-top:1px solid var(--edge);margin-top:6px;padding-top:8px;font-weight:800}
+.note{border-left:4px solid var(--amber);background:var(--amber-bg);padding:.5rem .75rem;border-radius:.4rem;font-size:14px}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--edge);margin-bottom:12px;overflow-x:auto}.tabs a{padding:.5rem .8rem;text-decoration:none;color:var(--meta);white-space:nowrap}
+.tabs a.on{color:var(--ink);border-bottom:3px solid var(--copper)}
+.aging{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:12px}
+.mcard{display:none}
+.pill{display:inline-block;font-size:12px;font-weight:700;padding:.1rem .5rem;border-radius:999px;background:var(--section);color:var(--meta)}
+.pill.wait{background:var(--amber-bg);color:var(--amber)}
+.views>section{display:none}.views>section.on{display:block}
+@media (max-width:767px){
+  .rail{display:none}.main{margin-left:0;padding:8px 3px 30px}.head{padding:0 8px}.bar{padding:0 3px}
+  .tiles{grid-template-columns:repeat(2,1fr);gap:3px}.tile:last-child{grid-column:span 2}
+  table.big{display:none}.mcard{display:block;background:var(--card);border:1px solid var(--edge);border-radius:.5rem;padding:10px 12px;margin-bottom:3px}
+  .mcard .t{display:flex;justify-content:space-between;align-items:baseline}.mcard .g{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:8px 0;font-size:13.5px}
+  .steps{grid-template-columns:1fr}.sum{position:static}.figs{grid-template-columns:1fr 1fr;gap:3px}.aging{grid-template-columns:1fr 1fr;gap:3px}
+  .line{grid-template-columns:1fr;gap:4px}.kv{grid-template-columns:1fr}.kv dt{margin-top:6px}
+  .sec{padding:8px 3px;border-radius:.5rem}.card,.step,.news{border-radius:.5rem}.strip{border-radius:0;margin:0 -3px 8px}
+}
+</style></head><body>
+<div class="top">J · User: Jordan</div><div class="rail"></div>
+<div class="main views">
+
+<!-- ============================== 1. The job board ============================== -->
+<section id="board">
+  <div class="head"><h1>Orders</h1><button class="b go">＋ Place an order</button></div>
+  <div class="tiles" role="group" aria-label="Show orders that…">
+    <button class="tile on"><b>4</b><span>Needs us</span></button>
+    <button class="tile"><b>3</b><span>Waiting on the client</span></button>
+    <button class="tile"><b>5</b><span>Money owed</span><small>$3,214.60</small></button>
+    <button class="tile"><b>2</b><span>In production</span></button>
+    <button class="tile"><b>2</b><span>Out the door</span></button>
+  </div>
+  <div class="bar"><div class="search">Search orders: number, client, email</div><button class="b filter">⚲ Needs us ▾</button></div>
+  <table class="big"><thead><tr><th>Order</th><th>Client</th><th>Order</th><th>Money</th><th>Delivery</th><th>Next step</th></tr></thead><tbody>
+    <tr><td><a href="#">#12</a></td><td>Mesa Ridge Lodge</td><td><span class="st"><i class="dot ok"></i>Out the door</span><small>ready since Nov 2</small></td>
+      <td><span class="st owed">$809.10 owed</span><small>released before payment</small></td><td><span class="st">Ready for pickup</span></td><td><button class="b sm go">Collect the balance</button></td></tr>
+    <tr><td><a href="#">#21</a></td><td>Canyon Feed &amp; Supply</td><td><span class="st"><i class="dot wait"></i>Changes asked</span><small>proof v2 · 1 day</small></td>
+      <td><span class="st">Not due yet</span></td><td><span class="st">Not started</span></td><td><button class="b sm go">Upload the new proof</button></td></tr>
+    <tr><td><a href="#">#19</a></td><td>Pinon Hills Dental</td><td><span class="st"><i class="dot go"></i>Approved</span><small>today</small></td>
+      <td><span class="st owed">$412.00 deposit due</span><small>cost + 15%</small></td><td><span class="st">Not started</span></td><td><button class="b sm go">Take a payment</button></td></tr>
+    <tr><td><a href="#">#7</a></td><td>Little Colorado Outfitters</td><td><span class="st"><i class="dot wait"></i>Link expired</span><small>sent Nov 4</small></td>
+      <td><span class="st">Not due yet</span></td><td><span class="st">Not started</span></td><td><button class="b sm go">Send it again</button></td></tr>
+  </tbody></table>
+  <div class="mcard"><div class="t"><a href="#">Order #12</a><span class="pill wait">$809.10 owed</span></div>
+    <div class="g"><span>Mesa Ridge Lodge</span><span>Out the door · ready since Nov 2</span><span>Released before payment</span><span>Ready for pickup</span></div><button class="b sm go">Collect the balance</button></div>
+  <div class="mcard"><div class="t"><a href="#">Order #21</a><span class="pill">Not due yet</span></div>
+    <div class="g"><span>Canyon Feed &amp; Supply</span><span>Changes asked · 1 day</span><span>Not started</span></div><button class="b sm go">Upload the new proof</button></div>
+  <div class="mcard"><div class="t"><a href="#">Order #19</a><span class="pill wait">$412.00 deposit due</span></div>
+    <div class="g"><span>Pinon Hills Dental</span><span>Approved · today</span><span>Cost + 15%</span><span>Not started</span></div><button class="b sm go">Take a payment</button></div>
+  <div class="mcard"><div class="t"><a href="#">Order #7</a><span class="pill">Not due yet</span></div>
+    <div class="g"><span>Little Colorado Outfitters</span><span>Link expired · sent Nov 4</span></div><button class="b sm go">Send it again</button></div>
+</section>
+
+<!-- ============================== 2. Place an order (guided) ============================== -->
+<section id="place">
+  <div class="strip"><span class="back">←</span><h1>New order</h1><button class="b sm">Save draft</button><button class="b sm">☰</button></div>
+  <div class="steps"><div>
+    <div class="step done"><header><span class="num">✓</span><h3>Client</h3><span class="done-say">Mesa Ridge Lodge · Ana Ortiz · ana@mesaridge.example · bills to 410 W Main St, Springerville AZ</span><button class="b sm">Change</button></header></div>
+    <div class="step now"><header><span class="num">2</span><h3>Items</h3></header><div class="body">
+      <div class="search" style="margin-bottom:8px">Search the catalog: product, service or category</div>
+      <div class="pick"><b>Door hangers</b><small>Print · 4.25 × 11 · full color · 100# gloss</small><span>5,000</span><span>$809.10</span><button class="b sm">Edit</button></div>
+      <div class="pick"><b>Design: door hanger layout</b><small>Service · 2 hours</small><span>1</span><span>$150.00</span><button class="b sm">Edit</button></div>
+      <div class="acts" style="margin-top:8px"><button class="b sm">＋ Custom line</button><button class="b sm">＋ New product or service</button><button class="b sm">＋ Shipping</button></div>
+      <div style="margin-top:12px;display:flex;justify-content:space-between"><button class="b">Back</button><button class="b go">Next: where and tax</button></div></div></div>
+    <div class="step later"><header><span class="num">3</span><h3>Where and tax</h3><span class="done-say">Pickup, shipped (one or several addresses), or nothing to send · Taxable</span></header></div>
+    <div class="step later"><header><span class="num">4</span><h3>Payment terms</h3><span class="done-say">Paid in full, or a deposit (cost + 15%)</span></header></div>
+    <div class="step later"><header><span class="num">5</span><h3>Review and send</h3><span class="done-say">What the client will see, then Send the order</span></header></div>
+  </div>
+  <aside class="card sum"><h3 style="font-size:15px;margin-bottom:8px">This order</h3>
+    <div class="row"><span>2 items</span><b>$959.10</b></div><div class="row"><span>Tax</span><span>at approval</span></div>
+    <div class="row"><span>Deposit (cost + 15%)</span><span>$483.30</span></div><div class="row tot"><span>Before tax</span><span>$959.10</span></div>
+    <p class="done-say" style="margin:.6rem 0 0">Saved as a draft at every step.</p></aside></div>
+</section>
+
+<!-- ============================== 3. The order page ============================== -->
+<section id="order">
+  <div class="strip"><span class="back">←</span><h1>Order #12</h1><button class="b sm">Close ▾</button><button class="b sm">☰</button></div>
+  <div class="news" role="status">
+    <div class="line"><span class="k">Order</span><span><b>Out the door.</b> Ready for pickup since Nov 2; the client was asked to tell us they have it.</span><button class="b sm">Complete</button></div>
+    <div class="line"><span class="k">Money</span><span><b class="owed">$809.10 owed.</b> Released before payment by an admin on Oct 27 (agreed terms). Its QuickBooks invoice 1044 was made by hand.</span><button class="b sm go">Collect the balance</button></div>
+    <div class="line"><span class="k">Delivery</span><span><b>Ready for pickup</b> at our shop.</span><span></span></div>
+  </div>
+  <div class="sec"><h2>Client</h2><div class="card"><dl class="kv"><dt>Client</dt><dd>Mesa Ridge Lodge · Ana Ortiz · <a href="#">ana@mesaridge.example</a></dd><dt>Bill to</dt><dd>410 W Main St, Springerville AZ 85938 <a href="#">Edit</a></dd><dt>Terms</dt><dd>Released before payment · due on receipt (Oct 27)</dd></dl></div></div>
+  <div class="sec"><h2>Money</h2>
+    <div class="figs"><div class="fig"><span>Total</span><b>$809.10</b></div><div class="fig"><span>Paid</span><b>$0.00</b></div><div class="fig"><span>Credits</span><b>$0.00</b></div><div class="fig"><span>Refunded</span><b>$0.00</b></div><div class="fig"><span>Owed</span><b class="owed">$809.10</b></div></div>
+    <div class="card"><div class="acts"><button class="b go">Take a payment</button><button class="b">Apply a credit</button><button class="b">Issue a credit memo</button><button class="b">Refund…</button><button class="b">Cancel the order…</button></div>
+      <p class="done-say" style="margin:.6rem 0 0">Something wrong? Fix it first, then a credit; a refund only when neither works.</p></div>
+    <table><thead><tr><th>Payments and credits</th><th>How</th><th class="n">Amount</th><th></th></tr></thead><tbody><tr><td colspan="4" class="done-say">None yet.</td></tr></tbody></table></div>
+  <div class="sec"><h2>Items</h2><div class="card"><b>Door hangers · 5,000</b> · $809.10<br><small class="done-say">Proof v1 approved · made by our print vendor · Ready for pickup</small></div></div>
+  <div class="sec"><h2>History ▸</h2></div>
+</section>
+
+<!-- ============================== 4. Money → Outstanding ============================== -->
+<section id="money">
+  <div class="head"><h1>Money</h1><button class="b go">Take a payment</button></div>
+  <nav class="tabs"><a class="on" href="#">Outstanding</a><a href="#">Take a payment</a><a href="#">Credits on account</a><a href="#">Refunds &amp; credit memos</a></nav>
+  <div class="aging"><div class="fig"><span>Current</span><b>$1,620.60</b></div><div class="fig"><span>1–30 days</span><b>$784.90</b></div><div class="fig"><span>31–60</span><b class="owed">$809.10</b></div><div class="fig"><span>61–90</span><b>$0.00</b></div><div class="fig"><span>90+</span><b>$0.00</b></div></div>
+  <div class="bar"><div class="search">Search clients or orders</div><button class="b filter">⚲ Everyone ▾</button></div>
+  <table class="big"><thead><tr><th>Client</th><th>Orders</th><th class="n">Owed</th><th>Oldest</th><th>Last reminder</th><th>Next step</th></tr></thead><tbody>
+    <tr><td>Mesa Ridge Lodge</td><td><a href="#">#12</a></td><td class="n owed">$809.10</td><td>Oct 27 · 27 days</td><td>Nov 5</td><td><button class="b sm go">Take a payment</button> <button class="b sm">Remind</button></td></tr>
+    <tr><td>Pinon Hills Dental</td><td><a href="#">#19</a> deposit</td><td class="n owed">$412.00</td><td>today</td><td>—</td><td><button class="b sm go">Take a payment</button></td></tr>
+    <tr><td>White Mountain Grange</td><td><a href="#">#15</a>, <a href="#">#17</a></td><td class="n owed">$1,993.50</td><td>Nov 9 · 14 days</td><td>Nov 16</td><td><button class="b sm go">Take a payment</button> <button class="b sm">Remind</button></td></tr>
+  </tbody></table>
+  <div class="mcard"><div class="t"><b>Mesa Ridge Lodge</b><span class="owed">$809.10</span></div><div class="g"><span>Order <a href="#">#12</a></span><span>27 days</span><span>Reminded Nov 5</span></div><button class="b sm go">Take a payment</button> <button class="b sm">Remind</button></div>
+  <div class="mcard"><div class="t"><b>Pinon Hills Dental</b><span class="owed">$412.00</span></div><div class="g"><span>Order <a href="#">#19</a> deposit</span><span>today</span></div><button class="b sm go">Take a payment</button></div>
+  <div class="mcard"><div class="t"><b>White Mountain Grange</b><span class="owed">$1,993.50</span></div><div class="g"><span>Orders <a href="#">#15</a>, <a href="#">#17</a></span><span>14 days</span><span>Reminded Nov 16</span></div><button class="b sm go">Take a payment</button> <button class="b sm">Remind</button></div>
+</section>
+</div>
+<script>var v=new URLSearchParams(location.search).get('v')||'board';(document.getElementById(v)||document.getElementById('board')).classList.add('on');</script>
+</body></html>
