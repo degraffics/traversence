@@ -24,7 +24,7 @@
   },
   "app/lib/SystemStart.php": {
    "sha256": "044f4704c5e4c71427b42044c8cf1c534f2f8d9a989d647b31597f0518b387dc",
-   "live": true
+   "live": false
   },
   "app/ui/faq.md": {
    "sha256": "c426112960e38c8992a1ac26cc17e9857e2f3a3219074c889d80b7ffd557b06d",

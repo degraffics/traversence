@@ -12,7 +12,7 @@
   },
   "app/lib/Gemini.php": {
    "sha256": "663010642436834dcdfcd8448fe6d46bc56e172df96b4d7e3189d6877ec4ee52",
-   "live": true
+   "live": false
   },
   "app/lib/ListingConfidence.php": {
    "sha256": "64322667e4d1106bcdf9a788728baee1b710650ab6886db69630a51c3c8868c9",
