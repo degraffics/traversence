@@ -3,108 +3,108 @@
  "built_on": "8283c24 Sync: 2026-11-23 14:53 UTC",
  "recorded": "2026-11-23 16:24 UTC",
  "note": "Orders release A: placing, configuring and paying for an order, ironclad, with Split into one order per address and the design review's changes (Jason, 2026-11-23); built on Sync: 2026-11-23 14:53 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "a71303b Sync: 2026-11-23 18:40 UTC",
  "files": {
   "app/admin/kit-css.php": {
    "sha256": "7c48a35260ef2f4df1eb472e503950f1d1b9f2e906fbd16e184b2976a2a98203",
-   "live": false
+   "live": true
   },
   "app/admin/manifests.php": {
    "sha256": "151772abb5e417aa9e69322e1823d5dbcb1653cd4b9690377e678586501e113c",
-   "live": false
+   "live": true
   },
   "app/admin/sections.php": {
    "sha256": "8cbc2ed74660fa045567d96a36adb32b2eb2c237ee77fb8f25504ba5c8b460f1",
-   "live": false
+   "live": true
   },
   "app/admin/tools.php": {
    "sha256": "609da4dfecbc411fbd8a0247fe2925db9da7393f692d7930810f1c2d1acf84ae",
-   "live": false
+   "live": true
   },
   "app/admin/widgets.php": {
    "sha256": "8e406bbe3358a0da46a81cfb819ee384386c3d74895ff1f6754d5ee46bf254c3",
-   "live": false
+   "live": true
   },
   "app/lib/AccountDomains.php": {
    "sha256": "24d4261a09633762eee0170bfdb619113de57541df65e84312009ce5df494118",
-   "live": false
+   "live": true
   },
   "app/lib/Billing.php": {
    "sha256": "dfc855f6c61a3c2aa961c5b8158fe0913cef936f652593d67b5c114af357a04c",
-   "live": false
+   "live": true
   },
   "app/lib/Books.php": {
    "sha256": "292b762712e53de92dd963b467abbe9de54b7103f77b707ad7b0b0bb1014b445",
-   "live": false
+   "live": true
   },
   "app/lib/ClientOrders.php": {
    "sha256": "83ed2e77c37fb35d64872e933c44c13dde5e641b0fa4f4ba90af7759387fc1b1",
-   "live": false
+   "live": true
   },
   "app/lib/OneOffs.php": {
    "sha256": "a6a859de6c6c2de7b25b6953a43f5b2f34dacae91c990bfca1e312b0b0336a7f",
-   "live": false
+   "live": true
   },
   "app/lib/Orders.php": {
    "sha256": "2356b79c1c0288b551d44494146a450dc1cab1cb381d73b6c52dc4726abd9e7e",
-   "live": false
+   "live": true
   },
   "app/lib/QbPull.php": {
    "sha256": "7980c6e6d0afedbef5cb404e4604864a7fc2903c95f227694cc1d39d95f962f3",
-   "live": false
+   "live": true
   },
   "app/lib/QrIssue.php": {
    "sha256": "ba1f4820fa6b61f9ea1f6e64e3af5d363cdccb614f3184d025920e27d68e9232",
-   "live": false
+   "live": true
   },
   "app/lib/QuickBooksPay.php": {
    "sha256": "c89e5d8cb0bb6995d2422656d74f54324e0ac7bc576e3938fb3e09397cfc05fd",
-   "live": false
+   "live": true
   },
   "app/migrations/2027-03-30_order_tax_choice.sql": {
    "sha256": "e97a2dbf4decf7ba5108f6569d3b85c1e0a901c2545a469e5a7bf9c52df42f3f",
-   "live": false
+   "live": true
   },
   "app/ui/command-strip.php": {
    "sha256": "6f0bee1c2ea9d596305b098df6e1beddbe57a32ad3918e2ffb774f259c383db4",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "bea98fa3e91c1e4884382004300d90fb115b9fc99c55c7bae13458ae15041209",
-   "live": false
+   "live": true
   },
   "app/ui/qb-merge.php": {
    "sha256": "3787224060e1654f6974c6a5fd14ddc3389200971f2a569dd5193b0b69170426",
-   "live": false
+   "live": true
   },
   "website/admin/api.php": {
    "sha256": "2ac0fb241eb1695ea93686facf8a36cd8b54cbd272c2392150c5288f7008599d",
-   "live": false
+   "live": true
   },
   "website/admin/client-order.php": {
    "sha256": "8e5c8b087d203d610bdbe7a0cbcdac8fc502ced4d27e6f56f477d65f9dc50893",
-   "live": false
+   "live": true
   },
   "website/api/client-order.php": {
    "sha256": "fc896275e44068e5f186a955ed7b74f131c14764514ea3df41b9e37f4ae1be76",
-   "live": false
+   "live": true
   },
   "website/api/qb-webhook.php": {
    "sha256": "b1a94c2e5f4267d7994e8ed8f430520e4d0d4bd5d94585287283c6d7c4282823",
-   "live": false
+   "live": true
   },
   "website/js/admin-kit.js": {
    "sha256": "908e25a1fc31aa89d7dd3c67ccb5cf1182b9de242ea14ea0cb04957390b030f4",
-   "live": false
+   "live": true
   },
   "website/order.php": {
    "sha256": "7adf0ce26d2b4bc044ea8992785bb86b95f94f747d7aa18ea2f9ab5a0ad3b82d",
-   "live": false
+   "live": true
   },
   "website/terms.php": {
    "sha256": "3e5ab5a03eae3fa4e4f87bba16d3dc6396fb0cefbd2cc57db3aae66a5d6c35c3",
-   "live": false
+   "live": true
   }
  }
 }
