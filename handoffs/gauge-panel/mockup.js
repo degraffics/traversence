@@ -17,11 +17,10 @@ function filt(sp,f){const on=f&&f!=='all'&&sp._f!==f?f:null;sp._f=on;const ul=$(
 function done(btn,line){const box=btn.closest('.acts')||btn.parentNode;const d=document.createElement('div');d.className='done';
  d.innerHTML='<span>'+line+'</span><button type="button" class="sl" data-undo>Undo</button>'+(btn.dataset.send!==undefined?'<button type="button" class="sl" data-demo>(mockup: show it cleared)</button>':'');
  d.querySelector('[data-undo]').onclick=()=>{btn.hidden=false;d.remove();toast('Undone.');};
- // step 3 confirmed by its check, then step 4: the next step as its own button (CLAUDE.md "Every action is a task")
- const demo=d.querySelector('[data-demo]');if(demo)demo.onclick=()=>{const nx=btn.dataset.next||'';box.hidden=true;const it=btn.closest('.it');if(it){$$('.chip.c-fail',it).forEach(c=>c.remove());move(it);}
-  d.innerHTML='<span><b class="ok">Cleared:</b> its check passed, '+now()+'.</span>'+(nx?'<button type="button" class="b go sm" data-send="next" data-what="'+esc(nx)+'">Next: '+esc(nx)+'</button>':'<span>Nothing more: every step met.</span>');};
+ // one item is one cycle; it ends at its confirmation, cleared by its check, and the counts follow (CLAUDE.md #1309)
+ const demo=d.querySelector('[data-demo]');if(demo)demo.onclick=()=>{box.hidden=true;const it=btn.closest('.it');if(it){$$('.chip.c-fail',it).forEach(c=>c.remove());move(it);}
+  d.innerHTML='<span><b class="ok">Cleared:</b> its check passed, '+now()+'.</span>';};
  btn.hidden=true;box.after(d);}
-// step 4 right after Fixing: the next issue opens, or the last one goes back to the gauge (Design reviewer, 2026-11-23)
 // counts follow the state (Design reviewer, 2026-11-23): a cleared item leaves its group, every count drops with it
 function move(it){const sp=it.closest('.sp');const to=it.dataset.after||'ok';it.dataset.b=to;const bk=it.querySelector('.ih .bk');if(bk)bk.className='bk bk-'+to;
  const n=$$('.it[data-b]',sp).length,c={};$$('.it[data-b]',sp).forEach(x=>c[x.dataset.b]=(c[x.dataset.b]||0)+1);
@@ -31,13 +30,7 @@ function move(it){const sp=it.closest('.sp');const to=it.dataset.after||'ok';it.
  const dl=it.querySelector('.dots');if(dl)dl.setAttribute('aria-label',dl.getAttribute('aria-label').replace(/an issue/g,to==='check'?'no check yet':'met'));
  const dw=it.querySelector('.dword');if(dw)dw.textContent=to==='check'?'No check yet at checked':'Every step met';
  const h=$('#lh-t',sp);if(h&&sp._f){const lg=$('.lg[data-f='+sp._f+']',sp);h.textContent=(c[sp._f]||0)+' · '+lg.textContent.replace(/\s*\d+$/,'').trim()+' (1 just cleared, still shown)';}
-}   // the row stays in view with its Cleared line and Next; it leaves the list the next time the list is filtered
-function nextIssue(btn){const it=btn.closest('.it[data-b]');if(!it)return;const sp=it.closest('.sp');const d=it.querySelector('.done');
- const rest=$$('.it[data-b='+it.dataset.b+']',sp).filter(x=>x!==it&&!x.querySelector('.done'));const b=document.createElement('button');b.type='button';b.className='b go sm';
- if(rest.length){const nx=rest[0];b.textContent='Next issue: '+nx.querySelector('.nm').textContent+' ▸';b.onclick=()=>{it.querySelector('.ib').hidden=true;it.querySelector('.ex').setAttribute('aria-expanded','false');
-  $('.items',sp).classList.add('all');nx.hidden=false;nx.querySelector('.ib').hidden=false;nx.querySelector('.ex').setAttribute('aria-expanded','true');nx.scrollIntoView({block:'nearest',behavior:'smooth'});nx.querySelector('.ib .b.go').focus({preventScroll:true});};}
- else{const n=$$('.it[data-b='+it.dataset.b+']',sp).length;b.textContent='All '+n+' sent: back to the gauge';b.onclick=()=>{sp.scrollIntoView({block:'start',behavior:'smooth'});};}
- d.querySelector('[data-demo]').before(b);}
+}   // the row stays in view with its Cleared line; it leaves the list the next time the list is filtered
 document.addEventListener('click',ev=>{const t=ev.target.closest('button,a');const leg=$('.dleg:not([hidden])');
  if(leg&&!ev.target.closest('.dleg,.info')){leg.hidden=true;$('.info[aria-expanded=true]').setAttribute('aria-expanded','false');}
  if(!t)return;const sp=t.closest('.sp');
@@ -51,7 +44,7 @@ document.addEventListener('click',ev=>{const t=ev.target.closest('button,a');con
  const href=t.getAttribute('href')||'';
  if(href.startsWith('#ac-')){ev.preventDefault();const c=$(href);c.scrollIntoView({block:'center',behavior:'smooth'});c.classList.add('flash');setTimeout(()=>c.classList.remove('flash'),1400);c.querySelector('.b').focus({preventScroll:true});return;}
  if(href.startsWith('#site-health')){ev.preventDefault();toast('Scrolls to its row in Site health, on the Development page under the gauges.');return;}
- if(t.dataset.send!==undefined){const g=(sp&&sp.dataset.gauge)||'its';done(t,'<b>Fixing:</b> '+esc(t.dataset.what||'the issue')+' · sent to the '+esc(g)+' build · Jason, '+now()+'. It clears itself once its check passes.');nextIssue(t);return;}
+ if(t.dataset.send!==undefined){const g=(sp&&sp.dataset.gauge)||'its';done(t,'<b>Fixing:</b> '+esc(t.dataset.what||'the issue')+' · sent to the '+esc(g)+' build · Jason, '+now()+'. It clears itself once its check passes.');return;}
  if(t.dataset.sign!==undefined){const s=t.dataset.sign;done(t,s==='scope'?'<b>Scope approved</b> by Jason, '+now()+'. The gauge leaves Planning.':s==='target'?'<b>Target approved</b> by Jason, '+now()+'.':'<b>Done</b> by Jason, '+now()+'.');return;}
  if(t.dataset.path){toast('Opens the '+t.textContent.replace(/\s*·.*/,'')+' path: each one a row that opens its own page.');return;}
  if(t.dataset.open&&sp){ev.preventDefault();sub(sp,t.dataset.open,t.dataset.id);return;}

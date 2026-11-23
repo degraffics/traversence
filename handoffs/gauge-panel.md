@@ -121,32 +121,38 @@ The build also moves gauges.py to the new rule: reviewed is met on a live item w
 Walked again: `walk.cjs`, all passed at 1280 and 390. It now also checks that no item has a Sign off, and that Fix it
 turns into its Fixing line, which Undo turns back.
 
-## Revision 4: step 4, the next step (Jason's standing rule, CLAUDE.md #1308, 2026-11-23)
+## Revision 4: one item, one cycle (Jason, CLAUDE.md #1308 and #1309, 2026-11-23)
 
-"Every action is a task: see it, do it, confirmed, next." After "Fixing…":
-- **Step 3, confirmed:** the item's check passes and the row reads "Cleared: its check passed, <time>". The issue's buttons
-  and its failing chip go.
-- **Step 4, next:** what follows, as its own button, worked out per item: "Next: Add a check: the photos check", "Next:
-  Put it live: its release" or "Next: Prove it on live data: add a path check". If nothing follows: "Nothing more: every
-  step met".
-- The mockup shows step 3 with a "(mockup: show it cleared)" link. On the site it comes from the check's next pass.
-  walk.cjs checks step 3, then step 4's button, and that the issue's buttons are gone, at 1280 and 390.
+Jason: "Don't convolute processes or tasks. Fixing an alarm concludes with the single alarm being fixed, whereas a process
+that covers fixing all alarms is multiple single cycles of the process linked to a workflow." CLAUDE.md #1309: a single
+task ends at its confirmation, with Undo, and the lists and counts update; a "Next" button appears only within a chained
+process.
+
+- **One item is one cycle:**
+  1. view its evidence;
+  2. Fix it;
+  3. "Fixing: <the issue> · sent to the Discovery build · Jason, <time> · Undo";
+  4. "Cleared: its check passed, <time>". It ends there.
+- **No "Next" anywhere.** The "Next issue ▸", "All 6 sent" and the cleared row's "Next: …" were tried and withdrawn. An
+  item's next task, if it has one, shows as its own item in its own group, with its own button.
+- **Counts follow the state.** A cleared item leaves its group. The bar, the chip, the card's "Show the 5", the heading
+  ("5 · Issues to fix (1 just cleared, still shown)") and its dots all drop at once. That's how the person sees the cycle
+  close. The row stays in view until the list is filtered again. An empty group's segment and chip hide.
+- **The mockup shows Cleared** with a "(mockup: show it cleared)" link. On the site it comes from the check's next pass.
+- **Wording:** "sent to the Discovery build"; "Brand standards failed".
+- **The scope card stays,** as "Approve the scope" (the session manager: "Approving a scope is a real decision of Jason's,
+  not an issue being cleared"). It's what moves a gauge out of Planning (§3). Its line reads "Scope approved by Jason,
+  <time> · Undo". "Approve the target" works the same way.
+- **walk.cjs** checks, at 1280 and 390, that:
+  - no item has a Sign off;
+  - Fix it turns into its Fixing line, which Undo turns back;
+  - there's no Next after Fixing or after Cleared;
+  - the counts drop from 6 to 5.
 
 Joining this release (the session manager, 2026-11-23): Jason's "a finished step replaces its form" across every
 tv_ops_form on the cards.
 - After a press, one line: "Signs in as … · recorded by …, <time>", with Change and Undo. The form folds away.
 - No notice repeats the line, and no notice promises a button that isn't on screen.
-
-Also in revision 4, from the Design reviewer's revision 3 review and the session manager's ruling (2026-11-23):
-- **Step 4 right after Fixing:** "Next issue: <its name> ▸" opens the next issue in the same group. On the last one it
-  reads "All 6 sent: back to the gauge". Once the item clears, its own Next replaces it.
-- **The Fixing line names the build:** "sent to the Discovery build". The issue reads "Brand standards failed".
-- **Counts follow the state.** Once an item clears, it leaves its group: the bar, the chips, the card's "Show the 5",
-  the heading ("5 · Issues to fix (1 just cleared, still shown)") and its dots all drop at once. The row stays in view
-  with its Cleared line and Next until the list is filtered again. An empty group's segment and chip hide.
-- **The scope card stays,** as "Approve the scope" (not "Sign off"). The session manager: "Approving a scope is a real
-  decision of Jason's, not an issue being cleared". It's what moves a gauge out of Planning (§3). Its done line reads
-  "Scope approved by Jason, <time> · Undo". The target works the same way, with "Approve the target".
 
 ## Every element and where it leads
 
