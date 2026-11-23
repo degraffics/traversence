@@ -75,7 +75,26 @@ ClientOrders::addCustom($pdo, $s1, 'Banner', 1, '40.00', true, '', $staff);
 $ls = Orders::lines($pdo, $s1);
 $pdo->prepare('UPDATE order_lines SET ship_address = ? WHERE id = ?')->execute(["Mesa office\n55 Center St\nMesa, AZ 85201", (int) end($ls)['id']]);
 $m = thrown(fn () => ClientOrders::approve($pdo, $o($s1), 'Release A Client', $bill + ['ship_same' => 1], $staff));
-ok('Two addresses: approval refused with what to do', str_contains($m, 'ships to 2 addresses') && $o($s1)['status'] === 'sent', $m);
+ok('Two addresses: approval refused with what to do', str_contains($m, 'ships to 2 addresses') && str_contains($m, 'Split into one order per address') && $o($s1)['status'] === 'sent', $m);
+
+// ---- the way forward: Split into one order per address, and Undo (the session manager's condition, 2026-11-23)
+$before = array_map(fn ($l) => (int) $l['id'], Orders::lines($pdo, $s1));
+$kids = ClientOrders::split($pdo, $s1, $staff);
+$kid = $kids[0] ?? 0;
+$left = array_map(fn ($l) => (int) $l['id'], Orders::lines($pdo, $s1)); $moved = array_map(fn ($l) => (int) $l['id'], Orders::lines($pdo, $kid));
+ok('Split makes one order per address, the items moved', count($kids) === 1 && count($left) + count($moved) === count($before) && count(ClientOrders::shipTos($pdo, $o($s1), Orders::lines($pdo, $s1))) === 1 && count(ClientOrders::shipTos($pdo, $o($kid), Orders::lines($pdo, $kid))) === 1, 'kept ' . count($left) . ', moved ' . count($moved) . ' to order ' . $kid);
+ok('The new order keeps the client and terms, as a draft', $o($kid)['bill_email'] === $o($s1)['bill_email'] && $o($kid)['tax_choice'] === $o($s1)['tax_choice'] && $o($kid)['status'] === 'draft' && (int) $o($kid)['subtotal_cents'] === 4000, 'status ' . $o($kid)['status'] . ', subtotal ' . $o($kid)['subtotal_cents'] . '¢');
+$as1 = ClientOrders::approve($pdo, $o($s1), 'Release A Client', $bill + ['ship_same' => 1], $staff);
+ok('After the split the first order is approved', $as1['status'] === 'pending', 'status ' . $as1['status']);
+$s2 = $sent(['ship_name' => 'Dana', 'ship_street' => '12 Main St', 'ship_city' => 'Springerville', 'ship_state' => 'AZ', 'ship_zip' => '85938', 'delivery' => 'ship']);
+ClientOrders::addCustom($pdo, $s2, 'Banner', 1, '40.00', true, '', $staff);
+$ls = Orders::lines($pdo, $s2); $pdo->prepare('UPDATE order_lines SET ship_address = ? WHERE id = ?')->execute(["Mesa office\n55 Center St\nMesa, AZ 85201", (int) end($ls)['id']]);
+$n0 = count(Orders::lines($pdo, $s2)); $k2 = ClientOrders::split($pdo, $s2, $staff);
+ok('Undo is offered while the new order is untouched', ClientOrders::splitUndoable($pdo, $s2) === $k2, json_encode(ClientOrders::splitUndoable($pdo, $s2)));
+ClientOrders::unsplit($pdo, $s2, $staff);
+ok('Undo puts the items back and cancels the new order', count(Orders::lines($pdo, $s2)) === $n0 && $o($k2[0])['status'] === 'void' && !ClientOrders::splitUndoable($pdo, $s2), count(Orders::lines($pdo, $s2)) . ' items back; order ' . $k2[0] . ' ' . $o($k2[0])['status']);
+$m = thrown(fn () => ClientOrders::split($pdo, $sent(), $staff));
+ok('One address: nothing to split', str_contains($m, 'one address'), $m);
 
 // ---- the QuickBooks pull: an exemption item (Jason's "504 Interstate Commerce"), and Leave it
 putenv('QB_ENV=mock');
