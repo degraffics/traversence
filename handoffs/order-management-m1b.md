@@ -144,3 +144,18 @@ upload read in the browser (`m1b/make-invoice.py`, made up), pdf.js served from 
 isn't reachable (PDFJS_DIR); M1's `m1.php` (42), `m1.cjs`, `collect-balance.cjs`, `complete-owed.cjs` all pass. Screens
 in `handoffs/order-m1b/`. Harness notes: `wf_*` tables made by hand; the Mailer stand-in returns while
 `<root>/harness-mail-ok` exists (never shipped); the staff user is named "Staff".
+
+### The Design reviewer's changes, round 1 (2026-11-23 21:48 UTC), made
+1. Delivery's one action is **Yes, picked up** (filled only when no money is owed; else the Money line's button is the
+   one filled); **Remind the client** is in its ⋯.
+2. **Complete** is greyed "once it's picked up" (or "once it's delivered") while Delivery still asks; the Order ⋯'s
+   Complete the order greyed with the same reason. Kept: the #finish section's own Complete the order stays pressable.
+3. One fact asked once: the Vendor read's "It was picked up" also records the pickup on Delivery (`markReceived`: paid →
+   the order completes, M1's rule; owed → it stays open); "Yes, picked up" first makes the read show "✓ Will Call,
+   picked up Nov 23" and ask nothing.
+4. A chosen answer shows ✓ outlined, the other dimmed; Record the vendor bill's reason in words while greyed ("Answer
+   the shipping question first"), the QuickBooks sentence under it once it's ready; no focus ring by itself.
+5. ↗ inline SVG: fine. 6. The ✉: left out; a behaviour question for the session manager.
+M1's tests updated to the reviewed behaviour (m1.cjs: Delivery's one action, Complete greyed then Yes, delivered;
+complete-owed.cjs: a paid order's #finish Complete pressable). All pass: m1b.php 45, m1b.cjs 41 × 2 widths (82), m1.php
+42, m1.cjs, collect-balance.cjs, complete-owed.cjs. New screens: m1b-read-answered, m1b-delivery-first.

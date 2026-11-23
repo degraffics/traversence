@@ -25,7 +25,7 @@ for (const v of ['match', 'amount']) execFileSync('python3', [path.join(__dirnam
 execFileSync('python3', ['-c', `from reportlab.pdfgen import canvas\nc=canvas.Canvas(${JSON.stringify(path.join(tmp, 'inv-scan.pdf'))}); c.rect(50,50,400,600,fill=1); c.save()`]);
 const line = (p, label) => p.evaluate((label) => { const l = [...document.querySelectorAll('.cs-line')].find((x) => x.querySelector('.cs-ll').textContent === label); if (!l) return null;
   const c = l.querySelector('.cs-lt').cloneNode(true); c.querySelectorAll('script, [data-cs-edf], [data-vb-read], [data-vb-drop]').forEach((x) => x.remove());
-  return { text: c.textContent.replace(/\s+/g, ' ').trim(), btns: [...l.querySelectorAll('.cs-la .hb-b')].map((b) => b.textContent.trim()), icons: [...l.querySelectorAll('.cs-la .cs-ib')].map((b) => ({ t: b.getAttribute('title'), off: b.disabled || false, href: b.getAttribute('href') })) }; }, label);
+  return { text: c.textContent.replace(/\s+/g, ' ').trim(), btns: [...l.querySelectorAll('.cs-lb > .hb-b, .cs-lb > .cs-ways > .hb-b, .cs-lb > form > .hb-b')].map((b) => b.textContent.trim()), icons: [...l.querySelectorAll('.cs-la .cs-ib')].map((b) => ({ t: b.getAttribute('title'), off: b.disabled || false, href: b.getAttribute('href') })) }; }, label);
 const press = async (p, sel, yes) => {   // a button that asks first: its yes in the site's pop-up, then the page posts
   await p.click(sel); await p.waitForTimeout(250);
   const y = await p.$(`.tv-ask button:has-text("${yes}"), [role=dialog] button:has-text("${yes}")`);
@@ -57,6 +57,9 @@ const press = async (p, sel, yes) => {   // a button that asks first: its yes in
     let v = await line(p, 'Vendor');
     ok(`${w}: Vendor: $256.83 to the print vendor (work order 20261027-WO0001), not billed yet; Record the bill by hand, ✎, ⋯`, v && v.text === '$256.83 to the print vendor (work order 20261027-WO0001), not billed yet.' && v.btns.includes('Record the bill by hand') && v.icons.length === 2, v);
     ok(`${w}: the drop zone says where it goes: kept with this order's files; not sent to anyone`, await p.evaluate(() => /Kept with this order's files; not sent to anyone/.test((document.querySelector('[data-vb-drop]') || {}).textContent || '')));
+    const dl = await line(p, 'Delivery'), od = await line(p, 'Order');
+    ok(`${w}: Delivery's one action is Yes, picked up (filled); Remind the client is in its ⋯`, dl && dl.btns.join('|') === 'Yes, picked up' && await p.evaluate(() => !![...document.querySelectorAll('.cs-line')].find((x) => x.querySelector('.cs-ll').textContent === 'Delivery').querySelector('.cs-tk button:not([disabled])[value=remind_got]')), dl);
+    ok(`${w}: Complete is greyed "once it's picked up" while Delivery still asks`, await p.evaluate(() => { const l = [...document.querySelectorAll('.cs-line')].find((x) => x.querySelector('.cs-ll').textContent === 'Order'); const b = [...l.querySelectorAll('.cs-lb > .hb-b')].find((x) => x.textContent === 'Complete'); return !!b && b.disabled && /answer the Delivery line first/.test(b.title) && /once it's picked up/.test(l.querySelector('.cs-la > small').textContent); }));
     // ⋯ open and closed three ways
     const vi = await p.evaluate(() => [...document.querySelectorAll('.cs-line')].findIndex((x) => x.querySelector('.cs-ll').textContent === 'Vendor'));
     for (const how of ['×', 'Esc', 'a click outside']) {
@@ -74,17 +77,20 @@ const press = async (p, sel, yes) => {   // a button that asks first: its yes in
     let rd = await p.evaluate(() => { const r = document.querySelector('[data-vb-read]'); if (!r || r.hidden) return null; return { head: r.querySelector('.vb-q').textContent, rows: [...r.querySelectorAll('.vb-tbl tr')].map((t) => [...t.cells].map((c) => c.textContent)), ans: [...r.querySelectorAll('.vb-ans button')].map((x) => x.textContent), rec: r.querySelector('.vb-btns .go').disabled, zoneHidden: document.querySelector('[data-vb-drop]').hidden }; });
     ok(`${w}: the dropped invoice is kept as the order's file (kind invoice)`, sql(`SELECT COUNT(*) FROM order_files WHERE order_id = ${A} AND kind = 'invoice'`) === '1');
     ok(`${w}: read without AI: ✓ PO = our work order, ✓ the agreed cost, ✓ tax and shipping, ≠ ship via (Will Call)`, rd && rd.rows[0][2] === '✓ our work order' && rd.rows[1][2] === '✓ the agreed cost' && rd.rows[2][2] === '✓ ' && rd.rows[3][1] === 'USPS Priority Mail' && rd.rows[3][2] === '≠ Will Call' && rd.zoneHidden, rd);
-    ok(`${w}: only the mismatch is asked, with its two answers, and Record waits for it (greyed)`, rd && /The vendor says it shipped by USPS Priority Mail; the work order says Will Call\. Which is right\?/.test(rd.head) && rd.ans.join('|') === 'It was picked up|It shipped: add tracking' && rd.rec, rd);
+    ok(`${w}: only the mismatch is asked, with its two answers, and Record waits for it (greyed), saying why in words`, rd && /The vendor says it shipped by USPS Priority Mail; the work order says Will Call\. Which is right\?/.test(rd.head) && rd.ans.join('|') === 'It was picked up|It shipped: add tracking' && rd.rec && await p.evaluate(() => document.querySelector('[data-vb-read] .vb-why').textContent === 'Answer the shipping question first'), rd);
     await p.click('[data-vb-read] .vb-ans button:has-text("It shipped: add tracking")'); await p.waitForTimeout(100);
     ok(`${w}: "It shipped" asks for its tracking`, await p.evaluate(() => !!document.querySelector('[data-vb-read] input[name=tracking]')));
     await p.click('[data-vb-read] .vb-ans button:has-text("It was picked up")'); await p.waitForTimeout(100);
-    ok(`${w}: "It was picked up" takes the tracking away, and Record the vendor bill is ready`, await p.evaluate(() => !document.querySelector('[data-vb-read] input[name=tracking]') && !document.querySelector('[data-vb-read] .vb-btns .go').disabled));
+    ok(`${w}: "It was picked up" takes the tracking away, shows ✓ chosen with the other dimmed, and Record the vendor bill is ready, the QuickBooks line under it`, await p.evaluate(() => { const r = document.querySelector('[data-vb-read]'), [a, b] = r.querySelectorAll('.vb-ans button');
+      return !r.querySelector('input[name=tracking]') && !r.querySelector('.vb-btns .go').disabled && a.getAttribute('aria-pressed') === 'true' && getComputedStyle(a, '::before').content.includes('✓') && b.classList.contains('vb-dim') && /picked up is recorded on the Delivery line too/.test(r.querySelector('.vb-why').textContent); }));
     await p.screenshot({ path: `${shots}/m1b-read-${w}.png`, fullPage: false });
     await Promise.all([p.waitForNavigation({ timeout: 15000 }).catch(() => {}), p.click('[data-vb-read] .vb-btns .go')]); await p.waitForTimeout(700);
     v = await line(p, 'Vendor');
     ok(`${w}: Record the vendor bill → Billed $256.83 (inv 130929, Nov 17) · due Dec 17, ↗ to their bill, ✎ greyed (it's in QuickBooks)`, v && v.text === 'Billed $256.83 (inv 130929, Nov 17) · due Dec 17.' && /bill/.test(v.icons[0].href || '') && v.icons[1].off && /change it there/.test(v.icons[1].t), v);
     ok(`${w}: the bill is in QuickBooks (mock), its answer kept`, sql(`SELECT CONCAT(qb_bill_id, '|', source, '|', answers LIKE '%It was picked up%') FROM order_vendor_bills WHERE order_id = ${A}`) === `MBL-${sql(`SELECT id FROM order_vendor_bills WHERE order_id = ${A}`)}|read|1`);
-    ok(`${w}: the page says what happened (Success)`, await p.evaluate(() => /Recorded Competition Proofs's invoice 130929/.test(document.body.textContent)));
+    ok(`${w}: the page says what happened (Success), the pickup too`, await p.evaluate(() => /Recorded Competition Proofs's invoice 130929/.test(document.body.textContent) && /Picked up is recorded on the Delivery line too/.test(document.body.textContent)));
+    const dl2 = await line(p, 'Delivery');
+    ok(`${w}: one fact, answered once: Vendor's "It was picked up" recorded the pickup on Delivery (paid, so the order completed)`, dl2 && /^Delivered on .*, recorded by Staff\.$/.test(dl2.text) && sql(`SELECT stage FROM orders WHERE id = ${A}`) === 'complete', dl2);
     await p.click(`.cs-line:nth-of-type(${vi + 1}) [data-cs-tk]`); await p.waitForTimeout(200);
     const tk2 = await p.evaluate((i) => [...document.querySelectorAll('.cs-line')[i].querySelectorAll('.cs-tki')].map((x) => [x.querySelector('button, a').textContent, !!x.querySelector('button[disabled]'), x.querySelector('small').textContent]), vi);
     ok(`${w}: billed ⋯: Drop greyed, Not billed greyed (billed already), Dispute… open, Cancel the record greyed (void it in QuickBooks)`, tk2[0][1] && tk2[1][1] && tk2[1][2] === 'They billed it already' && !tk2[2][1] && tk2[3][1] && /void it there/.test(tk2[3][2]), tk2);
@@ -95,6 +101,15 @@ const press = async (p, sel, yes) => {   // a button that asks first: its yes in
     ok(`${w}: Dispute… → Disputed: their invoice 130929 for $256.83 (Billed shipping on a pickup)`, v && v.text === 'Disputed: their invoice 130929 for $256.83 (Billed shipping on a pickup).', v);
     ok(`${w}: no sideways scroll on the order`, await p.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
     await p.screenshot({ path: `${shots}/m1b-billed-${w}.png` });
+
+    // ---- the other way: Yes, picked up on Delivery first, then the read finds it answered ----
+    const K = id('Picked Co'); await open(K);
+    await press(p, '.cs-lines button[value=picked_up]', 'Record it');
+    await p.setInputFiles('[data-vb-file]', path.join(tmp, 'inv-match.pdf'));
+    await p.waitForSelector('[data-vb-read]:not([hidden]) .vb-tbl', { timeout: 20000 }).catch(() => {});
+    rd = await p.evaluate(() => { const r = document.querySelector('[data-vb-read]'); return r && !r.hidden ? { rows: [...r.querySelectorAll('.vb-tbl tr')].map((t) => [...t.cells].map((c) => c.textContent)), qs: r.querySelectorAll('.vb-ans').length, rec: r.querySelector('.vb-btns .go').disabled } : null; });
+    ok(`${w}: Delivery answered first: the read says ✓ Will Call, picked up (today), asks nothing, and Record is ready`, rd && /^✓ Will Call, picked up [A-Z][a-z]{2} \d+$/.test(rd.rows[3][2]) && rd.qs === 0 && !rd.rec, rd);
+    await p.screenshot({ path: `${shots}/m1b-answered-${w}.png` });
 
     // ---- an amount over the agreed cost, on Typed Co's two work orders: the PO names WO0001 (not this order) ----
     await open(T);
@@ -158,12 +173,11 @@ const press = async (p, sel, yes) => {   // a button that asks first: its yes in
     ok(`${w}: a released order handled outside: no "The client's checkout" line`, await p.evaluate(() => !/The client's checkout:/.test(document.body.textContent)));
 
     // ---- the board ----
-    sql(`DELETE FROM order_vendor_bills WHERE order_id = ${A}`);
     await p.goto(`${base}/admin/backoffice/orders`, { waitUntil: 'domcontentloaded' });
     await p.waitForFunction(() => document.querySelector('tbody tr[data-id]'), null, { timeout: 15000 }).catch(() => {});
     await p.waitForTimeout(600);
-    const nx = await p.evaluate((A) => { const r = document.querySelector(`tbody tr[data-id="${A}"] [data-col=next]`); return r ? r.textContent : null; }, A);
-    ok(`${w}: the board: QB Paid Co's Next step is Record the vendor bill (Needs us)`, nx && /Record the vendor bill/.test(nx), nx);
+    const nx = await p.evaluate((A) => { const r = document.querySelector(`tbody tr[data-id="${A}"] [data-col=next]`); return r ? r.textContent : null; }, T);
+    ok(`${w}: the board: Typed Co's Next step is Record the vendor bill (Needs us), its vendors having shipped`, nx && /Record the vendor bill/.test(nx), nx);
     ok(`${w}: no script errors`, !errs.length, errs);
     await c.close();
   }

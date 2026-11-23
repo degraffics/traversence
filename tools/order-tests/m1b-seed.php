@@ -8,6 +8,7 @@
 //   QB Open Co   approved, owes $1,111.14, invoice 112907 named by hand (open in QuickBooks): a payment recorded here posts to it
 //   Billed Co    in production, work order shipped, the vendor's bill recorded and in QuickBooks
 //   Typed Co     paid, shipped; work order shipped, two work orders to two vendors, not billed
+//   Picked Co    ready for pickup, owed (released); the same work order as QB Paid Co: Yes, picked up first, then the read
 declare(strict_types=1);
 ob_start(); require __DIR__ . '/m1-seed.php'; ob_end_clean();
 $pdo = new PDO('mysql:host=127.0.0.1;dbname=tvh', 'tv', 'tv', [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
@@ -42,4 +43,8 @@ $pdo->prepare("INSERT INTO order_ledger (order_id, kind, amount_cents, method, r
 $ev($t, 'stage', 'Shipped', -2);
 $wo($t, ['wo_no' => '20261102-WO0003', 'status' => 'shipped', 'delivery' => 'ups', 'cost_cents' => 30000]);
 $wo($t, ['wo_no' => '20261102-WO0004', 'vendor' => 'Mesa Bindery', 'status' => 'shipped', 'delivery' => 'ups', 'cost_cents' => 4500]);
-foreach (['QB Paid Co' => $a, 'QB Open Co' => $b, 'Billed Co' => $c, 'Typed Co' => $t] as $n => $id) echo "$n=$id\n";
+// Picked Co: like QB Paid Co but money owed (released), so "Yes, picked up" leaves it open: the read finds pickup answered
+$k = $mk('Picked Co', ['stage' => 'ready', 'pay_mode' => 'full'], 'ready');
+$ev($k, 'released', 'Released before payment by an admin: agreed terms', -27); $ev($k, 'stage', 'Ready for pickup', -21);
+$wo($k, []);
+foreach (['QB Paid Co' => $a, 'QB Open Co' => $b, 'Billed Co' => $c, 'Typed Co' => $t, 'Picked Co' => $k] as $n => $id) echo "$n=$id\n";
