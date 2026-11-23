@@ -19,10 +19,13 @@ Each rule below comes from a real mistake (in brackets) so it isn't repeated.
 - **Start from the newest sync**: fetch the mirror, and if a release went live after its last "Sync:" commit, ask the
   session manager to run one. Never build on a copy held earlier in the session. [#117's follow-up was nearly built on 01:32.]
 - **Claim before writing** (`checkout.py claim`), as CLAUDE.md says.
-- **Build with live data** (Jason, 2026-11-23: "for building we must use live data"): check a build's state, examples
-  and mockups against the live site's own records, through a read-only channel, never by guessing or sample rows alone.
-  What's read stays out of the repo (clients' names and details are private: CLAUDE.md, decisions/0066); the health report
-  stays totals only (0145 §1).
+- **Build with live data, through the test accounts** (Jason, 2026-11-23: "this is why we have those accounts, we use them
+  for building and audits, so we should not be reinventing things when we already have the tools to do our job"): check a
+  build's state, examples and mockups against the live site's own records, never by guessing or sample rows alone. Start
+  `.github/workflows/live-read.yml` (Run workflow: `orders`, or `order` with its number): it signs in as the test
+  Executive from `CHECK_ACCOUNTS`, opens only those admin pages, presses nothing (every write is refused), and keeps the
+  text and pictures as a 1-day artifact. Never build a new access path when one exists. What's read stays out of the
+  repo (clients' names and details are private); the health report stays totals only (0145 §1).
 
 ## 2. Building
 

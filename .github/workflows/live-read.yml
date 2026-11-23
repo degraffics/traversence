@@ -1,0 +1,57 @@
+# Live read for building (Jason, 2026-11-23: "this is why we have those accounts, we use them for building and audits").
+# Run by hand only (a build session starts it): signs in as the test Executive from CHECK_ACCOUNTS through the page checks'
+# kit (tools/page-audit/check-kit.mjs), opens only the named admin pages, presses nothing, and keeps what they show as
+# this run's artifact for one day. Nothing is committed; nothing on the site changes (tools/page-audit/live-read.mjs).
+name: Live read (build)
+
+on:
+  workflow_dispatch:
+    inputs:
+      read:
+        description: 'What to read'
+        type: choice
+        options: [orders, order]
+        default: orders
+      order_id:
+        description: "The order's number (for: order)"
+        type: string
+        default: ''
+
+permissions:
+  contents: read
+
+concurrency:
+  group: live-read
+  cancel-in-progress: false
+
+jobs:
+  read:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: tools/page-audit
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Playwright and Chromium
+        run: |
+          npm install --no-save --no-audit --no-fund playwright@1.48.2
+          npx playwright install --with-deps chromium
+      - name: Read the pages (read-only)
+        env:
+          SITE: https://traversence.com
+          CHECK_ACCOUNTS: ${{ secrets.CHECK_ACCOUNTS }}
+          READ: ${{ inputs.read }}
+          ORDER_ID: ${{ inputs.order_id }}
+          OUT: live-read
+        run: node tools/page-audit/live-read.mjs
+      - name: Keep it with the run for one day (never committed)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: live-read
+          path: live-read/
+          retention-days: 1
+          if-no-files-found: ignore
