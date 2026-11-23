@@ -1,0 +1,18 @@
+{
+ "zip": "old-titles.zip",
+ "built_on": "368b89b Sync: 2026-11-23 04:13 UTC",
+ "recorded": "2026-11-23 04:17 UTC",
+ "note": "Alarms raised before #258 redrawn in today's words; built on Sync 04:13 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/ControlAlarms.php": {
+   "sha256": "cc579666e7831046f53af8fd203fa9d907dfa457bafb5f41fdad41b7ef0c31ef",
+   "live": false
+  },
+  "app/lib/ServiceHealth.php": {
+   "sha256": "40ba0685455da02b43bdab0b5165acf64242c2111da053cdd0f9f23159391169",
+   "live": false
+  }
+ }
+}

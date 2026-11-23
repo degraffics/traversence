@@ -1,0 +1,10 @@
+{
+ "title": "Alarms raised before #258 redrawn in today's words (no host, caller or job id in a title)",
+ "why": "An alarm keeps the title it was raised with: a held trip's raiser doesn't fire again, so the alarms open since before #258 still read 'index.commoncrawl.org: Its server failed (the crawler, on Railway)', 'The job \"identity_recheck_tick\" never finished' and 'W1: its task overture_bulk failed (run #1290)'. The board's watch now redraws each open alarm's title from its state with the same words today's raiser uses (a service by its part's name, a job by its plain name, a task by its endpoint or its own code), and its Pulse thread's title in place. Nothing is sent, nothing made unread, nothing else changes; a second pass changes nothing (words follow the state, principle 4; the session manager, 2026-11-23).",
+ "changes": [
+  {"what": "The alarms' titles on the System Control Board", "where": "https://traversence.com/admin/config/control"},
+  {"what": "The same alarms' titles in Pulse", "where": "https://traversence.com/admin/dashboard/stream"}
+ ],
+ "proposals": [],
+ "switch": ""
+}
