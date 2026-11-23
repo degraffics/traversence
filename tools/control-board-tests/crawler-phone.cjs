@@ -8,6 +8,8 @@ const html = execFileSync('php', [path.join(__dirname, 'crawler-phone-page.php')
 let pass = 0, fail = 0; const t = (n, ok, got) => { if (ok) { pass++; console.log('  ok  ' + n); } else { fail++; console.log('FAIL  ' + n + ' — ' + JSON.stringify(got).slice(0, 300)); } };
 t('a failure in words, never the server\'s page', html.includes('503 Service Unavailable') && !html.includes('&lt;!DOCTYPE'), '');
 t('no "From ." for a task with no source named', !html.includes('From .'), '');
+// a month's count in what the service counts (Railway records seconds running: never "calls"), money in dollars
+t('a workflow\'s Railway line: hours running and dollars ("130.4 h running, $0.65"), never calls or cents', html.includes('Railway 130.4 h running, $0.65') && !/Railway [\d,]+ calls/.test(html) && !html.includes('¢'), (html.match(/This month: [^<]{0,80}/) || [''])[0]);
 (async () => { const b = await chromium.launch();
  for (const w of [1280, 390, 360]) { const p = await b.newPage({ viewport: { width: w, height: 1000 } });
   await p.route('**/*', r => r.fulfill({ body: html, contentType: 'text/html' })); await p.goto('http://t.local/admin/insights/crawler');
