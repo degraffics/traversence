@@ -7,6 +7,7 @@ $root = getenv('ROOT'); $app = $root . '/app';
 $u = parse_url($_SERVER['REQUEST_URI']); $path = $u['path']; parse_str($u['query'] ?? '', $q);
 if (str_starts_with($path, '/js/')) { $f = $root . '/website' . $path; if (!is_file($f)) { http_response_code(404); return true; } header('Content-Type: text/javascript'); readfile($f); return true; }
 require_once $app . '/lib/Database.php'; $pdo = Database::connection();
+if (getenv('GAUGES_FILE') && is_file($app . '/lib/ControlGauges.php')) { require_once $app . '/lib/ControlGauges.php'; ControlGauges::$source = (string) getenv('GAUGES_FILE'); }   // the gauges from a local copy (the gauge panel's tests)
 if (is_file($app . '/admin/Access.php')) require_once $app . '/admin/Access.php';
 require_once $app . '/admin/widgets.php'; require_once $app . '/ui/app-shell.php';
 if (session_status() !== PHP_SESSION_ACTIVE) @session_start(); $_SESSION['csrf_token'] = 'x';
@@ -21,6 +22,17 @@ if ($path === '/admin/api/config/alarms' && ($q['action'] ?? 'list') === 'list')
     $tools = require $app . '/admin/tools.php';
     [$rows, $total, $counts] = ($tools['config/alarms']['list'])($pdo, $q);
     header('Content-Type: application/json'); echo json_encode(['ok' => true, 'rows' => $rows, 'total' => $total, 'capped' => false, 'counts' => (object) $counts, 'per' => 25, 'sortable' => []]); return true;
+}
+if ($path === '/admin/api/config/control' && ($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {   // a gauge panel's tasks, as api.php answers them (GaugeTasks; gauge-panel.cjs)
+    $in = json_decode((string) file_get_contents('php://input'), true) ?: []; $act = (string) ($in['action'] ?? ''); $pid = (string) ($in['id'] ?? '');
+    require_once $app . '/lib/GaugeTasks.php'; header('Content-Type: application/json');
+    try {
+        if ($act === 'gaugeundo') { echo json_encode(['ok' => true, 'message' => GaugeTasks::undo($pdo, (int) $pid, 'Jason (test)')]); return true; }
+        if ($act === 'gaugefix') { $nid = GaugeTasks::fix($pdo, $pid, (string) $in['item'], (string) $in['b'], (string) $in['what'], (string) $in['build'], 'Jason (test)', 1);
+            echo json_encode(['ok' => true, 'id' => $nid, 'line' => '<b>Fixing:</b> ' . htmlspecialchars((string) $in['what']) . ' · sent to the ' . htmlspecialchars((string) $in['build']) . ' build · Jason (test), now. It clears itself once its check passes.']); return true; }
+        if ($act === 'gaugeapprove') { $k = ($in['kind'] ?? '') === 'target' ? 'target' : 'scope'; $nid = GaugeTasks::approve($pdo, $pid, $k, (string) ($in['value'] ?? ''), (string) ($in['title'] ?? ''), 'Jason (test)', 1);
+            echo json_encode(['ok' => true, 'id' => $nid, 'line' => '<b>' . ($k === 'scope' ? 'Scope approved' : 'Target approved') . '</b> by Jason (test), now.']); return true; }
+    } catch (Throwable $x) { echo json_encode(['ok' => false, 'error' => ['message' => $x->getMessage()]]); return true; }
 }
 if (str_starts_with($path, '/admin/api/')) { header('Content-Type: application/json'); echo '{"ok":true,"rows":[],"total":0,"counts":{}}'; return true; }
 require_once $app . '/ui/theme-tokens.php'; ob_start(); include $app . '/admin/kit-css.php'; $css = tv_theme_tokens() . ob_get_clean();
