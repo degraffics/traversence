@@ -81,6 +81,33 @@ sc('faults', 'S-B23', 'Bluehost\'s bot check (409 humans_) or ModSecurity (406) 
     chk('state: Paused by the system at once (a refusal needs a person)', ($a['level'] ?? '') === 'trip', $a);
     chk('hold: the tasks that call that endpoint', holds() === LOADS_TASKS, holds());
 });
+sc('faults', 'S-B23b', 'the worker\'s own shape: site_blocked is a count (crawler.py SITE_BLOCKED), never an endpoint (the /api/0 trip, live 2026-11-23)', ['g1:25', 'g1:26'], function () {
+    $pdo = $GLOBALS['pdo'];
+    report(['coverage' => ['done', '']], ['site_blocked' => 0]);
+    $open = fn () => $pdo->query("SELECT akey, component, level FROM control_alarms WHERE cleared_at IS NULL")->fetchAll(PDO::FETCH_ASSOC);
+    chk('a run with 0 refused calls raises nothing (never /api/0)', !array_filter($open(), fn ($x) => str_contains((string) $x['akey'], ':blocked')), $open());
+    report(['coverage' => ['done', '']], ['site_blocked' => 3]);
+    $b = array_values(array_filter($open(), fn ($x) => $x['akey'] === 'ep:crawl:blocked'))[0] ?? null;
+    chk('3 refused calls: one refusal on the crawler\'s endpoints, /api/crawl/, held at once', $b !== null && $b['level'] === 'trip' && $b['component'] === 'ep:crawl', $open());
+    chk('…its words name /api/crawl, never a number', ($x = alarm('ep:crawl:blocked')) && str_contains((string) $x['title'], '/api/crawl') && !preg_match('#/api/\d#', (string) $x['title']), $x['title'] ?? null);
+    report(['coverage' => ['done', '']], ['site_blocked' => ['0' => ['status' => 409], 'crawl/verify' => ['status' => 409, 'body' => 'humans_1=1']]]);
+    chk('a map is read by its named endpoints only (a numeric key skipped)', alarm('ep:0:blocked') === null && alarm('ep:crawl/verify:blocked') !== null, $open());
+});
+sc('faults', 'S-B23c', 'the trip raised in error on /api/0 closes on its thread as raised in error, never Recovered', [], function () {
+    $pdo = $GLOBALS['pdo'];
+    ControlAlarms::raise($pdo, 'ep:0:blocked', 'ep:0', 'trip', 'held', 'Bluehost\'s bot check refused the crawler at /api/0', 'x', 'y', '0', [], true, false, 'ep:0');
+    $id = (int) $pdo->query("SELECT id FROM control_alarms WHERE akey = 'ep:0:blocked'")->fetchColumn();
+    $pdo->exec("UPDATE control_alarms SET tripped_at = COALESCE(tripped_at, UTC_TIMESTAMP()) WHERE id = $id");
+    $m0 = count(mails()); $p0 = count(pushes());
+    report(['coverage' => ['done', '']], ['site_blocked' => 0]);
+    $a = ControlAlarms::byId($pdo, $id);
+    chk('closed, saying it was raised in error', $a && $a['cleared_at'] !== null && str_starts_with((string) $a['cleared_how'], 'Closed: raised in error'), $a['cleared_how'] ?? null);
+    $m = array_values(array_filter(msgs(), fn ($x) => $x['thing'] === 'alarm:' . $id));
+    chk('its Pulse item updated in place to Closed, never Recovered', count($m) <= 1 && (!$m || (str_ends_with((string) $m[0]['title'], ': Closed') && !str_contains((string) $m[0]['body'], 'Recovered'))), [$m[0]['title'] ?? 'no Pulse item', $m[0]['body'] ?? '']);
+    chk('no new push for the close', count(pushes()) === $p0, [count(pushes()), $p0]);
+    report(['coverage' => ['done', '']], ['site_blocked' => 0]);
+    chk('once: a later run finds nothing to close', ControlAlarms::byId($pdo, $id)['cleared_at'] !== null && count(array_filter(msgs(), fn ($x) => $x['thing'] === 'alarm:' . $id)) <= 1);
+});
 // -- outside services: back kinds (24–28) ---------------------------------------------------------------------------------
 sc('faults', 'S-B24', 'timeouts in a burst inside one run: one fault, a Warning trying again (1 of 3)', ['g2:18', 'g2:16', 'g1:4', 'g1:11', 'g2:26', 'g1:5', 'g2:31', 'g2:3', 'g2:25'], function () {
     chk('a DuckDB read failing at Overture\'s regional S3 host is Overture\'s, never Amazon Web Services\' (g1 row 5; g2 row 31)', ControlEngine::classifyTask($GLOBALS['pdo'], 'overture_bulk', 'IO Error: HTTP 503', ['overturemaps-us-west-2.s3.us-west-2.amazonaws.com' => [4, 4, 'HTTP 503']]) === 'svc:overture', ControlEngine::classifyTask($GLOBALS['pdo'], 'overture_bulk', 'IO Error: HTTP 503', ['overturemaps-us-west-2.s3.us-west-2.amazonaws.com' => [4, 4, 'HTTP 503']]));
