@@ -41,6 +41,19 @@
    "expires": "2026-11-23T17:15:06Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/admin/control-console.php",
+   "functions": [
+    "tv_cb_alarms"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "board-panels: one panel at a time, Copy all, panels titled by the part (Jason, 2026-11-23)",
+   "since": "2026-11-23T13:15:08Z",
+   "expires": "2026-11-23T17:15:08Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
