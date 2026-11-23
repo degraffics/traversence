@@ -5,8 +5,8 @@
 //   "What's wrong now": chips in place of the alarm text (no strip, no healthy/held/needs-me boxes on the landing); each
 //   chip pressed: its list opens, one at a time, × / Esc / outside close it, an item opens its part in the one side panel
 //   titled by the part's name; Paused now opens its page, which keeps the strip and the three boxes whole;
-//   Board lands on "Is it delivering?" beside Development (side by side at 1280, Stacked switch, kept on reload; stacked
-//   at 390); every rail item pressed: Development alone, Diagnostics with the stages and tables (Incidents among them),
+//   Board lands on "Is it delivering?" alone, full width (Jason, 2026-11-23: "development is its own page, not side by
+//   side on control board"); every rail item pressed: Development alone, Diagnostics with the stages and tables (Incidents among them),
 //   Modules and Workflows their own pages; nothing wider than the window. Screenshots beside the mockup's, to <shots>.
 // Run after the start schema, 2a's ledger and board-panels-seed.php: node board-opening.cjs <root> [shots dir]
 const { chromium } = require('playwright'); const { spawn } = require('child_process'); const path = require('path');
@@ -46,23 +46,11 @@ const titles = p => p.evaluate(() => { const bad = []; let n = 0;
       t(L + '"What\'s wrong now": chips with their counts (Trips, Warnings, Caps, …)', chips.length >= 3 && chips.some(c => /^Warnings\d+$/.test(c)) && chips.some(c => /^Caps\d+$/.test(c)), chips);
       t(L + '…no alarm text wall on the landing: the strip and the healthy, held and needs-me boxes are off it', !(await vis(p, '#cb .cb-strip')) && !(await vis(p, '#cb-q3')), [await vis(p, '#cb .cb-strip'), await vis(p, '#cb-q3')]);
       t(L + '…no tile rows or stage line on the landing (the stages, tables and the stage\'s words are Diagnostics\')', !(await vis(p, '#cb .cb-stages')) && await p.evaluate(() => [...document.querySelectorAll('#cb .cb-diagnav')].every(x => !x.getClientRects().length)), await vis(p, '#cb .cb-stages'));
-      const gap = await p.evaluate(() => { const d = document.getElementById('cb-dev'), f = d && [...d.children].find(x => x.getClientRects().length); return f ? Math.round(f.getBoundingClientRect().top - d.getBoundingClientRect().top) : -1; });
-      t(L + '…Development starts at the top of its column (no stretched gap)', gap >= 0 && gap < 40, gap);
-      // the landing
-      t(L + 'Board: "Is it delivering?" and Development both shown', await vis(p, '#cb-deliver') && await vis(p, '#cb-dev') && await vis(p, '.cb-landh'), [await vis(p, '#cb-deliver'), await vis(p, '#cb-dev')]);
-      let d1 = await box(p, '#cb-deliver'), d2 = await box(p, '#cb-dev');
-      if (w > 767) {
-        t(L + '…side by side ("2 columns")', d2.l > d1.r - 2 && Math.abs(d2.t - d1.t) < 30, { d1, d2 });
-        await p.click('[data-cb-layout="rows"]'); await p.waitForTimeout(300); d1 = await box(p, '#cb-deliver'); d2 = await box(p, '#cb-dev');
-        t(L + '…Stacked puts Development under it', d2.t >= d1.b - 2 && Math.abs(d2.l - d1.l) < 4, { d1, d2 });
-        await p.reload(); await p.waitForTimeout(1300); d1 = await box(p, '#cb-deliver'); d2 = await box(p, '#cb-dev');
-        t(L + '…and is kept on reload', d2.t >= d1.b - 2 && await p.getAttribute('[data-cb-layout="rows"]', 'aria-pressed') === 'true', { d1, d2 });
-        await p.click('[data-cb-layout="grid"]'); await p.waitForTimeout(300);
-      } else t(L + '…stacked on a phone (Development under it), the switch out of the way', d2.t >= d1.b - 2 && !(await vis(p, '.cb-seg')), { d1, d2 });
+      // the landing: Board is "Is it delivering?" alone, full width; Development is its own page (Jason, 2026-11-23)
+      t(L + 'Board: "Is it delivering?" alone, full width; Development not on it; no 2 columns / Stacked switch', await vis(p, '#cb-deliver') && !(await vis(p, '#cb-dev')) && await vis(p, '.cb-landh') && !(await p.$('[data-cb-layout]'))
+        && await p.evaluate(() => { const d = document.getElementById('cb-deliver').getBoundingClientRect(), m = document.querySelector('.cb-main').getBoundingClientRect(); return d.width >= m.width - 4; }), [await vis(p, '#cb-deliver'), await vis(p, '#cb-dev')]);
       let tt = await titles(p);
-      t(L + 'every gauge title whole: not cut, nothing over it, at most 3 lines (' + (w > 767 ? '2 columns' : 'phone') + ')', tt.n > 10 && !tt.bad.length, tt);
-      if (w > 767) { await p.click('[data-cb-layout="rows"]'); await p.waitForTimeout(300); tt = await titles(p);
-        t(L + '…and Stacked', tt.n > 10 && !tt.bad.length, tt); await p.click('[data-cb-layout="grid"]'); await p.waitForTimeout(300); }
+      t(L + 'every gauge title on Board whole: not cut, nothing over it, at most 3 lines', tt.n > 10 && !tt.bad.length, tt);
       const cpy = await p.evaluate(() => [...document.querySelectorAll('#cb .cb-gc')].filter(c => c.getClientRects().length).every(c => { const b = c.querySelector(':scope > .cb-gcopy > .tv-copy-b'); return !!b; }));
       t(L + '…each card keeps its Copy, under its buttons (a slot at the card\'s foot), none on the title line', cpy);
       if (shots) await p.screenshot({ path: shots + '/build-landing-' + w + '.png' });
@@ -95,13 +83,17 @@ const titles = p => p.evaluate(() => { const bad = []; let n = 0;
       // every rail item pressed
       await p.click('[data-cb-rail="development"]'); await p.waitForTimeout(400);
       t(L + 'rail Development: Development alone, current', await vis(p, '#cb-dev') && !(await vis(p, '#cb-deliver')) && !(await vis(p, '.cb-landh')) && await p.getAttribute('[data-cb-rail="development"]', 'aria-current') === 'page');
+      tt = await titles(p); t(L + '…its gauge titles whole too', tt.n >= 16 && !tt.bad.length, tt);
+      if (shots) await p.screenshot({ path: shots + '/build-development-' + w + '.png' });
+      const gap = await p.evaluate(() => { const d = document.getElementById('cb-dev'), f = d && [...d.children].find(x => x.getClientRects().length); return f ? Math.round(f.getBoundingClientRect().top - d.getBoundingClientRect().top) : -1; });
+      t(L + '…its page starts at the top (no stretched gap)', gap >= 0 && gap < 40, gap);
       await p.click('[data-cb-rail="diagnostics"]'); await p.waitForTimeout(400);
       const dg = await p.evaluate(() => [...document.querySelectorAll('.cb-diagnav [data-cb-tab]')].map(x => x.getAttribute('data-cb-tab')));
       t(L + 'rail Diagnostics: the stages and the tables (Incidents, Alarms, Logbook, Ledger, Upkeep, Reports, Scheduled tasks), current', await vis(p, '.cb-stages.cb-diagnav') && ['incidents', 'alarms', 'log', 'ledger', 'upkeep', 'reports', 'scheduler', 'observe'].every(k => dg.includes(k)) && !(await vis(p, '#cb-deliver')) && await p.getAttribute('[data-cb-rail="diagnostics"]', 'aria-current') === 'page', dg);
       await p.click('.cb-diagnav [data-cb-tab="alarms"]'); await p.waitForTimeout(500);
       t(L + '…a table (Alarms) keeps Diagnostics current', await p.getAttribute('[data-cb-rail="diagnostics"]', 'aria-current') === 'page' && await vis(p, '#cb-tab-alarms'));
       await p.click('[data-cb-rail="deliver"]'); await p.waitForTimeout(400);
-      t(L + 'rail Board: back to the landing', await vis(p, '#cb-deliver') && await vis(p, '#cb-dev') && await p.getAttribute('[data-cb-rail="deliver"]', 'aria-current') === 'page');
+      t(L + 'rail Board: back to the landing ("Is it delivering?" alone)', await vis(p, '#cb-deliver') && !(await vis(p, '#cb-dev')) && await p.getAttribute('[data-cb-rail="deliver"]', 'aria-current') === 'page');
       t(L + 'nothing wider than the window', await noSide(p));
       for (const [v, u] of [['modules', '/admin/config/register'], ['workflows', '/admin/config/workflows']]) {
         await p.goto(home); await p.waitForTimeout(900);

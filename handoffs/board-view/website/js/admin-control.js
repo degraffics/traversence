@@ -207,10 +207,11 @@
   afilter();
   // the six stages are tabs (Jason, 2026-11-19: "When clicked that information is what is on page, everything else goes
   // away"): each shows only its part; the one the system is in opens first; a link to a part opens its tab; kept through redraws
-  // the opening view (2026-11-23): Board shows "Is it delivering?" beside Development; Paused now is its own page (its
+  // the opening view (2026-11-23): Board shows "Is it delivering?" alone; Development is its own page (Jason, 2026-11-23:
+  // "development is its own page, not side by side on control board"); Paused now is its own page (its
   // chip); the stage and table rows are Diagnostics' and show only there
   var DIAG = 'preflight startup observe shutdown maintenance history alarms log ledger upkeep reports scheduler incidents';
-  var PARTS = [['#cb-deliver', 'deliver'], ['#cb-dev', 'development deliver'], ['.cb-landh', 'deliver'], ['#cb-paused-page', 'paused'], ['.cb-diagnav', DIAG], ['#cb-incidents', 'incidents'], ['#preflight', 'preflight'], ['#cb-pfres', 'preflight startup'], ['#cb-controls', 'startup observe shutdown maintenance'], ['#cb-alarms', 'observe'], ['#cb-times', 'observe'],
+  var PARTS = [['#cb-deliver', 'deliver'], ['#cb-dev', 'development'], ['.cb-landh', 'deliver'], ['#cb-paused-page', 'paused'], ['.cb-diagnav', DIAG], ['#cb-incidents', 'incidents'], ['#preflight', 'preflight'], ['#cb-pfres', 'preflight startup'], ['#cb-controls', 'startup observe shutdown maintenance'], ['#cb-alarms', 'observe'], ['#cb-times', 'observe'],
     ['#maintenance', 'maintenance'], ['#log', 'history'], ['#reports', 'history reports'],
     // the board's tables and pages as tabs (decisions/0175's note, release 2b part A): Alarms, Logbook, Ledger, Upkeep,
     // Reports, Scheduled tasks; Automation in Start-up; the system pre-flight's page in Pre-flight and Start-up
@@ -225,11 +226,6 @@
     var cur = tab === 'development' ? 'development' : tab === 'deliver' ? 'deliver' : (' ' + DIAG + ' ').indexOf(' ' + tab + ' ') >= 0 ? 'diagnostics' : '';
     box.querySelectorAll('[data-cb-rail]').forEach(function (b) { if (b.getAttribute('data-cb-rail') === cur) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current'); });
   }
-  // 2 columns or Stacked (the mockup's .seg), kept on this device
-  function layout(v) { var l = box.querySelector('.cb-land'); if (!l) return; l.setAttribute('data-layout', v);
-    box.querySelectorAll('[data-cb-layout]').forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-cb-layout') === v ? 'true' : 'false'); }); }
-  try { var lv = localStorage.getItem('cb-layout'); if (lv === 'rows' || lv === 'grid') layout(lv); } catch (e) {}
-  box.addEventListener('click', function (e) { var b = e.target.closest('[data-cb-layout]'); if (!b) return; var v = b.getAttribute('data-cb-layout'); layout(v); try { localStorage.setItem('cb-layout', v); } catch (x) {} });
   // "What's wrong now": one chip's list open at a time; ×, Esc, a click outside or choosing an item closes it
   function popsShut(but) { box.querySelectorAll('details.cb-pop[open]').forEach(function (d) { if (d !== but) d.open = false; }); }
   box.addEventListener('toggle', function (e) { if (e.target.matches && e.target.matches('details.cb-pop') && e.target.open) popsShut(e.target); }, true);

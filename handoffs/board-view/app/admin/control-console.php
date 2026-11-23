@@ -1385,10 +1385,10 @@ function tv_admin_mod_control(PDO $pdo): string
     // note: "The system pre-flight runs at Start the system … It's shown in the Start-up stage, with Run it again")
     $h .= '<div class="cb-top cb-pfres" id="cb-pfres">' . $pfres . '</div>';
     // the views' parts (03 §4, §27; gauge-lifecycle.md; 03 §7)
-    // Board: "Is it delivering?" beside Development (step3/board/index.html's landing), 2 columns or Stacked (kept on the device)
-    $h .= '<div class="cb-land" data-layout="grid"><div class="cb-landh"><h2 class="cb-vh">Is it delivering?</h2><div class="cb-seg" role="group" aria-label="Layout">'
-        . '<button type="button" data-cb-layout="grid" aria-pressed="true">2 columns</button><button type="button" data-cb-layout="rows" aria-pressed="false">Stacked</button></div></div>'
-        . '<div class="cb-lgrid">' . tv_cb_deliver($pdo, $alarms, $ac, $names) . tv_cb_development($pdo, $btn) . '</div></div>' . tv_cb_incidents($pdo, $names);
+    // Board: "Is it delivering?" alone, full width; Development is its own page from the rail (Jason, 2026-11-23:
+    // "development is its own page, not side by side on control board"; 03 §27)
+    $h .= '<div class="cb-landh"><h2 class="cb-vh">Is it delivering?</h2></div>'
+        . tv_cb_deliver($pdo, $alarms, $ac, $names) . tv_cb_development($pdo, $btn) . tv_cb_incidents($pdo, $names);
 
     // ---- the system's own controls; find, open all, close all
     $h .= '<div class="cb-bar" id="cb-controls"><div class="cb-acts">'
@@ -1575,12 +1575,8 @@ function tv_admin_mod_control(PDO $pdo): string
         . '#cb .cb-rail>[aria-current="page"]{background:var(--tv-card-a,#FFFBF2);box-shadow:0 0 0 1px var(--tv-line,#E5D9C3);font-weight:600}#cb .cb-rail>*:hover{background:var(--tv-card-a,#FFFBF2)}'
         . '#cb .cb-ric{flex:none}#cb .cb-rcnt{margin-left:auto;font-size:12px;color:var(--tv-meta,#6b5d49);border:1px solid var(--tv-line,#E5D9C3);border-radius:999px;padding:0 .45rem}'
         . '#cb .cb-vh{font:700 1.15rem var(--tv-font-head,inherit);margin:.2rem 0 .4rem}#cb .cb-landh{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;justify-content:space-between}'
-        . '#cb .cb-seg{display:inline-flex;gap:.25rem}#cb .cb-seg button{border:1px solid var(--tv-line-strong,#D8C9AE);background:var(--tv-card-a,#FFFBF2);border-radius:999px;padding:.2rem .7rem;font:inherit;font-size:12.5px;cursor:pointer;color:var(--tv-ink,#231D17)}'
-        . '#cb .cb-seg button[aria-pressed="true"]{background:var(--tv-umber,#3E2C22);color:var(--tv-card-a,#FFFBF2);border-color:var(--tv-umber,#3E2C22)}'
-        . '#cb .cb-lgrid{display:grid;grid-template-columns:minmax(0,1fr);gap:.8rem;align-items:start}#cb .cb-lgrid>.cb-view{align-content:start;margin-top:0}#cb[data-tab="deliver"] .cb-land[data-layout="grid"] .cb-lgrid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}'
-        . '#cb[data-tab="deliver"] .cb-land[data-layout="grid"] .cb-gg{grid-template-columns:repeat(auto-fill,minmax(10rem,1fr))}'
-        . '@media (max-width:1100px){#cb[data-tab="deliver"] .cb-land[data-layout="grid"] .cb-lgrid{grid-template-columns:minmax(0,1fr)}}'
-        . '@media (max-width:767px){#cb .cb-shell{grid-template-columns:minmax(0,1fr)}#cb .cb-rail{position:static;flex-direction:row;flex-wrap:wrap;gap:.2rem;padding:.2rem 0}#cb .cb-rail>button,#cb .cb-rail>a{width:auto;flex:0 0 auto;padding:.35rem .5rem}#cb .cb-rcnt{margin-left:.3rem}#cb .cb-seg{display:none}'
+        . '#cb .cb-landh{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center}'
+        . '@media (max-width:767px){#cb .cb-shell{grid-template-columns:minmax(0,1fr)}#cb .cb-rail{position:static;flex-direction:row;flex-wrap:wrap;gap:.2rem;padding:.2rem 0}#cb .cb-rail>button,#cb .cb-rail>a{width:auto;flex:0 0 auto;padding:.35rem .5rem}#cb .cb-rcnt{margin-left:.3rem}'
         . '#cb .cb-qbar{padding:.4rem;gap:.3rem}#cb .cb-popb{position:fixed;left:8px;right:8px;top:auto;width:auto;max-width:none;min-width:0}}'
         . '#cb .cb-m{display:inline-flex;width:1.35rem;height:1.35rem;border-radius:.3rem;align-items:center;justify-content:center;flex:0 0 auto;vertical-align:middle}#cb .cb-svg{width:.9rem;height:.9rem;fill:none;stroke:currentColor;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}'
         . '#cb summary{list-style:none;cursor:pointer}#cb summary::-webkit-details-marker{display:none}#cb details:not([open])>summary .cb-caret{display:inline-block;transform:rotate(-90deg)}#cb .cb-caret{color:#8a7a68;font-size:12px}'

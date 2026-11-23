@@ -23,7 +23,7 @@ Built on Sync 14:35 UTC (faq.md rebuilt on it; the other files unchanged since 1
     - the strip (beacon, Paused now, core hosts) and the three boxes moved onto the **Paused now** page;
     - the view tiles row removed (the rail replaces it);
     - the stage and table rows, with the stage's words, are Diagnostics' (`cb-diagnav`), with **Incidents** added to the tables;
-    - **Board's landing**: "Is it delivering?" beside Development, with the 2 columns / Stacked switch.
+    - **Board's landing**: "Is it delivering?" alone, full width. Development is its own page (Jason's ruling).
   - `tv_cb_deliver`: the three boxes are no longer at its top. `tv_cb_development`: unchanged but for where it sits.
 - `website/js/admin-control.js`:
   - which parts each view shows: Board = delivering + Development; Paused now; Diagnostics' rows;
@@ -49,10 +49,13 @@ Built on Sync 14:35 UTC (faq.md rebuilt on it; the other files unchanged since 1
   page" has the list. It applies to every part opened that way: services, jobs, hosts, workflows' lines. Notices and the
   site's dialogs stay.
 - **`gauges.py` works again.** `site-audit/results/rendered.json` (f0dc77d) has rows for staff sign-ins that timed out, with
-  no `status` or `size`. `step3/mockups/src/board.py` now counts such a row as no answer, so `--check` runs again. It now
-  says the committed `gauges.json` is stale, which is true: its audit inputs changed today. Regenerating would move one
-  approved draft number (System Configuration's preview, 48 in gauge-lifecycle.md §6, to 49), so the files are left as
-  they are until the session manager decides.
+  no `status` or `size`. `step3/mockups/src/board.py` now counts such a row as no answer. `gauges.json` and
+  `gauges-items.json` are regenerated (`--check` passes). One draft number moved with its inputs: System Configuration's
+  preview, 48 to 49. gauge-lifecycle.md §6 and gauges.php 5b now say 49, with the reason (the session manager: "draft
+  numbers track the data").
+- **Development is its own page** (Jason, 2026-11-23: "development is its own page, not side by side on control board").
+  Board is "Is it delivering?" alone, full width, with no 2 columns / Stacked switch. The rail's Development opens the 16
+  gauges, the lifecycle panel and Site health's list.
 
 ## Kept, moved, dropped
 
@@ -63,8 +66,8 @@ Built on Sync 14:35 UTC (faq.md rebuilt on it; the other files unchanged since 1
 | The views row (Is it delivering?, Development, Incidents) | Dropped as a row: Development and Board are on the rail, Incidents among Diagnostics' tables. |
 | The six stages row, and the stage's words | Moved under **Diagnostics**, unchanged. |
 | The tables row (Alarms, Logbook, Ledger, Upkeep, Reports, Scheduled tasks) | Moved under Diagnostics, unchanged, with Incidents first. |
-| Is it delivering? (the gauge boxes) | Board's landing, left column. |
-| Development (the 16 gauges, Site health) | Board's landing, right column; alone under the rail's Development. |
+| Is it delivering? (the gauge boxes) | Board's landing, alone, full width. |
+| Development (the 16 gauges, the lifecycle panel, Site health) | Moved to its own page: the rail's Development (Jason's ruling). Not on Board. |
 | Modules, Workflows | Their own pages, as before, now on the rail. |
 | Old addresses (`?tab=alarms`, `?tab=observe`, `#cb-alarm-N`, `?tab=deliver`) | Unchanged: each opens its part, the rail showing where you are. |
 
@@ -74,7 +77,7 @@ Where the build differs from the mockup:
 
 ## Proof (live alarms snapshot, 1280 and 390)
 
-- `tools/control-board-tests/board-opening.cjs`: **67/67** (with every gauge title whole: not cut, nothing over it, at most 3 lines, at 1280 in 2 columns and Stacked and at 390; each card's Copy at its foot), every rail item and every chip pressed.
+- `tools/control-board-tests/board-opening.cjs`: **64/64** (Board alone, Development its own page) (with every gauge title whole: not cut, nothing over it, at most 3 lines, at 1280 in 2 columns and Stacked and at 390; each card's Copy at its foot), every rail item and every chip pressed.
   - The rail: order, Board current, left or above.
   - The chips: each list opens one at a time, inside the window; ×, Esc and a click outside close it; an item opens one panel
     titled by its part.
@@ -91,4 +94,4 @@ Where the build differs from the mockup:
   now). The behaviour checked is the same.
 - `rendered-all.sh` now reports a test that stops part way as a failure. Before, it counted it as a pass with fewer checks:
   board-views stopped at 16 of 90 and still read 16/0.
-- The full sweeps (final build): `rendered-all` 453 passed. It flags dispatcher/r3 as stopped part way: it stops at the same place on the live code (Pulse's playbook drawer, `#pb-dr-play`), and the sweep's old counting hid it. `run-all`: 1521 passed, failures as on release 1; gauges.php 11a now reports the stale gauges.json (see above) instead of a traceback.
+- The full sweeps (final build): `rendered-all` 450 passed. It flags dispatcher/r3 as stopped part way: it stops at the same place on the live code (Pulse's playbook drawer, `#pb-dr-play`), and the sweep's old counting hid it. `run-all`: 1522 passed, the same failures as release 1 (gauges.php passes).

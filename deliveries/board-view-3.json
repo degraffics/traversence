@@ -1,13 +1,13 @@
 {
- "zip": "board-view-2.zip",
+ "zip": "board-view-3.zip",
  "built_on": "b374f63 Sync: 2026-11-23 14:35 UTC",
- "recorded": "2026-11-23 14:38 UTC",
- "note": "The board's opening view as approved, Copy at the gauge cards' foot, one part in the panel, the drawer's Back and margin; built on Sync 14:35 UTC (replaces the unsent board-view.zip) Sent through git (releases/inbox).",
+ "recorded": "2026-11-23 14:50 UTC",
+ "note": "The board's opening view: rail, chips, Board alone, Development its own page, one part in the panel, the drawer's Back and margin; built on Sync 14:35 UTC (replaces the unsent board-view-2.zip) Sent through git (releases/inbox).",
  "status": "pending",
  "live_in": "",
  "files": {
   "app/admin/control-console.php": {
-   "sha256": "464b035594c120431481df8887cf92eb1dbe5d0e9723390f9c3770c709118fed",
+   "sha256": "32389bc0211013cd43680aafc3efab5441b72713ec889618fbcd3005a33828ea",
    "live": false
   },
   "app/admin/kit-css.php": {
@@ -15,11 +15,11 @@
    "live": false
   },
   "app/ui/faq.md": {
-   "sha256": "5856452eedd2412fb6a8e375e62c6c7bcbbaff6e43a6a3232e40ddfb6c4dff88",
+   "sha256": "6bdbf1307fa87eeaaa6378be0273c162a770bc786e589b2c8b2e685f5d7bef8b",
    "live": false
   },
   "website/js/admin-control.js": {
-   "sha256": "9c97a46b29a82eb92d30beb201a40bf577fda09f3ab8aad0980f9654d9fe1566",
+   "sha256": "1672012b01df0d8ccc157f458d44f243d34951153bc1402e42b5d17581f1dd20",
    "live": false
   },
   "website/js/admin-kit.js": {

@@ -154,7 +154,8 @@ Every gauge is in **Planning at 0**, its configuration drafted from the inventor
 draft configuration"** shows what each would read if the draft were signed off, with the criteria from the page audit:
 Discovery 45%, Directory 52%, Community 39%, Marketplace 44%, TRVGO – Storefront 41%, Accounts 48%, Dashboard & Pulse 50%,
 Get Local 360° 48%, Let's Explore 360° 46%, Market 360° 49%, Social 360° 44%, Sales & Growth 46%, White Glove Concierge 23%,
-Back-Office 43%, Insights & Research 46%, System Configuration 48%. Each shows its real stage: 15 in Phased Development (a
+Back-Office 43%, Insights & Research 46%, System Configuration 49% (48% in the approved mockup; inputs moved 2026-11-23: the
+audit's rendered and path results that feed its criteria, regenerated in `gauges.json`; draft numbers track the data). Each shows its real stage: 15 in Phased Development (a
 decided item not built) and Dashboard & Pulse in Audit & Review (every item built; its missing checks hold it there), each with
 its "no check yet" line. The nine placements Jason marked "Needs changes" stay where they are,
 pending Jason, under the Questions pill.

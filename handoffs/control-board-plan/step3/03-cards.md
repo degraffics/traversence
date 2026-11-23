@@ -2021,7 +2021,9 @@ What was built (`handoffs/board-view/`):
   tasks.
 - **"What's wrong now":** chips in place of the alarm text: Trips, Warnings, Caps, Checks, Hosts (only when a core host is
   down) and Paused now. Each item opens its part in the one side panel.
-- **Board:** it lands on "Is it delivering?" beside Development, 2 columns or Stacked.
+- **Board:** it lands on "Is it delivering?" alone, full width. **Development is its own page** (Jason, 2026-11-23, later
+  the same day: "development is its own page, not side by side on control board"). This replaces the mockup's landing,
+  which had it beside Board, and drops the 2 columns / Stacked switch.
 - **Paused now:** its page keeps the strip and the healthy, held and needs-me boxes whole.
 
 Where the build differs from this mockup, and why:

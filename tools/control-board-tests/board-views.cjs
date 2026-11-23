@@ -48,8 +48,8 @@ const copies = () => { const miss = []; document.querySelectorAll('.ak-card, .cb
   await p.goto('http://localhost/admin/config/control'); await p.waitForTimeout(1200);
   const shown = () => p.evaluate(() => ['cb-deliver', 'cb-dev', 'cb-incidents', 'cb-alarms'].filter(id => { const e = document.getElementById(id); return e && e.getClientRects().length; }));
   // 1. "Is it delivering?" first
-  // since the opening view (2026-11-23, step3/board/index.html): Board lands on "Is it delivering?" beside Development
-  t(W + '"Is it delivering?" is the view on load, Development beside it (Board)', (await shown()).join() === 'cb-deliver,cb-dev', await shown());
+  // Board lands on "Is it delivering?" alone (Jason, 2026-11-23: "development is its own page, not side by side on control board")
+  t(W + '"Is it delivering?" is the view on load, alone (Board; Development its own page)', (await shown()).join() === 'cb-deliver', await shown());
   const q3 = await p.evaluate(() => document.getElementById('cb-q3').innerText);
   t(W + 'the three questions; the light honest after Acknowledge ("1 trip (seen by Jason)")', /Is it healthy/i.test(q3) && /held and why/i.test(q3) && /needs me/i.test(q3) && q3.includes('1 trip (seen by Jason)'), q3.slice(0, 200));
   const rg = await p.evaluate(rings); t(W + 'every gauge one Arc, its band within 1% of its score, the number, its label and stage pill, no needle (' + rg.n + ')', rg.n >= 20 && rg.nbad === 0 && rg.needles === 0 && rg.top50 === rg.n, rg);
