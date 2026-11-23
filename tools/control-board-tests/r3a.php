@@ -22,7 +22,9 @@ ControlAlarms::raise($pdo, 'x:slow', 'wf:W1', 'warning', 'slow', 'W1 is slow aga
 $t('…and a lesser repeat never lowers it', ControlAlarms::openOf($pdo, 'x:slow')['level'] === 'trip');
 $t('no email while the dispatcher has no alarm.trip kind (nothing sent, the alarm stands)', ControlAlarms::openOf($pdo, 'x:slow')['mailed_at'] === null);
 $c = ControlAlarms::counts($pdo);
-$t('the light counts it', $c['trip'] === 1 && $c['warning'] === 0, $c);
+// the bench has no founder, so the trip also raised the dispatcher's own (02 P11: "a trip always reaches someone; if it can't,
+// the dispatcher's own fault is raised and shown"): counted beside it
+$t('the light counts it', $c['trip'] === 1 + (ControlAlarms::openOf($pdo, 'dispatch:nobody') ? 1 : 0) && $c['warning'] === 0, $c);
 $t('acknowledged once', ControlAlarms::ack($pdo, $a, 7, 'Jason') && !ControlAlarms::ack($pdo, $a, 7, 'Jason'));
 $t('a trip whose reading is good again closes itself as Recovered (decisions/0175 §3, replacing 3c\'s wait for Resolve)', ControlAlarms::clear($pdo, 'x:slow', 'Fast again at 10:00 UTC.') && ControlAlarms::openOf($pdo, 'x:slow') === null);
 $w = ControlAlarms::raise($pdo, 'x:warn', 'wf:W1', 'warning', 'slow', 'W1 slow');
@@ -43,7 +45,7 @@ require $app . '/lib/ControlLedger.php';
 $ref = new ReflectionMethod('ControlLedger', 'alarms'); $ref->setAccessible(true);
 $ref->invoke(null, $pdo, 'crawl/results', 500, 3, ['stored' => 0, 'updated' => 0, 'review' => 0, 'refused' => 0], ['answered 500: boom']);
 $o = ControlAlarms::openOf($pdo, 'ep:crawl/results:5xx');
-$t('the ledger: a 500 from /api/crawl/results is a warning on its process while the system tries again (3c)', $o && $o['level'] === 'warning' && str_starts_with((string) $o['proc'], 'wf:') && str_contains((string) $o['reading'], 'boom') && str_contains((string) $o['means'], '1 of 3 tries'), $o);
+$t('the ledger: a 500 from /api/crawl/results is a warning on its process while the system tries again (3c)', $o && $o['level'] === 'warning' && str_starts_with((string) $o['proc'], 'wf:') && str_contains((string) $o['reading'], 'boom') && $o['component'] === 'ep:crawl/results' && str_contains(ControlAlarms::facts($pdo, $o)['status'], 'Trying again (1 of 3)') && str_contains(ControlAlarms::facts($pdo, $o)['status'], 'Next check at'), $o);   // 02 §4.8 row 1's words   // its tries: the one engine's checks of the endpoint (P3)
 $ref->invoke(null, $pdo, 'crawl/results', 200, 3, ['stored' => 2, 'updated' => 0, 'review' => 1, 'refused' => 1], []);
 $t('…a good answer clears it; more outcomes than received is a wrong count', ControlAlarms::openOf($pdo, 'ep:crawl/results:5xx') === null && ControlAlarms::openOf($pdo, 'ep:crawl/results:count')['level'] === 'warning');
 $ref->invoke(null, $pdo, 'crawl/results', 200, 3, ['stored' => 2, 'updated' => 0, 'review' => 1, 'refused' => 0], []);
@@ -77,7 +79,8 @@ $pdo->exec("INSERT INTO $rs (host, status) VALUES ('helsinki.fi', 'read'), ('cup
 SearchIndex::setState($pdo, 'control:alarms_seeded', '');
 $n = ControlAlarms::seed($pdo);
 $w2 = ControlAlarms::openOf($pdo, 'pf:wf:W2'); $ep = ControlAlarms::openOf($pdo, 'ep:crawl/verify:5xx'); $off = ControlAlarms::openOf($pdo, 'w3:offregion');
-$t('the seed: a red pre-flight line, named by the part that holds it, with what it means', $w2 && str_starts_with((string) $w2['title'], 'W2') && str_contains((string) $w2['title'], 'Its gate') && str_contains((string) $w2['means'], "won't start"), $w2);
+$t('the seed: a workflow\'s red line raises nothing of its own (a roll-up since the control board\'s build, 02 §2.2); its part\'s alarm carries it', $w2 === null && $ep !== null, $w2);
+$w2 = $ep;   // the Pulse body below is read from the part's alarm
 $t('…W2\'s server error at /api/crawl/verify.php, in its own words', $ep && $ep['proc'] === 'wf:W2' && str_contains((string) $ep['reading'], 'Unknown column'), $ep);
 // sources outside our region moved from the seed to the watch's hourly recount (control-board-offregion, 2026-11-19)
 SearchIndex::setState($pdo, 'control:offregion_at', ''); try { ControlAlarms::tick($pdo); } catch (Throwable $x) {}
@@ -88,6 +91,7 @@ $t('…and only once', ControlAlarms::seed($pdo) === 0 && $n >= 2, $n);   // the
 require_once $app . '/lib/Notify.php';
 $t('Notify::KINDS has alarm.trip (Critical, email can\'t be turned off) and alarm.warning (Urgent)', (Notify::KINDS['alarm.trip'][2] ?? '') === 'critical' && (Notify::KINDS['alarm.trip'][6] ?? true) === false && (Notify::KINDS['alarm.warning'][2] ?? '') === 'urgent');
 $pb = ControlAlarms::pulseBody($pdo, ['thing' => 'alarm:' . (int) $w2['id']], 7);
-$t('…its Pulse body: what happened, what to do, Acknowledge posting to the board\'s API', str_contains($pb['html'], 'data-msg-act="/admin/api/config/control"') && str_contains($pb['html'], '&quot;ack&quot;') && $pb['state'] === 'Open', $pb);
+// a warning has no Acknowledge (R80; 02 §3c, row 97): its Pulse body still opens it on the board
+$t('…its Pulse body: what happened, what to do, no Acknowledge on a warning (R80)', $w2['level'] === 'warning' && !str_contains($pb['html'], '&quot;ack&quot;') && str_contains($pb['html'], 'Open it on the board') && $pb['state'] === 'Open', $pb);
 echo "\n$pass passed, $fail failed\n";
 exit($fail ? 1 : 0);

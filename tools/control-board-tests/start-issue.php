@@ -34,7 +34,7 @@ $t('nothing can check it: It\'s fixed: try it again', str_contains($h31, 'value=
 // closed by the system's check: the tripped alarm closes too, saying how
 ServiceHealth::resolve($pdo, 28, 0, 'It answered again.');
 $a = $pdo->query("SELECT cleared_at, cleared_how FROM control_alarms WHERE id = $aid")->fetch(PDO::FETCH_ASSOC);
-$t('the system\'s check closes the issue and its tripped alarm, saying how', $a['cleared_at'] !== null && str_contains((string) $a['cleared_how'], 'Cleared by its check'), $a);
+$t('the system\'s check closes the issue and its tripped alarm, saying how', $a['cleared_at'] !== null && str_starts_with((string) $a['cleared_how'], 'Recovered:'), $a);   // 02 §3c, row 90: Recovered, never "Resolved by the system"
 // a person's Check and start again closes the issue too
 $pdo->exec("INSERT INTO service_issues (id, service, host, caller, kind, hits, first_at, last_at, evidence, probe_url) VALUES (40, 'brave', 'api.search.brave.com', 'site', 'server', 6, UTC_TIMESTAMP(), UTC_TIMESTAMP(), '{}', 'https://api.search.brave.com/')");
 $a2 = ControlAlarms::raise($pdo, 'svc:issue:40', 'svc:brave', 'trip', 'held', 'Brave: Its server failed', '', '', '', [], true, false);
@@ -43,9 +43,10 @@ $st = $pdo->query("SELECT state, resolved_how FROM service_issues WHERE id = 40"
 $t('a person\'s Check and start again closes the alarm and its issue, saying who', $ok && $st['state'] === 'resolved' && str_contains((string) $st['resolved_how'], 'Jason'), [$ok, $msg, $st]);
 $ac = (string) file_get_contents($app . '/admin/automation-console.php');
 $t('the Start card\'s actions: Check and start again through the board\'s resolve; no "Marked resolved"', str_contains($ac, "case 'start_issue_restart':") && str_contains($ac, 'ControlAlarms::resolve($pdo, (int) $ref, $uid, $who') && !str_contains($ac, 'Marked resolved on Start the system'));
-// a refusal (a stop kind) closed by the system's own probe never closes its trip: it waits for a person (principle 1)
+// a used-up quota whose probe answers again closes its trip as Recovered (the state model §3c; principle 1's exception, a
+// person reactivating, is only for a site that refused or blocked us: a quota resets by itself, and live already did this)
 $pdo->exec("INSERT INTO service_issues (id, service, host, caller, kind, hits, first_at, last_at, evidence, probe_url) VALUES (50, 'tavily', 'api.tavily.com', 'site', 'quota', 1, UTC_TIMESTAMP(), UTC_TIMESTAMP(), '{}', 'https://api.tavily.com/')");
 $a3 = ControlAlarms::raise($pdo, 'svc:issue:50', 'svc:tavily', 'trip', 'held', 'Tavily: over its quota', '', '', '', [], true, false);
 ServiceHealth::resolve($pdo, 50, 0, 'Its probe answered 200.');
-$t('a used-up quota answering again doesn\'t close its trip by itself: it waits for a person\'s button', ControlAlarms::openOf($pdo, 'svc:issue:50') !== null);
+$t('a used-up quota answering again closes its trip by itself, as Recovered', ControlAlarms::openOf($pdo, 'svc:issue:50') === null);
 echo "\n$pass passed, $fail failed\n"; exit($fail ? 1 : 0);

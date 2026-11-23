@@ -31,11 +31,14 @@ $id = $add('timeout');
 ServiceHealth::alarm($pdo, $id, 'wikimedia', 'query.wikidata.org', 'timeout', ['status' => 0, 'error' => 'timed out', 'body' => ''], 'site');
 $t('a timeout below its case limit (a warning): paced', $st()[0] === 'paced', $st());
 
-// 3. a back-off tripped at its case limit: held (the rule: it trips at its limit, and its trip holds)
-$pdo->prepare('UPDATE service_issues SET hits = 7 WHERE id = ?')->execute([$id]);
-ServiceHealth::alarm($pdo, $id, 'wikimedia', 'query.wikidata.org', 'timeout', ['status' => 0, 'error' => 'timed out', 'body' => ''], 'site');
+// 3. a back-off tripped when its tries run out: held (since the control board's build, the tries are the one engine's
+// checks of the service, P3, not its own case limit; its trip holds)
+require_once $app . '/lib/ControlEngine.php';
+ControlEngine::$checker = fn (string $c) => ['pass' => false, 'proof' => 'query.wikidata.org didn\'t answer.', 'ms' => 15000];
+foreach (ControlEngine::TRY_AT as $_) { $pdo->exec("UPDATE control_alarms SET next_try_at = UTC_TIMESTAMP() - INTERVAL 1 SECOND WHERE akey = 'svc:issue:$id' AND cleared_at IS NULL"); ControlAlarms::expireTries($pdo); }
+ControlEngine::$checker = null;
 $a = ControlAlarms::openOf($pdo, 'svc:issue:' . $id);
-$t('a back-off tripped at its case limit: its alarm a trip, and the service held', $a && $a['level'] === 'trip' && $st()[0] === 'held', [$a['level'] ?? null, $st()]);
+$t('a back-off tripped when its tries ran out: its alarm a trip, and the service held', $a && $a['level'] === 'trip' && $st()[0] === 'held', [$a['level'] ?? null, $st()]);
 
 // 4. a refusal: held at once
 $id = $add('ban');
@@ -63,7 +66,7 @@ require_once $app . '/lib/Releases.php'; Releases::ensure($pdo);
 $pdo->prepare("REPLACE INTO site_release_settings (k, v) VALUES ('git_seen_job', ?)")->execute([json_encode(['at' => time() - 3600, 'found' => 0])]);
 try { ControlAlarms::tick($pdo); } catch (Throwable $x) {}
 $q = ControlAlarms::openOf($pdo, 'rel:job:quiet');
-$t('the release job not looking in git for 30 minutes: a warning naming when it last looked, with Check for builds beside it', $q && $q['level'] === 'warning' && str_contains((string) $q['title'], 'hasn\'t looked in git since') && str_contains((string) $q['fix'], '/admin/config/releases'), $q['title'] ?? null);
+$t('the release job not looking in git for 30 minutes: a warning naming when it last looked, with Check for builds beside it', $q && $q['level'] === 'trip' /* P8, 02 row 68: releases_tick carries a duty, so quiet 30 min is a critical Trip at once (scenario S-B68) */ && str_contains((string) $q['title'], 'hasn\'t looked in git since') && str_contains((string) $q['fix'], '/admin/config/releases'), $q['title'] ?? null);
 $pdo->prepare("REPLACE INTO site_release_settings (k, v) VALUES ('git_seen_job', ?)")->execute([json_encode(['at' => time() - 60, 'found' => 1])]);
 try { ControlAlarms::tick($pdo); } catch (Throwable $x) {}
 $t('…cleared when it looks again', ControlAlarms::openOf($pdo, 'rel:job:quiet') === null);

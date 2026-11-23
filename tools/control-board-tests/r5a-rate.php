@@ -39,11 +39,15 @@ $t('…and even a press that reached the check would not go past a 429\'s wait',
 $api = file_get_contents(dirname($app) . '/website/admin/api.php'); $cc = file_get_contents($app . '/admin/control-console.php');
 $t('…the api refuses Check it now on a 429 with the same words; the board greys a #wait button and shows its reason as text beside it (a phone has no hover)', str_contains($api, "if (\$si && \$si['kind'] === 'rate') Response::error(") && str_contains($cc, "str_starts_with(\$f[3], '#wait:')") && str_contains($cc, "false, substr(\$f[3], 6)") && str_contains($cc, "'<span class=\"cb-wt\">' . \$e(substr(\$f[3], 6))"));
 
-// 2. a timeout at the same count still trips (only 429 changes)
+// 2. a timeout still trips when its tries run out (only 429 changes; the tries are the one engine's checks since the
+// control board's build, P3)
 $id2 = $add('timeout', 9, 8);
 ServiceHealth::alarm($pdo, $id2, 'wikimedia', 'query.wikidata.org', 'timeout', ['status' => 0, 'error' => 'timed out', 'body' => ''], 'site');
+require_once $app . '/lib/ControlEngine.php'; ControlEngine::$checker = fn (string $c) => ['pass' => false, 'proof' => 'no answer', 'ms' => 15000];
+foreach (ControlEngine::TRY_AT as $_) { $pdo->exec("UPDATE control_alarms SET next_try_at = UTC_TIMESTAMP() - INTERVAL 1 SECOND WHERE akey = 'svc:issue:$id2' AND cleared_at IS NULL"); ControlAlarms::expireTries($pdo); }
+ControlEngine::$checker = null;
 $a2 = ControlAlarms::openOf($pdo, 'svc:issue:' . $id2);
-$t('a timeout at its limit still trips, as before', $a2 && $a2['level'] === 'trip', [$a2['level'] ?? null]);
+$t('a timeout whose tries ran out still trips', $a2 && $a2['level'] === 'trip', [$a2['level'] ?? null]);
 $pdo->prepare('UPDATE service_issues SET hold_until = ? WHERE id = ?')->execute([gmdate('Y-m-d H:i:s', time() + 1200), $id]);
 $pdo->prepare("UPDATE service_issues SET state = 'resolved' WHERE id IN (?, ?)")->execute([$id, $id2]);
 $id4 = $add('timeout', 2, 0); $pdo->prepare('UPDATE service_issues SET hold_until = ? WHERE id = ?')->execute([gmdate('Y-m-d H:i:s', time() + 1200), $id4]);

@@ -1,0 +1,3804 @@
+{
+ "generated_at": "2026-11-22T22:40:03Z",
+ "version": 2,
+ "generated_by": "tools/page-audit/gauges.py",
+ "note": "The gauges' configuration (handoffs/control-board-plan/step3/sections/gauge-lifecycle.md), compact: the site computes every stage from it (app/lib/ControlGauges.php); each gauge's detail is in gauges-items.json.",
+ "stages": [
+  "Planning",
+  "Phased Development",
+  "Audit & Review",
+  "Implementation",
+  "Monitoring"
+ ],
+ "criteria": [
+  "decided",
+  "built",
+  "checked",
+  "reviewed",
+  "live",
+  "proved"
+ ],
+ "counts": {
+  "scope": 292,
+  "no_check": 236
+ },
+ "development": [
+  {
+   "id": "discovery",
+   "title": "Discovery",
+   "side": "front",
+   "signed": false,
+   "signed_at": null,
+   "m": [
+    [
+     "110010",
+     1,
+     4
+    ],
+    [
+     "110010",
+     1,
+     4
+    ],
+    [
+     "110010",
+     1,
+     4
+    ],
+    [
+     "110010",
+     1,
+     4
+    ],
+    [
+     "110010",
+     1,
+     4
+    ],
+    [
+     "110010",
+     1,
+     1
+    ],
+    [
+     "110010",
+     1,
+     1
+    ],
+    [
+     "110010",
+     1,
+     1
+    ],
+    [
+     "110000",
+     1,
+     0
+    ],
+    [
+     "110010",
+     1,
+     5
+    ],
+    [
+     "110010",
+     1,
+     4
+    ],
+    [
+     "110010",
+     1,
+     5
+    ],
+    [
+     "110010",
+     1,
+     4
+    ],
+    [
+     "110010",
+     1,
+     4
+    ],
+    [
+     "100000",
+     1,
+     0
+    ],
+    [
+     "110010",
+     1,
+     4
+    ],
+    [
+     "110010",
+     1,
+     4
+    ],
+    [
+     "110111",
+     1,
+     1
+    ],
+    [
+     "110010",
+     1,
+     1
+    ],
+    [
+     "110010",
+     1,
+     1
+    ],
+    [
+     "110010",
+     1,
+     1
+    ],
+    [
+     "110010",
+     1,
+     4
+    ],
+    [
+     "110010",
+     1,
+     4
+    ],
+    [
+     "110010",
+     1,
+     4
+    ],
+    [
+     "100000",
+     1,
+     0
+    ],
+    [
+     "100000",
+     1,
+     0
+    ],
+    [
+     "100000",
+     1,
+     0
+    ],
+    [
+     "110010",
+     1,
+     1
+    ],
+    [
+     "100000",
+     1,
+     0
+    ],
+    [
+     "110010",
+     1,
+     4
+    ]
+   ],
+   "no_check": [
+    "TOOLS",
+    "LOAD",
+    "PHOTOS-SHOWN",
+    "PHOTOS",
+    "RENDER",
+    "BOARD"
+   ],
+   "out": 2,
+   "paths": {
+    "workflows": [
+     "W3",
+     "W4",
+     "W5",
+     "W6",
+     "W7",
+     "W8",
+     "W9",
+     "W10",
+     "W11",
+     "W13"
+    ],
+    "core": [
+     "db",
+     "jobs",
+     "workers"
+    ],
+    "registered": [
+     "bluehost",
+     "anthropic",
+     "gemini",
+     "wikimedia",
+     "commoncrawl",
+     "geofabrik",
+     "osm",
+     "usgs",
+     "ridb",
+     "nws",
+     "cloudflare"
+    ]
+   }
+  },
+  {
+   "id": "directory",
+   "title": "Directory",
+   "side": "front",
+   "signed": false,
+   "signed_at": null,
+   "m": [
+    [
+     "110010",
+     1,
+     4
+    ],
+    [
+     "110011",
+     1,
+     1
+    ],
+    [
+     "110010",
+     1,
+     1
+    ],
+    [
+     "110010",
+     1,
+     4
+    ],
+    [
+     "110010",
+     1,
+     4
+    ],
+    [
+     "110010",
+     1,
+     4
+    ],
+    [
+     "110010",
+     1,
+     4
+    ],
+    [
+     "110010",
+     1,
+     4
+    ],
+    [
+     "110111",
+     1,
+     1
+    ],
+    [
+     "110010",
+     1,
+     1
+    ],
+    [
+     "110010",
+     1,
+     5
+    ],
+    [
+     "110010",
+     1,
+     5
+    ],
+    [
+     "110010",
+     1,
+     1
+    ],
+    [
+     "110010",
+     1,
+     1
+    ],
+    [
+     "110010",
+     1,
+     1
+    ],
+    [
+     "110010",
+     1,
+     1
+    ],
+    [
+     "110111",
+     1,
+     1
+    ],
+    [
+     "110010",
+     1,
+     1
+    ],
+    [
+     "110010",
+     1,
+     1
+    ],
+    [
+     "110010",
+     1,
+     1
+    ],
+    [
+     "100000",
+     1,
+     0
+    ],
+    [
+     "110010",
+     1,
+     1
+    ]
+   ],
+   "no_check": [
+    "TOOLS",
+    "LOAD",
+    "PHOTOS-SHOWN",
+    "PHOTOS",
+    "RENDER"
+   ],
+   "out": 1,
+   "paths": {
+    "workflows": [
+     "W1",
+     "W2",
+     "W12"
+    ],
+    "core": [
+     "db",
+     "jobs",
+     "workers",
+     "dispatcher"
+    ],
+    "registered": [
+     "bluehost",
+     "google",
+     "tavily",
+     "brave",
+     "overture",
+     "foursquare",
+     "geofabrik",
+     "census",
+     "cms",
+     "irs"
+    ]
+   }
+  },
+  {
+   "id": "community",
+   "title": "Community",
+   "side": "front",
+   "signed": false,
+   "signed_at": null,
+   "m": [
+    [
+     "110010",
+     1,
+     4
+    ],
+    [
+     "110010",
+     1,
+     5
+    ],
+    [
+     "110010",
+     1,
+     1
+    ],
+    [
+     "110010",
+     1,
+     1
+    ],
+    [
+     "110010",
+     1,
+     1
+    ],
+    [
+     "110010",
+     1,
+     1
+    ],
+    [
+     "110010",
+     1,
+     1
+    ],
+    [
+     "110010",
+     1,
+     4
+    ],
+    [
+     "110010",
+     1,
+     5
+    ],
+    [
+     "110010",
+     1,
+     1
+    ],
+    [
+     "110010",
+     1,
+     1
+    ],
+    [
+     "100000",
+     1,
+     0
+    ],
+    [
+     "110111",
+     1,
+     1
+    ],
+    [
+     "110011",
+     1,
+     1
+    ],
+    [
+     "100000",
+     1,
+     0
+    ],
+    [
+     "100000",
+     1,
+     0
+    ],
+    [
+     "100000",
+     1,
+     0
+    ],
+    [
+     "100000",
+     1,
+     0
+    ],
+    [
+     "100000",
+     1,
+     0
+    ],
+    [
+     "100000",
+     1,
+     0
+    ],
+    [
+     "100000",
+     1,
+     0
+    ],
+    [
+     "100000",
+     1,
+     0
+    ]
+   ],
+   "no_check": [
+    "TOOLS",
+    "LOAD",
+    "PHOTOS-SHOWN",
+    "PHOTOS",
+    "RENDER"
+   ],
+   "out": 1,
+   "paths": {
+    "workflows": [],
+    "core": [
+     "db",
+     "jobs",
+     "dispatcher",
+     "video"
+    ],
+    "registered": [
+     "bluehost",
+     "aws",
+     "cloudflare"
+    ]
+   }
+  },
+  {
+   "id": "marketplace",
+   "title": "Marketplace",
+   "side": "front",
+   "signed": false,
+   "signed_at": null,
+   "m": [
+    [
+     "110010",
+     1,
+     4
+    ],
+    [
+     "110010",
+     1,
+     5
+    ],
+    [
+     "110010",
+     1,
+     5
+    ],
+    [
+     "110010",
+     1,
+     4
+    ],
+    [
+     "110010",
+     1,
+     5
+    ],
+    [
+     "110010",
+     1,
+     4
+    ],
+    [
+     "110010",
+     1,
+     4
+    ],
+    [
+     "110010",
+     1,
+     4
+    ],
+    [
+     "110010",
+     1,
+     4
+    ],
+    [
+     "110010",
+     1,
+     4
+    ],
+    [
+     "110010",
+     1,
+     1
+    ],
+    [
+     "110010",
+     1,
+     1
+    ],
+    [
+     "110010",
+     1,
+     1
+    ],
+    [
+     "110010",
+     1,
+     1
+    ],
+    [
+     "110010",
+     1,
+     1
+    ],
+    [
+     "110010",
+     1,
+     1
+    ],
+    [
+     "110010",
+     1,
+     1
+    ],
+    [
+     "110010",
+     1,
+     1
+    ],
+    [
+     "100000",
+     1,
+     0
+    ],
+    [
+     "110000",
+     1,
+     0
+    ],
+    [
+     "110000",
+     1,
+     0
+    ],
+    [
+     "110010",
+     1,
+     4
+    ],
+    [
+     "110010",
+     1,
+     4
+    ],
+    [
+     "110010",
+     1,
+     5
+    ],
+    [
+     "110010",
+     1,
+     4
+    ],
+    [
+     "110010",
+     1,
+     4
+    ],
+    [
+     "110010",
+     1,
+     4
+    ],
+    [
+     "100000",
+     1,
+     0
+    ],
+    [
+     "100000",
+     1,
+     0
+    ],
+    [
+     "100000",
+     1,
+     0
+    ],
+    [
+     "100000",
+     1,
+     0
+    ]
+   ],
+   "no_check": [
+    "TOOLS",
+    "LOAD",
+    "PHOTOS-SHOWN",
+    "PHOTOS",
+    "RENDER"
+   ],
+   "out": 2,
+   "paths": {
+    "workflows": [],
+    "core": [
+     "db",
+     "jobs",
+     "dispatcher"
+    ],
+    "registered": [
+     "bluehost",
+     "stripe",
+     "square",
+     "quickbooks",
+     "aws"
+    ]
+   }
+  },
+  {
+   "id": "trvgo-storefront",
+   "title": "TRVGO – Storefront",
+   "side": "front",
+   "signed": false,
+   "signed_at": null,
+   "m": [
+    [
+     "110010",
+     1,
+     1
+    ],
+    [
+     "110010",
+     1,
+     1
+    ],
+    [
+     "110010",
+     1,
+     1
+    ],
+    [
+     "110010",
+     1,
+     1
+    ],
+    [
+     "100000",
+     1,
+     0
+    ],
+    [
+     "100000",
+     1,
+     0
+    ],
+    [
+     "110010",
+     1,
+     4
+    ],
+    [
+     "110010",
+     1,
+     4
+    ],
+    [
+     "110000",
+     1,
+     0
+    ]
+   ],
+   "no_check": [
+    "TOOLS",
+    "LOAD",
+    "PHOTOS-SHOWN",
+    "PHOTOS"
+   ],
+   "out": 0,
+   "paths": {
+    "workflows": [],
+    "core": [
+     "db",
+     "jobs"
+    ],
+    "registered": [
+     "fly",
+     "namecom",
+     "bluehost",
+     "cloudflare"
+    ]
+   }
+  },
+  {
+   "id": "accounts",
+   "title": "Accounts",
+   "side": "front",
+   "signed": false,
+   "signed_at": null,
+   "m": [
+    [
+     "110010",
+     1,
+     4
+    ],
+    [
+     "110010",
+     1,
+     4
+    ],
+    [
+     "110010",
+     1,
+     4
+    ],
+    [
+     "110010",
+     1,
+     4
+    ],
+    [
+     "110010",
+     1,
+     4
+    ],
+    [
+     "100000",
+     1,
+     0
+    ],
+    [
+     "110000",
+     1,
+     0
+    ],
+    [
+     "110010",
+     1,
+     4
+    ],
+    [
+     "110110",
+     1,
+     4
+    ],
+    [
+     "110011",
+     1,
+     1
+    ],
+    [
+     "110110",
+     1,
+     1
+    ],
+    [
+     "110010",
+     1,
+     1
+    ],
+    [
+     "110010",
+     1,
+     5
+    ],
+    [
+     "110010",
+     1,
+     4
+    ],
+    [
+     "100000",
+     1,
+     0
+    ],
+    [
+     "110010",
+     1,
+     4
+    ],
+    [
+     "110010",
+     1,
+     4
+    ]
+   ],
+   "no_check": [
+    "TOOLS",
+    "LOAD",
+    "PHOTOS-SHOWN",
+    "PHOTOS",
+    "RENDER",
+    "BOARD"
+   ],
+   "out": 1,
+   "paths": {
+    "workflows": [],
+    "core": [
+     "db",
+     "dispatcher",
+     "video"
+    ],
+    "registered": [
+     "bluehost",
+     "cloudflare",
+     "google",
+     "apple",
+     "microsoft",
+     "meta",
+     "aws"
+    ]
+   }
+  },
+  {
+   "id": "dashboard-pulse",
+   "title": "Dashboard & Pulse",
+   "side": "back",
+   "signed": false,
+   "signed_at": null,
+   "m": [
+    [
+     "110010",
+     1,
+     1
+    ],
+    [
+     "110010",
+     1,
+     1
+    ],
+    [
+     "110000",
+     1,
+     0
+    ],
+    [
+     "110010",
+     1,
+     1
+    ],
+    [
+     "110010",
+     1,
+     1
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110110",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ]
+   ],
+   "no_check": [
+    "TOOLS",
+    "LOAD"
+   ],
+   "out": 0,
+   "paths": {
+    "workflows": [],
+    "core": [
+     "db",
+     "jobs",
+     "dispatcher"
+    ],
+    "registered": [
+     "bluehost",
+     "aws",
+     "microsoft"
+    ]
+   }
+  },
+  {
+   "id": "get-local-360",
+   "title": "Get Local 360°",
+   "side": "back",
+   "signed": false,
+   "signed_at": null,
+   "m": [
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     1
+    ],
+    [
+     "100000",
+     1,
+     0
+    ]
+   ],
+   "no_check": [
+    "TOOLS",
+    "LOAD"
+   ],
+   "out": 0,
+   "paths": {
+    "workflows": [
+     "W1",
+     "W2"
+    ],
+    "core": [
+     "db",
+     "jobs",
+     "workers"
+    ],
+    "registered": [
+     "bluehost",
+     "google",
+     "geofabrik",
+     "census"
+    ]
+   }
+  },
+  {
+   "id": "let-s-explore-360",
+   "title": "Let's Explore 360°",
+   "side": "back",
+   "signed": false,
+   "signed_at": null,
+   "m": [
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     3
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "100000",
+     1,
+     0
+    ]
+   ],
+   "no_check": [
+    "TOOLS",
+    "LOAD",
+    "RENDER"
+   ],
+   "out": 0,
+   "paths": {
+    "workflows": [
+     "W4",
+     "W5",
+     "W7",
+     "W9",
+     "W10",
+     "W11",
+     "W13"
+    ],
+    "core": [
+     "db",
+     "jobs",
+     "workers"
+    ],
+    "registered": [
+     "bluehost",
+     "anthropic",
+     "wikimedia"
+    ]
+   }
+  },
+  {
+   "id": "market-360",
+   "title": "Market 360°",
+   "side": "back",
+   "signed": false,
+   "signed_at": null,
+   "m": [
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "100000",
+     1,
+     0
+    ],
+    [
+     "110110",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ]
+   ],
+   "no_check": [
+    "TOOLS",
+    "LOAD"
+   ],
+   "out": 0,
+   "paths": {
+    "workflows": [],
+    "core": [
+     "db",
+     "jobs",
+     "dispatcher"
+    ],
+    "registered": [
+     "bluehost",
+     "stripe",
+     "square",
+     "fly",
+     "namecom"
+    ]
+   }
+  },
+  {
+   "id": "social-360",
+   "title": "Social 360°",
+   "side": "back",
+   "signed": false,
+   "signed_at": null,
+   "m": [
+    [
+     "100000",
+     1,
+     0
+    ],
+    [
+     "110110",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "100000",
+     1,
+     0
+    ]
+   ],
+   "no_check": [
+    "TOOLS",
+    "LOAD"
+   ],
+   "out": 0,
+   "paths": {
+    "workflows": [],
+    "core": [
+     "db",
+     "dispatcher"
+    ],
+    "registered": [
+     "bluehost",
+     "aws"
+    ]
+   }
+  },
+  {
+   "id": "sales-growth",
+   "title": "Sales & Growth",
+   "side": "back",
+   "signed": false,
+   "signed_at": null,
+   "m": [
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "100000",
+     1,
+     0
+    ]
+   ],
+   "no_check": [
+    "TOOLS",
+    "LOAD"
+   ],
+   "out": 0,
+   "paths": {
+    "workflows": [],
+    "core": [
+     "db",
+     "jobs",
+     "dispatcher"
+    ],
+    "registered": [
+     "bluehost",
+     "google",
+     "aws"
+    ]
+   }
+  },
+  {
+   "id": "white-glove-concierge",
+   "title": "White Glove Concierge",
+   "side": "back",
+   "signed": false,
+   "signed_at": null,
+   "m": [
+    [
+     "100000",
+     1,
+     0
+    ],
+    [
+     "100000",
+     1,
+     0
+    ],
+    [
+     "100000",
+     1,
+     0
+    ],
+    [
+     "100000",
+     1,
+     0
+    ],
+    [
+     "110010",
+     1,
+     1
+    ]
+   ],
+   "no_check": [
+    "TOOLS"
+   ],
+   "out": 0,
+   "paths": {
+    "workflows": [],
+    "core": [
+     "db"
+    ],
+    "registered": [
+     "bluehost"
+    ]
+   }
+  },
+  {
+   "id": "back-office",
+   "title": "Back-Office",
+   "side": "back",
+   "signed": false,
+   "signed_at": null,
+   "m": [
+    [
+     "110000",
+     1,
+     0
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     3
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     3
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     3
+    ],
+    [
+     "110010",
+     1,
+     3
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     1
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "100000",
+     1,
+     0
+    ],
+    [
+     "110010",
+     1,
+     1
+    ],
+    [
+     "100000",
+     1,
+     0
+    ],
+    [
+     "100000",
+     1,
+     0
+    ],
+    [
+     "100000",
+     1,
+     0
+    ],
+    [
+     "100000",
+     1,
+     0
+    ]
+   ],
+   "no_check": [
+    "TOOLS",
+    "LOAD",
+    "RENDER"
+   ],
+   "out": 0,
+   "paths": {
+    "workflows": [],
+    "core": [
+     "db",
+     "jobs",
+     "dispatcher"
+    ],
+    "registered": [
+     "bluehost",
+     "quickbooks",
+     "aws"
+    ]
+   }
+  },
+  {
+   "id": "insights-research",
+   "title": "Insights & Research",
+   "side": "back",
+   "signed": false,
+   "signed_at": null,
+   "m": [
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110110",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "100000",
+     1,
+     0
+    ],
+    [
+     "100000",
+     1,
+     0
+    ]
+   ],
+   "no_check": [
+    "TOOLS",
+    "LOAD"
+   ],
+   "out": 1,
+   "paths": {
+    "workflows": [
+     "W0",
+     "W1",
+     "W2",
+     "W3",
+     "W12"
+    ],
+    "core": [
+     "db",
+     "jobs",
+     "workers"
+    ],
+    "registered": [
+     "bluehost",
+     "railway",
+     "anthropic",
+     "gemini",
+     "commoncrawl"
+    ]
+   }
+  },
+  {
+   "id": "system-configuration",
+   "title": "System Configuration",
+   "side": "back",
+   "signed": false,
+   "signed_at": null,
+   "m": [
+    [
+     "100000",
+     1,
+     0
+    ],
+    [
+     "110110",
+     1,
+     1
+    ],
+    [
+     "110110",
+     1,
+     1
+    ],
+    [
+     "110010",
+     1,
+     1
+    ],
+    [
+     "110010",
+     1,
+     1
+    ],
+    [
+     "110000",
+     1,
+     0
+    ],
+    [
+     "110010",
+     1,
+     0
+    ],
+    [
+     "110010",
+     1,
+     0
+    ],
+    [
+     "110010",
+     1,
+     0
+    ],
+    [
+     "110010",
+     1,
+     1
+    ],
+    [
+     "110010",
+     1,
+     1
+    ],
+    [
+     "110010",
+     1,
+     1
+    ],
+    [
+     "110010",
+     1,
+     1
+    ],
+    [
+     "110010",
+     1,
+     1
+    ],
+    [
+     "110010",
+     1,
+     1
+    ],
+    [
+     "110010",
+     1,
+     1
+    ],
+    [
+     "110010",
+     1,
+     1
+    ],
+    [
+     "110010",
+     1,
+     1
+    ],
+    [
+     "110010",
+     1,
+     1
+    ],
+    [
+     "110010",
+     1,
+     1
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110110",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110110",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "110010",
+     1,
+     2
+    ],
+    [
+     "100000",
+     1,
+     0
+    ],
+    [
+     "100000",
+     1,
+     0
+    ],
+    [
+     "100000",
+     1,
+     0
+    ]
+   ],
+   "no_check": [
+    "TOOLS",
+    "LOAD",
+    "BOARD"
+   ],
+   "out": 1,
+   "paths": {
+    "workflows": [
+     "W0",
+     "W1",
+     "W2",
+     "W3",
+     "W4",
+     "W5",
+     "W6",
+     "W7",
+     "W8",
+     "W9",
+     "W10",
+     "W11",
+     "W12",
+     "W13",
+     "W14"
+    ],
+    "core": [
+     "db",
+     "jobs",
+     "staging",
+     "sync",
+     "workers",
+     "video",
+     "dispatcher"
+    ],
+    "registered": [
+     "bluehost",
+     "railway",
+     "github",
+     "fly",
+     "anthropic",
+     "aws",
+     "cloudflare"
+    ]
+   }
+  }
+ ],
+ "runtime": [
+  {
+   "id": "o-pages",
+   "box": "The site is there, and people find it",
+   "title": "Pages answer",
+   "measure": "the rendered check: every page as each kind of visitor, at 1280 and 390",
+   "target": null,
+   "target_proposed": null,
+   "unit": "%",
+   "setup": {
+    "probe": true,
+    "target": false,
+    "check": false,
+    "alarm": false
+   },
+   "procs": [
+    "site:db"
+   ],
+   "fix": [
+    [
+     "Fix it: Bluehost",
+     "/admin/config/register#svc-bluehost"
+    ]
+   ],
+   "no_check": [],
+   "needs_probe": null,
+   "paths": {
+    "workflows": [],
+    "core": [
+     "db",
+     "staging",
+     "sync"
+    ],
+    "registered": []
+   }
+  },
+  {
+   "id": "o-speed",
+   "box": "The site is there, and people find it",
+   "title": "Pages load fast",
+   "measure": "pages under about 2.5 s, 99.5% of the time",
+   "target": null,
+   "target_proposed": "about 2.5 s, 99.5% (the session manager's proposal; target: set by Jason)",
+   "unit": "%",
+   "setup": {
+    "probe": false,
+    "target": false,
+    "check": false,
+    "alarm": false
+   },
+   "procs": [
+    "site:db",
+    "svc:aws",
+    "svc:cloudflare"
+   ],
+   "fix": [
+    [
+     "Fix it: Bluehost",
+     "/admin/config/register#svc-bluehost"
+    ]
+   ],
+   "no_check": [
+    "LOAD"
+   ],
+   "needs_probe": "a page-speed probe (2.5 s, 99.5% of the time)",
+   "paths": {
+    "workflows": [],
+    "core": [
+     "db"
+    ],
+    "registered": [
+     "cloudflare",
+     "aws"
+    ]
+   }
+  },
+  {
+   "id": "o-signin",
+   "box": "The site is there, and people find it",
+   "title": "Sign-in works end to end",
+   "measure": "the paths check: sign in, then sign out",
+   "target": "both pass on every run",
+   "target_proposed": null,
+   "unit": "%",
+   "setup": {
+    "probe": true,
+    "target": true,
+    "check": true,
+    "alarm": false
+   },
+   "procs": [
+    "site:db",
+    "site:pulse",
+    "svc:apple",
+    "svc:aws",
+    "svc:bluehost",
+    "svc:google",
+    "svc:meta",
+    "svc:microsoft"
+   ],
+   "fix": [
+    [
+     "Fix it: Bluehost",
+     "/admin/config/register#svc-bluehost"
+    ],
+    [
+     "Fix it: Cloudflare",
+     "/admin/config/register#svc-cloudflare"
+    ],
+    [
+     "Fix it: The Communications Dispatcher",
+     "/admin/config/communications"
+    ],
+    [
+     "association not mapped: Cloudflare Turnstile (the sign-in check) has no need in Preflight::NEEDS",
+     null
+    ]
+   ],
+   "no_check": [],
+   "needs_probe": null,
+   "paths": {
+    "workflows": [],
+    "core": [
+     "db",
+     "dispatcher"
+    ],
+    "registered": [
+     "google",
+     "microsoft",
+     "apple",
+     "meta",
+     "bluehost",
+     "aws"
+    ]
+   }
+  },
+  {
+   "id": "o-phone",
+   "box": "The site is there, and people find it",
+   "title": "The phone layout",
+   "measure": "pages passing the phone check (both rules) out of pages checked; the two counts to the drill-down",
+   "target": "no sideways scroll; 3px card edges (decisions/0058 §11)",
+   "target_proposed": null,
+   "unit": "%",
+   "setup": {
+    "probe": true,
+    "target": true,
+    "check": false,
+    "alarm": false
+   },
+   "procs": [
+    "site:db",
+    "svc:tailwind"
+   ],
+   "fix": [
+    [
+     "Fix it: Bluehost",
+     "/admin/config/register#svc-bluehost"
+    ]
+   ],
+   "no_check": [],
+   "needs_probe": null,
+   "paths": {
+    "workflows": [],
+    "core": [
+     "db",
+     "staging"
+    ],
+    "registered": [
+     "tailwind"
+    ]
+   }
+  },
+  {
+   "id": "o-search",
+   "box": "The site is there, and people find it",
+   "title": "Search finds what they came for",
+   "measure": "the search scorecard (decisions/0060 and the probe's cases)",
+   "target": null,
+   "target_proposed": "target: set by Jason (the probe's own bar: every case passes)",
+   "unit": "%",
+   "setup": {
+    "probe": true,
+    "target": false,
+    "check": false,
+    "alarm": true
+   },
+   "procs": [
+    "site:db",
+    "site:sched",
+    "svc:brave",
+    "svc:census",
+    "svc:foursquare",
+    "svc:gemini",
+    "svc:geofabrik",
+    "svc:overture",
+    "svc:supabase",
+    "svc:tavily",
+    "svc:usgs",
+    "svc:wikimedia",
+    "wf:W1",
+    "wf:W12",
+    "wf:W9"
+   ],
+   "fix": [
+    [
+     "Fix it: Geofabrik (OpenStreetMap extracts)",
+     "/admin/config/register#svc-geofabrik"
+    ],
+    [
+     "Fix it: Overture Maps (Places)",
+     "/admin/config/register#svc-overture"
+    ],
+    [
+     "association not mapped: the typing suggestions' speed: search's own index, no need names it",
+     null
+    ]
+   ],
+   "no_check": [],
+   "needs_probe": null,
+   "paths": {
+    "workflows": [
+     "W1",
+     "W9",
+     "W12"
+    ],
+    "core": [
+     "db",
+     "jobs"
+    ],
+    "registered": [
+     "supabase",
+     "gemini",
+     "overture",
+     "foursquare",
+     "geofabrik",
+     "wikimedia",
+     "usgs",
+     "census",
+     "tavily",
+     "brave"
+    ]
+   }
+  },
+  {
+   "id": "o-near",
+   "box": "The site is there, and people find it",
+   "title": "3 within 5 mi",
+   "measure": "at least 3 results within 5 mi (30 for the outdoors), decisions/0060",
+   "target": "3 within 5 mi; 30 for the outdoors (decisions/0060)",
+   "target_proposed": null,
+   "unit": "%",
+   "setup": {
+    "probe": false,
+    "target": true,
+    "check": false,
+    "alarm": false
+   },
+   "procs": [
+    "site:db",
+    "svc:foursquare",
+    "svc:geofabrik",
+    "svc:overture",
+    "wf:W1",
+    "wk:crawler",
+    "wk:w0-indexer"
+   ],
+   "fix": [
+    [
+     "Fix it: Geofabrik (OpenStreetMap extracts)",
+     "/admin/config/register#svc-geofabrik"
+    ],
+    [
+     "Fix it: Overture Maps (Places)",
+     "/admin/config/register#svc-overture"
+    ]
+   ],
+   "no_check": [],
+   "needs_probe": "a 3-within-5-mi probe per town (decisions/0060)",
+   "paths": {
+    "workflows": [
+     "W1"
+    ],
+    "core": [
+     "db",
+     "workers"
+    ],
+    "registered": [
+     "overture",
+     "foursquare",
+     "geofabrik"
+    ]
+   }
+  },
+  {
+   "id": "o-paths",
+   "box": "The site is there, and people find it",
+   "title": "Paths complete",
+   "measure": "paths passed out of paths run; failed and skipped to the drill-down",
+   "target": null,
+   "target_proposed": null,
+   "unit": "%",
+   "setup": {
+    "probe": true,
+    "target": false,
+    "check": false,
+    "alarm": false
+   },
+   "procs": [
+    "site:db"
+   ],
+   "fix": [
+    [
+     "Fix it: Bluehost",
+     "/admin/config/register#svc-bluehost"
+    ]
+   ],
+   "no_check": [],
+   "needs_probe": null,
+   "paths": {
+    "workflows": [],
+    "core": [
+     "db",
+     "staging"
+    ],
+    "registered": []
+   }
+  },
+  {
+   "id": "o-fresh",
+   "box": "What they see is true, and knowledge keeps growing",
+   "title": "Fresh",
+   "measure": "each copy's last load inside its cadence (the health report's status)",
+   "target": null,
+   "target_proposed": null,
+   "unit": "%",
+   "setup": {
+    "probe": true,
+    "target": false,
+    "check": false,
+    "alarm": true
+   },
+   "procs": [
+    "site:db",
+    "site:sched",
+    "svc:cms",
+    "svc:foursquare",
+    "svc:geofabrik",
+    "svc:irs",
+    "svc:overture",
+    "svc:ridb",
+    "wf:W1",
+    "wf:W9",
+    "wk:crawler",
+    "wk:w0-indexer"
+   ],
+   "fix": [
+    [
+     "Fix it: NPI Registry (CMS)",
+     "/admin/config/register#svc-cms"
+    ]
+   ],
+   "no_check": [],
+   "needs_probe": null,
+   "paths": {
+    "workflows": [
+     "W1",
+     "W9"
+    ],
+    "core": [
+     "db",
+     "jobs",
+     "workers"
+    ],
+    "registered": [
+     "cms",
+     "irs",
+     "overture",
+     "foursquare",
+     "geofabrik",
+     "ridb"
+    ]
+   }
+  },
+  {
+   "id": "o-complete",
+   "box": "What they see is true, and knowledge keeps growing",
+   "title": "Complete",
+   "measure": "share of public listings with an exact map point; \"no kind\" to the drill-down or its own gauge",
+   "target": null,
+   "target_proposed": null,
+   "unit": "%",
+   "setup": {
+    "probe": true,
+    "target": false,
+    "check": false,
+    "alarm": false
+   },
+   "procs": [
+    "site:db",
+    "site:sched",
+    "svc:azcc",
+    "svc:brave",
+    "svc:census",
+    "svc:cms",
+    "svc:commoncrawl",
+    "svc:google",
+    "svc:tavily",
+    "wf:W2",
+    "wk:crawler",
+    "wk:w0-indexer"
+   ],
+   "fix": [
+    [
+     "Fix it: Geofabrik (OpenStreetMap extracts)",
+     "/admin/config/register#svc-geofabrik"
+    ],
+    [
+     "Fix it: Railway",
+     "/admin/config/register#svc-railway"
+    ]
+   ],
+   "no_check": [],
+   "needs_probe": null,
+   "paths": {
+    "workflows": [
+     "W2"
+    ],
+    "core": [
+     "db",
+     "jobs",
+     "workers"
+    ],
+    "registered": [
+     "census",
+     "commoncrawl",
+     "tavily",
+     "brave",
+     "google",
+     "cms",
+     "azcc"
+    ]
+   }
+  },
+  {
+   "id": "o-leak",
+   "box": "What they see is true, and knowledge keeps growing",
+   "title": "Nothing private or sacred leaks",
+   "measure": "held words stay held (decisions/0066, 0164 R7)",
+   "target": "none, ever",
+   "target_proposed": null,
+   "unit": "%",
+   "setup": {
+    "probe": false,
+    "target": true,
+    "check": false,
+    "alarm": false
+   },
+   "procs": [
+    "site:db",
+    "svc:census",
+    "svc:usgs",
+    "svc:wikimedia",
+    "wf:W9",
+    "wk:crawler",
+    "wk:w0-indexer"
+   ],
+   "fix": [],
+   "no_check": [],
+   "needs_probe": "a held-words probe (decisions/0066, 0164 R7)",
+   "paths": {
+    "workflows": [
+     "W9"
+    ],
+    "core": [
+     "db",
+     "workers"
+    ],
+    "registered": [
+     "wikimedia",
+     "usgs",
+     "census"
+    ]
+   }
+  },
+  {
+   "id": "o-photos",
+   "box": "What they see is true, and knowledge keeps growing",
+   "title": "Photos load",
+   "measure": "the photos check (daily, site-checks.yml)",
+   "target": "every kind loads",
+   "target_proposed": null,
+   "unit": "%",
+   "setup": {
+    "probe": false,
+    "target": true,
+    "check": false,
+    "alarm": false
+   },
+   "procs": [
+    "site:db",
+    "svc:aws",
+    "svc:cloudflare",
+    "svc:loc",
+    "svc:pixabay",
+    "svc:wikimedia",
+    "wk:video-worker"
+   ],
+   "fix": [
+    [
+     "Fix it: Amazon Web Services",
+     "/admin/config/register#svc-aws"
+    ],
+    [
+     "Fix it: Cloudflare",
+     "/admin/config/register#svc-cloudflare"
+    ]
+   ],
+   "no_check": [
+    "PHOTOS"
+   ],
+   "needs_probe": "the photos check's results in site-audit/results",
+   "paths": {
+    "workflows": [],
+    "core": [
+     "db",
+     "video"
+    ],
+    "registered": [
+     "cloudflare",
+     "aws",
+     "pixabay",
+     "loc",
+     "wikimedia"
+    ]
+   }
+  },
+  {
+   "id": "o-gather",
+   "box": "What they see is true, and knowledge keeps growing",
+   "title": "Gathering reconciles",
+   "measure": "records in over 24 hours against the day's expected; each workflow's state to the drill-down (it already has the Workflows path)",
+   "target": "every workflow on; records in every day",
+   "target_proposed": null,
+   "unit": "%",
+   "setup": {
+    "probe": true,
+    "target": true,
+    "check": false,
+    "alarm": true
+   },
+   "procs": [
+    "site:db",
+    "site:sched",
+    "svc:azcc",
+    "svc:brave",
+    "svc:cms",
+    "svc:commoncrawl",
+    "svc:foursquare",
+    "svc:gemini",
+    "svc:geofabrik",
+    "svc:irs",
+    "svc:overture",
+    "svc:tavily",
+    "wf:W1",
+    "wf:W3",
+    "wk:crawler",
+    "wk:w0-indexer"
+   ],
+   "fix": [
+    [
+     "Fix it: Railway",
+     "/admin/config/register#svc-railway"
+    ],
+    [
+     "Fix it: Bluehost",
+     "/admin/config/register#svc-bluehost"
+    ],
+    [
+     "Fix it: Overture Maps (Places)",
+     "/admin/config/register#svc-overture"
+    ],
+    [
+     "Fix it: Foursquare open places",
+     "/admin/config/register#svc-foursquare"
+    ]
+   ],
+   "no_check": [],
+   "needs_probe": null,
+   "paths": {
+    "workflows": [
+     "W1",
+     "W3"
+    ],
+    "core": [
+     "db",
+     "jobs",
+     "workers"
+    ],
+    "registered": [
+     "overture",
+     "foursquare",
+     "geofabrik",
+     "cms",
+     "azcc",
+     "tavily",
+     "brave",
+     "gemini",
+     "irs",
+     "commoncrawl"
+    ]
+   }
+  },
+  {
+   "id": "o-grow",
+   "box": "What they see is true, and knowledge keeps growing",
+   "title": "Knowledge keeps growing",
+   "measure": "published listings (the crawler snapshot, daily)",
+   "target": null,
+   "target_proposed": null,
+   "unit": "%",
+   "setup": {
+    "probe": true,
+    "target": false,
+    "check": true,
+    "alarm": false
+   },
+   "procs": [
+    "site:db",
+    "site:sched",
+    "svc:azcc",
+    "svc:brave",
+    "svc:cms",
+    "svc:foursquare",
+    "svc:gemini",
+    "svc:geofabrik",
+    "svc:overture",
+    "svc:tavily",
+    "wf:W1",
+    "wf:W2",
+    "wk:crawler",
+    "wk:w0-indexer"
+   ],
+   "fix": [
+    [
+     "Fix it: Railway",
+     "/admin/config/register#svc-railway"
+    ]
+   ],
+   "no_check": [],
+   "needs_probe": null,
+   "paths": {
+    "workflows": [
+     "W1",
+     "W2"
+    ],
+    "core": [
+     "db",
+     "jobs",
+     "workers"
+    ],
+    "registered": [
+     "overture",
+     "foursquare",
+     "geofabrik",
+     "cms",
+     "azcc",
+     "tavily",
+     "brave",
+     "gemini"
+    ]
+   }
+  },
+  {
+   "id": "o-pay",
+   "box": "Money, orders, email and caps",
+   "title": "Payments go through",
+   "measure": "QuickBooks' token and a test order (the paths check's send-order)",
+   "target": "every order paid or invoiced",
+   "target_proposed": null,
+   "unit": "%",
+   "setup": {
+    "probe": false,
+    "target": true,
+    "check": false,
+    "alarm": false
+   },
+   "procs": [
+    "site:db",
+    "site:pulse",
+    "site:sched",
+    "svc:quickbooks",
+    "svc:square",
+    "svc:stripe"
+   ],
+   "fix": [
+    [
+     "Fix it: QuickBooks (Intuit)",
+     "/admin/config/register#svc-quickbooks"
+    ]
+   ],
+   "no_check": [],
+   "needs_probe": "QuickBooks' token read and the send-order path run",
+   "paths": {
+    "workflows": [],
+    "core": [
+     "db",
+     "jobs",
+     "dispatcher"
+    ],
+    "registered": [
+     "quickbooks",
+     "stripe",
+     "square"
+    ]
+   }
+  },
+  {
+   "id": "o-renew",
+   "box": "Money, orders, email and caps",
+   "title": "Renewals run",
+   "measure": "billing_tick, a critical job (payments)",
+   "target": "runs on time",
+   "target_proposed": null,
+   "unit": "%",
+   "setup": {
+    "probe": true,
+    "target": true,
+    "check": false,
+    "alarm": true
+   },
+   "procs": [
+    "site:db",
+    "site:pulse",
+    "site:sched",
+    "svc:quickbooks"
+   ],
+   "fix": [
+    [
+     "Fix it: Bluehost",
+     "/admin/config/register#svc-bluehost"
+    ],
+    [
+     "Fix it: QuickBooks (Intuit)",
+     "/admin/config/register#svc-quickbooks"
+    ]
+   ],
+   "no_check": [],
+   "needs_probe": null,
+   "paths": {
+    "workflows": [],
+    "core": [
+     "db",
+     "jobs",
+     "dispatcher"
+    ],
+    "registered": [
+     "quickbooks"
+    ]
+   }
+  },
+  {
+   "id": "o-email",
+   "box": "Money, orders, email and caps",
+   "title": "Email is delivered",
+   "measure": "SES's bounce and complaint rates; SMTP sends",
+   "target": null,
+   "target_proposed": "5% bounce, 0.1% complaint (inf)",
+   "unit": "%",
+   "setup": {
+    "probe": false,
+    "target": false,
+    "check": false,
+    "alarm": false
+   },
+   "procs": [
+    "site:pulse",
+    "site:sched",
+    "svc:aws",
+    "svc:bluehost"
+   ],
+   "fix": [
+    [
+     "Fix it: The Communications Dispatcher",
+     "/admin/config/communications"
+    ],
+    [
+     "Fix it: Amazon Web Services",
+     "/admin/config/register#svc-aws"
+    ]
+   ],
+   "no_check": [],
+   "needs_probe": "SES's bounce and complaint rates read",
+   "paths": {
+    "workflows": [],
+    "core": [
+     "dispatcher",
+     "jobs"
+    ],
+    "registered": [
+     "bluehost",
+     "aws"
+    ]
+   }
+  },
+  {
+   "id": "o-claude",
+   "box": "Money, orders, email and caps",
+   "title": "Within our means: Claude (AI)",
+   "measure": "spend against its monthly cap",
+   "target": "$40.00 a month (ai_month_usd)",
+   "target_proposed": null,
+   "unit": "%",
+   "setup": {
+    "probe": true,
+    "target": true,
+    "check": false,
+    "alarm": true
+   },
+   "procs": [
+    "site:db",
+    "site:sched",
+    "svc:anthropic",
+    "svc:brave",
+    "svc:loc",
+    "svc:nps",
+    "svc:tavily",
+    "svc:wikimedia",
+    "wf:W10",
+    "wf:W4",
+    "wf:W5",
+    "wf:W6",
+    "wf:W8"
+   ],
+   "fix": [
+    [
+     "Fix it: Anthropic (Claude)",
+     "/admin/config/register#svc-anthropic"
+    ]
+   ],
+   "no_check": [],
+   "needs_probe": null,
+   "paths": {
+    "workflows": [
+     "W4",
+     "W5",
+     "W6",
+     "W8",
+     "W10"
+    ],
+    "core": [
+     "db",
+     "jobs"
+    ],
+    "registered": [
+     "anthropic",
+     "loc",
+     "wikimedia",
+     "nps",
+     "tavily",
+     "brave"
+    ]
+   }
+  },
+  {
+   "id": "o-places",
+   "box": "Money, orders, email and caps",
+   "title": "Within our means: Google Places",
+   "measure": "checks against the monthly cap",
+   "target": "1,000 checks a month",
+   "target_proposed": null,
+   "unit": "%",
+   "setup": {
+    "probe": true,
+    "target": true,
+    "check": false,
+    "alarm": true
+   },
+   "procs": [
+    "site:db",
+    "svc:google",
+    "wf:W2",
+    "wk:crawler",
+    "wk:w0-indexer"
+   ],
+   "fix": [
+    [
+     "Fix it: Google Places",
+     "/admin/config/register#svc-google"
+    ]
+   ],
+   "no_check": [],
+   "needs_probe": null,
+   "paths": {
+    "workflows": [
+     "W2"
+    ],
+    "core": [
+     "db",
+     "workers"
+    ],
+    "registered": [
+     "google"
+    ]
+   }
+  },
+  {
+   "id": "o-search-cap",
+   "box": "Money, orders, email and caps",
+   "title": "Within our means: web search",
+   "measure": "searches against websearch_monthly; the money beside it as a note or a graph",
+   "target": null,
+   "target_proposed": "websearch_monthly (not read yet)",
+   "unit": "%",
+   "setup": {
+    "probe": false,
+    "target": false,
+    "check": false,
+    "alarm": false
+   },
+   "procs": [
+    "site:db",
+    "svc:anthropic",
+    "svc:brave",
+    "svc:tavily",
+    "wf:W11",
+    "wf:W12",
+    "wf:W8",
+    "wk:crawler",
+    "wk:w0-indexer"
+   ],
+   "fix": [
+    [
+     "Fix it: Tavily",
+     "/admin/config/register#svc-tavily"
+    ],
+    [
+     "Fix it: Brave Search",
+     "/admin/config/register#svc-brave"
+    ]
+   ],
+   "no_check": [],
+   "needs_probe": "websearch_monthly read (the shared web search cap)",
+   "paths": {
+    "workflows": [
+     "W8",
+     "W11",
+     "W12"
+    ],
+    "core": [
+     "db",
+     "workers"
+    ],
+    "registered": [
+     "anthropic",
+     "tavily",
+     "brave"
+    ]
+   }
+  },
+  {
+   "id": "o-told",
+   "box": "The team is told, and things recover",
+   "title": "Trips reach a person",
+   "measure": "each trip's email and push",
+   "target": "every trip, at once",
+   "target_proposed": null,
+   "unit": "%",
+   "setup": {
+    "probe": true,
+    "target": true,
+    "check": true,
+    "alarm": true
+   },
+   "procs": [
+    "site:pulse",
+    "site:sched",
+    "svc:aws",
+    "svc:bluehost"
+   ],
+   "fix": [
+    [
+     "Fix it: The Communications Dispatcher",
+     "/admin/config/communications"
+    ],
+    [
+     "association not mapped: the Communications Dispatcher (push, Pulse) has no need in Preflight::NEEDS",
+     null
+    ]
+   ],
+   "no_check": [],
+   "needs_probe": null,
+   "paths": {
+    "workflows": [],
+    "core": [
+     "dispatcher",
+     "jobs"
+    ],
+    "registered": [
+     "bluehost",
+     "aws"
+    ]
+   }
+  },
+  {
+   "id": "o-uptime",
+   "box": "The team is told, and things recover",
+   "title": "Things recover",
+   "measure": "the whole system's uptime, last 24 hours (the historian)",
+   "target": null,
+   "target_proposed": null,
+   "unit": "%",
+   "setup": {
+    "probe": true,
+    "target": false,
+    "check": false,
+    "alarm": true
+   },
+   "procs": [
+    "site:db",
+    "site:pulse",
+    "site:sched",
+    "svc:github",
+    "wk:crawler",
+    "wk:w0-indexer"
+   ],
+   "fix": [
+    [
+     "Fix it: Railway",
+     "/admin/config/register#svc-railway"
+    ]
+   ],
+   "no_check": [],
+   "needs_probe": null,
+   "paths": {
+    "workflows": [],
+    "core": [
+     "db",
+     "jobs",
+     "workers",
+     "dispatcher"
+    ],
+    "registered": [
+     "github"
+    ]
+   }
+  },
+  {
+   "id": "o-ir",
+   "box": "The team is told, and things recover",
+   "title": "Incident Reports close",
+   "measure": "IRs closed with a confirmed cause out of IRs raised; each IR's state to the drill-down",
+   "target": "every IR closed with a confirmed cause",
+   "target_proposed": null,
+   "unit": "%",
+   "setup": {
+    "probe": true,
+    "target": true,
+    "check": false,
+    "alarm": true
+   },
+   "procs": [
+    "site:db",
+    "site:pulse",
+    "svc:foursquare",
+    "svc:geofabrik",
+    "svc:overture",
+    "wf:W1",
+    "wk:crawler",
+    "wk:w0-indexer"
+   ],
+   "fix": [
+    [
+     "Fix it: Bluehost",
+     "/admin/config/register#svc-bluehost"
+    ]
+   ],
+   "no_check": [],
+   "needs_probe": null,
+   "paths": {
+    "workflows": [
+     "W1"
+    ],
+    "core": [
+     "db",
+     "workers",
+     "dispatcher"
+    ],
+    "registered": [
+     "overture",
+     "foursquare",
+     "geofabrik"
+    ]
+   }
+  },
+  {
+   "id": "o-selfrec",
+   "box": "The team is told, and things recover",
+   "title": "The system recovers by itself",
+   "measure": "the self-recovery rate",
+   "target": null,
+   "target_proposed": null,
+   "unit": "%",
+   "setup": {
+    "probe": false,
+    "target": false,
+    "check": false,
+    "alarm": false
+   },
+   "procs": [
+    "site:db",
+    "site:sched",
+    "wk:crawler",
+    "wk:w0-indexer"
+   ],
+   "fix": [
+    [
+     "association not mapped: the self-recovery rate: no part owns it yet",
+     null
+    ]
+   ],
+   "no_check": [],
+   "needs_probe": "the self-recovery rate from the historian (0171 r4b)",
+   "paths": {
+    "workflows": [],
+    "core": [
+     "db",
+     "jobs",
+     "workers"
+    ],
+    "registered": []
+   }
+  }
+ ],
+ "workflows": [
+  {
+   "wf": "W0",
+   "name": "Indexer",
+   "kind": "gauge",
+   "measure": "Pages read and classified: its heartbeat inside every 5-minute watch",
+   "target": "every watch",
+   "setup": {
+    "probe": true,
+    "target": true,
+    "check": false,
+    "alarm": true
+   },
+   "tasks": [
+    "indexer"
+   ],
+   "core": [
+    "db",
+    "workers",
+    "dispatcher"
+   ],
+   "registered": []
+  },
+  {
+   "wf": "W1",
+   "name": "Listings",
+   "kind": "gauge",
+   "measure": "Records reconciled per run: in = stored + updated + sent to Review + refused (the \"accounted\" check, R25)",
+   "target": "every run",
+   "setup": {
+    "probe": true,
+    "target": true,
+    "check": false,
+    "alarm": true
+   },
+   "tasks": [
+    "coverage",
+    "second_look",
+    "targets",
+    "npi_bulk",
+    "irs_bulk",
+    "overture_bulk",
+    "foursquare_bulk",
+    "geofabrik_bulk"
+   ],
+   "core": [
+    "db",
+    "workers",
+    "jobs",
+    "dispatcher"
+   ],
+   "registered": [
+    "overture",
+    "foursquare",
+    "geofabrik",
+    "cms",
+    "irs",
+    "ridb",
+    "wikimedia",
+    "azcc",
+    "tavily",
+    "brave",
+    "gemini"
+   ]
+  },
+  {
+   "wf": "W2",
+   "name": "Keeping listings current",
+   "kind": "gauge",
+   "measure": "Listings due a recheck, rechecked on schedule",
+   "target": "95% within their due day",
+   "setup": {
+    "probe": true,
+    "target": true,
+    "check": false,
+    "alarm": true
+   },
+   "tasks": [
+    "refresh",
+    "identity",
+    "geocode",
+    "places",
+    "recheck"
+   ],
+   "core": [
+    "db",
+    "workers",
+    "jobs",
+    "dispatcher"
+   ],
+   "registered": [
+    "cms",
+    "azcc",
+    "tavily",
+    "brave",
+    "gemini",
+    "commoncrawl",
+    "census",
+    "google"
+   ]
+  },
+  {
+   "wf": "W3",
+   "name": "Sources and the place store",
+   "kind": "gauge",
+   "measure": "Sources due a read, read on schedule (changed pages only)",
+   "target": "95% within their due day",
+   "setup": {
+    "probe": true,
+    "target": true,
+    "check": false,
+    "alarm": true
+   },
+   "tasks": [
+    "source",
+    "commoncrawl",
+    "vectors"
+   ],
+   "core": [
+    "db",
+    "workers",
+    "jobs",
+    "dispatcher"
+   ],
+   "registered": [
+    "gemini",
+    "commoncrawl",
+    "supabase"
+   ]
+  },
+  {
+   "wf": "W4",
+   "name": "Place guides",
+   "kind": "gauge",
+   "measure": "The guide job's runs on schedule, inside the AI cap",
+   "target": "every scheduled run",
+   "setup": {
+    "probe": true,
+    "target": true,
+    "check": false,
+    "alarm": true
+   },
+   "tasks": [
+    "guide job"
+   ],
+   "core": [
+    "db",
+    "jobs",
+    "dispatcher"
+   ],
+   "registered": [
+    "anthropic"
+   ]
+  },
+  {
+   "wf": "W5",
+   "name": "Guides on demand",
+   "kind": "gauge",
+   "measure": "Visitors' asks answered with a first look",
+   "target": "every ask, inside half the daily AI allowance (0147)",
+   "setup": {
+    "probe": true,
+    "target": true,
+    "check": false,
+    "alarm": true
+   },
+   "tasks": [
+    "on-demand guide"
+   ],
+   "core": [
+    "db",
+    "jobs",
+    "dispatcher"
+   ],
+   "registered": [
+    "anthropic"
+   ]
+  },
+  {
+   "wf": "W6",
+   "name": "Heritage and topics",
+   "kind": "gauge",
+   "measure": "Heritage tasks done on schedule",
+   "target": "every scheduled run",
+   "setup": {
+    "probe": true,
+    "target": true,
+    "check": false,
+    "alarm": true
+   },
+   "tasks": [
+    "heritage"
+   ],
+   "core": [
+    "db",
+    "workers",
+    "jobs",
+    "dispatcher"
+   ],
+   "registered": [
+    "anthropic",
+    "loc",
+    "wikimedia",
+    "nps"
+   ]
+  },
+  {
+   "wf": "W7",
+   "name": "Suggested journeys",
+   "kind": "gauge",
+   "measure": "Journeys runs on schedule (3 a run, 0146)",
+   "target": "every scheduled run",
+   "setup": {
+    "probe": true,
+    "target": true,
+    "check": false,
+    "alarm": true
+   },
+   "tasks": [
+    "journeys job"
+   ],
+   "core": [
+    "db",
+    "jobs",
+    "dispatcher"
+   ],
+   "registered": [
+    "heigit"
+   ]
+  },
+  {
+   "wf": "W8",
+   "name": "Find it",
+   "kind": "gauge",
+   "measure": "Names queued, found or sent to a person",
+   "target": "within 7 days",
+   "setup": {
+    "probe": true,
+    "target": true,
+    "check": false,
+    "alarm": true
+   },
+   "tasks": [
+    "find it"
+   ],
+   "core": [
+    "db",
+    "jobs",
+    "dispatcher"
+   ],
+   "registered": [
+    "anthropic",
+    "tavily",
+    "brave"
+   ]
+  },
+  {
+   "wf": "W9",
+   "name": "Landmarks and places on demand",
+   "kind": "gauge",
+   "measure": "Monthly loads done in their night window",
+   "target": "every month",
+   "setup": {
+    "probe": true,
+    "target": true,
+    "check": false,
+    "alarm": true
+   },
+   "tasks": [
+    "landmarks_bulk",
+    "rec_bulk"
+   ],
+   "core": [
+    "db",
+    "workers",
+    "jobs",
+    "dispatcher"
+   ],
+   "registered": [
+    "wikimedia",
+    "usgs",
+    "census"
+   ]
+  },
+  {
+   "wf": "W10",
+   "name": "Live events",
+   "kind": "gauge",
+   "measure": "Live guides' events refreshed on schedule",
+   "target": "every scheduled run",
+   "setup": {
+    "probe": true,
+    "target": true,
+    "check": false,
+    "alarm": true
+   },
+   "tasks": [
+    "live events"
+   ],
+   "core": [
+    "db",
+    "jobs",
+    "dispatcher"
+   ],
+   "registered": [
+    "gemini",
+    "anthropic",
+    "tavily",
+    "brave"
+   ]
+  },
+  {
+   "wf": "W11",
+   "name": "How-to guides",
+   "kind": "gauge",
+   "measure": "How-to tasks done on schedule",
+   "target": "every scheduled run",
+   "setup": {
+    "probe": true,
+    "target": true,
+    "check": false,
+    "alarm": true
+   },
+   "tasks": [
+    "howto"
+   ],
+   "core": [
+    "db",
+    "workers",
+    "jobs",
+    "dispatcher"
+   ],
+   "registered": [
+    "gemini",
+    "tavily",
+    "brave"
+   ]
+  },
+  {
+   "wf": "W12",
+   "name": "Search learning",
+   "kind": "gauge",
+   "measure": "Learn tasks done on schedule",
+   "target": "every scheduled run",
+   "setup": {
+    "probe": true,
+    "target": true,
+    "check": false,
+    "alarm": true
+   },
+   "tasks": [
+    "learn"
+   ],
+   "core": [
+    "db",
+    "workers",
+    "jobs",
+    "dispatcher"
+   ],
+   "registered": [
+    "tavily",
+    "brave"
+   ]
+  },
+  {
+   "wf": "W13",
+   "name": "Stories",
+   "kind": "list",
+   "measure": "W13 is a list, not a gauge: people write stories, so it has no machine steps to measure (the session manager, 2026-11-22).",
+   "target": null,
+   "setup": null,
+   "tasks": [],
+   "core": [
+    "db"
+   ],
+   "registered": []
+  },
+  {
+   "wf": "W14",
+   "name": "Authority sources",
+   "kind": "not_built",
+   "measure": "Authority sources read on schedule",
+   "target": "every scheduled run",
+   "setup": {
+    "probe": false,
+    "target": true,
+    "check": false,
+    "alarm": false
+   },
+   "tasks": [
+    "licence_lookup"
+   ],
+   "core": [
+    "db",
+    "workers",
+    "jobs",
+    "dispatcher"
+   ],
+   "registered": [
+    "azcc",
+    "nmsos"
+   ]
+  }
+ ],
+ "parts": {
+  "workflows": {
+   "W0": [
+    "W0 Indexer",
+    "/admin/config/control/wf-W0"
+   ],
+   "W1": [
+    "W1 Listings",
+    "/admin/config/control/wf-W1"
+   ],
+   "W10": [
+    "W10 Live events",
+    "/admin/config/control/wf-W10"
+   ],
+   "W11": [
+    "W11 How-to guides",
+    "/admin/config/control/wf-W11"
+   ],
+   "W12": [
+    "W12 Search learning",
+    "/admin/config/control/wf-W12"
+   ],
+   "W13": [
+    "W13 Stories",
+    "/admin/config/control/wf-W13"
+   ],
+   "W14": [
+    "W14 Authority sources",
+    "/admin/config/control/wf-W14"
+   ],
+   "W2": [
+    "W2 Keeping listings current",
+    "/admin/config/control/wf-W2"
+   ],
+   "W3": [
+    "W3 Sources and the place store",
+    "/admin/config/control/wf-W3"
+   ],
+   "W4": [
+    "W4 Place guides",
+    "/admin/config/control/wf-W4"
+   ],
+   "W5": [
+    "W5 Guides on demand",
+    "/admin/config/control/wf-W5"
+   ],
+   "W6": [
+    "W6 Heritage and topics",
+    "/admin/config/control/wf-W6"
+   ],
+   "W7": [
+    "W7 Suggested journeys",
+    "/admin/config/control/wf-W7"
+   ],
+   "W8": [
+    "W8 Find it",
+    "/admin/config/control/wf-W8"
+   ],
+   "W9": [
+    "W9 Landmarks and places on demand",
+    "/admin/config/control/wf-W9"
+   ]
+  },
+  "core": {
+   "db": [
+    "The site and its databases",
+    "/admin/config/register#svc-bluehost"
+   ],
+   "dispatcher": [
+    "The dispatcher",
+    "/admin/config/communications"
+   ],
+   "jobs": [
+    "The scheduled jobs",
+    "/admin/config/scheduler"
+   ],
+   "staging": [
+    "Staging and releases",
+    "/admin/config/staging"
+   ],
+   "sync": [
+    "The 3-way sync",
+    "/admin/config/register#svc-github"
+   ],
+   "video": [
+    "The video worker",
+    "/admin/config/control/wk-video-worker"
+   ],
+   "workers": [
+    "The workers on Railway: the crawler and W0 Indexer",
+    "/admin/config/register#svc-railway"
+   ]
+  },
+  "registered": {
+   "anthropic": [
+    "Anthropic (Claude)",
+    "/admin/config/register#svc-anthropic"
+   ],
+   "apple": [
+    "Apple",
+    "/admin/config/register#svc-apple"
+   ],
+   "aws": [
+    "Amazon Web Services",
+    "/admin/config/register#svc-aws"
+   ],
+   "azcc": [
+    "Arizona Corporation Commission",
+    "/admin/config/register#svc-azcc"
+   ],
+   "bluehost": [
+    "Bluehost",
+    "/admin/config/register#svc-bluehost"
+   ],
+   "brave": [
+    "Brave Search",
+    "/admin/config/register#svc-brave"
+   ],
+   "census": [
+    "U.S. Census Bureau",
+    "/admin/config/register#svc-census"
+   ],
+   "cloudflare": [
+    "Cloudflare",
+    "/admin/config/register#svc-cloudflare"
+   ],
+   "cms": [
+    "NPI Registry (CMS)",
+    "/admin/config/register#svc-cms"
+   ],
+   "commoncrawl": [
+    "Common Crawl",
+    "/admin/config/register#svc-commoncrawl"
+   ],
+   "fly": [
+    "Fly.io",
+    "/admin/config/register#svc-fly"
+   ],
+   "foursquare": [
+    "Foursquare open places",
+    "/admin/config/register#svc-foursquare"
+   ],
+   "gemini": [
+    "Google AI Studio (Gemini)",
+    "/admin/config/register#svc-gemini"
+   ],
+   "geofabrik": [
+    "Geofabrik (OpenStreetMap extracts)",
+    "/admin/config/register#svc-geofabrik"
+   ],
+   "github": [
+    "GitHub",
+    "/admin/config/register#svc-github"
+   ],
+   "google": [
+    "Google Places",
+    "/admin/config/register#svc-google"
+   ],
+   "heigit": [
+    "openrouteservice (HeiGIT)",
+    "/admin/config/register#svc-heigit"
+   ],
+   "irs": [
+    "IRS (exempt organizations)",
+    "/admin/config/register#svc-irs"
+   ],
+   "loc": [
+    "Library of Congress",
+    "/admin/config/register#svc-loc"
+   ],
+   "meta": [
+    "Meta (Facebook)",
+    "/admin/config/register#svc-meta"
+   ],
+   "microsoft": [
+    "Microsoft",
+    "/admin/config/register#svc-microsoft"
+   ],
+   "namecom": [
+    "Name.com",
+    "/admin/config/register#svc-namecom"
+   ],
+   "nmsos": [
+    "New Mexico Secretary of State (businesses)",
+    "/admin/config/register#svc-nmsos"
+   ],
+   "nps": [
+    "National Park Service",
+    "/admin/config/register#svc-nps"
+   ],
+   "nws": [
+    "National Weather Service (NOAA)",
+    "/admin/config/register#svc-nws"
+   ],
+   "osm": [
+    "OpenStreetMap",
+    "/admin/config/register#svc-osm"
+   ],
+   "overture": [
+    "Overture Maps (Places)",
+    "/admin/config/register#svc-overture"
+   ],
+   "pixabay": [
+    "Pixabay",
+    "/admin/config/register#svc-pixabay"
+   ],
+   "quickbooks": [
+    "QuickBooks (Intuit)",
+    "/admin/config/register#svc-quickbooks"
+   ],
+   "railway": [
+    "Railway",
+    "/admin/config/register#svc-railway"
+   ],
+   "ridb": [
+    "Recreation.gov (RIDB)",
+    "/admin/config/register#svc-ridb"
+   ],
+   "square": [
+    "Square",
+    "/admin/config/register#svc-square"
+   ],
+   "stripe": [
+    "Stripe",
+    "/admin/config/register#svc-stripe"
+   ],
+   "supabase": [
+    "Supabase",
+    "/admin/config/register#svc-supabase"
+   ],
+   "tailwind": [
+    "Tailwind CSS (its CDN)",
+    "/admin/config/register#svc-tailwind"
+   ],
+   "tavily": [
+    "Tavily",
+    "/admin/config/register#svc-tavily"
+   ],
+   "usgs": [
+    "USGS (The National Map, GNIS)",
+    "/admin/config/register#svc-usgs"
+   ],
+   "wikimedia": [
+    "Wikimedia (Wikipedia, Wikidata, Commons)",
+    "/admin/config/register#svc-wikimedia"
+   ]
+  }
+ }
+}

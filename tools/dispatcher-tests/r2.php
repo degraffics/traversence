@@ -19,11 +19,13 @@ $pdo->exec("INSERT INTO service_issues (id, service, host, caller, kind, state, 
   (31, 'geofabrik', 'download.geofabrik.de', 'crawler', 'timeout', 'open', 3, '2026-11-20 09:00:00', '2026-11-20 09:20:00', '{\"latest\":{\"error\":\"connection reset\"}}', '$past'),
   (32, 'tavily', 'api.tavily.com', 'site', 'rate', 'open', 2, '2026-11-20 10:00:00', '2026-11-20 10:05:00', '{\"latest\":{\"status\":429}}', '$soon'),
   (30, 'anthropic', 'api.anthropic.com', 'site', 'auth', 'open', 1, '2026-11-20 10:00:00', '2026-11-20 10:00:00', '{\"latest\":{\"status\":401,\"error\":\"invalid x-api-key\"}}', NULL)");
-$aid = ControlAlarms::raise($pdo, 'svc:issue:28', 'svc:commoncrawl', 'trip', 'held', 'index.commoncrawl.org: Its server failed', '', '', '', [], true, false);
+$aid = ControlAlarms::raise($pdo, 'svc:issue:28', 'svc:commoncrawl', 'trip', 'held', 'Common Crawl\'s index isn\'t answering', '', '', '', [], true, false);
 $row = fn (int $id) => $pdo->query('SELECT * FROM service_issues WHERE id = ' . $id)->fetch(PDO::FETCH_ASSOC);
 $f28 = ServiceHealth::facts($pdo, $row(28)); $f31 = ServiceHealth::facts($pdo, $row(31)); $f32 = ServiceHealth::facts($pdo, $row(32)); $f30 = ServiceHealth::facts($pdo, $row(30));
-$t('the title says what failed, in plain words, with the service\'s name', $f28['title'] === 'Common Crawl: its server failed at index.commoncrawl.org', $f28['title']);
-$t('a trip\'s status: Paused by the system, since when, and it closes as Recovered (never "Backing off until Jan 1")', str_starts_with($f28['status'], 'Paused by the system (a trip) since {t:') && str_contains($f28['status'], 'closes as Recovered') && !str_contains($f28['status'] . Thread::text($f28), '2099') && !str_contains($f28['status'], 'Jan 1'), $f28['status']);
+// one thread (0176 §3, "the thread is the alarm"): an issue with its alarm open reads in the alarm's words, 02 §4.8 row 26
+// ("<module> isn't answering · Paused by the system (a trip) since <time>"), the same as the board and Pulse
+$t('the title says what failed, in plain words, with the service\'s name: its alarm\'s, never a host', $f28['title'] === 'Common Crawl\'s index isn\'t answering' && $f28['title'] === ControlAlarms::facts($pdo, ControlAlarms::byId($pdo, (int) $aid))['title'], $f28['title']);
+$t('a trip\'s status: Paused by the system, since when, the alarm\'s own (never "Backing off until Jan 1")', str_starts_with($f28['status'], 'Paused by the system (') && str_contains($f28['status'], ' since {t:') && $f28['status'] === ControlAlarms::facts($pdo, ControlAlarms::byId($pdo, (int) $aid))['status'] && !str_contains($f28['status'] . Thread::text($f28), '2099') && !str_contains($f28['status'], 'Jan 1'), $f28['status']);
 $t('a back-off whose wait is over says so, not a past date as the next try', str_contains($f31['status'], 'Its wait ended') && str_contains($f31['status'], 'the next call tries it again'), $f31['status']);
 $t('a back-off still waiting: Backing off until its time', str_contains($f32['status'], 'Backing off until {t:'), $f32['status']);
 $t('a stop kind is held for a person', str_starts_with($f30['status'], 'Held since {t:') && $f30['pill'] === 'Held', $f30['status']);
@@ -31,7 +33,7 @@ $t('what it affects: each need that uses the service, and its other sources', (b
 $t('details: what came back, in words (a server\'s page by its title), how often, since, its number', in_array(['What came back', 'HTTP 504 504 Gateway Time-out'], $f28['details'], true) || str_contains(json_encode($f28['details']), '504 Gateway Time-out'), $f28['details']);
 // the card
 $cc = tv_ops_issues($pdo, 'commoncrawl', 'x', '');
-$t('the card draws the thread: its title, status, what it affects, what the system is doing, what to do, Details ▾', str_contains($cc, 'class="tv-th"') && str_contains($cc, 'Common Crawl: its server failed at index.commoncrawl.org') && str_contains($cc, 'Status:') && str_contains($cc, 'What it affects:') && str_contains($cc, 'What the system is doing:') && str_contains($cc, 'What to do:') && str_contains($cc, 'Details ▾'), $cc);
+$t('the card draws the thread: its title, status, what it affects, what the system is doing, what to do, Details ▾', str_contains($cc, 'class="tv-th"') && str_contains($cc, 'Common Crawl&#039;s index isn&#039;t answering') && str_contains($cc, 'Status:') && str_contains($cc, 'What it affects:') && str_contains($cc, 'What the system is doing:') && str_contains($cc, 'What to do:') && str_contains($cc, 'Details ▾'), $cc);
 $t('…no × and no status line that would get one', !str_contains($cc, 'data-tv-status') && !str_contains($cc, '×'));
 $t('…no "Its alarm on the board" and no target="_top"', !str_contains($cc, 'Its alarm on the board') && !str_contains($cc, 'target="_top"'));
 $t('…its buttons kept: Check and start again on a trip, its case in Pulse', str_contains($cc, 'data-ops-cb="resolve" data-ops-id="' . $aid . '"') && str_contains($cc, 'case=alarm%3A' . $aid));

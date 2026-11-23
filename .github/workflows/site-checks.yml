@@ -4,7 +4,13 @@
 # and on Run workflow with "full". Only reads the site; changes nothing.
 # Then the paths (decisions/0145 Phase 4, tools/page-audit/paths.mjs): the core paths that only read, as the test
 # accounts, and a few guide paths a day in turn (GUIDES_PER_RUN), inside a time budget (PATHS_BUDGET_S), so the job
-# stays short; then the findings for the Pulse "Site health" case (findings.py) and the page map (page-map.py).
+# stays short; then the check register's new checks (handoffs/control-board-plan/step3/sections/check-register.md, its
+# approved schedule, Jason, 2026-11-22): TOOLS (tools-check.mjs, read-only tools as every account), LOAD, PHOTOS-SHOWN and
+# BRAND (load-check.mjs, one visit a page for the three) and AUDIT (audit-sample.py, each run's own load); then the
+# findings for the Pulse "Site health" case (findings.py) and the page map (page-map.py).
+# Hourly, the light probe (the register's run 2, job "light"): LOAD on the key pages, signed out, one page at a time 1 s
+# apart, then AUDIT; it backs off when the probe pages run more than 20% over their 7-day median, and it doesn't run while
+# the daily job does.
 # Run workflow with "paths only" walks just the paths (a few minutes). No push triggers: GitHub Actions minutes count.
 # Secrets: MIRROR_READ_TOKEN (the page list from the mirror) and CHECK_ACCOUNTS (the block System Configuration → Test
 # accounts shows once). Without CHECK_ACCOUNTS it checks signed out only. Commits site-audit/rendered.md, paths.md,
@@ -16,6 +22,7 @@ on:
     types: [site-checks]   # the site's clock asks at 9:17 UTC (AuditClock, decisions/0145): GitHub's schedule skips runs when it's busy
   schedule:
     - cron: '43 11 * * *'  # the fallback, if the site didn't ask
+    - cron: '7 * * * *'    # the hourly light probe (check register run 2: about 20 requests, read-only, signed out)
   workflow_dispatch:
     inputs:
       full:
@@ -30,17 +37,22 @@ on:
         description: 'Also the staging paths that change something (they run Mondays and Thursdays on their own)'
         type: boolean
         default: false
+      light_only:
+        description: 'Only the hourly light probe (LOAD on the key pages, then AUDIT)'
+        type: boolean
+        default: false
 
 permissions:
   contents: write
   actions: read
 
-concurrency:
-  group: site-checks
-  cancel-in-progress: false
-
 jobs:
   checks:
+    # the daily run: the site's clock, Run workflow, or the 11:43 fallback (never the hourly schedule)
+    if: ${{ (github.event_name != 'schedule' || github.event.schedule == '43 11 * * *') && !inputs.light_only }}
+    concurrency:
+      group: site-checks
+      cancel-in-progress: false
     runs-on: ubuntu-latest
     timeout-minutes: 120
     steps:
@@ -50,7 +62,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           since=$(date -u -d '-20 hours' +%Y-%m-%dT%H:%M:%SZ)
-          n=$(gh api "repos/${{ github.repository }}/actions/workflows/site-checks.yml/runs?created=%3E%3D$since&per_page=20" --jq '[.workflow_runs[] | select(.id != ${{ github.run_id }})] | length' || echo 0)
+          n=$(gh api "repos/${{ github.repository }}/actions/workflows/site-checks.yml/runs?created=%3E%3D$since&per_page=20" --jq '[.workflow_runs[] | select(.id != ${{ github.run_id }} and .event != "schedule")] | length' || echo 0)   # the hourly probe's runs don't count
           if [ "${n:-0}" -gt 0 ]; then echo "Run $n time(s) in the last 20 hours already: nothing to do."; echo "SKIP=1" >> "$GITHUB_ENV"; fi
 
       - uses: actions/checkout@v4
@@ -69,6 +81,7 @@ jobs:
           sparse-checkout: |
             /sync-app/admin/
             /sync-app/lib/Store.php
+            /sync-app/lib/Workspaces.php
 
       - uses: actions/setup-node@v4
         if: env.SKIP != '1'
@@ -109,6 +122,36 @@ jobs:
           if [ "$STAGING_PATHS" = "1" ] || [ "$(date -u +%u)" = "1" ] || [ "$(date -u +%u)" = "4" ]; then export PATHS_BUDGET_S=1100; fi
           node tools/page-audit/paths.mjs
 
+      # The check register's new checks (check-register.md; targets and schedule approved by Jason, 2026-11-22). Only reads:
+      # GETs, page loads, scrolling and the Tab key, one at a time 1 s apart; each writes site-audit/results/<check>.json.
+      - name: Tools by every account (TOOLS, read-only)
+        if: ${{ env.SKIP != '1' && !inputs.paths_only }}
+        continue-on-error: true
+        env:
+          SITE: https://traversence.com
+          CHECK_ACCOUNTS: ${{ secrets.CHECK_ACCOUNTS }}
+          TOOLS_PHP: mirror/sync-app/admin/tools.php
+          WORKSPACES: mirror/sync-app/lib/Workspaces.php
+          ACCESS_PHP: mirror/sync-app/admin/Access.php
+          TOOLS_BUDGET_S: '1500'
+        run: node tools/page-audit/tools-check.mjs
+
+      - name: Load time, photos shown and the brand (LOAD, PHOTOS-SHOWN, BRAND; one visit a page)
+        if: ${{ env.SKIP != '1' && !inputs.paths_only }}
+        continue-on-error: true
+        env:
+          SITE: https://traversence.com
+          CHECK_ACCOUNTS: ${{ secrets.CHECK_ACCOUNTS }}
+          LOAD_MODE: full
+          ALSO: PHOTOS-SHOWN,BRAND
+          LOAD_BUDGET_S: '2400'
+        run: node tools/page-audit/load-check.mjs
+
+      - name: The audit's own load (AUDIT)
+        if: always() && env.SKIP != '1'
+        continue-on-error: true
+        run: python3 tools/page-audit/audit-sample.py
+
       - name: Findings (for Site health) and the page map
         if: env.SKIP != '1'
         run: |
@@ -131,6 +174,7 @@ jobs:
           git config user.email "site-checks@users.noreply.github.com"
           git add site-audit/rendered.md site-audit/results/rendered.json site-audit/page-map.md site-audit/results/page-map.json site-audit/results/findings.json
           git add site-audit/paths.md site-audit/results/paths.json site-audit/results/paths-history.json 2>/dev/null || true
+          git add site-audit/results/tools.json site-audit/results/load.json site-audit/results/photos-shown.json site-audit/results/brand.json site-audit/results/audit.json 2>/dev/null || true
           if git diff --cached --quiet; then echo "No change."; exit 0; fi
           git commit -m "Site checks: rendered pages and paths"
           git pull --rebase -X theirs -q   # the run's own generated files win a collision
@@ -143,3 +187,57 @@ jobs:
           STORE: mirror/sync-app/lib/Store.php
           PHOTO_MEMBER: ${{ vars.PHOTO_MEMBER }}
         run: bash tools/page-audit/photos-check.sh
+
+  light:
+    # the hourly light probe (check register run 2): LOAD on the key pages, signed out, then AUDIT. Never beside the daily
+    # job (its own group, and it stands down while a daily run is going), so the site never has both at once.
+    if: ${{ github.event.schedule == '7 * * * *' || inputs.light_only }}
+    concurrency:
+      group: site-checks-light
+      cancel-in-progress: false
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Is the daily run going? (then this hour's probe stands down)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          n=$(gh api "repos/${{ github.repository }}/actions/workflows/site-checks.yml/runs?status=in_progress&per_page=20" --jq '[.workflow_runs[] | select(.id != ${{ github.run_id }})] | length' || echo 0)
+          if [ "${n:-0}" -gt 0 ]; then echo "The daily run is going: this hour's light probe stands down."; echo "SKIP=1" >> "$GITHUB_ENV"; fi
+
+      - uses: actions/checkout@v4
+        if: env.SKIP != '1'
+
+      - uses: actions/setup-node@v4
+        if: env.SKIP != '1'
+        with:
+          node-version: '20'
+
+      - name: Playwright and Chromium
+        if: env.SKIP != '1'
+        run: |
+          npm install --no-save --no-audit --no-fund playwright@1.48.2
+          npx playwright install --with-deps chromium
+
+      - name: Load time on the key pages (LOAD, light)
+        if: env.SKIP != '1'
+        continue-on-error: true
+        env:
+          SITE: https://traversence.com
+          LOAD_MODE: light
+        run: node tools/page-audit/load-check.mjs
+
+      - name: The audit's own load and the back-off (AUDIT)
+        if: env.SKIP != '1'
+        run: python3 tools/page-audit/audit-sample.py
+
+      - name: Commit the results
+        if: env.SKIP != '1'
+        run: |
+          git config user.name "site-checks"
+          git config user.email "site-checks@users.noreply.github.com"
+          git add site-audit/results/load.json site-audit/results/audit.json
+          if git diff --cached --quiet; then echo "No change."; exit 0; fi
+          git commit -m "Light probe: load on the key pages and the audit's own load"
+          git pull --rebase -X theirs -q   # the run's own generated files win a collision
+          git push

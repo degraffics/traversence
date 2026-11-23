@@ -41,5 +41,7 @@ $t('on W1\'s own page, its alarm doesn\'t offer W1 again', !str_contains($hw, 'c
 // the words
 $src = (string) file_get_contents($app . '/lib/ControlAlarms.php') . (string) file_get_contents($app . '/lib/ControlMaintenance.php');
 $t('no "waits for an admin\'s Resolve" or "only Resolve clears" left', !preg_match('/waits for an admin\\\\?\'s Resolve|only (an executive\\\\?\'s |an admin\\\\?\'s )?Resolve clears/', $src));
-$t('a trip\'s Pulse escalation says it closes as Recovered when its check passes', str_contains($src, "It closes as Recovered when its check passes; Check and start again is on its row."));
+// 02 §5.3 removes "escalateTo(…, 2) at a trip" (R76: the Founder at once, the Manager at 2 h, the Director at 4 h by Pulse's
+// clock), so a trip writes no Pulse escalation of its own; its words still say it closes as Recovered when its check passes
+$t('a trip writes no Pulse escalation at the trip (R76), and its words say it closes as Recovered when its check passes', !str_contains($src, "Pulse::escalateTo(\$pdo, 'alarm:' . \$id, 2") && str_contains($src, 'It closes as Recovered when its check passes'));
 echo "\n$pass passed, $fail failed\n"; exit($fail ? 1 : 0);

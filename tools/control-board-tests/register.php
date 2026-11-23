@@ -35,7 +35,8 @@ $html = tv_admin_mod_register($pdo);
 preg_match_all('/class="os-card os-r" id="svc-([a-z0-9_-]+)"/', $html, $m);
 $t('one card for each of the 44 services, the register\'s parts on each', count($m[1]) === count(OutsideServices::COMPANIES) && substr_count($html, 'class="os-stage"') === count(OutsideServices::COMPANIES), count($m[1]));
 $t('…kept from the register: Used by, Its key, Known price, This month, Caps and paces', str_contains($html, '<dt>Used by</dt>') && str_contains($html, '<dt>Its key</dt>') && str_contains($html, '<dt>Known price</dt>') && str_contains($html, '<dt>This month</dt>') && str_contains($html, 'Caps and paces'));
-$t('…kept from Outside services: Test, What it costs, the company\'s links, Terms and who to ask', str_contains($html, 'data-os-test=') && str_contains($html, 'What it costs') && str_contains($html, 'Terms and who to ask'));
+// the four-zone card (03 §1, §3, §9): What it costs moved into the spend chip, the company's links into the slots and Its pages
+$t('…kept from Outside services: Test, What it costs (the card\'s spend chip), the company\'s links (its slots), Terms and who to ask', str_contains($html, 'data-os-test=') && (str_contains($html, 'What it costs') || (str_contains($html, 'class="mc-spend') && str_contains($html, 'slot-'))) && str_contains($html, 'Terms and who to ask'));
 $t('…its stage in the Status column, and Stage filters', (bool) preg_match('/class="os-rs">(Active|Added|Key in|Paused) · /', $html) && str_contains($html, 'data-fv="stage:active"') && str_contains($html, 'data-stage="'));
 $t('the summary counts by stage, Retired among them', str_contains($html, '<span>Active</span>') && str_contains($html, '<span>Retired</span>'));
 $t('Overpass is the first Retired record: why, what replaced it, the forum', str_contains($html, 'id="svc-overpass"') && str_contains($html, 'Overpass (OpenStreetMap&#039;s live query server): retired') && str_contains($html, 'our own copy from Geofabrik'));

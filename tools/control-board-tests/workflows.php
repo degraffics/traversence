@@ -18,11 +18,16 @@ $man = (function () use ($app) { return require $app . '/admin/manifests.php'; }
 $t('Workflows draws the stage workflows, then the crawler\'s part', ($man['config']['sections']['workflows']['widgets'] ?? []) === [['html', 'tv_admin_mod_workflows'], ['html', 'tv_admin_mod_workflows_crawler']]);
 $t('the Workflow board stays a section (drawn there, and on its own)', isset($man['config']['sections']['board']));
 $h = @tv_admin_mod_workflows_crawler($pdo);
-$t('the crawler\'s part, anchored #crawler', str_starts_with($h, '<section id="crawler"') && str_contains($h, 'The crawler\'s workflows (W1–W14)'));
-$t('…each workflow\'s own page on the board, in the side panel', str_contains($h, 'href="/admin/config/control/wf-W1" data-peek-frame>W1 ') && str_contains($h, 'href="/admin/config/control/wf-W12" data-peek-frame>'));
+// Ruling (step3/workflows-page.md §7, approved by Jason 2026-11-22): W0–W14 are all listed now, and the list of page
+// buttons is dropped ("Replaced by the gauge cards, each opening its own page"): each card opens its page in the side panel,
+// which links the workflow's own page on the board in a drawer. Was: "W1–W14" and a row of W1…W14 buttons.
+$t('the crawler\'s part, anchored #crawler', str_starts_with($h, '<section id="crawler"') && str_contains($h, 'The crawler\'s workflows (W0–W14)'));
+$t('…each workflow\'s own page on the board, in the side panel', str_contains($h, 'href="/admin/config/control/wf-W1" data-peek-frame') && str_contains($h, 'href="/admin/config/control/wf-W12" data-peek-frame') && str_contains($h, 'data-wfp-open="wfp-W1"'));
 $t('…its spend this month by workflow', str_contains($h, 'By workflow, this month') && str_contains($h, '$1.50'), mb_substr(strip_tags($h), 0, 400));
+// Ruling (§7): the Workflow board's parts are kept on each workflow's own page (its settings, versions and task table);
+// Start the system and the switch-on check moved to the board's Start-up. Its old address draws the same page.
 $b = @tv_admin_mod_board($pdo);
-$t('…and the Workflow board whole', $b !== '' && str_contains($h, mb_substr($b, 0, 200)));
+$t('…and the Workflow board\'s address draws the same page', $b !== '' && str_contains($b, 'id="wfp-grid"') && str_contains($h, 'name="op_do" value="wf_save"'));
 $src = (string) file_get_contents($root . '/website/admin/router.php');
 $t('/admin/config/board opens it, and Costs\'s move is kept', str_contains($src, "const TV_ADMIN_FOLDED_INTO = ['config/costs' => 'config/register#costs', 'config/board' => 'config/workflows#crawler'];"));
 echo "\n$pass passed, $fail failed\n"; exit($fail ? 1 : 0);

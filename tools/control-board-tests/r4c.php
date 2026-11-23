@@ -18,40 +18,25 @@ $put = function (string $id, array $v) use ($pdo) { $pdo->prepare('REPLACE INTO 
 $trip = function (string $key, string $proc, string $title) use ($pdo) { $pdo->prepare("INSERT INTO control_alarms (akey, proc, level, kind, title, reading, n_times, first_at, last_at, tripped_at) VALUES (?, ?, 'trip', 'check', ?, 'old words', 1, UTC_TIMESTAMP() - INTERVAL 11 HOUR, UTC_TIMESTAMP() - INTERVAL 11 HOUR, UTC_TIMESTAMP() - INTERVAL 11 HOUR)")->execute([$key, $proc, $title]); };
 $old = 'W0 Indexer: Its gate: the switch-on check has no red line for it (keys, holds, budget and caps set).';
 
-// 1. today's case: W0's trip kept its old words; its only red part now is its test batch (its own alarm)
-$trip('pf:wf:W0', 'wf:W0', $old);
-$put('wf:W0', ['s' => 'bad', 'said' => 'What holds it: Dry run: the test batch: 3 of 5 pages failed. Its gate: the switch-on check has no red line for it (keys, holds, budget and caps set).', 'fix' => [], 'at' => time(),
-    'extra' => ['parts' => [['Its gate: the switch-on check has no red line for it (keys, holds, budget and caps set).', 'ok'], ['Dry run: the test batch: 3 of 5 pages failed.', 'bad'], ['Now: switched on.', null]]]]);
-Preflight::alarm($pdo, 'wf:W0', $lines['wf:W0'], Preflight::results($pdo)['wf:W0'], false);
-$a = ControlAlarms::openOf($pdo, 'pf:wf:W0');
-$t('W0\'s trip now names what holds it (its test batch), not the passing gate', $a && str_contains((string) $a['title'], 'held by its test batch') && !str_contains((string) $a['title'], 'no red line') && str_contains((string) $a['reading'], 'Dry run: the test batch'), $a['title'] ?? null);
-$t('…still a trip, still open (its line is still red), its count unchanged', $a['level'] === 'trip' && (int) $a['n_times'] === 1 && $a['cleared_at'] === null);
+// 1–3. since the control board's build (step 4) a workflow's own line is a roll-up and raises nothing (the one engine,
+// 02 §2.2): W0's, W3's and W5's old trips close as roll-ups when their lines are read, whatever their words
+foreach (['wf:W0' => 'bad', 'wf:W3' => 'bad', 'wf:W5' => 'ok'] as $lid => $st) {
+    $trip('pf:' . $lid, $lid, $old);
+    $put($lid, ['s' => $st, 'said' => 'What holds it: Its gate: 1 red line(s) in the switch-on check: "Tavily key" (missing).', 'fix' => [], 'at' => time(), 'extra' => ['parts' => [['Its gate: 1 red line(s): "Tavily key" (missing).', $st]]]]);
+    Preflight::alarm($pdo, $lid, $lines[$lid], Preflight::results($pdo)[$lid], false);
+    $t('an old trip on ' . $lid . '\'s line closes as a roll-up', ControlAlarms::openOf($pdo, 'pf:' . $lid) === null && str_contains((string) $pdo->query("SELECT cleared_how FROM control_alarms WHERE akey = 'pf:$lid' ORDER BY id DESC LIMIT 1")->fetchColumn(), 'only adds up its parts'));
+}
 
-// 2. a trip whose line has a red part of its own: named by that part
-$trip('pf:wf:W3', 'wf:W3', 'W3: Its gate: the switch-on check has no red line for it.');
-$put('wf:W3', ['s' => 'bad', 'said' => 'What holds it: Its gate: 1 red line(s) in the switch-on check: "Tavily key" (missing). Needs: Pages ✓.', 'fix' => [], 'at' => time(),
-    'extra' => ['parts' => [['Needs: Pages ✓.', 'ok'], ['Its gate: 1 red line(s) in the switch-on check: "Tavily key" (missing).', 'bad']]]]);
-Preflight::alarm($pdo, 'wf:W3', $lines['wf:W3'], Preflight::results($pdo)['wf:W3'], false);
-$a = ControlAlarms::openOf($pdo, 'pf:wf:W3');
-$t('a trip with its own red part: titled by that part ("Tavily key")', $a && str_contains((string) $a['title'], '"Tavily key" (missing)') && $a['level'] === 'trip' && (int) $a['n_times'] === 1, $a['title'] ?? null);
-
-// 3. a trip whose line passes now: says so, waits for Resolve
-$trip('pf:wf:W5', 'wf:W5', 'W5: something old.');
-$put('wf:W5', ['s' => 'ok', 'said' => 'Every part passes.', 'fix' => [], 'at' => time(), 'extra' => ['parts' => [['Needs: ✓.', 'ok']]]]);
-Preflight::alarm($pdo, 'wf:W5', $lines['wf:W5'], Preflight::results($pdo)['wf:W5'], false);
-$a = ControlAlarms::openOf($pdo, 'pf:wf:W5');
-$t('a trip whose check passes now closes itself as Recovered (decisions/0175 §3)', $a === null && str_starts_with((string) $pdo->query("SELECT cleared_how FROM control_alarms WHERE akey = 'pf:wf:W5' ORDER BY id DESC LIMIT 1")->fetchColumn(), 'Recovered:'));
-
-// 4. the refresh never changes a level: a warning stays a warning however long it's been
-$pdo->prepare("INSERT INTO control_alarms (akey, proc, level, kind, title, n_times, first_at, last_at) VALUES ('pf:wf:W6', 'wf:W6', 'warning', 'check', 'W6: old', 1, UTC_TIMESTAMP() - INTERVAL 5 HOUR, UTC_TIMESTAMP() - INTERVAL 5 HOUR)")->execute();
-$put('wf:W6', ['s' => 'bad', 'said' => 'What holds it: Its gate: 1 red line(s): "Gemini key" (missing).', 'fix' => [], 'at' => time(), 'extra' => ['parts' => [['Its gate: 1 red line(s): "Gemini key" (missing).', 'bad']]]]);
-Preflight::alarm($pdo, 'wf:W6', $lines['wf:W6'], Preflight::results($pdo)['wf:W6'], false);
-$a = ControlAlarms::openOf($pdo, 'pf:wf:W6');
+// 4. the refresh never changes a level: a part's warning (a need's line) stays a warning however long it's been
+$nid = ''; foreach (array_keys($lines) as $k) if (str_starts_with((string) $k, 'nd:')) { $nid = (string) $k; break; }
+$pdo->prepare("INSERT INTO control_alarms (akey, proc, level, kind, title, n_times, first_at, last_at) VALUES (?, ?, 'warning', 'check', 'old', 1, UTC_TIMESTAMP() - INTERVAL 5 HOUR, UTC_TIMESTAMP() - INTERVAL 5 HOUR)")->execute(['pf:' . $nid, Preflight::procOf($nid)]);
+$put($nid, ['s' => 'bad', 'said' => 'What holds it: "Gemini key" (missing).', 'fix' => [], 'at' => time(), 'extra' => ['parts' => [['"Gemini key" (missing).', 'bad']]]]);
+Preflight::alarm($pdo, $nid, $lines[$nid], Preflight::results($pdo)[$nid], false);
+$a = ControlAlarms::openOf($pdo, 'pf:' . $nid);
 $t('the refresh rewrites a warning\'s words but never its level (no new trip, nothing stopped)', $a && $a['level'] === 'warning' && empty($a['tripped_at']) && str_contains((string) $a['title'], 'Gemini key'), [$a['level'] ?? null, $a['title'] ?? null]);
-// and a warning whose line passes now is cleared, as a good reading always did
-$put('wf:W6', ['s' => 'ok', 'said' => 'Passes.', 'fix' => [], 'at' => time(), 'extra' => ['parts' => []]]);
-Preflight::alarm($pdo, 'wf:W6', $lines['wf:W6'], Preflight::results($pdo)['wf:W6'], false);
-$t('…and a warning whose check passes now is cleared', ControlAlarms::openOf($pdo, 'pf:wf:W6') === null);
+$put($nid, ['s' => 'ok', 'said' => 'Passes.', 'fix' => [], 'at' => time(), 'extra' => ['parts' => []]]);
+Preflight::alarm($pdo, $nid, $lines[$nid], Preflight::results($pdo)[$nid], false);
+$t('…and a warning whose check passes now is cleared', ControlAlarms::openOf($pdo, 'pf:' . $nid) === null);
 
 // 5. the watch does it, every 5 minutes, for every open pre-flight alarm
 $src = file_get_contents($app . '/lib/ControlAlarms.php');

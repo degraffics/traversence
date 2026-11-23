@@ -16,7 +16,9 @@ foreach (['last_outcome VARCHAR(20) DEFAULT NULL', 'last_why VARCHAR(255) DEFAUL
 $why = "RuntimeError('site /api/crawl/loads.php said 503: b\\'<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\">\\\\n<html><head>\\\\n<title>503 Service Unavailable</title>\\\\n</head><body>\\\\n<h1>Service Unavailable</h1>\\\\n<p>The";
 $pdo->exec("DELETE FROM crawl_capture_tasks WHERE task = 'geofabrik_bulk'");
 $pdo->prepare("INSERT INTO crawl_capture_tasks (task, wf, mode, enabled, label, name, what, last_outcome, last_why, updated_at) VALUES ('geofabrik_bulk', 'W1', 'bulk', 0, 'Geofabrik', 'Geofabrik: OpenStreetMap by state', 'The state files, weekly.', 'failed', ?, NOW())")->execute([mb_substr($why, 0, 255)]);
-$card = function () use ($pdo): string { $h = tv_admin_mod_register($pdo); $i = strpos($h, 'id="svc-geofabrik"'); return $i === false ? '' : substr($h, $i, 9000); };
+// the card whole, to the next service's row: the four-zone card (control-board-plan step3/03-cards.md §1) put the register's
+// parts first and made the card longer than the 9,000 characters this read before
+$card = function () use ($pdo): string { $h = tv_admin_mod_register($pdo); $i = strpos($h, 'id="svc-geofabrik"'); if ($i === false) return ''; $j = strpos($h, 'class="os-card os-r"', $i + 20); return $j === false ? substr($h, $i) : substr($h, $i, $j - $i); };
 
 $g = $card();
 $line = preg_match('~<p data-tv-status="(\w+)" data-tv-label="W1 · Geofabrik: OpenStreetMap by state:">(.*?)</p>~s', $g, $m) ? $m : ['', '', ''];

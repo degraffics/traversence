@@ -16,14 +16,14 @@ $pdo->exec("INSERT INTO service_issues (id, service, host, caller, kind, state, 
   (28, 'commoncrawl', 'index.commoncrawl.org', 'crawler', 'server', 'open', 6, '2026-11-19 16:02:00', '2026-11-19 17:10:00', '{\"latest\":{\"status\":503,\"body\":\"Service Unavailable\"}}'),
   (29, 'tavily', 'api.tavily.com', 'site', 'rate', 'open', 2, '2026-11-19 17:00:00', '2026-11-19 17:05:00', '{\"latest\":{\"status\":429,\"body\":\"Too many requests\"}}'),
   (30, 'claude', 'api.anthropic.com', 'site', 'auth', 'open', 1, '2026-11-19 17:00:00', '2026-11-19 17:00:00', '{\"latest\":{\"status\":401,\"error\":\"invalid x-api-key\"}}')");
-$aid = ControlAlarms::raise($pdo, 'svc:issue:28', 'svc:commoncrawl', 'trip', 'held', 'index.commoncrawl.org: Its server failed', '', '', '', [], true, false);
+$aid = ControlAlarms::raise($pdo, 'svc:issue:28', 'svc:commoncrawl', 'trip', 'held', 'Common Crawl\'s index isn\'t answering', '', '', '', [], true, false);
 $cc = tv_ops_issues($pdo, 'commoncrawl', 'x', '');
 // decisions/0176 release 2: the issue is one thread in the one shape (Title, Status, What it affects, What the system is
 // doing, What to do, its buttons, Details ▾), no ×, and no "Its alarm on the board" (the thread is the alarm)
-$t('a service with an open issue shows it on its card as its thread, with an anchor of its own', str_contains($cc, 'id="issue-28"') && str_contains($cc, 'Common Crawl: its server failed at index.commoncrawl.org') && str_contains($cc, '>Trip</span>') && str_contains($cc, 'Issue</dt><dd>#28'), $cc);
+$t('a service with an open issue shows it on its card as its thread, with an anchor of its own', str_contains($cc, 'id="issue-28"') && str_contains($cc, 'Common Crawl&#039;s index isn&#039;t answering') && str_contains($cc, '>Trip</span>') && str_contains($cc, 'Issue</dt><dd>#28'), $cc);
 $t('…what came back, how often and from where, since when', str_contains($cc, 'HTTP 503 Service Unavailable') && str_contains($cc, '6 failures in a row, from the crawler, on Railway') && str_contains($cc, 'datetime="2026-11-19T16:02:00Z"'));
 $t('…what the system is doing and what to do (their server: nothing to change on our side)', str_contains($cc, 'What the system is doing:') && str_contains($cc, 'Nothing to change on our side: index.commoncrawl.org is failing on its own server'));
-$t('…its status says the system paused it, and that it closes as Recovered', str_contains($cc, 'Paused by the system (a trip) since <time'));
+$t('…its status says the system paused it, since when (its alarm\'s words, 02 §4.8 row 26)', (bool) preg_match('/Paused by the system \([^)]*\) since <time/', $cc));
 $t('…tripped: Check and start again (the board\'s resolve, on its alarm), its case in Pulse, and no "Its alarm on the board"', str_contains($cc, 'data-ops-cb="resolve" data-ops-id="' . $aid . '"') && !str_contains($cc, 'href="/admin/config/control#cb-alarm-') && !str_contains($cc, 'data-ops-cb="svcresolve"') && str_contains($cc, 'href="/admin/pulse/stream#case=alarm%3A' . $aid . '" data-peek-frame>Its case in Pulse</a>'), $cc);
 $tv = tv_ops_issues($pdo, 'tavily', 'x', '');
 $t('a 429 has nothing to press: it waits its turn and says so', !str_contains($tv, 'data-ops-cb=') && str_contains($tv, 'after the wait it asked for; nothing to press'));
@@ -39,7 +39,7 @@ $s = fn ($l, $w = '', $act = null) => [$l, $act];
 $labels = fn (int $id) => array_map(fn ($x) => $x[0], ControlAlarms::pulseSteps($pdo, $id, $s));
 $tl = $labels($aid);
 $t('a trip\'s Pulse case shows the board\'s buttons: Check and start again, no Mark resolved or Check it now', in_array('Check and start again', $tl, true) && !in_array('Mark resolved', $tl, true) && !in_array('Check it now', $tl, true), json_encode($tl));
-$wid = ControlAlarms::raise($pdo, 'svc:issue:29', 'svc:tavily', 'warning', 'retry', 'api.tavily.com: asked us to slow down', '', '', '', [], true, false);
+$wid = ControlAlarms::raise($pdo, 'svc:issue:29', 'svc:tavily', 'warning', 'retry', 'Tavily asked us to slow down', '', '', '', [], true, false);
 $wl = $labels($wid);
 $t('…and a warning\'s case never offers Mark resolved either', !in_array('Mark resolved', $wl, true) && !in_array('Check and start again', $wl, true), json_encode($wl));
 $bc = (string) file_get_contents($app . '/admin/control-console.php');

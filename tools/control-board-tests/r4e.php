@@ -35,12 +35,14 @@ $id = (int) $pdo->query("SELECT id FROM control_alarms WHERE akey = 'ep:crawl/ol
 ControlAlarms::tick($pdo);
 $a = ControlAlarms::byId($pdo, $id); Automation::forget();
 if ($a['cleared_at'] !== null) $t('the watch lifted the old slow trip: W2 checked and started again by the system', Automation::gathering($pdo, '', 'W2') === null && str_contains((string) $a['cleared_how'], 'Resolved by the system'), $a['cleared_how']);
-else $t('W2\'s check is red here: the old slow trip is now a warning that says the system tries every 5 minutes, W2 still off', $a['level'] === 'warning' && str_contains((string) $a['means'], 'the system tries every 5 minutes') && Automation::gathering($pdo, '', 'W2') !== null, $a);   // paused by the system since decisions/0175
+else $t('its check is red here: the old slow trip is now a warning that says the system tries again, and holds nothing (slow is never a hold, 4e; the one engine checks first, P4)', $a['level'] === 'warning' && str_contains((string) $a['means'], 'the system tries every 5 minutes') && str_contains((string) $a['resolve_note'], 'its check is still red'), $a);
 $t('…the watch tries it every time while it still holds what it stopped', str_contains($src, "kind = 'slow' AND (level = 'trip' OR (stopped IS NOT NULL"));
 
 // 3. Resolve: no question; it checks and starts again
 $pdo->exec("INSERT INTO control_alarms (akey, proc, level, kind, title, n_times, first_at, last_at, tripped_at, stopped) VALUES ('x:crash', 'wk:crawler', 'trip', 'crash', 'The crawler crashed', 3, UTC_TIMESTAMP(), UTC_TIMESTAMP(), UTC_TIMESTAMP(), '[]')");
 $cid = (int) $pdo->query("SELECT id FROM control_alarms WHERE akey = 'x:crash'")->fetchColumn();
+// the crawler's check passes (a run that reported well, just now): Check and start again checks first (the one engine, P4)
+$pdo->exec("INSERT INTO crawl_runs (run_key, started_at, ended_at, status) VALUES ('r4eok', NOW(), NOW(), 'ok')");
 [$ok, $msg] = ControlAlarms::resolve($pdo, $cid, 7, 'Jason', '');
 $t('Resolve with nothing typed: done, logged as "Checked and started again"', $ok && str_contains($msg, 'Checked and started again'), $msg);
 $cs = file_get_contents($app . '/admin/control-console.php');

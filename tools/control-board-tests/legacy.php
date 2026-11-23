@@ -1,6 +1,7 @@
 <?php
-// control-board-legacy (the session manager, 2026-11-19): a pre-flight trip from before 3c (no trip time) is settled by the
-// watch to what a fresh raise would be today: closed if its check passes, its notice or warning if amber, still a trip
+// control-board-legacy (the session manager, 2026-11-19), with the control board's build (step 4): a workflow's line is a
+// roll-up and raises nothing (sections 1–4). Before that build, a pre-flight trip from before 3c (no trip time) was settled by
+// the watch to what a fresh raise would be today: closed if its check passes, its notice or warning if amber, still a trip
 // timed from now if red, each logged by the system; an alarm's title is its red part, else its amber part, never a
 // passing one (W0 read "the switch-on check has no red line for it"); a trip with its time keeps its level (words only);
 // W0's test batch is asked again when its answer waits or it was short, and a short one names the indexer's version.
@@ -19,44 +20,19 @@ $old = function (string $key, string $proc, string $title, bool $timed = false) 
 $gate = ['Its gate: the switch-on check has no red line for it (keys, holds, budget and caps set).', 'ok'];
 $o = fn (string $s, array $parts) => ['s' => $s, 'said' => implode(' ', array_column($parts, 0)), 'fix' => [], 'at' => time(), 'extra' => ['parts' => $parts]];
 
-// 1. W0 today: its gate passes, its test batch is amber; the old trip becomes a notice titled by the batch
-$old('pf:wf:W0', 'wf:W0', 'W0 Indexer: Its gate: the switch-on check has no red line for it (keys, holds, budget and caps set).');
-Preflight::alarm($pdo, 'wf:W0', $lines['wf:W0'], $o('warn', [$gate, ['Dry run: the test batch: asked just now; the indexer sends it at its next check-in.', 'warn'], ['Now: switched on.', null]]), false, true);
-$a = ControlAlarms::openOf($pdo, 'pf:wf:W0');
-$t('an old trip whose check is amber today becomes its notice, no longer red', $a && $a['level'] === 'notice' && empty($a['tripped_at']), [$a['level'] ?? null]);
-$t('…titled by its amber part (the test batch), never its passing gate', str_contains((string) $a['title'], 'Dry run: the test batch') && !str_contains((string) $a['title'], 'no red line'), $a['title'] ?? null);
-$t('…and the logbook says the system settled it', (bool) array_filter(ControlLog::feed($pdo, 'wf:W0'), fn ($e) => str_contains($e[4], 'An old trip settled: amber today') && $e[5] === 'the system'));
-
-// 2. an old trip whose check is red today: still red, its red part the title, timed from now if it holds something switched on
-$old('pf:wf:W3', 'wf:W3', 'W3: something from yesterday.');
-$red = ['Its gate: 1 red line(s) in the switch-on check: "Common Crawl (W3)" (Held: Issue #25).', 'bad'];
-Preflight::alarm($pdo, 'wf:W3', $lines['wf:W3'], $o('bad', [['Needs: Pages ✓.', 'ok'], $red]), false, true);
-$a = ControlAlarms::openOf($pdo, 'pf:wf:W3');
-$req = (bool) ($lines['wf:W3'][2] ?? false); $on = Automation::master($pdo) === null && Automation::wfOff($pdo, 'W3') === null;
-$want = $req && $on ? 'trip' : 'warning';
-$t('an old trip whose check is red today: ' . $want . ' (as a fresh raise would be), titled by its red part', $a && $a['level'] === $want && str_contains((string) $a['title'], '"Common Crawl (W3)"'), [$a['level'] ?? null, $a['title'] ?? null]);
-$t('…a trip now carries its time (from now), a warning none', $want === 'trip' ? !empty($a['tripped_at']) && strtotime($a['tripped_at'] . ' UTC') > time() - 120 : empty($a['tripped_at']), $a['tripped_at'] ?? null);
-
-// …and with the system and W3 switched on, a required red line stays a trip, timed from now
-if ($req) {
-    Automation::set($pdo, 'master', 'all', false, 'test', 0, 'test'); Automation::setWorkflow($pdo, 'W3', false, 'test', 0, 'test'); Automation::forget();
-    $pdo->exec("DELETE FROM control_alarms WHERE akey = 'pf:wf:W3'"); $old('pf:wf:W3', 'wf:W3', 'W3: something from yesterday.');
-    Preflight::alarm($pdo, 'wf:W3', $lines['wf:W3'], $o('bad', [['Needs: Pages ✓.', 'ok'], $red]), false, true);
-    $a = ControlAlarms::openOf($pdo, 'pf:wf:W3');
-    $t('switched on: an old red trip stays a trip, timed from now, titled by its red part', $a && $a['level'] === 'trip' && !empty($a['tripped_at']) && strtotime($a['tripped_at'] . ' UTC') > time() - 120 && str_contains((string) $a['title'], '"Common Crawl (W3)"'), [$a['level'] ?? null, $a['tripped_at'] ?? null]);
-    Automation::set($pdo, 'master', 'all', true, 'test', 0, 'test'); Automation::setWorkflow($pdo, 'W3', true, 'test', 0, 'test'); Automation::forget();
+// 1–4. a workflow's own line is a roll-up, never a fault (the control board's build, step 4: the one engine, 02 §2.2;
+// Lift (a)): an old trip on a workflow's line, timed or not, red, amber or passing today, closes as a roll-up when its
+// line is read, and lifts whatever it held; its parts' own alarms say what holds the workflow
+foreach ([['pf:wf:W0', 'wf:W0', 'warn', [$gate, ['Dry run: the test batch: asked just now.', 'warn']], false], ['pf:wf:W3', 'wf:W3', 'bad', [['Needs: Pages ✓.', 'ok'], ['Its gate: "Tavily key" (missing).', 'bad']], false], ['pf:wf:W5', 'wf:W5', 'warn', [['Dry run: amber.', 'warn']], true]] as [$k, $pr, $st, $parts, $timed]) {
+    $old($k, $pr, 'old words', $timed);
+    $id = (int) $pdo->query("SELECT id FROM control_alarms WHERE akey = '$k' AND cleared_at IS NULL")->fetchColumn();
+    Automation::sysPause($pdo, 'wf', substr($pr, 3), 'old trip', $id); Automation::forget();
+    Preflight::alarm($pdo, substr($k, 3), $lines[substr($k, 3)], $o($st, $parts), false, true); Automation::forget();
+    $c = (string) $pdo->query("SELECT cleared_how FROM control_alarms WHERE id = $id")->fetchColumn();
+    $t($k . ($timed ? ' (timed)' : ' (before 3c)') . ', ' . $st . ' today: closed as a roll-up, its pause lifted', ControlAlarms::openOf($pdo, $k) === null && str_contains($c, 'only adds up its parts') && Automation::sysOff($pdo, 'wf', substr($pr, 3)) === null, $c);
 }
-
-// 3. an old trip whose check passes today: closed
-$old('pf:t:vectors', 't:vectors', 'The vector index: old.');
-Preflight::alarm($pdo, 't:vectors', $lines['t:vectors'], $o('ok', [['Supabase: Ready.', 'ok']]), false, true);
-$t('an old trip whose check passes today is closed, its words saying so', ControlAlarms::openOf($pdo, 'pf:t:vectors') === null && str_contains((string) $pdo->query("SELECT cleared_how FROM control_alarms WHERE akey = 'pf:t:vectors'")->fetchColumn(), 'Its check passed'));
-
-// 4. a trip with its time (after 3c) keeps its level: only its words follow the check
-$old('pf:wf:W5', 'wf:W5', 'W5: old.', true);
-Preflight::alarm($pdo, 'wf:W5', $lines['wf:W5'], $o('warn', [['Dry run: amber.', 'warn']]), false, true);
-$a = ControlAlarms::openOf($pdo, 'pf:wf:W5');
-$t('a trip with its trip time is never settled by the watch: still a trip, only its words now', $a && $a['level'] === 'trip' && !empty($a['tripped_at']) && str_contains((string) $a['title'], 'Dry run: amber'), [$a['level'] ?? null, $a['title'] ?? null]);
+Preflight::alarm($pdo, 'wf:W3', $lines['wf:W3'], $o('bad', [['Its gate: "Tavily key" (missing).', 'bad']]), true);
+$t('a red workflow line raises nothing of its own now', ControlAlarms::openOf($pdo, 'pf:wf:W3') === null);
 
 // 5. the watch: old trips first, a waiting answer read back, W0's short batch asked again
 $src = file_get_contents($app . '/lib/ControlAlarms.php');

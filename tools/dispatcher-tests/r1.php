@@ -55,26 +55,34 @@ $t('the logbook: the finished story (title, status, what it affected), no button
 $t('its look uses the palette\'s tokens, no literal red or amber', str_contains(Thread::css(), 'var(--tv-fail)') && str_contains(Thread::css(), 'var(--tv-hold)') && !preg_match('/#(a62b2b|8f5600)/i', Thread::css()));
 
 // ---- 2. a fault: a warning on the board only (0171 §7's note; 0176 §4 step 1) --------------------------------------------
-$raise = fn () => ControlAlarms::raise($pdo, 'task:failed:second_look', 'wf:W2', 'trip', 'crash', 'W2: its task second_look failed', 'Its work goes back to the queue.', 'Read why on its run.', 'boom: HTTP 500');
+// the fault is classified on what failed (the one engine, P2): second_look's call to our /api/crawl/verify answered 500, so
+// its component is that endpoint, its tries the engine's checks of it (P3), and a trip holds the task that calls it (P6)
+require_once $app . '/lib/ControlEngine.php';
+$pdo->exec("CREATE TABLE IF NOT EXISTS crawl_capture_tasks (task VARCHAR(40) PRIMARY KEY, wf VARCHAR(8), enabled TINYINT NOT NULL DEFAULT 1, name VARCHAR(80) NULL, off_why VARCHAR(255) NULL, sort INT NOT NULL DEFAULT 0)");
+$pdo->exec("INSERT IGNORE INTO crawl_capture_tasks (task, wf, enabled) VALUES ('second_look', 'W2', 1)"); require_once $app . '/lib/ControlRegister.php'; ControlRegister::forget();
+ControlEngine::$checker = fn (string $c) => in_array($c, ['ep:crawl/verify', 'svc:quickbooks'], true) ? ['pass' => false, 'proof' => $c . ' still failing', 'ms' => 1] : null;
+$tryOut = function (int $id) use ($pdo) { foreach (ControlEngine::TRY_AT as $_) { $pdo->exec("UPDATE control_alarms SET next_try_at = UTC_TIMESTAMP() - INTERVAL 1 SECOND WHERE id = $id AND cleared_at IS NULL"); ControlAlarms::expireTries($pdo); } };
+$raise = fn () => ControlAlarms::raise($pdo, 'task:failed:second_look', 'wf:W2', 'trip', 'crash', 'W2: its task second_look failed', 'Its work goes back to the queue.', 'Read why on its run.', 'boom: HTTP 500', [], true, true, 'ep:crawl/verify');
 $id = $raise(); $a = ControlAlarms::byId($pdo, $id);
 $fa = ControlAlarms::facts($pdo, $a);
 $t('a first failure: a warning while the system tries (3c)', $a['level'] === 'warning', $a['level']);
-$t('…its status says so, read from the alarm: "Warning since …, seen 1 time"', str_starts_with($fa['status'], 'Warning since {t:') && str_contains($fa['status'], 'seen 1 time.'), $fa['status']);
-$t('…what the system is doing is its own words (trying again, n of 3)', str_contains($fa['doing'], 'trying again by itself (1 of 3'), $fa['doing']);
+$t('…its status says so, from its state: "Warning: the system is trying again by itself → 02 §4.8 row 1: "Trying again (1 of 3)… Next check …". Nothing is held."', str_starts_with($fa['status'], 'Trying again (1 of 3)') && str_contains($fa['status'], 'Next check at {t:') && str_contains($fa['status'], 'Nothing is held.'), $fa['status']);
 $t('…the evidence is in the details', in_array(['Reading', 'boom: HTTP 500'], $fa['details'], true));
 $t('…and nobody is told: no message, no push', !$msgs() && !WebPush::$sent);
 
 // ---- 3. the tries run out: a trip, Paused by the system, one message (0176 §4 step 2) -----------------------------------
-$raise(); $raise(); $a = ControlAlarms::byId($pdo, $id); $m = $msgs();
-$t('the third failure: a trip that paused W2 (0175 §3)', $a['level'] === 'trip' && str_contains((string) $a['stopped'], '"pause","wf:W2"'), $a);
+$raise(); $raise(); $t('repeat reports inside its tries are the same fault: still a warning, nobody told', ControlAlarms::byId($pdo, $id)['level'] === 'warning' && !$msgs());
+$tryOut($id); $a = ControlAlarms::byId($pdo, $id); $m = $msgs();
+$t('its three checks failing: a trip that paused second_look, the task that calls it (0175 §3; P6)', $a['level'] === 'trip' && str_contains((string) $a['stopped'], '"pause","task:second_look"'), $a);
 $fa = ControlAlarms::facts($pdo, $a);
-$t('…its status: "Paused by the system (a trip) since …", closing as Recovered when its check passes', str_starts_with($fa['status'], 'Paused by the system (a trip) since {t:') && str_contains($fa['status'], 'closes as Recovered when its check passes'), $fa['status']);
-$t('…what it affects: what it paused', in_array('Paused by the system: W2 (its tasks wait with it)', $fa['affects'], true), $fa['affects']);
+$t('…its status: "Paused by the system (second_look (W2))", its checks going on (02 §0a ruling 5)', str_starts_with($fa['status'], 'Paused by the system (second_look (W2)) since {t:') && str_contains($fa['status'], 'next check at {t:'), $fa['status']);
+$t('…what it affects: what it paused', in_array('Paused by the system: second_look (W2)', $fa['affects'], true), $fa['affects']);
+$t('…what the system is doing: only what uses it waits, and it closes as Recovered when its check passes', str_contains($fa['doing'], 'Only what uses it waits') && str_contains($fa['doing'], 'closes as Recovered when its check passes'), $fa['doing']);
 $t('…one message to the founder, thing alarm:<id>, shown by its Pulse item (no second row)', count($m) === 1 && $m[0]['kind'] === 'alarm.trip' && $m[0]['thing'] === 'alarm:' . $id && $m[0]['pulse_ref'] === 'alarm:' . $id, $m);
 // the alarm notice (0176's notes, 2026-11-20, release 2 part 2): the title "SYSTEM ALARM NOTICE: <item>: <action>"; the words
 // start with the action and its status, then what's going on, what it means, what to do
-$t('…its title is the alarm notice, its words begin with its status', $m[0]['title'] === 'SYSTEM ALARM NOTICE: W2 Keeping listings current: Paused by the system' && str_starts_with((string) $m[0]['body'], 'Paused by the system (a trip) since ') && str_contains((string) $m[0]['body'], "\nWhat's going on: W2: its task second_look failed"), [$m[0]['title'], $m[0]['body'] ?? '']);
-$t('…one push: "SYSTEM ALARM: <item>", its body the action and status only', count(WebPush::$sent) === 1 && WebPush::$sent[0]['title'] === 'SYSTEM ALARM: W2 Keeping listings current' && str_starts_with(WebPush::$sent[0]['body'], 'Paused by the system (a trip) since ') && !str_contains(WebPush::$sent[0]['body'], 'What it means'), WebPush::$sent);
+$t('…its title is the alarm notice, its words begin with its status', $m[0]['title'] === 'SYSTEM ALARM NOTICE: /api/crawl/verify: Paused by the system' /* 02 §4.8 row 21: the subject names the component (our endpoint), never its first workflow */ && str_starts_with((string) $m[0]['body'], 'Paused by the system (second_look (W2)) since ') && str_contains((string) $m[0]['body'], "\nWhat's going on: W2: its task second_look failed"), [$m[0]['title'], $m[0]['body'] ?? '']);
+$t('…one push: "SYSTEM ALARM: <item>", its body the action and status only', count(WebPush::$sent) === 1 && WebPush::$sent[0]['title'] === 'SYSTEM ALARM: /api/crawl/verify' && str_starts_with(WebPush::$sent[0]['body'], 'Paused by the system (second_look (W2)) since ') && !str_contains(WebPush::$sent[0]['body'], 'What it means'), WebPush::$sent);
 $t('…and an email (0171 §7: every trip emails the founder at once)', count(Mailer::$sent) === 1);
 $raise(); $t('the same fault again: still one message, nothing re-sent', count($msgs()) === 1 && count(WebPush::$sent) === 1 && count(Mailer::$sent) === 1);
 
@@ -83,7 +91,7 @@ require_once $app . '/lib/Pulse.php';
 $src = (string) file_get_contents($app . '/lib/Pulse.php');
 $t('Pulse\'s alarm item reads the shape\'s words (Thread::text, surface pulse)', str_contains($src, "Thread::text(ControlAlarms::facts(\$pdo, \$al), 'pulse')"));
 $pt = Thread::text(ControlAlarms::facts($pdo, ControlAlarms::byId($pdo, $id)), 'pulse');
-$t('…which say its status, what it affects and what to do, and no raw details', str_contains($pt, 'Status: Paused by the system (a trip) since ') && str_contains($pt, 'What it affects: Paused by the system: W2') && str_contains($pt, 'What to do: Read why on its run.') && !str_contains($pt, 'boom'), $pt);
+$t('…which say its status, what it affects and what to do, and no raw details', str_contains($pt, 'Status: Paused by the system (second_look (W2)) since ') && str_contains($pt, 'What it affects: Paused by the system: second_look (W2)') && str_contains($pt, 'What to do: Read why on its run.') && !str_contains($pt, 'boom'), $pt);
 $pb = ControlAlarms::pulseBody($pdo, ['thing' => 'alarm:' . $id], 7);
 $t('the message\'s body in Pulse: the shape, Acknowledge posting to the board, no details', str_contains($pb['html'], 'class="tv-th"') && str_contains($pb['html'], 'data-msg-act="/admin/api/config/control"') && str_contains($pb['html'], '&quot;ack&quot;') && !str_contains($pb['html'], 'Details ▾') && $pb['state'] === 'Open', $pb);
 
@@ -105,10 +113,10 @@ $t('the logbook keeps the finished story: title, how it closed, what it affected
 WebPush::$sent = []; Mailer::$sent = [];
 $qb = fn () => ControlAlarms::raise($pdo, 'x:qb', 'svc:quickbooks', 'trip', 'crash', 'QuickBooks failed', 'Payments fail.', 'Check its key.');
 $q = $qb(); $m = array_values(array_filter($msgs(), fn ($x) => $x['thing'] === 'alarm:' . $q));
-$t('a critical part\'s first failure: one message at once, its status "Tripped at once … still trying"', count($m) === 1 && str_contains((string) $m[0]['body'], 'Tripped at once ') && count(WebPush::$sent) === 1, $m);
+$t('a critical part\'s first failure: one message at once, its status "Down: the system is still trying, 0 of 3, next at …"', count($m) === 1 && str_contains((string) $m[0]['body'], 'Down: the system is still trying, 0 of 3, next at ') && count(WebPush::$sent) === 1, $m);
 $fq = ControlAlarms::facts($pdo, ControlAlarms::byId($pdo, $q));
 $t('…what it affects: each need that uses QuickBooks, with its backup or "no backup"', (bool) array_filter($fq['affects'], fn ($l) => str_starts_with($l, 'Our orders\' payments: no backup (wire or check)')), $fq['affects']);
-$qb(); $qb(); $m = array_values(array_filter($msgs(), fn ($x) => $x['thing'] === 'alarm:' . $q));
+$qb(); $qb(); $tryOut($q); $m = array_values(array_filter($msgs(), fn ($x) => $x['thing'] === 'alarm:' . $q));
 $t('its tries run out: the Escalation Notice is the same message, raised (not a second row)', count($m) === 1 && $m[0]['kind'] === 'alarm.escalated' && $m[0]['lvl'] === 'critical' && str_ends_with((string) $m[0]['title'], ': Retries unsuccessful, now admin required') && str_starts_with((string) $m[0]['body'], 'Retries unsuccessful, now admin required: '), $m);
 $t('…still shown by the trip\'s own Pulse item', ($m[0]['pulse_ref'] ?? '') === 'alarm:' . $q);
 $t('…unread again (it\'s Critical)', $m[0]['read_at'] === null);

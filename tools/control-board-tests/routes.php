@@ -31,7 +31,7 @@ $t('the scan finds the raises (' . count($calls) . ')', count($calls) >= 25, cou
 // fixes built elsewhere (a variable or a helper), each checked by its own test: the register's caps and "returns empty"
 // (Operations, r3b), a service's issue (ServiceHealth, r3b/r4f), the pre-flight line's fix (below)
 $built = ['$fx', '$fxc', '$afx', '$fix', '$hfx'];   // $fix: ControlSensor's, checked in sensor.php; $hfx: W0's blocked sites, in itsdata.php
-$single = ['/admin/config/releases', '/admin/quickbooks.php'];   // QuickBooks' connection is that page's one thing   // a page that is the one thing to do (its Check for builds), not a list
+$single = ['/admin/config/releases', '/admin/quickbooks.php', '/admin/backoffice/levels'];   // Staff levels: its one form is each login's level (where a founder is named, for the dispatcher's "reached no one")   // QuickBooks' connection is that page's one thing   // a page that is the one thing to do (its Check for builds), not a list
 foreach ($calls as $cl) {
     $notice = str_contains($cl['level'], "'notice'") && !str_contains($cl['level'], '?');
     if ($notice) continue;
@@ -51,7 +51,7 @@ foreach ($calls as $cl) {
 $ca = (string) file_get_contents($app . '/lib/ControlAlarms.php'); $cl = (string) file_get_contents($app . '/lib/ControlLedger.php');
 $cs = (string) file_get_contents($app . '/lib/crawler/CrawlService.php'); $pf = (string) file_get_contents($app . '/lib/Preflight.php');
 $t('a server error opens the failing call in the Ledger', str_contains($cl, "'/admin/config/ledger#open=config/ledger:' . \$id") && str_contains($ca, "'/admin/config/ledger#open=config/ledger:' . (int) \$r['id']"));
-$t('a stopped, stuck or slow job opens its own job', substr_count($ca, "'/admin/config/scheduler#job-' . \$job") === 3);
+$t('a stopped, stuck or slow job opens its own job', substr_count($ca, "'/admin/config/scheduler#job-' . \$job") >= 3);   // a late job (02 row 65) opens its own job too
 $t('a quiet worker: Railway as a link only (never a restart from the site)', substr_count($ca, "'link', 'https://railway.com/dashboard', 'railway'") === 2 && !preg_match('/railway[^\n]{0,80}(redeploy|restart)\'\s*,\s*\'ops/i', $ca));
 $t('a failed run, a starved run and a failed task open their run', substr_count($cs, "'/admin/insights/crawler?run=' . \$runId") >= 3);
 $t('a failed task: Try it first on the next run, or Pause the task, in place', str_contains($cs, "'ops_runnext:'") && str_contains($ca, "'/^task:failed:[a-z0-9_]+\$/' => ['', '/^ops_(runnext|task_off):[a-z0-9_]+\$/']"));
@@ -73,7 +73,9 @@ $acj = (string) file_get_contents($root . '/website/js/admin-control.js');
 foreach (['preflight' => 'id="preflight"', 'cb-controls' => 'id="cb-controls"', 'cb-alarms' => 'id="cb-alarms"', 'maintenance' => 'id="maintenance"', 'log' => 'id="log"'] as $h => $id)
     $t('a stage tab shows its part #' . $h . ', which is on the board', str_contains($acj, "['#" . $h . "', ") && str_contains($cc, $id));
 $t('the stage tiles are tabs (Jason: "everything else goes away"), each saying what its part is', str_contains($cc, 'role="tab" data-cb-tab="') && str_contains($cc, 'class="cb-stw"') && str_contains($cc, '#cb .cb-offtab{display:none!important}'));
-$t('…the one the system is in opens first; a link to a part opens its tab; kept through redraws', str_contains($cc, "' data-tab=\"' . ") && str_contains($acj, "window.addEventListener('hashchange', fromHash)") && str_contains($acj, 'lfApply(); tabsApply();'));
+// "Is it delivering?" opens first now (03-cards.md §4, "The board's first view", and §27, Jason 2026-11-22), replacing "the
+// one the system is in opens first"; the system's stage tile still says "now"
+$t('…"Is it delivering?" opens first, the system\'s stage marked now; a link to a part opens its tab; kept through redraws', str_contains($cc, "' data-tab=\"deliver\"'") && str_contains($cc, "' · now' : ''") && str_contains($acj, "window.addEventListener('hashchange', fromHash)") && str_contains($acj, 'lfApply(); tabsApply();'));
 $t('cleared alarms leave the list for the logbook (no Cleared or All choice, nothing to mark Seen)', str_contains($cc, "fn (\$x) => \$x['cleared_at'] === null)") && !str_contains($cc, "'cleared' => 'Cleared (2 days)'"));
 $t('running with alarms open says so (words follow the state)', str_contains($cc, "alarm' . (\$nHeld === 1 ? '' : 's') . ' open"));
 $t('Open the report goes to the board\'s own pre-flight, not a second copy', str_contains($cc, '<a class="ak-b cb-xs" href="#preflight">Open the report</a>') && !str_contains($cc, 'href="/admin/config/preflight" data-peek-frame>Open the report'));
