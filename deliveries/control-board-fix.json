@@ -3,24 +3,24 @@
  "built_on": "791f665 Sync: 2026-11-23 00:15 UTC",
  "recorded": "2026-11-23 01:30 UTC",
  "note": "Fix after #258: the false /api/0 trip, plain endpoint names, money in dollars. Built on Sync: 2026-11-23 00:15 UTC. Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "8b91df0 Sync: 2026-11-23 01:36 UTC",
  "files": {
   "app/admin/crawler-console.php": {
    "sha256": "47a966f5abb0a7b754e37aacbc312c833cf251c6bee26db3a0476665310529c9",
-   "live": false
+   "live": true
   },
   "app/admin/sections.php": {
    "sha256": "cdf6f40b1b79cdd4eefce16a584be78ece32234a7e44c5f43f69fda3191469e8",
-   "live": false
+   "live": true
   },
   "app/lib/ControlAlarms.php": {
    "sha256": "6f4a7cc0ad27324e4eb315a741fca9b8e15bc6086b7d186745de515e2145138a",
-   "live": false
+   "live": true
   },
   "app/lib/crawler/CrawlService.php": {
    "sha256": "85c1dfa77e9aa6602f4dce30067e371b57f09016135397c54f78e48890523294",
-   "live": false
+   "live": true
   }
  }
 }
