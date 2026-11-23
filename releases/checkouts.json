@@ -213,35 +213,6 @@
    }
   },
   {
-   "path": "app/admin/control-console.php",
-   "functions": [
-    "tv_cb_deliver",
-    "tv_cb_maintenance",
-    "tv_cb_view_assets"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
-   "why": "the board at phone width with live content: the gauge source's address and the maintenance picker widened the page (Jason's screenshot, 2026-11-23)",
-   "since": "2026-11-23T01:54:04Z",
-   "expires": "2026-11-23T06:05:11Z",
-   "release": "board-phone-fit.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/admin/crawler-console.php",
-   "functions": [
-    "(top)",
-    "tv_admin_mod_crawler"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
-   "why": "fix #261: each service's count in its own unit (Railway's are seconds running, not calls)",
-   "since": "2026-11-23T02:06:32Z",
-   "expires": "2026-11-23T06:07:24Z",
-   "release": "spend-units.zip",
-   "callers": {}
-  },
-  {
    "path": "website/admin/order.php",
    "functions": [],
    "kind": "change",
