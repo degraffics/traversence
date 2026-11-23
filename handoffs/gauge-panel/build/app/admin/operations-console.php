@@ -41,14 +41,15 @@ function tv_ops_ctx(PDO $pdo): array
                 else { ServiceStages::setProposal($pdo, (int) $ref, $do === 'prop_drop', $who); $say = $do === 'prop_drop' ? 'Dropped: Propose again brings it back.' : 'Proposed again.'; }
                 return [$can, $why, $uid, $who, $csrf, $tz, '<p data-tv-flash="ok">' . tv_w_e($say) . '</p>'];
             }
-            // which account a service signs in as (02 §10; Jason, 2026-11-23): recorded on its card, Undo for a day
-            if ($do === 'svc_signin' || $do === 'svc_signin_undo') {
+            // which account a service signs in as (02 §10; Jason, 2026-11-23): recorded on its card, edited in place (a record is
+            // edited, never undone: Jason, 2026-11-23, CLAUDE.md #1315; the previous value kept as its History)
+            if ($do === 'svc_signin') {
                 if (!$can) throw new RuntimeException($why);
                 if (!isset(OutsideServices::COMPANIES[$ref])) throw new InvalidArgumentException('That isn\'t one of our outside services.');
                 require_once __DIR__ . '/../lib/SignIns.php';
                 $name = OutsideServices::COMPANIES[$ref][0];
-                $say = $do === 'svc_signin' ? SignIns::set($pdo, $ref, (string) ($_POST['email'] ?? ''), (string) ($_POST['project'] ?? ''), $who) : SignIns::undo($pdo, $ref, $who);
-                $say = str_starts_with($say, 'Recorded') ? 'Recorded.' : (str_starts_with($say, 'Undone') ? 'Undone.' : $say);   // the card's line says what it is now
+                $say = SignIns::set($pdo, $ref, (string) ($_POST['email'] ?? ''), (string) ($_POST['project'] ?? ''), $who);
+                $say = str_starts_with($say, 'Recorded') ? 'Recorded.' : $say;   // the card's line says what it is now
                 return [$can, $why, $uid, $who, $csrf, $tz, '<p data-tv-flash="ok">' . tv_w_e($name . ': ' . $say) . '</p>'];
             }
             if ($do === 'svc_pause' || $do === 'svc_activate') {

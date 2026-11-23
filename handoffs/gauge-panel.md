@@ -312,3 +312,24 @@ regenerated gauge files, gauge-lifecycle §6 and §8's note, and the tests.
   FAQ entries on the live copy, send, run the zip check again just before merging.
 - **Calls to recheck once order-m1 is live:** `tv_w_table` (widgets.php), `Workflow::moves`, `command-strip.php::fit`.
 - **Bench-only:** the runtime "Today:" reads "not checked yet" (no live readings on the bench).
+
+### Jason's rulings applied after the first build (2026-11-23, relayed by the Design reviewer and the session manager)
+
+- **A record is edited, never undone** (Jason: "We should edit our records over undo is for processes that must be rolled back
+  as if they were never done"; CLAUDE.md #1315; the word is **Edit**). What changed on the card:
+  - The sign-in record reads "Signs in as … · recorded by <name>, <time>", with a pencil (**Edit**, titled "Edit the sign-in
+    email") that reopens the field in place, filled and focused.
+  - The value before it is under **History**.
+  - No Undo is left on the card: the identity line's Undo is gone, and its pencil opens the record in place.
+  - `SignIns::undo` and `canUndo` are no longer called. They stay until Jason agrees to their removal (the zip check's `--drops`).
+  - Undo stays only on actions rolled back as if never done: Fix it sent to a build, Approve the scope, Approve the target.
+- **Action icons with tool tips** (Jason: "action icons with tool tips over text saying action urls"; 0058 §11):
+  - On the card: the slots' links are 30px icons, titled with where they open and as which account ("Open Google Cloud
+    billing as ops@…"), and the sign-in's Edit is a pencil.
+  - In the panel: its alarms (a bell), a check's full result and a finding's proposal (link icons).
+  - A passing chip keeps its words, its target in its title, with no ↗.
+- **One arrow** on Setup capture's fold. **"Sign in: not registered"** carries its action: "register it from your Vault".
+- **Not in this release** (for the next one, the kit's buttons): Copy as an icon on the board's cards and panels, and the keys'
+  "Set it on Railway: the crawler's Variables ↗" (operations-console's keys block).
+- Tests: google-signin.cjs rewritten to the new pattern (36/36: Edit, History, no Undo, icons' titles); module-cards.php 74/74;
+  the rendered subset 356/356; the PHP sweep matches live.

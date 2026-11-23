@@ -79,7 +79,7 @@ $t('…Pause everything, asking first (row 111)', (bool) preg_match('/data-mc-ac
 $t('…the keys it keeps for other modules: Not checked yet, never colouring Railway', str_contains($h, 'Kept on Railway for other modules') && str_contains($h, '<code>TAVILY_API_KEY</code>') && str_contains($h, 'its state never colours Railway'));
 $t('…spend chip: its plan, Billing · Usage linked', str_contains($h, '<b>Hobby plan: $5 a month including $5 of usage</b>') && str_contains($h, 'Billing · Usage ↗'));
 // "why not recorded" is no longer said: nothing on the card can record a why yet (the gauge panel release, 2026-11-23: no dead end)
-$t('…setup capture as grey words: Sign in not recorded (03 §13.1), no "why not recorded" it can\'t act on', str_contains($h, 'Setup capture: Sign in not recorded ▸') && !str_contains($h, 'why not recorded'));
+$t('…setup capture as grey words: Sign in not recorded (03 §13.1), no "why not recorded" it can\'t act on', str_contains($h, 'Setup capture: Sign in not recorded</summary>') && !str_contains($h, 'why not recorded'));   // one arrow, the fold's own (the Design reviewer, 2026-11-23)
 ControlAlarms::ack($pdo, $aid, 1, 'Jason');
 $h = $card('railway');
 $t('after Acknowledge the light stays red: "1 trip (seen by Jason)" (03 §4, g4 F1)', str_contains($h, 'mc-l-bad') && str_contains($h, '1 trip (seen by Jason)') && str_contains($h, 'data-mc-act="unack"'));
@@ -93,7 +93,7 @@ $t('the video worker: a Service hosted on Railway, not critical', str_contains($
 $t('…its heartbeat read from its asks for work (the engine\'s check)', str_contains($h, '<b>Heartbeat</b>') && str_contains($h, 'The video worker last asked for work at') && str_contains($h, 'On · Working'), mb_substr(strip_tags($h), 0, 400));
 $t('…its radius: Held new copies; On a backup each video plays its original (03 §23.1)', str_contains($h, 'New video copies (they queue)') && str_contains($h, 'Each video plays its original'));
 $t('…while Railway\'s crawler trips, the video worker isn\'t held by it (only its host\'s own trip would)', !str_contains($h, 'waiting on Railway'));
-$t('…Railway\'s slots (02 §8), and no Pause of its own', str_contains($h, 'Open Railway console ↗') && !str_contains($h, 'value="svc_pause"'));
+$t('…Railway\'s slots (02 §8), and no Pause of its own', str_contains($h, 'title="Open Railway console') && !str_contains($h, 'value="svc_pause"'));   // the slot's link an icon, its title naming where it opens (Jason, 2026-11-23)
 
 // 6. Bluehost: its parts each with a duty, our endpoints as Core Services parts, Console from Site settings
 $h = $card('bluehost');
