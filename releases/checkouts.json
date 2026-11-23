@@ -244,8 +244,8 @@
    "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
    "why": "Collect the balance on an order out the door (session manager's review of #270)",
    "since": "2026-11-23T19:07:43Z",
-   "expires": "2026-11-23T23:07:43Z",
-   "release": "",
+   "expires": "2026-11-23T23:08:14Z",
+   "release": "collect-balance.zip",
    "callers": {}
   },
   {
@@ -259,6 +259,17 @@
    "since": "2026-11-23T19:07:45Z",
    "expires": "2026-11-23T23:07:45Z",
    "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/command-strip.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
+   "why": "release collect-balance.zip",
+   "since": "2026-11-23T19:08:14Z",
+   "expires": "2026-11-23T23:08:14Z",
+   "release": "collect-balance.zip",
    "callers": {}
   }
  ],
