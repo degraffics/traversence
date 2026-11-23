@@ -1,0 +1,4 @@
+{
+ "about": "The outside heartbeat's records (tools/heartbeat/heartbeat.py). The site imports closed ones and numbers them (ControlIncidents::importHeartbeat).",
+ "records": []
+}
