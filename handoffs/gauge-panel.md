@@ -86,6 +86,41 @@ A failing check's row says "failed on this page on its last run (time)", never t
 
 Screens: `dev-{1280,390}*.png`, `rt-{1280,390}*.png`, including `-legend`, `-fail-open`, `-finding`, `-signed` and `-needs`.
 
+## Revision 3: Jason's answer on Q2, and the session manager's rulings (2026-11-23)
+
+**Jason on Q2** (relayed by the session manager): "1. I need to view the issue. 2. then press a button to fix it. 3. once
+fixed it should clear the issue. So it is a process not just an accounting of someone's actions." Written into
+gauge-lifecycle §8, decided 2, as a note.
+
+What changed in the mockup:
+- **No Sign off on any item**, and no "awaiting sign-off" state.
+- **The bar has four segments:** Issues to fix · Not built yet · No check yet · Done. Discovery reads 6 · 6 · 18 · 0.
+- **"Reviewed" now means live with no open issue.** The 17 items that read "awaiting sign-off" become:
+  - issues, where a check fails;
+  - "No check yet", where no check reaches them;
+  - done, where their checks pass (none on Discovery yet, since the tools check reaches none of them).
+- **An issue opened in place is the view:** its evidence chips and one sentence, ending "It clears by itself once it
+  passes again".
+- **Fix it** is the one filled button. The row then reads "Fixing: <the issue> · sent to a build for its owning session ·
+  Jason, <time>", with Undo. Only the pressed button goes; "See what it found" stays.
+- **No check yet** has "Add a check" (a build request). Not built has "Fix it: build it".
+- **Mark fixed and Set aside are no longer in the panel**, because an issue clears only by its check. They stay on Site
+  health's own rows until that list follows the same process (Q5's release).
+
+The session manager's rulings:
+- **Q1:** Fix it, where there's no direct action, is a logbook request. The row names the owning session; health.php
+  reports it; the daily fetch writes `site-audit/results/build-requests.json`; the session manager queues it under its
+  session. A press needs no further OK.
+- **Q3:** approved as recommended. The logbook's sign-off overrides the file's; health.php feeds it to gauges.py. The scope
+  sign-off and "Approve the target" stay, and the target card shows its evidence ("Today: 94 of 106 cases pass").
+- **Q5:** approved for a later release: one finding per check and page, BRAND and LOAD at "update" severity.
+- **The gauge files:** held for the release.
+
+The build also moves gauges.py to the new rule: reviewed is met on a live item with no open finding; no sign-off reading.
+
+Walked again: `walk.cjs`, all passed at 1280 and 390. It now also checks that no item has a Sign off, and that Fix it
+turns into its Fixing line, which Undo turns back.
+
 ## Every element and where it leads
 
 | Element | Leads to | Today |

@@ -16,10 +16,11 @@ for(const w of [1280,390]){const p=await b.newPage({viewport:{width:w,height:900
  await p.click('[data-view=dev] .lg[data-f=fail]');await p.click('[data-view=dev] .it:visible .ex >> nth=0');await p.screenshot({path:`${out}/dev-${w}-fail-open.png`,fullPage:true});
  for(const c of await p.locator('[data-view=dev] .ib:visible .chip[data-open]').all()){await c.click();ok(await p.locator('.sub').count()===1,w+' chip opens');await p.click('.sub [data-back]');}
  await p.click('[data-view=dev] .ib:visible .acts [data-open]');await p.screenshot({path:`${out}/dev-${w}-finding.png`});await p.click('.sub [data-back]');
- await p.click('[data-view=dev] .lg[data-f=fail]');await p.click('[data-view=dev] .lg[data-f=sign]');await p.click('[data-view=dev] .it:visible .ex >> nth=0');
- await p.click('[data-view=dev] .ib:visible [data-sign]');ok(await p.locator('[data-view=dev] .ib:visible .done').count()===1&&!(await p.locator('[data-view=dev] .ib:visible [data-sign]').isVisible()),w+' sign-off line replaces button');
- await p.screenshot({path:`${out}/dev-${w}-signed.png`,fullPage:true});await p.click('[data-view=dev] .ib:visible .done .sl');ok(await p.locator('[data-view=dev] .ib:visible [data-sign]').isVisible(),w+' Undo puts it back');
- await p.click('[data-view=dev] .lg[data-f=sign]');await p.click('[data-view=dev] .more');ok(await p.locator('[data-view=dev] .it:visible').count()===30,w+' Show all 30');
+ // Jason's process (Q2): view the issue, Fix it, the row reads Fixing with Undo; no sign-off anywhere
+ ok(await p.locator('[data-sign]:not([data-sign=scope]):not([data-sign=target])').count()===0,w+' no Sign off on items');
+ await p.click('[data-view=dev] .ib:visible .acts [data-send]');ok(await p.locator('[data-view=dev] .ib:visible .done').count()===1&&!(await p.locator('[data-view=dev] .ib:visible .acts [data-send]').isVisible()),w+' Fixing line replaces Fix it');
+ await p.screenshot({path:`${out}/dev-${w}-fixing.png`,fullPage:true});await p.click('[data-view=dev] .ib:visible .done .sl');ok(await p.locator('[data-view=dev] .ib:visible .acts [data-send]').isVisible(),w+' Undo puts it back');
+ await p.click('[data-view=dev] .lg[data-f=fail]');await p.click('[data-view=dev] .more');ok(await p.locator('[data-view=dev] .it:visible').count()===30,w+' Show all 30');
  for(const c of await p.locator('[data-view=dev] .ac .b').all()){await c.click();if(await p.locator('.sub').count())await p.click('.sub [data-back]');}
  await p.click('[data-show=rt]');await p.screenshot({path:`${out}/rt-${w}.png`,fullPage:true});ok(await p.evaluate(()=>document.documentElement.scrollWidth)<=w,w+' rt sideways');
  await p.click('[data-view=rt] details.nd summary');await p.screenshot({path:`${out}/rt-${w}-needs.png`,fullPage:true});

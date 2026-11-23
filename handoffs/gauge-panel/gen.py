@@ -4,7 +4,7 @@
 Reads site-audit/results/gauges.json, gauges-items.json, findings.json and the check register, and writes
 handoffs/gauge-panel/mockup.html: a development gauge's panel (Discovery) and a runtime gauge's (Search finds what they
 came for), each a visual drill-down where every item and chip leads somewhere. A mockup only: nothing here is the site.
-Revision 2 (the Design reviewer's 9 changes, 2026-11-23): one filled button per box (brand brown), amethyst for sign-off,
+Revision 3 (Jason's Q2 answer: view, Fix it, cleared by its check; no sign-off). Revision 2 (the Design reviewer's 9 changes, 2026-11-23): one filled button per box (brand brown), amethyst for sign-off,
 a dots legend, no colour-only bar, one place per action, one time format, plain names (ids in Details), no gauge paths in a
 row, 10 rows then Show all, needs folded.
 Run: python3 handoffs/gauge-panel/gen.py [dev-id] [runtime-id]
@@ -64,9 +64,11 @@ def plain(s):
 
 
 CRIT = [('decided', 'Decided'), ('built', 'Built'), ('live', 'Live'), ('checked', 'Checked'), ('reviewed', 'Reviewed'), ('proved', 'Proved')]
+# Jason, 2026-11-23 (Q2): "1. I need to view the issue. 2. then press a button to fix it. 3. once fixed it should clear the
+# issue. So it is a process not just an accounting of someone's actions." No sign-off state: an item is an issue to fix,
+# not built, without a check, or done; an issue clears by itself when its check passes again.
 BUCKETS = [  # key, words
-    ('fail', 'Failing a check'), ('build', 'Not built yet'), ('sign', 'Awaiting your sign-off'),
-    ('check', 'Needs a check built'), ('ok', 'Live and checked')]
+    ('fail', 'Issues to fix'), ('build', 'Not built yet'), ('check', 'No check yet'), ('ok', 'Done')]
 BW = dict(BUCKETS)
 
 
@@ -108,16 +110,14 @@ def bucket(item):
         return 'fail'
     if item['status'] in ('decided', 'held'):
         return 'build'
-    if (item.get('review') or '').startswith('audited, awaiting sign-off'):
-        return 'sign'
     if item.get('no_check'):
         return 'check'
     return 'ok'
 
 
 def dot_state(item, crit):
-    if crit in item.get('met', []):
-        return 'met'
+    if crit in item.get('met', []) or (crit == 'reviewed' and item['status'] == 'live' and not finding_of(item)):
+        return 'met'   # reviewed: no open issue (Jason's process replaces the sign-off; lifecycle §8 decided 2's note)
     if crit == 'checked':
         if any(c[1] == 'fail' for c in item.get('checks', [])):
             return 'fail'
@@ -125,12 +125,10 @@ def dot_state(item, crit):
             return 'nocheck'
     if crit == 'reviewed' and finding_of(item):
         return 'fail'
-    if crit == 'reviewed' and (item.get('review') or '').startswith('audited, awaiting sign-off'):
-        return 'sign'
     return 'no'
 
 
-DOTW = {'met': 'met', 'fail': 'failing', 'nocheck': 'no check yet', 'sign': 'awaiting your sign-off', 'no': 'not yet'}
+DOTW = {'met': 'met', 'fail': 'an issue', 'nocheck': 'no check yet', 'no': 'not yet'}
 
 
 def dots(item):
@@ -174,17 +172,15 @@ def state_sentence(item, b):
     f = finding_of(item)
     if b == 'fail':
         if f:
-            return 'Open finding: %s. In the way of %d path%s.' % (f['title'], f['blocks'], '' if f['blocks'] == 1 else 's')
+            return 'The issue: %s. In the way of %d path%s. It clears by itself once its check passes again.' % (f['title'], f['blocks'], '' if f['blocks'] == 1 else 's')
         fc = [c[0] for c in item['checks'] if c[1] == 'fail']
         at = re.search(r'\(([^()]*UTC)\)', plain(REG.get(fc[0], {}).get('latest', '')))   # the run's time only: its totals are the whole site's
-        return '%s failed on this page on its last run%s.' % (nm(fc[0]), ' (' + at.group(1) + ')' if at else '')
+        return 'The issue: %s failed on this page on its last run%s. It clears by itself once it passes again.' % (nm(fc[0]), ' (' + at.group(1) + ')' if at else '')
     if b == 'build':
         return 'Built and held: it goes live with its release.' if item['status'] == 'held' else 'Decided, not built yet. It moves the gauge once a build makes it.'
-    if b == 'sign':
-        return 'Live and audited. It counts as reviewed once you sign it off.'
     if b == 'check':
-        return 'Signed off. Not yet reached by: %s.' % ', '.join(nm(c).lower() for c in item['no_check'])
-    return 'Every step met.'
+        return 'Live, and every check that reaches it passes. Not yet reached by: %s, so it isn\'t done until a check is added.' % ', '.join(nm(c).lower() for c in item['no_check'])
+    return 'Done: every step met.'
 
 
 def item_row(n, item):
@@ -197,19 +193,19 @@ def item_row(n, item):
     f = finding_of(item)
     acts = []   # one filled button per box: the first; the rest outlined (change 1)
     if b == 'fail':
+        fc = [c[0] for c in item['checks'] if c[1] == 'fail']
+        what = (f['title'] if f else nm(fc[0]) + ' fails').rstrip('.')
+        acts.append('<button type="button" class="b go" data-send="%d" data-what="%s">Fix it</button>' % (n, e(what)))
         if f:
-            acts.append('<button type="button" class="b go" data-open="finding" data-id="%s">Open the finding</button>' % e(f['id']))
+            acts.append('<button type="button" class="b ol" data-open="finding" data-id="%s">See the evidence</button>' % e(f['id']))
         else:
-            fc = [c[0] for c in item['checks'] if c[1] == 'fail'][0]
-            acts.append('<button type="button" class="b go" data-open="check" data-id="%s">See what %s found</button>' % (e(fc), e(nm(fc).lower())))
-        acts.append('<button type="button" class="b ol" data-send="%d">Send to a build</button>' % n)
+            acts.append('<button type="button" class="b ol" data-open="check" data-id="%s">See what %s found</button>' % (e(fc[0]), e(nm(fc[0]).lower())))
     elif b == 'build':
-        acts.append('<button type="button" class="b go" data-send="%d">Send to a build</button>' % n)
-    elif b == 'sign':
-        acts.append('<button type="button" class="b go" data-sign="%d">Sign off</button>' % n)
+        acts.append('<button type="button" class="b go" data-send="%d" data-what="building it">Fix it: build it</button>' % n)
     elif b == 'check':
         c0 = item['no_check'][0]
-        acts.append('<button type="button" class="b go" data-open="%s" data-id="%s">Why it isn\'t checked</button>' % ('reach' if REG.get(c0, {}).get('status', '').startswith('built') else 'check', e(c0)))
+        acts.append('<button type="button" class="b go" data-send="%d" data-what="adding %s">Add a check</button>' % (n, e(nm(c0).lower())))
+        acts.append('<button type="button" class="b ol" data-open="%s" data-id="%s">Why it isn\'t checked</button>' % ('reach' if REG.get(c0, {}).get('status', '').startswith('built') else 'check', e(c0)))
     if rt:
         acts.append('<a class="b ol" href="%s" data-peek-frame>Open the page</a>' % e(rt))
     if f:
@@ -228,8 +224,8 @@ def item_row(n, item):
 
 LEGEND = ('<button type="button" class="info" aria-expanded="false" aria-controls="dl-%s" title="What the dots mean">ⓘ</button>'
           '<div class="dleg" id="dl-%s" hidden><button type="button" class="dlx" data-dlx aria-label="Close">×</button><p><b>Each dot is one step</b>: decided · built · live · checked · reviewed · proved.</p><ul>'
-          '<li><i class="d d-met"></i> met</li><li><i class="d d-fail"></i> failing</li><li><i class="d d-nocheck"></i> no check yet</li>'
-          '<li><i class="d d-sign"></i> awaiting your sign-off</li><li><i class="d d-no"></i> not yet</li></ul></div>')
+          '<li><i class="d d-met"></i> met</li><li><i class="d d-fail"></i> an issue</li><li><i class="d d-nocheck"></i> no check yet</li>'
+          '<li><i class="d d-no"></i> not yet</li></ul></div>')
 
 
 def card(primary, colour, text, button):
@@ -254,15 +250,12 @@ def dev_panel(gid):
     cards = [('sign', 'It stays at 0 in Planning until you sign off what 100 means: these %d things, each with its six steps.' % n,
               '<button type="button" class="b go" data-sign="scope">Sign off the scope</button>')]
     if counts['fail']:
-        cards.append(('fail', '%d thing%s failing a check. Each opens what the check found.' % (counts['fail'], ' is' if counts['fail'] == 1 else 's are'),
+        cards.append(('fail', '%d issue%s to fix. Each opens its evidence and its Fix it; it clears itself once its check passes.' % (counts['fail'], '' if counts['fail'] == 1 else 's'),
                       '<button type="button" class="b go" data-f="fail">Show the %d</button>' % counts['fail']))
-    if counts['sign']:
-        cards.append(('sign', '%d live thing%s audited and waiting for your sign-off.' % (counts['sign'], ' is' if counts['sign'] == 1 else 's are'),
-                      '<button type="button" class="b go" data-f="sign">Review them</button>'))
     for cid, k in sorted(nc.items(), key=lambda x: -x[1])[:1]:
         built = REG[cid].get('status', '').startswith('built')
         cards.append(('check', ('%s runs, but doesn\'t reach %d of these yet.' if built else '%s isn\'t built yet, and %d of these wait on it.') % (nm(cid), k),
-                      '<button type="button" class="b go" data-open="%s" data-id="%s">%s</button>' % ('reach' if built else 'check', e(cid), 'Why not' if built else 'What it needs')))
+                      '<button type="button" class="b go" data-send="all" data-what="%s reaching these %d">Add the check</button>' % (e(nm(cid).lower()), k)))
     if counts['build']:
         cards.append(('build', '%d thing%s decided or held, not live yet.' % (counts['build'], '' if counts['build'] == 1 else 's'),
                       '<button type="button" class="b go" data-f="build">Show them</button>'))
@@ -306,9 +299,9 @@ def rt_panel(gid):
     # the actions live only in the cards (change 5); the setup rows say their state, with a small link to the card
     cards = []
     if not su.get('target'):
-        cards.append(('tgt', 'sign', 'Its target isn\'t set. Proposed: every search case passes.', '<button type="button" class="b go" data-sign="target">Approve the target</button>'))
+        cards.append(('tgt', 'sign', 'Its target isn\'t set. Proposed: every search case passes. Today: %s.' % plain(sc['latest']), '<button type="button" class="b go" data-sign="target">Approve the target</button>'))
     if not su.get('check'):
-        cards.append(('chk', 'fail', 'Its check isn\'t passing: %s.' % plain(sc['latest']), '<button type="button" class="b go" data-open="check" data-id="SEARCH">See the failing cases</button>'))
+        cards.append(('chk', 'fail', 'Its check isn\'t passing: 12 search cases fail. It clears itself once they pass.', '<button type="button" class="b go" data-open="check" data-id="SEARCH">See the failing cases and fix them</button>'))
     for t, u in g.get('fix', []):
         if u:
             cards.append(('', 'ok', t.replace('Fix it: ', '') + ' feeds it. Its card shows its state and keys.', '<a class="b go" href="%s" data-peek-frame>Open its card</a>' % e(u)))
@@ -321,7 +314,7 @@ def rt_panel(gid):
         elif k == 'target':
             st, link = 'needs you', '<a class="sl" href="#ac-tgt">Approve the target ↑</a>'
         elif k == 'check':
-            st, link = 'failing', '<a class="sl" href="#ac-chk">See the failing cases ↑</a>'
+            st, link = 'an issue', '<a class="sl" href="#ac-chk">Fix it ↑</a>'
         else:
             st, link = 'not wired yet', '<button type="button" class="sl" data-send="alarm">Send to a build</button>'
         b = 'ok' if ok else ('fail' if k == 'check' else 'sign' if k == 'target' else 'build')
@@ -359,7 +352,7 @@ REGJSON = json.dumps({k: {'name': nm(k) + ': ' + v.get('name', ''), 'status': v.
 FJSON = json.dumps({k: {'title': v['title'], 'detail': v['detail'], 'page': v['page'], 'shot': v['shot_url'], 'blocks': v['blocks'], 'rule': v['rule'], 'proposal': v.get('proposal_url', '')} for k, v in FIND.items()})
 out = '''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Gauge panel mockup</title><style>%s</style></head><body>
-<header class="mh"><b>Mockup: the gauge panel as a drill-down (revision 2)</b> <span class="meta">Real data: gauges-items.json of %s. Nothing here writes; buttons show what they'd do.</span>
+<header class="mh"><b>Mockup: the gauge panel as a drill-down (revision 3)</b> <span class="meta">Real data: gauges-items.json of %s. Nothing here writes; buttons show what they'd do.</span>
 <nav><button type="button" class="b sm" data-show="dev" aria-pressed="true">Development: %s</button><button type="button" class="b sm" data-show="rt" aria-pressed="false">Runtime: %s</button></nav></header>
 <main><section data-view="dev">%s</section><section data-view="rt" hidden>%s</section></main>
 <div class="toast" role="status" hidden></div>

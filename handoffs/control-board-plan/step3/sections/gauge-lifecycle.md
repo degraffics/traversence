@@ -186,6 +186,21 @@ Jason approved the runtime lifecycle: "Approve". Every runtime snapshot gauge on
 2. **Reviewed, per 0145:** no open finding, plus his sign-off on record (a release approval, or his ruling on the page's
    proposal). Past work without it shows "audited, awaiting sign-off". (Rejected: Claude's review alone; his chat approval of
    each build. Both kept in `gauge-criteria-from-audit.md` as rejected alternatives.)
+   **Note (Jason, 2026-11-23, replacing the sign-off on items):** "1. I need to view the issue. 2. then press a button to
+   fix it. 3. once fixed it should clear the issue. So it is a process not just an accounting of someone's actions."
+   - An item has no sign-off and no "awaiting sign-off" state. **Reviewed** is now: live, with no open issue.
+   - Each issue follows three steps:
+     1. **View:** it opens in place with its evidence (the failing check, its screenshot or run, the page).
+     2. **Fix it:** one button. It takes the direct action where the system can; otherwise it sends the item to a build
+        (a logbook request; the row reads "Fixing: … · who · when", with Undo).
+     3. **Cleared:** it clears by itself when the item's check passes again. No one presses a button to clear it.
+   - What happens to the items that read "audited, awaiting sign-off": their checks run.
+     - Those that pass are done.
+     - Those that fail become issues.
+     - Those no check reaches show "No check yet", with "Add a check" as their fix (a build request).
+   - The scope sign-off (§3) and a runtime gauge's target approval stay. Each is his judgement on what 100 means or on a
+     number, recorded in the logbook (the session manager, 2026-11-23, Q3).
+   - Source: the gauge panel's questions (`handoffs/gauge-panel.md`), relayed by the session manager.
 3. **The register's targets and schedule: approved** (`check-register.md`). The AUDIT row's 20% is ours, approved with the
    schedule. The gauge-level paths note stands (an item's three paths read its gauge's lists).
 
