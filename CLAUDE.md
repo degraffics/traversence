@@ -260,8 +260,10 @@ needing an outside service (Railway, QuickBooks, AWS, Cloudflare…) carries its
 Anything that needs someone to act follows four steps: 1. **See the task** (the issue and its evidence, in place);
 2. **Do the task** (one button that does it, where it's shown); 3. **Done and confirmed** (the result checked, the
 status shown in place of the form, Undo beside it; an issue clears itself when its check passes, never by a "mark done"
-or sign-off); 4. **The next step** (what follows, as its own button). No accounting-only buttons, no form left open
-after it's done, no notice repeating the new state.
+or sign-off); 4. **The next step**, only within a process (Jason, 2026-11-23: "Don't convolute processes or tasks"): a single task
+(one alarm, one payment) ends at its confirmation, the lists and counts updating; a process (placing an order, an
+order's life) is single tasks chained by a workflow, so its next step, routed by the choices made, is its own button. No
+accounting-only buttons, no form left open after it's done, no notice repeating the new state.
 
 ## No browser dialogs; one look for notices (`js/tv-ask.js`): every page
 
