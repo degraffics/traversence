@@ -171,3 +171,12 @@ nothing. FAQ: "How do I send a client an update on their order?".
 Rebuilt on Sync 2026-11-23 22:02 UTC (`2caf2a1`): only `faq.md` had changed live; M1b's four entries re-applied on it.
 Zip check: clean, no blocks. Tests: m1b.cjs 46 × 2 widths (92), m1b.php 45, m1.php 42, m1.cjs, collect-balance.cjs,
 complete-owed.cjs all pass.
+
+### The Design reviewer's round 2 (2026-11-23 22:02 UTC), made
+1. An answer is a fact, recorded when given: choosing "It was picked up" asks Delivery's own question first, then records
+   the pickup at once (do=picked_up) and redraws the Order and Delivery lines in place: "Delivered on Nov 23, recorded by
+   Staff" with ✎; the answer reads "✓ It was picked up: recorded on the Delivery line", the other answer greyed with why
+   (Delivery ⋯ Not delivered after all to change it); the state lines then have one filled button (Record the vendor bill).
+2. The ✉: made (above). Also the Order line's words for a completed order follow who said it arrived ("Picked up on Nov
+   23, recorded by our team", not "The client confirmed").
+Tests: m1b.cjs 49 × 2 (98), m1b.php 45, M1's suite all pass.
