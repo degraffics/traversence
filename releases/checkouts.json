@@ -323,13 +323,14 @@
   {
    "path": "app/admin/tools.php",
    "functions": [
+    "'config/alarms'",
     "config/alarms"
    ],
    "kind": "change",
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
-   "why": "board-fixes: plain part names in the Alarms table, a drawer title on two lines (design review, 2026-11-23)",
+   "why": "board-fixes: plain part names in the Alarms table",
    "since": "2026-11-23T15:06:08Z",
-   "expires": "2026-11-23T19:06:08Z",
+   "expires": "2026-11-23T19:07:13Z",
    "release": "",
    "callers": {}
   },
