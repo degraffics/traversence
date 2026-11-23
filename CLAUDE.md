@@ -269,6 +269,10 @@ a record someone entered (an email, an id, an address, a note, a setting) shows 
 in place, the old value kept in History, never Undo. **Undo** is only for an action that did something (a payment
 recorded, a split, a work order sent, Fix it, a scope approved) and can be rolled back as if never done; where it can't
 (an email delivered), say so instead.
+**Icons for inline actions** (Jason, 2026-11-23: "action icons with tool tips over text saying action urls"): a
+record's or row's inline actions (Edit ✎, Copy, Open in a service ↗, Evidence, History, ⋯) are 30px round `tv_icon()`
+buttons in the card style, `title` and `aria-label` naming the action and target ("Open Google Cloud billing as …").
+The view's one primary action (Fix it, Take a payment, Place an order) and state sentences stay words.
 **A list or a process?** (Jason, 2026-11-23) It's a process if step B needs step A's result, or they all build to one
 outcome; a list if they could sensibly be done in any order. A list is a queue (what needs you first, filtered by its
 tiles), each row its own cycle, counts dropping as items clear, a batch action only where one fix applies to many. A
