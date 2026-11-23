@@ -1,0 +1,34 @@
+{
+ "zip": "board-view-2.zip",
+ "built_on": "b374f63 Sync: 2026-11-23 14:35 UTC",
+ "recorded": "2026-11-23 14:38 UTC",
+ "note": "The board's opening view as approved, Copy at the gauge cards' foot, one part in the panel, the drawer's Back and margin; built on Sync 14:35 UTC (replaces the unsent board-view.zip) Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/control-console.php": {
+   "sha256": "464b035594c120431481df8887cf92eb1dbe5d0e9723390f9c3770c709118fed",
+   "live": false
+  },
+  "app/admin/kit-css.php": {
+   "sha256": "460d5cfb8bee91f191ebf73a019b65c4a942e5392986ea3309c86faded1d69ff",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "5856452eedd2412fb6a8e375e62c6c7bcbbaff6e43a6a3232e40ddfb6c4dff88",
+   "live": false
+  },
+  "website/js/admin-control.js": {
+   "sha256": "9c97a46b29a82eb92d30beb201a40bf577fda09f3ab8aad0980f9654d9fe1566",
+   "live": false
+  },
+  "website/js/admin-kit.js": {
+   "sha256": "00bec641e5106ed0710168fcc97f4ac52a7025c4118d073bf22fd395a77fc4a2",
+   "live": false
+  },
+  "website/js/tv-ask.js": {
+   "sha256": "c71c8eca2e02d30d096759c97884d23b88f5d4bf6032736907ea2e4267deef95",
+   "live": false
+  }
+ }
+}
