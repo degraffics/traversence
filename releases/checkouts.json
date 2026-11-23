@@ -11,9 +11,13 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "old-titles: the slow-job alarm's title by the job's plain name (02 \u00a75.4)",
    "since": "2026-11-23T04:07:07Z",
-   "expires": "2026-11-23T08:12:46Z",
+   "expires": "2026-11-23T08:16:45Z",
    "release": "old-titles.zip",
-   "callers": {}
+   "callers": {
+    "pulseSteps": [
+     "app/lib/Pulse.php"
+    ]
+   }
   },
   {
    "path": "app/lib/ServiceHealth.php",
@@ -24,9 +28,13 @@
    "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
    "why": "words follow the state for alarms raised before #258: titles redrawn from state; a slow job by its plain name (the session manager, 2026-11-23)",
    "since": "2026-11-23T04:07:07Z",
-   "expires": "2026-11-23T08:07:07Z",
+   "expires": "2026-11-23T08:16:45Z",
    "release": "old-titles.zip",
-   "callers": {}
+   "callers": {
+    "alarm": [
+     "app/lib/ControlAlarms.php"
+    ]
+   }
   },
   {
    "path": "app/lib/ControlAlarms.php",
