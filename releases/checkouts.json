@@ -719,6 +719,19 @@
    "expires": "2026-11-23T20:03:46Z",
    "release": "orders-release-a.zip",
    "callers": {}
+  },
+  {
+   "path": "app/ui/command-strip.php",
+   "functions": [
+    "tv_command_strip"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
+   "why": "Orders release A: ordering ironclad (Jason, 2026-11-23; the design review: one notices box carries its fix)",
+   "since": "2026-11-23T16:07:33Z",
+   "expires": "2026-11-23T20:07:33Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
