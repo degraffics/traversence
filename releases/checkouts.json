@@ -133,6 +133,19 @@
    "expires": "2026-11-23T18:57:57Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/Operations.php",
+   "functions": [
+    "alarms"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "board-fixes: jobs and words, Signs in as, the Sync chip (Jason, 2026-11-23)",
+   "since": "2026-11-23T14:57:59Z",
+   "expires": "2026-11-23T18:57:59Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
