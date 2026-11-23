@@ -363,6 +363,19 @@
    "expires": "2026-11-23T19:48:52Z",
    "release": "board-fixes-4.zip",
    "callers": {}
+  },
+  {
+   "path": "app/admin/tools.php",
+   "functions": [
+    "'backoffice/orders'"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
+   "why": "Orders release A: ordering ironclad (Jason, 2026-11-23; research/ordering-ironclad-2026-11-23.md, decisions/0177)",
+   "since": "2026-11-23T15:50:43Z",
+   "expires": "2026-11-23T19:50:43Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
