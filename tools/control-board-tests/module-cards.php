@@ -78,7 +78,8 @@ $t('…its radius: Held the crawler, W0 and new video copies; Unaffected Bluehos
 $t('…Pause everything, asking first (row 111)', (bool) preg_match('/data-mc-act="pauseall"[^>]*data-confirm="Pause everything\?/', $ours));
 $t('…the keys it keeps for other modules: Not checked yet, never colouring Railway', str_contains($h, 'Kept on Railway for other modules') && str_contains($h, '<code>TAVILY_API_KEY</code>') && str_contains($h, 'its state never colours Railway'));
 $t('…spend chip: its plan, Billing · Usage linked', str_contains($h, '<b>Hobby plan: $5 a month including $5 of usage</b>') && str_contains($h, 'Billing · Usage ↗'));
-$t('…setup capture as grey words: Sign in not recorded · Keys: why not recorded (03 §13.1)', str_contains($h, 'Setup capture: Sign in not recorded · Keys: why not recorded'));
+// "why not recorded" is no longer said: nothing on the card can record a why yet (the gauge panel release, 2026-11-23: no dead end)
+$t('…setup capture as grey words: Sign in not recorded (03 §13.1), no "why not recorded" it can\'t act on', str_contains($h, 'Setup capture: Sign in not recorded ▸') && !str_contains($h, 'why not recorded'));
 ControlAlarms::ack($pdo, $aid, 1, 'Jason');
 $h = $card('railway');
 $t('after Acknowledge the light stays red: "1 trip (seen by Jason)" (03 §4, g4 F1)', str_contains($h, 'mc-l-bad') && str_contains($h, '1 trip (seen by Jason)') && str_contains($h, 'data-mc-act="unack"'));

@@ -284,7 +284,7 @@ function tv_module_card(PDO $pdo, string $key, array $ctx = []): string
         . ($man['hosted_by'] !== '' ? ' <span class="mc-sub">hosted on ' . $e($prov) . '</span>' : '') . ' <span class="mc-crit">' . $e($crit) . '</span></p>'
         . (!str_starts_with($key, 'wk:') ? '<div class="mc-signin">' . ($signin && $signin['email'] !== '' ? 'Signs in as: <b>' . $e($signin['email']) . '</b>' . ($signin['project'] !== '' ? ' · project <code>' . $e($signin['project']) . '</code>' : '')
             : 'Signs in as: <span class="mc-sub">not recorded</span> <a class="underline" href="#mc-' . $e(str_replace(':', '-', $key)) . '-setup">Record it</a>')
-            . ($signin && SignIns::canUndo($signin) && function_exists('tv_ops_form') ? ' ' . tv_ops_form($csrf, 'svc_signin_undo', 'Undo', ['ref' => $key], (($signin['prev']['email'] ?? '') !== '' ? 'Put back the sign-in ' . $signin['prev']['email'] . ' (instead of ' . $signin['email'] . ')?' : 'Forget the recorded sign-in (' . $signin['email'] . ')?'), '', $can, $why, 'ak-b cb-xs') : '') . '</div>' : '')
+            . ($signin && SignIns::canUndo($signin) ? ' <a class="underline" href="#mc-' . $e(str_replace(':', '-', $key)) . '-setup">Change or Undo</a>' : '') . '</div>' : '')
         . '<p class="mc-state">' . tv_mc_light($light, $first) . ($rest !== '' ? ' <span class="mc-rest">' . Thread::times($e($rest)) . '</span>' : '') . '</p>'
         . '<p class="mc-stage"><b>Stage ' . $sn . ' of 8 · ' . $e($sname) . '</b>' . ($sgw !== '' ? ' <span class="mc-sub">' . $e($sgw) . '</span>' : '')
         . '<br><span class="mc-sub">Next allowed: ' . $e($allowed ? implode(' · ', $allowed) : 'nothing from here') . '</span></p>'
@@ -387,26 +387,31 @@ function tv_mc_setup(array $man, array $slots, ?array $signin = null, string $cs
     $gaps = []; $why = [];
     $signed = $signin && ($signin['email'] ?? '') !== '';
     foreach (TV_MC_SLOTS as $t => [$lab]) if (!$slots[$t]) { if ($t === 'login') { if (!$signed) $gaps[] = 'Sign in not recorded'; } else $why[] = $lab; }
-    if ($why) $gaps[] = implode(', ', $why) . ': why not recorded';
+    // a slot with no why: not said as a gap here, since nothing on the card can record one yet (no dead end: the session manager, 2026-11-23)
     $keys = ''; foreach ($man['keys'] as $k) { [$kn, $kw] = array_pad((array) $k, 2, ''); $keys .= '<li><code>' . $e($kn) . '</code>: ' . $e($kw) . '</li>'; }
-    $sl = ''; foreach (TV_MC_SLOTS as $t => [$lab]) $sl .= '<li>' . $e($lab) . ': ' . ($slots[$t] ? $e($lab . ' · ' . $slots[$t][0][0]) . ' · ' . ($slots[$t][0][2] === 'site' ? 'Site settings' : 'Documented · release #' . tv_mc_rel((string) $slots[$t][0][2])) : 'Not registered · no why yet') . '</li>';
+    $sl = ''; foreach (TV_MC_SLOTS as $t => [$lab]) $sl .= '<li>' . $e($lab) . ': ' . ($slots[$t] ? $e($lab . ' · ' . $slots[$t][0][0]) . ' · ' . ($slots[$t][0][2] === 'site' ? 'Site settings' : 'Documented · release #' . tv_mc_rel((string) $slots[$t][0][2])) : 'Not registered in the Vault') . '</li>';
     // the account it signs in as: a step finished here, never a dead end (Record, a one-field form; Undo for a day)
     $rec = '';
     if ($key !== '' && !str_starts_with($key, 'wk:') && function_exists('tv_ops_form')) {
         require_once __DIR__ . '/../lib/SignIns.php';
         $proj = false; foreach ((array) ($man['links'] ?? []) as $l) { $h = strtolower((string) parse_url((string) ($l[1] ?? ''), PHP_URL_HOST)); if (isset(SignIns::HINTS[$h]) && SignIns::HINTS[$h][1] !== '') $proj = true; }
-        $rec = '<p><b>The account it signs in as</b></p><p class="mc-sub">' . ($signed ? 'Signs in as ' . $e((string) $signin['email']) . ($signin['project'] !== '' ? ', project ' . $e((string) $signin['project']) : '') . ' · recorded' . ((string) $signin['by'] !== '' ? ' by ' . $e((string) $signin['by']) : '') . ', <time datetime="' . $e(str_replace(' ', 'T', (string) $signin['at']) . ':00Z') . '" data-tv-time>' . $e((string) $signin['at']) . ' UTC</time>.' : 'Not recorded: its portal links open in whichever account the browser is signed in to.')
-            . ' An email isn\'t a secret; its password stays in the Vault.</p>'
-            . tv_ops_form($csrf, 'svc_signin', $signed ? 'Change' : 'Record', ['ref' => $key], '', '<input class="ak-in" type="email" name="email" required maxlength="190" autocomplete="off" spellcheck="false" placeholder="The account\'s sign-in email" value="' . $e($signed ? (string) $signin['email'] : '') . '" aria-label="The account\'s sign-in email">'
-                . ($proj ? '<input class="ak-in" name="project" maxlength="30" autocomplete="off" spellcheck="false" placeholder="Project id (optional)" value="' . $e($signin['project'] ?? '') . '" aria-label="Its project id (optional)">' : ''), $can, $canWhy)
-;
+        // a finished step replaces its form (Jason, 2026-11-23): recorded, it's one line with Change (the one-field form,
+        // reopened in place) and Undo for a day; not recorded, the form. No notice repeats the line (the page's says "Recorded.")
+        $form = tv_ops_form($csrf, 'svc_signin', $signed ? 'Save' : 'Record', ['ref' => $key], '', '<input class="ak-in" type="email" name="email" required maxlength="190" autocomplete="off" spellcheck="false" placeholder="The account\'s sign-in email" value="' . $e($signed ? (string) $signin['email'] : '') . '" aria-label="The account\'s sign-in email">'
+            . ($proj ? '<input class="ak-in" name="project" maxlength="30" autocomplete="off" spellcheck="false" placeholder="Project id (optional)" value="' . $e($signin['project'] ?? '') . '" aria-label="Its project id (optional)">' : ''), $can, $canWhy);
+        $rec = '<p><b>The account it signs in as</b></p>'
+            . ($signed
+                ? '<div class="mc-done"><span>Signs in as <b>' . $e((string) $signin['email']) . '</b>' . ($signin['project'] !== '' ? ', project ' . $e((string) $signin['project']) : '') . ' · recorded' . ((string) $signin['by'] !== '' ? ' by ' . $e((string) $signin['by']) : '') . ', <time datetime="' . $e(str_replace(' ', 'T', (string) $signin['at']) . ':00Z') . '" data-tv-time>' . $e((string) $signin['at']) . ' UTC</time></span>'
+                    . '<details class="mc-change"><summary>Change</summary>' . $form . '</details>'
+                    . (SignIns::canUndo($signin) ? tv_ops_form($csrf, 'svc_signin_undo', 'Undo', ['ref' => $key], (($signin['prev']['email'] ?? '') !== '' ? 'Put back the sign-in ' . $signin['prev']['email'] . ' (instead of ' . $signin['email'] . ')?' : 'Forget the recorded sign-in (' . $signin['email'] . ')?'), '', $can, $canWhy, 'ak-b cb-xs') : '') . '</div>'
+                : '<p class="mc-sub">Not recorded: its portal links open in whichever account the browser is signed in to. An email isn\'t a secret; its password stays in the Vault.</p>' . $form);
     }
-    return '<details class="mc-setup" id="mc-' . $e(str_replace(':', '-', $key)) . '-setup"' . ($signed || $key === '' || str_starts_with($key, 'wk:') ? '' : ' open') . '><summary class="mc-sub">' . ($gaps ? 'Setup capture: ' . $e(implode(' · ', $gaps)) : 'Setup capture: complete') . ' ▸</summary>'
+    return '<details class="mc-setup" id="mc-' . $e(str_replace(':', '-', $key)) . '-setup"' . (($signed && !($signin && class_exists('SignIns') && SignIns::canUndo($signin))) || $key === '' || str_starts_with($key, 'wk:') ? '' : ' open') . '><summary class="mc-sub">' . ($gaps ? 'Setup capture: ' . $e(implode(' · ', $gaps)) : 'Setup capture: complete') . ' ▸</summary>'
         . $rec
         . '<p class="mc-sub">Names only, never values. Credentials live only in the Vault.</p>'
         . '<p><b>Where its keys live</b></p>' . ($keys !== '' ? '<ul class="mc-list">' . $keys . '</ul>' : '<p class="mc-sub">No keys of its own.</p>')
         . '<p><b>Its slots</b></p><ul class="mc-list">' . $sl . '</ul>'
-        . '<p class="mc-sub">Recording a why is to come: the manifest\'s setup_capture field (02 §8) isn\'t built yet, so a one-line why can\'t be saved here. A slot is filled by publishing it from your Vault.</p></details>';
+        . '<p class="mc-sub">A slot is filled by publishing it from your Vault.</p></details>';
 }
 
 /**
@@ -597,7 +602,7 @@ function tv_mc_details(PDO $pdo, string $key, string $sg): string
 function tv_mc_css(): string
 {
     static $done = false; if ($done) return ''; $done = true;
-    return '<style>'
+    return '<style>.mc-done{display:flex;flex-wrap:wrap;gap:.35rem .6rem;align-items:center;font-size:.9rem}.mc-change>summary{display:inline-block;cursor:pointer;color:var(--tv-link,#92400E);text-decoration:underline;list-style:none}.mc-change>summary::-webkit-details-marker{display:none}.mc-change[open]{display:block;flex-basis:100%;margin-top:.3rem}'
         . '#tv .mc-signin,.mc-signin{margin:.2rem 0 .35rem;font-size:.9rem;overflow-wrap:anywhere}.mc-signin .ak-b{margin-left:.35rem}.mc-as{display:block;margin-top:.2rem;color:var(--tv-meta,#6b5d49);min-width:0}.mc-asv{display:block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}'
         . '.mc-card{border:1px solid var(--tv-line-strong);border-radius:.6rem;background:var(--tv-card-a,var(--tv-card));padding:.6rem .75rem;margin:.5rem 0;min-width:0;overflow-wrap:break-word}.mc-card code,.mc-card a,.mc-card time{overflow-wrap:anywhere}'
         . '.mc-card *{min-width:0}.mc-z{border-top:1px solid var(--tv-line);padding:.45rem 0}.mc-z:first-child{border-top:0}'

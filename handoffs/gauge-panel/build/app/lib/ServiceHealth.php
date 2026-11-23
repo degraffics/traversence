@@ -362,6 +362,18 @@ final class ServiceHealth
      * An issue's alarm title in plain words (02 §4.8 rows 1, 27, 29, 32, 36; R102): the part's name and what happened, never a
      * host or a caller. One formula for the raiser and the watch's redraw of titles raised before #258 (ControlAlarms::redrawTitles).
      */
+    /**
+     * A pre-flight line's alarm title (Preflight::alarm): its name and its first sentence, except a service's check that got no
+     * answer, whose transport error ("No answer: Operation timed out after 15004 milliseconds…") reads as the service's own
+     * words ("Library of Congress isn't answering"; the Design reviewer, 2026-11-23); the error stays in its reading.
+     */
+    public static function lineTitle(string $id, string $name, string $first): string
+    {
+        if (preg_match('/^svc:([a-z0-9_-]{1,40})$/', $id, $m) && preg_match('/^No answer\b|timed? ?out|Could not resolve|Connection (refused|reset)|SSL connect|cURL error/i', $first))
+            return self::alarmTitle($m[1], '', 'timeout');
+        return $name . ': ' . $first;
+    }
+
     public static function alarmTitle(string $svc, string $host, string $kind, string $what = ''): string
     {
         require_once __DIR__ . '/ControlEngine.php'; require_once __DIR__ . '/OutsideServices.php';

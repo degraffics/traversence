@@ -48,6 +48,7 @@ function tv_ops_ctx(PDO $pdo): array
                 require_once __DIR__ . '/../lib/SignIns.php';
                 $name = OutsideServices::COMPANIES[$ref][0];
                 $say = $do === 'svc_signin' ? SignIns::set($pdo, $ref, (string) ($_POST['email'] ?? ''), (string) ($_POST['project'] ?? ''), $who) : SignIns::undo($pdo, $ref, $who);
+                $say = str_starts_with($say, 'Recorded') ? 'Recorded.' : (str_starts_with($say, 'Undone') ? 'Undone.' : $say);   // the card's line says what it is now
                 return [$can, $why, $uid, $who, $csrf, $tz, '<p data-tv-flash="ok">' . tv_w_e($name . ': ' . $say) . '</p>'];
             }
             if ($do === 'svc_pause' || $do === 'svc_activate') {
@@ -59,7 +60,7 @@ function tv_ops_ctx(PDO $pdo): array
                     if ($red) throw new RuntimeException($name . ' stays paused: the switch-on check has ' . count($red) . ' red line' . (count($red) === 1 ? '' : 's') . ' for it, first "' . $red[0]['line'] . '" (' . $red[0]['why'] . ').');
                 }
                 Automation::set($pdo, 'service', $ref, $do === 'svc_pause', $do === 'svc_pause' ? (string) ($_POST['why'] ?? '') : 'Activated on the Service register', $uid, $who);
-                $say = $do === 'svc_pause' ? $name . ' is paused: nothing of ours calls it until it\'s activated again.' : $name . ' is active: its check passed, and its workflows can call it.';
+                $say = $do === 'svc_pause' ? $name . ': paused.' : $name . ': activated, its check passed.';   // the card shows its stage and its way back (Activate, Pause)
                 return [$can, $why, $uid, $who, $csrf, $tz, '<p data-tv-flash="ok">' . tv_w_e($say) . '</p>'];
             }
             // a service's key on its card (decisions/0173 §3): EnvSettings' one writer holds the guards (the Founder, never on

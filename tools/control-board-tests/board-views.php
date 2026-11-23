@@ -51,7 +51,8 @@ $t('a gauge not checked yet says so once, with one "Set up its check" pill (' . 
 $lv = array_values(array_filter($rt, fn ($g) => $g['live'])); $ok = true;
 foreach ($lv as $g) { $c = $sec('cb-g-' . $g['id']); $c = substr($c, 0, strpos($c, '</article>')); if (!preg_match('/class="cb-live">live · <time datetime="[^"]+" data-tv-time>[^<]+ UTC<\/time>/', $c)) $ok = false; }
 $t('a live reading shows "live · <time>", labelled with its zone (' . count($lv) . ')', $ok && count($lv) > 0);
-$t('its snapshot: the big reading, measure, target, reading, its setup (Configure) and the three paths', str_contains($html, 'id="cb-sp-' . $one['id'] . '-snap"') && str_contains($sec('cb-sp-' . $one['id'] . '-snap'), 'Configure: its setup') && str_contains($html, 'id="cb-sp-' . $one['id'] . '-wf"') && str_contains($html, 'id="cb-sp-' . $one['id'] . '-cs"') && str_contains($html, 'id="cb-sp-' . $one['id'] . '-rs"'));
+// the gauge panel as a drill-down (approved by Jason, 2026-11-23): What moves it, What you can do, its setup in words; measure, target and reading under Details
+$t('its panel: the big reading, What moves it, its setup in words, Details (measure, target, reading) and the three paths', str_contains($html, 'id="cb-sp-' . $one['id'] . '-snap"') && str_contains($sec('cb-sp-' . $one['id'] . '-snap'), 'Its setup') && str_contains($sec('cb-sp-' . $one['id'] . '-snap'), 'Details: what it measures') && str_contains($html, 'id="cb-sp-' . $one['id'] . '-wf"') && str_contains($html, 'id="cb-sp-' . $one['id'] . '-cs"') && str_contains($html, 'id="cb-sp-' . $one['id'] . '-rs"'));
 $t('…each path panel has × and Back to its snapshot', (bool) preg_match('/id="cb-sp-' . preg_quote($one['id'], '/') . '-wf".*?data-cb-spx aria-label="Close">×<.*?data-cb-sp="cb-sp-' . preg_quote($one['id'], '/') . '-snap">← Back</s', $html));
 $t('the Arc only: no needle, no Ring, no style switch (03 §27)', !preg_match('/needle|sr-ring|data-gstyle/', $html));
 
@@ -90,9 +91,9 @@ $t('…switched off: said, never a silent gap', str_contains((string) $off, 'Sit
 $dd = ControlGauges::detail($pdo, 'development', 'discovery'); $first = (string) ($dd['list'][0]['name'] ?? '');
 $t('a gauge\'s detail isn\'t in the board\'s first draw: its panel carries a slot that loads it', $first !== '' && !str_contains($html, htmlspecialchars($first, ENT_QUOTES)) && str_contains($html, 'data-cb-gd="development:discovery"') && str_contains($html, 'data-cb-gd="runtime:o-pages"'));
 $gd = tv_cb_gauge_detail($pdo, 'development:discovery');
-$t('…?gauge=development:<id>: its items by status, each with its criteria met, checks, review and source', str_contains($gd, 'id="cb-gd"') && str_contains($gd, htmlspecialchars($first, ENT_QUOTES)) && str_contains($gd, 'Its items, by status') && str_contains($gd, 'Source: '));
+$t('…?gauge=development:<id>: its drill-down, its items by where they stand, each with its checks and where it comes from', str_contains($gd, 'id="cb-gd"') && str_contains($gd, htmlspecialchars($first, ENT_QUOTES)) && str_contains($gd, 'What needs you first') && str_contains($gd, 'Where this comes from'));
 $gr = tv_cb_gauge_detail($pdo, 'runtime:o-pages');
-$t('…?gauge=runtime:<id>: its setup words, what it counts, its needs with their sources in order', str_contains($gr, 'Its setup, in words') && str_contains($gr, 'What it counts:') && str_contains($gr, 'Its needs, sources in order'));
+$t('…?gauge=runtime:<id>: what it counts, its needs folded to one line with their sources in order (its setup words are on the panel)', str_contains($gr, 'What it counts:') && str_contains($gr, 'What it needs:') && (str_contains($gr, 'first: ') || str_contains($gr, 'no outside source')));
 $t('…a gauge with no detail says so, never a blank', str_contains(tv_cb_gauge_detail($pdo, 'runtime:nope'), 'data-tv-label="No detail:"'));
 $t('…the board\'s script loads it on open, with Try again on a failure', str_contains($js, "'?gauge=' + encodeURIComponent(slot.getAttribute('data-cb-gd'))") && str_contains($js, 'data-cb-gdre'));
 
