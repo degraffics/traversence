@@ -2,94 +2,6 @@
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
  "claims": [
   {
-   "path": "app/admin/kit-css.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
-   "why": "Kit buttons in brand brown (brand.md, Jason 2026-11-19 'the button standard'; the session manager's queue 2026-11-23)",
-   "since": "2026-11-23T20:55:03Z",
-   "expires": "2026-11-24T01:27:34Z",
-   "release": "kit-buttons.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/js/tv-copy.js",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
-   "why": "Kit buttons release: Copy as an icon (Jason, 2026-11-23: 'action icons with tool tips'; CLAUDE.md #1317)",
-   "since": "2026-11-23T20:56:29Z",
-   "expires": "2026-11-24T01:27:34Z",
-   "release": "kit-buttons.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/admin/control-console.php",
-   "functions": [
-    "(top)",
-    "tv_cb_gauge_card",
-    "tv_cb_gauge_detail",
-    "tv_cb_view_assets",
-    "tv_cbg_dev",
-    "tv_cbg_links",
-    "tv_cbg_row",
-    "tv_cbg_sub"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
-   "why": "Request a fix and \u22ef on the gauge panel (Jason, 2026-11-23)",
-   "since": "2026-11-23T21:08:49Z",
-   "expires": "2026-11-24T01:27:34Z",
-   "release": "kit-buttons.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/GaugeTasks.php",
-   "functions": [
-    "(top)",
-    "fix",
-    "undo"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
-   "why": "Request a fix's words; an open request withdrawn at any age",
-   "since": "2026-11-23T21:08:49Z",
-   "expires": "2026-11-24T01:27:34Z",
-   "release": "kit-buttons.zip",
-   "callers": {
-    "undo": [
-     "website/admin/api.php"
-    ],
-    "fix": [
-     "website/admin/api.php"
-    ]
-   }
-  },
-  {
-   "path": "website/admin/api.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
-   "why": "Request a fix: the gauge panel's queued buttons say what they do (Jason, 2026-11-23)",
-   "since": "2026-11-23T21:08:49Z",
-   "expires": "2026-11-24T01:27:34Z",
-   "release": "kit-buttons.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/admin/control-console.php",
-   "functions": [
-    "tv_cbg_req"
-   ],
-   "kind": "add",
-   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
-   "why": "An open request's line",
-   "since": "2026-11-23T21:09:03Z",
-   "expires": "2026-11-24T01:09:03Z",
-   "release": "kit-buttons.zip",
-   "callers": {}
-  },
-  {
    "path": "app/lib/ClientOrders.php",
    "functions": [],
    "kind": "change",
@@ -256,43 +168,6 @@
    "callers": {}
   },
   {
-   "path": "app/lib/ControlGauges.php",
-   "functions": [
-    "parse"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
-   "why": "Keeps the pickups (which session has a request)",
-   "since": "2026-11-23T21:23:34Z",
-   "expires": "2026-11-24T01:23:34Z",
-   "release": "kit-buttons.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/ControlGauges.php",
-   "functions": [
-    "pickup"
-   ],
-   "kind": "add",
-   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
-   "why": "The session that has a request",
-   "since": "2026-11-23T21:23:38Z",
-   "expires": "2026-11-24T01:27:34Z",
-   "release": "kit-buttons.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/api/health.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
-   "why": "?part=gauge_tasks for the hourly pickup",
-   "since": "2026-11-23T21:23:40Z",
-   "expires": "2026-11-24T01:23:40Z",
-   "release": "kit-buttons.zip",
-   "callers": {}
-  },
-  {
    "path": "app/admin/job-line.php",
    "functions": [
     "tv_job_pages"
@@ -303,31 +178,6 @@
    "since": "2026-11-23T21:24:40Z",
    "expires": "2026-11-24T01:24:40Z",
    "release": "order-m1b.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/js/admin-control.js",
-   "functions": [
-    "cbgEsc",
-    "redraw"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
-   "why": "A row's \u22ef menu: Esc and a click outside",
-   "since": "2026-11-23T21:26:47Z",
-   "expires": "2026-11-24T01:27:34Z",
-   "release": "kit-buttons.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/api/health.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
-   "why": "release kit-buttons.zip",
-   "since": "2026-11-23T21:27:34Z",
-   "expires": "2026-11-24T01:27:34Z",
-   "release": "kit-buttons.zip",
    "callers": {}
   },
   {
