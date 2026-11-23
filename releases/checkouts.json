@@ -91,15 +91,12 @@
   },
   {
    "path": "app/lib/ClientOrders.php",
-   "functions": [
-    "boardState",
-    "recordPayment"
-   ],
+   "functions": [],
    "kind": "change",
    "session": "session_01CXLi5kW2cGfR4Ya7fh2s3y",
-   "why": "M1b: what the system knows, what it asks (QuickBooks first, the Vendor line, vendor bills; decisions/0178 notes 2026-11-23)",
+   "why": "M1b: what the system knows, what it asks (new functions and lists at the file's top level)",
    "since": "2026-11-23T21:18:56Z",
-   "expires": "2026-11-24T01:18:56Z",
+   "expires": "2026-11-24T01:46:06Z",
    "release": "order-m1b.zip",
    "callers": {
     "boardState": [
@@ -114,14 +111,12 @@
   },
   {
    "path": "app/lib/QuickBooksPay.php",
-   "functions": [
-    "invoiceByNumber"
-   ],
+   "functions": [],
    "kind": "change",
    "session": "session_01CXLi5kW2cGfR4Ya7fh2s3y",
-   "why": "M1b: what the system knows, what it asks (QuickBooks first, the Vendor line, vendor bills; decisions/0178 notes 2026-11-23)",
+   "why": "M1b: what the system knows, what it asks (new functions and lists at the file's top level)",
    "since": "2026-11-23T21:18:56Z",
-   "expires": "2026-11-24T01:18:56Z",
+   "expires": "2026-11-24T01:46:06Z",
    "release": "order-m1b.zip",
    "callers": {
     "invoiceByNumber": [
@@ -132,16 +127,20 @@
   {
    "path": "app/lib/WorkOrders.php",
    "functions": [
+    "processOutside",
     "setInvoiceNo"
    ],
    "kind": "change",
    "session": "session_01CXLi5kW2cGfR4Ya7fh2s3y",
-   "why": "M1b: what the system knows, what it asks (QuickBooks first, the Vendor line, vendor bills; decisions/0178 notes 2026-11-23)",
+   "why": "M1b: what the system knows, what it asks (new functions and lists at the file's top level)",
    "since": "2026-11-23T21:18:56Z",
-   "expires": "2026-11-24T01:18:56Z",
+   "expires": "2026-11-24T01:46:06Z",
    "release": "order-m1b.zip",
    "callers": {
     "setInvoiceNo": [
+     "website/admin/client-order.php"
+    ],
+    "processOutside": [
      "website/admin/client-order.php"
     ]
    }
@@ -329,6 +328,28 @@
    "since": "2026-11-23T21:27:34Z",
    "expires": "2026-11-24T01:27:34Z",
    "release": "kit-buttons.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Scheduler.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5kW2cGfR4Ya7fh2s3y",
+   "why": "M1b: what the system knows, what it asks (new functions and lists at the file's top level)",
+   "since": "2026-11-23T21:46:06Z",
+   "expires": "2026-11-24T01:46:06Z",
+   "release": "order-m1b.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/staging-tables.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5kW2cGfR4Ya7fh2s3y",
+   "why": "M1b: what the system knows, what it asks (new functions and lists at the file's top level)",
+   "since": "2026-11-23T21:46:06Z",
+   "expires": "2026-11-24T01:46:06Z",
+   "release": "order-m1b.zip",
    "callers": {}
   }
  ],
