@@ -200,13 +200,14 @@
    "functions": [
     "confirmReceived",
     "gotItTick",
-    "received"
+    "received",
+    "setItemStatus"
    ],
    "kind": "change",
    "session": "session_01CXLi5jrE1f1iCSbBQssAAe",
    "why": "Order management M1: the state model and the board (research/order-management-design-2026-11-23.md \u00a76, decisions/0178 \u00a76)",
    "since": "2026-11-23T20:18:47Z",
-   "expires": "2026-11-24T00:18:47Z",
+   "expires": "2026-11-24T00:20:33Z",
    "release": "order-m1.zip",
    "callers": {
     "confirmReceived": [
@@ -214,12 +215,18 @@
     ],
     "gotItTick": [
      "app/scripts/got_it_tick.php"
+    ],
+    "setItemStatus": [
+     "app/lib/VendorOrders.php",
+     "app/lib/WorkOrders.php",
+     "website/admin/client-order.php"
     ]
    }
   },
   {
    "path": "app/admin/tools.php",
    "functions": [
+    "(top)",
     "backoffice/orders",
     "tv_order_next_step"
    ],
@@ -227,7 +234,7 @@
    "session": "session_01CXLi5jrE1f1iCSbBQssAAe",
    "why": "Order management M1: the state model and the board (research/order-management-design-2026-11-23.md \u00a76, decisions/0178 \u00a76)",
    "since": "2026-11-23T20:18:47Z",
-   "expires": "2026-11-24T00:18:47Z",
+   "expires": "2026-11-24T00:20:33Z",
    "release": "order-m1.zip",
    "callers": {}
   },
@@ -283,6 +290,7 @@
   {
    "path": "app/lib/Pulse.php",
    "functions": [
+    "'square'",
     "items",
     "playbook"
    ],
@@ -290,7 +298,7 @@
    "session": "session_01CXLi5jrE1f1iCSbBQssAAe",
    "why": "Order management M1: the state model and the board (research/order-management-design-2026-11-23.md \u00a76, decisions/0178 \u00a76)",
    "since": "2026-11-23T20:18:47Z",
-   "expires": "2026-11-24T00:18:47Z",
+   "expires": "2026-11-24T00:20:33Z",
    "release": "order-m1.zip",
    "callers": {
     "items": [
@@ -309,13 +317,14 @@
   {
    "path": "app/admin/manifests.php",
    "functions": [
+    "'backoffice'",
     "orders"
    ],
    "kind": "change",
    "session": "session_01CXLi5jrE1f1iCSbBQssAAe",
    "why": "Order management M1: the state model and the board (research/order-management-design-2026-11-23.md \u00a76, decisions/0178 \u00a76)",
    "since": "2026-11-23T20:18:47Z",
-   "expires": "2026-11-24T00:18:47Z",
+   "expires": "2026-11-24T00:20:33Z",
    "release": "order-m1.zip",
    "callers": {
     "orders": [
