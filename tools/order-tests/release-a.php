@@ -140,8 +140,8 @@ if ($tool) {
     ok('The list shows Balance due and a Next step (where it stands, one verb)', $row && $row['balance'] === (int) $o($d)['total_cents'] && $row['next']['label'] === 'Record a payment' && $row['next']['state'] === 'Waiting for payment', $row ? 'balance ' . json_encode($row['balance']) . ', ' . $row['next']['state'] . ' → "' . $row['next']['label'] . '"' : 'row missing');
     $sentRow = array_values(array_filter($rows, fn ($r) => $r['stage'] === 'sent'))[0] ?? null;
     ok('A sent order: "Not due yet" and Send again run in place', $sentRow && $sentRow['balance'] === ['word' => 'Not due yet'] && $sentRow['next']['act'] === 'resend' && $sentRow['next']['label'] === 'Send again', $sentRow ? json_encode($sentRow['balance']) . ', ' . json_encode($sentRow['next']) : 'none');
-    $said = thrown(fn () => ($tool['act'])($pdo, (int) $sentRow['id'], 'resend', [], $staff));   // the harness has no mail server: it must say so
-    ok('Send again from the list says what happened (here: the email didn\'t go)', str_contains($said, 'didn\'t go') && $o((int) $sentRow['id'])['status'] === 'sent', $said);
+    $said = ($tool['act'])($pdo, (int) $sentRow['id'], 'resend', [], $staff);   // the harness has no mail server: it must say so, with the link
+    ok('Send again: the email that didn\'t go is said as it is, with the link to copy', is_array($said) && str_starts_with($said['message'], 'The email didn\'t go to ') && str_contains((string) $said['copy'], '/order.php?t=') && !empty($said['bad']), json_encode($said));
     $cancelled = array_filter($rows, fn ($r) => in_array($r['stage'], ['cancelled', 'void', 'complete'], true));
     [$all] = ($tool['list'])($pdo, ['show' => 'all'], $staff);
     ok('Open orders by default; every order on asking', !$cancelled && count($all) > count($rows), count($rows) . ' open, ' . count($all) . ' in all');
