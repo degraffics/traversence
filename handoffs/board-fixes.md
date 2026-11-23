@@ -83,17 +83,17 @@ No migration, no switch. The one outside call is cPanel's API, through `CPanel::
 9. "opens as" sits on its own line, with the address whole (an ellipsis, its title the full address).
 10. Setup capture's summary: no stray "Record".
 
-
+## Tests
 
 - `old-titles.php` 12/12. It now seeds its own old-worded alarms; the live snapshot has since been rewritten.
-- `board-words.php` 17/17:
+- `board-words.php` 20/20:
   - Google's title through the real Services count, its register entry's words, the band climbing, clearing;
   - the lateness check on seeded runs, the Sync chip, and no raw names.
-- `google-signin.cjs` 28/28 at 1280 and 390, on the real register's handler: Record, a refused email, the links,
+- `google-signin.cjs` 34/34 at 1280 and 390, on the real register's handler: Record, a refused email, the links,
   Undo, Tavily naming the account, no sideways scroll.
 - The full sweeps: `rendered-all` 450 passed; the one failure is dispatcher/r3's pre-existing stop. `run-all` 1551 passed; its 7 failures are the same 7 that fail on the live code (engine migrations A–B, lines, r1's stray endpoint, r4b, register ×2).
 
-## After it's live
+## After it's live (live as #269, 2026-11-23 18:37 UTC)
 
 - The next daily health fetch writes `site-audit/results/jobs.json`. Read Lead scores' line there: if it's `missing`, Set
   them up now on Scheduled tasks adds it.
