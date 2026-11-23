@@ -1,0 +1,18 @@
+<?php
+// For crawler-phone.cjs: Insights → Crawler drawn on the bench (start schema, plus the tables it reads), W1's bulk tasks seeded, one failed with a server's 503 page. php crawler-phone-page.php <root>/app <why file>
+$app = $argv[1]; if (is_file($app . '/admin/Access.php')) require_once $app . '/admin/Access.php';
+require_once $app . '/lib/Database.php'; require_once $app . '/lib/Auth.php'; $pdo = Database::connection();
+require $app . '/admin/widgets.php'; require $app . '/ui/app-shell.php'; $_SESSION = ['csrf_token' => 'x'];
+require_once $app . '/admin/sections.php'; require_once $app . '/admin/crawler-console.php';
+foreach (['last_outcome VARCHAR(20) NULL', 'last_why VARCHAR(255) NULL', 'last_served_at DATETIME NULL'] as $col) { try { $pdo->exec('ALTER TABLE crawl_capture_tasks ADD COLUMN ' . $col); } catch (Throwable $x) {} }
+foreach (["crawl_costs (id INT AUTO_INCREMENT PRIMARY KEY, at DATETIME NOT NULL, wf VARCHAR(8) NOT NULL DEFAULT '', service VARCHAR(40) NOT NULL, units INT NOT NULL DEFAULT 0, usd_micros BIGINT NOT NULL DEFAULT 0)",
+  "crawl_run_items (id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, run_id INT NOT NULL DEFAULT 0, wf VARCHAR(8) NOT NULL DEFAULT '', task VARCHAR(40) NOT NULL, outcome VARCHAR(20) NOT NULL, why VARCHAR(255) NULL, seconds INT NULL, at DATETIME NULL)",
+  "crawl_jobs (id INT AUTO_INCREMENT PRIMARY KEY, status VARCHAR(20), attempts INT DEFAULT 0)", "town_crawl_jobs (id INT AUTO_INCREMENT PRIMARY KEY, status VARCHAR(20), attempts INT DEFAULT 0)",
+  "identity_jobs (id INT AUTO_INCREMENT PRIMARY KEY, status VARCHAR(20), attempts INT DEFAULT 0)", "reference_sources (id INT AUTO_INCREMENT PRIMARY KEY, status VARCHAR(20))",
+  "suggestions (id INT AUTO_INCREMENT PRIMARY KEY, device_hash VARCHAR(40), kind VARCHAR(20), status VARCHAR(20))", "guide_requests (id INT AUTO_INCREMENT PRIMARY KEY, status VARCHAR(20), tries INT DEFAULT 0)",
+  "crawl_requests (id INT AUTO_INCREMENT PRIMARY KEY, wf VARCHAR(8), status VARCHAR(20))"] as $ct) { try { $pdo->exec('CREATE TABLE IF NOT EXISTS ' . $ct); } catch (Throwable $x) { fwrite(STDERR, $x->getMessage() . "\n"); } }
+try { $pdo->exec("INSERT INTO crawl_costs (at, wf, service, units, usd_micros) VALUES (NOW(), 'W0', 'railway', 469266, 652000)"); } catch (Throwable $x) {}
+foreach ([['overture_bulk','Overture (businesses in bulk)','A town\'s records from Overture Maps open places through the one identity check (decisions/0164 §1.5)'],['foursquare_bulk','Foursquare open places','A town\'s records from Foursquare open places through the one identity check (decisions/0164 §1.5)'],['geofabrik_bulk','Geofabrik: OpenStreetMap state','Arizona\'s and New Mexico\'s OpenStreetMap files, weekly (its first run is one test download)']] as $tk) { try { $pdo->prepare("INSERT IGNORE INTO crawl_capture_tasks (task, wf, enabled, every_minutes, name, what) VALUES (?, 'W1', 1, 1440, ?, ?)")->execute($tk); } catch (Throwable $x) { fwrite(STDERR, 'task: ' . $x->getMessage() . "\n"); } }
+try { $pdo->prepare("UPDATE crawl_capture_tasks SET last_outcome = 'failed', last_why = ? WHERE task IN ('geofabrik_bulk', 'overture_bulk')")->execute([trim((string) file_get_contents($argv[2]))]); } catch (Throwable $x) { fwrite(STDERR, 'seed: ' . $x->getMessage() . "\n"); }
+require_once $app . '/ui/theme-tokens.php'; ob_start(); include $app . '/admin/kit-css.php'; $css = tv_theme_tokens() . ob_get_clean();
+echo '<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">' . $css . '</head><body>' . tv_admin_mod_crawler($pdo) . '</body></html>';

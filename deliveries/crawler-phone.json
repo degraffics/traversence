@@ -1,0 +1,14 @@
+{
+ "zip": "crawler-phone.zip",
+ "built_on": "8b91df0 Sync: 2026-11-23 01:36 UTC",
+ "recorded": "2026-11-23 01:41 UTC",
+ "note": "Insights \u2192 Crawler at phone width: cards, failures in words. Built on Sync: 2026-11-23 01:36 UTC. Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/crawler-console.php": {
+   "sha256": "df23c555554c53692fc8764bf3ada26d843eae04ce7cdf718ff9137e4abdd569",
+   "live": false
+  }
+ }
+}
