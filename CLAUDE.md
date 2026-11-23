@@ -65,6 +65,11 @@ No piecemeal patches and no unverified recovery flows. Before code is done:
 
 Live-site actions only on Jason's explicit call.
 
+**Design review before Jason sees it** (Jason, 2026-11-23): every release or mockup that changes what people see goes
+to the standing Design reviewer session first (screens at 1280 and 390 against brand.md, `design/css-theme-brand.md`,
+`design/table-standard.md`, 0058 §11 and any approved mockup). Only with its "Design: approved" does it go to the
+session manager and Jason.
+
 ## Build sessions follow the playbook (Jason, 2026-11-18): every build
 
 Before the first release, read `handoffs/builder-playbook.md`: fixes in place, a way back for every action, the phone at
