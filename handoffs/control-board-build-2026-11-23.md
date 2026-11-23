@@ -65,6 +65,10 @@ and Jason ("Restores three files the orders release overwrote"); once live, byte
      answer as the site's notice, never a button left spinning or dead.
    - **Also in its queue (the session manager, 2026-11-23): a dead-end sentence on Anthropic's card.** "Recording a why is
      to come: the manifest's setup_capture field isn't built…" Either it does the thing, or it isn't shown.
+   - **The Design reviewer (2026-11-23): a raw error as a title.** "Library of Congress: No answer: Operation timed out
+     after 15004 milliseconds with 0 bytes received." should read "Library of Congress isn't answering", with the timeout
+     text in the Reading. Route it through `ServiceHealth::alarmTitle()` so `redrawTitles()` fixes the open ones too, and
+     add a case to `old-titles.php`.
 2. **The provider usage spec**, specs only, to the session manager first: "the provider's own usage and spend, within the
    service's budget".
    - Google first: Cloud Monitoring for request counts; the billing export to BigQuery, or the budget feed, for actual
