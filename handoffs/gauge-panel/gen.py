@@ -138,6 +138,8 @@ def chip_for(check, item):
         return '<button type="button" class="chip c-fail" data-open="finding" data-id="%s">%s fails · open it</button>' % (e(f['id'] if f else cid), e(cid))
     if res == 'partial':
         return '<button type="button" class="chip c-part" data-open="check" data-id="%s">%s partly built · what\'s missing</button>' % (e(cid), e(cid))
+    if (REG.get(cid) or {}).get('status', '').startswith('built'):
+        return '<button type="button" class="chip c-none" data-open="reach" data-id="%s">%s doesn\'t reach it yet · why</button>' % (e(cid), e(cid))
     return '<button type="button" class="chip c-none" data-open="check" data-id="%s">%s: no check yet · what it needs</button>' % (e(cid), e(cid))
 
 
@@ -161,7 +163,7 @@ def item_row(i, n, item, paths):
     elif b == 'sign':
         acts.append('<button type="button" class="b go" data-sign="%d">Sign off</button>' % n)
     elif b == 'check':
-        acts.append('<button type="button" class="b go" data-open="check" data-id="%s">What its check needs</button>' % e(item['no_check'][0]))
+        acts.append('<button type="button" class="b go" data-open="%s" data-id="%s">What its check needs</button>' % ('reach' if REG.get(item['no_check'][0], {}).get('status', '').startswith('built') else 'check', e(item['no_check'][0])))
     if rt:
         acts.append('<a class="b" href="%s" data-peek-frame>Open the page</a>' % e(rt))
     if f:
@@ -189,7 +191,7 @@ def state_sentence(item, b):
     if b == 'sign':
         return 'Live and audited. It counts as reviewed once you sign it off (gauge-lifecycle.md §8, decided 2).'
     if b == 'check':
-        return 'Signed off. %s will check it once built.' % ', '.join(item['no_check'])
+        return 'Signed off. Not yet checked by %s.' % ', '.join(item['no_check'])
     return 'Every configured criterion met.'
 
 
@@ -220,8 +222,9 @@ def dev_panel(gid):
                       '<button type="button" class="b go" data-f="sign">Review them</button>', 'gauge-lifecycle.md §8 decided 2'))
     for cid, k in top_nc:
         reg = REG[cid]
-        cards.append(('river', '%s isn\'t built yet, and %d of these wait on it. %s' % (cid, k, reg['name'] + '.'),
-                      '<button type="button" class="b go" data-open="check" data-id="%s">What it needs</button>' % e(cid), 'check-register.md'))
+        built = reg.get('status', '').startswith('built')
+        cards.append(('river', ('%s is built but doesn\'t reach %d of these yet. %s' if built else '%s isn\'t built yet, and %d of these wait on it. %s') % (cid, k, reg['name'] + '.'),
+                      '<button type="button" class="b go" data-open="%s" data-id="%s">%s</button>' % ('reach' if built else 'check', e(cid), 'Why not' if built else 'What it needs'), 'check-register.md'))
     if counts['build']:
         cards.append(('taupe', '%d thing%s decided or held, not live yet.' % (counts['build'], '' if counts['build'] == 1 else 's'),
                       '<button type="button" class="b go" data-f="build">Show them</button>', 'inventory.json'))

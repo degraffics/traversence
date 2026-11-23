@@ -71,16 +71,16 @@ $reset(); ControlGauges::$source = $file;
 $src = ControlGauges::source($pdo);
 $t('5a. source read, with the file\'s time', $src['ok'] && $src['at'] !== '' && $src['from'] === $file, $src);
 $dev = $by(ControlGauges::development($pdo), 'title');
-$six = ['Discovery' => 45, 'Directory' => 52, 'Community' => 39, 'Marketplace' => 44, 'TRVGO – Storefront' => 41, 'Accounts' => 48, 'Dashboard & Pulse' => 50,
+$six = ['Discovery' => 45, 'Directory' => 52, 'Community' => 39, 'Marketplace' => 44, 'TRVGO – Storefront' => 41, 'Accounts' => 48, 'Dashboard & Pulse' => 49,
         'Get Local 360°' => 48, 'Let\'s Explore 360°' => 46, 'Market 360°' => 49, 'Social 360°' => 44, 'Sales & Growth' => 46, 'White Glove Concierge' => 23,
-        'Back-Office' => 43, 'Insights & Research' => 46, 'System Configuration' => 49];   // 49 since 2026-11-23: its inputs moved (gauge-lifecycle.md §6)
+        'Back-Office' => 43, 'Insights & Research' => 46, 'System Configuration' => 48];   // 2026-11-23 evening: LOAD, PHOTOS-SHOWN and BRAND built, their results read; Dashboard & Pulse 50 -> 49, System Configuration 49 -> 48 (gauge-lifecycle.md §6)
 $got = []; foreach ($six as $g => $p) $got[$g] = isset($dev[$g]) ? (int) round($dev[$g]['preview']) : null;
 $t('5b. each preview, recomputed on the site from its criteria, is §6\'s number', $got === $six, $got);
 $t('5c. every gauge in Planning at 0 until Jason signs off (§6)', count($dev) === 16 && !array_filter($dev, function ($g) { return $g['signed'] || $g['stage'] !== 'Planning' || $g['score'] !== 0.0 || $g['k'] !== 'planning'; }));
 $ps = array_count_values(array_column($dev, 'preview_stage'));
 $t('5d. their real stages under the draft: 15 Phased Development, Dashboard & Pulse in Audit & Review (§6)', ($ps['Phased Development'] ?? 0) === 15 && $dev['Dashboard & Pulse']['preview_stage'] === 'Audit & Review', $ps);
 $t('5e. the Planning line: "configuration drafted: N items, M criteria, awaiting sign-off"', $dev['Discovery']['text'] === 'configuration drafted: 30 items, 180 criteria, awaiting sign-off', $dev['Discovery']['text']);
-$t('5f. "no check yet" per gauge, TOOLS first', ($dev['Dashboard & Pulse']['no_check'] ?? null) === ['TOOLS', 'LOAD'] && $dev['White Glove Concierge']['no_check'] === ['TOOLS'], $dev['Dashboard & Pulse']['no_check'] ?? null);
+$t('5f. "no check yet" per gauge, TOOLS first (LOAD built 2026-11-23: no longer missing on Dashboard & Pulse)', ($dev['Dashboard & Pulse']['no_check'] ?? null) === ['TOOLS'] && $dev['White Glove Concierge']['no_check'] === ['TOOLS'], $dev['Dashboard & Pulse']['no_check'] ?? null);
 $t('5g. three drill paths, a workflow to its own page, a service to its card', ($dev['Directory']['paths']['workflows'][0][4] ?? '') === '/admin/config/control/wf-W1'
    && in_array('/admin/config/register#svc-google', array_column($dev['Directory']['paths']['registered'], 4), true) && count($dev['Community']['paths']['workflows']) === 0, $dev['Directory']['paths']);
 $t('5h. the fallback titles are the file\'s 16', array_keys($dev) === ControlGauges::DEV_FALLBACK);
@@ -98,7 +98,7 @@ $t('6f. no reading but the site\'s own: not checked yet, not live', $rt['o-pages
 $t('6g. Fix it from the association map: Pages load fast → Bluehost\'s card', in_array(['Fix it: Bluehost', '/admin/config/register#svc-bluehost'], $rt['o-speed']['fix'], true), $rt['o-speed']['fix']);
 $nm = array_values(array_filter($rt['o-told']['fix'], function ($f) { return str_starts_with($f[0], 'association not mapped'); }));
 $t('6h. a link the map can\'t give says "association not mapped", with no link', count($nm) === 1 && $nm[0][1] === null, $rt['o-told']['fix']);
-$t('6i. no check yet: Pages load fast needs LOAD', $rt['o-speed']['no_check'] === ['LOAD'], $rt['o-speed']['no_check']);
+$t('6i. no check yet: none on Pages load fast once LOAD is built (2026-11-23)', $rt['o-speed']['no_check'] === [], $rt['o-speed']['no_check']);
 $t('6j. the fallback ids and titles are the file\'s 23', array_combine(array_column($rtl, 'id'), array_column($rtl, 'title')) === ControlGauges::RT_FALLBACK);
 $t('6k. Trips reach a person with no trip: live, "nothing to send", no reading; still Monitoring', $rt['o-told']['live'] && $rt['o-told']['reading'] === null && str_contains($rt['o-told']['reading_text'], 'No trip') && $rt['o-told']['k'] === 'none');
 

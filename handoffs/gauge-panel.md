@@ -78,8 +78,18 @@ gets Send to a build in place of "association not mapped".
   as links; items by status (`<details>` per status) into the bar's filters.
 - **Dropped:** nothing, pending review.
 
-## Data defects the mockup found (fixed in gauges.py in the same release)
+## Data defects the mockup found (fixed on this branch: gauges.py, checkreg.py, the gauges regenerated)
 
+The gauges on main were already stale (`gauges.php` 11a fails on main). Regenerated here; `gauges.php` 77/77 on the bench.
+Previews: Dashboard & Pulse 50 → 49, System Configuration 49 → 48 (lifecycle §6 and test 5b updated, with the reason).
+After it, Discovery reads 6 failing (BRAND's contrast on its pages), 6 not built, 17 awaiting sign-off, 1 needs a check.
+
+0. **LOAD, PHOTOS-SHOWN, BRAND, TOOLS and AUDIT are built** (results since 2026-11-23 15:48–16:14 UTC, from the previous
+   session's 421e6ab) but the register still said "not built". checkreg.py now reads each check's results file. An item
+   one of them doesn't reach (TOOLS runs on `/admin/api/…` endpoints, not pages) reads "doesn't reach it yet", never
+   "not built". Several rows per item (each account, phone and desktop): the worst stands.
+00. **The new checks' failures aren't in Site health:** 202 of their finding ids aren't in `findings.json` (findings.py
+   doesn't read them). The panel links only a finding Site health has; the rest open the check's run. Q5 below.
 1. **LAYOUT reads a stale failure.** The register and the gauges say "5px above the hero … (2026-11-21)", failing two
    Discovery items; `site-audit/layout-probe.md` of 2026-11-23 10:20 UTC shows a 0px gap on the landmark, Discovery and
    Parks. Words follow the state (playbook principle 4).
@@ -87,7 +97,7 @@ gets Send to a build in place of "association not mapped".
    gauges-items.json). The panel reads gauges-items.json's `checks` only.
 3. **158 items have no route** and **failing checks have no finding id** (table above).
 
-## Questions (one review, then Jason once)
+## Questions (one review, then Jason once): five
 
 - **Q1. Send to a build: what it does.** No decision states it. Proposed: it writes a request (the item, the gauge, the
   reason, who pressed, when) to the board's logbook and shows "In a build: queued <time>" with Undo; health.php carries open
@@ -101,6 +111,9 @@ gets Send to a build in place of "association not mapped".
 - **Q3. Sign off the scope / Approve the target.** Lifecycle §3 (approved) writes the scope sign-off to the logbook with its
   date. Today `signed` comes only from gauges.json (repo). Proposed: the site reads its logbook's sign-off over the file's,
   at once, and health.php reports it so gauges.py records it.
+- **Q5. The new checks' failures in Site health?** BRAND alone fails 198 page views (contrast). Feeding them all to
+  findings.py would flood Site health and Pulse. Proposed: one finding per check and page (not per view), BRAND and LOAD
+  as "update" severity.
 - **Q4. Five bar segments, not four:** "Failing a check" separated from "Needs a check", so a fix and a missing check
   aren't one colour.
 

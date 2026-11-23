@@ -152,10 +152,11 @@ The schedule (five runs, each with its load on the site; approved) and Site heal
 
 Every gauge is in **Planning at 0**, its configuration drafted from the inventory and awaiting sign-off. **"Preview with the
 draft configuration"** shows what each would read if the draft were signed off, with the criteria from the page audit:
-Discovery 45%, Directory 52%, Community 39%, Marketplace 44%, TRVGO – Storefront 41%, Accounts 48%, Dashboard & Pulse 50%,
+Discovery 45%, Directory 52%, Community 39%, Marketplace 44%, TRVGO – Storefront 41%, Accounts 48%, Dashboard & Pulse 49%,
 Get Local 360° 48%, Let's Explore 360° 46%, Market 360° 49%, Social 360° 44%, Sales & Growth 46%, White Glove Concierge 23%,
-Back-Office 43%, Insights & Research 46%, System Configuration 49% (48% in the approved mockup; inputs moved 2026-11-23: the
-audit's rendered and path results that feed its criteria, regenerated in `gauges.json`; draft numbers track the data). Each shows its real stage: 15 in Phased Development (a
+Back-Office 43%, Insights & Research 46%, System Configuration 48% (48% in the approved mockup; 49% after the rendered and path results of 2026-11-23 morning,
+then 48% and Dashboard & Pulse 50% → 49% once LOAD, PHOTOS-SHOWN and BRAND were built and their results read, 2026-11-23
+evening; draft numbers track the data, regenerated in `gauges.json`). Each shows its real stage: 15 in Phased Development (a
 decided item not built) and Dashboard & Pulse in Audit & Review (every item built; its missing checks hold it there), each with
 its "no check yet" line. The nine placements Jason marked "Needs changes" stay where they are,
 pending Jason, under the Questions pill.

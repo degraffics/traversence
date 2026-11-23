@@ -123,7 +123,7 @@ def wf_list(wfs):
 
 
 # ------------------------------------------------------------------ check results in the one results format
-def result_rows():
+def result_rows():   # noqa: the worst-first order is WORST, set below before the call
     """Rows from site-audit/results/*.json in the one results format (check-register.md): {check, item, result, at, evidence}.
     paths.json, rendered.json and the rest have no 'check' field, so they aren't read as such."""
     rows = {}
@@ -136,18 +136,52 @@ def result_rows():
             continue
         for r in (d.get('results') or []) if isinstance(d, dict) else []:
             if isinstance(r, dict) and r.get('check') and 'item' in r and r.get('result') in ('pass', 'fail', 'partial', 'no check'):
-                rows[(r['check'], str(r['item']))] = {'result': r['result'], 'at': r.get('at'), 'file': os.path.basename(f)}
+                # one item can have several rows (each account, phone and desktop): the worst stands, with its finding
+                k = (r['check'], str(r['item']))
+                if k not in rows or WORST.index(r['result']) < WORST.index(rows[k]['result']):
+                    rows[k] = {'result': r['result'], 'at': r.get('at'), 'file': os.path.basename(f), 'finding': r.get('finding')}
     return rows
 
 
+WORST = ['fail', 'partial', 'no check', 'pass']
 ROWS = result_rows()
 
 
+PAGES_MD = open(ROOT + 'site-audit/pages.md').read().splitlines()
+FINDINGS = json.load(open(RESULTS + 'findings.json')).get('findings', [])
+FINDING_IDS = {f['id'] for f in FINDINGS}   # only a finding Site health has: any other id would open nothing
+
+
 def route_of(it):
+    """The page an item is, so its name opens it (the gauge panel, handoffs/gauge-panel.md): its admin section, a path at the
+    end of its name, or the first path in its row of site-audit/pages.md (the page register). None: its source is the link."""
     if it.get('manifest'):
         return '/admin/' + it['manifest']
     m = re.search(r'\((/[^)\s]*)\)$', it['name'])
-    return m.group(1) if m else None
+    if m:
+        return m.group(1)
+    m = re.search(r'site-audit/pages\.md:(\d+)', it.get('source', ''))
+    if m and int(m.group(1)) <= len(PAGES_MD):
+        p = re.search(r'`(/[^`\s]*)`', PAGES_MD[int(m.group(1)) - 1])
+        if p:
+            r = p.group(1)
+            return r.split('?')[0] if re.search(r'=$', r) else r   # "/listing/view.php?id=" names a kind of page, not one
+    return None
+
+
+def finding_for(route, cid):
+    """The open Site health finding a failing check on this page is, if the audit wrote one (findings.json), else None."""
+    if not route:
+        return None
+    for f in FINDINGS:
+        pg = (f.get('page') or '').split('?')[0]
+        rule = f.get('rule') or ''
+        # the check that writes a finding of this rule (findings.py): J01-J03 the paths, V06 a layout shift (LOAD's CLS),
+        # the other V rules the rendered check, D the board's own status checks
+        owner = 'PATHS' if rule.startswith('J') else ('LOAD' if rule == 'V06' else ('RENDER' if rule.startswith('V') else ('BOARD' if rule.startswith('D') else '')))
+        if pg and pg == route.split('?')[0] and owner == cid:
+            return f['id']
+    return None
 
 
 def item_checks(it):
@@ -192,7 +226,9 @@ def development():
             # criteria would carry its own 'criteria' (none does in the draft)
             items.append({'name': it['name'], 'kind': it['kind'], 'status': it['status'], 'phase': D.phase_of(it), 'weight': 1,
                           'met': [k for k in CRIT if met[k]],
-                          'checks': [[c, r] for c, r, _ in checks], 'no_check': [c for c, r, _ in checks if r == 'no check'],
+                          # a failing check carries its finding's id where Site health has it (the panel opens it; else the check's report)
+                          'checks': [[c, r] + ([fnd] if r == 'fail' and (fnd := ((ROWS.get((c, route_of(it))) or {}).get('finding') if (ROWS.get((c, route_of(it))) or {}).get('finding') in FINDING_IDS else None) or finding_for(route_of(it), c)) else []) for c, r, _ in checks],
+                          'no_check': [c for c, r, _ in checks if r == 'no check'],
                           'review': review_line(it), 'route': route_of(it), 'source': it['source']})
         total = sum(len(i.get('criteria', CRIT)) * i['weight'] for i in items)
         mt = sum(len(i['met']) * i['weight'] for i in items)

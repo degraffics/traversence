@@ -16,6 +16,23 @@ AT_PATHS = json.load(open(ROOT + 'site-audit/results/paths.json'))['at'][:16].re
 SC = json.load(open(ROOT + 'site-audit/results/search-scorecard.json'))
 AT_SEARCH = SC['at'][:16].replace('T', ' ') + ' UTC'
 
+# LAYOUT read from its newest run (site-audit/layout-probe.md), never a line written once (2026-11-23: the gauges read
+# 2026-11-21's 5px gap while the 11-23 run measured 0px on every page; playbook principle 4, words follow the state).
+def _layout():
+    md = open(ROOT + 'site-audit/layout-probe.md').read()
+    at = re.search(r'on (\d{4}-\d\d-\d\d \d\d:\d\d) UTC', md)
+    at = (at.group(1) + ' UTC') if at else 'no time'
+    gaps = [(sec.strip(), int(px)) for sec, px in re.findall(r'^## ([^\n]+)\n(?:(?!## )[^\n]*\n)*?- \*\*Gap above the hero:\*\* (-?\d+)px', md, re.M)]
+    bad = [n for n, px in gaps if px != 0]
+    if not gaps:
+        return 'no page measured (' + at + ')', 'not recorded'
+    if bad:
+        return ', '.join(f'{px}px above the hero on {n}' for n, px in gaps if px != 0) + f' ({at})', 'fail'
+    return f'no gap above the hero on {len(gaps)} page' + ('' if len(gaps) == 1 else 's') + f' ({at})', 'pass'
+
+
+LAYOUT_LATEST, LAYOUT_RESULT = _layout()
+
 
 def _r(rid):
     m = re.search(r'^\| ' + rid + r' \| (.*?) \| (.*?) \| (yes|no) \|', RULES, re.M)
@@ -49,7 +66,7 @@ CHECKS += [
          latest=f'{SC["pass"]} of {SC["of"]} cases pass ({AT_SEARCH})', result='fail' if SC['pass'] < SC['of'] else 'pass'),
     dict(id='LAYOUT', name='The layout probe: what a phone shows at the top of a page', source='Jason, 2026-11-10; decisions/0058 §21', scope='pages (a landmark, Discovery, a place card)',
          measure='the gap between the top bar and the hero; anything drawn over a card\'s action icons', target='no gap (0058 §21); nothing over the icons',
-         runs='daily with the search probe (search-probe.yml, layout-probe.mjs)', evidence=GH + 'site-audit/layout-probe.md', status='built', latest='5px above the hero on a landmark and on Discovery (2026-11-21 10:19 UTC)', result='fail'),
+         runs='daily with the search probe (search-probe.yml, layout-probe.mjs)', evidence=GH + 'site-audit/layout-probe.md', status='built', latest=LAYOUT_LATEST, result=LAYOUT_RESULT),
     dict(id='PHOTOS', name='Public photos load', source='2026-11-15 (the stock door photos\' 404); decisions/0123', scope='the uploads rule (every kind in Store::KINDS)',
          measure='a real stock photo and a member photo answer 200 as an image; every kind reaches media.php', target='all pass',
          runs='daily (site-checks.yml, photos-check.sh)', evidence=GH + '.github/workflows/site-checks.yml', status='built', latest='exit code in the run only: no result kept in git', result='not recorded'),
@@ -75,6 +92,19 @@ CHECKS += [
 CHECKS.append(dict(id='AUDIT', name='The audit\'s own load: what each run asks of the site', source='Jason, 2026-11-22: "wont bog our platform or resources down creating slowness issues"',
                    scope='every run of every check', measure='each run\'s requests to the site, its time, and the probe pages\' response times against their baseline',
                    target='', runs='every run reports it', evidence='proposed: an "Audit" runtime card on the board', status='not built', latest='no check yet', result='no check'))
+# A check built since the register was drafted reads its own results file (the one results format): built, with its counts
+# and time (2026-11-23: LOAD, PHOTOS-SHOWN, BRAND, TOOLS and AUDIT were built, the register still said "not built").
+for _c in CHECKS:
+    _f = ROOT + 'site-audit/results/' + _c['id'].lower() + '.json'
+    if _c['status'].startswith('not built') and os.path.exists(_f):
+        try:
+            _d = json.load(open(_f))
+        except Exception:
+            continue
+        if _d.get('check') == _c['id'] and _d.get('results'):
+            _n = _d.get('counts') or {}
+            _c.update(status='built', result='per item', evidence=_d.get('run_url') or GH + 'site-audit/results/' + os.path.basename(_f),
+                      latest=', '.join(f'{v} {k}' for k, v in _n.items()) + f' ({_d.get("generated_at", "")[:16].replace("T", " ")} UTC)')
 TARGETS = {   # one target per check, with its source; approved by Jason, 2026-11-22
     **{f'R{n:02d}': ('0 failures in the files it reads', 'site-audit/rules.md (its rule); decisions/0145 §6 (the zip check blocks the "yes" rules)') for n in range(1, 16)},
     'RENDER': ('every page answers, with no console error, no failed request, no sideways scroll at 390 and card edges at 3px, as each account; the accessibility basics at WCAG 2.2 AA',
@@ -161,10 +191,9 @@ def write():
           '## Notes', '',
           '- **PHOTOS keeps only its exit code:** no result is kept in git (`photos-check.sh` exits 1 and the run fails). Its results go',
           '  into the one results format (build order, 3).',
-          '- **A live finding, handed to the Design and trips session (not fixed here):** LAYOUT measures a **5px gap above the hero** on a',
-          '  landmark page (`/place/landmark.php?id=900000013`) and on `/discovery/` (`site-audit/layout-probe.md`, 2026-11-21 10:19 UTC),',
-          '  against decisions/0058 §21 (no gap). The layout probe doesn\'t feed `findings.py` today, so it isn\'t in `results/findings.json`',
-          '  (which is generated, never hand-edited); feeding it there is on the build order (3).', '']
+          ('- **LAYOUT, its newest run:** ' + LAYOUT_LATEST + ' (`site-audit/layout-probe.md`). It was 5px above the hero on a landmark and on'
+           ' `/discovery/` on 2026-11-21, handed to the Design and trips session. The layout probe doesn\'t feed `findings.py`, so a failure'
+           ' isn\'t in `results/findings.json`; feeding it there is on the build order (3).'), '']
     L += ['', '## The four gaps (proposed checks)', '',
           'Jason asked whether the audit checks "end to end … search on a page and its end points function correctly, the page load speed, the function speed, the photo loads and display … the brand of design standards". Four of those have no check today:', '',
           '1. **TOOLS:** each tool and endpoint by every type of account. `site-audit/tools.md` doesn\'t exist, and 0145 §1\'s function and tool checks aren\'t built.',

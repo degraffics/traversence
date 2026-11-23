@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-23T14:39:41Z",
+ "generated_at": "2026-11-23T19:14:36Z",
  "version": 2,
  "generated_by": "tools/page-audit/gauges.py",
  "note": "Each gauge's detail for its drawer (ControlGauges::detail): read when the drawer opens.",
@@ -128,7 +128,7 @@
    "name": "The rendered check: each page in a real browser",
    "status": "built",
    "result": "per page",
-   "latest": "run 2026-11-23 09:37 UTC",
+   "latest": "run 2026-11-23 15:26 UTC",
    "target": "every page answers, with no console error, no failed request, no sideways scroll at 390 and card edges at 3px, as each account; the accessibility basics at WCAG 2.2 AA",
    "evidence": "https://github.com/degraffics/traversence/blob/main/site-audit/rendered.md"
   },
@@ -136,7 +136,7 @@
    "name": "The paths check: what a visitor comes to do, end to end",
    "status": "built",
    "result": "per path",
-   "latest": "run 2026-11-23 09:43 UTC",
+   "latest": "run 2026-11-23 15:31 UTC",
    "target": "every path reaches its goal: 3 taps or fewer from home to a place to eat and to a town's guide, 5 or fewer for the rest",
    "evidence": "https://github.com/degraffics/traversence/blob/main/site-audit/paths.md"
   },
@@ -151,8 +151,8 @@
   "LAYOUT": {
    "name": "The layout probe: what a phone shows at the top of a page",
    "status": "built",
-   "result": "fail",
-   "latest": "5px above the hero on a landmark and on Discovery (2026-11-21 10:19 UTC)",
+   "result": "pass",
+   "latest": "no gap above the hero on 3 pages (2026-11-23 10:20 UTC)",
    "target": "no gap between the top bar and the hero; nothing drawn over a card's action icons",
    "evidence": "https://github.com/degraffics/traversence/blob/main/site-audit/layout-probe.md"
   },
@@ -174,43 +174,43 @@
   },
   "TOOLS": {
    "name": "Each tool and endpoint, used by every type of account",
-   "status": "not built",
-   "result": "no check",
-   "latest": "no check yet",
+   "status": "built",
+   "result": "per item",
+   "latest": "3 no check, 628 pass, 324 partial (2026-11-23 15:48 UTC)",
    "target": "every tool does what site-audit/tools.md says, for every account that may use it, and is refused with the reason for every account that may not",
-   "evidence": null
+   "evidence": "https://github.com/degraffics/traversence/actions/runs/45200820152"
   },
   "LOAD": {
    "name": "Load time for every page against a target",
-   "status": "not built",
-   "result": "no check",
-   "latest": "no check yet",
+   "status": "built",
+   "result": "per item",
+   "latest": "264 pass, 106 fail (2026-11-23 16:14 UTC)",
    "target": "Core Web Vitals \"good\": LCP ≤ 2.5 s, CLS ≤ 0.1, INP ≤ 200 ms, each at the 75th percentile",
-   "evidence": null
+   "evidence": "https://github.com/degraffics/traversence/actions/runs/45200820152"
   },
   "PHOTOS-SHOWN": {
    "name": "Every photo on a page shown",
-   "status": "not built",
-   "result": "no check",
-   "latest": "no check yet",
+   "status": "built",
+   "result": "per item",
+   "latest": "357 pass (2026-11-23 16:14 UTC)",
    "target": "every image on the page loaded and drawn (decoded, wider than 0) and with a text alternative",
-   "evidence": null
+   "evidence": "https://github.com/degraffics/traversence/actions/runs/45200820152"
   },
   "BRAND": {
    "name": "The brand and design standards on every page",
-   "status": "not built (partial)",
-   "result": "partial",
-   "latest": "partial: R10, R11 and the 3px edges only",
+   "status": "built",
+   "result": "per item",
+   "latest": "198 fail, 162 partial (2026-11-23 16:14 UTC)",
    "target": "the readable standards of brand.md met: its tokens, one header per view, filters as one dropdown, card anatomy, icons; text contrast at least 4.5:1, focus visible",
-   "evidence": null
+   "evidence": "https://github.com/degraffics/traversence/actions/runs/45200820152"
   },
   "AUDIT": {
    "name": "The audit's own load: what each run asks of the site",
-   "status": "not built",
-   "result": "no check",
-   "latest": "no check yet",
+   "status": "built",
+   "result": "per item",
+   "latest": "7 pass (2026-11-23 16:14 UTC)",
    "target": "a light run asks at most about 20 requests, one at a time with a 1 s gap; the probe pages' response times stay within 20% of their 7-day median, or the next run backs off",
-   "evidence": null
+   "evidence": "https://github.com/degraffics/traversence/actions/runs/45200820152"
   }
  },
  "results_read": [
@@ -245,11 +245,11 @@
       ],
       [
        "LAYOUT",
-       "fail"
+       "pass"
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "PHOTOS",
@@ -257,11 +257,11 @@
       ],
       [
        "PHOTOS-SHOWN",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -269,13 +269,11 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "PHOTOS",
-      "PHOTOS-SHOWN",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
-     "route": null,
+     "route": "/discovery/",
      "source": "site-audit/pages.md:18; in the mirror (Sync e229587, 22:55 UTC Nov 21); release #158 (live 2026-11-19), release #159 (live 2026-11-19), release #202 (live 2026-11-19)"
     },
     {
@@ -300,7 +298,7 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "PHOTOS",
@@ -308,11 +306,11 @@
       ],
       [
        "PHOTOS-SHOWN",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -320,13 +318,11 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "PHOTOS",
-      "PHOTOS-SHOWN",
       "TOOLS"
      ],
      "review": "open finding: f-c9499ea13e: A surprise: the page jumps as it loads (layout shift 0.32)",
-     "route": null,
+     "route": "/hub/",
      "source": "site-audit/pages.md:21; in the mirror (Sync e229587, 22:55 UTC Nov 21); pages.md says \"Live, placeholder\"; release #171 (live 2026-11-19)"
     },
     {
@@ -351,7 +347,7 @@
       ],
       [
        "LOAD",
-       "no check"
+       "fail"
       ],
       [
        "PHOTOS",
@@ -359,11 +355,11 @@
       ],
       [
        "PHOTOS-SHOWN",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -371,13 +367,11 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "PHOTOS",
-      "PHOTOS-SHOWN",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
-     "route": null,
+     "route": "/hub/build.php",
      "source": "site-audit/pages.md:22; in the mirror (Sync e229587, 22:55 UTC Nov 21); settles \"live once uploaded\": hub/build.php is in the mirror"
     },
     {
@@ -402,7 +396,7 @@
       ],
       [
        "LAYOUT",
-       "fail"
+       "pass"
       ],
       [
        "LOAD",
@@ -432,7 +426,7 @@
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
-     "route": null,
+     "route": "/place/landmark.php",
      "source": "site-audit/pages.md:25; in the mirror (Sync e229587, 22:55 UTC Nov 21)"
     },
     {
@@ -483,7 +477,7 @@
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
-     "route": null,
+     "route": "/place/recreation.php",
      "source": "site-audit/pages.md:26; in the mirror (Sync e229587, 22:55 UTC Nov 21)"
     },
     {
@@ -640,7 +634,7 @@
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
-     "route": null,
+     "route": "/experiences/view.php",
      "source": "site-audit/pages.md:27; in the mirror (Sync e229587, 22:55 UTC Nov 21)"
     },
     {
@@ -665,7 +659,7 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "PHOTOS",
@@ -673,11 +667,11 @@
       ],
       [
        "PHOTOS-SHOWN",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -685,13 +679,11 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "PHOTOS",
-      "PHOTOS-SHOWN",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
-     "route": null,
+     "route": "/user/experiences/",
      "source": "site-audit/pages.md:92; in the mirror (Sync e229587, 22:55 UTC Nov 21)"
     },
     {
@@ -743,7 +735,7 @@
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
-     "route": null,
+     "route": "/journeys/view.php",
      "source": "site-audit/pages.md:28; in the mirror (Sync e229587, 22:55 UTC Nov 21)"
     },
     {
@@ -794,7 +786,7 @@
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
-     "route": null,
+     "route": "/journeys/suggested.php",
      "source": "site-audit/pages.md:29; in the mirror (Sync e229587, 22:55 UTC Nov 21); decisions/0146:163 Built; settles \"live once uploaded\""
     },
     {
@@ -819,7 +811,7 @@
       ],
       [
        "LOAD",
-       "no check"
+       "fail"
       ],
       [
        "PHOTOS",
@@ -827,7 +819,7 @@
       ],
       [
        "PHOTOS-SHOWN",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
@@ -839,13 +831,11 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "PHOTOS",
-      "PHOTOS-SHOWN",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
-     "route": null,
+     "route": "/journeys/",
      "source": "site-audit/pages.md:30; in the mirror (Sync e229587, 22:55 UTC Nov 21)"
     },
     {
@@ -911,7 +901,7 @@
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
-     "route": null,
+     "route": "/guide/how.php",
      "source": "site-audit/pages.md:33; in the mirror (Sync e229587, 22:55 UTC Nov 21)"
     },
     {
@@ -962,7 +952,7 @@
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
-     "route": null,
+     "route": "/guide/resources.php",
      "source": "site-audit/pages.md:34; in the mirror (Sync e229587, 22:55 UTC Nov 21)"
     },
     {
@@ -1278,7 +1268,7 @@
      "checks": [],
      "no_check": [],
      "review": "",
-     "route": null,
+     "route": "/{hub-slug}",
      "source": "decisions/0013; site-audit/pages.md:269 (Coming)"
     },
     {
@@ -1346,7 +1336,7 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "PHOTOS",
@@ -1354,11 +1344,11 @@
       ],
       [
        "PHOTOS-SHOWN",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -1366,13 +1356,11 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "PHOTOS",
-      "PHOTOS-SHOWN",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
-     "route": null,
+     "route": "/ai/",
      "source": "site-audit/pages.md:45; in the mirror (Sync e229587, 22:55 UTC Nov 21)"
     }
    ],
@@ -1409,11 +1397,12 @@
       ],
       [
        "PATHS",
-       "fail"
+       "fail",
+       "f-c85353105f"
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "PHOTOS",
@@ -1421,11 +1410,11 @@
       ],
       [
        "PHOTOS-SHOWN",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -1433,13 +1422,11 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "PHOTOS",
-      "PHOTOS-SHOWN",
       "TOOLS"
      ],
      "review": "open finding: f-c85353105f: Dead end: no distance to set once the place is chosen",
-     "route": null,
+     "route": "/directory/",
      "source": "site-audit/pages.md:19; in the mirror (Sync e229587, 22:55 UTC Nov 21); release #164 (live 2026-11-19), release #178 (live 2026-11-19), release #208 (live 2026-11-19)"
     },
     {
@@ -1555,7 +1542,7 @@
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
-     "route": null,
+     "route": "/listing/view.php",
      "source": "site-audit/pages.md:23; in the mirror (Sync e229587, 22:55 UTC Nov 21); release #240 (live 2026-11-20)"
     },
     {
@@ -1580,7 +1567,7 @@
       ],
       [
        "LOAD",
-       "no check"
+       "fail"
       ],
       [
        "PHOTOS",
@@ -1588,11 +1575,11 @@
       ],
       [
        "PHOTOS-SHOWN",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -1600,13 +1587,11 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "PHOTOS",
-      "PHOTOS-SHOWN",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
-     "route": null,
+     "route": "/listing/location.php",
      "source": "site-audit/pages.md:24; in the mirror (Sync e229587, 22:55 UTC Nov 21)"
     },
     {
@@ -1631,7 +1616,7 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "PHOTOS",
@@ -1639,11 +1624,11 @@
       ],
       [
        "PHOTOS-SHOWN",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -1651,13 +1636,11 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "PHOTOS",
-      "PHOTOS-SHOWN",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
-     "route": null,
+     "route": "/claim.php",
      "source": "site-audit/pages.md:39; in the mirror (Sync e229587, 22:55 UTC Nov 21); release #215 (live 2026-11-19); decisions/0070"
     },
     {
@@ -1682,7 +1665,7 @@
       ],
       [
        "LOAD",
-       "no check"
+       "fail"
       ],
       [
        "PHOTOS",
@@ -1690,11 +1673,11 @@
       ],
       [
        "PHOTOS-SHOWN",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -1702,13 +1685,11 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "PHOTOS",
-      "PHOTOS-SHOWN",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
-     "route": null,
+     "route": "/verify-listing.php",
      "source": "site-audit/pages.md:70; in the mirror (Sync e229587, 22:55 UTC Nov 21)"
     },
     {
@@ -1733,7 +1714,7 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "PHOTOS",
@@ -1741,7 +1722,7 @@
       ],
       [
        "PHOTOS-SHOWN",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
@@ -1753,13 +1734,11 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "PHOTOS",
-      "PHOTOS-SHOWN",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
-     "route": null,
+     "route": "/dashboard.php",
      "source": "site-audit/pages.md:93; in the mirror (Sync e229587, 22:55 UTC Nov 21); decisions/0070, 0115"
     },
     {
@@ -1825,7 +1804,7 @@
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
-     "route": null,
+     "route": "/listing/api/*",
      "source": "/listing/api/update-metadata (site-audit/pages.md:222)"
     },
     {
@@ -1850,7 +1829,7 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "PHOTOS",
@@ -1858,11 +1837,11 @@
       ],
       [
        "PHOTOS-SHOWN",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -1871,13 +1850,11 @@
      ],
      "no_check": [
       "RENDER",
-      "LOAD",
       "PHOTOS",
-      "PHOTOS-SHOWN",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
-     "route": null,
+     "route": "/listing/confirm.php",
      "source": "site-audit/pages.md:114; in the mirror (Sync e229587, 22:55 UTC Nov 21); decisions/0172; release #135 (live 2026-11-18) (comms-all)"
     },
     {
@@ -1902,7 +1879,7 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "PHOTOS",
@@ -1910,11 +1887,11 @@
       ],
       [
        "PHOTOS-SHOWN",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -1923,13 +1900,11 @@
      ],
      "no_check": [
       "RENDER",
-      "LOAD",
       "PHOTOS",
-      "PHOTOS-SHOWN",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
-     "route": null,
+     "route": "/listing/requests.php",
      "source": "site-audit/pages.md:115; in the mirror (Sync e229587, 22:55 UTC Nov 21); decisions/0172; release #135 (live 2026-11-18)"
     },
     {
@@ -1961,7 +1936,7 @@
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
-     "route": null,
+     "route": "/api/guest-inquiry.php",
      "source": "/api/guest-inquiry.php (site-audit/pages.md:211); decisions/0052, 0172"
     },
     {
@@ -1989,7 +1964,7 @@
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
-     "route": null,
+     "route": "/claim.php",
      "source": "decisions/0071; claim.php?new=1 (site-audit/pages.md:39); app/lib/AddBusiness.php"
     },
     {
@@ -2083,7 +2058,7 @@
       "TOOLS"
      ],
      "review": "signed off: P10, decided by Jason 2026-11-13 (site-audit/proposals.md:182)",
-     "route": null,
+     "route": "/api/search_listings.php",
      "source": "/api/search_listings.php, /api/categories.php (site-audit/pages.md:199); decisions/0060 Phases A and B built"
     },
     {
@@ -2171,7 +2146,7 @@
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
-     "route": null,
+     "route": "/api/open-places.php",
      "source": "/api/open-places.php (site-audit/pages.md:206); decisions/0065"
     },
     {
@@ -2222,7 +2197,7 @@
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
-     "route": null,
+     "route": "/api/search.php",
      "source": "/api/search.php (site-audit/pages.md:198)"
     }
    ],
@@ -2254,7 +2229,7 @@
       ],
       [
        "LOAD",
-       "no check"
+       "fail"
       ],
       [
        "PHOTOS",
@@ -2262,11 +2237,11 @@
       ],
       [
        "PHOTOS-SHOWN",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -2274,13 +2249,11 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "PHOTOS",
-      "PHOTOS-SHOWN",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
-     "route": null,
+     "route": "/community/",
      "source": "site-audit/pages.md:31; in the mirror (Sync e229587, 22:55 UTC Nov 21); release #237 (live 2026-11-20) (3d); settles the outline's \"is 3d live\""
     },
     {
@@ -2332,7 +2305,7 @@
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
-     "route": null,
+     "route": "/community/group.php",
      "source": "site-audit/pages.md:32; in the mirror (Sync e229587, 22:55 UTC Nov 21); release #237 (live 2026-11-20)"
     },
     {
@@ -2501,7 +2474,7 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "PHOTOS",
@@ -2509,7 +2482,7 @@
       ],
       [
        "PHOTOS-SHOWN",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
@@ -2521,13 +2494,11 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "PHOTOS",
-      "PHOTOS-SHOWN",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
-     "route": null,
+     "route": "/join.php",
      "source": "site-audit/pages.md:38; in the mirror (Sync e229587, 22:55 UTC Nov 21)"
     },
     {
@@ -2684,7 +2655,7 @@
       "TOOLS"
      ],
      "review": "signed off: P11 (7), decided by Jason 2026-11-13 (site-audit/proposals.md:208)",
-     "route": null,
+     "route": "/api/engage.php",
      "source": "/api/engage.php (site-audit/pages.md:208); decisions/0058"
     },
     {
@@ -2869,7 +2840,7 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "PHOTOS",
@@ -2877,11 +2848,11 @@
       ],
       [
        "PHOTOS-SHOWN",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -2889,13 +2860,11 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "PHOTOS",
-      "PHOTOS-SHOWN",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
-     "route": null,
+     "route": "/market/",
      "source": "site-audit/pages.md:35; in the mirror (Sync e229587, 22:55 UTC Nov 21); pages.md: \"Live, placeholder\"; decisions/0135"
     },
     {
@@ -2947,7 +2916,7 @@
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
-     "route": null,
+     "route": "/market/view.php",
      "source": "site-audit/pages.md:58; in the mirror (Sync e229587, 22:55 UTC Nov 21)"
     },
     {
@@ -2999,7 +2968,7 @@
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
-     "route": null,
+     "route": "/market/item.php",
      "source": "site-audit/pages.md:54; in the mirror (Sync e229587, 22:55 UTC Nov 21)"
     },
     {
@@ -3024,7 +2993,7 @@
       ],
       [
        "LOAD",
-       "no check"
+       "fail"
       ],
       [
        "PHOTOS",
@@ -3032,7 +3001,7 @@
       ],
       [
        "PHOTOS-SHOWN",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
@@ -3044,13 +3013,11 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "PHOTOS",
-      "PHOTOS-SHOWN",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
-     "route": null,
+     "route": "/market/cart.php",
      "source": "site-audit/pages.md:52; in the mirror (Sync e229587, 22:55 UTC Nov 21)"
     },
     {
@@ -3102,7 +3069,7 @@
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
-     "route": null,
+     "route": "/market/order.php",
      "source": "site-audit/pages.md:55; in the mirror (Sync e229587, 22:55 UTC Nov 21)"
     },
     {
@@ -3127,7 +3094,7 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "PHOTOS",
@@ -3135,11 +3102,11 @@
       ],
       [
        "PHOTOS-SHOWN",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -3147,13 +3114,11 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "PHOTOS",
-      "PHOTOS-SHOWN",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
-     "route": null,
+     "route": "/market/rules.php",
      "source": "site-audit/pages.md:56; in the mirror (Sync e229587, 22:55 UTC Nov 21)"
     },
     {
@@ -3204,7 +3169,7 @@
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
-     "route": null,
+     "route": "/market/ticket.php",
      "source": "site-audit/pages.md:57; in the mirror (Sync e229587, 22:55 UTC Nov 21)"
     },
     {
@@ -3255,7 +3220,7 @@
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
-     "route": null,
+     "route": "/market/download.php",
      "source": "site-audit/pages.md:53; in the mirror (Sync e229587, 22:55 UTC Nov 21)"
     },
     {
@@ -3280,7 +3245,7 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "PHOTOS",
@@ -3288,11 +3253,11 @@
       ],
       [
        "PHOTOS-SHOWN",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -3300,13 +3265,11 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "PHOTOS",
-      "PHOTOS-SHOWN",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
-     "route": null,
+     "route": "/user/market/",
      "source": "site-audit/pages.md:97; in the mirror (Sync e229587, 22:55 UTC Nov 21)"
     },
     {
@@ -3331,7 +3294,7 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "PHOTOS",
@@ -3339,11 +3302,11 @@
       ],
       [
        "PHOTOS-SHOWN",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -3351,13 +3314,11 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "PHOTOS",
-      "PHOTOS-SHOWN",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
-     "route": null,
+     "route": "/user/orders.php",
      "source": "site-audit/pages.md:99; in the mirror (Sync e229587, 22:55 UTC Nov 21)"
     },
     {
@@ -3667,7 +3628,7 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "PHOTOS",
@@ -3675,11 +3636,11 @@
       ],
       [
        "PHOTOS-SHOWN",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -3687,13 +3648,11 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "PHOTOS",
-      "PHOTOS-SHOWN",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
-     "route": null,
+     "route": "/shop/",
      "source": "site-audit/pages.md:42; in the mirror (Sync e229587, 22:55 UTC Nov 21); decisions/0154:116, 143 Built"
     },
     {
@@ -3718,7 +3677,7 @@
       ],
       [
        "LOAD",
-       "no check"
+       "fail"
       ],
       [
        "PHOTOS",
@@ -3726,7 +3685,7 @@
       ],
       [
        "PHOTOS-SHOWN",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
@@ -3738,13 +3697,11 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "PHOTOS",
-      "PHOTOS-SHOWN",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
-     "route": null,
+     "route": "/plans.php",
      "source": "site-audit/pages.md:62; in the mirror (Sync e229587, 22:55 UTC Nov 21)"
     },
     {
@@ -3796,7 +3753,7 @@
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
-     "route": null,
+     "route": "/promo.php",
      "source": "site-audit/pages.md:63; in the mirror (Sync e229587, 22:55 UTC Nov 21)"
     },
     {
@@ -3821,7 +3778,7 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "PHOTOS",
@@ -3829,11 +3786,11 @@
       ],
       [
        "PHOTOS-SHOWN",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -3841,13 +3798,11 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "PHOTOS",
-      "PHOTOS-SHOWN",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
-     "route": null,
+     "route": "/qr/",
      "source": "site-audit/pages.md:65; in the mirror (Sync e229587, 22:55 UTC Nov 21)"
     },
     {
@@ -3872,7 +3827,7 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "PHOTOS",
@@ -3880,11 +3835,11 @@
       ],
       [
        "PHOTOS-SHOWN",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -3892,13 +3847,11 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "PHOTOS",
-      "PHOTOS-SHOWN",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
-     "route": null,
+     "route": "/qr/cart.php",
      "source": "site-audit/pages.md:66; in the mirror (Sync e229587, 22:55 UTC Nov 21)"
     },
     {
@@ -3923,7 +3876,7 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "PHOTOS",
@@ -3931,11 +3884,11 @@
       ],
       [
        "PHOTOS-SHOWN",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -3943,13 +3896,11 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "PHOTOS",
-      "PHOTOS-SHOWN",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
-     "route": null,
+     "route": "/qr/manage.php",
      "source": "site-audit/pages.md:67; in the mirror (Sync e229587, 22:55 UTC Nov 21)"
     },
     {
@@ -4184,7 +4135,7 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "PHOTOS",
@@ -4192,11 +4143,11 @@
       ],
       [
        "PHOTOS-SHOWN",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -4204,13 +4155,11 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "PHOTOS",
-      "PHOTOS-SHOWN",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
-     "route": null,
+     "route": "/shop/domains.php",
      "source": "site-audit/pages.md:43; in the mirror (Sync e229587, 22:55 UTC Nov 21); release #71 (live 2026-11-17), release #76 (live 2026-11-17)"
     },
     {
@@ -4235,7 +4184,7 @@
       ],
       [
        "LOAD",
-       "no check"
+       "fail"
       ],
       [
        "PHOTOS",
@@ -4243,11 +4192,11 @@
       ],
       [
        "PHOTOS-SHOWN",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -4255,13 +4204,11 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "PHOTOS",
-      "PHOTOS-SHOWN",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
-     "route": null,
+     "route": "/user/domains/",
      "source": "site-audit/pages.md:96; in the mirror (Sync e229587, 22:55 UTC Nov 21); release #71 (live 2026-11-17)"
     },
     {
@@ -4312,7 +4259,7 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "PHOTOS",
@@ -4320,11 +4267,11 @@
       ],
       [
        "PHOTOS-SHOWN",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -4332,13 +4279,11 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "PHOTOS",
-      "PHOTOS-SHOWN",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
-     "route": null,
+     "route": "/user/profile.php",
      "source": "site-audit/pages.md:88; in the mirror (Sync e229587, 22:55 UTC Nov 21)"
     },
     {
@@ -4389,7 +4334,7 @@
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
-     "route": null,
+     "route": "/user/profile.php?id=&tab=videos",
      "source": "site-audit/pages.md:90; in the mirror (Sync e229587, 22:55 UTC Nov 21); decisions/0154:116 Built"
     },
     {
@@ -4414,7 +4359,7 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "PHOTOS",
@@ -4422,11 +4367,11 @@
       ],
       [
        "PHOTOS-SHOWN",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -4434,13 +4379,11 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "PHOTOS",
-      "PHOTOS-SHOWN",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
-     "route": null,
+     "route": "/user/dashboard.php",
      "source": "site-audit/pages.md:87; in the mirror (Sync e229587, 22:55 UTC Nov 21); release #237 (live 2026-11-20)"
     },
     {
@@ -4465,7 +4408,7 @@
       ],
       [
        "LOAD",
-       "no check"
+       "fail"
       ],
       [
        "PHOTOS",
@@ -4473,7 +4416,7 @@
       ],
       [
        "PHOTOS-SHOWN",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
@@ -4485,13 +4428,11 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "PHOTOS",
-      "PHOTOS-SHOWN",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
-     "route": null,
+     "route": "/gallery/",
      "source": "site-audit/pages.md:47; in the mirror (Sync e229587, 22:55 UTC Nov 21)"
     },
     {
@@ -4542,7 +4483,7 @@
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
-     "route": null,
+     "route": "/gallery/album.php",
      "source": "site-audit/pages.md:48; in the mirror"
     },
     {
@@ -4578,7 +4519,7 @@
      ],
      "no_check": [],
      "review": "",
-     "route": null,
+     "route": "/terms.php",
      "source": "site-audit/pages.md:44 (placeholder \"to replace before launch\"); market360-build-briefs.md:169"
     },
     {
@@ -4603,7 +4544,7 @@
       ],
       [
        "LOAD",
-       "no check"
+       "fail"
       ],
       [
        "PHOTOS",
@@ -4611,11 +4552,11 @@
       ],
       [
        "PHOTOS-SHOWN",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -4623,13 +4564,11 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "PHOTOS",
-      "PHOTOS-SHOWN",
       "TOOLS"
      ],
      "review": "open finding: f-bbabc36265: A path couldn't be followed: Sign in, including the human check; f-fa035ddd5a: Not clear: none of the results says it's open now (the search asked for open now)",
-     "route": null,
+     "route": "/",
      "source": "site-audit/pages.md:17; in the mirror (Sync e229587, 22:55 UTC Nov 21); decisions/0138:95, 114 Built"
     },
     {
@@ -4655,7 +4594,8 @@
       ],
       [
        "LOAD",
-       "no check"
+       "fail",
+       "f-403de6bd59"
       ],
       [
        "PHOTOS",
@@ -4675,13 +4615,12 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "PHOTOS",
       "PHOTOS-SHOWN",
       "TOOLS"
      ],
      "review": "signed off: P2, decided by Jason 2026-11-08 (site-audit/proposals.md:38)",
-     "route": null,
+     "route": "/login.php",
      "source": "site-audit/pages.md:78; in the mirror (Sync e229587, 22:55 UTC Nov 21)"
     },
     {
@@ -4747,7 +4686,7 @@
       "TOOLS"
      ],
      "review": "signed off: P11 (1, 2), decided by Jason 2026-11-13 (site-audit/proposals.md:208)",
-     "route": null,
+     "route": "/login.php",
      "source": "site-audit/pages.md:78"
     },
     {
@@ -4893,7 +4832,7 @@
      "checks": [],
      "no_check": [],
      "review": "",
-     "route": null,
+     "route": "/privacy/dsar",
      "source": "site-audit/pages.md:272 (Coming); decisions/0026; nothing in the mirror"
     },
     {
@@ -4918,7 +4857,7 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "PHOTOS",
@@ -4926,11 +4865,11 @@
       ],
       [
        "PHOTOS-SHOWN",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -4938,13 +4877,11 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "PHOTOS",
-      "PHOTOS-SHOWN",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
-     "route": null,
+     "route": "/faq.php",
      "source": "site-audit/pages.md:36; in the mirror (Sync e229587, 22:55 UTC Nov 21)"
     },
     {
@@ -4969,7 +4906,7 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "PHOTOS",
@@ -4977,11 +4914,11 @@
       ],
       [
        "PHOTOS-SHOWN",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -4989,13 +4926,11 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "PHOTOS",
-      "PHOTOS-SHOWN",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
-     "route": null,
+     "route": "/terms.php",
      "source": "site-audit/pages.md:44"
     }
    ],
@@ -5160,11 +5095,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "fail"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -5172,7 +5107,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -5188,7 +5122,6 @@
      "met": [
       "decided",
       "built",
-      "reviewed",
       "live"
      ],
      "checks": [
@@ -5202,11 +5135,12 @@
       ],
       [
        "LOAD",
-       "no check"
+       "fail",
+       "f-20c0bc6988"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -5214,10 +5148,9 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
-     "review": "signed off: P11 (4, 5), decided by Jason 2026-11-13 (site-audit/proposals.md:208)",
+     "review": "open finding: f-20c0bc6988: A surprise: 2 dialogs open on top of each other",
      "route": "/admin/dashboard/stream",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):20 ($W)"
     },
@@ -5243,11 +5176,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -5255,7 +5188,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -5284,11 +5216,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "fail"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -5296,7 +5228,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -5325,11 +5256,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -5337,7 +5268,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -5366,11 +5296,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -5378,7 +5308,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -5407,11 +5336,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "fail"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -5419,7 +5348,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -5448,11 +5376,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -5460,7 +5388,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -5494,11 +5421,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -5506,7 +5433,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -5535,11 +5461,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -5547,7 +5473,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -5576,11 +5501,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "fail"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -5588,7 +5513,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -5617,11 +5541,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "fail"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -5629,7 +5553,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -5658,11 +5581,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -5670,7 +5593,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -5699,11 +5621,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -5711,7 +5633,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -5740,11 +5661,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "fail"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -5752,7 +5673,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -5781,11 +5701,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "fail"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -5793,7 +5713,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -5822,11 +5741,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -5834,7 +5753,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -5863,11 +5781,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "fail"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -5875,7 +5793,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -5904,11 +5821,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "fail"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -5916,7 +5833,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -5945,11 +5861,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "fail"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -5957,7 +5873,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -5986,11 +5901,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -5998,7 +5913,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -6075,11 +5989,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -6087,7 +6001,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -6116,11 +6029,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -6128,7 +6041,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -6157,11 +6069,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -6169,7 +6081,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -6198,11 +6109,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -6211,7 +6122,6 @@
      ],
      "no_check": [
       "RENDER",
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -6240,11 +6150,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -6252,7 +6162,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -6281,11 +6190,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "fail"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -6293,7 +6202,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -6322,11 +6230,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -6334,7 +6242,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -6383,11 +6290,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -6395,7 +6302,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -6424,11 +6330,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -6436,7 +6342,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -6465,11 +6370,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -6477,7 +6382,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -6506,11 +6410,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "fail"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -6518,7 +6422,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -6547,11 +6450,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "fail"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -6559,7 +6462,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -6604,11 +6506,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "fail"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -6616,7 +6518,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "signed off: P12, decided by Jason 2026-11-13 (site-audit/proposals.md:221)",
@@ -6645,11 +6546,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "fail"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -6657,7 +6558,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -6686,11 +6586,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "fail"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -6698,7 +6598,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -6727,11 +6626,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "fail"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -6739,7 +6638,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -6768,11 +6666,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -6780,7 +6678,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -6809,11 +6706,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -6821,7 +6718,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -6871,11 +6767,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -6883,7 +6779,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "signed off: P11 (6), decided by Jason 2026-11-13 (site-audit/proposals.md:208)",
@@ -6912,11 +6807,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -6924,7 +6819,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -6953,11 +6847,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -6965,7 +6859,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -6994,11 +6887,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "fail"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -7006,7 +6899,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -7035,11 +6927,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "fail"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -7047,7 +6939,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -7076,11 +6967,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -7088,7 +6979,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -7137,11 +7027,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -7149,7 +7039,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -7178,11 +7067,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "fail"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -7190,7 +7079,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -7219,11 +7107,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -7231,7 +7119,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -7260,11 +7147,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -7272,7 +7159,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -7301,11 +7187,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "fail"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -7313,7 +7199,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -7342,11 +7227,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -7354,7 +7239,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -7383,11 +7267,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -7395,7 +7279,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -7424,11 +7307,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -7436,7 +7319,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -7599,11 +7481,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "fail"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -7611,7 +7493,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -7640,11 +7521,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "fail"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -7652,7 +7533,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -7681,11 +7561,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -7693,7 +7573,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -7722,11 +7601,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -7735,7 +7614,6 @@
      ],
      "no_check": [
       "RENDER",
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -7764,11 +7642,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "fail"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -7776,7 +7654,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -7805,11 +7682,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -7818,7 +7695,6 @@
      ],
      "no_check": [
       "RENDER",
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -7847,11 +7723,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -7859,7 +7735,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -7888,11 +7763,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -7901,7 +7776,6 @@
      ],
      "no_check": [
       "RENDER",
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -7930,11 +7804,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -7943,7 +7817,6 @@
      ],
      "no_check": [
       "RENDER",
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -7972,11 +7845,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -7984,7 +7857,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -8013,11 +7885,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -8025,7 +7897,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -8054,11 +7925,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "fail"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -8066,7 +7937,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -8095,11 +7965,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -8107,7 +7977,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -8136,11 +8005,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "fail"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -8148,7 +8017,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -8205,11 +8073,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "fail"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -8217,7 +8085,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -8246,11 +8113,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -8258,7 +8125,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -8287,11 +8153,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -8299,7 +8165,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -8436,11 +8301,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -8448,7 +8313,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -8477,11 +8341,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "fail"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -8489,7 +8353,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -8518,11 +8381,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -8530,7 +8393,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -8574,7 +8436,7 @@
       "LOAD",
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open finding: f-890ebaf025: The page doesn't open: /admin/insights/sources",
      "route": "/admin/insights/sources",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):145 ($W)"
     },
@@ -8600,11 +8462,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -8612,7 +8474,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -8642,11 +8503,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "fail"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -8654,7 +8515,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "signed off: release #54: UI, UX and Functional approved by Jason",
@@ -8683,11 +8543,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -8695,7 +8555,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -8724,11 +8583,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "fail"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -8736,7 +8595,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -8765,11 +8623,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "fail"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -8777,7 +8635,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -8806,11 +8663,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "fail"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -8818,7 +8675,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -8847,11 +8703,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -8859,7 +8715,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -9457,15 +9312,16 @@
       ],
       [
        "RENDER",
-       "fail"
+       "fail",
+       "f-cd1e26ccb6"
       ],
       [
        "LOAD",
-       "no check"
+       "fail"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -9473,10 +9329,9 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open finding: f-cd1e26ccb6: Cards not 3px from the screen edge at 390px: /admin/config/control",
      "route": "/admin/config/control",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):162 ($W)"
     },
@@ -9498,15 +9353,16 @@
       ],
       [
        "RENDER",
-       "fail"
+       "fail",
+       "f-d844c6c46e"
       ],
       [
        "LOAD",
-       "no check"
+       "fail"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -9514,10 +9370,9 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open finding: f-d844c6c46e: Cards not 3px from the screen edge at 390px: /admin/config/alarms",
      "route": "/admin/config/alarms",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):164 ($W)"
     },
@@ -9539,15 +9394,16 @@
       ],
       [
        "RENDER",
-       "fail"
+       "fail",
+       "f-2350672491"
       ],
       [
        "LOAD",
-       "no check"
+       "fail"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -9555,10 +9411,9 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open finding: f-2350672491: Cards not 3px from the screen edge at 390px: /admin/config/log",
      "route": "/admin/config/log",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):165 ($W)"
     },
@@ -9580,15 +9435,16 @@
       ],
       [
        "RENDER",
-       "fail"
+       "fail",
+       "f-89fe13e491"
       ],
       [
        "LOAD",
-       "no check"
+       "fail"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -9596,10 +9452,9 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open finding: f-89fe13e491: Cards not 3px from the screen edge at 390px: /admin/config/ledger",
      "route": "/admin/config/ledger",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):166 ($W)"
     },
@@ -9621,15 +9476,16 @@
       ],
       [
        "RENDER",
-       "fail"
+       "fail",
+       "f-26d2d75543"
       ],
       [
        "LOAD",
-       "no check"
+       "fail"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -9637,10 +9493,9 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open finding: f-26d2d75543: Cards not 3px from the screen edge at 390px: /admin/config/upkeep",
      "route": "/admin/config/upkeep",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):167 ($W)"
     },
@@ -9662,15 +9517,16 @@
       ],
       [
        "RENDER",
-       "fail"
+       "fail",
+       "f-4b562b2095"
       ],
       [
        "LOAD",
-       "no check"
+       "fail"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -9678,10 +9534,9 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open finding: f-4b562b2095: Cards not 3px from the screen edge at 390px: /admin/config/workflows",
      "route": "/admin/config/workflows",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):168 ($W)"
     },
@@ -9707,11 +9562,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -9719,7 +9574,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -9748,11 +9602,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -9760,7 +9614,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -9785,15 +9638,16 @@
       ],
       [
        "RENDER",
-       "fail"
+       "fail",
+       "f-6794597ee0"
       ],
       [
        "LOAD",
-       "no check"
+       "fail"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -9801,10 +9655,9 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open finding: f-6794597ee0: Cards not 3px from the screen edge at 390px: /admin/config/scheduler",
      "route": "/admin/config/scheduler",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):171 ($W)"
     },
@@ -9826,15 +9679,16 @@
       ],
       [
        "RENDER",
-       "fail"
+       "fail",
+       "f-fb38c0ede5"
       ],
       [
        "LOAD",
-       "no check"
+       "fail"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -9842,10 +9696,9 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open finding: f-fb38c0ede5: Cards not 3px from the screen edge at 390px: /admin/config/preflight",
      "route": "/admin/config/preflight",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):172 ($W)"
     },
@@ -9867,15 +9720,16 @@
       ],
       [
        "RENDER",
-       "fail"
+       "fail",
+       "f-836cc83cc8"
       ],
       [
        "LOAD",
-       "no check"
+       "fail"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -9883,10 +9737,9 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open finding: f-836cc83cc8: Cards not 3px from the screen edge at 390px: /admin/config/automation",
      "route": "/admin/config/automation",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):173 ($W)"
     },
@@ -9899,7 +9752,6 @@
      "met": [
       "decided",
       "built",
-      "reviewed",
       "live"
      ],
      "checks": [
@@ -9909,15 +9761,16 @@
       ],
       [
        "RENDER",
-       "fail"
+       "fail",
+       "f-b1c4d2dd7e"
       ],
       [
        "LOAD",
-       "no check"
+       "fail"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -9925,10 +9778,9 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
-     "review": "signed off: release #55: UI, UX and Functional approved by Jason",
+     "review": "open finding: f-b1c4d2dd7e: Cards not 3px from the screen edge at 390px: /admin/config/register",
      "route": "/admin/config/register",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):174 ($W)"
     },
@@ -9941,7 +9793,6 @@
      "met": [
       "decided",
       "built",
-      "reviewed",
       "live"
      ],
      "checks": [
@@ -9951,15 +9802,16 @@
       ],
       [
        "RENDER",
-       "fail"
+       "fail",
+       "f-97786667c0"
       ],
       [
        "LOAD",
-       "no check"
+       "fail"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -9967,10 +9819,9 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
-     "review": "signed off: release #55: UI, UX and Functional approved by Jason",
+     "review": "open finding: f-97786667c0: Cards not 3px from the screen edge at 390px: /admin/config/costs",
      "route": "/admin/config/costs",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):175 ($W)"
     },
@@ -9983,7 +9834,6 @@
      "met": [
       "decided",
       "built",
-      "reviewed",
       "live"
      ],
      "checks": [
@@ -9993,15 +9843,16 @@
       ],
       [
        "RENDER",
-       "fail"
+       "fail",
+       "f-316f5c935f"
       ],
       [
        "LOAD",
-       "no check"
+       "fail"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -10009,10 +9860,9 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
-     "review": "signed off: release #55: UI, UX and Functional approved by Jason",
+     "review": "open finding: f-316f5c935f: Cards not 3px from the screen edge at 390px: /admin/config/board",
      "route": "/admin/config/board",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):176 ($W)"
     },
@@ -10038,11 +9888,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "fail"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -10050,7 +9900,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -10075,15 +9924,16 @@
       ],
       [
        "RENDER",
-       "fail"
+       "fail",
+       "f-f59c3b6a11"
       ],
       [
        "LOAD",
-       "no check"
+       "fail"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -10091,10 +9941,9 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
-     "review": "audited, awaiting sign-off",
+     "review": "open finding: f-f59c3b6a11: Cards not 3px from the screen edge at 390px: /admin/config/communications",
      "route": "/admin/config/communications",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):178 ($W)"
     },
@@ -10120,11 +9969,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "fail"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -10132,7 +9981,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -10161,11 +10009,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "fail"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -10173,7 +10021,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -10202,11 +10049,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "fail"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -10214,7 +10061,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -10244,11 +10090,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "fail"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -10256,7 +10102,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "signed off: release #68: UI, UX and Functional approved by Jason",
@@ -10285,11 +10130,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "fail"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -10297,7 +10142,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -10326,11 +10170,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -10338,7 +10182,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -10367,11 +10210,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -10379,7 +10222,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -10408,11 +10250,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -10420,7 +10262,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -10450,11 +10291,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -10462,7 +10303,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "signed off: release #56: UI, UX and Functional approved by Jason",
@@ -10491,11 +10331,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "fail"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -10503,7 +10343,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -10532,11 +10371,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -10544,7 +10383,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -10573,11 +10411,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -10585,7 +10423,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -10614,11 +10451,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "pass"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -10626,7 +10463,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -10655,11 +10491,11 @@
       ],
       [
        "LOAD",
-       "no check"
+       "fail"
       ],
       [
        "BRAND",
-       "partial"
+       "fail"
       ],
       [
        "TOOLS",
@@ -10667,7 +10503,6 @@
       ]
      ],
      "no_check": [
-      "LOAD",
       "TOOLS"
      ],
      "review": "audited, awaiting sign-off",
@@ -10730,7 +10565,7 @@
    "setup_why": {
     "probe": "the rendered check: every page as each kind of visitor, at 1280 and 390",
     "target": "target: set by Jason",
-    "check": "Less than optimal · Nov 23, 2:37 AM MST",
+    "check": "Less than optimal · Nov 23, 8:26 AM MST",
     "alarm": "its reading isn't from the alarms yet"
    },
    "records": "page answers (the rendered check: every page as each visitor, 1280 and 390)",
@@ -10783,7 +10618,7 @@
    "setup_why": {
     "probe": "the paths check: sign in, then sign out",
     "target": "both pass on every run",
-    "check": "Working · Nov 23, 2:43 AM MST",
+    "check": "Working · Nov 23, 8:31 AM MST",
     "alarm": "its reading isn't from the alarms yet"
    },
    "records": "sign-ins and sign-outs (the paths check)",
@@ -10836,7 +10671,7 @@
    "setup_why": {
     "probe": "the rendered check at 390 and the layout probe",
     "target": "no sideways scroll; 3px card edges (decisions/0058 §11)",
-    "check": "Less than optimal · Nov 23, 2:37 AM MST",
+    "check": "Less than optimal · Nov 23, 8:26 AM MST",
     "alarm": "its reading isn't from the alarms yet"
    },
    "records": "page views at 390 (the rendered check, the layout probe)",
@@ -11090,7 +10925,7 @@
    "setup_why": {
     "probe": "the paths check: a visitor's whole task, start to finish",
     "target": "target: set by Jason",
-    "check": "Less than optimal · Nov 23, 2:43 AM MST",
+    "check": "Less than optimal · Nov 23, 8:31 AM MST",
     "alarm": "its reading isn't from the alarms yet"
    },
    "records": "visitors' whole tasks (the paths check)",
