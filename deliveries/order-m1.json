@@ -3,60 +3,60 @@
  "built_on": "d889f6c Sync: 2026-11-23 20:53 UTC",
  "recorded": "2026-11-23 20:57 UTC",
  "note": "Order management M1: the board and the order's three lines with their toolkit; built on Sync 2026-11-23 20:53 UTC (d889f6c) Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "64c28ed Sync: 2026-11-23 21:07 UTC",
  "files": {
   "app/admin/Workflow.php": {
    "sha256": "ab20e8da3701881160b6283edae6f749f0843db23974eec91c8c0635c001a741",
-   "live": false
+   "live": true
   },
   "app/admin/manifests.php": {
    "sha256": "a89e36eac49526cbcc1310b729f1ea24f6057cc8b2110907827638de020dcdef",
-   "live": false
+   "live": true
   },
   "app/admin/tools.php": {
    "sha256": "cf288f9904dfb98a51e7bd3b811cc804e1048c8cca49fc537acce1b49443b889",
-   "live": false
+   "live": true
   },
   "app/admin/widgets.php": {
    "sha256": "cde45dd3b938deedff702e510f9a411cfc394aaf3d36ad56392de07fe89535f1",
-   "live": false
+   "live": true
   },
   "app/admin/workflows.php": {
    "sha256": "687182c3ba87a75c791c8440f4eb64e6a987cbae3e99d61d83d48b403e227633",
-   "live": false
+   "live": true
   },
   "app/lib/ClientOrders.php": {
    "sha256": "2c4c5457e0391efade7141e7bf16df08445bba395f6d0c13d4fac17252208dfc",
-   "live": false
+   "live": true
   },
   "app/lib/Pulse.php": {
    "sha256": "0045dab72e7d7d517a18cbbb1a5137823416027ed3f20167435cc3470b3efdd5",
-   "live": false
+   "live": true
   },
   "app/scripts/got_it_tick.php": {
    "sha256": "8bc09d18443fd257c398863d409ceb59b917337989ed9f6f186e92a81a747b69",
-   "live": false
+   "live": true
   },
   "app/ui/command-strip.php": {
    "sha256": "fa3c9c68248269d8a6c8aa1847e741cf93545655e7c18c1b53da75dc1d0d170a",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "b520e844448361d0f86a1ee4d77fa01e79728d4052a8c7e51cc1f0bad20d438a",
-   "live": false
+   "live": true
   },
   "website/admin/client-order.php": {
    "sha256": "869949fc06e49a0f6f37643da8bfb4def816f0ba20479a0d9480c25a8d69bcff",
-   "live": false
+   "live": true
   },
   "website/js/admin-kit.js": {
    "sha256": "0edfc8d0ed2899778707aa6c11035cf2793992cd73aff85730342dd96392d7f4",
-   "live": false
+   "live": true
   },
   "website/order.php": {
    "sha256": "cf7223e45ac1386bb81fac6ef4efc263d7f2722b7e0a07d523a4c2409d28c4f9",
-   "live": false
+   "live": true
   }
  }
 }
