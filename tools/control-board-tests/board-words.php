@@ -50,14 +50,14 @@ $run('like_watch_tick', '4 HOUR');        // hourly, but taken out on purpose
 $pdo->exec("REPLACE INTO $js (job, state, at) VALUES ('like_watch_tick', 'removed', NOW())");
 ControlAlarms::tick($pdo);
 $late = array_column($pdo->query("SELECT akey, title, reading, fix FROM control_alarms WHERE akey LIKE 'joblate:%' AND cleared_at IS NULL")->fetchAll(PDO::FETCH_ASSOC), null, 'akey');
-$t('item 1: Lead scores, silent 36 hours, is late', isset($late['joblate:sales_tick']) && str_starts_with($late['joblate:sales_tick']['title'], 'Lead scores (job) is late: it was due at '), array_keys($late));
+$t('item 1: Lead scores, silent 36 hours, is late (its title short and plain, no "(job)")', isset($late['joblate:sales_tick']) && $late['joblate:sales_tick']['title'] === 'Lead scores is late', array_keys($late));
 $t('…a job silent 5 days is still late (14 days of runs, not 2)', isset($late['joblate:work_orders_tick']), array_keys($late));
 $t('…a 5-minute job 25 minutes quiet is late; one on time isn\'t', isset($late['joblate:mail_sync']) && !isset($late['joblate:guide_ondemand_tick']), array_keys($late));
 $t('…never a QUIET job, a retired one, or one taken out on purpose', !isset($late['joblate:releases_tick']) && !isset($late['joblate:staging_tick']) && !isset($late['joblate:like_watch_tick']), array_keys($late));
 $r = (string) ($late['joblate:sales_tick']['reading'] ?? '');
-$t('…its reading is in UTC, labelled ("last started Nov 21, 22:17 UTC"), never the server\'s own clock unlabelled', (bool) preg_match('/^last started [A-Z][a-z]{2} \d{1,2}, \d{2}:\d{2} UTC$/', $r) && $r === 'last started ' . gmdate('M j, H:i', (int) strtotime((string) $pdo->query("SELECT MAX(started_at) FROM $jr WHERE job = 'sales_tick'")->fetchColumn())) . ' UTC', $r);
+$t('…its reading says when it was due and last started, in one labelled format ("due Nov 22, 4:05 AM UTC · last started Nov 22, 3:05 AM UTC")', (bool) preg_match('/^due [A-Z][a-z]{2} \d{1,2}, \d{1,2}:\d{2} [AP]M UTC · last started [A-Z][a-z]{2} \d{1,2}, \d{1,2}:\d{2} [AP]M UTC$/', $r) && str_ends_with($r, 'last started ' . gmdate('M j, g:i A', (int) strtotime((string) $pdo->query("SELECT MAX(started_at) FROM $jr WHERE job = 'sales_tick'")->fetchColumn())) . ' UTC'), $r);
 $f = json_decode((string) ($late['joblate:sales_tick']['fix'] ?? '[]'), true);
-$t('…its button names the job plainly ("Its job: Lead scores (job)"), its panel titled by it', ($f[0][0] ?? '') === 'Its job: ' . ControlAlarms::jobName('sales_tick') && ($f[0][3] ?? '') === ControlAlarms::jobName('sales_tick') && !str_contains((string) $f[0][0], 'sales_tick'), $f);
+$t('…its one button, "Open its job: Lead scores", titled by the job (the board draws no second one to the same place)', count($f) === 1 && ($f[0][0] ?? '') === 'Open its job: Lead scores' && ($f[0][2] ?? '') === '/admin/config/scheduler#job-sales_tick' && ($f[0][3] ?? '') === 'Lead scores', $f);
 $c = ControlConsistency::check($pdo);
 $names = array_values(array_filter($c['mismatches'], fn ($x) => $x['check'] === 'names' && str_starts_with($x['key'], 'joblate:')));
 $t('…no raw id on the board or in Pulse for any of them', !$names, array_slice($names, 0, 2));
@@ -65,7 +65,9 @@ $run('sales_tick', '1 MINUTE'); ControlAlarms::tick($pdo);
 $t('…a job that starts again clears', $open('joblate:sales_tick') === null && $open('joblate:work_orders_tick') !== null);
 $run('identity_recheck_tick', '30 HOUR', false); ControlAlarms::tick($pdo);
 $st = $open('job:identity_recheck_tick:stuck');
-$t('a hung run: its title and reading in UTC, labelled, its button by the job\'s name', $st && preg_match('/ UTC never finished/', (string) $st['title']) && preg_match('/^started [A-Z][a-z]{2} \d{1,2}, \d{2}:\d{2} UTC$/', (string) $st['reading']) && str_contains((string) $st['fix'], 'Its job: ' . ControlAlarms::jobName('identity_recheck_tick')), $st ? [$st['title'], $st['reading']] : null);
+$t('a hung run: a short plain title, its start in the reading in one labelled format, its one button by the job\'s name', $st && $st['title'] === 'Identity recheck: its run never finished' && preg_match('/^started [A-Z][a-z]{2} \d{1,2}, \d{1,2}:\d{2} [AP]M UTC$/', (string) $st['reading']) && str_contains((string) $st['fix'], 'Open its job: Identity recheck'), $st ? [$st['title'], $st['reading'], $st['fix']] : null);
+$t('…and while its run is stuck, no second alarm for the same cause ("is late" held back: rollups)', $open('joblate:identity_recheck_tick') === null);
+$t('a warning holds nothing: its thread says so, never "Holds: …" (words true to state)', ($ff = ControlAlarms::facts($pdo, $open('joblate:work_orders_tick'))) && ($ff['holds'] ?? '') === '', $ff['holds'] ?? null);
 // ---- the Sync chip (03 §27): Railway and the sync's watch in its own chip, never also under Warnings ----
 ControlAlarms::raise($pdo, 'ops:watch:sync', 'svc:github', 'warning', 'check', 'The sync: needs a look', 'Its last run is late.', 'Open its runs.', 'late', [], false, false);
 ControlAlarms::raise($pdo, 'svc:other:warn', 'svc:tavily', 'warning', 'retry', 'Tavily asked us to slow down', '', '', '', [], false, false);

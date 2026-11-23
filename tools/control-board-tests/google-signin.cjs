@@ -14,7 +14,7 @@ let pass = 0, fail = 0; const t = (n, ok, got) => { if (ok) { pass++; console.lo
 const port = 8960 + Math.floor(Math.random() * 30);
 const srv = spawn('php', ['-S', '127.0.0.1:' + port, path.join(__dirname, 'board-panels-router.php')], { env: { ...process.env, ROOT: root, REGISTER: 'full' }, stdio: 'ignore' });
 const card = (p, k) => p.evaluate(k => { const c = document.getElementById('mc-' + k); if (!c) return null; const s = c.querySelector('.mc-signin'); const st = c.querySelector('.mc-setup');
-  const links = [...c.querySelectorAll('.mc-slot a[target=_blank]')].map(a => ({ text: a.textContent.trim(), href: a.getAttribute('href'), as: (a.parentElement.querySelector('.mc-as') || {}).textContent || '' }));
+  const links = [...c.querySelectorAll('.mc-slot a[target=_blank]')].map(a => ({ text: a.textContent.trim(), href: a.getAttribute('href'), as: (() => { const m = a.parentElement.querySelector('.mc-as'); return m ? m.firstChild.textContent.trim() + ' ' + m.querySelector('.mc-asv').textContent : ''; })() }));
   return { signin: s ? (() => { const k = s.cloneNode(true); k.querySelectorAll('form').forEach(f => f.remove()); return k.textContent.replace(/\s+/g, ' ').trim(); })() : null, setup: st ? st.querySelector('summary').textContent.replace(/\s+/g, ' ').trim() : '', open: st ? st.open : null,
     form: !!(st && st.querySelector('input[name=email]')), undo: !!(s && [...s.querySelectorAll('button')].some(b => b.textContent.trim() === 'Undo')), links }; }, k);
 const flash = p => p.evaluate(() => [...document.querySelectorAll('[data-tv-flash]')].map(x => x.getAttribute('data-tv-flash') + ': ' + x.textContent.trim()).join(' | '));
@@ -48,6 +48,12 @@ const flash = p => p.evaluate(() => [...document.querySelectorAll('[data-tv-flas
       t(L + '…Billing in that account, with no project (a billing account\'s page)', bill.href && q(bill.href).authuser === 'ops@traversence.example' && !('project' in q(bill.href)), bill);
       t(L + '…each says "opens as ops@traversence.example"', c.links.filter(l => /google\.com/.test(l.href) && l.as).every(l => l.as === 'opens as ops@traversence.example') && c.links.some(l => l.as), c.links);
       t(L + '…and Undo is there', c.undo, c);
+      const ux = await p.evaluate(() => { const b = [...document.querySelectorAll('#mc-google .mc-signin button')].find(x => x.textContent.trim() === 'Undo'); return b ? b.getAttribute('data-confirm') : ''; });
+      t(L + '…its question in plain words: "Forget the recorded sign-in (ops@traversence.example)?"', ux === 'Forget the recorded sign-in (ops@traversence.example)?', ux);
+      const whole = await p.evaluate(() => [...document.querySelectorAll('#mc-google .mc-asv')].every(x => x.getClientRects().length === 1 && x.getAttribute('title') === x.textContent));
+      t(L + '…each "opens as" keeps the address whole on its own line (an ellipsis, its title the full address)', whole);
+      const sum = await p.evaluate(() => document.querySelector('#mc-google-setup > summary').textContent.replace(/\s+/g, ' ').trim());
+      t(L + '…Setup capture\'s summary has no stray "Record"', /^Setup capture: (complete|Sign in not recorded.*) ▸$/.test(sum) && !/Record ▸/.test(sum), sum);
       p.once('dialog', d => d.accept());   // never a browser dialog: TvAsk's own yes
       await p.click('#mc-google .mc-signin button:has-text("Undo")'); await p.waitForTimeout(400);
       const yes = p.locator('.tv-ask button:has-text("Undo"), [role=dialog] button:has-text("Undo")').last();

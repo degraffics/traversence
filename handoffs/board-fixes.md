@@ -65,7 +65,25 @@ What was found:
 
 No migration, no switch. The one outside call is cPanel's API, through `CPanel::api2`'s own gate.
 
-## Proof
+## The Design reviewer's changes (2026-11-23, its first review)
+
+1. One action, one button: a job's alarm has one button, "Open its job: <name>". The board doesn't draw its own "Open its
+   job" beside a fix to the same place, and "Open its runs" (Scheduled tasks with no anchor) is gone for jobs.
+2. Short titles: "Lead scores is late", "Identity recheck: its run never finished", "… is slow", without "(job)". When it
+   was due, and when it last started, moved into the Reading.
+3. Words true to state: a warning holds nothing, so its thread no longer says "Holds: <part>" ('holds' is set only for a
+   trip).
+4. One labelled time format per alarm ("Nov 23, 3:08 PM UTC"): the Reading, and the drawer's Times, Acknowledged and
+   Cleared.
+5. Never a dead end: the alarm's drawer leads with its fix ("Open its job: …", "Open its card: …").
+6. Rollups: "is late" is held back while the same job's stuck run is open.
+7. The Sync chip: no "watch" badge, and a badge never cut.
+8. The Undo question: "Forget the recorded sign-in (<email>)?", or "Put back the sign-in <previous> (instead of
+   <current>)?".
+9. "opens as" sits on its own line, with the address whole (an ellipsis, its title the full address).
+10. Setup capture's summary: no stray "Record".
+
+
 
 - `old-titles.php` 12/12. It now seeds its own old-worded alarms; the live snapshot has since been rewritten.
 - `board-words.php` 17/17:

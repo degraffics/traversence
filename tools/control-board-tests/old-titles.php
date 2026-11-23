@@ -38,8 +38,8 @@ $before = array_column($pdo->query('SELECT akey, title FROM control_alarms WHERE
 $n = ControlAlarms::redrawTitles($pdo);
 $t('titles redrawn from their state (' . $n . ')', $n >= 4, $n);
 $t('a service\'s issue: the part\'s name and what happened, never a host or a caller (02 §4.8 row 26)', $title('svc:issue:41') === ServiceHealth::alarmTitle('commoncrawl', 'index.commoncrawl.org', 'server') && !str_contains($title('svc:issue:41'), 'index.commoncrawl.org') && !str_contains($title('svc:issue:41'), 'crawler'), $title('svc:issue:41'));
-$t('a slow job by its plain name (02 §5.4)', $title('jobslow:guide_finds_tick') === ControlAlarms::jobName('guide_finds_tick') . ' is slow', $title('jobslow:guide_finds_tick'));
-$t('a stuck job by its plain name', $title('job:identity_recheck_tick:stuck') === ControlAlarms::jobName('identity_recheck_tick') . ': its run never finished', $title('job:identity_recheck_tick:stuck'));
+$t('a slow job by its plain name (02 §5.4)', $title('jobslow:guide_finds_tick') === ControlAlarms::jobPlain('guide_finds_tick') . ' is slow', $title('jobslow:guide_finds_tick'));
+$t('a stuck job by its plain name', $title('job:identity_recheck_tick:stuck') === ControlAlarms::jobPlain('identity_recheck_tick') . ': its run never finished', $title('job:identity_recheck_tick:stuck'));
 // as CrawlService::report words it today: our endpoint's path when its part is ours ("/api/crawl/loads is slow"), else the task's own code with its run
 $tk = $pdo->query("SELECT component, reading FROM control_alarms WHERE akey = 'task:failed:overture_bulk'")->fetch(PDO::FETCH_ASSOC);
 $want = str_starts_with((string) $tk['component'], 'ep:') ? '/api/' . substr((string) $tk['component'], 3) . (preg_match('/timed? ?out|timeout/i', (string) $tk['reading']) ? ' is slow' : ' keeps failing') : 'overture_bulk failed in its own code (run #1290)';
@@ -47,7 +47,7 @@ $t('a task\'s failure as its raiser words it today (' . $want . ')', $title('tas
 $pdo->exec("INSERT INTO control_alarms (akey, proc, level, kind, title, means, todo, reading, fix, component, first_at, last_at, tripped_at) SELECT 'task:failed:own_code', proc, level, kind, 'W1: its task own_code failed (run #1301)', means, todo, 'KeyError: name', fix, 'task:own_code', first_at, last_at, tripped_at FROM control_alarms WHERE akey = 'task:failed:overture_bulk'");
 ControlAlarms::redrawTitles($pdo);
 $t('…and one failing in its own code keeps its run', $title('task:failed:own_code') === 'own_code failed in its own code (run #1301)', $title('task:failed:own_code'));
-$same = array_filter(array_keys($before), fn ($k) => !preg_match('/^(svc:issue:|jobslow:|job:|task:failed:)/', $k));   // the rest of the snapshot, already in today's words
+$same = array_filter(array_keys($before), fn ($k) => !preg_match('/^(svc:issue:|jobslow:|joblate:|job:|task:failed:)/', $k));   // the rest of the snapshot, already in today's words
 $t('the rest, already in today\'s words, unchanged', !array_filter($same, fn ($k) => $title($k) !== $before[$k]), array_map(fn ($k) => [$k, $title($k)], $same));
 $m = $pdo->query("SELECT title, read_at FROM comms_messages WHERE thing = 'alarm:$id41'")->fetch(PDO::FETCH_ASSOC);
 $a41 = ControlAlarms::byId($pdo, $id41);

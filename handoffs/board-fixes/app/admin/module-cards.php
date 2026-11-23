@@ -284,7 +284,7 @@ function tv_module_card(PDO $pdo, string $key, array $ctx = []): string
         . ($man['hosted_by'] !== '' ? ' <span class="mc-sub">hosted on ' . $e($prov) . '</span>' : '') . ' <span class="mc-crit">' . $e($crit) . '</span></p>'
         . (!str_starts_with($key, 'wk:') ? '<div class="mc-signin">' . ($signin && $signin['email'] !== '' ? 'Signs in as: <b>' . $e($signin['email']) . '</b>' . ($signin['project'] !== '' ? ' · project <code>' . $e($signin['project']) . '</code>' : '')
             : 'Signs in as: <span class="mc-sub">not recorded</span> <a class="underline" href="#mc-' . $e(str_replace(':', '-', $key)) . '-setup">Record it</a>')
-            . ($signin && SignIns::canUndo($signin) && function_exists('tv_ops_form') ? ' ' . tv_ops_form($csrf, 'svc_signin_undo', 'Undo', ['ref' => $key], 'Put back ' . (($signin['prev']['email'] ?? '') !== '' ? $signin['prev']['email'] : 'not recorded') . '?', '', $can, $why, 'ak-b cb-xs') : '') . '</div>' : '')
+            . ($signin && SignIns::canUndo($signin) && function_exists('tv_ops_form') ? ' ' . tv_ops_form($csrf, 'svc_signin_undo', 'Undo', ['ref' => $key], (($signin['prev']['email'] ?? '') !== '' ? 'Put back the sign-in ' . $signin['prev']['email'] . ' (instead of ' . $signin['email'] . ')?' : 'Forget the recorded sign-in (' . $signin['email'] . ')?'), '', $can, $why, 'ak-b cb-xs') : '') . '</div>' : '')
         . '<p class="mc-state">' . tv_mc_light($light, $first) . ($rest !== '' ? ' <span class="mc-rest">' . Thread::times($e($rest)) . '</span>' : '') . '</p>'
         . '<p class="mc-stage"><b>Stage ' . $sn . ' of 8 · ' . $e($sname) . '</b>' . ($sgw !== '' ? ' <span class="mc-sub">' . $e($sgw) . '</span>' : '')
         . '<br><span class="mc-sub">Next allowed: ' . $e($allowed ? implode(' · ', $allowed) : 'nothing from here') . '</span></p>'
@@ -401,7 +401,7 @@ function tv_mc_setup(array $man, array $slots, ?array $signin = null, string $cs
                 . ($proj ? '<input class="ak-in" name="project" maxlength="30" autocomplete="off" spellcheck="false" placeholder="Project id (optional)" value="' . $e($signin['project'] ?? '') . '" aria-label="Its project id (optional)">' : ''), $can, $canWhy)
 ;
     }
-    return '<details class="mc-setup" id="mc-' . $e(str_replace(':', '-', $key)) . '-setup"' . ($signed || $key === '' || str_starts_with($key, 'wk:') ? '' : ' open') . '><summary class="mc-sub">' . ($gaps ? 'Setup capture: ' . $e(implode(' · ', $gaps)) : 'Setup capture: complete') . ' <span>Record ▸</span></summary>'
+    return '<details class="mc-setup" id="mc-' . $e(str_replace(':', '-', $key)) . '-setup"' . ($signed || $key === '' || str_starts_with($key, 'wk:') ? '' : ' open') . '><summary class="mc-sub">' . ($gaps ? 'Setup capture: ' . $e(implode(' · ', $gaps)) : 'Setup capture: complete') . ' ▸</summary>'
         . $rec
         . '<p class="mc-sub">Names only, never values. Credentials live only in the Vault.</p>'
         . '<p><b>Where its keys live</b></p>' . ($keys !== '' ? '<ul class="mc-list">' . $keys . '</ul>' : '<p class="mc-sub">No keys of its own.</p>')
@@ -565,7 +565,7 @@ function tv_mc_zone4(PDO $pdo, string $key, array $man, string $proc, array $slo
             [$pl, $u, $tag] = $slots[$t][0];
             [$u, $hinted] = SignIns::link((string) $u, $si);   // opened in the account it signs in as, where the provider takes a hint
             $sl .= '<p class="mc-ty">' . $e($lab) . (strcasecmp($pl, $lab) ? ' <small>· ' . $e($pl) . '</small>' : '') . '</p><a class="ak-b" href="' . $e($u) . '" target="_blank" rel="noopener">Open ' . $e($prov) . ' ' . $e($word) . ' ↗</a> ' . tv_mc_tag($tag, $prov)
-                . ($si && $si['email'] !== '' ? ' <small class="mc-as">' . ($hinted ? 'opens as ' : 'sign in as ') . $e((string) $si['email']) . '</small>' : '');
+                . ($si && $si['email'] !== '' ? '<small class="mc-as">' . ($hinted ? 'opens as' : 'sign in as') . '<span class="mc-asv" title="' . $e((string) $si['email']) . '">' . $e((string) $si['email']) . '</span></small>' : '');
             foreach (array_slice($slots[$t], 1) as [$pl2, $u2]) { [$u2] = SignIns::link((string) $u2, $si); $sl .= ' <a class="os-go" href="' . $e($u2) . '" target="_blank" rel="noopener">' . $e($pl2) . ' ↗</a>'; }
         } else {
             $sl .= '<p class="mc-ty">' . $e($lab) . '</p><p class="mc-sub">No ' . $e($word) . ' page registered for ' . $e($prov) . ' yet.</p>'
@@ -598,7 +598,7 @@ function tv_mc_css(): string
 {
     static $done = false; if ($done) return ''; $done = true;
     return '<style>'
-        . '#tv .mc-signin,.mc-signin{margin:.2rem 0 .35rem;font-size:.9rem;overflow-wrap:anywhere}.mc-signin .ak-b{margin-left:.35rem}.mc-as{color:var(--tv-meta,#6b5d49);overflow-wrap:anywhere}'
+        . '#tv .mc-signin,.mc-signin{margin:.2rem 0 .35rem;font-size:.9rem;overflow-wrap:anywhere}.mc-signin .ak-b{margin-left:.35rem}.mc-as{display:block;margin-top:.2rem;color:var(--tv-meta,#6b5d49);min-width:0}.mc-asv{display:block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}'
         . '.mc-card{border:1px solid var(--tv-line-strong);border-radius:.6rem;background:var(--tv-card-a,var(--tv-card));padding:.6rem .75rem;margin:.5rem 0;min-width:0;overflow-wrap:break-word}.mc-card code,.mc-card a,.mc-card time{overflow-wrap:anywhere}'
         . '.mc-card *{min-width:0}.mc-z{border-top:1px solid var(--tv-line);padding:.45rem 0}.mc-z:first-child{border-top:0}'
         . '.mc-zh{font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--tv-meta);margin:0 0 .3rem}'

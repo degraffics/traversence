@@ -1,13 +1,13 @@
 {
- "zip": "board-fixes-2.zip",
+ "zip": "board-fixes-3.zip",
  "built_on": "8283c24 Sync: 2026-11-23 14:53 UTC",
- "recorded": "2026-11-23 15:07 UTC",
- "note": "Jobs and words, alarm titles, Google's sign-in account, the Sync chip; plain names in the Alarms table, drawer titles on two lines; built on Sync 14:53 UTC (replaces the unsent board-fixes.zip) Sent through git (releases/inbox).",
+ "recorded": "2026-11-23 15:33 UTC",
+ "note": "Jobs and words with the Design reviewer's changes; built on Sync 14:53 UTC (replaces the unsent board-fixes-2.zip) Sent through git (releases/inbox).",
  "status": "pending",
  "live_in": "",
  "files": {
   "app/admin/control-console.php": {
-   "sha256": "33e776e5d91f782d9e6e8927c1684897939972e33bdaa7379e7da79b8d875266",
+   "sha256": "0a31aa066c3c9f2c9f0fc8dca2f2794d06e36d04c926242b6e84e20892db3d9b",
    "live": false
   },
   "app/admin/kit-css.php": {
@@ -15,7 +15,7 @@
    "live": false
   },
   "app/admin/module-cards.php": {
-   "sha256": "adb8dc2ab2b030abb78ba7039d47da78ce63a55d10f7e9e8de9728b4157a64d2",
+   "sha256": "ff5db0a2e850781f4ff4f99ad803950de3fcfd28e5c04fa52ef257b4edc21ce1",
    "live": false
   },
   "app/admin/operations-console.php": {
@@ -23,11 +23,11 @@
    "live": false
   },
   "app/admin/tools.php": {
-   "sha256": "2f421890935e3995b6f12eb584a4e4b085eaa05af63261308f3bbd83c1fee335",
+   "sha256": "211c763e0e9854404d9f8dcf9eda02fb160a35c702aae3b11f96717e79ecd4e9",
    "live": false
   },
   "app/lib/ControlAlarms.php": {
-   "sha256": "a1538778f81b9771e15a32aa1d875c3cb45024b8fa37c780cfeaa9df50b93c1d",
+   "sha256": "8d08c3a197b761c6ad5b49dcbab874c6483c32a1baa51f2339b98aca3fcc25ad",
    "live": false
   },
   "app/lib/Operations.php": {

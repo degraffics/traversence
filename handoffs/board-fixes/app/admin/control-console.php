@@ -582,7 +582,7 @@ function tv_cb_evidence(array $a): array
         return ['Open its runs', '/admin/insights/crawler'];   // no run yet: the runs list says so
     }
     if (str_starts_with($p, 'svc:')) return ['Open its card', '/admin/config/register#svc-' . substr($p, 4)];
-    if (str_starts_with($p, 'job:')) return ['Open its runs', '/admin/config/scheduler'];
+    if (str_starts_with($p, 'job:')) return ['', ''];   // its runs are on its job's own row: Open its job is the one button (the design review, 2026-11-23)
     return ['Open its process', ''];
 }
 
@@ -634,7 +634,9 @@ function tv_cb_alarms(array $alarms, array $ac, array $names, callable $pid, boo
         // its main button: the component that fixes it, in the side panel, one panel at a time (0175 §6, release 2a); not on
         // that component's own page, and never twice when its evidence is the same place
         $co = tv_cb_component($a, $names); $here = $co[1] !== '' && $focus !== '' && $co[1] === '/admin/config/control/' . str_replace(':', '-', $focus);
-        $main = $co[1] !== '' && !$cl && !$here ? '<a class="ak-b cb-xs go cb-main" href="' . $e($co[1]) . '" data-peek-frame>' . $e($co[0]) . '</a>' : '';
+        // one action, one button (the design review, 2026-11-23): a fix that already opens the same place is the button
+        $dupe = in_array($co[1], array_map(fn ($f) => (string) ($f[2] ?? ''), $cl ? [] : $fxs), true);
+        $main = $co[1] !== '' && !$cl && !$here && !$dupe ? '<a class="ak-b cb-xs go cb-main" href="' . $e($co[1]) . '" data-peek-frame>' . $e($co[0]) . '</a>' : '';
         // Fix it (decisions/0176 §5, A5): where its cause names one spot, Fix it opens that spot in the same side panel and
         // stands first, in place of its component; its component's page stays only when it's another page
         require_once __DIR__ . '/../lib/Thread.php';
@@ -772,7 +774,7 @@ function tv_cb_qbar(PDO $pdo, array $open, array $names, array $core, string $st
         ['Warnings', 'a', array_values(array_filter($live, fn ($a) => $a['level'] === 'warning' && !$cap($a) && !$pf($a) && !$sync($a))), fn ($a) => (int) $a['n_times'] > 1 ? (int) $a['n_times'] . '×' : 'warning'],
         ['Caps', 'a', array_values(array_filter($live, fn ($a) => $a['level'] === 'warning' && $cap($a))), fn ($a) => (string) ($a['reading'] ?: 'cap')],
         ['Checks', 'a', array_values(array_filter($live, fn ($a) => $a['level'] === 'warning' && $pf($a))), fn ($a) => 'pre-flight'],
-        ['Sync', 'n', array_values(array_filter($live, fn ($a) => $a['level'] === 'warning' && $sync($a))), fn ($a) => 'watch'],
+        ['Sync', 'n', array_values(array_filter($live, fn ($a) => $a['level'] === 'warning' && $sync($a))), fn ($a) => ''],
     ];
     $chip = fn (string $label, string $tone, int $n, string $body) => '<details class="cb-pop cb-qg ' . $tone . '"><summary class="cb-qgs"><span>' . $e($label) . '</span><b>' . $n . '</b><span aria-hidden="true">▾</span></summary>'
         . '<div class="cb-popb" role="dialog" aria-label="' . $e($label) . '"><button class="cb-px" type="button" aria-label="Close">×</button>' . $body . '</div></details>';
@@ -1570,7 +1572,7 @@ function tv_admin_mod_control(PDO $pdo): string
         . '#cb .cb-popb{position:absolute;z-index:40;left:0;top:110%;width:max-content;min-width:240px;max-width:min(380px,calc(100vw - 24px));max-height:60vh;overflow:auto;background:var(--tv-card-a,#FFFBF2);border:1px solid var(--tv-line,#E5D9C3);border-radius:.5rem;padding:.5rem;box-shadow:0 6px 18px #231D1733;display:flex;flex-direction:column;gap:.3rem}'
         . '#cb .cb-px{align-self:flex-end;border:0;background:none;font-size:18px;line-height:1;cursor:pointer;color:var(--tv-meta,#6b5d49)}'
         . '#cb .cb-qj{display:flex;gap:.45rem;align-items:center;justify-content:space-between;width:100%;text-align:left;border:1px solid var(--tv-line,#E5D9C3);background:var(--tv-card-a,#FFFBF2);border-radius:.5rem;padding:.3rem .55rem;font:inherit;font-size:12.5px;cursor:pointer;color:var(--tv-ink,#231D17);text-decoration:none}'
-        . '#cb .cb-qj span{min-width:0;overflow-wrap:anywhere}#cb .cb-qj:hover{border-color:var(--tv-amber,#B45309)}#cb .cb-qall{font-weight:600}#cb .cb-qlink{border:0;background:none;text-decoration:underline;cursor:pointer;font-size:12.5px;color:var(--tv-link,#92400E)}'
+        . '#cb .cb-qj span{flex:1 1 auto;min-width:0;overflow-wrap:anywhere}#cb .cb-qj b{flex:none}#cb .cb-qj:hover{border-color:var(--tv-amber,#B45309)}#cb .cb-qall{font-weight:600}#cb .cb-qlink{border:0;background:none;text-decoration:underline;cursor:pointer;font-size:12.5px;color:var(--tv-link,#92400E)}'
         . '#cb .cb-shell{display:grid;grid-template-columns:190px minmax(0,1fr);gap:0 .8rem}#cb .cb-main{min-width:0}'
         . '#cb .cb-rail{position:sticky;top:.5rem;align-self:start;display:flex;flex-direction:column;gap:.2rem;padding:.4rem 0}'
         . '#cb .cb-rail>button,#cb .cb-rail>a{display:flex;gap:.5rem;align-items:center;width:100%;text-align:left;border:0;background:none;padding:.45rem .55rem;border-radius:.45rem;font:inherit;font-size:14px;color:var(--tv-ink,#231D17);cursor:pointer;text-decoration:none}'

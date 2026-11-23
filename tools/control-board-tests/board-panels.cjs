@@ -40,7 +40,8 @@ const drawer = p => p.evaluate(() => { const d = document.querySelector('.ak-dr'
       t(L + '…its subtitle names the part, never svc:google (item 5)', d && /Google Cloud/.test(d.sub) && !/svc:/.test(d.sub), d && d.sub);
       const link = await p.evaluate(() => [...document.querySelectorAll('.ak-dr .ak-links a')].map(a => a.textContent));
       t(L + '…its own page is a link named by the part, never "Its process\'s page" (item 5)', link.includes('Google Cloud') && !link.some(x => /Its process/.test(x)), link);
-      await p.click('.ak-dr .ak-links a >> nth=1'); await p.waitForTimeout(1800);
+      t(L + '…and its fix first: "Open its card: Google Cloud" (never a dead end: what to do is beside it)', link[0] === 'Open its card: Google Cloud', link);
+      await p.click('.ak-dr .ak-links a:text-is("Google Cloud")'); await p.waitForTimeout(1800);
       d = await drawer(p); let hs = await heads(p);
       t(L + 'its own page replaces the drawer\'s content: one panel, titled "Google Cloud", with Back (item 2)', hs.length === 1 && d.title === 'Google Cloud' && d.back && /\/admin\/config\/control\/svc-google/.test(d.src), { hs, d });
       const fr = p.frames().find(f => /control\/svc-google/.test(f.url()));
@@ -77,15 +78,15 @@ const drawer = p => p.evaluate(() => { const d = document.querySelector('.ak-dr'
       t(L + 'Back returns to its own page, still one panel', d && d.title === 'Google Cloud' && /control\/svc-google/.test(d.src) && d.back && (await heads(p)).length === 1, d);
       await p.click('.ak-dr .ak-drback'); await p.waitForTimeout(800); d = await drawer(p);
       t(L + '…and again to the alarm, where Back hides and the address is the alarm\'s', d && /^Google Cloud at 61%/.test(d.title) && !d.back && new RegExp('#open=config/alarms:' + id + '$').test(p.url()), [d, p.url()]);
-      await p.click('.ak-dr .ak-links a >> nth=1'); await p.waitForTimeout(1200);
+      await p.click('.ak-dr .ak-links a:text-is("Google Cloud")'); await p.waitForTimeout(1200);
       await p.keyboard.press('Escape'); await p.waitForTimeout(800);
       t(L + 'Esc closes it, Back and all', (await heads(p)).length === 0 && !/#open=/.test(p.url()), p.url());
       await p.goto('about:blank'); await p.goto(`http://127.0.0.1:${port}/admin/config/control?tab=alarms#open=config/alarms:${id}`); await p.waitForTimeout(1300);
-      await p.click('.ak-dr .ak-links a >> nth=1'); await p.waitForTimeout(1200);
+      await p.click('.ak-dr .ak-links a:text-is("Google Cloud")'); await p.waitForTimeout(1200);
       await p.click('.ak-dr .ak-x'); await p.waitForTimeout(800);
       t(L + '× closes it from a step in, Back and all', (await heads(p)).length === 0, await heads(p));
       await p.goto('about:blank'); await p.goto(`http://127.0.0.1:${port}/admin/config/control?tab=alarms#open=config/alarms:${id}`); await p.waitForTimeout(1300);
-      await p.click('.ak-dr .ak-links a >> nth=1'); await p.waitForTimeout(1200);
+      await p.click('.ak-dr .ak-links a:text-is("Google Cloud")'); await p.waitForTimeout(1200);
       const left = await p.evaluate(() => Math.round(document.querySelector('.ak-dr').getBoundingClientRect().left));
       if (left > 3) { await p.mouse.click(3, 450); await p.waitForTimeout(800); t(L + 'a click outside closes it', (await heads(p)).length === 0, await heads(p)); }
       else { t(L + 'on a phone the panel takes the whole width (nothing outside it), and × and Esc close it', left <= 0); await p.click('.ak-dr .ak-x'); await p.waitForTimeout(600); }

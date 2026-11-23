@@ -552,6 +552,15 @@ final class ControlAlarms
      * finished"); a task's from its component ("/api/crawl/loads keeps failing", "<task> failed in its own code (run #N)").
      * Its Pulse thread takes the same title in place: nothing is sent, nothing made unread. Returns how many changed.
      */
+    /** A job's plain name, no "(job)": its row says it's a site job (the design review, 2026-11-23). */
+    public static function jobPlain(string $job): string
+    {
+        try { require_once __DIR__ . '/Scheduler.php'; return (string) (Scheduler::JOBS[$job][0] ?? $job); } catch (Throwable $x) { return $job; }
+    }
+
+    /** One labelled time format for an alarm's words, as its Status draws it in UTC: "Nov 23, 3:08 PM UTC". */
+    public static function atUtc(int $t): string { return gmdate('M j, g:i A', $t) . ' UTC'; }
+
     public static function redrawTitles(PDO $pdo): int
     {
         self::ensure($pdo); $n = 0;
@@ -560,8 +569,9 @@ final class ControlAlarms
             if (preg_match('/^svc:issue:(\d+)$/', $k, $m)) {
                 try { $st = $pdo->prepare('SELECT service, host, kind FROM service_issues WHERE id = ?'); $st->execute([(int) $m[1]]);
                       if ($r = $st->fetch(PDO::FETCH_ASSOC)) { require_once __DIR__ . '/ServiceHealth.php'; $new = ServiceHealth::alarmTitle((string) $r['service'], (string) $r['host'], (string) $r['kind']); } } catch (Throwable $x) {}
-            } elseif (preg_match('/^jobslow:(.+)$/', $k, $m)) $new = self::jobName($m[1]) . ' is slow';
-            elseif (preg_match('/^job:(.+):stuck$/', $k, $m)) { $nm = self::jobName($m[1]); if (!str_starts_with($old, $nm)) $new = $nm . ': its run never finished'; }
+            } elseif (preg_match('/^jobslow:(.+)$/', $k, $m)) $new = self::jobPlain($m[1]) . ' is slow';
+            elseif (preg_match('/^job:(.+):stuck$/', $k, $m)) $new = self::jobPlain($m[1]) . ': its run never finished';
+            elseif (preg_match('/^joblate:(.+)$/', $k, $m)) $new = self::jobPlain($m[1]) . ' is late';
             elseif (preg_match('/^job:([^:]+)$/', $k, $m)) { $nm = self::jobName($m[1]); if (!str_starts_with($old, $nm)) $new = $nm . ' failed'; }
             elseif (preg_match('/^task:failed:(.+)$/', $k, $m) && preg_match('/^W\d+: its task /', $old)) {
                 $c = (string) ($a['component'] ?? '');
@@ -944,7 +954,8 @@ final class ControlAlarms
         $fix = $cl ? null : self::fixOf($pdo, $a); $theirs = !$cl && ($fix['cause'] ?? '') === 'theirs';
         require_once __DIR__ . '/Thread.php';
         return ['title' => (string) $a['title'], 'level' => $cl ? 'closed' : $lv, 'pill' => $cl ? 'Cleared' : (self::LEVELS[$lv] ?? $lv),
-                'status' => trim($status), 'affects' => self::affects($pdo, $a), 'holds' => self::partName($pdo, (string) $a['proc']), 'doing' => ($theirs && $doing !== '' ? Thread::HANDLING . ': ' : '') . $doing, 'todo' => (string) $a['todo'], 'details' => $det,
+        // 'holds': only a trip holds its part; a warning holds nothing (words true to state; the design review, 2026-11-23)
+                'status' => trim($status), 'affects' => self::affects($pdo, $a), 'holds' => $a['level'] === 'trip' && !empty($a['tripped_at']) ? self::partName($pdo, (string) $a['proc']) : '', 'doing' => ($theirs && $doing !== '' ? Thread::HANDLING . ': ' : '') . $doing, 'todo' => (string) $a['todo'], 'details' => $det,
                 'fix' => $theirs ? null : $fix, 'theirs' => $theirs];
     }
 
@@ -1170,11 +1181,11 @@ final class ControlAlarms
                     $rs = $pdo->prepare("SELECT ok FROM $t WHERE job = ? AND finished_at IS NOT NULL AND note NOT LIKE 'Paused:%' ORDER BY id DESC LIMIT 20"); $rs->execute([$job]);
                     $fails = 0; foreach ($rs->fetchAll(PDO::FETCH_COLUMN) as $ok) { if ((int) $ok === 1) break; $fails++; }
                     [$max] = self::limits($pdo, 'crash');
-                    self::raise($pdo, 'job:' . $job, 'job:' . $job, 'trip', 'crash', self::jobName($job) . ' failed', 'Its last run ended with a problem (' . $fails . ' in a row); what it does waits until it runs well again.', 'Open its job (beside this): its note says why it stopped. Fix the cause; its next good run clears this.', mb_substr((string) $j['note'], 0, 255), [['Its job: ' . self::jobName($job), 'peek', '/admin/config/scheduler#job-' . $job, self::jobName($job)]], false, $fails < $max);
+                    self::raise($pdo, 'job:' . $job, 'job:' . $job, 'trip', 'crash', self::jobName($job) . ' failed', 'Its last run ended with a problem (' . $fails . ' in a row); what it does waits until it runs well again.', 'Open its job (beside this): its note says why it stopped. Fix the cause; its next good run clears this.', mb_substr((string) $j['note'], 0, 255), [['Open its job: ' . self::jobPlain($job), 'peek', '/admin/config/scheduler#job-' . $job, self::jobPlain($job)]], false, $fails < $max);
                 }
                 // stuck over 2 h is a fault, not slow (02 row 66; g3 J5: "slow" could never trip): a warning, its next runs its
                 // tries; a critical job (billing) trips at once (P8, row 68)
-                elseif ($j['finished_at'] === null && strtotime((string) $j['started_at']) < time() - 7200) { $stuck[] = 'job:' . $job . ':stuck'; self::raise($pdo, 'job:' . $job . ':stuck', 'job:' . $job, 'trip', 'crash', self::jobName($job) . ': its run of ' . gmdate('M j, H:i', (int) strtotime((string) $j['started_at'])) . ' UTC never finished (killed or hung)', 'Its run started over 2 hours ago and never said it ended: it was killed, or it hangs.', 'Open its job (beside this) for its runs; the server\'s error log says why it hung. The next run starts as usual.', 'started ' . gmdate('M j, H:i', (int) strtotime((string) $j['started_at'])) . ' UTC', [['Its job: ' . self::jobName($job), 'peek', '/admin/config/scheduler#job-' . $job, self::jobName($job)]], false); }
+                elseif ($j['finished_at'] === null && strtotime((string) $j['started_at']) < time() - 7200) { $stuck[] = 'job:' . $job . ':stuck'; self::raise($pdo, 'job:' . $job . ':stuck', 'job:' . $job, 'trip', 'crash', self::jobPlain($job) . ': its run never finished', 'Its run started over 2 hours ago and never said it ended: it was killed, or it hangs.', 'Open its job (beside this) for its runs; the server\'s error log says why it hung. The next run starts as usual.', 'started ' . self::atUtc((int) strtotime((string) $j['started_at'])), [['Open its job: ' . self::jobPlain($job), 'peek', '/admin/config/scheduler#job-' . $job, self::jobPlain($job)]], false); }
             }
             $n = 0; foreach ($good as $gj) foreach (['job:' . $gj, 'job:' . $gj . ':stuck'] as $gk) if (!in_array($gk, array_merge($bad, $stuck), true) && self::clear($pdo, $gk, 'Its last run ended well (' . gmdate('H:i') . ' UTC).')) $n++;
             // slow (0171 §5, 3c): a job's last runs against its usual time (the middle of its last 20, 5 at least) × control_slow_factor,
@@ -1185,8 +1196,8 @@ final class ControlAlarms
                 $d = array_map('intval', $rs->fetchAll(PDO::FETCH_COLUMN)); if (count($d) < 6) continue;
                 $past = array_slice($d, 1); sort($past); $usual = $past[intdiv(count($past), 2)]; $lim = max(60, $usual * $f);
                 $run = 0; foreach ($d as $x) { if ($x <= $lim) break; $run++; }
-                if ($run > 0) { $slow[] = 'jobslow:' . $job; self::raise($pdo, 'jobslow:' . $job, 'job:' . $job, 'warning', 'slow', self::jobName($job) . ' is slow',
-                    'Its last run took ' . $d[0] . ' s against its usual ' . $usual . ' s (' . $run . ' slow in a row): what follows it waits.', 'Open its job (beside this) for its runs and times; a large backlog or a slow query is the usual cause.', $d[0] . ' s (usual ' . $usual . ')', [['Its job: ' . self::jobName($job), 'peek', '/admin/config/scheduler#job-' . $job, self::jobName($job)]], false, false); }
+                if ($run > 0) { $slow[] = 'jobslow:' . $job; self::raise($pdo, 'jobslow:' . $job, 'job:' . $job, 'warning', 'slow', self::jobPlain($job) . ' is slow',
+                    'Its last run took ' . $d[0] . ' s against its usual ' . $usual . ' s (' . $run . ' slow in a row): what follows it waits.', 'Open its job (beside this) for its runs and times; a large backlog or a slow query is the usual cause.', $d[0] . ' s (usual ' . $usual . ')', [['Open its job: ' . self::jobPlain($job), 'peek', '/admin/config/scheduler#job-' . $job, self::jobPlain($job)]], false, false); }
             }
             self::clearOthers($pdo, 'jobslow:', $slow, 'Its last run took its usual time (' . gmdate('H:i') . ' UTC).');
             // late (02 row 65; g3 J7: red text on Scheduled tasks only): a job that hasn't started by its time plus 5 minutes.
@@ -1209,13 +1220,14 @@ final class ControlAlarms
                     if ($lines !== null && $l) { $pk = Scheduler::presetOf($l); if ($pk === '' || !isset($every[$pk])) continue;   // a schedule we can't read in minutes: not judged
                         if (time() <= $s0 + $every[$pk] * 60 + 300) continue; $mins = $every[$pk]; }
                     else $mins = $every[(string) Scheduler::JOBS[$job][2]];
+                    if (in_array('job:' . $job . ':stuck', $stuck, true)) continue;   // one cause, one alarm: its stuck run says it (rollups, css-theme-brand §2)
                     $due = $s0 + $mins * 60;
                     $missing = $lines !== null && !$l;
                     $late[] = 'joblate:' . $job;
-                    self::raise($pdo, 'joblate:' . $job, 'job:' . $job, 'warning', 'silent', self::jobName($job) . ' is late: it was due at ' . gmdate('M j, H:i', $due) . ' UTC and hasn\'t started',
+                    self::raise($pdo, 'joblate:' . $job, 'job:' . $job, 'warning', 'silent', self::jobPlain($job) . ' is late',
                         $missing ? 'Its cron line isn\'t in cPanel any more, so nothing starts it; what it does waits.' : ($lines !== null ? 'Its cron line is there, but the server didn\'t start it on time (the server\'s cron, or too many jobs at once); what it does waits.' : 'Its cron line may be missing, or the server\'s cron stopped; what it does waits.'),
-                        $missing ? 'Open Scheduled tasks (beside this): Set them up now adds its line back.' : 'Open Scheduled tasks (beside this): its line and its last runs. It clears when it starts.',
-                        'last started ' . gmdate('M j, H:i', $s0) . ' UTC', [['Its job: ' . self::jobName($job), 'peek', '/admin/config/scheduler#job-' . $job, self::jobName($job)]], false, false); }
+                        $missing ? 'Open its job (beside this): Set them up now adds its line back.' : 'Open its job (beside this): its line and its last runs. It clears when it starts.',
+                        'due ' . self::atUtc($due) . ' · last started ' . self::atUtc($s0), [['Open its job: ' . self::jobPlain($job), 'peek', '/admin/config/scheduler#job-' . $job, self::jobPlain($job)]], false, false); }
                 self::clearOthers($pdo, 'joblate:', $late, 'It started on time (' . gmdate('H:i') . ' UTC).');
             } catch (Throwable $x) { error_log('job lateness: ' . $x->getMessage()); }
             if ($bad) $did[] = count($bad) . ' job(s) stopped'; if ($n) $did[] = $n . ' job alarm(s) cleared';
