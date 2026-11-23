@@ -28,6 +28,7 @@ TESTS=(
 "board-rendered|php board-rendered-seed.php $R/app|node board-rendered.cjs $R"
 "board-tabs|php board-phone-seed.php $R/app|node board-tabs.cjs $R"
 "board-views|php board-views-seed.php $R/app|node board-views.cjs $R"
+"board-live|php board-live-seed.php $R/app $TOOLS/../site-audit/results/alarms.json|node board-live.cjs $R"
 "lines|php lines.php $R/app|node lines.cjs $R"
 "module-cards|php module-cards-page.php $R/app seed|node module-cards.cjs $R"
 "one-panel|:|node one-panel.cjs $R/website"
