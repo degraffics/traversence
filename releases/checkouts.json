@@ -62,6 +62,32 @@
    "expires": "2026-11-23T04:43:24Z",
    "release": "control-board-fix.zip",
    "callers": {}
+  },
+  {
+   "path": "app/admin/crawler-console.php",
+   "functions": [
+    "tv_admin_mod_crawler"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "money always in dollars, counts with their unit (Jason, 2026-11-23: 'Railway=$62 WHAT?', 'Cents vs dollars': 65.2\u00a2 read as $62)",
+   "since": "2026-11-23T01:27:57Z",
+   "expires": "2026-11-23T05:27:57Z",
+   "release": "control-board-fix.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/sections.php",
+   "functions": [
+    "tv_admin_mod_aiassist"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "money always in dollars, counts with their unit (Jason, 2026-11-23: 'Railway=$62 WHAT?', 'Cents vs dollars': 65.2\u00a2 read as $62)",
+   "since": "2026-11-23T01:27:57Z",
+   "expires": "2026-11-23T05:27:57Z",
+   "release": "control-board-fix.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
