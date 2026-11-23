@@ -4,6 +4,8 @@
 // the named admin pages, presses nothing, and saves what each page shows (its text, its links' addresses, a picture at
 // 1280 and 390) to OUT. The workflow keeps OUT with the run for one day; it is never committed.
 // Read-only by construction: after the sign-in, every request that isn't a GET or HEAD is refused in the browser.
+// TO_LOG=1 also prints each page's text into the run's log, for a session whose network can't fetch the artifact; that
+// session deletes the run's log once it has read it (Actions → the run → Delete logs; the MCP's delete_workflow_run_logs).
 // READ (one per run): orders (Back-Office → Orders) or order (one order, ORDER_ID).
 import { chromium } from 'playwright';
 import { mkdirSync, writeFileSync } from 'node:fs';
@@ -25,14 +27,17 @@ mkdirSync(OUT, { recursive: true });
 const browser = await chromium.launch();
 const summary = [];
 try {
+  // one sign-in for both sizes: a two-step code works once, so a second sign-in in the same 30 s is refused
+  const ctx = await checkContext(browser, { context: { viewport: { width: 1280, height: 900 } } });
+  await staffIn(ctx, exec);
+  let refused = 0;
+  await ctx.route('**/*', (r) => (['GET', 'HEAD'].includes(r.request().method()) ? r.continue() : (refused++, r.abort())));   // nothing but reads from here
+  const p = await ctx.newPage();
   for (const w of [1280, 390]) {
-    const ctx = await checkContext(browser, { context: { viewport: { width: w, height: w > 500 ? 900 : 844 } } });
-    await staffIn(ctx, exec);
-    let refused = 0;
-    await ctx.route('**/*', (r) => (['GET', 'HEAD'].includes(r.request().method()) ? r.continue() : (refused++, r.abort())));   // nothing but reads from here
-    const p = await ctx.newPage();
+    await p.setViewportSize({ width: w, height: w > 500 ? 900 : 844 });
     for (const path of paths) {
       const res = await p.goto(SITE + path, { waitUntil: 'load', timeout: 60000 }).catch((e) => ({ status: () => 0, err: String(e) }));
+      await p.waitForLoadState('networkidle', { timeout: 15000 }).catch(() => {});   // the admin's tables fill in after load
       await p.waitForTimeout(800);
       const name = `${READ}${ID ? '-' + ID : ''}-${w}`;
       const read = await p.evaluate(() => ({
@@ -47,9 +52,10 @@ try {
       await p.screenshot({ path: `${OUT}/${name}.png`, fullPage: true });
       const line = `${w}px ${path}: HTTP ${res.status()}, landed on ${read.url}, ${read.text.length} characters, ${read.links.length} admin links, no sideways scroll: ${read.wide}, writes refused: ${refused}`;
       summary.push(line); console.log(line);
+      if (process.env.TO_LOG === '1') { console.log(`::group::${name} (the page's text; the session deletes this run's log once read)`); console.log(read.text); console.log('::endgroup::'); }
       if (/\/admin\/login\.php/.test(read.url)) fail(`${path} sent the test Executive back to sign in.`);
     }
-    await ctx.close();
   }
+  await ctx.close();
 } finally { await browser.close(); }
 writeFileSync(`${OUT}/summary.txt`, summary.join('\n') + '\n');
