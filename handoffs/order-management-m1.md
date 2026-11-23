@@ -189,3 +189,18 @@ Tests: `m1.php` 42 checks, `m1.cjs` 37 × 2 widths, `collect-balance.cjs` and `c
 Its "intelligent system" messages (QuickBooks first, the vendor's open questions, the vendor invoice dropped and read
 without AI, one "What's open" list) reached this session after M1 was built. Asked: ship M1 after these fixes and build
 "What's open" as M1b (the design amendment, a live read of #12, the mockup first), or hold M1 for it.
+
+### Round 2 (Design reviewer 20:33, session manager 20:33, Jason via the Design reviewer 20:37), made
+- The three lines have no × (they carry the order's tasks): decisions/0129 note and CLAUDE.md's command-strip line.
+- Each line: its one suggested action, ✎ (Order: edit the items, or reopen; Money: the payments on the money page, in a
+  panel; Delivery: the delivery's date, `setReceivedOn`, the old date to History) and ⋯ Other moves (every move the order
+  already has, each with what it does; greyed with why). Nothing new invented: Put on hold, Shipped instead and Returned or
+  lost (the Design reviewer's examples) don't exist as moves yet and aren't listed.
+- "Yes, picked up" ends in ✎ Edit the delivery, not Undo (a recorded fact); "Not delivered after all" is in Delivery ⋯.
+- The due date's ✎ on its line; Terms as text with ✎; the pop-up's × kept inside it at 390.
+- Jason asked (in this chat): "for money, would a undo be correct or would it be cancel unless processed then it would
+  be refunded." Answered: read from QuickBooks → no Undo, ↗ open it there; recorded here and not processed → Cancel the
+  record; processed → Refund (his OK, 0178 §1). Sent to the session manager for a note in decisions/0178. M1 has no
+  money Undo; the M1b mockup's Money line now has the QuickBooks icon.
+- Tests: `m1.cjs` 50 checks × 2 widths (every ⋯ opened and closed by ×, Esc, a click outside; ✎ Edit the delivery saved
+  with History), `m1.php` 42, `collect-balance.cjs`, `complete-owed.cjs` (selectors scoped past the toolkit): all pass.

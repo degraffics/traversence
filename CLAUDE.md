@@ -187,7 +187,7 @@ endpoint `/admin/api/<module>/<tool>`.
 in the admin command bar's look that stays at the top as you scroll (Jason, 2026-11-12).
 - Left: Back and the short name ("Order #9"), no pills. Right: **Save** (with a count) when changed, else **Close**, ▾
   for Save and close, Send, Close; **☰** for other actions and Shortcuts (they trigger the page's own buttons).
-- Where the record stands is a notices box under the strip (`news`), closed with ×, back only when it changes. Nothing
+- Where the record stands is a notices box under the strip (`news`), an informational notice closes with ×, back only when it changes; a state line carrying a task never closes. Nothing
   shown there is repeated below.
 - Each `h2.hb-h` section folds with a ▾ on its heading (the heading toggles it; remembered), and shows an unsaved dot. Section buttons name the section ("Save work order"); never a
   bare "Save and close" inside one. `'new'` forms and `data-confirm` buttons wait for their own button; searches `'skip'`.

@@ -51,7 +51,7 @@ const below = (p) => p.evaluate(() => { const h = document.getElementById('payho
       const up = card && card.querySelector('.tv-note a[href="#payhold"]');   // tv-ask draws a status line as its notice box
       const box = up && up.closest('.tv-note');
       return { hasWork: !!work,
-               releaseButtons: [...document.querySelectorAll('button')].filter((x) => x.textContent.trim() === 'Release before payment').length,
+               releaseButtons: [...document.querySelectorAll('button')].filter((x) => x.textContent.trim() === 'Release before payment' && !x.closest('.cs-tk')).length,   // not the Order line's toolkit (M1), where every move is listed
                noticeTimes: [...document.querySelectorAll('.tv-note, .co-hold')].filter((x) => /^\s*(Waiting for payment|On a payment hold):/.test(x.textContent)).length,
                upLine: box ? box.textContent.replace('×', '').trim() : null, heading: (document.getElementById('payhold') || {}).textContent, amber: !!(box && box.classList.contains('info')), closable: !!(box && box.querySelector('.tv-note-x')),
                redInWork: !!(card && card.querySelector('.tv-note:not(.info)')), linkColor: up ? getComputedStyle(up).color : null };

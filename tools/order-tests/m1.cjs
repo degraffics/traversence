@@ -78,7 +78,7 @@ const id = (name) => +sql(`SELECT id FROM orders WHERE client_company = '${name}
     execFileSync('php', [seed]);
     // the order page's three lines
     const lines = async (oid) => { await p.goto(base + '/admin/backoffice/orders/' + oid, { waitUntil: 'domcontentloaded' }); await p.waitForTimeout(900);
-      return p.evaluate(() => [...document.querySelectorAll('.cs-line')].map((l) => ({ label: l.querySelector('.cs-ll').textContent, text: l.querySelector('.cs-lt').textContent, btns: [...l.querySelectorAll('.cs-la button, .cs-la a')].map((x) => ({ t: x.textContent, go: x.classList.contains('go'), off: x.disabled })), note: (l.querySelector('.cs-la small') || {}).textContent || '' }))); };
+      return p.evaluate(() => [...document.querySelectorAll('.cs-line')].map((l) => ({ label: l.querySelector('.cs-ll').textContent, text: l.querySelector('.cs-lt').innerText.trim(), btns: [...l.querySelectorAll('.cs-lb > .hb-b, .cs-lb > .cs-ways > .hb-b')].map((x) => ({ t: x.textContent, go: x.classList.contains('go'), off: x.disabled })), note: (l.querySelector('.cs-la > small') || {}).textContent || '' }))); };   // the line's own buttons, not its ✎ and ⋯
     let L = await lines(id('Mesa Ridge Lodge'));
     ok(`${w}: Order #12's page: Order · Money · Delivery, one line each`, L.map((x) => x.label).join(',') === 'Order,Money,Delivery' && /^Out the door\. Ready for pickup since/.test(L[0].text) && /^\$809\.10 owed\. Released before payment by an admin on/.test(L[1].text) && /^Ready for pickup at our shop\. Ready \d+ days\. Picked up\?$/.test(L[2].text), L);
     ok(`${w}: Complete greyed with "$809.10 still owed"; Collect the balance the one filled button`, L[0].btns[0].t === 'Complete' && L[0].btns[0].off && L[0].note === '$809.10 still owed' && L[1].btns.length === 1 && L[1].btns[0].t === 'Collect the balance' && L[1].btns[0].go, L);
@@ -88,11 +88,26 @@ const id = (name) => +sql(`SELECT id FROM orders WHERE client_company = '${name}
     await p.click('.cs-lines button:has-text("Collect the balance")'); await p.waitForTimeout(900);
     const at = await p.evaluate(() => { const a = document.getElementById('co-pay-amt'); const r = a && a.getBoundingClientRect(); return r && document.activeElement === a && r.top >= 0 && r.top < innerHeight; });
     ok(`${w}: Collect the balance goes into the payment step's Amount`, at);
-    await p.click('.cs-lx'); await p.waitForTimeout(200);
-    ok(`${w}: × closes the lines`, await p.evaluate(() => document.querySelector('.cs-news').hidden));
-    await p.evaluate(() => localStorage.clear());   // closed once read, back when they change: open them again for the steps below
+    ok(`${w}: the lines carry the order's tasks, so they have no × (decisions/0129 note)`, await p.evaluate(() => !document.querySelector('.cs-lines .tv-note-x, .cs-lines .cs-lx')));
+    // the toolkit on each line: ✎ Edit and ⋯ Other moves, each move with what it does, greyed with why; × , Esc and a click outside close it
+    for (const [i, name] of [[0, 'order'], [1, 'money'], [2, 'delivery']]) {
+      await p.click(`.cs-line:nth-of-type(${i + 1}) [data-cs-tk]`); await p.waitForTimeout(200);
+      const tk = await p.evaluate((i) => { const m = document.querySelectorAll('.cs-line')[i].querySelector('.cs-tk'); const r = m.getBoundingClientRect();
+        return { open: !m.hidden, title: m.querySelector('.cs-tkh b').textContent, items: [...m.querySelectorAll('.cs-tki')].map((x) => ({ t: x.querySelector('button, a').textContent, off: !!x.querySelector('button[disabled]'), say: x.querySelector('small').textContent })), inView: r.left >= 0 && r.right <= innerWidth,
+          edit: (document.querySelectorAll('.cs-line')[i].querySelector('.cs-ib[title^="Edit"]') || {}).title }; }, i);
+      ok(`${w}: ${name}'s ⋯ opens its moves, each saying what it does or why not now; ✎ "${tk.edit}"`, tk.open && tk.title === 'Other moves for ' + name && tk.items.length >= 4 && tk.items.every((x) => x.say.length > 5) && (i === 1 || tk.items.some((x) => x.off)) && tk.inView && /^Edit the /.test(tk.edit || ''), tk);
+      if (i === 0) ok(`${w}: Order ⋯: Complete the order greyed with what's owed`, tk.items.find((x) => x.t === 'Complete the order').off && /\$809\.10 still owed/.test(tk.items.find((x) => x.t === 'Complete the order').say), tk.items);
+      await p.screenshot({ path: `${shots}/m1-toolkit-${name}-${w}.png` });
+      if (i === 0) await p.click('.cs-line:nth-of-type(1) [data-cs-tkx]'); else if (i === 1) await p.keyboard.press('Escape'); else await p.mouse.click(5, 880);
+      await p.waitForTimeout(200);
+      ok(`${w}: ${name}'s toolkit closes by ${['×', 'Esc', 'a click outside'][i]}`, await p.evaluate(() => [...document.querySelectorAll('.cs-tk')].every((m) => m.hidden)));
+    }
+    await p.click('.cs-line:nth-of-type(1) [data-cs-tk]'); await p.waitForTimeout(200);
+    await p.click('.cs-line:nth-of-type(1) .cs-tk button:has-text("Duplicate or reorder")'); await p.waitForTimeout(700);
+    ok(`${w}: a move goes where it's done (Duplicate or reorder opens its menu) and the toolkit closes`, await p.evaluate(() => document.getElementById('co-dup').open && [...document.querySelectorAll('.cs-tk')].every((m) => m.hidden)));
+    await p.keyboard.press('Escape'); await p.evaluate(() => { document.querySelectorAll('details[open]').forEach((d) => d.open = false); });
     L = await lines(id('Delivered Owed Co'));
-    ok(`${w}: Delivered, balance due: three ways on the Money line (0178 §6)`, L[1].btns.map((x) => x.t).join('|') === 'Record the payment|Ask the client to pay|Override with a reason' && L[1].btns[0].go && /The client told us they have it on .*; it completes once the balance is settled\./.test(L[0].text) && /^Delivered: the client told us/.test(L[2].text), L);
+    ok(`${w}: Delivered, balance due: three ways on the Money line (0178 §6)`, L[1].btns.map((x) => x.t).join('|') === 'Record the payment|Ask the client to pay|Override with a reason' && L[1].btns[0].go && /Delivered on .*; it completes once the balance is settled\./.test(L[0].text) && /^Delivered: the client told us/.test(L[2].text), L);
     await p.screenshot({ path: `${shots}/m1-delivered-owed-${w}.png` });
     await p.click('.cs-lines button:has-text("Record the payment")'); await p.waitForTimeout(800);
     ok(`${w}: Record the payment puts you in the amount`, await p.evaluate(() => document.activeElement && document.activeElement.id === 'co-pay-amt'));
@@ -101,20 +116,29 @@ const id = (name) => +sql(`SELECT id FROM orders WHERE client_company = '${name}
     // the Delivery line's question (Design reviewer): Ready N days. Picked up?
     L = await lines(id('Mesa Ridge Lodge'));
     ok(`${w}: an aged pickup asks: "Ready 21 days. Picked up?" with Yes, picked up and Remind the client`, /Ready 21 days\. Picked up\?/.test(L[2].text) && L[2].btns.map((x) => x.t).join('|') === 'Yes, picked up|Remind the client', L[2]);
-    const known = await p.evaluate(() => ({ due: (document.querySelector('[data-co-val]') || {}).textContent, dueIn: !!document.querySelector('input[data-f=due_date]:not([hidden])'), ship: (document.querySelector('.co-known span') || {}).textContent, shipSel: !!document.querySelector('.co-modef select') && !!document.querySelector('.co-modef select').offsetParent, biz: (document.querySelector('.co-biz summary .co-ib') || {}).title, change: /Change ▾/.test(document.body.textContent) }));
-    ok(`${w}: known values as text with ✎: the due date (from the terms), Pickup at our shop; Edit the business, no "Change ▾"`, /\(from the terms\)$/.test(known.due) && !known.dueIn && known.ship === 'Pickup at our shop' && !known.shipSel && known.biz === 'Edit the business' && !known.change, known);
+    const known = await p.evaluate(() => ({ due: (document.querySelector('[data-f=due_date]').closest('dd').querySelector('[data-co-val]') || {}).textContent, terms: (document.querySelector('[data-f=due_terms]').closest('dd').querySelector('[data-co-val]') || {}).textContent, termsSel: !!document.querySelector('[data-f=due_terms]').offsetParent, dueIn: !!document.querySelector('input[data-f=due_date]:not([hidden])'), ship: (document.querySelector('.co-known span') || {}).textContent, shipSel: !!document.querySelector('.co-modef select') && !!document.querySelector('.co-modef select').offsetParent, biz: (document.querySelector('.co-biz summary .co-ib') || {}).title, change: /Change ▾/.test(document.body.textContent) }));
+    ok(`${w}: known values as text with ✎: the due date (from the terms), Pickup at our shop; Edit the business, no "Change ▾"`, /\(from the terms\)$/.test(known.due) && !known.dueIn && known.terms === 'Due on receipt' && !known.termsSel && known.ship === 'Pickup at our shop' && !known.shipSel && known.biz === 'Edit the business' && !known.change, known);
     await p.click('button[title="Edit the due date"]'); await p.waitForTimeout(200);
     ok(`${w}: ✎ opens the due date's box in place`, await p.evaluate(() => document.activeElement && document.activeElement.getAttribute('data-f') === 'due_date'));
     await p.click('.cs-lines button:has-text("Yes, picked up")'); await p.waitForTimeout(500);
     const yes1 = await p.$('.tv-ask button:has-text("Record it"), [role=dialog] button:has-text("Record it")');
     if (yes1) { await Promise.all([p.waitForNavigation({ timeout: 10000 }).catch(() => {}), yes1.click()]); await p.waitForTimeout(800); }
-    L = await p.evaluate(() => [...document.querySelectorAll('.cs-line')].map((l) => ({ text: l.querySelector('.cs-lt').textContent, btns: [...l.querySelectorAll('.cs-la button')].map((x) => x.textContent) })));
-    ok(`${w}: Yes, picked up (asked first): Delivered, the balance still owed, its Undo; Money offers the three ways`, !!yes1 && /^Delivered/.test(L[2].text) && L[2].btns.join('|') === 'Undo' && L[1].btns.join('|') === 'Record the payment|Ask the client to pay|Override with a reason', L);
+    L = await p.evaluate(() => [...document.querySelectorAll('.cs-line')].map((l) => ({ text: l.querySelector('.cs-lt').innerText.trim(), btns: [...l.querySelectorAll('.cs-lb > .hb-b, .cs-lb > .cs-ways > .hb-b')].map((x) => x.textContent), edit: (l.querySelector('.cs-ib[title^="Edit"]') || {}).title })));
+    ok(`${w}: Yes, picked up (asked first): Delivered, recorded by our team, with ✎ Edit the delivery (a recorded fact: no Undo); Money offers the three ways`, !!yes1 && /^Delivered on .*, recorded by our team\.$/.test(L[2].text) && !L[2].btns.length && L[2].edit === 'Edit the delivery' && L[1].btns.join('|') === 'Record the payment|Ask the client to pay|Override with a reason', L);
     await p.screenshot({ path: `${shots}/m1-picked-up-${w}.png` });
-    await p.click('.cs-lines button:has-text("Undo")'); await p.waitForTimeout(500);
-    const yes2 = await p.$('.tv-ask button:has-text("Undo it"), [role=dialog] button:has-text("Undo it")');
+    await p.click('.cs-line:nth-of-type(3) .cs-ib[title="Edit the delivery"]'); await p.waitForTimeout(600);
+    const ed = await p.evaluate(() => ({ focus: document.activeElement && document.activeElement.id, shown: !document.querySelector('[data-cs-edf]').hidden }));
+    ok(`${w}: ✎ Edit the delivery opens its date in place`, ed.focus === 'co-recv-on' && ed.shown, ed);
+    await p.screenshot({ path: `${shots}/m1-edit-delivery-${w}.png` });
+    await p.fill('#co-recv-on', new Date(Date.now() - 2 * 86400000).toISOString().slice(0, 10));
+    await Promise.all([p.waitForNavigation({ timeout: 10000 }).catch(() => {}), p.click('[data-cs-edf] button')]); await p.waitForTimeout(800);
+    const hist = sql(`SELECT note FROM order_events WHERE order_id = ${id('Mesa Ridge Lodge')} AND event = 'received_date' ORDER BY id DESC LIMIT 1`);
+    ok(`${w}: the new date is saved, the old one kept in the history`, /^Delivered on .* \(was .*\)$/.test(hist), hist);
+    await p.click('.cs-line:nth-of-type(3) [data-cs-tk]'); await p.waitForTimeout(200);
+    await p.click('.cs-line:nth-of-type(3) .cs-tk button:has-text("Not delivered after all")'); await p.waitForTimeout(500);
+    const yes2 = await p.$('.tv-ask button:has-text("Yes"), [role=dialog] button:has-text("Yes")');
     if (yes2) { await Promise.all([p.waitForNavigation({ timeout: 10000 }).catch(() => {}), yes2.click()]); await p.waitForTimeout(800); }
-    ok(`${w}: Undo puts the question back`, !!yes2 && sql(`SELECT received_at IS NULL FROM orders WHERE id = ${id('Mesa Ridge Lodge')}`) === '1');
+    ok(`${w}: Delivery ⋯ "Not delivered after all" (asked first) puts the question back`, !!yes2 && sql(`SELECT received_at IS NULL FROM orders WHERE id = ${id('Mesa Ridge Lodge')}`) === '1');
     L = await lines(id('Shipped Paid Co'));
     ok(`${w}: paid and out the door: Complete is the filled button, and Shipped 2 days. Delivered? asks`, L[0].btns[0].t === 'Complete' && L[0].btns[0].go && !L[0].btns[0].off && !L[1].btns.length && /Shipped 2 days\. Delivered\?/.test(L[2].text), L);
     await p.click('.cs-lines button:has-text("Complete")'); await p.waitForTimeout(900);

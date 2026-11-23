@@ -1,8 +1,8 @@
 {
  "zip": "order-m1.zip",
  "built_on": "8a94377 Sync: 2026-11-23 19:36 UTC",
- "recorded": "2026-11-23 20:36 UTC",
- "note": "Order management M1 with the Design reviewer's fixes 1-6; built on Sync 2026-11-23 19:36 UTC (8a94377) Sent through git (releases/inbox).",
+ "recorded": "2026-11-23 20:48 UTC",
+ "note": "Order management M1: the board, the three lines with their toolkit; built on Sync 2026-11-23 19:36 UTC (8a94377) Sent through git (releases/inbox).",
  "status": "pending",
  "live_in": "",
  "files": {
@@ -31,7 +31,7 @@
    "live": false
   },
   "app/lib/ClientOrders.php": {
-   "sha256": "57cbe2e6449aec8cfe1e0a3c67d192ac90e283b9899ecc3116d88d881c5dac6e",
+   "sha256": "6d2e400187c33712780222880f8b55c6e30b7fc73a7a45abc3f7d81ecf0f857e",
    "live": false
   },
   "app/lib/Pulse.php": {
@@ -43,7 +43,7 @@
    "live": false
   },
   "app/ui/command-strip.php": {
-   "sha256": "72984dbe54565e3579895839ba422c84a1d6b2ce28bd32475241c5527a273f53",
+   "sha256": "fa3c9c68248269d8a6c8aa1847e741cf93545655e7c18c1b53da75dc1d0d170a",
    "live": false
   },
   "app/ui/faq.md": {
@@ -51,7 +51,7 @@
    "live": false
   },
   "website/admin/client-order.php": {
-   "sha256": "1f3b61d5b88854726044d6f891bf3dcff63405e34d8c44fc4dbf5773e94b40bb",
+   "sha256": "2bb2f244da90943ea0d582b59e6f864a028e156b15c1e6619d93b47001279f70",
    "live": false
   },
   "website/js/admin-kit.js": {

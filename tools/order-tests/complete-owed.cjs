@@ -18,7 +18,7 @@ let fails = 0; const ok = (what, pass, saw) => { if (!pass) fails++; console.log
     const txt = card ? card.innerText : '';
     return { disabled: !!(btn && btn.disabled), reason: btn ? btn.getAttribute('title') : null, owedTimes: (txt.match(/\$[\d,]+\.\d\d still (owed|to be paid)/g) || []).length,
              override: !!(card && [...card.querySelectorAll('summary')].some((s) => /Override: mark complete anyway/.test(s.textContent))),
-             strip: [...document.querySelectorAll('.cs-lines [data-cs-go]:not([disabled])')].map((x) => x.textContent.trim() + '→' + x.getAttribute('data-cs-go')).filter((x) => /Complete|Collect/.test(x)) };   // since M1 the Order and Money lines carry these, not ▾
+             strip: [...document.querySelectorAll('.cs-lines [data-cs-go]:not([disabled]):not(.cs-tk *)')].map((x) => x.textContent.trim() + '→' + x.getAttribute('data-cs-go')).filter((x) => /Complete|Collect/.test(x)) };   // since M1 the Order and Money lines carry these, not ▾
   });
   for (const w of [1280, 390]) {
     const c = await ctx(w); const p = await c.newPage();
