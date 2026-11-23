@@ -6,13 +6,13 @@
     "zip": "control-board.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "approved",
+    "state": "staged",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
     "plan_at": "2026-11-23 00:12:23",
-    "staged_at": null,
+    "staged_at": "2026-11-23 00:12:26",
     "vetted_at": null,
     "live_at": null,
     "files": {
@@ -237,7 +237,44 @@
         "app/migrations/2026-12-01_control_incidents.sql",
         "app/migrations/2026-12-01_control_engine.sql"
     ],
-    "checks": [],
+    "checks": {
+        "ok": true,
+        "where": "staging",
+        "at": "2026-11-23T00:12:27+00:00",
+        "items": [
+            [
+                "PHP files parse",
+                true,
+                "37 checked"
+            ],
+            [
+                "Migrations only add",
+                true,
+                "3 checked"
+            ],
+            [
+                "Data changes have a reason",
+                true,
+                "2026-12-01_npi_switch.sql change rows: 2026-12-01_npi_switch.sql: NPI's monthly load has been off since 2026-11-02 by a constant in code (NpiBulk::OFF; Jason: CMS took its file page down until further notice). It moves to the npi_bulk task's own switch with its why: one guarded UPDATE sets enabled = 0 and off_why on that one task, only w (a copy of every table they touch is kept first)"
+            ],
+            [
+                "Migrations ran on staging",
+                true,
+                "Ran 2026-12-01_control_engine.sql, 2026-12-01_control_incidents.sql, 2026-12-01_npi_switch.sql"
+            ],
+            [
+                "Pages answer",
+                true,
+                "5 pages answered on staging.trvgo.us"
+            ],
+            [
+                "No new fatal errors in the logs",
+                true,
+                "6 logs read"
+            ]
+        ],
+        "first_fail": ""
+    },
     "log": [
         {
             "at": "2026-11-23T00:12:22+00:00",
@@ -253,6 +290,11 @@
             "at": "2026-11-23T00:12:23+00:00",
             "by": 0,
             "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
+        },
+        {
+            "at": "2026-11-23T00:12:27+00:00",
+            "by": 0,
+            "msg": "Put on staging (43 files); its checks passed."
         }
     ]
 }
