@@ -1,6 +1,7 @@
 <!doctype html>
 <!-- Order management mockups (research/order-management-design-2026-11-23.md §4), round 2 after the Design reviewer.
-     Open with ?v= board | board-empty | board-after | place | place-after | order | order-after | money | money-pay | money-after | catalog.
+     Open with ?v= board | board-empty | board-after | place | place-after | order | order-after | open | open-after | money | money-pay | money-after | catalog.
+     open, open-after: M1b's "What's open" for Order #12 (design §3.6), before and after the vendor's invoice is dropped and QuickBooks read.
      Static, made-up clients; tokens from brand.md and design/css-theme-brand.md. Rendered by render.cjs at 1280 and 390.
      Buttons (brand.md §4): one filled per view, brand brown #92400E with page-colour text (5.18:1); the rest outlined. -->
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -58,6 +59,22 @@ td.n{text-align:right;font-variant-numeric:tabular-nums}
 .num{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:13px;background:var(--section);color:var(--meta);flex:0 0 26px}
 .step.fin .num{background:var(--sage);color:var(--void)}.step.now{border:2px solid var(--brown)}.step.now .num{background:var(--brown);color:var(--page)}
 .step.later{opacity:.6}.step .body{padding:0 .9rem .9rem}
+/* M1b: What's open (design §3.6) */
+.open{background:var(--card);border:1px solid var(--edge);border-radius:.6rem;margin-bottom:14px}.open>h2{font-size:16px;padding:.7rem .9rem .2rem}
+.oi{display:grid;grid-template-columns:22px 1fr auto;gap:10px;align-items:start;padding:.7rem .9rem;border-top:1px solid #EADFC4}.oi:first-of-type{border-top:0}
+.oi .tag{font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--meta);font-weight:700;display:block}
+.oi .q{font-weight:700}.oi .acts{justify-content:flex-end}.oi .mk{width:20px;height:20px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:800;margin-top:2px}
+.mk.ask{background:var(--amber-bg);color:var(--amber);border:1px solid #E6C98F}.mk.ok{background:#DCEBE1;color:#2F5E45}
+.ib{width:30px;height:30px;border-radius:50%;border:1px solid #B8A57F;background:#FFFBF2;color:#B45309;display:inline-grid;place-items:center;cursor:pointer;padding:0}
+.lb{display:flex;flex-wrap:wrap;gap:6px;align-items:center;justify-content:flex-end;position:relative}.lb .why{flex-basis:100%;text-align:right}
+.line .sub{display:block}.line .drop{display:block}
+.tkm{position:absolute;right:0;top:calc(100% + 6px);z-index:6;width:min(22rem,calc(100vw - 24px));background:var(--card);border:1px solid #B8A57F;border-radius:.6rem;box-shadow:0 14px 30px -12px rgba(0,0,0,.45);padding:.35rem .5rem;display:grid;text-align:left}
+.tkh{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #EADFC4;padding:.2rem 0 .35rem;font-size:13.5px}.x2{border:0;background:none;font-size:18px;cursor:pointer}
+.tki{display:grid;gap:2px;padding:.35rem 0;border-bottom:1px solid #EADFC4}.tki:last-child{border:0}.tki small{color:var(--meta);font-size:12.5px}.tki.off small{font-style:italic}.tki .b{justify-self:start}
+@media (max-width:767px){.lb{justify-content:flex-start}.lb .why{text-align:left}.tkm{left:0;right:auto}}
+.drop{border:1.5px dashed #B8A57F;border-radius:.5rem;padding:.6rem .8rem;color:var(--meta);font-size:13.5px;margin-top:.45rem;background:#FFFBF2}
+.read{width:100%;margin-top:.5rem;font-size:13.5px}.read td,.read th{padding:.35rem .55rem}.read .y{color:#2F5E45;font-weight:700}.read .ne{color:var(--amber);font-weight:700}
+@media (max-width:767px){.oi{grid-template-columns:22px 1fr}.oi .acts{grid-column:2;justify-content:flex-start}}
 .pick{display:flex;gap:8px;align-items:center;border:1px solid var(--edge);border-radius:.5rem;padding:.5rem .7rem;margin-bottom:6px;background:#fff;flex-wrap:wrap}
 .pick b{flex:1}.pick small{color:var(--meta)}
 .opt{display:flex;gap:8px;align-items:flex-start;border:1px solid var(--edge);border-radius:.5rem;padding:.55rem .7rem;margin-bottom:6px;background:#fff}
@@ -182,6 +199,34 @@ label{display:block;font-size:13px;font-weight:600;color:var(--meta);margin:.5re
       <tr data-only="order-after"><td>Nov 23 · Jordan</td><td>Check #2231 · receipt emailed</td><td class="n">$809.10</td><td><button class="b sm" aria-label="More for this payment">⋯</button></td></tr></tbody></table></div>
   <div class="sec"><h2>Items</h2><div class="card"><b>Door hangers · 5,000</b> · $809.10<br><small class="sub">Proof v1 approved · made by our print vendor · Ready for pickup</small></div></div>
   <div class="sec"><h2>History ▸</h2></div>
+</section>
+
+
+<!-- ============================== 3b. What's open (M1b, design §3.6) ============================== -->
+<section id="open" data-v="open open-after">
+  <div class="strip"><span class="back">←</span><h1>Order #12</h1><button class="b sm">Close ▾</button><button class="b sm">☰</button></div>
+  <div class="news" role="status">
+    <div class="line"><span class="k">Order</span><span><b>Out the door.</b> Ready for pickup since Nov 2.</span>
+      <span class="lb"><span data-only="open"><button class="b sm" disabled title="Once it's picked up">Complete</button></span><span data-only="open-after"><button class="b go">Complete the order</button></span><button class="ib" title="Edit the order" aria-label="Edit the order">✎</button><button class="ib" title="Other moves for order" aria-label="Other moves for order">⋯</button><span class="why" data-only="open">once it's picked up</span></span></div>
+    <div class="line"><span class="k">Money</span><span><b>Paid in QuickBooks</b> Oct 19 · check 2231 · $809.10 on invoice 1044.</span>
+      <span class="lb"><button class="ib" title="Open the payment in QuickBooks" aria-label="Open the payment in QuickBooks">↗</button><button class="ib" title="Edit the payment" aria-label="Edit the payment">✎</button><button class="ib" title="Other moves for money" aria-label="Other moves for money">⋯</button></span></div>
+    <div class="line"><span class="k">Delivery</span>
+      <span data-only="open"><b>Ready for pickup</b> at our shop. <b>Ready 21 days. Has Ana picked it up?</b><small class="sub">The work order says Will Call; Ana was reminded Nov 5 (Remind her again: ⋯).</small></span>
+      <span data-only="open-after"><b>Picked up</b> Nov 23, recorded by Jordan.</span>
+      <span class="lb"><span data-only="open"><button class="b go">Yes, picked up</button></span><button class="ib" title="Edit the delivery" aria-label="Edit the delivery">✎</button><button class="ib" title="Other moves for delivery" aria-label="Other moves for delivery">⋯</button></span></div>
+    <div class="line"><span class="k">Vendor</span>
+      <span data-only="open"><b>$256.83 to the print vendor</b> (work order 20261027-WO0001), not billed yet.
+        <span class="drop">Drop their invoice here (PDF), or <a href="#">choose a file</a>. Kept with this order's files; not sent to anyone.</span></span>
+      <span data-only="open-after"><b>Their invoice 130929, Nov 17</b>, read: <b>the vendor says it shipped by USPS Priority Mail; the work order says pickup. Which is right?</b>
+        <table class="read"><tbody><tr><td>PO</td><td>20261027-WO0001</td><td class="y">✓ our work order</td></tr><tr><td>Amount</td><td>$256.83</td><td class="y">✓ the agreed cost</td></tr><tr><td>Tax · shipping</td><td>$0.00 · $0.00</td><td class="y">✓</td></tr><tr><td>Ship via</td><td>USPS Priority Mail</td><td class="ne">≠ Will Call</td></tr></tbody></table></span>
+      <span class="lb"><span data-only="open"><button class="b">Record the bill by hand</button></span><span data-only="open-after"><button class="b">It was picked up</button> <button class="b">It shipped: add tracking</button></span><button class="ib" title="Edit the vendor bill" aria-label="Edit the vendor bill">✎</button><button class="ib" title="Other moves for vendor" aria-label="Other moves for vendor">⋯</button>
+        <span class="tkm" data-only="open-after" role="menu"><span class="tkh"><b>Other moves for vendor</b><button class="x2" aria-label="Close">×</button></span>
+          <span class="tki"><button class="b sm">Drop their invoice</button><small>Read here without AI; kept with this order's files.</small></span>
+          <span class="tki"><button class="b sm">Not billed by them</button><small>No bill is coming (their own job, a sample).</small></span>
+          <span class="tki off"><button class="b sm" disabled>Dispute…</button><small>Nothing billed yet to dispute.</small></span></span></span></div>
+  </div>
+  <div class="sec"><h2>Client</h2><div class="card"><dl class="kv"><dt>Client</dt><dd>Mesa Ridge Lodge · Ana Ortiz <button class="ib" title="Email ana@mesaridge.example" aria-label="Email ana@mesaridge.example">✉</button></dd><dt>Bill to</dt><dd>410 W Main St, Springerville AZ 85938 <button class="ib" title="Edit the bill-to address" aria-label="Edit the bill-to address">✎</button></dd><dt>QuickBooks</dt><dd>Invoice 1044, linked by its number <button class="ib" title="Open QuickBooks invoice 1044" aria-label="Open QuickBooks invoice 1044">↗</button></dd></dl></div></div>
+  <p class="sub" style="margin:0 4px">Not shown, as they no longer apply: the client's checkout line and the payment form (nothing is owed).</p>
 </section>
 
 <!-- ============================== 4. Money ============================== -->

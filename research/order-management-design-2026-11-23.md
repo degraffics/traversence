@@ -188,6 +188,54 @@ Close:           Collect the balance (if owed) ─ Complete (greyed while owed; 
 Each link is the board's one Next step while it's current; the order page's three lines show the current link of the
 Order, Money and Delivery parts of the chain.
 
+### 3.6 What the system knows, what it asks (the session manager for Jason, 2026-11-23; M1b)
+
+Jason, 2026-11-23, on Order #12's payment section: "I view this not as a page where I can put information into it, but
+as an intelligent system that helps me process orders." And: "having the ability to drag and drop a vendor invoice to
+document it as well would help me." **The order works itself out from what it knows; a person is asked only what it
+can't know, as a task with its best guess filled in.** What Order #12's page showed (live read, 2026-11-23): QuickBooks
+invoice 112906 "made by hand, so nothing is posted to it: receive the payment there too"; "The client's checkout: they
+haven't chosen how to pay yet" on a released pickup order; a blank payment form; the work order Ready for pickup since
+Nov 2 (Will Call, must have Oct 30) with nothing asking whether the client has it; the vendor's $256.83 "agreed", with
+nothing saying whether they've billed us.
+
+1. **QuickBooks first.** An order that names a QuickBooks invoice (made here, or by hand and linked by its number) reads
+   it when the order opens and on the hourly pull: its balance and payments (`QuickBooksPay::invoiceByNumber()` already
+   reads both; `QbPull::merge()` already brings a hand-made invoice's lines and payments in). Paid there → the Money line
+   says "Paid in QuickBooks Oct 19 · check 2231", recorded here with **Undo**, and the chain moves on. Partly paid → what's
+   left. Recording a payment here posts it to that invoice (`recordOtherPayment()`), so nothing is entered twice.
+   `QuickBooksPay::guardReal()` / `testHere()` hold for tests.
+2. **The vendor side as questions, from the work order's facts and its age:** "Ready for pickup since Nov 2 (21 days).
+   Picked up?" (Yes, picked up · Remind the client: built in M1 on the Delivery line); "The vendor's $256.83: billed?",
+   read from QuickBooks bills where it can, else **drop their invoice here**; a missed must-have date flagged.
+3. **The vendor's invoice, dropped and read at no cost.** Onto the work order or anywhere on the order, through the one
+   uploader (`js/tv-upload.js` → `/api/upload.php` → `Uploads.php`, a new target in `upload-targets.php`), kept as the
+   order's record. Its text read without AI (pdf.js in the browser): invoice number, date, PO, amount, tax, shipping,
+   total, due, ship-via. Matched by PO (our work order number), else vendor and amount. Shown beside what we expected:
+   matches ticked; each mismatch a question with its best answer ("The vendor says it shipped by USPS Priority Mail; our
+   work order says pickup. Which is right?"); then **Record the vendor bill** (Undo), after which the vendor's line reads
+   "Billed $256.83 (inv 130929, Nov 17) · due". A scan with no text says so and offers the four key fields to type; AI
+   reading only within the cap and never Gemini's free tier (it's private, decisions/0164).
+4. **The questions live on the lines, said once** (the Design reviewer, 2026-11-23: no separate "What's open" card, one
+   fact shown once): Order, Money, Delivery and a fourth line, **Vendor** ("$256.83 to the print vendor (work order …),
+   not billed yet", its drop zone and Record the bill by hand, then the invoice's check in place). Each line carries its
+   one suggested action, ✎ to edit what happened and ⋯ for every other move (decisions/0129's note of 2026-11-23); each
+   task see → do → confirm (CLAUDE.md #1308); money never has Undo (decisions/0178's note); Edit for recorded facts
+   (#1315); inline actions as icons (#1316). The drop zone is the one uploader's (decisions/0127), and says "Kept with
+   this order's files; not sent to anyone". Stale or irrelevant blocks don't show at all (the checkout line once
+   released or outside; the payment form when nothing is owed). The lines feed the board: its Next step and tiles.
+
+**Decided** (the session manager, 2026-11-23): (a) a payment QuickBooks already shows on a linked invoice is applied at
+once: "Paid in QuickBooks <date> · <method/ref>", ✎ to correct it, History kept (it writes nothing outside our records).
+
+**What's built where:** M1 builds the state function, the three lines with ✎ and ⋯, Delivered, balance due and the
+Delivery line's question (2 in part). **M1b** builds 1, the Vendor line (2's bill, 3) and 4 on M1's state function
+(mockups `open`, `open-after`).
+
+**Jason's answers (2026-11-23, pop-up; decisions/0178 note):** (b) yes: a payment recorded here is also received on a
+hand-made QuickBooks invoice linked by its number; (c) yes: a vendor bill recorded here is also created in QuickBooks
+against the vendor. Paying vendors stays a separate decision. M1b's mockups approved the same day.
+
 ## 4. Pages and drill-down
 
 ```
@@ -302,6 +350,7 @@ the session manager and Jason.
 | # | Release | What it closes |
 |---|---|---|
 | M1 | **State model and the board**: the three states, Next step by rule, tiles that count from money and filter; the order page's three state lines; Delivered, balance due (0178 §6); the drawer's Complete greyed | §1.3, §1.4, §1.5's stacked notice |
+| M1b | **What the system knows, what it asks** (§3.6): QuickBooks first (a linked invoice's payments read and applied), the vendor's questions, the vendor invoice dropped and read without AI, one "What's open" list | Order #12's payment section; the vendor side |
 | M2 | **Money on the order page**: `admin/order.php` folded in (payments, credit memo, refund with Jason's OK (0178 §1), dispute, cancel until the vendor accepts (0178 §2)); Take a payment | Refund, credit memo, cancel, take a payment |
 | M3 | **Money section**: Outstanding (aging), Take a payment across orders, Credits on account (and their use), Refunds & credit memos | Outstanding payments, credit account |
 | M4 | **Place an order, guided**; the archived E-Commerce orders redirect | §1.1, §1.2 |

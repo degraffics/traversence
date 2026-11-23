@@ -71,3 +71,10 @@ and the business name repeated the header. Now:
 no longer slides away as you scroll down; it stays at the top, under the header and the account bar, in the admin command
 bar's look (sage, the orange Back arrow, the record's name, its commands in a peach tab). A section folds with a ▾ on its
 heading (the heading itself toggles it, and each page remembers what was folded) instead of Open / Close buttons.
+
+**Note (2026-11-23, Jason's four-step rule, CLAUDE.md #1308: "see the task"):** a notice that carries the record's open
+task (its state line with its button) has no ×; only informational notices close. The order page's Order, Money and
+Delivery lines (order management M1) are the first: each also carries ✎ (edit what happened) and ⋯ (every other move
+from where it stands, greyed with why when not now; Jason, 2026-11-23: "tool kit for moving something to where it needs
+to be or edit icon to modify what has happened so it can get back on track"). Confirmed by the session manager and the
+Design reviewer.

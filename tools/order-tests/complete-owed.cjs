@@ -18,19 +18,19 @@ let fails = 0; const ok = (what, pass, saw) => { if (!pass) fails++; console.log
     const txt = card ? card.innerText : '';
     return { disabled: !!(btn && btn.disabled), reason: btn ? btn.getAttribute('title') : null, owedTimes: (txt.match(/\$[\d,]+\.\d\d still (owed|to be paid)/g) || []).length,
              override: !!(card && [...card.querySelectorAll('summary')].some((s) => /Override: mark complete anyway/.test(s.textContent))),
-             strip: [...document.querySelectorAll('[data-cs=go]')].map((x) => x.textContent.trim() + '→' + x.getAttribute('data-target')).filter((x) => /Complete|Collect/.test(x)) };
+             strip: [...document.querySelectorAll('.cs-lines [data-cs-go]:not([disabled]):not(.cs-tk *)')].map((x) => x.textContent.trim() + '→' + x.getAttribute('data-cs-go')).filter((x) => /Complete|Collect/.test(x)) };   // since M1 the Order and Money lines carry these, not ▾
   });
   for (const w of [1280, 390]) {
     const c = await ctx(w); const p = await c.newPage();
     await p.goto(`${base}/admin/backoffice/orders/${owed}`, { waitUntil: 'domcontentloaded' }); await p.waitForTimeout(1200);
     const r = await read(p);
     ok(`${w}: money owed, Complete the order is greyed with its reason, the amount said once, an admin's override offered`, r.disabled && /still owed: collect the balance first/.test(r.reason || '') && r.owedTimes === 1 && r.override, JSON.stringify(r));
-    ok(`${w}: the strip's finish is Collect the balance`, r.strip.length === 1 && r.strip[0] === 'Collect the balance→#co-pay-amt', JSON.stringify(r.strip));
-    // the strip's button: the menu item lands on the payment's Amount, in view below the strip
-    await p.evaluate(() => { const x = document.querySelector('[data-cs=go][data-target="#co-pay-amt"]'); const d = x && x.closest('details'); if (d) d.open = true; x && x.click(); });
+    ok(`${w}: the Money line's button is Collect the balance`, r.strip.length === 1 && r.strip[0] === 'Collect the balance→#co-pay-amt', JSON.stringify(r.strip));
+    // the line's button lands on the payment's Amount, in view below the strip
+    await p.evaluate(() => { const x = document.querySelector('.cs-lines [data-cs-go="#co-pay-amt"]'); x && x.click(); });
     await p.waitForTimeout(900);
     const land = await p.evaluate(() => { const a = document.getElementById('co-pay-amt'), cs = document.querySelector('.cs'); if (!a || !cs) return { inView: false, missing: !a ? '#co-pay-amt' : '.cs' }; const r = a.getBoundingClientRect(); return { focused: document.activeElement === a, top: Math.round(r.top), stripBottom: Math.round(cs.getBoundingClientRect().bottom), inView: r.top >= cs.getBoundingClientRect().bottom && r.bottom <= innerHeight }; });
-    ok(`${w}: Collect the balance in the strip lands on the payment's Amount, in view below the strip`, land.inView, JSON.stringify(land));
+    ok(`${w}: Collect the balance on the Money line lands on the payment's Amount, in view below the strip`, land.inView, JSON.stringify(land));
     await p.screenshot({ path: `${shots}/complete-owed-land-${w}.png` });
     await p.evaluate(() => document.getElementById('finish').scrollIntoView()); await p.evaluate(() => { const d = [...document.querySelectorAll('#finish + * details')][0]; if (d) d.open = true; }); await p.waitForTimeout(300);
     await p.evaluate(() => window.scrollBy(0, -120));
@@ -38,7 +38,7 @@ let fails = 0; const ok = (what, pass, saw) => { if (!pass) fails++; console.log
     if (paid) {
       await p.goto(`${base}/admin/backoffice/orders/${paid}`, { waitUntil: 'domcontentloaded' }); await p.waitForTimeout(1000);
       const q = await read(p);
-      ok(`${w}: paid in full, Complete the order stays pressable, no override`, !q.disabled && !q.override && q.strip[0] === 'Complete the order→#co-complete', JSON.stringify(q));
+      ok(`${w}: paid in full, Complete the order stays pressable, no override`, !q.disabled && !q.override && q.strip[0] === 'Complete→#co-complete', JSON.stringify(q));
     }
     await c.close();
   }

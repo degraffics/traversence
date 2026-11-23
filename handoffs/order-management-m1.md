@@ -111,3 +111,109 @@ balance (0178 §6's three ways), complete; the drawer's Complete greyed with the
 
 - Task: check Payment reminders catches up after the board's release 2 (`pay_wait_tick`).
 - Release B (0177 §1, one invoice per destination) is M5.
+
+## Built: M1 (the Orders session after the hand-off, session_01CXLi5jrE1f1iCSbBQssAAe), 2026-11-23
+
+Release `order-m1.zip`, built on Sync 2026-11-23 19:36 UTC (`8a94377`), no release live since. Not sent yet: Design
+reviewer, then the session manager, then Jason. Files (each differs from the live copy; claims under `order-m1.zip`):
+`app/lib/ClientOrders.php` (boardState, releasedAt added; confirmReceived, received, gotItTick, a comment in
+setItemStatus), `app/admin/tools.php` (tv_order_board added; tv_order_next_step now hands back boardState's Next step;
+`backoffice/orders`), `app/admin/widgets.php` (a list's search words, first tile, empty states, range; a metric's sub-line
+and money tile), `app/admin/manifests.php` (`orders`: the board is a table, not the stage pipeline),
+`app/admin/kit-css.php`, `app/admin/Workflow.php` (moves: the adapter's guard greys a move), `app/admin/workflows.php`
+(client_order's guard: Complete while owed), `app/lib/Pulse.php` (the `delbal` case), `app/ui/command-strip.php`
+(`lines`: labeled lines each with a button; `news` still works), `app/ui/faq.md`, `app/scripts/got_it_tick.php` (a
+comment), `website/admin/client-order.php`, `website/js/admin-kit.js`, `website/order.php`. No migration.
+`website/admin/api.php` is NOT in it: the Control Board session holds it (gauge panel); the board re-reads its row instead.
+
+Each behaviour and its source:
+- One state function, three states and one Next step (§3, §3.4) → `ClientOrders::boardState()`; the board, the order
+  page's lines and the drawer's fields read it. Order states §3.1 incl. Link expired and Changes asked (newest proof
+  `changes`); Money §3.2 (Released before payment = an admin's `released` event; a deposit order's balance isn't owed
+  until it's out the door, mockup board-after's totals); Delivery §3.3.
+- "Past due" only with a due date or Net terms (a build reading of §3.4 rule 2: Due on receipt has no later date to be
+  past). **Asked in the summary.**
+- Tiles count by state and filter (§4.1, mockup board); Money owed apart; opens on Needs us (mockup); one filter button
+  (Design reviewer, round 3); count under the table; each tile's empty state (mockup board-empty).
+- Send it again / Send a reminder in the row: ✓ Sent with a Copy icon (CLAUDE.md #1316 icons), Moved to…, tiles recount
+  (mockup board-after; CLAUDE.md #1308). The email that didn't go says so in red with the Copy icon (release A's rule).
+- The order page's three lines (§4.3, mockups order, order-after); Complete greyed with "$X still owed" (#1307); the
+  ▾ menu's Complete/Collect moved to the lines (said once); the email in Bill to; pickup: no address fields; Payment
+  terms in words that never read as paid (the live read of Order #12).
+- 0178 §6 as written: confirmReceived with money owed keeps the delivery and words, thanks the client (their page says
+  "Thank you!", nothing about money), event `delivered_owed`, staff emailed, Pulse `delbal` with the three ways; paid in
+  full then completes it (`received()`); an admin's override is #1307's `completeOwed`. The got-it reminder skips it.
+- The drawer's Complete greyed (M1 part 5) by a code guard the adapter exposes, not the stored definition.
+
+Kept, moved, dropped (playbook §3): Stage column → Where it stands; Total → the drawer and the order; Balance due →
+Money; Updated → dropped (the mockup has no column; sorting by the other columns stays); Show and Whose filters → the one
+button's four choices; tiles Drafts / With clients / Waiting for payment / To make → Needs us / Waiting on the client /
+In production / Out the door + Money owed; the Stage pipeline menu → the tiles (the workflow's stages stay in System
+Configuration → Workflows and the drawer); the strip's ▾ Complete the order / Collect the balance → the Order and Money
+lines; the notice's stacked strings → three lines (sandbox and an open ticket still said under them); the #finish
+"Waiting on the client" notice → the Order line. **Updated is the one drop: in the summary for Jason.**
+
+Tests (design harness, MariaDB, `tools/order-tests/m1-seed.php` seeds 15 orders in every state; the harness's Mailer
+"sends" while `<root>/harness-mail-ok` exists):
+- `m1.php <root>`: 38 checks (each state, tiles, Money owed, Mine/All, the guard, 0178 §6 end to end, Pulse, got-it).
+- `m1.cjs <base> <seed>`: 31 checks × 1280 and 390 (60 + the copy check), every new button pressed; screens in
+  `handoffs/order-m1/`. Against the live files it fails at once (no tiles, no lines).
+- `collect-balance.cjs` and `complete-owed.cjs`: updated to where those buttons live now (the Where it stands column;
+  the Money line instead of ▾); all pass.
+
+Open: task #4 (Payment reminders catching up after the board's release 2) needs a read of System Configuration →
+Scheduled tasks, which `live-read.yml` doesn't offer (orders, order only): asked of the session manager.
+
+Live read (`live-read.yml`, orders, 2026-11-23 20:24 UTC; its log deleted once read): 4 open orders. By the model they read
+as: Order #12 Out the door, $809.10 owed, released before payment, Collect the balance (Needs us); two orders with the
+printer, paid (In production, Follow the work order); one sent Oct 29, its 14-day link run out (Link expired, Send it
+again: Needs us, the design's §1.2 case). Money owed: $809.10, 1 order. The live tiles today say 0 Waiting for payment.
+
+### The Design reviewer's changes (2026-11-23 20:24 UTC), made
+1. A row's result (✓ Sent, the Copy icon, its notice, "Moved to…") stacks at full width in a phone card; no "Next step"
+   label there (`kit-css.php`).
+2. Known values as text with a ✎ Edit icon (CLAUDE.md #1315, #1316): the due date "Nov 15, 2026 (from the terms)";
+   Shipping "Pickup at our shop" or "Delivered Nov 22", its select and address fields behind ✎.
+3. Aged items ask: the Delivery line says "Ready 21 days. Picked up?" (or "Shipped N days. Delivered?") with **Yes, picked
+   up** (asked first; `ClientOrders::markReceived`: paid → complete, owed → Delivered, balance due with **Undo**,
+   `unmarkReceived`) and **Remind the client** (`remindReceived`, the got-it email now; an email can't be undone, so the
+   line says "Reminded Nov 23").
+4. "Collect the balance" beside Record the payment is now **Ask the client to pay** (`askToPay`: an email with what's left
+   and their link; "Asked Nov 23"); Override with a reason stays outlined (`data-danger`). The Pulse step is renamed.
+5. The seed's line is a custom item (a catalog product with no run size read Qty 0); the page was right.
+6. The Business line's "Change ▾" is a ✎ titled "Edit the business".
+7. Filled buttons' umber: left to the Control Board session's kit release (the session manager's ruling).
+Tests: `m1.php` 42 checks, `m1.cjs` 37 × 2 widths, `collect-balance.cjs` and `complete-owed.cjs` all pass.
+
+### Waiting on the session manager
+Its "intelligent system" messages (QuickBooks first, the vendor's open questions, the vendor invoice dropped and read
+without AI, one "What's open" list) reached this session after M1 was built. Asked: ship M1 after these fixes and build
+"What's open" as M1b (the design amendment, a live read of #12, the mockup first), or hold M1 for it.
+
+### Round 2 (Design reviewer 20:33, session manager 20:33, Jason via the Design reviewer 20:37), made
+- The three lines have no × (they carry the order's tasks): decisions/0129 note and CLAUDE.md's command-strip line.
+- Each line: its one suggested action, ✎ (Order: edit the items, or reopen; Money: the payments on the money page, in a
+  panel; Delivery: the delivery's date, `setReceivedOn`, the old date to History) and ⋯ Other moves (every move the order
+  already has, each with what it does; greyed with why). Nothing new invented: Put on hold, Shipped instead and Returned or
+  lost (the Design reviewer's examples) don't exist as moves yet and aren't listed.
+- "Yes, picked up" ends in ✎ Edit the delivery, not Undo (a recorded fact); "Not delivered after all" is in Delivery ⋯.
+- The due date's ✎ on its line; Terms as text with ✎; the pop-up's × kept inside it at 390.
+- Jason asked (in this chat): "for money, would a undo be correct or would it be cancel unless processed then it would
+  be refunded." Answered: read from QuickBooks → no Undo, ↗ open it there; recorded here and not processed → Cancel the
+  record; processed → Refund (his OK, 0178 §1). Sent to the session manager for a note in decisions/0178. M1 has no
+  money Undo; the M1b mockup's Money line now has the QuickBooks icon.
+- Tests: `m1.cjs` 50 checks × 2 widths (every ⋯ opened and closed by ×, Esc, a click outside; ✎ Edit the delivery saved
+  with History), `m1.php` 42, `collect-balance.cjs`, `complete-owed.cjs` (selectors scoped past the toolkit): all pass.
+- Round 3 (Design reviewer 20:49): the Money line's one suggested action (Record the payment); Ask the client to pay
+  and Override with a reason only in its ⋯. Delivered names who said so: "recorded by <first name>", or "the client told
+  us on <date>". Tests pass (m1.cjs, m1.php, collect-balance.cjs, complete-owed.cjs).
+- Held (the session manager, 20:43): the gauge panel goes first. My claims on tools.php, command-strip.php and
+  kit-css.php are released and the pending record is off this branch; once it's live and synced, M1's shared files are
+  rebuilt on the live copies, claimed again, zip-checked, then the session manager and Jason's pop-up.
+
+### Approved (Jason, 2026-11-23, pop-up, reviewed by the session manager and the Design reviewer)
+M1 approved → PR #1320 merged. M1b's design approved; (b) post payments to a linked hand-made QuickBooks invoice: yes;
+(c) create vendor bills in QuickBooks: yes (decisions/0178 note). **Next: M1b**, built on M1's state function once M1 is
+live and synced: QuickBooks first (a linked invoice's payments read and applied, a payment recorded here posted to it),
+the Vendor line (the vendor invoice dropped through the one uploader, read without AI, matched by PO, the bill recorded
+here and in QuickBooks), the questions on the lines.

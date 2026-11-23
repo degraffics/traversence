@@ -44,3 +44,23 @@ answers. Each is built in the release named.
 
 0177 §4 (the vendor and delivery wait for the whole order's payment, or an admin's release with a reason), 0098's
 order of remedies (fix, credit, refund), and `QuickBooksPay::guardReal()` (no test moves real money).
+
+**Note (2026-11-23, Jason, asked in the Orders session's chat about a mockup's "Paid … read from QuickBooks · ✓ Recorded ·
+Undo"): "for money, would a undo be correct or would it be cancel unless processed then it would be refunded."** Money
+never has Undo. A payment read from QuickBooks shows ↗ to open it there (QuickBooks is the record; a correction is made
+there and read again). A payment recorded here and not processed (a check noted, nothing charged or posted to
+QuickBooks) has **Cancel the record**, gone as if never recorded. One processed (a card charged, or posted to a
+QuickBooks invoice) has **Refund…**, with his OK (§1). Agreed by the session manager as the standing rule; CLAUDE.md's
+"Edit or Undo" says it once. Also decided by the session manager the same day (M1b, design §3.6 (a)): a payment
+QuickBooks already shows on a linked invoice is applied at once, said as "Paid in QuickBooks <date> · <method/ref>",
+corrected with ✎, History kept; it writes nothing outside our records.
+
+**Note (2026-11-23, Jason, in the Orders session's pop-up, reviewed by the session manager): M1b's two QuickBooks
+answers**, for design §3.6 (built in M1b):
+- **(b) "Yes, post it":** a payment recorded on an order whose QuickBooks invoice was made by hand and linked by its
+  number is also received on that invoice in QuickBooks (`QuickBooksPay::recordOtherPayment()`), so it's never entered
+  twice. `guardReal()` / `testHere()` hold.
+- **(c) "Yes, create it":** a vendor bill recorded on an order (typed, or from their dropped invoice) is also created in
+  QuickBooks as a Bill against the vendor (amount, number, date, due), linked to the order. Paying vendors stays a
+  separate decision.
+He also approved M1b's design (mockups `open`, `open-after`) and M1 (PR #1320) in the same pop-up.

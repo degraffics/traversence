@@ -187,7 +187,7 @@ endpoint `/admin/api/<module>/<tool>`.
 in the admin command bar's look that stays at the top as you scroll (Jason, 2026-11-12).
 - Left: Back and the short name ("Order #9"), no pills. Right: **Save** (with a count) when changed, else **Close**, ▾
   for Save and close, Send, Close; **☰** for other actions and Shortcuts (they trigger the page's own buttons).
-- Where the record stands is a notices box under the strip (`news`), closed with ×, back only when it changes. Nothing
+- Where the record stands is a notices box under the strip (`news`), an informational notice closes with ×, back only when it changes; a state line carrying a task never closes. Nothing
   shown there is repeated below.
 - Each `h2.hb-h` section folds with a ▾ on its heading (the heading toggles it; remembered), and shows an unsaved dot. Section buttons name the section ("Save work order"); never a
   bare "Save and close" inside one. `'new'` forms and `data-confirm` buttons wait for their own button; searches `'skip'`.
@@ -270,9 +270,11 @@ correct what happened (with History), and ⋯ for every other valid move from it
 allowed).
 **Edit or Undo** (Jason, 2026-11-23: "Undo is for processes that must be rolled back as if they were never done"):
 a record someone entered (an email, an id, an address, a note, a setting) shows its value with **Edit**, reopening it
-in place, the old value kept in History, never Undo. **Undo** is only for an action that did something (a payment
-recorded, a split, a work order sent, Fix it, a scope approved) and can be rolled back as if never done; where it can't
-(an email delivered), say so instead.
+in place, the old value kept in History, never Undo. **Undo** is only for an action that did something (a split, a work
+order sent, Fix it, a scope approved) and can be rolled back as if never done; where it can't (an email delivered), say
+so instead. Money never has Undo: a payment read from QuickBooks shows ↗ to open it there; one recorded here and not
+processed has Cancel the record; one processed (charged or posted to QuickBooks) has Refund…, with Jason's OK
+(decisions/0178).
 **Icons for inline actions** (Jason, 2026-11-23: "action icons with tool tips over text saying action urls"): a
 record's or row's inline actions (Edit ✎, Copy, Open in a service ↗, Evidence, History, ⋯) are 30px round `tv_icon()`
 buttons in the card style, `title` and `aria-label` naming the action and target ("Open Google Cloud billing as …").
