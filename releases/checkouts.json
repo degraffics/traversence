@@ -264,6 +264,19 @@
    "expires": "2026-11-24T01:23:34Z",
    "release": "kit-buttons.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/ControlGauges.php",
+   "functions": [
+    "pickup"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
+   "why": "The session that has a request",
+   "since": "2026-11-23T21:23:38Z",
+   "expires": "2026-11-24T01:23:38Z",
+   "release": "kit-buttons.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
