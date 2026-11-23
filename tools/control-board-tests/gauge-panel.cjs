@@ -62,6 +62,21 @@ const red = (p, sel) => p.evaluate(s => [...document.querySelectorAll(s + ' *')]
         await c.click(); const v = await p.locator(sp + ' .cbg-sub:not([hidden])').count();
         t(L + 'a chip opens its view over the panel', v === 1); await p.click(sp + ' .cbg-sub:not([hidden]) [data-cbg-back]');
       }
+      // ⋯: the row's other moves, the defined ones only (Jason, 2026-11-23: suggested action, then ⋯; the session manager: no
+      // "Send to another build", no "Take the check out"); Esc, a click outside and choosing one close it
+      const rm = p.locator(row).locator('[data-cbg-rm]');
+      await rm.click();
+      const items = (await p.locator(row).locator('.cbg-rm [role=menuitem]').allTextContents()).map(x => x.trim());
+      t(L + '⋯ opens the row\'s other moves: See the evidence (or what a check found), Its row in Site health, Where this comes from', items.length >= 2 && /^(See the evidence|See what .* found)$/.test(items[0]) && items.includes('Where this comes from') && items.every(x => !/Send to another build|Take the check out|Fix it/.test(x)), items);
+      const mb = await p.locator(row).locator('.cbg-rm [role=menu]').boundingBox();
+      t(L + '…the menu wholly in the window', mb && mb.x >= 0 && mb.x + mb.width <= w + 1 && mb.y >= 0 && mb.y + mb.height <= (w > 500 ? 900 : 844) + 1, mb);
+      if (shots) await p.screenshot({ path: shots + '/gauge-more-' + w + '.png' });
+      await p.keyboard.press('Escape');
+      t(L + '…Esc closes the menu, not the panel', await p.locator(row).locator('.cbg-rm [role=menu]').isHidden() && await p.locator(sp).isVisible());
+      await rm.click(); await p.click(sp + ' .cbg-st >> nth=0');
+      t(L + '…a click outside closes it', await p.locator(row).locator('.cbg-rm [role=menu]').isHidden());
+      await rm.click(); await p.locator(row).locator('.cbg-rm [data-cbg-src]').click();
+      t(L + '…Where this comes from opens its fold, the menu closed', await p.locator(row).locator('.cbg-src').evaluate(d => d.open) && await p.locator(row).locator('.cbg-rm [role=menu]').isHidden());
       if (shots) { await p.locator(row).locator('.cbg-chip[data-cbg-open]').first().click(); await p.screenshot({ path: shots + '/gauge-evidence-' + w + '.png' }); await p.click(sp + ' .cbg-sub:not([hidden]) [data-cbg-back]'); }
       // one cycle: Request a fix → Requested with Undo; Undo puts it back; no Next
       await p.locator(row).locator('[data-cbg="fix"]').click(); await p.waitForSelector(sp + ' .cbg-done', { timeout: 8000 });

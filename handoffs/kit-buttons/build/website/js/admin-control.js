@@ -452,6 +452,8 @@
     d.innerHTML = '<span>' + html + '</span>' + (id ? '<button type="button" class="cbg-sl" data-cbg="undo" data-id="' + id + '">Undo</button>' : '');
     btn.hidden = true; d._btn = btn; (btn.closest('.cbg-acts') || btn).insertAdjacentElement('afterend', d); return d;
   }
+  function closeMore() { box.querySelectorAll('.cbg-rm [role=menu]').forEach(function (x) { if (!x.hidden) { x.hidden = true; x.classList.remove('up', 'lft'); x.previousElementSibling.setAttribute('aria-expanded', 'false'); } }); }
+  document.addEventListener('click', function (e) { if (!e.target.closest('.cbg-rm')) closeMore(); });   // a click outside closes a row's ⋯
   function cbgEsc(t) { return String(t || '').replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
   box.addEventListener('click', function (e) {
     var t = e.target.closest('button,a'); var leg = box.querySelector('.cbg-dleg:not([hidden])');
@@ -464,6 +466,14 @@
     if (t.hasAttribute('data-cbg-more') && g) { g.querySelector('.cbg-items').classList.add('cbg-all'); t.hidden = true; return; }
     if (t.classList.contains('cbg-ex')) { var ib = t.closest('.cbg-it').querySelector('.cbg-ib'); ib.hidden = !ib.hidden; t.setAttribute('aria-expanded', String(!ib.hidden)); return; }
     if (t.hasAttribute('data-cbg-to')) { e.preventDefault(); var c = document.getElementById((t.getAttribute('href') || '').slice(1)); if (c) { c.scrollIntoView({ block: 'center', behavior: 'smooth' }); c.classList.add('cbg-flash'); setTimeout(function () { c.classList.remove('cbg-flash'); }, 1400); var cb = c.querySelector('.cbg-b'); if (cb) cb.focus({ preventScroll: true }); } return; }
+    if (t.hasAttribute('data-cbg-rm')) {   // a row's ⋯: its other moves (one open at a time; ×-less, so Esc and a click outside close it)
+      var l = t.nextElementSibling, on = l.hidden; closeMore(); l.hidden = !on; t.setAttribute('aria-expanded', String(on));
+      if (on && l.getBoundingClientRect().left < 0) l.classList.add('lft');   // no room to its left (a phone): it opens to the right
+      if (on && l.getBoundingClientRect().bottom > window.innerHeight) l.classList.add('up');
+      return;
+    }
+    if (t.closest('.cbg-rm [role=menu]')) closeMore();
+    if (t.hasAttribute('data-cbg-src')) { var d = t.closest('.cbg-ib').querySelector('.cbg-src'); if (d) { d.open = true; d.scrollIntoView({ block: 'nearest' }); } return; }
     if (t.hasAttribute('data-cbg-open') && g) {   // a finding or a check over the panel, with Back; its Request a fix presses the row's
       e.preventDefault(); var sub = g.querySelector('[data-cbg-sub="' + t.getAttribute('data-cbg-open') + '"]'); if (!sub) return;
       sub._from = t.closest('.cbg-it'); var px = sub.querySelector('[data-cbg-proxy]'); if (px) px.hidden = !(sub._from && sub._from.querySelector('[data-cbg=fix]:not([hidden])'));
@@ -486,6 +496,7 @@
   });
   window.addEventListener('keydown', function (e) {   // Esc closes the dots' legend, then a sub view, before the panel (window's capture runs first)
     if (e.key !== 'Escape') return;
+    var m = box.querySelector('.cbg-rm [role=menu]:not([hidden])'); if (m) { e.stopImmediatePropagation(); e.stopPropagation(); closeMore(); m.previousElementSibling.focus(); return; }
     var l = box.querySelector('.cbg-dleg:not([hidden])'); if (l) { e.stopImmediatePropagation(); e.stopPropagation(); l.hidden = true; return; }
     var s2 = box.querySelector('.cbg-sub:not([hidden])'); if (s2) { e.stopImmediatePropagation(); e.stopPropagation(); s2.hidden = true; }
   }, true);
