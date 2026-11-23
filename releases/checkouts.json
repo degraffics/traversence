@@ -171,6 +171,19 @@
    "expires": "2026-11-23T18:58:03Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/admin/operations-console.php",
+   "functions": [
+    "tv_ops_ctx"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
+   "why": "board-fixes: jobs and words, Signs in as, the Sync chip (Jason, 2026-11-23)",
+   "since": "2026-11-23T14:58:06Z",
+   "expires": "2026-11-23T18:58:06Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
