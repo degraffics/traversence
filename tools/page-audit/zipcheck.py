@@ -17,6 +17,9 @@ Current first (Jason, 2026-11-11: "be sure you are checking main and faq before 
 overwriting other sessions"): it fetches the mirror and blocks when the checkout is behind its main (a newer sync is
 there: rebuild on it), and blocks when another session's zip that isn't live yet carries one of this zip's files (most
 often faq.md): wait for its upload and sync, then rebuild on the live copy. --allow-pending names such zips once checked.
+In flight means a pending delivery record in this copy, on main or on a branch pushed in the last two days, or another
+session's claim on main naming a release not yet live, whatever its functions or kind (2026-11-23: #270, checked from
+its branch, didn't see #269's record on the board's branch and overwrote three of its files; test_zipcheck_inflight.py).
 
 Lines added live since (the session manager, 2026-11-18, after 3f's faq.md took out 16 lines #147 put live while 3f
 waited): a zip sent earlier is checked again before it's merged. Its base is the sync its delivery record says it was
@@ -208,25 +211,88 @@ def lost_lines(docs, zpath, mirror, base=''):
                 out.append((n, base, gone, syncs))
     return out
 
-def others_pending(docs, zpath, allowed):
-    """Other zips in the delivery log, not live yet, that carry a file this zip carries."""
-    import json, glob
-    with zipfile.ZipFile(zpath) as z:
-        mine = {n for n in z.namelist() if not n.endswith('/')}
-    me = os.path.splitext(os.path.basename(zpath))[0]
+RECENT_DAYS = 2   # a branch pushed within this long may hold a release that's in flight
+
+def _git(docs, *args):
+    r = subprocess.run(['git', '-C', docs, *args], capture_output=True, text=True)
+    return r.returncode, r.stdout
+
+def _records(docs, fetch=True):
+    """Every delivery record that can be seen: [(name, record, where)].
+
+    The working copy alone missed today's clash (2026-11-23): board-fixes-4's record was on its own branch until 18:37:14,
+    orders-release-a was checked at 18:33 and merged at 18:37:33. So main and every branch pushed in the last
+    RECENT_DAYS count too."""
+    import glob
     out = []
     for f in sorted(glob.glob(os.path.join(docs, 'deliveries', '*.json'))):
         try:
-            d = json.load(open(f))
+            out.append((os.path.splitext(os.path.basename(f))[0], json.load(open(f)), 'this copy'))
         except Exception:
-            continue
-        name = os.path.splitext(os.path.basename(f))[0]
-        if name == me or name in allowed or d.get('status') != 'pending':
-            continue
-        hit = sorted(p for p, v in (d.get('files') or {}).items() if p in mine and not v.get('live'))
-        if hit:
-            out.append((name, hit))
+            pass
+    if fetch:
+        _git(docs, 'fetch', '-q', '--prune', 'origin')
+    rc, _ = _git(docs, 'rev-parse', '-q', '--verify', 'origin/main')
+    if rc != 0:
+        return out
+    refs = ['origin/main']
+    rc, lines = _git(docs, 'for-each-ref', '--format=%(refname:short) %(committerdate:unix)', 'refs/remotes/origin')
+    cutoff = checkout.now().timestamp() - RECENT_DAYS * 86400
+    for l in lines.splitlines():
+        ref, _, t = l.rpartition(' ')
+        if ref not in ('origin/main', 'origin/HEAD', 'origin') and t.isdigit() and int(t) >= cutoff:
+            refs.append(ref)
+    for ref in refs:
+        if ref == 'origin/main':
+            rc, names = _git(docs, 'ls-tree', '--name-only', 'origin/main', 'deliveries/')
+        else:   # only what the branch itself added or changed
+            rc, names = _git(docs, 'diff', '--name-only', '--diff-filter=AM', 'origin/main...' + ref, '--', 'deliveries/')
+        for n in names.splitlines():
+            if not (n.startswith('deliveries/') and n.endswith('.json') and n.count('/') == 1):
+                continue
+            rc, body = _git(docs, 'show', ref + ':' + n)
+            try:
+                out.append((os.path.splitext(os.path.basename(n))[0], json.loads(body), ref))
+            except Exception:
+                pass
     return out
+
+def others_pending(docs, zpath, allowed, session=None, claims=None, fetch=True):
+    """Other releases, not live yet, that carry a file this zip carries: [(name, files, where)].
+
+    A zip carries whole files, so a second one built without the first's lines takes them out when it's published,
+    whatever functions each claimed and whether either call it an add (2026-11-23: #270 overwrote #269 in tools.php,
+    kit-css.php and faq.md). In flight is any of: a delivery record still pending in this copy, on main or on a branch
+    pushed lately; or another session's claim on main naming a release that isn't live. faq.md is never exempt."""
+    with zipfile.ZipFile(zpath) as z:
+        mine = {n for n in z.namelist() if not n.endswith('/') and n != 'release.json'}
+    me = os.path.splitext(os.path.basename(zpath))[0]
+    recs = _records(docs, fetch)
+    done = {n for n, d, w in recs if d.get('status') in ('live', 'replaced') and w in ('this copy', 'origin/main')}
+    found = {}
+    for name, d, where in recs:
+        if name == me or name in allowed or name in done or d.get('status') != 'pending':
+            continue
+        hit = {p for p, v in (d.get('files') or {}).items() if p in mine and not (v or {}).get('live')}
+        if hit:
+            f = found.setdefault(name, [set(), []]); f[0] |= hit
+            if where not in f[1]:
+                f[1].append(where)
+    if claims is None:
+        try:
+            claims = checkout.load(docs, fetch=False)
+        except Exception:
+            claims = {'claims': []}
+    session = session or checkout.my_session()
+    for c in checkout.active(claims):
+        rel = os.path.splitext(c.get('release') or '')[0]
+        if not rel or rel == me or rel in allowed or rel in done or c.get('session') == session or c['path'] not in mine:
+            continue
+        f = found.setdefault(rel, [set(), []]); f[0].add(c['path'])
+        w = 'claimed by ' + c['session']
+        if w not in f[1]:
+            f[1].append(w)
+    return [(n, sorted(f[0]), ', '.join(f[1])) for n, f in sorted(found.items())]
 
 def main():
     ap = argparse.ArgumentParser()
@@ -249,7 +315,7 @@ def main():
                 shutil.copytree(src, os.path.join(over, top), ignore=shutil.ignore_patterns('.git'))
         stale = current(a.mirror)
         lost = [] if stale else lost_lines(docs, a.zip, a.mirror, a.base)
-        pending = others_pending(docs, a.zip, {d.strip() for d in a.allow_pending.split(',') if d.strip()})
+        pending = others_pending(docs, a.zip, {d.strip() for d in a.allow_pending.split(',') if d.strip()}, checkout.my_session(a.session))
         rows = []; dropped = []; churn = []
         allowed = {d.strip() for d in a.drops.split(',') if d.strip()}
         with zipfile.ZipFile(a.zip) as z:
@@ -325,8 +391,8 @@ def main():
                     print('    - ' + (l[:110] + '…' if len(l) > 110 else l))
         if pending:
             print(f'\nBLOCK another session\'s zip, not live yet, has the same files: wait for its upload and the sync, then rebuild on the live copy')
-            for z, fs in pending:
-                print(f'  {z}: {", ".join(fs)}')
+            for z, fs, where in pending:
+                print(f'  {z} ({where}): {", ".join(fs)}')
         if claimed:
             print('\nBLOCK checked out by another session (decisions/0161): build new beside old, or wait for its release')
             for c in claimed:
