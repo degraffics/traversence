@@ -152,6 +152,105 @@
    "expires": "2026-11-24T01:18:56Z",
    "release": "order-m1b.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/VendorBills.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kW2cGfR4Ya7fh2s3y",
+   "why": "M1b: what the system knows, what it asks (QuickBooks first, the Vendor line, vendor bills; decisions/0178 notes 2026-11-23)",
+   "since": "2026-11-23T21:19:03Z",
+   "expires": "2026-11-24T01:19:03Z",
+   "release": "order-m1b.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/QuickBooksPay.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kW2cGfR4Ya7fh2s3y",
+   "why": "M1b: what the system knows, what it asks (QuickBooks first, the Vendor line, vendor bills; decisions/0178 notes 2026-11-23)",
+   "since": "2026-11-23T21:19:03Z",
+   "expires": "2026-11-24T01:19:03Z",
+   "release": "order-m1b.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ClientOrders.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kW2cGfR4Ya7fh2s3y",
+   "why": "M1b: what the system knows, what it asks (QuickBooks first, the Vendor line, vendor bills; decisions/0178 notes 2026-11-23)",
+   "since": "2026-11-23T21:19:03Z",
+   "expires": "2026-11-24T01:19:03Z",
+   "release": "order-m1b.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/upload-targets.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kW2cGfR4Ya7fh2s3y",
+   "why": "M1b: what the system knows, what it asks (QuickBooks first, the Vendor line, vendor bills; decisions/0178 notes 2026-11-23)",
+   "since": "2026-11-23T21:19:03Z",
+   "expires": "2026-11-24T01:19:03Z",
+   "release": "order-m1b.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/staging-tables.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kW2cGfR4Ya7fh2s3y",
+   "why": "M1b: what the system knows, what it asks (QuickBooks first, the Vendor line, vendor bills; decisions/0178 notes 2026-11-23)",
+   "since": "2026-11-23T21:19:03Z",
+   "expires": "2026-11-24T01:19:03Z",
+   "release": "order-m1b.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Scheduler.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kW2cGfR4Ya7fh2s3y",
+   "why": "M1b: what the system knows, what it asks (QuickBooks first, the Vendor line, vendor bills; decisions/0178 notes 2026-11-23)",
+   "since": "2026-11-23T21:19:03Z",
+   "expires": "2026-11-24T01:19:03Z",
+   "release": "order-m1b.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/scripts/qb_orders_tick.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kW2cGfR4Ya7fh2s3y",
+   "why": "M1b: what the system knows, what it asks (QuickBooks first, the Vendor line, vendor bills; decisions/0178 notes 2026-11-23)",
+   "since": "2026-11-23T21:19:03Z",
+   "expires": "2026-11-24T01:19:03Z",
+   "release": "order-m1b.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/js/vendor-bill.js",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kW2cGfR4Ya7fh2s3y",
+   "why": "M1b: what the system knows, what it asks (QuickBooks first, the Vendor line, vendor bills; decisions/0178 notes 2026-11-23)",
+   "since": "2026-11-23T21:19:03Z",
+   "expires": "2026-11-24T01:19:03Z",
+   "release": "order-m1b.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/migrations/2026-11-23_m1b_vendor_bills.sql",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kW2cGfR4Ya7fh2s3y",
+   "why": "M1b: what the system knows, what it asks (QuickBooks first, the Vendor line, vendor bills; decisions/0178 notes 2026-11-23)",
+   "since": "2026-11-23T21:19:03Z",
+   "expires": "2026-11-24T01:19:03Z",
+   "release": "order-m1b.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
