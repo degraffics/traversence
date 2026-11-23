@@ -1,0 +1,26 @@
+{
+ "zip": "orders-money-fix.zip",
+ "built_on": "8b3ea37 Sync: 2026-11-23 13:42 UTC",
+ "recorded": "2026-11-23 14:30 UTC",
+ "note": "Orders: the money fix (Jason 2026-11-23, '(b) Fast fix first'): no card on an outside order, a client's order paid only on its own page, an approved total keeps its tax. Built on Sync: 2026-11-23 13:42 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/ClientOrders.php": {
+   "sha256": "1bc3d1c8e116582a20888741454c083861f71c33bcfd58a6e544b7633d565faf",
+   "live": false
+  },
+  "app/lib/QrIssue.php": {
+   "sha256": "6c31f555ec5564ed121d88d87319a633f5f1040fa27073ff32020435e88796a5",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "df840d5cdbd61012c39db3f93c89f4ec9934d6fead3a4ca2ef4f197354b4c303",
+   "live": false
+  },
+  "website/order.php": {
+   "sha256": "571bd0b31088ace4ca9678c08c2ce41e693cd9b206cd14ed2c88d7bdd6b566d4",
+   "live": false
+  }
+ }
+}

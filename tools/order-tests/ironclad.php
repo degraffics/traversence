@@ -115,7 +115,7 @@ r('Pay', 'An order paid outside QuickBooks, paid by card on its page', $m === ''
 // shipping changed after approval
 [$s] = $ready(); ClientOrders::approve($pdo, $o($s), 'Ironclad Client', $bill); $tot = (int) $o($s)['total_cents'];
 Shipments::setMode($pdo, $s, 'single', '', $staff);
-r('Pay', 'Shipping set to One address after approval', (int) $o($s)['total_cents'] === $tot ? 'WORKS' : 'BROKEN', 'Total ' . $tot . '¢ with tax became ' . $o($s)['total_cents'] . '¢ (recalc writes the pre-tax subtotal at any status: ClientOrders.php:2302)');
+r('Pay', 'Shipping set to One address after approval', (int) $o($s)['total_cents'] === $tot ? 'WORKS' : 'BROKEN', (int) $o($s)['total_cents'] === $tot ? 'Total stays ' . $tot . '¢ with its tax' : 'Total ' . $tot . '¢ with tax became ' . $o($s)['total_cents'] . '¢ (recalc writes the pre-tax subtotal at any status)');
 // a per-item shipping charge
 [$sc, $scl] = $ready(); $pdo->prepare("UPDATE orders SET status = 'draft' WHERE id = ?")->execute([$sc]);
 ClientOrders::setShip($pdo, $sc, $scl, ['style' => 'ship', 'carrier' => 'UPS', 'charge' => '25.00', 'cost' => '18.00'], $staff);
