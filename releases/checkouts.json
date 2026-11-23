@@ -223,6 +223,17 @@
    "expires": "2026-11-24T00:47:48Z",
    "release": "order-m1.zip",
    "callers": {}
+  },
+  {
+   "path": "app/admin/kit-css.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
+   "why": "Kit buttons in brand brown (brand.md, Jason 2026-11-19 'the button standard'; the session manager's queue 2026-11-23)",
+   "since": "2026-11-23T20:55:03Z",
+   "expires": "2026-11-24T00:55:03Z",
+   "release": "kit-buttons.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
