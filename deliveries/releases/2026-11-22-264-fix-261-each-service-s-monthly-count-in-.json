@@ -1,0 +1,44 @@
+{
+    "id": 264,
+    "title": "Fix #261: each service's monthly count in its own unit (Railway's are hours running, not calls)",
+    "why": "#261 labelled every service's monthly count as 'calls'. Railway records the seconds its services run (Frontier: W0 always on; CrawlService: a run's own seconds), so W0's line read 'Railway 469,266 calls, $0.65' where it is 130.4 hours running. Now Railway reads as hours running, web searches as searches, Google Places as checks, Tavily's extracts as pages, Claude as calls (words follow the state, principle 4; Jason, 2026-11-23: 'Railway=$62 WHAT?').",
+    "proposals": "",
+    "zip": "spend-units.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "approved",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": "2026-11-23 04:07:11",
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/admin/crawler-console.php": {
+            "sha": "a87f8717119117d2a3ccd08bc20750e4cd658ebbda5e43937a45d8b3db7cf06a",
+            "size": 27255,
+            "live_was": "df23c555554c53692fc8764bf3ada26d843eae04ce7cdf718ff9137e4abdd569"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-23T04:07:09+00:00",
+            "by": 0,
+            "msg": "Uploaded spend-units.zip: 1 files."
+        },
+        {
+            "at": "2026-11-23T04:07:11+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/spend-units.zip (git c680ff892d)."
+        },
+        {
+            "at": "2026-11-23T04:07:11+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
+        }
+    ]
+}
