@@ -1,8 +1,8 @@
 {
  "zip": "collect-balance.zip",
  "built_on": "130f41a Sync: 2026-11-23 19:01 UTC",
- "recorded": "2026-11-23 19:08 UTC",
- "note": "Collect the balance on an order shipped or ready with money owed; section links land below the command strip; FAQ. Built on Sync: 2026-11-23 19:01 UTC Sent through git (releases/inbox).",
+ "recorded": "2026-11-23 19:15 UTC",
+ "note": "Collect the balance on an order shipped or ready with money owed; section links land below the command strip; the payment hold said once on the order page; FAQ. Built on Sync: 2026-11-23 19:01 UTC Sent through git (releases/inbox).",
  "status": "pending",
  "live_in": "",
  "files": {
@@ -16,6 +16,10 @@
   },
   "app/ui/faq.md": {
    "sha256": "87b186cd216be2564d9b3ad4fdb0479511e2291d4a91ee1e12bd64608952f44f",
+   "live": false
+  },
+  "website/admin/client-order.php": {
+   "sha256": "fdd90d5f3411e9729e8d403aa41e9c2b0fa8c37c6a847165f9e5edc203323eae",
    "live": false
   }
  }
