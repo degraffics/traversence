@@ -33,7 +33,7 @@ R=[
 ('control-board','Receipt counts','"received 100, accounted for 80" fixed','Loads, W2 places, refresh','','Counts add up','3','',[]),
 ('control-board','Plain alarm titles','Plain names for /api/crawl/…','','','','3','',[]),
 ('control-board','The :17 crowd','Spread the hourly jobs','Scheduler presets, sync moves lines','','Every hourly job runs each hour','2','After your :02 test',[]),
-('orders','M2b: how an order goes',"Delivery reads the vendor's leg until Receive, then the leg to the client","0101's methods, Change how it goes, vendor email",'Courier or freight booking through outside services','Live; Order #12 reads right','2','Built, paused by you (PR #1346)',['0101']),
+('orders','M2b: how an order goes',"Delivery reads the vendor's leg until Receive, then the leg to the client","0101's methods, the Change-how-it-goes step, vendor email",'Courier or freight booking through outside services','Live; Order #12 reads right','2','Built, paused by you (PR #1346)',['0101']),
 ('orders','M3: Money section','Who owes what (aging), Take a payment across orders, credits on account','','','','2','',[]),
 ('orders','M4: Place an order, guided','Client, items, where and tax, terms, review and send','The old E-Commerce orders page retired','','','2','',[]),
 ('orders','M5: several destinations','One order, several ship-tos, one invoice each','Decision 0177','','','3','',['0177']),

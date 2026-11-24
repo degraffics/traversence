@@ -1,0 +1,14 @@
+{
+ "zip": "task-seed.zip",
+ "built_on": "529da6f Sync: 2026-11-24 13:39 UTC",
+ "recorded": "2026-11-24 13:40 UTC",
+ "note": "task-seed: every row of Jason's scope doc in the Work queue, with its scope and decisions; reviewed by the session manager; built on Sync: 13:39 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/migrations/2026-11-24_task_seed.sql": {
+   "sha256": "3d166fc5554ea43f00dae0b05dc0b267f9b6515097508a8fd172cf8865a5f5fe",
+   "live": false
+  }
+ }
+}
