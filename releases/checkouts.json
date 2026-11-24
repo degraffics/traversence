@@ -4,6 +4,22 @@
   {
    "path": "app/lib/ClientOrders.php",
    "functions": [
+    "boardState",
+    "deliverables"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5j2wAgTrKdTwX6kQNY",
+   "why": "M2b: how an order goes (decisions/0101's note)",
+   "since": "2026-11-24T11:59:12Z",
+   "expires": "2026-11-24T15:59:12Z",
+   "release": "order-m2b.zip",
+   "callers": {}
+  }
+ ],
+ "lapsed": [
+  {
+   "path": "app/lib/ClientOrders.php",
+   "functions": [
     "(top)",
     "boardState",
     "deliverables"
@@ -19,7 +35,8 @@
      "app/admin/tools.php",
      "website/admin/client-order.php"
     ]
-   }
+   },
+   "lapsed": "2026-11-24T11:59:12Z"
   },
   {
    "path": "app/lib/WorkOrders.php",
@@ -38,7 +55,8 @@
     "setTracking": [
      "app/admin/tools.php"
     ]
-   }
+   },
+   "lapsed": "2026-11-24T11:59:12Z"
   },
   {
    "path": "website/admin/client-order.php",
@@ -49,7 +67,8 @@
    "since": "2026-11-24T03:02:57Z",
    "expires": "2026-11-24T07:43:44Z",
    "release": "order-m2b.zip",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-24T11:59:12Z"
   },
   {
    "path": "app/lib/ClientOrders.php",
@@ -62,7 +81,8 @@
    "since": "2026-11-24T03:23:32Z",
    "expires": "2026-11-24T07:23:32Z",
    "release": "order-m2b.zip",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-24T11:59:12Z"
   },
   {
    "path": "app/lib/WorkOrders.php",
@@ -78,7 +98,8 @@
    "since": "2026-11-24T03:23:36Z",
    "expires": "2026-11-24T07:36:19Z",
    "release": "order-m2b.zip",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-24T11:59:12Z"
   },
   {
    "path": "app/admin/tools.php",
@@ -93,7 +114,8 @@
    "since": "2026-11-24T03:23:49Z",
    "expires": "2026-11-24T07:43:44Z",
    "release": "order-m2b.zip",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-24T11:59:12Z"
   },
   {
    "path": "app/admin/control-console.php",
@@ -119,7 +141,8 @@
     "tv_cb_table_rows": [
      "app/admin/tools.php"
     ]
-   }
+   },
+   "lapsed": "2026-11-24T11:59:12Z"
   },
   {
    "path": "website/js/admin-control.js",
@@ -130,7 +153,8 @@
    "since": "2026-11-24T05:47:58Z",
    "expires": "2026-11-24T09:47:58Z",
    "release": "board-phone-header.zip",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-24T11:59:12Z"
   },
   {
    "path": "website/js/tv-ask.js",
@@ -141,7 +165,8 @@
    "since": "2026-11-24T05:47:58Z",
    "expires": "2026-11-24T09:47:58Z",
    "release": "board-phone-header.zip",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-24T11:59:12Z"
   },
   {
    "path": "app/admin/tools.php",
@@ -154,7 +179,8 @@
    "since": "2026-11-24T05:47:58Z",
    "expires": "2026-11-24T09:47:58Z",
    "release": "board-phone-header.zip",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-24T11:59:12Z"
   },
   {
    "path": "app/lib/ControlBoard.php",
@@ -172,7 +198,8 @@
      "app/admin/control-console.php",
      "app/lib/ControlHistorian.php"
     ]
-   }
+   },
+   "lapsed": "2026-11-24T11:59:12Z"
   },
   {
    "path": "app/lib/Scheduler.php",
@@ -203,7 +230,8 @@
      "website/admin/api/find.php",
      "website/api/health.php"
     ]
-   }
+   },
+   "lapsed": "2026-11-24T11:59:12Z"
   },
   {
    "path": "app/lib/AuditClock.php",
@@ -216,7 +244,8 @@
    "since": "2026-11-24T05:47:58Z",
    "expires": "2026-11-24T09:47:58Z",
    "release": "board-phone-header.zip",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-24T11:59:12Z"
   },
   {
    "path": "app/lib/ControlAlarms.php",
@@ -235,7 +264,8 @@
      "app/lib/ControlConsistency.php",
      "website/admin/router.php"
     ]
-   }
+   },
+   "lapsed": "2026-11-24T11:59:12Z"
   },
   {
    "path": "website/admin/router.php",
@@ -248,7 +278,8 @@
    "since": "2026-11-24T05:47:58Z",
    "expires": "2026-11-24T09:47:58Z",
    "release": "board-phone-header.zip",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-24T11:59:12Z"
   },
   {
    "path": "website/api/health.php",
@@ -259,10 +290,9 @@
    "since": "2026-11-24T05:52:29Z",
    "expires": "2026-11-24T09:52:29Z",
    "release": "board-phone-header.zip",
-   "callers": {}
-  }
- ],
- "lapsed": [
+   "callers": {},
+   "lapsed": "2026-11-24T11:59:12Z"
+  },
   {
    "path": "website/admin/api.php",
    "functions": [
@@ -828,251 +858,6 @@
     ]
    },
    "lapsed": "2026-11-22T19:18:29Z"
-  },
-  {
-   "path": "app/ui/domains-view.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5grMsUgrRMJv3a71F9",
-   "why": "3e: Marketplace, checkout, storefronts' own chrome and domains onto the tokens (css-theme-brand \u00a74 Release 3), layouts kept; the owner's accent warning below 4.5:1 (admin-design.md)",
-   "since": "2026-11-22T14:45:07Z",
-   "expires": "2026-11-22T18:58:45Z",
-   "release": "design-3e.zip",
-   "callers": {
-    "tv_domains_view": [
-     "app/business/domains.php",
-     "website/shop/domains.php",
-     "website/user/domains/index.php"
-    ]
-   },
-   "lapsed": "2026-11-22T19:18:29Z"
-  },
-  {
-   "path": "app/ui/storefront-view.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5grMsUgrRMJv3a71F9",
-   "why": "3e: Marketplace, checkout, storefronts' own chrome and domains onto the tokens (css-theme-brand \u00a74 Release 3), layouts kept; the owner's accent warning below 4.5:1 (admin-design.md)",
-   "since": "2026-11-22T14:45:07Z",
-   "expires": "2026-11-22T18:58:45Z",
-   "release": "design-3e.zip",
-   "callers": {},
-   "lapsed": "2026-11-22T19:18:29Z"
-  },
-  {
-   "path": "trvgo/index.php",
-   "functions": [
-    "(top)"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5grMsUgrRMJv3a71F9",
-   "why": "3e: Marketplace, checkout, storefronts' own chrome and domains onto the tokens (css-theme-brand \u00a74 Release 3), layouts kept; the owner's accent warning below 4.5:1 (admin-design.md)",
-   "since": "2026-11-22T14:45:07Z",
-   "expires": "2026-11-22T18:58:45Z",
-   "release": "design-3e.zip",
-   "callers": {},
-   "lapsed": "2026-11-22T19:18:29Z"
-  },
-  {
-   "path": "app/business/storefront.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5grMsUgrRMJv3a71F9",
-   "why": "3e: Marketplace, checkout, storefronts' own chrome and domains onto the tokens (css-theme-brand \u00a74 Release 3), layouts kept; the owner's accent warning below 4.5:1 (admin-design.md)",
-   "since": "2026-11-22T14:45:07Z",
-   "expires": "2026-11-22T18:58:45Z",
-   "release": "design-3e.zip",
-   "callers": {
-    "tv_biz_storefront_act": [
-     "website/business/api.php"
-    ]
-   },
-   "lapsed": "2026-11-22T19:18:29Z"
-  },
-  {
-   "path": "app/lib/Storefront.php",
-   "functions": [
-    "save"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5grMsUgrRMJv3a71F9",
-   "why": "3e: Marketplace, checkout, storefronts' own chrome and domains onto the tokens (css-theme-brand \u00a74 Release 3), layouts kept; the owner's accent warning below 4.5:1 (admin-design.md)",
-   "since": "2026-11-22T14:45:07Z",
-   "expires": "2026-11-22T18:45:07Z",
-   "release": "design-3e.zip",
-   "callers": {
-    "save": [
-     "app/business/storefront.php"
-    ]
-   },
-   "lapsed": "2026-11-22T19:18:29Z"
-  },
-  {
-   "path": "app/lib/Storefront.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5grMsUgrRMJv3a71F9",
-   "why": "release design-3e.zip",
-   "since": "2026-11-22T14:58:45Z",
-   "expires": "2026-11-22T18:58:45Z",
-   "release": "design-3e.zip",
-   "callers": {},
-   "lapsed": "2026-11-22T19:18:29Z"
-  },
-  {
-   "path": "app/lib/Operations.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
-   "why": "Workflow audit: a source down holds only what uses it",
-   "since": "2026-11-21T03:28:58Z",
-   "expires": "2026-11-21T07:28:58Z",
-   "release": "workflow-holds.zip",
-   "callers": {
-    "blocking": [
-     "app/admin/automation-console.php",
-     "app/admin/operations-console.php",
-     "app/lib/ControlBoard.php",
-     "app/lib/Preflight.php",
-     "app/lib/WorkflowSettings.php"
-    ]
-   },
-   "lapsed": "2026-11-21T09:17:36Z"
-  },
-  {
-   "path": "app/lib/Preflight.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
-   "why": "Workflow audit: a source down holds only what uses it",
-   "since": "2026-11-21T03:28:58Z",
-   "expires": "2026-11-21T07:28:58Z",
-   "release": "workflow-holds.zip",
-   "callers": {},
-   "lapsed": "2026-11-21T09:17:36Z"
-  },
-  {
-   "path": "app/lib/ServiceHealth.php",
-   "functions": [
-    "alarm",
-    "answered"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
-   "why": "Workflow audit: a source down holds only what uses it",
-   "since": "2026-11-21T03:28:58Z",
-   "expires": "2026-11-21T07:28:58Z",
-   "release": "workflow-holds.zip",
-   "callers": {
-    "answered": [
-     "app/lib/Preflight.php"
-    ],
-    "alarm": [
-     "app/lib/ControlAlarms.php"
-    ]
-   },
-   "lapsed": "2026-11-21T09:17:36Z"
-  },
-  {
-   "path": "app/lib/ControlBoard.php",
-   "functions": [
-    "pausedHtml"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
-   "why": "Workflow audit: a source down holds only what uses it",
-   "since": "2026-11-21T03:28:58Z",
-   "expires": "2026-11-21T07:28:58Z",
-   "release": "workflow-holds.zip",
-   "callers": {
-    "pausedHtml": [
-     "app/admin/automation-console.php",
-     "app/admin/control-console.php"
-    ]
-   },
-   "lapsed": "2026-11-21T09:17:36Z"
-  },
-  {
-   "path": "app/lib/ControlAlarms.php",
-   "functions": [
-    "stop"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
-   "why": "Workflow audit: a source down holds only what uses it",
-   "since": "2026-11-21T03:28:58Z",
-   "expires": "2026-11-21T07:28:58Z",
-   "release": "workflow-holds.zip",
-   "callers": {},
-   "lapsed": "2026-11-21T09:17:36Z"
-  },
-  {
-   "path": "app/lib/crawler/CrawlService.php",
-   "functions": [
-    "plan"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
-   "why": "Workflow audit: a source down holds only what uses it",
-   "since": "2026-11-21T03:28:58Z",
-   "expires": "2026-11-21T07:28:58Z",
-   "release": "workflow-holds.zip",
-   "callers": {
-    "plan": [
-     "website/api/crawl/service.php"
-    ]
-   },
-   "lapsed": "2026-11-21T09:17:36Z"
-  },
-  {
-   "path": "app/lib/service-defs.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
-   "why": "Workflow audit: a source down holds only what uses it",
-   "since": "2026-11-21T03:28:58Z",
-   "expires": "2026-11-21T07:28:58Z",
-   "release": "workflow-holds.zip",
-   "callers": {},
-   "lapsed": "2026-11-21T09:17:36Z"
-  },
-  {
-   "path": "app/admin/preflight-console.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
-   "why": "Workflow audit: a source down holds only what uses it",
-   "since": "2026-11-21T03:28:58Z",
-   "expires": "2026-11-21T07:28:58Z",
-   "release": "workflow-holds.zip",
-   "callers": {},
-   "lapsed": "2026-11-21T09:17:36Z"
-  },
-  {
-   "path": "app/ui/outside-services.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
-   "why": "Workflow audit: a source down holds only what uses it",
-   "since": "2026-11-21T03:28:58Z",
-   "expires": "2026-11-21T07:28:58Z",
-   "release": "workflow-holds.zip",
-   "callers": {},
-   "lapsed": "2026-11-21T09:17:36Z"
-  },
-  {
-   "path": "app/admin/operations-console.php",
-   "functions": [
-    "tv_ops_ctx"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5jC5aZcEZtdMWtd4Gb",
-   "why": "Workflow audit: a source down holds only what uses it",
-   "since": "2026-11-21T03:28:58Z",
-   "expires": "2026-11-21T07:28:58Z",
-   "release": "workflow-holds.zip",
-   "callers": {},
-   "lapsed": "2026-11-21T09:17:36Z"
   }
  ]
 }
