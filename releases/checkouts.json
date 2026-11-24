@@ -23,13 +23,14 @@
    "path": "app/lib/ClientOrders.php",
    "functions": [
     "(top)",
-    "boardState"
+    "boardState",
+    "deliverables"
    ],
    "kind": "change",
    "session": "session_01CXLi5j2wAgTrKdTwX6kQNY",
-   "why": "M2b: Delivery reads the vendor's leg until Receive, then the client's (decisions/0101 note 2026-11-24)",
+   "why": "M2b: public, for the Delivery line's panes",
    "since": "2026-11-24T03:02:52Z",
-   "expires": "2026-11-24T07:02:52Z",
+   "expires": "2026-11-24T07:23:34Z",
    "release": "order-m2b.zip",
    "callers": {
     "boardState": [
