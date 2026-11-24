@@ -1,6 +1,6 @@
 <?php
 // For task-trip.cjs: W1's two task trips as live (each pausing W1) and a founder; then the presses for a state:
-// php task-trip-seed.php <root>/app <one|waiting|failed>   one: overture pressed (W1 still held by Foursquare's trip);
+// php task-trip-seed.php <root>/app <before|one|waiting|failed>   before: as live, Overture's seen by Jason, nothing pressed;   one: overture pressed (W1 still held by Foursquare's trip);
 // waiting: both pressed (W1 runs again); failed: both pressed, then Foursquare's next run failed. Prints the trips' ids.
 declare(strict_types=1);
 $app = $argv[1]; $state = $argv[2] ?? 'waiting';
@@ -21,6 +21,7 @@ $trip = function (string $task, int $run) use ($pdo): int {
     return $id;
 };
 $ov = $trip('overture_bulk', 1290); $fs = $trip('foursquare_bulk', 1288); Automation::forget();
+if ($state === 'before') { ControlAlarms::ack($pdo, $ov, 7, 'Jason'); echo $ov . ' ' . $fs; exit; }
 ControlAlarms::resolve($pdo, $ov, 7, 'Jason', ''); Automation::forget();
 if ($state !== 'one') { ControlAlarms::resolve($pdo, $fs, 7, 'Jason', ''); Automation::forget(); }
 if ($state === 'failed') ControlAlarms::raise($pdo, 'task:failed:foursquare_bulk', 'wf:W1', 'trip', 'crash', 'foursquare_bulk failed in its own code (run #2102)', 'Its work goes back and its next run tries it again.', 'Read its why.', "TimeoutError('The read operation timed out')", [], true, false, 'task:foursquare_bulk');

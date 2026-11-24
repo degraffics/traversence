@@ -311,7 +311,7 @@ final class ControlAlarms
         $what = $refs ? implode(', ', array_map(fn ($r) => str_starts_with($r, 'wf:') ? substr($r, 3) : $r, array_unique($refs))) : '';
         $still = self::stillHolding($pdo, $a, $id);
         if ($still) return 'This trip\'s pause is lifted ' . $when . '. ' . $what . ' is still paused by ' . (count($still) === 1 ? 'one more trip: ' : count($still) . ' more trips: ')
-            . implode('; ', array_map(fn ($o) => self::plainTrip($pdo, $o), $still)) . '. Once both are cleared, ' . $what . '\'s next run is this task\'s check: it closes as Fixed if it works, or trips again if not.';
+            . implode('; ', array_map(fn ($o) => self::plainTrip($pdo, $o), $still)) . '. Once both are lifted, ' . $what . '\'s next run is this task\'s check: it closes as Fixed if it works, or trips again if not.';
         if ($lifted > 0) {
             $runs = $what . ' runs again ' . $when . '. Its next run is this task\'s check: it closes as Fixed if it works, or trips again if not.';
             // the trips pressed before this one, waiting on it, now say the same (their card follows the state)
@@ -350,7 +350,7 @@ final class ControlAlarms
         if (preg_match('/^task:failed:(.+)$/', (string) $o['akey'], $m)) {
             $nm = '';
             try { $st = $pdo->prepare('SELECT name FROM crawl_capture_tasks WHERE task = ?'); $st->execute([$m[1]]); $nm = trim(explode(':', (string) ($st->fetchColumn() ?: ''))[0]); } catch (Throwable $x) {}
-            if ($nm !== '') return $nm . ' failed' . (preg_match('/\(run #\d+\)/', (string) $o['title'], $r) ? ' ' . $r[0] : '');
+            if ($nm !== '') return $nm . (str_ends_with($nm, 's') ? '\'' : '\'s') . ' read failed' . (preg_match('/\(run #\d+\)/', (string) $o['title'], $r) ? ' ' . $r[0] : '');
         }
         return (string) $o['title'];
     }
@@ -359,6 +359,12 @@ final class ControlAlarms
      * A task's trip started again for its next run: its words, or ''. The card shows this state in place of the trip's (Jason,
      * 2026-11-24: "every action … replace old states with new state"): no Check and start again, nothing held.
      */
+    public static function wholeWorkflowTrip(array $a): bool
+    {
+        // a task's own-code trip that paused its whole workflow (raised before the one engine, which pauses only the task)
+        return str_starts_with((string) $a['akey'], 'task:failed:') && (bool) array_filter(self::pausedRefs($a), fn ($r) => str_starts_with($r, 'wf:'));
+    }
+
     public static function startedAgain(array $a): string
     {
         $n = (string) ($a['resolve_note'] ?? '');
@@ -1024,9 +1030,17 @@ final class ControlAlarms
             if ($ed !== '') $doing = $ed;
         }
         $sa = self::startedAgain($a);
+        // a task's trip in one sentence, no nested brackets (the session manager, from Jason's 390 screenshot, 2026-11-24):
+        // "W1 is paused by the system since …, after Overture Maps Places' read failed (run #1290)."
+        $taskTrip = !$cl && $isTrip && $sa === '' && self::wholeWorkflowTrip($a);
+        if ($taskTrip) $status = implode(', ', array_map(fn ($r) => str_starts_with($r, 'wf:') ? substr($r, 3) : $r, array_unique(self::pausedRefs($a)))) . ' is paused by the system since ' . self::at((string) $a['tripped_at']) . ', after ' . self::plainTrip($pdo, $a) . '.'
+            . ($a['ack_at'] !== null ? ' Seen by ' . (string) ($a['ack_name'] ?? 'staff') . ', ' . self::at((string) $a['ack_at']) . '.' : '')
+            . (str_starts_with((string) ($a['resolve_note'] ?? ''), 'Tried again at ') ? ' ' . (string) $a['resolve_note'] : '');
+        $tw = $taskTrip ? implode(', ', array_map(fn ($r) => str_starts_with($r, 'wf:') ? substr($r, 3) : $r, array_unique(self::pausedRefs($a)))) : '';
+        if ($taskTrip) $doing = 'Only ' . $tw . ' waits; everything else carries on. It closes as Fixed when this task\'s next run works.';
         if ($sa !== '') { $status = $sa; $doing = 'Nothing is paused for this trip. Its next run is the check.'; }   // the press's state replaces the trip's
-        elseif (!$cl && $a['ack_at'] !== null) $status .= ' Acknowledged by ' . (string) ($a['ack_name'] ?? 'staff') . '.';
-        if (!$cl && str_starts_with((string) ($a['resolve_note'] ?? ''), 'Tried again at ')) $status .= ' ' . (string) $a['resolve_note'];
+        elseif (!$cl && $a['ack_at'] !== null && !$taskTrip) $status .= ' Acknowledged by ' . (string) ($a['ack_name'] ?? 'staff') . '.';
+        if (!$cl && !$taskTrip && str_starts_with((string) ($a['resolve_note'] ?? ''), 'Tried again at ')) $status .= ' ' . (string) $a['resolve_note'];
         if (!$cl && $isTrip && !empty($a['good_at'])) $status .= ' Its reading is good again since ' . self::at((string) $a['good_at']) . ': ' . (string) $a['good_how'];
         if (!$cl && str_starts_with((string) ($a['resolve_note'] ?? ''), 'Not resolved')) $status .= ' ' . (string) $a['resolve_note'];
         $det = [];
@@ -1037,7 +1051,7 @@ final class ControlAlarms
         require_once __DIR__ . '/Thread.php';
         return ['title' => (string) $a['title'], 'level' => $cl ? 'closed' : $lv, 'pill' => $cl ? 'Cleared' : (self::LEVELS[$lv] ?? $lv),
         // 'holds': only a trip holds its part; a warning holds nothing (words true to state; the design review, 2026-11-23)
-                'status' => trim($status), 'affects' => self::affects($pdo, $a), 'holds' => $a['level'] === 'trip' && !empty($a['tripped_at']) && $sa === '' ? self::partName($pdo, (string) $a['proc']) : '', 'doing' => ($theirs && $doing !== '' ? Thread::HANDLING . ': ' : '') . $doing, 'todo' => $sa !== '' ? (str_starts_with($sa, 'This trip\'s pause is lifted (') && self::stillHolding($pdo, $a, (int) $a['id']) ? 'Press the other trip\'s Check and start again (below); then it waits for its run.' : 'Nothing to do now: it closes by itself when that run works.') : (string) $a['todo'], 'details' => $det,
+                'status' => trim($status), 'affects' => self::affects($pdo, $a), 'holds' => $a['level'] === 'trip' && !empty($a['tripped_at']) && $sa === '' ? self::partName($pdo, (string) $a['proc']) : '', 'doing' => ($theirs && $doing !== '' ? Thread::HANDLING . ': ' : '') . $doing, 'todo' => $taskTrip ? 'Read its why (its run, beside this). Then Check and start again: ' . $tw . ' runs, and its next run is this task\'s check.' : ($sa !== '' ? (str_starts_with($sa, 'This trip\'s pause is lifted (') && self::stillHolding($pdo, $a, (int) $a['id']) ? 'Press the other trip\'s Check and start again (below); then it waits for its run.' : 'Nothing to do now: it closes by itself when that run works.') : (string) $a['todo']), 'details' => $det,
                 'fix' => $theirs ? null : $fix, 'theirs' => $theirs];
     }
 
@@ -1088,6 +1102,7 @@ final class ControlAlarms
     {
         $out = []; $sw = self::stoppedWords($a);
         if (self::startedAgain($a) !== '') { /* started again: nothing of its own is paused now (its Status says what still holds) */ }
+        elseif (self::wholeWorkflowTrip($a) && $a['cleared_at'] === null && $a['level'] === 'trip' && !empty($a['tripped_at'])) { /* its Holds and its Status say it once */ }
         elseif ($sw !== '' && $a['cleared_at'] === null) $out[] = 'Paused by the system: ' . $sw;
         elseif ($a['cleared_at'] === null && $a['level'] === 'trip' && !empty($a['tripped_at']) && empty($a['retrying_at'])) $out[] = 'Nothing could be paused from here (it only trips)';
         $proc = (string) $a['proc'];

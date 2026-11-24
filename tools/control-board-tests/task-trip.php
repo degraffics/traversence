@@ -22,7 +22,7 @@ Automation::set($pdo, 'master', 'all', false, 'test', 7, 'Jason'); Automation::s
 ControlEngine::$checker = fn (string $c) => ['pass' => null, 'proof' => 'its next run is its check'];
 // W1's live state as read (2026-11-23): two trips on the task's own code, each holding W1 with its own pause
 $trip = function (string $task, int $run) use ($pdo): int {
-    ControlAlarms::raise($pdo, 'task:failed:' . $task, 'wf:W1', 'trip', 'crash', $task . ' failed in its own code (run #' . $run . ')', 'Its work goes back.', 'Read its why.', "TimeoutError('The read operation timed out')", [], true, false, 'task:' . $task);
+    ControlAlarms::raise($pdo, 'task:failed:' . $task, 'wf:W1', 'trip', 'crash', $task . ' failed in its own code (run #' . $run . ')', 'Its work goes back.', 'Read its why.', "TimeoutError('The read operation timed out')", [['Run #' . $run, 'peek', '/admin/insights/crawler?run=' . $run], ['Try it first on the next run', 'ops', 'ops_runnext:' . $task], ['Pause the task', 'ops', 'ops_task_off:' . $task]], true, false, 'task:' . $task);
     $id = (int) $pdo->query("SELECT id FROM control_alarms WHERE akey = 'task:failed:" . $task . "'")->fetchColumn();
     $pdo->prepare("UPDATE control_alarms SET level = 'trip', tripped_at = UTC_TIMESTAMP(), stopped = ? WHERE id = ?")->execute([json_encode([['pause', 'wf:W1', 'W1 (its tasks wait with it)']]), $id]);
     Automation::sysPause($pdo, 'wf', 'W1', $task . ' failed in its own code', $id);
@@ -30,6 +30,17 @@ $trip = function (string $task, int $run) use ($pdo): int {
 };
 $pdo->exec("UPDATE crawl_capture_tasks SET name = CASE task WHEN 'overture_bulk' THEN 'Overture Maps Places: load by town' ELSE 'Foursquare: load by town' END WHERE task IN ('overture_bulk', 'foursquare_bulk')");
 $ov = $trip('overture_bulk', 1290); $fs = $trip('foursquare_bulk', 1288); Automation::forget();
+// the card before any press, in one sentence (the session manager, from Jason's 390 screenshot)
+$f00 = ControlAlarms::facts($pdo, ControlAlarms::byId($pdo, $ov));
+$t('a task\'s trip: one Status sentence, no nested brackets: "W1 is paused by the system since …, after Overture Maps Places\' read failed (run #1290)."', preg_match('/^W1 is paused by the system since .+, after Overture Maps Places\' read failed \(run #1290\)\.$/', $f00['status']) === 1 && !str_contains($f00['status'], '(W1 ('), $f00['status']);
+$t('…what it affects said once: Holds W1, no second "Paused by the system: W1…"', $f00['holds'] !== '' && !array_filter($f00['affects'], fn ($x) => str_starts_with($x, 'Paused by the system')), $f00['affects']);
+ControlAlarms::ack($pdo, $ov, 7, 'Jason');
+$f01 = ControlAlarms::facts($pdo, ControlAlarms::byId($pdo, $ov));
+$t('…acknowledged: "Seen by Jason, …." in its Status (a state line, never "Acknowledged" with an Undo)', str_contains($f01['status'], ' Seen by Jason, ') && !str_contains($f01['status'], 'Acknowledged'), $f01['status']);
+$h00 = tv_admin_mod_control($pdo); $l00 = preg_match('~<li id="cb-alarm-' . $ov . '".*?</li>~s', $h00, $m00) ? html_entity_decode($m00[0], ENT_QUOTES) : '';
+foreach (['act' => str_contains($l00, '>Check and start again<'), 'ev' => str_contains($l00, 'title="Open Run #1290: what it did and why"'), 'more' => preg_match('~<details class="cb-pop cb-more">.*Try it first on the next run.*Pause the task.*</details>~s', $l00) === 1, 'undo' => !str_contains($l00, '>Undo<'), 'seen' => !str_contains($l00, 'cb-seen')] as $k => $v) if (!$v) echo "  (part $k)\n";
+$t('…its row: one action (Check and start again), Run #1290 an evidence icon, Try it first and Pause the task under ⋯, no Undo, no loose "by Jason…" line', str_contains($l00, '>Check and start again<') && str_contains($l00, 'title="Open Run #1290: what it did and why"') && preg_match('~<details class="cb-pop cb-more">.*Try it first on the next run.*Pause the task.*</details>~s', $l00) === 1 && !str_contains($l00, '>Undo<') && !str_contains($l00, 'cb-seen'), mb_substr(strip_tags($l00), 0, 300));
+$t('…its mark the stopped (power) icon, never an ×', str_contains($l00, 'aria-label="Stopped: needs an admin"') && !preg_match('~aria-label="Stopped: needs an admin"[^>]*>[^<]*<svg[^>]*><path d="M18 6 6 18~', $l00));
 $inPlan = fn (string $task) => Automation::sysAny($pdo, ['wf:W1', 'task:' . $task]) === null;
 $t('as live: W1 paused by the system, so the planner skips overture_bulk', !$inPlan('overture_bulk'));
 $held = CrawlService::runNext($pdo, 'overture_bulk');
@@ -37,12 +48,12 @@ $t('"Try it first on the next run" while W1 is paused: says it won\'t run and wh
 
 [$ok, $msg] = ControlAlarms::resolve($pdo, $ov, 7, 'Jason', ''); Automation::forget();
 $t('pressed on overture_bulk: its own pause lifted', (int) $pdo->query("SELECT COUNT(*) FROM system_pauses WHERE alarm_id = $ov AND cleared_at IS NULL")->fetchColumn() === 0);
-$t('…"This trip\'s pause is lifted (Jason, …). W1 is still paused by one more trip: Foursquare failed (run #1288)." in plain words, never "acknowledged"', $ok && str_starts_with($msg, 'This trip\'s pause is lifted (Jason, ') && str_contains($msg, 'W1 is still paused by one more trip: Foursquare failed (run #1288).') && str_contains($msg, 'Once both are cleared, W1\'s next run is this task\'s check') && !str_contains($msg, 'foursquare_bulk'), $msg);
+$t('…"This trip\'s pause is lifted (Jason, …). W1 is still paused by one more trip: Foursquare\'s read failed (run #1288)." in plain words, never "acknowledged"', $ok && str_starts_with($msg, 'This trip\'s pause is lifted (Jason, ') && str_contains($msg, 'W1 is still paused by one more trip: Foursquare\'s read failed (run #1288).') && str_contains($msg, 'Once both are lifted, W1\'s next run is this task\'s check') && !str_contains($msg, 'foursquare_bulk'), $msg);
 $t('…and the planner still skips it (honestly said)', !$inPlan('overture_bulk'));
 $t('…the trip stays open (it closes only when its run does its work)', $pdo->query("SELECT cleared_at FROM control_alarms WHERE id = $ov")->fetchColumn() === null);
 
-$h0 = tv_admin_mod_control($pdo); $li0 = preg_match('~<li id="cb-alarm-' . $ov . '".*?</li>~s', $h0, $m0) ? $m0[0] : '';
-$t('…the board: its card carries the other trip\'s own button, "Check and start again: Foursquare failed (run #1288)", in place', str_contains($li0, 'data-act="resolve"') ? (str_contains($li0, '>Check and start again: Foursquare failed (run #1288)<') && preg_match('/data-id="' . $fs . '"/', $li0) === 1) : str_contains($li0, 'Check and start again: Foursquare failed (run #1288)'), mb_substr(strip_tags($li0), 0, 400));
+$h0 = tv_admin_mod_control($pdo); $li0 = preg_match('~<li id="cb-alarm-' . $ov . '".*?</li>~s', $h0, $m0) ? html_entity_decode($m0[0], ENT_QUOTES) : '';
+$t('…the board: its card carries the other trip\'s own button, "Check and start again: Foursquare\'s read failed (run #1288)", in place', str_contains($li0, 'data-act="resolve"') ? (str_contains($li0, '>Check and start again: Foursquare\'s read failed (run #1288)<') && preg_match('/data-id="' . $fs . '"/', $li0) === 1) : str_contains($li0, 'Check and start again: Foursquare\'s read failed (run #1288)'), mb_substr(strip_tags($li0), 0, 400));
 $f0 = ControlAlarms::facts($pdo, ControlAlarms::byId($pdo, $ov));
 $t('…its card: Status the press\'s words, nothing held', str_starts_with($f0['status'], 'This trip\'s pause is lifted (') && $f0['holds'] === '', $f0['status']);
 [$ok, $msg] = ControlAlarms::resolve($pdo, $fs, 7, 'Jason', ''); Automation::forget();

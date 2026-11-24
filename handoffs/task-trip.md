@@ -44,3 +44,25 @@ W1's two trips are older, from before it, which is why they hold all of W1.
   amber. A group of trips all started again: "(nothing held: each waits for its next run)", amber.
 - "cleared" became "pause is lifted": the trip stays open until its run proves the fix.
 - Screens at 1280 and 390: `task-trip/task-trip-{one,waiting,failed}-{1280,390}.png` (`task-trip.cjs` 24/24, in rendered-all.sh).
+
+## Folded in: the trip card's eight fixes (the session manager, from Jason's 390 screenshot, 2026-11-24)
+
+Sent as **task-trip-2.zip** (the first, task-trip.zip, withdrawn unsent; the site never takes a name twice). For a task's
+own-code trip that paused its whole workflow (`ControlAlarms::wholeWorkflowTrip`: W1's two, raised before the one engine;
+engine-era trips pause only their task and keep their tested words):
+1. Status in one sentence: "W1 is paused by the system since Nov 21, 9:35 AM UTC, after Overture Maps Places' read failed
+   (run #1290). Seen by Jason, …." (no brackets in brackets; "<name>'s read failed", the task's own name before its colon).
+2. What it affects once: Holds W1 Listings; no second "Paused by the system: W1 (…)".
+3. The loose "by Jason… It stays open while it holds…" box gone for these (its words are in the Status).
+4. One action, **Check and start again**; its run an evidence icon (eye, "Open Run #1290: what it did and why"); Try it first
+   and Pause the task under ⋯ (`details.cb-pop.cb-more`: Esc and a click outside close it).
+5. No Undo on its acknowledgement: Acknowledge until pressed, then "Seen by …" in the Status.
+6. Its group in one line: "W1 Listings · 2 trips ▾" (a plain group's ": N parts" read as " · N trips" for trips).
+7. What the system is doing "Only W1 waits; everything else carries on. It closes as Fixed when this task's next run works.";
+   What to do "Read its why (its run, beside this). Then Check and start again: W1 runs, and its next run is this task's check."
+8. A trip's mark is the stopped (power) icon everywhere, never an × that reads as close.
+
+Also the Design reviewer's: "Once both are lifted". Tests: task-trip.php 26/26, task-trip.cjs 44/44 (before, one, waiting,
+failed at 1280 and 390, screens in `task-trip/`), rendered board 283/283, run-all.sh only the 7 known; `links.php` updated.
+**Not changed (noted):** other trips' acknowledgement still shows Undo and the "Seen:" line; #1314's no-Undo rule for every
+alarm is a wider change for its own release.

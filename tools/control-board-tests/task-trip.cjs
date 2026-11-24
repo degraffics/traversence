@@ -9,7 +9,7 @@ const port = 8930 + Math.floor(Math.random() * 20);
 const srv = spawn('php', ['-S', '127.0.0.1:' + port, path.join(__dirname, 'board-panels-router.php')], { env: { ...process.env, ROOT: root }, stdio: 'ignore' });
 (async () => {
   await new Promise(r => setTimeout(r, 800)); const b = await chromium.launch();
-  for (const state of ['one', 'waiting', 'failed']) {
+  for (const state of ['before', 'one', 'waiting', 'failed']) {
     fresh(); const [ov, fs] = execFileSync('php', [path.join(__dirname, 'task-trip-seed.php'), root + '/app', state]).toString().trim().split(' ');
     for (const w of [1280, 390]) {
       const p = await b.newPage({ viewport: { width: w, height: 900 } }); await p.goto(`http://127.0.0.1:${port}/admin/config/control/wf-W1`); await p.waitForTimeout(900);
@@ -18,10 +18,27 @@ const srv = spawn('php', ['-S', '127.0.0.1:' + port, path.join(__dirname, 'board
       const card = (id) => p.locator('#cb-alarm-' + id);
       const txt = async (id) => (await card(id).textContent()).replace(/\s+/g, ' ');
       const L = `${w}px ${state}: `;
-      if (state === 'one') {
+      if (state === 'before') {
         const a = await txt(ov);
-        t(L + 'Overture\'s card: "This trip\'s pause is lifted (Jason, …). W1 is still paused by one more trip: Foursquare failed (run #1288)."', /This trip's pause is lifted \(Jason, \d\d:\d\d UTC\)\. W1 is still paused by one more trip: Foursquare failed \(run #1288\)/.test(a), a);
-        t(L + '…with that trip\'s own button on this card, and no Check and start again of its own', (await card(ov).locator('button', { hasText: 'Check and start again: Foursquare failed (run #1288)' }).count()) === 1 && (await card(ov).locator('button', { hasText: /^Check and start again$/ }).count()) === 0);
+        t(L + 'one Status sentence: "W1 is paused by the system since …, after Overture Maps Places\' read failed (run #1290). Seen by Jason, …."', /W1 is paused by the system since .+, after Overture Maps Places' read failed \(run #1290\)\. Seen by Jason, /.test(a) && !a.includes('(W1 ('), a.slice(0, 300));
+        t(L + '…one action, Check and start again; no Undo; no loose "by Jason…" line', (await card(ov).locator('button', { hasText: /^Check and start again$/ }).count()) === 1 && !/\bUndo\b/.test(a) && !/It stays open while it holds/.test(a));
+        t(L + '…What the system is doing and What to do in its words, no brackets in brackets, no "Recovered"', a.includes('Only W1 waits; everything else carries on. It closes as Fixed when this task\'s next run works.') && a.includes('Then Check and start again: W1 runs, and its next run is this task\'s check.') && !a.includes('Recovered') && !a.includes('(its tasks wait with it)'), a.slice(0, 500));
+        t(L + '…Run #1290 an evidence icon with its title', (await card(ov).locator('a.cb-ic[title="Open Run #1290: what it did and why"]').count()) === 1);
+        const more = card(ov).locator('details.cb-more');
+        await more.locator('summary').click(); await p.waitForTimeout(150);
+        t(L + '…⋯ opens Try it first on the next run and Pause the task', await more.evaluate(d => d.open) && (await more.locator('.cb-menu button').allTextContents()).join('|') === 'Try it first on the next run|Pause the task');
+        const mb = await more.locator('.cb-menu').boundingBox();
+        t(L + '…the menu wholly in the window', mb && mb.x >= 0 && mb.x + mb.width <= w + 1, mb);
+        if (shots) await card(ov).screenshot({ path: `${shots}/task-trip-before-${w}.png` });
+        await p.keyboard.press('Escape'); await p.waitForTimeout(100);
+        t(L + '…Esc closes it', !(await more.evaluate(d => d.open)));
+        await more.locator('summary').click(); await p.mouse.click(5, 5); await p.waitForTimeout(100);
+        t(L + '…a click outside closes it', !(await more.evaluate(d => d.open)));
+        t(L + '…its mark: stopped (power), never an ×', (await card(ov).locator('.cb-m[aria-label="Stopped: needs an admin"]').count()) === 1);
+      } else if (state === 'one') {
+        const a = await txt(ov);
+        t(L + 'Overture\'s card: "This trip\'s pause is lifted (Jason, …). W1 is still paused by one more trip: Foursquare\'s read failed (run #1288)."', /This trip's pause is lifted \(Jason, \d\d:\d\d UTC\)\. W1 is still paused by one more trip: Foursquare's read failed \(run #1288\)/.test(a), a);
+        t(L + '…with that trip\'s own button on this card, and no Check and start again of its own', (await card(ov).locator('button', { hasText: "Check and start again: Foursquare's read failed (run #1288)" }).count()) === 1 && (await card(ov).locator('button', { hasText: /^Check and start again$/ }).count()) === 0);
         t(L + '…What to do: press the other trip\'s Check and start again', a.includes('Press the other trip\'s Check and start again (below)'), a.slice(0, 400));
         const bb = await card(ov).locator('button', { hasText: 'Check and start again: Foursquare' }).boundingBox(), cb = await card(ov).boundingBox();
         t(L + '…its button wholly inside the card (wraps on a phone)', bb && cb && bb.x >= cb.x - 1 && bb.x + bb.width <= cb.x + cb.width + 1, { bb, cb });

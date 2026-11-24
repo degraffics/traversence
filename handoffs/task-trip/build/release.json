@@ -13,6 +13,10 @@
   {
    "what": "Try it first on the next run: says it won't run while a trip holds it, and what lifts that",
    "where": "https://traversence.com/admin/config/control?tab=alarms"
+  },
+  {
+   "what": "A task's trip card (W1's two): one Status sentence, what it affects once, one action (Check and start again) with its run as an evidence icon and the rest under ⋯, Seen as a state line (no Undo), the stopped mark instead of an ×; its group in one line (\"W1 Listings · 2 trips\")",
+   "where": "https://traversence.com/admin/config/control?tab=alarms"
   }
  ],
  "proposals": [],
