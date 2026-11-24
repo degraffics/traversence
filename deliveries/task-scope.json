@@ -3,36 +3,36 @@
  "built_on": "7558fa0 Sync: 2026-11-24 12:58 UTC",
  "recorded": "2026-11-24 13:30 UTC",
  "note": "task-scope: a Work queue task opens to its page (scope, priority 1-3, steps), \u270e with History; reviewed by the Design reviewer and the session manager; built on Sync: 12:58 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "a0f68a3 Sync: 2026-11-24 13:33 UTC",
  "files": {
   "app/admin/control-console.php": {
    "sha256": "2a866907e535ea96cf5f9d79247600106cc1903a8dd3516d6d63906a91660a7a",
-   "live": false
+   "live": true
   },
   "app/lib/GaugeTasks.php": {
    "sha256": "f3f85d8d27e3f71664b5997aa6984c4b04cb333c2bc023403e3411d3f09160f9",
-   "live": false
+   "live": true
   },
   "app/lib/staging-tables.php": {
    "sha256": "d8009c9ceaa1c087bf93431e1086d3e14ce35db5824526b404c6ef05c3becaf4",
-   "live": false
+   "live": true
   },
   "app/migrations/2026-11-24_task_scope.sql": {
    "sha256": "103847cf24cee25aba852790f9d3bd080467b789bce2ee5d3b947bbeb0ec0920",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "ba87385e32f58506f51458ad1c0f409f8c85951e5a4e33fbe9d502432aaae782",
-   "live": false
+   "live": true
   },
   "website/admin/api.php": {
    "sha256": "2c05c54754bf60f0f2249645021fe61e84fe99c67761e52f430537aa1ca8204c",
-   "live": false
+   "live": true
   },
   "website/js/admin-control.js": {
    "sha256": "9da64e4b7468dd918857db6d3242005d71d056da5eff9e9f4ce0950dd4989a7a",
-   "live": false
+   "live": true
   }
  }
 }
