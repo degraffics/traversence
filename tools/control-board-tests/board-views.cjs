@@ -20,7 +20,7 @@ const rings = () => { const bad = []; let n = 0, top50 = 0;
     if (a.getAttribute('pathLength') !== '100' || !(Math.abs(d - s) <= 1)) bad.push(id + ': band ' + d + ' vs ' + s);
     const t = (r.querySelector('.sr-n') || {}).textContent || ''; const v = t.replace('%', '').trim(); if (!v || (v !== '—' && Math.abs(parseFloat(v) - s) > 0.6)) bad.push(id + ': number ' + t);
     if (r.getAttribute('role') !== 'img' || !/percent|no reading/.test(r.getAttribute('aria-label') || '')) bad.push(id + ': aria');
-    const box = r.closest('.cb-gc, .cb-gbig'); if (!box || !box.querySelector('.sr-pill')) bad.push(id + ': no stage pill');
+    const box = r.closest('.cb-gc, .cb-gbig, .wq-top'); if (!box || !box.querySelector('.sr-pill')) bad.push(id + ': no stage pill');
     const L = a.getTotalLength(), p = a.getPointAtLength(L * s / 100), ang = Math.PI * (1 - s / 100);
     if (Math.hypot(p.x - (36 + 30 * Math.cos(ang)), p.y - (38 - 30 * Math.sin(ang))) > 0.6) bad.push(id + ': arc end off');
     const q = a.getPointAtLength(L / 2); if (Math.abs(q.x - 36) < 0.3 && Math.abs(q.y - 8) < 0.3) top50++; else bad.push(id + ': 50 not at the top');

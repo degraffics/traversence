@@ -66,6 +66,6 @@ Repo: `tools/page-audit/gauge-requests.mjs` marks late as the queue does (a day 
 
 ## Tests (bench: MariaDB, the mirror with board-phone-header and this build over it)
 
-- `tools/control-board-tests/work-queue.cjs` with `work-queue-seed.php` (66, at 1280 and 390; the migration run twice) and
+- `tools/control-board-tests/work-queue.cjs` with `work-queue-seed.php` (68, at 1280 and 390; the migration run twice; the same task added twice stands once) and
   `board-panels-router.php`'s new actions; `gauge-requests.mjs` (7: late as the queue says it).
-- `run-all.sh`: only the 7 known live failures. `rendered-all.sh`: see the session's note to the session manager.
+- `run-all.sh`: only the 7 known live failures. `board-views.cjs` takes the Work queue's header as a gauge's place (its pill beside it); `rendered-all.sh`: work-queue 68, gauge-panel 76, board-views 90, board-panels 43, board-opening 48, board-tabs 16, board-phone-header 42, no failures.
