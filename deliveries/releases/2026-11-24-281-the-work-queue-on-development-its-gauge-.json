@@ -6,12 +6,12 @@
     "zip": "work-queue.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "planned",
+    "state": "approved",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
-    "plan_at": null,
+    "plan_at": "2026-11-24 12:56:37",
     "staged_at": null,
     "vetted_at": null,
     "live_at": null,
@@ -61,6 +61,16 @@
             "at": "2026-11-24T12:56:35+00:00",
             "by": 0,
             "msg": "Uploaded work-queue.zip: 7 files."
+        },
+        {
+            "at": "2026-11-24T12:56:37+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/work-queue.zip (git 610f2265a1)."
+        },
+        {
+            "at": "2026-11-24T12:56:37+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
         }
     ]
 }
