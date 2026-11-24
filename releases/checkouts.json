@@ -18,6 +18,25 @@
    "expires": "2026-11-24T06:32:45Z",
    "release": "task-trip.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/ClientOrders.php",
+   "functions": [
+    "(top)",
+    "boardState"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5j2wAgTrKdTwX6kQNY",
+   "why": "M2b: Delivery reads the vendor's leg until Receive, then the client's (decisions/0101 note 2026-11-24)",
+   "since": "2026-11-24T03:02:52Z",
+   "expires": "2026-11-24T07:02:52Z",
+   "release": "order-m2b.zip",
+   "callers": {
+    "boardState": [
+     "app/admin/tools.php",
+     "website/admin/client-order.php"
+    ]
+   }
   }
  ],
  "lapsed": [
