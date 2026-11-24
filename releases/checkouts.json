@@ -8,9 +8,16 @@
    "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
    "why": "work-queue: Jason's Work queue on Development (its gauge, Add a task, each task managed in place)",
    "since": "2026-11-24T12:05:19Z",
-   "expires": "2026-11-24T16:54:39Z",
+   "expires": "2026-11-24T16:55:34Z",
    "release": "work-queue.zip",
-   "callers": {}
+   "callers": {
+    "report": [
+     "website/api/health.php"
+    ],
+    "forGauge": [
+     "app/admin/control-console.php"
+    ]
+   }
   },
   {
    "path": "app/lib/ControlGauges.php",
@@ -57,6 +64,61 @@
    "why": "work-queue: Jason's Work queue on Development (its gauge, Add a task, each task managed in place)",
    "since": "2026-11-24T12:45:40Z",
    "expires": "2026-11-24T16:54:39Z",
+   "release": "work-queue.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/control-console.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
+   "why": "release work-queue.zip",
+   "since": "2026-11-24T12:55:34Z",
+   "expires": "2026-11-24T16:55:34Z",
+   "release": "work-queue.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/migrations/2026-11-24_work_queue.sql",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
+   "why": "release work-queue.zip",
+   "since": "2026-11-24T12:55:34Z",
+   "expires": "2026-11-24T16:55:34Z",
+   "release": "work-queue.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ControlGauges.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
+   "why": "release work-queue.zip",
+   "since": "2026-11-24T12:55:34Z",
+   "expires": "2026-11-24T16:55:34Z",
+   "release": "work-queue.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/admin/api.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
+   "why": "release work-queue.zip",
+   "since": "2026-11-24T12:55:34Z",
+   "expires": "2026-11-24T16:55:34Z",
+   "release": "work-queue.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/js/admin-control.js",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
+   "why": "release work-queue.zip",
+   "since": "2026-11-24T12:55:34Z",
+   "expires": "2026-11-24T16:55:34Z",
    "release": "work-queue.zip",
    "callers": {}
   }
