@@ -14,6 +14,19 @@
    "expires": "2026-11-24T15:59:12Z",
    "release": "order-m2b.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/ClientOrders.php",
+   "functions": [
+    "legs"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5j2wAgTrKdTwX6kQNY",
+   "why": "M2b: how an order goes (decisions/0101's note)",
+   "since": "2026-11-24T11:59:20Z",
+   "expires": "2026-11-24T15:59:20Z",
+   "release": "order-m2b.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
