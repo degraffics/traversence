@@ -155,6 +155,25 @@
    "expires": "2026-11-24T05:55:56Z",
    "release": "order-m2.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/ControlAlarms.php",
+   "functions": [
+    "resolve"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
+   "why": "A task trip's press lifts its own pauses (W1's dead end)",
+   "since": "2026-11-24T01:56:35Z",
+   "expires": "2026-11-24T05:56:35Z",
+   "release": "task-trip.zip",
+   "callers": {
+    "resolve": [
+     "app/admin/automation-console.php",
+     "app/admin/tools.php",
+     "website/admin/api.php"
+    ]
+   }
   }
  ],
  "lapsed": [
