@@ -228,9 +228,9 @@
     // the rail's current view: Development, Board, or Diagnostics for any stage or table (Paused now is none of them)
     var cur = tab === 'development' ? 'development' : tab === 'deliver' ? 'deliver' : (' ' + DIAG + ' ').indexOf(' ' + tab + ' ') >= 0 ? 'diagnostics' : '';
     box.querySelectorAll('[data-cb-rail], [data-cb-prail]').forEach(function (b) { if ((b.getAttribute('data-cb-rail') || b.getAttribute('data-cb-prail')) === cur) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current'); });
-    // the alarm list's filter shows with its list (Diagnostics → Alarms) only: on the other pages it was a second count with no
+    // the alarm queue's filter shows with its queue (#cb-alarms, Diagnostics → Observation and reporting) only: on the other pages it was a second count with no
     // list under it (Jason, 2026-11-24: "visual chaos"); admin-kit.js moved it into the header, so it's found by its class
-    var afw = document.querySelector('.cb-afw'); if (afw) afw.style.display = tab === 'alarms' ? '' : 'none';
+    var afw = document.querySelector('.cb-afw'); if (afw) afw.style.display = tab === 'observe' ? '' : 'none';
     // the phone's ☰ names the page it's on (Board, Development, Diagnostics, or Paused now)
     var pn = box.querySelector('[data-cb-pname]'); if (pn) pn.textContent = { development: 'Development', deliver: 'Board', diagnostics: 'Diagnostics' }[cur] || (tab === 'paused' ? 'Paused now' : 'Board');
   }

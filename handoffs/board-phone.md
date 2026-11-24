@@ -4,7 +4,7 @@ The Control Board build session (`session_01CXLi5gqPa5AQKoZXC7gZxx`), queue item
 Built on **Sync 03:54 UTC (5eef020)**. Zip: `board-phone.zip` (build in `board-phone/build/`, screens in `board-phone/`).
 State: **built and tested on the bench; in review** (Design reviewer → session manager → Jason's pop-up when he's back).
 Its send waits for order-m2b's `faq.md` (the only file it shares with a pending zip): once that's live, re-run
-`board-phone/faq-edits.py` on the live `faq.md`, rebuild the zip as `board-phone.zip` (never sent yet), zip check, send.
+`board-phone/faq-edits.py` and `board-phone/tools-edits.py` on the live copies, rebuild the zip as `board-phone.zip` (never sent yet), zip check, send.
 
 ## Files (each started from its live copy)
 
@@ -13,6 +13,7 @@ Its send waits for order-m2b's `faq.md` (the only file it shares with a pending 
 | `app/admin/control-console.php` | `tv_cb_qbar` as one Alerts dropdown; `tv_cb_live_alarms` (the one count's alarms); `tv_cb_rail_items` shared by the rail and `tv_cb_pages_menu` (the phone's ☰); `Thread::css()` printed with the board's own styles; `.cb-pill` in the body font; the header's CSS |
 | `website/js/admin-control.js` | the filter's Open = the one count (a pressed trip counts; notices under Notices); the ☰ names the page; the alarm filter shows only on the Alarms tab |
 | `website/js/tv-ask.js` | `place()`: a notice beside something in a flex row takes a line of its own (under the row when it doesn't wrap) |
+| `app/admin/tools.php` | `config/alarms`: the Alarms table's Open is the one count; notices under Notices (`board-phone/tools-edits.py`, re-applied on the live copy: order-m2b carries `tools.php` too) |
 | `app/ui/faq.md` | "How it opens" and "The light in the admin's top bar" entries (`board-phone/faq-edits.py`) |
 
 ## Each behaviour and its source
@@ -25,14 +26,14 @@ Its send waits for order-m2b's `faq.md` (the only file it shares with a pending 
    Sync, Hosts, Paused now). Jason, 2026-11-24: "1 full width dropdown for alerts … instead of this visual chaos". The
    groups and their items are the chips' own (Jason, 2026-11-23, 03 §27), moved inside. At 1280 the chips fold into it as
    well (the hand-off's default, for the Design reviewer to confirm).
-3. **One alarm count everywhere** (light, Alerts, Board's count, the filter's Open): every open trip (seen or not, pressed
+3. **One alarm count everywhere** (light, Alerts, Board's count, the queue filter's Open, the Alarms table's Open): every open trip (seen or not, pressed
    and waiting for its run or not) and the warnings not yet seen. 02-state-model P9 ("A number shown … is computed from the
    same readings in every place it appears"); `ControlAlarms::counts` (Jason, 2026-11-19, "alarms everywhere"); D5 (an
    acknowledged trip still counts). Live at 04:11 UTC: the light said 12, the chips and rail 14 (they added 2 seen
-   warnings), the filter 32 (it added 18 notices, and dropped pressed trips).
+   warnings), the queue's filter and the Alarms table 32 (they added 18 notices; the filter dropped pressed trips, the table seen trips).
 4. **Paused now is a group in Alerts, counted on its own**, never added to the alarm count (it isn't an alarm; 0175's
    note: Paused now). Its page stays reachable from it, also when nothing is paused (the old "Paused now: nothing" link).
-5. **The alarm list's filter shows with its list (Diagnostics → Alarms) only.** CLAUDE.md: filters on a list are one
+5. **The alarm queue's filter shows with its queue (Diagnostics → Observation and reporting) only.** CLAUDE.md: filters on a list are one
    dropdown button; on the Board page it was a second count with no list under it.
 6. **The side panel draws each part of an alarm on its own line.** Cause: `Thread::html` prints its styles once per
    request, on its first call; `ControlBoard::settle` (every draw) can render a Pulse or email copy first and throw it
@@ -53,8 +54,8 @@ Its send waits for order-m2b's `faq.md` (the only file it shares with a pending 
   alarm list when a group has more.
 - "All clear" when nothing is open: **kept** (Alerts 0, green, "All clear").
 - ×, Esc, a click outside, one open at a time: **kept** for Alerts and the ☰.
-- The filter's choices (Open alarms, Acknowledged, Trips, Warnings, Notices): **kept**; Open no longer includes notices
-  (they're under Notices), so it gives the one count.
+- The queue filter's and the Alarms table's choices: **kept**; their Open no longer includes notices (under Notices)
+  and keeps seen trips, so it gives the one count.
 - Nothing dropped.
 
 ## The admin's test (each new state)
@@ -62,12 +63,12 @@ Its send waits for order-m2b's `faq.md` (the only file it shares with a pending 
 - Phone, the board: one line, ☰ Board and Alerts 12 · 2 trips · 10 warnings. Press Alerts: the groups; press an item: its
   part in the side panel. Press ☰: the five pages, the current one marked.
 - Nothing open: Alerts 0, All clear, green; Paused now still inside it.
-- Diagnostics → Alarms: the ☰ says Diagnostics; the filter appears, saying the same count as Alerts.
+- Diagnostics → Observation and reporting: the ☰ says Diagnostics; the queue's filter appears, saying the same count as Alerts. Diagnostics → Alarms: the table's Open says it too.
 - W1's side panel after a press: the card's parts on their own lines, the answer on a line under the card.
 
 ## Tests (bench: MariaDB, the mirror's app/ and website/ with the build over them)
 
-- `tools/control-board-tests/board-phone-header.cjs` (34, rendered at 1280 and 390; on the live code it fails, as it
+- `tools/control-board-tests/board-phone-header.cjs` (38, rendered at 1280 and 390; on the live code it fails, as it
   should: no Alerts, and the green bar at 88 × 845 px), `board-phone.php` (6; on the live code 3 fail: the thread styles
   lost after a thrown-away first thread, the rail counting a seen warning), `board-view-go.cjs` (a page opened by the rail
   or the ☰, shared).

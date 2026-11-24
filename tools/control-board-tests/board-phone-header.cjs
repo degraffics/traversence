@@ -5,7 +5,8 @@
 //   alarm filter's Open all say trips + unseen warnings; pressed trips count; notices and seen warnings don't;
 //   at 390 no rail: the ☰ on the left of Alerts on one line; at 1280 the rail, no ☰; Alerts' groups add up to its count;
 //   each dropdown closes by ×, Esc and a click outside, one open at a time; the ☰ marks and names the page it's on;
-//   the alarm filter shows only with its list (Diagnostics → Alarms); W1's page lists its pressed trips without
+//   the alarm queue's filter shows only with its queue (Diagnostics → Observation and reporting); the Alarms table's Open
+//   says the same count; W1's page lists its pressed trips without
 //   "Nothing here for this filter."; the pills are in the body font (design/table-standard.md, its Control Board note);
 //   an answer placed beside a card in an alarm's row goes under the row, never a tall bar beside it (Jason's 7:46 PM screenshot);
 //   nothing wider than the window. node board-phone-header.cjs <root> [shots dir]
@@ -48,9 +49,14 @@ const open = p => p.evaluate(() => [...document.querySelectorAll('details.cb-pop
    if (phone) { await p.click('.cb-pmenu > summary'); await p.click('.cb-alerts > summary'); await p.waitForTimeout(150); t(L + 'one open at a time (☰, then Alerts)', JSON.stringify(await open(p)) === JSON.stringify(['cb-pop cb-alerts r']), await open(p)); await p.keyboard.press('Escape'); }
    if (shots) { await p.click('.cb-alerts > summary'); await p.waitForTimeout(200); await p.screenshot({ path: `${shots}/alerts-${w}.png` }); await p.keyboard.press('Escape');
      if (phone) { await p.click('.cb-pmenu > summary'); await p.waitForTimeout(200); await p.screenshot({ path: `${shots}/pages-${w}.png` }); await p.keyboard.press('Escape'); } }
-   await view(p, 'diagnostics'); await p.waitForTimeout(300); await p.click('.cb-diagnav [data-cb-tab="alarms"]'); await p.waitForTimeout(400);
-   const d = await p.evaluate(() => ({ name: (document.querySelector('[data-cb-pname]') || {}).textContent, cur: (document.querySelector('[data-cb-prail][aria-current="page"]') || {}).getAttribute?.('data-cb-prail'), rail: (document.querySelector('[data-cb-rail][aria-current="page"]') || {}).getAttribute?.('data-cb-rail'), filter: getComputedStyle(document.querySelector('.cb-afw')).display !== 'none', menuOpen: !!document.querySelector('details.cb-pop[open]') }));
-   t(L + 'Diagnostics → Alarms: the ☰ says Diagnostics, marked current in both, the menu closed, the filter shown with its list', d.name === 'Diagnostics' && d.cur === 'diagnostics' && d.rail === 'diagnostics' && d.filter && !d.menuOpen, d);
+   await view(p, 'diagnostics'); await p.waitForTimeout(300); await p.click('.cb-diagnav [data-cb-tab="observe"]'); await p.waitForTimeout(400);
+   const d = await p.evaluate(() => ({ name: (document.querySelector('[data-cb-pname]') || {}).textContent, cur: (document.querySelector('[data-cb-prail][aria-current="page"]') || {}).getAttribute?.('data-cb-prail'), rail: (document.querySelector('[data-cb-rail][aria-current="page"]') || {}).getAttribute?.('data-cb-rail'), filter: getComputedStyle(document.querySelector('.cb-afw')).display !== 'none', queue: !!document.getElementById('cb-alarms').getClientRects().length, menuOpen: !!document.querySelector('details.cb-pop[open]') }));
+   t(L + 'Diagnostics → Observation and reporting: the ☰ says Diagnostics, marked current in both, the menu closed, the filter shown with its queue', d.name === 'Diagnostics' && d.cur === 'diagnostics' && d.rail === 'diagnostics' && d.filter && d.queue && !d.menuOpen, d);
+   // the Alarms table (config/alarms): its Open tile gives the same one count
+   await p.click('.cb-diagnav [data-cb-tab="alarms"]'); await p.waitForTimeout(900);
+   const tile = await p.evaluate(() => { const b = document.querySelector('#cb-tab-alarms .ak-fb[data-fk="show"]'); return b ? [b.textContent.replace(/\d+$/, '').trim(), +b.querySelector('b').textContent] : null; });
+   t(L + 'Diagnostics → Alarms: the table\'s Open says the same count, ' + want, tile && tile[0] === 'Open' && tile[1] === want, tile);
+   t(L + '…and the queue\'s filter isn\'t shown there (it has no list there)', await p.evaluate(() => getComputedStyle(document.querySelector('.cb-afw')).display === 'none'));
    const pill = await p.evaluate(() => { const x = document.querySelector('#cb .cb-pill'); return x ? getComputedStyle(x).fontFamily : ''; });
    t(L + 'the pills are in the body font, never a code font', pill !== '' && !/mono/i.test(pill) && pill === await p.evaluate(() => getComputedStyle(document.body).fontFamily), pill);
    t(L + 'nothing wider than the window', await p.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth + 1));
