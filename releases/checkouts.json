@@ -293,13 +293,14 @@
   {
    "path": "app/lib/Customers.php",
    "functions": [
+    "(top)",
     "sync"
    ],
    "kind": "change",
    "session": "session_01CXLi5j2wAgTrKdTwX6kQNY",
    "why": "M2: a cancelled payment record isn't counted as spent",
    "since": "2026-11-24T01:06:51Z",
-   "expires": "2026-11-24T05:06:51Z",
+   "expires": "2026-11-24T05:24:03Z",
    "release": "order-m2.zip",
    "callers": {
     "sync": [
