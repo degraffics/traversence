@@ -173,6 +173,36 @@
    "expires": "2026-11-24T05:02:27Z",
    "release": "order-m2.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/Pulse.php",
+   "functions": [
+    "items",
+    "manage",
+    "playbook"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5j2wAgTrKdTwX6kQNY",
+   "why": "M2: the refund case for the Founder, Approve and Decline",
+   "since": "2026-11-24T01:02:29Z",
+   "expires": "2026-11-24T05:02:29Z",
+   "release": "order-m2.zip",
+   "callers": {
+    "items": [
+     "app/lib/DailyReport.php",
+     "app/ui/pulse-ui.php",
+     "website/admin/staff-profile.php",
+     "website/admin/w.php",
+     "website/user/api/bell.php"
+    ],
+    "manage": [
+     "website/admin/api/pulse.php"
+    ],
+    "playbook": [
+     "app/lib/DailyReport.php",
+     "app/ui/pulse-ui.php"
+    ]
+   }
   }
  ],
  "lapsed": [
