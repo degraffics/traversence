@@ -271,13 +271,14 @@
   {
    "path": "app/admin/control-console.php",
    "functions": [
-    "tv_cb_alarms"
+    "tv_cb_alarms",
+    "tv_cb_mark"
    ],
    "kind": "change",
    "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
-   "why": "The pressed state on the board's row",
+   "why": "A trip's mark: stopped, never an x",
    "since": "2026-11-24T02:05:19Z",
-   "expires": "2026-11-24T06:21:53Z",
+   "expires": "2026-11-24T06:32:47Z",
    "release": "task-trip.zip",
    "callers": {
     "tv_cb_alarms": [
