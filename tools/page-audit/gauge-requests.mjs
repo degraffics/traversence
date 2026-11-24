@@ -1,5 +1,5 @@
 // The gauge panel's requests, hourly (the session manager's OK, 2026-11-23): reads only health.php?part=gauge_tasks and writes
-// site-audit/results/build-requests.json (each open Request a fix, a day old marked late) and gauge-approvals.json, only when
+// site-audit/results/build-requests.json (each open Request a fix and Work queue task, late when a day old with nobody on it) and gauge-approvals.json, only when
 // they changed, so main gets a commit only when a request or an approval does. The session manager's hourly check routes each
 // request to the session that builds it, and alerts on the late ones; that session records its pickup in
 // releases/gauge-pickups.json, which gauges.py puts in gauges.json ("Requested: the … session has it").
@@ -17,7 +17,8 @@ const keep = (file, body) => {   // written only when what it holds changed
   writeFileSync(file, JSON.stringify(body, null, 1) + '\n'); return true;
 };
 export function shape(gt, now = Date.now()) {   // the report's section as the two files hold it (exported for its test)
-  const requests = (gt.requests || []).map(r => ({ ...r, late: now - Date.parse(r.at_utc) > DAY }));
+  // late as the Work queue says it (GaugeTasks::queue): a day old and nobody has it (no owner, no release named)
+  const requests = (gt.requests || []).map(r => ({ ...r, late: !r.owner && !r.release && now - Date.parse(r.at_utc) > DAY }));
   return [{ at: new Date(now).toISOString(), requests }, { at: new Date(now).toISOString(), approvals: gt.approvals || [] }];
 }
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {   // run, not imported by its test
