@@ -160,6 +160,19 @@
    "expires": "2026-11-24T05:02:25Z",
    "release": "order-m2.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/ClientOrders.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5j2wAgTrKdTwX6kQNY",
+   "why": "M2: cancel until the vendor accepts (0178 \u00a72); the posted payment id",
+   "since": "2026-11-24T01:02:27Z",
+   "expires": "2026-11-24T05:02:27Z",
+   "release": "order-m2.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
