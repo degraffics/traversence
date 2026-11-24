@@ -209,13 +209,14 @@
   {
    "path": "app/lib/ControlAlarms.php",
    "functions": [
-    "startForNextRun"
+    "startForNextRun",
+    "startedAgain"
    ],
    "kind": "add",
    "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
-   "why": "W1's dead end",
+   "why": "The pressed state",
    "since": "2026-11-24T01:56:38Z",
-   "expires": "2026-11-24T05:56:38Z",
+   "expires": "2026-11-24T06:04:48Z",
    "release": "task-trip.zip",
    "callers": {}
   },
