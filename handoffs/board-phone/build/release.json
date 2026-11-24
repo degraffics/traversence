@@ -33,6 +33,10 @@
   {
    "what": "The site's audit clock: when GitHub doesn't answer its hourly request at all, it tries again 5 seconds later and keeps the connection's own error (at 03:17 and 04:17 UTC it said only \"GitHub said nothing\" and gauge-requests waited three hours)",
    "where": "https://traversence.com/admin/config/control?tab=scheduler"
+  },
+  {
+   "what": "A trip started again and waiting for its run is amber everywhere, as its card: its own group in Alerts (\"Waiting for its run\"), \"2 waiting\" in the summary, and the top bar's light red only for a trip still holding",
+   "where": "https://traversence.com/admin/config/control"
   }
  ],
  "proposals": [],

@@ -39,6 +39,11 @@ $t('…Warnings\' rows carry no "warning" pill (its heading says it)', $warn !==
 $trip = null; foreach (ControlAlarms::list($pdo) as $x) if ($x['level'] === 'trip') $trip = $x;
 $ft = (string) ControlAlarms::facts($pdo, $trip)['title'];
 $t('an Alerts item says its thread\'s title, as its card ("' . $ft . '")', $ft !== '' && str_contains($h, '<span>' . htmlspecialchars(rtrim($ft, '. '), ENT_QUOTES) . '</span>'), $ft);
+// a trip started again is waiting for its run: counts() names it (the light amber, Alerts its own group), its total unchanged
+$pdo->exec("UPDATE control_alarms SET resolve_note = 'W1 runs again (Jason, 04:13 UTC).' WHERE akey = 'task:failed:overture_bulk'");
+$c2 = ControlAlarms::counts($pdo); $_GET = []; $h2 = tv_admin_mod_control($pdo);
+$t('counts(): the waiting trip is named (waiting 1), the total the same (trip 1 + warning 1)', $c2['waiting'] === 1 && $c2['trip'] + $c2['warning'] === 2, $c2);
+$t('…Alerts: "Waiting for its run" 1 (amber), no Trips group, the summary "1 waiting · 1 warning", Alerts amber', str_contains($h2, 'aria-label="Waiting for its run"><h3 class="cb-agh"><span>Waiting for its run</span><b>1</b>') && !str_contains($h2, 'aria-label="Trips"') && str_contains($h2, '<small class="cb-als">1 waiting · 1 warning</small>') && str_contains($h2, 'cb-pop cb-alerts a"'), mb_substr((string) strstr($h2, '<nav class="cb-qbar"'), 0, 400));
 // W1 waiting for its run (both trips started again): its row says so, never "Tripped: stopped"
 $pdo->exec("UPDATE control_alarms SET resolve_note = 'W1 runs again (Jason, 04:13 UTC).' WHERE akey = 'task:failed:overture_bulk'");
 [$light, $means] = ControlBoard::boardLight($pdo, 'wf:W1', ['light' => 'bad'], ['wf:W1' => true]);

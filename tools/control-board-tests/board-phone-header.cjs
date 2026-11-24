@@ -34,7 +34,8 @@ const open = p => p.evaluate(() => [...document.querySelectorAll('details.cb-pop
      says: document.querySelector('.cb-als').textContent,
      sum: [...document.querySelectorAll('.cb-alerts .cb-ag')].filter(g => !/^(Paused now|Hosts|Seen)$/.test(g.getAttribute('aria-label'))).reduce((a, g) => a + +g.querySelector('.cb-agh b').textContent, 0) }));
    t(L + 'one count: Alerts, the rail\'s Board, the ☰\'s Board and the filter\'s Open all say ' + want, [c.alerts, c.board, c.menu, c.filter].every(x => x === want), c);
-   t(L + '…Alerts\' groups add up to it, and it says what they are ("2 trips · 3 warnings")', c.sum === want && c.says === '2 trips · 3 warnings', c);
+   t(L + '…Alerts\' groups add up to it, and it says what they are ("2 waiting · 3 warnings": W1\'s trips were started again, task-trip-3)', c.sum === want && c.says === '2 waiting · 3 warnings', c);
+   t(L + 'W1\'s two trips, started again, under "Waiting for its run" (amber), not Trips; Alerts amber, never red', await p.evaluate(() => { const g = document.querySelector('.cb-alerts .cb-ag[aria-label="Waiting for its run"]'); return !!g && g.classList.contains('a') && +g.querySelector('.cb-agh b').textContent === 2 && !document.querySelector('.cb-alerts .cb-ag[aria-label="Trips"]') && document.querySelector('.cb-alerts').classList.contains('a'); }));
    const phone = w < 768;
    t(L + (phone ? 'the ☰ on the left of Alerts on one line, no rail' : 'the rail on the left, no ☰'), await p.evaluate(ph => { const v = s => { const e = document.querySelector(s); return !!e && getComputedStyle(e).display !== 'none' && !!e.getClientRects().length; };
      if (!ph) return v('nav.cb-rail') && !v('.cb-pmenu'); const a = document.querySelector('.cb-pmenu').getBoundingClientRect(), b = document.querySelector('.cb-alerts').getBoundingClientRect(); return !v('nav.cb-rail') && a.right <= b.left && Math.abs(a.top - b.top) < 2 && Math.abs(a.height - b.height) < 2; }, phone));
@@ -46,7 +47,7 @@ const open = p => p.evaluate(() => [...document.querySelectorAll('details.cb-pop
      await p.click(d + ' .cb-px'); await p.waitForTimeout(150); t(L + nm + ': × closes it', !(await open(p)).length);
      await p.click(d + ' > summary'); await p.keyboard.press('Escape'); await p.waitForTimeout(150); t(L + nm + ': Esc closes it', !(await open(p)).length);
      await p.click(d + ' > summary'); await p.waitForTimeout(100); await p.mouse.click(w - 5, 880); await p.waitForTimeout(150); t(L + nm + ': a click outside closes it', !(await open(p)).length); }
-   if (phone) { await p.click('.cb-pmenu > summary'); await p.click('.cb-alerts > summary'); await p.waitForTimeout(150); t(L + 'one open at a time (☰, then Alerts)', JSON.stringify(await open(p)) === JSON.stringify(['cb-pop cb-alerts r']), await open(p)); await p.keyboard.press('Escape'); }
+   if (phone) { await p.click('.cb-pmenu > summary'); await p.click('.cb-alerts > summary'); await p.waitForTimeout(150); t(L + 'one open at a time (☰, then Alerts)', JSON.stringify(await open(p)) === JSON.stringify(['cb-pop cb-alerts a']), await open(p)); await p.keyboard.press('Escape'); }
    if (shots) { await p.click('.cb-alerts > summary'); await p.waitForTimeout(200); await p.screenshot({ path: `${shots}/alerts-${w}.png` }); await p.keyboard.press('Escape');
      if (phone) { await p.click('.cb-pmenu > summary'); await p.waitForTimeout(200); await p.screenshot({ path: `${shots}/pages-${w}.png` }); await p.keyboard.press('Escape'); } }
    await view(p, 'diagnostics'); await p.waitForTimeout(300); await p.click('.cb-diagnav [data-cb-tab="observe"]'); await p.waitForTimeout(400);

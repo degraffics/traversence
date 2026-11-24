@@ -1,10 +1,10 @@
 # board-phone: the Control Board on a phone (2026-11-24)
 
 The Control Board build session (`session_01CXLi5gqPa5AQKoZXC7gZxx`), queue item 1 of `control-board-2026-11-24.md`.
-Built on **Sync 03:54 UTC (5eef020)**. Zip: `board-phone.zip` (build in `board-phone/build/`, screens in `board-phone/`).
+Built on **Sync 03:54 UTC (5eef020)**. Zip: `board-phone-header.zip` (build in `board-phone/build/`, screens in `board-phone/`).
 State: **built and tested on the bench; in review** (Design reviewer → session manager → Jason's pop-up when he's back).
 Its send waits for order-m2b's `faq.md` (the only file it shares with a pending zip): once that's live, re-run
-`board-phone/faq-edits.py` and `board-phone/tools-edits.py` on the live copies, rebuild the zip as `board-phone.zip` (never sent yet), zip check, send.
+`board-phone/faq-edits.py` and `board-phone/tools-edits.py` on the live copies, rebuild the zip as `board-phone-header.zip` (never sent; `board-phone.zip` is #216's name), zip check, send.
 
 ## Files (each started from its live copy)
 
@@ -68,6 +68,12 @@ Its send waits for order-m2b's `faq.md` (the only file it shares with a pending 
     hourly cron job (`audit_clock_tick`, cPanel, :17) ran every hour and needs no visitors; at 03:17 and 04:17 UTC its
     request got no HTTP status at all ("Couldn't ask for gauge-requests: GitHub said nothing", finished the same second),
     and the reason was thrown away; 02:17 and 05:17 worked. Principle 1 (the system tries first); the next hour still asks.
+
+15. **A trip started again and waiting for its run is amber everywhere, as its card** (task-trip-3's state; the Design
+    reviewer): its own Alerts group "Waiting for its run", "2 waiting" in the summary, Alerts amber, and the top bar's light
+    red only for a trip still holding. `ControlAlarms::counts` names them (`waiting`, a part of `trip`), so every total
+    stays the one count (D5: an open trip counts).
+16. **Each Alerts item says its thread's title**, as its card and Pulse (decisions/0176 §2; the Design reviewer).
 
 ## Still open (to the session manager)
 

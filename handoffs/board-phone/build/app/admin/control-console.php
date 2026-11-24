@@ -808,7 +808,9 @@ function tv_cb_qbar(PDO $pdo, array $open, array $names, array $core, string $st
     $cap = fn ($a) => str_starts_with((string) $a['akey'], 'ops:cap:'); $pf = fn ($a) => str_starts_with((string) $a['akey'], 'pf:');
     $sync = fn ($a) => str_starts_with((string) $a['akey'], 'ops:watch:');   // Railway and the sync, watched (the mockup's Sync chip, 03 §27)
     $groups = [
-        ['Trips', 'r', array_values(array_filter($live, fn ($a) => $a['level'] === 'trip')), fn ($a) => !empty($a['incident_id']) ? ControlIncidents::number((int) $a['incident_id']) : (empty($a['tripped_at']) ? 'trying' : 'trip')],
+        ['Trips', 'r', array_values(array_filter($live, fn ($a) => $a['level'] === 'trip' && ControlAlarms::startedAgain($a) === '')), fn ($a) => !empty($a['incident_id']) ? ControlIncidents::number((int) $a['incident_id']) : (empty($a['tripped_at']) ? 'trying' : 'trip')],
+        // trips started again for their next run (task-trip-3): amber, "Waiting for its run", as their cards; red only if it fails again
+        ['Waiting for its run', 'a', array_values(array_filter($live, fn ($a) => $a['level'] === 'trip' && ControlAlarms::startedAgain($a) !== '')), fn ($a) => !empty($a['incident_id']) ? ControlIncidents::number((int) $a['incident_id']) : ''],
         ['Warnings', 'a', array_values(array_filter($live, fn ($a) => $a['level'] === 'warning' && !$cap($a) && !$pf($a) && !$sync($a))), fn ($a) => (int) $a['n_times'] > 1 ? (int) $a['n_times'] . '×' : ''],
         ['Caps', 'a', array_values(array_filter($live, fn ($a) => $a['level'] === 'warning' && $cap($a))), fn ($a) => (string) ($a['reading'] ?: 'cap')],
         ['Checks', 'a', array_values(array_filter($live, fn ($a) => $a['level'] === 'warning' && $pf($a))), fn ($a) => 'pre-flight'],
@@ -816,7 +818,7 @@ function tv_cb_qbar(PDO $pdo, array $open, array $names, array $core, string $st
     ];
     $grp = fn (string $label, string $tone, int $n, string $body) => '<section class="cb-ag ' . $tone . '" aria-label="' . $e($label) . '"><h3 class="cb-agh"><span>' . $e($label) . '</span><b>' . $n . '</b></h3>' . $body . '</section>';
     $body = ''; $nTrip = 0; $nWarn = 0; $parts = [];
-    $word = ['Trips' => ['trip', 'trips'], 'Warnings' => ['warning', 'warnings'], 'Caps' => ['cap', 'caps'], 'Checks' => ['check', 'checks'], 'Sync' => ['sync watch', 'sync watches']];
+    $word = ['Trips' => ['trip', 'trips'], 'Waiting for its run' => ['waiting', 'waiting'], 'Warnings' => ['warning', 'warnings'], 'Caps' => ['cap', 'caps'], 'Checks' => ['check', 'checks'], 'Sync' => ['sync watch', 'sync watches']];
     foreach ($groups as [$label, $tone, $list, $badge]) {
         if (!$list) continue;
         if ($label === 'Trips') $nTrip = count($list); else $nWarn += count($list);
