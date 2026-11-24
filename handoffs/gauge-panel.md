@@ -308,6 +308,8 @@ regenerated gauge files, gauge-lifecycle §6 and §8's note, and the tests.
 
 ### Open
 
+- **Live as release #273** (Sync 20:53 UTC, d889f6c): the 15 files byte for byte against the mirror (this session and the
+  session manager's deliveries #1319). PR #1318.
 - **Approved by Jason** in this session's pop-up (2026-11-23, 20:43 UTC), reviewed by the Design reviewer ("Design: approved",
   2a305ab, standing for 5fa878e) and the session manager ("clear to ask"). Next: the kit's buttons in brand brown, Copy as an
   icon, the ⋯ toolkit on gauge rows and card tasks (CLAUDE.md #1317).

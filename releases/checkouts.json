@@ -2,101 +2,13 @@
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
  "claims": [
   {
-   "path": "app/admin/kit-css.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
-   "why": "Kit buttons in brand brown (brand.md, Jason 2026-11-19 'the button standard'; the session manager's queue 2026-11-23)",
-   "since": "2026-11-23T20:55:03Z",
-   "expires": "2026-11-24T01:27:34Z",
-   "release": "kit-buttons.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/js/tv-copy.js",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
-   "why": "Kit buttons release: Copy as an icon (Jason, 2026-11-23: 'action icons with tool tips'; CLAUDE.md #1317)",
-   "since": "2026-11-23T20:56:29Z",
-   "expires": "2026-11-24T01:27:34Z",
-   "release": "kit-buttons.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/admin/control-console.php",
-   "functions": [
-    "(top)",
-    "tv_cb_gauge_card",
-    "tv_cb_gauge_detail",
-    "tv_cb_view_assets",
-    "tv_cbg_dev",
-    "tv_cbg_links",
-    "tv_cbg_row",
-    "tv_cbg_sub"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
-   "why": "Request a fix and \u22ef on the gauge panel (Jason, 2026-11-23)",
-   "since": "2026-11-23T21:08:49Z",
-   "expires": "2026-11-24T01:27:34Z",
-   "release": "kit-buttons.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/GaugeTasks.php",
-   "functions": [
-    "(top)",
-    "fix",
-    "undo"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
-   "why": "Request a fix's words; an open request withdrawn at any age",
-   "since": "2026-11-23T21:08:49Z",
-   "expires": "2026-11-24T01:27:34Z",
-   "release": "kit-buttons.zip",
-   "callers": {
-    "undo": [
-     "website/admin/api.php"
-    ],
-    "fix": [
-     "website/admin/api.php"
-    ]
-   }
-  },
-  {
-   "path": "website/admin/api.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
-   "why": "Request a fix: the gauge panel's queued buttons say what they do (Jason, 2026-11-23)",
-   "since": "2026-11-23T21:08:49Z",
-   "expires": "2026-11-24T01:27:34Z",
-   "release": "kit-buttons.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/admin/control-console.php",
-   "functions": [
-    "tv_cbg_req"
-   ],
-   "kind": "add",
-   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
-   "why": "An open request's line",
-   "since": "2026-11-23T21:09:03Z",
-   "expires": "2026-11-24T01:09:03Z",
-   "release": "kit-buttons.zip",
-   "callers": {}
-  },
-  {
    "path": "app/lib/ClientOrders.php",
    "functions": [],
    "kind": "change",
    "session": "session_01CXLi5kW2cGfR4Ya7fh2s3y",
-   "why": "M1b: what the system knows, what it asks (new functions and lists at the file's top level)",
+   "why": "M1b: the client's \u2709 (Send the client an update) says Sent only when the email went",
    "since": "2026-11-23T21:18:56Z",
-   "expires": "2026-11-24T01:46:06Z",
+   "expires": "2026-11-24T04:00:47Z",
    "release": "order-m1b.zip",
    "callers": {
     "boardState": [
@@ -105,6 +17,9 @@
     ],
     "recordPayment": [
      "app/lib/Pulse.php",
+     "website/admin/client-order.php"
+    ],
+    "sendUpdate": [
      "website/admin/client-order.php"
     ]
    }
@@ -116,7 +31,7 @@
    "session": "session_01CXLi5kW2cGfR4Ya7fh2s3y",
    "why": "M1b: what the system knows, what it asks (new functions and lists at the file's top level)",
    "since": "2026-11-23T21:18:56Z",
-   "expires": "2026-11-24T01:46:06Z",
+   "expires": "2026-11-24T04:00:47Z",
    "release": "order-m1b.zip",
    "callers": {
     "invoiceByNumber": [
@@ -134,7 +49,7 @@
    "session": "session_01CXLi5kW2cGfR4Ya7fh2s3y",
    "why": "M1b: what the system knows, what it asks (new functions and lists at the file's top level)",
    "since": "2026-11-23T21:18:56Z",
-   "expires": "2026-11-24T01:46:06Z",
+   "expires": "2026-11-24T04:00:47Z",
    "release": "order-m1b.zip",
    "callers": {
     "setInvoiceNo": [
@@ -152,7 +67,7 @@
    "session": "session_01CXLi5kW2cGfR4Ya7fh2s3y",
    "why": "M1b: what the system knows, what it asks (QuickBooks first, the Vendor line, vendor bills; decisions/0178 notes 2026-11-23)",
    "since": "2026-11-23T21:18:56Z",
-   "expires": "2026-11-24T01:18:56Z",
+   "expires": "2026-11-24T04:00:47Z",
    "release": "order-m1b.zip",
    "callers": {}
   },
@@ -163,7 +78,7 @@
    "session": "session_01CXLi5kW2cGfR4Ya7fh2s3y",
    "why": "M1b: what the system knows, what it asks (QuickBooks first, the Vendor line, vendor bills; decisions/0178 notes 2026-11-23)",
    "since": "2026-11-23T21:19:03Z",
-   "expires": "2026-11-24T01:19:03Z",
+   "expires": "2026-11-24T04:00:47Z",
    "release": "order-m1b.zip",
    "callers": {}
   },
@@ -174,7 +89,7 @@
    "session": "session_01CXLi5kW2cGfR4Ya7fh2s3y",
    "why": "M1b: what the system knows, what it asks (QuickBooks first, the Vendor line, vendor bills; decisions/0178 notes 2026-11-23)",
    "since": "2026-11-23T21:19:03Z",
-   "expires": "2026-11-24T01:19:03Z",
+   "expires": "2026-11-24T04:00:31Z",
    "release": "order-m1b.zip",
    "callers": {}
   },
@@ -185,7 +100,7 @@
    "session": "session_01CXLi5kW2cGfR4Ya7fh2s3y",
    "why": "M1b: what the system knows, what it asks (QuickBooks first, the Vendor line, vendor bills; decisions/0178 notes 2026-11-23)",
    "since": "2026-11-23T21:19:03Z",
-   "expires": "2026-11-24T01:19:03Z",
+   "expires": "2026-11-24T04:00:31Z",
    "release": "order-m1b.zip",
    "callers": {}
   },
@@ -196,7 +111,7 @@
    "session": "session_01CXLi5kW2cGfR4Ya7fh2s3y",
    "why": "M1b: what the system knows, what it asks (QuickBooks first, the Vendor line, vendor bills; decisions/0178 notes 2026-11-23)",
    "since": "2026-11-23T21:19:03Z",
-   "expires": "2026-11-24T01:19:03Z",
+   "expires": "2026-11-24T04:00:47Z",
    "release": "order-m1b.zip",
    "callers": {}
   },
@@ -207,7 +122,7 @@
    "session": "session_01CXLi5kW2cGfR4Ya7fh2s3y",
    "why": "M1b: what the system knows, what it asks (QuickBooks first, the Vendor line, vendor bills; decisions/0178 notes 2026-11-23)",
    "since": "2026-11-23T21:19:03Z",
-   "expires": "2026-11-24T01:19:03Z",
+   "expires": "2026-11-24T04:00:31Z",
    "release": "order-m1b.zip",
    "callers": {}
   },
@@ -218,7 +133,7 @@
    "session": "session_01CXLi5kW2cGfR4Ya7fh2s3y",
    "why": "M1b: what the system knows, what it asks (QuickBooks first, the Vendor line, vendor bills; decisions/0178 notes 2026-11-23)",
    "since": "2026-11-23T21:19:03Z",
-   "expires": "2026-11-24T01:19:03Z",
+   "expires": "2026-11-24T04:00:31Z",
    "release": "order-m1b.zip",
    "callers": {}
   },
@@ -229,7 +144,7 @@
    "session": "session_01CXLi5kW2cGfR4Ya7fh2s3y",
    "why": "M1b: what the system knows, what it asks (QuickBooks first, the Vendor line, vendor bills; decisions/0178 notes 2026-11-23)",
    "since": "2026-11-23T21:19:03Z",
-   "expires": "2026-11-24T01:19:03Z",
+   "expires": "2026-11-24T04:00:47Z",
    "release": "order-m1b.zip",
    "callers": {}
   },
@@ -240,7 +155,7 @@
    "session": "session_01CXLi5kW2cGfR4Ya7fh2s3y",
    "why": "M1b: what the system knows, what it asks (QuickBooks first, the Vendor line, vendor bills; decisions/0178 notes 2026-11-23)",
    "since": "2026-11-23T21:19:03Z",
-   "expires": "2026-11-24T01:19:03Z",
+   "expires": "2026-11-24T04:00:47Z",
    "release": "order-m1b.zip",
    "callers": {}
   },
@@ -251,45 +166,8 @@
    "session": "session_01CXLi5kW2cGfR4Ya7fh2s3y",
    "why": "M1b: what the system knows, what it asks (QuickBooks first, the Vendor line, vendor bills; decisions/0178 notes 2026-11-23)",
    "since": "2026-11-23T21:19:03Z",
-   "expires": "2026-11-24T01:19:03Z",
+   "expires": "2026-11-24T04:00:47Z",
    "release": "order-m1b.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/ControlGauges.php",
-   "functions": [
-    "parse"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
-   "why": "Keeps the pickups (which session has a request)",
-   "since": "2026-11-23T21:23:34Z",
-   "expires": "2026-11-24T01:23:34Z",
-   "release": "kit-buttons.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/ControlGauges.php",
-   "functions": [
-    "pickup"
-   ],
-   "kind": "add",
-   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
-   "why": "The session that has a request",
-   "since": "2026-11-23T21:23:38Z",
-   "expires": "2026-11-24T01:27:34Z",
-   "release": "kit-buttons.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/api/health.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
-   "why": "?part=gauge_tasks for the hourly pickup",
-   "since": "2026-11-23T21:23:40Z",
-   "expires": "2026-11-24T01:23:40Z",
-   "release": "kit-buttons.zip",
    "callers": {}
   },
   {
@@ -301,33 +179,8 @@
    "session": "session_01CXLi5kW2cGfR4Ya7fh2s3y",
    "why": "M1b: the hourly QuickBooks pull's page (qb_orders_tick)",
    "since": "2026-11-23T21:24:40Z",
-   "expires": "2026-11-24T01:24:40Z",
+   "expires": "2026-11-24T04:00:31Z",
    "release": "order-m1b.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/js/admin-control.js",
-   "functions": [
-    "cbgEsc",
-    "redraw"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
-   "why": "A row's \u22ef menu: Esc and a click outside",
-   "since": "2026-11-23T21:26:47Z",
-   "expires": "2026-11-24T01:27:34Z",
-   "release": "kit-buttons.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/api/health.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
-   "why": "release kit-buttons.zip",
-   "since": "2026-11-23T21:27:34Z",
-   "expires": "2026-11-24T01:27:34Z",
-   "release": "kit-buttons.zip",
    "callers": {}
   },
   {
@@ -337,7 +190,7 @@
    "session": "session_01CXLi5kW2cGfR4Ya7fh2s3y",
    "why": "M1b: what the system knows, what it asks (new functions and lists at the file's top level)",
    "since": "2026-11-23T21:46:06Z",
-   "expires": "2026-11-24T01:46:06Z",
+   "expires": "2026-11-24T04:00:47Z",
    "release": "order-m1b.zip",
    "callers": {}
   },
@@ -348,7 +201,18 @@
    "session": "session_01CXLi5kW2cGfR4Ya7fh2s3y",
    "why": "M1b: what the system knows, what it asks (new functions and lists at the file's top level)",
    "since": "2026-11-23T21:46:06Z",
-   "expires": "2026-11-24T01:46:06Z",
+   "expires": "2026-11-24T04:00:47Z",
+   "release": "order-m1b.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/job-line.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kW2cGfR4Ya7fh2s3y",
+   "why": "release order-m1b.zip",
+   "since": "2026-11-24T00:00:47Z",
+   "expires": "2026-11-24T04:00:47Z",
    "release": "order-m1b.zip",
    "callers": {}
   }
