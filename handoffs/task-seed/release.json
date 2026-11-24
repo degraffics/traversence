@@ -1,0 +1,21 @@
+{
+ "title": "Every row of Jason's scope doc in the Work queue, with its scope and decisions",
+ "why": "Jason, 2026-11-24: \"i need all the tasks in the que as well before usage runs out\". From his doc \"Work queue: task scopes\" (https://claude.ai/artifact/NgH5Vhw4uPadPkgSpfZuJu), its three tables: Control Board, Orders, Backlog.",
+ "changes": [
+  {
+   "what": "20 tasks added to the Work queue (Work queue phase 2, Order #12's books, the App builder (0175 R3/R4), the App store and its apps, W15 Funnel, state licence lists, Release B's leftovers, backups, OpenStreetMap coverage, the Dispatch tool, Insights, .ai domains, routes on our site, Communications, Pulse's load time, area clusters, your Nov 17 lists)",
+   "where": "https://traversence.com/admin/config/control?tab=development"
+  },
+  {
+   "what": "Every task in the doc carries its goal, in scope, out of scope, done when and priority from the doc; the 19 already in the queue get theirs (and your notes in their source)",
+   "where": "https://traversence.com/admin/config/control?tab=development"
+  },
+  {
+   "what": "The decisions each row names are attached (0101, 0169, 0170, 0172, 0174, 0175, 0177, 0178)",
+   "where": "https://traversence.com/admin/config/control?tab=development"
+  }
+ ],
+ "proposals": [],
+ "switch": "",
+ "data_reason": "Adds the scope doc's 20 new tasks (each only if not there) and sets the scope fields (goal, in scope, out of scope, done when, priority) on the 39 Work queue tasks the doc lists, from Jason's own doc; attaches the 12 decisions it names. Only control_gauge_tasks rows of the Work queue (bucket 'task') and control_gauge_task_adrs; nothing else is touched."
+}
