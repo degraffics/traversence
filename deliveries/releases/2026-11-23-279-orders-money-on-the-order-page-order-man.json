@@ -6,20 +6,22 @@
     "zip": "order-m2.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "staged",
-    "step": 0,
+    "state": "live",
+    "step": 3,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
     "plan_at": "2026-11-24 02:49:59",
     "staged_at": "2026-11-24 02:50:00",
-    "vetted_at": null,
-    "live_at": null,
+    "vetted_at": "2026-11-24 02:50:04",
+    "live_at": "2026-11-24 02:50:04",
     "files": {
         "app/ui/faq.md": {
             "sha": "69c91d97851cc48471c83787ada6c7997d2b5a602ef329c3553d933c83ef5650",
             "size": 444326,
-            "live_was": "6febbae60bc7350c03511368ea25fe2d0b4fb769ce848dcb68202a973712dc12"
+            "live_was": "6febbae60bc7350c03511368ea25fe2d0b4fb769ce848dcb68202a973712dc12",
+            "existed": true,
+            "old_sha": "6febbae60bc7350c03511368ea25fe2d0b4fb769ce848dcb68202a973712dc12"
         },
         "app/migrations/2026-11-24_order_refunds.sql": {
             "sha": "ba565e9adf0c9f5008d75962b6ab4f57f32001f6ba3196573c56e93dc1677c1d",
@@ -29,42 +31,58 @@
         "app/lib/ClientOrders.php": {
             "sha": "d593b4eed39243b97a00fcf86b4fe9c9bf09ffc56deab1673ee546235524c2ce",
             "size": 245910,
-            "live_was": "22d5feade5c845094444ddb74dfcbd4689bdf38f03c490f1e5643488c108b5a7"
+            "live_was": "22d5feade5c845094444ddb74dfcbd4689bdf38f03c490f1e5643488c108b5a7",
+            "existed": true,
+            "old_sha": "22d5feade5c845094444ddb74dfcbd4689bdf38f03c490f1e5643488c108b5a7"
         },
         "app/lib/Orders.php": {
             "sha": "d385da44f77abc6b01e7c822686965d9bf2dec4a09ecb4482047f3a500d177f3",
             "size": 64524,
-            "live_was": "2356b79c1c0288b551d44494146a450dc1cab1cb381d73b6c52dc4726abd9e7e"
+            "live_was": "2356b79c1c0288b551d44494146a450dc1cab1cb381d73b6c52dc4726abd9e7e",
+            "existed": true,
+            "old_sha": "2356b79c1c0288b551d44494146a450dc1cab1cb381d73b6c52dc4726abd9e7e"
         },
         "app/lib/staging-tables.php": {
             "sha": "764a7cb33edf76df12f88e737e6254c64e3548852f7eb1f8a7fa2e5ddf6a30d9",
             "size": 29623,
-            "live_was": "7315a5f39d9fa26650cd7843fe32e7ba42f11465c5f877fc257efdb4bd097845"
+            "live_was": "7315a5f39d9fa26650cd7843fe32e7ba42f11465c5f877fc257efdb4bd097845",
+            "existed": true,
+            "old_sha": "7315a5f39d9fa26650cd7843fe32e7ba42f11465c5f877fc257efdb4bd097845"
         },
         "app/lib/Pulse.php": {
             "sha": "25d7a075660c1cc63c01134dce3aa09029f8c3ef453c4ca6e33ebaa22a672f91",
             "size": 173634,
-            "live_was": "0045dab72e7d7d517a18cbbb1a5137823416027ed3f20167435cc3470b3efdd5"
+            "live_was": "0045dab72e7d7d517a18cbbb1a5137823416027ed3f20167435cc3470b3efdd5",
+            "existed": true,
+            "old_sha": "0045dab72e7d7d517a18cbbb1a5137823416027ed3f20167435cc3470b3efdd5"
         },
         "app/lib/Customers.php": {
             "sha": "f1b2fa51210338ca4ffaf01920d09b2bcda55b4d0069488abb223e3e8b74ffa2",
             "size": 23998,
-            "live_was": "a371adff08218f90064d23a2fb9c7625a831f2b704e14df8e2543df587c1d1de"
+            "live_was": "a371adff08218f90064d23a2fb9c7625a831f2b704e14df8e2543df587c1d1de",
+            "existed": true,
+            "old_sha": "a371adff08218f90064d23a2fb9c7625a831f2b704e14df8e2543df587c1d1de"
         },
         "website/admin/order.php": {
             "sha": "49bad3a4f599ca65cf7e237b029b5654cf5d743edec3143b06590824d67219f8",
             "size": 32096,
-            "live_was": "0493cff98ca4ef1de9a2b9b65eab5a43b9c9e247ecd94909f20861cf07022473"
+            "live_was": "0493cff98ca4ef1de9a2b9b65eab5a43b9c9e247ecd94909f20861cf07022473",
+            "existed": true,
+            "old_sha": "0493cff98ca4ef1de9a2b9b65eab5a43b9c9e247ecd94909f20861cf07022473"
         },
         "website/admin/ecommerce.php": {
             "sha": "b07233c6f9697f82e9b343b69ff7b355a8b574ef0b917a240778938ca9c16952",
             "size": 28909,
-            "live_was": "9f69b24d12eca7e4d646b3f22ae9765569e9160e730babe0d4d3fc65b72a6cd4"
+            "live_was": "9f69b24d12eca7e4d646b3f22ae9765569e9160e730babe0d4d3fc65b72a6cd4",
+            "existed": true,
+            "old_sha": "9f69b24d12eca7e4d646b3f22ae9765569e9160e730babe0d4d3fc65b72a6cd4"
         },
         "website/admin/client-order.php": {
             "sha": "9125d9d950e6dfbde1a6140ac0543ad7115bfcefb7837852ca474767644d162e",
             "size": 318225,
-            "live_was": "b90c936324aaee13a5b1df7f8c8e627a068ad5e2f6f59732a2efa93d1854d02f"
+            "live_was": "b90c936324aaee13a5b1df7f8c8e627a068ad5e2f6f59732a2efa93d1854d02f",
+            "existed": true,
+            "old_sha": "b90c936324aaee13a5b1df7f8c8e627a068ad5e2f6f59732a2efa93d1854d02f"
         }
     },
     "migrations": [
@@ -72,8 +90,8 @@
     ],
     "checks": {
         "ok": true,
-        "where": "staging",
-        "at": "2026-11-24T02:50:02+00:00",
+        "where": "live",
+        "at": "2026-11-24T02:50:04+00:00",
         "items": [
             [
                 "PHP files parse",
@@ -81,19 +99,9 @@
                 "8 checked"
             ],
             [
-                "Migrations only add",
-                true,
-                "1 checked"
-            ],
-            [
-                "Migrations ran on staging",
-                true,
-                "Ran 2026-11-24_order_refunds.sql"
-            ],
-            [
                 "Pages answer",
                 true,
-                "5 pages answered on staging.trvgo.us"
+                "5 pages answered on traversence.com"
             ],
             [
                 "No new fatal errors in the logs",
@@ -123,6 +131,16 @@
             "at": "2026-11-24T02:50:02+00:00",
             "by": 0,
             "msg": "Put on staging (10 files); its checks passed."
+        },
+        {
+            "at": "2026-11-24T02:50:04+00:00",
+            "by": 0,
+            "msg": "Approved in chat before it was sent through git, and its checks on staging passed: publishing by itself."
+        },
+        {
+            "at": "2026-11-24T02:50:04+00:00",
+            "by": 0,
+            "msg": "Published: 9 files, after its 1 migration ran first (2026-11-24_order_refunds.sql; a copy of what each touched is kept 14 days); everyone at once (no switch)."
         }
     ]
 }
