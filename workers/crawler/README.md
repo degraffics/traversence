@@ -196,6 +196,13 @@ middle change, and confidential listings are never sent. A batch can take a few 
 250 seconds. A Census outage is logged and the run carries on. It is the same as Admin → Crawler → Map points →
 Find points, without anyone pressing it.
 
+**Open loads in numbered batches of 100 (2.17.0, 2026-11-24; IR-0001).** The site took 101–130 s for each 500-row batch of
+an Overture or Foursquare town (the board's ledger, runs #1288 and #1290), past the worker's 120 s read, so the task failed
+while the site stored the rows. Each POST to `/api/crawl/loads.php` now carries 100 rows and its number in the town (`batch`);
+a batch with no answer is sent once more with the same number and a 240 s read, and the site answers a batch it already took
+with what it did then (`again`), so nothing is staged or counted twice. A refusal (an HTTP answer) isn't sent again. Every
+site call that fails, or takes over 10 s, is logged with its path, size and time (`tests/test_load_batches.py`).
+
 **Common Crawl's bulk reads wait only on their own host (2.16.1, 2026-11-21).** `common_crawl()` reads only data.commoncrawl.org, so only a hold there stops it; an index-server hold no longer does (decisions/0175 §3). The per-site copy still waits on both, since it asks the index server too.
 
 **The Census's backup (2.16.0; decisions/0175's note, Jason 2026-11-20: "Yes, build it").** When the site's call fails

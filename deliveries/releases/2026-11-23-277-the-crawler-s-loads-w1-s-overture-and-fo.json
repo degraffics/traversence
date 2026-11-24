@@ -1,0 +1,132 @@
+{
+    "id": 277,
+    "title": "The crawler's loads: W1's Overture and Foursquare loads in batches of 100 that reply in time; W0's count read right; the gauge requests' hand-off started by the",
+    "why": "IR-0001 (gauge request #1): the board's ledger showed each 500-row load taking 101-130 s at the site against the worker's 120 s read (runs #1288, #1290), so overture_bulk and foursquare_bulk tripped while their rows were stored. W0's alarm 'received 250, accounted for 0' (7,646 times) was our ledger not reading the endpoint's nested receipt. GitHub skipped gauge-requests.yml's own schedule. Both confirmed on live data through the test accounts; reviewed by the Design reviewer and the session manager (handoffs/loads-reply.md).",
+    "proposals": "",
+    "zip": "loads-reply.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "live",
+    "step": 3,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": "2026-11-24 01:28:40",
+    "staged_at": "2026-11-24 01:28:41",
+    "vetted_at": "2026-11-24 01:28:44",
+    "live_at": "2026-11-24 01:28:44",
+    "files": {
+        "app/migrations/2026-11-24_open_load_batches.sql": {
+            "sha": "62a3b26c3a47e1404bb4088e5846e6f51ec62bd2bd36a584e5cacbaedfa99a4a",
+            "size": 629,
+            "live_was": null
+        },
+        "app/lib/ControlLedger.php": {
+            "sha": "e6f5221af1995445ca5493be42f7eac37749a0abd7c7cc1590101ccd64e528bd",
+            "size": 22195,
+            "live_was": "d38862945a236012c0a3fe5fbbf9f50d8219f27d01e7aac24e8622672f90c2fd",
+            "existed": true,
+            "old_sha": "d38862945a236012c0a3fe5fbbf9f50d8219f27d01e7aac24e8622672f90c2fd"
+        },
+        "app/lib/crawler/OpenLoads.php": {
+            "sha": "5e20ac72c31320f3888096a9676d58fc20b1198373cfd06cbe0cec1a4931b234",
+            "size": 19181,
+            "live_was": "27218b73fd6c474c34fb1c43384bfcd1a4ceab9c7023bb187dbb6db1e576e5d7",
+            "existed": true,
+            "old_sha": "27218b73fd6c474c34fb1c43384bfcd1a4ceab9c7023bb187dbb6db1e576e5d7"
+        },
+        "app/lib/SiteHealth.php": {
+            "sha": "d81c8b760f15b30891fd826bd20c0d3013be573495bb90fa9cc77d6f795178f8",
+            "size": 19847,
+            "live_was": "ea9e34a056cf4cb9df7e25b4505867a9d7201c43e2f7f44fb9f9bf2be547747b",
+            "existed": true,
+            "old_sha": "ea9e34a056cf4cb9df7e25b4505867a9d7201c43e2f7f44fb9f9bf2be547747b"
+        },
+        "app/lib/staging-tables.php": {
+            "sha": "7315a5f39d9fa26650cd7843fe32e7ba42f11465c5f877fc257efdb4bd097845",
+            "size": 29303,
+            "live_was": "a8444e968315b930319d0b9aa3a09876bf50b339dc205462338cb9fae20cac47",
+            "existed": true,
+            "old_sha": "a8444e968315b930319d0b9aa3a09876bf50b339dc205462338cb9fae20cac47"
+        },
+        "app/lib/AuditClock.php": {
+            "sha": "2d56941027b7960803627b292db79042e5ec1a19986ba6b004245620dbef8fca",
+            "size": 10845,
+            "live_was": "65dc4252cf90a79b40f12385b54325addf7c11e56b82812605e7bffbbdd5355a",
+            "existed": true,
+            "old_sha": "65dc4252cf90a79b40f12385b54325addf7c11e56b82812605e7bffbbdd5355a"
+        },
+        "website/api/crawl/index.php": {
+            "sha": "2ff448ba5f0621bff21c915f08f6274ff147e048a27828704b3ca57d1867158f",
+            "size": 6381,
+            "live_was": "4623db39fa36db746862bd52c512fda6915c1a1ee37f284c414d282501477800",
+            "existed": true,
+            "old_sha": "4623db39fa36db746862bd52c512fda6915c1a1ee37f284c414d282501477800"
+        },
+        "website/api/crawl/loads.php": {
+            "sha": "b6a22580484c0b92cb8892f41b5d58aeecf38a54da07ddf25e67d13b2cfb2cfc",
+            "size": 4802,
+            "live_was": "9756dbe5571db9e4ae27e678473ff6e974763876f82ec9893a3fe1ba10835543",
+            "existed": true,
+            "old_sha": "9756dbe5571db9e4ae27e678473ff6e974763876f82ec9893a3fe1ba10835543"
+        }
+    },
+    "migrations": [
+        "app/migrations/2026-11-24_open_load_batches.sql"
+    ],
+    "checks": {
+        "ok": true,
+        "where": "live",
+        "at": "2026-11-24T01:28:44+00:00",
+        "items": [
+            [
+                "PHP files parse",
+                true,
+                "7 checked"
+            ],
+            [
+                "Pages answer",
+                true,
+                "2 pages answered on traversence.com"
+            ],
+            [
+                "No new fatal errors in the logs",
+                true,
+                "4 logs read"
+            ]
+        ],
+        "first_fail": ""
+    },
+    "log": [
+        {
+            "at": "2026-11-24T01:28:38+00:00",
+            "by": 0,
+            "msg": "Uploaded loads-reply.zip: 8 files."
+        },
+        {
+            "at": "2026-11-24T01:28:40+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/loads-reply.zip (git e6996721ba)."
+        },
+        {
+            "at": "2026-11-24T01:28:40+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
+        },
+        {
+            "at": "2026-11-24T01:28:42+00:00",
+            "by": 0,
+            "msg": "Put on staging (8 files); its checks passed."
+        },
+        {
+            "at": "2026-11-24T01:28:44+00:00",
+            "by": 0,
+            "msg": "Approved in chat before it was sent through git, and its checks on staging passed: publishing by itself."
+        },
+        {
+            "at": "2026-11-24T01:28:44+00:00",
+            "by": 0,
+            "msg": "Published: 7 files, after its 1 migration ran first (2026-11-24_open_load_batches.sql; a copy of what each touched is kept 14 days); everyone at once (no switch)."
+        }
+    ]
+}

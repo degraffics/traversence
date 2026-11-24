@@ -2,153 +2,6 @@
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
  "claims": [
   {
-   "path": "app/lib/crawler/OpenLoads.php",
-   "functions": [
-    "(top)",
-    "batch"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
-   "why": "IR-0001: batch keys; the recheck after the reply",
-   "since": "2026-11-24T00:04:16Z",
-   "expires": "2026-11-24T04:49:08Z",
-   "release": "loads-reply.zip",
-   "callers": {
-    "batch": [
-     "website/api/crawl/loads.php"
-    ]
-   }
-  },
-  {
-   "path": "app/lib/crawler/OpenLoads.php",
-   "functions": [
-    "batchDone",
-    "batchKeep",
-    "recheck"
-   ],
-   "kind": "add",
-   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
-   "why": "IR-0001: recheck and batch keys",
-   "since": "2026-11-24T00:04:23Z",
-   "expires": "2026-11-24T04:04:23Z",
-   "release": "loads-reply.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/api/crawl/loads.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
-   "why": "IR-0001: batch number, reply first then recheck",
-   "since": "2026-11-24T00:04:26Z",
-   "expires": "2026-11-24T04:49:08Z",
-   "release": "loads-reply.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/AuditClock.php",
-   "functions": [
-    "(top)",
-    "FLOWS"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
-   "why": "gauge-requests in FLOWS",
-   "since": "2026-11-24T00:04:28Z",
-   "expires": "2026-11-24T04:49:08Z",
-   "release": "loads-reply.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/AuditClock.php",
-   "functions": [
-    "staleWhy"
-   ],
-   "kind": "add",
-   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
-   "why": "a workflow's own stale sentence (the Design reviewer)",
-   "since": "2026-11-24T00:06:56Z",
-   "expires": "2026-11-24T04:06:56Z",
-   "release": "loads-reply.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/SiteHealth.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
-   "why": "the stale line from AuditClock::staleWhy",
-   "since": "2026-11-24T00:06:58Z",
-   "expires": "2026-11-24T04:49:08Z",
-   "release": "loads-reply.zip",
-   "callers": {
-    "dispatch": [
-     "app/lib/ControlAlarms.php"
-    ]
-   }
-  },
-  {
-   "path": "app/lib/ControlLedger.php",
-   "functions": [
-    "alarms",
-    "counts"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
-   "why": "W0's count alarm closes in true words",
-   "since": "2026-11-24T00:13:39Z",
-   "expires": "2026-11-24T04:49:08Z",
-   "release": "loads-reply.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/api/crawl/index.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
-   "why": "W0: one record line per batch",
-   "since": "2026-11-24T00:13:42Z",
-   "expires": "2026-11-24T04:13:42Z",
-   "release": "loads-reply.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/staging-tables.php",
-   "functions": [
-    "(top)",
-    "OWN"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
-   "why": "open_load_batches in OWN",
-   "since": "2026-11-24T00:48:14Z",
-   "expires": "2026-11-24T04:49:08Z",
-   "release": "loads-reply.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/migrations/2026-11-24_open_load_batches.sql",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
-   "why": "release loads-reply.zip",
-   "since": "2026-11-24T00:49:08Z",
-   "expires": "2026-11-24T04:49:08Z",
-   "release": "loads-reply.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/api/crawl/index.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
-   "why": "release loads-reply.zip",
-   "since": "2026-11-24T00:49:08Z",
-   "expires": "2026-11-24T04:49:08Z",
-   "release": "loads-reply.zip",
-   "callers": {}
-  },
-  {
    "path": "app/lib/Orders.php",
    "functions": [
     "(top)",
@@ -158,7 +11,7 @@
    "session": "session_01CXLi5j2wAgTrKdTwX6kQNY",
    "why": "M2: a cancelled payment record takes it out of what's paid",
    "since": "2026-11-24T01:02:25Z",
-   "expires": "2026-11-24T05:24:00Z",
+   "expires": "2026-11-24T06:22:05Z",
    "release": "order-m2.zip",
    "callers": {
     "money": [
@@ -187,7 +40,7 @@
    "session": "session_01CXLi5j2wAgTrKdTwX6kQNY",
    "why": "M2: the cancel window (0178 \u00a72), the posted payment id, a cancelled record not counted, the dispute's step",
    "since": "2026-11-24T01:02:27Z",
-   "expires": "2026-11-24T05:23:54Z",
+   "expires": "2026-11-24T06:22:05Z",
    "release": "order-m2.zip",
    "callers": {
     "boardState": [
@@ -245,7 +98,7 @@
    "session": "session_01CXLi5j2wAgTrKdTwX6kQNY",
    "why": "M2: a client order's money opens the order page; refunds wait for Jason",
    "since": "2026-11-24T01:02:34Z",
-   "expires": "2026-11-24T05:02:34Z",
+   "expires": "2026-11-24T06:22:05Z",
    "release": "order-m2.zip",
    "callers": {}
   },
@@ -256,7 +109,7 @@
    "session": "session_01CXLi5j2wAgTrKdTwX6kQNY",
    "why": "M2: refund requests and the posted payment id",
    "since": "2026-11-24T01:02:36Z",
-   "expires": "2026-11-24T05:02:36Z",
+   "expires": "2026-11-24T06:22:05Z",
    "release": "order-m2.zip",
    "callers": {}
   },
@@ -267,28 +120,9 @@
    "session": "session_01CXLi5j2wAgTrKdTwX6kQNY",
    "why": "M2: money on the order page",
    "since": "2026-11-24T01:02:46Z",
-   "expires": "2026-11-24T05:02:46Z",
+   "expires": "2026-11-24T06:22:05Z",
    "release": "order-m2.zip",
    "callers": {}
-  },
-  {
-   "path": "app/lib/staging-tables.php",
-   "functions": [
-    "LINKS",
-    "MONEY",
-    "REFS"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5j2wAgTrKdTwX6kQNY",
-   "why": "M2: order_refund_requests' record links",
-   "since": "2026-11-24T01:03:14Z",
-   "expires": "2026-11-24T05:15:27Z",
-   "release": "order-m2.zip",
-   "callers": {
-    "LINKS": [
-     "app/lib/StagingIds.php"
-    ]
-   }
   },
   {
    "path": "app/lib/Customers.php",
@@ -300,13 +134,177 @@
    "session": "session_01CXLi5j2wAgTrKdTwX6kQNY",
    "why": "M2: a cancelled payment record isn't counted as spent",
    "since": "2026-11-24T01:06:51Z",
-   "expires": "2026-11-24T05:24:03Z",
+   "expires": "2026-11-24T06:22:05Z",
    "release": "order-m2.zip",
    "callers": {
     "sync": [
      "app/admin/tools.php"
     ]
    }
+  },
+  {
+   "path": "app/lib/staging-tables.php",
+   "functions": [
+    "(top)",
+    "MONEY",
+    "REFS"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5j2wAgTrKdTwX6kQNY",
+   "why": "M2: order_refund_requests in MONEY, its links",
+   "since": "2026-11-24T01:55:56Z",
+   "expires": "2026-11-24T06:22:05Z",
+   "release": "order-m2.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ControlAlarms.php",
+   "functions": [
+    "affects",
+    "facts",
+    "pulseSteps",
+    "raise",
+    "resolve"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
+   "why": "The started state drops the stale pause line",
+   "since": "2026-11-24T01:56:35Z",
+   "expires": "2026-11-24T06:21:53Z",
+   "release": "task-trip.zip",
+   "callers": {
+    "resolve": [
+     "app/admin/automation-console.php",
+     "app/admin/tools.php",
+     "website/admin/api.php"
+    ],
+    "facts": [
+     "app/admin/control-console.php",
+     "app/admin/module-cards.php",
+     "app/admin/operations-console.php",
+     "app/admin/preflight-console.php",
+     "app/lib/ControlConsistency.php",
+     "app/lib/Pulse.php",
+     "app/lib/ServiceHealth.php"
+    ],
+    "raise": [
+     "app/lib/Captcha.php",
+     "app/lib/ControlHistorian.php",
+     "app/lib/ControlLedger.php",
+     "app/lib/ControlMaintenance.php",
+     "app/lib/ControlSensor.php",
+     "app/lib/Gemini.php",
+     "app/lib/Operations.php",
+     "app/lib/Preflight.php",
+     "app/lib/ServiceHealth.php",
+     "app/lib/SiteHealth.php",
+     "app/lib/SystemStart.php",
+     "app/lib/crawler/CrawlService.php",
+     "app/lib/crawler/IrsBulk.php"
+    ],
+    "pulseSteps": [
+     "app/lib/Pulse.php"
+    ],
+    "affects": [
+     "app/lib/ServiceHealth.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/ControlAlarms.php",
+   "functions": [
+    "pausedRefs",
+    "plainTrip",
+    "startForNextRun",
+    "startedAgain",
+    "stillHolding"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
+   "why": "The Design reviewer's words",
+   "since": "2026-11-24T01:56:38Z",
+   "expires": "2026-11-24T06:11:53Z",
+   "release": "task-trip.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/crawler/CrawlService.php",
+   "functions": [
+    "runNext"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
+   "why": "Try it first says when it won't run",
+   "since": "2026-11-24T01:56:40Z",
+   "expires": "2026-11-24T06:21:53Z",
+   "release": "task-trip.zip",
+   "callers": {
+    "runNext": [
+     "app/admin/crawler-console.php",
+     "app/lib/Operations.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/Operations.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
+   "why": "Try it first says when it won't run",
+   "since": "2026-11-24T01:56:40Z",
+   "expires": "2026-11-24T06:21:53Z",
+   "release": "task-trip.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/crawler-console.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
+   "why": "Try it first says when it won't run",
+   "since": "2026-11-24T01:56:40Z",
+   "expires": "2026-11-24T06:21:53Z",
+   "release": "task-trip.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/control-console.php",
+   "functions": [
+    "tv_cb_alarms"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
+   "why": "The pressed state on the board's row",
+   "since": "2026-11-24T02:05:19Z",
+   "expires": "2026-11-24T06:21:53Z",
+   "release": "task-trip.zip",
+   "callers": {
+    "tv_cb_alarms": [
+     "app/lib/ControlConsistency.php"
+    ]
+   }
+  },
+  {
+   "path": "website/admin/ecommerce.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5j2wAgTrKdTwX6kQNY",
+   "why": "M2: a cancelled payment record leaves the money reports' net",
+   "since": "2026-11-24T02:21:32Z",
+   "expires": "2026-11-24T06:22:05Z",
+   "release": "order-m2.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Pulse.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5j2wAgTrKdTwX6kQNY",
+   "why": "release order-m2.zip",
+   "since": "2026-11-24T02:22:05Z",
+   "expires": "2026-11-24T06:22:05Z",
+   "release": "order-m2.zip",
+   "callers": {}
   }
  ],
  "lapsed": [

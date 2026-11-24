@@ -10,10 +10,14 @@ on:
       read:
         description: 'What to read'
         type: choice
-        options: [orders, order]
+        options: [orders, order, ir0001, w0, meta]
         default: orders
       order_id:
-        description: "The order's number (for: order)"
+        description: "The order's number (for: order), or the crawler run's (for: ir0001, default 1290)"
+        type: string
+        default: ''
+      table:
+        description: "A table's name (for: meta, its columns and types from the admin's data API)"
         type: string
         default: ''
       to_log:
@@ -49,6 +53,7 @@ jobs:
           CHECK_ACCOUNTS: ${{ secrets.CHECK_ACCOUNTS }}
           READ: ${{ inputs.read }}
           ORDER_ID: ${{ inputs.order_id }}
+          TABLE: ${{ inputs.table }}
           OUT: live-read
           TO_LOG: ${{ inputs.to_log && '1' || '0' }}
         run: node tools/page-audit/live-read.mjs
