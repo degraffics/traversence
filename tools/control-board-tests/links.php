@@ -36,7 +36,7 @@ $t('…and it is in the logbook', (bool) array_filter(ControlLog::feed($pdo, 'sv
 $js = file_get_contents(dirname($app) . '/website/js/admin-control.js'); $cc = file_get_contents($app . '/admin/control-console.php');
 $t('the page takes a resolved row out of the queue at once and says it\'s in the logbook', str_contains($js, "(act === 'resolve' || (act === 'svccheck'") && str_contains($js, "&& !j.bad ? b.closest('li[id^=\"cb-alarm-\"]')") && str_contains($js, 's in the logbook.'));
 $t('Check and start again is greyed while the trip\'s own check is red, saying which part', str_contains($cc, "'Its check is red: ' . \$redChecks[substr((string) \$a['akey'], 3)]"));
-$t('a group\'s Holds line is plain words, so a press on its header opens the group', str_contains($cc, "'<div class=\"cb-am\"><span><b>Holds:</b> ' . \$e(implode(', ', \$nm))") && !str_contains($cc, "tv_cb_more(implode(', ', \$nm), 110"));
+$t('a group\'s header is one line of plain words ("W1 Listings · 2 trips ▾"), so a press on it opens the group (task-trip, 2026-11-24: its Holds line folded into the title)', str_contains($cc, "' · \$1 trips'") && !str_contains($cc, "tv_cb_more(implode(', ', \$nm), 110"));
 
 $api = file_get_contents(dirname($app) . '/website/admin/api.php'); $ca = file_get_contents($app . '/lib/ControlAlarms.php');
 $t('Check it now on a service that isn\'t set up (az511, no key) closes its issue and says why; the watch does too', str_contains($api, "if ((\$r['s'] ?? '') === 'na') ServiceHealth::resolve(") && str_contains($api, "'Closed: '") && str_contains($ca, "if ((\$rr['s'] ?? '') === 'na') ServiceHealth::resolve("));
