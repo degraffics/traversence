@@ -491,7 +491,7 @@ final class CrawlService
             require_once __DIR__ . '/../Automation.php';
             $st = $pdo->prepare('SELECT wf FROM crawl_capture_tasks WHERE task = ?'); $st->execute([$task]); $wf = (string) ($st->fetchColumn() ?: '');
             $w = Automation::sysAny($pdo, array_values(array_filter(['master:all', $wf !== '' ? 'wf:' . $wf : '', 'task:' . $task])));
-            if ($w !== null) return 'It\'s first in line, but it won\'t run while ' . $w . ': its trip\'s Check and start again lifts that.';
+            if ($w !== null) return 'It\'s first in line, but won\'t run while ' . ($wf !== '' ? $wf : 'it') . ' is paused by a trip: its Check and start again is beside this.';
         } catch (Throwable $x) {}
         return null;
     }

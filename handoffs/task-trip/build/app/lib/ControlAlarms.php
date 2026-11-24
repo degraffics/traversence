@@ -126,10 +126,10 @@ final class ControlAlarms
                 $pdo->prepare('UPDATE control_alarms SET n_times = n_times + ' . ($event ? 1 : 0) . ', last_at = UTC_TIMESTAMP(), level = ?, title = ?, means = ?, todo = ?, reading = ?, fix = ? WHERE id = ?')
                     ->execute([$lv, $cut($title, 200), $cut($means, 400), $cut($todo, 400), $cut($reading, 255), mb_substr($fx, 0, 400), (int) $o['id']]);
                 if (self::$engine) $pdo->prepare('UPDATE control_alarms SET component = ?, next_try_at = ? WHERE id = ?')->execute([$cut($comp, 80) ?: null, $lv === 'trip' && empty($early) && $o['level'] !== 'trip' ? null : $next, (int) $o['id']]);
-                // started again for its next run, and that run failed too: its pauses back, its words say so (never still "Started again")
+                // started again for its next run, and that run failed too: its pauses back, its words say so (never still "runs again")
                 if ($event && $lv === 'trip' && self::startedAgain($o) !== '') {
                     require_once __DIR__ . '/Automation.php';
-                    foreach ((array) json_decode((string) ($o['stopped'] ?? ''), true) as $st) if (is_array($st) && ($st[0] ?? '') === 'pause') { [$pk, $pr] = explode(':', (string) $st[1], 2) + ['', '']; if ($pr !== '') Automation::sysPause($pdo, $pk, $pr, $cut($title, 200), (int) $o['id']); }
+                    foreach (self::pausedRefs($o) as $ref) { [$pk, $pr] = explode(':', $ref, 2) + ['', '']; if ($pr !== '') Automation::sysPause($pdo, $pk, $pr, $cut($title, 200), (int) $o['id']); }
                     $again = 'Tried again at ' . gmdate('H:i') . ' UTC after ' . ((string) ($o['resolved_name'] ?? '') ?: 'a person') . ' started it: it failed again (' . $cut($reading, 120) . '). Fix its cause, then Check and start again.';
                     $pdo->prepare('UPDATE control_alarms SET resolve_note = ? WHERE id = ?')->execute([mb_substr($again, 0, 400), (int) $o['id']]);
                     self::log($pdo, 'alarm', $proc, 'Failed again after it was started: ' . $cut($title, 200), '', $cut($reading, 200));
@@ -299,29 +299,70 @@ final class ControlAlarms
      * stays open with that reason on its row. Returns [ok, words].
      */
     /**
-     * A trip on a task's own code, pressed: lifts the pauses this trip set (the next run is its check), and says in words
-     * what happened: started again, or what still holds it and which alarm's button lifts that. Never closes the trip.
+     * A trip on a task's own code, pressed: lifts the pauses this trip set (its next run is its check) and says what happened,
+     * in the Design reviewer's words (2026-11-24). Never closes the trip: its run does.
      */
     private static function startForNextRun(PDO $pdo, array $a, int $id, string $who, string $note): string
     {
         require_once __DIR__ . '/Automation.php';
-        $refs = [];
-        foreach ((array) json_decode((string) ($a['stopped'] ?? ''), true) as $s) if (is_array($s) && ($s[0] ?? '') === 'pause') $refs[] = (string) ($s[1] ?? '');
+        $refs = self::pausedRefs($a);
         $lifted = Automation::sysResume($pdo, $id, 'Started again by ' . $who . ' for its next run');
-        $at = gmdate('H:i') . ' UTC';
-        // what still holds what this trip paused: another alarm's pause on the same workflow or task
-        $still = [];
-        foreach (Automation::pauses($pdo) as $key => $p) {
-            if (!in_array($key, $refs, true) || (int) ($p['alarm_id'] ?? 0) === $id) continue;
-            $o = ($p['alarm_id'] ?? null) !== null ? self::byId($pdo, (int) $p['alarm_id']) : null;
-            $still[] = ($o ? '"' . (string) $o['title'] . '" (its own Check and start again lifts it)' : 'a pause of the system (' . $key . ')');
-        }
+        $when = '(' . $who . ', ' . gmdate('H:i') . ' UTC)';
         $what = $refs ? implode(', ', array_map(fn ($r) => str_starts_with($r, 'wf:') ? substr($r, 3) : $r, array_unique($refs))) : '';
-        if ($still) return 'Started again at ' . $at . ' by ' . $who . ' for this trip, but ' . $what . ' is still paused by ' . implode(' and ', array_unique($still))
-            . '. Press that one too; then ' . $what . ' runs, and its next run is this task\'s check: this closes as Fixed when that run does its work.';
-        return ($lifted > 0 ? 'Started again at ' . $at . ' by ' . $who . ': ' . $what . ' runs again, and its next run is this task\'s check'
-                            : 'Noted at ' . $at . ' by ' . $who . ': ' . $note . '. Its next run is its check')   // nothing of it was paused: as before
-            . ': this closes as Fixed when that run does its work, or trips again if it fails.';
+        $still = self::stillHolding($pdo, $a, $id);
+        if ($still) return 'This trip\'s pause is lifted ' . $when . '. ' . $what . ' is still paused by ' . (count($still) === 1 ? 'one more trip: ' : count($still) . ' more trips: ')
+            . implode('; ', array_map(fn ($o) => self::plainTrip($pdo, $o), $still)) . '. Once both are cleared, ' . $what . '\'s next run is this task\'s check: it closes as Fixed if it works, or trips again if not.';
+        if ($lifted > 0) {
+            $runs = $what . ' runs again ' . $when . '. Its next run is this task\'s check: it closes as Fixed if it works, or trips again if not.';
+            // the trips pressed before this one, waiting on it, now say the same (their card follows the state)
+            try {
+                foreach ($pdo->query("SELECT * FROM control_alarms WHERE cleared_at IS NULL AND level = 'trip' AND id <> " . (int) $id . " AND resolve_note LIKE 'This trip%s pause is lifted (%'")->fetchAll(PDO::FETCH_ASSOC) as $o)
+                    if (array_intersect(self::pausedRefs($o), $refs) && !self::stillHolding($pdo, $o, (int) $o['id'])) $pdo->prepare('UPDATE control_alarms SET resolve_note = ? WHERE id = ?')->execute([mb_substr($runs, 0, 400), (int) $o['id']]);
+            } catch (Throwable $x) {}
+            return $runs;
+        }
+        return 'Noted at ' . gmdate('H:i') . ' UTC by ' . $who . ': ' . $note . '. Its next run is its check: this closes as Fixed when that run does its work.';   // nothing of it was paused: as before
+    }
+
+    /** What a trip paused ("wf:W1", "task:x"), from its stopped list. */
+    private static function pausedRefs(array $a): array
+    {
+        $out = [];
+        foreach ((array) json_decode((string) ($a['stopped'] ?? ''), true) as $s) if (is_array($s) && ($s[0] ?? '') === 'pause') $out[] = (string) ($s[1] ?? '');
+        return $out;
+    }
+
+    /** The open alarms still pausing what this trip paused (another trip on the same workflow or task). */
+    public static function stillHolding(PDO $pdo, array $a, int $id): array
+    {
+        $refs = self::pausedRefs($a); $out = [];
+        if (!$refs) return [];
+        try {
+            foreach ($pdo->query('SELECT kind, ref, alarm_id FROM system_pauses WHERE cleared_at IS NULL AND alarm_id IS NOT NULL')->fetchAll(PDO::FETCH_ASSOC) as $p)
+                if ((int) $p['alarm_id'] !== $id && in_array($p['kind'] . ':' . $p['ref'], $refs, true) && ($o = self::byId($pdo, (int) $p['alarm_id'])) && $o['cleared_at'] === null) $out[(int) $o['id']] = $o;
+        } catch (Throwable $x) {}
+        return array_values($out);
+    }
+
+    /** A task's trip in plain words: its task's name and its run ("Foursquare failed (run #1288)"), else its title. */
+    public static function plainTrip(PDO $pdo, array $o): string
+    {
+        if (preg_match('/^task:failed:(.+)$/', (string) $o['akey'], $m)) {
+            $nm = '';
+            try { $st = $pdo->prepare('SELECT name FROM crawl_capture_tasks WHERE task = ?'); $st->execute([$m[1]]); $nm = trim(explode(':', (string) ($st->fetchColumn() ?: ''))[0]); } catch (Throwable $x) {}
+            if ($nm !== '') return $nm . ' failed' . (preg_match('/\(run #\d+\)/', (string) $o['title'], $r) ? ' ' . $r[0] : '');
+        }
+        return (string) $o['title'];
+    }
+
+    /**
+     * A task's trip started again for its next run: its words, or ''. The card shows this state in place of the trip's (Jason,
+     * 2026-11-24: "every action … replace old states with new state"): no Check and start again, nothing held.
+     */
+    public static function startedAgain(array $a): string
+    {
+        $n = (string) ($a['resolve_note'] ?? '');
+        return $a['cleared_at'] === null && (string) $a['level'] === 'trip' && (str_starts_with($n, 'This trip\'s pause is lifted (') || preg_match('/^\S+ runs again \(/', $n)) ? $n : '';
     }
 
     public static function resolve(PDO $pdo, int $id, int $uid, string $who, string $note): array
@@ -343,10 +384,10 @@ final class ControlAlarms
                     return [false, $why];
                 }
                 if ($r['pass'] === null && (str_starts_with($comp, 'task:') || str_starts_with($comp, 'job:'))) {
-                    // its own code: no check can run before its next run (§2.7; R122 "It's fixed: try it again"); it closes when
-                    // that run does its work, never on the press alone (NG). The pauses this trip set are lifted first, or that
-                    // run never comes (W1, 2026-11-24: the trip paused wf:W1, the planner skips a paused workflow, and the press
-                    // only noted it); one still held by another alarm is named, with its own button (never "acknowledged" alone)
+                    // its own code: no check can run before its next run (§2.7; R122 "It's fixed: try it again"); nothing is held,
+                    // so nothing waits; it closes when that run does its work, never on the press alone (NG)
+                    // the pauses this trip set are lifted first, or that run never comes (W1, 2026-11-24: the trip paused wf:W1, the
+                    // planner skips a paused workflow, and the press only noted it); another trip still holding it is named
                     $words = self::startForNextRun($pdo, $a, $id, $who, $note);
                     $pdo->prepare('UPDATE control_alarms SET resolve_note = ?, resolved_uid = ?, resolved_name = ?, ack_uid = COALESCE(ack_uid, ?), ack_name = COALESCE(ack_name, ?), ack_at = COALESCE(ack_at, UTC_TIMESTAMP()) WHERE id = ?')
                         ->execute([mb_substr($words, 0, 400), $uid ?: null, mb_substr($who, 0, 80) ?: null, $uid ?: null, mb_substr($who, 0, 80) ?: null, $id]);
@@ -960,16 +1001,6 @@ final class ControlAlarms
      * from Preflight::NEEDS); What the system is doing (its words, which say how it's trying); What to do; Details (its
      * reading, kind and counts). No buttons here: each surface adds the ones it can press.
      */
-    /**
-     * A task's trip started again for its next run (startForNextRun): its words, or ''. The card shows this state in place of
-     * the trip's (Jason, 2026-11-24: "every action … replace old states with new state"): no Check and start again, nothing held.
-     */
-    public static function startedAgain(array $a): string
-    {
-        $n = (string) ($a['resolve_note'] ?? '');
-        return $a['cleared_at'] === null && (string) $a['level'] === 'trip' && str_starts_with($n, 'Started again at ') ? $n : '';
-    }
-
     public static function facts(PDO $pdo, array $a): array
     {
         $cl = $a['cleared_at'] !== null; $lv = (string) $a['level']; $isTrip = $lv === 'trip' && !empty($a['tripped_at']);
@@ -993,7 +1024,7 @@ final class ControlAlarms
             if ($ed !== '') $doing = $ed;
         }
         $sa = self::startedAgain($a);
-        if ($sa !== '') { $status = $sa; $doing = 'Nothing is paused for this trip now: its next run is the check.'; }   // the press's result replaces the trip's state (it holds nothing now; its run is its check)
+        if ($sa !== '') { $status = $sa; $doing = 'Nothing is paused for this trip now: its next run is the check.'; }   // the press's state replaces the trip's
         elseif (!$cl && $a['ack_at'] !== null) $status .= ' Acknowledged by ' . (string) ($a['ack_name'] ?? 'staff') . '.';
         if (!$cl && str_starts_with((string) ($a['resolve_note'] ?? ''), 'Tried again at ')) $status .= ' ' . (string) $a['resolve_note'];
         if (!$cl && $isTrip && !empty($a['good_at'])) $status .= ' Its reading is good again since ' . self::at((string) $a['good_at']) . ': ' . (string) $a['good_how'];

@@ -617,6 +617,10 @@ function tv_cb_alarms(array $alarms, array $ac, array $names, callable $pid, boo
         // (it is first), no Check and start again, nothing held, amber while it waits for that run (Jason, 2026-11-24)
         $started = ControlAlarms::startedAgain($a) !== '';
         if ($started) $fxs = array_values(array_filter($fxs, fn ($f) => !str_starts_with((string) ($f[2] ?? ''), 'ops_runnext:')));
+        // another trip still holding its workflow: that trip's own Check and start again, right on this card (the Design reviewer)
+        $holdBtn = '';
+        if ($started) foreach (ControlAlarms::stillHolding(Database::connection(), $a, $id) as $o)
+            $holdBtn .= $btn('resolve', 'Check and start again: ' . ControlAlarms::plainTrip(Database::connection(), $o), $canBoard, $whyBoard, (string) (int) $o['id'], ['class' => 'ak-b cb-xs go']);
         $fb = ''; foreach ($fxs as $f) $fb .= ($f[1] ?? '') === 'link' ? '<a class="ak-b cb-xs" href="' . $e((string) $f[2]) . '" target="_blank" rel="noopener">' . $e((string) $f[0]) . ' ↗</a>'
             : (($f[1] ?? '') === 'peek' ? '<a class="ak-b cb-xs" href="' . $e((string) $f[2]) . '" data-peek-frame="' . $e(is_string($f[3] ?? null) && $f[3] !== '' ? (string) $f[3] : (string) $f[0]) . '">' . $e((string) $f[0]) . '</a>'   // its panel titled by the part's name when the fix names it
             : (in_array($f[1] ?? '', ['ops', 'opsask'], true)   // the old Pulse case's steps, acting in place (0171 §7, §8): [label, 'ops'|'opsask', 'what', confirm|[ask label, value]]
@@ -647,7 +651,7 @@ function tv_cb_alarms(array $alarms, array $ac, array $names, callable $pid, boo
         $fix = $cl ? null : Thread::fixOf(['fix' => ControlAlarms::fixOf(Database::connection(), $a)]);
         if ($fix && $focus !== '' && strtok($fix['url'], '#') === '/admin/config/control/' . str_replace(':', '-', $focus)) $fix['url'] = substr($fix['url'], strpos($fix['url'], '#'));   // already on that page: it lands there
         if ($fix) { $fpage = strtok($fix['url'], '#'); $main = Thread::fixButton($fix, 'ak-b cb-xs go cb-main') . ($co[1] !== '' && !$here && strtok($co[1], '#') !== $fpage ? '<a class="ak-b cb-xs" href="' . $e($co[1]) . '" data-peek-frame>' . $e($co[0]) . '</a>' : ''); }
-        $acts = $main . (!$cl ? $fb : $undo)
+        $acts = $holdBtn . $main . (!$cl ? $fb : $undo)
             . ($ev[1] !== '' && ($main === '' || $ev[1] !== $co[1]) && !in_array($ev[1], array_map(fn ($f) => (string) ($f[2] ?? ''), $cl ? [] : $fxs), true) ? '<a class="ak-b cb-xs" href="' . $e($ev[1]) . '" data-peek-frame>' . $e($ev[0]) . '</a>' : '')
             // no Acknowledge on a warning: the system is handling it, and it clears itself or becomes a trip (0171 §7's 3c note,
             // "only a trip waits for a person"; Jason, 2026-11-19: "This is a notification, not need for me to acknowledge")

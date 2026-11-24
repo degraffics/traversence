@@ -24,7 +24,7 @@ same skip. Both W1 trips (overture_bulk #1290, foursquare_bulk #1288) each pause
   in Pulse the same. If that run fails again, `raise()` puts its pauses back and its Status adds "Tried again at … it failed
   again (…). Fix its cause, then Check and start again.", the button back. Its next good run closes it as Fixed.
 
-**Tests:** `tools/control-board-tests/task-trip.php` 18/18 (W1's live state: two trips each holding wf:W1); run-all.sh only the
+**Tests:** `tools/control-board-tests/task-trip.php` 21/21 (with the Design reviewer's words: "This trip's pause is lifted …", "W1 runs again …", the other trip's own button on the card) (W1's live state: two trips each holding wf:W1); run-all.sh only the
 7 known live failures (r3c's and S-D110's words kept: "Its next run is its check").
 
 **Once live:** Jason presses Check and start again on both W1 trips (the first names the second); W1 runs; each trip closes as
