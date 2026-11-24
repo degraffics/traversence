@@ -6,12 +6,12 @@
     "zip": "task-adrs.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "planned",
+    "state": "approved",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
-    "plan_at": null,
+    "plan_at": "2026-11-24 13:35:10",
     "staged_at": null,
     "vetted_at": null,
     "live_at": null,
@@ -61,6 +61,16 @@
             "at": "2026-11-24T13:35:07+00:00",
             "by": 0,
             "msg": "Uploaded task-adrs.zip: 7 files."
+        },
+        {
+            "at": "2026-11-24T13:35:10+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/task-adrs.zip (git 92c6dc33f2)."
+        },
+        {
+            "at": "2026-11-24T13:35:10+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
         }
     ]
 }
