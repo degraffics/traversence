@@ -61,6 +61,19 @@
    "expires": "2026-11-24T07:02:57Z",
    "release": "order-m2b.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/ClientOrders.php",
+   "functions": [
+    "legs"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5j2wAgTrKdTwX6kQNY",
+   "why": "M2b: how it goes, the two legs",
+   "since": "2026-11-24T03:23:32Z",
+   "expires": "2026-11-24T07:23:32Z",
+   "release": "order-m2b.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
