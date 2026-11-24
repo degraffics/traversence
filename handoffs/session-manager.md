@@ -220,6 +220,12 @@ session, then build. Waiting on: a discussion with Jason.
   reviewer and the session manager); the release `gauge-panel.zip` built on Sync 19:36 UTC and tested on the bench
   (`handoffs/gauge-panel.md`, "The release"). Waiting for the Design reviewer's walk; its send waits for order-m1's
   `faq.md` to go live.
+- **Progress (2026-11-24, 05:10 UTC):** queue item 1 of `control-board-2026-11-24.md`, the board's phone header, built by
+  the new Control Board build session (`session_01CXLi5gqPa5AQKoZXC7gZxx`) as `board-phone.zip` on Sync 03:54 UTC
+  (5eef020): the pages under ☰ on phones, one Alerts dropdown, one alarm count (P9), the side panel's thread styles, the
+  pills' font, a pressed trip counted as open, and the green bar (a press's answer squeezed into a flex row). Record
+  `handoffs/board-phone.md`; in review (Design reviewer, then the session manager); its send waits for order-m2b's
+  `faq.md` to go live.
 
 **Widen the OpenStreetMap copy** (Jason, 2026-11-19: "Seems like we could use everything openstreet has as long as it is
 cited", "Yea add to work que"; "the score could account for provided data so these entries would show lower than our

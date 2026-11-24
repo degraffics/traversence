@@ -1,0 +1,10 @@
+# board-phone's FAQ edits, re-applied on the newest live faq.md just before zipping (CLAUDE.md)
+import sys
+p=sys.argv[1]; s=open(p).read()
+old1="(on a phone, a row along the top). **Board** opens first, with **Is it delivering?**; **Development** is its own page from the left. Across the top, **What's wrong now**: a chip each for Trips, Warnings, Caps, Checks, Sync (Railway and the sync, when their watch needs a look) and Paused now, with its count. A chip opens its short list; each item opens its part in the side panel."
+new1="(on a phone, under **☰** at the top left, which names the page you're on). **Board** opens first, with **Is it delivering?**; **Development** is its own page from the left. At the top, **Alerts**, with the board's one alarm count (2026-11-24): every open trip and every warning not yet seen, the same number as the light in the top bar, the Board count and the alarm list's **Open alarms**; beside it, \"2 trips · 3 warnings\". It opens to its groups, each with its count: Trips, Warnings, Caps, Checks, Sync (Railway and the sync, when their watch needs a look) and Paused now (what's paused, counted on its own, never added to the alarms). Each item opens its part in the side panel. Notices aren't alarms to act on: they're in the alarm list under **Notices**. The alarm list's filter shows with the list, under **Diagnostics → Alarms**."
+assert s.count(old1)==1, 'faq 1'; s=s.replace(old1,new1)
+old2="- **The light in the admin's top bar:** on every module page, the count of open trips and warnings; it opens the alarm list."
+new2="- **The light in the admin's top bar:** on every module page, the count of open trips (seen or not, pressed and waiting for their run or not) and of warnings not yet seen, the same number as the board's **Alerts**; it opens the alarm list."
+assert s.count(old2)==1, 'faq 2'; s=s.replace(old2,new2)
+open(p,'w').write(s)

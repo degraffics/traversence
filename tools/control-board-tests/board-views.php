@@ -26,7 +26,7 @@ $t('D5: the acknowledged trip is in the one count (ControlAlarms::counts)', $ac[
 $t('D5: the board\'s Alarms panel and stage line count the same (no ack_at filter of its own)', !str_contains(file_get_contents($app . '/admin/control-console.php'), "cleared_at IS NULL AND ack_at IS NULL AND level IN ('trip','warning')") && str_contains($txt(substr($sec('cb-alarms'), 0, 3000)), '1 trip, 1 warning open'), mb_substr($txt($sec('cb-alarms')), 0, 80));
 $t('D5: the acknowledged trip says "Seen: by Jason" on its row and stays open (02 row 96: the light stays red)', (bool) preg_match('/id="cb-alarm-1"[^>]*data-astate="ack"[^>]*data-alevel="trip".*?Seen:.*?by Jason/s', $html));
 $js = file_get_contents(dirname($app) . '/website/js/admin-control.js');
-$t('D5: the Open filter keeps an acknowledged trip (hit: open or a trip acknowledged)', str_contains($js, "open = st === 'open' || (st === 'ack' && lv === 'trip')") && str_contains($js, "(k === 'open' && open)"));
+$t('D5: the Open filter keeps every open trip, seen, pressed or not, and the unseen warnings; notices under Notices (board-phone: one count, ControlAlarms::counts)', str_contains($js, "live = st !== 'cleared' && (lv === 'trip' || st === 'open')") && str_contains($js, "(k === 'open' && live && lv !== 'notice')"));
 
 // ---- "Is it delivering?" first
 // since the opening view (2026-11-23, step3/board/index.html; Jason's ruling, 03 §27): the views are the rail, before the

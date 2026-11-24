@@ -41,6 +41,7 @@ TESTS=(
 "one-place|php board-phone-seed.php $R/app|node one-place.cjs $R"
 "peek-anchor|:|node peek-anchor.cjs $R"
 "workflows-page|php workflows-page.php $R|node workflows-page.cjs $R"
+"board-phone-header|:|node board-phone-header.cjs $R"
 "dispatcher/r2|cd $D && php r2.php $R/app|node $D/r2.cjs $R"
 "dispatcher/r3|cd $D && php r3.php $R/app|node $D/r3.cjs $R"
 "dispatcher/r4|cd $D && php r4.php $R/app|node $D/r4.cjs $R"
