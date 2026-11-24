@@ -123,15 +123,20 @@
     "tv_cb_evidence",
     "tv_cb_qbar",
     "tv_cb_rail",
+    "tv_cb_table_rows",
     "tv_cb_view_assets"
    ],
    "kind": "change",
    "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
-   "why": "board-phone: a gauge section's Copy on its heading's line, its grid to the card's edges at 390 (the Design reviewer)",
+   "why": "board-phone: a part whose trips were all started again reads Waiting for its run in the systems table (words follow the state)",
    "since": "2026-11-24T04:17:19Z",
-   "expires": "2026-11-24T09:25:09Z",
+   "expires": "2026-11-24T09:26:11Z",
    "release": "board-phone.zip",
-   "callers": {}
+   "callers": {
+    "tv_cb_table_rows": [
+     "app/admin/tools.php"
+    ]
+   }
   },
   {
    "path": "website/js/admin-control.js",
