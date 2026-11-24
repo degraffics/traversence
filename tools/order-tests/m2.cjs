@@ -42,6 +42,7 @@ const id = (name) => +sql(`SELECT id FROM orders WHERE client_company = '${name}
     ok(`${w}: Money: Total $809.10 · Paid $809.10 · Owed $0.00, and no Credits or Refunded at $0.00`, sec && sec.sum === 'Total $809.10 · Paid $809.10 · Owed $0.00', sec);
     ok(`${w}: its payment is a row with one round icon, Refund… from the $809.10 payment`, sec && sec.rows.length === 1 && sec.rows[0].ic.length >= 1 && sec.rows[0].ic.some((x) => x.title === 'Refund… from the $809.10 payment' && !x.off), sec && sec.rows);
     ok(`${w}: no sideways scroll`, !(await wide()));
+    ok(`${w}: each move is only in ⋯: the section shows no Refund…, credit memo, dispute or cancel form until one is chosen`, await p.evaluate(() => [...document.querySelectorAll('.co-money .mo-pane')].every((x) => x.hidden) && !document.querySelector('.co-money details.co-more')));
     let tk = await toolkit('Money');
     await p.screenshot({ path: `${shots}/m2-money-toolkit-${w}.png` });
     const names = tk.items.map((x) => x.t);
@@ -51,19 +52,22 @@ const id = (name) => +sql(`SELECT id FROM orders WHERE client_company = '${name}
     await p.screenshot({ path: `${shots}/m2-money-${w}.png`, fullPage: false });
     // §1: ↩ opens Refund… with its payment; Send to Jason (asked first)
     await p.click('.co-pay-t .cs-ib[title^="Refund…"]'); await p.waitForTimeout(500);
-    const rf = await p.evaluate(() => ({ open: document.getElementById('co-refund').open, amt: document.getElementById('co-rf-amt').value, tz: (document.querySelector('#co-refund [data-mo-tz]') || {}).value }));
+    const rf = await p.evaluate(() => ({ open: !document.getElementById('co-refund').hidden, amt: document.getElementById('co-rf-amt').value, tz: (document.querySelector('#co-refund [data-mo-tz]') || {}).value }));
     ok(`${w}: §1 ↩ opens Refund… with its payment chosen, $809.10, the device's time zone`, rf.open && rf.amt === '809.10' && rf.tz !== '', rf);
+    await p.keyboard.press('Escape'); await p.waitForTimeout(150);
+    ok(`${w}: Esc closes it; × closes it`, await p.evaluate(() => document.getElementById('co-refund').hidden) && (await p.click('.co-pay-t .cs-ib[title^="Refund…"]'), await p.waitForTimeout(400), await p.click('#co-refund [data-mo-shut]'), await p.evaluate(() => document.getElementById('co-refund').hidden)));
+    await p.click('.co-pay-t .cs-ib[title^="Refund…"]'); await p.waitForTimeout(400);
     await p.fill('#co-refund input[name=amount]', '200.00'); await p.fill('#co-refund input[name=reason]', 'Two cartons arrived crushed');
     await p.screenshot({ path: `${shots}/m2-refund-form-${w}.png` });
     await p.click('#co-refund button.go');
     ok(`${w}: §1 Send to Jason asks first`, await yes('Send it'));
     ok(`${w}: §1 sent: "Sent to Jason for his OK…"; nothing refunded`, /Sent to Jason for his OK/.test(await flash()) && sql(`SELECT COUNT(*) FROM order_ledger WHERE order_id = ${pc} AND kind = 'refund'`) === '0', await flash());
     ok(`${w}: §1 the Money line says "Refund of $200.00 waiting for Jason's OK"`, /Refund of \$200\.00 waiting for Jason's OK/.test(await moneyLine()), await moneyLine());
-    const wt = await p.evaluate(() => { const s = document.getElementById('mo-wait'); return s && { t: s.textContent.replace(/\s+/g, ' '), x: s.querySelector('.tv-note-x') ? '×' : '', href: (s.querySelector('a') || {}).getAttribute('href'), ic: (document.querySelector('.co-pay-t .cs-ib[title^="Refund…"]') || {}).disabled, why: (document.querySelector('.co-pay-t .cs-ib[title^="Refund…"]') || {}).title }; });
+    const wt = await p.evaluate(() => { const s = document.getElementById('mo-wait'); return s && { t: s.textContent.replace(/\s+/g, ' '), x: s.querySelector('.tv-note-x') ? '×' : '', inside: !!s.querySelector('.tv-note button'), sum: document.querySelector('.mo-sum').textContent.replace(/\s+/g, ' '), href: (s.querySelector('a') || {}).getAttribute('href'), ic: (document.querySelector('.co-pay-t .cs-ib[title^="Refund…"]') || {}).disabled, why: (document.querySelector('.co-pay-t .cs-ib[title^="Refund…"]') || {}).title }; });
     const rq = sql(`SELECT id FROM order_refund_requests WHERE order_id = ${pc} AND status = 'waiting'`);
-    ok(`${w}: §1 the section: waiting for Jason's OK, its Pulse case linked; ↩ greyed with why`, wt && /Waiting for Jason's OK/.test(wt.t) && /A refund of \$200\.00/.test(wt.t) && !/×/.test(wt.x) && wt.href === '/admin/dashboard/stream#case=refundok%3A' + rq && wt.ic && /waiting for Jason's OK already/.test(wt.why), wt);
+    ok(`${w}: §1 the section: waiting for Jason's OK, its Pulse case linked; ↩ greyed with why`, wt && /Waiting for Jason's OK/.test(wt.t) && /A refund of \$200\.00/.test(wt.t) && !/×/.test(wt.x) && wt.href === '/admin/dashboard/stream#case=refundok%3A' + rq && wt.ic && /A refund of \$200\.00 is waiting for Jason's OK/.test(wt.why) && wt.inside && /Refund waiting \$200\.00/.test(wt.sum), wt);
     await p.screenshot({ path: `${shots}/m2-refund-waiting-${w}.png` });
-    await p.click('#money ~ .co-money button:has-text("Withdraw the refund"), .co-money button:has-text("Withdraw the refund")');
+    await p.click('#mo-wait .tv-note button:has-text("Withdraw the refund")');
     ok(`${w}: §1 Withdraw asks first, then nothing waits and nothing was refunded`, await yes('Withdraw it') && sql(`SELECT status FROM order_refund_requests WHERE id = ${rq}`) === 'withdrawn' && !/waiting for Jason/.test(await moneyLine()));
 
     // ---- Cancel the record (0178's note) ----
@@ -72,7 +76,7 @@ const id = (name) => +sql(`SELECT id FROM orders WHERE client_company = '${name}
     const cx = await p.evaluate(() => [...document.querySelectorAll('.co-pay-t .cs-ib')].map((b) => ({ title: b.title, off: b.disabled })));
     ok(`${w}: note: a check recorded here has ✕ Cancel the record of $412.00 (no Refund…)`, cx.length === 1 && cx[0].title === 'Cancel the record of $412.00' && !cx[0].off, cx);
     await p.click('.co-pay-t .cs-ib[title^="Cancel the record"]'); await p.waitForTimeout(500);
-    ok(`${w}: note: ✕ opens Cancel the record with its payment, the cursor in why`, await p.evaluate(() => document.getElementById('co-cancelrec').open && document.activeElement && document.activeElement.name === 'why'));
+    ok(`${w}: note: ✕ opens Cancel the record with its payment, the cursor in why`, await p.evaluate(() => !document.getElementById('co-cancelrec').hidden && document.activeElement && document.activeElement.name === 'why'));
     await p.fill('#co-cx-why', 'Recorded on the wrong order');
     await p.click('#co-cancelrec button.no');
     ok(`${w}: note: asked first`, await yes('Cancel the record'));
@@ -93,7 +97,7 @@ const id = (name) => +sql(`SELECT id FROM orders WHERE client_company = '${name}
     const cp = tk.items.find((x) => x.t === 'Cancel the order…');
     ok(`${w}: §2 before acceptance, with a deposit paid: open, saying its refund goes to Jason first`, cp && !cp.off && /refunded with Jason's OK/.test(cp.say), cp);
     await p.click(`.cs-line:nth-of-type(${tk.i + 1}) .cs-tki button:has-text("Cancel the order…")`); await p.waitForTimeout(600);
-    ok(`${w}: §2 it goes to its form, the cursor in why`, await p.evaluate(() => document.getElementById('co-cancel').open && document.activeElement && document.activeElement.id === 'co-cancel-why'));
+    ok(`${w}: §2 it goes to its form, the cursor in why`, await p.evaluate(() => !document.getElementById('co-cancel').hidden && document.activeElement && document.activeElement.id === 'co-cancel-why'));
     await p.fill('#co-cancel-why', 'The client changed their plans');
     await p.click('#co-cancel button.no');
     ok(`${w}: §2 Send to Jason asks first; the refund of $412.00 and the cancel wait; the order unchanged`, await yes('Send it') && sql(`SELECT CONCAT(amount_cents, ':', cancel_order, ':', status) FROM order_refund_requests WHERE order_id = ${dp}`) === '41200:1:waiting' && sql(`SELECT status FROM orders WHERE id = ${dp}`) === 'pending');

@@ -92,9 +92,15 @@ manager. A test account reads only QuickBooks' sandbox (`QuickBooksPay::testHere
 The zip `order-m2.zip` (not sent yet): `app/lib/Orders.php`, `app/lib/ClientOrders.php`, `app/lib/Pulse.php`,
 `app/lib/Customers.php`, `app/lib/staging-tables.php`, `app/ui/faq.md`, `app/migrations/2026-11-24_order_refunds.sql`,
 `website/admin/client-order.php`, `website/admin/order.php`. Claimed per function (order-m2.zip).
-**Held:** `app/lib/staging-tables.php` is also carried by `loads-reply` (session_01CXLi5hL7DpeN9WxT3oMXQK, not live yet):
-once it's live and synced, rebuild that file on its live copy (add `order_refund_requests` to MONEY, two REFS) and rerun the
-zip check.
+Rebuilt on **Sync 01:30 UTC (7bece80)**: `staging-tables.php` on its live copy (with #1328's `open_load_batches`), claimed
+again; the zip check passes clean. Design reviewer's round 1 (01:28) applied: each move only in ⋯ (the forms are panes
+opened from ⋯ or a row's ↩/✕, closed by ×, Esc or opening another), Withdraw inside its notice, "Refund waiting $X" in
+amber in the figures.
+The session manager's calls (01:22): (a) the reversing kind, noted on decisions/0098; (b) a refund of money that wasn't a
+card: on Approve its Refund Receipt is made in QuickBooks and recorded, then Payments' case `refundsend:<id>` (and the
+order's notice) carries **✓ Sent** with how it went (`payout`: to_send → sent); (c) credit memos: Jason's question,
+asked in this session's pop-up; Approve and Decline need the Founder's own staff login (an admin login that isn't a staff
+login is refused, greyed with why).
 
 Each behaviour and its source:
 - **Refunds wait for Jason** (0178 §1): `Orders::requestRefund` (amount ≤ `refundable()` and ≤ what's left of the chosen
@@ -128,7 +134,7 @@ Each behaviour and its source:
 - FAQ: four entries (team: where to refund/credit/correct; why a refund waits for Jason; until when an order can be
   cancelled; client: can I cancel).
 
-Tests (design harness): `tools/order-tests/m2.php` 47/47 (`m2-seed.php` for the rendered one), `m2.cjs` 46/46 at 1280 and
+Tests (design harness): `tools/order-tests/m2.php` 52/52 (`m2-seed.php` for the rendered one), `m2.cjs` all passing at 1280 and
 390 (each new button pressed; screens in `handoffs/order-m2/`), `m1.php` passes; `m1b.php`'s 4 vendor-bill failures are the
 same on the live code (the harness's `order_vendor_bills` is short of columns), not M2's.
 
