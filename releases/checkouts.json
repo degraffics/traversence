@@ -1,6 +1,62 @@
 {
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
- "claims": [],
+ "claims": [
+  {
+   "path": "app/admin/control-console.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
+   "why": "task-adrs: the decisions attached to a Work queue task",
+   "since": "2026-11-24T13:33:53Z",
+   "expires": "2026-11-24T17:33:53Z",
+   "release": "task-adrs.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/GaugeTasks.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
+   "why": "task-adrs: the decisions attached to a Work queue task",
+   "since": "2026-11-24T13:33:53Z",
+   "expires": "2026-11-24T17:33:53Z",
+   "release": "task-adrs.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/admin/api.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
+   "why": "task-adrs: the decisions attached to a Work queue task",
+   "since": "2026-11-24T13:33:53Z",
+   "expires": "2026-11-24T17:33:53Z",
+   "release": "task-adrs.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/js/admin-control.js",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
+   "why": "task-adrs: the decisions attached to a Work queue task",
+   "since": "2026-11-24T13:33:53Z",
+   "expires": "2026-11-24T17:33:53Z",
+   "release": "task-adrs.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/staging-tables.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
+   "why": "task-adrs: the decisions attached to a Work queue task",
+   "since": "2026-11-24T13:33:53Z",
+   "expires": "2026-11-24T17:33:53Z",
+   "release": "task-adrs.zip",
+   "callers": {}
+  }
+ ],
  "lapsed": [
   {
    "path": "app/lib/ClientOrders.php",
