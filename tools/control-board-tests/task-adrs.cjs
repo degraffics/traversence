@@ -53,7 +53,7 @@ const found = p => p.waitForResponse(r => r.url().includes('/admin/api/config/co
       await p.click(P + ' [data-wqp=adredit]');
       t(L + '✎ lists the attached ones, ticked', (await p.$$eval(P + ' .wqp-ae input[name=keep]:checked', a => a.map(x => x.value))).join(',') === '0169,0175');
       await p.uncheck(P + ' .wqp-ae input[value="0169"]'); await Promise.all([answered(p), p.click(P + ' .wqp-ae [type=submit]')]);
-      t(L + 'saved: 0169 detached, 0175 kept', (await p.$$eval(P + ' .wqp-adrs li', a => a.map(x => x.getAttribute('data-adr')))).join(',') === '0175');
+      t(L + 'saved: the notice names it (0169 detached), 0175 kept', /0169 detached/.test(await p.textContent('body')) && (await p.$$eval(P + ' .wqp-adrs li', a => a.map(x => x.getAttribute('data-adr')))).join(',') === '0175');
       if (shots) await p.locator(P).screenshot({ path: shots + '/ta-' + w + '-b.png' });
       await p.click(P + ' [data-wqp=hist]'); await p.waitForSelector(P + ' .wq-hist');
       const h = await p.textContent(P + ' .wq-hist');

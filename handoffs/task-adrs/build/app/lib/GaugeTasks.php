@@ -265,13 +265,13 @@ final class GaugeTasks
     public static function adrKeep(PDO $pdo, int $id, array $keep, string $who, string $tz = ''): string
     {
         self::open($pdo, $id);
-        $keep = array_map(fn ($a) => str_pad(preg_replace('/\D/', '', (string) $a), 4, '0', STR_PAD_LEFT), $keep); $n = 0;
+        $keep = array_map(fn ($a) => str_pad(preg_replace('/\D/', '', (string) $a), 4, '0', STR_PAD_LEFT), $keep); $gone = [];
         foreach (self::adrs($pdo, $id) as $a) {
             if (in_array($a['adr'], $keep, true)) continue;
             $pdo->prepare('UPDATE control_gauge_task_adrs SET removed_at = UTC_TIMESTAMP(), removed_by = ? WHERE task_id = ? AND adr = ? AND removed_at IS NULL')->execute([mb_substr($who, 0, 80), $id, $a['adr']]);
-            ControlLog::add($pdo, 'control', '', 'Task #' . $id . ' decision ' . $a['adr'] . ' detached', $who, '', $tz); $n++;
+            ControlLog::add($pdo, 'control', '', 'Task #' . $id . ' decision ' . $a['adr'] . ' detached', $who, '', $tz); $gone[] = $a['adr'];
         }
-        return $n ? 'Saved: ' . $n . ' detached. It\'s in the task\'s History.' : 'Nothing changed.';
+        return $gone ? 'Saved: ' . implode(', ', $gone) . ' detached. It\'s in the task\'s History.' : 'Nothing changed.';
     }
 
     /** A task's History: every line the logbook keeps for it (added, edited with the old words, taken, moved, its release, done, withdrawn), oldest first. */
