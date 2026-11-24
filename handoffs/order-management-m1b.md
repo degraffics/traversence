@@ -208,3 +208,9 @@ The vendor bill's account is a setting, never .env (CLAUDE.md: .env only for sec
   entity exposes it couldn't be confirmed from this session (Intuit's developer docs aren't reachable from here; the web
   search found only QuickBooks' screen for it). Building against an unconfirmed field would be a guess.
 Tests: m1b.php 51, m1b.cjs 55 × 2 (110), M1's suite all pass. Screens: m1b-setting, m1b-setting-chosen, m1b-posts-to.
+
+## Open items after M1b
+- **The vendor's own default category first** (the session manager, 2026-11-24, option (a)): confirm the Vendor
+  default-category field against a real QuickBooks Vendor read in the sandbox, then use it before the setting
+  "Vendor bills post to" (`QuickBooksPay::createBill`, `VendorBills::account`).
+- Moving client order emails onto the 0172 dispatcher (the session manager's separate item, not M1b).
