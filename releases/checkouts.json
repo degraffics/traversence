@@ -203,6 +203,17 @@
      "app/ui/pulse-ui.php"
     ]
    }
+  },
+  {
+   "path": "website/admin/order.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5j2wAgTrKdTwX6kQNY",
+   "why": "M2: a client order's money opens the order page; refunds wait for Jason",
+   "since": "2026-11-24T01:02:34Z",
+   "expires": "2026-11-24T05:02:34Z",
+   "release": "order-m2.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
