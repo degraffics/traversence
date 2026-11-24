@@ -187,6 +187,46 @@
    "expires": "2026-11-24T05:56:38Z",
    "release": "task-trip.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/crawler/CrawlService.php",
+   "functions": [
+    "runNext"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
+   "why": "Try it first says when it won't run",
+   "since": "2026-11-24T01:56:40Z",
+   "expires": "2026-11-24T05:56:40Z",
+   "release": "task-trip.zip",
+   "callers": {
+    "runNext": [
+     "app/admin/crawler-console.php",
+     "app/lib/Operations.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/Operations.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
+   "why": "Try it first says when it won't run",
+   "since": "2026-11-24T01:56:40Z",
+   "expires": "2026-11-24T05:56:40Z",
+   "release": "task-trip.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/crawler-console.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
+   "why": "Try it first says when it won't run",
+   "since": "2026-11-24T01:56:40Z",
+   "expires": "2026-11-24T05:56:40Z",
+   "release": "task-trip.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
