@@ -236,6 +236,38 @@
    "expires": "2026-11-24T09:37:50Z",
    "release": "board-phone.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/ControlAlarms.php",
+   "functions": [
+    "counts"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
+   "why": "board-phone: a trip started again counted as waiting (amber), red only for a trip still holding",
+   "since": "2026-11-24T05:43:42Z",
+   "expires": "2026-11-24T09:43:42Z",
+   "release": "board-phone.zip",
+   "callers": {
+    "counts": [
+     "app/admin/control-console.php",
+     "app/lib/ControlConsistency.php",
+     "website/admin/router.php"
+    ]
+   }
+  },
+  {
+   "path": "website/admin/router.php",
+   "functions": [
+    "tv_admin_board_light"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
+   "why": "board-phone: a trip started again counted as waiting (amber), red only for a trip still holding",
+   "since": "2026-11-24T05:43:42Z",
+   "expires": "2026-11-24T09:43:42Z",
+   "release": "board-phone.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
