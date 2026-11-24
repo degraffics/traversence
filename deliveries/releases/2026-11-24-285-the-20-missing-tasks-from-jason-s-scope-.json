@@ -1,0 +1,36 @@
+{
+    "id": 285,
+    "title": "The 20 missing tasks from Jason's scope doc in the Work queue",
+    "why": "Release #284 (task-seed) published but its migration never ran: the site's runner counts a migration as run when every table it creates already exists, and its one CREATE named the decisions table that #283 had just made, so it was logged \"already there\" and cleared (DbUpdates::all, state 'run'). Jason's screenshot showed the queue unchanged. This is the same seed with nothing to create, so it runs. Jason, 2026-11-24: \"i need all the tasks in the que\".",
+    "proposals": "",
+    "zip": "task-seed-2.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/migrations/2026-11-24_task_seed_2.sql": {
+            "sha": "35cace788c92353846acaa6c7feed23de24016b635fd25fb8110ba5808d68d1d",
+            "size": 26654,
+            "live_was": null
+        }
+    },
+    "migrations": [
+        "app/migrations/2026-11-24_task_seed_2.sql"
+    ],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-24T13:54:12+00:00",
+            "by": 0,
+            "msg": "Uploaded task-seed-2.zip: 1 files."
+        }
+    ]
+}
