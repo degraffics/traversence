@@ -233,6 +233,21 @@
      "website/api/crawl/loads.php"
     ]
    }
+  },
+  {
+   "path": "app/lib/crawler/OpenLoads.php",
+   "functions": [
+    "batchDone",
+    "batchKeep",
+    "recheck"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
+   "why": "IR-0001: recheck and batch keys",
+   "since": "2026-11-24T00:04:23Z",
+   "expires": "2026-11-24T04:04:23Z",
+   "release": "loads-reply.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
