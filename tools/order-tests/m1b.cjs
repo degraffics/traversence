@@ -51,7 +51,7 @@ const press = async (p, sel, yes) => {   // a button that asks first: its yes in
     let m = await line(p, 'Money');
     ok(`${w}: Money reads QuickBooks as it opens: Paid in QuickBooks Oct 19 · check 2231 · $1,111.14 on invoice 112906`, m && m.text === 'Paid in QuickBooks Oct 19 · check 2231 · $1,111.14 on invoice 112906.', m);
     ok(`${w}: Money's ↗ opens invoice 112906 in QuickBooks, beside ✎ and ⋯`, m && m.icons[0] && /txnId=9112/.test(m.icons[0].href) && m.icons[0].t === 'Open invoice 112906 in QuickBooks', m && m.icons);
-    ok(`${w}: Order details: QuickBooks invoice 112906, linked by its number, with ↗`, await p.evaluate(() => /Invoice 112906, linked by its number/.test(document.body.textContent) && !!document.querySelector('dd a[title="Open invoice 112906 in QuickBooks"]')));
+    ok(`${w}: Order details: Invoice 112906 in QuickBooks, linked by its number, with ↗ (named Invoice since M2; ours is Our order no.)`, await p.evaluate(() => /Invoice\s*112906 in QuickBooks, linked by its number/.test(document.body.textContent) && !!document.querySelector('dd a[title="Open invoice 112906 in QuickBooks"]')));
     ok(`${w}: the ledger has the one QuickBooks payment`, sql(`SELECT COUNT(*) FROM order_ledger WHERE order_id = ${A} AND request_key LIKE 'qbpay-%'`) === '1');
     // ---- the Vendor line ----
     let v = await line(p, 'Vendor');
