@@ -157,13 +157,14 @@
   {
    "path": "app/admin/tools.php",
    "functions": [
+    "'config/alarms'",
     "config/alarms"
    ],
    "kind": "change",
    "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
    "why": "board-phone: the Alarms table's Open gives the one count (trips, seen or not, and unseen warnings; notices under Notices)",
    "since": "2026-11-24T05:10:38Z",
-   "expires": "2026-11-24T09:10:38Z",
+   "expires": "2026-11-24T09:21:16Z",
    "release": "board-phone.zip",
    "callers": {}
   }
