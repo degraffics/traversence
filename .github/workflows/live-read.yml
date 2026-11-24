@@ -10,14 +10,14 @@ on:
       read:
         description: 'What to read'
         type: choice
-        options: [orders, order, ir0001, w0, board, jobs, meta]
+        options: [orders, order, ir0001, w0, board, jobs, rows, meta]
         default: orders
       order_id:
-        description: "The order's number (for: order), or the crawler run's (for: ir0001, default 1290)"
+        description: "The order's number (for: order), the crawler run's (for: ir0001, default 1290), or the search (for: rows)"
         type: string
         default: ''
       table:
-        description: "A table's name (for: meta, its columns and types from the admin's data API)"
+        description: "A table's name (for: meta, its columns and types; for: rows, its newest matching rows; operational tables only)"
         type: string
         default: ''
       to_log:
