@@ -72,6 +72,8 @@ too large (CLAUDE.md, the session manager). Built on **Sync 02:46 UTC (973d10b)*
 - #1316: inline actions are 30px round icons with titles.
 - #1317: the suggested action, ✎ to correct, ⋯ for every other valid move (greyed with the reason).
 - #1334–#1336: never invent what's set (grep decisions/ and the live code, cite them); a gap is offered as suggestions.
+- #1341: every pop-up to Jason opens with "Decision (nothing changes on the site yet): goes live in <release>, <place>" or
+  "Release (live about 10 minutes after merge): <what you'll see>"; "live" only for work synced and byte-checked.
 - A button's verb matches what it does (Request a fix where it queues; Fix it only where the system acts now).
 
 ## Open notes
