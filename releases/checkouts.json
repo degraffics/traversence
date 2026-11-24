@@ -11,7 +11,7 @@
    "session": "session_01CXLi5j2wAgTrKdTwX6kQNY",
    "why": "M2: a cancelled payment record takes it out of what's paid",
    "since": "2026-11-24T01:02:25Z",
-   "expires": "2026-11-24T06:47:41Z",
+   "expires": "2026-11-24T06:49:09Z",
    "release": "order-m2.zip",
    "callers": {
     "money": [
@@ -40,7 +40,7 @@
    "session": "session_01CXLi5j2wAgTrKdTwX6kQNY",
    "why": "M2: the cancel window (0178 \u00a72), the posted payment id, a cancelled record not counted, the dispute's step",
    "since": "2026-11-24T01:02:27Z",
-   "expires": "2026-11-24T06:47:41Z",
+   "expires": "2026-11-24T06:49:09Z",
    "release": "order-m2.zip",
    "callers": {
     "boardState": [
@@ -98,7 +98,7 @@
    "session": "session_01CXLi5j2wAgTrKdTwX6kQNY",
    "why": "M2: a client order's money opens the order page; refunds wait for Jason",
    "since": "2026-11-24T01:02:34Z",
-   "expires": "2026-11-24T06:47:41Z",
+   "expires": "2026-11-24T06:49:09Z",
    "release": "order-m2.zip",
    "callers": {}
   },
@@ -109,7 +109,7 @@
    "session": "session_01CXLi5j2wAgTrKdTwX6kQNY",
    "why": "M2: refund requests and the posted payment id",
    "since": "2026-11-24T01:02:36Z",
-   "expires": "2026-11-24T06:47:41Z",
+   "expires": "2026-11-24T06:49:09Z",
    "release": "order-m2.zip",
    "callers": {}
   },
@@ -120,7 +120,7 @@
    "session": "session_01CXLi5j2wAgTrKdTwX6kQNY",
    "why": "M2: money on the order page",
    "since": "2026-11-24T01:02:46Z",
-   "expires": "2026-11-24T06:47:41Z",
+   "expires": "2026-11-24T06:49:09Z",
    "release": "order-m2.zip",
    "callers": {}
   },
@@ -134,7 +134,7 @@
    "session": "session_01CXLi5j2wAgTrKdTwX6kQNY",
    "why": "M2: a cancelled payment record isn't counted as spent",
    "since": "2026-11-24T01:06:51Z",
-   "expires": "2026-11-24T06:47:41Z",
+   "expires": "2026-11-24T06:49:09Z",
    "release": "order-m2.zip",
    "callers": {
     "sync": [
@@ -153,7 +153,7 @@
    "session": "session_01CXLi5j2wAgTrKdTwX6kQNY",
    "why": "M2: order_refund_requests in MONEY, its links",
    "since": "2026-11-24T01:55:56Z",
-   "expires": "2026-11-24T06:47:41Z",
+   "expires": "2026-11-24T06:49:09Z",
    "release": "order-m2.zip",
    "callers": {}
   },
@@ -182,7 +182,7 @@
    "session": "session_01CXLi5j2wAgTrKdTwX6kQNY",
    "why": "M2: a cancelled payment record leaves the money reports' net",
    "since": "2026-11-24T02:21:32Z",
-   "expires": "2026-11-24T06:47:41Z",
+   "expires": "2026-11-24T06:49:09Z",
    "release": "order-m2.zip",
    "callers": {}
   },
@@ -193,7 +193,7 @@
    "session": "session_01CXLi5j2wAgTrKdTwX6kQNY",
    "why": "release order-m2.zip",
    "since": "2026-11-24T02:22:05Z",
-   "expires": "2026-11-24T06:47:41Z",
+   "expires": "2026-11-24T06:49:09Z",
    "release": "order-m2.zip",
    "callers": {}
   }
