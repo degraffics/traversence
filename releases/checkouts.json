@@ -209,14 +209,17 @@
   {
    "path": "app/lib/ControlAlarms.php",
    "functions": [
+    "pausedRefs",
+    "plainTrip",
     "startForNextRun",
-    "startedAgain"
+    "startedAgain",
+    "stillHolding"
    ],
    "kind": "add",
    "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
-   "why": "The pressed state",
+   "why": "The Design reviewer's words",
    "since": "2026-11-24T01:56:38Z",
-   "expires": "2026-11-24T06:04:48Z",
+   "expires": "2026-11-24T06:11:53Z",
    "release": "task-trip.zip",
    "callers": {}
   },
