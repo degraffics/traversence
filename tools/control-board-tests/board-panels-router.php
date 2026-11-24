@@ -36,7 +36,15 @@ if ($path === '/admin/api/config/control' && ($_SERVER['REQUEST_METHOD'] ?? '') 
         $tid = (int) $pid; $W = 'Jason (test)';
         if ($act === 'qadd') { $nid = GaugeTasks::add($pdo, (string) ($in['gauge'] ?? ''), (string) ($in['what'] ?? ''), (string) ($in['why'] ?? ''), (string) ($in['source'] ?? ''), $W, 1); echo json_encode(['ok' => true, 'id' => $nid, 'message' => (time() - (int) strtotime((string) (GaugeTasks::task($pdo, $nid)['at'] ?? '') . ' UTC') > 10 ? 'It\'s already in the queue as task #' . $nid . ': the one task stands.' : 'Added as task #' . $nid . '. It\'s late if nobody takes it within a day.')]); return true; }
         if ($act === 'qhistory') { echo json_encode(['ok' => true, 'rows' => array_map(fn ($r) => ['at' => gmdate('c', (int) strtotime($r['at'] . ' UTC')), 'tz' => (string) $r['tz'], 'what' => (string) $r['what'], 'who' => (string) $r['who']], GaugeTasks::history($pdo, $tid))]); return true; }
-        if ($act === 'qedit') { echo json_encode(['ok' => true, 'message' => GaugeTasks::edit($pdo, $tid, array_intersect_key($in, array_flip(['what', 'why', 'source', 'gauge'])), $W)]); return true; }
+        if ($act === 'qedit') { echo json_encode(['ok' => true, 'message' => GaugeTasks::edit($pdo, $tid, array_intersect_key($in, array_flip(['what', 'why', 'source', 'gauge', 'goal', 'in_scope', 'out_scope', 'done_when', 'priority'])), $W)]); return true; }
+        if ($act === 'qstep') { $sid = GaugeTasks::stepAdd($pdo, $tid, (string) ($in['see'] ?? ''), (string) ($in['do_what'] ?? ''), (string) ($in['confirm'] ?? ''), $W); echo json_encode(['ok' => true, 'id' => $sid, 'message' => 'Step added.']); return true; }
+        if ($act === 'qadr') { echo json_encode(['ok' => true, 'message' => GaugeTasks::adrAttach($pdo, $tid, (string) ($in['adr'] ?? ''), $W)]); return true; }
+        if ($act === 'qadrkeep') { echo json_encode(['ok' => true, 'message' => GaugeTasks::adrKeep($pdo, $tid, (array) ($in['keep'] ?? []), $W)]); return true; }
+        if ($act === 'qadrfind') { $q = mb_strtolower(trim((string) ($in['q'] ?? ''))); $have = array_column(GaugeTasks::adrs($pdo, $tid), 'adr'); $rows = [];
+            foreach (GaugeTasks::decisions() as $n => $d) { if ($q !== '' && strpos((string) $n, $q) === false && strpos(mb_strtolower((string) $d['title']), $q) === false) continue;
+                $rows[] = ['adr' => (string) $n, 'title' => (string) $d['title'], 'status' => (string) ($d['status'] ?? ''), 'have' => in_array((string) $n, $have, true)]; if (count($rows) >= 15) break; }
+            echo json_encode(['ok' => true, 'rows' => $rows]); return true; }
+        if ($act === 'qstepedit') { echo json_encode(['ok' => true, 'message' => GaugeTasks::stepEdit($pdo, $tid, array_intersect_key($in, array_flip(['see', 'do_what', 'confirm', 'done'])), $W)]); return true; }
         if ($act === 'qassign') { echo json_encode(['ok' => true, 'message' => GaugeTasks::assign($pdo, $tid, trim((string) ($in['owner'] ?? '')) !== '' ? (string) $in['owner'] : $W, $W)]); return true; }
         if ($act === 'qrelease') { echo json_encode(['ok' => true, 'message' => GaugeTasks::release($pdo, $tid, (string) ($in['rel'] ?? ''), $W)]); return true; }
         if ($act === 'qwithdraw') { echo json_encode(['ok' => true, 'message' => GaugeTasks::withdraw($pdo, $tid, (string) ($in['reason'] ?? ''), $W)]); return true; }

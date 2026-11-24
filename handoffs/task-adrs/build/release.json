@@ -1,0 +1,24 @@
+{
+ "title": "A Work queue task shows the decisions it rests on: Attach a decision, ✎ to detach",
+ "why": "Jason, 2026-11-24: \"need task to show what ADR is attached to it or have the ability to look and assign adrs\"; then \"build these two decisions please. 1. scope. then 2. adrs\". On the task's page (task-scope) and the admin's own list of decisions (System Configuration → Decisions). Reviewed by the Design reviewer and the session manager.",
+ "changes": [
+  {
+   "what": "A task's page lists the decisions attached to it, number and title, each opening on System Configuration → Decisions beside the board",
+   "where": "https://traversence.com/admin/config/control?tab=development"
+  },
+  {
+   "what": "Attach a decision: find one by its number or a word in its title, in the Decisions page's own list; one already attached is greyed, saying so",
+   "where": "https://traversence.com/admin/config/control?tab=development"
+  },
+  {
+   "what": "✎ detaches one (untick), each change in the task's History; the queue's row names its decisions",
+   "where": "https://traversence.com/admin/config/control?tab=development"
+  },
+  {
+   "what": "FAQ: the Work queue's answer says how to attach a decision",
+   "where": "https://traversence.com/faq.php"
+  }
+ ],
+ "proposals": [],
+ "switch": ""
+}
