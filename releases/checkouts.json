@@ -140,6 +140,17 @@
    "expires": "2026-11-24T08:17:19Z",
    "release": "board-phone.zip",
    "callers": {}
+  },
+  {
+   "path": "website/js/tv-ask.js",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
+   "why": "board-phone: a notice placed beside something in a flex row takes a line of its own (the tall green bar in W1's side panel)",
+   "since": "2026-11-24T04:59:19Z",
+   "expires": "2026-11-24T08:59:19Z",
+   "release": "board-phone.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
