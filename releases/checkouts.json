@@ -271,14 +271,16 @@
   {
    "path": "app/admin/control-console.php",
    "functions": [
+    "(top)",
     "tv_cb_alarms",
-    "tv_cb_mark"
+    "tv_cb_mark",
+    "tv_cb_view_assets"
    ],
    "kind": "change",
    "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
-   "why": "A trip's mark: stopped, never an x",
+   "why": "The trip card's one action, icon, \u22ef and styles",
    "since": "2026-11-24T02:05:19Z",
-   "expires": "2026-11-24T06:32:47Z",
+   "expires": "2026-11-24T06:33:15Z",
    "release": "task-trip.zip",
    "callers": {
     "tv_cb_alarms": [
