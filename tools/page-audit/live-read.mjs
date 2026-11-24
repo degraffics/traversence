@@ -6,7 +6,7 @@
 // Read-only by construction: after the sign-in, every request that isn't a GET or HEAD is refused in the browser.
 // TO_LOG=1 also prints each page's text into the run's log, for a session whose network can't fetch the artifact; that
 // session deletes the run's log once it has read it (Actions → the run → Delete logs; the MCP's delete_workflow_run_logs).
-// READ (one per run): orders (Back-Office → Orders) or order (one order, ORDER_ID); meta: one table's columns and their
+// READ (one per run): board (the board, W1's page, the alarms); orders (Back-Office → Orders) or order (one order, ORDER_ID); meta: one table's columns and their
 // types from the admin's data API, TABLE its name only (letters, digits and _; the session manager, 2026-11-24, for M2's
 // order_ledger.kind).
 import { chromium } from 'playwright';
@@ -23,6 +23,9 @@ const PAGES = { orders: () => ['/admin/backoffice/orders'], order: () => (/^\d{1
   // W0's "received 250, accounted for 0" alarm (the session manager, 2026-11-24): the ledger's index calls and W0's own page (its receipts)
   w0: () => ['/admin/config/ledger?q=crawl/index', '/admin/config/control/wf-W0'],
   ir0001: () => ['/admin/config/ledger?q=crawl/loads', '/admin/insights/crawler?run=' + (/^\d{1,9}$/.test(ID) ? ID : '1290'), '/admin/config/alarms'],
+  // the board's phone header (the Control Board session, 2026-11-24): the board, W1's own page (its trips after the presses)
+  // and the alarm list, at 1280 and 390, for the header's counts and the side panel's look
+  board: () => ['/admin/config/control', '/admin/config/control/wf-W1', '/admin/config/alarms'],
   meta: () => (/^[a-z0-9_]{1,64}$/.test(TABLE) ? [`/admin/api/data.php?action=meta&table=${TABLE}`] : null) };
 
 const fail = (m) => { console.log(`::error::${m}`); process.exit(1); };
