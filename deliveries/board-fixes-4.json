@@ -36,7 +36,7 @@
   },
   "app/lib/Scheduler.php": {
    "sha256": "b3f7c61f73c50ad312393bdc7d8e391051c5144b6cc4d8d84c8fdc7b18907f2d",
-   "live": true
+   "live": false
   },
   "app/lib/ServiceHealth.php": {
    "sha256": "40ba0685455da02b43bdab0b5165acf64242c2111da053cdd0f9f23159391169",
