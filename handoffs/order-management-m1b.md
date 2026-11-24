@@ -194,3 +194,17 @@ the existing Mailer and History; moving client emails onto the 0172 dispatcher i
 - The account a vendor bill went to is named on the Vendor line ("In QuickBooks: Cost of Goods Sold"; `qb_account`, in
   the new table's CREATE); Dispute…'s ⋯ says "not sent to the vendor (tell them yourself)". Re-recorded (send.py) on Sync
   22:02 UTC; m1b.php 45, m1b.cjs 102, m1.php 42, m1.cjs pass.
+
+### Jason's "Review this again" on reading 2 (via the session manager, 2026-11-24 00:22 UTC), made
+The vendor bill's account is a setting, never .env (CLAUDE.md: .env only for secrets):
+- **Vendor bills post to** in System Configuration → Settings (`VendorBills::settingsCard`, hooked into `tv_site_settings`;
+  `qb_settings` row `vendor_bill_account`): QuickBooks' Cost of Goods Sold accounts read live (`QuickBooksPay::cogsAccounts`),
+  by number and name, the first preselected ("not chosen yet") until chosen; its History in `qb_settings_log` (new,
+  add-only, money class); finance and operations managers change it, others see it greyed with why.
+- The Vendor line says where a bill will post before Record ("Posts to 5000 · Cost of Goods Sold", ✎ to the setting in a
+  panel) and, once billed, where it went ("In QuickBooks: …").
+- `createBill` takes the account it's given; `QB_COGS_ACCOUNT_ID` is read once only, to seed the setting (History says so).
+- **Not built, asked:** step 1, the vendor's own default expense category in QuickBooks. Whether the Accounting API's Vendor
+  entity exposes it couldn't be confirmed from this session (Intuit's developer docs aren't reachable from here; the web
+  search found only QuickBooks' screen for it). Building against an unconfirmed field would be a guess.
+Tests: m1b.php 51, m1b.cjs 55 × 2 (110), M1's suite all pass. Screens: m1b-setting, m1b-setting-chosen, m1b-posts-to.

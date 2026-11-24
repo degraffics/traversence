@@ -90,7 +90,7 @@ VendorBills::edit($pdo, $a, (int) $b['id'], ['bill_no' => '130929', 'bill_date' 
 $t('✎ before QuickBooks: the due date changed, the old one in the history', $pdo->query('SELECT due_date FROM order_vendor_bills WHERE id = ' . (int) $b['id'])->fetchColumn() === '2026-12-18' && str_contains($ev($a, 'vendor_bill'), 'due 2026-12-17 → 2026-12-18'), $ev($a, 'vendor_bill'));
 $msg = VendorBills::toQuickBooks($pdo, $a, (int) $b['id']);
 $b = $pdo->query('SELECT * FROM order_vendor_bills WHERE id = ' . (int) $b['id'])->fetch(PDO::FETCH_ASSOC);
-$t('(c) Send it to QuickBooks: made as a bill against the vendor (mock MBL-…), the error cleared, its account kept and said', $b['qb_bill_id'] === 'MBL-' . $b['id'] && $b['qb_error'] === '' && $b['qb_account'] === 'Cost of Goods Sold' && str_contains($msg, 'in Cost of Goods Sold'), [$b, $msg]);
+$t('(c) Send it to QuickBooks: made as a bill against the vendor (mock MBL-…), the error cleared, its account kept and said', $b['qb_bill_id'] === 'MBL-' . $b['id'] && $b['qb_error'] === '' && $b['qb_account'] === '5000 · Cost of Goods Sold' && str_contains($msg, 'in 5000 · Cost of Goods Sold'), [$b, $msg]);
 $s = VendorBills::state($pdo, Orders::get($pdo, $a));
 $t('the line: Billed $256.83 (inv 130929, Nov 17) · due Dec 18', $s['key'] === 'billed' && $s['sentence'] === 'Billed $256.83 (inv 130929, Nov 17) · due Dec 18.', $s['sentence']);
 $t('the board: once billed, the vendor asks nothing (Complete the order)', (ClientOrders::boardState($pdo, Orders::get($pdo, $a))['next']['label'] ?? '') !== 'Record the vendor bill');
@@ -125,6 +125,20 @@ $t('They billed after all: their bill is expected again', VendorBills::state($pd
 $t('an order with no work order has no Vendor line', ClientOrders::boardState($pdo, Orders::get($pdo, $ids['Paid Co']))['vendor']['key'] === '');
 $t('Billed Co (seeded with its bill in QuickBooks): Billed $256.83', VendorBills::state($pdo, Orders::get($pdo, $ids['Billed Co']))['key'] === 'billed');
 $t('PO match: our work order number in any form', (VendorBills::woForPo(VendorBills::workOrders($pdo, $ty), '20261102 wo0004')['vendor'] ?? '') === 'Mesa Bindery');
+
+// ---- where vendor bills post (the session manager for Jason, 2026-11-24): a setting, never .env ----
+$pdo->exec("DELETE FROM qb_settings WHERE name = 'vendor_bill_account'"); $pdo->exec('DELETE FROM qb_settings_log');
+$t('not chosen yet: the first of QuickBooks\' Cost of Goods Sold accounts, preselected, not saved', VendorBills::account($pdo) === ['80', '5000 · Cost of Goods Sold', false] && !$pdo->query("SELECT COUNT(*) FROM qb_settings WHERE name = 'vendor_bill_account'")->fetchColumn());
+$t('chosen in Settings: Printing and production, saved, its History kept', VendorBills::setAccount($pdo, '81', 1) === '5010 · Printing and production' && VendorBills::account($pdo) === ['81', '5010 · Printing and production', true] && ($h = VendorBills::accountHistory($pdo)) && $h[0][2] === '5010 · Printing and production' && $h[0][3] === 'Chosen in System Configuration → Settings');
+$t('an account QuickBooks doesn\'t list is refused', str_contains($ex(fn () => VendorBills::setAccount($pdo, '999', 1)), 'isn\'t one of QuickBooks'));
+$pdo->exec("DELETE FROM qb_settings WHERE name = 'vendor_bill_account'"); putenv('QB_COGS_ACCOUNT_ID=81');
+$t('an old .env\'s QB_COGS_ACCOUNT_ID only seeds the setting, once, with a History line', VendorBills::account($pdo) === ['81', '5010 · Printing and production', true] && VendorBills::accountHistory($pdo)[0][3] === 'Seeded once from QB_COGS_ACCOUNT_ID in .env');
+putenv('QB_COGS_ACCOUNT_ID=80');
+$t('…and is never read again once the setting is there', VendorBills::account($pdo)[0] === '81');
+putenv('QB_COGS_ACCOUNT_ID');
+$q = file_get_contents($root . '/app/lib/QuickBooksPay.php');
+$t('createBill takes the account it\'s given, never .env', !str_contains($q, "getenv('QB_COGS_ACCOUNT_ID')"));
+$pdo->exec("DELETE FROM qb_settings WHERE name = 'vendor_bill_account'"); $pdo->exec('DELETE FROM qb_settings_log');
 
 // ---- setup: the hourly pull, staging, the uploader ----
 $t('the hourly pull is a scheduled job, set up by itself (Scheduler::JOBS and AUTO)', isset(Scheduler::JOBS['qb_orders_tick']) && in_array('qb_orders_tick', Scheduler::AUTO, true) && is_file($root . '/app/scripts/qb_orders_tick.php'));

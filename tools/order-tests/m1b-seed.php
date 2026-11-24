@@ -12,7 +12,8 @@
 declare(strict_types=1);
 ob_start(); require __DIR__ . '/m1-seed.php'; ob_end_clean();
 $pdo = new PDO('mysql:host=127.0.0.1;dbname=tvh', 'tv', 'tv', [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
-foreach (['order_vendor_bills', 'order_files'] as $t) { try { $pdo->exec("DELETE FROM $t"); } catch (Throwable) {} }
+foreach (['order_vendor_bills', 'order_files', 'qb_settings_log'] as $t) { try { $pdo->exec("DELETE FROM $t"); } catch (Throwable) {} }
+try { $pdo->exec("DELETE FROM qb_settings WHERE name = 'vendor_bill_account'"); } catch (Throwable) {}   // where vendor bills post: not chosen yet
 $d = fn ($days) => date('Y-m-d H:i:s', time() + $days * 86400);
 $mk = function (string $name, array $f, string $istat = '') use ($pdo, $d): int {
     $f += ['created_by' => 1, 'status' => 'pending', 'total_cents' => 111114, 'subtotal_cents' => 102120, 'tax_cents' => 8994, 'bill_name' => 'Ana Ortiz', 'bill_email' => 'ana@example.com', 'client_company' => $name,

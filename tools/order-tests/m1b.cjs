@@ -24,7 +24,7 @@ const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'm1b-'));
 for (const v of ['match', 'amount']) execFileSync('python3', [path.join(__dirname, 'm1b/make-invoice.py'), path.join(tmp, `inv-${v}.pdf`), v]);
 execFileSync('python3', ['-c', `from reportlab.pdfgen import canvas\nc=canvas.Canvas(${JSON.stringify(path.join(tmp, 'inv-scan.pdf'))}); c.rect(50,50,400,600,fill=1); c.save()`]);
 const line = (p, label) => p.evaluate((label) => { const l = [...document.querySelectorAll('.cs-line')].find((x) => x.querySelector('.cs-ll').textContent === label); if (!l) return null;
-  const c = l.querySelector('.cs-lt').cloneNode(true); c.querySelectorAll('script, [data-cs-edf], [data-vb-read], [data-vb-drop]').forEach((x) => x.remove());
+  const c = l.querySelector('.cs-lt').cloneNode(true); c.querySelectorAll('script, [data-cs-edf], [data-vb-read], [data-vb-drop], .vb-post').forEach((x) => x.remove());
   return { text: c.textContent.replace(/\s+/g, ' ').trim(), btns: [...l.querySelectorAll('.cs-lb > .hb-b, .cs-lb > .cs-ways > .hb-b, .cs-lb > form > .hb-b')].map((b) => b.textContent.trim()), icons: [...l.querySelectorAll('.cs-la .cs-ib')].map((b) => ({ t: b.getAttribute('title'), off: b.disabled || false, href: b.getAttribute('href') })) }; }, label);
 const press = async (p, sel, yes) => {   // a button that asks first: its yes in the site's pop-up, then the page posts
   await p.click(sel); await p.waitForTimeout(250);
@@ -56,6 +56,7 @@ const press = async (p, sel, yes) => {   // a button that asks first: its yes in
     // ---- the Vendor line ----
     let v = await line(p, 'Vendor');
     ok(`${w}: Vendor: $256.83 to the print vendor (work order 20261027-WO0001), not billed yet; Record the bill by hand, ✎, ⋯`, v && v.text === '$256.83 to the print vendor (work order 20261027-WO0001), not billed yet.' && v.btns.includes('Record the bill by hand') && v.icons.length === 2, v);
+    ok(`${w}: before Record, the line names where the bill will post: Posts to 5000 · Cost of Goods Sold, with ✎ to the setting (in a panel)`, await p.evaluate(() => { const s = document.querySelector('.vb-post'); const a = s && s.querySelector('a[data-peek-frame]'); return !!s && s.textContent.trim() === 'Posts to 5000 · Cost of Goods Sold' && a.getAttribute('href') === '/admin/config/settings#vendor-bills' && a.title === 'Edit where vendor bills post in QuickBooks'; }));
     ok(`${w}: the drop zone says where it goes: kept with this order's files; not sent to anyone`, await p.evaluate(() => /Kept with this order's files; not sent to anyone/.test((document.querySelector('[data-vb-drop]') || {}).textContent || '')));
     const dl = await line(p, 'Delivery'), od = await line(p, 'Order');
     ok(`${w}: Delivery's one action is Yes, picked up (filled); Remind the client is in its ⋯`, dl && dl.btns.join('|') === 'Yes, picked up' && await p.evaluate(() => !![...document.querySelectorAll('.cs-line')].find((x) => x.querySelector('.cs-ll').textContent === 'Delivery').querySelector('.cs-tk button:not([disabled])[value=remind_got]')), dl);
@@ -95,7 +96,7 @@ const press = async (p, sel, yes) => {   // a button that asks first: its yes in
     await Promise.all([p.waitForNavigation({ timeout: 15000 }).catch(() => {}), p.click('[data-vb-read] .vb-btns .go')]); await p.waitForTimeout(700);
     v = await line(p, 'Vendor');
     ok(`${w}: Record the vendor bill → Billed $256.83 (inv 130929, Nov 17) · due Dec 17, ↗ to their bill, ✎ greyed (it's in QuickBooks)`, v && v.text === 'Billed $256.83 (inv 130929, Nov 17) · due Dec 17.' && /bill/.test(v.icons[0].href || '') && v.icons[1].off && /change it there/.test(v.icons[1].t), v);
-    ok(`${w}: the line names the QuickBooks account the bill went to (In QuickBooks: Cost of Goods Sold), so it can be checked`, await p.evaluate(() => { const l = [...document.querySelectorAll('.cs-line')].find((x) => x.querySelector('.cs-ll').textContent === 'Vendor'); const n = l && l.querySelector('.cs-la > small'); return !!n && n.textContent === 'In QuickBooks: Cost of Goods Sold'; }));
+    ok(`${w}: the line names the QuickBooks account the bill went to (In QuickBooks: 5000 · Cost of Goods Sold), so it can be checked`, await p.evaluate(() => { const l = [...document.querySelectorAll('.cs-line')].find((x) => x.querySelector('.cs-ll').textContent === 'Vendor'); const n = l && l.querySelector('.cs-la > small'); return !!n && n.textContent === 'In QuickBooks: 5000 · Cost of Goods Sold'; }));
     ok(`${w}: the bill is in QuickBooks (mock), its answer kept`, sql(`SELECT CONCAT(qb_bill_id, '|', source, '|', answers LIKE '%It was picked up%') FROM order_vendor_bills WHERE order_id = ${A}`) === `MBL-${sql(`SELECT id FROM order_vendor_bills WHERE order_id = ${A}`)}|read|1`);
     ok(`${w}: the page says what happened (Success)`, await p.evaluate(() => /Recorded Competition Proofs's invoice 130929/.test(document.body.textContent)));
     const dl2 = await line(p, 'Delivery');
@@ -207,6 +208,18 @@ const press = async (p, sel, yes) => {   // a button that asks first: its yes in
     // ---- the stale checkout line: released and handled outside, nothing chosen ----
     await open(id('Mesa Ridge Lodge'));
     ok(`${w}: a released order handled outside: no "The client's checkout" line`, await p.evaluate(() => !/The client's checkout:/.test(document.body.textContent)));
+
+    // ---- the setting: System Configuration → Settings, Vendor bills post to ----
+    await p.goto(`${base}/admin/config/settings`, { waitUntil: 'load' }); await p.waitForTimeout(400);
+    let st = await p.evaluate(() => { const c = document.getElementById('vendor-bills'); return c && { opts: [...c.querySelectorAll('select option')].map((o) => [o.textContent, o.selected]), btn: c.querySelector('button.go').textContent, note: (c.querySelector('small') || {}).textContent || '' }; });
+    ok(`${w}: Settings: Vendor bills post to, QuickBooks' Cost of Goods Sold accounts by number and name, the first preselected, "Choose it"`, st && st.opts.length === 2 && st.opts[0][0] === '5000 · Cost of Goods Sold' && st.opts[0][1] && st.btn === 'Choose it' && /Not chosen yet/.test(st.note), st);
+    await p.selectOption('#vendor-bills select', { index: 1 });
+    await Promise.all([p.waitForNavigation({ timeout: 15000 }).catch(() => {}), p.click('#vendor-bills button.go')]); await p.waitForTimeout(500);
+    st = await p.evaluate(() => { const c = document.getElementById('vendor-bills'); return { sel: c.querySelector('select').selectedOptions[0].textContent, btn: c.querySelector('button.go').textContent, hist: (c.querySelector('details li') || {}).textContent || '' }; });
+    ok(`${w}: choosing one saves it, and History says so`, st.sel === '5010 · Printing and production' && st.btn === 'Save' && /5010 · Printing and production · Chosen in System Configuration → Settings/.test(st.hist), st);
+    await open(T);
+    ok(`${w}: the Vendor line follows the setting: Posts to 5010 · Printing and production`, await p.evaluate(() => (document.querySelector('.vb-post') || {}).textContent.trim() === 'Posts to 5010 · Printing and production'));
+    sql(`DELETE FROM qb_settings WHERE name = 'vendor_bill_account'`);
 
     // ---- the board ----
     await p.goto(`${base}/admin/backoffice/orders`, { waitUntil: 'domcontentloaded' });
