@@ -56,7 +56,7 @@ $b = $bs('Leg Pick Co');
 $t('leg 2: received, the item is Pick Up: ready for pickup at our shop, received from the vendor', $b['delivery']['key'] === 'ready' && $line($b) === 'Ready for pickup at our shop. Received from Competition Printing ' . $md(-2) . '.', $line($b));
 $b = $bs('Leg Send Co');
 $t('leg 2: received, the item goes by Courier with no number: at our shop, waiting for its number', $b['delivery']['key'] === 'received' && $line($b) === 'Received from Competition Printing ' . $md(-1) . '; it goes by courier from our shop.' && $b['delivery']['leg'] === 'Courier: its number once it\'s booked.', [$line($b), $b['delivery']['leg']]);
-$t('lines: at our shop is not out the door; the next step is Edit the shipping, ours', $b['order']['word'] === 'At our shop' && ($b['next']['label'] ?? '') !== '' && $b['delivery']['line'] > 0, [$b['order'], $b['next']]);
+$t('lines: at our shop is not out the door; the step is Add the courier\'s number, ours', $b['order']['word'] === 'At our shop' && $b['delivery']['line'] > 0 && in_array($b['next']['label'] ?? '', ['Add the courier\'s number', 'Record the vendor bill'], true), [$b['order'], $b['next']]);
 $b = $bs('Leg Out Co');
 $t('leg 2: the item\'s courier booked and shipped: out by courier from our shop', $b['delivery']['key'] === 'shipped' && str_starts_with($line($b), 'Out by courier from our shop: Rapid Couriers 55822'), $line($b));
 $t('leg 2: no work order: the item statuses read as before', ClientOrders::legs($pdo, Orders::get($pdo, $ids['Leg Out Co']), [], [], []) === null);

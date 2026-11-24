@@ -6,7 +6,7 @@
 //   the courier: saved, the line says Out by courier from the vendor; ✎ edits it in place
 //   Change how it goes…: the method's meaning follows the choice; Tell the vendor only when it changed; × Esc Cancel and a
 //     click outside close it; saved, the line's words follow; an item's courier number sends it out from our shop
-//   received, Courier with no number: Edit the shipping opens the item's shipping
+//   received, Courier with no number: Add the courier's number opens the item's shipping at Tracking
 const { chromium } = require('playwright');
 const { execFileSync } = require('child_process');
 const [base, root] = [process.argv[2] || 'http://127.0.0.1:8790', process.argv[3]];
@@ -101,8 +101,8 @@ const id = (name) => +sql(`SELECT id FROM orders WHERE client_company = '${name}
     ok(`${w}: received, by courier from our shop, waiting for its number`, /Received from Competition Printing \w+ \d+; it goes by courier from our shop\. Courier: its number once it's booked\./.test(dl), dl);
     ok(`${w}: the Order line: At our shop`, /At our shop/.test(await oLine()), await oLine());
     await p.screenshot({ path: `${shots}/m2b-received-${w}.png` });
-    const i2 = await dIdx(); await p.click(`.cs-line:nth-of-type(${i2 + 1}) button:has-text("Edit the shipping")`); await p.waitForTimeout(500);
-    ok(`${w}: Edit the shipping opens the item's shipping`, await p.evaluate(() => [...document.querySelectorAll('#co-ship, #co-lots')].some((d) => !d.hidden)));
+    const i2 = await dIdx(); await p.click(`.cs-line:nth-of-type(${i2 + 1}) button:has-text("Add the courier's number")`); await p.waitForTimeout(500);
+    ok(`${w}: Add the courier's number opens the item's shipping at Tracking`, await p.evaluate(() => [...document.querySelectorAll('#co-ship, #co-lots')].some((d) => !d.hidden) && (!document.querySelector('#co-ship') || document.querySelector('#co-ship').hidden || document.activeElement.name === 'tracking')));
     await p.keyboard.press('Escape'); await p.waitForTimeout(200);
     await open(sd); await toolkit(); await pick('Change how it goes…');
     ok(`${w}: with nothing out at the vendor, it opens on the item's Ship style (Courier)`, await p.evaluate(() => document.activeElement && document.activeElement.id === 'co-howgo' && document.activeElement.value === 'courier'));

@@ -235,14 +235,14 @@ Decided: decisions/0101's note (2026-11-24, Jason's Approve and Yes); mockup `ha
 `deliverables` made public), `app/lib/WorkOrders.php` (`goesTo`, `DELIVERY_MEANS`, `legWords`, `setDelivery` new;
 `setTracking` says `_told` only when the email went), `app/admin/tools.php` (`backoffice/work_orders`: Courier booked on a
 Will Call too; "emailed" only when it went), `website/admin/client-order.php` (the Delivery line's leg words, Receive /
-Edit the shipping, ⋯ Courier booked: add tracking and Change how it goes…, their panes, handlers `wo_courier` and
+Add the courier's number (the Design reviewer's naming), ⋯ Courier booked: add tracking and Change how it goes…, their panes, handlers `wo_courier` and
 `how_goes`; the Order line's button left to Delivery while ours to receive or send; the Shipping box no longer says
 "Pickup at our shop" for a vendor's Will Call), `app/ui/faq.md` (three entries). No migration.
 - **The leg rule:** leg 1 is the first work order out and not received: Will Call with a courier's number → Out by courier
   from the vendor; to the client (`goesTo`) → At the vendor / Shipping from the vendor to the client; to us → At the vendor,
   Ready at <vendor> for us to collect (since, days; Receive), On its way to us (Receive). Leg 2 once received (not for a
   straight-to-client one): the item's ship style: Pick Up → Ready for pickup at our shop; Courier / Drop Ship → Received,
-  waiting for its number (Edit the shipping); shipped → Out by courier from our shop / Shipped. No work order: as before.
+  waiting for its number (Add the courier's number, at the item's Tracking); shipped → Out by courier from our shop / Shipped. No work order: as before.
 - **My reading, flagged:** the note names Ship, Freight and Local Delivery; Next-day Courier is read the same way (its
   ship-to, or us with none). `WorkOrders::moveItems` still treats Local Delivery's complete as "came to us" (unchanged).
 - **Tests:** `tools/order-tests/m2b.php` (31) and `m2b.cjs` (68, at 1280 and 390) with `m2b-seed.php`; `m1b-seed.php`'s
