@@ -116,17 +116,19 @@
   {
    "path": "app/admin/control-console.php",
    "functions": [
+    "(top)",
     "tv_admin_mod_control",
     "tv_cb_afilter",
+    "tv_cb_evidence",
     "tv_cb_qbar",
     "tv_cb_rail",
     "tv_cb_view_assets"
    ],
    "kind": "change",
    "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
-   "why": "board-phone: the board's phone header (\u2630 pages, one Alerts dropdown, one alarm count), the side panel's thread styles, pills in the body font, a pressed trip counted as open",
+   "why": "board-phone: the one count's helper and the pages' \u2630 (new functions beside the qbar)",
    "since": "2026-11-24T04:17:19Z",
-   "expires": "2026-11-24T08:17:19Z",
+   "expires": "2026-11-24T09:08:28Z",
    "release": "board-phone.zip",
    "callers": {}
   },
