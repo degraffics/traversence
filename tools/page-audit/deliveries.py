@@ -38,6 +38,17 @@ def record(a):
 def now():
     return datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%d %H:%M UTC')
 
+def released_live(zipname):
+    """The release id whose record (deliveries/releases/, written by the site) says this zip went live, else None."""
+    for p in glob.glob(os.path.join(DIR, 'releases', '*.json')):
+        try:
+            r = json.load(open(p))
+        except (OSError, ValueError):
+            continue
+        if r.get('zip') == zipname and r.get('state') == 'live':
+            return r.get('id')
+    return None
+
 def verify(a):
     s = sync_of(a.mirror)
     for p in sorted(glob.glob(os.path.join(DIR, '*.json'))):
@@ -60,6 +71,9 @@ def verify(a):
         d['status'] = 'live' if n == len(real) else ('partial' if n else 'pending')
         if d['status'] == 'live':
             d['live_in'] = s
+        elif released_live(d.get('zip', '')):   # its release went live and later releases changed its files: never pending again
+            d['status'] = 'live'
+            d['live_in'] = d.get('live_in') or 'Release #%s (its files since changed by later releases)' % released_live(d['zip'])
         json.dump(d, open(p, 'w'), indent=1)
     write_readme()
     if not getattr(a, 'keep_claims', False):

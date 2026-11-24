@@ -3,8 +3,8 @@
  "built_on": "1ada60f Sync: 2026-11-20 16:32 UTC",
  "recorded": "2026-11-20 17:01 UTC",
  "note": "0176 R2: service issues as threads; built on Sync: 2026-11-20 16:32 UTC Sent through git (releases/inbox).",
- "status": "partial",
- "live_in": "",
+ "status": "live",
+ "live_in": "Release #234 (its files since changed by later releases)",
  "files": {
   "app/admin/operations-console.php": {
    "sha256": "080f0f434b4a0ccefc2de31095d3eae8a975858e903ef301ad1059e599adb400",
