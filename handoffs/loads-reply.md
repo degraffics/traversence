@@ -58,3 +58,12 @@ path is fine. Both W1 trips (overture_bulk #1290, foursquare_bulk #1288) still o
   known live failures; staging unit 65/65.
 - **Held:** `staging-tables.php` (the new table's class) is claimed by Orders M1b (both FOLLOWS and OWN). Per CLAUDE.md, wait
   for M1b to go live, add only `open_load_batches` on the live copy (OWN), then zip, check and send.
+
+## W0's "received 250, accounted for 0" (folded in, the session manager, 2026-11-24)
+
+Live read (run 45294366059, read and deleted): every POST /api/crawl/index 200, received 250, stored 0, refused 0; W0 working
+(263 read, 100,715 found), its receipts matching. Cause: `index.php` nests its counts under `receipt`; `ControlLedger::counts()`
+read the top level only. Fix: `counts()` reads a batch's receipt (stored; rejected as refused; junk, skipped and new sit inside
+stored), so stored + refused = received and the alarm clears on the next good call; `index.php` records one line per batch
+(`index batch`, its crawl_batches row: "found: 247 kept, 30 new, 3 refused") for W0's "Its data". Tests: `w0-receipt.php` 7/7;
+run-all.sh only the 7 known live failures.
