@@ -3,20 +3,20 @@
  "built_on": "a0f68a3 Sync: 2026-11-24 13:33 UTC",
  "recorded": "2026-11-24 13:34 UTC",
  "note": "task-adrs: the decisions attached to a Work queue task; approved by Jason in this session's pop-up; built on Sync: 13:33 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "529da6f Sync: 2026-11-24 13:39 UTC",
  "files": {
   "app/admin/control-console.php": {
    "sha256": "46b2fe8807e66839e299f7ac9b3a8deccf63258413c315903de818f38860a33d",
-   "live": false
+   "live": true
   },
   "app/lib/GaugeTasks.php": {
    "sha256": "befd99d77085e3d4de4893af059326700b66e41e7736a5735150d219af619220",
-   "live": false
+   "live": true
   },
   "app/lib/staging-tables.php": {
    "sha256": "bbcd58f7e3b6378875f9182c651436dcb0a4737aa5ca9ae984f22dcd0dc8a80e",
-   "live": false
+   "live": true
   },
   "app/migrations/2026-11-24_task_adrs.sql": {
    "sha256": "5013189dc3707e01664a0cbabc8763019fb2b33c079ebf125634bd44ddcf3255",
@@ -24,15 +24,15 @@
   },
   "app/ui/faq.md": {
    "sha256": "9d1746856b55318efab6ef81cdc0ee279ff6850d4f6c47edee0d6247f9a863dd",
-   "live": false
+   "live": true
   },
   "website/admin/api.php": {
    "sha256": "c63bd013d6a2851430c5dc2f790e3f7eb0c51cfbb908e6e3addcc0ff54687b38",
-   "live": false
+   "live": true
   },
   "website/js/admin-control.js": {
    "sha256": "6be1e81ce43336edef5b1f2ba32eef6e89ef3ea13552654ac017f3173877a3a6",
-   "live": false
+   "live": true
   }
  }
 }
