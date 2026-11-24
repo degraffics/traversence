@@ -32,3 +32,15 @@ Fixed when its task's next run does its work.
 
 **Noted, not changed:** under the one engine a task's own-code trip holds nothing (`ControlEngine::radius`: `task:`/`wf:` → []);
 W1's two trips are older, from before it, which is why they hold all of W1.
+
+## The Design reviewer's words and the rendered states (2026-11-24)
+
+- Status: "This trip's pause is lifted (Jason, 02:10 UTC). W1 is still paused by one more trip: Foursquare failed (run
+  #1288). Once both are cleared, W1's next run is this task's check: …" with that trip's own **Check and start again:
+  Foursquare failed (run #1288)** on the card (wraps on a phone); What to do: "Press the other trip's Check and start again
+  (below); …". Pressed there: both cards "W1 runs again (Jason, 02:11 UTC). Its next run is this task's check: it closes as
+  Fixed if it works, or trips again if not."; What the system is doing "Nothing is paused for this trip. Its next run is the
+  check."; What to do "Nothing to do now: it closes by itself when that run works."; no "Paused by the system", no "Holds:";
+  amber. A group of trips all started again: "(nothing held: each waits for its next run)", amber.
+- "cleared" became "pause is lifted": the trip stays open until its run proves the fix.
+- Screens at 1280 and 390: `task-trip/task-trip-{one,waiting,failed}-{1280,390}.png` (`task-trip.cjs` 24/24, in rendered-all.sh).

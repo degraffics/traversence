@@ -32,6 +32,7 @@ TESTS=(
 "board-panels|php board-panels-seed.php $R/app|node board-panels.cjs $R"
 "board-opening|php board-panels-seed.php $R/app|node board-opening.cjs $R"
 "gauge-panel|php board-panels-seed.php $R/app|node gauge-panel.cjs $R"
+"task-trip|:|node task-trip.cjs $R"
 "google-signin|:|node google-signin.cjs $R"
 "board-live|php board-live-seed.php $R/app $TOOLS/../site-audit/results/alarms.json|node board-live.cjs $R"
 "lines|php lines.php $R/app|node lines.cjs $R"

@@ -55,7 +55,7 @@ $t('"Try it first on the next run" now: nothing holds it (null)', CrawlService::
 // the card: the press's state replaces the trip's (Jason, 2026-11-24: "every action … replace old states with new state")
 $f = ControlAlarms::facts($pdo, ControlAlarms::byId($pdo, $fs));
 $t('the card\'s Status is the press\'s result, never "Paused by the system" or "Acknowledged"', str_starts_with($f['status'], 'W1 runs again (') && !str_contains($f['status'], 'Paused by the system') && !str_contains($f['status'], 'Acknowledged'), $f['status']);
-$t('…it holds nothing now ("Holds:" gone), and says what it\'s doing: its next run is the check', $f['holds'] === '' && str_contains($f['doing'], 'its next run is the check'), [$f['holds'], $f['doing']]);
+$t('…it holds nothing now ("Holds:" gone), and says what it\'s doing: its next run is the check', $f['holds'] === '' && str_contains($f['doing'], 'Its next run is the check'), [$f['holds'], $f['doing']]);
 $steps = ControlAlarms::pulseSteps($pdo, $fs, fn ($l, $w, $a = null) => $l);
 $t('Pulse: no Check and start again, no Try it first on the next run (it is first)', !in_array('Check and start again', $steps, true) && !in_array('Try it first on the next run', $steps, true), $steps);
 $html = tv_admin_mod_control($pdo);

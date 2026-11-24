@@ -1,0 +1,30 @@
+{
+ "zip": "task-trip.zip",
+ "built_on": "7bece80 Sync: 2026-11-24 01:30 UTC",
+ "recorded": "2026-11-24 02:22 UTC",
+ "note": "A task's trip pressed lifts its own pauses and shows the new state; Try it first says when it can't run. Built on Sync 01:30 UTC. Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/control-console.php": {
+   "sha256": "271411f65ff4be54493c3cf4d957b047cd69cf612875c4a40bb70e63317455a8",
+   "live": false
+  },
+  "app/admin/crawler-console.php": {
+   "sha256": "cb06773fbf351b78ac371e6f395f74914d29b0c961805f2c938c9ac09384e2e2",
+   "live": false
+  },
+  "app/lib/ControlAlarms.php": {
+   "sha256": "f9192baae81e01fca84990b9d75d6d9f6a0a457b8f59a67fe5321ebc63761d27",
+   "live": false
+  },
+  "app/lib/Operations.php": {
+   "sha256": "459d5d14107a18ab6dec2a9078179d55c19f7ba8caa17c469458164bb5bb8a10",
+   "live": false
+  },
+  "app/lib/crawler/CrawlService.php": {
+   "sha256": "1248500911998659458d758ea63fc3d8eb2fd2a005ce4f6e55c6b41054903a4e",
+   "live": false
+  }
+ }
+}

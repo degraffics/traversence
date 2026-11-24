@@ -1024,7 +1024,7 @@ final class ControlAlarms
             if ($ed !== '') $doing = $ed;
         }
         $sa = self::startedAgain($a);
-        if ($sa !== '') { $status = $sa; $doing = 'Nothing is paused for this trip now: its next run is the check.'; }   // the press's state replaces the trip's
+        if ($sa !== '') { $status = $sa; $doing = 'Nothing is paused for this trip. Its next run is the check.'; }   // the press's state replaces the trip's
         elseif (!$cl && $a['ack_at'] !== null) $status .= ' Acknowledged by ' . (string) ($a['ack_name'] ?? 'staff') . '.';
         if (!$cl && str_starts_with((string) ($a['resolve_note'] ?? ''), 'Tried again at ')) $status .= ' ' . (string) $a['resolve_note'];
         if (!$cl && $isTrip && !empty($a['good_at'])) $status .= ' Its reading is good again since ' . self::at((string) $a['good_at']) . ': ' . (string) $a['good_how'];
@@ -1037,7 +1037,7 @@ final class ControlAlarms
         require_once __DIR__ . '/Thread.php';
         return ['title' => (string) $a['title'], 'level' => $cl ? 'closed' : $lv, 'pill' => $cl ? 'Cleared' : (self::LEVELS[$lv] ?? $lv),
         // 'holds': only a trip holds its part; a warning holds nothing (words true to state; the design review, 2026-11-23)
-                'status' => trim($status), 'affects' => self::affects($pdo, $a), 'holds' => $a['level'] === 'trip' && !empty($a['tripped_at']) && $sa === '' ? self::partName($pdo, (string) $a['proc']) : '', 'doing' => ($theirs && $doing !== '' ? Thread::HANDLING . ': ' : '') . $doing, 'todo' => (string) $a['todo'], 'details' => $det,
+                'status' => trim($status), 'affects' => self::affects($pdo, $a), 'holds' => $a['level'] === 'trip' && !empty($a['tripped_at']) && $sa === '' ? self::partName($pdo, (string) $a['proc']) : '', 'doing' => ($theirs && $doing !== '' ? Thread::HANDLING . ': ' : '') . $doing, 'todo' => $sa !== '' ? (str_starts_with($sa, 'This trip\'s pause is lifted (') && self::stillHolding($pdo, $a, (int) $a['id']) ? 'Press the other trip\'s Check and start again (below); then it waits for its run.' : 'Nothing to do now: it closes by itself when that run works.') : (string) $a['todo'], 'details' => $det,
                 'fix' => $theirs ? null : $fix, 'theirs' => $theirs];
     }
 
@@ -1087,7 +1087,8 @@ final class ControlAlarms
     public static function affects(PDO $pdo, array $a): array
     {
         $out = []; $sw = self::stoppedWords($a);
-        if ($sw !== '' && $a['cleared_at'] === null) $out[] = 'Paused by the system: ' . $sw;
+        if (self::startedAgain($a) !== '') { /* started again: nothing of its own is paused now (its Status says what still holds) */ }
+        elseif ($sw !== '' && $a['cleared_at'] === null) $out[] = 'Paused by the system: ' . $sw;
         elseif ($a['cleared_at'] === null && $a['level'] === 'trip' && !empty($a['tripped_at']) && empty($a['retrying_at'])) $out[] = 'Nothing could be paused from here (it only trips)';
         $proc = (string) $a['proc'];
         if (str_starts_with($proc, 'svc:')) {

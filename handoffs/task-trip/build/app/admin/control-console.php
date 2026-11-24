@@ -620,7 +620,7 @@ function tv_cb_alarms(array $alarms, array $ac, array $names, callable $pid, boo
         // another trip still holding its workflow: that trip's own Check and start again, right on this card (the Design reviewer)
         $holdBtn = '';
         if ($started) foreach (ControlAlarms::stillHolding(Database::connection(), $a, $id) as $o)
-            $holdBtn .= $btn('resolve', 'Check and start again: ' . ControlAlarms::plainTrip(Database::connection(), $o), $canBoard, $whyBoard, (string) (int) $o['id'], ['class' => 'ak-b cb-xs go']);
+            $holdBtn .= $btn('resolve', 'Check and start again: ' . ControlAlarms::plainTrip(Database::connection(), $o), $canBoard, $whyBoard, (string) (int) $o['id'], ['class' => 'ak-b cb-xs go', 'style' => 'white-space:normal;text-align:left;max-width:100%;height:auto']);
         $fb = ''; foreach ($fxs as $f) $fb .= ($f[1] ?? '') === 'link' ? '<a class="ak-b cb-xs" href="' . $e((string) $f[2]) . '" target="_blank" rel="noopener">' . $e((string) $f[0]) . ' ↗</a>'
             : (($f[1] ?? '') === 'peek' ? '<a class="ak-b cb-xs" href="' . $e((string) $f[2]) . '" data-peek-frame="' . $e(is_string($f[3] ?? null) && $f[3] !== '' ? (string) $f[3] : (string) $f[0]) . '">' . $e((string) $f[0]) . '</a>'   // its panel titled by the part's name when the fix names it
             : (in_array($f[1] ?? '', ['ops', 'opsask'], true)   // the old Pulse case's steps, acting in place (0171 §7, §8): [label, 'ops'|'opsask', 'what', confirm|[ask label, value]]
@@ -678,11 +678,13 @@ function tv_cb_alarms(array $alarms, array $ac, array $names, callable $pid, boo
         $members = array_map(fn ($x) => $byId[$x], $g['ids']); $lv = $g['level'];
         $acked = !array_filter($members, fn ($x) => $x['ack_at'] === null);
         $nm = array_values(array_unique(array_map(fn ($x) => $names[$x['proc']] ?? (string) preg_replace('/:.*$/', '', (string) $x['title']), $members)));
-        $h .= '<li id="cb-group-' . $e(str_replace(':', '-', $gk)) . '" class="cb-al-grp cb-al-' . $e($lv) . '" data-astate="' . ($acked ? 'ack' : 'open') . '" data-alevel="' . $e($lv) . '">' . tv_cb_mark($lv === 'trip' ? 'bad' : ($lv === 'warning' ? 'hold' : 'new'))
-            . '<details class="cb-grp" id="cb-grpd-' . $e(str_replace(':', '-', $gk)) . '"><summary><span class="cb-pill cb-pill-' . ($lv === 'trip' ? 'bad' : 'hold') . '">' . $e(ControlAlarms::LEVELS[$lv]) . '</span> <b>' . $e($g['title']) . '</b> <span class="cb-caret" aria-hidden="true">▾</span>'
+        // every trip in it started again for its next run: the group follows their state (amber, nothing held), never still "Holds:"
+        $allStarted = $lv === 'trip' && !array_filter($members, fn ($x) => (string) $x['level'] === 'trip' && ControlAlarms::startedAgain($x) === '');
+        $h .= '<li id="cb-group-' . $e(str_replace(':', '-', $gk)) . '" class="cb-al-grp cb-al-' . $e($lv) . '" data-astate="' . ($allStarted ? 'started' : ($acked ? 'ack' : 'open')) . '" data-alevel="' . $e($lv) . '">' . tv_cb_mark($lv === 'trip' && !$allStarted ? 'bad' : ($lv === 'warning' || $allStarted ? 'hold' : 'new'))
+            . '<details class="cb-grp" id="cb-grpd-' . $e(str_replace(':', '-', $gk)) . '"><summary><span class="cb-pill cb-pill-' . ($lv === 'trip' && !$allStarted ? 'bad' : 'hold') . '">' . $e(ControlAlarms::LEVELS[$lv]) . '</span> <b>' . $e($g['title']) . '</b> <span class="cb-caret" aria-hidden="true">▾</span>'
             // its Holds line is plain words: a press anywhere on the header opens the group (Jason, 2026-11-19: the ▸ beside Holds
             // only unfolded its own short text, so it looked like it did nothing)
-            . '<div class="cb-am"><span><b>Holds:</b> ' . $e(implode(', ', $nm)) . ' <small class="cb-gopen">(open to see each)</small></span></div></summary>'
+            . '<div class="cb-am"><span>' . ($allStarted ? $e(implode(', ', $nm)) . ' (nothing held: each waits for its next run)' : '<b>Holds:</b> ' . $e(implode(', ', $nm))) . ' <small class="cb-gopen">(open to see each)</small></span></div></summary>'
             . '<div class="cb-acts">' . (!$acked && $lv !== 'warning' ? $btn('ackgroup', 'Acknowledge all ' . count($members), true, '', $gk, ['class' => 'ak-b cb-xs']) : '') . '</div>'
             . '<ul class="cb-al cb-al-in">' . implode('', array_map($one, $members)) . '</ul></details></li>';
     }
