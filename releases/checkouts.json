@@ -249,6 +249,17 @@
    "expires": "2026-11-24T09:47:58Z",
    "release": "board-phone-header.zip",
    "callers": {}
+  },
+  {
+   "path": "website/api/health.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
+   "why": "board-phone-header: the health report keeps refused starts and connection counts outside the jobs section, and says why that section is empty (jobs_error)",
+   "since": "2026-11-24T05:52:29Z",
+   "expires": "2026-11-24T09:52:29Z",
+   "release": "board-phone-header.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
