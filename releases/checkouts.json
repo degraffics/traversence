@@ -105,6 +105,19 @@
    "expires": "2026-11-24T04:13:42Z",
    "release": "loads-reply.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/staging-tables.php",
+   "functions": [
+    "OWN"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
+   "why": "open_load_batches: a load's batch keys (IR-0001)",
+   "since": "2026-11-24T00:48:14Z",
+   "expires": "2026-11-24T04:48:14Z",
+   "release": "loads-reply.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
