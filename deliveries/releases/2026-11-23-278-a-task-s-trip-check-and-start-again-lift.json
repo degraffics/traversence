@@ -6,12 +6,12 @@
     "zip": "task-trip-3.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "planned",
+    "state": "approved",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
-    "plan_at": null,
+    "plan_at": "2026-11-24 02:44:42",
     "staged_at": null,
     "vetted_at": null,
     "live_at": null,
@@ -49,6 +49,16 @@
             "at": "2026-11-24T02:44:40+00:00",
             "by": 0,
             "msg": "Uploaded task-trip-3.zip: 5 files."
+        },
+        {
+            "at": "2026-11-24T02:44:42+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/task-trip-3.zip (git 84c3f8d477)."
+        },
+        {
+            "at": "2026-11-24T02:44:42+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
         }
     ]
 }
