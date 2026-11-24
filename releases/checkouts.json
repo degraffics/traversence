@@ -37,6 +37,19 @@
      "website/admin/client-order.php"
     ]
    }
+  },
+  {
+   "path": "app/lib/WorkOrders.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5j2wAgTrKdTwX6kQNY",
+   "why": "M2b: the work order's delivery changed, the vendor told",
+   "since": "2026-11-24T03:02:55Z",
+   "expires": "2026-11-24T07:02:55Z",
+   "release": "order-m2b.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
