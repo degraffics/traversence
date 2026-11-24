@@ -86,3 +86,53 @@ manager. A test account reads only QuickBooks' sandbox (`QuickBooksPay::testHere
 - The vendor's own default expense category before "Vendor bills post to": confirm the field against a real QuickBooks
   Vendor read in the sandbox first (the session manager, 2026-11-24).
 - Client order emails onto the 0172 dispatcher (the session manager's separate item).
+
+## Built (the M2 session, session_01CXLi5j2wAgTrKdTwX6kQNY, 2026-11-24): built on Sync 00:46 UTC (3d42052)
+
+The zip `order-m2.zip` (not sent yet): `app/lib/Orders.php`, `app/lib/ClientOrders.php`, `app/lib/Pulse.php`,
+`app/lib/Customers.php`, `app/lib/staging-tables.php`, `app/ui/faq.md`, `app/migrations/2026-11-24_order_refunds.sql`,
+`website/admin/client-order.php`, `website/admin/order.php`. Claimed per function (order-m2.zip).
+**Held:** `app/lib/staging-tables.php` is also carried by `loads-reply` (session_01CXLi5hL7DpeN9WxT3oMXQK, not live yet):
+once it's live and synced, rebuild that file on its live copy (add `order_refund_requests` to MONEY, two REFS) and rerun the
+zip check.
+
+Each behaviour and its source:
+- **Refunds wait for Jason** (0178 §1): `Orders::requestRefund` (amount ≤ `refundable()` and ≤ what's left of the chosen
+  payment, a reason, GO Codes and work orders to stop) writes `order_refund_requests` (waiting) and a History line; one
+  waits per order; **Withdraw the refund** until decided. Pulse case `refundok:<id>` (the key `refund:` was taken by the
+  Refunded/Part refunded update rows) shows only when `Access::who()` is the Founder, with **Approve: refund $X**
+  (`['do', 'refund_approve']`) and **Decline** (`['form', 'refund_decline']`, why required); `Orders::approveRefund` /
+  `declineRefund` check the Founder again. Approve runs `refundThroughQuickBooks`; if QuickBooks refuses, nothing moves,
+  it stays waiting with QuickBooks' words, and Approve can be pressed again. GO Code orders' refunds on `admin/order.php`
+  take the same path ("Already refunded in QuickBooks: record it here" stays, as before).
+- **Cancel until the vendor accepts** (0178 §2): `ClientOrders::cancelBlock` (a work order accepted or beyond, or a job
+  number: "The vendor accepted the work order on Nov 3 (job …): it can't be cancelled; a credit or a refund instead"; the
+  date from the `work_order_accepted` event, else the work order's log). Unpaid: cancels, and work orders not accepted
+  stop (`stopUnaccepted`, the vendor told). Paid: its refund of everything paid goes to Jason with `cancel_order`; on
+  Approve it's refunded and cancelled. A payment only recorded here must have its record cancelled first.
+- **The money rule** (0178's note): `Orders::payments` classes each payment: `qb` read from QuickBooks (↗ to the payment
+  or its invoice), `card`, `posted` (recorded here and received on its QuickBooks invoice: `order_ledger.qb_payment_id`,
+  new, or older rows' "(payment N)" event) → **Refund…**; `here` → **Cancel the record** (`Orders::cancelRecord`: a
+  reversing `payment_cancelled` row keyed `cancel-<row>`, the ledger still only added to; paid, status and stage go back;
+  greyed once a work order went out after it, it was delivered, its GO Codes went live, or a dispute is open).
+- **Money on the order page** (design §4.3a): the **Money** section (`#money`): Total · Paid · Owed (Credits, Refunded,
+  Disputed only when not $0.00), each ledger row with its round icon, Refund…, Cancel the record, Issue a credit memo,
+  Record a card dispute / Dispute won or lost, QuickBooks refunds and credits to place (the inbox), Cancel the order….
+  The Money line's ⋯ goes to each, plus **Copy the pay link** (0178 §5) and **Check QuickBooks**; ✎ goes to #money; the
+  Money line says "Refund of $X waiting for Jason's OK". `admin/order.php?id=<client order>` forwards to `#money` (a POST
+  there changes nothing and says where to do it); it stays for GO Code orders.
+- Replaced screen, kept/moved: old page's Fix it, pause/resume → GO Code orders only (client orders have no GO Code fix
+  there); Credit, Refund (with work orders and where each stands), inbox, chargeback, won/lost, Check QuickBooks → moved
+  to #money; cancel unpaid → Order ⋯; the policy line → kept; ledger and history → the Money section's rows (History
+  section unchanged); mock "Mark paid" (QB_ENV=mock only) → not moved (test only).
+- FAQ: four entries (team: where to refund/credit/correct; why a refund waits for Jason; until when an order can be
+  cancelled; client: can I cancel).
+
+Tests (design harness): `tools/order-tests/m2.php` 47/47 (`m2-seed.php` for the rendered one), `m2.cjs` 46/46 at 1280 and
+390 (each new button pressed; screens in `handoffs/order-m2/`), `m1.php` passes; `m1b.php`'s 4 vendor-bill failures are the
+same on the live code (the harness's `order_vendor_bills` is short of columns), not M2's.
+
+Open for the session manager (sent 01:05, reminded 01:22): (a) the reversing kind needs live's `order_ledger.kind` to be a
+VARCHAR (the harness's is); (b) a refund of a payment that wasn't a card: today Approve stays waiting with "no card to
+refund from here"; (c) credit memos stay an admin action without Jason's OK. An admin who isn't a staff login reads as
+the Founder (`Access::who`, the site's rule; EnvSettings uses it too).
