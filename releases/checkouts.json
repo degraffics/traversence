@@ -70,6 +70,17 @@
    "expires": "2026-11-24T15:59:27Z",
    "release": "order-m2b.zip",
    "callers": {}
+  },
+  {
+   "path": "website/admin/client-order.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5j2wAgTrKdTwX6kQNY",
+   "why": "M2b: how an order goes (decisions/0101's note)",
+   "since": "2026-11-24T11:59:29Z",
+   "expires": "2026-11-24T15:59:29Z",
+   "release": "order-m2b.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
