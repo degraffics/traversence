@@ -285,6 +285,17 @@
    "expires": "2026-11-24T04:06:56Z",
    "release": "loads-reply.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/SiteHealth.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
+   "why": "the stale line from AuditClock::staleWhy",
+   "since": "2026-11-24T00:06:58Z",
+   "expires": "2026-11-24T04:06:58Z",
+   "release": "loads-reply.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
