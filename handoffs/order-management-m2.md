@@ -212,3 +212,18 @@ local pickup). The question for the session manager is which field the Delivery 
 Proposed: the line reads leg 2 (`orders.delivery` / `ship_mode`, the items' styles); it shows leg 1 as its first step
 while the vendor has it. "Change how it goes…" is ✎ on each leg's existing field, never a new list. A leg-1 change goes
 to the vendor through the existing work-order email ("Tell the vendor").
+
+**Read (02:58):** 0040's `delivery_method` / `freight_ltl` is the Marketplace's quote model (a business's listings), not
+our client orders: not used. 0099's fulfilment statuses (intake … packed → shipped | ready_for_pickup → delivered) are
+already M1's Delivery model. 0112's `ship_rules` (local pickup) are the Shop's checkout, not client orders: not used.
+
+**What the Delivery line reads today** (`ClientOrders::boardState`, live): `orders.delivery` = pickup, or the order's stage
+`ready`, or any item `ready` → **"Ready for pickup at our shop."** The items' status is moved by the vendor's work order
+(`WorkOrders::ITEM_FOR`: the vendor's `ready` → the item's `ready`). So on Order #12 (work order 20261027-CP0001, **Will
+Call**, the vendor marked it Ready for pickup on Nov 2), the line says "Ready for pickup at our shop. Ready 21 days.
+Picked up?". But what's ready is leg 1 at Competition Printing, for us to collect; leg 2 (the client's pickup at our shop,
+or a courier from there) hasn't started. That's the gap Jason felt. M2b's fix in existing values: on a Will Call (or
+Internal Transfer) work order, the vendor's ready is "Ready at <vendor> for us to collect" (leg 1, its next action
+"Collected", the work order's existing Receive); leg 2 starts at Receive, from the order's own mode or the item's style
+(Pick Up → "Ready for pickup at our shop"; Courier → "Book the courier" with the existing courier and number; Ship →
+tracking). Blind Drop Ship has no leg 2: the vendor's shipped is the client's shipped.
