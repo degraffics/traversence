@@ -43,13 +43,14 @@
    "path": "app/lib/WorkOrders.php",
    "functions": [
     "(top)",
+    "moveItems",
     "setTracking"
    ],
    "kind": "change",
    "session": "session_01CXLi5j2wAgTrKdTwX6kQNY",
-   "why": "M2b: says emailed only when the email went",
+   "why": "M2b: delivered by where the work order goes (goesTo)",
    "since": "2026-11-24T03:02:55Z",
-   "expires": "2026-11-24T07:26:44Z",
+   "expires": "2026-11-24T07:42:23Z",
    "release": "order-m2b.zip",
    "callers": {}
   },
