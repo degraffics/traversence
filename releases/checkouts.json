@@ -8,7 +8,7 @@
    "session": "session_01CXLi5kW2cGfR4Ya7fh2s3y",
    "why": "M1b: the client's \u2709 (Send the client an update) says Sent only when the email went",
    "since": "2026-11-23T21:18:56Z",
-   "expires": "2026-11-24T04:00:47Z",
+   "expires": "2026-11-24T04:42:31Z",
    "release": "order-m1b.zip",
    "callers": {
     "boardState": [
@@ -31,7 +31,7 @@
    "session": "session_01CXLi5kW2cGfR4Ya7fh2s3y",
    "why": "M1b: what the system knows, what it asks (new functions and lists at the file's top level)",
    "since": "2026-11-23T21:18:56Z",
-   "expires": "2026-11-24T04:00:47Z",
+   "expires": "2026-11-24T04:42:31Z",
    "release": "order-m1b.zip",
    "callers": {
     "invoiceByNumber": [
@@ -49,7 +49,7 @@
    "session": "session_01CXLi5kW2cGfR4Ya7fh2s3y",
    "why": "M1b: what the system knows, what it asks (new functions and lists at the file's top level)",
    "since": "2026-11-23T21:18:56Z",
-   "expires": "2026-11-24T04:00:47Z",
+   "expires": "2026-11-24T04:42:31Z",
    "release": "order-m1b.zip",
    "callers": {
     "setInvoiceNo": [
@@ -67,7 +67,7 @@
    "session": "session_01CXLi5kW2cGfR4Ya7fh2s3y",
    "why": "M1b: what the system knows, what it asks (QuickBooks first, the Vendor line, vendor bills; decisions/0178 notes 2026-11-23)",
    "since": "2026-11-23T21:18:56Z",
-   "expires": "2026-11-24T04:00:47Z",
+   "expires": "2026-11-24T04:42:31Z",
    "release": "order-m1b.zip",
    "callers": {}
   },
@@ -78,7 +78,7 @@
    "session": "session_01CXLi5kW2cGfR4Ya7fh2s3y",
    "why": "M1b: what the system knows, what it asks (QuickBooks first, the Vendor line, vendor bills; decisions/0178 notes 2026-11-23)",
    "since": "2026-11-23T21:19:03Z",
-   "expires": "2026-11-24T04:00:47Z",
+   "expires": "2026-11-24T04:42:31Z",
    "release": "order-m1b.zip",
    "callers": {}
   },
@@ -111,7 +111,7 @@
    "session": "session_01CXLi5kW2cGfR4Ya7fh2s3y",
    "why": "M1b: what the system knows, what it asks (QuickBooks first, the Vendor line, vendor bills; decisions/0178 notes 2026-11-23)",
    "since": "2026-11-23T21:19:03Z",
-   "expires": "2026-11-24T04:00:47Z",
+   "expires": "2026-11-24T04:42:31Z",
    "release": "order-m1b.zip",
    "callers": {}
   },
@@ -144,7 +144,7 @@
    "session": "session_01CXLi5kW2cGfR4Ya7fh2s3y",
    "why": "M1b: what the system knows, what it asks (QuickBooks first, the Vendor line, vendor bills; decisions/0178 notes 2026-11-23)",
    "since": "2026-11-23T21:19:03Z",
-   "expires": "2026-11-24T04:00:47Z",
+   "expires": "2026-11-24T04:42:31Z",
    "release": "order-m1b.zip",
    "callers": {}
   },
@@ -155,7 +155,7 @@
    "session": "session_01CXLi5kW2cGfR4Ya7fh2s3y",
    "why": "M1b: what the system knows, what it asks (QuickBooks first, the Vendor line, vendor bills; decisions/0178 notes 2026-11-23)",
    "since": "2026-11-23T21:19:03Z",
-   "expires": "2026-11-24T04:00:47Z",
+   "expires": "2026-11-24T04:42:31Z",
    "release": "order-m1b.zip",
    "callers": {}
   },
@@ -166,7 +166,7 @@
    "session": "session_01CXLi5kW2cGfR4Ya7fh2s3y",
    "why": "M1b: what the system knows, what it asks (QuickBooks first, the Vendor line, vendor bills; decisions/0178 notes 2026-11-23)",
    "since": "2026-11-23T21:19:03Z",
-   "expires": "2026-11-24T04:00:47Z",
+   "expires": "2026-11-24T04:42:31Z",
    "release": "order-m1b.zip",
    "callers": {}
   },
@@ -190,7 +190,7 @@
    "session": "session_01CXLi5kW2cGfR4Ya7fh2s3y",
    "why": "M1b: what the system knows, what it asks (new functions and lists at the file's top level)",
    "since": "2026-11-23T21:46:06Z",
-   "expires": "2026-11-24T04:00:47Z",
+   "expires": "2026-11-24T04:42:31Z",
    "release": "order-m1b.zip",
    "callers": {}
   },
@@ -201,7 +201,7 @@
    "session": "session_01CXLi5kW2cGfR4Ya7fh2s3y",
    "why": "M1b: what the system knows, what it asks (new functions and lists at the file's top level)",
    "since": "2026-11-23T21:46:06Z",
-   "expires": "2026-11-24T04:00:47Z",
+   "expires": "2026-11-24T04:42:31Z",
    "release": "order-m1b.zip",
    "callers": {}
   },
@@ -212,7 +212,140 @@
    "session": "session_01CXLi5kW2cGfR4Ya7fh2s3y",
    "why": "release order-m1b.zip",
    "since": "2026-11-24T00:00:47Z",
-   "expires": "2026-11-24T04:00:47Z",
+   "expires": "2026-11-24T04:42:31Z",
+   "release": "order-m1b.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/crawler/OpenLoads.php",
+   "functions": [
+    "(top)",
+    "batch"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
+   "why": "IR-0001: batch keys; the recheck after the reply",
+   "since": "2026-11-24T00:04:16Z",
+   "expires": "2026-11-24T04:04:16Z",
+   "release": "loads-reply.zip",
+   "callers": {
+    "batch": [
+     "website/api/crawl/loads.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/crawler/OpenLoads.php",
+   "functions": [
+    "batchDone",
+    "batchKeep",
+    "recheck"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
+   "why": "IR-0001: recheck and batch keys",
+   "since": "2026-11-24T00:04:23Z",
+   "expires": "2026-11-24T04:04:23Z",
+   "release": "loads-reply.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/api/crawl/loads.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
+   "why": "IR-0001: batch number, reply first then recheck",
+   "since": "2026-11-24T00:04:26Z",
+   "expires": "2026-11-24T04:04:26Z",
+   "release": "loads-reply.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/AuditClock.php",
+   "functions": [
+    "FLOWS"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
+   "why": "gauge-requests hourly (GitHub skipped its schedule)",
+   "since": "2026-11-24T00:04:28Z",
+   "expires": "2026-11-24T04:04:28Z",
+   "release": "loads-reply.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/AuditClock.php",
+   "functions": [
+    "staleWhy"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
+   "why": "a workflow's own stale sentence (the Design reviewer)",
+   "since": "2026-11-24T00:06:56Z",
+   "expires": "2026-11-24T04:06:56Z",
+   "release": "loads-reply.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/SiteHealth.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
+   "why": "the stale line from AuditClock::staleWhy",
+   "since": "2026-11-24T00:06:58Z",
+   "expires": "2026-11-24T04:06:58Z",
+   "release": "loads-reply.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ControlLedger.php",
+   "functions": [
+    "counts"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
+   "why": "W0: the ledger reads a batch's nested receipt",
+   "since": "2026-11-24T00:13:39Z",
+   "expires": "2026-11-24T04:13:39Z",
+   "release": "loads-reply.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/api/crawl/index.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
+   "why": "W0: one record line per batch",
+   "since": "2026-11-24T00:13:42Z",
+   "expires": "2026-11-24T04:13:42Z",
+   "release": "loads-reply.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/outside-services.php",
+   "functions": [
+    "tv_site_settings"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kW2cGfR4Ya7fh2s3y",
+   "why": "M1b: Vendor bills post to, a setting in System Configuration \u2192 Settings (the session manager for Jason, 2026-11-24)",
+   "since": "2026-11-24T00:33:33Z",
+   "expires": "2026-11-24T04:33:33Z",
+   "release": "order-m1b.zip",
+   "callers": {
+    "tv_site_settings": [
+     "app/admin/sections.php"
+    ]
+   }
+  },
+  {
+   "path": "app/ui/outside-services.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kW2cGfR4Ya7fh2s3y",
+   "why": "release order-m1b.zip",
+   "since": "2026-11-24T00:33:49Z",
+   "expires": "2026-11-24T04:42:31Z",
    "release": "order-m1b.zip",
    "callers": {}
   }
