@@ -1,6 +1,18 @@
 {
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
- "claims": [],
+ "claims": [
+  {
+   "path": "app/migrations/2026-11-24_task_seed.sql",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
+   "why": "release task-seed.zip",
+   "since": "2026-11-24T13:40:20Z",
+   "expires": "2026-11-24T17:40:20Z",
+   "release": "task-seed.zip",
+   "callers": {}
+  }
+ ],
  "lapsed": [
   {
    "path": "app/lib/ClientOrders.php",
