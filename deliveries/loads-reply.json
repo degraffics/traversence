@@ -1,0 +1,42 @@
+{
+ "zip": "loads-reply.zip",
+ "built_on": "3d42052 Sync: 2026-11-24 00:46 UTC",
+ "recorded": "2026-11-24 00:49 UTC",
+ "note": "The crawler's loads (IR-0001), W0's receipt count, the gauge requests' hand-off hourly. With crawler 2.17.0 in the same PR. Built on Sync 00:46 UTC. Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/AuditClock.php": {
+   "sha256": "2d56941027b7960803627b292db79042e5ec1a19986ba6b004245620dbef8fca",
+   "live": false
+  },
+  "app/lib/ControlLedger.php": {
+   "sha256": "e6f5221af1995445ca5493be42f7eac37749a0abd7c7cc1590101ccd64e528bd",
+   "live": false
+  },
+  "app/lib/SiteHealth.php": {
+   "sha256": "d81c8b760f15b30891fd826bd20c0d3013be573495bb90fa9cc77d6f795178f8",
+   "live": false
+  },
+  "app/lib/crawler/OpenLoads.php": {
+   "sha256": "5e20ac72c31320f3888096a9676d58fc20b1198373cfd06cbe0cec1a4931b234",
+   "live": false
+  },
+  "app/lib/staging-tables.php": {
+   "sha256": "7315a5f39d9fa26650cd7843fe32e7ba42f11465c5f877fc257efdb4bd097845",
+   "live": false
+  },
+  "app/migrations/2026-11-24_open_load_batches.sql": {
+   "sha256": "62a3b26c3a47e1404bb4088e5846e6f51ec62bd2bd36a584e5cacbaedfa99a4a",
+   "live": false
+  },
+  "website/api/crawl/index.php": {
+   "sha256": "2ff448ba5f0621bff21c915f08f6274ff147e048a27828704b3ca57d1867158f",
+   "live": false
+  },
+  "website/api/crawl/loads.php": {
+   "sha256": "b6a22580484c0b92cb8892f41b5d58aeecf38a54da07ddf25e67d13b2cfb2cfc",
+   "live": false
+  }
+ }
+}
