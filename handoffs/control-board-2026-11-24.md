@@ -60,7 +60,11 @@ too large (CLAUDE.md, the session manager). Built on **Sync 02:46 UTC (973d10b)*
    jobs.json`; one line to the session manager; a fix in the next release if a job is still late. **And the gauge-requests clock**:
    confirmed starting it (run #4, 02:17 UTC); confirm it keeps running hourly, and that the session manager dropped its hand start.
 
-8. **Request a fix's follow-through (part d of kit-buttons, still to build):** when the fix's release goes live, its check
+8. **Outside links that need a sign-in** (CLAUDE.md #1344, Jason, 2026-11-24): links to QuickBooks, Railway, Google Cloud,
+   Cloudflare and AWS open in the browser (`target="_blank" rel="noopener"`) behind an ↗ icon titled with the service and the
+   account; our own pages open in Peek; on phones, a one-time hint at the first outside tap. Built once in the admin kit
+   (`app/admin/kit-css.php` and its JS) so every page follows it.
+9. **Request a fix's follow-through (part d of kit-buttons, still to build):** when the fix's release goes live, its check
    runs at once; the request then clears ("Cleared: its check passed") or reads "Fix tried in #N, still failing", with one
    notice through the dispatcher (decisions/0176).
 
