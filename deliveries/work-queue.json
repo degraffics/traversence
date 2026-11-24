@@ -20,7 +20,7 @@
   },
   "app/migrations/2026-11-24_work_queue.sql": {
    "sha256": "f5ce9fac5809c2ca1ed6028b4665a9385cb77b68aeff30c1f374ef56aabbf4ff",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "687d0e0ca846a2241b795c0ca2395563be51587a5ef8fc9d304dab715e7b225e",
