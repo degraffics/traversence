@@ -922,3 +922,6 @@ Asked as a decision, design approved by the Design reviewer (mockup `handoffs/or
 - **Change how it goes…** (Delivery ⋯) edits those fields (✎, never Undo), the old value in History; a leg-1 change can
   email the vendor "Work order X: delivery changed to …" (a system email in setTracking's form; the session manager).
 - Booking a courier or freight with an outside service stays for later.
+- **Next-day Courier** (the session manager, 2026-11-24, on the Orders session's reading): a shipping method, so the same
+  rule: to its ship-to, or to us with none. The vendor's Complete on a work order means delivered to the client only where
+  the work order goes to the client (`WorkOrders::goesTo`); otherwise it came to us (M2b).

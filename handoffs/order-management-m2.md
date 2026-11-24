@@ -243,8 +243,8 @@ Add the courier's number (the Design reviewer's naming), ⋯ Courier booked: add
   Ready at <vendor> for us to collect (since, days; Receive), On its way to us (Receive). Leg 2 once received (not for a
   straight-to-client one): the item's ship style: Pick Up → Ready for pickup at our shop; Courier / Drop Ship → Received,
   waiting for its number (Add the courier's number, at the item's Tracking); shipped → Out by courier from our shop / Shipped. No work order: as before.
-- **My reading, flagged:** the note names Ship, Freight and Local Delivery; Next-day Courier is read the same way (its
-  ship-to, or us with none). `WorkOrders::moveItems` still treats Local Delivery's complete as "came to us" (unchanged).
+- **Settled by the session manager:** Next-day Courier reads like the other shipping methods (written in 0101's note), and
+  `WorkOrders::moveItems` now marks items delivered on the vendor's Complete only where `goesTo()` is the client (in M2b).
 - **The Design reviewer's two changes (03:27):** a vendor email that didn't go is its own error notice at the top of the
   order (no ×; Send again, Copy the message, Email it from your mail; `WorkOrders::tellVendor` keeps what we'd have sent,
   the work order's History says it didn't go; the drawer's tracking points to it); the Shipping box says How it goes in words
@@ -253,3 +253,12 @@ Add the courier's number (the Design reviewer's naming), ⋯ Courier booked: add
   pickup orders now received at our shop with the item Pick Up (a Will Call ready at the vendor now reads as ours to collect).
   M2's suites pass. m1.php/m1.cjs, collect-balance.cjs, complete-owed.cjs and m1b's vendor-bill steps fail the same checks
   on the live files as on M2b's (harness drift, checked side by side on a second server), so not M2b's.
+
+## M3's first fix (the session manager, 2026-11-24): the order tests green again
+
+Before anything more is built on them: m1.php / m1.cjs (the board's tile counts, Deposit Co, Money owed), collect-balance.cjs,
+complete-owed.cjs and m1b.cjs's vendor-bill steps (upload, read, Send it to QuickBooks: `order_files.kind`,
+`order_vendor_bills.qb_account` missing on the harness) fail the same way on the live files as on M2b's (checked side by
+side on a second harness server, 2026-11-24). The harness database has drifted from the seeds (orders from later seeds
+counted on the board; columns the live tables have). Bring the harness schema to the live tables and make each seed clear
+what it counts, then rerun every suite in `tools/order-tests/`.

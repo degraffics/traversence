@@ -81,5 +81,20 @@ $w3 = WorkOrders::setDelivery($pdo, $w2, 'will_call', true, 1);   // the harness
 $t('change: asked to tell the vendor with no way to send: not claimed as told', empty($w3['_told']));
 $t('change: back to Will Call is another ✎, not an Undo (History keeps both)', count(array_filter(WorkOrders::log($pdo, (int) $w['id']), fn ($g) => str_starts_with((string) $g['note'], 'Delivery changed'))) === 2);
 
+// ---- moveItems: the vendor's Complete means delivered only where the work order goes to the client (the session manager on M2b) ----
+$item = fn (string $n) => (string) $pdo->query('SELECT item_status FROM order_lines WHERE order_id = ' . $ids[$n] . ' ORDER BY id LIMIT 1')->fetchColumn();
+$pdo->exec("UPDATE order_work_orders SET delivery = 'local', status = 'complete' WHERE order_id = " . $ids['Leg Direct Co']);
+WorkOrders::catchUp($pdo, $ids['Leg Direct Co']);
+$t('moveItems: a Local Delivery to the client\'s ship-to, complete: the item is delivered', $item('Leg Direct Co') === 'delivered', $item('Leg Direct Co'));
+$pdo->exec("UPDATE order_work_orders SET delivery = 'local', ship_to = '', status = 'complete' WHERE order_id = " . $ids['Leg ToUs Co']);
+WorkOrders::catchUp($pdo, $ids['Leg ToUs Co']);
+$t('moveItems: a Local Delivery with no ship-to, complete: it came to us, the item isn\'t delivered', $item('Leg ToUs Co') !== 'delivered', $item('Leg ToUs Co'));
+$pdo->exec("UPDATE order_work_orders SET delivery = 'courier', ship_to = 'Ana Ortiz, 12 Main St', status = 'complete' WHERE order_id = " . $ids['Leg Blind Co']);
+WorkOrders::catchUp($pdo, $ids['Leg Blind Co']);
+$t('moveItems: Next-day Courier to the client\'s ship-to reads the same way: delivered', $item('Leg Blind Co') === 'delivered', $item('Leg Blind Co'));
+$pdo->exec("UPDATE order_work_orders SET status = 'complete' WHERE order_id = " . $ids['Leg Courier Co']);
+WorkOrders::catchUp($pdo, $ids['Leg Courier Co']);
+$t('moveItems: a Will Call complete still comes to us (never delivered by the vendor\'s word)', $item('Leg Courier Co') !== 'delivered', $item('Leg Courier Co'));
+
 echo "\n$ok passed, $bad failed\n";
 exit($bad ? 1 : 0);
