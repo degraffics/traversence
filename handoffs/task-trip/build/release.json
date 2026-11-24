@@ -1,0 +1,10 @@
+{
+ "title": "A task's trip: Check and start again lifts what the trip paused, so its next run can prove the fix; Try it first says when it can't run",
+ "why": "Jason pressed Check and start again on W1's overture_bulk trip (2026-11-24): it only noted the press, while the trip's pause kept W1 out of every run, so the run that would clear it could never come (a dead end). The press now lifts the trip's own pauses and says what happened, naming any other trip still holding the workflow; Try it first on the next run no longer claims a run a pause will skip. Reviewed by the Design reviewer and the session manager.",
+ "changes": [
+  {"what": "A task's trip: Check and start again starts its workflow again for the next run (the check), or names the other trip still holding it", "where": "https://traversence.com/admin/config/control?tab=alarms"},
+  {"what": "Try it first on the next run: says it won't run while a trip holds it, and what lifts that", "where": "https://traversence.com/admin/config/control?tab=alarms"}
+ ],
+ "proposals": [],
+ "switch": ""
+}
