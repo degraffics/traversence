@@ -160,59 +160,6 @@
   {
    "path": "app/lib/ControlAlarms.php",
    "functions": [
-    "affects",
-    "facts",
-    "pulseSteps",
-    "raise",
-    "resolve"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
-   "why": "The started state drops the stale pause line",
-   "since": "2026-11-24T01:56:35Z",
-   "expires": "2026-11-24T06:41:54Z",
-   "release": "task-trip-3.zip",
-   "callers": {
-    "resolve": [
-     "app/admin/automation-console.php",
-     "app/admin/tools.php",
-     "website/admin/api.php"
-    ],
-    "facts": [
-     "app/admin/control-console.php",
-     "app/admin/module-cards.php",
-     "app/admin/operations-console.php",
-     "app/admin/preflight-console.php",
-     "app/lib/ControlConsistency.php",
-     "app/lib/Pulse.php",
-     "app/lib/ServiceHealth.php"
-    ],
-    "raise": [
-     "app/lib/Captcha.php",
-     "app/lib/ControlHistorian.php",
-     "app/lib/ControlLedger.php",
-     "app/lib/ControlMaintenance.php",
-     "app/lib/ControlSensor.php",
-     "app/lib/Gemini.php",
-     "app/lib/Operations.php",
-     "app/lib/Preflight.php",
-     "app/lib/ServiceHealth.php",
-     "app/lib/SiteHealth.php",
-     "app/lib/SystemStart.php",
-     "app/lib/crawler/CrawlService.php",
-     "app/lib/crawler/IrsBulk.php"
-    ],
-    "pulseSteps": [
-     "app/lib/Pulse.php"
-    ],
-    "affects": [
-     "app/lib/ServiceHealth.php"
-    ]
-   }
-  },
-  {
-   "path": "app/lib/ControlAlarms.php",
-   "functions": [
     "pausedRefs",
     "plainTrip",
     "startForNextRun",
@@ -227,66 +174,6 @@
    "expires": "2026-11-24T06:32:45Z",
    "release": "task-trip.zip",
    "callers": {}
-  },
-  {
-   "path": "app/lib/crawler/CrawlService.php",
-   "functions": [
-    "runNext"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
-   "why": "Try it first says when it won't run",
-   "since": "2026-11-24T01:56:40Z",
-   "expires": "2026-11-24T06:41:54Z",
-   "release": "task-trip-3.zip",
-   "callers": {
-    "runNext": [
-     "app/admin/crawler-console.php",
-     "app/lib/Operations.php"
-    ]
-   }
-  },
-  {
-   "path": "app/lib/Operations.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
-   "why": "Try it first says when it won't run",
-   "since": "2026-11-24T01:56:40Z",
-   "expires": "2026-11-24T06:41:54Z",
-   "release": "task-trip-3.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/admin/crawler-console.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
-   "why": "Try it first says when it won't run",
-   "since": "2026-11-24T01:56:40Z",
-   "expires": "2026-11-24T06:41:54Z",
-   "release": "task-trip-3.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/admin/control-console.php",
-   "functions": [
-    "(top)",
-    "tv_cb_alarms",
-    "tv_cb_mark",
-    "tv_cb_view_assets"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
-   "why": "The trip card's one action, icon, \u22ef and styles",
-   "since": "2026-11-24T02:05:19Z",
-   "expires": "2026-11-24T06:41:54Z",
-   "release": "task-trip-3.zip",
-   "callers": {
-    "tv_cb_alarms": [
-     "app/lib/ControlConsistency.php"
-    ]
-   }
   },
   {
    "path": "website/admin/ecommerce.php",
