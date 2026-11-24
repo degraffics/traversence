@@ -217,13 +217,14 @@
     "plainTrip",
     "startForNextRun",
     "startedAgain",
-    "stillHolding"
+    "stillHolding",
+    "wholeWorkflowTrip"
    ],
    "kind": "add",
    "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
-   "why": "The Design reviewer's words",
+   "why": "W1's older whole-workflow trips",
    "since": "2026-11-24T01:56:38Z",
-   "expires": "2026-11-24T06:11:53Z",
+   "expires": "2026-11-24T06:32:45Z",
    "release": "task-trip.zip",
    "callers": {}
   },
