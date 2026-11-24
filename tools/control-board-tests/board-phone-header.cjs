@@ -32,7 +32,7 @@ const open = p => p.evaluate(() => [...document.querySelectorAll('details.cb-pop
    const c = await p.evaluate(() => ({ alerts: +document.querySelector('.cb-alerts .cb-qgs > b').textContent, board: +document.querySelector('[data-cb-rail="deliver"] .cb-rcnt').textContent,
      menu: +document.querySelector('[data-cb-prail="deliver"] .cb-rcnt').textContent, filter: +document.querySelector('[data-cb-afcount]').textContent,
      says: document.querySelector('.cb-als').textContent,
-     sum: [...document.querySelectorAll('.cb-alerts .cb-ag')].filter(g => !/^(Paused now|Hosts)$/.test(g.getAttribute('aria-label'))).reduce((a, g) => a + +g.querySelector('.cb-agh b').textContent, 0) }));
+     sum: [...document.querySelectorAll('.cb-alerts .cb-ag')].filter(g => !/^(Paused now|Hosts|Seen)$/.test(g.getAttribute('aria-label'))).reduce((a, g) => a + +g.querySelector('.cb-agh b').textContent, 0) }));
    t(L + 'one count: Alerts, the rail\'s Board, the ☰\'s Board and the filter\'s Open all say ' + want, [c.alerts, c.board, c.menu, c.filter].every(x => x === want), c);
    t(L + '…Alerts\' groups add up to it, and it says what they are ("2 trips · 3 warnings")', c.sum === want && c.says === '2 trips · 3 warnings', c);
    const phone = w < 768;
@@ -60,6 +60,11 @@ const open = p => p.evaluate(() => [...document.querySelectorAll('details.cb-pop
    const pill = await p.evaluate(() => { const x = document.querySelector('#cb .cb-pill'); return x ? getComputedStyle(x).fontFamily : ''; });
    t(L + 'the pills are in the body font, never a code font', pill !== '' && !/mono/i.test(pill) && pill === await p.evaluate(() => getComputedStyle(document.body).fontFamily), pill);
    t(L + 'nothing wider than the window', await p.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth + 1));
+   // a gauge section: its Copy on its heading's line, its grid running to the card's edges (the Design reviewer; 0058 §11)
+   await view(p, 'deliver'); await p.waitForTimeout(400);
+   const gs = await p.evaluate(() => { const c = document.querySelector('#cb-deliver .cb-box'); if (!c) return null; const g = c.querySelector('.cb-gg').getBoundingClientRect(), r = c.getBoundingClientRect(), h = c.querySelector('.cb-boxh'), b = h && h.querySelector('.tv-copy-b');
+     const pr = parseFloat(getComputedStyle(c).paddingRight) + parseFloat(getComputedStyle(c).borderRightWidth); return { gap: Math.round(r.right - pr - g.right), copyOnHead: !!b && getComputedStyle(b).float === 'none', head: h && Math.round(h.getBoundingClientRect().height) }; });
+   t(L + 'a gauge section: its Copy on its heading\'s line (not floated), its grid to the card\'s inner edge', gs && gs.copyOnHead && Math.abs(gs.gap) <= 1, gs);
    // W1's own page: its pressed trips are listed, never "Nothing here for this filter."
    await p.goto(`http://127.0.0.1:${port}/admin/config/control/wf-W1`); await p.waitForTimeout(900);
    const w1 = await p.evaluate(() => ({ none: (() => { const n = document.querySelector('.cb-anone'); return !!n && !n.hidden; })(), shown: [...document.querySelectorAll('#cb-alarms li[data-astate="started"]')].filter(l => !l.hidden).length }));

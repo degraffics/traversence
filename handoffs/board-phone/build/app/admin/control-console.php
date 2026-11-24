@@ -350,7 +350,7 @@ function tv_cb_wf_kind(string $id): ?array
 }
 
 /** A light as the table shows it: [tone, word] (colour with its word, never colour alone). */
-const TV_CB_LIGHTS = ['bad' => ['bad', 'Tripped'], 'alarm' => ['warn', 'Warning'], 'hold' => ['warn', 'Held'], 'warn' => ['warn', 'On a backup'], 'maint' => ['info', 'In maintenance'],
+const TV_CB_LIGHTS = ['bad' => ['bad', 'Tripped'], 'alarm' => ['warn', 'Warning'], 'hold' => ['warn', 'Held'], 'waitrun' => ['warn', 'Waiting for its run'], 'warn' => ['warn', 'On a backup'], 'maint' => ['info', 'In maintenance'],
     'off' => ['info', 'Off'], 'wait' => ['info', 'Not tested'], 'ok' => ['ok', 'Working']];
 
 /**
@@ -375,7 +375,12 @@ function tv_cb_table_rows(PDO $pdo, array $q): array
         foreach ($by[$sk] ?? [] as $id => $p) {
             $needs = str_starts_with($id, 'wf:') ? ControlBoard::needs($res, (array) ($p['parts']['needs'] ?? [])) : [];
             $mine = array_values(array_filter($alarms, fn ($x) => $x['proc'] === $id));
-            if ($mine && $mine[0]['level'] === 'trip') $p['light'] = 'bad';
+            // its trips all started again for their next run (task-trip-3): waiting for that run, amber, nothing held, as its
+            // cards and boardLight say; never "Tripped" (words follow the state; W1's row, 2026-11-24)
+            $myTrips = array_values(array_filter($mine, fn ($x) => $x['level'] === 'trip'));
+            $waiting = $myTrips && !array_filter($myTrips, fn ($x) => ControlAlarms::startedAgain($x) === '');
+            if ($waiting) $p['light'] = 'waitrun';
+            elseif ($mine && $mine[0]['level'] === 'trip') $p['light'] = 'bad';
             // an open warning shows its level's mark on the row, never a green ✓ beside it (playbook §2, principle 4: words
             // follow the state); a held, out or off part keeps its own
             elseif ($mine && in_array((string) $p['light'], ['ok', 'warn', 'wait'], true) && array_filter($mine, fn ($x) => $x['level'] === 'warning')) $p['light'] = 'alarm';
@@ -384,7 +389,8 @@ function tv_cb_table_rows(PDO $pdo, array $q): array
             $hay = mb_strtolower($p['name'] . ' ' . $p['words'] . ' ' . $id . ' ' . implode(' ', array_map(fn ($x) => $x[0] . ' ' . implode(' ', array_column((array) ($x[2] ?? []), 0)), $needs)));   // its needs and their sources, as the old Find box
             foreach ($words as $w) if (!str_contains($hay, $w)) continue 2;
             $r = tv_cb_row($id, $p, $needs, $sysStage);
-            $where = $mine ? ControlAlarms::LEVELS[$mine[0]['level']] . ': ' . $mine[0]['title'] . (count($mine) > 1 ? ' (and ' . (count($mine) - 1) . ' more)' : '') . '.' : (string) $r['where'];
+            if ($waiting) $r['stage'] = ['hold', 'Waiting for its run'];
+            $where = $mine ? ($waiting ? 'Started again' : ControlAlarms::LEVELS[$mine[0]['level']]) . ': ' . $mine[0]['title'] . (count($mine) > 1 ? ' (and ' . (count($mine) - 1) . ' more)' : '') . '.' : (string) $r['where'];
             if ($wk = tv_cb_wf_kind($id)) { $r['stage'][1] = $wk[0]; if (!$mine) $where = $wk[1]; }
             if (preg_match('/^(working|observation|' . preg_quote(mb_strtolower($r['stage'][1]), '/') . ')\.?$/u', mb_strtolower(trim($where)))) $where = '';   // "Working." doesn't repeat the pill
             // its actions: Check, and ⋯ with words; one not open to it says why
@@ -392,8 +398,9 @@ function tv_cb_table_rows(PDO $pdo, array $q): array
             $trip = null; foreach ($mine as $al) if ($al['level'] === 'trip' && !empty($al['tripped_at'])) { $trip = $al; break; }
             $mt = $p['maint'] ?? null; $off = [];
             if (!$hasCheck) $off['check'] = 'It has no check of its own yet.'; elseif (!$canPf) $off['check'] = (string) $whyPf;
-            if (!$trip) $off['resolve'] = 'Nothing to resolve: it isn\'t tripped.'; elseif (!$canRun) $off['resolve'] = $wNo;
-            if ($trip) $off['start'] = 'It\'s tripped: Check and start again is the way back.'; elseif (($p['switch'] ?? '') !== 'off') $off['start'] = ($p['switch'] ?? '') === 'on' ? 'It\'s already on.' : 'It has no switch of its own.'; elseif (!$canRun) $off['start'] = $wNo;
+            if (!$trip) $off['resolve'] = 'Nothing to resolve: it isn\'t tripped.'; elseif ($waiting) $off['resolve'] = 'Already started again: its next run is the check.'; elseif (!$canRun) $off['resolve'] = $wNo;
+            if ($trip && $waiting) $off['start'] = 'It\'s waiting for its run: its trips were started again.';
+            elseif ($trip) $off['start'] = 'It\'s tripped: Check and start again is the way back.'; elseif (($p['switch'] ?? '') !== 'off') $off['start'] = ($p['switch'] ?? '') === 'on' ? 'It\'s already on.' : 'It has no switch of its own.'; elseif (!$canRun) $off['start'] = $wNo;
             if (($p['switch'] ?? '') !== 'on') $off['stop'] = 'It isn\'t on.'; elseif (!$canRun) $off['stop'] = $wNo;
             if ($mt) $off['maintout'] = 'It\'s already out for maintenance.'; elseif (!ControlMaintenance::canTake($id)) $off['maintout'] = 'Only a workflow, or a task with its own switch, is taken out.'; elseif (!$canRun) $off['maintout'] = $wNo;
             if (!$mt) $off['maintback'] = 'It isn\'t out for maintenance.'; elseif (!$canRun) $off['maintback'] = $wNo;
@@ -405,7 +412,7 @@ function tv_cb_table_rows(PDO $pdo, array $q): array
                 'maint_id' => $mt ? (int) $mt['id'] : 0, 'trip_id' => $trip ? (int) $trip['id'] : 0, '_off' => $off];
         }
         if (!$kids) continue;
-        $worst = !empty($n['bad']) ? 'bad' : (!empty($n['alarm']) ? 'alarm' : (!empty($n['hold']) ? 'hold' : (!empty($n['warn']) ? 'warn' : (!empty($n['ok']) ? 'ok' : 'wait'))));
+        $worst = !empty($n['bad']) ? 'bad' : (!empty($n['alarm']) ? 'alarm' : (!empty($n['hold']) ? 'hold' : (!empty($n['waitrun']) ? 'waitrun' : (!empty($n['warn']) ? 'warn' : (!empty($n['ok']) ? 'ok' : 'wait')))));
         $sum = []; foreach (TV_CB_LIGHTS as $k => [, $w]) if (!empty($n[$k])) $sum[] = $n[$k] . ' ' . mb_strtolower($w);
         [$tone, $word] = TV_CB_LIGHTS[$worst];
         $out[] = ['id' => 'sys:' . $sk, '_group' => ['label' => $sname, 'n' => count($kids), 'status' => ['tone' => $tone, 'word' => $word], 'sub' => implode(' · ', $sum), 'rows' => $kids]];
@@ -793,22 +800,24 @@ function tv_cb_qbar(PDO $pdo, array $open, array $names, array $core, string $st
     $e = 'tv_w_e';
     $part = function (array $a) use ($pdo, $names): array { $p = (string) $a['proc']; return [$names[$p] ?? ControlAlarms::partName($pdo, $p), '/admin/config/control/' . str_replace(':', '-', $p)]; };
     $item = function (array $a, string $tone, string $b) use ($e, $part): string { [$nm, $u] = $part($a);
-        return '<a class="cb-qj ' . $tone . '" href="' . $e($u) . '" data-peek-frame="' . $e($nm) . '"><span>' . $e(rtrim((string) $a['title'], '. ')) . '</span><b>' . $e($b) . '</b></a>'; };
+        return '<a class="cb-qj ' . $tone . '" href="' . $e($u) . '" data-peek-frame="' . $e($nm) . '"><span>' . $e(rtrim((string) $a['title'], '. ')) . '</span>' . ($b !== '' ? '<b>' . $e($b) . '</b>' : '') . '</a>'; };
     $live = tv_cb_live_alarms($open);
     $cap = fn ($a) => str_starts_with((string) $a['akey'], 'ops:cap:'); $pf = fn ($a) => str_starts_with((string) $a['akey'], 'pf:');
     $sync = fn ($a) => str_starts_with((string) $a['akey'], 'ops:watch:');   // Railway and the sync, watched (the mockup's Sync chip, 03 §27)
     $groups = [
         ['Trips', 'r', array_values(array_filter($live, fn ($a) => $a['level'] === 'trip')), fn ($a) => !empty($a['incident_id']) ? ControlIncidents::number((int) $a['incident_id']) : (empty($a['tripped_at']) ? 'trying' : 'trip')],
-        ['Warnings', 'a', array_values(array_filter($live, fn ($a) => $a['level'] === 'warning' && !$cap($a) && !$pf($a) && !$sync($a))), fn ($a) => (int) $a['n_times'] > 1 ? (int) $a['n_times'] . '×' : 'warning'],
+        ['Warnings', 'a', array_values(array_filter($live, fn ($a) => $a['level'] === 'warning' && !$cap($a) && !$pf($a) && !$sync($a))), fn ($a) => (int) $a['n_times'] > 1 ? (int) $a['n_times'] . '×' : ''],
         ['Caps', 'a', array_values(array_filter($live, fn ($a) => $a['level'] === 'warning' && $cap($a))), fn ($a) => (string) ($a['reading'] ?: 'cap')],
         ['Checks', 'a', array_values(array_filter($live, fn ($a) => $a['level'] === 'warning' && $pf($a))), fn ($a) => 'pre-flight'],
         ['Sync', 'n', array_values(array_filter($live, fn ($a) => $a['level'] === 'warning' && $sync($a))), fn ($a) => ''],
     ];
     $grp = fn (string $label, string $tone, int $n, string $body) => '<section class="cb-ag ' . $tone . '" aria-label="' . $e($label) . '"><h3 class="cb-agh"><span>' . $e($label) . '</span><b>' . $n . '</b></h3>' . $body . '</section>';
-    $body = ''; $nTrip = 0; $nWarn = 0;
+    $body = ''; $nTrip = 0; $nWarn = 0; $parts = [];
+    $word = ['Trips' => ['trip', 'trips'], 'Warnings' => ['warning', 'warnings'], 'Caps' => ['cap', 'caps'], 'Checks' => ['check', 'checks'], 'Sync' => ['sync watch', 'sync watches']];
     foreach ($groups as [$label, $tone, $list, $badge]) {
         if (!$list) continue;
         if ($label === 'Trips') $nTrip = count($list); else $nWarn += count($list);
+        $parts[] = count($list) . ' ' . $word[$label][count($list) === 1 ? 0 : 1];
         $more = count($list) > 30 ? '<button type="button" class="cb-qj cb-qall" data-cb-tab="alarms"><span>All ' . count($list) . ' in the alarm list</span><b>open</b></button>' : '';
         $body .= $grp($label, $tone, count($list), implode('', array_map(fn ($a) => $item($a, $tone, (string) $badge($a)), array_slice($list, 0, 30))) . $more);
     }
@@ -821,8 +830,11 @@ function tv_cb_qbar(PDO $pdo, array $open, array $names, array $core, string $st
         $li .= (string) ($x[3] ?? '') !== '' ? '<a class="cb-qj n" href="' . $e((string) $x[3]) . '" data-peek-frame="' . $e($w) . '"><span>' . $e($w) . '</span><b>' . $e($bg) . '</b></a>'
             : '<button type="button" class="cb-qj n" data-cb-tab="paused"><span>' . $e($w) . '</span><b>' . $e($bg) . '</b></button>'; }
     $body .= $grp('Paused now', 'n', count($pz), $li . '<button type="button" class="cb-qj cb-qall" data-cb-tab="paused"><span>' . ($pz ? 'All of Paused now, with healthy, held and needs me' : 'Nothing is paused: its page, with healthy, held and needs me') . '</span><b>open</b></button>');
+    // the warnings someone has seen: listed, never counted (the system is still handling them; ControlAlarms::counts)
+    $seen = array_values(array_filter($open, fn ($a) => $a['cleared_at'] === null && $a['level'] === 'warning' && !empty($a['ack_at'])));
+    if ($seen) $body .= $grp('Seen', 'n', count($seen), '<p class="cb-agn">Not counted: seen, and the system is still handling them.</p>' . implode('', array_map(fn ($a) => $item($a, 'n', ''), array_slice($seen, 0, 30))));
     $n = $nTrip + $nWarn;
-    $say = $n ? trim(($nTrip ? $nTrip . ' trip' . ($nTrip === 1 ? '' : 's') : '') . ($nTrip && $nWarn ? ' · ' : '') . ($nWarn ? $nWarn . ' warning' . ($nWarn === 1 ? '' : 's') : '')) : 'All clear';
+    $say = $n ? implode(' · ', $parts) : 'All clear';
     $tone = $nTrip ? 'r' : ($nWarn ? 'a' : 'g');
     $alerts = '<details class="cb-pop cb-alerts ' . $tone . '"><summary class="cb-qgs" title="' . $e($n ? $say . ' open' : 'No alarm open') . '"><span class="cb-alw">Alerts</span><b>' . $n . '</b><small class="cb-als">' . $e($say) . '</small><span aria-hidden="true" class="cb-alc">▾</span></summary>'
         . '<div class="cb-popb" role="dialog" aria-label="Alerts"><button class="cb-px" type="button" aria-label="Close">×</button>' . $body . '</div></details>';
@@ -1344,7 +1356,7 @@ function tv_cb_deliver(PDO $pdo, array $alarms, array $ac, array $names): string
     foreach ($boxes as $box => $list) {
         $cards = ''; foreach ($list as $g) { [$c, $p] = tv_cb_gauge_card($g, $pdo); $cards .= $c; $panels .= $p; }
         $n = count($list); $mon = count(array_filter($list, fn ($g) => ($g['stage'] ?? '') === 'monitor'));
-        $h .= '<section class="ak-card tv-bleed cb-box" data-copy="' . $e($box) . '"><h3 class="cb-title">' . $e($box) . ' <small>' . $n . ' gauge' . ($n === 1 ? '' : 's') . ', ' . $mon . ' at Monitoring</small></h3><div class="cb-gg">' . $cards . '</div></section>';
+        $h .= '<section class="ak-card tv-bleed cb-box" data-copy="' . $e($box) . '"><h3 class="cb-title cb-boxh"><span>' . $e($box) . ' <small>' . $n . ' gauge' . ($n === 1 ? '' : 's') . ', ' . $mon . ' at Monitoring</small></span></h3><div class="cb-gg">' . $cards . '</div></section>';
     }
     if (!$gs) $h .= '<p data-tv-status="info" data-tv-label="No gauges yet:">No runtime gauge is configured.</p>';
     return $h . '<div class="cb-sps">' . $panels . '</div></section>';
@@ -1768,7 +1780,7 @@ function tv_admin_mod_control(PDO $pdo): string
         $rows = $by[$sk] ?? [];
         if ($focus !== '') { if (!isset($rows[$focus])) continue; $rows = [$focus => $rows[$focus]]; }
         $n = array_count_values(array_column($rows, 'light'));
-        $worst = !empty($n['bad']) ? 'bad' : (!empty($n['alarm']) ? 'alarm' : (!empty($n['hold']) ? 'hold' : (!empty($n['warn']) ? 'warn' : (!empty($n['ok']) ? 'ok' : 'wait'))));
+        $worst = !empty($n['bad']) ? 'bad' : (!empty($n['alarm']) ? 'alarm' : (!empty($n['hold']) ? 'hold' : (!empty($n['waitrun']) ? 'waitrun' : (!empty($n['warn']) ? 'warn' : (!empty($n['ok']) ? 'ok' : 'wait')))));
         $sum = [];
         foreach (['ok' => 'working', 'bad' => 'tripped', 'hold' => 'held', 'warn' => 'on a backup', 'maint' => 'in maintenance', 'off' => 'off', 'wait' => 'not tested'] as $k => $w) if (!empty($n[$k])) $sum[] = '<button type="button" class="cb-lf" data-cb-lf="' . $k . '" title="Show only the ' . $e($w) . ' ones in ' . $e($sname) . '">' . $n[$k] . ' ' . $e($w) . '</button>';   // each count filters the system's rows (Jason, 2026-11-19)
         $h .= '<details class="ak-card tv-bleed cb-sys" id="cb-' . $e($sk) . '" data-cb-sys="' . $e($sk) . '"' . ($focus !== '' ? ' open' : '') . '>'   // closed on load, held or not (Jason, 2026-11-18): its header counts the held
@@ -1919,7 +1931,7 @@ function tv_admin_mod_control(PDO $pdo): string
         . '#cb .cb-alerts.r>summary{border-color:var(--tv-fail,#B3261E)}#cb .cb-alerts.r .cb-qgs>b{background:var(--tv-fail,#B3261E)}#cb .cb-alerts.a .cb-qgs>b{background:var(--tv-amber,#B45309)}#cb .cb-alerts.g .cb-qgs>b{background:#3d6b52}'
         . '#cb .cb-alerts>.cb-popb{min-width:min(420px,calc(100vw - 24px));gap:.5rem}#cb .cb-ag{display:flex;flex-direction:column;gap:.3rem}#cb .cb-ag+.cb-ag{border-top:1px solid var(--tv-line,#E5D9C3);padding-top:.5rem}'
         . '#cb .cb-agh{display:flex;align-items:center;gap:.4rem;margin:0;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--tv-meta,#6b5d49)}#cb .cb-agh b{font-size:11.5px;border-radius:999px;padding:0 .45rem;color:#fff;background:var(--tv-meta,#6b5d49);letter-spacing:0}'
-        . '#cb .cb-ag.r .cb-agh b{background:var(--tv-fail,#B3261E)}#cb .cb-ag.a .cb-agh b{background:var(--tv-amber,#B45309)}'
+        . '#cb .cb-boxh{display:flex;align-items:flex-start;gap:.4rem}#cb .cb-boxh>span{flex:1 1 auto;min-width:0}#cb .cb-boxh>.tv-copy-b{float:none;margin:0;flex:none}#cb .cb-agn{margin:0;font-size:12px;color:var(--tv-meta,#6b5d49)}#cb .cb-ag.r .cb-agh b{background:var(--tv-fail,#B3261E)}#cb .cb-ag.a .cb-agh b{background:var(--tv-amber,#B45309)}'
         . '#cb .cb-pmenu{display:none}#cb .cb-hb{font-size:16px;line-height:1}#cb .cb-alc{margin-left:auto;color:var(--tv-meta,#6b5d49)}'
         . '#cb .cb-pml{gap:.15rem}#cb .cb-pml>button:not(.cb-px),#cb .cb-pml>a{display:flex;gap:.5rem;align-items:center;width:100%;min-height:40px;text-align:left;border:0;background:none;padding:.45rem .55rem;border-radius:.45rem;font:inherit;font-size:15px;color:var(--tv-ink,#231D17);cursor:pointer;text-decoration:none}'
         . '#cb .cb-pml>[aria-current="page"]{background:var(--tv-card-b,#F6F0E4);box-shadow:inset 3px 0 0 var(--tv-amber,#B45309);font-weight:600}#cb .cb-pml .cb-rcnt{margin-left:auto}'

@@ -49,7 +49,7 @@ const titles = p => p.evaluate(() => { const bad = []; let n = 0;
       // "What's wrong now" as one Alerts dropdown (Jason, 2026-11-24): its count is the board's one count, the groups inside
       const al = await p.evaluate(() => ({ n: +document.querySelector('.cb-alerts .cb-qgs > b').textContent, light: +((document.querySelector('.ak-light') || {}).textContent || NaN),
         rail: +(document.querySelector('[data-cb-rail="deliver"] .cb-rcnt') || {}).textContent, groups: [...document.querySelectorAll('.cb-alerts .cb-ag')].map(g => g.getAttribute('aria-label') + ' ' + g.querySelector('.cb-agh b').textContent),
-        sum: [...document.querySelectorAll('.cb-alerts .cb-ag')].filter(g => !/^(Paused now|Hosts)$/.test(g.getAttribute('aria-label'))).reduce((a, g) => a + +g.querySelector('.cb-agh b').textContent, 0),
+        sum: [...document.querySelectorAll('.cb-alerts .cb-ag')].filter(g => !/^(Paused now|Hosts|Seen)$/.test(g.getAttribute('aria-label'))).reduce((a, g) => a + +g.querySelector('.cb-agh b').textContent, 0),
         chips: document.querySelectorAll('nav.cb-qbar > details.cb-pop').length }));
       t(L + '"What\'s wrong now": one Alerts dropdown, groups inside with their counts (Trips, Warnings, Caps, …), no row of chips', al.chips === 2 && al.groups.some(g => /^Warnings \d+$/.test(g)) && al.groups.some(g => /^Caps \d+$/.test(g)) && al.groups.some(g => /^Paused now \d+$/.test(g)), al);
       t(L + '…Alerts\' count is the board\'s one count: its alarm groups add up to it, and the rail\'s Board says the same', al.n > 0 && al.n === al.sum && al.n === al.rail, al);

@@ -14,6 +14,8 @@ Its send waits for order-m2b's `faq.md` (the only file it shares with a pending 
 | `website/js/admin-control.js` | the filter's Open = the one count (a pressed trip counts; notices under Notices); the ☰ names the page; the alarm filter shows only on the Alarms tab |
 | `website/js/tv-ask.js` | `place()`: a notice beside something in a flex row takes a line of its own (under the row when it doesn't wrap) |
 | `app/admin/tools.php` | `config/alarms`: the Alarms table's Open is the one count; notices under Notices (`board-phone/tools-edits.py`, re-applied on the live copy: order-m2b carries `tools.php` too) |
+| `app/lib/ControlBoard.php` | `boardLight`: a part whose trips all started again is amber, "Waiting for its run", never "Tripped: stopped" (the board and the historian) |
+| `app/lib/Scheduler.php` | `JOBS`: seven daily jobs' late limits (30–600 min) set to 1560, as `market_tick` and `billing_tick` |
 | `app/ui/faq.md` | "How it opens" and "The light in the admin's top bar" entries (`board-phone/faq-edits.py`) |
 
 ## Each behaviour and its source
@@ -45,6 +47,20 @@ Its send waits for order-m2b's `faq.md` (the only file it shares with a pending 
 9. **The tall green bar** (Jason's 7:46 PM screenshot): Check and start again's answer on a grouped trip was placed inside
    the alarm's row, a flex row, and squeezed to a column (88 px wide, 845 px tall at 390). `TvAsk`'s placement already
    gave a notice its own line in a grid ("never squeezed into a column"); it now does the same in a flex row.
+
+10. **The summary names each group as the list does** ("2 trips · 17 warnings · 2 caps"), and **seen warnings are listed
+    under Seen, said as not counted**; no "warning" pill on rows under Warnings. The Design reviewer, 2026-11-24 (its
+    changes 1 and 2: "20 warnings" counted Caps and Checks with the 17 Warnings; a pill repeating its heading).
+11. **A gauge section on a phone: its Copy on its heading's line, its grid to the card's edges.** The Design reviewer
+    (change 4; 0058 §11): the Copy floated right inside the heading, and a grid avoids a float, so it stopped short.
+12. **A part whose trips all started again reads "Waiting for its run" (amber) in the systems table, on its light and
+    stage; its text "Started again: …"; Check and start again greyed "Already started again: its next run is the check".**
+    The session manager, 2026-11-24 ("words follow the state"); live at 04:11 UTC W1's row said "Tripped: stopped until an
+    admin resolves it" while its cards said nothing held (task-trip-3's state).
+13. **Scheduled tasks: seven daily jobs no longer say Late hours before they're due.** Their late limits were 30–600
+    minutes against a daily schedule (`mail_keep`, `notice_digest`, `guest_tick`, `supabase_keepalive`, `region_tick`,
+    `identity_recheck_tick`, `data_cleanup_tick`); set to 1560, as `market_tick` and `billing_tick`. Live read at 05:24 UTC:
+    all seven Late after running 16 hours earlier. The board's own "is late" alarms count from the schedule and were right.
 
 ## Kept, moved, dropped
 
