@@ -283,6 +283,17 @@
      "app/lib/ControlConsistency.php"
     ]
    }
+  },
+  {
+   "path": "website/admin/ecommerce.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5j2wAgTrKdTwX6kQNY",
+   "why": "M2: a cancelled payment record leaves the money reports' net",
+   "since": "2026-11-24T02:21:32Z",
+   "expires": "2026-11-24T06:21:32Z",
+   "release": "order-m2.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
