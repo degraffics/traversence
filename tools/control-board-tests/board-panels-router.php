@@ -32,6 +32,14 @@ if ($path === '/admin/api/config/control' && ($_SERVER['REQUEST_METHOD'] ?? '') 
             echo json_encode(['ok' => true, 'id' => $nid, 'line' => '<b>Requested</b> · waiting for a build to take it · Jason (test), now. It clears by itself once its check passes.']); return true; }
         if ($act === 'gaugeapprove') { $k = ($in['kind'] ?? '') === 'target' ? 'target' : 'scope'; $nid = GaugeTasks::approve($pdo, $pid, $k, (string) ($in['value'] ?? ''), (string) ($in['title'] ?? ''), 'Jason (test)', 1);
             echo json_encode(['ok' => true, 'id' => $nid, 'line' => '<b>' . ($k === 'scope' ? 'Scope approved' : 'Target approved') . '</b> by Jason (test), now.']); return true; }
+        // the Work queue (work-queue.cjs), as api.php answers it
+        $tid = (int) $pid; $W = 'Jason (test)';
+        if ($act === 'qadd') { $nid = GaugeTasks::add($pdo, (string) ($in['gauge'] ?? ''), (string) ($in['what'] ?? ''), (string) ($in['why'] ?? ''), (string) ($in['source'] ?? ''), $W, 1); echo json_encode(['ok' => true, 'id' => $nid, 'message' => (time() - (int) strtotime((string) (GaugeTasks::task($pdo, $nid)['at'] ?? '') . ' UTC') > 10 ? 'It\'s already in the queue as task #' . $nid . ': the one task stands.' : 'Added as task #' . $nid . '. It\'s late if nobody takes it within a day.')]); return true; }
+        if ($act === 'qhistory') { echo json_encode(['ok' => true, 'rows' => array_map(fn ($r) => ['at' => gmdate('c', (int) strtotime($r['at'] . ' UTC')), 'tz' => (string) $r['tz'], 'what' => (string) $r['what'], 'who' => (string) $r['who']], GaugeTasks::history($pdo, $tid))]); return true; }
+        if ($act === 'qedit') { echo json_encode(['ok' => true, 'message' => GaugeTasks::edit($pdo, $tid, array_intersect_key($in, array_flip(['what', 'why', 'source', 'gauge'])), $W)]); return true; }
+        if ($act === 'qassign') { echo json_encode(['ok' => true, 'message' => GaugeTasks::assign($pdo, $tid, trim((string) ($in['owner'] ?? '')) !== '' ? (string) $in['owner'] : $W, $W)]); return true; }
+        if ($act === 'qrelease') { echo json_encode(['ok' => true, 'message' => GaugeTasks::release($pdo, $tid, (string) ($in['rel'] ?? ''), $W)]); return true; }
+        if ($act === 'qwithdraw') { echo json_encode(['ok' => true, 'message' => GaugeTasks::withdraw($pdo, $tid, (string) ($in['reason'] ?? ''), $W)]); return true; }
     } catch (Throwable $x) { echo json_encode(['ok' => false, 'error' => ['message' => $x->getMessage()]]); return true; }
 }
 if (str_starts_with($path, '/admin/api/')) { header('Content-Type: application/json'); echo '{"ok":true,"rows":[],"total":0,"counts":{}}'; return true; }

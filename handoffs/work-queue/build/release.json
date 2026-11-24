@@ -1,0 +1,33 @@
+{
+ "title": "The Work queue on Development: its gauge, Add a task, and every task managed in place until it's done",
+ "why": "Jason, 2026-11-24: \"the work queue: Make a gauge for this and have its queue from the development board. We need to be able to add tasks to the queue and manage them so we don't fall out of score or forget what we identified as needing to be done.\" Built on the record Request a fix already keeps (control_gauge_tasks, the hourly build-requests.json and the sessions' pickups), as a runtime gauge under handoffs/control-board-plan/step3/sections/gauge-lifecycle.md §7, seeded once from handoffs/decided-not-live.md and the Control Board hand-off's queue. Reviewed by the Design reviewer and the session manager.",
+ "changes": [
+  {
+   "what": "The Work queue is first on Development: its gauge (tasks on time out of the open ones; late = a day old with nobody on it), its counts (late, open, taken, being fixed, done this week), and its target set by Jason (proposed: nothing late, with Approve the target)",
+   "where": "https://traversence.com/admin/config/control?tab=development"
+  },
+  {
+   "what": "Add a task: the gauge or area (or a new area), what, why and where it came from; Cancel, × and Esc close it",
+   "where": "https://traversence.com/admin/config/control?tab=development"
+  },
+  {
+   "what": "Each task says where it stands (Open, Late, Taken by whom, Being fixed in a named release, Done, Withdrawn) with its one next step (Take it, then Name its release); ✎ edits it in place with the old words in its History; ⋯ has Move to a session, Name its release and Withdraw with a reason. A task is done by itself when its release is live, a fix request when its check passes",
+   "where": "https://traversence.com/admin/config/control?tab=development"
+  },
+  {
+   "what": "The list late first, the first 10 then Show all, filtered by one dropdown button; done and withdrawn tasks kept a week underneath",
+   "where": "https://traversence.com/admin/config/control?tab=development"
+  },
+  {
+   "what": "The 20 tasks already identified are in the queue from the start (the Control Board's and the Orders session's next releases, with who has each)",
+   "where": "https://traversence.com/admin/config/control?tab=development"
+  },
+  {
+   "what": "FAQ: \"What is the Work queue, and how do I add a task to it?\"",
+   "where": "https://traversence.com/faq.php"
+  }
+ ],
+ "proposals": [],
+ "switch": "",
+ "data_reason": "The migration adds six columns to control_gauge_tasks (guarded, safe to run twice) and seeds the 20 tasks already identified (handoffs/decided-not-live.md and handoffs/control-board-2026-11-24.md), each inserted only where it isn't there yet. No row is updated or deleted."
+}
