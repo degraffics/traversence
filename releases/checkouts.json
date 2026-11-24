@@ -296,6 +296,19 @@
    "expires": "2026-11-24T04:06:58Z",
    "release": "loads-reply.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/ControlLedger.php",
+   "functions": [
+    "counts"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
+   "why": "W0: the ledger reads a batch's nested receipt",
+   "since": "2026-11-24T00:13:39Z",
+   "expires": "2026-11-24T04:13:39Z",
+   "release": "loads-reply.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
