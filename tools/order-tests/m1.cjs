@@ -128,7 +128,7 @@ const id = (name) => +sql(`SELECT id FROM orders WHERE client_company = '${name}
     const yes1 = await p.$('.tv-ask button:has-text("Record it"), [role=dialog] button:has-text("Record it")');
     if (yes1) { await Promise.all([p.waitForNavigation({ timeout: 10000 }).catch(() => {}), yes1.click()]); await p.waitForTimeout(800); }
     L = await p.evaluate(() => [...document.querySelectorAll('.cs-line')].map((l) => ({ text: l.querySelector('.cs-lt').innerText.trim(), btns: [...l.querySelectorAll('.cs-lb > .hb-b, .cs-lb > .cs-ways > .hb-b')].map((x) => x.textContent), edit: (l.querySelector('.cs-ib[title^="Edit"]') || {}).title })));
-    ok(`${w}: Yes, picked up (asked first): Delivered, recorded by name, with ✎ Edit the delivery (a recorded fact: no Undo); the Money line's one action`, !!yes1 && /^Delivered on .*, recorded by Staff\.$/.test(L[2].text) && !L[2].btns.length && L[2].edit === 'Edit the delivery' && L[1].btns.join('|') === 'Record the payment', L);
+    ok(`${w}: Yes, picked up (asked first): Picked up, recorded by name, with ✎ Edit the delivery (a recorded fact: no Undo); the Money line's one action`, !!yes1 && /^Picked up on .*, recorded by Staff\.$/.test(L[2].text) && !L[2].btns.length && L[2].edit === 'Edit the delivery' && L[1].btns.join('|') === 'Record the payment', L);
     await p.screenshot({ path: `${shots}/m1-picked-up-${w}.png` });
     await p.click('.cs-line:nth-of-type(3) .cs-ib[title="Edit the delivery"]'); await p.waitForTimeout(600);
     const ed = await p.evaluate(() => ({ focus: document.activeElement && document.activeElement.id, shown: !document.querySelector('[data-cs-edf]').hidden }));

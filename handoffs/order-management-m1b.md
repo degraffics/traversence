@@ -180,3 +180,11 @@ complete-owed.cjs all pass.
 2. The ✉: made (above). Also the Order line's words for a completed order follow who said it arrived ("Picked up on Nov
    23, recorded by our team", not "The client confirmed").
 Tests: m1b.cjs 49 × 2 (98), m1b.php 45, M1's suite all pass.
+
+### Design: approved (the Design reviewer, 2026-11-23 22:32 UTC, on 0043f67f), with two word fixes, made
+- A pickup says so: Delivery "Picked up on Nov 23, recorded by <name>" (the `received` event's own "Picked up" note, so
+  it stays true once the order completes) and the Order line "Complete. Picked up on Nov 23, recorded by <name>; …".
+- One name for one fact: both lines name the person who recorded it.
+Tests: m1b.cjs 50 × 2 (100), m1b.php 45, m1.php 42, m1.cjs, collect-balance.cjs, complete-owed.cjs all pass. Zip check
+clean on Sync 22:02 UTC (`2caf2a1`), none of M1b's files changed live since. The session manager (22:19 UTC): the ✉ uses
+the existing Mailer and History; moving client emails onto the 0172 dispatcher is its own item, not M1b.
