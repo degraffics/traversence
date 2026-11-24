@@ -154,3 +154,25 @@ invoice 112906" confirmed; History's "Needs books" (QuickBooks $1,111.14 paid ag
 Jason through the session manager; no money on #12 changed.
 Zip: 10 site files (adds `website/admin/ecommerce.php`), built on Sync 01:30 (7bece80); the zip check passes clean.
 Tests: m2.php 59/59, m2.cjs all passing at 1280 and 390.
+
+## Next, in order (the session manager, 2026-11-24 02:22–02:27)
+
+1. **M2 (#1333)**: clear to ask Jason once the Design reviewer has looked at the 390 fixes (sent 02:28). Merge only after the
+   Control Board's task-trip release is live and synced; then rebuild `Pulse.php` on that live copy, take the inbox record
+   off the branch and send again (`send.py`), rerun the zip check.
+2. **M2b "How it goes"** (Jason: "I need to be able to modify. If I schedule a courier or ship vs will call. With
+   competition printing I ask for will call, then schedule courier for local delivery or assign freight, or drop ship";
+   then "check adrs for previous established methods"). Never new names (CLAUDE.md #1334): an Edit (✎, never Undo) of the
+   existing fields at the right level, the established names, the existing work-order email to tell the vendor, History.
+   The levels to map first, so Delivery reads one and they never disagree:
+   - the work order's `delivery` (`WorkOrders::DELIVERY`, decisions/0101 work orders step 1): Will Call, Internal Transfer,
+     Blind Drop Ship, Local Delivery, Next-day Courier, Ship USPS / UPS / FedEx, Freight; "Courier booked: add tracking";
+   - the order's `ship_mode` (`Shipments::MODES`, 0101 addendum 2026-10-21): No shipping (with `no_ship_reason`), One
+     address, Several destinations (`order_addresses`, a method per destination);
+   - the order's `delivery` (`ClientOrders::delivery()`: pickup / ship) and an item's ship style (0101 addendum
+     2026-10-16: Drop Ship, Courier, Pick Up; carrier and tracking);
+   - also read 0040 (delivery_method, freight_ltl), 0099 (fulfilment statuses), 0112 (ship_rules, local pickup).
+   "Will call, then a courier for local delivery" is two steps: show how the existing values cover it before adding any.
+   No outside booking (courier API, freight quote): named as later. The note goes on decisions/0101.
+3. The Design reviewer's 7–10 (Files & versions and Shipping at 390: stacked add-a-document form through TvUpload, ⓘ for
+   the explanations, phone cards for the per-item table, the manifest's print icon).
