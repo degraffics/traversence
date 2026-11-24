@@ -21,6 +21,7 @@ is synced and byte-checked. Updated with every approval and every release.
 5. Ledger tab in Modules (2026-11-23)
 6. Find box in System Configuration (2026-11-23)
 7. Request a fix's follow-through: the check runs when the fix goes live; one notice (2026-11-23)
+8. Outside links open in the browser: ↗ with the service and account; the first-tap hint on phones (2026-11-24; CLAUDE.md)
 
 ### Orders (research/order-management-design-2026-11-23.md §6)
 1. M2b: how an order goes (above)
