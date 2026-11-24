@@ -217,3 +217,5 @@ Tests: m1b.php 51, m1b.cjs 55 × 2 (110), M1's suite all pass. Screens: m1b-sett
 - The Design reviewer (00:35 UTC): a finished step replaces its form. Once chosen, the setting is one line, "Vendor bills
   post to 5010 · Printing and production · chosen by <name>, <time>" with ✎ "Change the account" reopening the dropdown in
   place (Cancel, Esc close it); no repeated success notice; History under it. m1b.cjs 56 × 2 (112) pass.
+- Design: approved (00:40 UTC, ccdae378), with two touches made: the line at the body's line-height; the fold's summary
+  value hidden while it's open (said once, in the line).

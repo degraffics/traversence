@@ -1,7 +1,7 @@
 {
  "zip": "order-m1b.zip",
  "built_on": "2caf2a1 Sync: 2026-11-23 22:02 UTC",
- "recorded": "2026-11-24 00:40 UTC",
+ "recorded": "2026-11-24 00:42 UTC",
  "note": "Order management M1b: what the system knows, what it asks (QuickBooks first, the Vendor line and vendor bills, Vendor bills post to, the client's update \u2709); built on Sync: 2026-11-23 22:02 UTC (2caf2a1) Sent through git (releases/inbox).",
  "status": "pending",
  "live_in": "",
@@ -23,7 +23,7 @@
    "live": false
   },
   "app/lib/VendorBills.php": {
-   "sha256": "afe69533abd1c1c2c2738598f41e41ef05d33ca4c6dc0adf6b0ece9de1b4476c",
+   "sha256": "bf46b4e6e16aa48f7b5a7be185b8d988d0465b16f16164f2155eca8569f9069d",
    "live": false
   },
   "app/lib/WorkOrders.php": {
