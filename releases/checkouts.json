@@ -168,6 +168,24 @@
    "expires": "2026-11-24T09:21:16Z",
    "release": "board-phone.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/ControlBoard.php",
+   "functions": [
+    "boardLight"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
+   "why": "board-phone: a part whose trips were all started again reads Waiting for its run (amber), never Tripped: stopped (words follow the state)",
+   "since": "2026-11-24T05:25:41Z",
+   "expires": "2026-11-24T09:25:41Z",
+   "release": "board-phone.zip",
+   "callers": {
+    "boardLight": [
+     "app/admin/control-console.php",
+     "app/lib/ControlHistorian.php"
+    ]
+   }
   }
  ],
  "lapsed": [
