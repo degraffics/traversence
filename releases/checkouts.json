@@ -259,6 +259,19 @@
    "expires": "2026-11-24T04:04:26Z",
    "release": "loads-reply.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/AuditClock.php",
+   "functions": [
+    "FLOWS"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
+   "why": "gauge-requests hourly (GitHub skipped its schedule)",
+   "since": "2026-11-24T00:04:28Z",
+   "expires": "2026-11-24T04:04:28Z",
+   "release": "loads-reply.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
