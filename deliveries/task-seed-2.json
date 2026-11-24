@@ -3,12 +3,12 @@
  "built_on": "1879246 Sync: 2026-11-24 13:50 UTC",
  "recorded": "2026-11-24 13:53 UTC",
  "note": "task-seed-2: the 20 missing tasks from Jason's scope doc (#284's migration was cleared unrun); built on Sync: 13:50 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "eaf8b31 Sync: 2026-11-24 17:15 UTC",
  "files": {
   "app/migrations/2026-11-24_task_seed_2.sql": {
    "sha256": "35cace788c92353846acaa6c7feed23de24016b635fd25fb8110ba5808d68d1d",
-   "live": false
+   "live": true
   }
  }
 }
