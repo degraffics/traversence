@@ -247,6 +247,12 @@ question again; it lists what's still open at the top of its replies as **"Waiti
 session's name), and asks only its own questions. **Sessions merge their own PR** once Jason approves it in the pop-up
 (Jason, 2026-11-18: no waiting on the session manager), then tell it the merge; it runs the sync and records deliveries.
 
+**Decision or release: said every time** (Jason, 2026-11-24: "make the decisions vs work to live very clear"). Every
+pop-up's first words say which it is: **"Decision (nothing changes on the site yet): goes live in <release>, <its
+place in the queue>"** or **"Release (live about 10 minutes after merge): <what you'll see, and where>"**. Replies say
+"live" only for what's synced and byte-checked. The session manager keeps `handoffs/decided-not-live.md` (each
+decision, its release, its place) current with every approval and every release, and its top line in each reply.
+
 ## A link for every place Jason acts (Jason, 2026-11-16): every reply
 
 When a reply sends Jason somewhere to do something (an admin page, a console, a settings screen, a form), give its full
