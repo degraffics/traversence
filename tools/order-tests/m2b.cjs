@@ -61,10 +61,10 @@ const id = (name) => +sql(`SELECT id FROM orders WHERE client_company = '${name}
     await p.fill('#co-cour-trk', 'Rapid Couriers'); await p.fill('#co-cour-p input[name=tracking]', '55821');
     await submit('#co-cour-p button:has-text("Save the courier")');
     ok(`${w}: saved, said as done, never "emailed" when the email didn't go (the harness has no mail server)`, /^Courier saved\.$/.test((await flash()).trim()), await flash());
-    const un = () => p.evaluate(() => { const d = document.querySelector('.co-unsent'); return d && { text: d.textContent.replace(/\s+/g, ' ').trim(), bad: !!d.querySelector('.tv-note, [data-tv-status=bad]') && !/×/.test(d.textContent), btns: [...d.querySelectorAll('button, a')].map((x) => x.textContent.trim()), mail: (d.querySelector('a[href^="mailto:"]') || {}).href || '' }; });
+    const un = () => p.evaluate(() => { const d = document.querySelector('.co-unsent'); return d && { text: d.textContent.replace(/\s+/g, ' ').trim(), bad: !!d.querySelector('.tv-note, [data-tv-status=bad]') && !/×/.test(d.textContent), inside: [...d.querySelectorAll('button, a')].every((x) => !!x.closest('.tv-note')), btns: [...d.querySelectorAll('button, a')].map((x) => x.textContent.trim()), mail: (d.querySelector('a[href^="mailto:"]') || {}).href || '' }; });
     let u = await un();
     ok(`${w}: the email that didn't go is its own error notice: who, the subject, what was saved`, u && u.bad && /^Error: ?The email to Competition Printing \(orders@vendor\.example\) didn't go: “Work order 20261027-CP\d+: courier booked”\. What was saved is saved; only the email is missing\./.test(u.text), u);
-    ok(`${w}: with its ways forward: Send again, Copy the message, Email it from your mail (to the vendor, with the subject)`, u && u.btns.join('|') === 'Send again|Copy the message|Email it from your mail' && /^mailto:orders%40vendor\.example\?subject=Work%20order/.test(u.mail), u);
+    ok(`${w}: with its ways forward inside its box: Send again, Copy the message, Email it from your mail (to the vendor, with the subject)`, u && u.inside && u.btns.join('|') === 'Send again|Copy the message|Email it from your mail' && /^mailto:orders%40vendor\.example\?subject=Work%20order/.test(u.mail), u);
     await p.keyboard.press('Escape'); await p.evaluate(() => document.querySelector('.co-unsent').scrollIntoView({ block: 'center' })); await p.waitForTimeout(400);
     await p.screenshot({ path: `${shots}/m2b-unsent-${w}.png` });
     await p.click('.co-unsent button:has-text("Copy the message")'); await p.waitForTimeout(400);
@@ -108,7 +108,9 @@ const id = (name) => +sql(`SELECT id FROM orders WHERE client_company = '${name}
     ok(`${w}: its History keeps the old value`, /Delivery changed from Will Call to Blind Drop Ship/.test(sql(`SELECT l.note FROM order_work_order_log l JOIN order_work_orders w ON w.id = l.wo_id WHERE w.order_id = ${mk} ORDER BY l.id DESC LIMIT 1`)));
     const box = () => p.evaluate(() => { const b = [...document.querySelectorAll('.co-box')].find((x) => /^Shipping/.test(x.textContent.trim())); return b ? b.innerText.replace(/\s+/g, ' ').trim() : ''; });
     ok(`${w}: one fact once: the Shipping box says How it goes as text (Blind Drop Ship from Competition Printing)`, /How it goes: Blind Drop Ship from Competition Printing/.test(await box()), await box());
-    ok(`${w}: the order's ship mode is labelled Ship mode, and no "Choose how it ships…"`, !/Choose how it ships/.test(await box()) && (/Ship mode/.test(await box()) || !(await p.$('select[name=mode]'))), await box());
+    ok(`${w}: the order's ship mode is its own known value, "Ship mode: Not set" with ✎, no open select, no empty address fields`, /Ship mode: Not set/.test(await box()) && !/Choose how it ships|Street|Town ST ZIP/.test(await box()) && !(await vis('select[name=mode]')), await box());
+    await p.click('.co-smline [data-co-edit]'); await p.waitForTimeout(200);
+    ok(`${w}: its ✎ opens the Ship mode select in place`, await vis('select[name=mode]'));
     await p.click('.co-hgline [data-hg-go]'); await p.waitForTimeout(600);
     ok(`${w}: its ✎ opens Change how it goes…`, await vis('#co-howgo-p'));
     await p.screenshot({ path: `${shots}/m2b-shipbox-${w}.png` });
