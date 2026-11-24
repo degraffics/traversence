@@ -119,6 +119,7 @@
     "(top)",
     "tv_admin_mod_control",
     "tv_cb_afilter",
+    "tv_cb_by_system",
     "tv_cb_deliver",
     "tv_cb_evidence",
     "tv_cb_qbar",
@@ -128,9 +129,9 @@
    ],
    "kind": "change",
    "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
-   "why": "board-phone: a part whose trips were all started again reads Waiting for its run in the systems table (words follow the state)",
+   "why": "board-phone: the Waiting for its run light (TV_CB_LIGHTS) and the daily jobs' late limits' note",
    "since": "2026-11-24T04:17:19Z",
-   "expires": "2026-11-24T09:26:11Z",
+   "expires": "2026-11-24T09:38:55Z",
    "release": "board-phone.zip",
    "callers": {
     "tv_cb_table_rows": [
@@ -195,13 +196,14 @@
   {
    "path": "app/lib/Scheduler.php",
    "functions": [
+    "(top)",
     "JOBS"
    ],
    "kind": "change",
    "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
-   "why": "board-phone: seven daily jobs' late limits were hourly-sized (30-600 min), so Scheduled tasks said Late hours before they were due; set to a day plus two hours, as market_tick and billing_tick",
+   "why": "board-phone: the Waiting for its run light (TV_CB_LIGHTS) and the daily jobs' late limits' note",
    "since": "2026-11-24T05:29:16Z",
-   "expires": "2026-11-24T09:29:16Z",
+   "expires": "2026-11-24T09:38:55Z",
    "release": "board-phone.zip",
    "callers": {
     "JOBS": [
