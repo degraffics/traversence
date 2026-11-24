@@ -8,7 +8,7 @@ is synced and byte-checked. Updated with every approval and every release.
 
 | Decision (when) | Release | Session | Next step |
 |---|---|---|---|
-| Change how an order goes: two legs on 0101's existing fields (2026-11-24) | M2b | Orders | Design reviewer, then Jason's pop-up |
+| Change how an order goes: two legs on 0101's existing fields; a shipping work order with no ship-to comes to us (approved by Jason 2026-11-24, 03:02 UTC) | M2b | Orders | Building on the harness |
 | The board's next releases (list below) | from the hand-off (#1339) | Control Board (fresh session) | starts once W1's presses are confirmed |
 
 ## Queued, in order
