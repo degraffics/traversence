@@ -160,19 +160,49 @@
   {
    "path": "app/lib/ControlAlarms.php",
    "functions": [
+    "facts",
+    "pulseSteps",
+    "raise",
     "resolve"
    ],
    "kind": "change",
    "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
-   "why": "A task trip's press lifts its own pauses (W1's dead end)",
+   "why": "The pressed state replaces the trip's (Jason, 2026-11-24)",
    "since": "2026-11-24T01:56:35Z",
-   "expires": "2026-11-24T05:56:35Z",
+   "expires": "2026-11-24T06:04:43Z",
    "release": "task-trip.zip",
    "callers": {
     "resolve": [
      "app/admin/automation-console.php",
      "app/admin/tools.php",
      "website/admin/api.php"
+    ],
+    "facts": [
+     "app/admin/control-console.php",
+     "app/admin/module-cards.php",
+     "app/admin/operations-console.php",
+     "app/admin/preflight-console.php",
+     "app/lib/ControlConsistency.php",
+     "app/lib/Pulse.php",
+     "app/lib/ServiceHealth.php"
+    ],
+    "raise": [
+     "app/lib/Captcha.php",
+     "app/lib/ControlHistorian.php",
+     "app/lib/ControlLedger.php",
+     "app/lib/ControlMaintenance.php",
+     "app/lib/ControlSensor.php",
+     "app/lib/Gemini.php",
+     "app/lib/Operations.php",
+     "app/lib/Preflight.php",
+     "app/lib/ServiceHealth.php",
+     "app/lib/SiteHealth.php",
+     "app/lib/SystemStart.php",
+     "app/lib/crawler/CrawlService.php",
+     "app/lib/crawler/IrsBulk.php"
+    ],
+    "pulseSteps": [
+     "app/lib/Pulse.php"
     ]
    }
   },
