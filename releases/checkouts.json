@@ -85,13 +85,14 @@
   {
    "path": "app/lib/ControlLedger.php",
    "functions": [
+    "alarms",
     "counts"
    ],
    "kind": "change",
    "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
-   "why": "W0: the ledger reads a batch's nested receipt",
+   "why": "W0's count alarm closes in true words",
    "since": "2026-11-24T00:13:39Z",
-   "expires": "2026-11-24T04:13:39Z",
+   "expires": "2026-11-24T04:48:40Z",
    "release": "loads-reply.zip",
    "callers": {}
   },
