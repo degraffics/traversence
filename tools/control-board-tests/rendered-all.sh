@@ -34,6 +34,7 @@ TESTS=(
 "gauge-panel|php board-panels-seed.php $R/app|node gauge-panel.cjs $R"
 "work-queue|:|node work-queue.cjs $R"
 "task-scope|:|node task-scope.cjs $R"
+"task-adrs|:|node task-adrs.cjs $R"
 "task-trip|:|node task-trip.cjs $R"
 "google-signin|:|node google-signin.cjs $R"
 "board-live|php board-live-seed.php $R/app $TOOLS/../site-audit/results/alarms.json|node board-live.cjs $R"

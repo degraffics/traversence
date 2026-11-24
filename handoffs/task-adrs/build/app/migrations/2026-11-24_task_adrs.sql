@@ -1,0 +1,3 @@
+-- app/migrations/2026-11-24_task_adrs.sql: the decisions (ADRs) attached to a Work queue task (Jason, 2026-11-24: "need task to show
+-- what ADR is attached to it or have the ability to look and assign adrs"). Safe to run twice; no data changed.
+CREATE TABLE IF NOT EXISTS control_gauge_task_adrs (id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, task_id INT UNSIGNED NOT NULL, adr CHAR(4) NOT NULL, at DATETIME NOT NULL, who VARCHAR(80) NOT NULL DEFAULT '', removed_at DATETIME NULL, removed_by VARCHAR(80) NOT NULL DEFAULT '', KEY task_adr (task_id, adr)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
