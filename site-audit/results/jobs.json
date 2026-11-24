@@ -1,0 +1,527 @@
+{
+ "at": "2026-11-24T10:20:42.145Z",
+ "jobs": [
+  {
+   "job": "control_tick",
+   "last_utc": "2026-11-24T10:15:01Z",
+   "ok": 1,
+   "fails_today": 0,
+   "quiet": false,
+   "default": "5min",
+   "line": "*/15 * * * *",
+   "line_preset": "15min"
+  },
+  {
+   "job": "ai_worker",
+   "last_utc": "2026-11-24T10:20:01Z",
+   "ok": 1,
+   "fails_today": 0,
+   "quiet": false,
+   "default": "minute",
+   "line": "*/20 * * * *",
+   "line_preset": ""
+  },
+  {
+   "job": "standing_tick",
+   "last_utc": "2026-11-24T10:18:02Z",
+   "ok": 1,
+   "fails_today": 0,
+   "quiet": false,
+   "default": "10min",
+   "line": "*/18 * * * *",
+   "line_preset": ""
+  },
+  {
+   "job": "sales_tick",
+   "last_utc": "2026-11-24T07:17:01Z",
+   "ok": 1,
+   "fails_today": 0,
+   "quiet": false,
+   "default": "hourly",
+   "line": "17 * * * *",
+   "line_preset": "hourly"
+  },
+  {
+   "job": "files_tick",
+   "last_utc": "2026-11-24T10:00:03Z",
+   "ok": 1,
+   "fails_today": 0,
+   "quiet": false,
+   "default": "10min",
+   "line": "*/17 * * * *",
+   "line_preset": ""
+  },
+  {
+   "job": "work_orders_tick",
+   "last_utc": "2026-11-24T07:17:01Z",
+   "ok": 1,
+   "fails_today": 0,
+   "quiet": false,
+   "default": "hourly",
+   "line": "17 * * * *",
+   "line_preset": "hourly"
+  },
+  {
+   "job": "guide_finds_tick",
+   "last_utc": "2026-11-24T10:15:01Z",
+   "ok": 1,
+   "fails_today": 0,
+   "quiet": false,
+   "default": "15min",
+   "line": "*/15 * * * *",
+   "line_preset": "15min"
+  },
+  {
+   "job": "listings_tick",
+   "last_utc": "2026-11-24T10:15:01Z",
+   "ok": 1,
+   "fails_today": 0,
+   "quiet": false,
+   "default": "15min",
+   "line": "*/15 * * * *",
+   "line_preset": "15min"
+  },
+  {
+   "job": "guide_live_tick",
+   "last_utc": "2026-11-24T10:15:01Z",
+   "ok": 1,
+   "fails_today": 0,
+   "quiet": false,
+   "default": "15min",
+   "line": "*/15 * * * *",
+   "line_preset": "15min"
+  },
+  {
+   "job": "got_it_tick",
+   "last_utc": "2026-11-24T10:17:02Z",
+   "ok": 1,
+   "fails_today": 0,
+   "quiet": false,
+   "default": "hourly",
+   "line": "17 * * * *",
+   "line_preset": "hourly"
+  },
+  {
+   "job": "qb_orders_tick",
+   "last_utc": "2026-11-24T10:17:02Z",
+   "ok": 1,
+   "fails_today": 0,
+   "quiet": false,
+   "default": "hourly",
+   "line": "17 * * * *",
+   "line_preset": "hourly"
+  },
+  {
+   "job": "pay_wait_tick",
+   "last_utc": "2026-11-24T09:17:02Z",
+   "ok": 1,
+   "fails_today": 0,
+   "quiet": false,
+   "default": "15min",
+   "line": "17 * * * *",
+   "line_preset": "hourly"
+  },
+  {
+   "job": "services_tick",
+   "last_utc": "2026-11-24T10:17:02Z",
+   "ok": 1,
+   "fails_today": 0,
+   "quiet": false,
+   "default": "hourly",
+   "line": "17 * * * *",
+   "line_preset": "hourly"
+  },
+  {
+   "job": "takedowns_tick",
+   "last_utc": "2026-11-24T10:16:01Z",
+   "ok": 1,
+   "fails_today": 0,
+   "quiet": false,
+   "default": "10min",
+   "line": "*/16 * * * *",
+   "line_preset": ""
+  },
+  {
+   "job": "heritage_tick",
+   "last_utc": "2026-11-24T10:20:01Z",
+   "ok": 1,
+   "fails_today": 0,
+   "quiet": false,
+   "default": "hourly",
+   "line": "*/20 * * * *",
+   "line_preset": ""
+  },
+  {
+   "job": "daily_report",
+   "last_utc": "2026-11-24T10:02:01Z",
+   "ok": 1,
+   "fails_today": 0,
+   "quiet": false,
+   "default": "hourly2",
+   "line": "2 * * * *",
+   "line_preset": "hourly2"
+  },
+  {
+   "job": "market_tick",
+   "last_utc": "2026-11-23T13:13:01Z",
+   "ok": 1,
+   "fails_today": 0,
+   "quiet": false,
+   "default": "daily",
+   "line": "13 6 * * *",
+   "line_preset": "daily"
+  },
+  {
+   "job": "mail_sync",
+   "last_utc": "2026-11-24T10:18:02Z",
+   "ok": 1,
+   "fails_today": 0,
+   "quiet": false,
+   "default": "5min",
+   "line": "*/18 * * * *",
+   "line_preset": ""
+  },
+  {
+   "job": "mail_keep",
+   "last_utc": "2026-11-23T13:13:01Z",
+   "ok": 1,
+   "fails_today": 0,
+   "quiet": false,
+   "default": "daily",
+   "line": "13 6 * * *",
+   "line_preset": "daily"
+  },
+  {
+   "job": "pulse_followup",
+   "last_utc": "2026-11-24T10:00:02Z",
+   "ok": 1,
+   "fails_today": 0,
+   "quiet": false,
+   "default": "10min",
+   "line": "*/22 * * * *",
+   "line_preset": ""
+  },
+  {
+   "job": "booking_remind",
+   "last_utc": "2026-11-24T10:15:01Z",
+   "ok": 1,
+   "fails_today": 0,
+   "quiet": false,
+   "default": "15min",
+   "line": "*/15 * * * *",
+   "line_preset": "15min"
+  },
+  {
+   "job": "listing_messages_tick",
+   "last_utc": "2026-11-24T09:17:01Z",
+   "ok": 1,
+   "fails_today": 0,
+   "quiet": false,
+   "default": "hourly",
+   "line": "17 * * * *",
+   "line_preset": "hourly"
+  },
+  {
+   "job": "notify_release",
+   "last_utc": "2026-11-24T10:17:02Z",
+   "ok": 1,
+   "fails_today": 0,
+   "quiet": false,
+   "default": "10min",
+   "line": "*/17 * * * *",
+   "line_preset": ""
+  },
+  {
+   "job": "notice_digest",
+   "last_utc": "2026-11-23T13:13:01Z",
+   "ok": 1,
+   "fails_today": 0,
+   "quiet": false,
+   "default": "daily",
+   "line": "13 6 * * *",
+   "line_preset": "daily"
+  },
+  {
+   "job": "ses_setup_tick",
+   "last_utc": "2026-11-24T10:15:01Z",
+   "ok": 1,
+   "fails_today": 0,
+   "quiet": false,
+   "default": "15min",
+   "line": "*/15 * * * *",
+   "line_preset": "15min"
+  },
+  {
+   "job": "domains_tick",
+   "last_utc": "2026-11-24T10:15:01Z",
+   "ok": 1,
+   "fails_today": 0,
+   "quiet": false,
+   "default": "15min",
+   "line": "*/15 * * * *",
+   "line_preset": "15min"
+  },
+  {
+   "job": "billing_tick",
+   "last_utc": "2026-11-23T13:13:01Z",
+   "ok": 1,
+   "fails_today": 0,
+   "quiet": false,
+   "default": "daily",
+   "line": "13 6 * * *",
+   "line_preset": "daily"
+  },
+  {
+   "job": "region_tick",
+   "last_utc": "2026-11-23T13:13:01Z",
+   "ok": 1,
+   "fails_today": 0,
+   "quiet": false,
+   "default": "daily",
+   "line": "13 6 * * *",
+   "line_preset": "daily"
+  },
+  {
+   "job": "guide_ondemand_tick",
+   "last_utc": "2026-11-24T10:00:02Z",
+   "ok": 1,
+   "fails_today": 0,
+   "quiet": false,
+   "default": "5min",
+   "line": "*/24 * * * *",
+   "line_preset": ""
+  },
+  {
+   "job": "journeys_tick",
+   "last_utc": "2026-11-24T10:17:02Z",
+   "ok": 1,
+   "fails_today": 0,
+   "quiet": false,
+   "default": "hourly",
+   "line": "17 * * * *",
+   "line_preset": "hourly"
+  },
+  {
+   "job": "supabase_keepalive",
+   "last_utc": "2026-11-23T13:13:01Z",
+   "ok": 1,
+   "fails_today": 0,
+   "quiet": false,
+   "default": "daily",
+   "line": "13 6 * * *",
+   "line_preset": "daily"
+  },
+  {
+   "job": "page_read_tick",
+   "last_utc": "2026-11-24T10:17:02Z",
+   "ok": 1,
+   "fails_today": 0,
+   "quiet": false,
+   "default": "hourly",
+   "line": "17 * * * *",
+   "line_preset": "hourly"
+  },
+  {
+   "job": "vectors_tick",
+   "last_utc": "2026-11-24T10:17:02Z",
+   "ok": 1,
+   "fails_today": 0,
+   "quiet": false,
+   "default": "hourly",
+   "line": "17 * * * *",
+   "line_preset": "hourly"
+  },
+  {
+   "job": "identity_recheck_tick",
+   "last_utc": "2026-11-23T13:13:01Z",
+   "ok": 1,
+   "fails_today": 0,
+   "quiet": false,
+   "default": "daily",
+   "line": "13 6 * * *",
+   "line_preset": "daily"
+  },
+  {
+   "job": "data_cleanup_tick",
+   "last_utc": null,
+   "ok": null,
+   "fails_today": 0,
+   "quiet": false,
+   "default": "daily",
+   "line": "missing",
+   "line_preset": null
+  },
+  {
+   "job": "landmark_photos_tick",
+   "last_utc": "2026-11-24T10:17:03Z",
+   "ok": 1,
+   "fails_today": 0,
+   "quiet": false,
+   "default": "hourly",
+   "line": "17 * * * *",
+   "line_preset": "hourly"
+  },
+  {
+   "job": "like_watch_tick",
+   "last_utc": "2026-11-24T10:17:03Z",
+   "ok": 1,
+   "fails_today": 0,
+   "quiet": false,
+   "default": "hourly",
+   "line": "17 * * * *",
+   "line_preset": "hourly"
+  },
+  {
+   "job": "earned_storage_tick",
+   "last_utc": "2026-11-23T13:13:01Z",
+   "ok": 1,
+   "fails_today": 0,
+   "quiet": false,
+   "default": "daily",
+   "line": "13 6 * * *",
+   "line_preset": "daily"
+  },
+  {
+   "job": "moments_tick",
+   "last_utc": "2026-11-24T10:17:02Z",
+   "ok": 1,
+   "fails_today": 0,
+   "quiet": false,
+   "default": "hourly",
+   "line": "17 * * * *",
+   "line_preset": "hourly"
+  },
+  {
+   "job": "guest_tick",
+   "last_utc": "2026-11-23T13:13:01Z",
+   "ok": 1,
+   "fails_today": 0,
+   "quiet": false,
+   "default": "daily",
+   "line": "13 6 * * *",
+   "line_preset": "daily"
+  },
+  {
+   "job": "vault_digest_tick",
+   "last_utc": "2026-11-24T10:17:02Z",
+   "ok": 1,
+   "fails_today": 0,
+   "quiet": false,
+   "default": "hourly",
+   "line": "17 * * * *",
+   "line_preset": "hourly"
+  },
+  {
+   "job": "releases_tick",
+   "last_utc": "2026-11-19T13:00:03Z",
+   "ok": 1,
+   "fails_today": 0,
+   "quiet": true,
+   "default": "10min",
+   "line": "*/24 * * * *",
+   "line_preset": ""
+  },
+  {
+   "job": "staging_carry_tick",
+   "last_utc": "2026-11-15T12:15:02Z",
+   "ok": 1,
+   "fails_today": 0,
+   "quiet": true,
+   "default": "minute",
+   "line": "*/15 * * * *",
+   "line_preset": "15min"
+  },
+  {
+   "job": "audit_clock_tick",
+   "last_utc": "2026-11-24T10:17:02Z",
+   "ok": 1,
+   "fails_today": 0,
+   "quiet": false,
+   "default": "hourly",
+   "line": "17 * * * *",
+   "line_preset": "hourly"
+  },
+  {
+   "job": "staging_tick",
+   "last_utc": "2026-11-15T10:13:01Z",
+   "ok": 1,
+   "fails_today": 0,
+   "quiet": true,
+   "default": "weekly",
+   "line": "13 3 * * 0",
+   "line_preset": "weekly"
+  },
+  {
+   "job": "staging_push_tick",
+   "last_utc": null,
+   "ok": null,
+   "fails_today": 0,
+   "quiet": true,
+   "default": "minute",
+   "line": "*/18 * * * *",
+   "line_preset": ""
+  },
+  {
+   "job": "staging_night_tick",
+   "last_utc": "2026-11-24T09:13:02Z",
+   "ok": 1,
+   "fails_today": 0,
+   "quiet": false,
+   "default": "nightly",
+   "line": "13 2 * * *",
+   "line_preset": "nightly"
+  },
+  {
+   "job": "frontier_tick",
+   "last_utc": "2026-11-24T10:17:02Z",
+   "ok": 1,
+   "fails_today": 0,
+   "quiet": false,
+   "default": "hourly",
+   "line": "17 * * * *",
+   "line_preset": "hourly"
+  },
+  {
+   "job": "preflight_tick",
+   "last_utc": "2026-11-24T10:15:01Z",
+   "ok": 1,
+   "fails_today": 0,
+   "quiet": false,
+   "default": "15min",
+   "line": "*/15 * * * *",
+   "line_preset": "15min"
+  },
+  {
+   "job": "system_start_tick",
+   "last_utc": "2026-11-18T08:24:02Z",
+   "ok": 1,
+   "fails_today": 0,
+   "quiet": true,
+   "default": "10min",
+   "line": "*/24 * * * *",
+   "line_preset": ""
+  },
+  {
+   "job": "staging_publish_tick",
+   "last_utc": null,
+   "ok": null,
+   "fails_today": 0,
+   "quiet": false,
+   "default": "minute",
+   "line": "*/24 * * * *",
+   "line_preset": ""
+  }
+ ],
+ "missed": {
+  "last_24h": 0,
+  "recent": []
+ },
+ "db_connections": {
+  "max_connections": 150,
+  "max_user_connections": 25,
+  "Threads_connected": 5,
+  "Max_used_connections": 88,
+  "Aborted_connects": 49538,
+  "Connection_errors_max_connections": 0
+ }
+}

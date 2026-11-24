@@ -1,6 +1,6 @@
 # Decision register
 
-Decision 0145 §1a. Generated on 2026-11-23 19:17 UTC from `decisions/` and the live mirror (`130f41a`). Don't edit by hand:
+Decision 0145 §1a. Generated on 2026-11-24 07:17 UTC from `decisions/` and the live mirror (`5eef020`). Don't edit by hand:
 edit the decision, and this follows. "Missing files" are files a decision names that the site no longer has: the
 decision may be stale, or the file moved.
 
@@ -134,7 +134,7 @@ decision may be stale, or the file moved.
 | 0126 | [0126: The gallery, one module for every photo and video](0126-gallery.md) | accepted |  |  | 4 |  |
 | 0127 | [0127: One uploader for every file](0127-one-uploader.md) | accepted |  |  | 4 |  |
 | 0128 | [0128: QuickBooks invoices into Traversence orders, and one product list across both](0128-quickbooks-invoices-and-products.md) | accepted |  |  | 4 |  |
-| 0129 | [0129: The command strip on record pages, and section controls](0129-command-strip.md) | accepted |  | 1 | 1 |  |
+| 0129 | [0129: The command strip on record pages, and section controls](0129-command-strip.md) | accepted |  | 2 | 1 |  |
 | 0130 | [0130: The catalog model, and how it maps to the books](0130-catalog-model-and-books-mapping.md) | accepted |  |  | 0 |  |
 | 0131 | [Place Guides on the Six-Tier Funnel](0131-place-guides.md) | accepted | 0133 | 2 | 5 |  |
 | 0132 | [Tags and Links — What Content Is About, and Who It Reaches](0132-tags-and-links.md) | accepted |  |  | 3 |  |
@@ -183,4 +183,4 @@ decision may be stale, or the file moved.
 | 0175 | [0175: One lifecycle for every module: our services and account apps, from selection to removal, acted on from the board](0175-one-lifecycle-for-every-module.md) | accepted |  | 11 | 1 |  |
 | 0176 | [0176: The dispatcher presents and routes every thread](0176-the-dispatcher-presents-and-routes-every-thread.md) | accepted |  | 8 | 2 |  |
 | 0177 | [0177: One order, several destinations: invoices, tax and the deposit](0177-one-order-several-destinations.md) | accepted |  |  | 0 |  |
-| 0178 | [0178: Order money policy: refunds, cancelling, credit, terms, cards and delivery with a balance](0178-order-money-policy.md) | accepted |  |  | 0 |  |
+| 0178 | [0178: Order money policy: refunds, cancelling, credit, terms, cards and delivery with a balance](0178-order-money-policy.md) | accepted |  | 3 | 0 |  |
