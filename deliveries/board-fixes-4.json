@@ -3,8 +3,8 @@
  "built_on": "8283c24 Sync: 2026-11-23 14:53 UTC",
  "recorded": "2026-11-23 15:49 UTC",
  "note": "Jobs and words with both design reviews; built on Sync 14:53 UTC (replaces the unsent board-fixes-3.zip) Sent through git (releases/inbox).",
- "status": "partial",
- "live_in": "",
+ "status": "live",
+ "live_in": "Release #269 (its files since changed by later releases)",
  "files": {
   "app/admin/control-console.php": {
    "sha256": "fb0adb9da48b1568276cb875dbe12ce6cb63018382b36335092021eb12a38b3f",
@@ -32,7 +32,7 @@
   },
   "app/lib/Operations.php": {
    "sha256": "98c18614b51b1e7c707f080327dac206421437e6f065dcc991f94719cb18e034",
-   "live": true
+   "live": false
   },
   "app/lib/Scheduler.php": {
    "sha256": "b3f7c61f73c50ad312393bdc7d8e391051c5144b6cc4d8d84c8fdc7b18907f2d",

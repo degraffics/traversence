@@ -1,0 +1,30 @@
+{
+ "zip": "task-trip-3.zip",
+ "built_on": "7bece80 Sync: 2026-11-24 01:30 UTC",
+ "recorded": "2026-11-24 02:42 UTC",
+ "note": "A task's trip pressed lifts its own pauses and shows the new state; the trip card's fixes (plain names, one filled action, \u22ef in the card, Waiting for its run); Try it first says when it can't run. Built on Sync 01:30 UTC. Sent through git (releases/inbox).",
+ "status": "live",
+ "live_in": "973d10b Sync: 2026-11-24 02:46 UTC",
+ "files": {
+  "app/admin/control-console.php": {
+   "sha256": "5e80233243308060e280fd263e16c559c08bf9fbdee60a1e8bb44dde8c9d2500",
+   "live": true
+  },
+  "app/admin/crawler-console.php": {
+   "sha256": "cb06773fbf351b78ac371e6f395f74914d29b0c961805f2c938c9ac09384e2e2",
+   "live": true
+  },
+  "app/lib/ControlAlarms.php": {
+   "sha256": "7c87008518ff4b74a06595ee5288b71e065306cd1d13fed7d849c9f7b94b66fa",
+   "live": true
+  },
+  "app/lib/Operations.php": {
+   "sha256": "459d5d14107a18ab6dec2a9078179d55c19f7ba8caa17c469458164bb5bb8a10",
+   "live": true
+  },
+  "app/lib/crawler/CrawlService.php": {
+   "sha256": "1248500911998659458d758ea63fc3d8eb2fd2a005ce4f6e55c6b41054903a4e",
+   "live": true
+  }
+ }
+}
