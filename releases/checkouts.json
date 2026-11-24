@@ -6,9 +6,9 @@
    "functions": [],
    "kind": "change",
    "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
-   "why": "work-queue: Jason's Work queue (Add a task, the queue on Development, its gauge), on Request a fix's record",
+   "why": "work-queue: Jason's Work queue on Development (its gauge, Add a task, each task managed in place)",
    "since": "2026-11-24T12:05:19Z",
-   "expires": "2026-11-24T16:05:19Z",
+   "expires": "2026-11-24T16:54:39Z",
    "release": "work-queue.zip",
    "callers": {}
   },
@@ -17,9 +17,9 @@
    "functions": [],
    "kind": "change",
    "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
-   "why": "work-queue: Jason's Work queue (Add a task, the queue on Development, its gauge), on Request a fix's record",
+   "why": "work-queue: Jason's Work queue on Development (its gauge, Add a task, each task managed in place)",
    "since": "2026-11-24T12:05:19Z",
-   "expires": "2026-11-24T16:05:19Z",
+   "expires": "2026-11-24T16:54:39Z",
    "release": "work-queue.zip",
    "callers": {}
   },
@@ -28,10 +28,10 @@
    "functions": [],
    "kind": "change",
    "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
-   "why": "board-phone-header: the board on a phone, one alarm count, W1's side panel",
+   "why": "work-queue: Jason's Work queue on Development (its gauge, Add a task, each task managed in place)",
    "since": "2026-11-24T12:05:19Z",
-   "expires": "2026-11-24T16:47:52Z",
-   "release": "board-phone-header.zip",
+   "expires": "2026-11-24T16:54:39Z",
+   "release": "work-queue.zip",
    "callers": {
     "tv_cb_table_rows": [
      "app/admin/tools.php"
@@ -40,14 +40,12 @@
   },
   {
    "path": "website/admin/api.php",
-   "functions": [
-    "config/control"
-   ],
+   "functions": [],
    "kind": "change",
    "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
-   "why": "work-queue: Jason's Work queue (Add a task, the queue on Development, its gauge), on Request a fix's record",
+   "why": "work-queue: Jason's Work queue on Development (its gauge, Add a task, each task managed in place)",
    "since": "2026-11-24T12:05:19Z",
-   "expires": "2026-11-24T16:05:19Z",
+   "expires": "2026-11-24T16:54:39Z",
    "release": "work-queue.zip",
    "callers": {}
   },
@@ -164,17 +162,13 @@
   },
   {
    "path": "website/js/admin-control.js",
-   "functions": [
-    "hit",
-    "redraw",
-    "tabsApply"
-   ],
+   "functions": [],
    "kind": "change",
    "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
-   "why": "board-phone-header: the board on a phone, one alarm count, W1's side panel",
+   "why": "work-queue: Jason's Work queue on Development (its gauge, Add a task, each task managed in place)",
    "since": "2026-11-24T12:45:40Z",
-   "expires": "2026-11-24T16:47:52Z",
-   "release": "board-phone-header.zip",
+   "expires": "2026-11-24T16:54:39Z",
+   "release": "work-queue.zip",
    "callers": {}
   }
  ],
