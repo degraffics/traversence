@@ -272,25 +272,6 @@
    "callers": {}
   },
   {
-   "path": "app/lib/staging-tables.php",
-   "functions": [
-    "LINKS",
-    "MONEY",
-    "REFS"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5j2wAgTrKdTwX6kQNY",
-   "why": "M2: order_refund_requests' record links",
-   "since": "2026-11-24T01:03:14Z",
-   "expires": "2026-11-24T05:15:27Z",
-   "release": "order-m2.zip",
-   "callers": {
-    "LINKS": [
-     "app/lib/StagingIds.php"
-    ]
-   }
-  },
-  {
    "path": "app/lib/Customers.php",
    "functions": [
     "(top)",
