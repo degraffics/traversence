@@ -1,6 +1,62 @@
 {
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
- "claims": [],
+ "claims": [
+  {
+   "path": "app/admin/control-console.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
+   "why": "task-scope: a Work queue task's page (scope, priority, steps)",
+   "since": "2026-11-24T13:28:50Z",
+   "expires": "2026-11-24T17:28:50Z",
+   "release": "task-scope.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/GaugeTasks.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
+   "why": "task-scope: a Work queue task's page (scope, priority, steps)",
+   "since": "2026-11-24T13:28:50Z",
+   "expires": "2026-11-24T17:28:50Z",
+   "release": "task-scope.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/admin/api.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
+   "why": "task-scope: a Work queue task's page (scope, priority, steps)",
+   "since": "2026-11-24T13:28:50Z",
+   "expires": "2026-11-24T17:28:50Z",
+   "release": "task-scope.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/js/admin-control.js",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
+   "why": "task-scope: a Work queue task's page (scope, priority, steps)",
+   "since": "2026-11-24T13:28:50Z",
+   "expires": "2026-11-24T17:28:50Z",
+   "release": "task-scope.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/staging-tables.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
+   "why": "task-scope: a Work queue task's page (scope, priority, steps)",
+   "since": "2026-11-24T13:28:50Z",
+   "expires": "2026-11-24T17:28:50Z",
+   "release": "task-scope.zip",
+   "callers": {}
+  }
+ ],
  "lapsed": [
   {
    "path": "app/lib/ClientOrders.php",
