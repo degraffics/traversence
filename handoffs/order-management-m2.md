@@ -144,9 +144,13 @@ VARCHAR (the harness's is); (b) a refund of a payment that wasn't a card: today 
 refund from here"; (c) credit memos stay an admin action without Jason's OK. An admin who isn't a staff login reads as
 the Founder (`Access::who`, the site's rule; EnvSettings uses it too).
 
-**Open (02:16 UTC):** live `order_ledger.kind` is an ENUM without `payment_cancelled` (live read run 45309955001, PR #1331's
-meta read; log deleted). `MODIFY` is refused by the add-only rule, so Cancel the record waits on the session manager's
-call: (A) a new add-only `order_payment_cancels` table (recommended), (B) a one-off exception from Jason, (C) a marked
-column. Until then the zip's reversing row would fail on live: **don't send before this is settled.**
+**Settled (02:15 UTC, the session manager's (A)):** live `order_ledger.kind` is an ENUM without a new kind (read through
+PR #1331's meta read, run 45309955001, log deleted), so Cancel the record writes a new add-only table,
+`order_payment_cancels` (no ledger kind, no `MODIFY`); `Orders::money()`, `invoiceLaterOpen`, Customers' net and
+`ecommerce.php`'s money reports take it off; noted on decisions/0098. The Design reviewer approved M2 (02:15, every
+round), with the tidy made: a refund's facts on its Refunded row ("why · approved by, when · ✓ Sent <time> · ref ✎").
 Order #12 (run 45309920979, log deleted): "Invoice 112906, linked by its number", "Paid in QuickBooks Oct 26 · $809.10 on
-invoice 112906" confirmed; History's "Needs books" says QuickBooks shows $1,111.14 paid against the order's $809.10 lines.
+invoice 112906" confirmed; History's "Needs books" (QuickBooks $1,111.14 paid against the order's $809.10 lines) is with
+Jason through the session manager; no money on #12 changed.
+Zip: 10 site files (adds `website/admin/ecommerce.php`), built on Sync 01:30 (7bece80); the zip check passes clean.
+Tests: m2.php 59/59, m2.cjs all passing at 1280 and 390.

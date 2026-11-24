@@ -27,7 +27,7 @@ require_once $root . '/app/lib/Pulse.php';
 require_once $root . '/app/lib/staging-tables.php';
 require_once $root . '/app/admin/Access.php';
 $pdo = Database::connection();
-foreach (['order_refund_requests'] as $tb) { try { $pdo->exec("DELETE FROM $tb"); } catch (Throwable) {} }
+foreach (['order_refund_requests', 'order_payment_cancels'] as $tb) { try { $pdo->exec("DELETE FROM $tb"); } catch (Throwable) {} }
 $ok = 0; $bad = 0;
 $t = function (string $what, bool $pass, $saw = '') use (&$ok, &$bad) { $pass ? $ok++ : $bad++; echo ($pass ? 'PASS ' : 'FAIL ') . $what . ($pass ? '' : "\n     saw: " . (is_string($saw) ? $saw : json_encode($saw))) . "\n"; };
 $throws = function (callable $f, string $like = '') { try { $f(); return ''; } catch (Throwable $e) { return $like === '' || stripos($e->getMessage(), $like) !== false ? $e->getMessage() : 'OTHER: ' . $e->getMessage(); } };
@@ -53,7 +53,8 @@ Orders::cancelRecord($pdo, $d, (int) $pays[0]['id'], 'Recorded on the wrong orde
 $o = Orders::get($pdo, $d); $m = Orders::money($pdo, $d);
 $t('note: cancelled, it no longer counts as paid ($412.00 → $0.00) and the order still waits for payment', $before === 41200 && $m['paid'] === 0 && $o['status'] === 'pending' && (string) $o['stage'] === '', [$before, $m['paid'], $o['status'], $o['stage']]);
 $rows = $pdo->query("SELECT kind, amount_cents, request_key FROM order_ledger WHERE order_id = $d ORDER BY id")->fetchAll(PDO::FETCH_ASSOC);
-$t('note: the ledger is only added to: the payment stays, a payment_cancelled row keyed cancel-<its row> reverses it', count($rows) === 2 && $rows[1]['kind'] === 'payment_cancelled' && $rows[1]['request_key'] === 'cancel-' . $pays[0]['id'], $rows);
+$cx = $pdo->query("SELECT ledger_id, amount_cents, why FROM order_payment_cancels WHERE order_id = $d")->fetchAll(PDO::FETCH_ASSOC);
+$t('note: the ledger is untouched (the payment stays, no new kind: live\'s kind is an ENUM); order_payment_cancels takes it off, with why', count($rows) === 1 && count($cx) === 1 && (int) $cx[0]['ledger_id'] === (int) $pays[0]['id'] && (int) $cx[0]['amount_cents'] === 41200 && $cx[0]['why'] === 'Recorded on the wrong order', [$rows, $cx]);
 $t('note: the History says so, with why', str_contains($ev($d, 'payment_cancelled'), 'Recorded on the wrong order') && str_contains($ev($d, 'payment_cancelled'), '$412.00'), $ev($d, 'payment_cancelled'));
 $t('note: the cancelled record is gone from the payments; cancelling it again is refused', Orders::payments($pdo, Orders::get($pdo, $d)) === [] && $throws(fn () => Orders::cancelRecord($pdo, $d, (int) $pays[0]['id'], 'again', 1)) !== '');
 // a full payment that started production, cancelled: production waits again
@@ -193,8 +194,9 @@ ClientOrders::cancel($pdo, $u, 'Duplicate order', 1);
 $t('§2: an unpaid order with a work order not yet accepted cancels at once, and the work order stops', Orders::get($pdo, $u)['status'] === 'void' && (string) $pdo->query("SELECT status FROM order_work_orders WHERE id = $wu")->fetchColumn() === 'cancelled');
 
 // ---- setup ----
-$t('setup: order_refund_requests is a money table on staging (R14)', in_array('order_refund_requests', StagingTables::MONEY, true));
+$t('setup: order_refund_requests and order_payment_cancels are money tables on staging (R14)', in_array('order_refund_requests', StagingTables::MONEY, true) && in_array('order_payment_cancels', StagingTables::MONEY, true));
+$t('setup: the cancelled record leaves invoice-later\'s paid sum and Customers\' net too (they read order_payment_cancels)', str_contains(file_get_contents($root . '/app/lib/ClientOrders.php'), 'order_payment_cancels c WHERE c.ledger_id = l.id') && str_contains(file_get_contents($root . '/app/lib/Customers.php'), 'order_payment_cancels'));
 $t('setup: the ledger has qb_payment_id', (bool) $pdo->query("SHOW COLUMNS FROM order_ledger LIKE 'qb_payment_id'")->fetch());
-$t('setup: "Record cancelled" is a ledger kind', (Orders::KINDS['payment_cancelled'] ?? '') === 'Record cancelled');
+$t('setup: no new ledger kind (the ENUM is left as it is)', !isset(Orders::KINDS['payment_cancelled']));
 echo "\n$ok passed, $bad failed\n";
 exit($bad ? 1 : 0);

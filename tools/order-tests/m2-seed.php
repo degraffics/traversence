@@ -9,7 +9,7 @@ putenv('QB_ENV=mock');
 ob_start(); passthru('php ' . escapeshellarg(__DIR__ . '/m1b-seed.php')); ob_end_clean();
 require_once $root . '/app/lib/Database.php'; require_once $root . '/app/lib/Orders.php'; require_once $root . '/app/lib/ClientOrders.php';
 $pdo = Database::connection();
-try { $pdo->exec('DELETE FROM order_refund_requests'); } catch (Throwable) {}
+foreach (['order_refund_requests', 'order_payment_cancels'] as $tb) { try { $pdo->exec("DELETE FROM $tb"); } catch (Throwable) {} }
 $id = fn (string $n) => (int) $pdo->query('SELECT id FROM orders WHERE client_company = ' . $pdo->quote($n))->fetchColumn();
 $pdo->exec("UPDATE orders SET stage = '' WHERE stage IS NULL");
 ob_start(); ClientOrders::recordPayment($pdo, $id('Deposit Co'), 41200, 'check', '2231', 1, false); ob_end_clean();
