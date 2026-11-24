@@ -112,6 +112,34 @@
    "expires": "2026-11-24T07:43:44Z",
    "release": "order-m2b.zip",
    "callers": {}
+  },
+  {
+   "path": "app/admin/control-console.php",
+   "functions": [
+    "tv_admin_mod_control",
+    "tv_cb_afilter",
+    "tv_cb_qbar",
+    "tv_cb_rail",
+    "tv_cb_view_assets"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
+   "why": "board-phone: the board's phone header (\u2630 pages, one Alerts dropdown, one alarm count), the side panel's thread styles, pills in the body font, a pressed trip counted as open",
+   "since": "2026-11-24T04:17:19Z",
+   "expires": "2026-11-24T08:17:19Z",
+   "release": "board-phone.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/js/admin-control.js",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
+   "why": "board-phone: the board's phone header (\u2630 pages, one Alerts dropdown, one alarm count), the side panel's thread styles, pills in the body font, a pressed trip counted as open",
+   "since": "2026-11-24T04:17:19Z",
+   "expires": "2026-11-24T08:17:19Z",
+   "release": "board-phone.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
