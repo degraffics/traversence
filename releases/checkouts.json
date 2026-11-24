@@ -11,7 +11,7 @@
    "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
    "why": "IR-0001: batch keys; the recheck after the reply",
    "since": "2026-11-24T00:04:16Z",
-   "expires": "2026-11-24T04:04:16Z",
+   "expires": "2026-11-24T04:49:08Z",
    "release": "loads-reply.zip",
    "callers": {
     "batch": [
@@ -41,7 +41,7 @@
    "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
    "why": "IR-0001: batch number, reply first then recheck",
    "since": "2026-11-24T00:04:26Z",
-   "expires": "2026-11-24T04:04:26Z",
+   "expires": "2026-11-24T04:49:08Z",
    "release": "loads-reply.zip",
    "callers": {}
   },
@@ -55,7 +55,7 @@
    "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
    "why": "gauge-requests in FLOWS",
    "since": "2026-11-24T00:04:28Z",
-   "expires": "2026-11-24T04:48:45Z",
+   "expires": "2026-11-24T04:49:08Z",
    "release": "loads-reply.zip",
    "callers": {}
   },
@@ -79,9 +79,13 @@
    "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
    "why": "the stale line from AuditClock::staleWhy",
    "since": "2026-11-24T00:06:58Z",
-   "expires": "2026-11-24T04:06:58Z",
+   "expires": "2026-11-24T04:49:08Z",
    "release": "loads-reply.zip",
-   "callers": {}
+   "callers": {
+    "dispatch": [
+     "app/lib/ControlAlarms.php"
+    ]
+   }
   },
   {
    "path": "app/lib/ControlLedger.php",
@@ -93,7 +97,7 @@
    "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
    "why": "W0's count alarm closes in true words",
    "since": "2026-11-24T00:13:39Z",
-   "expires": "2026-11-24T04:48:40Z",
+   "expires": "2026-11-24T04:49:08Z",
    "release": "loads-reply.zip",
    "callers": {}
   },
@@ -118,7 +122,29 @@
    "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
    "why": "open_load_batches in OWN",
    "since": "2026-11-24T00:48:14Z",
-   "expires": "2026-11-24T04:48:43Z",
+   "expires": "2026-11-24T04:49:08Z",
+   "release": "loads-reply.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/migrations/2026-11-24_open_load_batches.sql",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
+   "why": "release loads-reply.zip",
+   "since": "2026-11-24T00:49:08Z",
+   "expires": "2026-11-24T04:49:08Z",
+   "release": "loads-reply.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/api/crawl/index.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
+   "why": "release loads-reply.zip",
+   "since": "2026-11-24T00:49:08Z",
+   "expires": "2026-11-24T04:49:08Z",
    "release": "loads-reply.zip",
    "callers": {}
   }
