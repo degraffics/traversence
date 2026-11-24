@@ -104,6 +104,25 @@ const id = (name) => +sql(`SELECT id FROM orders WHERE client_company = '${name}
     ok(`${w}: §2 the section says the refund and the cancel wait`, /and the order cancelled/.test(await p.evaluate(() => (document.getElementById('mo-wait') || {}).textContent || '')));
     await p.screenshot({ path: `${shots}/m2-cancel-paid-${w}.png` });
 
+    // ---- §1 (b): a refund not by card: Send it back, then ✓ Sent with no Undo, ✎ only for the reference ----
+    const qo = id('QB Open Co');
+    await open(qo, '#money');
+    const sb = await p.evaluate(() => { const n = [...document.querySelectorAll('.co-money .tv-note')].find((x) => /Send it back/.test(x.textContent)); return n && { t: n.textContent.replace(/\s+/g, ' '), x: !!n.querySelector('.tv-note-x'), field: !!n.querySelector('input[name=how]') && !!n.querySelector('button.go') }; });
+    ok(`${w}: (b) "Send it back:" says the Refund Receipt is in QuickBooks and how; its field and ✓ Sent inside the notice; no ×`, sb && /Refund Receipt is in QuickBooks/.test(sb.t) && sb.field && !sb.x, sb);
+    await p.evaluate(() => document.querySelector('.co-money input[name=how]').scrollIntoView({ block: 'center' }));
+    await p.screenshot({ path: `${shots}/m2-send-back-${w}.png` });
+    await p.fill('.co-money form:has(input[name=do][value=refund_sent]) input[name=how]', 'Check 5521');
+    await p.click('.co-money form:has(input[name=do][value=refund_sent]) button.go');
+    ok(`${w}: (b) ✓ Sent asks first`, await yes("It's sent"));
+    const sn = await p.evaluate(() => { const x = document.querySelector('[data-mo-sent]'); return x && { t: x.textContent.replace(/\s+/g, ' ').trim(), undo: /Undo/.test(document.querySelector('.co-money').textContent), pen: (x.querySelector('.cs-ib') || {}).title, note: [...document.querySelectorAll('.co-money .tv-note')].some((n) => /Send it back/.test(n.textContent)) }; });
+    ok(`${w}: (b) the step is replaced by "✓ Sent <time> · Check 5521", ✎ for the reference only, no Undo, the notice gone`, sn && /^✓ Sent .+ · Check 5521$/.test(sn.t) && !sn.undo && /typo in the reference/.test(sn.pen) && !sn.note, sn);
+    await p.keyboard.press('Escape'); await p.waitForTimeout(400);   // the success pop-up closed (Esc), so the line shows
+    await p.evaluate(() => document.querySelector('[data-mo-sent]').scrollIntoView({ block: 'center' }));
+    await p.screenshot({ path: `${shots}/m2-sent-${w}.png` });
+    await p.click('[data-mo-sent] .cs-ib'); await p.fill('[data-mo-editf] input[name=how]', 'Check 5522');
+    await Promise.all([p.waitForNavigation({ timeout: 10000 }).catch(() => {}), p.click('[data-mo-editf] button.go')]); await p.waitForTimeout(500);
+    ok(`${w}: (b) ✎ corrects the reference; the old one in the History`, /Check 5522/.test(await p.evaluate(() => (document.querySelector('[data-mo-sent]') || {}).textContent || '')) && /was: Check 5521/.test(sql(`SELECT note FROM order_events WHERE order_id = ${qo} AND event = 'refund_sent_edited' ORDER BY id DESC LIMIT 1`)));
+
     // ---- the old address ----
     await p.goto(base + '/admin/order.php?id=' + pc, { waitUntil: 'domcontentloaded' });
     ok(`${w}: /admin/order.php?id=<a client order> lands on its order page's Money`, new URL(p.url()).pathname === '/admin/backoffice/orders/' + pc && !!(await p.$('#money')), p.url());
