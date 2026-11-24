@@ -17,14 +17,15 @@ final class AuditClock
 {
     public const SWITCH = 'audit_clock';
     public const REPO = 'degraffics/traversence';
-    /** key (the repository_dispatch type) => [name, workflow file, UTC hours it's asked for] */
+    /** key (the repository_dispatch type) => [name, workflow file, UTC hours it's asked for, what goes stale when it doesn't run (else the caller's)] */
     public const FLOWS = [
         'site-audit' => ['the site audit (code checks, page tree, deliveries)', 'site-audit.yml', [7, 19]],
         'site-checks' => ['the browser checks and the paths', 'site-checks.yml', [9]],
         'search-probe' => ['the search probe and the phone layout', 'search-probe.yml', [10]],
         // the gauge panel's requests, hourly (GitHub skipped the workflow's own schedule, 2026-11-23): build-requests.json for
         // the session manager's routing (tools/page-audit/gauge-requests.mjs)
-        'gauge-requests' => ['the gauge panel\'s requests', 'gauge-requests.yml', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]],
+        'gauge-requests' => ['the hand-off of gauge fix requests', 'gauge-requests.yml', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
+            'New requests may not have reached a build, and who has each one may be out of date.'],   // its own consequence (the Design reviewer, 2026-11-24)
     ];
     /** a workflow with no finished run for this long is stale (hours) */
     public const STALE_H = 26;
@@ -152,6 +153,17 @@ final class AuditClock
     }
 
     /** The workflows that haven't run in STALE_H hours (from runs()). */
+    /**
+     * "No run in 26 hours: <names>. <what goes stale>": a workflow with its own consequence says it; the rest share the caller's
+     * ($default: what's true of the audit's readings). $stale: stale()'s rows, keyed by workflow.
+     */
+    public static function staleWhy(array $stale, string $default): string
+    {
+        $own = []; $shared = false;
+        foreach (array_keys($stale) as $k) { $w = (string) (self::FLOWS[$k][3] ?? ''); if ($w !== '') $own[$w] = true; else $shared = true; }
+        return 'No run in ' . self::STALE_H . ' hours: ' . implode(', ', array_column($stale, 'name')) . '.' . ($shared ? ' ' . $default : '') . ($own ? ' ' . implode(' ', array_keys($own)) : '');
+    }
+
     public static function stale(PDO $pdo): array
     {
         if (self::staging()) return [];
