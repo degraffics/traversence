@@ -151,28 +151,62 @@
   {
    "path": "app/lib/Orders.php",
    "functions": [
-    "(top)"
+    "(top)",
+    "money"
    ],
    "kind": "change",
    "session": "session_01CXLi5j2wAgTrKdTwX6kQNY",
-   "why": "M2: refunds wait for Jason's OK (0178 \u00a71), Cancel the record, the reversing kind",
+   "why": "M2: a cancelled payment record takes it out of what's paid",
    "since": "2026-11-24T01:02:25Z",
-   "expires": "2026-11-24T05:02:25Z",
+   "expires": "2026-11-24T05:24:00Z",
    "release": "order-m2.zip",
-   "callers": {}
+   "callers": {
+    "money": [
+     "app/admin/tools.php",
+     "app/lib/ClientOrders.php",
+     "app/lib/Pulse.php",
+     "app/lib/QbPull.php",
+     "app/lib/WorkOrders.php",
+     "website/admin/client-order.php",
+     "website/admin/ecommerce.php",
+     "website/admin/order.php",
+     "website/order.php"
+    ]
+   }
   },
   {
    "path": "app/lib/ClientOrders.php",
    "functions": [
-    "(top)"
+    "(top)",
+    "boardState",
+    "cancel",
+    "invoiceLaterOpen",
+    "recordPayment"
    ],
    "kind": "change",
    "session": "session_01CXLi5j2wAgTrKdTwX6kQNY",
-   "why": "M2: cancel until the vendor accepts (0178 \u00a72); the posted payment id",
+   "why": "M2: the cancel window (0178 \u00a72), the posted payment id, a cancelled record not counted, the dispute's step",
    "since": "2026-11-24T01:02:27Z",
-   "expires": "2026-11-24T05:02:27Z",
+   "expires": "2026-11-24T05:23:54Z",
    "release": "order-m2.zip",
-   "callers": {}
+   "callers": {
+    "boardState": [
+     "app/admin/tools.php",
+     "website/admin/client-order.php"
+    ],
+    "cancel": [
+     "app/admin/workflows.php",
+     "app/lib/Pulse.php",
+     "website/admin/client-order.php"
+    ],
+    "recordPayment": [
+     "app/lib/Pulse.php",
+     "website/admin/client-order.php"
+    ],
+    "invoiceLaterOpen": [
+     "app/lib/Pulse.php"
+    ]
+   }
   },
   {
    "path": "app/lib/Pulse.php",
@@ -238,34 +272,16 @@
    "callers": {}
   },
   {
-   "path": "app/lib/staging-tables.php",
-   "functions": [
-    "LINKS",
-    "MONEY",
-    "REFS"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5j2wAgTrKdTwX6kQNY",
-   "why": "M2: order_refund_requests' record links",
-   "since": "2026-11-24T01:03:14Z",
-   "expires": "2026-11-24T05:15:27Z",
-   "release": "order-m2.zip",
-   "callers": {
-    "LINKS": [
-     "app/lib/StagingIds.php"
-    ]
-   }
-  },
-  {
    "path": "app/lib/Customers.php",
    "functions": [
+    "(top)",
     "sync"
    ],
    "kind": "change",
    "session": "session_01CXLi5j2wAgTrKdTwX6kQNY",
    "why": "M2: a cancelled payment record isn't counted as spent",
    "since": "2026-11-24T01:06:51Z",
-   "expires": "2026-11-24T05:06:51Z",
+   "expires": "2026-11-24T05:24:03Z",
    "release": "order-m2.zip",
    "callers": {
     "sync": [
