@@ -18,6 +18,100 @@
    "expires": "2026-11-24T06:32:45Z",
    "release": "task-trip.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/ClientOrders.php",
+   "functions": [
+    "(top)",
+    "boardState",
+    "deliverables"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5j2wAgTrKdTwX6kQNY",
+   "why": "M2b: public, for the Delivery line's panes",
+   "since": "2026-11-24T03:02:52Z",
+   "expires": "2026-11-24T07:43:44Z",
+   "release": "order-m2b.zip",
+   "callers": {
+    "boardState": [
+     "app/admin/tools.php",
+     "website/admin/client-order.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/WorkOrders.php",
+   "functions": [
+    "(top)",
+    "moveItems",
+    "setTracking"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5j2wAgTrKdTwX6kQNY",
+   "why": "M2b: delivered by where the work order goes (goesTo)",
+   "since": "2026-11-24T03:02:55Z",
+   "expires": "2026-11-24T07:43:44Z",
+   "release": "order-m2b.zip",
+   "callers": {
+    "setTracking": [
+     "app/admin/tools.php"
+    ]
+   }
+  },
+  {
+   "path": "website/admin/client-order.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5j2wAgTrKdTwX6kQNY",
+   "why": "M2b: the Delivery line's legs and Change how it goes",
+   "since": "2026-11-24T03:02:57Z",
+   "expires": "2026-11-24T07:43:44Z",
+   "release": "order-m2b.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ClientOrders.php",
+   "functions": [
+    "legs"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5j2wAgTrKdTwX6kQNY",
+   "why": "M2b: how it goes, the two legs",
+   "since": "2026-11-24T03:23:32Z",
+   "expires": "2026-11-24T07:23:32Z",
+   "release": "order-m2b.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/WorkOrders.php",
+   "functions": [
+    "goesTo",
+    "legWords",
+    "setDelivery",
+    "tellVendor"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5j2wAgTrKdTwX6kQNY",
+   "why": "M2b: a vendor email that didn't go, kept for Send again",
+   "since": "2026-11-24T03:23:36Z",
+   "expires": "2026-11-24T07:36:19Z",
+   "release": "order-m2b.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/tools.php",
+   "functions": [
+    "'backoffice/work_orders'",
+    "backoffice/production",
+    "backoffice/work_orders"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5j2wAgTrKdTwX6kQNY",
+   "why": "M2b: Courier booked on a Will Call work order too",
+   "since": "2026-11-24T03:23:49Z",
+   "expires": "2026-11-24T07:43:44Z",
+   "release": "order-m2b.zip",
+   "callers": {}
   }
  ],
  "lapsed": [

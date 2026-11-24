@@ -247,6 +247,12 @@ question again; it lists what's still open at the top of its replies as **"Waiti
 session's name), and asks only its own questions. **Sessions merge their own PR** once Jason approves it in the pop-up
 (Jason, 2026-11-18: no waiting on the session manager), then tell it the merge; it runs the sync and records deliveries.
 
+**Decision or release: said every time** (Jason, 2026-11-24: "make the decisions vs work to live very clear"). Every
+pop-up's first words say which it is: **"Decision (nothing changes on the site yet): goes live in <release>, <its
+place in the queue>"** or **"Release (live about 10 minutes after merge): <what you'll see, and where>"**. Replies say
+"live" only for what's synced and byte-checked. The session manager keeps `handoffs/decided-not-live.md` (each
+decision, its release, its place) current with every approval and every release, and its top line in each reply.
+
 ## A link for every place Jason acts (Jason, 2026-11-16): every reply
 
 When a reply sends Jason somewhere to do something (an admin page, a console, a settings screen, a form), give its full
@@ -284,6 +290,11 @@ processed has Cancel the record; one processed (charged or posted to QuickBooks)
 record's or row's inline actions (Edit ✎, Copy, Open in a service ↗, Evidence, History, ⋯) are 30px round `tv_icon()`
 buttons in the card style, `title` and `aria-label` naming the action and target ("Open Google Cloud billing as …").
 The view's one primary action (Fix it, Take a payment, Place an order) and state sentences stay words.
+**Outside links open in the browser** (Jason, 2026-11-24: "Sure", to "Should the outside urls open in browser vs in
+app?"): services that need a sign-in (QuickBooks, Railway, Google Cloud, Cloudflare, AWS…) open in the browser
+(`target="_blank" rel="noopener"`, an ↗ icon whose title names the service and the account); our own pages open in Peek.
+On phones, the first outside tap shows one dismissible line: "Opens in your browser. If it asks you to sign in, sign in
+there once and choose 'keep me signed in'." (Android decides how an installed app opens them; we control the marking.)
 **A list or a process?** (Jason, 2026-11-23) It's a process if step B needs step A's result, or they all build to one
 outcome; a list if they could sensibly be done in any order. A list is a queue (what needs you first, filtered by its
 tiles), each row its own cycle, counts dropping as items clear, a batch action only where one fix applies to many. A
