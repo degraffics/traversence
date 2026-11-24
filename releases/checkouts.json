@@ -259,6 +259,23 @@
    "expires": "2026-11-24T05:56:40Z",
    "release": "task-trip.zip",
    "callers": {}
+  },
+  {
+   "path": "app/admin/control-console.php",
+   "functions": [
+    "tv_cb_alarms"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
+   "why": "The pressed state on the board's row",
+   "since": "2026-11-24T02:05:19Z",
+   "expires": "2026-11-24T06:05:19Z",
+   "release": "task-trip.zip",
+   "callers": {
+    "tv_cb_alarms": [
+     "app/lib/ControlConsistency.php"
+    ]
+   }
   }
  ],
  "lapsed": [
