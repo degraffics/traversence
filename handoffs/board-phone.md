@@ -16,6 +16,7 @@ Its send waits for order-m2b's `faq.md` (the only file it shares with a pending 
 | `app/admin/tools.php` | `config/alarms`: the Alarms table's Open is the one count; notices under Notices (`board-phone/tools-edits.py`, re-applied on the live copy: order-m2b carries `tools.php` too) |
 | `app/lib/ControlBoard.php` | `boardLight`: a part whose trips all started again is amber, "Waiting for its run", never "Tripped: stopped" (the board and the historian) |
 | `app/lib/Scheduler.php` | `JOBS`: seven daily jobs' late limits (30–600 min) set to 1560, as `market_tick` and `billing_tick` |
+| `app/lib/AuditClock.php` | `dispatch`: no answer at all is tried once more after 5 s, and the connection's own error kept |
 | `app/ui/faq.md` | "How it opens" and "The light in the admin's top bar" entries (`board-phone/faq-edits.py`) |
 
 ## Each behaviour and its source
@@ -62,6 +63,19 @@ Its send waits for order-m2b's `faq.md` (the only file it shares with a pending 
     `identity_recheck_tick`, `data_cleanup_tick`); set to 1560, as `market_tick` and `billing_tick`. Live read at 05:24 UTC:
     all seven Late after running 16 hours earlier. The board's own "is late" alarms count from the schedule and were right.
 
+14. **The audit clock, no answer from GitHub: tried again after 5 seconds, its own error kept.** The session manager,
+    2026-11-24 (gauge-requests had no run 02:17 to 05:02 UTC). Live `job_runs` (read through the test Executive): the clock's
+    hourly cron job (`audit_clock_tick`, cPanel, :17) ran every hour and needs no visitors; at 03:17 and 04:17 UTC its
+    request got no HTTP status at all ("Couldn't ask for gauge-requests: GitHub said nothing", finished the same second),
+    and the reason was thrown away; 02:17 and 05:17 worked. Principle 1 (the system tries first); the next hour still asks.
+
+## Still open (to the session manager)
+
+- **Lead scores (`sales_tick`) hasn't started since 01:17 UTC** (Scheduled tasks on live, 05:24 UTC: "last ran 4 hours
+  ago", while the other :17 jobs ran at 05:17). Its script records its start first and runs clean on the bench, so on
+  live it isn't being started, or its start is refused (`Scheduler::missed`, shown in `/api/health.php`'s jobs section).
+  Needs the server's side: its cron line's output, or the health report's misses.
+
 ## Kept, moved, dropped
 
 - The rail's five entries, their counts, icons and order: **kept** at 768px and wider; **moved** into the ☰ on phones.
@@ -90,6 +104,7 @@ Its send waits for order-m2b's `faq.md` (the only file it shares with a pending 
   or the ☰, shared).
 - Updated for the new header: `board-opening.cjs`, `board-tabs.cjs`, `board-views.cjs`, `gauge-panel.cjs`,
   `board-views.php` (D5's rule), `board-words.php` (the Sync group).
+- `audit-clock-retry.php` (2; on the live code both fail: no retry, "GitHub said nothing").
 - `rendered-all.sh`: 642 passed, 1 known (the `lines` seed note, as on live). `run-all.sh`: only the 7 known live failures.
 - Rendered with sample state on the bench; the real run happens on live.
 

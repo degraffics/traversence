@@ -2,14 +2,38 @@
  "title": "The Control Board on a phone: the board's pages under ☰, one Alerts dropdown with one alarm count, and W1's side panel drawn right",
  "why": "Jason, 2026-11-24, from his 390px screenshot: \"1 full width dropdown for alerts … instead of this visual chaos\", then \"Or a hamburger menu for pages like we've used before?\". The board's top had a row of five chips and a wrapped row of five pages, and four numbers for one list (the top bar 12, the chips and the rail 14, the alarm filter and the Alarms table 32: 02-state-model P9 and ControlAlarms::counts already say one number). His 7:46 PM screenshot of W1's side panel ran the card's parts together, stood a tall green bar beside the card, and set its pills in a code font. Reviewed by the Design reviewer and the session manager.",
  "changes": [
-  {"what": "On a phone, the board's pages (Development, Board, Modules, Workflows, Diagnostics, with their counts) are under ☰ at the top left, naming the page you're on; the wrapped row is gone. At 768px and wider the rail stays on the left", "where": "https://traversence.com/admin/config/control"},
-  {"what": "One Alerts dropdown in place of the row of chips (full width on a phone): its count and each group's count (\"2 trips · 9 warnings · 2 caps\"), and inside, Trips, Warnings, Caps, Checks, Sync, Hosts, Seen (listed, not counted) and Paused now, each with its count and its items; ×, Esc and a click outside close it", "where": "https://traversence.com/admin/config/control"},
-  {"what": "One alarm count everywhere: the top bar's light, Alerts, the Board count, the alarm queue's Open alarms and the Alarms table's Open all count every open trip (seen, pressed and waiting for its run, or not) and the warnings not yet seen; notices are under Notices; the queue's filter shows with the queue (Diagnostics → Observation and reporting)", "where": "https://traversence.com/admin/config/control?tab=alarms"},
-  {"what": "A process's page (W1's, in the side panel): each part of an alarm on its own line again, a pressed trip listed (never \"Nothing here for this filter.\"), pills in the body font, and a press's answer on a line of its own under the card, never a tall bar beside it", "where": "https://traversence.com/admin/config/control/wf-W1"}
-,
-  {"what": "A part whose trips were all started again (Check and start again pressed, waiting for the run that checks it) reads Waiting for its run, amber, in the systems table and on its row's light, never \"Tripped: stopped until an admin resolves it\"", "where": "https://traversence.com/admin/config/control?tab=observe"},
-  {"what": "Scheduled tasks: seven daily jobs no longer say Late hours before they're due (their late limit is a day plus two hours, as the other daily jobs)", "where": "https://traversence.com/admin/config/control?tab=scheduler"},
-  {"what": "A gauge section on a phone: its Copy on its heading's line, its two columns of gauges to the card's edges", "where": "https://traversence.com/admin/config/control"}
+  {
+   "what": "On a phone, the board's pages (Development, Board, Modules, Workflows, Diagnostics, with their counts) are under ☰ at the top left, naming the page you're on; the wrapped row is gone. At 768px and wider the rail stays on the left",
+   "where": "https://traversence.com/admin/config/control"
+  },
+  {
+   "what": "One Alerts dropdown in place of the row of chips (full width on a phone): its count and each group's count (\"2 trips · 9 warnings · 2 caps\"), and inside, Trips, Warnings, Caps, Checks, Sync, Hosts, Seen (listed, not counted) and Paused now, each with its count and its items; ×, Esc and a click outside close it",
+   "where": "https://traversence.com/admin/config/control"
+  },
+  {
+   "what": "One alarm count everywhere: the top bar's light, Alerts, the Board count, the alarm queue's Open alarms and the Alarms table's Open all count every open trip (seen, pressed and waiting for its run, or not) and the warnings not yet seen; notices are under Notices; the queue's filter shows with the queue (Diagnostics → Observation and reporting)",
+   "where": "https://traversence.com/admin/config/control?tab=alarms"
+  },
+  {
+   "what": "A process's page (W1's, in the side panel): each part of an alarm on its own line again, a pressed trip listed (never \"Nothing here for this filter.\"), pills in the body font, and a press's answer on a line of its own under the card, never a tall bar beside it",
+   "where": "https://traversence.com/admin/config/control/wf-W1"
+  },
+  {
+   "what": "A part whose trips were all started again (Check and start again pressed, waiting for the run that checks it) reads Waiting for its run, amber, in the systems table and on its row's light, never \"Tripped: stopped until an admin resolves it\"",
+   "where": "https://traversence.com/admin/config/control?tab=observe"
+  },
+  {
+   "what": "Scheduled tasks: seven daily jobs no longer say Late hours before they're due (their late limit is a day plus two hours, as the other daily jobs)",
+   "where": "https://traversence.com/admin/config/control?tab=scheduler"
+  },
+  {
+   "what": "A gauge section on a phone: its Copy on its heading's line, its two columns of gauges to the card's edges",
+   "where": "https://traversence.com/admin/config/control"
+  },
+  {
+   "what": "The site's audit clock: when GitHub doesn't answer its hourly request at all, it tries again 5 seconds later and keeps the connection's own error (at 03:17 and 04:17 UTC it said only \"GitHub said nothing\" and gauge-requests waited three hours)",
+   "where": "https://traversence.com/admin/config/control?tab=scheduler"
+  }
  ],
  "proposals": [],
  "switch": ""
