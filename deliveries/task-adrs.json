@@ -20,7 +20,7 @@
   },
   "app/migrations/2026-11-24_task_adrs.sql": {
    "sha256": "5013189dc3707e01664a0cbabc8763019fb2b33c079ebf125634bd44ddcf3255",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "9d1746856b55318efab6ef81cdc0ee279ff6850d4f6c47edee0d6247f9a863dd",
