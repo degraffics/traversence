@@ -110,13 +110,14 @@
   {
    "path": "app/lib/staging-tables.php",
    "functions": [
+    "(top)",
     "OWN"
    ],
    "kind": "change",
    "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
-   "why": "open_load_batches: a load's batch keys (IR-0001)",
+   "why": "open_load_batches in OWN",
    "since": "2026-11-24T00:48:14Z",
-   "expires": "2026-11-24T04:48:14Z",
+   "expires": "2026-11-24T04:48:43Z",
    "release": "loads-reply.zip",
    "callers": {}
   }
