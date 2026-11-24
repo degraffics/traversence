@@ -6,12 +6,12 @@
     "zip": "board-phone-header.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "planned",
+    "state": "approved",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
-    "plan_at": null,
+    "plan_at": "2026-11-24 12:51:30",
     "staged_at": null,
     "vetted_at": null,
     "live_at": null,
@@ -79,6 +79,16 @@
             "at": "2026-11-24T12:51:28+00:00",
             "by": 0,
             "msg": "Uploaded board-phone-header.zip: 11 files."
+        },
+        {
+            "at": "2026-11-24T12:51:30+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/board-phone-header.zip (git 0b3447a95f)."
+        },
+        {
+            "at": "2026-11-24T12:51:30+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
         }
     ]
 }
