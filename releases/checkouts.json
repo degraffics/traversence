@@ -8,7 +8,7 @@
    "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
    "why": "task-adrs: the decisions attached to a Work queue task",
    "since": "2026-11-24T13:33:53Z",
-   "expires": "2026-11-24T17:33:53Z",
+   "expires": "2026-11-24T17:34:18Z",
    "release": "task-adrs.zip",
    "callers": {}
   },
@@ -30,7 +30,7 @@
    "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
    "why": "task-adrs: the decisions attached to a Work queue task",
    "since": "2026-11-24T13:33:53Z",
-   "expires": "2026-11-24T17:33:53Z",
+   "expires": "2026-11-24T17:34:18Z",
    "release": "task-adrs.zip",
    "callers": {}
   },
@@ -41,7 +41,7 @@
    "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
    "why": "task-adrs: the decisions attached to a Work queue task",
    "since": "2026-11-24T13:33:53Z",
-   "expires": "2026-11-24T17:33:53Z",
+   "expires": "2026-11-24T17:34:18Z",
    "release": "task-adrs.zip",
    "callers": {}
   },
@@ -52,7 +52,29 @@
    "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
    "why": "task-adrs: the decisions attached to a Work queue task",
    "since": "2026-11-24T13:33:53Z",
-   "expires": "2026-11-24T17:33:53Z",
+   "expires": "2026-11-24T17:34:18Z",
+   "release": "task-adrs.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/migrations/2026-11-24_task_adrs.sql",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
+   "why": "release task-adrs.zip",
+   "since": "2026-11-24T13:34:18Z",
+   "expires": "2026-11-24T17:34:18Z",
+   "release": "task-adrs.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/GaugeTasks.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
+   "why": "release task-adrs.zip",
+   "since": "2026-11-24T13:34:18Z",
+   "expires": "2026-11-24T17:34:18Z",
    "release": "task-adrs.zip",
    "callers": {}
   }
