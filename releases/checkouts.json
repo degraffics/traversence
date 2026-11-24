@@ -82,13 +82,14 @@
    "functions": [
     "goesTo",
     "legWords",
-    "setDelivery"
+    "setDelivery",
+    "tellVendor"
    ],
    "kind": "add",
    "session": "session_01CXLi5j2wAgTrKdTwX6kQNY",
-   "why": "M2b: where a work order goes, and changing it",
+   "why": "M2b: a vendor email that didn't go, kept for Send again",
    "since": "2026-11-24T03:23:36Z",
-   "expires": "2026-11-24T07:23:40Z",
+   "expires": "2026-11-24T07:36:19Z",
    "release": "order-m2b.zip",
    "callers": {}
   },
