@@ -1,0 +1,54 @@
+{
+ "zip": "board-phone-header.zip",
+ "built_on": "5eef020 Sync: 2026-11-24 03:54 UTC",
+ "recorded": "2026-11-24 12:48 UTC",
+ "note": "board-phone-header: the Control Board on a phone (\u2630 for its pages, one Alerts dropdown, one alarm count), W1's side panel drawn right, the daily jobs' late limits, the audit clock's retry, the health report's jobs section; reviewed by the Design reviewer and the session manager; built on Sync: 03:54 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/control-console.php": {
+   "sha256": "ba31dc53841958a2362f33da7fb78fdb54821c0be2381da22717ce9c71f30640",
+   "live": false
+  },
+  "app/admin/tools.php": {
+   "sha256": "68e4902fe7101ec6988a9ca25b5a9b74ad4bb1536b9bc8f2b046fd4403e3d9a8",
+   "live": false
+  },
+  "app/lib/AuditClock.php": {
+   "sha256": "4c641424f27a9277c3469476f216f2404f3cce50b3eb01382750d0ad59b59af5",
+   "live": false
+  },
+  "app/lib/ControlAlarms.php": {
+   "sha256": "a898da6cbb393211f07aa55bef4d4dcb8e1361237a31335652dce81f23118068",
+   "live": false
+  },
+  "app/lib/ControlBoard.php": {
+   "sha256": "1eb491bb7eaac6ee774f82d05f31c3141052b3400075cd00bde3717a28282ea3",
+   "live": false
+  },
+  "app/lib/Scheduler.php": {
+   "sha256": "e35ab4912a797ff9b926788b2308eed27d6f45a5c5ace5a48b93da3c207ce970",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "17de04ab6d9862433d4156d6bfef7fa8f3da1813786c39800dcf216d94ef4bcd",
+   "live": false
+  },
+  "website/admin/router.php": {
+   "sha256": "63e9129cf4f03db8249f305da0758a9465d3edf1d319d3eaed9ac3e79e121f79",
+   "live": false
+  },
+  "website/api/health.php": {
+   "sha256": "88ae2f879ffbdf2bc12d7698fe67fa53605b0c038f720b23b6f22f0ec0d27577",
+   "live": false
+  },
+  "website/js/admin-control.js": {
+   "sha256": "c22a6f535ca43c51a5d70f834616c7aa454ba4b5034d549184435524c0d404bb",
+   "live": false
+  },
+  "website/js/tv-ask.js": {
+   "sha256": "e63229d90b84f1eb1c01a73570659a22f66fe17e169dcf6fadc254f5ffc2b242",
+   "live": false
+  }
+ }
+}
