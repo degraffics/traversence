@@ -176,3 +176,39 @@ Tests: m2.php 59/59, m2.cjs all passing at 1280 and 390.
    No outside booking (courier API, freight quote): named as later. The note goes on decisions/0101.
 3. The Design reviewer's 7–10 (Files & versions and Shipping at 390: stacked add-a-document form through TvUpload, ⓘ for
    the explanations, phone cards for the per-item table, the manifest's print icon).
+
+## M2 live (2026-11-24 02:52 UTC)
+
+Release #279 (order-m2), Sync 02:52 UTC (2eab529), recorded live in #1340. PR #1333 merged (f9f00d39).
+
+## M2b "How it goes": the mapping (first draft, the M2 session, 2026-11-24)
+
+Jason: "I need to be able to modify. If I schedule a courier or ship vs will call. With competition printing I ask for
+will call, then schedule courier for local delivery or assign freight, or drop ship." Then: "check adrs for previous
+established methods" (CLAUDE.md #1334). Every value below already exists; nothing is named new.
+
+An order goes in **two legs**, and each already has its own field:
+1. **Vendor → us, or vendor → the client** (the work order): `order_work_orders.delivery`, `WorkOrders::DELIVERY`
+   (decisions/0101 work orders step 1): Will Call (we pick it up), Internal Transfer, Blind Drop Ship (the vendor ships
+   straight to the client, unbranded), Local Delivery, Next-day Courier, Ship USPS / UPS / FedEx, Freight; and
+   "Courier booked: add tracking" (courier, number; 0101, 2026-10-28), shown on the vendor's page and emailed to them.
+2. **Us → the client** (the order and its items):
+   - the order: `orders.ship_mode` (`Shipments::MODES`, 0101 addendum 2026-10-21): No shipping, with
+     `no_ship_reason` (Electronic delivery, Customer will call, None), One address, Several destinations;
+     `order_addresses` carries a method per destination; and `orders.delivery` (`ClientOrders::delivery()`: pickup,
+     ship), which the Delivery line reads today;
+   - an item: its ship style (0101 addendum 2026-10-16): Drop Ship, Courier, Pick Up, with carrier (USPS, UPS, FedEx,
+     Other) and tracking.
+
+Jason's cases, in existing values:
+- "Will call, then a courier for local delivery": work order **Will Call** (leg 1), then the item or destination
+  **Courier**, with the courier and number (leg 2).
+- "Assign freight": work order **Freight** (leg 1), or the destination's method for leg 2.
+- "Drop ship": work order **Blind Drop Ship** (leg 1 is the whole trip; there's no leg 2).
+- "Ship vs will call": leg 2's mode or style (ship versus Customer will call / Pick Up).
+
+Still to read before the design: 0040 (delivery_method, freight_ltl), 0099 (fulfilment statuses) and 0112 (ship_rules,
+local pickup). The question for the session manager is which field the Delivery line reads so the levels never disagree.
+Proposed: the line reads leg 2 (`orders.delivery` / `ship_mode`, the items' styles); it shows leg 1 as its first step
+while the vendor has it. "Change how it goes…" is ✎ on each leg's existing field, never a new list. A leg-1 change goes
+to the vendor through the existing work-order email ("Tell the vendor").
