@@ -7,7 +7,7 @@ Zip: `work-queue.zip`, **built on Sync 12:54 UTC (ec58f7e)** after board-phone-h
 `control-console.php` and `admin-control.js` carry board-phone-header's changes), so it goes after that release is live and
 synced: then rebuild those two files from the live copies with only this build's change re-applied, run
 `work-queue/faq-edits.py` on the live `faq.md`, zip check, send.
-State: **approved by Jason (2026-11-24, this session's pop-up), sent to the inbox.**
+State: **live as Release #281** (2026-11-24 12:56 UTC; its migration ran first at publish; byte-checked in Sync 12:58 UTC, 7558fa0). Approved by Jason in this session's pop-up.
 
 ## Files
 
