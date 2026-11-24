@@ -170,8 +170,8 @@
    "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
    "why": "The started state drops the stale pause line",
    "since": "2026-11-24T01:56:35Z",
-   "expires": "2026-11-24T06:34:16Z",
-   "release": "task-trip-2.zip",
+   "expires": "2026-11-24T06:41:54Z",
+   "release": "task-trip-3.zip",
    "callers": {
     "resolve": [
      "app/admin/automation-console.php",
@@ -237,8 +237,8 @@
    "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
    "why": "Try it first says when it won't run",
    "since": "2026-11-24T01:56:40Z",
-   "expires": "2026-11-24T06:34:16Z",
-   "release": "task-trip-2.zip",
+   "expires": "2026-11-24T06:41:54Z",
+   "release": "task-trip-3.zip",
    "callers": {
     "runNext": [
      "app/admin/crawler-console.php",
@@ -253,8 +253,8 @@
    "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
    "why": "Try it first says when it won't run",
    "since": "2026-11-24T01:56:40Z",
-   "expires": "2026-11-24T06:34:16Z",
-   "release": "task-trip-2.zip",
+   "expires": "2026-11-24T06:41:54Z",
+   "release": "task-trip-3.zip",
    "callers": {}
   },
   {
@@ -264,8 +264,8 @@
    "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
    "why": "Try it first says when it won't run",
    "since": "2026-11-24T01:56:40Z",
-   "expires": "2026-11-24T06:34:16Z",
-   "release": "task-trip-2.zip",
+   "expires": "2026-11-24T06:41:54Z",
+   "release": "task-trip-3.zip",
    "callers": {}
   },
   {
@@ -280,8 +280,8 @@
    "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
    "why": "The trip card's one action, icon, \u22ef and styles",
    "since": "2026-11-24T02:05:19Z",
-   "expires": "2026-11-24T06:34:16Z",
-   "release": "task-trip-2.zip",
+   "expires": "2026-11-24T06:41:54Z",
+   "release": "task-trip-3.zip",
    "callers": {
     "tv_cb_alarms": [
      "app/lib/ControlConsistency.php"
