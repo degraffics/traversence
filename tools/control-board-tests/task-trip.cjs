@@ -23,12 +23,17 @@ const srv = spawn('php', ['-S', '127.0.0.1:' + port, path.join(__dirname, 'board
         t(L + 'one Status sentence: "W1 is paused by the system since …, after Overture Maps Places\' read failed (run #1290). Seen by Jason, …."', /W1 is paused by the system since .+, after Overture Maps Places' read failed \(run #1290\)\. Seen by Jason, /.test(a) && !a.includes('(W1 ('), a.slice(0, 300));
         t(L + '…one action, Check and start again; no Undo; no loose "by Jason…" line', (await card(ov).locator('button', { hasText: /^Check and start again$/ }).count()) === 1 && !/\bUndo\b/.test(a) && !/It stays open while it holds/.test(a));
         t(L + '…What the system is doing and What to do in its words, no brackets in brackets, no "Recovered"', a.includes('Only W1 waits; everything else carries on. It closes as Fixed when this task\'s next run works.') && a.includes('Then Check and start again: W1 runs, and its next run is this task\'s check.') && !a.includes('Recovered') && !a.includes('(its tasks wait with it)'), a.slice(0, 500));
+        t(L + '…its title in plain words: "Overture Maps Places\' read failed (run #1290)", no raw id', a.includes("Overture Maps Places' read failed (run #1290)") && !a.includes('overture_bulk'), a.slice(0, 120));
+        t(L + '…Check and start again the one filled button; no second "Open its run"', (await card(ov).locator('button.go', { hasText: /^Check and start again$/ }).count()) === 1 && !a.includes('Open its run'));
+        t(L + '…its pill "Trip" (red) while it holds', (await card(ov).locator('.cb-pill-bad', { hasText: 'Trip' }).count()) === 1);
         t(L + '…Run #1290 an evidence icon with its title', (await card(ov).locator('a.cb-ic[title="Open Run #1290: what it did and why"]').count()) === 1);
         const more = card(ov).locator('details.cb-more');
         await more.locator('summary').click(); await p.waitForTimeout(150);
         t(L + '…⋯ opens Try it first on the next run and Pause the task', await more.evaluate(d => d.open) && (await more.locator('.cb-menu button').allTextContents()).join('|') === 'Try it first on the next run|Pause the task');
         const mb = await more.locator('.cb-menu').boundingBox();
         t(L + '…the menu wholly in the window', mb && mb.x >= 0 && mb.x + mb.width <= w + 1, mb);
+        const cbx = await card(ov).boundingBox();
+        t(L + '…and wholly inside the card, never clipped by its edge', mb && cbx && mb.y >= cbx.y - 1 && mb.y + mb.height <= cbx.y + cbx.height + 1 && mb.x >= cbx.x - 1 && mb.x + mb.width <= cbx.x + cbx.width + 1, { mb, cbx });
         if (shots) await card(ov).screenshot({ path: `${shots}/task-trip-before-${w}.png` });
         await p.keyboard.press('Escape'); await p.waitForTimeout(100);
         t(L + '…Esc closes it', !(await more.evaluate(d => d.open)));
@@ -48,6 +53,7 @@ const srv = spawn('php', ['-S', '127.0.0.1:' + port, path.join(__dirname, 'board
         t(L + 'both cards: "W1 runs again (Jason, …). Its next run is this task\'s check: it closes as Fixed if it works, or trips again if not."', [a, c].every(x => /W1 runs again \(Jason, \d\d:\d\d UTC\)\. Its next run is this task's check: it closes as Fixed if it works, or trips again if not\./.test(x)), [a.slice(0, 200), c.slice(0, 200)]);
         t(L + '…"Nothing is paused for this trip. Its next run is the check."; no "Holds:", no Check and start again, Try it first or Acknowledge', [a, c].every(x => x.includes('Nothing is paused for this trip. Its next run is the check.') && x.includes('Nothing to do now: it closes by itself when that run works.') && !x.includes('Paused by the system') && !x.includes('Holds:') && !/Check and start again|Try it first|Acknowledge/.test(x)));
         t(L + '…amber (its row "started"), never red', (await card(fs).getAttribute('data-astate')) === 'started');
+        t(L + '…its pill "Waiting for its run" in amber, never the red "Trip"', (await card(fs).locator('.cb-pill-warn', { hasText: 'Waiting for its run' }).count()) === 1 && (await card(fs).locator('.cb-pill-bad').count()) === 0);
         t(L + '…their group\'s header follows: amber, "W1 Listings (nothing held: each waits for its next run)", no "Holds:"', (grp === null || (grp.st === 'started' && grp.txt.includes('(nothing held: each waits for its next run)') && !grp.txt.includes('Holds:'))), grp);   // grouped on the board, one by one on W1's page
         if (shots) await card(fs).screenshot({ path: `${shots}/task-trip-waiting-${w}.png` });
       } else {

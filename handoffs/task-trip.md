@@ -47,7 +47,7 @@ W1's two trips are older, from before it, which is why they hold all of W1.
 
 ## Folded in: the trip card's eight fixes (the session manager, from Jason's 390 screenshot, 2026-11-24)
 
-Sent as **task-trip-2.zip** (the first, task-trip.zip, withdrawn unsent; the site never takes a name twice). For a task's
+Sent as **task-trip-3.zip** (task-trip.zip and task-trip-2.zip withdrawn unsent; the site never takes a name twice). The Design reviewer's five on 555fef04: plain titles, one filled Check and start again, no second "Open its run" (the eye is its run), the ⋯ menu in the card's flow (never clipped), the waiting pill "Waiting for its run" in amber. For a task's
 own-code trip that paused its whole workflow (`ControlAlarms::wholeWorkflowTrip`: W1's two, raised before the one engine;
 engine-era trips pause only their task and keep their tested words):
 1. Status in one sentence: "W1 is paused by the system since Nov 21, 9:35 AM UTC, after Overture Maps Places' read failed

@@ -1049,7 +1049,8 @@ final class ControlAlarms
         $det[] = ['Seen', (int) $a['n_times'] . ' time' . ((int) $a['n_times'] === 1 ? '' : 's') . ', first ' . self::at((string) $a['first_at']) . ', last ' . self::at((string) $a['last_at'])];
         $fix = $cl ? null : self::fixOf($pdo, $a); $theirs = !$cl && ($fix['cause'] ?? '') === 'theirs';
         require_once __DIR__ . '/Thread.php';
-        return ['title' => (string) $a['title'], 'level' => $cl ? 'closed' : $lv, 'pill' => $cl ? 'Cleared' : (self::LEVELS[$lv] ?? $lv),
+        $ww = !$cl && self::wholeWorkflowTrip($a);   // W1's older trips: their title in plain words, as their Status (the Design reviewer)
+        return ['title' => $ww ? self::plainTrip($pdo, $a) : (string) $a['title'], 'level' => $cl ? 'closed' : $lv, 'pill' => $cl ? 'Cleared' : ($sa !== '' ? 'Waiting for its run' : (self::LEVELS[$lv] ?? $lv)),
         // 'holds': only a trip holds its part; a warning holds nothing (words true to state; the design review, 2026-11-23)
                 'status' => trim($status), 'affects' => self::affects($pdo, $a), 'holds' => $a['level'] === 'trip' && !empty($a['tripped_at']) && $sa === '' ? self::partName($pdo, (string) $a['proc']) : '', 'doing' => ($theirs && $doing !== '' ? Thread::HANDLING . ': ' : '') . $doing, 'todo' => $taskTrip ? 'Read its why (its run, beside this). Then Check and start again: ' . $tw . ' runs, and its next run is this task\'s check.' : ($sa !== '' ? (str_starts_with($sa, 'This trip\'s pause is lifted (') && self::stillHolding($pdo, $a, (int) $a['id']) ? 'Press the other trip\'s Check and start again (below); then it waits for its run.' : 'Nothing to do now: it closes by itself when that run works.') : (string) $a['todo']), 'details' => $det,
                 'fix' => $theirs ? null : $fix, 'theirs' => $theirs];
