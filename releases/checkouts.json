@@ -272,6 +272,19 @@
    "expires": "2026-11-24T04:04:28Z",
    "release": "loads-reply.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/AuditClock.php",
+   "functions": [
+    "staleWhy"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
+   "why": "a workflow's own stale sentence (the Design reviewer)",
+   "since": "2026-11-24T00:06:56Z",
+   "expires": "2026-11-24T04:06:56Z",
+   "release": "loads-reply.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
