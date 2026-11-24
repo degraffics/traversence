@@ -102,7 +102,7 @@ final class ControlLedger
             if ($out['refused'] > 0) {
                 foreach ((array) $rej as $r) { $why = is_array($r) ? (string) ($r[1] ?? 'rejected') : 'rejected'; $why = strtolower(str_replace('_', ' ', $why)); $reasons[$why] = ($reasons[$why] ?? 0) + 1; }
             }
-            return $out + ['reasons' => $reasons];
+            return $out + ['reasons' => $reasons, 'receipt' => true];
         }
         foreach (self::COUNTS as $col => $keys) foreach ($keys as $k) {
             if (!array_key_exists($k, $answer)) continue;
@@ -144,7 +144,10 @@ final class ControlLedger
             // Only a call that answered (2xx): a refusal or a server error accounts for nothing by design
             elseif ($received > 0 && $sorted < $received && $code >= 200 && $code < 300) ControlAlarms::raise($pdo, 'ep:' . $ep . ':count', $proc, 'warning', 'count', '/api/' . $ep . ': received ' . $received . ', accounted for ' . $sorted,
                 'Its numbers can\'t be trusted until this is fixed: ' . ($received - $sorted) . ' record(s) it received weren\'t stored, updated, sent to Review or refused.', 'Open the call (beside this): it shows what it received and how each was counted; the counting in its endpoint needs a fix.', 'received ' . $received . ', counted ' . $sorted, [$callOf('n_received > 0')]);
-            elseif ($received > 0) ControlAlarms::clear($pdo, 'ep:' . $ep . ':count', 'Its counts added up at ' . $at . '.');
+            // a receipt read right closes the old misreading in true words: W0 never lost what it sent (the Design reviewer, 2026-11-24)
+            elseif ($received > 0) ControlAlarms::clear($pdo, 'ep:' . $ep . ':count', !empty($c['receipt'])
+                ? 'Cleared: our ledger misread ' . ($ep === 'crawl/index' ? 'W0' : '/api/' . $ep) . '\'s receipt (fixed in loads-reply). Its counts add up as of ' . $at . '.'
+                : 'Its counts added up at ' . $at . '.');
             // slow (0171 §5, release 3c): longer than its usual time (the middle of its last 50 good calls, 20 at least) times
             // control_slow_factor, and over a second; a warning (never a trip, 4e). A call that carries records is judged per
             // record (release 5a, 2026-11-19: W1's results endpoint took 3.3 s for a big batch, not a slow one)

@@ -21,4 +21,10 @@ $t('a receipt that isn\'t a batch\'s is ignored, never an error', $c['stored'] =
 $src = (string) file_get_contents(dirname($app) . '/website/api/crawl/index.php');
 $t('index.php records one line per batch (its crawl_batches row, what it did), never a test batch\'s',
    str_contains($src, "ControlLedger::touched('index batch'") && str_contains($src, "\$kind !== 'test'"));
+$t('…its line in the Ledger\'s words: "250 received: 247 stored (30 new), 3 refused" (new inside stored)', str_contains($src, "' received: '") && str_contains($src, "' stored ('") && str_contains($src, "' new)'") && !str_contains($src, "' kept, '"));
+$t('…its line never starts with a count word the ledger would read as its own (stored:, refused:)', !preg_match("/touched\('index batch', [^;]*\\\$kind \. ': '/", $src));
+$c = ControlLedger::counts(['ok' => true, 'receipt' => ['received' => 1, 'stored' => 1, 'rejected' => []]]);
+$t('a receipt is marked as read from a receipt (for the alarm\'s close)', !empty($c['receipt']), $c);
+$led = (string) file_get_contents($app . '/lib/ControlLedger.php');
+$t('the alarm closes in true words: "Cleared: our ledger misread W0\'s receipt (fixed in loads-reply). Its counts add up as of <time>."', str_contains($led, "'Cleared: our ledger misread '") && str_contains($led, "\$ep === 'crawl/index' ? 'W0'") && str_contains($led, "'\\'s receipt (fixed in loads-reply). Its counts add up as of '"));
 echo "\n$pass passed, $fail failed\n"; exit($fail ? 1 : 0);

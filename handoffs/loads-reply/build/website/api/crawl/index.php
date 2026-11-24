@@ -74,6 +74,7 @@ $receipt = Frontier::receipt($pdo, $key, $kind, $declared, $r, $bytes, (int) rou
 // the board's record of the records (W0's "Its data"): one line per batch, its row in crawl_batches and what it did; never its addresses
 if ($kind !== 'test' && class_exists('ControlLedger')) try {
     $st = $pdo->prepare('SELECT MAX(id) FROM ' . Database::t('crawl_batches') . ' WHERE batch_key = ?'); $st->execute([sha1($key)]);
-    ControlLedger::touched('index batch', (int) $st->fetchColumn(), $kind . ': ' . (int) ($r['stored'] ?? 0) . ' kept, ' . (int) ($r['new'] ?? 0) . ' new' . (count((array) ($r['rejected'] ?? [])) ? ', ' . count((array) $r['rejected']) . ' refused' : ''));
+    // the Ledger's words (the Design reviewer): "250 received: 247 stored (30 new), 3 refused"; new is part of stored
+    ControlLedger::touched('index batch', (int) $st->fetchColumn(), (int) ($r['received'] ?? 0) . ' received: ' . (int) ($r['stored'] ?? 0) . ' stored (' . (int) ($r['new'] ?? 0) . ' new)' . (count((array) ($r['rejected'] ?? [])) ? ', ' . count((array) $r['rejected']) . ' refused' : ''));
 } catch (Throwable $x) {}
 Response::json(['ok' => true, 'receipt' => $receipt + ['new' => (int) ($r['new'] ?? 0), 'new_sites' => (int) ($r['new_sites'] ?? 0), 'junk' => (int) ($r['junk'] ?? 0), 'skipped' => (int) ($r['skipped'] ?? 0)]]);
