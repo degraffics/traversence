@@ -17,6 +17,7 @@ Its send waits for order-m2b's `faq.md` (the only file it shares with a pending 
 | `app/lib/ControlBoard.php` | `boardLight`: a part whose trips all started again is amber, "Waiting for its run", never "Tripped: stopped" (the board and the historian) |
 | `app/lib/Scheduler.php` | `JOBS`: seven daily jobs' late limits (30–600 min) set to 1560, as `market_tick` and `billing_tick` |
 | `app/lib/AuditClock.php` | `dispatch`: no answer at all is tried once more after 5 s, and the connection's own error kept |
+| `website/api/health.php` | the jobs section's failure says why (`jobs_error`); refused starts and connection counts stand apart (and `tools/page-audit/towns.mjs` keeps `jobs.json` when the list is empty) |
 | `app/ui/faq.md` | "How it opens" and "The light in the admin's top bar" entries (`board-phone/faq-edits.py`) |
 
 ## Each behaviour and its source
@@ -75,9 +76,15 @@ Its send waits for order-m2b's `faq.md` (the only file it shares with a pending 
     stays the one count (D5: an open trip counts).
 16. **Each Alerts item says its thread's title**, as its card and Pulse (decisions/0176 §2; the Design reviewer).
 
+17. **The health report says why its jobs section is empty, and keeps refused starts.** The session manager, 2026-11-24
+    (fold into this release). On live `/api/health.php`'s jobs section failed for days inside one try whose catch kept
+    nothing (`jobs: []`), taking `jobs_missed` and the connection counts with it, so the daily fetch never wrote
+    `site-audit/results/jobs.json`. Now each stands apart, and `jobs_error` carries the exception's message (no people).
+    Test `health-jobs.php` (6; live: 3 fail).
+
 ## Still open (to the session manager)
 
-- **Lead scores (`sales_tick`) hasn't started since 01:17 UTC** (Scheduled tasks on live, 05:24 UTC: "last ran 4 hours
+- **Lead scores (`sales_tick`) has started only 4 times since Nov 18** (job_runs: each worked in about a second); this release's health report will show whether its starts are refused. Moving it to :02, a test of the :17 pile-up, goes to Jason (the session manager). Earlier note: it **hasn't started since 01:17 UTC** (Scheduled tasks on live, 05:24 UTC: "last ran 4 hours
   ago", while the other :17 jobs ran at 05:17). Its script records its start first and runs clean on the bench, so on
   live it isn't being started, or its start is refused (`Scheduler::missed`, shown in `/api/health.php`'s jobs section).
   Needs the server's side: its cron line's output, or the health report's misses.

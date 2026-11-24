@@ -37,6 +37,10 @@
   {
    "what": "A trip started again and waiting for its run is amber everywhere, as its card: its own group in Alerts (\"Waiting for its run\"), \"2 waiting\" in the summary, and the top bar's light red only for a trip still holding",
    "where": "https://traversence.com/admin/config/control"
+  },
+  {
+   "what": "The health report says why its jobs section is empty, and keeps refused starts (the starts the database refused, and its connection counts, apart from the jobs list), so the daily fetch shows why Lead scores hasn't been starting",
+   "where": "https://github.com/degraffics/traversence/blob/main/site-audit/results/jobs.json"
   }
  ],
  "proposals": [],
