@@ -51,6 +51,14 @@ Repo: `tools/page-audit/gauge-requests.mjs` marks late as the queue does (a day 
    session with "paused by him the same day" in its why (Jason, 2026-11-24, #1354: "Pause for now. add to work queue."); the
    board's phone header is **Being fixed in board-phone-header.zip**, so it's done by itself once that release is live.
 
+9. **The Design reviewer's changes (2026-11-24), made:** one filled button in the view (Add a task; each row's next step and
+   Approve the target outlined: brand.md's button standard); taken rows grouped by who has them, one row each that opens to its
+   members, the sentence said once on the group (table-standard §8; a group counts as one row for paging); the first 10 then
+   "Show N more" kept after an add, the new task first and marked; the target said once ("Target: not set · proposed: nothing
+   late"). **Not changed, with its source:** the late task's time stays in the zone it was added from (MST), the others
+   (recorded without one) in the viewer's: CLAUDE.md "Times where they happened" ("Show it in that zone, always labeled …
+   with no zone stored, in the viewer's"). Group dates are the day only.
+
 ## Kept, moved, dropped
 
 - Request a fix on a gauge's panel: **kept** as it is; its open requests also show in the queue ("a fix request from its gauge").
@@ -66,6 +74,6 @@ Repo: `tools/page-audit/gauge-requests.mjs` marks late as the queue does (a day 
 
 ## Tests (bench: MariaDB, the mirror with board-phone-header and this build over it)
 
-- `tools/control-board-tests/work-queue.cjs` with `work-queue-seed.php` (68, at 1280 and 390; the migration run twice; the same task added twice stands once) and
+- `tools/control-board-tests/work-queue.cjs` with `work-queue-seed.php` (80, at 1280 and 390; the migration run twice; the same task added twice stands once; groups, paging after an add, one filled button) and
   `board-panels-router.php`'s new actions; `gauge-requests.mjs` (7: late as the queue says it).
 - `run-all.sh`: only the 7 known live failures. `board-views.cjs` takes the Work queue's header as a gauge's place (its pill beside it); `rendered-all.sh`: work-queue 68, gauge-panel 76, board-views 90, board-panels 43, board-opening 48, board-tabs 16, board-phone-header 42, no failures.

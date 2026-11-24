@@ -2,7 +2,8 @@
 // need to be able to add tasks to the queue and manage them so we don't fall out of score or forget what we identified as
 // needing to be done"), rendered on the bench at 1280 and 390 with its own migration's seed (handoffs/work-queue.md):
 //   - its gauge first on Development: the stage, the reading ("N of M on time"), the counts, its target set by Jason;
-//   - the list late first, the first 10 then Show all, Why and source folded; each row's status line in place; Take it / Name its release as the one suggested action;
+//   - the list late first, taken rows grouped by who has them (table-standard §8), the first 10 then Show all, Why and source folded;
+//   - one filled button in the view (Add a task), the target said once, a new task first and marked; each row's status line in place; Take it / Name its release as the one suggested action;
 //     ✎ and History as 30px round icons with titles; ⋯ for every other move, Take greyed with the reason when it's with someone;
 //   - Add a task: gauge or area (a new area too), what, why, source; Cancel, ×, Esc close it; the task appears, Open, counted;
 //   - one cycle each, the section read again so its counts follow: Take it → Taken; Name its release → Being fixed; Edit →
@@ -21,8 +22,10 @@ const srv = spawn('php', ['-S', '127.0.0.1:' + port, path.join(__dirname, 'board
 const home = 'http://127.0.0.1:' + port + '/admin/config/control';
 const noSide = p => p.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth + 1);
 const W = '#cb-wq';
-const shown = p => p.$$eval(W + ' > .wq-list > .wq-it', a => a.filter(x => x.getClientRects().length).map(x => x.getAttribute('data-wq-st')));
+const shown = p => p.$$eval(W + ' .wq-main > li', a => a.filter(x => x.getClientRects().length).map(x => x.classList.contains('wq-grp') ? 'group' : x.getAttribute('data-wq-st')));
+const openGroups = p => p.evaluate(() => document.querySelectorAll('#cb-wq .wq-grp > details').forEach(d => { d.open = true; }));
 const row = (p, what) => p.locator(W + ' .wq-it', { hasText: what }).first();
+const rowOpen = async (p, what) => { await openGroups(p); return row(p, what); };
 const settle = p => p.waitForResponse(r => r.url().includes('/admin/config/control') && r.request().method() === 'GET', { timeout: 10000 }).then(() => p.waitForTimeout(350));
 const answer = async (p, v) => { await p.waitForSelector('.tv-ask .tv-ask-in'); await p.fill('.tv-ask .tv-ask-in', v); await p.click('.tv-ask .tv-ask-b.yes'); };
 (async () => {
@@ -39,18 +42,23 @@ const answer = async (p, v) => { await p.waitForSelector('.tv-ask .tv-ask-in'); 
       t(L + 'the Work queue is first on Development, above the 16 gauges', await p.evaluate(() => { const v = document.querySelector('#cb-dev'), q = v && v.querySelector('#cb-wq'), g = v && v.querySelector('[data-copy^="Development: the"]'); return !!(q && g && (q.compareDocumentPosition(g) & 4)); }));
       if (shots) await p.locator(W).screenshot({ path: shots + '/wq-' + w + '-a.png' });
       const top = await p.textContent(W + ' .wq-read');
-      t(L + 'its gauge: Audit & Review (target not set), on time out of the active tasks, one late, done this week counted', /Audit & Review/.test(top) && /19 of 20 on time/.test(top) && /1 late/.test(top) && /19 taken/.test(top) && /1 done this week/.test(top) && /its target isn.t set/.test(top), top);
-      t(L + 'its target: set by Jason, proposed "nothing late", Approve the target', /set by Jason \(proposed: nothing late\)/.test(top) && await p.isVisible(W + ' [data-cbg=target]'));
+      t(L + 'its gauge: Audit & Review (target not set), on time out of the active tasks, one late, done this week counted', /Audit & Review/.test(top) && /19 of 20 on time/.test(top) && /1 late/.test(top) && /19 taken/.test(top) && /1 done this week/.test(top), top);
+      t(L + 'its target said once: "Target: not set · proposed: nothing late", Approve the target', /Target: not set · proposed: nothing late/.test(top) && !/its target isn.t set/.test(top) && await p.isVisible(W + ' [data-cbg=target]'), top);
+      t(L + 'one filled button in the view: Add a task (each next step and Approve the target outlined)', (await p.$$eval(W + ' .cbg-b:not(.cbg-o)', a => a.filter(x => x.getClientRects().length).map(x => x.textContent.trim()))).join('|') === 'Add a task');
       t(L + 'the list late first', (await shown(p))[0] === 'late', await shown(p));
       t(L + 'a task whose release is live is done by itself (board-phone-header.zip), under Done and withdrawn', /Done: board-phone-header\.zip is live/.test(await p.textContent(W + ' details.wq-closed')));
-      t(L + 'the first 10 rows, then Show all 20', (await shown(p)).length === 10 && (await p.textContent(W + ' [data-wq=all]')).trim() === 'Show all 20');
-      t(L + 'Why and source folded under each row', await p.$$eval(W + ' > .wq-list > .wq-it', a => a.every(li => { const d = li.querySelector('details.wq-ws'); return d && !d.open && /Why/.test(d.textContent); })));
-      await p.click(W + ' [data-wq=all]');
-      t(L + 'Show all: all 20, the button gone', (await shown(p)).length === 20 && !(await p.isVisible(W + ' [data-wq=all]')));
+      t(L + 'taken rows grouped by who has them, after the late one: late, two groups (the phone header\'s task is done: its release is live)', (await shown(p)).join(' ') === 'late group group', await shown(p));
+      const gs = await p.$$eval(W + ' .wq-grp > details > summary', a => a.map(x => x.textContent.replace(/\s+/g, ' ').trim()));
+      t(L + 'each group says who, how many and since when, folded: "Control Board build session · 11 taken · since …", "Orders session · 8 taken"', /^Control Board build session · 11 taken · since \w+ \d+$/.test(gs[0]) && /^Orders session · 8 taken/.test(gs[1]) && await p.$$eval(W + ' .wq-grp > details', a => a.every(d => !d.open)), gs);
+      await openGroups(p);
+      t(L + 'opened, the group says its sentence once; its rows don\'t repeat it', /Each is being fixed once its release is named/.test(await p.textContent(W + ' .wq-grp .wq-gl')) && await p.$$eval(W + ' .wq-grp .wq-it', a => a.every(li => !li.querySelector('.wq-st'))));
+      t(L + 'Why and source folded under each row', await p.$$eval(W + ' .wq-main .wq-it', a => a.every(li => { const d = li.querySelector('details.wq-ws'); return d && !d.open && /Why/.test(d.textContent); })));
+      t(L + 'no Show all for 3 rows', !(await p.isVisible(W + ' [data-wq=all]')));
+      t(L + 'the late task\'s time in its own zone, labelled (CLAUDE.md "Times where they happened")', /added Nov \d+, [\d:]+ [AP]M MST/.test(await row(p, 'Late test task').textContent()));
       const late = row(p, 'Late test task');
-      t(L + 'a late row says so, with Take it as its one filled action', /Nobody has taken it/.test(await late.textContent()) && (await late.locator('.cbg-b:not(.cbg-o)').allTextContents()).join('|') === 'Take it');
+      t(L + 'a late row says so, with Take it as its next step', /Nobody has taken it/.test(await late.textContent()) && (await late.locator('.cbg-b').allTextContents()).join('|') === 'Take it');
       t(L + 'inline actions are 30px round icons with titles (Edit, History)', await late.evaluate(li => [...li.querySelectorAll('.cbg-ic')].every(x => { const r = x.getBoundingClientRect(); return Math.round(r.width) === 30 && Math.round(r.height) === 30 && x.title && x.getAttribute('aria-label'); }) && li.querySelectorAll('.cbg-ic').length === 2));
-      const taken = row(p, 'No Undo on any alarm');
+      const taken = await rowOpen(p, 'No Undo on any alarm');
       await taken.locator('[data-cbg-rm]').click();
       t(L + '⋯ on a taken task: Take it greyed with the reason, Move, its release, Withdraw', await taken.evaluate(li => { const m = li.querySelector('[role=menu]'); const tk = m.querySelector('[data-wq=take]'); return !m.hidden && tk.disabled && /Move it instead/.test(tk.textContent) && m.querySelectorAll('button').length === 4; }));
       await p.keyboard.press('Escape'); await p.mouse.click(5, 5);
@@ -80,7 +88,7 @@ const answer = async (p, v) => { await p.waitForSelector('.tv-ask .tv-ask-in'); 
       t(L + 'what and why carry spell check', await p.$$eval(W + ' [data-wq-form] [data-spell]', a => a.map(x => x.name).join(',')) === 'area,what,why');
       await Promise.all([settle(p), p.click(W + ' [data-wq-form] [type=submit]')]);
       const nw = row(p, 'Test task from the board');
-      t(L + 'the new task is in the list (Show all kept), Open, in its new area, with its why and source', await nw.isVisible() && await nw.getAttribute('data-wq-st') === 'open' && /Market place/.test(await nw.textContent()) && /So it is not forgotten/.test(await nw.textContent()) && /work-queue\.cjs/.test(await nw.textContent()));
+      t(L + 'the new task is first, marked, Open, in its new area, with its why and source', await nw.isVisible() && await nw.evaluate(li => li.classList.contains('wq-new') && li.parentNode.firstElementChild === li) && await nw.getAttribute('data-wq-st') === 'open' && /Market place/.test(await nw.textContent()) && /So it is not forgotten/.test(await nw.textContent()) && /work-queue\.cjs/.test(await nw.textContent()));
       t(L + '…and counted: 1 open', /1 open/.test(await p.textContent(W + ' .wq-read')));
       if (shots) await p.locator(W).screenshot({ path: shots + '/wq-' + w + '-b.png' });
       // the same task added again: the one task stands, and it says so
@@ -91,13 +99,14 @@ const answer = async (p, v) => { await p.waitForSelector('.tv-ask .tv-ask-in'); 
       t(L + 'the same task added again: "already in the queue", still one row', /already in the queue as task #\d+/.test(await p.textContent('body')) && await p.locator(W + ' .wq-it', { hasText: 'Test task from the board' }).count() === 1);
       // Take it → Taken
       await Promise.all([settle(p), nw.locator('[data-wq=take].cbg-b').click()]);
-      t(L + 'Take it: Taken, with Jason (test), Name its release now its action', await row(p, 'Test task from the board').getAttribute('data-wq-st') === 'taken' && /With Jason \(test\)/.test(await row(p, 'Test task from the board').textContent()) && await row(p, 'Test task from the board').locator('.cbg-b').first().textContent() === 'Name its release');
+      await openGroups(p);
+      t(L + 'Take it: Taken, in Jason (test)\'s group, Name its release now its action', await row(p, 'Test task from the board').getAttribute('data-wq-st') === 'taken' && await row(p, 'Test task from the board').evaluate(li => li.closest('.wq-grp') && li.closest('.wq-grp').getAttribute('data-wq-grp') === 'Jason (test)') && await row(p, 'Test task from the board').locator('.cbg-b').first().textContent() === 'Name its release');
       // Edit → new words; History keeps the old
       await row(p, 'Test task from the board').locator('[data-wq=edit]').click();
       t(L + 'Edit opens in place, its words filled in', await row(p, 'Test task from the board').locator('.wq-edit [name=what]').inputValue() === 'Test task from the board');
       await row(p, 'Test task from the board').locator('.wq-edit [name=what]').fill('Test task, reworded');
       await Promise.all([settle(p), row(p, 'Test task from the board').locator('.wq-edit [type=submit]').click()]);
-      const rw = row(p, 'Test task, reworded');
+      await openGroups(p); const rw = row(p, 'Test task, reworded');
       t(L + 'Saved: the row has the new words', await rw.count() === 1);
       await rw.locator('[data-wq=hist]').click(); await rw.locator('.wq-hist').waitFor();
       const hist = await rw.locator('.wq-hist').textContent();
@@ -120,6 +129,16 @@ const answer = async (p, v) => { await p.waitForSelector('.tv-ask .tv-ask-in'); 
       await p.click(W + ' [data-cbg=target]'); await p.waitForTimeout(400);
       await p.reload(); await p.waitForTimeout(900); await view(p, 'development'); await p.waitForTimeout(300);
       t(L + 'once its target is approved, nothing late: Implementation, "its alarm isn\'t wired"', /Implementation/.test(await p.textContent(W + ' .wq-read')) && /alarm isn.t wired/.test(await p.textContent(W + ' .wq-read')), await p.textContent(W + ' .wq-read'));
+      execFileSync('mariadb', ['-utv', '-ptv', '-h127.0.0.1', 'lv_main', '-e', "INSERT INTO control_gauge_tasks (at, tz, gauge, item, kind, what, bucket, value, who, uid, why, source) SELECT UTC_TIMESTAMP(), '', 'area:orders', CONCAT('Paging task ', n), 'fix', CONCAT('Paging task ', n), 'task', '', 'x', 1, 'paging', '' FROM (SELECT 1 n UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION SELECT 5 UNION SELECT 6 UNION SELECT 7 UNION SELECT 8 UNION SELECT 9 UNION SELECT 10 UNION SELECT 11 UNION SELECT 12) k"]);
+      await p.reload(); await p.waitForTimeout(900); await view(p, 'development'); await p.waitForTimeout(300);
+      const nTop = await p.$$eval(W + ' .wq-main > li', a => a.length);
+      t(L + 'over 10 rows: the first 10 (a group counts as one), then Show all', (await shown(p)).length === 10 && (await p.textContent(W + ' [data-wq=all]')).trim() === 'Show ' + (nTop - 10) + ' more', [nTop, await shown(p)]);
+      await p.click(W + ' [data-wq=add]'); await p.selectOption(W + ' [data-wq-form] select', 'area:orders');
+      await p.fill(W + ' [data-wq-form] [name=what]', 'Added with Show all folded'); await p.fill(W + ' [data-wq-form] [name=why]', 'Paging');
+      await Promise.all([settle(p), p.click(W + ' [data-wq-form] [type=submit]')]);
+      const fr = await p.$eval(W + ' .wq-main > li', li => [li.classList.contains('wq-new'), li.textContent.includes('Added with Show all folded')]);
+      t(L + 'after an add: still the first 10 and Show all, the new task first and marked', fr[0] && fr[1] && (await shown(p)).length === 10 && await p.isVisible(W + ' [data-wq=all]'), [fr, (await shown(p)).length]);
+      if (shots) await p.locator(W).screenshot({ path: shots + '/wq-' + w + '-d.png' });
       t(L + 'nothing wider than the window', await noSide(p));
       t(L + 'no page error', !errs.length, errs);
       await ctx.close();

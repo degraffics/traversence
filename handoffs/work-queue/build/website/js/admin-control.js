@@ -513,10 +513,12 @@
   // read again from the server, so its gauge, counts and rows say the state now (CLAUDE.md "words follow the state").
   function wqTz() { try { return Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (x) { return ''; } }
   function wqFilter(sec, f) {
-    sec._f = f || 'all'; var n = 0, ul = sec.querySelector('.wq-list:not(.wq-closed .wq-list)'), all = sec.querySelector('.wq-all');
+    sec._f = f || 'all'; var n = 0, ul = sec.querySelector('.wq-main'), all = sec.querySelector('.wq-all');
     if (ul && (sec._f !== 'all' || sec._all)) ul.classList.add('wq-showall'); else if (ul) ul.classList.remove('wq-showall');
     if (all) all.hidden = !!(ul && ul.classList.contains('wq-showall'));
-    sec.querySelectorAll('.wq-list:not(.wq-closed .wq-list) > .wq-it').forEach(function (li) { var on = sec._f === 'all' || li.getAttribute('data-wq-st') === sec._f; li.hidden = !on; if (on) n++; });
+    sec.querySelectorAll('.wq-main .wq-it').forEach(function (li) { var on = sec._f === 'all' || li.getAttribute('data-wq-st') === sec._f; li.hidden = !on; if (on) n++; });
+    sec.querySelectorAll('.wq-main .wq-grp').forEach(function (g) {   // a group row shows while one of its rows does; a filter on Taken opens them
+      var any = g.querySelector('.wq-it:not([hidden])'); g.hidden = !any; if (sec._f === 'taken') g.querySelector('details').open = true; });
     sec.querySelectorAll('[data-wq-f]').forEach(function (b) { b.setAttribute('aria-checked', String(b.getAttribute('data-wq-f') === sec._f)); });
     var lb = sec.querySelector('[data-wq-f="' + sec._f + '"]'), fl = sec.querySelector('[data-wq-fl]'), fn = sec.querySelector('[data-wq-fn]'), none = sec.querySelector('.wq-none');
     if (fl && lb) fl.textContent = lb.firstChild.textContent.trim(); if (fn) fn.textContent = String(n);
@@ -536,11 +538,16 @@
       return n;
     });
   }
+  function wqFirst(sec, id) {   // a task just added: first in the list, marked, the list's paging kept
+    var li = id && sec.querySelector('.wq-main > #wq-' + id), ul = sec.querySelector('.wq-main'); if (!li || !ul) return;
+    li.removeAttribute('data-wq-more'); ul.insertBefore(li, ul.firstChild); li.classList.add('wq-new');
+    var more = ul.children[10]; if (more && !sec._all) more.setAttribute('data-wq-more', '');
+  }
   function wqSend(sec, btn, body, id) {
     body.tz = wqTz(); TvAsk.busy(btn, true);
     return post('/admin/api/config/control', body).then(function (j) {
       TvAsk.busy(btn, false);
-      return wqReload(sec, j.id || id).then(function (n) { var at = n && ((j.id || id) && n.querySelector('#wq-' + (j.id || id) + ' .wq-st')) || n; say(j.message || 'Done.', at); });
+      return wqReload(sec, j.id || id).then(function (n) { if (n && body.action === 'qadd') wqFirst(n, j.id); var at = n && ((j.id || id) && n.querySelector('#wq-' + (j.id || id) + ' .wq-st')) || n; say(j.message || 'Done.', at); });
     }, function (err) { TvAsk.busy(btn, false); say(err.message, btn, true); });
   }
   box.addEventListener('click', function (e) {
