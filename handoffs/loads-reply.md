@@ -39,3 +39,22 @@ timed out; the site's page shows rows stored from run #1290; no "records sent" i
   still worth doing (the margin is thin) but not urgent.
 - The session manager's view on reading run #1290's ledger rows (`control_ledger.ms` for `/api/crawl/loads.php`) through
   `live-read.yml` to confirm the handler's time before building.
+
+## Confirmed on live data (2026-11-24, live-read.yml run 45292817775, read and its log deleted)
+
+The ledger's POST /api/crawl/loads: 101,841 to 130,249 ms per 500-row batch, every one 200 (run #1290: 117,115 / 118,781 /
+124,427; run #1288: 111,473 to 130,249); the opening GET 9 ms. The handler's own time past the worker's 120 s read; the reply
+path is fine. Both W1 trips (overture_bulk #1290, foursquare_bulk #1288) still open: Check and start again not pressed yet.
+
+## Built (branch claude/loads-reply; the site part in `loads-reply/build/`)
+
+- Worker 2.17.0 (`crawler.py`): `LOAD_BATCH` 100, each POST with `batch`; `load_batch()` sends once more on a timeout or
+  connection error with the same number and a 240 s read, never on an HTTP answer; each failed or slow (>10 s) site call
+  logged with path, size and time. `tests/test_load_batches.py` 8/8; the other worker tests pass (test_cc_columnar needs duckdb).
+- Site: `OpenLoads::batch($pdo, …, $no, &$recheck)`: a taken batch answers its kept result with `again`; `recheck()`;
+  `batchDone()`/`batchKeep()` on `open_load_batches` (migration `2026-11-24_open_load_batches.sql`). `loads.php` replies first,
+  then rechecks (fastcgi_finish_request / litespeed_finish_request, as Weather.php and admin/api.php do), else rechecks first.
+  `AuditClock::FLOWS` gauge-requests every hour. `tools/control-board-tests/load-batches.php` 10/10; run-all.sh only the 7
+  known live failures; staging unit 65/65.
+- **Held:** `staging-tables.php` (the new table's class) is claimed by Orders M1b (both FOLLOWS and OWN). Per CLAUDE.md, wait
+  for M1b to go live, add only `open_load_batches` on the live copy (OWN), then zip, check and send.
