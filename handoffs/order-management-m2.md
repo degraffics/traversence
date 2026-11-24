@@ -98,8 +98,9 @@ opened from ⋯ or a row's ↩/✕, closed by ×, Esc or opening another), Withd
 amber in the figures.
 The session manager's calls (01:22): (a) the reversing kind, noted on decisions/0098; (b) a refund of money that wasn't a
 card: on Approve its Refund Receipt is made in QuickBooks and recorded, then Payments' case `refundsend:<id>` (and the
-order's notice) carries **✓ Sent** with how it went (`payout`: to_send → sent); (c) credit memos: Jason's question,
-asked in this session's pop-up; Approve and Decline need the Founder's own staff login (an admin login that isn't a staff
+order's notice) carries **✓ Sent** with how it went (`payout`: to_send → sent); (c) credit memos: Jason answered "Need my OK" (02:16 UTC, decisions/0178's
+note): `Orders::requestCredit` (kind `credit` in the same table), the Founder's case "Credit memo to approve", Approve
+runs `Orders::credit`; Approve and Decline need the Founder's own staff login (an admin login that isn't a staff
 login is refused, greyed with why).
 
 Each behaviour and its source:
@@ -134,7 +135,7 @@ Each behaviour and its source:
 - FAQ: four entries (team: where to refund/credit/correct; why a refund waits for Jason; until when an order can be
   cancelled; client: can I cancel).
 
-Tests (design harness): `tools/order-tests/m2.php` 52/52 (`m2-seed.php` for the rendered one), `m2.cjs` all passing at 1280 and
+Tests (design harness): `tools/order-tests/m2.php` 58/58 (`m2-seed.php` for the rendered one), `m2.cjs` all passing at 1280 and
 390 (each new button pressed; screens in `handoffs/order-m2/`), `m1.php` passes; `m1b.php`'s 4 vendor-bill failures are the
 same on the live code (the harness's `order_vendor_bills` is short of columns), not M2's.
 
@@ -142,3 +143,10 @@ Open for the session manager (sent 01:05, reminded 01:22): (a) the reversing kin
 VARCHAR (the harness's is); (b) a refund of a payment that wasn't a card: today Approve stays waiting with "no card to
 refund from here"; (c) credit memos stay an admin action without Jason's OK. An admin who isn't a staff login reads as
 the Founder (`Access::who`, the site's rule; EnvSettings uses it too).
+
+**Open (02:16 UTC):** live `order_ledger.kind` is an ENUM without `payment_cancelled` (live read run 45309955001, PR #1331's
+meta read; log deleted). `MODIFY` is refused by the add-only rule, so Cancel the record waits on the session manager's
+call: (A) a new add-only `order_payment_cancels` table (recommended), (B) a one-off exception from Jason, (C) a marked
+column. Until then the zip's reversing row would fail on live: **don't send before this is settled.**
+Order #12 (run 45309920979, log deleted): "Invoice 112906, linked by its number", "Paid in QuickBooks Oct 26 · $809.10 on
+invoice 112906" confirmed; History's "Needs books" says QuickBooks shows $1,111.14 paid against the order's $809.10 lines.

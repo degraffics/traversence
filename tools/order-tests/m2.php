@@ -151,6 +151,22 @@ $rid7 = Orders::requestRefund($pdo, $q, 1000, 'Test', (int) $pq2['id'], [], [], 
 $t('§1: an admin login that isn\'t a staff login can\'t approve (greyed: Jason\'s own Founder login)', $throws(fn () => Orders::approveRefund($pdo, $rid7, 1), 'own Founder staff login') !== '' && !Orders::canDecideRefund()[0]);
 $as($founder); Orders::withdrawRefund($pdo, $rid7, 1);
 
+// credit memos wait for Jason too (decisions/0178's note, 2026-11-24: "Need my OK")
+$as($founder);
+$cc = $ids['Complete Co'];
+$t('credit: more than is left to credit is refused', $throws(fn () => Orders::requestCredit($pdo, $cc, 90000, 'Too much', 1), 'more than') !== '');
+$rc = Orders::requestCredit($pdo, $cc, 5000, 'Sorry for the late delivery', 1);
+$t('credit: prepared, not given: waiting, nothing credited, the History says so', Orders::refundRequest($pdo, $rc)['kind'] === 'credit' && Orders::money($pdo, $cc)['credited'] === 0 && str_contains($ev($cc, 'credit_asked'), 'waiting for Jason'));
+$t('credit: one waiting per order (a refund now is refused, naming the credit memo)', $throws(fn () => Orders::requestRefund($pdo, $cc, 1000, 'x', (int) Orders::payments($pdo, Orders::get($pdo, $cc))[0]['id'], [], [], false, 1), 'credit memo of $50.00') !== '');
+$ic = $find(Pulse::items($pdo, $founder, 1), 'refundok:' . $rc);
+$st = $ic ? Pulse::playbook($ic) : [];
+$t('credit: the Founder\'s case "Credit memo to approve: $50.00 …", Approve: credit $50.00 and Decline', $ic && str_starts_with($ic['title'], 'Credit memo to approve: $50.00') && ($st[1]['act'][2] ?? '') === 'Approve: credit $50.00' && ($st[2]['act'][1] ?? '') === 'refund_decline', [$ic, $st]);
+$as($exec);
+$t('credit: an Executive can\'t approve it', $throws(fn () => Orders::approveRefund($pdo, $rc, 1), 'Only Jason') !== '');
+$as($founder);
+$said = Pulse::manage($pdo, 'refundok:' . $rc, 'refund_approve', [], 1);
+$t('credit: approved: given (mock credit memo), $50.00 credited, nothing refunded', Orders::refundRequest($pdo, $rc)['status'] === 'approved' && Orders::money($pdo, $cc)['credited'] === 5000 && Orders::money($pdo, $cc)['refunded'] === 0 && str_contains($said, 'Credit memo of $50.00'), [$said, Orders::money($pdo, $cc)]);
+
 // ---- §2: the cancel window ----
 $v = $ids['Vendor Co'];   // paid, its work order accepted (WorkOrders::vendorMove writes this event)
 $pdo->prepare("INSERT INTO order_events (order_id, event, note, created_at) VALUES (?, 'work_order_accepted', 'Work order WO-1 (Print Vendor): Accepted by Sam', '2026-11-03 10:00:00')")->execute([$v]);
