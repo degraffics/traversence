@@ -1,0 +1,171 @@
+{
+    "id": 276,
+    "title": "Orders: what the system knows, what it asks (order management M1b)",
+    "why": "Jason, 2026-11-23, on Order #12: \"I view this not as a page where I can put information into it, but as an intelligent system that helps me process orders\", and \"having the ability to drag and drop a vendor invoice to document it as well would help me\". Design §3.6 (research/order-management-design-2026-11-23.md), mockups open and open-after, approved by the Design reviewer and Jason; decisions/0178's notes of 2026-11-23: (a) a payment QuickBooks shows on a linked invoice is applied at once; (b) a payment recorded here is received on the hand-made invoice too; (c) a vendor bill recorded here is created in QuickBooks against the vendor.",
+    "proposals": "",
+    "zip": "order-m1b.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "live",
+    "step": 3,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": "2026-11-24 00:44:17",
+    "staged_at": "2026-11-24 00:44:19",
+    "vetted_at": "2026-11-24 00:44:23",
+    "live_at": "2026-11-24 00:44:23",
+    "files": {
+        "app/admin/job-line.php": {
+            "sha": "deaf7d0514c196d7f43bd4976289759c5154dd917a9b2c175780f43c95761ac2",
+            "size": 10911,
+            "live_was": "46fab79e0d1edd4b526e481159adfaddc62434a54e6d0234a40bff9162a02c2a",
+            "existed": true,
+            "old_sha": "46fab79e0d1edd4b526e481159adfaddc62434a54e6d0234a40bff9162a02c2a"
+        },
+        "app/ui/outside-services.php": {
+            "sha": "be3d38933be79da668759826617615a96415925d44793b3523e386ddd3df5a67",
+            "size": 52654,
+            "live_was": "2a8841787fb54ddfc7bc2aa20d7f45c1ec7e1dc005bb56d0bbb5ebd2abeb14c1",
+            "existed": true,
+            "old_sha": "2a8841787fb54ddfc7bc2aa20d7f45c1ec7e1dc005bb56d0bbb5ebd2abeb14c1"
+        },
+        "app/ui/faq.md": {
+            "sha": "6febbae60bc7350c03511368ea25fe2d0b4fb769ce848dcb68202a973712dc12",
+            "size": 440825,
+            "live_was": "720782abbc5a8bc864ba7317b25c539821ec45bd8e868e7a4614a4fcc8330c7d",
+            "existed": true,
+            "old_sha": "720782abbc5a8bc864ba7317b25c539821ec45bd8e868e7a4614a4fcc8330c7d"
+        },
+        "app/migrations/2026-11-23_m1b_vendor_bills.sql": {
+            "sha": "9bc570beddf4e94f449d67d2e3513d2eb5a42dfd89d6490c74a00f0aaaba7d4c",
+            "size": 3510,
+            "live_was": null
+        },
+        "app/scripts/qb_orders_tick.php": {
+            "sha": "207ef6ba7da111122e5a232b46525cb92cb7b81cb30d1b7782fb1daa5a0c3958",
+            "size": 1026,
+            "live_was": null,
+            "existed": false
+        },
+        "app/lib/upload-targets.php": {
+            "sha": "f554be1e833d0046dd10d2722779eac9a59292b21dd4f524ff3e01414dfadec9",
+            "size": 42138,
+            "live_was": "3b31945766c0c57cdab6f58ad4e2698a1fc49403d077dfd9f794cbac69992dd5",
+            "existed": true,
+            "old_sha": "3b31945766c0c57cdab6f58ad4e2698a1fc49403d077dfd9f794cbac69992dd5"
+        },
+        "app/lib/ClientOrders.php": {
+            "sha": "22d5feade5c845094444ddb74dfcbd4689bdf38f03c490f1e5643488c108b5a7",
+            "size": 242072,
+            "live_was": "2c4c5457e0391efade7141e7bf16df08445bba395f6d0c13d4fac17252208dfc",
+            "existed": true,
+            "old_sha": "2c4c5457e0391efade7141e7bf16df08445bba395f6d0c13d4fac17252208dfc"
+        },
+        "app/lib/Scheduler.php": {
+            "sha": "04515862642a6355c3ddf2caba98fce1a62e520bccb36256e53aa257c1f1dc61",
+            "size": 33309,
+            "live_was": "b3f7c61f73c50ad312393bdc7d8e391051c5144b6cc4d8d84c8fdc7b18907f2d",
+            "existed": true,
+            "old_sha": "b3f7c61f73c50ad312393bdc7d8e391051c5144b6cc4d8d84c8fdc7b18907f2d"
+        },
+        "app/lib/VendorBills.php": {
+            "sha": "bf46b4e6e16aa48f7b5a7be185b8d988d0465b16f16164f2155eca8569f9069d",
+            "size": 29473,
+            "live_was": null,
+            "existed": false
+        },
+        "app/lib/QuickBooksPay.php": {
+            "sha": "36ec8ebb5fa58d96a73c5d1979c0bccaa94fcc2bcbe388f32dc8a57113566ef3",
+            "size": 88146,
+            "live_was": "c89e5d8cb0bb6995d2422656d74f54324e0ac7bc576e3938fb3e09397cfc05fd",
+            "existed": true,
+            "old_sha": "c89e5d8cb0bb6995d2422656d74f54324e0ac7bc576e3938fb3e09397cfc05fd"
+        },
+        "app/lib/staging-tables.php": {
+            "sha": "a8444e968315b930319d0b9aa3a09876bf50b339dc205462338cb9fae20cac47",
+            "size": 29181,
+            "live_was": "fc8c7b6c888a56619b030278f56c264fddcb18bba2fc4e4609629c7903d0e6ca",
+            "existed": true,
+            "old_sha": "fc8c7b6c888a56619b030278f56c264fddcb18bba2fc4e4609629c7903d0e6ca"
+        },
+        "app/lib/WorkOrders.php": {
+            "sha": "ed880c2890d54534ef8cc97728fa51fee24dd97cae2ffdff8e2ae6a7a38565a5",
+            "size": 66570,
+            "live_was": "a6696d59958d60638bfa13c73510dad6e182a8dc142acdf5490c3af4a8e3da11",
+            "existed": true,
+            "old_sha": "a6696d59958d60638bfa13c73510dad6e182a8dc142acdf5490c3af4a8e3da11"
+        },
+        "website/admin/client-order.php": {
+            "sha": "b90c936324aaee13a5b1df7f8c8e627a068ad5e2f6f59732a2efa93d1854d02f",
+            "size": 281627,
+            "live_was": "869949fc06e49a0f6f37643da8bfb4def816f0ba20479a0d9480c25a8d69bcff",
+            "existed": true,
+            "old_sha": "869949fc06e49a0f6f37643da8bfb4def816f0ba20479a0d9480c25a8d69bcff"
+        },
+        "website/js/vendor-bill.js": {
+            "sha": "3b98777b87137c56b4596420dcfe42e47fde8c3fbdff5a6a9d6b600ff3b6c732",
+            "size": 22662,
+            "live_was": null,
+            "existed": false
+        }
+    },
+    "migrations": [
+        "app/migrations/2026-11-23_m1b_vendor_bills.sql"
+    ],
+    "checks": {
+        "ok": true,
+        "where": "live",
+        "at": "2026-11-24T00:44:23+00:00",
+        "items": [
+            [
+                "PHP files parse",
+                true,
+                "11 checked"
+            ],
+            [
+                "Pages answer",
+                true,
+                "3 pages answered on traversence.com"
+            ],
+            [
+                "No new fatal errors in the logs",
+                true,
+                "4 logs read"
+            ]
+        ],
+        "first_fail": ""
+    },
+    "log": [
+        {
+            "at": "2026-11-24T00:44:16+00:00",
+            "by": 0,
+            "msg": "Uploaded order-m1b.zip: 14 files."
+        },
+        {
+            "at": "2026-11-24T00:44:17+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/order-m1b.zip (git 01b044f932)."
+        },
+        {
+            "at": "2026-11-24T00:44:17+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
+        },
+        {
+            "at": "2026-11-24T00:44:21+00:00",
+            "by": 0,
+            "msg": "Put on staging (14 files); its checks passed."
+        },
+        {
+            "at": "2026-11-24T00:44:23+00:00",
+            "by": 0,
+            "msg": "Approved in chat before it was sent through git, and its checks on staging passed: publishing by itself."
+        },
+        {
+            "at": "2026-11-24T00:44:23+00:00",
+            "by": 0,
+            "msg": "Published: 13 files, after its 1 migration ran first (2026-11-23_m1b_vendor_bills.sql; a copy of what each touched is kept 14 days); everyone at once (no switch)."
+        }
+    ]
+}

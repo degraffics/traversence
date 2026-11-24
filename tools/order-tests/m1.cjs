@@ -118,7 +118,8 @@ const id = (name) => +sql(`SELECT id FROM orders WHERE client_company = '${name}
     ok(`${w}: Override with a reason opens its form, in the reason`, await p.evaluate(() => document.activeElement && document.activeElement.id === 'co-owed-why' && document.activeElement.closest('details').open));
     // the Delivery line's question (Design reviewer): Ready N days. Picked up?
     L = await lines(id('Mesa Ridge Lodge'));
-    ok(`${w}: an aged pickup asks: "Ready 21 days. Picked up?" with Yes, picked up and Remind the client`, /Ready 21 days\. Picked up\?/.test(L[2].text) && L[2].btns.map((x) => x.t).join('|') === 'Yes, picked up|Remind the client', L[2]);
+    // its one action; Remind the client in its ⋯ (the Design reviewer on M1b, 2026-11-23, to the approved round 3)
+    ok(`${w}: an aged pickup asks: "Ready 21 days. Picked up?" with Yes, picked up (Remind the client in ⋯)`, /Ready 21 days\. Picked up\?/.test(L[2].text) && L[2].btns.map((x) => x.t).join('|') === 'Yes, picked up' && await p.evaluate(() => !!document.querySelectorAll('.cs-line')[2].querySelector('.cs-tk button[value=remind_got]')), L[2]);
     const known = await p.evaluate(() => ({ due: (document.querySelector('[data-f=due_date]').closest('dd').querySelector('[data-co-val]') || {}).textContent, terms: (document.querySelector('[data-f=due_terms]').closest('dd').querySelector('[data-co-val]') || {}).textContent, termsSel: !!document.querySelector('[data-f=due_terms]').offsetParent, dueIn: !!document.querySelector('input[data-f=due_date]:not([hidden])'), ship: (document.querySelector('.co-known span') || {}).textContent, shipSel: !!document.querySelector('.co-modef select') && !!document.querySelector('.co-modef select').offsetParent, biz: (document.querySelector('.co-biz summary .co-ib') || {}).title, change: /Change ▾/.test(document.body.textContent) }));
     ok(`${w}: known values as text with ✎: the due date (from the terms), Pickup at our shop; Edit the business, no "Change ▾"`, /\(from the terms\)$/.test(known.due) && !known.dueIn && known.terms === 'Due on receipt' && !known.termsSel && known.ship === 'Pickup at our shop' && !known.shipSel && known.biz === 'Edit the business' && !known.change, known);
     await p.click('button[title="Edit the due date"]'); await p.waitForTimeout(200);
@@ -127,7 +128,7 @@ const id = (name) => +sql(`SELECT id FROM orders WHERE client_company = '${name}
     const yes1 = await p.$('.tv-ask button:has-text("Record it"), [role=dialog] button:has-text("Record it")');
     if (yes1) { await Promise.all([p.waitForNavigation({ timeout: 10000 }).catch(() => {}), yes1.click()]); await p.waitForTimeout(800); }
     L = await p.evaluate(() => [...document.querySelectorAll('.cs-line')].map((l) => ({ text: l.querySelector('.cs-lt').innerText.trim(), btns: [...l.querySelectorAll('.cs-lb > .hb-b, .cs-lb > .cs-ways > .hb-b')].map((x) => x.textContent), edit: (l.querySelector('.cs-ib[title^="Edit"]') || {}).title })));
-    ok(`${w}: Yes, picked up (asked first): Delivered, recorded by name, with ✎ Edit the delivery (a recorded fact: no Undo); the Money line's one action`, !!yes1 && /^Delivered on .*, recorded by Staff\.$/.test(L[2].text) && !L[2].btns.length && L[2].edit === 'Edit the delivery' && L[1].btns.join('|') === 'Record the payment', L);
+    ok(`${w}: Yes, picked up (asked first): Picked up, recorded by name, with ✎ Edit the delivery (a recorded fact: no Undo); the Money line's one action`, !!yes1 && /^Picked up on .*, recorded by Staff\.$/.test(L[2].text) && !L[2].btns.length && L[2].edit === 'Edit the delivery' && L[1].btns.join('|') === 'Record the payment', L);
     await p.screenshot({ path: `${shots}/m1-picked-up-${w}.png` });
     await p.click('.cs-line:nth-of-type(3) .cs-ib[title="Edit the delivery"]'); await p.waitForTimeout(600);
     const ed = await p.evaluate(() => ({ focus: document.activeElement && document.activeElement.id, shown: !document.querySelector('[data-cs-edf]').hidden }));
@@ -143,9 +144,10 @@ const id = (name) => +sql(`SELECT id FROM orders WHERE client_company = '${name}
     if (yes2) { await Promise.all([p.waitForNavigation({ timeout: 10000 }).catch(() => {}), yes2.click()]); await p.waitForTimeout(800); }
     ok(`${w}: Delivery ⋯ "Not delivered after all" (asked first) puts the question back`, !!yes2 && sql(`SELECT received_at IS NULL FROM orders WHERE id = ${id('Mesa Ridge Lodge')}`) === '1');
     L = await lines(id('Shipped Paid Co'));
-    ok(`${w}: paid and out the door: Complete is the filled button, and Shipped 2 days. Delivered? asks`, L[0].btns[0].t === 'Complete' && L[0].btns[0].go && !L[0].btns[0].off && !L[1].btns.length && /Shipped 2 days\. Delivered\?/.test(L[2].text), L);
-    await p.click('.cs-lines button:has-text("Complete")'); await p.waitForTimeout(900);
-    ok(`${w}: Complete asks first (its confirm)`, await p.evaluate(() => !!document.querySelector('.tv-ask, [role=dialog], .tv-confirm')));
+    // Complete waits for Delivery's answer (the approved mockup open; the Design reviewer on M1b, 2026-11-23)
+    ok(`${w}: paid and out the door, Shipped 2 days. Delivered? asks: Yes, delivered is the filled button; Complete greyed "once it's delivered"`, L[0].btns[0].t === 'Complete' && L[0].btns[0].off && L[0].note === 'once it\'s delivered' && !L[1].btns.length && /Shipped 2 days\. Delivered\?/.test(L[2].text) && L[2].btns[0].t === 'Yes, delivered' && L[2].btns[0].go, L);
+    await p.click('.cs-lines button[value=picked_up]'); await p.waitForTimeout(900);
+    ok(`${w}: Yes, delivered asks first (its confirm)`, await p.evaluate(() => !!document.querySelector('.tv-ask, [role=dialog], .tv-confirm')));
     await p.screenshot({ path: `${shots}/m1-order-after-${w}.png` });
     for (const [n, want] of [['Draft Co', 'Send to the client'], ['Changes Co', 'Upload the new proof'], ['Deposit Co', 'Take a payment'], ['Paid Co', 'Send the work order']]) {
       L = await lines(id(n)); const all = L.flatMap((x) => x.btns); const g = all.filter((x) => x.go);

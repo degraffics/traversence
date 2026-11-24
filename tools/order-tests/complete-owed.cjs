@@ -38,7 +38,8 @@ let fails = 0; const ok = (what, pass, saw) => { if (!pass) fails++; console.log
     if (paid) {
       await p.goto(`${base}/admin/backoffice/orders/${paid}`, { waitUntil: 'domcontentloaded' }); await p.waitForTimeout(1000);
       const q = await read(p);
-      ok(`${w}: paid in full, Complete the order stays pressable, no override`, !q.disabled && !q.override && q.strip[0] === 'Complete→#co-complete', JSON.stringify(q));
+      // paid in full: no money words, no override; since M1b's review Complete also waits for Delivery's answer while it still asks
+      ok(`${w}: paid in full, Complete the order isn't held for money (no override); its section's button pressable (the strip's Complete waits for Delivery's answer while it asks)`, !q.override && !q.owedTimes && !q.disabled && (q.strip[0] === 'Complete→#co-complete' || !q.strip.length), JSON.stringify(q));
     }
     await c.close();
   }
