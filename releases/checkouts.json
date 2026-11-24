@@ -25,21 +25,12 @@
   },
   {
    "path": "app/admin/control-console.php",
-   "functions": [
-    "tv_admin_mod_control",
-    "tv_cb_by_system",
-    "tv_cb_deliver",
-    "tv_cb_development",
-    "tv_cb_evidence",
-    "tv_cb_qbar",
-    "tv_cb_rail",
-    "tv_cb_table_rows"
-   ],
+   "functions": [],
    "kind": "change",
    "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
    "why": "board-phone-header: the board on a phone, one alarm count, W1's side panel",
    "since": "2026-11-24T12:05:19Z",
-   "expires": "2026-11-24T16:45:40Z",
+   "expires": "2026-11-24T16:47:29Z",
    "release": "board-phone-header.zip",
    "callers": {
     "tv_cb_table_rows": [
