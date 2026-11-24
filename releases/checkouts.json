@@ -191,6 +191,36 @@
      "app/lib/ControlHistorian.php"
     ]
    }
+  },
+  {
+   "path": "app/lib/Scheduler.php",
+   "functions": [
+    "JOBS"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
+   "why": "board-phone: seven daily jobs' late limits were hourly-sized (30-600 min), so Scheduled tasks said Late hours before they were due; set to a day plus two hours, as market_tick and billing_tick",
+   "since": "2026-11-24T05:29:16Z",
+   "expires": "2026-11-24T09:29:16Z",
+   "release": "board-phone.zip",
+   "callers": {
+    "JOBS": [
+     "app/admin/automation-console.php",
+     "app/admin/job-line.php",
+     "app/admin/operations-console.php",
+     "app/admin/sections.php",
+     "app/lib/ControlAlarms.php",
+     "app/lib/ControlMaintenance.php",
+     "app/lib/ControlRegister.php",
+     "app/lib/OutsideServices.php",
+     "app/lib/Preflight.php",
+     "app/lib/SystemStart.php",
+     "app/scripts/control_tick.php",
+     "app/ui/admin-dashboard.php",
+     "website/admin/api/find.php",
+     "website/api/health.php"
+    ]
+   }
   }
  ],
  "lapsed": [
