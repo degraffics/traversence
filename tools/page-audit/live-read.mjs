@@ -25,6 +25,8 @@ const PAGES = { orders: () => ['/admin/backoffice/orders'], order: () => (/^\d{1
   ir0001: () => ['/admin/config/ledger?q=crawl/loads', '/admin/insights/crawler?run=' + (/^\d{1,9}$/.test(ID) ? ID : '1290'), '/admin/config/alarms'],
   // the board's phone header (the Control Board session, 2026-11-24): the board, W1's own page (its trips after the presses)
   // and the alarm list, at 1280 and 390, for the header's counts and the side panel's look
+  // the jobs (the Control Board session, 2026-11-24, queue item 7): Scheduled tasks, each job's last run and next due
+  jobs: () => ['/admin/config/scheduler'],
   board: () => ['/admin/config/control', '/admin/config/control/wf-W1', '/admin/config/alarms'],
   meta: () => (/^[a-z0-9_]{1,64}$/.test(TABLE) ? [`/admin/api/data.php?action=meta&table=${TABLE}`] : null) };
 
