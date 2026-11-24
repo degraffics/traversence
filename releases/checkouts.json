@@ -160,6 +160,7 @@
   {
    "path": "app/lib/ControlAlarms.php",
    "functions": [
+    "affects",
     "facts",
     "pulseSteps",
     "raise",
@@ -167,9 +168,9 @@
    ],
    "kind": "change",
    "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
-   "why": "The pressed state replaces the trip's (Jason, 2026-11-24)",
+   "why": "The started state drops the stale pause line",
    "since": "2026-11-24T01:56:35Z",
-   "expires": "2026-11-24T06:04:43Z",
+   "expires": "2026-11-24T06:21:25Z",
    "release": "task-trip.zip",
    "callers": {
     "resolve": [
@@ -203,6 +204,9 @@
     ],
     "pulseSteps": [
      "app/lib/Pulse.php"
+    ],
+    "affects": [
+     "app/lib/ServiceHealth.php"
     ]
    }
   },
