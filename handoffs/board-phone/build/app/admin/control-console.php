@@ -799,8 +799,11 @@ function tv_cb_qbar(PDO $pdo, array $open, array $names, array $core, string $st
 {
     $e = 'tv_w_e';
     $part = function (array $a) use ($pdo, $names): array { $p = (string) $a['proc']; return [$names[$p] ?? ControlAlarms::partName($pdo, $p), '/admin/config/control/' . str_replace(':', '-', $p)]; };
-    $item = function (array $a, string $tone, string $b) use ($e, $part): string { [$nm, $u] = $part($a);
-        return '<a class="cb-qj ' . $tone . '" href="' . $e($u) . '" data-peek-frame="' . $e($nm) . '"><span>' . $e(rtrim((string) $a['title'], '. ')) . '</span>' . ($b !== '' ? '<b>' . $e($b) . '</b>' : '') . '</a>'; };
+    // each item says its thread's title, the one its card and Pulse show (decisions/0176 §2: one title per thread on every
+    // surface; the Design reviewer, 2026-11-24: Alerts said the stored title, the card "Overture Maps Places' read failed")
+    $title = function (array $a) use ($pdo): string { try { $t = (string) (ControlAlarms::facts($pdo, $a)['title'] ?? ''); if ($t !== '') return $t; } catch (Throwable $x) {} return (string) $a['title']; };
+    $item = function (array $a, string $tone, string $b) use ($e, $part, $title): string { [$nm, $u] = $part($a);
+        return '<a class="cb-qj ' . $tone . '" href="' . $e($u) . '" data-peek-frame="' . $e($nm) . '"><span>' . $e(rtrim($title($a), '. ')) . '</span>' . ($b !== '' ? '<b>' . $e($b) . '</b>' : '') . '</a>'; };
     $live = tv_cb_live_alarms($open);
     $cap = fn ($a) => str_starts_with((string) $a['akey'], 'ops:cap:'); $pf = fn ($a) => str_starts_with((string) $a['akey'], 'pf:');
     $sync = fn ($a) => str_starts_with((string) $a['akey'], 'ops:watch:');   // Railway and the sync, watched (the mockup's Sync chip, 03 §27)

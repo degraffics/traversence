@@ -35,6 +35,10 @@ $seen = (string) (preg_match('~<section class="cb-ag n" aria-label="Seen">.*?</s
 $t('…the seen warning is under Seen, said as not counted', str_contains($seen, 'y (job) is late') && str_contains($seen, 'Not counted') && preg_match('~<b>1</b>~', $seen), mb_substr($seen, 0, 200));
 $warn = (string) (preg_match('~<section class="cb-ag a" aria-label="Warnings">.*?</section>~s', $h, $wx) ? $wx[0] : '');
 $t('…Warnings\' rows carry no "warning" pill (its heading says it)', $warn !== '' && !str_contains($warn, '<b>warning</b>'), mb_substr($warn, 0, 200));
+// an Alerts item says its thread's title, the one its card shows (decisions/0176 §2)
+$trip = null; foreach (ControlAlarms::list($pdo) as $x) if ($x['level'] === 'trip') $trip = $x;
+$ft = (string) ControlAlarms::facts($pdo, $trip)['title'];
+$t('an Alerts item says its thread\'s title, as its card ("' . $ft . '")', $ft !== '' && str_contains($h, '<span>' . htmlspecialchars(rtrim($ft, '. '), ENT_QUOTES) . '</span>'), $ft);
 // W1 waiting for its run (both trips started again): its row says so, never "Tripped: stopped"
 $pdo->exec("UPDATE control_alarms SET resolve_note = 'W1 runs again (Jason, 04:13 UTC).' WHERE akey = 'task:failed:overture_bulk'");
 [$light, $means] = ControlBoard::boardLight($pdo, 'wf:W1', ['light' => 'bad'], ['wf:W1' => true]);
