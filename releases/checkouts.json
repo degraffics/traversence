@@ -151,15 +151,28 @@
   {
    "path": "app/lib/Orders.php",
    "functions": [
-    "(top)"
+    "(top)",
+    "money"
    ],
    "kind": "change",
    "session": "session_01CXLi5j2wAgTrKdTwX6kQNY",
-   "why": "M2: refunds wait for Jason's OK (0178 \u00a71), Cancel the record, the reversing kind",
+   "why": "M2: a cancelled payment record takes it out of what's paid",
    "since": "2026-11-24T01:02:25Z",
-   "expires": "2026-11-24T05:02:25Z",
+   "expires": "2026-11-24T05:24:00Z",
    "release": "order-m2.zip",
-   "callers": {}
+   "callers": {
+    "money": [
+     "app/admin/tools.php",
+     "app/lib/ClientOrders.php",
+     "app/lib/Pulse.php",
+     "app/lib/QbPull.php",
+     "app/lib/WorkOrders.php",
+     "website/admin/client-order.php",
+     "website/admin/ecommerce.php",
+     "website/admin/order.php",
+     "website/order.php"
+    ]
+   }
   },
   {
    "path": "app/lib/ClientOrders.php",
