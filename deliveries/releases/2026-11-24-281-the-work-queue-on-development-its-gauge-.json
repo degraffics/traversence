@@ -6,25 +6,29 @@
     "zip": "work-queue.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "staged",
-    "step": 0,
+    "state": "live",
+    "step": 3,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
     "plan_at": "2026-11-24 12:56:37",
     "staged_at": "2026-11-24 12:56:39",
-    "vetted_at": null,
-    "live_at": null,
+    "vetted_at": "2026-11-24 12:56:42",
+    "live_at": "2026-11-24 12:56:42",
     "files": {
         "app/admin/control-console.php": {
             "sha": "d19fdfabd1468ff8bbe744b5f45db2928f24754117819babd218bd8fae2fa950",
             "size": 264605,
-            "live_was": "ba31dc53841958a2362f33da7fb78fdb54821c0be2381da22717ce9c71f30640"
+            "live_was": "ba31dc53841958a2362f33da7fb78fdb54821c0be2381da22717ce9c71f30640",
+            "existed": true,
+            "old_sha": "ba31dc53841958a2362f33da7fb78fdb54821c0be2381da22717ce9c71f30640"
         },
         "app/ui/faq.md": {
             "sha": "687d0e0ca846a2241b795c0ca2395563be51587a5ef8fc9d304dab715e7b225e",
             "size": 447060,
-            "live_was": "17de04ab6d9862433d4156d6bfef7fa8f3da1813786c39800dcf216d94ef4bcd"
+            "live_was": "17de04ab6d9862433d4156d6bfef7fa8f3da1813786c39800dcf216d94ef4bcd",
+            "existed": true,
+            "old_sha": "17de04ab6d9862433d4156d6bfef7fa8f3da1813786c39800dcf216d94ef4bcd"
         },
         "app/migrations/2026-11-24_work_queue.sql": {
             "sha": "f5ce9fac5809c2ca1ed6028b4665a9385cb77b68aeff30c1f374ef56aabbf4ff",
@@ -34,22 +38,30 @@
         "app/lib/GaugeTasks.php": {
             "sha": "72fc076ff41524b6bb2767a7698d68b29c921820916928613d2827c57b4186d6",
             "size": 22418,
-            "live_was": "8cbd27bdd37c1012ded67334d993ea3f8dd7c2a597203ca6077bc382010e805d"
+            "live_was": "8cbd27bdd37c1012ded67334d993ea3f8dd7c2a597203ca6077bc382010e805d",
+            "existed": true,
+            "old_sha": "8cbd27bdd37c1012ded67334d993ea3f8dd7c2a597203ca6077bc382010e805d"
         },
         "app/lib/ControlGauges.php": {
             "sha": "2c81d64ce1b260c3ef1b20620f237a26548afaab993ed930836db516d24a6efa",
             "size": 42194,
-            "live_was": "7000e4188a2751f71878d3b5d83708771c06a4d2585c6d0e2486dde36a950966"
+            "live_was": "7000e4188a2751f71878d3b5d83708771c06a4d2585c6d0e2486dde36a950966",
+            "existed": true,
+            "old_sha": "7000e4188a2751f71878d3b5d83708771c06a4d2585c6d0e2486dde36a950966"
         },
         "website/admin/api.php": {
             "sha": "edf411a45f9facc979d2c8ed90a1525430ae7826ea0f78ad7a3ba9094c4aed9e",
             "size": 52344,
-            "live_was": "ef6ef6f676fd2eef4e405e6f0abe2532de373dd94af509f83c73e0ba2f597d5d"
+            "live_was": "ef6ef6f676fd2eef4e405e6f0abe2532de373dd94af509f83c73e0ba2f597d5d",
+            "existed": true,
+            "old_sha": "ef6ef6f676fd2eef4e405e6f0abe2532de373dd94af509f83c73e0ba2f597d5d"
         },
         "website/js/admin-control.js": {
             "sha": "d3c6dbc10de3e58ce7bc1f330b6621221efbd804b1d373f903881708e5662c1d",
             "size": 61500,
-            "live_was": "c22a6f535ca43c51a5d70f834616c7aa454ba4b5034d549184435524c0d404bb"
+            "live_was": "c22a6f535ca43c51a5d70f834616c7aa454ba4b5034d549184435524c0d404bb",
+            "existed": true,
+            "old_sha": "c22a6f535ca43c51a5d70f834616c7aa454ba4b5034d549184435524c0d404bb"
         }
     },
     "migrations": [
@@ -57,8 +69,8 @@
     ],
     "checks": {
         "ok": true,
-        "where": "staging",
-        "at": "2026-11-24T12:56:40+00:00",
+        "where": "live",
+        "at": "2026-11-24T12:56:42+00:00",
         "items": [
             [
                 "PHP files parse",
@@ -66,19 +78,9 @@
                 "4 checked"
             ],
             [
-                "Migrations only add",
-                true,
-                "1 checked"
-            ],
-            [
-                "Migrations ran on staging",
-                true,
-                "Ran 2026-11-24_work_queue.sql"
-            ],
-            [
                 "Pages answer",
                 true,
-                "3 pages answered on staging.trvgo.us"
+                "3 pages answered on traversence.com"
             ],
             [
                 "No new fatal errors in the logs",
@@ -108,6 +110,16 @@
             "at": "2026-11-24T12:56:40+00:00",
             "by": 0,
             "msg": "Put on staging (7 files); its checks passed."
+        },
+        {
+            "at": "2026-11-24T12:56:42+00:00",
+            "by": 0,
+            "msg": "Approved in chat before it was sent through git, and its checks on staging passed: publishing by itself."
+        },
+        {
+            "at": "2026-11-24T12:56:42+00:00",
+            "by": 0,
+            "msg": "Published: 6 files, after its 1 migration ran first (2026-11-24_work_queue.sql; a copy of what each touched is kept 14 days); everyone at once (no switch)."
         }
     ]
 }
