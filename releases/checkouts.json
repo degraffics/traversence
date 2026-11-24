@@ -309,6 +309,17 @@
    "expires": "2026-11-24T04:13:39Z",
    "release": "loads-reply.zip",
    "callers": {}
+  },
+  {
+   "path": "website/api/crawl/index.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
+   "why": "W0: one record line per batch",
+   "since": "2026-11-24T00:13:42Z",
+   "expires": "2026-11-24T04:13:42Z",
+   "release": "loads-reply.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
