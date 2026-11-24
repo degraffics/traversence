@@ -126,6 +126,14 @@ final class ControlAlarms
                 $pdo->prepare('UPDATE control_alarms SET n_times = n_times + ' . ($event ? 1 : 0) . ', last_at = UTC_TIMESTAMP(), level = ?, title = ?, means = ?, todo = ?, reading = ?, fix = ? WHERE id = ?')
                     ->execute([$lv, $cut($title, 200), $cut($means, 400), $cut($todo, 400), $cut($reading, 255), mb_substr($fx, 0, 400), (int) $o['id']]);
                 if (self::$engine) $pdo->prepare('UPDATE control_alarms SET component = ?, next_try_at = ? WHERE id = ?')->execute([$cut($comp, 80) ?: null, $lv === 'trip' && empty($early) && $o['level'] !== 'trip' ? null : $next, (int) $o['id']]);
+                // started again for its next run, and that run failed too: its pauses back, its words say so (never still "Started again")
+                if ($event && $lv === 'trip' && self::startedAgain($o) !== '') {
+                    require_once __DIR__ . '/Automation.php';
+                    foreach ((array) json_decode((string) ($o['stopped'] ?? ''), true) as $st) if (is_array($st) && ($st[0] ?? '') === 'pause') { [$pk, $pr] = explode(':', (string) $st[1], 2) + ['', '']; if ($pr !== '') Automation::sysPause($pdo, $pk, $pr, $cut($title, 200), (int) $o['id']); }
+                    $again = 'Tried again at ' . gmdate('H:i') . ' UTC after ' . ((string) ($o['resolved_name'] ?? '') ?: 'a person') . ' started it: it failed again (' . $cut($reading, 120) . '). Fix its cause, then Check and start again.';
+                    $pdo->prepare('UPDATE control_alarms SET resolve_note = ? WHERE id = ?')->execute([mb_substr($again, 0, 400), (int) $o['id']]);
+                    self::log($pdo, 'alarm', $proc, 'Failed again after it was started: ' . $cut($title, 200), '', $cut($reading, 200));
+                }
                 if ($lv === 'trip' && $o['level'] !== 'trip') {   // it got worse: a trip now, and the logbook keeps that moment (g4 row 16)
                     self::log($pdo, 'alarm', $proc, 'Trip: ' . $cut($title, 200), '', 'Its next run failed too at ' . gmdate('H:i') . ' UTC: ' . $cut($reading, 200));
                     if ($early) self::trippedEarly($pdo, (int) $o['id'], $duty); else self::tripped($pdo, (int) $o['id']);
@@ -952,6 +960,16 @@ final class ControlAlarms
      * from Preflight::NEEDS); What the system is doing (its words, which say how it's trying); What to do; Details (its
      * reading, kind and counts). No buttons here: each surface adds the ones it can press.
      */
+    /**
+     * A task's trip started again for its next run (startForNextRun): its words, or ''. The card shows this state in place of
+     * the trip's (Jason, 2026-11-24: "every action … replace old states with new state"): no Check and start again, nothing held.
+     */
+    public static function startedAgain(array $a): string
+    {
+        $n = (string) ($a['resolve_note'] ?? '');
+        return $a['cleared_at'] === null && (string) $a['level'] === 'trip' && str_starts_with($n, 'Started again at ') ? $n : '';
+    }
+
     public static function facts(PDO $pdo, array $a): array
     {
         $cl = $a['cleared_at'] !== null; $lv = (string) $a['level']; $isTrip = $lv === 'trip' && !empty($a['tripped_at']);
@@ -974,7 +992,10 @@ final class ControlAlarms
             $ed = ControlEngine::doing($pdo, $a, $held);
             if ($ed !== '') $doing = $ed;
         }
-        if (!$cl && $a['ack_at'] !== null) $status .= ' Acknowledged by ' . (string) ($a['ack_name'] ?? 'staff') . '.';
+        $sa = self::startedAgain($a);
+        if ($sa !== '') { $status = $sa; $doing = 'Nothing is paused for this trip now: its next run is the check.'; }   // the press's result replaces the trip's state (it holds nothing now; its run is its check)
+        elseif (!$cl && $a['ack_at'] !== null) $status .= ' Acknowledged by ' . (string) ($a['ack_name'] ?? 'staff') . '.';
+        if (!$cl && str_starts_with((string) ($a['resolve_note'] ?? ''), 'Tried again at ')) $status .= ' ' . (string) $a['resolve_note'];
         if (!$cl && $isTrip && !empty($a['good_at'])) $status .= ' Its reading is good again since ' . self::at((string) $a['good_at']) . ': ' . (string) $a['good_how'];
         if (!$cl && str_starts_with((string) ($a['resolve_note'] ?? ''), 'Not resolved')) $status .= ' ' . (string) $a['resolve_note'];
         $det = [];
@@ -985,7 +1006,7 @@ final class ControlAlarms
         require_once __DIR__ . '/Thread.php';
         return ['title' => (string) $a['title'], 'level' => $cl ? 'closed' : $lv, 'pill' => $cl ? 'Cleared' : (self::LEVELS[$lv] ?? $lv),
         // 'holds': only a trip holds its part; a warning holds nothing (words true to state; the design review, 2026-11-23)
-                'status' => trim($status), 'affects' => self::affects($pdo, $a), 'holds' => $a['level'] === 'trip' && !empty($a['tripped_at']) ? self::partName($pdo, (string) $a['proc']) : '', 'doing' => ($theirs && $doing !== '' ? Thread::HANDLING . ': ' : '') . $doing, 'todo' => (string) $a['todo'], 'details' => $det,
+                'status' => trim($status), 'affects' => self::affects($pdo, $a), 'holds' => $a['level'] === 'trip' && !empty($a['tripped_at']) && $sa === '' ? self::partName($pdo, (string) $a['proc']) : '', 'doing' => ($theirs && $doing !== '' ? Thread::HANDLING . ': ' : '') . $doing, 'todo' => (string) $a['todo'], 'details' => $det,
                 'fix' => $theirs ? null : $fix, 'theirs' => $theirs];
     }
 
@@ -1089,6 +1110,8 @@ final class ControlAlarms
         // Mark resolved is removed everywhere (02 §5.3; row 95): an old button stored on a row is never drawn
         $fx = array_values(array_filter($fx, fn ($f) => ($f[1] ?? '') !== 'svc' . 'resolve'));
         if ($a['level'] === 'trip' && !empty($a['tripped_at'])) $fx = array_values(array_filter($fx, fn ($f) => !in_array($f[1] ?? '', ['svccheck', 'check'], true)));
+        $started = self::startedAgain($a) !== '';   // the press's state, as on the board: no Try it first, no Check and start again
+        if ($started) $fx = array_values(array_filter($fx, fn ($f) => !str_starts_with((string) ($f[2] ?? ''), 'ops_runnext:')));
         $out = [];
         // Fix it first (0176 §5, A5): its one spot in the case's panel; a spot still to come, greyed with its reason
         require_once __DIR__ . '/Thread.php';
@@ -1101,7 +1124,7 @@ final class ControlAlarms
             elseif ($k === 'ops') $out[] = $s($l, is_string($f[3] ?? null) ? (string) $f[3] : 'Done in place.', ['do', 'alarm_' . (string) $f[2], $l]);
             elseif ($k === 'link') $out[] = $s($l, 'Opens on their site, in a new tab; nothing is changed from here.', null, false, (string) ($f[3] ?? ''));
         }
-        if ($a['cleared_at'] === null && $a['level'] === 'trip' && !empty($a['tripped_at']))
+        if ($a['cleared_at'] === null && $a['level'] === 'trip' && !empty($a['tripped_at']) && !$started)
             $out[] = $s('Check and start again', 'The system checks it first' . (self::stoppedWords($a) !== '' ? ', then starts again ' . self::stoppedWords($a) : '') . '; if the check is still red, it says which part holds it. Undo is kept for a day.', ['do', 'alarm_resolve', 'Check and start again']);
         elseif (!empty($a['resolved_at']) && strtotime($a['resolved_at'] . ' UTC') > time() - 86400)
             $out[] = $s('Undo the Resolve', 'Opens the trip again and stops again what it had stopped.', ['do', 'alarm_unresolve', 'Undo']);

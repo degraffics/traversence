@@ -44,6 +44,24 @@ $t('…no pause left on W1: the planner takes both tasks again', $inPlan('overtu
 $t('…both trips still open until their runs prove the fix', (int) $pdo->query("SELECT COUNT(*) FROM control_alarms WHERE id IN ($ov, $fs) AND cleared_at IS NULL")->fetchColumn() === 2);
 $t('"Try it first on the next run" now: nothing holds it (null)', CrawlService::runNext($pdo, 'overture_bulk') === null);
 
+// the card: the press's state replaces the trip's (Jason, 2026-11-24: "every action … replace old states with new state")
+$f = ControlAlarms::facts($pdo, ControlAlarms::byId($pdo, $fs));
+$t('the card\'s Status is the press\'s result, never "Paused by the system" or "Acknowledged"', str_starts_with($f['status'], 'Started again at ') && !str_contains($f['status'], 'Paused by the system') && !str_contains($f['status'], 'Acknowledged'), $f['status']);
+$t('…it holds nothing now ("Holds:" gone), and says what it\'s doing: its next run is the check', $f['holds'] === '' && str_contains($f['doing'], 'its next run is the check'), [$f['holds'], $f['doing']]);
+$steps = ControlAlarms::pulseSteps($pdo, $fs, fn ($l, $w, $a = null) => $l);
+$t('Pulse: no Check and start again, no Try it first on the next run (it is first)', !in_array('Check and start again', $steps, true) && !in_array('Try it first on the next run', $steps, true), $steps);
+require $app . '/admin/widgets.php'; require $app . '/ui/app-shell.php'; $_SESSION = ['csrf_token' => 'x'];
+require $app . '/admin/preflight-console.php'; require $app . '/admin/control-console.php';
+$html = tv_admin_mod_control($pdo);
+$li = preg_match('~<li id="cb-alarm-' . $fs . '".*?</li>~s', $html, $m) ? $m[0] : '';
+$t('the board: its row is "started", amber, with no Check and start again, Try it first, Acknowledge or "Holds:"', $li !== '' && str_contains($li, 'data-astate="started"') && !str_contains($li, '>Check and start again<') && !str_contains($li, 'Try it first') && !str_contains($li, '>Acknowledge<') && !str_contains($li, 'Holds:</b>'), mb_substr(strip_tags($li), 0, 300));
+
+// its run fails again: back to holding W1, in words (never still "Started again")
+ControlAlarms::raise($pdo, 'task:failed:foursquare_bulk', 'wf:W1', 'trip', 'crash', 'foursquare_bulk failed in its own code (run #2102)', 'Its work goes back.', 'Read its why.', 'TimeoutError', [], true, false, 'task:foursquare_bulk'); Automation::forget();
+$fa = ControlAlarms::byId($pdo, $fs); $f2 = ControlAlarms::facts($pdo, $fa);
+$t('failed again: its pause is back (W1 skipped again)', !$inPlan('foursquare_bulk'));
+$t('…its card says "Tried again at … it failed again", Check and start again back', ControlAlarms::startedAgain($fa) === '' && str_contains($f2['status'], 'Tried again at ') && str_contains($f2['status'], 'it failed again') && in_array('Check and start again', ControlAlarms::pulseSteps($pdo, $fs, fn ($l, $w, $a = null) => $l), true), $f2['status']);
+
 // a good run clears the trip (the existing path: CrawlService's report clears task:failed:<task> on "done")
 ControlAlarms::clear($pdo, 'task:failed:overture_bulk', 'It did its work in run #2101 (02:40 UTC).');
 $t('its next good run clears it ("It did its work in run #…")', $pdo->query("SELECT cleared_at FROM control_alarms WHERE id = $ov")->fetchColumn() !== null);
