@@ -94,13 +94,14 @@
   {
    "path": "app/admin/tools.php",
    "functions": [
-    "backoffice/production"
+    "backoffice/production",
+    "backoffice/work_orders"
    ],
    "kind": "change",
    "session": "session_01CXLi5j2wAgTrKdTwX6kQNY",
    "why": "M2b: Courier booked on a Will Call work order too",
    "since": "2026-11-24T03:23:49Z",
-   "expires": "2026-11-24T07:23:49Z",
+   "expires": "2026-11-24T07:24:25Z",
    "release": "order-m2b.zip",
    "callers": {}
   }
