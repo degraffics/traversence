@@ -215,6 +215,24 @@
    "expires": "2026-11-24T04:00:47Z",
    "release": "order-m1b.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/crawler/OpenLoads.php",
+   "functions": [
+    "(top)",
+    "batch"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
+   "why": "IR-0001: batch keys; the recheck after the reply",
+   "since": "2026-11-24T00:04:16Z",
+   "expires": "2026-11-24T04:04:16Z",
+   "release": "loads-reply.zip",
+   "callers": {
+    "batch": [
+     "website/api/crawl/loads.php"
+    ]
+   }
   }
  ],
  "lapsed": [
