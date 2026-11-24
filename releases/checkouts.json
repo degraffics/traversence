@@ -112,6 +112,161 @@
    "expires": "2026-11-24T07:43:44Z",
    "release": "order-m2b.zip",
    "callers": {}
+  },
+  {
+   "path": "app/admin/control-console.php",
+   "functions": [
+    "(top)",
+    "tv_admin_mod_control",
+    "tv_cb_afilter",
+    "tv_cb_by_system",
+    "tv_cb_deliver",
+    "tv_cb_evidence",
+    "tv_cb_qbar",
+    "tv_cb_rail",
+    "tv_cb_table_rows",
+    "tv_cb_view_assets"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
+   "why": "board-phone-header: the Control Board on a phone (pages under \u2630, one Alerts dropdown, one alarm count), the side panel's look, words that follow the state, the audit clock's retry, daily jobs' late limits",
+   "since": "2026-11-24T05:47:58Z",
+   "expires": "2026-11-24T09:47:58Z",
+   "release": "board-phone-header.zip",
+   "callers": {
+    "tv_cb_table_rows": [
+     "app/admin/tools.php"
+    ]
+   }
+  },
+  {
+   "path": "website/js/admin-control.js",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
+   "why": "board-phone-header: the Control Board on a phone (pages under \u2630, one Alerts dropdown, one alarm count), the side panel's look, words that follow the state, the audit clock's retry, daily jobs' late limits",
+   "since": "2026-11-24T05:47:58Z",
+   "expires": "2026-11-24T09:47:58Z",
+   "release": "board-phone-header.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/js/tv-ask.js",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
+   "why": "board-phone-header: the Control Board on a phone (pages under \u2630, one Alerts dropdown, one alarm count), the side panel's look, words that follow the state, the audit clock's retry, daily jobs' late limits",
+   "since": "2026-11-24T05:47:58Z",
+   "expires": "2026-11-24T09:47:58Z",
+   "release": "board-phone-header.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/tools.php",
+   "functions": [
+    "'config/alarms'"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
+   "why": "board-phone-header: the Control Board on a phone (pages under \u2630, one Alerts dropdown, one alarm count), the side panel's look, words that follow the state, the audit clock's retry, daily jobs' late limits",
+   "since": "2026-11-24T05:47:58Z",
+   "expires": "2026-11-24T09:47:58Z",
+   "release": "board-phone-header.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ControlBoard.php",
+   "functions": [
+    "boardLight"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
+   "why": "board-phone-header: the Control Board on a phone (pages under \u2630, one Alerts dropdown, one alarm count), the side panel's look, words that follow the state, the audit clock's retry, daily jobs' late limits",
+   "since": "2026-11-24T05:47:58Z",
+   "expires": "2026-11-24T09:47:58Z",
+   "release": "board-phone-header.zip",
+   "callers": {
+    "boardLight": [
+     "app/admin/control-console.php",
+     "app/lib/ControlHistorian.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/Scheduler.php",
+   "functions": [
+    "(top)",
+    "JOBS"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
+   "why": "board-phone-header: the Control Board on a phone (pages under \u2630, one Alerts dropdown, one alarm count), the side panel's look, words that follow the state, the audit clock's retry, daily jobs' late limits",
+   "since": "2026-11-24T05:47:58Z",
+   "expires": "2026-11-24T09:47:58Z",
+   "release": "board-phone-header.zip",
+   "callers": {
+    "JOBS": [
+     "app/admin/automation-console.php",
+     "app/admin/job-line.php",
+     "app/admin/operations-console.php",
+     "app/admin/sections.php",
+     "app/lib/ControlAlarms.php",
+     "app/lib/ControlMaintenance.php",
+     "app/lib/ControlRegister.php",
+     "app/lib/OutsideServices.php",
+     "app/lib/Preflight.php",
+     "app/lib/SystemStart.php",
+     "app/scripts/control_tick.php",
+     "app/ui/admin-dashboard.php",
+     "website/admin/api/find.php",
+     "website/api/health.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/AuditClock.php",
+   "functions": [
+    "dispatch"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
+   "why": "board-phone-header: the Control Board on a phone (pages under \u2630, one Alerts dropdown, one alarm count), the side panel's look, words that follow the state, the audit clock's retry, daily jobs' late limits",
+   "since": "2026-11-24T05:47:58Z",
+   "expires": "2026-11-24T09:47:58Z",
+   "release": "board-phone-header.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ControlAlarms.php",
+   "functions": [
+    "counts"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
+   "why": "board-phone-header: the Control Board on a phone (pages under \u2630, one Alerts dropdown, one alarm count), the side panel's look, words that follow the state, the audit clock's retry, daily jobs' late limits",
+   "since": "2026-11-24T05:47:58Z",
+   "expires": "2026-11-24T09:47:58Z",
+   "release": "board-phone-header.zip",
+   "callers": {
+    "counts": [
+     "app/admin/control-console.php",
+     "app/lib/ControlConsistency.php",
+     "website/admin/router.php"
+    ]
+   }
+  },
+  {
+   "path": "website/admin/router.php",
+   "functions": [
+    "tv_admin_board_light"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
+   "why": "board-phone-header: the Control Board on a phone (pages under \u2630, one Alerts dropdown, one alarm count), the side panel's look, words that follow the state, the audit clock's retry, daily jobs' late limits",
+   "since": "2026-11-24T05:47:58Z",
+   "expires": "2026-11-24T09:47:58Z",
+   "release": "board-phone-header.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
