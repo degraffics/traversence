@@ -9,7 +9,8 @@
 //            moved on; a payment received on its QuickBooks invoice keeps its payment id (processed: Refund…)
 //   §1       a refund is prepared, never sent: one waiting per order, within what's left; only the Founder approves or
 //            declines; Decline needs his reason; Withdraw before he decides; Approve sends it (mock) and does what was
-//            ticked; QuickBooks refusing leaves it waiting with why; the Pulse case (Founder only), its steps and buttons
+//            ticked; QuickBooks refusing leaves it waiting with why; the Pulse case (the Founder's own staff login only), its
+//            steps and buttons; (b) a payment that wasn't a card: its Refund Receipt on Approve, then ✓ Sent by a person
 //   §2       the cancel window: open until the vendor accepts (the date in the reason); a paid order's cancel is a refund
 //            for Jason's OK, cancelled on Approve; unaccepted work orders stop with it
 //   setup    the migration twice, the staging register, the old page's forward
@@ -131,6 +132,24 @@ $r4 = Orders::refundRequest($pdo, $rid4);
 $t('§1: QuickBooks not taking it: nothing refunded, still waiting with why, Approve can be pressed again', $no !== '' && str_starts_with($no, 'Nothing was refunded') && $r4['status'] === 'waiting' && str_starts_with((string) $r4['result'], 'Not refunded') && Orders::money($pdo, $s2)['refunded'] === 0, [$no, $r4]);
 putenv('QB_ENV=mock');
 Orders::withdrawRefund($pdo, $rid4, 1);
+
+// a payment that wasn't a card (the session manager's call on (b)): its Refund Receipt on Approve, then a person sends it back
+$as($founder);
+$pq2 = array_values(array_filter(Orders::payments($pdo, Orders::get($pdo, $q)), fn ($p) => $p['how'] === 'posted'))[0];
+$rid6 = Orders::requestRefund($pdo, $q, 10000, 'Overcharged for shipping', (int) $pq2['id'], [], [], false, 1);
+$said = Orders::approveRefund($pdo, $rid6, 1);
+$r6 = Orders::refundRequest($pdo, $rid6);
+$t('§1 (b): a check posted to QuickBooks: on Approve its Refund Receipt (mock MRR-…) is recorded, and it waits to be sent back', $r6['status'] === 'approved' && $r6['payout'] === 'to_send' && Orders::money($pdo, $q)['refunded'] === 10000 && str_contains($said, 'Refund Receipt MRR-') && str_contains($said, 'send $100.00 back to the client by check'), [$r6, $said]);
+$items = Pulse::items($pdo, $founder, 1); $is = $find($items, 'refundsend:' . $rid6);
+$t('§1 (b): Payments gets "Send $100.00 back: order …", its one step a form with ✓ Sent', $is && str_starts_with($is['title'], 'Send $100.00 back') && (Pulse::playbook($is)[0]['act'][1] ?? '') === 'refund_sent', $is);
+$t('§1 (b): ✓ Sent needs how it went', $throws(fn () => Pulse::manage($pdo, 'refundsend:' . $rid6, 'refund_sent', ['how' => ''], 1), 'how') !== '');
+Pulse::manage($pdo, 'refundsend:' . $rid6, 'refund_sent', ['how' => 'Check 5521'], 1);
+$t('§1 (b): sent: recorded with how, the History says so, the case gone', Orders::refundRequest($pdo, $rid6)['payout'] === 'sent' && str_contains($ev($q, 'refund_sent'), 'Check 5521') && $find(Pulse::items($pdo, $founder, 1), 'refundsend:' . $rid6) === null);
+// an admin login that isn't a staff login reads as the Founder (Access::who), but doesn't approve refunds
+$as(null);
+$rid7 = Orders::requestRefund($pdo, $q, 1000, 'Test', (int) $pq2['id'], [], [], false, 1);
+$t('§1: an admin login that isn\'t a staff login can\'t approve (greyed: Jason\'s own Founder login)', $throws(fn () => Orders::approveRefund($pdo, $rid7, 1), 'own Founder staff login') !== '' && !Orders::canDecideRefund()[0]);
+$as($founder); Orders::withdrawRefund($pdo, $rid7, 1);
 
 // ---- §2: the cancel window ----
 $v = $ids['Vendor Co'];   // paid, its work order accepted (WorkOrders::vendorMove writes this event)
