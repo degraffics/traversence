@@ -320,6 +320,23 @@
    "expires": "2026-11-24T04:13:42Z",
    "release": "loads-reply.zip",
    "callers": {}
+  },
+  {
+   "path": "app/ui/outside-services.php",
+   "functions": [
+    "tv_site_settings"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kW2cGfR4Ya7fh2s3y",
+   "why": "M1b: Vendor bills post to, a setting in System Configuration \u2192 Settings (the session manager for Jason, 2026-11-24)",
+   "since": "2026-11-24T00:33:33Z",
+   "expires": "2026-11-24T04:33:33Z",
+   "release": "order-m1b.zip",
+   "callers": {
+    "tv_site_settings": [
+     "app/admin/sections.php"
+    ]
+   }
   }
  ],
  "lapsed": [
