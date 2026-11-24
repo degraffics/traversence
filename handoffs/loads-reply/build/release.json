@@ -1,0 +1,11 @@
+{
+ "title": "The crawler's loads: W1's Overture and Foursquare loads in batches of 100 that reply in time; W0's count read right; the gauge requests' hand-off started by the site every hour",
+ "why": "IR-0001 (gauge request #1): the board's ledger showed each 500-row load taking 101-130 s at the site against the worker's 120 s read (runs #1288, #1290), so overture_bulk and foursquare_bulk tripped while their rows were stored. W0's alarm 'received 250, accounted for 0' (7,646 times) was our ledger not reading the endpoint's nested receipt. GitHub skipped gauge-requests.yml's own schedule. Both confirmed on live data through the test accounts; reviewed by the Design reviewer and the session manager (handoffs/loads-reply.md).",
+ "changes": [
+  {"what": "W1's loads: each batch numbered, a resent one does nothing twice; the reply first, the identity recheck straight after (with crawler 2.17.0: 100 rows a batch, one retry)", "where": "https://traversence.com/admin/config/control/wf-W1"},
+  {"what": "W0: the ledger reads its receipt, so its count alarm closes ('our ledger misread W0's receipt'); Its data lists each batch", "where": "https://traversence.com/admin/config/control/wf-W0"},
+  {"what": "Site health: the hand-off of gauge fix requests asked for every hour, with its own words when it hasn't run", "where": "https://traversence.com/admin/config/control?tab=alarms"}
+ ],
+ "proposals": [],
+ "switch": ""
+}

@@ -14,7 +14,12 @@ import { SITE, ACC, staffIn, checkContext } from './check-kit.mjs';
 const READ = process.env.READ || 'orders';
 const ID = String(process.env.ORDER_ID || '').trim();
 const OUT = process.env.OUT || 'live-read';
-const PAGES = { orders: () => ['/admin/backoffice/orders'], order: () => (/^\d{1,9}$/.test(ID) ? [`/admin/backoffice/orders/${ID}`] : null) };
+const PAGES = { orders: () => ['/admin/backoffice/orders'], order: () => (/^\d{1,9}$/.test(ID) ? [`/admin/backoffice/orders/${ID}`] : null),
+  // IR-0001 (the session manager, 2026-11-24: confirm on live data before building loads-reply.zip): the ledger's calls to the
+  // load endpoint (their time and answer), the crawler run's page, and the alarms (W1's trip after Check and start again)
+  // W0's "received 250, accounted for 0" alarm (the session manager, 2026-11-24): the ledger's index calls and W0's own page (its receipts)
+  w0: () => ['/admin/config/ledger?q=crawl/index', '/admin/config/control/wf-W0'],
+  ir0001: () => ['/admin/config/ledger?q=crawl/loads', '/admin/insights/crawler?run=' + (/^\d{1,9}$/.test(ID) ? ID : '1290'), '/admin/config/alarms'] };
 
 const fail = (m) => { console.log(`::error::${m}`); process.exit(1); };
 if (!PAGES[READ]) fail(`READ must be one of: ${Object.keys(PAGES).join(', ')}.`);
