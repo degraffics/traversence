@@ -6,7 +6,7 @@
 // Read-only by construction: after the sign-in, every request that isn't a GET or HEAD is refused in the browser.
 // TO_LOG=1 also prints each page's text into the run's log, for a session whose network can't fetch the artifact; that
 // session deletes the run's log once it has read it (Actions → the run → Delete logs; the MCP's delete_workflow_run_logs).
-// READ (one per run): orders (Back-Office → Orders) or order (one order, ORDER_ID); meta: one table's columns and their
+// READ (one per run): board (the board, W1's page, the alarms); orders (Back-Office → Orders) or order (one order, ORDER_ID); meta: one table's columns and their
 // types from the admin's data API, TABLE its name only (letters, digits and _; the session manager, 2026-11-24, for M2's
 // order_ledger.kind).
 import { chromium } from 'playwright';
@@ -16,6 +16,7 @@ import { SITE, ACC, staffIn, checkContext } from './check-kit.mjs';
 const READ = process.env.READ || 'orders';
 const ID = String(process.env.ORDER_ID || '').trim();
 const TABLE = String(process.env.TABLE || '').trim();
+const Q = String(process.env.ORDER_ID || '').trim();   // for rows: the search, in the order/run field
 const OUT = process.env.OUT || 'live-read';
 const PAGES = { orders: () => ['/admin/backoffice/orders'], order: () => (/^\d{1,9}$/.test(ID) ? [`/admin/backoffice/orders/${ID}`] : null),
   // IR-0001 (the session manager, 2026-11-24: confirm on live data before building loads-reply.zip): the ledger's calls to the
@@ -23,12 +24,22 @@ const PAGES = { orders: () => ['/admin/backoffice/orders'], order: () => (/^\d{1
   // W0's "received 250, accounted for 0" alarm (the session manager, 2026-11-24): the ledger's index calls and W0's own page (its receipts)
   w0: () => ['/admin/config/ledger?q=crawl/index', '/admin/config/control/wf-W0'],
   ir0001: () => ['/admin/config/ledger?q=crawl/loads', '/admin/insights/crawler?run=' + (/^\d{1,9}$/.test(ID) ? ID : '1290'), '/admin/config/alarms'],
+  // the board's phone header (the Control Board session, 2026-11-24): the board, W1's own page (its trips after the presses)
+  // and the alarm list, at 1280 and 390, for the header's counts and the side panel's look
+  // the jobs (the Control Board session, 2026-11-24, queue item 7): Scheduled tasks, each job's last run and next due
+  jobs: () => ['/admin/config/scheduler?panel=1'],   // drawn on its own (the router doesn't fold it into the board's tab then)
+  board: () => ['/admin/config/control', '/admin/config/control/wf-W1', '/admin/config/alarms'],
+  // rows: a table's newest rows matching a search, through the admin's data API (read-only; operational tables such as
+  // job_runs only: never a table of people's details; the Control Board session, 2026-11-24, for the audit clock's runs)
+  // the search may instead be up to 8 row ids ("35237,35160"): each row whole (action=row)
+  rows: () => (/^[a-z0-9_]{1,64}$/.test(TABLE) && !/user|member|staff|contact|client|order|payment|vault|message|mail/.test(TABLE) && /^[A-Za-z0-9_ :.,-]{0,60}$/.test(Q)
+    ? (/^\d+(,\d+){0,7}$/.test(Q) ? Q.split(',').map((id) => `/admin/api/data.php?action=row&table=${TABLE}&id=${id}`) : [`/admin/api/data.php?action=rows&table=${TABLE}&q=${encodeURIComponent(Q)}&sort=id&dir=desc`]) : null),
   meta: () => (/^[a-z0-9_]{1,64}$/.test(TABLE) ? [`/admin/api/data.php?action=meta&table=${TABLE}`] : null) };
 
 const fail = (m) => { console.log(`::error::${m}`); process.exit(1); };
 if (!PAGES[READ]) fail(`READ must be one of: ${Object.keys(PAGES).join(', ')}.`);
 const paths = PAGES[READ]();
-if (!paths) fail(READ === 'meta' ? 'TABLE must be a table\'s name (letters, digits and _).' : 'ORDER_ID must be the order\'s number (digits only).');
+if (!paths) fail(READ === 'meta' || READ === 'rows' ? 'TABLE must be an operational table\'s name (letters, digits and _; no tables of people), and the search letters, digits and _ :.-' : 'ORDER_ID must be the order\'s number (digits only).');
 const exec = ACC?.staff?.executive;
 if (!exec) fail('CHECK_ACCOUNTS has no staff.executive login (System Configuration → Test accounts).');
 mkdirSync(OUT, { recursive: true });
@@ -48,7 +59,7 @@ try {
       const res = await p.goto(SITE + path, { waitUntil: 'load', timeout: 60000 }).catch((e) => ({ status: () => 0, err: String(e) }));
       await p.waitForLoadState('networkidle', { timeout: 15000 }).catch(() => {});   // the admin's tables fill in after load
       await p.waitForTimeout(800);
-      const name = `${READ}${READ === 'meta' ? '-' + TABLE : (ID ? '-' + ID : '')}-${w}`;
+      const name = `${READ}${READ === 'meta' || READ === 'rows' ? '-' + TABLE : (ID ? '-' + ID : '')}-${w}`;
       const read = await p.evaluate(() => ({
         url: location.pathname + location.search,
         title: document.title,

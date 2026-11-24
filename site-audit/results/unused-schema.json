@@ -1,5 +1,5 @@
 {
- "at": "2026-11-23T10:20:45.622Z",
+ "at": "2026-11-24T10:20:42.143Z",
  "checked": "2026-11-14T15:38:12+00:00",
  "files_read": 784,
  "tables": [
@@ -179,7 +179,7 @@
    "db": "degraff1_traversence",
    "table": "identity_facts",
    "column": "w",
-   "filled": 317903,
+   "filled": 411574,
    "kept": false
   },
   {
@@ -193,7 +193,7 @@
    "db": "degraff1_traversence",
    "table": "listing_actions",
    "column": "n",
-   "filled": 2090,
+   "filled": 2412,
    "kept": false
   },
   {
@@ -235,14 +235,14 @@
    "db": "degraff1_traversence",
    "table": "platform_counts",
    "column": "k",
-   "filled": 3584,
+   "filled": 3604,
    "kept": false
   },
   {
    "db": "degraff1_traversence",
    "table": "platform_counts",
    "column": "n",
-   "filled": 3584,
+   "filled": 3604,
    "kept": false
   },
   {
@@ -277,7 +277,7 @@
    "db": "degraff1_traversence",
    "table": "search_demand",
    "column": "n",
-   "filled": 77,
+   "filled": 78,
    "kept": false
   },
   {
@@ -291,14 +291,14 @@
    "db": "degraff1_traversence",
    "table": "search_index_state",
    "column": "k",
-   "filled": 203,
+   "filled": 208,
    "kept": false
   },
   {
    "db": "degraff1_traversence",
    "table": "search_index_state",
    "column": "v",
-   "filled": 202,
+   "filled": 207,
    "kept": false
   },
   {
@@ -347,14 +347,14 @@
    "db": "degraff1_traversence",
    "table": "search_terms",
    "column": "q",
-   "filled": 141,
+   "filled": 142,
    "kept": false
   },
   {
    "db": "degraff1_traversence",
    "table": "search_terms",
    "column": "n",
-   "filled": 141,
+   "filled": 142,
    "kept": false
   },
   {
@@ -368,14 +368,14 @@
    "db": "degraff1_traversence",
    "table": "site_release_settings",
    "column": "k",
-   "filled": 274,
+   "filled": 288,
    "kept": false
   },
   {
    "db": "degraff1_traversence",
    "table": "site_release_settings",
    "column": "v",
-   "filled": 274,
+   "filled": 288,
    "kept": false
   },
   {
@@ -396,7 +396,7 @@
    "db": "degraff1_traversence",
    "table": "topic_relations",
    "column": "n",
-   "filled": 655,
+   "filled": 659,
    "kept": false
   },
   {
