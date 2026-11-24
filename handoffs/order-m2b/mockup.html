@@ -32,19 +32,26 @@ label{display:block;font-size:.8rem;color:var(--tv-meta)}select,input{display:bl
 <div class="strip"><div class="cs-line"><span class="lab">DELIVERY</span>
   <div><b>Ready at Competition Printing</b> for us to collect, since Nov 2 (22 days). <span class="leg">Will Call · work order 20261027-CP0001</span></div>
   <div class="acts"><span class="b go">Receive</span><span class="ib" title="Edit how it goes">✎</span><span class="ib" title="Other moves">⋯</span></div></div></div>
+<div class="pane" style="max-width:24rem"><h3><span>Other moves for delivery</span><span class="ib">×</span></h3>
+  <p style="margin:.2rem 0"><span class="b">Courier booked: add tracking</span><br><small>A courier we book collects it from Competition Printing; the vendor is emailed its number.</small></p>
+  <p style="margin:.4rem 0"><span class="b">Change how it goes…</span><br><small>The work order's delivery, or how each item goes from our shop.</small></p>
+  <p style="margin:.4rem 0"><span class="b">Work orders</span><br><small>Send, chase or receive the vendor's work.</small></p></div>
 
 <h2>3a · Received; leg 2 is Pick Up</h2>
 <div class="strip"><div class="cs-line"><span class="lab">DELIVERY</span>
   <div><b>Ready for pickup</b> at our shop. Received from Competition Printing Nov 24. Picked up?</div>
   <div class="acts"><span class="b go">Yes, picked up</span><span class="ib">✎</span><span class="ib">⋯</span></div></div></div>
 
-<h2>3b · Received; leg 2 is Courier (Jason: "will call, then schedule courier for local delivery")</h2>
+<h2>3b · Will Call, collected by our courier (Jason: "I ask for will call, then schedule courier for local delivery")</h2>
+<p class="note">The work order's own Courier booked: add tracking (from state 2's ⋯). The courier collects at Competition Printing and takes it to the client: no Receive at our shop, no leg 2. The vendor is emailed the courier's number.</p>
 <div class="strip"><div class="cs-line"><span class="lab">DELIVERY</span>
-  <div><b>Received</b> from Competition Printing Nov 24; it goes by courier. <span class="leg">Courier (decisions/0101): the courier and its number once it's booked.</span></div>
-  <div class="acts"><span class="b go">Courier booked: add tracking</span><span class="ib">✎</span><span class="ib">⋯</span></div></div>
-  <div class="cs-line"><span class="lab">DELIVERY (after)</span>
-  <div><b>Out by courier:</b> Rapid Couriers · 55821, Nov 25. Delivered?</div>
+  <div><b>Out by courier</b> from Competition Printing: Rapid Couriers · 55821, Nov 25. Delivered?</div>
   <div class="acts"><span class="b go">Yes, delivered</span><span class="ib" title="Edit the courier and its number">✎</span><span class="ib">⋯</span></div></div></div>
+
+<h2>3b′ · Received at our shop; leg 2 is the item's Courier</h2>
+<div class="strip"><div class="cs-line"><span class="lab">DELIVERY</span>
+  <div><b>Received</b> from Competition Printing Nov 24; it goes by courier from our shop. <span class="leg">Courier: its number once it's booked.</span></div>
+  <div class="acts"><span class="b go">Add the courier's number</span><span class="ib" title="Edit how it goes">✎</span><span class="ib">⋯</span></div></div></div>
 
 <h2>3c · Received; leg 2 is Ship (carrier)</h2>
 <div class="strip"><div class="cs-line"><span class="lab">DELIVERY</span>
