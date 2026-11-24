@@ -60,7 +60,19 @@ const id = (name) => +sql(`SELECT id FROM orders WHERE client_company = '${name}
     await p.screenshot({ path: `${shots}/m2b-courier-pane-${w}.png` });
     await p.fill('#co-cour-trk', 'Rapid Couriers'); await p.fill('#co-cour-p input[name=tracking]', '55821');
     await submit('#co-cour-p button:has-text("Save the courier")');
-    ok(`${w}: saved, and never says emailed when the email didn't go (the harness has no mail server)`, /^Courier saved; the email to Competition Printing didn't go, so tell them yourself\.$/.test((await flash()).replace(/^\s*(Success:\s*)?/, '').trim()), await flash());
+    ok(`${w}: saved, said as done, never "emailed" when the email didn't go (the harness has no mail server)`, /^Courier saved\.$/.test((await flash()).trim()), await flash());
+    const un = () => p.evaluate(() => { const d = document.querySelector('.co-unsent'); return d && { text: d.textContent.replace(/\s+/g, ' ').trim(), bad: !!d.querySelector('.tv-note, [data-tv-status=bad]') && !/×/.test(d.textContent), btns: [...d.querySelectorAll('button, a')].map((x) => x.textContent.trim()), mail: (d.querySelector('a[href^="mailto:"]') || {}).href || '' }; });
+    let u = await un();
+    ok(`${w}: the email that didn't go is its own error notice: who, the subject, what was saved`, u && u.bad && /^Error: ?The email to Competition Printing \(orders@vendor\.example\) didn't go: “Work order 20261027-CP\d+: courier booked”\. What was saved is saved; only the email is missing\./.test(u.text), u);
+    ok(`${w}: with its ways forward: Send again, Copy the message, Email it from your mail (to the vendor, with the subject)`, u && u.btns.join('|') === 'Send again|Copy the message|Email it from your mail' && /^mailto:orders%40vendor\.example\?subject=Work%20order/.test(u.mail), u);
+    await p.keyboard.press('Escape'); await p.evaluate(() => document.querySelector('.co-unsent').scrollIntoView({ block: 'center' })); await p.waitForTimeout(400);
+    await p.screenshot({ path: `${shots}/m2b-unsent-${w}.png` });
+    await p.click('.co-unsent button:has-text("Copy the message")'); await p.waitForTimeout(400);
+    ok(`${w}: Copy the message gives the words (copied, or shown to copy)`, await p.evaluate(() => /Copied|The message/.test(document.body.innerText)));
+    await p.keyboard.press('Escape'); await p.waitForTimeout(200);
+    await submit('.co-unsent button:has-text("Send again")');
+    u = await un();
+    ok(`${w}: Send again that still can't send says so once, in the notice, with its ways forward (no × on it)`, !(await flash()) && u && /^Error: ?Sent again, and it still didn't go\. The email to/.test(u.text) && u.btns.length === 3 && u.bad, [await flash(), u]);
     dl = await dLine();
     ok(`${w}: the line says Out by courier from the vendor, with its number`, /Out by courier from Competition Printing: Rapid Couriers · 55821/.test(dl) && /Out today\. Delivered\?/.test(dl), dl);
     ok(`${w}: and its one action is Yes, delivered`, await p.evaluate(() => [...document.querySelectorAll('.cs-line')].find((x) => /^Delivery/.test(x.textContent.trim())).querySelector('button.go, .cs-la button[type=submit]') !== null));
@@ -69,7 +81,7 @@ const id = (name) => +sql(`SELECT id FROM orders WHERE client_company = '${name}
     ok(`${w}: ✎ edits the courier in place, filled in`, await vis('#co-cour-p') && (await p.inputValue('#co-cour-trk')) === 'Rapid Couriers');
     await p.keyboard.press('Escape'); await p.waitForTimeout(200);
     ok(`${w}: Esc closes it`, !(await vis('#co-cour-p')));
-    ok(`${w}: the work order's History says so`, /Courier booked: Rapid Couriers 55821/.test(sql(`SELECT l.note FROM order_work_order_log l JOIN order_work_orders w ON w.id = l.wo_id WHERE w.order_id = ${rd} ORDER BY l.id DESC LIMIT 1`)));
+    ok(`${w}: the work order's History says so, and that the email didn't go`, +sql(`SELECT COUNT(*) FROM order_work_order_log l JOIN order_work_orders w ON w.id = l.wo_id WHERE w.order_id = ${rd} AND l.note = 'Courier booked: Rapid Couriers 55821'`) === 1 && +sql(`SELECT COUNT(*) FROM order_work_order_log l JOIN order_work_orders w ON w.id = l.wo_id WHERE w.order_id = ${rd} AND l.note LIKE 'The email to Competition Printing didn%'`) >= 1);
 
     // ---- Change how it goes… ----
     const mk = id('Leg Make Co'); await open(mk);
@@ -94,6 +106,13 @@ const id = (name) => +sql(`SELECT id FROM orders WHERE client_company = '${name}
     ok(`${w}: saved: How it goes is saved (Tell the vendor unticked: no email said)`, /How it goes is saved\.$/.test((await flash()).trim()), await flash());
     ok(`${w}: the line follows: Blind Drop Ship: straight to the client.`, /Blind Drop Ship: straight to the client\./.test(await dLine()), await dLine());
     ok(`${w}: its History keeps the old value`, /Delivery changed from Will Call to Blind Drop Ship/.test(sql(`SELECT l.note FROM order_work_order_log l JOIN order_work_orders w ON w.id = l.wo_id WHERE w.order_id = ${mk} ORDER BY l.id DESC LIMIT 1`)));
+    const box = () => p.evaluate(() => { const b = [...document.querySelectorAll('.co-box')].find((x) => /^Shipping/.test(x.textContent.trim())); return b ? b.innerText.replace(/\s+/g, ' ').trim() : ''; });
+    ok(`${w}: one fact once: the Shipping box says How it goes as text (Blind Drop Ship from Competition Printing)`, /How it goes: Blind Drop Ship from Competition Printing/.test(await box()), await box());
+    ok(`${w}: the order's ship mode is labelled Ship mode, and no "Choose how it ships…"`, !/Choose how it ships/.test(await box()) && (/Ship mode/.test(await box()) || !(await p.$('select[name=mode]'))), await box());
+    await p.click('.co-hgline [data-hg-go]'); await p.waitForTimeout(600);
+    ok(`${w}: its ✎ opens Change how it goes…`, await vis('#co-howgo-p'));
+    await p.screenshot({ path: `${shots}/m2b-shipbox-${w}.png` });
+    await p.keyboard.press('Escape'); await p.waitForTimeout(150);
 
     // ---- received at our shop, Courier with no number ----
     const sd = id('Leg Send Co'); await open(sd);

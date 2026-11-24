@@ -245,7 +245,11 @@ Add the courier's number (the Design reviewer's naming), ⋯ Courier booked: add
   waiting for its number (Add the courier's number, at the item's Tracking); shipped → Out by courier from our shop / Shipped. No work order: as before.
 - **My reading, flagged:** the note names Ship, Freight and Local Delivery; Next-day Courier is read the same way (its
   ship-to, or us with none). `WorkOrders::moveItems` still treats Local Delivery's complete as "came to us" (unchanged).
-- **Tests:** `tools/order-tests/m2b.php` (31) and `m2b.cjs` (68, at 1280 and 390) with `m2b-seed.php`; `m1b-seed.php`'s
+- **The Design reviewer's two changes (03:27):** a vendor email that didn't go is its own error notice at the top of the
+  order (no ×; Send again, Copy the message, Email it from your mail; `WorkOrders::tellVendor` keeps what we'd have sent,
+  the work order's History says it didn't go; the drawer's tracking points to it); the Shipping box says How it goes in words
+  with ✎ (the pane), and the order's own ship mode is labelled Ship mode.
+- **Tests:** `tools/order-tests/m2b.php` (31) and `m2b.cjs` (86, at 1280 and 390) with `m2b-seed.php`; `m1b-seed.php`'s
   pickup orders now received at our shop with the item Pick Up (a Will Call ready at the vendor now reads as ours to collect).
   M2's suites pass. m1.php/m1.cjs, collect-balance.cjs, complete-owed.cjs and m1b's vendor-bill steps fail the same checks
   on the live files as on M2b's (harness drift, checked side by side on a second server), so not M2b's.
