@@ -19,6 +19,13 @@ too large (CLAUDE.md, the session manager). Built on **Sync 02:46 UTC (973d10b)*
   reads "This trip's pause is lifted … W1 is still paused by one more trip: Foursquare open places' read failed (run #1288)". He
   still has to press **"Check and start again: Foursquare open places' read failed (run #1288)"** (on that card, or Foursquare's
   own). Then both read "W1 runs again"; W1's next run retries both loads; each closes as Fixed when its run works.
+- **Update 04:05 UTC (live read, log deleted):** Jason pressed both trips (Overture ~02:46, Foursquare ~02:55 UTC). Still
+  2 trips open and no `POST /api/crawl/loads` since Nov 21: W1 hasn't run since (W2 has). W1's last runs (#1288, #1290)
+  started about 01:25 UTC, so its next run is probably then: read the board after it. If W1 doesn't run by then, check the
+  planner (`CrawlService::plan()`) still sees a system pause on wf:W1 (`Automation::pauses`), which the presses should have
+  lifted.
+- New on the board: "/api/crawl/refresh counted more than it received" (W2): the same ledger counting family as the open
+  notes below; check `ControlLedger::counts` for refresh's receipt shape.
 - **Then confirm on live data** (live-read.yml, choice `ir0001`, test accounts; delete the run's log after): both trips
   cleared (or a new "Tried again … failed again"), and the ledger's `POST /api/crawl/loads` calls at about 20–30 s each.
   If a load still fails: read its run's log line (2.17.0 logs each slow/failed site call), fix at the cause.
