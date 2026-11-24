@@ -1,0 +1,66 @@
+{
+ "zip": "order-m1b.zip",
+ "built_on": "2caf2a1 Sync: 2026-11-23 22:02 UTC",
+ "recorded": "2026-11-24 00:42 UTC",
+ "note": "Order management M1b: what the system knows, what it asks (QuickBooks first, the Vendor line and vendor bills, Vendor bills post to, the client's update \u2709); built on Sync: 2026-11-23 22:02 UTC (2caf2a1) Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/job-line.php": {
+   "sha256": "deaf7d0514c196d7f43bd4976289759c5154dd917a9b2c175780f43c95761ac2",
+   "live": false
+  },
+  "app/lib/ClientOrders.php": {
+   "sha256": "22d5feade5c845094444ddb74dfcbd4689bdf38f03c490f1e5643488c108b5a7",
+   "live": false
+  },
+  "app/lib/QuickBooksPay.php": {
+   "sha256": "36ec8ebb5fa58d96a73c5d1979c0bccaa94fcc2bcbe388f32dc8a57113566ef3",
+   "live": false
+  },
+  "app/lib/Scheduler.php": {
+   "sha256": "04515862642a6355c3ddf2caba98fce1a62e520bccb36256e53aa257c1f1dc61",
+   "live": false
+  },
+  "app/lib/VendorBills.php": {
+   "sha256": "bf46b4e6e16aa48f7b5a7be185b8d988d0465b16f16164f2155eca8569f9069d",
+   "live": false
+  },
+  "app/lib/WorkOrders.php": {
+   "sha256": "ed880c2890d54534ef8cc97728fa51fee24dd97cae2ffdff8e2ae6a7a38565a5",
+   "live": false
+  },
+  "app/lib/staging-tables.php": {
+   "sha256": "a8444e968315b930319d0b9aa3a09876bf50b339dc205462338cb9fae20cac47",
+   "live": false
+  },
+  "app/lib/upload-targets.php": {
+   "sha256": "f554be1e833d0046dd10d2722779eac9a59292b21dd4f524ff3e01414dfadec9",
+   "live": false
+  },
+  "app/migrations/2026-11-23_m1b_vendor_bills.sql": {
+   "sha256": "9bc570beddf4e94f449d67d2e3513d2eb5a42dfd89d6490c74a00f0aaaba7d4c",
+   "live": false
+  },
+  "app/scripts/qb_orders_tick.php": {
+   "sha256": "207ef6ba7da111122e5a232b46525cb92cb7b81cb30d1b7782fb1daa5a0c3958",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "6febbae60bc7350c03511368ea25fe2d0b4fb769ce848dcb68202a973712dc12",
+   "live": false
+  },
+  "app/ui/outside-services.php": {
+   "sha256": "be3d38933be79da668759826617615a96415925d44793b3523e386ddd3df5a67",
+   "live": false
+  },
+  "website/admin/client-order.php": {
+   "sha256": "b90c936324aaee13a5b1df7f8c8e627a068ad5e2f6f59732a2efa93d1854d02f",
+   "live": false
+  },
+  "website/js/vendor-bill.js": {
+   "sha256": "3b98777b87137c56b4596420dcfe42e47fde8c3fbdff5a6a9d6b600ff3b6c732",
+   "live": false
+  }
+ }
+}
