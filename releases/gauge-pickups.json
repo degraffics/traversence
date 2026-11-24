@@ -1,4 +1,12 @@
 {
  "note": "A gauge panel request taken by a build session (the session manager routes build-requests.json hourly): the request's id, the session that has it (its name as the panel says it), and the release it goes in once named. gauges.py puts these in gauges.json, so the panel says \"Requested: the <session> has it\" and \"Being fixed in <release>\". Remove a line when its request clears.",
- "pickups": []
+ "pickups": [
+  {
+   "id": 1,
+   "session": "Control Board build session",
+   "release": "loads-reply.zip",
+   "at": "2026-11-23T23:58:00Z",
+   "what": "overture_bulk / IR-0001: the load endpoint's reply that never reached the worker"
+  }
+ ]
 }
