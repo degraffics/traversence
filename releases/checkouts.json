@@ -11,7 +11,7 @@
    "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
    "why": "IR-0001: batch keys; the recheck after the reply",
    "since": "2026-11-24T00:04:16Z",
-   "expires": "2026-11-24T04:04:16Z",
+   "expires": "2026-11-24T04:49:08Z",
    "release": "loads-reply.zip",
    "callers": {
     "batch": [
@@ -41,20 +41,21 @@
    "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
    "why": "IR-0001: batch number, reply first then recheck",
    "since": "2026-11-24T00:04:26Z",
-   "expires": "2026-11-24T04:04:26Z",
+   "expires": "2026-11-24T04:49:08Z",
    "release": "loads-reply.zip",
    "callers": {}
   },
   {
    "path": "app/lib/AuditClock.php",
    "functions": [
+    "(top)",
     "FLOWS"
    ],
    "kind": "change",
    "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
-   "why": "gauge-requests hourly (GitHub skipped its schedule)",
+   "why": "gauge-requests in FLOWS",
    "since": "2026-11-24T00:04:28Z",
-   "expires": "2026-11-24T04:04:28Z",
+   "expires": "2026-11-24T04:49:08Z",
    "release": "loads-reply.zip",
    "callers": {}
   },
@@ -78,20 +79,25 @@
    "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
    "why": "the stale line from AuditClock::staleWhy",
    "since": "2026-11-24T00:06:58Z",
-   "expires": "2026-11-24T04:06:58Z",
+   "expires": "2026-11-24T04:49:08Z",
    "release": "loads-reply.zip",
-   "callers": {}
+   "callers": {
+    "dispatch": [
+     "app/lib/ControlAlarms.php"
+    ]
+   }
   },
   {
    "path": "app/lib/ControlLedger.php",
    "functions": [
+    "alarms",
     "counts"
    ],
    "kind": "change",
    "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
-   "why": "W0: the ledger reads a batch's nested receipt",
+   "why": "W0's count alarm closes in true words",
    "since": "2026-11-24T00:13:39Z",
-   "expires": "2026-11-24T04:13:39Z",
+   "expires": "2026-11-24T04:49:08Z",
    "release": "loads-reply.zip",
    "callers": {}
   },
@@ -105,6 +111,166 @@
    "expires": "2026-11-24T04:13:42Z",
    "release": "loads-reply.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/staging-tables.php",
+   "functions": [
+    "(top)",
+    "OWN"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
+   "why": "open_load_batches in OWN",
+   "since": "2026-11-24T00:48:14Z",
+   "expires": "2026-11-24T04:49:08Z",
+   "release": "loads-reply.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/migrations/2026-11-24_open_load_batches.sql",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
+   "why": "release loads-reply.zip",
+   "since": "2026-11-24T00:49:08Z",
+   "expires": "2026-11-24T04:49:08Z",
+   "release": "loads-reply.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/api/crawl/index.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hL7DpeN9WxT3oMXQK",
+   "why": "release loads-reply.zip",
+   "since": "2026-11-24T00:49:08Z",
+   "expires": "2026-11-24T04:49:08Z",
+   "release": "loads-reply.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Orders.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5j2wAgTrKdTwX6kQNY",
+   "why": "M2: refunds wait for Jason's OK (0178 \u00a71), Cancel the record, the reversing kind",
+   "since": "2026-11-24T01:02:25Z",
+   "expires": "2026-11-24T05:02:25Z",
+   "release": "order-m2.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ClientOrders.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5j2wAgTrKdTwX6kQNY",
+   "why": "M2: cancel until the vendor accepts (0178 \u00a72); the posted payment id",
+   "since": "2026-11-24T01:02:27Z",
+   "expires": "2026-11-24T05:02:27Z",
+   "release": "order-m2.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Pulse.php",
+   "functions": [
+    "items",
+    "manage",
+    "playbook"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5j2wAgTrKdTwX6kQNY",
+   "why": "M2: the refund case for the Founder, Approve and Decline",
+   "since": "2026-11-24T01:02:29Z",
+   "expires": "2026-11-24T05:02:41Z",
+   "release": "order-m2.zip",
+   "callers": {
+    "items": [
+     "app/lib/DailyReport.php",
+     "app/ui/pulse-ui.php",
+     "website/admin/staff-profile.php",
+     "website/admin/w.php",
+     "website/user/api/bell.php"
+    ],
+    "manage": [
+     "website/admin/api/pulse.php"
+    ],
+    "playbook": [
+     "app/lib/DailyReport.php",
+     "app/ui/pulse-ui.php"
+    ]
+   }
+  },
+  {
+   "path": "website/admin/order.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5j2wAgTrKdTwX6kQNY",
+   "why": "M2: a client order's money opens the order page; refunds wait for Jason",
+   "since": "2026-11-24T01:02:34Z",
+   "expires": "2026-11-24T05:02:34Z",
+   "release": "order-m2.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/migrations/2026-11-24_order_refunds.sql",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5j2wAgTrKdTwX6kQNY",
+   "why": "M2: refund requests and the posted payment id",
+   "since": "2026-11-24T01:02:36Z",
+   "expires": "2026-11-24T05:02:36Z",
+   "release": "order-m2.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/admin/client-order.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5j2wAgTrKdTwX6kQNY",
+   "why": "M2: money on the order page",
+   "since": "2026-11-24T01:02:46Z",
+   "expires": "2026-11-24T05:02:46Z",
+   "release": "order-m2.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/staging-tables.php",
+   "functions": [
+    "LINKS",
+    "MONEY"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5j2wAgTrKdTwX6kQNY",
+   "why": "M2: order_refund_requests in MONEY, its links",
+   "since": "2026-11-24T01:03:14Z",
+   "expires": "2026-11-24T05:03:14Z",
+   "release": "order-m2.zip",
+   "callers": {
+    "LINKS": [
+     "app/lib/StagingIds.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/Customers.php",
+   "functions": [
+    "sync"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5j2wAgTrKdTwX6kQNY",
+   "why": "M2: a cancelled payment record isn't counted as spent",
+   "since": "2026-11-24T01:06:51Z",
+   "expires": "2026-11-24T05:06:51Z",
+   "release": "order-m2.zip",
+   "callers": {
+    "sync": [
+     "app/admin/tools.php"
+    ]
+   }
   }
  ],
  "lapsed": [
