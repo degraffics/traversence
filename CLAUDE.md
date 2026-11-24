@@ -35,6 +35,9 @@ has approved this for every session. Clone the mirror shallow and sparse. If it'
 Before changing an area, read its decisions and the live code. Earlier work is kept: a change extends or replaces it in
 place, never drops it. Going against an earlier decision needs Jason's OK first, and the decision gets a note. The zip
 check blocks a zip that removes a live function, constant or FAQ question; `--drops` names one only after he agrees.
+**Never invent what's already set** (Jason, 2026-11-24, repeated): before proposing any list, name, state, method or
+value, `git grep` `decisions/` and the live code and use what's there, citing the decision. A new one only where none
+exists, said so. The session manager and the Design reviewer reject a proposal that doesn't cite its source.
 
 ## The session manager (Jason, 2026-11-13): every session
 
