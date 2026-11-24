@@ -73,6 +73,14 @@ This is M2's brief: complete enough for a fresh session. M1b's record: `handoffs
 - `.env` is only for secrets (CLAUDE.md); a choice like an account goes in an admin setting with History (Jason's
   "Review this again", 2026-11-24).
 
+## First task for the M2 session (the session manager, 2026-11-24)
+
+M1b's last live check: once the hourly `qb_orders_tick` has run in production, run `live-read.yml` (read: order,
+order_id: 12, to_log on), confirm Order details say "Invoice 112906, linked by its number" and, if QuickBooks shows a
+payment on it, the Money line says "Paid in QuickBooks <date> · <ref>"; delete the run's log once read; tell the session
+manager. A test account reads only QuickBooks' sandbox (`QuickBooksPay::testHere`), so the link shows only after the job
+(production) has linked it; the Vendor line's "Posts to …" likewise shows only to staff in production.
+
 ## Open, not M2
 
 - The vendor's own default expense category before "Vendor bills post to": confirm the field against a real QuickBooks
