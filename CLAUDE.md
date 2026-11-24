@@ -36,8 +36,8 @@ Before changing an area, read its decisions and the live code. Earlier work is k
 place, never drops it. Going against an earlier decision needs Jason's OK first, and the decision gets a note. The zip
 check blocks a zip that removes a live function, constant or FAQ question; `--drops` names one only after he agrees.
 **Never invent what's already set** (Jason, 2026-11-24, repeated): before proposing any list, name, state, method or
-value, `git grep` `decisions/` and the live code and use what's there, citing the decision. A new one only where none
-exists, said so. The session manager and the Design reviewer reject a proposal that doesn't cite its source. Suggesting an
+value, `git grep` `decisions/` and the live code and use what's there, citing the decision. Where none
+exists, flag the gap and offer possible solutions as suggestions (Jason). The session manager and the Design reviewer reject a proposal that doesn't cite its source. Suggesting an
 improvement to what's set is welcome (Jason: "suggestions are accepted, inventing new randomly is not"): labelled
 "Suggest a change to <decision>: …", citing it and why, for Jason via the session manager, never applied as decided.
 
