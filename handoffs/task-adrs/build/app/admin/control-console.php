@@ -1455,7 +1455,8 @@ function tv_cb_wq_page(PDO $pdo, int $id): string
         'withdrawn' => $e((string) $r['done_how']) . ($r['undone_at'] ? ', ' . $when((string) $r['undone_at']) : '') . '.'][$st];
     $ic = fn ($attrs, $icon, $title) => '<button type="button" class="cbg-ic" ' . $attrs . ' title="' . $e($title) . '" aria-label="' . $e($title) . '">' . tv_icon($icon, 'cbg-svg') . '</button>';
     $h .= '<div class="wqp" data-wqp-id="' . $id . '"><p class="cb-crumb">Work queue · #' . $id . '</p><h3 class="cb-title">' . $e($what) . '</h3>'
-        . '<p class="wqp-st"><span class="wq-pill wq-p-' . $pill[1] . '">' . $pill[0] . '</span> ' . $line . '</p>'
+        . '<p class="wqp-st"><span class="wq-pill wq-p-' . $pill[1] . '">' . $pill[0] . '</span> <span>' . $line . '</span>'
+        . (in_array($st, ['open', 'late'], true) ? '<button type="button" class="cbg-b cbg-sm cbg-o" data-wqp="take">Take it</button>' : ($st === 'taken' ? '<button type="button" class="cbg-b cbg-sm cbg-o" data-wqp="rel">Name its release</button>' : '')) . '</p>'
         . ($closed ? '<p data-tv-status="info" data-tv-label="Kept as it was:">A task that\'s done or withdrawn keeps its scope and steps as they were; its History has every change.</p>' : '');
     // the scope (goal, in, out, done when): each a field with ✎
     $labels = ['goal' => ['Goal', 'What it achieves, in a sentence'], 'in_scope' => ['In scope', 'What this task covers'], 'out_scope' => ['Out of scope', 'What it leaves for another task'], 'done_when' => ['Done when', 'The check that says it\'s finished']];
@@ -1487,9 +1488,12 @@ function tv_cb_wq_page(PDO $pdo, int $id): string
         $done = $s['done_at'] !== null;
         $h .= '<li class="wqp-step' . ($done ? ' wqp-done' : '') . '" data-sid="' . (int) $s['id'] . '" data-see="' . $e($s['see']) . '" data-do="' . $e($s['do_what']) . '" data-confirm="' . $e($s['confirm']) . '" data-done="' . ($done ? '1' : '') . '">'
             . '<div class="wqp-sh"><span class="wqp-n">' . (int) $s['pos'] . '</span><span class="wqp-do">' . $e($s['do_what']) . '</span>'
-            . (!$closed ? '<span class="wq-acts">' . (!$done ? '<button type="button" class="cbg-b cbg-sm cbg-o" data-wqp="confirm">Confirm it\'s done</button>' : '') . $ic('data-wqp="sedit"', 'pen', 'Edit step ' . (int) $s['pos']) . '</span>' : '') . '</div>'
-            . ($s['see'] !== '' ? '<p><b>See:</b> ' . $e($s['see']) . '</p>' : '') . ($s['confirm'] !== '' ? '<p><b>Confirm:</b> ' . $e($s['confirm']) . '</p>' : '')
-            . ($done ? '<p class="wqp-ok">Confirmed by ' . $e($s['done_by']) . ', ' . $when((string) $s['done_at'], (string) $s['tz']) . '.</p>' : '') . '<div class="wqp-slot"></div></li>';
+            . (!$closed ? $ic('data-wqp="sedit"', 'pen', 'Edit step ' . (int) $s['pos']) : '') . '</div>'
+            // read in order: what to see, how it's confirmed, then the press (the Design reviewer, 2026-11-24)
+            . '<p><b>See:</b> ' . ($s['see'] !== '' ? $e($s['see']) : '<span class="wqp-none">Not set yet</span>') . '</p>'
+            . '<p><b>Confirm:</b> ' . ($s['confirm'] !== '' ? $e($s['confirm']) : '<span class="wqp-none">Not set yet</span>') . '</p>'
+            . ($done ? '<p class="wqp-ok">Confirmed by ' . $e($s['done_by']) . ', ' . $when((string) $s['done_at'], (string) $s['tz']) . '.</p>'
+                : (!$closed ? '<button type="button" class="cbg-b cbg-sm cbg-o" data-wqp="confirm">Confirm it\'s done</button>' : '')) . '<div class="wqp-slot"></div></li>';
     }
     $h .= '</ol>';
     if (!$closed) $h .= '<button type="button" class="cbg-b cbg-o cbg-sm" data-wqp="sadd">' . tv_icon('plus', 'cbg-svg') . ' Add a step</button>'

@@ -61,6 +61,14 @@ const answered = p => p.waitForResponse(r => r.url().includes('wqtask=') && r.re
       await p.uncheck(P + ' .wqp-se [name=done]'); await Promise.all([answered(p), p.click(P + ' .wqp-se [type=submit]')]);
       t(L + 'corrected: not done after all (an Edit, never an Undo)', /0 of 2 confirmed/.test(await p.textContent(P + ' .wqp-body')));
       if (shots) await p.locator(P).screenshot({ path: shots + '/ts-' + w + '-b.png' });
+      t(L + 'a step reads in order: See and Confirm before its press; one with neither says Not set yet', await p.$$eval(P + ' .wqp-step', a => a.length) === 2 && await p.$eval(P + ' .wqp-steps > li:last-child', li => /See: Not set yet/.test(li.textContent) && /Confirm: Not set yet/.test(li.textContent) && li.lastElementChild.previousElementSibling.matches('[data-wqp=confirm]')));
+      // the task's own next step, at the top beside its state (the Design reviewer)
+      t(L + 'its next step beside its state: Take it, outlined', (await p.textContent(P + ' .wqp-st [data-wqp=take]')) === 'Take it' && await p.$eval(P + ' .wqp-st [data-wqp=take]', b => b.classList.contains('cbg-o')));
+      await Promise.all([answered(p), p.click(P + ' .wqp-st [data-wqp=take]')]);
+      t(L + 'Take it: Taken, with Jason (test); Name its release next', /With Jason \(test\)/.test(await p.textContent(P + ' .wqp-st')) && await p.isVisible(P + ' .wqp-st [data-wqp=rel]'));
+      await p.click(P + ' .wqp-st [data-wqp=rel]'); await p.fill(P + ' .wqp-rf [name=rel]', 'task-scope.zip');
+      await Promise.all([answered(p), p.click(P + ' .wqp-rf [type=submit]')]);
+      t(L + 'Name its release, in place: Being fixed in task-scope.zip', /Being fixed in task-scope\.zip/.test(await p.textContent(P + ' .wqp-st')));
       await p.click(P + ' [data-wqp=hist]'); await p.waitForSelector(P + ' .wq-hist');
       const h = await p.textContent(P + ' .wq-hist');
       t(L + 'History: the goal\'s old words, done when, the priority, the steps added, confirmed and corrected', /goal "Every late task taken within a day" → "Late tasks taken within a day"/.test(h) && /done when "" → "Nothing in the queue is late"/.test(h) && /priority not set → 1/.test(h) && /step 1 added/.test(h) && /confirmed done/.test(h) && /not done after all/.test(h), h);

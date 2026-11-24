@@ -639,13 +639,20 @@
     e.preventDefault();
     var pg = t.closest('.wqp'), id = act === 'retry' ? t.getAttribute('data-id') : pg && pg.getAttribute('data-wqp-id');
     if (act === 'retry') { wqpLoad(id); return; }
+    if (act === 'take') { wqpSend(t, { action: 'qassign', id: id }, id, '.wqp-st'); return; }
+    if (act === 'rel') {   // its release, named in place (a dialog would open behind the panel)
+      var stl = t.closest('.wqp-st'); if (stl.nextElementSibling && stl.nextElementSibling.classList.contains('wqp-rf')) { stl.nextElementSibling.querySelector('input').focus(); return; }
+      var rf = document.createElement('form'); rf.className = 'wq-form wqp-ef wqp-rf';
+      rf.innerHTML = '<label>The release that fixes it (its zip\'s name; the task is done by itself once it\'s live)<input name="rel" maxlength="120" required spellcheck="false" placeholder="e.g. work-queue.zip"></label><div class="cbg-acts"><button type="submit" class="cbg-b">Name its release</button><button type="button" class="cbg-b cbg-o" data-wqp="ecancel">Cancel</button></div>';
+      stl.insertAdjacentElement('afterend', rf); rf.rel.focus(); return;
+    }
     if (act === 'edit') {   // a scope field: Edit in place, the old words kept in its History
       var dd = t.closest('dd'); if (dd.querySelector('.wqp-ef')) { dd.querySelector('textarea').focus(); return; }
       var f = document.createElement('form'); f.className = 'wq-form wqp-ef'; f.setAttribute('data-f', t.getAttribute('data-f'));
       f.innerHTML = '<label>' + cbgEsc(t.getAttribute('data-l')) + '<textarea name="v" rows="3" maxlength="4000" data-spell></textarea></label><div class="cbg-acts"><button type="submit" class="cbg-b">Save ' + cbgEsc(t.getAttribute('data-l').toLowerCase()) + '</button><button type="button" class="cbg-b cbg-o" data-wqp="ecancel">Cancel</button></div>';
       f.v.value = t.getAttribute('data-v') || ''; dd.parentNode.appendChild(f); f.v.focus(); return;
     }
-    if (act === 'ecancel') { var ef = t.closest('form'); var b0 = ef.classList.contains('wqp-pf') ? ef.previousElementSibling.querySelector('[data-wqp=prio]') : ef.parentNode.querySelector('[data-wqp=edit],[data-wqp=sedit]'); ef.remove(); if (b0) b0.focus(); return; }
+    if (act === 'ecancel') { var ef = t.closest('form'); var b0 = ef.classList.contains('wqp-rf') ? ef.previousElementSibling.querySelector('[data-wqp=rel]') : ef.classList.contains('wqp-pf') ? ef.previousElementSibling.querySelector('[data-wqp=prio]') : ef.parentNode.querySelector('[data-wqp=edit],[data-wqp=sedit]'); ef.remove(); if (b0) b0.focus(); return; }
     if (act === 'prio') {   // the priority, in place: each choice with what it means (CLAUDE.md "Words and lists")
       var pr = t.closest('.wqp-pr'); if (pr.nextElementSibling && pr.nextElementSibling.classList.contains('wqp-pf')) { pr.nextElementSibling.querySelector('input').focus(); return; }
       var cur = t.getAttribute('data-v') || '', ch = [['1', 'Priority 1', 'first: the next one taken'], ['2', 'Priority 2', 'next, once the 1s are taken'], ['3', 'Priority 3', 'when there\'s room'], ['', 'Not set', 'listed after the ones with a priority']];
@@ -681,6 +688,7 @@
     var id = f.closest('.wqp').getAttribute('data-wqp-id'), btn = f.querySelector('[type=submit]');
     if (f.hasAttribute('data-wqp-sform')) { wqpSend(btn, { action: 'qstep', id: id, see: f.see.value, do_what: f.do_what.value, confirm: f.confirm.value }, id, '.wqp-steps li:last-child'); return; }
     if (f.classList.contains('wqp-se')) { var sid = f.closest('.wqp-step').getAttribute('data-sid'); wqpSend(btn, { action: 'qstepedit', id: sid, see: f.see.value, do_what: f.do_what.value, confirm: f.confirm.value, done: f.done.checked ? 1 : 0 }, id, '[data-sid="' + sid + '"]'); return; }
+    if (f.classList.contains('wqp-rf')) { wqpSend(btn, { action: 'qrelease', id: id, rel: f.rel.value.trim() }, id, '.wqp-st'); return; }
     if (f.classList.contains('wqp-pf')) { var pv = f.querySelector('input[name=p]:checked'); wqpSend(btn, { action: 'qedit', id: id, priority: pv ? pv.value : '' }, id, '.wqp-pr'); return; }
     var k = f.getAttribute('data-f'), body = { action: 'qedit', id: id }; body[k] = f.v.value;
     wqpSend(btn, body, id, '[data-wqp-f="' + k + '"]');

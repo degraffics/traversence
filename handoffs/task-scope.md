@@ -18,9 +18,13 @@ Build in `task-scope/build/`, screens `task-scope/ts-*.png`, FAQ `task-scope/faq
 - New table `control_gauge_task_steps` (staging class OWN, R14); five columns on `control_gauge_tasks`; migration
   `2026-11-24_task_scope.sql` (guarded, safe twice, no data changed).
 
+- **The Design reviewer's notes (made):** a step reads See, Confirm, then its press; a missing See or Confirm says "Not set yet";
+  the task's own next step (Take it, then Name its release, outlined) sits beside its state at the top of the page; its release
+  is named in place (a dialog would open behind the panel's backdrop).
+
 ## Kept, moved, dropped
 Everything on the row kept (Take it, ✎ for what/why/source, History, ⋯). The priority chooser is a form in the panel (a
 `TvAsk.choose` dialog opened behind the panel's backdrop). Nothing dropped.
 
 ## Tests
-`tools/control-board-tests/task-scope.cjs` (36 at 1280 and 390); work-queue 84, gauge-panel 76, board-views 90 unchanged.
+`tools/control-board-tests/task-scope.cjs` (44 at 1280 and 390); work-queue 84, gauge-panel 76, board-views 90 unchanged.
