@@ -90,7 +90,7 @@ VendorBills::edit($pdo, $a, (int) $b['id'], ['bill_no' => '130929', 'bill_date' 
 $t('✎ before QuickBooks: the due date changed, the old one in the history', $pdo->query('SELECT due_date FROM order_vendor_bills WHERE id = ' . (int) $b['id'])->fetchColumn() === '2026-12-18' && str_contains($ev($a, 'vendor_bill'), 'due 2026-12-17 → 2026-12-18'), $ev($a, 'vendor_bill'));
 $msg = VendorBills::toQuickBooks($pdo, $a, (int) $b['id']);
 $b = $pdo->query('SELECT * FROM order_vendor_bills WHERE id = ' . (int) $b['id'])->fetch(PDO::FETCH_ASSOC);
-$t('(c) Send it to QuickBooks: made as a bill against the vendor (mock MBL-…), the error cleared', $b['qb_bill_id'] === 'MBL-' . $b['id'] && $b['qb_error'] === '' && str_contains($msg, 'in QuickBooks'), [$b, $msg]);
+$t('(c) Send it to QuickBooks: made as a bill against the vendor (mock MBL-…), the error cleared, its account kept and said', $b['qb_bill_id'] === 'MBL-' . $b['id'] && $b['qb_error'] === '' && $b['qb_account'] === 'Cost of Goods Sold' && str_contains($msg, 'in Cost of Goods Sold'), [$b, $msg]);
 $s = VendorBills::state($pdo, Orders::get($pdo, $a));
 $t('the line: Billed $256.83 (inv 130929, Nov 17) · due Dec 18', $s['key'] === 'billed' && $s['sentence'] === 'Billed $256.83 (inv 130929, Nov 17) · due Dec 18.', $s['sentence']);
 $t('the board: once billed, the vendor asks nothing (Complete the order)', (ClientOrders::boardState($pdo, Orders::get($pdo, $a))['next']['label'] ?? '') !== 'Record the vendor bill');

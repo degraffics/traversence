@@ -188,3 +188,9 @@ Tests: m1b.cjs 49 × 2 (98), m1b.php 45, M1's suite all pass.
 Tests: m1b.cjs 50 × 2 (100), m1b.php 45, m1.php 42, m1.cjs, collect-balance.cjs, complete-owed.cjs all pass. Zip check
 clean on Sync 22:02 UTC (`2caf2a1`), none of M1b's files changed live since. The session manager (22:19 UTC): the ✉ uses
 the existing Mailer and History; moving client emails onto the 0172 dispatcher is its own item, not M1b.
+
+### The session manager's review (2026-11-24 00:02 UTC): clear to ask, two checks, made
+- qb_orders_tick is in `Scheduler::JOBS` and `AUTO` (Scheduled tasks), its page on `job-line.php`.
+- The account a vendor bill went to is named on the Vendor line ("In QuickBooks: Cost of Goods Sold"; `qb_account`, in
+  the new table's CREATE); Dispute…'s ⋯ says "not sent to the vendor (tell them yourself)". Re-recorded (send.py) on Sync
+  22:02 UTC; m1b.php 45, m1b.cjs 102, m1.php 42, m1.cjs pass.

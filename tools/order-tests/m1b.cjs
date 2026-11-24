@@ -95,6 +95,7 @@ const press = async (p, sel, yes) => {   // a button that asks first: its yes in
     await Promise.all([p.waitForNavigation({ timeout: 15000 }).catch(() => {}), p.click('[data-vb-read] .vb-btns .go')]); await p.waitForTimeout(700);
     v = await line(p, 'Vendor');
     ok(`${w}: Record the vendor bill → Billed $256.83 (inv 130929, Nov 17) · due Dec 17, ↗ to their bill, ✎ greyed (it's in QuickBooks)`, v && v.text === 'Billed $256.83 (inv 130929, Nov 17) · due Dec 17.' && /bill/.test(v.icons[0].href || '') && v.icons[1].off && /change it there/.test(v.icons[1].t), v);
+    ok(`${w}: the line names the QuickBooks account the bill went to (In QuickBooks: Cost of Goods Sold), so it can be checked`, await p.evaluate(() => { const l = [...document.querySelectorAll('.cs-line')].find((x) => x.querySelector('.cs-ll').textContent === 'Vendor'); const n = l && l.querySelector('.cs-la > small'); return !!n && n.textContent === 'In QuickBooks: Cost of Goods Sold'; }));
     ok(`${w}: the bill is in QuickBooks (mock), its answer kept`, sql(`SELECT CONCAT(qb_bill_id, '|', source, '|', answers LIKE '%It was picked up%') FROM order_vendor_bills WHERE order_id = ${A}`) === `MBL-${sql(`SELECT id FROM order_vendor_bills WHERE order_id = ${A}`)}|read|1`);
     ok(`${w}: the page says what happened (Success)`, await p.evaluate(() => /Recorded Competition Proofs's invoice 130929/.test(document.body.textContent)));
     const dl2 = await line(p, 'Delivery');
