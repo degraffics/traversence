@@ -214,6 +214,17 @@
    "expires": "2026-11-24T05:02:34Z",
    "release": "order-m2.zip",
    "callers": {}
+  },
+  {
+   "path": "app/migrations/2026-11-24_order_refunds.sql",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5j2wAgTrKdTwX6kQNY",
+   "why": "M2: refund requests and the posted payment id",
+   "since": "2026-11-24T01:02:36Z",
+   "expires": "2026-11-24T05:02:36Z",
+   "release": "order-m2.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
