@@ -227,3 +227,25 @@ Internal Transfer) work order, the vendor's ready is "Ready at <vendor> for us t
 "Collected", the work order's existing Receive); leg 2 starts at Receive, from the order's own mode or the item's style
 (Pick Up → "Ready for pickup at our shop"; Courier → "Book the courier" with the existing courier and number; Ship →
 tracking). Blind Drop Ship has no leg 2: the vendor's shipped is the client's shipped.
+
+## M2b built (the M2 session, 2026-11-24): built on Sync 02:52 UTC (2eab529), not live
+
+Decided: decisions/0101's note (2026-11-24, Jason's Approve and Yes); mockup `handoffs/order-m2b/mockup.html`. The zip is
+`handoffs/order-m2b/order-m2b.zip` (zip check clean): `app/lib/ClientOrders.php` (`legs()` new; `boardState` reads it;
+`deliverables` made public), `app/lib/WorkOrders.php` (`goesTo`, `DELIVERY_MEANS`, `legWords`, `setDelivery` new;
+`setTracking` says `_told` only when the email went), `app/admin/tools.php` (`backoffice/work_orders`: Courier booked on a
+Will Call too; "emailed" only when it went), `website/admin/client-order.php` (the Delivery line's leg words, Receive /
+Edit the shipping, ⋯ Courier booked: add tracking and Change how it goes…, their panes, handlers `wo_courier` and
+`how_goes`; the Order line's button left to Delivery while ours to receive or send; the Shipping box no longer says
+"Pickup at our shop" for a vendor's Will Call), `app/ui/faq.md` (three entries). No migration.
+- **The leg rule:** leg 1 is the first work order out and not received: Will Call with a courier's number → Out by courier
+  from the vendor; to the client (`goesTo`) → At the vendor / Shipping from the vendor to the client; to us → At the vendor,
+  Ready at <vendor> for us to collect (since, days; Receive), On its way to us (Receive). Leg 2 once received (not for a
+  straight-to-client one): the item's ship style: Pick Up → Ready for pickup at our shop; Courier / Drop Ship → Received,
+  waiting for its number (Edit the shipping); shipped → Out by courier from our shop / Shipped. No work order: as before.
+- **My reading, flagged:** the note names Ship, Freight and Local Delivery; Next-day Courier is read the same way (its
+  ship-to, or us with none). `WorkOrders::moveItems` still treats Local Delivery's complete as "came to us" (unchanged).
+- **Tests:** `tools/order-tests/m2b.php` (31) and `m2b.cjs` (68, at 1280 and 390) with `m2b-seed.php`; `m1b-seed.php`'s
+  pickup orders now received at our shop with the item Pick Up (a Will Call ready at the vendor now reads as ours to collect).
+  M2's suites pass. m1.php/m1.cjs, collect-balance.cjs, complete-owed.cjs and m1b's vendor-bill steps fail the same checks
+  on the live files as on M2b's (harness drift, checked side by side on a second server), so not M2b's.

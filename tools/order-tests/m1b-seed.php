@@ -4,7 +4,8 @@
 // 112906 is paid (payment 7001, Oct 19, check 2231), 112907 is open (QuickBooksPay::invoiceByNumber's mock).
 //   QB Paid Co   out the door (ready for pickup since 21 days), released before payment, its hand-made invoice 112906
 //                named by number, not linked yet; work order 20261027-WO0001 at Competition Proofs (made up), $256.83
-//                agreed, ready (Will Call), not billed: the Vendor line's case (mockups open, open-after)
+//                agreed, Will Call, received at our shop (the item Pick Up, M2b's leg 2), not billed: the Vendor line's case
+//                (mockups open, open-after). Before M2b it sat "ready" at the vendor, which now reads as ours to collect.
 //   QB Open Co   approved, owes $1,111.14, invoice 112907 named by hand (open in QuickBooks): a payment recorded here posts to it
 //   Billed Co    in production, work order shipped, the vendor's bill recorded and in QuickBooks
 //   Typed Co     paid, shipped; work order shipped, two work orders to two vendors, not billed
@@ -25,7 +26,7 @@ $mk = function (string $name, array $f, string $istat = '') use ($pdo, $d): int 
 };
 $ev = fn ($id, $e, $n, $days) => $pdo->prepare('INSERT INTO order_events (order_id, event, note, created_at) VALUES (?, ?, ?, ?)')->execute([$id, $e, $n, $d($days)]);
 $wo = function (int $oid, array $f) use ($pdo, $d): int {
-    $f += ['order_id' => $oid, 'wo_no' => '20261027-WO0001', 'vendor' => 'Competition Proofs', 'vendor_email' => 'orders@vendor.example', 'line_ids' => '', 'files' => '[]', 'status' => 'ready', 'status_at' => $d(-21),
+    $f += ['order_id' => $oid, 'wo_no' => '20261027-WO0001', 'vendor' => 'Competition Proofs', 'vendor_email' => 'orders@vendor.example', 'line_ids' => '', 'files' => '[]', 'status' => 'received', 'status_at' => $d(-21), 'received_by' => 'Sam', 'received_on' => substr($d(-21), 0, 10),
            'delivery' => 'will_call', 'cost_cents' => 25683, 'cost_state' => 'accepted', 'sent_at' => $d(-26), 'token' => bin2hex(random_bytes(20)), 'expires_at' => $d(30)];
     $pdo->prepare('INSERT INTO order_work_orders (' . implode(',', array_keys($f)) . ') VALUES (' . implode(',', array_fill(0, count($f), '?')) . ')')->execute(array_values($f));
     return (int) $pdo->lastInsertId();
@@ -48,4 +49,5 @@ $wo($t, ['wo_no' => '20261102-WO0004', 'vendor' => 'Mesa Bindery', 'status' => '
 $k = $mk('Picked Co', ['stage' => 'ready', 'pay_mode' => 'full'], 'ready');
 $ev($k, 'released', 'Released before payment by an admin: agreed terms', -27); $ev($k, 'stage', 'Ready for pickup', -21);
 $wo($k, []);
+$pdo->exec("UPDATE order_lines SET ship_style = 'pickup' WHERE order_id IN ($a, $k)");   // leg 2: the client picks it up at our shop (M2b)
 foreach (['QB Paid Co' => $a, 'QB Open Co' => $b, 'Billed Co' => $c, 'Typed Co' => $t, 'Picked Co' => $k] as $n => $id) echo "$n=$id\n";
