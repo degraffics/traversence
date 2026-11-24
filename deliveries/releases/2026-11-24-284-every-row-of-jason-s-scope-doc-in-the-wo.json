@@ -1,0 +1,36 @@
+{
+    "id": 284,
+    "title": "Every row of Jason's scope doc in the Work queue, with its scope and decisions",
+    "why": "Jason, 2026-11-24: \"i need all the tasks in the que as well before usage runs out\". From his doc \"Work queue: task scopes\" (https://claude.ai/artifact/NgH5Vhw4uPadPkgSpfZuJu), its three tables: Control Board, Orders, Backlog.",
+    "proposals": "",
+    "zip": "task-seed.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/migrations/2026-11-24_task_seed.sql": {
+            "sha": "3d166fc5554ea43f00dae0b05dc0b267f9b6515097508a8fd172cf8865a5f5fe",
+            "size": 26997,
+            "live_was": null
+        }
+    },
+    "migrations": [
+        "app/migrations/2026-11-24_task_seed.sql"
+    ],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-24T13:48:55+00:00",
+            "by": 0,
+            "msg": "Uploaded task-seed.zip: 1 files."
+        }
+    ]
+}
