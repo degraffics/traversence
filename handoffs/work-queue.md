@@ -3,11 +3,11 @@
 The Control Board build session (`session_01CXLi5gqPa5AQKoZXC7gZxx`), Jason's priority of 2026-11-24 (via the session manager):
 "the work queue: Make a gauge for this and have its queue from the development board. We need to be able to add tasks to the
 queue and manage them so we don't fall out of score or forget what we identified as needing to be done."
-Zip: `work-queue.zip` (build in `work-queue/build/`, screens in `work-queue/`). **Built on board-phone-header** (its
+Zip: `work-queue.zip`, **built on Sync 12:54 UTC (ec58f7e)** after board-phone-header went live as #280 (build in `work-queue/build/`, screens in `work-queue/`). **Built on board-phone-header** (its
 `control-console.php` and `admin-control.js` carry board-phone-header's changes), so it goes after that release is live and
 synced: then rebuild those two files from the live copies with only this build's change re-applied, run
 `work-queue/faq-edits.py` on the live `faq.md`, zip check, send.
-State: **built and tested on the bench; in review** (Design reviewer → session manager → Jason's pop-up).
+State: **approved by Jason (2026-11-24, this session's pop-up), sent to the inbox.**
 
 ## Files
 
