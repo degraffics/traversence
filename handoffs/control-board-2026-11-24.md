@@ -49,11 +49,30 @@ too large (CLAUDE.md, the session manager). Built on **Sync 02:46 UTC (973d10b)*
    (W1 → task → /api/crawl/loads → Overture's source); Design reviewer → session manager → Jason once.
 4. **The workflow-shape audit** (`research/workflow-shapes-2026-11-23.md`, read-only; live read through the test accounts;
    report to the session manager).
-5. **The Ledger tab in Modules.**
-6. **The Find box in System Configuration.**
+5. **The Ledger tab in Modules** (the session manager's spec, 2026-11-23): one row per paid account: service, sign-in account,
+   plan, cap, spent this month, % of cap, owed or credit, last and next bill, the source (the service's live API or our own
+   count, with any gap shown, e.g. Google 608 vs 30), and the billing link in the right account. Totals at the top; each row
+   opens to its entries; promo credits shown apart, never counted against the cap.
+6. **The Find box in System Configuration** (same spec): a box at the top ("/" opens it) searching services, key names,
+   accounts, workflows, alarms and settings, jumping to the exact card. And each card's top line: status, spend against cap,
+   one next action; the rest folds.
 7. **Task #4, the jobs** (Payment reminders and sales_tick catching up after #269): read the 10:17 UTC `site-audit/results/
    jobs.json`; one line to the session manager; a fix in the next release if a job is still late. **And the gauge-requests clock**:
    confirmed starting it (run #4, 02:17 UTC); confirm it keeps running hourly, and that the session manager dropped its hand start.
+
+8. **Request a fix's follow-through (part d of kit-buttons, still to build):** when the fix's release goes live, its check
+   runs at once; the request then clears ("Cleared: its check passed") or reads "Fix tried in #N, still failing", with one
+   notice through the dispatcher (decisions/0176).
+
+## Rules that bind every item (CLAUDE.md)
+
+- #1308/#1309: the four steps (see, do, done and confirmed, next only within a process); a task ends at its confirmation.
+- #1312: a list or a process.
+- #1314/#1315: Edit for records (with History); Undo only for actions; money never has Undo.
+- #1316: inline actions are 30px round icons with titles.
+- #1317: the suggested action, ✎ to correct, ⋯ for every other valid move (greyed with the reason).
+- #1334–#1336: never invent what's set (grep decisions/ and the live code, cite them); a gap is offered as suggestions.
+- A button's verb matches what it does (Request a fix where it queues; Fix it only where the system acts now).
 
 ## Open notes
 
