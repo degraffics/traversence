@@ -1,0 +1,50 @@
+{
+ "zip": "order-m2.zip",
+ "built_on": "973d10b Sync: 2026-11-24 02:46 UTC",
+ "recorded": "2026-11-24 02:49 UTC",
+ "note": "Order management M2: money on the order page (refunds and credit memos with Jason's OK, Send it back, Cancel the record, cancel until the vendor accepts, the pay link, Order details at 390); built on Sync: 02:46 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/ClientOrders.php": {
+   "sha256": "d593b4eed39243b97a00fcf86b4fe9c9bf09ffc56deab1673ee546235524c2ce",
+   "live": false
+  },
+  "app/lib/Customers.php": {
+   "sha256": "f1b2fa51210338ca4ffaf01920d09b2bcda55b4d0069488abb223e3e8b74ffa2",
+   "live": false
+  },
+  "app/lib/Orders.php": {
+   "sha256": "d385da44f77abc6b01e7c822686965d9bf2dec4a09ecb4482047f3a500d177f3",
+   "live": false
+  },
+  "app/lib/Pulse.php": {
+   "sha256": "25d7a075660c1cc63c01134dce3aa09029f8c3ef453c4ca6e33ebaa22a672f91",
+   "live": false
+  },
+  "app/lib/staging-tables.php": {
+   "sha256": "764a7cb33edf76df12f88e737e6254c64e3548852f7eb1f8a7fa2e5ddf6a30d9",
+   "live": false
+  },
+  "app/migrations/2026-11-24_order_refunds.sql": {
+   "sha256": "ba565e9adf0c9f5008d75962b6ab4f57f32001f6ba3196573c56e93dc1677c1d",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "69c91d97851cc48471c83787ada6c7997d2b5a602ef329c3553d933c83ef5650",
+   "live": false
+  },
+  "website/admin/client-order.php": {
+   "sha256": "9125d9d950e6dfbde1a6140ac0543ad7115bfcefb7837852ca474767644d162e",
+   "live": false
+  },
+  "website/admin/ecommerce.php": {
+   "sha256": "b07233c6f9697f82e9b343b69ff7b355a8b574ef0b917a240778938ca9c16952",
+   "live": false
+  },
+  "website/admin/order.php": {
+   "sha256": "49bad3a4f599ca65cf7e237b029b5654cf5d743edec3143b06590824d67219f8",
+   "live": false
+  }
+ }
+}

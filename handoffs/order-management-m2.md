@@ -86,3 +86,93 @@ manager. A test account reads only QuickBooks' sandbox (`QuickBooksPay::testHere
 - The vendor's own default expense category before "Vendor bills post to": confirm the field against a real QuickBooks
   Vendor read in the sandbox first (the session manager, 2026-11-24).
 - Client order emails onto the 0172 dispatcher (the session manager's separate item).
+
+## Built (the M2 session, session_01CXLi5j2wAgTrKdTwX6kQNY, 2026-11-24): built on Sync 00:46 UTC (3d42052)
+
+The zip `order-m2.zip` (not sent yet): `app/lib/Orders.php`, `app/lib/ClientOrders.php`, `app/lib/Pulse.php`,
+`app/lib/Customers.php`, `app/lib/staging-tables.php`, `app/ui/faq.md`, `app/migrations/2026-11-24_order_refunds.sql`,
+`website/admin/client-order.php`, `website/admin/order.php`. Claimed per function (order-m2.zip).
+Rebuilt on **Sync 01:30 UTC (7bece80)**: `staging-tables.php` on its live copy (with #1328's `open_load_batches`), claimed
+again; the zip check passes clean. Design reviewer's round 1 (01:28) applied: each move only in ⋯ (the forms are panes
+opened from ⋯ or a row's ↩/✕, closed by ×, Esc or opening another), Withdraw inside its notice, "Refund waiting $X" in
+amber in the figures.
+The session manager's calls (01:22): (a) the reversing kind, noted on decisions/0098; (b) a refund of money that wasn't a
+card: on Approve its Refund Receipt is made in QuickBooks and recorded, then Payments' case `refundsend:<id>` (and the
+order's notice) carries **✓ Sent** with how it went (`payout`: to_send → sent); (c) credit memos: Jason answered "Need my OK" (02:16 UTC, decisions/0178's
+note): `Orders::requestCredit` (kind `credit` in the same table), the Founder's case "Credit memo to approve", Approve
+runs `Orders::credit`; Approve and Decline need the Founder's own staff login (an admin login that isn't a staff
+login is refused, greyed with why).
+
+Each behaviour and its source:
+- **Refunds wait for Jason** (0178 §1): `Orders::requestRefund` (amount ≤ `refundable()` and ≤ what's left of the chosen
+  payment, a reason, GO Codes and work orders to stop) writes `order_refund_requests` (waiting) and a History line; one
+  waits per order; **Withdraw the refund** until decided. Pulse case `refundok:<id>` (the key `refund:` was taken by the
+  Refunded/Part refunded update rows) shows only when `Access::who()` is the Founder, with **Approve: refund $X**
+  (`['do', 'refund_approve']`) and **Decline** (`['form', 'refund_decline']`, why required); `Orders::approveRefund` /
+  `declineRefund` check the Founder again. Approve runs `refundThroughQuickBooks`; if QuickBooks refuses, nothing moves,
+  it stays waiting with QuickBooks' words, and Approve can be pressed again. GO Code orders' refunds on `admin/order.php`
+  take the same path ("Already refunded in QuickBooks: record it here" stays, as before).
+- **Cancel until the vendor accepts** (0178 §2): `ClientOrders::cancelBlock` (a work order accepted or beyond, or a job
+  number: "The vendor accepted the work order on Nov 3 (job …): it can't be cancelled; a credit or a refund instead"; the
+  date from the `work_order_accepted` event, else the work order's log). Unpaid: cancels, and work orders not accepted
+  stop (`stopUnaccepted`, the vendor told). Paid: its refund of everything paid goes to Jason with `cancel_order`; on
+  Approve it's refunded and cancelled. A payment only recorded here must have its record cancelled first.
+- **The money rule** (0178's note): `Orders::payments` classes each payment: `qb` read from QuickBooks (↗ to the payment
+  or its invoice), `card`, `posted` (recorded here and received on its QuickBooks invoice: `order_ledger.qb_payment_id`,
+  new, or older rows' "(payment N)" event) → **Refund…**; `here` → **Cancel the record** (`Orders::cancelRecord`: a
+  reversing `payment_cancelled` row keyed `cancel-<row>`, the ledger still only added to; paid, status and stage go back;
+  greyed once a work order went out after it, it was delivered, its GO Codes went live, or a dispute is open).
+- **Money on the order page** (design §4.3a): the **Money** section (`#money`): Total · Paid · Owed (Credits, Refunded,
+  Disputed only when not $0.00), each ledger row with its round icon, Refund…, Cancel the record, Issue a credit memo,
+  Record a card dispute / Dispute won or lost, QuickBooks refunds and credits to place (the inbox), Cancel the order….
+  The Money line's ⋯ goes to each, plus **Copy the pay link** (0178 §5) and **Check QuickBooks**; ✎ goes to #money; the
+  Money line says "Refund of $X waiting for Jason's OK". `admin/order.php?id=<client order>` forwards to `#money` (a POST
+  there changes nothing and says where to do it); it stays for GO Code orders.
+- Replaced screen, kept/moved: old page's Fix it, pause/resume → GO Code orders only (client orders have no GO Code fix
+  there); Credit, Refund (with work orders and where each stands), inbox, chargeback, won/lost, Check QuickBooks → moved
+  to #money; cancel unpaid → Order ⋯; the policy line → kept; ledger and history → the Money section's rows (History
+  section unchanged); mock "Mark paid" (QB_ENV=mock only) → not moved (test only).
+- FAQ: four entries (team: where to refund/credit/correct; why a refund waits for Jason; until when an order can be
+  cancelled; client: can I cancel).
+
+Tests (design harness): `tools/order-tests/m2.php` 58/58 (`m2-seed.php` for the rendered one), `m2.cjs` all passing at 1280 and
+390 (each new button pressed; screens in `handoffs/order-m2/`), `m1.php` passes; `m1b.php`'s 4 vendor-bill failures are the
+same on the live code (the harness's `order_vendor_bills` is short of columns), not M2's.
+
+Open for the session manager (sent 01:05, reminded 01:22): (a) the reversing kind needs live's `order_ledger.kind` to be a
+VARCHAR (the harness's is); (b) a refund of a payment that wasn't a card: today Approve stays waiting with "no card to
+refund from here"; (c) credit memos stay an admin action without Jason's OK. An admin who isn't a staff login reads as
+the Founder (`Access::who`, the site's rule; EnvSettings uses it too).
+
+**Settled (02:15 UTC, the session manager's (A)):** live `order_ledger.kind` is an ENUM without a new kind (read through
+PR #1331's meta read, run 45309955001, log deleted), so Cancel the record writes a new add-only table,
+`order_payment_cancels` (no ledger kind, no `MODIFY`); `Orders::money()`, `invoiceLaterOpen`, Customers' net and
+`ecommerce.php`'s money reports take it off; noted on decisions/0098. The Design reviewer approved M2 (02:15, every
+round), with the tidy made: a refund's facts on its Refunded row ("why · approved by, when · ✓ Sent <time> · ref ✎").
+Order #12 (run 45309920979, log deleted): "Invoice 112906, linked by its number", "Paid in QuickBooks Oct 26 · $809.10 on
+invoice 112906" confirmed; History's "Needs books" (QuickBooks $1,111.14 paid against the order's $809.10 lines) is with
+Jason through the session manager; no money on #12 changed.
+Zip: 10 site files (adds `website/admin/ecommerce.php`), built on Sync 01:30 (7bece80); the zip check passes clean.
+Tests: m2.php 59/59, m2.cjs all passing at 1280 and 390.
+
+## Next, in order (the session manager, 2026-11-24 02:22–02:27)
+
+1. **M2 (#1333)**: clear to ask Jason once the Design reviewer has looked at the 390 fixes (sent 02:28). Merge only after the
+   Control Board's task-trip release is live and synced; then rebuild `Pulse.php` on that live copy, take the inbox record
+   off the branch and send again (`send.py`), rerun the zip check.
+2. **M2b "How it goes"** (Jason: "I need to be able to modify. If I schedule a courier or ship vs will call. With
+   competition printing I ask for will call, then schedule courier for local delivery or assign freight, or drop ship";
+   then "check adrs for previous established methods"). Never new names (CLAUDE.md #1334): an Edit (✎, never Undo) of the
+   existing fields at the right level, the established names, the existing work-order email to tell the vendor, History.
+   The levels to map first, so Delivery reads one and they never disagree:
+   - the work order's `delivery` (`WorkOrders::DELIVERY`, decisions/0101 work orders step 1): Will Call, Internal Transfer,
+     Blind Drop Ship, Local Delivery, Next-day Courier, Ship USPS / UPS / FedEx, Freight; "Courier booked: add tracking";
+   - the order's `ship_mode` (`Shipments::MODES`, 0101 addendum 2026-10-21): No shipping (with `no_ship_reason`), One
+     address, Several destinations (`order_addresses`, a method per destination);
+   - the order's `delivery` (`ClientOrders::delivery()`: pickup / ship) and an item's ship style (0101 addendum
+     2026-10-16: Drop Ship, Courier, Pick Up; carrier and tracking);
+   - also read 0040 (delivery_method, freight_ltl), 0099 (fulfilment statuses), 0112 (ship_rules, local pickup).
+   "Will call, then a courier for local delivery" is two steps: show how the existing values cover it before adding any.
+   No outside booking (courier API, freight quote): named as later. The note goes on decisions/0101.
+3. The Design reviewer's 7–10 (Files & versions and Shipping at 390: stacked add-a-document form through TvUpload, ⓘ for
+   the explanations, phone cards for the per-item table, the manifest's print icon).

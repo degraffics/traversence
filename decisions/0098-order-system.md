@@ -442,3 +442,14 @@ account credits applied to ordering balances." Credits (fix, credit, then refund
 what an order owes, on both the invoice and the cart route. Built today only as QuickBooks credit memos: `credit_used`
 is read but never written (the order map, §6). A lower total after an order is changed follows this decision's fix,
 credit, then refund.
+
+## Note (2026-11-24, the session manager for M2): a payment's record cancelled, still only added to
+
+decisions/0178's money note gives a payment recorded here and never processed **Cancel the record**, "gone as if never
+recorded". The ledger stays append-only and untouched: live's `order_ledger.kind` is an ENUM (read 2026-11-24 through
+live-read's meta read), and the add-only rule allows no `MODIFY`, so Cancel the record adds a row to a new add-only table,
+`order_payment_cancels` (one per payment row: the amount, why, who, when). `Orders::money()` and the direct sums
+(invoice later's paid, Customers' net, the money reports) take it off what's paid; History keeps the payment, the cancel
+and the reason. It's greyed with why once something moved on because of that payment (a work order went to the vendor
+after it, it was delivered, its GO Codes went live, a dispute is open). The session manager's call (A), 2026-11-24, in the
+M2 review; built in M2 (`handoffs/order-management-m2.md`).

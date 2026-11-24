@@ -64,3 +64,8 @@ answers**, for design §3.6 (built in M1b):
   QuickBooks as a Bill against the vendor (amount, number, date, due), linked to the order. Paying vendors stays a
   separate decision.
 He also approved M1b's design (mockups `open`, `open-after`) and M1 (PR #1320) in the same pop-up.
+
+**Note (2026-11-24, Jason, in the Orders M2 session's pop-up, reviewed by the session manager): credit memos wait for him
+too.** Asked: "A credit memo also gives money back in effect … Should credit memos wait for your OK too?" Answer: **"Need
+my OK"**: Issue a credit memo prepares it; he gets a Pulse case with Approve and Decline, like a refund (§1); nothing is
+credited (and nothing made in QuickBooks) until he approves. Built in M2.
