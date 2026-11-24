@@ -1,214 +1,27 @@
 {
- "at": "2026-11-23T10:20:45.623Z",
+ "at": "2026-11-24T10:20:42.144Z",
  "open": [
-  {
-   "key": "task:failed:overture_bulk",
-   "level": "trip",
-   "process": "wf:W1",
-   "title": "W1: its task overture_bulk failed (run #1290)",
-   "reading": "TimeoutError('The read operation timed out')",
-   "means": "Its work goes back and the next run tries it again; the workflow's other tasks carry on. Its tries ran out at 09:31 UTC with no fix: it's a trip for an admin.",
-   "since": "2026-11-21T08:31:41+00:00",
-   "tripped": "2026-11-21T09:35:01+00:00",
-   "stopped": "W1 (its tasks wait with it)"
-  },
   {
    "key": "task:failed:foursquare_bulk",
    "level": "trip",
    "process": "wf:W1",
-   "title": "W1: its task foursquare_bulk failed (run #1288)",
-   "reading": "TimeoutError('The read operation timed out')",
-   "means": "Its work goes back and the next run tries it again; the workflow's other tasks carry on. Its tries ran out at 09:20 UTC with no fix: it's a trip for an admin.",
+   "title": "foursquare_bulk failed in its own code (run #2148)",
+   "reading": "RuntimeError('site /api/crawl/loads.php said 503: b\\'<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">\\\\n<html><head>\\\\n<title>503 Service Unavailable</title>\\\\n</head><body>\\\\n<h1>Service Unavailable</h1>\\\\n<p>The",
+   "means": "Its work goes back and its next run tries it again.",
    "since": "2026-11-21T08:20:35+00:00",
    "tripped": "2026-11-21T09:25:02+00:00",
    "stopped": "W1 (its tasks wait with it)"
   },
   {
-   "key": "ep:crawl/index:count",
-   "level": "warning",
-   "process": "wf:W0",
-   "title": "/api/crawl/index: received 250, accounted for 0",
-   "reading": "received 250, counted 0",
-   "means": "Its numbers can't be trusted until this is fixed: 250 record(s) it received weren't stored, updated, sent to Review or refused.",
-   "since": "2026-11-23T00:12:37+00:00",
-   "tripped": null,
-   "stopped": ""
-  },
-  {
-   "key": "joblate:services_tick",
-   "level": "warning",
-   "process": "job:services_tick",
-   "title": "Services & usage (job) is late: it was due at Nov 23, 07:17 UTC and hasn't started",
-   "reading": "last started 2026-11-22 23:17:02",
-   "means": "Its cron line may be missing, or the server's cron stopped; what it does waits.",
-   "since": "2026-11-23T07:30:02+00:00",
-   "tripped": null,
-   "stopped": ""
-  },
-  {
-   "key": "joblate:pay_wait_tick",
-   "level": "warning",
-   "process": "job:pay_wait_tick",
-   "title": "Payment reminders (job) is late: it was due at Nov 23, 09:32 UTC and hasn't started",
-   "reading": "last started 2026-11-23 02:17:01",
-   "means": "Its cron line may be missing, or the server's cron stopped; what it does waits.",
-   "since": "2026-11-23T09:45:02+00:00",
-   "tripped": null,
-   "stopped": ""
-  },
-  {
-   "key": "joblate:ai_worker",
-   "level": "warning",
-   "process": "job:ai_worker",
-   "title": "AI worker (job) is late: it was due at Nov 23, 09:41 UTC and hasn't started",
-   "reading": "last started 2026-11-23 02:40:02",
-   "means": "Its cron line may be missing, or the server's cron stopped; what it does waits.",
-   "since": "2026-11-23T10:00:03+00:00",
-   "tripped": null,
-   "stopped": ""
-  },
-  {
-   "key": "joblate:files_tick",
-   "level": "warning",
-   "process": "job:files_tick",
-   "title": "Files to the file store (job) is late: it was due at Nov 23, 10:01 UTC and hasn't started",
-   "reading": "last started 2026-11-23 02:51:02",
-   "means": "Its cron line may be missing, or the server's cron stopped; what it does waits.",
-   "since": "2026-11-23T10:15:02+00:00",
-   "tripped": null,
-   "stopped": ""
-  },
-  {
-   "key": "joblate:guide_ondemand_tick",
-   "level": "warning",
-   "process": "job:guide_ondemand_tick",
-   "title": "Guides on demand (job) is late: it was due at Nov 23, 10:05 UTC and hasn't started",
-   "reading": "last started 2026-11-23 03:00:02",
-   "means": "Its cron line may be missing, or the server's cron stopped; what it does waits.",
-   "since": "2026-11-23T10:15:02+00:00",
-   "tripped": null,
-   "stopped": ""
-  },
-  {
-   "key": "joblate:mail_sync",
-   "level": "warning",
-   "process": "job:mail_sync",
-   "title": "Mailboxes in Pulse (job) is late: it was due at Nov 23, 10:05 UTC and hasn't started",
-   "reading": "last started 2026-11-23 03:00:01",
-   "means": "Its cron line may be missing, or the server's cron stopped; what it does waits.",
-   "since": "2026-11-23T10:15:02+00:00",
-   "tripped": null,
-   "stopped": ""
-  },
-  {
-   "key": "joblate:notify_release",
-   "level": "warning",
-   "process": "job:notify_release",
-   "title": "Quiet hours: held email (job) is late: it was due at Nov 23, 10:10 UTC and hasn't started",
-   "reading": "last started 2026-11-23 03:00:01",
-   "means": "Its cron line may be missing, or the server's cron stopped; what it does waits.",
-   "since": "2026-11-23T10:15:02+00:00",
-   "tripped": null,
-   "stopped": ""
-  },
-  {
-   "key": "joblate:pulse_followup",
-   "level": "warning",
-   "process": "job:pulse_followup",
-   "title": "Pulse: follow-ups (job) is late: it was due at Nov 23, 10:10 UTC and hasn't started",
-   "reading": "last started 2026-11-23 03:00:01",
-   "means": "Its cron line may be missing, or the server's cron stopped; what it does waits.",
-   "since": "2026-11-23T10:15:02+00:00",
-   "tripped": null,
-   "stopped": ""
-  },
-  {
-   "key": "joblate:standing_tick",
-   "level": "warning",
-   "process": "job:standing_tick",
-   "title": "Notices of action (job) is late: it was due at Nov 23, 10:10 UTC and hasn't started",
-   "reading": "last started 2026-11-23 03:00:01",
-   "means": "Its cron line may be missing, or the server's cron stopped; what it does waits.",
-   "since": "2026-11-23T10:15:02+00:00",
-   "tripped": null,
-   "stopped": ""
-  },
-  {
-   "key": "joblate:takedowns_tick",
-   "level": "warning",
-   "process": "job:takedowns_tick",
-   "title": "Takedowns and the guide audit (job) is late: it was due at Nov 23, 10:10 UTC and hasn't started",
-   "reading": "last started 2026-11-23 03:00:01",
-   "means": "Its cron line may be missing, or the server's cron stopped; what it does waits.",
-   "since": "2026-11-23T10:15:02+00:00",
-   "tripped": null,
-   "stopped": ""
-  },
-  {
-   "key": "ops:cap:anthropic",
-   "level": "warning",
-   "process": "svc:anthropic",
-   "title": "Anthropic (Claude) at 75%",
-   "reading": "77%",
-   "means": "Claude (AI): $30.85 of $40.00 (77%).",
-   "since": "2026-11-19T07:20:02+00:00",
-   "tripped": null,
-   "stopped": ""
-  },
-  {
-   "key": "ops:cap:google",
-   "level": "warning",
-   "process": "svc:google",
-   "title": "Google Cloud at 50%",
-   "reading": "60%",
-   "means": "Google Places check: 605 of 1,000 checks (60%).",
-   "since": "2026-11-19T22:21:02+00:00",
-   "tripped": null,
-   "stopped": ""
-  },
-  {
-   "key": "job:identity_recheck_tick:stuck",
-   "level": "warning",
-   "process": "job:identity_recheck_tick",
-   "title": "Identity recheck (job): its run of Nov 22, 13:13 UTC never finished (killed or hung)",
-   "reading": "started 2026-11-22 06:13:01",
-   "means": "Slow, not broken. What it stopped starts again once its check passes; the system tries every 5 minutes. Not resolved at 10:15 UTC by the system: its check is still red: Its run #32373 (started 2026-11-22 06:13) still hasn't finished. Fix that first; then press Check and start again.",
-   "since": "2026-11-22T15:15:02+00:00",
-   "tripped": "2026-11-23T00:30:02+00:00",
-   "stopped": ""
-  },
-  {
-   "key": "joblate:sales_tick",
-   "level": "warning",
-   "process": "job:sales_tick",
-   "title": "Lead scores (job) is late: it was due at Nov 22, 02:17 UTC and hasn't started",
-   "reading": "last started 2026-11-21 18:17:02",
-   "means": "Its cron line may be missing, or the server's cron stopped; what it does waits.",
-   "since": "2026-11-23T00:15:02+00:00",
-   "tripped": null,
-   "stopped": ""
-  },
-  {
-   "key": "joblate:work_orders_tick",
-   "level": "warning",
-   "process": "job:work_orders_tick",
-   "title": "Work order reminders (job) is late: it was due at Nov 23, 04:17 UTC and hasn't started",
-   "reading": "last started 2026-11-22 20:17:02",
-   "means": "Its cron line may be missing, or the server's cron stopped; what it does waits.",
-   "since": "2026-11-23T04:30:02+00:00",
-   "tripped": null,
-   "stopped": ""
-  },
-  {
-   "key": "svc:issue:44",
-   "level": "warning",
-   "process": "svc:commoncrawl",
-   "title": "Common Crawl's index isn't answering",
-   "reading": "504 504 Gateway Time-out 504 Gateway Time-out nginx/1.31.9",
-   "means": "Calls to index.commoncrawl.org wait a little and try again by themselves; the system checks it on its own clock, and closes this when it answers.",
-   "since": "2026-11-23T10:10:57+00:00",
-   "tripped": null,
-   "stopped": ""
+   "key": "task:failed:overture_bulk",
+   "level": "trip",
+   "process": "wf:W1",
+   "title": "overture_bulk failed in its own code (run #1290)",
+   "reading": "TimeoutError('The read operation timed out')",
+   "means": "Its work goes back and the next run tries it again; the workflow's other tasks carry on. Its tries ran out at 09:31 UTC with no fix: it's a trip for an admin.",
+   "since": "2026-11-21T08:31:41+00:00",
+   "tripped": "2026-11-21T09:35:01+00:00",
+   "stopped": "W1 (its tasks wait with it)"
   },
   {
    "key": "ep:crawl/places:count",
@@ -222,13 +35,90 @@
    "stopped": ""
   },
   {
+   "key": "ep:crawl/identity:count",
+   "level": "warning",
+   "process": "wf:W2",
+   "title": "/api/crawl/identity: received 3, accounted for 1",
+   "reading": "received 3, counted 1",
+   "means": "Its numbers can't be trusted until this is fixed: 2 record(s) it received weren't stored, updated, sent to Review or refused.",
+   "since": "2026-11-23T00:40:15+00:00",
+   "tripped": null,
+   "stopped": ""
+  },
+  {
    "key": "ep:crawl/refresh:count",
    "level": "warning",
    "process": "wf:W2",
-   "title": "/api/crawl/refresh counted more than it received",
-   "reading": "received 1, counted 2",
-   "means": "Its record of what it stored, updated, sent to Review or refused doesn't add up, so its numbers on the board can't be trusted.",
-   "since": "2026-11-23T10:01:07+00:00",
+   "title": "/api/crawl/refresh: received 3, accounted for 2",
+   "reading": "received 3, counted 2",
+   "means": "Its numbers can't be trusted until this is fixed: 1 record(s) it received weren't stored, updated, sent to Review or refused.",
+   "since": "2026-11-23T18:50:25+00:00",
+   "tripped": null,
+   "stopped": ""
+  },
+  {
+   "key": "ops:cap:anthropic",
+   "level": "warning",
+   "process": "svc:anthropic",
+   "title": "Anthropic (Claude) at 80%: $32.01 of $40.00",
+   "reading": "80%",
+   "means": "Claude (AI): $32.01 of $40.00 (80%).",
+   "since": "2026-11-19T07:20:02+00:00",
+   "tripped": null,
+   "stopped": ""
+  },
+  {
+   "key": "ops:cap:google",
+   "level": "warning",
+   "process": "svc:google",
+   "title": "Google Cloud at 63%: 634 of 1,000 checks",
+   "reading": "63%",
+   "means": "Google Places check: 634 of 1,000 checks (63%).",
+   "since": "2026-11-19T22:21:02+00:00",
+   "tripped": null,
+   "stopped": ""
+  },
+  {
+   "key": "joblate:sales_tick",
+   "level": "warning",
+   "process": "job:sales_tick",
+   "title": "Lead scores is late",
+   "reading": "due Nov 24, 8:17 AM UTC · last started Nov 24, 7:17 AM UTC",
+   "means": "Its cron line is there, but the server didn't start it on time (the server's cron, or too many jobs at once); what it does waits.",
+   "since": "2026-11-24T08:30:02+00:00",
+   "tripped": null,
+   "stopped": ""
+  },
+  {
+   "key": "joblate:work_orders_tick",
+   "level": "warning",
+   "process": "job:work_orders_tick",
+   "title": "Work order reminders is late",
+   "reading": "due Nov 24, 8:17 AM UTC · last started Nov 24, 7:17 AM UTC",
+   "means": "Its cron line is there, but the server didn't start it on time (the server's cron, or too many jobs at once); what it does waits.",
+   "since": "2026-11-24T08:30:02+00:00",
+   "tripped": null,
+   "stopped": ""
+  },
+  {
+   "key": "joblate:services_tick",
+   "level": "warning",
+   "process": "job:services_tick",
+   "title": "Services & usage is late",
+   "reading": "due Nov 24, 9:17 AM UTC · last started Nov 24, 8:17 AM UTC",
+   "means": "Its cron line is there, but the server didn't start it on time (the server's cron, or too many jobs at once); what it does waits.",
+   "since": "2026-11-24T09:30:03+00:00",
+   "tripped": null,
+   "stopped": ""
+  },
+  {
+   "key": "joblate:vault_digest_tick",
+   "level": "warning",
+   "process": "job:vault_digest_tick",
+   "title": "Vault email summaries is late",
+   "reading": "due Nov 24, 9:17 AM UTC · last started Nov 24, 8:17 AM UTC",
+   "means": "Its cron line is there, but the server didn't start it on time (the server's cron, or too many jobs at once); what it does waits.",
+   "since": "2026-11-24T09:30:03+00:00",
    "tripped": null,
    "stopped": ""
   },
@@ -244,43 +134,32 @@
    "stopped": ""
   },
   {
-   "key": "ep:crawl/identity:count",
+   "key": "ep:crawl/loads:count",
    "level": "warning",
-   "process": "wf:W2",
-   "title": "/api/crawl/identity: received 4, accounted for 1",
-   "reading": "received 4, counted 1",
-   "means": "Its numbers can't be trusted until this is fixed: 3 record(s) it received weren't stored, updated, sent to Review or refused.",
-   "since": "2026-11-23T00:40:15+00:00",
-   "tripped": null,
-   "stopped": ""
-  },
-  {
-   "key": "pf:svc:loc",
-   "level": "warning",
-   "process": "svc:loc",
-   "title": "Library of Congress: No answer: Operation timed out after 15004 milliseconds with 0 bytes received.",
-   "reading": "No answer: Operation timed out after 15004 milliseconds with 0 bytes received.",
-   "means": "What needs this company waits; everything else runs.",
-   "since": "2026-11-23T09:00:33+00:00",
+   "process": "wf:W1",
+   "title": "/api/crawl/loads: received 100, accounted for 80",
+   "reading": "received 100, counted 80",
+   "means": "Its numbers can't be trusted until this is fixed: 20 record(s) it received weren't stored, updated, sent to Review or refused.",
+   "since": "2026-11-24T08:59:23+00:00",
    "tripped": null,
    "stopped": ""
   }
  ],
  "summary": [
-  "The whole system, the last 24 hours: uptime 98.2%.",
-  "1 trip raised; 31 alarms open now.",
+  "The whole system, the last 24 hours: uptime 99%.",
+  "0 trips raised; 37 alarms open now.",
   "Records: 0 in, 0 stored, 0 refused.",
-  "Nearest a cap: Claude (AI) at 77%."
+  "Nearest a cap: Claude (AI) at 80%."
  ],
  "releases_looked": [
   {
    "who": "the 10-minute job",
-   "at": "2026-11-23T10:00:01+00:00",
+   "at": "2026-11-24T10:00:02+00:00",
    "found": 0
   },
   {
    "who": "the ping from git",
-   "at": "2026-11-23T04:11:33+00:00",
+   "at": "2026-11-24T02:51:19+00:00",
    "found": 0
   },
   {
