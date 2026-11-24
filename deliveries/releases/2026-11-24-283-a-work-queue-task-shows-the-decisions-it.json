@@ -6,13 +6,13 @@
     "zip": "task-adrs.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "approved",
+    "state": "staged",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
     "plan_at": "2026-11-24 13:35:10",
-    "staged_at": null,
+    "staged_at": "2026-11-24 13:35:12",
     "vetted_at": null,
     "live_at": null,
     "files": {
@@ -55,7 +55,39 @@
     "migrations": [
         "app/migrations/2026-11-24_task_adrs.sql"
     ],
-    "checks": [],
+    "checks": {
+        "ok": true,
+        "where": "staging",
+        "at": "2026-11-24T13:35:13+00:00",
+        "items": [
+            [
+                "PHP files parse",
+                true,
+                "4 checked"
+            ],
+            [
+                "Migrations only add",
+                true,
+                "1 checked"
+            ],
+            [
+                "Migrations ran on staging",
+                true,
+                "Ran 2026-11-24_task_adrs.sql"
+            ],
+            [
+                "Pages answer",
+                true,
+                "3 pages answered on staging.trvgo.us"
+            ],
+            [
+                "No new fatal errors in the logs",
+                true,
+                "4 logs read"
+            ]
+        ],
+        "first_fail": ""
+    },
     "log": [
         {
             "at": "2026-11-24T13:35:07+00:00",
@@ -71,6 +103,11 @@
             "at": "2026-11-24T13:35:10+00:00",
             "by": 0,
             "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
+        },
+        {
+            "at": "2026-11-24T13:35:13+00:00",
+            "by": 0,
+            "msg": "Put on staging (7 files); its checks passed."
         }
     ]
 }
