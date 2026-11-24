@@ -1,11 +1,12 @@
 {
- "at": "2026-11-23T15:26:28.843Z",
+ "at": "2026-11-24T10:43:32.611Z",
  "site": "https://traversence.com",
- "run_url": "https://github.com/degraffics/traversence/actions/runs/45200820152",
+ "run_url": "https://github.com/degraffics/traversence/actions/runs/45373307007",
  "full": false,
  "signed_in": true,
  "pages": 412,
  "by": {
+  "scroll": 1,
   "status": 2,
   "edges": 13
  },
@@ -3267,13 +3268,18 @@
    "console": [],
    "requests": [],
    "dialogs": [],
-   "scroll": false,
+   "scroll": true,
    "edges": 0,
    "alt": 0,
    "names": 0,
    "final": "/admin/local/review",
    "eg": {},
-   "why": []
+   "why": [
+    [
+     "scroll",
+     ""
+    ]
+   ]
   },
   {
    "who": "staff-executive",
