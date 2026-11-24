@@ -214,3 +214,6 @@ Tests: m1b.php 51, m1b.cjs 55 × 2 (110), M1's suite all pass. Screens: m1b-sett
   default-category field against a real QuickBooks Vendor read in the sandbox, then use it before the setting
   "Vendor bills post to" (`QuickBooksPay::createBill`, `VendorBills::account`).
 - Moving client order emails onto the 0172 dispatcher (the session manager's separate item, not M1b).
+- The Design reviewer (00:35 UTC): a finished step replaces its form. Once chosen, the setting is one line, "Vendor bills
+  post to 5010 · Printing and production · chosen by <name>, <time>" with ✎ "Change the account" reopening the dropdown in
+  place (Cancel, Esc close it); no repeated success notice; History under it. m1b.cjs 56 × 2 (112) pass.

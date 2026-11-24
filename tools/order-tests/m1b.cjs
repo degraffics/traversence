@@ -215,8 +215,14 @@ const press = async (p, sel, yes) => {   // a button that asks first: its yes in
     ok(`${w}: Settings: Vendor bills post to, QuickBooks' Cost of Goods Sold accounts by number and name, the first preselected, "Choose it"`, st && st.opts.length === 2 && st.opts[0][0] === '5000 · Cost of Goods Sold' && st.opts[0][1] && st.btn === 'Choose it' && /Not chosen yet/.test(st.note), st);
     await p.selectOption('#vendor-bills select', { index: 1 });
     await Promise.all([p.waitForNavigation({ timeout: 15000 }).catch(() => {}), p.click('#vendor-bills button.go')]); await p.waitForTimeout(500);
-    st = await p.evaluate(() => { const c = document.getElementById('vendor-bills'); return { sel: c.querySelector('select').selectedOptions[0].textContent, btn: c.querySelector('button.go').textContent, hist: (c.querySelector('details li') || {}).textContent || '' }; });
-    ok(`${w}: choosing one saves it, and History says so`, st.sel === '5010 · Printing and production' && st.btn === 'Save' && /5010 · Printing and production · Chosen in System Configuration → Settings/.test(st.hist), st);
+    st = await p.evaluate(() => { const c = document.getElementById('vendor-bills'), f = c.querySelector('.vb-set-f'), l = c.querySelector('.vb-set'); return { line: l ? l.textContent.replace(/\s+/g, ' ').trim() : '', formHidden: f.hidden, ed: (c.querySelector('[data-vb-set-ed]') || {}).title, flash: /Vendor bills post to .* now/.test(document.body.textContent), hist: (c.querySelector('details li') || {}).textContent || '' }; });
+    ok(`${w}: chosen: one line (Vendor bills post to 5010 · Printing and production · chosen by Staff, <time>) with ✎ "Change the account"; the form closed, no repeated notice; History under it`, /^Vendor bills post to 5010 · Printing and production · chosen by Staff, [A-Z][a-z]{2} \d+, \d+:\d\d [AP]M \S+$/.test(st.line) && st.formHidden && st.ed === 'Change the account' && !st.flash && /5010 · Printing and production · Chosen in System Configuration → Settings/.test(st.hist), st);
+    await p.click('[data-vb-set-ed]'); await p.waitForTimeout(100);
+    const reopened = await p.evaluate(() => !document.querySelector('.vb-set-f').hidden && document.activeElement && document.activeElement.name === 'vb_account');
+    await p.click('[data-vb-set-x]'); await p.waitForTimeout(100);
+    const shutX = await p.evaluate(() => document.querySelector('.vb-set-f').hidden);
+    await p.click('[data-vb-set-ed]'); await p.waitForTimeout(100); await p.keyboard.press('Escape'); await p.waitForTimeout(100);
+    ok(`${w}: ✎ reopens the choice in place; Cancel and Esc close it`, reopened && shutX && await p.evaluate(() => document.querySelector('.vb-set-f').hidden));
     await open(T);
     ok(`${w}: the Vendor line follows the setting: Posts to 5010 · Printing and production`, await p.evaluate(() => (document.querySelector('.vb-post') || {}).textContent.trim() === 'Posts to 5010 · Printing and production'));
     sql(`DELETE FROM qb_settings WHERE name = 'vendor_bill_account'`);
