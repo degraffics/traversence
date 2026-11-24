@@ -2,80 +2,14 @@
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
  "claims": [
   {
-   "path": "app/admin/control-console.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
-   "why": "task-adrs: the decisions attached to a Work queue task",
-   "since": "2026-11-24T13:33:53Z",
-   "expires": "2026-11-24T17:34:18Z",
-   "release": "task-adrs.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/GaugeTasks.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
-   "why": "task-adrs: the decisions attached to a Work queue task",
-   "since": "2026-11-24T13:33:53Z",
-   "expires": "2026-11-24T17:33:53Z",
-   "release": "task-adrs.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/admin/api.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
-   "why": "task-adrs: the decisions attached to a Work queue task",
-   "since": "2026-11-24T13:33:53Z",
-   "expires": "2026-11-24T17:34:18Z",
-   "release": "task-adrs.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/js/admin-control.js",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
-   "why": "task-adrs: the decisions attached to a Work queue task",
-   "since": "2026-11-24T13:33:53Z",
-   "expires": "2026-11-24T17:34:18Z",
-   "release": "task-adrs.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/staging-tables.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
-   "why": "task-adrs: the decisions attached to a Work queue task",
-   "since": "2026-11-24T13:33:53Z",
-   "expires": "2026-11-24T17:34:18Z",
-   "release": "task-adrs.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/migrations/2026-11-24_task_adrs.sql",
+   "path": "app/migrations/2026-11-24_task_seed.sql",
    "functions": [],
    "kind": "add",
    "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
-   "why": "release task-adrs.zip",
-   "since": "2026-11-24T13:34:18Z",
-   "expires": "2026-11-24T17:34:18Z",
-   "release": "task-adrs.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/GaugeTasks.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
-   "why": "release task-adrs.zip",
-   "since": "2026-11-24T13:34:18Z",
-   "expires": "2026-11-24T17:34:18Z",
-   "release": "task-adrs.zip",
+   "why": "release task-seed.zip",
+   "since": "2026-11-24T13:40:20Z",
+   "expires": "2026-11-24T17:40:20Z",
+   "release": "task-seed.zip",
    "callers": {}
   }
  ],
