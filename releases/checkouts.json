@@ -175,6 +175,17 @@
    "expires": "2026-11-25T22:21:57Z",
    "release": "team-runner.zip",
    "callers": {}
+  },
+  {
+   "path": "website/admin/api.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "Piece 2 P2-3+P2-4: the Team's runner and daily audit, staging only (handoffs/piece2-team.md \u00a75, \u00a76)",
+   "since": "2026-11-25T18:22:00Z",
+   "expires": "2026-11-25T22:22:00Z",
+   "release": "team-runner.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
