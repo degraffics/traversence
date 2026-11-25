@@ -94,6 +94,21 @@
    "expires": "2026-11-25T20:49:42Z",
    "release": "team-roster.zip",
    "callers": {}
+  },
+  {
+   "path": "app/admin/control-console.php",
+   "functions": [
+    "tv_cb_workqueue",
+    "tv_cb_wq_page",
+    "tv_cb_wq_row"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "Piece 2 P2-1: Work queue tickets, types and stages (handoffs/piece2-team.md)",
+   "since": "2026-11-25T17:07:19Z",
+   "expires": "2026-11-25T21:07:19Z",
+   "release": "team-tickets.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
