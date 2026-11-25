@@ -13,3 +13,14 @@ decisions table's staging class is in task-adrs). Bench: run twice, the same 39 
 before. `2026-11-24_task_seed_2.sql` is the same seed without the CREATE (no checks: state `unknown`, so it runs).
 **Suggest a change** (for the session manager): the zip check could refuse a migration that writes rows while every table and
 column it names already exists on live, since the runner would clear it unrun.
+
+## For the next seed (queued 2026-11-24, add with Add a task or the next seed migration)
+1. **Priority 1, area control-board: "A data migration is never cleared as already there unrun."** The session manager,
+   2026-11-24: the runner logging a row-writing migration "already there" without running it is a silent false success
+   (CLAUDE.md: no action claims success without a real check). Goal: a file counts as run only by its own `db_updates_log`
+   entry (decisions/0162), never because its tables exist. In scope: `DbUpdates::autoRun` / `all()` state; the zip check
+   refusing such a file too. Done when: #284's case runs on the bench; a note on 0162. Source: #284 (task-seed).
+2. **Area backlog: "Gemini on the paid tier."** Jason switched Gemini to paid (billing linked, $20 on Cloud Prepay; Google's
+   $300 credit excludes Gemini). Goal: Gemini in the Service register as Paid tier, its cap the prepaid balance, shown on the
+   Ledger. Note on 0164's "nothing private to Gemini's free tier": it still holds for the free tier, so check which key and
+   tier each caller uses. Source: the session manager relaying Jason, 2026-11-24.
