@@ -109,6 +109,38 @@
    "expires": "2026-11-25T21:07:19Z",
    "release": "team-tickets.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/GaugeTasks.php",
+   "functions": [
+    "add",
+    "adrKeep",
+    "counts",
+    "ensure",
+    "queue",
+    "report"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "Piece 2 P2-1: Work queue tickets, types and stages (handoffs/piece2-team.md)",
+   "since": "2026-11-25T17:07:23Z",
+   "expires": "2026-11-25T21:07:23Z",
+   "release": "team-tickets.zip",
+   "callers": {
+    "add": [
+     "website/admin/api.php"
+    ],
+    "adrKeep": [
+     "website/admin/api.php"
+    ],
+    "queue": [
+     "app/admin/control-console.php",
+     "app/lib/ControlGauges.php"
+    ],
+    "counts": [
+     "app/lib/ControlGauges.php"
+    ]
+   }
   }
  ],
  "lapsed": [
