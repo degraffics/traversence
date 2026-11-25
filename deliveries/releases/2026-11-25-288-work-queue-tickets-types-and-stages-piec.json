@@ -6,13 +6,13 @@
     "zip": "team-tickets.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "approved",
+    "state": "staged",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
     "plan_at": "2026-11-25 17:57:15",
-    "staged_at": null,
+    "staged_at": "2026-11-25 17:57:17",
     "vetted_at": null,
     "live_at": null,
     "files": {
@@ -71,7 +71,44 @@
         "app/migrations/2026-11-25_tickets.sql",
         "app/migrations/2026-11-25_tickets_stage.sql"
     ],
-    "checks": [],
+    "checks": {
+        "ok": true,
+        "where": "staging",
+        "at": "2026-11-25T17:57:19+00:00",
+        "items": [
+            [
+                "PHP files parse",
+                true,
+                "6 checked"
+            ],
+            [
+                "Migrations only add",
+                true,
+                "2 checked"
+            ],
+            [
+                "Data changes have a reason",
+                true,
+                "2026-11-25_tickets_stage.sql change rows: Gives each open task already in the Work queue its first stage, once (only rows with no stage): a release named → Implementation; taken and scoped → Building; the rest → Planning. Done and withdrawn tasks keep no stage. Changes nothing else. Adds one Work ticket, once (only when it isn't there): \"Au (a copy of every table they touch is kept first)"
+            ],
+            [
+                "Migrations ran on staging",
+                true,
+                "Ran 2026-11-25_tickets.sql, 2026-11-25_tickets_stage.sql"
+            ],
+            [
+                "Pages answer",
+                true,
+                "3 pages answered on staging.trvgo.us"
+            ],
+            [
+                "No new fatal errors in the logs",
+                true,
+                "4 logs read"
+            ]
+        ],
+        "first_fail": ""
+    },
     "log": [
         {
             "at": "2026-11-25T17:57:13+00:00",
@@ -87,6 +124,11 @@
             "at": "2026-11-25T17:57:15+00:00",
             "by": 0,
             "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
+        },
+        {
+            "at": "2026-11-25T17:57:19+00:00",
+            "by": 0,
+            "msg": "Put on staging (10 files); its checks passed."
         }
     ]
 }
