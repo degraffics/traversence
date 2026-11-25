@@ -11,6 +11,89 @@
    "expires": "2026-11-25T20:49:39Z",
    "release": "team-roster.zip",
    "callers": {}
+  },
+  {
+   "path": "app/admin/Access.php",
+   "functions": [
+    "canAs"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "Piece 2 P2-2: the Team roster (handoffs/piece2-team.md)",
+   "since": "2026-11-25T16:49:42Z",
+   "expires": "2026-11-25T20:49:42Z",
+   "release": "team-roster.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/tools.php",
+   "functions": [
+    "config/team"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "Piece 2 P2-2: the Team roster (handoffs/piece2-team.md)",
+   "since": "2026-11-25T16:49:42Z",
+   "expires": "2026-11-25T20:49:42Z",
+   "release": "team-roster.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/manifests.php",
+   "functions": [
+    "team"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "Piece 2 P2-2: the Team roster (handoffs/piece2-team.md)",
+   "since": "2026-11-25T16:49:42Z",
+   "expires": "2026-11-25T20:49:42Z",
+   "release": "team-roster.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/staging-tables.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "Piece 2 P2-2: the Team roster (handoffs/piece2-team.md)",
+   "since": "2026-11-25T16:49:42Z",
+   "expires": "2026-11-25T20:49:42Z",
+   "release": "team-roster.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/TeamRoster.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "Piece 2 P2-2: the Team roster (handoffs/piece2-team.md)",
+   "since": "2026-11-25T16:49:42Z",
+   "expires": "2026-11-25T20:49:42Z",
+   "release": "team-roster.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/migrations/2026-11-25_team_roster.sql",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "Piece 2 P2-2: the Team roster (handoffs/piece2-team.md)",
+   "since": "2026-11-25T16:49:42Z",
+   "expires": "2026-11-25T20:49:42Z",
+   "release": "team-roster.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/migrations/2026-11-25_team_roster_seed.sql",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "Piece 2 P2-2: the Team roster (handoffs/piece2-team.md)",
+   "since": "2026-11-25T16:49:42Z",
+   "expires": "2026-11-25T20:49:42Z",
+   "release": "team-roster.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
