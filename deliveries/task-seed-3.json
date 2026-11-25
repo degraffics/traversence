@@ -1,0 +1,14 @@
+{
+ "zip": "task-seed-3.zip",
+ "built_on": "eaf8b31 Sync: 2026-11-24 17:15 UTC",
+ "recorded": "2026-11-25 01:17 UTC",
+ "note": "task-seed-3: everything outstanding in the Work queue before the holiday, each task with its docs; asked by Jason directly; built on Sync: 2026-11-24 17:15 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/migrations/2026-11-25_task_seed_3.sql": {
+   "sha256": "3b1fca428dbd72539cb00c6f11a6ab36f1a97c1f18ed9d8d91d900cbc80f7da7",
+   "live": false
+  }
+ }
+}
