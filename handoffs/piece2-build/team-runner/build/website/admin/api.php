@@ -62,6 +62,16 @@ function ak_detail(PDO $pdo, string $key, array $tool, int $id): array
 }
 
 try {
+    // ---- System Configuration → Team: the decision tree and the ceiling (Piece 2, P2-3; decisions/0179's note): the Founder's ----
+    if ($mod === 'config' && $t === 'team' && $post && in_array($act, ['teamtree', 'teamceiling'], true)) {
+        require_once __DIR__ . '/../../app/lib/TeamRunner.php';
+        if (!Access::isFounder()) Response::error('Only the Founder, signed in with the Founder\'s own staff login, approves the decision tree or changes how far agents work (decisions/0179).', 403);
+        $who = (string) (Access::staff()['name'] ?? $me['display_name'] ?? ''); $tz = (string) ($in['tz'] ?? '');
+        try {
+            TeamRunner::ensure($pdo);
+            Response::success(['message' => $act === 'teamtree' ? TeamRunner::approveTree($pdo, $who, $tz) : TeamRunner::setCeiling($pdo, (string) ($in['to'] ?? ''), $who, (string) ($in['why'] ?? ''), $tz)]);
+        } catch (RuntimeException $x) { Response::error($x->getMessage(), 422); }
+    }
     // ---- System Configuration: the workflow builder ----------------------------------------------------------------
     if ($mod === 'config' && $t === 'workflows') {
         [$can, $why] = Access::can('config.workflows.edit', ['min' => 'manager', 'depts' => []]);
@@ -226,7 +236,7 @@ try {
             // the Work queue (Jason, 2026-11-24: "We need to be able to add tasks to the queue and manage them so we don't fall out
             // of score or forget what we identified as needing to be done"): Add a task, Edit (History kept), Take, Move to a
             // session, its release, Withdraw with a reason. The same record as Request a fix (control_gauge_tasks).
-            if (in_array($act, ['qadd', 'qedit', 'qassign', 'qrelease', 'qwithdraw', 'qhistory', 'qstep', 'qstepedit', 'qadr', 'qadrkeep', 'qadrfind', 'qmove', 'qnoadr', 'qbrief', 'qsend', 'qanswer', 'qrunundo', 'qrunaccept', 'qrundismiss'], true)) { require_once __DIR__ . '/../../app/lib/GaugeTasks.php';
+            if (in_array($act, ['qadd', 'qedit', 'qassign', 'qrelease', 'qwithdraw', 'qhistory', 'qstep', 'qstepedit', 'qadr', 'qadrkeep', 'qadrfind', 'qmove', 'qnoadr', 'qbrief', 'qsend', 'qanswer', 'qrunundo', 'qrunaccept', 'qrundismiss', 'qbatch'], true)) { require_once __DIR__ . '/../../app/lib/GaugeTasks.php';
                 $tz = (string) ($in['tz'] ?? ''); $tid = (int) $pid;
                 try {
                     if ($act === 'qadd') { $nid = GaugeTasks::add($pdo, (string) ($in['gauge'] ?? ''), (string) ($in['what'] ?? ''), (string) ($in['why'] ?? ''), (string) ($in['source'] ?? ''), $who, $uid, $tz, (string) ($in['ticket'] ?? 'work') ?: 'work');
@@ -252,10 +262,15 @@ try {
                     if ($act === 'qnoadr') Response::success(['message' => GaugeTasks::noDecision($pdo, $tid, $who, $tz)]);
                     if ($act === 'qbrief') Response::success(['message' => GaugeTasks::briefEdit($pdo, $tid, (string) ($in['field'] ?? ''), (string) ($in['value'] ?? ''), $who, $tz)]);
                     if ($act === 'qsend') Response::success(['message' => GaugeTasks::sendBrief($pdo, $tid, $who, $tz)]);
+                    // Approve the batch (decisions/0179 rule 1; P2-5): the Founder's alone; reaches the session manager in the hourly report
+                    if ($act === 'qbatch') { if (!Access::isFounder()) Response::error('Only the Founder, signed in with the Founder\'s own staff login, approves the batch (decisions/0179 rule 1).', 403);
+                        $d = (string) ($in['date'] ?? ''); if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $d)) Response::error('Which day\'s batch?', 422);
+                        GaugeTasks::approve($pdo, 'area:batch-' . $d, 'batch', (string) ($in['value'] ?? ''), 'the daily batch', $who, $uid, $tz);
+                        Response::success(['message' => 'Approved. The session manager has it at the next hourly report.']); }
                     // the Team's runs (P2-3, staging): Undo a run, Accept or Dismiss a proposal; id = the run
                     if (in_array($act, ['qrunundo', 'qrunaccept', 'qrundismiss'], true)) { require_once __DIR__ . '/../../app/lib/TeamRunner.php'; $rid = (int) ($in['rid'] ?? 0);
                         Response::success(['message' => $act === 'qrunundo' ? TeamRunner::undo($pdo, $rid, $who, $tz) : ($act === 'qrunaccept' ? TeamRunner::accept($pdo, $rid, $who, $tz) : TeamRunner::dismiss($pdo, $rid, $who))]); }
-                    if ($act === 'qanswer') { if (Access::who()[0] !== 'founder') Response::error('Only the Founder answers a Tier 3 decision (decisions/0179). It\'s in the daily summary for them.', 403);
+                    if ($act === 'qanswer') { if (!Access::isFounder()) Response::error('Only the Founder, signed in with the Founder\'s own staff login, answers a Tier 3 decision (decisions/0179). It\'s in the daily summary for them too.', 403);
                         Response::success(['message' => GaugeTasks::answer($pdo, $tid, (string) ($in['ans'] ?? ''), (string) ($in['words'] ?? ''), $who, $tz)]); }
                     Response::success(['message' => GaugeTasks::withdraw($pdo, $tid, (string) ($in['reason'] ?? ''), $who, $tz)]);
                 } catch (RuntimeException $x) { Response::error($x->getMessage(), 422); } }

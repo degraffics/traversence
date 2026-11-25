@@ -1492,10 +1492,12 @@ function tv_cb_wq_brief(PDO $pdo, array $r, bool $closed): string
         . ($draft ? '<button type="button" class="cbg-ic" data-wqp="bchoose" data-f="recommend" data-v="' . $e($rec) . '" data-opts="' . $e(json_encode([['a', 'Option A'], ['b', 'Option B']])) . '" data-l="Recommended" title="Edit the recommendation" aria-label="Edit the recommendation">' . tv_icon('pen', 'cbg-svg') . '</button>' : '') . '</dd></div>'
         . $f('delay_impact') . $f('cost') . '</dl>';
     if ($sg === 'waiting' && !$closed) {
+        require_once __DIR__ . '/Access.php';
+        $no = Access::isFounder() ? '' : ' disabled title="Only the Founder answers a Tier 3 decision, signed in with the Founder\'s own login (decisions/0179). It\'s in the daily summary for them."';
         $lab = fn ($x) => 'Choose ' . strtoupper($x) . ($rec === $x ? ' (recommended)' : '');
         $order = $rec === 'b' ? ['b', 'a'] : ['a', 'b'];
-        $h .= '<div class="wqp-ans">' . implode('', array_map(fn ($x) => '<button type="button" class="cbg-b cbg-sm cbg-o" data-wqp="ans" data-a="' . $x . '">' . $e($lab($x)) . '</button>', $order))
-            . '<button type="button" class="cbg-b cbg-sm cbg-o" data-wqp="answords">Answer in my words</button></div>';
+        $h .= '<div class="wqp-ans">' . implode('', array_map(fn ($x) => '<button type="button" class="cbg-b cbg-sm cbg-o" data-wqp="ans" data-a="' . $x . '"' . $no . '>' . $e($lab($x)) . '</button>', $order))
+            . '<button type="button" class="cbg-b cbg-sm cbg-o" data-wqp="answords"' . $no . '>Answer in my words</button></div>';
     }
     if ($sg === 'decided' || ($closed && ($b['answer'] ?? '') !== '')) {
         $a = (string) ($b['answer'] ?? ''); $w = $a === 'o' ? 'in their words: ' . (string) $b['answer_words'] : 'Option ' . strtoupper($a);

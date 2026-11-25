@@ -15,6 +15,7 @@ final class Scheduler
      * due (2026-11-24, Scheduled tasks on live). */
     public const JOBS = [
         'control_tick' => ['The System Control Board\'s watch', 'Every 5 minutes: takes out and puts back the maintenance windows set ahead, and catches what goes quiet (W0 Indexer, a crawler run that never reported, a site job that stopped or never finished) as alarms on the board, and emails a warning left unacknowledged a day (decisions/0171 §5).', '5min', 30],
+        'team_audit_tick' => ['The Team\'s daily audit', 'On the staging copy only, while the Team\'s runner is switched on: the Operations & Reconciliation Manager reads Site health\'s findings, late or failed jobs and open alarms, opens one Audit ticket per new finding, and a day later confirms it (opening the Work or Resolution ticket it calls for) or clears it as noise (decisions/0179\'s Piece 2). On the live site it does nothing and logs nothing.', 'daily', 1560],
         'team_tick' => ['The Team\'s runner', 'On the staging copy only, while its switch is on: takes one ticket from the Work queue, does one step for one working role, logs it with Undo, and stops (decisions/0179\'s Piece 2). On the live site it does nothing and logs nothing.', '10min', 60],
         'ai_worker' => ['AI worker', 'Reads queued AI jobs: scanned business cards now, menus and brochures with the Studio.', 'minute', 15],
         'standing_tick' => ['Notices of action', 'Moves notices whose 24 hours ran out (page loads do it too, every few minutes).', '10min', 60],
@@ -70,7 +71,7 @@ final class Scheduler
 
     /** Jobs that set themselves up in cPanel (sync()), on their usual schedule, with no one opening cPanel (Jason, 2026-10-28):
      *  every new job goes here. One removed on the Scheduled tasks page stays removed. */
-    public const AUTO = ['control_tick', 'team_tick', 'moments_tick', 'earned_storage_tick', 'guide_ondemand_tick', 'journeys_tick', 'landmark_photos_tick', 'like_watch_tick', 'guest_tick', 'region_tick', 'work_orders_tick', 'pay_wait_tick', 'got_it_tick', 'qb_orders_tick', 'guide_finds_tick', 'guide_live_tick', 'listings_tick', 'services_tick', 'heritage_tick', 'takedowns_tick', 'daily_report', 'market_tick', 'notice_digest', 'notify_release', 'listing_messages_tick', 'mail_sync', 'mail_keep', 'pulse_followup', 'booking_remind', 'ses_setup_tick', 'domains_tick', 'staging_carry_tick', 'staging_push_tick', 'staging_night_tick', 'staging_publish_tick', 'releases_tick', 'vault_digest_tick', 'audit_clock_tick', 'system_start_tick', 'frontier_tick', 'preflight_tick', 'files_tick'];
+    public const AUTO = ['control_tick', 'team_tick', 'team_audit_tick', 'moments_tick', 'earned_storage_tick', 'guide_ondemand_tick', 'journeys_tick', 'landmark_photos_tick', 'like_watch_tick', 'guest_tick', 'region_tick', 'work_orders_tick', 'pay_wait_tick', 'got_it_tick', 'qb_orders_tick', 'guide_finds_tick', 'guide_live_tick', 'listings_tick', 'services_tick', 'heritage_tick', 'takedowns_tick', 'daily_report', 'market_tick', 'notice_digest', 'notify_release', 'listing_messages_tick', 'mail_sync', 'mail_keep', 'pulse_followup', 'booking_remind', 'ses_setup_tick', 'domains_tick', 'staging_carry_tick', 'staging_push_tick', 'staging_night_tick', 'staging_publish_tick', 'releases_tick', 'vault_digest_tick', 'audit_clock_tick', 'system_start_tick', 'frontier_tick', 'preflight_tick', 'files_tick'];
 
     /** Schedules to choose from: key => [label, minute, hour, day, month, weekday]. */
     public const PRESETS = [
@@ -199,7 +200,7 @@ final class Scheduler
     /** Jobs that only talk to the outside world, or run staging itself: never copied to staging. */
     /** Jobs that log a run only when they have work (a staging refresh going, live's changes to push, a release waiting):
      *  long quiet isn't a fault, so the site audit doesn't count their silence (Site health D03, 2026-11-18). */
-    public const QUIET = ['team_tick' /* the Team's runner: staging only, so on live it never logs (Piece 2) */, 'staging_carry_tick', 'staging_push_tick', 'releases_tick', 'system_start_tick' /* logs only while Start the system is going (its script: "does nothing (and logs nothing) until the button is pressed"); 2026-11-20, Automation read "last ran 2 days ago … and is late" */];
+    public const QUIET = ['team_tick' /* the Team's runner: staging only, so on live it never logs (Piece 2) */, 'team_audit_tick' /* and its daily audit, the same */, 'staging_carry_tick', 'staging_push_tick', 'releases_tick', 'system_start_tick' /* logs only while Start the system is going (its script: "does nothing (and logs nothing) until the button is pressed"); 2026-11-20, Automation read "last ran 2 days ago … and is late" */];
     /** Jobs kept in the list but no longer run (their description says why): never late. */
     public const RETIRED = ['staging_tick'];
     public const NOT_ON_STAGING = ['ses_setup_tick', 'domains_tick', 'audit_clock_tick', 'staging_tick', 'staging_carry_tick', 'staging_push_tick', 'staging_night_tick', 'staging_publish_tick', 'releases_tick'];

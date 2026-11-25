@@ -41,6 +41,7 @@ final class StagingTables
         // the Work queue (GaugeTasks) and its tickets' parts (Jason's Q1 A, 2026-11-25: one queue; live's tasks come to staging by catch-up and what
         // the Team's agents do on staging reaches live at Publish, inside the approved batch; handoffs/work-queue.md's note)
         'control_gauge_tasks', 'control_gauge_task_steps', 'control_gauge_task_adrs', 'control_gauge_task_moves', 'control_gauge_task_briefs',
+        'team_settings' /* the Team's ceiling and the decision tree's approval (TeamRunner, P2-3): the Founder sets them on live; staging's runner reads them after catch-up */,
         'member_profiles', 'user_settings', 'notice_prefs', 'comms_prefs', 'comms_quiet' /* a person's Communications setting (decisions/0172) */, 'pulse_flags', 'pulse_tags' /* a person's own marks in Pulse (0172 step 3) */, 'comms_mail_blocks' /* senders a person blocked in Pulse (0172 §4.7) */, 'pulse_forwards' /* what a person passed on in Pulse (0172) */, 'pulse_views' /* a person's saved views in Pulse (table-standard, 2026-11-20) */, 'comms_routing', 'comms_overseers', 'comms_controls' /* Communications' setup (0167) */, 'user_places', 'user_links', 'people_groups', 'people_group_members', 'people_connections',
         // the site's pages, content and settings
         'site_pages', 'site_block_versions', 'site_block_zones', 'site_block_schedule', 'content_templates', 'content_template_versions', 'hero_media', 'consent_wordings', 'policies',

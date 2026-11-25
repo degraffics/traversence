@@ -15,7 +15,8 @@ const T = __dirname, CB = path.join(__dirname, '../control-board-tests');
 const seed = () => execFileSync('bash', ['-c', 'mariadb -utv -ptv -h127.0.0.1 -e "DROP DATABASE IF EXISTS lv_main; CREATE DATABASE lv_main CHARACTER SET utf8mb4" && mariadb -utv -ptv -h127.0.0.1 lv_main < '
   + T + '/../release-b-tests/start-schema.sql && php ' + CB + '/board-panels-seed.php ' + root + '/app >/dev/null 2>&1; php ' + CB + '/work-queue-seed.php ' + root + '/app >/dev/null && php ' + T + '/tickets-seed.php ' + root + '/app']).toString().trim().split(' ');
 const port = 8975 + Math.floor(Math.random() * 20);
-const srv = spawn('php', ['-S', '127.0.0.1:' + port, path.join(T, 'board-router.php')], { env: { ...process.env, ROOT: root }, stdio: 'ignore' });
+const srv = spawn('php', ['-S', '127.0.0.1:' + port, path.join(T, 'board-router.php')], { env: { ...process.env, ROOT: root, FOUNDER: '1' }, stdio: 'ignore' });   // the Founder signed in
+const srv2 = spawn('php', ['-S', '127.0.0.1:' + (port + 40), path.join(T, 'board-router.php')], { env: { ...process.env, ROOT: root }, stdio: 'ignore' });   // a staff member
 const home = 'http://127.0.0.1:' + port + '/admin/config/control';
 const W = '#cb-wq', P = '#cb-sp-wq';
 const noSide = p => p.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth + 1);
@@ -80,6 +81,8 @@ const press = async (p, sel) => { await Promise.all([p.waitForResponse(r => r.ur
       t(L + 'inside an option\'s box: "The option", "Pros", "Cons", never "Option A" twice', !/Option A\s*The option[\s\S]*Option A/.test(await p.$eval(P + ' .wqp-opt', x => x.textContent)));
       t(L + 'the answers are outlined buttons on the page, not a pop-up', await p.$$eval(P + ' .wqp-ans .cbg-b', a => a.length === 3 && a.every(x => x.classList.contains('cbg-o'))));
       if (shots) await p.screenshot({ path: shots + '/ticket-brief-' + w + '.png' });
+      { const p2 = await ctx.newPage(); await p2.goto('http://127.0.0.1:' + (port + 40) + '/admin/config/control'); await p2.waitForTimeout(900); await view(p2, 'development'); await p2.waitForTimeout(300); await openTask(p2, res);
+        t(L + 'signed in as a staff member, the answers are greyed with why: only the Founder answers a Tier 3', await p2.$$eval(P + ' .wqp-ans .cbg-b', a => a.length === 3 && a.every(x => x.disabled && /Only the Founder/.test(x.title)))); await p2.close(); }
       await press(p, P + ' [data-wqp=ans][data-a=b]');
       const dec = await p.textContent(P + ' [data-tv-status=ok]');
       t(L + 'Choose B: Decided, with who, and the precedent ticket that records it', /Decided:\s*Option B · Jason \(test\)/.test(dec) && /Task #\d+ records it as precedent/.test(dec), dec);
@@ -90,6 +93,6 @@ const press = async (p, sel) => { await Promise.all([p.waitForResponse(r => r.ur
       await ctx.close();
     }
   } catch (e) { fail++; console.log('FAIL  ' + e.message.split('\n')[0]); }
-  await b.close(); srv.kill();
+  await b.close(); srv.kill(); srv2.kill();
   console.log('\n' + pass + ' passed, ' + fail + ' failed'); process.exit(fail ? 1 : 0);
 })();

@@ -1,0 +1,50 @@
+{
+ "zip": "team-tickets.zip",
+ "built_on": "f8f8513 Sync: 2026-11-25 17:36 UTC",
+ "recorded": "2026-11-25 17:56 UTC",
+ "note": "Piece 2 P2-1: Work queue tickets, types and stages; only the Founder answers a Tier 3 (isFounder); built on Sync 17:36 UTC; pre-approved by Jason 2026-11-25 (P2-1..P2-5, with Roll back) Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/Access.php": {
+   "sha256": "af4cde19c61c1038bf4dc7bda61e82cede85e476734e07c5947b9e3198fce428",
+   "live": false
+  },
+  "app/admin/control-console.php": {
+   "sha256": "1c15242aaa0330e38557b0553eb33590885f867159b3b120a60dada935e16119",
+   "live": false
+  },
+  "app/lib/ControlGauges.php": {
+   "sha256": "855f86124ce74e0ec07ec5854b9c21f23f9cc7ec11f3b5bec8a3023e69aabb9e",
+   "live": false
+  },
+  "app/lib/GaugeTasks.php": {
+   "sha256": "86f8da53156160b2ac0ad9360bb35508cf3009242880030df30ce624fd7c92f4",
+   "live": false
+  },
+  "app/lib/staging-tables.php": {
+   "sha256": "6eb79aeb15bda10eddfefee6c30d003f10053fb05f2f80e473faf0cda7dfc6c7",
+   "live": false
+  },
+  "app/migrations/2026-11-25_tickets.sql": {
+   "sha256": "4a52d273a5cdf4b80bb5b9f37a2dbb683a8246b5ea125580cc484fcad15a6992",
+   "live": false
+  },
+  "app/migrations/2026-11-25_tickets_stage.sql": {
+   "sha256": "e9c6455bd68053b31eea1db63fa6fcf250e5cae9011db1f68726d4e2d2c3edde",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "3563df4a054fd71f29fbaf9c61358902ced80f89e32b03cc11e78255004f54ed",
+   "live": false
+  },
+  "website/admin/api.php": {
+   "sha256": "7b0171d928ed9d9045cbbcc64b4fc88f1a2db030d89d73b47d879976df67163f",
+   "live": false
+  },
+  "website/js/admin-control.js": {
+   "sha256": "abc7b21b16829f7b7e172f6b7954b9de1717267535c0ba71beb4332d0e6881db",
+   "live": false
+  }
+ }
+}

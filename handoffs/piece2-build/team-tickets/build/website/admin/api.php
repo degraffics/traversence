@@ -252,7 +252,7 @@ try {
                     if ($act === 'qnoadr') Response::success(['message' => GaugeTasks::noDecision($pdo, $tid, $who, $tz)]);
                     if ($act === 'qbrief') Response::success(['message' => GaugeTasks::briefEdit($pdo, $tid, (string) ($in['field'] ?? ''), (string) ($in['value'] ?? ''), $who, $tz)]);
                     if ($act === 'qsend') Response::success(['message' => GaugeTasks::sendBrief($pdo, $tid, $who, $tz)]);
-                    if ($act === 'qanswer') { if (Access::who()[0] !== 'founder') Response::error('Only the Founder answers a Tier 3 decision (decisions/0179). It\'s in the daily summary for them.', 403);
+                    if ($act === 'qanswer') { if (!Access::isFounder()) Response::error('Only the Founder, signed in with the Founder\'s own staff login, answers a Tier 3 decision (decisions/0179). It\'s in the daily summary for them too.', 403);
                         Response::success(['message' => GaugeTasks::answer($pdo, $tid, (string) ($in['ans'] ?? ''), (string) ($in['words'] ?? ''), $who, $tz)]); }
                     Response::success(['message' => GaugeTasks::withdraw($pdo, $tid, (string) ($in['reason'] ?? ''), $who, $tz)]);
                 } catch (RuntimeException $x) { Response::error($x->getMessage(), 422); } }

@@ -35,7 +35,146 @@ final class TeamRunner
         'gate' => ['project-manager', 'Moves a Work ticket from Planning to Building once its gate passes', 'team.gate', ['min' => 'manager', 'depts' => ['ops']]],
         'handoff' => ['system-architect', 'Writes a Building ticket\'s build brief and hands it to the session manager', 'team.handoff', ['min' => 'staff', 'depts' => ['eng']]],
         'brief' => ['translator', 'Proposes a Resolution brief\'s plain words from its ticket and its decisions', 'team.brief', ['min' => 'staff', 'depts' => ['ops']]],
+        'audit' => ['ops-reconciliation', 'Runs the daily health and drift audit: a finding is looked at twice before it opens a ticket', 'team.audit', ['min' => 'manager', 'depts' => ['ops']]],
     ];
+    /**
+     * The ceiling (Jason, 2026-11-25: "limit agents and build to only the initial work que stage until I fully vet the builds";
+     * decisions/0179's note on how the Team's capacity grows): the furthest stage agents work in. key => [name, what agents do].
+     */
+    public const CEILINGS = [
+        'planning' => ['Planning', 'Agents only propose: the Project Manager says a ticket is ready for Building, the Translator suggests a brief\'s words, the audit opens tickets. A person accepts or dismisses each.'],
+        'building' => ['Building', 'The Project Manager moves a ticket to Building once its gate passes, and the System Architect writes build briefs for the session manager.'],
+        'implementation' => ['Implementation', 'As Building; nothing more acts on its own yet.'],
+        'confirmation' => ['Confirmation and safe publish', 'Needs the before-and-after check (Piece 3).'],
+    ];
+    /** What each step does at each ceiling: act, propose, or off. */
+    public const STEP_AT = [
+        'gate' => ['planning' => 'propose', 'building' => 'act', 'implementation' => 'act', 'confirmation' => 'act'],
+        'handoff' => ['planning' => 'off', 'building' => 'act', 'implementation' => 'act', 'confirmation' => 'act'],
+        'brief' => ['planning' => 'propose', 'building' => 'propose', 'implementation' => 'propose', 'confirmation' => 'propose'],
+        'audit' => ['planning' => 'act', 'building' => 'act', 'implementation' => 'act', 'confirmation' => 'act'],
+    ];
+    /**
+     * Tier 3 by what a finding touches (decisions/0179's note, 2026-11-25: "detected by what a change or finding touches"), each
+     * area from the code: its libraries, tables, page paths, jobs and services. Words are only a secondary flag (TIER3).
+     */
+    public const TIER3_AREAS = [
+        'money' => ['libs' => ['QuickBooksPay', 'Billing', 'Orders', 'ClientOrders', 'Wallet', 'MarketPay', 'AccountDomains'],
+            'tables' => ['orders', 'order_lines', 'order_ledger', 'order_payments', 'payments', 'invoices', 'subscriptions', 'wallet_cards', 'account_domains', 'biz_payments', 'market_orders'],
+            'paths' => ['/checkout', '/cart', '/billing', '/admin/backoffice/orders', '/order', '/pay', '/wallet', '/domains'],
+            'jobs' => ['billing_tick', 'pay_wait_tick', 'qb_orders_tick', 'got_it_tick', 'market_tick'], 'services' => ['quickbooks', 'stripe', 'square']],
+        'data' => ['libs' => ['DataMove', 'DbUpdates', 'StagingPublish'], 'tables' => ['db_updates_log'], 'paths' => ['/admin/config/dbupdates'], 'jobs' => [], 'services' => []],
+        'address' => ['libs' => [], 'tables' => ['short_codes', 'business_domains'], 'paths' => ['/.htaccess', '/admin/router.php'], 'jobs' => ['domains_tick'], 'services' => ['cloudflare']],
+        'nations' => ['libs' => ['Landmarks', 'Nations'], 'tables' => ['landmarks', 'nations', 'nation_decision_log'], 'paths' => ['/landmark', '/nation'], 'jobs' => ['landmark_photos_tick', 'heritage_tick'], 'services' => []],
+        'privacy' => ['libs' => ['Auth', 'StaffLogin', 'TestAccounts', 'People'], 'tables' => ['users', 'people_connections', 'user_otp_challenges', 'two_step_devices', 'test_records'], 'paths' => ['/api/auth/', '/user/account', '/admin/config/testaccounts'], 'jobs' => ['guest_tick'], 'services' => []],
+    ];
+
+    /** The rule data the decision tree's approval is tied to (0179's note: "a fingerprint of its rules, not its wording"). */
+    public static function ruleData(): array
+    {
+        $steps = []; foreach (self::STEPS as $k => [$role, , $action, $def]) $steps[$k] = [$role, $action, $def];
+        return ['steps' => $steps, 'step_at' => self::STEP_AT, 'ceilings' => array_keys(self::CEILINGS), 'tier3_areas' => self::TIER3_AREAS, 'tier3_words' => self::TIER3, 'tier1_words' => self::TIER1];
+    }
+    public static function fingerprint(): string { return hash('sha256', json_encode(self::ruleData())); }
+
+    private static function setting(PDO $pdo, string $k): ?array
+    {
+        try { $st = $pdo->prepare('SELECT * FROM team_settings WHERE k = ?'); $st->execute([$k]); return $st->fetch(PDO::FETCH_ASSOC) ?: null; } catch (Throwable $x) { return null; }
+    }
+    private static function put(PDO $pdo, string $k, ?string $v, string $who, string $tz = ''): void
+    {
+        if ($v === null) { $pdo->prepare('DELETE FROM team_settings WHERE k = ?')->execute([$k]); return; }
+        $pdo->prepare('INSERT INTO team_settings (k, v, who, at, tz) VALUES (?, ?, ?, UTC_TIMESTAMP(), ?) ON DUPLICATE KEY UPDATE v = VALUES(v), who = VALUES(who), at = VALUES(at), tz = VALUES(tz)')->execute([$k, $v, mb_substr($who, 0, 80), $tz]);
+    }
+
+    /** The decision tree's approval while its rules are unchanged, else null. A changed rule clears it and lowers the ceiling, logged. */
+    public static function treeApproval(PDO $pdo): ?array
+    {
+        $a = self::setting($pdo, 'tree'); if (!$a) return null;
+        if ((string) $a['v'] === self::fingerprint()) return $a;
+        self::put($pdo, 'tree', null, 'the system');
+        $c = self::setting($pdo, 'ceiling');
+        if ($c && $c['v'] !== 'planning') self::put($pdo, 'ceiling', 'planning', 'the system');
+        ControlLog::add($pdo, 'control', '', 'Team setting: the decision tree\'s rules changed since ' . $a['who'] . ' approved them, so the approval is cleared and agents work up to Planning again', 'the system');
+        return null;
+    }
+
+    /** Approve the decision tree (the Founder's alone: the caller checks Access::isFounder). */
+    public static function approveTree(PDO $pdo, string $who, string $tz = ''): string
+    {
+        if (self::treeApproval($pdo)) return 'It\'s already approved, as it stands.';
+        self::put($pdo, 'tree', self::fingerprint(), $who, $tz);
+        ControlLog::add($pdo, 'control', '', 'Team setting: the decision tree approved (fingerprint ' . substr(self::fingerprint(), 0, 12) . ')', $who, '', $tz);
+        return 'Approved. Raising "Agents work up to" is open now, one stage at a time, each with its evidence.';
+    }
+
+    /** Where agents work up to: Planning until the Founder raises it, and always Planning while the decision tree isn't approved. */
+    public static function ceiling(PDO $pdo): string
+    {
+        if (!self::treeApproval($pdo)) return 'planning';
+        $c = self::setting($pdo, 'ceiling');
+        return $c && isset(self::CEILINGS[$c['v']]) ? (string) $c['v'] : 'planning';
+    }
+
+    /** What a step does now: act, propose or off. */
+    public static function mode(PDO $pdo, string $step): string { return self::STEP_AT[$step][self::ceiling($pdo)] ?? 'off'; }
+
+    /** Change the ceiling (the Founder's alone): up one stage at a time once the tree is approved, never to Confirmation yet; down any time. */
+    public static function setCeiling(PDO $pdo, string $to, string $who, string $why = '', string $tz = ''): string
+    {
+        if (!isset(self::CEILINGS[$to])) throw new RuntimeException('Choose Planning, Building, Implementation or Confirmation.');
+        $keys = array_keys(self::CEILINGS); $now = self::ceiling($pdo);
+        $from = array_search($now, $keys, true); $dest = array_search($to, $keys, true);
+        if ($dest === $from) return 'It\'s already ' . self::CEILINGS[$to][0] . '.';
+        if ($dest > $from) {
+            if (!self::treeApproval($pdo)) throw new RuntimeException('Approve the decision tree first.');
+            if ($dest !== $from + 1) throw new RuntimeException('One stage at a time, each on its evidence.');
+            if ($to === 'confirmation') throw new RuntimeException('Needs the before-and-after check (Piece 3).');
+        }
+        self::put($pdo, 'ceiling', $to, $who, $tz);
+        ControlLog::add($pdo, 'control', '', 'Team setting: agents work up to ' . self::CEILINGS[$now][0] . ' → ' . self::CEILINGS[$to][0] . (trim($why) !== '' ? ' (' . trim($why) . ')' : ''), $who, '', $tz);
+        return 'Agents work up to ' . self::CEILINGS[$to][0] . ' now.';
+    }
+
+    /** The evidence for raising to a stage (0179's note, §3): each line with its reading here and its source; the Founder judges. */
+    public static function evidence(PDO $pdo, string $to): array
+    {
+        $q = function (string $sql) use ($pdo) { try { return (int) $pdo->query($sql)->fetchColumn(); } catch (Throwable $x) { return null; } };
+        require_once __DIR__ . '/Staging.php'; $here = Staging::here() ? 'staging' : 'the live site';
+        $runs = $q('SELECT COUNT(*) FROM team_runs');
+        if ($to === 'building') {
+            $acc = $q("SELECT COUNT(*) FROM team_runs WHERE state = 'proposed' AND settled_at IS NOT NULL AND undone_at IS NULL"); $dis = $q("SELECT COUNT(*) FROM team_runs WHERE state = 'proposed' AND undone_at IS NOT NULL"); $open = $q("SELECT COUNT(*) FROM team_runs WHERE state = 'proposed' AND settled_at IS NULL");
+            $noUndo = $q("SELECT COUNT(*) FROM team_runs WHERE state = 'done' AND undo_how = ''");
+            return [['Planning\'s suggestions', $acc === null ? 'No runs table here' : $acc . ' accepted · ' . $dis . ' dismissed · ' . $open . ' open', 'team_runs on ' . $here],
+                ['Staging isolation', Staging::here() ? 'This is staging: the runner works here only' : 'This is the live site: ' . (int) $runs . ' runs recorded here (the runner never runs on live; its work arrives only by Publish)', 'TeamRunner::blocked, team_tick.php'],
+                ['Every run logged with its Undo', $runs === null ? 'No runs table here' : (int) $runs . ' runs · ' . (int) $noUndo . ' that did something without an Undo', 'team_runs.undo_how']];
+        }
+        if ($to === 'implementation') {
+            $briefs = $q("SELECT COUNT(*) FROM team_runs WHERE step = 'handoff'"); $back = $q("SELECT COUNT(*) FROM team_runs WHERE step = 'handoff' AND undone_at IS NOT NULL");
+            $refused = $q("SELECT COUNT(*) FROM team_runs WHERE state = 'refused'"); $adv = $q("SELECT COUNT(*) FROM team_runs r JOIN team_roster t ON t.slug = r.role WHERE t.kind IN ('advocate', 'founder')");
+            require_once __DIR__ . '/StagingGate.php'; $held = null; try { $held = StagingGate::counts($pdo); } catch (Throwable $x) {}
+            return [['Building\'s outputs', $briefs === null ? 'No runs table here' : (int) $briefs . ' build briefs written · ' . (int) $back . ' taken back', 'team_runs (step handoff)'],
+                ['The agents\' permission check', 'Every step asks Access::canAs for its role\'s level · ' . (int) $refused . ' refused · ' . (int) $adv . ' runs by an advocate or the Founder (must be 0)', 'TeamRoster::can, team_runs'],
+                ['Holds on outside calls, payments and email', $held === null ? 'Read on staging' : 'StagingGate: ' . json_encode($held), 'StagingGate::counts']];
+        }
+        return [['Waits for Piece 3', 'Needs the before-and-after check (Piece 3)', 'decisions/0179 rule 2']];
+    }
+
+    /** A finding looks again after this many hours (piece2-team.md §6: "the next day's run checks it again"; the job runs daily). */
+    public const SECOND_LOOK_HOURS = 20;
+    /**
+     * The tier rules (decisions/0179; piece2-team.md §6), on a finding's words: Tier 3 when it touches one of 0179 rule 3's
+     * boundaries; Tier 1 when it's only the kinds rule 2 names as low-risk (wording, the FAQ, tests, the phone layout); Tier 2
+     * otherwise (it still waits for the approved batch, 0179 rule 1). boundary => pattern.
+     */
+    public const TIER3 = [
+        'money' => '/\b(order|orders|payment|payments|billing|invoice|refund|charge|price|pricing|quickbooks|stripe|square|payout|subscription)\b/i',
+        'data' => '/\b(drop table|drop column|delete from|truncate|data loss|deleted rows|reshape)\b/i',
+        'address' => '/\b(redirect|404|public address|url change|broken link to|route removed)\b/i',
+        'nations' => '/\b(nation|nations|tribal|sacred|burial|0066|landmarks::)\b/i',
+        'privacy' => '/\b(privacy|private|personal data|email address|phone number|is_test|test account counted|leak)\b/i',
+    ];
+    public const TIER1 = '/\b(wording|typo|faq|label|tests?|layout|390|phone|mobile|contrast|spacing)\b/i';
 
     public static function ensure(PDO $pdo): void
     {
@@ -44,6 +183,7 @@ final class TeamRunner
             state VARCHAR(10) NOT NULL DEFAULT 'done', why VARCHAR(400) NOT NULL DEFAULT '', proposal TEXT NULL, undo_how VARCHAR(400) NOT NULL DEFAULT '', undo_data TEXT NULL,
             undone_at DATETIME NULL, undone_by VARCHAR(80) NOT NULL DEFAULT '', settled_at DATETIME NULL, settled_by VARCHAR(80) NOT NULL DEFAULT '',
             cost_micros INT NOT NULL DEFAULT 0, touches VARCHAR(400) NOT NULL DEFAULT '', KEY task_at (task_id, at), KEY at (at)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
+        $pdo->exec("CREATE TABLE IF NOT EXISTS team_settings (k VARCHAR(40) NOT NULL PRIMARY KEY, v VARCHAR(255) NOT NULL DEFAULT '', who VARCHAR(80) NOT NULL DEFAULT '', at DATETIME NULL, tz VARCHAR(64) NOT NULL DEFAULT '') ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
     }
 
     /** May it run here, now? null when yes, else why not (in words). */
@@ -77,7 +217,7 @@ final class TeamRunner
     public static function pick(PDO $pdo): ?array
     {
         $roles = [];
-        foreach (self::STEPS as $step => [$slug]) { $r = TeamRoster::bySlug($pdo, $slug); if ($r && $r['status'] === 'active') $roles[$step] = $r; }
+        foreach (self::STEPS as $step => [$slug]) { if ($step === 'audit' || self::mode($pdo, $step) === 'off') continue; $r = TeamRoster::bySlug($pdo, $slug); if ($r && $r['status'] === 'active') $roles[$step] = $r; }   // a step off at this ceiling gets no work
         if (!$roles) return null;
         $recent = [];
         try { $st = $pdo->prepare('SELECT DISTINCT task_id FROM team_runs WHERE at > UTC_TIMESTAMP() - INTERVAL ' . self::GAP_MINUTES . ' MINUTE'); $st->execute(); foreach ($st->fetchAll(PDO::FETCH_COLUMN) as $x) $recent[(int) $x] = true; } catch (Throwable $x) {}
@@ -94,10 +234,79 @@ final class TeamRunner
     public static function applies(PDO $pdo, string $step, array $t): bool
     {
         $tk = (string) ($t['ticket'] ?? 'work'); $sg = (string) ($t['stage'] ?? '');
-        if ($step === 'gate') return $tk === 'work' && $sg === 'planning' && GaugeTasks::gate($pdo, $t) === [];
+        if ($step === 'gate') return $tk === 'work' && $sg === 'planning' && GaugeTasks::gate($pdo, $t) === [] && !self::openProposal($pdo, (int) $t['id'], 'gate');
         if ($step === 'handoff') return $tk === 'work' && $sg === 'building' && trim((string) $t['goal']) !== '' && trim((string) ($t['build_brief'] ?? '')) === '' && (string) $t['rel'] === '';
+        if ($step === 'audit') return false;   // the audit is its own daily job, not one ticket's step
         if ($step === 'brief') { if ($tk !== 'resolution' || $sg !== 'brief') return false; return self::briefDraft($pdo, $t) !== []; }
         return false;
+    }
+
+    /** [tier, boundary] for a finding's words. */
+    public static function tier(string $text): array
+    {
+        foreach (self::TIER3 as $b => $re) if (preg_match($re, $text)) return [3, $b];
+        return [preg_match(self::TIER1, $text) ? 1 : 2, ''];
+    }
+
+    /**
+     * What the audit finds, from our own records first (piece2-team.md §6): Site health's open findings (the file both sites
+     * read, through StagingGate inside SiteHealth), jobs that are late here (Scheduler's own record, quiet and retired ones
+     * left out), and this site's open alarms. key => [what, why].
+     */
+    public static function findings(PDO $pdo): array
+    {
+        $out = [];
+        try { require_once __DIR__ . '/SiteHealth.php';
+            foreach (SiteHealth::open($pdo) as $f) $out['finding:' . $f['id']] = ['Site health: ' . $f['title'], trim($f['severity'] . ' · ' . $f['detail'] . ($f['page'] !== '' ? ' · ' . $f['page'] : '') . ($f['blocks'] ? ' · blocks ' . $f['blocks'] . ' path' . ($f['blocks'] === 1 ? '' : 's') : ''))];
+        } catch (Throwable $x) {}
+        try { require_once __DIR__ . '/Scheduler.php'; require_once __DIR__ . '/Staging.php';
+            $skip = array_merge(Scheduler::QUIET, Scheduler::RETIRED, Staging::here() ? Scheduler::NOT_ON_STAGING : []);
+            foreach (Scheduler::lastRuns($pdo) as $job => $r) {
+                if (in_array($job, $skip, true) || !isset(Scheduler::JOBS[$job])) continue;
+                $late = (int) Scheduler::JOBS[$job][3]; $st = $pdo->prepare('SELECT TIMESTAMPDIFF(MINUTE, ?, NOW())'); $st->execute([(string) $r['started_at']]); $mins = (int) $st->fetchColumn();
+                if ($late > 0 && $mins > $late) $out['job:' . $job] = ['A scheduled job is late: ' . Scheduler::JOBS[$job][0], 'Its last run started ' . round($mins / 60, 1) . ' hours ago; it\'s late after ' . round($late / 60, 1) . ' (Scheduled tasks).'];
+                elseif ((int) ($r['fails_today'] ?? 0) > 0 && (int) $r['ok'] === 0) $out['job:' . $job . ':fail'] = ['A scheduled job failed: ' . Scheduler::JOBS[$job][0], 'Its last run stopped: ' . (string) $r['note']];
+            }
+        } catch (Throwable $x) {}
+        try { foreach ($pdo->query("SELECT id, title, level FROM control_alarms WHERE cleared_at IS NULL ORDER BY id")->fetchAll(PDO::FETCH_ASSOC) as $a) $out['alarm:' . $a['id']] = ['An open alarm: ' . $a['title'], 'Level ' . $a['level'] . ' on the System Control Board.'];
+        } catch (Throwable $x) {}
+        return $out;
+    }
+
+    /**
+     * The daily audit (the Ops & Reconciliation Manager's step): each new finding opens one Audit ticket at Found; on its second
+     * look a day later, one still there is Confirmed and opens the Work (Tier 1–2) or Resolution (Tier 3) ticket it calls for,
+     * and one gone is cleared by its own check. Each ticket it opens is a run with Undo (withdraws it). Staging only, its switch on.
+     */
+    public static function audit(PDO $pdo, string $how = 'the daily run'): string
+    {
+        $why = self::blocked($pdo); if ($why === 'live') return ''; if ($why !== null) return $why;
+        self::ensure($pdo);
+        $role = TeamRoster::bySlug($pdo, 'ops-reconciliation');
+        if (!$role || $role['status'] !== 'active') return 'The Operations & Reconciliation Manager isn\'t active: no audit.';
+        [, , $action, $def] = self::STEPS['audit'];
+        [$ok, $no] = TeamRoster::can($role, $action, $def);
+        if (!$ok) return self::log($pdo, $role, 0, 'audit', 'its permissions', '', 'refused', $no . ' (Permissions: ' . $action . ')');
+        if ((int) $pdo->query("SELECT GET_LOCK('team_audit', 0)")->fetchColumn() !== 1) return 'Another audit is going: this one did nothing.';
+        try {
+            $who = TeamRoster::actor($role); $now = self::findings($pdo); $n = ['opened' => 0, 'confirmed' => 0, 'cleared' => 0];
+            $open = $pdo->query("SELECT * FROM control_gauge_tasks WHERE ticket = 'audit' AND audit_key <> '' AND undone_at IS NULL AND cleared_at IS NULL")->fetchAll(PDO::FETCH_ASSOC);
+            $have = []; foreach ($open as $t) $have[(string) $t['audit_key']] = $t;
+            foreach ($open as $t) {   // the second look
+                if ($t['stage'] !== 'found' || time() - (int) strtotime($t['at'] . ' UTC') < self::SECOND_LOOK_HOURS * 3600) continue;
+                if (!isset($now[$t['audit_key']])) { GaugeTasks::auditClear($pdo, (int) $t['id'], $who); $n['cleared']++; continue; }
+                $c = GaugeTasks::auditConfirm($pdo, (int) $t['id'], $who); $n['confirmed']++;
+                self::log($pdo, $role, $c, 'audit', 'its second look at task #' . $t['id'], 'Confirmed task #' . $t['id'] . ' and opened this ' . ((int) $t['tier'] === 3 ? 'Resolution' : 'Work') . ' ticket (Tier ' . (int) $t['tier'] . ')', 'done', '', null, 'Withdraws this ticket', ['withdraw' => $c], 'task:' . $c);
+            }
+            foreach ($now as $k => [$what, $words]) {   // a new finding
+                if (isset($have[$k])) continue;
+                [$tier, $b] = self::tier($what . ' ' . $words);
+                $id = GaugeTasks::auditOpen($pdo, $k, $what, $words . ($b !== '' ? ' (Tier 3: ' . GaugeTasks::BOUNDARIES[$b] . ')' : ''), $tier, $who);
+                self::log($pdo, $role, $id, 'audit', $k, 'Found: ' . $what . ' (Tier ' . $tier . '); it\'s looked at again tomorrow', 'done', '', null, 'Withdraws this ticket', ['withdraw' => $id], 'task:' . $id);
+                $n['opened']++;
+            }
+            return $who . ' · audit (' . $how . '): ' . count($now) . ' finding' . (count($now) === 1 ? '' : 's') . ' · ' . $n['opened'] . ' new · ' . $n['confirmed'] . ' confirmed · ' . $n['cleared'] . ' cleared as noise';
+        } finally { $pdo->query("SELECT RELEASE_LOCK('team_audit')"); }
     }
 
     /** Do the step, log it, and return the line. */
@@ -109,6 +318,9 @@ final class TeamRunner
         [$ok, $no] = TeamRoster::can($role, $action, $def);
         if (!$ok) return self::log($pdo, $role, $id, $step, 'its permissions', '', 'refused', $no . ' (Permissions: ' . $action . ')');
         try {
+            if ($step === 'gate' && self::mode($pdo, 'gate') === 'propose') {   // at Planning: a proposal a person accepts (Jason, 2026-11-25)
+                return self::log($pdo, $role, $id, $step, 'its goal, Done when, decisions and owner', 'Proposed: ready for Building (its gate passes)', 'proposed', '', ['move' => 'building'], 'A proposal changes nothing until a person accepts it', null, 'task:' . $id);
+            }
             if ($step === 'gate') {
                 $msg = GaugeTasks::move($pdo, $id, 'building', $who, 'its gate passed: a goal, Done when, its decisions and someone who has it');
                 return self::log($pdo, $role, $id, $step, 'its goal, Done when, decisions and owner', $msg, 'done', '', null, 'Moves it back to Planning', ['to' => 'planning'], 'task:' . $id);
@@ -193,17 +405,36 @@ final class TeamRunner
         elseif ($r['step'] === 'handoff') {
             $pdo->prepare('UPDATE control_gauge_tasks SET build_brief = NULL, owner = ?, owner_at = ? WHERE id = ?')->execute([(string) ($u['owner'] ?? ''), ($u['owner'] ?? '') !== '' ? gmdate('Y-m-d H:i:s') : null, $tid]);
             ControlLog::add($pdo, 'control', '', 'Task #' . $tid . ' build brief taken back (Undo of run #' . $rid . ')', $who, '', $tz);
-        } else throw new RuntimeException('This kind of run has no Undo.');
+        } elseif ($r['step'] === 'audit') GaugeTasks::withdraw($pdo, (int) $u['withdraw'], 'Undo of run #' . $rid, $who, $tz);
+        else throw new RuntimeException('This kind of run has no Undo.');
         $pdo->prepare('UPDATE team_runs SET undone_at = UTC_TIMESTAMP(), undone_by = ? WHERE id = ? AND undone_at IS NULL')->execute([mb_substr($who, 0, 80), $rid]);
         return 'Undone: ' . lcfirst((string) $r['undo_how']) . '.';
     }
 
-    /** Accept a proposal: each part applied as a person's Edit (History kept), only where the field is still empty. */
+    /** An open (unsettled) proposal of this step on this ticket? */
+    public static function openProposal(PDO $pdo, int $task, string $step): bool
+    {
+        try { $st = $pdo->prepare("SELECT 1 FROM team_runs WHERE task_id = ? AND step = ? AND state = 'proposed' AND settled_at IS NULL LIMIT 1"); $st->execute([$task, $step]); return (bool) $st->fetchColumn(); } catch (Throwable $x) { return false; }
+    }
+
+    /** Open proposals on each ticket (for the queue's rows and filter): task id => count. */
+    public static function openSuggestions(PDO $pdo): array
+    {
+        $out = []; try { foreach ($pdo->query("SELECT task_id, COUNT(*) n FROM team_runs WHERE state = 'proposed' AND settled_at IS NULL GROUP BY task_id")->fetchAll(PDO::FETCH_ASSOC) as $x) $out[(int) $x['task_id']] = (int) $x['n']; } catch (Throwable $x) {}
+        return $out;
+    }
+
+    /** Accept a proposal: a move made as the person who accepts (through its gate), or a brief's parts applied as their Edit (History kept, only where still empty). */
     public static function accept(PDO $pdo, int $rid, string $who, string $tz = ''): string
     {
         $r = self::get($pdo, $rid); if (!$r || $r['state'] !== 'proposed') throw new RuntimeException('That isn\'t a proposal.');
         if ($r['settled_at'] !== null) throw new RuntimeException('It\'s already ' . ($r['undone_at'] !== null ? 'dismissed' : 'accepted') . '.');
-        $p = json_decode((string) $r['proposal'], true) ?: []; $b = GaugeTasks::brief($pdo, (int) $r['task_id']) ?? []; $n = 0; $kept = [];
+        $p = json_decode((string) $r['proposal'], true) ?: [];
+        if ($r['step'] === 'gate') {
+            $msg = GaugeTasks::move($pdo, (int) $r['task_id'], (string) ($p['move'] ?? 'building'), $who, 'accepting the Project Manager\'s proposal (run #' . $rid . ')', $tz);
+            $pdo->prepare('UPDATE team_runs SET settled_at = UTC_TIMESTAMP(), settled_by = ? WHERE id = ?')->execute([mb_substr($who, 0, 80), $rid]);
+            return 'Accepted: ' . $msg;
+        } $b = GaugeTasks::brief($pdo, (int) $r['task_id']) ?? []; $n = 0; $kept = [];
         foreach ($p as $k => $v) { if (trim((string) ($b[$k] ?? '')) !== '') { $kept[] = strtolower(GaugeTasks::BRIEF[$k][0]); continue; } GaugeTasks::briefEdit($pdo, (int) $r['task_id'], $k, (string) $v, $who . ' (accepting ' . TeamRoster::actor(['name' => self::roleName($pdo, (string) $r['role'])]) . ')', $tz); $n++; }
         $pdo->prepare('UPDATE team_runs SET settled_at = UTC_TIMESTAMP(), settled_by = ? WHERE id = ?')->execute([mb_substr($who, 0, 80), $rid]);
         return 'Accepted: ' . $n . ' part' . ($n === 1 ? '' : 's') . ' of the brief filled, kept in its History.' . ($kept ? ' Left as a person wrote it: ' . implode(', ', $kept) . '.' : '');
