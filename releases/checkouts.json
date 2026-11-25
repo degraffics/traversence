@@ -243,6 +243,19 @@
    "expires": "2026-11-25T21:23:29Z",
    "release": "team-audit.zip",
    "callers": {}
+  },
+  {
+   "path": "app/admin/Access.php",
+   "functions": [
+    "isFounder"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "Piece 2 P2-1: only the Founder's own staff login answers a Tier 3 (never who() with no session)",
+   "since": "2026-11-25T17:55:35Z",
+   "expires": "2026-11-25T21:55:35Z",
+   "release": "team-tickets.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
