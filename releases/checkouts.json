@@ -116,14 +116,15 @@
   {
    "path": "app/admin/tools.php",
    "functions": [
+    "'config/team'",
     "config/team"
    ],
    "kind": "change",
    "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
-   "why": "Piece 2 P2-4: the Team's daily audit (handoffs/piece2-team.md \u00a76): Run the audit now on its role's card",
+   "why": "Piece 2 P2-3+P2-4: the Team's runner and daily audit, staging only (handoffs/piece2-team.md \u00a75, \u00a76)",
    "since": "2026-11-25T17:23:29Z",
-   "expires": "2026-11-25T21:23:29Z",
-   "release": "team-audit.zip",
+   "expires": "2026-11-25T22:21:51Z",
+   "release": "team-runner.zip",
    "callers": {}
   },
   {
