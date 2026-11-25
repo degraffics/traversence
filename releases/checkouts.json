@@ -48,6 +48,17 @@
      "website/admin/api/pulse.php"
     ]
    }
+  },
+  {
+   "path": "app/migrations/2026-11-25_task_seed_3.sql",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
+   "why": "release task-seed-3.zip",
+   "since": "2026-11-25T01:17:28Z",
+   "expires": "2026-11-25T05:17:28Z",
+   "release": "task-seed-3.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
