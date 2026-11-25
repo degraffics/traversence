@@ -74,6 +74,17 @@
    "expires": "2026-11-25T22:34:39Z",
    "release": "team-batch.zip",
    "callers": {}
+  },
+  {
+   "path": "website/js/admin-control.js",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "Piece 2 P2-5: the daily batch and the Founder's emailed answers (decisions/0179 rule 1)",
+   "since": "2026-11-25T18:34:41Z",
+   "expires": "2026-11-25T22:34:41Z",
+   "release": "team-batch.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
