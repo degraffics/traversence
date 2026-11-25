@@ -27,7 +27,8 @@ These change the design. Each one is checked against the mirror.
    session (`Access.php:33`), and a cron job has none, so `can()` is always true there. An agent can't be limited by
    `Access::can()` as it stands. The fix is additive: `Access::canAs($action, $level, $dept)`, the same rule read
    (`rule()`) for a level and department that's named rather than signed in. The runner calls only that. (Builds on the
-   session manager's ruling: "Permissions come only from Access::can()".)
+   session manager's ruling: "Permissions come only from Access::can()".) **Outside Piece 2:** a separate Work queue task
+   audits every other cron caller of `Access::can()` for the same hole. The session manager is queueing it.
 3. **On staging, Claude has no key until a switch is on.** `AiClient::env()` returns '' for `ANTHROPIC_API_KEY` and
    `GEMINI_API_KEY` unless `Staging::allow('ai')` (the switch `staging_ai`) is on (`AiClient.php:45`). So agents run with no
    AI at all until Jason switches `staging_ai` on. That suits "internal first": every step in releases 1–4 is
@@ -177,6 +178,8 @@ and 390.
   - The fields stay as they are: place, what, why, source.
   - It adds one optional choice, Type (Work by default).
   - Choosing Resolution doesn't open a brief. The Translator drafts one (§5), or a person fills it on the ticket's page.
+- **On a phone (390px)** each row becomes the table standard's card (table-standard §12): its status (Type · Stage, or
+  Waiting for you), the name, the sub-line, its next step's button and ⋯, edge to edge (0058 §11).
 - **A round Team icon** (`tv_icon('users')`, 30px, title "Open the Team") sits in the queue's header beside the filter. It
   opens System Configuration → Team in the side panel (`data-peek-frame`; the spec's `[👥]`).
 
@@ -201,9 +204,11 @@ and 390.
 - The tool `config/team` in `tools.php`, opened at `/admin/api/config/team` (0109). There are no `/api/team/*.php` files.
 - **Columns:** Role (the name, as a link), Department, Kind, Works (its stages), Acts as (level and department, or "views
   only"), Status, Open tickets.
-- **Group rows by department** (table-standard §8). The 25 standby roles sit in one folded group, "On standby (25)", so the
+- **Group rows by department** (table-standard §8). The 13 standby roles sit in one folded group, "On standby (13)", so the
   day-to-day view stays short (spec §3, "Quiet by default").
 - **Filter button:** Department, Kind and Status, with counts.
+- **On a phone (390px)** each role is a card (table-standard §12): its status, the name, "Department · Kind · Acts as", ▾
+  and ⋯.
 - **A role's row opens its drawer:**
   - mandate, rules and stages, each with ✎ Edit and History;
   - its status, changed by **Put on standby** / **Make active**, with its way back on the same card;
@@ -250,9 +255,9 @@ The steps in releases 3–4 are all deterministic, so none of them costs anythin
 | Project manager | `stall` | `stage_at` against the stage's limit | marks a stall ("In Building 5 days, nobody has it"), once | removes the mark |
 | QA (active) | `confirm` | the ticket's steps and Done when, the checks named in them (Preflight, Site health, a gauge's check) | runs each named check again and records pass or fail per step. All passing makes it **Done**, with no "mark done" (CLAUDE.md four steps) | reopens it to Confirmation, logged |
 | Translator / Brief (active) | `brief` | a Resolution ticket's what, why, source, attached decisions' titles and the 0179 boundary rule | drafts the brief's fields from the template (no AI), as a **proposal** | Dismiss (a proposal changes nothing until it's accepted) |
-| Architect / Builder (active) | `handoff` | Building tickets with a scope and no session | writes the build brief and marks it "With the session manager" (via `report()`) | takes the brief back, logged |
+| System Architect (active) | `handoff` | Building tickets with a scope and no session | writes the build brief and marks it "With the session manager" (via `report()`), for the Full-Stack Builder, which is the Claude Code session that takes it | takes the brief back, logged |
 | Auditor: Ops & Reconciliation (active) | `audit` | §6's sources | opens or updates Audit tickets | withdraws the ticket with "undone" |
-| Content, Directory curator, Orders/Finance (active) | none yet | | listed with "no steps yet" until a step is written for them. Orders/Finance will only ever read (money is Tier 3) | |
+| Content, Directory curator (active) | none yet | | listed with "no steps yet" until a step is written for them. Orders/Finance is on standby (§7): money is always Tier 3 | |
 | Advocates (active, views only) | none | | bound to test accounts for piece 3's before-and-after check, and never act (finding 6) | |
 
 ### 5.1 The $40 cap
@@ -326,29 +331,40 @@ step, not a chain. (The ruling: "each run takes one task, does one step, logs it
 decisions/NNNN and a line in CLAUDE.md". The Resolution ticket closes only when that ticket's check passes: the note can
 be read through `DocsRepo` with the ticket's number in it. There's no second rule book.
 
+**A Tier 3 never waits on the batch.** A Resolution ticket that reaches Waiting for you goes into the session manager's
+daily summary word for word: all four parts plus Cost, with its ticket number. The session manager emails that summary
+to Jason. This holds even while Publish hasn't carried the ticket to live (Question 1), because the summary is read from
+staging's queue through the same `report()` the hourly fetch already reads. Jason's answer comes back to the session
+manager, which records it on the ticket. That's the same path as the batch approval: `GaugeTasks::approve` with a new
+kind `answer` (its value `a`, `b` or his words), reported by `report()`. The Choose A / Choose B / Answer in my words
+buttons stay on the ticket's page for when he's at his desk. Either way, his answer is written once and kept in History.
+
 **Notifications** go only to Jason, only for a Resolution ticket that reaches Waiting for you. That's one thread per
 ticket, `Notify::send` with `thing = task:<id>` (0176 A1), and one push (0172 push-polish). Work and Audit tickets never
 notify anyone (spec §3, "Quiet by default"). On staging the gate holds the notification anyway, so on live this happens
 only once the tickets are records (Question 1).
 
-## 7. The roster at the start (the session manager's ruling; Jason's 33 in §11 of his spec)
+## 7. The roster at the start (the session manager's ruling and its review of 2026-11-25; Jason's 33 in §11 of his spec)
 
-| Spec # | Role | Department | Kind | Status | Acts as |
-|---|---|---|---|---|---|
-| 1 | Executive Lead & Founder | leadership | founder | active | the real login, never an agent |
-| 2 | Executive Translator & Briefing Lead | leadership | operator | **active** | staff · ops |
-| 6 | Project Manager | operations | operator | **active** | manager · ops |
-| 15 + 21 | Architect / Builder (System Architect and Full-Stack Builder in one, until the work splits them) | build | operator | **active** | staff · eng |
-| 22 | Technical QA & Security Gatekeeper | build | auditor | **active** | staff · eng |
-| 19 | Content & Copy Editor | build | operator | **active** | staff · con |
-| 14 | Regional Directory & Data Curator | operations | operator | **active** | staff · con |
-| 10 + 11 | Orders / Finance (Order & Fulfillment and Finance, Tax & Billing, reading only) | operations | operator | **active** | staff · fin |
-| 8 | Operations & Reconciliation Manager (runs the audit) | operations | auditor | **active** | manager · ops |
-| 23–33 | the 11 Advocates, each bound to its test account or `signed_out` | advocates | advocate | **active** | views only |
-| 3, 4, 5, 7, 9, 12, 13, 16, 17, 18, 20 | the other roles | as in the spec | keeper / operator | standby | set when made active |
+One row per entity in the spec (33 rows), so every one of them is present and filterable (the spec's acceptance criteria).
+**9 working:** the Founder and 8 agent roles, within Jason's "about 8".
 
-**Question for the session manager:** the ruling counts about 8 working roles. I've added Ops & Reconciliation as the
-audit's owner, because spec §9 names it. If that should be QA alone, it becomes standby.
+| Spec # | Role | Department | Kind | Status | Acts as | Its steps |
+|---|---|---|---|---|---|---|
+| 1 | Executive Lead & Founder | leadership | founder | active | the real login, never an agent | answers Tier 3 |
+| 2 | Executive Translator & Briefing Lead | leadership | operator | **active** | staff · ops | `brief` |
+| 6 | Project Manager | operations | operator | **active** | manager · ops | `gate`, `stall` |
+| 8 | Operations & Reconciliation Manager | operations | auditor | **active** | manager · ops | `audit` (spec §9 names it) |
+| 14 | Regional Directory & Data Curator | operations | operator | **active** | staff · con | none yet |
+| 15 | System Architect | build | operator | **active** | staff · eng | `handoff`: writes the build brief |
+| 19 | Content & Copy Editor | build | operator | **active** | staff · con | none yet |
+| 21 | Full-Stack Builder | build | operator | **active** | staff · eng | none on the platform: it's the Claude Code session the brief goes to (finding 10) |
+| 22 | Technical QA & Security Gatekeeper | build | auditor | **active** | staff · eng | `confirm` |
+| 23–33 | the 11 Advocates, each bound to its test account or `signed_out` | advocates | advocate | **active, views only** | none | none (piece 3) |
+| 3, 4, 5, 7, 9, 10, 11, 12, 13, 16, 17, 18, 20 | the other 13 roles, Order & Fulfillment (10) and Finance (11) among them | as in the spec | keeper / operator | standby | set when made active | — |
+
+Orders/Finance is on standby: it has no steps yet, and money is always Tier 3 (the session manager's call, 2026-11-25).
+The count is 9 working, 11 advocates and 13 on standby, which is 33.
 
 ## 8. Every state and its ways out
 
@@ -369,49 +385,139 @@ audit's owner, because spec §9 names it. If that should be QA alone, it becomes
 Side effects on every move: a History line, a logbook line, `stage_at` reset, the gauge's count read again. Nothing claims
 success without its check (CLAUDE.md "End to end").
 
-## 9. Questions for Jason (through the session manager, written for him and Gemini)
+## 9. Questions for Jason: five Decision Briefs (final text, for the session manager to email)
 
-1. **Decision (nothing changes on the site yet): where the agents' work lives.** The Work queue's tables are each site's own,
-   so staging can't see live's tasks (finding 1).
-   - **A, recommended:** make the queue's tables `records`. Live's tasks come to staging by catch-up. What agents do on
-     staging reaches live only at Publish, inside your approved batch.
-     - Pros: one queue; agents stay on staging; you approve what they did like any release.
-     - Cons: a task changed on both sides at once goes on staging's conflicts list (0165 §3). It changes the class recorded
-       in `work-queue.md` and `task-scope.md` (a note goes on each).
-   - **B:** keep them separate, and agents work staging's own queue.
-     - Pros: nothing changes in how staging copies.
-     - Cons: two queues, and you'd add tasks on staging to have them worked (against "one copy").
-   - **Impact if delayed:** releases 1–2 don't depend on it; release 3 (the runner) waits for it.
-2. **Decision: Confirmation as a stage.** Today a task is Done the moment its release is live (#281, `work-queue.md` rule
-   5). Your four stages put Confirmation after that.
-   - **Recommended:** a task reaches Confirmation when its release is live, and it's Done when its steps' checks pass.
-   - A task with no steps is Done at once, as today.
-3. **Decision: where you answer a Resolution ticket.** **Recommended:** on the ticket's page on live (Choose A / B / your
-   words), with one push, listed by the session manager under "Waiting for your OK", never in a pop-up (0179).
-4. **Decision: AI for agents.** It stays off (releases 1–5 cost nothing). **Release 6** would use one AI feature for every
-   agent's wording. It would be the held phase-2 design's `task_assist` (`work-queue-phase2.md`), Claude only (input class
-   `person`, so Gemini is refused until your 0164 §0.8 ruling), inside the $40 cap, and only while `staging_ai` is on.
-   At the cap it works as in §5.1.
-5. **Decision Brief: may staff's own text go to Gemini's paid key?** (0164 §0.8). Gemini stays on public material until
-   you answer.
-   - **The Decision:** whether agents and staff tools may send internal text (a task's words, its scope, notes; never a
-     member's or a client's) to Gemini on the paid key.
-   - **Why it needs you:** privacy (0179 rule 3). 0164 §0.8 says "nothing private to Gemini's free tier", and R5 says "a
-     person's words only to Claude". The paid tier changes Google's terms (data not used for training), not our rule.
-   - **Option A: the paid key only, checked on every call.** A new input class `internal` (staff's words) is allowed to
-     Gemini only when the key in use is the paid one. `Gemini::refused()` checks the class and the tier on every call. The
-     free key stays public-only. Members' and clients' words stay Claude-only (R5).
-     - Pros: a second model for agents' wording; work moves off the $40 Claude cap.
-     - Cons: one more check on every call; a wrong key setting could send internal text to the free tier, so the check
-       refuses when the tier can't be confirmed.
-   - **Option B, the safe default: Gemini stays public-only.**
-     - Pros: nothing changes; no new risk.
-     - Cons: agents' wording uses Claude alone, inside the $40 cap.
-   - **Recommended:** B now. A only once the tier check exists and its test proves a free key is refused.
-   - **Impact if delayed:** safe on hold. Nothing in releases 1–5 uses Gemini.
-   - **Cost:** none now. Under A, Gemini's paid use comes from the $20 prepaid (relayed 2026-11-24).
+Each brief has the 0179 shape: the Decision, why it needs you, options A and B with their pros and cons and a
+recommendation, the impact if delayed, and the cost.
 
-## 10. Releases, in order (each one coherent, each through the Design reviewer, the session manager and the daily batch)
+### Q1. Decision (nothing changes on the site yet): where the agents' work lives
+Goes live in P2-3, the runner, third in Piece 2's queue.
+- **The Decision:** whether the Work queue's three tables are copied between live and staging, so agents on staging work
+  the same queue you use on live.
+- **Why it needs you:** it changes how staging and live share data (0165 §3) and the class two earlier builds recorded
+  (`work-queue.md`, `task-scope.md`). Today the queue is each site's own, so staging can't see live's tasks.
+- **Option A: the queue's tables become "records".**
+  - Live's tasks come to staging by catch-up.
+  - What agents do on staging reaches live only at Publish, inside the batch you approve.
+  - Pros: one queue; agents stay on staging; you approve their work like any release.
+  - Cons: a task changed on both sides at the same time goes on staging's conflicts list for you to choose; it needs a
+    note on two earlier records.
+- **Option B: the queue stays each site's own.**
+  - Pros: nothing changes in how staging copies.
+  - Cons: two queues; you would add tasks on staging to have them worked, which is against "one copy".
+- **Recommended:** A.
+- **Impact if delayed:** releases P2-1 and P2-2 go ahead; the runner (P2-3) waits.
+- **Cost:** none.
+
+### Q2. Decision (nothing changes on the site yet): Confirmation as a stage
+Goes live in P2-1, ticket types and stages, first in Piece 2's queue.
+- **The Decision:** whether a task is Done when its release is live (today, #281), or only after a Confirmation stage
+  whose checks pass.
+- **Why it needs you:** your four stages put Confirmation after the release, and that changes a rule you approved on
+  2026-11-24.
+- **Option A: Confirmation after live.**
+  - A task reaches Confirmation when its release is live.
+  - It's Done when each of its steps' checks passes again.
+  - A task with no steps is Done at once, as today.
+  - Pros: "done" means checked, not just shipped; it matches your four stages.
+  - Cons: tasks stay open a little longer.
+- **Option B: Done at live, as today.**
+  - Pros: no change.
+  - Cons: the fourth stage would only be a label.
+- **Recommended:** A.
+- **Impact if delayed:** P2-1 waits.
+- **Cost:** none (the checks are our own).
+
+### Q3. Decision (nothing changes on the site yet): how you answer a Tier 3 brief
+Goes live in P2-1 (the brief and its buttons) and P2-5 (the answer travelling back).
+- **The Decision:** how a Tier 3 brief reaches you, and how your answer comes back.
+- **Why it needs you:** a Tier 3 is yours alone (0179 rule 3). Under Q1 A, a brief drafted on staging reaches live only at
+  Publish, so it would otherwise wait for your own batch.
+- **Option A: in the daily summary email, and on the ticket's page.**
+  - Every brief waiting for you is in the session manager's daily summary, word for word (all four parts and Cost). The
+    session manager emails it to you.
+  - You reply, the session manager records your answer on the ticket, and it's kept in History.
+  - At your desk you can also answer on the page: Choose A, Choose B, or Answer in my words.
+  - A Tier 3 never waits on the batch.
+  - Pros: it reaches you on holiday; nothing sits; your answer is in one place.
+  - Cons: by email, the session manager records the answer for you, not you yourself.
+- **Option B: on the ticket's page only.**
+  - Pros: you record it yourself.
+  - Cons: it waits until you open the admin, and under Q1 A until Publish.
+- **Recommended:** A.
+- **Impact if delayed:** P2-1 can go with the page buttons; P2-5 waits.
+- **Cost:** none (system email).
+
+### Q4. Decision (nothing changes on the site yet): paid AI for the agents
+Goes live in P2-6, last in Piece 2's queue, and only if you say yes.
+- **The Decision:** whether agents may use Claude for wording (drafting a brief, a scope, a step), or stay on free,
+  rule-based steps.
+- **Why it needs you:** it spends money ("No income, no expense"; the $40 cap) and needs staging's AI switch on.
+- **Option A: one AI feature for all agents (`task_assist`).**
+  - Claude only, inside the $40 cap, only while staging's AI switch is on.
+  - At the cap, only the paid steps wait. The free work goes on. One brief per stuck ticket comes to you, with its cost
+    (your rule, 2026-11-25).
+  - Pros: better drafts; you'd write less.
+  - Cons: a few cents a draft, from the same $40.
+- **Option B: no AI for agents.**
+  - Pros: costs nothing.
+  - Cons: briefs and scopes are fill-in templates that a person polishes.
+- **Recommended:** B until P2-1 to P2-5 have run a while. Then A, if the drafts need it.
+- **Impact if delayed:** none. Releases P2-1 to P2-5 don't use AI.
+- **Cost:** A: within the $40 Claude cap (a press costs a few cents at Haiku or Sonnet prices); B: $0.
+
+### Q5. Decision (nothing changes on the site yet): staff's own text to Gemini's paid key
+Not in a Piece 2 release. It would be its own release after your answer.
+- **The Decision:** whether agents and staff tools may send internal text (a task's words, its scope, notes; never a
+  member's or a client's) to Gemini on the paid key.
+- **Why it needs you:** privacy (0179 rule 3). 0164 §0.8 says "nothing private to Gemini's free tier", and R5 says "a
+  person's words only to Claude". The paid tier changes Google's terms (data not used for training), not our rule.
+- **Option A: the paid key only, checked on every call.**
+  - A new input class, `internal`, is allowed to Gemini only when the call uses the paid key.
+  - `Gemini::refused()` checks the class and the tier on every call, and refuses when the tier can't be confirmed.
+  - Members' and clients' words stay Claude only.
+  - Pros: a second model for wording; work moves off the $40 Claude cap.
+  - Cons: one more check on every call; a wrong key setting is a privacy risk, which the check exists to catch.
+- **Option B: Gemini stays public-only (today's safe default).**
+  - Pros: nothing changes; no new risk.
+  - Cons: agents' wording uses Claude alone.
+- **Recommended:** B now. A only once the tier check exists and its test proves a free key is refused.
+- **Impact if delayed:** safe on hold. Nothing in Piece 2 uses Gemini.
+- **Cost:** none now. Under A, Gemini's paid use comes from the $20 prepaid.
+
+## 10. Design check against the Design reviewer's checklist
+
+The Design reviewer session is archived over the holiday, so the session manager asked this session to run its checklist
+(`handoffs/design-reviewer-2026-11-24.md`) against both screens, `p2-1280.png` and `p2-390.png`. It was checked against
+the reviewer's checklist, **not by the reviewer session**.
+
+| Check | Source | Result |
+|---|---|---|
+| One filled button per view, brand brown with page-colour text | brand.md §4 | Pass: **+ Add a task** only. Choose A / Choose B, Name its release and the rest are outlined |
+| Umber only for bars | brand.md §4 | Pass: the top bar and the current stage in the stage strip only |
+| Red only for trips and halts, amber for holds and waits | css-theme-brand.md | Pass: no red; "Waiting for you" and Today's batch are amber |
+| Tokens as they stand (no `#F8F5EC`) | theme-tokens.php | Pass: canvas `#E4DCC5`, cards `#F6F1E4`, ink `#2A1D14` |
+| One table, group rows with ▾ | table-standard §8; open design note 2 | Pass on Team. The queue keeps #281's owner groups (not drawn in the mockup) |
+| ⋯ in place of a hover bar, on every row | table-standard | **Fix in the build:** the 1280 queue rows in the mockup leave out #281's ⋯ and ✎. The build keeps them as they are |
+| Phones: rows become cards (status, name, sub-line, button, ⋯), 3px, no sideways scroll | table-standard §12; 0058 §11 | Pass: scrollWidth 390 at 390 for both lists |
+| Paging and the count | table-standard §9 | Pass: "Showing 5 of 41 · Show 10 more", as #281 |
+| Counts agree on every surface | the reviewer's checks | Pass: 41 open = Filter (41); 1 waiting = one row; Team 9 working + 11 advocates = Active (20); each group's count matches its rows |
+| One fact said once | the reviewer's checks | Pass: the brief's state shows once in the strip, the recommendation once on option B |
+| Every action is a task (see, do, confirmed, next) | CLAUDE.md #1308 | Pass: the gate says what's missing; one button does the next move; Done only by its check |
+| Suggested action, ✎ and ⋯ on each task or state line, greyed with the reason | CLAUDE.md #1317 | Pass: Move to Implementation greyed "Name its release first", with ✎ and ⋯ |
+| Edit for entered words, Undo only for actions | CLAUDE.md #1314–#1315 | Pass: brief fields and roles use ✎ with History; Undo only on runs (actions); a proposal has Dismiss |
+| Icons with tooltips for inline actions; primary action and states in words | CLAUDE.md #1316 | Pass: Undo, ✎, ⋯ and the Team icon have `title` and `aria-label`. The mockup uses glyphs; the build uses `tv_icon()` (CLAUDE.md "never emoji") |
+| A button's verb says what happens | this checklist | Pass: Choose B records now; the Architect's step says "With the session manager" (queued), never "Fix it" |
+| Lines that carry tasks have no × | 0129 note | Pass: Today's batch and the gate line have none |
+| Everything that pops open closes (×, Esc, a click outside) | CLAUDE.md | × drawn on the panel; Esc and a click outside are tested in `tickets.cjs` and `roster.cjs` (§12) |
+| Times labelled in their stored zone | CLAUDE.md "Times" | Pass: "14:05 MST" |
+| Decision or release, said every time | CLAUDE.md #1341 | Pass: every question in §9 opens "Decision (nothing changes on the site yet)" |
+| Outside links open in the browser, ours in Peek | CLAUDE.md #1344 | Pass: the Team icon and the decisions open in Peek; there are no outside links |
+| Never invent what's set; gaps as suggestions | CLAUDE.md #1334–#1336 | Pass: each behaviour cites its source; the gaps are §9's questions |
+| What the system knows is applied, not asked | this checklist | Pass: the stage seed comes from today's states; the gate reads what's set |
+| A failure is an error notice with its way forward | the reviewer's checks | Not shown in the mockup. A held or refused run says why and offers Request the check (§5) |
+
+## 11. Releases, in order (each one coherent, each through the design checklist, the session manager and the daily batch)
 
 | # | Release | What it holds | Where it's seen |
 |---|---|---|---|
@@ -419,7 +525,7 @@ success without its check (CLAUDE.md "End to end").
 | P2-2 | `team-roster.zip` | `team_roster` + its seed (2 migrations), `config/team` (manifest, tool, drawer, status), `Access::canAs()`, the Team icon on the queue | live, admin only |
 | P2-3 | `team-runner.zip` | `team_tick`, `team_runs`, the switch `team_runner` (off), the Project manager's, QA's, Translator's and Builder's steps, Undo, runs on a ticket's page (staging) | staging only (live: nothing runs) |
 | P2-4 | `team-audit.zip` | `team_audit_tick`, its sources, diagnose twice, the tier rules, Audit → Work / Resolution, the precedent ticket, Run the audit now | staging only |
-| P2-5 | `team-batch.zip` | the daily batch strip and Approve the batch (`approve` kind `batch`, through `report()`) | live, Jason |
+| P2-5 | `team-batch.zip` | the daily batch strip and Approve the batch (`approve` kind `batch`); Jason's Tier 3 answer from the session manager (`approve` kind `answer`), both through `report()` | live, Jason |
 | P2-6 | `team-ai.zip` (only if Question 4 is yes) | `task_assist` for the Translator's and Content's wording | staging only |
 
 P2-3 waits for Question 1. Each release adds its FAQ entries (decisions/0057), its staging classes (R14) and claims
@@ -432,7 +538,7 @@ P2-3 waits for Question 1. Each release adds its FAQ entries (decisions/0057), i
 
 **Not built here:** the before-and-after check, and rule 2's automatic publishing (0179).
 
-## 11. Tests (`tools/team-tests/`, on the MariaDB bench with the mirror and each release over it)
+## 12. Tests (`tools/team-tests/`, on the MariaDB bench with the mirror and each release over it)
 
 - `tickets.php`:
   - each gate passes and fails with its words;
@@ -448,7 +554,7 @@ P2-3 waits for Question 1. Each release adds its FAQ entries (decisions/0057), i
   - ×, Esc and a click outside on every panel;
   - no sideways scroll.
 - `roster.php`:
-  - the seed gives 33 rows, 10 of them active plus the Founder, run twice;
+  - the seed gives 33 rows (9 working, 11 advocates, 13 on standby), the same when run twice;
   - `canAs` against `Access::can` for every level and department;
   - an advocate has no `acts_*`;
   - Edit with History; standby and back.
@@ -472,13 +578,13 @@ P2-3 waits for Question 1. Each release adds its FAQ entries (decisions/0057), i
   - the precedent ticket closes the Resolution.
 - The existing suites must still pass: `work-queue.cjs`, `task-scope.cjs`, `task-adrs.cjs`, `gauge-panel`, `board-views`.
 
-## 12. The admin's test (one line per new state)
+## 13. The admin's test (one line per new state)
 
 - **A row shows "Building · release not named yet".** Jason sees where it is and what's missing. He presses its name, then
   **Name its release**, in the panel.
 - **A row shows "Waiting for you" (amber).** A Tier 3 ticket needs him. He opens it, reads the brief, and presses Choose A
   or Choose B.
-- **The Team page's "On standby (25)" group.** Those roles exist but don't run. He can open one and press **Make active**,
+- **The Team page's "On standby (13)" group.** Those roles exist but don't run. He can open one and press **Make active**,
   which works only once it has a step (greyed with that reason until then).
 - **On staging, a run line reads "Project manager · moved to Confirmation · its release is live".** The system did it. He
   can press Undo if it's wrong.

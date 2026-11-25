@@ -36,7 +36,12 @@ p[data-tv-status=info]{background:var(--tv-sec)}p[data-tv-status=bad]{background
 .run{display:flex;gap:.5rem;align-items:center;border-top:1px solid var(--tv-line);padding:.45rem 0;font-size:13px}
 .row{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap}
 .panel{position:relative}.x{position:absolute;right:.6rem;top:.6rem}
-@media (max-width:767px){.wrap{grid-template-columns:1fr;padding:3px;gap:3px}.sec{border-radius:.5rem;padding:.7rem}
+
+.cards{display:none}.pc{background:var(--tv-card-a);border:1px solid var(--tv-card-edge);border-radius:.5rem;padding:.6rem .7rem;margin-top:3px}
+.pc .top{display:flex;gap:.4rem;align-items:center;flex-wrap:wrap}.pc .nm{display:block;margin:.25rem 0 .1rem}
+.pc .act{display:flex;gap:.4rem;align-items:center;margin-top:.4rem}.pc .act .sp{flex:1}
+.pc.grp{background:var(--tv-sec);font-weight:600}
+@media (max-width:767px){.tbl{display:none}.cards{display:block}.wrap{grid-template-columns:1fr;padding:3px;gap:3px}.sec{border-radius:.5rem;padding:.7rem}
  .hide-m{display:none}.opt{grid-template-columns:1fr}table{font-size:13px}td,th{padding:.4rem}}
 </style></head><body>
 <div class="bar">☰ System Control Board · Development</div>
@@ -45,16 +50,23 @@ p[data-tv-status=info]{background:var(--tv-sec)}p[data-tv-status=bad]{background
 <section class="sec">
  <h2>Work queue <span class="meta">· 41 open · 1 waiting for you</span><span class="sp"></span>
   <button class="flt">⚲ Filter: Open · Type all · Stage all (41) ▾</button>
-  <button class="ic" title="Open the Team" aria-label="Open the Team">👥</button>
+  <button class="ic" title="Open the Team" aria-label="Open the Team"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6"/><circle cx="17" cy="9" r="2.6"/><path d="M16 14.2c3.2-.4 5.5 1.7 5.5 5"/></svg></button>
   <button class="btn">+ Add a task</button></h2>
  <p data-tv-status="bad" data-tv-label="Today's batch:"><b>Today's batch:</b> 4 releases waiting for your OK · <a href="#">Read and approve</a></p>
- <table><thead><tr><th>Task</th><th>Type</th><th>Stage</th><th class="hide-m">Has it</th></tr></thead><tbody>
+ <table class="tbl"><thead><tr><th>Task</th><th>Type</th><th>Stage</th><th class="hide-m">Has it</th></tr></thead><tbody>
  <tr><td><a href="#">Gemini on the paid tier: may staff text go to the paid key?</a><div class="meta">P1 · area backlog · 0164 §0.8</div></td><td><span class="tag">Resolution</span></td><td><span class="wait">Waiting for you</span></td><td class="hide-m">system · Translator</td></tr>
  <tr><td><a href="#">A data migration is never cleared as already there unrun</a><div class="meta">P1 · control-board · 0162 · 1 of 3 steps confirmed</div></td><td><span class="tag">Work</span></td><td>Building<div class="meta">release not named yet</div></td><td class="hide-m">Control Board session</td></tr>
  <tr><td><a href="#">Late job: notify_release silent 30 h</a><div class="meta">from the audit · 2nd look tomorrow</div></td><td><span class="tag">Audit</span></td><td>Diagnosing</td><td class="hide-m">system · Ops & Reconciliation</td></tr>
  <tr><td><a href="#">no-undo: no Undo after an alarm's acknowledgement</a><div class="meta">P2 · control-board · 0176</div></td><td><span class="tag">Work</span></td><td>Implementation<div class="meta">no-undo.zip · in the batch</div></td><td class="hide-m">Control Board session</td></tr>
  <tr><td><a href="#">Orders M2b: the vendor's line</a><div class="meta">P2 · orders · paused by Jason</div></td><td><span class="tag">Work</span></td><td>Planning<div class="meta">needs: a decision attached</div></td><td class="hide-m">Orders session</td></tr>
  </tbody></table>
+ <div class="cards">
+  <div class="pc"><div class="top"><span class="tag">Resolution</span><span class="wait">Waiting for you</span></div><a class="nm" href="#">Gemini on the paid tier: may staff text go to the paid key?</a><div class="meta">P1 · area backlog · 0164 §0.8 · system · Translator</div><div class="act"><button class="ob">Read the brief</button><span class="sp"></span><button class="ic" title="More moves for task #61" aria-label="More moves for task #61">⋯</button></div></div>
+  <div class="pc"><div class="top"><span class="tag">Work</span><span class="meta">Building · release not named yet</span></div><a class="nm" href="#">A data migration is never cleared as already there unrun</a><div class="meta">P1 · control-board · 0162 · 1 of 3 steps confirmed · Control Board session</div><div class="act"><button class="ob">Name its release</button><span class="sp"></span><button class="ic" title="More moves for task #58" aria-label="More moves for task #58">⋯</button></div></div>
+  <div class="pc"><div class="top"><span class="tag">Audit</span><span class="meta">Diagnosing · 2nd look tomorrow</span></div><a class="nm" href="#">Late job: notify_release silent 30 h</a><div class="meta">from the audit · system · Ops &amp; Reconciliation</div><div class="act"><span class="sp"></span><button class="ic" title="More moves for task #63" aria-label="More moves for task #63">⋯</button></div></div>
+  <div class="pc"><div class="top"><span class="tag">Work</span><span class="meta">Implementation · no-undo.zip · in the batch</span></div><a class="nm" href="#">no-undo: no Undo after an alarm's acknowledgement</a><div class="meta">P2 · control-board · 0176 · Control Board session</div><div class="act"><span class="sp"></span><button class="ic" title="More moves for task #40" aria-label="More moves for task #40">⋯</button></div></div>
+  <div class="pc"><div class="top"><span class="tag">Work</span><span class="meta">Planning · needs: a decision attached</span></div><a class="nm" href="#">Orders M2b: the vendor's line</a><div class="meta">P2 · orders · paused by Jason · Orders session</div><div class="act"><button class="ob">Attach a decision</button><span class="sp"></span><button class="ic" title="More moves for task #22" aria-label="More moves for task #22">⋯</button></div></div>
+ </div>
  <p class="meta">Showing 5 of 41 · <a href="#">Show 10 more</a></p>
 </section>
 
@@ -62,13 +74,13 @@ p[data-tv-status=info]{background:var(--tv-sec)}p[data-tv-status=bad]{background
  <button class="ic x" title="Close" aria-label="Close">✕</button>
  <h2>Task #61 <span class="tag">Resolution</span></h2>
  <div class="strip"><span class="done">Brief</span><span class="now">Waiting for you</span><span>Decided</span></div>
- <h3>The Decision</h3><div>May staff's own words (a task's scope, notes) go to Gemini on the paid key?</div>
+ <h3>The Decision</h3><div>May staff's own words (a task's scope, notes; never a member's or a client's) go to Gemini on the paid key?</div>
  <h3>Why it needs you</h3><div>Privacy (0179 rule 3): 0164 §0.8 keeps anything private off Gemini; the paid tier changes the terms, not the rule.</div>
  <h3>Options</h3>
- <div class="opt"><div class="rec"><b>A · Paid key only, checked per call</b> <span class="tag">Recommended</span><div class="meta">Pros: Gemini can help on tasks; data not used for training. Cons: a second check on every call; the free key stays public-only.</div></div>
- <div><b>B · Keep Gemini public-only</b><div class="meta">Pros: nothing changes. Cons: Gemini can't read a task; Claude carries it inside the $40 cap.</div></div></div>
- <h3>Impact if delayed</h3><div>Safe on hold: tasks use Claude only. <span class="meta">Cost: none now; Gemini paid usage from the $20 prepaid.</span></div>
- <div class="row" style="margin-top:.7rem"><button class="btn">Choose A</button><button class="ob">Choose B</button><button class="ob">Answer in my words</button></div>
+ <div class="opt"><div><b>A · Paid key only, checked per call</b><div class="meta">Pros: a second model for wording; work moves off the $40 Claude cap. Cons: one more check on every call; a wrong key setting is a privacy risk.</div></div>
+ <div class="rec"><b>B · Keep Gemini public-only</b> <span class="tag">Recommended</span><div class="meta">Pros: nothing changes; no new risk. Cons: agents' wording uses Claude alone. A only once the tier check exists.</div></div></div>
+ <h3>Impact if delayed</h3><div>Safe on hold: nothing in Piece 2 uses Gemini. <span class="meta">Cost: none now; under A, Gemini's paid use comes from the $20 prepaid.</span></div>
+ <div class="row" style="margin-top:.7rem"><button class="ob">Choose B (recommended)</button><button class="ob">Choose A</button><button class="ob">Answer in my words</button></div>
  <h3>Runs (staging)</h3>
  <div class="run"><span class="sp">Translator · drafted this brief from the task and 0164 · 14:05 MST</span><button class="ic" title="Undo the draft" aria-label="Undo the draft">↶</button></div>
  <div class="run"><span class="sp">Project manager · sent to you · gate: four parts filled · 14:15 MST</span><button class="ic" title="Undo the move" aria-label="Undo the move">↶</button></div>
@@ -83,16 +95,28 @@ p[data-tv-status=info]{background:var(--tv-sec)}p[data-tv-status=bad]{background
 
 <div class="lab">2 · System Configuration → Team (/admin/config/team)</div>
 <section class="sec" style="grid-column:1/-1">
- <h2>Team <span class="meta">· 10 working · 11 advocates · 25 on standby</span><span class="sp"></span><button class="flt">⚲ Filter: Active (21) ▾</button></h2>
- <table><thead><tr><th>Role</th><th class="hide-m">Kind</th><th>Works</th><th class="hide-m">Acts as</th><th>Status</th></tr></thead><tbody>
+ <h2>Team <span class="meta">· 9 working · 11 advocates · 13 on standby</span><span class="sp"></span><button class="flt">⚲ Filter: Active (20) ▾</button></h2>
+ <table class="tbl"><thead><tr><th>Role</th><th class="hide-m">Kind</th><th>Works</th><th class="hide-m">Acts as</th><th>Status</th></tr></thead><tbody>
  <tr class="grp"><td colspan="5">▾ Leadership (2)</td></tr>
  <tr><td><a href="#">Executive Lead & Founder</a></td><td class="hide-m">Founder</td><td>Tier 3 answers</td><td class="hide-m">the real login</td><td>Active</td></tr>
  <tr><td><a href="#">Executive Translator & Briefing Lead</a></td><td class="hide-m">Operator</td><td>Resolution briefs</td><td class="hide-m">Staff · Operations</td><td>Active</td></tr>
- <tr class="grp"><td colspan="5">▾ Operations (4)</td></tr>
+ <tr class="grp"><td colspan="5">▾ Operations (3)</td></tr>
  <tr><td><a href="#">Project Manager</a></td><td class="hide-m">Operator</td><td>All four stages</td><td class="hide-m">Manager · Operations</td><td>Active</td></tr>
  <tr><td><a href="#">Operations & Reconciliation Manager</a></td><td class="hide-m">Auditor</td><td>The daily audit</td><td class="hide-m">Manager · Operations</td><td>Active</td></tr>
- <tr class="grp"><td colspan="5">▸ Build (4) · ▸ Advocates (11): views only, bound to test accounts</td></tr>
- <tr class="grp"><td colspan="5">▸ On standby (25)</td></tr>
+ <tr><td><a href="#">Regional Directory &amp; Data Curator</a></td><td class="hide-m">Operator</td><td>No steps yet</td><td class="hide-m">Staff · Content</td><td>Active</td></tr>
+ <tr class="grp"><td colspan="5">▸ Build (4)</td></tr>
+ <tr class="grp"><td colspan="5">▸ Advocates (11): views only, bound to test accounts</td></tr>
+ <tr class="grp"><td colspan="5">▸ On standby (13)</td></tr>
  </tbody></table>
+ <div class="cards">
+  <div class="pc grp">▾ Leadership (2)</div>
+  <div class="pc"><div class="top"><span class="meta">Active</span></div><a class="nm" href="#">Executive Lead &amp; Founder</a><div class="meta">Leadership · Founder · the real login</div><div class="act"><span class="sp"></span><button class="ic" title="Open Executive Lead &amp; Founder" aria-label="Open Executive Lead &amp; Founder">▾</button><button class="ic" title="More for Founder" aria-label="More for Founder">⋯</button></div></div>
+  <div class="pc"><div class="top"><span class="meta">Active</span></div><a class="nm" href="#">Executive Translator &amp; Briefing Lead</a><div class="meta">Leadership · Operator · Staff · Operations</div><div class="act"><span class="sp"></span><button class="ic" title="Open the Translator" aria-label="Open the Translator">▾</button><button class="ic" title="More for the Translator" aria-label="More for the Translator">⋯</button></div></div>
+  <div class="pc grp">▾ Operations (3)</div>
+  <div class="pc"><div class="top"><span class="meta">Active</span></div><a class="nm" href="#">Project Manager</a><div class="meta">Operations · Operator · Manager · Operations</div><div class="act"><span class="sp"></span><button class="ic" title="Open the Project Manager" aria-label="Open the Project Manager">▾</button><button class="ic" title="More for the Project Manager" aria-label="More for the Project Manager">⋯</button></div></div>
+  <div class="pc"><div class="top"><span class="meta">Active</span></div><a class="nm" href="#">Operations &amp; Reconciliation Manager</a><div class="meta">Operations · Auditor · Manager · Operations</div><div class="act"><span class="sp"></span><button class="ic" title="Open Operations &amp; Reconciliation Manager" aria-label="Open Operations &amp; Reconciliation Manager">▾</button><button class="ic" title="More for Operations &amp; Reconciliation Manager" aria-label="More for Operations &amp; Reconciliation Manager">⋯</button></div></div>
+  <div class="pc"><div class="top"><span class="meta">Active</span></div><a class="nm" href="#">Regional Directory &amp; Data Curator</a><div class="meta">Operations · Operator · Staff · Content</div><div class="act"><span class="sp"></span><button class="ic" title="Open Regional Directory &amp; Data Curator" aria-label="Open Regional Directory &amp; Data Curator">▾</button><button class="ic" title="More for Regional Directory &amp; Data Curator" aria-label="More for Regional Directory &amp; Data Curator">⋯</button></div></div>
+  <div class="pc grp">▸ Build (4)</div><div class="pc grp">▸ Advocates (11): views only</div><div class="pc grp">▸ On standby (13)</div>
+ </div>
 </section>
 </div></body></html>
