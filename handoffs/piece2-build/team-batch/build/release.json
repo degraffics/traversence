@@ -4,8 +4,23 @@
   "proposals": [],
   "switch": "",
   "changes": [
-    {"what": "Today's batch at the top of the Work queue: the Tier 3 decisions waiting first, each release's line, Approve the batch (the Founder's), or No batch from the session manager today", "where": "https://traversence.com/admin/config/control?tab=development"},
-    {"what": "The Founder's emailed answers put on their Resolution tickets once, kept in the History", "where": "a Resolution task's page"},
-    {"what": "FAQ: What is Today's batch at the top of the Work queue?", "where": "https://traversence.com/faq.php"}
-  ]
+    {
+      "what": "Today's batch at the top of the Work queue: the Tier 3 decisions waiting first, each release's line, Approve the batch (the Founder's), or No batch from the session manager today",
+      "where": "https://traversence.com/admin/config/control?tab=development"
+    },
+    {
+      "what": "The Founder's emailed answers put on their Resolution tickets once, kept in the History",
+      "where": "a Resolution task's page"
+    },
+    {
+      "what": "FAQ: What is Today's batch at the top of the Work queue?",
+      "where": "https://traversence.com/faq.php"
+    }
+  ],
+  "rollback": "Proved on the bench (tools/team-tests/rollback.sh, 2026-11-25): the zip laid over the live mirror (Sync 18:29 UTC, with #289), then Roll back as the site does it (each file put back from live): the files match live byte for byte, every PHP file parses, and the Work queue's own suites (84, 44, 32) and the runner's (runner.cjs 44) pass on the rolled-back code. No migration: nothing left behind.",
+  "checks": {
+    "founder_only": "Approve the batch is greyed for anyone but Access::isFounder(); api.php's qbatch asks isFounder() first (tickets.php, batch.php, batch.cjs).",
+    "only_today": "A batch shows only on its own UTC date; otherwise \"No batch from the session manager today\" (batch.php, batch.cjs).",
+    "answers_once": "Emailed answers apply once, only to a Resolution waiting for the Founder, as \"Jason (by email, recorded by the session manager)\", with History and its precedent ticket; one still being briefed, an unknown id or a bad answer is ignored (batch.php)."
+  }
 }
