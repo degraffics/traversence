@@ -38,7 +38,7 @@ const noSide = p => p.evaluate(() => document.documentElement.scrollWidth <= doc
       // as the Founder
       await p.goto('http://127.0.0.1:' + (port + 30) + '/admin/config/team'); await p.waitForSelector('#tm-tree');
       await Promise.all([p.waitForNavigation(), p.click('[data-tm=tree]')]); await p.waitForTimeout(700);
-      t(L + 'the Founder approves the tree: "Approved by Jason (test)", with its fingerprint', /Approved by Jason \(test\)/.test(await p.textContent('#tm-tree')) && /fingerprint [0-9a-f]{12}/.test(await p.textContent('#tm-tree')));
+      t(L + 'the Founder approves the tree: "Approved by Jason (test)", with its fingerprint', /Approved:\s*By Jason \(test\)/.test(await p.textContent('#tm-tree')) && /fingerprint [0-9a-f]{12}/.test(await p.textContent('#tm-tree')));
       t(L + '… the answer said beside it after the page reads again', /Approved\. Raising/.test(await p.textContent('body')));
       t(L + 'Raise to Building is open now', await p.$eval('[data-tm=ceiling][data-to=building]', x => !x.disabled));
       await Promise.all([p.waitForNavigation(), p.click('[data-tm=ceiling][data-to=building]')]); await p.waitForTimeout(700);

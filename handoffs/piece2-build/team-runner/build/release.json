@@ -1,6 +1,6 @@
 {
-  "title": "The Team's runner, on staging only (Piece 2, P2-3)",
-  "why": "Jason's Piece 2 (decisions/0179; handoffs/piece2-team.md §5, approved 2026-11-25, Q1 A and Q4 B): a scheduled job that, on the staging copy only and while its switch is on, takes one ticket and does one step for one working role, logs it with Undo, and stops. The Work queue's tables become records, so live's tasks reach staging by catch-up and what the agents do reaches live only at Publish, in the approved batch. Nothing runs on live. Jason, 2026-11-25: \"limit agents and build to only the initial work que stage until I fully vet the builds\" and \"The team decision tree is what I need to approve for agents to begin assuming full capacity\": Agents work up to Planning by default (the Project Manager proposes its gate, a person's Accept moves it; the Architect's hand-off off), raised only by the Founder one stage at a time once the decision tree, drawn from the runner's constants and tied to their fingerprint, is approved; a rule change clears the approval and lowers it to Planning. Agents never take a ticket: a person's Give it to the Team assigns it. The queue says what agents found and suggested.",
+  "title": "The Team's runner and daily audit, on staging only (Piece 2, P2-3 and P2-4)",
+  "why": "Jason's Piece 2 (decisions/0179; handoffs/piece2-team.md §5, approved 2026-11-25, Q1 A and Q4 B): a scheduled job that, on the staging copy only and while its switch is on, takes one ticket and does one step for one working role, logs it with Undo, and stops. The Work queue's tables become records, so live's tasks reach staging by catch-up and what the agents do reaches live only at Publish, in the approved batch. Nothing runs on live. Jason, 2026-11-25: \"limit agents and build to only the initial work que stage until I fully vet the builds\" and \"The team decision tree is what I need to approve for agents to begin assuming full capacity\": Agents work up to Planning by default (the Project Manager proposes its gate, a person's Accept moves it; the Architect's hand-off off), raised only by the Founder one stage at a time once the decision tree, drawn from the runner's constants and tied to their fingerprint, is approved; a rule change clears the approval and lowers it to Planning. Agents never take a ticket: a person's Give it to the Team assigns it. The queue says what agents found and suggested. With it, P2-4: Jason's Piece 2 (decisions/0179; handoffs/piece2-team.md §6, approved 2026-11-25): once a day on staging the Operations & Reconciliation Manager reads Site health's findings, late or failed jobs and open alarms, opens one Audit ticket per new finding, and a day later confirms it (opening a Work ticket, or a Resolution for a Tier 3) or clears it as noise. Nothing runs on live. Tier 3 is found by what a finding touches (decisions/0179's note, 2026-11-25): a page, file, job, service, library or table in TeamRunner::TIER3_AREAS, each taken from the live code. Words alone never make Tier 3: they leave it Tier 2 with a flag, \"Words suggest a Tier 3 boundary: a person checks\", which a person settles on the ticket (It's Tier 2, or It's Tier 3, which opens its Resolution), kept in the History.",
   "proposals": [],
   "switch": "",
   "changes": [
@@ -21,8 +21,31 @@
       "where": "app/lib/staging-tables.php"
     },
     {
-      "what": "FAQ: What does the Team's runner do? (updated) and What is the Team's decision tree?",
+      "what": "The daily audit (team_audit_tick), staging only, under the Team's runner switch",
+      "where": "https://staging.trvgo.us/admin/config/switches"
+    },
+    {
+      "what": "Run the audit now, on the Operations & Reconciliation Manager's card (greyed on live, with why)",
+      "where": "https://traversence.com/admin/config/team"
+    },
+    {
+      "what": "Tier 3 by what a finding touches; a word match alone flags it Tier 2 for a person to check (It's Tier 2 / It's Tier 3 on the ticket, the filter's Words suggest Tier 3)",
+      "where": "https://traversence.com/admin/config/control?tab=development"
+    },
+    {
+      "what": "Audit tickets in the Work queue: Found, then Confirmed or cleared as noise; the Audit closes with the ticket it opened",
+      "where": "https://traversence.com/admin/config/control?tab=development"
+    },
+    {
+      "what": "FAQ: What does the Team's runner do? (updated), What is the Team's decision tree?, What is the Team's daily audit? (with how a finding becomes Tier 3)",
       "where": "https://traversence.com/faq.php"
     }
-  ]
+  ],
+  "rollback": "Proved on the bench (tools/team-tests/rollback.sh, 2026-11-25): the zip laid over the live mirror (Sync 17:59 UTC, with #288) and its migrations run twice, then Roll back as the site does it (each file put back from live, the new ones removed): the files match live byte for byte, every PHP file parses, and the Work queue's own suites pass on the rolled-back code (work-queue 84, task-scope 44, task-adrs 32, with live's P2-1 migrations). Left behind: the tables team_runs and team_settings and the columns build_brief and flag on control_gauge_tasks, unused (migrations only add).",
+  "staging_only": "Nothing runs on live: team_tick and team_audit_tick exit when !Staging::here() and are in Scheduler::QUIET; the team_runner switch is staging-only and off by default; TeamRunner::blocked() returns 'live' on live. What live shows: the Team page's decision tree and ceiling (Planning), the queue's agent indicators and filter, a ticket's runs section, and the Tier 3 flag's line.",
+  "checks": {
+    "ceiling": "Agents work up to Planning by default (team_settings); raised only by Access::isFounder() after the decision tree is approved, one stage at a time, never Confirmation; a rule change clears the approval and lowers it to Planning (runner.php; team-head.cjs at 1280 and 390).",
+    "person_only_flag": "It's Tier 2 / It's Tier 3 are a person's buttons only: TeamRunner never calls settleFlag or clears a flag, and a flagged ticket through six runner ticks at Implementation keeps its flag and tier with no Resolution opened by an agent (runner.php, the session manager's check 2026-11-25).",
+    "mission_deadlock": "Mission (mission, commission, zero-commission) and deadlock (deadlock, conflicting decisions, decisions that disagree/conflict/contradict) are word lists in TeamRunner::TIER3 with no area in TIER3_AREAS: a finding about either is always Tier 2 with a flag for a person (runner.php, audit.php)."
+  }
 }

@@ -36,8 +36,8 @@ function tv_admin_mod_team(PDO $pdo): string
     }
     $h .= '</tbody></table></div><p class="tm-note"><b>Always the Founder\'s:</b> every Tier 3 answer, approving the daily batch, approving this tree, and raising how far agents work. Agents never work a ticket a person has, never take one themselves, never answer a Tier 3, never write over a person\'s words, and never call an outside service or paid AI.</p>';
     $fp = substr(TeamRunner::fingerprint(), 0, 12);
-    $h .= $tree ? '<p data-tv-status="ok" data-tv-label="Approved:"><b>Approved</b> by ' . $e($tree['who']) . ', ' . $when($tree['at'], (string) $tree['tz']) . ' · rules fingerprint ' . $e($fp) . '. A change to any rule clears it and agents go back to Planning.</p>'
-        : '<div class="tm-acts"><p data-tv-status="info" data-tv-label="Not approved yet:"><b>Not approved yet.</b> Agents work up to Planning until it is (rules fingerprint ' . $e($fp) . ').</p><button type="button" class="ak-b" data-tm="tree"' . ($founder ? '' : ' disabled title="' . $e($noF) . '"') . '>Approve the decision tree</button></div>';
+    $h .= $tree ? '<p data-tv-status="ok" data-tv-label="Approved:">By ' . $e($tree['who']) . ', ' . $when($tree['at'], (string) $tree['tz']) . ' · rules fingerprint ' . $e($fp) . '. A change to any rule clears it and agents go back to Planning.</p>'
+        : '<div class="tm-acts"><p data-tv-status="info" data-tv-keep data-tv-label="Not approved yet:">Agents work up to Planning until it is (rules fingerprint ' . $e($fp) . ').</p><button type="button" class="ak-b" data-tm="tree"' . ($founder ? '' : ' disabled title="' . $e($noF) . '"') . '>Approve the decision tree</button></div>';
     $h .= '</section>';
     // the ceiling
     $keys = array_keys(TeamRunner::CEILINGS); $i = array_search($ceil, $keys, true); $next = $keys[$i + 1] ?? '';

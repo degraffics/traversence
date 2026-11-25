@@ -598,16 +598,14 @@ P2-3 waits for Question 1. Each release adds its FAQ entries (decisions/0057), i
 
 ## Build progress (kept current by the build session)
 
-Built on Sync 2026-11-25 16:58 UTC (0d756a5; the 02:02 sync's files are the same). Nothing sent: releases wait for the
-session manager's word on Jason's pre-approval and the staging switches (0179 rule 1).
+Updated 2026-11-25 18:40 UTC. The vetting guide for Jason is `handoffs/piece2-guide.md`.
 
 | Release | State | Where | Tests |
 |---|---|---|---|
-| P2-2 `team-roster.zip` | built, zip check clean, claims taken; summary sent to the session manager | `handoffs/piece2-build/team-roster/` | roster.php 51, roster.cjs 40 |
-| P2-1 `team-tickets.zip` | built over P2-2 (both carry `staging-tables.php` and `faq.md`: send after P2-2 is live, rebuilding those two on the live copy) | `handoffs/piece2-build/team-tickets/` | tickets.php 48, tickets.cjs 60, old suites 84/44/32 |
-| P2-3 `team-runner.zip` | built over P2-1 (carries the same shared files: send after P2-1 is live, rebuilt on it) | `handoffs/piece2-build/team-runner/` | runner.php 32, runner.cjs 22; roster, tickets and the old suites still pass |
-| P2-4 `team-audit.zip` | built over P2-3; its zip check's only blocks are R14 for tables P2-1 and P2-3 classify (checked against today's live): clears once they're live and it's rebuilt | `handoffs/piece2-build/team-audit/` | audit.php 21; every earlier suite still passes |
-| P2-5 `team-batch.zip` | | | |
+| P2-2 `team-roster.zip` | **live, #287** (verified: 33 rows on live) | `handoffs/piece2-build/team-roster/` | roster.php 51, roster.cjs 40 |
+| P2-1 `team-tickets.zip` | **live, #288**, built on Sync 17:36. Verified: the 17:59 sync matches byte for byte; the cron-audit ticket is on live once (#51) | `handoffs/piece2-build/team-tickets/` | tickets.php 54, tickets.cjs 62; old suites 84/44/32 |
+| P2-3 + P2-4 `team-runner.zip` | Built on Sync 17:59 as one release (they share lines and the switch; the session manager was told). The root is made by `p234.py`: the bench minus P2-5's pieces. | `handoffs/piece2-build/team-runner/` | runner.php 45, runner.cjs 44, audit.php 33, team-head.cjs 28; roster, tickets as above |
+| P2-5 `team-batch.zip` | built on the bench; sent last, on the sync after team-runner | `handoffs/piece2-build/team-batch/` | batch.php 20, batch.cjs 18, batch_py.py 7 |
 | P2-6 | out (Q4 B) | | |
 
 Changes from the design, each said in its release summary: the Team icon moved from P2-2 to P2-1 (it's on

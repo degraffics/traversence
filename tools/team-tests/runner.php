@@ -16,7 +16,7 @@ $run = function (string $f) use ($pdo) { foreach (DbUpdates::statements((string)
 $run(__DIR__ . '/before-schema.sql');
 $H = dirname(__DIR__, 2) . '/handoffs/';
 foreach ([$H . 'task-scope/build/app/migrations/2026-11-24_task_scope.sql', $H . 'task-adrs/build/app/migrations/2026-11-24_task_adrs.sql'] as $f) $run($f);
-foreach (['2026-11-25_tickets.sql', '2026-11-25_tickets_stage.sql', '2026-11-25_team_roster.sql', '2026-11-25_team_roster_seed.sql', '2026-11-25_team_runs.sql', '2026-11-25_team_runs.sql'] as $f) $run($app . '/migrations/' . $f);
+foreach (['2026-11-25_tickets.sql', '2026-11-25_tickets_stage.sql', '2026-11-25_team_roster.sql', '2026-11-25_team_roster_seed.sql', '2026-11-25_team_runs.sql', '2026-11-25_team_runs.sql', '2026-11-25_team_flag.sql'] as $f) $run($app . '/migrations/' . $f);
 $pdo->exec("CREATE TABLE feature_switches (switch_key VARCHAR(60) PRIMARY KEY, state VARCHAR(10), share_pct INT DEFAULT 0, killed TINYINT DEFAULT 0, note VARCHAR(255), updated_by INT NULL, updated_at DATETIME)");
 $pdo->exec("CREATE TABLE IF NOT EXISTS admin_permissions (action VARCHAR(80) PRIMARY KEY, min_level VARCHAR(20), departments VARCHAR(200), updated_by INT)");
 $pdo->exec("CREATE TABLE IF NOT EXISTS site_releases (id INT AUTO_INCREMENT PRIMARY KEY, zip_name VARCHAR(190) NOT NULL DEFAULT '', state VARCHAR(20) NOT NULL DEFAULT '', live_at DATETIME NULL)");
@@ -122,4 +122,15 @@ $t('team_tick: in the jobs, set up by itself, and QUIET (its silence on live is 
 $t('its script exits on live before anything is recorded', preg_match('/if \(!Staging::here\(\)\) exit\(0\);[\s\S]*Scheduler::run/', (string) file_get_contents($app . '/scripts/team_tick.php')) === 1);
 $t('the switch ships off', Switches::DEFS['team_runner'][2] === 'off');
 $t('the Team page lists each working role\'s real steps', TeamRoster::steps('project-manager') === ['gate'] && TeamRoster::steps('qa-security') === [] && TeamRoster::steps('translator') === ['brief']);
+// "It's Tier 2" / "It's Tier 3" are a person's buttons only (the session manager's check on P2-4, 2026-11-25): the runner's code
+// never settles a flag, and with a flagged ticket in the queue at the highest ceiling, many ticks leave its flag and tier alone
+$src = (string) file_get_contents($app . '/lib/TeamRunner.php');
+$t('the runner\'s code never calls settleFlag, never clears a flag', !str_contains($src, 'settleFlag') && !preg_match("/flag\s*=\s*''/", $src) && !str_contains($src, "'qflag'"));
+$fl = GaugeTasks::add($pdo, 'area:control-board', 'A refund note on a trail page', 'Text left from a template', 'test', $J, 1); GaugeTasks::flag($pdo, $fl, 'money');
+GaugeTasks::edit($pdo, $fl, ['goal' => 'g', 'done_when' => 'd', 'priority' => '2'], $J); GaugeTasks::noDecision($pdo, $fl, $J); GaugeTasks::assign($pdo, $fl, 'system · Project Manager', $J);
+TeamRunner::setCeiling($pdo, 'implementation', $J); for ($i = 0; $i < 6; $i++) { $gap(); TeamRunner::tick($pdo); }
+$t('a flagged ticket through six ticks at Implementation: still flagged money, still Tier 2, no Resolution opened by an agent', $row($fl)['flag'] === 'money' && (int) ($row($fl)['tier'] ?? 2) !== 3
+    && (int) $pdo->query("SELECT COUNT(*) FROM control_gauge_tasks WHERE parent_id = $fl AND ticket = 'resolution'")->fetchColumn() === 0);
+$t('mission and deadlock: words only, a flag for a person (no area in the code to touch)', TeamRunner::tier('zero-commission for makers') === [2, '', 'mission'] && TeamRunner::tier('two decisions disagree on the cap')[2] === 'deadlock'
+    && TeamRunner::tier('a deadlock between 0164 and 0163')[2] === 'deadlock' && !isset(TeamRunner::TIER3_AREAS['mission']) && !isset(TeamRunner::TIER3_AREAS['deadlock']));
 echo "\n$pass passed, $fail failed\n"; exit($fail ? 1 : 0);

@@ -60,13 +60,14 @@ final class TeamRunner
      */
     public const TIER3_AREAS = [
         'money' => ['libs' => ['QuickBooksPay', 'Billing', 'Orders', 'ClientOrders', 'Wallet', 'MarketPay', 'AccountDomains'],
-            'tables' => ['orders', 'order_lines', 'order_ledger', 'order_payments', 'payments', 'invoices', 'subscriptions', 'wallet_cards', 'account_domains', 'biz_payments', 'market_orders'],
-            'paths' => ['/checkout', '/cart', '/billing', '/admin/backoffice/orders', '/order', '/pay', '/wallet', '/domains'],
+            'tables' => ['orders', 'order_lines', 'order_ledger', 'order_events', 'order_refund_requests', 'order_payment_cancels', 'subscriptions', 'subscription_charges', 'wallet_cards', 'account_domains', 'domain_cart', 'market_orders', 'market_pay_events'],
+            'paths' => ['/order.php', '/user/orders.php', '/market/cart.php', '/market/order.php', '/qr/cart.php', '/shop/domains.php', '/user/domains/', '/business/pay-connect.php', '/api/market-pay.php', '/api/market-webhook.php', '/api/qb-webhook.php', '/api/client-order.php', '/api/domains.php', '/api/admin/client-order.php', '/admin/order.php', '/admin/client-order.php', '/admin/quickbooks.php', '/admin/backoffice/orders', '/admin/backoffice/production'],
             'jobs' => ['billing_tick', 'pay_wait_tick', 'qb_orders_tick', 'got_it_tick', 'market_tick'], 'services' => ['quickbooks', 'stripe', 'square']],
-        'data' => ['libs' => ['DataMove', 'DbUpdates', 'StagingPublish'], 'tables' => ['db_updates_log'], 'paths' => ['/admin/config/dbupdates'], 'jobs' => [], 'services' => []],
-        'address' => ['libs' => [], 'tables' => ['short_codes', 'business_domains'], 'paths' => ['/.htaccess', '/admin/router.php'], 'jobs' => ['domains_tick'], 'services' => ['cloudflare']],
-        'nations' => ['libs' => ['Landmarks', 'Nations'], 'tables' => ['landmarks', 'nations', 'nation_decision_log'], 'paths' => ['/landmark', '/nation'], 'jobs' => ['landmark_photos_tick', 'heritage_tick'], 'services' => []],
-        'privacy' => ['libs' => ['Auth', 'StaffLogin', 'TestAccounts', 'People'], 'tables' => ['users', 'people_connections', 'user_otp_challenges', 'two_step_devices', 'test_records'], 'paths' => ['/api/auth/', '/user/account', '/admin/config/testaccounts'], 'jobs' => ['guest_tick'], 'services' => []],
+        'data' => ['libs' => ['DataMove', 'DbUpdates', 'StagingPublish'], 'tables' => ['db_updates_log'], 'paths' => ['/admin/config/dbupdates', 'app/migrations/'], 'jobs' => [], 'services' => []],
+        'address' => ['libs' => [], 'tables' => ['short_codes', 'business_domains'], 'paths' => ['/.htaccess', '/admin/router.php', 'trvgo/index.php', 'trvgo/.htaccess', 'site-audit/pages.md'], 'jobs' => ['domains_tick'], 'services' => ['cloudflare', 'namecom', 'fly']],
+        'nations' => ['libs' => ['Landmarks', 'Nations'], 'tables' => ['landmarks', 'nations', 'nation_decision_log'], 'paths' => ['/place/landmark.php', '/admin/landmarks.php', '/admin/nations.php', '/api/crawl/landmarks.php'], 'jobs' => ['landmark_photos_tick', 'heritage_tick'], 'services' => []],
+        'privacy' => ['libs' => ['Auth', 'StaffLogin', 'TestAccounts', 'People', 'StepUpAuth', 'AccountDeletion'], 'tables' => ['users', 'staff_accounts', 'email_confirmations', 'people_connections', 'contact_cards', 'messages', 'user_otp_challenges', 'two_step_devices', 'test_records'],
+            'paths' => ['/api/auth/', '/user/accounts.php', '/user/delete-account.php', '/user/api/delete-account.php', '/user/api/profile.php', '/user/api/people.php', '/admin/people.php', '/admin/api/people.php', '/admin/config/testaccounts', '/privacy.php', 'app/storage/'], 'jobs' => ['guest_tick'], 'services' => []],
     ];
 
     /** The rule data the decision tree's approval is tied to (0179's note: "a fingerprint of its rules, not its wording"). */
@@ -168,11 +169,14 @@ final class TeamRunner
      * otherwise (it still waits for the approved batch, 0179 rule 1). boundary => pattern.
      */
     public const TIER3 = [
-        'money' => '/\b(order|orders|payment|payments|billing|invoice|refund|charge|price|pricing|quickbooks|stripe|square|payout|subscription)\b/i',
-        'data' => '/\b(drop table|drop column|delete from|truncate|data loss|deleted rows|reshape)\b/i',
-        'address' => '/\b(redirect|404|public address|url change|broken link to|route removed)\b/i',
-        'nations' => '/\b(nation|nations|tribal|sacred|burial|0066|landmarks::)\b/i',
-        'privacy' => '/\b(privacy|private|personal data|email address|phone number|is_test|test account counted|leak)\b/i',
+        'money' => '/\b(orders?|payments?|billing|invoices?|refunds?|charges?|charged|prices?|pricing|quickbooks|stripe|square|payouts?|subscriptions?)\b/i',
+        'data' => '/\b(delete|deleted|deletes|drop|dropped|migrations?|purge|purged|truncate|data loss|reshape)\b/i',
+        'address' => '/\b(routes?|urls?|redirects?|public address|404)\b/i',
+        'nations' => '/(\b0066\b|\bnations?\b|\btribal\b|\bsacred\b|\bburials?\b|archaeolog|landmark visibility|landmarks::)/i',
+        'privacy' => '/\b(privacy|private|personal|email address(es)?|phone numbers?|consent|is_test|leak)\b/i',
+        // the two boundaries with no area in the code (0179 rule 3): a finding about them is always a word flag for a person
+        'mission' => '/\b(mission|commission|zero-commission)\b/i',
+        'deadlock' => '/\b(deadlock(ed)?|conflicting decisions|decisions? (that )?(disagree|conflict|contradict)s?|contradicts? (decision|adr) ?\d{0,4})\b/i',
     ];
     public const TIER1 = '/\b(wording|typo|faq|label|tests?|layout|390|phone|mobile|contrast|spacing)\b/i';
 
@@ -241,11 +245,42 @@ final class TeamRunner
         return false;
     }
 
-    /** [tier, boundary] for a finding's words. */
-    public static function tier(string $text): array
+    /**
+     * [tier, boundary, flag] for a finding (0179's note, 2026-11-25: Tier 3 "detected by what a change or finding touches"). Its
+     * targets come first: a page or file path (by its start), a job, a service, a library or a table named in TIER3_AREAS makes
+     * it Tier 3 in that area. Words alone never do: a word in TIER3 leaves it Tier 2 with that area as its flag ("Words suggest a
+     * Tier 3 boundary: a person checks"). Tier 1 only for the low-risk kinds (TIER1) with no flag; anything else Tier 2.
+     * Targets: ['path:/order.php', 'job:billing_tick', 'svc:stripe', 'lib:Orders', 'table:orders'].
+     */
+    public static function tier(string $text, array $targets = []): array
     {
-        foreach (self::TIER3 as $b => $re) if (preg_match($re, $text)) return [3, $b];
-        return [preg_match(self::TIER1, $text) ? 1 : 2, ''];
+        if ($b = self::touches($targets)) return [3, $b, ''];
+        foreach (self::TIER3 as $b => $re) if (preg_match($re, $text)) return [2, '', $b];
+        return [preg_match(self::TIER1, $text) ? 1 : 2, '', ''];
+    }
+
+    /** The Tier 3 area a finding's targets touch, or ''. */
+    public static function touches(array $targets): string
+    {
+        $kinds = ['path' => 'paths', 'job' => 'jobs', 'svc' => 'services', 'lib' => 'libs', 'table' => 'tables'];
+        foreach ($targets as $tg) {
+            [$k, $v] = array_pad(explode(':', (string) $tg, 2), 2, ''); $v = trim($v); if ($v === '' || !isset($kinds[$k])) continue;
+            if ($k === 'path') { $v = (string) (parse_url($v, PHP_URL_PATH) ?? $v); $v = preg_replace('#^(website|sync-storage)/#', '/', $v); }
+            foreach (self::TIER3_AREAS as $b => $a) foreach ($a[$kinds[$k]] as $x) {
+                if ($k === 'path' ? ($v === $x || str_starts_with($v, $x) || str_starts_with(ltrim($v, '/'), ltrim($x, '/'))) : strcasecmp($v, $x) === 0) return $b;
+            }
+        }
+        return '';
+    }
+
+    /** What a finding's own record names: its page and paths, the files in its detail (app/lib/X.php → lib:X), its job, its component. */
+    public static function targetsOf(string $page, array $paths = [], string $detail = ''): array
+    {
+        $out = [];
+        foreach (array_merge([$page], $paths) as $p) if (trim((string) $p) !== '') $out[] = 'path:' . trim((string) $p);
+        if (preg_match_all('#\b(app/(?:lib|admin)/([A-Za-z]+)\.php|app/migrations/[\w.-]+|website/[\w./-]+\.php|trvgo/[\w./-]+)#', $detail, $m, PREG_SET_ORDER))
+            foreach ($m as $x) $out[] = ($x[2] ?? '') !== '' ? 'lib:' . $x[2] : 'path:' . $x[1];
+        return array_values(array_unique($out));
     }
 
     /**
@@ -257,18 +292,27 @@ final class TeamRunner
     {
         $out = [];
         try { require_once __DIR__ . '/SiteHealth.php';
-            foreach (SiteHealth::open($pdo) as $f) $out['finding:' . $f['id']] = ['Site health: ' . $f['title'], trim($f['severity'] . ' · ' . $f['detail'] . ($f['page'] !== '' ? ' · ' . $f['page'] : '') . ($f['blocks'] ? ' · blocks ' . $f['blocks'] . ' path' . ($f['blocks'] === 1 ? '' : 's') : ''))];
+            foreach (SiteHealth::open($pdo) as $f) $out['finding:' . $f['id']] = ['Site health: ' . $f['title'], trim($f['severity'] . ' · ' . $f['detail'] . ($f['page'] !== '' ? ' · ' . $f['page'] : '') . ($f['blocks'] ? ' · blocks ' . $f['blocks'] . ' path' . ($f['blocks'] === 1 ? '' : 's') : '')),
+                self::targetsOf((string) $f['page'], [], (string) $f['detail'])];   // its 'paths' are the visitor paths it blocks (names, not pages)
         } catch (Throwable $x) {}
         try { require_once __DIR__ . '/Scheduler.php'; require_once __DIR__ . '/Staging.php';
             $skip = array_merge(Scheduler::QUIET, Scheduler::RETIRED, Staging::here() ? Scheduler::NOT_ON_STAGING : []);
             foreach (Scheduler::lastRuns($pdo) as $job => $r) {
                 if (in_array($job, $skip, true) || !isset(Scheduler::JOBS[$job])) continue;
                 $late = (int) Scheduler::JOBS[$job][3]; $st = $pdo->prepare('SELECT TIMESTAMPDIFF(MINUTE, ?, NOW())'); $st->execute([(string) $r['started_at']]); $mins = (int) $st->fetchColumn();
-                if ($late > 0 && $mins > $late) $out['job:' . $job] = ['A scheduled job is late: ' . Scheduler::JOBS[$job][0], 'Its last run started ' . round($mins / 60, 1) . ' hours ago; it\'s late after ' . round($late / 60, 1) . ' (Scheduled tasks).'];
-                elseif ((int) ($r['fails_today'] ?? 0) > 0 && (int) $r['ok'] === 0) $out['job:' . $job . ':fail'] = ['A scheduled job failed: ' . Scheduler::JOBS[$job][0], 'Its last run stopped: ' . (string) $r['note']];
+                if ($late > 0 && $mins > $late) $out['job:' . $job] = ['A scheduled job is late: ' . Scheduler::JOBS[$job][0], 'Its last run started ' . round($mins / 60, 1) . ' hours ago; it\'s late after ' . round($late / 60, 1) . ' (Scheduled tasks).', ['job:' . $job]];
+                elseif ((int) ($r['fails_today'] ?? 0) > 0 && (int) $r['ok'] === 0) $out['job:' . $job . ':fail'] = ['A scheduled job failed: ' . Scheduler::JOBS[$job][0], 'Its last run stopped: ' . (string) $r['note'], ['job:' . $job]];
             }
         } catch (Throwable $x) {}
-        try { foreach ($pdo->query("SELECT id, title, level FROM control_alarms WHERE cleared_at IS NULL ORDER BY id")->fetchAll(PDO::FETCH_ASSOC) as $a) $out['alarm:' . $a['id']] = ['An open alarm: ' . $a['title'], 'Level ' . $a['level'] . ' on the System Control Board.'];
+        try { foreach ($pdo->query("SELECT * FROM control_alarms WHERE cleared_at IS NULL ORDER BY id")->fetchAll(PDO::FETCH_ASSOC) as $a) {
+                $c = (string) ($a['component'] ?? ''); $tg = [];   // what it touches: its component (svc:, ep:, job:), else the job or service its key names
+                foreach (array_filter([$c, (string) $a['akey']]) as $k) {
+                    if (preg_match('#^svc:([a-z0-9_]+)#', $k, $m)) $tg[] = 'svc:' . $m[1];
+                    elseif (preg_match('#^ep:([a-z0-9_/.-]+)#', $k, $m)) $tg[] = 'path:/' . ltrim($m[1], '/');
+                    elseif (preg_match('#^(?:job|task:failed):([a-z0-9_]+)#', $k, $m)) $tg[] = 'job:' . $m[1];
+                }
+                $out['alarm:' . $a['id']] = ['An open alarm: ' . $a['title'], 'Level ' . $a['level'] . ' on the System Control Board.', array_values(array_unique($tg))];
+            }
         } catch (Throwable $x) {}
         return $out;
     }
@@ -298,11 +342,12 @@ final class TeamRunner
                 $c = GaugeTasks::auditConfirm($pdo, (int) $t['id'], $who); $n['confirmed']++;
                 self::log($pdo, $role, $c, 'audit', 'its second look at task #' . $t['id'], 'Confirmed task #' . $t['id'] . ' and opened this ' . ((int) $t['tier'] === 3 ? 'Resolution' : 'Work') . ' ticket (Tier ' . (int) $t['tier'] . ')', 'done', '', null, 'Withdraws this ticket', ['withdraw' => $c], 'task:' . $c);
             }
-            foreach ($now as $k => [$what, $words]) {   // a new finding
+            foreach ($now as $k => $fd) {   // a new finding
+                [$what, $words] = $fd; $tg = (array) ($fd[2] ?? []);
                 if (isset($have[$k])) continue;
-                [$tier, $b] = self::tier($what . ' ' . $words);
-                $id = GaugeTasks::auditOpen($pdo, $k, $what, $words . ($b !== '' ? ' (Tier 3: ' . GaugeTasks::BOUNDARIES[$b] . ')' : ''), $tier, $who);
-                self::log($pdo, $role, $id, 'audit', $k, 'Found: ' . $what . ' (Tier ' . $tier . '); it\'s looked at again tomorrow', 'done', '', null, 'Withdraws this ticket', ['withdraw' => $id], 'task:' . $id);
+                [$tier, $b, $flag] = self::tier($what . ' ' . $words, $tg);
+                $id = GaugeTasks::auditOpen($pdo, $k, $what, $words . ($b !== '' ? ' (Tier 3: ' . GaugeTasks::BOUNDARIES[$b] . ', by what it touches)' : ''), $tier, $who, '', $flag);
+                self::log($pdo, $role, $id, 'audit', $k . ($tg ? ' · touches ' . implode(', ', $tg) : ''), 'Found: ' . $what . ' (Tier ' . $tier . ($flag !== '' ? ', words suggest ' . (GaugeTasks::BOUNDARIES[$flag] ?? $flag) . ': a person checks' : '') . '); it\'s looked at again tomorrow', 'done', '', null, 'Withdraws this ticket', ['withdraw' => $id], 'task:' . $id);
                 $n['opened']++;
             }
             return $who . ' · audit (' . $how . '): ' . count($now) . ' finding' . (count($now) === 1 ? '' : 's') . ' · ' . $n['opened'] . ' new · ' . $n['confirmed'] . ' confirmed · ' . $n['cleared'] . ' cleared as noise';

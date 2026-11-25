@@ -1,0 +1,11 @@
+{
+  "title": "The daily batch and the Founder's emailed answers (Piece 2, P2-5)",
+  "why": "Jason's Piece 2 (decisions/0179 rule 1; handoffs/piece2-team.md §7; Q3 A, 2026-11-25): the session manager's daily batch (releases/batch.json, carried in gauges.json by gauges.py) shown at the top of the Work queue, only on its own day, with the Tier 3 decisions waiting first; Approve the batch for the Founder's own login only (Access::isFounder), recorded once for the day and carried by report() to the session manager; the Founder's emailed Tier 3 answers (gauge-pickups.json's answers) applied once, only to a Resolution waiting for him, as \"Jason (by email, recorded by the session manager)\", with History.",
+  "proposals": [],
+  "switch": "",
+  "changes": [
+    {"what": "Today's batch at the top of the Work queue: the Tier 3 decisions waiting first, each release's line, Approve the batch (the Founder's), or No batch from the session manager today", "where": "https://traversence.com/admin/config/control?tab=development"},
+    {"what": "The Founder's emailed answers put on their Resolution tickets once, kept in the History", "where": "a Resolution task's page"},
+    {"what": "FAQ: What is Today's batch at the top of the Work queue?", "where": "https://traversence.com/faq.php"}
+  ]
+}

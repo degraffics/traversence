@@ -236,7 +236,7 @@ try {
             // the Work queue (Jason, 2026-11-24: "We need to be able to add tasks to the queue and manage them so we don't fall out
             // of score or forget what we identified as needing to be done"): Add a task, Edit (History kept), Take, Move to a
             // session, its release, Withdraw with a reason. The same record as Request a fix (control_gauge_tasks).
-            if (in_array($act, ['qadd', 'qedit', 'qassign', 'qrelease', 'qwithdraw', 'qhistory', 'qstep', 'qstepedit', 'qadr', 'qadrkeep', 'qadrfind', 'qmove', 'qnoadr', 'qbrief', 'qsend', 'qanswer', 'qrunundo', 'qrunaccept', 'qrundismiss', 'qbatch'], true)) { require_once __DIR__ . '/../../app/lib/GaugeTasks.php';
+            if (in_array($act, ['qadd', 'qedit', 'qassign', 'qrelease', 'qwithdraw', 'qhistory', 'qstep', 'qstepedit', 'qadr', 'qadrkeep', 'qadrfind', 'qmove', 'qnoadr', 'qbrief', 'qsend', 'qanswer', 'qrunundo', 'qrunaccept', 'qrundismiss', 'qflag'], true)) { require_once __DIR__ . '/../../app/lib/GaugeTasks.php';
                 $tz = (string) ($in['tz'] ?? ''); $tid = (int) $pid;
                 try {
                     if ($act === 'qadd') { $nid = GaugeTasks::add($pdo, (string) ($in['gauge'] ?? ''), (string) ($in['what'] ?? ''), (string) ($in['why'] ?? ''), (string) ($in['source'] ?? ''), $who, $uid, $tz, (string) ($in['ticket'] ?? 'work') ?: 'work');
@@ -261,12 +261,8 @@ try {
                     if ($act === 'qmove') Response::success(['message' => GaugeTasks::move($pdo, $tid, (string) ($in['to'] ?? ''), $who, (string) ($in['why'] ?? ''), $tz)]);
                     if ($act === 'qnoadr') Response::success(['message' => GaugeTasks::noDecision($pdo, $tid, $who, $tz)]);
                     if ($act === 'qbrief') Response::success(['message' => GaugeTasks::briefEdit($pdo, $tid, (string) ($in['field'] ?? ''), (string) ($in['value'] ?? ''), $who, $tz)]);
+                    if ($act === 'qflag') Response::success(['message' => GaugeTasks::settleFlag($pdo, $tid, ($in['value'] ?? '') === 'tier3', $who, $tz)]);   // P2-4: a person checks words that suggest Tier 3
                     if ($act === 'qsend') Response::success(['message' => GaugeTasks::sendBrief($pdo, $tid, $who, $tz)]);
-                    // Approve the batch (decisions/0179 rule 1; P2-5): the Founder's alone; reaches the session manager in the hourly report
-                    if ($act === 'qbatch') { if (!Access::isFounder()) Response::error('Only the Founder, signed in with the Founder\'s own staff login, approves the batch (decisions/0179 rule 1).', 403);
-                        $d = (string) ($in['date'] ?? ''); if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $d)) Response::error('Which day\'s batch?', 422);
-                        GaugeTasks::approve($pdo, 'area:batch-' . $d, 'batch', (string) ($in['value'] ?? ''), 'the daily batch', $who, $uid, $tz);
-                        Response::success(['message' => 'Approved. The session manager has it at the next hourly report.']); }
                     // the Team's runs (P2-3, staging): Undo a run, Accept or Dismiss a proposal; id = the run
                     if (in_array($act, ['qrunundo', 'qrunaccept', 'qrundismiss'], true)) { require_once __DIR__ . '/../../app/lib/TeamRunner.php'; $rid = (int) ($in['rid'] ?? 0);
                         Response::success(['message' => $act === 'qrunundo' ? TeamRunner::undo($pdo, $rid, $who, $tz) : ($act === 'qrunaccept' ? TeamRunner::accept($pdo, $rid, $who, $tz) : TeamRunner::dismiss($pdo, $rid, $who))]); }
