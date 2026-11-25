@@ -373,3 +373,42 @@ The advocates as the check uses them:
 - The ten member test accounts, each on its own pages at both sizes, and on public and admin pages at 390. A member
   opening an admin page is a leak.
 - `advocate-staff-views`: the Test Executive at both sizes and the Test Ops Staff at 390, on admin pages.
+
+## 12. P3-2's build plan (in progress, 2026-11-25; on the live copy of Sync 18:38 UTC, 16caf39)
+
+- **`app/lib/BeforeAfter.php` (new):**
+  - Switch `before_after` in `Switches::DEFS`: a background job, shipped off. Jason or the session manager turns it on
+    once P3-1 is merged.
+  - `ask($release, $phase, $zip, $blob)`: `repository_dispatch` `before-after`, through a new `AuditClock::askGitHub()`
+    beside `dispatch()` (add only).
+  - `verdict($release)`: `DocsRepo::raw('site-audit/results/beforeafter/<N>.json', true)`, the "phase", "verdict" and
+    "first" fields checked one by one.
+  - State per release, in `site_release_settings` `ba:<id>`: {phase, asked_at, zip, path, blob, hold, minutes}.
+  - `budget()` (DB4): minutes a day in `site_release_settings` `ba_budget`. Unset means counted but not enforced, until
+    P3-1's first real runs give the number. Once spent, a release stages and holds for the batch (`autoPublish` with hold).
+  - `advance($pdo)`, run by `releases_tick` after `fromGit`:
+    1. before-done: `Releases::straightOn`.
+    2. Staged with its checks passed: ask for "after".
+    3. after-done: `Releases::checkedByAdvocates($pdo, $id, $verdict)`.
+    4. No answer in 60 minutes: ask again once. At 120 minutes: a Work queue Audit ticket, "The before-and-after check
+       didn't answer for release #N".
+- **Releases.php:**
+  - `fromGitLocked`: when `BeforeAfter::begin()` takes the release, it waits ("Waiting for its before look") instead of
+    `straightOn` and `autoPublish`. When the switch is off, everything is as today.
+  - New public `checkedByAdvocates()`:
+    1. Adds the item "Before and after (advocates)" (true, false, or null for incomplete) to its checks.
+    2. A pass goes to `autoPublish` (with hold when the budget is spent or `release.json` asks for review).
+    3. A block goes to `selfWithdraw`, plus `GaugeTasks::auditOpen('ba:<id>', …)` in the Work queue (DB2).
+    4. Incomplete holds for review: it never publishes alone.
+  - `standing()`: the waiting state's words.
+- **The roster:** `advocate-staff-views`, Staff Views Advocate, test account `executive`. A seed migration
+  (INSERT … WHERE NOT EXISTS, with its `data_reason`).
+- **G5's canary landmark** moves to P3-4: it needs a staging-only job and Landmarks' own add path.
+- **FAQ:** "What is the before-and-after check?"
+- **Tests:** `tools/piece3-tests/pipeline.php` on MariaDB, with `BeforeAfter::$askFn` and `$readFn` stubbed:
+  - begin; before-done goes to straightOn;
+  - a staged release asks for "after";
+  - pass publishes (or holds), block withdraws and opens the ticket, incomplete holds;
+  - late: asked again, then a ticket;
+  - the budget;
+  - the switch off leaves everything as today.
