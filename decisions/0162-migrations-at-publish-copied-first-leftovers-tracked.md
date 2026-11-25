@@ -65,3 +65,11 @@ up unseen.
 (an ENUM turned to text) and #70 (a `MODIFY`), and MySQL 8 refused #78's column named `stored`, a reserved word. Each was
 withdrawn and resent add-only (#66 with no migration, #71, #79); nothing reached live. Check new column names against
 MySQL 8's reserved words, not only MariaDB's.
+
+**Note (2026-11-25, the Control Board build session; a finding, not yet a change):** release #284's data migration
+(`2026-11-24_task_seed.sql`) was cleared **unrun**: `DbUpdates::autoRun` counts a file as already run when every table,
+column and index it names exists (`DbUpdates::all()`, state `run`, logged "already there"), and its one `CREATE TABLE IF NOT
+EXISTS` named a table release #283 had just made. Its inserts never ran, yet the release said its migration ran. Re-sent as
+`2026-11-24_task_seed_2.sql` with no CREATE (#285, checked on live data). **Suggest a change to this decision** (queued in the
+Work queue as priority 1, "The migration runner…"): a file counts as run only by its own `db_updates_log` entry, never by its
+tables existing; and the zip check refuses a row-writing migration whose every table and column already exists on live.
