@@ -11,6 +11,9 @@ is synced and byte-checked. Updated with every approval and every release.
 | Change how an order goes: two legs on 0101's existing fields (approved 2026-11-24) | M2b, PR #1346, built and reviewed | Orders | **Paused by Jason 2026-11-24 ("Pause for now. add to work queue.")**: goes into the Work queue. Out of flight: no inbox zip, claims released; PR #1346 merged as the record only (2026-11-25); its build in `handoffs/order-m2b/`, how to resume in `handoffs/order-management-m2.md` (Final hand-off) |
 | No Undo on an alarm's acknowledgement (CLAUDE.md #1314) | no-undo, built and tested, **not sent** | Control Board (archived) | in the Work queue (task: No Undo…), its build in `handoffs/no-undo/`, branch `claude/no-undo`; needs a Design look and Jason's pop-up |
 | Work queue phase 2: a task's thread (Jason's spec, 2026-11-24) | design only (`handoffs/work-queue-phase2.md`) | — | in the Work queue for Jason after his four-stage redesign |
+| 0179: publish authority, interim daily batch, target safe kinds alone (2026-11-25) | **Decision, in effect now for sessions** (daily batch); rule 2 waits for piece 3 | session manager | the daily summary written in chat until piece 2 builds its page |
+| Piece 2: Team roster, three ticket types, agent runner, staging only (2026-11-25) | not started | to be assigned | build brief, then one build session |
+| Piece 3: before-and-after check, Undo per agent action, spend limit per agent (2026-11-25) | not started | — | after piece 2; switches on 0179 rule 2 |
 
 ## Queued, in order
 

@@ -98,7 +98,7 @@ at 6:00 and 18:00 UTC or on demand (its workflow's Run button), committing the r
 - **What's live** is those folders on that repo's `main`, not a copy from an earlier session. Compare before building.
 - **Every build is a release, sent through git** (Jason, 2026-11-13; decisions/0159 §5): its zip (with a `release.json`:
   title, why, proposals, switch) goes in with `tools/page-audit/send.py <zip> --mirror <checkout> --note …` (zip check,
-  delivery log, `releases/inbox/`); merge it into `main` once Jason has approved it in chat. The live site takes it onto
+  delivery log, `releases/inbox/`); merge it into `main` once Jason has approved it (in the daily batch, decisions/0179). The live site takes it onto
   staging within 10 minutes, runs its checks, and publishes it by itself when they pass (Jason, 2026-11-13; kept by
   decisions/0165's correction, 2026-11-15). The site manager's **Publish** is for what Jason makes on staging: its data
   and zips he uploads there, merged into live. `"review": true` in `release.json`, only when he asked to see it, sends it for review: an email and a
@@ -238,19 +238,24 @@ Listings, outdoor places, experiences, places, journeys and any new content kind
 
 ## Each session asks Jason itself (Jason, 2026-11-18; replaces 2026-11-17's): every session
 
-A session that needs Jason's OK (a PR, a decision, a key) asks him in its own chat with the decision pop-up
-(AskUserQuestion: approve, not now, needs changes), never a plain line or a Pulse case, and sends a push notification.
+**Publish authority (decisions/0179, Jason, 2026-11-25): every release.** Until the before-and-after checks exist,
+nothing that needs approval goes live until Jason approves the **daily batch** (the session manager's daily summary);
+then low-risk kinds publish alone with Undo, the rest still ask; Tier 3 (money, major data or public addresses, 0066,
+privacy, mission, deadlocks) always comes to him as a Decision Brief.
+
+A session that needs Jason's OK (a PR, a decision, a key) asks him in its own chat, **written in the reply for him and
+Gemini to review, never a pop-up** (Jason, 2026-11-25; 0179), never a Pulse case, and sends a push notification.
 **Before asking, it sends the question (or the release summary and PR) to the session manager for review**
 (Jason, 2026-11-18): against the decision, the brief and these rules, for scope creep, drift, conflicts and anything
 already decided. It asks Jason only once the session manager answers "clear to ask" or its fixes are made, noting
 "reviewed by the session manager"; no answer in 10 minutes, it reminds the session manager; none in 30, it asks and marks it "not reviewed". It then tells the
 session manager the answer and the link by send_message. The session manager never asks the same
 question again; it lists what's still open at the top of its replies as **"Waiting for your OK:"** (with each
-session's name), and asks only its own questions. **Sessions merge their own PR** once Jason approves it in the pop-up
+session's name), and asks only its own questions. **Sessions merge their own PR** once Jason approves it
 (Jason, 2026-11-18: no waiting on the session manager), then tell it the merge; it runs the sync and records deliveries.
 
 **Decision or release: said every time** (Jason, 2026-11-24: "make the decisions vs work to live very clear"). Every
-pop-up's first words say which it is: **"Decision (nothing changes on the site yet): goes live in <release>, <its
+question's first words say which it is: **"Decision (nothing changes on the site yet): goes live in <release>, <its
 place in the queue>"** or **"Release (live about 10 minutes after merge): <what you'll see, and where>"**. Replies say
 "live" only for what's synced and byte-checked. The session manager keeps `handoffs/decided-not-live.md` (each
 decision, its release, its place) current with every approval and every release, and its top line in each reply.
