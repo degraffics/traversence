@@ -243,6 +243,17 @@
    "expires": "2026-11-25T21:07:40Z",
    "release": "team-tickets.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/staging-tables.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "Piece 2 P2-1: the two new tables' staging class (R14)",
+   "since": "2026-11-25T17:08:18Z",
+   "expires": "2026-11-25T21:08:18Z",
+   "release": "team-tickets.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
