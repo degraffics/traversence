@@ -24,7 +24,7 @@ $sec = function (string $id) use ($html): string { $i = strpos($html, 'id="' . $
 $ac = ControlAlarms::counts($pdo);
 $t('D5: the acknowledged trip is in the one count (ControlAlarms::counts)', $ac['trip'] === 1 && $ac['warning'] === 1, $ac);
 $t('D5: the board\'s Alarms panel and stage line count the same (no ack_at filter of its own)', !str_contains(file_get_contents($app . '/admin/control-console.php'), "cleared_at IS NULL AND ack_at IS NULL AND level IN ('trip','warning')") && str_contains($txt(substr($sec('cb-alarms'), 0, 3000)), '1 trip, 1 warning open'), mb_substr($txt($sec('cb-alarms')), 0, 80));
-$t('D5: the acknowledged trip says "Seen: by Jason" on its row and stays open (02 row 96: the light stays red)', (bool) preg_match('/id="cb-alarm-1"[^>]*data-astate="ack"[^>]*data-alevel="trip".*?Seen:.*?by Jason/s', $html));
+$t('D5: the acknowledged trip says "Seen by Jason, <time>" on its row and stays open (02 row 96: the light stays red), no Undo', (bool) preg_match('/id="cb-alarm-1"[^>]*data-astate="ack"[^>]*data-alevel="trip".*?Seen by">Jason, <time/s', $html) && !preg_match('/id="cb-alarm-1".*?data-cb="unack".*?<\/li>/s', $html));
 $js = file_get_contents(dirname($app) . '/website/js/admin-control.js');
 $t('D5: the Open filter keeps every open trip, seen, pressed or not, and the unseen warnings; notices under Notices (board-phone: one count, ControlAlarms::counts)', str_contains($js, "live = st !== 'cleared' && (lv === 'trip' || st === 'open')") && str_contains($js, "(k === 'open' && live && lv !== 'notice')"));
 

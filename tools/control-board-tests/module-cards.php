@@ -82,7 +82,7 @@ $t('…spend chip: its plan, Billing · Usage linked', str_contains($h, '<b>Hobb
 $t('…setup capture as grey words: Sign in not recorded (03 §13.1), no "why not recorded" it can\'t act on', str_contains($h, 'Setup capture: Sign in not recorded</summary>') && !str_contains($h, 'why not recorded'));   // one arrow, the fold's own (the Design reviewer, 2026-11-23)
 ControlAlarms::ack($pdo, $aid, 1, 'Jason');
 $h = $card('railway');
-$t('after Acknowledge the light stays red: "1 trip (seen by Jason)" (03 §4, g4 F1)', str_contains($h, 'mc-l-bad') && str_contains($h, '1 trip (seen by Jason)') && str_contains($h, 'data-mc-act="unack"'));
+$t('after Acknowledge the light stays red: "1 trip (seen by Jason)" (03 §4, g4 F1), with no Undo (CLAUDE.md #1314: a record is never undone)', str_contains($h, 'mc-l-bad') && str_contains($h, '1 trip (seen by Jason)') && !str_contains($h, 'data-mc-act="unack"'));
 
 // 5. the video worker: a Service hosted on Railway, its heartbeat, its radius
 $h = $card('wk:video-worker');
