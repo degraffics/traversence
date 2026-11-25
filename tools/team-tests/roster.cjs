@@ -45,7 +45,7 @@ const drOpen = p => p.evaluate(() => { const d = document.querySelector('.ak-dr'
       // the drawer
       await openRole(p, pmId);
       const d1 = await (await drawer(p)).textContent();
-      t(L + 'the drawer: its mandate, steps, what it acts as and where that comes from', /Moves each ticket/.test(d1) && /gate, stall/.test(d1) && /Manager · Operations/.test(d1) && /what Permissions gives/.test(d1), d1.slice(0, 200));
+      t(L + 'the drawer: its mandate, steps, what it acts as and where that comes from', /Moves each ticket/.test(d1) && (/None yet/.test(d1) || /Moves a Work ticket from Planning to Building/.test(d1)) && /Manager · Operations/.test(d1) && /what Permissions gives/.test(d1), d1.slice(0, 200));
       t(L + 'the drawer\'s moves: Edit, Put on standby, Retire it', JSON.stringify(await p.$$eval('.ak-dr .ak-actrow button', a => a.map(x => x.textContent.trim()))) === JSON.stringify(['✎ Edit its words', 'Put on standby', 'Retire it']));
       t(L + 'no History yet, said once', /Nothing yet/.test(d1));
       t(L + 'its words read as written (utf-8: "§", "·")', /piece2-team\.md §5/.test(d1) && !/Â/.test(d1));

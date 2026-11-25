@@ -21,3 +21,10 @@ four folders up from `app/lib/`) naming `DB_DATABASE=lv_main`.
   applies, Move, ✎ back, the Decision Brief, Choose B and its precedent. 60 checks: `node tickets.cjs <root> [shots dir]`.
 - `old-suites.sh` with `tickets-migrate.php`: the Work queue's own suites (work-queue 84, task-scope 44, task-adrs 32) over
   this build, their seeds running Piece 2's migrations too: `bash old-suites.sh <root>`.
+- `runner.php` (P2-3, the runner): nothing and no log on live, off until On, the lock, one step a run and an hour's gap, never a
+  person's ticket, the Project Manager's gate, the System Architect's build brief and `report()`, the Translator's proposal,
+  Undo and a second Undo refused, Accept (a person's Edit) once, a role on standby, Permissions refusing, no outside call or
+  paid AI, no SQL on landmarks or nations, the queue's tables records and their links, the job QUIET and staging only. 32
+  checks: `php runner.php <root>/app` (it resets lv_main).
+- `runner.cjs` with `runner-seed.php` (P2-3 rendered at 1280 and 390): a run's line with Undo, pressed; a proposal with Accept,
+  pressed. 22 checks: `node runner.cjs <root> [shots dir]`.

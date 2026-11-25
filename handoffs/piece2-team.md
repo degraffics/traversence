@@ -604,11 +604,14 @@ session manager's word on Jason's pre-approval and the staging switches (0179 ru
 |---|---|---|---|
 | P2-2 `team-roster.zip` | built, zip check clean, claims taken; summary sent to the session manager | `handoffs/piece2-build/team-roster/` | roster.php 51, roster.cjs 40 |
 | P2-1 `team-tickets.zip` | built over P2-2 (both carry `staging-tables.php` and `faq.md`: send after P2-2 is live, rebuilding those two on the live copy) | `handoffs/piece2-build/team-tickets/` | tickets.php 48, tickets.cjs 60, old suites 84/44/32 |
-| P2-3 `team-runner.zip` | next | | |
+| P2-3 `team-runner.zip` | built over P2-1 (carries the same shared files: send after P2-1 is live, rebuilt on it) | `handoffs/piece2-build/team-runner/` | runner.php 32, runner.cjs 22; roster, tickets and the old suites still pass |
 | P2-4 `team-audit.zip` | | | |
 | P2-5 `team-batch.zip` | | | |
 | P2-6 | out (Q4 B) | | |
 
 Changes from the design, each said in its release summary: the Team icon moved from P2-2 to P2-1 (it's on
 `control-console.php`); P2-2 carries a one-line kit fix (`.ak-t tr[hidden]{display:none}`: folded group rows showed on phones);
-the Work queue's Add form gains Type (work-queue.cjs's field list updated with it).
+the Work queue's Add form gains Type (work-queue.cjs's field list updated with it). In P2-3: the Project Manager's `stall` step is left out (no
+decision sets a stage's time limit: a question), QA's `confirm` waits for piece 3 (no step's check is machine-readable yet), and
+the Team's step list is the runner's own (`TeamRunner::STEPS`), so P2-2 alone says "None yet" for every role. `team_runs.read` is
+`seen` (READ is reserved in MySQL).

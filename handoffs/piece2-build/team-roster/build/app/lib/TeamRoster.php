@@ -125,12 +125,14 @@ final class TeamRoster
             . ($status === 'active' && !in_array($r['kind'], ['advocate', 'founder'], true) && !self::hasSteps($r) ? 'It has no steps yet, so the runner gives it no work until one is written.' : '');
     }
 
-    /** The steps the runner (P2-3) has for a role, by slug. Empty until a step is written for it (piece2-team.md §5). */
-    public const STEPS = [
-        'translator' => ['brief'], 'project-manager' => ['gate', 'stall'], 'ops-reconciliation' => ['audit'],
-        'system-architect' => ['handoff'], 'qa-security' => ['confirm'],
-    ];
-    public static function hasSteps(array $r): bool { return !empty(self::STEPS[(string) $r['slug']]); }
+    /** The steps the runner has for a role (TeamRunner::STEPS, the one list), by slug: none until the runner exists (P2-3). */
+    public static function steps(string $slug): array
+    {
+        if (!class_exists('TeamRunner') && is_file(__DIR__ . '/TeamRunner.php')) require_once __DIR__ . '/TeamRunner.php';
+        if (!class_exists('TeamRunner')) return [];
+        return array_keys(array_filter(TeamRunner::STEPS, fn ($s) => $s[0] === $slug));
+    }
+    public static function hasSteps(array $r): bool { return self::steps((string) $r['slug']) !== []; }
 
     /** A role's History: its lines in the board's logbook, newest first. */
     public static function history(PDO $pdo, int $id): array

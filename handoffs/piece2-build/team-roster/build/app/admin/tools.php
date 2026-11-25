@@ -2474,7 +2474,7 @@ return [
             $st = (string) $r['status']; $isF = $r['kind'] === 'founder'; $adv = $r['kind'] === 'advocate';
             $test = '';
             if ($adv) { require_once __DIR__ . '/../lib/TestAccounts.php'; $tk = (string) $r['test_account']; $test = $tk === 'signed_out' ? 'Signed out (a guest): no account' : (TestAccounts::MEMBERS[$tk][0] ?? TestAccounts::STAFF[$tk][0] ?? $tk); }
-            $steps = TeamRoster::STEPS[(string) $r['slug']] ?? [];
+            $steps = array_map(fn ($k) => TeamRunner::STEPS[$k][1], TeamRoster::steps((string) $r['slug']));
             $fields = [
                 ['Status', (TeamRoster::STATUSES[$st][0] ?? $st) . ' · ' . lcfirst(TeamRoster::STATUSES[$st][1] ?? '')],
                 ['Department', TeamRoster::DEPARTMENTS[$r['department']][0] ?? $r['department']],
@@ -2482,7 +2482,7 @@ return [
                 ['Made of', TeamRoster::MADE_OF[$r['made_of']] ?? $r['made_of']],
                 ['Mandate', (string) $r['mandate']],
                 ['Works', (string) $r['stages']],
-                ['Its steps', $isF || $adv ? '' : ($steps ? implode(', ', $steps) : 'None yet: the runner gives it no work until a step is written for it')],
+                ['Its steps', $isF || $adv ? '' : ($steps ? implode('; ', $steps) . ' (on staging only)' : 'None yet: the runner gives it no work until a step is written for it')],
                 ['Acts as', TeamRoster::actsAs($r) . ($isF || $adv ? '' : ' (its permissions are only what Permissions gives that level and department)')],
                 ['Highest tier alone', $isF ? 'Tier 3: the Founder answers Tier 3' : ($adv ? '' : 'Tier ' . (int) $r['tier_max'] . ' (Tier 3 always goes to the Founder, decisions/0179)')],
                 ['Test account', $test],
