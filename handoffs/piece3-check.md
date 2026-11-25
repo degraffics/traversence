@@ -1,7 +1,22 @@
 # Piece 3: the before-and-after check (design, for Jason's review)
 
-Written 2026-11-25 by the Piece 2 build session, on the session manager's brief. **Design only: nothing here is built or
-sent.** Rule 2 of decisions/0179 (low-risk kinds publish alone) stays off until this check exists *and* Jason switches it on.
+Written 2026-11-25 by the Piece 2 build session, on the session manager's brief.
+
+**Decided (Jason, 2026-11-25, reviewed with Gemini; decisions/0179's note "Piece 3's decisions"):** "DB1 A, DB2 A, DB3 A,
+DB4 A, Staff Views yes ... Lock these in for Piece 3." As the note records them, and as this design now reads:
+- **DB1:** "before" is staging just before the change, never live.
+- **DB2:** a block withdraws the release itself, and puts the failure in the Work queue (an Audit ticket at Found, with the
+  report: P3-2).
+- **DB3:** data fixes stay in the daily batch at first. A row limit comes later, Jason's choice (§4's `data_fix` is
+  recognised but not published alone).
+- **DB4:** the check's GitHub Actions minutes have a daily budget. Once it's spent, releases wait for the batch.
+- **Staff Views:** an advocate bound to the staff test logins checks admin pages (P3-1 adds it to the roster).
+
+Piece 3's releases are **not pre-approved**: each is built, tested and held, its summary goes to the session manager,
+and it's sent only once Jason approves the daily batch it's in. Jason presses staging's three switches himself; step 1
+(Keep staging caught up) finishes its fresh copy before steps 2 and 3.
+
+The briefs in §9 are kept as he read them. Rule 2 of decisions/0179 (low-risk kinds publish alone) stays off until this check exists *and* Jason switches it on.
 
 Sources:
 - decisions/0179: rule 2; "How it works"; the note "How the Team's capacity grows", §3 and §4.
