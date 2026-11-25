@@ -1,7 +1,24 @@
 {
  "note": "Today's batch for the Founder's OK (decisions/0179 rule 1; Piece 2, P2-5), written by the session manager once a day (UTC). One line per release waiting: its release (the zip), what it does, why, its decision, the checks it passed on staging, its way back, and the Work queue tickets it closes. Then run python3 tools/page-audit/gauges.py and commit: the site shows it at the top of the Work queue (System Control Board → Development) only on its own date, with the Tier 3 decisions waiting first, and Approve the batch for the Founder. An empty date (as here) shows \"No batch from the session manager today\".",
- "date": "",
+ "date": "2026-11-25",
  "lines": [
-  {"release": "example.zip", "what": "What it does, in a line", "why": "Why", "decision": "0179", "checks": "Its checks on staging", "way_back": "Roll back on the Releases page", "tickets": []}
+  {
+   "release": "P3-1 (repo tools, no site files)",
+   "what": "The before-and-after check's tools: each advocate's view of the pages a change touches, before and after, at 1280 and 390, judged on 0179's four rules; the reach map; the GitHub workflow",
+   "why": "Piece 3: the check that lets Tier 1 and 2 publish alone later",
+   "decision": "0179 (Piece 3 note, DB1–DB4)",
+   "checks": "19 + 9 tests; changes nothing on the site by itself",
+   "way_back": "Revert the merge",
+   "tickets": []
+  },
+  {
+   "release": "p3-2-check.zip",
+   "what": "The check's site side: a release waits for its before look, the verdict joins its checks, a block withdraws it and opens an Audit ticket; the Staff Views advocate (34 roles); shipped switched off",
+   "why": "Piece 3, DB2, DB4, Staff Views yes",
+   "decision": "0179 (Piece 3 note)",
+   "checks": "22 pipeline tests with GitHub stubbed; staging unit 65; Roll back proved",
+   "way_back": "Roll back on the Releases page; the switch 'The before-and-after check' turns it off",
+   "tickets": []
+  }
  ]
 }
