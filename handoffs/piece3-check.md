@@ -259,6 +259,8 @@ Jason turns it on after P3-3.
 
 ## 8. Gaps named
 
+Built so far: **P3-1** on branch `claude/piece3-build` (held for the batch). Its record is at the end (§11).
+
 | # | Gap | Where it's closed |
 |---|---|---|
 | G1 | overlap, clipping and off-screen controls aren't measured | P3-1 |
@@ -266,11 +268,11 @@ Jason turns it on after P3-3.
 | G2 | data counts per page aren't measured | P3-1 |
 | G3 | no map from an `app/` file to the pages that load it (`pagesOf()` is `website/` only) | P3-1 (`reach.py`, from `find_callers`) |
 | G3b | not every staging table names the page that shows it | P3-4 |
-| G4 | no private markers in the test accounts to catch a leak | P3-1, staging only |
-| G5 | no sensitive test landmark to prove 0066 holds | P3-1, staging only |
+| G4 | no private markers in the test accounts to catch a leak | P3-1: each test account's own address (`check+<key>@traversence.com`, TestAccounts) is its marker; another's in a view is a leak. Nothing seeded. |
+| G5 | no sensitive test landmark to prove 0066 holds | P3-2 (a site change): the canary landmark seeded on staging only, its name in `tools/page-audit/ba-canaries.json`; P3-1 already blocks on any name listed there |
 | G6 | a release is staged at once, so there's no moment for a before look on staging | P3-2 (Decision brief 1) |
 | G7 | a browser can't run on the web host | by design: GitHub Actions, dispatched as AuditClock does |
-| G8 | no advocate for staff views | a suggested change to Piece 2's roster (§1.3) |
+| G8 | no advocate for staff views | Jason: yes. P3-1's check looks as the staff test logins under `advocate-staff-views`; P3-2 adds the role to the roster (a seed line) |
 | G9 | the migration runner doesn't count rows changed | P3-3 |
 | G10 | a deadlock between decisions has no source in the code | recorded by the session manager for Jason (Piece 2): a word flag only |
 | G11 | `checks()` lets an unknown (`null`) item pass | P3-2's waiting state |
@@ -351,3 +353,23 @@ Jason turns it on after P3-3.
 - 0066 and the privacy guards: the check only reads, as the test accounts and staff test logins. It sends no form and
   changes nothing on live. The canaries exist on staging only, and test accounts' work is never carried (0165 §3).
 - The urgent path for live harm (0165) still applies. It's checked straight after, as today, and the check runs then too.
+
+## 11. Built: P3-1 (held for Jason's batch, 2026-11-25)
+
+This repo only: no site file and no zip. It's held on `claude/piece3-build` until Jason approves the batch it's in,
+because it changes how the daily audit's page check is loaded.
+
+| File | What |
+|---|---|
+| `tools/page-audit/page-check.mjs` | rendered.mjs's page check, moved here unchanged so both use one copy. It adds an optional `extra(page, size)` hook and whole-page screenshots at both sizes. |
+| `tools/page-audit/rendered.mjs` | Imports the check. Its standards, pages and report are unchanged; a smoke run against the fixture gives the same readings. |
+| `tools/page-audit/beforeafter.mjs` | `capture`: each advocate's view, with §1.5's readings. `compare`: the four rules, with two before looks so that what moves on its own never counts; lines compared with their numbers masked. |
+| `tools/page-audit/reach.py` | The pages a file reaches (G3). A use is a call, `Class::`, `new`, `extends`, a script global, or a real load (require/include, script, stylesheet); never a comment or a plain link. Pages within 2 steps are expected to change; farther ones are looked at, nearest first, up to 40. `--zip` turns a release into the check's pages and expected list. |
+| `.github/workflows/beforeafter.yml` | The two runs (before, after) the site asks for, with `repository_dispatch` `before-after`. Read only on staging; it stops with no staging block. Only the verdict file is committed; the looks and screenshots are kept one day. |
+| `tools/piece3-tests/` | `beforeafter.test.mjs` with `fixture-router.php` (19 checks); `reach_test.py` (9 checks). |
+
+The advocates as the check uses them:
+- The guest, signed out.
+- The ten member test accounts, each on its own pages at both sizes, and on public and admin pages at 390. A member
+  opening an admin page is a leak.
+- `advocate-staff-views`: the Test Executive at both sizes and the Test Ops Staff at 390, on admin pages.
