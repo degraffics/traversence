@@ -1,9 +1,10 @@
 {
- "at": "2026-11-24T10:20:42.145Z",
+ "at": "2026-11-25T10:20:33.091Z",
+ "jobs_error": null,
  "jobs": [
   {
    "job": "control_tick",
-   "last_utc": "2026-11-24T10:15:01Z",
+   "last_utc": "2026-11-25T10:15:01Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -13,7 +14,7 @@
   },
   {
    "job": "ai_worker",
-   "last_utc": "2026-11-24T10:20:01Z",
+   "last_utc": "2026-11-25T10:20:01Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -23,7 +24,7 @@
   },
   {
    "job": "standing_tick",
-   "last_utc": "2026-11-24T10:18:02Z",
+   "last_utc": "2026-11-25T10:18:01Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -33,7 +34,7 @@
   },
   {
    "job": "sales_tick",
-   "last_utc": "2026-11-24T07:17:01Z",
+   "last_utc": "2026-11-24T17:17:01Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -43,7 +44,7 @@
   },
   {
    "job": "files_tick",
-   "last_utc": "2026-11-24T10:00:03Z",
+   "last_utc": "2026-11-25T10:00:02Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -53,7 +54,7 @@
   },
   {
    "job": "work_orders_tick",
-   "last_utc": "2026-11-24T07:17:01Z",
+   "last_utc": "2026-11-24T17:17:01Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -63,7 +64,7 @@
   },
   {
    "job": "guide_finds_tick",
-   "last_utc": "2026-11-24T10:15:01Z",
+   "last_utc": "2026-11-25T10:15:01Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -73,7 +74,7 @@
   },
   {
    "job": "listings_tick",
-   "last_utc": "2026-11-24T10:15:01Z",
+   "last_utc": "2026-11-25T10:15:01Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -83,7 +84,7 @@
   },
   {
    "job": "guide_live_tick",
-   "last_utc": "2026-11-24T10:15:01Z",
+   "last_utc": "2026-11-25T10:15:01Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -93,7 +94,7 @@
   },
   {
    "job": "got_it_tick",
-   "last_utc": "2026-11-24T10:17:02Z",
+   "last_utc": "2026-11-25T10:17:02Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -103,7 +104,7 @@
   },
   {
    "job": "qb_orders_tick",
-   "last_utc": "2026-11-24T10:17:02Z",
+   "last_utc": "2026-11-25T10:17:02Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -113,7 +114,7 @@
   },
   {
    "job": "pay_wait_tick",
-   "last_utc": "2026-11-24T09:17:02Z",
+   "last_utc": "2026-11-25T10:17:01Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -123,7 +124,7 @@
   },
   {
    "job": "services_tick",
-   "last_utc": "2026-11-24T10:17:02Z",
+   "last_utc": "2026-11-25T09:17:03Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -133,7 +134,7 @@
   },
   {
    "job": "takedowns_tick",
-   "last_utc": "2026-11-24T10:16:01Z",
+   "last_utc": "2026-11-25T10:16:01Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -143,7 +144,7 @@
   },
   {
    "job": "heritage_tick",
-   "last_utc": "2026-11-24T10:20:01Z",
+   "last_utc": "2026-11-25T10:20:01Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -153,7 +154,7 @@
   },
   {
    "job": "daily_report",
-   "last_utc": "2026-11-24T10:02:01Z",
+   "last_utc": "2026-11-25T10:02:01Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -163,7 +164,7 @@
   },
   {
    "job": "market_tick",
-   "last_utc": "2026-11-23T13:13:01Z",
+   "last_utc": "2026-11-24T13:13:02Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -173,7 +174,7 @@
   },
   {
    "job": "mail_sync",
-   "last_utc": "2026-11-24T10:18:02Z",
+   "last_utc": "2026-11-25T10:18:01Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -183,7 +184,7 @@
   },
   {
    "job": "mail_keep",
-   "last_utc": "2026-11-23T13:13:01Z",
+   "last_utc": "2026-11-24T13:13:02Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -193,7 +194,7 @@
   },
   {
    "job": "pulse_followup",
-   "last_utc": "2026-11-24T10:00:02Z",
+   "last_utc": "2026-11-25T10:00:01Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -203,7 +204,7 @@
   },
   {
    "job": "booking_remind",
-   "last_utc": "2026-11-24T10:15:01Z",
+   "last_utc": "2026-11-25T10:15:01Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -213,7 +214,7 @@
   },
   {
    "job": "listing_messages_tick",
-   "last_utc": "2026-11-24T09:17:01Z",
+   "last_utc": "2026-11-25T10:17:01Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -223,7 +224,7 @@
   },
   {
    "job": "notify_release",
-   "last_utc": "2026-11-24T10:17:02Z",
+   "last_utc": "2026-11-25T10:17:01Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -233,7 +234,7 @@
   },
   {
    "job": "notice_digest",
-   "last_utc": "2026-11-23T13:13:01Z",
+   "last_utc": "2026-11-24T13:13:02Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -243,7 +244,7 @@
   },
   {
    "job": "ses_setup_tick",
-   "last_utc": "2026-11-24T10:15:01Z",
+   "last_utc": "2026-11-25T10:15:01Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -253,7 +254,7 @@
   },
   {
    "job": "domains_tick",
-   "last_utc": "2026-11-24T10:15:01Z",
+   "last_utc": "2026-11-25T10:15:01Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -263,7 +264,7 @@
   },
   {
    "job": "billing_tick",
-   "last_utc": "2026-11-23T13:13:01Z",
+   "last_utc": "2026-11-24T13:13:02Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -273,7 +274,7 @@
   },
   {
    "job": "region_tick",
-   "last_utc": "2026-11-23T13:13:01Z",
+   "last_utc": "2026-11-24T13:13:02Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -283,7 +284,7 @@
   },
   {
    "job": "guide_ondemand_tick",
-   "last_utc": "2026-11-24T10:00:02Z",
+   "last_utc": "2026-11-25T10:00:02Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -293,7 +294,7 @@
   },
   {
    "job": "journeys_tick",
-   "last_utc": "2026-11-24T10:17:02Z",
+   "last_utc": "2026-11-25T10:17:01Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -303,7 +304,7 @@
   },
   {
    "job": "supabase_keepalive",
-   "last_utc": "2026-11-23T13:13:01Z",
+   "last_utc": "2026-11-24T13:13:02Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -313,7 +314,7 @@
   },
   {
    "job": "page_read_tick",
-   "last_utc": "2026-11-24T10:17:02Z",
+   "last_utc": "2026-11-25T10:17:01Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -323,7 +324,7 @@
   },
   {
    "job": "vectors_tick",
-   "last_utc": "2026-11-24T10:17:02Z",
+   "last_utc": "2026-11-25T10:17:01Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -333,7 +334,7 @@
   },
   {
    "job": "identity_recheck_tick",
-   "last_utc": "2026-11-23T13:13:01Z",
+   "last_utc": "2026-11-24T13:13:02Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -353,7 +354,7 @@
   },
   {
    "job": "landmark_photos_tick",
-   "last_utc": "2026-11-24T10:17:03Z",
+   "last_utc": "2026-11-25T10:17:02Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -363,7 +364,7 @@
   },
   {
    "job": "like_watch_tick",
-   "last_utc": "2026-11-24T10:17:03Z",
+   "last_utc": "2026-11-25T10:17:01Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -373,7 +374,7 @@
   },
   {
    "job": "earned_storage_tick",
-   "last_utc": "2026-11-23T13:13:01Z",
+   "last_utc": "2026-11-24T13:13:02Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -383,7 +384,7 @@
   },
   {
    "job": "moments_tick",
-   "last_utc": "2026-11-24T10:17:02Z",
+   "last_utc": "2026-11-25T09:17:02Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -393,7 +394,7 @@
   },
   {
    "job": "guest_tick",
-   "last_utc": "2026-11-23T13:13:01Z",
+   "last_utc": "2026-11-24T13:13:02Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -403,7 +404,7 @@
   },
   {
    "job": "vault_digest_tick",
-   "last_utc": "2026-11-24T10:17:02Z",
+   "last_utc": "2026-11-25T10:17:01Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -433,7 +434,7 @@
   },
   {
    "job": "audit_clock_tick",
-   "last_utc": "2026-11-24T10:17:02Z",
+   "last_utc": "2026-11-25T10:17:01Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -463,7 +464,7 @@
   },
   {
    "job": "staging_night_tick",
-   "last_utc": "2026-11-24T09:13:02Z",
+   "last_utc": "2026-11-25T09:13:01Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -473,7 +474,7 @@
   },
   {
    "job": "frontier_tick",
-   "last_utc": "2026-11-24T10:17:02Z",
+   "last_utc": "2026-11-25T10:17:02Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -483,7 +484,7 @@
   },
   {
    "job": "preflight_tick",
-   "last_utc": "2026-11-24T10:15:01Z",
+   "last_utc": "2026-11-25T10:15:01Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -519,9 +520,9 @@
  "db_connections": {
   "max_connections": 150,
   "max_user_connections": 25,
-  "Threads_connected": 5,
+  "Threads_connected": 14,
   "Max_used_connections": 88,
-  "Aborted_connects": 49538,
+  "Aborted_connects": 55683,
   "Connection_errors_max_connections": 0
  }
 }

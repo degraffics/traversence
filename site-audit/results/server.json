@@ -1,12 +1,16 @@
 {
- "at": "2026-11-24T10:20:42.142Z",
+ "at": "2026-11-25T10:20:33.090Z",
  "php": "8.0.31",
  "php_major_minor": "8.0",
  "mysql": "5.7.44-48",
  "db": {
-  "tables": 422,
-  "mb": 788.61,
+  "tables": 424,
+  "mb": 816.17,
   "biggest": [
+   {
+    "table": "page_cache",
+    "mb": 126.53
+   },
    {
     "table": "identity_fact_sources",
     "mb": 121.3
@@ -14,10 +18,6 @@
    {
     "table": "identity_facts",
     "mb": 113.48
-   },
-   {
-    "table": "page_cache",
-    "mb": 105.53
    },
    {
     "table": "crawl_frontier",
@@ -45,7 +45,7 @@
    },
    {
     "table": "search_index",
-    "mb": 22.64
+    "mb": 23.63
    }
   ],
   "open_places": {
