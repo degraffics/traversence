@@ -249,6 +249,9 @@ New standing OKs go here in the session that hears them; the tool they need goes
   If you must reach me email me"): P2-1 to P2-5 publish once staging's checks pass, each with Roll back; the build
   session may switch on staging's Team runner, Staging runs its own jobs and Keep staging caught up. Judgement calls
   follow the decisions and `handoffs/piece2-team.md`; Tier 3 still comes to him, by email (decisions/0179).
+- **Agents stay in Planning until Jason has vetted Piece 2** (Jason, 2026-11-25: "limit agents and build to only the
+  initial work que stage until I fully vet the builds"): the Team's ceiling is Planning; agents propose, never move a
+  ticket, write a build brief or take a ticket themselves; only Jason raises the ceiling.
 
 ## Each session asks Jason itself (Jason, 2026-11-18; replaces 2026-11-17's): every session
 
