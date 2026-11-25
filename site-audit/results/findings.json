@@ -1,13 +1,13 @@
 {
  "version": 1,
- "generated_at": "2026-11-25T07:17:42Z",
- "run_url": "https://github.com/degraffics/traversence/actions/runs/45373307007",
+ "generated_at": "2026-11-25T10:30:28Z",
+ "run_url": "https://github.com/degraffics/traversence/actions/runs/45583945471",
  "site": "https://traversence.com",
  "counts": {
-  "open": 22,
+  "open": 23,
   "blocking": 2,
   "by_kind": {
-   "path": 4,
+   "path": 5,
    "page": 15,
    "code": 0,
    "cost": 3
@@ -37,7 +37,7 @@
    "verdict": "conflict",
    "decided": true,
    "first_seen": "2026-11-20T09:42:06Z",
-   "last_seen": "2026-11-25T07:17:42Z"
+   "last_seen": "2026-11-25T10:30:28Z"
   },
   {
    "id": "f-bbabc36265",
@@ -48,7 +48,7 @@
     "sign-in"
    ],
    "page": "/",
-   "shot_url": "https://github.com/degraffics/traversence/actions/runs/45373307007#artifacts",
+   "shot_url": "https://github.com/degraffics/traversence/actions/runs/45583945471#artifacts",
    "kind": "path",
    "rule": "J01",
    "title": "A path couldn't be followed: Sign in, including the human check",
@@ -61,7 +61,7 @@
    "verdict": "",
    "decided": false,
    "first_seen": "2026-11-23T09:57:02Z",
-   "last_seen": "2026-11-25T07:17:42Z"
+   "last_seen": "2026-11-25T10:30:28Z"
   },
   {
    "id": "f-890ebaf025",
@@ -70,7 +70,7 @@
    ],
    "paths": [],
    "page": "/admin/insights/sources",
-   "shot_url": "https://github.com/degraffics/traversence/actions/runs/45373307007#artifacts",
+   "shot_url": "https://github.com/degraffics/traversence/actions/runs/45583945471#artifacts",
    "kind": "page",
    "rule": "J01",
    "title": "The page doesn't open: /admin/insights/sources",
@@ -83,7 +83,7 @@
    "verdict": "",
    "decided": false,
    "first_seen": "2026-11-23T16:14:45Z",
-   "last_seen": "2026-11-25T07:17:42Z"
+   "last_seen": "2026-11-25T10:30:28Z"
   },
   {
    "id": "f-fa035ddd5a",
@@ -108,7 +108,7 @@
    "verdict": "fix, to check in the build",
    "decided": true,
    "first_seen": "2026-11-12T17:55:55Z",
-   "last_seen": "2026-11-25T07:17:42Z"
+   "last_seen": "2026-11-25T10:30:28Z"
   },
   {
    "id": "f-c9499ea13e",
@@ -122,17 +122,41 @@
    "shot_url": "",
    "kind": "path",
    "rule": "V06",
-   "title": "A surprise: the page jumps as it loads (layout shift 0.34)",
+   "title": "A surprise: the page jumps as it loads (layout shift 0.35)",
    "detail": "On the path \"Search with a typo (\"swiming\")\".",
    "severity": "update",
-   "sig": "dbca7c6835099923",
+   "sig": "f30090d41d34a950",
    "blocks": 0,
    "proposal": "",
    "proposal_url": "",
    "verdict": "",
    "decided": false,
    "first_seen": "2026-11-13T17:29:44Z",
-   "last_seen": "2026-11-25T07:17:42Z"
+   "last_seen": "2026-11-25T10:30:28Z"
+  },
+  {
+   "id": "f-e156f08ca2",
+   "who": [
+    "guest"
+   ],
+   "paths": [
+    "town-guide"
+   ],
+   "page": "/hub/?town=phoenix-az-2",
+   "shot_url": "",
+   "kind": "path",
+   "rule": "V06",
+   "title": "A surprise: the page jumps as it loads (layout shift 0.32)",
+   "detail": "On the path \"Read a town's guide\".",
+   "severity": "update",
+   "sig": "90e3f7530e1e46d2",
+   "blocks": 0,
+   "proposal": "",
+   "proposal_url": "",
+   "verdict": "",
+   "decided": false,
+   "first_seen": "2026-11-25T10:30:28Z",
+   "last_seen": "2026-11-25T10:30:28Z"
   },
   {
    "id": "f-be75f4f580",
@@ -152,7 +176,7 @@
    "verdict": "fix, and missing",
    "decided": true,
    "first_seen": "2026-11-16T18:44:37Z",
-   "last_seen": "2026-11-25T07:17:42Z"
+   "last_seen": "2026-11-25T10:30:28Z"
   },
   {
    "id": "f-fc2b825837",
@@ -172,7 +196,7 @@
    "verdict": "",
    "decided": false,
    "first_seen": "2026-11-16T18:44:37Z",
-   "last_seen": "2026-11-25T07:17:42Z"
+   "last_seen": "2026-11-25T10:30:28Z"
   },
   {
    "id": "f-2350672491",
@@ -181,7 +205,7 @@
    ],
    "paths": [],
    "page": "/admin/config/log",
-   "shot_url": "https://github.com/degraffics/traversence/actions/runs/45373307007#artifacts",
+   "shot_url": "https://github.com/degraffics/traversence/actions/runs/45583945471#artifacts",
    "kind": "page",
    "rule": "V01",
    "title": "Cards not 3px from the screen edge at 390px: /admin/config/log",
@@ -194,7 +218,7 @@
    "verdict": "",
    "decided": false,
    "first_seen": "2026-11-23T16:14:45Z",
-   "last_seen": "2026-11-25T07:17:42Z"
+   "last_seen": "2026-11-25T10:30:28Z"
   },
   {
    "id": "f-26d2d75543",
@@ -203,7 +227,7 @@
    ],
    "paths": [],
    "page": "/admin/config/upkeep",
-   "shot_url": "https://github.com/degraffics/traversence/actions/runs/45373307007#artifacts",
+   "shot_url": "https://github.com/degraffics/traversence/actions/runs/45583945471#artifacts",
    "kind": "page",
    "rule": "V01",
    "title": "Cards not 3px from the screen edge at 390px: /admin/config/upkeep",
@@ -216,7 +240,7 @@
    "verdict": "",
    "decided": false,
    "first_seen": "2026-11-23T16:14:45Z",
-   "last_seen": "2026-11-25T07:17:42Z"
+   "last_seen": "2026-11-25T10:30:28Z"
   },
   {
    "id": "f-316f5c935f",
@@ -225,7 +249,7 @@
    ],
    "paths": [],
    "page": "/admin/config/board",
-   "shot_url": "https://github.com/degraffics/traversence/actions/runs/45373307007#artifacts",
+   "shot_url": "https://github.com/degraffics/traversence/actions/runs/45583945471#artifacts",
    "kind": "page",
    "rule": "V01",
    "title": "Cards not 3px from the screen edge at 390px: /admin/config/board",
@@ -238,7 +262,7 @@
    "verdict": "",
    "decided": false,
    "first_seen": "2026-11-23T16:14:45Z",
-   "last_seen": "2026-11-25T07:17:42Z"
+   "last_seen": "2026-11-25T10:30:28Z"
   },
   {
    "id": "f-4b562b2095",
@@ -247,7 +271,7 @@
    ],
    "paths": [],
    "page": "/admin/config/workflows",
-   "shot_url": "https://github.com/degraffics/traversence/actions/runs/45373307007#artifacts",
+   "shot_url": "https://github.com/degraffics/traversence/actions/runs/45583945471#artifacts",
    "kind": "page",
    "rule": "V01",
    "title": "Cards not 3px from the screen edge at 390px: /admin/config/workflows",
@@ -260,7 +284,7 @@
    "verdict": "",
    "decided": false,
    "first_seen": "2026-11-23T16:14:45Z",
-   "last_seen": "2026-11-25T07:17:42Z"
+   "last_seen": "2026-11-25T10:30:28Z"
   },
   {
    "id": "f-6794597ee0",
@@ -269,7 +293,7 @@
    ],
    "paths": [],
    "page": "/admin/config/scheduler",
-   "shot_url": "https://github.com/degraffics/traversence/actions/runs/45373307007#artifacts",
+   "shot_url": "https://github.com/degraffics/traversence/actions/runs/45583945471#artifacts",
    "kind": "page",
    "rule": "V01",
    "title": "Cards not 3px from the screen edge at 390px: /admin/config/scheduler",
@@ -282,7 +306,7 @@
    "verdict": "",
    "decided": false,
    "first_seen": "2026-11-23T16:14:45Z",
-   "last_seen": "2026-11-25T07:17:42Z"
+   "last_seen": "2026-11-25T10:30:28Z"
   },
   {
    "id": "f-836cc83cc8",
@@ -291,7 +315,7 @@
    ],
    "paths": [],
    "page": "/admin/config/automation",
-   "shot_url": "https://github.com/degraffics/traversence/actions/runs/45373307007#artifacts",
+   "shot_url": "https://github.com/degraffics/traversence/actions/runs/45583945471#artifacts",
    "kind": "page",
    "rule": "V01",
    "title": "Cards not 3px from the screen edge at 390px: /admin/config/automation",
@@ -304,7 +328,7 @@
    "verdict": "",
    "decided": false,
    "first_seen": "2026-11-23T16:14:45Z",
-   "last_seen": "2026-11-25T07:17:42Z"
+   "last_seen": "2026-11-25T10:30:28Z"
   },
   {
    "id": "f-89fe13e491",
@@ -313,7 +337,7 @@
    ],
    "paths": [],
    "page": "/admin/config/ledger",
-   "shot_url": "https://github.com/degraffics/traversence/actions/runs/45373307007#artifacts",
+   "shot_url": "https://github.com/degraffics/traversence/actions/runs/45583945471#artifacts",
    "kind": "page",
    "rule": "V01",
    "title": "Cards not 3px from the screen edge at 390px: /admin/config/ledger",
@@ -326,7 +350,7 @@
    "verdict": "",
    "decided": false,
    "first_seen": "2026-11-23T16:14:45Z",
-   "last_seen": "2026-11-25T07:17:42Z"
+   "last_seen": "2026-11-25T10:30:28Z"
   },
   {
    "id": "f-97786667c0",
@@ -335,7 +359,7 @@
    ],
    "paths": [],
    "page": "/admin/config/costs",
-   "shot_url": "https://github.com/degraffics/traversence/actions/runs/45373307007#artifacts",
+   "shot_url": "https://github.com/degraffics/traversence/actions/runs/45583945471#artifacts",
    "kind": "page",
    "rule": "V01",
    "title": "Cards not 3px from the screen edge at 390px: /admin/config/costs",
@@ -348,7 +372,7 @@
    "verdict": "",
    "decided": false,
    "first_seen": "2026-11-23T16:14:45Z",
-   "last_seen": "2026-11-25T07:17:42Z"
+   "last_seen": "2026-11-25T10:30:28Z"
   },
   {
    "id": "f-b1c4d2dd7e",
@@ -357,7 +381,7 @@
    ],
    "paths": [],
    "page": "/admin/config/register",
-   "shot_url": "https://github.com/degraffics/traversence/actions/runs/45373307007#artifacts",
+   "shot_url": "https://github.com/degraffics/traversence/actions/runs/45583945471#artifacts",
    "kind": "page",
    "rule": "V01",
    "title": "Cards not 3px from the screen edge at 390px: /admin/config/register",
@@ -370,7 +394,7 @@
    "verdict": "",
    "decided": false,
    "first_seen": "2026-11-23T16:14:45Z",
-   "last_seen": "2026-11-25T07:17:42Z"
+   "last_seen": "2026-11-25T10:30:28Z"
   },
   {
    "id": "f-cd1e26ccb6",
@@ -379,7 +403,7 @@
    ],
    "paths": [],
    "page": "/admin/config/control",
-   "shot_url": "https://github.com/degraffics/traversence/actions/runs/45373307007#artifacts",
+   "shot_url": "https://github.com/degraffics/traversence/actions/runs/45583945471#artifacts",
    "kind": "page",
    "rule": "V01",
    "title": "Cards not 3px from the screen edge at 390px: /admin/config/control",
@@ -392,7 +416,7 @@
    "verdict": "",
    "decided": false,
    "first_seen": "2026-11-23T16:14:45Z",
-   "last_seen": "2026-11-25T07:17:42Z"
+   "last_seen": "2026-11-25T10:30:28Z"
   },
   {
    "id": "f-d844c6c46e",
@@ -401,7 +425,7 @@
    ],
    "paths": [],
    "page": "/admin/config/alarms",
-   "shot_url": "https://github.com/degraffics/traversence/actions/runs/45373307007#artifacts",
+   "shot_url": "https://github.com/degraffics/traversence/actions/runs/45583945471#artifacts",
    "kind": "page",
    "rule": "V01",
    "title": "Cards not 3px from the screen edge at 390px: /admin/config/alarms",
@@ -414,7 +438,7 @@
    "verdict": "",
    "decided": false,
    "first_seen": "2026-11-23T16:14:45Z",
-   "last_seen": "2026-11-25T07:17:42Z"
+   "last_seen": "2026-11-25T10:30:28Z"
   },
   {
    "id": "f-f59c3b6a11",
@@ -423,7 +447,7 @@
    ],
    "paths": [],
    "page": "/admin/config/communications",
-   "shot_url": "https://github.com/degraffics/traversence/actions/runs/45373307007#artifacts",
+   "shot_url": "https://github.com/degraffics/traversence/actions/runs/45583945471#artifacts",
    "kind": "page",
    "rule": "V01",
    "title": "Cards not 3px from the screen edge at 390px: /admin/config/communications",
@@ -436,7 +460,7 @@
    "verdict": "",
    "decided": false,
    "first_seen": "2026-11-23T16:14:45Z",
-   "last_seen": "2026-11-25T07:17:42Z"
+   "last_seen": "2026-11-25T10:30:28Z"
   },
   {
    "id": "f-fb38c0ede5",
@@ -445,7 +469,7 @@
    ],
    "paths": [],
    "page": "/admin/config/preflight",
-   "shot_url": "https://github.com/degraffics/traversence/actions/runs/45373307007#artifacts",
+   "shot_url": "https://github.com/degraffics/traversence/actions/runs/45583945471#artifacts",
    "kind": "page",
    "rule": "V01",
    "title": "Cards not 3px from the screen edge at 390px: /admin/config/preflight",
@@ -458,7 +482,7 @@
    "verdict": "",
    "decided": false,
    "first_seen": "2026-11-23T16:14:45Z",
-   "last_seen": "2026-11-25T07:17:42Z"
+   "last_seen": "2026-11-25T10:30:28Z"
   },
   {
    "id": "f-5ad0cdf4a8",
@@ -478,7 +502,7 @@
    "verdict": "",
    "decided": false,
    "first_seen": "2026-11-24T11:31:56Z",
-   "last_seen": "2026-11-25T07:17:42Z"
+   "last_seen": "2026-11-25T10:30:28Z"
   },
   {
    "id": "f-97a2a8cb40",
@@ -487,7 +511,7 @@
    ],
    "paths": [],
    "page": "/admin/local/review",
-   "shot_url": "https://github.com/degraffics/traversence/actions/runs/45373307007#artifacts",
+   "shot_url": "https://github.com/degraffics/traversence/actions/runs/45583945471#artifacts",
    "kind": "page",
    "rule": "V01",
    "title": "Sideways scroll at 390px: /admin/local/review",
@@ -500,7 +524,7 @@
    "verdict": "",
    "decided": false,
    "first_seen": "2026-11-24T11:31:56Z",
-   "last_seen": "2026-11-25T07:17:42Z"
+   "last_seen": "2026-11-25T10:30:28Z"
   }
  ]
 }
