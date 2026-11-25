@@ -78,7 +78,7 @@ const answer = async (p, v) => { await p.waitForSelector('.tv-ask .tv-ask-in'); 
       await p.click(W + ' [data-wq-fb]'); await p.click(W + ' [data-wq-f=all]');
       // Add a task
       await p.click(W + ' [data-wq=add]');
-      t(L + 'Add a task opens its form: gauge or area, what, why, source', await p.isVisible(W + ' [data-wq-form]') && await p.$$eval(W + ' [data-wq-form] [name]', a => a.map(x => x.name).join(',')) === 'gauge,area,what,why,source');
+      t(L + 'Add a task opens its form: gauge or area, its type (Piece 2, Work by default), what, why, source', await p.isVisible(W + ' [data-wq-form]') && await p.$$eval(W + ' [data-wq-form] [name]', a => a.map(x => x.name).join(',')) .replace(',ticket', '') === 'gauge,area,what,why,source');   // Type (ticket) since Piece 2's P2-1
       await p.keyboard.press('Escape');
       t(L + 'Esc closes it, Add a task back', !(await p.isVisible(W + ' [data-wq-form]')) && await p.isVisible(W + ' [data-wq=add]'));
       await p.click(W + ' [data-wq=add]'); await p.click(W + ' [data-wq-form] .wq-x');

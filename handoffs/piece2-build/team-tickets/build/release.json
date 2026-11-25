@@ -1,0 +1,14 @@
+{
+  "title": "Work queue tickets: types and stages (Piece 2, P2-1)",
+  "why": "Jason's Piece 2 (decisions/0179; handoffs/piece2-team.md, approved 2026-11-25, Q2 A and Q3 A): the Work queue's tasks become Work, Audit or Resolution tickets; Work moves through Planning, Building, Implementation and Confirmation by its gates; a Tier 3 is a Decision Brief the Founder answers on the page. The same queue, extended in place.",
+  "proposals": [],
+  "switch": "",
+  "data_reason": "Gives each open task already in the Work queue its first stage, once (only rows with no stage): a release named → Implementation; taken and scoped → Building; the rest → Planning. Done and withdrawn tasks keep no stage. Changes nothing else.",
+  "changes": [
+    {"what": "Each task's type and stage on its row; a Tier 3 waiting for the Founder first; the filter by type and stage; the Team icon", "where": "https://traversence.com/admin/config/control?tab=development"},
+    {"what": "A task's page: the stage strip, what it needs to move on, Move, ✎ back a stage; No decision applies", "where": "a task's name on Development"},
+    {"what": "A Resolution ticket's Decision Brief, Send to the Founder, Choose A / B / Answer in my words, the precedent ticket", "where": "a Resolution task's page"},
+    {"what": "Confirmation: a task is Done once its release is live and every step is confirmed (Jason's Q2 A)", "where": "the Work queue"},
+    {"what": "FAQ: the Work queue's answer, its types and stages", "where": "https://traversence.com/faq.php"}
+  ]
+}

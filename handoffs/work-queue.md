@@ -77,3 +77,11 @@ Repo: `tools/page-audit/gauge-requests.mjs` marks late as the queue does (a day 
 - `tools/control-board-tests/work-queue.cjs` with `work-queue-seed.php` (80, at 1280 and 390; the migration run twice; the same task added twice stands once; groups, paging after an add, one filled button) and
   `board-panels-router.php`'s new actions; `gauge-requests.mjs` (7: late as the queue says it).
 - `run-all.sh`: only the 7 known live failures. `board-views.cjs` takes the Work queue's header as a gauge's place (its pill beside it); `rendered-all.sh`: work-queue 68, gauge-panel 76, board-views 90, board-panels 43, board-opening 48, board-tabs 16, board-phone-header 42, no failures. Full sweep: 659 passed (work-queue 84 with the ▾ checks), the `lines` seed note as on live, and `dispatcher/r3` stopping on a click timeout at its 17th check on this bench, the live code alone too (not this build).
+
+## Note (2026-11-25): the queue's tables become `records` (decisions/0179's Piece 2, Q1 A)
+
+Jason approved Q1 A of `handoffs/piece2-team.md` (2026-11-25, through the session manager): `control_gauge_tasks`,
+`control_gauge_task_steps` and `control_gauge_task_adrs` move from staging class `own` to `records`. Live's tasks come to
+staging by catch-up, and what agents do on staging reaches live only at Publish, inside the approved batch. That replaces the
+class recorded above. It changes in Piece 2's P2-3 (`team-runner.zip`), with each table's links in the register of record
+numbers (0165 §4).

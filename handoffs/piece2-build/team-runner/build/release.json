@@ -1,0 +1,12 @@
+{
+  "title": "The Team's runner, on staging only (Piece 2, P2-3)",
+  "why": "Jason's Piece 2 (decisions/0179; handoffs/piece2-team.md §5, approved 2026-11-25, Q1 A and Q4 B): a scheduled job that, on the staging copy only and while its switch is on, takes one ticket and does one step for one working role, logs it with Undo, and stops. The Work queue's tables become records, so live's tasks reach staging by catch-up and what the agents do reaches live only at Publish, in the approved batch. Nothing runs on live.",
+  "proposals": [],
+  "switch": "",
+  "changes": [
+    {"what": "The Team's runner (team_tick): staging only, its switch off until turned on there; the Project Manager's gate, the System Architect's build brief, the Translator's proposals", "where": "https://staging.trvgo.us/admin/config/switches"},
+    {"what": "A ticket's page: the build brief, and the Team's runs with Undo, Accept and Dismiss", "where": "a task's name on Development"},
+    {"what": "The Work queue's tables carried between staging and live (records); the runner's log is staging's own", "where": "app/lib/staging-tables.php"},
+    {"what": "FAQ: What does the Team's runner do?", "where": "https://traversence.com/faq.php"}
+  ]
+}

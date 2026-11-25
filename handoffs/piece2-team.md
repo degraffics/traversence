@@ -1,6 +1,6 @@
 # Piece 2: the Team, three ticket types and the agent runner, on staging only (design for review, 2026-11-25)
 
-The Piece 2 build session (`session_01CXLi5kEx1NbamxWYoRxUDh`). **Design only: nothing is built yet.** Route: the session
+The Piece 2 build session (`session_01CXLi5kEx1NbamxWYoRxUDh`). **Approved by Jason 2026-11-25 (§9); being built.** Route: the session
 manager (`session_01CXLi5mGX2sg5QS11gg3Wrh`) reviewed it (2026-11-25). The Design reviewer's checklist was run by this
 session (§10), since the reviewer session is archived over the holiday. The session manager emails §9 to Jason (0179). **Built on Sync 2026-11-25 02:02 UTC (b1336ec).** Mockup: `piece2-team/mockup.html`, screens
 `piece2-team/p2-{1280,390}.png`.
@@ -323,7 +323,8 @@ step, not a chain. (The ruling: "each run takes one task, does one step, logs it
     - or when two open tickets cite decisions that disagree (deadlock).
   - **Tier 1** when it is clearly wording, FAQ, tests or layout (0179 rule 2's list).
   - **Tier 2** for everything else.
-  - Anything unclear counts as Tier 3 (0179: "A release that is not clearly low-risk counts as needing approval").
+  - Anything not clearly Tier 1 is Tier 2: it still waits for the approved batch (0179 rule 1: "A release that is not clearly
+    low-risk counts as needing approval"). Tier 3 is only what matches a boundary. (Built this way; the session manager told.)
 - A confirmed Tier 1 or 2 finding opens a **Work ticket** at Planning, with `parent_id` pointing to the audit. A Tier 3
   finding opens a **Resolution ticket** and the Translator drafts its brief.
 
@@ -386,6 +387,11 @@ Side effects on every move: a History line, a logbook line, `stage_at` reset, th
 success without its check (CLAUDE.md "End to end").
 
 ## 9. Questions for Jason: five Decision Briefs (final text, for the session manager to email)
+
+**Answered (Jason, 2026-11-25, through the session manager: "apporved. phase 1 and phase 2"):** Q1 **A**, Q2 **A**, Q3
+**A**, Q4 **B**, Q5 **B**, each the recommendation sent to him. The design is approved. The build order is P2-2, P2-1,
+P2-3, P2-4, P2-5. **P2-6 is out** (Q4 B: no AI for agents). Gemini stays public-only (Q5 B). No release is sent until the
+session manager relays his answers on pre-approval and the staging switches.
 
 Each brief has the 0179 shape: the Decision, why it needs you, options A and B with their pros and cons and a
 recommendation, the impact if delayed, and the cost.
@@ -589,3 +595,24 @@ P2-3 waits for Question 1. Each release adds its FAQ entries (decisions/0057), i
 - **On staging, a run line reads "Project manager · moved to Confirmation · its release is live".** The system did it. He
   can press Undo if it's wrong.
 - **"Today's batch: 4 waiting".** He reads each line and presses **Approve the batch**.
+
+## Build progress (kept current by the build session)
+
+Built on Sync 2026-11-25 16:58 UTC (0d756a5; the 02:02 sync's files are the same). Nothing sent: releases wait for the
+session manager's word on Jason's pre-approval and the staging switches (0179 rule 1).
+
+| Release | State | Where | Tests |
+|---|---|---|---|
+| P2-2 `team-roster.zip` | built, zip check clean, claims taken; summary sent to the session manager | `handoffs/piece2-build/team-roster/` | roster.php 51, roster.cjs 40 |
+| P2-1 `team-tickets.zip` | built over P2-2 (both carry `staging-tables.php` and `faq.md`: send after P2-2 is live, rebuilding those two on the live copy) | `handoffs/piece2-build/team-tickets/` | tickets.php 48, tickets.cjs 60, old suites 84/44/32 |
+| P2-3 `team-runner.zip` | built over P2-1 (carries the same shared files: send after P2-1 is live, rebuilt on it) | `handoffs/piece2-build/team-runner/` | runner.php 32, runner.cjs 22; roster, tickets and the old suites still pass |
+| P2-4 `team-audit.zip` | built over P2-3; its zip check's only blocks are R14 for tables P2-1 and P2-3 classify (checked against today's live): clears once they're live and it's rebuilt | `handoffs/piece2-build/team-audit/` | audit.php 21; every earlier suite still passes |
+| P2-5 `team-batch.zip` | | | |
+| P2-6 | out (Q4 B) | | |
+
+Changes from the design, each said in its release summary: the Team icon moved from P2-2 to P2-1 (it's on
+`control-console.php`); P2-2 carries a one-line kit fix (`.ak-t tr[hidden]{display:none}`: folded group rows showed on phones);
+the Work queue's Add form gains Type (work-queue.cjs's field list updated with it). In P2-3: the Project Manager's `stall` step is left out (no
+decision sets a stage's time limit: a question), QA's `confirm` waits for piece 3 (no step's check is machine-readable yet), and
+the Team's step list is the runner's own (`TeamRunner::STEPS`), so P2-2 alone says "None yet" for every role. `team_runs.read` is
+`seen` (READ is reserved in MySQL).
