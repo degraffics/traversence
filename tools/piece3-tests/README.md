@@ -10,3 +10,12 @@
 - `reach_test.py`: `reach.py` on a mirror it makes. A class reached through a UI part; a link isn't a load; a comment
   isn't a use; endpoints aren't pages; a page's own helpers; a script by its tag; a release's pages and expected list.
   9 checks. Run: `python3 tools/piece3-tests/reach_test.py`
+- `pipeline.php`: P3-2, the site's side, on MariaDB, with GitHub stubbed (`BeforeAfter::$askFn`, `$readFn`). 22 checks:
+  - The switch off leaves everything as today.
+  - A release waits for its before look, asked with its release, zip and blob.
+  - GitHub not reached is asked again. Late is asked again once, then a Work queue ticket, never twice.
+  - before-done goes on staging. On staging with its checks passed, the after look is asked.
+  - A block withdraws the release and opens its Audit ticket.
+  - A held pass, an incomplete look and a spent budget each wait for review. Minutes are counted once.
+  - A withdrawn release's wait is dropped. Nothing happens on staging.
+  Run: `php tools/piece3-tests/pipeline.php <root>/app`. It resets lv_main.
