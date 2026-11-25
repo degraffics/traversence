@@ -1,8 +1,8 @@
 # Piece 2: the Team, three ticket types and the agent runner, on staging only (design for review, 2026-11-25)
 
 The Piece 2 build session (`session_01CXLi5kEx1NbamxWYoRxUDh`). **Design only: nothing is built yet.** Route: the session
-manager (`session_01CXLi5mGX2sg5QS11gg3Wrh`), then the Design reviewer for the mockups, then Jason once, written in chat for
-him and Gemini (0179). **Built on Sync 2026-11-25 02:02 UTC (b1336ec).** Mockup: `piece2-team/mockup.html`, screens
+manager (`session_01CXLi5mGX2sg5QS11gg3Wrh`) reviewed it (2026-11-25). The Design reviewer's checklist was run by this
+session (§10), since the reviewer session is archived over the holiday. The session manager emails §9 to Jason (0179). **Built on Sync 2026-11-25 02:02 UTC (b1336ec).** Mockup: `piece2-team/mockup.html`, screens
 `piece2-team/p2-{1280,390}.png`.
 
 Sources read: Jason's spec (`handoffs/piece2/jason-spec.md`), decisions/0179, 0165, 0145 §3, 0164 §0.8, 0109, 0162's note,
