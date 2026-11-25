@@ -1,7 +1,9 @@
 {
   "permissions": {
     "allow": [
-      "mcp__claude-code-remote__archive_session"
+      "mcp__claude-code-remote__archive_session",
+      "mcp__Microsoft_365__outlook_send_mail",
+      "PushNotification"
     ]
   }
 }

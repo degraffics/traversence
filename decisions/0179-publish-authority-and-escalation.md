@@ -73,3 +73,10 @@ written down.
 - **Gemini:** it stays on public material as the safe default. A ruling on internal text to the paid key (0164 §0.8)
   comes to Jason as a clear brief when it's needed.
 - **Urgent fixes for live harm** still honour 0066 and the privacy guardrails. No exception path skips them.
+
+## Note (Jason, 2026-11-25): Piece 2 approved and pre-approved to publish
+
+Piece 2's design (`handoffs/piece2-team.md`) approved with Q1 A, Q2 A, Q3 A, Q4 B, Q5 B. Its releases P2-1 to P2-5 are
+pre-approved: each publishes once its staging checks pass, "as long as we can roll back if there are issues", with a
+summary emailed after. The build session may switch on staging's runner switches. Over the holiday the session manager
+makes judgement calls "based on the adr's and the outlined plan"; Tier 3 still goes to Jason, by email.

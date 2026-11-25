@@ -236,6 +236,24 @@ Listings, outdoor places, experiences, places, journeys and any new content kind
 - **Comments** at the end: `tv_engage_comments($pdo, $kind, $ref)` (public, 18+, reportable).
 - **Views:** `tv_count_item('<kind>:<id>')`. Maps opened as their own view pass `panel: true` to `TvMap.open()`.
 
+## Standing OKs: never asked again (Jason, 2026-11-25): every session
+
+Jason, 2026-11-25: "when I say send me email that should now it is allowed to send me an email and not need to authorize
+use of what ever tool it needs". An OK he has given once is not asked again: not by the session, not as a tool prompt.
+New standing OKs go here in the session that hears them; the tool they need goes in `.claude/settings.json`'s allow list.
+- **Email and push to Jason:** when he asks (or a rule here says to tell him), send it, to his address only, with the
+  Microsoft 365 connector and a push notification. No other recipient without asking.
+- **Adding both repos**, **archiving finished sessions**, **merging your own approved PR**: as their sections say.
+- **Piece 2 to running, over the holiday** (Jason, 2026-11-25: "publish yes as long as we can roll back… I want all of
+  this up and running by the time I am back… make your best judgement calls based on the adr's and the outlined plan…
+  If you must reach me email me"): P2-1 to P2-5 publish once staging's checks pass, each with Roll back; the build
+  session may switch on staging's Team runner, Staging runs its own jobs and Keep staging caught up. Judgement calls
+  follow the decisions and `handoffs/piece2-team.md`; Tier 3 still comes to him, by email (decisions/0179).
+- **Agents stay in Planning until Jason has vetted Piece 2** (Jason, 2026-11-25: "limit agents and build to only the
+  initial work que stage until I fully vet the builds"): the Team's ceiling is Planning; agents propose, never move a
+  ticket, write a build brief or take a ticket themselves; only Jason raises the ceiling, and only after he approves
+  the Team's decision tree (an edit to the tree clears it); the queue shows what agents found and suggested.
+
 ## Each session asks Jason itself (Jason, 2026-11-18; replaces 2026-11-17's): every session
 
 **Publish authority (decisions/0179, Jason, 2026-11-25): every release.** Until the before-and-after checks exist,
