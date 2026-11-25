@@ -259,7 +259,7 @@ Jason turns it on after P3-3.
 
 ## 8. Gaps named
 
-Built so far: **P3-1** on branch `claude/piece3-build` (held for the batch). Its record is at the end (§11).
+Built so far, each held on branch `claude/piece3-build` for Jason's batch: **P3-1** (§11) and **P3-2** (§12, its zip in `handoffs/piece3-build/p3-2-check/`).
 
 | # | Gap | Where it's closed |
 |---|---|---|
@@ -374,7 +374,9 @@ The advocates as the check uses them:
   opening an admin page is a leak.
 - `advocate-staff-views`: the Test Executive at both sizes and the Test Ops Staff at 390, on admin pages.
 
-## 12. P3-2's build plan (in progress, 2026-11-25; on the live copy of Sync 18:38 UTC, 16caf39)
+## 12. P3-2 (built and held, 2026-11-25; on the live copy of Sync 18:38 UTC, 16caf39)
+
+As planned below, with two changes found while building: the before looks' minutes are counted once, even when staging can't take the release that run; and a late check is asked again automatically, not by a button, then raised as a Work queue ticket (no Releases page button needed). Tests: `tools/piece3-tests/pipeline.php`, 22 checks on MariaDB; `tools/staging-tests/unit.php` 65. Roll back proved. Not exercised on the bench: a pass with no hold goes to `autoPublish()`, the path every git release already takes (publishing needs a live root).
 
 - **`app/lib/BeforeAfter.php` (new):**
   - Switch `before_after` in `Switches::DEFS`: a background job, shipped off. Jason or the session manager turns it on
