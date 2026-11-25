@@ -1,0 +1,77 @@
+{
+    "id": 287,
+    "title": "The Team: System Configuration → Team (Piece 2, P2-2)",
+    "why": "Jason's Piece 2 (decisions/0179; handoffs/piece2-team.md, approved 2026-11-25): the roster of roles that work the Work queue, as data in System Configuration, its permissions only from Access. Nothing runs by itself: the runner comes in P2-3, on staging only. It also carries one line in the admin kit (app/admin/kit-css.php: .ak-t tr[hidden]{display:none}), so a folded group's rows stay folded on phones in every admin table; it only hides what was already meant to be hidden.",
+    "proposals": "",
+    "zip": "team-roster.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/admin/tools.php": {
+            "sha": "7a17d4f861a6a0a3d5966efe4d3ecda350bf6a15a0ea04736b75d9574aff8c9a",
+            "size": 283461,
+            "live_was": "68e4902fe7101ec6988a9ca25b5a9b74ad4bb1536b9bc8f2b046fd4403e3d9a8"
+        },
+        "app/admin/kit-css.php": {
+            "sha": "85728a3142793552f45334049b8debd019bef9badd3292739d491825ed9a7804",
+            "size": 40042,
+            "live_was": "8d1e8e9bd0c492529ba662f6fbe1a7e1f8a05ef7b51ff81ec363faf1c5b9e8fe"
+        },
+        "app/admin/manifests.php": {
+            "sha": "293fdbf50f1372c1790c3f2d9ed0ad8d97994aaf2af7ff72b00591f7f832cb2c",
+            "size": 23800,
+            "live_was": "a89e36eac49526cbcc1310b729f1ea24f6057cc8b2110907827638de020dcdef"
+        },
+        "app/admin/Access.php": {
+            "sha": "c06b8b849ece046afa780e950a810e9fb5b738d8221d08221c56507d9024a34a",
+            "size": 6178,
+            "live_was": "4c6a7747d711150c7302269793430ccc8466921ccd054154c9148a9006323b3b"
+        },
+        "app/ui/faq.md": {
+            "sha": "7ebfc02958f48dee34a0a92fb76bd13c30b1673cb245bca5407431d1092559f2",
+            "size": 449453,
+            "live_was": "9d1746856b55318efab6ef81cdc0ee279ff6850d4f6c47edee0d6247f9a863dd"
+        },
+        "app/migrations/2026-11-25_team_roster_seed.sql": {
+            "sha": "8a2df9664b915c45f9db715c4b29236a5230848a9301db1a3bd09f91756e6dc8",
+            "size": 19672,
+            "live_was": null
+        },
+        "app/migrations/2026-11-25_team_roster.sql": {
+            "sha": "bb45e9bf7d93d4d2c888e396c8062daa09250f552708ad6aab46ab3da8d63888",
+            "size": 1254,
+            "live_was": null
+        },
+        "app/lib/TeamRoster.php": {
+            "sha": "33baa5cb4ccdd4fc1b8a151130d4d0607339b31baf62d216bb07624be92f7655",
+            "size": 11568,
+            "live_was": null
+        },
+        "app/lib/staging-tables.php": {
+            "sha": "3594687bb6b18c154a0d6ec644dc1a162e134ab680e7d988104d9467e34d7349",
+            "size": 29991,
+            "live_was": "bbcd58f7e3b6378875f9182c651436dcb0a4737aa5ca9ae984f22dcd0dc8a80e"
+        }
+    },
+    "migrations": [
+        "app/migrations/2026-11-25_team_roster_seed.sql",
+        "app/migrations/2026-11-25_team_roster.sql"
+    ],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-25T17:29:41+00:00",
+            "by": 0,
+            "msg": "Uploaded team-roster.zip: 9 files."
+        }
+    ]
+}
