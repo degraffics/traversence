@@ -2,54 +2,6 @@
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
  "claims": [
   {
-   "path": "app/admin/control-console.php",
-   "functions": [
-    "tv_cb_alarms"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
-   "why": "no-undo: no Undo after an alarm's acknowledgement",
-   "since": "2026-11-25T01:14:29Z",
-   "expires": "2026-11-25T05:14:29Z",
-   "release": "no-undo.zip",
-   "callers": {
-    "tv_cb_alarms": [
-     "app/lib/ControlConsistency.php"
-    ]
-   }
-  },
-  {
-   "path": "app/admin/module-cards.php",
-   "functions": [
-    "tv_mc_radius"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
-   "why": "no-undo: no Undo after an alarm's acknowledgement",
-   "since": "2026-11-25T01:14:29Z",
-   "expires": "2026-11-25T05:14:29Z",
-   "release": "no-undo.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/Pulse.php",
-   "functions": [
-    "mark"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
-   "why": "no-undo: no Undo after an alarm's acknowledgement",
-   "since": "2026-11-25T01:14:29Z",
-   "expires": "2026-11-25T05:14:29Z",
-   "release": "no-undo.zip",
-   "callers": {
-    "mark": [
-     "app/lib/ClientOrders.php",
-     "website/admin/api/pulse.php"
-    ]
-   }
-  },
-  {
    "path": "app/migrations/2026-11-25_task_seed_3.sql",
    "functions": [],
    "kind": "add",
