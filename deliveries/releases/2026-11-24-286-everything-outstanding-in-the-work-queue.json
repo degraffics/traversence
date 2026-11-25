@@ -1,0 +1,36 @@
+{
+    "id": 286,
+    "title": "Everything outstanding in the Work queue before the holiday, each task with its docs",
+    "why": "Jason, 2026-11-24: \"please ensure each session is summarized and that all adr's and governance docs are updated then archive them. Push anything outstanding into the task que so I can review it when I return. We will resume our work from the work que.\" Relayed by the session manager with the Orders session's and the Design reviewer's lists; asked by Jason directly, so no pop-up.",
+    "proposals": "",
+    "zip": "task-seed-3.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/migrations/2026-11-25_task_seed_3.sql": {
+            "sha": "3b1fca428dbd72539cb00c6f11a6ab36f1a97c1f18ed9d8d91d900cbc80f7da7",
+            "size": 15231,
+            "live_was": null
+        }
+    },
+    "migrations": [
+        "app/migrations/2026-11-25_task_seed_3.sql"
+    ],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-25T01:18:12+00:00",
+            "by": 0,
+            "msg": "Uploaded task-seed-3.zip: 1 files."
+        }
+    ]
+}
