@@ -6,30 +6,36 @@
     "zip": "team-tickets.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "staged",
-    "step": 0,
+    "state": "live",
+    "step": 3,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
     "plan_at": "2026-11-25 17:57:15",
     "staged_at": "2026-11-25 17:57:17",
-    "vetted_at": null,
-    "live_at": null,
+    "vetted_at": "2026-11-25 17:57:21",
+    "live_at": "2026-11-25 17:57:21",
     "files": {
         "app/admin/control-console.php": {
             "sha": "1c15242aaa0330e38557b0553eb33590885f867159b3b120a60dada935e16119",
             "size": 291882,
-            "live_was": "46b2fe8807e66839e299f7ac9b3a8deccf63258413c315903de818f38860a33d"
+            "live_was": "46b2fe8807e66839e299f7ac9b3a8deccf63258413c315903de818f38860a33d",
+            "existed": true,
+            "old_sha": "46b2fe8807e66839e299f7ac9b3a8deccf63258413c315903de818f38860a33d"
         },
         "app/admin/Access.php": {
             "sha": "af4cde19c61c1038bf4dc7bda61e82cede85e476734e07c5947b9e3198fce428",
             "size": 6770,
-            "live_was": "c06b8b849ece046afa780e950a810e9fb5b738d8221d08221c56507d9024a34a"
+            "live_was": "c06b8b849ece046afa780e950a810e9fb5b738d8221d08221c56507d9024a34a",
+            "existed": true,
+            "old_sha": "c06b8b849ece046afa780e950a810e9fb5b738d8221d08221c56507d9024a34a"
         },
         "app/ui/faq.md": {
             "sha": "3563df4a054fd71f29fbaf9c61358902ced80f89e32b03cc11e78255004f54ed",
             "size": 451117,
-            "live_was": "7ebfc02958f48dee34a0a92fb76bd13c30b1673cb245bca5407431d1092559f2"
+            "live_was": "7ebfc02958f48dee34a0a92fb76bd13c30b1673cb245bca5407431d1092559f2",
+            "existed": true,
+            "old_sha": "7ebfc02958f48dee34a0a92fb76bd13c30b1673cb245bca5407431d1092559f2"
         },
         "app/migrations/2026-11-25_tickets.sql": {
             "sha": "4a52d273a5cdf4b80bb5b9f37a2dbb683a8246b5ea125580cc484fcad15a6992",
@@ -44,27 +50,37 @@
         "app/lib/GaugeTasks.php": {
             "sha": "86f8da53156160b2ac0ad9360bb35508cf3009242880030df30ce624fd7c92f4",
             "size": 51263,
-            "live_was": "befd99d77085e3d4de4893af059326700b66e41e7736a5735150d219af619220"
+            "live_was": "befd99d77085e3d4de4893af059326700b66e41e7736a5735150d219af619220",
+            "existed": true,
+            "old_sha": "befd99d77085e3d4de4893af059326700b66e41e7736a5735150d219af619220"
         },
         "app/lib/staging-tables.php": {
             "sha": "6eb79aeb15bda10eddfefee6c30d003f10053fb05f2f80e473faf0cda7dfc6c7",
             "size": 30268,
-            "live_was": "3594687bb6b18c154a0d6ec644dc1a162e134ab680e7d988104d9467e34d7349"
+            "live_was": "3594687bb6b18c154a0d6ec644dc1a162e134ab680e7d988104d9467e34d7349",
+            "existed": true,
+            "old_sha": "3594687bb6b18c154a0d6ec644dc1a162e134ab680e7d988104d9467e34d7349"
         },
         "app/lib/ControlGauges.php": {
             "sha": "855f86124ce74e0ec07ec5854b9c21f23f9cc7ec11f3b5bec8a3023e69aabb9e",
             "size": 42286,
-            "live_was": "2c81d64ce1b260c3ef1b20620f237a26548afaab993ed930836db516d24a6efa"
+            "live_was": "2c81d64ce1b260c3ef1b20620f237a26548afaab993ed930836db516d24a6efa",
+            "existed": true,
+            "old_sha": "2c81d64ce1b260c3ef1b20620f237a26548afaab993ed930836db516d24a6efa"
         },
         "website/admin/api.php": {
             "sha": "7b0171d928ed9d9045cbbcc64b4fc88f1a2db030d89d73b47d879976df67163f",
             "size": 55519,
-            "live_was": "c63bd013d6a2851430c5dc2f790e3f7eb0c51cfbb908e6e3addcc0ff54687b38"
+            "live_was": "c63bd013d6a2851430c5dc2f790e3f7eb0c51cfbb908e6e3addcc0ff54687b38",
+            "existed": true,
+            "old_sha": "c63bd013d6a2851430c5dc2f790e3f7eb0c51cfbb908e6e3addcc0ff54687b38"
         },
         "website/js/admin-control.js": {
             "sha": "abc7b21b16829f7b7e172f6b7954b9de1717267535c0ba71beb4332d0e6881db",
             "size": 78519,
-            "live_was": "6be1e81ce43336edef5b1f2ba32eef6e89ef3ea13552654ac017f3173877a3a6"
+            "live_was": "6be1e81ce43336edef5b1f2ba32eef6e89ef3ea13552654ac017f3173877a3a6",
+            "existed": true,
+            "old_sha": "6be1e81ce43336edef5b1f2ba32eef6e89ef3ea13552654ac017f3173877a3a6"
         }
     },
     "migrations": [
@@ -73,8 +89,8 @@
     ],
     "checks": {
         "ok": true,
-        "where": "staging",
-        "at": "2026-11-25T17:57:19+00:00",
+        "where": "live",
+        "at": "2026-11-25T17:57:21+00:00",
         "items": [
             [
                 "PHP files parse",
@@ -82,24 +98,9 @@
                 "6 checked"
             ],
             [
-                "Migrations only add",
-                true,
-                "2 checked"
-            ],
-            [
-                "Data changes have a reason",
-                true,
-                "2026-11-25_tickets_stage.sql change rows: Gives each open task already in the Work queue its first stage, once (only rows with no stage): a release named → Implementation; taken and scoped → Building; the rest → Planning. Done and withdrawn tasks keep no stage. Changes nothing else. Adds one Work ticket, once (only when it isn't there): \"Au (a copy of every table they touch is kept first)"
-            ],
-            [
-                "Migrations ran on staging",
-                true,
-                "Ran 2026-11-25_tickets.sql, 2026-11-25_tickets_stage.sql"
-            ],
-            [
                 "Pages answer",
                 true,
-                "3 pages answered on staging.trvgo.us"
+                "3 pages answered on traversence.com"
             ],
             [
                 "No new fatal errors in the logs",
@@ -129,6 +130,16 @@
             "at": "2026-11-25T17:57:19+00:00",
             "by": 0,
             "msg": "Put on staging (10 files); its checks passed."
+        },
+        {
+            "at": "2026-11-25T17:57:21+00:00",
+            "by": 0,
+            "msg": "Approved in chat before it was sent through git, and its checks on staging passed: publishing by itself."
+        },
+        {
+            "at": "2026-11-25T17:57:21+00:00",
+            "by": 0,
+            "msg": "Published: 8 files, after its 2 migrations ran first (2026-11-25_tickets.sql, 2026-11-25_tickets_stage.sql; a copy of what each touched is kept 14 days); everyone at once (no switch)."
         }
     ]
 }
