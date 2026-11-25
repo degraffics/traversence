@@ -6,12 +6,12 @@
     "zip": "team-roster.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "planned",
+    "state": "approved",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
-    "plan_at": null,
+    "plan_at": "2026-11-25 17:29:43",
     "staged_at": null,
     "vetted_at": null,
     "live_at": null,
@@ -72,6 +72,16 @@
             "at": "2026-11-25T17:29:41+00:00",
             "by": 0,
             "msg": "Uploaded team-roster.zip: 9 files."
+        },
+        {
+            "at": "2026-11-25T17:29:43+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/team-roster.zip (git c4f0dd235f)."
+        },
+        {
+            "at": "2026-11-25T17:29:43+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
         }
     ]
 }
