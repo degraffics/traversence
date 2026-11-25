@@ -28,3 +28,7 @@ four folders up from `app/lib/`) naming `DB_DATABASE=lv_main`.
   checks: `php runner.php <root>/app` (it resets lv_main).
 - `runner.cjs` with `runner-seed.php` (P2-3 rendered at 1280 and 390): a run's line with Undo, pressed; a proposal with Accept,
   pressed. 22 checks: `node runner.cjs <root> [shots dir]`.
+- `audit.php` (P2-4, the daily audit): its sources (Site health from the cached report, a late job, an open alarm), one Audit
+  ticket per finding, tiers by 0179, nothing doubled, the second look (confirmed opens Work or a Resolution; gone is cleared),
+  the Audit closing with its ticket, Undo, Permissions, live and off doing nothing, the job, Run the audit now. 21 checks:
+  `php audit.php <root>/app` (it resets lv_main).

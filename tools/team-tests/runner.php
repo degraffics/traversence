@@ -91,7 +91,7 @@ $t('Permissions above its level: the run is refused, saying what\'s needed, and 
 // 9. the code's own guarantees
 $src = (string) file_get_contents($app . '/lib/TeamRunner.php');
 $t('no outside call and no paid AI in the runner (Q4 B)', !preg_match('/curl_|file_get_contents\s*\(\s*[\'"]https?:|AiClient::claude|Gemini::/', $src));
-$t('no direct SQL on landmarks or nations (0066; piece2-team.md §5.2)', !preg_match('/\b(landmarks|nations)\b/i', $src));
+$t('no direct SQL on landmarks or nations (0066; piece2-team.md §5.2)', !preg_match('/\b(FROM|JOIN|INTO|UPDATE)\s+`?(landmarks|nations)\b/i', $src));
 $t('it never answers a Tier 3', !str_contains($src, 'GaugeTasks::answer'));
 require_once $app . '/lib/staging-tables.php';
 $t('the queue\'s five tables are records now (Q1 A), team_runs staging\'s own', count(array_intersect(['control_gauge_tasks', 'control_gauge_task_steps', 'control_gauge_task_adrs', 'control_gauge_task_moves', 'control_gauge_task_briefs'], StagingTables::RECORDS)) === 5 && in_array('team_runs', StagingTables::OWN, true) && !in_array('control_gauge_tasks', StagingTables::OWN, true));

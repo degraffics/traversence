@@ -323,7 +323,8 @@ step, not a chain. (The ruling: "each run takes one task, does one step, logs it
     - or when two open tickets cite decisions that disagree (deadlock).
   - **Tier 1** when it is clearly wording, FAQ, tests or layout (0179 rule 2's list).
   - **Tier 2** for everything else.
-  - Anything unclear counts as Tier 3 (0179: "A release that is not clearly low-risk counts as needing approval").
+  - Anything not clearly Tier 1 is Tier 2: it still waits for the approved batch (0179 rule 1: "A release that is not clearly
+    low-risk counts as needing approval"). Tier 3 is only what matches a boundary. (Built this way; the session manager told.)
 - A confirmed Tier 1 or 2 finding opens a **Work ticket** at Planning, with `parent_id` pointing to the audit. A Tier 3
   finding opens a **Resolution ticket** and the Translator drafts its brief.
 
@@ -605,7 +606,7 @@ session manager's word on Jason's pre-approval and the staging switches (0179 ru
 | P2-2 `team-roster.zip` | built, zip check clean, claims taken; summary sent to the session manager | `handoffs/piece2-build/team-roster/` | roster.php 51, roster.cjs 40 |
 | P2-1 `team-tickets.zip` | built over P2-2 (both carry `staging-tables.php` and `faq.md`: send after P2-2 is live, rebuilding those two on the live copy) | `handoffs/piece2-build/team-tickets/` | tickets.php 48, tickets.cjs 60, old suites 84/44/32 |
 | P2-3 `team-runner.zip` | built over P2-1 (carries the same shared files: send after P2-1 is live, rebuilt on it) | `handoffs/piece2-build/team-runner/` | runner.php 32, runner.cjs 22; roster, tickets and the old suites still pass |
-| P2-4 `team-audit.zip` | | | |
+| P2-4 `team-audit.zip` | built over P2-3; its zip check's only blocks are R14 for tables P2-1 and P2-3 classify (checked against today's live): clears once they're live and it's rebuilt | `handoffs/piece2-build/team-audit/` | audit.php 21; every earlier suite still passes |
 | P2-5 `team-batch.zip` | | | |
 | P2-6 | out (Q4 B) | | |
 
