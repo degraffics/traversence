@@ -1,5 +1,5 @@
 {
- "at": "2026-11-25T14:17:43.331Z",
+ "at": "2026-11-25T18:17:38.371Z",
  "requests": [
   {
    "id": 3,
@@ -13,6 +13,9 @@
    "source": "scope doc 2026-11-24 · note: Rule #1314 · docs: built, not sent: branch claude/no-undo, handoffs/no-undo.md",
    "owner": "Control Board build session",
    "release": "",
+   "ticket": "work",
+   "stage": "building",
+   "tier": null,
    "late": false
   },
   {
@@ -27,6 +30,9 @@
    "source": "handoffs/decided-not-live.md, Control board 3",
    "owner": "Control Board build session",
    "release": "",
+   "ticket": "work",
+   "stage": "building",
+   "tier": null,
    "late": false
   },
   {
@@ -41,6 +47,9 @@
    "source": "handoffs/decided-not-live.md, Control board 4",
    "owner": "Control Board build session",
    "release": "",
+   "ticket": "work",
+   "stage": "building",
+   "tier": null,
    "late": false
   },
   {
@@ -55,6 +64,9 @@
    "source": "handoffs/decided-not-live.md, Control board 5",
    "owner": "Control Board build session",
    "release": "",
+   "ticket": "work",
+   "stage": "building",
+   "tier": null,
    "late": false
   },
   {
@@ -69,6 +81,9 @@
    "source": "handoffs/decided-not-live.md, Control board 6",
    "owner": "Control Board build session",
    "release": "",
+   "ticket": "work",
+   "stage": "building",
+   "tier": null,
    "late": false
   },
   {
@@ -83,6 +98,9 @@
    "source": "handoffs/decided-not-live.md, Control board 7",
    "owner": "Control Board build session",
    "release": "",
+   "ticket": "work",
+   "stage": "building",
+   "tier": null,
    "late": false
   },
   {
@@ -97,6 +115,9 @@
    "source": "handoffs/decided-not-live.md, Control board 8",
    "owner": "Control Board build session",
    "release": "",
+   "ticket": "work",
+   "stage": "building",
+   "tier": null,
    "late": false
   },
   {
@@ -111,6 +132,9 @@
    "source": "scope doc 2026-11-24 · note: Foursquare run #2148 · docs: W1 run #2148: handoffs/control-board-2026-11-24.md, handoffs/loads-reply.md",
    "owner": "Control Board build session",
    "release": "",
+   "ticket": "work",
+   "stage": "building",
+   "tier": null,
    "late": false
   },
   {
@@ -125,6 +149,9 @@
    "source": "handoffs/control-board-2026-11-24.md, open notes · docs: handoffs/control-board-2026-11-24.md (open notes)",
    "owner": "Control Board build session",
    "release": "",
+   "ticket": "work",
+   "stage": "building",
+   "tier": null,
    "late": false
   },
   {
@@ -139,6 +166,9 @@
    "source": "The Design reviewer, 2026-11-24 · docs: handoffs/design-reviewer-2026-11-24.md",
    "owner": "Control Board build session",
    "release": "",
+   "ticket": "work",
+   "stage": "building",
+   "tier": null,
    "late": false
   },
   {
@@ -153,6 +183,9 @@
    "source": "Jason's scope doc (Work queue: task scopes), 2026-11-24 · note: After your :02 test",
    "owner": "Control Board build session",
    "release": "",
+   "ticket": "work",
+   "stage": "building",
+   "tier": null,
    "late": false
   },
   {
@@ -167,6 +200,9 @@
    "source": "scope doc 2026-11-24 · note: Built, paused by you (PR #1346) · docs: PR #1346 paused: handoffs/order-management-m2.md, order-m2b/, 0101 notes · on resume: email error buttons in box, Ship mode Not set ✎",
    "owner": "Orders session",
    "release": "",
+   "ticket": "work",
+   "stage": "building",
+   "tier": null,
    "late": false
   },
   {
@@ -181,6 +217,9 @@
    "source": "handoffs/decided-not-live.md, Orders 2 · docs: research/order-management-design-2026-11-23.md §6, 0098 note, 0178",
    "owner": "Orders session",
    "release": "",
+   "ticket": "work",
+   "stage": "building",
+   "tier": null,
    "late": false
   },
   {
@@ -195,6 +234,9 @@
    "source": "handoffs/decided-not-live.md, Orders 3 · docs: research/order-management-design-2026-11-23.md §6",
    "owner": "Orders session",
    "release": "",
+   "ticket": "work",
+   "stage": "building",
+   "tier": null,
    "late": false
   },
   {
@@ -209,6 +251,9 @@
    "source": "handoffs/decided-not-live.md, Orders 4 · docs: 0177 note, research/order-management-design-2026-11-23.md §6",
    "owner": "Orders session",
    "release": "",
+   "ticket": "work",
+   "stage": "building",
+   "tier": null,
    "late": false
   },
   {
@@ -223,6 +268,9 @@
    "source": "handoffs/decided-not-live.md, Orders 5 · docs: research/order-management-design-2026-11-23.md §6",
    "owner": "Orders session",
    "release": "",
+   "ticket": "work",
+   "stage": "building",
+   "tier": null,
    "late": false
   },
   {
@@ -237,6 +285,9 @@
    "source": "handoffs/decided-not-live.md, Orders 6 · docs: 0178 §6, research/order-management-design-2026-11-23.md §5",
    "owner": "Orders session",
    "release": "",
+   "ticket": "work",
+   "stage": "building",
+   "tier": null,
    "late": false
   },
   {
@@ -251,6 +302,9 @@
    "source": "handoffs/decided-not-live.md, Later",
    "owner": "Orders session",
    "release": "",
+   "ticket": "work",
+   "stage": "planning",
+   "tier": null,
    "late": false
   },
   {
@@ -265,6 +319,9 @@
    "source": "handoffs/decided-not-live.md, Later",
    "owner": "Orders session",
    "release": "",
+   "ticket": "work",
+   "stage": "building",
+   "tier": null,
    "late": false
   },
   {
@@ -279,6 +336,9 @@
    "source": "scope doc 2026-11-24 · docs: designed, not built: claude/wq-phase2, handoffs/work-queue-phase2.md (+ mockups), after the four-stage redesign",
    "owner": "",
    "release": "",
+   "ticket": "work",
+   "stage": "planning",
+   "tier": null,
    "late": true
   },
   {
@@ -293,6 +353,9 @@
    "source": "scope doc 2026-11-24 · docs: handoffs/order-management-m2.md: QB invoice 112906 · with Jason",
    "owner": "",
    "release": "",
+   "ticket": "work",
+   "stage": "planning",
+   "tier": null,
    "late": true
   },
   {
@@ -307,6 +370,9 @@
    "source": "Jason's scope doc (Work queue: task scopes), 2026-11-24",
    "owner": "",
    "release": "",
+   "ticket": "work",
+   "stage": "planning",
+   "tier": null,
    "late": true
   },
   {
@@ -321,6 +387,9 @@
    "source": "Jason's scope doc (Work queue: task scopes), 2026-11-24",
    "owner": "",
    "release": "",
+   "ticket": "work",
+   "stage": "planning",
+   "tier": null,
    "late": true
   },
   {
@@ -335,6 +404,9 @@
    "source": "Jason's scope doc (Work queue: task scopes), 2026-11-24",
    "owner": "",
    "release": "",
+   "ticket": "work",
+   "stage": "planning",
+   "tier": null,
    "late": true
   },
   {
@@ -349,6 +421,9 @@
    "source": "Jason's scope doc (Work queue: task scopes), 2026-11-24",
    "owner": "",
    "release": "",
+   "ticket": "work",
+   "stage": "planning",
+   "tier": null,
    "late": true
   },
   {
@@ -363,6 +438,9 @@
    "source": "Jason's scope doc (Work queue: task scopes), 2026-11-24",
    "owner": "",
    "release": "",
+   "ticket": "work",
+   "stage": "planning",
+   "tier": null,
    "late": true
   },
   {
@@ -377,6 +455,9 @@
    "source": "Jason's scope doc (Work queue: task scopes), 2026-11-24",
    "owner": "",
    "release": "",
+   "ticket": "work",
+   "stage": "planning",
+   "tier": null,
    "late": true
   },
   {
@@ -391,6 +472,9 @@
    "source": "Jason's scope doc (Work queue: task scopes), 2026-11-24",
    "owner": "",
    "release": "",
+   "ticket": "work",
+   "stage": "planning",
+   "tier": null,
    "late": true
   },
   {
@@ -405,6 +489,9 @@
    "source": "Jason's scope doc (Work queue: task scopes), 2026-11-24",
    "owner": "",
    "release": "",
+   "ticket": "work",
+   "stage": "planning",
+   "tier": null,
    "late": true
   },
   {
@@ -419,6 +506,9 @@
    "source": "Jason's scope doc (Work queue: task scopes), 2026-11-24",
    "owner": "",
    "release": "",
+   "ticket": "work",
+   "stage": "planning",
+   "tier": null,
    "late": true
   },
   {
@@ -433,6 +523,9 @@
    "source": "Jason's scope doc (Work queue: task scopes), 2026-11-24",
    "owner": "",
    "release": "",
+   "ticket": "work",
+   "stage": "planning",
+   "tier": null,
    "late": true
   },
   {
@@ -447,6 +540,9 @@
    "source": "Jason's scope doc (Work queue: task scopes), 2026-11-24",
    "owner": "",
    "release": "",
+   "ticket": "work",
+   "stage": "planning",
+   "tier": null,
    "late": true
   },
   {
@@ -461,6 +557,9 @@
    "source": "Jason's scope doc (Work queue: task scopes), 2026-11-24",
    "owner": "",
    "release": "",
+   "ticket": "work",
+   "stage": "planning",
+   "tier": null,
    "late": true
   },
   {
@@ -475,6 +574,9 @@
    "source": "Jason's scope doc (Work queue: task scopes), 2026-11-24",
    "owner": "",
    "release": "",
+   "ticket": "work",
+   "stage": "planning",
+   "tier": null,
    "late": true
   },
   {
@@ -489,6 +591,9 @@
    "source": "Jason's scope doc (Work queue: task scopes), 2026-11-24",
    "owner": "",
    "release": "",
+   "ticket": "work",
+   "stage": "planning",
+   "tier": null,
    "late": true
   },
   {
@@ -503,6 +608,9 @@
    "source": "Jason's scope doc (Work queue: task scopes), 2026-11-24",
    "owner": "",
    "release": "",
+   "ticket": "work",
+   "stage": "planning",
+   "tier": null,
    "late": true
   },
   {
@@ -517,6 +625,9 @@
    "source": "Jason's scope doc (Work queue: task scopes), 2026-11-24",
    "owner": "",
    "release": "",
+   "ticket": "work",
+   "stage": "planning",
+   "tier": null,
    "late": true
   },
   {
@@ -531,6 +642,9 @@
    "source": "Jason's scope doc (Work queue: task scopes), 2026-11-24",
    "owner": "",
    "release": "",
+   "ticket": "work",
+   "stage": "planning",
+   "tier": null,
    "late": true
   },
   {
@@ -545,6 +659,9 @@
    "source": "handoffs/task-seed.md (#284 and task-seed-2) · app/lib/DbUpdates.php autoRun and all()",
    "owner": "",
    "release": "",
+   "ticket": "work",
+   "stage": "planning",
+   "tier": null,
    "late": false
   },
   {
@@ -559,6 +676,9 @@
    "source": "handoffs/task-seed.md · handoffs/work-queue-phase2.md gap (a) · decisions/0164 §0.8",
    "owner": "",
    "release": "",
+   "ticket": "work",
+   "stage": "planning",
+   "tier": null,
    "late": false
   },
   {
@@ -573,6 +693,9 @@
    "source": "Waiting for Jason's outline. Then a mockup first, in his words only",
    "owner": "",
    "release": "",
+   "ticket": "work",
+   "stage": "planning",
+   "tier": null,
    "late": false
   },
   {
@@ -587,6 +710,9 @@
    "source": "handoffs/board-phone.md \"Still open\" · tools/page-audit/towns.mjs jobs.json",
    "owner": "",
    "release": "",
+   "ticket": "work",
+   "stage": "planning",
+   "tier": null,
    "late": false
   },
   {
@@ -601,6 +727,9 @@
    "source": "handoffs/task-adrs.md (Attach a decision, the same pattern)",
    "owner": "",
    "release": "",
+   "ticket": "work",
+   "stage": "planning",
+   "tier": null,
    "late": false
   },
   {
@@ -615,6 +744,9 @@
    "source": "handoffs/order-management-m2.md (\"M3's first fix\", Final hand-off)",
    "owner": "",
    "release": "",
+   "ticket": "work",
+   "stage": "planning",
+   "tier": null,
    "late": false
   },
   {
@@ -629,6 +761,9 @@
    "source": "handoffs/order-management-m2.md (Open items) · handoffs/design-reviewer-2026-11-24.md",
    "owner": "",
    "release": "",
+   "ticket": "work",
+   "stage": "planning",
+   "tier": null,
    "late": false
   },
   {
@@ -643,6 +778,9 @@
    "source": "handoffs/design-reviewer-2026-11-24.md item 7",
    "owner": "",
    "release": "",
+   "ticket": "work",
+   "stage": "planning",
+   "tier": null,
    "late": false
   },
   {
@@ -657,6 +795,26 @@
    "source": "decisions/0101 (2026-11-24 note)",
    "owner": "",
    "release": "",
+   "ticket": "work",
+   "stage": "planning",
+   "tier": null,
+   "late": false
+  },
+  {
+   "id": 51,
+   "at_utc": "2026-11-25T17:57:21Z",
+   "gauge": "area:admin",
+   "build": "",
+   "item": "Audit cron callers of Access::can() (it returns true with no staff session)",
+   "what": "Audit cron callers of Access::can() (it returns true with no staff session)",
+   "was": "task",
+   "why": "Access::who() is the Founder when there is no staff session, so Access::can() allows everything in a scheduled job. Find every job or script that calls it and give each a named level (Access::canAs) or a real check.",
+   "source": "handoffs/piece2-team.md §1 finding 2 (Piece 2, 2026-11-25)",
+   "owner": "",
+   "release": "",
+   "ticket": "work",
+   "stage": "planning",
+   "tier": 2,
    "late": false
   }
  ]
