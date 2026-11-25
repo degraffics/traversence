@@ -21,4 +21,7 @@ GaugeTasks::edit($pdo, $w2, ['goal' => 'Built', 'done_when' => 'It runs', 'prior
 TeamRunner::ensure($pdo); TeamRunner::approveTree($pdo, $J); TeamRunner::setCeiling($pdo, 'building', $J, 'runner.cjs');
 TeamRunner::tick($pdo);
 TeamRunner::setCeiling($pdo, 'planning', $J, 'runner.cjs: back to Planning');
-echo $w, ' ', $r, ' ', $w2, "\n";
+// P2-4: a Work ticket only worded like money, flagged for a person to check (when the flag's migration is in this build)
+$w3 = 0; if (is_file($app . '/migrations/2026-11-25_team_flag.sql')) { foreach (DbUpdates::statements((string) file_get_contents($app . '/migrations/2026-11-25_team_flag.sql')) as $s) { $st = $pdo->query($s); if ($st) $st->closeCursor(); }
+    $w3 = GaugeTasks::add($pdo, 'area:control-board', 'A refund note on a trail page', 'Text left from a template', 'the daily audit', $J, 1); GaugeTasks::flag($pdo, $w3, 'money'); }
+echo $w, ' ', $r, ' ', $w2, ' ', $w3, "\n";

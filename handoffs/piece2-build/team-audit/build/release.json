@@ -1,12 +1,28 @@
 {
   "title": "The Team's daily audit, on staging only (Piece 2, P2-4)",
-  "why": "Jason's Piece 2 (decisions/0179; handoffs/piece2-team.md §6, approved 2026-11-25): once a day on staging the Operations & Reconciliation Manager reads Site health's findings, late or failed jobs and open alarms, opens one Audit ticket per new finding, and a day later confirms it (opening a Work ticket, or a Resolution for a Tier 3) or clears it as noise. Nothing runs on live.",
+  "why": "Jason's Piece 2 (decisions/0179; handoffs/piece2-team.md §6, approved 2026-11-25): once a day on staging the Operations & Reconciliation Manager reads Site health's findings, late or failed jobs and open alarms, opens one Audit ticket per new finding, and a day later confirms it (opening a Work ticket, or a Resolution for a Tier 3) or clears it as noise. Nothing runs on live. Tier 3 is found by what a finding touches (decisions/0179's note, 2026-11-25): a page, file, job, service, library or table in TeamRunner::TIER3_AREAS, each taken from the live code. Words alone never make Tier 3: they leave it Tier 2 with a flag, \"Words suggest a Tier 3 boundary: a person checks\", which a person settles on the ticket (It's Tier 2, or It's Tier 3, which opens its Resolution), kept in the History.",
   "proposals": [],
   "switch": "",
   "changes": [
-    {"what": "The daily audit (team_audit_tick), staging only, under the Team's runner switch", "where": "https://staging.trvgo.us/admin/config/switches"},
-    {"what": "Run the audit now, on the Operations & Reconciliation Manager's card (greyed on live, with why)", "where": "https://traversence.com/admin/config/team"},
-    {"what": "Audit tickets in the Work queue: Found, then Confirmed or cleared as noise; the Audit closes with the ticket it opened", "where": "https://traversence.com/admin/config/control?tab=development"},
-    {"what": "FAQ: What is the Team's daily audit?", "where": "https://traversence.com/faq.php"}
+    {
+      "what": "The daily audit (team_audit_tick), staging only, under the Team's runner switch",
+      "where": "https://staging.trvgo.us/admin/config/switches"
+    },
+    {
+      "what": "Run the audit now, on the Operations & Reconciliation Manager's card (greyed on live, with why)",
+      "where": "https://traversence.com/admin/config/team"
+    },
+    {
+      "what": "Tier 3 by what a finding touches; a word match alone flags it Tier 2 for a person to check (It's Tier 2 / It's Tier 3 on the ticket, the filter's Words suggest Tier 3)",
+      "where": "https://traversence.com/admin/config/control?tab=development"
+    },
+    {
+      "what": "Audit tickets in the Work queue: Found, then Confirmed or cleared as noise; the Audit closes with the ticket it opened",
+      "where": "https://traversence.com/admin/config/control?tab=development"
+    },
+    {
+      "what": "FAQ: What is the Team's daily audit? (with how a finding becomes Tier 3)",
+      "where": "https://traversence.com/faq.php"
+    }
   ]
 }

@@ -23,7 +23,7 @@ const press = async (p, sel) => { await Promise.all([p.waitForResponse(r => r.ur
   try {
     for (const w of [1280, 390]) {
       const L = w + 'px: ';
-      const [work, res, work2] = seed(); t(L + 'three runs made on staging', db('SELECT COUNT(*) FROM team_runs') === '3');
+      const [work, res, work2, flagged] = seed(); t(L + 'three runs made on staging', db('SELECT COUNT(*) FROM team_runs') === '3');
       const ctx = await b.newContext({ viewport: { width: w, height: 900 } }); const p = await ctx.newPage();
       const errs = []; p.on('pageerror', e => errs.push(e.message));
       await p.goto('http://127.0.0.1:' + port + '/admin/config/control'); await p.waitForTimeout(900); await view(p, 'development'); await p.waitForTimeout(400);
@@ -66,6 +66,17 @@ const press = async (p, sel) => { await Promise.all([p.waitForResponse(r => r.ur
       await press(p, P + ' [data-wqp=runaccept]');
       t(L + 'Accept: the brief\'s part filled', /Tier 3 line/.test(await p.textContent(P + ' [data-wqp-f="why_you"]')));
       t(L + '… said as accepted, by whom; no buttons left', /Accepted by Jason \(test\)/.test(await p.textContent(P + ' .wqp-runs')) && !(await p.$(P + ' [data-wqp=runaccept]')));
+      if (+flagged) {   // P2-4: words that suggest Tier 3, checked by a person
+        await p.goto('http://127.0.0.1:' + port + '/admin/config/control'); await p.waitForTimeout(900); await view(p, 'development'); await p.waitForTimeout(400);
+        t(L + 'the flagged row says "Words suggest a Tier 3 boundary: a person checks"', /Words suggest a Tier 3 boundary: a person checks/.test(await p.textContent(W + ' #wq-' + flagged + ' .wq-ag')));
+        await p.click(W + ' [data-wq-fb]'); const fl = await p.$$eval(W + ' [data-wq-f]', a => a.map(x => x.textContent.replace(/\s+/g, ' ').trim())); await p.keyboard.press('Escape');
+        t(L + 'the filter counts it: "Words suggest Tier 3 1"', fl.includes('Words suggest Tier 3 1'), fl);
+        await openTask(p, flagged);
+        t(L + 'its page says so, with It\'s Tier 2 and It\'s Tier 3: open its Resolution', /Words suggest a Tier 3 boundary \(Money,/.test(await p.textContent(P + ' .wqp-flag')) && await p.isVisible(P + ' [data-wqp=flag][data-v=tier2]') && /open its Resolution/.test(await p.textContent(P + ' [data-wqp=flag][data-v=tier3]')));
+        if (shots) await p.screenshot({ path: shots + '/flag-' + w + '.png' });
+        await press(p, P + ' [data-wqp=flag][data-v=tier3]');
+        t(L + 'It\'s Tier 3 pressed: the flag line gone, its Resolution opened and named', !(await p.$(P + ' .wqp-flag')) && db("SELECT COUNT(*) FROM control_gauge_tasks WHERE parent_id = " + flagged + " AND ticket = 'resolution' AND tier = 3") === '1');
+      }
       t(L + 'nothing wider than the window', await p.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth + 1));
       t(L + 'no page error', errs.length === 0, errs);
       await ctx.close();

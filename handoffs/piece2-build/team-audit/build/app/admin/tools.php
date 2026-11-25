@@ -2474,7 +2474,8 @@ return [
             $st = (string) $r['status']; $isF = $r['kind'] === 'founder'; $adv = $r['kind'] === 'advocate';
             $test = '';
             if ($adv) { require_once __DIR__ . '/../lib/TestAccounts.php'; $tk = (string) $r['test_account']; $test = $tk === 'signed_out' ? 'Signed out (a guest): no account' : (TestAccounts::MEMBERS[$tk][0] ?? TestAccounts::STAFF[$tk][0] ?? $tk); }
-            $steps = array_map(fn ($k) => TeamRunner::STEPS[$k][1], TeamRoster::steps((string) $r['slug']));
+            $cl = $steps0 = TeamRoster::steps((string) $r['slug']); if ($steps0) { $cl = TeamRunner::ceiling($pdo); }
+            $steps = array_map(fn ($k) => TeamRunner::STEPS[$k][1] . ' (' . ['act' => 'acts', 'propose' => 'proposes; a person accepts', 'off' => 'off until agents work past ' . TeamRunner::CEILINGS[$cl][0]][TeamRunner::STEP_AT[$k][$cl]] . ')', $steps0);
             $fields = [
                 ['Status', (TeamRoster::STATUSES[$st][0] ?? $st) . ' · ' . lcfirst(TeamRoster::STATUSES[$st][1] ?? '')],
                 ['Department', TeamRoster::DEPARTMENTS[$r['department']][0] ?? $r['department']],
