@@ -126,5 +126,5 @@ $set(['status' => 'active', 'role' => 'admin', 'level' => 'executive', 'name' =>
 $set(['status' => 'ended', 'role' => 'owner', 'level' => 'founder', 'name' => 'x']); $t('an ended Founder login: not the Founder', !Access::isFounder());
 $set(['status' => 'active', 'role' => 'owner', 'level' => 'founder', 'name' => 'Jason']); $t('the Founder\'s own active staff login: the Founder', Access::isFounder());
 $api = (string) file_get_contents(dirname($app) . '/website/admin/api.php');
-$t('api.php: the answer and the batch both ask isFounder() first, never who()', preg_match("/qanswer'\) \{ if \(!Access::isFounder\(\)\)/", $api) === 1 && preg_match("/qbatch'\) \{ if \(!Access::isFounder\(\)\)/", $api) === 1 && !str_contains($api, "who()[0] !== 'founder'"));
+$t('api.php: the answer (and the batch, from P2-5) ask isFounder() first, never who()', preg_match("/qanswer'\) \{ if \(!Access::isFounder\(\)\)/", $api) === 1 && (!str_contains($api, "'qbatch'") || preg_match("/qbatch'\) \{ if \(!Access::isFounder\(\)\)/", $api) === 1) && !str_contains($api, "who()[0] !== 'founder'"));
 echo "\n$pass passed, $fail failed\n"; exit($fail ? 1 : 0);

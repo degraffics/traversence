@@ -5,3 +5,9 @@ UPDATE control_gauge_tasks SET ticket = 'work' WHERE ticket = '' OR ticket IS NU
 UPDATE control_gauge_tasks SET stage = 'implementation', stage_at = UTC_TIMESTAMP() WHERE stage IS NULL AND kind = 'fix' AND bucket = 'task' AND undone_at IS NULL AND cleared_at IS NULL AND rel <> '';
 UPDATE control_gauge_tasks SET stage = 'building', stage_at = UTC_TIMESTAMP() WHERE stage IS NULL AND kind = 'fix' AND bucket = 'task' AND undone_at IS NULL AND cleared_at IS NULL AND owner <> '' AND COALESCE(goal, '') <> '';
 UPDATE control_gauge_tasks SET stage = 'planning', stage_at = UTC_TIMESTAMP() WHERE stage IS NULL AND kind = 'fix' AND bucket = 'task' AND undone_at IS NULL AND cleared_at IS NULL;
+-- One task for the queue (the session manager, 2026-11-25; handoffs/piece2-team.md §1 finding 2), added once:
+INSERT INTO control_gauge_tasks (at, tz, gauge, item, kind, what, bucket, value, who, uid, why, source, ticket, stage, stage_at, tier)
+  SELECT UTC_TIMESTAMP(), '', 'area:admin', 'Audit cron callers of Access::can() (it returns true with no staff session)', 'fix', 'Audit cron callers of Access::can() (it returns true with no staff session)', 'task', '', 'the session manager', 0,
+    'Access::who() is the Founder when there is no staff session, so Access::can() allows everything in a scheduled job. Find every job or script that calls it and give each a named level (Access::canAs) or a real check.',
+    'handoffs/piece2-team.md §1 finding 2 (Piece 2, 2026-11-25)', 'work', 'planning', UTC_TIMESTAMP(), 2
+  FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM control_gauge_tasks WHERE item = 'Audit cron callers of Access::can() (it returns true with no staff session)');
