@@ -262,3 +262,48 @@ complete-owed.cjs and m1b.cjs's vendor-bill steps (upload, read, Send it to Quic
 side on a second harness server, 2026-11-24). The harness database has drifted from the seeds (orders from later seeds
 counted on the board; columns the live tables have). Bring the harness schema to the live tables and make each seed clear
 what it counts, then rerun every suite in `tools/order-tests/`.
+
+## Final hand-off (the Orders session, session_01CXLi5j2wAgTrKdTwX6kQNY, 2026-11-25: holiday wrap-up, archived after this)
+
+**Live, synced and byte-checked:** #274 M1 (the three state lines, Next step, the board's tiles), #276 M1b (QuickBooks
+first, the Vendor line, What's open), #279 M2 (Money on the order page: refunds and credit memos with Jason's Approve or
+Decline in Pulse, Cancel the record, cancel until the vendor accepts, the pay link, `admin/order.php` folded in).
+
+**M2b, decided, built, reviewed, paused (not in flight):** decisions/0101's note (2026-11-24). Design approved,
+session manager clear to ask; Jason answered "Pause for now. add to work queue." (2026-11-24). PR #1346 merged as the
+record only: its build is `handoffs/order-m2b/order-m2b.zip` (built on Sync 02:52 UTC, rechecked clean on 03:54 UTC),
+not in `releases/inbox/`, its delivery record removed, its claims released. **To resume:** fetch the mirror, start
+each of its five files from the live copy and re-apply M2b's changes (the diff of the zip against Sync 02:52 UTC,
+2eab529, is the change), claim (`ClientOrders.php::boardState,deliverables` change + `legs` add; `WorkOrders.php::
+moveItems,setTracking` change + `goesTo,legWords,setDelivery,tellVendor` add; `tools.php::'backoffice/work_orders'`;
+`website/admin/client-order.php`), rerun `m2b.php` (35) and `m2b.cjs` (88), zip check, `send.py`, ask Jason with the
+Release label, merge, tell the session manager. The screens and mockup are in `handoffs/order-m2b/`.
+
+**Next, in order** (research/order-management-design-2026-11-23.md §6; handoffs/decided-not-live.md):
+1. **M3's first fix:** the order tests green again (the section above): the harness schema brought to the live
+   tables, each seed clearing what it counts; then every suite in `tools/order-tests/`.
+2. M2b (above), when Jason resumes it.
+3. M3: the Money section: Outstanding with aging, Take a payment across orders, Credits on account and their use.
+4. M4: Place an order, guided; the archived E-Commerce orders page redirected.
+5. M5: several destinations, one invoice each (decisions/0177, Release B), inside the new flow.
+6. M6: the catalog: Services as their own list, Categories.
+7. M7: credit terms on accounts, Net 15 / Net 30, granted by Jason (decisions/0178 §6; design §5 Q4).
+
+**Open items:**
+- Order #12's books: QuickBooks invoice 112906 is $1,111.14, the order's lines $809.10 (Paid in QuickBooks Oct 26,
+  $809.10). Sent to Jason through the session manager on 2026-11-24; nothing on #12 is changed until he says.
+- Design reviewer items 7–10 from M2 (Files & versions and Shipping at 390), not built.
+- Booking a courier or freight with an outside company (0101's M2b note: "stays for later").
+
+**Pitfalls (this session):**
+- Live `order_ledger.kind` is an ENUM: no MODIFY; a new kind of record gets its own table (`order_payment_cancels`).
+- tv-ask turns a `data-tv-status` element into its notice box: put `data-tv-keep` on that element (not a wrapper) for no
+  ×; a `<div data-tv-status>` can hold forms and buttons inside the box; never a `<form>` inside a `<p>`.
+- `.co-inl`'s display overrides `[hidden]`: `.co-money [hidden]{display:none!important}`.
+- `Mailer::send` throws; never say "emailed" without it returning (`WorkOrders::tellVendor` keeps what we'd have sent).
+- A Will Call the vendor marks ready sets the order's stage to `ready`; read the work order's leg before the stage.
+- Claims lapse after 4 hours and `renew` doesn't bring a lapsed one back: claim again. tools.php entries are named as the
+  zip check names them (`'backoffice/work_orders'`, with quotes).
+- The harness: a worker restart stops mysqld and `php -S` (restart both); no mail server, so every email "fails" there;
+  check a suite against the live files on a second server (`h2/srv.php` → `liveroot`) before blaming a release.
+- Don't `rm -rf *` in a shell: the safety check refuses it; build each zip in a new folder.

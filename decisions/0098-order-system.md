@@ -453,3 +453,8 @@ live-read's meta read), and the add-only rule allows no `MODIFY`, so Cancel the 
 and the reason. It's greyed with why once something moved on because of that payment (a work order went to the vendor
 after it, it was delivered, its GO Codes went live, a dispute is open). The session manager's call (A), 2026-11-24, in the
 M2 review; built in M2 (`handoffs/order-management-m2.md`).
+
+## Note (2026-11-25, the Orders session's wrap-up): where it stands
+The cancelled-record table (`order_payment_cancels`, the 2026-11-24 note above) is live with M2 (#279): a payment recorded
+here and not processed is cancelled as if never recorded, append-only, with why; money totals subtract it. Credits on
+account and their use toward a balance (the 2026-11-23 note) are built in M3, queued (handoffs/order-management-m2.md).

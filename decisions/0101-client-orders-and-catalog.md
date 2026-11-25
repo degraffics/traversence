@@ -925,3 +925,8 @@ Asked as a decision, design approved by the Design reviewer (mockup `handoffs/or
 - **Next-day Courier** (the session manager, 2026-11-24, on the Orders session's reading): a shipping method, so the same
   rule: to its ship-to, or to us with none. The vendor's Complete on a work order means delivered to the client only where
   the work order goes to the client (`WorkOrders::goesTo`); otherwise it came to us (M2b).
+
+## Note (2026-11-25, the Orders session's wrap-up): M2b's state
+The 2026-11-24 note (how an order goes) is built and reviewed (Design approved, session manager clear) and **paused by
+Jason** ("Pause for now. add to work queue.", 2026-11-24): not live. Its build and how to resume it are in
+`handoffs/order-management-m2.md` (Final hand-off) and `handoffs/order-m2b/`; its place in `handoffs/decided-not-live.md`.
