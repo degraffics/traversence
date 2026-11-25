@@ -80,3 +80,24 @@ Piece 2's design (`handoffs/piece2-team.md`) approved with Q1 A, Q2 A, Q3 A, Q4 
 pre-approved: each publishes once its staging checks pass, "as long as we can roll back if there are issues", with a
 summary emailed after. The build session may switch on staging's runner switches. Over the holiday the session manager
 makes judgement calls "based on the adr's and the outlined plan"; Tier 3 still goes to Jason, by email.
+
+## Note (Jason with Gemini's review, 2026-11-25): how the Team's capacity grows
+
+"Proceed with the build on staging under these rules."
+1. **Tier 3 is detected by what a change or finding touches:** files, tables, endpoints, routes and protected areas
+   (money, major data, public addresses, 0066, privacy, mission, deadlocks). Word lists are only a secondary flag for a
+   person to check, never an escalation by themselves.
+2. **The decision tree's approval is tied to a fingerprint of its rules** (tiers, protected areas, role permissions),
+   not its wording: a wording fix keeps the approval, any rule change clears it and lowers the ceiling to Planning.
+3. **Stages open in order, each on evidence the Founder reviews:**
+   - **Building:** Planning's suggestions prove accurate, staging isolation holds, and every action is logged with Undo.
+   - **Implementation:** Building's outputs pass their checks, the agents' permission check is active (never a test
+     account, never Founder by default), and the holds on outside calls, payments and email stay intact.
+   - **Confirmation and safe publish:** staging's checks and Piece 3's before-and-after check pass, only the low-risk
+     kinds publish alone, and the daily summary with Undo works end to end.
+4. **Piece 3 blocks a change** when an advocate's view shows any of these after it:
+   - an access or privacy leak, or lost access or errors on a valid view (0066 included);
+   - a layout or phone regression (overlap, clipping, sideways scroll, broken controls or navigation, missing primary
+     content or buttons);
+   - missing data or broken core flows;
+   - out-of-scope drift without a reason.
