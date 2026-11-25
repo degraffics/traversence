@@ -1,6 +1,6 @@
 # Decision register
 
-Decision 0145 §1a. Generated on 2026-11-24 19:17 UTC from `decisions/` and the live mirror (`eaf8b31`). Don't edit by hand:
+Decision 0145 §1a. Generated on 2026-11-25 07:17 UTC from `decisions/` and the live mirror (`b1336ec`). Don't edit by hand:
 edit the decision, and this follows. "Missing files" are files a decision names that the site no longer has: the
 decision may be stale, or the file moved.
 
@@ -167,7 +167,7 @@ decision may be stale, or the file moved.
 | 0159 | [The builder: Traversence's platform builder and Storefront Studio](0159-the-builder-platform-and-storefront-studio.md) | accepted |  | 1 | 1 |  |
 | 0160 | [The crawler as one service, and each creation workflow start to finish](0160-the-crawler-as-a-service-and-the-creation-workflows.md) | accepted |  | 4 | 0 |  |
 | 0161 | [Check-out for site files: the page manager](0161-check-out-for-site-files-the-page-manager.md) | accepted |  |  | 5 |  |
-| 0162 | [Migrations at publish, copied first; leftovers after a rollback tracked and removed by release](0162-migrations-at-publish-copied-first-leftovers-tracked.md) | accepted |  | 1 | 0 |  |
+| 0162 | [Migrations at publish, copied first; leftovers after a rollback tracked and removed by release](0162-migrations-at-publish-copied-first-leftovers-tracked.md) | accepted |  | 2 | 0 |  |
 | 0163 | [Operations: one view of outside services, workflows and spend](0163-operations-one-view-of-services-workflows-and-spend.md) | accepted |  | 11 | 4 |  |
 | 0164 | [The Knowledge Engine: rule book, phases, workflows and sources](0164-the-knowledge-engine-rule-book-phases-workflows-and-sources.md) | accepted |  | 14 | 1 |  |
 | 0165 | [Staging is the live site in safe mode; Publish merges it into live](0165-staging-is-live-in-safe-mode-publish-merges-it.md) | accepted |  | 1 | 2 |  |
@@ -182,5 +182,5 @@ decision may be stale, or the file moved.
 | 0174 | [0174: Trips you can save: Add to a trip, the trip page, sending it to Maps, and routes on our own site](0174-trips-you-can-save.md) | accepted |  | 4 | 1 |  |
 | 0175 | [0175: One lifecycle for every module: our services and account apps, from selection to removal, acted on from the board](0175-one-lifecycle-for-every-module.md) | accepted |  | 11 | 1 |  |
 | 0176 | [0176: The dispatcher presents and routes every thread](0176-the-dispatcher-presents-and-routes-every-thread.md) | accepted |  | 8 | 2 |  |
-| 0177 | [0177: One order, several destinations: invoices, tax and the deposit](0177-one-order-several-destinations.md) | accepted |  |  | 0 |  |
-| 0178 | [0178: Order money policy: refunds, cancelling, credit, terms, cards and delivery with a balance](0178-order-money-policy.md) | accepted |  | 3 | 0 |  |
+| 0177 | [0177: One order, several destinations: invoices, tax and the deposit](0177-one-order-several-destinations.md) | accepted |  | 1 | 0 |  |
+| 0178 | [0178: Order money policy: refunds, cancelling, credit, terms, cards and delivery with a balance](0178-order-money-policy.md) | accepted |  | 4 | 0 |  |
