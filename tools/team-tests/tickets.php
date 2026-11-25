@@ -24,7 +24,9 @@ $old = [$ins('old open'), $ins('old taken, scoped', ', owner, goal', ['Orders se
 $ins('old done', ', cleared_at', [gmdate('Y-m-d H:i:s')]);
 // 1. the two migrations, as the site runs them, twice
 foreach ([1, 2] as $i) foreach (['2026-11-25_tickets.sql', '2026-11-25_tickets_stage.sql'] as $f) foreach (DbUpdates::statements((string) file_get_contents($app . '/migrations/' . $f)) as $s) { $st = $pdo->query($s); if ($st) $st->closeCursor(); }
-$stages = $q('SELECT what, ticket, stage FROM control_gauge_tasks ORDER BY id')->fetchAll(PDO::FETCH_ASSOC);
+$stages = $q("SELECT what, ticket, stage FROM control_gauge_tasks WHERE gauge = 'area:test' ORDER BY id")->fetchAll(PDO::FETCH_ASSOC);
+$cron = $q("SELECT * FROM control_gauge_tasks WHERE gauge = 'area:admin'")->fetchAll(PDO::FETCH_ASSOC);
+$t('the seed adds the session manager\'s task once (run twice): "Audit cron callers of Access::can()", Work, Planning, Tier 2', count($cron) === 1 && $cron[0]['ticket'] === 'work' && $cron[0]['stage'] === 'planning' && (int) $cron[0]['tier'] === 2 && str_contains($cron[0]['what'], 'Access::can()'));
 $t('the migrations run twice; every old task is a Work ticket', count(array_filter($stages, fn ($r) => $r['ticket'] === 'work')) === 5, $stages);
 $t('today\'s stages: open → Planning, taken and scoped → Building, taken unscoped → Planning, a release named → Implementation, done → none',
     array_column($stages, 'stage') === ['planning', 'building', 'planning', 'implementation', null], array_column($stages, 'stage'));
@@ -116,4 +118,13 @@ $t('report() carries its type, stage and a Team role\'s name (a role, not a pers
 GaugeTasks::assign($pdo, $r2, 'Jane Staff', $J); $rep = GaugeTasks::report($pdo); $one = array_values(array_filter($rep['requests'], fn ($x) => $x['id'] === $r2))[0];
 $t('… and still never a person\'s name (0145 §1)', $one['owner'] === 'a staff member');
 $t('the two new tables have their staging class (R14)', str_contains((string) file_get_contents($app . '/lib/staging-tables.php'), "'control_gauge_task_moves'") && str_contains((string) file_get_contents($app . '/lib/staging-tables.php'), "'control_gauge_task_briefs'"));
+// 8. the Founder's own answer (the session manager's check, 2026-11-25): Access::isFounder is never true without a staff session
+require_once $app . '/admin/Access.php';
+$set = function (?array $staff) { foreach (['staff' => $staff, 'loaded' => true] as $k => $v) { $p = new ReflectionProperty(Access::class, $k); $p->setAccessible(true); $p->setValue(null, $v); } };
+$set(null); $t('no staff session: who() says founder, but isFounder() is false', Access::who()[0] === 'founder' && !Access::isFounder());
+$set(['status' => 'active', 'role' => 'admin', 'level' => 'executive', 'name' => 'An Executive']); $t('an Executive\'s staff login: not the Founder', !Access::isFounder());
+$set(['status' => 'ended', 'role' => 'owner', 'level' => 'founder', 'name' => 'x']); $t('an ended Founder login: not the Founder', !Access::isFounder());
+$set(['status' => 'active', 'role' => 'owner', 'level' => 'founder', 'name' => 'Jason']); $t('the Founder\'s own active staff login: the Founder', Access::isFounder());
+$api = (string) file_get_contents(dirname($app) . '/website/admin/api.php');
+$t('api.php: the answer and the batch both ask isFounder() first, never who()', preg_match("/qanswer'\) \{ if \(!Access::isFounder\(\)\)/", $api) === 1 && preg_match("/qbatch'\) \{ if \(!Access::isFounder\(\)\)/", $api) === 1 && !str_contains($api, "who()[0] !== 'founder'"));
 echo "\n$pass passed, $fail failed\n"; exit($fail ? 1 : 0);

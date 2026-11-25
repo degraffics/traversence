@@ -325,7 +325,8 @@ final class GaugeTasks
     public static function approve(PDO $pdo, string $gauge, string $kind, string $value, string $title, string $who, int $uid, string $tz = ''): int
     {
         self::ensure($pdo);
-        if (!self::gaugeOk($gauge) || !in_array($kind, ['scope', 'target'], true)) throw new RuntimeException('Which gauge?');
+        if (!self::gaugeOk($gauge) || !in_array($kind, ['scope', 'target', 'batch'], true)) throw new RuntimeException('Which gauge?');
+        if ($kind === 'batch' && !preg_match('/^area:batch-\d{4}-\d{2}-\d{2}$/', $gauge)) throw new RuntimeException('Which day\'s batch?');   // the daily batch (decisions/0179 rule 1; Piece 2, P2-5): one approval a day
         if ($kind === 'scope' && !str_starts_with($gauge, 'dev:')) throw new RuntimeException('A scope is approved on a development gauge.');
         if ($kind === 'target' && (!str_starts_with($gauge, 'rt:') || trim($value) === '')) throw new RuntimeException('Which target?');
         if ($who === '') throw new RuntimeException('Only a staff member can approve.');
@@ -334,7 +335,7 @@ final class GaugeTasks
         $pdo->prepare('INSERT INTO control_gauge_tasks (at, tz, gauge, item, kind, what, value, who, uid) VALUES (UTC_TIMESTAMP(), ?, ?, \'\', ?, ?, ?, ?, ?)')
             ->execute([self::tz($tz), $gauge, $kind, mb_substr($title, 0, 400), mb_substr(trim($value), 0, 255), mb_substr($who, 0, 80), $uid]);
         $id = (int) $pdo->lastInsertId();
-        ControlLog::add($pdo, 'control', '', ($kind === 'scope' ? 'Approved the scope of ' : 'Approved the target of ') . $title . ($kind === 'target' ? ': ' . trim($value) : ''), $who, '', $tz);
+        ControlLog::add($pdo, 'control', '', ($kind === 'batch' ? 'Approved the daily batch of ' . substr($gauge, 11) . ': ' . trim($value) : ($kind === 'scope' ? 'Approved the scope of ' : 'Approved the target of ') . $title . ($kind === 'target' ? ': ' . trim($value) : '')), $who, '', $tz);
         return $id;
     }
 
@@ -390,7 +391,7 @@ final class GaugeTasks
         try {
             self::ensure($pdo);
             $out = [];
-            foreach ($pdo->query("SELECT id, at, tz, gauge, kind, value, who FROM control_gauge_tasks WHERE kind IN ('scope','target') AND undone_at IS NULL ORDER BY id")->fetchAll(PDO::FETCH_ASSOC) as $r)
+            foreach ($pdo->query("SELECT id, at, tz, gauge, kind, value, who FROM control_gauge_tasks WHERE kind IN ('scope','target','batch') AND undone_at IS NULL ORDER BY id")->fetchAll(PDO::FETCH_ASSOC) as $r)
                 $out[$r['gauge']][$r['kind']] = ['id' => (int) $r['id'], 'at' => (string) $r['at'], 'tz' => (string) $r['tz'], 'who' => (string) $r['who'], 'value' => (string) $r['value']];
             return $out;
         } catch (Throwable $x) { error_log('gauge tasks: ' . $x->getMessage()); return []; }
@@ -530,6 +531,9 @@ final class GaugeTasks
                 $steps = self::steps($pdo, (int) $r['id']); $open = count(array_filter($steps, fn ($s) => $s['done_at'] === null));
                 if ($open === 0) $done($steps ? 'Done: ' . ($rel !== '' ? $rel . ' is live and ' : '') . 'every step is confirmed' : 'Done: ' . ($rel !== '' ? $rel . ' is live' : 'confirmed'));
             }
+        } elseif ($tk === 'audit' && $sg === 'confirmed') {
+            $st = $pdo->prepare("SELECT id FROM control_gauge_tasks WHERE parent_id = ? AND cleared_at IS NOT NULL AND undone_at IS NULL LIMIT 1"); $st->execute([(int) $r['id']]);
+            if ($c = $st->fetchColumn()) $done('Done: the ticket it opened is done (task #' . $c . ')');
         } elseif ($tk === 'resolution' && $sg === 'decided') {
             $st = $pdo->prepare("SELECT id FROM control_gauge_tasks WHERE parent_id = ? AND ticket = 'work' AND cleared_at IS NOT NULL AND undone_at IS NULL LIMIT 1"); $st->execute([(int) $r['id']]);
             if ($c = $st->fetchColumn()) $done('Done: its precedent is recorded (task #' . $c . ')');
@@ -611,6 +615,56 @@ final class GaugeTasks
             'Task #' . $id . ' (Resolution)', $who, 0, $tz, 'work', $id);
         $pdo->prepare('UPDATE control_gauge_tasks SET priority = 1 WHERE id = ?')->execute([$pid]);
         return 'Decided: ' . $say . '. Task #' . $pid . ' records it as precedent; this one closes when that\'s done.';
+    }
+
+    /**
+     * The audit's own writes (Piece 2, P2-4; handoffs/piece2-team.md §6), on Audit tickets only: one finding, one ticket (by its
+     * audit_key); its second look confirms it (and opens the Work or Resolution ticket it calls for) or clears it as noise.
+     */
+    public static function auditOpen(PDO $pdo, string $key, string $what, string $why, int $tier, string $owner, string $tz = ''): int
+    {
+        self::ensure($pdo);
+        $st = $pdo->prepare("SELECT id FROM control_gauge_tasks WHERE ticket = 'audit' AND audit_key = ? AND undone_at IS NULL AND cleared_at IS NULL LIMIT 1"); $st->execute([$key]);
+        if ($id = (int) $st->fetchColumn()) return $id;
+        $id = self::add($pdo, 'area:audit', $what, $why, 'the daily audit (' . $key . ')', $owner, 0, $tz, 'audit');
+        $pdo->prepare('UPDATE control_gauge_tasks SET audit_key = ?, tier = ?, owner = ?, owner_at = UTC_TIMESTAMP() WHERE id = ?')->execute([mb_substr($key, 0, 120), $tier, mb_substr($owner, 0, 80), $id]);
+        return $id;
+    }
+
+    /** Its second look found it still there: Found → Confirmed, and the Work (Tier 1–2) or Resolution (Tier 3) ticket it calls for. */
+    public static function auditConfirm(PDO $pdo, int $id, string $who, string $tz = ''): int
+    {
+        $r = self::open($pdo, $id); if (($r['ticket'] ?? '') !== 'audit') throw new RuntimeException('Only an Audit ticket is confirmed by the audit.');
+        self::setStage($pdo, $r, 'confirmed', $who, 'still there on its second look', $tz);
+        $tier = (int) ($r['tier'] ?? 2);
+        $child = self::add($pdo, (string) $r['gauge'], ($tier === 3 ? 'Decide: ' : 'Fix: ') . (string) $r['what'], 'Confirmed by the daily audit (task #' . $id . ', Tier ' . $tier . '): ' . (string) $r['why'], 'task #' . $id . ' (Audit)', $who, 0, $tz, $tier === 3 ? 'resolution' : 'work', $id);
+        $pdo->prepare('UPDATE control_gauge_tasks SET tier = ? WHERE id = ?')->execute([$tier, $child]);
+        return $child;
+    }
+
+    /** Its second look found it gone: cleared by its own check (noise), never by a press (CLAUDE.md four steps). */
+    public static function auditClear(PDO $pdo, int $id, string $who): void
+    {
+        $r = self::open($pdo, $id); if (($r['ticket'] ?? '') !== 'audit') return;
+        $pdo->prepare('UPDATE control_gauge_tasks SET cleared_at = UTC_TIMESTAMP(), done_how = ? WHERE id = ? AND cleared_at IS NULL')->execute(['Done: cleared by its own check (it no longer shows on its second look)', $id]);
+        ControlLog::add($pdo, 'clear', '', 'Task #' . $id . ' done: cleared by its own check, it no longer shows (' . $r['what'] . ')', $who);
+    }
+
+    /**
+     * The Founder's answers relayed by the session manager from the daily summary's email (Jason's Q3 A, 2026-11-25; P2-5):
+     * [{id, ans: a|b|o, words, at}] from gauges.json. Each applied once, only to a Resolution still waiting for an answer, as the
+     * Founder's own answer recorded by the session manager (History kept); anything else is left alone. Returns how many applied.
+     */
+    public static function applyAnswers(PDO $pdo, array $answers): int
+    {
+        $n = 0;
+        foreach ($answers as $a) {
+            if (!is_array($a)) continue; $id = (int) ($a['id'] ?? 0); $ans = (string) ($a['ans'] ?? '');
+            $r = $id ? self::task($pdo, $id) : null;
+            if (!$r || ($r['ticket'] ?? '') !== 'resolution' || ($r['stage'] ?? '') !== 'waiting' || $r['cleared_at'] !== null || $r['undone_at'] !== null || !in_array($ans, ['a', 'b', 'o'], true)) continue;
+            try { self::answer($pdo, $id, $ans, mb_substr((string) ($a['words'] ?? ''), 0, 4000), 'Jason (by email, recorded by the session manager)'); $n++; } catch (Throwable $x) { error_log('answers: ' . $x->getMessage()); }
+        }
+        return $n;
     }
 
     /** A ticket's stage moves, oldest first. */

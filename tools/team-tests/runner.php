@@ -49,37 +49,58 @@ $sw('on');
 $other = new PDO('mysql:host=127.0.0.1;dbname=lv_main', 'tv', 'tv'); $other->query("SELECT GET_LOCK('team_tick', 0)");
 $t('one run at a time: with the lock held, it does nothing', str_contains(TeamRunner::tick($pdo), 'Another run') && $nRuns() === 0);
 $other->query("SELECT RELEASE_LOCK('team_tick')");
-// 3. one step a run: the Project Manager's gate first (priority, then age), never the person's ticket
+// 3. at Planning (the ceiling, Jason 2026-11-25): the Project Manager only proposes; never the person's ticket
+$t('the ceiling starts at Planning, the tree not approved', TeamRunner::ceiling($pdo) === 'planning' && TeamRunner::treeApproval($pdo) === null);
 $out = TeamRunner::tick($pdo);
-$t('a run: the Project Manager moves the Work ticket to Building', str_contains($out, 'system · Project Manager') && $row($w)['stage'] === 'building', $out);
+$r1 = $pdo->query('SELECT * FROM team_runs ORDER BY id DESC LIMIT 1')->fetch(PDO::FETCH_ASSOC);
+$t('at Planning, the Project Manager proposes "ready for Building" and moves nothing', $r1['step'] === 'gate' && $r1['state'] === 'proposed' && $row($w)['stage'] === 'planning', $out);
 $t('… one step only: one run logged', $nRuns() === 1);
 $t('… never the ticket a person has, though it\'s priority 1 and ready', $row($mine)['stage'] === 'planning');
-$t('… the move\'s History names the role, not a person', str_contains(json_encode(GaugeTasks::moves($pdo, $w), JSON_UNESCAPED_UNICODE), '"who":"system · Project Manager"'));
-$r1 = $pdo->query('SELECT * FROM team_runs ORDER BY id DESC LIMIT 1')->fetch(PDO::FETCH_ASSOC);
-$t('the run says what it saw, did, its Undo and what it touched', $r1['state'] === 'done' && $r1['seen'] !== '' && $r1['undo_how'] === 'Moves it back to Planning' && $r1['touches'] === 'task:' . $w && (int) $r1['cost_micros'] === 0);
+$t('… its proposal isn\'t made twice', !TeamRunner::applies($pdo, 'gate', $row($w)));
 // 4. the next run: the Translator's proposal on the Resolution (the Work ticket was worked within the hour)
 $out = TeamRunner::tick($pdo);
 $r2 = $pdo->query('SELECT * FROM team_runs ORDER BY id DESC LIMIT 1')->fetch(PDO::FETCH_ASSOC);
 $t('the next run: the Translator proposes why it needs the Founder, from its boundary', $r2['step'] === 'brief' && $r2['state'] === 'proposed' && str_contains((string) $r2['proposal'], 'Tier 3 line'), $out);
 $t('… a proposal changes nothing until a person accepts it', trim((string) GaugeTasks::brief($pdo, $res)['why_you']) === '');
-$t('… and the Resolution isn\'t worked again within the hour', TeamRunner::tick($pdo) === 'Nothing to do: no ticket a working role has a step for.');
-// 5. Undo, and a second Undo refused
-$t('Undo the Project Manager\'s move: back to Planning', str_starts_with(TeamRunner::undo($pdo, (int) $r1['id'], $J), 'Undone') && $row($w)['stage'] === 'planning');
-try { TeamRunner::undo($pdo, (int) $r1['id'], $J); $t('a second Undo is refused', false); } catch (RuntimeException $x) { $t('a second Undo is refused', str_contains($x->getMessage(), 'Already undone')); }
-try { TeamRunner::undo($pdo, (int) $r2['id'], $J); $t('a proposal has no Undo: Accept or Dismiss', false); } catch (RuntimeException $x) { $t('a proposal has no Undo: Accept or Dismiss', str_contains($x->getMessage(), 'Accept or Dismiss')); }
-// 6. Accept a proposal: a person's Edit, never over a person's words
-$t('Accept: the brief\'s part filled, kept in its History', str_starts_with(TeamRunner::accept($pdo, (int) $r2['id'], $J), 'Accepted: 1') && str_contains((string) GaugeTasks::brief($pdo, $res)['why_you'], 'Tier 3 line') && str_contains(json_encode(GaugeTasks::history($pdo, $res), JSON_UNESCAPED_UNICODE), 'accepting system · Executive Translator'));
+$t('… and nothing else to do within the hour (the Architect is off at Planning)', TeamRunner::tick($pdo) === 'Nothing to do: no ticket a working role has a step for.');
+try { TeamRunner::undo($pdo, (int) $r1['id'], $J); $t('a proposal has no Undo: Accept or Dismiss', false); } catch (RuntimeException $x) { $t('a proposal has no Undo: Accept or Dismiss', str_contains($x->getMessage(), 'Accept or Dismiss')); }
+// 5. Accept: the move made as the person who accepts it; the brief's words as their Edit
+$t('Accept the Project Manager\'s proposal: moved to Building as the person', str_starts_with(TeamRunner::accept($pdo, (int) $r1['id'], $J), 'Accepted: Moved to Building') && $row($w)['stage'] === 'building' && array_slice(GaugeTasks::moves($pdo, $w), -1)[0]['who'] === $J);
+$t('Accept the brief: the part filled, kept in its History', str_starts_with(TeamRunner::accept($pdo, (int) $r2['id'], $J), 'Accepted: 1') && str_contains((string) GaugeTasks::brief($pdo, $res)['why_you'], 'Tier 3 line') && str_contains(json_encode(GaugeTasks::history($pdo, $res), JSON_UNESCAPED_UNICODE), 'accepting system · Executive Translator'));
 try { TeamRunner::accept($pdo, (int) $r2['id'], $J); $t('accepted once only', false); } catch (RuntimeException $x) { $t('accepted once only', true); }
 $gap(); $t('the Translator proposes nothing over words a person (or an Accept) wrote', TeamRunner::briefDraft($pdo, $row($res)) === []);
-// 7. the System Architect's build brief, its Undo
+GaugeTasks::move($pdo, $w, 'planning', $J, 'test: back for the next ceiling');
+$d = TeamRunner::tick($pdo); $rd = $pdo->query('SELECT id FROM team_runs ORDER BY id DESC LIMIT 1')->fetchColumn();
+$t('Dismiss: nothing changes, kept as dismissed', str_starts_with(TeamRunner::dismiss($pdo, (int) $rd, $J), 'Dismissed') && $row($w)['stage'] === 'planning');
+// 6. the decision tree and the ceiling (the Founder's; fingerprinted rules; one stage at a time, never Confirmation yet)
+try { TeamRunner::setCeiling($pdo, 'building', $J); $t('no raise before the decision tree is approved', false); } catch (RuntimeException $x) { $t('no raise before the decision tree is approved', str_contains($x->getMessage(), 'Approve the decision tree first')); }
+$t('approve the tree: tied to its rules\' fingerprint', str_starts_with(TeamRunner::approveTree($pdo, $J), 'Approved') && TeamRunner::treeApproval($pdo)['v'] === TeamRunner::fingerprint());
+try { TeamRunner::setCeiling($pdo, 'implementation', $J); $t('one stage at a time', false); } catch (RuntimeException $x) { $t('one stage at a time', str_contains($x->getMessage(), 'One stage at a time')); }
+$t('raise to Building', TeamRunner::setCeiling($pdo, 'building', $J, 'evidence read') === 'Agents work up to Building now.' && TeamRunner::mode($pdo, 'gate') === 'act' && TeamRunner::mode($pdo, 'handoff') === 'act');
+$t('each raise has its evidence lines with readings and sources', count(TeamRunner::evidence($pdo, 'building')) === 3 && count(TeamRunner::evidence($pdo, 'implementation')) === 3 && str_contains(json_encode(TeamRunner::evidence($pdo, 'building')), 'accepted'));
+TeamRunner::setCeiling($pdo, 'implementation', $J);
+try { TeamRunner::setCeiling($pdo, 'confirmation', $J); $t('Confirmation waits for Piece 3', false); } catch (RuntimeException $x) { $t('Confirmation waits for Piece 3', str_contains($x->getMessage(), 'Piece 3')); }
+TeamRunner::setCeiling($pdo, 'building', $J);
+$t('the settings\' History is in the logbook', count(array_filter($pdo->query("SELECT what FROM control_log WHERE what LIKE 'Team setting:%'")->fetchAll(PDO::FETCH_COLUMN))) >= 4);
+// 7. at Building: the Project Manager acts, with Undo; the System Architect's build brief, with Undo
+$gap(); $out = TeamRunner::tick($pdo); $ra = $pdo->query('SELECT * FROM team_runs ORDER BY id DESC LIMIT 1')->fetch(PDO::FETCH_ASSOC);
+$t('at Building: the Project Manager moves the ticket itself', $ra['step'] === 'gate' && $ra['state'] === 'done' && $row($w)['stage'] === 'building', $out);
+$t('… its run says what it saw, did, its Undo and what it touched', $ra['seen'] !== '' && $ra['undo_how'] === 'Moves it back to Planning' && $ra['touches'] === 'task:' . $w && (int) $ra['cost_micros'] === 0);
+$t('… the move\'s History names the role, not a person', array_slice(GaugeTasks::moves($pdo, $w), -1)[0]['who'] === 'system · Project Manager');
+$t('Undo the move: back to Planning', str_starts_with(TeamRunner::undo($pdo, (int) $ra['id'], $J), 'Undone') && $row($w)['stage'] === 'planning');
+try { TeamRunner::undo($pdo, (int) $ra['id'], $J); $t('a second Undo is refused', false); } catch (RuntimeException $x) { $t('a second Undo is refused', str_contains($x->getMessage(), 'Already undone')); }
 GaugeTasks::move($pdo, $w, 'building', $J); $gap();
 $pdo->exec("UPDATE control_gauge_tasks SET owner = '' WHERE id = $w");   // unowned in Building: the Architect may take it
 $out = TeamRunner::tick($pdo);
-$t('the System Architect writes the build brief and has the ticket', str_contains((string) $row($w)['build_brief'], 'Task #' . $w . ': Ready to build') && str_contains((string) $row($w)['build_brief'], 'Done when: It works') && $row($w)['owner'] === 'system · System Architect', $out);
+$t('at Building: the System Architect writes the build brief and has the ticket', str_contains((string) $row($w)['build_brief'], 'Task #' . $w . ': Ready to build') && str_contains((string) $row($w)['build_brief'], 'Done when: It works') && $row($w)['owner'] === 'system · System Architect', $out);
 $rep = GaugeTasks::report($pdo); $one = array_values(array_filter($rep['requests'], fn ($x) => $x['id'] === $w))[0];
 $t('report() carries the brief to the session manager, and the role\'s name', str_contains($one['build_brief'], 'Ready to build') && $one['owner'] === 'system · System Architect');
 $r3 = $pdo->query("SELECT id FROM team_runs WHERE step = 'handoff' ORDER BY id DESC LIMIT 1")->fetchColumn();
 $t('Undo the handoff: the brief taken back, the ticket unowned again', str_starts_with(TeamRunner::undo($pdo, (int) $r3, $J), 'Undone') && $row($w)['build_brief'] === null && $row($w)['owner'] === '');
+// a rule change clears the approval and lowers the ceiling (the fingerprint)
+$pdo->exec("UPDATE team_settings SET v = 'an older fingerprint' WHERE k = 'tree'");
+$t('the rules changed since approval: the approval is cleared and agents are back at Planning, said in the logbook', TeamRunner::ceiling($pdo) === 'planning' && TeamRunner::treeApproval($pdo) === null && (int) $pdo->query("SELECT COUNT(*) FROM control_log WHERE what LIKE '%rules changed since%'")->fetchColumn() === 1);
+TeamRunner::approveTree($pdo, $J); TeamRunner::setCeiling($pdo, 'building', $J);
 // 8. a role on standby gets no work; Permissions can refuse a role
 $gap(); $pm = TeamRoster::bySlug($pdo, 'system-architect'); TeamRoster::setStatus($pdo, (int) $pm['id'], 'standby', $J);
 $t('a role on standby gets no work', TeamRunner::tick($pdo) === 'Nothing to do: no ticket a working role has a step for.');
@@ -94,7 +115,7 @@ $t('no outside call and no paid AI in the runner (Q4 B)', !preg_match('/curl_|fi
 $t('no direct SQL on landmarks or nations (0066; piece2-team.md §5.2)', !preg_match('/\b(FROM|JOIN|INTO|UPDATE)\s+`?(landmarks|nations)\b/i', $src));
 $t('it never answers a Tier 3', !str_contains($src, 'GaugeTasks::answer'));
 require_once $app . '/lib/staging-tables.php';
-$t('the queue\'s five tables are records now (Q1 A), team_runs staging\'s own', count(array_intersect(['control_gauge_tasks', 'control_gauge_task_steps', 'control_gauge_task_adrs', 'control_gauge_task_moves', 'control_gauge_task_briefs'], StagingTables::RECORDS)) === 5 && in_array('team_runs', StagingTables::OWN, true) && !in_array('control_gauge_tasks', StagingTables::OWN, true));
+$t('the queue\'s five tables and team_settings are records now (Q1 A), team_runs staging\'s own', count(array_intersect(['control_gauge_tasks', 'control_gauge_task_steps', 'control_gauge_task_adrs', 'control_gauge_task_moves', 'control_gauge_task_briefs', 'team_settings'], StagingTables::RECORDS)) === 6 && in_array('team_runs', StagingTables::OWN, true) && !in_array('control_gauge_tasks', StagingTables::OWN, true));
 $t('their links to their task are registered (0165 §4)', StagingTables::REFS['control_gauge_task_steps.task_id'] === 'control_gauge_tasks' && StagingTables::REFS['control_gauge_task_moves.run_id'] === '');
 require_once $app . '/lib/Scheduler.php';
 $t('team_tick: in the jobs, set up by itself, and QUIET (its silence on live is never late)', isset(Scheduler::JOBS['team_tick']) && in_array('team_tick', Scheduler::AUTO, true) && in_array('team_tick', Scheduler::QUIET, true));

@@ -516,7 +516,7 @@
     sec._f = f || 'all'; var n = 0, ul = sec.querySelector('.wq-main'), all = sec.querySelector('.wq-all');
     if (ul && (sec._f !== 'all' || sec._all)) ul.classList.add('wq-showall'); else if (ul) ul.classList.remove('wq-showall');
     if (all) all.hidden = !!(ul && ul.classList.contains('wq-showall'));
-    sec.querySelectorAll('.wq-main .wq-it').forEach(function (li) { var on = sec._f === 'all' || li.getAttribute('data-wq-st') === sec._f || 'tk:' + li.getAttribute('data-wq-tk') === sec._f || 'stage:' + li.getAttribute('data-wq-stage') === sec._f; li.hidden = !on; if (on) n++; });   // by state, type or stage (Piece 2)
+    sec.querySelectorAll('.wq-main .wq-it').forEach(function (li) { var on = sec._f === 'all' || li.getAttribute('data-wq-st') === sec._f || 'tk:' + li.getAttribute('data-wq-tk') === sec._f || 'stage:' + li.getAttribute('data-wq-stage') === sec._f || (sec._f.indexOf('agent:') === 0 && (' ' + (li.getAttribute('data-wq-agent') || '') + ' ').indexOf(' ' + sec._f.slice(6) + ' ') >= 0); li.hidden = !on; if (on) n++; });   // by state, type or stage (Piece 2)
     sec.querySelectorAll('.wq-main .wq-grp').forEach(function (g) {   // a group row shows while one of its rows does; a filter on Taken opens them
       var any = g.querySelector('.wq-it:not([hidden])'); g.hidden = !any; if (sec._f === 'taken') g.querySelector('details').open = true; });
     sec.querySelectorAll('[data-wq-f]').forEach(function (b) { b.setAttribute('aria-checked', String(b.getAttribute('data-wq-f') === sec._f)); });
@@ -561,6 +561,8 @@
     if (act === 'all') { sec._all = true; wqFilter(sec, sec._f); return; }
     if (act === 'add') { form.hidden = false; t.hidden = true; form.querySelector('select').focus(); return; }
     if (act === 'cancel') { var ef = t.closest('.wq-edit'); if (ef) { ef.remove(); return; } form.hidden = true; form.reset(); form.querySelector('.wq-newarea').hidden = true; var ab = sec.querySelector('[data-wq=add]'); ab.hidden = false; ab.focus(); return; }
+    if (act === 'batchok') { wqSend(sec, t, { action: 'qbatch', date: t.getAttribute('data-date'), value: t.getAttribute('data-value') }, ''); return; }   // Approve the batch (P2-5)
+    if (act === 'team') { wqSend(sec, t, { action: 'qassign', id: id, owner: t.getAttribute('data-owner') }, id); return; }   // Give it to the Team (P2-3)
     if (act === 'take') { wqSend(sec, t, { action: 'qassign', id: id }, id); return; }
     if (act === 'move') { TvAsk.ask('Move task #' + id + ' to which session? (its name, as the session manager lists it)', '').then(function (v) { if (v && v.trim()) wqSend(sec, t, { action: 'qassign', id: id, owner: v.trim() }, id); }); return; }
     if (act === 'rel') { TvAsk.ask('The release that fixes task #' + id + ' (its zip\'s name, e.g. work-queue.zip). The task is done by itself once it\'s live.', '').then(function (v) { if (v && v.trim()) wqSend(sec, t, { action: 'qrelease', id: id, rel: v.trim() }, id); }); return; }

@@ -1,12 +1,28 @@
 {
   "title": "The Team's runner, on staging only (Piece 2, P2-3)",
-  "why": "Jason's Piece 2 (decisions/0179; handoffs/piece2-team.md §5, approved 2026-11-25, Q1 A and Q4 B): a scheduled job that, on the staging copy only and while its switch is on, takes one ticket and does one step for one working role, logs it with Undo, and stops. The Work queue's tables become records, so live's tasks reach staging by catch-up and what the agents do reaches live only at Publish, in the approved batch. Nothing runs on live.",
+  "why": "Jason's Piece 2 (decisions/0179; handoffs/piece2-team.md §5, approved 2026-11-25, Q1 A and Q4 B): a scheduled job that, on the staging copy only and while its switch is on, takes one ticket and does one step for one working role, logs it with Undo, and stops. The Work queue's tables become records, so live's tasks reach staging by catch-up and what the agents do reaches live only at Publish, in the approved batch. Nothing runs on live. Jason, 2026-11-25: \"limit agents and build to only the initial work que stage until I fully vet the builds\" and \"The team decision tree is what I need to approve for agents to begin assuming full capacity\": Agents work up to Planning by default (the Project Manager proposes its gate, a person's Accept moves it; the Architect's hand-off off), raised only by the Founder one stage at a time once the decision tree, drawn from the runner's constants and tied to their fingerprint, is approved; a rule change clears the approval and lowers it to Planning. Agents never take a ticket: a person's Give it to the Team assigns it. The queue says what agents found and suggested.",
   "proposals": [],
   "switch": "",
   "changes": [
-    {"what": "The Team's runner (team_tick): staging only, its switch off until turned on there; the Project Manager's gate, the System Architect's build brief, the Translator's proposals", "where": "https://staging.trvgo.us/admin/config/switches"},
-    {"what": "A ticket's page: the build brief, and the Team's runs with Undo, Accept and Dismiss", "where": "a task's name on Development"},
-    {"what": "The Work queue's tables carried between staging and live (records); the runner's log is staging's own", "where": "app/lib/staging-tables.php"},
-    {"what": "FAQ: What does the Team's runner do?", "where": "https://traversence.com/faq.php"}
+    {
+      "what": "The Team's runner (team_tick): staging only, its switch off until turned on there",
+      "where": "https://staging.trvgo.us/admin/config/switches"
+    },
+    {
+      "what": "The decision tree, Approve the decision tree (the Founder's), and Agents work up to: Planning, with each raise's evidence, Raise and Lower, and History",
+      "where": "https://traversence.com/admin/config/team"
+    },
+    {
+      "what": "A ticket's page: the build brief, the Team's runs with Undo, Accept and Dismiss; the queue's Found by the audit, N suggestions, the filter's Found by agents and Has suggestions; ⋯ Give it to the Team",
+      "where": "https://traversence.com/admin/config/control?tab=development"
+    },
+    {
+      "what": "The Work queue's tables carried between staging and live (records); the runner's log and the Team's settings as staging-tables names them",
+      "where": "app/lib/staging-tables.php"
+    },
+    {
+      "what": "FAQ: What does the Team's runner do? (updated) and What is the Team's decision tree?",
+      "where": "https://traversence.com/faq.php"
+    }
   ]
 }
