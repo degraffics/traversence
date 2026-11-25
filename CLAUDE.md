@@ -295,6 +295,16 @@ app?"): services that need a sign-in (QuickBooks, Railway, Google Cloud, Cloudfl
 (`target="_blank" rel="noopener"`, an ↗ icon whose title names the service and the account); our own pages open in Peek.
 On phones, the first outside tap shows one dismissible line: "Opens in your browser. If it asks you to sign in, sign in
 there once and choose 'keep me signed in'." (Android decides how an installed app opens them; we control the marking.)
+**A button's verb says what happens** (Jason, 2026-11-23: "fix it sounds like an action to be done right now"): Fix it
+(or any verb of doing) only where pressing it acts now, a spinner then the real result in place; anything queued for a
+person, a build or a later run says so ("Request a fix", "Request the check"), its line naming who has it and what
+comes next.
+**What the system knows is applied, not asked** (Jason, 2026-11-23, Order #12: "an intelligent system that helps me
+process orders"): facts we hold (QuickBooks, the work order, dates, history) are shown, never asked again; only what
+can't be known is asked, as a task with its best guess filled in; stale or irrelevant blocks are hidden; an item that
+has aged raises its own question ("Ready 21 days. Picked up?").
+**Lines that carry tasks have no ×** (2026-11-23, confirmed by the session manager; decisions/0129 note): a record's
+state lines (an order's Order · Money · Delivery) hold its tasks, so they stay; × is for notices that only inform.
 **A list or a process?** (Jason, 2026-11-23) It's a process if step B needs step A's result, or they all build to one
 outcome; a list if they could sensibly be done in any order. A list is a queue (what needs you first, filtered by its
 tiles), each row its own cycle, counts dropping as items clear, a batch action only where one fix applies to many. A
