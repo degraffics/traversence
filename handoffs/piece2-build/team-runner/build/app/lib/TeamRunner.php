@@ -174,6 +174,9 @@ final class TeamRunner
         'address' => '/\b(routes?|urls?|redirects?|public address|404)\b/i',
         'nations' => '/(\b0066\b|\bnations?\b|\btribal\b|\bsacred\b|\bburials?\b|archaeolog|landmark visibility|landmarks::)/i',
         'privacy' => '/\b(privacy|private|personal|email address(es)?|phone numbers?|consent|is_test|leak)\b/i',
+        // the two boundaries with no area in the code (0179 rule 3): a finding about them is always a word flag for a person
+        'mission' => '/\b(mission|commission|zero-commission)\b/i',
+        'deadlock' => '/\b(deadlock(ed)?|conflicting decisions|decisions? (that )?(disagree|conflict|contradict)s?|contradicts? (decision|adr) ?\d{0,4})\b/i',
     ];
     public const TIER1 = '/\b(wording|typo|faq|label|tests?|layout|390|phone|mobile|contrast|spacing)\b/i';
 
