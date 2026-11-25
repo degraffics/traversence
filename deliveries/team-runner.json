@@ -3,76 +3,76 @@
  "built_on": "403106d Sync: 2026-11-25 17:59 UTC",
  "recorded": "2026-11-25 18:26 UTC",
  "note": "Piece 2 P2-3+P2-4: the Team's runner and daily audit, staging only, agents at Planning; built on Sync 17:59 UTC; pre-approved by Jason 2026-11-25; one release agreed by the session manager Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "2268de8 Sync: 2026-11-25 18:29 UTC",
  "files": {
   "app/admin/control-console.php": {
    "sha256": "9228edf55c18ee064307a744c0c17b6a7b2bec16d6be1fe22bb98bf5d31d6df7",
-   "live": false
+   "live": true
   },
   "app/admin/manifests.php": {
    "sha256": "c4f92a5e9e8bfc1ba3248c9e53133ebb0d9d6632dcae1dbef6651d4287c2dc69",
-   "live": false
+   "live": true
   },
   "app/admin/sections.php": {
    "sha256": "3830be5919a41fa38bf9a1e002177584e451b429d7d225b41e64aa0ec4fb4f3e",
-   "live": false
+   "live": true
   },
   "app/admin/team-console.php": {
    "sha256": "8b54a4f5ebe013fa033a259382cd5f01db03abbd4a8c7ebb62f9b49d45da4390",
-   "live": false
+   "live": true
   },
   "app/admin/tools.php": {
    "sha256": "32067e7ac407ee8e618540b22ee37a0cae85884ff695dcadbeeb261b501eef0c",
-   "live": false
+   "live": true
   },
   "app/lib/GaugeTasks.php": {
    "sha256": "2a5a2a2ec397e3c7358378f7ef828cf5cd850315ebcf64a9daa1404d63a9af51",
-   "live": false
+   "live": true
   },
   "app/lib/Scheduler.php": {
    "sha256": "5eee98df016f6e283a7aa6eff45a51e66242843782a2c23670f8ef148e0df35f",
-   "live": false
+   "live": true
   },
   "app/lib/Switches.php": {
    "sha256": "849f04bde7713c39deb7e2fc8881270af55ac8a2db8694df255f6b7f325c4e7d",
-   "live": false
+   "live": true
   },
   "app/lib/TeamRunner.php": {
    "sha256": "3e79f5354fb9b2a02a592ddadc33cfc5a1a6cc8ba5929509803a2f09328ac1b7",
-   "live": false
+   "live": true
   },
   "app/lib/staging-tables.php": {
    "sha256": "01b2a075cc77b1caee08ba5c0b070d96f74e8b20fdcaec6929198f16766e3acc",
-   "live": false
+   "live": true
   },
   "app/migrations/2026-11-25_team_flag.sql": {
    "sha256": "afa55dea1126c5f25c54007ed0c9d117b885b6591217e37eed0c310f8740b2f1",
-   "live": false
+   "live": true
   },
   "app/migrations/2026-11-25_team_runs.sql": {
    "sha256": "9ac83f7a6472a9ee5b365ab387473de406b459ce48f52e42389ba0606f5ecb6b",
-   "live": false
+   "live": true
   },
   "app/scripts/team_audit_tick.php": {
    "sha256": "fe094128c34728dd25ae524f6adbdc9a616b4b91d2cf0896dca3f9ab93e04707",
-   "live": false
+   "live": true
   },
   "app/scripts/team_tick.php": {
    "sha256": "3d36b559ac84501f3d0e7867e5490b4037d9c8f725cb9c65044bd0e1f6567a3f",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "2d649b0cd81be220375f044e4a829733f4b94a05e5a156c7eb0a459b348b1502",
-   "live": false
+   "live": true
   },
   "website/admin/api.php": {
    "sha256": "f5380affefdbc65ada44a85b0692c9fd1dd9cc4a4aafd0ca38dccbb857e05e75",
-   "live": false
+   "live": true
   },
   "website/js/admin-control.js": {
    "sha256": "7eb21553c6e72c182eddb897e6b842319acb5032819f16e3431ea0edd02f82b4",
-   "live": false
+   "live": true
   }
  }
 }
