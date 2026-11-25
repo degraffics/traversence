@@ -71,3 +71,7 @@ multiple shipment orders than this should be factored."
 - §4, Jason, 2026-11-23: "Paid in full or overrides. single invoices are tied to the whole order status."
 - The shipping we pay (`ship_cost_cents`) is a cost of goods, so it's in the COGS (session manager, 2026-11-23).
 - The money policy around it (refunds, the cancel window, credit, terms, cards, delivery with a balance): `decisions/0178`, Jason, 2026-11-23.
+
+**Note (2026-11-25, the Orders session's wrap-up): where it stands.** Not built. Several destinations, one invoice
+each, is M5 of the order management plan (research/order-management-design-2026-11-23.md §6), after M3 and M4. When built,
+each destination's work order goes where 0101's 2026-11-24 note says (a ship-to to the client, none to us).

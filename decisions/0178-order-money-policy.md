@@ -69,3 +69,8 @@ He also approved M1b's design (mockups `open`, `open-after`) and M1 (PR #1320) i
 too.** Asked: "A credit memo also gives money back in effect … Should credit memos wait for your OK too?" Answer: **"Need
 my OK"**: Issue a credit memo prepares it; he gets a Pulse case with Approve and Decline, like a refund (§1); nothing is
 credited (and nothing made in QuickBooks) until he approves. Built in M2.
+
+**Note (2026-11-25, the Orders session's wrap-up): where it stands.** Live with M2 (#279): §1 refunds and, by the
+2026-11-24 note, credit memos prepared on the order and waiting for Jason's Approve or Decline in Pulse; §2 cancel until
+the vendor accepts; §5 no keyed cards, the pay link to copy; the money note's ↗ / Cancel the record / Refund… on each
+payment. Not built: §6's credit terms (Net 15 / Net 30), M7 in the queue; Outstanding and Take a payment across orders, M3.

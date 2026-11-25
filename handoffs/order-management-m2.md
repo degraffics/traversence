@@ -176,3 +176,134 @@ Tests: m2.php 59/59, m2.cjs all passing at 1280 and 390.
    No outside booking (courier API, freight quote): named as later. The note goes on decisions/0101.
 3. The Design reviewer's 7–10 (Files & versions and Shipping at 390: stacked add-a-document form through TvUpload, ⓘ for
    the explanations, phone cards for the per-item table, the manifest's print icon).
+
+## M2 live (2026-11-24 02:52 UTC)
+
+Release #279 (order-m2), Sync 02:52 UTC (2eab529), recorded live in #1340. PR #1333 merged (f9f00d39).
+
+## M2b "How it goes": the mapping (first draft, the M2 session, 2026-11-24)
+
+Jason: "I need to be able to modify. If I schedule a courier or ship vs will call. With competition printing I ask for
+will call, then schedule courier for local delivery or assign freight, or drop ship." Then: "check adrs for previous
+established methods" (CLAUDE.md #1334). Every value below already exists; nothing is named new.
+
+An order goes in **two legs**, and each already has its own field:
+1. **Vendor → us, or vendor → the client** (the work order): `order_work_orders.delivery`, `WorkOrders::DELIVERY`
+   (decisions/0101 work orders step 1): Will Call (we pick it up), Internal Transfer, Blind Drop Ship (the vendor ships
+   straight to the client, unbranded), Local Delivery, Next-day Courier, Ship USPS / UPS / FedEx, Freight; and
+   "Courier booked: add tracking" (courier, number; 0101, 2026-10-28), shown on the vendor's page and emailed to them.
+2. **Us → the client** (the order and its items):
+   - the order: `orders.ship_mode` (`Shipments::MODES`, 0101 addendum 2026-10-21): No shipping, with
+     `no_ship_reason` (Electronic delivery, Customer will call, None), One address, Several destinations;
+     `order_addresses` carries a method per destination; and `orders.delivery` (`ClientOrders::delivery()`: pickup,
+     ship), which the Delivery line reads today;
+   - an item: its ship style (0101 addendum 2026-10-16): Drop Ship, Courier, Pick Up, with carrier (USPS, UPS, FedEx,
+     Other) and tracking.
+
+Jason's cases, in existing values:
+- "Will call, then a courier for local delivery": work order **Will Call** (leg 1), then the item or destination
+  **Courier**, with the courier and number (leg 2).
+- "Assign freight": work order **Freight** (leg 1), or the destination's method for leg 2.
+- "Drop ship": work order **Blind Drop Ship** (leg 1 is the whole trip; there's no leg 2).
+- "Ship vs will call": leg 2's mode or style (ship versus Customer will call / Pick Up).
+
+Still to read before the design: 0040 (delivery_method, freight_ltl), 0099 (fulfilment statuses) and 0112 (ship_rules,
+local pickup). The question for the session manager is which field the Delivery line reads so the levels never disagree.
+Proposed: the line reads leg 2 (`orders.delivery` / `ship_mode`, the items' styles); it shows leg 1 as its first step
+while the vendor has it. "Change how it goes…" is ✎ on each leg's existing field, never a new list. A leg-1 change goes
+to the vendor through the existing work-order email ("Tell the vendor").
+
+**Read (02:58):** 0040's `delivery_method` / `freight_ltl` is the Marketplace's quote model (a business's listings), not
+our client orders: not used. 0099's fulfilment statuses (intake … packed → shipped | ready_for_pickup → delivered) are
+already M1's Delivery model. 0112's `ship_rules` (local pickup) are the Shop's checkout, not client orders: not used.
+
+**What the Delivery line reads today** (`ClientOrders::boardState`, live): `orders.delivery` = pickup, or the order's stage
+`ready`, or any item `ready` → **"Ready for pickup at our shop."** The items' status is moved by the vendor's work order
+(`WorkOrders::ITEM_FOR`: the vendor's `ready` → the item's `ready`). So on Order #12 (work order 20261027-CP0001, **Will
+Call**, the vendor marked it Ready for pickup on Nov 2), the line says "Ready for pickup at our shop. Ready 21 days.
+Picked up?". But what's ready is leg 1 at Competition Printing, for us to collect; leg 2 (the client's pickup at our shop,
+or a courier from there) hasn't started. That's the gap Jason felt. M2b's fix in existing values: on a Will Call (or
+Internal Transfer) work order, the vendor's ready is "Ready at <vendor> for us to collect" (leg 1, its next action
+"Collected", the work order's existing Receive); leg 2 starts at Receive, from the order's own mode or the item's style
+(Pick Up → "Ready for pickup at our shop"; Courier → "Book the courier" with the existing courier and number; Ship →
+tracking). Blind Drop Ship has no leg 2: the vendor's shipped is the client's shipped.
+
+## M2b built (the M2 session, 2026-11-24): built on Sync 02:52 UTC (2eab529), not live
+
+Decided: decisions/0101's note (2026-11-24, Jason's Approve and Yes); mockup `handoffs/order-m2b/mockup.html`. The zip is
+`handoffs/order-m2b/order-m2b.zip` (zip check clean): `app/lib/ClientOrders.php` (`legs()` new; `boardState` reads it;
+`deliverables` made public), `app/lib/WorkOrders.php` (`goesTo`, `DELIVERY_MEANS`, `legWords`, `setDelivery` new;
+`setTracking` says `_told` only when the email went), `app/admin/tools.php` (`backoffice/work_orders`: Courier booked on a
+Will Call too; "emailed" only when it went), `website/admin/client-order.php` (the Delivery line's leg words, Receive /
+Add the courier's number (the Design reviewer's naming), ⋯ Courier booked: add tracking and Change how it goes…, their panes, handlers `wo_courier` and
+`how_goes`; the Order line's button left to Delivery while ours to receive or send; the Shipping box no longer says
+"Pickup at our shop" for a vendor's Will Call), `app/ui/faq.md` (three entries). No migration.
+- **The leg rule:** leg 1 is the first work order out and not received: Will Call with a courier's number → Out by courier
+  from the vendor; to the client (`goesTo`) → At the vendor / Shipping from the vendor to the client; to us → At the vendor,
+  Ready at <vendor> for us to collect (since, days; Receive), On its way to us (Receive). Leg 2 once received (not for a
+  straight-to-client one): the item's ship style: Pick Up → Ready for pickup at our shop; Courier / Drop Ship → Received,
+  waiting for its number (Add the courier's number, at the item's Tracking); shipped → Out by courier from our shop / Shipped. No work order: as before.
+- **Settled by the session manager:** Next-day Courier reads like the other shipping methods (written in 0101's note), and
+  `WorkOrders::moveItems` now marks items delivered on the vendor's Complete only where `goesTo()` is the client (in M2b).
+- **The Design reviewer's two changes (03:27):** a vendor email that didn't go is its own error notice at the top of the
+  order (no ×; Send again, Copy the message, Email it from your mail; `WorkOrders::tellVendor` keeps what we'd have sent,
+  the work order's History says it didn't go; the drawer's tracking points to it); the Shipping box says How it goes in words
+  with ✎ (the pane), and the order's own ship mode is labelled Ship mode.
+- **Tests:** `tools/order-tests/m2b.php` (31) and `m2b.cjs` (88, at 1280 and 390) with `m2b-seed.php`; `m1b-seed.php`'s
+  pickup orders now received at our shop with the item Pick Up (a Will Call ready at the vendor now reads as ours to collect).
+  M2's suites pass. m1.php/m1.cjs, collect-balance.cjs, complete-owed.cjs and m1b's vendor-bill steps fail the same checks
+  on the live files as on M2b's (harness drift, checked side by side on a second server), so not M2b's.
+
+## M3's first fix (the session manager, 2026-11-24): the order tests green again
+
+Before anything more is built on them: m1.php / m1.cjs (the board's tile counts, Deposit Co, Money owed), collect-balance.cjs,
+complete-owed.cjs and m1b.cjs's vendor-bill steps (upload, read, Send it to QuickBooks: `order_files.kind`,
+`order_vendor_bills.qb_account` missing on the harness) fail the same way on the live files as on M2b's (checked side by
+side on a second harness server, 2026-11-24). The harness database has drifted from the seeds (orders from later seeds
+counted on the board; columns the live tables have). Bring the harness schema to the live tables and make each seed clear
+what it counts, then rerun every suite in `tools/order-tests/`.
+
+## Final hand-off (the Orders session, session_01CXLi5j2wAgTrKdTwX6kQNY, 2026-11-25: holiday wrap-up, archived after this)
+
+**Live, synced and byte-checked:** #274 M1 (the three state lines, Next step, the board's tiles), #276 M1b (QuickBooks
+first, the Vendor line, What's open), #279 M2 (Money on the order page: refunds and credit memos with Jason's Approve or
+Decline in Pulse, Cancel the record, cancel until the vendor accepts, the pay link, `admin/order.php` folded in).
+
+**M2b, decided, built, reviewed, paused (not in flight):** decisions/0101's note (2026-11-24). Design approved,
+session manager clear to ask; Jason answered "Pause for now. add to work queue." (2026-11-24). PR #1346 merged as the
+record only: its build is `handoffs/order-m2b/order-m2b.zip` (built on Sync 02:52 UTC, rechecked clean on 03:54 UTC),
+not in `releases/inbox/`, its delivery record removed, its claims released. **To resume:** fetch the mirror, start
+each of its five files from the live copy and re-apply M2b's changes (the diff of the zip against Sync 02:52 UTC,
+2eab529, is the change), claim (`ClientOrders.php::boardState,deliverables` change + `legs` add; `WorkOrders.php::
+moveItems,setTracking` change + `goesTo,legWords,setDelivery,tellVendor` add; `tools.php::'backoffice/work_orders'`;
+`website/admin/client-order.php`), rerun `m2b.php` (35) and `m2b.cjs` (88), zip check, `send.py`, ask Jason with the
+Release label, merge, tell the session manager. The screens and mockup are in `handoffs/order-m2b/`.
+
+**Next, in order** (research/order-management-design-2026-11-23.md §6; handoffs/decided-not-live.md):
+1. **M3's first fix:** the order tests green again (the section above): the harness schema brought to the live
+   tables, each seed clearing what it counts; then every suite in `tools/order-tests/`.
+2. M2b (above), when Jason resumes it.
+3. M3: the Money section: Outstanding with aging, Take a payment across orders, Credits on account and their use.
+4. M4: Place an order, guided; the archived E-Commerce orders page redirected.
+5. M5: several destinations, one invoice each (decisions/0177, Release B), inside the new flow.
+6. M6: the catalog: Services as their own list, Categories.
+7. M7: credit terms on accounts, Net 15 / Net 30, granted by Jason (decisions/0178 §6; design §5 Q4).
+
+**Open items:**
+- Order #12's books: QuickBooks invoice 112906 is $1,111.14, the order's lines $809.10 (Paid in QuickBooks Oct 26,
+  $809.10). Sent to Jason through the session manager on 2026-11-24; nothing on #12 is changed until he says.
+- Design reviewer items 7–10 from M2 (Files & versions and Shipping at 390), not built.
+- Booking a courier or freight with an outside company (0101's M2b note: "stays for later").
+
+**Pitfalls (this session):**
+- Live `order_ledger.kind` is an ENUM: no MODIFY; a new kind of record gets its own table (`order_payment_cancels`).
+- tv-ask turns a `data-tv-status` element into its notice box: put `data-tv-keep` on that element (not a wrapper) for no
+  ×; a `<div data-tv-status>` can hold forms and buttons inside the box; never a `<form>` inside a `<p>`.
+- `.co-inl`'s display overrides `[hidden]`: `.co-money [hidden]{display:none!important}`.
+- `Mailer::send` throws; never say "emailed" without it returning (`WorkOrders::tellVendor` keeps what we'd have sent).
+- A Will Call the vendor marks ready sets the order's stage to `ready`; read the work order's leg before the stage.
+- Claims lapse after 4 hours and `renew` doesn't bring a lapsed one back: claim again. tools.php entries are named as the
+  zip check names them (`'backoffice/work_orders'`, with quotes).
+- The harness: a worker restart stops mysqld and `php -S` (restart both); no mail server, so every email "fails" there;
+  check a suite against the live files on a second server (`h2/srv.php` → `liveroot`) before blaming a release.
+- Don't `rm -rf *` in a shell: the safety check refuses it; build each zip in a new folder.

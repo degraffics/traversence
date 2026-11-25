@@ -907,3 +907,26 @@ Approved in the Orders session's pop-up (reviewed by the session manager), with 
 4. **Release before payment's "admins"** are Executive and up (the old Admin role's level), changeable in Permissions
    (`backoffice.release_unpaid`).
 5. `saveAddress`, `setLineShip` and `setOptions`, uncalled since B.6, deleted ("Delete").
+
+## Note (2026-11-24, Jason, in the Orders session's pop-up, reviewed by the session manager): how an order goes (M2b)
+
+Asked as a decision, design approved by the Design reviewer (mockup `handoffs/order-m2b/`). His answers: **Approve** and **Yes**.
+- An order goes in two legs, each on its existing field: leg 1, the work order's delivery (Will Call, Internal Transfer,
+  Blind Drop Ship, Local Delivery, Next-day Courier, Ship USPS / UPS / FedEx, Freight; and Courier booked: add tracking);
+  leg 2, the item's ship style (Drop Ship, Courier, Pick Up, with carrier and tracking). The order's Delivery line reads
+  leg 1 until the work order is received, then leg 2. Where leg 1 takes the goods to the client there is no leg 2.
+- **Where a shipping work order goes** (written here at his "Yes", read from the live code): a Ship, Freight or Local
+  Delivery work order with no ship-to comes to us; with the client's address it goes straight to them. Blind Drop Ship
+  always goes to the client. Will Call and Internal Transfer come to us (Will Call: we collect it, or a courier we book
+  does, Courier booked: add tracking, which then takes it to the client).
+- **Change how it goes…** (Delivery ⋯) edits those fields (✎, never Undo), the old value in History; a leg-1 change can
+  email the vendor "Work order X: delivery changed to …" (a system email in setTracking's form; the session manager).
+- Booking a courier or freight with an outside service stays for later.
+- **Next-day Courier** (the session manager, 2026-11-24, on the Orders session's reading): a shipping method, so the same
+  rule: to its ship-to, or to us with none. The vendor's Complete on a work order means delivered to the client only where
+  the work order goes to the client (`WorkOrders::goesTo`); otherwise it came to us (M2b).
+
+## Note (2026-11-25, the Orders session's wrap-up): M2b's state
+The 2026-11-24 note (how an order goes) is built and reviewed (Design approved, session manager clear) and **paused by
+Jason** ("Pause for now. add to work queue.", 2026-11-24): not live. Its build and how to resume it are in
+`handoffs/order-management-m2.md` (Final hand-off) and `handoffs/order-m2b/`; its place in `handoffs/decided-not-live.md`.

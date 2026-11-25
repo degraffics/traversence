@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>M2b How it goes</title>
+<style>
+/* M2b mockup (design only, never shipped): the Delivery line reads leg 1 (the work order's delivery, decisions/0101) until
+   Receive, then leg 2 (the item's ship style); no new names. Colours from brand.md's tokens. */
+:root{--tv-bg:#F5EFE3;--tv-card:#FFFBF2;--tv-line:#EADFC4;--tv-ink:#3E2B1F;--tv-meta:#6B5843;--tv-brown:#92400E;--tv-icon:#B45309;--tv-btn:#3E2B1F}
+*{box-sizing:border-box}body{margin:0;background:var(--tv-bg);color:var(--tv-ink);font:15px/1.45 Inter,system-ui,sans-serif;padding:16px}
+h1{font:700 1.2rem Georgia,serif;margin:0 0 .3rem}h2{font:700 1rem Georgia,serif;margin:1.4rem 0 .4rem}p.note{color:var(--tv-meta);margin:.1rem 0 .6rem;font-size:.9rem}
+.strip{background:var(--tv-card);border:1px solid var(--tv-line);border-radius:.5rem;max-width:1000px}
+.cs-line{display:grid;grid-template-columns:7rem 1fr auto;gap:.4rem 1rem;align-items:center;padding:.6rem .9rem;border-top:1px solid var(--tv-line)}.cs-line:first-child{border-top:0}
+.lab{font:700 .72rem system-ui;letter-spacing:.08em;color:var(--tv-meta)}.acts{display:flex;gap:.35rem;align-items:center;justify-content:flex-end;flex-wrap:wrap}
+.b{border:1px solid var(--tv-btn);background:#fff;border-radius:999px;padding:.32rem .8rem;font:600 .88rem system-ui;color:var(--tv-ink)}.b.go{background:var(--tv-btn);color:#fff}
+.ib{width:30px;height:30px;border-radius:50%;border:1px solid var(--tv-line);background:#fff;color:var(--tv-icon);display:inline-grid;place-items:center;font-size:.9rem}
+small{color:var(--tv-meta);display:block}.leg{font-size:.78rem;color:var(--tv-meta);font-weight:600}
+.pane{background:var(--tv-card);border:1px solid var(--tv-line);border-radius:.5rem;max-width:1000px;padding:.8rem 1rem;margin-top:.5rem}
+.pane h3{margin:0 0 .4rem;font:700 .95rem system-ui;display:flex;justify-content:space-between}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:.6rem 1rem}
+label{display:block;font-size:.8rem;color:var(--tv-meta)}select,input{display:block;width:100%;margin-top:.15rem;padding:.4rem .5rem;border:1px solid var(--tv-line);border-radius:.4rem;font:inherit;background:#fff}
+.opt{font-size:.82rem;color:var(--tv-meta);margin:.3rem 0 0}.chk{display:flex;gap:.4rem;align-items:center;font-size:.88rem;margin-top:.4rem;color:var(--tv-ink)}
+@media (max-width:767px){body{padding:3px}.cs-line{grid-template-columns:1fr;gap:.3rem}.acts{justify-content:flex-start}.strip,.pane{border-radius:.5rem}}
+</style></head><body>
+<h1>Delivery: how it goes (M2b mockup)</h1>
+<p class="note">Two legs, each its own existing field (decisions/0101). The line reads leg 1, the work order's delivery, until the work order is received; then leg 2, the item's ship style. A work order that goes straight to the client has no leg 2. Each state: one action, ✎ edits what was recorded, ⋯ every other move.</p>
+
+<h2>1 · At the vendor (Will Call), in production</h2>
+<div class="strip"><div class="cs-line"><span class="lab">DELIVERY</span>
+  <div><b>At the vendor:</b> work order 20261027-CP0001 at Competition Printing, in production. <span class="leg">Will Call: we collect it.</span></div>
+  <div class="acts"><span class="ib" title="Edit how it goes">✎</span><span class="ib" title="Other moves">⋯</span></div></div></div>
+
+<h2>2 · Order #12 today: ready at the vendor for us to collect</h2>
+<p class="note">Live today it says "Ready for pickup at our shop. Picked up?". It's the vendor's Will Call that is ready; the client's pickup hasn't started.</p>
+<div class="strip"><div class="cs-line"><span class="lab">DELIVERY</span>
+  <div><b>Ready at Competition Printing</b> for us to collect, since Nov 2 (22 days). <span class="leg">Will Call · work order 20261027-CP0001</span></div>
+  <div class="acts"><span class="b go">Receive</span><span class="ib" title="Edit how it goes">✎</span><span class="ib" title="Other moves">⋯</span></div></div></div>
+<div class="pane" style="max-width:24rem"><h3><span>Other moves for delivery</span><span class="ib">×</span></h3>
+  <p style="margin:.2rem 0"><span class="b">Courier booked: add tracking</span><br><small>A courier we book collects it from Competition Printing; the vendor is emailed its number.</small></p>
+  <p style="margin:.4rem 0"><span class="b">Change how it goes…</span><br><small>The work order's delivery, or how each item goes from our shop.</small></p>
+  <p style="margin:.4rem 0"><span class="b">Work orders</span><br><small>Send, chase or receive the vendor's work.</small></p></div>
+
+<h2>3a · Received; leg 2 is Pick Up</h2>
+<div class="strip"><div class="cs-line"><span class="lab">DELIVERY</span>
+  <div><b>Ready for pickup</b> at our shop. Received from Competition Printing Nov 24. Picked up?</div>
+  <div class="acts"><span class="b go">Yes, picked up</span><span class="ib">✎</span><span class="ib">⋯</span></div></div></div>
+
+<h2>3b · Will Call, collected by our courier (Jason: "I ask for will call, then schedule courier for local delivery")</h2>
+<p class="note">The work order's own Courier booked: add tracking (from state 2's ⋯). The courier collects at Competition Printing and takes it to the client: no Receive at our shop, no leg 2. The vendor is emailed the courier's number.</p>
+<div class="strip"><div class="cs-line"><span class="lab">DELIVERY</span>
+  <div><b>Out by courier</b> from Competition Printing: Rapid Couriers · 55821, Nov 25. Delivered?</div>
+  <div class="acts"><span class="b go">Yes, delivered</span><span class="ib" title="Edit the courier and its number">✎</span><span class="ib">⋯</span></div></div></div>
+
+<h2>3b′ · Received at our shop; leg 2 is the item's Courier</h2>
+<div class="strip"><div class="cs-line"><span class="lab">DELIVERY</span>
+  <div><b>Received</b> from Competition Printing Nov 24; it goes by courier from our shop. <span class="leg">Courier: its number once it's booked.</span></div>
+  <div class="acts"><span class="b go">Edit the shipping</span><span class="ib" title="Edit how it goes">✎</span><span class="ib">⋯</span></div></div></div>
+
+<h2>3c · Received; leg 2 is Ship (carrier)</h2>
+<div class="strip"><div class="cs-line"><span class="lab">DELIVERY</span>
+  <div><b>Shipped</b> by UPS · 1Z999AA10123456784, Nov 25. Delivered?</div>
+  <div class="acts"><span class="b go">Yes, delivered</span><span class="ib" title="Edit the tracking">✎</span><span class="ib">⋯</span></div></div></div>
+
+<h2>4 · Straight to the client (Blind Drop Ship, or Ship / Freight / Local Delivery to the client's ship-to): no leg 2</h2>
+<div class="strip"><div class="cs-line"><span class="lab">DELIVERY</span>
+  <div><b>Shipping from the vendor</b> to the client: FedEx · 7712 3456 7890, Nov 25. <span class="leg">Blind Drop Ship · work order 20261027-CP0002</span></div>
+  <div class="acts"><span class="b go">Yes, delivered</span><span class="ib">✎</span><span class="ib">⋯</span></div></div></div>
+
+<h2>⋯ → Change how it goes… (✎ on the existing fields, never Undo)</h2>
+<div class="pane"><h3><span>Change how it goes</span><span class="ib" title="Close">×</span></h3>
+  <div class="grid">
+    <div><b style="font-size:.9rem">From the vendor</b> <small>Work order 20261027-CP0001, Competition Printing</small>
+      <label>Delivery<select><option>Will Call</option><option>Internal Transfer</option><option>Blind Drop Ship</option><option>Local Delivery</option><option>Next-day Courier</option><option>Ship USPS</option><option>Ship UPS</option><option>Ship FedEx</option><option>Freight</option></select></label>
+      <p class="opt">Will Call: we collect it from the vendor.</p>
+      <label class="chk"><input type="checkbox" checked style="width:auto;display:inline"> Tell the vendor (the work order's email, with the change)</label></div>
+    <div><b style="font-size:.9rem">To the client</b> <small>Gift Certificate Vouchers · 9,000</small>
+      <label>Ship style<select><option>Drop Ship</option><option selected>Courier</option><option>Pick Up</option></select></label>
+      <p class="opt">Courier: we send it from our shop; add the courier and its number once it's booked.</p>
+      <label>Carrier<select><option>Other</option><option>USPS</option><option>UPS</option><option>FedEx</option></select></label>
+      <label>Tracking (or the courier's number)<input value="" placeholder="Rapid Couriers · 55821"></label></div>
+  </div>
+  <p style="margin:.7rem 0 0"><span class="b go">Save how it goes</span> <span class="b">Cancel</span></p>
+  <small style="margin-top:.4rem">The old method goes to the History: "Changed from Will Call to Blind Drop Ship · Jason, Nov 24, 3:10 PM MST".</small></div>
+</body></html>

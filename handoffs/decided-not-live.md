@@ -8,7 +8,7 @@ is synced and byte-checked. Updated with every approval and every release.
 
 | Decision (when) | Release | Session | Next step |
 |---|---|---|---|
-| Change how an order goes: two legs on 0101's existing fields (approved 2026-11-24) | M2b, PR #1346, built and reviewed | Orders | **Paused by Jason 2026-11-24 ("Pause for now. add to work queue.")**: goes into the Work queue |
+| Change how an order goes: two legs on 0101's existing fields (approved 2026-11-24) | M2b, PR #1346, built and reviewed | Orders | **Paused by Jason 2026-11-24 ("Pause for now. add to work queue.")**: goes into the Work queue. Out of flight: no inbox zip, claims released; PR #1346 merged as the record only (2026-11-25); its build in `handoffs/order-m2b/`, how to resume in `handoffs/order-management-m2.md` (Final hand-off) |
 | The board's next releases (list below) | from the hand-off (#1339) | Control Board (fresh session) | starts once W1's presses are confirmed |
 
 ## Queued, in order
@@ -25,8 +25,9 @@ is synced and byte-checked. Updated with every approval and every release.
 7. Request a fix's follow-through: the check runs when the fix goes live; one notice (2026-11-23)
 8. Outside links open in the browser: ↗ with the service and account; the first-tap hint on phones (2026-11-24; CLAUDE.md)
 
-### Orders (research/order-management-design-2026-11-23.md §6)
-1. M2b: how an order goes (above)
+### Orders (research/order-management-design-2026-11-23.md §6; handoffs/order-management-m2.md, Final hand-off)
+0. M3's first fix: the order tests green again (the harness schema to the live tables, seeds that clear what they count)
+1. M2b: how an order goes (above), when Jason resumes it
 2. M3: the Money section: Outstanding with aging, Take a payment across orders, Credits on account
 3. M4: Place an order, guided; the archived E-Commerce orders page retired
 4. M5: several destinations (decisions/0177)
