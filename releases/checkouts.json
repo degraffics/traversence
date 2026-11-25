@@ -52,6 +52,17 @@
    "expires": "2026-11-25T22:34:34Z",
    "release": "team-batch.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/ControlGauges.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "Piece 2 P2-5: the daily batch and the Founder's emailed answers (decisions/0179 rule 1)",
+   "since": "2026-11-25T18:34:37Z",
+   "expires": "2026-11-25T22:34:37Z",
+   "release": "team-batch.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
