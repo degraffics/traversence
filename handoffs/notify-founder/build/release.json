@@ -1,0 +1,32 @@
+{
+  "title": "The site emails the Founder itself: the daily batch, decisions and the session manager's messages",
+  "why": "Jason, 2026-11-25: \"If I have to allow emails in claude that's a problem. Can you use the system for emailing?\" The site's own Notify (decisions/0172, 0176: Pulse first, the system's own email, free under CLAUDE.md's No income, no expense) now emails the Founder, and only the Founder (CommsSetup::founders), three things, each once: today's daily batch (decisions/0179 rule 1; P2-5's gauges.json \"batch\"), one email per date on the thread batch:<date>; a Tier 3 decision reaching \"Waiting for you\" (GaugeTasks::sendBrief), its brief on the thread task:<id>; and the session manager's messages (releases/batch.json's new \"messages\", carried by gauges.py), each by its id. What was sent is kept in founder_mail_sent, so nothing goes twice. Never from staging. A Tier 2 release (Jason's ruling, 0179's note \"Tier 2 publishes on its own once Piece 3 is live\"); it adds one table and changes nothing that exists.",
+  "proposals": [],
+  "switch": "",
+  "changes": [
+    {
+      "what": "Today's batch emailed to the Founder once a day it's written, with each release, its checks, its way back and the Work queue's link",
+      "where": "https://traversence.com/admin/config/control?tab=development"
+    },
+    {
+      "what": "A Tier 3 decision emailed with its brief when it reaches Waiting for you",
+      "where": "https://traversence.com/admin/config/control?tab=development"
+    },
+    {
+      "what": "The session manager's messages emailed, each once",
+      "where": "https://traversence.com/admin/config/control?tab=development"
+    },
+    {
+      "what": "The job founder_mail_tick (every 10 minutes, live only) on Scheduled tasks",
+      "where": "https://traversence.com/admin/config/control?tab=scheduled"
+    },
+    {
+      "what": "FAQ: How does the Founder hear about the daily batch and decisions?",
+      "where": "https://traversence.com/faq.php"
+    }
+  ],
+  "checks": {
+    "founder_only_once": "tools/notify-founder-tests/founder.php, 15 checks on MariaDB: today's batch once to the Founder alone (not staff, not an ended login), yesterday's never, each message id once and bad ones skipped, a decision once when sendBrief moves it to Waiting, a Work ticket never, nothing on staging, no Founder means nothing marked sent, the three kinds in Notify, the job live-only and quiet. A copy with the once and staging guards taken out fails 5 of them."
+  },
+  "rollback": "Proved on the bench (tools/team-tests/rollback.sh, 2026-11-25): the zip laid over the live mirror (Sync 18:38 UTC), its migration run twice, then Roll back as the site does it: the files match live byte for byte and every PHP file parses. Left behind: the empty-once-rolled-back table founder_mail_sent (migrations only add)."
+}
