@@ -200,6 +200,9 @@
    "functions": [
     "advance",
     "answer",
+    "auditClear",
+    "auditConfirm",
+    "auditOpen",
     "brief",
     "briefEdit",
     "gate",
@@ -213,10 +216,10 @@
    ],
    "kind": "add",
    "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
-   "why": "Piece 2 P2-1: Work queue tickets, types and stages (handoffs/piece2-team.md)",
+   "why": "Piece 2 P2-4: the Team's daily audit (handoffs/piece2-team.md \u00a76)",
    "since": "2026-11-25T17:07:40Z",
-   "expires": "2026-11-25T21:07:40Z",
-   "release": "team-tickets.zip",
+   "expires": "2026-11-25T21:23:27Z",
+   "release": "team-audit.zip",
    "callers": {}
   },
   {
@@ -265,13 +268,17 @@
   },
   {
    "path": "app/lib/TeamRunner.php",
-   "functions": [],
+   "functions": [
+    "audit",
+    "findings",
+    "tier"
+   ],
    "kind": "add",
    "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
-   "why": "Piece 2 P2-3: the Team's runner, staging only (handoffs/piece2-team.md \u00a75)",
+   "why": "Piece 2 P2-4: the Team's daily audit (handoffs/piece2-team.md \u00a76)",
    "since": "2026-11-25T17:16:52Z",
-   "expires": "2026-11-25T21:16:52Z",
-   "release": "team-runner.zip",
+   "expires": "2026-11-25T21:23:27Z",
+   "release": "team-audit.zip",
    "callers": {}
   },
   {
@@ -305,6 +312,17 @@
    "since": "2026-11-25T17:16:52Z",
    "expires": "2026-11-25T21:16:52Z",
    "release": "team-runner.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/scripts/team_audit_tick.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "Piece 2 P2-4: the Team's daily audit (handoffs/piece2-team.md \u00a76)",
+   "since": "2026-11-25T17:23:27Z",
+   "expires": "2026-11-25T21:23:27Z",
+   "release": "team-audit.zip",
    "callers": {}
   }
  ],
