@@ -1,0 +1,59 @@
+{
+    "id": 290,
+    "title": "The daily batch and the Founder's emailed answers (Piece 2, P2-5)",
+    "why": "Jason's Piece 2 (decisions/0179 rule 1; handoffs/piece2-team.md §7; Q3 A, 2026-11-25): the session manager's daily batch (releases/batch.json, carried in gauges.json by gauges.py) shown at the top of the Work queue, only on its own day, with the Tier 3 decisions waiting first; Approve the batch for the Founder's own login only (Access::isFounder), recorded once for the day and carried by report() to the session manager; the Founder's emailed Tier 3 answers (gauge-pickups.json's answers) applied once, only to a Resolution waiting for him, as \"Jason (by email, recorded by the session manager)\", with History.",
+    "proposals": "",
+    "zip": "team-batch.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/admin/control-console.php": {
+            "sha": "304b8627374a50cfb82be53e8e030a49593c177e50345c792f92b6736143705c",
+            "size": 302867,
+            "live_was": "9228edf55c18ee064307a744c0c17b6a7b2bec16d6be1fe22bb98bf5d31d6df7"
+        },
+        "app/ui/faq.md": {
+            "sha": "3eb2fbd2bf474c9d2703676d70138b3c055ea2f15e07f1a0ed880f76e1d3a63d",
+            "size": 457210,
+            "live_was": "2d649b0cd81be220375f044e4a829733f4b94a05e5a156c7eb0a459b348b1502"
+        },
+        "app/lib/GaugeTasks.php": {
+            "sha": "a74857fe400f4e8de4d3782c650e817f9de5cf8070a4192762abfd73e0ccd98e",
+            "size": 58481,
+            "live_was": "2a5a2a2ec397e3c7358378f7ef828cf5cd850315ebcf64a9daa1404d63a9af51"
+        },
+        "app/lib/ControlGauges.php": {
+            "sha": "02b80c2f8fcba6b48e09845fe148cbe56bc75eeda425c6a3fff48b4883a85225",
+            "size": 43639,
+            "live_was": "855f86124ce74e0ec07ec5854b9c21f23f9cc7ec11f3b5bec8a3023e69aabb9e"
+        },
+        "website/admin/api.php": {
+            "sha": "6e3ca4662c9aa350e301fbb47b0000182ed4675c3798ef2c73f01c801ee1a64a",
+            "size": 58054,
+            "live_was": "f5380affefdbc65ada44a85b0692c9fd1dd9cc4a4aafd0ca38dccbb857e05e75"
+        },
+        "website/js/admin-control.js": {
+            "sha": "549e63d2f6ae7d84a8d6a38b6dd7b76b454757ac119b7b7aa63c6874e3fe26c4",
+            "size": 79454,
+            "live_was": "7eb21553c6e72c182eddb897e6b842319acb5032819f16e3431ea0edd02f82b4"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-25T18:35:47+00:00",
+            "by": 0,
+            "msg": "Uploaded team-batch.zip: 6 files."
+        }
+    ]
+}
