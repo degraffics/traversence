@@ -134,3 +134,14 @@ Jason's own touchpoints are "+" for new work, Tier 3 briefs, and Undo or Roll ba
 - **Confirmation:** Tier 1 and Tier 2 publish on their own after the before-and-after check.
 
 The decision tree's fingerprint covers rules only, so a wording fix never clears the approval.
+
+## Note (Jason, 2026-11-25): Piece 3's last two briefs
+
+"A: A, B: B".
+- **A:** a Publish of staging's own work isn't before-and-after checked. It stays under the daily batch, and is
+  revisited before Jason raises agents to Confirmation.
+- **B:** 0066 is proved by a locked, staging-only read of places live already holds, hashes only. No fake test
+  landmark is added.
+- **Also recorded (the session manager's call, from this decision's "safe additive"):** an add-only migration counts as
+  safe additive. That's CREATE TABLE IF NOT EXISTS, or a guarded ADD COLUMN or INDEX. Any UPDATE, DELETE, DROP, MODIFY
+  or RENAME stays Tier 3.
