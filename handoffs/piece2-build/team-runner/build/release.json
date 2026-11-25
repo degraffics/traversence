@@ -40,5 +40,7 @@
       "what": "FAQ: What does the Team's runner do? (updated), What is the Team's decision tree?, What is the Team's daily audit? (with how a finding becomes Tier 3)",
       "where": "https://traversence.com/faq.php"
     }
-  ]
+  ],
+  "rollback": "Proved on the bench (tools/team-tests/rollback.sh, 2026-11-25): the zip laid over the live mirror (Sync 17:59 UTC, with #288) and its migrations run twice, then Roll back as the site does it (each file put back from live, the new ones removed): the files match live byte for byte, every PHP file parses, and the Work queue's own suites pass on the rolled-back code (work-queue 84, task-scope 44, task-adrs 32, with live's P2-1 migrations). Left behind: the tables team_runs and team_settings and the columns build_brief and flag on control_gauge_tasks, unused (migrations only add).",
+  "staging_only": "Nothing runs on live: team_tick and team_audit_tick exit when !Staging::here() and are in Scheduler::QUIET; the team_runner switch is staging-only and off by default; TeamRunner::blocked() returns 'live' on live. What live shows: the Team page's decision tree and ceiling (Planning), the queue's agent indicators and filter, a ticket's runs section, and the Tier 3 flag's line."
 }
