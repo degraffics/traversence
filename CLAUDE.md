@@ -244,6 +244,11 @@ New standing OKs go here in the session that hears them; the tool they need goes
 - **Email and push to Jason:** when he asks (or a rule here says to tell him), send it, to his address only, with the
   Microsoft 365 connector and a push notification. No other recipient without asking.
 - **Adding both repos**, **archiving finished sessions**, **merging your own approved PR**: as their sections say.
+- **Piece 2 to running, over the holiday** (Jason, 2026-11-25: "publish yes as long as we can roll back… I want all of
+  this up and running by the time I am back… make your best judgement calls based on the adr's and the outlined plan…
+  If you must reach me email me"): P2-1 to P2-5 publish once staging's checks pass, each with Roll back; the build
+  session may switch on staging's Team runner, Staging runs its own jobs and Keep staging caught up. Judgement calls
+  follow the decisions and `handoffs/piece2-team.md`; Tier 3 still comes to him, by email (decisions/0179).
 
 ## Each session asks Jason itself (Jason, 2026-11-18; replaces 2026-11-17's): every session
 
