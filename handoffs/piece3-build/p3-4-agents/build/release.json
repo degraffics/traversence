@@ -1,0 +1,11 @@
+{
+  "title": "The Team's Confirmation stage: Undo on every agent action, a spending limit per agent (Piece 3, P3-4)",
+  "why": "decisions/0179's \"What comes next\" (Undo on every agent action, a spending limit per agent) and its note \"How the Team's capacity grows\" §3 (Confirmation and safe publish). A runner step that did something without its Undo is recorded refused, so a step that can't be undone only proposes. Each role has a monthly spending limit ($0 unless the Founder sets one; every step costs $0, Q4 B), checked before each step. Confirmation opens to the Founder's raise once the before-and-after check and rule 2 are both on, with five evidence lines (releases checked, blocks that were wrong, escapes, Undo end to end, ready). The step costs join the decision tree's rules, so its fingerprint changes and any approval is asked again.",
+  "proposals": [],
+  "switch": "",
+  "changes": [
+    {"what": "The decision tree's Confirmation column, the spending line, and Raise to Confirmation with its evidence", "where": "https://traversence.com/admin/config/team"},
+    {"what": "FAQ: the decision tree's answer (Confirmation)", "where": "https://traversence.com/faq.php"}
+  ],
+  "built_on": "the bench: Sync 18:38 UTC plus P3-2 and P3-3. Rebuild on the live copy once P3-3 is live (faq.md)."
+}

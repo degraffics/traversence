@@ -446,3 +446,34 @@ Its build is in `handoffs/piece3-build/p3-3-kinds/`. It's rebuilt on the live co
     not passed waits; not proved waits; no kind waits until the batch names it; a Tier 3 area never goes alone;
     through `checkedByAdvocates`, one that must wait goes for review and never live; the strip and its Undo.
   - `pipeline.php` still 22.
+
+## 14. P3-4 (built and held, 2026-11-25; on the bench: Sync 18:38 UTC plus P3-2 and P3-3)
+
+Its build is in `handoffs/piece3-build/p3-4-agents/` (`TeamRunner.php`, `team-console.php`, `faq.md`). It's rebuilt on
+the live copy once P3-3 is live.
+
+- **Undo on every agent action:** `TeamRunner::log()` records a step that did something with no Undo as refused,
+  saying so. A step that can't be undone can only propose.
+- **The spending limit per agent:**
+  - `STEP_COST_MICROS`: every step costs $0, since none calls paid AI (Q4 B). It's part of the tree's rules.
+  - `spendLimit()` comes from team_settings `spend:<slug>` and is $0 unless set. `spentThisMonth()` reads
+    `team_runs.cost_micros`.
+  - `run()` refuses a step that would pass its role's limit.
+  - The Team page says it: "each role may spend $0.00 a month".
+- **Confirmation:**
+  - `setCeiling` opens it (Founder, one stage on, tree approved) only while `before_after` and `rule2_autopublish` are
+    both on (`confirmationWaits()`).
+  - At Confirmation, agents act as at Implementation, and a low-risk release the advocates pass publishes alone.
+  - Its evidence has five lines from `site_releases`: releases checked, blocks later passed, escapes rolled back, Undo
+    end to end, ready.
+- **Tests:**
+  - `runner.php`: 57, of which 9 are P3-4's (they run only on a root that has it).
+  - `team-head.cjs`: 28. Its Confirmation column check reads both wordings.
+  - runner.cjs 44, tickets.cjs 62, batch.cjs 18, audit 33, tickets.php 54, all on the same root.
+- **Not built, raised as questions:**
+  - **Staging's own Publish waiting for the check (§1.1, G3b).** Its changes are already on staging when it's
+    published, so there's no "staging just before the change" look to take, as DB1 rules. A before look from live
+    would go against DB1.
+  - **G5's canary landmark.** `landmarks` is a records table (`staging-tables.php`), so a fake held place made on
+    staging could be carried to live at the next Publish. That's a 0066 risk. It also has no add path but
+    `Landmarks::batch` from a source file.
