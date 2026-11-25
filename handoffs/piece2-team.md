@@ -255,6 +255,37 @@ The steps in releases 3–4 are all deterministic, so none of them costs anythin
 | Content, Directory curator, Orders/Finance (active) | none yet | | listed with "no steps yet" until a step is written for them. Orders/Finance will only ever read (money is Tier 3) | |
 | Advocates (active, views only) | none | | bound to test accounts for piece 3's before-and-after check, and never act (finding 6) | |
 
+### 5.1 The $40 cap
+
+Jason, 2026-11-25, relayed by the session manager: "When the $40 paid AI cap is reached, pause paid external calls cleanly,
+fall back to internal/deterministic work, and raise a Tier 3 Decision Brief only if paid AI is strictly needed to move
+forward."
+
+- **Every step is marked `paid` or `free`.** Every step in releases 3–4 is `free`. Before any `paid` step, the runner reads
+  `AiClient::allow($pdo, 'task_assist')`. That's the same check every AI feature uses: the cap, the switch-offs, the daily
+  runs and the shares. Any outside call also asks `StagingGate::hold()` first.
+- **At the cap, only the paid steps wait.** A paid step is recorded as a run in state `held`, with `allow()`'s own words
+  ("The month's AI cap ($40.00) is reached: it starts again on the 1st."). The runner then goes on to the next free step,
+  on the same ticket or another one. Nothing is retried in a loop, and nothing fails.
+- **One brief per ticket, never one per step.** A ticket that can't move without paid AI raises one Resolution ticket for
+  it. That happens when its next step is paid, it has no free step left, and the cap still holds at the next day's audit.
+  The brief:
+  - names the ticket;
+  - sets out Option A (raise the cap or wait for the 1st) and Option B (a person does the step), with pros and cons;
+  - has a **Cost** line: this month's spend against $40, and the step's estimate (`AiClient::estimate`).
+  - A second held step on the same ticket adds to that one brief (`audit_key = cap:task:<id>`).
+- **It clears by itself.** On the 1st, or when the cap is raised, `allow()` passes again. The held step runs at its next
+  turn, and the brief closes, with "No longer needed: the cap allowed it" (CLAUDE.md: an issue clears itself when its check
+  passes).
+
+### 5.2 Exception paths never skip the guards
+
+Jason, 2026-11-25: 0179's urgent fixes for live harm still honour 0066 and privacy. No path in this design, whether a run,
+the audit, a precedent or an urgent fix, reads or writes landmarks or nations' land except through `Landmarks::visibleSql()`
+/ `visible()` and the `Nations` rules. None of them skips the privacy guards (test-account exclusions, 0145 §1's
+"a staff member", `Gemini::refused()`). Agents act only through the owning libraries (§5), which already carry those
+guards. The tests check that the runner makes no direct SQL on `landmarks` or `nations` (`runner.php`, a code grep).
+
 **Why "one step and stop":** a ticket advances at most once an hour. Every move can be seen and undone. A fault stops one
 step, not a chain. (The ruling: "each run takes one task, does one step, logs it, and stops.")
 
@@ -360,6 +391,25 @@ success without its check (CLAUDE.md "End to end").
 4. **Decision: AI for agents.** It stays off (releases 1–5 cost nothing). **Release 6** would use one AI feature for every
    agent's wording. It would be the held phase-2 design's `task_assist` (`work-queue-phase2.md`), Claude only (input class
    `person`, so Gemini is refused until your 0164 §0.8 ruling), inside the $40 cap, and only while `staging_ai` is on.
+   At the cap it works as in §5.1.
+5. **Decision Brief: may staff's own text go to Gemini's paid key?** (0164 §0.8). Gemini stays on public material until
+   you answer.
+   - **The Decision:** whether agents and staff tools may send internal text (a task's words, its scope, notes; never a
+     member's or a client's) to Gemini on the paid key.
+   - **Why it needs you:** privacy (0179 rule 3). 0164 §0.8 says "nothing private to Gemini's free tier", and R5 says "a
+     person's words only to Claude". The paid tier changes Google's terms (data not used for training), not our rule.
+   - **Option A: the paid key only, checked on every call.** A new input class `internal` (staff's words) is allowed to
+     Gemini only when the key in use is the paid one. `Gemini::refused()` checks the class and the tier on every call. The
+     free key stays public-only. Members' and clients' words stay Claude-only (R5).
+     - Pros: a second model for agents' wording; work moves off the $40 Claude cap.
+     - Cons: one more check on every call; a wrong key setting could send internal text to the free tier, so the check
+       refuses when the tier can't be confirmed.
+   - **Option B, the safe default: Gemini stays public-only.**
+     - Pros: nothing changes; no new risk.
+     - Cons: agents' wording uses Claude alone, inside the $40 cap.
+   - **Recommended:** B now. A only once the tier check exists and its test proves a free key is refused.
+   - **Impact if delayed:** safe on hold. Nothing in releases 1–5 uses Gemini.
+   - **Cost:** none now. Under A, Gemini's paid use comes from the $20 prepaid (relayed 2026-11-24).
 
 ## 10. Releases, in order (each one coherent, each through the Design reviewer, the session manager and the daily batch)
 
@@ -404,7 +454,7 @@ P2-3 waits for Question 1. Each release adds its FAQ entries (decisions/0057), i
   - Edit with History; standby and back.
 - `roster.cjs`: the Team page and its drawer at 1280 and 390, the standby group folded, the Team icon opening it in the
   panel.
-- `runner.php`:
+- `runner.php` (with the cap held: free steps go on, paid steps are held, one brief per ticket, cleared on the 1st; and no direct SQL on `landmarks` or `nations`):
   - it refuses on live (`StagingGate::pretend(false)`), with no log;
   - the switch off means no run;
   - the lock means two runs at once do one step;
