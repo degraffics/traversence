@@ -183,6 +183,66 @@
    "expires": "2026-11-25T21:07:38Z",
    "release": "team-tickets.zip",
    "callers": {}
+  },
+  {
+   "path": "app/admin/control-console.php",
+   "functions": [
+    "tv_cb_wq_brief",
+    "tv_cb_wq_stages"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "Piece 2 P2-1: Work queue tickets, types and stages (handoffs/piece2-team.md)",
+   "since": "2026-11-25T17:07:40Z",
+   "expires": "2026-11-25T21:07:40Z",
+   "release": "team-tickets.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/GaugeTasks.php",
+   "functions": [
+    "advance",
+    "answer",
+    "brief",
+    "briefEdit",
+    "gate",
+    "move",
+    "moves",
+    "nextStage",
+    "noDecision",
+    "sendBrief",
+    "setStage",
+    "stagesOf"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "Piece 2 P2-1: Work queue tickets, types and stages (handoffs/piece2-team.md)",
+   "since": "2026-11-25T17:07:40Z",
+   "expires": "2026-11-25T21:07:40Z",
+   "release": "team-tickets.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/migrations/2026-11-25_tickets.sql",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "Piece 2 P2-1: Work queue tickets, types and stages (handoffs/piece2-team.md)",
+   "since": "2026-11-25T17:07:40Z",
+   "expires": "2026-11-25T21:07:40Z",
+   "release": "team-tickets.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/migrations/2026-11-25_tickets_stage.sql",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "Piece 2 P2-1: Work queue tickets, types and stages (handoffs/piece2-team.md)",
+   "since": "2026-11-25T17:07:40Z",
+   "expires": "2026-11-25T21:07:40Z",
+   "release": "team-tickets.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
