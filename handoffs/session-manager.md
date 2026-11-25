@@ -4,6 +4,27 @@ For the Claude session that manages Jason's other sessions (CLAUDE.md, "The sess
 first one, moved to a fresh session at 600K context. Jason works mostly from his phone: short messages, one line per
 item, decisions as "reply go".
 
+## Holiday hold (2026-11-25): start here
+
+Jason is away for the holidays; work resumes **from the Work queue**
+(https://traversence.com/admin/config/control?tab=development), not from this file's older queue. Every outstanding item
+is a task there, with its scope, priority, decisions and docs (seeded by #284/#285 and the holiday seed).
+
+- **Live 2026-11-23/24** (each synced and byte-checked): #271–#285. Collect the balance, the gauge panel, Orders M1, M1b
+  and M2, the kit buttons and Request a fix, the crawler batches, the W1 fix, the board's phone header, the Work queue,
+  task scope, task ADRs and the seeds.
+- **Paused by Jason:** M2b (PR #1346, out of flight; rebuild on the live copy when resumed).
+- **Waiting on Jason:** his outline for the Work queue redesign (his four stages: planning, building, implementation,
+  confirmation; "tools that I understand"; mockup first, his words); Order #12's books ($1,111.14 in QuickBooks vs $809.10);
+  the Lead scores and Work order reminders move to :02.
+- **Rules added (CLAUDE.md):** the four-step rule and its refinements (#1308, #1309, #1312), Edit or Undo and money (#1314,
+  #1315), icons (#1316), the toolkit (#1317), never invent what's set (#1334–#1336), decision or release said every time
+  (#1341), outside links in the browser (#1344).
+- **Process lessons:** a paused release leaves the inbox and its claims; deliveries.py reads the site's release records; a
+  data migration must never be counted run by its tables existing (P1 task); "live" only when synced and byte-checked.
+- **Sessions:** all archived at the hold; the hourly check (trig_01FT8bSFrBG8U3sPMKYamEEj) is off. On return: re-enable it,
+  start one session per area from its hand-off and the Work queue.
+
 ## The job
 
 Keep sessions fast and affordable, and keep Jason told only of what needs him.
