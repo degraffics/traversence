@@ -141,6 +141,23 @@
      "app/lib/ControlGauges.php"
     ]
    }
+  },
+  {
+   "path": "app/lib/ControlGauges.php",
+   "functions": [
+    "queueGauge"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "Piece 2 P2-1: Work queue tickets, types and stages (handoffs/piece2-team.md)",
+   "since": "2026-11-25T17:07:32Z",
+   "expires": "2026-11-25T21:07:32Z",
+   "release": "team-tickets.zip",
+   "callers": {
+    "queueGauge": [
+     "app/admin/control-console.php"
+    ]
+   }
   }
  ],
  "lapsed": [
