@@ -3,44 +3,44 @@
  "built_on": "0d756a5 Sync: 2026-11-25 16:58 UTC",
  "recorded": "2026-11-25 17:28 UTC",
  "note": "Piece 2 P2-2: the Team roster (System Configuration \u2192 Team), pre-approved by Jason 2026-11-25 with Roll back; built on Sync: 2026-11-25 16:58 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "f8f8513 Sync: 2026-11-25 17:36 UTC",
  "files": {
   "app/admin/Access.php": {
    "sha256": "c06b8b849ece046afa780e950a810e9fb5b738d8221d08221c56507d9024a34a",
-   "live": false
+   "live": true
   },
   "app/admin/kit-css.php": {
    "sha256": "85728a3142793552f45334049b8debd019bef9badd3292739d491825ed9a7804",
-   "live": false
+   "live": true
   },
   "app/admin/manifests.php": {
    "sha256": "293fdbf50f1372c1790c3f2d9ed0ad8d97994aaf2af7ff72b00591f7f832cb2c",
-   "live": false
+   "live": true
   },
   "app/admin/tools.php": {
    "sha256": "7a17d4f861a6a0a3d5966efe4d3ecda350bf6a15a0ea04736b75d9574aff8c9a",
-   "live": false
+   "live": true
   },
   "app/lib/TeamRoster.php": {
    "sha256": "33baa5cb4ccdd4fc1b8a151130d4d0607339b31baf62d216bb07624be92f7655",
-   "live": false
+   "live": true
   },
   "app/lib/staging-tables.php": {
    "sha256": "3594687bb6b18c154a0d6ec644dc1a162e134ab680e7d988104d9467e34d7349",
-   "live": false
+   "live": true
   },
   "app/migrations/2026-11-25_team_roster.sql": {
    "sha256": "bb45e9bf7d93d4d2c888e396c8062daa09250f552708ad6aab46ab3da8d63888",
-   "live": false
+   "live": true
   },
   "app/migrations/2026-11-25_team_roster_seed.sql": {
    "sha256": "8a2df9664b915c45f9db715c4b29236a5230848a9301db1a3bd09f91756e6dc8",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "7ebfc02958f48dee34a0a92fb76bd13c30b1673cb245bca5407431d1092559f2",
-   "live": false
+   "live": true
   }
  }
 }
