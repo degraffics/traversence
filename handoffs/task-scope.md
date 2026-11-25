@@ -28,3 +28,11 @@ Everything on the row kept (Take it, ✎ for what/why/source, History, ⋯). The
 
 ## Tests
 `tools/control-board-tests/task-scope.cjs` (44 at 1280 and 390); work-queue 84, gauge-panel 76, board-views 90 unchanged.
+
+## Note (2026-11-25): the queue's tables become `records` (decisions/0179's Piece 2, Q1 A)
+
+Jason approved Q1 A of `handoffs/piece2-team.md` (2026-11-25, through the session manager): `control_gauge_tasks`,
+`control_gauge_task_steps` and `control_gauge_task_adrs` move from staging class `own` to `records`. Live's tasks come to
+staging by catch-up, and what agents do on staging reaches live only at Publish, inside the approved batch. That replaces the
+class recorded above. It changes in Piece 2's P2-3 (`team-runner.zip`), with each table's links in the register of record
+numbers (0165 §4).

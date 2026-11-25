@@ -1,6 +1,6 @@
 # Piece 2: the Team, three ticket types and the agent runner, on staging only (design for review, 2026-11-25)
 
-The Piece 2 build session (`session_01CXLi5kEx1NbamxWYoRxUDh`). **Design only: nothing is built yet.** Route: the session
+The Piece 2 build session (`session_01CXLi5kEx1NbamxWYoRxUDh`). **Approved by Jason 2026-11-25 (§9); being built.** Route: the session
 manager (`session_01CXLi5mGX2sg5QS11gg3Wrh`) reviewed it (2026-11-25). The Design reviewer's checklist was run by this
 session (§10), since the reviewer session is archived over the holiday. The session manager emails §9 to Jason (0179). **Built on Sync 2026-11-25 02:02 UTC (b1336ec).** Mockup: `piece2-team/mockup.html`, screens
 `piece2-team/p2-{1280,390}.png`.
@@ -386,6 +386,11 @@ Side effects on every move: a History line, a logbook line, `stage_at` reset, th
 success without its check (CLAUDE.md "End to end").
 
 ## 9. Questions for Jason: five Decision Briefs (final text, for the session manager to email)
+
+**Answered (Jason, 2026-11-25, through the session manager: "apporved. phase 1 and phase 2"):** Q1 **A**, Q2 **A**, Q3
+**A**, Q4 **B**, Q5 **B**, each the recommendation sent to him. The design is approved. The build order is P2-2, P2-1,
+P2-3, P2-4, P2-5. **P2-6 is out** (Q4 B: no AI for agents). Gemini stays public-only (Q5 B). No release is sent until the
+session manager relays his answers on pre-approval and the staging switches.
 
 Each brief has the 0179 shape: the Decision, why it needs you, options A and B with their pros and cons and a
 recommendation, the impact if delayed, and the cost.

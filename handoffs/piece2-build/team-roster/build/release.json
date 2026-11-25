@@ -1,0 +1,13 @@
+{
+  "title": "The Team: System Configuration → Team (Piece 2, P2-2)",
+  "why": "Jason's Piece 2 (decisions/0179; handoffs/piece2-team.md, approved 2026-11-25): the roster of roles that work the Work queue, as data in System Configuration, its permissions only from Access. Nothing runs by itself: the runner comes in P2-3, on staging only.",
+  "proposals": [],
+  "switch": "",
+  "data_reason": "Seeds the 33 roles of Jason's spec into the new team_roster table, once (INSERT ... WHERE NOT EXISTS): 9 working, 11 advocates, 13 on standby. Changes no existing row.",
+  "changes": [
+    {"what": "A new Team section: the roles by department, standby folded, each role's drawer with Edit, History and its status", "where": "https://traversence.com/admin/config/team"},
+    {"what": "Access::canAs: permissions for a named level and department (the Team's agents act only through it)", "where": "app/admin/Access.php"},
+    {"what": "On phones, a folded group's rows stay folded in every admin table", "where": "app/admin/kit-css.php"},
+    {"what": "FAQ: What is the Team page?", "where": "https://traversence.com/faq.php"}
+  ]
+}
