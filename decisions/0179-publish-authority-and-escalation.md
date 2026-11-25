@@ -101,3 +101,16 @@ makes judgement calls "based on the adr's and the outlined plan"; Tier 3 still g
      content or buttons);
    - missing data or broken core flows;
    - out-of-scope drift without a reason.
+
+## Note (Jason, 2026-11-25): Piece 3's decisions
+
+On `handoffs/piece3-check.md`'s four briefs, reviewed with Gemini: "DB1 A, DB2 A, DB3 A, DB4 A, Staff Views yes ... Lock
+these in for Piece 3."
+- **DB1:** "before" is staging just before the change, never live.
+- **DB2:** a block withdraws the release itself and puts the failure in the Work queue.
+- **DB3:** data fixes stay in the daily batch at first; a row limit comes later, Jason's choice.
+- **DB4:** the check's GitHub Actions minutes have a daily budget; once it's spent, releases wait for the batch.
+- **Staff Views:** an advocate bound to the staff test logins checks admin pages.
+
+Piece 3's releases are not pre-approved: each goes out through the daily batch (rule 1). Jason presses staging's three
+switches himself. Step 1 (Keep staging caught up) finishes its fresh copy before steps 2 and 3.
