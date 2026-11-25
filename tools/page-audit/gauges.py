@@ -173,6 +173,34 @@ def _pickups():
     return {str(int(p['id'])): [str(p.get('session') or ''), str(p.get('release') or '')] for p in d.get('pickups') or [] if str(p.get('id', '')).isdigit() and p.get('session')}
 
 
+def _batch(path=None):
+    """Today's batch, as the session manager writes it (releases/batch.json; decisions/0179 rule 1, Piece 2's P2-5): {date, lines}
+    with each line's release, what, why, decision, checks, way_back and ticket ids; {} when the file is absent or unreadable. The
+    site shows it only on its own date (ControlGauges::batchOf, tv_cb_wq_batch)."""
+    try:
+        d = json.load(open(path or os.path.join(os.path.dirname(__file__), '..', '..', 'releases', 'batch.json')))
+    except (OSError, ValueError):
+        return {}
+    if not isinstance(d, dict) or not re.match(r'^\d{4}-\d{2}-\d{2}$', str(d.get('date') or '')):
+        return {}
+    keys = ('release', 'what', 'why', 'decision', 'checks', 'way_back')
+    lines = [{k: str(l.get(k) or '') for k in keys} | {'tickets': [int(t) for t in l.get('tickets') or [] if str(t).isdigit()]}
+             for l in (d.get('lines') or [])[:40] if isinstance(l, dict) and str(l.get('release') or '').strip()]
+    return {'date': d['date'], 'lines': lines}
+
+
+def _answers(path=None):
+    """The Founder's emailed answers to Tier 3 decisions, recorded by the session manager (releases/gauge-pickups.json "answers";
+    P2-5): [{id, ans: a|b|o, words, at}]. The site applies each once, only to a Resolution waiting for the Founder
+    (GaugeTasks::applyAnswers), as "Jason (by email, recorded by the session manager)"."""
+    try:
+        d = json.load(open(path or os.path.join(os.path.dirname(__file__), '..', '..', 'releases', 'gauge-pickups.json')))
+    except (OSError, ValueError):
+        return []
+    return [{'id': int(a['id']), 'ans': a['ans'], 'words': str(a.get('words') or '')[:4000], 'at': str(a.get('at') or '')}
+            for a in d.get('answers') or [] if isinstance(a, dict) and str(a.get('id', '')).isdigit() and a.get('ans') in ('a', 'b', 'o')]
+
+
 PAGES_MD = open(ROOT + 'site-audit/pages.md').read().splitlines()
 FINDINGS = json.load(open(RESULTS + 'findings.json')).get('findings', [])
 FINDING_IDS = {f['id'] for f in FINDINGS}   # only a finding Site health has: any other id would open nothing
@@ -386,6 +414,8 @@ def build():
                               | {'core': short(w['core'], 'core'), 'registered': short(w['registered'], 'registered')} for w in wfs])
     summary['parts'] = {k: dict(sorted(v.items())) for k, v in PARTS.items()}
     summary['pickups'] = _pickups()   # the session that has each open request (releases/gauge-pickups.json), by request id
+    summary['batch'] = _batch()   # today's batch for the Founder's OK (releases/batch.json; P2-5)
+    summary['answers'] = _answers()   # the Founder's emailed Tier 3 answers, recorded by the session manager (P2-5)
     detail = dict(head, note='Each gauge\'s detail for its drawer (ControlGauges::detail): read when the drawer opens.',
                   checks=reg, results_read=sorted({r['file'] for r in ROWS.values()}),
                   development={g['id']: {'list': g['list'], 'out_of_scope': g['out_of_scope']} for g in dev},

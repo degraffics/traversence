@@ -1528,11 +1528,16 @@ function tv_cb_wq_batch(PDO $pdo, array $active): string
 {
     $e = 'tv_w_e';
     $b = []; try { $b = (array) (ControlGauges::config($pdo)['batch'] ?? []); } catch (Throwable $x) {}
-    $wait = count(array_filter($active, fn ($t) => $t['state'] === 'waiting'));
-    if (!$b && !$wait) return '';
+    $waits = array_values(array_filter($active, fn ($t) => $t['state'] === 'waiting')); $wait = count($waits);
+    if (($b['date'] ?? '') !== gmdate('Y-m-d')) $b = [];   // only today's batch (the session manager writes one a day, UTC)
     $lines = (array) ($b['lines'] ?? []); $date = (string) ($b['date'] ?? '');
-    $head = ($lines ? count($lines) . ' release' . (count($lines) === 1 ? '' : 's') . ' waiting for your OK' : 'No releases waiting') . ($wait ? ' · ' . $wait . ' decision' . ($wait === 1 ? '' : 's') . ' waiting for you (first in the list)' : '');
-    $h = '<div class="wq-batch"><p data-tv-status="' . ($lines || $wait ? 'bad' : 'info') . '" data-tv-label="Today\'s batch:"><b>Today\'s batch' . ($date !== '' ? ' (' . $e(date('M j', (int) strtotime($date))) . ')' : '') . ':</b> ' . $e($head) . '</p>';
+    $head = ($b ? ($lines ? count($lines) . ' release' . (count($lines) === 1 ? '' : 's') . ' waiting for your OK' : 'No releases waiting') : 'No batch from the session manager today') . ($wait ? ' · ' . $wait . ' decision' . ($wait === 1 ? '' : 's') . ' waiting for you' : '');
+    $h = '<div class="wq-batch"><p data-tv-status="' . ($lines || $wait ? 'bad' : 'info') . '" data-tv-keep data-tv-label="Today\'s batch' . ($date !== '' ? ' (' . $e(date('M j', (int) strtotime($date))) . ')' : '') . ':">' . $e($head) . '</p>';   // it carries the day's tasks: no × (CLAUDE.md, lines that carry tasks)
+    if ($waits) {   // the Tier 3 decisions waiting for the Founder, first (decisions/0179: Tier 3 always comes to them)
+        $h .= '<ul class="wq-bl wq-bw">';
+        foreach ($waits as $t) $h .= '<li><b>Decision for you</b> · <a href="#wq-' . (int) $t['id'] . '" class="wq-btk">#' . (int) $t['id'] . '</a> ' . $e((string) $t['what']) . '</li>';
+        $h .= '</ul>';
+    }
     if ($lines) {
         $h .= '<ol class="wq-bl">';
         foreach ($lines as $l) {

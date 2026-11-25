@@ -8,5 +8,7 @@
    "at": "2026-11-23T23:58:00Z",
    "what": "overture_bulk / IR-0001: the load endpoint's reply that never reached the worker"
   }
- ]
+ ],
+ "note_answers": "The Founder's answers to Tier 3 decisions that came by email (Piece 2, P2-5; Jason's Q3 A), recorded by the session manager: the Resolution ticket's id, ans (a, b, or o for his own words), words (his words, as he wrote them), at. Then run python3 tools/page-audit/gauges.py and commit. The site applies each once, and only to a Resolution still waiting for the Founder, as \"Jason (by email, recorded by the session manager)\", with History; one already answered, or not a waiting Resolution, is ignored. Remove a line once its ticket shows Decided.",
+ "answers": []
 }

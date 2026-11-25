@@ -561,7 +561,6 @@
     if (act === 'all') { sec._all = true; wqFilter(sec, sec._f); return; }
     if (act === 'add') { form.hidden = false; t.hidden = true; form.querySelector('select').focus(); return; }
     if (act === 'cancel') { var ef = t.closest('.wq-edit'); if (ef) { ef.remove(); return; } form.hidden = true; form.reset(); form.querySelector('.wq-newarea').hidden = true; var ab = sec.querySelector('[data-wq=add]'); ab.hidden = false; ab.focus(); return; }
-    if (act === 'batchok') { wqSend(sec, t, { action: 'qbatch', date: t.getAttribute('data-date'), value: t.getAttribute('data-value') }, ''); return; }   // Approve the batch (P2-5)
     if (act === 'team') { wqSend(sec, t, { action: 'qassign', id: id, owner: t.getAttribute('data-owner') }, id); return; }   // Give it to the Team (P2-3)
     if (act === 'take') { wqSend(sec, t, { action: 'qassign', id: id }, id); return; }
     if (act === 'move') { TvAsk.ask('Move task #' + id + ' to which session? (its name, as the session manager lists it)', '').then(function (v) { if (v && v.trim()) wqSend(sec, t, { action: 'qassign', id: id, owner: v.trim() }, id); }); return; }
@@ -662,6 +661,7 @@
     if (act === 'move') { wqpSend(t, { action: 'qmove', id: id, to: t.getAttribute('data-to') }, id, '.wqp-gate'); return; }
     if (act === 'send') { wqpSend(t, { action: 'qsend', id: id }, id, '.wqp-strip'); return; }
     if (act === 'noadr') { wqpSend(t, { action: 'qnoadr', id: id }, id, '.wqp-adrs'); return; }
+    if (act === 'flag') { wqpSend(t, { action: 'qflag', id: id, value: t.getAttribute('data-v') }, id, '.wqp-strip'); return; }   // P2-4: a person checks words that suggest Tier 3
     if (act === 'runundo' || act === 'runaccept' || act === 'rundismiss') { var rl = t.closest('.wqp-run'); wqpSend(t, { action: 'q' + act, id: id, rid: rl.getAttribute('data-rid') }, id, '[data-rid="' + rl.getAttribute('data-rid') + '"]'); return; }   // the Team's runs (P2-3)
     if (act === 'ans') { wqpSend(t, { action: 'qanswer', id: id, ans: t.getAttribute('data-a') }, id, '.wqp-strip'); return; }
     if (act === 'back' || act === 'bchoose' || act === 'answords') {
