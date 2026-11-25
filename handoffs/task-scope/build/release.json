@@ -1,0 +1,24 @@
+{
+ "title": "A Work queue task opens to its page: scope, priority and steps",
+ "why": "Jason, 2026-11-24: \"I need to be able to scope the tasks from the queue, so scope editor\" and \"Each task must open and allow me to scope and set priorities and work that needs to be done\"; then \"build these two decisions please. 1. scope. then 2. adrs\". On the Work queue's record (control_gauge_tasks, live as #281). Reviewed by the Design reviewer and the session manager.",
+ "changes": [
+  {
+   "what": "Press a task's name in the Work queue: its page opens beside the list, with its scope (goal, in scope, out of scope, done when), its priority (1–3, each with what it means) and its steps, each see → do → confirm with Confirm it's done",
+   "where": "https://traversence.com/admin/config/control?tab=development"
+  },
+  {
+   "what": "Every field is ✎ Edit in place, the old words kept in the task's History; a step confirmed by mistake is corrected with ✎ (no Undo)",
+   "where": "https://traversence.com/admin/config/control?tab=development"
+  },
+  {
+   "what": "The queue's rows show each task's priority (P1–P3), its goal and its steps confirmed; open and late tasks are listed by priority",
+   "where": "https://traversence.com/admin/config/control?tab=development"
+  },
+  {
+   "what": "FAQ: the Work queue's answer says how a task's page works",
+   "where": "https://traversence.com/faq.php"
+  }
+ ],
+ "proposals": [],
+ "switch": ""
+}

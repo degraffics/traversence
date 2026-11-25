@@ -1,0 +1,125 @@
+{
+    "id": 283,
+    "title": "A Work queue task shows the decisions it rests on: Attach a decision, ✎ to detach",
+    "why": "Jason, 2026-11-24: \"need task to show what ADR is attached to it or have the ability to look and assign adrs\"; then \"build these two decisions please. 1. scope. then 2. adrs\". On the task's page (task-scope) and the admin's own list of decisions (System Configuration → Decisions). Reviewed by the Design reviewer and the session manager.",
+    "proposals": "",
+    "zip": "task-adrs.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "live",
+    "step": 3,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": "2026-11-24 13:35:10",
+    "staged_at": "2026-11-24 13:35:12",
+    "vetted_at": "2026-11-24 13:35:14",
+    "live_at": "2026-11-24 13:35:15",
+    "files": {
+        "app/admin/control-console.php": {
+            "sha": "46b2fe8807e66839e299f7ac9b3a8deccf63258413c315903de818f38860a33d",
+            "size": 278916,
+            "live_was": "2a866907e535ea96cf5f9d79247600106cc1903a8dd3516d6d63906a91660a7a",
+            "existed": true,
+            "old_sha": "2a866907e535ea96cf5f9d79247600106cc1903a8dd3516d6d63906a91660a7a"
+        },
+        "app/ui/faq.md": {
+            "sha": "9d1746856b55318efab6ef81cdc0ee279ff6850d4f6c47edee0d6247f9a863dd",
+            "size": 447956,
+            "live_was": "ba87385e32f58506f51458ad1c0f409f8c85951e5a4e33fbe9d502432aaae782",
+            "existed": true,
+            "old_sha": "ba87385e32f58506f51458ad1c0f409f8c85951e5a4e33fbe9d502432aaae782"
+        },
+        "app/migrations/2026-11-24_task_adrs.sql": {
+            "sha": "5013189dc3707e01664a0cbabc8763019fb2b33c079ebf125634bd44ddcf3255",
+            "size": 602,
+            "live_was": null
+        },
+        "app/lib/GaugeTasks.php": {
+            "sha": "befd99d77085e3d4de4893af059326700b66e41e7736a5735150d219af619220",
+            "size": 32229,
+            "live_was": "f3f85d8d27e3f71664b5997aa6984c4b04cb333c2bc023403e3411d3f09160f9",
+            "existed": true,
+            "old_sha": "f3f85d8d27e3f71664b5997aa6984c4b04cb333c2bc023403e3411d3f09160f9"
+        },
+        "app/lib/staging-tables.php": {
+            "sha": "bbcd58f7e3b6378875f9182c651436dcb0a4737aa5ca9ae984f22dcd0dc8a80e",
+            "size": 29869,
+            "live_was": "d8009c9ceaa1c087bf93431e1086d3e14ce35db5824526b404c6ef05c3becaf4",
+            "existed": true,
+            "old_sha": "d8009c9ceaa1c087bf93431e1086d3e14ce35db5824526b404c6ef05c3becaf4"
+        },
+        "website/admin/api.php": {
+            "sha": "c63bd013d6a2851430c5dc2f790e3f7eb0c51cfbb908e6e3addcc0ff54687b38",
+            "size": 54118,
+            "live_was": "2c05c54754bf60f0f2249645021fe61e84fe99c67761e52f430537aa1ca8204c",
+            "existed": true,
+            "old_sha": "2c05c54754bf60f0f2249645021fe61e84fe99c67761e52f430537aa1ca8204c"
+        },
+        "website/js/admin-control.js": {
+            "sha": "6be1e81ce43336edef5b1f2ba32eef6e89ef3ea13552654ac017f3173877a3a6",
+            "size": 74491,
+            "live_was": "9da64e4b7468dd918857db6d3242005d71d056da5eff9e9f4ce0950dd4989a7a",
+            "existed": true,
+            "old_sha": "9da64e4b7468dd918857db6d3242005d71d056da5eff9e9f4ce0950dd4989a7a"
+        }
+    },
+    "migrations": [
+        "app/migrations/2026-11-24_task_adrs.sql"
+    ],
+    "checks": {
+        "ok": true,
+        "where": "live",
+        "at": "2026-11-24T13:35:15+00:00",
+        "items": [
+            [
+                "PHP files parse",
+                true,
+                "4 checked"
+            ],
+            [
+                "Pages answer",
+                true,
+                "3 pages answered on traversence.com"
+            ],
+            [
+                "No new fatal errors in the logs",
+                true,
+                "4 logs read"
+            ]
+        ],
+        "first_fail": ""
+    },
+    "log": [
+        {
+            "at": "2026-11-24T13:35:07+00:00",
+            "by": 0,
+            "msg": "Uploaded task-adrs.zip: 7 files."
+        },
+        {
+            "at": "2026-11-24T13:35:10+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/task-adrs.zip (git 92c6dc33f2)."
+        },
+        {
+            "at": "2026-11-24T13:35:10+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
+        },
+        {
+            "at": "2026-11-24T13:35:13+00:00",
+            "by": 0,
+            "msg": "Put on staging (7 files); its checks passed."
+        },
+        {
+            "at": "2026-11-24T13:35:14+00:00",
+            "by": 0,
+            "msg": "Approved in chat before it was sent through git, and its checks on staging passed: publishing by itself."
+        },
+        {
+            "at": "2026-11-24T13:35:15+00:00",
+            "by": 0,
+            "msg": "Published: 6 files, after its 1 migration ran first (2026-11-24_task_adrs.sql; a copy of what each touched is kept 14 days); everyone at once (no switch)."
+        }
+    ]
+}

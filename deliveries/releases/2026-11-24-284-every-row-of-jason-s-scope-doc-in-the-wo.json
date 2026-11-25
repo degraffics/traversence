@@ -1,0 +1,83 @@
+{
+    "id": 284,
+    "title": "Every row of Jason's scope doc in the Work queue, with its scope and decisions",
+    "why": "Jason, 2026-11-24: \"i need all the tasks in the que as well before usage runs out\". From his doc \"Work queue: task scopes\" (https://claude.ai/artifact/NgH5Vhw4uPadPkgSpfZuJu), its three tables: Control Board, Orders, Backlog.",
+    "proposals": "",
+    "zip": "task-seed.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "live",
+    "step": 3,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": "2026-11-24 13:48:57",
+    "staged_at": "2026-11-24 13:48:59",
+    "vetted_at": "2026-11-24 13:49:02",
+    "live_at": "2026-11-24 13:49:02",
+    "files": {
+        "app/migrations/2026-11-24_task_seed.sql": {
+            "sha": "3d166fc5554ea43f00dae0b05dc0b267f9b6515097508a8fd172cf8865a5f5fe",
+            "size": 26997,
+            "live_was": null
+        }
+    },
+    "migrations": [
+        "app/migrations/2026-11-24_task_seed.sql"
+    ],
+    "checks": {
+        "ok": true,
+        "where": "live",
+        "at": "2026-11-24T13:49:02+00:00",
+        "items": [
+            [
+                "PHP files parse",
+                true,
+                "0 checked"
+            ],
+            [
+                "Pages answer",
+                true,
+                "2 pages answered on traversence.com"
+            ],
+            [
+                "No new fatal errors in the logs",
+                true,
+                "3 logs read"
+            ]
+        ],
+        "first_fail": ""
+    },
+    "log": [
+        {
+            "at": "2026-11-24T13:48:55+00:00",
+            "by": 0,
+            "msg": "Uploaded task-seed.zip: 1 files."
+        },
+        {
+            "at": "2026-11-24T13:48:57+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/task-seed.zip (git 7398b43a4b)."
+        },
+        {
+            "at": "2026-11-24T13:48:57+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
+        },
+        {
+            "at": "2026-11-24T13:49:00+00:00",
+            "by": 0,
+            "msg": "Put on staging (1 files); its checks passed."
+        },
+        {
+            "at": "2026-11-24T13:49:02+00:00",
+            "by": 0,
+            "msg": "Approved in chat before it was sent through git, and its checks on staging passed: publishing by itself."
+        },
+        {
+            "at": "2026-11-24T13:49:02+00:00",
+            "by": 0,
+            "msg": "Published: 0 files, after its 1 migration ran first (2026-11-24_task_seed.sql; a copy of what each touched is kept 14 days); everyone at once (no switch)."
+        }
+    ]
+}

@@ -1,0 +1,125 @@
+{
+    "id": 282,
+    "title": "A Work queue task opens to its page: scope, priority and steps",
+    "why": "Jason, 2026-11-24: \"I need to be able to scope the tasks from the queue, so scope editor\" and \"Each task must open and allow me to scope and set priorities and work that needs to be done\"; then \"build these two decisions please. 1. scope. then 2. adrs\". On the Work queue's record (control_gauge_tasks, live as #281). Reviewed by the Design reviewer and the session manager.",
+    "proposals": "",
+    "zip": "task-scope.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "live",
+    "step": 3,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": "2026-11-24 13:31:25",
+    "staged_at": "2026-11-24 13:31:27",
+    "vetted_at": "2026-11-24 13:31:30",
+    "live_at": "2026-11-24 13:31:30",
+    "files": {
+        "app/admin/control-console.php": {
+            "sha": "2a866907e535ea96cf5f9d79247600106cc1903a8dd3516d6d63906a91660a7a",
+            "size": 275993,
+            "live_was": "d19fdfabd1468ff8bbe744b5f45db2928f24754117819babd218bd8fae2fa950",
+            "existed": true,
+            "old_sha": "d19fdfabd1468ff8bbe744b5f45db2928f24754117819babd218bd8fae2fa950"
+        },
+        "app/ui/faq.md": {
+            "sha": "ba87385e32f58506f51458ad1c0f409f8c85951e5a4e33fbe9d502432aaae782",
+            "size": 447609,
+            "live_was": "687d0e0ca846a2241b795c0ca2395563be51587a5ef8fc9d304dab715e7b225e",
+            "existed": true,
+            "old_sha": "687d0e0ca846a2241b795c0ca2395563be51587a5ef8fc9d304dab715e7b225e"
+        },
+        "app/migrations/2026-11-24_task_scope.sql": {
+            "sha": "103847cf24cee25aba852790f9d3bd080467b789bce2ee5d3b947bbeb0ec0920",
+            "size": 2244,
+            "live_was": null
+        },
+        "app/lib/GaugeTasks.php": {
+            "sha": "f3f85d8d27e3f71664b5997aa6984c4b04cb333c2bc023403e3411d3f09160f9",
+            "size": 28283,
+            "live_was": "72fc076ff41524b6bb2767a7698d68b29c921820916928613d2827c57b4186d6",
+            "existed": true,
+            "old_sha": "72fc076ff41524b6bb2767a7698d68b29c921820916928613d2827c57b4186d6"
+        },
+        "app/lib/staging-tables.php": {
+            "sha": "d8009c9ceaa1c087bf93431e1086d3e14ce35db5824526b404c6ef05c3becaf4",
+            "size": 29738,
+            "live_was": "764a7cb33edf76df12f88e737e6254c64e3548852f7eb1f8a7fa2e5ddf6a30d9",
+            "existed": true,
+            "old_sha": "764a7cb33edf76df12f88e737e6254c64e3548852f7eb1f8a7fa2e5ddf6a30d9"
+        },
+        "website/admin/api.php": {
+            "sha": "2c05c54754bf60f0f2249645021fe61e84fe99c67761e52f430537aa1ca8204c",
+            "size": 53019,
+            "live_was": "edf411a45f9facc979d2c8ed90a1525430ae7826ea0f78ad7a3ba9094c4aed9e",
+            "existed": true,
+            "old_sha": "edf411a45f9facc979d2c8ed90a1525430ae7826ea0f78ad7a3ba9094c4aed9e"
+        },
+        "website/js/admin-control.js": {
+            "sha": "9da64e4b7468dd918857db6d3242005d71d056da5eff9e9f4ce0950dd4989a7a",
+            "size": 71430,
+            "live_was": "d3c6dbc10de3e58ce7bc1f330b6621221efbd804b1d373f903881708e5662c1d",
+            "existed": true,
+            "old_sha": "d3c6dbc10de3e58ce7bc1f330b6621221efbd804b1d373f903881708e5662c1d"
+        }
+    },
+    "migrations": [
+        "app/migrations/2026-11-24_task_scope.sql"
+    ],
+    "checks": {
+        "ok": true,
+        "where": "live",
+        "at": "2026-11-24T13:31:30+00:00",
+        "items": [
+            [
+                "PHP files parse",
+                true,
+                "4 checked"
+            ],
+            [
+                "Pages answer",
+                true,
+                "3 pages answered on traversence.com"
+            ],
+            [
+                "No new fatal errors in the logs",
+                true,
+                "4 logs read"
+            ]
+        ],
+        "first_fail": ""
+    },
+    "log": [
+        {
+            "at": "2026-11-24T13:31:23+00:00",
+            "by": 0,
+            "msg": "Uploaded task-scope.zip: 7 files."
+        },
+        {
+            "at": "2026-11-24T13:31:25+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/task-scope.zip (git a9c00feb85)."
+        },
+        {
+            "at": "2026-11-24T13:31:25+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
+        },
+        {
+            "at": "2026-11-24T13:31:28+00:00",
+            "by": 0,
+            "msg": "Put on staging (7 files); its checks passed."
+        },
+        {
+            "at": "2026-11-24T13:31:30+00:00",
+            "by": 0,
+            "msg": "Approved in chat before it was sent through git, and its checks on staging passed: publishing by itself."
+        },
+        {
+            "at": "2026-11-24T13:31:30+00:00",
+            "by": 0,
+            "msg": "Published: 6 files, after its 1 migration ran first (2026-11-24_task_scope.sql; a copy of what each touched is kept 14 days); everyone at once (no switch)."
+        }
+    ]
+}

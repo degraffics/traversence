@@ -13,6 +13,7 @@
 //   - nothing wider than the window.
 // Run after the start schema and board-panels-seed.php: node gauge-panel.cjs <root> [shots dir]
 const { chromium } = require('playwright'); const { spawn } = require('child_process'); const path = require('path');
+const { view } = require('./board-view-go.cjs');
 const root = path.resolve(process.argv[2]); const shots = process.argv[3] || '';
 let pass = 0, fail = 0; const t = (n, ok, got) => { if (ok) { pass++; console.log('  ok  ' + n); } else { fail++; console.log('FAIL  ' + n + (got !== undefined ? ' — ' + JSON.stringify(got).slice(0, 300) : '')); } };
 const fs = require('fs'); const gdir = fs.mkdtempSync(path.join(require('os').tmpdir(), 'gauge-panel-')); const gfile = path.join(gdir, 'gauges.json');
@@ -40,7 +41,7 @@ const red = (p, sel) => p.evaluate(s => [...document.querySelectorAll(s + ' *')]
       const ctx = await b.newContext({ viewport: { width: w, height: 900 } }); const p = await ctx.newPage();
       const errs = []; p.on('pageerror', e => errs.push(e.message));
       await p.goto(home); await p.waitForTimeout(1200);
-      await p.click('[data-cb-rail="development"]'); await p.waitForTimeout(500);
+      await view(p, 'development'); await p.waitForTimeout(500);
       await p.click('#cb-d-discovery .cb-gopen'); await p.waitForSelector('#cb-sp-d-discovery-snap .cbg', { timeout: 15000 });
       const sp = '#cb-sp-d-discovery-snap';
       if (shots) await p.screenshot({ path: shots + '/gauge-dev-' + w + '.png' });
@@ -94,14 +95,14 @@ const red = (p, sel) => p.evaluate(s => [...document.querySelectorAll(s + ' *')]
       t(L + 'Undo puts Request a fix back', await p.locator(row).locator('[data-cbg="fix"]').isVisible() && (await p.locator(row).locator('.cbg-done').count()) === 0);
       // kept: pressed again, then the panel drawn again, the line is there
       await p.locator(row).locator('[data-cbg="fix"]').click(); await p.waitForSelector(sp + ' .cbg-done', { timeout: 8000 });
-      await p.goto(home); await p.waitForTimeout(900); await p.click('[data-cb-rail="development"]'); await p.waitForTimeout(400);
+      await p.goto(home); await p.waitForTimeout(900); await view(p, 'development'); await p.waitForTimeout(400);
       await p.click('#cb-d-discovery .cb-gopen'); await p.waitForSelector(sp + ' .cbg', { timeout: 15000 });
       await p.click(sp + ' .cbg-lg[data-cbg-f="fail"]'); await p.click(row + ' >> .cbg-ex');
       t(L + 'a request is kept: drawn again with its Requested line and Undo', /^Requested · waiting/.test(await p.locator(row).locator('.cbg-done').textContent()));
       t(L + '…and within its first day it doesn\'t say "Not picked up yet"', !/Not picked up yet/.test(await p.locator(row).locator('.cbg-done').textContent()));
       // a day later with no build taking it: "Not picked up yet", the session manager told
       require('child_process').spawnSync('mariadb', ['-utv', '-ptv', '-h127.0.0.1', 'lv_main', '-e', "UPDATE control_gauge_tasks SET at = UTC_TIMESTAMP() - INTERVAL 25 HOUR WHERE kind = 'fix' AND undone_at IS NULL"]);
-      await p.goto(home); await p.waitForTimeout(900); await p.click('[data-cb-rail="development"]'); await p.waitForTimeout(400);
+      await p.goto(home); await p.waitForTimeout(900); await view(p, 'development'); await p.waitForTimeout(400);
       await p.click('#cb-d-discovery .cb-gopen'); await p.waitForSelector(sp + ' .cbg', { timeout: 15000 });
       await p.click(sp + ' .cbg-lg[data-cbg-f="fail"]'); await p.click(row + ' >> .cbg-ex');
       t(L + 'past a day untaken: "Not picked up yet: the session manager has been told", in amber (--cb-hold), and still Undo (a request is withdrawn at any age)', /Not picked up yet: the session manager has been told/.test(await p.locator(row).locator('.cbg-done').textContent()) && (await p.locator(row).locator('.cbg-done [data-cbg="undo"]').count()) === 1 && await p.locator(row).locator('.cbg-late').evaluate(b => getComputedStyle(b).color) === 'rgb(143, 86, 0)');
@@ -109,7 +110,7 @@ const red = (p, sel) => p.evaluate(s => [...document.querySelectorAll(s + ' *')]
       const tid = (require('child_process').spawnSync('mariadb', ['-utv', '-ptv', '-h127.0.0.1', '-N', 'lv_main', '-e', "SELECT MAX(id) FROM control_gauge_tasks WHERE kind = 'fix' AND undone_at IS NULL"]).stdout + '').trim();
       for (const [rel, want] of [['', /^Requested: the Control Board build session has it · Jason/], ['kit-buttons.zip', /^Requested: the Control Board build session has it · Being fixed in kit-buttons\.zip · Jason/]]) {
         regauge(gj => { gj.pickups = { [tid]: ['Control Board build session', rel] }; });
-        await p.goto(home); await p.waitForTimeout(900); await p.click('[data-cb-rail="development"]'); await p.waitForTimeout(400);
+        await p.goto(home); await p.waitForTimeout(900); await view(p, 'development'); await p.waitForTimeout(400);
         await p.click('#cb-d-discovery .cb-gopen'); await p.waitForSelector(sp + ' .cbg', { timeout: 15000 });
         await p.click(sp + ' .cbg-lg[data-cbg-f="fail"]'); await p.click(row + ' >> .cbg-ex');
         const ln = (await p.locator(row).locator('.cbg-done').textContent()).trim();
@@ -117,7 +118,7 @@ const red = (p, sel) => p.evaluate(s => [...document.querySelectorAll(s + ' *')]
         t(L + (rel ? '…its release named: "Being fixed in kit-buttons.zip"' : 'taken by a session: "Requested: the Control Board build session has it", no "Not picked up yet"'), want.test(ln) && !/Not picked up yet/.test(ln), ln);
       }
       { regauge(gj => { delete gj.pickups; });
-        await p.goto(home); await p.waitForTimeout(900); await p.click('[data-cb-rail="development"]'); await p.waitForTimeout(400);
+        await p.goto(home); await p.waitForTimeout(900); await view(p, 'development'); await p.waitForTimeout(400);
         await p.click('#cb-d-discovery .cb-gopen'); await p.waitForSelector(sp + ' .cbg', { timeout: 15000 });
         await p.click(sp + ' .cbg-lg[data-cbg-f="fail"]'); await p.click(row + ' >> .cbg-ex'); }
       if (shots) await p.screenshot({ path: shots + '/gauge-notpicked-' + w + '.png' });
@@ -130,7 +131,7 @@ const red = (p, sel) => p.evaluate(s => [...document.querySelectorAll(s + ' *')]
       t(L + 'the development panel: nothing wider than the window', await noSide(p));
       await p.click(sp + ' [data-cb-spx]');
       // a runtime gauge: Search finds what they came for
-      await p.click('[data-cb-rail="deliver"]'); await p.waitForTimeout(400);
+      await view(p, 'deliver'); await p.waitForTimeout(400);
       await p.click('#cb-g-o-search .cb-gopen'); await p.waitForTimeout(400);
       const rs = '#cb-sp-o-search-snap';
       await p.waitForSelector(rs + ' [data-cb-gd][data-loaded]', { timeout: 15000 }).catch(() => {});

@@ -1,0 +1,38 @@
+{
+ "zip": "work-queue.zip",
+ "built_on": "ec58f7e Sync: 2026-11-24 12:54 UTC",
+ "recorded": "2026-11-24 12:55 UTC",
+ "note": "work-queue: the Work queue on Development (its gauge, Add a task, each task managed in place until it's done), 20 tasks seeded; approved by Jason in this session's pop-up, reviewed by the Design reviewer and the session manager; built on Sync: 12:54 UTC Sent through git (releases/inbox).",
+ "status": "live",
+ "live_in": "7558fa0 Sync: 2026-11-24 12:58 UTC",
+ "files": {
+  "app/admin/control-console.php": {
+   "sha256": "d19fdfabd1468ff8bbe744b5f45db2928f24754117819babd218bd8fae2fa950",
+   "live": true
+  },
+  "app/lib/ControlGauges.php": {
+   "sha256": "2c81d64ce1b260c3ef1b20620f237a26548afaab993ed930836db516d24a6efa",
+   "live": true
+  },
+  "app/lib/GaugeTasks.php": {
+   "sha256": "72fc076ff41524b6bb2767a7698d68b29c921820916928613d2827c57b4186d6",
+   "live": true
+  },
+  "app/migrations/2026-11-24_work_queue.sql": {
+   "sha256": "f5ce9fac5809c2ca1ed6028b4665a9385cb77b68aeff30c1f374ef56aabbf4ff",
+   "live": true
+  },
+  "app/ui/faq.md": {
+   "sha256": "687d0e0ca846a2241b795c0ca2395563be51587a5ef8fc9d304dab715e7b225e",
+   "live": true
+  },
+  "website/admin/api.php": {
+   "sha256": "edf411a45f9facc979d2c8ed90a1525430ae7826ea0f78ad7a3ba9094c4aed9e",
+   "live": true
+  },
+  "website/js/admin-control.js": {
+   "sha256": "d3c6dbc10de3e58ce7bc1f330b6621221efbd804b1d373f903881708e5662c1d",
+   "live": true
+  }
+ }
+}

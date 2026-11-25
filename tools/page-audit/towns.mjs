@@ -38,8 +38,10 @@ else {
       consistency: d.consistency || null, ledger: d.ledger || null, irs_loads: d.irs_loads || null }, null, 1) + '\n');
     // each scheduled job's last start (UTC), its cron line as cPanel holds it, the starts the database refused and its
     // connection counts (2026-11-23's cron gap): job names, times and counts only
-    if (r.ok && Array.isArray(d.jobs) && d.jobs.length) writeFileSync('site-audit/results/jobs.json', JSON.stringify({ at: new Date().toISOString(),
-      jobs: d.jobs.map(j => ({ job: j.job, last_utc: j.last_utc ?? null, ok: j.ok ?? null, fails_today: j.fails_today ?? 0, quiet: !!j.quiet, default: j.default ?? null, line: j.line ?? null, line_preset: j.line_preset ?? null })),
+    // kept also when the jobs list is empty: its jobs_error says why, and the refused starts stand apart (board-phone-header,
+    // 2026-11-24: the list was empty for days and this file was never written, so Lead scores' missing starts couldn't be seen)
+    if (r.ok && (Array.isArray(d.jobs) || d.jobs_missed)) writeFileSync('site-audit/results/jobs.json', JSON.stringify({ at: new Date().toISOString(), jobs_error: d.jobs_error || null,
+      jobs: (d.jobs || []).map(j => ({ job: j.job, last_utc: j.last_utc ?? null, ok: j.ok ?? null, fails_today: j.fails_today ?? 0, quiet: !!j.quiet, default: j.default ?? null, line: j.line ?? null, line_preset: j.line_preset ?? null })),
       missed: d.jobs_missed || null, db_connections: d.db_connections || null }, null, 1) + '\n');
     // build-requests.json and gauge-approvals.json: gauge-requests.mjs (hourly, its own workflow) is their one writer, with each
     // request's "late"; written here too, the daily fetch overwrote them without it (2026-11-24: one writer per file)

@@ -68,14 +68,15 @@ $st = $open('job:identity_recheck_tick:stuck');
 $t('a hung run: a short plain title, its start in the reading in one labelled format, its one button by the job\'s name', $st && $st['title'] === 'Identity recheck: its run never finished' && preg_match('/^started [A-Z][a-z]{2} \d{1,2}, \d{1,2}:\d{2} [AP]M UTC$/', (string) $st['reading']) && str_contains((string) $st['fix'], 'Open its job: Identity recheck'), $st ? [$st['title'], $st['reading'], $st['fix']] : null);
 $t('…and while its run is stuck, no second alarm for the same cause ("is late" held back: rollups)', $open('joblate:identity_recheck_tick') === null);
 $t('a warning holds nothing: its thread says so, never "Holds: …" (words true to state)', ($ff = ControlAlarms::facts($pdo, $open('joblate:work_orders_tick'))) && ($ff['holds'] ?? '') === '', $ff['holds'] ?? null);
-// ---- the Sync chip (03 §27): Railway and the sync's watch in its own chip, never also under Warnings ----
+// ---- the Sync chip (03 §27), now a group in Alerts: Railway and the sync's watch in its own group, never also under Warnings ----
 ControlAlarms::raise($pdo, 'ops:watch:sync', 'svc:github', 'warning', 'check', 'The sync: needs a look', 'Its last run is late.', 'Open its runs.', 'late', [], false, false);
 ControlAlarms::raise($pdo, 'svc:other:warn', 'svc:tavily', 'warning', 'retry', 'Tavily asked us to slow down', '', '', '', [], false, false);
 require_once $app . '/admin/widgets.php'; require_once $app . '/ui/app-shell.php'; require_once $app . '/admin/preflight-console.php'; require_once $app . '/admin/control-console.php';
 $openA = array_values(array_filter(ControlAlarms::list($pdo, 500), fn ($a) => $a['cleared_at'] === null));
 $q = tv_cb_qbar($pdo, $openA, [], [], 'observe');
-$chip = function (string $label) use ($q) { return preg_match('~<summary class="cb-qgs"><span>' . preg_quote($label, '~') . '</span><b>(\d+)</b>.*?</details>~s', $q, $m) ? $m[0] : ''; };
-$t('the Sync chip: the watch\'s alarm in its own chip, with its count', (bool) preg_match('~<span>Sync</span><b>1</b>~', $q) && str_contains($chip('Sync'), 'The sync: needs a look'), mb_substr($q, 0, 300));
+// a group inside the one Alerts dropdown (board-phone, Jason 2026-11-24: "1 full width dropdown for alerts")
+$chip = function (string $label) use ($q) { return preg_match('~<section class="cb-ag [a-z]+" aria-label="' . preg_quote($label, '~') . '">.*?</section>~s', $q, $m) ? $m[0] : ''; };
+$t('the Sync group (in Alerts): the watch\'s alarm in its own group, with its count', (bool) preg_match('~<span>Sync</span><b>1</b>~', $q) && str_contains($chip('Sync'), 'The sync: needs a look'), mb_substr($q, 0, 300));
 $t('…never also under Warnings', !str_contains($chip('Warnings'), 'The sync: needs a look') && str_contains($chip('Warnings'), 'Tavily asked us to slow down'), mb_substr($chip('Warnings'), 0, 300));
 $wa = $open('joblate:work_orders_tick'); $wl = (string) preg_replace('/\s+/', ' ', strip_tags(@tv_cb_alarms([array_merge($wa, ['fix' => json_decode((string) $wa['fix'], true) ?: []])], ControlAlarms::counts($pdo), [], fn ($x) => 'p', true, '', fn ($a, $l) => '')));
 $t('…and on the board\'s panel: "<part> (nothing held)", never "Holds:" on a warning', str_contains($wl, 'Work order reminders (nothing held)') && !str_contains($wl, 'Holds:'), mb_substr($wl, (int) max(0, mb_strpos($wl, 'What it affects') - 10), 160));
