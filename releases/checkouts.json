@@ -50,7 +50,7 @@
    "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
    "why": "Piece 2 P2-3+P2-4: the Team's runner and daily audit, staging only (handoffs/piece2-team.md \u00a75, \u00a76)",
    "since": "2026-11-25T17:16:49Z",
-   "expires": "2026-11-25T22:22:04Z",
+   "expires": "2026-11-25T22:25:43Z",
    "release": "team-runner.zip",
    "callers": {}
   },
@@ -65,8 +65,8 @@
    "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
    "why": "Piece 2 P2-4: the Team's daily audit (handoffs/piece2-team.md \u00a76)",
    "since": "2026-11-25T17:16:52Z",
-   "expires": "2026-11-25T21:23:27Z",
-   "release": "team-audit.zip",
+   "expires": "2026-11-25T22:25:43Z",
+   "release": "team-runner.zip",
    "callers": {}
   },
   {
@@ -76,7 +76,7 @@
    "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
    "why": "Piece 2 P2-3: the Team's runner, staging only (handoffs/piece2-team.md \u00a75)",
    "since": "2026-11-25T17:16:52Z",
-   "expires": "2026-11-25T21:16:52Z",
+   "expires": "2026-11-25T22:25:43Z",
    "release": "team-runner.zip",
    "callers": {}
   },
@@ -87,7 +87,7 @@
    "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
    "why": "Piece 2 P2-3: the Team's runner, staging only (handoffs/piece2-team.md \u00a75)",
    "since": "2026-11-25T17:16:52Z",
-   "expires": "2026-11-25T21:16:52Z",
+   "expires": "2026-11-25T22:25:43Z",
    "release": "team-runner.zip",
    "callers": {}
   },
@@ -98,7 +98,7 @@
    "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
    "why": "Piece 2 P2-3: the Team's runner, staging only (handoffs/piece2-team.md \u00a75)",
    "since": "2026-11-25T17:16:52Z",
-   "expires": "2026-11-25T21:16:52Z",
+   "expires": "2026-11-25T22:25:43Z",
    "release": "team-runner.zip",
    "callers": {}
   },
@@ -109,8 +109,8 @@
    "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
    "why": "Piece 2 P2-4: the Team's daily audit (handoffs/piece2-team.md \u00a76)",
    "since": "2026-11-25T17:23:27Z",
-   "expires": "2026-11-25T21:23:27Z",
-   "release": "team-audit.zip",
+   "expires": "2026-11-25T22:25:43Z",
+   "release": "team-runner.zip",
    "callers": {}
   },
   {
@@ -123,7 +123,7 @@
    "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
    "why": "Piece 2 P2-3+P2-4: the Team's runner and daily audit, staging only (handoffs/piece2-team.md \u00a75, \u00a76)",
    "since": "2026-11-25T17:23:29Z",
-   "expires": "2026-11-25T22:21:51Z",
+   "expires": "2026-11-25T22:25:43Z",
    "release": "team-runner.zip",
    "callers": {}
   },
@@ -134,7 +134,7 @@
    "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
    "why": "Piece 2 P2-3+P2-4: the Team's runner and daily audit, staging only (handoffs/piece2-team.md \u00a75, \u00a76)",
    "since": "2026-11-25T18:21:46Z",
-   "expires": "2026-11-25T22:21:48Z",
+   "expires": "2026-11-25T22:25:43Z",
    "release": "team-runner.zip",
    "callers": {}
   },
@@ -147,7 +147,7 @@
    "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
    "why": "Piece 2 P2-3+P2-4: the Team's runner and daily audit, staging only (handoffs/piece2-team.md \u00a75, \u00a76)",
    "since": "2026-11-25T18:21:53Z",
-   "expires": "2026-11-25T22:21:53Z",
+   "expires": "2026-11-25T22:25:43Z",
    "release": "team-runner.zip",
    "callers": {}
   },
@@ -161,7 +161,7 @@
    "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
    "why": "Piece 2 P2-3+P2-4: the Team's runner and daily audit, staging only (handoffs/piece2-team.md \u00a75, \u00a76)",
    "since": "2026-11-25T18:21:55Z",
-   "expires": "2026-11-25T22:21:55Z",
+   "expires": "2026-11-25T22:25:43Z",
    "release": "team-runner.zip",
    "callers": {}
   },
@@ -172,7 +172,7 @@
    "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
    "why": "Piece 2 P2-3+P2-4: the Team's runner and daily audit, staging only (handoffs/piece2-team.md \u00a75, \u00a76)",
    "since": "2026-11-25T18:21:57Z",
-   "expires": "2026-11-25T22:21:57Z",
+   "expires": "2026-11-25T22:25:43Z",
    "release": "team-runner.zip",
    "callers": {}
   },
@@ -183,7 +183,7 @@
    "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
    "why": "Piece 2 P2-3+P2-4: the Team's runner and daily audit, staging only (handoffs/piece2-team.md \u00a75, \u00a76)",
    "since": "2026-11-25T18:22:00Z",
-   "expires": "2026-11-25T22:22:00Z",
+   "expires": "2026-11-25T22:25:43Z",
    "release": "team-runner.zip",
    "callers": {}
   },
@@ -196,7 +196,7 @@
    "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
    "why": "Piece 2 P2-3+P2-4: the Team's runner and daily audit, staging only (handoffs/piece2-team.md \u00a75, \u00a76)",
    "since": "2026-11-25T18:22:02Z",
-   "expires": "2026-11-25T22:22:02Z",
+   "expires": "2026-11-25T22:25:43Z",
    "release": "team-runner.zip",
    "callers": {}
   },
@@ -219,6 +219,39 @@
    "why": "Piece 2 P2-3+P2-4: the Team's runner and daily audit, staging only (handoffs/piece2-team.md \u00a75, \u00a76)",
    "since": "2026-11-25T18:22:09Z",
    "expires": "2026-11-25T22:22:09Z",
+   "release": "team-runner.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/team-console.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "release team-runner.zip",
+   "since": "2026-11-25T18:25:43Z",
+   "expires": "2026-11-25T22:25:43Z",
+   "release": "team-runner.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/sections.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "release team-runner.zip",
+   "since": "2026-11-25T18:25:43Z",
+   "expires": "2026-11-25T22:25:43Z",
+   "release": "team-runner.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/migrations/2026-11-25_team_flag.sql",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "release team-runner.zip",
+   "since": "2026-11-25T18:25:43Z",
+   "expires": "2026-11-25T22:25:43Z",
    "release": "team-runner.zip",
    "callers": {}
   }
