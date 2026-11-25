@@ -1,0 +1,12 @@
+{
+  "title": "Rule 2: low-risk releases proved and published alone (Piece 3, P3-3)",
+  "why": "decisions/0179 rule 2, its \"Who classifies\" line and its note \"Piece 3's decisions\" (handoffs/piece3-check.md §4). A release names its kind in release.json; ReleaseKind proves it on the server, file against live copy: faq, wording, phone_layout, additive (data_fix recognised, kept in the batch: DB3); nothing touching a Tier 3 area is low-risk. With the switch rule2_autopublish on (the Founder's alone), the site keeps rule 1 and rule 2 itself: a release from git goes live by itself only when today's or yesterday's approved batch names it, or it's a proved low-risk kind the advocates passed; otherwise it waits for the batch (review). Off (as shipped): as before. The Work queue's strip lists what went alone today with Undo (Roll back).",
+  "proposals": [],
+  "switch": "",
+  "changes": [
+    {"what": "The switch \"Rule 2: low-risk releases publish alone\" (off; only the Founder turns it on)", "where": "https://traversence.com/admin/config/switches"},
+    {"what": "Published alone today, with Undo, at the top of the Work queue", "where": "https://traversence.com/admin/config/control?tab=development"},
+    {"what": "FAQ: Which releases can go live without the daily batch?", "where": "https://traversence.com/faq.php"}
+  ],
+  "built_on": "the bench: Sync 18:38 UTC plus P3-2. Rebuild on the live copy once P3-2 is live (it carries Releases.php, Switches.php and faq.md too)."
+}

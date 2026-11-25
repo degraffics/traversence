@@ -414,3 +414,35 @@ As planned below, with two changes found while building: the before looks' minut
   - late: asked again, then a ticket;
   - the budget;
   - the switch off leaves everything as today.
+
+## 13. P3-3 (built and held, 2026-11-25; on the bench: Sync 18:38 UTC plus P3-2)
+
+Its build is in `handoffs/piece3-build/p3-3-kinds/`. It's rebuilt on the live copy once P3-2 is live, since both carry
+`Releases.php`, `Switches.php` and `faq.md`.
+
+- **`app/lib/ReleaseKind.php` (new):** proves a kind file by file against the live copy, as §4 lists. One change from
+  the design: the proof is made by the site, not by `zipcheck.py`. The site holds both copies, the release's and live's,
+  so the proof lives in one place, the place that decides.
+- **What it found:** TIER3_AREAS (P2-4, from the session manager's brief: "data: migrations") makes every migration Tier
+  3. So no release with a migration is low-risk, though 0179's "safe additive" includes new tables and columns.
+  The code keeps the rule as it stands. "Suggest a change to TIER3_AREAS": an add-only migration, as the zip check proves
+  it (CREATE TABLE IF NOT EXISTS, guarded ADD COLUMN), counts as safe additive; one that UPDATEs, DELETEs or DROPs stays
+  Tier 3. That's for Jason, through the session manager.
+- **`Releases::rule2()`**, only while the switch `rule2_autopublish` is on (shipped off):
+  - A git release goes live by itself only when today's or yesterday's approved batch names its zip
+    (`GaugeTasks::approvals`, P2-5), or when it's a proved low-risk kind the advocates passed. Its record then says
+    "Published alone (low-risk: <kind>)".
+  - Anything else waits for review, its record saying why.
+  - `Switches::set` refuses to turn it on for anyone but `Access::isFounder()`.
+- **The kind** comes from `release.json` and is kept as `kind:<id>` when the release is taken from git.
+- **The Work queue's strip** shows "Published alone today (low-risk)", each with **Undo**: the Releases page's Roll back,
+  through its own API, asking first, greyed with the reason for anyone not allowed.
+- **FAQ:** "Which releases can go live without the daily batch?"
+- **G9 (rows counted):** not needed while data fixes stay in the batch (DB3). It comes with Jason's row limit.
+- **Tests:**
+  - `tools/piece3-tests/kind.php`: 22 checks, no database. Each kind's true and false cases, Tier 3 areas, and data_fix
+    kept in the batch.
+  - `rule2.php`: 12 checks on MariaDB. Off waits for nothing; the Founder-only switch; proved and passed goes alone;
+    not passed waits; not proved waits; no kind waits until the batch names it; a Tier 3 area never goes alone;
+    through `checkedByAdvocates`, one that must wait goes for review and never live; the strip and its Undo.
+  - `pipeline.php` still 22.
