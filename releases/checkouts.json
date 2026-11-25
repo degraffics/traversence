@@ -169,6 +169,20 @@
    "expires": "2026-11-25T21:07:36Z",
    "release": "team-tickets.zip",
    "callers": {}
+  },
+  {
+   "path": "website/js/admin-control.js",
+   "functions": [
+    "cbgEsc",
+    "wqFilter"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "Piece 2 P2-1: Work queue tickets, types and stages (handoffs/piece2-team.md)",
+   "since": "2026-11-25T17:07:38Z",
+   "expires": "2026-11-25T21:07:38Z",
+   "release": "team-tickets.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
