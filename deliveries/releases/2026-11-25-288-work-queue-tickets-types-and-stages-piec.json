@@ -6,12 +6,12 @@
     "zip": "team-tickets.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "planned",
+    "state": "approved",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
-    "plan_at": null,
+    "plan_at": "2026-11-25 17:57:15",
     "staged_at": null,
     "vetted_at": null,
     "live_at": null,
@@ -77,6 +77,16 @@
             "at": "2026-11-25T17:57:13+00:00",
             "by": 0,
             "msg": "Uploaded team-tickets.zip: 10 files."
+        },
+        {
+            "at": "2026-11-25T17:57:15+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/team-tickets.zip (git 7e6be1bf8f)."
+        },
+        {
+            "at": "2026-11-25T17:57:15+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
         }
     ]
 }
