@@ -250,6 +250,17 @@
    "expires": "2026-11-25T21:08:18Z",
    "release": "team-tickets.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/Scheduler.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "Piece 2 P2-3: the Team's runner, staging only (handoffs/piece2-team.md \u00a75): team_tick in JOBS, AUTO and QUIET",
+   "since": "2026-11-25T17:16:49Z",
+   "expires": "2026-11-25T21:16:49Z",
+   "release": "team-runner.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
