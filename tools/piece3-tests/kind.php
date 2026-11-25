@@ -25,7 +25,20 @@ $t('phone_layout: a rule outside it: not proved', !$P('phone_layout', ['website/
 $t('phone_layout: a tablet query (max-width 1024px): not proved', !$P('phone_layout', ['website/css/app.css' => [$css . "@media (max-width: 1024px) { a { color: blue; } }\n", $css]])['ok']);
 $lib = "<?php\nfinal class Trips {\n    public static function all() {}\n}\n";
 $t('additive: lines only added and a new file: proved', $P('additive', ['app/lib/Trips.php' => [str_replace("}\n}", "}\n    public static function count() {}\n}", $lib), $lib], 'app/lib/TripsNew.php' => ['<?php', null]])['ok']);
-$t('… with any migration, even CREATE TABLE: Tier 3 (data) as TIER3_AREAS stands (P2-4: "data: migrations"), so not low-risk', str_contains($P('additive', ['app/migrations/2026-12-01_trips_x.sql' => ['CREATE TABLE IF NOT EXISTS trips_x (id INT);', null]])['why'], 'Tier 3 area (data)'));
+// Jason, 2026-11-25 (the add-only migration ruling): CREATE TABLE IF NOT EXISTS or a guarded ADD alone is safe additive; UPDATE, DELETE, DROP, MODIFY or RENAME stays Tier 3 (data)
+$ct = "-- trips' extras (DELETE nothing: a comment)\nCREATE TABLE IF NOT EXISTS trips_x (id INT, at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, t INT, FOREIGN KEY (t) REFERENCES trips(id) ON DELETE CASCADE);";
+$guard = "SET @s = (SELECT IF(COUNT(*) = 0, 'ALTER TABLE trips ADD COLUMN c INT DEFAULT NULL', 'DO 0') FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'trips' AND COLUMN_NAME = 'c');\nPREPARE q FROM @s; EXECUTE q; DEALLOCATE PREPARE q;";
+$t('additive: a migration of CREATE TABLE IF NOT EXISTS alone (ON UPDATE and ON DELETE CASCADE in it, a verb in a comment): proved, not Tier 3', $P('additive', ['app/migrations/2026-12-01_trips_x.sql' => [$ct, null]])['ok'], $P('additive', ['app/migrations/2026-12-01_trips_x.sql' => [$ct, null]]));
+$t('additive: a guarded ADD COLUMN (CLAUDE.md\'s pattern): proved', $P('additive', ['app/migrations/2026-12-01_c.sql' => [$guard, null], 'app/lib/TripsNew.php' => ['<?php', null]])['ok']);
+$t('… and a guarded ADD INDEX: proved', $P('additive', ['app/migrations/2026-12-01_i.sql' => [str_replace(['ADD COLUMN c INT DEFAULT NULL', 'COLUMNS', 'COLUMN_NAME'], ['ADD INDEX ix_c (c)', 'STATISTICS', 'INDEX_NAME'], $guard), null]])['ok']);
+foreach (['UPDATE' => 'UPDATE trips SET x = 1;', 'DELETE' => 'DELETE FROM trips WHERE x = 1;', 'DROP' => 'DROP TABLE trips_old;', 'MODIFY' => 'ALTER TABLE trips MODIFY x BIGINT;', 'RENAME' => 'RENAME TABLE trips_a TO trips_b;', 'TRUNCATE' => 'TRUNCATE trips_tmp;', 'CHANGE' => 'ALTER TABLE trips CHANGE x y INT;'] as $v => $q) {
+    $r = ReleaseKind::tier3(['app/migrations/2026-12-01_w.sql'], ['app/migrations/2026-12-01_w.sql' => ["CREATE TABLE IF NOT EXISTS trips_x (id INT);\n" . $q, null]]);
+    $t("a migration that $v" . 's beside a CREATE: Tier 3 (data)', $r === 'data', $r);
+}
+$t('… a DROP hidden in a guard\'s string: still Tier 3 (data)', ReleaseKind::tier3(['app/migrations/d.sql'], ['app/migrations/d.sql' => [str_replace('ADD COLUMN c INT DEFAULT NULL', 'DROP COLUMN c', $guard), null]]) === 'data');
+$t('… a CREATE alone: no Tier 3 area', ReleaseKind::tier3(['app/migrations/c.sql'], ['app/migrations/c.sql' => [$ct, null]]) === '');
+$t('… an INSERT alone: not Tier 3, but not additive either (the daily batch)', ReleaseKind::tier3(['app/migrations/n.sql'], ['app/migrations/n.sql' => ["INSERT INTO team_roster (slug) SELECT 'x' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM team_roster WHERE slug = 'x');", null]]) === '' && !$P('additive', ['app/migrations/n.sql' => ["INSERT INTO team_roster (slug) VALUES ('x');", null]])['ok']);
+$t('… a CREATE of a money table: still Tier 3 (money), by its table', ReleaseKind::tier3(['app/migrations/o.sql'], ['app/migrations/o.sql' => ['CREATE TABLE IF NOT EXISTS order_events (id INT);', null]]) === 'money');
 $t('additive: one line changed: not proved', !$P('additive', ['app/lib/Trips.php' => [str_replace('all()', 'all(int $n = 0)', $lib), $lib]])['ok']);
 $t('additive: a migration that UPDATEs: not proved', !$P('additive', ['app/migrations/2026-12-01_x.sql' => ["UPDATE trips SET x = 1;", null]])['ok']);
 $t('additive: an ALTER that modifies: not proved', !$P('additive', ['app/migrations/2026-12-01_x.sql' => ["ALTER TABLE trips MODIFY x INT;", null]])['ok']);

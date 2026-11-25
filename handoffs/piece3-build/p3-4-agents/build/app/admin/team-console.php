@@ -20,24 +20,24 @@ function tv_admin_mod_team(PDO $pdo): string
     $mode = ['act' => 'acts', 'propose' => 'proposes, a person accepts', 'off' => 'off'];
     // the decision tree, from the constants
     $h = '<section class="ak-card tv-bleed tm-head" id="tm-tree"><h3 class="tm-h">The decision tree <small>what the Team may do alone, and what always comes to the Founder</small></h3>';
-    $h .= '<ol class="tm-tiers"><li><b>Tier 1:</b> only the low-risk kinds (' . $e(trim(str_replace(['/\b(', ')\b/i', '|', 's?'], ['', '', ', ', ''], TeamRunner::TIER1))) . '). The Team may do it; it still goes in the batch until Piece 3\'s before-and-after check exists.</li>'
-        . '<li><b>Tier 2:</b> everything that isn\'t clearly Tier 1 or Tier 3. The Team may prepare it; it goes live only in the batch the Founder approves.</li>'
+    $h .= '<ol class="tm-tiers"><li><b>Tier 1:</b> only the low-risk kinds (' . $e(trim(str_replace(['/\b(', ')\b/i', '|', 's?'], ['', '', ', ', ''], TeamRunner::TIER1))) . '). The Team may do it. With rule 2 on, it goes live by itself once staging\'s checks and the before-and-after check pass; until then, in the batch the Founder approves.</li>'
+        . '<li><b>Tier 2:</b> everything that isn\'t clearly Tier 1 or Tier 3. The Team may prepare it. With rule 2 on, it too goes live by itself once those checks pass (Jason, 2026-11-25); until then, in the batch.</li>'
         . '<li><b>Tier 3:</b> what touches a protected area. It always comes to the Founder as a Decision Brief:<ul class="tm-areas">';
     foreach (TeamRunner::TIER3_AREAS as $k => $a) {
-        $parts = array_filter(['libraries ' . implode(', ', $a['libs']), $a['tables'] ? 'tables ' . implode(', ', $a['tables']) : '', $a['paths'] ? 'pages ' . implode(', ', $a['paths']) : '', $a['jobs'] ? 'jobs ' . implode(', ', $a['jobs']) : '', $a['services'] ? 'services ' . implode(', ', $a['services']) : ''], fn ($x) => $x !== '' && $x !== 'libraries ');
+        $parts = array_filter(['libraries ' . implode(', ', $a['libs']), $a['tables'] ? 'tables ' . implode(', ', $a['tables']) : '', $a['paths'] ? 'pages ' . implode(', ', $a['paths']) : '', $a['jobs'] ? 'jobs ' . implode(', ', $a['jobs']) : '', $a['services'] ? 'services ' . implode(', ', $a['services']) : '', !empty($a['sql']) ? 'a migration that ' . implode(', ', array_map('strtolower', $a['sql'])) . 's (one that only adds a table, column or index doesn\'t)' : ''], fn ($x) => $x !== '' && $x !== 'libraries ');
         $h .= '<li><b>' . $e(GaugeTasks::BOUNDARIES[$k] ?? $k) . ':</b> ' . $e(implode('; ', $parts)) . '</li>';
     }
     $h .= '</ul>Words alone (' . $e(implode(', ', array_keys(TeamRunner::TIER3))) . ' word lists) never make a finding Tier 3: they flag it Tier 2, "Words suggest a Tier 3 boundary: a person checks".</li></ol>';
     $h .= '<div class="tm-scroll"><table class="tm-t"><thead><tr><th>Role and step</th>'; foreach (TeamRunner::CEILINGS as $c) $h .= '<th>Up to ' . $e($c[0]) . '</th>'; $h .= '</tr></thead><tbody>';
     foreach (TeamRunner::STEPS as $k => [$slug, $what]) {
         $h .= '<tr><td><b>' . $e($roles[$slug]['name'] ?? $slug) . '</b><br><small>' . $e($what) . '</small></td>';
-        foreach (array_keys(TeamRunner::CEILINGS) as $c) $h .= '<td' . ($c === $ceil ? ' class="tm-now"' : '') . '>' . $e($mode[TeamRunner::STEP_AT[$k][$c]] . ($c === 'confirmation' && TeamRunner::STEP_AT[$k][$c] === 'act' ? '; low-risk publishes alone' : '')) . '</td>';
+        foreach (array_keys(TeamRunner::CEILINGS) as $c) $h .= '<td' . ($c === $ceil ? ' class="tm-now"' : '') . '>' . $e($mode[TeamRunner::STEP_AT[$k][$c]] . ($c === 'confirmation' && TeamRunner::STEP_AT[$k][$c] === 'act' ? '; Tier 1 and 2 publish alone' : '')) . '</td>';
         $h .= '</tr>';
     }
     $h .= '</tbody></table></div><p class="tm-note"><b>Spending:</b> each role may spend $' . number_format(0, 2) . ' a month: no step calls paid AI or an outside service (Q4 B), so each step costs $0. <b>Always the Founder\'s:</b> every Tier 3 answer, approving the daily batch, approving this tree, and raising how far agents work. Agents never work a ticket a person has, never take one themselves, never answer a Tier 3, never write over a person\'s words, and never call an outside service or paid AI.</p>';
     $fp = substr(TeamRunner::fingerprint(), 0, 12);
-    $h .= $tree ? '<p data-tv-status="ok" data-tv-label="Approved:">By ' . $e($tree['who']) . ', ' . $when($tree['at'], (string) $tree['tz']) . ' · rules fingerprint ' . $e($fp) . '. A change to any rule clears it and agents go back to Planning.</p>'
-        : '<div class="tm-acts"><p data-tv-status="info" data-tv-keep data-tv-label="Not approved yet:">Agents work up to Planning until it is (rules fingerprint ' . $e($fp) . ').</p><button type="button" class="ak-b" data-tm="tree"' . ($founder ? '' : ' disabled title="' . $e($noF) . '"') . '>Approve the decision tree</button></div>';
+    $h .= $tree ? '<p data-tv-status="ok" data-tv-label="Approved:">By ' . $e($tree['who']) . ', ' . $when($tree['at'], (string) $tree['tz']) . ' · rules fingerprint ' . $e($fp) . '. A wording fix keeps your approval; a change to any rule clears it and agents go back to Planning.</p>'
+        : '<div class="tm-acts"><p data-tv-status="info" data-tv-keep data-tv-label="Not approved yet:">Agents work up to Planning until it is (rules fingerprint ' . $e($fp) . '). A wording fix keeps your approval; a change to any rule clears it.</p><button type="button" class="ak-b" data-tm="tree"' . ($founder ? '' : ' disabled title="' . $e($noF) . '"') . '>Approve the decision tree</button></div>';
     $h .= '</section>';
     // the ceiling
     $keys = array_keys(TeamRunner::CEILINGS); $i = array_search($ceil, $keys, true); $next = $keys[$i + 1] ?? '';

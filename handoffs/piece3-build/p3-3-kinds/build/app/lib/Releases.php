@@ -1466,12 +1466,33 @@ final class Releases
         require_once __DIR__ . '/ReleaseKind.php'; require_once __DIR__ . '/BeforeAfter.php';
         $files = [];
         foreach (array_keys($r['files']) as $p) { $new = @file_get_contents(self::dir((int) $r['id']) . '/new/' . $p); $old = is_file(self::liveRoot() . '/' . $p) ? @file_get_contents(self::liveRoot() . '/' . $p) : null; $files[$p] = [(string) $new, $old === false ? null : $old]; }
+        // Jason, 2026-11-25 (0179's note "Tier 2 publishes on its own once Piece 3 is live"): Tier 1 and Tier 2 both go live by
+        // themselves once staging's checks and the advocates pass; only Tier 3 stops, and comes to the Founder as a Decision Brief.
+        $t3 = ReleaseKind::tier3(array_keys($files), $files);
+        if ($t3 !== '') { self::briefFor($pdo, $r, $t3); return 'it touches a Tier 3 area (' . $t3 . '): it waits for the Founder, as a Decision Brief in the Work queue.'; }
+        if ($kind === 'data_fix' || ReleaseKind::insertsRows($files)) return 'it changes data (a data fix): data fixes stay in the daily batch for now (Jason, 2026-11-25: DB3).';
         $k = ReleaseKind::prove($kind, $files);
-        if (!$k['ok']) return 'it isn\'t in an approved batch, and ' . lcfirst(rtrim($k['why'], '.')) . '.';
         $ba = null; foreach ((array) ($r['checks']['items'] ?? []) as $i) if (($i[0] ?? '') === BeforeAfter::ITEM) $ba = $i[1];
-        if ($ba !== true) return 'it\'s ' . ReleaseKind::KINDS[$kind] . ', but the advocates haven\'t passed it (the before-and-after check).';
-        $r2 = (array) self::get($pdo, (int) $r['id']); self::note($r2, 'Published alone (low-risk: ' . $kind . '): ' . $k['why'], 0); self::save($pdo, $r2);
+        if ($ba !== true) return 'it\'s ' . ($k['ok'] ? ReleaseKind::KINDS[$kind] . ' (Tier 1)' : 'Tier 2') . ', but the advocates haven\'t passed it (the before-and-after check).';
+        $r2 = (array) self::get($pdo, (int) $r['id']);
+        self::note($r2, $k['ok'] ? 'Published alone (low-risk: ' . $kind . '): ' . $k['why'] : 'Published alone (Tier 2): it touches no Tier 3 area, and staging\'s checks and the advocates passed it.', 0);
+        self::save($pdo, $r2);
         return '';
+    }
+
+    /** A Tier 3 release's Decision Brief (0179 rule 3): one Resolution ticket in the Work queue, once per release, for its brief to be written and the Founder to answer. */
+    private static function briefFor(PDO $pdo, array $r, string $area): void
+    {
+        $k = 'brief:' . (int) $r['id'];
+        try { $st = $pdo->prepare('SELECT v FROM site_release_settings WHERE k = ?'); $st->execute([$k]); if ($st->fetchColumn() !== false) return; } catch (Throwable $e) { return; }
+        try {
+            require_once __DIR__ . '/GaugeTasks.php';
+            $id = GaugeTasks::add($pdo, 'area:backlog', mb_substr('Release #' . (int) $r['id'] . ' (' . ($r['title'] ?: $r['zip_name']) . ') touches ' . $area . ': your decision', 0, 250),
+                'It passed staging but touches a Tier 3 area (' . $area . '), so it never goes live by itself (decisions/0179 rule 3). It stays on staging until you answer.',
+                'Releases: release #' . (int) $r['id'] . ' on staging', 'the system', 0, '', 'resolution');
+            $pdo->prepare('REPLACE INTO site_release_settings (k, v) VALUES (?, ?)')->execute([$k, (string) $id]);
+            $r2 = (array) self::get($pdo, (int) $r['id']); self::note($r2, 'Tier 3 (' . $area . '): waiting for the Founder, Decision Brief #' . $id . ' in the Work queue.', 0); self::save($pdo, $r2);
+        } catch (Throwable $e) { error_log('release #' . (int) $r['id'] . ' brief: ' . $e->getMessage()); }
     }
 
     /** A line in a release's record from the before-and-after check (BeforeAfter, Piece 3), as its other steps write theirs. */

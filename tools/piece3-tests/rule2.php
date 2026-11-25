@@ -1,5 +1,5 @@
 <?php
-// Piece 3, P3-3: rule 1 and rule 2 kept by the site (Releases::rule2, the switch rule2_autopublish; decisions/0179) on a real
+// Piece 3, P3-3 (with Jason's Tier 2 ruling and the add-only migration ruling, 2026-11-25): rule 1 and rule 2 kept by the site (Releases::rule2, the switch rule2_autopublish; decisions/0179) on a real
 // MySQL or MariaDB. Off: nothing waits. On: a release in today's approved batch goes; a proved low-risk kind the advocates
 // passed goes alone, noted "Published alone (low-risk: …)"; not proved, or not passed by the advocates, waits for the batch
 // (review), saying why; only the Founder turns the switch on; the Work queue's strip lists what went alone with Undo.
@@ -44,25 +44,38 @@ $sp->setValue(null, null);
 $t('on: a proved FAQ release the advocates passed goes alone, its record says "Published alone (low-risk: faq)"', $why($a) === '' && str_starts_with(Releases::lastWordFor(Releases::get($pdo, $a)), 'Published alone (low-risk: faq)'), Releases::lastWordFor(Releases::get($pdo, $a)));
 $b = $mk('r2-faq-nocheck.zip', ['app/ui/faq.md' => $faqNew], 'faq', false);
 $t('… the same, the advocates not passed yet: it waits, saying so', str_contains($why($b), 'the advocates haven\'t passed it'), $why($b));
+// Jason, 2026-11-25 (0179's note "Tier 2 publishes on its own once Piece 3 is live"): only Tier 3 stops
+$last = fn (int $id) => Releases::lastWordFor(Releases::get($pdo, $id));
 $c = $mk('r2-wording-bad.zip', ['app/ui/faq.md' => $faqNew], 'wording', true);
-$t('a kind that isn\'t proved (wording, but a .md): it waits, saying why', str_contains($why($c), 'isn\'t in an approved batch') && str_contains($why($c), 'isn\'t PHP'), $why($c));
+$t('a kind that isn\'t proved (wording, but a .md), the advocates passed: Tier 2, it goes alone, "Published alone (Tier 2)"', $why($c) === '' && str_starts_with($last($c), 'Published alone (Tier 2)'), [$why($c), $last($c)]);
 $d = $mk('r2-none.zip', ['app/lib/R2Test.php' => "<?php\n"], '', true);
-$t('no kind: it waits for the batch', str_contains($why($d), 'names no kind'), $why($d));
-GaugeTasks::approve($pdo, 'area:batch-' . gmdate('Y-m-d'), 'batch', 'other.zip, r2-none.zip', 'the daily batch', 'Jason (test)', 1);
-$t('… once today\'s approved batch names its zip, it goes', $why($d) === '');
+$t('no kind, nothing in a Tier 3 area, the advocates passed: Tier 2, it goes alone', $why($d) === '' && str_starts_with($last($d), 'Published alone (Tier 2)'));
+$d2 = $mk('r2-none-nocheck.zip', ['app/lib/R2Test2.php' => "<?php\n"], '', false);
+$t('… Tier 2 the advocates haven\'t passed: it waits, saying so', str_contains($why($d2), 'Tier 2, but the advocates haven\'t passed it'), $why($d2));
+GaugeTasks::approve($pdo, 'area:batch-' . gmdate('Y-m-d'), 'batch', 'other.zip, r2-none-nocheck.zip', 'the daily batch', 'Jason (test)', 1);
+$t('… once today\'s approved batch names its zip, it goes', $why($d2) === '');
+$m = $mk('r2-create.zip', ['app/migrations/2026-12-01_r2x.sql' => "CREATE TABLE IF NOT EXISTS r2x (id INT, at DATETIME ON UPDATE CURRENT_TIMESTAMP);", 'app/lib/R2X.php' => "<?php\n"], 'additive', true);
+$t('a CREATE TABLE IF NOT EXISTS migration with a new library, kind additive: proved Tier 1, it goes alone (the add-only ruling)', $why($m) === '' && str_starts_with($last($m), 'Published alone (low-risk: additive)'), [$why($m), $last($m)]);
+$g = $mk('r2-drop.zip', ['app/migrations/2026-12-01_r2d.sql' => "CREATE TABLE IF NOT EXISTS r2y (id INT);\nDROP TABLE r2_old;"], 'additive', true);
+$t('a migration that DROPs: Tier 3 (data), it waits for the Founder as a Decision Brief', str_contains($why($g), 'Tier 3 area (data)') && str_contains($why($g), 'Decision Brief'), $why($g));
+$h0 = $mk('r2-insert.zip', ['app/migrations/2026-12-01_r2i.sql' => "INSERT INTO team_roster (slug) SELECT 'x' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM team_roster WHERE slug = 'x');"], '', true);
+$t('a migration that INSERTs rows: a data fix, it stays in the daily batch (DB3)', str_contains($why($h0), 'DB3'), $why($h0));
 $e = $mk('r2-order.zip', ['website/order.php' => "<?php echo 'x';"], 'additive', true);
-$t('a Tier 3 area is never low-risk, whatever its kind says', str_contains($why($e), 'Tier 3'), $why($e));
+$n0 = (int) $pdo->query("SELECT COUNT(*) FROM control_gauge_tasks WHERE ticket = 'resolution'")->fetchColumn();
+$t('a Tier 3 area (money) is never published alone, whatever its kind says', str_contains($why($e), 'Tier 3 area (money)'), $why($e));
+$why($e); $rs = $pdo->query("SELECT what FROM control_gauge_tasks WHERE ticket = 'resolution' ORDER BY id DESC")->fetchAll(PDO::FETCH_COLUMN);
+$t('… its Decision Brief: one Resolution ticket in the Work queue, once however often it\'s asked, and its record says so', count($rs) === $n0 + 1 && str_contains($rs[0], 'Release #' . $e) && str_contains($rs[0], 'money') && str_contains($last($e), 'Decision Brief #'), [$rs, $last($e)]);
 // through checkedByAdvocates → autoPublish: one that must wait goes for review, never live
-$f = $mk('r2-wait.zip', ['app/lib/R2Wait.php' => "<?php\n"], '', false);
+$f = $mk('r2-wait.zip', ['website/order.php' => "<?php echo 'y';"], '', false);
 $out = Releases::checkedByAdvocates($pdo, $f, ['verdict' => 'pass', 'first' => '', 'views' => 5, 'run' => '', 'blocks' => 0, 'seconds' => 0], false);
 $lg = array_column((array) Releases::get($pdo, $f)['log'], 'msg');
-$t('passed by the advocates but not in the batch and no kind: it waits for review, its record saying why', (bool) preg_grep('/^Waits for the daily batch: /', $lg) && str_starts_with(Releases::lastWordFor(Releases::get($pdo, $f)), 'Sent for review') && Releases::get($pdo, $f)['state'] === 'staged', $out);
+$t('passed by the advocates but Tier 3 and not in the batch: it waits for review, its record saying why', (bool) preg_grep('/^Waits for the daily batch: .*Tier 3/', $lg) && Releases::get($pdo, $f)['state'] === 'staged', [$out, $lg]);
 // the Work queue's strip
-$pdo->prepare("UPDATE site_releases SET state = 'live', live_at = UTC_TIMESTAMP() WHERE id = ?")->execute([$a]);
+$pdo->prepare("UPDATE site_releases SET state = 'live', live_at = UTC_TIMESTAMP() WHERE id IN (?, ?)")->execute([$a, $d]);
 if (!function_exists('tv_icon')) { function tv_icon(string $n, $c = ''): string { return ''; } }
 require_once $app . '/admin/widgets.php'; require_once $app . '/lib/ControlGauges.php'; require_once $app . '/admin/control-console.php';
 $h = tv_cb_wq_batch($pdo, []);
-$t('the strip: "Published alone today (low-risk)" with the release, its kind and Undo', str_contains($h, 'Published alone today') && str_contains($h, '#' . $a . ' r2-faq.zip') && str_contains($h, 'data-wq="relback" data-id="' . $a . '"') && str_contains($h, ' · faq · '), strip_tags($h));
-$pdo->prepare("UPDATE site_releases SET state = 'rolled_back' WHERE id = ?")->execute([$a]);
+$t('the strip: "Published alone today (Tier 1 and Tier 2)" with each release, its kind or Tier 2, and Undo', str_contains($h, 'Published alone today (Tier 1 and Tier 2)') && str_contains($h, '#' . $a . ' r2-faq.zip') && str_contains($h, 'data-wq="relback" data-id="' . $a . '"') && str_contains($h, ' · faq · ') && str_contains($h, '#' . $d . ' r2-none.zip</b> · Tier 2 · '), strip_tags($h));
+$pdo->prepare("UPDATE site_releases SET state = 'rolled_back' WHERE id IN (?, ?)")->execute([$a, $d]);
 $t('… rolled back: it says undone, no button', str_contains(tv_cb_wq_batch($pdo, []), 'undone (rolled back)') && !str_contains(tv_cb_wq_batch($pdo, []), 'data-wq="relback"'));
 echo "\n$pass passed, $fail failed\n"; exit($fail ? 1 : 0);

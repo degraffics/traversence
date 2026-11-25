@@ -447,6 +447,24 @@ Its build is in `handoffs/piece3-build/p3-3-kinds/`. It's rebuilt on the live co
     through `checkedByAdvocates`, one that must wait goes for review and never live; the strip and its Undo.
   - `pipeline.php` still 22.
 
+### P3-3 revised for Jason's two rulings (2026-11-25, through the session manager)
+- **Tier 2 publishes on its own** (0179's note "Tier 2 publishes on its own once Piece 3 is live"): `Releases::rule2` now
+  publishes Tier 1 (a proved kind, noted "Published alone (low-risk: <kind>)") and Tier 2 (anything touching no Tier 3
+  area, "Published alone (Tier 2)") once staging's checks and the before-and-after check pass. A Tier 3 release waits and
+  gets one Resolution ticket (`briefFor`, `site_release_settings` `brief:<id>`, once). A migration that INSERTs rows is a
+  data fix and waits for the batch (DB3). Still behind `rule2_autopublish`, shipped off. The strip reads "Published alone
+  today (Tier 1 and Tier 2)", each line with its kind or "Tier 2" and Undo.
+- **Add-only migrations**: `TIER3_AREAS['data']` drops the path `app/migrations/` and names `sql` verbs (UPDATE, DELETE,
+  DROP, MODIFY, RENAME, plus TRUNCATE and CHANGE, which delete and rename/modify). `ReleaseKind::writes()` reads them with
+  comments, `ON UPDATE`/`ON DELETE` and `DUPLICATE KEY UPDATE` left out; `touches()` takes `sql:<verb>`. A guarded
+  statement's string is still read (a DROP hidden in a guard is Tier 3).
+- Found while testing: the table reader took "IF" from `CREATE TABLE IF NOT EXISTS orders`, so a money table's CREATE
+  wasn't Tier 3; fixed.
+- The fingerprint includes `TIER3_AREAS`, so an approval given before is cleared (said in the History).
+- A finding's words still flag "migration" for a person (`TIER3['data']`); the ruling named only the areas, so that's unchanged.
+- P3-3's `TeamRunner.php` is live's plus only these three changes; P3-4 carries the rest.
+- Tests: kind.php 35, rule2.php 17, audit.php 34, pipeline 22. Roll back proved.
+
 ## 14. P3-4 (built and held, 2026-11-25; on the bench: Sync 18:38 UTC plus P3-2 and P3-3)
 
 Its build is in `handoffs/piece3-build/p3-4-agents/` (`TeamRunner.php`, `team-console.php`, `faq.md`). It's rebuilt on
@@ -477,3 +495,16 @@ the live copy once P3-3 is live.
   - **G5's canary landmark.** `landmarks` is a records table (`staging-tables.php`), so a fake held place made on
     staging could be carried to live at the next Publish. That's a 0066 risk. It also has no add path but
     `Landmarks::batch` from a source file.
+
+### P3-4 revised for Jason's STEP_AT/CEILINGS ruling (2026-11-25, through the session manager)
+- **Building**: the Project Manager acts, and takes audit-raised tickets itself (`takesItself`: unowned, an Audit ticket or
+  one whose parent is). It sets itself as owner, then moves the ticket; Undo moves it back and gives it back to nobody. A
+  ticket a person entered still waits for Give it to the Team.
+- **Implementation**: the brief goes straight to a build session. `TeamRunner::briefTo()` gives `build` from Implementation
+  on, `session manager` before; `GaugeTasks::report()` puts it on each request with a brief as `brief_to`; the run and the
+  logbook say which.
+- CEILINGS' words say exactly that; "nothing more acts on its own yet" is gone. Confirmation: Tier 1 and 2 publish alone.
+- The brief step only ever proposes (tested). The tree says "A wording fix keeps your approval"; Tier 1 and Tier 2 lines
+  say they publish alone with rule 2 on; Tier 3's data line names the migration verbs.
+- Tests: runner.php 67; team-head.cjs 28, roster.cjs 40, runner.cjs 44, tickets.cjs 62, batch.cjs 18. Roll back proved.
+- At send: rebuild after P3-3 and notify-founder are live (`GaugeTasks.php` is in both; `TeamRunner.php`, `faq.md`).

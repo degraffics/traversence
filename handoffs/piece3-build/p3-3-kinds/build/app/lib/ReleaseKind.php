@@ -9,7 +9,9 @@
 //                 page text is a sentence whose tags, attributes, paths and SQL are the same
 //   phone_layout  only CSS, and only inside @media (max-width: …) blocks for phones (767px or less, 0058 §11)
 //   additive      0179's "safe additive": every changed file only gains lines; new migrations only CREATE TABLE IF NOT
-//                 EXISTS or a guarded ADD COLUMN; nothing a live caller uses is changed or removed
+//                 EXISTS or a guarded ADD COLUMN/INDEX (Jason, 2026-11-25: such a migration is safe additive, not Tier 3;
+//                 one that UPDATEs, DELETEs, DROPs, MODIFYs or RENAMEs stays Tier 3, data); nothing a live caller uses is
+//                 changed or removed
 //   data_fix      recognised; stays in the daily batch for now (Jason, DB3: "a row limit comes later, Jason's choice")
 declare(strict_types=1);
 
@@ -47,8 +49,8 @@ final class ReleaseKind
             if (str_starts_with($p, 'website/')) $tg[] = 'path:/' . substr($p, 8);
             if (preg_match('#^app/lib/([A-Za-z]+)\.php$#', $p, $m)) $tg[] = 'lib:' . $m[1];
             if (str_starts_with($p, 'app/migrations/')) {
-                $tg[] = 'path:' . $p;
-                if (preg_match_all('/\b(?:TABLE|INTO|UPDATE|FROM|JOIN)\s+`?([a-z_0-9]+)`?/i', (string) ($files[$p][0] ?? ''), $mm)) foreach ($mm[1] as $t) $tg[] = 'table:' . strtolower($t);
+                foreach (self::writes((string) ($files[$p][0] ?? '')) as $w) $tg[] = 'sql:' . $w;   // Tier 3 (data) by what it does
+                if (preg_match_all('/\b(?:TABLE|INTO|UPDATE|FROM|JOIN)\s+(?:IF\s+(?:NOT\s+)?EXISTS\s+)?`?([a-z_0-9]+)`?/i', (string) ($files[$p][0] ?? ''), $mm)) foreach ($mm[1] as $t) $tg[] = 'table:' . strtolower($t);
             }
             if (str_starts_with($p, 'trvgo/')) $tg[] = 'path:' . $p;
         }
@@ -126,8 +128,9 @@ final class ReleaseKind
     {
         foreach ($files as $p => [$new, $old]) {
             if (str_starts_with($p, 'app/migrations/')) {
-                $sql = preg_replace('/--[^\n]*/', '', (string) $new);
-                if (preg_match('/\b(UPDATE|DELETE|INSERT|DROP|TRUNCATE|RENAME|MODIFY|CHANGE)\b/i', $sql, $m)) return $p . ': a migration that ' . strtoupper($m[1]) . 's isn\'t additive.';
+                $sql = self::bare((string) $new);
+                if ($w = self::writes((string) $new)) return $p . ': a migration that ' . $w[0] . 's isn\'t additive.';
+                if (preg_match('/\bINSERT\b/i', $sql)) return $p . ': a migration that INSERTs isn\'t additive (it goes in the daily batch).';
                 if (preg_match_all('/\bALTER\s+TABLE\b[^;\']*/i', $sql, $mm)) foreach ($mm[0] as $alt) if (!preg_match('/\bADD\s+(COLUMN|INDEX|KEY)\b/i', $alt)) return $p . ': an ALTER that doesn\'t only add.';
                 continue;
             }
@@ -135,6 +138,28 @@ final class ReleaseKind
             if (!self::onlyAdds((string) $old, (string) $new)) return $p . ': a line live has was changed or removed, not only added to.';
         }
         return '';
+    }
+
+    /** A migration's SQL with its comments, and the column and key clauses that only name a verb, taken out. */
+    private static function bare(string $sql): string
+    {
+        $sql = preg_replace(['#/\*.*?\*/#s', '/(--|#)[^\n]*/'], ' ', $sql);
+        return (string) preg_replace('/\bON\s+(UPDATE|DELETE)\b|\bDUPLICATE\s+KEY\s+UPDATE\b/i', ' ', $sql);   // ON UPDATE CURRENT_TIMESTAMP, ON DELETE CASCADE
+    }
+
+    /** The data-changing verbs a migration uses (TeamRunner::TIER3_AREAS' data "sql"), in its order; [] for CREATE TABLE IF NOT EXISTS or guarded ADDs alone. */
+    public static function writes(string $sql): array
+    {
+        require_once __DIR__ . '/TeamRunner.php';
+        $v = TeamRunner::TIER3_AREAS['data']['sql'];
+        return preg_match_all('/\b(' . implode('|', $v) . ')\b/i', self::bare($sql), $m) ? array_values(array_unique(array_map('strtoupper', $m[1]))) : [];
+    }
+
+    /** Does a release's migration write rows (an INSERT)? A data fix: it stays in the daily batch (DB3). */
+    public static function insertsRows(array $files): bool
+    {
+        foreach ($files as $p => [$new]) if (str_starts_with($p, 'app/migrations/') && preg_match('/\b(INSERT|REPLACE)\s+(IGNORE\s+)?INTO\b/i', self::bare((string) $new))) return true;
+        return false;
     }
 
     /** Does $new keep every line of $old, in order (lines only added)? */
