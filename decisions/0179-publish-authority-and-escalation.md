@@ -65,3 +65,11 @@ written down.
   staging only.
 - **Piece 3:** the before-and-after check, Undo on every agent action, and a spending limit per agent. Rule 2 waits for
   it.
+
+## Notes (Jason, 2026-11-25, confirming Piece 2's design points 1–4)
+
+- **The paid AI cap:** "When the $40 paid AI cap is reached, pause paid external calls cleanly, fall back to
+  internal/deterministic work, and raise a Tier 3 Decision Brief only if paid AI is strictly needed to move forward."
+- **Gemini:** it stays on public material as the safe default. A ruling on internal text to the paid key (0164 §0.8)
+  comes to Jason as a clear brief when it's needed.
+- **Urgent fixes for live harm** still honour 0066 and the privacy guardrails. No exception path skips them.
