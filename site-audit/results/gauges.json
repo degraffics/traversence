@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-23T23:52:51Z",
+ "generated_at": "2026-11-25T23:39:06Z",
  "version": 2,
  "generated_by": "tools/page-audit/gauges.py",
  "note": "The gauges' configuration (handoffs/control-board-plan/step3/sections/gauge-lifecycle.md), compact: the site computes every stage from it (app/lib/ControlGauges.php); each gauge's detail is in gauges-items.json.",
@@ -3794,5 +3794,38 @@
    "Control Board build session",
    "loads-reply.zip"
   ]
- }
+ },
+ "batch": {
+  "date": "2026-11-25",
+  "lines": [
+   {
+    "release": "P3-1 (repo tools, no site files)",
+    "what": "The before-and-after check's tools: each advocate's view of the pages a change touches, before and after, at 1280 and 390, judged on 0179's four rules; the reach map; the GitHub workflow",
+    "why": "Piece 3: the check that lets Tier 1 and 2 publish alone later",
+    "decision": "0179 (Piece 3 note, DB1–DB4)",
+    "checks": "19 + 9 tests; changes nothing on the site by itself",
+    "way_back": "Revert the merge",
+    "tickets": []
+   },
+   {
+    "release": "p3-2-check.zip",
+    "what": "The check's site side: a release waits for its before look, the verdict joins its checks, a block withdraws it and opens an Audit ticket; the Staff Views advocate (34 roles); shipped switched off",
+    "why": "Piece 3, DB2, DB4, Staff Views yes",
+    "decision": "0179 (Piece 3 note)",
+    "checks": "22 pipeline tests with GitHub stubbed; staging unit 65; Roll back proved",
+    "way_back": "Roll back on the Releases page; the switch 'The before-and-after check' turns it off",
+    "tickets": []
+   },
+   {
+    "release": "config-rail.zip",
+    "what": "System Configuration's Development, Board, Workflows, Services and Team listed in the left-hand menu, the open one marked, greyed with why when a role can't open it; the dropdown stays",
+    "why": "Jason, 2026-11-25: \"Development, board, workflow, services, team\"",
+    "decision": "0109 (the admin), 0179",
+    "checks": "20 rendered checks at 1280 and 390; Roll back proved",
+    "way_back": "Roll back on the Releases page",
+    "tickets": []
+   }
+  ]
+ },
+ "answers": []
 }

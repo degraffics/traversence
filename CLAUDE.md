@@ -258,7 +258,7 @@ New standing OKs go here in the session that hears them; the tool they need goes
 
 **Publish authority (decisions/0179, Jason, 2026-11-25): every release.** Until the before-and-after checks exist,
 nothing that needs approval goes live until Jason approves the **daily batch** (the session manager's daily summary);
-then low-risk kinds publish alone with Undo, the rest still ask; Tier 3 (money, major data or public addresses, 0066,
+then (Jason, 2026-11-25, A) Tier 1 and Tier 2 publish alone after the before-and-after check, with Undo in the daily summary; Tier 3 (money, major data or public addresses, 0066,
 privacy, mission, deadlocks) always comes to him as a Decision Brief.
 
 A session that needs Jason's OK (a PR, a decision, a key) asks him in its own chat, **written in the reply for him and

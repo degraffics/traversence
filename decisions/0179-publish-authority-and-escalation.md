@@ -114,3 +114,34 @@ these in for Piece 3."
 
 Piece 3's releases are not pre-approved: each goes out through the daily batch (rule 1). Jason presses staging's three
 switches himself. Step 1 (Keep staging caught up) finishes its fresh copy before steps 2 and 3.
+
+## Note (Jason with Gemini's review, 2026-11-25): Tier 2 publishes on its own once Piece 3 is live; amends rule 2
+
+Jason chose A: "only Tier 3 stops for a Decision Brief". Once Piece 3's before-and-after check is live:
+- **Tier 2** publishes after staging's checks and the before-and-after check pass, as the low-risk kinds already do. It
+  appears in the daily summary with Undo and Roll back. Rule 2's "everything else still requires my approval" now means
+  Tier 3 only.
+- **Tier 3** always stops for a Decision Brief.
+- **Until Piece 3 is live, rule 1 holds:** the daily batch.
+
+Jason's own touchpoints are "+" for new work, Tier 3 briefs, and Undo or Roll back.
+
+**What each ceiling unlocks, for when he raises it** (his Planning limit stands until then):
+- **Building:** the Project Manager moves tickets by itself and takes the ones the audit raised. A ticket a person entered still
+  waits for "Give it to the Team".
+- **Implementation:** the Architect's build brief goes straight to a build session, which builds, tests and sends the release
+  to staging's checks.
+- **Confirmation:** Tier 1 and Tier 2 publish on their own after the before-and-after check.
+
+The decision tree's fingerprint covers rules only, so a wording fix never clears the approval.
+
+## Note (Jason, 2026-11-25): Piece 3's last two briefs
+
+"A: A, B: B".
+- **A:** a Publish of staging's own work isn't before-and-after checked. It stays under the daily batch, and is
+  revisited before Jason raises agents to Confirmation.
+- **B:** 0066 is proved by a locked, staging-only read of places live already holds, hashes only. No fake test
+  landmark is added.
+- **Also recorded (the session manager's call, from this decision's "safe additive"):** an add-only migration counts as
+  safe additive. That's CREATE TABLE IF NOT EXISTS, or a guarded ADD COLUMN or INDEX. Any UPDATE, DELETE, DROP, MODIFY
+  or RENAME stays Tier 3.
