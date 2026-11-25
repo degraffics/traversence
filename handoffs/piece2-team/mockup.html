@@ -1,0 +1,122 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Piece 2 mockup</title>
+<style>
+:root{--tv-canvas:#E4DCC5;--tv-sec:#EDE6D5;--tv-sec-edge:#DBD2BA;--tv-card-edge:#E3DBC6;--tv-tag:#EDE6D5;--tv-umber:#3E2B1F;--tv-card-a:#F6F1E4;
+--tv-ink:#2A1D14;--tv-taupe:#7A6A52;--tv-meta:color-mix(in srgb,#2A1D14 35%,#7A6A52);--tv-line:color-mix(in srgb,#3E2B1F 20%,#E4DCC5);--tv-line-strong:color-mix(in srgb,#3E2B1F 58%,#E4DCC5);
+--tv-on-umber:#EFE3C8;--tv-btn:#92400E;--tv-btn-text:#E4DCC5;--tv-link:#92400E;--tv-sage:#92BEA5;--tv-hold:#8f5600;--tv-hold-bg:color-mix(in srgb,#8f5600 12%,#EFE3C8);--tv-fail:#a62b2b;
+--tv-font-head:Georgia,serif;--tv-font-ui:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--tv-r-sm:.5rem;--tv-r:.75rem}
+*{box-sizing:border-box}html,body{background:var(--tv-canvas);margin:0;color:var(--tv-ink);font:14px/1.45 var(--tv-font-ui)}
+.bar{background:var(--tv-umber);color:var(--tv-on-umber);padding:.6rem 1rem;font-weight:600}
+.wrap{max-width:1240px;margin:0 auto;padding:1rem;display:grid;grid-template-columns:1fr 440px;gap:1rem}
+.lab{grid-column:1/-1;font:600 12px var(--tv-font-ui);color:var(--tv-meta);text-transform:uppercase;letter-spacing:.05em;margin:.6rem 0 -.4rem}
+.sec{background:var(--tv-sec);border:1px solid var(--tv-sec-edge);border-radius:var(--tv-r);padding:1rem}
+h2{font:700 18px var(--tv-font-head);margin:0 0 .6rem;display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
+h3{font:700 15px var(--tv-font-head);margin:.8rem 0 .3rem}
+.sp{flex:1}.btn{background:var(--tv-btn);color:var(--tv-btn-text);border:0;border-radius:999px;padding:.4rem .9rem;font-weight:600;font-size:13px}
+.ob{background:transparent;color:var(--tv-btn);border:1px solid var(--tv-btn);border-radius:999px;padding:.3rem .8rem;font-size:13px;font-weight:600}
+.ob[disabled]{color:var(--tv-meta);border-color:var(--tv-line-strong)}
+.ic{width:30px;height:30px;border-radius:50%;border:1px solid var(--tv-btn);background:var(--tv-card-a);color:#B45309;display:inline-grid;place-items:center;font-size:14px}
+.flt{border:1px solid var(--tv-line-strong);background:var(--tv-card-a);border-radius:999px;padding:.3rem .7rem;font-size:13px}
+table{width:100%;border-collapse:collapse;background:var(--tv-card-a);border:1px solid var(--tv-card-edge);border-radius:var(--tv-r-sm);overflow:hidden}
+th{text-align:left;font-size:12px;color:var(--tv-meta);font-weight:600;padding:.45rem .6rem;border-bottom:1px solid var(--tv-line)}
+td{padding:.5rem .6rem;border-bottom:1px solid var(--tv-line);vertical-align:top}
+a{color:var(--tv-link);text-decoration:underline;font-weight:600}
+.tag{background:var(--tv-tag);border:1px solid var(--tv-card-edge);border-radius:999px;padding:0 .5rem;font-size:12px;white-space:nowrap}
+.wait{background:var(--tv-hold-bg);color:var(--tv-hold);border:1px solid var(--tv-hold);border-radius:999px;padding:0 .5rem;font-size:12px;font-weight:600;white-space:nowrap}
+.meta{color:var(--tv-meta);font-size:12.5px}
+.grp td{background:var(--tv-sec);font-weight:600;font-size:13px}
+.card{background:var(--tv-card-a);border:1px solid var(--tv-card-edge);border-radius:var(--tv-r-sm);padding:.8rem;margin-top:.6rem}
+.strip{display:flex;gap:0;margin:.4rem 0}.strip span{flex:1;text-align:center;padding:.35rem .2rem;font-size:12.5px;border:1px solid var(--tv-line-strong);background:var(--tv-card-a)}
+.strip span:first-child{border-radius:999px 0 0 999px}.strip span:last-child{border-radius:0 999px 999px 0}
+.strip .done{background:color-mix(in srgb,var(--tv-sage) 35%,var(--tv-card-a))}.strip .now{background:var(--tv-umber);color:var(--tv-on-umber);font-weight:600}
+p[data-tv-status]{margin:.4rem 0;padding:.4rem .6rem;border-radius:var(--tv-r-sm);font-size:13px}
+p[data-tv-status=info]{background:var(--tv-sec)}p[data-tv-status=bad]{background:var(--tv-hold-bg)}
+.opt{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}.opt>div{border:1px solid var(--tv-card-edge);border-radius:var(--tv-r-sm);padding:.6rem;background:#fff8}
+.opt .rec{border:2px solid var(--tv-btn)}
+.run{display:flex;gap:.5rem;align-items:center;border-top:1px solid var(--tv-line);padding:.45rem 0;font-size:13px}
+.row{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap}
+.panel{position:relative}.x{position:absolute;right:.6rem;top:.6rem}
+
+.cards{display:none}.pc{background:var(--tv-card-a);border:1px solid var(--tv-card-edge);border-radius:.5rem;padding:.6rem .7rem;margin-top:3px}
+.pc .top{display:flex;gap:.4rem;align-items:center;flex-wrap:wrap}.pc .nm{display:block;margin:.25rem 0 .1rem}
+.pc .act{display:flex;gap:.4rem;align-items:center;margin-top:.4rem}.pc .act .sp{flex:1}
+.pc.grp{background:var(--tv-sec);font-weight:600}
+@media (max-width:767px){.tbl{display:none}.cards{display:block}.wrap{grid-template-columns:1fr;padding:3px;gap:3px}.sec{border-radius:.5rem;padding:.7rem}
+ .hide-m{display:none}.opt{grid-template-columns:1fr}table{font-size:13px}td,th{padding:.4rem}}
+</style></head><body>
+<div class="bar">☰ System Control Board · Development</div>
+<div class="wrap">
+<div class="lab">1 · The Work queue, extended in place (Type, Stage, the Team icon)</div>
+<section class="sec">
+ <h2>Work queue <span class="meta">· 41 open · 1 waiting for you</span><span class="sp"></span>
+  <button class="flt">⚲ Filter: Open · Type all · Stage all (41) ▾</button>
+  <button class="ic" title="Open the Team" aria-label="Open the Team"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6"/><circle cx="17" cy="9" r="2.6"/><path d="M16 14.2c3.2-.4 5.5 1.7 5.5 5"/></svg></button>
+  <button class="btn">+ Add a task</button></h2>
+ <p data-tv-status="bad" data-tv-label="Today's batch:"><b>Today's batch:</b> 4 releases waiting for your OK · <a href="#">Read and approve</a></p>
+ <table class="tbl"><thead><tr><th>Task</th><th>Type</th><th>Stage</th><th class="hide-m">Has it</th></tr></thead><tbody>
+ <tr><td><a href="#">Gemini on the paid tier: may staff text go to the paid key?</a><div class="meta">P1 · area backlog · 0164 §0.8</div></td><td><span class="tag">Resolution</span></td><td><span class="wait">Waiting for you</span></td><td class="hide-m">system · Translator</td></tr>
+ <tr><td><a href="#">A data migration is never cleared as already there unrun</a><div class="meta">P1 · control-board · 0162 · 1 of 3 steps confirmed</div></td><td><span class="tag">Work</span></td><td>Building<div class="meta">release not named yet</div></td><td class="hide-m">Control Board session</td></tr>
+ <tr><td><a href="#">Late job: notify_release silent 30 h</a><div class="meta">from the audit · 2nd look tomorrow</div></td><td><span class="tag">Audit</span></td><td>Diagnosing</td><td class="hide-m">system · Ops & Reconciliation</td></tr>
+ <tr><td><a href="#">no-undo: no Undo after an alarm's acknowledgement</a><div class="meta">P2 · control-board · 0176</div></td><td><span class="tag">Work</span></td><td>Implementation<div class="meta">no-undo.zip · in the batch</div></td><td class="hide-m">Control Board session</td></tr>
+ <tr><td><a href="#">Orders M2b: the vendor's line</a><div class="meta">P2 · orders · paused by Jason</div></td><td><span class="tag">Work</span></td><td>Planning<div class="meta">needs: a decision attached</div></td><td class="hide-m">Orders session</td></tr>
+ </tbody></table>
+ <div class="cards">
+  <div class="pc"><div class="top"><span class="tag">Resolution</span><span class="wait">Waiting for you</span></div><a class="nm" href="#">Gemini on the paid tier: may staff text go to the paid key?</a><div class="meta">P1 · area backlog · 0164 §0.8 · system · Translator</div><div class="act"><button class="ob">Read the brief</button><span class="sp"></span><button class="ic" title="More moves for task #61" aria-label="More moves for task #61">⋯</button></div></div>
+  <div class="pc"><div class="top"><span class="tag">Work</span><span class="meta">Building · release not named yet</span></div><a class="nm" href="#">A data migration is never cleared as already there unrun</a><div class="meta">P1 · control-board · 0162 · 1 of 3 steps confirmed · Control Board session</div><div class="act"><button class="ob">Name its release</button><span class="sp"></span><button class="ic" title="More moves for task #58" aria-label="More moves for task #58">⋯</button></div></div>
+  <div class="pc"><div class="top"><span class="tag">Audit</span><span class="meta">Diagnosing · 2nd look tomorrow</span></div><a class="nm" href="#">Late job: notify_release silent 30 h</a><div class="meta">from the audit · system · Ops &amp; Reconciliation</div><div class="act"><span class="sp"></span><button class="ic" title="More moves for task #63" aria-label="More moves for task #63">⋯</button></div></div>
+  <div class="pc"><div class="top"><span class="tag">Work</span><span class="meta">Implementation · no-undo.zip · in the batch</span></div><a class="nm" href="#">no-undo: no Undo after an alarm's acknowledgement</a><div class="meta">P2 · control-board · 0176 · Control Board session</div><div class="act"><span class="sp"></span><button class="ic" title="More moves for task #40" aria-label="More moves for task #40">⋯</button></div></div>
+  <div class="pc"><div class="top"><span class="tag">Work</span><span class="meta">Planning · needs: a decision attached</span></div><a class="nm" href="#">Orders M2b: the vendor's line</a><div class="meta">P2 · orders · paused by Jason · Orders session</div><div class="act"><button class="ob">Attach a decision</button><span class="sp"></span><button class="ic" title="More moves for task #22" aria-label="More moves for task #22">⋯</button></div></div>
+ </div>
+ <p class="meta">Showing 5 of 41 · <a href="#">Show 10 more</a></p>
+</section>
+
+<section class="sec panel" aria-label="Task #61">
+ <button class="ic x" title="Close" aria-label="Close">✕</button>
+ <h2>Task #61 <span class="tag">Resolution</span></h2>
+ <div class="strip"><span class="done">Brief</span><span class="now">Waiting for you</span><span>Decided</span></div>
+ <h3>The Decision</h3><div>May staff's own words (a task's scope, notes; never a member's or a client's) go to Gemini on the paid key?</div>
+ <h3>Why it needs you</h3><div>Privacy (0179 rule 3): 0164 §0.8 keeps anything private off Gemini; the paid tier changes the terms, not the rule.</div>
+ <h3>Options</h3>
+ <div class="opt"><div><b>A · Paid key only, checked per call</b><div class="meta">Pros: a second model for wording; work moves off the $40 Claude cap. Cons: one more check on every call; a wrong key setting is a privacy risk.</div></div>
+ <div class="rec"><b>B · Keep Gemini public-only</b> <span class="tag">Recommended</span><div class="meta">Pros: nothing changes; no new risk. Cons: agents' wording uses Claude alone. A only once the tier check exists.</div></div></div>
+ <h3>Impact if delayed</h3><div>Safe on hold: nothing in Piece 2 uses Gemini. <span class="meta">Cost: none now; under A, Gemini's paid use comes from the $20 prepaid.</span></div>
+ <div class="row" style="margin-top:.7rem"><button class="ob">Choose B (recommended)</button><button class="ob">Choose A</button><button class="ob">Answer in my words</button></div>
+ <h3>Runs (staging)</h3>
+ <div class="run"><span class="sp">Translator · drafted this brief from the task and 0164 · 14:05 MST</span><button class="ic" title="Undo the draft" aria-label="Undo the draft">↶</button></div>
+ <div class="run"><span class="sp">Project manager · sent to you · gate: four parts filled · 14:15 MST</span><button class="ic" title="Undo the move" aria-label="Undo the move">↶</button></div>
+</section>
+
+<section class="sec panel" aria-label="Task #58">
+ <h2>Task #58 <span class="tag">Work</span></h2>
+ <div class="strip"><span class="done">Planning</span><span class="now">Building</span><span>Implementation</span><span>Confirmation</span></div>
+ <p data-tv-status="info" data-tv-label="To move on:"><b>To move to Implementation:</b> its release named (not yet).</p>
+ <div class="row"><button class="ob">Name its release</button><button class="ob" disabled title="Name its release first">Move to Implementation</button><button class="ic" title="Move back a stage" aria-label="Move back a stage">✎</button><button class="ic" title="More moves" aria-label="More moves">⋯</button></div>
+</section>
+
+<div class="lab">2 · System Configuration → Team (/admin/config/team)</div>
+<section class="sec" style="grid-column:1/-1">
+ <h2>Team <span class="meta">· 9 working · 11 advocates · 13 on standby</span><span class="sp"></span><button class="flt">⚲ Filter: Active (20) ▾</button></h2>
+ <table class="tbl"><thead><tr><th>Role</th><th class="hide-m">Kind</th><th>Works</th><th class="hide-m">Acts as</th><th>Status</th></tr></thead><tbody>
+ <tr class="grp"><td colspan="5">▾ Leadership (2)</td></tr>
+ <tr><td><a href="#">Executive Lead & Founder</a></td><td class="hide-m">Founder</td><td>Tier 3 answers</td><td class="hide-m">the real login</td><td>Active</td></tr>
+ <tr><td><a href="#">Executive Translator & Briefing Lead</a></td><td class="hide-m">Operator</td><td>Resolution briefs</td><td class="hide-m">Staff · Operations</td><td>Active</td></tr>
+ <tr class="grp"><td colspan="5">▾ Operations (3)</td></tr>
+ <tr><td><a href="#">Project Manager</a></td><td class="hide-m">Operator</td><td>All four stages</td><td class="hide-m">Manager · Operations</td><td>Active</td></tr>
+ <tr><td><a href="#">Operations & Reconciliation Manager</a></td><td class="hide-m">Auditor</td><td>The daily audit</td><td class="hide-m">Manager · Operations</td><td>Active</td></tr>
+ <tr><td><a href="#">Regional Directory &amp; Data Curator</a></td><td class="hide-m">Operator</td><td>No steps yet</td><td class="hide-m">Staff · Content</td><td>Active</td></tr>
+ <tr class="grp"><td colspan="5">▸ Build (4)</td></tr>
+ <tr class="grp"><td colspan="5">▸ Advocates (11): views only, bound to test accounts</td></tr>
+ <tr class="grp"><td colspan="5">▸ On standby (13)</td></tr>
+ </tbody></table>
+ <div class="cards">
+  <div class="pc grp">▾ Leadership (2)</div>
+  <div class="pc"><div class="top"><span class="meta">Active</span></div><a class="nm" href="#">Executive Lead &amp; Founder</a><div class="meta">Leadership · Founder · the real login</div><div class="act"><span class="sp"></span><button class="ic" title="Open Executive Lead &amp; Founder" aria-label="Open Executive Lead &amp; Founder">▾</button><button class="ic" title="More for Founder" aria-label="More for Founder">⋯</button></div></div>
+  <div class="pc"><div class="top"><span class="meta">Active</span></div><a class="nm" href="#">Executive Translator &amp; Briefing Lead</a><div class="meta">Leadership · Operator · Staff · Operations</div><div class="act"><span class="sp"></span><button class="ic" title="Open the Translator" aria-label="Open the Translator">▾</button><button class="ic" title="More for the Translator" aria-label="More for the Translator">⋯</button></div></div>
+  <div class="pc grp">▾ Operations (3)</div>
+  <div class="pc"><div class="top"><span class="meta">Active</span></div><a class="nm" href="#">Project Manager</a><div class="meta">Operations · Operator · Manager · Operations</div><div class="act"><span class="sp"></span><button class="ic" title="Open the Project Manager" aria-label="Open the Project Manager">▾</button><button class="ic" title="More for the Project Manager" aria-label="More for the Project Manager">⋯</button></div></div>
+  <div class="pc"><div class="top"><span class="meta">Active</span></div><a class="nm" href="#">Operations &amp; Reconciliation Manager</a><div class="meta">Operations · Auditor · Manager · Operations</div><div class="act"><span class="sp"></span><button class="ic" title="Open Operations &amp; Reconciliation Manager" aria-label="Open Operations &amp; Reconciliation Manager">▾</button><button class="ic" title="More for Operations &amp; Reconciliation Manager" aria-label="More for Operations &amp; Reconciliation Manager">⋯</button></div></div>
+  <div class="pc"><div class="top"><span class="meta">Active</span></div><a class="nm" href="#">Regional Directory &amp; Data Curator</a><div class="meta">Operations · Operator · Staff · Content</div><div class="act"><span class="sp"></span><button class="ic" title="Open Regional Directory &amp; Data Curator" aria-label="Open Regional Directory &amp; Data Curator">▾</button><button class="ic" title="More for Regional Directory &amp; Data Curator" aria-label="More for Regional Directory &amp; Data Curator">⋯</button></div></div>
+  <div class="pc grp">▸ Build (4)</div><div class="pc grp">▸ Advocates (11): views only</div><div class="pc grp">▸ On standby (13)</div>
+ </div>
+</section>
+</div></body></html>
