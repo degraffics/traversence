@@ -8,7 +8,7 @@ const { chromium } = require('playwright'); const { spawn, execFileSync } = requ
 const root = path.resolve(process.argv[2]); const shots = process.argv[3] || '';
 let pass = 0, fail = 0; const t = (n, ok, got) => { if (ok) { pass++; console.log('  ok  ' + n); } else { fail++; console.log('FAIL  ' + n + (got !== undefined ? ' — ' + JSON.stringify(got).slice(0, 300) : '')); } };
 const db = (sql) => execFileSync('mariadb', ['-utv', '-ptv', '-h127.0.0.1', '-N', '-e', sql]).toString().trim();
-const seed = () => { db('DROP DATABASE IF EXISTS lv_main; CREATE DATABASE lv_main');
+const seed = () => { db('DROP DATABASE IF EXISTS lv_main; CREATE DATABASE lv_main CHARACTER SET utf8mb4');
   for (const f of ['2026-11-25_team_roster.sql', '2026-11-25_team_roster_seed.sql']) execFileSync('bash', ['-c', 'mariadb --default-character-set=utf8mb4 -utv -ptv -h127.0.0.1 lv_main < ' + root + '/app/migrations/' + f]);
   db('USE lv_main; CREATE TABLE IF NOT EXISTS control_log (id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, at DATETIME NOT NULL, tz VARCHAR(64) NOT NULL DEFAULT \'\', kind VARCHAR(12) NOT NULL DEFAULT \'control\', proc VARCHAR(60) NOT NULL DEFAULT \'\', what VARCHAR(400) NOT NULL DEFAULT \'\', who VARCHAR(80) NOT NULL DEFAULT \'\', why VARCHAR(400) NOT NULL DEFAULT \'\')');
   return db('SELECT COUNT(*) FROM lv_main.team_roster'); };

@@ -594,3 +594,21 @@ P2-3 waits for Question 1. Each release adds its FAQ entries (decisions/0057), i
 - **On staging, a run line reads "Project manager · moved to Confirmation · its release is live".** The system did it. He
   can press Undo if it's wrong.
 - **"Today's batch: 4 waiting".** He reads each line and presses **Approve the batch**.
+
+## Build progress (kept current by the build session)
+
+Built on Sync 2026-11-25 16:58 UTC (0d756a5; the 02:02 sync's files are the same). Nothing sent: releases wait for the
+session manager's word on Jason's pre-approval and the staging switches (0179 rule 1).
+
+| Release | State | Where | Tests |
+|---|---|---|---|
+| P2-2 `team-roster.zip` | built, zip check clean, claims taken; summary sent to the session manager | `handoffs/piece2-build/team-roster/` | roster.php 51, roster.cjs 40 |
+| P2-1 `team-tickets.zip` | built over P2-2 (both carry `staging-tables.php` and `faq.md`: send after P2-2 is live, rebuilding those two on the live copy) | `handoffs/piece2-build/team-tickets/` | tickets.php 48, tickets.cjs 60, old suites 84/44/32 |
+| P2-3 `team-runner.zip` | next | | |
+| P2-4 `team-audit.zip` | | | |
+| P2-5 `team-batch.zip` | | | |
+| P2-6 | out (Q4 B) | | |
+
+Changes from the design, each said in its release summary: the Team icon moved from P2-2 to P2-1 (it's on
+`control-console.php`); P2-2 carries a one-line kit fix (`.ak-t tr[hidden]{display:none}`: folded group rows showed on phones);
+the Work queue's Add form gains Type (work-queue.cjs's field list updated with it).

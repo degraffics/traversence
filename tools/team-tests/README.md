@@ -11,3 +11,13 @@ four folders up from `app/lib/`) naming `DB_DATABASE=lv_main`.
 - `roster.cjs` with `router.php` (P2-2 rendered at 1280 and 390): groups closed until opened (phones too), one page for five
   group rows, the drawer and its words, ×, Esc and a click outside, Put on standby and Make active through the drawer's form,
   History in place, no sideways scroll, no page error. 40 checks: `node roster.cjs <root> [shots dir]`.
+- `tickets.php` (P2-1, ticket types and stages): over `before-schema.sql` (the Work queue as live before Piece 2), the two
+  migrations run as the site runs them, twice; today's tasks staged; Add a task by type; each Work gate, one stage at a
+  time, back with a reason; the system's own moves (release named, live, steps confirmed; no steps; no stage as #281); a
+  Resolution's brief, Send, the answer, its precedent and its close; counts, the gauge and `report()`. 48 checks:
+  `php tickets.php <root>/app` (it resets lv_main).
+- `tickets.cjs` with `board-router.php` and `tickets-seed.php` (P2-1 rendered at 1280 and 390 on the board): rows' type and
+  stage, the Tier 3 first, the Team icon, the filter, Add a task by type, a Work ticket's strip and gate, No decision
+  applies, Move, ✎ back, the Decision Brief, Choose B and its precedent. 60 checks: `node tickets.cjs <root> [shots dir]`.
+- `old-suites.sh` with `tickets-migrate.php`: the Work queue's own suites (work-queue 84, task-scope 44, task-adrs 32) over
+  this build, their seeds running Piece 2's migrations too: `bash old-suites.sh <root>`.
