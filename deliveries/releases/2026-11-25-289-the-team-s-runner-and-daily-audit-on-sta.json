@@ -6,45 +6,56 @@
     "zip": "team-runner.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "staged",
-    "step": 0,
+    "state": "live",
+    "step": 3,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
     "plan_at": "2026-11-25 18:26:34",
     "staged_at": "2026-11-25 18:26:35",
-    "vetted_at": null,
-    "live_at": null,
+    "vetted_at": "2026-11-25 18:26:38",
+    "live_at": "2026-11-25 18:26:38",
     "files": {
         "app/admin/control-console.php": {
             "sha": "9228edf55c18ee064307a744c0c17b6a7b2bec16d6be1fe22bb98bf5d31d6df7",
             "size": 298809,
-            "live_was": "1c15242aaa0330e38557b0553eb33590885f867159b3b120a60dada935e16119"
+            "live_was": "1c15242aaa0330e38557b0553eb33590885f867159b3b120a60dada935e16119",
+            "existed": true,
+            "old_sha": "1c15242aaa0330e38557b0553eb33590885f867159b3b120a60dada935e16119"
         },
         "app/admin/tools.php": {
             "sha": "32067e7ac407ee8e618540b22ee37a0cae85884ff695dcadbeeb261b501eef0c",
             "size": 284525,
-            "live_was": "7a17d4f861a6a0a3d5966efe4d3ecda350bf6a15a0ea04736b75d9574aff8c9a"
+            "live_was": "7a17d4f861a6a0a3d5966efe4d3ecda350bf6a15a0ea04736b75d9574aff8c9a",
+            "existed": true,
+            "old_sha": "7a17d4f861a6a0a3d5966efe4d3ecda350bf6a15a0ea04736b75d9574aff8c9a"
         },
         "app/admin/team-console.php": {
             "sha": "8b54a4f5ebe013fa033a259382cd5f01db03abbd4a8c7ebb62f9b49d45da4390",
             "size": 9814,
-            "live_was": null
+            "live_was": null,
+            "existed": false
         },
         "app/admin/sections.php": {
             "sha": "3830be5919a41fa38bf9a1e002177584e451b429d7d225b41e64aa0ec4fb4f3e",
             "size": 253763,
-            "live_was": "8cbc2ed74660fa045567d96a36adb32b2eb2c237ee77fb8f25504ba5c8b460f1"
+            "live_was": "8cbc2ed74660fa045567d96a36adb32b2eb2c237ee77fb8f25504ba5c8b460f1",
+            "existed": true,
+            "old_sha": "8cbc2ed74660fa045567d96a36adb32b2eb2c237ee77fb8f25504ba5c8b460f1"
         },
         "app/admin/manifests.php": {
             "sha": "c4f92a5e9e8bfc1ba3248c9e53133ebb0d9d6632dcae1dbef6651d4287c2dc69",
             "size": 23831,
-            "live_was": "293fdbf50f1372c1790c3f2d9ed0ad8d97994aaf2af7ff72b00591f7f832cb2c"
+            "live_was": "293fdbf50f1372c1790c3f2d9ed0ad8d97994aaf2af7ff72b00591f7f832cb2c",
+            "existed": true,
+            "old_sha": "293fdbf50f1372c1790c3f2d9ed0ad8d97994aaf2af7ff72b00591f7f832cb2c"
         },
         "app/ui/faq.md": {
             "sha": "2d649b0cd81be220375f044e4a829733f4b94a05e5a156c7eb0a459b348b1502",
             "size": 456033,
-            "live_was": "3563df4a054fd71f29fbaf9c61358902ced80f89e32b03cc11e78255004f54ed"
+            "live_was": "3563df4a054fd71f29fbaf9c61358902ced80f89e32b03cc11e78255004f54ed",
+            "existed": true,
+            "old_sha": "3563df4a054fd71f29fbaf9c61358902ced80f89e32b03cc11e78255004f54ed"
         },
         "app/migrations/2026-11-25_team_flag.sql": {
             "sha": "afa55dea1126c5f25c54007ed0c9d117b885b6591217e37eed0c310f8740b2f1",
@@ -59,47 +70,62 @@
         "app/scripts/team_tick.php": {
             "sha": "3d36b559ac84501f3d0e7867e5490b4037d9c8f725cb9c65044bd0e1f6567a3f",
             "size": 944,
-            "live_was": null
+            "live_was": null,
+            "existed": false
         },
         "app/scripts/team_audit_tick.php": {
             "sha": "fe094128c34728dd25ae524f6adbdc9a616b4b91d2cf0896dca3f9ab93e04707",
             "size": 816,
-            "live_was": null
+            "live_was": null,
+            "existed": false
         },
         "app/lib/GaugeTasks.php": {
             "sha": "2a5a2a2ec397e3c7358378f7ef828cf5cd850315ebcf64a9daa1404d63a9af51",
             "size": 56985,
-            "live_was": "86f8da53156160b2ac0ad9360bb35508cf3009242880030df30ce624fd7c92f4"
+            "live_was": "86f8da53156160b2ac0ad9360bb35508cf3009242880030df30ce624fd7c92f4",
+            "existed": true,
+            "old_sha": "86f8da53156160b2ac0ad9360bb35508cf3009242880030df30ce624fd7c92f4"
         },
         "app/lib/Scheduler.php": {
             "sha": "5eee98df016f6e283a7aa6eff45a51e66242843782a2c23670f8ef148e0df35f",
             "size": 34458,
-            "live_was": "e35ab4912a797ff9b926788b2308eed27d6f45a5c5ace5a48b93da3c207ce970"
+            "live_was": "e35ab4912a797ff9b926788b2308eed27d6f45a5c5ace5a48b93da3c207ce970",
+            "existed": true,
+            "old_sha": "e35ab4912a797ff9b926788b2308eed27d6f45a5c5ace5a48b93da3c207ce970"
         },
         "app/lib/TeamRunner.php": {
             "sha": "3e79f5354fb9b2a02a592ddadc33cfc5a1a6cc8ba5929509803a2f09328ac1b7",
             "size": 42508,
-            "live_was": null
+            "live_was": null,
+            "existed": false
         },
         "app/lib/Switches.php": {
             "sha": "849f04bde7713c39deb7e2fc8881270af55ac8a2db8694df255f6b7f325c4e7d",
             "size": 6196,
-            "live_was": "acb520c7d806b4e404a828ec8a8145c1c69bd2e8d1fd71261f2bc3edc170fa16"
+            "live_was": "acb520c7d806b4e404a828ec8a8145c1c69bd2e8d1fd71261f2bc3edc170fa16",
+            "existed": true,
+            "old_sha": "acb520c7d806b4e404a828ec8a8145c1c69bd2e8d1fd71261f2bc3edc170fa16"
         },
         "app/lib/staging-tables.php": {
             "sha": "01b2a075cc77b1caee08ba5c0b070d96f74e8b20fdcaec6929198f16766e3acc",
             "size": 30886,
-            "live_was": "6eb79aeb15bda10eddfefee6c30d003f10053fb05f2f80e473faf0cda7dfc6c7"
+            "live_was": "6eb79aeb15bda10eddfefee6c30d003f10053fb05f2f80e473faf0cda7dfc6c7",
+            "existed": true,
+            "old_sha": "6eb79aeb15bda10eddfefee6c30d003f10053fb05f2f80e473faf0cda7dfc6c7"
         },
         "website/admin/api.php": {
             "sha": "f5380affefdbc65ada44a85b0692c9fd1dd9cc4a4aafd0ca38dccbb857e05e75",
             "size": 57273,
-            "live_was": "7b0171d928ed9d9045cbbcc64b4fc88f1a2db030d89d73b47d879976df67163f"
+            "live_was": "7b0171d928ed9d9045cbbcc64b4fc88f1a2db030d89d73b47d879976df67163f",
+            "existed": true,
+            "old_sha": "7b0171d928ed9d9045cbbcc64b4fc88f1a2db030d89d73b47d879976df67163f"
         },
         "website/js/admin-control.js": {
             "sha": "7eb21553c6e72c182eddb897e6b842319acb5032819f16e3431ea0edd02f82b4",
             "size": 79271,
-            "live_was": "abc7b21b16829f7b7e172f6b7954b9de1717267535c0ba71beb4332d0e6881db"
+            "live_was": "abc7b21b16829f7b7e172f6b7954b9de1717267535c0ba71beb4332d0e6881db",
+            "existed": true,
+            "old_sha": "abc7b21b16829f7b7e172f6b7954b9de1717267535c0ba71beb4332d0e6881db"
         }
     },
     "migrations": [
@@ -108,8 +134,8 @@
     ],
     "checks": {
         "ok": true,
-        "where": "staging",
-        "at": "2026-11-25T18:26:37+00:00",
+        "where": "live",
+        "at": "2026-11-25T18:26:39+00:00",
         "items": [
             [
                 "PHP files parse",
@@ -117,19 +143,9 @@
                 "13 checked"
             ],
             [
-                "Migrations only add",
-                true,
-                "2 checked"
-            ],
-            [
-                "Migrations ran on staging",
-                true,
-                "Ran 2026-11-25_team_flag.sql, 2026-11-25_team_runs.sql"
-            ],
-            [
                 "Pages answer",
                 true,
-                "3 pages answered on staging.trvgo.us"
+                "3 pages answered on traversence.com"
             ],
             [
                 "No new fatal errors in the logs",
@@ -159,6 +175,16 @@
             "at": "2026-11-25T18:26:37+00:00",
             "by": 0,
             "msg": "Put on staging (17 files); its checks passed."
+        },
+        {
+            "at": "2026-11-25T18:26:38+00:00",
+            "by": 0,
+            "msg": "Approved in chat before it was sent through git, and its checks on staging passed: publishing by itself."
+        },
+        {
+            "at": "2026-11-25T18:26:38+00:00",
+            "by": 0,
+            "msg": "Published: 15 files, after its 2 migrations ran first (2026-11-25_team_flag.sql, 2026-11-25_team_runs.sql; a copy of what each touched is kept 14 days); everyone at once (no switch)."
         }
     ]
 }
