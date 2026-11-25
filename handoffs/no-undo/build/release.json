@@ -1,0 +1,24 @@
+{
+ "title": "No Undo after an alarm is acknowledged: the row says who saw it and when",
+ "why": "CLAUDE.md (Jason, 2026-11-23): a record someone entered is edited, never undone; Undo only for an action that did something. Acknowledge records who saw a trip, so its Undo goes: on the board's rows, on a module's card, and in Pulse, where Reopen no longer takes the acknowledgement back. In the Work queue as task #2, \"No Undo on alarm acknowledgements\" (Jason's scope doc: done when there's no Undo on any alarm; rule #1314).",
+ "changes": [
+  {
+   "what": "An acknowledged trip's row shows \"Seen by <name>, <time>\" as its state line, with no Undo; it stays open while it holds, Check and start again still there",
+   "where": "https://traversence.com/admin/config/control?tab=alarms"
+  },
+  {
+   "what": "A module's card: Acknowledge on a trip, then \"1 trip (seen by <name>)\" with no Undo Acknowledge",
+   "where": "https://traversence.com/admin/config/register"
+  },
+  {
+   "what": "Pulse: Reopen on an alarm's case reopens the case and keeps the acknowledgement (who and when)",
+   "where": "https://traversence.com/admin/pulse/stream"
+  },
+  {
+   "what": "FAQ: the Alarms entry says so",
+   "where": "https://traversence.com/faq.php"
+  }
+ ],
+ "proposals": [],
+ "switch": ""
+}

@@ -9,14 +9,15 @@ is synced and byte-checked. Updated with every approval and every release.
 | Decision (when) | Release | Session | Next step |
 |---|---|---|---|
 | Change how an order goes: two legs on 0101's existing fields (approved 2026-11-24) | M2b, PR #1346, built and reviewed | Orders | **Paused by Jason 2026-11-24 ("Pause for now. add to work queue.")**: goes into the Work queue. Out of flight: no inbox zip, claims released; PR #1346 merged as the record only (2026-11-25); its build in `handoffs/order-m2b/`, how to resume in `handoffs/order-management-m2.md` (Final hand-off) |
-| The board's next releases (list below) | from the hand-off (#1339) | Control Board (fresh session) | starts once W1's presses are confirmed |
+| No Undo on an alarm's acknowledgement (CLAUDE.md #1314) | no-undo, built and tested, **not sent** | Control Board (archived) | in the Work queue (task: No Undo…), its build in `handoffs/no-undo/`, branch `claude/no-undo`; needs a Design look and Jason's pop-up |
+| Work queue phase 2: a task's thread (Jason's spec, 2026-11-24) | design only (`handoffs/work-queue-phase2.md`) | — | in the Work queue for Jason after his four-stage redesign |
 
 ## Queued, in order
 
-**First, Jason's priority (2026-11-24): the Work queue gauge on Development, with Add a task (Control Board, after the phone header).**
+**From 2026-11-25 the Work queue on the System Control Board's Development page is the queue** (Jason: "We will resume our work from the work que"): every item below is a task there, with its scope, priority, decisions and docs (#284, #285, task-seed-3). The lists below are kept as history.
 
 ### Control board (handoffs/control-board-2026-11-24.md)
-1. Phone header: ☰ for the board's pages, one Alerts dropdown, one alarm count; the side panel's two display bugs (2026-11-24)
+1. ~~Phone header~~ live as #280
 2. No Undo on any alarm's acknowledgement (CLAUDE.md #1314)
 3. Diagnose: step by step, from the outside in (2026-11-23)
 4. Workflow-shape audit: a report to Jason first (2026-11-23)
@@ -41,4 +42,7 @@ is synced and byte-checked. Updated with every approval and every release.
 ## Live today (2026-11-23/24), each synced and byte-checked
 
 #271 restore · #272 Collect the balance · #273 gauge panel · #274 Orders M1 · #275 kit buttons and Request a fix ·
-#276 M1b What's open · #277 crawler batches · #278 W1 fix and alarm card · #279 M2 refunds and credit memos
+#276 M1b What's open · #277 crawler batches · #278 W1 fix and alarm card · #279 M2 refunds and credit memos ·
+#280 the board on a phone · #281 the Work queue · #282 a task's page (scope, priority, steps) · #283 decisions on a task ·
+#284 the scope doc's seed (its migration cleared unrun, see task-seed-2) · #285 the scope doc's tasks, run · task-seed-3
+(everything outstanding before the holiday, merged #1368, live once synced)

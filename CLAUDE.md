@@ -150,6 +150,8 @@ at 6:00 and 18:00 UTC or on demand (its workflow's Run button), committing the r
   the rest until replaced. So each must be safe to run twice and need no person; zips carry only new ones; no phpMyAdmin
   steps in delivery notes. A release's migrations run first at its Publish, each copied first (decisions/0162); one with
   `UPDATE`/`DELETE` needs `"data_reason"` in `release.json`; a drop only of a rollback's leftover, named under `"removes"`.
+  Until the runner's fix (0162's 2026-11-25 note): a migration that writes rows creates nothing that already exists, or it's
+  cleared unrun as "already there" (#284); check its rows on live after it publishes.
 - Test files, dumps and one-off scripts never go in `website/` or `app/`; delete them once used.
 - **Archived pages** (out of menus, still reachable) are listed in `archive.md` with what replaced them. Remove one only
   when Jason clears it, then move it to the register's "Removed" in the same build.
