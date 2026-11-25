@@ -3,91 +3,6 @@
  "claims": [
   {
    "path": "app/admin/control-console.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
-   "why": "Piece 2 P2-1: the Work queue's section styles and the two new page helpers",
-   "since": "2026-11-25T17:07:19Z",
-   "expires": "2026-11-25T21:08:58Z",
-   "release": "team-tickets.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/GaugeTasks.php",
-   "functions": [
-    "add",
-    "adrKeep",
-    "counts",
-    "ensure",
-    "queue",
-    "report"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
-   "why": "Piece 2 P2-1: Work queue tickets, types and stages (handoffs/piece2-team.md)",
-   "since": "2026-11-25T17:07:23Z",
-   "expires": "2026-11-25T21:07:23Z",
-   "release": "team-tickets.zip",
-   "callers": {
-    "add": [
-     "website/admin/api.php"
-    ],
-    "adrKeep": [
-     "website/admin/api.php"
-    ],
-    "queue": [
-     "app/admin/control-console.php",
-     "app/lib/ControlGauges.php"
-    ],
-    "counts": [
-     "app/lib/ControlGauges.php"
-    ]
-   }
-  },
-  {
-   "path": "app/lib/ControlGauges.php",
-   "functions": [
-    "queueGauge"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
-   "why": "Piece 2 P2-1: Work queue tickets, types and stages (handoffs/piece2-team.md)",
-   "since": "2026-11-25T17:07:32Z",
-   "expires": "2026-11-25T21:07:32Z",
-   "release": "team-tickets.zip",
-   "callers": {
-    "queueGauge": [
-     "app/admin/control-console.php"
-    ]
-   }
-  },
-  {
-   "path": "website/admin/api.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
-   "why": "Piece 2 P2-1: Work queue tickets, types and stages (handoffs/piece2-team.md)",
-   "since": "2026-11-25T17:07:36Z",
-   "expires": "2026-11-25T21:07:36Z",
-   "release": "team-tickets.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/js/admin-control.js",
-   "functions": [
-    "cbgEsc",
-    "wqFilter"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
-   "why": "Piece 2 P2-1: Work queue tickets, types and stages (handoffs/piece2-team.md)",
-   "since": "2026-11-25T17:07:38Z",
-   "expires": "2026-11-25T21:07:38Z",
-   "release": "team-tickets.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/admin/control-console.php",
    "functions": [
     "tv_cb_wq_brief",
     "tv_cb_wq_runs",
@@ -129,46 +44,13 @@
    "callers": {}
   },
   {
-   "path": "app/migrations/2026-11-25_tickets.sql",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
-   "why": "Piece 2 P2-1: Work queue tickets, types and stages (handoffs/piece2-team.md)",
-   "since": "2026-11-25T17:07:40Z",
-   "expires": "2026-11-25T21:07:40Z",
-   "release": "team-tickets.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/migrations/2026-11-25_tickets_stage.sql",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
-   "why": "Piece 2 P2-1: Work queue tickets, types and stages (handoffs/piece2-team.md)",
-   "since": "2026-11-25T17:07:40Z",
-   "expires": "2026-11-25T21:07:40Z",
-   "release": "team-tickets.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/staging-tables.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
-   "why": "Piece 2 P2-1: the two new tables' staging class (R14)",
-   "since": "2026-11-25T17:08:18Z",
-   "expires": "2026-11-25T21:08:18Z",
-   "release": "team-tickets.zip",
-   "callers": {}
-  },
-  {
    "path": "app/lib/Scheduler.php",
    "functions": [],
    "kind": "change",
    "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
-   "why": "Piece 2 P2-3: the Team's runner, staging only (handoffs/piece2-team.md \u00a75): team_tick in JOBS, AUTO and QUIET",
+   "why": "Piece 2 P2-3+P2-4: the Team's runner and daily audit, staging only (handoffs/piece2-team.md \u00a75, \u00a76)",
    "since": "2026-11-25T17:16:49Z",
-   "expires": "2026-11-25T21:16:49Z",
+   "expires": "2026-11-25T22:22:04Z",
    "release": "team-runner.zip",
    "callers": {}
   },
@@ -234,14 +116,110 @@
   {
    "path": "app/admin/tools.php",
    "functions": [
+    "'config/team'",
     "config/team"
    ],
    "kind": "change",
    "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
-   "why": "Piece 2 P2-4: the Team's daily audit (handoffs/piece2-team.md \u00a76): Run the audit now on its role's card",
+   "why": "Piece 2 P2-3+P2-4: the Team's runner and daily audit, staging only (handoffs/piece2-team.md \u00a75, \u00a76)",
    "since": "2026-11-25T17:23:29Z",
-   "expires": "2026-11-25T21:23:29Z",
-   "release": "team-audit.zip",
+   "expires": "2026-11-25T22:21:51Z",
+   "release": "team-runner.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/control-console.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "Piece 2 P2-3+P2-4: the Team's runner and daily audit, staging only (handoffs/piece2-team.md \u00a75, \u00a76)",
+   "since": "2026-11-25T18:21:46Z",
+   "expires": "2026-11-25T22:21:48Z",
+   "release": "team-runner.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/manifests.php",
+   "functions": [
+    "'config'"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "Piece 2 P2-3+P2-4: the Team's runner and daily audit, staging only (handoffs/piece2-team.md \u00a75, \u00a76)",
+   "since": "2026-11-25T18:21:53Z",
+   "expires": "2026-11-25T22:21:53Z",
+   "release": "team-runner.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/GaugeTasks.php",
+   "functions": [
+    "ensure",
+    "report"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "Piece 2 P2-3+P2-4: the Team's runner and daily audit, staging only (handoffs/piece2-team.md \u00a75, \u00a76)",
+   "since": "2026-11-25T18:21:55Z",
+   "expires": "2026-11-25T22:21:55Z",
+   "release": "team-runner.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/staging-tables.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "Piece 2 P2-3+P2-4: the Team's runner and daily audit, staging only (handoffs/piece2-team.md \u00a75, \u00a76)",
+   "since": "2026-11-25T18:21:57Z",
+   "expires": "2026-11-25T22:21:57Z",
+   "release": "team-runner.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/admin/api.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "Piece 2 P2-3+P2-4: the Team's runner and daily audit, staging only (handoffs/piece2-team.md \u00a75, \u00a76)",
+   "since": "2026-11-25T18:22:00Z",
+   "expires": "2026-11-25T22:22:00Z",
+   "release": "team-runner.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/js/admin-control.js",
+   "functions": [
+    "wqFilter"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "Piece 2 P2-3+P2-4: the Team's runner and daily audit, staging only (handoffs/piece2-team.md \u00a75, \u00a76)",
+   "since": "2026-11-25T18:22:02Z",
+   "expires": "2026-11-25T22:22:02Z",
+   "release": "team-runner.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/sections.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "Piece 2 P2-3+P2-4: the Team's runner and daily audit, staging only (handoffs/piece2-team.md \u00a75, \u00a76)",
+   "since": "2026-11-25T18:22:07Z",
+   "expires": "2026-11-25T22:22:07Z",
+   "release": "team-runner.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Switches.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "Piece 2 P2-3+P2-4: the Team's runner and daily audit, staging only (handoffs/piece2-team.md \u00a75, \u00a76)",
+   "since": "2026-11-25T18:22:09Z",
+   "expires": "2026-11-25T22:22:09Z",
+   "release": "team-runner.zip",
    "callers": {}
   }
  ],
