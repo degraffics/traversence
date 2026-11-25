@@ -604,8 +604,8 @@ Updated 2026-11-25 18:40 UTC. The vetting guide for Jason is `handoffs/piece2-gu
 |---|---|---|---|
 | P2-2 `team-roster.zip` | **live, #287** (verified: 33 rows on live) | `handoffs/piece2-build/team-roster/` | roster.php 51, roster.cjs 40 |
 | P2-1 `team-tickets.zip` | **live, #288**, built on Sync 17:36. Verified: the 17:59 sync matches byte for byte; the cron-audit ticket is on live once (#51) | `handoffs/piece2-build/team-tickets/` | tickets.php 54, tickets.cjs 62; old suites 84/44/32 |
-| P2-3 + P2-4 `team-runner.zip` | Built on Sync 17:59 as one release (they share lines and the switch; the session manager was told). The root is made by `p234.py`: the bench minus P2-5's pieces. | `handoffs/piece2-build/team-runner/` | runner.php 45, runner.cjs 44, audit.php 33, team-head.cjs 28; roster, tickets as above |
-| P2-5 `team-batch.zip` | built on the bench; sent last, on the sync after team-runner | `handoffs/piece2-build/team-batch/` | batch.php 20, batch.cjs 18, batch_py.py 7 |
+| P2-3 + P2-4 `team-runner.zip` | **live, #289** (verified by the session manager on Sync 18:29). Built on Sync 17:59 as one release (they share lines and the switch; the session manager was told). The root is made by `p234.py`: the bench minus P2-5's pieces. | `handoffs/piece2-build/team-runner/` | runner.php 45, runner.cjs 44, audit.php 33, team-head.cjs 28; roster, tickets as above |
+| P2-5 `team-batch.zip` | sent on Sync 18:29 (Roll back proved; no migration) | `handoffs/piece2-build/team-batch/` | batch.php 20, batch.cjs 18, batch_py.py 7 |
 | P2-6 | out (Q4 B) | | |
 
 Changes from the design, each said in its release summary: the Team icon moved from P2-2 to P2-1 (it's on
