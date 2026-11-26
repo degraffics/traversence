@@ -1,0 +1,49 @@
+{
+    "id": 295,
+    "title": "The before-and-after check reads the held names as keyed hashes (Piece 3, P3-5; decisions/0066)",
+    "why": "Jason, 2026-11-25, Brief B (through the session manager): \"verify Decision 0066 via a locked read against live-protected places rather than adding fake test records\". A staging-only read, /api/held-hashes.php, locked by the checks' token (HEALTH_TOKEN, as /api/health.php and /api/guide-paths.php), answers the names the site holds back (landmarks waiting, hidden or closed by a nation, through Landmarks::visibleSql; less any name a visible or story-only landmark shares; one-word names left out) as HMAC-SHA256 hashes keyed with that token: never a name or a place, and useless without the token. On the live site it answers nothing (404). The before-and-after check (beforeafter.mjs, repo side, merged with this release) hashes each page's phrases the same way; a held name that shows after a release and didn't before blocks it (rule 1, 0066), named by its hash; when the names can't be read the verdict is incomplete, never a pass. It replaces the plaintext canary list (tools/page-audit/ba-canaries.json, never created). No table, no write, no outside call (R13, R14). It reads protected names, so it's Tier 3 (tribal nations' land) by what it is, and comes to the Founder in the batch. It also names HeldNames and /api/held-hashes.php in TeamRunner::TIER3_AREAS' nations area (0066's existing area, a data entry only; the session manager, 2026-11-26). TIER3_AREAS is in the decision tree's rules, so its fingerprint changes (3b1932228d91 to 0111545cca95) and an approval given before is cleared, agents back at Planning, said in the History; harmless today, since the tree isn't approved and the ceiling is Planning. Found in testing and fixed on the check's side: a page's text read from a detached copy runs neighbouring elements together (\"Plan a tripZz Held…\"), so the held names are matched against the words as drawn (the live page's innerText).",
+    "proposals": "",
+    "zip": "p3-5-held.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/ui/faq.md": {
+            "sha": "9f512f2cc55196eb1e95a3bd60eceacf8871d1018d018b8e77d04ff5e7f176c9",
+            "size": 461174,
+            "live_was": "400a496508e93473ffbc807d0d8eec17d33f01dd2ae0de1d8a949a56af650a03"
+        },
+        "app/lib/TeamRunner.php": {
+            "sha": "6d5588b98a56ca7be5c1acf0503d77aec172e9e8b2bf07836594b620f40d87b4",
+            "size": 51003,
+            "live_was": "ea1d1099c331bf29a05ce1f6294a881ee16c6cfc88a441f31525368ad6e17086"
+        },
+        "app/lib/HeldNames.php": {
+            "sha": "48830130fbb09fa155c20cdc9181ee8cafab25cbe1ac0c208b7e84100549cd2c",
+            "size": 2693,
+            "live_was": null
+        },
+        "website/api/held-hashes.php": {
+            "sha": "d6274921a35f8db8aae8052c1501e230c742da5fd23d7eea17d96f050965bd1d",
+            "size": 1823,
+            "live_was": null
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-26T02:19:34+00:00",
+            "by": 0,
+            "msg": "Uploaded p3-5-held.zip: 4 files."
+        }
+    ]
+}
