@@ -1,8 +1,130 @@
 {
  "release": "306",
- "phase": "before-done",
- "verdict": "waiting",
+ "at": "2026-11-26T16:39:26.499Z",
+ "verdict": "block",
+ "first": "Out-of-scope drift: This page changed, and the change doesn't name it (executive, /admin/, phone)",
+ "blocks": [
+  {
+   "rule": "drift",
+   "rule_name": "Out-of-scope drift",
+   "advocate": "advocate-staff-views",
+   "who": "executive",
+   "page": "/admin/",
+   "size": "phone",
+   "what": "This page changed, and the change doesn't name it",
+   "before": "",
+   "after": "#Found by the crawler \u00b7 A missing phone, website or email that one website gives: yes or not right."
+  },
+  {
+   "rule": "drift",
+   "rule_name": "Out-of-scope drift",
+   "advocate": "advocate-staff-views",
+   "who": "executive",
+   "page": "/admin/helper.php",
+   "size": "desktop",
+   "what": "This page changed, and the change doesn't name it",
+   "before": "",
+   "after": "Found by the crawler#"
+  },
+  {
+   "rule": "drift",
+   "rule_name": "Out-of-scope drift",
+   "advocate": "advocate-staff-views",
+   "who": "executive",
+   "page": "/admin/helper.php",
+   "size": "phone",
+   "what": "This page changed, and the change doesn't name it",
+   "before": "",
+   "after": "Found by the crawler#"
+  },
+  {
+   "rule": "drift",
+   "rule_name": "Out-of-scope drift",
+   "advocate": "advocate-staff-views",
+   "who": "executive",
+   "page": "/admin/identities.php",
+   "size": "desktop",
+   "what": "This page changed, and the change doesn't name it",
+   "before": "Church of Jesus Christ of Latter Day Saints",
+   "after": "Romero House Ceramics Studio"
+  },
+  {
+   "rule": "drift",
+   "rule_name": "Out-of-scope drift",
+   "advocate": "advocate-staff-views",
+   "who": "executive",
+   "page": "/admin/identities.php",
+   "size": "phone",
+   "what": "This page changed, and the change doesn't name it",
+   "before": "Church of Jesus Christ of Latter Day Saints",
+   "after": "Romero House Ceramics Studio"
+  },
+  {
+   "rule": "drift",
+   "rule_name": "Out-of-scope drift",
+   "advocate": "advocate-staff-views",
+   "who": "executive",
+   "page": "/admin/login.php",
+   "size": "desktop",
+   "what": "This page changed, and the change doesn't name it",
+   "before": "",
+   "after": "#Found by the crawler \u00b7 A missing phone, website or email that one website gives: yes or not right."
+  },
+  {
+   "rule": "drift",
+   "rule_name": "Out-of-scope drift",
+   "advocate": "advocate-staff-views",
+   "who": "executive",
+   "page": "/admin/login.php",
+   "size": "phone",
+   "what": "This page changed, and the change doesn't name it",
+   "before": "",
+   "after": "#Found by the crawler \u00b7 A missing phone, website or email that one website gives: yes or not right."
+  },
+  {
+   "rule": "drift",
+   "rule_name": "Out-of-scope drift",
+   "advocate": "advocate-staff-views",
+   "who": "ops-staff",
+   "page": "/admin/helper.php",
+   "size": "phone",
+   "what": "This page changed, and the change doesn't name it",
+   "before": "",
+   "after": "Found by the crawler#"
+  },
+  {
+   "rule": "drift",
+   "rule_name": "Out-of-scope drift",
+   "advocate": "advocate-staff-views",
+   "who": "ops-staff",
+   "page": "/admin/identities.php",
+   "size": "phone",
+   "what": "This page changed, and the change doesn't name it",
+   "before": "Church of Jesus Christ of Latter Day Saints",
+   "after": "Romero House Ceramics Studio"
+  },
+  {
+   "rule": "drift",
+   "rule_name": "Out-of-scope drift",
+   "advocate": "advocate-staff-views",
+   "who": "ops-staff",
+   "page": "/admin/login.php",
+   "size": "phone",
+   "what": "This page changed, and the change doesn't name it",
+   "before": "",
+   "after": "#Found by the crawler \u00b7 A missing phone, website or email that one website gives: yes or not right."
+  }
+ ],
+ "blocks_total": 10,
+ "notes": [
+  "member|/admin/chamber-builder.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "sales|/admin/chamber-builder.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "executive|/admin/chamber-builder.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "executive|/admin/settings.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "ops-staff|/admin/chamber-builder.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)"
+ ],
  "views": 206,
- "seconds": 843,
- "run": "https://github.com/degraffics/traversence/actions/runs/45851349281"
+ "seconds": 2465,
+ "run": "https://github.com/degraffics/traversence/actions/runs/45858416722",
+ "phase": "after-done"
 }
