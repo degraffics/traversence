@@ -66,6 +66,8 @@ try {
       const read = await p.evaluate(() => ({
         url: location.pathname + location.search + location.hash,
         // the view shown: the board's tab and the rail's current page (Development, Board, Diagnostics)
+        // a few named lines, short, for the summary (the Team page's "Yours to press", the Work queue's batch strip)
+        said: ['#tm-yours', '.wq-batch > p, .wq-batch .tv-note', '#tm-ceiling .tm-h', '#tm-reach .tm-h'].map((q) => { const el = document.querySelector(q); return el ? el.innerText.replace(/\s+/g, ' ').trim().slice(0, 220) : ''; }).filter(Boolean),
         view: (() => { const b = document.querySelector('[data-tab]'); const r = document.querySelector('[data-cb-rail][aria-current="page"], .tv-rail [aria-current="page"], [aria-current="page"]'); return { tab: b ? b.getAttribute('data-tab') : '', current: r ? r.textContent.trim().replace(/\s+/g, ' ').slice(0, 60) : '' }; })(),
         title: document.title,
         text: document.body.innerText,
@@ -75,7 +77,7 @@ try {
       writeFileSync(`${OUT}/${name}.json`, JSON.stringify({ path, width: w, status: res.status(), refused_writes: refused, ...read }, null, 1));
       writeFileSync(`${OUT}/${name}.txt`, read.text);
       await p.screenshot({ path: `${OUT}/${name}.png`, fullPage: true });
-      const line = `${w}px ${path}: HTTP ${res.status()}, landed on ${read.url} (view: ${read.view.tab || '-'}, current: ${read.view.current || '-'}), ${read.text.length} characters, ${read.links.length} admin links, no sideways scroll: ${read.wide}, writes refused: ${refused}`;
+      const line = `${w}px ${path}: HTTP ${res.status()}, landed on ${read.url} (view: ${read.view.tab || '-'}, current: ${read.view.current || '-'})${read.said.length ? ' [' + read.said.join(' | ') + ']' : ''}, ${read.text.length} characters, ${read.links.length} admin links, no sideways scroll: ${read.wide}, writes refused: ${refused}`;
       summary.push(line); console.log(line);
       if (process.env.TO_LOG === '1') { console.log(`::group::${name} (the page's text; the session deletes this run's log once read)`); console.log(read.text); console.log('::endgroup::'); }
       if (/\/admin\/login\.php/.test(read.url)) fail(`${path} sent the test Executive back to sign in.`);

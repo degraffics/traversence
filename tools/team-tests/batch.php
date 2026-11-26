@@ -81,4 +81,22 @@ $t('applied again (the next read of the file): nothing doubled', GaugeTasks::app
 $pdo->exec('DELETE FROM page_cache'); ControlGauges::config($pdo, true); ControlGauges::queueGauge($pdo);
 $t('the Work queue\'s gauge applies them as it reads the file (queueGauge), without error', true);
 @unlink($file);
+// a batch approved in chat (Jason, 2026-11-26: "No need to wait for approval"): once its releases are live, it says so and asks nothing
+if (method_exists(ControlGauges::class, 'batchLive')) {
+    $y = gmdate('Y-m-d', time() - 2 * 86400);   // a day no earlier test approved
+    $l2 = ['release' => 'chat-a.zip', 'what' => 'A', 'why' => '', 'decision' => '', 'checks' => '', 'way_back' => '', 'tickets' => []];
+    $l3 = ['release' => 'chat-b.zip', 'what' => 'B', 'why' => '', 'decision' => '', 'checks' => '', 'way_back' => '', 'tickets' => []];
+    $write(['date' => $y, 'lines' => [$l2, $l3]], []); $pdo->exec('DELETE FROM page_cache'); ControlGauges::config($pdo, true);
+    $pdo->exec("INSERT INTO site_releases (zip_name, state, live_at) VALUES ('chat-a.zip', 'live', UTC_TIMESTAMP())");
+    $h = tv_cb_wq_batch($pdo, []);
+    $t('an older batch, one of its two releases live: "1 release waiting for your OK", that one marked "Live as #N", Approve still offered', str_contains($h, '1 release waiting for your OK') && preg_match('/chat-a\.zip<\/b> <span class="wq-blive">Live as #\d+<\/span>/', $h) && str_contains($h, 'data-wq="batchok"'), strip_tags($h));
+    $pdo->exec("INSERT INTO site_releases (zip_name, state, live_at) VALUES ('chat-b.zip', 'live', UTC_TIMESTAMP())");
+    $t('… both live (sent on approval in chat): the older batch is no longer shown or emailed', ControlGauges::latestBatch($pdo) === [] && str_contains(tv_cb_wq_batch($pdo, []), 'No batch from the session manager today'));
+    $write(['date' => $today, 'lines' => [$l2, $l3]], []); $pdo->exec('DELETE FROM page_cache'); ControlGauges::config($pdo, true);
+    $pdo->exec("DELETE FROM control_gauge_tasks WHERE kind = 'batch' AND gauge = 'area:batch-" . $today . "'");
+    $h = tv_cb_wq_batch($pdo, []);
+    $t('today\'s batch with every release live: "Every release in it is live", each marked, no Approve the batch', str_contains($h, 'Every release in it is live') && substr_count($h, 'wq-blive') === 2 && !str_contains($h, 'data-wq="batchok"') && str_contains($h, 'data-tv-status="ok"'), strip_tags($h));
+    $pdo->exec("UPDATE site_releases SET state = 'rolled_back' WHERE zip_name = 'chat-b.zip'");
+    $t('… one rolled back: it waits again, with Approve', str_contains(tv_cb_wq_batch($pdo, []), '1 release waiting for your OK') && str_contains(tv_cb_wq_batch($pdo, []), 'data-wq="batchok"'));
+}
 echo "\n$pass passed, $fail failed\n"; exit($fail ? 1 : 0);
