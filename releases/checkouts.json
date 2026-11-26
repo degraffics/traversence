@@ -37,6 +37,32 @@
    "expires": "2026-11-26T23:50:55Z",
    "release": "ba-proof-fixes-4.zip",
    "callers": {}
+  },
+  {
+   "path": "app/admin/sections.php",
+   "functions": [
+    "tv_admin_mod_switches"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "release switch-readback.zip",
+   "since": "2026-11-26T20:30:37Z",
+   "expires": "2026-11-27T00:30:37Z",
+   "release": "switch-readback.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Switches.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "release switch-readback.zip",
+   "since": "2026-11-26T20:30:37Z",
+   "expires": "2026-11-27T00:30:37Z",
+   "release": "switch-readback.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
