@@ -155,7 +155,7 @@ if (method_exists('TeamRunner', 'confirmationWaits')) {
     Switches::set($pdo, 'rule2_autopublish', 'on', 0, false, 'test', 1); $sp->setValue(null, null);
     $t('… both on: the Founder raises it to Confirmation, one stage on from Implementation', TeamRunner::setCeiling($pdo, 'confirmation', $J) === 'Agents work up to Confirmation and safe publish now.');
     $ev = TeamRunner::evidence($pdo, 'confirmation');
-    $t('… its evidence: five lines, each a reading and its source (checked, wrong blocks, escapes, Undo end to end, ready)', count($ev) === 5 && $ev[4][1] === 'The before-and-after check and rule 2 are on' && str_contains($ev[0][2], 'Before and after (advocates)'), $ev);
+    $t('… its evidence: six lines, each a reading and its source (checked, wrong blocks, escapes, Undo end to end, ready, and Brief A\'s staging Publish)', count($ev) === 6 && $ev[5][0] === 'A staging Publish' && str_contains($ev[5][1], 'Brief A') && $ev[4][1] === 'The before-and-after check and rule 2 are on' && str_contains($ev[0][2], 'Before and after (advocates)'), $ev);
     TeamRunner::setCeiling($pdo, 'planning', $J);
 }
 // Jason, 2026-11-25 (through the session manager): from Building the Project Manager takes the tickets the audit raised itself;
