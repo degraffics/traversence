@@ -1,5 +1,5 @@
 {
- "at": "2026-11-26T15:29:20.274Z",
+ "at": "2026-11-26T19:17:36.375Z",
  "requests": [
   {
    "id": 3,
@@ -863,7 +863,7 @@
    "stage": "planning",
    "tier": 2,
    "build_brief": "",
-   "late": false
+   "late": true
   },
   {
    "id": 52,
@@ -875,6 +875,42 @@
    "was": "task",
    "why": "An advocate's view was worse after it (decisions/0179 rule 2's four rules): Out-of-scope drift: This page changed, and the change doesn't name it (executive, /admin/identities.php, desktop). It withdrew itself; nothing on the live site changed. Fix it and send it again. The report: https://github.com/degraffics/traversence/actions/runs/45842645867",
    "source": "the daily audit (ba:305)",
+   "owner": "system · before-and-after check",
+   "release": "",
+   "ticket": "audit",
+   "stage": "found",
+   "tier": 2,
+   "build_brief": "",
+   "late": false
+  },
+  {
+   "id": 53,
+   "at_utc": "2026-11-26T16:48:04Z",
+   "gauge": "area:audit",
+   "build": "",
+   "item": "Release #306 was stopped by the before-and-after check: Out-of-scope drift: This page changed, and the change doesn't name it (executive, /admin/, phone)",
+   "what": "Release #306 was stopped by the before-and-after check: Out-of-scope drift: This page changed, and the change doesn't name it (executive, /admin/, phone)",
+   "was": "task",
+   "why": "An advocate's view was worse after it (decisions/0179 rule 2's four rules): Out-of-scope drift: This page changed, and the change doesn't name it (executive, /admin/, phone). It withdrew itself; nothing on the live site changed. Fix it and send it again. The report: https://github.com/degraffics/traversence/actions/runs/45858416722",
+   "source": "the daily audit (ba:306)",
+   "owner": "system · before-and-after check",
+   "release": "",
+   "ticket": "audit",
+   "stage": "found",
+   "tier": 2,
+   "build_brief": "",
+   "late": false
+  },
+  {
+   "id": 54,
+   "at_utc": "2026-11-26T18:24:04Z",
+   "gauge": "area:audit",
+   "build": "",
+   "item": "Release #307 was stopped by the before-and-after check: Out-of-scope drift: This page changed, and the change doesn't name it (executive, /admin/helper.php, desktop)",
+   "what": "Release #307 was stopped by the before-and-after check: Out-of-scope drift: This page changed, and the change doesn't name it (executive, /admin/helper.php, desktop)",
+   "was": "task",
+   "why": "An advocate's view was worse after it (decisions/0179 rule 2's four rules): Out-of-scope drift: This page changed, and the change doesn't name it (executive, /admin/helper.php, desktop). It withdrew itself; nothing on the live site changed. Fix it and send it again. The report: https://github.com/degraffics/traversence/actions/runs/45870768438",
+   "source": "the daily audit (ba:307)",
    "owner": "system · before-and-after check",
    "release": "",
    "ticket": "audit",
