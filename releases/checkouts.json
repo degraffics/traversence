@@ -24,6 +24,17 @@
    "expires": "2026-11-26T06:13:52Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/GaugeTasks.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "P3-4: brief_to in the report",
+   "since": "2026-11-26T02:13:54Z",
+   "expires": "2026-11-26T06:13:54Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
