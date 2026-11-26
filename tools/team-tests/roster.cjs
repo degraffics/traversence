@@ -37,12 +37,12 @@ const drOpen = p => p.evaluate(() => { const d = document.querySelector('.ak-dr'
       const errs = []; p.on('pageerror', e => errs.push(e.message));
       await p.goto(home); await p.waitForSelector('.ak-t tr.akt-grp'); await p.waitForTimeout(400);
       const groups = await p.$$eval('.ak-t tr.akt-grp', a => a.map(x => x.querySelector('b').textContent + ' ' + x.querySelector('.akt-gn').textContent));
-      t(L + 'six group rows: the layers (decisions/0180 §5), the standby roles in one group, no retired group', JSON.stringify(groups) === JSON.stringify(['Founder 1', 'Executive suite 1', 'Middle managers 2', 'Specialists 8', 'Advocates 12', 'On standby 20']), groups);
+      t(L + 'five group rows: the layers (decisions/0180 §5), every role active (#1459), no standby or retired group', JSON.stringify(groups) === JSON.stringify(['Founder 1', 'Executive suite 6', 'Middle managers 7', 'Specialists 18', 'Advocates 12']), groups);
       t(L + 'no retired role anywhere on the page (Historian, Senior Designer)', !/Historian|Senior Designer|Retired/.test(await p.innerText('.ak-list')));
       t(L + 'every group closed at first: no member shows', await visibleRows(p) === 0, await visibleRows(p));
       const pg = await p.innerText('.ak-list'); t(L + 'a group counts as one row for paging: one page, never "of 44"', !/of 44/.test(pg) && !/Show \d+ more/.test(pg), pg.match(/\d+–\d+ of \d+|Show \d+ more/));
       await p.click('tr.akt-grp[data-grp="dept-managers"] [data-ak-grp]'); await p.waitForTimeout(250);
-      t(L + 'opening Middle managers shows its 2 active (the Project Manager, the IT Manager), only those', await visibleRows(p) === 2, await visibleRows(p));
+      t(L + 'opening Middle managers shows its 7, only those', await visibleRows(p) === 7, await visibleRows(p));
       await p.click('tr.akt-grp[data-grp="dept-managers"] [data-ak-grp]'); await p.waitForTimeout(250);
       t(L + 'closing it folds them again', await visibleRows(p) === 0);
       await p.click('tr.akt-grp[data-grp="dept-managers"] [data-ak-grp]'); await p.waitForTimeout(250);

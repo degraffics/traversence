@@ -3,8 +3,8 @@
   app/migrations/2026-11-26_0180_tiers_roster.sql  the stored tier 3 (Founder) becomes 5 (Tier 5 · Founder ruling, 0180 §1);
       the Team becomes 0180's 32 roles and 12 advocates (its appendix and Jason's answers): today's rows renamed in place
       (only where the name is still the seed's: a person's own words are never written over), the new roles inserted (only
-      where the slug isn't there: 0162's note, nothing that already exists), the CEO and today's working seats active and every
-      other role on standby (0180's note "The CEO builds the team", Jason, 2026-11-26: "CEO builds it"),
+      where the slug isn't there: 0162's note, nothing that already exists), all 32 active (0180's note "All roles on at R1", #1459,
+      Jason, 2026-11-26), each switched on logged on its History,
       the roles 0180 replaced retired (kept so past tickets and runs still name them; never shown, never routed to).
   app/rollbacks/2026-11-26_0180_tiers_roster.sql   Roll back: the tiers back to 3, the Team back to Piece 2's seed.
 Run: python3 rostergen.py <app dir>"""
@@ -87,14 +87,9 @@ ADV = ['guest', 'new-member', 'member', 'contributor', 'steward', 'client', 'bus
 up, down = [], []
 # 0180's note "The CEO builds the team" (Jason, 2026-11-26): active at R1 are the CEO (2) and today's working seats; every other
 # role starts on standby, its work going up its reports-to line (TeamRoster::doer). The advocates stay active (views only).
-# and the four the CEO activates (0180's note "Every role is available; the CEO staffs it without asking", #1457, Jason,
-# 2026-11-26): the IT Manager (11), the Cognitive Load & Simplicity Guardian (15), Staging & Release Workers (22) and the
-# Schema & Migration Guards (24), each logged on its History as the CEO's activation; Put on standby is its way back
-ACTIVE = {'1', '2', '8', '11', '15', '20', '21', '22', '23', '24', '26', '28'}
-CEO_ON = {'it-manager': 'the IT Manager\'s lane: the 6:13 jobs ticket and the two slow admin pages',
-          'cognitive-load': 'one screen, one clear next action on the releases R2 to R5 bring',
-          'staging-release': 'the before-and-after check\'s false blocks (its ticket), and switching the check back on before R2',
-          'schema-guards': 'the migrations R1 to R5 bring'}
+# All roles on at R1 (0180's note, #1459, Jason, 2026-11-26: "All agents should be on and ready to deploy their duties and
+# responsibilities"): it replaces the standby set; Put on standby stays the CEO's way back, logged
+ACTIVE = {str(n) for n in range(1, 33)}
 st = lambda no: 'active' if no in ACTIVE else 'standby'
 H = '-- decisions/0180 R1 (rename and roster). Written by handoffs/r1-tiers/rostergen.py. Safe to run twice.'
 up.append(H + '\n-- 1. The stored tier: 3 meant the Founder; it is 5 now (Tier 5 · Founder ruling, 0180 §1), one meaning per number.')
@@ -155,14 +150,18 @@ ticket("Before-and-after check: false blocks from staging's live data",
        "releases only and is back on before any agent-built release and before R2. Done when it passes a clean admin-only release on "
        "today's staging, and the fixture proves it.",
        "decisions/0179's note of 2026-11-26, 18:30 UTC (#1456)")
-# 9. The CEO's four activations on each role's History (the board's logbook, as TeamRoster::setStatus writes it), once each
-up.append('-- 9. The CEO\'s activations on each role\'s History (added once).')
-down.append('-- 9. The CEO\'s activation lines taken back off the History.')
-for slug, work in CEO_ON.items():
-    what = f'Team role {slug}: on standby → active'
-    why = f'Activated by the CEO for {work} (decisions/0180, "Every role is available; the CEO staffs it without asking", 2026-11-26). Put on standby is its way back.'
-    up.append(f"INSERT INTO control_log (at, tz, kind, proc, what, who, why) SELECT UTC_TIMESTAMP(), '', 'control', '', {q(what)}, 'the CEO', {q(why)} FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM control_log WHERE what = {q(what)} AND who = 'the CEO');")
-    down.append(f"DELETE FROM control_log WHERE what = {q(what)} AND who = 'the CEO';")
+# 9. Each role switched on, on its History (the board's logbook, as TeamRoster::setStatus writes it), once each: a role that
+#    was on standby says so; a new role says it was added active; one already active has nothing to say (words follow the state)
+up.append('-- 9. Each role switched on, on its History (added once): "All roles on at R1" (decisions/0180, #1459).')
+down.append('-- 9. Those History lines taken back off.')
+WHO = 'Jason (decisions/0180, #1459)'
+WHY = 'All roles on at R1 (Jason, 2026-11-26: "All agents should be on and ready to deploy their duties and responsibilities"). Put on standby is its way back.'
+for slug in R:
+    if slug in OLD and OLD[slug][5] == 'standby': what = f'Team role {slug}: on standby → active'
+    elif slug not in OLD: what = f'Team role {slug}: added, active'
+    else: continue
+    up.append(f"INSERT INTO control_log (at, tz, kind, proc, what, who, why) SELECT UTC_TIMESTAMP(), '', 'control', '', {q(what)}, {q(WHO)}, {q(WHY)} FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM control_log WHERE what = {q(what)} AND who = {q(WHO)});")
+    down.append(f"DELETE FROM control_log WHERE what = {q(what)} AND who = {q(WHO)};")
 # 5. Staging's Team runner on for everyone, on staging's database only (CLAUDE.md's standing OK: "the build session may switch
 #    on staging's Team runner"; Jason, 2026-11-26, decisions/0180's note "run it now"). The tree's approval and the ceiling
 #    stay his own presses (CLAUDE.md, "The organization runs now"): nothing here writes them.
