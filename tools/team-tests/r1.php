@@ -17,11 +17,11 @@ $t = function (string $n, bool $ok, $got = null) use (&$pass, &$fail) { if ($ok)
 $run = function (string $file) use ($pdo) { foreach (DbUpdates::statements((string) file_get_contents($file)) as $q) $pdo->exec($q); };
 ControlLog::ensure($pdo);
 $pdo->exec("CREATE TABLE feature_switches (switch_key VARCHAR(60) PRIMARY KEY, state VARCHAR(8) NOT NULL DEFAULT 'off', share_pct TINYINT UNSIGNED NOT NULL DEFAULT 0, killed TINYINT UNSIGNED NOT NULL DEFAULT 0, note VARCHAR(255) NOT NULL DEFAULT '', updated_by INT UNSIGNED NULL, updated_at DATETIME NOT NULL)");
-$pdo->exec("CREATE TABLE control_gauge_tasks (id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, kind VARCHAR(10) NOT NULL DEFAULT 'fix', what VARCHAR(250) NOT NULL DEFAULT '', tier TINYINT NULL, owner VARCHAR(80) NOT NULL DEFAULT '', undone_at DATETIME NULL, cleared_at DATETIME NULL)");
+$pdo->exec("CREATE TABLE control_gauge_tasks (id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, at DATETIME NULL, tz VARCHAR(64) NOT NULL DEFAULT '', gauge VARCHAR(60) NOT NULL DEFAULT '', item VARCHAR(250) NOT NULL DEFAULT '', kind VARCHAR(10) NOT NULL DEFAULT 'fix', what VARCHAR(250) NOT NULL DEFAULT '', bucket VARCHAR(20) NOT NULL DEFAULT '', value VARCHAR(60) NOT NULL DEFAULT '', who VARCHAR(80) NOT NULL DEFAULT '', uid INT NOT NULL DEFAULT 0, why TEXT NULL, source VARCHAR(250) NOT NULL DEFAULT '', rel VARCHAR(60) NOT NULL DEFAULT '', tier TINYINT NULL, owner VARCHAR(80) NOT NULL DEFAULT '', undone_at DATETIME NULL, cleared_at DATETIME NULL)");
 foreach (['2026-11-25_team_roster.sql', '2026-11-25_team_roster_seed.sql', '2026-11-25_team_staff_views.sql'] as $f) $run($seed . '/' . $f);
 $pdo->exec("UPDATE team_roster SET name = 'Our Orders Desk' WHERE slug = 'orders'");   // a person's own name for a role
 $pdo->exec("INSERT INTO control_gauge_tasks (what, tier) VALUES ('a money finding', 3), ('a fix', 2), ('polish', 1), ('no tier', NULL)");
-$dump = fn () => json_encode([$pdo->query('SELECT slug, name, department, kind, spec_no, reports_to, tier_max, status, sort FROM team_roster ORDER BY slug')->fetchAll(PDO::FETCH_ASSOC), $pdo->query('SELECT id, tier FROM control_gauge_tasks ORDER BY id')->fetchAll(PDO::FETCH_ASSOC)]);
+$dump = fn () => json_encode([$pdo->query('SELECT slug, name, department, kind, spec_no, reports_to, tier_max, status, sort FROM team_roster ORDER BY slug')->fetchAll(PDO::FETCH_ASSOC), $pdo->query("SELECT id, tier FROM control_gauge_tasks WHERE gauge <> 'area:backlog' ORDER BY id")->fetchAll(PDO::FETCH_ASSOC)]);
 $before = $dump();
 $t('Piece 2 and 3 seeded: 34 rows', (int) $pdo->query('SELECT COUNT(*) FROM team_roster')->fetchColumn() === 34);
 
@@ -45,7 +45,8 @@ $t('… never in all() or the counts', !array_intersect($ret, array_keys($by)) &
 $t('… still named for a past run (names())', (TeamRoster::names($pdo)['historian'] ?? '') === 'Historian');
 $t('… and none can be made active or put on standby from the Team page', (function () use ($pdo) { $id = (int) $pdo->query("SELECT id FROM team_roster WHERE slug = 'historian'")->fetchColumn(); try { TeamRoster::setStatus($pdo, $id, 'active', 'test'); return false; } catch (RuntimeException $x) { return str_contains($x->getMessage(), 'replaced'); } })());
 $t('Retired isn\'t offered for a role of the 32', (function () use ($pdo, $by) { try { TeamRoster::setStatus($pdo, (int) $by['ceo']['id'], 'inactive', 'test'); return false; } catch (RuntimeException $x) { return true; } })());
-$tiers = $pdo->query('SELECT tier FROM control_gauge_tasks ORDER BY id')->fetchAll(PDO::FETCH_COLUMN);
+$tiers = $pdo->query("SELECT tier FROM control_gauge_tasks WHERE gauge <> 'area:backlog' ORDER BY id")->fetchAll(PDO::FETCH_COLUMN);
+$t('the IT Manager\'s ticket for the two slow admin pages, added once though run twice', (int) $pdo->query("SELECT COUNT(*) FROM control_gauge_tasks WHERE item LIKE 'Two admin pages time out%'")->fetchColumn() === 1);
 $t('the stored tier: 3 is 5 now, the others unchanged', $tiers == [5, 2, 1, null], $tiers);
 $t('the Founder\'s highest tier is 5; executives 4, managers 3, specialists 2', (int) $by['founder']['tier_max'] === 5 && (int) $by['cfo']['tier_max'] === 4 && (int) $by['it-manager']['tier_max'] === 3 && (int) $by['schema-guards']['tier_max'] === 2);
 

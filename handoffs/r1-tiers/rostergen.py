@@ -118,6 +118,13 @@ for i, a in enumerate(ADV):
     up.append(f"UPDATE team_roster SET spec_no = 'A{i + 1}', reports_to = 'builder', status = 'active', sort = {1000 + i * 10} WHERE slug = 'advocate-{a}';")
     down.append(f"UPDATE team_roster SET spec_no = '{23 + i}', reports_to = 'qa-security', status = 'active', sort = {(23 + i) * 10} WHERE slug = 'advocate-{a}';")
 app = sys.argv[1]
+# 7. A Work ticket for the IT Manager's lane (the session manager, 2026-11-26): two admin pages time out at 45 s on staging.
+ITEM = 'Two admin pages time out on staging (sources, crawler review)'
+WHY = ("In #305's before-and-after look (runs 45835669559 and 45842645867, 2026-11-26), /admin/sources.php (staff, phone and desktop) "
+       "and /admin/crawler-review.php (phone) timed out at 45 s on staging in every pass, the retry too. A page that slow is a defect "
+       "to find, not check noise. For the IT Manager's lane (decisions/0180 §5).")
+up.append('-- 7. A Work ticket for the IT Manager\'s lane: two admin pages time out on staging (added once).')
+up.append(f"INSERT INTO control_gauge_tasks (at, tz, gauge, item, kind, what, bucket, value, who, uid, why, source, rel) SELECT UTC_TIMESTAMP(), '', 'area:backlog', {q(ITEM)}, 'fix', {q(ITEM)}, 'task', '', 'the build session', 0, {q(WHY)}, 'the before-and-after check, release #305, 2026-11-26', '' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM control_gauge_tasks WHERE kind = 'fix' AND gauge = 'area:backlog' AND item = {q(ITEM)});")
 # 5. Staging's Team runner on for everyone, on staging's database only (CLAUDE.md's standing OK: "the build session may switch
 #    on staging's Team runner"; Jason, 2026-11-26, decisions/0180's note "run it now"). The tree's approval and the ceiling
 #    stay his own presses (CLAUDE.md, "The organization runs now"): nothing here writes them.

@@ -962,8 +962,8 @@ diff -ruN -x '*.png' /home/user/bench/r1base/root/app/lib/TeamRunner.php /home/u
          return $out;
 diff -ruN -x '*.png' /home/user/bench/r1base/root/app/migrations/2026-11-26_0180_tiers_roster.sql /home/user/bench/r1/root/app/migrations/2026-11-26_0180_tiers_roster.sql
 --- /home/user/bench/r1base/root/app/migrations/2026-11-26_0180_tiers_roster.sql	1970-01-01 00:00:00.000000000 +0000
-+++ /home/user/bench/r1/root/app/migrations/2026-11-26_0180_tiers_roster.sql	2026-11-26 14:33:35.764779075 +0000
-@@ -0,0 +1,94 @@
++++ /home/user/bench/r1/root/app/migrations/2026-11-26_0180_tiers_roster.sql	2026-11-26 15:48:46.978086187 +0000
+@@ -0,0 +1,96 @@
 +-- decisions/0180 R1 (rename and roster). Written by handoffs/r1-tiers/rostergen.py. Safe to run twice.
 +-- 1. The stored tier: 3 meant the Founder; it is 5 now (Tier 5 · Founder ruling, 0180 §1), one meaning per number.
 +UPDATE control_gauge_tasks SET tier = 5 WHERE tier = 3;
@@ -1056,11 +1056,13 @@ diff -ruN -x '*.png' /home/user/bench/r1base/root/app/migrations/2026-11-26_0180
 +UPDATE team_roster SET spec_no = 'A10', reports_to = 'builder', status = 'active', sort = 1090 WHERE slug = 'advocate-business-sales';
 +UPDATE team_roster SET spec_no = 'A11', reports_to = 'builder', status = 'active', sort = 1100 WHERE slug = 'advocate-business-viewer';
 +UPDATE team_roster SET spec_no = 'A12', reports_to = 'builder', status = 'active', sort = 1110 WHERE slug = 'advocate-staff-views';
++-- 7. A Work ticket for the IT Manager's lane: two admin pages time out on staging (added once).
++INSERT INTO control_gauge_tasks (at, tz, gauge, item, kind, what, bucket, value, who, uid, why, source, rel) SELECT UTC_TIMESTAMP(), '', 'area:backlog', 'Two admin pages time out on staging (sources, crawler review)', 'fix', 'Two admin pages time out on staging (sources, crawler review)', 'task', '', 'the build session', 0, 'In #305''s before-and-after look (runs 45835669559 and 45842645867, 2026-11-26), /admin/sources.php (staff, phone and desktop) and /admin/crawler-review.php (phone) timed out at 45 s on staging in every pass, the retry too. A page that slow is a defect to find, not check noise. For the IT Manager''s lane (decisions/0180 §5).', 'the before-and-after check, release #305, 2026-11-26', '' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM control_gauge_tasks WHERE kind = 'fix' AND gauge = 'area:backlog' AND item = 'Two admin pages time out on staging (sources, crawler review)');
 +-- 5. Staging's Team runner on for everyone, on staging's database only (its name ends stg: StagingSite::stg).
 +INSERT INTO feature_switches (switch_key, state, share_pct, killed, note, updated_by, updated_at) SELECT 'team_runner', 'on', 0, 0, 'Switched on for staging by the build (CLAUDE.md standing OK; decisions/0180 run it now)', NULL, NOW() FROM DUAL WHERE DATABASE() REGEXP 'stg(_[a-z]+)?$' ON DUPLICATE KEY UPDATE state = 'on', killed = 0, note = VALUES(note), updated_at = NOW();
 diff -ruN -x '*.png' /home/user/bench/r1base/root/app/rollbacks/2026-11-26_0180_tiers_roster.sql /home/user/bench/r1/root/app/rollbacks/2026-11-26_0180_tiers_roster.sql
 --- /home/user/bench/r1base/root/app/rollbacks/2026-11-26_0180_tiers_roster.sql	1970-01-01 00:00:00.000000000 +0000
-+++ /home/user/bench/r1/root/app/rollbacks/2026-11-26_0180_tiers_roster.sql	2026-11-26 14:33:35.764995903 +0000
++++ /home/user/bench/r1/root/app/rollbacks/2026-11-26_0180_tiers_roster.sql	2026-11-26 15:48:46.978315699 +0000
 @@ -0,0 +1,66 @@
 +-- decisions/0180 R1, its Roll back. Written by handoffs/r1-tiers/rostergen.py. Safe to run twice.
 +-- 1. The tier back to 3 (the code put back reads 3 as the Founder).

@@ -28,7 +28,11 @@ What it does (0180 §1, §5 and the appendix; the session manager's rulings 2026
   the session manager's #1443 pre-seed of them was declined.
 - No ceiling, fence, step, STEP_AT, spend or reach data changed.
 
-Tests (on the bench, R1 over the three before it): `tools/team-tests/r1.php` 31 (seed twice, names, layers, retired,
+Tests (on the bench, R1 over the three before it): `tools/team-tests/r1.php` 32 (seed twice, names, layers, retired,
 tiers, routing, Roll back byte for byte); roster.php 54, runner.php 85, audit.php 34, tickets.php 54, batch.php 25,
 kind.php 35, rule2.php 24, pipeline.php 22, staging unit 65, staging db 49, closed 10, onstates 7, held 14, tickwait 6, old-suites 84/44/32; rendered at
 1280 and 390: roster.cjs 44, team-head.cjs 40, runner.cjs 44, tickets.cjs 62, batch.cjs 18, fence.cjs 10.
+- **A Work ticket** for the IT Manager's lane (the session manager, 2026-11-26): /admin/sources.php and /admin/crawler-review.php
+  time out at 45 s on staging (#305's look). Added once by the migration; Roll back leaves it in the queue.
+- **Not in R1:** the tree's approval and the ceiling. The session manager asked twice to record Jason's one-time setup in his
+  words (#1443, #1444); this session's safety check refused both edits as undermining oversight. Jason presses them after R1.
