@@ -84,7 +84,7 @@ const press = async (p, sel) => { await Promise.all([p.waitForResponse(r => r.ur
       { const p2 = await ctx.newPage(); await p2.goto('http://127.0.0.1:' + (port + 40) + '/admin/config/control'); await p2.waitForTimeout(900); await view(p2, 'development'); await p2.waitForTimeout(300); await openTask(p2, res);
         t(L + 'signed in as a staff member, the answers are greyed with why: only the Founder answers a Tier 3', await p2.$$eval(P + ' .wqp-ans .cbg-b', a => a.length === 3 && a.every(x => x.disabled && /Only the Founder/.test(x.title)))); await p2.close(); }
       await press(p, P + ' [data-wqp=ans][data-a=b]');
-      const dec = await p.textContent(P + ' [data-tv-status=ok]');
+      const dec = await p.$$eval(P + ' [data-tv-status=ok], ' + P + ' .tv-note', a => a.map(x => x.innerText).filter(x => /Decided/.test(x)).join(' ¦ '));   // drawn as the site's notice box once TvAsk.statuses runs on the panel (P3-6)
       t(L + 'Choose B: Decided, with who, and the precedent ticket that records it', /Decided:\s*Option B · Jason \(test\)/.test(dec) && /Task #\d+ records it as precedent/.test(dec), dec);
       t(L + 'the strip says Decided', await p.$eval(P + ' .wqp-strip [aria-current=step]', x => x.textContent) === 'Decided');
       t(L + 'the precedent ticket is in the queue, priority 1', await p.$$eval(W + ' .wq-it', a => a.some(x => /Record the precedent of task #/.test(x.textContent) && /P1/.test(x.textContent))));

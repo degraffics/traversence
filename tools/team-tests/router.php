@@ -18,10 +18,10 @@ if ($path === '/admin/api/config/team') {
     $in = $_SERVER['REQUEST_METHOD'] === 'POST' ? (json_decode((string) file_get_contents('php://input'), true) ?: []) : $q;
     require_once $app . '/lib/Response.php'; $in = Response::unwrap($in);   // links travel wrapped (tvSafe), as api.php reads them
     $act = (string) ($in['action'] ?? 'list');
-    if (in_array($act, ['teamtree', 'teamceiling'], true)) {   // as api.php: the Founder's alone
+    if (in_array($act, ['teamtree', 'teamceiling', 'teamreach'], true)) {   // as api.php: the Founder's alone
         require_once $app . '/lib/TeamRunner.php';
         if (!Access::isFounder()) { echo json_encode(['ok' => false, 'error' => ['message' => 'Only the Founder, signed in with the Founder\'s own staff login, approves the decision tree or changes how far agents work (decisions/0179).']]); return true; }
-        try { TeamRunner::ensure($pdo); echo json_encode(['ok' => true, 'message' => $act === 'teamtree' ? TeamRunner::approveTree($pdo, 'Jason (test)', (string) ($in['tz'] ?? '')) : TeamRunner::setCeiling($pdo, (string) ($in['to'] ?? ''), 'Jason (test)', '', (string) ($in['tz'] ?? ''))]); }
+        try { TeamRunner::ensure($pdo); echo json_encode(['ok' => true, 'message' => $act === 'teamtree' ? TeamRunner::approveTree($pdo, 'Jason (test)', (string) ($in['tz'] ?? '')) : ($act === 'teamreach' ? TeamRunner::setReach($pdo, (string) ($in['to'] ?? ''), 'Jason (test)', (string) ($in['tz'] ?? '')) : TeamRunner::setCeiling($pdo, (string) ($in['to'] ?? ''), 'Jason (test)', '', (string) ($in['tz'] ?? '')))]); }
         catch (Throwable $x) { echo json_encode(['ok' => false, 'error' => ['message' => $x->getMessage()]]); }
         return true;
     }

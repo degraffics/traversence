@@ -1,0 +1,25 @@
+{
+  "title": "The fence: agents build in the backend first (Piece 3, P3-6)",
+  "why": "Jason, 2026-11-26 (decisions/0179's note \"agents work on the backend first\"): \"get the agents active working on this without them pushing live file, except for the backend, so I can see them work before we point them on the front end\"; \"Admin does count for backend\". A Team page setting, How far Implementation reaches: Backend only (as shipped) or Everywhere; only the Founder changes it (TeamRunner::setReach checks Access::isFounder itself; never a job or an agent), each change in the Team's History with what it was and Change back. It's part of the decision tree's rules (the fingerprint), so a change clears the tree's approval and agents go back to Planning. At Implementation with Backend only, a ticket whose change reaches a page a visitor, member or business sees (by the files it names, against the live mirror's reach map from tools/page-audit/reach.py --fence-map, carried in gauges.json) stops at its brief: its Work queue page says \"Front end: waiting for you\" with the file, and the report sends its brief to the Founder (brief_to \"founder\"), never a build session; a backend one goes to a build session as P3-4 does. A ticket naming no file isn't proved backend, so it waits too. Before a build session sends a build for an agent's brief, send.py --team-ticket re-checks it with reach.py on the live mirror and the zip check; one that reaches a public page is refused with the reason, nothing is sent, and the refusal (releases/fence-refusals.json, carried by gauges.py) puts the ticket back at its brief for the Founder. Unchanged: Tier 3, and rule 1 (agents' releases go through the batch until Piece 3 is live). No new outside call, $0. Also: the Work queue's side panel now draws its status lines as the rest of the site does (TvAsk.statuses after it loads). It's built on P3-4 and P3-5 and follows them.",
+  "proposals": [],
+  "switch": "",
+  "changes": [
+    {
+      "what": "System Configuration → Team: How far Implementation reaches (Backend only), with Change to Everywhere for the Founder and its History",
+      "where": "https://traversence.com/admin/config/team#tm-reach"
+    },
+    {
+      "what": "A Building ticket's page: Front end: waiting for you, for a brief that reaches a public page",
+      "where": "https://traversence.com/admin/config/control?tab=development"
+    },
+    {
+      "what": "FAQ: Can the agents change pages people see?",
+      "where": "https://traversence.com/faq.php"
+    }
+  ],
+  "checks": {
+    "site": "tools/team-tests/runner.php 85 on MariaDB (P3-6: ships Backend only; a director, and a job, refused the setting; the Founder's change logged with Change back; the fingerprint changes and the approval clears, back again the same; admin-only to a build session, public and mixed to the Founder naming the file, no file to the Founder, no map read yet nothing proved; the Architect's run and the report's brief_to and fence; a refusal back at the brief once; Everywhere; Building to the session manager; nothing outside)",
+    "repo": "tools/piece3-tests/fence_test.py 17 (reach.py's fence both ways: /admin/ only, a public reach named, a mixed zip naming only its public file, endpoints and trvgo.us, workers, new files, migrations that only add, the map; send.py --team-ticket: backend goes on, mixed refused with the reason and kept once, Everywhere not checked, a brief for the Founder and an unknown ticket refused, no fence named means Backend only)",
+    "rendered": "team-head.cjs 36 and fence.cjs 10 at 1280 and 390 (the setting greyed for staff, the Founder's change and Change back, the tree's approval cleared; the Work queue's Front end line as a kept status line with its link; a backend brief with a build session); tickets.cjs 62, roster.cjs 40, runner.cjs 44, old-suites 84/44/32"
+  }
+}

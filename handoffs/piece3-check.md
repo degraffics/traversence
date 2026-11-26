@@ -517,3 +517,30 @@ the live copy once P3-3 is live.
   adding fake test records". To build as **P3-5** (held, like the others): a staging-only locked read that answers
   hashes of the held names only, never the names; behind the checks' token; StagingGate-safe; tests that include a
   wrong token being refused. The before-and-after check then looks for those hashes on staging's pages.
+
+## 16. P3-6, the fence (built and held, 2026-11-26; on the bench: Sync 18:38 UTC plus P3-2, P3-3, P3-4 and P3-5's TIER3 lines)
+Jason, 2026-11-26 (0179's note "agents work on the backend first"): agents build in the backend first; "Admin does count
+for backend". Branch `claude/p3-6-fence` (stacked on `claude/p3-5-held`); zip `piece3-build/p3-6-fence/p3-6-fence.zip`.
+- **The setting:** `TeamRunner::REACH` (backend, everywhere); `reach()` reads `team_settings` `reach` (Backend only when
+  unset or unreadable); `setReach()` checks `Access::isFounder()` itself (a job or agent can't), logs "Team setting:
+  Implementation reaches A → B (Change back …)". `fingerprint($pdo)` adds the reach, so a change clears the approval.
+  The Team page's "How far Implementation reaches" section, under the ceiling's, with Change to …; the History lists it.
+  Edit with History, as CLAUDE.md's "Edit or Undo" puts a setting: Change back is the way back.
+- **The fence at the brief:** `frontOf()` reads the files a ticket names (its words, brief, steps); backend when each is
+  under `website/admin/`, `app/admin/`, `workers/`, or in the reach map (`gauges.json` "fence", from `reach.py
+  --fence-map`, run by the site audit after each sync; gauges.py carries it when it changes). No file named, or no map
+  read yet: not proved, so it waits. `briefFor()` gives `build`, `founder` or `session manager`; `report()` writes it as
+  `brief_to` with `fence`. The ticket's page: a kept status line "Front end: waiting for you:" with the file and the link.
+- **The fence at send:** `send.py --team-ticket N` reads the request in `build-requests.json`; Backend only (or none
+  named) runs `reach.fence()` on the zip; a public reach is refused, written to `releases/fence-refusals.json`;
+  gauges.py carries it; `TeamRunner::applyRefusals()` (each tick) puts the ticket back at its brief (release cleared,
+  `front:<id>` set), said once.
+- **reach.py's fence:** backend = `website/admin/`, `app/admin/`, `workers/`, a new file, a migration that only adds,
+  or a file whose reach has no public page; front = any other `website/` page or endpoint, `trvgo/`, a migration that
+  writes rows or changes columns.
+- Also fixed: the Work queue's side panel now runs `TvAsk.statuses` after loading (its status lines were plain text).
+- Tests: runner.php 85, fence_test.py 17, team-head.cjs 36, fence.cjs 10, tickets.cjs 62 (its Decided line read from
+  the drawn box), roster.cjs 40, runner.cjs 44, old-suites 84/44/32; kind 35, rule2 17, pipeline 22, audit 34,
+  tickets.php 54, roster.php 51. Roll back proved. batch.php/batch.cjs's "latest batch" checks belong to notify-founder.
+- At send: after P3-5 is synced, rebuild on the live copy (TeamRunner.php, GaugeTasks.php, ControlGauges.php,
+  control-console.php, admin-control.js and faq.md are shared with P3-3, P3-4, P3-5 and notify-founder); claims as zipcheck lists.
