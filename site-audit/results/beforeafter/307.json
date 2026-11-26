@@ -1,8 +1,54 @@
 {
  "release": "307",
- "phase": "before-done",
- "verdict": "waiting",
+ "at": "2026-11-26T18:01:35.019Z",
+ "verdict": "block",
+ "first": "Out-of-scope drift: This page changed, and the change doesn't name it (executive, /admin/helper.php, desktop)",
+ "blocks": [
+  {
+   "rule": "drift",
+   "rule_name": "Out-of-scope drift",
+   "advocate": "advocate-staff-views",
+   "who": "executive",
+   "page": "/admin/helper.php",
+   "size": "desktop",
+   "what": "This page changed, and the change doesn't name it",
+   "before": "",
+   "after": "(its links and buttons)"
+  },
+  {
+   "rule": "drift",
+   "rule_name": "Out-of-scope drift",
+   "advocate": "advocate-staff-views",
+   "who": "executive",
+   "page": "/admin/helper.php",
+   "size": "phone",
+   "what": "This page changed, and the change doesn't name it",
+   "before": "",
+   "after": "(its links and buttons)"
+  },
+  {
+   "rule": "access",
+   "rule_name": "Access or privacy (0066 included)",
+   "advocate": "advocate-staff-views",
+   "who": "ops-staff",
+   "page": "/admin/crawler-review.php",
+   "size": "phone",
+   "what": "Doesn't open now: TimeoutError: page.goto: Timeout 45000ms exceeded.\nCall log:\n  - navigating to \"https://staging.trvgo.us/admin/crawler-review.php\", waiting until \"load\"\n",
+   "before": "200",
+   "after": "TimeoutError: page.goto: Timeout 45000ms exceeded.\nCall log:\n  - navigating to \"https://staging.trvgo.us/admin/crawler-review.php\", waiting until \"load\"\n"
+  }
+ ],
+ "blocks_total": 3,
+ "notes": [
+  "member|/admin/chamber-builder.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "sales|/admin/chamber-builder.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "executive|/admin/chamber-builder.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "executive|/admin/settings.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "ops-staff|/admin/chamber-builder.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "ops-staff|/admin/crawler-review.php|phone: timed out once, opened again (timed out again)"
+ ],
  "views": 206,
- "seconds": 803,
- "run": "https://github.com/degraffics/traversence/actions/runs/45863561865"
+ "seconds": 2265,
+ "run": "https://github.com/degraffics/traversence/actions/runs/45870768438",
+ "phase": "after-done"
 }
