@@ -34,6 +34,16 @@
             "at": "2026-11-26T10:45:53+00:00",
             "by": 0,
             "msg": "Uploaded ba-closed.zip: 2 files."
+        },
+        {
+            "at": "2026-11-26T10:45:55+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/ba-closed.zip (git ed02ffbc58)."
+        },
+        {
+            "at": "2026-11-26T10:45:56+00:00",
+            "by": 0,
+            "msg": "Waiting for its before look: the advocates look at staging as it is, then it goes on staging (the before-and-after check)."
         }
     ]
 }
