@@ -1,6 +1,31 @@
 {
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
- "claims": [],
+ "claims": [
+  {
+   "path": "app/lib/BeforeAfter.php",
+   "functions": [
+    "step"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "release ba-proof-fixes.zip",
+   "since": "2026-11-26T11:51:23Z",
+   "expires": "2026-11-26T15:51:23Z",
+   "release": "ba-proof-fixes.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Releases.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "release ba-proof-fixes.zip",
+   "since": "2026-11-26T11:51:23Z",
+   "expires": "2026-11-26T15:51:23Z",
+   "release": "ba-proof-fixes.zip",
+   "callers": {}
+  }
+ ],
  "lapsed": [
   {
    "path": "app/lib/TeamRunner.php",
