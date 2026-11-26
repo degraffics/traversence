@@ -74,6 +74,9 @@ async function extra(p, size) {
       regions[k] = { t: t.slice(0, 600), n: el.querySelectorAll('li, tr, .card, .ak-card, article').length };
     }
     const text = clean(document.body);
+    // the words as drawn (the live body's innerText keeps a break between elements; a detached copy's runs them together),
+    // for the held names' check (P3-5): "Plan a trip" then "Zz Held Burial" must not read as "tripZz Held Burial"
+    const words = (document.body.innerText || '').replace(/\s+/g, ' ').trim().slice(0, 40000);
     const totals = [...text.matchAll(/\b\d+\s*[–-]\s*\d+\s+of\s+([\d,]+)/g)].map(m => +m[1].replace(/,/g, ''));
     const cardsN = document.querySelectorAll('.card, .ak-card, .tv-card, article').length, rowsN = document.querySelectorAll('tbody tr').length, pins = document.querySelectorAll('.leaflet-marker-icon, [data-pin]').length;
     // overlap between controls and cards that aren't one inside the other
@@ -95,7 +98,7 @@ async function extra(p, size) {
     // moves on its own (a counter) never hides a line that changed
     const lines = [...new Set([...document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, li, td, th, dt, dd, label, button, a, figcaption, small, summary')]
       .filter(vis).map(el => clean(el).slice(0, 200)).filter(Boolean))].slice(0, 400);
-    return { lines, controls, regions, totals, cards: cardsN, rows: rowsN, pins, overlap: over, clipped, offscreen, primary, heading: heading.replace(/\s+/g, ' ').trim().slice(0, 120), nav, canaries, text: text.slice(0, 20000) };
+    return { lines, controls, regions, totals, cards: cardsN, rows: rowsN, pins, overlap: over, clipped, offscreen, primary, heading: heading.replace(/\s+/g, ' ').trim().slice(0, 120), nav, canaries, text: text.slice(0, 20000), words };
   });
   r.landed_signin = SIGNIN.test(new URL(p.url()).pathname);
   return { ba: r };
@@ -168,7 +171,7 @@ export function compare(b1, b2, a, exp = {}, release = '', heldKey = STAGING?.to
     else if (!errs(b) && errs(f)) block('access', f, 'An error on a view that worked: ' + ((f.console || [])[0] || (f.requests || [])[0] || f.status), '', (f.console || [])[0] || (f.requests || [])[0] || f.status);
     const own = f.who.toLowerCase(); const was = new Set(b.ba?.canaries || []);
     for (const c of f.ba?.canaries || []) if (c !== own && !was.has(c)) block('access', f, `Another account's email shows (check+${c}@)`, '', 'check+' + c + '@');
-    if (held.size) { const was0 = heldIn(b.ba?.text || '', held, heldKey); for (const h of heldIn(f.ba?.text || '', held, heldKey)) if (!was0.has(h)) block('access', f, '0066: a name the site holds back shows (held ' + h.slice(0, 8) + ')', '', 'held ' + h.slice(0, 8)); }
+    if (held.size) { const was0 = heldIn(b.ba?.words ?? b.ba?.text ?? '', held, heldKey); for (const h of heldIn(f.ba?.words ?? f.ba?.text ?? '', held, heldKey)) if (!was0.has(h)) block('access', f, '0066: a name the site holds back shows (held ' + h.slice(0, 8) + ')', '', 'held ' + h.slice(0, 8)); }
     if (refused(f)) continue;
     // 2. layout or phone
     for (const [k, on] of [['scroll', x => x.scroll && x.size === 'phone'], ['edges', x => x.edges > 0], ['dialogs', x => (x.dialogs || []).length], ['names', x => x.names > 0], ['alt', x => x.alt > 0]])
