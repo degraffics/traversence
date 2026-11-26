@@ -10,9 +10,13 @@
    "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
    "why": "P3-2: a release's waiting words for the before-and-after check (decisions/0179; Jason's batch of 2026-11-25)",
    "since": "2026-11-26T00:13:43Z",
-   "expires": "2026-11-26T04:13:43Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-26T04:14:21Z",
+   "release": "p3-2-check.zip",
+   "callers": {
+    "standing": [
+     "app/admin/sections.php"
+    ]
+   }
   },
   {
    "path": "app/lib/AuditClock.php",
@@ -21,8 +25,8 @@
    "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
    "why": "P3-2: the before-and-after check, the site's side",
    "since": "2026-11-26T00:13:45Z",
-   "expires": "2026-11-26T04:13:45Z",
-   "release": "",
+   "expires": "2026-11-26T04:14:21Z",
+   "release": "p3-2-check.zip",
    "callers": {}
   },
   {
@@ -43,8 +47,8 @@
    "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
    "why": "P3-2: the before-and-after check, the site's side",
    "since": "2026-11-26T00:13:49Z",
-   "expires": "2026-11-26T04:13:49Z",
-   "release": "",
+   "expires": "2026-11-26T04:14:21Z",
+   "release": "p3-2-check.zip",
    "callers": {}
   },
   {
@@ -54,8 +58,8 @@
    "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
    "why": "P3-2: the before-and-after check, the site's side",
    "since": "2026-11-26T00:13:51Z",
-   "expires": "2026-11-26T04:13:51Z",
-   "release": "",
+   "expires": "2026-11-26T04:14:21Z",
+   "release": "p3-2-check.zip",
    "callers": {}
   },
   {
@@ -65,8 +69,19 @@
    "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
    "why": "P3-2: the before-and-after check, the site's side",
    "since": "2026-11-26T00:13:53Z",
-   "expires": "2026-11-26T04:13:53Z",
-   "release": "",
+   "expires": "2026-11-26T04:14:21Z",
+   "release": "p3-2-check.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/migrations/2026-11-25_team_staff_views.sql",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "release p3-2-check.zip",
+   "since": "2026-11-26T00:14:21Z",
+   "expires": "2026-11-26T04:14:21Z",
+   "release": "p3-2-check.zip",
    "callers": {}
   }
  ],
