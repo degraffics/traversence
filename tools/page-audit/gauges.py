@@ -173,6 +173,25 @@ def _pickups():
     return {str(int(p['id'])): [str(p.get('session') or ''), str(p.get('release') or '')] for p in d.get('pickups') or [] if str(p.get('id', '')).isdigit() and p.get('session')}
 
 
+def _fence(path=None):
+    """site-audit/results/fence.json, written by the site audit after each sync: {at, backend: [paths]} ({} when missing)."""
+    try:
+        d = json.load(open(path or ROOT + 'site-audit/results/fence.json'))
+        return {'at': str(d.get('at', ''))[:30], 'backend': [p for p in d.get('backend', []) if isinstance(p, str) and re.match(r'^(app|website)/[\w./-]{1,160}$', p)][:2000]}
+    except Exception:
+        return {}
+
+
+def _refusals(path=None):
+    """releases/fence-refusals.json, written by send.py when a build for an agent's brief reached a public page (the last 50)."""
+    try:
+        d = json.load(open(path or ROOT + 'releases/fence-refusals.json'))
+        out = [{'ticket': int(r['ticket']), 'zip': str(r.get('zip', ''))[:80], 'reason': str(r.get('reason', ''))[:300], 'at': str(r.get('at', ''))[:30]} for r in d.get('refusals', []) if isinstance(r, dict) and str(r.get('ticket', '')).isdigit()]
+        return out[-50:]
+    except Exception:
+        return []
+
+
 def _batch(path=None):
     """Today's batch, as the session manager writes it (releases/batch.json; decisions/0179 rule 1, Piece 2's P2-5): {date, lines}
     with each line's release, what, why, decision, checks, way_back and ticket ids; {} when the file is absent or unreadable. The
@@ -431,6 +450,8 @@ def build():
     summary['batch'] = _batch()   # today's batch for the Founder's OK (releases/batch.json; P2-5)
     summary['messages'] = _messages()   # the session manager's messages, emailed to the Founder by the site (FounderMail)
     summary['answers'] = _answers()   # the Founder's emailed Tier 3 answers, recorded by the session manager (P2-5)
+    summary['fence'] = _fence()   # the live mirror's backend-only files (reach.py --fence-map, the site audit; P3-6)
+    summary['fence_refusals'] = _refusals()   # builds refused at the fence (send.py --team-ticket; P3-6)
     detail = dict(head, note='Each gauge\'s detail for its drawer (ControlGauges::detail): read when the drawer opens.',
                   checks=reg, results_read=sorted({r['file'] for r in ROWS.values()}),
                   development={g['id']: {'list': g['list'], 'out_of_scope': g['out_of_scope']} for g in dev},

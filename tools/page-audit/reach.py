@@ -119,14 +119,72 @@ def for_release(mirror, zpath):
     expected = list(dict.fromkeys(own + named + [u for u in reach_order if best[u] <= NEAR]))
     return pages, {'pages': expected, 'also_changes': also, 'canaries': []}
 
+# ---- the fence (P3-6; decisions/0179's note "agents work on the backend first", Jason, 2026-11-26) -------------------------
+# Backend: every /admin/ page and its parts, the site's internal code and the workers, where a change reaches no public page
+# ("Admin does count for backend"). Front end: any page a visitor, member or business sees. A migration that only adds
+# (CREATE TABLE IF NOT EXISTS, a guarded ADD) is backend; one that writes or changes rows or columns isn't proved backend.
+WRITES = re.compile(r'\b(UPDATE|DELETE|DROP|MODIFY|RENAME|TRUNCATE|CHANGE|INSERT|REPLACE)\b', re.I)
+
+def public(urls):
+    return sorted(u for u in urls if not u.startswith('/admin'))
+
+def fence_one(path, used_by, texts, new_text=None):
+    """[] when the file stays in the backend, else the public pages it reaches (or why it isn't proved backend)."""
+    if path.startswith(('website/admin/', 'app/admin/', 'workers/')):
+        return []
+    if path.startswith('app/migrations/'):
+        sql = re.sub(r'--[^\n]*|/\*.*?\*/', ' ', new_text or texts.get(path, ''), flags=re.S)
+        sql = re.sub(r'\bON\s+(UPDATE|DELETE)\b|\bDUPLICATE\s+KEY\s+UPDATE\b', ' ', sql, flags=re.I)
+        m = WRITES.search(sql)
+        return ['(a migration that ' + m.group(1).upper() + 's: rows or columns a public page may read)'] if m else []
+    if path.startswith('trvgo/'):
+        return ['(trvgo.us: public by definition)']
+    if path.startswith('website/') and not path.endswith(('.js', '.css')):
+        u = page_url(path)
+        return [u or '/' + path[len('website/'):]]   # a public page or endpoint itself
+    if path not in texts:   # a new file: it reaches pages only through its callers, which the release carries or the mirror has
+        return []
+    return public(pages_of(path, used_by))
+
+def fence(mirror, files, new_texts=None):
+    """{file: [public pages or reasons]} for the files that leave the backend (empty: all backend)."""
+    texts, used_by = index(mirror)
+    out = {}
+    for f in files:
+        r = fence_one(f, used_by, texts, (new_texts or {}).get(f))
+        if r:
+            out[f] = r[:8]
+    return out
+
+def fence_map(mirror):
+    """The live mirror's backend-only files (for the site's check at the brief, carried in gauges.json as "fence")."""
+    texts, used_by = index(mirror)
+    back = sorted(p for p in texts if (p.startswith('app/') or p.startswith('website/')) and not fence_one(p, used_by, texts))
+    return back
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split('\n')[0])
     ap.add_argument('--mirror', required=True)
     ap.add_argument('--zip', help='a release zip: write its pages and expected list (beforeafter.mjs\'s inputs)')
     ap.add_argument('--out-pages', default='ba-pages.json')
     ap.add_argument('--out-expected', default='ba-expected.json')
+    ap.add_argument('--fence-zip', help='P3-6: does a release zip stay in the backend? prints what leaves it; exit 1 if anything does')
+    ap.add_argument('--fence-map', help='P3-6: write the mirror\'s backend-only files here (site-audit/results/fence.json)')
     ap.add_argument('files', nargs='*')
     a = ap.parse_args()
+    if a.fence_map:
+        import datetime
+        back = fence_map(a.mirror)
+        json.dump({'at': datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'), 'backend': back}, open(a.fence_map, 'w'), indent=0)
+        print(f'{len(back)} backend-only files')
+        return
+    if a.fence_zip:
+        import zipfile
+        z = zipfile.ZipFile(a.fence_zip)
+        names = [n for n in z.namelist() if not n.endswith('/') and n != 'release.json']
+        out = fence(a.mirror, names, {n: z.read(n).decode('utf-8', 'replace') for n in names if n.endswith('.sql')})
+        print(json.dumps({'backend': not out, 'front': out}, indent=1))
+        sys.exit(1 if out else 0)
     if a.zip:
         pages, exp = for_release(a.mirror, a.zip)
         json.dump(pages, open(a.out_pages, 'w'), indent=1)

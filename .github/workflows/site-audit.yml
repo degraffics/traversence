@@ -87,6 +87,15 @@ jobs:
           python3 tools/page-audit/drift.py --mirror mirror --write
           python3 tools/page-audit/findings.py
 
+      - name: The fence's map (P3-6, decisions/0179's note "agents work on the backend first")
+        if: env.SKIP != '1'
+        run: |
+          # the live mirror's backend-only files; when they changed, gauges.json carries them to the site (its check at the brief)
+          old=$(python3 -c "import json;print(json.dumps(json.load(open('site-audit/results/fence.json')).get('backend',[])))" 2>/dev/null || echo none)
+          python3 tools/page-audit/reach.py --mirror mirror --fence-map site-audit/results/fence.json
+          new=$(python3 -c "import json;print(json.dumps(json.load(open('site-audit/results/fence.json')).get('backend',[])))")
+          if [ "$old" = "$new" ]; then git checkout -q -- site-audit/results/fence.json 2>/dev/null || true; else python3 tools/page-audit/gauges.py; fi
+
       - name: Commit what changed
         if: env.SKIP != '1'
         run: |

@@ -74,7 +74,7 @@ $d = TeamRunner::tick($pdo); $rd = $pdo->query('SELECT id FROM team_runs ORDER B
 $t('Dismiss: nothing changes, kept as dismissed', str_starts_with(TeamRunner::dismiss($pdo, (int) $rd, $J), 'Dismissed') && $row($w)['stage'] === 'planning');
 // 6. the decision tree and the ceiling (the Founder's; fingerprinted rules; one stage at a time, never Confirmation yet)
 try { TeamRunner::setCeiling($pdo, 'building', $J); $t('no raise before the decision tree is approved', false); } catch (RuntimeException $x) { $t('no raise before the decision tree is approved', str_contains($x->getMessage(), 'Approve the decision tree first')); }
-$t('approve the tree: tied to its rules\' fingerprint', str_starts_with(TeamRunner::approveTree($pdo, $J), 'Approved') && TeamRunner::treeApproval($pdo)['v'] === TeamRunner::fingerprint());
+$t('approve the tree: tied to its rules\' fingerprint', str_starts_with(TeamRunner::approveTree($pdo, $J), 'Approved') && TeamRunner::treeApproval($pdo)['v'] === (method_exists(TeamRunner::class, 'reach') ? TeamRunner::fingerprint($pdo) : TeamRunner::fingerprint()));
 try { TeamRunner::setCeiling($pdo, 'implementation', $J); $t('one stage at a time', false); } catch (RuntimeException $x) { $t('one stage at a time', str_contains($x->getMessage(), 'One stage at a time')); }
 $t('raise to Building', TeamRunner::setCeiling($pdo, 'building', $J, 'evidence read') === 'Agents work up to Building now.' && TeamRunner::mode($pdo, 'gate') === 'act' && TeamRunner::mode($pdo, 'handoff') === 'act');
 $t('each raise has its evidence lines with readings and sources', count(TeamRunner::evidence($pdo, 'building')) === 3 && count(TeamRunner::evidence($pdo, 'implementation')) === 3 && str_contains(json_encode(TeamRunner::evidence($pdo, 'building')), 'accepted'));
@@ -186,11 +186,73 @@ if (method_exists(TeamRunner::class, 'takesItself')) {
     TeamRunner::setCeiling($pdo, 'implementation', $J);
     $ar = TeamRoster::bySlug($pdo, 'system-architect'); $pdo->exec("DELETE FROM admin_permissions WHERE action = 'team.handoff'"); $fresh->setValue(null, null);   // the default (staff, eng) again
     $pdo->exec("UPDATE control_gauge_tasks SET owner = '' WHERE id = $pw");
+    if (method_exists(TeamRunner::class, 'reach')) $pdo->exec("UPDATE control_gauge_tasks SET what = 'A person entered this (website/admin/router.php)' WHERE id = $pw");   // behind the fence (P3-6), a backend ticket
     $out = TeamRunner::run($pdo, $row($pw), 'handoff', $ar);
     $rq = array_values(array_filter(GaugeTasks::report($pdo)['requests'], fn ($q) => $q['id'] === $pw));
     $t('at Implementation: the Architect\'s brief goes straight to a build session, said in its run and in the report (brief_to "build")', TeamRunner::briefTo($pdo) === 'build' && str_contains($out, 'straight to a build session') && ($rq[0]['brief_to'] ?? '') === 'build' && $rq[0]['build_brief'] !== '', [$out, $rq]);
     $t('the ceilings\' words say so: Building takes audit tickets, Implementation goes straight to a build session, Confirmation publishes Tier 1 and 2', str_contains(TeamRunner::CEILINGS['building'][1], 'takes the tickets the audit raised itself') && str_contains(TeamRunner::CEILINGS['implementation'][1], 'straight to a build session') && !str_contains(TeamRunner::CEILINGS['implementation'][1], 'nothing more acts') && str_contains(TeamRunner::CEILINGS['confirmation'][1], 'Tier 1 and Tier 2'));
     $t('the brief step only ever proposes, at every ceiling', array_unique(array_values(TeamRunner::STEP_AT['brief'])) === ['propose']);
     TeamRunner::setCeiling($pdo, 'planning', $J);
+}
+// P3-6, the fence (decisions/0179's note "agents work on the backend first", Jason, 2026-11-26): how far Implementation reaches
+if (method_exists(TeamRunner::class, 'reach')) {
+    require_once $app . '/lib/ControlGauges.php';
+    $pdo->exec("CREATE TABLE IF NOT EXISTS page_cache (cache_key VARCHAR(190) PRIMARY KEY, body MEDIUMTEXT, expires_at DATETIME)");
+    $gf = sys_get_temp_dir() . '/fence-gauges-' . getmypid() . '.json';
+    $base = json_decode((string) file_get_contents(dirname(__DIR__, 2) . '/site-audit/results/gauges.json'), true);
+    $gauges = function (array $extra) use ($base, $gf, $pdo) { file_put_contents($gf, json_encode($extra + $base)); ControlGauges::$source = $gf; $pdo->exec('DELETE FROM page_cache'); ControlGauges::config($pdo, true); };
+    $gauges(['fence' => ['at' => '2026-11-26T00:16:00Z', 'backend' => ['app/lib/AdminReport.php', 'app/ui/admin-bits.php']], 'fence_refusals' => []]);
+    $sp = new ReflectionProperty(Access::class, 'staff'); $sp->setAccessible(true); $lp = new ReflectionProperty(Access::class, 'loaded'); $lp->setAccessible(true);
+    $founder = fn (bool $on) => [$sp->setValue(null, $on ? ['id' => 1, 'status' => 'active', 'role' => 'owner', 'level' => 'founder', 'name' => $J, 'user_id' => 1] : ['id' => 2, 'status' => 'active', 'role' => 'staff', 'level' => 'director', 'name' => 'A director', 'user_id' => 2]), $lp->setValue(null, true)];
+    TeamRunner::setCeiling($pdo, 'planning', $J);
+    $pdo->exec("DELETE FROM team_settings WHERE k = 'reach'");
+    $t('P3-6: it ships Backend only', TeamRunner::reach($pdo) === 'backend');
+    $founder(false);
+    try { TeamRunner::setReach($pdo, 'everywhere', 'A director'); $t('P3-6: a director can\'t change how far Implementation reaches', false); } catch (RuntimeException $x) { $t('P3-6: a director (not the Founder) can\'t change how far Implementation reaches, and nothing changes', str_contains($x->getMessage(), 'Only the Founder') && TeamRunner::reach($pdo) === 'backend'); }
+    $sp->setValue(null, null);
+    try { TeamRunner::setReach($pdo, 'everywhere', 'the job'); $t('… nor a job or an agent (no staff signed in)', false); } catch (RuntimeException $x) { $t('… nor a job or an agent (no staff signed in)', str_contains($x->getMessage(), 'Only the Founder')); }
+    $founder(true);
+    if (!TeamRunner::treeApproval($pdo)) TeamRunner::approveTree($pdo, $J);
+    $fp0 = TeamRunner::fingerprint($pdo);
+    $out = TeamRunner::setReach($pdo, 'everywhere', $J, 'America/Phoenix');
+    $t('the Founder changes it: Everywhere, said in the History with what it was, and its way back', $out === 'Implementation reaches Everywhere now.' && (int) $pdo->query("SELECT COUNT(*) FROM control_log WHERE what LIKE 'Team setting: Implementation reaches Backend only → Everywhere%Change back%'")->fetchColumn() === 1, $out);
+    $t('… it\'s one of the decision tree\'s rules: the fingerprint changes and the approval is cleared, agents at Planning', TeamRunner::fingerprint($pdo) !== $fp0 && TeamRunner::treeApproval($pdo) === null && TeamRunner::ceiling($pdo) === 'planning');
+    TeamRunner::setReach($pdo, 'backend', $J);
+    $t('… Change back: Backend only again, and the same fingerprint as before', TeamRunner::reach($pdo) === 'backend' && TeamRunner::fingerprint($pdo) === $fp0);
+    try { TeamRunner::setReach($pdo, 'somewhere', $J); $t('an unknown setting refused', false); } catch (RuntimeException $x) { $t('an unknown setting refused', str_contains($x->getMessage(), 'Choose')); }
+    TeamRunner::approveTree($pdo, $J); TeamRunner::setCeiling($pdo, 'building', $J); TeamRunner::setCeiling($pdo, 'implementation', $J);
+    $mk = function (string $what) use ($pdo, $J) { $id = GaugeTasks::add($pdo, 'area:test', $what, 'why', 'src', $J, 1); GaugeTasks::edit($pdo, $id, ['goal' => 'g', 'done_when' => 'd'], $J); GaugeTasks::noDecision($pdo, $id, $J); GaugeTasks::assign($pdo, $id, 'system · Project Manager', $J); GaugeTasks::move($pdo, $id, 'building', $J, 'test'); $pdo->exec("UPDATE control_gauge_tasks SET owner = '' WHERE id = " . (int) $id); return GaugeTasks::task($pdo, $id); };
+    $adm = $mk('Tidy website/admin/router.php and app/admin/team-console.php and app/lib/AdminReport.php');
+    $pubT = $mk('Change app/lib/Orders.php');
+    $mixT = $mk('Change app/lib/AdminReport.php and app/ui/cart.php');
+    $none = $mk('Make the reports better');
+    $t('at Implementation, Backend only: a ticket naming only /admin/ pages, admin parts and backend files goes to a build session', TeamRunner::briefFor($pdo, $adm) === 'build' && TeamRunner::frontOf($pdo, $adm) === [], TeamRunner::frontOf($pdo, $adm));
+    $t('… one reaching a public page stops at its brief, for the Founder', TeamRunner::briefFor($pdo, $pubT) === 'founder' && TeamRunner::frontOf($pdo, $pubT) === ['app/lib/Orders.php']);
+    $t('… a mixed one too, naming only its public file', TeamRunner::briefFor($pdo, $mixT) === 'founder' && TeamRunner::frontOf($pdo, $mixT) === ['app/ui/cart.php']);
+    $t('… one naming no file isn\'t proved backend: the Founder', TeamRunner::briefFor($pdo, $none) === 'founder');
+    $gauges(['fence' => ['at' => '', 'backend' => []]]);
+    $t('… no reach map read yet: nothing but the admin itself is proved backend', TeamRunner::briefFor($pdo, $mixT) === 'founder' && TeamRunner::frontOf($pdo, ['id' => $adm['id']] + $adm) !== [] && str_contains(implode(' ', TeamRunner::frontOf($pdo, $adm)), "isn't here yet"));
+    $gauges(['fence' => ['at' => '2026-11-26T00:16:00Z', 'backend' => ['app/lib/AdminReport.php', 'app/ui/admin-bits.php']], 'fence_refusals' => []]);
+    // the Architect's run on a public ticket says so, and the report routes it to the Founder
+    $pdo->exec("DELETE FROM admin_permissions WHERE action = 'team.handoff'"); $fresh->setValue(null, null);
+    $ar = TeamRoster::bySlug($pdo, 'system-architect');
+    $out = TeamRunner::run($pdo, GaugeTasks::task($pdo, (int) $pubT['id']), 'handoff', $ar);
+    $rq = array_values(array_filter(GaugeTasks::report($pdo)['requests'], fn ($q) => $q['id'] === (int) $pubT['id']));
+    $t('the Architect\'s brief on a public ticket: "front end: waiting for you", and the report sends it to the Founder, never a build session', str_contains($out, 'front end: waiting for you') && ($rq[0]['brief_to'] ?? '') === 'founder' && ($rq[0]['fence'] ?? '') === 'backend', [$out, $rq]);
+    $out = TeamRunner::run($pdo, GaugeTasks::task($pdo, (int) $adm['id']), 'handoff', $ar);
+    $rq = array_values(array_filter(GaugeTasks::report($pdo)['requests'], fn ($q) => $q['id'] === (int) $adm['id']));
+    $t('… on a backend ticket: straight to a build session (brief_to "build", as P3-4)', str_contains($out, 'straight to a build session') && ($rq[0]['brief_to'] ?? '') === 'build', [$out, $rq]);
+    // a build refused at the fence (send.py) comes back: the ticket at its brief, for the Founder, once
+    $pdo->prepare('UPDATE control_gauge_tasks SET rel = ? WHERE id = ?')->execute(['agent-admin.zip', (int) $adm['id']]);
+    $gauges(['fence' => ['at' => '2026-11-26T00:16:00Z', 'backend' => ['app/lib/AdminReport.php']], 'fence_refusals' => [['ticket' => (int) $adm['id'], 'zip' => 'agent-admin.zip', 'reason' => 'app/ui/cart.php reaches /cart.php', 'at' => '2026-11-26T01:00:00Z']]]);
+    $n1 = TeamRunner::applyRefusals($pdo); $n2 = TeamRunner::applyRefusals($pdo);
+    $t('a build refused at the fence: the ticket back at its brief (its release cleared), for the Founder, said once in the logbook', $n1 === 1 && $n2 === 0 && TeamRunner::briefFor($pdo, GaugeTasks::task($pdo, (int) $adm['id'])) === 'founder' && GaugeTasks::task($pdo, (int) $adm['id'])['rel'] === '' && (int) $pdo->query("SELECT COUNT(*) FROM control_log WHERE what LIKE 'Task #" . (int) $adm['id'] . " back at its brief, front end%'")->fetchColumn() === 1);
+    // Everywhere: the fence doesn't stop it
+    TeamRunner::setReach($pdo, 'everywhere', $J); TeamRunner::approveTree($pdo, $J); TeamRunner::setCeiling($pdo, 'building', $J); TeamRunner::setCeiling($pdo, 'implementation', $J);
+    $t('with Everywhere: a public ticket goes to a build session', TeamRunner::briefFor($pdo, GaugeTasks::task($pdo, (int) $pubT['id'])) === 'build');
+    TeamRunner::setReach($pdo, 'backend', $J); TeamRunner::approveTree($pdo, $J); TeamRunner::setCeiling($pdo, 'building', $J);
+    $t('at Building: briefs go to the session manager, fence or not', TeamRunner::briefFor($pdo, GaugeTasks::task($pdo, (int) $pubT['id'])) === 'session manager');
+    $t('the fence calls nothing outside (no curl, no paid AI)', !preg_match('/curl_|file_get_contents\s*\(\s*[\'"]https?:|AiClient::claude|Gemini::/', (string) file_get_contents($app . '/lib/TeamRunner.php')));
+    TeamRunner::setCeiling($pdo, 'planning', $J); $sp->setValue(null, null); @unlink($gf);
 }
 echo "\n$pass passed, $fail failed\n"; exit($fail ? 1 : 0);

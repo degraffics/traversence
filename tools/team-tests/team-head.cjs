@@ -33,11 +33,14 @@ const noSide = p => p.evaluate(() => document.documentElement.scrollWidth <= doc
       t(L + '"Agents work up to: Planning", its column marked', /Agents work up to: Planning/.test(await p.textContent('#tm-ceiling')) && await p.$$eval('#tm-tree td.tm-now', a => a.length === 4));
       t(L + 'a staff member: Approve the decision tree greyed, saying only the Founder', await p.$eval('[data-tm=tree]', x => x.disabled && /Only the Founder/.test(x.title)));
       t(L + 'Raise to Building greyed: approve the decision tree first; its evidence lines shown with sources', await p.$eval('[data-tm=ceiling]', x => x.disabled && /Approve the decision tree first/.test(x.title)) && await p.$$eval('#tm-ceiling .tm-ev tr', a => a.length === 3));
+      if (await p.$('#tm-reach')) t(L + 'P3-6: "How far Implementation reaches: Backend only"; Change to Everywhere greyed for a staff member, saying only the Founder', /How far Implementation reaches: Backend only/.test(await p.textContent('#tm-reach')) && await p.$eval('[data-tm=reach]', x => x.disabled && /Only the Founder/.test(x.title)));
+      if (await p.$('#tm-yours')) t(L + 'P3-6: what\'s the Founder\'s to press, in order: Approve the decision tree → Raise to Building → Raise to Implementation', /Yours to press, in order[\s\S]*Approve the decision tree → Raise to Building → Raise to Implementation/.test(await p.textContent('#tm-yours')));
       t(L + 'no sideways scroll (the tree\'s table scrolls inside itself)', await noSide(p));
       if (shots) await p.screenshot({ path: shots + '/team-head-' + w + '.png', fullPage: true });
       // as the Founder
       await p.goto('http://127.0.0.1:' + (port + 30) + '/admin/config/team'); await p.waitForSelector('#tm-tree');
       await Promise.all([p.waitForNavigation(), p.click('[data-tm=tree]')]); await p.waitForTimeout(700);
+      if (await p.$('#tm-yours')) t(L + '… the press works on the Founder\'s login, and the line ticks it', /✓ Approve the decision tree/.test(await p.textContent('#tm-yours')));
       t(L + 'the Founder approves the tree: "Approved by Jason (test)", with its fingerprint', /Approved:\s*By Jason \(test\)/.test(await p.textContent('#tm-tree')) && /fingerprint [0-9a-f]{12}/.test(await p.textContent('#tm-tree')));
       t(L + '… the answer said beside it after the page reads again', /Approved\. Raising/.test(await p.textContent('body')));
       t(L + 'Raise to Building is open now', await p.$eval('[data-tm=ceiling][data-to=building]', x => !x.disabled));
@@ -46,6 +49,14 @@ const noSide = p => p.evaluate(() => document.documentElement.scrollWidth <= doc
       t(L + 'its History names each change and who', /approved/.test(await p.textContent('#tm-ceiling .tm-hist')) && /Planning → Building/.test(await p.textContent('#tm-ceiling .tm-hist')));
       await Promise.all([p.waitForNavigation(), p.click('[data-tm=ceiling][data-to=planning]')]); await p.waitForTimeout(700);
       t(L + 'lowered to Planning again', /Agents work up to: Planning/.test(await p.textContent('#tm-ceiling')));
+      if (await p.$('#tm-reach')) {   // P3-6: the Founder changes how far Implementation reaches, and back
+        t(L + 'P3-6: the Founder\'s Change to Everywhere is open', await p.$eval('[data-tm=reach]', x => !x.disabled && /Change to Everywhere/.test(x.textContent)));
+        await Promise.all([p.waitForNavigation(), p.click('[data-tm=reach]')]); await p.waitForTimeout(700);
+        t(L + '… changed: Everywhere; the History names it with what it was and its way back; the tree\'s approval cleared', /reaches: Everywhere/.test(await p.textContent('#tm-reach')) && /Backend only → Everywhere/.test(await p.textContent('#tm-ceiling .tm-hist')) && /Not approved yet/.test(await p.textContent('#tm-tree')));
+        await Promise.all([p.waitForNavigation(), p.click('[data-tm=reach]')]); await p.waitForTimeout(700);
+        t(L + '… Change back: Backend only again', /reaches: Backend only/.test(await p.textContent('#tm-reach')));
+        if (shots) await p.screenshot({ path: shots + '/team-reach-' + w + '.png', fullPage: true });
+      }
       t(L + 'nothing wider than the window', await noSide(p));
       t(L + 'no page error', errs.length === 0, errs);
       await ctx.close();
