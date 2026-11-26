@@ -10,8 +10,8 @@
    "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
    "why": "P3-4: the tree's words, Confirmation and the spending line (approved 2026-11-26)",
    "since": "2026-11-26T02:13:48Z",
-   "expires": "2026-11-26T06:13:48Z",
-   "release": "",
+   "expires": "2026-11-26T06:14:31Z",
+   "release": "p3-4-agents.zip",
    "callers": {}
   },
   {
@@ -21,9 +21,19 @@
    "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
    "why": "P3-4: CEILINGS and STEP_COST",
    "since": "2026-11-26T02:13:50Z",
-   "expires": "2026-11-26T06:13:52Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-26T06:14:31Z",
+   "release": "p3-4-agents.zip",
+   "callers": {
+    "setCeiling": [
+     "website/admin/api.php"
+    ],
+    "undo": [
+     "website/admin/api.php"
+    ],
+    "evidence": [
+     "app/admin/team-console.php"
+    ]
+   }
   },
   {
    "path": "app/lib/GaugeTasks.php",
@@ -32,8 +42,8 @@
    "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
    "why": "P3-4: brief_to in the report",
    "since": "2026-11-26T02:13:54Z",
-   "expires": "2026-11-26T06:13:54Z",
-   "release": "",
+   "expires": "2026-11-26T06:14:31Z",
+   "release": "p3-4-agents.zip",
    "callers": {}
   }
  ],
