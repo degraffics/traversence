@@ -35,6 +35,8 @@ try {
     ['column', 'block', 'drift', 'a column added to that table, out of scope: drift (its structure)'],
     ['newbutton', 'block', 'drift', 'a button added outside the table, out of scope: drift (its controls)'],
     ['adminnote', 'pass', null, 'a to-do line and its link appearing on an admin page (a queue\'s work, catch-up\'s data): its prose and content links aren\'t drift there'],
+    ['helperitem', 'pass', null, 'a queue empty before ("All caught up.") holding an item card after, its buttons with it (#307\'s look, /admin/helper.php): a record, not drift'],
+    ['emptygone', 'block', 'data', '… the same box gone with no item in its place: a part of the page gone (data)'],
     ['alarm', 'block', 'drift', '… the same, when the release changes what draws them (lib/Thread.php): drift', { files: ['app/lib/Thread.php'] }],
     ['leak', 'block', 'access', 'a member opens an admin page: access'],
     ['lost', 'block', 'access', 'a member\'s own page sends it to sign in: access'],
@@ -59,6 +61,14 @@ try {
   t('heldIn: a name inside a sentence, any case and punctuation, found; one word alone never', heldIn('Visit the zz HELD burial, canary today', new Set([heldHash('zz held burial canary', KEY)]), KEY).size === 1 && heldIn('Canary', new Set([heldHash('canary', KEY)]), KEY).size === 0);
   const php = execFileSync('php', ['-r', 'require $argv[1]; echo HeldNames::hash("Zz Held — Burial Canary", "' + KEY + '"), "|", HeldNames::norm("Café  Ruins!");', path.join(here, 'heldnames-stub.php')]).toString();
   t('the site\'s hash (HeldNames) and the check\'s are the same', php === heldHash('Zz Held — Burial Canary', KEY) + '|' + norm('Café  Ruins!'), [php, heldHash('Zz Held — Burial Canary', KEY), norm('Café  Ruins!')]);
+  // #307's look: a page that opened before and timed out after
+  const slow = JSON.parse(readFileSync(path.join(dir, 'a-clock.json'), 'utf8'));
+  for (const f of slow.results) if (f.url === '/admin/x') { f.error = 'TimeoutError: page.goto: Timeout 45000ms exceeded.'; delete f.ba; f.status = 0; }
+  writeFileSync(path.join(dir, 'a-slow.json'), JSON.stringify(slow));
+  const rs = cmp(path.join(dir, 'a-slow.json'), {});
+  t('a page the release doesn\'t reach timing out after: staging\'s slowness, noted, never an access block', rs.verdict === 'pass' && rs.blocks_total === 0 && rs.notes.some(n => /timed out after on a page this release doesn't reach/.test(n)), { verdict: rs.verdict, first: rs.first });
+  const rs2 = cmp(path.join(dir, 'a-slow.json'), { pages: ['/admin/x'] });
+  t('… the same page, when the release reaches it: still an access block', rs2.verdict === 'block' && rs2.blocks.some(x => x.rule === 'access' && x.page === '/admin/x'), { verdict: rs2.verdict, first: rs2.first });
   const r = cmp(path.join(dir, 'a-fewer.json'), { pages: ['/'] });
   t('a block names who, the page, the size, before and after', r.blocks[0].who && r.blocks[0].page === '/' && r.blocks[0].size && r.blocks[0].before !== '' && /Missing data/.test(r.first), r.blocks[0]);
   t('the verdict counts its views and seconds (DB4\'s budget)', r.views === 16 && r.seconds > 0);

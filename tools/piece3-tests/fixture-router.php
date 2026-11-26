@@ -46,6 +46,6 @@ if (str_starts_with($path, '/admin/')) {
     $names = $v === 'rowtext' ? ['Aveda Institute Tucson', 'Desert Lab'] : ['Premises Park', 'Desert Lab'];
     $rows = ''; foreach ($names as $i => $n) $rows .= '<tr data-id="' . ($i + 1) . '"><td><a href="/admin/x?id=' . ($i + 1) . '">' . $n . '</a></td><td>' . ($v === 'rowtext' && $i ? 'Confirmed' : 'Found') . '</td>' . ($v === 'column' ? '<td>Jason</td>' : '') . '</tr>';
     $table = '<table><thead><tr><th>Name</th><th>Stage</th>' . ($v === 'column' ? '<th>Owner</th>' : '') . '</tr></thead><tbody>' . $rows . '</tbody></table>';
-    return $page('Admin', '<p>The admin.</p><button class="ak-b go">Save</button>' . ($v === 'greyed' ? '<button disabled>Send</button>' : '<button>Send</button>') . ($v === 'newbutton' ? '<button>Export</button>' : '') . ($v === 'adminnote' ? '<p>Found by the crawler · 3 waiting</p><p><a href="/admin/x?q=found">Work through</a></p>' : '') . $table);
+    return $page('Admin', '<p>The admin.</p><button class="ak-b go">Save</button>' . ($v === 'greyed' ? '<button disabled>Send</button>' : '<button>Send</button>') . ($v === 'newbutton' ? '<button>Export</button>' : '') . ($v === 'adminnote' ? '<p>Found by the crawler · 3 waiting</p><p><a href="/admin/x?q=found">Work through</a></p>' : '') . ($v === 'helperitem' ? '<div class="hp-card tv-bleed"><p class="hp-name">Premises Park</p><button>Approve</button><button>Skip</button></div>' : ($v === 'emptygone' ? '' : '<div class="hp-done tv-bleed">All caught up.</div>')) . $table);
 }
 http_response_code(404); echo 'not found'; return true;
