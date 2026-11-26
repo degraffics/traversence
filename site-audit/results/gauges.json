@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-26T00:34:12Z",
+ "generated_at": "2026-11-26T02:28:32Z",
  "version": 2,
  "generated_by": "tools/page-audit/gauges.py",
  "note": "The gauges' configuration (handoffs/control-board-plan/step3/sections/gauge-lifecycle.md), compact: the site computes every stage from it (app/lib/ControlGauges.php); each gauge's detail is in gauges-items.json.",
@@ -3836,5 +3836,13 @@
    }
   ]
  },
+ "messages": [
+  {
+   "id": "sm-2026-11-26-test-1",
+   "at": "2026-11-26T02:35:00Z",
+   "subject": "Traversence: the site's own email works",
+   "body": "This is the first message sent by the site itself, not by Claude. Today's batch is live: P3-3 (the tiers), P3-4 (agent Undo and the $0 limit), P3-5 (tribal-land names held) and this email. P3-6, the backend fence, is next. Each has Roll back at https://traversence.com/admin/config/releases. Still yours: the three staging switches at https://traversence.com/admin/config/staging"
+  }
+ ],
  "answers": []
 }
