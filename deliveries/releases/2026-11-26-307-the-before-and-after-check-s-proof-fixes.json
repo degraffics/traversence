@@ -6,12 +6,12 @@
     "zip": "ba-proof-fixes-3.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "planned",
+    "state": "approved",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
-    "plan_at": null,
+    "plan_at": "2026-11-26 17:24:03",
     "staged_at": null,
     "vetted_at": null,
     "live_at": null,
@@ -39,6 +39,21 @@
             "at": "2026-11-26T16:57:59+00:00",
             "by": 0,
             "msg": "Uploaded ba-proof-fixes-3.zip: 3 files."
+        },
+        {
+            "at": "2026-11-26T16:58:01+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/ba-proof-fixes-3.zip (git 9d26961857)."
+        },
+        {
+            "at": "2026-11-26T16:58:02+00:00",
+            "by": 0,
+            "msg": "Waiting for its before look: the advocates look at staging as it is, then it goes on staging (the before-and-after check)."
+        },
+        {
+            "at": "2026-11-26T17:24:03+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
         }
     ]
 }
