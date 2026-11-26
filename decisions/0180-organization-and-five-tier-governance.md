@@ -273,4 +273,12 @@ Nothing above raises a stage ceiling or the reach fence. Those stay the Founder'
   - "Only people can have paid for services right now": **no agent has a paid service**, the CEO included. The $0 agent
     spend cap stands. The CEO answers through the $0 route (a Claude session working within the Founder's own
     allowance, via git, in minutes). Free Gemini may be used for public material only (0164).
+- **The Founder's and the CEO's AI budget** (Jason, 2026-11-26: "We have Google ai, so free gemini has been replaced";
+  "A. Myself and ceo have a small budget for use of both llm and Google ai").
+  - Google AI is a paid subscription (a person's service), so the free-tier limit is gone: internal business material
+    may go to Gemini as it does to Claude.
+  - Other people's data goes only under protecting terms, which a paid plan meets. Held 0066 names go nowhere.
+  - **The CEO is the one agent with paid AI.** It shares a small budget with the Founder for Claude and Google AI,
+    used when answering him and building out the team. Every other agent stays at $0.
+  - The amount is the Founder's to set. Until he names it, the CEO keeps to the minutes route and spends nothing extra.
 
