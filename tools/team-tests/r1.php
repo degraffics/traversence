@@ -33,8 +33,10 @@ $roles = array_filter($all, fn ($r) => $r['kind'] !== 'advocate'); $adv = array_
 $t('run twice: the Team shows 44, the 32 roles and the 12 advocates', count($all) === 44 && count($roles) === 32 && count($adv) === 12, [count($all), count($roles), count($adv)]);
 $t('the 32 are numbered 1–32 once each', array_map('intval', array_column($roles, 'spec_no')) == range(1, 32), array_column($roles, 'spec_no'));
 $on = array_values(array_map(fn ($r) => (int) $r['spec_no'], array_filter($roles, fn ($r) => $r['status'] === 'active'))); sort($on);
-$t('active: the CEO (2) and today\'s working seats (1, 8, 20, 21, 23, 26, 28); 0180\'s note "The CEO builds the team"', $on === [1, 2, 8, 20, 21, 23, 26, 28], $on);
-$t('every other role on standby, the 12 advocates active (views only): 20 active, 24 standby', $c['active'] === 20 && $c['standby'] === 24 && !array_filter($adv, fn ($r) => $r['status'] !== 'active'), $c);
+$t('active: the CEO (2), today\'s working seats (1, 8, 20, 21, 23, 26, 28) and the CEO\'s four (11, 15, 22, 24); 0180\'s notes', $on === [1, 2, 8, 11, 15, 20, 21, 22, 23, 24, 26, 28], $on);
+$log = $pdo->query("SELECT what FROM control_log WHERE who = 'the CEO' ORDER BY what")->fetchAll(PDO::FETCH_COLUMN);
+$t('… the four logged on their History as the CEO\'s activation, once each though run twice', $log === ['Team role cognitive-load: on standby → active', 'Team role it-manager: on standby → active', 'Team role schema-guards: on standby → active', 'Team role staging-release: on standby → active'], $log);
+$t('every other role on standby, the 12 advocates active (views only): 24 active, 20 standby', $c['active'] === 24 && $c['standby'] === 20 && !array_filter($adv, fn ($r) => $r['status'] !== 'active'), $c);
 $t('the advocates are A1–A12, views only', array_column($adv, 'spec_no') === array_map(fn ($i) => 'A' . $i, range(1, 12)) && !array_filter($adv, fn ($r) => $r['acts_level'] !== ''));
 $t('the layers: 1 Founder, 6 executives, 7 managers, 18 specialists', array_count_values(array_column($roles, 'department')) == ['founder' => 1, 'executive' => 6, 'managers' => 7, 'specialists' => 18], array_count_values(array_column($roles, 'department')));
 $t('renamed in place: Customer Support Specialists (#18), Build & QA Sessions (#21), Front-End Content Writers (#26)', ($by['member-support']['name'] ?? '') === 'Customer Support Specialists' && $by['member-support']['spec_no'] === '18' && $by['builder']['name'] === 'Build & QA Sessions' && $by['content-editor']['name'] === 'Front-End Content Writers');
@@ -56,7 +58,8 @@ $t('the Founder\'s highest tier is 5; executives 4, managers 3, specialists 2', 
 
 // a role on standby: its step goes up its line (the seed's standby roles, as R1 leaves them)
 $d = TeamRoster::doer($pdo, 'system-architect'); $t('active: a step\'s own role does it', $d && $d[0]['slug'] === 'system-architect' && $d[1] === '');
-$d = TeamRoster::doer($pdo, 'it-manager'); $t('the IT Manager and the CTO on standby as seeded: the CEO does the IT Manager\'s step', $d && $d[0]['slug'] === 'ceo' && $d[1] === 'IT Manager', $d ? [$d[0]['slug'], $d[1]] : null);
+$d = TeamRoster::doer($pdo, 'cto'); $t('the CTO on standby as seeded: the CEO does its step', $d && $d[0]['slug'] === 'ceo' && $d[1] === 'Chief Technology Officer', $d ? [$d[0]['slug'], $d[1]] : null);
+$pdo->exec("UPDATE team_roster SET status = 'standby' WHERE slug = 'it-manager'");
 $pdo->exec("UPDATE team_roster SET status = 'standby' WHERE slug = 'system-architect'");
 $d = TeamRoster::doer($pdo, 'system-architect'); $t('the Architect on standby too: up its line to the CEO', $d && $d[0]['slug'] === 'ceo' && $d[1] === 'System Architect', $d ? [$d[0]['slug'], $d[1]] : null);
 $pdo->exec("UPDATE team_roster SET status = 'standby' WHERE slug = 'ceo'");
@@ -65,15 +68,15 @@ $pdo->exec("UPDATE team_roster SET status = 'active' WHERE slug = 'ceo'");
 $pdo->exec("UPDATE team_roster SET status = 'active' WHERE slug = 'editorial-director'");
 $pdo->exec("UPDATE team_roster SET reports_to = 'historian', status = 'standby' WHERE slug = 'translator'");
 $d = TeamRoster::doer($pdo, 'translator'); $t('a retired role on the line is passed over (Historian → Editorial Director)', $d && $d[0]['slug'] === 'editorial-director', $d ? $d[0]['slug'] : null);
-$c2 = TeamRoster::counts(TeamRoster::all($pdo)); $t('standby counted, retired still not', $c2['standby'] === 25 && $c2['all'] === 44, $c2);
+$c2 = TeamRoster::counts(TeamRoster::all($pdo)); $t('standby counted, retired still not', $c2['standby'] === 22 && $c2['all'] === 44, $c2);
 $pdo->exec("UPDATE team_roster SET status = 'standby' WHERE slug = 'editorial-director'");
-$pdo->exec("UPDATE team_roster SET status = 'active', reports_to = 'editorial-director' WHERE slug IN ('system-architect', 'translator')");
+$pdo->exec("UPDATE team_roster SET status = 'active', reports_to = 'editorial-director' WHERE slug IN ('system-architect', 'translator', 'it-manager')");
 
 // staging's Team runner: on only where the database is staging's (its name ends stg), never on live's
 $run($app . '/migrations/2026-11-26_0180_tiers_roster.sql');
 $t('on live\'s database the runner\'s switch isn\'t written', (int) $pdo->query("SELECT COUNT(*) FROM feature_switches WHERE switch_key = 'team_runner'")->fetchColumn() === 0);
 $pdo->exec('DROP DATABASE IF EXISTS lv_r1stg'); $pdo->exec('CREATE DATABASE lv_r1stg'); $pdo->exec('USE lv_r1stg');
-foreach (['team_roster', 'control_gauge_tasks', 'feature_switches'] as $tb) $pdo->exec("CREATE TABLE $tb LIKE lv_main.$tb");
+foreach (['team_roster', 'control_gauge_tasks', 'feature_switches', 'control_log'] as $tb) $pdo->exec("CREATE TABLE $tb LIKE lv_main.$tb");
 $pdo->exec("INSERT INTO feature_switches (switch_key, state, note, updated_at) VALUES ('team_runner', 'off', 'Start Agents', NOW())");
 $run($app . '/migrations/2026-11-26_0180_tiers_roster.sql'); $run($app . '/migrations/2026-11-26_0180_tiers_roster.sql');
 $sw = $pdo->query("SELECT state, killed FROM feature_switches WHERE switch_key = 'team_runner'")->fetch(PDO::FETCH_ASSOC);

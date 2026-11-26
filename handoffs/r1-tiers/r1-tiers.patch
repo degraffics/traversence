@@ -962,8 +962,8 @@ diff -ruN -x '*.png' /home/user/bench/r1base/root/app/lib/TeamRunner.php /home/u
          return $out;
 diff -ruN -x '*.png' /home/user/bench/r1base/root/app/migrations/2026-11-26_0180_tiers_roster.sql /home/user/bench/r1/root/app/migrations/2026-11-26_0180_tiers_roster.sql
 --- /home/user/bench/r1base/root/app/migrations/2026-11-26_0180_tiers_roster.sql	1970-01-01 00:00:00.000000000 +0000
-+++ /home/user/bench/r1/root/app/migrations/2026-11-26_0180_tiers_roster.sql	2026-11-26 18:31:51.513371232 +0000
-@@ -0,0 +1,100 @@
++++ /home/user/bench/r1/root/app/migrations/2026-11-26_0180_tiers_roster.sql	2026-11-26 18:37:46.851666376 +0000
+@@ -0,0 +1,105 @@
 +-- decisions/0180 R1 (rename and roster). Written by handoffs/r1-tiers/rostergen.py. Safe to run twice.
 +-- 1. The stored tier: 3 meant the Founder; it is 5 now (Tier 5 · Founder ruling, 0180 §1), one meaning per number.
 +UPDATE control_gauge_tasks SET tier = 5 WHERE tier = 3;
@@ -998,7 +998,7 @@ diff -ruN -x '*.png' /home/user/bench/r1base/root/app/migrations/2026-11-26_0180
 +INSERT INTO team_roster (slug, name, department, kind, made_of, spec_no, mandate, rules, stages, acts_level, acts_dept, tier_max, test_account, reports_to, status, sort, updated_by) SELECT 'it-manager', 'IT Manager', 'managers', 'manager', 'ai', '11', 'Swimlane: engineering. Builds, QA, releases, schema and the guards; verifies crawler batch fixes.', '0159 §5: every build is a release
 +0162: migrations
 +0180 §1: the five tiers
-+0180 §4: the high-risk territories and the hard money line', '', '', '', 3, '', 'cto', 'standby', 110, 'the 0180 seed' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM team_roster WHERE slug = 'it-manager');
++0180 §4: the high-risk territories and the hard money line', '', '', '', 3, '', 'cto', 'active', 110, 'the 0180 seed' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM team_roster WHERE slug = 'it-manager');
 +INSERT INTO team_roster (slug, name, department, kind, made_of, spec_no, mandate, rules, stages, acts_level, acts_dept, tier_max, test_account, reports_to, status, sort, updated_by) SELECT 'editorial-director', 'Editorial Director', 'managers', 'manager', 'ai', '12', 'Swimlane: editorial. Content, copy, public design and briefs; may hold a screen for clutter (0180 §8).', '0057: the FAQ
 +brand.md
 +0180 §1: the five tiers
@@ -1007,7 +1007,7 @@ diff -ruN -x '*.png' /home/user/bench/r1base/root/app/migrations/2026-11-26_0180
 +0180 §4: the high-risk territories and the hard money line', '', '', '', 3, '', 'cmo', 'standby', 130, 'the 0180 seed' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM team_roster WHERE slug = 'marketing-director');
 +INSERT INTO team_roster (slug, name, department, kind, made_of, spec_no, mandate, rules, stages, acts_level, acts_dept, tier_max, test_account, reports_to, status, sort, updated_by) SELECT 'sales-director', 'Sales Director', 'managers', 'manager', 'ai', '14', 'Swimlane: sales. Leads, merchant onboarding, partnerships and retention.', '0180 §1: the five tiers
 +0180 §4: the high-risk territories and the hard money line', '', '', '', 3, '', 'cmo', 'standby', 140, 'the 0180 seed' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM team_roster WHERE slug = 'sales-director');
-+UPDATE team_roster SET department = 'specialists', kind = 'keeper', spec_no = '15', reports_to = 'project-manager', tier_max = 2, status = 'standby', sort = 150 WHERE slug = 'cognitive-load';
++UPDATE team_roster SET department = 'specialists', kind = 'keeper', spec_no = '15', reports_to = 'project-manager', tier_max = 2, status = 'active', sort = 150 WHERE slug = 'cognitive-load';
 +UPDATE team_roster SET department = 'specialists', kind = 'keeper', spec_no = '16', reports_to = 'project-manager', tier_max = 2, status = 'standby', sort = 160 WHERE slug = 'ops-policy';
 +UPDATE team_roster SET name = 'Order & Fulfillment Lead' WHERE slug = 'orders' AND name = 'Order & Fulfillment Processing Agent';
 +UPDATE team_roster SET department = 'specialists', kind = 'operator', spec_no = '17', reports_to = 'customer-service-manager', tier_max = 2, status = 'standby', sort = 170 WHERE slug = 'orders';
@@ -1019,10 +1019,10 @@ diff -ruN -x '*.png' /home/user/bench/r1base/root/app/migrations/2026-11-26_0180
 +UPDATE team_roster SET name = 'Build & QA Sessions' WHERE slug = 'builder' AND name = 'Full-Stack Builder';
 +UPDATE team_roster SET department = 'specialists', kind = 'operator', spec_no = '21', reports_to = 'it-manager', tier_max = 2, status = 'active', sort = 210 WHERE slug = 'builder';
 +INSERT INTO team_roster (slug, name, department, kind, made_of, spec_no, mandate, rules, stages, acts_level, acts_dept, tier_max, test_account, reports_to, status, sort, updated_by) SELECT 'staging-release', 'Staging & Release Workers', 'specialists', 'keeper', 'ai', '22', 'The release pipeline and the before-and-after check, as a role: staging, the advocates'' looks, rule-based Roll back.', '0165: staging
-+0179 rule 2: the before-and-after check', '', '', '', 2, '', 'it-manager', 'standby', 220, 'the 0180 seed' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM team_roster WHERE slug = 'staging-release');
++0179 rule 2: the before-and-after check', '', '', '', 2, '', 'it-manager', 'active', 220, 'the 0180 seed' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM team_roster WHERE slug = 'staging-release');
 +UPDATE team_roster SET department = 'specialists', kind = 'auditor', spec_no = '23', reports_to = 'it-manager', tier_max = 2, status = 'active', sort = 230 WHERE slug = 'ops-reconciliation';
 +INSERT INTO team_roster (slug, name, department, kind, made_of, spec_no, mandate, rules, stages, acts_level, acts_dept, tier_max, test_account, reports_to, status, sort, updated_by) SELECT 'schema-guards', 'Schema & Migration Guards', 'specialists', 'keeper', 'ai', '24', 'The zip check''s migration rules: additive is Tier 2; UPDATE, DELETE, DROP, MODIFY, RENAME, TRUNCATE and CHANGE are a high-risk territory.', '0162: migrations
-+0180 §4: major data mutations', '', '', '', 2, '', 'it-manager', 'standby', 240, 'the 0180 seed' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM team_roster WHERE slug = 'schema-guards');
++0180 §4: major data mutations', '', '', '', 2, '', 'it-manager', 'active', 240, 'the 0180 seed' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM team_roster WHERE slug = 'schema-guards');
 +INSERT INTO team_roster (slug, name, department, kind, made_of, spec_no, mandate, rules, stages, acts_level, acts_dept, tier_max, test_account, reports_to, status, sort, updated_by) SELECT 'privacy-guards', 'Privacy & Decision 0066 Guards', 'specialists', 'keeper', 'ai', '25', 'Privacy, identity and tribal nations'' land: the held-names check and every surface that could expose them; legal, consent and IP first pass (the AI Legal Risk Checker''s duties).', '0066: nations'' land and sensitive sites
 +0164: nothing private to free external APIs', '', '', '', 2, '', 'it-manager', 'standby', 250, 'the 0180 seed' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM team_roster WHERE slug = 'privacy-guards');
 +UPDATE team_roster SET name = 'Front-End Content Writers' WHERE slug = 'content-editor' AND name = 'Content & Copy Editor';
@@ -1062,12 +1062,17 @@ diff -ruN -x '*.png' /home/user/bench/r1base/root/app/migrations/2026-11-26_0180
 +-- 8. Two more Work tickets (added once): the 6:13 jobs that never started; the before-and-after check's false blocks.
 +INSERT INTO control_gauge_tasks (at, tz, gauge, item, kind, what, bucket, value, who, uid, why, source, rel) SELECT UTC_TIMESTAMP(), '', 'area:backlog', 'Two 6:13 jobs never started on live (Plans and renewals, Earned storage)', 'fix', 'Two 6:13 jobs never started on live (Plans and renewals, Earned storage)', 'task', '', 'the build session', 0, 'On 2026-11-26 live''s billing_tick (Plans and renewals) and earned_storage_tick have no run at 6:13 MST; Guests'' 30 days at the same minute ran, and both cron lines are there. Alarm #776 tripped at 13:30 UTC and mailed the Founder (a live alarm: staging''s mail is held by Staging::holdMail). Likely the 6:13 burst: nine live daily jobs and staging''s copies at the same minute (Scheduler::syncStaging copies live''s minute) against max_user_connections 25; storage/scheduler-missed.json would show a refused start. No money harm: the next run takes everything due on or before its day. For the IT Manager''s lane (decisions/0180 §5); the fix to look at goes with the Scheduler bundle after R2: spread the 6:13 starts, staging''s copies at live''s minute + 7.', 'live alarm #776, 2026-11-26 (the live read, runs 57-61)', '' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM control_gauge_tasks WHERE kind = 'fix' AND gauge = 'area:backlog' AND item = 'Two 6:13 jobs never started on live (Plans and renewals, Earned storage)');
 +INSERT INTO control_gauge_tasks (at, tz, gauge, item, kind, what, bucket, value, who, uid, why, source, rel) SELECT UTC_TIMESTAMP(), '', 'area:backlog', 'Before-and-after check: false blocks from staging''s live data', 'fix', 'Before-and-after check: false blocks from staging''s live data', 'task', '', 'the build session', 0, '#305 to #307 were withdrawn on data drift, state lines, to-do links appearing and slow-page timeouts. Lane: IT Manager (11); owner: Staging & Release Workers (22, decisions/0180''s appendix); builder: Build & QA Sessions (21). The check is paused for four releases only and is back on before any agent-built release and before R2. Done when it passes a clean admin-only release on today''s staging, and the fixture proves it.', 'decisions/0179''s note of 2026-11-26, 18:30 UTC (#1456)', '' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM control_gauge_tasks WHERE kind = 'fix' AND gauge = 'area:backlog' AND item = 'Before-and-after check: false blocks from staging''s live data');
++-- 9. The CEO's activations on each role's History (added once).
++INSERT INTO control_log (at, tz, kind, proc, what, who, why) SELECT UTC_TIMESTAMP(), '', 'control', '', 'Team role it-manager: on standby → active', 'the CEO', 'Activated by the CEO for the IT Manager''s lane: the 6:13 jobs ticket and the two slow admin pages (decisions/0180, "Every role is available; the CEO staffs it without asking", 2026-11-26). Put on standby is its way back.' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM control_log WHERE what = 'Team role it-manager: on standby → active' AND who = 'the CEO');
++INSERT INTO control_log (at, tz, kind, proc, what, who, why) SELECT UTC_TIMESTAMP(), '', 'control', '', 'Team role cognitive-load: on standby → active', 'the CEO', 'Activated by the CEO for one screen, one clear next action on the releases R2 to R5 bring (decisions/0180, "Every role is available; the CEO staffs it without asking", 2026-11-26). Put on standby is its way back.' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM control_log WHERE what = 'Team role cognitive-load: on standby → active' AND who = 'the CEO');
++INSERT INTO control_log (at, tz, kind, proc, what, who, why) SELECT UTC_TIMESTAMP(), '', 'control', '', 'Team role staging-release: on standby → active', 'the CEO', 'Activated by the CEO for the before-and-after check''s false blocks (its ticket), and switching the check back on before R2 (decisions/0180, "Every role is available; the CEO staffs it without asking", 2026-11-26). Put on standby is its way back.' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM control_log WHERE what = 'Team role staging-release: on standby → active' AND who = 'the CEO');
++INSERT INTO control_log (at, tz, kind, proc, what, who, why) SELECT UTC_TIMESTAMP(), '', 'control', '', 'Team role schema-guards: on standby → active', 'the CEO', 'Activated by the CEO for the migrations R1 to R5 bring (decisions/0180, "Every role is available; the CEO staffs it without asking", 2026-11-26). Put on standby is its way back.' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM control_log WHERE what = 'Team role schema-guards: on standby → active' AND who = 'the CEO');
 +-- 5. Staging's Team runner on for everyone, on staging's database only (its name ends stg: StagingSite::stg).
 +INSERT INTO feature_switches (switch_key, state, share_pct, killed, note, updated_by, updated_at) SELECT 'team_runner', 'on', 0, 0, 'Switched on for staging by the build (CLAUDE.md standing OK; decisions/0180 run it now)', NULL, NOW() FROM DUAL WHERE DATABASE() REGEXP 'stg(_[a-z]+)?$' ON DUPLICATE KEY UPDATE state = 'on', killed = 0, note = VALUES(note), updated_at = NOW();
 diff -ruN -x '*.png' /home/user/bench/r1base/root/app/rollbacks/2026-11-26_0180_tiers_roster.sql /home/user/bench/r1/root/app/rollbacks/2026-11-26_0180_tiers_roster.sql
 --- /home/user/bench/r1base/root/app/rollbacks/2026-11-26_0180_tiers_roster.sql	1970-01-01 00:00:00.000000000 +0000
-+++ /home/user/bench/r1/root/app/rollbacks/2026-11-26_0180_tiers_roster.sql	2026-11-26 18:31:51.513590541 +0000
-@@ -0,0 +1,66 @@
++++ /home/user/bench/r1/root/app/rollbacks/2026-11-26_0180_tiers_roster.sql	2026-11-26 18:37:46.852015407 +0000
+@@ -0,0 +1,71 @@
 +-- decisions/0180 R1, its Roll back. Written by handoffs/r1-tiers/rostergen.py. Safe to run twice.
 +-- 1. The tier back to 3 (the code put back reads 3 as the Founder).
 +UPDATE control_gauge_tasks SET tier = 3 WHERE tier = 5;
@@ -1134,6 +1139,11 @@ diff -ruN -x '*.png' /home/user/bench/r1base/root/app/rollbacks/2026-11-26_0180_
 +UPDATE team_roster SET spec_no = '32', reports_to = 'qa-security', status = 'active', sort = 320 WHERE slug = 'advocate-business-sales';
 +UPDATE team_roster SET spec_no = '33', reports_to = 'qa-security', status = 'active', sort = 330 WHERE slug = 'advocate-business-viewer';
 +UPDATE team_roster SET spec_no = '34', reports_to = 'qa-security', status = 'active', sort = 340 WHERE slug = 'advocate-staff-views';
++-- 9. The CEO's activation lines taken back off the History.
++DELETE FROM control_log WHERE what = 'Team role it-manager: on standby → active' AND who = 'the CEO';
++DELETE FROM control_log WHERE what = 'Team role cognitive-load: on standby → active' AND who = 'the CEO';
++DELETE FROM control_log WHERE what = 'Team role staging-release: on standby → active' AND who = 'the CEO';
++DELETE FROM control_log WHERE what = 'Team role schema-guards: on standby → active' AND who = 'the CEO';
 diff -ruN -x '*.png' /home/user/bench/r1base/root/app/ui/faq.md /home/user/bench/r1/root/app/ui/faq.md
 --- /home/user/bench/r1base/root/app/ui/faq.md	2026-11-26 14:30:35.016925629 +0000
 +++ /home/user/bench/r1/root/app/ui/faq.md	2026-11-26 14:22:47.775710137 +0000

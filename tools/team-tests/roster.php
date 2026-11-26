@@ -91,13 +91,13 @@ $t('the section is in the manifests (config/team)', str_contains(file_get_conten
 $t('the Team\'s view needs an Executive; editing, the Founder', $T['view']['min'] === 'executive' && $T['edit']['min'] === 'founder');
 [$rows, $total] = ($T['list'])($pdo, []);
 $labels = array_map(fn ($r) => $r['_group']['label'] . ' ' . $r['_group']['n'], $rows);
-$t('the default: the layers as groups (decisions/0180 §5), the standby roles folded into one, nothing retired shown', $labels === ['Founder 1', 'Executive suite 1', 'Middle managers 1', 'Specialists 5', 'Advocates 12', 'On standby 24'], $labels);
+$t('the default: the layers as groups (decisions/0180 §5), the standby roles folded into one, nothing retired shown', $labels === ['Founder 1', 'Executive suite 1', 'Middle managers 2', 'Specialists 8', 'Advocates 12', 'On standby 20'], $labels);
 $t('a group counts as one row for paging (table-standard §9)', $total === 6, $total);
-[$rows] = ($T['list'])($pdo, ['show' => 'active']); $t('Active only: 20 (the CEO, the working seats, the advocates), a plain list', count($rows) === 20 && !isset($rows[0]['_group']));
-[$rows] = ($T['list'])($pdo, ['show' => 'standby', 'dept' => 'managers']); $t('a filter on layer and status (6 managers on standby)', count($rows) === 6, count($rows));
+[$rows] = ($T['list'])($pdo, ['show' => 'active']); $t('Active only: 24 (the CEO, the working seats, the CEO\'s four, the advocates), a plain list', count($rows) === 24 && !isset($rows[0]['_group']));
+[$rows] = ($T['list'])($pdo, ['show' => 'standby', 'dept' => 'managers']); $t('a filter on layer and status (5 managers on standby)', count($rows) === 5, count($rows));
 [$rows] = ($T['list'])($pdo, ['q' => 'historian']); $t('a retired role isn\'t found by search either', !$rows, $rows);
 [$rows] = ($T['list'])($pdo, ['q' => 'audit']); $t('a search reads names, mandates and works', $rows && str_contains(json_encode($rows), 'Operations & Reconciliation'));
-$fl = ($T['filters'])($pdo); $t('the filter says its counts, and offers no Retired', str_contains($fl[0][2][''], '(44)') && str_contains($fl[0][2]['standby'], '(24)') && !isset($fl[0][2]['inactive']) && $fl[1][1] === 'Layer', $fl[0]);
+$fl = ($T['filters'])($pdo); $t('the filter says its counts, and offers no Retired', str_contains($fl[0][2][''], '(44)') && str_contains($fl[0][2]['standby'], '(20)') && !isset($fl[0][2]['inactive']) && $fl[1][1] === 'Layer', $fl[0]);
 [$rows] = ($T['list'])($pdo, ['show' => 'active']); $cur = array_values(array_filter($rows, fn ($r) => $r['ref'] === 'content-editor'))[0];
 $t('a working role with no step says "No steps yet"', $cur['works'] === 'No steps yet', $cur);
 $pdo->exec("INSERT INTO control_gauge_tasks (kind, owner) VALUES ('fix', 'system · Project Manager'), ('fix', 'system · Project Manager')");
