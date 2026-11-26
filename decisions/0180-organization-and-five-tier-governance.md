@@ -151,7 +151,7 @@ Nothing above raises a stage ceiling or the reach fence. Those stay the Founder'
 
 ## Jason's answers (2026-11-26)
 
-1. The six roles take the homes suggested in the appendix. Each starts on **standby** as a role of its own; its duties are carried by its home role. Today's active Regional Directory & Data Curator (14) goes to standby, and its work continues under Front-End Content Writers (26), which stays active.
+1. **The roster is the 32 roles of Jason's specification of 2026-11-26, and only those** (Jason, 2026-11-26: "make sure you are using what I sent you this morning"). Six roles from the earlier Piece 2 roster are not among them: Legal Risk Checker (4), Mission & Brand Integrity Auditor (5), Historian (9), Regional Directory & Data Curator (14), Preflight, Print & Trade Vendor Specialist (18) and AI & Dynamic Guide Quality Auditor (20). They are **retired**: kept as rows for history, never run, never shown as standby. Their duties are carried by the homes in the appendix (for example, directory accuracy by Front-End Content Writers, 26).
 2. Keep all **12** advocates, A1–A12, including the Staff Views Advocate (#34).
 3. Refunds: 0178 stands. A real refund executes only "with Jason's OK"; the team prepares refund records and fixes.
 
@@ -200,12 +200,12 @@ Nothing above raises a stage ceiling or the reach fence. Those stay the Founder'
 | 23 | Operations & Reconciliation Manager | L4 → IT Manager | Operations & Reconciliation Manager (8) | **active** |
 | 24 | Schema & Migration Guards | L4 → IT Manager | new: the zip check's migration rules (ReleaseKind) | standby |
 | 25 | Privacy & Decision 0066 Guards | L4 → IT Manager | new; suggested home for AI Legal Risk Checker & Auditor (4) and the 0066 half of (5) | standby |
-| 26 | Front-End Content Writers | L4 → Editorial Director | Content & Copy Editor (19); suggested home for Regional Directory & Data Curator (14) and AI & Dynamic Guide Quality Auditor (20) | **active** (as 19 and 14 are today) |
+| 26 | Front-End Content Writers | L4 → Editorial Director | Content & Copy Editor (19); carries the duties of retired 14 and 20 | **active** (as 19 is today) |
 | 27 | Public UI/UX Designers | L4 → Editorial Director | UI/UX Prototyper & Flow Designer (16); Senior Designer (17) for visual assets | standby |
 | 28 | Executive Translator & Briefing Lead | L4 → Editorial Director (CMO/CEO) | Executive Translator & Briefing Lead (2) | **active** |
 | 29 | Brand & Campaign Strategists | L4 → Marketing Director | new | standby |
 | 30 | SEO, Taxonomy & Funnel Analysts | L4 → Marketing Director | new | standby |
 | 31 | Merchant Onboarding Specialists | L4 → Sales Director | the onboarding half of (12) | standby |
 | 32 | Partnerships & Retention Leads | L4 → Sales Director | the partnership half of (12) | standby |
-| — | Historian (9) | — | no seat in the 32. Suggested: the Editorial Director's lane (lineage and living-landscape notes), or kept as its own role | standby |
+| — | Retired (earlier roster, not in the 32) | — | Legal Risk Checker (4) → duties to 25; Mission & Brand Integrity Auditor (5) → 7 and 25; Historian (9) → 12; Regional Directory & Data Curator (14) → 26; Preflight, Print & Trade Vendor Specialist (18) → 17; AI & Dynamic Guide Quality Auditor (20) → 26 | **retired** (kept for history) |
 | A1–A12 | Test-account advocates | beside the layers; experience tickets go to the owning middle manager | Advocates (23–33) and Staff Views Advocate (34) | active, views only |
