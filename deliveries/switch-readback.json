@@ -1,0 +1,22 @@
+{
+ "zip": "switch-readback.zip",
+ "built_on": "35660d8 Sync: 2026-11-26 19:52 UTC",
+ "recorded": "2026-11-26 20:30 UTC",
+ "note": "Switches: Save reads the switch back; the runner card says only Everyone runs it (the check paused, 0179's 18:30 note). Built on Sync: 19:52 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/sections.php": {
+   "sha256": "8ff17c35d71e71a6a9a1f33bc752aca259d2ebcc98ef27b05692dee3ddb0112b",
+   "live": false
+  },
+  "app/lib/Switches.php": {
+   "sha256": "23e5e635ef765d57a3aeba09989c5cdc710779cb3b471a4fd4429d8d9fa1bb9d",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "77ed31dc5785845844a6dbce0d74e5fed0092c74a514389f26397357f42af403",
+   "live": false
+  }
+ }
+}
