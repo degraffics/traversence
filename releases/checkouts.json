@@ -22,6 +22,17 @@
    "expires": "2026-11-26T06:17:57Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "website/api/held-hashes.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "P3-5: staging-only locked read",
+   "since": "2026-11-26T02:17:59Z",
+   "expires": "2026-11-26T06:17:59Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
