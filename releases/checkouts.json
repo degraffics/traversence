@@ -10,9 +10,14 @@
    "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
    "why": "config-rail: the side menu's greyed entries (Jason, 2026-11-25: Team in System Configuration's side menu)",
    "since": "2026-11-26T00:09:30Z",
-   "expires": "2026-11-26T04:09:30Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-26T04:09:56Z",
+   "release": "config-rail.zip",
+   "callers": {
+    "tv_app_open": [
+     "app/ui/page-shell.php",
+     "website/user/dashboard.php"
+    ]
+   }
   },
   {
    "path": "app/ui/section-rails.php",
@@ -21,8 +26,8 @@
    "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
    "why": "config-rail: System Configuration's five pages in the side menu",
    "since": "2026-11-26T00:09:32Z",
-   "expires": "2026-11-26T04:09:32Z",
-   "release": "",
+   "expires": "2026-11-26T04:09:56Z",
+   "release": "config-rail.zip",
    "callers": {}
   }
  ],
