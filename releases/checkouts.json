@@ -1,36 +1,6 @@
 {
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
- "claims": [
-  {
-   "path": "app/ui/app-shell.php",
-   "functions": [
-    "tv_app_open"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
-   "why": "config-rail: the side menu's greyed entries (Jason, 2026-11-25: Team in System Configuration's side menu)",
-   "since": "2026-11-26T00:09:30Z",
-   "expires": "2026-11-26T04:09:56Z",
-   "release": "config-rail.zip",
-   "callers": {
-    "tv_app_open": [
-     "app/ui/page-shell.php",
-     "website/user/dashboard.php"
-    ]
-   }
-  },
-  {
-   "path": "app/ui/section-rails.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
-   "why": "config-rail: System Configuration's five pages in the side menu",
-   "since": "2026-11-26T00:09:32Z",
-   "expires": "2026-11-26T04:09:56Z",
-   "release": "config-rail.zip",
-   "callers": {}
-  }
- ],
+ "claims": [],
  "lapsed": [
   {
    "path": "app/lib/GaugeTasks.php",
