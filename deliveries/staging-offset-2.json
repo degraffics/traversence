@@ -1,0 +1,18 @@
+{
+ "zip": "staging-offset-2.zip",
+ "built_on": "29a9e40 Sync: 2026-11-26 16:38 UTC",
+ "recorded": "2026-11-26 19:49 UTC",
+ "note": "Staging's jobs at live's minute + 7, sent again (#308 withdrawn on staging's data; the check paused, 0179's 18:30 note). Built on Sync: 16:38 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/Scheduler.php": {
+   "sha256": "d407ffbe53d94a0881c502f0994d1c143b710b052e6acea58dbae2a9dfa6ca91",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "6af7dc76910d5bf9564ff6427a624ab933ff548dd0dfe604c5ebd4dc1f49efe9",
+   "live": false
+  }
+ }
+}
