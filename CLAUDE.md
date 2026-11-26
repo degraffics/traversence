@@ -248,7 +248,7 @@ New standing OKs go here in the session that hears them; the tool they need goes
   this up and running by the time I am back… make your best judgement calls based on the adr's and the outlined plan…
   If you must reach me email me"): P2-1 to P2-5 publish once staging's checks pass, each with Roll back; the build
   session may switch on staging's Team runner, Staging runs its own jobs and Keep staging caught up. Judgement calls
-  follow the decisions and `handoffs/piece2-team.md`; Tier 3 still comes to him, by email (decisions/0179).
+  follow the decisions and `handoffs/piece2-team.md`; a Founder ruling (Tier 5, decisions/0180) still comes to him, by email.
 - **Agents stay in Planning until Jason has vetted Piece 2** (Jason, 2026-11-25: "limit agents and build to only the
   initial work que stage until I fully vet the builds"): the Team's ceiling is Planning; agents propose, never move a
   ticket, write a build brief or take a ticket themselves; only Jason raises the ceiling, and only after he approves
@@ -258,8 +258,11 @@ New standing OKs go here in the session that hears them; the tool they need goes
 
 **Publish authority (decisions/0179, Jason, 2026-11-25): every release.** Until the before-and-after checks exist,
 nothing that needs approval goes live until Jason approves the **daily batch** (the session manager's daily summary);
-then (Jason, 2026-11-25, A) Tier 1 and Tier 2 publish alone after the before-and-after check, with Undo in the daily summary; Tier 3 (money, major data or public addresses, 0066,
-privacy, mission, deadlocks) always comes to him as a Decision Brief.
+then (Jason, 2026-11-25, A) Tier 1 and Tier 2 publish alone after the before-and-after check, with Undo in the daily summary.
+**Five tiers (decisions/0180, Jason, 2026-11-26):** Tier 3 middle managers and Tier 4 executives resolve what's in
+their lanes; a change touching a high-risk area needs its Tier 4 review recorded before live. Only a **Founder ruling
+(Tier 5)** comes to him as a Decision Brief: a rule, tier, permission or fence change, an ADR amendment or new policy,
+an irreversible act, a deadlock, or real money moving (never autonomous; refunds per 0178).
 
 A session that needs Jason's OK (a PR, a decision, a key) asks him in its own chat, **written in the reply for him and
 Gemini to review, never a pop-up** (Jason, 2026-11-25; 0179), never a Pulse case, and sends a push notification.

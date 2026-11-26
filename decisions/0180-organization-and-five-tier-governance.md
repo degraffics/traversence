@@ -1,6 +1,6 @@
 # 0180: The organization and five-tier governance: who decides what, and the hard money line
 
-Status: **proposed** (drafted by the session manager, 2026-11-26, from Jason's "Organizational Architecture, Role Mandates & 5-Tier Governance" specification and his final calls in chat. For Jason's review with Gemini. Nothing is built until he accepts it.)
+Status: **accepted** (Jason, 2026-11-26, in chat: "Accepted … Proceed with the rollout steps as sequenced"). Drafted by the session manager from his "Organizational Architecture, Role Mandates & 5-Tier Governance" specification and his final calls. His two clarifications are in §4 and §6, and his answers to the open questions are at the end.
 
 Builds on:
 - **0179** (publish authority and escalation) and its notes.
@@ -25,7 +25,7 @@ Jason, 2026-11-26: the team should have "real operational authority inside their
 | Tier | What it covers | Who decides | How it goes live |
 |---|---|---|---|
 | **1: Autonomous polish** | Unit tests and minor bug fixes; copy, typos, the FAQ, formatting; layout polish, the 390px phone layout, contrast, spacing, clearer labels | Operational specialists, within their lane and the active fence | On staging, then publishes by itself once staging's checks and the before-and-after check pass. In the daily summary with Undo and Roll back. |
-| **2: Standard operations and growth** | Safe functional updates; internal tools; additive database changes (new table, column or index); billing code and workflow bug fixes that change no price, charge, refund, payout or ledger rule; crawler and ingestion reliability fixes within the $0 cap; regional guides, listing enrichment, campaign workflows, SEO and taxonomy; non-protected UI, onboarding steps, clutter reduction | Operational specialists, under their department manager. The Accounting Manager or IT Manager verifies billing and crawler batch fixes. | As Tier 1, within the reach fence (Backend only until the Founder widens it) |
+| **2: Standard operations and growth** | Safe functional updates; internal tools; additive database changes (new table, column or index); billing code and workflow bug fixes that change no price, charge, refund, payout or ledger rule (diagnosed, built and staged here; before live they also need the Tier 4 review in §4); crawler and ingestion reliability fixes within the $0 cap; regional guides, listing enrichment, campaign workflows, SEO and taxonomy; non-protected UI, onboarding steps, clutter reduction | Operational specialists, under their department manager. The Accounting Manager or IT Manager verifies billing and crawler batch fixes. | As Tier 1, within the reach fence (Backend only until the Founder widens it) |
 | **3: Middle-management triage** | Hand-offs between lanes; multi-file changes; non-protected workflow redesigns; diagnosing billing workflow bugs or crawler problems; recurring audit anomalies; support and onboarding edge cases; proposing operational boundary adjustments | The seven middle managers (§5), under executive guidance | The manager resolves it, runs the Tier 2 work, or routes it to Tier 4 |
 | **4: Executive suite** | Guides Tier 3; filters word-only false alarms; authorizes operational boundary adjustments (§2); reviews **every** change that touches one of the seven high-risk territories (§4) and runs its **Prior Ruling Check** | The executive suite: CEO, COO, CFO, CTO, CIO, CMO | It stays in Tiers 2–4 when the Prior Ruling Check passes (§3). Otherwise it goes to Tier 5. |
 | **5: Founder ruling** | See §3's list | The Founder | A **4-part Decision Brief** delivered by the CEO: (1) the territory or rule triggered, (2) the options weighed, with trade-offs and platform-wide impact, (3) the executive recommendation, (4) the Founder's ruling options |
@@ -57,7 +57,13 @@ The Prior Ruling Check is reasoning, so it runs in a Claude session (§6), never
 
 ### 4. The seven high-risk territories (Tier 4 review, Tier 5 on the triggers in §3)
 
-Detection stays as 0179's note set it: by **what a change touches** (libraries, tables, pages, jobs, services), using `TeamRunner::TIER3_AREAS` (renamed with the tiers). Words only raise a flag for a person to check. A change that touches a territory never publishes as plain Tier 1 or Tier 2 without its Tier 4 review recorded.
+Detection stays as 0179's note set it: by **what a change touches** (libraries, tables, pages, jobs, services), using `TeamRunner::TIER3_AREAS` (renamed with the tiers). Words only raise a flag for a person to check.
+
+**This check takes precedence over §1's tier** (Jason, 2026-11-26). A change that touches a territory never publishes as plain Tier 1 or Tier 2 without its Tier 4 review recorded. For example, a billing bug fix that touches Money and billing code:
+- the team diagnoses, builds and stages it under Tiers 2–3;
+- Tier 4 records its review and Prior Ruling Check before live release;
+- it stays out of Tier 5 when it only fixes a bug within settled rules and moves no real money;
+- it goes to Tier 5 if it changes a billing rule or would move real money.
 
 The seven territories:
 1. **Money and billing:** orders, carts, checkout, subscriptions, ledger entries, refunds, payouts, wallet cards, domain purchases, QuickBooks, Stripe, Square.
@@ -107,6 +113,12 @@ Each role is grounded in four things, kept on its Team page record:
 
 Private material (0164) never goes to a free external API, Gemini's free tier included. The $0 agent spend cap stands.
 
+**Keep the reasoning lean** (Jason, 2026-11-26).
+- Routine checks and templates run in code or fixed form first.
+- A Claude session is used only when code can't settle the question.
+- A Prior Ruling Check is concise and targeted. It gets only the change, the areas it touches and the ADR sections it may rely on, never the whole history, and it answers with a citation and yes or no.
+- Each one's session use is logged, so the daily summary shows what Tier 4 reasoning cost.
+
 ### 7. Guardrails that stay
 
 - **Staging first.** All agent implementation happens on staging. The live site changes only through checked releases with Undo and Roll back.
@@ -137,7 +149,13 @@ Private material (0164) never goes to a free external API, Gemini's free tier in
 
 Nothing above raises a stage ceiling or the reach fence. Those stay the Founder's presses.
 
-## Open questions for Jason
+## Jason's answers (2026-11-26)
+
+1. The six roles take the homes suggested in the appendix. Each starts on **standby** as a role of its own; its duties are carried by its home role. Today's active Regional Directory & Data Curator (14) goes to standby, and its work continues under Front-End Content Writers (26), which stays active.
+2. Keep all **12** advocates, A1–A12, including the Staff Views Advocate (#34).
+3. Refunds: 0178 stands. A real refund executes only "with Jason's OK"; the team prepares refund records and fixes.
+
+## The questions as asked
 
 1. **Old roles not in the 32.** Six of today's roles have no seat of their own in the new list. The appendix suggests a home for each:
    - Legal Risk Checker
