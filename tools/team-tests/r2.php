@@ -53,6 +53,7 @@ $t('an audit ticket: the IT Manager', $L(['what' => 'Found', 'ticket' => 'audit'
 $t('the marketplace (/market/listing.php): Sales', $L(['what' => 'Storefront', 'why' => '/market/listing.php']) === 'sales-director');
 $t('SEO words: Marketing', $L(['what' => 'Taxonomy gaps in SEO titles']) === 'marketing-director');
 $t('the FAQ (app/ui/faq.md): Editorial', $L(['what' => 'FAQ entry', 'why' => 'app/ui/faq.md']) === 'editorial-director');
+$t('the zip check (tools/page-audit, words): the IT Manager', $L(['what' => 'The zip check refuses seed text longer than its column', 'why' => 'tools/page-audit/zipcheck.py']) === 'it-manager');
 $t('nothing named: the Project Manager', $L(['what' => 'Tidy the queue']) === 'project-manager');
 $p = $add(['what' => 'A renewal posts twice', 'why' => 'app/lib/Billing.php']);
 $t('a Resolution keeps its work\'s lane (Accounting)', $L(['what' => 'Decide the refund', 'ticket' => 'resolution', 'parent_id' => (int) $p['id']]) === 'accounting-manager');

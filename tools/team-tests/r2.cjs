@@ -3,15 +3,20 @@
 // another lane… for the Founder: the lanes to choose from (never its own), then the note, then the row in its new lane with
 // the note shown and the filter's counts moved; for a staff member the item is greyed with who may; nothing wider than the
 // window; no page error.
-// Run: node r2.cjs <root> [shots dir]   (it resets lv_main at each width)
+// Run: R1MIG=<R1's migration> R1SEED=<piece2 seed dir> node r2.cjs <root> [shots dir]   (it resets lv_main at each width)
 const { chromium } = require('playwright'); const { spawn, execFileSync } = require('child_process'); const path = require('path');
 const { view } = require('../control-board-tests/board-view-go.cjs');
 const root = path.resolve(process.argv[2]); const shots = process.argv[3] || '';
 let pass = 0, fail = 0; const t = (n, ok, got) => { if (ok) { pass++; console.log('  ok  ' + n); } else { fail++; console.log('FAIL  ' + n + (got !== undefined ? ' — ' + JSON.stringify(got).slice(0, 300) : '')); } };
 const T = __dirname, CB = path.join(__dirname, '../control-board-tests');
+const R1MIG = process.env.R1MIG || '', R1SEED = process.env.R1SEED || '';   // R1's migration and Piece 2's seed (the roster)
 const db = (sql) => execFileSync('mariadb', ['-utv', '-ptv', '-h127.0.0.1', '-N', 'lv_main', '-e', sql]).toString().trim();
 const seed = () => { execFileSync('bash', ['-c', 'mariadb -utv -ptv -h127.0.0.1 -e "DROP DATABASE IF EXISTS lv_main; CREATE DATABASE lv_main CHARACTER SET utf8mb4" && mariadb -utv -ptv -h127.0.0.1 lv_main < '
   + T + '/../release-b-tests/start-schema.sql && php ' + CB + '/board-panels-seed.php ' + root + '/app >/dev/null 2>&1; php ' + CB + '/work-queue-seed.php ' + root + '/app >/dev/null && php ' + T + '/tickets-seed.php ' + root + '/app >/dev/null']);
+  // R1's roster, so the lanes' names are the Team's own (the Design reviewer on R2: never "It Manager")
+  if (!db("SHOW TABLES LIKE 'team_roster'")) for (const f of ['2026-11-25_team_roster.sql', '2026-11-25_team_roster_seed.sql', '2026-11-25_team_staff_views.sql']) execFileSync('bash', ['-c', 'mariadb -utv -ptv -h127.0.0.1 lv_main < ' + R1SEED + '/' + f]);
+  db("CREATE TABLE IF NOT EXISTS feature_switches (switch_key VARCHAR(60) PRIMARY KEY, state VARCHAR(8) NOT NULL DEFAULT 'off', share_pct TINYINT UNSIGNED NOT NULL DEFAULT 0, killed TINYINT UNSIGNED NOT NULL DEFAULT 0, note VARCHAR(255) NOT NULL DEFAULT '', updated_by INT UNSIGNED NULL, updated_at DATETIME NOT NULL)");
+  execFileSync('php', [path.join(T, 'run-migration.php'), root + '/app', R1MIG]);
   execFileSync('php', [path.join(T, 'run-migration.php'), root + '/app', root + '/app/migrations/2026-11-26_0180_r2_lanes.sql']);
   db("INSERT INTO control_gauge_tasks (at, gauge, item, kind, what, why, ticket, stage) VALUES (UTC_TIMESTAMP(), 'area:backlog', 'A renewal posts twice', 'fix', 'A renewal posts twice', 'app/lib/Billing.php charges a subscription twice', 'work', 'planning')");
   return db("SELECT MAX(id) FROM control_gauge_tasks"); };
@@ -34,20 +39,30 @@ const open = async (p, base) => { await p.goto(base + '/admin/config/control'); 
       const chip = await p.$eval(row + ' .wq-lane', x => ({ t: x.textContent.trim(), title: x.title, bg: getComputedStyle(x).backgroundColor }));
       t(L + 'the row says its lane: billing is the Accounting Manager\'s', /Accounting Manager/.test(chip.t) && /decisions\/0180 §5/.test(chip.title), chip);
       t(L + '… as a quiet tag (no fill, the meta colour), beside its type', chip.bg === 'rgba(0, 0, 0, 0)' || chip.bg === 'transparent', chip.bg);
-      await p.click(W + ' [data-wq-fb]');
+      await p.click(W + ' [data-wq-fb]'); await p.waitForTimeout(150);
+      const mr = await p.$eval(W + ' .wq-fm [role=menu]', m => { const r = m.getBoundingClientRect(); return { l: r.left, r: r.right, w: document.documentElement.clientWidth }; });
+      t(L + 'the filter menu wholly inside the window (0058 §11; table-standard §12)', mr.l >= 0 && mr.r <= mr.w, mr);
       const items = await p.$$eval(W + ' [data-wq-f^="lane:"]', a => a.map(x => x.textContent.replace(/\s+/g, ' ').trim()));
+      t(L + 'the lanes by the Team\'s own names: IT Manager, never "It Manager"', items.some(x => /^Lane: IT Manager /.test(x)) && !items.some(x => /It Manager/.test(x)), items);
+      if (shots) await p.screenshot({ path: path.join(shots, 'r2-filter-' + w + '.png'), fullPage: false });
       t(L + 'the one filter button has the seven lanes, each with its count', items.length === 7 && items.some(x => /^Lane: Accounting Manager [1-9]/.test(x)), items);
       await p.click(W + ' [data-wq-f="lane:accounting-manager"]'); await p.waitForTimeout(200);
       const shown = await p.$$eval(W + ' .wq-main .wq-it', a => a.filter(x => x.getClientRects().length).map(x => x.getAttribute('data-wq-lane')));
       t(L + 'filtered to Accounting\'s lane: only its rows', shown.length >= 1 && shown.every(x => x === 'accounting-manager'), shown);
       await p.click(W + ' [data-wq-fb]'); await p.click(W + ' [data-wq-f="all"]'); await p.waitForTimeout(200);
+      await p.click(W + ' [data-wq-fb]'); await p.evaluate(() => document.body.dispatchEvent(new MouseEvent('click', { bubbles: true }))); await p.waitForTimeout(150);
+      t(L + 'the filter menu closes on a click outside the Work queue', await p.$eval(W + ' .wq-fm [role=menu]', m => m.hidden));
       // Hand off, as the Founder
+      await p.evaluate(() => { const a = document.querySelector('#cb-wq [data-wq=all]'); if (a && a.getClientRects().length) a.click(); }); await p.waitForTimeout(150);   // the queue's own Show all: R1's tickets push this row past the first page
       await p.click(row + ' [data-cbg-rm]'); const hb = row + ' [data-wq="handoff"]';
       t(L + 'the Founder: ⋯ Hand off to another lane…, enabled', await p.$eval(hb, x => !x.disabled && /Hand off to another lane/.test(x.textContent)));
       await p.click(hb); await p.waitForSelector('.tv-ask .tv-ch');
       const ch = await p.$$eval('.tv-ask .tv-ch input', a => a.map(x => x.value));
       t(L + 'the lanes to choose from: the other six, never its own', ch.length === 6 && !ch.includes('accounting-manager'), ch);
       await p.check('.tv-ask .tv-ch input[value="customer-service-manager"]'); await p.click('.tv-ask .tv-ask-b.yes'); await p.waitForTimeout(300);
+      await p.click('.tv-ask .tv-ask-b.yes'); await p.waitForTimeout(400);
+      t(L + 'an empty note: the box stays open, with the site\'s notice saying what\'s needed', await p.$('.tv-ask textarea') !== null && /Add a note for Customer Service Manager/.test(await p.textContent('body')));
+      if (shots) await p.screenshot({ path: path.join(shots, 'r2-emptynote-' + w + '.png'), fullPage: false });
       await p.fill('.tv-ask textarea, .tv-ask input[type=text]', 'The order this renewal belongs to needs its page checked.');
       await Promise.all([p.waitForResponse(r => r.url().includes('/admin/api/config/control') && r.request().method() === 'POST', { timeout: 10000 }), p.click('.tv-ask .tv-ask-b.yes')]);
       await p.waitForTimeout(1500); await p.evaluate(() => document.querySelectorAll('#cb-wq .wq-grp > details').forEach(d => { d.open = true; }));
@@ -60,6 +75,7 @@ const open = async (p, base) => { await p.goto(base + '/admin/config/control'); 
       if (shots) await p.screenshot({ path: path.join(shots, 'r2-' + w + '.png'), fullPage: false });
       // a staff member: greyed with who may
       const p2 = await ctx.newPage(); await open(p2, 'http://127.0.0.1:' + (port + 40));
+      await p2.evaluate(() => { const a = document.querySelector('#cb-wq [data-wq=all]'); if (a && a.getClientRects().length) a.click(); }); await p2.waitForTimeout(150);
       await p2.click(row + ' [data-cbg-rm]');
       const g = await p2.$eval(row + ' [data-wq="handoff"]', x => ({ d: x.disabled, why: x.title }));
       t(L + 'a staff member: Hand off greyed, saying who may (the lane\'s manager, an executive above it, the Founder)', g.d && /lane manager/.test(g.why) && /Founder/.test(g.why), g);

@@ -5,12 +5,22 @@
   "proposals": [],
   "switch": "",
   "changes": [
-    {"what": "Each ticket's lane as a quiet tag beside its type; Lane in the one filter button; ⋯ Hand off to another lane… (the Founder; greyed for others with who may)", "where": "https://traversence.com/admin/config/control?tab=development"},
-    {"what": "Four tickets added once each: the Scheduler bundle, no Undo after an alarm is acknowledged, deadlock detection (R3), the zip check refusing seed text longer than its column", "where": "https://traversence.com/admin/config/control?tab=development"}
+    {
+      "what": "Each ticket's lane as a quiet tag beside its type; Lane in the one filter button; ⋯ Hand off to another lane… (the Founder; greyed for others with who may)",
+      "where": "https://traversence.com/admin/config/control?tab=development"
+    },
+    {
+      "what": "Four tickets added once each: the Scheduler bundle, no Undo after an alarm is acknowledged, deadlock detection (R3), the zip check refusing seed text longer than its column",
+      "where": "https://traversence.com/admin/config/control?tab=development"
+    },
+    {
+      "what": "An empty answer where one is required (Hand off's note) keeps the box open with the notice inside it (tv-ask's ask: o.required); the Work queue's filter menu stays inside the window at 390 and closes on any click outside",
+      "where": "https://traversence.com/admin/config/control?tab=development"
+    }
   ],
   "checks": {
-    "r2": "tools/team-tests/r2.php 39 on MariaDB, not strict as live (the migration twice, its structure only grows and its only UPDATEs fill an empty goal; R1's two cut reasons into goal, a written goal never touched; every lane row of the table; a Resolution keeps its work's lane; the lock: a person's never taken, own, another role's within and past the hour; hand-offs: a note required, another lane's manager refused saying who can, an executive not above refused, the CFO above Accounting, stored, the role's hold released, logged, the same lane said, the holding lane's manager, the Founder with a person's ownership kept, only the seven lanes; the tree's fingerprint the same before and after, no lane in it)",
-    "rendered": "tools/team-tests/r2.cjs 24 at 1280 and 390 (the chip, the filter's seven lanes with counts, filtering, Hand off for the Founder: six lanes never its own, the note, the row moved with the note shown, stored and logged, the counts moved; staff greyed with who may; no sideways scroll; no page error)",
+    "r2": "tools/team-tests/r2.php 40 on MariaDB, not strict as live (the migration twice, its structure only grows and its only UPDATEs fill an empty goal; R1's two cut reasons into goal, a written goal never touched; every lane row of the table; a Resolution keeps its work's lane; the lock: a person's never taken, own, another role's within and past the hour; hand-offs: a note required, another lane's manager refused saying who can, an executive not above refused, the CFO above Accounting, stored, the role's hold released, logged, the same lane said, the holding lane's manager, the Founder with a person's ownership kept, only the seven lanes; the tree's fingerprint the same before and after, no lane in it)",
+    "rendered": "tools/team-tests/r2.cjs 32 at 1280 and 390 with R1's roster (the chip; the filter menu wholly inside the window; the lanes by the Team's own names, IT Manager; the seven lanes with counts; filtering; the menu closed by a click outside; Hand off for the Founder: six lanes never its own; an empty note keeps the box open with the notice inside it; the row moved with the note shown, stored and logged, the counts moved; staff greyed with who may; no sideways scroll; no page error)",
     "kept": "runner.php 85, tickets.php 54, audit.php 34, batch.php 25, r1.php 35, roster.php 54, kind.php 35, rule2.php 24, pipeline.php 22, closed 10, onstates 7, tickwait 6; tickets.cjs 62, runner.cjs 44, team-head.cjs 40"
   }
 }

@@ -150,7 +150,8 @@ final class TeamRoster
             'paths' => ['/admin/ecommerce/plans', '/admin/backoffice/plans', '/user/billing', '/business/pay-connect.php', '/api/market-pay.php'], 'jobs' => ['billing_tick'], 'services' => ['quickbooks', 'stripe', 'square']],
         'it-manager' => ['territories' => ['data', 'address', 'nations', 'privacy'],
             'libs' => ['Releases', 'BeforeAfter', 'Staging', 'StagingSite', 'StagingSync', 'StagingPublish', 'StagingGate', 'Scheduler', 'TeamRunner', 'TeamRoster', 'GaugeTasks', 'ControlAlarms', 'ControlGauges', 'DbUpdates', 'Switches', 'CPanel', 'Notify', 'Mailer'],
-            'paths' => ['/admin/config', '/admin/control', '/admin/crawler', '/admin/sources', '/admin/auto-imports', '/admin/cluster-tools', '/admin/insights/crawler', '/api/crawl/', '/admin/staging', '/admin/releases'], 'jobs' => ['*']],
+            'paths' => ['/admin/config', '/admin/control', '/admin/crawler', '/admin/sources', '/admin/auto-imports', '/admin/cluster-tools', '/admin/insights/crawler', '/api/crawl/', '/admin/staging', '/admin/releases'], 'jobs' => ['*'],
+            'words' => '/\b(zip check|zipcheck|migration|release pipeline|before-and-after check|tools\/page-audit)\b/i'],   // the release pipeline's own tools
         'sales-director' => ['libs' => ['MarketBiz', 'Storefront', 'Claims', 'Partners'], 'paths' => ['/market', '/shop', '/business', '/claim', '/admin/marketplace', '/admin/partners', '/admin/claims', '/storefront']],
         'marketing-director' => ['words' => '/\b(SEO|taxonomy|campaign|funnel|brand drift)\b/i', 'paths' => ['/admin/marketing', '/admin/seo']],
         'editorial-director' => ['libs' => [], 'paths' => ['/faq.php', 'app/ui/faq.md', '/place', '/listing', '/guide', '/journey', '/explore', '/community', '/admin/content', '/admin/guides', 'design/'], 'words' => '/\b(FAQ|copy|wording|microcopy|guide|design)\b/i'],
@@ -200,7 +201,10 @@ final class TeamRoster
     }
 
     /** A lane's name, for its chip: the manager's name on the Team (its own words), else the slug in words. */
-    public static function laneName(PDO $pdo, string $lane): string { $n = self::names($pdo)[$lane] ?? ''; return $n !== '' ? $n : ucwords(str_replace('-', ' ', $lane)); }
+    /** The seven lanes' names as decisions/0180 writes them (layer 3, the appendix's rows 8-14), for when the Team has no row yet. */
+    public const LANE_NAMES = ['project-manager' => 'Project Manager', 'customer-service-manager' => 'Customer Service Manager', 'accounting-manager' => 'Accounting Manager',
+        'it-manager' => 'IT Manager', 'editorial-director' => 'Editorial Director', 'marketing-director' => 'Marketing Director', 'sales-director' => 'Sales Director'];
+    public static function laneName(PDO $pdo, string $lane): string { $n = self::names($pdo)[$lane] ?? ''; return $n !== '' ? $n : (self::LANE_NAMES[$lane] ?? $lane); }
 
     /**
      * May this actor hand a ticket off from its lane (0180 §1: hand-offs between lanes are Tier 3, so the holding lane's

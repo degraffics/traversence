@@ -531,6 +531,9 @@
   function wqMenu(sec, open) {
     var m = sec.querySelector('.wq-fm [role=menu]'), b = sec.querySelector('[data-wq-fb]'); if (!m) return;
     m.hidden = !open; b.setAttribute('aria-expanded', String(open));
+    // wholly inside the window (decisions/0058 §11, table-standard §12; the Design reviewer on R2): shifted back in from either edge
+    m.style.transform = ''; if (open) { var r = m.getBoundingClientRect(), W = document.documentElement.clientWidth, dx = 0;
+      if (r.right > W - 3) dx = W - 3 - r.right; if (r.left + dx < 3) dx = 3 - r.left; if (dx) m.style.transform = 'translateX(' + Math.round(dx) + 'px)'; }
   }
   function wqReload(sec, focusId) {
     var f = sec._f || 'all', sa = sec._all;
@@ -554,6 +557,8 @@
       return wqReload(sec, j.id || id).then(function (n) { if (n && body.action === 'qadd') wqFirst(n, j.id); var at = n && ((j.id || id) && n.querySelector('#wq-' + (j.id || id) + ' .wq-st')) || n; say(j.message || 'Done.', at); });
     }, function (err) { TvAsk.busy(btn, false); say(err.message, btn, true); });
   }
+  // the filter menu closes on any click outside it, anywhere on the page (CLAUDE.md "Everything that pops open closes")
+  document.addEventListener('click', function (e) { if (e.target.closest('.wq-fm')) return; document.querySelectorAll('#cb-wq').forEach(function (s2) { wqMenu(s2, false); }); });
   box.addEventListener('click', function (e) {
     var sec = e.target.closest('#cb-wq'); if (!sec) return;
     if (!e.target.closest('.wq-fm')) wqMenu(sec, false);
@@ -575,7 +580,7 @@
       sec.querySelectorAll('[data-wq-f^="lane:"]').forEach(function (b) { var k = b.getAttribute('data-wq-f').slice(5); if (k !== here) lanes.push([k, b.firstChild.textContent.replace(/^Lane: /, '').trim(), '']); });
       TvAsk.choose('Hand task #' + id + ' to which lane?', lanes, '', { yes: 'Next', note: 'One lane at a time (decisions/0180 §7): the lane it goes to takes it up with your note.' }).then(function (to) {
         if (!to) return; var nm = (lanes.filter(function (x) { return x[0] === to; })[0] || [to, to])[1];
-        TvAsk.ask('Your note for ' + nm + ' (what it needs to know; it goes with the ticket)', '', { multiline: true, yes: 'Hand it off' }).then(function (n) { if (n && n.trim()) wqSend(sec, t, { action: 'qhandoff', id: id, lane: to, note: n.trim() }, id); });
+        TvAsk.ask('Your note for ' + nm + ' (what it needs to know; it goes with the ticket)', '', { multiline: true, yes: 'Hand it off', required: 'Add a note for ' + nm + ': what it needs to know.' }).then(function (n) { if (n && n.trim()) wqSend(sec, t, { action: 'qhandoff', id: id, lane: to, note: n.trim() }, id); });
       });
       return;
     }
