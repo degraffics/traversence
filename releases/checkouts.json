@@ -17,7 +17,7 @@
    "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
    "why": "release r1-tiers.zip",
    "since": "2026-11-26T20:34:48Z",
-   "expires": "2026-11-27T00:34:48Z",
+   "expires": "2026-11-27T00:36:49Z",
    "release": "r1-tiers.zip",
    "callers": {}
   },
@@ -30,7 +30,7 @@
    "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
    "why": "release r1-tiers.zip",
    "since": "2026-11-26T20:34:48Z",
-   "expires": "2026-11-27T00:34:48Z",
+   "expires": "2026-11-27T00:36:49Z",
    "release": "r1-tiers.zip",
    "callers": {}
   },
@@ -44,7 +44,7 @@
    "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
    "why": "release r1-tiers.zip",
    "since": "2026-11-26T20:34:48Z",
-   "expires": "2026-11-27T00:34:48Z",
+   "expires": "2026-11-27T00:36:49Z",
    "release": "r1-tiers.zip",
    "callers": {}
   },
@@ -57,7 +57,7 @@
    "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
    "why": "release r1-tiers.zip",
    "since": "2026-11-26T20:34:48Z",
-   "expires": "2026-11-27T00:34:48Z",
+   "expires": "2026-11-27T00:36:49Z",
    "release": "r1-tiers.zip",
    "callers": {}
   },
@@ -68,7 +68,7 @@
    "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
    "why": "release r1-tiers.zip",
    "since": "2026-11-26T20:34:48Z",
-   "expires": "2026-11-27T00:34:48Z",
+   "expires": "2026-11-27T00:36:49Z",
    "release": "r1-tiers.zip",
    "callers": {}
   },
@@ -79,7 +79,7 @@
    "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
    "why": "release r1-tiers.zip",
    "since": "2026-11-26T20:34:48Z",
-   "expires": "2026-11-27T00:34:48Z",
+   "expires": "2026-11-27T00:36:49Z",
    "release": "r1-tiers.zip",
    "callers": {}
   },
@@ -98,7 +98,7 @@
    "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
    "why": "release r1-tiers.zip",
    "since": "2026-11-26T20:34:48Z",
-   "expires": "2026-11-27T00:34:48Z",
+   "expires": "2026-11-27T00:36:49Z",
    "release": "r1-tiers.zip",
    "callers": {
     "answer": [
@@ -140,7 +140,7 @@
    "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
    "why": "release r1-tiers.zip",
    "since": "2026-11-26T20:34:48Z",
-   "expires": "2026-11-27T00:34:48Z",
+   "expires": "2026-11-27T00:36:49Z",
    "release": "r1-tiers.zip",
    "callers": {
     "audit": [
@@ -161,7 +161,7 @@
    "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
    "why": "release r1-tiers.zip",
    "since": "2026-11-26T20:34:48Z",
-   "expires": "2026-11-27T00:34:48Z",
+   "expires": "2026-11-27T00:36:49Z",
    "release": "r1-tiers.zip",
    "callers": {}
   },
@@ -177,7 +177,7 @@
    "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
    "why": "release r1-tiers.zip",
    "since": "2026-11-26T20:34:48Z",
-   "expires": "2026-11-27T00:34:48Z",
+   "expires": "2026-11-27T00:36:49Z",
    "release": "r1-tiers.zip",
    "callers": {
     "writes": [
@@ -198,7 +198,7 @@
    "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
    "why": "release r1-tiers.zip",
    "since": "2026-11-26T20:34:48Z",
-   "expires": "2026-11-27T00:34:48Z",
+   "expires": "2026-11-27T00:36:49Z",
    "release": "r1-tiers.zip",
    "callers": {}
   },
@@ -222,7 +222,7 @@
    "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
    "why": "release r1-tiers.zip",
    "since": "2026-11-26T20:34:48Z",
-   "expires": "2026-11-27T00:34:48Z",
+   "expires": "2026-11-27T00:36:49Z",
    "release": "r1-tiers.zip",
    "callers": {}
   },
@@ -237,7 +237,7 @@
    "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
    "why": "release r1-tiers.zip",
    "since": "2026-11-26T20:34:48Z",
-   "expires": "2026-11-27T00:34:48Z",
+   "expires": "2026-11-27T00:36:49Z",
    "release": "r1-tiers.zip",
    "callers": {
     "decision": [
@@ -258,7 +258,7 @@
    "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
    "why": "release r1-tiers.zip",
    "since": "2026-11-26T20:34:48Z",
-   "expires": "2026-11-27T00:34:48Z",
+   "expires": "2026-11-27T00:36:49Z",
    "release": "r1-tiers.zip",
    "callers": {
     "all": [
@@ -286,7 +286,7 @@
    "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
    "why": "release r1-tiers.zip",
    "since": "2026-11-26T20:34:48Z",
-   "expires": "2026-11-27T00:34:48Z",
+   "expires": "2026-11-27T00:36:49Z",
    "release": "r1-tiers.zip",
    "callers": {
     "queueGauge": [
@@ -318,7 +318,7 @@
    "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
    "why": "release r1-tiers.zip",
    "since": "2026-11-26T20:34:48Z",
-   "expires": "2026-11-27T00:34:48Z",
+   "expires": "2026-11-27T00:36:49Z",
    "release": "r1-tiers.zip",
    "callers": {}
   },
@@ -331,7 +331,29 @@
    "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
    "why": "release r1-tiers.zip",
    "since": "2026-11-26T20:34:48Z",
-   "expires": "2026-11-27T00:34:48Z",
+   "expires": "2026-11-27T00:36:49Z",
+   "release": "r1-tiers.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/StagingSite.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "release r1-tiers.zip",
+   "since": "2026-11-26T20:36:49Z",
+   "expires": "2026-11-27T00:36:49Z",
+   "release": "r1-tiers.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/StagingPublish.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "release r1-tiers.zip",
+   "since": "2026-11-26T20:36:49Z",
+   "expires": "2026-11-27T00:36:49Z",
    "release": "r1-tiers.zip",
    "callers": {}
   }
