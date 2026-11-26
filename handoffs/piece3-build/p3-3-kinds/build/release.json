@@ -21,11 +21,11 @@
       "where": "https://traversence.com/admin/config/control?tab=development"
     }
   ],
-  "built_on": "the bench: Sync 18:38 UTC plus P3-2. TeamRunner.php is live's with only this release's three changes (P3-4 carries the rest). Rebuild on the live copy at send.",
+  "built_on": "Sync 2026-11-26 01:42 UTC (the 00:16 copy: config-rail and P3-2 live); faq.md re-applied on it",
   "checks": {
     "kinds_and_migrations": "tools/piece3-tests/kind.php, 35 checks: each kind's true and false cases; CREATE TABLE IF NOT EXISTS (with ON UPDATE and ON DELETE CASCADE) and guarded ADD COLUMN and ADD INDEX proved additive; UPDATE, DELETE, DROP, MODIFY, RENAME, TRUNCATE and CHANGE each Tier 3 (data), a DROP inside a guard's string too; an INSERT neither Tier 3 nor additive; a CREATE of a money table Tier 3 (money)",
     "tier2_publishes": "tools/piece3-tests/rule2.php, 17 checks on MariaDB: off, nothing waits; Tier 1 and Tier 2 the advocates passed publish alone and say which; one the advocates haven't passed waits; a DROP migration and a money page wait as Tier 3 with one Decision Brief, once; an INSERT waits as a data fix; the strip lists both tiers with Undo",
     "team_suites": "tools/team-tests/audit.php 34 (a migration by path alone no longer Tier 3, its verbs are), runner.php 67, tickets.php 54, batch.php 20, roster.php 51; pipeline.php 22"
   },
-  "rollback": "Proved on the bench (tools/team-tests/rollback.sh, 2026-11-25): the zip laid over the live mirror (Sync 18:38 UTC), then Roll back as the site does it: the files match live byte for byte and every PHP file parses. Left behind: nothing (no migration)."
+  "rollback": "Proved on the bench (tools/team-tests/rollback.sh, 2026-11-25): the zip laid over the live mirror (Sync 2026-11-26 01:42 UTC), then Roll back as the site does it: the files match live byte for byte and every PHP file parses. Left behind: nothing (no migration)."
 }
