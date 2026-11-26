@@ -223,7 +223,15 @@ export function compare(b1, b2, a, exp = {}, release = '', heldKey = STAGING?.to
   }
   // one block per rule, page and size is enough to read (the rest are counted)
   const uniq = []; const seen = new Set(); for (const x of blocks) { const k = [x.rule, x.who, x.page, x.size, x.what].join('|'); if (!seen.has(k)) { seen.add(k); uniq.push(x); } }
-  const incomplete = !a.results.length || !compared || Object.values(a.signins || {}).every(s => s !== 'ok') || heldUnread;
+  // an account that alone checks a kind of page (the Member advocate every page as a member, the Executive and the Staff login
+  // the admin pages as staff) and couldn't sign in, before or after, while the change names a page of that kind: that view
+  // of the change wasn't checked, so the look is incomplete (a person looks), never pass (#304, 2026-11-26: both staff logins
+  // failed, the change was admin only, and it read pass)
+  const SOLE = { member: ['member', 'public', 'admin'], executive: ['admin'], 'ops-staff': ['admin'] };
+  const failed = new Set([...Object.entries(b1.signins || {}), ...Object.entries(a.signins || {})].filter(([, s]) => s !== 'ok').map(([w]) => w));
+  const unchecked = [...failed].filter(w => SOLE[w] && [...expected].some(u => SOLE[w].includes(kindOf(u))));
+  if (unchecked.length) notes.unshift('Not checked as ' + unchecked.join(' and ') + ' (couldn\'t sign in), though the change names its pages: a person looks before it goes on');
+  const incomplete = !a.results.length || !compared || Object.values(a.signins || {}).every(s => s !== 'ok') || heldUnread || unchecked.length > 0;
   if (!compared && a.results.length) notes.unshift('No view had a usable before look (staging was closed or erroring when it was taken): a person looks before it goes on');
   return { release: String(release), at: new Date().toISOString(), verdict: uniq.length ? 'block' : (incomplete ? 'incomplete' : 'pass'),
     first: uniq[0] ? `${uniq[0].rule_name}: ${uniq[0].what} (${uniq[0].who}, ${uniq[0].page}, ${uniq[0].size})` : '',
