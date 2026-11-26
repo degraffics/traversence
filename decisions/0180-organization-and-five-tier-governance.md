@@ -253,4 +253,13 @@ Nothing above raises a stage ceiling or the reach fence. Those stay the Founder'
     phase 2's design, `handoffs/work-queue-phase2.md`), built after R2, with the Executive Suite as the voice that
     answers. It has no paid AI: replies travel through git to the session, so they take minutes. Every conversation is
     kept beside its tickets.
+- **Where the Founder talks to the executives: the Work queue's "+ Add" (create new)** (Jason, 2026-11-26: "a part of the
+  work que, create a new, should allow me to select executive suite and post my wants and needs there, for their review
+  and response"). This replaces the Team page panel in the note above.
+  - "+ Add" offers **To: the Executive Suite** beside giving work to the Team. His post becomes a Work queue item
+    addressed to the suite.
+  - The Executive Suite reviews it and answers on the item, as a thread. The answer names the executive speaking, cites
+    its decisions, and gives the plan or the tickets it opens. Tickets the suite opens link back to the post.
+  - Built after R2, with Work queue phase 2's thread (`handoffs/work-queue-phase2.md`). The answers travel through git
+    to the Executive Suite session, with no paid AI, so they take minutes.
 
