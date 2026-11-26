@@ -1,0 +1,49 @@
+{
+    "id": 302,
+    "title": "A release's record in git saves again when GitHub refuses it as stale, and says so on its card when it can't; the staging FAQ entries",
+    "why": "Release #301 published at 10:01 UTC (the pull answered \"Published: 4 files are live\"), but \"Release #301: Live\" never reached git: its On staging and Live records were written a second apart, the second read could still give the file's last sha, and GitHub refuses that write (409). The refusal went only to the error log. The record in git is what the batch strip, the zip check's in-flight list and the deliveries log read, so it must match live. Now DocsRepo::saveRecord reads again and writes again on a stale refusal, up to three times; a record that still won't save is remembered and saved again by the 10-minute release job (Releases::recordBehind), which also catches up records never kept (as #301's), and its card on Releases says \"Its record in git didn't save (why); the site saves it again every 10 minutes.\" until it does. Also the FAQ entries held from #300: \"I pressed Keep staging caught up: why doesn't it say on yet?\" and the staging answer's Carry on starting over. Admin only, no table, no outside call beyond the existing GitHub record write.",
+    "proposals": "",
+    "zip": "release-records.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/admin/sections.php": {
+            "sha": "de886106df86c1cc5236128bc64b2e3d9b35b841c5ae241b1f8053131230d1db",
+            "size": 257286,
+            "live_was": "88a7d6f60127cfa2cfcde2a81a8cfd41f54575d059fe1f909acb6f62c60269cf"
+        },
+        "app/ui/faq.md": {
+            "sha": "64416813d7dece52d5e4774aa73961afe509a125baf6f1879f48ff38007fd1c1",
+            "size": 464233,
+            "live_was": "a777587988ea05e0e675ec454638f6ceacb875143bf91c09ca269c8e1b5444fc"
+        },
+        "app/lib/DocsRepo.php": {
+            "sha": "012259b7e8d1e736aeb218c7f17a945407047ab26e10814dcb570f44b334e853",
+            "size": 20076,
+            "live_was": "bf61d0033bc52f4ab07440020497ffa13365215c6e02b9273f249104d7f6b86f"
+        },
+        "app/lib/Releases.php": {
+            "sha": "0ebb55c7865b83826a93e347b6247ee14322b289905f8d21aa422179d91cab26",
+            "size": 134768,
+            "live_was": "d231386e68df4b576af09aa2e8f76a68de770a80bbc63eb239e64f3156eb3e69"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-26T10:19:46+00:00",
+            "by": 0,
+            "msg": "Uploaded release-records.zip: 4 files."
+        }
+    ]
+}
