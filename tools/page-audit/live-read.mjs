@@ -63,10 +63,13 @@ try {
       await p.waitForLoadState('networkidle', { timeout: 15000 }).catch(() => {});   // the admin's tables fill in after load
       await p.waitForTimeout(800);
       const name = `${READ}${READ === 'meta' || READ === 'rows' ? '-' + TABLE : (ID ? '-' + ID : '')}${paths.length > 1 ? '-' + (paths.indexOf(path) + 1) : ''}-${w}`;   // one file per page
+      if (READ === 'jobs' && Q) await p.evaluate((q) => document.body.setAttribute('data-lr-q', q), Q);
       const read = await p.evaluate(() => ({
         url: location.pathname + location.search + location.hash,
         // the view shown: the board's tab and the rail's current page (Development, Board, Diagnostics)
         // a few named lines, short, for the summary (the Team page's "Yours to press", the Work queue's batch strip)
+        // jobs: the lines naming the job searched (ORDER_ID holds its name's words), and the line after (its schedule and last run)
+        found: (() => { const q = (document.body.getAttribute('data-lr-q') || ''); if (!q) return []; const L = document.body.innerText.split('\n'); const out = []; L.forEach((l, i) => { if (l.includes(q)) out.push((l + ' — ' + (L[i + 1] || '')).slice(0, 220)); }); return out.slice(0, 6); })(),
         said: ['#tm-yours', '.wq-batch > p, .wq-batch .tv-note', '#tm-ceiling .tm-h', '#tm-reach .tm-h'].map((q) => { const el = document.querySelector(q); return el ? el.innerText.replace(/\s+/g, ' ').trim().slice(0, 220) : ''; }).filter(Boolean),
         view: (() => { const b = document.querySelector('[data-tab]'); const r = document.querySelector('[data-cb-rail][aria-current="page"], .tv-rail [aria-current="page"], [aria-current="page"]'); return { tab: b ? b.getAttribute('data-tab') : '', current: r ? r.textContent.trim().replace(/\s+/g, ' ').slice(0, 60) : '' }; })(),
         title: document.title,
@@ -77,7 +80,7 @@ try {
       writeFileSync(`${OUT}/${name}.json`, JSON.stringify({ path, width: w, status: res.status(), refused_writes: refused, ...read }, null, 1));
       writeFileSync(`${OUT}/${name}.txt`, read.text);
       await p.screenshot({ path: `${OUT}/${name}.png`, fullPage: true });
-      const line = `${w}px ${path}: HTTP ${res.status()}, landed on ${read.url} (view: ${read.view.tab || '-'}, current: ${read.view.current || '-'})${read.said.length ? ' [' + read.said.join(' | ') + ']' : ''}, ${read.text.length} characters, ${read.links.length} admin links, no sideways scroll: ${read.wide}, writes refused: ${refused}`;
+      const line = `${w}px ${path}: HTTP ${res.status()}, landed on ${read.url} (view: ${read.view.tab || '-'}, current: ${read.view.current || '-'})${read.said.length ? ' [' + read.said.join(' | ') + ']' : ''}${read.found.length ? ' {' + read.found.join(' | ') + '}' : ''}, ${read.text.length} characters, ${read.links.length} admin links, no sideways scroll: ${read.wide}, writes refused: ${refused}`;
       summary.push(line); console.log(line);
       if (process.env.TO_LOG === '1') { console.log(`::group::${name} (the page's text; the session deletes this run's log once read)`); console.log(read.text); console.log('::endgroup::'); }
       if (/\/admin\/login\.php/.test(read.url)) fail(`${path} sent the test Executive back to sign in.`);
