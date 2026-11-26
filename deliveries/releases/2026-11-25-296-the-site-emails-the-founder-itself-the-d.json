@@ -6,25 +6,29 @@
     "zip": "notify-founder.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "staged",
-    "step": 0,
+    "state": "live",
+    "step": 3,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
     "plan_at": "2026-11-26 02:25:48",
     "staged_at": "2026-11-26 02:25:50",
-    "vetted_at": null,
-    "live_at": null,
+    "vetted_at": "2026-11-26 02:25:52",
+    "live_at": "2026-11-26 02:25:53",
     "files": {
         "app/admin/control-console.php": {
             "sha": "496fa53e7a23c2cce13555995727afdaa7713fa006c7d38c7ea7a5a11951823a",
             "size": 304113,
-            "live_was": "6e4f0a89730821b1cbecdf6dce834ceababd73c2afa40c803dd3685e5d63c17e"
+            "live_was": "6e4f0a89730821b1cbecdf6dce834ceababd73c2afa40c803dd3685e5d63c17e",
+            "existed": true,
+            "old_sha": "6e4f0a89730821b1cbecdf6dce834ceababd73c2afa40c803dd3685e5d63c17e"
         },
         "app/ui/faq.md": {
             "sha": "c53fdaf8144e00957d54e50aeebec18aa27d3024eab48c79bea1eeda51a5f316",
             "size": 461911,
-            "live_was": "9f512f2cc55196eb1e95a3bd60eceacf8871d1018d018b8e77d04ff5e7f176c9"
+            "live_was": "9f512f2cc55196eb1e95a3bd60eceacf8871d1018d018b8e77d04ff5e7f176c9",
+            "existed": true,
+            "old_sha": "9f512f2cc55196eb1e95a3bd60eceacf8871d1018d018b8e77d04ff5e7f176c9"
         },
         "app/migrations/2026-11-26_founder_mail.sql": {
             "sha": "523c56309de13c60ea22bdb55d9cb97901015912f479e24f2ca069e1f55d8d2c",
@@ -34,37 +38,49 @@
         "app/scripts/founder_mail_tick.php": {
             "sha": "8fd7d3226e2f2899e8b1cb0643724ceab6c7d45be71250cac54c73ff23fb29ab",
             "size": 965,
-            "live_was": null
+            "live_was": null,
+            "existed": false
         },
         "app/lib/GaugeTasks.php": {
             "sha": "e2b511d460ceda508e508e42ecdd087d5895951a30dfbeeb6d94d89399d33c5a",
             "size": 59114,
-            "live_was": "eb9f0d8b94ad1abcfd51fd8aeeb3a82caebaddf670b90f64ffbda8695a945fb7"
+            "live_was": "eb9f0d8b94ad1abcfd51fd8aeeb3a82caebaddf670b90f64ffbda8695a945fb7",
+            "existed": true,
+            "old_sha": "eb9f0d8b94ad1abcfd51fd8aeeb3a82caebaddf670b90f64ffbda8695a945fb7"
         },
         "app/lib/Scheduler.php": {
             "sha": "01761a5c91d00bccc6a7e7e822131b0226e7a90b7e4280bd0347d09dbd6ee562",
             "size": 34848,
-            "live_was": "5eee98df016f6e283a7aa6eff45a51e66242843782a2c23670f8ef148e0df35f"
+            "live_was": "5eee98df016f6e283a7aa6eff45a51e66242843782a2c23670f8ef148e0df35f",
+            "existed": true,
+            "old_sha": "5eee98df016f6e283a7aa6eff45a51e66242843782a2c23670f8ef148e0df35f"
         },
         "app/lib/Notify.php": {
             "sha": "91825aa989642174bd059e5f875656bb61a6717acec0578fc1c9fbe663a6902d",
             "size": 57383,
-            "live_was": "02da765c5ff95d3f9dbf7f9905b8d00239ebaa15b02e2dacb4aadee3b5e20961"
+            "live_was": "02da765c5ff95d3f9dbf7f9905b8d00239ebaa15b02e2dacb4aadee3b5e20961",
+            "existed": true,
+            "old_sha": "02da765c5ff95d3f9dbf7f9905b8d00239ebaa15b02e2dacb4aadee3b5e20961"
         },
         "app/lib/FounderMail.php": {
             "sha": "acddbb3db7fa5550872c8a24e9436ba27d2f5bf98a16a0fae85ebf8480284644",
             "size": 7321,
-            "live_was": null
+            "live_was": null,
+            "existed": false
         },
         "app/lib/staging-tables.php": {
             "sha": "59162ca367693cb4c14c877211b9fe60bd21cb16c34134352b9a88ef0141af1e",
             "size": 31003,
-            "live_was": "01b2a075cc77b1caee08ba5c0b070d96f74e8b20fdcaec6929198f16766e3acc"
+            "live_was": "01b2a075cc77b1caee08ba5c0b070d96f74e8b20fdcaec6929198f16766e3acc",
+            "existed": true,
+            "old_sha": "01b2a075cc77b1caee08ba5c0b070d96f74e8b20fdcaec6929198f16766e3acc"
         },
         "app/lib/ControlGauges.php": {
             "sha": "8d7052fd51ad2c68e1bda44ce4761191852999c22e790fd90fae9444d2853456",
             "size": 44674,
-            "live_was": "02b80c2f8fcba6b48e09845fe148cbe56bc75eeda425c6a3fff48b4883a85225"
+            "live_was": "02b80c2f8fcba6b48e09845fe148cbe56bc75eeda425c6a3fff48b4883a85225",
+            "existed": true,
+            "old_sha": "02b80c2f8fcba6b48e09845fe148cbe56bc75eeda425c6a3fff48b4883a85225"
         }
     },
     "migrations": [
@@ -72,8 +88,8 @@
     ],
     "checks": {
         "ok": true,
-        "where": "staging",
-        "at": "2026-11-26T02:25:51+00:00",
+        "where": "live",
+        "at": "2026-11-26T02:25:53+00:00",
         "items": [
             [
                 "PHP files parse",
@@ -81,19 +97,9 @@
                 "8 checked"
             ],
             [
-                "Migrations only add",
-                true,
-                "1 checked"
-            ],
-            [
-                "Migrations ran on staging",
-                true,
-                "Ran 2026-11-26_founder_mail.sql"
-            ],
-            [
                 "Pages answer",
                 true,
-                "2 pages answered on staging.trvgo.us"
+                "2 pages answered on traversence.com"
             ],
             [
                 "No new fatal errors in the logs",
@@ -123,6 +129,16 @@
             "at": "2026-11-26T02:25:51+00:00",
             "by": 0,
             "msg": "Put on staging (10 files); its checks passed."
+        },
+        {
+            "at": "2026-11-26T02:25:52+00:00",
+            "by": 0,
+            "msg": "Approved in chat before it was sent through git, and its checks on staging passed: publishing by itself."
+        },
+        {
+            "at": "2026-11-26T02:25:53+00:00",
+            "by": 0,
+            "msg": "Published: 9 files, after its 1 migration ran first (2026-11-26_founder_mail.sql; a copy of what each touched is kept 14 days); everyone at once (no switch)."
         }
     ]
 }
