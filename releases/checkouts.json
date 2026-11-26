@@ -1,6 +1,20 @@
 {
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
- "claims": [],
+ "claims": [
+  {
+   "path": "app/admin/team-console.php",
+   "functions": [
+    "tv_admin_mod_team"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "P3-4: the tree's words, Confirmation and the spending line (approved 2026-11-26)",
+   "since": "2026-11-26T02:13:48Z",
+   "expires": "2026-11-26T06:13:48Z",
+   "release": "",
+   "callers": {}
+  }
+ ],
  "lapsed": [
   {
    "path": "app/lib/GaugeTasks.php",
