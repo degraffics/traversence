@@ -1,0 +1,14 @@
+{
+  "title": "A release's record in git saves again when GitHub refuses it as stale, and says so on its card when it can't; the staging FAQ entries",
+  "why": "Release #301 published at 10:01 UTC (the pull answered \"Published: 4 files are live\"), but \"Release #301: Live\" never reached git: its On staging and Live records were written a second apart, the second read could still give the file's last sha, and GitHub refuses that write (409). The refusal went only to the error log. The record in git is what the batch strip, the zip check's in-flight list and the deliveries log read, so it must match live. Now DocsRepo::saveRecord reads again and writes again on a stale refusal, up to three times; a record that still won't save is remembered and saved again by the 10-minute release job (Releases::recordBehind), which also catches up records never kept (as #301's), and its card on Releases says \"Its record in git didn't save (why); the site saves it again every 10 minutes.\" until it does. Also the FAQ entries held from #300: \"I pressed Keep staging caught up: why doesn't it say on yet?\" and the staging answer's Carry on starting over. Admin only, no table, no outside call beyond the existing GitHub record write.",
+  "proposals": [],
+  "switch": "",
+  "changes": [
+    {"what": "A release's record in git is saved again until it matches; its card says when it's behind", "where": "https://traversence.com/admin/config/releases"},
+    {"what": "FAQ: why Keep staging caught up doesn't say on yet", "where": "https://traversence.com/faq.php"}
+  ],
+  "checks": {
+    "record": "tools/release-tests/record.php 15 on MariaDB with a fake GitHub (a stale 409 read again and written on the second try, a matching record left alone, three refusals said, a refused key stops at once, the 10-minute step saves a record never kept and then leaves it, one that won't save shows on its card and clears when it saves, nothing without the key)",
+    "kept": "piece3 pipeline 22, kind 35, rule2 24; control-board self-withdraw 17, r3f 12"
+  }
+}

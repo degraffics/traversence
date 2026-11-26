@@ -1,0 +1,26 @@
+{
+ "zip": "release-records.zip",
+ "built_on": "06c0a8a Sync: 2026-11-26 10:15 UTC",
+ "recorded": "2026-11-26 10:19 UTC",
+ "note": "release-records: a release's record in git saves again when refused as stale and says so when it can't (#301's missing Live); the staging FAQ entries. Admin only, on the session manager's OK 10:15 UTC. Built on Sync: 10:15 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/sections.php": {
+   "sha256": "de886106df86c1cc5236128bc64b2e3d9b35b841c5ae241b1f8053131230d1db",
+   "live": false
+  },
+  "app/lib/DocsRepo.php": {
+   "sha256": "012259b7e8d1e736aeb218c7f17a945407047ab26e10814dcb570f44b334e853",
+   "live": false
+  },
+  "app/lib/Releases.php": {
+   "sha256": "0ebb55c7865b83826a93e347b6247ee14322b289905f8d21aa422179d91cab26",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "64416813d7dece52d5e4774aa73961afe509a125baf6f1879f48ff38007fd1c1",
+   "live": false
+  }
+ }
+}
