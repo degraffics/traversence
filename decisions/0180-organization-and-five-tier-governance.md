@@ -209,3 +209,17 @@ Nothing above raises a stage ceiling or the reach fence. Those stay the Founder'
 | 32 | Partnerships & Retention Leads | L4 → Sales Director | the partnership half of (12) | standby |
 | — | Retired (earlier roster, not in the 32) | — | Legal Risk Checker (4) → duties to 25; Mission & Brand Integrity Auditor (5) → 7 and 25; Historian (9) → 12; Regional Directory & Data Curator (14) → 26; Preflight, Print & Trade Vendor Specialist (18) → 17; AI & Dynamic Guide Quality Auditor (20) → 26 | **retired** (kept for history) |
 | A1–A12 | Test-account advocates | beside the layers; experience tickets go to the owning middle manager | Advocates (23–33) and Staff Views Advocate (34) | active, views only |
+
+## Note (Jason, 2026-11-26): run it now
+
+"Ship the pre-R1 fixes and roll out Decision 0180 now—don't hold roles on standby or stall on phased rollouts when I'm ready to run it. Activate the organization and execution loop so I can evaluate real actions and live-site changes in action. … I want all agents able to work on the backend, once proven we will grant access to entire platform."
+- **Every role is active at R1.** All 32 seats, not only the seven carried over. Retired roles stay retired and unshown.
+- **R1–R5 ship back to back.** Each ships as soon as its own tests and before-and-after check pass; none waits for a batch or a hold. The order stays R1 → R5 only where one needs the one before.
+- **Reach stays Backend only.** Jason widens it to Everywhere once agents are proven on the backend.
+- **The guardrails, unchanged:**
+  - the hard money line (§4.1) and $0 spend;
+  - Tier 5 only on its real triggers (§3), so routine fixes, workflow and layout adjustments, and work that carries out a settled ADR are never blocked;
+  - reuse of the ADRs and standards (§7);
+  - rendered checks, including 390px and the simplicity veto, with rule-based rollback (§8).
+- **The Founder's own presses stay his**, by design: approving the decision tree, and raising the stage ceiling (Building, Implementation, Confirmation).
+
