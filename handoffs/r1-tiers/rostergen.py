@@ -118,6 +118,11 @@ for i, a in enumerate(ADV):
     up.append(f"UPDATE team_roster SET spec_no = 'A{i + 1}', reports_to = 'builder', status = 'active', sort = {1000 + i * 10} WHERE slug = 'advocate-{a}';")
     down.append(f"UPDATE team_roster SET spec_no = '{23 + i}', reports_to = 'qa-security', status = 'active', sort = {(23 + i) * 10} WHERE slug = 'advocate-{a}';")
 app = sys.argv[1]
+# 5. Staging's Team runner on for everyone, on staging's database only (CLAUDE.md's standing OK: "the build session may switch
+#    on staging's Team runner"; Jason, 2026-11-26, decisions/0180's note "run it now"). The tree's approval and the ceiling
+#    stay his own presses (CLAUDE.md, "The organization runs now"): nothing here writes them.
+up.append('-- 5. Staging\'s Team runner on for everyone, on staging\'s database only (its name ends stg: StagingSite::stg).')
+up.append("INSERT INTO feature_switches (switch_key, state, share_pct, killed, note, updated_by, updated_at) SELECT 'team_runner', 'on', 0, 0, 'Switched on for staging by the build (CLAUDE.md standing OK; decisions/0180 run it now)', NULL, NOW() FROM DUAL WHERE DATABASE() REGEXP 'stg(_[a-z]+)?$' ON DUPLICATE KEY UPDATE state = 'on', killed = 0, note = VALUES(note), updated_at = NOW();")
 os.makedirs(app + '/migrations', exist_ok=True); os.makedirs(app + '/rollbacks', exist_ok=True)
 open(app + '/migrations/2026-11-26_0180_tiers_roster.sql', 'w').write('\n'.join(up) + '\n')
 open(app + '/rollbacks/2026-11-26_0180_tiers_roster.sql', 'w').write('\n'.join(down) + '\n')

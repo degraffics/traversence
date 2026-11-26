@@ -1,6 +1,6 @@
-diff -ruN -x '*.png' r1base/root/app/admin/Access.php r1/root/app/admin/Access.php
---- r1base/root/app/admin/Access.php	2026-11-26 14:30:34.996195366 +0000
-+++ r1/root/app/admin/Access.php	2026-11-26 14:22:06.171636637 +0000
+diff -ruN -x '*.png' /home/user/bench/r1base/root/app/admin/Access.php /home/user/bench/r1/root/app/admin/Access.php
+--- /home/user/bench/r1base/root/app/admin/Access.php	2026-11-26 14:30:34.996195366 +0000
++++ /home/user/bench/r1/root/app/admin/Access.php	2026-11-26 14:22:06.171636637 +0000
 @@ -73,7 +73,7 @@
      /**
       * Is the person acting the Founder, signed in with the Founder's own staff login (role owner, level founder)? Never true
@@ -10,9 +10,9 @@ diff -ruN -x '*.png' r1base/root/app/admin/Access.php r1/root/app/admin/Access.p
       */
      public static function isFounder(): bool
      {
-diff -ruN -x '*.png' r1base/root/app/admin/control-console.php r1/root/app/admin/control-console.php
---- r1base/root/app/admin/control-console.php	2026-11-26 14:30:34.995989373 +0000
-+++ r1/root/app/admin/control-console.php	2026-11-26 14:24:35.897163643 +0000
+diff -ruN -x '*.png' /home/user/bench/r1base/root/app/admin/control-console.php /home/user/bench/r1/root/app/admin/control-console.php
+--- /home/user/bench/r1base/root/app/admin/control-console.php	2026-11-26 14:30:34.995989373 +0000
++++ /home/user/bench/r1/root/app/admin/control-console.php	2026-11-26 14:24:35.897163643 +0000
 @@ -1395,7 +1395,7 @@
      $pill = ['open' => ['Open', 'n'], 'taken' => ['Taken', 'a'], 'fixing' => ['Being fixed', 'r'], 'late' => ['Late', 'late'], 'done' => ['Done', 'g'], 'withdrawn' => ['Withdrawn', 'w'], 'waiting' => ['Waiting for you', 'late']][$st];
      $owner = (string) $t['owner_now']; $rel = (string) $t['rel_now'];
@@ -125,9 +125,9 @@ diff -ruN -x '*.png' r1base/root/app/admin/control-console.php r1/root/app/admin
      $fmenu = implode('', array_map(fn ($x) => '<button type="button" role="menuitemradio" aria-checked="' . ($x[0] === 'all' ? 'true' : 'false') . '" data-wq-f="' . $x[0] . '">' . $e($x[1]) . ' <span>' . (int) $x[2] . '</span></button>', $f));
      // Add a task: where (a gauge or an area), what, why, source (Jason's four fields, 2026-11-24)
      $opts = ''; $grp = '';
-diff -ruN -x '*.png' r1base/root/app/admin/team-console.php r1/root/app/admin/team-console.php
---- r1base/root/app/admin/team-console.php	2026-11-26 14:30:34.996093263 +0000
-+++ r1/root/app/admin/team-console.php	2026-11-26 14:21:18.196234822 +0000
+diff -ruN -x '*.png' /home/user/bench/r1base/root/app/admin/team-console.php /home/user/bench/r1/root/app/admin/team-console.php
+--- /home/user/bench/r1base/root/app/admin/team-console.php	2026-11-26 14:30:34.996093263 +0000
++++ /home/user/bench/r1/root/app/admin/team-console.php	2026-11-26 14:21:18.196234822 +0000
 @@ -2,7 +2,7 @@
  // app/admin/team-console.php — System Configuration → Team's head (decisions/0179's Piece 2, P2-3; Jason, 2026-11-25: "The team
  // decision tree is what I need to approve for agents to begin assuming full capacity"; 0179's note on how the Team's capacity
@@ -174,9 +174,9 @@ diff -ruN -x '*.png' r1base/root/app/admin/team-console.php r1/root/app/admin/te
      $fp = substr(TeamRunner::fingerprint($pdo), 0, 12);
      // what's the Founder's to press, in order (decisions/0179's notes, 2026-11-25 and 2026-11-26): only these start the agents
      $steps = [['Approve the decision tree', (bool) $tree], ['Raise to Building', in_array($ceil, ['building', 'implementation', 'confirmation'], true)], ['Raise to Implementation', in_array($ceil, ['implementation', 'confirmation'], true)]];
-diff -ruN -x '*.png' r1base/root/app/admin/tools.php r1/root/app/admin/tools.php
---- r1base/root/app/admin/tools.php	2026-11-26 14:30:34.997075363 +0000
-+++ r1/root/app/admin/tools.php	2026-11-26 14:26:28.131228121 +0000
+diff -ruN -x '*.png' /home/user/bench/r1base/root/app/admin/tools.php /home/user/bench/r1/root/app/admin/tools.php
+--- /home/user/bench/r1base/root/app/admin/tools.php	2026-11-26 14:30:34.997075363 +0000
++++ /home/user/bench/r1/root/app/admin/tools.php	2026-11-26 14:26:28.131228121 +0000
 @@ -2427,16 +2427,16 @@
          'filters' => function (PDO $pdo) {
              require_once __DIR__ . '/../lib/TeamRoster.php';
@@ -255,9 +255,9 @@ diff -ruN -x '*.png' r1base/root/app/admin/tools.php r1/root/app/admin/tools.php
              if ($key === 'audit') { require_once __DIR__ . '/../lib/TeamRunner.php'; $b = TeamRunner::blocked($pdo); if ($b !== null) throw new InvalidArgumentException($b === 'live' ? 'The audit runs on the staging copy only.' : $b);
                  return TeamRunner::audit($pdo, 'run now by ' . $who); }
              throw new InvalidArgumentException('Unknown action.');
-diff -ruN -x '*.png' r1base/root/app/lib/ControlGauges.php r1/root/app/lib/ControlGauges.php
---- r1base/root/app/lib/ControlGauges.php	2026-11-26 14:30:34.997543732 +0000
-+++ r1/root/app/lib/ControlGauges.php	2026-11-26 14:22:06.171956050 +0000
+diff -ruN -x '*.png' /home/user/bench/r1base/root/app/lib/ControlGauges.php /home/user/bench/r1/root/app/lib/ControlGauges.php
+--- /home/user/bench/r1base/root/app/lib/ControlGauges.php	2026-11-26 14:30:34.997543732 +0000
++++ /home/user/bench/r1/root/app/lib/ControlGauges.php	2026-11-26 14:22:06.171956050 +0000
 @@ -383,7 +383,7 @@
          $pk = []; foreach ((array) (self::config($pdo)['pickups'] ?? []) as $id => $r) if (is_array($r) && (string) ($r[0] ?? '') !== '') $pk[(int) $id] = ['session' => (string) $r[0], 'release' => (string) ($r[1] ?? '')];
          try { GaugeTasks::applyAnswers($pdo, (array) (self::config($pdo)['answers'] ?? [])); } catch (Throwable $x) {}   // the Founder's emailed answers, relayed (P2-5)
@@ -267,9 +267,9 @@ diff -ruN -x '*.png' r1base/root/app/lib/ControlGauges.php r1/root/app/lib/Contr
          $reading = $active ? round(($active - $c['late']) / $active * 100, 1) : 100.0;
          $text = $active ? ($active - $c['late']) . ' of ' . $active . ' on time' : 'Nothing open';
          $apT = GaugeTasks::approvals($pdo)['rt:' . self::QUEUE['id']]['target'] ?? null;
-diff -ruN -x '*.png' r1base/root/app/lib/FounderMail.php r1/root/app/lib/FounderMail.php
---- r1base/root/app/lib/FounderMail.php	2026-11-26 14:30:34.998069820 +0000
-+++ r1/root/app/lib/FounderMail.php	2026-11-26 14:22:06.170993170 +0000
+diff -ruN -x '*.png' /home/user/bench/r1base/root/app/lib/FounderMail.php /home/user/bench/r1/root/app/lib/FounderMail.php
+--- /home/user/bench/r1base/root/app/lib/FounderMail.php	2026-11-26 14:30:34.998069820 +0000
++++ /home/user/bench/r1/root/app/lib/FounderMail.php	2026-11-26 14:22:06.170993170 +0000
 @@ -4,7 +4,7 @@
  // the system's own email, free), to the Founder alone (CommsSetup::founders: the active staff logins at the founder level),
  // three things, each once:
@@ -304,9 +304,9 @@ diff -ruN -x '*.png' r1base/root/app/lib/FounderMail.php r1/root/app/lib/Founder
      }
  
      /** The session manager's messages (gauges.json's "messages"), each id once. */
-diff -ruN -x '*.png' r1base/root/app/lib/GaugeTasks.php r1/root/app/lib/GaugeTasks.php
---- r1base/root/app/lib/GaugeTasks.php	2026-11-26 14:30:34.997608439 +0000
-+++ r1/root/app/lib/GaugeTasks.php	2026-11-26 14:20:25.702356366 +0000
+diff -ruN -x '*.png' /home/user/bench/r1base/root/app/lib/GaugeTasks.php /home/user/bench/r1/root/app/lib/GaugeTasks.php
+--- /home/user/bench/r1base/root/app/lib/GaugeTasks.php	2026-11-26 14:30:34.997608439 +0000
++++ /home/user/bench/r1/root/app/lib/GaugeTasks.php	2026-11-26 14:20:25.702356366 +0000
 @@ -171,7 +171,7 @@
              if ($r['cleared_at'] === null && $r['undone_at'] === null) $r = self::advance($pdo, $r, $rel, isset($live[$rel]) && $rel !== '');   // the stages the system moves by its own checks
              $age = time() - (int) strtotime($r['at'] . ' UTC');
@@ -416,9 +416,9 @@ diff -ruN -x '*.png' r1base/root/app/lib/GaugeTasks.php r1/root/app/lib/GaugeTas
          return $msg;
      }
  
-diff -ruN -x '*.png' r1base/root/app/lib/Notify.php r1/root/app/lib/Notify.php
---- r1base/root/app/lib/Notify.php	2026-11-26 14:30:35.062366465 +0000
-+++ r1/root/app/lib/Notify.php	2026-11-26 14:22:06.171345842 +0000
+diff -ruN -x '*.png' /home/user/bench/r1base/root/app/lib/Notify.php /home/user/bench/r1/root/app/lib/Notify.php
+--- /home/user/bench/r1base/root/app/lib/Notify.php	2026-11-26 14:30:35.062366465 +0000
++++ /home/user/bench/r1/root/app/lib/Notify.php	2026-11-26 14:22:06.171345842 +0000
 @@ -79,9 +79,9 @@
          'biz.order'    => ['A Marketplace order for your business', 'An order or booking was placed, paid or changed by the buyer.', 'urgent', 'business', 'Your business', true, true, 'system', 'orders'],
          'biz.comment'  => ['A comment on your listing', 'Someone commented on a listing you help run.', 'general', 'business', 'Your business', false, true, 'system', 'messages'],
@@ -431,9 +431,9 @@ diff -ruN -x '*.png' r1base/root/app/lib/Notify.php r1/root/app/lib/Notify.php
          'founder.message'  => ['A message from the session manager', 'What the session manager needs you to know or answer, sent by the site.', 'alert', 'staff', 'Team', true, false, 'system', ''],
          // staging's own news to whoever pressed (2026-11-26: "Staging is refreshed" had gone to a staff login's hidden address):
          // a fresh copy finished or stopped, a publish done or stopped (StagingSite::tellPerson)
-diff -ruN -x '*.png' r1base/root/app/lib/ReleaseKind.php r1/root/app/lib/ReleaseKind.php
---- r1base/root/app/lib/ReleaseKind.php	2026-11-26 14:30:34.997914207 +0000
-+++ r1/root/app/lib/ReleaseKind.php	2026-11-26 14:20:50.070266549 +0000
+diff -ruN -x '*.png' /home/user/bench/r1base/root/app/lib/ReleaseKind.php /home/user/bench/r1/root/app/lib/ReleaseKind.php
+--- /home/user/bench/r1base/root/app/lib/ReleaseKind.php	2026-11-26 14:30:34.997914207 +0000
++++ /home/user/bench/r1/root/app/lib/ReleaseKind.php	2026-11-26 14:20:50.070266549 +0000
 @@ -3,14 +3,14 @@
  // line, and its note "Piece 3's decisions"; handoffs/piece3-check.md §4, P3-3.) A release's release.json names its kind;
  // this proves it on the server, where both copies are: each file the release brings (app/storage/releases/<id>/new/)
@@ -498,9 +498,9 @@ diff -ruN -x '*.png' r1base/root/app/lib/ReleaseKind.php r1/root/app/lib/Release
          return preg_match_all('/\b(' . implode('|', $v) . ')\b/i', self::bare($sql), $m) ? array_values(array_unique(array_map('strtoupper', $m[1]))) : [];
      }
  
-diff -ruN -x '*.png' r1base/root/app/lib/Releases.php r1/root/app/lib/Releases.php
---- r1base/root/app/lib/Releases.php	2026-11-26 14:30:35.057267016 +0000
-+++ r1/root/app/lib/Releases.php	2026-11-26 14:21:01.019028106 +0000
+diff -ruN -x '*.png' /home/user/bench/r1base/root/app/lib/Releases.php /home/user/bench/r1/root/app/lib/Releases.php
+--- /home/user/bench/r1base/root/app/lib/Releases.php	2026-11-26 14:30:35.057267016 +0000
++++ /home/user/bench/r1/root/app/lib/Releases.php	2026-11-26 14:21:01.019028106 +0000
 @@ -1386,12 +1386,23 @@
          }
          if (function_exists('opcache_reset')) @opcache_reset();
@@ -588,9 +588,67 @@ diff -ruN -x '*.png' r1base/root/app/lib/Releases.php r1/root/app/lib/Releases.p
          return '';
      }
  
-diff -ruN -x '*.png' r1base/root/app/lib/TeamRoster.php r1/root/app/lib/TeamRoster.php
---- r1base/root/app/lib/TeamRoster.php	2026-11-26 14:30:35.016760921 +0000
-+++ r1/root/app/lib/TeamRoster.php	2026-11-26 14:26:28.129600321 +0000
+diff -ruN -x '*.png' /home/user/bench/r1base/root/app/lib/Staging.php /home/user/bench/r1/root/app/lib/Staging.php
+--- /home/user/bench/r1base/root/app/lib/Staging.php	2026-11-26 14:30:35.011572647 +0000
++++ /home/user/bench/r1/root/app/lib/Staging.php	2026-11-26 14:33:39.796102176 +0000
+@@ -23,6 +23,17 @@
+     public const S3_PREFIX = 'staging/';
+     /** Switches that let a paid service run on staging for a test (Switches::DEFS). */
+     public const SWITCHES = ['ai' => 'staging_ai', 'crawler' => 'staging_crawler'];
++    /**
++     * Switches that act only on the staging copy: catch-up never brings live's row for them, and Publish never carries
++     * staging's to live (StagingSync::catchUpKey, StagingPublish::candidates). The Team's runner is one (TeamRunner::blocked).
++     */
++    public const STAGING_ONLY = ['staging_ai', 'staging_crawler', 'team_runner'];
++    /**
++     * What a fresh copy starts with on staging (StagingSite::finish): the Team's runner on for everyone (CLAUDE.md's standing
++     * OK, "the build session may switch on staging's Team runner"; decisions/0180's note "run it now"). Turned off there, it
++     * stays off until the next fresh copy. The tree's approval and the ceiling stay the Founder's own presses.
++     */
++    public const ON_AFTER_COPY = ['team_runner' => ['on', 'Switched on for staging by the build (CLAUDE.md standing OK; decisions/0180 run it now)']];
+ 
+     private static ?bool $here = null;
+     private static ?array $s3 = null;
+diff -ruN -x '*.png' /home/user/bench/r1base/root/app/lib/StagingPublish.php /home/user/bench/r1/root/app/lib/StagingPublish.php
+--- /home/user/bench/r1base/root/app/lib/StagingPublish.php	2026-11-26 14:30:35.062823269 +0000
++++ /home/user/bench/r1/root/app/lib/StagingPublish.php	2026-11-26 14:32:55.943039466 +0000
+@@ -180,6 +180,7 @@
+             foreach ($c->query($sql)->fetchAll(PDO::FETCH_COLUMN) as $k) $keys[] = (string) $k;
+         } catch (Throwable $e) { error_log('preview candidates ' . $t . ': ' . $e->getMessage()); }
+         $keys = array_values(array_unique($keys));
++        if ($t === 'feature_switches') { require_once __DIR__ . '/Staging.php'; $keys = array_values(array_diff($keys, Staging::STAGING_ONLY)); }   // a staging-only switch never goes to live
+         if ($m['int']) sort($keys, SORT_NUMERIC);
+         return $keys;
+     }
+diff -ruN -x '*.png' /home/user/bench/r1base/root/app/lib/StagingSite.php /home/user/bench/r1/root/app/lib/StagingSite.php
+--- /home/user/bench/r1base/root/app/lib/StagingSite.php	2026-11-26 14:30:35.062583436 +0000
++++ /home/user/bench/r1/root/app/lib/StagingSite.php	2026-11-26 14:32:55.943866386 +0000
+@@ -1364,6 +1364,10 @@
+             try { $c->exec('DELETE FROM ' . self::q($db, 'biz_schema') . " WHERE k = 'version'"); } catch (Throwable) {}
+         }
+         try { $c = self::conn('main'); $c->exec('DELETE FROM ' . self::q(self::stg($setup, 'main'), 'feature_switches') . " WHERE switch_key IN ('" . implode("', '", Staging::SWITCHES) . "')"); } catch (Throwable) {}
++        try {   // what staging starts with (Staging::ON_AFTER_COPY): the Team's runner on, said as Jason's call
++            $c = self::conn('main'); $fs = self::q(self::stg($setup, 'main'), 'feature_switches');
++            foreach (Staging::ON_AFTER_COPY as $k => [$state, $note]) $c->prepare('INSERT INTO ' . $fs . " (switch_key, state, share_pct, killed, note, updated_by, updated_at) VALUES (?, ?, 0, 0, ?, NULL, NOW()) ON DUPLICATE KEY UPDATE state = VALUES(state), killed = 0, note = VALUES(note), updated_at = NOW()")->execute([$k, $state, $note]);
++        } catch (Throwable $x) { error_log('staging switches after copy: ' . $x->getMessage()); }
+         return array_values(array_filter($notes));
+     }
+ 
+diff -ruN -x '*.png' /home/user/bench/r1base/root/app/lib/StagingSync.php /home/user/bench/r1/root/app/lib/StagingSync.php
+--- /home/user/bench/r1base/root/app/lib/StagingSync.php	2026-11-26 14:30:35.011774359 +0000
++++ /home/user/bench/r1/root/app/lib/StagingSync.php	2026-11-26 14:32:55.942670615 +0000
+@@ -308,6 +308,8 @@
+      */
+     public static function catchUpKey(string $realm, string $t, string $k): string
+     {
++        require_once __DIR__ . '/Staging.php';
++        if ($t === 'feature_switches' && in_array($k, Staging::STAGING_ONLY, true)) return 'left';   // a staging-only switch: live's row never comes in
+         $m = self::meta($realm, $t);
+         if (!$m) return 'skipped';
+         self::ensure($realm);
+diff -ruN -x '*.png' /home/user/bench/r1base/root/app/lib/TeamRoster.php /home/user/bench/r1/root/app/lib/TeamRoster.php
+--- /home/user/bench/r1base/root/app/lib/TeamRoster.php	2026-11-26 14:30:35.016760921 +0000
++++ /home/user/bench/r1/root/app/lib/TeamRoster.php	2026-11-26 14:26:28.129600321 +0000
 @@ -16,16 +16,24 @@
  
  final class TeamRoster
@@ -729,9 +787,9 @@ diff -ruN -x '*.png' r1base/root/app/lib/TeamRoster.php r1/root/app/lib/TeamRost
              if ($r['status'] === 'active') { $c['active']++; if ($r['kind'] === 'advocate') $c['advocates']++; else $c['working']++; }
              elseif ($r['status'] === 'standby') $c['standby']++; else $c['inactive']++;
          }
-diff -ruN -x '*.png' r1base/root/app/lib/TeamRunner.php r1/root/app/lib/TeamRunner.php
---- r1base/root/app/lib/TeamRunner.php	2026-11-26 14:30:34.997963366 +0000
-+++ r1/root/app/lib/TeamRunner.php	2026-11-26 14:24:35.895522936 +0000
+diff -ruN -x '*.png' /home/user/bench/r1base/root/app/lib/TeamRunner.php /home/user/bench/r1/root/app/lib/TeamRunner.php
+--- /home/user/bench/r1base/root/app/lib/TeamRunner.php	2026-11-26 14:30:34.997963366 +0000
++++ /home/user/bench/r1/root/app/lib/TeamRunner.php	2026-11-26 14:24:35.895522936 +0000
 @@ -9,7 +9,8 @@
  //   - Off until switched on: the switch team_runner (System Configuration → Switches, on staging).
  //   - One run at a time (GET_LOCK), one step a run, a ticket at most once an hour.
@@ -902,10 +960,10 @@ diff -ruN -x '*.png' r1base/root/app/lib/TeamRunner.php r1/root/app/lib/TeamRunn
                  . ($adr ? ' It rests on ' . implode('; ', array_map(fn ($a) => $a['adr'] . ' (' . ($all[$a['adr']]['title'] ?? 'not in the list') . ')', $adr)) . '.' : ''));
          }
          return $out;
-diff -ruN -x '*.png' r1base/root/app/migrations/2026-11-26_0180_tiers_roster.sql r1/root/app/migrations/2026-11-26_0180_tiers_roster.sql
---- r1base/root/app/migrations/2026-11-26_0180_tiers_roster.sql	1970-01-01 00:00:00.000000000 +0000
-+++ r1/root/app/migrations/2026-11-26_0180_tiers_roster.sql	2026-11-26 14:23:55.358160310 +0000
-@@ -0,0 +1,92 @@
+diff -ruN -x '*.png' /home/user/bench/r1base/root/app/migrations/2026-11-26_0180_tiers_roster.sql /home/user/bench/r1/root/app/migrations/2026-11-26_0180_tiers_roster.sql
+--- /home/user/bench/r1base/root/app/migrations/2026-11-26_0180_tiers_roster.sql	1970-01-01 00:00:00.000000000 +0000
++++ /home/user/bench/r1/root/app/migrations/2026-11-26_0180_tiers_roster.sql	2026-11-26 14:33:35.764779075 +0000
+@@ -0,0 +1,94 @@
 +-- decisions/0180 R1 (rename and roster). Written by handoffs/r1-tiers/rostergen.py. Safe to run twice.
 +-- 1. The stored tier: 3 meant the Founder; it is 5 now (Tier 5 · Founder ruling, 0180 §1), one meaning per number.
 +UPDATE control_gauge_tasks SET tier = 5 WHERE tier = 3;
@@ -998,9 +1056,11 @@ diff -ruN -x '*.png' r1base/root/app/migrations/2026-11-26_0180_tiers_roster.sql
 +UPDATE team_roster SET spec_no = 'A10', reports_to = 'builder', status = 'active', sort = 1090 WHERE slug = 'advocate-business-sales';
 +UPDATE team_roster SET spec_no = 'A11', reports_to = 'builder', status = 'active', sort = 1100 WHERE slug = 'advocate-business-viewer';
 +UPDATE team_roster SET spec_no = 'A12', reports_to = 'builder', status = 'active', sort = 1110 WHERE slug = 'advocate-staff-views';
-diff -ruN -x '*.png' r1base/root/app/rollbacks/2026-11-26_0180_tiers_roster.sql r1/root/app/rollbacks/2026-11-26_0180_tiers_roster.sql
---- r1base/root/app/rollbacks/2026-11-26_0180_tiers_roster.sql	1970-01-01 00:00:00.000000000 +0000
-+++ r1/root/app/rollbacks/2026-11-26_0180_tiers_roster.sql	2026-11-26 14:23:55.358483497 +0000
++-- 5. Staging's Team runner on for everyone, on staging's database only (its name ends stg: StagingSite::stg).
++INSERT INTO feature_switches (switch_key, state, share_pct, killed, note, updated_by, updated_at) SELECT 'team_runner', 'on', 0, 0, 'Switched on for staging by the build (CLAUDE.md standing OK; decisions/0180 run it now)', NULL, NOW() FROM DUAL WHERE DATABASE() REGEXP 'stg(_[a-z]+)?$' ON DUPLICATE KEY UPDATE state = 'on', killed = 0, note = VALUES(note), updated_at = NOW();
+diff -ruN -x '*.png' /home/user/bench/r1base/root/app/rollbacks/2026-11-26_0180_tiers_roster.sql /home/user/bench/r1/root/app/rollbacks/2026-11-26_0180_tiers_roster.sql
+--- /home/user/bench/r1base/root/app/rollbacks/2026-11-26_0180_tiers_roster.sql	1970-01-01 00:00:00.000000000 +0000
++++ /home/user/bench/r1/root/app/rollbacks/2026-11-26_0180_tiers_roster.sql	2026-11-26 14:33:35.764995903 +0000
 @@ -0,0 +1,66 @@
 +-- decisions/0180 R1, its Roll back. Written by handoffs/r1-tiers/rostergen.py. Safe to run twice.
 +-- 1. The tier back to 3 (the code put back reads 3 as the Founder).
@@ -1068,9 +1128,9 @@ diff -ruN -x '*.png' r1base/root/app/rollbacks/2026-11-26_0180_tiers_roster.sql 
 +UPDATE team_roster SET spec_no = '32', reports_to = 'qa-security', status = 'active', sort = 320 WHERE slug = 'advocate-business-sales';
 +UPDATE team_roster SET spec_no = '33', reports_to = 'qa-security', status = 'active', sort = 330 WHERE slug = 'advocate-business-viewer';
 +UPDATE team_roster SET spec_no = '34', reports_to = 'qa-security', status = 'active', sort = 340 WHERE slug = 'advocate-staff-views';
-diff -ruN -x '*.png' r1base/root/app/ui/faq.md r1/root/app/ui/faq.md
---- r1base/root/app/ui/faq.md	2026-11-26 14:30:35.016925629 +0000
-+++ r1/root/app/ui/faq.md	2026-11-26 14:22:47.775710137 +0000
+diff -ruN -x '*.png' /home/user/bench/r1base/root/app/ui/faq.md /home/user/bench/r1/root/app/ui/faq.md
+--- /home/user/bench/r1base/root/app/ui/faq.md	2026-11-26 14:30:35.016925629 +0000
++++ /home/user/bench/r1/root/app/ui/faq.md	2026-11-26 14:22:47.775710137 +0000
 @@ -472,31 +472,34 @@
  It's the first thing on the System Control Board's **Development** page (2026-11-24): everything we've found that needs doing, so nothing is forgotten and no gauge slips. Its gauge reads how many open tasks are on time (a task is **late** when it's a day old and nobody has it); until Jason approves its target (proposed: nothing late, with **Approve the target**) it shows how much of its setup is done, like every gauge. Under it, **Add a task**: choose the gauge or the area it belongs to (or **A new area…**), say what needs doing, why (what it fixes, or who asked) and where it came from (a decision, a hand-off, or whose words and when). The list shows what needs you first, late at the top, the first 10 then **Show all**; **Everything open ▾** filters it (Late, Open, Taken, Being fixed). Each task says where it stands: **Open** (nobody has it yet), **Late**, **Taken** (with whom), **Being fixed** in a named release, and it's **Done** by itself once its stages are through (below), or, for a gauge's **Request a fix**, once its check passes. Its one button is the next step (**Take it**, then **Name its release**); **✎** edits what it says, the old words kept in its **History** (the clock icon); **⋯** has the other moves: **Move to a session…**, **Name its release…** and **Withdraw, with a reason…**. Press a task's name to open its page beside the list (2026-11-24): its **Scope** (goal, in scope, out of scope, done when), its **Priority** (1 first, 2 next, 3 when there's room; open and late tasks are listed by it) and its **Steps**, each saying what to see, what to do and how it's confirmed, with **Confirm it's done**. Every field has **✎** to edit it, the old words kept in the task's **History**; a step confirmed by mistake is corrected with ✎ too. Under **Decisions**, the task names the decision records it rests on, each with its number and title; press one to read it on System Configuration → Decisions beside the board. **Attach a decision** finds one by its number or a word from its title, in the same list that page has; **✎** detaches one, kept in the task's History. The list shows each task's priority, its goal how many of its steps are confirmed and its decisions. Done and withdrawn tasks stay a week under **Done and withdrawn this week**. Since 2026-11-25 each task is one of three types, chosen under **Type** when you add it (Work if you don't choose). A **Work** ticket moves through four stages: **Planning**, **Building**, **Implementation** and **Confirmation**. It moves from Planning to Building with **Move to Building** once it has a goal, a Done when, a decision attached (or **No decision applies**) and someone who has it; until then the button is greyed and the line above it says what's missing. It moves on by itself once its release is named (Implementation), once that release is live (Confirmation), and once every step is confirmed (Done; a task with no steps is Done as soon as its release is live). **✎** beside the stages sends it back one or more stages, with your reason kept in its History. An **Audit** ticket is a finding from the daily check, looked at twice before it reaches anyone. A **Resolution** ticket is a decision only the Founder makes: its **Decision Brief** says the decision, why it needs the Founder, the line it crosses, options A and B with their pros and cons and which is recommended, the impact if it waits, and the cost. Each part has **✎** while it's a draft; **Send to the Founder** once it's whole. It then reads **Waiting for you** at the top of the queue and goes in the daily summary; the Founder answers with **Choose A**, **Choose B** or **Answer in my words**, on the task or in reply to the summary. A new task then records the answer as standing precedent, and the decision closes once that's done. The filter (one button) also shows each type and each stage, with counts, and the round people icon beside it opens the **Team**. Every hour the open tasks reach the session manager with the gauge's requests, and a late one is flagged to it.
  
@@ -1113,9 +1173,9 @@ diff -ruN -x '*.png' r1base/root/app/ui/faq.md r1/root/app/ui/faq.md
  
  ### I'm on the Traversence team. What does "Paused by the system" mean?
  It's a trip: something failed, the system tried again by itself and couldn't fix it, so it placed a pause on what the fault touches, and only that (one task, one workflow, calls to one service). It never turns a switch off: every switch stays as the person who set it left it, and the pause shows beside it. It lifts by itself when its check passes (the alarm closes as **Recovered**), or at once with **Check and start again**, which checks first. Something a person switched off reads **Off**, with who and why, and is never called paused by the system.
-diff -ruN -x '*.png' r1base/root/website/admin/api.php r1/root/website/admin/api.php
---- r1base/root/website/admin/api.php	2026-11-26 14:30:35.035227745 +0000
-+++ r1/root/website/admin/api.php	2026-11-26 14:22:06.170649811 +0000
+diff -ruN -x '*.png' /home/user/bench/r1base/root/website/admin/api.php /home/user/bench/r1/root/website/admin/api.php
+--- /home/user/bench/r1base/root/website/admin/api.php	2026-11-26 14:30:35.035227745 +0000
++++ /home/user/bench/r1/root/website/admin/api.php	2026-11-26 14:22:06.170649811 +0000
 @@ -261,7 +261,7 @@
                      if ($act === 'qmove') Response::success(['message' => GaugeTasks::move($pdo, $tid, (string) ($in['to'] ?? ''), $who, (string) ($in['why'] ?? ''), $tz)]);
                      if ($act === 'qnoadr') Response::success(['message' => GaugeTasks::noDecision($pdo, $tid, $who, $tz)]);

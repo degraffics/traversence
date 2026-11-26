@@ -22,9 +22,13 @@ What it does (0180 §1, §5 and the appendix; the session manager's rulings 2026
   Build & QA Sessions) and Senior Designer (into #27 Public UI/UX Designers): **my call, reported**.
 - **Standby routing (0180 §5):** a step whose role is on standby goes to the first active role up its reports-to line that
   Permissions allows the step, past retired ones; none: it waits for the Founder (TeamRoster::doer).
+- **Staging's Team runner on** (CLAUDE.md's standing OK): the migration writes team_runner = on only on a database whose name
+  ends stg; Staging::STAGING_ONLY keeps catch-up from bringing live's row and Publish from carrying staging's; a fresh
+  copy starts with it on (Staging::ON_AFTER_COPY). The tree's approval and the ceiling stay Jason's own presses (CLAUDE.md):
+  the session manager's #1443 pre-seed of them was declined.
 - No ceiling, fence, step, STEP_AT, spend or reach data changed.
 
-Tests (on the bench, R1 over the three before it): `tools/team-tests/r1.php` 26 (seed twice, names, layers, retired,
+Tests (on the bench, R1 over the three before it): `tools/team-tests/r1.php` 31 (seed twice, names, layers, retired,
 tiers, routing, Roll back byte for byte); roster.php 54, runner.php 85, audit.php 34, tickets.php 54, batch.php 25,
-kind.php 35, rule2.php 24, pipeline.php 22, closed 10, onstates 7, held 14, tickwait 6, old-suites 84/44/32; rendered at
+kind.php 35, rule2.php 24, pipeline.php 22, staging unit 65, staging db 49, closed 10, onstates 7, held 14, tickwait 6, old-suites 84/44/32; rendered at
 1280 and 390: roster.cjs 44, team-head.cjs 40, runner.cjs 44, tickets.cjs 62, batch.cjs 18, fence.cjs 10.

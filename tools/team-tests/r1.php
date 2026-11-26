@@ -16,6 +16,7 @@ $pass = 0; $fail = 0;
 $t = function (string $n, bool $ok, $got = null) use (&$pass, &$fail) { if ($ok) { $pass++; echo "  ok  $n\n"; } else { $fail++; echo "FAIL  $n" . ($got !== null ? ' — ' . json_encode($got, JSON_UNESCAPED_UNICODE) : '') . "\n"; } };
 $run = function (string $file) use ($pdo) { foreach (DbUpdates::statements((string) file_get_contents($file)) as $q) $pdo->exec($q); };
 ControlLog::ensure($pdo);
+$pdo->exec("CREATE TABLE feature_switches (switch_key VARCHAR(60) PRIMARY KEY, state VARCHAR(8) NOT NULL DEFAULT 'off', share_pct TINYINT UNSIGNED NOT NULL DEFAULT 0, killed TINYINT UNSIGNED NOT NULL DEFAULT 0, note VARCHAR(255) NOT NULL DEFAULT '', updated_by INT UNSIGNED NULL, updated_at DATETIME NOT NULL)");
 $pdo->exec("CREATE TABLE control_gauge_tasks (id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, kind VARCHAR(10) NOT NULL DEFAULT 'fix', what VARCHAR(250) NOT NULL DEFAULT '', tier TINYINT NULL, owner VARCHAR(80) NOT NULL DEFAULT '', undone_at DATETIME NULL, cleared_at DATETIME NULL)");
 foreach (['2026-11-25_team_roster.sql', '2026-11-25_team_roster_seed.sql', '2026-11-25_team_staff_views.sql'] as $f) $run($seed . '/' . $f);
 $pdo->exec("UPDATE team_roster SET name = 'Our Orders Desk' WHERE slug = 'orders'");   // a person's own name for a role
@@ -59,6 +60,22 @@ $pdo->exec("UPDATE team_roster SET status = 'standby' WHERE slug = 'translator'"
 $d = TeamRoster::doer($pdo, 'translator'); $t('a retired role on the line is passed over (Historian → Editorial Director)', $d && $d[0]['slug'] === 'editorial-director', $d ? $d[0]['slug'] : null);
 $c2 = TeamRoster::counts(TeamRoster::all($pdo)); $t('standby counted, retired still not', $c2['standby'] === 5 && $c2['all'] === 44, $c2);
 $pdo->exec("UPDATE team_roster SET status = 'active', reports_to = 'editorial-director' WHERE slug IN ('system-architect', 'it-manager', 'cto', 'ceo', 'translator')");
+
+// staging's Team runner: on only where the database is staging's (its name ends stg), never on live's
+$run($app . '/migrations/2026-11-26_0180_tiers_roster.sql');
+$t('on live\'s database the runner\'s switch isn\'t written', (int) $pdo->query("SELECT COUNT(*) FROM feature_switches WHERE switch_key = 'team_runner'")->fetchColumn() === 0);
+$pdo->exec('DROP DATABASE IF EXISTS lv_r1stg'); $pdo->exec('CREATE DATABASE lv_r1stg'); $pdo->exec('USE lv_r1stg');
+foreach (['team_roster', 'control_gauge_tasks', 'feature_switches'] as $tb) $pdo->exec("CREATE TABLE $tb LIKE lv_main.$tb");
+$pdo->exec("INSERT INTO feature_switches (switch_key, state, note, updated_at) VALUES ('team_runner', 'off', 'Start Agents', NOW())");
+$run($app . '/migrations/2026-11-26_0180_tiers_roster.sql'); $run($app . '/migrations/2026-11-26_0180_tiers_roster.sql');
+$sw = $pdo->query("SELECT state, killed FROM feature_switches WHERE switch_key = 'team_runner'")->fetch(PDO::FETCH_ASSOC);
+$t('on staging\'s database (…stg), run twice: the runner on for everyone', $sw && $sw['state'] === 'on' && (int) $sw['killed'] === 0, $sw);
+$pdo->exec('DROP DATABASE lv_r1stg'); $pdo->exec('USE lv_main');
+require_once $app . '/lib/Staging.php';
+$t('the runner\'s switch is staging-only: catch-up never brings live\'s row, Publish never carries staging\'s', in_array('team_runner', Staging::STAGING_ONLY, true)
+    && str_contains((string) file_get_contents($app . '/lib/StagingSync.php'), "in_array(\$k, Staging::STAGING_ONLY, true)) return 'left'") && str_contains((string) file_get_contents($app . '/lib/StagingPublish.php'), 'array_diff($keys, Staging::STAGING_ONLY)'));
+$t('a fresh copy starts staging with the runner on (StagingSite::finish)', isset(Staging::ON_AFTER_COPY['team_runner']) && str_contains((string) file_get_contents($app . '/lib/StagingSite.php'), 'Staging::ON_AFTER_COPY'));
+$t('nothing here writes the tree\'s approval or the ceiling (the Founder\'s own presses)', !preg_match('/team_settings/i', (string) file_get_contents($app . '/migrations/2026-11-26_0180_tiers_roster.sql')));
 
 // Roll back
 $run($app . '/rollbacks/2026-11-26_0180_tiers_roster.sql');
