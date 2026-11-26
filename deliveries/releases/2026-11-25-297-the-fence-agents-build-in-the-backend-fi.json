@@ -1,0 +1,74 @@
+{
+    "id": 297,
+    "title": "The fence: agents build in the backend first (Piece 3, P3-6)",
+    "why": "Jason, 2026-11-26 (decisions/0179's note \"agents work on the backend first\"): \"get the agents active working on this without them pushing live file, except for the backend, so I can see them work before we point them on the front end\"; \"Admin does count for backend\". A Team page setting, How far Implementation reaches: Backend only (as shipped) or Everywhere; only the Founder changes it (TeamRunner::setReach checks Access::isFounder itself; never a job or an agent), each change in the Team's History with what it was and Change back. It's part of the decision tree's rules (the fingerprint), so a change clears the tree's approval and agents go back to Planning. At Implementation with Backend only, a ticket whose change reaches a page a visitor, member or business sees (by the files it names, against the live mirror's reach map from tools/page-audit/reach.py --fence-map, carried in gauges.json) stops at its brief: its Work queue page says \"Front end: waiting for you\" with the file, and the report sends its brief to the Founder (brief_to \"founder\"), never a build session; a backend one goes to a build session as P3-4 does. A ticket naming no file isn't proved backend, so it waits too. Before a build session sends a build for an agent's brief, send.py --team-ticket re-checks it with reach.py on the live mirror and the zip check; one that reaches a public page is refused with the reason, nothing is sent, and the refusal (releases/fence-refusals.json, carried by gauges.py) puts the ticket back at its brief for the Founder. Unchanged: Tier 3, and rule 1 (agents' releases go through the batch until Piece 3 is live). No new outside call, $0. Also: the Work queue's side panel now draws its status lines as the rest of the site does (TvAsk.statuses after it loads). It's built on P3-4 and P3-5 and follows them. Folded in, Jason, 2026-11-26 (0179's note): \"Let the backen release go live. Thats what I will evaluate as seeing their work.\" An agent's release (release.json \"team_ticket\", which send.py --team-ticket requires) publishes by itself, without the batch, only when the advocates passed it (the before-and-after check: never unchecked; while the check is off, or its day's minutes are spent, it waits for review), nothing in it is Tier 3, and, while Backend only, every file is backend by the reach map (Releases::agentGate, TeamRunner::backendFile); it's listed under Published alone today with Undo. Front end still stops at the brief; Tier 3 is still a Decision Brief. This release's switch is before_after (P3-2's), so publishing it turns the before-and-after check on through the release's own steps, with Turn off and Roll back. The Team page now says plainly what's the Founder's to press, in order: Approve the decision tree, Raise to Building, Raise to Implementation; the ceiling and the tree stay his presses. Approved by Jason 2026-11-26 (\"No need to wait for approval\"; \"Let the backen release go live\").",
+    "proposals": "",
+    "zip": "p3-6-fence.zip",
+    "switch": "before_after",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/admin/control-console.php": {
+            "sha": "4c3c96e1ff6f59d4227de9285de6785f7da7cf180da7d7d32b4c4dd89b5b3b9d",
+            "size": 305142,
+            "live_was": "496fa53e7a23c2cce13555995727afdaa7713fa006c7d38c7ea7a5a11951823a"
+        },
+        "app/admin/team-console.php": {
+            "sha": "195492cd7ab3f19ead2b2d2f1f78d7d2b00eac4440776731f03d25ec024dcc80",
+            "size": 12275,
+            "live_was": "bc8304f6603d48cffd4299e7a5030ef511cb12e433410894f8f0ae883169def4"
+        },
+        "app/ui/faq.md": {
+            "sha": "b646973350e1b783c454a097a4d439dcd7344c926418bf2dfb067ac76cfef693",
+            "size": 463098,
+            "live_was": "c53fdaf8144e00957d54e50aeebec18aa27d3024eab48c79bea1eeda51a5f316"
+        },
+        "app/lib/GaugeTasks.php": {
+            "sha": "5e060a17b845d70bfeb75c27520685d243a55dd4b36cdf649ae5dc51f7b7581e",
+            "size": 59488,
+            "live_was": "e2b511d460ceda508e508e42ecdd087d5895951a30dfbeeb6d94d89399d33c5a"
+        },
+        "app/lib/TeamRunner.php": {
+            "sha": "bd9804e86792e82a08d547ab03d071ea667ba42701271cdb0eac86ec62a47ee8",
+            "size": 58609,
+            "live_was": "6d5588b98a56ca7be5c1acf0503d77aec172e9e8b2bf07836594b620f40d87b4"
+        },
+        "app/lib/ControlGauges.php": {
+            "sha": "d8810082810eb3a6ffb3f52218f9b5cd5a00d524986b531dee68ab66da7da522",
+            "size": 45088,
+            "live_was": "8d7052fd51ad2c68e1bda44ce4761191852999c22e790fd90fae9444d2853456"
+        },
+        "app/lib/Releases.php": {
+            "sha": "d231386e68df4b576af09aa2e8f76a68de770a80bbc63eb239e64f3156eb3e69",
+            "size": 131889,
+            "live_was": "daaa91b6f4b1e5d286fb640e7e1909d86ca41998369f8f4b43efa339b892ef09"
+        },
+        "website/admin/api.php": {
+            "sha": "679b7065f8503cc74fa78b66c26c4ca1758a3eb5d87d0add3568b9dd9a6749ce",
+            "size": 58160,
+            "live_was": "6e3ca4662c9aa350e301fbb47b0000182ed4675c3798ef2c73f01c801ee1a64a"
+        },
+        "website/js/admin-control.js": {
+            "sha": "ae48ff60316e8401ef75658bf47a96d6879c4deb8785eab360976676be93f10d",
+            "size": 80173,
+            "live_was": "16a88d9106cc73df4184b6d56769275e09679110d9c45bc80e65563d254d0193"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-26T02:33:40+00:00",
+            "by": 0,
+            "msg": "Uploaded p3-6-fence.zip: 9 files."
+        }
+    ]
+}
