@@ -133,4 +133,64 @@ $t('a flagged ticket through six ticks at Implementation: still flagged money, s
     && (int) $pdo->query("SELECT COUNT(*) FROM control_gauge_tasks WHERE parent_id = $fl AND ticket = 'resolution'")->fetchColumn() === 0);
 $t('mission and deadlock: words only, a flag for a person (no area in the code to touch)', TeamRunner::tier('zero-commission for makers') === [2, '', 'mission'] && TeamRunner::tier('two decisions disagree on the cap')[2] === 'deadlock'
     && TeamRunner::tier('a deadlock between 0164 and 0163')[2] === 'deadlock' && !isset(TeamRunner::TIER3_AREAS['mission']) && !isset(TeamRunner::TIER3_AREAS['deadlock']));
+// Piece 3, P3-4 (decisions/0179's "What comes next": Undo on every agent action, a spending limit per agent; Confirmation),
+// where the root has it
+if (method_exists('TeamRunner', 'confirmationWaits')) {
+    $log = new ReflectionMethod(TeamRunner::class, 'log'); $log->setAccessible(true);
+    $pm = TeamRoster::bySlug($pdo, 'project-manager');
+    $log->invoke(null, $pdo, $pm, $w, 'gate', 'a test', 'Moved it somewhere', 'done', '', null, '', null, 'task:' . $w);
+    $last = $pdo->query('SELECT * FROM team_runs ORDER BY id DESC LIMIT 1')->fetch(PDO::FETCH_ASSOC);
+    $t('P3-4: a step that did something with no Undo is recorded refused, saying so', $last['state'] === 'refused' && str_contains($last['why'], 'no Undo'), $last);
+    $t('… every run recorded done has its Undo', (int) $pdo->query("SELECT COUNT(*) FROM team_runs WHERE state = 'done' AND (undo_how = '' OR undo_data IS NULL)")->fetchColumn() === 0);
+    $t('P3-4: every step costs $0 (no paid AI, Q4 B), and each role\'s limit is $0 unless set', array_sum(TeamRunner::STEP_COST_MICROS) === 0 && TeamRunner::spendLimit($pdo, 'project-manager') === 0);
+    $pdo->exec("INSERT INTO team_runs (at, role, step, state, cost_micros) VALUES (UTC_TIMESTAMP(), 'project-manager', 'gate', 'done', 1500000), (UTC_TIMESTAMP() - INTERVAL 40 DAY, 'project-manager', 'gate', 'done', 9000000)");
+    $t('… what a role spent this month, from team_runs (last month\'s not counted)', TeamRunner::spentThisMonth($pdo, 'project-manager') === 1500000, TeamRunner::spentThisMonth($pdo, 'project-manager'));
+    $t('… the step costs are in the decision tree\'s rules (a change clears its approval)', isset(TeamRunner::ruleData()['step_cost']));
+    TeamRunner::setCeiling($pdo, 'implementation', $J);
+    try { TeamRunner::setCeiling($pdo, 'confirmation', $J); $t('P3-4: Confirmation waits while the before-and-after check is off', false); } catch (RuntimeException $x) { $t('P3-4: Confirmation waits while the before-and-after check is off', str_contains($x->getMessage(), 'before-and-after check switched on')); }
+    Switches::set($pdo, 'before_after', 'on', 0, false, 'test', 1);
+    try { TeamRunner::setCeiling($pdo, 'confirmation', $J); $t('… and while rule 2 is off', false); } catch (RuntimeException $x) { $t('… and while rule 2 is off', str_contains($x->getMessage(), 'rule 2')); }
+    $sp = new ReflectionProperty(Access::class, 'staff'); $sp->setAccessible(true); $lp = new ReflectionProperty(Access::class, 'loaded'); $lp->setAccessible(true);
+    $sp->setValue(null, ['id' => 1, 'status' => 'active', 'role' => 'owner', 'level' => 'founder', 'name' => $J, 'user_id' => 1]); $lp->setValue(null, true);
+    Switches::set($pdo, 'rule2_autopublish', 'on', 0, false, 'test', 1); $sp->setValue(null, null);
+    $t('… both on: the Founder raises it to Confirmation, one stage on from Implementation', TeamRunner::setCeiling($pdo, 'confirmation', $J) === 'Agents work up to Confirmation and safe publish now.');
+    $ev = TeamRunner::evidence($pdo, 'confirmation');
+    $t('… its evidence: five lines, each a reading and its source (checked, wrong blocks, escapes, Undo end to end, ready)', count($ev) === 5 && $ev[4][1] === 'The before-and-after check and rule 2 are on' && str_contains($ev[0][2], 'Before and after (advocates)'), $ev);
+    TeamRunner::setCeiling($pdo, 'planning', $J);
+}
+// Jason, 2026-11-25 (through the session manager): from Building the Project Manager takes the tickets the audit raised itself;
+// one a person entered waits for Give it to the Team; from Implementation the build brief goes straight to a build session
+if (method_exists(TeamRunner::class, 'takesItself')) {
+    if (!TeamRunner::treeApproval($pdo)) TeamRunner::approveTree($pdo, $J);
+    $au = GaugeTasks::auditOpen($pdo, 'test:found-it', 'A finding the audit raised', 'its words', 2, 'system · Operations & Reconciliation Manager', '', '');
+    $aw = GaugeTasks::auditConfirm($pdo, $au, 'system · Operations & Reconciliation Manager');
+    GaugeTasks::edit($pdo, $aw, ['goal' => 'Fix the finding', 'done_when' => 'Its check passes'], $J); GaugeTasks::noDecision($pdo, $aw, $J);
+    $pw = GaugeTasks::add($pdo, 'area:test', 'A person entered this', 'why', 'src', $J, 1);
+    GaugeTasks::edit($pdo, $pw, ['goal' => 'g', 'done_when' => 'd'], $J); GaugeTasks::noDecision($pdo, $pw, $J);
+    $pm = TeamRoster::bySlug($pdo, 'project-manager');
+    TeamRunner::setCeiling($pdo, 'planning', $J);
+    $t('at Planning: an audit-raised ticket with nobody on it isn\'t taken (the gate only proposes, and needs someone)', !TeamRunner::applies($pdo, 'gate', $row($aw)) && $row($aw)['owner'] === '');
+    TeamRunner::setCeiling($pdo, 'building', $J);
+    $t('at Building: the Work ticket the audit confirmed is one the Project Manager takes itself', TeamRunner::takesItself($pdo, $row($aw)) && TeamRunner::applies($pdo, 'gate', $row($aw)));
+    $t('… one a person entered, with nobody on it, isn\'t: it waits for Give it to the Team', !TeamRunner::takesItself($pdo, $row($pw)) && !TeamRunner::applies($pdo, 'gate', $row($pw)));
+    $out = TeamRunner::run($pdo, $row($aw), 'gate', $pm);
+    $rr = $pdo->query("SELECT * FROM team_runs WHERE task_id = $aw ORDER BY id DESC LIMIT 1")->fetch(PDO::FETCH_ASSOC);
+    $t('… it takes it and moves it to Building, logged with its Undo', $row($aw)['stage'] === 'building' && str_starts_with((string) $row($aw)['owner'], 'system · ') && $rr['state'] === 'done' && str_starts_with($rr['did'], 'Took it (the audit raised it)'), [$out, $rr]);
+    TeamRunner::undo($pdo, (int) $rr['id'], $J);
+    $t('… Undo: back at Planning with nobody on it, as if never done', $row($aw)['stage'] === 'planning' && $row($aw)['owner'] === '');
+    GaugeTasks::assign($pdo, $pw, 'system · Project Manager', $J);
+    $t('… the person\'s ticket, once given to the Team: the Project Manager moves it', TeamRunner::applies($pdo, 'gate', $row($pw)));
+    // the brief's way
+    GaugeTasks::move($pdo, $pw, 'building', $J, 'test');
+    $t('at Building: a brief goes to the session manager (report\'s brief_to)', TeamRunner::briefTo($pdo) === 'session manager');
+    TeamRunner::setCeiling($pdo, 'implementation', $J);
+    $ar = TeamRoster::bySlug($pdo, 'system-architect'); $pdo->exec("DELETE FROM admin_permissions WHERE action = 'team.handoff'"); $fresh->setValue(null, null);   // the default (staff, eng) again
+    $pdo->exec("UPDATE control_gauge_tasks SET owner = '' WHERE id = $pw");
+    $out = TeamRunner::run($pdo, $row($pw), 'handoff', $ar);
+    $rq = array_values(array_filter(GaugeTasks::report($pdo)['requests'], fn ($q) => $q['id'] === $pw));
+    $t('at Implementation: the Architect\'s brief goes straight to a build session, said in its run and in the report (brief_to "build")', TeamRunner::briefTo($pdo) === 'build' && str_contains($out, 'straight to a build session') && ($rq[0]['brief_to'] ?? '') === 'build' && $rq[0]['build_brief'] !== '', [$out, $rq]);
+    $t('the ceilings\' words say so: Building takes audit tickets, Implementation goes straight to a build session, Confirmation publishes Tier 1 and 2', str_contains(TeamRunner::CEILINGS['building'][1], 'takes the tickets the audit raised itself') && str_contains(TeamRunner::CEILINGS['implementation'][1], 'straight to a build session') && !str_contains(TeamRunner::CEILINGS['implementation'][1], 'nothing more acts') && str_contains(TeamRunner::CEILINGS['confirmation'][1], 'Tier 1 and Tier 2'));
+    $t('the brief step only ever proposes, at every ceiling', array_unique(array_values(TeamRunner::STEP_AT['brief'])) === ['propose']);
+    TeamRunner::setCeiling($pdo, 'planning', $J);
+}
 echo "\n$pass passed, $fail failed\n"; exit($fail ? 1 : 0);

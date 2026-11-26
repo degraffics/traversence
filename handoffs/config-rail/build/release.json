@@ -1,0 +1,17 @@
+{
+  "title": "System Configuration's pages in the side menu (config-rail)",
+  "why": "Jason, 2026-11-25: \"the team should be a page in the side menu for the system configuration … Development, board, workflow, services, team.\" While System Configuration is the open module, its five pages are listed under it in the side menu (Development, Board, Workflows, Services, Team), from one list (TV_CONFIG_RAIL in section-rails.php): the one open marked current, one Access refuses greyed with why (decisions/0109: never silently hidden), the same in the phone's menu. The section dropdown stays.",
+  "proposals": [],
+  "switch": "",
+  "changes": [
+    {
+      "what": "Development, Board, Workflows, Services and Team under System Configuration in the side menu",
+      "where": "https://traversence.com/admin/config/team"
+    },
+    {
+      "what": "FAQ: Where are Development, the Board, Workflows, Services and the Team?",
+      "where": "https://traversence.com/faq.php"
+    }
+  ],
+  "rollback": "Proved on the bench (tools/team-tests/rollback.sh, 2026-11-25): the zip laid over the live mirror (Sync 18:38 UTC), then Roll back as the site does it: the files match live byte for byte and every PHP file parses. No migration, nothing left behind."
+}

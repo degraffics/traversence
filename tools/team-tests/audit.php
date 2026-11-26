@@ -77,9 +77,10 @@ $pdo->exec("INSERT INTO admin_permissions (action, min_level, departments, updat
 $fr = new ReflectionProperty(Access::class, 'rules'); $fr->setAccessible(true); $fr->setValue(null, null);
 $t('Permissions above its level: refused, saying what\'s needed', str_contains(TeamRunner::audit($pdo), 'Needs an Executive'));
 $T3 = fn ($tg) => TeamRunner::tier('a plain finding', $tg);
-$t('targets: a library, a table, a job, a service, a page by its start, a migration, each makes its area Tier 3',
+$t('targets: a library, a table, a job, a service, a page by its start, a migration\'s data-changing verb, each makes its area Tier 3',
     $T3(['lib:QuickBooksPay'])[1] === 'money' && $T3(['table:landmarks'])[1] === 'nations' && $T3(['job:guest_tick'])[1] === 'privacy' && $T3(['svc:cloudflare'])[1] === 'address'
-    && $T3(['path:/api/auth/login.php'])[1] === 'privacy' && $T3(['path:app/migrations/2026-12-01_x.sql'])[1] === 'data' && $T3(['path:website/admin/router.php'])[1] === 'address' && $T3(['lib:Orders'])[0] === 3);
+    && $T3(['path:/api/auth/login.php'])[1] === 'privacy' && $T3(['sql:DROP'])[1] === 'data' && $T3(['sql:rename'])[1] === 'data' && $T3(['path:website/admin/router.php'])[1] === 'address' && $T3(['lib:Orders'])[0] === 3);
+$t('a migration by its path alone is no longer Tier 3 (Jason, 2026-11-25: an add-only migration is safe additive)', TeamRunner::touches(['path:app/migrations/2026-12-01_x.sql']) === '');
 $t('a page not in an area, or a library that isn\'t, stays Tier 2 with no flag', $T3(['path:/place/trail.php', 'lib:Weather', 'job:listings_tick']) === [2, '', '']);
 $t('words alone, each area: Tier 2 with its flag, never Tier 3', TeamRunner::tier('a test account\'s email address shown')[0] === 2 && TeamRunner::tier('a test account\'s email address shown')[2] === 'privacy'
     && TeamRunner::tier('a sacred site name shown')[2] === 'nations' && TeamRunner::tier('archaeological words in a story')[2] === 'nations' && TeamRunner::tier('the old URL redirects')[2] === 'address'

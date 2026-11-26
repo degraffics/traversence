@@ -1,0 +1,16 @@
+{
+ "note": "Today's batch for the Founder's OK (decisions/0179 rule 1; Piece 2, P2-5), written by the session manager once a day (UTC). One line per release waiting: its release (the zip), what it does, why, its decision, the checks it passed on staging, its way back, and the Work queue tickets it closes. Then run python3 tools/page-audit/gauges.py and commit: the site shows it at the top of the Work queue (System Control Board → Development) only on its own date, with the Tier 3 decisions waiting first, and Approve the batch for the Founder. An empty date (as here) shows \"No batch from the session manager today\". Messages for the Founder go in \"messages\" ([{id, at, subject, body}], plain text with links): the site emails each id once, to the Founder only, through its own email (FounderMail). Never reuse an id.",
+ "date": "",
+ "lines": [
+  {
+   "release": "example.zip",
+   "what": "What it does, in a line",
+   "why": "Why",
+   "decision": "0179",
+   "checks": "Its checks on staging",
+   "way_back": "Roll back on the Releases page",
+   "tickets": []
+  }
+ ],
+ "messages": []
+}

@@ -1,7 +1,22 @@
 # Piece 3: the before-and-after check (design, for Jason's review)
 
-Written 2026-11-25 by the Piece 2 build session, on the session manager's brief. **Design only: nothing here is built or
-sent.** Rule 2 of decisions/0179 (low-risk kinds publish alone) stays off until this check exists *and* Jason switches it on.
+Written 2026-11-25 by the Piece 2 build session, on the session manager's brief.
+
+**Decided (Jason, 2026-11-25, reviewed with Gemini; decisions/0179's note "Piece 3's decisions"):** "DB1 A, DB2 A, DB3 A,
+DB4 A, Staff Views yes ... Lock these in for Piece 3." As the note records them, and as this design now reads:
+- **DB1:** "before" is staging just before the change, never live.
+- **DB2:** a block withdraws the release itself, and puts the failure in the Work queue (an Audit ticket at Found, with the
+  report: P3-2).
+- **DB3:** data fixes stay in the daily batch at first. A row limit comes later, Jason's choice (§4's `data_fix` is
+  recognised but not published alone).
+- **DB4:** the check's GitHub Actions minutes have a daily budget. Once it's spent, releases wait for the batch.
+- **Staff Views:** an advocate bound to the staff test logins checks admin pages (P3-1 adds it to the roster).
+
+Piece 3's releases are **not pre-approved**: each is built, tested and held, its summary goes to the session manager,
+and it's sent only once Jason approves the daily batch it's in. Jason presses staging's three switches himself; step 1
+(Keep staging caught up) finishes its fresh copy before steps 2 and 3.
+
+The briefs in §9 are kept as he read them. Rule 2 of decisions/0179 (low-risk kinds publish alone) stays off until this check exists *and* Jason switches it on.
 
 Sources:
 - decisions/0179: rule 2; "How it works"; the note "How the Team's capacity grows", §3 and §4.
@@ -244,6 +259,8 @@ Jason turns it on after P3-3.
 
 ## 8. Gaps named
 
+Built so far, each held on branch `claude/piece3-build` for Jason's batch: **P3-1** (§11) and **P3-2** (§12, its zip in `handoffs/piece3-build/p3-2-check/`).
+
 | # | Gap | Where it's closed |
 |---|---|---|
 | G1 | overlap, clipping and off-screen controls aren't measured | P3-1 |
@@ -251,11 +268,11 @@ Jason turns it on after P3-3.
 | G2 | data counts per page aren't measured | P3-1 |
 | G3 | no map from an `app/` file to the pages that load it (`pagesOf()` is `website/` only) | P3-1 (`reach.py`, from `find_callers`) |
 | G3b | not every staging table names the page that shows it | P3-4 |
-| G4 | no private markers in the test accounts to catch a leak | P3-1, staging only |
-| G5 | no sensitive test landmark to prove 0066 holds | P3-1, staging only |
+| G4 | no private markers in the test accounts to catch a leak | P3-1: each test account's own address (`check+<key>@traversence.com`, TestAccounts) is its marker; another's in a view is a leak. Nothing seeded. |
+| G5 | no sensitive test landmark to prove 0066 holds | P3-2 (a site change): the canary landmark seeded on staging only, its name in `tools/page-audit/ba-canaries.json`; P3-1 already blocks on any name listed there |
 | G6 | a release is staged at once, so there's no moment for a before look on staging | P3-2 (Decision brief 1) |
 | G7 | a browser can't run on the web host | by design: GitHub Actions, dispatched as AuditClock does |
-| G8 | no advocate for staff views | a suggested change to Piece 2's roster (§1.3) |
+| G8 | no advocate for staff views | Jason: yes. P3-1's check looks as the staff test logins under `advocate-staff-views`; P3-2 adds the role to the roster (a seed line) |
 | G9 | the migration runner doesn't count rows changed | P3-3 |
 | G10 | a deadlock between decisions has no source in the code | recorded by the session manager for Jason (Piece 2): a word flag only |
 | G11 | `checks()` lets an unknown (`null`) item pass | P3-2's waiting state |
@@ -336,3 +353,167 @@ Jason turns it on after P3-3.
 - 0066 and the privacy guards: the check only reads, as the test accounts and staff test logins. It sends no form and
   changes nothing on live. The canaries exist on staging only, and test accounts' work is never carried (0165 §3).
 - The urgent path for live harm (0165) still applies. It's checked straight after, as today, and the check runs then too.
+
+## 11. Built: P3-1 (held for Jason's batch, 2026-11-25)
+
+This repo only: no site file and no zip. It's held on `claude/piece3-build` until Jason approves the batch it's in,
+because it changes how the daily audit's page check is loaded.
+
+| File | What |
+|---|---|
+| `tools/page-audit/page-check.mjs` | rendered.mjs's page check, moved here unchanged so both use one copy. It adds an optional `extra(page, size)` hook and whole-page screenshots at both sizes. |
+| `tools/page-audit/rendered.mjs` | Imports the check. Its standards, pages and report are unchanged; a smoke run against the fixture gives the same readings. |
+| `tools/page-audit/beforeafter.mjs` | `capture`: each advocate's view, with §1.5's readings. `compare`: the four rules, with two before looks so that what moves on its own never counts; lines compared with their numbers masked. |
+| `tools/page-audit/reach.py` | The pages a file reaches (G3). A use is a call, `Class::`, `new`, `extends`, a script global, or a real load (require/include, script, stylesheet); never a comment or a plain link. Pages within 2 steps are expected to change; farther ones are looked at, nearest first, up to 40. `--zip` turns a release into the check's pages and expected list. |
+| `.github/workflows/beforeafter.yml` | The two runs (before, after) the site asks for, with `repository_dispatch` `before-after`. Read only on staging; it stops with no staging block. Only the verdict file is committed; the looks and screenshots are kept one day. |
+| `tools/piece3-tests/` | `beforeafter.test.mjs` with `fixture-router.php` (19 checks); `reach_test.py` (9 checks). |
+
+The advocates as the check uses them:
+- The guest, signed out.
+- The ten member test accounts, each on its own pages at both sizes, and on public and admin pages at 390. A member
+  opening an admin page is a leak.
+- `advocate-staff-views`: the Test Executive at both sizes and the Test Ops Staff at 390, on admin pages.
+
+## 12. P3-2 (built and held, 2026-11-25; on the live copy of Sync 18:38 UTC, 16caf39)
+
+As planned below, with two changes found while building: the before looks' minutes are counted once, even when staging can't take the release that run; and a late check is asked again automatically, not by a button, then raised as a Work queue ticket (no Releases page button needed). Tests: `tools/piece3-tests/pipeline.php`, 22 checks on MariaDB; `tools/staging-tests/unit.php` 65. Roll back proved. Not exercised on the bench: a pass with no hold goes to `autoPublish()`, the path every git release already takes (publishing needs a live root).
+
+- **`app/lib/BeforeAfter.php` (new):**
+  - Switch `before_after` in `Switches::DEFS`: a background job, shipped off. Jason or the session manager turns it on
+    once P3-1 is merged.
+  - `ask($release, $phase, $zip, $blob)`: `repository_dispatch` `before-after`, through a new `AuditClock::askGitHub()`
+    beside `dispatch()` (add only).
+  - `verdict($release)`: `DocsRepo::raw('site-audit/results/beforeafter/<N>.json', true)`, the "phase", "verdict" and
+    "first" fields checked one by one.
+  - State per release, in `site_release_settings` `ba:<id>`: {phase, asked_at, zip, path, blob, hold, minutes}.
+  - `budget()` (DB4): minutes a day in `site_release_settings` `ba_budget`. Unset means counted but not enforced, until
+    P3-1's first real runs give the number. Once spent, a release stages and holds for the batch (`autoPublish` with hold).
+  - `advance($pdo)`, run by `releases_tick` after `fromGit`:
+    1. before-done: `Releases::straightOn`.
+    2. Staged with its checks passed: ask for "after".
+    3. after-done: `Releases::checkedByAdvocates($pdo, $id, $verdict)`.
+    4. No answer in 60 minutes: ask again once. At 120 minutes: a Work queue Audit ticket, "The before-and-after check
+       didn't answer for release #N".
+- **Releases.php:**
+  - `fromGitLocked`: when `BeforeAfter::begin()` takes the release, it waits ("Waiting for its before look") instead of
+    `straightOn` and `autoPublish`. When the switch is off, everything is as today.
+  - New public `checkedByAdvocates()`:
+    1. Adds the item "Before and after (advocates)" (true, false, or null for incomplete) to its checks.
+    2. A pass goes to `autoPublish` (with hold when the budget is spent or `release.json` asks for review).
+    3. A block goes to `selfWithdraw`, plus `GaugeTasks::auditOpen('ba:<id>', …)` in the Work queue (DB2).
+    4. Incomplete holds for review: it never publishes alone.
+  - `standing()`: the waiting state's words.
+- **The roster:** `advocate-staff-views`, Staff Views Advocate, test account `executive`. A seed migration
+  (INSERT … WHERE NOT EXISTS, with its `data_reason`).
+- **G5's canary landmark** moves to P3-4: it needs a staging-only job and Landmarks' own add path.
+- **FAQ:** "What is the before-and-after check?"
+- **Tests:** `tools/piece3-tests/pipeline.php` on MariaDB, with `BeforeAfter::$askFn` and `$readFn` stubbed:
+  - begin; before-done goes to straightOn;
+  - a staged release asks for "after";
+  - pass publishes (or holds), block withdraws and opens the ticket, incomplete holds;
+  - late: asked again, then a ticket;
+  - the budget;
+  - the switch off leaves everything as today.
+
+## 13. P3-3 (built and held, 2026-11-25; on the bench: Sync 18:38 UTC plus P3-2)
+
+Its build is in `handoffs/piece3-build/p3-3-kinds/`. It's rebuilt on the live copy once P3-2 is live, since both carry
+`Releases.php`, `Switches.php` and `faq.md`.
+
+- **`app/lib/ReleaseKind.php` (new):** proves a kind file by file against the live copy, as §4 lists. One change from
+  the design: the proof is made by the site, not by `zipcheck.py`. The site holds both copies, the release's and live's,
+  so the proof lives in one place, the place that decides.
+- **What it found:** TIER3_AREAS (P2-4, from the session manager's brief: "data: migrations") makes every migration Tier
+  3. So no release with a migration is low-risk, though 0179's "safe additive" includes new tables and columns.
+  The code keeps the rule as it stands. "Suggest a change to TIER3_AREAS": an add-only migration, as the zip check proves
+  it (CREATE TABLE IF NOT EXISTS, guarded ADD COLUMN), counts as safe additive; one that UPDATEs, DELETEs or DROPs stays
+  Tier 3. That's for Jason, through the session manager.
+- **`Releases::rule2()`**, only while the switch `rule2_autopublish` is on (shipped off):
+  - A git release goes live by itself only when today's or yesterday's approved batch names its zip
+    (`GaugeTasks::approvals`, P2-5), or when it's a proved low-risk kind the advocates passed. Its record then says
+    "Published alone (low-risk: <kind>)".
+  - Anything else waits for review, its record saying why.
+  - `Switches::set` refuses to turn it on for anyone but `Access::isFounder()`.
+- **The kind** comes from `release.json` and is kept as `kind:<id>` when the release is taken from git.
+- **The Work queue's strip** shows "Published alone today (low-risk)", each with **Undo**: the Releases page's Roll back,
+  through its own API, asking first, greyed with the reason for anyone not allowed.
+- **FAQ:** "Which releases can go live without the daily batch?"
+- **G9 (rows counted):** not needed while data fixes stay in the batch (DB3). It comes with Jason's row limit.
+- **Tests:**
+  - `tools/piece3-tests/kind.php`: 22 checks, no database. Each kind's true and false cases, Tier 3 areas, and data_fix
+    kept in the batch.
+  - `rule2.php`: 12 checks on MariaDB. Off waits for nothing; the Founder-only switch; proved and passed goes alone;
+    not passed waits; not proved waits; no kind waits until the batch names it; a Tier 3 area never goes alone;
+    through `checkedByAdvocates`, one that must wait goes for review and never live; the strip and its Undo.
+  - `pipeline.php` still 22.
+
+### P3-3 revised for Jason's two rulings (2026-11-25, through the session manager)
+- **Tier 2 publishes on its own** (0179's note "Tier 2 publishes on its own once Piece 3 is live"): `Releases::rule2` now
+  publishes Tier 1 (a proved kind, noted "Published alone (low-risk: <kind>)") and Tier 2 (anything touching no Tier 3
+  area, "Published alone (Tier 2)") once staging's checks and the before-and-after check pass. A Tier 3 release waits and
+  gets one Resolution ticket (`briefFor`, `site_release_settings` `brief:<id>`, once). A migration that INSERTs rows is a
+  data fix and waits for the batch (DB3). Still behind `rule2_autopublish`, shipped off. The strip reads "Published alone
+  today (Tier 1 and Tier 2)", each line with its kind or "Tier 2" and Undo.
+- **Add-only migrations**: `TIER3_AREAS['data']` drops the path `app/migrations/` and names `sql` verbs (UPDATE, DELETE,
+  DROP, MODIFY, RENAME, plus TRUNCATE and CHANGE, which delete and rename/modify). `ReleaseKind::writes()` reads them with
+  comments, `ON UPDATE`/`ON DELETE` and `DUPLICATE KEY UPDATE` left out; `touches()` takes `sql:<verb>`. A guarded
+  statement's string is still read (a DROP hidden in a guard is Tier 3).
+- Found while testing: the table reader took "IF" from `CREATE TABLE IF NOT EXISTS orders`, so a money table's CREATE
+  wasn't Tier 3; fixed.
+- The fingerprint includes `TIER3_AREAS`, so an approval given before is cleared (said in the History).
+- A finding's words still flag "migration" for a person (`TIER3['data']`); the ruling named only the areas, so that's unchanged.
+- P3-3's `TeamRunner.php` is live's plus only these three changes; P3-4 carries the rest.
+- Tests: kind.php 35, rule2.php 17, audit.php 34, pipeline 22. Roll back proved.
+
+## 14. P3-4 (built and held, 2026-11-25; on the bench: Sync 18:38 UTC plus P3-2 and P3-3)
+
+Its build is in `handoffs/piece3-build/p3-4-agents/` (`TeamRunner.php`, `team-console.php`, `faq.md`). It's rebuilt on
+the live copy once P3-3 is live.
+
+- **Undo on every agent action:** `TeamRunner::log()` records a step that did something with no Undo as refused,
+  saying so. A step that can't be undone can only propose.
+- **The spending limit per agent:**
+  - `STEP_COST_MICROS`: every step costs $0, since none calls paid AI (Q4 B). It's part of the tree's rules.
+  - `spendLimit()` comes from team_settings `spend:<slug>` and is $0 unless set. `spentThisMonth()` reads
+    `team_runs.cost_micros`.
+  - `run()` refuses a step that would pass its role's limit.
+  - The Team page says it: "each role may spend $0.00 a month".
+- **Confirmation:**
+  - `setCeiling` opens it (Founder, one stage on, tree approved) only while `before_after` and `rule2_autopublish` are
+    both on (`confirmationWaits()`).
+  - At Confirmation, agents act as at Implementation, and a low-risk release the advocates pass publishes alone.
+  - Its evidence has five lines from `site_releases`: releases checked, blocks later passed, escapes rolled back, Undo
+    end to end, ready.
+- **Tests:**
+  - `runner.php`: 57, of which 9 are P3-4's (they run only on a root that has it).
+  - `team-head.cjs`: 28. Its Confirmation column check reads both wordings.
+  - runner.cjs 44, tickets.cjs 62, batch.cjs 18, audit 33, tickets.php 54, all on the same root.
+- **Not built, raised as questions:**
+  - **Staging's own Publish waiting for the check (§1.1, G3b).** Its changes are already on staging when it's
+    published, so there's no "staging just before the change" look to take, as DB1 rules. A before look from live
+    would go against DB1.
+  - **G5's canary landmark.** `landmarks` is a records table (`staging-tables.php`), so a fake held place made on
+    staging could be carried to live at the next Publish. That's a 0066 risk. It also has no add path but
+    `Landmarks::batch` from a source file.
+
+### P3-4 revised for Jason's STEP_AT/CEILINGS ruling (2026-11-25, through the session manager)
+- **Building**: the Project Manager acts, and takes audit-raised tickets itself (`takesItself`: unowned, an Audit ticket or
+  one whose parent is). It sets itself as owner, then moves the ticket; Undo moves it back and gives it back to nobody. A
+  ticket a person entered still waits for Give it to the Team.
+- **Implementation**: the brief goes straight to a build session. `TeamRunner::briefTo()` gives `build` from Implementation
+  on, `session manager` before; `GaugeTasks::report()` puts it on each request with a brief as `brief_to`; the run and the
+  logbook say which.
+- CEILINGS' words say exactly that; "nothing more acts on its own yet" is gone. Confirmation: Tier 1 and 2 publish alone.
+- The brief step only ever proposes (tested). The tree says "A wording fix keeps your approval"; Tier 1 and Tier 2 lines
+  say they publish alone with rule 2 on; Tier 3's data line names the migration verbs.
+- Tests: runner.php 67; team-head.cjs 28, roster.cjs 40, runner.cjs 44, tickets.cjs 62, batch.cjs 18. Roll back proved.
+- At send: rebuild after P3-3 and notify-founder are live (`GaugeTasks.php` is in both; `TeamRunner.php`, `faq.md`).
+
+## 15. Jason's answers to the two Decision Briefs (2026-11-25, through the session manager: "A: A, B: B")
+- **Brief A (a staging Publish isn't checked): A.** Jason: "keep staging record publishes in the daily batch for now".
+  A Publish of what Jason makes on staging stays under rule 1 (the daily batch). Revisit it before the Confirmation raise:
+  that's a line to add to `TeamRunner::evidence('confirmation')` (with P3-4 at send, or P3-5).
+- **Brief B (G5's canary): B.** Jason: "verify Decision 0066 via a locked read against live-protected places rather than
+  adding fake test records". To build as **P3-5** (held, like the others): a staging-only locked read that answers
+  hashes of the held names only, never the names; behind the checks' token; StagingGate-safe; tests that include a
+  wrong token being refused. The before-and-after check then looks for those hashes on staging's pages.

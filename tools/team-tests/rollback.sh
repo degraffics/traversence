@@ -17,6 +17,8 @@ for d in app website; do [ -d "$B/unz/$d" ] && cp -r "$B/unz/$d/." "$B/root/$d/"
 mariadb -utv -ptv -h127.0.0.1 -e "DROP DATABASE IF EXISTS lv_main; CREATE DATABASE lv_main CHARACTER SET utf8mb4"
 mariadb -utv -ptv -h127.0.0.1 lv_main < "$T/before-schema.sql"
 php "$T/tickets-migrate.php" "$B/before/app" 2>/dev/null || true   # what's live before Piece 2 (task-scope, task-adrs), when this root has none of Piece 2's own
+# migrations live has already run (and deleted), named by the caller: PRE_MIGRATIONS="a.sql b.sql" (Piece 3 builds on Piece 2's tables)
+for f in ${PRE_MIGRATIONS:-}; do php -r '$a=$argv[1]; require "$a/lib/Database.php"; require "$a/lib/DbUpdates.php"; $p=Database::connection(); foreach (DbUpdates::statements((string) file_get_contents($argv[2])) as $s) { $st=$p->query($s); if ($st) $st->closeCursor(); }' "$B/root/app" "$f"; done
 for i in 1 2; do for f in $(cd "$B/unz" && ls app/migrations/*.sql 2>/dev/null); do php -r '$a=$argv[1]; require "$a/lib/Database.php"; require "$a/lib/DbUpdates.php"; $p=Database::connection(); foreach (DbUpdates::statements((string) file_get_contents($argv[2])) as $s) { $st=$p->query($s); if ($st) $st->closeCursor(); }' "$B/root/app" "$B/root/$f"; done; done
 echo "published: $(cd "$B/unz" && find app website -type f 2>/dev/null | wc -l) files laid over, migrations run twice"
 # roll back

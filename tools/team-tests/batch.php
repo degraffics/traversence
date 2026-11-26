@@ -1,7 +1,7 @@
 <?php
 // Piece 2, P2-5 (decisions/0179 rule 1; Jason's Q3 A, 2026-11-25): the daily batch and the Founder's emailed answers, on a real
 // MySQL or MariaDB. gauges.json carries {batch, answers} (gauges.py, batch_py.py); the site reads them: the batch strip at the
-// top of the Work queue (only today's; "No batch from the session manager today" otherwise; the Tier 3 decisions waiting
+// top of the Work queue (today's, or the latest until it's approved; "No batch from the session manager today" otherwise; the Tier 3 decisions waiting
 // listed first; Approve the batch greyed but for the Founder's own login); Approve records kind 'batch' for that date once,
 // and report() carries it to the session manager; each emailed answer applied once, only to a Resolution waiting for the
 // Founder, as "Jason (by email, recorded by the session manager)", with History and its precedent ticket.
@@ -61,7 +61,10 @@ $t('a malformed day refused', (function () use ($pdo, $J) { try { GaugeTasks::ap
 // not today's
 $write(['date' => gmdate('Y-m-d', time() - 86400), 'lines' => [$line]], []); $pdo->exec('DELETE FROM page_cache'); ControlGauges::config($pdo, true);
 $h = tv_cb_wq_batch($pdo, $active);
-$t('yesterday\'s batch: "No batch from the session manager today", the decisions still first, nothing to approve', str_contains($h, 'No batch from the session manager today · 2 decisions waiting for you') && !str_contains($h, 'team-runner.zip') && !str_contains($h, 'batchok'), strip_tags($h));
+$t('yesterday\'s batch, not yet approved: still shown as "The latest batch", with Approve (the session manager, 2026-11-26: a batch merged late in the UTC day never showed)', str_contains($h, 'The latest batch (') && str_contains($h, 'team-runner.zip') && str_contains($h, 'data-wq="batchok"'), strip_tags($h));
+GaugeTasks::approve($pdo, 'area:batch-' . gmdate('Y-m-d', time() - 86400), 'batch', 'team-runner.zip', 'the daily batch', $J, 1);
+$h = tv_cb_wq_batch($pdo, $active);
+$t('… once approved: "No batch from the session manager today", the decisions still first, nothing to approve', str_contains($h, 'No batch from the session manager today · 2 decisions waiting for you') && !str_contains($h, 'team-runner.zip') && !str_contains($h, 'batchok'), strip_tags($h));
 $write([], []); $pdo->exec('DELETE FROM page_cache'); ControlGauges::config($pdo, true);
 $t('no batch at all: the same line', str_contains(tv_cb_wq_batch($pdo, $active), 'No batch from the session manager today'));
 // the emailed answers

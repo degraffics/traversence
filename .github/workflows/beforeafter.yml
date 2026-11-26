@@ -1,0 +1,144 @@
+name: Before and after (the advocates' check)
+# Piece 3 (decisions/0179 rule 2 and its notes "How the Team's capacity grows" §4 and "Piece 3's decisions"; handoffs/
+# piece3-check.md). For one release on staging, in two runs the site asks for in turn (repository_dispatch, as AuditClock
+# asks for the audit's runs):
+#   before: the release's pages (tools/page-audit/reach.py from its zip and the live mirror), looked at twice on staging
+#           just before the change (DB1: never live), kept one day as this run's artifact; the verdict file says
+#           "before-done" so the site goes on and stages it.
+#   after:  the same pages once the change is on staging, compared with the two before looks (beforeafter.mjs compare);
+#           the verdict file (pass, block or incomplete, each block with its advocate, page, size and rule) is committed,
+#           and the site reads it (P3-2): a pass goes on to publish or the batch, a block withdraws the release (DB2).
+# Read only on staging: the test accounts and the staff test logins sign in and look; nothing is sent. Never runs against
+# live (no staging block in CHECK_ACCOUNTS: it stops). Secrets: CHECK_ACCOUNTS, MIRROR_READ_TOKEN.
+on:
+  repository_dispatch:
+    types: [before-after]   # client_payload: {release, phase: before|after, zip, blob}
+  workflow_dispatch:
+    inputs:
+      release: { description: 'The release number', required: true }
+      phase: { description: 'before or after', required: true, type: choice, options: [before, after] }
+      zip: { description: "The release zip's name (releases/inbox/…)", required: true }
+      blob: { description: "The zip's git blob id (as the site took it)", required: true }
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  check:
+    concurrency:
+      group: before-after-${{ github.event.client_payload.release || inputs.release }}
+      cancel-in-progress: false
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      RELEASE: ${{ github.event.client_payload.release || inputs.release }}
+      PHASE: ${{ github.event.client_payload.phase || inputs.phase }}
+      ZIP: ${{ github.event.client_payload.zip || inputs.zip }}
+      BLOB: ${{ github.event.client_payload.blob || inputs.blob }}
+      RUN: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}   # the report's link
+    steps:
+      - name: What was asked
+        run: |
+          echo "Release #$RELEASE, $PHASE, $ZIP ($BLOB)"
+          [[ "$RELEASE" =~ ^[0-9]{1,7}$ && "$PHASE" =~ ^(before|after)$ && "$BLOB" =~ ^[0-9a-f]{40}$ ]] || { echo "::error::A release number, before or after, and a 40-character blob id"; exit 1; }
+
+      - uses: actions/checkout@v4
+
+      - name: The live mirror (the pages a file reaches)
+        uses: actions/checkout@v4
+        with:
+          repository: degraffics/traverse-3way-sync
+          token: ${{ secrets.MIRROR_READ_TOKEN }}
+          path: mirror
+          fetch-depth: 1
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /sync-app/
+            /sync-storage/
+            !/sync-storage/uploads/
+            !/sync-storage/image/
+
+      - name: The release's zip, by its blob id, and its pages
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api "repos/${{ github.repository }}/git/blobs/$BLOB" --jq .content | base64 -d > release.zip
+          python3 tools/page-audit/reach.py --mirror mirror --zip release.zip --out-pages ba-pages.json --out-expected ba-expected.json
+          if [ -f tools/page-audit/ba-canaries.json ]; then python3 -c "import json;e=json.load(open('ba-expected.json'));e['canaries']=json.load(open('tools/page-audit/ba-canaries.json'));json.dump(e,open('ba-expected.json','w'))"; fi
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Playwright and Chromium
+        run: |
+          npm install --no-save --no-audit --no-fund playwright@1.48.2
+          npx playwright install --with-deps chromium
+
+      - name: Before (twice, on staging just before the change)
+        if: env.PHASE == 'before'
+        env:
+          CHECK_ACCOUNTS: ${{ secrets.CHECK_ACCOUNTS }}
+        run: |
+          node tools/page-audit/beforeafter.mjs capture --pages ba-pages.json --out ba-before-1.json
+          node tools/page-audit/beforeafter.mjs capture --pages ba-pages.json --out ba-before-2.json --shots ba-shots/before
+          mkdir -p site-audit/results/beforeafter
+          python3 -c "import json,os;b=json.load(open('ba-before-1.json'));json.dump({'release':os.environ['RELEASE'],'phase':'before-done','verdict':'waiting','views':len(b['results']),'seconds':b['seconds'],'run':os.environ['RUN']},open('site-audit/results/beforeafter/'+os.environ['RELEASE']+'.json','w'),indent=1)"
+      - name: Keep the before looks with this run (one day, never committed)
+        if: env.PHASE == 'before'
+        uses: actions/upload-artifact@v4
+        with:
+          name: ba-before-${{ env.RELEASE }}
+          path: |
+            ba-before-1.json
+            ba-before-2.json
+            ba-pages.json
+            ba-expected.json
+            ba-shots/
+          retention-days: 1
+
+      - name: The before looks (from the before run)
+        if: env.PHASE == 'after'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          id=$(gh api "repos/${{ github.repository }}/actions/artifacts?name=ba-before-$RELEASE&per_page=1" --jq '.artifacts[0].workflow_run.id // empty')
+          [ -n "$id" ] || { echo "::error::No before look for release #$RELEASE (its before run didn't finish, or its day passed)"; exit 1; }
+          echo "BEFORE_RUN=$id" >> "$GITHUB_ENV"
+      - uses: actions/download-artifact@v4
+        if: env.PHASE == 'after'
+        with:
+          name: ba-before-${{ env.RELEASE }}
+          run-id: ${{ env.BEFORE_RUN }}
+          github-token: ${{ github.token }}
+          path: before
+
+      - name: After, and the verdict
+        if: env.PHASE == 'after'
+        env:
+          CHECK_ACCOUNTS: ${{ secrets.CHECK_ACCOUNTS }}
+        run: |
+          node tools/page-audit/beforeafter.mjs capture --pages before/ba-pages.json --out ba-after.json --shots ba-shots/after
+          mkdir -p site-audit/results/beforeafter
+          node tools/page-audit/beforeafter.mjs compare --before before/ba-before-1.json --before2 before/ba-before-2.json --after ba-after.json \
+            --expected before/ba-expected.json --release "$RELEASE" --out "site-audit/results/beforeafter/$RELEASE.json" || true
+          python3 -c "import json,os;f='site-audit/results/beforeafter/'+os.environ['RELEASE']+'.json';v=json.load(open(f));v['run']=os.environ['RUN'];v['phase']='after-done';json.dump(v,open(f,'w'),indent=1)"
+      - name: Keep the after looks with this run (one day, never committed)
+        if: env.PHASE == 'after'
+        uses: actions/upload-artifact@v4
+        with:
+          name: ba-after-${{ env.RELEASE }}
+          path: |
+            ba-after.json
+            ba-shots/
+          retention-days: 1
+
+      - name: Commit the verdict
+        run: |
+          git config user.name "before-after"
+          git config user.email "before-after@users.noreply.github.com"
+          git add "site-audit/results/beforeafter/$RELEASE.json"
+          if git diff --cached --quiet; then echo "No change."; exit 0; fi
+          git commit -m "Before and after: release #$RELEASE, $PHASE"
+          for i in 1 2 3 4; do git pull --rebase -q && git push && break; sleep $((i * 5)); done

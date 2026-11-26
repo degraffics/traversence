@@ -1,0 +1,34 @@
+{
+  "title": "The before-and-after check: the site's side (Piece 3, P3-2)",
+  "why": "decisions/0179 rule 2 and its note \"Piece 3's decisions\" (Jason, 2026-11-25: DB1 A, DB2 A, DB4 A, Staff Views yes; handoffs/piece3-check.md §3, §12). While the switch before_after is on, a release from git waits for its before look (GitHub's beforeafter.yml on staging, never live), goes on staging as before, and waits for the after look; its verdict joins its checks as \"Before and after (advocates)\": a pass goes on as before, a block withdraws it and puts the failure in the Work queue, an incomplete look or a spent day's budget waits for a person. No answer in an hour: asked again; in two: a Work queue ticket. Off (as shipped): everything is as today. The Staff Views advocate joins the Team.",
+  "proposals": [],
+  "switch": "",
+  "data_reason": "Adds one row to team_roster, once (only when it isn't there): the Staff Views advocate (Jason, 2026-11-25: \"Staff Views yes\"). Changes nothing else.",
+  "changes": [
+    {
+      "what": "The switch \"The before-and-after check\" (off until turned on)",
+      "where": "https://traversence.com/admin/config/switches"
+    },
+    {
+      "what": "A release's checks: Before and after (advocates); its waiting words",
+      "where": "https://traversence.com/admin/config/releases"
+    },
+    {
+      "what": "A blocked release's Audit ticket, and a late check's ticket",
+      "where": "https://traversence.com/admin/config/control?tab=development"
+    },
+    {
+      "what": "The Staff Views advocate on the Team page",
+      "where": "https://traversence.com/admin/config/team"
+    },
+    {
+      "what": "FAQ: What is the before-and-after check? and the Team page's answer (34 roles)",
+      "where": "https://traversence.com/faq.php"
+    }
+  ],
+  "checks": {
+    "switch_off_unchanged": "With before_after off (as shipped), begin() answers nothing and Releases::fromGit stages and publishes exactly as before (pipeline.php).",
+    "never_publishes_unchecked": "A release waiting on the check is never staged-and-published without a verdict: late is asked again, then a Work queue ticket; an incomplete look and a spent budget wait for review (pipeline.php, 22 checks)."
+  },
+  "rollback": "Proved on the bench (tools/team-tests/rollback.sh with PRE_MIGRATIONS = Piece 2's roster, 2026-11-25): the zip laid over the live mirror (Sync 18:38 UTC) and its migration run twice (one row added once), then Roll back as the site does it: the files match live byte for byte, every PHP file parses, staging-tests/unit.php passes 65 on the rolled-back code. Left behind: the Staff Views advocate's row in team_roster (migrations only add; Put on standby retires it from the Team page)."
+}
