@@ -132,7 +132,7 @@ async function extra(p, size) {
     const prose = [...new Set(all.filter(el => !el.matches(STRUCT) && !el.closest(STATE) && !el.closest(REC)).map(el => clean(el).slice(0, 200)).filter(Boolean))].slice(0, 400);
     const lines = [...new Set(all.filter(el => el.matches(STRUCT) && !el.closest(STATE) && !el.closest(REC)).map(el => clean(el).slice(0, 200)).filter(Boolean))].slice(0, 400);
     const state = [...new Set(all.filter(el => el.closest(STATE)).map(el => clean(el).slice(0, 200)).filter(Boolean))].slice(0, 200);   // checked only when the release draws them
-    return { lines, prose, state, controls, regions, totals, cards: cardsN, rows: rowsN, pins, overlap: over, clipped, offscreen, primary, heading: heading.replace(/\s+/g, ' ').trim().slice(0, 120), nav, canaries, text: text.slice(0, 20000), words };
+    return { lines, prose, state, controls, regions, totals, cards: cardsN, rows: rowsN, recs: document.querySelectorAll(REC).length, pins, overlap: over, clipped, offscreen, primary, heading: heading.replace(/\s+/g, ' ').trim().slice(0, 120), nav, canaries, text: text.slice(0, 20000), words };
   });
   r.landed_signin = SIGNIN.test(new URL(p.url()).pathname);
   return { ba: r };
@@ -265,7 +265,10 @@ export function compare(b1, b2, a, exp = {}, release = '', heldKey = STAGING?.to
     const movingL = new Set([...L0].filter(l => !L2.has(l)).concat([...L2].filter(l => !L0.has(l))));
     const goneL = [...L0].filter(l => !L1.has(l) && !movingL.has(l)), newL = [...L1].filter(l => !L0.has(l) && !movingL.has(l));
     const ctlChanged = ctlSig(b, stateDrawn) !== ctlSig(f, stateDrawn) && ctlSig(b, stateDrawn) === ctlSig(bb || b, stateDrawn);
-    const regionsGone = Object.keys(b.ba?.regions || {}).filter(r => (b.ba.regions[r]?.t || '') && !(f.ba?.regions || {})[r] && (bb?.ba?.regions || b.ba.regions)[r]);
+    // an empty state giving way to records (a queue's "All caught up." gone, its first item there: #307's look, /admin/helper.php)
+    // is the queue filling, not a part of the page gone: a region that held no records, with the page holding more records after
+    const filled = r => !(b.ba.regions[r]?.n) && (f.ba?.recs ?? 0) > (b.ba?.recs ?? 0);
+    const regionsGone = Object.keys(b.ba?.regions || {}).filter(r => (b.ba.regions[r]?.t || '') && !(f.ba?.regions || {})[r] && (bb?.ba?.regions || b.ba.regions)[r] && !filled(r));
     if (!expected.has(f.url)) {
       // a part of the page gone, on a page the change doesn't name, is missing data; any other change there is drift
       if (regionsGone.length) block('data', f, 'A part of the page is gone: ' + regionsGone.slice(0, 2).join(', '), regionsGone[0], '');

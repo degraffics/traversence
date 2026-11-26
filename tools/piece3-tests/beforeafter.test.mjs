@@ -36,6 +36,7 @@ try {
     ['newbutton', 'block', 'drift', 'a button added outside the table, out of scope: drift (its controls)'],
     ['adminnote', 'pass', null, 'a to-do line and its link appearing on an admin page (a queue\'s work, catch-up\'s data): its prose and content links aren\'t drift there'],
     ['helperitem', 'pass', null, 'a queue empty before ("All caught up.") holding an item card after, its buttons with it (#307\'s look, /admin/helper.php): a record, not drift'],
+    ['emptygone', 'block', 'data', '… the same box gone with no item in its place: a part of the page gone (data)'],
     ['alarm', 'block', 'drift', '… the same, when the release changes what draws them (lib/Thread.php): drift', { files: ['app/lib/Thread.php'] }],
     ['leak', 'block', 'access', 'a member opens an admin page: access'],
     ['lost', 'block', 'access', 'a member\'s own page sends it to sign in: access'],
