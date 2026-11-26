@@ -1,0 +1,39 @@
+{
+    "id": 303,
+    "title": "The before-and-after check runs whenever its switch isn't off (it was off until the switch's last step)",
+    "why": "P3-6 (#297) turned on the before_after switch at step 1, staff and test accounts, carrying out Jason's note on decisions/0179: \"Turn on P3-2's before-and-after switch with it\". But BeforeAfter::on() read only 'on' (step 3, everyone), and the check runs as the system with no one signed in, so a release's staff-first steps can never mean anything for it: releases #297 to #302 went live without it. Now the check is on in every state but off (test, share and on), and off when the switch is off or killed. Its failure paths are unchanged (P3-2): a run GitHub wasn't asked for is said on the release, asked again after an hour and given to a person after two; a spent day of minutes (DB4) holds the release for the batch; an agent's release never goes live unchecked. The FAQ's answer no longer says Coming. Admin only, no table, no new outside call (the run is asked as P3-2 built it).",
+    "proposals": "",
+    "zip": "before-after-on.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/ui/faq.md": {
+            "sha": "4e3eb6651f358d148bf1e905d1172742d26f9b7ae82acc2c4c9b301c9d35d550",
+            "size": 464406,
+            "live_was": "64416813d7dece52d5e4774aa73961afe509a125baf6f1879f48ff38007fd1c1"
+        },
+        "app/lib/BeforeAfter.php": {
+            "sha": "a93904bd1674cfb037e2d5ae12b70b12314f9749c1dd93797627e76ddc5eafee",
+            "size": 13103,
+            "live_was": "d0e674d4f44864185a7e89d45950aa81d7df48292df6c6533b88cee3485c2902"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-26T10:28:13+00:00",
+            "by": 0,
+            "msg": "Uploaded before-after-on.zip: 2 files."
+        }
+    ]
+}
