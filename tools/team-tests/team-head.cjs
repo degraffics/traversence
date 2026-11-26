@@ -34,11 +34,13 @@ const noSide = p => p.evaluate(() => document.documentElement.scrollWidth <= doc
       t(L + 'a staff member: Approve the decision tree greyed, saying only the Founder', await p.$eval('[data-tm=tree]', x => x.disabled && /Only the Founder/.test(x.title)));
       t(L + 'Raise to Building greyed: approve the decision tree first; its evidence lines shown with sources', await p.$eval('[data-tm=ceiling]', x => x.disabled && /Approve the decision tree first/.test(x.title)) && await p.$$eval('#tm-ceiling .tm-ev tr', a => a.length === 3));
       if (await p.$('#tm-reach')) t(L + 'P3-6: "How far Implementation reaches: Backend only"; Change to Everywhere greyed for a staff member, saying only the Founder', /How far Implementation reaches: Backend only/.test(await p.textContent('#tm-reach')) && await p.$eval('[data-tm=reach]', x => x.disabled && /Only the Founder/.test(x.title)));
+      if (await p.$('#tm-yours')) t(L + 'P3-6: what\'s the Founder\'s to press, in order: Approve the decision tree → Raise to Building → Raise to Implementation', /Yours to press, in order[\s\S]*Approve the decision tree → Raise to Building → Raise to Implementation/.test(await p.textContent('#tm-yours')));
       t(L + 'no sideways scroll (the tree\'s table scrolls inside itself)', await noSide(p));
       if (shots) await p.screenshot({ path: shots + '/team-head-' + w + '.png', fullPage: true });
       // as the Founder
       await p.goto('http://127.0.0.1:' + (port + 30) + '/admin/config/team'); await p.waitForSelector('#tm-tree');
       await Promise.all([p.waitForNavigation(), p.click('[data-tm=tree]')]); await p.waitForTimeout(700);
+      if (await p.$('#tm-yours')) t(L + '… the press works on the Founder\'s login, and the line ticks it', /✓ Approve the decision tree/.test(await p.textContent('#tm-yours')));
       t(L + 'the Founder approves the tree: "Approved by Jason (test)", with its fingerprint', /Approved:\s*By Jason \(test\)/.test(await p.textContent('#tm-tree')) && /fingerprint [0-9a-f]{12}/.test(await p.textContent('#tm-tree')));
       t(L + '… the answer said beside it after the page reads again', /Approved\. Raising/.test(await p.textContent('body')));
       t(L + 'Raise to Building is open now', await p.$eval('[data-tm=ceiling][data-to=building]', x => !x.disabled));

@@ -22,11 +22,12 @@ w('sync-storage/cart.php', "<?php\nrequire_once __DIR__ . '/../app/ui/cart.php';
 w('sync-storage/admin/router.php', "<?php\nrequire_once __DIR__ . '/../../app/admin/report-console.php';\necho tv_report_console();\n")
 w('sync-storage/js/admin-report.js', "window.TvAdminReport = {};\n")
 w('sync-storage/admin/report.php', "<?php\necho '<script src=\"/js/admin-report.js\"></script>';\n")
-def zipf(files):
-    z = os.path.join(m, 'r%d.zip' % len(files))
+zn = [0]
+def zipf(files, ticket=12):
+    zn[0] += 1; z = os.path.join(m, 'r%d.zip' % zn[0])
     with zipfile.ZipFile(z, 'w') as f:
         for k, v in files.items(): f.writestr(k, v)
-        f.writestr('release.json', '{}')
+        f.writestr('release.json', json.dumps({'team_ticket': ticket} if ticket else {}))
     return z
 def fz(files):
     with zipfile.ZipFile(zipf(files)) as z:
@@ -63,8 +64,12 @@ t('send: a backend build for an agent\'s brief goes on', r == 'passed', why)
 r, why = send(zipf({'app/lib/AdminReport.php': 'x', 'app/ui/cart.php': 'x'}))
 rf = json.load(open(os.path.join(d, 'releases', 'fence-refusals.json')))
 t('send: a mixed build refused with the reason, nothing sent; the refusal kept for the site (ticket, zip, reason)', r == 'refused' and 'reaches a public page' in why and rf['refusals'][-1]['ticket'] == 12 and 'app/ui/cart.php' in rf['refusals'][-1]['reason'], [why, rf])
-send(zipf({'app/lib/AdminReport.php': 'x', 'app/ui/cart.php': 'x'}))
-t('… the same zip refused twice is kept once', len(json.load(open(os.path.join(d, 'releases', 'fence-refusals.json')))['refusals']) == 1)
+r0, w0 = send(zipf({'app/lib/AdminReport.php': 'x', 'app/ui/cart.php': 'x'}))
+t('… a second zip refused is kept beside it', len(json.load(open(os.path.join(d, 'releases', 'fence-refusals.json')))['refusals']) == 2)
+z1 = zipf({'app/lib/AdminReport.php': 'x', 'app/ui/cart.php': 'x'}); send(z1); send(z1)
+t('… the same zip refused twice is kept once', len(json.load(open(os.path.join(d, 'releases', 'fence-refusals.json')))['refusals']) == 3)
+r, why = send(zipf({'app/lib/AdminReport.php': 'x'}, ticket=0))
+t('send: release.json must name the ticket (the site holds an agent\'s release by it)', r == 'refused' and '"team_ticket": 12' in why, why)
 reqs(fence='everywhere'); r, why = send(zipf({'app/lib/Orders.php': 'x'}))
 t('send: with Everywhere, not checked', r == 'passed' and 'Everywhere' in why, why)
 reqs(brief_to='founder'); r, why = send(zipf({'app/lib/AdminReport.php': 'x'}))

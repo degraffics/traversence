@@ -75,7 +75,34 @@ $pdo->prepare("UPDATE site_releases SET state = 'live', live_at = UTC_TIMESTAMP(
 if (!function_exists('tv_icon')) { function tv_icon(string $n, $c = ''): string { return ''; } }
 require_once $app . '/admin/widgets.php'; require_once $app . '/lib/ControlGauges.php'; require_once $app . '/admin/control-console.php';
 $h = tv_cb_wq_batch($pdo, []);
-$t('the strip: "Published alone today (Tier 1 and Tier 2)" with each release, its kind or Tier 2, and Undo', str_contains($h, 'Published alone today (Tier 1 and Tier 2)') && str_contains($h, '#' . $a . ' r2-faq.zip') && str_contains($h, 'data-wq="relback" data-id="' . $a . '"') && str_contains($h, ' · faq · ') && str_contains($h, '#' . $d . ' r2-none.zip</b> · Tier 2 · '), strip_tags($h));
+$t('the strip: "Published alone today (Tier 1 and Tier 2)" with each release, its kind or Tier 2, and Undo', str_contains($h, 'Published alone today (Tier 1 and Tier 2') && str_contains($h, '#' . $a . ' r2-faq.zip') && str_contains($h, 'data-wq="relback" data-id="' . $a . '"') && str_contains($h, ' · faq · ') && str_contains($h, '#' . $d . ' r2-none.zip</b> · Tier 2 · '), strip_tags($h));
 $pdo->prepare("UPDATE site_releases SET state = 'rolled_back' WHERE id IN (?, ?)")->execute([$a, $d]);
 $t('… rolled back: it says undone, no button', str_contains(tv_cb_wq_batch($pdo, []), 'undone (rolled back)') && !str_contains(tv_cb_wq_batch($pdo, []), 'data-wq="relback"'));
+// P3-6: an agent's release (release.json "team_ticket"; Jason, 2026-11-26: "Let the backen release go live")
+if (method_exists(Releases::class, 'agentGate')) {
+    require_once $app . '/lib/TeamRunner.php'; require_once $app . '/lib/ControlGauges.php';
+    $pdo->exec("CREATE TABLE IF NOT EXISTS page_cache (cache_key VARCHAR(190) PRIMARY KEY, body MEDIUMTEXT, expires_at DATETIME)");
+    $gf = sys_get_temp_dir() . '/ag-gauges-' . getmypid() . '.json';
+    $base = json_decode((string) file_get_contents(dirname(__DIR__, 2) . '/site-audit/results/gauges.json'), true);
+    file_put_contents($gf, json_encode(['fence' => ['at' => '2026-11-26T00:16:00Z', 'backend' => ['app/lib/AdminReport.php']]] + $base)); ControlGauges::$source = $gf; $pdo->exec('DELETE FROM page_cache');
+    $gate = new ReflectionMethod(Releases::class, 'agentGate'); $gate->setAccessible(true);
+    $ag = fn (int $id) => $gate->invoke(null, $pdo, Releases::get($pdo, $id));
+    $mkA = function (string $name, array $files, bool $advocates, int $ticket = 41) use ($mk, $pdo) { $id = $mk($name, $files, '', $advocates); $pdo->prepare('REPLACE INTO site_release_settings (k, v) VALUES (?, ?)')->execute(['ticket:' . $id, (string) $ticket]); return $id; };
+    $x1 = $mkA('ag-admin.zip', ['website/admin/report-x.php' => "<?php echo 'r';", 'app/lib/AdminReport.php' => "<?php\n", 'app/lib/AgentNew.php' => "<?php\n", 'app/migrations/2026-12-01_ag.sql' => 'CREATE TABLE IF NOT EXISTS ag_x (id INT);'], true);
+    $t('P3-6: an agent\'s backend release the advocates passed: published alone, said in its record', $ag($x1) === '' && str_starts_with(Releases::lastWordFor(Releases::get($pdo, $x1)), 'Published alone (agent, backend)'), [$ag($x1), Releases::lastWordFor(Releases::get($pdo, $x1))]);
+    $x2 = $mkA('ag-unchecked.zip', ['website/admin/report-y.php' => "<?php echo 'r';"], false);
+    $t('… not passed by the advocates (the check off, or its minutes spent): it waits, never unchecked', str_contains($ag($x2), 'never goes live unchecked'), $ag($x2));
+    $x3 = $mkA('ag-public.zip', ['website/admin/report-z.php' => "<?php echo 'r';", 'app/ui/header.php' => "<?php\n"], true);
+    $t('… a live file past the backend (not in the reach map) while Backend only: it waits, naming the file', str_contains($ag($x3), 'app/ui/header.php') && str_contains($ag($x3), 'Backend only'), $ag($x3));
+    $x4 = $mkA('ag-drop.zip', ['app/migrations/2026-12-01_agd.sql' => 'DROP TABLE ag_old;'], true);
+    $t('… Tier 3 (a migration that DROPs): a Decision Brief, never alone', str_contains($ag($x4), 'Tier 3 area (data)'), $ag($x4));
+    $x5 = $mkA('ag-rows.zip', ['app/migrations/2026-12-01_agi.sql' => "INSERT INTO team_roster (slug) VALUES ('x');"], true);
+    $t('… a migration that writes rows isn\'t backend: it waits', $ag($x5) !== '', $ag($x5));
+    $x6 = $mk('not-agent.zip', ['app/ui/cart2.php' => "<?php\n"], '', false);
+    $t('… not an agent\'s release: the gate says nothing (rule 1 and 2 as before)', $ag($x6) === '');
+    $f2 = $mkA('ag-wait.zip', ['website/admin/report-w.php' => "<?php echo 'r';"], false);
+    $out = Releases::checkedByAdvocates($pdo, $f2, ['verdict' => 'incomplete', 'first' => '', 'views' => 0, 'run' => '', 'blocks' => 0, 'seconds' => 0], false);
+    $t('through the pipeline: an incomplete look leaves an agent\'s release on staging for review, never live', Releases::get($pdo, $f2)['state'] === 'staged', $out);
+    @unlink($gf);
+}
 echo "\n$pass passed, $fail failed\n"; exit($fail ? 1 : 0);

@@ -152,6 +152,19 @@ final class TeamRunner
         return $out;
     }
 
+    /**
+     * Is one file of a release backend (P3-6), as reach.py's fence judges it: the admin's pages and parts, a new file under app/
+     * (its callers decide, and they're checked too), a migration that only adds, or a file the reach map holds.
+     */
+    public static function backendFile(PDO $pdo, string $p, bool $new, string $text = ''): bool
+    {
+        if (str_starts_with($p, 'website/admin/') || str_starts_with($p, 'app/admin/') || str_starts_with($p, 'workers/')) return true;
+        if (str_starts_with($p, 'app/migrations/')) { require_once __DIR__ . '/ReleaseKind.php'; return !ReleaseKind::writes($text) && !ReleaseKind::insertsRows([$p => [$text, null]]); }
+        if (str_starts_with($p, 'app/') && $new) return true;
+        $map = self::fenceMap($pdo);
+        return $map !== null && isset($map[$p]);
+    }
+
     /** The live mirror's backend-only files (gauges.json's "fence"), or null when it isn't there. */
     private static function fenceMap(PDO $pdo): ?array
     {

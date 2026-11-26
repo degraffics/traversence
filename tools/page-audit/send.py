@@ -99,6 +99,12 @@ def fence_check(zpath, mirror, ticket):
         sys.exit(f'Ticket #{ticket} isn\'t in build-requests.json: a build for an agent\'s brief starts from its request there.')
     if req.get('brief_to') == 'founder':
         sys.exit(f'Ticket #{ticket}\'s brief waits for the Founder (front end, behind the fence): it isn\'t a build session\'s to send.')
+    try:
+        rj = json.loads(zipfile.ZipFile(zpath).read('release.json'))
+    except Exception:
+        rj = {}
+    if int(rj.get('team_ticket') or 0) != ticket:
+        sys.exit(f'release.json needs "team_ticket": {ticket}: the site reads it to hold an agent\'s release to the advocates\' check and the backend (P3-6).')
     if (req.get('fence') or 'backend') == 'everywhere':
         print('The fence: the Team says Implementation reaches Everywhere: not checked.')
         return

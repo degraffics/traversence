@@ -36,6 +36,10 @@ function tv_admin_mod_team(PDO $pdo): string
     }
     $h .= '</tbody></table></div><p class="tm-note"><b>Spending:</b> each role may spend $' . number_format(0, 2) . ' a month: no step calls paid AI or an outside service (Q4 B), so each step costs $0. <b>Always the Founder\'s:</b> every Tier 3 answer, approving the daily batch, approving this tree, and raising how far agents work. Agents never work a ticket a person has, never take one themselves, never answer a Tier 3, never write over a person\'s words, and never call an outside service or paid AI.</p>';
     $fp = substr(TeamRunner::fingerprint($pdo), 0, 12);
+    // what's the Founder's to press, in order (decisions/0179's notes, 2026-11-25 and 2026-11-26): only these start the agents
+    $steps = [['Approve the decision tree', (bool) $tree], ['Raise to Building', in_array($ceil, ['building', 'implementation', 'confirmation'], true)], ['Raise to Implementation', in_array($ceil, ['implementation', 'confirmation'], true)]];
+    $h .= '<p class="tm-note" id="tm-yours"><b>Yours to press, in order</b> (signed in with the Founder\'s own staff login): ' . implode(' → ', array_map(fn ($x) => ($x[1] ? '✓ ' : '') . $e($x[0]), $steps))
+        . '. At Implementation, an agent\'s backend release goes live by itself once staging\'s checks and the before-and-after check pass, with Undo in the daily summary; anything reaching a public page waits for you.</p>';
     $h .= $tree ? '<p data-tv-status="ok" data-tv-label="Approved:">By ' . $e($tree['who']) . ', ' . $when($tree['at'], (string) $tree['tz']) . ' · rules fingerprint ' . $e($fp) . '. A wording fix keeps your approval; a change to any rule clears it and agents go back to Planning.</p>'
         : '<div class="tm-acts"><p data-tv-status="info" data-tv-keep data-tv-label="Not approved yet:">Agents work up to Planning until it is (rules fingerprint ' . $e($fp) . '). A wording fix keeps your approval; a change to any rule clears it.</p><button type="button" class="ak-b" data-tm="tree"' . ($founder ? '' : ' disabled title="' . $e($noF) . '"') . '>Approve the decision tree</button></div>';
     $h .= '</section>';

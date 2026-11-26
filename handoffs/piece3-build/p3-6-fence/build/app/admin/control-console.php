@@ -1561,9 +1561,9 @@ function tv_cb_wq_batch(PDO $pdo, array $active): string
     } catch (Throwable $x) { $alone = []; }
     if ($alone) {
         require_once __DIR__ . '/../lib/Releases.php'; $canBack = Releases::can('releases.rollback');
-        $h .= '<p class="wq-bp"><b>Published alone today (Tier 1 and Tier 2):</b></p><ul class="wq-bl">';
+        $h .= '<p class="wq-bp"><b>Published alone today (Tier 1 and Tier 2, and agents\' backend releases):</b></p><ul class="wq-bl">';
         foreach ($alone as $a) {
-            $k = preg_match('/Published alone \((?:low-risk: ([a-z_]+)|(Tier 2))\)/', (string) $a['log'], $m) ? (($m[1] ?? '') !== '' ? $m[1] : 'Tier 2') : '';
+            $k = preg_match('/Published alone \((?:low-risk: ([a-z_]+)|(Tier 2)|(agent, backend))\)/', (string) $a['log'], $m) ? (($m[1] ?? '') !== '' ? $m[1] : (($m[3] ?? '') !== '' ? 'an agent, backend' : 'Tier 2')) : '';
             $h .= '<li><b>#' . (int) $a['id'] . ' ' . $e((string) ($a['title'] ?: $a['zip_name'])) . '</b> · ' . $e($k) . ' · '
                 . ($a['state'] === 'rolled_back' ? 'undone (rolled back)' : '<button type="button" class="cbg-b cbg-sm" data-wq="relback" data-id="' . (int) $a['id'] . '"' . ($canBack[0] ? '' : ' disabled title="' . $e($canBack[1]) . '"') . '>Undo</button>') . '</li>';
         }
