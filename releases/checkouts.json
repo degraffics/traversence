@@ -1,61 +1,6 @@
 {
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
- "claims": [
-  {
-   "path": "app/admin/Access.php",
-   "functions": [
-    "(top)",
-    "staff",
-    "who"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
-   "why": "release access-staff.zip",
-   "since": "2026-11-26T22:59:06Z",
-   "expires": "2026-11-27T02:59:06Z",
-   "release": "access-staff.zip",
-   "callers": {
-    "staff": [
-     "app/admin/Workflow.php",
-     "app/admin/automation-console.php",
-     "app/admin/cleanup-console.php",
-     "app/admin/operations-console.php",
-     "app/admin/sections.php",
-     "app/admin/tools.php",
-     "app/lib/Blocks.php",
-     "app/lib/EnvSettings.php",
-     "app/lib/Orders.php",
-     "app/lib/StagingSite.php",
-     "app/lib/TeamRoster.php",
-     "app/lib/Vault.php",
-     "app/ui/outside-services.php",
-     "website/admin/api.php",
-     "website/admin/api/comms.php",
-     "website/admin/api/env-setting.php",
-     "website/api/blocks.php"
-    ],
-    "who": [
-     "app/admin/module-cards.php",
-     "app/admin/operations-console.php",
-     "app/lib/EnvSettings.php",
-     "app/lib/Orders.php",
-     "website/api/send-crawler.php",
-     "website/directory/index.php"
-    ]
-   }
-  },
-  {
-   "path": "app/lib/upload-targets.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
-   "why": "release access-staff.zip",
-   "since": "2026-11-26T22:59:06Z",
-   "expires": "2026-11-27T02:59:06Z",
-   "release": "access-staff.zip",
-   "callers": {}
-  }
- ],
+ "claims": [],
  "lapsed": [
   {
    "path": "app/lib/TeamRunner.php",
