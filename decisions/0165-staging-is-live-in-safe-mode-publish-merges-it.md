@@ -412,3 +412,12 @@ release puts this right (`handoffs/0165-staging.md`): release #57, live 2026-11-
 - Every new table needs a class, and every new outside service a staging answer.
 - More moving parts on a shared host: the build order puts safety and "nothing by itself" first, so they hold even if
   the merge takes longer.
+
+## Note (Jason, 2026-11-26): conflicts are the team's, not the Founder's
+
+Jason, on the suggestion that a conflict nobody made should settle itself: "this is the project manager
+responsibility isn't it?" Under decisions/0180, settling staging conflicts belongs to the team.
+- **A conflict with no person's change behind it** settles itself as **Keep live**. That's a row staging's own jobs changed, with nothing recorded. The record's history says "Kept live by itself: staging's change wasn't recorded, so no person made it". This turns on the switch the conflict fix ships with.
+- **A conflict where a person changed the row on staging** becomes a Work queue ticket in the Operations &
+  Reconciliation Manager's lane (0180 role 23, under the IT Manager; the Project Manager sequences it). It never comes
+  to the Founder as a question. It reaches him only if it meets a Tier 5 trigger (0180 §3).
