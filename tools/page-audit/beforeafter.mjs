@@ -45,6 +45,7 @@ const SIGNIN = /\/(admin\/login\.php|login\.php|user\/login|sign-?in)/i;
  * Every rule each advocate checks is kept; only how many pages the extra advocates repeat it on is capped. Before
  * 2026-11-26 every member advocate opened every page: #303's 40 pages were 520 views planned, 424 run, 12.7 min a look.
  */
+const PAR = Math.max(1, +(process.env.BA_PAR || 4));   // advocates looking at once (capture)
 const SAMPLE = +(process.env.BA_SAMPLE || 2), MEMBER_PAGES = +(process.env.BA_MEMBER_PAGES || 6);
 const spread = (list, n, at) => { if (list.length <= n) return list; const step = list.length / n; return Array.from({ length: n }, (_, j) => list[Math.floor(at + j * step) % list.length]).filter((u, j, a) => a.indexOf(u) === j); };
 export function plan(pages, acc) {
@@ -122,20 +123,27 @@ async function capture(pages, out, shotDir) {
   const t0 = Date.now(); const browser = await chromium.launch(); const results = []; const signins = {};
   if (shotDir) mkdirSync(shotDir, { recursive: true });
   const byWho = {}; for (const row of plan(pages, ACC)) (byWho[row[0] + '|' + row[1]] = byWho[row[0] + '|' + row[1]] || []).push(row);
-  for (const rows of Object.values(byWho)) {
-    const [slug, key, kind] = rows[0]; const who = key || 'guest';
+  // the advocates look side by side, PAR at a time (4 unless BA_PAR says), each in its own browser context (2026-11-26: #9304's look took 22 minutes
+  // a pass one view after another, 6.4 s a view on an open staging; the 1.79 s it was planned at was a closed staging's 503s).
+  // Results keep the plan's order, so a look compares view for view as before.
+  const groups = Object.values(byWho); const done = groups.map(() => []);
+  const one = async (gi) => {
+    const rows = groups[gi]; const [slug, key, kind] = rows[0]; const who = key || 'guest';
     const ctx = await checkContext(browser, { site, token, staging: st });
     try {
-      if (kind === 'member') await memberIn(ctx, ACC.members[key], site, token);
-      if (kind === 'staff') await staffIn(ctx, ACC.staff[key], site);
-      signins[who] = 'ok';
-    } catch (e) { signins[who] = String(e).slice(0, 200); await ctx.close(); continue; }
-    for (const [, , , url, sizes] of rows) for (const size of sizes) {
-      const f = await pageCheck(ctx, who, url, size, { site, shots: !!shotDir, shotDir, allSizes: true, must: () => false, extra });
-      f.advocate = slug; results.push(f);
-    }
-    await ctx.close();
-  }
+      try {
+        if (kind === 'member') await memberIn(ctx, ACC.members[key], site, token);
+        if (kind === 'staff') await staffIn(ctx, ACC.staff[key], site);
+        signins[who] = 'ok';
+      } catch (e) { signins[who] = String(e).slice(0, 200); return; }
+      for (const [, , , url, sizes] of rows) for (const size of sizes) {
+        const f = await pageCheck(ctx, who, url, size, { site, shots: !!shotDir, shotDir, allSizes: true, must: () => false, extra });
+        f.advocate = slug; done[gi].push(f);
+      }
+    } finally { await ctx.close(); }
+  };
+  let next = 0; await Promise.all(Array.from({ length: Math.min(PAR, groups.length) }, async () => { while (next < groups.length) await one(next++); }));
+  for (const d of done) results.push(...d);
   await browser.close();
   writeFileSync(out, JSON.stringify({ at: new Date().toISOString(), site, pages, signins, loads: results.length, seconds: Math.round((Date.now() - t0) / 1000), results }));
   console.log(`captured ${results.length} views in ${Math.round((Date.now() - t0) / 1000)}s → ${out}`);
