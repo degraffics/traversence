@@ -251,7 +251,8 @@ New standing OKs go here in the session that hears them; the tool they need goes
   follow the decisions and `handoffs/piece2-team.md`; a Founder ruling (Tier 5, decisions/0180) still comes to him, by email.
 - **The organization runs now** (Jason, 2026-11-26; decisions/0180's note "run it now"): every one of the 32 roles is
   active, R1–R5 ship as each passes its checks, reach stays Backend only until he widens it, and the hard money line,
-  $0 spend and Tier 5 triggers hold. Approving the decision tree and raising the stage ceiling stay his own presses.
+  $0 spend and Tier 5 triggers hold. Approving the decision tree and raising the stage ceiling are his: his press, or his own written words for a
+  one-time setup (2026-11-26, R1's tree at Implementation); a later rule change clears it and needs him again.
 
 ## Each session asks Jason itself (Jason, 2026-11-18; replaces 2026-11-17's): every session
 
