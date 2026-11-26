@@ -6,12 +6,12 @@
     "zip": "staging-mirror-words.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "planned",
+    "state": "approved",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
-    "plan_at": null,
+    "plan_at": "2026-11-26 03:35:59",
     "staged_at": null,
     "vetted_at": null,
     "live_at": null,
@@ -44,6 +44,16 @@
             "at": "2026-11-26T03:35:58+00:00",
             "by": 0,
             "msg": "Uploaded staging-mirror-words.zip: 4 files."
+        },
+        {
+            "at": "2026-11-26T03:35:59+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/staging-mirror-words.zip (git 2585556d10)."
+        },
+        {
+            "at": "2026-11-26T03:35:59+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
         }
     ]
 }
