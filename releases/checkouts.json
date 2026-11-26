@@ -2,6 +2,21 @@
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
  "claims": [
   {
+   "path": "app/ui/app-shell.php",
+   "functions": [
+    "tv_app_open"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "config-rail: the side menu's greyed entries (Jason, 2026-11-25: Team in System Configuration's side menu)",
+   "since": "2026-11-26T00:09:30Z",
+   "expires": "2026-11-26T04:09:30Z",
+   "release": "",
+   "callers": {}
+  }
+ ],
+ "lapsed": [
+  {
    "path": "app/lib/GaugeTasks.php",
    "functions": [
     "advance",
@@ -26,10 +41,9 @@
    "since": "2026-11-25T17:07:40Z",
    "expires": "2026-11-25T21:23:27Z",
    "release": "team-audit.zip",
-   "callers": {}
-  }
- ],
- "lapsed": [
+   "callers": {},
+   "lapsed": "2026-11-26T00:09:30Z"
+  },
   {
    "path": "app/lib/ClientOrders.php",
    "functions": [
@@ -849,27 +863,6 @@
    "expires": "2026-11-22T18:58:45Z",
    "release": "design-3e.zip",
    "callers": {},
-   "lapsed": "2026-11-22T19:18:29Z"
-  },
-  {
-   "path": "app/ui/market-ui.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5grMsUgrRMJv3a71F9",
-   "why": "3e: Marketplace, checkout, storefronts' own chrome and domains onto the tokens (css-theme-brand \u00a74 Release 3), layouts kept; the owner's accent warning below 4.5:1 (admin-design.md)",
-   "since": "2026-11-22T14:45:07Z",
-   "expires": "2026-11-22T18:58:45Z",
-   "release": "design-3e.zip",
-   "callers": {
-    "tv_market_css": [
-     "app/business/marketplace.php",
-     "website/listing/view.php",
-     "website/market/index.php",
-     "website/market/item.php",
-     "website/market/view.php",
-     "website/user/market/index.php"
-    ]
-   },
    "lapsed": "2026-11-22T19:18:29Z"
   }
  ]
