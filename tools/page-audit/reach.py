@@ -117,7 +117,7 @@ def for_release(mirror, zpath):
     pages = list(dict.fromkeys(own + named + reach_order))[:CAP]
     also = [x for x in rel.get('also_changes') or [] if isinstance(x, dict) and x.get('page') and x.get('why')]
     expected = list(dict.fromkeys(own + named + [u for u in reach_order if best[u] <= NEAR]))
-    return pages, {'pages': expected, 'also_changes': also, 'canaries': []}
+    return pages, {'pages': expected, 'also_changes': also, 'canaries': [], 'files': files}
 
 # ---- the fence (P3-6; decisions/0179's note "agents work on the backend first", Jason, 2026-11-26) -------------------------
 # Backend: every /admin/ page and its parts, the site's internal code and the workers, where a change reaches no public page
