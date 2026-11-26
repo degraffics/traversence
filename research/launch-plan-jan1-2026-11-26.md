@@ -18,7 +18,7 @@ search, back end and delivery), each citing file:line and decisions. Their marks
 
 **Not seen:** the live `.env` (which payment, mail and AI keys are set), the live `.htaccess`, and the live database.
 
-**Reviewed by the session manager:** pending.
+**Reviewed by the session manager** (2026-11-26, 22:56 UTC): clear to ask, with its eight fixes made.
 
 ---
 
@@ -26,8 +26,9 @@ search, back end and delivery), each citing file:line and decisions. Their marks
 
 Jan 1 is reachable for **a working 1A launch**, but not for everything in the queue, and only if four things happen
 this week:
-1. **Unblock the release pipeline.** Four releases in a row (#305–#308) were withdrawn on false blocks. With the
-   before-and-after check on, we ship under 10 releases a week. With it fixed, 20–30 a week.
+1. **Unblock the release pipeline.** Four releases in a row (#305–#308) were withdrawn on false blocks. Measured
+   (the session manager's release records, Nov 20–26): about 10 a day sustained with the check off. With it on, a
+   release takes 63–80 minutes, so under 10 a week while the false blocks last, and 4–6 a day once they're fixed.
 2. **Close two safety holes** before anyone outside the company uses the site:
    - staff access defaults to "allowed" when no staff member is signed in;
    - there are no database backups.
@@ -100,8 +101,8 @@ call.
 ### A. Unblock the pipeline (first, this week)
 1. **False blocks from the before-and-after check** (#58; #52–#55 are its duplicates; 0179's note of 11-26 18:30).
    Already the ticket R1 seeded. M.
-2. **`releases_tick` every 10 minutes**, as Piece 3 designed (`piece3-check.md:176`). S. This carries out the design,
-   so it's no change.
+2. **`releases_tick` every 10 minutes**, as Piece 3 designed (`piece3-check.md:176`). It carries out the design, so
+   it's no change. It goes in the Scheduler bundle with B.3, not alone.
 3. R2 (0180) once the check is back on. R3–R5 follow, but at most one slot a day for them until the launch gates pass
    (see §6, decision 3).
 
@@ -109,7 +110,9 @@ call.
 1. **The access hole.** `Access::who()` and `can()` deny with no staff session or a database error. Scheduled jobs use
    `canAs`. Uploads to `order_proof`/`order_file` check the order's owner. It's the queue's #51, widened.
    - Decisions 0109, 0127. Privacy territory, so it needs a Tier 4 review (0180 §4.5).
-   - M. **Prove it on staging first.** If it's confirmed, it goes by 0165's urgent path.
+   - M. **In flight** (2026-11-26, about 22:55 UTC): sent to the build session as an urgent fix, slotted first,
+     ahead of R2. Confirmed by reading the code (`Access.php:34`, `upload-targets.php:14–18`). It's being proved on
+     staging with a member test account.
 2. **Nightly database backups and one restore drill** (queue #32; 0163:489). M.
    - **Founder:** confirm what Bluehost's plan already backs up, since 0163 line 460 and `session-manager.md:651`
      conflict.
@@ -121,7 +124,8 @@ call.
      access).
 6. **Capacity:** one test of many visitors at once on the key public pages, on staging, and W0's loading paced in busy
    hours. Retry a 503 batch (#10). M.
-   - Gap: no capacity target exists. I propose 50 visitors at once with median time to first byte under 500 ms.
+   - Gap: no capacity target exists. *Suggestion for the gap, not a decision:* 50 visitors at once, with median
+     time to first byte under 500 ms.
 7. **Alarm truth:** the receipt counts (#11), the stale W1 trips, and the health snapshot missing on 11-26. S.
 8. **The two admin pages timing out** (#56). S–M.
 
@@ -190,8 +194,9 @@ call.
 9. **Order #12's books,** and M2b (paused by him). **Founder.**
 
 ### G. Search (the lock)
-1. **Close today's leaks now:** noindex on the home page, sign-in, sign-up, reset, the classic directory and
-   storefronts, while the lock is on. S. **Founder:** confirm the lock is meant to cover these.
+1. **Close today's leaks:** noindex on the home page, sign-in, sign-up, reset, the classic directory and storefronts,
+   while the lock is on. S. **Founder's call first** (Brief B): it changes what's indexed, so nothing is built before
+   he answers.
 2. **Per-page holds:** trial and unverified listings (0034, 0070, 0071), first-look guides (0147), drafts, story-only
    places, user posts and search results. Then `page-shell.php:51` prints noindex only for those and for staging. M.
 3. **Sitemap and tags:**
@@ -221,13 +226,13 @@ day), the four weeks hold about 80–110 releases. The plan below needs about 60
 
 | Week | Focus | Gate at the end |
 |---|---|---|
-| **Nov 27–30** | A.1, A.2. B.1 proved on staging, then fixed. G.1 the leaks closed. C.1, C.2. The Founder's decisions in §7's first group. | The pipeline passes a clean release with the check on. Joining is measured again. |
+| **Nov 27–30** | A.1, A.2. B.1 proved on staging, then fixed. G.1 the leaks closed (once Brief B rules). C.1, C.2. Briefs A and B ruled. | The pipeline passes a clean release with the check on. Joining is measured again. |
 | **Dec 1–7** | R2. B.2 backups, B.3 jobs, B.5 mail. D.1 and D.2 the seven towns built and cleaned. C.3 the new paths. F.1 the order tests. E.2 the Arizona sign-off. | Every 1A town has data. The new paths run, failing honestly. |
 | **Dec 8–14** | C.4–C.7 front-end fixes. E.1 the 1A guides. F.2–F.4 the Shop and Marketplace in the sandbox. G.2 the per-page holds. D.3 1A's area (if W15 is cleared). B.6 the capacity test. R3. | The core and 1A paths pass. Sandbox buying passes. |
 | **Dec 15–21** | G.3 sitemap and tags. F.5 real money once (Jason). F.6–F.7 tax and legal. H.1–H.2 the rep's tools and territory. C.8 open now (if reopened). The FAQ. R4. | All six launch gates green for 5 runs. |
 | **Dec 22–31** | **Freeze.** Fixes for failing gates only. G.4 the lock lifted on Jason's date. R5 only if the gates hold. Go/no-go on Dec 31. | Launch. |
 
-**Who builds** (CLAUDE.md: one session per area, at most about three build sessions):
+**Who builds** (CLAUDE.md: one session per area, at most about three build sessions; three is at the cap, and each sends its own release in turn, in the session manager's order):
 1. **Piece 2 build session:** stream A, stream B and R2–R5 (backend).
 2. **A new Frontend & Shop session:** streams C, F (code) and G. The Design reviewer approves every visible release.
 3. **A new Data & Content session:** streams D and E, on the crawler and guides (0164's rules).
@@ -248,50 +253,53 @@ Work queue ids:
 - routes on our site (0174 R5, unless Jason allows its two hosts);
 - 1B and 1C.
 
-## 7. The Founder's calls, in the order they're needed
+## 7. The Founder's calls, as four Decision Briefs (0180 §1's form)
 
-**This week (they gate the plan):**
-1. **The launch definition:** §3's six gates, the Dec 22 freeze and the Dec 31 go/no-go. This is new policy, so a
-   Founder ruling. It would become a decision.
-2. **Three build sessions** (§5).
-3. **The pipeline's order until launch:** launch work first, with R2–R5 at most one slot a day. 0180's "R1–R5 back to
-   back" note yields to it until Dec 31.
-4. **Pipeline speed-ups:** *Suggest a change to 0165:* pause staging's own jobs and catch-up during a before or after
-   look, the main source of false blocks. *Suggest a change to 0179 (Piece 3):* block only on pages whose own files
-   changed; pages reached from afar become notes.
-5. **The lock covers the home page, sign-in pages and storefronts too** (G.1).
-6. **0149: build all seven 1A towns ahead of demand** (D.1).
+Only true Founder rulings (0180 §3). Calls the team can settle (1A's community groups, sequencing, the session count)
+are settled by the team. Each brief opens "Decision (nothing changes on the site yet)".
 
-**By Dec 7:**
-7. Bluehost's own backups (B.2).
-8. SES production access (B.5).
-9. December's AI cap, and who publishes 1A's first guides (E.1).
-10. The Arizona attorney sign-off (E.2).
-11. W15 and 1A's area (D.3).
-12. Reopen P10, open now (C.8).
-13. Who starts 1A's community groups (D.5).
+**Brief A, this week: the launch and the pipeline.** Triggers: new policy (no decision defines a launch), a change to
+0180's "R1–R5 back to back" note, a change to 0165, and the before-and-after switch (his press).
+1. The launch definition: §3's six gates, the Dec 22 freeze and the Dec 31 go/no-go.
+2. Launch work first in the one queue. R2–R5 get at most one slot a day until the gates pass.
+3. *Suggest a change to 0165:* pause staging's own jobs and catch-up while a before or after look runs.
+4. Turn the before-and-after check back **On** (System Configuration → Staging), so A.1 can be proved on R2.
 
-**By Dec 14:**
-14. Which priced items sell on Jan 1 (F.3).
-15. Marketplace keys (F.4).
-16. Print at launch (F.8).
-17. Order #12 and M2b (F.9).
-18. The verify number and the rep's in-person path (H.1).
+Blocking only on a page's own files is partly done by the role-22 fix (#1472). It becomes a brief only if R2 still
+false-blocks.
 
-**By Dec 21:**
-19. Real money once (F.5).
-20. Tax (F.6).
-21. Legal texts (F.7).
-22. Promos and outreach spend (H.2).
-23. The revenue mix (H.3).
-24. The lock's lift date and Search Console (G.4).
+**Brief B, this week: 1A and the lock.** Triggers: a change to 0149, and new policy (no decision governs the lock).
+1. *Suggest a change to 0149:* build all seven 1A towns before launch, not only on demand (D.1).
+2. The lock covers the home page, sign-in pages, the classic directory and storefronts until he lifts it (G.1).
 
-**Also:**
-- Hosting for launch: stay on shared Bluehost or upgrade. This is money, so his call. Decide after B.6's test.
-- `GITHUB_SYNC_TOKEN` expires Dec 16 (`session-manager.md`).
+**Brief C, by Dec 7: safety, content and data.**
+1. Bluehost's own backups (B.2).
+2. SES production access (B.5).
+3. December's AI cap for the 1A guides, and *suggest a change to 0131:* 1A's first guides are published by a person
+   (E.1).
+4. The Arizona attorney sign-off (E.2).
+5. W15 and 1A's area (D.3).
+6. Reopen P10, open now (C.8).
+
+**Brief D, by Dec 14–21: money and going to market.**
+1. Which priced items sell on Jan 1 (F.3).
+2. Marketplace keys (F.4).
+3. Print at launch (F.8).
+4. Order #12 and M2b (F.9).
+5. Verification: the verify number, and *suggest a change to 0070:* a rep's in-person visit counts (H.1).
+6. Real money once (F.5).
+7. Tax (F.6).
+8. Legal texts (F.7).
+9. Promos and outreach spend (H.2).
+10. The revenue mix (H.3).
+11. The lock's lift date and Search Console (G.4).
+12. Hosting, after B.6's test.
+13. `GITHUB_SYNC_TOKEN`, which expires Dec 16.
 
 ## 8. Risks
 
+- **The before-and-after check is Off right now, and R2 is held on it.** Unless Jason presses On (Brief A.4),
+  A.1 can't be proved and R2 can't ship.
 - **The pipeline stays blocked.** Then the plan halves. A.1 is the first thing done, and if it isn't fixed by Nov 30, I
   bring Jason the speed-ups as one Decision Brief.
 - **The access hole is real.** If staging proves it, it ships at once on the urgent path, ahead of everything.
@@ -299,5 +307,5 @@ Work queue ids:
   run tells us by Dec 7.
 - **The AI cap.** The 1A guides may not fit in $40, shared with everything. E.1 needs Jason's cap call early.
 - **The server under real traffic.** It's unmeasured. B.6's test decides whether the hosting question becomes urgent.
-- **The holiday.** Jason's presses (money, legal, tax, the lock) cluster in late December. §7 asks for them early on
-  purpose.
+- **The holiday.** Jason's presses (money, legal, tax, the lock) cluster in late December. Brief D asks for them early
+  on purpose.
