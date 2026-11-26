@@ -1,0 +1,49 @@
+{
+    "id": 301,
+    "title": "The Work queue's batch strip says when a batch is live; ?tab= lands on any tab the board has",
+    "why": "Jason, 2026-11-26 (through the session manager): the Development strip still said \"4 releases waiting for your OK\" for a batch he approved in chat and that went live (#293 to #297), and ?tab=development seemed to open the Board. Now each release of the batch that's live is marked \"Live as #N\"; when all are, the strip says \"Every release in it is live\" and asks nothing (no Approve the batch); an older batch that's all live is neither shown nor emailed (ControlGauges::latestBatch, ControlGauges::batchLive); one rolled back asks again. And ?tab= accepts any tab the board draws a part for, or has a button for anywhere on the page, not only a button inside the board, so it never depends on where the side menu puts its buttons (since config-rail, #291). Admin only, no table, no outside call. Resent 2026-11-26 10:01 UTC: #298 (the same four files) withdrew itself at 03:48 because staging answered 503 after the stopped copy; staging answers again (#300 passed there at 09:20).",
+    "proposals": "",
+    "zip": "batch-live-fix-2.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/admin/control-console.php": {
+            "sha": "bcf8ee539c621b6ea66b56955b44c04d94ec2f42edab59bab4c12481777740a9",
+            "size": 305885,
+            "live_was": "4c3c96e1ff6f59d4227de9285de6785f7da7cf180da7d7d32b4c4dd89b5b3b9d"
+        },
+        "app/ui/faq.md": {
+            "sha": "a777587988ea05e0e675ec454638f6ceacb875143bf91c09ca269c8e1b5444fc",
+            "size": 463309,
+            "live_was": "b646973350e1b783c454a097a4d439dcd7344c926418bf2dfb067ac76cfef693"
+        },
+        "app/lib/ControlGauges.php": {
+            "sha": "40ac787974e7af9b9f638488dc131a171d8333e10afe9341c688661bde2578e7",
+            "size": 46048,
+            "live_was": "d8810082810eb3a6ffb3f52218f9b5cd5a00d524986b531dee68ab66da7da522"
+        },
+        "website/js/admin-control.js": {
+            "sha": "db1d48b2deaf3d5ebf07a737843358b784a8d6285d9e6c08b5cf11794556566a",
+            "size": 80574,
+            "live_was": "ae48ff60316e8401ef75658bf47a96d6879c4deb8785eab360976676be93f10d"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-26T10:01:44+00:00",
+            "by": 0,
+            "msg": "Uploaded batch-live-fix-2.zip: 4 files."
+        }
+    ]
+}
