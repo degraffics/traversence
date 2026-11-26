@@ -34,6 +34,7 @@ try {
     ['rowtext', 'pass', null, 'a queue row\'s name and stage changed between the looks (catch-up\'s data): a record\'s values, not drift'],
     ['column', 'block', 'drift', 'a column added to that table, out of scope: drift (its structure)'],
     ['newbutton', 'block', 'drift', 'a button added outside the table, out of scope: drift (its controls)'],
+    ['adminnote', 'pass', null, 'a to-do line and its link appearing on an admin page (a queue\'s work, catch-up\'s data): its prose and content links aren\'t drift there'],
     ['alarm', 'block', 'drift', '… the same, when the release changes what draws them (lib/Thread.php): drift', { files: ['app/lib/Thread.php'] }],
     ['leak', 'block', 'access', 'a member opens an admin page: access'],
     ['lost', 'block', 'access', 'a member\'s own page sends it to sign in: access'],
