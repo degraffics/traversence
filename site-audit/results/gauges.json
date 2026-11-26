@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-26T06:42:21Z",
+ "generated_at": "2026-11-26T09:22:47Z",
  "version": 2,
  "generated_by": "tools/page-audit/gauges.py",
  "note": "The gauges' configuration (handoffs/control-board-plan/step3/sections/gauge-lifecycle.md), compact: the site computes every stage from it (app/lib/ControlGauges.php); each gauge's detail is in gauges-items.json.",
@@ -3848,6 +3848,12 @@
    "at": "2026-11-26T06:45:00Z",
    "subject": "Traversence: staging fix waits until about 2 AM (option A); nothing for you tonight",
    "body": "No answer on A or B, so it's A: staging's closed marker expires around 08:55 UTC (1:55 AM Arizona). The fix (#299) and #298 are then resent and go through staging normally; live is unaffected. In the morning, on https://traversence.com/admin/config/staging#against, press Try again in Staging against live (about 30 minutes; an email when it reads (on)). Then: staging's runner switch at https://staging.trvgo.us/admin/config/switches, and Approve the decision tree on https://traversence.com/admin/config/team. Press nothing else on the Staging page."
+  },
+  {
+   "id": "sm-2026-11-26-tryagain",
+   "at": "2026-11-26T09:25:00Z",
+   "subject": "Traversence: staging is fixed, one press when you're up",
+   "body": "The staging fix is live (#300) and checked. When you're up: open https://traversence.com/admin/config/staging#against. In \"Staging against live\" it reads \"Keep staging caught up didn't turn on…\". Press Try again. You'll see \"turning on\" with a percentage; about 30 minutes later it reads (on) and you get an email. Then: https://staging.trvgo.us/admin/config/switches, set Staging: the Team's runner to Everyone and Save. Then https://traversence.com/admin/config/team: Approve the decision tree, Raise to Building, Raise to Implementation."
   }
  ],
  "answers": [],
