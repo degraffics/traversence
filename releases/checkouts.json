@@ -11,6 +11,44 @@
    "expires": "2026-11-26T06:32:20Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/admin/control-console.php",
+   "functions": [
+    "tv_cb_workqueue",
+    "tv_cb_wq_batch"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "batch-live-fix: the batch strip says when a batch is live; ?tab= lands (Jason, 2026-11-26)",
+   "since": "2026-11-26T03:16:08Z",
+   "expires": "2026-11-26T07:16:15Z",
+   "release": "batch-live-fix.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/js/admin-control.js",
+   "functions": [
+    "redraw"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "batch-live-fix: the batch strip says when a batch is live; ?tab= lands (Jason, 2026-11-26)",
+   "since": "2026-11-26T03:16:10Z",
+   "expires": "2026-11-26T07:16:15Z",
+   "release": "batch-live-fix.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ControlGauges.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "batch-live-fix: the batch strip says when a batch is live; ?tab= lands (Jason, 2026-11-26)",
+   "since": "2026-11-26T03:16:13Z",
+   "expires": "2026-11-26T07:16:15Z",
+   "release": "batch-live-fix.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
