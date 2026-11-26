@@ -81,6 +81,11 @@
             "at": "2026-11-26T17:24:06+00:00",
             "by": 0,
             "msg": "Put on staging (3 files); its checks passed."
+        },
+        {
+            "at": "2026-11-26T17:48:02+00:00",
+            "by": 0,
+            "msg": "Release #307 is in, but its plan needs a look: Its plan was approved already. Approve it on System Configuration → Releases."
         }
     ]
 }
