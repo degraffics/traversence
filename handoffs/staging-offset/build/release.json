@@ -1,0 +1,12 @@
+{
+  "title": "Staging's jobs start 7 minutes after live's, so the two never crowd the server in the same minute",
+  "why": "decisions/0165 §1 (staging never costs live its limits), the CEO's Tier 4 ruling of 2026-11-26 (a Prior Ruling Check: it carries out 0165, no amendment). On 2026-11-26 live's 6:13 MST daily runs of Plans and renewals (billing_tick) and Earned storage never started (no job_runs row; alarm #776 tripped at 13:30 UTC and mailed the Founder), while Guests' 30 days at the same minute ran and both cron lines are there. Likely cause, not yet proven: the 6:13 burst, nine live daily jobs and staging's copies at the same minute (Scheduler::syncStaging copied live's minute and hour) against the database user's 25 connections (max_user_connections, jobs.json 2026-11-25); storage/scheduler-missed.json would prove it, and it can't be read from here (a server file, never synced; the live read reads pages and tables only). Now staging's copy of each job starts at live's time + 7 minutes (Scheduler::stagingTime: past :59 into the next hour, past 23:59 into the next day when no day is set, else 7 minutes earlier so it never lands on another day; every-N-minutes lines kept), and Scheduler::sync, hourly at most, moves the copies made before (Scheduler::offsetStaging, staging's lines only, through cPanel's edit_line). No billing code changed. Spreading live's own nine 6:13 jobs stays with the Scheduler bundle after R2.",
+  "proposals": [],
+  "switch": "",
+  "changes": [
+    {"what": "Each of staging's own jobs starts 7 minutes after live's (6:13 → 6:20; :17 → :24)", "where": "https://traversence.com/admin/config/scheduler"}
+  ],
+  "checks": {
+    "offset": "tools/staging-tests/job-offset.php 22 on a fake cPanel crontab (the offset; past :59, past midnight, a set weekday, every N hours and every N minutes; new copies at the offset; copies made before moved within the hour, live's lines untouched byte for byte, a second run moves nothing, a changed live line followed); live's Scheduler.php stops at the first (it has no offset)"
+  }
+}
