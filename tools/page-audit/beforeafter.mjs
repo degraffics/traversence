@@ -161,8 +161,16 @@ export function compare(b1, b2, a, exp = {}, release = '', heldKey = STAGING?.to
     if (a.signins[who] !== 'ok' && (b1.signins || {})[who] === 'ok') blocks.push({ rule: 'access', rule_name: RULES.access, who, page: '(sign-in)', size: '-', what: 'This test account could sign in before and can\'t after', before: 'ok', after: a.signins[who] });
     else if (a.signins[who] !== 'ok') notes.push(`${who} couldn't sign in before or after (${a.signins[who]}): its views weren't checked`);
   }
+  // a before look staging couldn't give (it answered 500 or more, as while a fresh copy goes in and every page says "Staging is
+  // being refreshed", or it drew nothing to read) is no before look: compared with it, every rule would read the page coming
+  // back as a change and block, and a block withdraws the release (2026-11-26, the session manager's case). Said, not blocked;
+  // with no usable before look at all, the verdict is incomplete (a person looks), never pass
+  const unusable = x => !x || x.status >= 500 || (!x.ba && !refused(x));
+  let compared = 0;
   for (const f of a.results) {
     const b = B.get(key(f)), bb = B2.get(key(f)); if (!b) { notes.push(`${key(f)}: no before look to compare`); continue; }
+    if (unusable(b)) { notes.push(`${key(f)}: its before look wasn't usable (staging answered ${b.status || b.error || 'nothing'}); not compared`); continue; }
+    compared++;
     const moving = (get) => JSON.stringify(get(b)) !== JSON.stringify(get(bb || b));
     // 1. access or privacy (0066 included)
     const shut = x => x && (x.status === 401 || x.status === 403 || x.ba?.landed_signin);   // refused this account (not merely missing)
@@ -203,7 +211,8 @@ export function compare(b1, b2, a, exp = {}, release = '', heldKey = STAGING?.to
   }
   // one block per rule, page and size is enough to read (the rest are counted)
   const uniq = []; const seen = new Set(); for (const x of blocks) { const k = [x.rule, x.who, x.page, x.size, x.what].join('|'); if (!seen.has(k)) { seen.add(k); uniq.push(x); } }
-  const incomplete = !a.results.length || Object.values(a.signins || {}).every(s => s !== 'ok') || heldUnread;
+  const incomplete = !a.results.length || !compared || Object.values(a.signins || {}).every(s => s !== 'ok') || heldUnread;
+  if (!compared && a.results.length) notes.unshift('No view had a usable before look (staging was closed or erroring when it was taken): a person looks before it goes on');
   return { release: String(release), at: new Date().toISOString(), verdict: uniq.length ? 'block' : (incomplete ? 'incomplete' : 'pass'),
     first: uniq[0] ? `${uniq[0].rule_name}: ${uniq[0].what} (${uniq[0].who}, ${uniq[0].page}, ${uniq[0].size})` : '',
     blocks: uniq.slice(0, 50), blocks_total: uniq.length, notes: notes.slice(0, 30), views: a.results.length, seconds: (b1.seconds || 0) + (b2.seconds || 0) + (a.seconds || 0) };
