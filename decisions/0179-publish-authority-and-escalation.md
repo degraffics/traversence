@@ -145,3 +145,18 @@ The decision tree's fingerprint covers rules only, so a wording fix never clears
 - **Also recorded (the session manager's call, from this decision's "safe additive"):** an add-only migration counts as
   safe additive. That's CREATE TABLE IF NOT EXISTS, or a guarded ADD COLUMN or INDEX. Any UPDATE, DELETE, DROP, MODIFY
   or RENAME stays Tier 3.
+
+## Note (Jason, 2026-11-26): agents work on the backend first
+
+Jason: "How can we get the agents active working on this without them pushing live file, except for the backend, so I
+can see them work before we point them on the front end." And: "Admin does count for backend".
+- **Backend** is the admin (every `/admin/` page), the site's internal code and the workers, where a change reaches
+  no public page. **Front end** is any page a visitor, member or business sees. `tools/page-audit/reach.py` decides it
+  from the live mirror.
+- **The fence (P3-6):** when Jason raises agents to Implementation, a ticket whose change stays in the backend goes
+  to a build session. One that reaches a public page stops at its build brief and waits for him. It's a setting on the
+  Team page, "Backend only" or "Everywhere", that only the Founder changes, and it ships set to "Backend only". It's
+  part of the decision tree's rules, so changing it clears the tree's approval.
+- Rule 1 still holds: agents' backend releases wait for the batch until Piece 3 is live. Tier 3 is unchanged.
+- The order stays the same: the batch (P3-4 brings Undo and the spending limit), then the decision tree's approval,
+  then Building, then Implementation behind the fence.
