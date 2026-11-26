@@ -87,7 +87,7 @@ async function extra(p, size) {
     const REC = 'tbody, tr[data-id], article, .card, [data-id], main li, dd';   // a table's head (thead, th) stays structure
     const ctl = [...document.querySelectorAll('a[href], button, [role=button], input[type=submit]')].filter(vis);
     const name = el => ((el.innerText || el.textContent || '').trim() || el.getAttribute('aria-label') || el.getAttribute('title') || '').replace(/\s+/g, ' ').slice(0, 80);
-    const controls = ctl.slice(0, 300).map(el => ({ n: name(el), h: (el.getAttribute('href') || '').replace(/^https?:\/\/[^/]+/, '').slice(0, 120), d: !!(el.disabled || el.getAttribute('aria-disabled') === 'true'), ...(el.closest(STATE) ? { st: 1 } : {}), ...(el.closest(REC) ? { rec: 1 } : {}) }));
+    const controls = ctl.slice(0, 300).map(el => ({ n: name(el), h: (el.getAttribute('href') || '').replace(/^https?:\/\/[^/]+/, '').slice(0, 120), d: !!(el.disabled || el.getAttribute('aria-disabled') === 'true'), ...(el.closest(STATE) ? { st: 1 } : {}), ...(el.closest(REC) ? { rec: 1 } : {}), ...(el.tagName === 'A' && !el.closest('header, nav, [role=navigation], [role=tablist]') ? { lk: 1 } : {}) }));
     // regions: the header, main, and each card, by a stable key (its id, else its class and place among its kind)
     const regions = {}; const seen = {};
     const cards = [...document.querySelectorAll('header, main, nav, .ak-card, .tv-bleed, article, section[id], [data-region]')].filter(vis).slice(0, 120);
@@ -121,9 +121,15 @@ async function extra(p, size) {
     // each block of words on its own line (a paragraph, heading, list item, cell, label, button or link), so one line that
     // moves on its own (a counter) never hides a line that changed
     const all = [...document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, li, td, th, dt, dd, label, button, a, figcaption, small, summary')].filter(vis);
-    const lines = [...new Set(all.filter(el => !el.closest(STATE) && !el.closest(REC)).map(el => clean(el).slice(0, 200)).filter(Boolean))].slice(0, 400);
+    // drift reads a page's structure (the session manager, 2026-11-26, after #305's and #306's looks blocked on catch-up's
+    // data): its headings, column heads, labels, legends, folds and terms, its own buttons and its header's and menus' links.
+    // On an admin page that's all: its paragraphs, list items, cells and links are queues and records that catch-up changes
+    // every minute. On a public page its own words outside records (prose) count too (compare, by the page's address).
+    const STRUCT = 'h1, h2, h3, h4, h5, h6, th, label, legend, summary, dt';
+    const prose = [...new Set(all.filter(el => !el.matches(STRUCT) && !el.closest(STATE) && !el.closest(REC)).map(el => clean(el).slice(0, 200)).filter(Boolean))].slice(0, 400);
+    const lines = [...new Set(all.filter(el => el.matches(STRUCT) && !el.closest(STATE) && !el.closest(REC)).map(el => clean(el).slice(0, 200)).filter(Boolean))].slice(0, 400);
     const state = [...new Set(all.filter(el => el.closest(STATE)).map(el => clean(el).slice(0, 200)).filter(Boolean))].slice(0, 200);   // checked only when the release draws them
-    return { lines, state, controls, regions, totals, cards: cardsN, rows: rowsN, pins, overlap: over, clipped, offscreen, primary, heading: heading.replace(/\s+/g, ' ').trim().slice(0, 120), nav, canaries, text: text.slice(0, 20000), words };
+    return { lines, prose, state, controls, regions, totals, cards: cardsN, rows: rowsN, pins, overlap: over, clipped, offscreen, primary, heading: heading.replace(/\s+/g, ' ').trim().slice(0, 120), nav, canaries, text: text.slice(0, 20000), words };
   });
   r.landed_signin = SIGNIN.test(new URL(p.url()).pathname);
   return { ba: r };
@@ -192,7 +198,7 @@ export function heldIn(text, hashes, k) {
 }
 const refused = f => !f || f.error || f.status >= 400 || f.ba?.landed_signin;
 const errs = f => f && (f.status >= 500 || (f.console || []).length || (f.requests || []).length);
-const ctlSig = (f, st = true) => (f?.ba?.controls || []).filter(c => (st || !c.st) && !c.rec).map(c => c.n + '→' + c.h).sort().join('\n');
+const ctlSig = (f, st = true) => (f?.ba?.controls || []).filter(c => (st || !c.st) && !c.rec && !(c.lk && /^\/admin(\/|\.|$)/.test(f?.url || ''))).map(c => c.n + '→' + c.h).sort().join('\n');
 
 /** The verdict for one release: blocks (each a rule, who, page, size, what), notes, and pass / block / incomplete. */
 export function compare(b1, b2, a, exp = {}, release = '', heldKey = STAGING?.token || CHECK_TOKEN) {
@@ -246,7 +252,8 @@ export function compare(b1, b2, a, exp = {}, release = '', heldKey = STAGING?.to
     if (t0.length && Math.max(...t1, 0) < Math.max(...t0) && !moving(x => x.ba?.totals)) block('data', f, `A list holds fewer: ${Math.max(...t0)} before, ${Math.max(...t1, 0)} after`, Math.max(...t0), Math.max(...t1, 0));
     // 4. drift: a page that changed (beyond what moves on its own) that the change doesn't name
     // lines compared with their numbers masked (a count is the data rule's), less what differed between the two before looks
-    const N = x => new Set([...(x?.ba?.lines || []), ...(stateDrawn ? x?.ba?.state || [] : [])].map(l => l.replace(/\d+/g, '#')));
+    const adm = /^\/admin(\/|\.|$)/.test(f.url);   // an admin page: structure only; a public page: its prose too
+    const N = x => new Set([...(x?.ba?.lines || []), ...(adm ? [] : x?.ba?.prose || []), ...(stateDrawn ? x?.ba?.state || [] : [])].map(l => l.replace(/\d+/g, '#')));
     const L0 = N(b), L2 = N(bb || b), L1 = N(f);
     const movingL = new Set([...L0].filter(l => !L2.has(l)).concat([...L2].filter(l => !L0.has(l))));
     const goneL = [...L0].filter(l => !L1.has(l) && !movingL.has(l)), newL = [...L1].filter(l => !L0.has(l) && !movingL.has(l));
