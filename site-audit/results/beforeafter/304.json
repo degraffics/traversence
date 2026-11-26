@@ -1,0 +1,26 @@
+{
+ "release": "304",
+ "at": "2026-11-26T11:41:01.595Z",
+ "verdict": "pass",
+ "first": "",
+ "blocks": [],
+ "blocks_total": 0,
+ "notes": [
+  "executive couldn't sign in before or after (Error: staff sign-in TRV-0002 didn't get past the sign-in page: That code doesn't match. Use the newest code we emailed, or the one your authenticator app shows now.): its views weren't checked",
+  "ops-staff couldn't sign in before or after (Error: staff sign-in TRV-0005 didn't get past the sign-in page: That code doesn't match. Use the newest code we emailed, or the one your authenticator app shows now.): its views weren't checked",
+  "new|/admin/chamber-builder.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "member|/admin/chamber-builder.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "contributor|/admin/chamber-builder.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "steward|/admin/chamber-builder.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "client|/admin/chamber-builder.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "owner|/admin/chamber-builder.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "manager|/admin/chamber-builder.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "accountant|/admin/chamber-builder.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "sales|/admin/chamber-builder.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "viewer|/admin/chamber-builder.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)"
+ ],
+ "views": 424,
+ "seconds": 2150,
+ "run": "https://github.com/degraffics/traversence/actions/runs/45810257870",
+ "phase": "after-done"
+}
