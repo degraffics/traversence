@@ -129,7 +129,13 @@ async function extra(p, size) {
   return { ba: r };
 }
 
-async function capture(pages, out, shotDir) {
+/** The views that timed out in a look (its file), as "who|page|size": a later look doesn't try them twice. */
+export function slowViews(file) {
+  if (!file) return new Set();
+  try { return new Set((JSON.parse(readFileSync(file, 'utf8')).results || []).filter(f => f.error && /Timeout/i.test(f.error)).map(f => f.who + '|' + f.url + '|' + f.size)); } catch (e) { return new Set(); }
+}
+
+async function capture(pages, out, shotDir, slow = new Set()) {
   const site = process.env.BA_SITE || STAGING?.site; if (!site) throw new Error('No staging in CHECK_ACCOUNTS and no BA_SITE: nothing to check.');
   const st = process.env.BA_SITE ? null : STAGING; const token = st ? st.token : CHECK_TOKEN;
   const t0 = Date.now(); const browser = await chromium.launch(); const results = []; const signins = {};
@@ -151,7 +157,10 @@ async function capture(pages, out, shotDir) {
       for (const [, , , url, sizes] of rows) for (const size of sizes) {
         const opts = { site, shots: !!shotDir, shotDir, allSizes: true, must: () => false, extra };
         let f = await pageCheck(ctx, who, url, size, opts);
-        if (f.error && /Timeout/i.test(f.error)) {   // a slow staging: once more, once only, logged, before it counts
+        // a view that timed out in the first before look isn't tried again in a later look (the session manager, 2026-11-26:
+        // #305's two slow pages cost half of each pass); it's noted slow on staging, never a block, since it timed out before too
+        if (f.error && /Timeout/i.test(f.error) && slow.has(who + '|' + url + '|' + size)) console.log(`not retried: ${who} ${url} ${size} timed out in the first before look too`);
+        else if (f.error && /Timeout/i.test(f.error)) {   // a slow staging: once more, once only, logged, before it counts
           const again = await pageCheck(ctx, who, url, size, opts); again.retried = f.error;
           console.log(`retried once: ${who} ${url} ${size} timed out (${f.error.split('\n')[0].slice(0, 80)}); again: ${again.error ? 'timed out too' : again.status}`); f = again;
         }
@@ -284,7 +293,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     } catch (x) { out = { error: String(x.message || x).slice(0, 200) }; }
     writeFileSync(arg('out', 'ba-held.json'), JSON.stringify(out) + '\n');
     console.log(out.error ? 'held names: unread (' + out.error + ')' : `held names: ${out.hashes.length} hashes`);
-  } else if (mode === 'capture') await capture(JSON.parse(readFileSync(arg('pages'), 'utf8')), arg('out', 'ba-capture.json'), arg('shots'));
+  } else if (mode === 'capture') await capture(JSON.parse(readFileSync(arg('pages'), 'utf8')), arg('out', 'ba-capture.json'), arg('shots'), slowViews(arg('slow')));
   else if (mode === 'compare') {
     const rd = f => JSON.parse(readFileSync(f, 'utf8'));
     const exp = arg('expected') ? rd(arg('expected')) : {};
