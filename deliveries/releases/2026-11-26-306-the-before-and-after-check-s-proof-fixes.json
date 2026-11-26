@@ -39,6 +39,16 @@
             "at": "2026-11-26T15:39:54+00:00",
             "by": 0,
             "msg": "Uploaded ba-proof-fixes-2.zip: 3 files."
+        },
+        {
+            "at": "2026-11-26T15:39:56+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/ba-proof-fixes-2.zip (git f0467678dc)."
+        },
+        {
+            "at": "2026-11-26T15:39:56+00:00",
+            "by": 0,
+            "msg": "Waiting for its before look: the advocates look at staging as it is, then it goes on staging (the before-and-after check)."
         }
     ]
 }
