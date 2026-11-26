@@ -52,3 +52,4 @@ is synced and byte-checked. Updated with every approval and every release.
 (everything outstanding before the holiday, merged #1368, live once synced)
 
 - **2026-11-26 batch approved** (Jason, ~00:50 UTC: "No need to wait for approval. I want to see the agent work a bit."): P3-3, P3-4, P3-5 (Tier 3, 0066), notify-founder (counts as "Approve notify"), then P3-6 the backend fence with no batch wait. Sent one at a time in that order. Staging's three switches go on via the standing OK. Agents stay at Planning until Jason approves the decision tree.
+- **decisions/0180 accepted** (Jason, 2026-11-26): the five tiers, the hard money line, the 32 roles plus 12 advocates. Rollout in order: R1 rename and roster, R2 swimlanes and locks, R3 Tier 4 and the Prior Ruling Check, R4 advocates' experience tickets, R5 rule-based auto-rollback and the fidelity fallback. Nothing in it raises a ceiling or a fence.
