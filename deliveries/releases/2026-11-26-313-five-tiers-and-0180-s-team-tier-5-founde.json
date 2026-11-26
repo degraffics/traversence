@@ -6,12 +6,12 @@
     "zip": "r1-tiers.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "planned",
+    "state": "approved",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
-    "plan_at": null,
+    "plan_at": "2026-11-26 20:38:33",
     "staged_at": null,
     "vetted_at": null,
     "live_at": null,
@@ -126,6 +126,16 @@
             "at": "2026-11-26T20:38:31+00:00",
             "by": 0,
             "msg": "Uploaded r1-tiers.zip: 20 files."
+        },
+        {
+            "at": "2026-11-26T20:38:33+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/r1-tiers.zip (git 1041cc1aaa)."
+        },
+        {
+            "at": "2026-11-26T20:38:33+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
         }
     ]
 }
