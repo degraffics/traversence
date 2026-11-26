@@ -1,0 +1,14 @@
+{
+  "title": "The before-and-after check runs whenever its switch isn't off (it was off until the switch's last step)",
+  "why": "P3-6 (#297) turned on the before_after switch at step 1, staff and test accounts, carrying out Jason's note on decisions/0179: \"Turn on P3-2's before-and-after switch with it\". But BeforeAfter::on() read only 'on' (step 3, everyone), and the check runs as the system with no one signed in, so a release's staff-first steps can never mean anything for it: releases #297 to #302 went live without it. Now the check is on in every state but off (test, share and on), and off when the switch is off or killed. Its failure paths are unchanged (P3-2): a run GitHub wasn't asked for is said on the release, asked again after an hour and given to a person after two; a spent day of minutes (DB4) holds the release for the batch; an agent's release never goes live unchecked. The FAQ's answer no longer says Coming. Admin only, no table, no new outside call (the run is asked as P3-2 built it).",
+  "proposals": [],
+  "switch": "",
+  "changes": [
+    {"what": "Each release from Claude waits on staging for the advocates' before-and-after look while the switch isn't off", "where": "https://traversence.com/admin/config/releases"},
+    {"what": "FAQ: the before-and-after check is on", "where": "https://traversence.com/faq.php"}
+  ],
+  "checks": {
+    "states": "tools/piece3-tests/onstates.php 7 (off: off; test, share, on: on; killed: off in each)",
+    "kept": "piece3 pipeline 22, kind 35, rule2 24"
+  }
+}

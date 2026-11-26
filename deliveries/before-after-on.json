@@ -1,0 +1,18 @@
+{
+ "zip": "before-after-on.zip",
+ "built_on": "6b97c4f Sync: 2026-11-26 10:21 UTC",
+ "recorded": "2026-11-26 10:27 UTC",
+ "note": "before-after-on: the before-and-after check runs whenever its switch isn't off (A for P3-6, on the session manager's OK 10:22 UTC). Admin only. Built on Sync: 10:21 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/BeforeAfter.php": {
+   "sha256": "a93904bd1674cfb037e2d5ae12b70b12314f9749c1dd93797627e76ddc5eafee",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "4e3eb6651f358d148bf1e905d1172742d26f9b7ae82acc2c4c9b301c9d35d550",
+   "live": false
+  }
+ }
+}
