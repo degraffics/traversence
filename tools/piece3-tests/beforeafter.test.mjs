@@ -7,6 +7,7 @@ import { tmpdir } from 'node:os'; import path from 'node:path'; import { fileURL
 const here = path.dirname(fileURLToPath(import.meta.url)); const tool = path.join(here, '../page-audit/beforeafter.mjs');
 const dir = mkdtempSync(path.join(tmpdir(), 'ba-')); const vf = path.join(dir, 'variant'); const port = 9200 + Math.floor(Math.random() * 50);
 const site = 'http://127.0.0.1:' + port;
+const KEY = 'test-checks-token'; const { heldHash, heldIn, norm } = await import(tool);
 const ACC = { members: { member: { email: 'check+member@traversence.com', password: 'p' }, owner: { email: 'check+owner@traversence.com', password: 'p' } },
   staff: { executive: { staff_id: 'T-EXEC', password: 'p', totp: 'JBSWY3DPEHPK3PXP' } } };
 const env = { ...process.env, BA_SITE: site, CHECK_ACCOUNTS: JSON.stringify(ACC) };
@@ -14,7 +15,7 @@ const srv = spawn('php', ['-S', '127.0.0.1:' + port, path.join(here, 'fixture-ro
 const pages = path.join(dir, 'pages.json'); writeFileSync(pages, JSON.stringify(['/', '/faq.php', '/user/account.php', '/admin/x']));
 const cap = (v, out) => { writeFileSync(vf, v); execFileSync('node', [tool, 'capture', '--pages', pages, '--out', out], { env, stdio: 'ignore' }); };
 const cmp = (after, exp) => { const e = path.join(dir, 'exp.json'); writeFileSync(e, JSON.stringify(exp || {}));
-  try { execFileSync('node', [tool, 'compare', '--before', path.join(dir, 'b1.json'), '--before2', path.join(dir, 'b2.json'), '--after', after, '--expected', e, '--out', path.join(dir, 'v.json')], { stdio: 'ignore' }); } catch (x) {}
+  try { execFileSync('node', [tool, 'compare', '--before', path.join(dir, 'b1.json'), '--before2', path.join(dir, 'b2.json'), '--after', after, '--expected', e, '--out', path.join(dir, 'v.json')], { stdio: 'ignore', env: { ...process.env, CHECK_ACCOUNTS: '', HEALTH_TOKEN: KEY } }); } catch (x) {}
   return JSON.parse(readFileSync(path.join(dir, 'v.json'), 'utf8')); };
 let pass = 0, fail = 0; const t = (n, ok, got) => { if (ok) { pass++; console.log('  ok  ' + n); } else { fail++; console.log('FAIL  ' + n + (got !== undefined ? ' — ' + JSON.stringify(got).slice(0, 400) : '')); } };
 await new Promise(r => setTimeout(r, 600));
@@ -32,7 +33,9 @@ try {
     ['leak', 'block', 'access', 'a member opens an admin page: access'],
     ['lost', 'block', 'access', 'a member\'s own page sends it to sign in: access'],
     ['canary', 'block', 'access', 'another account\'s email shows: privacy'],
-    ['canary0066', 'block', 'access', 'a held name shows: 0066', { pages: ['/'], canaries: ['Zz Held Burial Canary'] }],
+    ['canary0066', 'block', 'access', 'a held name shows: 0066', { pages: ['/'], held: { hashes: [heldHash('Zz Held Burial Canary', KEY)] } }],
+    ['canary0066', 'incomplete', null, '… the held names unread: incomplete, never a pass', { pages: ['/'], held: { error: 'its answer: 401' } }],
+    ['neutral', 'pass', null, '… a held name on no page: pass', { pages: ['/'], held: { hashes: [heldHash('Zz Held Burial Canary', KEY)] } }],
     ['scroll', 'block', 'layout', 'sideways scroll at 390: layout', { pages: ['/'] }],
     ['overlap', 'block', 'layout', 'two buttons drawn over each other: layout', { pages: ['/'] }],
     ['noprimary', 'block', 'layout', 'the page\'s main action gone: layout', { pages: ['/'] }],
@@ -45,6 +48,11 @@ try {
     const ok = r.verdict === want && (!rule || r.blocks.some(x => x.rule === rule)) && (want !== 'pass' || r.blocks_total === 0);
     t(name, ok, { verdict: r.verdict, first: r.first, rules: [...new Set(r.blocks.map(x => x.rule))] });
   }
+  const r0 = cmp(path.join(dir, 'a-canary0066.json'), { pages: ['/'], held: { hashes: [heldHash('Zz Held Burial Canary', KEY)] } });
+  t('… the block names the held name by its hash only, never the name, in the verdict file', !readFileSync(path.join(dir, 'v.json'), 'utf8').toLowerCase().includes('burial') && r0.blocks.some(x => /held [0-9a-f]{8}/.test(x.what)), r0.blocks);
+  t('heldIn: a name inside a sentence, any case and punctuation, found; one word alone never', heldIn('Visit the zz HELD burial, canary today', new Set([heldHash('zz held burial canary', KEY)]), KEY).size === 1 && heldIn('Canary', new Set([heldHash('canary', KEY)]), KEY).size === 0);
+  const php = execFileSync('php', ['-r', 'require $argv[1]; echo HeldNames::hash("Zz Held — Burial Canary", "' + KEY + '"), "|", HeldNames::norm("Café  Ruins!");', path.join(here, 'heldnames-stub.php')]).toString();
+  t('the site\'s hash (HeldNames) and the check\'s are the same', php === heldHash('Zz Held — Burial Canary', KEY) + '|' + norm('Café  Ruins!'), [php, heldHash('Zz Held — Burial Canary', KEY), norm('Café  Ruins!')]);
   const r = cmp(path.join(dir, 'a-fewer.json'), { pages: ['/'] });
   t('a block names who, the page, the size, before and after', r.blocks[0].who && r.blocks[0].page === '/' && r.blocks[0].size && r.blocks[0].before !== '' && /Missing data/.test(r.first), r.blocks[0]);
   t('the verdict counts its views and seconds (DB4\'s budget)', r.views === 16 && r.seconds > 0);
