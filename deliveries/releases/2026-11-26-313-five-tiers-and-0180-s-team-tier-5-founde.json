@@ -6,40 +6,50 @@
     "zip": "r1-tiers.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "staged",
-    "step": 0,
+    "state": "live",
+    "step": 3,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
     "plan_at": "2026-11-26 20:38:33",
     "staged_at": "2026-11-26 20:38:35",
-    "vetted_at": null,
-    "live_at": null,
+    "vetted_at": "2026-11-26 20:38:38",
+    "live_at": "2026-11-26 20:38:38",
     "files": {
         "app/admin/control-console.php": {
             "sha": "22b9397dd15394fefbad741561fcd6ba56b11e2639fe687b7c173a039fe602d8",
             "size": 306031,
-            "live_was": "bcf8ee539c621b6ea66b56955b44c04d94ec2f42edab59bab4c12481777740a9"
+            "live_was": "bcf8ee539c621b6ea66b56955b44c04d94ec2f42edab59bab4c12481777740a9",
+            "existed": true,
+            "old_sha": "bcf8ee539c621b6ea66b56955b44c04d94ec2f42edab59bab4c12481777740a9"
         },
         "app/admin/tools.php": {
             "sha": "708e00d10c081aa329655cf24d0eb1ca7e2973d382ce9eaddc508c309de14ade",
             "size": 284727,
-            "live_was": "32067e7ac407ee8e618540b22ee37a0cae85884ff695dcadbeeb261b501eef0c"
+            "live_was": "32067e7ac407ee8e618540b22ee37a0cae85884ff695dcadbeeb261b501eef0c",
+            "existed": true,
+            "old_sha": "32067e7ac407ee8e618540b22ee37a0cae85884ff695dcadbeeb261b501eef0c"
         },
         "app/admin/team-console.php": {
             "sha": "fbf77f55e8ac350d2cd6ae9576b0de687a23eee9dd1fabcf1b4c342d26236384",
             "size": 13108,
-            "live_was": "195492cd7ab3f19ead2b2d2f1f78d7d2b00eac4440776731f03d25ec024dcc80"
+            "live_was": "195492cd7ab3f19ead2b2d2f1f78d7d2b00eac4440776731f03d25ec024dcc80",
+            "existed": true,
+            "old_sha": "195492cd7ab3f19ead2b2d2f1f78d7d2b00eac4440776731f03d25ec024dcc80"
         },
         "app/admin/Access.php": {
             "sha": "84741b473a809ec5b252d3c3f94826149e8a287504e09490cd8c307ee5529e58",
             "size": 6780,
-            "live_was": "af4cde19c61c1038bf4dc7bda61e82cede85e476734e07c5947b9e3198fce428"
+            "live_was": "af4cde19c61c1038bf4dc7bda61e82cede85e476734e07c5947b9e3198fce428",
+            "existed": true,
+            "old_sha": "af4cde19c61c1038bf4dc7bda61e82cede85e476734e07c5947b9e3198fce428"
         },
         "app/ui/faq.md": {
             "sha": "2b8be85b72b87a9bf990c643e2069a36dc6dc97c7127bae057f6fd018da0df0a",
             "size": 467452,
-            "live_was": "01f3c8e8020a25e2dfb6678db71eaed4ef37fc8c8cc5cbd72fc19e47569ea702"
+            "live_was": "01f3c8e8020a25e2dfb6678db71eaed4ef37fc8c8cc5cbd72fc19e47569ea702",
+            "existed": true,
+            "old_sha": "01f3c8e8020a25e2dfb6678db71eaed4ef37fc8c8cc5cbd72fc19e47569ea702"
         },
         "app/migrations/2026-11-26_0180_tiers_roster.sql": {
             "sha": "e436812872c5886f01a72605ddffb9d3777bee76e2f5ed372eb71ca9eb54ed71",
@@ -49,72 +59,99 @@
         "app/rollbacks/2026-11-26_0180_tiers_roster.sql": {
             "sha": "eb97b624b420f74db6b4deeecfc98aac2d39618fdf7fa5d28a5e45c2d983da66",
             "size": 10985,
-            "live_was": null
+            "live_was": null,
+            "existed": false
         },
         "app/lib/GaugeTasks.php": {
             "sha": "ca836f9c4dd8c5f4153e5586268f138fbca884b5f4e682299991976a4fc083d4",
             "size": 59686,
-            "live_was": "5e060a17b845d70bfeb75c27520685d243a55dd4b36cdf649ae5dc51f7b7581e"
+            "live_was": "5e060a17b845d70bfeb75c27520685d243a55dd4b36cdf649ae5dc51f7b7581e",
+            "existed": true,
+            "old_sha": "5e060a17b845d70bfeb75c27520685d243a55dd4b36cdf649ae5dc51f7b7581e"
         },
         "app/lib/TeamRunner.php": {
             "sha": "f9e2b9baf3eeabb7d30060de9c555b2e966c4c31ddbcce6bc99f4442d5ec6f18",
             "size": 59510,
-            "live_was": "bd9804e86792e82a08d547ab03d071ea667ba42701271cdb0eac86ec62a47ee8"
+            "live_was": "bd9804e86792e82a08d547ab03d071ea667ba42701271cdb0eac86ec62a47ee8",
+            "existed": true,
+            "old_sha": "bd9804e86792e82a08d547ab03d071ea667ba42701271cdb0eac86ec62a47ee8"
         },
         "app/lib/Notify.php": {
             "sha": "68161ddcc23f4fa6aad14bb5058fdc4393df4f27fc69c494840dcfead60c9969",
             "size": 57856,
-            "live_was": "83d674b83cee1fe70ae50f9e2076bb5f9662e2b0f24372cfb2f5a1a1b39cc1bf"
+            "live_was": "83d674b83cee1fe70ae50f9e2076bb5f9662e2b0f24372cfb2f5a1a1b39cc1bf",
+            "existed": true,
+            "old_sha": "83d674b83cee1fe70ae50f9e2076bb5f9662e2b0f24372cfb2f5a1a1b39cc1bf"
         },
         "app/lib/ReleaseKind.php": {
             "sha": "e719c5f09b66a5b719325325f722cb20d700ded34a8fa75a68077994c54b7b0c",
             "size": 11038,
-            "live_was": "2262e20729be88da9ca726de6c446423edf50eb9818609bf49057a7e02248737"
+            "live_was": "2262e20729be88da9ca726de6c446423edf50eb9818609bf49057a7e02248737",
+            "existed": true,
+            "old_sha": "2262e20729be88da9ca726de6c446423edf50eb9818609bf49057a7e02248737"
         },
         "app/lib/Staging.php": {
             "sha": "5906ed0934124722a43fb597c33f75dc8f37c7b3a63f0a782b06bb9651ad11da",
             "size": 15900,
-            "live_was": "8f24f78609433641e479d4fa4fb79e4725ae562fb7bf96341fe9dc747dceb7eb"
+            "live_was": "8f24f78609433641e479d4fa4fb79e4725ae562fb7bf96341fe9dc747dceb7eb",
+            "existed": true,
+            "old_sha": "8f24f78609433641e479d4fa4fb79e4725ae562fb7bf96341fe9dc747dceb7eb"
         },
         "app/lib/StagingSite.php": {
             "sha": "055bc62152c6f33af47327a2332468e06187fd83d6b4c1494f180de0396c97cf",
             "size": 108394,
-            "live_was": "cd29864208a1708b23f3a68839aa33289e3350ce30657d115ade912f53599b32"
+            "live_was": "cd29864208a1708b23f3a68839aa33289e3350ce30657d115ade912f53599b32",
+            "existed": true,
+            "old_sha": "cd29864208a1708b23f3a68839aa33289e3350ce30657d115ade912f53599b32"
         },
         "app/lib/StagingSync.php": {
             "sha": "673c7cc549d912f3bf17991c1a00fe0c7d75c909dce464b02b2cb7e9b355d291",
             "size": 43672,
-            "live_was": "d64d6cc5d2473c7f134015791a58e8b45c2f9f5df28741625e70a874203778be"
+            "live_was": "d64d6cc5d2473c7f134015791a58e8b45c2f9f5df28741625e70a874203778be",
+            "existed": true,
+            "old_sha": "d64d6cc5d2473c7f134015791a58e8b45c2f9f5df28741625e70a874203778be"
         },
         "app/lib/FounderMail.php": {
             "sha": "82a9004265f865db8380b4a12dc1509690e0ea18d3b7edea3f57969d55cd0a1d",
             "size": 7367,
-            "live_was": "acddbb3db7fa5550872c8a24e9436ba27d2f5bf98a16a0fae85ebf8480284644"
+            "live_was": "acddbb3db7fa5550872c8a24e9436ba27d2f5bf98a16a0fae85ebf8480284644",
+            "existed": true,
+            "old_sha": "acddbb3db7fa5550872c8a24e9436ba27d2f5bf98a16a0fae85ebf8480284644"
         },
         "app/lib/TeamRoster.php": {
             "sha": "289d90d140da4c61801288b38439460c6d8e283ed09e80d877037b27f4e5d878",
             "size": 14831,
-            "live_was": "33baa5cb4ccdd4fc1b8a151130d4d0607339b31baf62d216bb07624be92f7655"
+            "live_was": "33baa5cb4ccdd4fc1b8a151130d4d0607339b31baf62d216bb07624be92f7655",
+            "existed": true,
+            "old_sha": "33baa5cb4ccdd4fc1b8a151130d4d0607339b31baf62d216bb07624be92f7655"
         },
         "app/lib/ControlGauges.php": {
             "sha": "905852d417de4bc9049438fc1a077ac8a9fcea314e09907234735e0eef7847c5",
             "size": 46049,
-            "live_was": "40ac787974e7af9b9f638488dc131a171d8333e10afe9341c688661bde2578e7"
+            "live_was": "40ac787974e7af9b9f638488dc131a171d8333e10afe9341c688661bde2578e7",
+            "existed": true,
+            "old_sha": "40ac787974e7af9b9f638488dc131a171d8333e10afe9341c688661bde2578e7"
         },
         "app/lib/StagingPublish.php": {
             "sha": "b221c8e9b712df2e3e21b58804ca78744fd0ab5610ba282634e43894f61b1c9b",
             "size": 50282,
-            "live_was": "793a086644247919d0310aa51ef64ef86843dcacc1bd43e02559db37be3884f2"
+            "live_was": "793a086644247919d0310aa51ef64ef86843dcacc1bd43e02559db37be3884f2",
+            "existed": true,
+            "old_sha": "793a086644247919d0310aa51ef64ef86843dcacc1bd43e02559db37be3884f2"
         },
         "app/lib/Releases.php": {
             "sha": "6e255907487dcc7f3eb6224b99d19322da54e04174ed445dae12bcda2450b732",
             "size": 136756,
-            "live_was": "4bd89b17fde93283e173001b153bf857c967f5fd06978acbf34fc283408c923b"
+            "live_was": "4bd89b17fde93283e173001b153bf857c967f5fd06978acbf34fc283408c923b",
+            "existed": true,
+            "old_sha": "4bd89b17fde93283e173001b153bf857c967f5fd06978acbf34fc283408c923b"
         },
         "website/admin/api.php": {
             "sha": "e5e9257952e51b71bcd384ea27dcfd0e19ce1023660b36316df07864d3301ee2",
             "size": 58255,
-            "live_was": "679b7065f8503cc74fa78b66c26c4ca1758a3eb5d87d0add3568b9dd9a6749ce"
+            "live_was": "679b7065f8503cc74fa78b66c26c4ca1758a3eb5d87d0add3568b9dd9a6749ce",
+            "existed": true,
+            "old_sha": "679b7065f8503cc74fa78b66c26c4ca1758a3eb5d87d0add3568b9dd9a6749ce"
         }
     },
     "migrations": [
@@ -122,8 +159,8 @@
     ],
     "checks": {
         "ok": true,
-        "where": "staging",
-        "at": "2026-11-26T20:38:36+00:00",
+        "where": "live",
+        "at": "2026-11-26T20:38:39+00:00",
         "items": [
             [
                 "PHP files parse",
@@ -131,24 +168,9 @@
                 "17 checked"
             ],
             [
-                "Migrations only add",
-                true,
-                "1 checked"
-            ],
-            [
-                "Data changes have a reason",
-                true,
-                "2026-11-26_0180_tiers_roster.sql change rows: decisions/0180 §1: the stored tier 3 meant the Founder and is 5 now (one meaning per number); the Team's rows are renamed and re-layered to 0180's appendix, retired ones marked so, each guarded so a person's own name is never written over and nothing that exists is made again (0162's note); Roll bac (a copy of every table they touch is kept first)"
-            ],
-            [
-                "Migrations ran on staging",
-                true,
-                "Ran 2026-11-26_0180_tiers_roster.sql"
-            ],
-            [
                 "Pages answer",
                 true,
-                "3 pages answered on staging.trvgo.us"
+                "3 pages answered on traversence.com"
             ],
             [
                 "No new fatal errors in the logs",
@@ -178,6 +200,16 @@
             "at": "2026-11-26T20:38:36+00:00",
             "by": 0,
             "msg": "Put on staging (20 files); its checks passed."
+        },
+        {
+            "at": "2026-11-26T20:38:38+00:00",
+            "by": 0,
+            "msg": "Approved in chat before it was sent through git, and its checks on staging passed: publishing by itself."
+        },
+        {
+            "at": "2026-11-26T20:38:38+00:00",
+            "by": 0,
+            "msg": "Published: 19 files, after its 1 migration ran first (2026-11-26_0180_tiers_roster.sql; a copy of what each touched is kept 14 days); everyone at once (no switch)."
         }
     ]
 }
