@@ -1,6 +1,48 @@
 {
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
- "claims": [],
+ "claims": [
+  {
+   "path": "app/admin/sections.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "release release-records.zip",
+   "since": "2026-11-26T10:18:57Z",
+   "expires": "2026-11-26T14:18:57Z",
+   "release": "release-records.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/DocsRepo.php",
+   "functions": [
+    "saveRecord"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "release release-records.zip",
+   "since": "2026-11-26T10:18:57Z",
+   "expires": "2026-11-26T14:18:57Z",
+   "release": "release-records.zip",
+   "callers": {
+    "saveRecord": [
+     "app/lib/Releases.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/Releases.php",
+   "functions": [
+    "record"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "release release-records.zip",
+   "since": "2026-11-26T10:18:57Z",
+   "expires": "2026-11-26T14:18:57Z",
+   "release": "release-records.zip",
+   "callers": {}
+  }
+ ],
  "lapsed": [
   {
    "path": "app/lib/TeamRunner.php",
