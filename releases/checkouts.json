@@ -11,6 +11,19 @@
    "expires": "2026-11-26T04:13:47Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/TeamRunner.php",
+   "functions": [
+    "touches"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "P3-3: Tier 3 by what a migration does (Jason, 2026-11-25), approved 2026-11-26",
+   "since": "2026-11-26T01:59:50Z",
+   "expires": "2026-11-26T05:59:50Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
