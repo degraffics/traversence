@@ -1,0 +1,14 @@
+{
+  "title": "A release never asks for its before look of a closed staging: it waits, says so, and asks once staging opens",
+  "why": "The session manager's case, 2026-11-26: Jason's Try again copy closes staging for about 30 minutes, and every staging page answers 503. A release that asked for its before look then would be looked at as nothing, and the after look compared with it read the pages coming back as changes, a block, and a block withdraws the release. Now, while a fresh copy is going in or one stopped part way (StagingSite::copyHold), BeforeAfter asks for no look: the release says \"Waiting for its before look: staging is closed until a fresh copy finishes (…); it's asked for once staging opens\", the 10-minute step keeps waiting without a second note, and asks once staging opens (\"asked for now\"). A release with staging open is asked at once, as P3-2 built it. Its card on Releases shows these words (Releases::standing reads the release's own last line). The workflow's side, a before look staging couldn't give compared as incomplete never a block, is tools/page-audit/beforeafter.mjs in the same PR. Admin only, no table, no outside call.",
+  "proposals": [],
+  "switch": "",
+  "changes": [
+    {"what": "A release waiting for its before look while staging is closed says so, and is asked for once staging opens", "where": "https://traversence.com/admin/config/releases"}
+  ],
+  "checks": {
+    "closed": "tools/piece3-tests/closed.php 10 on MariaDB (a copy going in: nothing asked, the release and the Releases line say staging is closed, the step keeps waiting with one note, never withdrawn or published; a stopped copy: still closed; staging open: asked, and the card says asked for now; open from the start: asked at once)",
+    "verdict": "tools/piece3-tests/compare-closed.test.mjs 10 (a before look from a closed staging: incomplete, not a block; the old compare blocked it; the four rules still block on a usable before look)",
+    "kept": "piece3 pipeline 22, kind 35, rule2 24, onstates 7; release-tests record 15"
+  }
+}

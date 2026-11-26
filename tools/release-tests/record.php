@@ -57,10 +57,11 @@ $pdo->exec("DELETE FROM site_releases WHERE id >= 9301"); $pdo->exec("DELETE FRO
 $log = json_encode([['at' => '2026-11-26T10:01:48+00:00', 'by' => 0, 'msg' => 'Put on staging (4 files); its checks passed.'], ['at' => '2026-11-26T10:01:50+00:00', 'by' => 0, 'msg' => 'Published: 4 files; everyone at once (no switch).']]);
 $pdo->prepare("INSERT INTO site_releases (id, title, state, zip_name, files, checks, log, created_at, updated_at, live_at) VALUES (9301, 'Test release', 'live', 'test.zip', '{}', '{}', ?, '2026-11-26 10:01:44', NOW(), NOW())")->execute([$log]);
 $files = []; $calls = [];
-$out = Releases::recordBehind($pdo);
-$recPath = array_keys($files)[0] ?? '';
+$out = array_values(array_filter(Releases::recordBehind($pdo), fn ($l) => str_contains($l, '#9301')));   // its own lines (other tests' releases may be there)
+$recPath = array_values(array_filter(array_keys($files), fn ($p) => str_contains($p, '-9301-')))[0] ?? '';
 ok(count($out) === 1 && str_contains($out[0], 'caught up (Live)'), 'the 10-minute step saves a record that was never kept: ' . ($out[0] ?? 'nothing'));
 ok(str_contains($recPath, '-9301-') && str_contains($files[$recPath]['text'] ?? '', '"state": "live"'), 'git now holds the release as Live');
+$pdo->exec("UPDATE site_releases SET updated_at = NOW() - INTERVAL 3 DAY WHERE id < 9301"); Releases::recordBehind($pdo);   // others' releases settled first
 $calls = []; $out2 = Releases::recordBehind($pdo);
 ok($out2 === [] && $calls === [], 'a record that matches is left alone the next time (no call to GitHub)');
 ok(Releases::recordLine($pdo, 9301) === '', 'its card says nothing about its record');
@@ -68,12 +69,12 @@ ok(Releases::recordLine($pdo, 9301) === '', 'its card says nothing about its rec
 // 6. one that won't save: remembered, its card says so, and the next step tries again
 $pdo->prepare("UPDATE site_releases SET log = ?, updated_at = NOW() WHERE id = 9301")->execute([json_encode(array_merge(json_decode($log, true), [['at' => '2026-11-26T10:20:00+00:00', 'by' => 0, 'msg' => 'Rolled back.']]))]);
 $putAnswer = [401, '{"message":"Bad credentials"}'];
-$out3 = Releases::recordBehind($pdo);
+$out3 = array_values(array_filter(Releases::recordBehind($pdo), fn ($l) => str_contains($l, '#9301')));
 ok(count($out3) === 1 && str_contains($out3[0], 'still behind'), 'a record that won\'t save is said to be behind: ' . ($out3[0] ?? ''));
 $line = Releases::recordLine($pdo, 9301);
 ok(str_contains($line, "Its record in git didn't save") && str_contains($line, 'every 10 minutes'), 'its card says so, and when it is tried again: ' . $line);
 $putAnswer = null;
-$out4 = Releases::recordBehind($pdo);
+$out4 = array_values(array_filter(Releases::recordBehind($pdo), fn ($l) => str_contains($l, '#9301')));
 ok(count($out4) === 1 && str_contains($out4[0], 'caught up') && Releases::recordLine($pdo, 9301) === '', 'the next step saves it and the card\'s line goes');
 
 // 7. never from staging, never without the key

@@ -1,0 +1,18 @@
+{
+ "zip": "ba-closed.zip",
+ "built_on": "ffbcb19 Sync: 2026-11-26 10:30 UTC",
+ "recorded": "2026-11-26 10:34 UTC",
+ "note": "ba-closed: a release never asks for its before look of a closed staging; with beforeafter.mjs's unusable-before guard. Admin only, on the session manager's ask 10:30 UTC. Built on Sync: 10:30 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/BeforeAfter.php": {
+   "sha256": "0848083ab5dd34e33d11086edde7abb3f8fcb0e15f1a7a30a4ac212149791bcb",
+   "live": false
+  },
+  "app/lib/Releases.php": {
+   "sha256": "fa1304c378fb9bbbd65fc8ac5223ffc8d0dbd132e50eb3212b0b63ea55980e0e",
+   "live": false
+  }
+ }
+}
