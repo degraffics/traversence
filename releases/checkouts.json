@@ -11,8 +11,8 @@
    "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
    "why": "P3-6: the fence, agents build in the backend first (Jason, 2026-11-26)",
    "since": "2026-11-26T02:32:04Z",
-   "expires": "2026-11-26T06:32:04Z",
-   "release": "",
+   "expires": "2026-11-26T06:32:53Z",
+   "release": "p3-6-fence.zip",
    "callers": {}
   },
   {
@@ -24,8 +24,8 @@
    "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
    "why": "P3-6: the fence, agents build in the backend first (Jason, 2026-11-26)",
    "since": "2026-11-26T02:32:06Z",
-   "expires": "2026-11-26T06:32:06Z",
-   "release": "",
+   "expires": "2026-11-26T06:32:53Z",
+   "release": "p3-6-fence.zip",
    "callers": {}
   },
   {
@@ -37,9 +37,13 @@
    "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
    "why": "P3-6: the fence, agents build in the backend first (Jason, 2026-11-26)",
    "since": "2026-11-26T02:32:08Z",
-   "expires": "2026-11-26T06:32:08Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-26T06:32:53Z",
+   "release": "p3-6-fence.zip",
+   "callers": {
+    "report": [
+     "website/api/health.php"
+    ]
+   }
   },
   {
    "path": "app/lib/TeamRunner.php",
@@ -54,9 +58,22 @@
    "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
    "why": "P3-6: the fence, agents build in the backend first (Jason, 2026-11-26)",
    "since": "2026-11-26T02:32:10Z",
-   "expires": "2026-11-26T06:32:10Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-26T06:32:53Z",
+   "release": "p3-6-fence.zip",
+   "callers": {
+    "approveTree": [
+     "website/admin/api.php"
+    ],
+    "fingerprint": [
+     "app/admin/team-console.php"
+    ],
+    "treeApproval": [
+     "app/admin/team-console.php"
+    ],
+    "tick": [
+     "app/scripts/team_tick.php"
+    ]
+   }
   },
   {
    "path": "website/admin/api.php",
@@ -65,8 +82,8 @@
    "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
    "why": "P3-6: the fence, agents build in the backend first (Jason, 2026-11-26)",
    "since": "2026-11-26T02:32:12Z",
-   "expires": "2026-11-26T06:32:12Z",
-   "release": "",
+   "expires": "2026-11-26T06:32:53Z",
+   "release": "p3-6-fence.zip",
    "callers": {}
   },
   {
@@ -76,8 +93,8 @@
    "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
    "why": "P3-6: the fence, agents build in the backend first (Jason, 2026-11-26)",
    "since": "2026-11-26T02:32:14Z",
-   "expires": "2026-11-26T06:32:14Z",
-   "release": "",
+   "expires": "2026-11-26T06:32:53Z",
+   "release": "p3-6-fence.zip",
    "callers": {}
   },
   {
@@ -87,8 +104,8 @@
    "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
    "why": "P3-6: the fence, agents build in the backend first (Jason, 2026-11-26)",
    "since": "2026-11-26T02:32:16Z",
-   "expires": "2026-11-26T06:32:16Z",
-   "release": "",
+   "expires": "2026-11-26T06:32:53Z",
+   "release": "p3-6-fence.zip",
    "callers": {}
   },
   {
@@ -98,8 +115,8 @@
    "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
    "why": "P3-6: the fence, agents build in the backend first (Jason, 2026-11-26)",
    "since": "2026-11-26T02:32:18Z",
-   "expires": "2026-11-26T06:32:18Z",
-   "release": "",
+   "expires": "2026-11-26T06:32:53Z",
+   "release": "p3-6-fence.zip",
    "callers": {}
   },
   {
