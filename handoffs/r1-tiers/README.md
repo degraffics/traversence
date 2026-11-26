@@ -1,0 +1,30 @@
+# decisions/0180 R1: rename and roster (built, waiting its turn, 2026-11-26)
+
+Order (the session manager, relaying Jason's "run it now"): #305 ba-proof-fixes, switch-readback, the staff-mail
+release, then this. Built on Sync 11:50 UTC (f43fe5b) with those three laid over it; the patch `r1-tiers.patch` is against
+that base. At send time: rebuild on the sync after the staff-mail release is live, re-apply where those files moved.
+
+What it does (0180 §1, §5 and the appendix; the session manager's rulings 2026-11-26):
+- **Tiers 1–5 everywhere at once, "Founder ruling" beside Tier 5:** TeamRunner (TIER3_AREAS → TERRITORIES, data
+  unchanged; TIER3 → TIER5_WORDS; tier() returns 5; ruleData keys territories/tier5_words, so the fingerprint changes and
+  the Team page asks for the tree's approval again), GaugeTasks, ReleaseKind (tier3() → territory()), Releases, the Team
+  page's tree (five tiers; Tier 3 and 4 named as coming in R2 and R3; until R3 a territory still comes to the Founder),
+  the Work queue (control-console), the admin API, FounderMail, Notify's founder.decision, Access, tools.php, the FAQ
+  (eight entries reworded, one new: "What are the five tiers, and what is a Founder ruling?").
+- **The stored tier:** `UPDATE control_gauge_tasks SET tier = 5 WHERE tier = 3` (one meaning per number; data_reason
+  0180 §1). Roll back maps 5 → 3: `app/rollbacks/<same name>.sql`, run by Releases::rollBack (new in this release: a
+  release's rollback SQL runs when it's rolled back, said in its record).
+- **The roster:** the 32 roles and 12 advocates (A1–A12), all active ("run it now"); layers in the department column
+  (founder, executive, managers, specialists, advocates); today's rows renamed in place only where the name is still the
+  seed's; new rows inserted only where the slug isn't there; new roles have no permissions (only the Founder gives them,
+  0180 §2: the card says "No permissions yet"). Retired, never shown, never routed to, still named for past runs: the six
+  0180 names (4, 5, 9, 14, 18, 20) and two rows folded into one role each, Technical QA & Security Gatekeeper (into #21
+  Build & QA Sessions) and Senior Designer (into #27 Public UI/UX Designers): **my call, reported**.
+- **Standby routing (0180 §5):** a step whose role is on standby goes to the first active role up its reports-to line that
+  Permissions allows the step, past retired ones; none: it waits for the Founder (TeamRoster::doer).
+- No ceiling, fence, step, STEP_AT, spend or reach data changed.
+
+Tests (on the bench, R1 over the three before it): `tools/team-tests/r1.php` 26 (seed twice, names, layers, retired,
+tiers, routing, Roll back byte for byte); roster.php 54, runner.php 85, audit.php 34, tickets.php 54, batch.php 25,
+kind.php 35, rule2.php 24, pipeline.php 22, closed 10, onstates 7, held 14, tickwait 6, old-suites 84/44/32; rendered at
+1280 and 390: roster.cjs 44, team-head.cjs 40, runner.cjs 44, tickets.cjs 62, batch.cjs 18, fence.cjs 10.

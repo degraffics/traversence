@@ -1,6 +1,6 @@
 // Piece 2's tickets on the Work queue (P2-1; handoffs/piece2-team.md §4.1, §4.2, §8), rendered on the bench at 1280 and 390
 // through board-router.php (the board as board-panels-router.php draws it, with Piece 2's actions as api.php answers them):
-//   - each row's type and stage, the stage saying what it needs; a Tier 3 waiting for the Founder first, in amber words;
+//   - each row's type and stage, the stage saying what it needs; a Founder ruling waiting for the Founder first, in amber words;
 //   - the Team icon beside the filter, opening System Configuration → Team beside the board; the filter's types and stages;
 //   - Add a task with its type; a Work ticket's page: the stage strip, the gate in words, Move greyed with what it needs,
 //     "No decision applies", Move to Building, ✎ back a stage with a reason; a Resolution's Decision Brief (four parts, the
@@ -29,13 +29,13 @@ const press = async (p, sel) => { await Promise.all([p.waitForResponse(r => r.ur
   try {
     for (const w of [1280, 390]) {
       const L = w + 'px: ';
-      const [res, work] = seed(); t(L + 'the seed: a Tier 3 waiting and a Work ticket at Planning', +res > 0 && +work > 0);
+      const [res, work] = seed(); t(L + 'the seed: a Founder ruling waiting and a Work ticket at Planning', +res > 0 && +work > 0);
       const ctx = await b.newContext({ viewport: { width: w, height: 900 } }); const p = await ctx.newPage();
       const errs = []; p.on('pageerror', e => errs.push(e.message));
       await p.goto(home); await p.waitForTimeout(900); await view(p, 'development'); await p.waitForTimeout(400);
       // the queue
       const first = await p.$eval(W + ' .wq-main > li', li => ({ tk: li.getAttribute('data-wq-tk'), st: li.getAttribute('data-wq-st'), txt: li.querySelector('.wq-h').textContent }));
-      t(L + 'the Tier 3 first: Resolution, "Waiting for you"', first.tk === 'resolution' && first.st === 'waiting' && /Resolution/.test(first.txt) && /Waiting for you/.test(first.txt), first);
+      t(L + 'the Founder ruling first: Resolution, "Waiting for you"', first.tk === 'resolution' && first.st === 'waiting' && /Resolution/.test(first.txt) && /Waiting for you/.test(first.txt), first);
       t(L + 'waiting in amber words (the hold colour), never red', await p.$eval(W + ' #wq-' + res + ' .wq-pill', x => getComputedStyle(x).color) === await p.$eval(W + ' .wq-p-late', x => getComputedStyle(x).color));
       t(L + 'the summary counts it: "1 waiting for you"', /1 waiting for you/.test(await p.textContent(W + ' .wq-r1')));
       const wr = await p.$eval(W + ' #wq-' + work, li => li.querySelector('.wq-h').textContent);
@@ -50,7 +50,7 @@ const press = async (p, sel) => { await Promise.all([p.waitForResponse(r => r.ur
       await p.click(W + ' [data-wq-fb]'); await p.click(W + ' [data-wq-f="all"]'); await p.waitForTimeout(200);
       // Add a task with its type
       await p.click(W + ' [data-wq=add]'); await p.selectOption(W + ' [data-wq-form] select[name=gauge]', { index: 1 });
-      t(L + 'Add a task: Type, Work by default, each with what it is', await p.$eval(W + ' [data-wq-form] select[name=ticket]', s => s.value === 'work' && s.options.length === 3 && /Tier 3 decision/.test(s.options[2].textContent)));
+      t(L + 'Add a task: Type, Work by default, each with what it is', await p.$eval(W + ' [data-wq-form] select[name=ticket]', s => s.value === 'work' && s.options.length === 3 && /Founder ruling/.test(s.options[2].textContent)));
       await p.selectOption(W + ' [data-wq-form] select[name=ticket]', 'audit');
       await p.fill(W + ' [data-wq-form] input[name=what]', 'A test audit finding'); await p.fill(W + ' [data-wq-form] textarea[name=why]', 'rendered test');
       await p.click(W + ' [data-wq-form] [type=submit]'); await p.waitForTimeout(1300);
@@ -82,7 +82,7 @@ const press = async (p, sel) => { await Promise.all([p.waitForResponse(r => r.ur
       t(L + 'the answers are outlined buttons on the page, not a pop-up', await p.$$eval(P + ' .wqp-ans .cbg-b', a => a.length === 3 && a.every(x => x.classList.contains('cbg-o'))));
       if (shots) await p.screenshot({ path: shots + '/ticket-brief-' + w + '.png' });
       { const p2 = await ctx.newPage(); await p2.goto('http://127.0.0.1:' + (port + 40) + '/admin/config/control'); await p2.waitForTimeout(900); await view(p2, 'development'); await p2.waitForTimeout(300); await openTask(p2, res);
-        t(L + 'signed in as a staff member, the answers are greyed with why: only the Founder answers a Tier 3', await p2.$$eval(P + ' .wqp-ans .cbg-b', a => a.length === 3 && a.every(x => x.disabled && /Only the Founder/.test(x.title)))); await p2.close(); }
+        t(L + 'signed in as a staff member, the answers are greyed with why: only the Founder gives a Founder ruling', await p2.$$eval(P + ' .wqp-ans .cbg-b', a => a.length === 3 && a.every(x => x.disabled && /Only the Founder/.test(x.title)))); await p2.close(); }
       await press(p, P + ' [data-wqp=ans][data-a=b]');
       const dec = await p.$$eval(P + ' [data-tv-status=ok], ' + P + ' .tv-note', a => a.map(x => x.innerText).filter(x => /Decided/.test(x)).join(' ¦ '));   // drawn as the site's notice box once TvAsk.statuses runs on the panel (P3-6)
       t(L + 'Choose B: Decided, with who, and the precedent ticket that records it', /Decided:\s*Option B · Jason \(test\)/.test(dec) && /Task #\d+ records it as precedent/.test(dec), dec);

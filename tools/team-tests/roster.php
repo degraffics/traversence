@@ -5,6 +5,8 @@
 // (defaults and a saved rule), for every level and department, and never above executive. TeamRoster::can: an advocate
 // and the Founder never act; a role on standby doesn't. Edit with History; the status and its way back; the Founder stays
 // active. The tool config/team: groups by department, standby folded, the filters, a role's drawer and its actions.
+// decisions/0180 R1 (2026-11-26): after its migration, the tool shows the 32 roles and 12 advocates by layer, every one active,
+// Retire refused for a role of the 32, a retired role (one 0180 replaced) never listed and with no status moves.
 // Run: mariadb -e 'DROP DATABASE IF EXISTS lv_main; CREATE DATABASE lv_main' && php roster.php <root>/app
 declare(strict_types=1);
 $app = rtrim($argv[1] ?? '', '/'); if (!is_dir($app . '/lib')) { fwrite(STDERR, "usage: php roster.php <root>/app\n"); exit(2); }
@@ -15,7 +17,7 @@ $t = function (string $n, bool $ok, $got = null) use (&$pass, &$fail) { if ($ok)
 $run = function (string $f) use ($pdo, $app) { foreach (array_filter(array_map('trim', explode(";\n", file_get_contents($app . '/migrations/' . $f)))) as $q) { $q = trim(preg_replace('/^--.*$/m', '', $q)); if ($q !== '') $pdo->exec($q); } };
 ControlLog::ensure($pdo);
 $pdo->exec("CREATE TABLE IF NOT EXISTS admin_permissions (action VARCHAR(80) PRIMARY KEY, min_level VARCHAR(20), departments VARCHAR(200), updated_by INT)");
-$pdo->exec("CREATE TABLE IF NOT EXISTS control_gauge_tasks (id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, kind VARCHAR(10), owner VARCHAR(80) NOT NULL DEFAULT '', undone_at DATETIME NULL, cleared_at DATETIME NULL)");
+$pdo->exec("CREATE TABLE IF NOT EXISTS control_gauge_tasks (id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, kind VARCHAR(10), owner VARCHAR(80) NOT NULL DEFAULT '', tier TINYINT NULL, undone_at DATETIME NULL, cleared_at DATETIME NULL)");
 $pdo->exec('DROP TABLE IF EXISTS team_roster');
 
 // 1. the schema and the seed, each twice
@@ -27,7 +29,7 @@ $t('every spec number 1–33 once', count(array_unique(array_column(TeamRoster::
 $t('the seed file makes no table (0162: a seed beside its CREATE is cleared unrun)', !preg_match('/CREATE\s+TABLE/i', file_get_contents($app . '/migrations/2026-11-25_team_roster_seed.sql')));
 $t('the schema file writes no rows', !preg_match('/\b(INSERT\s+INTO|DELETE\s+FROM)\b|\bUPDATE\s+\w+\s+SET\b/i', preg_replace('/^--.*$/m', '', file_get_contents($app . '/migrations/2026-11-25_team_roster.sql'))));
 $orders = TeamRoster::bySlug($pdo, 'orders'); $fin = TeamRoster::bySlug($pdo, 'finance');
-$t('Orders and Finance on standby (money is Tier 3)', $orders['status'] === 'standby' && $fin['status'] === 'standby');
+$t('Orders and Finance on standby (money is a high-risk territory)', $orders['status'] === 'standby' && $fin['status'] === 'standby');
 $ops = TeamRoster::bySlug($pdo, 'ops-reconciliation'); $t('Ops & Reconciliation active, the audit\'s owner', $ops['status'] === 'active' && $ops['kind'] === 'auditor');
 $adv = array_filter(TeamRoster::all($pdo), fn ($r) => $r['kind'] === 'advocate');
 $t('every advocate bound to a test account or signed_out, with no level to act as', count(array_filter($adv, fn ($r) => $r['test_account'] !== '' && $r['acts_level'] === '')) === 11);
@@ -53,9 +55,8 @@ $m1 = TeamRoster::setStatus($pdo, (int) $cl['id'], 'active', 'Jason (test)', 'tr
 $t('Make active: says it has no steps yet', str_contains($m1, 'no steps yet'), $m1);
 $m2 = TeamRoster::setStatus($pdo, (int) $cl['id'], 'standby', 'Jason (test)');
 $t('Put on standby: its way back named', str_contains($m2, 'made active again') && TeamRoster::get($pdo, (int) $cl['id'])['status'] === 'standby', $m2);
-$m3 = TeamRoster::setStatus($pdo, (int) $cl['id'], 'inactive', 'Jason (test)'); $t('Retire: kept, and can come back', str_contains($m3, 'kept') && TeamRoster::get($pdo, (int) $cl['id'])['status'] === 'inactive');
-TeamRoster::setStatus($pdo, (int) $cl['id'], 'standby', 'Jason (test)');
-$t('each move is in its History with the reason', count(TeamRoster::history($pdo, (int) $cl['id'])) === 4 && str_contains(json_encode(TeamRoster::history($pdo, (int) $cl['id'])), 'trying it'));
+try { TeamRoster::setStatus($pdo, (int) $cl['id'], 'inactive', 'Jason (test)'); $t('Retire isn\'t offered for a role (decisions/0180: only the roles it replaced are retired)', false); } catch (RuntimeException $x) { $t('Retire isn\'t offered for a role (decisions/0180: only the roles it replaced are retired)', str_contains($x->getMessage(), 'replaced') && TeamRoster::get($pdo, (int) $cl['id'])['status'] === 'standby'); }
+$t('each move is in its History with the reason', count(TeamRoster::history($pdo, (int) $cl['id'])) === 2 && str_contains(json_encode(TeamRoster::history($pdo, (int) $cl['id'])), 'trying it'));
 try { TeamRoster::setStatus($pdo, (int) $f['id'], 'standby', 'Jason (test)'); $t('the Founder can\'t be put on standby', false); } catch (RuntimeException $x) { $t('the Founder can\'t be put on standby', str_contains($x->getMessage(), 'always active')); }
 $t('the same status again says so', str_starts_with(TeamRoster::setStatus($pdo, (int) $cl['id'], 'standby', 'Jason (test)'), 'It\'s already'));
 
@@ -76,6 +77,10 @@ $t('canAs says what\'s needed', Access::canAs('team.saved', 'staff', 'fin')[1] =
 $t('an advocate never acts', !TeamRoster::can(reset($adv), 'anything')[0]);
 $t('the Founder never acts as an agent', !TeamRoster::can($f, 'anything')[0]);
 $t('a role on standby doesn\'t act', !TeamRoster::can(TeamRoster::bySlug($pdo, 'historian'), 'anything')[0]);
+
+// decisions/0180 R1: its migration, then the tool shows the Team as 0180 sets it
+$run('2026-11-25_team_staff_views.sql'); $run('2026-11-26_0180_tiers_roster.sql');
+$pm = TeamRoster::bySlug($pdo, 'project-manager');
 $t('the Project Manager acts as a Manager in Operations', TeamRoster::can(TeamRoster::bySlug($pdo, 'project-manager'), 'team.saved')[0] === false && TeamRoster::can(TeamRoster::bySlug($pdo, 'project-manager'), 'pm.ok', ['min' => 'manager', 'depts' => ['ops']])[0]);
 $t('its actor name: "system · <role>"', TeamRoster::actor($pm) === 'system · Project Manager');
 
@@ -85,12 +90,13 @@ $t('the section is in the manifests (config/team)', str_contains(file_get_conten
 $t('the Team\'s view needs an Executive; editing, the Founder', $T['view']['min'] === 'executive' && $T['edit']['min'] === 'founder');
 [$rows, $total] = ($T['list'])($pdo, []);
 $labels = array_map(fn ($r) => $r['_group']['label'] . ' ' . $r['_group']['n'], $rows);
-$t('the default: departments as groups, standby folded into one', $labels === ['Leadership 2', 'Operations 3', 'Build 4', 'Advocates 11', 'On standby and retired 13'], $labels);
+$t('the default: the layers as groups (decisions/0180 §5), every role active, nothing retired shown', $labels === ['Founder 1', 'Executive suite 6', 'Middle managers 7', 'Specialists 18', 'Advocates 12'], $labels);
 $t('a group counts as one row for paging (table-standard §9)', $total === 5, $total);
-[$rows] = ($T['list'])($pdo, ['show' => 'active']); $t('Active only: 20, a plain list', count($rows) === 20 && !isset($rows[0]['_group']));
-[$rows] = ($T['list'])($pdo, ['show' => 'standby', 'dept' => 'operations']); $t('a filter on department and status', count($rows) === 6, count($rows));
+[$rows] = ($T['list'])($pdo, ['show' => 'active']); $t('Active only: 44, a plain list', count($rows) === 44 && !isset($rows[0]['_group']));
+[$rows] = ($T['list'])($pdo, ['show' => 'active', 'dept' => 'managers']); $t('a filter on layer and status', count($rows) === 7, count($rows));
+[$rows] = ($T['list'])($pdo, ['q' => 'historian']); $t('a retired role isn\'t found by search either', !$rows, $rows);
 [$rows] = ($T['list'])($pdo, ['q' => 'audit']); $t('a search reads names, mandates and works', $rows && str_contains(json_encode($rows), 'Operations & Reconciliation'));
-$fl = ($T['filters'])($pdo); $t('the filter says its counts', str_contains($fl[0][2][''], '(33)') && str_contains($fl[0][2]['standby'], '(13)'));
+$fl = ($T['filters'])($pdo); $t('the filter says its counts, and offers no Retired', str_contains($fl[0][2][''], '(44)') && str_contains($fl[0][2]['standby'], '(0)') && !isset($fl[0][2]['inactive']) && $fl[1][1] === 'Layer', $fl[0]);
 [$rows] = ($T['list'])($pdo, ['show' => 'active']); $cur = array_values(array_filter($rows, fn ($r) => $r['ref'] === 'content-editor'))[0];
 $t('a working role with no step says "No steps yet"', $cur['works'] === 'No steps yet', $cur);
 $pdo->exec("INSERT INTO control_gauge_tasks (kind, owner) VALUES ('fix', 'system · Project Manager'), ('fix', 'system · Project Manager')");
@@ -98,15 +104,18 @@ $pdo->exec("INSERT INTO control_gauge_tasks (kind, owner) VALUES ('fix', 'system
 $t('Open tickets counts what a role has on the queue', $pmr['open'] === 2, $pmr);
 $d = ($T['get'])($pdo, (int) $pm['id']);
 $keys = array_column($d['acts'], 'key');
-$t('a working role\'s drawer: Edit, Put on standby, Retire', $keys === ['edit', 'standby', 'inactive'], $keys);
+$t('a working role\'s drawer: Edit, Put on standby (no Retire)', $keys === ['edit', 'standby'], $keys);
 $t('its History in the drawer, labelled with its zone', $d['timeline_title'] === 'History' && str_contains($d['timeline'][0]['at'], 'MST'), $d['timeline'][0] ?? null);
 $t('it names where its permissions come from', str_contains(json_encode($d['fields']), 'what Permissions gives'));
 $df = ($T['get'])($pdo, (int) $f['id']); $t('the Founder\'s drawer has no status moves', array_column($df['acts'], 'key') === ['edit']);
 $da = ($T['get'])($pdo, (int) TeamRoster::bySlug($pdo, 'advocate-guest')['id']);
 $t('an advocate\'s drawer names its test account and links Test accounts', str_contains(json_encode($da['fields']), 'Signed out') && $da['links'][0][1] === '/admin/config/testaccounts');
-$ds = ($T['get'])($pdo, (int) TeamRoster::bySlug($pdo, 'historian')['id']); $t('a standby role\'s drawer offers Make active', in_array('active', array_column($ds['acts'], 'key'), true));
-$m = ($T['act'])($pdo, (int) TeamRoster::bySlug($pdo, 'historian')['id'], 'active', ['why' => 'test'], 0);
-$t('the tool\'s act makes it active and says it has no steps', str_contains($m, 'no steps yet') && TeamRoster::bySlug($pdo, 'historian')['status'] === 'active', $m);
+$cl = TeamRoster::bySlug($pdo, 'cognitive-load'); ($T['act'])($pdo, (int) $cl['id'], 'standby', ['why' => 'test'], 0);
+$ds = ($T['get'])($pdo, (int) $cl['id']); $t('a standby role\'s drawer offers Make active', in_array('active', array_column($ds['acts'], 'key'), true));
+$m = ($T['act'])($pdo, (int) $cl['id'], 'active', ['why' => 'test'], 0);
+$t('the tool\'s act makes it active and says it has no steps', str_contains($m, 'no steps yet') && TeamRoster::bySlug($pdo, 'cognitive-load')['status'] === 'active', $m);
+$dh = ($T['get'])($pdo, (int) TeamRoster::bySlug($pdo, 'historian')['id']); $t('a retired role\'s card (from a past ticket) has no status moves', array_column($dh['acts'], 'key') === ['edit'], array_column($dh['acts'], 'key'));
+try { ($T['act'])($pdo, (int) TeamRoster::bySlug($pdo, 'historian')['id'], 'active', [], 0); $t('… and Make active is refused', false); } catch (RuntimeException $x) { $t('… and Make active is refused', str_contains($x->getMessage(), 'replaced')); }
 try { ($T['act'])($pdo, 1, 'delete', [], 0); $t('an unknown action is refused', false); } catch (InvalidArgumentException $x) { $t('an unknown action is refused', true); }
 $t('nothing deletes a role', !preg_match('/DELETE\s+FROM\s+team_roster/i', file_get_contents($app . '/lib/TeamRoster.php')));
 $t('team_roster has its staging class (records, R14)', str_contains(file_get_contents($app . '/lib/staging-tables.php'), "'team_roster'"));

@@ -1,0 +1,1136 @@
+diff -ruN -x '*.png' r1base/root/app/admin/Access.php r1/root/app/admin/Access.php
+--- r1base/root/app/admin/Access.php	2026-11-26 14:30:34.996195366 +0000
++++ r1/root/app/admin/Access.php	2026-11-26 14:22:06.171636637 +0000
+@@ -73,7 +73,7 @@
+     /**
+      * Is the person acting the Founder, signed in with the Founder's own staff login (role owner, level founder)? Never true
+      * with no staff session: who() calls that the Founder for the admin's older logins, so can() alone can't tell (the session
+-     * manager's check on P2-1, 2026-11-25). Tier 3 answers and the daily batch's approval are the Founder's (decisions/0179).
++     * manager's check on P2-1, 2026-11-25). Founder rulings (Tier 5) and the daily batch's approval are the Founder's (decisions/0180).
+      */
+     public static function isFounder(): bool
+     {
+diff -ruN -x '*.png' r1base/root/app/admin/control-console.php r1/root/app/admin/control-console.php
+--- r1base/root/app/admin/control-console.php	2026-11-26 14:30:34.995989373 +0000
++++ r1/root/app/admin/control-console.php	2026-11-26 14:24:35.897163643 +0000
+@@ -1395,7 +1395,7 @@
+     $pill = ['open' => ['Open', 'n'], 'taken' => ['Taken', 'a'], 'fixing' => ['Being fixed', 'r'], 'late' => ['Late', 'late'], 'done' => ['Done', 'g'], 'withdrawn' => ['Withdrawn', 'w'], 'waiting' => ['Waiting for you', 'late']][$st];
+     $owner = (string) $t['owner_now']; $rel = (string) $t['rel_now'];
+     $line = [
+-        'waiting' => 'A Tier 3 decision only the Founder makes: its brief is ready. Open it to answer (it\'s in the daily summary too).',
++        'waiting' => 'A Founder ruling (Tier 5) only the Founder gives: its brief is ready. Open it to answer (it\'s in the daily summary too).',
+         'open' => 'Nobody has it yet · added ' . $when($t['at'], (string) $t['tz']) . '. Late if nobody takes it within a day.',
+         'late' => 'Nobody has taken it · added ' . $when($t['at'], (string) $t['tz']) . ', over a day ago.',
+         'taken' => 'With ' . $e($owner) . ($t['owner_at'] ? ' since ' . $when($t['owner_at']) : '') . '. It\'s being fixed once its release is named.',
+@@ -1426,7 +1426,7 @@
+     $sgName = GaugeTasks::stagesOf($tk)[$sg][0] ?? '';
+     $need = ''; if ($sgName !== '' && !$closed && $st !== 'waiting' && !empty($t['_gate'])) $need = ' · needs ' . $t['_gate'][0];
+     $stg = $sgName !== '' && $st !== 'waiting' ? '<span class="wq-stg" title="' . $e('Stage: ' . $sgName) . '">' . $e($sgName) . $e($need) . '</span>' : '';
+-    $ag = (array) ($t['_agent'] ?? []); $agw = array_filter([!empty($ag['found']) ? 'Found by the audit' : '', !empty($ag['sug']) ? $ag['sug'] . ' suggestion' . ($ag['sug'] === 1 ? '' : 's') : '', !empty($ag['flag']) ? 'Words suggest a Tier 3 boundary: a person checks' : '']);
++    $ag = (array) ($t['_agent'] ?? []); $agw = array_filter([!empty($ag['found']) ? 'Found by the audit' : '', !empty($ag['sug']) ? $ag['sug'] . ' suggestion' . ($ag['sug'] === 1 ? '' : 's') : '', !empty($ag['flag']) ? 'Words suggest a high-risk territory: a person checks' : '']);
+     return '<li class="wq-it wq-' . $e($st) . '" id="wq-' . $id . '" data-wq-id="' . $id . '" data-wq-st="' . $e($st) . '" data-wq-tk="' . $e($tk) . '" data-wq-stage="' . $e($sg) . '" data-wq-agent="' . (!empty($ag['found']) ? 'found ' : '') . (!empty($ag['sug']) ? 'suggest ' : '') . (!empty($ag['flag']) ? 'flag' : '') . '" data-gauge="' . $e($t['gauge']) . '" data-what="' . $e($what) . '" data-why="' . $e((string) $t['why']) . '" data-source="' . $e($src) . '">'
+         . '<div class="wq-h"><span class="wq-tk">' . $e(GaugeTasks::TICKETS[$tk][0]) . '</span><span class="wq-pill wq-p-' . $pill[1] . '">' . $pill[0] . '</span>' . $stg . ((int) ($t['priority'] ?? 0) ? '<span class="wq-pri" title="' . $e(GaugeTasks::PRIORITY[(int) $t['priority']][0] . ': ' . GaugeTasks::PRIORITY[(int) $t['priority']][1]) . '">P' . (int) $t['priority'] . '</span>' : '')
+         . '<button type="button" class="wq-nm wq-go" data-wq="page" title="' . $e('Open task #' . $id . ': its scope, priority and steps') . '">' . $e($what) . '</button><span class="wq-acts">' . $acts . '</span></div>'
+@@ -1455,8 +1455,8 @@
+     foreach ($keys as $j => $k) $h .= '<li class="' . ($closed || $j < $i ? 'wqp-sd' : ($j === $i ? 'wqp-sn' : '')) . '"' . ($j === $i && !$closed ? ' aria-current="step"' : '') . '>' . $e($st[$k][0]) . '</li>';
+     $h .= '</ol>';
+     $fl = (string) ($r['flag'] ?? '');
+-    if ($fl !== '' && !$closed) $h .= '<div class="wqp-flag"><p data-tv-status="info" data-tv-label="A person checks:">Words suggest a Tier 3 boundary (' . $e(GaugeTasks::BOUNDARIES[$fl] ?? $fl) . '), but nothing it touches is in that area. It stays Tier ' . (int) ($r['tier'] ?? 2) . ' until a person checks.</p>'
+-        . '<button type="button" class="cbg-b cbg-sm" data-wqp="flag" data-v="tier2">It\'s Tier ' . (int) ($r['tier'] ?? 2) . '</button><button type="button" class="cbg-b cbg-sm cbg-o" data-wqp="flag" data-v="tier3">It\'s Tier 3' . ($tk === 'work' ? ': open its Resolution' : '') . '</button></div>';
++    if ($fl !== '' && !$closed) $h .= '<div class="wqp-flag"><p data-tv-status="info" data-tv-label="A person checks:">Words suggest a high-risk territory (' . $e(GaugeTasks::BOUNDARIES[$fl] ?? $fl) . '), but nothing it touches is in that area. It stays Tier ' . (int) ($r['tier'] ?? 2) . ' until a person checks.</p>'
++        . '<button type="button" class="cbg-b cbg-sm" data-wqp="flag" data-v="tier2">It\'s Tier ' . (int) ($r['tier'] ?? 2) . '</button><button type="button" class="cbg-b cbg-sm cbg-o" data-wqp="flag" data-v="tier5">It\'s a Founder ruling' . ($tk === 'work' ? ': open its Resolution' : '') . '</button></div>';
+     if ($closed) return $h;
+     $next = GaugeTasks::nextStage($tk, $sg); $miss = GaugeTasks::gate($pdo, $r);
+     $byPerson = ($tk === 'work' && in_array($sg, ['planning', 'building'], true)) || ($tk === 'resolution' && $sg === 'brief');
+@@ -1488,8 +1488,8 @@
+     $f = fn ($k, $short = '') => '<div class="wqp-f" data-wqp-f="' . $k . '"><dt>' . $e($short !== '' ? $short : GaugeTasks::BRIEF[$k][0]) . '</dt><dd>' . $val($k) . $ic($k, GaugeTasks::BRIEF[$k][0], (string) ($b[$k] ?? '')) . '</dd></div>';   // inside an option's box, its fields say only "The option", "Pros", "Cons"
+     $h = '<h4 class="wqp-h">Decision Brief <small>' . ($sg === 'brief' ? 'a draft' : ($sg === 'waiting' ? 'with the Founder' : 'decided')) . '</small></h4><dl class="wqp-scope">' . $f('decision') . $f('why_you');
+     $bd = (string) ($b['boundary'] ?? '');
+-    $h .= '<div class="wqp-f" data-wqp-f="boundary"><dt>Its Tier 3 boundary</dt><dd>' . ($bd !== '' ? '<span class="wqp-v">' . $e(GaugeTasks::BOUNDARIES[$bd] ?? $bd) . '</span>' : '<span class="wqp-none">Not set yet · which line it crosses (decisions/0179)</span>')
+-        . ($draft ? '<button type="button" class="cbg-ic" data-wqp="bchoose" data-f="boundary" data-v="' . $e($bd) . '" data-opts="' . $e(json_encode(array_map(fn ($k, $v) => [$k, $v], array_keys(GaugeTasks::BOUNDARIES), GaugeTasks::BOUNDARIES))) . '" data-l="Its Tier 3 boundary" title="Edit its Tier 3 boundary" aria-label="Edit its Tier 3 boundary">' . tv_icon('pen', 'cbg-svg') . '</button>' : '') . '</dd></div></dl>';
++    $h .= '<div class="wqp-f" data-wqp-f="boundary"><dt>Its high-risk territory</dt><dd>' . ($bd !== '' ? '<span class="wqp-v">' . $e(GaugeTasks::BOUNDARIES[$bd] ?? $bd) . '</span>' : '<span class="wqp-none">Not set yet · which line it crosses (decisions/0179)</span>')
++        . ($draft ? '<button type="button" class="cbg-ic" data-wqp="bchoose" data-f="boundary" data-v="' . $e($bd) . '" data-opts="' . $e(json_encode(array_map(fn ($k, $v) => [$k, $v], array_keys(GaugeTasks::BOUNDARIES), GaugeTasks::BOUNDARIES))) . '" data-l="Its high-risk territory" title="Edit its high-risk territory" aria-label="Edit its high-risk territory">' . tv_icon('pen', 'cbg-svg') . '</button>' : '') . '</dd></div></dl>';
+     $rec = (string) ($b['recommend'] ?? '');
+     $opt = function (string $x) use ($b, $e, $rec, $f) {
+         return '<div' . ($rec === $x ? ' class="wqp-rec"' : '') . '><b>Option ' . strtoupper($x) . '</b>' . ($rec === $x ? ' <span class="wqp-tag">Recommended</span>' : '') . '<dl>' . $f($x . '_text', 'The option') . $f($x . '_pros', 'Pros') . $f($x . '_cons', 'Cons') . '</dl></div>';
+@@ -1500,7 +1500,7 @@
+         . $f('delay_impact') . $f('cost') . '</dl>';
+     if ($sg === 'waiting' && !$closed) {
+         require_once __DIR__ . '/Access.php';
+-        $no = Access::isFounder() ? '' : ' disabled title="Only the Founder answers a Tier 3 decision, signed in with the Founder\'s own login (decisions/0179). It\'s in the daily summary for them."';
++        $no = Access::isFounder() ? '' : ' disabled title="Only the Founder gives a Founder ruling, signed in with the Founder\'s own login (decisions/0179). It\'s in the daily summary for them."';
+         $lab = fn ($x) => 'Choose ' . strtoupper($x) . ($rec === $x ? ' (recommended)' : '');
+         $order = $rec === 'b' ? ['b', 'a'] : ['a', 'b'];
+         $h .= '<div class="wqp-ans">' . implode('', array_map(fn ($x) => '<button type="button" class="cbg-b cbg-sm cbg-o" data-wqp="ans" data-a="' . $x . '"' . $no . '>' . $e($lab($x)) . '</button>', $order))
+@@ -1520,7 +1520,7 @@
+ /**
+  * Today's batch (decisions/0179 rule 1; Piece 2, P2-5; piece2-team.md §4.4): the session manager's daily summary as it wrote it
+  * (gauges.json's "batch", from its file), each release with what it changes, why, its decision, its checks on staging and its
+- * way back, and the tickets it serves; the Tier 3 decisions waiting are counted with it. Approve the batch is the Founder's,
++ * way back, and the tickets it serves; the Founder rulings waiting are counted with it. Approve the batch is the Founder's,
+  * recorded as an approval (GaugeTasks::approve, kind batch) that reaches the session manager in the hourly report. Shown only
+  * when there's a batch or a decision waiting.
+  */
+@@ -1533,7 +1533,7 @@
+     $live = $lines ? ControlGauges::batchLive($pdo, $lines) : []; $allLive = $lines && count($live) === count($lines);   // approved in chat and sent: it says so, never Approve again
+     $head = ($b ? ($allLive ? 'Every release in it is live' : ($lines ? (count($lines) - count($live)) . ' release' . (count($lines) - count($live) === 1 ? '' : 's') . ' waiting for your OK' : 'No releases waiting')) : 'No batch from the session manager today') . ($wait ? ' · ' . $wait . ' decision' . ($wait === 1 ? '' : 's') . ' waiting for you' : '');
+     $h = '<div class="wq-batch"><p data-tv-status="' . ($allLive && !$wait ? 'ok' : ($lines || $wait ? 'bad' : 'info')) . '" data-tv-keep data-tv-label="' . ($date !== '' && $date !== gmdate('Y-m-d') ? 'The latest batch' : 'Today\'s batch') . ($date !== '' ? ' (' . $e(date('M j', (int) strtotime($date))) . ')' : '') . ':">' . $e($head) . '</p>';   // it carries the day's tasks: no × (CLAUDE.md, lines that carry tasks)
+-    if ($waits) {   // the Tier 3 decisions waiting for the Founder, first (decisions/0179: Tier 3 always comes to them)
++    if ($waits) {   // the Founder rulings waiting, first (decisions/0180: Tier 5 always comes to the Founder)
+         $h .= '<ul class="wq-bl wq-bw">';
+         foreach ($waits as $t) $h .= '<li><b>Decision for you</b> · <a href="#wq-' . (int) $t['id'] . '" class="wq-btk">#' . (int) $t['id'] . '</a> ' . $e((string) $t['what']) . '</li>';
+         $h .= '</ul>';
+@@ -1590,7 +1590,7 @@
+     if (!is_file(__DIR__ . '/../lib/TeamRunner.php')) return $h;
+     require_once __DIR__ . '/../lib/TeamRunner.php';
+     $runs = TeamRunner::runs($pdo, (int) $r['id']); if (!$runs) return $h;
+-    $names = []; foreach (TeamRoster::all($pdo) as $x) $names[$x['slug']] = $x['name'];
++    $names = TeamRoster::names($pdo);   // retired roles too: a past run still names who did it
+     $h .= '<h4 class="wqp-h">The Team\'s runs <small>on staging · each one step, logged</small></h4><ol class="wqp-runs">';
+     foreach ($runs as $u) {
+         $at = '<time datetime="' . $e(gmdate('c', (int) strtotime($u['at'] . ' UTC'))) . '" data-tv-time>' . $e(gmdate('M j, H:i', (int) strtotime($u['at'] . ' UTC'))) . ' UTC</time>';
+@@ -1630,7 +1630,7 @@
+     $pill = ['open' => ['Open', 'n'], 'taken' => ['Taken', 'a'], 'fixing' => ['Being fixed', 'r'], 'late' => ['Late', 'late'], 'done' => ['Done', 'g'], 'withdrawn' => ['Withdrawn', 'w'], 'waiting' => ['Waiting for you', 'late']][$st];
+     $when = fn ($d, $tz = '') => '<time datetime="' . $e(gmdate('c', (int) strtotime($d . ' UTC'))) . '" data-tv-time' . ($tz !== '' ? ' data-tz="' . $e($tz) . '"' : '') . '>' . $e(gmdate('M j, H:i', (int) strtotime($d . ' UTC'))) . ' UTC</time>';
+     $what = (string) ($r['what'] !== '' ? $r['what'] : $r['item']);
+-    $line = ['waiting' => 'A Tier 3 decision only the Founder makes. Answer below, or in reply to the daily summary.', 'open' => 'Nobody has it yet.', 'late' => 'Nobody has taken it, over a day old.', 'taken' => 'With ' . $e((string) ($q['owner_now'] ?? '')) . '.',
++    $line = ['waiting' => 'A Founder ruling (Tier 5) only the Founder gives. Answer below, or in reply to the daily summary.', 'open' => 'Nobody has it yet.', 'late' => 'Nobody has taken it, over a day old.', 'taken' => 'With ' . $e((string) ($q['owner_now'] ?? '')) . '.',
+         'fixing' => 'Being fixed in <b>' . $e((string) ($q['rel_now'] ?? '')) . '</b>. Done by itself when that release is live.',
+         'done' => $e((string) ($r['done_how'] ?: 'Done')) . ($r['cleared_at'] ? ', ' . $when((string) $r['cleared_at']) : '') . '.',
+         'withdrawn' => $e((string) $r['done_how']) . ($r['undone_at'] ? ', ' . $when((string) $r['undone_at']) : '') . '.'][$st];
+@@ -1697,14 +1697,14 @@
+     try { $q = ControlGauges::queueGauge($pdo); } catch (Throwable $x) {
+         return '<section class="ak-card tv-bleed cb-box" id="cb-wq"><h3 class="cb-title">Work queue</h3><p data-tv-status="bad" data-tv-label="Couldn\'t read the queue:">' . $e($x->getMessage()) . ' Reload the page to try again.</p></section>'; }
+     $c = $q['counts']; $tasks = $q['tasks']; $places = tv_cb_wq_places($pdo, $tasks);
+-    $order = ['waiting' => -1, 'late' => 0, 'open' => 1, 'taken' => 2, 'fixing' => 3, 'done' => 4, 'withdrawn' => 5];   // a Tier 3 waiting for the Founder first (Piece 2)
++    $order = ['waiting' => -1, 'late' => 0, 'open' => 1, 'taken' => 2, 'fixing' => 3, 'done' => 4, 'withdrawn' => 5];   // a Founder ruling waiting first (Piece 2)
+     foreach ($tasks as &$tk) $tk['_gate'] = in_array($tk['state'], ['done', 'withdrawn'], true) ? [] : GaugeTasks::gate($pdo, $tk); unset($tk);
+     // what the Team's agents found and suggested (Jason, 2026-11-25: "The que should reflect the work that agents have found and suggested")
+     $GLOBALS['tv_wq_team'] = []; $sug = [];
+     if (is_file(__DIR__ . '/../lib/TeamRunner.php')) { require_once __DIR__ . '/../lib/TeamRunner.php';
+         try { $cl = TeamRunner::ceiling($pdo); $sug = TeamRunner::openSuggestions($pdo);
+-            foreach (TeamRunner::STEPS as $k => [$slug]) { if ($k === 'audit') continue; $ro = TeamRoster::bySlug($pdo, $slug); if (!$ro || $ro['status'] !== 'active') continue;
+-                $GLOBALS['tv_wq_team'][$slug] = [(string) $ro['name'], TeamRunner::STEP_AT[$k][$cl] === 'off' ? 'Waits for agents to work past ' . TeamRunner::CEILINGS[$cl][0] : '']; }
++            foreach (TeamRunner::STEPS as $k => [$slug, , $act, $def]) { if ($k === 'audit') continue; $d = TeamRoster::doer($pdo, $slug, $act, $def); if (!$d) continue; $ro = $d[0];   // a role on standby: the next active role above it (decisions/0180 §5)
++                $GLOBALS['tv_wq_team'][(string) $ro['slug']] = [(string) $ro['name'], TeamRunner::STEP_AT[$k][$cl] === 'off' ? 'Waits for agents to work past ' . TeamRunner::CEILINGS[$cl][0] : '']; }
+         } catch (Throwable $x) {} }
+     $types = []; foreach ($tasks as $x) $types[(int) $x['id']] = (string) ($x['ticket'] ?? '');
+     foreach ($tasks as &$tk) $tk['_agent'] = ['found' => ($tk['ticket'] ?? '') === 'audit' || ($types[(int) ($tk['parent_id'] ?? 0)] ?? '') === 'audit', 'sug' => $sug[(int) $tk['id']] ?? 0, 'flag' => (string) ($tk['flag'] ?? '') !== '']; unset($tk);
+@@ -1733,7 +1733,7 @@
+     foreach (GaugeTasks::STAGES['work'] as $k => [$nm]) $f[] = ['stage:' . $k, 'Work at ' . $nm, count(array_filter($active, fn ($t) => (string) ($t['stage'] ?? '') === $k))];
+     $f[] = ['agent:found', 'Found by agents', count(array_filter($active, fn ($t) => !empty($t['_agent']['found'])))];
+     $f[] = ['agent:suggest', 'Has suggestions', count(array_filter($active, fn ($t) => !empty($t['_agent']['sug'])))];
+-    $f[] = ['agent:flag', 'Words suggest Tier 3', count(array_filter($active, fn ($t) => !empty($t['_agent']['flag'])))];
++    $f[] = ['agent:flag', 'Words suggest a high-risk territory', count(array_filter($active, fn ($t) => !empty($t['_agent']['flag'])))];
+     $fmenu = implode('', array_map(fn ($x) => '<button type="button" role="menuitemradio" aria-checked="' . ($x[0] === 'all' ? 'true' : 'false') . '" data-wq-f="' . $x[0] . '">' . $e($x[1]) . ' <span>' . (int) $x[2] . '</span></button>', $f));
+     // Add a task: where (a gauge or an area), what, why, source (Jason's four fields, 2026-11-24)
+     $opts = ''; $grp = '';
+diff -ruN -x '*.png' r1base/root/app/admin/team-console.php r1/root/app/admin/team-console.php
+--- r1base/root/app/admin/team-console.php	2026-11-26 14:30:34.996093263 +0000
++++ r1/root/app/admin/team-console.php	2026-11-26 14:21:18.196234822 +0000
+@@ -2,7 +2,7 @@
+ // app/admin/team-console.php — System Configuration → Team's head (decisions/0179's Piece 2, P2-3; Jason, 2026-11-25: "The team
+ // decision tree is what I need to approve for agents to begin assuming full capacity"; 0179's note on how the Team's capacity
+ // grows): the decision tree in plain words, drawn from the runner's own constants (TeamRunner: STEPS, STEP_AT, CEILINGS,
+-// TIER3_AREAS, TIER3, TIER1), never written beside them; Approve the decision tree (the Founder's, tied to the rules'
++// TERRITORIES, TIER5_WORDS, TIER1; decisions/0180's five tiers), never written beside them; Approve the decision tree (the Founder's, tied to the rules'
+ // fingerprint, so a wording fix keeps it and a rule change clears it); "Agents work up to", Planning until the Founder raises
+ // it, one stage at a time, each raise shown with its evidence lines and their readings; Confirmation waits for Piece 3.
+ declare(strict_types=1);
+@@ -14,27 +14,29 @@
+     $e = fn ($s) => htmlspecialchars((string) $s, ENT_QUOTES);
+     try { TeamRunner::ensure($pdo); } catch (Throwable $x) { return ''; }
+     $tree = TeamRunner::treeApproval($pdo); $ceil = TeamRunner::ceiling($pdo); $founder = Access::isFounder();
+-    $noF = 'Only the Founder, signed in with the Founder\'s own staff login (decisions/0179)';
++    $noF = 'Only the Founder, signed in with the Founder\'s own staff login (decisions/0180 §2)';
+     $when = fn ($at, $tz = '') => $at ? '<time datetime="' . $e(gmdate('c', (int) strtotime($at . ' UTC'))) . '" data-tv-time' . ($tz !== '' ? ' data-tz="' . $e($tz) . '"' : '') . '>' . $e(gmdate('M j, H:i', (int) strtotime($at . ' UTC'))) . ' UTC</time>' : '';
+     $roles = []; foreach (TeamRoster::all($pdo) as $r) $roles[$r['slug']] = $r;
+     $mode = ['act' => 'acts', 'propose' => 'proposes, a person accepts', 'off' => 'off'];
+     // the decision tree, from the constants
+-    $h = '<section class="ak-card tv-bleed tm-head" id="tm-tree"><h3 class="tm-h">The decision tree <small>what the Team may do alone, and what always comes to the Founder</small></h3>';
++    $h = '<section class="ak-card tv-bleed tm-head" id="tm-tree"><h3 class="tm-h">The decision tree <small>what the Team may do alone, and what comes to the Founder as a Founder ruling (decisions/0180)</small></h3>';
+     $h .= '<ol class="tm-tiers"><li><b>Tier 1:</b> only the low-risk kinds (' . $e(trim(str_replace(['/\b(', ')\b/i', '|', 's?'], ['', '', ', ', ''], TeamRunner::TIER1))) . '). The Team may do it. With rule 2 on, it goes live by itself once staging\'s checks and the before-and-after check pass; until then, in the batch the Founder approves.</li>'
+-        . '<li><b>Tier 2:</b> everything that isn\'t clearly Tier 1 or Tier 3. The Team may prepare it. With rule 2 on, it too goes live by itself once those checks pass (Jason, 2026-11-25); until then, in the batch.</li>'
+-        . '<li><b>Tier 3:</b> what touches a protected area. It always comes to the Founder as a Decision Brief:<ul class="tm-areas">';
+-    foreach (TeamRunner::TIER3_AREAS as $k => $a) {
++        . '<li><b>Tier 2:</b> standard operations: everything that isn\'t clearly Tier 1 and touches no high-risk territory. The Team may prepare it. With rule 2 on, it too goes live by itself once those checks pass (Jason, 2026-11-25); until then, in the batch.</li>'
++        . '<li><b>Tier 3:</b> middle-management triage: hand-offs between lanes, multi-file changes, diagnosis. The seven middle managers resolve it, run the Tier 2 work, or send it up. Their swimlanes come in the next release (R2).</li>'
++        . '<li><b>Tier 4:</b> the executive suite: reviews every change that touches a high-risk territory, and runs the Prior Ruling Check before anything goes to the Founder. It comes in R3; until then such a change comes to the Founder.</li>'
++        . '<li><b>Tier 5 · Founder ruling:</b> a change to these rules, the tiers, a role\'s permissions or a fence; amending a decision or new policy; an irreversible act; a deadlock; real money moving (never autonomous). Until R3, also every change that touches a high-risk territory, as a 4-part Decision Brief:<ul class="tm-areas">';
++    foreach (TeamRunner::TERRITORIES as $k => $a) {
+         $parts = array_filter(['libraries ' . implode(', ', $a['libs']), $a['tables'] ? 'tables ' . implode(', ', $a['tables']) : '', $a['paths'] ? 'pages ' . implode(', ', $a['paths']) : '', $a['jobs'] ? 'jobs ' . implode(', ', $a['jobs']) : '', $a['services'] ? 'services ' . implode(', ', $a['services']) : '', !empty($a['sql']) ? 'a migration that ' . implode(', ', array_map('strtolower', $a['sql'])) . 's (one that only adds a table, column or index doesn\'t)' : ''], fn ($x) => $x !== '' && $x !== 'libraries ');
+         $h .= '<li><b>' . $e(GaugeTasks::BOUNDARIES[$k] ?? $k) . ':</b> ' . $e(implode('; ', $parts)) . '</li>';
+     }
+-    $h .= '</ul>Words alone (' . $e(implode(', ', array_keys(TeamRunner::TIER3))) . ' word lists) never make a finding Tier 3: they flag it Tier 2, "Words suggest a Tier 3 boundary: a person checks".</li></ol>';
++    $h .= '</ul>Words alone (' . $e(implode(', ', array_keys(TeamRunner::TIER5_WORDS))) . ' word lists) never make a finding a Founder ruling: they flag it Tier 2, "Words suggest a high-risk territory: a person checks".</li></ol>';
+     $h .= '<div class="tm-scroll"><table class="tm-t"><thead><tr><th>Role and step</th>'; foreach (TeamRunner::CEILINGS as $c) $h .= '<th>Up to ' . $e($c[0]) . '</th>'; $h .= '</tr></thead><tbody>';
+     foreach (TeamRunner::STEPS as $k => [$slug, $what]) {
+         $h .= '<tr><td><b>' . $e($roles[$slug]['name'] ?? $slug) . '</b><br><small>' . $e($what) . '</small></td>';
+         foreach (array_keys(TeamRunner::CEILINGS) as $c) $h .= '<td' . ($c === $ceil ? ' class="tm-now"' : '') . '>' . $e($mode[TeamRunner::STEP_AT[$k][$c]] . ($c === 'confirmation' && TeamRunner::STEP_AT[$k][$c] === 'act' ? '; Tier 1 and 2 publish alone' : '')) . '</td>';
+         $h .= '</tr>';
+     }
+-    $h .= '</tbody></table></div><p class="tm-note"><b>Spending:</b> each role may spend $' . number_format(0, 2) . ' a month: no step calls paid AI or an outside service (Q4 B), so each step costs $0. <b>Always the Founder\'s:</b> every Tier 3 answer, approving the daily batch, approving this tree, and raising how far agents work. Agents never work a ticket a person has, never take one themselves, never answer a Tier 3, never write over a person\'s words, and never call an outside service or paid AI.</p>';
++    $h .= '</tbody></table></div><p class="tm-note"><b>Spending:</b> each role may spend $' . number_format(0, 2) . ' a month: no step calls paid AI or an outside service (Q4 B), so each step costs $0. <b>Always the Founder\'s:</b> every Founder ruling (Tier 5), approving the daily batch, approving this tree, and raising how far agents work. Agents never work a ticket a person has, never take one themselves, never answer a Tier 3, never write over a person\'s words, and never call an outside service or paid AI.</p>';
+     $fp = substr(TeamRunner::fingerprint($pdo), 0, 12);
+     // what's the Founder's to press, in order (decisions/0179's notes, 2026-11-25 and 2026-11-26): only these start the agents
+     $steps = [['Approve the decision tree', (bool) $tree], ['Raise to Building', in_array($ceil, ['building', 'implementation', 'confirmation'], true)], ['Raise to Implementation', in_array($ceil, ['implementation', 'confirmation'], true)]];
+diff -ruN -x '*.png' r1base/root/app/admin/tools.php r1/root/app/admin/tools.php
+--- r1base/root/app/admin/tools.php	2026-11-26 14:30:34.997075363 +0000
++++ r1/root/app/admin/tools.php	2026-11-26 14:26:28.131228121 +0000
+@@ -2427,16 +2427,16 @@
+         'filters' => function (PDO $pdo) {
+             require_once __DIR__ . '/../lib/TeamRoster.php';
+             $c = TeamRoster::counts(TeamRoster::all($pdo));
+-            $d = ['' => 'Every department']; foreach (TeamRoster::DEPARTMENTS as $k => $v) $d[$k] = $v[0];
++            $d = ['' => 'Every layer']; foreach (TeamRoster::DEPARTMENTS as $k => $v) $d[$k] = $v[0];
+             $k = ['' => 'Every kind']; foreach (TeamRoster::KINDS as $kk => $v) $k[$kk] = $v[0];
+-            return [['show', 'Show', ['' => 'Working and advocates, standby folded (' . $c['all'] . ')', 'active' => 'Active only (' . $c['active'] . ')', 'standby' => 'On standby (' . $c['standby'] . ')', 'inactive' => 'Retired (' . $c['inactive'] . ')']],
+-                ['dept', 'Department', $d], ['kind', 'Kind', $k]];
++            return [['show', 'Show', ['' => 'Every role, by layer (' . $c['all'] . ')', 'active' => 'Active only (' . $c['active'] . ')', 'standby' => 'On standby (' . $c['standby'] . ')']],
++                ['dept', 'Layer', $d], ['kind', 'Kind', $k]];
+         },
+         'list' => function (PDO $pdo, array $q) {
+             require_once __DIR__ . '/../lib/TeamRoster.php';
+             $all = TeamRoster::all($pdo); $open = TeamRoster::openTickets($pdo);
+             $show = (string) ($q['show'] ?? ''); $dept = (string) ($q['dept'] ?? ''); $kind = (string) ($q['kind'] ?? ''); $t = mb_strtolower(trim((string) ($q['q'] ?? '')));
+-            $tone = ['active' => 'ok', 'standby' => 'info', 'inactive' => 'info'];
++            $tone = ['active' => 'ok', 'standby' => 'info'];
+             $row = function (array $r) use ($open, $tone): array {
+                 return ['id' => (int) $r['id'], 'ref' => (string) $r['slug'], 'name' => (string) $r['name'],
+                     'state' => ['tone' => $tone[$r['status']] ?? 'info', 'word' => TeamRoster::STATUSES[$r['status']][0] ?? $r['status']],
+@@ -2449,6 +2449,7 @@
+                 if ($dept !== '' && $r['department'] !== $dept) continue;
+                 if ($kind !== '' && $r['kind'] !== $kind) continue;
+                 if ($show !== '' && $r['status'] !== $show) continue;
++                if ($r['status'] === 'inactive') continue;   // a role decisions/0180 replaced: never listed (#1441)
+                 if ($t !== '' && !str_contains(mb_strtolower($r['name'] . ' ' . $r['mandate'] . ' ' . $r['stages']), $t)) continue;
+                 $keep[] = $r;
+             }
+@@ -2458,7 +2459,7 @@
+             foreach ($keep as $r) { if ($r['status'] === 'active') $groups[$r['department']][] = $row($r); else $standby[] = $row($r); }
+             foreach (TeamRoster::DEPARTMENTS as $k => [$nm, $what]) if (!empty($groups[$k]))
+                 $rows[] = ['id' => 'dept-' . $k, '_group' => ['label' => $nm, 'n' => count($groups[$k]), 'sub' => $k === 'advocates' ? 'Views only, each bound to a test account: they never act' : $what, 'rows' => $groups[$k]]];
+-            if ($standby) $rows[] = ['id' => 'standby', '_group' => ['label' => 'On standby and retired', 'n' => count($standby), 'sub' => 'Kept, not working: open one to make it active', 'rows' => $standby]];
++            if ($standby) $rows[] = ['id' => 'standby', '_group' => ['label' => 'On standby', 'n' => count($standby), 'sub' => 'Its work goes to the next active role above it: open one to make it active', 'rows' => $standby]];
+             return [$rows, count($rows), $counts];   // a group counts as one row for paging (table-standard §9)
+         },
+         'get' => function (PDO $pdo, int $id) {
+@@ -2478,25 +2479,24 @@
+             $steps = array_map(fn ($k) => TeamRunner::STEPS[$k][1] . ' (' . ['act' => 'acts', 'propose' => 'proposes; a person accepts', 'off' => 'off until agents work past ' . TeamRunner::CEILINGS[$cl][0]][TeamRunner::STEP_AT[$k][$cl]] . ')', $steps0);
+             $fields = [
+                 ['Status', (TeamRoster::STATUSES[$st][0] ?? $st) . ' · ' . lcfirst(TeamRoster::STATUSES[$st][1] ?? '')],
+-                ['Department', TeamRoster::DEPARTMENTS[$r['department']][0] ?? $r['department']],
++                ['Layer', TeamRoster::DEPARTMENTS[$r['department']][0] ?? (TeamRoster::OLD_DEPARTMENTS[$r['department']] ?? $r['department'])],
+                 ['Kind', (TeamRoster::KINDS[$r['kind']][0] ?? $r['kind']) . ' · ' . lcfirst(TeamRoster::KINDS[$r['kind']][1] ?? '')],
+                 ['Made of', TeamRoster::MADE_OF[$r['made_of']] ?? $r['made_of']],
+                 ['Mandate', (string) $r['mandate']],
+                 ['Works', (string) $r['stages']],
+                 ['Its steps', $isF || $adv ? '' : ($steps ? implode('; ', $steps) . ' (on staging only)' : 'None yet: the runner gives it no work until a step is written for it')],
+-                ['Acts as', TeamRoster::actsAs($r) . ($isF || $adv ? '' : ' (its permissions are only what Permissions gives that level and department)')],
+-                ['Highest tier alone', $isF ? 'Tier 3: the Founder answers Tier 3' : ($adv ? '' : 'Tier ' . (int) $r['tier_max'] . ' (Tier 3 always goes to the Founder, decisions/0179)')],
++                ['Acts as', TeamRoster::actsAs($r) . ($isF || $adv ? '' : ($r['acts_level'] === '' ? ' (only the Founder gives a role permissions, decisions/0180 §2)' : ' (its permissions are only what Permissions gives that level and department)'))],
++                ['Highest tier alone', $isF ? 'Tier 5 · Founder ruling: the Founder alone gives it' : ($adv ? '' : 'Tier ' . (int) $r['tier_max'] . ' (a Founder ruling, Tier 5, always goes to the Founder, decisions/0180)')],
+                 ['Test account', $test],
+                 ['Rules it works under', (string) $r['rules']],
+                 ['Reports to', ($b = TeamRoster::bySlug($pdo, (string) $r['reports_to'])) ? (string) $b['name'] : ''],
+-                ['In Jason\'s spec', $r['spec_no'] !== '' ? '#' . $r['spec_no'] : ''],
++                ['In decisions/0180', $r['spec_no'] !== '' ? (str_starts_with((string) $r['spec_no'], 'A') ? 'Advocate ' : 'Role #') . $r['spec_no'] : ''],
+             ];
+             $links = $adv ? [['Test accounts', '/admin/config/testaccounts']] : [['Permissions', '/admin/config/permissions']];
+             $back = [];
+-            if (!$isF) {
++            if (!$isF && $st !== 'inactive') {   // a retired role (one decisions/0180 replaced) is only a name for past tickets: no way to bring it back
+                 if ($st !== 'active') $back[] = ['key' => 'active', 'label' => 'Make active', 'go' => 'Make it active', 'asks' => [['why', 'Why (kept in its History)', 'input', '', null, 'optional']]];
+                 if ($st !== 'standby') $back[] = ['key' => 'standby', 'label' => 'Put on standby', 'go' => 'Put it on standby', 'asks' => [['why', 'Why (kept in its History)', 'input', '', null, 'optional']]];
+-                if ($st !== 'inactive') $back[] = ['key' => 'inactive', 'label' => 'Retire it', 'go' => 'Retire it', 'asks' => [['why', 'Why (kept in its History)', 'input', '', null, 'optional']]];
+             }
+             if ($r['slug'] === 'ops-reconciliation' && is_file(__DIR__ . '/../lib/TeamRunner.php')) {   // the audit, now (Piece 2, P2-4): staging only, its switch on
+                 require_once __DIR__ . '/../lib/TeamRunner.php'; $off = TeamRunner::blocked($pdo);
+@@ -2513,7 +2513,7 @@
+             require_once __DIR__ . '/../lib/TeamRoster.php';
+             $who = TeamRoster::whoName($pdo, $uid); $tz = (string) ($in['tz'] ?? '');
+             if ($key === 'edit') return TeamRoster::edit($pdo, $id, array_intersect_key($in, array_flip(['name', 'mandate', 'stages', 'rules'])), $who, $tz);
+-            if (in_array($key, ['active', 'standby', 'inactive'], true)) return TeamRoster::setStatus($pdo, $id, $key, $who, (string) ($in['why'] ?? ''), $tz);
++            if (in_array($key, ['active', 'standby'], true)) return TeamRoster::setStatus($pdo, $id, $key, $who, (string) ($in['why'] ?? ''), $tz);
+             if ($key === 'audit') { require_once __DIR__ . '/../lib/TeamRunner.php'; $b = TeamRunner::blocked($pdo); if ($b !== null) throw new InvalidArgumentException($b === 'live' ? 'The audit runs on the staging copy only.' : $b);
+                 return TeamRunner::audit($pdo, 'run now by ' . $who); }
+             throw new InvalidArgumentException('Unknown action.');
+diff -ruN -x '*.png' r1base/root/app/lib/ControlGauges.php r1/root/app/lib/ControlGauges.php
+--- r1base/root/app/lib/ControlGauges.php	2026-11-26 14:30:34.997543732 +0000
++++ r1/root/app/lib/ControlGauges.php	2026-11-26 14:22:06.171956050 +0000
+@@ -383,7 +383,7 @@
+         $pk = []; foreach ((array) (self::config($pdo)['pickups'] ?? []) as $id => $r) if (is_array($r) && (string) ($r[0] ?? '') !== '') $pk[(int) $id] = ['session' => (string) $r[0], 'release' => (string) ($r[1] ?? '')];
+         try { GaugeTasks::applyAnswers($pdo, (array) (self::config($pdo)['answers'] ?? [])); } catch (Throwable $x) {}   // the Founder's emailed answers, relayed (P2-5)
+         $q = GaugeTasks::queue($pdo, $pk); $c = GaugeTasks::counts($q);
+-        $active = $c['open'] + $c['taken'] + $c['fixing'] + $c['late'] + ($c['waiting'] ?? 0);   // a Tier 3 waiting for the Founder is open, and on time (Piece 2)
++        $active = $c['open'] + $c['taken'] + $c['fixing'] + $c['late'] + ($c['waiting'] ?? 0);   // a Founder ruling (Tier 5) waiting is open, and on time (Piece 2)
+         $reading = $active ? round(($active - $c['late']) / $active * 100, 1) : 100.0;
+         $text = $active ? ($active - $c['late']) . ' of ' . $active . ' on time' : 'Nothing open';
+         $apT = GaugeTasks::approvals($pdo)['rt:' . self::QUEUE['id']]['target'] ?? null;
+diff -ruN -x '*.png' r1base/root/app/lib/FounderMail.php r1/root/app/lib/FounderMail.php
+--- r1base/root/app/lib/FounderMail.php	2026-11-26 14:30:34.998069820 +0000
++++ r1/root/app/lib/FounderMail.php	2026-11-26 14:22:06.170993170 +0000
+@@ -4,7 +4,7 @@
+ // the system's own email, free), to the Founder alone (CommsSetup::founders: the active staff logins at the founder level),
+ // three things, each once:
+ //   - the daily batch waiting for its OK (ControlGauges::latestBatch: today's, or the latest not yet approved; decisions/0179 rule 1; P2-5): its lines and the link;
+-//   - a Tier 3 decision reaching "Waiting for you" (GaugeTasks::sendBrief): the brief, on its task's thread;
++//   - a Founder ruling (Tier 5, decisions/0180) reaching "Waiting for you" (GaugeTasks::sendBrief): the brief, on its task's thread;
+ //   - the session manager's messages, from releases/batch.json's "messages" (carried by gauges.py into gauges.json), each
+ //     by its id.
+ // What was sent is kept in founder_mail_sent (key, when), so nothing goes twice. Never from staging: the job doesn't run
+@@ -63,21 +63,21 @@
+             ? 'Emailed the Founder the batch of ' . $b['date'] . '.' : '';
+     }
+ 
+-    /** A Tier 3 decision now waiting for the Founder (GaugeTasks::sendBrief), once per ticket, on its thread task:<id>. */
++    /** A Founder ruling (Tier 5) now waiting for the Founder (GaugeTasks::sendBrief), once per ticket, on its thread task:<id>. */
+     public static function decision(PDO $pdo, int $id): string
+     {
+         require_once __DIR__ . '/GaugeTasks.php';
+         $t = GaugeTasks::task($pdo, $id); $b = GaugeTasks::brief($pdo, $id);
+         if (!$t || ($t['ticket'] ?? '') !== 'resolution' || ($t['stage'] ?? '') !== 'waiting' || !$b) return '';
+         $f = fn ($k) => trim((string) ($b[$k] ?? ''));
+-        $body = 'A Tier 3 decision waits for you: ' . $t['what'] . "\n\nWhy it needs you: " . $f('why_you')
++        $body = 'A Founder ruling (Tier 5) waits for you: ' . $t['what'] . "\n\nWhy it needs you: " . $f('why_you')
+             . "\n\nOption A: " . $f('a_text') . "\n  For: " . $f('a_pros') . "\n  Against: " . $f('a_cons')
+             . "\n\nOption B: " . $f('b_text') . "\n  For: " . $f('b_pros') . "\n  Against: " . $f('b_cons')
+             . ($f('recommend') !== '' ? "\n\nRecommended: Option " . strtoupper($f('recommend')) : '')
+             . ($f('delay_impact') !== '' ? "\n\nIf it waits: " . $f('delay_impact') : '') . ($f('cost') !== '' ? "\nCost: " . $f('cost') : '')
+             . "\n\nAnswer on its page: " . self::DEV . '#wq-' . $id . "\nOr reply to this email with A, B or your own words.";
+         return self::once($pdo, 'decision:' . $id, 'founder.decision', ['thread' => 'task:' . $id, 'url' => '/admin/config/control?tab=development#wq-' . $id],
+-            ['title' => 'Decision for you: ' . mb_substr((string) $t['what'], 0, 150), 'body' => $body]) ? 'Emailed the Founder task #' . $id . '\'s decision.' : '';
++            ['title' => 'Founder ruling for you: ' . mb_substr((string) $t['what'], 0, 150), 'body' => $body]) ? 'Emailed the Founder task #' . $id . '\'s decision.' : '';
+     }
+ 
+     /** The session manager's messages (gauges.json's "messages"), each id once. */
+diff -ruN -x '*.png' r1base/root/app/lib/GaugeTasks.php r1/root/app/lib/GaugeTasks.php
+--- r1base/root/app/lib/GaugeTasks.php	2026-11-26 14:30:34.997608439 +0000
++++ r1/root/app/lib/GaugeTasks.php	2026-11-26 14:20:25.702356366 +0000
+@@ -171,7 +171,7 @@
+             if ($r['cleared_at'] === null && $r['undone_at'] === null) $r = self::advance($pdo, $r, $rel, isset($live[$rel]) && $rel !== '');   // the stages the system moves by its own checks
+             $age = time() - (int) strtotime($r['at'] . ' UTC');
+             $state = $r['undone_at'] !== null ? 'withdrawn' : ($r['cleared_at'] !== null ? 'done' : ($rel !== '' ? 'fixing' : ($owner !== '' ? 'taken' : ($age > self::LATE_HOURS * 3600 ? 'late' : 'open'))));
+-            if ($state !== 'done' && $state !== 'withdrawn' && ($r['ticket'] ?? '') === 'resolution' && ($r['stage'] ?? '') === 'waiting') $state = 'waiting';   // a Tier 3 brief: waiting for Jason, whoever has it
++            if ($state !== 'done' && $state !== 'withdrawn' && ($r['ticket'] ?? '') === 'resolution' && ($r['stage'] ?? '') === 'waiting') $state = 'waiting';   // a Founder ruling's brief (Tier 5): waiting for Jason, whoever has it
+             $out[] = $r + ['state' => $state, 'owner_now' => $owner, 'rel_now' => $rel, 'task' => $r['bucket'] === 'task'];
+         }
+         return $out;
+@@ -428,7 +428,7 @@
+     public const TICKETS = [
+         'work' => ['Work', 'Something to build or change: Planning, Building, Implementation, Confirmation'],
+         'audit' => ['Audit', 'A finding from the daily health and drift audit: checked twice before it reaches anyone'],
+-        'resolution' => ['Resolution', 'A Tier 3 decision only the Founder makes, as a Decision Brief'],
++        'resolution' => ['Resolution', 'A Founder ruling (Tier 5): only the Founder decides it, as a 4-part Decision Brief'],
+     ];
+     /** Each type's stages in order: key => [name, what moves it on]. */
+     public const STAGES = [
+@@ -439,11 +439,11 @@
+         'resolution' => ['brief' => ['Brief', 'the decision, why it needs you, options A and B and the impact if delayed'], 'waiting' => ['Waiting for you', 'the Founder\'s answer'],
+                          'decided' => ['Decided', 'its precedent recorded']],
+     ];
+-    /** The Tier 3 boundaries (decisions/0179 rule 3): key => words. */
++    /** The high-risk territories (decisions/0180 §4; TeamRunner::TERRITORIES finds them in the code): key => words. */
+     public const BOUNDARIES = ['money' => 'Money, billing, refunds above the threshold, contracts', 'data' => 'Deleting or reshaping major data', 'address' => 'Changing public addresses',
+         'nations' => 'Tribal nations\' land and sensitive sites (0066)', 'privacy' => 'Privacy', 'mission' => 'The mission\'s boundaries', 'deadlock' => 'A real deadlock between valid priorities'];
+     /** A brief's fields: key => [label, required to send]. */
+-    public const BRIEF = ['decision' => ['The Decision', true], 'why_you' => ['Why it needs you', true], 'boundary' => ['Its Tier 3 boundary', true],
++    public const BRIEF = ['decision' => ['The Decision', true], 'why_you' => ['Why it needs you', true], 'boundary' => ['Its high-risk territory', true],
+         'a_text' => ['Option A', true], 'a_pros' => ['A: pros', true], 'a_cons' => ['A: cons', true], 'b_text' => ['Option B', true], 'b_pros' => ['B: pros', true], 'b_cons' => ['B: cons', true],
+         'recommend' => ['Recommended', true], 'delay_impact' => ['Impact if delayed', true], 'cost' => ['Cost', false]];
+ 
+@@ -573,7 +573,7 @@
+         if (!isset(self::BRIEF[$field])) throw new RuntimeException('That isn\'t part of a brief.');
+         if ((string) $r['stage'] !== 'brief') throw new RuntimeException('It\'s with the Founder: move it back to Brief (✎) to change the brief.');
+         $v = trim(str_replace("\r", '', $value));
+-        if ($field === 'boundary' && $v !== '' && !isset(self::BOUNDARIES[$v])) throw new RuntimeException('Choose one of the Tier 3 boundaries (decisions/0179).');
++        if ($field === 'boundary' && $v !== '' && !isset(self::BOUNDARIES[$v])) throw new RuntimeException('Choose one of the high-risk territories (decisions/0180 §4).');
+         if ($field === 'recommend' && $v !== '' && !in_array($v, ['a', 'b'], true)) throw new RuntimeException('Recommend A or B.');
+         $b = self::brief($pdo, $id);
+         if (!$b) { $pdo->prepare('INSERT INTO control_gauge_task_briefs (task_id) VALUES (?)')->execute([$id]); $b = self::brief($pdo, $id); }
+@@ -618,7 +618,7 @@
+         }
+         self::setStage($pdo, $r, 'decided', $who, 'answered ' . mb_substr($say, 0, 200), $tz);
+         $pid = self::add($pdo, (string) $r['gauge'], 'Record the precedent of task #' . $id . ': ' . mb_substr((string) $r['what'], 0, 300),
+-            'The Founder decided ' . mb_substr($say, 0, 300) . '. A resolved Tier 3 becomes standing precedent: a note in the decision it touches (or a new one) and a CLAUDE.md line where it changes how sessions work (decisions/0179 rule 4).',
++            'The Founder decided ' . mb_substr($say, 0, 300) . '. A Founder ruling becomes standing precedent: a note in the decision it touches (or a new one) and a CLAUDE.md line where it changes how sessions work (decisions/0179 rule 4).',
+             'Task #' . $id . ' (Resolution)', $who, 0, $tz, 'work', $id);
+         $pdo->prepare('UPDATE control_gauge_tasks SET priority = 1 WHERE id = ?')->execute([$pid]);
+         return 'Decided: ' . $say . '. Task #' . $pid . ' records it as precedent; this one closes when that\'s done.';
+@@ -639,21 +639,21 @@
+         return $id;
+     }
+ 
+-    /** Its second look found it still there: Found → Confirmed, and the Work (Tier 1–2) or Resolution (Tier 3) ticket it calls for. */
++    /** Its second look found it still there: Found → Confirmed, and the Work (Tier 1–2) or Resolution (Tier 5 · Founder ruling) ticket it calls for. */
+     public static function auditConfirm(PDO $pdo, int $id, string $who, string $tz = ''): int
+     {
+         $r = self::open($pdo, $id); if (($r['ticket'] ?? '') !== 'audit') throw new RuntimeException('Only an Audit ticket is confirmed by the audit.');
+         self::setStage($pdo, $r, 'confirmed', $who, 'still there on its second look', $tz);
+         $tier = (int) ($r['tier'] ?? 2);
+-        $child = self::add($pdo, (string) $r['gauge'], ($tier === 3 ? 'Decide: ' : 'Fix: ') . (string) $r['what'], 'Confirmed by the daily audit (task #' . $id . ', Tier ' . $tier . '): ' . (string) $r['why'], 'task #' . $id . ' (Audit)', $who, 0, $tz, $tier === 3 ? 'resolution' : 'work', $id);
++        $child = self::add($pdo, (string) $r['gauge'], ($tier === 5 ? 'Decide: ' : 'Fix: ') . (string) $r['what'], 'Confirmed by the daily audit (task #' . $id . ', Tier ' . $tier . '): ' . (string) $r['why'], 'task #' . $id . ' (Audit)', $who, 0, $tz, $tier === 5 ? 'resolution' : 'work', $id);
+         $pdo->prepare('UPDATE control_gauge_tasks SET tier = ? WHERE id = ?')->execute([$tier, $child]);
+         if ((string) ($r['flag'] ?? '') !== '') self::flag($pdo, $child, (string) $r['flag']);   // the flag goes with it, for a person to check
+         return $child;
+     }
+ 
+     /**
+-     * Words suggest a Tier 3 boundary (TeamRunner::tier, P2-4): the area's key on the ticket, so its row says "a person checks"
+-     * and the filter counts it. A person settles it by its tier: a ticket they raise to Tier 3 or keep at 2. The column is added by
++     * Words suggest a high-risk territory (TeamRunner::tier, P2-4): its key on the ticket, so its row says "a person checks"
++     * and the filter counts it. A person settles it by its tier: a ticket they raise to a Founder ruling (Tier 5) or keep at 2. The column is added by
+      * 2026-11-25_team_flag.sql; before it's there, nothing is written.
+      */
+     public static function flag(PDO $pdo, int $id, string $area): void
+@@ -663,24 +663,24 @@
+     }
+ 
+     /**
+-     * A person checks the flag (P2-4): "It's Tier 2" clears it, the ticket as it was; "It's Tier 3" makes it Tier 3, so an Audit
++     * A person checks the flag (P2-4): "It's Tier 2" clears it, the ticket as it was; "It's a Founder ruling" makes it Tier 5, so an Audit
+      * still at Found opens a Resolution when it's confirmed, and a Work ticket opens its Resolution now ("Decide: …", its
+      * child), the Work ticket waiting on it. Each is a History line; a flag that's gone says so.
+      */
+-    public static function settleFlag(PDO $pdo, int $id, bool $tier3, string $who, string $tz = ''): string
++    public static function settleFlag(PDO $pdo, int $id, bool $tier5, string $who, string $tz = ''): string
+     {
+         $r = self::open($pdo, $id); $fl = (string) ($r['flag'] ?? '');
+         if ($fl === '') return 'Already checked: task #' . $id . ' has no flag.';
+         $area = self::BOUNDARIES[$fl] ?? $fl;
+-        $pdo->prepare("UPDATE control_gauge_tasks SET flag = '', tier = ? WHERE id = ?")->execute([$tier3 ? 3 : (int) ($r['tier'] ?? 2), $id]);
+-        if (!$tier3) { ControlLog::add($pdo, 'control', '', 'Task #' . $id . ' checked: Tier ' . (int) ($r['tier'] ?? 2) . ', not ' . $area . ' (the words only suggested it)', $who, '', $tz); return 'Checked: it stays Tier ' . (int) ($r['tier'] ?? 2) . '.'; }
+-        $msg = 'Checked: Tier 3 (' . $area . ').';
++        $pdo->prepare("UPDATE control_gauge_tasks SET flag = '', tier = ? WHERE id = ?")->execute([$tier5 ? 5 : (int) ($r['tier'] ?? 2), $id]);
++        if (!$tier5) { ControlLog::add($pdo, 'control', '', 'Task #' . $id . ' checked: Tier ' . (int) ($r['tier'] ?? 2) . ', not ' . $area . ' (the words only suggested it)', $who, '', $tz); return 'Checked: it stays Tier ' . (int) ($r['tier'] ?? 2) . '.'; }
++        $msg = 'Checked: a Founder ruling, Tier 5 (' . $area . ').';
+         if (($r['ticket'] ?? 'work') === 'work') {
+-            $c = self::add($pdo, (string) $r['gauge'], 'Decide: ' . (string) $r['what'], 'Tier 3 (' . $area . '), checked by ' . $who . ' on task #' . $id . ': ' . (string) $r['why'], 'task #' . $id . ' (Work)', $who, 0, $tz, 'resolution', $id);
+-            $pdo->prepare('UPDATE control_gauge_tasks SET tier = 3 WHERE id = ?')->execute([$c]);
++            $c = self::add($pdo, (string) $r['gauge'], 'Decide: ' . (string) $r['what'], 'Tier 5 · Founder ruling (' . $area . '), checked by ' . $who . ' on task #' . $id . ': ' . (string) $r['why'], 'task #' . $id . ' (Work)', $who, 0, $tz, 'resolution', $id);
++            $pdo->prepare('UPDATE control_gauge_tasks SET tier = 5 WHERE id = ?')->execute([$c]);
+             $msg .= ' Its Resolution is task #' . $c . ', for the Founder.';
+         }
+-        ControlLog::add($pdo, 'control', '', 'Task #' . $id . ' checked: Tier 3, ' . $area . ($msg !== '' ? ' · ' . $msg : ''), $who, '', $tz);
++        ControlLog::add($pdo, 'control', '', 'Task #' . $id . ' checked: Tier 5 · Founder ruling, ' . $area . ($msg !== '' ? ' · ' . $msg : ''), $who, '', $tz);
+         return $msg;
+     }
+ 
+diff -ruN -x '*.png' r1base/root/app/lib/Notify.php r1/root/app/lib/Notify.php
+--- r1base/root/app/lib/Notify.php	2026-11-26 14:30:35.062366465 +0000
++++ r1/root/app/lib/Notify.php	2026-11-26 14:22:06.171345842 +0000
+@@ -79,9 +79,9 @@
+         'biz.order'    => ['A Marketplace order for your business', 'An order or booking was placed, paid or changed by the buyer.', 'urgent', 'business', 'Your business', true, true, 'system', 'orders'],
+         'biz.comment'  => ['A comment on your listing', 'Someone commented on a listing you help run.', 'general', 'business', 'Your business', false, true, 'system', 'messages'],
+         // the Founder, from the site itself (Jason, 2026-11-25: "Can you use the system for emailing?"; FounderMail): the daily
+-        // batch, a Tier 3 decision waiting, the session manager's messages. Email on, and not one that can be turned off.
++        // batch, a Founder ruling (Tier 5) waiting, the session manager's messages. Email on, and not one that can be turned off.
+         'founder.batch'    => ['Today\'s batch for your OK', 'The releases waiting for your approval today (decisions/0179 rule 1), with the link to approve them.', 'alert', 'staff', 'Team', true, false, 'system', ''],
+-        'founder.decision' => ['A Tier 3 decision for you', 'A Decision Brief waiting for your answer (decisions/0179): the decision, why it needs you, the options and the recommendation.', 'urgent', 'staff', 'Team', true, false, 'system', ''],
++        'founder.decision' => ['A Founder ruling for you (Tier 5)', 'A 4-part Decision Brief waiting for your ruling (decisions/0180): the decision, why it needs you, the options and the recommendation.', 'urgent', 'staff', 'Team', true, false, 'system', ''],
+         'founder.message'  => ['A message from the session manager', 'What the session manager needs you to know or answer, sent by the site.', 'alert', 'staff', 'Team', true, false, 'system', ''],
+         // staging's own news to whoever pressed (2026-11-26: "Staging is refreshed" had gone to a staff login's hidden address):
+         // a fresh copy finished or stopped, a publish done or stopped (StagingSite::tellPerson)
+diff -ruN -x '*.png' r1base/root/app/lib/ReleaseKind.php r1/root/app/lib/ReleaseKind.php
+--- r1base/root/app/lib/ReleaseKind.php	2026-11-26 14:30:34.997914207 +0000
++++ r1/root/app/lib/ReleaseKind.php	2026-11-26 14:20:50.070266549 +0000
+@@ -3,14 +3,14 @@
+ // line, and its note "Piece 3's decisions"; handoffs/piece3-check.md §4, P3-3.) A release's release.json names its kind;
+ // this proves it on the server, where both copies are: each file the release brings (app/storage/releases/<id>/new/)
+ // against the copy live has now. A kind that isn't proved is "needs approval" (0179: "a release that is not clearly
+-// low-risk counts as needing approval"). Nothing that touches a Tier 3 area is ever low-risk (TeamRunner::touches).
++// low-risk counts as needing approval"). Nothing that touches a high-risk territory (decisions/0180 §4) is ever low-risk (TeamRunner::touches).
+ //   faq           only app/ui/faq.md; every question already there keeps its heading (the anchors, 0057)
+ //   wording       only words: in each changed PHP file the code is the same token for token, and each changed string or
+ //                 page text is a sentence whose tags, attributes, paths and SQL are the same
+ //   phone_layout  only CSS, and only inside @media (max-width: …) blocks for phones (767px or less, 0058 §11)
+ //   additive      0179's "safe additive": every changed file only gains lines; new migrations only CREATE TABLE IF NOT
+-//                 EXISTS or a guarded ADD COLUMN/INDEX (Jason, 2026-11-25: such a migration is safe additive, not Tier 3;
+-//                 one that UPDATEs, DELETEs, DROPs, MODIFYs or RENAMEs stays Tier 3, data); nothing a live caller uses is
++//                 EXISTS or a guarded ADD COLUMN/INDEX (Jason, 2026-11-25: such a migration is safe additive, Tier 2;
++//                 one that UPDATEs, DELETEs, DROPs, MODIFYs or RENAMEs is a high-risk territory, data, 0180 §4); nothing a live caller uses is
+ //                 changed or removed
+ //   data_fix      recognised; stays in the daily batch for now (Jason, DB3: "a row limit comes later, Jason's choice")
+ declare(strict_types=1);
+@@ -30,18 +30,18 @@
+         if (!isset(self::KINDS[$kind])) return $no('"' . mb_substr($kind, 0, 30) . '" isn\'t one of the low-risk kinds (0179 rule 2).');
+         if (!$files) return $no('It carries no files.');
+         if ($kind === 'data_fix') return $no('Data fixes stay in the daily batch for now (Jason, 2026-11-25: DB3).');
+-        if (($t3 = self::tier3(array_keys($files), $files)) !== '') return $no('It touches a Tier 3 area (' . $t3 . '): never low-risk.');
++        if (($t3 = self::territory(array_keys($files), $files)) !== '') return $no('It touches a high-risk territory (' . $t3 . '): never low-risk.');
+         $why = match ($kind) {
+             'faq' => self::faq($files),
+             'wording' => self::wording($files),
+             'phone_layout' => self::phone($files),
+             'additive' => self::additive($files),
+         };
+-        return $why === '' ? ['kind' => $kind, 'ok' => true, 'why' => 'Proved: ' . self::KINDS[$kind] . ', and nothing in a Tier 3 area.'] : $no($why);
++        return $why === '' ? ['kind' => $kind, 'ok' => true, 'why' => 'Proved: ' . self::KINDS[$kind] . ', and nothing in a high-risk territory.'] : $no($why);
+     }
+ 
+-    /** The Tier 3 area a release's files touch (its pages, libraries, migrations and their tables), or ''. */
+-    public static function tier3(array $paths, array $files = []): string
++    /** The high-risk territory a release's files touch (decisions/0180 §4: its pages, libraries, migrations and their tables), or ''. */
++    public static function territory(array $paths, array $files = []): string
+     {
+         require_once __DIR__ . '/TeamRunner.php';
+         $tg = [];
+@@ -49,7 +49,7 @@
+             if (str_starts_with($p, 'website/')) $tg[] = 'path:/' . substr($p, 8);
+             if (preg_match('#^app/lib/([A-Za-z]+)\.php$#', $p, $m)) $tg[] = 'lib:' . $m[1];
+             if (str_starts_with($p, 'app/migrations/')) {
+-                foreach (self::writes((string) ($files[$p][0] ?? '')) as $w) $tg[] = 'sql:' . $w;   // Tier 3 (data) by what it does
++                foreach (self::writes((string) ($files[$p][0] ?? '')) as $w) $tg[] = 'sql:' . $w;   // high-risk (data) by what it does
+                 if (preg_match_all('/\b(?:TABLE|INTO|UPDATE|FROM|JOIN)\s+(?:IF\s+(?:NOT\s+)?EXISTS\s+)?`?([a-z_0-9]+)`?/i', (string) ($files[$p][0] ?? ''), $mm)) foreach ($mm[1] as $t) $tg[] = 'table:' . strtolower($t);
+             }
+             if (str_starts_with($p, 'trvgo/')) $tg[] = 'path:' . $p;
+@@ -147,11 +147,11 @@
+         return (string) preg_replace('/\bON\s+(UPDATE|DELETE)\b|\bDUPLICATE\s+KEY\s+UPDATE\b/i', ' ', $sql);   // ON UPDATE CURRENT_TIMESTAMP, ON DELETE CASCADE
+     }
+ 
+-    /** The data-changing verbs a migration uses (TeamRunner::TIER3_AREAS' data "sql"), in its order; [] for CREATE TABLE IF NOT EXISTS or guarded ADDs alone. */
++    /** The data-changing verbs a migration uses (TeamRunner::TERRITORIES' data "sql"), in its order; [] for CREATE TABLE IF NOT EXISTS or guarded ADDs alone. */
+     public static function writes(string $sql): array
+     {
+         require_once __DIR__ . '/TeamRunner.php';
+-        $v = TeamRunner::TIER3_AREAS['data']['sql'];
++        $v = TeamRunner::TERRITORIES['data']['sql'];
+         return preg_match_all('/\b(' . implode('|', $v) . ')\b/i', self::bare($sql), $m) ? array_values(array_unique(array_map('strtoupper', $m[1]))) : [];
+     }
+ 
+diff -ruN -x '*.png' r1base/root/app/lib/Releases.php r1/root/app/lib/Releases.php
+--- r1base/root/app/lib/Releases.php	2026-11-26 14:30:35.057267016 +0000
++++ r1/root/app/lib/Releases.php	2026-11-26 14:21:01.019028106 +0000
+@@ -1386,12 +1386,23 @@
+         }
+         if (function_exists('opcache_reset')) @opcache_reset();
+         if ($r['switch_key'] !== '') self::switchTo($pdo, $r['switch_key'], 'off', 0, $uid, 'Release #' . $r['id'] . ': rolled back');
++        // a release whose migration changed data carries its way back (app/rollbacks/<name>.sql, the same name as the migration):
++        // run here, so the code put back reads the data it was written for (decisions/0180 R1: the stored tier 5 back to 3)
++        $undone = []; $undoFail = '';
++        foreach (array_keys($r['files']) as $p) {
++            if (!preg_match('#^app/rollbacks/[A-Za-z0-9_.-]+\.sql$#', $p)) continue;
++            $sql = @file_get_contents($dir . '/new/' . $p); if ($sql === false) { $undoFail = basename($p) . ' isn\'t in the release\'s copy'; break; }
++            try { require_once __DIR__ . '/DbUpdates.php'; foreach (DbUpdates::statements((string) $sql) as $q) $pdo->exec($q); $undone[] = basename($p); }
++            catch (Throwable $x) { $undoFail = basename($p) . ': ' . mb_substr($x->getMessage(), 0, 200); error_log('release #' . $r['id'] . ' rollback sql: ' . $x->getMessage()); break; }
++        }
+         $r['state'] = 'rolled_back'; $r['paused'] = 0;
+         // what its migrations made stays (they only add), recorded as left by this release (decisions/0162)
+         $migs = self::migrations($r); $left = [];
+         if ($migs) { try { require_once __DIR__ . '/SchemaUpkeep.php'; $left = SchemaUpkeep::recordLeftovers($pdo, $r, $migs, $dir . '/new/'); } catch (Throwable $x) { error_log('release leftovers: ' . $x->getMessage()); } }
+         $migNote = !$migs ? '' : ($left ? ' Its migrations stay (they only add); what they made is recorded as left by release #' . $r['id'] . ': ' . implode(', ', array_slice($left, 0, 6)) . (count($left) > 6 ? ' and ' . (count($left) - 6) . ' more' : '') . '. If it isn\'t sent again within ' . SchemaUpkeep::DUE_DAYS . ' days, removing them is proposed (Database updates lists them).'
+             : ' Its migrations stay (they only add); nothing they made is left to track.') . ' A copy of what they touched before they ran is on Database updates (14 days).';
++        if ($undone) $migNote .= ' Its data put back as it was (' . implode(', ', $undone) . ').';
++        if ($undoFail !== '') $migNote .= ' Its data couldn\'t be put back (' . $undoFail . '): a copy from before its migration is on Database updates.';
+         self::note($r, 'Rolled back: ' . $back . ' file' . ($back === 1 ? '' : 's') . ' put back to their previous copy, ' . $gone . ' new file' . ($gone === 1 ? '' : 's') . ' removed' . ($changed ? '; ' . count($changed) . ' had changed again since (' . implode(', ', array_slice($changed, 0, 3)) . ')' : '') . '.' . $migNote, $uid);
+         $c = self::checks($pdo, $r, 'live');
+         $r['checks'] = $c; $r['checks_ok'] = $c['ok'];
+@@ -1475,20 +1486,21 @@
+         $files = [];
+         foreach (array_keys($r['files']) as $p) { $new = @file_get_contents(self::dir((int) $r['id']) . '/new/' . $p); $old = is_file(self::liveRoot() . '/' . $p) ? @file_get_contents(self::liveRoot() . '/' . $p) : null; $files[$p] = [(string) $new, $old === false ? null : $old]; }
+         // Jason, 2026-11-25 (0179's note "Tier 2 publishes on its own once Piece 3 is live"): Tier 1 and Tier 2 both go live by
+-        // themselves once staging's checks and the advocates pass; only Tier 3 stops, and comes to the Founder as a Decision Brief.
+-        $t3 = ReleaseKind::tier3(array_keys($files), $files);
+-        if ($t3 !== '') { self::briefFor($pdo, $r, $t3); return 'it touches a Tier 3 area (' . $t3 . '): it waits for the Founder, as a Decision Brief in the Work queue.'; }
++        // themselves once staging's checks and the advocates pass; one that touches a high-risk territory stops (decisions/0180
++        // §4) and, until R3's Tier 4 review, comes to the Founder as a Decision Brief (a Founder ruling, Tier 5).
++        $t3 = ReleaseKind::territory(array_keys($files), $files);
++        if ($t3 !== '') { self::briefFor($pdo, $r, $t3); return 'it touches a high-risk territory (' . $t3 . '): it waits for a Founder ruling (Tier 5), as a Decision Brief in the Work queue.'; }
+         if ($kind === 'data_fix' || ReleaseKind::insertsRows($files)) return 'it changes data (a data fix): data fixes stay in the daily batch for now (Jason, 2026-11-25: DB3).';
+         $k = ReleaseKind::prove($kind, $files);
+         $ba = null; foreach ((array) ($r['checks']['items'] ?? []) as $i) if (($i[0] ?? '') === BeforeAfter::ITEM) $ba = $i[1];
+         if ($ba !== true) return 'it\'s ' . ($k['ok'] ? ReleaseKind::KINDS[$kind] . ' (Tier 1)' : 'Tier 2') . ', but the advocates haven\'t passed it (the before-and-after check).';
+         $r2 = (array) self::get($pdo, (int) $r['id']);
+-        self::note($r2, $k['ok'] ? 'Published alone (low-risk: ' . $kind . '): ' . $k['why'] : 'Published alone (Tier 2): it touches no Tier 3 area, and staging\'s checks and the advocates passed it.', 0);
++        self::note($r2, $k['ok'] ? 'Published alone (low-risk: ' . $kind . '): ' . $k['why'] : 'Published alone (Tier 2): it touches no high-risk territory, and staging\'s checks and the advocates passed it.', 0);
+         self::save($pdo, $r2);
+         return '';
+     }
+ 
+-    /** A Tier 3 release's Decision Brief (0179 rule 3): one Resolution ticket in the Work queue, once per release, for its brief to be written and the Founder to answer. */
++    /** A release that touches a high-risk territory: its Decision Brief for a Founder ruling (Tier 5, decisions/0180 §1): one Resolution ticket in the Work queue, once per release, for its brief to be written and the Founder to answer. */
+     private static function briefFor(PDO $pdo, array $r, string $area): void
+     {
+         $k = 'brief:' . (int) $r['id'];
+@@ -1496,17 +1508,17 @@
+         try {
+             require_once __DIR__ . '/GaugeTasks.php';
+             $id = GaugeTasks::add($pdo, 'area:backlog', mb_substr('Release #' . (int) $r['id'] . ' (' . ($r['title'] ?: $r['zip_name']) . ') touches ' . $area . ': your decision', 0, 250),
+-                'It passed staging but touches a Tier 3 area (' . $area . '), so it never goes live by itself (decisions/0179 rule 3). It stays on staging until you answer.',
++                'It passed staging but touches a high-risk territory (' . $area . '), so it never goes live by itself (decisions/0180 §4). It stays on staging until you give your ruling.',
+                 'Releases: release #' . (int) $r['id'] . ' on staging', 'the system', 0, '', 'resolution');
+             $pdo->prepare('REPLACE INTO site_release_settings (k, v) VALUES (?, ?)')->execute([$k, (string) $id]);
+-            $r2 = (array) self::get($pdo, (int) $r['id']); self::note($r2, 'Tier 3 (' . $area . '): waiting for the Founder, Decision Brief #' . $id . ' in the Work queue.', 0); self::save($pdo, $r2);
++            $r2 = (array) self::get($pdo, (int) $r['id']); self::note($r2, 'Tier 5 · Founder ruling (' . $area . '): waiting for the Founder, Decision Brief #' . $id . ' in the Work queue.', 0); self::save($pdo, $r2);
+         } catch (Throwable $e) { error_log('release #' . (int) $r['id'] . ' brief: ' . $e->getMessage()); }
+     }
+ 
+     /**
+      * An agent's release (release.json "team_ticket"; P3-6, decisions/0179's note "agents work on the backend first", Jason,
+      * 2026-11-26: "Let the backend release go live"): it publishes by itself only when the advocates passed it (the
+-     * before-and-after check, so never unchecked: off, or its day's minutes spent, it waits), nothing in it is Tier 3, and,
++     * before-and-after check, so never unchecked: off, or its day's minutes spent, it waits), nothing in it touches a high-risk territory, and,
+      * while the Team says Backend only, every file is backend (TeamRunner::backendFile, the live mirror's reach map). '' to go
+      * on (as any release, then rule 2); else why it waits for a person. Not an agent's release: ''.
+      */
+@@ -1519,12 +1531,12 @@
+         if ($ba !== true) return 'task #' . (int) $tk . '\'s build hasn\'t been passed by the advocates (the before-and-after check' . (BeforeAfter::on($pdo) ? '' : ' is off') . '), and an agent\'s release never goes live unchecked.';
+         $files = [];
+         foreach (array_keys($r['files']) as $p) { $new = @file_get_contents(self::dir((int) $r['id']) . '/new/' . $p); $old = is_file(self::liveRoot() . '/' . $p) ? @file_get_contents(self::liveRoot() . '/' . $p) : null; $files[$p] = [(string) $new, $old === false ? null : $old]; }
+-        if (($t3 = ReleaseKind::tier3(array_keys($files), $files)) !== '') return 'task #' . (int) $tk . '\'s build touches a Tier 3 area (' . $t3 . '): it comes to the Founder as a Decision Brief.';
++        if (($t3 = ReleaseKind::territory(array_keys($files), $files)) !== '') return 'task #' . (int) $tk . '\'s build touches a high-risk territory (' . $t3 . '): it comes to the Founder as a Decision Brief (Tier 5 · Founder ruling).';
+         if (TeamRunner::reach($pdo) === 'backend') {
+             $front = array_values(array_filter(array_keys($files), fn ($p) => !TeamRunner::backendFile($pdo, $p, $files[$p][1] === null, (string) $files[$p][0])));
+             if ($front) return 'task #' . (int) $tk . '\'s build reaches past the backend (' . mb_substr(implode(', ', $front), 0, 200) . ') while the Team says Backend only.';
+         }
+-        $r2 = (array) self::get($pdo, (int) $r['id']); self::note($r2, 'Published alone (agent, backend): task #' . (int) $tk . '\'s build, passed by the advocates, nothing in a Tier 3 area.', 0); self::save($pdo, $r2);
++        $r2 = (array) self::get($pdo, (int) $r['id']); self::note($r2, 'Published alone (agent, backend): task #' . (int) $tk . '\'s build, passed by the advocates, nothing in a high-risk territory.', 0); self::save($pdo, $r2);
+         return '';
+     }
+ 
+diff -ruN -x '*.png' r1base/root/app/lib/TeamRoster.php r1/root/app/lib/TeamRoster.php
+--- r1base/root/app/lib/TeamRoster.php	2026-11-26 14:30:35.016760921 +0000
++++ r1/root/app/lib/TeamRoster.php	2026-11-26 14:26:28.129600321 +0000
+@@ -16,16 +16,24 @@
+ 
+ final class TeamRoster
+ {
+-    /** The spec's four departments (jason-spec.md §11): key => [name, what it does]. */
++    /**
++     * The layers (decisions/0180 §5: 4 layers and 32 roles, plus the advocates beside them), kept in the department column:
++     * key => [name, what it does]. Piece 2's departments (leadership, operations, build) stay only on retired rows.
++     */
+     public const DEPARTMENTS = [
+-        'leadership' => ['Leadership', 'Vision, plain-English briefs, and the guards on simplicity, legal risk and the mission'],
+-        'operations' => ['Operations', 'Delivery, operations, finance, the historian and member support'],
+-        'build' => ['Build', 'Design, print, content, AI guides, engineering and QA'],
+-        'advocates' => ['Advocates', 'The audience: each bound to a test account, a view only'],
++        'founder' => ['Founder', 'Layer 1: strategic direction and the Founder rulings (Tier 5)'],
++        'executive' => ['Executive suite', 'Layer 2: guides Tier 3, reviews every change that touches a high-risk territory (Tier 4)'],
++        'managers' => ['Middle managers', 'Layer 3: one exclusive swimlane each; triage between lanes (Tier 3)'],
++        'specialists' => ['Specialists', 'Layer 4: operational and guard specialists, within their lane (Tiers 1 and 2)'],
++        'advocates' => ['Advocates', 'Beside the layers: each bound to a test account, a view only'],
+     ];
++    /** Piece 2's departments, for a retired row's own card only (never a list or a filter). */
++    public const OLD_DEPARTMENTS = ['leadership' => 'Leadership', 'operations' => 'Operations', 'build' => 'Build'];
+     /** Kinds (Jason's requirement 3: "separates day-to-day operators from background keepers and auditors"). */
+     public const KINDS = [
+-        'founder' => ['Founder', 'The real login: answers Tier 3. Never an agent'],
++        'founder' => ['Founder', 'The real login: gives the Founder rulings (Tier 5). Never an agent'],
++        'executive' => ['Executive', 'Reviews Tier 4 and guides its lanes\' managers'],
++        'manager' => ['Manager', 'Owns one swimlane: every ticket routes to exactly one'],
+         'operator' => ['Operator', 'Day to day: moves work along the queue'],
+         'keeper' => ['Keeper', 'In the background: guards a rule or a record'],
+         'auditor' => ['Auditor', 'Checks: confirms work and runs the audit'],
+@@ -37,7 +45,7 @@
+     public const STATUSES = [
+         'active' => ['Active', 'Working: the runner can give it a step it has'],
+         'standby' => ['On standby', 'Kept, not working: Make active brings it back'],
+-        'inactive' => ['Retired', 'Kept for the record, not working: Make active brings it back'],
++        'inactive' => ['Retired', 'A role decisions/0180 replaced: kept only so past tickets and runs still name it; never shown or given work'],
+     ];
+ 
+     private static ?bool $ready = null;
+@@ -48,11 +56,42 @@
+         try { $pdo->query('SELECT 1 FROM team_roster LIMIT 0'); return self::$ready = true; } catch (Throwable) { return false; }
+     }
+ 
+-    /** Every role, in the roster's order. */
++    /**
++     * The Team as shown: the 32 roles and the 12 advocates, in the roster's order. A retired role (one decisions/0180 replaced)
++     * is never in a list, a filter or a count (Jason, 2026-11-26, #1441); get() and bySlug() still find it, so a past ticket or
++     * run still shows its name.
++     */
+     public static function all(PDO $pdo): array
+     {
+         if (!self::ready($pdo)) return [];
+-        return $pdo->query('SELECT * FROM team_roster ORDER BY sort, id')->fetchAll(PDO::FETCH_ASSOC);
++        return $pdo->query("SELECT * FROM team_roster WHERE status <> 'inactive' ORDER BY sort, id")->fetchAll(PDO::FETCH_ASSOC);
++    }
++
++    /** slug => name for every role, retired ones too (a past ticket or run still names who did it). */
++    public static function names(PDO $pdo): array
++    {
++        if (!self::ready($pdo)) return [];
++        $o = []; foreach ($pdo->query('SELECT slug, name FROM team_roster')->fetchAll(PDO::FETCH_ASSOC) as $r) $o[(string) $r['slug']] = (string) $r['name'];
++        return $o;
++    }
++
++    /**
++     * Who does a step whose role is $slug (decisions/0180 §5: "a role on standby is skipped upward: its work goes to the next
++     * active role above it, and if none is active, to the Founder"): the role itself when active; else the first active role up
++     * its reports-to line, passing over retired ones and, given the step's Access action, any role Permissions doesn't allow it
++     * (so a stand-in never runs a step it would only be refused). [the role row, the role it stands in for or '']; null when
++     * the line reaches the Founder, who is never an agent: the work waits for a person, nothing is dropped.
++     */
++    public static function doer(PDO $pdo, string $slug, string $action = '', array $default = ['min' => 'staff', 'depts' => []]): ?array
++    {
++        $seen = []; $r = self::bySlug($pdo, $slug); $for = $r ? (string) $r['name'] : $slug;
++        while ($r && !isset($seen[$r['slug']])) {
++            $seen[$r['slug']] = true;
++            if ($r['kind'] === 'founder') return null;
++            if ($r['status'] === 'active' && ($r['slug'] === $slug || $action === '' || self::can($r, $action, $default)[0])) return [$r, $r['slug'] === $slug ? '' : $for];
++            $r = (string) $r['reports_to'] !== '' ? self::bySlug($pdo, (string) $r['reports_to']) : null;
++        }
++        return null;
+     }
+ 
+     public static function get(PDO $pdo, int $id): ?array
+@@ -69,11 +108,11 @@
+         return $st->fetch(PDO::FETCH_ASSOC) ?: null;
+     }
+ 
+-    /** "Staff · Operations", or "views only" for an advocate, "the real login" for the Founder. */
++    /** "Staff · Operations", or "views only" for an advocate, "the real login" for the Founder, "No permissions yet" for a role with none. */
+     public static function actsAs(array $r): string
+     {
+         if ($r['kind'] === 'founder') return 'the real login';
+-        if ($r['acts_level'] === '') return 'views only';
++        if ($r['acts_level'] === '') return $r['kind'] === 'advocate' ? 'views only' : 'No permissions yet';
+         require_once __DIR__ . '/../admin/Access.php';
+         $lv = ['staff' => 'Staff', 'manager' => 'Manager', 'director' => 'Director', 'executive' => 'Executive'][$r['acts_level']] ?? ucfirst((string) $r['acts_level']);
+         return $lv . ($r['acts_dept'] !== '' ? ' · ' . (Access::DEPT_NAMES[$r['acts_dept']] ?? $r['acts_dept']) : '');
+@@ -83,7 +122,7 @@
+     public static function can(array $r, string $action, array $default = ['min' => 'staff', 'depts' => []]): array
+     {
+         if ($r['status'] !== 'active') return [false, 'It\'s ' . strtolower(self::STATUSES[$r['status']][0] ?? $r['status']) . '.'];
+-        if ($r['kind'] === 'founder' || $r['kind'] === 'advocate' || $r['acts_level'] === '') return [false, $r['kind'] === 'founder' ? 'The Founder acts only when signed in, never as an agent.' : 'An advocate is a view only: it never acts.'];
++        if ($r['kind'] === 'founder' || $r['kind'] === 'advocate' || $r['acts_level'] === '') return [false, $r['kind'] === 'founder' ? 'The Founder acts only when signed in, never as an agent.' : ($r['kind'] === 'advocate' ? 'An advocate is a view only: it never acts.' : 'It has no permissions yet: only the Founder gives a role permissions (decisions/0180 §2).')];
+         require_once __DIR__ . '/../admin/Access.php';
+         return Access::canAs($action, (string) $r['acts_level'], (string) $r['acts_dept'], $default);
+     }
+@@ -116,12 +155,13 @@
+     public static function setStatus(PDO $pdo, int $id, string $status, string $who, string $why = '', string $tz = ''): string
+     {
+         $r = self::get($pdo, $id); if (!$r) throw new RuntimeException('That role isn\'t on the Team.');
+-        if (!isset(self::STATUSES[$status])) throw new RuntimeException('Choose Active, On standby or Retired.');
++        if (!in_array($status, ['active', 'standby'], true)) throw new RuntimeException('Choose Active or On standby (Retired is only for the roles decisions/0180 replaced).');
++        if ($r['status'] === 'inactive') throw new RuntimeException('It\'s a role decisions/0180 replaced: kept only so past tickets name it.');
+         if ($r['kind'] === 'founder' && $status !== 'active') throw new RuntimeException('The Founder is always active: it\'s the real login.');
+         if ($status === $r['status']) return 'It\'s already ' . strtolower(self::STATUSES[$status][0]) . '.';
+         $pdo->prepare('UPDATE team_roster SET status = ?, updated_by = ?, updated_at = UTC_TIMESTAMP() WHERE id = ?')->execute([$status, mb_substr($who, 0, 80), $id]);
+         ControlLog::add($pdo, 'control', '', self::tag($r) . ': ' . strtolower(self::STATUSES[$r['status']][0]) . ' → ' . strtolower(self::STATUSES[$status][0]), $who, trim($why), $tz);
+-        return ['active' => 'Active. ', 'standby' => 'On standby: it does no work until it\'s made active again. ', 'inactive' => 'Retired: kept for the record, and it can be made active again. '][$status]
++        return ['active' => 'Active. ', 'standby' => 'On standby: its work goes to the next active role above it until it\'s made active again. '][$status]
+             . ($status === 'active' && !in_array($r['kind'], ['advocate', 'founder'], true) && !self::hasSteps($r) ? 'It has no steps yet, so the runner gives it no work until one is written.' : '');
+     }
+ 
+@@ -145,11 +185,12 @@
+         } catch (Throwable) { return []; }
+     }
+ 
+-    /** Counts for the page's line and the filter: working (active, not an advocate), advocates, on standby, retired. */
++    /** Counts for the page's line and the filter: working (active, not an advocate), advocates, on standby (retired roles are never counted). */
+     public static function counts(array $all): array
+     {
+         $c = ['working' => 0, 'advocates' => 0, 'standby' => 0, 'inactive' => 0, 'active' => 0, 'all' => count($all)];
+         foreach ($all as $r) {
++            if ($r['status'] === 'inactive') { $c['all']--; continue; }
+             if ($r['status'] === 'active') { $c['active']++; if ($r['kind'] === 'advocate') $c['advocates']++; else $c['working']++; }
+             elseif ($r['status'] === 'standby') $c['standby']++; else $c['inactive']++;
+         }
+diff -ruN -x '*.png' r1base/root/app/lib/TeamRunner.php r1/root/app/lib/TeamRunner.php
+--- r1base/root/app/lib/TeamRunner.php	2026-11-26 14:30:34.997963366 +0000
++++ r1/root/app/lib/TeamRunner.php	2026-11-26 14:24:35.895522936 +0000
+@@ -9,7 +9,8 @@
+ //   - Off until switched on: the switch team_runner (System Configuration → Switches, on staging).
+ //   - One run at a time (GET_LOCK), one step a run, a ticket at most once an hour.
+ //   - Never a ticket a person has (owner a person's name): only unowned ones, or ones a Team role has ("system · <role>").
+-//   - Never Tier 3: on a Resolution ticket it may only propose the brief's words; only the Founder answers (0179 rule 3).
++//   - Never a Founder ruling (Tier 5, decisions/0180 §1): on a Resolution ticket it may only propose the brief's words; only
++//     the Founder answers.
+ //   - Its permissions only through Access::canAs, for the role's level and department (TeamRoster::can); never test accounts.
+ //   - Internal first and free: every step here reads our own records and writes through the owning library. No step calls an
+ //     outside service or paid AI (Jason's Q4 B), so none asks StagingGate::hold() or AiClient::allow(); a paid step, if ever
+@@ -44,10 +45,10 @@
+     public const CEILINGS = [
+         'planning' => ['Planning', 'Agents only propose: the Project Manager says a ticket is ready for Building, the Translator suggests a brief\'s words, the audit opens tickets. A person accepts or dismisses each.'],
+         // Jason, 2026-11-25 (through the session manager): the Project Manager acts at Building and takes audit-raised tickets
+-        // itself; at Implementation the brief goes straight to a build session; at Confirmation, Tier 1 and 2 publish alone
++        // itself; at Implementation the brief goes straight to a build session; at Confirmation, Tier 1 and 2 publish alone (decisions/0180 §1)
+         'building' => ['Building', 'The Project Manager moves a ticket to Building once its gate passes, and takes the tickets the audit raised itself; a ticket a person entered still waits for Give it to the Team. The System Architect writes build briefs for the session manager.'],
+         'implementation' => ['Implementation', 'As Building, and the System Architect\'s build brief goes straight to a build session, through the report (build-requests.json).'],
+-        'confirmation' => ['Confirmation and safe publish', 'Agents act as at Implementation, and a release that touches no Tier 3 area publishes by itself once staging\'s checks and the advocates pass it (Tier 1 and Tier 2, rule 2); Tier 3 comes to the Founder as a Decision Brief.'],
++        'confirmation' => ['Confirmation and safe publish', 'Agents act as at Implementation, and a release that touches no high-risk territory publishes by itself once staging\'s checks and the advocates pass it (Tier 1 and Tier 2, rule 2); one that touches a territory comes to the Founder as a Decision Brief.'],
+     ];
+     /**
+      * How far Implementation reaches (P3-6, the fence; decisions/0179's note "agents work on the backend first", Jason,
+@@ -66,17 +67,18 @@
+         'audit' => ['planning' => 'act', 'building' => 'act', 'implementation' => 'act', 'confirmation' => 'act'],
+     ];
+     /**
+-     * Tier 3 by what a finding touches (decisions/0179's note, 2026-11-25: "detected by what a change or finding touches"), each
+-     * area from the code: its libraries, tables, page paths, jobs and services. Words are only a secondary flag (TIER3).
++     * The high-risk territories (decisions/0180 §4, which kept 0179's note: "detected by what a change or finding touches"), each
++     * from the code: its libraries, tables, page paths, jobs and services. Words are only a secondary flag (TIER5_WORDS). Until
++     * R3 brings the Tier 4 review (0180's rollout), a change that touches one waits for a Founder ruling (Tier 5), as before.
+      */
+-    public const TIER3_AREAS = [
++    public const TERRITORIES = [
+         'money' => ['libs' => ['QuickBooksPay', 'Billing', 'Orders', 'ClientOrders', 'Wallet', 'MarketPay', 'AccountDomains'],
+             'tables' => ['orders', 'order_lines', 'order_ledger', 'order_events', 'order_refund_requests', 'order_payment_cancels', 'subscriptions', 'subscription_charges', 'wallet_cards', 'account_domains', 'domain_cart', 'market_orders', 'market_pay_events'],
+             'paths' => ['/order.php', '/user/orders.php', '/market/cart.php', '/market/order.php', '/qr/cart.php', '/shop/domains.php', '/user/domains/', '/business/pay-connect.php', '/api/market-pay.php', '/api/market-webhook.php', '/api/qb-webhook.php', '/api/client-order.php', '/api/domains.php', '/api/admin/client-order.php', '/admin/order.php', '/admin/client-order.php', '/admin/quickbooks.php', '/admin/backoffice/orders', '/admin/backoffice/production'],
+             'jobs' => ['billing_tick', 'pay_wait_tick', 'qb_orders_tick', 'got_it_tick', 'market_tick'], 'services' => ['quickbooks', 'stripe', 'square']],
+-        // a migration is Tier 3 (data) by what it does, not by being one (Jason, 2026-11-25, through the session manager: CREATE
++        // a migration is high-risk (data) by what it does, not by being one (Jason, 2026-11-25, through the session manager: CREATE
+         // TABLE IF NOT EXISTS or a guarded ADD COLUMN/INDEX alone is 0179's safe additive; UPDATE, DELETE, DROP, MODIFY or
+-        // RENAME stays Tier 3; TRUNCATE deletes and CHANGE renames or modifies a column). ReleaseKind::writes() reads them.
++        // RENAME stays high-risk (0180 §4, item 2); TRUNCATE deletes and CHANGE renames or modifies a column). ReleaseKind::writes() reads them.
+         'data' => ['libs' => ['DataMove', 'DbUpdates', 'StagingPublish'], 'tables' => ['db_updates_log'], 'paths' => ['/admin/config/dbupdates'], 'jobs' => [], 'services' => [],
+             'sql' => ['UPDATE', 'DELETE', 'DROP', 'MODIFY', 'RENAME', 'TRUNCATE', 'CHANGE']],
+         'address' => ['libs' => [], 'tables' => ['short_codes', 'business_domains'], 'paths' => ['/.htaccess', '/admin/router.php', 'trvgo/index.php', 'trvgo/.htaccess', 'site-audit/pages.md'], 'jobs' => ['domains_tick'], 'services' => ['cloudflare', 'namecom', 'fly']],
+@@ -105,7 +107,7 @@
+     public static function ruleData(): array
+     {
+         $steps = []; foreach (self::STEPS as $k => [$role, , $action, $def]) $steps[$k] = [$role, $action, $def];
+-        return ['steps' => $steps, 'step_at' => self::STEP_AT, 'ceilings' => array_keys(self::CEILINGS), 'tier3_areas' => self::TIER3_AREAS, 'tier3_words' => self::TIER3, 'tier1_words' => self::TIER1, 'step_cost' => self::STEP_COST_MICROS];
++        return ['steps' => $steps, 'step_at' => self::STEP_AT, 'ceilings' => array_keys(self::CEILINGS), 'territories' => self::TERRITORIES, 'tier5_words' => self::TIER5_WORDS, 'tier1_words' => self::TIER1, 'step_cost' => self::STEP_COST_MICROS];
+     }
+     /** With $pdo, the reach setting joins the rules (P3-6: changing it clears the tree's approval). */
+     public static function fingerprint(?PDO $pdo = null): string { return hash('sha256', json_encode(self::ruleData() + ($pdo ? ['reach' => self::reach($pdo)] : []))); }
+@@ -319,17 +321,17 @@
+     /** A finding looks again after this many hours (piece2-team.md §6: "the next day's run checks it again"; the job runs daily). */
+     public const SECOND_LOOK_HOURS = 20;
+     /**
+-     * The tier rules (decisions/0179; piece2-team.md §6), on a finding's words: Tier 3 when it touches one of 0179 rule 3's
+-     * boundaries; Tier 1 when it's only the kinds rule 2 names as low-risk (wording, the FAQ, tests, the phone layout); Tier 2
+-     * otherwise (it still waits for the approved batch, 0179 rule 1). boundary => pattern.
++     * The tier rules (decisions/0180 §1, the five tiers; piece2-team.md §6), on a finding's words: a word about a high-risk
++     * territory only flags it for a person (Tier 5 comes by what it touches); Tier 1 when it's only the kinds 0179 rule 2 names
++     * as low-risk (wording, the FAQ, tests, the phone layout); Tier 2 otherwise. territory => pattern.
+      */
+-    public const TIER3 = [
++    public const TIER5_WORDS = [
+         'money' => '/\b(orders?|payments?|billing|invoices?|refunds?|charges?|charged|prices?|pricing|quickbooks|stripe|square|payouts?|subscriptions?)\b/i',
+         'data' => '/\b(delete|deleted|deletes|drop|dropped|migrations?|purge|purged|truncate|data loss|reshape)\b/i',
+         'address' => '/\b(routes?|urls?|redirects?|public address|404)\b/i',
+         'nations' => '/(\b0066\b|\bnations?\b|\btribal\b|\bsacred\b|\bburials?\b|archaeolog|landmark visibility|landmarks::)/i',
+         'privacy' => '/\b(privacy|private|personal|email address(es)?|phone numbers?|consent|is_test|leak)\b/i',
+-        // the two boundaries with no area in the code (0179 rule 3): a finding about them is always a word flag for a person
++        // the two territories with no area in the code (0180 §4, items 6 and 7): a finding about them is always a word flag for a person
+         'mission' => '/\b(mission|commission|zero-commission)\b/i',
+         'deadlock' => '/\b(deadlock(ed)?|conflicting decisions|decisions? (that )?(disagree|conflict|contradict)s?|contradicts? (decision|adr) ?\d{0,4})\b/i',
+     ];
+@@ -377,7 +379,7 @@
+     public static function pick(PDO $pdo): ?array
+     {
+         $roles = [];
+-        foreach (self::STEPS as $step => [$slug]) { if ($step === 'audit' || self::mode($pdo, $step) === 'off') continue; $r = TeamRoster::bySlug($pdo, $slug); if ($r && $r['status'] === 'active') $roles[$step] = $r; }   // a step off at this ceiling gets no work
++        foreach (self::STEPS as $step => [$slug, , $act, $def]) { if ($step === 'audit' || self::mode($pdo, $step) === 'off') continue; $d = TeamRoster::doer($pdo, $slug, $act, $def); if ($d) $roles[$step] = $d[0]; }   // a step off at this ceiling gets no work; a role on standby's step goes up its line (0180 §5)
+         if (!$roles) return null;
+         $recent = [];
+         try { $st = $pdo->prepare('SELECT DISTINCT task_id FROM team_runs WHERE at > UTC_TIMESTAMP() - INTERVAL ' . self::GAP_MINUTES . ' MINUTE'); $st->execute(); foreach ($st->fetchAll(PDO::FETCH_COLUMN) as $x) $recent[(int) $x] = true; } catch (Throwable $x) {}
+@@ -415,27 +417,28 @@
+     }
+ 
+     /**
+-     * [tier, boundary, flag] for a finding (0179's note, 2026-11-25: Tier 3 "detected by what a change or finding touches"). Its
+-     * targets come first: a page or file path (by its start), a job, a service, a library or a table named in TIER3_AREAS makes
+-     * it Tier 3 in that area. Words alone never do: a word in TIER3 leaves it Tier 2 with that area as its flag ("Words suggest a
+-     * Tier 3 boundary: a person checks"). Tier 1 only for the low-risk kinds (TIER1) with no flag; anything else Tier 2.
++     * [tier, territory, flag] for a finding (0180 §4: detected "by what a change or finding touches"). Its targets come first:
++     * a page or file path (by its start), a job, a service, a library or a table named in TERRITORIES makes it Tier 5 (a Founder
++     * ruling, until R3's Tier 4 review) in that territory. Words alone never do: a word in TIER5_WORDS leaves it Tier 2 with that
++     * territory as its flag ("Words suggest a high-risk territory: a person checks"). Tier 1 only for the low-risk kinds (TIER1)
++     * with no flag; anything else Tier 2.
+      * Targets: ['path:/order.php', 'job:billing_tick', 'svc:stripe', 'lib:Orders', 'table:orders'].
+      */
+     public static function tier(string $text, array $targets = []): array
+     {
+-        if ($b = self::touches($targets)) return [3, $b, ''];
+-        foreach (self::TIER3 as $b => $re) if (preg_match($re, $text)) return [2, '', $b];
++        if ($b = self::touches($targets)) return [5, $b, ''];
++        foreach (self::TIER5_WORDS as $b => $re) if (preg_match($re, $text)) return [2, '', $b];
+         return [preg_match(self::TIER1, $text) ? 1 : 2, '', ''];
+     }
+ 
+-    /** The Tier 3 area a finding's targets touch, or ''. */
++    /** The high-risk territory a finding's targets touch, or ''. */
+     public static function touches(array $targets): string
+     {
+         $kinds = ['path' => 'paths', 'job' => 'jobs', 'svc' => 'services', 'lib' => 'libs', 'table' => 'tables', 'sql' => 'sql'];
+         foreach ($targets as $tg) {
+             [$k, $v] = array_pad(explode(':', (string) $tg, 2), 2, ''); $v = trim($v); if ($v === '' || !isset($kinds[$k])) continue;
+             if ($k === 'path') { $v = (string) (parse_url($v, PHP_URL_PATH) ?? $v); $v = preg_replace('#^(website|sync-storage)/#', '/', $v); }
+-            foreach (self::TIER3_AREAS as $b => $a) foreach ($a[$kinds[$k]] ?? [] as $x) {
++            foreach (self::TERRITORIES as $b => $a) foreach ($a[$kinds[$k]] ?? [] as $x) {
+                 if ($k === 'path' ? ($v === $x || str_starts_with($v, $x) || str_starts_with(ltrim($v, '/'), ltrim($x, '/'))) : strcasecmp($v, $x) === 0) return $b;
+             }
+         }
+@@ -488,15 +491,16 @@
+ 
+     /**
+      * The daily audit (the Ops & Reconciliation Manager's step): each new finding opens one Audit ticket at Found; on its second
+-     * look a day later, one still there is Confirmed and opens the Work (Tier 1–2) or Resolution (Tier 3) ticket it calls for,
++     * look a day later, one still there is Confirmed and opens the Work (Tier 1–2) or Resolution (Tier 5 · Founder ruling) ticket it calls for,
+      * and one gone is cleared by its own check. Each ticket it opens is a run with Undo (withdraws it). Staging only, its switch on.
+      */
+     public static function audit(PDO $pdo, string $how = 'the daily run'): string
+     {
+         $why = self::blocked($pdo); if ($why === 'live') return ''; if ($why !== null) return $why;
+         self::ensure($pdo);
+-        $role = TeamRoster::bySlug($pdo, 'ops-reconciliation');
+-        if (!$role || $role['status'] !== 'active') return 'The Operations & Reconciliation Manager isn\'t active: no audit.';
++        $d = TeamRoster::doer($pdo, 'ops-reconciliation', self::STEPS['audit'][2], self::STEPS['audit'][3]);   // on standby, the next active role above it runs the audit (0180 §5)
++        if (!$d) return 'The Operations & Reconciliation Manager and every role above it are on standby: the audit waits for the Founder.';
++        $role = $d[0];
+         [, , $action, $def] = self::STEPS['audit'];
+         [$ok, $no] = TeamRoster::can($role, $action, $def);
+         if (!$ok) return self::log($pdo, $role, 0, 'audit', 'its permissions', '', 'refused', $no . ' (Permissions: ' . $action . ')');
+@@ -509,13 +513,13 @@
+                 if ($t['stage'] !== 'found' || time() - (int) strtotime($t['at'] . ' UTC') < self::SECOND_LOOK_HOURS * 3600) continue;
+                 if (!isset($now[$t['audit_key']])) { GaugeTasks::auditClear($pdo, (int) $t['id'], $who); $n['cleared']++; continue; }
+                 $c = GaugeTasks::auditConfirm($pdo, (int) $t['id'], $who); $n['confirmed']++;
+-                self::log($pdo, $role, $c, 'audit', 'its second look at task #' . $t['id'], 'Confirmed task #' . $t['id'] . ' and opened this ' . ((int) $t['tier'] === 3 ? 'Resolution' : 'Work') . ' ticket (Tier ' . (int) $t['tier'] . ')', 'done', '', null, 'Withdraws this ticket', ['withdraw' => $c], 'task:' . $c);
++                self::log($pdo, $role, $c, 'audit', 'its second look at task #' . $t['id'], 'Confirmed task #' . $t['id'] . ' and opened this ' . ((int) $t['tier'] === 5 ? 'Resolution' : 'Work') . ' ticket (Tier ' . (int) $t['tier'] . ')', 'done', '', null, 'Withdraws this ticket', ['withdraw' => $c], 'task:' . $c);
+             }
+             foreach ($now as $k => $fd) {   // a new finding
+                 [$what, $words] = $fd; $tg = (array) ($fd[2] ?? []);
+                 if (isset($have[$k])) continue;
+                 [$tier, $b, $flag] = self::tier($what . ' ' . $words, $tg);
+-                $id = GaugeTasks::auditOpen($pdo, $k, $what, $words . ($b !== '' ? ' (Tier 3: ' . GaugeTasks::BOUNDARIES[$b] . ', by what it touches)' : ''), $tier, $who, '', $flag);
++                $id = GaugeTasks::auditOpen($pdo, $k, $what, $words . ($b !== '' ? ' (Tier 5 · Founder ruling: ' . GaugeTasks::BOUNDARIES[$b] . ', by what it touches)' : ''), $tier, $who, '', $flag);
+                 self::log($pdo, $role, $id, 'audit', $k . ($tg ? ' · touches ' . implode(', ', $tg) : ''), 'Found: ' . $what . ' (Tier ' . $tier . ($flag !== '' ? ', words suggest ' . (GaugeTasks::BOUNDARIES[$flag] ?? $flag) . ': a person checks' : '') . '); it\'s looked at again tomorrow', 'done', '', null, 'Withdraws this ticket', ['withdraw' => $id], 'task:' . $id);
+                 $n['opened']++;
+             }
+@@ -576,7 +580,7 @@
+         $adr = array_values(array_filter(GaugeTasks::adrs($pdo, (int) $t['id']), fn ($a) => $a['adr'] !== 'none'));
+         if (trim((string) ($b['why_you'] ?? '')) === '' && ($bd !== '' || $adr)) {
+             $all = $adr ? GaugeTasks::decisions() : [];
+-            $out['why_you'] = trim(($bd !== '' ? 'It crosses a Tier 3 line only the Founder decides (decisions/0179 rule 3): ' . lcfirst(GaugeTasks::BOUNDARIES[$bd] ?? $bd) . '.' : '')
++            $out['why_you'] = trim(($bd !== '' ? 'It needs a Founder ruling (Tier 5, decisions/0180 §3): it touches a high-risk territory, ' . lcfirst(GaugeTasks::BOUNDARIES[$bd] ?? $bd) . '.' : '')
+                 . ($adr ? ' It rests on ' . implode('; ', array_map(fn ($a) => $a['adr'] . ' (' . ($all[$a['adr']]['title'] ?? 'not in the list') . ')', $adr)) . '.' : ''));
+         }
+         return $out;
+diff -ruN -x '*.png' r1base/root/app/migrations/2026-11-26_0180_tiers_roster.sql r1/root/app/migrations/2026-11-26_0180_tiers_roster.sql
+--- r1base/root/app/migrations/2026-11-26_0180_tiers_roster.sql	1970-01-01 00:00:00.000000000 +0000
++++ r1/root/app/migrations/2026-11-26_0180_tiers_roster.sql	2026-11-26 14:23:55.358160310 +0000
+@@ -0,0 +1,92 @@
++-- decisions/0180 R1 (rename and roster). Written by handoffs/r1-tiers/rostergen.py. Safe to run twice.
++-- 1. The stored tier: 3 meant the Founder; it is 5 now (Tier 5 · Founder ruling, 0180 §1), one meaning per number.
++UPDATE control_gauge_tasks SET tier = 5 WHERE tier = 3;
++-- 2. The 32 roles: renamed in place where the name is still the seed's, then the layers, numbers, reporting lines and tiers.
++UPDATE team_roster SET name = 'Founder / Chair' WHERE slug = 'founder' AND name = 'Executive Lead & Founder';
++UPDATE team_roster SET department = 'founder', kind = 'founder', spec_no = '1', reports_to = '', tier_max = 5, status = 'active', sort = 10 WHERE slug = 'founder';
++INSERT INTO team_roster (slug, name, department, kind, made_of, spec_no, mandate, rules, stages, acts_level, acts_dept, tier_max, test_account, reports_to, status, sort, updated_by) SELECT 'ceo', 'Chief Executive Officer', 'executive', 'executive', 'ai', '2', 'Leads the executive suite; delivers every Tier 5 Decision Brief to the Founder and settles executive deadlocks below it. Runs the Prior Ruling Check before anything goes to the Founder.', '0180 §1: the five tiers
++0180 §4: the high-risk territories and the hard money line
++0180 §3: the Prior Ruling Check', '', '', '', 4, '', 'founder', 'active', 20, 'the 0180 seed' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM team_roster WHERE slug = 'ceo');
++INSERT INTO team_roster (slug, name, department, kind, made_of, spec_no, mandate, rules, stages, acts_level, acts_dept, tier_max, test_account, reports_to, status, sort, updated_by) SELECT 'coo', 'Chief Operating Officer', 'executive', 'executive', 'ai', '3', 'Operations: the Project Manager''s and Customer Service Manager''s lanes; reviews Tier 4 in its scope. Runs the Prior Ruling Check before anything goes to the Founder.', '0180 §1: the five tiers
++0180 §4: the high-risk territories and the hard money line
++0180 §3: the Prior Ruling Check', '', '', '', 4, '', 'ceo', 'active', 30, 'the 0180 seed' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM team_roster WHERE slug = 'coo');
++INSERT INTO team_roster (slug, name, department, kind, made_of, spec_no, mandate, rules, stages, acts_level, acts_dept, tier_max, test_account, reports_to, status, sort, updated_by) SELECT 'cfo', 'Chief Financial Officer', 'executive', 'executive', 'ai', '4', 'Money and billing: the Accounting Manager''s lane; reviews every change that touches money (0180 §4.1). Runs the Prior Ruling Check before anything goes to the Founder.', '0180 §1: the five tiers
++0180 §4: the high-risk territories and the hard money line
++0180 §3: the Prior Ruling Check', '', '', '', 4, '', 'ceo', 'active', 40, 'the 0180 seed' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM team_roster WHERE slug = 'cfo');
++INSERT INTO team_roster (slug, name, department, kind, made_of, spec_no, mandate, rules, stages, acts_level, acts_dept, tier_max, test_account, reports_to, status, sort, updated_by) SELECT 'cto', 'Chief Technology Officer', 'executive', 'executive', 'ai', '5', 'Engineering: the IT Manager''s lane; reviews data, address and privacy changes in Tier 4. Runs the Prior Ruling Check before anything goes to the Founder.', '0180 §1: the five tiers
++0180 §4: the high-risk territories and the hard money line
++0180 §3: the Prior Ruling Check', '', '', '', 4, '', 'ceo', 'active', 50, 'the 0180 seed' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM team_roster WHERE slug = 'cto');
++INSERT INTO team_roster (slug, name, department, kind, made_of, spec_no, mandate, rules, stages, acts_level, acts_dept, tier_max, test_account, reports_to, status, sort, updated_by) SELECT 'cio', 'Chief Information Officer', 'executive', 'executive', 'ai', '6', 'Information and data: with the CTO over the IT Manager''s lane; reviews data mutations and privacy in Tier 4. Runs the Prior Ruling Check before anything goes to the Founder.', '0180 §1: the five tiers
++0180 §4: the high-risk territories and the hard money line
++0180 §3: the Prior Ruling Check', '', '', '', 4, '', 'ceo', 'active', 60, 'the 0180 seed' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM team_roster WHERE slug = 'cio');
++INSERT INTO team_roster (slug, name, department, kind, made_of, spec_no, mandate, rules, stages, acts_level, acts_dept, tier_max, test_account, reports_to, status, sort, updated_by) SELECT 'cmo', 'Chief Marketing Officer', 'executive', 'executive', 'ai', '7', 'Marketing, editorial and sales: three directors'' lanes; guards the mission (the duty of the Mission & Brand Integrity Auditor). Runs the Prior Ruling Check before anything goes to the Founder.', '0180 §1: the five tiers
++0180 §4: the high-risk territories and the hard money line
++0180 §3: the Prior Ruling Check', '', '', '', 4, '', 'ceo', 'active', 70, 'the 0180 seed' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM team_roster WHERE slug = 'cmo');
++UPDATE team_roster SET department = 'managers', kind = 'manager', spec_no = '8', reports_to = 'coo', tier_max = 3, status = 'active', sort = 80 WHERE slug = 'project-manager';
++INSERT INTO team_roster (slug, name, department, kind, made_of, spec_no, mandate, rules, stages, acts_level, acts_dept, tier_max, test_account, reports_to, status, sort, updated_by) SELECT 'customer-service-manager', 'Customer Service Manager', 'managers', 'manager', 'ai', '9', 'Swimlane: members and businesses. Support, onboarding edge cases, orders and fulfilment; routes advocates'' experience tickets for its screens.', '0180 §1: the five tiers
++0180 §4: the high-risk territories and the hard money line', '', '', '', 3, '', 'coo', 'active', 90, 'the 0180 seed' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM team_roster WHERE slug = 'customer-service-manager');
++INSERT INTO team_roster (slug, name, department, kind, made_of, spec_no, mandate, rules, stages, acts_level, acts_dept, tier_max, test_account, reports_to, status, sort, updated_by) SELECT 'accounting-manager', 'Accounting Manager', 'managers', 'manager', 'ai', '10', 'Swimlane: accounting. Verifies billing workflow fixes and reconciliations; prepares refund records only (0178: a refund runs with Jason''s OK).', '0178: money never has Undo
++0180 §1: the five tiers
++0180 §4: the high-risk territories and the hard money line', '', '', '', 3, '', 'cfo', 'active', 100, 'the 0180 seed' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM team_roster WHERE slug = 'accounting-manager');
++INSERT INTO team_roster (slug, name, department, kind, made_of, spec_no, mandate, rules, stages, acts_level, acts_dept, tier_max, test_account, reports_to, status, sort, updated_by) SELECT 'it-manager', 'IT Manager', 'managers', 'manager', 'ai', '11', 'Swimlane: engineering. Builds, QA, releases, schema and the guards; verifies crawler batch fixes.', '0159 §5: every build is a release
++0162: migrations
++0180 §1: the five tiers
++0180 §4: the high-risk territories and the hard money line', '', '', '', 3, '', 'cto', 'active', 110, 'the 0180 seed' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM team_roster WHERE slug = 'it-manager');
++INSERT INTO team_roster (slug, name, department, kind, made_of, spec_no, mandate, rules, stages, acts_level, acts_dept, tier_max, test_account, reports_to, status, sort, updated_by) SELECT 'editorial-director', 'Editorial Director', 'managers', 'manager', 'ai', '12', 'Swimlane: editorial. Content, copy, public design and briefs; may hold a screen for clutter (0180 §8).', '0057: the FAQ
++brand.md
++0180 §1: the five tiers
++0180 §4: the high-risk territories and the hard money line', '', '', '', 3, '', 'cmo', 'active', 120, 'the 0180 seed' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM team_roster WHERE slug = 'editorial-director');
++INSERT INTO team_roster (slug, name, department, kind, made_of, spec_no, mandate, rules, stages, acts_level, acts_dept, tier_max, test_account, reports_to, status, sort, updated_by) SELECT 'marketing-director', 'Marketing Director', 'managers', 'manager', 'ai', '13', 'Swimlane: marketing. Brand, campaigns, SEO, taxonomy and funnels.', '0180 §1: the five tiers
++0180 §4: the high-risk territories and the hard money line', '', '', '', 3, '', 'cmo', 'active', 130, 'the 0180 seed' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM team_roster WHERE slug = 'marketing-director');
++INSERT INTO team_roster (slug, name, department, kind, made_of, spec_no, mandate, rules, stages, acts_level, acts_dept, tier_max, test_account, reports_to, status, sort, updated_by) SELECT 'sales-director', 'Sales Director', 'managers', 'manager', 'ai', '14', 'Swimlane: sales. Leads, merchant onboarding, partnerships and retention.', '0180 §1: the five tiers
++0180 §4: the high-risk territories and the hard money line', '', '', '', 3, '', 'cmo', 'active', 140, 'the 0180 seed' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM team_roster WHERE slug = 'sales-director');
++UPDATE team_roster SET department = 'specialists', kind = 'keeper', spec_no = '15', reports_to = 'project-manager', tier_max = 2, status = 'active', sort = 150 WHERE slug = 'cognitive-load';
++UPDATE team_roster SET department = 'specialists', kind = 'keeper', spec_no = '16', reports_to = 'project-manager', tier_max = 2, status = 'active', sort = 160 WHERE slug = 'ops-policy';
++UPDATE team_roster SET name = 'Order & Fulfillment Lead' WHERE slug = 'orders' AND name = 'Order & Fulfillment Processing Agent';
++UPDATE team_roster SET department = 'specialists', kind = 'operator', spec_no = '17', reports_to = 'customer-service-manager', tier_max = 2, status = 'active', sort = 170 WHERE slug = 'orders';
++UPDATE team_roster SET name = 'Customer Support Specialists' WHERE slug = 'member-support' AND name = 'Customer Service & Member Support Agent';
++UPDATE team_roster SET department = 'specialists', kind = 'operator', spec_no = '18', reports_to = 'customer-service-manager', tier_max = 2, status = 'active', sort = 180 WHERE slug = 'member-support';
++UPDATE team_roster SET name = 'Finance, Tax & Billing Ops' WHERE slug = 'finance' AND name = 'Finance, Tax & Billing Controller';
++UPDATE team_roster SET department = 'specialists', kind = 'operator', spec_no = '19', reports_to = 'accounting-manager', tier_max = 2, status = 'active', sort = 190 WHERE slug = 'finance';
++UPDATE team_roster SET department = 'specialists', kind = 'operator', spec_no = '20', reports_to = 'it-manager', tier_max = 2, status = 'active', sort = 200 WHERE slug = 'system-architect';
++UPDATE team_roster SET name = 'Build & QA Sessions' WHERE slug = 'builder' AND name = 'Full-Stack Builder';
++UPDATE team_roster SET department = 'specialists', kind = 'operator', spec_no = '21', reports_to = 'it-manager', tier_max = 2, status = 'active', sort = 210 WHERE slug = 'builder';
++INSERT INTO team_roster (slug, name, department, kind, made_of, spec_no, mandate, rules, stages, acts_level, acts_dept, tier_max, test_account, reports_to, status, sort, updated_by) SELECT 'staging-release', 'Staging & Release Workers', 'specialists', 'keeper', 'ai', '22', 'The release pipeline and the before-and-after check, as a role: staging, the advocates'' looks, rule-based Roll back.', '0165: staging
++0179 rule 2: the before-and-after check', '', '', '', 2, '', 'it-manager', 'active', 220, 'the 0180 seed' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM team_roster WHERE slug = 'staging-release');
++UPDATE team_roster SET department = 'specialists', kind = 'auditor', spec_no = '23', reports_to = 'it-manager', tier_max = 2, status = 'active', sort = 230 WHERE slug = 'ops-reconciliation';
++INSERT INTO team_roster (slug, name, department, kind, made_of, spec_no, mandate, rules, stages, acts_level, acts_dept, tier_max, test_account, reports_to, status, sort, updated_by) SELECT 'schema-guards', 'Schema & Migration Guards', 'specialists', 'keeper', 'ai', '24', 'The zip check''s migration rules: additive is Tier 2; UPDATE, DELETE, DROP, MODIFY, RENAME, TRUNCATE and CHANGE are a high-risk territory.', '0162: migrations
++0180 §4: major data mutations', '', '', '', 2, '', 'it-manager', 'active', 240, 'the 0180 seed' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM team_roster WHERE slug = 'schema-guards');
++INSERT INTO team_roster (slug, name, department, kind, made_of, spec_no, mandate, rules, stages, acts_level, acts_dept, tier_max, test_account, reports_to, status, sort, updated_by) SELECT 'privacy-guards', 'Privacy & Decision 0066 Guards', 'specialists', 'keeper', 'ai', '25', 'Privacy, identity and tribal nations'' land: the held-names check and every surface that could expose them; legal, consent and IP first pass (the AI Legal Risk Checker''s duties).', '0066: nations'' land and sensitive sites
++0164: nothing private to free external APIs', '', '', '', 2, '', 'it-manager', 'active', 250, 'the 0180 seed' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM team_roster WHERE slug = 'privacy-guards');
++UPDATE team_roster SET name = 'Front-End Content Writers' WHERE slug = 'content-editor' AND name = 'Content & Copy Editor';
++UPDATE team_roster SET department = 'specialists', kind = 'operator', spec_no = '26', reports_to = 'editorial-director', tier_max = 2, status = 'active', sort = 260 WHERE slug = 'content-editor';
++UPDATE team_roster SET name = 'Public UI/UX Designers' WHERE slug = 'ux-prototyper' AND name = 'UI/UX Prototyper & Flow Designer';
++UPDATE team_roster SET department = 'specialists', kind = 'operator', spec_no = '27', reports_to = 'editorial-director', tier_max = 2, status = 'active', sort = 270 WHERE slug = 'ux-prototyper';
++UPDATE team_roster SET department = 'specialists', kind = 'operator', spec_no = '28', reports_to = 'editorial-director', tier_max = 2, status = 'active', sort = 280 WHERE slug = 'translator';
++INSERT INTO team_roster (slug, name, department, kind, made_of, spec_no, mandate, rules, stages, acts_level, acts_dept, tier_max, test_account, reports_to, status, sort, updated_by) SELECT 'brand-strategists', 'Brand & Campaign Strategists', 'specialists', 'operator', 'ai', '29', 'Brand and campaign work within the zero-commission commitment.', 'brand.md', '', '', '', 2, '', 'marketing-director', 'active', 290, 'the 0180 seed' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM team_roster WHERE slug = 'brand-strategists');
++INSERT INTO team_roster (slug, name, department, kind, made_of, spec_no, mandate, rules, stages, acts_level, acts_dept, tier_max, test_account, reports_to, status, sort, updated_by) SELECT 'seo-analysts', 'SEO, Taxonomy & Funnel Analysts', 'specialists', 'operator', 'ai', '30', 'SEO, the taxonomy and the funnels, from privacy-safe counts only.', '0164: the Knowledge Engine', '', '', '', 2, '', 'marketing-director', 'active', 300, 'the 0180 seed' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM team_roster WHERE slug = 'seo-analysts');
++UPDATE team_roster SET name = 'Merchant Onboarding Specialists' WHERE slug = 'growth' AND name = 'Growth, Merchant Onboarding & Partnerships Agent';
++UPDATE team_roster SET department = 'specialists', kind = 'operator', spec_no = '31', reports_to = 'sales-director', tier_max = 2, status = 'active', sort = 310 WHERE slug = 'growth';
++INSERT INTO team_roster (slug, name, department, kind, made_of, spec_no, mandate, rules, stages, acts_level, acts_dept, tier_max, test_account, reports_to, status, sort, updated_by) SELECT 'partnerships', 'Partnerships & Retention Leads', 'specialists', 'operator', 'hybrid', '32', 'Partners and retention.', '', '', '', '', 2, '', 'sales-director', 'active', 320, 'the 0180 seed' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM team_roster WHERE slug = 'partnerships');
++-- 3. Retired: kept so past tickets and runs still name them; never shown, never given work (0180, #1441).
++UPDATE team_roster SET status = 'inactive', reports_to = 'privacy-guards' WHERE slug = 'legal-risk';
++UPDATE team_roster SET status = 'inactive', reports_to = 'cmo' WHERE slug = 'mission-auditor';
++UPDATE team_roster SET status = 'inactive', reports_to = 'editorial-director' WHERE slug = 'historian';
++UPDATE team_roster SET status = 'inactive', reports_to = 'content-editor' WHERE slug = 'directory-curator';
++UPDATE team_roster SET status = 'inactive', reports_to = 'orders' WHERE slug = 'print-vendor';
++UPDATE team_roster SET status = 'inactive', reports_to = 'content-editor' WHERE slug = 'guide-auditor';
++UPDATE team_roster SET status = 'inactive', reports_to = 'builder' WHERE slug = 'qa-security';
++UPDATE team_roster SET status = 'inactive', reports_to = 'ux-prototyper' WHERE slug = 'senior-designer';
++-- 4. The 12 advocates, A1–A12: views only, active, beside the layers.
++UPDATE team_roster SET spec_no = 'A1', reports_to = 'builder', status = 'active', sort = 1000 WHERE slug = 'advocate-guest';
++UPDATE team_roster SET spec_no = 'A2', reports_to = 'builder', status = 'active', sort = 1010 WHERE slug = 'advocate-new-member';
++UPDATE team_roster SET spec_no = 'A3', reports_to = 'builder', status = 'active', sort = 1020 WHERE slug = 'advocate-member';
++UPDATE team_roster SET spec_no = 'A4', reports_to = 'builder', status = 'active', sort = 1030 WHERE slug = 'advocate-contributor';
++UPDATE team_roster SET spec_no = 'A5', reports_to = 'builder', status = 'active', sort = 1040 WHERE slug = 'advocate-steward';
++UPDATE team_roster SET spec_no = 'A6', reports_to = 'builder', status = 'active', sort = 1050 WHERE slug = 'advocate-client';
++UPDATE team_roster SET spec_no = 'A7', reports_to = 'builder', status = 'active', sort = 1060 WHERE slug = 'advocate-business-owner';
++UPDATE team_roster SET spec_no = 'A8', reports_to = 'builder', status = 'active', sort = 1070 WHERE slug = 'advocate-business-manager';
++UPDATE team_roster SET spec_no = 'A9', reports_to = 'builder', status = 'active', sort = 1080 WHERE slug = 'advocate-business-accountant';
++UPDATE team_roster SET spec_no = 'A10', reports_to = 'builder', status = 'active', sort = 1090 WHERE slug = 'advocate-business-sales';
++UPDATE team_roster SET spec_no = 'A11', reports_to = 'builder', status = 'active', sort = 1100 WHERE slug = 'advocate-business-viewer';
++UPDATE team_roster SET spec_no = 'A12', reports_to = 'builder', status = 'active', sort = 1110 WHERE slug = 'advocate-staff-views';
+diff -ruN -x '*.png' r1base/root/app/rollbacks/2026-11-26_0180_tiers_roster.sql r1/root/app/rollbacks/2026-11-26_0180_tiers_roster.sql
+--- r1base/root/app/rollbacks/2026-11-26_0180_tiers_roster.sql	1970-01-01 00:00:00.000000000 +0000
++++ r1/root/app/rollbacks/2026-11-26_0180_tiers_roster.sql	2026-11-26 14:23:55.358483497 +0000
+@@ -0,0 +1,66 @@
++-- decisions/0180 R1, its Roll back. Written by handoffs/r1-tiers/rostergen.py. Safe to run twice.
++-- 1. The tier back to 3 (the code put back reads 3 as the Founder).
++UPDATE control_gauge_tasks SET tier = 3 WHERE tier = 5;
++-- 2. The roles back to Piece 2's seed.
++UPDATE team_roster SET name = 'Executive Lead & Founder' WHERE slug = 'founder' AND name = 'Founder / Chair';
++UPDATE team_roster SET department = 'leadership', kind = 'founder', spec_no = '1', reports_to = '', tier_max = 3, status = 'active', sort = 10 WHERE slug = 'founder';
++DELETE FROM team_roster WHERE slug = 'ceo' AND updated_by = 'the 0180 seed';
++DELETE FROM team_roster WHERE slug = 'coo' AND updated_by = 'the 0180 seed';
++DELETE FROM team_roster WHERE slug = 'cfo' AND updated_by = 'the 0180 seed';
++DELETE FROM team_roster WHERE slug = 'cto' AND updated_by = 'the 0180 seed';
++DELETE FROM team_roster WHERE slug = 'cio' AND updated_by = 'the 0180 seed';
++DELETE FROM team_roster WHERE slug = 'cmo' AND updated_by = 'the 0180 seed';
++UPDATE team_roster SET department = 'operations', kind = 'operator', spec_no = '6', reports_to = 'founder', tier_max = 2, status = 'active', sort = 60 WHERE slug = 'project-manager';
++DELETE FROM team_roster WHERE slug = 'customer-service-manager' AND updated_by = 'the 0180 seed';
++DELETE FROM team_roster WHERE slug = 'accounting-manager' AND updated_by = 'the 0180 seed';
++DELETE FROM team_roster WHERE slug = 'it-manager' AND updated_by = 'the 0180 seed';
++DELETE FROM team_roster WHERE slug = 'editorial-director' AND updated_by = 'the 0180 seed';
++DELETE FROM team_roster WHERE slug = 'marketing-director' AND updated_by = 'the 0180 seed';
++DELETE FROM team_roster WHERE slug = 'sales-director' AND updated_by = 'the 0180 seed';
++UPDATE team_roster SET department = 'leadership', kind = 'keeper', spec_no = '3', reports_to = 'founder', tier_max = 1, status = 'standby', sort = 30 WHERE slug = 'cognitive-load';
++UPDATE team_roster SET department = 'operations', kind = 'keeper', spec_no = '7', reports_to = 'founder', tier_max = 2, status = 'standby', sort = 70 WHERE slug = 'ops-policy';
++UPDATE team_roster SET name = 'Order & Fulfillment Processing Agent' WHERE slug = 'orders' AND name = 'Order & Fulfillment Lead';
++UPDATE team_roster SET department = 'operations', kind = 'operator', spec_no = '10', reports_to = 'project-manager', tier_max = 1, status = 'standby', sort = 100 WHERE slug = 'orders';
++UPDATE team_roster SET name = 'Customer Service & Member Support Agent' WHERE slug = 'member-support' AND name = 'Customer Support Specialists';
++UPDATE team_roster SET department = 'operations', kind = 'operator', spec_no = '13', reports_to = 'project-manager', tier_max = 1, status = 'standby', sort = 130 WHERE slug = 'member-support';
++UPDATE team_roster SET name = 'Finance, Tax & Billing Controller' WHERE slug = 'finance' AND name = 'Finance, Tax & Billing Ops';
++UPDATE team_roster SET department = 'operations', kind = 'operator', spec_no = '11', reports_to = 'project-manager', tier_max = 1, status = 'standby', sort = 110 WHERE slug = 'finance';
++UPDATE team_roster SET department = 'build', kind = 'operator', spec_no = '15', reports_to = 'project-manager', tier_max = 2, status = 'active', sort = 150 WHERE slug = 'system-architect';
++UPDATE team_roster SET name = 'Full-Stack Builder' WHERE slug = 'builder' AND name = 'Build & QA Sessions';
++UPDATE team_roster SET department = 'build', kind = 'operator', spec_no = '21', reports_to = 'system-architect', tier_max = 2, status = 'active', sort = 210 WHERE slug = 'builder';
++DELETE FROM team_roster WHERE slug = 'staging-release' AND updated_by = 'the 0180 seed';
++UPDATE team_roster SET department = 'operations', kind = 'auditor', spec_no = '8', reports_to = 'project-manager', tier_max = 2, status = 'active', sort = 80 WHERE slug = 'ops-reconciliation';
++DELETE FROM team_roster WHERE slug = 'schema-guards' AND updated_by = 'the 0180 seed';
++DELETE FROM team_roster WHERE slug = 'privacy-guards' AND updated_by = 'the 0180 seed';
++UPDATE team_roster SET name = 'Content & Copy Editor' WHERE slug = 'content-editor' AND name = 'Front-End Content Writers';
++UPDATE team_roster SET department = 'build', kind = 'operator', spec_no = '19', reports_to = 'project-manager', tier_max = 1, status = 'active', sort = 190 WHERE slug = 'content-editor';
++UPDATE team_roster SET name = 'UI/UX Prototyper & Flow Designer' WHERE slug = 'ux-prototyper' AND name = 'Public UI/UX Designers';
++UPDATE team_roster SET department = 'build', kind = 'operator', spec_no = '16', reports_to = 'project-manager', tier_max = 1, status = 'standby', sort = 160 WHERE slug = 'ux-prototyper';
++UPDATE team_roster SET department = 'leadership', kind = 'operator', spec_no = '2', reports_to = 'founder', tier_max = 2, status = 'active', sort = 20 WHERE slug = 'translator';
++DELETE FROM team_roster WHERE slug = 'brand-strategists' AND updated_by = 'the 0180 seed';
++DELETE FROM team_roster WHERE slug = 'seo-analysts' AND updated_by = 'the 0180 seed';
++UPDATE team_roster SET name = 'Growth, Merchant Onboarding & Partnerships Agent' WHERE slug = 'growth' AND name = 'Merchant Onboarding Specialists';
++UPDATE team_roster SET department = 'operations', kind = 'operator', spec_no = '12', reports_to = 'project-manager', tier_max = 1, status = 'standby', sort = 120 WHERE slug = 'growth';
++DELETE FROM team_roster WHERE slug = 'partnerships' AND updated_by = 'the 0180 seed';
++-- 3. The retired roles back to their status.
++UPDATE team_roster SET status = 'standby', reports_to = 'founder' WHERE slug = 'legal-risk';
++UPDATE team_roster SET status = 'standby', reports_to = 'founder' WHERE slug = 'mission-auditor';
++UPDATE team_roster SET status = 'standby', reports_to = 'project-manager' WHERE slug = 'historian';
++UPDATE team_roster SET status = 'active', reports_to = 'project-manager' WHERE slug = 'directory-curator';
++UPDATE team_roster SET status = 'standby', reports_to = 'project-manager' WHERE slug = 'print-vendor';
++UPDATE team_roster SET status = 'standby', reports_to = 'project-manager' WHERE slug = 'guide-auditor';
++UPDATE team_roster SET status = 'active', reports_to = 'project-manager' WHERE slug = 'qa-security';
++UPDATE team_roster SET status = 'standby', reports_to = 'project-manager' WHERE slug = 'senior-designer';
++-- 4. The advocates back to their spec numbers.
++UPDATE team_roster SET spec_no = '23', reports_to = 'qa-security', status = 'active', sort = 230 WHERE slug = 'advocate-guest';
++UPDATE team_roster SET spec_no = '24', reports_to = 'qa-security', status = 'active', sort = 240 WHERE slug = 'advocate-new-member';
++UPDATE team_roster SET spec_no = '25', reports_to = 'qa-security', status = 'active', sort = 250 WHERE slug = 'advocate-member';
++UPDATE team_roster SET spec_no = '26', reports_to = 'qa-security', status = 'active', sort = 260 WHERE slug = 'advocate-contributor';
++UPDATE team_roster SET spec_no = '27', reports_to = 'qa-security', status = 'active', sort = 270 WHERE slug = 'advocate-steward';
++UPDATE team_roster SET spec_no = '28', reports_to = 'qa-security', status = 'active', sort = 280 WHERE slug = 'advocate-client';
++UPDATE team_roster SET spec_no = '29', reports_to = 'qa-security', status = 'active', sort = 290 WHERE slug = 'advocate-business-owner';
++UPDATE team_roster SET spec_no = '30', reports_to = 'qa-security', status = 'active', sort = 300 WHERE slug = 'advocate-business-manager';
++UPDATE team_roster SET spec_no = '31', reports_to = 'qa-security', status = 'active', sort = 310 WHERE slug = 'advocate-business-accountant';
++UPDATE team_roster SET spec_no = '32', reports_to = 'qa-security', status = 'active', sort = 320 WHERE slug = 'advocate-business-sales';
++UPDATE team_roster SET spec_no = '33', reports_to = 'qa-security', status = 'active', sort = 330 WHERE slug = 'advocate-business-viewer';
++UPDATE team_roster SET spec_no = '34', reports_to = 'qa-security', status = 'active', sort = 340 WHERE slug = 'advocate-staff-views';
+diff -ruN -x '*.png' r1base/root/app/ui/faq.md r1/root/app/ui/faq.md
+--- r1base/root/app/ui/faq.md	2026-11-26 14:30:35.016925629 +0000
++++ r1/root/app/ui/faq.md	2026-11-26 14:22:47.775710137 +0000
+@@ -472,31 +472,34 @@
+ It's the first thing on the System Control Board's **Development** page (2026-11-24): everything we've found that needs doing, so nothing is forgotten and no gauge slips. Its gauge reads how many open tasks are on time (a task is **late** when it's a day old and nobody has it); until Jason approves its target (proposed: nothing late, with **Approve the target**) it shows how much of its setup is done, like every gauge. Under it, **Add a task**: choose the gauge or the area it belongs to (or **A new area…**), say what needs doing, why (what it fixes, or who asked) and where it came from (a decision, a hand-off, or whose words and when). The list shows what needs you first, late at the top, the first 10 then **Show all**; **Everything open ▾** filters it (Late, Open, Taken, Being fixed). Each task says where it stands: **Open** (nobody has it yet), **Late**, **Taken** (with whom), **Being fixed** in a named release, and it's **Done** by itself once its stages are through (below), or, for a gauge's **Request a fix**, once its check passes. Its one button is the next step (**Take it**, then **Name its release**); **✎** edits what it says, the old words kept in its **History** (the clock icon); **⋯** has the other moves: **Move to a session…**, **Name its release…** and **Withdraw, with a reason…**. Press a task's name to open its page beside the list (2026-11-24): its **Scope** (goal, in scope, out of scope, done when), its **Priority** (1 first, 2 next, 3 when there's room; open and late tasks are listed by it) and its **Steps**, each saying what to see, what to do and how it's confirmed, with **Confirm it's done**. Every field has **✎** to edit it, the old words kept in the task's **History**; a step confirmed by mistake is corrected with ✎ too. Under **Decisions**, the task names the decision records it rests on, each with its number and title; press one to read it on System Configuration → Decisions beside the board. **Attach a decision** finds one by its number or a word from its title, in the same list that page has; **✎** detaches one, kept in the task's History. The list shows each task's priority, its goal how many of its steps are confirmed and its decisions. Done and withdrawn tasks stay a week under **Done and withdrawn this week**. Since 2026-11-25 each task is one of three types, chosen under **Type** when you add it (Work if you don't choose). A **Work** ticket moves through four stages: **Planning**, **Building**, **Implementation** and **Confirmation**. It moves from Planning to Building with **Move to Building** once it has a goal, a Done when, a decision attached (or **No decision applies**) and someone who has it; until then the button is greyed and the line above it says what's missing. It moves on by itself once its release is named (Implementation), once that release is live (Confirmation), and once every step is confirmed (Done; a task with no steps is Done as soon as its release is live). **✎** beside the stages sends it back one or more stages, with your reason kept in its History. An **Audit** ticket is a finding from the daily check, looked at twice before it reaches anyone. A **Resolution** ticket is a decision only the Founder makes: its **Decision Brief** says the decision, why it needs the Founder, the line it crosses, options A and B with their pros and cons and which is recommended, the impact if it waits, and the cost. Each part has **✎** while it's a draft; **Send to the Founder** once it's whole. It then reads **Waiting for you** at the top of the queue and goes in the daily summary; the Founder answers with **Choose A**, **Choose B** or **Answer in my words**, on the task or in reply to the summary. A new task then records the answer as standing precedent, and the decision closes once that's done. The filter (one button) also shows each type and each stage, with counts, and the round people icon beside it opens the **Team**. Every hour the open tasks reach the session manager with the gauge's requests, and a late one is flagged to it.
+ 
+ ### I'm on the Traversence team. What is the Team page?
+-System Configuration → **Team** (2026-11-25) lists the roles that work the Work queue. It has one row for each of the 34 roles in the plan, in four departments: Leadership, Operations, Build and Advocates. **Operators** move the day's work along. **Keepers** guard a rule or a record in the background. **Auditors** confirm work and run the daily check. **Advocates** are each bound to a test account (the Staff Views advocate to the staff test logins): they're a view for checks and never act. The **Founder** is the real login and answers the decisions only the Founder can make; the Founder is never an agent. Each department opens from its own row, and the roles on standby are folded into one group at the end. Press a role's name to open it beside the list. You'll see its mandate, the steps it has, what it acts as, the highest tier it may decide alone (Tier 3 always goes to the Founder), the decisions it works under and its **History**. **✎ Edit its words** changes its name, mandate, what it works on and its rules, and the old words are kept in its History. **Put on standby**, **Retire it** and **Make active** each have their way back on the same card, and a role is never deleted. What a role may do comes only from Permissions, for the level and department it acts as, never from the Team page. A role with no steps yet does no work until one is written for it. The agents work only on the staging copy (see "What does the Team's runner do?"); nothing they do reaches the live site until staging is published in a batch the Founder approved.
++System Configuration → **Team** lists the roles that work the Work queue: the 32 roles of decisions/0180 (2026-11-26) and the 12 test-account advocates. They're grouped by layer: the **Founder** (the real login, who gives the Founder rulings and is never an agent), the **Executive suite** (CEO, COO, CFO, CTO, CIO and CMO), the seven **Middle managers**, each with its own swimlane (Project Manager, Customer Service Manager, Accounting Manager, IT Manager, Editorial Director, Marketing Director and Sales Director), the **Specialists** who do the work in each lane, and the **Advocates**. Each advocate is bound to a test account (the Staff Views advocate to the staff test logins): they're a view for checks and never act. Every role is active. A role put on standby folds into one group at the end, and its work goes to the next active role above it (the Founder, if none is). The roles decisions/0180 replaced aren't listed anywhere; past tickets still show their names. Press a role's name to open it beside the list. You'll see its layer, its mandate, the steps it has, what it acts as, the highest tier it may decide alone (a Founder ruling, Tier 5, always goes to the Founder), the decisions it works under, who it reports to and its **History**. **✎ Edit its words** changes its name, mandate, what it works on and its rules, and the old words are kept in its History. **Put on standby** and **Make active** each have their way back on the same card, and a role is never deleted. What a role may do comes only from Permissions, for the level and department it acts as, never from the Team page; a role with none says **No permissions yet**, and only the Founder gives a role permissions. A role with no steps yet does no work until one is written for it. The agents work only on the staging copy (see "What does the Team's runner do?"); nothing they do reaches the live site until it's checked and published.
+ 
+ ### I'm on the Traversence team. What does the Team's runner do?
+-On the staging copy only, and only while its switch is on (System Configuration → Switches there), every ten minutes it takes one ticket from the Work queue and does one step for one working role, then stops. How far it goes is set by **Agents work up to** on the Team page, which stays at **Planning** until the Founder raises it (see "What is the Team's decision tree?"). At Planning, the **Project Manager** proposes moving a Work ticket to Building once its gate passes, and a person's **Accept** makes the move. Above Planning it makes the move itself. The **System Architect** writes a Building ticket's build brief for the session manager, but only once the ceiling is above Planning. The **Executive Translator** proposes the plain words of a Decision Brief from what we hold. It never works a ticket a person has (only unowned ones, or ones a Team role has), never answers a Tier 3 decision (only the Founder does), never writes over words a person wrote (it proposes them instead, and a person's **Accept** fills them in, kept in the History), and never calls an outside service or paid AI. Each step is a line on the ticket's page: who did it, what and when, with **Undo** for a move or a brief (put back as if it never happened; a second Undo is refused) and **Accept** or **Dismiss** for a proposal. What it can do comes only from Permissions for the role's level and department; a step it isn't allowed says so and changes nothing. On the live site it does nothing at all. What it did on staging reaches the live site only when staging is published, in the batch the Founder approved.
++On the staging copy only, and only while its switch is on (System Configuration → Switches there), every ten minutes it takes one ticket from the Work queue and does one step for one working role, then stops. A step whose role is on standby goes to the next active role above it; if none is active, it waits for the Founder. How far it goes is set by **Agents work up to** on the Team page, which stays at **Planning** until the Founder raises it (see "What is the Team's decision tree?"). At Planning, the **Project Manager** proposes moving a Work ticket to Building once its gate passes, and a person's **Accept** makes the move. Above Planning it makes the move itself. The **System Architect** writes a Building ticket's build brief for the session manager, but only once the ceiling is above Planning. The **Executive Translator** proposes the plain words of a Decision Brief from what we hold. It never works a ticket a person has (only unowned ones, or ones a Team role has), never gives a Founder ruling (Tier 5: only the Founder does), never writes over words a person wrote (it proposes them instead, and a person's **Accept** fills them in, kept in the History), and never calls an outside service or paid AI. Each step is a line on the ticket's page: who did it, what and when, with **Undo** for a move or a brief (put back as if it never happened; a second Undo is refused) and **Accept** or **Dismiss** for a proposal. What it can do comes only from Permissions for the role's level and department; a step it isn't allowed says so and changes nothing. On the live site it does nothing at all. What it did on staging reaches the live site only when staging is published, in the batch the Founder approved.
+ 
+ ### I'm on the Traversence team. What is the before-and-after check?
+ It's on (switched on with the fence on Nov 26, 2026, and running for every release from Claude since the next release after that): each one waits on staging for one more check before it can go live (decisions/0179). If the check's switch (**Switches → The before-and-after check**) is turned off, releases go on without it, as they did before. The advocates look at the pages the release touches, each as its own test account, and the Staff Views advocate as the staff test logins. They look at 1280 and 390 wide, once before the release goes on staging and again after. If any view is worse afterwards, the release stops. Worse means one of four things: a page opens for an account that shouldn't see it, or shows someone else's details or a protected place (decisions/0066); the layout breaks, a button goes missing, or the page scrolls sideways on a phone; rows or cards go missing; or a page changes that the release doesn't mention. A stopped release withdraws itself, nothing on the live site changes, and the problem goes in the Work queue with a link to the report. A release that passes goes on as before. If the check's daily time on GitHub has run out, or it couldn't sign the test accounts in, the release waits for a person instead of going live by itself. For protected places, the check reads the names the site holds back from staging only as coded fingerprints, never the names themselves, and a release that makes one of them appear on a page stops; if they can't be read, the release waits for a person. You'll see it in a release's checks on System Configuration → Releases, as **Before and after (advocates)**.
+ 
+ 
+ ### I'm on the Traversence team. Which releases can go live without the daily batch?
+-Coming, and off until the Founder turns it on (decisions/0179 rule 2). Today, everything Claude builds waits for the Founder to approve the daily batch. With rule 2 on, a release goes live by itself once staging's checks and the advocates pass it (see "What is the before-and-after check?"), unless it touches money, data, public addresses, tribal nations' land or privacy. Those are Tier 3: they never go live by themselves, and each comes to the Founder as a decision in the Work queue. A data change counts as Tier 3 when its database update changes, deletes, drops, modifies or renames something; one that only adds a new table, column or index doesn't. Data fixes (updates that write rows) still wait for the batch. A release that says it's a low-risk kind (a FAQ change, a wording change, a phone-layout tweak or a safe additive change) is also proved by comparing each file with the live copy, and is marked Tier 1. Each release that went live this way shows under **Published alone today** at the top of the Work queue (System Control Board → **Development**), marked Tier 1 with its kind or Tier 2, with **Undo**, which rolls it back.
++Coming, and off until the Founder turns it on (decisions/0179 rule 2). Today, everything Claude builds waits for the Founder to approve the daily batch. With rule 2 on, a release goes live by itself once staging's checks and the advocates pass it (see "What is the before-and-after check?"), unless it touches one of the high-risk territories: money, data, public addresses, tribal nations' land or privacy (decisions/0180 §4). Those never go live by themselves. Until the executive suite's Tier 4 review is built, each comes to the Founder as a Founder ruling (Tier 5) in the Work queue. A data change counts as high-risk when its database update changes, deletes, drops, modifies or renames something; one that only adds a new table, column or index doesn't. Data fixes (updates that write rows) still wait for the batch. A release that says it's a low-risk kind (a FAQ change, a wording change, a phone-layout tweak or a safe additive change) is also proved by comparing each file with the live copy, and is marked Tier 1. Each release that went live this way shows under **Published alone today** at the top of the Work queue (System Control Board → **Development**), marked Tier 1 with its kind or Tier 2, with **Undo**, which rolls it back.
+ 
+ ### I'm on the Traversence team. How does the Founder hear about the daily batch and decisions?
+-The site emails the Founder itself, through its own system email, so nothing outside has to be allowed to send mail. Three things are sent, each once. Today's batch of releases waiting for approval goes out when the session manager writes it, with the link to approve it. A Tier 3 decision goes out when its brief is sent and it's waiting for an answer, with the options and the link to its page. Messages from the session manager go out as it writes them. Each also lands in the Founder's Pulse. Only the Founder gets them, and the staging copy never sends them.
++The site emails the Founder itself, through its own system email, so nothing outside has to be allowed to send mail. Three things are sent, each once. Today's batch of releases waiting for approval goes out when the session manager writes it, with the link to approve it. A Founder ruling (Tier 5) goes out when its brief is sent and it's waiting for an answer, with the options and the link to its page. Messages from the session manager go out as it writes them. Each also lands in the Founder's Pulse. Only the Founder gets them, and the staging copy never sends them.
+ ### I'm on the Traversence team. What is the Team's decision tree?
+-It's at the top of System Configuration → **Team**. In plain words, it shows what the Team may do alone and what always comes to the Founder: the three tiers, the areas that make anything Tier 3 (money, data, public addresses, tribal nations' land, privacy), and each working role's step at each stage. It's drawn from the runner's own rules, so it always says what the code does. The Founder presses **Approve the decision tree**, and the approval is tied to a fingerprint of the rules. Changing a word of explanation keeps it. Changing any rule clears it, puts agents back at Planning, and says so in the History. Under the tree is **Agents work up to**, which is Planning to begin with. Only the Founder can raise it, one stage at a time, and only once the tree is approved. Each raise shows its evidence (what agents have done so far and how much of it people accepted or undid), with where each reading comes from, and the Founder judges it. There are no pass marks. **Lower** puts it back at any time. At **Building**, the Project Manager moves tickets on by itself, and takes the tickets the audit raised itself; a ticket a person entered still waits for **Give it to the Team**. At **Implementation**, the System Architect's build brief also goes straight to a build session. **Confirmation** opens once the before-and-after check and rule 2 are both switched on: there, agents act as at Implementation, and a release that touches no Tier 3 area goes live by itself once staging's checks and the advocates pass it. Every agent step is logged with its Undo; one that couldn't be undone is refused and shows. Each role may spend $0 a month, since no step calls paid AI. In the Work queue, a ticket the agents found says **Found by the audit**, a ticket with proposals says how many, and the filter has **Found by agents** and **Has suggestions**. Agents never take a ticket themselves: a person gives one to them with **Give it to the Team** in its ⋯.
++It's at the top of System Configuration → **Team**. In plain words, it shows what the Team may do alone and what comes to the Founder: the five tiers of decisions/0180 (Tier 1 autonomous polish, Tier 2 standard operations, Tier 3 the middle managers' triage, Tier 4 the executive suite's review, and Tier 5, a **Founder ruling**), the high-risk territories (money, data, public addresses, tribal nations' land, privacy), and each working role's step at each stage. Until the Tier 4 review is built, a change that touches a territory comes to the Founder. It's drawn from the runner's own rules, so it always says what the code does. The Founder presses **Approve the decision tree**, and the approval is tied to a fingerprint of the rules. Changing a word of explanation keeps it. Changing any rule clears it, puts agents back at Planning, and says so in the History. Under the tree is **Agents work up to**, which is Planning to begin with. Only the Founder can raise it, one stage at a time, and only once the tree is approved. Each raise shows its evidence (what agents have done so far and how much of it people accepted or undid), with where each reading comes from, and the Founder judges it. There are no pass marks. **Lower** puts it back at any time. At **Building**, the Project Manager moves tickets on by itself, and takes the tickets the audit raised itself; a ticket a person entered still waits for **Give it to the Team**. At **Implementation**, the System Architect's build brief also goes straight to a build session. **Confirmation** opens once the before-and-after check and rule 2 are both switched on: there, agents act as at Implementation, and a release that touches no high-risk territory goes live by itself once staging's checks and the advocates pass it. Every agent step is logged with its Undo; one that couldn't be undone is refused and shows. Each role may spend $0 a month, since no step calls paid AI. In the Work queue, a ticket the agents found says **Found by the audit**, a ticket with proposals says how many, and the filter has **Found by agents** and **Has suggestions**. Agents never take a ticket themselves: a person gives one to them with **Give it to the Team** in its ⋯.
+ 
+ 
++### I'm on the Traversence team. What are the five tiers, and what is a Founder ruling?
++decisions/0180 (2026-11-26) sorts every piece of work into five tiers. **Tier 1** is polish: tests, small bug fixes, wording, the FAQ, the phone layout. **Tier 2** is standard operations: safe functional updates, internal tools, new tables or columns, and fixes that change no price, charge, refund or payout rule. Specialists do both in their own lane, and they go live once staging's checks and the before-and-after check pass, with Undo in the daily summary. **Tier 3** is the middle managers' triage: hand-offs between lanes, changes across several files, diagnosing a problem. **Tier 4** is the executive suite's review of every change that touches a high-risk territory (money, data, public addresses, tribal nations' land, privacy, the mission, or a deadlock). It runs the Prior Ruling Check: does the change only carry out what a decision already says? **Tier 5** is a **Founder ruling**: a change to the rules, the tiers, a role's permissions or a fence; amending a decision or making new policy; something that can't be undone; a deadlock; or real money moving. It comes to the Founder as a 4-part Decision Brief. Real money never moves by itself: a charge, payout or refund always takes a person's press. The managers' swimlanes and the Tier 4 review are being built next; until then, a change that touches a high-risk territory comes to the Founder.
++
+ ### I'm on the Traversence team. Can the agents change pages people see?
+ Not for now. Under the decision tree on System Configuration → **Team** is **How far Implementation reaches**, set to **Backend only**, and only the Founder can change it. Once the agents work at Implementation, a ticket whose change stays in the backend (the admin's pages, the site's internal code and the workers) gets its build brief sent to a build session. A ticket whose change would reach a page a visitor, member or business sees stops at its brief: its page in the Work queue says **Front end: waiting for you** and names the file that reaches the public, and the Founder decides. Which is which comes from a map of what each file reaches, made from the live site after every sync. A ticket that names no file can't be shown to stay in the backend, so it waits too. When a build arrives, it's checked again: one that reaches a public page is refused, nothing is sent, and its ticket goes back to its brief. Everything the agents build still waits for the daily batch until the before-and-after check is on. Changing the setting changes the decision tree's rules, so the tree has to be approved again.
+ ### I'm on the Traversence team. What is the Team's daily audit?
+-Once a day on the staging copy, while the Team's runner is switched on, the **Operations & Reconciliation Manager** reads what we already know: Site health's open findings, scheduled jobs that are late or failed, and open alarms. Each new finding becomes one **Audit** ticket in the Work queue, at **Found**. The next day it's looked at again. If it's gone, it's cleared by its own check as noise and nobody is asked anything. If it's still there, it's **Confirmed** and opens the ticket it calls for. That's a **Work** ticket for an ordinary fix, or a **Resolution** for a decision only the Founder makes: money, deleting or reshaping data, public addresses, tribal nations' land and sensitive sites, or privacy (decisions/0179). What makes a finding Tier 3 is what it touches: a page, file, scheduled job, outside service, library or table in one of those areas. Words alone never do. A finding only worded like one of them (a "refund" note on a trail page) stays Tier 2, and its row says **Words suggest a Tier 3 boundary: a person checks**. On its page, **It's Tier 2** clears that note, and **It's Tier 3** makes it a decision for the Founder (for a Work ticket, its Resolution opens at once). Either way it's kept in the History. The filter's **Words suggest Tier 3** shows them all. The mission and a deadlock between decisions have no pages or files of their own, so a finding about either is always this kind of note for a person, never decided by the Team. The Audit ticket closes once that ticket is done. Each ticket the audit opens can be undone (withdrawn) from its page. **Run the audit now**, on the role's card in System Configuration → Team, runs it at once on staging.
++Once a day on the staging copy, while the Team's runner is switched on, the **Operations & Reconciliation Manager** reads what we already know: Site health's open findings, scheduled jobs that are late or failed, and open alarms. Each new finding becomes one **Audit** ticket in the Work queue, at **Found**. The next day it's looked at again. If it's gone, it's cleared by its own check as noise and nobody is asked anything. If it's still there, it's **Confirmed** and opens the ticket it calls for. That's a **Work** ticket for an ordinary fix, or a **Resolution** for a Founder ruling (Tier 5): money, deleting or reshaping data, public addresses, tribal nations' land and sensitive sites, or privacy (decisions/0180 §4). What makes a finding high-risk is what it touches: a page, file, scheduled job, outside service, library or table in one of those areas. Words alone never do. A finding only worded like one of them (a "refund" note on a trail page) stays Tier 2, and its row says **Words suggest a high-risk territory: a person checks**. On its page, **It's Tier 2** clears that note, and **It's a Founder ruling** makes it Tier 5, a decision for the Founder (for a Work ticket, its Resolution opens at once). Either way it's kept in the History. The filter's **Words suggest a high-risk territory** shows them all. The mission and a deadlock between decisions have no pages or files of their own, so a finding about either is always this kind of note for a person, never decided by the Team. The Audit ticket closes once that ticket is done. Each ticket the audit opens can be undone (withdrawn) from its page. **Run the audit now**, on the role's card in System Configuration → Team, runs it at once on staging.
+ 
+ ### I'm on the Traversence team. What is Today's batch at the top of the Work queue?
+-Until the site can check a release's before and after by itself, nothing that needs approval goes live until the Founder approves the day's batch (decisions/0179). Once a day the session manager writes it. Each line is one release waiting: what it does, why, its decision, the checks it passed on staging, and its way back. It appears at the top of the Work queue (System Control Board → **Development**) on its own day, and after that as **The latest batch** until it's approved or a newer one replaces it, with any Tier 3 decisions waiting for the Founder listed first. **Approve the batch** is the Founder's alone, signed in with the Founder's own staff login. For everyone else it's greyed, saying why. The approval reaches the session manager within the hour. The Founder can also answer by replying to the daily summary's email. Each release in it that has gone live is marked **Live as #** with its number, and once every one has (the Founder can also approve in chat), the line says **Every release in it is live** and asks nothing more. When there's none waiting, the line says **No batch from the session manager today**. A Tier 3 decision the Founder answers by email is put on its ticket by the next read, as "Jason (by email, recorded by the session manager)", kept in the History. It's put on only once, and only while the ticket is still waiting for an answer.
++Until the site can check a release's before and after by itself, nothing that needs approval goes live until the Founder approves the day's batch (decisions/0179). Once a day the session manager writes it. Each line is one release waiting: what it does, why, its decision, the checks it passed on staging, and its way back. It appears at the top of the Work queue (System Control Board → **Development**) on its own day, and after that as **The latest batch** until it's approved or a newer one replaces it, with any Founder rulings (Tier 5) waiting listed first. **Approve the batch** is the Founder's alone, signed in with the Founder's own staff login. For everyone else it's greyed, saying why. The approval reaches the session manager within the hour. The Founder can also answer by replying to the daily summary's email. Each release in it that has gone live is marked **Live as #** with its number, and once every one has (the Founder can also approve in chat), the line says **Every release in it is live** and asks nothing more. When there's none waiting, the line says **No batch from the session manager today**. A Founder ruling given by email is put on its ticket by the next read, as "Jason (by email, recorded by the session manager)", kept in the History. It's put on only once, and only while the ticket is still waiting for an answer.
+ 
+ ### I'm on the Traversence team. What does "Paused by the system" mean?
+ It's a trip: something failed, the system tried again by itself and couldn't fix it, so it placed a pause on what the fault touches, and only that (one task, one workflow, calls to one service). It never turns a switch off: every switch stays as the person who set it left it, and the pause shows beside it. It lifts by itself when its check passes (the alarm closes as **Recovered**), or at once with **Check and start again**, which checks first. Something a person switched off reads **Off**, with who and why, and is never called paused by the system.
+diff -ruN -x '*.png' r1base/root/website/admin/api.php r1/root/website/admin/api.php
+--- r1base/root/website/admin/api.php	2026-11-26 14:30:35.035227745 +0000
++++ r1/root/website/admin/api.php	2026-11-26 14:22:06.170649811 +0000
+@@ -261,7 +261,7 @@
+                     if ($act === 'qmove') Response::success(['message' => GaugeTasks::move($pdo, $tid, (string) ($in['to'] ?? ''), $who, (string) ($in['why'] ?? ''), $tz)]);
+                     if ($act === 'qnoadr') Response::success(['message' => GaugeTasks::noDecision($pdo, $tid, $who, $tz)]);
+                     if ($act === 'qbrief') Response::success(['message' => GaugeTasks::briefEdit($pdo, $tid, (string) ($in['field'] ?? ''), (string) ($in['value'] ?? ''), $who, $tz)]);
+-                    if ($act === 'qflag') Response::success(['message' => GaugeTasks::settleFlag($pdo, $tid, ($in['value'] ?? '') === 'tier3', $who, $tz)]);   // P2-4: a person checks words that suggest Tier 3
++                    if ($act === 'qflag') Response::success(['message' => GaugeTasks::settleFlag($pdo, $tid, in_array($in['value'] ?? '', ['tier5', 'tier3'], true), $who, $tz)]);   // P2-4: a person checks words that suggest a high-risk territory ('tier3' from a page drawn before decisions/0180 R1)
+                     if ($act === 'qsend') Response::success(['message' => GaugeTasks::sendBrief($pdo, $tid, $who, $tz)]);
+                     // Approve the batch (decisions/0179 rule 1; P2-5): the Founder's alone; reaches the session manager in the hourly report
+                     if ($act === 'qbatch') { if (!Access::isFounder()) Response::error('Only the Founder, signed in with the Founder\'s own staff login, approves the batch (decisions/0179 rule 1).', 403);
+@@ -271,7 +271,7 @@
+                     // the Team's runs (P2-3, staging): Undo a run, Accept or Dismiss a proposal; id = the run
+                     if (in_array($act, ['qrunundo', 'qrunaccept', 'qrundismiss'], true)) { require_once __DIR__ . '/../../app/lib/TeamRunner.php'; $rid = (int) ($in['rid'] ?? 0);
+                         Response::success(['message' => $act === 'qrunundo' ? TeamRunner::undo($pdo, $rid, $who, $tz) : ($act === 'qrunaccept' ? TeamRunner::accept($pdo, $rid, $who, $tz) : TeamRunner::dismiss($pdo, $rid, $who))]); }
+-                    if ($act === 'qanswer') { if (!Access::isFounder()) Response::error('Only the Founder, signed in with the Founder\'s own staff login, answers a Tier 3 decision (decisions/0179). It\'s in the daily summary for them too.', 403);
++                    if ($act === 'qanswer') { if (!Access::isFounder()) Response::error('Only the Founder, signed in with the Founder\'s own staff login, gives a Founder ruling (Tier 5, decisions/0180). It\'s in the daily summary for them too.', 403);
+                         Response::success(['message' => GaugeTasks::answer($pdo, $tid, (string) ($in['ans'] ?? ''), (string) ($in['words'] ?? ''), $who, $tz)]); }
+                     Response::success(['message' => GaugeTasks::withdraw($pdo, $tid, (string) ($in['reason'] ?? ''), $who, $tz)]);
+                 } catch (RuntimeException $x) { Response::error($x->getMessage(), 422); } }
