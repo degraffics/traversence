@@ -6,12 +6,12 @@
     "zip": "batch-live-fix-2.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "planned",
+    "state": "approved",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
-    "plan_at": null,
+    "plan_at": "2026-11-26 10:01:46",
     "staged_at": null,
     "vetted_at": null,
     "live_at": null,
@@ -44,6 +44,16 @@
             "at": "2026-11-26T10:01:44+00:00",
             "by": 0,
             "msg": "Uploaded batch-live-fix-2.zip: 4 files."
+        },
+        {
+            "at": "2026-11-26T10:01:46+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/batch-live-fix-2.zip (git bda24554a4)."
+        },
+        {
+            "at": "2026-11-26T10:01:46+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
         }
     ]
 }
