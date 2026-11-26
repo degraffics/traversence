@@ -3,20 +3,20 @@
  "built_on": "29a9e40 Sync: 2026-11-26 16:38 UTC",
  "recorded": "2026-11-26 16:57 UTC",
  "note": "The before-and-after check's proof fixes (#304), a third time after #305's and #306's looks withdrew it on catch-up's data (#1445, #1449). Built on Sync: 16:38 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "36ca4c0 Sync: 2026-11-26 20:32 UTC",
  "files": {
   "app/lib/BeforeAfter.php": {
    "sha256": "0d0316223823104badb5958e51be13e4cb9c6b856768d14ee220c657ac562d34",
-   "live": false
+   "live": true
   },
   "app/lib/Releases.php": {
    "sha256": "4bd89b17fde93283e173001b153bf857c967f5fd06978acbf34fc283408c923b",
-   "live": false
+   "live": true
   },
   "website/js/admin-staging.js": {
    "sha256": "5001a0a85cf09acb880f643da968c7b7f56b909ebff69cc7fb1c6e7138974a00",
-   "live": false
+   "live": true
   }
  }
 }
