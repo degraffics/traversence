@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-26T09:22:47Z",
+ "generated_at": "2026-11-26T12:06:10Z",
  "version": 2,
  "generated_by": "tools/page-audit/gauges.py",
  "note": "Each gauge's detail for its drawer (ControlGauges::detail): read when the drawer opens.",
@@ -128,7 +128,7 @@
    "name": "The rendered check: each page in a real browser",
    "status": "built",
    "result": "per page",
-   "latest": "run 2026-11-25 09:43 UTC",
+   "latest": "run 2026-11-26 09:44 UTC",
    "target": "every page answers, with no console error, no failed request, no sideways scroll at 390 and card edges at 3px, as each account; the accessibility basics at WCAG 2.2 AA",
    "evidence": "https://github.com/degraffics/traversence/blob/main/site-audit/rendered.md"
   },
@@ -136,7 +136,7 @@
    "name": "The paths check: what a visitor comes to do, end to end",
    "status": "built",
    "result": "per path",
-   "latest": "run 2026-11-25 09:45 UTC",
+   "latest": "run 2026-11-26 09:50 UTC",
    "target": "every path reaches its goal: 3 taps or fewer from home to a place to eat and to a town's guide, 5 or fewer for the rest",
    "evidence": "https://github.com/degraffics/traversence/blob/main/site-audit/paths.md"
   },
@@ -176,41 +176,41 @@
    "name": "Each tool and endpoint, used by every type of account",
    "status": "built",
    "result": "per item",
-   "latest": "3 no check, 627 pass, 324 partial, 1 fail (2026-11-25 10:02 UTC)",
+   "latest": "3 no check, 642 pass, 326 partial, 1 fail (2026-11-26 10:07 UTC)",
    "target": "every tool does what site-audit/tools.md says, for every account that may use it, and is refused with the reason for every account that may not",
-   "evidence": "https://github.com/degraffics/traversence/actions/runs/45583945471"
+   "evidence": "https://github.com/degraffics/traversence/actions/runs/45790539517"
   },
   "LOAD": {
    "name": "Load time for every page against a target",
    "status": "built",
    "result": "per item",
-   "latest": "258 fail, 112 pass (2026-11-26 04:55 UTC)",
+   "latest": "113 pass, 259 fail (2026-11-26 10:38 UTC)",
    "target": "Core Web Vitals \"good\": LCP ≤ 2.5 s, CLS ≤ 0.1, INP ≤ 200 ms, each at the 75th percentile",
-   "evidence": "https://github.com/degraffics/traversence/actions/runs/45758183746"
+   "evidence": "https://github.com/degraffics/traversence/actions/runs/45790539517"
   },
   "PHOTOS-SHOWN": {
    "name": "Every photo on a page shown",
    "status": "built",
    "result": "per item",
-   "latest": "358 pass (2026-11-25 10:30 UTC)",
+   "latest": "360 pass (2026-11-26 10:38 UTC)",
    "target": "every image on the page loaded and drawn (decoded, wider than 0) and with a text alternative",
-   "evidence": "https://github.com/degraffics/traversence/actions/runs/45583945471"
+   "evidence": "https://github.com/degraffics/traversence/actions/runs/45790539517"
   },
   "BRAND": {
    "name": "The brand and design standards on every page",
    "status": "built",
    "result": "per item",
-   "latest": "198 fail, 162 partial (2026-11-25 10:30 UTC)",
+   "latest": "199 fail, 163 partial (2026-11-26 10:38 UTC)",
    "target": "the readable standards of brand.md met: its tokens, one header per view, filters as one dropdown, card anatomy, icons; text contrast at least 4.5:1, focus visible",
-   "evidence": "https://github.com/degraffics/traversence/actions/runs/45583945471"
+   "evidence": "https://github.com/degraffics/traversence/actions/runs/45790539517"
   },
   "AUDIT": {
    "name": "The audit's own load: what each run asks of the site",
    "status": "built",
    "result": "per item",
-   "latest": "4 pass, 3 fail (2026-11-26 04:55 UTC)",
+   "latest": "5 pass, 2 fail (2026-11-26 10:38 UTC)",
    "target": "a light run asks at most about 20 requests, one at a time with a 1 s gap; the probe pages' response times stay within 20% of their 7-day median, or the next run backs off",
-   "evidence": "https://github.com/degraffics/traversence/actions/runs/45758183746"
+   "evidence": "https://github.com/degraffics/traversence/actions/runs/45790539517"
   }
  },
  "results_read": [
@@ -1442,7 +1442,7 @@
       "PHOTOS",
       "TOOLS"
      ],
-     "review": "open finding: f-c85353105f: Dead end: no distance to set once the place is chosen",
+     "review": "open finding: f-c85353105f: Dead end: no distance to set once the place is chosen; f-62aa6d2538: A surprise: the page jumps as it loads (layout shift 0.67)",
      "route": "/directory/",
      "source": "site-audit/pages.md:19; in the mirror (Sync e229587, 22:55 UTC Nov 21); release #164 (live 2026-11-19), release #178 (live 2026-11-19), release #208 (live 2026-11-19)"
     },
@@ -4617,7 +4617,7 @@
       "PHOTOS",
       "TOOLS"
      ],
-     "review": "open finding: f-bbabc36265: A path couldn't be followed: Sign in, including the human check; f-fa035ddd5a: Not clear: none of the results says it's open now (the search asked for open now)",
+     "review": "open finding: f-bbabc36265: A path couldn't be followed: Sign in, including the human check; f-fa4b26d6a3: Dead end: the search showed no places to eat near Show Low; f-fa035ddd5a: Not clear: none of the results says it's open now (the search asked for open now)",
      "route": "/",
      "source": "site-audit/pages.md:17; in the mirror (Sync e229587, 22:55 UTC Nov 21); decisions/0138:95, 114 Built"
     },
@@ -4643,7 +4643,8 @@
       ],
       [
        "LOAD",
-       "fail"
+       "fail",
+       "f-403de6bd59"
       ],
       [
        "PHOTOS",
@@ -4723,7 +4724,8 @@
       ],
       [
        "PATHS",
-       "fail"
+       "fail",
+       "f-97beb6e58b"
       ],
       [
        "TOOLS",
@@ -10632,7 +10634,7 @@
    "setup_why": {
     "probe": "the rendered check: every page as each kind of visitor, at 1280 and 390",
     "target": "target: set by Jason",
-    "check": "Less than optimal · Nov 25, 2:43 AM MST",
+    "check": "Less than optimal · Nov 26, 2:44 AM MST",
     "alarm": "its reading isn't from the alarms yet"
    },
    "records": "page answers (the rendered check: every page as each visitor, 1280 and 390)",
@@ -10685,7 +10687,7 @@
    "setup_why": {
     "probe": "the paths check: sign in, then sign out",
     "target": "both pass on every run",
-    "check": "Working · Nov 25, 2:45 AM MST",
+    "check": "Working · Nov 26, 2:50 AM MST",
     "alarm": "its reading isn't from the alarms yet"
    },
    "records": "sign-ins and sign-outs (the paths check)",
@@ -10738,7 +10740,7 @@
    "setup_why": {
     "probe": "the rendered check at 390 and the layout probe",
     "target": "no sideways scroll; 3px card edges (decisions/0058 §11)",
-    "check": "Less than optimal · Nov 25, 2:43 AM MST",
+    "check": "Less than optimal · Nov 26, 2:44 AM MST",
     "alarm": "its reading isn't from the alarms yet"
    },
    "records": "page views at 390 (the rendered check, the layout probe)",
@@ -10992,7 +10994,7 @@
    "setup_why": {
     "probe": "the paths check: a visitor's whole task, start to finish",
     "target": "target: set by Jason",
-    "check": "Less than optimal · Nov 25, 2:45 AM MST",
+    "check": "Less than optimal · Nov 26, 2:50 AM MST",
     "alarm": "its reading isn't from the alarms yet"
    },
    "records": "visitors' whole tasks (the paths check)",
