@@ -50,6 +50,7 @@ $t('… and none can be made active or put on standby from the Team page', (func
 $t('Retired isn\'t offered for a role of the 32', (function () use ($pdo, $by) { try { TeamRoster::setStatus($pdo, (int) $by['ceo']['id'], 'inactive', 'test'); return false; } catch (RuntimeException $x) { return true; } })());
 $tiers = $pdo->query("SELECT tier FROM control_gauge_tasks WHERE gauge <> 'area:backlog' ORDER BY id")->fetchAll(PDO::FETCH_COLUMN);
 $t('the IT Manager\'s ticket for the two slow admin pages, added once though run twice', (int) $pdo->query("SELECT COUNT(*) FROM control_gauge_tasks WHERE item LIKE 'Two admin pages time out%'")->fetchColumn() === 1);
+$t('… and the 6:13 ticket and the before-and-after ticket, each once', (int) $pdo->query("SELECT COUNT(*) FROM control_gauge_tasks WHERE gauge = 'area:backlog' AND (item LIKE 'Two 6:13 jobs%' OR item LIKE 'Before-and-after check: false blocks%')")->fetchColumn() === 2);
 $t('the stored tier: 3 is 5 now, the others unchanged', $tiers == [5, 2, 1, null], $tiers);
 $t('the Founder\'s highest tier is 5; executives 4, managers 3, specialists 2', (int) $by['founder']['tier_max'] === 5 && (int) $by['cfo']['tier_max'] === 4 && (int) $by['it-manager']['tier_max'] === 3 && (int) $by['schema-guards']['tier_max'] === 2);
 

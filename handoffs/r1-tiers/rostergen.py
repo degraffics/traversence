@@ -130,6 +130,24 @@ WHY = ("In #305's before-and-after look (runs 45835669559 and 45842645867, 2026-
        "to find, not check noise. For the IT Manager's lane (decisions/0180 §5).")
 up.append('-- 7. A Work ticket for the IT Manager\'s lane: two admin pages time out on staging (added once).')
 up.append(f"INSERT INTO control_gauge_tasks (at, tz, gauge, item, kind, what, bucket, value, who, uid, why, source, rel) SELECT UTC_TIMESTAMP(), '', 'area:backlog', {q(ITEM)}, 'fix', {q(ITEM)}, 'task', '', 'the build session', 0, {q(WHY)}, 'the before-and-after check, release #305, 2026-11-26', '' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM control_gauge_tasks WHERE kind = 'fix' AND gauge = 'area:backlog' AND item = {q(ITEM)});")
+# 8. Two more Work tickets, each added once (the session manager and the CEO, 2026-11-26)
+def ticket(item, why, source):
+    up.append(f"INSERT INTO control_gauge_tasks (at, tz, gauge, item, kind, what, bucket, value, who, uid, why, source, rel) SELECT UTC_TIMESTAMP(), '', 'area:backlog', {q(item)}, 'fix', {q(item)}, 'task', '', 'the build session', 0, {q(why)}, {q(source)}, '' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM control_gauge_tasks WHERE kind = 'fix' AND gauge = 'area:backlog' AND item = {q(item)});")
+up.append('-- 8. Two more Work tickets (added once): the 6:13 jobs that never started; the before-and-after check\'s false blocks.')
+ticket('Two 6:13 jobs never started on live (Plans and renewals, Earned storage)',
+       "On 2026-11-26 live's billing_tick (Plans and renewals) and earned_storage_tick have no run at 6:13 MST; Guests' 30 days at the same "
+       "minute ran, and both cron lines are there. Alarm #776 tripped at 13:30 UTC and mailed the Founder (a live alarm: staging's mail is "
+       "held by Staging::holdMail). Likely the 6:13 burst: nine live daily jobs and staging's copies at the same minute "
+       "(Scheduler::syncStaging copies live's minute) against max_user_connections 25; storage/scheduler-missed.json would show a refused "
+       "start. No money harm: the next run takes everything due on or before its day. For the IT Manager's lane (decisions/0180 §5); "
+       "the fix to look at goes with the Scheduler bundle after R2: spread the 6:13 starts, staging's copies at live's minute + 7.",
+       'live alarm #776, 2026-11-26 (the live read, runs 57-61)')
+ticket("Before-and-after check: false blocks from staging's live data",
+       "#305 to #307 were withdrawn on data drift, state lines, to-do links appearing and slow-page timeouts. Lane: IT Manager (11); "
+       "owner: Staging & Release Workers (22, decisions/0180's appendix); builder: Build & QA Sessions (21). The check is paused for four "
+       "releases only and is back on before any agent-built release and before R2. Done when it passes a clean admin-only release on "
+       "today's staging, and the fixture proves it.",
+       "decisions/0179's note of 2026-11-26, 18:30 UTC (#1456)")
 # 5. Staging's Team runner on for everyone, on staging's database only (CLAUDE.md's standing OK: "the build session may switch
 #    on staging's Team runner"; Jason, 2026-11-26, decisions/0180's note "run it now"). The tree's approval and the ceiling
 #    stay his own presses (CLAUDE.md, "The organization runs now"): nothing here writes them.
