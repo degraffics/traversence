@@ -80,9 +80,14 @@ async function extra(p, size) {
     // notice) follow the system, not a release: marked, and left out of drift unless the release draws them (2026-11-26: #9304's
     // look blocked on staging's late scheduled tasks)
     const STATE = '.tv-th, a.ad-r, [data-tv-status], .tv-note, [data-tv-flash]';
+    // the values of records (a list's or table's rows, a card, a detail's values) are data, never structure: catch-up changes
+    // them on staging every minute, so drift compares a page's structure (headings, labels, controls, the sections present),
+    // never what a record says (the session manager, 2026-11-26, after #305's look blocked on a queue row's name). A release
+    // that changes how a list draws is still caught: its headings and column heads, the layout rules and the data counts.
+    const REC = 'tbody, tr[data-id], article, .card, [data-id], main li, dd';   // a table's head (thead, th) stays structure
     const ctl = [...document.querySelectorAll('a[href], button, [role=button], input[type=submit]')].filter(vis);
     const name = el => ((el.innerText || el.textContent || '').trim() || el.getAttribute('aria-label') || el.getAttribute('title') || '').replace(/\s+/g, ' ').slice(0, 80);
-    const controls = ctl.slice(0, 300).map(el => ({ n: name(el), h: (el.getAttribute('href') || '').replace(/^https?:\/\/[^/]+/, '').slice(0, 120), d: !!(el.disabled || el.getAttribute('aria-disabled') === 'true'), ...(el.closest(STATE) ? { st: 1 } : {}) }));
+    const controls = ctl.slice(0, 300).map(el => ({ n: name(el), h: (el.getAttribute('href') || '').replace(/^https?:\/\/[^/]+/, '').slice(0, 120), d: !!(el.disabled || el.getAttribute('aria-disabled') === 'true'), ...(el.closest(STATE) ? { st: 1 } : {}), ...(el.closest(REC) ? { rec: 1 } : {}) }));
     // regions: the header, main, and each card, by a stable key (its id, else its class and place among its kind)
     const regions = {}; const seen = {};
     const cards = [...document.querySelectorAll('header, main, nav, .ak-card, .tv-bleed, article, section[id], [data-region]')].filter(vis).slice(0, 120);
@@ -116,7 +121,7 @@ async function extra(p, size) {
     // each block of words on its own line (a paragraph, heading, list item, cell, label, button or link), so one line that
     // moves on its own (a counter) never hides a line that changed
     const all = [...document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, li, td, th, dt, dd, label, button, a, figcaption, small, summary')].filter(vis);
-    const lines = [...new Set(all.filter(el => !el.closest(STATE)).map(el => clean(el).slice(0, 200)).filter(Boolean))].slice(0, 400);
+    const lines = [...new Set(all.filter(el => !el.closest(STATE) && !el.closest(REC)).map(el => clean(el).slice(0, 200)).filter(Boolean))].slice(0, 400);
     const state = [...new Set(all.filter(el => el.closest(STATE)).map(el => clean(el).slice(0, 200)).filter(Boolean))].slice(0, 200);   // checked only when the release draws them
     return { lines, state, controls, regions, totals, cards: cardsN, rows: rowsN, pins, overlap: over, clipped, offscreen, primary, heading: heading.replace(/\s+/g, ' ').trim().slice(0, 120), nav, canaries, text: text.slice(0, 20000), words };
   });
@@ -178,7 +183,7 @@ export function heldIn(text, hashes, k) {
 }
 const refused = f => !f || f.error || f.status >= 400 || f.ba?.landed_signin;
 const errs = f => f && (f.status >= 500 || (f.console || []).length || (f.requests || []).length);
-const ctlSig = (f, st = true) => (f?.ba?.controls || []).filter(c => st || !c.st).map(c => c.n + '→' + c.h).sort().join('\n');
+const ctlSig = (f, st = true) => (f?.ba?.controls || []).filter(c => (st || !c.st) && !c.rec).map(c => c.n + '→' + c.h).sort().join('\n');
 
 /** The verdict for one release: blocks (each a rule, who, page, size, what), notes, and pass / block / incomplete. */
 export function compare(b1, b2, a, exp = {}, release = '', heldKey = STAGING?.token || CHECK_TOKEN) {
