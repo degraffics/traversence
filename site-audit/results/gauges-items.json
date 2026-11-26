@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-26T06:42:21Z",
+ "generated_at": "2026-11-26T09:22:47Z",
  "version": 2,
  "generated_by": "tools/page-audit/gauges.py",
  "note": "Each gauge's detail for its drawer (ControlGauges::detail): read when the drawer opens.",
