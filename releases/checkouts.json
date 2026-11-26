@@ -57,6 +57,17 @@
    "expires": "2026-11-26T06:32:10Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "website/admin/api.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "P3-6: the fence, agents build in the backend first (Jason, 2026-11-26)",
+   "since": "2026-11-26T02:32:12Z",
+   "expires": "2026-11-26T06:32:12Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
