@@ -145,7 +145,14 @@ ticket('Two 6:13 jobs never started on live (Plans and renewals, Earned storage)
        "the fix to look at goes with the Scheduler bundle after R2: spread the 6:13 starts, staging's copies at live's minute + 7.",
        'live alarm #776, 2026-11-26 (the live read, runs 57-61)')
 ticket("Before-and-after check: false blocks from staging's live data",
-       "#305 to #307 were withdrawn on data drift, state lines, to-do links appearing and slow-page timeouts. Routed by decisions/0180's "
+       "#305 to #307 were withdrawn on data drift, state lines, to-do links appearing and slow-page timeouts; #308 (one Scheduler.php "
+       "change) blocked 22 times on pages it reaches from afar: /admin/auto-imports.php, /admin/cluster-tools.php, /admin/crawler.php "
+       "and /admin/ecommerce.php, where a section that shows only with data came and went (\"Recently published automatically\", "
+       "\"Geo-hub\", \"Technical details\" → its links and buttons), and /admin/crawler-review.php at 390, where a long found-on "
+       "address broke the phone layout (sideways scroll, edges, overlap, a control off the screen), counts that grow with data. The "
+       "looks are 30 minutes apart while catch-up changes staging's data: one way to look at is a third before look taken just before "
+       "the change goes on, with the after look compared only where all three agree, and layout counts read against the page's own data "
+       "(the same long value before). Routed by decisions/0180's "
        "appendix (its duties and reporting lines, #1460). The check is paused for four "
        "releases only and is back on before any agent-built release and before R2. Done when it passes a clean admin-only release on "
        "today's staging, and the fixture proves it.",
