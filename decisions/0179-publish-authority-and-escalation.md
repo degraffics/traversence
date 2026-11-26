@@ -160,3 +160,10 @@ can see them work before we point them on the front end." And: "Admin does count
 - Rule 1 still holds: agents' backend releases wait for the batch until Piece 3 is live. Tier 3 is unchanged.
 - The order stays the same: the batch (P3-4 brings Undo and the spending limit), then the decision tree's approval,
   then Building, then Implementation behind the fence.
+- **Backend releases go live without the batch** (Jason, 2026-11-26: "Let the backen release go live. Thats what I will
+  evaluate as seeing their work."):
+  - Under Backend only, an agent's backend release publishes on its own once staging's checks and the before-and-after
+    check pass, with Undo and Roll back in the daily summary. This replaces the line above that sends them through the
+    batch.
+  - Front-end tickets still stop at the brief, and Tier 3 still stops for a Decision Brief.
+  - Raising the ceiling stays Jason's own press on the Team page (approve the decision tree, then Implementation).
