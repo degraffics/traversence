@@ -301,5 +301,8 @@ Nothing above raises a stage ceiling or the reach fence. Those stay the Founder'
 - **All roles on at R1** (Jason, 2026-11-26: "All agents should be on and ready to deploy their duties and
   responsibilities"). It replaces the standby set in the note above: R1 seeds all 32 roles active, with the 12 advocates
   (views only). Each role works its own duties in its own lane, inside the stage it's raised to, the reach fence (Backend
-  only), $0 spend (the CEO's $20 a month aside) and the hard money line. The CEO still manages who works what and can put a
-  role on standby (logged, with its way back). Retired roles stay not shown.
+  only), $0 spend (the CEO's $20 a month aside) and the hard money line. Retired roles stay not shown.
+  - **Who works what is set here, not by the CEO** (Jason, 2026-11-26: "this was set in the md"): each role's duties and
+    reporting line are the appendix's, and R2 routes each ticket to its lane's manager by them. The CEO doesn't reassign
+    work or put a role on standby; standby and active stay the Founder's (§ Fences). The note above's "undone by putting
+    the role back on standby" no longer applies.
