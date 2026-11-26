@@ -1,0 +1,26 @@
+{
+ "zip": "batch-live-fix-2.zip",
+ "built_on": "efcaf9c Sync: 2026-11-26 09:21 UTC",
+ "recorded": "2026-11-26 10:01 UTC",
+ "note": "batch-live-fix-2: #298's four files again (withdrawn at 03:48 by staging's 503); release.json notes the resend. Admin only, on the session manager's OK 10:00 UTC. Built on Sync: 02:36 UTC (unchanged at 09:21) Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/control-console.php": {
+   "sha256": "bcf8ee539c621b6ea66b56955b44c04d94ec2f42edab59bab4c12481777740a9",
+   "live": false
+  },
+  "app/lib/ControlGauges.php": {
+   "sha256": "40ac787974e7af9b9f638488dc131a171d8333e10afe9341c688661bde2578e7",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "a777587988ea05e0e675ec454638f6ceacb875143bf91c09ca269c8e1b5444fc",
+   "live": false
+  },
+  "website/js/admin-control.js": {
+   "sha256": "db1d48b2deaf3d5ebf07a737843358b784a8d6285d9e6c08b5cf11794556566a",
+   "live": false
+  }
+ }
+}
