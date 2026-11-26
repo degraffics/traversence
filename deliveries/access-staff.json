@@ -1,0 +1,22 @@
+{
+ "zip": "access-staff.zip",
+ "built_on": "45926f0 Sync: 2026-11-26 21:32 UTC",
+ "recorded": "2026-11-26 22:59 UTC",
+ "note": "URGENT: a member is never the Founder outside the admin; order files need a staff login (the CEO's brief, 2026-11-26). Built on Sync: 21:32 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/Access.php": {
+   "sha256": "db6a3c3b257229fa7a7446efcde2cd017f855b0e8822b5c3c7997154ddfc3fd3",
+   "live": false
+  },
+  "app/lib/upload-targets.php": {
+   "sha256": "b858fde7f5b4e1fe1b3db2dbe47d80ca7b329cf50d9ab7f2ba1db9dce0acbb25",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "bceab9dcd0f4f55f0346411ab97b0c462f6899abe695256d4f394483a44477d7",
+   "live": false
+  }
+ }
+}
