@@ -6,12 +6,12 @@
     "zip": "staging-offset.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "planned",
+    "state": "approved",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
-    "plan_at": null,
+    "plan_at": "2026-11-26 18:48:02",
     "staged_at": null,
     "vetted_at": null,
     "live_at": null,
@@ -34,6 +34,21 @@
             "at": "2026-11-26T18:37:12+00:00",
             "by": 0,
             "msg": "Uploaded staging-offset.zip: 2 files."
+        },
+        {
+            "at": "2026-11-26T18:37:14+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/staging-offset.zip (git 72bca1c3a4)."
+        },
+        {
+            "at": "2026-11-26T18:37:14+00:00",
+            "by": 0,
+            "msg": "Waiting for its before look: the advocates look at staging as it is, then it goes on staging (the before-and-after check)."
+        },
+        {
+            "at": "2026-11-26T18:48:02+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
         }
     ]
 }
