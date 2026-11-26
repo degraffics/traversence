@@ -22,5 +22,6 @@
     "check_side": "tools/piece3-tests/beforeafter.test.mjs: a held name on the page after blocks (access, 0066) named by its hash only, the verdict file never holding the name; the names unread: incomplete; a held name on no page: pass; the site's hash and the check's the same",
     "team": "tools/team-tests/runner.php 48 (its fingerprint tests: approval tied to the rules, cleared when they change; the tree not approved at Planning) and team-head.cjs 28 on the live copy plus P3-5"
   },
-  "rollback": "Proved on the bench (tools/team-tests/rollback.sh, 2026-11-26): the zip laid over the live mirror (Sync 2026-11-26 00:16 UTC), then Roll back as the site does it: the files match live byte for byte and every PHP file parses. Left behind: nothing (no migration). The repo side (beforeafter.mjs, beforeafter.yml) goes back by reverting its merge."
+  "rollback": "Proved on the bench (tools/team-tests/rollback.sh, 2026-11-26): the zip laid over the live mirror (Sync 2026-11-26 02:17 UTC), then Roll back as the site does it: the files match live byte for byte and every PHP file parses. Left behind: nothing (no migration). The repo side (beforeafter.mjs, beforeafter.yml) goes back by reverting its merge.",
+  "built_on": "Sync 2026-11-26 02:17 UTC (P3-3 #293 and P3-4 #294 live)"
 }

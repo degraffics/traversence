@@ -43,9 +43,11 @@ final class TeamRunner
      */
     public const CEILINGS = [
         'planning' => ['Planning', 'Agents only propose: the Project Manager says a ticket is ready for Building, the Translator suggests a brief\'s words, the audit opens tickets. A person accepts or dismisses each.'],
-        'building' => ['Building', 'The Project Manager moves a ticket to Building once its gate passes, and the System Architect writes build briefs for the session manager.'],
-        'implementation' => ['Implementation', 'As Building; nothing more acts on its own yet.'],
-        'confirmation' => ['Confirmation and safe publish', 'Needs the before-and-after check (Piece 3).'],
+        // Jason, 2026-11-25 (through the session manager): the Project Manager acts at Building and takes audit-raised tickets
+        // itself; at Implementation the brief goes straight to a build session; at Confirmation, Tier 1 and 2 publish alone
+        'building' => ['Building', 'The Project Manager moves a ticket to Building once its gate passes, and takes the tickets the audit raised itself; a ticket a person entered still waits for Give it to the Team. The System Architect writes build briefs for the session manager.'],
+        'implementation' => ['Implementation', 'As Building, and the System Architect\'s build brief goes straight to a build session, through the report (build-requests.json).'],
+        'confirmation' => ['Confirmation and safe publish', 'Agents act as at Implementation, and a release that touches no Tier 3 area publishes by itself once staging\'s checks and the advocates pass it (Tier 1 and Tier 2, rule 2); Tier 3 comes to the Founder as a Decision Brief.'],
     ];
     /** What each step does at each ceiling: act, propose, or off. */
     public const STEP_AT = [
@@ -63,7 +65,11 @@ final class TeamRunner
             'tables' => ['orders', 'order_lines', 'order_ledger', 'order_events', 'order_refund_requests', 'order_payment_cancels', 'subscriptions', 'subscription_charges', 'wallet_cards', 'account_domains', 'domain_cart', 'market_orders', 'market_pay_events'],
             'paths' => ['/order.php', '/user/orders.php', '/market/cart.php', '/market/order.php', '/qr/cart.php', '/shop/domains.php', '/user/domains/', '/business/pay-connect.php', '/api/market-pay.php', '/api/market-webhook.php', '/api/qb-webhook.php', '/api/client-order.php', '/api/domains.php', '/api/admin/client-order.php', '/admin/order.php', '/admin/client-order.php', '/admin/quickbooks.php', '/admin/backoffice/orders', '/admin/backoffice/production'],
             'jobs' => ['billing_tick', 'pay_wait_tick', 'qb_orders_tick', 'got_it_tick', 'market_tick'], 'services' => ['quickbooks', 'stripe', 'square']],
-        'data' => ['libs' => ['DataMove', 'DbUpdates', 'StagingPublish'], 'tables' => ['db_updates_log'], 'paths' => ['/admin/config/dbupdates', 'app/migrations/'], 'jobs' => [], 'services' => []],
+        // a migration is Tier 3 (data) by what it does, not by being one (Jason, 2026-11-25, through the session manager: CREATE
+        // TABLE IF NOT EXISTS or a guarded ADD COLUMN/INDEX alone is 0179's safe additive; UPDATE, DELETE, DROP, MODIFY or
+        // RENAME stays Tier 3; TRUNCATE deletes and CHANGE renames or modifies a column). ReleaseKind::writes() reads them.
+        'data' => ['libs' => ['DataMove', 'DbUpdates', 'StagingPublish'], 'tables' => ['db_updates_log'], 'paths' => ['/admin/config/dbupdates'], 'jobs' => [], 'services' => [],
+            'sql' => ['UPDATE', 'DELETE', 'DROP', 'MODIFY', 'RENAME', 'TRUNCATE', 'CHANGE']],
         'address' => ['libs' => [], 'tables' => ['short_codes', 'business_domains'], 'paths' => ['/.htaccess', '/admin/router.php', 'trvgo/index.php', 'trvgo/.htaccess', 'site-audit/pages.md'], 'jobs' => ['domains_tick'], 'services' => ['cloudflare', 'namecom', 'fly']],
         // HeldNames and its read (P3-5, the session manager, 2026-11-26: 0066's own area, a data entry only)
         'nations' => ['libs' => ['Landmarks', 'Nations', 'HeldNames'], 'tables' => ['landmarks', 'nations', 'nation_decision_log'], 'paths' => ['/place/landmark.php', '/admin/landmarks.php', '/admin/nations.php', '/api/crawl/landmarks.php', '/api/held-hashes.php'], 'jobs' => ['landmark_photos_tick', 'heritage_tick'], 'services' => []],
@@ -71,11 +77,26 @@ final class TeamRunner
             'paths' => ['/api/auth/', '/user/accounts.php', '/user/delete-account.php', '/user/api/delete-account.php', '/user/api/profile.php', '/user/api/people.php', '/admin/people.php', '/admin/api/people.php', '/admin/config/testaccounts', '/privacy.php', 'app/storage/'], 'jobs' => ['guest_tick'], 'services' => []],
     ];
 
+    /**
+     * What one step may cost (Piece 3, P3-4: "a spending limit per agent"). No step calls paid AI or an outside service
+     * (Q4 B), so each is $0; a step that ever costs more than its role's limit this month is refused (spendLimit).
+     */
+    public const STEP_COST_MICROS = ['gate' => 0, 'handoff' => 0, 'brief' => 0, 'audit' => 0];
+
+    /** A role's monthly limit in micro-dollars (team_settings "spend:<slug>"; $0 unless the Founder sets one). */
+    public static function spendLimit(PDO $pdo, string $slug): int { $v = self::setting($pdo, 'spend:' . $slug); return $v !== null && is_numeric($v['v']) ? max(0, (int) $v['v']) : 0; }
+
+    /** What a role's runs cost this month (team_runs.cost_micros). */
+    public static function spentThisMonth(PDO $pdo, string $slug): int
+    {
+        try { $st = $pdo->prepare("SELECT COALESCE(SUM(cost_micros), 0) FROM team_runs WHERE role = ? AND at >= DATE_FORMAT(UTC_TIMESTAMP(), '%Y-%m-01')"); $st->execute([$slug]); return (int) $st->fetchColumn(); } catch (Throwable $x) { return 0; }
+    }
+
     /** The rule data the decision tree's approval is tied to (0179's note: "a fingerprint of its rules, not its wording"). */
     public static function ruleData(): array
     {
         $steps = []; foreach (self::STEPS as $k => [$role, , $action, $def]) $steps[$k] = [$role, $action, $def];
-        return ['steps' => $steps, 'step_at' => self::STEP_AT, 'ceilings' => array_keys(self::CEILINGS), 'tier3_areas' => self::TIER3_AREAS, 'tier3_words' => self::TIER3, 'tier1_words' => self::TIER1];
+        return ['steps' => $steps, 'step_at' => self::STEP_AT, 'ceilings' => array_keys(self::CEILINGS), 'tier3_areas' => self::TIER3_AREAS, 'tier3_words' => self::TIER3, 'tier1_words' => self::TIER1, 'step_cost' => self::STEP_COST_MICROS];
     }
     public static function fingerprint(): string { return hash('sha256', json_encode(self::ruleData())); }
 
@@ -120,6 +141,8 @@ final class TeamRunner
 
     /** What a step does now: act, propose or off. */
     public static function mode(PDO $pdo, string $step): string { return self::STEP_AT[$step][self::ceiling($pdo)] ?? 'off'; }
+    /** Where a build brief goes (report()'s "brief_to"): a build session from Implementation on, else the session manager. */
+    public static function briefTo(PDO $pdo): string { return in_array(self::ceiling($pdo), ['implementation', 'confirmation'], true) ? 'build' : 'session manager'; }
 
     /** Change the ceiling (the Founder's alone): up one stage at a time once the tree is approved, never to Confirmation yet; down any time. */
     public static function setCeiling(PDO $pdo, string $to, string $who, string $why = '', string $tz = ''): string
@@ -131,7 +154,7 @@ final class TeamRunner
         if ($dest > $from) {
             if (!self::treeApproval($pdo)) throw new RuntimeException('Approve the decision tree first.');
             if ($dest !== $from + 1) throw new RuntimeException('One stage at a time, each on its evidence.');
-            if ($to === 'confirmation') throw new RuntimeException('Needs the before-and-after check (Piece 3).');
+            if ($to === 'confirmation' && ($w = self::confirmationWaits($pdo)) !== '') throw new RuntimeException($w);
         }
         self::put($pdo, 'ceiling', $to, $who, $tz);
         ControlLog::add($pdo, 'control', '', 'Team setting: agents work up to ' . self::CEILINGS[$now][0] . ' → ' . self::CEILINGS[$to][0] . (trim($why) !== '' ? ' (' . trim($why) . ')' : ''), $who, '', $tz);
@@ -159,7 +182,34 @@ final class TeamRunner
                 ['The agents\' permission check', 'Every step asks Access::canAs for its role\'s level · ' . (int) $refused . ' refused · ' . (int) $adv . ' runs by an advocate or the Founder (must be 0)', 'TeamRoster::can, team_runs'],
                 ['Holds on outside calls, payments and email', $held === null ? 'Read on staging' : 'StagingGate: ' . json_encode($held), 'StagingGate::counts']];
         }
-        return [['Waits for Piece 3', 'Needs the before-and-after check (Piece 3)', 'decisions/0179 rule 2']];
+        // Confirmation and safe publish (0179's note §3; Piece 3, P3-4): what the before-and-after check and rule 2 have done
+        $rel = []; try { $rel = $pdo->query("SELECT id, zip_name, state, checks, log, live_at, updated_at FROM site_releases WHERE created_at >= UTC_TIMESTAMP() - INTERVAL 14 DAY")->fetchAll(PDO::FETCH_ASSOC); } catch (Throwable $x) {}
+        $ba = ['pass' => 0, 'block' => 0, 'none' => 0]; $byZip = []; $escapes = 0; $alone = 0; $undone = 0;
+        foreach ($rel as $x) {
+            $it = null; foreach ((array) (json_decode((string) $x['checks'], true)['items'] ?? []) as $i) if (($i[0] ?? '') === 'Before and after (advocates)') $it = $i[1];
+            $ba[$it === true ? 'pass' : ($it === false ? 'block' : 'none')]++;
+            $byZip[(string) $x['zip_name']][] = $it;
+            if ($it === true && $x['state'] === 'rolled_back') $escapes++;
+            if (str_contains((string) $x['log'], 'Published alone (')) { $alone++; if ($x['state'] === 'rolled_back') $undone++; }
+        }
+        $wrong = 0; foreach ($byZip as $its) if (in_array(false, $its, true) && end($its) === true) $wrong++;   // blocked, then the same zip passed unchanged in name
+        return [['Releases checked by the advocates', '14 days: ' . $ba['pass'] . ' passed · ' . $ba['block'] . ' blocked · ' . $ba['none'] . ' not checked', 'site_releases: the check "Before and after (advocates)"'],
+            ['Blocks that were wrong', $wrong . ' blocked, then sent again under the same name and passed', 'site_releases by zip name'],
+            ['Escapes', $escapes . ' passed by the advocates, then rolled back', 'site_releases: rolled_back'],
+            ['Undo end to end', $alone . ' published alone (rule 2) · ' . $undone . ' of them undone (rolled back)', 'site_releases: "Published alone"'],
+            ['Ready', ($w = self::confirmationWaits($pdo)) === '' ? 'The before-and-after check and rule 2 are on' : $w, 'Switches: before_after, rule2_autopublish'],
+            // Brief A (Jason, 2026-11-25: "keep staging record publishes in the daily batch for now"): revisit before this raise
+            ['A staging Publish', 'Isn\'t checked by the advocates: it stays in the daily batch (Brief A). Decide whether it should be, before raising to Confirmation.', 'decisions/0179\'s note "Piece 3\'s decisions"; handoffs/piece3-check.md §15']];
+    }
+
+    /** Why Confirmation can't open yet ('' when it can): the before-and-after check and rule 2 both on (decisions/0179 rule 2). */
+    public static function confirmationWaits(PDO $pdo): string
+    {
+        require_once __DIR__ . '/Switches.php'; $all = Switches::all($pdo);
+        $on = fn ($k) => !empty($all[$k]) && !$all[$k]['killed'] && $all[$k]['state'] === 'on';
+        if (!$on('before_after')) return 'Needs the before-and-after check switched on (Piece 3).';
+        if (!$on('rule2_autopublish')) return 'Needs rule 2 switched on: low-risk releases publish alone (the Founder\'s switch).';
+        return '';
     }
 
     /** A finding looks again after this many hours (piece2-team.md §6: "the next day's run checks it again"; the job runs daily). */
@@ -232,6 +282,18 @@ final class TeamRunner
         return null;
     }
 
+    /**
+     * A ticket the Project Manager takes itself from Building on (Jason, 2026-11-25): unowned, and raised by the audit (an Audit
+     * ticket, or one whose parent is). One a person entered waits for Give it to the Team.
+     */
+    public static function takesItself(PDO $pdo, array $t): bool
+    {
+        if (trim((string) $t['owner']) !== '') return false;
+        if ((string) ($t['ticket'] ?? '') === 'audit') return true;
+        if (empty($t['parent_id'])) return false;
+        try { $st = $pdo->prepare('SELECT ticket FROM control_gauge_tasks WHERE id = ?'); $st->execute([(int) $t['parent_id']]); return $st->fetchColumn() === 'audit'; } catch (Throwable $x) { return false; }
+    }
+
     /** Never a ticket a person has: only unowned ones, or ones a Team role has. */
     public static function mayWork(array $t): bool { $o = (string) $t['owner']; return $o === '' || str_starts_with($o, 'system · '); }
 
@@ -239,7 +301,8 @@ final class TeamRunner
     public static function applies(PDO $pdo, string $step, array $t): bool
     {
         $tk = (string) ($t['ticket'] ?? 'work'); $sg = (string) ($t['stage'] ?? '');
-        if ($step === 'gate') return $tk === 'work' && $sg === 'planning' && GaugeTasks::gate($pdo, $t) === [] && !self::openProposal($pdo, (int) $t['id'], 'gate');
+        if ($step === 'gate') return $tk === 'work' && $sg === 'planning' && !self::openProposal($pdo, (int) $t['id'], 'gate')
+            && (GaugeTasks::gate($pdo, $t) === [] || (self::mode($pdo, 'gate') === 'act' && self::takesItself($pdo, $t) && GaugeTasks::gate($pdo, $t) === ['someone to have it (Take it)']));
         if ($step === 'handoff') return $tk === 'work' && $sg === 'building' && trim((string) $t['goal']) !== '' && trim((string) ($t['build_brief'] ?? '')) === '' && (string) $t['rel'] === '';
         if ($step === 'audit') return false;   // the audit is its own daily job, not one ticket's step
         if ($step === 'brief') { if ($tk !== 'resolution' || $sg !== 'brief') return false; return self::briefDraft($pdo, $t) !== []; }
@@ -263,11 +326,11 @@ final class TeamRunner
     /** The Tier 3 area a finding's targets touch, or ''. */
     public static function touches(array $targets): string
     {
-        $kinds = ['path' => 'paths', 'job' => 'jobs', 'svc' => 'services', 'lib' => 'libs', 'table' => 'tables'];
+        $kinds = ['path' => 'paths', 'job' => 'jobs', 'svc' => 'services', 'lib' => 'libs', 'table' => 'tables', 'sql' => 'sql'];
         foreach ($targets as $tg) {
             [$k, $v] = array_pad(explode(':', (string) $tg, 2), 2, ''); $v = trim($v); if ($v === '' || !isset($kinds[$k])) continue;
             if ($k === 'path') { $v = (string) (parse_url($v, PHP_URL_PATH) ?? $v); $v = preg_replace('#^(website|sync-storage)/#', '/', $v); }
-            foreach (self::TIER3_AREAS as $b => $a) foreach ($a[$kinds[$k]] as $x) {
+            foreach (self::TIER3_AREAS as $b => $a) foreach ($a[$kinds[$k]] ?? [] as $x) {
                 if ($k === 'path' ? ($v === $x || str_starts_with($v, $x) || str_starts_with(ltrim($v, '/'), ltrim($x, '/'))) : strcasecmp($v, $x) === 0) return $b;
             }
         }
@@ -363,20 +426,28 @@ final class TeamRunner
         $who = TeamRoster::actor($role); $id = (int) $t['id'];
         [$ok, $no] = TeamRoster::can($role, $action, $def);
         if (!$ok) return self::log($pdo, $role, $id, $step, 'its permissions', '', 'refused', $no . ' (Permissions: ' . $action . ')');
+        $cost = (int) (self::STEP_COST_MICROS[$step] ?? 0);   // the spending limit per agent (Piece 3, P3-4)
+        if ($cost > 0 && self::spentThisMonth($pdo, (string) $role['slug']) + $cost > self::spendLimit($pdo, (string) $role['slug']))
+            return self::log($pdo, $role, $id, $step, 'its spending limit', '', 'refused', 'It would spend $' . number_format($cost / 1e6, 2) . ', over this month\'s limit for ' . $role['name'] . ' ($' . number_format(self::spendLimit($pdo, (string) $role['slug']) / 1e6, 2) . ').');
         try {
             if ($step === 'gate' && self::mode($pdo, 'gate') === 'propose') {   // at Planning: a proposal a person accepts (Jason, 2026-11-25)
                 return self::log($pdo, $role, $id, $step, 'its goal, Done when, decisions and owner', 'Proposed: ready for Building (its gate passes)', 'proposed', '', ['move' => 'building'], 'A proposal changes nothing until a person accepts it', null, 'task:' . $id);
             }
             if ($step === 'gate') {
-                $msg = GaugeTasks::move($pdo, $id, 'building', $who, 'its gate passed: a goal, Done when, its decisions and someone who has it');
-                return self::log($pdo, $role, $id, $step, 'its goal, Done when, decisions and owner', $msg, 'done', '', null, 'Moves it back to Planning', ['to' => 'planning'], 'task:' . $id);
+                $took = trim((string) $t['owner']) === '' && self::takesItself($pdo, $t);   // an audit-raised ticket: it takes it first
+                if ($took) $pdo->prepare('UPDATE control_gauge_tasks SET owner = ?, owner_at = UTC_TIMESTAMP() WHERE id = ? AND owner = \'\'')->execute([mb_substr($who, 0, 80), $id]);
+                try { $msg = GaugeTasks::move($pdo, $id, 'building', $who, 'its gate passed: a goal, Done when, its decisions and someone who has it'); }
+                catch (RuntimeException $x) { if ($took) $pdo->prepare('UPDATE control_gauge_tasks SET owner = \'\', owner_at = NULL WHERE id = ?')->execute([$id]); throw $x; }
+                return self::log($pdo, $role, $id, $step, 'its goal, Done when, decisions and owner', ($took ? 'Took it (the audit raised it); ' . lcfirst($msg) : $msg), 'done', '', null,
+                    $took ? 'Moves it back to Planning and gives it back to nobody' : 'Moves it back to Planning', $took ? ['to' => 'planning', 'owner' => ''] : ['to' => 'planning'], 'task:' . $id);
             }
             if ($step === 'handoff') {
                 $brief = self::buildBrief($pdo, $t);
                 $was = (string) $t['owner'];
                 $pdo->prepare('UPDATE control_gauge_tasks SET build_brief = ?, owner = ?, owner_at = UTC_TIMESTAMP() WHERE id = ?')->execute([$brief, mb_substr($who, 0, 80), $id]);
-                ControlLog::add($pdo, 'control', '', 'Task #' . $id . ' build brief written and handed to the session manager (hourly report)', $who);
-                return self::log($pdo, $role, $id, $step, 'its scope, decisions and steps', 'Wrote its build brief; with the session manager at the next hourly report', 'done', '', null,
+                $to = self::briefTo($pdo);   // Implementation on: straight to a build session (Jason, 2026-11-25)
+                ControlLog::add($pdo, 'control', '', 'Task #' . $id . ' build brief written and handed ' . ($to === 'build' ? 'straight to a build session' : 'to the session manager') . ' (hourly report, build-requests.json)', $who);
+                return self::log($pdo, $role, $id, $step, 'its scope, decisions and steps', 'Wrote its build brief; ' . ($to === 'build' ? 'straight to a build session' : 'with the session manager') . ' at the next hourly report', 'done', '', null,
                     'Takes the brief back and gives the ticket back to ' . ($was !== '' ? $was : 'nobody'), ['owner' => $was], 'task:' . $id);
             }
             if ($step === 'brief') {
@@ -420,6 +491,9 @@ final class TeamRunner
 
     private static function log(PDO $pdo, array $role, int $task, string $step, string $seen, string $did, string $state, string $why = '', ?array $proposal = null, string $undoHow = '', ?array $undo = null, string $touches = ''): string
     {
+        // Undo on every agent action (decisions/0179's "What comes next"; Piece 3, P3-4): a step that did something without its
+        // Undo isn't recorded as done; it's refused, so it shows, and a step that can't be undone only ever proposes
+        if ($state === 'done' && (trim($undoHow) === '' || $undo === null)) { $state = 'refused'; $why = 'It did "' . mb_substr($did, 0, 120) . '" with no Undo: a step that can\'t be undone only proposes (Piece 3).'; }
         $pdo->prepare('INSERT INTO team_runs (at, role, task_id, step, seen, did, state, why, proposal, undo_how, undo_data, touches) VALUES (UTC_TIMESTAMP(), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)')
             ->execute([(string) $role['slug'], $task, $step, mb_substr($seen, 0, 400), mb_substr($did, 0, 400), $state, mb_substr($why, 0, 400), $proposal !== null ? json_encode($proposal, JSON_UNESCAPED_UNICODE) : null,
                 mb_substr($undoHow, 0, 400), $undo !== null ? json_encode($undo) : null, mb_substr($touches, 0, 400)]);
@@ -447,7 +521,7 @@ final class TeamRunner
         if ($r['undone_at'] !== null) throw new RuntimeException('Already undone, by ' . $r['undone_by'] . '.');
         if ($r['state'] !== 'done') throw new RuntimeException($r['state'] === 'proposed' ? 'A proposal changes nothing: Accept or Dismiss it.' : 'It did nothing, so there\'s nothing to undo.');
         $u = json_decode((string) $r['undo_data'], true) ?: []; $tid = (int) $r['task_id'];
-        if ($r['step'] === 'gate') GaugeTasks::move($pdo, $tid, (string) $u['to'], $who, 'Undo of run #' . $rid, $tz);
+        if ($r['step'] === 'gate') { GaugeTasks::move($pdo, $tid, (string) $u['to'], $who, 'Undo of run #' . $rid, $tz); if (array_key_exists('owner', $u)) $pdo->prepare('UPDATE control_gauge_tasks SET owner = ?, owner_at = NULL WHERE id = ?')->execute([(string) $u['owner'], $tid]); }
         elseif ($r['step'] === 'handoff') {
             $pdo->prepare('UPDATE control_gauge_tasks SET build_brief = NULL, owner = ?, owner_at = ? WHERE id = ?')->execute([(string) ($u['owner'] ?? ''), ($u['owner'] ?? '') !== '' ? gmdate('Y-m-d H:i:s') : null, $tid]);
             ControlLog::add($pdo, 'control', '', 'Task #' . $tid . ' build brief taken back (Undo of run #' . $rid . ')', $who, '', $tz);

@@ -1,0 +1,26 @@
+{
+ "zip": "p3-5-held.zip",
+ "built_on": "ca5650f Sync: 2026-11-26 02:17 UTC",
+ "recorded": "2026-11-26 02:18 UTC",
+ "note": "P3-5: the held names as keyed hashes for the before-and-after check (Brief B, 0066, Tier 3), staging only; approved by Jason 2026-11-26; built on Sync: 2026-11-26 02:17 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/HeldNames.php": {
+   "sha256": "48830130fbb09fa155c20cdc9181ee8cafab25cbe1ac0c208b7e84100549cd2c",
+   "live": false
+  },
+  "app/lib/TeamRunner.php": {
+   "sha256": "6d5588b98a56ca7be5c1acf0503d77aec172e9e8b2bf07836594b620f40d87b4",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "9f512f2cc55196eb1e95a3bd60eceacf8871d1018d018b8e77d04ff5e7f176c9",
+   "live": false
+  },
+  "website/api/held-hashes.php": {
+   "sha256": "d6274921a35f8db8aae8052c1501e230c742da5fd23d7eea17d96f050965bd1d",
+   "live": false
+  }
+ }
+}
