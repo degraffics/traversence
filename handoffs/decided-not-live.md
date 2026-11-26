@@ -50,3 +50,5 @@ is synced and byte-checked. Updated with every approval and every release.
 #280 the board on a phone · #281 the Work queue · #282 a task's page (scope, priority, steps) · #283 decisions on a task ·
 #284 the scope doc's seed (its migration cleared unrun, see task-seed-2) · #285 the scope doc's tasks, run · task-seed-3
 (everything outstanding before the holiday, merged #1368, live once synced)
+
+- **2026-11-26 batch approved** (Jason, ~00:50 UTC: "No need to wait for approval. I want to see the agent work a bit."): P3-3, P3-4, P3-5 (Tier 3, 0066), notify-founder (counts as "Approve notify"), then P3-6 the backend fence with no batch wait. Sent one at a time in that order. Staging's three switches go on via the standing OK. Agents stay at Planning until Jason approves the decision tree.
