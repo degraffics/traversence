@@ -1,55 +1,6 @@
 {
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
- "claims": [
-  {
-   "path": "app/lib/Notify.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
-   "why": "release staff-mail.zip",
-   "since": "2026-11-26T20:31:44Z",
-   "expires": "2026-11-27T00:31:44Z",
-   "release": "staff-mail.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/StagingSite.php",
-   "functions": [
-    "tellDone"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
-   "why": "release staff-mail.zip",
-   "since": "2026-11-26T20:31:44Z",
-   "expires": "2026-11-27T00:31:44Z",
-   "release": "staff-mail.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/Mailer.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
-   "why": "release staff-mail.zip",
-   "since": "2026-11-26T20:31:44Z",
-   "expires": "2026-11-27T00:31:44Z",
-   "release": "staff-mail.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/StagingPublish.php",
-   "functions": [
-    "tell"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
-   "why": "release staff-mail.zip",
-   "since": "2026-11-26T20:31:44Z",
-   "expires": "2026-11-27T00:31:44Z",
-   "release": "staff-mail.zip",
-   "callers": {}
-  }
- ],
+ "claims": [],
  "lapsed": [
   {
    "path": "app/lib/TeamRunner.php",
