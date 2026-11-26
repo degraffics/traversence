@@ -11,6 +11,17 @@
    "expires": "2026-11-26T06:17:55Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/HeldNames.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "P3-5: the held names as keyed hashes",
+   "since": "2026-11-26T02:17:57Z",
+   "expires": "2026-11-26T06:17:57Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
