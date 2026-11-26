@@ -86,6 +86,11 @@
             "at": "2026-11-26T14:48:01+00:00",
             "by": 0,
             "msg": "Release #305 is in, but its plan needs a look: Its plan was approved already. Approve it on System Configuration → Releases."
+        },
+        {
+            "at": "2026-11-26T14:48:04+00:00",
+            "by": 0,
+            "msg": "On staging and its checks passed; the advocates look again now (the before-and-after check)."
         }
     ]
 }
