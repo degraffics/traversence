@@ -88,9 +88,15 @@ async function extra(p, size) {
     // holds an item after has a record more, not a new control (#307's look, /admin/helper.php); the admin kit's ak-card is a
     // section, so it stays structure
     const REC = 'tbody, tr[data-id], article, .card, [class*="-card"]:not(.ak-card), [data-id], main li, dd';   // a table's head (thead, th) stays structure
+    // a section that holds records (a list, a table's rows, cards) comes and goes with its data: a queue with nothing in it is
+    // often not drawn at all (#308's look: "Recently published automatically", "Geo-hub", "Technical details" came and went on
+    // staging). Its heading and its own controls are marked with the section, so drift reads them as data
+    const SEC = 'section, article, details, fieldset, .ak-card, .tv-bleed, [data-region]';
+    const secOf = el => { const c = el.closest(SEC); return c && c.querySelector(REC) ? c : null; };
+    const secName = c => { const h = c.querySelector('h1, h2, h3, h4, h5, h6, summary, legend'); return h ? (h.innerText || h.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 120) : (c.id || c.className || '').toString().slice(0, 60); };
     const ctl = [...document.querySelectorAll('a[href], button, [role=button], input[type=submit]')].filter(vis);
     const name = el => ((el.innerText || el.textContent || '').trim() || el.getAttribute('aria-label') || el.getAttribute('title') || '').replace(/\s+/g, ' ').slice(0, 80);
-    const controls = ctl.slice(0, 300).map(el => ({ n: name(el), h: (el.getAttribute('href') || '').replace(/^https?:\/\/[^/]+/, '').slice(0, 120), d: !!(el.disabled || el.getAttribute('aria-disabled') === 'true'), ...(el.closest(STATE) ? { st: 1 } : {}), ...(el.closest(REC) ? { rec: 1 } : {}), ...(el.tagName === 'A' && !el.closest('header, nav, [role=navigation], [role=tablist]') ? { lk: 1 } : {}) }));
+    const controls = ctl.slice(0, 300).map(el => ({ n: name(el), h: (el.getAttribute('href') || '').replace(/^https?:\/\/[^/]+/, '').slice(0, 120), d: !!(el.disabled || el.getAttribute('aria-disabled') === 'true'), ...(el.closest(STATE) ? { st: 1 } : {}), ...(el.closest(REC) ? { rec: 1 } : {}), ...(secOf(el) ? { sec: secName(secOf(el)) } : {}), ...(el.tagName === 'A' && !el.closest('header, nav, [role=navigation], [role=tablist]') ? { lk: 1 } : {}) }));
     // regions: the header, main, and each card, by a stable key (its id, else its class and place among its kind)
     const regions = {}; const seen = {};
     const cards = [...document.querySelectorAll('header, main, nav, .ak-card, .tv-bleed, article, section[id], [data-region]')].filter(vis).slice(0, 120);
@@ -110,13 +116,18 @@ async function extra(p, size) {
     const boxes = ctl.slice(0, 200).map(el => [el, el.getBoundingClientRect()]);
     const over = [];
     for (let i = 0; i < boxes.length && over.length < 5; i++) for (let j = i + 1; j < boxes.length && over.length < 5; j++) {
-      const [a, ra] = boxes[i], [b, rb] = boxes[j]; if (a.contains(b) || b.contains(a)) continue;
+      const [a, ra] = boxes[i], [b, rb] = boxes[j]; if (a.contains(b) || b.contains(a) || (a.closest(REC) && b.closest(REC))) continue;   // two controls in records: their data
       const w = Math.min(ra.right, rb.right) - Math.max(ra.left, rb.left), h = Math.min(ra.bottom, rb.bottom) - Math.max(ra.top, rb.top);
       if (w > 4 && h > 4) over.push(name(a) + ' × ' + name(b));
     }
     const clipped = [...document.querySelectorAll('h1, h2, h3, p, a, button, td, th, label, span')].filter(el => vis(el) && el.children.length === 0 && (el.innerText || '').trim()
       && el.scrollWidth > el.clientWidth + 1 && /hidden|clip/.test(getComputedStyle(el).overflowX) && getComputedStyle(el).textOverflow !== 'ellipsis').slice(0, 5).map(el => (el.innerText || '').slice(0, 60));
-    const offscreen = ctl.filter(el => { const r = el.getBoundingClientRect(); return getComputedStyle(el).position !== 'fixed' && (r.right > W + 1 || r.left < -1); }).slice(0, 5).map(name);
+    const offscreen = ctl.filter(el => !el.closest(REC)).filter(el => { const r = el.getBoundingClientRect(); return getComputedStyle(el).position !== 'fixed' && (r.right > W + 1 || r.left < -1); }).slice(0, 5).map(name);
+    // what makes the page wider than the screen: when every element past its right edge is inside a record (a long address in a
+    // found-on cell, #308's look at 390), the overflow is that record's data, read as such by compare on a page the change
+    // doesn't name; a wide element of the page's own (a bar, a form) still blocks
+    const past = [...document.querySelectorAll('body *')].filter(el => el.children.length === 0 && vis(el) && el.getBoundingClientRect().right > W + 1 && getComputedStyle(el).position !== 'fixed');
+    const wideRec = past.length > 0 && past.every(el => el.closest(REC));
     const primary = [...document.querySelectorAll('.ak-b.go, [data-tv-primary], .tv-strip [data-strip=save], .tv-strip [data-strip=close]')].filter(vis).map(name).slice(0, 5);
     const heading = (document.querySelector('h1, .tv-strip .tv-strip-name, h2') || {}).innerText || '';
     const nav = document.querySelectorAll('header a[href], header button, [data-tv-trail] a').length;
@@ -131,8 +142,9 @@ async function extra(p, size) {
     const STRUCT = 'h1, h2, h3, h4, h5, h6, th, label, legend, summary, dt';
     const prose = [...new Set(all.filter(el => !el.matches(STRUCT) && !el.closest(STATE) && !el.closest(REC)).map(el => clean(el).slice(0, 200)).filter(Boolean))].slice(0, 400);
     const lines = [...new Set(all.filter(el => el.matches(STRUCT) && !el.closest(STATE) && !el.closest(REC)).map(el => clean(el).slice(0, 200)).filter(Boolean))].slice(0, 400);
+    const dlines = [...new Set(all.filter(el => el.matches(STRUCT) && !el.closest(STATE) && !el.closest(REC) && secOf(el)).map(el => clean(el).slice(0, 200)).filter(Boolean))].slice(0, 400);   // headings of sections that hold records
     const state = [...new Set(all.filter(el => el.closest(STATE)).map(el => clean(el).slice(0, 200)).filter(Boolean))].slice(0, 200);   // checked only when the release draws them
-    return { lines, prose, state, controls, regions, totals, cards: cardsN, rows: rowsN, recs: document.querySelectorAll(REC).length, pins, overlap: over, clipped, offscreen, primary, heading: heading.replace(/\s+/g, ' ').trim().slice(0, 120), nav, canaries, text: text.slice(0, 20000), words };
+    return { lines, dlines, wideRec, prose, state, controls, regions, totals, cards: cardsN, rows: rowsN, recs: document.querySelectorAll(REC).length, pins, overlap: over, clipped, offscreen, primary, heading: heading.replace(/\s+/g, ' ').trim().slice(0, 120), nav, canaries, text: text.slice(0, 20000), words };
   });
   r.landed_signin = SIGNIN.test(new URL(p.url()).pathname);
   return { ba: r };
@@ -201,7 +213,9 @@ export function heldIn(text, hashes, k) {
 }
 const refused = f => !f || f.error || f.status >= 400 || f.ba?.landed_signin;
 const errs = f => f && (f.status >= 500 || (f.console || []).length || (f.requests || []).length);
-const ctlSig = (f, st = true) => (f?.ba?.controls || []).filter(c => (st || !c.st) && !c.rec && !(c.lk && /^\/admin(\/|\.|$)/.test(f?.url || ''))).map(c => c.n + '→' + c.h).sort().join('\n');
+// a page's controls as the set of distinct ones (more of the same button is more data, never a new control: #308's look), less
+// those of a section that holds records and came or went between the looks (skip: its names)
+const ctlSig = (f, st = true, skip = new Set()) => [...new Set((f?.ba?.controls || []).filter(c => (st || !c.st) && !c.rec && !(c.sec && skip.has(c.sec)) && !(c.lk && /^\/admin(\/|\.|$)/.test(f?.url || ''))).map(c => c.n + '→' + c.h))].sort().join('\n');
 
 /** The verdict for one release: blocks (each a rule, who, page, size, what), notes, and pass / block / incomplete. */
 export function compare(b1, b2, a, exp = {}, release = '', heldKey = STAGING?.token || CHECK_TOKEN) {
@@ -246,7 +260,12 @@ export function compare(b1, b2, a, exp = {}, release = '', heldKey = STAGING?.to
     if (refused(f)) continue;
     // 2. layout or phone
     for (const [k, on] of [['scroll', x => x.scroll && x.size === 'phone'], ['edges', x => x.edges > 0], ['dialogs', x => (x.dialogs || []).length], ['names', x => x.names > 0], ['alt', x => x.alt > 0]])
-      if (on(f) && !on(b)) block('layout', f, STANDARDS[k], 'met', 'missed');
+      if (on(f) && !on(b)) {
+        // wider than the screen only because of a record's own content (a long address), on a page the change doesn't name:
+        // that record's data, noted for Site health, never this change's (#308's look, /admin/crawler-review.php at 390)
+        if ((k === 'scroll' || k === 'edges') && f.ba?.wideRec && !expected.has(f.url)) notes.push(`${key(f)}: "${STANDARDS[k]}" missed after, from a record's own content (its data); not this change's`);
+        else block('layout', f, STANDARDS[k], 'met', 'missed');
+      }
     const more = (k, what) => { const n0 = (b.ba?.[k] || []).length, n1 = (f.ba?.[k] || []).length; if (n1 > n0 && !moving(x => (x.ba?.[k] || []).length)) block('layout', f, what + ': ' + (f.ba[k] || []).slice(0, 2).join('; '), n0, n1); };
     more('overlap', 'Controls drawn over each other'); more('clipped', 'Text cut off'); more('offscreen', 'A control off the screen');
     for (const pmy of b.ba?.primary || []) if (!(f.ba?.primary || []).includes(pmy)) block('layout', f, 'The page\'s main action is gone: ' + pmy, pmy, '');
@@ -263,8 +282,13 @@ export function compare(b1, b2, a, exp = {}, release = '', heldKey = STAGING?.to
     const N = x => new Set([...(x?.ba?.lines || []), ...(adm ? [] : x?.ba?.prose || []), ...(stateDrawn ? x?.ba?.state || [] : [])].map(l => l.replace(/\d+/g, '#')));
     const L0 = N(b), L2 = N(bb || b), L1 = N(f);
     const movingL = new Set([...L0].filter(l => !L2.has(l)).concat([...L2].filter(l => !L0.has(l))));
-    const goneL = [...L0].filter(l => !L1.has(l) && !movingL.has(l)), newL = [...L1].filter(l => !L0.has(l) && !movingL.has(l));
-    const ctlChanged = ctlSig(b, stateDrawn) !== ctlSig(f, stateDrawn) && ctlSig(b, stateDrawn) === ctlSig(bb || b, stateDrawn);
+    // a section that holds records, there in one look and not the other, came or went with its data: its heading isn't drift,
+    // and its controls go with it (#308's look); a heading of the page's own, or a section with no records, still is
+    const D = x => new Set((x?.ba?.dlines || []).map(l => l.replace(/\d+/g, '#')));
+    const D0 = D(b), D1 = D(f);
+    const goneL = [...L0].filter(l => !L1.has(l) && !movingL.has(l) && !D0.has(l)), newL = [...L1].filter(l => !L0.has(l) && !movingL.has(l) && !D1.has(l));
+    const toggled = new Set([...(b.ba?.dlines || [])].filter(l => !(f.ba?.lines || []).includes(l)).concat([...(f.ba?.dlines || [])].filter(l => !(b.ba?.lines || []).includes(l))));
+    const ctlChanged = ctlSig(b, stateDrawn, toggled) !== ctlSig(f, stateDrawn, toggled) && ctlSig(b, stateDrawn, toggled) === ctlSig(bb || b, stateDrawn, toggled);
     // an empty state giving way to records (a queue's "All caught up." gone, its first item there: #307's look, /admin/helper.php)
     // is the queue filling, not a part of the page gone: a region that held no records, with the page holding more records after
     const filled = r => !(b.ba.regions[r]?.n) && (f.ba?.recs ?? 0) > (b.ba?.recs ?? 0);
