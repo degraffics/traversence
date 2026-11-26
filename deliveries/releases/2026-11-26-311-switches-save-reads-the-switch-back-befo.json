@@ -1,0 +1,44 @@
+{
+    "id": 311,
+    "title": "Switches: Save reads the switch back before it says saved; the Team's runner card says only Everyone runs it",
+    "why": "Jason saved \"Staging: the Team's runner\" on staging twice (2026-11-26, 13:14 and 13:16 UTC). Each save said \"Success: Saved: it takes effect at once\" and updated Last changed, but the switch still read Off, so the agents never started. The form, Switches::set, the column, catch-up and the page's redraw were all checked and found sound: the save stored Off. Two faults remain, both fixed here. Save said Success without reading the row back, so it never said what it saved. And nothing said that a background job like the runner, which has no person to check, runs only when its switch is on for Everyone. Now Save reads the switch again and either names the new state (\"Saved: Staging: the Team's runner is on for everyone, from now.\") or says \"Not saved: you chose X, but it reads Y now, so nothing changed\", never Success. The runner's card says \"A background job, so only Everyone runs it.\" Admin only, no table, no outside call.",
+    "proposals": "",
+    "zip": "switch-readback.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/admin/sections.php": {
+            "sha": "8ff17c35d71e71a6a9a1f33bc752aca259d2ebcc98ef27b05692dee3ddb0112b",
+            "size": 258403,
+            "live_was": "de886106df86c1cc5236128bc64b2e3d9b35b841c5ae241b1f8053131230d1db"
+        },
+        "app/ui/faq.md": {
+            "sha": "77ed31dc5785845844a6dbce0d74e5fed0092c74a514389f26397357f42af403",
+            "size": 464913,
+            "live_was": "6af7dc76910d5bf9564ff6427a624ab933ff548dd0dfe604c5ebd4dc1f49efe9"
+        },
+        "app/lib/Switches.php": {
+            "sha": "23e5e635ef765d57a3aeba09989c5cdc710779cb3b471a4fd4429d8d9fa1bb9d",
+            "size": 8218,
+            "live_was": "bc5b3d9301234b56355d3045a649797f38388550a0e126983b07bb975595acfe"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-26T20:31:20+00:00",
+            "by": 0,
+            "msg": "Uploaded switch-readback.zip: 3 files."
+        }
+    ]
+}
