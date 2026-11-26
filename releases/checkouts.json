@@ -22,6 +22,17 @@
    "expires": "2026-11-26T05:59:52Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/Switches.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "P3-3: rule 2 kept by the site",
+   "since": "2026-11-26T01:59:56Z",
+   "expires": "2026-11-26T05:59:56Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
