@@ -1,0 +1,54 @@
+{
+    "id": 312,
+    "title": "Staff mail: staging's news reaches the person who pressed, and mail to a staff login goes to its work email",
+    "why": "The \"Staging is refreshed\" email (2026-11-26) went to <staff id>@staff.traversence.invalid: the hidden address of the staff login that pressed Start staging over. That address takes no mail, so nobody heard. Approved by the session manager, relaying Jason: do the staging emails through Notify by staff id, and route every other Mailer::send that uses a staff login's hidden address the same way. Now (a) staging's two notices (a copy finished or stopped, a publish's result) reach a staff login through Notify by its staff id (new kind staging.done: Pulse and the work email), and a member who pressed by their own email; (b) Mailer::send itself resolves an address at @staff.traversence.invalid to that login's active staff_accounts.email, as Notify::addressOf does. That covers StagingApi's send-me, Releases, AiAssist, Vault, GuideAudits, Takedowns, Services, Claims and admin/Workflow.php's \"email the owner\" step, all of which could mail a hidden address. An ended login, one with no work email, or any other .invalid address is refused with why and logged in comms_route as 'refused' (\"not sent: no deliverable address\"). Releases' review email (~840) and DailyReport::owners() already resolve these addresses; admin/tools.php's gallery notice mails only members and business teams. No table, no outside call beyond the mail the site already sends.",
+    "proposals": "",
+    "zip": "staff-mail.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/ui/faq.md": {
+            "sha": "01f3c8e8020a25e2dfb6678db71eaed4ef37fc8c8cc5cbd72fc19e47569ea702",
+            "size": 465133,
+            "live_was": "77ed31dc5785845844a6dbce0d74e5fed0092c74a514389f26397357f42af403"
+        },
+        "app/lib/Notify.php": {
+            "sha": "83d674b83cee1fe70ae50f9e2076bb5f9662e2b0f24372cfb2f5a1a1b39cc1bf",
+            "size": 57833,
+            "live_was": "91825aa989642174bd059e5f875656bb61a6717acec0578fc1c9fbe663a6902d"
+        },
+        "app/lib/StagingSite.php": {
+            "sha": "cd29864208a1708b23f3a68839aa33289e3350ce30657d115ade912f53599b32",
+            "size": 107740,
+            "live_was": "f7477bc82685c80698e3d864dfa27b751d084558e6765c4e5dc03a484e7fbd70"
+        },
+        "app/lib/Mailer.php": {
+            "sha": "77eb6f58a9be7e7cd1c19de04e9138452a6a01b21dff3d9b680ba4cc62e6afeb",
+            "size": 23233,
+            "live_was": "15680df3c33470bd531a16497ac9b9341f3a8ff26e8280de20765f56c0577a12"
+        },
+        "app/lib/StagingPublish.php": {
+            "sha": "793a086644247919d0310aa51ef64ef86843dcacc1bd43e02559db37be3884f2",
+            "size": 50090,
+            "live_was": "9bc084cb3b56a833aa95921329096335f0a64790f56c775918764403060aaa30"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-26T20:32:41+00:00",
+            "by": 0,
+            "msg": "Uploaded staff-mail.zip: 5 files."
+        }
+    ]
+}
