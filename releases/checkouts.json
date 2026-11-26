@@ -2,69 +2,6 @@
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
  "claims": [
   {
-   "path": "app/lib/BeforeAfter.php",
-   "functions": [
-    "step"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
-   "why": "release ba-proof-fixes.zip",
-   "since": "2026-11-26T11:51:23Z",
-   "expires": "2026-11-26T23:50:55Z",
-   "release": "ba-proof-fixes-4.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/Releases.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
-   "why": "release ba-proof-fixes.zip",
-   "since": "2026-11-26T11:51:23Z",
-   "expires": "2026-11-26T23:50:55Z",
-   "release": "ba-proof-fixes-4.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/js/admin-staging.js",
-   "functions": [
-    "redraw"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
-   "why": "release ba-proof-fixes.zip",
-   "since": "2026-11-26T14:05:31Z",
-   "expires": "2026-11-26T23:50:55Z",
-   "release": "ba-proof-fixes-4.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/admin/sections.php",
-   "functions": [
-    "tv_admin_mod_switches"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
-   "why": "release switch-readback.zip",
-   "since": "2026-11-26T20:30:37Z",
-   "expires": "2026-11-27T00:30:37Z",
-   "release": "switch-readback.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/Switches.php",
-   "functions": [
-    "(top)"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
-   "why": "release switch-readback.zip",
-   "since": "2026-11-26T20:30:37Z",
-   "expires": "2026-11-27T00:30:37Z",
-   "release": "switch-readback.zip",
-   "callers": {}
-  },
-  {
    "path": "app/lib/Notify.php",
    "functions": [],
    "kind": "add",
