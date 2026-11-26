@@ -290,3 +290,11 @@ Nothing above raises a stage ceiling or the reach fence. Those stay the Founder'
   - **The Founder's and the CEO's shared AI budget is $20 a month,** for Claude and Google AI together, with a hard
     stop at the cap. At the cap the CEO falls back to the minutes route. Every other agent stays at $0.
 
+- **Every role is available; the CEO staffs it without asking** (Jason, 2026-11-26: "Hiring proposal? Ive put all
+  agents available...").
+  - All 32 roles are the CEO's to use. Bringing a role online is the CEO's own management act inside 0180: no proposal
+    to the Founder and no press by him. Each activation is logged on the Team page with who, why and the work it's for,
+    and is undone by putting the role back on standby.
+  - At R1 the CEO's first picks are active with the working seats: IT Manager (11), Staging & Release Workers (22),
+    Schema & Migration Guards (24) and the Cognitive Load & Simplicity Guardian (15).
+  - The CEO reports on staffing and performance in its updates. Founder rulings stay Tier 5 only.
