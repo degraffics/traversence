@@ -6,13 +6,13 @@
     "zip": "r1-tiers.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "approved",
+    "state": "staged",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
     "plan_at": "2026-11-26 20:38:33",
-    "staged_at": null,
+    "staged_at": "2026-11-26 20:38:35",
     "vetted_at": null,
     "live_at": null,
     "files": {
@@ -120,7 +120,44 @@
     "migrations": [
         "app/migrations/2026-11-26_0180_tiers_roster.sql"
     ],
-    "checks": [],
+    "checks": {
+        "ok": true,
+        "where": "staging",
+        "at": "2026-11-26T20:38:36+00:00",
+        "items": [
+            [
+                "PHP files parse",
+                true,
+                "17 checked"
+            ],
+            [
+                "Migrations only add",
+                true,
+                "1 checked"
+            ],
+            [
+                "Data changes have a reason",
+                true,
+                "2026-11-26_0180_tiers_roster.sql change rows: decisions/0180 §1: the stored tier 3 meant the Founder and is 5 now (one meaning per number); the Team's rows are renamed and re-layered to 0180's appendix, retired ones marked so, each guarded so a person's own name is never written over and nothing that exists is made again (0162's note); Roll bac (a copy of every table they touch is kept first)"
+            ],
+            [
+                "Migrations ran on staging",
+                true,
+                "Ran 2026-11-26_0180_tiers_roster.sql"
+            ],
+            [
+                "Pages answer",
+                true,
+                "3 pages answered on staging.trvgo.us"
+            ],
+            [
+                "No new fatal errors in the logs",
+                true,
+                "3 logs read"
+            ]
+        ],
+        "first_fail": ""
+    },
     "log": [
         {
             "at": "2026-11-26T20:38:31+00:00",
@@ -136,6 +173,11 @@
             "at": "2026-11-26T20:38:33+00:00",
             "by": 0,
             "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
+        },
+        {
+            "at": "2026-11-26T20:38:36+00:00",
+            "by": 0,
+            "msg": "Put on staging (20 files); its checks passed."
         }
     ]
 }
