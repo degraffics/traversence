@@ -1,6 +1,21 @@
 {
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
- "claims": [],
+ "claims": [
+  {
+   "path": "app/admin/control-console.php",
+   "functions": [
+    "tv_cb_wq_batch",
+    "tv_cb_wq_runs"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "P3-6: the fence, agents build in the backend first (Jason, 2026-11-26)",
+   "since": "2026-11-26T02:32:04Z",
+   "expires": "2026-11-26T06:32:04Z",
+   "release": "",
+   "callers": {}
+  }
+ ],
  "lapsed": [
   {
    "path": "app/lib/GaugeTasks.php",
