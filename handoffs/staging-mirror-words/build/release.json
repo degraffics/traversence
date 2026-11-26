@@ -1,0 +1,17 @@
+{
+  "title": "Staging: Keep staging caught up says where it stands; a copy no longer stops on a closed connection; nothing previewed or published from half a copy",
+  "why": "Jason, 2026-11-26 (through the session manager): he pressed Keep staging caught up and the Staging page still said (off) with the button, and Now said not kept caught up, while the fresh copy went in. Then that copy stopped at \"strip admin admin_access\": MySQL server has gone away. Cause: staging_carry_tick carries a copy in one process for up to 55 minutes and StagingSite::conn() kept each realm's connection for the whole run; the admin realm's sat idle through main's strip and the server closed it, so every copy the job carries would stop there. Now conn() checks a kept connection idle 20 s or more and makes it again when the server dropped it (and asks for an hour idle). The page's words follow the switch: turning on (with the copy's percentage and step, no button; Don't turn it on), on (Stop keeping caught up), didn't turn on (Try again, Leave it off), with the copy's later steps adding no outbox to live after Don't turn it on. Preview, Publish and Schedule are greyed with why, and refused on the server, while a copy runs or after one stopped (staging holds half a copy); Set up staging waits for a running copy; the preview line no longer says Publish is open when it isn't; messages name Start staging over (Refresh staging is gone); state lines keep no ×. Admin only, no table, no outside call. The FAQ entry follows separately, after #298 (which carries faq.md).",
+  "urgent": "Staging is closed by the copy that stopped (its pages answer 503 until a copy finishes), so no release's staging checks can pass, and only this release lets a copy finish. Meanwhile the two-press path Preview again then Publish is open on half a copy, and staff password hashes and TOTP secrets sit unreplaced in staging's admin database until a whole copy runs. Published urgent by Jason's press on Releases, checked on live straight after.",
+  "proposals": [],
+  "switch": "",
+  "changes": [
+    {"what": "Keep staging caught up: (off) / turning on with its progress / (on) / didn't turn on, each with its own buttons; the Now line the same", "where": "https://traversence.com/admin/config/staging#against"},
+    {"what": "Set up staging, Preview, Publish and Schedule wait (greyed with why, refused on the server) while a copy runs or after one stopped", "where": "https://traversence.com/admin/config/staging"},
+    {"what": "A copy carried by the server no longer stops on a database connection the server closed", "where": "https://traversence.com/admin/config/staging"}
+  ],
+  "checks": {
+    "connection": "tools/staging-tests/conn-gone.php 10 on MariaDB (the 2006 error reproduced word for word on a killed kept connection; conn() then hands out a new one with its session settings; the stopped step, strip admin_access, runs on it)",
+    "words": "tools/staging-tests/mirror-on.php 19 (each state; finish turns it on; a base step after Don't turn it on adds nothing; Preview and Publish refused on the server while copying and after a stopped copy) and mirror-words.cjs 42 at 1280 and 390 (off, turning on, on, stopped: words, buttons, greyed reasons, no ×, no sideways scroll)",
+    "kept": "tools/staging-tests/unit.php 65 and db.php 49 still pass"
+  }
+}

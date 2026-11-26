@@ -1,0 +1,243 @@
+--- a/app/lib/StagingSite.php
++++ b/app/lib/StagingSite.php
+@@ -90,6 +90,7 @@
+         'listings' => ['DB_LISTINGS_DATABASE', 'DB_LISTINGS_USERNAME', 'DB_LISTINGS_PASSWORD'], 'users' => ['DB_USERS_DATABASE', 'DB_USERS_USERNAME', 'DB_USERS_PASSWORD']];
+ 
+     private static array $conns = [];
++    private static array $connAt = [];   // when each realm's connection was last handed out (conn())
+ 
+     // ---- live's record of staging (main database) --------------------------------------------------------------------
+ 
+@@ -177,13 +178,23 @@
+     /** A connection as one of live's logins (to copy from its database and write to its staging copy). */
+     private static function conn(string $realm): PDO
+     {
+-        if (isset(self::$conns[$realm])) return self::$conns[$realm];
++        // A connection kept from earlier in a long run (staging_carry_tick works up to 55 minutes in one process) may have
++        // been closed by the server while it sat idle: the admin realm's sat through main's whole strip, and the first admin
++        // step met "MySQL server has gone away" (2026-11-26, "strip admin admin_access"). Idle a while: asked first, and
++        // made again when the server has dropped it.
++        if (isset(self::$conns[$realm])) {
++            if (time() - (self::$connAt[$realm] ?? 0) < 20) { self::$connAt[$realm] = time(); return self::$conns[$realm]; }
++            try { @self::$conns[$realm]->query('SELECT 1'); self::$connAt[$realm] = time(); return self::$conns[$realm]; }
++            catch (Throwable $e) { unset(self::$conns[$realm]); error_log('staging: the ' . $realm . ' connection had closed (' . $e->getMessage() . '); made again'); }
++        }
+         $l = self::liveDbs()[$realm] ?? null;
+         if (!$l) throw new RuntimeException('The live ' . $realm . ' database isn\'t set up in .env.');
+         Database::readEnv();
+         $dsn = 'mysql:host=' . (getenv('DB_HOST') ?: 'localhost') . ';port=' . (getenv('DB_PORT') ?: '3306') . ';dbname=' . $l[0] . ';charset=utf8mb4';
+         $pdo = new PDO($dsn, $l[1], $l[2], [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC, PDO::ATTR_EMULATE_PREPARES => false]);
+         $pdo->exec("SET SESSION sql_mode = REPLACE(REPLACE(@@sql_mode, 'NO_ZERO_DATE', ''), 'NO_ZERO_IN_DATE', '')");   // old rows with zero dates copy as they are
++        try { $pdo->exec('SET SESSION wait_timeout = 3600'); } catch (Throwable) {}   // an hour idle, as long as the job runs; the check above covers a server that won't
++        self::$connAt[$realm] = time();
+         return self::$conns[$realm] = $pdo;
+     }
+ 
+@@ -871,7 +882,7 @@
+             error_log('staging refresh (' . $step . '): ' . $e->getMessage());
+             $r['finished_at'] = date('c'); $r['ok'] = false; unset($r['salt']);
+             $why = $e instanceof PDOException ? 'the database refused (' . $e->getMessage() . '). Pressing Set up staging again gives each login its databases again' : ($e instanceof RuntimeException ? $e->getMessage() : 'an error (it\'s in the error log)');
+-            $r['message'] = 'The refresh stopped at "' . $step . '": ' . rtrim($why, '.') . '. Staging stays closed until a refresh finishes: press Refresh staging to try again, or ask us at support@traversence.com.';
++            $r['message'] = 'The refresh stopped at "' . $step . '": ' . rtrim($why, '.') . '. Staging stays closed until a refresh finishes: press Start staging over to try again, or ask us at support@traversence.com.';
+             $r['log'][] = $r['message'];
+             self::put($pdo, 'refresh', $r);
+             self::tellDone($pdo, $r);
+@@ -1009,6 +1020,8 @@
+                 require_once __DIR__ . '/StagingSync.php';
+                 [, $realm, $t] = $s;
+                 $m = (array) self::get($pdo, 'mirror');
++                // "Don't turn it on" pressed while the copy goes in: no trigger goes on live or staging after it (keepCaughtUp(false) took live's off)
++                if (empty($m['on']) && empty($m['starting'])) { if (empty($r['base_skipped'])) { $r['base_skipped'] = true; $r['log'][] = 'Keeping caught up was turned off while the copy went in: no outbox goes on live.'; } return; }
+                 if (!isset($m['trig'][$realm])) { $m['trig'][$realm] = ['staging' => StagingSync::canTrigger($realm, 'staging'), 'live' => StagingSync::canTrigger($realm, 'live')]; self::put($pdo, 'mirror', $m); }
+                 if ($m['trig'][$realm]['staging']) StagingSync::stagingTriggers($realm, $t);
+                 if ($m['trig'][$realm]['live']) StagingSync::outboxTriggers($realm, $t);
+@@ -1258,9 +1271,37 @@
+         return 'Staging starts over once (a fresh copy of live, a few minutes), then keeps caught up from live. You get an email when it\'s done.';
+     }
+ 
++    /** Why staging can't be previewed or published from now, or '' (Jason, 2026-11-26): a fresh copy going in, or one that
++     *  stopped part way (staging stays closed until a copy finishes, so what's there is half a copy). */
++    public static function copyHold(PDO $pdo): string
++    {
++        if (self::running($pdo)) return 'A fresh copy of live is going into staging: preview and publish once it finishes (you get an email).';
++        $last = self::get($pdo, 'last');
++        if ($last && empty($last['ok'])) return 'The last copy into staging stopped part way, so staging holds half a copy: press Start staging over, then preview and publish.';
++        return '';
++    }
++
+     /** Is staging kept caught up? */
+     public static function mirrorOn(PDO $pdo): bool { $m = self::get($pdo, 'mirror'); return !empty($m['on']); }
+ 
++    /**
++     * Where Keep staging caught up stands, so the page's words follow it (Jason, 2026-11-26: "it is supposed to move/change
++     * as actions fire"): ['state' => off | turning_on | on | stuck, 'pct', 'pos', 'of', 'now', 'why']. Turning on: it was
++     * pressed and its fresh copy is going in (it switches on at the copy's last step, 'finish'). Stuck: it was pressed but no
++     * copy is going in any more (the copy stopped): Try again starts it once more.
++     */
++    public static function mirrorState(PDO $pdo): array
++    {
++        $m = (array) self::get($pdo, 'mirror');
++        if (!empty($m['on'])) return ['state' => 'on'];
++        if (empty($m['starting'])) return ['state' => 'off'];
++        $run = self::running($pdo);
++        if ($run) { $p = self::progress($run); $of = max(1, (int) ($p['of'] ?? 0)); $pos = (int) ($p['pos'] ?? 0);
++            return ['state' => 'turning_on', 'pos' => $pos, 'of' => $of, 'pct' => (int) floor(100 * $pos / $of), 'now' => (string) ($p['now'] ?? '')]; }
++        $last = self::get($pdo, 'refresh');
++        return ['state' => 'stuck', 'why' => (string) (($last['message'] ?? '') ?: 'the fresh copy stopped before its last step')];
++    }
++
+     /** Staging runs its own scheduled jobs (decisions/0165 §1), shipped off: live's cPanel adds staging's copy of each. */
+     public static function jobs(PDO $pdo, bool $on, int $uid): string
+     {
+@@ -1349,7 +1390,7 @@
+                                   s.is_suspended = l.is_suspended, s.email_verified_at = l.email_verified_at, s.created_at = l.created_at WHERE l.id IN (' . implode(',', array_map('intval', $users)) . ')');
+             self::resealStaff($pdo, $setup);
+             return 'Staging has the same new sign-ins (test accounts made since its last refresh come with the next).';
+-        } catch (Throwable $e) { error_log('staging test sync: ' . $e->getMessage()); return 'Staging didn\'t take the new sign-ins yet: press Refresh staging.'; }
++        } catch (Throwable $e) { error_log('staging test sync: ' . $e->getMessage()); return 'Staging didn\'t take the new sign-ins yet: press Start staging over.'; }
+     }
+ 
+     // ---- a lock, so two windows never set up or refresh at once -------------------------------------------------------
+--- a/app/lib/StagingApi.php
++++ b/app/lib/StagingApi.php
+@@ -129,7 +129,7 @@
+         $last = StagingPublish::state($pdo, 'last_publish');
+         return [
+             'releases' => array_map(fn ($r) => ['id' => (int) $r['id'], 'title' => (string) $r['title'], 'ok' => (bool) $r['checks_ok'] && Releases::reviewed($pdo, (int) $r['id']), 'replaced' => Releases::replacedIn($pdo, $r)], $rel),
+-            'changes' => $changes, 'held' => $held, 'conflicts' => $conflicts, 'caught_up' => $caught ?: null, 'mirror' => StagingSite::mirrorOn($pdo),
++            'changes' => $changes, 'held' => $held, 'conflicts' => $conflicts, 'caught_up' => $caught ?: null, 'mirror' => StagingSite::mirrorOn($pdo), 'mirror_state' => StagingSite::mirrorState($pdo),
+             'jobs' => !empty(StagingSite::get($pdo, 'jobs')['on']), 'night' => $night, 'live_keys' => StagingGate::liveKeys($env), 'ungated' => $ung ? count((array) $ung['calls']) : null,
+             'ungated_list' => $ung ? array_slice((array) $ung['calls'], 0, 30) : [], 'preview' => StagingPublish::state($pdo, 'preview'), 'run' => $run ? self::runView($run) : null,
+             'last' => $last, 'scheduled' => StagingPublish::state($pdo, 'scheduled'), 'data_note' => '',
+@@ -140,7 +140,8 @@
+     {
+         $n = count($s['releases']);
+         return 'Staging · ' . ($n ? $n . ' upload' . ($n === 1 ? '' : 's') . ' waiting · ' : '') . $s['changes'] . ' change' . ($s['changes'] === 1 ? '' : 's') . ' · ' . $s['held'] . ' held · '
+-             . $s['conflicts'] . ' conflict' . ($s['conflicts'] === 1 ? '' : 's') . ($s['mirror'] ? '' : ' · not kept caught up');
++             . $s['conflicts'] . ' conflict' . ($s['conflicts'] === 1 ? '' : 's')
++             . ($s['mirror'] ? '' : ' · ' . (['turning_on' => 'keeping caught up: turning on', 'stuck' => 'keeping caught up didn\'t turn on'][$s['mirror_state']['state'] ?? ''] ?? 'not kept caught up'));
+     }
+ 
+     public static function previewLine(array $pv): string
+--- a/app/lib/StagingPublish.php
++++ b/app/lib/StagingPublish.php
+@@ -71,6 +71,7 @@
+     {
+         require_once __DIR__ . '/StagingSite.php';
+         require_once __DIR__ . '/Releases.php';
++        if (($hold = StagingSite::copyHold($pdo)) !== '') throw new RuntimeException($hold);
+         $id = bin2hex(random_bytes(6));
+         $test = StagingSync::testIds();
+         $sum = ['id' => $id, 'at' => gmdate('c'), 'by' => $uid, 'counts' => [], 'conflicts' => 0, 'late' => 0, 'not_carried' => [], 'unknown' => [], 'rows' => 0, 'clash' => [],
+@@ -257,6 +258,8 @@
+         if ($run && in_array($run['state'] ?? '', ['running', 'undoing'], true)) return $run;
+         $pv = self::state($pdo, 'preview');
+         if (!$pv) throw new RuntimeException('Work out the preview first (Publish ▾ → Preview).');
++        require_once __DIR__ . '/StagingSite.php';
++        if (($hold = StagingSite::copyHold($pdo)) !== '') throw new RuntimeException($hold);
+         $run = ['id' => (string) $pv['id'], 'state' => 'running', 'started_at' => gmdate('c'), 'tz' => $tz, 'by' => $uid, 'pos' => 0, 'seq' => 0, 'log' => [],
+                 'steps' => ['check', 'migrations', 'data', 'fixup', 'files', 'store', 'checks', 'instep'], 'cursor' => [], 'map' => [], 'late' => [], 'releases' => array_column($pv['releases'], 'id'), 'done_releases' => []];
+         self::put($pdo, 'publish', $run);
+--- a/app/admin/sections.php
++++ b/app/admin/sections.php
+@@ -1589,12 +1589,13 @@
+     $setup = $s['setup']; $last = $s['last']; $run = $s['running'];
+     if (!$setup) $state = ['info', 'Not set up:', 'staging.trvgo.us isn\'t made yet. Set up staging makes it, then copies the live site there.'];
+     elseif (!empty($setup['missing'])) $state = ['bad', 'Needs setting up again:', 'staging\'s .env isn\'t in its folder. Press Set up staging: it fills in what\'s missing.'];
++    elseif ($run && ($ms = StagingSite::mirrorState($pdo))['state'] === 'turning_on') $state = ['info', 'Keep staging caught up:', 'turning on. A fresh copy is going in (' . $ms['pct'] . '%, step ' . $ms['pos'] . ' of ' . $ms['of'] . ': ' . $ms['now'] . '); it switches on by itself when it finishes, and we email you. Staging is closed until then.'];
+     elseif ($run) $state = ['info', 'Refreshing:', 'a fresh copy is going in. Staging is closed until it finishes.'];
+-    elseif ($last && empty($last['ok'])) $state = ['bad', 'Closed:', (string) ($last['message'] ?? 'the last refresh didn\'t finish. Press Refresh staging.')];
+-    elseif (!$last) $state = ['info', 'Set up:', 'staging.trvgo.us is made but hasn\'t been filled yet. Press Refresh staging.'];
++    elseif ($last && empty($last['ok'])) $state = ['bad', 'Closed:', (string) ($last['message'] ?? 'the last refresh didn\'t finish. Press Start staging over.')];
++    elseif (!$last) $state = ['info', 'Set up:', 'staging.trvgo.us is made but hasn\'t been filled yet. Press Start staging over.'];
+     else $state = ['ok', 'Ready:', 'staging.trvgo.us is a copy of the live site from ' . date('M j', (int) strtotime((string) $last['at'])) . ', with people\'s details replaced by test values.'];
+     $h = '<p class="ak-note">A copy of the whole site at <b>staging.trvgo.us</b>, with its own files and databases, where a change is tried on real data shapes and every kind of account before it reaches anyone. It sends no email, takes no real payment, isn\'t indexed by search engines and asks for its viewing password.</p>'
+-       . '<p data-tv-status="' . $state[0] . '" data-tv-label="' . $e($state[1]) . '">' . $e($state[2]) . '</p>';
++       . '<p data-tv-status="' . $state[0] . '" data-tv-keep data-tv-label="' . $e($state[1]) . '">' . $e($state[2]) . '</p>';
+ 
+     $facts = '';
+     $facts .= $row('⌂', $setup ? 'ok' : '', 'Address', $setup ? '<a href="https://staging.trvgo.us/" target="_blank" rel="noopener">staging.trvgo.us</a> (it asks for its viewing password, which is in the CHECK_ACCOUNTS block); the trvgo.us router\'s copy at staging.trvgo.us/go/' : 'Not made yet');
+@@ -1620,7 +1621,7 @@
+     $off = $can ? '' : ' disabled title="' . $e($why) . '"';
+     $h .= '<div class="ak-card tv-bleed" id="stg" data-csrf="' . $e((string) ($_SESSION['csrf_token'] ?? '')) . '"' . ($run ? ' data-stg-running="1"' : '') . '>'
+         . '<p class="ak-note" style="margin-top:0">' . ($setup ? 'Set up staging again checks each part and fills in what\'s missing. It also gives every test account a new sign-in (shown once, for CHECK_ACCOUNTS), then refreshes staging.' : 'Set up staging makes staging.trvgo.us through cPanel (its folder, databases and logins, its own .env with passwords made on the server, its viewing password and DNS record), gives every test account a new sign-in, shows them once for the GitHub secret CHECK_ACCOUNTS, then copies the live site there.') . '</p>'
+-        . '<button type="button" class="ak-b go" data-stg="setup"' . $off . '>Set up staging</button> '
++        . '<button type="button" class="ak-b go" data-stg="setup"' . ($run ? ' disabled title="A fresh copy is going in: set up again once it\'s done (you get an email)."' : $off) . '>Set up staging</button> '
+         . (function () use ($pdo, $setup, $run, $off, $can, $why, $e): string {   // Start staging over (decisions/0165 §3): a button only, saying what staging would lose, Publish offered first
+             if (!$setup || !empty($setup['missing'])) return '<button type="button" class="ak-b" data-stg="refresh" disabled title="' . $e($can ? 'Set up staging first.' : $why) . '">Start staging over</button> ';
+             if ($run) return '<button type="button" class="ak-b" data-stg="refresh"' . $off . '>Carry on starting over</button> ';
+@@ -1660,14 +1661,24 @@
+         . ($args ? ' data-args="' . $e((string) json_encode($args)) . '"' : '') . ($confirm !== '' ? ' data-confirm="' . $e($confirm) . '" data-yes="' . $e($label) . '"' . ($danger ? ' data-danger' : '') : '')
+         . ($perm !== '' && !Releases::can($perm)[0] ? ' disabled title="' . $e(Releases::can($perm)[1]) . '"' : '') . '>' . $e($label) . '</button> ';
+     $s = StagingApi::summary($pdo);
+-    $h = '<h3 class="ak-h" id="against">Staging against live</h3><p data-tv-status="' . ($s['conflicts'] ? 'bad' : 'info') . '" data-tv-label="Now:">' . $e(StagingApi::line($s)) . ($s['caught_up'] ? ' · caught up ' : '') . '</p>';
++    $h = '<h3 class="ak-h" id="against">Staging against live</h3><p data-tv-status="' . ($s['conflicts'] ? 'bad' : 'info') . '" data-tv-keep data-tv-label="Now:">' . $e(StagingApi::line($s)) . ($s['caught_up'] ? ' · caught up ' : '') . '</p>';
+     if ($s['caught_up']) $h = substr($h, 0, -4) . $t((int) $s['caught_up']) . '</p>';
+     $fo = $can ? '' : ' disabled title="' . $e($why) . '"';
+     // the two switches
+-    $h .= '<div class="ak-card tv-bleed"><p class="ak-note" style="margin-top:0"><b>Keep staging caught up</b> ' . ($s['mirror'] ? '(on)' : '(off)') . ': live\'s changes come into staging within a minute (live notes each change in a small outbox beside it; a job sends it), staging\'s own work is kept, and a row both changed waits on the conflicts list. A full check runs nightly. Turning it on starts staging over once, so both sides match first. Until it\'s on, Publish carries releases\' code and migrations only.</p>'
++    // Keep staging caught up: its words follow where it stands (Jason, 2026-11-26: "it is supposed to move/change as actions
++    // fire"; CLAUDE.md "Every action is a task", step 3): off (the button), turning on (no button: it's happening, said in the
++    // notice at the top; Don't turn it on cancels only the switch-on, the copy carries on), on (Stop), didn't turn on (Try again)
++    $ms = (array) ($s['mirror_state'] ?? ['state' => $s['mirror'] ? 'on' : 'off']);
++    if (($ms['state'] ?? '') === 'turning_on') $h .= '<div class="ak-card tv-bleed"><p class="ak-note" style="margin-top:0"><b>Keep staging caught up</b> (turning on): the fresh copy in the notice above is going in.</p>'
++        . '<button type="button" class="ak-b" data-stg2="mirror" data-args="{&quot;on&quot;:0}" data-confirm="Don\'t turn on keeping caught up? The fresh copy carries on to the end; staging just won\'t keep caught up after it." data-yes="Don\'t turn it on"' . $fo . '>Don\'t turn it on</button>';
++    elseif (($ms['state'] ?? '') === 'stuck') $h .= '<div class="ak-card tv-bleed"><p data-tv-status="bad" data-tv-keep data-tv-label="Keep staging caught up didn\'t turn on:">the fresh copy stopped part way (the notice above says where). It turns on once a copy finishes.</p>'
++        . '<button type="button" class="ak-b go" data-stg2="mirror" data-args="{&quot;on&quot;:1}" data-confirm="Try keeping staging caught up again? Staging starts over once (a fresh copy of live), then keeps caught up." data-yes="Try again"' . $fo . '>Try again</button> '
++        . '<button type="button" class="ak-b" data-stg2="mirror" data-args="{&quot;on&quot;:0}" data-confirm="Leave keeping caught up off? Any outbox the stopped copy put on live comes off at once." data-yes="Leave it off"' . $fo . '>Leave it off</button>';
++    else $h .= '<div class="ak-card tv-bleed"><p class="ak-note" style="margin-top:0"><b>Keep staging caught up</b> ' . ($s['mirror'] ? '(on)' : '(off)') . ': live\'s changes come into staging within a minute (live notes each change in a small outbox beside it; a job sends it), staging\'s own work is kept, and a row both changed waits on the conflicts list. A full check runs nightly. Turning it on starts staging over once, so both sides match first. Until it\'s on, Publish carries releases\' code and migrations only.</p>'
+         . ($s['mirror'] ? '<button type="button" class="ak-b" data-stg2="mirror" data-args="{&quot;on&quot;:0}" data-confirm="Stop keeping staging caught up? Live\'s outbox comes off at once; staging keeps what it has." data-yes="Stop"' . $fo . '>Stop keeping caught up</button>'
+                         : '<button type="button" class="ak-b go" data-stg2="mirror" data-args="{&quot;on&quot;:1}" data-confirm="Keep staging caught up? Staging starts over once (a fresh copy of live, a few minutes; anything done on staging since its last copy is lost), then keeps caught up." data-yes="Start"' . $fo . '>Keep staging caught up</button>')
+-        . '<p class="ak-note"><b>Staging runs its own jobs</b> ' . ($s['jobs'] ? '(on)' : '(off)') . ': staging\'s copy of each scheduled job, on staging\'s data under the gate (jobs that only talk to the outside world, like email setup and domains, never run there).</p>'
++        ;
++    $h .= '<p class="ak-note"><b>Staging runs its own jobs</b> ' . ($s['jobs'] ? '(on)' : '(off)') . ': staging\'s copy of each scheduled job, on staging\'s data under the gate (jobs that only talk to the outside world, like email setup and domains, never run there).</p>'
+         . '<button type="button" class="ak-b" data-stg2="jobs" data-args="{&quot;on&quot;:' . ($s['jobs'] ? 0 : 1) . '}"' . $fo . '>' . ($s['jobs'] ? 'Stop staging\'s jobs' : 'Run staging\'s jobs') . '</button>';
+     if ($s['live_keys']) $h .= '<p data-tv-status="bad" data-tv-label="Payments are off on staging:">a live payment key is in its .env (' . $e(implode(', ', $s['live_keys'])) . '). Press Set up staging again to write its .env without it.</p>';
+     if ($s['ungated'] !== null) $h .= '<p data-tv-status="' . ($s['ungated'] ? 'bad' : 'ok') . '" data-tv-label="Outside calls that skip the gate:">' . ($s['ungated'] ? (int) $s['ungated'] . ' in staging\'s code (the nightly scan; a new one is refused by the zip check). Staging\'s .env holds no key for the paid ones, so they fail there rather than leave.' : 'none in staging\'s code (the nightly scan).') . '</p>'
+@@ -1700,20 +1711,27 @@
+         $rows = '';
+         foreach ((array) $pv['counts'] as $k => $c) $rows .= '<tr><td>' . $e((string) $k) . '</td><td>' . (int) ($c['added'] ?? 0) . '</td><td>' . (int) ($c['changed'] ?? 0) . '</td><td>' . (int) ($c['removed'] ?? 0) . '</td></tr>';
+         $nc = ''; foreach ((array) $pv['not_carried'] as $k => $n) $nc .= '<li>' . $e((string) $k) . ': ' . (int) $n . '</li>';
+-        $ph .= '<p class="ak-note">The preview, worked out ' . $t((string) $pv['at']) . ': ' . $e(StagingApi::previewLine($pv)) . '</p>'
++        // an old preview (over 15 minutes) or a copy going in: its "Publish is open" isn't true now, so it says what is
++        $pl = StagingApi::previewLine($pv); $cw = StagingSite::copyHold($pdo); $stale = strtotime((string) $pv['at']) < time() - StagingPublish::FRESH_MIN * 60 || $cw !== '';
++        if ($stale) $pl = str_replace('Publish is open.', $cw !== '' ? 'Publish waits for a whole copy in staging.' : 'Preview again to publish: a preview is good for ' . StagingPublish::FRESH_MIN . ' minutes.', $pl);
++        $ph .= '<p class="ak-note">The preview, worked out ' . $t((string) $pv['at']) . ': ' . $e($pl) . '</p>'
+             . ($rows !== '' ? '<table class="ak-tbl"><tr><th>What</th><th>Added</th><th>Changed</th><th>Removed</th></tr>' . $rows . '</table>' : '')
+             . ($nc !== '' ? '<details><summary class="ak-note">Not carried, and why</summary><ul class="ak-note">' . $nc . '</ul></details>' : '')
+             . ($pv['unknown'] ? '<p data-tv-status="info" data-tv-label="Record numbers not in the register:">' . $e(implode(', ', array_slice($pv['unknown'], 0, 12))) . (count($pv['unknown']) > 12 ? ' and ' . (count($pv['unknown']) - 12) . ' more' : '') . '. A publish that would move a number one of them holds stops and names it.</p>' : '');
+     }
+     $busy = $run && in_array($run['state'], ['running', 'undoing'], true);
+-    $fresh = $pv && strtotime((string) $pv['at']) > time() - 15 * 60 && !$pv['blocking'];
+-    $ph .= $b('preview', $pv ? 'Preview again' : 'Preview', [], '', false, false, 'releases.publish');
+-    if (!$busy && $fresh) $ph .= $b('publish', 'Publish', [], 'Publish staging to live?', false, true, 'releases.publish');
++    $fresh = $pv && strtotime((string) $pv['at']) > time() - StagingPublish::FRESH_MIN * 60 && !$pv['blocking'];
++    // a fresh copy going in, or one that stopped part way: staging holds half a copy, so nothing is worked out, published
++    // or scheduled from it (the server refuses too, StagingPublish::preview and ::start; Jason, 2026-11-26)
++    $hold = StagingSite::copyHold($pdo); $copying = $hold !== '';
++    $ph .= $copying ? '<button type="button" class="ak-b" disabled title="' . $e($hold) . '">' . ($pv ? 'Preview again' : 'Preview') . '</button> '
++                    : $b('preview', $pv ? 'Preview again' : 'Preview', [], '', false, false, 'releases.publish');
++    if (!$busy && $fresh && !$copying) $ph .= $b('publish', 'Publish', [], 'Publish staging to live?', false, true, 'releases.publish');
+     if ($run && $run['state'] === 'stopped') $ph .= $b('carryon', 'Carry on', [], '', false, true, 'releases.publish');
+     if ($busy) $ph .= $b('carry', 'Carry on now', [], '', false, false, 'releases.publish');
+     if ($s['last'] && strtotime((string) $s['last']['until']) > time() && (!$run || $run['state'] === 'done')) $ph .= $b('rollback', 'Roll back the last publish', [], 'Roll back the whole publish of ' . date('M j', (int) strtotime((string) $s['last']['at'])) . '? Rows live changed since stay as live has them.', true, false, 'releases.rollback');
+     $ph .= '<p class="ak-note">Or schedule it, inside the release window (the preview is done again at the time, and it stops if a new conflict appears)' . ($s['scheduled'] ? ': scheduled for ' . $t((string) $s['scheduled']['at']) : '') . '.</p>'
+-        . '<input type="datetime-local" data-stg-when aria-label="When staging goes live"> ' . $b('schedule', 'Schedule', [], '', false, false, 'releases.schedule') . ($s['scheduled'] ? $b('unschedule', 'Take off the schedule', [], '', false, false, 'releases.schedule') : '');
++        . '<input type="datetime-local" data-stg-when aria-label="When staging goes live"> ' . ($copying ? '<button type="button" class="ak-b" disabled title="' . $e($hold) . '">Schedule</button> ' : $b('schedule', 'Schedule', [], '', false, false, 'releases.schedule')) . ($s['scheduled'] ? $b('unschedule', 'Take off the schedule', [], '', false, false, 'releases.schedule') : '');
+     $h .= $ph . '</div>';
+     // To send now
+     $ts = StagingPublish::state($pdo, 'to_send');
+--- a/app/ui/faq.md
++++ b/app/ui/faq.md
+@@ -280,7 +280,10 @@
+ Yes. Changes are being set up to go first to a private copy of the whole site, where we try them with every kind of account before they reach you. The copy never sends anyone email, never takes a real payment, isn't shown in search engines and needs a password to open. When we refresh it from the live site, names, email addresses, phone numbers, street addresses and private messages are replaced with made-up test values first, so your details never go there. Running each new release through it first is coming.
+ 
+ ### I'm on the Traversence team. What is staging?
+-**System Configuration → Staging** is the copy of the site at staging.trvgo.us. It's the live site in safe mode: it acts like live, and nothing done there reaches the real world until it's published. The Founder sets it up once (**Set up staging**, which also gives the test accounts new sign-ins, shown once for the GitHub secret CHECK_ACCOUNTS together with staging's viewing password). It's no longer copied over every week: once **Keep staging caught up** is on (System Configuration → Staging), live's changes come into staging within a minute and what you do on staging is kept; **Start staging over** is a button for when a fresh copy is wanted, and says first what staging would lose. On staging, every email, text, payment and outside call is held, sandboxed or paced (see *What does staging hold, and where do I see it?*), email is readable on its own Staging page, payments use the sandboxes, paid AI and the crawler stay off unless their switch is on (**Switches → Staging: paid AI**, **Staging: the crawler**), and staff sign in there with the test staff logins. The trvgo.us router's copy answers at staging.trvgo.us/go/, so the word "staging" is kept: no GO Code or shop can take it. A fresh copy (Start staging over) goes a table at a time and carries on by itself on the server, so the page can be closed: its bar shows how far it's got, and whoever started it gets an email when it's done (or if it stops). **Carry on the refresh** nudges one that seems stuck. If **Open staging** ever meets a password prompt instead of letting you in, **Check the way in** (on the same page, Founder) asks staging for a page several ways (with nothing, with the pass, with the checks' sign-in, and the whole Open staging path) and says which part answered each: the web server, staging's guard or the page itself. It also shows the rules and settings on the way to staging's pages, never a password or key, with a **Copy the answers** button to send them to whoever is fixing it. Its first run found why Open staging kept asking: the rule that keeps staging's private folder shut also shut its pages, so its self-test put the browser's password prompt back. That's fixed, and Open staging lets you straight in.
++**System Configuration → Staging** is the copy of the site at staging.trvgo.us. It's the live site in safe mode: it acts like live, and nothing done there reaches the real world until it's published. The Founder sets it up once (**Set up staging**, which also gives the test accounts new sign-ins, shown once for the GitHub secret CHECK_ACCOUNTS together with staging's viewing password). It's no longer copied over every week: once **Keep staging caught up** is on (System Configuration → Staging), live's changes come into staging within a minute and what you do on staging is kept; **Start staging over** is a button for when a fresh copy is wanted, and says first what staging would lose. On staging, every email, text, payment and outside call is held, sandboxed or paced (see *What does staging hold, and where do I see it?*), email is readable on its own Staging page, payments use the sandboxes, paid AI and the crawler stay off unless their switch is on (**Switches → Staging: paid AI**, **Staging: the crawler**), and staff sign in there with the test staff logins. The trvgo.us router's copy answers at staging.trvgo.us/go/, so the word "staging" is kept: no GO Code or shop can take it. A fresh copy (Start staging over) goes a table at a time and carries on by itself on the server, so the page can be closed: its bar shows how far it's got, and whoever started it gets an email when it's done (or if it stops). **Carry on starting over** nudges one that seems stuck. If **Open staging** ever meets a password prompt instead of letting you in, **Check the way in** (on the same page, Founder) asks staging for a page several ways (with nothing, with the pass, with the checks' sign-in, and the whole Open staging path) and says which part answered each: the web server, staging's guard or the page itself. It also shows the rules and settings on the way to staging's pages, never a password or key, with a **Copy the answers** button to send them to whoever is fixing it. Its first run found why Open staging kept asking: the rule that keeps staging's private folder shut also shut its pages, so its self-test put the browser's password prompt back. That's fixed, and Open staging lets you straight in.
++
++### I'm on the Traversence team. I pressed Keep staging caught up: why doesn't it say on yet?
++Turning it on starts staging over once, so both sides match before anything comes in from live. While that fresh copy goes in, **System Configuration → Staging** says **Keep staging caught up: turning on**, with how far the copy has got (its percentage and step), and the Now line says *turning on*. It switches on by itself at the copy's last step, and you get an email; then it reads **(on)** with **Stop keeping caught up**. Until then there's no button to press again: **Don't turn it on** cancels only the switch-on (the copy carries on, and nothing is added to live). While a copy is going in, or if one stopped part way, staging holds half a copy, so **Set up staging**, **Preview**, **Publish** and **Schedule** wait, each saying why; if the copy stopped, the page says where, with **Try again** or **Leave it off**.
+ 
+ ### I'm on the Traversence team. How does a change reach the site?
+ Through **System Configuration → Releases**, or the **site manager** at the top of staging. A release is a zip of the changed files. Uploaded on either (the site manager's **Upload**), it goes straight onto staging.trvgo.us: its plan comes from the zip's release.json (what it changes, its switch), its database updates run there and it's checked: its code reads cleanly, its database updates only add, its pages answer and the error logs stay quiet. Then someone looks at it on staging (opening it there counts as the look), and **Publish** is the sign-off: it puts it live at once, or **Schedule** at a time you choose. A release with a switch goes to staff and test accounts first, then a share of members (25% unless changed), then everyone, each step on its own after its hours pass clean (24, then 72, on weekdays 6 am to 6 pm Arizona time) or when the next step is published. A failed check pauses it and emails whoever approved it. **Turn off** switches it off for everyone at once; **Roll back** puts the previous copy of every file back. An urgent fix can be published straight away with a reason, and is checked straight after. To try it yourself, **Open staging** (on System Configuration → Staging or Releases) or **Open on staging** (on a release) takes you there past staging's viewing password, signed in as you (or as one of the audit's test accounts, to see it as they would), with the **site manager** at the top of every page, in the admin's command bar look: **Releases ▾** (what's on staging now, what's waiting, what's live and at which step), **Upload** (your device's own file picker: a release zip isn't kept in the Gallery), **Changes** (the pages a release touches, to jump to, its files and checks), **Note** (pins what you see on that page to the release) and **Publish ▾** (Publish now, Schedule, the next step, then Turn off and Roll back once it's live), which act on the live site as you. ◆ folds it to a small tab. Publish copies exactly the files that were tried on staging, and stops if one of them changed on the live site since the release was built. Each release is recorded in git, shows in Pulse while it waits on someone, and its zip and rollback zip can be downloaded for an upload by FTP instead. Who may publish, schedule, turn off and roll back is set in **System Configuration → Permissions** (the Founder only, until a role is given them). Claude's finished builds arrive on staging by themselves from git (the site looks every 10 minutes, or **Releases ▾ → Check for builds** at once), so there's nothing to upload. Each is approved in the chat before it's sent, so once its checks on staging pass it goes live by itself; one that failed a check stops on staging and shows in Pulse. Releases can stack on staging (a file a later release changes again shows *replaced by #57*). A zip you upload on staging yourself waits there and goes live with your own work on staging, by **Publish** in the site manager (see *How does Publish carry what I did on staging?*). One the Founder asked to see first is **sent for review**: an email and a Pulse case take him onto staging, where the site manager's **Review** asks for **UI** (how it looks), **UX** (how it works for a person) and **Functional** (it does what it should), each **Approve** or **Needs changes** with a note kept with the release; **Publish** opens once all three are approved. The site manager keeps itself current (every minute, and when you come back to the tab); **Releases ▾ → Check for builds** fetches new builds at once. **Turn off** and **Roll back** work as for any release. Publish is for work done on staging itself: a zip uploaded there, and the page editor that's coming. Every change to the site's files should come through a release: one made straight on the server or in OneDrive shows in **Pulse → Site health** as *changed without a release*, with the files, and clears by itself once a release carries it.
