@@ -82,7 +82,7 @@ jobs:
         run: |
           node tools/page-audit/beforeafter.mjs held --out ba-held.json   # 0066: the held names as keyed hashes only (P3-5); unread makes it incomplete
           node tools/page-audit/beforeafter.mjs capture --pages ba-pages.json --out ba-before-1.json
-          node tools/page-audit/beforeafter.mjs capture --pages ba-pages.json --out ba-before-2.json --shots ba-shots/before
+          node tools/page-audit/beforeafter.mjs capture --pages ba-pages.json --out ba-before-2.json --shots ba-shots/before --slow ba-before-1.json
           mkdir -p site-audit/results/beforeafter
           python3 -c "import json,os;b=json.load(open('ba-before-1.json'));json.dump({'release':os.environ['RELEASE'],'phase':'before-done','verdict':'waiting','views':len(b['results']),'seconds':b['seconds'],'run':os.environ['RUN']},open('site-audit/results/beforeafter/'+os.environ['RELEASE']+'.json','w'),indent=1)"
       - name: Keep the before looks with this run (one day, never committed)
@@ -120,7 +120,7 @@ jobs:
         env:
           CHECK_ACCOUNTS: ${{ secrets.CHECK_ACCOUNTS }}
         run: |
-          node tools/page-audit/beforeafter.mjs capture --pages before/ba-pages.json --out ba-after.json --shots ba-shots/after
+          node tools/page-audit/beforeafter.mjs capture --pages before/ba-pages.json --out ba-after.json --shots ba-shots/after --slow before/ba-before-1.json
           mkdir -p site-audit/results/beforeafter
           node tools/page-audit/beforeafter.mjs compare --before before/ba-before-1.json --before2 before/ba-before-2.json --after ba-after.json \
             --expected before/ba-expected.json --held before/ba-held.json --release "$RELEASE" --out "site-audit/results/beforeafter/$RELEASE.json" || true
