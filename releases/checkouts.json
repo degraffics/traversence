@@ -13,6 +13,24 @@
    "expires": "2026-11-26T06:13:48Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/TeamRunner.php",
+   "functions": [
+    "applies",
+    "evidence",
+    "ruleData",
+    "run",
+    "setCeiling",
+    "undo"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "P3-4: Undo on every action, spending, Building and Implementation",
+   "since": "2026-11-26T02:13:50Z",
+   "expires": "2026-11-26T06:13:50Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
