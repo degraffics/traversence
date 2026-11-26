@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-26T02:28:32Z",
+ "generated_at": "2026-11-26T06:42:21Z",
  "version": 2,
  "generated_by": "tools/page-audit/gauges.py",
  "note": "Each gauge's detail for its drawer (ControlGauges::detail): read when the drawer opens.",
@@ -184,9 +184,9 @@
    "name": "Load time for every page against a target",
    "status": "built",
    "result": "per item",
-   "latest": "258 fail, 112 pass (2026-11-25 22:25 UTC)",
+   "latest": "258 fail, 112 pass (2026-11-26 04:55 UTC)",
    "target": "Core Web Vitals \"good\": LCP ≤ 2.5 s, CLS ≤ 0.1, INP ≤ 200 ms, each at the 75th percentile",
-   "evidence": "https://github.com/degraffics/traversence/actions/runs/45712990490"
+   "evidence": "https://github.com/degraffics/traversence/actions/runs/45758183746"
   },
   "PHOTOS-SHOWN": {
    "name": "Every photo on a page shown",
@@ -208,9 +208,9 @@
    "name": "The audit's own load: what each run asks of the site",
    "status": "built",
    "result": "per item",
-   "latest": "7 pass (2026-11-25 22:25 UTC)",
+   "latest": "4 pass, 3 fail (2026-11-26 04:55 UTC)",
    "target": "a light run asks at most about 20 requests, one at a time with a 1 s gap; the probe pages' response times stay within 20% of their 7-day median, or the next run backs off",
-   "evidence": "https://github.com/degraffics/traversence/actions/runs/45712990490"
+   "evidence": "https://github.com/degraffics/traversence/actions/runs/45758183746"
   }
  },
  "results_read": [
