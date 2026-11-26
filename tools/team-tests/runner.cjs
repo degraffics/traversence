@@ -60,22 +60,22 @@ const press = async (p, sel) => { await Promise.all([p.waitForResponse(r => r.ur
       // the Translator's proposal on the brief
       await openTask(p, res);
       const pr = await p.textContent(P + ' .wqp-runs');
-      t(L + 'the Translator\'s proposal: its words, Accept and Dismiss', /Proposed 1 part of its brief: why it needs you/.test(pr) && /Tier 3 line/.test(pr) && await p.isVisible(P + ' [data-wqp=runaccept]') && await p.isVisible(P + ' [data-wqp=rundismiss]'), pr);
+      t(L + 'the Translator\'s proposal: its words, Accept and Dismiss', /Proposed 1 part of its brief: why it needs you/.test(pr) && /Founder ruling/.test(pr) && await p.isVisible(P + ' [data-wqp=runaccept]') && await p.isVisible(P + ' [data-wqp=rundismiss]'), pr);
       t(L + 'until accepted, the brief\'s part is empty', /Not set yet/.test(await p.textContent(P + ' [data-wqp-f="why_you"]')));
       if (shots) await p.screenshot({ path: shots + '/runs-proposal-' + w + '.png' });
       await press(p, P + ' [data-wqp=runaccept]');
-      t(L + 'Accept: the brief\'s part filled', /Tier 3 line/.test(await p.textContent(P + ' [data-wqp-f="why_you"]')));
+      t(L + 'Accept: the brief\'s part filled', /Founder ruling/.test(await p.textContent(P + ' [data-wqp-f="why_you"]')));
       t(L + '… said as accepted, by whom; no buttons left', /Accepted by Jason \(test\)/.test(await p.textContent(P + ' .wqp-runs')) && !(await p.$(P + ' [data-wqp=runaccept]')));
-      if (+flagged) {   // P2-4: words that suggest Tier 3, checked by a person
+      if (+flagged) {   // P2-4: words that suggest a high-risk territory, checked by a person
         await p.goto('http://127.0.0.1:' + port + '/admin/config/control'); await p.waitForTimeout(900); await view(p, 'development'); await p.waitForTimeout(400);
-        t(L + 'the flagged row says "Words suggest a Tier 3 boundary: a person checks"', /Words suggest a Tier 3 boundary: a person checks/.test(await p.textContent(W + ' #wq-' + flagged + ' .wq-ag')));
+        t(L + 'the flagged row says "Words suggest a high-risk territory: a person checks"', /Words suggest a high-risk territory: a person checks/.test(await p.textContent(W + ' #wq-' + flagged + ' .wq-ag')));
         await p.click(W + ' [data-wq-fb]'); const fl = await p.$$eval(W + ' [data-wq-f]', a => a.map(x => x.textContent.replace(/\s+/g, ' ').trim())); await p.keyboard.press('Escape');
-        t(L + 'the filter counts it: "Words suggest Tier 3 1"', fl.includes('Words suggest Tier 3 1'), fl);
+        t(L + 'the filter counts it: "Words suggest a high-risk territory 1"', fl.includes('Words suggest a high-risk territory 1'), fl);
         await openTask(p, flagged);
-        t(L + 'its page says so, with It\'s Tier 2 and It\'s Tier 3: open its Resolution', /Words suggest a Tier 3 boundary \(Money,/.test(await p.textContent(P + ' .wqp-flag')) && await p.isVisible(P + ' [data-wqp=flag][data-v=tier2]') && /open its Resolution/.test(await p.textContent(P + ' [data-wqp=flag][data-v=tier3]')));
+        t(L + 'its page says so, with It\'s Tier 2 and It\'s a Founder ruling: open its Resolution', /Words suggest a high-risk territory \(Money,/.test(await p.textContent(P + ' .wqp-flag')) && await p.isVisible(P + ' [data-wqp=flag][data-v=tier2]') && /open its Resolution/.test(await p.textContent(P + ' [data-wqp=flag][data-v=tier5]')));
         if (shots) await p.screenshot({ path: shots + '/flag-' + w + '.png' });
-        await press(p, P + ' [data-wqp=flag][data-v=tier3]');
-        t(L + 'It\'s Tier 3 pressed: the flag line gone, its Resolution opened and named', !(await p.$(P + ' .wqp-flag')) && db("SELECT COUNT(*) FROM control_gauge_tasks WHERE parent_id = " + flagged + " AND ticket = 'resolution' AND tier = 3") === '1');
+        await press(p, P + ' [data-wqp=flag][data-v=tier5]');
+        t(L + 'It\'s a Founder ruling pressed: the flag line gone, its Resolution opened and named', !(await p.$(P + ' .wqp-flag')) && db("SELECT COUNT(*) FROM control_gauge_tasks WHERE parent_id = " + flagged + " AND ticket = 'resolution' AND tier = 5") === '1');
       }
       t(L + 'nothing wider than the window', await p.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth + 1));
       t(L + 'no page error', errs.length === 0, errs);

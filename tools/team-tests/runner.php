@@ -60,13 +60,13 @@ $t('… its proposal isn\'t made twice', !TeamRunner::applies($pdo, 'gate', $row
 // 4. the next run: the Translator's proposal on the Resolution (the Work ticket was worked within the hour)
 $out = TeamRunner::tick($pdo);
 $r2 = $pdo->query('SELECT * FROM team_runs ORDER BY id DESC LIMIT 1')->fetch(PDO::FETCH_ASSOC);
-$t('the next run: the Translator proposes why it needs the Founder, from its boundary', $r2['step'] === 'brief' && $r2['state'] === 'proposed' && str_contains((string) $r2['proposal'], 'Tier 3 line'), $out);
+$t('the next run: the Translator proposes why it needs the Founder, from its boundary', $r2['step'] === 'brief' && $r2['state'] === 'proposed' && str_contains((string) $r2['proposal'], 'Founder ruling'), $out);
 $t('… a proposal changes nothing until a person accepts it', trim((string) GaugeTasks::brief($pdo, $res)['why_you']) === '');
 $t('… and nothing else to do within the hour (the Architect is off at Planning)', TeamRunner::tick($pdo) === 'Nothing to do: no ticket a working role has a step for.');
 try { TeamRunner::undo($pdo, (int) $r1['id'], $J); $t('a proposal has no Undo: Accept or Dismiss', false); } catch (RuntimeException $x) { $t('a proposal has no Undo: Accept or Dismiss', str_contains($x->getMessage(), 'Accept or Dismiss')); }
 // 5. Accept: the move made as the person who accepts it; the brief's words as their Edit
 $t('Accept the Project Manager\'s proposal: moved to Building as the person', str_starts_with(TeamRunner::accept($pdo, (int) $r1['id'], $J), 'Accepted: Moved to Building') && $row($w)['stage'] === 'building' && array_slice(GaugeTasks::moves($pdo, $w), -1)[0]['who'] === $J);
-$t('Accept the brief: the part filled, kept in its History', str_starts_with(TeamRunner::accept($pdo, (int) $r2['id'], $J), 'Accepted: 1') && str_contains((string) GaugeTasks::brief($pdo, $res)['why_you'], 'Tier 3 line') && str_contains(json_encode(GaugeTasks::history($pdo, $res), JSON_UNESCAPED_UNICODE), 'accepting system · Executive Translator'));
+$t('Accept the brief: the part filled, kept in its History', str_starts_with(TeamRunner::accept($pdo, (int) $r2['id'], $J), 'Accepted: 1') && str_contains((string) GaugeTasks::brief($pdo, $res)['why_you'], 'Founder ruling') && str_contains(json_encode(GaugeTasks::history($pdo, $res), JSON_UNESCAPED_UNICODE), 'accepting system · Executive Translator'));
 try { TeamRunner::accept($pdo, (int) $r2['id'], $J); $t('accepted once only', false); } catch (RuntimeException $x) { $t('accepted once only', true); }
 $gap(); $t('the Translator proposes nothing over words a person (or an Accept) wrote', TeamRunner::briefDraft($pdo, $row($res)) === []);
 GaugeTasks::move($pdo, $w, 'planning', $J, 'test: back for the next ceiling');
@@ -103,7 +103,7 @@ $t('the rules changed since approval: the approval is cleared and agents are bac
 TeamRunner::approveTree($pdo, $J); TeamRunner::setCeiling($pdo, 'building', $J);
 // 8. a role on standby gets no work; Permissions can refuse a role
 $gap(); $pm = TeamRoster::bySlug($pdo, 'system-architect'); TeamRoster::setStatus($pdo, (int) $pm['id'], 'standby', $J);
-$t('a role on standby gets no work', TeamRunner::tick($pdo) === 'Nothing to do: no ticket a working role has a step for.');
+$t('a role on standby whose line has no role Permissions allows the step: no work, it waits for the Founder (decisions/0180 §5)', TeamRunner::tick($pdo) === 'Nothing to do: no ticket a working role has a step for.');
 TeamRoster::setStatus($pdo, (int) $pm['id'], 'active', $J);
 $pdo->exec("INSERT INTO admin_permissions (action, min_level, departments, updated_by) VALUES ('team.handoff', 'director', '', 1)");
 $fresh = new ReflectionProperty(Access::class, 'rules'); $fresh->setAccessible(true); $fresh->setValue(null, null);
@@ -113,7 +113,7 @@ $t('Permissions above its level: the run is refused, saying what\'s needed, and 
 $src = (string) file_get_contents($app . '/lib/TeamRunner.php');
 $t('no outside call and no paid AI in the runner (Q4 B)', !preg_match('/curl_|file_get_contents\s*\(\s*[\'"]https?:|AiClient::claude|Gemini::/', $src));
 $t('no direct SQL on landmarks or nations (0066; piece2-team.md §5.2)', !preg_match('/\b(FROM|JOIN|INTO|UPDATE)\s+`?(landmarks|nations)\b/i', $src));
-$t('it never answers a Tier 3', !str_contains($src, 'GaugeTasks::answer'));
+$t('it never gives a Founder ruling (Tier 5)', !str_contains($src, 'GaugeTasks::answer'));
 require_once $app . '/lib/staging-tables.php';
 $t('the queue\'s five tables and team_settings are records now (Q1 A), team_runs staging\'s own', count(array_intersect(['control_gauge_tasks', 'control_gauge_task_steps', 'control_gauge_task_adrs', 'control_gauge_task_moves', 'control_gauge_task_briefs', 'team_settings'], StagingTables::RECORDS)) === 6 && in_array('team_runs', StagingTables::OWN, true) && !in_array('control_gauge_tasks', StagingTables::OWN, true));
 $t('their links to their task are registered (0165 §4)', StagingTables::REFS['control_gauge_task_steps.task_id'] === 'control_gauge_tasks' && StagingTables::REFS['control_gauge_task_moves.run_id'] === '');
@@ -129,10 +129,10 @@ $t('the runner\'s code never calls settleFlag, never clears a flag', !str_contai
 $fl = GaugeTasks::add($pdo, 'area:control-board', 'A refund note on a trail page', 'Text left from a template', 'test', $J, 1); GaugeTasks::flag($pdo, $fl, 'money');
 GaugeTasks::edit($pdo, $fl, ['goal' => 'g', 'done_when' => 'd', 'priority' => '2'], $J); GaugeTasks::noDecision($pdo, $fl, $J); GaugeTasks::assign($pdo, $fl, 'system · Project Manager', $J);
 TeamRunner::setCeiling($pdo, 'implementation', $J); for ($i = 0; $i < 6; $i++) { $gap(); TeamRunner::tick($pdo); }
-$t('a flagged ticket through six ticks at Implementation: still flagged money, still Tier 2, no Resolution opened by an agent', $row($fl)['flag'] === 'money' && (int) ($row($fl)['tier'] ?? 2) !== 3
+$t('a flagged ticket through six ticks at Implementation: still flagged money, still Tier 2, no Resolution opened by an agent', $row($fl)['flag'] === 'money' && (int) ($row($fl)['tier'] ?? 2) !== 5
     && (int) $pdo->query("SELECT COUNT(*) FROM control_gauge_tasks WHERE parent_id = $fl AND ticket = 'resolution'")->fetchColumn() === 0);
 $t('mission and deadlock: words only, a flag for a person (no area in the code to touch)', TeamRunner::tier('zero-commission for makers') === [2, '', 'mission'] && TeamRunner::tier('two decisions disagree on the cap')[2] === 'deadlock'
-    && TeamRunner::tier('a deadlock between 0164 and 0163')[2] === 'deadlock' && !isset(TeamRunner::TIER3_AREAS['mission']) && !isset(TeamRunner::TIER3_AREAS['deadlock']));
+    && TeamRunner::tier('a deadlock between 0164 and 0163')[2] === 'deadlock' && !isset(TeamRunner::TERRITORIES['mission']) && !isset(TeamRunner::TERRITORIES['deadlock']));
 // Piece 3, P3-4 (decisions/0179's "What comes next": Undo on every agent action, a spending limit per agent; Confirmation),
 // where the root has it
 if (method_exists('TeamRunner', 'confirmationWaits')) {
