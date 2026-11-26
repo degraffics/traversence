@@ -1,5 +1,5 @@
 {
- "at": "2026-11-26T04:17:30.372Z",
+ "at": "2026-11-26T15:29:20.274Z",
  "requests": [
   {
    "id": 3,
@@ -861,6 +861,24 @@
    "release": "",
    "ticket": "work",
    "stage": "planning",
+   "tier": 2,
+   "build_brief": "",
+   "late": false
+  },
+  {
+   "id": 52,
+   "at_utc": "2026-11-26T15:24:04Z",
+   "gauge": "area:audit",
+   "build": "",
+   "item": "Release #305 was stopped by the before-and-after check: Out-of-scope drift: This page changed, and the change doesn't name it (executive, /admin/identities.php, desktop)",
+   "what": "Release #305 was stopped by the before-and-after check: Out-of-scope drift: This page changed, and the change doesn't name it (executive, /admin/identities.php, desktop)",
+   "was": "task",
+   "why": "An advocate's view was worse after it (decisions/0179 rule 2's four rules): Out-of-scope drift: This page changed, and the change doesn't name it (executive, /admin/identities.php, desktop). It withdrew itself; nothing on the live site changed. Fix it and send it again. The report: https://github.com/degraffics/traversence/actions/runs/45842645867",
+   "source": "the daily audit (ba:305)",
+   "owner": "system · before-and-after check",
+   "release": "",
+   "ticket": "audit",
+   "stage": "found",
    "tier": 2,
    "build_brief": "",
    "late": false
