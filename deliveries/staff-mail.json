@@ -1,0 +1,30 @@
+{
+ "zip": "staff-mail.zip",
+ "built_on": "35660d8 Sync: 2026-11-26 19:52 UTC",
+ "recorded": "2026-11-26 20:32 UTC",
+ "note": "Staff mail: staging's news reaches the person who pressed, mail to a staff login goes to its work email (the check paused, 0179's 18:30 note). Built on Sync: 19:52 UTC with #311's faq.md Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/Mailer.php": {
+   "sha256": "77eb6f58a9be7e7cd1c19de04e9138452a6a01b21dff3d9b680ba4cc62e6afeb",
+   "live": false
+  },
+  "app/lib/Notify.php": {
+   "sha256": "83d674b83cee1fe70ae50f9e2076bb5f9662e2b0f24372cfb2f5a1a1b39cc1bf",
+   "live": false
+  },
+  "app/lib/StagingPublish.php": {
+   "sha256": "793a086644247919d0310aa51ef64ef86843dcacc1bd43e02559db37be3884f2",
+   "live": false
+  },
+  "app/lib/StagingSite.php": {
+   "sha256": "cd29864208a1708b23f3a68839aa33289e3350ce30657d115ade912f53599b32",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "01f3c8e8020a25e2dfb6678db71eaed4ef37fc8c8cc5cbd72fc19e47569ea702",
+   "live": false
+  }
+ }
+}
