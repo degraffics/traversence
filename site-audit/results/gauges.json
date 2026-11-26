@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-26T02:28:32Z",
+ "generated_at": "2026-11-26T06:42:21Z",
  "version": 2,
  "generated_by": "tools/page-audit/gauges.py",
  "note": "The gauges' configuration (handoffs/control-board-plan/step3/sections/gauge-lifecycle.md), compact: the site computes every stage from it (app/lib/ControlGauges.php); each gauge's detail is in gauges-items.json.",
@@ -3842,7 +3842,15 @@
    "at": "2026-11-26T02:35:00Z",
    "subject": "Traversence: the site's own email works",
    "body": "This is the first message sent by the site itself, not by Claude. Today's batch is live: P3-3 (the tiers), P3-4 (agent Undo and the $0 limit), P3-5 (tribal-land names held) and this email. P3-6, the backend fence, is next. Each has Roll back at https://traversence.com/admin/config/releases. Still yours: the three staging switches at https://traversence.com/admin/config/staging"
+  },
+  {
+   "id": "sm-2026-11-26-staging-a",
+   "at": "2026-11-26T06:45:00Z",
+   "subject": "Traversence: staging fix waits until about 2 AM (option A); nothing for you tonight",
+   "body": "No answer on A or B, so it's A: staging's closed marker expires around 08:55 UTC (1:55 AM Arizona). The fix (#299) and #298 are then resent and go through staging normally; live is unaffected. In the morning, on https://traversence.com/admin/config/staging#against, press Try again in Staging against live (about 30 minutes; an email when it reads (on)). Then: staging's runner switch at https://staging.trvgo.us/admin/config/switches, and Approve the decision tree on https://traversence.com/admin/config/team. Press nothing else on the Staging page."
   }
  ],
- "answers": []
+ "answers": [],
+ "fence": {},
+ "fence_refusals": []
 }
