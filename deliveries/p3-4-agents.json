@@ -3,24 +3,24 @@
  "built_on": "8f4feb3 Sync: 2026-11-26 02:04 UTC",
  "recorded": "2026-11-26 02:14 UTC",
  "note": "P3-4: Undo on every agent action, spending limits, Building and Implementation's ceilings, Brief A's evidence line; approved by Jason 2026-11-26; built on Sync: 2026-11-26 02:04 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "ca5650f Sync: 2026-11-26 02:17 UTC",
  "files": {
   "app/admin/team-console.php": {
    "sha256": "bc8304f6603d48cffd4299e7a5030ef511cb12e433410894f8f0ae883169def4",
-   "live": false
+   "live": true
   },
   "app/lib/GaugeTasks.php": {
    "sha256": "eb9f0d8b94ad1abcfd51fd8aeeb3a82caebaddf670b90f64ffbda8695a945fb7",
-   "live": false
+   "live": true
   },
   "app/lib/TeamRunner.php": {
    "sha256": "ea1d1099c331bf29a05ce1f6294a881ee16c6cfc88a441f31525368ad6e17086",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "400a496508e93473ffbc807d0d8eec17d33f01dd2ae0de1d8a949a56af650a03",
-   "live": false
+   "live": true
   }
  }
 }
