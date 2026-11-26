@@ -1,6 +1,20 @@
 {
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
- "claims": [],
+ "claims": [
+  {
+   "path": "app/admin/control-console.php",
+   "functions": [
+    "tv_cb_wq_batch"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "notify-founder: the site emails the Founder itself (approved 2026-11-26)",
+   "since": "2026-11-26T02:23:12Z",
+   "expires": "2026-11-26T06:23:12Z",
+   "release": "",
+   "callers": {}
+  }
+ ],
  "lapsed": [
   {
    "path": "app/lib/GaugeTasks.php",
