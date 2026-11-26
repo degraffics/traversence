@@ -32,6 +32,8 @@ $sqlm = (string) file_get_contents($mig); $ups = preg_match_all('/^UPDATE .*$/m'
 $t('… its structure only grows (no DROP, RENAME, MODIFY, CHANGE or TRUNCATE; a failed match never reads as a pass)', preg_match('/\b(DROP\s+(TABLE|COLUMN|INDEX|KEY)|RENAME\s+(TABLE|COLUMN|TO)|TRUNCATE|MODIFY\s+COLUMN|CHANGE\s+COLUMN|DELETE\s+FROM)\b/i', $sqlm) === 0);
 $t('… its only UPDATEs fill goal where it\'s empty (R1\'s two cut reasons, with its data_reason)', $ups === 2 && count(array_filter($um[0], fn ($l) => str_starts_with($l, 'UPDATE control_gauge_tasks SET goal = ') && str_ends_with($l, "AND (goal IS NULL OR goal = '');"))) === 2, $ups);
 $seeded = $pdo->query("SELECT item FROM control_gauge_tasks WHERE gauge = 'area:backlog' ORDER BY id")->fetchAll(PDO::FETCH_COLUMN);
+$dn = $pdo->query("SELECT item FROM control_gauge_tasks WHERE source = 'the Design reviewer, R2 (2026-11-26)'")->fetchAll(PDO::FETCH_COLUMN);
+$t('the Design reviewer\'s three notes, a ticket each, once though run twice', count($dn) === 3 && count(array_unique($dn)) === 3, $dn);
 $g = $pdo->query("SELECT item, CHAR_LENGTH(why) w, CHAR_LENGTH(goal) g FROM control_gauge_tasks WHERE item LIKE 'Two 6:13 jobs%' OR item LIKE 'Before-and-after check: false blocks%' ORDER BY id")->fetchAll(PDO::FETCH_ASSOC);
 $t('R1\'s two long tickets: their why cut at 400 as on live, their full reason now in goal', count($g) === 2 && $g[0]['w'] == 400 && $g[0]['g'] > 700 && $g[1]['w'] == 400 && $g[1]['g'] > 1100, $g);
 $pdo->exec("UPDATE control_gauge_tasks SET goal = 'A person\'s own goal' WHERE item LIKE 'Two 6:13 jobs%'"); $run($mig);
