@@ -281,4 +281,12 @@ Nothing above raises a stage ceiling or the reach fence. Those stay the Founder'
   - **The CEO is the one agent with paid AI.** It shares a small budget with the Founder for Claude and Google AI,
     used when answering him and building out the team. Every other agent stays at $0.
   - The amount is the Founder's to set. Until he names it, the CEO keeps to the minutes route and spends nothing extra.
+- **The CEO builds the team; the budget is $20 a month** (Jason, 2026-11-26: "CEO builds it. $20 a month").
+  - **R1's roster:** active are the CEO (2) and today's working seats: Founder (1), Project Manager (8), System Architect
+    (20), Build & QA Sessions (21), Operations & Reconciliation Manager (23), Front-End Content Writers (26) and
+    Executive Translator & Briefing Lead (28). Every other role starts on standby.
+  - The CEO brings each other role online with the Founder as the work needs it, and reports on how each performs.
+    This replaces "every role is active at R1" in the "run it now" note. Retired roles stay retired and unshown.
+  - **The Founder's and the CEO's shared AI budget is $20 a month,** for Claude and Google AI together, with a hard
+    stop at the cap. At the cap the CEO falls back to the minutes route. Every other agent stays at $0.
 
