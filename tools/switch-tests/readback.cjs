@@ -7,12 +7,14 @@ let pass = 0, fail = 0; const t = (n, ok, got) => { ok ? pass++ : fail++; consol
   const srv = spawn('php', ['-S', '127.0.0.1:8934', '-t', process.env.ROOT + '/website', __dirname + '/router.php'], { env: { ...process.env, ROOT: process.env.ROOT }, stdio: 'ignore' });
   await new Promise(r => setTimeout(r, 800));
   const b = await chromium.launch();
-  for (const w of [1280, 390]) {
+  for (const w of [1750, 1280, 390]) {
     sql('DROP TRIGGER IF EXISTS sw_force_bi; DROP TRIGGER IF EXISTS sw_force_bu; DELETE FROM feature_switches');
     const p = await b.newPage({ viewport: { width: w, height: 900 } });
     await p.goto('http://127.0.0.1:8934/admin/config/switches');
     t(w + ': the runner\'s card says only Everyone runs it', (await p.locator('#sw-team_runner').innerText()).includes('only Everyone runs it'));
-    await p.locator('#sw-team_runner select[name=state]').selectOption('on');
+    const top = await p.locator('#sw-team_runner select[name=state]').evaluate(el => { el.scrollIntoView({ block: 'center' }); const r = el.getBoundingClientRect(); const e = document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2); return e === el || el.contains(e); });
+    t(w + ': nothing covers the select (Jason\'s 1750 included)', top);
+    await p.locator('#sw-team_runner select[name=state]').click(); await p.keyboard.press('End'); await p.keyboard.press('Enter');   // as a person chooses
     await p.locator('#sw-team_runner input[name=note]').fill('Start agents');
     await Promise.all([p.waitForNavigation(), p.locator('#sw-team_runner button.ak-b.go').click()]);
     const ok = await p.locator('[data-tv-flash], .tv-ask, .tv-note').allInnerTexts();

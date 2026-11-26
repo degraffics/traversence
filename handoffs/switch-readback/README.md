@@ -11,6 +11,6 @@ effect at once" and updated Last changed, but On for still read Off. Built on Sy
   person, so Staff and test accounts reads as off for the job.
 - Cause on staging still open (read-only so far): the form, `Switches::set`, the column (live varchar(8)), the other
   writers and the page's redraw are ruled out. The remaining one is catch-up's no-base path (`StagingSync::catchUpKey`:
-  no base row, live has a row, staging's change unrecorded → `applyLive` overwrites). Waiting on the card's note.
+  no base row, live has a row, staging's change unrecorded → `applyLive` overwrites). Jason's screenshot after the 6:16 save shows the note "Start Agents" and Last changed 6:16, so the select posted off (not catch-up). On the bench the select at 1750, 1280 and 390 is uncovered, opens on one click and keeps a choice; nothing on the page reloads or redraws the form. Staging is https://staging.trvgo.us.
 - Test: `tools/switch-tests/readback.cjs` with `router.php` (live code through the real widget, Chromium at 1280 and 390):
-  choose Everyone, save, reload, still Everyone; a row forced back says Not saved. 12/12.
+  choose Everyone, save, reload, still Everyone; a row forced back says Not saved. 21/21, at 1750 too.

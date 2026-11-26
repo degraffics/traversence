@@ -9,7 +9,8 @@ foreach (['staff' => ['id' => 1, 'status' => 'active', 'role' => 'owner', 'level
 if ($_SERVER['REQUEST_METHOD'] === 'POST') file_put_contents('' . sys_get_temp_dir() . '/sw-posts.log', json_encode($_POST) . "\n", FILE_APPEND);
 require_once $app . '/ui/app-shell.php'; require_once $app . '/ui/section-rails.php'; require_once $app . '/admin/sections.php';
 $pdo = Database::connection();
-tv_page_start('Switches', ['wide' => true, 'no_crumbs' => true]);
+tv_page_start('Switches', ['wide' => true, 'no_crumbs' => true, 'rail' => tv_admin_rail('config'), 'rail_label' => 'Admin', 'active' => 'config']);
+require $app . '/admin/kit-css.php';
 require_once $app . '/admin/widgets.php'; echo '<div class="ak-body" data-ak-section="config/switches">' . tv_w_section($pdo, Modules::module('config'), 'switches') . '</div>';
 echo '<script src="/js/admin-kit.js"></script>';
 tv_page_end();
