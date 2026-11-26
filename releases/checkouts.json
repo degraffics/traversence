@@ -1,6 +1,18 @@
 {
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
- "claims": [],
+ "claims": [
+  {
+   "path": "app/lib/TeamRunner.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "P3-5: TIER3_AREAS nations names HeldNames and its read (0066)",
+   "since": "2026-11-26T02:17:55Z",
+   "expires": "2026-11-26T06:17:55Z",
+   "release": "",
+   "callers": {}
+  }
+ ],
  "lapsed": [
   {
    "path": "app/lib/GaugeTasks.php",
