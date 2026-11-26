@@ -6,12 +6,12 @@
     "zip": "p3-6-fence.zip",
     "switch": "before_after",
     "advance": "schedule",
-    "state": "planned",
+    "state": "approved",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
-    "plan_at": null,
+    "plan_at": "2026-11-26 02:33:42",
     "staged_at": null,
     "vetted_at": null,
     "live_at": null,
@@ -69,6 +69,16 @@
             "at": "2026-11-26T02:33:40+00:00",
             "by": 0,
             "msg": "Uploaded p3-6-fence.zip: 9 files."
+        },
+        {
+            "at": "2026-11-26T02:33:42+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/p3-6-fence.zip (git fcb09bd4be)."
+        },
+        {
+            "at": "2026-11-26T02:33:42+00:00",
+            "by": 0,
+            "msg": "Plan approved (switch before_after), advancing on schedule."
         }
     ]
 }
