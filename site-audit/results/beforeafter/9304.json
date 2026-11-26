@@ -1,8 +1,119 @@
 {
  "release": "9304",
- "phase": "before-done",
- "verdict": "waiting",
+ "at": "2026-11-26T13:49:05.869Z",
+ "verdict": "block",
+ "first": "Out-of-scope drift: This page changed, and the change doesn't name it (executive, /admin/, desktop)",
+ "blocks": [
+  {
+   "rule": "drift",
+   "rule_name": "Out-of-scope drift",
+   "advocate": "advocate-staff-views",
+   "who": "executive",
+   "page": "/admin/",
+   "size": "desktop",
+   "what": "This page changed, and the change doesn't name it",
+   "before": "",
+   "after": "#Scheduled tasks \u00b7 Late: AI worker, Notices of action, Payment reminders, Email sending setup, Businesses' domains, Pages waiting to be read, Vector index"
+  },
+  {
+   "rule": "drift",
+   "rule_name": "Out-of-scope drift",
+   "advocate": "advocate-staff-views",
+   "who": "executive",
+   "page": "/admin/",
+   "size": "phone",
+   "what": "This page changed, and the change doesn't name it",
+   "before": "",
+   "after": "#Scheduled tasks \u00b7 Late: AI worker, Notices of action, Payment reminders, Email sending setup, Businesses' domains, Pages waiting to be read, Vector index"
+  },
+  {
+   "rule": "access",
+   "rule_name": "Access or privacy (0066 included)",
+   "advocate": "advocate-staff-views",
+   "who": "executive",
+   "page": "/admin/crawler-review.php",
+   "size": "phone",
+   "what": "Doesn't open now: TimeoutError: page.goto: Timeout 45000ms exceeded.\nCall log:\n  - navigating to \"https://staging.trvgo.us/admin/crawler-review.php\", waiting until \"load\"\n",
+   "before": "200",
+   "after": "TimeoutError: page.goto: Timeout 45000ms exceeded.\nCall log:\n  - navigating to \"https://staging.trvgo.us/admin/crawler-review.php\", waiting until \"load\"\n"
+  },
+  {
+   "rule": "drift",
+   "rule_name": "Out-of-scope drift",
+   "advocate": "advocate-staff-views",
+   "who": "executive",
+   "page": "/admin/login.php",
+   "size": "desktop",
+   "what": "This page changed, and the change doesn't name it",
+   "before": "",
+   "after": "Status: Down: the system is still trying since Nov #, #:# UTC. What it affects: Plans and renewals. What the system is doing: It failed again on its next run. It can't be held without blocking its "
+  },
+  {
+   "rule": "drift",
+   "rule_name": "Out-of-scope drift",
+   "advocate": "advocate-staff-views",
+   "who": "executive",
+   "page": "/admin/login.php",
+   "size": "phone",
+   "what": "This page changed, and the change doesn't name it",
+   "before": "",
+   "after": "Status: Down: the system is still trying since Nov #, #:# UTC. What it affects: Plans and renewals. What the system is doing: It failed again on its next run. It can't be held without blocking its "
+  },
+  {
+   "rule": "drift",
+   "rule_name": "Out-of-scope drift",
+   "advocate": "advocate-staff-views",
+   "who": "executive",
+   "page": "/admin/people.php",
+   "size": "phone",
+   "what": "This page changed, and the change doesn't name it",
+   "before": "More \u25be",
+   "after": "(its links and buttons)"
+  },
+  {
+   "rule": "drift",
+   "rule_name": "Out-of-scope drift",
+   "advocate": "advocate-staff-views",
+   "who": "ops-staff",
+   "page": "/admin/",
+   "size": "phone",
+   "what": "This page changed, and the change doesn't name it",
+   "before": "",
+   "after": "Status: Down: the system is still trying since Nov #, #:# UTC. What it affects: Plans and renewals. What the system is doing: It failed again on its next run. It can't be held without blocking its "
+  },
+  {
+   "rule": "access",
+   "rule_name": "Access or privacy (0066 included)",
+   "advocate": "advocate-staff-views",
+   "who": "ops-staff",
+   "page": "/admin/crawler-review.php",
+   "size": "phone",
+   "what": "Doesn't open now: TimeoutError: page.goto: Timeout 45000ms exceeded.\nCall log:\n  - navigating to \"https://staging.trvgo.us/admin/crawler-review.php\", waiting until \"load\"\n",
+   "before": "200",
+   "after": "TimeoutError: page.goto: Timeout 45000ms exceeded.\nCall log:\n  - navigating to \"https://staging.trvgo.us/admin/crawler-review.php\", waiting until \"load\"\n"
+  },
+  {
+   "rule": "drift",
+   "rule_name": "Out-of-scope drift",
+   "advocate": "advocate-staff-views",
+   "who": "ops-staff",
+   "page": "/admin/login.php",
+   "size": "phone",
+   "what": "This page changed, and the change doesn't name it",
+   "before": "",
+   "after": "Status: Down: the system is still trying since Nov #, #:# UTC. What it affects: Plans and renewals. What the system is doing: It failed again on its next run. It can't be held without blocking its "
+  }
+ ],
+ "blocks_total": 9,
+ "notes": [
+  "member|/admin/chamber-builder.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "accountant|/admin/chamber-builder.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "executive|/admin/chamber-builder.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "executive|/admin/settings.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "ops-staff|/admin/chamber-builder.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)"
+ ],
  "views": 205,
- "seconds": 1317,
- "run": "https://github.com/degraffics/traversence/actions/runs/45822292034"
+ "seconds": 3733,
+ "run": "https://github.com/degraffics/traversence/actions/runs/45829567556",
+ "phase": "after-done"
 }
