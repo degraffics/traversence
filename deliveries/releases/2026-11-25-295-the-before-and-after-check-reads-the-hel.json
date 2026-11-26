@@ -6,12 +6,12 @@
     "zip": "p3-5-held.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "planned",
+    "state": "approved",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
-    "plan_at": null,
+    "plan_at": "2026-11-26 02:19:36",
     "staged_at": null,
     "vetted_at": null,
     "live_at": null,
@@ -44,6 +44,16 @@
             "at": "2026-11-26T02:19:34+00:00",
             "by": 0,
             "msg": "Uploaded p3-5-held.zip: 4 files."
+        },
+        {
+            "at": "2026-11-26T02:19:36+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/p3-5-held.zip (git 7c511be372)."
+        },
+        {
+            "at": "2026-11-26T02:19:36+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
         }
     ]
 }
