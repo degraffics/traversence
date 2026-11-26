@@ -37,20 +37,32 @@ const MAX_PAGES = +(process.env.BA_MAX_PAGES || 40);
 const kindOf = (u) => u.startsWith('/admin') ? 'admin' : (/^\/(user\/|business\/|dashboard\.php)/.test(u) ? 'member' : 'public');
 const SIGNIN = /\/(admin\/login\.php|login\.php|user\/login|sign-?in)/i;
 
-/** Who opens which page at which sizes (piece3-check.md §1.3, kept inside the minutes' budget, DB4). */
+/**
+ * Who opens which page at which sizes (piece3-check.md §1.3, kept inside the minutes' budget, DB4). One advocate of each kind
+ * covers every page of its kinds: the guest, the Member advocate, the Executive and the Staff login. The other member
+ * advocates look at a sample, each from a different offset so between them they cover more: their own member pages (up to
+ * BA_MEMBER_PAGES, both sizes), and BA_SAMPLE public pages (the canary) and admin pages (a member is refused) at phone size.
+ * Every rule each advocate checks is kept; only how many pages the extra advocates repeat it on is capped. Before
+ * 2026-11-26 every member advocate opened every page: #303's 40 pages were 520 views planned, 424 run, 12.7 min a look.
+ */
+const SAMPLE = +(process.env.BA_SAMPLE || 2), MEMBER_PAGES = +(process.env.BA_MEMBER_PAGES || 6);
+const spread = (list, n, at) => { if (list.length <= n) return list; const step = list.length / n; return Array.from({ length: n }, (_, j) => list[Math.floor(at + j * step) % list.length]).filter((u, j, a) => a.indexOf(u) === j); };
 export function plan(pages, acc) {
   const out = []; const P = pages.slice(0, MAX_PAGES);
+  const of = k => P.filter(u => kindOf(u) === k);
+  let nth = 0;   // which extra member advocate this is: its sample starts further along
   for (const [slug, key, kind] of ADVOCATES) {
-    if (kind === 'guest') { for (const u of P.filter(u => kindOf(u) === 'public')) out.push([slug, key, kind, u, ['desktop', 'phone']]); continue; }
+    if (kind === 'guest') { for (const u of of('public')) out.push([slug, key, kind, u, ['desktop', 'phone']]); continue; }
     if (kind === 'member') {
       if (!acc?.members?.[key]) continue;
-      for (const u of P) if (kindOf(u) === 'member') out.push([slug, key, kind, u, ['desktop', 'phone']]);
-      for (const u of P) if (kindOf(u) === 'public') out.push([slug, key, kind, u, ['phone']]);   // a canary in a public view
-      for (const u of P) if (kindOf(u) === 'admin') out.push([slug, key, kind, u, ['phone']]);    // a member never opens admin
+      const full = key === 'member'; const at = full ? 0 : ++nth;
+      for (const u of full ? of('member') : spread(of('member'), MEMBER_PAGES, at)) out.push([slug, key, kind, u, ['desktop', 'phone']]);
+      for (const u of full ? of('public') : spread(of('public'), SAMPLE, at)) out.push([slug, key, kind, u, ['phone']]);   // a canary in a public view
+      for (const u of full ? of('admin') : spread(of('admin'), SAMPLE, at)) out.push([slug, key, kind, u, ['phone']]);    // a member never opens admin
       continue;
     }
     if (!acc?.staff?.[key]) continue;
-    for (const u of P) if (kindOf(u) === 'admin') out.push([slug, key, kind, u, key === 'executive' ? ['desktop', 'phone'] : ['phone']]);
+    for (const u of of('admin')) out.push([slug, key, kind, u, key === 'executive' ? ['desktop', 'phone'] : ['phone']]);
   }
   return out;
 }
