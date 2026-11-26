@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-26T09:22:47Z",
+ "generated_at": "2026-11-26T12:06:10Z",
  "version": 2,
  "generated_by": "tools/page-audit/gauges.py",
  "note": "The gauges' configuration (handoffs/control-board-plan/step3/sections/gauge-lifecycle.md), compact: the site computes every stage from it (app/lib/ControlGauges.php); each gauge's detail is in gauges-items.json.",
@@ -3817,8 +3817,8 @@
     "tickets": []
    },
    {
-    "release": "TIER 3 (0066): p3-5-held.zip",
-    "what": "Staging only: a locked read of the names the site holds back on tribal land, as keyed hashes only, never the names. The before-and-after check blocks any release that makes one appear on a page; if the names can't be read, the verdict is incomplete, never a pass. Answers 404 on live",
+    "release": "p3-5-held.zip",
+    "what": "TIER 3 (0066). Staging only: a locked read of the names the site holds back on tribal land, as keyed hashes only, never the names. The before-and-after check blocks any release that makes one appear on a page; if the names can't be read, the verdict is incomplete, never a pass. Answers 404 on live",
     "why": "Jason's Brief B, 2026-11-25: 0066 proved by a locked, staging-only, hashes-only read; no fake test landmark",
     "decision": "0066; 0179 Brief B. Decision Brief: A, send it (recommended: it only reads, adds a protection and exposes nothing); B, hold it, and the check can't prove 0066",
     "checks": "held 14 (wrong token refused, 404 on live), beforeafter 24, runner 48, team-head 28",
