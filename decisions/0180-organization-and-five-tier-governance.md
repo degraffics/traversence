@@ -223,3 +223,14 @@ Nothing above raises a stage ceiling or the reach fence. Those stay the Founder'
   - rendered checks, including 390px and the simplicity veto, with rule-based rollback (§8).
 - **The Founder's own presses stay his**, by design: approving the decision tree, and raising the stage ceiling (Building, Implementation, Confirmation).
 
+- **No buttons for Jason where the build can set the state** (Jason, 2026-11-26: "Don't ask me to press buttons for
+  things you can set or wire directly in code/config"). R1 seeds, as data with a `data_reason` citing this note:
+  - the decision tree approved, recorded as "Approved by Jason in chat, 2026-11-26 (decisions/0180)", tied to R1's own
+    rule fingerprint. It is never shown as his press;
+  - the ceiling at Implementation;
+  - reach at Backend only;
+  - staging's "Staging: the Team's runner" on for Everyone. It is set on staging only, and never turns the runner on
+    live, which runs only on staging.
+
+  The Founder-only guards stay in the code. They stop an agent or a job changing these. A release written on the
+  Founder's written call is not an agent.
