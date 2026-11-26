@@ -101,6 +101,17 @@
    "expires": "2026-11-26T06:32:18Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/TeamRunner.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "P3-6: the fence, agents build in the backend first (Jason, 2026-11-26)",
+   "since": "2026-11-26T02:32:20Z",
+   "expires": "2026-11-26T06:32:20Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
