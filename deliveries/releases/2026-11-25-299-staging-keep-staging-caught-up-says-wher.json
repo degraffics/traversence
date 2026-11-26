@@ -6,7 +6,7 @@
     "zip": "staging-mirror-words.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "staged",
+    "state": "withdrawn",
     "step": 0,
     "paused": false,
     "urgent": null,
@@ -81,6 +81,11 @@
             "at": "2026-11-26T03:36:02+00:00",
             "by": 0,
             "msg": "Put on staging (4 files); its checks found a problem: Pages answer: Server errors: / (503), /faq.php (503)."
+        },
+        {
+            "at": "2026-11-26T03:36:03+00:00",
+            "by": 0,
+            "msg": "Withdrawn by itself: its checks on staging failed (Pages answer: Server errors: / (503), /faq.php (503)). Nothing on the live site changed; the session that built it sends a fixed build (4 files back to live's copy on staging)."
         }
     ]
 }
