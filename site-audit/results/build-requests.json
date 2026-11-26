@@ -1,5 +1,5 @@
 {
- "at": "2026-11-26T20:17:22.802Z",
+ "at": "2026-11-26T21:17:25.647Z",
  "requests": [
   {
    "id": 3,
@@ -934,6 +934,60 @@
    "ticket": "audit",
    "stage": "found",
    "tier": 2,
+   "build_brief": "",
+   "late": false
+  },
+  {
+   "id": 56,
+   "at_utc": "2026-11-26T20:38:38Z",
+   "gauge": "area:backlog",
+   "build": "",
+   "item": "Two admin pages time out on staging (sources, crawler review)",
+   "what": "Two admin pages time out on staging (sources, crawler review)",
+   "was": "task",
+   "why": "In #305's before-and-after look (runs 45835669559 and 45842645867, 2026-11-26), /admin/sources.php (staff, phone and desktop) and /admin/crawler-review.php (phone) timed out at 45 s on staging in every pass, the retry too. A page that slow is a defect to find, not check noise. Routed by decisions/0180's appendix (#1460).",
+   "source": "the before-and-after check, release #305, 2026-11-26",
+   "owner": "",
+   "release": "",
+   "ticket": "work",
+   "stage": "",
+   "tier": null,
+   "build_brief": "",
+   "late": false
+  },
+  {
+   "id": 57,
+   "at_utc": "2026-11-26T20:38:38Z",
+   "gauge": "area:backlog",
+   "build": "",
+   "item": "Two 6:13 jobs never started on live (Plans and renewals, Earned storage)",
+   "what": "Two 6:13 jobs never started on live (Plans and renewals, Earned storage)",
+   "was": "task",
+   "why": "On 2026-11-26 live's billing_tick (Plans and renewals) and earned_storage_tick have no run at 6:13 MST; Guests' 30 days at the same minute ran, and both cron lines are there. Alarm #776 tripped at 13:30 UTC and mailed the Founder (a live alarm: staging's mail is held by Staging::holdMail). Likely the 6:13 burst: nine live daily jobs and staging's copies at the same minute (Scheduler::syncStaging c",
+   "source": "live alarm #776, 2026-11-26 (the live read, runs 57-61)",
+   "owner": "",
+   "release": "",
+   "ticket": "work",
+   "stage": "",
+   "tier": null,
+   "build_brief": "",
+   "late": false
+  },
+  {
+   "id": 58,
+   "at_utc": "2026-11-26T20:38:38Z",
+   "gauge": "area:backlog",
+   "build": "",
+   "item": "Before-and-after check: false blocks from staging's live data",
+   "what": "Before-and-after check: false blocks from staging's live data",
+   "was": "task",
+   "why": "#305 to #307 were withdrawn on data drift, state lines, to-do links appearing and slow-page timeouts; #308 (one Scheduler.php change) blocked 22 times on pages it reaches from afar: /admin/auto-imports.php, /admin/cluster-tools.php, /admin/crawler.php and /admin/ecommerce.php, where a section that shows only with data came and went (\"Recently published automatically\", \"Geo-hub\", \"Technical details",
+   "source": "decisions/0179's note of 2026-11-26, 18:30 UTC (#1456)",
+   "owner": "",
+   "release": "",
+   "ticket": "work",
+   "stage": "",
+   "tier": null,
    "build_brief": "",
    "late": false
   }
