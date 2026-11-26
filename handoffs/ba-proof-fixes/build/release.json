@@ -1,14 +1,22 @@
 {
-  "title": "The before-and-after check's proof fixes: a release waits off staging for its before look, and no wrong note when its look comes in",
-  "why": "Release #304, 2026-11-26, the first release through the before-and-after check, found three faults. (1) The 10-minute release job put #304 on staging at 11:00 while its before look ran from 10:46 to 11:13 (Releases::tick moves on any git build left at Planned for 10 minutes), so half the before look was of staging with the change already on. Now the job leaves a release that BeforeAfter is waiting on (phase before) alone; BeforeAfter::step puts it on staging once its look is in. (2) When the look came in, BeforeAfter::step called the staging step again on a release already staged, and \"its plan needs a look: Its plan was approved already. Approve it on System Configuration → Releases.\" was written on it as a person's task; now a release already on staging goes straight to its after look. (3) Both staff test logins couldn't sign in, so no admin page was checked as staff, and #304, admin only, read pass: the verdict rule is in tools/page-audit/beforeafter.mjs in the same PR (an account that alone checks a kind of page failing while the change names such a page makes the look incomplete, a person looks). Admin only, no table, no outside call.",
+  "title": "The before-and-after check's proof fixes: a release waits off staging for its before look, and no wrong note when its look comes in; the Staging page's status lines keep their boxes after a press",
+  "why": "Release #304, 2026-11-26, the first release through the before-and-after check, found three faults. (1) The 10-minute release job put #304 on staging at 11:00 while its before look ran from 10:46 to 11:13 (Releases::tick moves on any git build left at Planned for 10 minutes), so half the before look was of staging with the change already on. Now the job leaves a release that BeforeAfter is waiting on (phase before) alone; BeforeAfter::step puts it on staging once its look is in. (2) When the look came in, BeforeAfter::step called the staging step again on a release already staged, and \"its plan needs a look: Its plan was approved already. Approve it on System Configuration → Releases.\" was written on it as a person's task; now a release already on staging goes straight to its after look. (3) Both staff test logins couldn't sign in, so no admin page was checked as staff, and #304, admin only, read pass: the verdict rule is in tools/page-audit/beforeafter.mjs in the same PR (an account that alone checks a kind of page failing while the change names such a page makes the look incomplete, a person looks). Admin only, no table, no outside call. Also (Jason's screenshot, 2026-11-26, after Try again): the Staging page's redraw after a press (admin-staging.js) set the section's HTML again without TvAsk.statuses, so the Now line and \"Outside calls that skip the gate\" came back as bare text with no box or label; now the redraw draws them as the page does.",
   "proposals": [],
   "switch": "",
   "changes": [
-    {"what": "A release waiting for its before look stays off staging until the look is in; no wrong 'plan needs a look' note", "where": "https://traversence.com/admin/config/releases"}
+    {
+      "what": "A release waiting for its before look stays off staging until the look is in; no wrong 'plan needs a look' note",
+      "where": "https://traversence.com/admin/config/releases"
+    },
+    {
+      "what": "Staging against live keeps its status boxes and labels after a button is pressed",
+      "where": "https://traversence.com/admin/config/staging#against"
+    }
   ],
   "checks": {
     "tickwait": "tools/piece3-tests/tickwait.php 6 on MariaDB (waiting: the 10-minute job leaves it and writes nothing; not waiting: moved on as before; its look in and already staged: the after look asked, no wrong note); live's code (#304) fails 3 of them",
     "verdict": "tools/piece3-tests/signin.test.mjs 9 (#304's case incomplete; staff failing with only public pages named: pass; the Executive failing only before: incomplete; the Member advocate: incomplete; another member advocate: a note; signed in before and not after: still an access block; a block wins)",
-    "kept": "piece3 closed 10, pipeline 22, kind 35, rule2 24, onstates 7, compare-closed 10, plan-sample 14; release-tests record 15"
+    "kept": "piece3 closed 10, pipeline 22, kind 35, rule2 24, onstates 7, compare-closed 10, plan-sample 14; release-tests record 15",
+    "redraw": "tools/staging-tests/redraw.cjs 6 at 1280 and 390 (after Run staging's jobs and its redraw: the same status boxes, the Now line boxed and labelled, nothing bare); live's admin-staging.js fails 4 of them"
   }
 }
