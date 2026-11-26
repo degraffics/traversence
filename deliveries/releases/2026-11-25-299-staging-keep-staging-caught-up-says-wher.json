@@ -6,13 +6,13 @@
     "zip": "staging-mirror-words.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "approved",
+    "state": "staged",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
     "plan_at": "2026-11-26 03:35:59",
-    "staged_at": null,
+    "staged_at": "2026-11-26 03:36:01",
     "vetted_at": null,
     "live_at": null,
     "files": {
@@ -38,7 +38,29 @@
         }
     },
     "migrations": [],
-    "checks": [],
+    "checks": {
+        "ok": false,
+        "where": "staging",
+        "at": "2026-11-26T03:36:02+00:00",
+        "items": [
+            [
+                "PHP files parse",
+                true,
+                "4 checked"
+            ],
+            [
+                "Pages answer",
+                false,
+                "Server errors: / (503), /faq.php (503)"
+            ],
+            [
+                "No new fatal errors in the logs",
+                true,
+                "3 logs read"
+            ]
+        ],
+        "first_fail": "Pages answer: Server errors: / (503), /faq.php (503)"
+    },
     "log": [
         {
             "at": "2026-11-26T03:35:58+00:00",
@@ -54,6 +76,11 @@
             "at": "2026-11-26T03:35:59+00:00",
             "by": 0,
             "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
+        },
+        {
+            "at": "2026-11-26T03:36:02+00:00",
+            "by": 0,
+            "msg": "Put on staging (4 files); its checks found a problem: Pages answer: Server errors: / (503), /faq.php (503)."
         }
     ]
 }
