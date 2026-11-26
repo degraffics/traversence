@@ -171,3 +171,14 @@ can see them work before we point them on the front end." And: "Admin does count
   `decision-tree.md` drawn from the live code at Sync 02:36 UTC). The approval that counts is his press of
   **Approve the decision tree** on the Team page with his Founder login, which ties it to the rules' fingerprint. No
   release in flight changes those rules.
+
+## Note (Jason, 2026-11-26, 18:30 UTC): the before-and-after check paused for four releases
+
+After it blocked its own fix four times on staging's own changing data, Jason chose A: "A".
+- **Paused for four releases only:** ba-proof-fixes, switch-readback, the staff-mail fix and R1. All four are admin
+  only, and none is built by an agent.
+- **Each still gets** staging's own checks and Roll back.
+- **Fixed in the meantime:** the check's last noise sources (admin to-do links appearing, a known slow page timing out
+  once).
+- **It switches back on** before any agent-built release, and before R2.
+- No agent release publishes while it's off: Releases::agentGate already waits for a person when the check is off.
