@@ -1,52 +1,6 @@
 {
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
- "claims": [
-  {
-   "path": "app/admin/team-console.php",
-   "functions": [
-    "tv_admin_mod_team"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
-   "why": "P3-4: the tree's words, Confirmation and the spending line (approved 2026-11-26)",
-   "since": "2026-11-26T02:13:48Z",
-   "expires": "2026-11-26T06:14:31Z",
-   "release": "p3-4-agents.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/TeamRunner.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
-   "why": "P3-4: CEILINGS and STEP_COST",
-   "since": "2026-11-26T02:13:50Z",
-   "expires": "2026-11-26T06:14:31Z",
-   "release": "p3-4-agents.zip",
-   "callers": {
-    "setCeiling": [
-     "website/admin/api.php"
-    ],
-    "undo": [
-     "website/admin/api.php"
-    ],
-    "evidence": [
-     "app/admin/team-console.php"
-    ]
-   }
-  },
-  {
-   "path": "app/lib/GaugeTasks.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
-   "why": "P3-4: brief_to in the report",
-   "since": "2026-11-26T02:13:54Z",
-   "expires": "2026-11-26T06:14:31Z",
-   "release": "p3-4-agents.zip",
-   "callers": {}
-  }
- ],
+ "claims": [],
  "lapsed": [
   {
    "path": "app/lib/GaugeTasks.php",
