@@ -13,6 +13,17 @@
    "expires": "2026-11-26T04:13:43Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/AuditClock.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "P3-2: the before-and-after check, the site's side",
+   "since": "2026-11-26T00:13:45Z",
+   "expires": "2026-11-26T04:13:45Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
