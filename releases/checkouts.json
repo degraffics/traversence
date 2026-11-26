@@ -37,6 +37,23 @@
    "expires": "2026-11-26T20:57:20Z",
    "release": "ba-proof-fixes-3.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/Scheduler.php",
+   "functions": [
+    "syncStaging"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "release staging-offset.zip",
+   "since": "2026-11-26T18:36:26Z",
+   "expires": "2026-11-26T22:36:26Z",
+   "release": "staging-offset.zip",
+   "callers": {
+    "syncStaging": [
+     "app/lib/StagingSite.php"
+    ]
+   }
   }
  ],
  "lapsed": [
