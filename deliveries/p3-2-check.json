@@ -1,0 +1,38 @@
+{
+ "zip": "p3-2-check.zip",
+ "built_on": "b9beed8 Sync: 2026-11-26 00:12 UTC",
+ "recorded": "2026-11-26 00:14 UTC",
+ "note": "P3-2: the before-and-after check, the site's side (decisions/0179; switch before_after off as shipped), approved in the daily batch of 2026-11-25; built on Sync: 2026-11-26 00:12 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/AuditClock.php": {
+   "sha256": "b3cde4af5a5d2550c4d33c40ff878a0f58a307ba7bdaaf47bc5785eeac4f5dae",
+   "live": false
+  },
+  "app/lib/BeforeAfter.php": {
+   "sha256": "d0e674d4f44864185a7e89d45950aa81d7df48292df6c6533b88cee3485c2902",
+   "live": false
+  },
+  "app/lib/Releases.php": {
+   "sha256": "239245b6a6ec03d6068df693e71d67fc719a39fb7a39b5889a34c5a55fe5b517",
+   "live": false
+  },
+  "app/lib/Switches.php": {
+   "sha256": "38bae6862c4f04dee118821a483991626844465ead4c45cd9b165baf9e35de16",
+   "live": false
+  },
+  "app/migrations/2026-11-25_team_staff_views.sql": {
+   "sha256": "c3cf6c315fa9e5e7d05d188b8a8172ae85d7f36ff23b1259a0425c8e32bbba06",
+   "live": false
+  },
+  "app/scripts/releases_tick.php": {
+   "sha256": "27f806664add91997a43bc001a7f793ed0d6cdb7e126b51f343c7c3c4a29db41",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "0981c7dea30a492b339e0b89c6b97d978019a3dc0f5191c786cf04f06b5ae9f8",
+   "live": false
+  }
+ }
+}
