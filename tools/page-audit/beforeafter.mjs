@@ -127,7 +127,7 @@ async function extra(p, size) {
     // found-on cell, #308's look at 390), the overflow is that record's data, read as such by compare on a page the change
     // doesn't name; a wide element of the page's own (a bar, a form) still blocks
     const past = [...document.querySelectorAll('body *')].filter(el => el.children.length === 0 && vis(el) && el.getBoundingClientRect().right > W + 1 && getComputedStyle(el).position !== 'fixed');
-    const wideRec = past.length > 0 && past.every(el => el.closest(REC));
+    const wideRec = past.length > 0 && past.every(el => el.closest(REC) || el.closest('table')?.querySelector(REC));   // a table holding records widens with them, its column heads too
     const primary = [...document.querySelectorAll('.ak-b.go, [data-tv-primary], .tv-strip [data-strip=save], .tv-strip [data-strip=close]')].filter(vis).map(name).slice(0, 5);
     const heading = (document.querySelector('h1, .tv-strip .tv-strip-name, h2') || {}).innerText || '';
     const nav = document.querySelectorAll('header a[href], header button, [data-tv-trail] a').length;
