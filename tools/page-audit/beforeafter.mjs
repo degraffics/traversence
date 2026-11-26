@@ -84,7 +84,10 @@ async function extra(p, size) {
     // them on staging every minute, so drift compares a page's structure (headings, labels, controls, the sections present),
     // never what a record says (the session manager, 2026-11-26, after #305's look blocked on a queue row's name). A release
     // that changes how a list draws is still caught: its headings and column heads, the layout rules and the data counts.
-    const REC = 'tbody, tr[data-id], article, .card, [data-id], main li, dd';   // a table's head (thead, th) stays structure
+    // an item card (the helper's hp-card, any <kind>-card) is a record too: a queue that was empty before ("All caught up.") and
+    // holds an item after has a record more, not a new control (#307's look, /admin/helper.php); the admin kit's ak-card is a
+    // section, so it stays structure
+    const REC = 'tbody, tr[data-id], article, .card, [class*="-card"]:not(.ak-card), [data-id], main li, dd';   // a table's head (thead, th) stays structure
     const ctl = [...document.querySelectorAll('a[href], button, [role=button], input[type=submit]')].filter(vis);
     const name = el => ((el.innerText || el.textContent || '').trim() || el.getAttribute('aria-label') || el.getAttribute('title') || '').replace(/\s+/g, ' ').slice(0, 80);
     const controls = ctl.slice(0, 300).map(el => ({ n: name(el), h: (el.getAttribute('href') || '').replace(/^https?:\/\/[^/]+/, '').slice(0, 120), d: !!(el.disabled || el.getAttribute('aria-disabled') === 'true'), ...(el.closest(STATE) ? { st: 1 } : {}), ...(el.closest(REC) ? { rec: 1 } : {}), ...(el.tagName === 'A' && !el.closest('header, nav, [role=navigation], [role=tablist]') ? { lk: 1 } : {}) }));
@@ -227,6 +230,10 @@ export function compare(b1, b2, a, exp = {}, release = '', heldKey = STAGING?.to
     if (f.retried) notes.push(`${key(f)}: timed out once, opened again (${f.error ? 'timed out again' : 'answered ' + f.status})`);
     if (unusable(b)) { notes.push(`${key(f)}: its before look wasn't usable (staging answered ${b.status || b.error || 'nothing'}); not compared`); continue; }
     compared++;
+    // a view that timed out after, on a page the release doesn't reach (reach.py's pages, the names it gives), is staging's
+    // slowness, not the change: noted for the IT Manager's lane, never an access block (#307's look, /admin/crawler-review.php,
+    // which timed out in #305's look too); on a page the release reaches it still blocks, below
+    if (f.error && /Timeout/i.test(f.error) && !refused(b) && !expected.has(f.url)) { compared--; notes.push(`${key(f)}: timed out after on a page this release doesn't reach (staging is slow there; the IT Manager's lane), not compared`); continue; }
     const moving = (get) => JSON.stringify(get(b)) !== JSON.stringify(get(bb || b));
     // 1. access or privacy (0066 included)
     const shut = x => x && (x.status === 401 || x.status === 403 || x.ba?.landed_signin);   // refused this account (not merely missing)
