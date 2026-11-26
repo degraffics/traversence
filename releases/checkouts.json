@@ -1,6 +1,20 @@
 {
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
- "claims": [],
+ "claims": [
+  {
+   "path": "app/lib/Releases.php",
+   "functions": [
+    "standing"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "P3-2: a release's waiting words for the before-and-after check (decisions/0179; Jason's batch of 2026-11-25)",
+   "since": "2026-11-26T00:13:43Z",
+   "expires": "2026-11-26T04:13:43Z",
+   "release": "",
+   "callers": {}
+  }
+ ],
  "lapsed": [
   {
    "path": "app/lib/GaugeTasks.php",
