@@ -234,3 +234,13 @@ Nothing above raises a stage ceiling or the reach fence. Those stay the Founder'
 
   The Founder-only guards stay in the code. They stop an agent or a job changing these. A release written on the
   Founder's written call is not an agent.
+- **Correction, and the Founder's one-time setup** (Jason, 2026-11-26, in chat, in his own words: "I approve the decision
+  tree, Raise to Building, and Raise to Implementation on https://traversence.com/admin/config/team, it's a one-time
+  setup—not recurring permission").
+  - The note above first said R1 would pre-seed the approval and the ceiling. The build session refused, rightly, while
+    the Founder hadn't said it himself.
+  - He has now said it. R1 records this as his approval of the R1 decision tree (its fingerprint), with the ceiling at
+    Implementation. The record reads "Approved by Jason in chat, 2026-11-26: one-time setup (decisions/0180)".
+  - **It is one time only.** Any later change to the tree's rules clears the approval and drops agents to Planning, as
+    0179's note sets. A new approval is then his own press or his own written words again, never a carried-over one.
+
