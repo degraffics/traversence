@@ -1,0 +1,49 @@
+{
+    "id": 299,
+    "title": "Staging: Keep staging caught up says where it stands; a copy no longer stops on a closed connection; nothing previewed or published from half a copy",
+    "why": "Jason, 2026-11-26 (through the session manager): he pressed Keep staging caught up and the Staging page still said (off) with the button, and Now said not kept caught up, while the fresh copy went in. Then that copy stopped at \"strip admin admin_access\": MySQL server has gone away. Cause: staging_carry_tick carries a copy in one process for up to 55 minutes and StagingSite::conn() kept each realm's connection for the whole run; the admin realm's sat idle through main's strip and the server closed it, so every copy the job carries would stop there. Now conn() checks a kept connection idle 20 s or more and makes it again when the server dropped it (and asks for an hour idle). The page's words follow the switch: turning on (with the copy's percentage and step, no button; Don't turn it on), on (Stop keeping caught up), didn't turn on (Try again, Leave it off), with the copy's later steps adding no outbox to live after Don't turn it on. Preview, Publish and Schedule are greyed with why, and refused on the server, while a copy runs or after one stopped (staging holds half a copy); Set up staging waits for a running copy; the preview line no longer says Publish is open when it isn't; messages name Start staging over (Refresh staging is gone); state lines keep no ×. Admin only, no table, no outside call. The FAQ entry follows separately, after #298 (which carries faq.md).",
+    "proposals": "",
+    "zip": "staging-mirror-words.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/admin/sections.php": {
+            "sha": "88a7d6f60127cfa2cfcde2a81a8cfd41f54575d059fe1f909acb6f62c60269cf",
+            "size": 257154,
+            "live_was": "3830be5919a41fa38bf9a1e002177584e451b429d7d225b41e64aa0ec4fb4f3e"
+        },
+        "app/lib/StagingSite.php": {
+            "sha": "f7477bc82685c80698e3d864dfa27b751d084558e6765c4e5dc03a484e7fbd70",
+            "size": 106680,
+            "live_was": "303dbbd69accbc52fe67b852741506ea3a7ee25de8cb4cf6d48c5b41cd4370d8"
+        },
+        "app/lib/StagingApi.php": {
+            "sha": "e6418146848df734db0c1a91c5b03dbfbc3f16f1f36e3608c04c8e7ad045e28d",
+            "size": 14803,
+            "live_was": "b9a354ed4a2d68b35ad122636efbfb899c8b24b946b79bc85bc904dc12f52fae"
+        },
+        "app/lib/StagingPublish.php": {
+            "sha": "9bc084cb3b56a833aa95921329096335f0a64790f56c775918764403060aaa30",
+            "size": 49925,
+            "live_was": "11c952c4d76ba423b85029beacd7f228fe67cef3b0bd5b6f278e1c644e64b32b"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-26T03:35:58+00:00",
+            "by": 0,
+            "msg": "Uploaded staging-mirror-words.zip: 4 files."
+        }
+    ]
+}
