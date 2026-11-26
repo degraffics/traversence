@@ -13,6 +13,17 @@
    "expires": "2026-11-26T04:09:30Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/ui/section-rails.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "config-rail: System Configuration's five pages in the side menu",
+   "since": "2026-11-26T00:09:32Z",
+   "expires": "2026-11-26T04:09:32Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
