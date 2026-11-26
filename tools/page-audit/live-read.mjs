@@ -29,6 +29,9 @@ const PAGES = { orders: () => ['/admin/backoffice/orders'], order: () => (/^\d{1
   // the jobs (the Control Board session, 2026-11-24, queue item 7): Scheduled tasks, each job's last run and next due
   jobs: () => ['/admin/config/scheduler?panel=1'],   // drawn on its own (the router doesn't fold it into the board's tab then)
   board: () => ['/admin/config/control', '/admin/config/control/wf-W1', '/admin/config/alarms'],
+  // the Team page and where the Work queue's addresses land (the session manager, 2026-11-26: ?tab=development opened the
+  // Board): each with the view it shows (the board's tab, the rail's current page)
+  team: () => ['/admin/config/team', '/admin/config/control?tab=development', '/admin/config/control#cb-dev', '/admin/config/staging'],
   // rows: a table's newest rows matching a search, through the admin's data API (read-only; operational tables such as
   // job_runs only: never a table of people's details; the Control Board session, 2026-11-24, for the audit clock's runs)
   // the search may instead be up to 8 row ids ("35237,35160"): each row whole (action=row)
@@ -59,9 +62,11 @@ try {
       const res = await p.goto(SITE + path, { waitUntil: 'load', timeout: 60000 }).catch((e) => ({ status: () => 0, err: String(e) }));
       await p.waitForLoadState('networkidle', { timeout: 15000 }).catch(() => {});   // the admin's tables fill in after load
       await p.waitForTimeout(800);
-      const name = `${READ}${READ === 'meta' || READ === 'rows' ? '-' + TABLE : (ID ? '-' + ID : '')}-${w}`;
+      const name = `${READ}${READ === 'meta' || READ === 'rows' ? '-' + TABLE : (ID ? '-' + ID : '')}${paths.length > 1 ? '-' + (paths.indexOf(path) + 1) : ''}-${w}`;   // one file per page
       const read = await p.evaluate(() => ({
-        url: location.pathname + location.search,
+        url: location.pathname + location.search + location.hash,
+        // the view shown: the board's tab and the rail's current page (Development, Board, Diagnostics)
+        view: (() => { const b = document.querySelector('[data-tab]'); const r = document.querySelector('[data-cb-rail][aria-current="page"], .tv-rail [aria-current="page"], [aria-current="page"]'); return { tab: b ? b.getAttribute('data-tab') : '', current: r ? r.textContent.trim().replace(/\s+/g, ' ').slice(0, 60) : '' }; })(),
         title: document.title,
         text: document.body.innerText,
         links: [...document.querySelectorAll('a[href]')].map((a) => [a.textContent.trim().replace(/\s+/g, ' ').slice(0, 80), a.getAttribute('href')]).filter((x) => x[1].startsWith('/admin/')),
@@ -70,7 +75,7 @@ try {
       writeFileSync(`${OUT}/${name}.json`, JSON.stringify({ path, width: w, status: res.status(), refused_writes: refused, ...read }, null, 1));
       writeFileSync(`${OUT}/${name}.txt`, read.text);
       await p.screenshot({ path: `${OUT}/${name}.png`, fullPage: true });
-      const line = `${w}px ${path}: HTTP ${res.status()}, landed on ${read.url}, ${read.text.length} characters, ${read.links.length} admin links, no sideways scroll: ${read.wide}, writes refused: ${refused}`;
+      const line = `${w}px ${path}: HTTP ${res.status()}, landed on ${read.url} (view: ${read.view.tab || '-'}, current: ${read.view.current || '-'}), ${read.text.length} characters, ${read.links.length} admin links, no sideways scroll: ${read.wide}, writes refused: ${refused}`;
       summary.push(line); console.log(line);
       if (process.env.TO_LOG === '1') { console.log(`::group::${name} (the page's text; the session deletes this run's log once read)`); console.log(read.text); console.log('::endgroup::'); }
       if (/\/admin\/login\.php/.test(read.url)) fail(`${path} sent the test Executive back to sign in.`);
