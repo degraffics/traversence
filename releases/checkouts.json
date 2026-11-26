@@ -2,14 +2,204 @@
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
  "claims": [
   {
-   "path": "app/lib/Notify.php",
+   "path": "app/admin/control-console.php",
+   "functions": [
+    "tv_cb_deliver",
+    "tv_cb_workqueue",
+    "tv_cb_wq_batch",
+    "tv_cb_wq_brief",
+    "tv_cb_wq_page",
+    "tv_cb_wq_row",
+    "tv_cb_wq_runs",
+    "tv_cb_wq_stages"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "release r1-tiers.zip",
+   "since": "2026-11-26T20:34:48Z",
+   "expires": "2026-11-27T00:36:49Z",
+   "release": "r1-tiers.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/tools.php",
+   "functions": [
+    "'config/team'"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "release r1-tiers.zip",
+   "since": "2026-11-26T20:34:48Z",
+   "expires": "2026-11-27T00:36:49Z",
+   "release": "r1-tiers.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/team-console.php",
+   "functions": [
+    "(top)",
+    "tv_admin_mod_team"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "release r1-tiers.zip",
+   "since": "2026-11-26T20:34:48Z",
+   "expires": "2026-11-27T00:36:49Z",
+   "release": "r1-tiers.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/Access.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "release r1-tiers.zip",
+   "since": "2026-11-26T20:34:48Z",
+   "expires": "2026-11-27T00:36:49Z",
+   "release": "r1-tiers.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/migrations/2026-11-26_0180_tiers_roster.sql",
    "functions": [],
    "kind": "add",
    "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
-   "why": "release staff-mail.zip",
-   "since": "2026-11-26T20:31:44Z",
-   "expires": "2026-11-27T00:31:44Z",
-   "release": "staff-mail.zip",
+   "why": "release r1-tiers.zip",
+   "since": "2026-11-26T20:34:48Z",
+   "expires": "2026-11-27T00:36:49Z",
+   "release": "r1-tiers.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/rollbacks/2026-11-26_0180_tiers_roster.sql",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "release r1-tiers.zip",
+   "since": "2026-11-26T20:34:48Z",
+   "expires": "2026-11-27T00:36:49Z",
+   "release": "r1-tiers.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/GaugeTasks.php",
+   "functions": [
+    "(top)",
+    "answer",
+    "auditConfirm",
+    "briefEdit",
+    "queue",
+    "report",
+    "settleFlag"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "release r1-tiers.zip",
+   "since": "2026-11-26T20:34:48Z",
+   "expires": "2026-11-27T00:36:49Z",
+   "release": "r1-tiers.zip",
+   "callers": {
+    "answer": [
+     "website/admin/api.php"
+    ],
+    "briefEdit": [
+     "app/lib/TeamRunner.php",
+     "website/admin/api.php"
+    ],
+    "settleFlag": [
+     "website/admin/api.php"
+    ],
+    "report": [
+     "website/api/health.php"
+    ],
+    "queue": [
+     "app/admin/control-console.php",
+     "app/lib/ControlGauges.php",
+     "app/lib/TeamRunner.php"
+    ],
+    "auditConfirm": [
+     "app/lib/TeamRunner.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/TeamRunner.php",
+   "functions": [
+    "(top)",
+    "applies",
+    "audit",
+    "briefDraft",
+    "pick",
+    "ruleData",
+    "tier",
+    "touches"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "release r1-tiers.zip",
+   "since": "2026-11-26T20:34:48Z",
+   "expires": "2026-11-27T00:36:49Z",
+   "release": "r1-tiers.zip",
+   "callers": {
+    "audit": [
+     "app/admin/tools.php",
+     "app/scripts/team_audit_tick.php"
+    ],
+    "touches": [
+     "app/lib/ReleaseKind.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/Notify.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "release r1-tiers.zip",
+   "since": "2026-11-26T20:34:48Z",
+   "expires": "2026-11-27T00:36:49Z",
+   "release": "r1-tiers.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ReleaseKind.php",
+   "functions": [
+    "(top)",
+    "prove",
+    "tier3",
+    "writes"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "release r1-tiers.zip",
+   "since": "2026-11-26T20:34:48Z",
+   "expires": "2026-11-27T00:36:49Z",
+   "release": "r1-tiers.zip",
+   "callers": {
+    "writes": [
+     "app/lib/TeamRunner.php"
+    ],
+    "prove": [
+     "app/lib/Releases.php"
+    ],
+    "tier3": [
+     "app/lib/Releases.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/Staging.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "release r1-tiers.zip",
+   "since": "2026-11-26T20:34:48Z",
+   "expires": "2026-11-27T00:36:49Z",
+   "release": "r1-tiers.zip",
    "callers": {}
   },
   {
@@ -19,22 +209,90 @@
    ],
    "kind": "change",
    "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
-   "why": "release staff-mail.zip",
-   "since": "2026-11-26T20:31:44Z",
-   "expires": "2026-11-27T00:31:44Z",
-   "release": "staff-mail.zip",
+   "why": "release r1-tiers.zip",
+   "since": "2026-11-26T20:34:48Z",
+   "expires": "2026-11-27T00:34:48Z",
+   "release": "r1-tiers.zip",
    "callers": {}
   },
   {
-   "path": "app/lib/Mailer.php",
+   "path": "app/lib/StagingSync.php",
    "functions": [],
    "kind": "add",
    "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
-   "why": "release staff-mail.zip",
-   "since": "2026-11-26T20:31:44Z",
-   "expires": "2026-11-27T00:31:44Z",
-   "release": "staff-mail.zip",
+   "why": "release r1-tiers.zip",
+   "since": "2026-11-26T20:34:48Z",
+   "expires": "2026-11-27T00:36:49Z",
+   "release": "r1-tiers.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/FounderMail.php",
+   "functions": [
+    "(top)",
+    "batch",
+    "decision"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "release r1-tiers.zip",
+   "since": "2026-11-26T20:34:48Z",
+   "expires": "2026-11-27T00:36:49Z",
+   "release": "r1-tiers.zip",
+   "callers": {
+    "decision": [
+     "app/lib/GaugeTasks.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/TeamRoster.php",
+   "functions": [
+    "(top)",
+    "actsAs",
+    "all",
+    "can",
+    "setStatus"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "release r1-tiers.zip",
+   "since": "2026-11-26T20:34:48Z",
+   "expires": "2026-11-27T00:36:49Z",
+   "release": "r1-tiers.zip",
+   "callers": {
+    "all": [
+     "app/admin/control-console.php",
+     "app/admin/team-console.php",
+     "app/admin/tools.php"
+    ],
+    "actsAs": [
+     "app/admin/tools.php"
+    ],
+    "setStatus": [
+     "app/admin/tools.php"
+    ],
+    "can": [
+     "app/lib/TeamRunner.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/ControlGauges.php",
+   "functions": [
+    "queueGauge"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "release r1-tiers.zip",
+   "since": "2026-11-26T20:34:48Z",
+   "expires": "2026-11-27T00:36:49Z",
+   "release": "r1-tiers.zip",
+   "callers": {
+    "queueGauge": [
+     "app/admin/control-console.php"
+    ]
+   }
   },
   {
    "path": "app/lib/StagingPublish.php",
@@ -43,10 +301,60 @@
    ],
    "kind": "change",
    "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
-   "why": "release staff-mail.zip",
-   "since": "2026-11-26T20:31:44Z",
-   "expires": "2026-11-27T00:31:44Z",
-   "release": "staff-mail.zip",
+   "why": "release r1-tiers.zip",
+   "since": "2026-11-26T20:34:48Z",
+   "expires": "2026-11-27T00:34:48Z",
+   "release": "r1-tiers.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Releases.php",
+   "functions": [
+    "agentGate",
+    "briefFor",
+    "rule2"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "release r1-tiers.zip",
+   "since": "2026-11-26T20:34:48Z",
+   "expires": "2026-11-27T00:36:49Z",
+   "release": "r1-tiers.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/admin/api.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "release r1-tiers.zip",
+   "since": "2026-11-26T20:34:48Z",
+   "expires": "2026-11-27T00:36:49Z",
+   "release": "r1-tiers.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/StagingSite.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "release r1-tiers.zip",
+   "since": "2026-11-26T20:36:49Z",
+   "expires": "2026-11-27T00:36:49Z",
+   "release": "r1-tiers.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/StagingPublish.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "release r1-tiers.zip",
+   "since": "2026-11-26T20:36:49Z",
+   "expires": "2026-11-27T00:36:49Z",
+   "release": "r1-tiers.zip",
    "callers": {}
   }
  ],
