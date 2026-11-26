@@ -49,6 +49,76 @@
    "expires": "2026-11-26T07:16:15Z",
    "release": "batch-live-fix.zip",
    "callers": {}
+  },
+  {
+   "path": "app/admin/sections.php",
+   "functions": [
+    "tv_admin_mod_staging",
+    "tv_admin_staging_mirror"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "release staging-mirror-words.zip",
+   "since": "2026-11-26T03:35:09Z",
+   "expires": "2026-11-26T07:35:09Z",
+   "release": "staging-mirror-words.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/StagingSite.php",
+   "functions": [
+    "conn",
+    "step",
+    "syncTestAccounts"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "release staging-mirror-words.zip",
+   "since": "2026-11-26T03:35:09Z",
+   "expires": "2026-11-26T07:35:09Z",
+   "release": "staging-mirror-words.zip",
+   "callers": {
+    "step": [
+     "website/admin/api.php"
+    ],
+    "syncTestAccounts": [
+     "app/lib/TestAccounts.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/StagingApi.php",
+   "functions": [
+    "line",
+    "summary"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "release staging-mirror-words.zip",
+   "since": "2026-11-26T03:35:09Z",
+   "expires": "2026-11-26T07:35:09Z",
+   "release": "staging-mirror-words.zip",
+   "callers": {
+    "line": [
+     "app/admin/sections.php",
+     "website/api/release-bar.php"
+    ],
+    "summary": [
+     "app/admin/sections.php",
+     "website/api/release-bar.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/StagingPublish.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "release staging-mirror-words.zip",
+   "since": "2026-11-26T03:35:09Z",
+   "expires": "2026-11-26T07:35:09Z",
+   "release": "staging-mirror-words.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
