@@ -24,6 +24,17 @@
    "expires": "2026-11-26T06:23:14Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/staging-tables.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "notify-founder: the site emails the Founder itself (approved 2026-11-26)",
+   "since": "2026-11-26T02:23:16Z",
+   "expires": "2026-11-26T06:23:16Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
