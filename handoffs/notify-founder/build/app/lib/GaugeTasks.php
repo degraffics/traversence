@@ -411,6 +411,9 @@ final class GaugeTasks
                     'owner' => $r['owner'] === '' ? '' : (stripos((string) $r['owner'], 'session') !== false || str_starts_with((string) $r['owner'], 'system · ') ? (string) $r['owner'] : 'a staff member'), 'release' => (string) $r['rel'],
                     'ticket' => (string) ($r['ticket'] ?? 'work'), 'stage' => (string) ($r['stage'] ?? ''), 'tier' => isset($r['tier']) ? (int) $r['tier'] : null,
                     'build_brief' => (string) ($r['build_brief'] ?? '')];   // the System Architect's brief for the session manager (Piece 2, P2-3)
+            // where the System Architect's briefs go (Jason, 2026-11-25): a build session takes them itself from Implementation on
+            $to = 'session manager'; try { require_once __DIR__ . '/TeamRunner.php'; $to = TeamRunner::briefTo($pdo); } catch (Throwable $x) {}
+            foreach ($req as $i => $q) if ($q['build_brief'] !== '') $req[$i]['brief_to'] = $to;
             $ap = [];
             foreach (self::approvals($pdo) as $g => $ks) foreach ($ks as $k => $a) $ap[] = ['gauge' => $g, 'kind' => $k, 'value' => $a['value'], 'at_utc' => str_replace(' ', 'T', $a['at']) . 'Z'];
             return ['requests' => $req, 'approvals' => $ap];
