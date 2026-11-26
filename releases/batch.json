@@ -57,6 +57,12 @@
    "at": "2026-11-26T09:25:00Z",
    "subject": "Traversence: staging is fixed, one press when you're up",
    "body": "The staging fix is live (#300) and checked. When you're up: open https://traversence.com/admin/config/staging#against. In \"Staging against live\" it reads \"Keep staging caught up didn't turn on…\". Press Try again. You'll see \"turning on\" with a percentage; about 30 minutes later it reads (on) and you get an email. Then: https://staging.trvgo.us/admin/config/switches, set Staging: the Team's runner to Everyone and Save. Then https://traversence.com/admin/config/team: Approve the decision tree, Raise to Building, Raise to Implementation."
+  },
+  {
+   "id": "sm-2026-11-26-r1-live",
+   "at": "2026-11-26T21:45:00Z",
+   "subject": "Traversence: R1 is live, three presses for you",
+   "body": "R1 (Release #313) is live and checked: the five tiers and all 32 roles on, plus the 12 advocates. Open https://traversence.com/admin/config/team and press, in order: 1. Approve the decision tree (the five-tier version). 2. Raise to Building. 3. Raise to Implementation. Agents then build backend releases on their own: Backend only, $0 spend (yours and the CEO's $20 aside), no real money moved. While you're there, check the roster shows 44 active and 0 on standby; I couldn't read those counts from outside. Next: the before-and-after check's fix, the check switched back on, then R2."
   }
  ]
 }
