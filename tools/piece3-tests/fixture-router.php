@@ -42,6 +42,10 @@ if ($path === '/user/account.php') {
 if ($path === '/user/login.php') return $page('Sign in', '<p>Sign in</p>');
 if (str_starts_with($path, '/admin/')) {
     if ($staff === '' && $v !== 'leak') { header('Location: /admin/login.php'); return true; }
-    return $page('Admin', '<p>The admin.</p><button class="ak-b go">Save</button>' . ($v === 'greyed' ? '<button disabled>Send</button>' : '<button>Send</button>'));
+    // a queue's table: its rows are records (catch-up changes them on staging); its column heads and controls are structure
+    $names = $v === 'rowtext' ? ['Aveda Institute Tucson', 'Desert Lab'] : ['Premises Park', 'Desert Lab'];
+    $rows = ''; foreach ($names as $i => $n) $rows .= '<tr data-id="' . ($i + 1) . '"><td><a href="/admin/x?id=' . ($i + 1) . '">' . $n . '</a></td><td>' . ($v === 'rowtext' && $i ? 'Confirmed' : 'Found') . '</td>' . ($v === 'column' ? '<td>Jason</td>' : '') . '</tr>';
+    $table = '<table><thead><tr><th>Name</th><th>Stage</th>' . ($v === 'column' ? '<th>Owner</th>' : '') . '</tr></thead><tbody>' . $rows . '</tbody></table>';
+    return $page('Admin', '<p>The admin.</p><button class="ak-b go">Save</button>' . ($v === 'greyed' ? '<button disabled>Send</button>' : '<button>Send</button>') . ($v === 'newbutton' ? '<button>Export</button>' : '') . $table);
 }
 http_response_code(404); echo 'not found'; return true;
