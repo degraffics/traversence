@@ -1,0 +1,97 @@
+--- a/app/lib/Mailer.php
++++ b/app/lib/Mailer.php
+@@ -89,6 +89,15 @@
+         if (Staging::holdMail($toEmail, $subject, $textBody, $html, $as !== '' ? strtolower($as) : 'smtp')) return;   // the staging copy keeps it to read, never sends it (decisions/0145 Phase 3)
+         require_once __DIR__ . '/TestAccounts.php';
+         if (TestAccounts::isTestEmail($toEmail)) return;   // a test account: the live site sends it nothing (decisions/0145 §3)
++        // an address that can't take mail (2026-11-26: "Staging is refreshed" went to a staff login's hidden record,
++        // <staff id>@staff.traversence.invalid, "never mailed"): a staff login's goes to that login's work email, as Notify
++        // reaches staff (staff_accounts.email); any other .invalid address, or a staff login with none, is refused and
++        // logged, so nothing disappears quietly
++        if (str_ends_with(strtolower(trim($toEmail)), '.invalid')) {
++            $work = self::staffWorkEmail($toEmail);
++            if ($work === '') { self::log($as !== '' ? strtolower($as) : 'system', $toEmail, $subject, 'refused', 'not sent: no deliverable address'); throw new RuntimeException('Not sent: ' . $toEmail . ' takes no mail, and no work email is on file for it.'); }
++            $toEmail = $work;
++        }
+         $env = fn (string $k) => ($as !== '' ? (getenv($as . '_' . $k) ?: '') : '') ?: (getenv($k === 'FROM_EMAIL' || $k === 'FROM_NAME' || $k === 'REPLY_TO' ? 'SMTP_' . $k : $k) ?: '');
+         $own = $as !== '' && (getenv($as . '_SMTP_USERNAME') ?: '') !== '';   // its own login: its host and password go with it
+         $host = $own ? (getenv($as . '_SMTP_HOST') ?: (getenv('SMTP_HOST') ?: '')) : (getenv('SMTP_HOST') ?: '');
+@@ -118,6 +127,19 @@
+         }
+     }
+ 
++    /** A staff login's work email from its hidden record's address (<staff id>@staff.traversence.invalid), as Notify finds it; '' when none. */
++    private static function staffWorkEmail(string $hidden): string
++    {
++        try {
++            require_once __DIR__ . '/Database.php';
++            $pdo = Database::connection();
++            $st = $pdo->prepare('SELECT s.email FROM ' . Database::t('staff_accounts') . " s JOIN users u ON u.id = s.user_id WHERE u.email = ? AND s.status = 'active' LIMIT 1");
++            $st->execute([trim($hidden)]);
++            $e = trim((string) ($st->fetchColumn() ?: ''));
++            return filter_var($e, FILTER_VALIDATE_EMAIL) && !str_ends_with(strtolower($e), '.invalid') ? $e : '';
++        } catch (Throwable $x) { return ''; }
++    }
++
+     /** One send on the route (message 0: not a Notify message). Never throws; nothing when the table isn't there yet. */
+     private static function log(string $sender, string $to, string $subject, string $stage, string $detail): void
+     {
+--- a/app/lib/Notify.php
++++ b/app/lib/Notify.php
+@@ -83,6 +83,9 @@
+         'founder.batch'    => ['Today\'s batch for your OK', 'The releases waiting for your approval today (decisions/0179 rule 1), with the link to approve them.', 'alert', 'staff', 'Team', true, false, 'system', ''],
+         'founder.decision' => ['A Tier 3 decision for you', 'A Decision Brief waiting for your answer (decisions/0179): the decision, why it needs you, the options and the recommendation.', 'urgent', 'staff', 'Team', true, false, 'system', ''],
+         'founder.message'  => ['A message from the session manager', 'What the session manager needs you to know or answer, sent by the site.', 'alert', 'staff', 'Team', true, false, 'system', ''],
++        // staging's own news to whoever pressed (2026-11-26: "Staging is refreshed" had gone to a staff login's hidden address):
++        // a fresh copy finished or stopped, a publish done or stopped (StagingSite::tellPerson)
++        'staging.done'   => ['Staging: a copy or a publish finished', 'Staging was refreshed or published, or one of those stopped: what happened and where to see it.', 'notice', 'staff', 'Team', true, true, 'system', ''],
+         'case.assigned'  => ['A Pulse case assigned to you', 'A teammate gave you a case to handle.', 'alert', 'staff', 'Team', true, true, 'system', ''],
+         'pulse.forward'  => ['Passed on to you', 'Someone on your team passed a message on to you in Pulse.', 'notice', 'any', 'Pulse', false, true, 'system', ''],   // the row's ↗ (decisions/0172)
+         'case.escalated' => ['A Pulse case escalated to you', 'A case in your department was escalated to its Manager or Director.', 'alert', 'staff', 'Team', true, true, 'system', ''],
+--- a/app/lib/StagingSite.php
++++ b/app/lib/StagingSite.php
+@@ -914,12 +914,29 @@
+                   . "
+ 
+ Something not right? Write to support@traversence.com.";
+-            require_once __DIR__ . '/Mailer.php';
+-            Mailer::send($to, $ok ? 'Staging is refreshed' : 'The staging refresh stopped', $text);
++            self::tellPerson($pdo, $uid, $to, 'refresh:' . (string) ($r['id'] ?? ''), $ok ? 'Staging is refreshed' : 'The staging refresh stopped', $text);
+         } catch (Throwable $e) { error_log('staging done email: ' . $e->getMessage()); }
+     }
+ 
+     /**
++     * Staging's news to the person who pressed (2026-11-26): a staff login is reached through Notify by its staff id (Pulse
++     * and its work email, as the Founder's own emails go); a member's account by its own address. Never the staff login's
++     * hidden record (<staff id>@staff.traversence.invalid), which takes no mail.
++     */
++    public static function tellPerson(PDO $pdo, int $uid, string $to, string $thing, string $subject, string $text): void
++    {
++        require_once __DIR__ . '/StaffLogin.php';
++        if (StaffLogin::isStaffUser($to)) {
++            require_once __DIR__ . '/Notify.php';
++            $n = Notify::send($pdo, 'staging.done', ['staff' => [$uid]], ['thing' => mb_substr($thing, 0, 100), 'url' => '/admin/config/staging'], ['title' => $subject, 'body' => $text]);
++            if ($n < 1) error_log('staging news: Notify reached no one for staff user ' . $uid . ' (' . $subject . ')');
++            return;
++        }
++        require_once __DIR__ . '/Mailer.php';
++        Mailer::send($to, $subject, $text);
++    }
++
++    /**
+      * Works on the refresh until it's done or $max seconds pass (the server's own job, staging_carry_tick: the command line
+      * has no time limit). Stops at once when another run holds it.
+      */
+--- a/app/lib/StagingPublish.php
++++ b/app/lib/StagingPublish.php
+@@ -738,8 +738,8 @@
+             if (!filter_var($to, FILTER_VALIDATE_EMAIL)) return;
+             $tz = 'UTC'; try { if ((string) ($run['tz'] ?? '') !== '') { new DateTimeZone((string) $run['tz']); $tz = (string) $run['tz']; } } catch (Throwable) {}
+             $when = (new DateTimeImmutable('now', new DateTimeZone($tz)))->format('M j, g:i A T');
+-            require_once __DIR__ . '/Mailer.php';
+-            Mailer::send($to, ($run['state'] === 'done' ? 'Staging is published' : 'Publish of staging stopped'), (string) ($run['message'] ?? '') . "\n\n" . $when
++            require_once __DIR__ . '/StagingSite.php';   // a staff login through Notify by its staff id, a member by email (StagingSite::tellPerson)
++            StagingSite::tellPerson($pdo, $uid, $to, 'publish:' . (string) ($run['id'] ?? ''), ($run['state'] === 'done' ? 'Staging is published' : 'Publish of staging stopped'), (string) ($run['message'] ?? '') . "\n\n" . $when
+                 . "\n\nSee it in System Configuration → Staging: https://traversence.com/admin/config/staging (Carry on, Roll back and To send now are there).\n\nSomething not right? Write to support@traversence.com.");
+         } catch (Throwable $e) { error_log('staging publish email: ' . $e->getMessage()); }
+     }
