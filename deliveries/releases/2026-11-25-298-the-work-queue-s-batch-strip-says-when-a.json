@@ -11,7 +11,7 @@
     "paused": false,
     "urgent": null,
     "schedule_at": null,
-    "plan_at": "2026-11-26 03:16:55",
+    "plan_at": "2026-11-26 03:48:03",
     "staged_at": null,
     "vetted_at": null,
     "live_at": null,
@@ -59,6 +59,11 @@
             "at": "2026-11-26T03:16:56+00:00",
             "by": 0,
             "msg": "Release #298 is in and approved, but not on staging yet: Staging is being refreshed: put it on staging once that's done (you get an email). The site tries again every 10 minutes."
+        },
+        {
+            "at": "2026-11-26T03:48:03+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
         }
     ]
 }
