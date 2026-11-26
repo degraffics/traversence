@@ -4,13 +4,14 @@
   {
    "path": "app/admin/control-console.php",
    "functions": [
-    "tv_cb_wq_batch"
+    "tv_cb_wq_batch",
+    "tv_cb_wq_row"
    ],
    "kind": "change",
    "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
-   "why": "notify-founder: the site emails the Founder itself (approved 2026-11-26)",
+   "why": "notify-founder: only tv_cb_wq_batch's lines change; the check attributes a shifted line here",
    "since": "2026-11-26T02:23:12Z",
-   "expires": "2026-11-26T06:23:12Z",
+   "expires": "2026-11-26T06:24:03Z",
    "release": "",
    "callers": {}
   },
