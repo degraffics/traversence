@@ -110,9 +110,9 @@ call.
 1. **The access hole.** `Access::who()` and `can()` deny with no staff session or a database error. Scheduled jobs use
    `canAs`. Uploads to `order_proof`/`order_file` check the order's owner. It's the queue's #51, widened.
    - Decisions 0109, 0127. Privacy territory, so it needs a Tier 4 review (0180 §4.5).
-   - M. **In flight** (2026-11-26, about 22:55 UTC): sent to the build session as an urgent fix, slotted first,
-     ahead of R2. Confirmed by reading the code (`Access.php:34`, `upload-targets.php:14–18`). It's being proved on
-     staging with a member test account.
+   - **Done:** live as Release #314 (2026-11-26, 23:00 UTC), synced and verified. Proved first on the live code
+     (`tools/access-tests/who.php`, 12/12). It also closed `/api/stock.php`'s order files and the crawler send for
+     members without a staff login.
 2. **Nightly database backups and one restore drill** (queue #32; 0163:489). M.
    - **Founder:** confirm what Bluehost's plan already backs up, since 0163 line 460 and `session-manager.md:651`
      conflict.
