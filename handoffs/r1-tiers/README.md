@@ -14,7 +14,7 @@ What it does (0180 §1, §5 and the appendix; the session manager's rulings 2026
 - **The stored tier:** `UPDATE control_gauge_tasks SET tier = 5 WHERE tier = 3` (one meaning per number; data_reason
   0180 §1). Roll back maps 5 → 3: `app/rollbacks/<same name>.sql`, run by Releases::rollBack (new in this release: a
   release's rollback SQL runs when it's rolled back, said in its record).
-- **The roster:** the 32 roles and 12 advocates (A1–A12), all active ("run it now"); layers in the department column
+- **The roster:** the 32 roles and 12 advocates (A1–A12), the CEO (2) and today's working seats (1, 8, 20, 21, 23, 26, 28) active, every other role on standby, its work going up its reports-to line (0180's note "The CEO builds the team", #1454); the advocates active, views only; layers in the department column
   (founder, executive, managers, specialists, advocates); today's rows renamed in place only where the name is still the
   seed's; new rows inserted only where the slug isn't there; new roles have no permissions (only the Founder gives them,
   0180 §2: the card says "No permissions yet"). Retired, never shown, never routed to, still named for past runs: the six
@@ -28,7 +28,7 @@ What it does (0180 §1, §5 and the appendix; the session manager's rulings 2026
   the session manager's #1443 pre-seed of them was declined.
 - No ceiling, fence, step, STEP_AT, spend or reach data changed.
 
-Tests (on the bench, R1 over the three before it): `tools/team-tests/r1.php` 32 (seed twice, names, layers, retired,
+Tests (on the bench, R1 over the three before it): `tools/team-tests/r1.php` 34 (seed twice, who is active, names, layers, retired,
 tiers, routing, Roll back byte for byte); roster.php 54, runner.php 85, audit.php 34, tickets.php 54, batch.php 25,
 kind.php 35, rule2.php 24, pipeline.php 22, staging unit 65, staging db 49, closed 10, onstates 7, held 14, tickwait 6, old-suites 84/44/32; rendered at
 1280 and 390: roster.cjs 44, team-head.cjs 40, runner.cjs 44, tickets.cjs 62, batch.cjs 18, fence.cjs 10.

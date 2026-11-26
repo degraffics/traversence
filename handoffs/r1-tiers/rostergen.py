@@ -3,7 +3,8 @@
   app/migrations/2026-11-26_0180_tiers_roster.sql  the stored tier 3 (Founder) becomes 5 (Tier 5 · Founder ruling, 0180 §1);
       the Team becomes 0180's 32 roles and 12 advocates (its appendix and Jason's answers): today's rows renamed in place
       (only where the name is still the seed's: a person's own words are never written over), the new roles inserted (only
-      where the slug isn't there: 0162's note, nothing that already exists), all 32 active (Jason, 2026-11-26: "run it now"),
+      where the slug isn't there: 0162's note, nothing that already exists), the CEO and today's working seats active and every
+      other role on standby (0180's note "The CEO builds the team", Jason, 2026-11-26: "CEO builds it"),
       the roles 0180 replaced retired (kept so past tickets and runs still name them; never shown, never routed to).
   app/rollbacks/2026-11-26_0180_tiers_roster.sql   Roll back: the tiers back to 3, the Team back to Piece 2's seed.
 Run: python3 rostergen.py <app dir>"""
@@ -84,12 +85,16 @@ RETIRED = {'legal-risk': ('AI Legal Risk Checker & Auditor', 'standby', 'privacy
            'qa-security': ('Technical QA & Security Gatekeeper', 'active', 'builder'), 'senior-designer': ('Senior Designer', 'standby', 'ux-prototyper')}
 ADV = ['guest', 'new-member', 'member', 'contributor', 'steward', 'client', 'business-owner', 'business-manager', 'business-accountant', 'business-sales', 'business-viewer', 'staff-views']
 up, down = [], []
+# 0180's note "The CEO builds the team" (Jason, 2026-11-26): active at R1 are the CEO (2) and today's working seats; every other
+# role starts on standby, its work going up its reports-to line (TeamRoster::doer). The advocates stay active (views only).
+ACTIVE = {'1', '2', '8', '20', '21', '23', '26', '28'}
+st = lambda no: 'active' if no in ACTIVE else 'standby'
 H = '-- decisions/0180 R1 (rename and roster). Written by handoffs/r1-tiers/rostergen.py. Safe to run twice.'
 up.append(H + '\n-- 1. The stored tier: 3 meant the Founder; it is 5 now (Tier 5 · Founder ruling, 0180 §1), one meaning per number.')
 up.append("UPDATE control_gauge_tasks SET tier = 5 WHERE tier = 3;")
 down.append(H.replace('R1 (rename and roster)', 'R1, its Roll back') + '\n-- 1. The tier back to 3 (the code put back reads 3 as the Founder).')
 down.append("UPDATE control_gauge_tasks SET tier = 3 WHERE tier = 5;")
-up.append('-- 2. The 32 roles: renamed in place where the name is still the seed\'s, then the layers, numbers, reporting lines and tiers.')
+up.append('-- 2. The 32 roles: renamed in place where the name is still the seed\'s, then the layers, numbers, reporting lines and tiers;\n-- active: the CEO and today\'s working seats (1, 2, 8, 20, 21, 23, 26, 28), every other role on standby (0180, "The CEO builds the team").')
 down.append('-- 2. The roles back to Piece 2\'s seed.')
 cols = 'slug, name, department, kind, made_of, spec_no, mandate, rules, stages, acts_level, acts_dept, tier_max, test_account, reports_to, status, sort, updated_by'
 for n, (slug, (no, name, layer, kind, made, mand, rules, to, tmax, old)) in enumerate(R.items()):
@@ -99,11 +104,11 @@ for n, (slug, (no, name, layer, kind, made, mand, rules, to, tmax, old)) in enum
         if oname != name:
             up.append(f"UPDATE team_roster SET name = {q(name)} WHERE slug = {q(slug)} AND name = {q(oname)};")
             down.append(f"UPDATE team_roster SET name = {q(oname)} WHERE slug = {q(slug)} AND name = {q(name)};")
-        up.append(f"UPDATE team_roster SET department = {q(layer)}, kind = {q(kind)}, spec_no = {q(no)}, reports_to = {q(to)}, tier_max = {tmax}, status = 'active', sort = {sort} WHERE slug = {q(slug)};")
+        up.append(f"UPDATE team_roster SET department = {q(layer)}, kind = {q(kind)}, spec_no = {q(no)}, reports_to = {q(to)}, tier_max = {tmax}, status = {q(st(no))}, sort = {sort} WHERE slug = {q(slug)};")
         dp, kd, ono2, oto2, otm, ost2, osort = OLD[slug]
         down.append(f"UPDATE team_roster SET department = {q(dp)}, kind = {q(kd)}, spec_no = {q(ono2)}, reports_to = {q(oto2)}, tier_max = {otm}, status = {q(ost2)}, sort = {osort} WHERE slug = {q(slug)};")
     else:
-        vals = ', '.join([q(slug), q(name), q(layer), q(kind), q(made), q(no), q(mand), q(rules), "''", "''", "''", str(tmax), "''", q(to), "'active'", str(sort), q(SEED)])
+        vals = ', '.join([q(slug), q(name), q(layer), q(kind), q(made), q(no), q(mand), q(rules), "''", "''", "''", str(tmax), "''", q(to), q(st(no)), str(sort), q(SEED)])
         up.append(f"INSERT INTO team_roster ({cols}) SELECT {vals} FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM team_roster WHERE slug = {q(slug)});")
         down.append(f"DELETE FROM team_roster WHERE slug = {q(slug)} AND updated_by = {q(SEED)};")
 up.append('-- 3. Retired: kept so past tickets and runs still name them; never shown, never given work (0180, #1441).')

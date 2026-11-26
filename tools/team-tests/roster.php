@@ -5,7 +5,7 @@
 // (defaults and a saved rule), for every level and department, and never above executive. TeamRoster::can: an advocate
 // and the Founder never act; a role on standby doesn't. Edit with History; the status and its way back; the Founder stays
 // active. The tool config/team: groups by department, standby folded, the filters, a role's drawer and its actions.
-// decisions/0180 R1 (2026-11-26): after its migration, the tool shows the 32 roles and 12 advocates by layer, every one active,
+// decisions/0180 R1 (2026-11-26): after its migration, the tool shows the 32 roles and 12 advocates by layer, the CEO and the working seats active and the rest on standby (0180's note "The CEO builds the team"),
 // Retire refused for a role of the 32, a retired role (one 0180 replaced) never listed and with no status moves.
 // Run: mariadb -e 'DROP DATABASE IF EXISTS lv_main; CREATE DATABASE lv_main' && php roster.php <root>/app
 declare(strict_types=1);
@@ -17,7 +17,8 @@ $t = function (string $n, bool $ok, $got = null) use (&$pass, &$fail) { if ($ok)
 $run = function (string $f) use ($pdo, $app) { foreach (array_filter(array_map('trim', explode(";\n", file_get_contents($app . '/migrations/' . $f)))) as $q) { $q = trim(preg_replace('/^--.*$/m', '', $q)); if ($q !== '') $pdo->exec($q); } };
 ControlLog::ensure($pdo);
 $pdo->exec("CREATE TABLE IF NOT EXISTS admin_permissions (action VARCHAR(80) PRIMARY KEY, min_level VARCHAR(20), departments VARCHAR(200), updated_by INT)");
-$pdo->exec("CREATE TABLE IF NOT EXISTS control_gauge_tasks (id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, kind VARCHAR(10), owner VARCHAR(80) NOT NULL DEFAULT '', tier TINYINT NULL, undone_at DATETIME NULL, cleared_at DATETIME NULL)");
+$pdo->exec("CREATE TABLE IF NOT EXISTS control_gauge_tasks (id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, at DATETIME NULL, tz VARCHAR(64) NOT NULL DEFAULT '', gauge VARCHAR(60) NOT NULL DEFAULT '', item VARCHAR(250) NOT NULL DEFAULT '', kind VARCHAR(10) NOT NULL DEFAULT 'fix', what VARCHAR(250) NOT NULL DEFAULT '', bucket VARCHAR(20) NOT NULL DEFAULT '', value VARCHAR(60) NOT NULL DEFAULT '', who VARCHAR(80) NOT NULL DEFAULT '', uid INT NOT NULL DEFAULT 0, why TEXT NULL, source VARCHAR(250) NOT NULL DEFAULT '', rel VARCHAR(60) NOT NULL DEFAULT '', tier TINYINT NULL, owner VARCHAR(80) NOT NULL DEFAULT '', undone_at DATETIME NULL, cleared_at DATETIME NULL)");
+$pdo->exec("CREATE TABLE IF NOT EXISTS feature_switches (switch_key VARCHAR(60) PRIMARY KEY, state VARCHAR(8) NOT NULL DEFAULT 'off', share_pct TINYINT UNSIGNED NOT NULL DEFAULT 0, killed TINYINT UNSIGNED NOT NULL DEFAULT 0, note VARCHAR(255) NOT NULL DEFAULT '', updated_by INT UNSIGNED NULL, updated_at DATETIME NOT NULL)");
 $pdo->exec('DROP TABLE IF EXISTS team_roster');
 
 // 1. the schema and the seed, each twice
@@ -90,13 +91,13 @@ $t('the section is in the manifests (config/team)', str_contains(file_get_conten
 $t('the Team\'s view needs an Executive; editing, the Founder', $T['view']['min'] === 'executive' && $T['edit']['min'] === 'founder');
 [$rows, $total] = ($T['list'])($pdo, []);
 $labels = array_map(fn ($r) => $r['_group']['label'] . ' ' . $r['_group']['n'], $rows);
-$t('the default: the layers as groups (decisions/0180 §5), every role active, nothing retired shown', $labels === ['Founder 1', 'Executive suite 6', 'Middle managers 7', 'Specialists 18', 'Advocates 12'], $labels);
-$t('a group counts as one row for paging (table-standard §9)', $total === 5, $total);
-[$rows] = ($T['list'])($pdo, ['show' => 'active']); $t('Active only: 44, a plain list', count($rows) === 44 && !isset($rows[0]['_group']));
-[$rows] = ($T['list'])($pdo, ['show' => 'active', 'dept' => 'managers']); $t('a filter on layer and status', count($rows) === 7, count($rows));
+$t('the default: the layers as groups (decisions/0180 §5), the standby roles folded into one, nothing retired shown', $labels === ['Founder 1', 'Executive suite 1', 'Middle managers 1', 'Specialists 5', 'Advocates 12', 'On standby 24'], $labels);
+$t('a group counts as one row for paging (table-standard §9)', $total === 6, $total);
+[$rows] = ($T['list'])($pdo, ['show' => 'active']); $t('Active only: 20 (the CEO, the working seats, the advocates), a plain list', count($rows) === 20 && !isset($rows[0]['_group']));
+[$rows] = ($T['list'])($pdo, ['show' => 'standby', 'dept' => 'managers']); $t('a filter on layer and status (6 managers on standby)', count($rows) === 6, count($rows));
 [$rows] = ($T['list'])($pdo, ['q' => 'historian']); $t('a retired role isn\'t found by search either', !$rows, $rows);
 [$rows] = ($T['list'])($pdo, ['q' => 'audit']); $t('a search reads names, mandates and works', $rows && str_contains(json_encode($rows), 'Operations & Reconciliation'));
-$fl = ($T['filters'])($pdo); $t('the filter says its counts, and offers no Retired', str_contains($fl[0][2][''], '(44)') && str_contains($fl[0][2]['standby'], '(0)') && !isset($fl[0][2]['inactive']) && $fl[1][1] === 'Layer', $fl[0]);
+$fl = ($T['filters'])($pdo); $t('the filter says its counts, and offers no Retired', str_contains($fl[0][2][''], '(44)') && str_contains($fl[0][2]['standby'], '(24)') && !isset($fl[0][2]['inactive']) && $fl[1][1] === 'Layer', $fl[0]);
 [$rows] = ($T['list'])($pdo, ['show' => 'active']); $cur = array_values(array_filter($rows, fn ($r) => $r['ref'] === 'content-editor'))[0];
 $t('a working role with no step says "No steps yet"', $cur['works'] === 'No steps yet', $cur);
 $pdo->exec("INSERT INTO control_gauge_tasks (kind, owner) VALUES ('fix', 'system · Project Manager'), ('fix', 'system · Project Manager')");

@@ -3,7 +3,7 @@
 // the kit's phone cards kept a folded group's members showing), standby folded into one group, a group one row for paging;
 // a role's drawer (its words, History, Permissions); Put on standby and Make active back, each through the drawer's form,
 // the status and History updated in place; ×, Esc and a click outside close the drawer; no sideways scroll; no page error.
-// decisions/0180 R1 (2026-11-26): the seed then R1's migration: the layers as groups, every role active, no Retire, the
+// decisions/0180 R1 (2026-11-26): the seed then R1's migration: the layers as groups, the standby roles folded (0180, "The CEO builds the team"), no Retire, the
 // retired roles never shown.
 // Run: node roster.cjs <root> [shots dir]   (resets lv_main and runs the migrations at each width)
 const { chromium } = require('playwright'); const { spawn, execFileSync } = require('child_process'); const path = require('path');
@@ -13,7 +13,8 @@ const db = (sql) => execFileSync('mariadb', ['-utv', '-ptv', '-h127.0.0.1', '-N'
 const seed = () => { db('DROP DATABASE IF EXISTS lv_main; CREATE DATABASE lv_main CHARACTER SET utf8mb4');
   for (const f of ['2026-11-25_team_roster.sql', '2026-11-25_team_roster_seed.sql', '2026-11-25_team_staff_views.sql']) execFileSync('bash', ['-c', 'mariadb --default-character-set=utf8mb4 -utv -ptv -h127.0.0.1 lv_main < ' + root + '/app/migrations/' + f]);
   db('USE lv_main; CREATE TABLE IF NOT EXISTS control_log (id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, at DATETIME NOT NULL, tz VARCHAR(64) NOT NULL DEFAULT \'\', kind VARCHAR(12) NOT NULL DEFAULT \'control\', proc VARCHAR(60) NOT NULL DEFAULT \'\', what VARCHAR(400) NOT NULL DEFAULT \'\', who VARCHAR(80) NOT NULL DEFAULT \'\', why VARCHAR(400) NOT NULL DEFAULT \'\')');
-  db('USE lv_main; CREATE TABLE IF NOT EXISTS control_gauge_tasks (id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, kind VARCHAR(10) NOT NULL DEFAULT \'fix\', tier TINYINT NULL, owner VARCHAR(80) NOT NULL DEFAULT \'\', undone_at DATETIME NULL, cleared_at DATETIME NULL)');
+  db('USE lv_main; CREATE TABLE IF NOT EXISTS control_gauge_tasks (id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, at DATETIME NULL, tz VARCHAR(64) NOT NULL DEFAULT \'\', gauge VARCHAR(60) NOT NULL DEFAULT \'\', item VARCHAR(250) NOT NULL DEFAULT \'\', kind VARCHAR(10) NOT NULL DEFAULT \'fix\', what VARCHAR(250) NOT NULL DEFAULT \'\', bucket VARCHAR(20) NOT NULL DEFAULT \'\', value VARCHAR(60) NOT NULL DEFAULT \'\', who VARCHAR(80) NOT NULL DEFAULT \'\', uid INT NOT NULL DEFAULT 0, why TEXT NULL, source VARCHAR(250) NOT NULL DEFAULT \'\', rel VARCHAR(60) NOT NULL DEFAULT \'\', tier TINYINT NULL, owner VARCHAR(80) NOT NULL DEFAULT \'\', undone_at DATETIME NULL, cleared_at DATETIME NULL)');
+  db('USE lv_main; CREATE TABLE IF NOT EXISTS feature_switches (switch_key VARCHAR(60) PRIMARY KEY, state VARCHAR(8) NOT NULL DEFAULT \'off\', share_pct TINYINT UNSIGNED NOT NULL DEFAULT 0, killed TINYINT UNSIGNED NOT NULL DEFAULT 0, note VARCHAR(255) NOT NULL DEFAULT \'\', updated_by INT UNSIGNED NULL, updated_at DATETIME NOT NULL)');
   execFileSync('php', [path.join(__dirname, 'run-migration.php'), root + '/app', root + '/app/migrations/2026-11-26_0180_tiers_roster.sql']);
   return db("SELECT COUNT(*) FROM lv_main.team_roster WHERE status <> 'inactive'"); };
 const port = 8960 + Math.floor(Math.random() * 30);
@@ -36,12 +37,12 @@ const drOpen = p => p.evaluate(() => { const d = document.querySelector('.ak-dr'
       const errs = []; p.on('pageerror', e => errs.push(e.message));
       await p.goto(home); await p.waitForSelector('.ak-t tr.akt-grp'); await p.waitForTimeout(400);
       const groups = await p.$$eval('.ak-t tr.akt-grp', a => a.map(x => x.querySelector('b').textContent + ' ' + x.querySelector('.akt-gn').textContent));
-      t(L + 'five group rows: the layers (decisions/0180 §5), every role active, no standby or retired group', JSON.stringify(groups) === JSON.stringify(['Founder 1', 'Executive suite 6', 'Middle managers 7', 'Specialists 18', 'Advocates 12']), groups);
+      t(L + 'six group rows: the layers (decisions/0180 §5), the standby roles in one group, no retired group', JSON.stringify(groups) === JSON.stringify(['Founder 1', 'Executive suite 1', 'Middle managers 1', 'Specialists 5', 'Advocates 12', 'On standby 24']), groups);
       t(L + 'no retired role anywhere on the page (Historian, Senior Designer)', !/Historian|Senior Designer|Retired/.test(await p.innerText('.ak-list')));
       t(L + 'every group closed at first: no member shows', await visibleRows(p) === 0, await visibleRows(p));
       const pg = await p.innerText('.ak-list'); t(L + 'a group counts as one row for paging: one page, never "of 44"', !/of 44/.test(pg) && !/Show \d+ more/.test(pg), pg.match(/\d+–\d+ of \d+|Show \d+ more/));
       await p.click('tr.akt-grp[data-grp="dept-managers"] [data-ak-grp]'); await p.waitForTimeout(250);
-      t(L + 'opening Middle managers shows its 7, only those', await visibleRows(p) === 7, await visibleRows(p));
+      t(L + 'opening Middle managers shows its 1 active (the Project Manager), only those', await visibleRows(p) === 1, await visibleRows(p));
       await p.click('tr.akt-grp[data-grp="dept-managers"] [data-ak-grp]'); await p.waitForTimeout(250);
       t(L + 'closing it folds them again', await visibleRows(p) === 0);
       await p.click('tr.akt-grp[data-grp="dept-managers"] [data-ak-grp]'); await p.waitForTimeout(250);

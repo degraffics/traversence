@@ -1,6 +1,7 @@
 <?php
 // decisions/0180 R1 (rename and roster) on a real MariaDB: Piece 2's roster seed (and Piece 3's Staff Views advocate), then
-// R1's migration twice. The 32 roles all active, renamed in place (a name a person changed is kept), the 12 advocates
+// R1's migration twice. The 32 roles: the CEO and today's working seats active, the rest on standby (0180's note "The CEO
+// builds the team"), renamed in place (a name a person changed is kept), the 12 advocates
 // A1–A12 active and views only, the roles 0180 replaced retired: never in all(), the counts, the filters or the routing,
 // still named for a past run. The stored tier 3 is 5. A role on standby: its step goes up its reports-to line, past a
 // retired one, to the Founder (null) at the top. Roll back (app/rollbacks/…, run by Releases::rollBack) puts the roster and
@@ -31,7 +32,9 @@ $all = TeamRoster::all($pdo); $by = array_column($all, null, 'slug'); $c = TeamR
 $roles = array_filter($all, fn ($r) => $r['kind'] !== 'advocate'); $adv = array_filter($all, fn ($r) => $r['kind'] === 'advocate');
 $t('run twice: the Team shows 44, the 32 roles and the 12 advocates', count($all) === 44 && count($roles) === 32 && count($adv) === 12, [count($all), count($roles), count($adv)]);
 $t('the 32 are numbered 1–32 once each', array_map('intval', array_column($roles, 'spec_no')) == range(1, 32), array_column($roles, 'spec_no'));
-$t('every role and advocate is active (Jason, 2026-11-26: "run it now")', $c['active'] === 44 && $c['standby'] === 0, $c);
+$on = array_values(array_map(fn ($r) => (int) $r['spec_no'], array_filter($roles, fn ($r) => $r['status'] === 'active'))); sort($on);
+$t('active: the CEO (2) and today\'s working seats (1, 8, 20, 21, 23, 26, 28); 0180\'s note "The CEO builds the team"', $on === [1, 2, 8, 20, 21, 23, 26, 28], $on);
+$t('every other role on standby, the 12 advocates active (views only): 20 active, 24 standby', $c['active'] === 20 && $c['standby'] === 24 && !array_filter($adv, fn ($r) => $r['status'] !== 'active'), $c);
 $t('the advocates are A1–A12, views only', array_column($adv, 'spec_no') === array_map(fn ($i) => 'A' . $i, range(1, 12)) && !array_filter($adv, fn ($r) => $r['acts_level'] !== ''));
 $t('the layers: 1 Founder, 6 executives, 7 managers, 18 specialists', array_count_values(array_column($roles, 'department')) == ['founder' => 1, 'executive' => 6, 'managers' => 7, 'specialists' => 18], array_count_values(array_column($roles, 'department')));
 $t('renamed in place: Customer Support Specialists (#18), Build & QA Sessions (#21), Front-End Content Writers (#26)', ($by['member-support']['name'] ?? '') === 'Customer Support Specialists' && $by['member-support']['spec_no'] === '18' && $by['builder']['name'] === 'Build & QA Sessions' && $by['content-editor']['name'] === 'Front-End Content Writers');
@@ -50,17 +53,20 @@ $t('the IT Manager\'s ticket for the two slow admin pages, added once though run
 $t('the stored tier: 3 is 5 now, the others unchanged', $tiers == [5, 2, 1, null], $tiers);
 $t('the Founder\'s highest tier is 5; executives 4, managers 3, specialists 2', (int) $by['founder']['tier_max'] === 5 && (int) $by['cfo']['tier_max'] === 4 && (int) $by['it-manager']['tier_max'] === 3 && (int) $by['schema-guards']['tier_max'] === 2);
 
-// a role on standby: its step goes up its line
+// a role on standby: its step goes up its line (the seed's standby roles, as R1 leaves them)
 $d = TeamRoster::doer($pdo, 'system-architect'); $t('active: a step\'s own role does it', $d && $d[0]['slug'] === 'system-architect' && $d[1] === '');
-$pdo->exec("UPDATE team_roster SET status = 'standby' WHERE slug IN ('system-architect', 'it-manager')");
-$d = TeamRoster::doer($pdo, 'system-architect'); $t('the Architect and the IT Manager on standby: the CTO does it', $d && $d[0]['slug'] === 'cto' && $d[1] === 'System Architect', $d ? [$d[0]['slug'], $d[1]] : null);
-$pdo->exec("UPDATE team_roster SET status = 'standby' WHERE slug IN ('cto', 'ceo')");
-$t('… and with the CTO and CEO on standby too: it waits for the Founder (null), nothing dropped', TeamRoster::doer($pdo, 'system-architect') === null);
-$pdo->exec("UPDATE team_roster SET reports_to = 'historian' WHERE slug = 'translator'");
-$pdo->exec("UPDATE team_roster SET status = 'standby' WHERE slug = 'translator'");
+$d = TeamRoster::doer($pdo, 'it-manager'); $t('the IT Manager and the CTO on standby as seeded: the CEO does the IT Manager\'s step', $d && $d[0]['slug'] === 'ceo' && $d[1] === 'IT Manager', $d ? [$d[0]['slug'], $d[1]] : null);
+$pdo->exec("UPDATE team_roster SET status = 'standby' WHERE slug = 'system-architect'");
+$d = TeamRoster::doer($pdo, 'system-architect'); $t('the Architect on standby too: up its line to the CEO', $d && $d[0]['slug'] === 'ceo' && $d[1] === 'System Architect', $d ? [$d[0]['slug'], $d[1]] : null);
+$pdo->exec("UPDATE team_roster SET status = 'standby' WHERE slug = 'ceo'");
+$t('… and with the CEO on standby too: it waits for the Founder (null), nothing dropped', TeamRoster::doer($pdo, 'system-architect') === null);
+$pdo->exec("UPDATE team_roster SET status = 'active' WHERE slug = 'ceo'");
+$pdo->exec("UPDATE team_roster SET status = 'active' WHERE slug = 'editorial-director'");
+$pdo->exec("UPDATE team_roster SET reports_to = 'historian', status = 'standby' WHERE slug = 'translator'");
 $d = TeamRoster::doer($pdo, 'translator'); $t('a retired role on the line is passed over (Historian → Editorial Director)', $d && $d[0]['slug'] === 'editorial-director', $d ? $d[0]['slug'] : null);
-$c2 = TeamRoster::counts(TeamRoster::all($pdo)); $t('standby counted, retired still not', $c2['standby'] === 5 && $c2['all'] === 44, $c2);
-$pdo->exec("UPDATE team_roster SET status = 'active', reports_to = 'editorial-director' WHERE slug IN ('system-architect', 'it-manager', 'cto', 'ceo', 'translator')");
+$c2 = TeamRoster::counts(TeamRoster::all($pdo)); $t('standby counted, retired still not', $c2['standby'] === 25 && $c2['all'] === 44, $c2);
+$pdo->exec("UPDATE team_roster SET status = 'standby' WHERE slug = 'editorial-director'");
+$pdo->exec("UPDATE team_roster SET status = 'active', reports_to = 'editorial-director' WHERE slug IN ('system-architect', 'translator')");
 
 // staging's Team runner: on only where the database is staging's (its name ends stg), never on live's
 $run($app . '/migrations/2026-11-26_0180_tiers_roster.sql');
