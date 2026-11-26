@@ -88,7 +88,7 @@ up, down = [], []
 # 0180's note "The CEO builds the team" (Jason, 2026-11-26): active at R1 are the CEO (2) and today's working seats; every other
 # role starts on standby, its work going up its reports-to line (TeamRoster::doer). The advocates stay active (views only).
 # All roles on at R1 (0180's note, #1459, Jason, 2026-11-26: "All agents should be on and ready to deploy their duties and
-# responsibilities"): it replaces the standby set; Put on standby stays the CEO's way back, logged
+# responsibilities"): it replaces the standby set; active or on standby stays the Founder's (#1460)
 ACTIVE = {str(n) for n in range(1, 33)}
 st = lambda no: 'active' if no in ACTIVE else 'standby'
 H = '-- decisions/0180 R1 (rename and roster). Written by handoffs/r1-tiers/rostergen.py. Safe to run twice.'
@@ -129,7 +129,7 @@ app = sys.argv[1]
 ITEM = 'Two admin pages time out on staging (sources, crawler review)'
 WHY = ("In #305's before-and-after look (runs 45835669559 and 45842645867, 2026-11-26), /admin/sources.php (staff, phone and desktop) "
        "and /admin/crawler-review.php (phone) timed out at 45 s on staging in every pass, the retry too. A page that slow is a defect "
-       "to find, not check noise. For the IT Manager's lane (decisions/0180 §5).")
+       "to find, not check noise. Routed by decisions/0180's appendix (#1460).")
 up.append('-- 7. A Work ticket for the IT Manager\'s lane: two admin pages time out on staging (added once).')
 up.append(f"INSERT INTO control_gauge_tasks (at, tz, gauge, item, kind, what, bucket, value, who, uid, why, source, rel) SELECT UTC_TIMESTAMP(), '', 'area:backlog', {q(ITEM)}, 'fix', {q(ITEM)}, 'task', '', 'the build session', 0, {q(WHY)}, 'the before-and-after check, release #305, 2026-11-26', '' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM control_gauge_tasks WHERE kind = 'fix' AND gauge = 'area:backlog' AND item = {q(ITEM)});")
 # 8. Two more Work tickets, each added once (the session manager and the CEO, 2026-11-26)
@@ -141,12 +141,12 @@ ticket('Two 6:13 jobs never started on live (Plans and renewals, Earned storage)
        "minute ran, and both cron lines are there. Alarm #776 tripped at 13:30 UTC and mailed the Founder (a live alarm: staging's mail is "
        "held by Staging::holdMail). Likely the 6:13 burst: nine live daily jobs and staging's copies at the same minute "
        "(Scheduler::syncStaging copies live's minute) against max_user_connections 25; storage/scheduler-missed.json would show a refused "
-       "start. No money harm: the next run takes everything due on or before its day. For the IT Manager's lane (decisions/0180 §5); "
+       "start. No money harm: the next run takes everything due on or before its day. Routed by decisions/0180's appendix (#1460); "
        "the fix to look at goes with the Scheduler bundle after R2: spread the 6:13 starts, staging's copies at live's minute + 7.",
        'live alarm #776, 2026-11-26 (the live read, runs 57-61)')
 ticket("Before-and-after check: false blocks from staging's live data",
-       "#305 to #307 were withdrawn on data drift, state lines, to-do links appearing and slow-page timeouts. Lane: IT Manager (11); "
-       "owner: Staging & Release Workers (22, decisions/0180's appendix); builder: Build & QA Sessions (21). The check is paused for four "
+       "#305 to #307 were withdrawn on data drift, state lines, to-do links appearing and slow-page timeouts. Routed by decisions/0180's "
+       "appendix (its duties and reporting lines, #1460). The check is paused for four "
        "releases only and is back on before any agent-built release and before R2. Done when it passes a clean admin-only release on "
        "today's staging, and the fixture proves it.",
        "decisions/0179's note of 2026-11-26, 18:30 UTC (#1456)")
@@ -155,7 +155,7 @@ ticket("Before-and-after check: false blocks from staging's live data",
 up.append('-- 9. Each role switched on, on its History (added once): "All roles on at R1" (decisions/0180, #1459).')
 down.append('-- 9. Those History lines taken back off.')
 WHO = 'Jason (decisions/0180, #1459)'
-WHY = 'All roles on at R1 (Jason, 2026-11-26: "All agents should be on and ready to deploy their duties and responsibilities"). Put on standby is its way back.'
+WHY = 'All roles on at R1 (Jason, 2026-11-26: "All agents should be on and ready to deploy their duties and responsibilities"). Active or on standby stays the Founder\'s (decisions/0180, #1460).'
 for slug in R:
     if slug in OLD and OLD[slug][5] == 'standby': what = f'Team role {slug}: on standby → active'
     elif slug not in OLD: what = f'Team role {slug}: added, active'

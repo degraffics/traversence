@@ -14,7 +14,7 @@ What it does (0180 §1, §5 and the appendix; the session manager's rulings 2026
 - **The stored tier:** `UPDATE control_gauge_tasks SET tier = 5 WHERE tier = 3` (one meaning per number; data_reason
   0180 §1). Roll back maps 5 → 3: `app/rollbacks/<same name>.sql`, run by Releases::rollBack (new in this release: a
   release's rollback SQL runs when it's rolled back, said in its record).
-- **The roster:** the 32 roles and 12 advocates (A1–A12), all active (0180's note "All roles on at R1", #1459, Jason, 2026-11-26), each role switched on logged on its History (7 "on standby → active", 18 "added, active"); Put on standby is the CEO's way back; the advocates views only; layers in the department column
+- **The roster:** the 32 roles and 12 advocates (A1–A12), all active (0180's note "All roles on at R1", #1459, Jason, 2026-11-26), each role switched on logged on its History (7 "on standby → active", 18 "added, active"); active or on standby stays the Founder's (#1460); the advocates views only; layers in the department column
   (founder, executive, managers, specialists, advocates); today's rows renamed in place only where the name is still the
   seed's; new rows inserted only where the slug isn't there; new roles have no permissions (only the Founder gives them,
   0180 §2: the card says "No permissions yet"). Retired, never shown, never routed to, still named for past runs: the six
