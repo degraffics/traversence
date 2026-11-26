@@ -9,11 +9,17 @@
 //            [--expected exp.json] [--release N] [--out verdict.json]
 //            two looks before (what differs between them moves on its own and never counts) against the look after; the
 //            four rules (§2). A problem already there before is noted, never blocking. exp.json: {"pages": [...],
-//            "also_changes": [{"page", "why"}], "canaries": ["a held name", …]}.
+//            "also_changes": [{"page", "why"}], "held": {"hashes": [...]} | {"error": why}}.
+//   held     node tools/page-audit/beforeafter.mjs held --out held.json
+//            the names the site holds back (0066) as keyed hashes only, from staging's /api/held-hashes.php (P3-5; Jason,
+//            2026-11-25, Brief B: "a locked read against live-protected places rather than adding fake test records").
+//            compare hashes every phrase of 2 to 8 words on a page the same way: a held name that shows after the change
+//            and didn't before blocks it (rule 1, 0066), named by its hash, never by the name. Unread: incomplete.
 //
 // The advocates (team_roster, P2-2; Staff Views added in P3-2, Jason 2026-11-25): each bound to a test account key.
 import { chromium } from 'playwright';
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+import { createHmac } from 'node:crypto';
 import { ACC, STAGING, CHECK_TOKEN, memberIn, staffIn, checkContext } from './check-kit.mjs';
 import { STANDARDS, pageCheck } from './page-check.mjs';
 
@@ -123,16 +129,30 @@ async function capture(pages, out, shotDir) {
 // ---- compare ---------------------------------------------------------------------------------------------------------
 const RULES = { access: 'Access or privacy (0066 included)', layout: 'Layout or phone', data: 'Missing data or a broken flow', drift: 'Out-of-scope drift' };
 const key = f => `${f.who}|${f.url}|${f.size}`;
+
+/** A name or a phrase reduced as HeldNames::norm does it (lower case, letters and digits, single spaces). */
+export const norm = s => String(s).toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+/** HeldNames::hash: the first 24 hex of HMAC-SHA256(the reduced name, the checks' token). */
+export const heldHash = (s, k) => createHmac('sha256', k).update(norm(s)).digest('hex').slice(0, 24);
+/** The held names' hashes a page's text holds: every run of 2 to 8 words, hashed, kept if it's in the set. */
+export function heldIn(text, hashes, k) {
+  const out = new Set(); if (!hashes.size || !k) return out;
+  const w = norm(text).split(' ').filter(Boolean);
+  for (let i = 0; i < w.length; i++) for (let n = 2; n <= 8 && i + n <= w.length; n++) { const h = heldHash(w.slice(i, i + n).join(' '), k); if (hashes.has(h)) out.add(h); }
+  return out;
+}
 const refused = f => !f || f.error || f.status >= 400 || f.ba?.landed_signin;
 const errs = f => f && (f.status >= 500 || (f.console || []).length || (f.requests || []).length);
 const ctlSig = f => (f?.ba?.controls || []).map(c => c.n + '→' + c.h).sort().join('\n');
 
 /** The verdict for one release: blocks (each a rule, who, page, size, what), notes, and pass / block / incomplete. */
-export function compare(b1, b2, a, exp = {}, release = '') {
+export function compare(b1, b2, a, exp = {}, release = '', heldKey = STAGING?.token || CHECK_TOKEN) {
   const B = new Map(b1.results.map(f => [key(f), f])), B2 = new Map(b2.results.map(f => [key(f), f]));
   const expected = new Set([...(exp.pages || []), ...(exp.also_changes || []).map(x => x.page)]);
-  const canaryNames = (exp.canaries || []).filter(Boolean);
+  const held = new Set(exp.held?.hashes || []); const heldUnread = !!exp.held?.error;
   const blocks = [], notes = [];
+  if (heldUnread) notes.push('0066 not checked: the held names couldn\'t be read (' + String(exp.held.error).slice(0, 120) + ')');
+  else if (!exp.held) notes.push('0066: no held names given to this run (held.json)');
   const block = (rule, f, what, before = '', after = '') => blocks.push({ rule, rule_name: RULES[rule], advocate: f.advocate, who: f.who, page: f.url, size: f.size, what, before: String(before).slice(0, 300), after: String(after).slice(0, 300) });
   for (const who of Object.keys(a.signins || {})) {
     if (a.signins[who] !== 'ok' && (b1.signins || {})[who] === 'ok') blocks.push({ rule: 'access', rule_name: RULES.access, who, page: '(sign-in)', size: '-', what: 'This test account could sign in before and can\'t after', before: 'ok', after: a.signins[who] });
@@ -148,7 +168,7 @@ export function compare(b1, b2, a, exp = {}, release = '') {
     else if (!errs(b) && errs(f)) block('access', f, 'An error on a view that worked: ' + ((f.console || [])[0] || (f.requests || [])[0] || f.status), '', (f.console || [])[0] || (f.requests || [])[0] || f.status);
     const own = f.who.toLowerCase(); const was = new Set(b.ba?.canaries || []);
     for (const c of f.ba?.canaries || []) if (c !== own && !was.has(c)) block('access', f, `Another account's email shows (check+${c}@)`, '', 'check+' + c + '@');
-    for (const n of canaryNames) if ((f.ba?.text || '').includes(n) && !(b.ba?.text || '').includes(n)) block('access', f, '0066: a held name shows: ' + n.slice(0, 40), '', n);
+    if (held.size) { const was0 = heldIn(b.ba?.text || '', held, heldKey); for (const h of heldIn(f.ba?.text || '', held, heldKey)) if (!was0.has(h)) block('access', f, '0066: a name the site holds back shows (held ' + h.slice(0, 8) + ')', '', 'held ' + h.slice(0, 8)); }
     if (refused(f)) continue;
     // 2. layout or phone
     for (const [k, on] of [['scroll', x => x.scroll && x.size === 'phone'], ['edges', x => x.edges > 0], ['dialogs', x => (x.dialogs || []).length], ['names', x => x.names > 0], ['alt', x => x.alt > 0]])
@@ -180,7 +200,7 @@ export function compare(b1, b2, a, exp = {}, release = '') {
   }
   // one block per rule, page and size is enough to read (the rest are counted)
   const uniq = []; const seen = new Set(); for (const x of blocks) { const k = [x.rule, x.who, x.page, x.size, x.what].join('|'); if (!seen.has(k)) { seen.add(k); uniq.push(x); } }
-  const incomplete = !a.results.length || Object.values(a.signins || {}).every(s => s !== 'ok');
+  const incomplete = !a.results.length || Object.values(a.signins || {}).every(s => s !== 'ok') || heldUnread;
   return { release: String(release), at: new Date().toISOString(), verdict: uniq.length ? 'block' : (incomplete ? 'incomplete' : 'pass'),
     first: uniq[0] ? `${uniq[0].rule_name}: ${uniq[0].what} (${uniq[0].who}, ${uniq[0].page}, ${uniq[0].size})` : '',
     blocks: uniq.slice(0, 50), blocks_total: uniq.length, notes: notes.slice(0, 30), views: a.results.length, seconds: (b1.seconds || 0) + (b2.seconds || 0) + (a.seconds || 0) };
@@ -190,10 +210,25 @@ export function compare(b1, b2, a, exp = {}, release = '') {
 if (import.meta.url === `file://${process.argv[1]}`) {
   const arg = (k, d = '') => { const i = process.argv.indexOf('--' + k); return i > 0 ? process.argv[i + 1] : d; };
   const mode = process.argv[2];
-  if (mode === 'capture') await capture(JSON.parse(readFileSync(arg('pages'), 'utf8')), arg('out', 'ba-capture.json'), arg('shots'));
+  if (mode === 'held') {
+    // staging's locked read (BA_SITE for a test site): the checks' token, and staging's viewing password when it has one
+    const site = (process.env.BA_SITE || STAGING?.site || '').replace(/\/$/, ''); const tok = STAGING?.token || CHECK_TOKEN; let out;
+    try {
+      if (!site || !tok) throw new Error('no staging site or checks\' token in CHECK_ACCOUNTS');
+      const h = { 'X-Check-Token': tok, 'User-Agent': 'Traversence site checks (support@traversence.com)' };
+      if (!process.env.BA_SITE && STAGING?.user) h.Authorization = 'Basic ' + Buffer.from(STAGING.user + ':' + STAGING.password).toString('base64');
+      const r = await fetch(site + '/api/held-hashes.php', { headers: h }); const j = await r.json().catch(() => ({}));
+      if (!r.ok || !j.ok || !Array.isArray(j.hashes)) throw new Error('its answer: ' + r.status + ' ' + (j.error || j.message || ''));
+      out = { hashes: j.hashes.filter(x => /^[0-9a-f]{24}$/.test(x)), count: j.count, skipped_one_word: j.skipped_one_word, at: j.at };
+    } catch (x) { out = { error: String(x.message || x).slice(0, 200) }; }
+    writeFileSync(arg('out', 'ba-held.json'), JSON.stringify(out) + '\n');
+    console.log(out.error ? 'held names: unread (' + out.error + ')' : `held names: ${out.hashes.length} hashes`);
+  } else if (mode === 'capture') await capture(JSON.parse(readFileSync(arg('pages'), 'utf8')), arg('out', 'ba-capture.json'), arg('shots'));
   else if (mode === 'compare') {
     const rd = f => JSON.parse(readFileSync(f, 'utf8'));
-    const v = compare(rd(arg('before')), rd(arg('before2') || arg('before')), rd(arg('after')), arg('expected') ? rd(arg('expected')) : {}, arg('release'));
+    const exp = arg('expected') ? rd(arg('expected')) : {};
+    if (arg('held')) { try { exp.held = rd(arg('held')); } catch (x) { exp.held = { error: 'held.json unreadable' }; } }
+    const v = compare(rd(arg('before')), rd(arg('before2') || arg('before')), rd(arg('after')), exp, arg('release'));
     writeFileSync(arg('out', 'ba-verdict.json'), JSON.stringify(v, null, 1) + '\n');
     console.log(`${v.verdict}${v.first ? ': ' + v.first : ''} (${v.views} views, ${v.blocks_total} block${v.blocks_total === 1 ? '' : 's'})`);
     process.exit(v.verdict === 'pass' ? 0 : 1);

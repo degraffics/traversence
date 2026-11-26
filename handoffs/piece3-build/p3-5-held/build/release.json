@@ -1,0 +1,21 @@
+{
+  "title": "The before-and-after check reads the held names as keyed hashes (Piece 3, P3-5; decisions/0066)",
+  "why": "Jason, 2026-11-25, Brief B (through the session manager): \"verify Decision 0066 via a locked read against live-protected places rather than adding fake test records\". A staging-only read, /api/held-hashes.php, locked by the checks' token (HEALTH_TOKEN, as /api/health.php and /api/guide-paths.php), answers the names the site holds back (landmarks waiting, hidden or closed by a nation, through Landmarks::visibleSql; less any name a visible or story-only landmark shares; one-word names left out) as HMAC-SHA256 hashes keyed with that token: never a name or a place, and useless without the token. On the live site it answers nothing (404). The before-and-after check (beforeafter.mjs, repo side, merged with this release) hashes each page's phrases the same way; a held name that shows after a release and didn't before blocks it (rule 1, 0066), named by its hash; when the names can't be read the verdict is incomplete, never a pass. It replaces the plaintext canary list (tools/page-audit/ba-canaries.json, never created). No table, no write, no outside call (R13, R14). It reads protected names, so it's Tier 3 (tribal nations' land) by what it is, and comes to the Founder in the batch.",
+  "proposals": [],
+  "switch": "",
+  "changes": [
+    {
+      "what": "On staging only: /api/held-hashes.php, the held names as keyed hashes for the checks (nothing on the live site)",
+      "where": "https://traversence.com/faq.php"
+    },
+    {
+      "what": "FAQ: What is the before-and-after check? (protected places by coded fingerprints)",
+      "where": "https://traversence.com/faq.php"
+    }
+  ],
+  "checks": {
+    "held_read": "tools/piece3-tests/held.php, 14 checks on MariaDB with the endpoint served: waiting and closed names as hashes; a hidden name a shown landmark shares, a story-only one, one-word names, shown and approved never; keyed (another key, other hashes); through Landmarks::visibleSql; on staging with the token 200 and never a name in the answer; a wrong token 401, none 401, not GET 405; on the live site 404 even with the token; no HEALTH_TOKEN 503; no outside call or write",
+    "check_side": "tools/piece3-tests/beforeafter.test.mjs: a held name on the page after blocks (access, 0066) named by its hash only, the verdict file never holding the name; the names unread: incomplete; a held name on no page: pass; the site's hash and the check's the same"
+  },
+  "rollback": "Proved on the bench (tools/team-tests/rollback.sh, 2026-11-26): the zip laid over the live mirror (Sync 2026-11-26 00:16 UTC), then Roll back as the site does it: the files match live byte for byte and every PHP file parses. Left behind: nothing (no migration). The repo side (beforeafter.mjs, beforeafter.yml) goes back by reverting its merge."
+}
