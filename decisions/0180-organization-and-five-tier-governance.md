@@ -243,4 +243,14 @@ Nothing above raises a stage ceiling or the reach fence. Those stay the Founder'
     Implementation. The record reads "Approved by Jason in chat, 2026-11-26: one-time setup (decisions/0180)".
   - **It is one time only.** Any later change to the tree's rules clears the approval and drops agents to Planning, as
     0179's note sets. A new approval is then his own press or his own written words again, never a carried-over one.
+- **The Founder works directly with his executives** (Jason, 2026-11-26: "I expected to work directly with
+  executives"; "Suite is good. I also expected to have these discussion in the system, moving away from using claude
+  code chat").
+  - **Now:** a standing "Executive Suite" Claude session, chaired by the CEO. It answers as the executive whose scope
+    the topic belongs to, within §1–§4. It sends work to the build session, and the session manager keeps one release
+    queue.
+  - **In the platform, next:** a "Talk to your executives" panel on the Team page, with threads on tickets (Work queue
+    phase 2's design, `handoffs/work-queue-phase2.md`), built after R2, with the Executive Suite as the voice that
+    answers. It has no paid AI: replies travel through git to the session, so they take minutes. Every conversation is
+    kept beside its tickets.
 
