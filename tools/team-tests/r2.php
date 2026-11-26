@@ -12,6 +12,7 @@ declare(strict_types=1);
 if (!is_dir($app . '/lib') || !is_file($r1mig) || !is_dir($seed) || !is_dir($r1app . '/lib')) { fwrite(STDERR, "usage: php r2.php <root>/app <R1 migration> <seed dir> <R1 root>/app\n"); exit(2); }
 foreach (['Database', 'ControlLog', 'TeamRoster', 'TeamRunner', 'GaugeTasks', 'DbUpdates'] as $c) require_once $app . '/lib/' . $c . '.php';
 $pdo = Database::connection(); $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+$pdo->exec("SET SESSION sql_mode = 'NO_ENGINE_SUBSTITUTION'");   // as live runs: not strict (a too-long why is cut, as R1's two were)
 $pdo->exec('DROP DATABASE IF EXISTS lv_main'); $pdo->exec('CREATE DATABASE lv_main CHARACTER SET utf8mb4'); $pdo->exec('USE lv_main');
 $pass = 0; $fail = 0;
 $t = function (string $n, bool $ok, $got = null) use (&$pass, &$fail) { if ($ok) { $pass++; echo "  ok  $n\n"; } else { $fail++; echo "FAIL  $n" . ($got !== null ? ' — ' . json_encode($got, JSON_UNESCAPED_UNICODE) : '') . "\n"; } };
@@ -29,6 +30,10 @@ $cols = $pdo->query("SELECT COLUMN_NAME FROM information_schema.COLUMNS WHERE TA
 $t('run twice: lane and handoff added', $cols === ['handoff', 'lane'], $cols);
 $t('… the migration only adds (no UPDATE, DELETE, DROP, RENAME, MODIFY, CHANGE or TRUNCATE)', !preg_match('/\b(UPDATE\s+\w|DELETE\s+FROM|DROP\s+(TABLE|COLUMN|INDEX|KEY)|RENAME\s+(TABLE|COLUMN|TO)|TRUNCATE|MODIFY\s+(COLUMN\s+)?\w+|CHANGE\s+(COLUMN\s+)?\w+)\b/i', (string) file_get_contents($mig)));
 $seeded = $pdo->query("SELECT item FROM control_gauge_tasks WHERE gauge = 'area:backlog' ORDER BY id")->fetchAll(PDO::FETCH_COLUMN);
+$g = $pdo->query("SELECT item, CHAR_LENGTH(why) w, CHAR_LENGTH(goal) g FROM control_gauge_tasks WHERE item LIKE 'Two 6:13 jobs%' OR item LIKE 'Before-and-after check: false blocks%' ORDER BY id")->fetchAll(PDO::FETCH_ASSOC);
+$t('R1\'s two long tickets: their why cut at 400 as on live, their full reason now in goal', count($g) === 2 && $g[0]['w'] == 400 && $g[0]['g'] > 700 && $g[1]['w'] == 400 && $g[1]['g'] > 1100, $g);
+$pdo->exec("UPDATE control_gauge_tasks SET goal = 'A person\'s own goal' WHERE item LIKE 'Two 6:13 jobs%'"); $run($mig);
+$t('… a goal someone wrote is never written over', $pdo->query("SELECT goal FROM control_gauge_tasks WHERE item LIKE 'Two 6:13 jobs%'")->fetchColumn() === "A person's own goal");
 $t('its three tickets once each (the Scheduler bundle, no Undo after an acknowledgement, deadlock detection)', count($seeded) === count(array_unique($seeded)) && count(array_filter($seeded, fn ($x) => str_starts_with($x, 'The Scheduler bundle') || str_starts_with($x, 'No Undo after') || str_starts_with($x, 'Deadlock detection'))) === 3, $seeded);
 
 // lanes
