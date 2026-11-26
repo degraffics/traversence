@@ -1,0 +1,39 @@
+{
+    "id": 308,
+    "title": "Staging's jobs start 7 minutes after live's, so the two never crowd the server in the same minute",
+    "why": "decisions/0165 §1 (staging never costs live its limits), the CEO's Tier 4 ruling of 2026-11-26 (a Prior Ruling Check: it carries out 0165, no amendment). On 2026-11-26 live's 6:13 MST daily runs of Plans and renewals (billing_tick) and Earned storage never started (no job_runs row; alarm #776 tripped at 13:30 UTC and mailed the Founder), while Guests' 30 days at the same minute ran and both cron lines are there. Likely cause, not yet proven: the 6:13 burst, nine live daily jobs and staging's copies at the same minute (Scheduler::syncStaging copied live's minute and hour) against the database user's 25 connections (max_user_connections, jobs.json 2026-11-25); storage/scheduler-missed.json would prove it, and it can't be read from here (a server file, never synced; the live read reads pages and tables only). Now staging's copy of each job starts at live's time + 7 minutes (Scheduler::stagingTime: past :59 into the next hour, past 23:59 into the next day when no day is set, else 7 minutes earlier so it never lands on another day; every-N-minutes lines kept), and Scheduler::sync, hourly at most, moves the copies made before (Scheduler::offsetStaging, staging's lines only, through cPanel's edit_line). No billing code changed. Spreading live's own nine 6:13 jobs stays with the Scheduler bundle after R2.",
+    "proposals": "",
+    "zip": "staging-offset.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/ui/faq.md": {
+            "sha": "6af7dc76910d5bf9564ff6427a624ab933ff548dd0dfe604c5ebd4dc1f49efe9",
+            "size": 464527,
+            "live_was": "4e3eb6651f358d148bf1e905d1172742d26f9b7ae82acc2c4c9b301c9d35d550"
+        },
+        "app/lib/Scheduler.php": {
+            "sha": "d407ffbe53d94a0881c502f0994d1c143b710b052e6acea58dbae2a9dfa6ca91",
+            "size": 38114,
+            "live_was": "01761a5c91d00bccc6a7e7e822131b0226e7a90b7e4280bd0347d09dbd6ee562"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-26T18:37:12+00:00",
+            "by": 0,
+            "msg": "Uploaded staging-offset.zip: 2 files."
+        }
+    ]
+}
