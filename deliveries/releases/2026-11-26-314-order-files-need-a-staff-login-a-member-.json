@@ -1,0 +1,44 @@
+{
+    "id": 314,
+    "title": "Order files need a staff login: a member is never read as the Founder outside the admin",
+    "why": "URGENT (the CEO's brief, 2026-11-26; 0165's urgent path): a signed-in member could add or replace a proof on another client's order (Access::who default). Proved on the live code (tools/access-tests/who.php): with no staff session Access::who() returned the Founder, so the order_proof and order_file upload targets (upload-targets.php's $tvOrderStaff, Access::can) let any signed-in member past the staff check for any order id; ClientOrders::canAddFiles checks only the order's state. Fixed at the cause (decisions/0109: admin access through Access::can; 0127: each target's check decides who): with no staff session who() is nobody and can() refuses ('Sign in with your staff login first'); a staff lookup that throws is nobody, never the Founder; the order targets also require a staff login. Kept, each named by a decision: a scheduled job on the command line still reads as before (its callers act on what a person approved; agents go through canAs, piece2-team.md finding 2), and an admin page during decisions/0100's switch-over (no owner's staff login yet) still opens. The audit of callers outside /admin (Work queue #51), each now refused without a staff login on the web: lib/upload-targets.php (order_proof, order_file: the hole); lib/RecordFiles.php canOrders, read by /api/stock.php (a member could list an order's files: closed too); /api/send-crawler.php and /directory/index.php (who() === founder: an admin member without a staff login sent the crawler: closed); lib/EnvSettings.php:224 (keys: the Founder's staff login, or the command line); lib/Pulse.php's case actions, Operations, ControlBoard, SystemStart, Preflight, VendorBills, ClientOrders::canRelease, StagingSite::canManage, Blocks (already asked for a staff login), Releases::can (handles the command line itself), app/ui/vault.php, outside-services.php, qb-merge.php (drawn inside the admin, where bootstrap requires a staff login). Tier 4, the CEO's Prior Ruling Check: repairs 0109 and 0127, not a rule change. Backend only.",
+    "proposals": "",
+    "zip": "access-staff.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/admin/Access.php": {
+            "sha": "db6a3c3b257229fa7a7446efcde2cd017f855b0e8822b5c3c7997154ddfc3fd3",
+            "size": 8471,
+            "live_was": "84741b473a809ec5b252d3c3f94826149e8a287504e09490cd8c307ee5529e58"
+        },
+        "app/ui/faq.md": {
+            "sha": "bceab9dcd0f4f55f0346411ab97b0c462f6899abe695256d4f394483a44477d7",
+            "size": 467978,
+            "live_was": "2b8be85b72b87a9bf990c643e2069a36dc6dc97c7127bae057f6fd018da0df0a"
+        },
+        "app/lib/upload-targets.php": {
+            "sha": "b858fde7f5b4e1fe1b3db2dbe47d80ca7b329cf50d9ab7f2ba1db9dce0acbb25",
+            "size": 42385,
+            "live_was": "f554be1e833d0046dd10d2722779eac9a59292b21dd4f524ff3e01414dfadec9"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-26T22:59:59+00:00",
+            "by": 0,
+            "msg": "Uploaded access-staff.zip: 3 files."
+        }
+    ]
+}
