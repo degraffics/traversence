@@ -3,16 +3,16 @@
  "built_on": "29a9e40 Sync: 2026-11-26 16:38 UTC",
  "recorded": "2026-11-26 18:36 UTC",
  "note": "Staging's jobs at live's minute + 7 (decisions/0165 \u00a71; the CEO's ruling 2026-11-26, live's 6:13 jobs missed): Scheduler::stagingTime, syncStaging, offsetStaging from sync(); FAQ line. Built on Sync: 16:38 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "35660d8 Sync: 2026-11-26 19:52 UTC",
  "files": {
   "app/lib/Scheduler.php": {
    "sha256": "d407ffbe53d94a0881c502f0994d1c143b710b052e6acea58dbae2a9dfa6ca91",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "6af7dc76910d5bf9564ff6427a624ab933ff548dd0dfe604c5ebd4dc1f49efe9",
-   "live": false
+   "live": true
   }
  }
 }
