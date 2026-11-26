@@ -32,7 +32,9 @@ if ($path === '/' || $path === '/index.php') {
     return $page('Home', '<p>1–' . $n . ' of ' . $n . '</p>' . $cards . $btns . $go . $extra . '<p>Now: <time data-tv-time>' . microtime(true) . '</time></p>'
         . '<p class=clock>Visitors right now: ' . random_int(1, 999) . '</p>');   // moves on every load, in every variant (as a live counter does)
 }
-if ($path === '/faq.php') return $page('FAQ', '<p>' . ($v === 'drift' ? 'Answers, reworded.' : 'Answers.') . '</p>' . '<p>' . random_int(1, 999) . ' asked today</p>');
+if ($path === '/faq.php') return $page('FAQ', '<p>' . ($v === 'drift' ? 'Answers, reworded.' : 'Answers.') . '</p>' . '<p>' . random_int(1, 999) . ' asked today</p>'
+    . ($v === 'alarm' ? '<p data-tv-status="bad" data-tv-label="Status:">Down: the system is still trying.</p><div class="tv-th"><p class="tv-th-title"><b>Plans and renewals</b></p></div>'
+        . '<a class="ad-r" href="/admin/config/scheduler"><span><b>Scheduled tasks</b><small>Late: AI worker</small></span></a>' : ''));   // the system's state, raised between the looks
 if ($path === '/user/account.php') {
     if ($member === '' || $v === 'lost') { header('Location: /user/login.php'); return true; }
     return $page('Your account', '<p>Signed in as check+' . htmlspecialchars($member) . '@traversence.com</p><button class="ak-b go">Save</button>');

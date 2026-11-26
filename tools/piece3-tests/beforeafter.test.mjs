@@ -30,6 +30,8 @@ try {
     ['neutral', 'block', 'drift', 'the same change on a page the release doesn\'t name: drift'],
     ['neutral', 'pass', null, '… named under also_changes with a reason: pass', { also_changes: [{ page: '/', why: 'the home page\'s new line' }] }],
     ['drift', 'block', 'drift', 'the FAQ reworded, not named: drift'],
+    ['alarm', 'pass', null, 'an alarm, a status line and a late task raised between the looks: the system\'s state, not drift', { files: ['app/lib/Releases.php'] }],
+    ['alarm', 'block', 'drift', '… the same, when the release changes what draws them (lib/Thread.php): drift', { files: ['app/lib/Thread.php'] }],
     ['leak', 'block', 'access', 'a member opens an admin page: access'],
     ['lost', 'block', 'access', 'a member\'s own page sends it to sign in: access'],
     ['canary', 'block', 'access', 'another account\'s email shows: privacy'],

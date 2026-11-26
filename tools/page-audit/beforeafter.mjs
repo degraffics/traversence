@@ -45,7 +45,9 @@ const SIGNIN = /\/(admin\/login\.php|login\.php|user\/login|sign-?in)/i;
  * Every rule each advocate checks is kept; only how many pages the extra advocates repeat it on is capped. Before
  * 2026-11-26 every member advocate opened every page: #303's 40 pages were 520 views planned, 424 run, 12.7 min a look.
  */
-const PAR = Math.max(1, +(process.env.BA_PAR || 4));   // advocates looking at once (capture)
+const PAR = Math.max(1, +(process.env.BA_PAR || 2));
+// the files that draw the system's state lines: an alarm's thread, the dashboard's status rows, status lines and notices
+export const STATE_DRAWERS = /(^|\/)(lib\/(Thread|ControlAlarms|ServiceHealth|Scheduler|Dispatch\w*|Notify)\.php|ui\/(admin-dashboard|app-shell|page-shell)\.php|admin\/(control-console|module-cards|widgets|kit-css)\.php|js\/(tv-ask|admin-kit|pulse-msg)\.js)$/;   // advocates looking at once (capture)
 const SAMPLE = +(process.env.BA_SAMPLE || 2), MEMBER_PAGES = +(process.env.BA_MEMBER_PAGES || 6);
 const spread = (list, n, at) => { if (list.length <= n) return list; const step = list.length / n; return Array.from({ length: n }, (_, j) => list[Math.floor(at + j * step) % list.length]).filter((u, j, a) => a.indexOf(u) === j); };
 export function plan(pages, acc) {
@@ -74,9 +76,13 @@ async function extra(p, size) {
     const vis = el => { const r = el.getBoundingClientRect(); const s = getComputedStyle(el); return r.width > 0 && r.height > 0 && s.visibility !== 'hidden' && s.display !== 'none' && +s.opacity !== 0; };
     const clean = el => { const c = el.cloneNode(true); c.querySelectorAll('[data-tv-time], time, script, style, noscript').forEach(x => x.remove()); return (c.innerText || c.textContent || '').replace(/\s+/g, ' ').trim(); };
     const W = window.innerWidth;
+    // lines and controls the system draws from its own state (an alarm's thread, the dashboard's status rows, a status line, a
+    // notice) follow the system, not a release: marked, and left out of drift unless the release draws them (2026-11-26: #9304's
+    // look blocked on staging's late scheduled tasks)
+    const STATE = '.tv-th, a.ad-r, [data-tv-status], .tv-note, [data-tv-flash]';
     const ctl = [...document.querySelectorAll('a[href], button, [role=button], input[type=submit]')].filter(vis);
     const name = el => ((el.innerText || el.textContent || '').trim() || el.getAttribute('aria-label') || el.getAttribute('title') || '').replace(/\s+/g, ' ').slice(0, 80);
-    const controls = ctl.slice(0, 300).map(el => ({ n: name(el), h: (el.getAttribute('href') || '').replace(/^https?:\/\/[^/]+/, '').slice(0, 120), d: !!(el.disabled || el.getAttribute('aria-disabled') === 'true') }));
+    const controls = ctl.slice(0, 300).map(el => ({ n: name(el), h: (el.getAttribute('href') || '').replace(/^https?:\/\/[^/]+/, '').slice(0, 120), d: !!(el.disabled || el.getAttribute('aria-disabled') === 'true'), ...(el.closest(STATE) ? { st: 1 } : {}) }));
     // regions: the header, main, and each card, by a stable key (its id, else its class and place among its kind)
     const regions = {}; const seen = {};
     const cards = [...document.querySelectorAll('header, main, nav, .ak-card, .tv-bleed, article, section[id], [data-region]')].filter(vis).slice(0, 120);
@@ -109,9 +115,10 @@ async function extra(p, size) {
     const canaries = [...new Set([...text.matchAll(/check\+([a-z0-9._-]+)@traversence\.com/gi)].map(m => m[1].toLowerCase()))];
     // each block of words on its own line (a paragraph, heading, list item, cell, label, button or link), so one line that
     // moves on its own (a counter) never hides a line that changed
-    const lines = [...new Set([...document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, li, td, th, dt, dd, label, button, a, figcaption, small, summary')]
-      .filter(vis).map(el => clean(el).slice(0, 200)).filter(Boolean))].slice(0, 400);
-    return { lines, controls, regions, totals, cards: cardsN, rows: rowsN, pins, overlap: over, clipped, offscreen, primary, heading: heading.replace(/\s+/g, ' ').trim().slice(0, 120), nav, canaries, text: text.slice(0, 20000), words };
+    const all = [...document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, li, td, th, dt, dd, label, button, a, figcaption, small, summary')].filter(vis);
+    const lines = [...new Set(all.filter(el => !el.closest(STATE)).map(el => clean(el).slice(0, 200)).filter(Boolean))].slice(0, 400);
+    const state = [...new Set(all.filter(el => el.closest(STATE)).map(el => clean(el).slice(0, 200)).filter(Boolean))].slice(0, 200);   // checked only when the release draws them
+    return { lines, state, controls, regions, totals, cards: cardsN, rows: rowsN, pins, overlap: over, clipped, offscreen, primary, heading: heading.replace(/\s+/g, ' ').trim().slice(0, 120), nav, canaries, text: text.slice(0, 20000), words };
   });
   r.landed_signin = SIGNIN.test(new URL(p.url()).pathname);
   return { ba: r };
@@ -123,7 +130,7 @@ async function capture(pages, out, shotDir) {
   const t0 = Date.now(); const browser = await chromium.launch(); const results = []; const signins = {};
   if (shotDir) mkdirSync(shotDir, { recursive: true });
   const byWho = {}; for (const row of plan(pages, ACC)) (byWho[row[0] + '|' + row[1]] = byWho[row[0] + '|' + row[1]] || []).push(row);
-  // the advocates look side by side, PAR at a time (4 unless BA_PAR says), each in its own browser context (2026-11-26: #9304's look took 22 minutes
+  // the advocates look side by side, PAR at a time (2 unless BA_PAR says; 2026-11-26: staging at 3,733 s a look, raised only when it answers cleanly), each in its own browser context (2026-11-26: #9304's look took 22 minutes
   // a pass one view after another, 6.4 s a view on an open staging; the 1.79 s it was planned at was a closed staging's 503s).
   // Results keep the plan's order, so a look compares view for view as before.
   const groups = Object.values(byWho); const done = groups.map(() => []);
@@ -137,7 +144,12 @@ async function capture(pages, out, shotDir) {
         signins[who] = 'ok';
       } catch (e) { signins[who] = String(e).slice(0, 200); return; }
       for (const [, , , url, sizes] of rows) for (const size of sizes) {
-        const f = await pageCheck(ctx, who, url, size, { site, shots: !!shotDir, shotDir, allSizes: true, must: () => false, extra });
+        const opts = { site, shots: !!shotDir, shotDir, allSizes: true, must: () => false, extra };
+        let f = await pageCheck(ctx, who, url, size, opts);
+        if (f.error && /Timeout/i.test(f.error)) {   // a slow staging: once more, once only, logged, before it counts
+          const again = await pageCheck(ctx, who, url, size, opts); again.retried = f.error;
+          console.log(`retried once: ${who} ${url} ${size} timed out (${f.error.split('\n')[0].slice(0, 80)}); again: ${again.error ? 'timed out too' : again.status}`); f = again;
+        }
         f.advocate = slug; done[gi].push(f);
       }
     } finally { await ctx.close(); }
@@ -166,12 +178,15 @@ export function heldIn(text, hashes, k) {
 }
 const refused = f => !f || f.error || f.status >= 400 || f.ba?.landed_signin;
 const errs = f => f && (f.status >= 500 || (f.console || []).length || (f.requests || []).length);
-const ctlSig = f => (f?.ba?.controls || []).map(c => c.n + '→' + c.h).sort().join('\n');
+const ctlSig = (f, st = true) => (f?.ba?.controls || []).filter(c => st || !c.st).map(c => c.n + '→' + c.h).sort().join('\n');
 
 /** The verdict for one release: blocks (each a rule, who, page, size, what), notes, and pass / block / incomplete. */
 export function compare(b1, b2, a, exp = {}, release = '', heldKey = STAGING?.token || CHECK_TOKEN) {
   const B = new Map(b1.results.map(f => [key(f), f])), B2 = new Map(b2.results.map(f => [key(f), f]));
   const expected = new Set([...(exp.pages || []), ...(exp.also_changes || []).map(x => x.page)]);
+  // the system's state lines (alarms, status lines, Scheduled tasks) are drift only for a release that touches what draws them
+  // (the session manager, 2026-11-26); unknown files (no list given) count as touching them
+  const stateDrawn = !Array.isArray(exp.files) || exp.files.some(f => STATE_DRAWERS.test(f));
   const held = new Set(exp.held?.hashes || []); const heldUnread = !!exp.held?.error;
   const blocks = [], notes = [];
   if (heldUnread) notes.push('0066 not checked: the held names couldn\'t be read (' + String(exp.held.error).slice(0, 120) + ')');
@@ -189,6 +204,7 @@ export function compare(b1, b2, a, exp = {}, release = '', heldKey = STAGING?.to
   let compared = 0;
   for (const f of a.results) {
     const b = B.get(key(f)), bb = B2.get(key(f)); if (!b) { notes.push(`${key(f)}: no before look to compare`); continue; }
+    if (f.retried) notes.push(`${key(f)}: timed out once, opened again (${f.error ? 'timed out again' : 'answered ' + f.status})`);
     if (unusable(b)) { notes.push(`${key(f)}: its before look wasn't usable (staging answered ${b.status || b.error || 'nothing'}); not compared`); continue; }
     compared++;
     const moving = (get) => JSON.stringify(get(b)) !== JSON.stringify(get(bb || b));
@@ -216,11 +232,11 @@ export function compare(b1, b2, a, exp = {}, release = '', heldKey = STAGING?.to
     if (t0.length && Math.max(...t1, 0) < Math.max(...t0) && !moving(x => x.ba?.totals)) block('data', f, `A list holds fewer: ${Math.max(...t0)} before, ${Math.max(...t1, 0)} after`, Math.max(...t0), Math.max(...t1, 0));
     // 4. drift: a page that changed (beyond what moves on its own) that the change doesn't name
     // lines compared with their numbers masked (a count is the data rule's), less what differed between the two before looks
-    const N = x => new Set((x?.ba?.lines || []).map(l => l.replace(/\d+/g, '#')));
+    const N = x => new Set([...(x?.ba?.lines || []), ...(stateDrawn ? x?.ba?.state || [] : [])].map(l => l.replace(/\d+/g, '#')));
     const L0 = N(b), L2 = N(bb || b), L1 = N(f);
     const movingL = new Set([...L0].filter(l => !L2.has(l)).concat([...L2].filter(l => !L0.has(l))));
     const goneL = [...L0].filter(l => !L1.has(l) && !movingL.has(l)), newL = [...L1].filter(l => !L0.has(l) && !movingL.has(l));
-    const ctlChanged = ctlSig(b) !== ctlSig(f) && ctlSig(b) === ctlSig(bb || b);
+    const ctlChanged = ctlSig(b, stateDrawn) !== ctlSig(f, stateDrawn) && ctlSig(b, stateDrawn) === ctlSig(bb || b, stateDrawn);
     const regionsGone = Object.keys(b.ba?.regions || {}).filter(r => (b.ba.regions[r]?.t || '') && !(f.ba?.regions || {})[r] && (bb?.ba?.regions || b.ba.regions)[r]);
     if (!expected.has(f.url)) {
       // a part of the page gone, on a page the change doesn't name, is missing data; any other change there is drift
