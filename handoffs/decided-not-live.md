@@ -4,6 +4,11 @@ Kept by the session manager (CLAUDE.md, "Decision or release: said every time"; 
 decision, the release that will put it live, and its place in the queue. A line moves to "Live" only when its release
 is synced and byte-checked. Updated with every approval and every release.
 
+**Company priority (Jason, 2026-11-26, to the CEO):** "No real numbers yet, I've kept the system locked for SEO until
+its built right. I want the frontend and the shop ready from end to end so we can strategies how to penetrate 1a properly."
+1A is regions.md's St. Johns, Springerville, Eagar, Show Low, Holbrook, Winslow and the Petrified Forest gateway.
+"Ready" is measured by 0145's paths (`tools/page-audit/paths.mjs`).
+
 ## Building now
 
 | Decision (when) | Release | Session | Next step |
