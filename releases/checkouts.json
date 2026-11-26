@@ -1,24 +1,6 @@
 {
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
- "claims": [
-  {
-   "path": "app/lib/BeforeAfter.php",
-   "functions": [
-    "on"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
-   "why": "release before-after-on.zip",
-   "since": "2026-11-26T10:27:36Z",
-   "expires": "2026-11-26T14:27:36Z",
-   "release": "before-after-on.zip",
-   "callers": {
-    "on": [
-     "app/lib/Releases.php"
-    ]
-   }
-  }
- ],
+ "claims": [],
  "lapsed": [
   {
    "path": "app/lib/TeamRunner.php",
