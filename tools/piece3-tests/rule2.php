@@ -49,7 +49,7 @@ $last = fn (int $id) => Releases::lastWordFor(Releases::get($pdo, $id));
 $c = $mk('r2-wording-bad.zip', ['app/ui/faq.md' => $faqNew], 'wording', true);
 $t('a kind that isn\'t proved (wording, but a .md), the advocates passed: Tier 2, it goes alone, "Published alone (Tier 2)"', $why($c) === '' && str_starts_with($last($c), 'Published alone (Tier 2)'), [$why($c), $last($c)]);
 $d = $mk('r2-none.zip', ['app/lib/R2Test.php' => "<?php\n"], '', true);
-$t('no kind, nothing in a Tier 3 area, the advocates passed: Tier 2, it goes alone', $why($d) === '' && str_starts_with($last($d), 'Published alone (Tier 2)'));
+$t('no kind, nothing in a high-risk territory, the advocates passed: Tier 2, it goes alone', $why($d) === '' && str_starts_with($last($d), 'Published alone (Tier 2)'));
 $d2 = $mk('r2-none-nocheck.zip', ['app/lib/R2Test2.php' => "<?php\n"], '', false);
 $t('… Tier 2 the advocates haven\'t passed: it waits, saying so', str_contains($why($d2), 'Tier 2, but the advocates haven\'t passed it'), $why($d2));
 GaugeTasks::approve($pdo, 'area:batch-' . gmdate('Y-m-d'), 'batch', 'other.zip, r2-none-nocheck.zip', 'the daily batch', 'Jason (test)', 1);
@@ -57,19 +57,19 @@ $t('… once today\'s approved batch names its zip, it goes', $why($d2) === '');
 $m = $mk('r2-create.zip', ['app/migrations/2026-12-01_r2x.sql' => "CREATE TABLE IF NOT EXISTS r2x (id INT, at DATETIME ON UPDATE CURRENT_TIMESTAMP);", 'app/lib/R2X.php' => "<?php\n"], 'additive', true);
 $t('a CREATE TABLE IF NOT EXISTS migration with a new library, kind additive: proved Tier 1, it goes alone (the add-only ruling)', $why($m) === '' && str_starts_with($last($m), 'Published alone (low-risk: additive)'), [$why($m), $last($m)]);
 $g = $mk('r2-drop.zip', ['app/migrations/2026-12-01_r2d.sql' => "CREATE TABLE IF NOT EXISTS r2y (id INT);\nDROP TABLE r2_old;"], 'additive', true);
-$t('a migration that DROPs: Tier 3 (data), it waits for the Founder as a Decision Brief', str_contains($why($g), 'Tier 3 area (data)') && str_contains($why($g), 'Decision Brief'), $why($g));
+$t('a migration that DROPs: high-risk (data), it waits for a Founder ruling for the Founder as a Decision Brief', str_contains($why($g), 'high-risk territory (data)') && str_contains($why($g), 'Decision Brief'), $why($g));
 $h0 = $mk('r2-insert.zip', ['app/migrations/2026-12-01_r2i.sql' => "INSERT INTO team_roster (slug) SELECT 'x' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM team_roster WHERE slug = 'x');"], '', true);
 $t('a migration that INSERTs rows: a data fix, it stays in the daily batch (DB3)', str_contains($why($h0), 'DB3'), $why($h0));
 $e = $mk('r2-order.zip', ['website/order.php' => "<?php echo 'x';"], 'additive', true);
 $n0 = (int) $pdo->query("SELECT COUNT(*) FROM control_gauge_tasks WHERE ticket = 'resolution'")->fetchColumn();
-$t('a Tier 3 area (money) is never published alone, whatever its kind says', str_contains($why($e), 'Tier 3 area (money)'), $why($e));
+$t('a high-risk territory (money) is never published alone, whatever its kind says', str_contains($why($e), 'high-risk territory (money)'), $why($e));
 $why($e); $rs = $pdo->query("SELECT what FROM control_gauge_tasks WHERE ticket = 'resolution' ORDER BY id DESC")->fetchAll(PDO::FETCH_COLUMN);
 $t('… its Decision Brief: one Resolution ticket in the Work queue, once however often it\'s asked, and its record says so', count($rs) === $n0 + 1 && str_contains($rs[0], 'Release #' . $e) && str_contains($rs[0], 'money') && str_contains($last($e), 'Decision Brief #'), [$rs, $last($e)]);
 // through checkedByAdvocates → autoPublish: one that must wait goes for review, never live
 $f = $mk('r2-wait.zip', ['website/order.php' => "<?php echo 'y';"], '', false);
 $out = Releases::checkedByAdvocates($pdo, $f, ['verdict' => 'pass', 'first' => '', 'views' => 5, 'run' => '', 'blocks' => 0, 'seconds' => 0], false);
 $lg = array_column((array) Releases::get($pdo, $f)['log'], 'msg');
-$t('passed by the advocates but Tier 3 and not in the batch: it waits for review, its record saying why', (bool) preg_grep('/^Waits for the daily batch: .*Tier 3/', $lg) && Releases::get($pdo, $f)['state'] === 'staged', [$out, $lg]);
+$t('passed by the advocates but high-risk and not in the batch: it waits for review, its record saying why', (bool) preg_grep('/^Waits for the daily batch: .*Founder ruling \(Tier 5\)/', $lg) && Releases::get($pdo, $f)['state'] === 'staged', [$out, $lg]);
 // the Work queue's strip
 $pdo->prepare("UPDATE site_releases SET state = 'live', live_at = UTC_TIMESTAMP() WHERE id IN (?, ?)")->execute([$a, $d]);
 if (!function_exists('tv_icon')) { function tv_icon(string $n, $c = ''): string { return ''; } }
@@ -95,7 +95,7 @@ if (method_exists(Releases::class, 'agentGate')) {
     $x3 = $mkA('ag-public.zip', ['website/admin/report-z.php' => "<?php echo 'r';", 'app/ui/header.php' => "<?php\n"], true);
     $t('… a live file past the backend (not in the reach map) while Backend only: it waits, naming the file', str_contains($ag($x3), 'app/ui/header.php') && str_contains($ag($x3), 'Backend only'), $ag($x3));
     $x4 = $mkA('ag-drop.zip', ['app/migrations/2026-12-01_agd.sql' => 'DROP TABLE ag_old;'], true);
-    $t('… Tier 3 (a migration that DROPs): a Decision Brief, never alone', str_contains($ag($x4), 'Tier 3 area (data)'), $ag($x4));
+    $t('… high-risk (a migration that DROPs): a Decision Brief, never alone', str_contains($ag($x4), 'high-risk territory (data)'), $ag($x4));
     $x5 = $mkA('ag-rows.zip', ['app/migrations/2026-12-01_agi.sql' => "INSERT INTO team_roster (slug) VALUES ('x');"], true);
     $t('… a migration that writes rows isn\'t backend: it waits', $ag($x5) !== '', $ag($x5));
     $x6 = $mk('not-agent.zip', ['app/ui/cart2.php' => "<?php\n"], '', false);

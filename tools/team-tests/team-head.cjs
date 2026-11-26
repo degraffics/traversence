@@ -1,5 +1,5 @@
 // System Configuration → Team's head (Piece 2, P2-3; Jason, 2026-11-25; decisions/0179's note), rendered at 1280 and 390 through
-// router.php: the decision tree drawn from the runner's constants (tiers, the Tier 3 areas, each role's step at each ceiling, what
+// router.php: the decision tree drawn from the runner's constants (the five tiers, the high-risk territories, each role's step at each ceiling, what
 // is always the Founder's); "Agents work up to: Planning"; as a staff member, Approve the decision tree and Raise greyed with why;
 // as the Founder: Approve (the answer beside it after the page reads again), then Raise to Building with its evidence lines, then
 // Lower to Planning; the History; nothing wider than the window; no page error.
@@ -27,7 +27,7 @@ const noSide = p => p.evaluate(() => document.documentElement.scrollWidth <= doc
       // as a staff member
       await p.goto('http://127.0.0.1:' + port + '/admin/config/team'); await p.waitForSelector('#tm-tree');
       const tree = await p.textContent('#tm-tree');
-      t(L + 'the decision tree: three tiers, the Tier 3 areas from the code, words only flag, what is always the Founder\'s', /Tier 1/.test(tree) && /Tier 2/.test(tree) && /Tier 3/.test(tree) && /QuickBooksPay/.test(tree) && /Landmarks/.test(tree) && /Words alone/.test(tree) && /Always the Founder/.test(tree), tree.slice(0, 200));
+      t(L + 'the decision tree: five tiers with Founder ruling beside Tier 5 (decisions/0180), the territories from the code, words only flag, what is always the Founder\'s', /Tier 1/.test(tree) && /Tier 2/.test(tree) && /Tier 3/.test(tree) && /Tier 4/.test(tree) && /Tier 5 · Founder ruling/.test(tree) && /QuickBooksPay/.test(tree) && /Landmarks/.test(tree) && /Words alone/.test(tree) && /Always the Founder/.test(tree), tree.slice(0, 200));
       t(L + 'each role\'s step at each ceiling: the Project Manager proposes at Planning, acts at Building; the Architect off at Planning', await p.$$eval('#tm-tree tbody tr', rs => { const pm = rs.find(r => /Project Manager/.test(r.textContent)), ar = rs.find(r => /System Architect/.test(r.textContent));
         return !!pm && !!ar && /proposes/.test(pm.children[1].textContent) && /acts/.test(pm.children[2].textContent) && /off/.test(ar.children[1].textContent) && /Piece 3|low-risk publishes alone|Tier 1 and 2 publish alone/.test(pm.children[4].textContent); }));
       t(L + '"Agents work up to: Planning", its column marked', /Agents work up to: Planning/.test(await p.textContent('#tm-ceiling')) && await p.$$eval('#tm-tree td.tm-now', a => a.length === 4));

@@ -46,10 +46,10 @@ $a = $tasks(); $by = []; foreach ($a as $x) $by[$x['audit_key']] = $x;
 $t('five findings, five Audit tickets at Found', count($a) === 5 && count(array_filter($a, fn ($x) => $x['stage'] === 'found')) === 5, $out);
 $t('… each keyed by its finding: Site health, the late job, the alarm', isset($by['finding:f-aaaaaa'], $by['finding:f-bbbbbb'], $by['job:listings_tick'], $by['alarm:1']), array_keys($by));
 $t('… owned by the Operations & Reconciliation Manager', count(array_filter($a, fn ($x) => $x['owner'] === 'system · Operations & Reconciliation Manager')) === 5);
-$t('tiers by what it touches (0179\'s note): a finding on /order.php is Tier 3 (money) with no money words; a phone-layout one Tier 1; the others Tier 2',
-    (int) $by['finding:f-aaaaaa']['tier'] === 3 && str_contains($by['finding:f-aaaaaa']['why'], 'by what it touches') && (int) $by['finding:f-bbbbbb']['tier'] === 1 && (int) $by['job:listings_tick']['tier'] === 2 && (int) $by['alarm:1']['tier'] === 2,
+$t('tiers by what it touches (0179\'s note): a finding on /order.php is Tier 5, a Founder ruling (money), with no money words; a phone-layout one Tier 1; the others Tier 2',
+    (int) $by['finding:f-aaaaaa']['tier'] === 5 && str_contains($by['finding:f-aaaaaa']['why'], 'by what it touches') && (int) $by['finding:f-bbbbbb']['tier'] === 1 && (int) $by['job:listings_tick']['tier'] === 2 && (int) $by['alarm:1']['tier'] === 2,
     array_map(fn ($x) => (int) $x['tier'], $by));
-$t('words alone never make Tier 3: the trail page\'s "refund" is Tier 2, flagged money for a person to check', (int) $by['finding:f-cccccc']['tier'] === 2 && $by['finding:f-cccccc']['flag'] === 'money' && $by['finding:f-aaaaaa']['flag'] === '' && $by['finding:f-bbbbbb']['flag'] === '');
+$t('words alone never make a Founder ruling: the trail page\'s "refund" is Tier 2, flagged money for a person to check', (int) $by['finding:f-cccccc']['tier'] === 2 && $by['finding:f-cccccc']['flag'] === 'money' && $by['finding:f-aaaaaa']['flag'] === '' && $by['finding:f-bbbbbb']['flag'] === '');
 $t('the run\'s line names what it touched', (bool) $pdo->query("SELECT 1 FROM team_runs WHERE seen LIKE 'finding:f-aaaaaa · touches path:https://traversence.com/order.php%'")->fetchColumn());
 $t('the late job says how late, in hours', str_contains($by['job:listings_tick']['why'], 'hours ago'));
 $t('the run says what it found: "4 findings · 4 new"', str_contains($out, '5 findings · 5 new · 0 confirmed · 0 cleared'), $out);
@@ -62,7 +62,7 @@ $t('… the four still there are Confirmed', count(array_filter($a, fn ($x) => $
 $t('… the flag goes with the ticket it opens', $pdo->query("SELECT flag FROM control_gauge_tasks WHERE parent_id = " . (int) $by['finding:f-cccccc']['id'])->fetchColumn() === 'money');
 $kids = $pdo->query("SELECT * FROM control_gauge_tasks WHERE parent_id IS NOT NULL AND ticket <> 'audit' ORDER BY id")->fetchAll(PDO::FETCH_ASSOC);
 $k = []; foreach ($kids as $x) $k[(int) $x['parent_id']] = $x;
-$t('the Tier 3 finding opens a Resolution (to be briefed for the Founder)', $k[(int) $by['finding:f-aaaaaa']['id']]['ticket'] === 'resolution' && $k[(int) $by['finding:f-aaaaaa']['id']]['stage'] === 'brief');
+$t('the Tier 5 finding opens a Resolution (to be briefed for the Founder)', $k[(int) $by['finding:f-aaaaaa']['id']]['ticket'] === 'resolution' && $k[(int) $by['finding:f-aaaaaa']['id']]['stage'] === 'brief');
 $t('Tier 1 and 2 open Work tickets at Planning, their tier and parent kept', $k[(int) $by['finding:f-bbbbbb']['id']]['ticket'] === 'work' && (int) $k[(int) $by['finding:f-bbbbbb']['id']]['tier'] === 1 && $k[(int) $by['job:listings_tick']['id']]['stage'] === 'planning');
 $t('the run counts it: "1 cleared as noise", "4 confirmed"', str_contains($out, '4 confirmed · 1 cleared as noise'), $out);
 // the Audit closes with the ticket it opened
@@ -77,12 +77,12 @@ $pdo->exec("INSERT INTO admin_permissions (action, min_level, departments, updat
 $fr = new ReflectionProperty(Access::class, 'rules'); $fr->setAccessible(true); $fr->setValue(null, null);
 $t('Permissions above its level: refused, saying what\'s needed', str_contains(TeamRunner::audit($pdo), 'Needs an Executive'));
 $T3 = fn ($tg) => TeamRunner::tier('a plain finding', $tg);
-$t('targets: a library, a table, a job, a service, a page by its start, a migration\'s data-changing verb, each makes its area Tier 3',
+$t('targets: a library, a table, a job, a service, a page by its start, a migration\'s data-changing verb, each makes its territory Tier 5',
     $T3(['lib:QuickBooksPay'])[1] === 'money' && $T3(['table:landmarks'])[1] === 'nations' && $T3(['job:guest_tick'])[1] === 'privacy' && $T3(['svc:cloudflare'])[1] === 'address'
-    && $T3(['path:/api/auth/login.php'])[1] === 'privacy' && $T3(['sql:DROP'])[1] === 'data' && $T3(['sql:rename'])[1] === 'data' && $T3(['path:website/admin/router.php'])[1] === 'address' && $T3(['lib:Orders'])[0] === 3);
-$t('a migration by its path alone is no longer Tier 3 (Jason, 2026-11-25: an add-only migration is safe additive)', TeamRunner::touches(['path:app/migrations/2026-12-01_x.sql']) === '');
+    && $T3(['path:/api/auth/login.php'])[1] === 'privacy' && $T3(['sql:DROP'])[1] === 'data' && $T3(['sql:rename'])[1] === 'data' && $T3(['path:website/admin/router.php'])[1] === 'address' && $T3(['lib:Orders'])[0] === 5);
+$t('a migration by its path alone is no longer high-risk (Jason, 2026-11-25: an add-only migration is safe additive)', TeamRunner::touches(['path:app/migrations/2026-12-01_x.sql']) === '');
 $t('a page not in an area, or a library that isn\'t, stays Tier 2 with no flag', $T3(['path:/place/trail.php', 'lib:Weather', 'job:listings_tick']) === [2, '', '']);
-$t('words alone, each area: Tier 2 with its flag, never Tier 3', TeamRunner::tier('a test account\'s email address shown')[0] === 2 && TeamRunner::tier('a test account\'s email address shown')[2] === 'privacy'
+$t('words alone, each area: Tier 2 with its flag, never a Founder ruling', TeamRunner::tier('a test account\'s email address shown')[0] === 2 && TeamRunner::tier('a test account\'s email address shown')[2] === 'privacy'
     && TeamRunner::tier('a sacred site name shown')[2] === 'nations' && TeamRunner::tier('archaeological words in a story')[2] === 'nations' && TeamRunner::tier('the old URL redirects')[2] === 'address'
     && TeamRunner::tier('purge the old rows')[2] === 'data' && TeamRunner::tier('a payout is late')[2] === 'money' && TeamRunner::tier('no consent asked')[2] === 'privacy');
 $t('the phone layout is Tier 1, not a privacy flag: "phone" alone isn\'t in the words, "phone number" is', TeamRunner::tier('the phone layout overflows at 390') === [1, '', ''] && TeamRunner::tier('a phone number shown')[2] === 'privacy');
@@ -101,6 +101,6 @@ $t('"It\'s Tier 2": the flag cleared, the tier kept, a History line', str_contai
     && (bool) $pdo->query("SELECT 1 FROM control_log WHERE what LIKE 'Task #$fk checked: Tier 2%'")->fetchColumn());
 $t('… pressed again: says it\'s already checked, changes nothing', str_starts_with(GaugeTasks::settleFlag($pdo, $fk, true, $J), 'Already checked'));
 GaugeTasks::flag($pdo, $fk, 'money'); $m = GaugeTasks::settleFlag($pdo, $fk, true, $J); $res = $pdo->query("SELECT * FROM control_gauge_tasks WHERE parent_id = $fk AND ticket = 'resolution'")->fetch(PDO::FETCH_ASSOC);
-$t('"It\'s Tier 3" on a Work ticket: Tier 3, and its Resolution opened for the Founder, named in the answer', (int) GaugeTasks::task($pdo, $fk)['tier'] === 3 && $res && (int) $res['tier'] === 3 && str_contains($m, 'task #' . $res['id']), $m);
+$t('"It\'s a Founder ruling" on a Work ticket: Tier 5, and its Resolution opened for the Founder, named in the answer', (int) GaugeTasks::task($pdo, $fk)['tier'] === 5 && $res && (int) $res['tier'] === 5 && str_contains($m, 'task #' . $res['id']), $m);
 GaugeTasks::flag($pdo, $fk, 'nowhere'); $t('a flag only from the five areas', GaugeTasks::task($pdo, $fk)['flag'] === '');
 echo "\n$pass passed, $fail failed\n"; exit($fail ? 1 : 0);
