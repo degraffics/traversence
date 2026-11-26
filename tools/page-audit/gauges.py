@@ -189,6 +189,20 @@ def _batch(path=None):
     return {'date': d['date'], 'lines': lines}
 
 
+def _messages(path=None):
+    """The session manager's messages for the Founder (releases/batch.json "messages"; notify-founder, Jason 2026-11-25): the
+    site emails each id once, to the Founder only (FounderMail). [{id, at, subject, body}], checked field by field."""
+    try:
+        d = json.load(open(path or os.path.join(os.path.dirname(__file__), '..', '..', 'releases', 'batch.json')))
+    except (OSError, ValueError):
+        return []
+    out = []
+    for m in (d.get('messages') or [])[:20] if isinstance(d, dict) else []:
+        if isinstance(m, dict) and re.match(r'^[A-Za-z0-9._:-]{1,80}$', str(m.get('id') or '')) and str(m.get('subject') or '').strip():
+            out.append({'id': str(m['id']), 'at': str(m.get('at') or ''), 'subject': str(m['subject'])[:200], 'body': str(m.get('body') or '')[:2000]})
+    return out
+
+
 def _answers(path=None):
     """The Founder's emailed answers to Tier 3 decisions, recorded by the session manager (releases/gauge-pickups.json "answers";
     P2-5): [{id, ans: a|b|o, words, at}]. The site applies each once, only to a Resolution waiting for the Founder
@@ -415,6 +429,7 @@ def build():
     summary['parts'] = {k: dict(sorted(v.items())) for k, v in PARTS.items()}
     summary['pickups'] = _pickups()   # the session that has each open request (releases/gauge-pickups.json), by request id
     summary['batch'] = _batch()   # today's batch for the Founder's OK (releases/batch.json; P2-5)
+    summary['messages'] = _messages()   # the session manager's messages, emailed to the Founder by the site (FounderMail)
     summary['answers'] = _answers()   # the Founder's emailed Tier 3 answers, recorded by the session manager (P2-5)
     detail = dict(head, note='Each gauge\'s detail for its drawer (ControlGauges::detail): read when the drawer opens.',
                   checks=reg, results_read=sorted({r['file'] for r in ROWS.values()}),

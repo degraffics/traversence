@@ -1554,6 +1554,20 @@ function tv_cb_wq_batch(PDO $pdo, array $active): string
                 . '<small>Or reply to the daily summary\'s email.</small></div>';
         }
     }
+    // rule 2 (decisions/0179; Piece 3, P3-3; Jason's Tier 2 ruling, 2026-11-25): what went live today by itself (Tier 1 or 2), each with its Undo (Roll back)
+    try {
+        $alone = $pdo->query("SELECT id, title, zip_name, log, state FROM site_releases WHERE live_at >= UTC_DATE() AND log LIKE '%Published alone (%' ORDER BY id")->fetchAll(PDO::FETCH_ASSOC);
+    } catch (Throwable $x) { $alone = []; }
+    if ($alone) {
+        require_once __DIR__ . '/../lib/Releases.php'; $canBack = Releases::can('releases.rollback');
+        $h .= '<p class="wq-bp"><b>Published alone today (Tier 1 and Tier 2):</b></p><ul class="wq-bl">';
+        foreach ($alone as $a) {
+            $k = preg_match('/Published alone \((?:low-risk: ([a-z_]+)|(Tier 2))\)/', (string) $a['log'], $m) ? (($m[1] ?? '') !== '' ? $m[1] : 'Tier 2') : '';
+            $h .= '<li><b>#' . (int) $a['id'] . ' ' . $e((string) ($a['title'] ?: $a['zip_name'])) . '</b> · ' . $e($k) . ' · '
+                . ($a['state'] === 'rolled_back' ? 'undone (rolled back)' : '<button type="button" class="cbg-b cbg-sm" data-wq="relback" data-id="' . (int) $a['id'] . '"' . ($canBack[0] ? '' : ' disabled title="' . $e($canBack[1]) . '"') . '>Undo</button>') . '</li>';
+        }
+        $h .= '</ul>';
+    }
     return $h . '</div>';
 }
 

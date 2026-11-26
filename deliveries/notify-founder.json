@@ -1,0 +1,50 @@
+{
+ "zip": "notify-founder.zip",
+ "built_on": "f5c60a2 Sync: 2026-11-26 02:22 UTC",
+ "recorded": "2026-11-26 02:24 UTC",
+ "note": "notify-founder: the site emails the Founder itself (the batch waiting, Tier 3 decisions, the session manager's messages), the latest batch shown until approved; approved by Jason 2026-11-26; built on Sync: 2026-11-26 02:22 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/control-console.php": {
+   "sha256": "496fa53e7a23c2cce13555995727afdaa7713fa006c7d38c7ea7a5a11951823a",
+   "live": false
+  },
+  "app/lib/ControlGauges.php": {
+   "sha256": "8d7052fd51ad2c68e1bda44ce4761191852999c22e790fd90fae9444d2853456",
+   "live": false
+  },
+  "app/lib/FounderMail.php": {
+   "sha256": "acddbb3db7fa5550872c8a24e9436ba27d2f5bf98a16a0fae85ebf8480284644",
+   "live": false
+  },
+  "app/lib/GaugeTasks.php": {
+   "sha256": "e2b511d460ceda508e508e42ecdd087d5895951a30dfbeeb6d94d89399d33c5a",
+   "live": false
+  },
+  "app/lib/Notify.php": {
+   "sha256": "91825aa989642174bd059e5f875656bb61a6717acec0578fc1c9fbe663a6902d",
+   "live": false
+  },
+  "app/lib/Scheduler.php": {
+   "sha256": "01761a5c91d00bccc6a7e7e822131b0226e7a90b7e4280bd0347d09dbd6ee562",
+   "live": false
+  },
+  "app/lib/staging-tables.php": {
+   "sha256": "59162ca367693cb4c14c877211b9fe60bd21cb16c34134352b9a88ef0141af1e",
+   "live": false
+  },
+  "app/migrations/2026-11-26_founder_mail.sql": {
+   "sha256": "523c56309de13c60ea22bdb55d9cb97901015912f479e24f2ca069e1f55d8d2c",
+   "live": false
+  },
+  "app/scripts/founder_mail_tick.php": {
+   "sha256": "8fd7d3226e2f2899e8b1cb0643724ceab6c7d45be71250cac54c73ff23fb29ab",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "c53fdaf8144e00957d54e50aeebec18aa27d3024eab48c79bea1eeda51a5f316",
+   "live": false
+  }
+ }
+}
