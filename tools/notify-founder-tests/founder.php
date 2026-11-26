@@ -43,15 +43,22 @@ $t('today\'s batch: emailed once, to the Founder alone (not staff, not an ended 
 $t('… its lines, why, checks, way back and the Work queue\'s link', str_contains($s['words']['body'], 'p3-1.zip: The before-and-after check') && str_contains($s['words']['body'], 'Checks on staging: beforeafter.test 19') && str_contains($s['words']['body'], 'https://traversence.com/admin/config/control?tab=development') && str_contains($s['words']['title'], '1 release for your OK'), $s['words']);
 $t('… on its own thread, batch:<date>', $s['about']['thread'] === 'batch:' . $today && $s['about']['thing'] === 'batch:' . $today);
 $t('… the next run sends nothing again', FounderMail::tick($pdo) === [] && count(Notify::$sent) === 1);
-$gauges(['date' => gmdate('Y-m-d', time() - 86400), 'lines' => [$line]], []);
-$t('yesterday\'s batch: never sent', FounderMail::batch($pdo, ControlGauges::config($pdo, true)) === '' && count(Notify::$sent) === 1);
+// the latest batch until it's approved (the session manager, 2026-11-26: one merged late in the UTC day never showed)
+$y = gmdate('Y-m-d', time() - 86400);
+$gauges(['date' => $y, 'lines' => [$line]], []);
+$t('yesterday\'s batch, not yet approved: shown on the strip (as "The latest batch") and emailed once', ControlGauges::latestBatch($pdo) !== [] && FounderMail::batch($pdo, ControlGauges::config($pdo, true)) !== '' && count(Notify::$sent) === 2 && str_starts_with(end(Notify::$sent)['words']['title'], 'The batch (') && FounderMail::batch($pdo, ControlGauges::config($pdo, true)) === '' && count(Notify::$sent) === 2, end(Notify::$sent));
+GaugeTasks::approve($pdo, 'area:batch-' . $y, 'batch', 'p3-1.zip', 'the daily batch', 'Jason (test)', 6);
+$pdo->exec("DELETE FROM founder_mail_sent WHERE k = 'batch:$y'");
+$t('… once approved: neither shown nor sent (today\'s is shown on its day either way)', ControlGauges::latestBatch($pdo) === [] && FounderMail::batch($pdo, ControlGauges::config($pdo, true)) === '' && count(Notify::$sent) === 2);
+$gauges(['date' => gmdate('Y-m-d', time() + 86400), 'lines' => [$line]], []);
+$t('a batch dated in the future: not shown', ControlGauges::latestBatch($pdo) === []);
 // the session manager's messages
 $gauges([], [['id' => 'sm-2026-11-26-1', 'at' => '2026-11-26T09:00:00Z', 'subject' => 'Three clicks to start the Team', 'body' => "1) https://traversence.com/admin/config/staging#against\n2) …"],
     ['id' => 'bad id!', 'subject' => 'x', 'body' => 'x'], ['id' => 'sm-2', 'subject' => '', 'body' => 'no subject']]);
 $out = FounderMail::tick($pdo); $m = end(Notify::$sent);
-$t('a message: emailed once by its id, its subject and plain-text body with links, to the Founder', count(Notify::$sent) === 2 && $m['kind'] === 'founder.message' && $m['words']['title'] === 'Three clicks to start the Team' && str_contains($m['words']['body'], 'https://traversence.com/admin/config/staging#against') && $m['to'] === ['staff' => [6]], [$out, $m]);
+$t('a message: emailed once by its id, its subject and plain-text body with links, to the Founder', count(Notify::$sent) === 3 && $m['kind'] === 'founder.message' && $m['words']['title'] === 'Three clicks to start the Team' && str_contains($m['words']['body'], 'https://traversence.com/admin/config/staging#against') && $m['to'] === ['staff' => [6]], [$out, $m]);
 $t('… a bad id and one with no subject are skipped', count($out) === 1);
-$t('… again: nothing', FounderMail::tick($pdo) === [] && count(Notify::$sent) === 2);
+$t('… again: nothing', FounderMail::tick($pdo) === [] && count(Notify::$sent) === 3);
 // a Tier 3 decision
 $r = GaugeTasks::add($pdo, 'area:backlog', 'May staff text go to Gemini\'s paid key?', 'why', '0164 §0.8', 'Jason (test)', 1, '', 'resolution');
 foreach (['why_you' => 'Privacy (0179 rule 3)', 'boundary' => 'privacy', 'a_text' => 'Paid key, checked', 'a_pros' => 'A second model', 'a_cons' => 'A privacy risk', 'b_text' => 'Public only', 'b_pros' => 'No new risk', 'b_cons' => 'One model', 'recommend' => 'b', 'delay_impact' => 'Safe on hold', 'cost' => 'None'] as $k => $v) GaugeTasks::briefEdit($pdo, $r, $k, $v, 'Jason (test)');

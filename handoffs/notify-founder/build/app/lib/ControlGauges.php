@@ -112,6 +112,21 @@ final class ControlGauges
         }
     }
 
+    /**
+     * The batch to show and send (decisions/0179 rule 1; P2-5): today's, or the latest one while it isn't approved and no newer
+     * one replaces it (the session manager, 2026-11-26: a batch merged late in the UTC day, with the hour's cache, never showed;
+     * the Founder has to see it to approve it). [] when there's none to show.
+     */
+    public static function latestBatch(PDO $pdo, ?array $cfg = null): array
+    {
+        $b = (array) (($cfg ?? self::config($pdo))['batch'] ?? []);
+        $d = (string) ($b['date'] ?? '');
+        if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $d) || $d > gmdate('Y-m-d')) return [];
+        if ($d === gmdate('Y-m-d')) return $b;
+        try { require_once __DIR__ . '/GaugeTasks.php'; if (!empty(GaugeTasks::approvals($pdo)['area:batch-' . $d]['batch'])) return []; } catch (Throwable $x) { return []; }
+        return $b;
+    }
+
     private static ?array $opened = null;
     private static function opened(PDO $pdo): array
     {

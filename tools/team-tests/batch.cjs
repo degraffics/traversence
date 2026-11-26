@@ -52,7 +52,7 @@ const W = '#cb-wq';
       // not today's batch
       fs.writeFileSync(gfile, JSON.stringify({ ...g, batch: { date: '2026-01-01', lines: [] }, answers: [] })); try { db('DELETE FROM page_cache'); } catch (x) {}
       await p.goto('http://127.0.0.1:' + port + '/admin/config/control'); await p.waitForTimeout(900); await view(p, 'development'); await p.waitForTimeout(400);
-      t(L + 'another day\'s batch: "No batch from the session manager today", the decision still listed', /No batch from the session manager today · 1 decision waiting for you/.test((await p.textContent(W + ' .wq-batch')).replace(/\s+/g, ' ')) && !(await p.$(W + ' [data-wq=batchok]')));
+      t(L + 'an older batch not yet approved (empty): "The latest batch", nothing to approve, the decision still listed', /The latest batch \(Jan 1\): ?No releases waiting · 1 decision waiting for you/.test((await p.textContent(W + ' .wq-batch')).replace(/\s+/g, ' ')) && !(await p.$(W + ' [data-wq=batchok]')));
       t(L + 'nothing wider than the window', await p.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth + 1));
       t(L + 'no page error', errs.length === 0, errs);
       await ctx.close();

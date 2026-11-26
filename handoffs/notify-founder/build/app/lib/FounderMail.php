@@ -3,7 +3,7 @@
 // a problem. Can you use the system for emailing?"). Through the one dispatcher (Notify, decisions/0172 and 0176: Pulse first,
 // the system's own email, free), to the Founder alone (CommsSetup::founders: the active staff logins at the founder level),
 // three things, each once:
-//   - today's daily batch, when gauges.json carries one dated today (decisions/0179 rule 1; P2-5): its lines and the link;
+//   - the daily batch waiting for its OK (ControlGauges::latestBatch: today's, or the latest not yet approved; decisions/0179 rule 1; P2-5): its lines and the link;
 //   - a Tier 3 decision reaching "Waiting for you" (GaugeTasks::sendBrief): the brief, on its task's thread;
 //   - the session manager's messages, from releases/batch.json's "messages" (carried by gauges.py into gauges.json), each
 //     by its id.
@@ -48,18 +48,19 @@ final class FounderMail
         return true;
     }
 
-    /** Today's batch (gauges.json's "batch", dated today, UTC), once per date. */
+    /** The batch waiting (ControlGauges::latestBatch: today's, or the latest not yet approved), once per date. */
     public static function batch(PDO $pdo, array $cfg): string
     {
-        $b = (array) ($cfg['batch'] ?? []);
-        if (($b['date'] ?? '') !== gmdate('Y-m-d') || empty($b['lines'])) return '';
+        require_once __DIR__ . '/ControlGauges.php';
+        $b = ControlGauges::latestBatch($pdo, $cfg);   // today's, or the latest while it waits for its OK (the same rule as the strip)
+        if (!$b || empty($b['lines'])) return '';
         $lines = (array) $b['lines'];
-        $body = "Today's batch: " . count($lines) . ' release' . (count($lines) === 1 ? '' : 's') . " waiting for your OK.\n\n";
+        $body = ($b['date'] === gmdate('Y-m-d') ? "Today's batch: " : 'The batch of ' . date('M j', (int) strtotime($b['date'])) . ': ') . count($lines) . ' release' . (count($lines) === 1 ? '' : 's') . " waiting for your OK.\n\n";
         foreach ($lines as $l) $body .= '- ' . $l['release'] . ': ' . $l['what'] . ($l['why'] !== '' ? "\n  Why: " . $l['why'] : '') . ($l['checks'] !== '' ? "\n  Checks on staging: " . $l['checks'] : '') . ($l['way_back'] !== '' ? "\n  Way back: " . $l['way_back'] : '') . "\n";
         $body .= "\nApprove it on the Work queue: " . self::DEV . "\nOr reply to this email.";
         return self::once($pdo, 'batch:' . $b['date'], 'founder.batch', ['thread' => 'batch:' . $b['date'], 'url' => '/admin/config/control?tab=development'],
-            ['title' => "Today's batch (" . date('M j', (int) strtotime($b['date'])) . '): ' . count($lines) . ' release' . (count($lines) === 1 ? '' : 's') . ' for your OK', 'body' => $body])
-            ? 'Emailed the Founder today\'s batch (' . $b['date'] . ').' : '';
+            ['title' => ($b['date'] === gmdate('Y-m-d') ? "Today's batch (" : 'The batch (') . date('M j', (int) strtotime($b['date'])) . '): ' . count($lines) . ' release' . (count($lines) === 1 ? '' : 's') . ' for your OK', 'body' => $body])
+            ? 'Emailed the Founder the batch of ' . $b['date'] . '.' : '';
     }
 
     /** A Tier 3 decision now waiting for the Founder (GaugeTasks::sendBrief), once per ticket, on its thread task:<id>. */
