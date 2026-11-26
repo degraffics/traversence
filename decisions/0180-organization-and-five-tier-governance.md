@@ -262,4 +262,15 @@ Nothing above raises a stage ceiling or the reach fence. Those stay the Founder'
     its decisions, and gives the plan or the tickets it opens. Tickets the suite opens link back to the post.
   - Built after R2, with Work queue phase 2's thread (`handoffs/work-queue-phase2.md`). The answers travel through git
     to the Executive Suite session, with no paid AI, so they take minutes.
+- **Two rule sets bind every agent, and the CEO comes first** (Jason, 2026-11-26).
+  - "The executive suite is made up of system agents so what they do is bound by both, 1. Management 2. System policy
+    and procedures": an agent needs both to allow an act. Management sets its role, lane, authority and direction. System
+    policy sets how any agent works (spend, staging, checks, rollback, the money line, other people's data). The Founder
+    sets and changes both.
+  - "We can focus on the ceo first as my key management contact which I will use to build out the rest of the team and
+    monitor performance": the Founder's channel is to the **CEO**. The CEO builds out the rest of the team with him and
+    reports on its performance. The Work queue's "+ Add" offers **To: the CEO** (the note above, narrowed to the CEO).
+  - "Only people can have paid for services right now": **no agent has a paid service**, the CEO included. The $0 agent
+    spend cap stands. The CEO answers through the $0 route (a Claude session working within the Founder's own
+    allowance, via git, in minutes). Free Gemini may be used for public material only (0164).
 
