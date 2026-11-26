@@ -1,8 +1,58 @@
 {
  "release": "305",
- "phase": "before-done",
- "verdict": "waiting",
+ "at": "2026-11-26T15:05:08.604Z",
+ "verdict": "block",
+ "first": "Out-of-scope drift: This page changed, and the change doesn't name it (executive, /admin/identities.php, desktop)",
+ "blocks": [
+  {
+   "rule": "drift",
+   "rule_name": "Out-of-scope drift",
+   "advocate": "advocate-staff-views",
+   "who": "executive",
+   "page": "/admin/identities.php",
+   "size": "desktop",
+   "what": "This page changed, and the change doesn't name it",
+   "before": "Premises Park",
+   "after": "Aveda Institute Tucson"
+  },
+  {
+   "rule": "drift",
+   "rule_name": "Out-of-scope drift",
+   "advocate": "advocate-staff-views",
+   "who": "executive",
+   "page": "/admin/identities.php",
+   "size": "phone",
+   "what": "This page changed, and the change doesn't name it",
+   "before": "Premises Park",
+   "after": "Aveda Institute Tucson"
+  },
+  {
+   "rule": "drift",
+   "rule_name": "Out-of-scope drift",
+   "advocate": "advocate-staff-views",
+   "who": "ops-staff",
+   "page": "/admin/identities.php",
+   "size": "phone",
+   "what": "This page changed, and the change doesn't name it",
+   "before": "Premises Park",
+   "after": "Aveda Institute Tucson"
+  }
+ ],
+ "blocks_total": 3,
+ "notes": [
+  "member|/admin/chamber-builder.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "sales|/admin/chamber-builder.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "executive|/admin/chamber-builder.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "executive|/admin/crawler-review.php|phone: timed out once, opened again (timed out again)",
+  "executive|/admin/settings.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "executive|/admin/sources.php|desktop: timed out once, opened again (timed out again)",
+  "executive|/admin/sources.php|phone: timed out once, opened again (timed out again)",
+  "ops-staff|/admin/chamber-builder.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "ops-staff|/admin/crawler-review.php|phone: timed out once, opened again (timed out again)",
+  "ops-staff|/admin/sources.php|phone: timed out once, opened again (timed out again)"
+ ],
  "views": 206,
- "seconds": 821,
- "run": "https://github.com/degraffics/traversence/actions/runs/45835669559"
+ "seconds": 2719,
+ "run": "https://github.com/degraffics/traversence/actions/runs/45842645867",
+ "phase": "after-done"
 }
