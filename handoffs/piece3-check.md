@@ -508,3 +508,12 @@ the live copy once P3-3 is live.
   say they publish alone with rule 2 on; Tier 3's data line names the migration verbs.
 - Tests: runner.php 67; team-head.cjs 28, roster.cjs 40, runner.cjs 44, tickets.cjs 62, batch.cjs 18. Roll back proved.
 - At send: rebuild after P3-3 and notify-founder are live (`GaugeTasks.php` is in both; `TeamRunner.php`, `faq.md`).
+
+## 15. Jason's answers to the two Decision Briefs (2026-11-25, through the session manager: "A: A, B: B")
+- **Brief A (a staging Publish isn't checked): A.** Jason: "keep staging record publishes in the daily batch for now".
+  A Publish of what Jason makes on staging stays under rule 1 (the daily batch). Revisit it before the Confirmation raise:
+  that's a line to add to `TeamRunner::evidence('confirmation')` (with P3-4 at send, or P3-5).
+- **Brief B (G5's canary): B.** Jason: "verify Decision 0066 via a locked read against live-protected places rather than
+  adding fake test records". To build as **P3-5** (held, like the others): a staging-only locked read that answers
+  hashes of the held names only, never the names; behind the checks' token; StagingGate-safe; tests that include a
+  wrong token being refused. The before-and-after check then looks for those hashes on staging's pages.
