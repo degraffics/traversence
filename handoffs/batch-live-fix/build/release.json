@@ -1,0 +1,15 @@
+{
+  "title": "The Work queue's batch strip says when a batch is live; ?tab= lands on any tab the board has",
+  "why": "Jason, 2026-11-26 (through the session manager): the Development strip still said \"4 releases waiting for your OK\" for a batch he approved in chat and that went live (#293 to #297), and ?tab=development seemed to open the Board. Now each release of the batch that's live is marked \"Live as #N\"; when all are, the strip says \"Every release in it is live\" and asks nothing (no Approve the batch); an older batch that's all live is neither shown nor emailed (ControlGauges::latestBatch, ControlGauges::batchLive); one rolled back asks again. And ?tab= accepts any tab the board draws a part for, or has a button for anywhere on the page, not only a button inside the board, so it never depends on where the side menu puts its buttons (since config-rail, #291). Admin only, no table, no outside call.",
+  "proposals": [],
+  "switch": "",
+  "changes": [
+    {"what": "The batch strip: Live as #N on each release that's live; Every release in it is live, with nothing to approve", "where": "https://traversence.com/admin/config/control?tab=development"},
+    {"what": "?tab=<any of the board's tabs> lands on it", "where": "https://traversence.com/admin/config/control?tab=development"},
+    {"what": "FAQ: the daily batch's answer", "where": "https://traversence.com/faq.php"}
+  ],
+  "checks": {
+    "batch": "tools/team-tests/batch.php 25 on MariaDB (one of two live: one waiting, marked, Approve kept; both live: the older batch gone; today's all live: Every release in it is live, marked, no Approve, green; one rolled back: asks again) and batch.cjs 18 at 1280 and 390",
+    "tabs": "tools/team-tests/tab-land.cjs 18 at 1280 and 390 (?tab=development and #cb-dev land on Development with its rail current; ?tab=deliver, no tab and an unknown tab the Board; ?tab=scheduler and ?tab=alarms still land); board-tabs.cjs 16, tickets.cjs 62, founder.php 17"
+  }
+}
