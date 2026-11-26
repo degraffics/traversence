@@ -8,8 +8,8 @@
    "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
    "why": "P3-3: rule 2 kept by the site",
    "since": "2026-11-26T00:13:47Z",
-   "expires": "2026-11-26T05:59:54Z",
-   "release": "",
+   "expires": "2026-11-26T06:00:24Z",
+   "release": "p3-3-kinds.zip",
    "callers": {}
   },
   {
@@ -19,8 +19,8 @@
    "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
    "why": "P3-3: TIER3_AREAS' data entry names the migration verbs",
    "since": "2026-11-26T01:59:50Z",
-   "expires": "2026-11-26T05:59:52Z",
-   "release": "",
+   "expires": "2026-11-26T06:00:24Z",
+   "release": "p3-3-kinds.zip",
    "callers": {}
   },
   {
@@ -30,8 +30,8 @@
    "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
    "why": "P3-3: rule 2 kept by the site",
    "since": "2026-11-26T01:59:56Z",
-   "expires": "2026-11-26T05:59:56Z",
-   "release": "",
+   "expires": "2026-11-26T06:00:24Z",
+   "release": "p3-3-kinds.zip",
    "callers": {}
   },
   {
@@ -41,8 +41,8 @@
    "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
    "why": "P3-3: rule 2 kept by the site",
    "since": "2026-11-26T01:59:59Z",
-   "expires": "2026-11-26T05:59:59Z",
-   "release": "",
+   "expires": "2026-11-26T06:00:24Z",
+   "release": "p3-3-kinds.zip",
    "callers": {}
   },
   {
@@ -52,8 +52,8 @@
    "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
    "why": "P3-3: rule 2 kept by the site",
    "since": "2026-11-26T02:00:01Z",
-   "expires": "2026-11-26T06:00:01Z",
-   "release": "",
+   "expires": "2026-11-26T06:00:24Z",
+   "release": "p3-3-kinds.zip",
    "callers": {}
   },
   {
@@ -63,8 +63,8 @@
    "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
    "why": "P3-3: rule 2 kept by the site",
    "since": "2026-11-26T02:00:03Z",
-   "expires": "2026-11-26T06:00:03Z",
-   "release": "",
+   "expires": "2026-11-26T06:00:24Z",
+   "release": "p3-3-kinds.zip",
    "callers": {}
   }
  ],
