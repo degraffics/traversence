@@ -151,7 +151,7 @@ Nothing above raises a stage ceiling or the reach fence. Those stay the Founder'
 
 ## Jason's answers (2026-11-26)
 
-1. **The roster is the 32 roles of Jason's specification of 2026-11-26, and only those** (Jason, 2026-11-26: "make sure you are using what I sent you this morning"). Six roles from the earlier Piece 2 roster are not among them: Legal Risk Checker (4), Mission & Brand Integrity Auditor (5), Historian (9), Regional Directory & Data Curator (14), Preflight, Print & Trade Vendor Specialist (18) and AI & Dynamic Guide Quality Auditor (20). They are **retired**: kept as rows for history, never run, never shown as standby. Their duties are carried by the homes in the appendix (for example, directory accuracy by Front-End Content Writers, 26).
+1. **The roster is the 32 roles of Jason's specification of 2026-11-26, and only those** (Jason, 2026-11-26: "make sure you are using what I sent you this morning"). Six roles from the earlier Piece 2 roster are not among them: Legal Risk Checker (4), Mission & Brand Integrity Auditor (5), Historian (9), Regional Directory & Data Curator (14), Preflight, Print & Trade Vendor Specialist (18) and AI & Dynamic Guide Quality Auditor (20). They are **retired**: never run, and **not shown on the Team page at all** (Jason, 2026-11-26). Their rows stay in the database only so past tickets and runs still resolve their names; the mapping lives in this decision's appendix. Their duties are carried by the homes in the appendix (for example, directory accuracy by Front-End Content Writers, 26).
 2. Keep all **12** advocates, A1–A12, including the Staff Views Advocate (#34).
 3. Refunds: 0178 stands. A real refund executes only "with Jason's OK"; the team prepares refund records and fixes.
 
