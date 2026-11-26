@@ -1,6 +1,39 @@
 --- a/app/lib/StagingSite.php
 +++ b/app/lib/StagingSite.php
-@@ -871,7 +871,7 @@
+@@ -90,6 +90,7 @@
+         'listings' => ['DB_LISTINGS_DATABASE', 'DB_LISTINGS_USERNAME', 'DB_LISTINGS_PASSWORD'], 'users' => ['DB_USERS_DATABASE', 'DB_USERS_USERNAME', 'DB_USERS_PASSWORD']];
+ 
+     private static array $conns = [];
++    private static array $connAt = [];   // when each realm's connection was last handed out (conn())
+ 
+     // ---- live's record of staging (main database) --------------------------------------------------------------------
+ 
+@@ -177,13 +178,23 @@
+     /** A connection as one of live's logins (to copy from its database and write to its staging copy). */
+     private static function conn(string $realm): PDO
+     {
+-        if (isset(self::$conns[$realm])) return self::$conns[$realm];
++        // A connection kept from earlier in a long run (staging_carry_tick works up to 55 minutes in one process) may have
++        // been closed by the server while it sat idle: the admin realm's sat through main's whole strip, and the first admin
++        // step met "MySQL server has gone away" (2026-11-26, "strip admin admin_access"). Idle a while: asked first, and
++        // made again when the server has dropped it.
++        if (isset(self::$conns[$realm])) {
++            if (time() - (self::$connAt[$realm] ?? 0) < 20) { self::$connAt[$realm] = time(); return self::$conns[$realm]; }
++            try { @self::$conns[$realm]->query('SELECT 1'); self::$connAt[$realm] = time(); return self::$conns[$realm]; }
++            catch (Throwable $e) { unset(self::$conns[$realm]); error_log('staging: the ' . $realm . ' connection had closed (' . $e->getMessage() . '); made again'); }
++        }
+         $l = self::liveDbs()[$realm] ?? null;
+         if (!$l) throw new RuntimeException('The live ' . $realm . ' database isn\'t set up in .env.');
+         Database::readEnv();
+         $dsn = 'mysql:host=' . (getenv('DB_HOST') ?: 'localhost') . ';port=' . (getenv('DB_PORT') ?: '3306') . ';dbname=' . $l[0] . ';charset=utf8mb4';
+         $pdo = new PDO($dsn, $l[1], $l[2], [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC, PDO::ATTR_EMULATE_PREPARES => false]);
+         $pdo->exec("SET SESSION sql_mode = REPLACE(REPLACE(@@sql_mode, 'NO_ZERO_DATE', ''), 'NO_ZERO_IN_DATE', '')");   // old rows with zero dates copy as they are
++        try { $pdo->exec('SET SESSION wait_timeout = 3600'); } catch (Throwable) {}   // an hour idle, as long as the job runs; the check above covers a server that won't
++        self::$connAt[$realm] = time();
+         return self::$conns[$realm] = $pdo;
+     }
+ 
+@@ -871,7 +882,7 @@
              error_log('staging refresh (' . $step . '): ' . $e->getMessage());
              $r['finished_at'] = date('c'); $r['ok'] = false; unset($r['salt']);
              $why = $e instanceof PDOException ? 'the database refused (' . $e->getMessage() . '). Pressing Set up staging again gives each login its databases again' : ($e instanceof RuntimeException ? $e->getMessage() : 'an error (it\'s in the error log)');
@@ -9,7 +42,7 @@
              $r['log'][] = $r['message'];
              self::put($pdo, 'refresh', $r);
              self::tellDone($pdo, $r);
-@@ -1009,6 +1009,8 @@
+@@ -1009,6 +1020,8 @@
                  require_once __DIR__ . '/StagingSync.php';
                  [, $realm, $t] = $s;
                  $m = (array) self::get($pdo, 'mirror');
@@ -18,7 +51,7 @@
                  if (!isset($m['trig'][$realm])) { $m['trig'][$realm] = ['staging' => StagingSync::canTrigger($realm, 'staging'), 'live' => StagingSync::canTrigger($realm, 'live')]; self::put($pdo, 'mirror', $m); }
                  if ($m['trig'][$realm]['staging']) StagingSync::stagingTriggers($realm, $t);
                  if ($m['trig'][$realm]['live']) StagingSync::outboxTriggers($realm, $t);
-@@ -1258,9 +1260,37 @@
+@@ -1258,9 +1271,37 @@
          return 'Staging starts over once (a fresh copy of live, a few minutes), then keeps caught up from live. You get an email when it\'s done.';
      }
  
@@ -56,7 +89,7 @@
      /** Staging runs its own scheduled jobs (decisions/0165 §1), shipped off: live's cPanel adds staging's copy of each. */
      public static function jobs(PDO $pdo, bool $on, int $uid): string
      {
-@@ -1349,7 +1379,7 @@
+@@ -1349,7 +1390,7 @@
                                    s.is_suspended = l.is_suspended, s.email_verified_at = l.email_verified_at, s.created_at = l.created_at WHERE l.id IN (' . implode(',', array_map('intval', $users)) . ')');
              self::resealStaff($pdo, $setup);
              return 'Staging has the same new sign-ins (test accounts made since its last refresh come with the next).';
