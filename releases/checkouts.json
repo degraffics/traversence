@@ -14,14 +14,12 @@
   },
   {
    "path": "app/lib/TeamRunner.php",
-   "functions": [
-    "touches"
-   ],
+   "functions": [],
    "kind": "change",
    "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
-   "why": "P3-3: Tier 3 by what a migration does (Jason, 2026-11-25), approved 2026-11-26",
+   "why": "P3-3: TIER3_AREAS' data entry names the migration verbs",
    "since": "2026-11-26T01:59:50Z",
-   "expires": "2026-11-26T05:59:50Z",
+   "expires": "2026-11-26T05:59:52Z",
    "release": "",
    "callers": {}
   }
