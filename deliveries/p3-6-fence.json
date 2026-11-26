@@ -1,0 +1,46 @@
+{
+ "zip": "p3-6-fence.zip",
+ "built_on": "5278088 Sync: 2026-11-26 02:28 UTC",
+ "recorded": "2026-11-26 02:33 UTC",
+ "note": "P3-6: the fence (Backend only) and agents' backend releases live after the advocates' check; its switch turns before_after on through the release's steps; approved by Jason 2026-11-26; built on Sync: 2026-11-26 02:28 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/control-console.php": {
+   "sha256": "4c3c96e1ff6f59d4227de9285de6785f7da7cf180da7d7d32b4c4dd89b5b3b9d",
+   "live": false
+  },
+  "app/admin/team-console.php": {
+   "sha256": "195492cd7ab3f19ead2b2d2f1f78d7d2b00eac4440776731f03d25ec024dcc80",
+   "live": false
+  },
+  "app/lib/ControlGauges.php": {
+   "sha256": "d8810082810eb3a6ffb3f52218f9b5cd5a00d524986b531dee68ab66da7da522",
+   "live": false
+  },
+  "app/lib/GaugeTasks.php": {
+   "sha256": "5e060a17b845d70bfeb75c27520685d243a55dd4b36cdf649ae5dc51f7b7581e",
+   "live": false
+  },
+  "app/lib/Releases.php": {
+   "sha256": "d231386e68df4b576af09aa2e8f76a68de770a80bbc63eb239e64f3156eb3e69",
+   "live": false
+  },
+  "app/lib/TeamRunner.php": {
+   "sha256": "bd9804e86792e82a08d547ab03d071ea667ba42701271cdb0eac86ec62a47ee8",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "b646973350e1b783c454a097a4d439dcd7344c926418bf2dfb067ac76cfef693",
+   "live": false
+  },
+  "website/admin/api.php": {
+   "sha256": "679b7065f8503cc74fa78b66c26c4ca1758a3eb5d87d0add3568b9dd9a6749ce",
+   "live": false
+  },
+  "website/js/admin-control.js": {
+   "sha256": "ae48ff60316e8401ef75658bf47a96d6879c4deb8785eab360976676be93f10d",
+   "live": false
+  }
+ }
+}

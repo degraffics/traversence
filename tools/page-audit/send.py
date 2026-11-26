@@ -85,6 +85,52 @@ def guard(a, name, plan, z):
             sys.exit(p + ' changes data (UPDATE/DELETE): release.json needs "data_reason" (decisions/0162).')
 
 
+def fence_check(zpath, mirror, ticket):
+    """The fence (P3-6; decisions/0179's note "agents work on the backend first"): a build for an agent's brief, while the
+    site's Team says Implementation reaches Backend only (build-requests.json's "fence" for the ticket; Backend only when it
+    isn't there), must reach no public page (reach.py on the live mirror). Refused: nothing is sent, the refusal is kept in
+    releases/fence-refusals.json, and gauges.py carries it to the site, which puts the ticket back at its brief for the Founder."""
+    try:
+        reqs = json.load(open(os.path.join(DOCS, 'site-audit', 'results', 'build-requests.json'))).get('requests', [])
+    except Exception:
+        reqs = []
+    req = next((r for r in reqs if int(r.get('id', 0) or 0) == ticket), None)
+    if req is None:
+        sys.exit(f'Ticket #{ticket} isn\'t in build-requests.json: a build for an agent\'s brief starts from its request there.')
+    if req.get('brief_to') == 'founder':
+        sys.exit(f'Ticket #{ticket}\'s brief waits for the Founder (front end, behind the fence): it isn\'t a build session\'s to send.')
+    try:
+        rj = json.loads(zipfile.ZipFile(zpath).read('release.json'))
+    except Exception:
+        rj = {}
+    if int(rj.get('team_ticket') or 0) != ticket:
+        sys.exit(f'release.json needs "team_ticket": {ticket}: the site reads it to hold an agent\'s release to the advocates\' check and the backend (P3-6).')
+    if (req.get('fence') or 'backend') == 'everywhere':
+        print('The fence: the Team says Implementation reaches Everywhere: not checked.')
+        return
+    sys.path.insert(0, HERE)
+    import reach
+    z = zipfile.ZipFile(zpath)
+    names = [n for n in z.namelist() if not n.endswith('/') and n != 'release.json']
+    out = reach.fence(mirror, names, {n: z.read(n).decode('utf-8', 'replace') for n in names if n.endswith('.sql')})
+    if not out:
+        print(f'The fence: every file stays in the backend (ticket #{ticket}).')
+        return
+    reason = '; '.join(f + ' reaches ' + ', '.join(p[:3]) for f, p in list(out.items())[:4])
+    rf = os.path.join(DOCS, 'releases', 'fence-refusals.json')
+    try:
+        d = json.load(open(rf))
+    except Exception:
+        d = {'note': 'Builds refused at the fence (P3-6): send.py --team-ticket writes them; gauges.py carries them to the site, which puts each ticket back at its brief for the Founder.', 'refusals': []}
+    import datetime
+    d['refusals'] = [r for r in d.get('refusals', []) if not (r.get('ticket') == ticket and r.get('zip') == os.path.basename(zpath))]
+    d['refusals'].append({'ticket': ticket, 'zip': os.path.basename(zpath), 'reason': reason[:300], 'at': datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')})
+    json.dump(d, open(rf, 'w'), indent=1)
+    open(rf, 'a').write('\n')
+    sys.exit(f'Refused at the fence: the Team says Implementation reaches Backend only, and this build reaches a public page ({reason[:400]}). '
+             f'Nothing was sent; ticket #{ticket} goes back to its brief for the Founder (releases/fence-refusals.json: commit it, and run gauges.py).')
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('zip')
@@ -94,6 +140,7 @@ def main():
     ap.add_argument('--session', default='')
     ap.add_argument('--callers-checked', default='')
     ap.add_argument('--allow-pending', default='', help="pending zips (by name) this one is built on, e.g. a release of yours whose files the sync put back")
+    ap.add_argument('--team-ticket', type=int, default=0, help='P3-6: the Work queue ticket whose agent brief this build is; behind the fence (Backend only) a zip that reaches a public page is refused and the ticket goes back to its brief')
     a = ap.parse_args()
     name = os.path.basename(a.zip)
     if not name.endswith('.zip') or not all(c.isalnum() or c in '._-' for c in name):
@@ -109,6 +156,8 @@ def main():
             print('Warning: release.json has no "changes" list ([{"what": "a few words", "where": "where to look"}]): the review email falls back to "why" split into its numbered parts.')
         guard(a, name, plan, z)
     take_claims(a, name)
+    if a.team_ticket:
+        fence_check(a.zip, a.mirror, a.team_ticket)
     check = [sys.executable, os.path.join(HERE, 'zipcheck.py'), a.zip, '--mirror', a.mirror, '--docs', DOCS] + (['--drops', a.drops] if a.drops else []) \
         + (['--session', a.session] if a.session else []) + (['--callers-checked', a.callers_checked] if a.callers_checked else []) \
         + (['--allow-pending', a.allow_pending] if a.allow_pending else [])
