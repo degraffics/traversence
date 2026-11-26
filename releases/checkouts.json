@@ -8,8 +8,8 @@
    "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
    "why": "P3-5: TIER3_AREAS nations names HeldNames and its read (0066)",
    "since": "2026-11-26T02:17:55Z",
-   "expires": "2026-11-26T06:17:55Z",
-   "release": "",
+   "expires": "2026-11-26T06:18:35Z",
+   "release": "p3-5-held.zip",
    "callers": {}
   },
   {
@@ -19,8 +19,8 @@
    "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
    "why": "P3-5: the held names as keyed hashes",
    "since": "2026-11-26T02:17:57Z",
-   "expires": "2026-11-26T06:17:57Z",
-   "release": "",
+   "expires": "2026-11-26T06:18:35Z",
+   "release": "p3-5-held.zip",
    "callers": {}
   },
   {
@@ -30,8 +30,8 @@
    "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
    "why": "P3-5: staging-only locked read",
    "since": "2026-11-26T02:17:59Z",
-   "expires": "2026-11-26T06:17:59Z",
-   "release": "",
+   "expires": "2026-11-26T06:18:35Z",
+   "release": "p3-5-held.zip",
    "callers": {}
   }
  ],
