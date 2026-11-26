@@ -59,6 +59,17 @@
    "expires": "2026-11-26T06:23:20Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/GaugeTasks.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "notify-founder: the site emails the Founder itself (approved 2026-11-26)",
+   "since": "2026-11-26T02:23:22Z",
+   "expires": "2026-11-26T06:23:22Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
