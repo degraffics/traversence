@@ -3,88 +3,88 @@
  "built_on": "98a782a Sync: 2026-11-26 20:34 UTC",
  "recorded": "2026-11-26 20:37 UTC",
  "note": "decisions/0180 R1: the five tiers and the Team (32 roles, 12 advocates, all active; #1459, #1460), the check paused (0179's 18:30 note). Built on Sync: 20:34 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "45926f0 Sync: 2026-11-26 21:32 UTC",
  "files": {
   "app/admin/Access.php": {
    "sha256": "84741b473a809ec5b252d3c3f94826149e8a287504e09490cd8c307ee5529e58",
-   "live": false
+   "live": true
   },
   "app/admin/control-console.php": {
    "sha256": "22b9397dd15394fefbad741561fcd6ba56b11e2639fe687b7c173a039fe602d8",
-   "live": false
+   "live": true
   },
   "app/admin/team-console.php": {
    "sha256": "fbf77f55e8ac350d2cd6ae9576b0de687a23eee9dd1fabcf1b4c342d26236384",
-   "live": false
+   "live": true
   },
   "app/admin/tools.php": {
    "sha256": "708e00d10c081aa329655cf24d0eb1ca7e2973d382ce9eaddc508c309de14ade",
-   "live": false
+   "live": true
   },
   "app/lib/ControlGauges.php": {
    "sha256": "905852d417de4bc9049438fc1a077ac8a9fcea314e09907234735e0eef7847c5",
-   "live": false
+   "live": true
   },
   "app/lib/FounderMail.php": {
    "sha256": "82a9004265f865db8380b4a12dc1509690e0ea18d3b7edea3f57969d55cd0a1d",
-   "live": false
+   "live": true
   },
   "app/lib/GaugeTasks.php": {
    "sha256": "ca836f9c4dd8c5f4153e5586268f138fbca884b5f4e682299991976a4fc083d4",
-   "live": false
+   "live": true
   },
   "app/lib/Notify.php": {
    "sha256": "68161ddcc23f4fa6aad14bb5058fdc4393df4f27fc69c494840dcfead60c9969",
-   "live": false
+   "live": true
   },
   "app/lib/ReleaseKind.php": {
    "sha256": "e719c5f09b66a5b719325325f722cb20d700ded34a8fa75a68077994c54b7b0c",
-   "live": false
+   "live": true
   },
   "app/lib/Releases.php": {
    "sha256": "6e255907487dcc7f3eb6224b99d19322da54e04174ed445dae12bcda2450b732",
-   "live": false
+   "live": true
   },
   "app/lib/Staging.php": {
    "sha256": "5906ed0934124722a43fb597c33f75dc8f37c7b3a63f0a782b06bb9651ad11da",
-   "live": false
+   "live": true
   },
   "app/lib/StagingPublish.php": {
    "sha256": "b221c8e9b712df2e3e21b58804ca78744fd0ab5610ba282634e43894f61b1c9b",
-   "live": false
+   "live": true
   },
   "app/lib/StagingSite.php": {
    "sha256": "055bc62152c6f33af47327a2332468e06187fd83d6b4c1494f180de0396c97cf",
-   "live": false
+   "live": true
   },
   "app/lib/StagingSync.php": {
    "sha256": "673c7cc549d912f3bf17991c1a00fe0c7d75c909dce464b02b2cb7e9b355d291",
-   "live": false
+   "live": true
   },
   "app/lib/TeamRoster.php": {
    "sha256": "289d90d140da4c61801288b38439460c6d8e283ed09e80d877037b27f4e5d878",
-   "live": false
+   "live": true
   },
   "app/lib/TeamRunner.php": {
    "sha256": "f9e2b9baf3eeabb7d30060de9c555b2e966c4c31ddbcce6bc99f4442d5ec6f18",
-   "live": false
+   "live": true
   },
   "app/migrations/2026-11-26_0180_tiers_roster.sql": {
    "sha256": "e436812872c5886f01a72605ddffb9d3777bee76e2f5ed372eb71ca9eb54ed71",
-   "live": false
+   "live": true
   },
   "app/rollbacks/2026-11-26_0180_tiers_roster.sql": {
    "sha256": "eb97b624b420f74db6b4deeecfc98aac2d39618fdf7fa5d28a5e45c2d983da66",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "2b8be85b72b87a9bf990c643e2069a36dc6dc97c7127bae057f6fd018da0df0a",
-   "live": false
+   "live": true
   },
   "website/admin/api.php": {
    "sha256": "e5e9257952e51b71bcd384ea27dcfd0e19ce1023660b36316df07864d3301ee2",
-   "live": false
+   "live": true
   }
  }
 }
