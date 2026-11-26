@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-25T23:39:06Z",
+ "generated_at": "2026-11-26T00:34:12Z",
  "version": 2,
  "generated_by": "tools/page-audit/gauges.py",
  "note": "The gauges' configuration (handoffs/control-board-plan/step3/sections/gauge-lifecycle.md), compact: the site computes every stage from it (app/lib/ControlGauges.php); each gauge's detail is in gauges-items.json.",
@@ -3796,33 +3796,42 @@
   ]
  },
  "batch": {
-  "date": "2026-11-25",
+  "date": "2026-11-26",
   "lines": [
    {
-    "release": "P3-1 (repo tools, no site files)",
-    "what": "The before-and-after check's tools: each advocate's view of the pages a change touches, before and after, at 1280 and 390, judged on 0179's four rules; the reach map; the GitHub workflow",
-    "why": "Piece 3: the check that lets Tier 1 and 2 publish alone later",
-    "decision": "0179 (Piece 3 note, DB1–DB4)",
-    "checks": "19 + 9 tests; changes nothing on the site by itself",
-    "way_back": "Revert the merge",
+    "release": "p3-3-kinds.zip",
+    "what": "Tier 1 and Tier 2 releases publish alone once staging's checks and the before-and-after check pass, each with Undo on \"Published alone today\"; a Tier 3 release waits with one Decision Brief. Add-only migrations count as safe additive; UPDATE, DELETE, DROP, MODIFY, RENAME, TRUNCATE or CHANGE are Tier 3; an INSERT waits as a data fix. Ships switched off (rule2_autopublish)",
+    "why": "Jason, 2026-11-25: Tier 2 publishes on its own once Piece 3 is live (A); the add-only migration ruling",
+    "decision": "0179 rule 2 and its notes",
+    "checks": "kind 35, rule2 17, audit 34, pipeline 22, roster 51",
+    "way_back": "Roll back on the Releases page (proved, leaves nothing); the switch stays off until you turn it on",
     "tickets": []
    },
    {
-    "release": "p3-2-check.zip",
-    "what": "The check's site side: a release waits for its before look, the verdict joins its checks, a block withdraws it and opens an Audit ticket; the Staff Views advocate (34 roles); shipped switched off",
-    "why": "Piece 3, DB2, DB4, Staff Views yes",
-    "decision": "0179 (Piece 3 note)",
-    "checks": "22 pipeline tests with GitHub stubbed; staging unit 65; Roll back proved",
-    "way_back": "Roll back on the Releases page; the switch 'The before-and-after check' turns it off",
+    "release": "p3-4-agents.zip",
+    "what": "Undo on every agent action; a monthly spending limit per role ($0); what each ceiling unlocks when you raise it (Building: the Project Manager takes audit-raised tickets; Implementation: build briefs go straight to a build session); Confirmation's evidence, including Brief A's line. Agents stay at Planning until you approve the decision tree",
+    "why": "0179's \"What comes next\" and the STEP_AT/CEILINGS ruling, 2026-11-25",
+    "decision": "0179, how the Team's capacity grows",
+    "checks": "runner 67; rendered at 1280 and 390: team-head 28, roster 40, runner 44, tickets 62, batch 18",
+    "way_back": "Roll back (proved, leaves nothing)",
     "tickets": []
    },
    {
-    "release": "config-rail.zip",
-    "what": "System Configuration's Development, Board, Workflows, Services and Team listed in the left-hand menu, the open one marked, greyed with why when a role can't open it; the dropdown stays",
-    "why": "Jason, 2026-11-25: \"Development, board, workflow, services, team\"",
-    "decision": "0109 (the admin), 0179",
-    "checks": "20 rendered checks at 1280 and 390; Roll back proved",
-    "way_back": "Roll back on the Releases page",
+    "release": "TIER 3 (0066): p3-5-held.zip",
+    "what": "Staging only: a locked read of the names the site holds back on tribal land, as keyed hashes only, never the names. The before-and-after check blocks any release that makes one appear on a page; if the names can't be read, the verdict is incomplete, never a pass. Answers 404 on live",
+    "why": "Jason's Brief B, 2026-11-25: 0066 proved by a locked, staging-only, hashes-only read; no fake test landmark",
+    "decision": "0066; 0179 Brief B. Decision Brief: A, send it (recommended: it only reads, adds a protection and exposes nothing); B, hold it, and the check can't prove 0066",
+    "checks": "held 14 (wrong token refused, 404 on live), beforeafter 24, runner 48, team-head 28",
+    "way_back": "Roll back for the zip, and revert the repo side's merge; nothing left behind",
+    "tickets": []
+   },
+   {
+    "release": "notify-founder.zip",
+    "what": "The site emails you, and only you, through its own Notify: a batch waiting, each Tier 3 decision when it reaches you, and the session manager's messages, each once, never from staging. The strip shows the latest batch until it's approved, so it no longer disappears at midnight UTC or waits an hour",
+    "why": "Jason, 2026-11-25: \"Can you use the system for emailing?\"",
+    "decision": "0172, 0176, 0179 rule 1 (P2-5). Approving this batch counts as \"Approve notify\"",
+    "checks": "founder 17, batch 21, batch rendered 18",
+    "way_back": "Roll back (its founder_mail_sent table stays, empty of anything private)",
     "tickets": []
    }
   ]
