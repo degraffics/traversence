@@ -1,0 +1,22 @@
+{
+ "zip": "config-rail.zip",
+ "built_on": "16caf39 Sync: 2026-11-25 18:38 UTC",
+ "recorded": "2026-11-26 00:10 UTC",
+ "note": "config-rail: System Configuration's pages (Development, Board, Workflows, Services, Team) in the side menu (Jason, 2026-11-25), approved in the daily batch of 2026-11-25; built on Sync: 2026-11-25 18:38 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/ui/app-shell.php": {
+   "sha256": "54766fa0a3b16d760bead54f043bd400ce94f4a5a161b10a34174843c0940b25",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "7052943c6be755f26b227f3b47462388e05aa63ce9e1c4bdfb8f7ca10286d1e8",
+   "live": false
+  },
+  "app/ui/section-rails.php": {
+   "sha256": "58a0b1044780a7eb92aaf948df6f2843f940e9f2bbf2cebf8f92ca0c6112db7d",
+   "live": false
+  }
+ }
+}
