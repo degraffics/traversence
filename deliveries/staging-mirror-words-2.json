@@ -1,0 +1,26 @@
+{
+ "zip": "staging-mirror-words-2.zip",
+ "built_on": "8fb387d Sync: 2026-11-26 02:36 UTC",
+ "recorded": "2026-11-26 09:08 UTC",
+ "note": "staging-mirror-words-2: #299's build again (withdrawn at 03:36 by staging's 503 from the stopped copy; staging's refreshing flag has since aged out). Same 4 files. Admin only, on the session manager's OK 09:05 UTC. Built on Sync: 02:36 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/sections.php": {
+   "sha256": "88a7d6f60127cfa2cfcde2a81a8cfd41f54575d059fe1f909acb6f62c60269cf",
+   "live": false
+  },
+  "app/lib/StagingApi.php": {
+   "sha256": "e6418146848df734db0c1a91c5b03dbfbc3f16f1f36e3608c04c8e7ad045e28d",
+   "live": false
+  },
+  "app/lib/StagingPublish.php": {
+   "sha256": "9bc084cb3b56a833aa95921329096335f0a64790f56c775918764403060aaa30",
+   "live": false
+  },
+  "app/lib/StagingSite.php": {
+   "sha256": "f7477bc82685c80698e3d864dfa27b751d084558e6765c4e5dc03a484e7fbd70",
+   "live": false
+  }
+ }
+}
