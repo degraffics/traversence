@@ -13,6 +13,17 @@
    "expires": "2026-11-26T06:23:12Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/Scheduler.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
+   "why": "notify-founder: the site emails the Founder itself (approved 2026-11-26)",
+   "since": "2026-11-26T02:23:14Z",
+   "expires": "2026-11-26T06:23:14Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
