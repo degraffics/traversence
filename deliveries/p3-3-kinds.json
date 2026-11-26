@@ -3,36 +3,36 @@
  "built_on": "73d75b3 Sync: 2026-11-26 01:42 UTC",
  "recorded": "2026-11-26 02:00 UTC",
  "note": "P3-3: Tier 1 and 2 publish alone behind rule2_autopublish (off), add-only migrations; approved by Jason 2026-11-26; built on Sync: 2026-11-26 01:42 UTC Sent through git (releases/inbox).",
- "status": "pending",
- "live_in": "",
+ "status": "live",
+ "live_in": "8f4feb3 Sync: 2026-11-26 02:04 UTC",
  "files": {
   "app/admin/control-console.php": {
    "sha256": "6e4f0a89730821b1cbecdf6dce834ceababd73c2afa40c803dd3685e5d63c17e",
-   "live": false
+   "live": true
   },
   "app/lib/ReleaseKind.php": {
    "sha256": "2262e20729be88da9ca726de6c446423edf50eb9818609bf49057a7e02248737",
-   "live": false
+   "live": true
   },
   "app/lib/Releases.php": {
    "sha256": "daaa91b6f4b1e5d286fb640e7e1909d86ca41998369f8f4b43efa339b892ef09",
-   "live": false
+   "live": true
   },
   "app/lib/Switches.php": {
    "sha256": "bc5b3d9301234b56355d3045a649797f38388550a0e126983b07bb975595acfe",
-   "live": false
+   "live": true
   },
   "app/lib/TeamRunner.php": {
    "sha256": "1837c71bdf90be9c0f8052ebceb8ea1bd8637e5b58ff5ebf271852b071d5dae8",
-   "live": false
+   "live": true
   },
   "app/ui/faq.md": {
    "sha256": "7bcd659e516da3602fc1d89b34e054f179f1feac15a35dcd40cb037bcedac5fb",
-   "live": false
+   "live": true
   },
   "website/js/admin-control.js": {
    "sha256": "16a88d9106cc73df4184b6d56769275e09679110d9c45bc80e65563d254d0193",
-   "live": false
+   "live": true
   }
  }
 }
