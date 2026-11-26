@@ -6,7 +6,7 @@
     "zip": "ba-proof-fixes-3.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "staged",
+    "state": "withdrawn",
     "step": 0,
     "paused": false,
     "urgent": null,
@@ -34,9 +34,9 @@
     },
     "migrations": [],
     "checks": {
-        "ok": true,
+        "ok": false,
         "where": "staging",
-        "at": "2026-11-26T17:24:06+00:00",
+        "at": "2026-11-26T18:24:02+00:00",
         "items": [
             [
                 "PHP files parse",
@@ -52,9 +52,14 @@
                 "No new fatal errors in the logs",
                 true,
                 "4 logs read"
+            ],
+            [
+                "Before and after (advocates)",
+                false,
+                "3 problems: Out-of-scope drift: This page changed, and the change doesn't name it (executive, /admin/helper.php, desktop) · https://github.com/degraffics/traversence/actions/runs/45870768438"
             ]
         ],
-        "first_fail": ""
+        "first_fail": "Before and after (advocates): 3 problems: Out-of-scope drift: This page changed, and the change doesn't name it (executive, /admin/helper.php, desktop) · https://github.com/degraffics/traversence/actions/runs/45870768438"
     },
     "log": [
         {
@@ -91,6 +96,16 @@
             "at": "2026-11-26T17:48:04+00:00",
             "by": 0,
             "msg": "On staging and its checks passed; the advocates look again now (the before-and-after check)."
+        },
+        {
+            "at": "2026-11-26T18:24:02+00:00",
+            "by": 0,
+            "msg": "The before-and-after check: blocked it: Out-of-scope drift: This page changed, and the change doesn't name it (executive, /admin/helper.php, desktop)"
+        },
+        {
+            "at": "2026-11-26T18:24:02+00:00",
+            "by": 0,
+            "msg": "Withdrawn by itself: its checks on staging failed (Before and after (advocates): 3 problems: Out-of-scope drift: This page changed, and the change doesn't name it (executive, /admin/helper.php, desktop) · https://github.com/degraffics/traversence/actions/runs/45870768438). Nothing on the live site changed; the session that built it sends a fixed build (3 files back to live's copy on staging)."
         }
     ]
 }
