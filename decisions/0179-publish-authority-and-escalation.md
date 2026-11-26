@@ -167,3 +167,7 @@ can see them work before we point them on the front end." And: "Admin does count
     batch.
   - Front-end tickets still stop at the brief, and Tier 3 still stops for a Decision Brief.
   - Raising the ceiling stays Jason's own press on the Team page (approve the decision tree, then Implementation).
+- **The decision tree approved in chat** (Jason, 2026-11-26, about 03:30 UTC: "Approve tree", after reading
+  `decision-tree.md` drawn from the live code at Sync 02:36 UTC). The approval that counts is his press of
+  **Approve the decision tree** on the Team page with his Founder login, which ties it to the rules' fingerprint. No
+  release in flight changes those rules.
