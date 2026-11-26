@@ -589,6 +589,7 @@ final class GaugeTasks
         $r = self::open($pdo, $id);
         if (($r['ticket'] ?? '') !== 'resolution') throw new RuntimeException('Only a Resolution ticket has a brief.');
         $msg = self::move($pdo, $id, 'waiting', $who, 'the brief is ready', $tz);
+        if (str_starts_with($msg, 'Moved')) { try { require_once __DIR__ . '/FounderMail.php'; FounderMail::decision($pdo, $id); } catch (Throwable $x) { error_log('FounderMail decision: ' . $x->getMessage()); } }   // the site emails the Founder (2026-11-25)
         return str_starts_with($msg, 'Moved') ? 'Sent: it waits for the Founder\'s answer, in the daily summary and here.' : $msg;
     }
 

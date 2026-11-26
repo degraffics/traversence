@@ -1527,12 +1527,11 @@ function tv_cb_wq_brief(PDO $pdo, array $r, bool $closed): string
 function tv_cb_wq_batch(PDO $pdo, array $active): string
 {
     $e = 'tv_w_e';
-    $b = []; try { $b = (array) (ControlGauges::config($pdo)['batch'] ?? []); } catch (Throwable $x) {}
+    $b = []; try { $b = ControlGauges::latestBatch($pdo); } catch (Throwable $x) {}   // today's, or the latest while it waits for its OK
     $waits = array_values(array_filter($active, fn ($t) => $t['state'] === 'waiting')); $wait = count($waits);
-    if (($b['date'] ?? '') !== gmdate('Y-m-d')) $b = [];   // only today's batch (the session manager writes one a day, UTC)
     $lines = (array) ($b['lines'] ?? []); $date = (string) ($b['date'] ?? '');
     $head = ($b ? ($lines ? count($lines) . ' release' . (count($lines) === 1 ? '' : 's') . ' waiting for your OK' : 'No releases waiting') : 'No batch from the session manager today') . ($wait ? ' · ' . $wait . ' decision' . ($wait === 1 ? '' : 's') . ' waiting for you' : '');
-    $h = '<div class="wq-batch"><p data-tv-status="' . ($lines || $wait ? 'bad' : 'info') . '" data-tv-keep data-tv-label="Today\'s batch' . ($date !== '' ? ' (' . $e(date('M j', (int) strtotime($date))) . ')' : '') . ':">' . $e($head) . '</p>';   // it carries the day's tasks: no × (CLAUDE.md, lines that carry tasks)
+    $h = '<div class="wq-batch"><p data-tv-status="' . ($lines || $wait ? 'bad' : 'info') . '" data-tv-keep data-tv-label="' . ($date !== '' && $date !== gmdate('Y-m-d') ? 'The latest batch' : 'Today\'s batch') . ($date !== '' ? ' (' . $e(date('M j', (int) strtotime($date))) . ')' : '') . ':">' . $e($head) . '</p>';   // it carries the day's tasks: no × (CLAUDE.md, lines that carry tasks)
     if ($waits) {   // the Tier 3 decisions waiting for the Founder, first (decisions/0179: Tier 3 always comes to them)
         $h .= '<ul class="wq-bl wq-bw">';
         foreach ($waits as $t) $h .= '<li><b>Decision for you</b> · <a href="#wq-' . (int) $t['id'] . '" class="wq-btk">#' . (int) $t['id'] . '</a> ' . $e((string) $t['what']) . '</li>';

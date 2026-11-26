@@ -112,6 +112,21 @@ final class ControlGauges
         }
     }
 
+    /**
+     * The batch to show and send (decisions/0179 rule 1; P2-5): today's, or the latest one while it isn't approved and no newer
+     * one replaces it (the session manager, 2026-11-26: a batch merged late in the UTC day, with the hour's cache, never showed;
+     * the Founder has to see it to approve it). [] when there's none to show.
+     */
+    public static function latestBatch(PDO $pdo, ?array $cfg = null): array
+    {
+        $b = (array) (($cfg ?? self::config($pdo))['batch'] ?? []);
+        $d = (string) ($b['date'] ?? '');
+        if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $d) || $d > gmdate('Y-m-d')) return [];
+        if ($d === gmdate('Y-m-d')) return $b;
+        try { require_once __DIR__ . '/GaugeTasks.php'; if (!empty(GaugeTasks::approvals($pdo)['area:batch-' . $d]['batch'])) return []; } catch (Throwable $x) { return []; }
+        return $b;
+    }
+
     private static ?array $opened = null;
     private static function opened(PDO $pdo): array
     {
@@ -178,7 +193,7 @@ final class ControlGauges
         return ['ok' => true, 'at' => mb_substr((string) ($d['generated_at'] ?? ''), 0, 30), 'from' => $from, 'read_at' => time(), 'error' => '', 'kept' => false,
                 'parts' => is_array($d['parts'] ?? null) ? $d['parts'] : [],
                 'pickups' => is_array($d['pickups'] ?? null) ? $d['pickups'] : [],   // request id => [session, release] (gauge-pickups.json)
-                'batch' => self::batchOf($d['batch'] ?? null), 'answers' => array_values(array_filter((array) ($d['answers'] ?? []), 'is_array')),   // the daily batch and the Founder's emailed answers, from the session manager (Piece 2, P2-5)
+                'batch' => self::batchOf($d['batch'] ?? null), 'answers' => array_values(array_filter((array) ($d['answers'] ?? []), 'is_array')), 'messages' => array_values(array_filter((array) ($d['messages'] ?? []), 'is_array')),   // the session manager's messages for the Founder (FounderMail)   // the daily batch and the Founder's emailed answers, from the session manager (Piece 2, P2-5)
                 // the fence (P3-6): the live mirror's backend-only files (reach.py --fence-map) and the builds refused as front end
                 'fence' => ['at' => (string) ($d['fence']['at'] ?? ''), 'backend' => array_values(array_filter((array) ($d['fence']['backend'] ?? []), 'is_string'))],
                 'fence_refusals' => array_values(array_filter((array) ($d['fence_refusals'] ?? []), 'is_array')),
