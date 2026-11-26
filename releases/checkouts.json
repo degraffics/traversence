@@ -16,19 +16,12 @@
   },
   {
    "path": "app/lib/TeamRunner.php",
-   "functions": [
-    "applies",
-    "evidence",
-    "ruleData",
-    "run",
-    "setCeiling",
-    "undo"
-   ],
+   "functions": [],
    "kind": "change",
    "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
-   "why": "P3-4: Undo on every action, spending, Building and Implementation",
+   "why": "P3-4: CEILINGS and STEP_COST",
    "since": "2026-11-26T02:13:50Z",
-   "expires": "2026-11-26T06:13:50Z",
+   "expires": "2026-11-26T06:13:52Z",
    "release": "",
    "callers": {}
   }
