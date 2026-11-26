@@ -1,0 +1,49 @@
+{
+    "id": 294,
+    "title": "The Team's Confirmation stage: Undo on every agent action, a spending limit per agent (Piece 3, P3-4)",
+    "why": "decisions/0179's \"What comes next\" (Undo on every agent action, a spending limit per agent) and its note \"How the Team's capacity grows\" §3 (Confirmation and safe publish). A runner step that did something without its Undo is recorded refused, so a step that can't be undone only proposes. Each role has a monthly spending limit ($0 unless the Founder sets one; every step costs $0, Q4 B), checked before each step. Confirmation opens to the Founder's raise once the before-and-after check and rule 2 are both on, with five evidence lines (releases checked, blocks that were wrong, escapes, Undo end to end, ready). The step costs join the decision tree's rules, so its fingerprint changes and any approval is asked again. With Jason's rulings, 2026-11-25 (through the session manager): at Building the Project Manager acts and also takes the tickets the audit raised itself (an Audit ticket, or one whose parent is), with its Undo giving it back to nobody; a ticket a person entered still waits for Give it to the Team. At Implementation the System Architect's build brief goes straight to a build session through the report (build-requests.json's brief_to \"build\"; before that, \"session manager\"). The CEILINGS' words say exactly that; the brief step only ever proposes. The decision tree says \"A wording fix keeps your approval\", and its Tier 1 and Tier 2 lines say they publish alone once rule 2 is on. These change the decision tree's rules, so its fingerprint changes: an approval given before is cleared and agents go back to Planning, said in the History. With Brief A's line in the Confirmation evidence (Jason, 2026-11-25: a staging Publish stays in the daily batch; revisit before that raise).",
+    "proposals": "",
+    "zip": "p3-4-agents.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/admin/team-console.php": {
+            "sha": "bc8304f6603d48cffd4299e7a5030ef511cb12e433410894f8f0ae883169def4",
+            "size": 10406,
+            "live_was": "8b54a4f5ebe013fa033a259382cd5f01db03abbd4a8c7ebb62f9b49d45da4390"
+        },
+        "app/ui/faq.md": {
+            "sha": "400a496508e93473ffbc807d0d8eec17d33f01dd2ae0de1d8a949a56af650a03",
+            "size": 460921,
+            "live_was": "7bcd659e516da3602fc1d89b34e054f179f1feac15a35dcd40cb037bcedac5fb"
+        },
+        "app/lib/GaugeTasks.php": {
+            "sha": "eb9f0d8b94ad1abcfd51fd8aeeb3a82caebaddf670b90f64ffbda8695a945fb7",
+            "size": 58854,
+            "live_was": "a74857fe400f4e8de4d3782c650e817f9de5cf8070a4192762abfd73e0ccd98e"
+        },
+        "app/lib/TeamRunner.php": {
+            "sha": "ea1d1099c331bf29a05ce1f6294a881ee16c6cfc88a441f31525368ad6e17086",
+            "size": 50856,
+            "live_was": "1837c71bdf90be9c0f8052ebceb8ea1bd8637e5b58ff5ebf271852b071d5dae8"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-26T02:15:13+00:00",
+            "by": 0,
+            "msg": "Uploaded p3-4-agents.zip: 4 files."
+        }
+    ]
+}
