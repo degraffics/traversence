@@ -6,12 +6,12 @@
     "zip": "staff-mail.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "planned",
+    "state": "approved",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
-    "plan_at": null,
+    "plan_at": "2026-11-26 20:32:43",
     "staged_at": null,
     "vetted_at": null,
     "live_at": null,
@@ -49,6 +49,16 @@
             "at": "2026-11-26T20:32:41+00:00",
             "by": 0,
             "msg": "Uploaded staff-mail.zip: 5 files."
+        },
+        {
+            "at": "2026-11-26T20:32:43+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/staff-mail.zip (git 4b9c5b2c5b)."
+        },
+        {
+            "at": "2026-11-26T20:32:43+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
         }
     ]
 }
