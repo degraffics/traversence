@@ -24,9 +24,13 @@ Marketplace's four sections, Native-made, the magazine model and Brief D lived o
    fallback. Ask Claude (`task_assist`, release 2) later, inside the $40 cap.
 
 ## Design
-The team works out the design as part of carrying out the plan (Jason, 2026-11-27): the four-stage redesign no longer
-waits on him. Piece 2 drafts it, the Design reviewer approves it, the CEO runs its Tier 4, and Jason sees it once as the
-release.
+The team works out the design as part of carrying out the plan (Jason, 2026-11-27). It's **Tier 3** (0180 §1, "non-protected
+workflow redesigns"; Jason: "this doesn't seem like a t5 concern"), in the Project Manager's lane, through the four
+stages (handoffs/piece2/jason-spec.md §8): Planning with the System Architect (ADR check), the UI/UX Designers, the
+Content Writers and the Cognitive Load & Simplicity Guardian (simplicity veto); Building by Piece 2; Implementation on
+staging with the before-and-after check; Confirmation by the advocates (including Staff Views, A12) and the Design
+reviewer's fidelity check. Tier 4 only if the Prior Ruling Check flags a high-risk territory (the thread's staff
+messages may touch §4's privacy and identity). Jason sees it as a line in the daily batch (0179), not as a question.
 
 ## Order, cost, gaps
 - After the pipeline release and R2, alongside A3 (Piece 2's lane); the seed fits any gap. Launch work wins against
