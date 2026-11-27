@@ -92,8 +92,9 @@ final class OpenLoads
 
     /**
      * The launch area's towns in their load order: [{city, state, zips, lat, lon, miles, is1a}], 1A's first, then by miles
-     * from the Four Corners Monument. A town is in the area when one of its ZIPs is within AREA_MILES; 1A's towns are in
-     * whatever their distance (Eagar's middle is 200.3 mi). Only the states we load (STATES: Colorado and Utah wait for
+     * from the Four Corners Monument. A town is in the area when one of its ZIPs is within AREA_MILES. 1A's towns are in
+     * by their cluster, whatever their distance: Eagar's middle is 200.3 mi, and it loads with 1A on purpose (the session
+     * manager, 2026-11-27). Don't "fix" it to the radius. Only the states we load (STATES: Colorado and Utah wait for
      * their nations' boundaries, G1).
      */
     public static function area(PDO $pdo): array
