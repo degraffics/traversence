@@ -315,6 +315,11 @@ question again; it lists what's still open at the top of its replies as **"Waiti
 name). **Sessions merge their own PR** once Jason approves it (Jason, 2026-11-18), then tell the session manager the
 merge; it runs the sync and records deliveries.
 
+**His stated direction is the ruling** (Jason, 2026-11-27: "this is another issue: always drawing me back into the
+decisions I've already made"). When Jason states a direction, that statement is the ruling: the CEO records it and
+proceeds, never asking him to confirm what he's said. A question goes to him only for a choice his words don't settle.
+The session manager's review checks a recording against his words; it never brings the decision back to him.
+
 **Decision or release: said every time** (Jason, 2026-11-24: "make the decisions vs work to live very clear"). Every
 question's first words say which it is: **"Decision (nothing changes on the site yet): goes live in <release>, <its
 place in the queue>"** or **"Release (live about 10 minutes after merge): <what you'll see, and where>"**. Replies say
