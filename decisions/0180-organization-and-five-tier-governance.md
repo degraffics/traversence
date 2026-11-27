@@ -308,3 +308,15 @@ Nothing above raises a stage ceiling or the reach fence. Those stay the Founder'
     the role back on standby" no longer applies.
 - **Launch work first, until the Jan 1 gates pass** (Jason, 2026-11-27, Brief A2; decisions/0181 §2): R2–R5 get at
   most one release slot a day until 0181's launch gates pass. This qualifies "R1–R5 ship as each passes" above.
+
+**Note (Jason, 2026-11-27): a project's budget, from its cost projection** ("we should have a way to use cost projections
+when contracting a project so allocation becomes a budget approve, and this should be something a CFO or accountant would
+have requested or mandated"; recorded as Operations & Policy (16), under CLAUDE.md's "His stated direction is the
+ruling"). Every project (a goal or parent task) carries a cost projection at Planning: AI dollars by pool, the sessions'
+usage size, and outside services. The Accounting Manager (10) prepares it; the CFO (4) approves it as the project's budget
+(Tier 4); spend is tracked against it. Conflict cited (§4.1 and §2: the overall envelope and any real spend above $0 are
+fences, the Founder's). Solution, acted on: the CFO approves within the envelope Jason has set (today the $20 CEO budget
+and the $40 platform cap); a project that needs more goes to him as a Decision Brief; "No income, no expense" holds; an
+envelope proposal for when revenue exists goes to him then. This replaces the open agent AI allowance question. Built
+with the AI items release (meter, usage, matrix), after phase 2 release 1, in the IT Manager's (11) lane with the
+Accounting Manager (10).
