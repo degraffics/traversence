@@ -359,14 +359,22 @@ function tv_mc_parts(PDO $pdo, string $key, array $man): array
     return $out;
 }
 
-/** What the host already backs up, read from cPanel once a day (HostBackups; the launch plan's B.2 step 1): one line under
- *  The databases, its words from the reading as it stands, never a guess. Read-only; never an alarm by itself. */
+/** What the host already backs up, read from cPanel once a day (HostBackups; the launch plan's B.2 step 1): one status line
+ *  under The databases, from the reading as it stands. Read-only; never an alarm (a missed night is B.2's own alarm). */
 function tv_mc_host_backups(PDO $pdo): string
 {
     if (!is_file(__DIR__ . '/../lib/HostBackups.php')) return '';
-    require_once __DIR__ . '/../lib/HostBackups.php';
-    try { $s = HostBackups::state($pdo); } catch (Throwable $x) { return ''; }
-    return '<p class="mc-sub" data-tv-status="' . (!empty($s['ok']) && (int) $s['count'] > 0 ? 'ok' : 'info') . '" data-tv-label="Backups:">' . tv_w_e(HostBackups::line($s)) . '</p>';
+    require_once __DIR__ . '/../lib/HostBackups.php'; require_once __DIR__ . '/../lib/StagingGate.php';
+    $stg = StagingGate::here();
+    try { $s = $stg ? [] : HostBackups::state($pdo); } catch (Throwable $x) { return ''; }
+    [$st, $words, $at, $next] = HostBackups::words($s, $stg);
+    $e = 'tv_w_e';
+    $t = fn (int $u, string $lead) => ' ' . ($lead !== '' ? $lead . ' ' : '') . '<time datetime="' . gmdate('c', $u) . '" data-tv-time data-tz="UTC">' . gmdate('M j, g:i A', $u) . ' UTC</time>';
+    $h = $e($words);
+    if ($st === 'found' || $st === 'none') $h .= $t($at, 'Read') . '; read again daily.';
+    if ($st === 'unread') $h .= ' Read again daily; next about' . $t($next, '') . '.';
+    if ($st === 'none') $h .= ' ' . tv_mc_ic('link', 'Open Bluehost\'s backups (cPanel) for traversence', 'https://my.bluehost.com/hosting/app#/cpanel', true);
+    return '<p class="mc-sub" data-tv-status="' . ($st === 'found' ? 'ok' : 'info') . '" data-tv-label="Backups:">' . $h . '</p>';
 }
 
 /** One hosted part's row in zone 2: its role, what it carries, its state, Check now (03 §1 Zone 2). */

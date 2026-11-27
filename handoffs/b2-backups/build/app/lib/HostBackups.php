@@ -66,16 +66,30 @@ final class HostBackups
         return $d;
     }
 
-    /** The card's words: what the host keeps, as far as cPanel says, and what it doesn't say. */
-    public static function line(array $s): string
+    /** How often they run, from the dates when they say it plainly ("about daily", "about weekly"), else ''. */
+    public static function cadence(array $dates): string
     {
-        $when = 'Read from cPanel ' . gmdate('M j, H:i', (int) ($s['at'] ?? time())) . ' UTC; read again daily.';
-        if (empty($s['ok'])) return 'Bluehost\'s backups: couldn\'t be read yet (' . rtrim((string) ($s['why'] ?: 'no answer'), '. ') . '). ' . $when;
-        $jb = $s['jetbackup'];
-        $jbw = $jb === null ? ' Whether JetBackup is on couldn\'t be read.' : ($jb ? ' JetBackup is on for the account (' . implode(', ', $jb) . ').' : ' JetBackup isn\'t on for the account.');
-        if ((int) $s['count'] === 0) return 'Bluehost\'s backups: cPanel lists none for this account.' . $jbw . ' ' . $when;
-        $first = $s['backups'][0];
-        return 'Bluehost\'s backups: ' . (int) $s['count'] . ' kept, from ' . $first . ' to ' . $s['latest'] . ' (the latest).'
-            . $jbw . ' How often they run isn\'t in cPanel\'s answer: read from the dates. ' . $when;
+        if (count($dates) < 3) return '';
+        $gaps = [];
+        for ($i = 1; $i < count($dates); $i++) $gaps[] = (strtotime($dates[$i]) - strtotime($dates[$i - 1])) / 86400;
+        sort($gaps); $mid = $gaps[intdiv(count($gaps), 2)];
+        if ($mid >= 0.5 && $mid <= 1.5) return 'about daily';
+        if ($mid >= 6 && $mid <= 8) return 'about weekly';
+        if ($mid >= 27 && $mid <= 32) return 'about monthly';
+        return '';
+    }
+
+    /** The line's parts for the card: [state, sentence, read at (unix), next read (unix)]. State: found, none, unread, staging. */
+    public static function words(array $s, bool $staging = false): array
+    {
+        $at = (int) ($s['at'] ?? time()); $next = $at + self::EVERY;
+        if ($staging) return ['staging', 'Not read on staging; cPanel is read on live only.', 0, 0];
+        $md = fn (string $d) => date('M j', (int) strtotime($d));
+        $jb = $s['jetbackup'] ?? null;
+        $jbw = $jb ? ' JetBackup is on for the account.' : ($jb === [] ? ' JetBackup isn\'t on for the account.' : '');
+        if (empty($s['ok'])) return ['unread', 'Bluehost\'s backups couldn\'t be read: ' . rtrim((string) ($s['why'] ?: 'no answer'), '. ') . '.', $at, $next];
+        if ((int) ($s['count'] ?? 0) === 0) return ['none', 'cPanel lists no backups for this account.' . $jbw, $at, $next];
+        $b = (array) $s['backups']; $how = self::cadence($b);
+        return ['found', 'Bluehost keeps ' . (int) $s['count'] . ', from ' . $md($b[0]) . ' to ' . $md((string) $s['latest']) . ($how !== '' ? ', ' . $how . ', going by their dates' : '') . '.' . $jbw, $at, $next];
     }
 }
