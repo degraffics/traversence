@@ -167,6 +167,17 @@
    "expires": "2026-11-27T17:22:22Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/scripts/goal_check_tick.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
+   "why": "the daily goal check's job",
+   "since": "2026-11-27T13:22:24Z",
+   "expires": "2026-11-27T17:22:24Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
