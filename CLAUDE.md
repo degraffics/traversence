@@ -62,6 +62,18 @@ the report, once the session manager has checked the live build against its deci
 session waiting on him is never archived. After each release the session manager also checks the release and its hand-off for
 scope creep and drift against the decision, and that the decision has its note (`handoffs/session-manager.md`).
 
+**Goals and records live with the roles, not the session manager** (Jason, 2026-11-27: "Yes, approve the plan… up
+and running by Monday morning 6 am"; recorded as Operations & Policy (16)). No goal, ruling or order lives only in a
+session: a session starts from the decisions, the Work queue and git. Each long-term goal is a parent task in the Work
+queue (`GaugeTasks.php` `parent_id`) with an owner from 0180's appendix (a goal that crosses lanes: the CEO), a measure, a
+due date and its decision; every ticket links to its goal, and escalation follows the tiers (a stalled ticket → its T3
+manager, a goal's date at risk → its T4 executive, a goal that must change → a T5 Decision Brief). A live-side $0 daily
+goal check opens a ticket for the owner when a goal's tickets sit 3 days or its date is at risk. Queue order and goal
+status are the Project Manager's (8); the daily summary is the Executive Translator's (28); rules and this file are
+Operations & Policy's (16). Until R2 and the goals view are live, the sessions do these under the role's name:
+`handoffs/decided-not-live.md` stays the session manager's, marked "for the PM (8)". The session manager keeps watching,
+syncing, verifying and drift review.
+
 ## End to end, verified, before anything ships (Jason, 2026-11-21): every build
 
 No piecemeal patches and no unverified recovery flows. Before code is done:
