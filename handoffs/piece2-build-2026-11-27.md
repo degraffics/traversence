@@ -121,7 +121,7 @@ state with `live-read.yml`: rows `feature_switches`, q `before_after`.
 12. **Order from the session manager, 2026-11-27 (after #321 Live):**
    1. the pipeline release;
    2. r2-lanes-3;
-   3. **"Recovered" only for a notice that was sent:** its own small release. 14 "Releases (job): Recovered" emails went out with no raise ever sent, because ControlAlarms.php:607 sends Recovered whenever `tripped_at` is set. It goes with a test, and the CEO sets its Tier (0176 R1);
+   3. **"Recovered" only for a notice that was sent:** its own small release. 14 "Releases (job): Recovered" emails went out with no raise ever sent, because ControlAlarms.php:607 sends Recovered whenever `tripped_at` is set. It goes with a test. **Tier 3, in the IT Manager's (11) lane** (the CEO, 2026-11-27): not one of 0180 §4's territories, and Founder alarm emails aren't territory 5's messages; a bug fix inside 0176 R1. The ticket records the lane and the ruling, with a daily-batch line;
    4. task-seed-4 (data only, the list from the session manager);
    5. A3, with the collation fix and the card's words;
    6. the Scheduler bundle: Pre-flight's self-continue, DailyReport keeping its items with sources in its `dailyrep:` record (Executive-readable), the :02 move, the 6:13 spread;
