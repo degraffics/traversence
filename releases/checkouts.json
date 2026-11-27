@@ -76,13 +76,14 @@
   {
    "path": "app/ui/section-rails.php",
    "functions": [
+    "(top)",
     "tv_section_for"
    ],
    "kind": "change",
    "session": "session_01CXLi5hB3G6GziaxeT9zngX",
-   "why": "M-sections: a section lights its rail line",
+   "why": "M-sections: the market rail's four sections",
    "since": "2026-11-27T12:14:45Z",
-   "expires": "2026-11-27T16:14:45Z",
+   "expires": "2026-11-27T16:14:47Z",
    "release": "",
    "callers": {}
   }
