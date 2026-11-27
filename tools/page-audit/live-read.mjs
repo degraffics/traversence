@@ -31,6 +31,9 @@ const PAGES = { orders: () => ['/admin/backoffice/orders'], order: () => (/^\d{1
   board: () => ['/admin/config/control', '/admin/config/control/wf-W1', '/admin/config/alarms'],
   // the admin's dashboard (the session manager, 2026-11-27: the daily report's "need you now", each need with its source)
   dashboard: () => ['/admin/'],
+  // Communications → Sent (0167 §2, 0172 §4.3: everything the site emailed: when, sender, subject, how it went; the address is
+  // kept hashed, the body isn't kept), the newest 100 matching the order/run field (the session manager, 2026-11-27)
+  sent: () => (/^[A-Za-z0-9 :().,'-]{0,60}$/.test(ID) ? ['/admin/api/comms.php?lazy=sent' + (ID ? '&q=' + encodeURIComponent(ID) : '')] : null),
   // the register and the workflows (the Data & Content session, 2026-11-27, at the CEO's ask: D.1 across 0181's area):
   // Modules (Service register), each service's stage, caps and paces; the Workflows page and each workflow's own page
   register: () => ['/admin/config/register'],
