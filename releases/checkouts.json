@@ -178,6 +178,17 @@
    "expires": "2026-11-27T17:22:24Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/migrations/2026-11-27_task_seed_4.sql",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jsi4U8fUwJYPkZsMx",
+   "why": "task-seed-4: goals as parent tasks and open items under them (CLAUDE.md #1552), for the PM (8)",
+   "since": "2026-11-27T13:22:51Z",
+   "expires": "2026-11-27T17:22:51Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
