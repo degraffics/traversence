@@ -6,7 +6,7 @@
     "zip": "r2-lanes.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "staged",
+    "state": "withdrawn",
     "step": 0,
     "paused": false,
     "urgent": null,
@@ -128,6 +128,11 @@
             "at": "2026-11-27T04:24:05+00:00",
             "by": 0,
             "msg": "Put on staging (9 files); its checks found a problem: Migrations ran on staging: 2026-11-26_0180_r2_lanes.sql: Integrity constraint violation: 1062 Duplicate entry '59' for key 'PRIMARY'."
+        },
+        {
+            "at": "2026-11-27T04:24:07+00:00",
+            "by": 0,
+            "msg": "Withdrawn by itself: its checks on staging failed (Migrations ran on staging: 2026-11-26_0180_r2_lanes.sql: Integrity constraint violation: 1062 Duplicate entry '59' for key 'PRIMARY'). Nothing on the live site changed; the session that built it sends a fixed build (8 files back to live's copy on staging; 1 taken off staging (its migrations, and files that were new))."
         }
     ]
 }
