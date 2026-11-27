@@ -188,3 +188,10 @@ Sent to the session manager on 2026-11-27, waiting for its place in the queue an
   5. Regional and its label cover tickets, bookings, harvest and made to order only. Physical goods join in Q1 with a "made here" tick.
 - **Build notes:** ship before the stylesheet; keep /market/'s default landing, or update the market-buy runner in the same release; re-run plan-buy, shop-buy, market-buy and the post path before sending.
 - **Don't build until the session manager places it.** It goes after C.8 (they share faq.md).
+
+## goal_check_tick (for the PM (8); session manager, 2026-11-27; CLAUDE.md "Goals and records")
+- **Status:** plan sent to the session manager, waiting for its OK and three rulings: the due_on/measure columns' owner, the at-risk rule, and the `ceo` slug.
+- **Build:** GoalCheck.php, scripts/goal_check_tick.php, Scheduler (--add only), faq.md, tools/team-tests/goal-check.php.
+- **Tickets:** Work tickets keyed by audit_key `goal-stall:`/`goal-risk:`, not Audit tickets (TeamRunner.php:514 clears unknown audit keys).
+- **Dependency:** needs R2's TeamRoster::lane().
+- **Order:** after the pipeline release, R2 and task-seed-4; then C.4.
