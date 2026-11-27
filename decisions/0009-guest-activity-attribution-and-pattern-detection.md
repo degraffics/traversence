@@ -52,3 +52,12 @@ connection check.
 - **Guests:** after 3 likes the account panel offers **Keep going as a guest**, up to 100 in the visit. Up to 3 guest likes per item per connection per day (replaces one per connection), so a household or office can each like it.
 - **Hourly look** (`like_watch_tick`): perfectly timed likes, and likes past an item's views, come off the count at once and are reported; 3+ watched sources on one item in an hour, and a new account with guests on one connection, are reported only. Reports are one Safety case in Pulse (`likes:checks`), a step each: Looks fine, or Not genuine (removes them).
 - **Privacy:** like records (member id or a hashed visit, hashed connection) are deleted after 30 days and with the account; reports show counts and a shortened hashed connection, never who. The FAQ says likes are checked for automated activity, without the thresholds.
+
+**Note (2026-11-27): a 4th guest like is checked, never refused** (recorded as Operations & Policy (16), by the CEO under
+CLAUDE.md's "His stated direction is the ruling", citing his note of 2026-11-05 above: "Nobody is refused outright"; for
+the pilot night, when many guests share a venue's or motel's wifi). The number stays at 3 (`Guest::PER_ITEM_CONNECTION`,
+app/lib/Guest.php:15). From the 4th guest like of one item on one connection in a day, the guest is asked for the free
+human check (Turnstile in LikeGuard; passing covers 10 minutes), and the like then counts; it's never refused outright
+(Engage.php:143–146's refusal becomes the 428 check). The hourly look still reports 3 or more watched sources on one item.
+$0. Gate 1 (the like path), on the pilot's rehearsal list; built by Frontend & Shop. In the daily summary for the Founder
+to overturn.
