@@ -942,3 +942,7 @@ as this decision's "Nothing in Pulse is pinned, moved or held on top by the site
 escalated or higher-level items itself; the bell, the row's tint and its clock carry the signal. Tapping ! is the
 person's own sort: the most important first (overdue rows, then by level), again the least important, a third time
 newest again (release pulse-overdue-first).
+
+**Note (Jason, 2026-11-27):** every message kind this dispatcher sends is held to the promise check (0181's gate 1 note of
+the same date): its link lands on exactly what it names, its words match the real state, and a failing message blocks its
+release.
