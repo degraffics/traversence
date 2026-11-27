@@ -43,9 +43,10 @@ const PAGES = { orders: () => ['/admin/backoffice/orders'], order: () => (/^\d{1
   card: () => (/^[A-Za-z0-9 .()&'-]{2,60}$/.test(ID) ? ['/admin/config/register'] : null),
   // rows: a table's newest rows matching a search, through the admin's data API (read-only; operational tables such as
   // job_runs only: never a table of people's details; the Control Board session, 2026-11-24, for the audit clock's runs)
-  // the search may instead be up to 8 row ids ("35237,35160"): each row whole (action=row)
+  // the search may instead be up to 8 row ids ("35237,35160"), or text keys as kind:number ("cluster:12,town:66"; a guide's
+  // place_key, gate 3's measure, 2026-11-27): each row whole (action=row)
   rows: () => (/^[a-z0-9_]{1,64}$/.test(TABLE) && !/user|member|staff|contact|client|order|payment|vault|message|mail/.test(TABLE) && /^[A-Za-z0-9_ :.,-]{0,60}$/.test(Q)
-    ? (/^\d+(,\d+){0,7}$/.test(Q) ? Q.split(',').map((id) => `/admin/api/data.php?action=row&table=${TABLE}&id=${id}`) : [`/admin/api/data.php?action=rows&table=${TABLE}&q=${encodeURIComponent(Q)}&sort=id&dir=desc`]) : null),
+    ? (/^(\d+|[a-z]{1,12}:\d{1,9})(,(\d+|[a-z]{1,12}:\d{1,9})){0,7}$/.test(Q) ? Q.split(',').map((id) => `/admin/api/data.php?action=row&table=${TABLE}&id=${encodeURIComponent(id)}`) : [`/admin/api/data.php?action=rows&table=${TABLE}&q=${encodeURIComponent(Q)}&sort=id&dir=desc`]) : null),
   meta: () => (/^[a-z0-9_]{1,64}$/.test(TABLE) ? [`/admin/api/data.php?action=meta&table=${TABLE}`] : null) };
 
 const fail = (m) => { console.log(`::error::${m}`); process.exit(1); };
