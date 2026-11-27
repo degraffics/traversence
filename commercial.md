@@ -294,8 +294,9 @@ team costs now, before any hub is open; §5 above is the per-hub model at scale.
 |---|---|---|
 | Claude Max plan (the sessions' usage, 0180 §6's "$0 route" pool): $100.00 + Arizona tax $9.10 | the Founder, himself (Nov 27–Dec 27, 2026, from his receipt) | $109.10 |
 | The CEO's shared AI budget (0180's note) | Founder-approved | up to $20 |
-| The platform's AI cap (0163 §7), also covering agent API use (Jason, 2026-11-27: "100 for sessions and 40 cap for api") | Founder-approved | up to $40 |
-| **Total AI and session cost** | | **up to $169.10** |
+| The platform's AI cap (0163 §7): guides, research, site features | Founder-approved | up to $40 |
+| The agents' API cap, its own counter (Jason, 2026-11-27: "Separate each") | Founder-approved | up to $40 |
+| **Total AI and session cost** | | **up to $209.10** |
 
 The sessions' "$0 route" isn't free: it is the fixed Max plan, and every session draws on its usage limits. Project cost
 projections carry each project's share of session usage against those limits (0180's note). Nothing here touches
