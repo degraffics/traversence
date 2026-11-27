@@ -19,4 +19,21 @@ ok(/--out ba-before-2\.json[^\n]*--slow ba-before-1\.json/.test(wf) && /--out ba
 const look = r => ({ results: r, signins: { executive: 'ok', 'ops-staff': 'ok' }, seconds: 1 });
 const verdict = compare(look([v('executive', '/admin/x', 'desktop'), slow]), look([v('executive', '/admin/x', 'desktop'), slow]), look([v('executive', '/admin/x', 'desktop'), slow]), { pages: ['/admin/x'], held: { hashes: [] } }, '9999', 'k');
 ok(verdict.verdict === 'pass' && !verdict.blocks.length, 'timed out before and after: never a block', verdict);
+// #318 (2026-11-27): a timeout after, on a page the release reaches only through a file nearly every page loads (reach.py's
+// "shared", tv-ask.js), is staging's slowness: a note, never an access block; on a page its own files draw it still blocks
+const ok200 = v('executive', '/admin/crawler-review.php', 'phone'); const late = v('executive', '/admin/crawler-review.php', 'phone', { status: 0, error: TO, ba: undefined });
+const dev = v('executive', '/admin/config/control?tab=development', 'desktop');   // a view compared as usual, as in #318's 174
+const exp318 = { pages: ['/admin/config/control?tab=development', '/admin/crawler-review.php'], drawn: ['/admin/config/control?tab=development'], shared: ['website/js/tv-ask.js'], held: { hashes: [] } };
+const r1 = compare(look([dev, ok200]), look([dev, ok200]), look([dev, late]), exp318, '318', 'k');
+ok(r1.verdict === 'pass' && !r1.blocks.length && r1.notes.some(n => /timed out after on a page this release reaches only through a file nearly every page loads/.test(n)), 'a timeout after on a page reached only through a shared file (in expected, not drawn): a note, not a block', r1);
+const r2 = compare(look([dev, ok200]), look([dev, ok200]), look([dev, late]), { ...exp318, drawn: [...exp318.drawn, '/admin/crawler-review.php'] }, '318', 'k');
+ok(r2.verdict === 'block' && r2.blocks.some(x => x.rule === 'access' && x.page === '/admin/crawler-review.php'), 'the counter-case: the same timeout on a page the release\'s own files draw still blocks (access)', r2);
+const shut403 = v('executive', '/admin/crawler-review.php', 'phone', { status: 403 });
+const r3 = compare(look([dev, ok200]), look([dev, ok200]), look([dev, shut403]), exp318, '318', 'k');
+ok(r3.verdict === 'block' && r3.blocks.some(x => x.rule === 'access'), 'a real "doesn\'t open" (403) on a page reached only through a shared file still blocks', r3);
+const toSign = v('executive', '/admin/crawler-review.php', 'phone', { ba: { ...ok200.ba, landed_signin: true } });
+const r4 = compare(look([dev, ok200]), look([dev, ok200]), look([dev, toSign]), exp318, '318', 'k');
+ok(r4.verdict === 'block' && r4.blocks.some(x => x.rule === 'access' && /sign-in/i.test(x.what)), '… and so does a redirect to sign-in', r4);
+const r5 = compare(look([dev, ok200]), look([dev, ok200]), look([dev, late]), { pages: exp318.pages, held: { hashes: [] } }, '318', 'k');
+ok(r5.verdict === 'block', 'no drawn list given (an older reach.py): expected decides, as before', r5);
 console.log(`\n${pass} of ${pass + fail} checks pass`); process.exit(fail ? 1 : 0);

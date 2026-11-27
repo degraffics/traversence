@@ -221,6 +221,9 @@ const ctlSig = (f, st = true, skip = new Set()) => [...new Set((f?.ba?.controls 
 export function compare(b1, b2, a, exp = {}, release = '', heldKey = STAGING?.token || CHECK_TOKEN) {
   const B = new Map(b1.results.map(f => [key(f), f])), B2 = new Map(b2.results.map(f => [key(f), f]));
   const expected = new Set([...(exp.pages || []), ...(exp.also_changes || []).map(x => x.page)]);
+  // the pages this release's own files draw (reach.py's "drawn": expected less what only a file nearly every page loads reaches,
+  // like tv-ask.js or the shell); a timeout blocks only there (the session manager, 2026-11-27, #318). No list given: expected
+  const drawn = Array.isArray(exp.drawn) ? new Set([...exp.drawn, ...(exp.also_changes || []).map(x => x.page)]) : expected;
   // the system's state lines (alarms, status lines, Scheduled tasks) are drift only for a release that touches what draws them
   // (the session manager, 2026-11-26); unknown files (no list given) count as touching them
   const stateDrawn = !Array.isArray(exp.files) || exp.files.some(f => STATE_DRAWERS.test(f));
@@ -244,10 +247,10 @@ export function compare(b1, b2, a, exp = {}, release = '', heldKey = STAGING?.to
     if (f.retried) notes.push(`${key(f)}: timed out once, opened again (${f.error ? 'timed out again' : 'answered ' + f.status})`);
     if (unusable(b)) { notes.push(`${key(f)}: its before look wasn't usable (staging answered ${b.status || b.error || 'nothing'}); not compared`); continue; }
     compared++;
-    // a view that timed out after, on a page the release doesn't reach (reach.py's pages, the names it gives), is staging's
+    // a view that timed out after, on a page the release doesn't draw (reach.py's drawn pages, the names it gives), is staging's
     // slowness, not the change: noted for the IT Manager's lane, never an access block (#307's look, /admin/crawler-review.php,
     // which timed out in #305's look too); on a page the release reaches it still blocks, below
-    if (f.error && /Timeout/i.test(f.error) && !refused(b) && !expected.has(f.url)) { compared--; notes.push(`${key(f)}: timed out after on a page this release doesn't reach (staging is slow there; the IT Manager's lane), not compared`); continue; }
+    if (f.error && /Timeout/i.test(f.error) && !refused(b) && !drawn.has(f.url)) { compared--; notes.push(`${key(f)}: timed out after on a page ${expected.has(f.url) ? 'this release reaches only through a file nearly every page loads' : 'this release doesn\'t reach'} (staging is slow there; the IT Manager's lane), not compared`); continue; }
     const moving = (get) => JSON.stringify(get(b)) !== JSON.stringify(get(bb || b));
     // 1. access or privacy (0066 included)
     const shut = x => x && (x.status === 401 || x.status === 403 || x.ba?.landed_signin);   // refused this account (not merely missing)
