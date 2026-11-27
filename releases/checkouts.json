@@ -225,13 +225,14 @@
     "regionOpen",
     "review",
     "reviewer",
+    "tier",
     "undoReview"
    ],
    "kind": "change",
    "session": "session_01CXLi5jsi4U8fUwJYPkZsMx",
-   "why": "J1: a region opens on its team-reviewed jurisdiction record (Jason, 2026-11-27, R8 advisory; 0164 R8/R17 note)",
+   "why": "J1: Q8 'Show' (0164 R8/P5-3 note, 2026-11-27): story only off nation land while a record is under review",
    "since": "2026-11-27T02:30:01Z",
-   "expires": "2026-11-27T06:30:01Z",
+   "expires": "2026-11-27T08:09:01Z",
    "release": "j1-jurisdictions.zip",
    "callers": {
     "regionOpen": [
@@ -243,6 +244,9 @@
     ],
     "closedWhy": [
      "app/lib/Guides.php"
+    ],
+    "tier": [
+     "app/lib/Heritage.php"
     ]
    }
   },
