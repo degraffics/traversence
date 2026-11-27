@@ -1,8 +1,106 @@
 {
  "release": "320",
- "phase": "before-done",
- "verdict": "waiting",
+ "at": "2026-11-27T09:30:53.488Z",
+ "verdict": "block",
+ "first": "Out-of-scope drift: This page changed, and the change doesn't name it (executive, /admin/, desktop)",
+ "blocks": [
+  {
+   "rule": "drift",
+   "rule_name": "Out-of-scope drift",
+   "advocate": "advocate-staff-views",
+   "who": "executive",
+   "page": "/admin/",
+   "size": "desktop",
+   "what": "This page changed, and the change doesn't name it",
+   "before": "",
+   "after": "(its links and buttons)"
+  },
+  {
+   "rule": "drift",
+   "rule_name": "Out-of-scope drift",
+   "advocate": "advocate-staff-views",
+   "who": "executive",
+   "page": "/admin/",
+   "size": "phone",
+   "what": "This page changed, and the change doesn't name it",
+   "before": "",
+   "after": "(its links and buttons)"
+  },
+  {
+   "rule": "drift",
+   "rule_name": "Out-of-scope drift",
+   "advocate": "advocate-staff-views",
+   "who": "executive",
+   "page": "/admin/client-order.php",
+   "size": "desktop",
+   "what": "This page changed, and the change doesn't name it",
+   "before": "",
+   "after": "(its links and buttons)"
+  },
+  {
+   "rule": "drift",
+   "rule_name": "Out-of-scope drift",
+   "advocate": "advocate-staff-views",
+   "who": "executive",
+   "page": "/admin/client-order.php",
+   "size": "phone",
+   "what": "This page changed, and the change doesn't name it",
+   "before": "",
+   "after": "(its links and buttons)"
+  },
+  {
+   "rule": "drift",
+   "rule_name": "Out-of-scope drift",
+   "advocate": "advocate-staff-views",
+   "who": "executive",
+   "page": "/admin/w.php",
+   "size": "desktop",
+   "what": "This page changed, and the change doesn't name it",
+   "before": "",
+   "after": "(its links and buttons)"
+  },
+  {
+   "rule": "drift",
+   "rule_name": "Out-of-scope drift",
+   "advocate": "advocate-staff-views",
+   "who": "executive",
+   "page": "/admin/w.php",
+   "size": "phone",
+   "what": "This page changed, and the change doesn't name it",
+   "before": "",
+   "after": "(its links and buttons)"
+  },
+  {
+   "rule": "drift",
+   "rule_name": "Out-of-scope drift",
+   "advocate": "advocate-staff-views",
+   "who": "ops-staff",
+   "page": "/admin/",
+   "size": "phone",
+   "what": "This page changed, and the change doesn't name it",
+   "before": "",
+   "after": "(its links and buttons)"
+  },
+  {
+   "rule": "drift",
+   "rule_name": "Out-of-scope drift",
+   "advocate": "advocate-staff-views",
+   "who": "ops-staff",
+   "page": "/admin/w.php",
+   "size": "phone",
+   "what": "This page changed, and the change doesn't name it",
+   "before": "",
+   "after": "(its links and buttons)"
+  }
+ ],
+ "blocks_total": 8,
+ "notes": [
+  "executive|/admin/config/register|phone: already missed \"Cards 3px from the screen edge at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "executive|/admin/settings.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)"
+ ],
+ "far": [],
  "views": 264,
- "seconds": 396,
- "run": "https://github.com/degraffics/traversence/actions/runs/45968491284"
+ "seconds": 1195,
+ "run": "https://github.com/degraffics/traversence/actions/runs/45973406235",
+ "phase": "after-done"
 }
