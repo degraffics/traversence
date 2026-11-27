@@ -1,0 +1,12 @@
+{
+ "title": "The search lock: nothing on the site is indexed until Jason lifts it",
+ "why": "decisions/0181 §4 (Brief B2, approved by Jason 2026-11-27; the launch plan's G.1). Pages drawn by tv_page_start already sent noindex, but the home page, sign-in, sign-up, password reset and the classic directory didn't, and storefronts on trvgo.us sent X-Robots-Tag: all. One switch, TV_SEARCH_LOCK in app/ui/search-lock.php (true), now sends X-Robots-Tag: noindex on every page and endpoint (security-headers.php), a robots meta on the five pages with their own <head>, and noindex on storefronts (a team's preview stays noindex, nofollow). While locked the sitemap is an empty index and robots.txt says the site isn't open to search engines yet; pages stay crawlable so noindex is seen. The FAQ's 'Can search engines find Traversence?' says Not yet, and what stays out after the lift (0181 §4). Lifting it is one release that sets the switch to false (0181 §4, Jason's call alone). Nothing visible changes on any page except that FAQ answer. No data, no outside calls, no cost.",
+ "changes": [
+  {"what": "Every page answers noindex (header), and the home page, sign-in, password reset and the classic directory carry a robots meta", "where": "https://traversence.com/"},
+  {"what": "Storefronts answer noindex instead of all", "where": "https://trvgo.us/"},
+  {"what": "The sitemap is empty while the lock holds; robots.txt says why", "where": "https://traversence.com/sitemap.php"},
+  {"what": "FAQ: Can search engines find Traversence? Not yet", "where": "https://traversence.com/faq.php#can-search-engines-find-traversence"}
+ ],
+ "proposals": [],
+ "switch": ""
+}
