@@ -1,11 +1,11 @@
 {
- "at": "2026-11-27T02:05:07.679Z",
+ "at": "2026-11-27T10:20:41.375Z",
  "php": "8.0.31",
  "php_major_minor": "8.0",
  "mysql": "5.7.44-48",
  "db": {
   "tables": 431,
-  "mb": 712.7,
+  "mb": 706.4,
   "biggest": [
    {
     "table": "identity_fact_sources",

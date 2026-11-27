@@ -1,8 +1,45 @@
 {
  "release": "318",
- "phase": "before-done",
- "verdict": "waiting",
+ "at": "2026-11-27T05:59:39.613Z",
+ "verdict": "block",
+ "first": "Access or privacy (0066 included): Doesn't open now: TimeoutError: page.goto: Timeout 45000ms exceeded.\nCall log:\n  - navigating to \"https://staging.trvgo.us/admin/crawler-review.php\", waiting until \"load\"\n (executive, /admin/crawler-review.php, phone)",
+ "blocks": [
+  {
+   "rule": "access",
+   "rule_name": "Access or privacy (0066 included)",
+   "advocate": "advocate-staff-views",
+   "who": "executive",
+   "page": "/admin/crawler-review.php",
+   "size": "phone",
+   "what": "Doesn't open now: TimeoutError: page.goto: Timeout 45000ms exceeded.\nCall log:\n  - navigating to \"https://staging.trvgo.us/admin/crawler-review.php\", waiting until \"load\"\n",
+   "before": "200",
+   "after": "TimeoutError: page.goto: Timeout 45000ms exceeded.\nCall log:\n  - navigating to \"https://staging.trvgo.us/admin/crawler-review.php\", waiting until \"load\"\n"
+  },
+  {
+   "rule": "access",
+   "rule_name": "Access or privacy (0066 included)",
+   "advocate": "advocate-staff-views",
+   "who": "ops-staff",
+   "page": "/admin/crawler-review.php",
+   "size": "phone",
+   "what": "Doesn't open now: TimeoutError: page.goto: Timeout 45000ms exceeded.\nCall log:\n  - navigating to \"https://staging.trvgo.us/admin/crawler-review.php\", waiting until \"load\"\n",
+   "before": "200",
+   "after": "TimeoutError: page.goto: Timeout 45000ms exceeded.\nCall log:\n  - navigating to \"https://staging.trvgo.us/admin/crawler-review.php\", waiting until \"load\"\n"
+  }
+ ],
+ "blocks_total": 2,
+ "notes": [
+  "executive|/admin/config/control?tab=development|phone: already missed \"Cards 3px from the screen edge at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "executive|/admin/crawler-review.php|phone: timed out once, opened again (timed out again)",
+  "executive|/admin/data.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "executive|/admin/listing-intake.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "executive|/admin/settings.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "ops-staff|/admin/crawler-review.php|phone: timed out once, opened again (timed out again)",
+  "ops-staff|/admin/data.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "ops-staff|/admin/listing-intake.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)"
+ ],
  "views": 174,
- "seconds": 543,
- "run": "https://github.com/degraffics/traversence/actions/runs/45942037912"
+ "seconds": 1715,
+ "run": "https://github.com/degraffics/traversence/actions/runs/45947958173",
+ "phase": "after-done"
 }

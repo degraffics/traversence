@@ -8,25 +8,25 @@ Change is since 2026-11-13, the first day recorded.
 
 | What | Now | Change |
 |---|---|---|
-| staged | 31144 | +30499 |
+| staged | 31148 | +30503 |
 | quarantined | 41 |  |
-| published | 11486 | +11168 |
-| merged | 431 | +269 |
-| rejected | 1041 | +858 |
+| published | 11487 | +11169 |
+| merged | 432 | +270 |
+| rejected | 1048 | +865 |
 
 ## Of the staged (newest 3,000 checked)
 
 | What | Now | Change |
 |---|---|---|
 | checked | 3000 | +2355 |
-| ready_stuck | 675 | +670 |
+| ready_stuck | 672 | +667 |
 | review | 0 | -587 |
-| looking | 2325 | +2272 |
-| no_kind | 2141 | +1981 |
+| looking | 2328 | +2275 |
+| no_kind | 2145 | +1985 |
 | one_source | 364 | -163 |
 | by_reason |  |  |
 | auto_import_on | true |  |
-| of | 31144 | +30499 |
+| of | 31148 | +30503 |
 
 ## The place store
 
@@ -41,20 +41,20 @@ Change is since 2026-11-13, the first day recorded.
 
 | What | Now | Change |
 |---|---|---|
-| 2026-11 | 370 | +360 |
+| 2026-11 | 400 | +390 |
 
 ## Website checks
 
 | What | Now | Change |
 |---|---|---|
 | abandoned_listings | 2 | +2 |
-| failed_once | 222 | +213 |
+| failed_once | 214 | +205 |
 
 ## Public listings and map points
 
 | What | Now | Change |
 |---|---|---|
-| public | 15694 | +10999 |
+| public | 15695 | +11000 |
 | no_point | 0 | 0 |
 | approximate | 1709 | +29 |
 

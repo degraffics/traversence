@@ -105,6 +105,15 @@ state with `live-read.yml`: rows `feature_switches`, q `before_after`.
 7. **The conflict release** (decisions/0165 note #1455):
    - auto Keep live ships **ON** for conflicts no person made;
    - a conflict a person made becomes a Work queue ticket in Ops & Reconciliation's lane (role 23, which reports to the IT Manager).
+8. **The Storage tile's silent catch** (IT Manager's lane ticket, the session manager and the CEO, 2026-11-27, after #319's look):
+   - **The fault:** `website/business/router.php:163–166` returns `''` from `catch (Throwable)` with no log, so `/business/`'s Storage used tile vanishes when `BizFiles::used()` or `Billing::allowance()` fails. It's a database read; the likely cause is catch-up mid-copy, unconfirmed because nothing is logged.
+   - **The fix:** log `error_log('biz storage tile: …')` and draw the tile with its label and "Storage figures unavailable right now" (words follow the state).
+   - **Delivery:** its own small release after the check release, b2-backups-2, r2-lanes-3 and the pipeline release. The Design reviewer sees it first. Its migration seeds the Work ticket in the IT Manager's lane, once, by `what`.
+9. **A3's scope adds the staging night job's collation stop** (IT lane ticket, the session manager, 2026-11-27, from a live read of Scheduled tasks):
+   - **The fault:** `staging_night_tick.php` (2:13 am Arizona) stopped at 09:13 UTC on `Illegal mix of collations (utf8mb4_general_ci,IMPLICIT) and (utf8mb4_unicode_ci,IMPLICIT) for operation '='` at `app/lib/StagingSync.php:608`, so last night's fingerprint pass didn't finish.
+   - **The fix:** build it in A3 (staging holds still during a look, 0165's note) and test it against the 0165 suites (`tools/staging-tests/`). A3's migration seeds the ticket once, by `what`. The CEO's Tier 4 comes before sending.
+   - **Words follow the state (the CEO, 2026-11-27):** Keep staging caught up's card (`admin/sections.php:1685`, `StagingSite::mirrorState()` at StagingSite.php:1311) says "(on): … A full check runs nightly" even when last night's check stopped. The fix in the same release: the card reads staging_night_tick's last outcome and says it stopped, with its error once and its fix there.
+10. **The verdict read** (#320, 2026-11-27): the site waited on #320's after verdict for over an hour, because `DocsRepo::raw($path, true)` falls back to its kept copy (the before-done verdict) whenever raw.githubusercontent doesn't answer 200. The pipeline release's `DocsRepo::now` (the contents API with the token) is the fix, so it moves up to right after B.2 (the session manager, 2026-11-27).
 
 ## 4. Seeded tickets (R2's migration; each added once, by `what`) and their lanes
 

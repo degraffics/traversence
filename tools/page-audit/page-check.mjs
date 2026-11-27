@@ -23,8 +23,9 @@ export async function pageCheck(ctx, who, url, size, opts = {}) {
   p.on('response', r => { const u = r.url(); if (u.startsWith(SITE) && r.status() >= 400 && r.request().resourceType() !== 'document' && !/\/api\/(count|out)\.php/.test(u)) f.requests.push(`${r.status()} ${u.replace(SITE, '')}`.slice(0, 160)); });
   p.on('dialog', d => { f.dialogs.push(`${d.type()}: ${d.message().slice(0, 120)}`); d.dismiss().catch(() => {}); });
   try {
-    const r = await p.goto(SITE + url, { waitUntil: 'load', timeout: 45000 });
-    f.status = r ? r.status() : 0; f.final = p.url().replace(SITE, '');
+    const t0 = Date.now();
+    const r = await p.goto(SITE + url, { waitUntil: 'load', timeout: opts.timeout || 45000 });   // opts.timeout: the before-and-after check's late retry (90 s)
+    f.ms = Date.now() - t0; f.status = r ? r.status() : 0; f.final = p.url().replace(SITE, '');
     await p.waitForTimeout(800);
     if (!/html/i.test((r && r.headers()['content-type']) || 'text/html')) { await p.close(); return f; }   // an XML or JSON file (the sitemap): no page to lay out
     Object.assign(f, await p.evaluate((phone) => {

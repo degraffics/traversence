@@ -2,110 +2,136 @@
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
  "claims": [
   {
-   "path": "app/ui/security-headers.php",
+   "path": "app/admin/module-cards.php",
    "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
-   "why": "G.1: the search lock's leaks closed (decisions/0181 \u00a74)",
-   "since": "2026-11-27T01:52:14Z",
-   "expires": "2026-11-27T05:52:14Z",
-   "release": "",
+   "kind": "add",
+   "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
+   "why": "release b2-backups.zip",
+   "since": "2026-11-27T06:27:04Z",
+   "expires": "2026-11-27T14:52:25Z",
+   "release": "b2-backups-3.zip",
    "callers": {}
   },
   {
-   "path": "website/index.php",
+   "path": "app/lib/HostBackups.php",
    "functions": [],
-   "kind": "change",
+   "kind": "add",
+   "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
+   "why": "release b2-backups.zip",
+   "since": "2026-11-27T06:27:04Z",
+   "expires": "2026-11-27T14:52:25Z",
+   "release": "b2-backups-3.zip",
+   "callers": {}
+  }
+ ],
+ "lapsed": [
+  {
+   "path": "app/lib/OpenNow.php",
+   "functions": [],
+   "kind": "add",
    "session": "session_01CXLi5hB3G6GziaxeT9zngX",
-   "why": "G.1: the search lock's leaks closed (decisions/0181 \u00a74)",
-   "since": "2026-11-27T01:52:17Z",
-   "expires": "2026-11-27T05:52:17Z",
+   "why": "C.8 open now from known hours only, in the listing's zone (P10, reopened by Jason 2026-11-27)",
+   "since": "2026-11-27T04:53:49Z",
+   "expires": "2026-11-27T08:53:49Z",
    "release": "",
    "callers": {},
-   "zones": [
-    "home.after-doors"
-   ]
+   "lapsed": "2026-11-27T10:52:25Z"
   },
   {
-   "path": "website/login.php",
+   "path": "app/lib/Nations.php",
+   "functions": [
+    "allAt",
+    "at"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
+   "why": "C.8 open now from known hours only, in the listing's zone (P10, reopened by Jason 2026-11-27)",
+   "since": "2026-11-27T04:53:51Z",
+   "expires": "2026-11-27T08:53:51Z",
+   "release": "",
+   "callers": {},
+   "lapsed": "2026-11-27T10:52:25Z"
+  },
+  {
+   "path": "app/lib/SearchIndex.php",
+   "functions": [
+    "find",
+    "indexListings",
+    "refresh"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
+   "why": "C.8 open now from known hours only, in the listing's zone (P10, reopened by Jason 2026-11-27)",
+   "since": "2026-11-27T04:53:53Z",
+   "expires": "2026-11-27T08:53:53Z",
+   "release": "",
+   "callers": {},
+   "lapsed": "2026-11-27T10:52:25Z"
+  },
+  {
+   "path": "app/lib/UniversalSearch.php",
+   "functions": [
+    "search",
+    "searchAs"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
+   "why": "C.8 open now: the known-hours count carried to search's results (P10)",
+   "since": "2026-11-27T04:53:55Z",
+   "expires": "2026-11-27T08:54:45Z",
+   "release": "",
+   "callers": {},
+   "lapsed": "2026-11-27T10:52:25Z"
+  },
+  {
+   "path": "website/api/search_listings.php",
    "functions": [],
    "kind": "change",
    "session": "session_01CXLi5hB3G6GziaxeT9zngX",
-   "why": "G.1: the search lock's leaks closed (decisions/0181 \u00a74)",
-   "since": "2026-11-27T01:52:21Z",
-   "expires": "2026-11-27T05:52:21Z",
+   "why": "C.8 open now from known hours only, in the listing's zone (P10, reopened by Jason 2026-11-27)",
+   "since": "2026-11-27T04:53:57Z",
+   "expires": "2026-11-27T08:53:57Z",
    "release": "",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-27T10:52:25Z"
   },
   {
-   "path": "website/register.php",
+   "path": "website/js/search-panel.js",
    "functions": [],
    "kind": "change",
    "session": "session_01CXLi5hB3G6GziaxeT9zngX",
-   "why": "G.1: the search lock's leaks closed (decisions/0181 \u00a74)",
-   "since": "2026-11-27T01:52:23Z",
-   "expires": "2026-11-27T05:52:23Z",
+   "why": "C.8 open now from known hours only, in the listing's zone (P10, reopened by Jason 2026-11-27)",
+   "since": "2026-11-27T04:53:59Z",
+   "expires": "2026-11-27T08:53:59Z",
    "release": "",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-27T10:52:25Z"
   },
   {
-   "path": "website/forgot-password.php",
+   "path": "website/hub/index.php",
+   "functions": [
+    "hub_card"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
+   "why": "C.8 open now from known hours only, in the listing's zone (P10, reopened by Jason 2026-11-27)",
+   "since": "2026-11-27T04:54:01Z",
+   "expires": "2026-11-27T08:54:01Z",
+   "release": "",
+   "callers": {},
+   "lapsed": "2026-11-27T10:52:25Z"
+  },
+  {
+   "path": "app/ui/header.php",
    "functions": [],
    "kind": "change",
    "session": "session_01CXLi5hB3G6GziaxeT9zngX",
-   "why": "G.1: the search lock's leaks closed (decisions/0181 \u00a74)",
-   "since": "2026-11-27T01:52:25Z",
-   "expires": "2026-11-27T05:52:25Z",
+   "why": "C.8 open now from known hours only, in the listing's zone (P10, reopened by Jason 2026-11-27)",
+   "since": "2026-11-27T04:54:03Z",
+   "expires": "2026-11-27T08:54:03Z",
    "release": "",
-   "callers": {}
-  },
-  {
-   "path": "website/directory/classic.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
-   "why": "G.1: the search lock's leaks closed (decisions/0181 \u00a74)",
-   "since": "2026-11-27T01:52:28Z",
-   "expires": "2026-11-27T05:52:28Z",
-   "release": "",
-   "callers": {}
-  },
-  {
-   "path": "website/sitemap.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
-   "why": "G.1: the search lock's leaks closed (decisions/0181 \u00a74)",
-   "since": "2026-11-27T01:52:32Z",
-   "expires": "2026-11-27T05:52:32Z",
-   "release": "",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/crawler/OpenLoads.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
-   "why": "W1 load trips (#11): the ledger reads a closure as updated (COUNTS); batch's docblock names its new counts",
-   "since": "2026-11-27T02:02:11Z",
-   "expires": "2026-11-27T06:09:36Z",
-   "release": "",
-   "callers": {
-    "batch": [
-     "website/api/crawl/loads.php"
-    ]
-   }
-  },
-  {
-   "path": "app/lib/ControlLedger.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
-   "why": "W1 load trips (#11): the ledger reads a closure as updated (COUNTS); batch's docblock names its new counts",
-   "since": "2026-11-27T02:02:11Z",
-   "expires": "2026-11-27T06:09:36Z",
-   "release": "",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-27T10:52:25Z"
   },
   {
    "path": "app/admin/control-console.php",
@@ -119,7 +145,8 @@
    "since": "2026-11-27T02:29:25Z",
    "expires": "2026-11-27T08:28:20Z",
    "release": "r2-lanes-2.zip",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-27T08:43:28Z"
   },
   {
    "path": "app/lib/TeamRunner.php",
@@ -133,7 +160,8 @@
    "since": "2026-11-27T02:29:25Z",
    "expires": "2026-11-27T08:28:20Z",
    "release": "r2-lanes-2.zip",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-27T08:43:28Z"
   },
   {
    "path": "website/admin/api.php",
@@ -144,7 +172,8 @@
    "since": "2026-11-27T02:29:25Z",
    "expires": "2026-11-27T08:28:20Z",
    "release": "r2-lanes-2.zip",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-27T08:43:28Z"
   },
   {
    "path": "website/js/tv-ask.js",
@@ -181,7 +210,8 @@
      "website/js/tv-vault.js",
      "website/order.php"
     ]
-   }
+   },
+   "lapsed": "2026-11-27T08:43:28Z"
   },
   {
    "path": "website/js/admin-control.js",
@@ -194,7 +224,8 @@
    "since": "2026-11-27T02:29:25Z",
    "expires": "2026-11-27T08:28:20Z",
    "release": "r2-lanes-2.zip",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-27T08:43:28Z"
   },
   {
    "path": "app/lib/TeamRoster.php",
@@ -205,7 +236,8 @@
    "since": "2026-11-27T02:29:34Z",
    "expires": "2026-11-27T08:28:20Z",
    "release": "r2-lanes-2.zip",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-27T08:43:28Z"
   },
   {
    "path": "app/lib/GaugeTasks.php",
@@ -216,7 +248,8 @@
    "since": "2026-11-27T02:29:34Z",
    "expires": "2026-11-27T08:28:20Z",
    "release": "r2-lanes-2.zip",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-27T08:43:28Z"
   },
   {
    "path": "app/lib/Jurisdictions.php",
@@ -248,7 +281,8 @@
     "tier": [
      "app/lib/Heritage.php"
     ]
-   }
+   },
+   "lapsed": "2026-11-27T08:43:28Z"
   },
   {
    "path": "app/admin/sections.php",
@@ -261,7 +295,8 @@
    "since": "2026-11-27T02:30:01Z",
    "expires": "2026-11-27T06:30:01Z",
    "release": "j1-jurisdictions.zip",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-27T08:43:28Z"
   },
   {
    "path": "app/lib/HubOpening.php",
@@ -274,7 +309,8 @@
    "since": "2026-11-27T02:30:01Z",
    "expires": "2026-11-27T06:30:01Z",
    "release": "j1-jurisdictions.zip",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-27T08:43:28Z"
   },
   {
    "path": "app/migrations/2026-11-26_0180_r2_lanes.sql",
@@ -285,7 +321,8 @@
    "since": "2026-11-27T03:00:45Z",
    "expires": "2026-11-27T08:28:20Z",
    "release": "r2-lanes-2.zip",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-27T08:43:28Z"
   },
   {
    "path": "website/directory/index.php",
@@ -296,7 +333,8 @@
    "since": "2026-11-27T04:34:57Z",
    "expires": "2026-11-27T08:34:57Z",
    "release": "",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-27T08:43:28Z"
   },
   {
    "path": "website/js/location-scope.js",
@@ -309,7 +347,8 @@
    "since": "2026-11-27T04:35:08Z",
    "expires": "2026-11-27T08:35:08Z",
    "release": "",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-27T08:43:28Z"
   },
   {
    "path": "app/ui/location-modal.php",
@@ -320,110 +359,124 @@
    "since": "2026-11-27T04:42:35Z",
    "expires": "2026-11-27T08:42:35Z",
    "release": "",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-27T08:43:28Z"
   },
   {
-   "path": "app/lib/OpenNow.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
-   "why": "C.8 open now from known hours only, in the listing's zone (P10, reopened by Jason 2026-11-27)",
-   "since": "2026-11-27T04:53:49Z",
-   "expires": "2026-11-27T08:53:49Z",
-   "release": "",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/Nations.php",
-   "functions": [
-    "allAt",
-    "at"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
-   "why": "C.8 open now from known hours only, in the listing's zone (P10, reopened by Jason 2026-11-27)",
-   "since": "2026-11-27T04:53:51Z",
-   "expires": "2026-11-27T08:53:51Z",
-   "release": "",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/SearchIndex.php",
-   "functions": [
-    "find",
-    "indexListings",
-    "refresh"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
-   "why": "C.8 open now from known hours only, in the listing's zone (P10, reopened by Jason 2026-11-27)",
-   "since": "2026-11-27T04:53:53Z",
-   "expires": "2026-11-27T08:53:53Z",
-   "release": "",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/UniversalSearch.php",
-   "functions": [
-    "search",
-    "searchAs"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
-   "why": "C.8 open now: the known-hours count carried to search's results (P10)",
-   "since": "2026-11-27T04:53:55Z",
-   "expires": "2026-11-27T08:54:45Z",
-   "release": "",
-   "callers": {}
-  },
-  {
-   "path": "website/api/search_listings.php",
+   "path": "app/ui/security-headers.php",
    "functions": [],
    "kind": "change",
    "session": "session_01CXLi5hB3G6GziaxeT9zngX",
-   "why": "C.8 open now from known hours only, in the listing's zone (P10, reopened by Jason 2026-11-27)",
-   "since": "2026-11-27T04:53:57Z",
-   "expires": "2026-11-27T08:53:57Z",
+   "why": "G.1: the search lock's leaks closed (decisions/0181 \u00a74)",
+   "since": "2026-11-27T01:52:14Z",
+   "expires": "2026-11-27T05:52:14Z",
    "release": "",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-27T06:27:04Z"
   },
   {
-   "path": "website/js/search-panel.js",
+   "path": "website/index.php",
    "functions": [],
    "kind": "change",
    "session": "session_01CXLi5hB3G6GziaxeT9zngX",
-   "why": "C.8 open now from known hours only, in the listing's zone (P10, reopened by Jason 2026-11-27)",
-   "since": "2026-11-27T04:53:59Z",
-   "expires": "2026-11-27T08:53:59Z",
+   "why": "G.1: the search lock's leaks closed (decisions/0181 \u00a74)",
+   "since": "2026-11-27T01:52:17Z",
+   "expires": "2026-11-27T05:52:17Z",
    "release": "",
-   "callers": {}
-  },
-  {
-   "path": "website/hub/index.php",
-   "functions": [
-    "hub_card"
+   "callers": {},
+   "zones": [
+    "home.after-doors"
    ],
-   "kind": "change",
-   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
-   "why": "C.8 open now from known hours only, in the listing's zone (P10, reopened by Jason 2026-11-27)",
-   "since": "2026-11-27T04:54:01Z",
-   "expires": "2026-11-27T08:54:01Z",
-   "release": "",
-   "callers": {}
+   "lapsed": "2026-11-27T06:27:04Z"
   },
   {
-   "path": "app/ui/header.php",
+   "path": "website/login.php",
    "functions": [],
    "kind": "change",
    "session": "session_01CXLi5hB3G6GziaxeT9zngX",
-   "why": "C.8 open now from known hours only, in the listing's zone (P10, reopened by Jason 2026-11-27)",
-   "since": "2026-11-27T04:54:03Z",
-   "expires": "2026-11-27T08:54:03Z",
+   "why": "G.1: the search lock's leaks closed (decisions/0181 \u00a74)",
+   "since": "2026-11-27T01:52:21Z",
+   "expires": "2026-11-27T05:52:21Z",
    "release": "",
-   "callers": {}
-  }
- ],
- "lapsed": [
+   "callers": {},
+   "lapsed": "2026-11-27T06:27:04Z"
+  },
+  {
+   "path": "website/register.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
+   "why": "G.1: the search lock's leaks closed (decisions/0181 \u00a74)",
+   "since": "2026-11-27T01:52:23Z",
+   "expires": "2026-11-27T05:52:23Z",
+   "release": "",
+   "callers": {},
+   "lapsed": "2026-11-27T06:27:04Z"
+  },
+  {
+   "path": "website/forgot-password.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
+   "why": "G.1: the search lock's leaks closed (decisions/0181 \u00a74)",
+   "since": "2026-11-27T01:52:25Z",
+   "expires": "2026-11-27T05:52:25Z",
+   "release": "",
+   "callers": {},
+   "lapsed": "2026-11-27T06:27:04Z"
+  },
+  {
+   "path": "website/directory/classic.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
+   "why": "G.1: the search lock's leaks closed (decisions/0181 \u00a74)",
+   "since": "2026-11-27T01:52:28Z",
+   "expires": "2026-11-27T05:52:28Z",
+   "release": "",
+   "callers": {},
+   "lapsed": "2026-11-27T06:27:04Z"
+  },
+  {
+   "path": "website/sitemap.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
+   "why": "G.1: the search lock's leaks closed (decisions/0181 \u00a74)",
+   "since": "2026-11-27T01:52:32Z",
+   "expires": "2026-11-27T05:52:32Z",
+   "release": "",
+   "callers": {},
+   "lapsed": "2026-11-27T06:27:04Z"
+  },
+  {
+   "path": "app/lib/crawler/OpenLoads.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
+   "why": "W1 load trips (#11): the ledger reads a closure as updated (COUNTS); batch's docblock names its new counts",
+   "since": "2026-11-27T02:02:11Z",
+   "expires": "2026-11-27T06:09:36Z",
+   "release": "",
+   "callers": {
+    "batch": [
+     "website/api/crawl/loads.php"
+    ]
+   },
+   "lapsed": "2026-11-27T06:27:04Z"
+  },
+  {
+   "path": "app/lib/ControlLedger.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
+   "why": "W1 load trips (#11): the ledger reads a closure as updated (COUNTS); batch's docblock names its new counts",
+   "since": "2026-11-27T02:02:11Z",
+   "expires": "2026-11-27T06:09:36Z",
+   "release": "",
+   "callers": {},
+   "lapsed": "2026-11-27T06:27:04Z"
+  },
   {
    "path": "app/lib/TeamRunner.php",
    "functions": [],
@@ -743,566 +796,6 @@
    "release": "board-phone-header.zip",
    "callers": {},
    "lapsed": "2026-11-24T11:59:12Z"
-  },
-  {
-   "path": "app/lib/ControlBoard.php",
-   "functions": [
-    "boardLight"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
-   "why": "board-phone-header: the Control Board on a phone (pages under \u2630, one Alerts dropdown, one alarm count), the side panel's look, words that follow the state, the audit clock's retry, daily jobs' late limits",
-   "since": "2026-11-24T05:47:58Z",
-   "expires": "2026-11-24T09:47:58Z",
-   "release": "board-phone-header.zip",
-   "callers": {
-    "boardLight": [
-     "app/admin/control-console.php",
-     "app/lib/ControlHistorian.php"
-    ]
-   },
-   "lapsed": "2026-11-24T11:59:12Z"
-  },
-  {
-   "path": "app/lib/Scheduler.php",
-   "functions": [
-    "(top)",
-    "JOBS"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
-   "why": "board-phone-header: the Control Board on a phone (pages under \u2630, one Alerts dropdown, one alarm count), the side panel's look, words that follow the state, the audit clock's retry, daily jobs' late limits",
-   "since": "2026-11-24T05:47:58Z",
-   "expires": "2026-11-24T09:47:58Z",
-   "release": "board-phone-header.zip",
-   "callers": {
-    "JOBS": [
-     "app/admin/automation-console.php",
-     "app/admin/job-line.php",
-     "app/admin/operations-console.php",
-     "app/admin/sections.php",
-     "app/lib/ControlAlarms.php",
-     "app/lib/ControlMaintenance.php",
-     "app/lib/ControlRegister.php",
-     "app/lib/OutsideServices.php",
-     "app/lib/Preflight.php",
-     "app/lib/SystemStart.php",
-     "app/scripts/control_tick.php",
-     "app/ui/admin-dashboard.php",
-     "website/admin/api/find.php",
-     "website/api/health.php"
-    ]
-   },
-   "lapsed": "2026-11-24T11:59:12Z"
-  },
-  {
-   "path": "app/lib/AuditClock.php",
-   "functions": [
-    "dispatch"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
-   "why": "board-phone-header: the Control Board on a phone (pages under \u2630, one Alerts dropdown, one alarm count), the side panel's look, words that follow the state, the audit clock's retry, daily jobs' late limits",
-   "since": "2026-11-24T05:47:58Z",
-   "expires": "2026-11-24T09:47:58Z",
-   "release": "board-phone-header.zip",
-   "callers": {},
-   "lapsed": "2026-11-24T11:59:12Z"
-  },
-  {
-   "path": "app/lib/ControlAlarms.php",
-   "functions": [
-    "counts"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
-   "why": "board-phone-header: the Control Board on a phone (pages under \u2630, one Alerts dropdown, one alarm count), the side panel's look, words that follow the state, the audit clock's retry, daily jobs' late limits",
-   "since": "2026-11-24T05:47:58Z",
-   "expires": "2026-11-24T09:47:58Z",
-   "release": "board-phone-header.zip",
-   "callers": {
-    "counts": [
-     "app/admin/control-console.php",
-     "app/lib/ControlConsistency.php",
-     "website/admin/router.php"
-    ]
-   },
-   "lapsed": "2026-11-24T11:59:12Z"
-  },
-  {
-   "path": "website/admin/router.php",
-   "functions": [
-    "tv_admin_board_light"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
-   "why": "board-phone-header: the Control Board on a phone (pages under \u2630, one Alerts dropdown, one alarm count), the side panel's look, words that follow the state, the audit clock's retry, daily jobs' late limits",
-   "since": "2026-11-24T05:47:58Z",
-   "expires": "2026-11-24T09:47:58Z",
-   "release": "board-phone-header.zip",
-   "callers": {},
-   "lapsed": "2026-11-24T11:59:12Z"
-  },
-  {
-   "path": "website/api/health.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
-   "why": "board-phone-header: the health report keeps refused starts and connection counts outside the jobs section, and says why that section is empty (jobs_error)",
-   "since": "2026-11-24T05:52:29Z",
-   "expires": "2026-11-24T09:52:29Z",
-   "release": "board-phone-header.zip",
-   "callers": {},
-   "lapsed": "2026-11-24T11:59:12Z"
-  },
-  {
-   "path": "website/admin/api.php",
-   "functions": [
-    "(top)"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
-   "why": "Orders release A: a row action's Copy the link (the design review, 2026-11-23)",
-   "since": "2026-11-23T16:09:58Z",
-   "expires": "2026-11-23T20:09:58Z",
-   "release": "",
-   "callers": {},
-   "lapsed": "2026-11-23T20:10:03Z"
-  },
-  {
-   "path": "app/admin/control-console.php",
-   "functions": [
-    "(top)",
-    "tv_admin_mod_control",
-    "tv_cb_alarms",
-    "tv_cb_evidence",
-    "tv_cb_qbar"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
-   "why": "board-fixes: the Design reviewer changes (one button, short titles, true words, one time format)",
-   "since": "2026-11-23T14:57:50Z",
-   "expires": "2026-11-23T19:48:52Z",
-   "release": "board-fixes-4.zip",
-   "callers": {
-    "tv_cb_alarms": [
-     "app/lib/ControlConsistency.php"
-    ]
-   },
-   "lapsed": "2026-11-23T19:57:52Z"
-  },
-  {
-   "path": "app/admin/module-cards.php",
-   "functions": [
-    "(top)",
-    "tv_mc_css",
-    "tv_mc_light",
-    "tv_mc_setup",
-    "tv_mc_zone4",
-    "tv_module_card"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
-   "why": "board-fixes: jobs and words, Signs in as, the Sync chip (Jason, 2026-11-23)",
-   "since": "2026-11-23T14:57:52Z",
-   "expires": "2026-11-23T19:48:52Z",
-   "release": "board-fixes-4.zip",
-   "callers": {},
-   "lapsed": "2026-11-23T19:57:52Z"
-  },
-  {
-   "path": "app/lib/ServiceHealth.php",
-   "functions": [
-    "alarm"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
-   "why": "board-fixes: jobs and words, Signs in as, the Sync chip (Jason, 2026-11-23)",
-   "since": "2026-11-23T14:57:55Z",
-   "expires": "2026-11-23T19:48:52Z",
-   "release": "board-fixes-4.zip",
-   "callers": {
-    "alarm": [
-     "app/lib/ControlAlarms.php"
-    ]
-   },
-   "lapsed": "2026-11-23T19:57:52Z"
-  },
-  {
-   "path": "app/lib/Scheduler.php",
-   "functions": [
-    "run",
-    "sync"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
-   "why": "board-fixes: jobs and words, Signs in as, the Sync chip (Jason, 2026-11-23)",
-   "since": "2026-11-23T14:57:57Z",
-   "expires": "2026-11-23T19:48:52Z",
-   "release": "board-fixes-4.zip",
-   "callers": {
-    "sync": [
-     "app/admin/sections.php",
-     "app/lib/Preflight.php",
-     "app/scripts/control_tick.php"
-    ],
-    "run": [
-     "app/scripts/ai_worker.php",
-     "app/scripts/audit_clock_tick.php",
-     "app/scripts/billing_tick.php",
-     "app/scripts/booking_remind.php",
-     "app/scripts/control_tick.php",
-     "app/scripts/daily_report.php",
-     "app/scripts/data_cleanup_tick.php",
-     "app/scripts/domains_tick.php",
-     "app/scripts/earned_storage_tick.php",
-     "app/scripts/files_tick.php",
-     "app/scripts/frontier_tick.php",
-     "app/scripts/got_it_tick.php",
-     "app/scripts/guest_tick.php",
-     "app/scripts/guide_finds_tick.php",
-     "app/scripts/guide_live_tick.php",
-     "app/scripts/guide_ondemand_tick.php",
-     "app/scripts/heritage_tick.php",
-     "app/scripts/identity_recheck_tick.php",
-     "app/scripts/journeys_tick.php",
-     "app/scripts/landmark_photos_tick.php",
-     "app/scripts/like_watch_tick.php",
-     "app/scripts/listing_messages_tick.php",
-     "app/scripts/listings_tick.php",
-     "app/scripts/mail_keep.php",
-     "app/scripts/mail_sync.php",
-     "app/scripts/market_tick.php",
-     "app/scripts/moments_tick.php",
-     "app/scripts/notice_digest.php",
-     "app/scripts/notify_release.php",
-     "app/scripts/page_read_tick.php",
-     "app/scripts/pay_wait_tick.php",
-     "app/scripts/preflight_tick.php",
-     "app/scripts/pulse_followup.php",
-     "app/scripts/region_tick.php",
-     "app/scripts/releases_tick.php",
-     "app/scripts/sales_tick.php",
-     "app/scripts/services_tick.php",
-     "app/scripts/ses_setup_tick.php",
-     "app/scripts/staging_carry_tick.php",
-     "app/scripts/staging_night_tick.php",
-     "app/scripts/staging_publish_tick.php",
-     "app/scripts/staging_push_tick.php",
-     "app/scripts/standing_tick.php",
-     "app/scripts/supabase_keepalive.php",
-     "app/scripts/system_start_tick.php",
-     "app/scripts/takedowns_tick.php",
-     "app/scripts/vault_digest_tick.php",
-     "app/scripts/vectors_tick.php",
-     "app/scripts/work_orders_tick.php"
-    ]
-   },
-   "lapsed": "2026-11-23T19:57:52Z"
-  },
-  {
-   "path": "app/lib/Operations.php",
-   "functions": [
-    "alarms"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
-   "why": "board-fixes: jobs and words, Signs in as, the Sync chip (Jason, 2026-11-23)",
-   "since": "2026-11-23T14:57:59Z",
-   "expires": "2026-11-23T19:48:52Z",
-   "release": "board-fixes-4.zip",
-   "callers": {
-    "alarms": [
-     "app/admin/operations-console.php",
-     "app/lib/ControlAlarms.php"
-    ]
-   },
-   "lapsed": "2026-11-23T19:57:52Z"
-  },
-  {
-   "path": "app/lib/ControlAlarms.php",
-   "functions": [
-    "facts",
-    "pulseSteps",
-    "tick"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
-   "why": "board-fixes: the Design reviewer changes (one button, short titles, true words, one time format)",
-   "since": "2026-11-23T14:58:01Z",
-   "expires": "2026-11-23T19:48:52Z",
-   "release": "board-fixes-4.zip",
-   "callers": {
-    "pulseSteps": [
-     "app/lib/Pulse.php"
-    ],
-    "facts": [
-     "app/admin/control-console.php",
-     "app/admin/module-cards.php",
-     "app/admin/operations-console.php",
-     "app/admin/preflight-console.php",
-     "app/lib/ControlConsistency.php",
-     "app/lib/Pulse.php",
-     "app/lib/ServiceHealth.php"
-    ]
-   },
-   "lapsed": "2026-11-23T19:57:52Z"
-  },
-  {
-   "path": "website/api/health.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
-   "why": "board-fixes: jobs and words, Signs in as, the Sync chip (Jason, 2026-11-23)",
-   "since": "2026-11-23T14:58:03Z",
-   "expires": "2026-11-23T19:48:52Z",
-   "release": "board-fixes-4.zip",
-   "callers": {},
-   "lapsed": "2026-11-23T19:57:52Z"
-  },
-  {
-   "path": "app/lib/SignIns.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
-   "why": "board-fixes: jobs and words, Signs in as, the Sync chip (Jason, 2026-11-23)",
-   "since": "2026-11-23T14:58:14Z",
-   "expires": "2026-11-23T19:48:52Z",
-   "release": "board-fixes-4.zip",
-   "callers": {},
-   "lapsed": "2026-11-23T19:57:52Z"
-  },
-  {
-   "path": "app/admin/operations-console.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
-   "why": "release board-fixes.zip",
-   "since": "2026-11-23T15:04:02Z",
-   "expires": "2026-11-23T19:48:52Z",
-   "release": "board-fixes-4.zip",
-   "callers": {},
-   "lapsed": "2026-11-23T19:57:52Z"
-  },
-  {
-   "path": "app/lib/ControlAlarms.php",
-   "functions": [
-    "atUtc",
-    "jobPlain",
-    "redrawTitles"
-   ],
-   "kind": "add",
-   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
-   "why": "board-fixes: the Design reviewer changes (one button, short titles, true words, one time format)",
-   "since": "2026-11-23T14:58:10Z",
-   "expires": "2026-11-23T19:32:43Z",
-   "release": "",
-   "callers": {},
-   "lapsed": "2026-11-23T19:36:43Z"
-  },
-  {
-   "path": "app/admin/operations-console.php",
-   "functions": [
-    "tv_ops_ctx"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
-   "why": "board-fixes: jobs and words, Signs in as, the Sync chip (Jason, 2026-11-23)",
-   "since": "2026-11-23T14:58:06Z",
-   "expires": "2026-11-23T18:58:06Z",
-   "release": "",
-   "callers": {},
-   "lapsed": "2026-11-23T19:01:44Z"
-  },
-  {
-   "path": "app/lib/ServiceHealth.php",
-   "functions": [
-    "alarmTitle"
-   ],
-   "kind": "add",
-   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
-   "why": "board-fixes: jobs and words, Signs in as, the Sync chip (Jason, 2026-11-23)",
-   "since": "2026-11-23T14:58:08Z",
-   "expires": "2026-11-23T18:58:08Z",
-   "release": "",
-   "callers": {},
-   "lapsed": "2026-11-23T19:01:44Z"
-  },
-  {
-   "path": "app/lib/Scheduler.php",
-   "functions": [
-    "missFile",
-    "missed",
-    "misses"
-   ],
-   "kind": "add",
-   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
-   "why": "board-fixes: jobs and words, Signs in as, the Sync chip (Jason, 2026-11-23)",
-   "since": "2026-11-23T14:58:12Z",
-   "expires": "2026-11-23T18:58:12Z",
-   "release": "",
-   "callers": {},
-   "lapsed": "2026-11-23T19:01:44Z"
-  },
-  {
-   "path": "website/js/tv-ask.js",
-   "functions": [
-    "(top)",
-    "peek"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
-   "why": "board-view: one part in the panel (Jason, 2026-11-23)",
-   "since": "2026-11-23T13:15:03Z",
-   "expires": "2026-11-23T18:37:08Z",
-   "release": "",
-   "callers": {},
-   "lapsed": "2026-11-23T18:41:20Z"
-  },
-  {
-   "path": "website/js/admin-kit.js",
-   "functions": [
-    "head",
-    "shutAll",
-    "stepBack"
-   ],
-   "kind": "add",
-   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
-   "why": "board-panels: one panel at a time, Copy all, panels titled by the part (Jason, 2026-11-23)",
-   "since": "2026-11-23T13:15:14Z",
-   "expires": "2026-11-23T17:15:18Z",
-   "release": "",
-   "callers": {},
-   "lapsed": "2026-11-23T18:41:20Z"
-  },
-  {
-   "path": "app/admin/control-console.php",
-   "functions": [
-    "tv_cb_qbar",
-    "tv_cb_rail"
-   ],
-   "kind": "add",
-   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
-   "why": "board-view: the opening view as approved (rail, chips, landing) and the drawer Back and margin (Jason, 2026-11-23)",
-   "since": "2026-11-23T13:53:53Z",
-   "expires": "2026-11-23T17:53:53Z",
-   "release": "",
-   "callers": {},
-   "lapsed": "2026-11-23T18:41:20Z"
-  },
-  {
-   "path": "website/api/live-read.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
-   "why": "Live reads for building (Jason, 2026-11-23: 'for building we must use live data'; his Approve of the channel)",
-   "since": "2026-11-23T14:12:08Z",
-   "expires": "2026-11-23T18:34:48Z",
-   "release": "live-read.zip",
-   "callers": {},
-   "lapsed": "2026-11-23T18:41:20Z"
-  },
-  {
-   "path": "app/lib/ControlLog.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
-   "why": "The Logbook's kind for a live read",
-   "since": "2026-11-23T14:12:11Z",
-   "expires": "2026-11-23T18:34:48Z",
-   "release": "live-read.zip",
-   "callers": {},
-   "lapsed": "2026-11-23T18:41:20Z"
-  },
-  {
-   "path": "app/lib/EnvSettings.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
-   "why": "The live reads' key made by the site (WRITE_ONLY)",
-   "since": "2026-11-23T14:15:30Z",
-   "expires": "2026-11-23T18:34:48Z",
-   "release": "live-read.zip",
-   "callers": {},
-   "lapsed": "2026-11-23T18:41:20Z"
-  },
-  {
-   "path": "app/lib/ControlAlarms.php",
-   "functions": [
-    "pulseSteps",
-    "tick"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
-   "why": "old-titles: the slow-job alarm's title by the job's plain name (02 \u00a75.4)",
-   "since": "2026-11-23T04:07:07Z",
-   "expires": "2026-11-23T08:16:45Z",
-   "release": "old-titles.zip",
-   "callers": {
-    "pulseSteps": [
-     "app/lib/Pulse.php"
-    ]
-   },
-   "lapsed": "2026-11-23T13:14:56Z"
-  },
-  {
-   "path": "app/lib/ServiceHealth.php",
-   "functions": [
-    "alarm"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
-   "why": "words follow the state for alarms raised before #258: titles redrawn from state; a slow job by its plain name (the session manager, 2026-11-23)",
-   "since": "2026-11-23T04:07:07Z",
-   "expires": "2026-11-23T08:16:45Z",
-   "release": "old-titles.zip",
-   "callers": {
-    "alarm": [
-     "app/lib/ControlAlarms.php"
-    ]
-   },
-   "lapsed": "2026-11-23T13:14:56Z"
-  },
-  {
-   "path": "app/lib/ControlAlarms.php",
-   "functions": [
-    "redrawTitles",
-    "retitle"
-   ],
-   "kind": "add",
-   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
-   "why": "words follow the state: titles redrawn from state",
-   "since": "2026-11-23T04:07:09Z",
-   "expires": "2026-11-23T08:07:43Z",
-   "release": "old-titles.zip",
-   "callers": {},
-   "lapsed": "2026-11-23T13:14:56Z"
-  },
-  {
-   "path": "app/lib/ServiceHealth.php",
-   "functions": [
-    "alarmTitle"
-   ],
-   "kind": "add",
-   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
-   "why": "words follow the state: one title per alarm from its state",
-   "since": "2026-11-23T04:07:09Z",
-   "expires": "2026-11-23T08:07:09Z",
-   "release": "old-titles.zip",
-   "callers": {},
-   "lapsed": "2026-11-23T13:14:56Z"
-  },
-  {
-   "path": "website/market/index.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5grMsUgrRMJv3a71F9",
-   "why": "3e: Marketplace, checkout, storefronts' own chrome and domains onto the tokens (css-theme-brand \u00a74 Release 3), layouts kept; the owner's accent warning below 4.5:1 (admin-design.md)",
-   "since": "2026-11-22T14:45:07Z",
-   "expires": "2026-11-22T18:58:45Z",
-   "release": "design-3e.zip",
-   "callers": {},
-   "lapsed": "2026-11-22T19:18:29Z"
   }
  ]
 }
