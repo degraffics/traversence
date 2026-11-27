@@ -16,31 +16,6 @@
    "callers": {}
   },
   {
-   "path": "website/market/index.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
-   "why": "M-sections: the Marketplace's four sections (0135 note, 2026-11-27)",
-   "since": "2026-11-27T12:14:42Z",
-   "expires": "2026-11-27T16:14:42Z",
-   "release": "",
-   "callers": {}
-  },
-  {
-   "path": "app/ui/section-rails.php",
-   "functions": [
-    "(top)",
-    "tv_section_for"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
-   "why": "M-sections: the market rail's four sections",
-   "since": "2026-11-27T12:14:45Z",
-   "expires": "2026-11-27T16:14:47Z",
-   "release": "",
-   "callers": {}
-  },
-  {
    "path": "app/scripts/releases_tick.php",
    "functions": [],
    "kind": "change",
@@ -231,9 +206,49 @@
    "expires": "2026-11-27T18:11:35Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/FounderMail.php",
+   "functions": [
+    "messages"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
+   "why": "notify-founder: Open it by the message's link or task (founder-link)",
+   "since": "2026-11-27T16:24:54Z",
+   "expires": "2026-11-27T20:24:54Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
+  {
+   "path": "website/market/index.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
+   "why": "M-sections: the Marketplace's four sections (0135 note, 2026-11-27)",
+   "since": "2026-11-27T12:14:42Z",
+   "expires": "2026-11-27T16:14:42Z",
+   "release": "",
+   "callers": {},
+   "lapsed": "2026-11-27T16:24:54Z"
+  },
+  {
+   "path": "app/ui/section-rails.php",
+   "functions": [
+    "(top)",
+    "tv_section_for"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
+   "why": "M-sections: the market rail's four sections",
+   "since": "2026-11-27T12:14:45Z",
+   "expires": "2026-11-27T16:14:47Z",
+   "release": "",
+   "callers": {},
+   "lapsed": "2026-11-27T16:24:54Z"
+  },
   {
    "path": "website/directory/index.php",
    "functions": [
@@ -966,45 +981,6 @@
    "since": "2026-11-24T03:23:49Z",
    "expires": "2026-11-24T07:43:44Z",
    "release": "order-m2b.zip",
-   "callers": {},
-   "lapsed": "2026-11-24T11:59:12Z"
-  },
-  {
-   "path": "app/admin/control-console.php",
-   "functions": [
-    "(top)",
-    "tv_admin_mod_control",
-    "tv_cb_afilter",
-    "tv_cb_by_system",
-    "tv_cb_deliver",
-    "tv_cb_evidence",
-    "tv_cb_qbar",
-    "tv_cb_rail",
-    "tv_cb_table_rows",
-    "tv_cb_view_assets"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
-   "why": "board-phone-header: the Control Board on a phone (pages under \u2630, one Alerts dropdown, one alarm count), the side panel's look, words that follow the state, the audit clock's retry, daily jobs' late limits",
-   "since": "2026-11-24T05:47:58Z",
-   "expires": "2026-11-24T09:47:58Z",
-   "release": "board-phone-header.zip",
-   "callers": {
-    "tv_cb_table_rows": [
-     "app/admin/tools.php"
-    ]
-   },
-   "lapsed": "2026-11-24T11:59:12Z"
-  },
-  {
-   "path": "website/js/admin-control.js",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
-   "why": "board-phone-header: the Control Board on a phone (pages under \u2630, one Alerts dropdown, one alarm count), the side panel's look, words that follow the state, the audit clock's retry, daily jobs' late limits",
-   "since": "2026-11-24T05:47:58Z",
-   "expires": "2026-11-24T09:47:58Z",
-   "release": "board-phone-header.zip",
    "callers": {},
    "lapsed": "2026-11-24T11:59:12Z"
   }
