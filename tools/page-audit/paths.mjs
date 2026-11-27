@@ -453,12 +453,13 @@ for (const name of LAUNCH_ON ? LAUNCH_TOWNS : []) {
 // The buying paths (decisions/0181 §1 gate 2): in the QuickBooks sandbox on staging only, as the test accounts, never
 // real money (CLAUDE.md "No test moves real money"). A runner stops before the card form unless the page says Test mode.
 // Steps from the live code: shop/index.php (Add to cart, data-cart), qr/cart.php (Continue to payment, data-plpay),
-// js/go-codes.js cardForm (the card's fields), site-audit/payments-checklist.md steps 2-3 and 7.
+// js/go-codes.js cardForm (the card's fields), site-audit/payments-checklist.md steps 2-3 and 7. plan-buy runs before
+// shop-buy: a month of Pro would hold the plan's payment back, while a plan lets the Shop sell a pack on its card.
 LAUNCH.push(
-  { id: 'shop-buy', kind: 'core', title: 'Buy from the Shop (sandbox)', who: ['member'], limit: 5, changes: true, run: null,
-    steps: 'Shop → A month of Personal Pro → Add to cart → the cart → Continue to payment → Test mode shown → card 4111… → paid → Pro until a month from today on the Plans page' },
   { id: 'plan-buy', kind: 'core', title: 'Buy a plan (sandbox)', who: ['member'], limit: 5, changes: true, run: null,
     steps: 'Plans → a plan → Add to cart → the cart → Continue to payment → Test mode shown → card 4111… → paid → the plan active, the card on file; then Stop renewing' },
+  { id: 'shop-buy', kind: 'core', title: 'Buy from the Shop (sandbox)', who: ['member'], limit: 5, changes: true, run: null,
+    steps: 'Shop → A month of Personal Pro → Add to cart → the cart → Continue to payment → Test mode shown → card 4111… → paid → Pro until a month from today on the Plans page' },
   { id: 'market-buy', kind: 'core', title: 'Buy on the Marketplace (sandbox)', who: ['member'], limit: 5, changes: true, run: null,
     steps: "Marketplace → the test business's item → Buy → its checkout in the sandbox → paid → the order on Your orders and the seller's" },
 );

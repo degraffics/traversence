@@ -82,7 +82,10 @@ export function stagingRunners(k) {
   async function payInCart(w, page) {
     await page.waitForSelector('[data-plpay]', { timeout: 15000 }).catch(() => {});
     const go = await firstVisible(page, ['[data-plpay]']);
-    if (!go) { w.stuck = `the cart offered no Continue to payment: "${(await textOf(page)).slice(0, 140)}"`; await w.shot('nopay'); return false; }
+    if (!go) {   // the cart holds payment back when a group can't be paid (qr/cart.php: card 'none', its reason in bold)
+      const why = ((await page.locator('#go-plans .go-note b').first().innerText().catch(() => '')) || '').trim();
+      w.stuck = why ? `the cart holds payment back: "${why.slice(0, 140)}"` : `the cart offered no Continue to payment: "${(await textOf(page)).slice(0, 140)}"`; await w.shot('nopay'); return false;
+    }
     const words = (await go.innerText().catch(() => '')).trim();
     if (/card on file/i.test(words)) {   // a card kept from an earlier run: one press pays it (staging, the sandbox)
       await w.tap(go, words, { nav: true, wait: 20000 }); return true;
