@@ -1,0 +1,54 @@
+{
+ "zip": "search-lock.zip",
+ "built_on": "7a839cb Sync: 2026-11-27 01:35 UTC",
+ "recorded": "2026-11-27 02:14 UTC",
+ "note": "G.1 the search lock: nothing indexed until Jason lifts it (decisions/0181 \u00a74); Design: approved; session manager's order OK 02:10 UTC; built on Sync: 2026-11-27 01:35 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/ui/faq.md": {
+   "sha256": "f7729b95c35be9386b15605b39218304dd27dbe5203943b6a34b61f81c801368",
+   "live": false
+  },
+  "app/ui/search-lock.php": {
+   "sha256": "67ec8985651e1b7eedeb1b7a6a40e5e76626eefaa86dcfe06f782c16de13300c",
+   "live": false
+  },
+  "app/ui/security-headers.php": {
+   "sha256": "faa068161e98ac35a3510108beef1fdc8f6f618c237edfdf4cd6e5b31119edfc",
+   "live": false
+  },
+  "app/ui/storefront-view.php": {
+   "sha256": "7f0cb9d6519712c612a686a5a613cee6c64b1c7412cfcdb7f24ca1911a014fe7",
+   "live": false
+  },
+  "website/directory/classic.php": {
+   "sha256": "e737def66548e5d1df42dd72ddcc3af82e9071653cd0c35fbe39ab5f60625d4b",
+   "live": false
+  },
+  "website/forgot-password.php": {
+   "sha256": "ae7682ecc49cad55b7bf76f28239ee0aebf04e49ac59e9a1beb670b1f3a5a590",
+   "live": false
+  },
+  "website/index.php": {
+   "sha256": "078fc69cc71e48154d18f837ad6b6d72a4420ac5ad69b8f5a78628a344bcfe61",
+   "live": false
+  },
+  "website/login.php": {
+   "sha256": "02694d90a1c6a4f5a29ccad430551ef84cd6b8446771b5aeff3f0c51b3aa511a",
+   "live": false
+  },
+  "website/register.php": {
+   "sha256": "7e0de52da5679f0b220384877c9aacbcc55972a578784c11d56b3183f3d0b71f",
+   "live": false
+  },
+  "website/robots.txt": {
+   "sha256": "49cba436169f52b42af292bb46e98fd5c4160c4146061e436bc3513ba5c8870d",
+   "live": false
+  },
+  "website/sitemap.php": {
+   "sha256": "993a439b9060d60e3a4da2c846c472d85e4c221ed9da02e4e21f3738d426b713",
+   "live": false
+  }
+ }
+}

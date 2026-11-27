@@ -1,0 +1,10 @@
+{
+ "title": "Search reads your detected or set place inside our areas as that town, not as \"outside\"",
+ "why": "The launch plan's C.1 (decisions/0181 §1 gate 1 and §2: launch work first). A place taken from the visitor's device, or a town or ZIP set with no area named, was always marked \"outside our areas\" (UniversalSearch::loosePlace), which switched off \"did you mean\" and the area's own answers and could say \"We have no listings in Show Low, AZ yet\" where we have them. It now reads the place's ZIPs (or, for a bare point, the nearest town's, Landmarks::nearestZip) against our clusters, the same check a typed town or county already gets, and returns the town in its area in the shape a town chosen there already has. A place outside every area is unchanged (decisions/0060; CLAUDE.md \"Places in search\"). No data, no outside calls, no cost.",
+ "changes": [
+  {"what": "Search with Auto-detect or a set town inside one of our areas (e.g. Show Low, AZ): the town in its area, its listings first", "where": "https://traversence.com/directory/"},
+  {"what": "FAQ: Does Auto-detect share where I am? (one sentence added)", "where": "https://traversence.com/faq.php#does-auto-detect-share-where-i-am"}
+ ],
+ "proposals": [],
+ "switch": ""
+}
