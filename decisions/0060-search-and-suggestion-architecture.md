@@ -237,3 +237,9 @@ will look into developing better search results for this specific topic and area
 
 - **"Open now" reopens** (Jason, 2026-11-27: "Reopen"; decisions/0181; P10). It's marked and filtered only where hours
   are known (the owner's or OpenStreetMap's). Everything else says "hours not known", never a guess.
+
+**Note (2026-11-27): search must give superior results: accurate, useful and fast; health and emergency needs first**
+(Jason, 2026-11-27, with screenshots of an "urgent care" search near Lakeside, AZ against Google Maps: "Just to be extremely clear. Our site must excel at delivering superior results, accuracy, and usefulness. Search is running really slow too." Recorded as Operations & Policy (16); the full note and its tickets are on decisions/0181.) A need like "urgent care"
+ranks that exact kind first, then the broader health kinds, never businesses outside the kind; open now and closing time
+show where hours are known, and "Hours not known" where they aren't (never an implied open); a hospital or emergency room
+carries its own label. Treated as live harm, first within the gates.
