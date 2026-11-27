@@ -32,6 +32,7 @@ sh(`DELETE FROM event_participants; INSERT INTO event_participants (event_id, en
   t(w + ' round icons each name their action and its business', labels.length >= 2 && labels.every(l => /Show Low Pizza/.test(l) && /\/T$/.test(l)), labels.join(' , '));
   t(w + ' the icons are 30px rounds', (await ics.first().evaluate(x => { const r = x.getBoundingClientRect(); return Math.round(r.width) + 'x' + Math.round(r.height); })) === '30x30');
   t(w + ' Directions counts its tap', await pz.locator('.evp-ic[data-out="directions"][data-e="8"]').count() === 1);
+  t(w + ' nothing else of its codes reaches the page (its other code OLD5, counts)', !/OLD5|uses/.test(await sec.innerHTML()));
   t(w + ' its offer as written, then only its code and last day', /Their offer:\s*10% off a pizza with your ticket · code SHOW10 until Dec 31/.test(await pz.innerText()) && !/10% off, until/.test(await pz.innerText()));
   t(w + ' its GO Code', /GO Code\s*\S*\/\w{6}/.test(await pz.locator('.evp-go-c').innerText()) && await pz.locator('.evp-go-c a').count() === 1);
   const od = cards.filter({ hasText: 'Owner Diner' });

@@ -163,6 +163,14 @@ Comes after C.5a and C.5b, as its own release. Its plan went to the session mana
   2. The zip-check rule for tv.css ships first, as its own check change with three tests, after the CEO's Tier 4. Piece 2 reviews the diff.
   3. Before building, list the Play CDN-only blocks (`type="text/tailwindcss"`, `@apply` in pages, per-page `tailwind.config`) and send the list to the Design reviewer.
   4. Dynamic class names become whole literal classes first. Any safelist lives in tools/stylesheet/ with file:line for each entry.
+- **Fix 3 done, 2026-11-27 (Sync 16:23 UTC):** Play CDN-only blocks in the live mirror: `type="text/tailwindcss"`: none;
+  `@apply` in pages, CSS or JS: none; per-page `tailwind.config`: one, page-shell.php:57 (the font families: serif, display,
+  sans), which moves into tools/stylesheet/tailwind.config.js unchanged. The CDN loads in six places (page-shell.php:56,
+  auth-nav.php:27, index.php:83, directory/classic.php:55, listing/confirm-referral.php:8, user/dashboard.php:106) and is
+  named in csp.php:63, StagingGate.php:313, OutsideServices.php:184/283, service-defs.php:499, Preflight.php:1129 (kept a week).
+  Class names built in code: about 140 sites by a rough grep (`class="…' . $x`, `className +=`, `$cls`, `$tv_item`), to
+  be listed one by one with file:line before the build (fix 4).
+- **Measured for it (C.5a):** login 390 0.250 / 1280 0.653 with the CDN late; 0.009 / 0 with the styles in first; the hub 0.001 / 0.
 - **The before-and-after look:** the check can't cover every page (BA_MAX_PAGES 40; about 213 pages). It takes about 20, one per family of how a page loads Tailwind, plus each distinct layout in the page shell. Piece 2 is adding `"look_pages"` to the check, a check change through the CEO and the session manager. **Ping Piece 2 when we're two releases out.**
 
 ## The Marketplace's four sections (0135 note, Jason 2026-11-27): sized only
