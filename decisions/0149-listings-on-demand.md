@@ -85,3 +85,8 @@ station, courthouse), places of worship, campgrounds and RV parks; never shelter
 (`amenity=social_facility`), which a person links. The same checks apply: the business's own website, two sources to
 publish, the rest to Review. Towns already built out get the new kinds once (`TownCrawl::addKinds`, `KINDS_VERSION`).
 For places that aren't businesses, see decisions/0148 (outdoor places, confirmed on Wikidata).
+
+- **Ahead of demand inside the launch area** (Jason, 2026-11-27, Brief B1, widened: "expand to include surrounding 200
+  miles from the four corners"; decisions/0181 §3). Every town within 200 miles of the Four Corners Monument is built
+  before launch, not only when searched. Free bulk sources come first, and Google's paid check is used on 1A only. Outside
+  the area, this decision stands as written.
