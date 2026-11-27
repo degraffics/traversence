@@ -301,6 +301,15 @@ The sessions' "$0 route" isn't free: it is the fixed Max plan, and every session
 projections carry each project's share of session usage against those limits (0180's note). Nothing here touches
 payments or QuickBooks.
 
+**In the books** (Jason, 2026-11-27: "Should go in books for expenses"; recorded as Operations & Policy (16), for
+Accounting (10)). Conflict cited: the platform's only QuickBooks write is `QuickBooksPay::createBill` (VendorBills.php:182,
+orders' vendor bills to cost of goods sold); there's no path for a card-paid operating expense, and building one is new
+money tooling. Solution, acted on: Jason records it himself in QuickBooks (the card's bank feed, or receipt forwarding)
+from Accounting's prepared entry: vendor Anthropic, PBC; 2026-11-27; $100.00 Claude Max + $9.10 Arizona tax = $109.10;
+Software & subscriptions; receipt #2088-0359-9509; recurring monthly on the 27th. Logged for after launch (Accounting's
+queue, "money it protects"): an operating-expense register posting recurring costs (Claude Max, Railway, Name.com,
+Fly.io, Bluehost…) to QuickBooks as Purchases, on the same guards (`guardReal()`, `StagingGate`, mock mode).
+
 ## 6. Profitability Summary
 
 - **Per regional hub:** ~$837,600 gross revenue − ~$133,800 OpEx = **~$703,800 net annual operating profit** (84.0% net margin).
