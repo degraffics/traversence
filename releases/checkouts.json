@@ -130,6 +130,36 @@
    "expires": "2026-11-27T06:00:53Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/crawler/OpenLoads.php",
+   "functions": [
+    "batch"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
+   "why": "W1 load trips (#11): a load batch's reply accounts for every record it received (launch plan B.7)",
+   "since": "2026-11-27T02:02:11Z",
+   "expires": "2026-11-27T06:02:11Z",
+   "release": "",
+   "callers": {
+    "batch": [
+     "website/api/crawl/loads.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/ControlLedger.php",
+   "functions": [
+    "counts"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
+   "why": "W1 load trips (#11): a load batch's reply accounts for every record it received (launch plan B.7)",
+   "since": "2026-11-27T02:02:11Z",
+   "expires": "2026-11-27T06:02:11Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
