@@ -1,0 +1,11 @@
+{
+ "title": "Winslow gets its own area in the Ancient Borderlands (W15, first move): searches for Winslow find our town and its guide",
+ "why": "0181 §1 gate 3. The paths run of 2026-11-27 09:51 UTC showed \"We have no listings in Winslow\" above 17 and 1 results, and no guide offered. The cause is data: Winslow's ZIP 86047 sits in no area (micro_clusters), so search reads Winslow as outside our areas (UniversalSearch::clusterForZips). The fix follows 0170 §2's cascade, an existing town or else a town in its zone: regions.md names Winslow in 1A, so its area goes under the zone of the Greater St. Johns Area, slug by 0042's formula. The town (anchors) follows within the hour (Guides::syncTowns), and its guide comes in E.1's ring. Tier 4 review: CEO (as CTO), 2026-11-27, Prior Ruling Check yes (0170 §2, §5, §6 and its 2026-11-27 note, 0181's W15 note, regions.md 1A, 0042), approved on seven conditions, condition 5 as 0170 §2's cascade. Tested: tools/w15-tests/winslow.php, 8 checks on MariaDB, run twice.",
+ "changes": [
+  {"what": "Searching Winslow, AZ (or places to stay, eat or see there) finds Winslow as one of our towns, with no \"We have no listings\" note over its results", "where": "https://traversence.com/?q=places%20to%20stay%20in%20Winslow%2C%20AZ"},
+  {"what": "Winslow's area page and, within the hour, its town; its guide follows in the 1A guide ring", "where": "https://traversence.com/hub/?cluster=cluster-1a-winslow"}
+ ],
+ "proposals": [],
+ "switch": "",
+ "data_reason": "Inserts one row into micro_clusters (Winslow, ZIP 86047, under the Greater St. Johns Area's zone), its id named MAX(id)+1, only if no area already covers 86047 and only if that zone is found. No other row is changed or deleted. Undo: delete that one row while nothing points to it. Check on live after publish: one micro_clusters row with slug cluster-1a-winslow."
+}
