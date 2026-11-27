@@ -13,6 +13,10 @@ out = ["-- app/migrations/2026-11-27_task_seed_4.sql: the goals as parent tasks,
        "-- due date and decision, then the open items since Nov 25 as their children (CLAUDE.md #1552, Jason 2026-11-27). Data only, no CREATE.",
        "-- Every id is named (MAX(id)+1, guarded by NOT EXISTS): staging's copied tables have AUTO_INCREMENT behind their rows (until 0165's fix).",
        "-- Nothing that exists is created again: a task is matched by (gauge, item), and existing tasks only gain a parent where they have none."]
+# the goals' own fields (the session manager, 2026-11-27): due_on and measure, read by the daily goal check
+for col, typ in (('due_on', 'DATE NULL'), ('measure', 'VARCHAR(255) NULL')):
+    out.append(f"SET @s = (SELECT IF(COUNT(*) = 0, 'ALTER TABLE control_gauge_tasks ADD COLUMN {col} {typ}', 'DO 0') FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'control_gauge_tasks' AND COLUMN_NAME = '{col}');")
+    out.append("PREPARE q FROM @s;"); out.append("EXECUTE q;"); out.append("DEALLOCATE PREPARE q;")
 def adr(task_sql, d):
     out.append("SET @a = (SELECT COALESCE(MAX(id), 0) + 1 FROM control_gauge_task_adrs);")
     out.append(f"SET @t = ({task_sql});")
@@ -37,6 +41,8 @@ n_goal = n_child = n_link = 0
 for goal in G['goals']:
     task('area:goals', goal); n_goal += 1
     psql = find('area:goals', goal['what'])
+    assert len(goal['measure']) <= 255
+    out.append(f"UPDATE control_gauge_tasks SET due_on = {qs(goal['due'])}, measure = {qs(goal['measure'])} WHERE kind = 'fix' AND gauge = 'area:goals' AND item = {qs(goal['what'])} AND due_on IS NULL;")
     for c in goal.get('children', []):
         task(c.get('gauge', 'area:' + goal['key']), c, psql); n_child += 1
     for (g, item) in goal.get('link', []):

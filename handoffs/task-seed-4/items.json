@@ -2,6 +2,8 @@
  "goals": [
   {
    "key": "records",
+   "due": "2026-11-30",
+   "measure": "Every goal a parent task on live with owner, measure, due and decision; every open ticket under a goal",
    "what": "Goals and records with the roles, live by Mon Nov 30 13:00 UTC",
    "owner": "Chief Executive Officer (2)",
    "why": "Jason, 2026-11-27: \"Yes, approve the plan\u2026 up and running by Monday morning 6 am\". No goal, ruling or order lives only in a session.",
@@ -14,16 +16,6 @@
    ],
    "priority": 1,
    "children": [
-    {
-     "what": "Due dates on tasks: a goal's date in a field of its own",
-     "why": "Gap: control_gauge_tasks has no due-date column, so a goal's due date is written in its Done when for now",
-     "source": "GaugeTasks.php ensure() (no due column) \u00b7 CLAUDE.md #1552",
-     "done": "A task has a due date the goal check can read",
-     "adrs": [
-      "0180"
-     ],
-     "priority": 1
-    },
     {
      "what": "The daily goal check: a ticket for the owner when a goal's tickets sit 3 days or its date is at risk",
      "why": "CLAUDE.md #1552: a live-side $0 daily goal check, escalating by the tiers",
@@ -48,6 +40,8 @@
   },
   {
    "key": "gate-paths",
+   "due": "2026-12-21",
+   "measure": "paths.mjs core paths green as guest and member at 390px, 5 runs in a row",
    "what": "Launch gate 1: every core path passes as guest and member at 390px, 5 runs in a row",
    "owner": "IT Manager (11)",
    "why": "0181 \u00a71 gate 1: \"Ready\" is measured, never judged",
@@ -122,6 +116,8 @@
   },
   {
    "key": "gate-new-paths",
+   "due": "2026-12-21",
+   "measure": "Each 1A town's path and the three sandbox buying paths green, 5 runs in a row",
    "what": "Launch gate 2: the new paths pass (each 1A town; Shop, plan-buy and Marketplace-buy in the sandbox)",
    "owner": "Chief Executive Officer (2)",
    "why": "0181 \u00a71 gate 2; it crosses the data, front-end and shop lanes, so the CEO holds it",
@@ -158,6 +154,8 @@
   },
   {
    "key": "gate-data",
+   "due": "2026-12-21",
+   "measure": "Every 1A town built; each guide passed 0164's checks and a person's read; no wrong \"no listings\" note",
    "what": "Launch gate 3: 1A's towns built, each with a guide that passed 0164's checks and a person's read",
    "owner": "Editorial Director (12)",
    "why": "0181 \u00a71 gate 3: data. Directory accuracy and guides are Front-End Content Writers' (26) duties (0180 appendix)",
@@ -284,6 +282,8 @@
   },
   {
    "key": "gate-safety",
+   "due": "2026-12-21",
+   "measure": "Nightly backups with one restore drill done; scheduled jobs on time 7 days running",
    "link_ids": [
     51,
     32,
@@ -342,6 +342,8 @@
   },
   {
    "key": "gate-money",
+   "due": "2026-12-21",
+   "measure": "Payments checklist green in the sandbox; Jason's one $4.95 purchase and refund done",
    "link_ids": [
     47
    ],
@@ -401,6 +403,8 @@
   },
   {
    "key": "gate-search",
+   "due": "2026-12-21",
+   "measure": "Per-page noindex holds on live; the lock lifted on Jason's date",
    "what": "Launch gate 6: per-page noindex holds on live, then the lock lifts on Jason's date",
    "owner": "Marketing Director (13)",
    "why": "0181 \u00a71 gate 6 and \u00a74, the search lock (SEO, Taxonomy & Funnel Analysts, 30, in this lane)",
@@ -446,6 +450,8 @@
   },
   {
    "key": "launch",
+   "due": "2027-01-01",
+   "measure": "Go on Dec 31 against the six gates",
    "link_ids": [
     58
    ],
@@ -708,6 +714,8 @@
   },
   {
    "key": "ladder",
+   "due": "2027-04-30",
+   "measure": "4a: 10 Core trials paid (by ~Apr 2027); 4b: ~73 paying, ~$69,800 a year (by ~Oct 2027)",
    "what": "The pilot's success ladder: 4a 10 Core trials convert by ~Apr 2027, 4b ~73 paying (~$69,800 a year) by ~Oct 2027",
    "owner": "Chief Marketing Officer (7)",
    "why": "Jason, 2026-11-27: \"Yes\" to the CEO's proposal (launch plan \u00a79). The pilot is the Ancient Borderlands zone (1A, 1B, 1C)",
@@ -803,6 +811,8 @@
   },
   {
    "key": "transition",
+   "due": "2026-12-15",
+   "measure": "A parallel week, then cutover with nothing living only in a session",
    "what": "The transition cutover: our business and conversations on the platform by Dec 15",
    "owner": "Project Manager (8)",
    "why": "Jason, 2026-11-27: \"Yes, the transition plan\". Tier 3, the PM's lane",
