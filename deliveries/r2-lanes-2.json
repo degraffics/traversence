@@ -1,0 +1,46 @@
+{
+ "zip": "r2-lanes-2.zip",
+ "built_on": "122090e Sync: 2026-11-27 02:50 UTC",
+ "recorded": "2026-11-27 04:28 UTC",
+ "note": "R2 sent again (replaces r2-lanes.zip, #317 withdrawn on staging: duplicate id 59 in control_gauge_tasks); the seven tickets name their own id; built on Sync: 2026-11-27 02:50 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/admin/control-console.php": {
+   "sha256": "bfa48fe263127b4dc3836f8e2b7bd5ebfd56f80b4e3f00256168b194f76a350c",
+   "live": false
+  },
+  "app/lib/GaugeTasks.php": {
+   "sha256": "5ca26c9d5987299caf92e480af9fa489a7ab8bcf5ca046d613e3a99f3dfddad7",
+   "live": false
+  },
+  "app/lib/TeamRoster.php": {
+   "sha256": "51794ae17cc47c24cee1cdab4c6e1588440ab1bdd77be439eded7f7dbb2685dd",
+   "live": false
+  },
+  "app/lib/TeamRunner.php": {
+   "sha256": "2d5b56998546dd0b6dc5ff39d49157301fc7eb149d5877004c4cf04bd41636e4",
+   "live": false
+  },
+  "app/migrations/2026-11-26_0180_r2_lanes.sql": {
+   "sha256": "318e5f3a577eda0d811b21c75e93f3d2186d50cd3c01b9ac6394238ada69a809",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "7391ab155f17cf33650ea3f2993cb12eb46f38ed502e3bf6d548df573445a071",
+   "live": false
+  },
+  "website/admin/api.php": {
+   "sha256": "636b5f01ebe1f0609105b51cfbaaa948834143014f6f4de8ae5cf071644f9b44",
+   "live": false
+  },
+  "website/js/admin-control.js": {
+   "sha256": "a7faf0cc95a7ab6e3e1945c0e9c9e190e98933734123c5f910f85e41003827ec",
+   "live": false
+  },
+  "website/js/tv-ask.js": {
+   "sha256": "7674c71b4deea49056e3608135fb7c983d3bafa572d0b6ff92066cb6c71c84e6",
+   "live": false
+  }
+ }
+}
