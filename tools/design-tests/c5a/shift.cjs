@@ -3,6 +3,7 @@
 // DOMContentLoaded. Each page's cumulative layout shift (CLS, the browser's own layout-shift entries, recent input left
 // out) at 390 and 1280, the worst of RUNS loads; and the elements that moved most, for the record. (Headless Chrome's
 // phone emulation holds the first paint until the styles are in, hiding the shift, so 390 is a narrow window, not isMobile.)
+// LIVE_DELAY=ms: a guide's live parts (api/guide-live.php) answer that late.
 // DELAY=-1: the styles in before the first paint (as the built stylesheet will be), so only the page's own shifts count.
 // node shift.cjs <out.json> [budget]   (HARNESS, TW_INJECT, DELAY=400, RUNS=3, PAGES="/login.php,/directory/?town=Show%20Low")
 const { chromium } = require('playwright'); const fs = require('fs');
@@ -17,6 +18,7 @@ const late = DELAY < 0 ? TW : 'document.addEventListener("DOMContentLoaded",func
    const ua = w < 800 ? 'Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Mobile Safari/537.36' : 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36';
    const c = await b.newContext({ viewport: { width: w, height: 844 }, hasTouch: w < 800, userAgent: ua });
    await c.route(/cdn\.tailwindcss\.com/, r => r.fulfill({ contentType: 'application/javascript', body: late }));
+   if (process.env.LIVE_DELAY) await c.route(/\/api\/guide-live\.php/, async r => { await new Promise(x => setTimeout(x, +process.env.LIVE_DELAY)); r.continue(); });   // a slow weather service, as live (C.5b: ~4.5 s)
    await c.addInitScript(() => { window.__ls = []; new PerformanceObserver(l => { for (const e of l.getEntries()) if (!e.hadRecentInput) window.__ls.push({ v: e.value, t: Math.round(e.startTime), src: (e.sources || []).map(s => { const n = s.node; return n && n.nodeType === 1 ? (n.id ? '#' + n.id : n.tagName.toLowerCase() + (n.className && typeof n.className === 'string' ? '.' + n.className.trim().split(/\s+/).slice(0, 2).join('.') : '')) : (n ? n.nodeName : '?'); }) }); }).observe({ type: 'layout-shift', buffered: true }); });
    const p = await c.newPage(); await p.goto(H + pg, { waitUntil: 'load' }); await p.waitForTimeout(DELAY + 4500);
    const ls = await p.evaluate(() => window.__ls); const cls = +ls.reduce((a, e) => a + e.v, 0).toFixed(4);
