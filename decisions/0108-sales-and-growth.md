@@ -379,3 +379,7 @@ subscription or revert to free account if no billing is set up."
 - **Terms §Plans → Trials** and the FAQ ("How does a free trial work?") say the same.
 - **Not changed:** a trial *code* entered on the Plans page still starts its trial straight away. Typing a code is an
   explicit choice, but it could get the same review later. A trial staff start from the admin is unchanged.
+
+- **Trials are Core only during the pilot** (Jason, 2026-11-27: "Free trials for core subscribers only. That will
+  limit our expenses while we beta test our pilot."; decisions/0181). The 30, 60 or 90-day trials offered in the 1A
+  pilot are of Core.

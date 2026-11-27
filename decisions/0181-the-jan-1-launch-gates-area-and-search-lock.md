@@ -90,3 +90,11 @@ day. This qualifies 0180's "R1–R5 ship as each passes" (note added there).
     drafts are completed the same way.
   - One release moves `Jurisdictions::regionOpen()` onto the reviewed records (the Data & Content session's, after this
     note).
+- **The pilot's people and trials** (Jason, 2026-11-27, in his words):
+  - "Founder is first point of contact for pilot oversight, foot traffic, and in person meetings." The pilot's funnel,
+    visits and in-person meetings are his. There's no rep for now.
+  - "Free trials for core subscribers only. That will limit our expenses while we beta test our pilot." During the
+    pilot, 0108's trials and 0034's grants are Core only (notes added to both).
+  - **Still to confirm with him:** the decided success ladder's step 4a wording, which counts Cornerstone grants
+    converting, and the approach he named ("go codes and live enhanced listings, prototype stores, etc."). No decision
+    describes "prototype stores" or "live enhanced listings" yet; he's been asked to describe them.
