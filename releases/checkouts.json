@@ -2,28 +2,6 @@
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
  "claims": [
   {
-   "path": "app/admin/module-cards.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
-   "why": "release b2-backups.zip",
-   "since": "2026-11-27T06:27:04Z",
-   "expires": "2026-11-27T14:52:25Z",
-   "release": "b2-backups-3.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/HostBackups.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
-   "why": "release b2-backups.zip",
-   "since": "2026-11-27T06:27:04Z",
-   "expires": "2026-11-27T14:52:25Z",
-   "release": "b2-backups-3.zip",
-   "callers": {}
-  },
-  {
    "path": "app/admin/sections.php",
    "functions": [
     "tv_admin_mod_releases"
