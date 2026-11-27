@@ -3,7 +3,7 @@
  "built_on": "eb848e8 Sync: 2026-11-27 12:50 UTC",
  "recorded": "2026-11-27 16:02 UTC",
  "note": "Release pipeline: tick and verdict (#322 sent again unchanged; the check reads a folded tab as the same tab, #1569). Built on Sync: 2026-11-27 12:50 UTC Sent through git (releases/inbox).",
- "status": "pending",
+ "status": "replaced",
  "live_in": "",
  "files": {
   "app/admin/sections.php": {
@@ -34,5 +34,6 @@
    "sha256": "cd41983ba4aa32512be0f30cd7123a791016ac16eb9184483673857663254011",
    "live": false
   }
- }
+ },
+ "replaced_by": "pipeline-tick-3.zip: withdrawn as Release #323 (the before-and-after check, 17:39 UTC 2026-11-27; crawler-review's first before look timed out, read by #1598); sent again unchanged on Sync: 2026-11-27 16:23 UTC"
 }
