@@ -21,3 +21,7 @@ SJ Portables needs live Cornerstone-tier access — specifically multi-location 
 ## Consequences
 
 `commercial.md`'s tier model gains a second dimension — how a tier was granted, separate from the tier itself — which needs its own account-level fields (a grant source, and a review/expiration point) and its own lightweight admin review workflow; neither is designed yet, flagged here rather than assumed. `decisions/0035` is where those fields formally live, on the Subscription record. The build guidance already given to the SJ Portables thread stands unchanged: build the real Strategic/Cornerstone gate for multi-location inventory management, don't hardcode it always-on for their account. This ADR is what makes that gate check correctly gate SJ Portables' account when appropriate, since their Cornerstone status is real, recorded account state — a promotional grant, not an exception the code has to know about. The `noindex, nofollow` rule above also needs a concrete hook — a flag the page-rendering/site-generation layer checks against the account's promotional status, not a manual per-account toggle someone has to remember to flip — and this is the first place `decisions/0033`'s SEO-value claim and a real gate condition have to meet in actual implementation.
+
+- **Core only during the pilot** (Jason, 2026-11-27: "Free trials for core subscribers only. That will limit our
+  expenses while we beta test our pilot."; decisions/0181). Comped grants issued during the 1A pilot are at Core,
+  whose allowances fit 0181's $0-extra ruling (E1).
