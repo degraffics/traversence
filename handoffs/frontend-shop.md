@@ -211,3 +211,11 @@ Sent to the session manager on 2026-11-27, waiting for its place in the queue an
 - Gate 1: fail.
 - Gate 2: fail. Winslow; buying paths unknown (no staging run).
 - Gate 6: noindex holds live; the lift date is Jason's.
+
+## 0134 events: a minimum build sized for a Founder decision (sent 2026-11-27, about 17:10 UTC; nothing built)
+- **Tickets:** mostly live (ItemKinds, KindCheckout, market/ticket.php). §6b's Ticket Sales caps aren't built.
+- **Event pages and store:** new, 2 releases. Keeping live_events separate departs from §1's "one store".
+- **GO Codes:** live via ShortCodes::forPage.
+- **The pilot:** content, needing a real host.
+- **Total:** 3–4 releases.
+- **Suggested option (a):** free events, with a listing's ticket item linked; 2 releases.
