@@ -212,7 +212,7 @@ SKIP_HOSTS = {"openstreetmap.org", "npino.com", "npiprofile.com", "npidb.org", "
 
 started = time.monotonic()
 WORKER_KEYS = ("GOOGLE_PLACES_KEY", "TAVILY_API_KEY", "BRAVE_API_KEY", "RIDB_API_KEY", "HF_TOKEN")   # reported by name at each run
-WORKER_V = "2.17.0"          # 2.17.0: open loads in batches of 100 with their number, one retry on a timeout, each site call timed (IR-0001). 2.16.1: Common Crawl's bulk reads wait only on data.commoncrawl.org, the host they read (an index-server hold stopped them). 2.16.0: the Census geocoder's backup: when the site can't reach the Census on its connection, the worker sends the same batch itself and hands the reply to the site to place (decisions/0175's note, 2026-11-20). 2.15.0: Common Crawl's bulk reads (our states' public sites, a source's pages) query its URL Index (Parquet on data.commoncrawl.org, one request at a time, the crawl's file map kept on the site), never the index server, which keeps only a single page's copy (decisions/0164's note of 2026-11-20). 2.14.1: a 503 asking us to slow down (S3's SlowDown, Common Crawl's data server) is a rate wait, not a server error. 2.14.0: our copy carries health care and guides, and Utah, Colorado and Nevada (one state a run). 2.13.0: Overpass retired: never asked; a kind our copy lacks is reported as not in our copy. 2.12.1: a task stopped by a held service reports "held", never "failed": the call that trips a hold says so, and Common Crawl's task checks its holds first, so a run whose only trouble is a held service ends ok on Railway, not Crashed; 2.12.0: the identity check starts from what the site's own copies hold (the job's "local"), outside only for the rest; 2.11.0: a website that doesn't load for the refresh is looked up in Common Crawl's newest crawl (W2, decisions/0163's source map: direct, then Common Crawl); 2.10.0: web search falls to Brave when Tavily fails or is held; Google Places as the paid backup for confirming a business in the identity check, only by a director's override within its cap (decisions/0163's source map); 2.9.0: W1 reads our OpenStreetMap copy first (the job's "ours", from Geofabrik), Overpass only for a kind or town it lacks, and works on while every Overpass server is held (decisions/0163's source map); 2.8.0: every link on a page read goes to the page log (same site or not; no cap of 60, nor 40 other sites: W0, decisions/0164 §1.4); 2.7.5: a page whose reading had to stop is logged waiting to be read (P1-1); 2.7.4: reports which keys it has (names only), its per-run limits from the plan, Geofabrik's weekly load (osmium); 2.7.3: Geofabrik over IPv4; 2.7: the open-dataset loads and Geofabrik's test (Release B); the service's contract 2 (decisions/0160 §2): the site plans each run, the worker reports it; 2.4: calls by host; 2.5: issues, holds, probes, per-kind Overpass; 2.6: servers from the plan, the pace
+WORKER_V = "2.17.1"          # 2.17.1: an open-load batch the host answers 502, 503 or 504 waits (30, 90, 180 s) and is sent again with its number, never failing the whole task on one; a wait past the task's time stops the town for this run (W1 run #2148). 2.17.0: open loads in batches of 100 with their number, one retry on a timeout, each site call timed (IR-0001). 2.16.1: Common Crawl's bulk reads wait only on data.commoncrawl.org, the host they read (an index-server hold stopped them). 2.16.0: the Census geocoder's backup: when the site can't reach the Census on its connection, the worker sends the same batch itself and hands the reply to the site to place (decisions/0175's note, 2026-11-20). 2.15.0: Common Crawl's bulk reads (our states' public sites, a source's pages) query its URL Index (Parquet on data.commoncrawl.org, one request at a time, the crawl's file map kept on the site), never the index server, which keeps only a single page's copy (decisions/0164's note of 2026-11-20). 2.14.1: a 503 asking us to slow down (S3's SlowDown, Common Crawl's data server) is a rate wait, not a server error. 2.14.0: our copy carries health care and guides, and Utah, Colorado and Nevada (one state a run). 2.13.0: Overpass retired: never asked; a kind our copy lacks is reported as not in our copy. 2.12.1: a task stopped by a held service reports "held", never "failed": the call that trips a hold says so, and Common Crawl's task checks its holds first, so a run whose only trouble is a held service ends ok on Railway, not Crashed; 2.12.0: the identity check starts from what the site's own copies hold (the job's "local"), outside only for the rest; 2.11.0: a website that doesn't load for the refresh is looked up in Common Crawl's newest crawl (W2, decisions/0163's source map: direct, then Common Crawl); 2.10.0: web search falls to Brave when Tavily fails or is held; Google Places as the paid backup for confirming a business in the identity check, only by a director's override within its cap (decisions/0163's source map); 2.9.0: W1 reads our OpenStreetMap copy first (the job's "ours", from Geofabrik), Overpass only for a kind or town it lacks, and works on while every Overpass server is held (decisions/0163's source map); 2.8.0: every link on a page read goes to the page log (same site or not; no cap of 60, nor 40 other sites: W0, decisions/0164 §1.4); 2.7.5: a page whose reading had to stop is logged waiting to be read (P1-1); 2.7.4: reports which keys it has (names only), its per-run limits from the plan, Geofabrik's weekly load (osmium); 2.7.3: Geofabrik over IPv4; 2.7: the open-dataset loads and Geofabrik's test (Release B); the service's contract 2 (decisions/0160 §2): the site plans each run, the worker reports it; 2.4: calls by host; 2.5: issues, holds, probes, per-kind Overpass; 2.6: servers from the plan, the pace
 RUN_END = None             # when this run's own work must stop (started + TIME_BUDGET, or a bulk load's end)
 TASK_END = None            # when the capture task being worked must stop (its share of the run)
 FETCH_CAP = MAX_FETCHES    # fetches this run may have made by the end of the task being worked
@@ -462,8 +462,14 @@ LOAD_READ = 120         # seconds to wait for a batch's answer; a timeout is sen
 LOAD_RETRY_READ = 240
 
 
-def load_batch(payload):
-    """One batch of a town's records: its number makes a resend safe (the site answers a taken batch with what it did)."""
+# 2.17.1 (W1 run #2148, 2026-11-24: foursquare_bulk failed on one 503 after an hour of loading): a batch the host answers
+# 502, 503 or 504 waits and is sent again with the same number, the same waits as Geofabrik's batches (2.13.0, Jason
+# 2026-11-19), 3 times at most; only then does it fail as before. A wait the task's time can't cover stops the town for
+# this run instead (it isn't marked done, so the site hands it out again and its taken batches answer what they did).
+LOAD_WAITS = (30, 90, 180)
+
+
+def _load_once(payload):
     try:
         return site_call("/api/crawl/loads.php", payload, timeout=LOAD_READ)
     except (TimeoutError, urllib.error.URLError, ConnectionError) as e:
@@ -471,6 +477,24 @@ def load_batch(payload):
             raise
         log(f"open load: batch {payload.get('batch')} of {payload.get('key')} got no answer ({type(e).__name__}); sent once more")
         return site_call("/api/crawl/loads.php", payload, timeout=LOAD_RETRY_READ)
+
+
+def load_batch(payload, deadline=None):
+    """One batch of a town's records: its number makes a resend safe (the site answers a taken batch with what it did).
+    Returns the site's answer, or {"busy": True} when the host stayed busy longer than the task's time allows."""
+    for i, wait in enumerate((0,) + LOAD_WAITS):
+        if wait:
+            if deadline is not None and deadline - time.monotonic() < wait + LOAD_READ:
+                log(f"open load: batch {payload.get('batch')} of {payload.get('key')}: the site was busy and this task's time is nearly up; the town goes on next run")
+                return {"busy": True}
+            log(f"open load: batch {payload.get('batch')} of {payload.get('key')}: the site was busy; sending it again in {wait} s ({i} of {len(LOAD_WAITS)})")
+            time.sleep(wait)
+        try:
+            return _load_once(payload)
+        except RuntimeError as e:
+            if not re.search(r" said 50[234]: ", str(e)) or i == len(LOAD_WAITS):
+                raise
+    raise RuntimeError("unreachable")
 
 
 def site_call(path, payload=None, timeout=60):
@@ -3610,9 +3634,11 @@ def open_load(dataset, deadline):
                      "phone": r[7] or "", "website": r[8] or "", "lat": r[9], "lng": r[10], "date_closed": str(r[11] or ""), "sources": [["Foursquare", "Apache-2.0"]], "confidence": 0.6}
                     for r in con.execute(q).fetchall()]
         for n, i in enumerate(range(0, len(rows), LOAD_BATCH)):
-            res = load_batch({"dataset": dataset, "release": release, "key": t["key"], "batch": n, "rows": rows[i:i + LOAD_BATCH]})
+            res = load_batch({"dataset": dataset, "release": release, "key": t["key"], "batch": n, "rows": rows[i:i + LOAD_BATCH]}, deadline)
             if res.get("paused"):
                 return "paused"
+            if res.get("busy"):
+                return True if done else "busy"
         site_call("/api/crawl/loads.php", {"dataset": dataset, "release": release, "key": t["key"], "done": True})
         log(f"{dataset}: {t['name']}, {t['state']}: {len(rows)} records sent")
         done += 1
@@ -3833,6 +3859,8 @@ def work_task(p, item, seconds):
         got = task_got + (1 if r is True else 0)
         if r == "paused":
             item.update(outcome="idle", why="the site's queue is paused")
+        elif r == "busy":                           # 2.17.1: the host stayed busy (503) past the task's time: not a failure
+            item.update(outcome="done" if got > 0 else "idle", why="the site was busy (503); its town goes on next run")
         elif got > 0 or item.get("outcome") == "done":
             item["outcome"] = "done"
         else:

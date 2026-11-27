@@ -47,6 +47,56 @@ except Exception as e:
     raised = e
 check("an HTTP answer (500) isn't sent again", len(calls) == 1 and isinstance(raised, urllib.error.HTTPError), calls)
 
+# 2.17.1 (W1 run #2148): a 502, 503 or 504 from the host waits and sends the same batch again, 3 times at most
+slept = []
+crawler.time.sleep = slept.append
+busy = lambda code: RuntimeError(f"site /api/crawl/loads.php said {code}: b'<!DOCTYPE HTML PUBLIC'")
+calls.clear()
+crawler.site_call = fake([busy(503), busy(503), {"ok": True, "seen": 100}])
+res = crawler.load_batch(p)
+check("a 503: waited and sent again, its answer back", len(calls) == 3 and res.get("seen") == 100, calls)
+check("…the same batch number and rows each time", all(c[1] == p for c in calls))
+check("…after 30 s, then 90 s", slept == [30, 90], slept)
+
+calls.clear(); slept.clear()
+crawler.site_call = fake([busy(502), busy(504), busy(503), busy(503)])
+try:
+    crawler.load_batch(p); raised = None
+except Exception as e:
+    raised = e
+check("four busy answers: 3 waits (30, 90, 180), then the error as before", len(calls) == 4 and slept == [30, 90, 180] and isinstance(raised, RuntimeError) and "said 503" in str(raised), (calls, slept, raised))
+
+calls.clear(); slept.clear()
+crawler.site_call = fake([RuntimeError("site /api/crawl/loads.php said 500: b'x'")])
+try:
+    crawler.load_batch(p); raised = None
+except Exception as e:
+    raised = e
+check("a 500 (our code's error) isn't waited out or sent again", len(calls) == 1 and not slept and isinstance(raised, RuntimeError), calls)
+
+calls.clear(); slept.clear()
+crawler.site_call = fake([RuntimeError("site /api/crawl/loads.php said 422: b'Which dataset'")])
+try:
+    crawler.load_batch(p); raised = None
+except Exception as e:
+    raised = e
+check("a refusal (422) isn't sent again", len(calls) == 1 and not slept and isinstance(raised, RuntimeError), calls)
+
+calls.clear(); slept.clear()
+crawler.site_call = fake([busy(503)])
+res = crawler.load_batch(p, crawler.time.monotonic() + 60)
+check("a wait the task's time can't cover: no wait, the town stops for this run", len(calls) == 1 and not slept and res == {"busy": True}, (calls, slept, res))
+
+# open_load hands the deadline on and stops the town (not marked done) on busy; work_task says it in words, never failed
+src = inspect.getsource(crawler.open_load)
+check("open_load passes its deadline to each batch and stops on busy before marking the town done",
+      "load_batch({" in src and "}, deadline)" in src and src.index('res.get("busy")') < src.index('"done": True'))
+item = {"counts": {}}
+crawler.HANDLERS["zz_busy"] = (lambda d: "busy", None, lambda: "")
+crawler.work_task({"task": "zz_busy"}, item, 60)
+check("a task stopped by a busy host is idle with its reason, not failed", item.get("outcome") == "idle" and "503" in item.get("why", ""), item)
+del crawler.HANDLERS["zz_busy"]
+
 src = inspect.getsource(crawler.open_load)
 check("open_load sends LOAD_BATCH (100) rows a batch, numbered", crawler.LOAD_BATCH == 100 and '"batch": n' in src and "rows[i:i + LOAD_BATCH]" in src and "500" not in src)
 
