@@ -128,6 +128,13 @@ state with `live-read.yml`: rows `feature_switches`, q `before_after`.
    7. phase 2 release 1 (Tier 3, the PM's lane: the thread, task-notes.json, task-rulings.json, the four-stage redesign, and role queues with counts and SLA, jason-spec §7);
    8. the Executive channel;
    9. a parallel week, then cutover about Dec 15.
+13. **Gates first (CLAUDE.md #1553, #1554; 0181 §1–2, 2026-11-27):** a build goes ahead only when it names the 0181 gate (1–6) it moves, a live harm to people or money, or the revenue goal or money it serves, with the link stated. This re-sorts item 12:
+   1. #322, the pipeline release (gate 4);
+   2. r2-lanes-3 (Monday's rollout slot);
+   3. gate 4's work: B.2's nightly backups and restore drill; the Scheduler bundle (jobs on time for 7 days, Pre-flight's self-continue), built from the live Scheduler.php only after Frontend & Shop's goal-check release is live; A3 only if a withdrawal blocks gate work;
+   4. after Monday's four: phase 2 release 1, the Executive channel, and the AI items 1, 2 and 4.
+   - **Parked:** the "Recovered" fix (no gate; #322 removes its cause).
+   - **20:00 UTC daily to the session manager:** each item with its gate and the revenue or money it serves, plus gate 4's status with its evidence.
 
 ## 4. Seeded tickets (R2's migration; each added once, by `what`) and their lanes
 
