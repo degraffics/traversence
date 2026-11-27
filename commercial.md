@@ -285,6 +285,22 @@ refund" (`decisions/0098`).
 | Administrative & Legal Contingency | Licensing, regional software (CRM, scheduling, accounting), operational buffer | $1,000 | $12,000 |
 | **Total** | | **$11,150/mo** | **$133,800/yr** |
 
+### 5.1 Current monthly costs today (pre-revenue, the team itself)
+
+Recorded by the Accounting Manager (10) for the CFO (4), 2026-11-27 (0180's note on project budgets). These are what the
+team costs now, before any hub is open; §5 above is the per-hub model at scale.
+
+| Cost | Paid by | Monthly |
+|---|---|---|
+| Claude Max plan (the sessions' usage, 0180 §6's "$0 route" pool): $100.00 + Arizona tax $9.10 | the Founder, himself (Nov 27–Dec 27, 2026, from his receipt) | $109.10 |
+| The CEO's shared AI budget (0180's note) | Founder-approved | up to $20 |
+| The platform's AI cap (0163 §7) | Founder-approved | up to $40 |
+| **Total AI and session cost** | | **up to $169.10** |
+
+The sessions' "$0 route" isn't free: it is the fixed Max plan, and every session draws on its usage limits. Project cost
+projections carry each project's share of session usage against those limits (0180's note). Nothing here touches
+payments or QuickBooks.
+
 ## 6. Profitability Summary
 
 - **Per regional hub:** ~$837,600 gross revenue − ~$133,800 OpEx = **~$703,800 net annual operating profit** (84.0% net margin).
