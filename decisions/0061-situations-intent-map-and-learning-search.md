@@ -634,3 +634,15 @@ kinds, each feeding one W:
     nothing.
   - 8 time searches, including one taught in Admin;
   - the form at 390px.
+
+**Note (2026-11-27): health needs offer the exact kind first, and never rank by listing number** (recorded as Operations &
+Policy (16), by the CEO under CLAUDE.md's "His stated direction is the ruling", citing Jason's "Health and emergency
+needs come first" and "must excel at delivering superior results, accuracy, and usefulness", 2026-11-27, 0181's note).
+Feeling sick's and An injury's first need ("Clinics and urgent care", app/lib/Situations.php:145, :152–156) lists, in
+order: Urgent Medical Care Centers And Clinics (where IntakeStager.php:447 files urgent care), then Clinics and Medical
+Centers, then Hospitals; Health Services and Ambulatory Health Care Services last, and only with a health category. Rows
+are ordered by the need's position first, then distance, never by listing number; the same for Pharmacies (pharmacies
+before pharmacists; individuals never as places, 0164's guard). Words such as "urgent care", "walk in clinic" or "need a
+doctor today" read as urgent for ordering: open now first, by honest hours (`Hours::now`), never hiding the rest. $0.
+Gate 1; search release 1 in the IT lane, with the Design reviewer for anything visible and the path re-run on the
+Lakeside and Show Low urgent-care searches. In the daily summary for the Founder to overturn.

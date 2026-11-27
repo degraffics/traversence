@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-27T20:26:23Z",
+ "generated_at": "2026-11-27T20:33:02Z",
  "version": 2,
  "generated_by": "tools/page-audit/gauges.py",
  "note": "The gauges' configuration (handoffs/control-board-plan/step3/sections/gauge-lifecycle.md), compact: the site computes every stage from it (app/lib/ControlGauges.php); each gauge's detail is in gauges-items.json.",
