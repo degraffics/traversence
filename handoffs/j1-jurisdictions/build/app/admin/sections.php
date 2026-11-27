@@ -447,7 +447,7 @@ function tv_admin_mod_jurisdictions(PDO $pdo): string
         foreach ($j['laws'] as $l) {
             $body .= '<div class="ak-law"><p><b>' . $e($l['name']) . '</b>' . ($l['citation'] !== '' ? ', ' . ($l['url'] !== '' ? '<a class="underline" href="' . $e($l['url']) . '" target="_blank" rel="noopener">' . $e($l['citation']) . '</a>' : $e($l['citation'])) : '') . '</p>'
                 . '<p class="ak-note">' . $e(Jurisdictions::EFFECTS[$l['effect']] ?? $l['effect']) . ($l['protects'] !== '' ? '. Protects: ' . $e($l['protects']) : '') . ($l['requires_us'] !== '' ? ' Asks of us: ' . $e($l['requires_us']) : '') . '</p>'
-                . (Jurisdictions::unread($l) ? '<form method="post" class="ak-jf">' . $hid('readlaw', $code) . '<input type="hidden" name="law" value="' . (int) $l['id'] . '"><label>Its official text<input class="ak-in" name="url" required placeholder="https:// the legislature\'s or the code\'s own page"></label><button class="ak-b go"' . $dis . '>Mark read</button></form>' : '')
+                . (Jurisdictions::unread($l) ? '<form method="post" class="ak-jf">' . $hid('readlaw', $code) . '<input type="hidden" name="law" value="' . (int) $l['id'] . '"><label>Its official text<input class="ak-in" name="url" required placeholder="https:// the legislature\'s or the code\'s own page"></label><button class="ak-b"' . $dis . '>Mark read</button></form>' : '')
                 . '<form method="post">' . $hid('unlaw', $code) . '<input type="hidden" name="law" value="' . (int) $l['id'] . '"><button class="ak-b no"' . $dis . ' data-confirm="Remove this law from the record?" data-yes="Remove" data-danger>Remove</button></form></div>';
         }
         $eff = ''; foreach (Jurisdictions::EFFECTS as $k => $v) $eff .= '<option value="' . $k . '">' . $e($v) . '</option>';
@@ -458,7 +458,7 @@ function tv_admin_mod_jurisdictions(PDO $pdo): string
             . '<button class="ak-b go"' . $dis . '>Add</button></form>', false);
         $unread = count(array_filter($j['laws'], [Jurisdictions::class, 'unread']));
         $rdis = $unread ? ' disabled title="' . $unread . ' law' . ($unread === 1 ? ' isn\'t' : 's aren\'t') . ' read against the official text yet: Mark read beside each one first"' : $dis;
-        if ($j['status'] !== 'reviewed' && $unread) $body .= '<p data-tv-status="info" data-tv-label="Waiting:">' . $unread . ' of its laws ' . ($unread === 1 ? 'isn\'t' : 'aren\'t') . ' read against the official text yet. Mark read beside each one (with its official link), then review the record.</p>';
+        if ($j['status'] !== 'reviewed' && $unread) $body .= '<p data-tv-status="info" data-tv-label="Waiting:" data-tv-keep>' . $unread . ' of its laws ' . ($unread === 1 ? 'isn\'t' : 'aren\'t') . ' read against the official text yet. Mark read beside each one (with its official link), then review the record.</p>';
         if ($j['status'] !== 'reviewed') $body .= '<form method="post" class="ak-jf">' . $hid('review', $code)
             . ($level !== 'nation' ? '<label>Attorney who reviewed it (advised, not required)<input class="ak-in" name="attorney" data-spell value="' . $e((string) $j['signed_by']) . '"></label><label>Reviewed on<input class="ak-in" type="date" name="signed_at"></label>' : '')
             . '<button class="ak-b go"' . $rdis . ' data-confirm="Mark ' . $e($name) . '\'s record reviewed? Its rules then apply as written." data-yes="Mark reviewed">Mark reviewed</button></form>';
