@@ -29,7 +29,7 @@ const FULL = process.env.FULL === '1';
 const GUIDES_PER_RUN = +(process.env.GUIDES_PER_RUN || (FULL ? 12 : 4));
 const STOPS_PER_JOURNEY = +(process.env.STOPS_PER_JOURNEY || 6);
 const JOURNEYS_PER_GUIDE = +(process.env.JOURNEYS_PER_GUIDE || (FULL ? 3 : 1));
-const BUDGET_MS = 1000 * +(process.env.PATHS_BUDGET_S || (FULL ? 900 : 420));
+const BUDGET_MS = 1000 * (+(process.env.PATHS_BUDGET_S || (FULL ? 900 : 420)) + (process.env.PATHS_LAUNCH !== '0' ? +(process.env.PATHS_LAUNCH_S || 300) : 0));   // the launch paths' own share (decisions/0181 §1)
 const STAGING_DAY = FULL || [1, 4].includes(new Date().getUTCDay()) || process.env.STAGING_PATHS === '1';
 const ONLY = (process.env.PATHS_ONLY || '').split(',').map(s => s.trim()).filter(Boolean);   // e.g. PATHS_ONLY=eat-near-me,guides
 const OUT = process.env.PATHS_OUT || 'site-audit/results/paths.json';
@@ -308,9 +308,13 @@ const CORE = [
   { id: 'sign-in', title: 'Sign in, including the human check', who: ['member'], limit: 5, signedOut: true, run: async (w, page) => {
     const a = ACC?.members?.member; if (!a) { w.stuck = 'no member account in CHECK_ACCOUNTS'; return; }
     await w.goto('/', 'the home page');
-    const menu = await firstVisible(page, ['#tv-main-nav [aria-haspopup]', '#tv-main-nav button[aria-controls]', '#tv-main-nav .tvn-burger', '#tv-main-nav button']);
-    let si = await firstVisible(page, ['[data-auth="out"] a.tvn-in', '[data-auth="out"] a[href="/login.php"]', 'a.tvpm-in']);
-    if (!si && menu) { await w.tap(menu, 'the menu'); si = await firstVisible(page, ['[data-auth="out"] a.tvn-in', 'a.tvpm-in', 'a[href="/login.php"]']); }
+    // the menu button (#icon-menu-btn) opens the phone menu (#tv-phone-menu) at 390 and the menu panel on a computer;
+    // Sign in is a.tvpm-sin in the phone menu (its own class since #253; .tvpm-in is the menu's column) and a.tvn-in in the
+    // panel (app/ui/header.php). Only a visible one counts: the other one's hidden copy is first in the page.
+    const SIGN_IN = ['#tv-phone-menu [data-auth="out"] a.tvpm-sin', '#site-menu-panel [data-auth="out"] a.tvn-in', '[data-auth="out"] a.tvpm-sin', '[data-auth="out"] a.tvn-in', '[data-auth="out"] a[href="/login.php"]'];
+    const menu = await firstVisible(page, ['#icon-menu-btn', '#tv-main-nav [aria-haspopup]', '#tv-main-nav button[aria-controls]', '#tv-main-nav button']);
+    let si = await firstVisible(page, SIGN_IN);
+    if (!si && menu) { await w.tap(menu, 'the menu'); await page.waitForTimeout(300); si = await firstVisible(page, SIGN_IN); }
     if (!si) { w.stuck = 'no Sign in in the menu'; await w.shot('nosignin'); return; }
     await w.tap(si, 'Sign in', { nav: true });
     if (!(await w.type('#email', a.email)) || !(await w.type('#password', a.password))) return;
@@ -396,10 +400,73 @@ const CORE = [
   { id: 'send-order', steps: "Back-Office → a test order → Send → the client's held mail has it (sandbox payment only)", title: 'Staff: send an order', who: ['staff-sal-staff'], limit: 5, changes: true, run: null },
 ];
 
+// ---- the launch paths (decisions/0181 §1 gate 2) -----------------------------------------------------------------------
+// One per 1A town: eat, stay, see, read its guide, as a guest on a phone, 3 taps or fewer from the home page (the same
+// measure as "find a place to eat" and "read a town's guide"). The towns are read from regions.md's 1A micro-cluster
+// (the launch plan's C.3), never a list kept here; "Petrified Forest gateway" names no town, so it waits for one (a gap,
+// asked of the session manager). All of 1A is in Arizona (regions.md: The Ancient Borderlands & Painted Desert, 1A).
+// They read only, so they run on live, with their own time budget (PATHS_LAUNCH_S) so the guides keep theirs.
+const LAUNCH_ON = process.env.PATHS_LAUNCH !== '0';
+const LAUNCH_TOWNS = (() => {
+  try {
+    const t = readFileSync(new URL('../../regions.md', import.meta.url), 'utf8');
+    const m = t.match(/\*\*1A\*\*\s*([^·|]+)/);
+    return m ? m[1].split(',').map(x => x.trim()).filter(x => x && !/gateway/i.test(x)) : [];
+  } catch { return []; }
+})();
+const slugOf = x => x.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+const LAUNCH = [];
+for (const name of LAUNCH_ON ? LAUNCH_TOWNS : []) {
+  const town = `${name}, AZ`;
+  for (const [need, words] of [['eat', 'places to eat'], ['stay', 'places to stay'], ['see', 'things to see']]) {
+    LAUNCH.push({ id: `1a:${slugOf(name)}:${need}`, kind: 'town', town, need, title: `${name}: ${words}`, who: ['guest'], limit: 3, run: async (w, page) => {
+      await w.goto('/', 'the home page');
+      if (!(await search(w, page, `${words} in ${town}`))) return;
+      const panel = ((await page.locator('.tvs-panel').first().innerText().catch(() => '')) || '').replace(/\s+/g, ' ');
+      const rows = page.locator('.tvs-panel a.tvs-row[href]:visible');
+      const n = await rows.count();
+      const none = /We have no listings in/i.test(panel);
+      if (!n) { w.add('dead_end', 'J01', w.here(), `searching "${words} in ${town}" found nothing${none ? ' ("We have no listings" there)' : ''}`); await w.shot('noresults'); return; }
+      if (none) w.add('accuracy', 'J02', w.here(), `"We have no listings in …" shows above ${n} results for ${town} (decisions/0181 §1 gate 3)`);
+      w.note(`${n} results`);
+      const first = rows.first(); const said = (await first.innerText().catch(() => '')).replace(/\s+/g, ' ').slice(0, 60);
+      const href = await first.getAttribute('href');
+      if (!(await w.tap(first, 'the first result', { nav: true }))) return;
+      const t = await textOf(page);
+      w.goal = (w.here() !== '/' && !/not found|isn't here/i.test(t.slice(0, 400))) || (!!href && /^https?:/.test(href));
+      if (!w.goal) w.add('dead_end', 'J01', w.here(), `the first result (${said}) didn't open its page`);
+    } });
+  }
+  LAUNCH.push({ id: `1a:${slugOf(name)}:guide`, kind: 'town', town, need: 'guide', title: `${name}: read its guide`, who: ['guest'], limit: 3, run: async (w, page) => {
+    await w.goto('/', 'the home page');
+    if (!(await search(w, page, town, { enter: false }))) return;
+    const g = await firstVisible(page, ['.tvs-panel a[href*="/hub/?"]:visible', '.tvs-panel a.tvs-btn[href*="/hub/"]', '.tvs-panel a[href*="/hub/build.php"]']);
+    if (!g) { await page.keyboard.press('Enter').catch(() => {}); w.taps++; await page.waitForTimeout(2000); }
+    const g2 = g || await firstVisible(page, ['.tvs-panel a[href*="/hub/?"]:visible', 'a[href*="/hub/?"]:visible']);
+    if (!g2) { w.add('dead_end', 'J02', w.here(), `searching "${town}" offered no guide`); await w.shot('noguide'); return; }
+    await w.tap(g2, 'the guide', { nav: true });
+    w.goal = /\/hub\//.test(w.here());
+    if (w.goal && (await textOf(page)).length < 400) w.add('clarity', 'J03', w.here(), 'the guide has little to read');
+  } });
+}
+
+// The buying paths (decisions/0181 §1 gate 2): in the QuickBooks sandbox on staging only, as the test accounts, never
+// real money (CLAUDE.md "No test moves real money"). A runner stops before the card form unless the page says Test mode.
+// Steps from the live code: shop/index.php (Add to cart, data-cart), qr/cart.php (Continue to payment, data-plpay),
+// js/go-codes.js cardForm (the card's fields), site-audit/payments-checklist.md steps 2-3 and 7.
+LAUNCH.push(
+  { id: 'shop-buy', kind: 'core', title: 'Buy from the Shop (sandbox)', who: ['member'], limit: 5, changes: true, run: null,
+    steps: 'Shop → A month of Personal Pro → Add to cart → the cart → Continue to payment → Test mode shown → card 4111… → paid → Pro until a month from today on the Plans page' },
+  { id: 'plan-buy', kind: 'core', title: 'Buy a plan (sandbox)', who: ['member'], limit: 5, changes: true, run: null,
+    steps: 'Plans → a plan → Add to cart → the cart → Continue to payment → Test mode shown → card 4111… → paid → the plan active, the card on file; then Stop renewing' },
+  { id: 'market-buy', kind: 'core', title: 'Buy on the Marketplace (sandbox)', who: ['member'], limit: 5, changes: true, run: null,
+    steps: "Marketplace → the test business's item → Buy → its checkout in the sandbox → paid → the order on Your orders and the seller's" },
+);
+
 // the staging runners (paths-staging.mjs): each path that changes something and had no runner takes its own
 {
   const SR = stagingRunners({ as, ACC, firstVisible, textOf, guides: () => GUIDE_LIST, FULL });
-  for (const d of CORE) if (d.changes && !d.run && SR[d.id]) d.run = SR[d.id];
+  for (const d of [...CORE, ...LAUNCH]) if (d.changes && !d.run && SR[d.id]) d.run = SR[d.id];
 }
 
 // ---- the guide paths --------------------------------------------------------------------------------------------------
@@ -536,7 +603,7 @@ const want = id => !ONLY.length || ONLY.includes(id) || (id.startsWith('guide:')
 GUIDE_LIST = await guides();
 { const g = GUIDE_LIST.find(x => x.level === 'town' && x.state); GUIDE_TOWN = g ? `${g.name}, ${g.state}` : ''; }   // the town for "read a town's guide": one with a live guide
 const results = [];
-for (const def of CORE) {
+for (const def of [...CORE, ...LAUNCH]) {
   for (const who of def.who) {
     if (!want(def.id)) continue;
     if (def.changes && !STAGING) { results.push({ id: def.id, kind: 'core', title: def.title, who, status: 'waits', notes: ['Waits for staging: it changes something, so it runs on staging.trvgo.us only (System Configuration → Staging → Set up staging, then the new CHECK_ACCOUNTS block).'], problems: [], steps: { taps: 0, pages: 0, limit: def.limit, over: false }, counts: {}, changes: true }); continue; }
@@ -545,7 +612,7 @@ for (const def of CORE) {
     if (def.changes && def.run && !STAGING_DAY && !ONLY.includes(def.id) && !['like-guest', 'comment'].includes(def.id)) { results.push({ id: def.id, kind: 'core', title: def.title, who, status: 'skipped', notes: ['Runs on staging on Mondays and Thursdays (and in a full run, or Run workflow naming it in PATHS_ONLY), to keep GitHub\'s run minutes down.'], problems: [], steps: { taps: 0, pages: 0, limit: def.limit, over: false }, counts: {}, changes: true }); continue; }
     if (def.changes && !def.run) { results.push({ id: def.id, kind: 'core', title: def.title, who, status: 'waits', notes: ['Staging is set up; this path\'s runner is still to write (its steps are listed in paths.md).'], problems: [], steps: { taps: 0, pages: 0, limit: def.limit, over: false }, counts: {}, changes: true }); continue; }
     if (who !== 'guest' && !ACC) { results.push({ id: def.id, kind: 'core', title: def.title, who, status: 'skipped', notes: ['CHECK_ACCOUNTS isn\'t set: signed-out paths only.'], problems: [], steps: { taps: 0, pages: 0, limit: def.limit, over: false }, counts: {} }); continue; }
-    if (left() < 60000) { results.push({ id: def.id, kind: 'core', title: def.title, who, status: 'skipped', notes: ['The run\'s time budget ran out before this path: it runs first next time.'], problems: [], steps: { taps: 0, pages: 0, limit: def.limit, over: false }, counts: {} }); continue; }
+    if (left() < 60000) { results.push({ id: def.id, kind: def.kind || 'core', title: def.title, who, status: 'skipped', notes: ['The run\'s time budget ran out before this path: it runs first next time.'], problems: [], steps: { taps: 0, pages: 0, limit: def.limit, over: false }, counts: {} }); continue; }
     if (def.signedOut && who !== 'guest') {   // sign in from signed out: a fresh context, not the signed-in one
       const ctx = await checkContext(browser, { context: { viewport: PHONE, isMobile: true, hasTouch: true } }); await ctx.addInitScript(INIT);
       contexts['tmp@live'] = { ctx, site: SITE };
@@ -590,7 +657,15 @@ const L = ['# Paths', '', `Decision 0145, Phase 4. Generated by \`tools/page-aud
 for (const r of results.filter(r => r.kind === 'core' && r.status !== 'waits')) L.push(`| ${esc(r.title)} | ${r.who} | ${r.status} | ${stepTxt(r)} | ${c(r, 'dead_ends')} | ${c(r, 'surprises')} | ${c(r, 'accuracy')} | ${c(r, 'clarity')} | ${trend(r.id, r.who)} |`);
 const waits = results.filter(r => r.status === 'waits');
 if (waits.length) { L.push('', '### Waiting for staging', '', 'These change something (an account, a like, a post, a decision), so they run on the staging copy only, as the test accounts, never on live.' + (STAGING ? '' : ' Staging isn\'t in CHECK_ACCOUNTS yet: they start once Jason presses **Set up staging** (System Configuration → Staging) and the new block replaces the secret.'), '', '| Path | Who | Its steps | Runner |', '|---|---|---|---|');
-  for (const r of waits) { const d = CORE.find(x => x.id === r.id); L.push(`| ${esc(r.title)} | ${r.who} | ${esc(d?.steps || '')} | ${d && d.run ? 'written' : 'to write once staging can be looked at'} |`); } }
+  for (const r of waits) { const d = [...CORE, ...LAUNCH].find(x => x.id === r.id); L.push(`| ${esc(r.title)} | ${r.who} | ${esc(d?.steps || '')} | ${d && d.run ? 'written' : 'to write once staging can be looked at'} |`); } }
+const launch = results.filter(r => r.kind === 'town');
+if (launch.length || LAUNCH_ON) {
+  L.push('', '## Launch paths: 1A\'s towns', '', `decisions/0181 §1 gate 2: one path per 1A town (${LAUNCH_TOWNS.join(', ') || 'none read from regions.md'}): eat, stay, see, read its guide, as a guest at 390px, 3 taps or fewer. "Petrified Forest gateway" names no town yet, so it has no path. The Shop, plan-buy and Marketplace-buy paths run on staging in the sandbox (above, with the paths that change something).`, '',
+    '| Town | Eat | Stay | See | Guide | Last 7 runs (eat / stay / see / guide) |', '|---|---|---|---|---|---|');
+  const cell = id => { const r = launch.find(x => x.id === id); if (!r) return '—'; const why = r.stuck || (r.problems || [])[0]?.what || ''; return r.status + (why && r.status !== 'passed' ? ': ' + esc(why).slice(0, 80) : ''); };
+  const NEEDS = ['eat', 'stay', 'see', 'guide'];
+  for (const name of LAUNCH_TOWNS) L.push(`| ${esc(name)} | ${NEEDS.map(n => cell(`1a:${slugOf(name)}:${n}`)).join(' | ')} | ${NEEDS.map(n => trend(`1a:${slugOf(name)}:${n}`, 'guest')).join(' / ')} |`);
+}
 L.push('', '## Guide paths', '', `${GUIDE_TOTAL} live guide${GUIDE_TOTAL === 1 ? '' : 's'} (from ${GUIDE_SOURCE === 'endpoint' ? '`/api/guide-paths.php`, with what our data says about each stop' : 'Discovery\'s links, until `/api/guide-paths.php` is live: stops as their pages show them, without our data to compare'}). ${walked} walked this run, from number ${ROT + 1}; the next run starts at ${next + 1}, so every guide is walked in turn. Each: the guide opens and shows its suggested journey; the journey shows its stops, their times and the distance between; each stop's page opens and says what our data says (open now, its phone), with directions; its links work.`, '',
   '| Guide | Status | Journeys | Stops opened | Dead ends | Surprises | Accuracy | Clarity | Last 7 runs |', '|---|---|---|---|---|---|---|---|---|');
 for (const r of results.filter(r => r.kind === 'guide')) L.push(`| [${esc(r.guide?.name || r.title)}](${SITE}${r.guide?.url || ''}) | ${r.status} | ${r.guide?.journeys ?? '—'} | ${r.guide ? r.guide.stops.filter(s => s.opened).length + ' of ' + r.guide.stops.length : '—'} | ${c(r, 'dead_ends')} | ${c(r, 'surprises')} | ${c(r, 'accuracy')} | ${c(r, 'clarity')} | ${trend(r.id, 'guest')} |`);
