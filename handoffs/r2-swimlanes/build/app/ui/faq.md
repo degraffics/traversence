@@ -45,7 +45,7 @@ In **Destination** you can type a town, a town area, a local name, or a landmark
 Signed in, you can make a place your default (**My default**), so you start there next time: whenever you're signed in and haven't chosen a place yet this visit, every page starts from it (shown as "your default"). A region you arrive through, or choosing everywhere, still wins for that visit.
 
 ### Does Auto-detect share where I am?
-No. Auto-detect only picks a starting place for you on this visit. Your location is never shown to anyone.
+No. Auto-detect only picks a starting place for you on this visit. Your location is never shown to anyone. When the place it finds (or a town or ZIP you set) is in one of our town areas, search treats it as that town in its area, just as if you'd chosen it: what we list there comes first, and you never see "We have no listings in <your town> yet" for a town where we do.
 
 ## Exploring places
 
