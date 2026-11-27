@@ -946,3 +946,12 @@ newest again (release pulse-overdue-first).
 **Note (Jason, 2026-11-27):** every message kind this dispatcher sends is held to the promise check (0181's gate 1 note of
 the same date): its link lands on exactly what it names, its words match the real state, and a failing message blocks its
 release.
+
+**Note (Jason, 2026-11-27, comparing the CEO's plain-text message email with the branded sign-in code email: "Standards
+matter."; recorded as Operations & Policy (16), part of the promise check, 0181's gate 1 note; owned by the CMO (7) and
+Editorial (12)).** Every email the site sends uses the branded template the sign-in code email uses: the Traversence
+header and the message's title; two or three short lines; one button named for its target ("Open the comparison"),
+going to the message's `link` or `task`; no raw addresses and no second "Open it"; the right sender ("From the CEO" for
+the CEO's messages), and footer choices named for what the email is, never "the session manager". The push carries the
+subject and one sentence and opens the same link. The promise check renders each email kind against the template and
+follows its button.
