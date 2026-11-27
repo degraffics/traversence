@@ -98,3 +98,10 @@ day. This qualifies 0180's "R1–R5 ship as each passes" (note added there).
   - **Still to confirm with him:** the decided success ladder's step 4a wording, which counts Cornerstone grants
     converting, and the approach he named ("go codes and live enhanced listings, prototype stores, etc."). No decision
     describes "prototype stores" or "live enhanced listings" yet; he's been asked to describe them.
+- **The pilot is the Ancient Borderlands zone** (Jason, 2026-11-27: "Ancient borderlands should be pilot").
+  - The pilot market is the whole Ancient Borderlands & Painted Desert zone (regions.md 1A, 1B, 1C), not St. Johns
+    alone. This amends claude-docs/competitive-positioning.md's "Pilot market: St. Johns (Cluster 1A)" (note added
+    there).
+  - St. Johns' cornerstones stand within it. Other towns' cornerstones are found by spec §30's method.
+  - The success ladder applies to the zone.
+  - 0066 governs 1B's Navajo Nation towns and Zuni: public businesses only, and nation-specific content held.
