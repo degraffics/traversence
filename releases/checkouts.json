@@ -58,6 +58,17 @@
    "expires": "2026-11-27T05:52:25Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "website/directory/classic.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
+   "why": "G.1: the search lock's leaks closed (decisions/0181 \u00a74)",
+   "since": "2026-11-27T01:52:28Z",
+   "expires": "2026-11-27T05:52:28Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
