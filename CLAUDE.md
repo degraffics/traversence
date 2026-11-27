@@ -318,7 +318,13 @@ merge; it runs the sync and records deliveries.
 **His stated direction is the ruling** (Jason, 2026-11-27: "this is another issue: always drawing me back into the
 decisions I've already made"). When Jason states a direction, that statement is the ruling: the CEO records it and
 proceeds, never asking him to confirm what he's said. A question goes to him only for a choice his words don't settle.
-The session manager's review checks a recording against his words; it never brings the decision back to him.
+The session manager's review checks a recording against his words; it never brings the decision back to him. (Jason,
+refining it: "I am open to your suggestions, that is based on you and your team accepting my directions as plausible,
+practical, and in fact improves order position and capabilities. When it is not possible or in conflict I am open to
+your suggestions based on you citing the issue and offering a solution".) Plausible, practical and an improvement:
+recorded and acted on, no question. Not possible or in conflict (a decision, the code, a limit, the money line, 0066):
+the CEO cites the issue with its source and offers a solution ("Suggest a change to <decision>…"), and acts on it unless
+he redirects; never a yes/no question. The review checks for both.
 
 **Decision or release: said every time** (Jason, 2026-11-24: "make the decisions vs work to live very clear"). Every
 question's first words say which it is: **"Decision (nothing changes on the site yet): goes live in <release>, <its
