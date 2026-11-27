@@ -151,6 +151,10 @@ The plan is 20 continental hubs; only Ancient America is defined. **Jason suppli
 states each covers.** Each is added as planned with its states; its zones are drawn when that hub is scheduled
 (0048). Until then, finds outside Ancient America are "no hub yet".
 
+**Note (Jason, 2026-11-27: "we have hubs for those, just no sub hubs", of Abilene and New York under W15; recorded
+as Operations & Policy (16)):** the other continental hubs exist; only their zones (sub-hubs) aren't drawn yet. A find
+in a hub with no zones goes to that hub by §2's cascade; "no hub yet" is only for what no hub covers.
+
 ### 6. What's already there
 
 Data cleanup (0163 §8 stage 1b) re-places existing content through Phase 4's placement: a preview of every move, a
