@@ -119,6 +119,17 @@
    "expires": "2026-11-27T16:52:31Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "website/api/releases-pull.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
+   "why": "the pipeline release: tick and verdict, the ping, a silent look says why (Tier 4 review: CEO, 2026-11-27)",
+   "since": "2026-11-27T12:52:34Z",
+   "expires": "2026-11-27T16:52:34Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
