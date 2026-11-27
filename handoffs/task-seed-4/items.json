@@ -55,6 +55,19 @@
    "priority": 1,
    "children": [
     {
+     "what": "The promise check: every outbound message kind tested in the path checker, its link landing on exactly what it names and its words matching the real state; a failing message blocks its release",
+     "why": "Jason, 2026-11-27: \"if we dont make our communication align with delivery\u2026 we fail to be the choice\". Notify's email, push, Pulse rows and notices, followed by the advocates as guest, member and business owner",
+     "source": "decisions/0181 gate 1 note (#1579) \u00b7 0172 and 0176 notes \u00b7 CLAUDE.md \"Never a dead end\"",
+     "done": "Every message kind in the path checker, green, and a failing one blocks its release like a page drift",
+     "adrs": [
+      "0181",
+      "0172",
+      "0176"
+     ],
+     "priority": 1,
+     "owner": "CMO (7), Editorial Director (12), IT (11), advocates A1\u2013A12"
+    },
+    {
      "what": "Repair the path checker: the sign-in selector and the staff two-step (C.2)",
      "why": "Without it joining and claiming can't be called ready",
      "source": "research/launch-plan-jan1-2026-11-26.md \u00a74 C.2 \u00b7 tools/path-checker-tests/",

@@ -11,11 +11,11 @@
    "where": "https://traversence.com/admin/config/control?tab=development"
   },
   {
-   "what": "61 open items as their children (notify-founder's own link under gate 4, IT Manager (11)); task #22 Work queue phase 2 updated in place: today's rulings, the PM (8), its decisions, under the transition goal, each citing its source; Brief D's 13 calls as Founder rulings (Tier 5); 14 existing tasks placed under their goals",
+   "what": "62 open items as their children (the promise check under gate 1, 0181 #1579; notify-founder's own link under gate 4, IT Manager (11)); task #22 Work queue phase 2 updated in place: today's rulings, the PM (8), its decisions, under the transition goal, each citing its source; Brief D's 13 calls as Founder rulings (Tier 5); 14 existing tasks placed under their goals",
    "where": "https://traversence.com/admin/config/control?tab=development"
   }
  ],
  "proposals": [],
  "switch": "",
- "data_reason": "Adds two columns to control_gauge_tasks (due_on DATE NULL, measure VARCHAR(255) NULL; guarded, safe to run twice) and writes them on the 10 goals only where empty. Adds 10 goal tasks and 61 child tasks, their decisions to control_gauge_task_adrs and 13 briefs to control_gauge_task_briefs, each only where it isn't there yet and each with its id named (MAX(id)+1, the staging catch-up rule); sets parent_id on 14 existing tasks only where it is empty. On task #22 (Work queue phase 2) replaces why and done_when only where they are still the 2026-11-24 seed's own text or empty, and owner only where empty: a person's text is never overwritten. Nothing is deleted."
+ "data_reason": "Adds two columns to control_gauge_tasks (due_on DATE NULL, measure VARCHAR(255) NULL; guarded, safe to run twice) and writes them on the 10 goals only where empty. Adds 10 goal tasks and 62 child tasks, their decisions to control_gauge_task_adrs and 13 briefs to control_gauge_task_briefs, each only where it isn't there yet and each with its id named (MAX(id)+1, the staging catch-up rule); sets parent_id on 14 existing tasks only where it is empty. On task #22 (Work queue phase 2) replaces why and done_when only where they are still the 2026-11-24 seed's own text or empty, and owner only where empty: a person's text is never overwritten. Nothing is deleted."
 }
