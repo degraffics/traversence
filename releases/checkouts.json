@@ -11,8 +11,8 @@
    "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
    "why": "the pipeline release: tick and verdict, the ping, a silent look says why (Tier 4 review: CEO, 2026-11-27)",
    "since": "2026-11-27T11:52:34Z",
-   "expires": "2026-11-27T16:52:22Z",
-   "release": "",
+   "expires": "2026-11-27T16:53:53Z",
+   "release": "pipeline-tick.zip",
    "callers": {}
   },
   {
@@ -73,8 +73,8 @@
    "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
    "why": "the pipeline release: tick and verdict, the ping, a silent look says why (Tier 4 review: CEO, 2026-11-27)",
    "since": "2026-11-27T12:52:24Z",
-   "expires": "2026-11-27T16:52:24Z",
-   "release": "",
+   "expires": "2026-11-27T16:53:53Z",
+   "release": "pipeline-tick.zip",
    "callers": {}
   },
   {
@@ -86,9 +86,13 @@
    "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
    "why": "the pipeline release: tick and verdict, the ping, a silent look says why (Tier 4 review: CEO, 2026-11-27)",
    "since": "2026-11-27T12:52:27Z",
-   "expires": "2026-11-27T16:52:27Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-27T16:53:53Z",
+   "release": "pipeline-tick.zip",
+   "callers": {
+    "blob": [
+     "app/lib/Releases.php"
+    ]
+   }
   },
   {
    "path": "app/lib/BeforeAfter.php",
@@ -102,9 +106,17 @@
    "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
    "why": "the pipeline release: tick and verdict, the ping, a silent look says why (Tier 4 review: CEO, 2026-11-27)",
    "since": "2026-11-27T12:52:29Z",
-   "expires": "2026-11-27T16:52:29Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-27T16:53:53Z",
+   "release": "pipeline-tick.zip",
+   "callers": {
+    "advance": [
+     "app/lib/Releases.php",
+     "app/scripts/releases_tick.php"
+    ],
+    "on": [
+     "app/lib/Releases.php"
+    ]
+   }
   },
   {
    "path": "app/lib/Releases.php",
@@ -113,9 +125,15 @@
    "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
    "why": "the pipeline release: asPing (Tier 4 review: CEO, 2026-11-27)",
    "since": "2026-11-27T12:52:31Z",
-   "expires": "2026-11-27T16:53:05Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-27T16:53:53Z",
+   "release": "pipeline-tick.zip",
+   "callers": {
+    "lastLooked": [
+     "app/admin/sections.php",
+     "app/lib/ControlAlarms.php",
+     "website/api/health.php"
+    ]
+   }
   },
   {
    "path": "website/api/releases-pull.php",
@@ -124,8 +142,8 @@
    "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
    "why": "the pipeline release: tick and verdict, the ping, a silent look says why (Tier 4 review: CEO, 2026-11-27)",
    "since": "2026-11-27T12:52:34Z",
-   "expires": "2026-11-27T16:52:34Z",
-   "release": "",
+   "expires": "2026-11-27T16:53:53Z",
+   "release": "pipeline-tick.zip",
    "callers": {}
   }
  ],
