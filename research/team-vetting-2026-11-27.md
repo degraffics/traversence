@@ -74,7 +74,9 @@ reports on its performance"):
 - **Each session's work is recorded under the role that did it,** within 0180 §6. The lane groups follow R2's routes, as
   listed in the next section.
 - **The proof ticket:** the stray "Recovered" fix, carried end to end with each role's part recorded.
-- **A performance report to Jason**, once the proof ticket is live.
+- **A performance report to Jason**, once the proof ticket is live. **Its baseline:** until R2 is live, the session
+  manager marks its ordering calls "for the PM (8)", and the CEO marks its executive hats by role, so the report can
+  show the gap closing.
 
 The options below are kept as the first draft's record. **B is withdrawn**: it went against "no agent has a paid
 service". A's lane groups are how 0180 §6 is applied, not a new rule.
@@ -97,7 +99,9 @@ service". A's lane groups are how 0180 §6 is applied, not a new rule.
     - **Frontend & Shop owns the Customer Service (9), Accounting (10) and Sales (14) lanes:** orders, the cart and support;
       billing and QuickBooks; the Marketplace, storefronts and claims. Its page builds are Build & QA (21).
   - **Every build session is also Build & QA (21)**, reporting to the IT Manager, whichever lane owns the ticket.
-  - **The session manager is the COO (3) and Project Manager (8).**
+  - **The session manager is not the PM or COO** (the session manager's caution, 2026-11-27). Under R2's routes, the PM's (8)
+    decisions (queue order, lane hand-offs) are recorded on the ticket as the PM's, by the role's own step. The session
+    manager keeps only CLAUDE.md's job: watching sessions, syncing and verifying, and reviewing for drift.
   - **The CEO session is the executive suite (2–7),** each Tier 4 recorded under the named executive (CFO for money, CTO for
     data, and so on).
   - **The Design reviewer stays a standing session** doing roles 15 and 27's approvals (fidelity, the simplicity veto)
@@ -106,7 +110,6 @@ service". A's lane groups are how 0180 §6 is applied, not a new rule.
     name ("Privacy & 0066 Guard: clear, no held names"); the code that already does some (22–25, A1–A12) stays.
   - **What A amends** (named so a yes covers it, nothing changed by default):
     - CLAUDE.md's "one session per area" becomes "one session per lane group";
-    - `handoffs/session-manager.md` names the session manager as COO (3) and PM (8);
     - Tier 4 reviews are recorded under the named executive.
   - $0 new spend, inside today's usage; accountability becomes real now.
 - **B. Roles as platform agents.** Each role a prompted Claude call in `TeamRunner`. Real judgement on the platform, but
