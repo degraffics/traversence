@@ -189,6 +189,19 @@
    "expires": "2026-11-27T17:22:51Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/Scheduler.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
+   "why": "goal_check_tick: its key in JOBS, AUTO and NOT_ON_STAGING (the session manager's OK, 2026-11-27)",
+   "since": "2026-11-27T13:24:26Z",
+   "expires": "2026-11-27T17:24:26Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
