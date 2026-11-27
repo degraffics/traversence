@@ -1,16 +1,12 @@
 {
- "at": "2026-11-25T10:20:33.090Z",
+ "at": "2026-11-27T02:05:07.679Z",
  "php": "8.0.31",
  "php_major_minor": "8.0",
  "mysql": "5.7.44-48",
  "db": {
-  "tables": 424,
-  "mb": 816.17,
+  "tables": 431,
+  "mb": 712.7,
   "biggest": [
-   {
-    "table": "page_cache",
-    "mb": 126.53
-   },
    {
     "table": "identity_fact_sources",
     "mb": 121.3
@@ -45,7 +41,11 @@
    },
    {
     "table": "search_index",
-    "mb": 23.63
+    "mb": 24.36
+   },
+   {
+    "table": "entities",
+    "mb": 20.44
    }
   ],
   "open_places": {
