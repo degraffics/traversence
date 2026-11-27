@@ -138,3 +138,13 @@ open-now search? (c) Navajo land's daylight time.
 3. **C.8 open-now.zip**: Design: approved (after two fixes: the row tag's "·" and meta italic; one count sentence);
    order OK. Waits also for r2-lanes-2's faq.md; directory/index.php is built on C.4's. Its why names the .tvs-open clash
    as the likely cause of P10's "marks nothing open".
+
+## C.5 layout shift (0145 V06): investigation done 2026-11-27, proposal with the session manager
+
+The "0.212 on 8 pages" is /login.php on a phone (the 8 send a guest there). /directory/?town=Show Low phone 0.694; hub
+phone 0.366; desktop small. Causes: (1) shared: before Tailwind's CDN script runs, header.php:405 #site-menu-panel shows in
+the flow, the bar's wrapper (page-shell.php:85, auth-nav.php:37) isn't a row, body keeps 8px: the bar 227–273px drops to
+~55px; (2) directory/index.php:309 #dr-sent filled after the search answers, pushing the list 62px on a phone; (3)
+hub/index.php:308 #wx-alerts/#roads revealed above #g-essentials ~4.5 s late, #gd-wx widening. Proposed: C.5a (1)+(2) after
+C.8 (same files), C.5b (3) via the Design reviewer; suggested change: a built Tailwind stylesheet instead of the Play CDN.
+Measuring scripts were in the session scratchpad (measure.cjs etc.), not kept.
