@@ -244,3 +244,17 @@ day. This qualifies 0180's "R1–R5 ship as each passes" (note added there).
     groceries, lunch, a place to stay, a mechanic) checked against a reference list built from licensed public sources:
     the right places in the top results, correctly labelled, with honest hours. It runs in the path checker, and a town
     that fails it fails gate 1. Owners: the CMO (7) and Editorial (12).
+- **An end-to-end audit of the listing experience** (Jason, 2026-11-27, with a 390px screenshot of the live listing
+  "Summit Healthcare Regional Medical Center", Show Low: "End to end audit"; recorded as Operations & Policy (16), under
+  CLAUDE.md "End to end, verified": no piecemeal patches; live harm beside the search note above, gates 1 and 3). The one
+  screen showed: a stock photo of an antiques storefront as a hospital's hero; at 390 the kind line under the photo
+  credit and Edit and ⋯ over the title; the kind "Clinics" for a hospital; generic, wrong About text naming Lakeside for a
+  Show Low hospital; "How sure we are: Qualified" despite both; and a "Location and map pin" link to check. Scope: every
+  1A health listing and 1A's top 50 listings by taps, each traced through the pipeline that made it: source, identity and
+  duplicates, kind and why, About (its source, whether AI wrote it and from what; 0164: vetted public facts only, never
+  over a person's words), the hero photo and its rules, the confidence label and what it checks, hours, the claim path,
+  every link and button, the page at 1280 and 390, and its place in search. Owners: Data & Content (source, identity,
+  kind, About, confidence), Frontend & Shop (page, layout, photo, links, hours), the IT Manager (11) (the pipeline's code
+  paths), the CMO (7) and Editorial (12) (the bar). Output: each defect traced to its root cause with file:line (never a
+  one-off fix), how many listings each cause touches, and a fix per cause as gate tickets in order of harm. First
+  findings with the CEO's next report; the full audit by about Dec 2.
