@@ -143,3 +143,20 @@ jobs:
           if git diff --cached --quiet; then echo "No change."; exit 0; fi
           git commit -m "Before and after: release #$RELEASE, $PHASE"
           for i in 1 2 3 4; do git pull --rebase -q && git push && break; sleep $((i * 5)); done
+      # the site moves on now its verdict is on main, instead of at releases_tick's next run (2026-11-27: #317 and #318 each
+      # waited up to an hour). The same endpoint and manners as release-ping.yml; when the site doesn't answer, nothing is
+      # lost: releases_tick reads the verdict on its next run.
+      - name: Tell the site the verdict is in
+        if: always()
+        run: |
+          url=https://traversence.com/api/releases-pull.php
+          cookie='humans_21909=1'   # the host's bot check (research/bluehost-bot-check-2026-11-15.md)
+          for try in 1 2 3 4; do
+            code=$(curl -sS -o out.txt -w '%{http_code}' -X POST --max-time 240 -A 'Mozilla/5.0 (compatible; TraversenceReleasePing/1.0)' -H 'Content-Type: application/json' -H 'Accept: application/json, */*' --data '{}' -b "$cookie" "$url" || echo 000)
+            echo "try $try: $code"; head -c 1500 out.txt; echo
+            if [ "$code" = 200 ] || [ "$code" = 404 ]; then exit 0; fi
+            if [ "$code" = 409 ]; then n=$(grep -o 'humans_[0-9]*=[0-9]*' out.txt | head -1); [ -n "$n" ] && cookie="$n"; fi
+            if [ "$code" = 429 ]; then sleep 65; continue; fi
+            sleep 20
+          done
+          echo "::warning::The site didn't answer; releases_tick reads the verdict on its next run."
