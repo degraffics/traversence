@@ -338,6 +338,7 @@ final class Events
         if (preg_match('~(https?://|www\.)\S+~i', $offer)) throw new InvalidArgumentException('No links in the offer: its GO Code takes people to you.');
         $withOffer = in_array($what, ['accept', 'offer'], true);
         $c = ['', '', null];   // the code, its words, its last day
+        if ($code !== null && !self::codesOn(Database::connection())) $code = '';   // codes are off: the line alone
         if ($withOffer && $code !== null && trim($code) !== '') {
             $all = self::codeChoices($pdo); $k = strtoupper(trim($code));
             if (!isset($all[$k])) throw new InvalidArgumentException('Choose one of your own discount codes that\'s switched on and not ended (Discount codes).');
@@ -354,9 +355,17 @@ final class Events
         return $words;
     }
 
+    /** Discount codes on event pages: the switch the Founder's ruling on 0110's note turns on (Switches 'event_codes', off until then). */
+    public static function codesOn(PDO $pdo): bool
+    {
+        require_once __DIR__ . '/Switches.php';
+        try { return Switches::on($pdo, 'event_codes'); } catch (Throwable $x) { return false; }
+    }
+
     /** A business's code as it stands now, its public terms only: through the realm's gateway (BusinessData::publicCode). */
     public static function liveCode(int $entity, string $code, ?PDO $db = null): ?array
     {
+        if ($db === null && !self::codesOn(Database::connection())) return null;   // until the Founder's ruling on 0110's note: the line alone
         require_once __DIR__ . '/BusinessData.php';
         return BusinessData::publicCode($entity, $code, $db);
     }
@@ -379,6 +388,7 @@ final class Events
      */
     public static function codeChoices(PDO $pdo): array
     {
+        if (!self::codesOn(Database::connection())) return [];
         if (!is_file(__DIR__ . '/BizCodes.php')) return [];
         require_once __DIR__ . '/BizCodes.php';
         if (!class_exists('Scope') || !Scope::isBusiness()) return [];
@@ -399,6 +409,7 @@ final class Events
      */
     public static function recheckCodes(PDO $pdo, int $entity): array
     {
+        if (!self::codesOn(Database::connection())) return [];
         if (!self::partsReady($pdo) || !class_exists('Scope') || !Scope::isBusiness()) return [];
         $st = $pdo->prepare("SELECT p.id, p.offer_code, p.offer_code_words, ev.title FROM event_participants p JOIN events ev ON ev.id = p.event_id WHERE p.entity_id = ? AND p.offer_code <> ''");
         $st->execute([$entity]); $rows = $st->fetchAll(PDO::FETCH_ASSOC); if (!$rows) return [];

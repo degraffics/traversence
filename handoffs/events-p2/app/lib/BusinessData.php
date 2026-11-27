@@ -119,8 +119,8 @@ final class BusinessData
 
     /**
      * One business's discount code, as its public offer terms only, for a page drawn outside its portal (an event page's
-     * Taking part, decisions/0134's note #1594). A narrow server function under Phase B (0110), like MarketCheckout's
-     * writeOrder: the listings login on a connection of its own (never main's, never the portal's Scope connection), set to
+     * Taking part, decisions/0134's note #1594). 0110's note (wall 3, the Founder's ruling) names it as the one exception
+     * to "set once, by the router": the listings login on a connection of its own (never main's, never the portal's), set to
      * that business for one SELECT through its b_ view, then reset. Read only. [code, ends, min_cents] while it's switched on,
      * in its dates and not used up; null otherwise, or when the data can't be reached (nothing shown rather than something
      * untrue). Dates are the server's, as BizCodes::check's at checkout, so the page and checkout agree. Remembered for the
@@ -132,19 +132,23 @@ final class BusinessData
         $code = strtoupper(trim($code));
         if ($code === '' || $entity <= 0) return null;
         $live = $db === null;
-        if (!$live && Scope::isBusiness() && $db === Scope::pdo($db)) throw new LogicException('publicCode never uses the request\'s own business connection.');
+        // a passed-in connection is the test's seam
+        if (!$live && ((Scope::isBusiness() && $db === Scope::pdo($db)) || (Database::open() !== null && $db === Database::open()))) throw new LogicException('publicCode never uses the request\'s own business connection or main\'s.');
         $k = $entity . ':' . $code;
         if ($live && array_key_exists($k, $seen)) return $seen[$k];
         if ($live && $own === false) return null;
         $c = null;
         try {
             if ($live) { if ($own === null) { try { $own = Database::realmOwn('listings'); } catch (Throwable $x) { $own = false; throw $x; } } $db = $own; }
-            $was = $db->query('SELECT @tv_tenant')->fetchColumn();   // put back as it was after (NULL on its own connection)
+            $db->exec('SET @tv_publiccode_was = @tv_tenant');   // put back exactly as it was afterwards (NULL on its own connection)
             $db->prepare('SET @tv_tenant = ?')->execute([$entity]);
             try {
                 $st = $db->prepare('SELECT code, active, starts, ends, max_uses, uses, min_order_cents FROM `b_biz_codes` WHERE code = ? LIMIT 1'); $st->execute([$code]);
                 $c = $st->fetch(PDO::FETCH_ASSOC) ?: null;
-            } finally { $db->prepare('SET @tv_tenant = ?')->execute([$was === false || $was === null ? null : (int) $was]); }
+            } finally {
+                try { $db->exec('SET @tv_tenant = @tv_publiccode_was, @tv_publiccode_was = NULL'); }
+                catch (Throwable $x) { if ($live) $own = false; throw $x; }   // a tenant that couldn't be put back: that connection is dropped, never used again
+            }
         } catch (Throwable $x) { error_log('BusinessData::publicCode ' . $entity . ': ' . $x->getMessage()); if ($live) $seen[$k] = null; return null; }
         $today = date('Y-m-d');
         $ok = $c && (int) $c['active'] && !($c['starts'] && (string) $c['starts'] > $today) && !($c['ends'] && (string) $c['ends'] < $today) && !((int) $c['max_uses'] && (int) $c['uses'] >= (int) $c['max_uses']);

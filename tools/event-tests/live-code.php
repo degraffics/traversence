@@ -6,6 +6,8 @@
 //   2. it's read only (no INSERT, UPDATE, DELETE or REPLACE on the connection; only SET and one SELECT);
 //   3. @tv_tenant is reset after the read, also when the read fails, and never leaks into the next query;
 //   4. nothing else reaches the page: only [code, ends] comes back (no counts, no other codes, no notes).
+//   (Events::liveCode also waits for the 'event_codes' switch, off until the Founder's ruling on 0110's note: tested on the
+//   rendered pages, event-parts-page.cjs. The page-path cases here call the gateway, BusinessData::publicCode, itself.)
 //   5. the page's own path: the listings login's own connection, a passed-in one never filling its cache, a failed
 //      connection tried once per request.
 // Run: php live-code.php <root>/app     (it resets lv_codes; user tv/tv on 127.0.0.1, with CREATE USER and GRANT OPTION for the read-only login)
@@ -48,6 +50,8 @@ $t('2. the rows are as they were', (int) $root->query("SELECT SUM(uses) FROM biz
 Events::liveCode(8, 'SHOW10', $db);
 $t('3. after a read, @tv_tenant is NULL on that connection', $db->query('SELECT @tv_tenant IS NULL')->fetchColumn() == 1);
 $t('3. so the next query on it sees no business\'s rows', (int) $db->query('SELECT COUNT(*) FROM b_biz_codes')->fetchColumn() === 0);
+$db->exec("SET @tv_tenant = '9abc'"); Events::liveCode(8, 'SHOW10', $db);
+$t('3. whatever the caller had set is put back exactly (QA\'s third look)', $db->query('SELECT @tv_tenant')->fetchColumn() === '9abc'); $db->exec('SET @tv_tenant = NULL');
 $db->exec('SET @tv_tenant = 9'); Events::liveCode(8, 'SHOW10', $db);
 $t('3. a tenant the caller had set is put back as it was (QA\'s second look)', (int) $db->query('SELECT @tv_tenant')->fetchColumn() === 9); $db->exec('SET @tv_tenant = NULL');
 $d0 = Events::liveCode(8, 'OLD', $db); $root->exec("UPDATE biz_codes SET ends = CURDATE() WHERE owner_id = 8 AND code = 'OLD'"); $d1 = Events::liveCode(8, 'OLD', $db);
@@ -75,16 +79,16 @@ $root->exec('CREATE VIEW b_biz_codes AS SELECT * FROM biz_codes WHERE owner_id =
 $root->exec('USE lv_codes');
 $sub = function (string $env, string $code) use ($app): array {   // a fresh request: its own statics
     $log = tempnam(sys_get_temp_dir(), 'lc');
-    $php = 'require "' . $app . '/lib/Database.php"; require "' . $app . '/lib/Events.php"; $db = new PDO("mysql:host=127.0.0.1;dbname=lv_codes;charset=utf8mb4", "tv", "tv", [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]); ' . $code;
+    $php = 'require "' . $app . '/lib/Database.php"; require "' . $app . '/lib/Events.php"; require "' . $app . '/lib/BusinessData.php"; $db = new PDO("mysql:host=127.0.0.1;dbname=lv_codes;charset=utf8mb4", "tv", "tv", [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]); ' . $code;
     $out = []; exec($env . ' ' . escapeshellarg(PHP_BINARY) . ' -d log_errors=1 -d error_log=' . escapeshellarg($log) . ' -r ' . escapeshellarg($php) . ' 2>&1', $out);
     $l = (string) @file_get_contents($log); @unlink($log); return [implode("\n", $out), $l];
 };
 $ok = 'DB_HOST=127.0.0.1 DB_LISTINGS_DATABASE=lv_codes2 DB_LISTINGS_USERNAME=tv DB_LISTINGS_PASSWORD=tv';
-[$o] = $sub($ok, 'Events::liveCode(8, "SHOW10", $db); echo json_encode(Events::liveCode(8, "SHOW10"));');
+[$o] = $sub($ok, 'BusinessData::publicCode(8, "SHOW10", $db); echo json_encode(BusinessData::publicCode(8, "SHOW10"));');
 $t('5. a passed-in connection never fills the page\'s cache (the page then reads its own realm: nothing there)', trim($o) === 'null', $o);
-[$o] = $sub(str_replace('lv_codes2', 'lv_codes', $ok), 'echo json_encode(Events::liveCode(8, "SHOW10"));');
+[$o] = $sub(str_replace('lv_codes2', 'lv_codes', $ok), 'echo json_encode(BusinessData::publicCode(8, "SHOW10"));');
 $t('5. the page\'s path reads through the listings login\'s own connection (Database::realmOwn)', str_contains($o, 'SHOW10'), $o);
-[$o, $l] = $sub('DB_HOST=127.0.0.1 DB_LISTINGS_DATABASE=lv_codes DB_LISTINGS_USERNAME=nobody DB_LISTINGS_PASSWORD=wrong', 'echo json_encode([Events::liveCode(8, "SHOW10"), Events::liveCode(9, "ONLY9"), Events::liveCode(8, "OLD")]);');
+[$o, $l] = $sub('DB_HOST=127.0.0.1 DB_LISTINGS_DATABASE=lv_codes DB_LISTINGS_USERNAME=nobody DB_LISTINGS_PASSWORD=wrong', 'echo json_encode([BusinessData::publicCode(8, "SHOW10"), BusinessData::publicCode(9, "ONLY9"), BusinessData::publicCode(8, "OLD")]);');
 $t('5. a connection that fails gives nothing for every business on the page', trim($o) === '[null,null,null]', $o);
 $t('5. and is tried once, not once per business', substr_count($l, 'BusinessData::publicCode') === 1, $l);
 // the real listings login has no rights on the table itself, only its view (the CTO's review, finding C)
@@ -92,14 +96,16 @@ $root->exec("DROP USER IF EXISTS 'lc_ro'@'localhost'"); $root->exec("DROP USER I
 $root->exec("CREATE USER 'lc_ro'@'localhost' IDENTIFIED BY 'ro'"); $root->exec("CREATE USER 'lc_ro'@'%' IDENTIFIED BY 'ro'");
 foreach (['localhost', '%'] as $h) $root->exec("GRANT SELECT ON lv_codes.b_biz_codes TO 'lc_ro'@'$h'");
 $ro = 'DB_HOST=127.0.0.1 DB_LISTINGS_DATABASE=lv_codes DB_LISTINGS_USERNAME=lc_ro DB_LISTINGS_PASSWORD=ro';
-[$o] = $sub($ro, 'echo json_encode(Events::liveCode(8, "SHOW10"));');
+[$o] = $sub($ro, 'echo json_encode(BusinessData::publicCode(8, "SHOW10"));');
 $t('5. a login that can read only the view reads its own code through it', str_contains($o, 'SHOW10'), $o);
 $roPdo = new PDO('mysql:host=127.0.0.1;dbname=lv_codes', 'lc_ro', 'ro', [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
 $t('5. and couldn\'t read the table itself (so the view is the only way in)', (function () use ($roPdo) { try { $roPdo->query('SELECT * FROM biz_codes'); return false; } catch (PDOException $x) { return true; } })());
 $root->exec("DROP USER 'lc_ro'@'localhost'"); $root->exec("DROP USER 'lc_ro'@'%'");
 // never the request's own business connection (finding B: its reset would leave the portal's later writes refused)
-[$o] = $sub($ok, 'require_once "' . $app . '/lib/Scope.php"; Scope::enterBusiness($db, 8); try { Events::liveCode(8, "SHOW10", $db); echo "used"; } catch (LogicException $x) { echo "refused"; }');
+[$o] = $sub($ok, 'require_once "' . $app . '/lib/Scope.php"; Scope::enterBusiness($db, 8); try { BusinessData::publicCode(8, "SHOW10", $db); echo "used"; } catch (LogicException $x) { echo "refused"; }');
 $t('5. a caller passing the portal\'s own business connection is refused', trim($o) === 'refused', $o);
+[$o] = $sub($ok, '$m = Database::connection(); try { BusinessData::publicCode(8, "SHOW10", $m); echo "used"; } catch (LogicException $x) { echo "refused"; }');
+$t('5. main\'s own connection is refused too (the CTO\'s third look, d)', trim($o) === 'refused', $o);
 $root->exec('DROP DATABASE lv_codes2');
 
 $root->exec('DROP DATABASE lv_codes');

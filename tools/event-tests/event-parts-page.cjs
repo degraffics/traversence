@@ -14,11 +14,16 @@ sh(`DELETE FROM event_participants; INSERT INTO event_participants (event_id, en
  (5, 102, 'accepted', 'Must not show', 'NOPE', '1% off', NULL, NOW(), NOW()),
  (5, 103, 'removed', 'Removed one', '', '', NULL, NOW(), NOW()),
  (6, 8, 'accepted', 'Cancelled night offer', '', '', NULL, NOW(), NOW())`);
+const sw = st => sh("INSERT INTO feature_switches (switch_key, state) VALUES ('event_codes', '" + st + "') ON DUPLICATE KEY UPDATE state = VALUES(state)");   // the Founder's switch (0110's note)
 (async () => { const b = await chromium.launch(); let ok = 0, bad = 0; const t = (n, c, x) => { c ? ok++ : bad++; console.log((c ? 'PASS ' : 'FAIL ') + n + (x ? '  [' + x + ']' : '')); };
  for (const w of [1280, 390]) {
   const ua = w < 800 ? 'Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Mobile Safari/537.36' : 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36';
   const c = await b.newContext({ viewport: { width: w, height: 900 }, isMobile: w < 800, hasTouch: w < 800, userAgent: ua }); await c.route(/cdn\.tailwindcss\.com/, r => r.fulfill({ contentType: 'application/javascript', body: TW }));
   const p = await c.newPage(); const errs = []; p.on('pageerror', e => errs.push(String(e)));
+  // the switch off (as it ships, until the Founder's ruling on 0110's note): the line alone, no code anywhere
+  sw('off'); await p.goto(H + '/event/?id=' + EV, { waitUntil: 'load' }); await p.waitForTimeout(500);
+  t(w + ' codes switched off (as it ships): the line shows, no code', /10% off a pizza with your ticket/.test(await p.locator('#evp-parts').innerText()) && !/SHOW10|code /.test(await p.locator('#evp-parts').innerText()));
+  sw('on');
   await p.goto(H + '/event/?id=' + EV, { waitUntil: 'load' }); await p.waitForTimeout(700);
   const sec = p.locator('#evp-parts'), cards = sec.locator('.evp-pc');
   t(w + ' Taking part shows', await sec.count() === 1);
@@ -78,4 +83,4 @@ sh(`DELETE FROM event_participants; INSERT INTO event_participants (event_id, en
   t(w + ' no script errors', !errs.length, errs.slice(0, 2).join(' / '));
   await c.close();
  }
- console.log(ok + ' passed, ' + bad + ' failed'); await b.close(); process.exit(bad ? 1 : 0); })();
+ sw('off'); console.log(ok + ' passed, ' + bad + ' failed'); await b.close(); process.exit(bad ? 1 : 0); })();
