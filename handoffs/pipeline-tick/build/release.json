@@ -5,7 +5,7 @@
   "switch": "",
   "changes": [
     {
-      "what": "A release waiting for its before-and-after look moves on within a minute or two of the look's verdict, instead of at the next run up to an hour later",
+      "what": "A release waiting for its before-and-after look moves on within 10 minutes of the look's verdict, instead of at the next run up to an hour later",
       "where": "https://traversence.com/admin/config/releases"
     },
     {
