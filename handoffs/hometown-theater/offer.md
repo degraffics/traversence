@@ -18,6 +18,12 @@ page as information only, with no ticket link of ours, and your own box office i
 - An event page for the night, linked from your listing and from the St. Johns guide.
 - **"Dinner and a movie":** a trail and a magazine-style showcase pairing the night with St. Johns restaurants, so
   guests eat in town before the show.
+- **You bring the restaurants in:** from your event page you invite St. Johns restaurants as participating businesses
+  ("Dinner before the show"). Each one that accepts shows on your event page with its own offer, which may be a GO Code
+  promotion ("show your ticket: 10% off"), and your event shows on its listing as "Part of" your night. Their stops form
+  the evening's trail, with Add to a trip and Send to Maps. It's by invitation and acceptance only, never paid
+  placement; you can remove a participant and a participant can leave, each with Undo. If this tool isn't live by about
+  Dec 14–15, our Sales team sets the participants up for you by hand.
 - **GO Code posters** for your lobby and for each restaurant on the trail, each opening the night's page (5 free codes
   with your account; commercial.md §1.3).
 - A story after the night, with your OK on anything we say about you.
@@ -29,5 +35,5 @@ material, and only with your permission.
 
 **Next step:** claim your listing at the link on this page's GO Code, or we'll do it together with you today.
 
-*Sources: decisions/0134 note 2026-11-27 (the pilot, the community night, the brand line); ItemKinds.php `ticket`;
+*Sources: decisions/0134 notes 2026-11-27 (the pilot, the community night, the brand line; participating businesses, #1589); ItemKinds.php `ticket`;
 commercial.md §1 (Free and Basic: manual payments, 0%), §1.3 (5 free GO Codes); decisions/0058 §20–21 (content pages).*

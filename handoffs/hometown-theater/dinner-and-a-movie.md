@@ -2,7 +2,8 @@
 
 *Draft for the CMO (7) with Editorial (12) and Marketing (13) (0134 note; 0181's "content to commerce" note).*
 
-**The trail:** a journey (decisions/0174) of stops in St. Johns, each restaurant then the theater, shared by link and
+**The trail:** the event's participants form it (0134's participating businesses, #1589): a journey (decisions/0174) of
+stops in St. Johns, each restaurant that accepted the theater's invite, then the theater, shared by link and
 from the St. Johns guide. Send to Maps carries the route (0174 release 1).
 
 **The showcase:** a magazine-style story (decisions/0164's note of 2026-11-27, the magazine model): St. Johns' places
@@ -13,8 +14,9 @@ each restaurant's OK on anything said about them.
 1. Listed in 1A's St. Johns cluster, a restaurant or café category, not suppressed.
 2. Open on the night's evening, by its listed hours (a stop closed then is left out, as trips do: 0174).
 3. Within a short drive of 1210 W Cleveland St, nearest first, with miles.
-4. Each is asked first (Sales (14)): a claimed listing is invited to say yes; an unclaimed one is offered its free
-   claim and its poster. A stop that says no is left out.
+4. The theater invites each from its event (a person presses it, never an agent; an unclaimed one's invite waits
+   until real email sending is on, 0134 #1589). Until the tool is live (about Dec 14–15), Sales (14) asks each by hand
+   and sets it up as a showcase. A stop that says no is left out.
 5. No paid placement; order by distance only.
 
 **Stops (to fill, not invented):** _Editorial (12) adds each restaurant's listing id here after step 4._
