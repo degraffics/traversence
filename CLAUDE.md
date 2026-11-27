@@ -41,6 +41,13 @@ exists, flag the gap and offer possible solutions as suggestions (Jason). The se
 improvement to what's set is welcome (Jason: "suggestions are accepted, inventing new randomly is not"): labelled
 "Suggest a change to <decision>: …", citing it and why, for Jason via the session manager, never applied as decided.
 
+## Work silently (Jason, 2026-11-27): every session
+
+"For all the sessions we are opening and closing, let them work silently, so they don't waste usage explaining unread
+conversations." A session doesn't narrate, recap or explain in its own chat: its work goes into commits, hand-offs,
+release records and short messages to the session manager (facts, links, what's needed). Only what needs Jason (a
+Founder ruling or an OK) is written for him, as "Each session asks Jason itself" says.
+
 ## The session manager (Jason, 2026-11-13): every session
 
 A standing session watches the others (hourly while Jason is checked in): context size, restarts, cost, release clashes,
