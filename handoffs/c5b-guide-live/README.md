@@ -17,8 +17,10 @@ the state); with nothing stored (a cold cache), it's as before.
 stored Winter Storm Warning and an SR 260 work zone, seeded by `tools/design-tests/c5a/seed-wx.php`):
 390 **0.233 → 0.001**; 1280 **0.085 → 0.017**.
 
-**Tests:** `tools/design-tests/c5a/hub-stored.cjs`: 18/18 at 390 and 1280 (drawn before the answer, Essentials not held,
-one of each after it, an ended alert gone, an expired one not drawn, a cold cache as before, no script errors).
+**Tests:** `tools/design-tests/c5a/hub-stored.cjs`: 20/20 at 390 and 1280 (drawn before the answer, Essentials not held,
+one of each after it, an ended alert gone, an expired alert and an ended road report not drawn (near() drops items past their end as the page is drawn, Roads511.php:74, :100), a cold cache as before, no script errors).
 Bench gaps healed (bench only): `page_cache.body` was VARCHAR(191).
 
 **Screens** (`screens/`): before-/after- at the moment before the live answer and after it, 390 and 1280.
+
+Design: approved (7cb1da9), its note covered and tested.

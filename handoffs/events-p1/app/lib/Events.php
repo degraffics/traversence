@@ -354,6 +354,36 @@ final class Events
         return $words;
     }
 
+    /**
+     * A business's discount code as it stands now, read when a page is drawn (the session manager, 2026-11-27: words follow
+     * the state): from its walled data through the business gate, as MarketCheckout::writeOrder writes there (0110:
+     * the listings login on a connection of its own, set to that business by @tv_tenant, read only through its b_ view).
+     * The code only while it's switched on, in its dates and not used up, with its last day; null otherwise, and null
+     * when the data can't be reached (nothing shown rather than something untrue).
+     */
+    public static function liveCode(int $entity, string $code): ?array
+    {
+        static $db = false, $seen = [];
+        if ($code === '' || $entity <= 0) return null;
+        $k = $entity . ':' . $code; if (array_key_exists($k, $seen)) return $seen[$k];
+        try {
+            if ($db === false) { require_once __DIR__ . '/BusinessData.php'; $db = Database::realmOwn('listings'); }
+            $db->prepare('SET @tv_tenant = ?')->execute([$entity]);
+            $st = $db->prepare('SELECT code, active, starts, ends, max_uses, uses FROM `b_biz_codes` WHERE code = ?'); $st->execute([strtoupper($code)]);
+            $c = $st->fetch(PDO::FETCH_ASSOC) ?: null;
+            $db->exec('SET @tv_tenant = NULL');
+        } catch (Throwable $x) { error_log('Events::liveCode ' . $entity . ': ' . $x->getMessage()); return $seen[$k] = null; }
+        $today = date('Y-m-d');
+        if (!$c || !(int) $c['active'] || ($c['starts'] && (string) $c['starts'] > $today) || ($c['ends'] && (string) $c['ends'] < $today) || ((int) $c['max_uses'] && (int) $c['uses'] >= (int) $c['max_uses'])) return $seen[$k] = null;
+        return $seen[$k] = ['code' => (string) $c['code'], 'ends' => $c['ends'] ?: null];
+    }
+
+    /** "code SHOW10 until Dec 31": after the business's own words, the code and its last day only (the Design reviewer). */
+    public static function codeWords(array $c): string
+    {
+        return 'code ' . $c['code'] . ($c['ends'] ? ' until ' . date('M j', strtotime((string) $c['ends'])) : '');
+    }
+
     /** An offer in words, for History: 'the line' · code CODE. */
     public static function offerWords(string $text, string $code): string
     {

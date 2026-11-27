@@ -31,7 +31,16 @@ const sh = (q, db) => require('child_process').execFileSync('mysql', ['-utv', '-
   t(w + ' Take part: its line says so, honestly (the page comes with the next update)', /Taking part:/.test(await gRow().innerText()) && /next update/.test(await gRow().innerText()) && await gRow().locator('[data-ev-part=leave]').count() === 1);
   await gp.screenshot({ path: out + '/p1-guest-taking-part-' + w + '.png', fullPage: true });
   await hp.reload(); await hp.waitForTimeout(500);
+  t(w + ' one filled button in each view (brand.md §4): New event only', await hp.locator('.ak-b.go:visible').count() === 1 && await gp.locator('.ak-b.go:visible').count() <= 1);
+  t(w + ' the offer and the code have visible labels', await gp.locator('label.ev-lab', { hasText: 'Your offer' }).count() >= 1 && await gp.locator('label.ev-lab', { hasText: 'Discount code' }).count() >= 1);
   t(w + ' the host sees it taking part, with its offer and its code', /Taking part/.test(await hostRow().locator('.ev-parts').innerText()) && /10% off a pizza/.test(await hostRow().locator('.ev-parts').innerText()) && /SHOW10/.test(await hostRow().locator('.ev-parts').innerText()));
+  t(w + ' the host\'s row says the code and its last day once: code SHOW10 until Dec 31', /code SHOW10 until Dec 31/.test(await hostRow().locator('.ev-parts').innerText()) && !/10% off, until/.test(await hostRow().locator('.ev-parts').innerText()));
+  t(w + ' Remove is sized like the row buttons, the row aligned with its heading', await (async () => { const r = await hostRow().locator('[data-ev-part=remove]').boundingBox(), h = await hostRow().locator('.ev-parts > b').boundingBox(), n = await hostRow().locator('.ev-pn a').first().boundingBox(); return r.height <= 30 && Math.abs(n.x - h.x) <= 2; })());
+  sh('SET @tv_tenant=8; UPDATE biz_codes SET active = 0 WHERE code = \'SHOW10\'', 'tvl'); await hp.reload(); await hp.waitForTimeout(400);
+  t(w + ' a code switched off is read live: the host\'s row drops it, the line stays', !/SHOW10/.test(await hostRow().locator('.ev-parts').innerText()) && /10% off a pizza/.test(await hostRow().locator('.ev-parts').innerText()));
+  sh('SET @tv_tenant=8; UPDATE biz_codes SET active = 1, ends = \'2026-11-01\' WHERE code = \'SHOW10\'', 'tvl'); await hp.reload(); await hp.waitForTimeout(400);
+  t(w + ' a code past its last day is read live: dropped too', !/SHOW10/.test(await hostRow().locator('.ev-parts').innerText()));
+  sh('SET @tv_tenant=8; UPDATE biz_codes SET ends = \'2026-12-31\' WHERE code = \'SHOW10\'', 'tvl'); await hp.reload(); await hp.waitForTimeout(400);
   await hostRow().locator('[data-ev-part=remove]').click(); await hp.waitForTimeout(300); if (await hp.locator('.tv-ask-b.yes').count()) await hp.locator('.tv-ask-b.yes').click(); await hp.waitForTimeout(1800);
   t(w + ' Remove asks first, then Undo is offered', /Removed by the host/.test(await hostRow().locator('.ev-parts').innerText()) && await hostRow().locator('[data-ev-part=unremove]').count() === 1);
   await hostRow().locator('[data-ev-part=unremove]').click(); await hp.waitForTimeout(1800);

@@ -29,6 +29,10 @@ const seed = () => cp.execFileSync('php', [process.env.SEED, process.env.ROOT], 
   sql("UPDATE page_cache SET body = REPLACE(body, SUBSTRING_INDEX(SUBSTRING_INDEX(body, '\"ends\":\"', -1), '\"', 1), '2026-01-01T00:00:00+00:00') WHERE cache_key = 'wxs:34.254,-110.03'");
   c = await ctx({ ok: true, weather: null, alerts: [], roads: [], strip: [], roads_on: true }); p = await c.newPage(); await p.goto(H + PG, { waitUntil: 'domcontentloaded' });
   t(w + ' an ended alert isn\'t drawn', await p.locator('#wx-alerts .gd-alert').count() === 0); await c.close();
+  // a stored road report whose own end has passed isn't drawn (Roads511::near drops it as the page is drawn)
+  seed(); sql("UPDATE page_cache SET body = REPLACE(body, '\"end\":', '\"end\":1000000000,\"was_end\":') WHERE cache_key = 'az511:wzdx'");
+  c = await ctx({ ok: true, weather: null, alerts: [], roads: [], strip: [], roads_on: true }); p = await c.newPage(); await p.goto(H + PG, { waitUntil: 'domcontentloaded' });
+  t(w + ' an ended road report isn\'t drawn', await p.locator('#roads li').count() === 0 && await p.locator('#roads').isHidden()); await c.close();
   // a cold cache: as before, they come with the live answer
   sql("DELETE FROM page_cache WHERE cache_key LIKE 'az511:%' OR cache_key LIKE 'wx%'");
   c = await ctx({ ok: true, weather: null, alerts: [{ event: 'Wind Advisory', headline: 'Gusts to 50 mph.', instruction: '' }], roads: [{ type: 'Closure', road: 'US 60', what: 'Closed.', where: '', closed: true }], strip: [], roads_on: true });

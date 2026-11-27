@@ -322,10 +322,10 @@ tv_app_start('Get Local', ['rail' => $rail, 'active' => 'directory', 'rail_label
   <div class="dr-chips" id="dr-chips" hidden></div>
 </div>
 <div class="dr-grid" id="dr-grid">
-  <section aria-label="Results" id="dr-listbox"><div id="dr-list" class="tv-bleed"><div class="dr-skel" aria-busy="true"><p class="dr-sum">Loading…</p><i></i><i></i><i></i><i></i><i></i></div></div><script<?= tv_nonce() ?>>(function () {   // the cards' room is held only when a place is known (the link's, or this tab's), before the first paint; with none, the list asks for one (C.5a)
+  <section aria-label="Results" id="dr-listbox"><div id="dr-list" class="tv-bleed" aria-busy="true"><div class="dr-skel"><p class="dr-sum" role="status" aria-live="polite">Loading…</p><i></i><i></i><i></i><i></i><i></i></div></div><script<?= tv_nonce() ?>>(function () {   // the cards' room is held only when a place is known (the link's, or this tab's), before the first paint; with none, the list asks for one (C.5a)
     var u = new URLSearchParams(location.search), k = ['cluster', 'geo', 'hub', 'town', 'lat', 'q', 'cat'].some(function (x) { return u.get(x); }), t = false;
     try { var l = JSON.parse(sessionStorage.getItem('traversence_location') || 'null'); t = !!(l && (l.scope || l.city || l.zip || l.lat != null)); } catch (e) {}
-    if (!k && !t) { document.getElementById('dr-list').innerHTML = ''; document.getElementById('dr-sent').classList.remove('dr-wait'); }
+    if (!k && !t) { var dl = document.getElementById('dr-list'); dl.innerHTML = ''; dl.removeAttribute('aria-busy'); document.getElementById('dr-sent').classList.remove('dr-wait'); }
   })();</script><div id="dr-pg"></div><div id="dr-tellbox"></div></section>
   <aside class="dr-mapbox" aria-label="Map" hidden><div class="dr-map" id="dr-map"></div>
     <div class="dr-mapbar"><button type="button" id="dr-sarea" class="dr-sarea" hidden>Search this area</button><button type="button" id="dr-mapmore" hidden>Show more</button><button type="button" id="dr-mapfull" hidden title="Open the full map">Full map</button></div><span class="dr-mapnote" id="dr-mapnote">Pins mark the ZIP area, not the street.</span></aside>
@@ -485,7 +485,7 @@ tv_app_start('Get Local', ['rail' => $rail, 'active' => 'directory', 'rail_label
 
 
   // while a search runs, the list keeps the height of cards (C.5a, 0145 V06): the page under it doesn't jump when they come
-  var SKEL = '<div class="dr-skel" aria-busy="true"><p class="dr-sum">Loading…</p><i></i><i></i><i></i><i></i><i></i></div>';
+  var SKEL = '<div class="dr-skel"><p class="dr-sum" role="status" aria-live="polite">Loading…</p><i></i><i></i><i></i><i></i><i></i></div>';
   // ---- the sentence (Refine, Jason 2026-11-19): what, how far, where; each part opens what changes it ----
   var DIST = [[2, '2 mi'], [5, '5 mi'], [10, '10 mi'], [25, '25 mi'], [50, '50 mi'], [250, 'Any distance']];
   function distName(r) { return r >= 250 ? 'any distance' : r + ' mi'; }
@@ -710,9 +710,10 @@ tv_app_start('Get Local', ['rail' => $rail, 'active' => 'directory', 'rail_label
       askPop();   // and asked in a pop-up, as the map does (Jason, 2026-11-12: "maybe the directory should have the same popup")
       pins([]); return;
     }
-    if (reset) $('dr-list').innerHTML = SKEL;
+    if (reset) { $('dr-list').innerHTML = SKEL; $('dr-list').setAttribute('aria-busy', 'true'); }   // screen readers hear the results arrive (the Design reviewer)
     fetch('/api/search_listings.php?' + qs(S.page), { credentials: 'include' }).then(function (r) { return r.json(); }).then(function (d) {
       if (my !== seq) return;
+      $('dr-list').removeAttribute('aria-busy');
       if (!d.success) throw new Error(d.error || 'Search is unavailable right now.');
       S.total = d.total || 0; S.hoursKnown = d.hours_known || null;   // asked open: N of M have known hours (P10)
       S.items = S.items.concat(d.listings || []);
@@ -720,7 +721,7 @@ tv_app_start('Get Local', ['rail' => $rail, 'active' => 'directory', 'rail_label
       if (S.page === (S.first || 1)) { S.offers = d.offers || []; S.meant = d.meant || []; S.read = d.read || []; S.center = d.center || null; }   // the main search's reading: kinds meant, spelling offers
       pg.busy(false); if (view === 'table') paintTable(); else paintList(); paintChips(); paintSentence(); paintSug();   // sort shows once there's more than one
       if (view === 'map' || beside()) pins(S.items);
-    }).catch(function (e) { $('dr-list').innerHTML = '<div class="dr-empty">' + esc(e.message) + '</div>'; });
+    }).catch(function (e) { $('dr-list').removeAttribute('aria-busy'); $('dr-list').innerHTML = '<div class="dr-empty">' + esc(e.message) + '</div>'; });
   }
   document.addEventListener('click', function (e) {   // the cards' ⋯: one open at a time; ×, Esc or a click outside close it
     var b = e.target.closest('.dr-mb'), x = e.target.closest('.dr-mx');
@@ -745,7 +746,7 @@ tv_app_start('Get Local', ['rail' => $rail, 'active' => 'directory', 'rail_label
   // the lists' standard (Jason, 2026-11-12; js/tv-pager.js): 10 a page or the visitor's choice, Show more, and the pages
   var pg = TvPager.mount($('dr-pg'), { key: 'directory', top: $('dr-listbox'),
     onMore: function () { pg.busy(true); S.page++; search(false); },
-    onPage: function (x) { S.first = S.page = x + 1; S.items = []; $('dr-list').innerHTML = SKEL; search(false); },
+    onPage: function (x) { S.first = S.page = x + 1; S.items = []; $('dr-list').innerHTML = SKEL; $('dr-list').setAttribute('aria-busy', 'true'); search(false); },
     onPer: function () { search(true); } });
   function paintList() {
     var p = place();

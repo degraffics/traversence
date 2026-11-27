@@ -7,7 +7,7 @@
 const { chromium } = require('playwright'); const fs = require('fs'); const cp = require('child_process');
 const TW = process.env.TW_INJECT ? fs.readFileSync(process.env.TW_INJECT, 'utf8') : ''; const out = process.argv[2] || '.';
 const H = process.env.HARNESS || 'http://127.0.0.1:8790', EV = '5';
-const sh = q => cp.execFileSync('mysql', ['-utv', '-ptv', 'tvh', '-e', q]);
+const sh = (q, db) => cp.execFileSync('mysql', ['-utv', '-ptv', db || 'tvh', '-e', q]);
 sh(`DELETE FROM event_participants; INSERT INTO event_participants (event_id, entity_id, status, offer_text, offer_code, offer_code_words, offer_code_ends, invited_at, changed_at) VALUES
  (5, 8, 'accepted', '10% off a pizza with your ticket', 'SHOW10', '10% off, until Dec 31', '2026-12-31', NOW(), NOW()),
  (5, 101, 'accepted', 'Free dessert before the show', 'OLDCODE', '5% off', '2026-11-01', NOW(), NOW()),
@@ -32,7 +32,7 @@ sh(`DELETE FROM event_participants; INSERT INTO event_participants (event_id, en
   t(w + ' round icons each name their action and its business', labels.length >= 2 && labels.every(l => /Show Low Pizza/.test(l) && /\/T$/.test(l)), labels.join(' , '));
   t(w + ' the icons are 30px rounds', (await ics.first().evaluate(x => { const r = x.getBoundingClientRect(); return Math.round(r.width) + 'x' + Math.round(r.height); })) === '30x30');
   t(w + ' Directions counts its tap', await pz.locator('.evp-ic[data-out="directions"][data-e="8"]').count() === 1);
-  t(w + ' its offer as written, with its code', /Their offer:\s*10% off a pizza with your ticket · code SHOW10, 10% off, until Dec 31/.test(await pz.innerText()));
+  t(w + ' its offer as written, then only its code and last day', /Their offer:\s*10% off a pizza with your ticket · code SHOW10 until Dec 31/.test(await pz.innerText()) && !/10% off, until/.test(await pz.innerText()));
   t(w + ' its GO Code', /GO Code\s*\S*\/\w{6}/.test(await pz.locator('.evp-go-c').innerText()) && await pz.locator('.evp-go-c a').count() === 1);
   const od = cards.filter({ hasText: 'Owner Diner' });
   t(w + ' a code past its last day isn\'t shown; the line is', /Free dessert before the show/.test(await od.innerText()) && !/OLDCODE/.test(await od.innerText()));
@@ -55,6 +55,16 @@ sh(`DELETE FROM event_participants; INSERT INTO event_participants (event_id, en
   await p.screenshot({ path: out + '/p2-trip-' + w + '.png' }); await p.keyboard.press('Escape');
   t(w + ' no sideways scroll', (await p.evaluate(() => document.documentElement.scrollWidth)) <= w);
   if (w < 800) { const e = await cards.first().evaluate(x => { const r = x.getBoundingClientRect(); return [Math.round(r.left), Math.round(innerWidth - r.right)]; }); t(w + ' cards edge to edge on phones', e[0] <= 16 && e[1] <= 16, e.join(',')); }
+  // the code read live when the page is drawn: switched off, then past its last day, the line alone stays
+  sh("SET @tv_tenant=8; UPDATE biz_codes SET active = 0 WHERE code = 'SHOW10'", 'tvl');
+  await p.goto(H + '/event/?id=' + EV, { waitUntil: 'load' }); await p.waitForTimeout(300);
+  let pz2 = p.locator('#evp-parts .evp-pc').filter({ hasText: 'Show Low Pizza' });
+  t(w + ' a code switched off isn\'t shown; its line is', !/SHOW10/.test(await pz2.innerText()) && /10% off a pizza with your ticket/.test(await pz2.innerText()));
+  sh("SET @tv_tenant=8; UPDATE biz_codes SET active = 1, ends = '2026-11-01' WHERE code = 'SHOW10'", 'tvl');
+  await p.goto(H + '/event/?id=' + EV, { waitUntil: 'load' }); await p.waitForTimeout(300);
+  pz2 = p.locator('#evp-parts .evp-pc').filter({ hasText: 'Show Low Pizza' });
+  t(w + ' a code past its last day isn\'t shown either', !/SHOW10/.test(await pz2.innerText()));
+  sh("SET @tv_tenant=8; UPDATE biz_codes SET ends = '2026-12-31' WHERE code = 'SHOW10'", 'tvl');
   // a cancelled event: no Taking part
   await p.goto(H + '/event/?id=6', { waitUntil: 'load' }); await p.waitForTimeout(300);
   t(w + ' a cancelled event shows no Taking part', await p.locator('#evp-parts').count() === 0 && !/Cancelled night offer/.test(await p.content()));
