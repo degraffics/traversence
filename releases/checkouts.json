@@ -192,14 +192,12 @@
   },
   {
    "path": "app/lib/crawler/OpenLoads.php",
-   "functions": [
-    "due"
-   ],
+   "functions": [],
    "kind": "change",
    "session": "session_01CXLi5jsi4U8fUwJYPkZsMx",
-   "why": "R-D1: the launch area's loads, 1A first then by distance from the Four Corners (0181 \u00a73, D.1 \u00a72.4)",
+   "why": "R-D1: the header's order note and due() (the file's top changes too)",
    "since": "2026-11-27T20:24:31Z",
-   "expires": "2026-11-28T00:24:31Z",
+   "expires": "2026-11-28T00:26:01Z",
    "release": "",
    "callers": {}
   },
