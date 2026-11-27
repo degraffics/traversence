@@ -8,11 +8,11 @@
 //   4. nothing else reaches the page: only [code, ends] comes back (no counts, no other codes, no notes).
 //   5. the page's own path: the listings login's own connection, a passed-in one never filling its cache, a failed
 //      connection tried once per request.
-// Run: php live-code.php <root>/app     (it resets lv_codes; user tv/tv on 127.0.0.1)
+// Run: php live-code.php <root>/app     (it resets lv_codes; user tv/tv on 127.0.0.1, with CREATE USER and GRANT OPTION for the read-only login)
 declare(strict_types=1);
 $app = rtrim($argv[1] ?? '', '/');
 if (!is_file($app . '/lib/Events.php')) { fwrite(STDERR, "usage: php live-code.php <root>/app\n"); exit(2); }
-require_once $app . '/lib/Database.php'; require_once $app . '/lib/Events.php';
+require_once $app . '/lib/Database.php'; require_once $app . '/lib/Events.php'; require_once $app . '/lib/BusinessData.php';
 $root = new PDO('mysql:host=127.0.0.1;charset=utf8mb4', 'tv', 'tv', [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
 $root->exec('DROP DATABASE IF EXISTS lv_codes'); $root->exec('CREATE DATABASE lv_codes'); $root->exec('USE lv_codes');
 $root->exec("CREATE TABLE biz_codes (id INT AUTO_INCREMENT PRIMARY KEY, owner_id INT UNSIGNED NOT NULL, code VARCHAR(40), kind VARCHAR(8), value INT, min_order_cents BIGINT DEFAULT 0,
@@ -35,7 +35,7 @@ $t('1. one business never reads another\'s code', Events::liveCode(8, 'ONLY9', $
 $t('1. a code belonging only to another business: nothing', Events::liveCode(7, 'SHOW10', $db) === null && Events::liveCode(7, 'ONLY9', $db) === null);
 $t('1. no code asked, nothing read', Events::liveCode(8, '', $db) === null && Events::liveCode(0, 'SHOW10', $db) === null);
 $t('1. switched off, ended, used up: nothing', Events::liveCode(8, 'OFF5', $db) === null && Events::liveCode(8, 'OLD', $db) === null && Events::liveCode(8, 'FULL', $db) === null);
-$src = (string) file_get_contents($app . '/lib/Events.php'); preg_match('/function liveCode.*?\n    }\n/s', $src, $m); $body = $m[0] ?? '';
+$src = (string) file_get_contents($app . '/lib/BusinessData.php'); preg_match('/function publicCode.*?\n    }\n/s', $src, $m); $body = $m[0] ?? '';   // the read lives in the realm's gateway
 $t('1. the one query names the code and LIMIT 1, through the tenant view only', substr_count($body, '->prepare(\'SELECT') === 1 && str_contains($body, 'FROM `b_biz_codes` WHERE code = ? LIMIT 1') && !preg_match('/FROM `?biz_codes/', $body));
 
 // 2. read only
@@ -48,6 +48,11 @@ $t('2. the rows are as they were', (int) $root->query("SELECT SUM(uses) FROM biz
 Events::liveCode(8, 'SHOW10', $db);
 $t('3. after a read, @tv_tenant is NULL on that connection', $db->query('SELECT @tv_tenant IS NULL')->fetchColumn() == 1);
 $t('3. so the next query on it sees no business\'s rows', (int) $db->query('SELECT COUNT(*) FROM b_biz_codes')->fetchColumn() === 0);
+$db->exec('SET @tv_tenant = 9'); Events::liveCode(8, 'SHOW10', $db);
+$t('3. a tenant the caller had set is put back as it was (QA\'s second look)', (int) $db->query('SELECT @tv_tenant')->fetchColumn() === 9); $db->exec('SET @tv_tenant = NULL');
+$d0 = Events::liveCode(8, 'OLD', $db); $root->exec("UPDATE biz_codes SET ends = CURDATE() WHERE owner_id = 8 AND code = 'OLD'"); $d1 = Events::liveCode(8, 'OLD', $db);
+$root->exec("UPDATE biz_codes SET ends = NULL, starts = CURDATE() + INTERVAL 1 DAY WHERE owner_id = 8 AND code = 'OLD'"); $d2 = Events::liveCode(8, 'OLD', $db);
+$t('1. dates as checkout counts them: ends today still shows, starts tomorrow doesn\'t', $d0 === null && $d1 !== null && $d2 === null, [$d0, $d1, $d2]);
 $root->exec('RENAME TABLE biz_codes TO biz_codes_away');   // the read fails part way (its view can't be read)
 $r = Events::liveCode(8, 'SHOW10', $db);
 $t('3. a read that fails gives nothing (nothing shown rather than something untrue)', $r === null);
@@ -56,8 +61,11 @@ $root->exec('RENAME TABLE biz_codes_away TO biz_codes');
 
 // 4. nothing else reaches the page
 $r = Events::liveCode(8, 'SHOW10', $db);
-$t('4. only code and ends come back', $r !== null && array_keys($r) === ['code', 'ends'], $r);
-$t('4. no counts, notes, value or kind', !preg_match('/uses|note|value|kind|private|50/', json_encode($r)), $r);
+$t('4. only its public terms come back: code, ends, the smallest order', $r !== null && array_keys($r) === ['code', 'ends', 'min_cents'], $r);
+$t('4. no counts, notes, value or kind', !preg_match('/uses|note|value|kind|private|"50/', json_encode($r)), $r);
+$root->exec("UPDATE biz_codes SET min_order_cents = 2000 WHERE owner_id = 8 AND code = 'SHOW10'");
+$t('4. a smallest order is said, so the offer stays true', Events::codeWords(Events::liveCode(8, 'SHOW10', $db)) === 'code SHOW10 on orders of $20.00 or more until Dec 31');
+$root->exec("UPDATE biz_codes SET min_order_cents = 0 WHERE owner_id = 8 AND code = 'SHOW10'");
 $t('4. its words say only the code and its last day', Events::codeWords($r) === 'code SHOW10 until Dec 31', Events::codeWords($r));
 
 // 5. the page's own path (the CTO's review, finding F): the listings login's own connection, its cache, its failure
@@ -78,7 +86,20 @@ $t('5. a passed-in connection never fills the page\'s cache (the page then reads
 $t('5. the page\'s path reads through the listings login\'s own connection (Database::realmOwn)', str_contains($o, 'SHOW10'), $o);
 [$o, $l] = $sub('DB_HOST=127.0.0.1 DB_LISTINGS_DATABASE=lv_codes DB_LISTINGS_USERNAME=nobody DB_LISTINGS_PASSWORD=wrong', 'echo json_encode([Events::liveCode(8, "SHOW10"), Events::liveCode(9, "ONLY9"), Events::liveCode(8, "OLD")]);');
 $t('5. a connection that fails gives nothing for every business on the page', trim($o) === '[null,null,null]', $o);
-$t('5. and is tried once, not once per business', substr_count($l, 'Events::liveCode') === 1, $l);
+$t('5. and is tried once, not once per business', substr_count($l, 'BusinessData::publicCode') === 1, $l);
+// the real listings login has no rights on the table itself, only its view (the CTO's review, finding C)
+$root->exec("DROP USER IF EXISTS 'lc_ro'@'localhost'"); $root->exec("DROP USER IF EXISTS 'lc_ro'@'%'");
+$root->exec("CREATE USER 'lc_ro'@'localhost' IDENTIFIED BY 'ro'"); $root->exec("CREATE USER 'lc_ro'@'%' IDENTIFIED BY 'ro'");
+foreach (['localhost', '%'] as $h) $root->exec("GRANT SELECT ON lv_codes.b_biz_codes TO 'lc_ro'@'$h'");
+$ro = 'DB_HOST=127.0.0.1 DB_LISTINGS_DATABASE=lv_codes DB_LISTINGS_USERNAME=lc_ro DB_LISTINGS_PASSWORD=ro';
+[$o] = $sub($ro, 'echo json_encode(Events::liveCode(8, "SHOW10"));');
+$t('5. a login that can read only the view reads its own code through it', str_contains($o, 'SHOW10'), $o);
+$roPdo = new PDO('mysql:host=127.0.0.1;dbname=lv_codes', 'lc_ro', 'ro', [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+$t('5. and couldn\'t read the table itself (so the view is the only way in)', (function () use ($roPdo) { try { $roPdo->query('SELECT * FROM biz_codes'); return false; } catch (PDOException $x) { return true; } })());
+$root->exec("DROP USER 'lc_ro'@'localhost'"); $root->exec("DROP USER 'lc_ro'@'%'");
+// never the request's own business connection (finding B: its reset would leave the portal's later writes refused)
+[$o] = $sub($ok, 'require_once "' . $app . '/lib/Scope.php"; Scope::enterBusiness($db, 8); try { Events::liveCode(8, "SHOW10", $db); echo "used"; } catch (LogicException $x) { echo "refused"; }');
+$t('5. a caller passing the portal\'s own business connection is refused', trim($o) === 'refused', $o);
 $root->exec('DROP DATABASE lv_codes2');
 
 $root->exec('DROP DATABASE lv_codes');

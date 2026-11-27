@@ -354,41 +354,17 @@ final class Events
         return $words;
     }
 
-    /**
-     * A business's discount code as it stands now, read when a page is drawn (the session manager, 2026-11-27: words follow
-     * the state): from its walled data through the business gate, as MarketCheckout::writeOrder writes there (0110:
-     * the listings login on a connection of its own, set to that business by @tv_tenant, read only through its b_ view).
-     * The code only while it's switched on, in its dates and not used up, with its last day; null otherwise, and null
-     * when the data can't be reached (nothing shown rather than something untrue).
-     */
+    /** A business's code as it stands now, its public terms only: through the realm's gateway (BusinessData::publicCode). */
     public static function liveCode(int $entity, string $code, ?PDO $db = null): ?array
     {
-        static $own = null, $seen = [];
-        $code = strtoupper(trim($code));
-        if ($code === '' || $entity <= 0) return null;
-        $k = $entity . ':' . $code; $live = $db === null;   // only the page's own reads are remembered (a passed-in connection never fills the cache)
-        if ($live && array_key_exists($k, $seen)) return $seen[$k];
-        if ($live && $own === false) return null;   // the listings data couldn't be reached once this request: not tried again for each business
-        $c = null;
-        try {
-            if ($live) { if ($own === null) { require_once __DIR__ . '/BusinessData.php'; try { $own = Database::realmOwn('listings'); } catch (Throwable $x) { $own = false; throw $x; } } $db = $own; }
-            $db->prepare('SET @tv_tenant = ?')->execute([$entity]);
-            try {   // one row: the code this business attached, and only the columns that decide whether it holds
-                $st = $db->prepare('SELECT code, active, starts, ends, max_uses, uses FROM `b_biz_codes` WHERE code = ? LIMIT 1'); $st->execute([$code]);
-                $c = $st->fetch(PDO::FETCH_ASSOC) ?: null;
-            } finally { $db->exec('SET @tv_tenant = NULL'); }   // never left set for the next query on this connection
-        } catch (Throwable $x) { error_log('Events::liveCode ' . $entity . ': ' . $x->getMessage()); if ($live) $seen[$k] = null; return null; }
-        $today = date('Y-m-d');
-        $ok = $c && (int) $c['active'] && !($c['starts'] && (string) $c['starts'] > $today) && !($c['ends'] && (string) $c['ends'] < $today) && !((int) $c['max_uses'] && (int) $c['uses'] >= (int) $c['max_uses']);
-        $r = $ok ? ['code' => (string) $c['code'], 'ends' => $c['ends'] ?: null] : null;   // only these two reach a page: no counts, no other codes
-        if ($live) $seen[$k] = $r;
-        return $r;
+        require_once __DIR__ . '/BusinessData.php';
+        return BusinessData::publicCode($entity, $code, $db);
     }
 
     /** "code SHOW10 until Dec 31": after the business's own words, the code and its last day only (the Design reviewer). */
     public static function codeWords(array $c): string
     {
-        return 'code ' . $c['code'] . ($c['ends'] ? ' until ' . date('M j', strtotime((string) $c['ends'])) : '');
+        return 'code ' . $c['code'] . (!empty($c['min_cents']) ? ' on orders of $' . number_format((int) $c['min_cents'] / 100, 2) . ' or more' : '') . ($c['ends'] ? ' until ' . date('M j', strtotime((string) $c['ends'])) : '');
     }
 
     /** An offer in words, for History: 'the line' · code CODE. */
