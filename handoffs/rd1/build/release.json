@@ -1,0 +1,18 @@
+{
+ "title": "The launch area's loads: 1A's towns first, then every town within 200 miles of the Four Corners (R-D1)",
+ "why": "decisions/0181 §3 (every town within 200 miles of the Four Corners Monument built for Jan 1) and §1 gate 3 (Winslow's listings, then its guide); D.1's plan (research/launch-area-nations-and-towns-2026-11-27.md §2.2–2.4), order OK from the session manager 2026-11-27 20:19 UTC. Today the open-dataset loads walk only our clusters, the fewest listings first across all of Arizona and New Mexico, so 1A isn't first and a town that isn't a cluster's main ZIP never loads.",
+ "changes": [
+  {
+   "what": "OpenLoads::due() gives the launch area's towns first: 1A's (a cluster slug starting cluster-1a-, regions.md's 1A row; Springerville & Eagar by its old slug until W15 r2, a named constant that a test removes), then every AZ and NM town within 200 miles of the Four Corners Monument by its distance from it. Each is made one of our towns (OnDemand::townFor, reusing its cluster's anchor) and loaded as town:<id>, a 7 km box around its ZIPs. After the area, the clusters by fewest listings, as before. Colorado and Utah stay out until their nations' boundaries (G1). The worker and loads.php are unchanged (the key is opaque).",
+   "where": "https://traversence.com/admin/config/workflows (W1's load tasks)"
+  },
+  {
+   "what": "The FAQ's open-datasets answer says the order.",
+   "where": "https://traversence.com/faq.php#do-you-use-open-business-datasets"
+  }
+ ],
+ "proposals": [],
+ "switch": "",
+ "tier4": "IT Manager (11), for the loads' order (the session manager, 2026-11-27)",
+ "notes": "Nothing loads until the W1 trips are cleared (D.1 §2.2 step 1, the Piece 2 session's B.6 and B.7). Google's paid places check for 1A (0181 §3) isn't in the live loads; flagged, not built. Roll back: the release's Roll back puts the old OpenLoads.php back; anchors it made stay (they are towns, as OnDemand makes them)."
+}
