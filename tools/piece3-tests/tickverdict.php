@@ -136,4 +136,10 @@ $t('(a) already every 10 minutes: nothing changed, only remembered', BeforeAfter
 $pdo->exec("DELETE FROM site_release_settings WHERE k = 'tick_line_10min'"); BeforeAfter::$linesFn = null; BeforeAfter::$changeFn = null;
 putenv('CPANEL_HOST=');
 $t('(a) cPanel not connected: waits, saying nothing, and isn\'t remembered (tried next run)', BeforeAfter::tickLine($pdo) === '' && $pdo->query("SELECT COUNT(*) FROM site_release_settings WHERE k = 'tick_line_10min'")->fetchColumn() == 0);
+// the ping acts as the 10-minute job does (2026-11-27: every ping was refused "Sign in with your staff login first"):
+// publish and schedule while it runs, never turning off or rolling back, and nothing granted after it
+$g = new ReflectionProperty(Releases::class, 'grant'); $g->setAccessible(true);
+$in = Releases::asPing(fn () => [Releases::can('releases.publish')[0], Releases::can('releases.schedule')[0], Releases::can('releases.turn_off')[0], Releases::can('releases.rollback')[0], $g->getValue()]);
+$t('(c) the ping takes and moves releases on as the job does: publish and schedule, never turn off or roll back', $in[0] && $in[1] && !$in[2] && !$in[3], $in);
+$t('(c) … and nothing is granted once it\'s done, even when its step throws', $g->getValue() === null && (function () use ($g) { try { Releases::asPing(function () { throw new RuntimeException('x'); }); } catch (RuntimeException $e) {} return $g->getValue() === null; })());
 echo "\n$pass passed, $fail failed\n"; exit($fail ? 1 : 0);
