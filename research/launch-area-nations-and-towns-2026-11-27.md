@@ -77,11 +77,15 @@ beyond what was built for Arizona and New Mexico.
 - **G2. Colorado and Utah have no landmarks yet.** GNIS, NPI, IRS and Recreation.gov loads all take `NpiBulk::STATES`
   (AZ, NM); `OpenLoads::STATES` is the same. Only Geofabrik reads Utah and Colorado (Jason, 2026-11-19,
   `OpenLoads::GEOFABRIK_STATES`). Widening them is what Part 2's Q1 decides.
-- **G3. A held place in a cluster's town list.** regions.md lists **"Hawikuh site"** as a 1C town. Hawikuh is an
-  ancestral Zuni village site on Zuni land: under 0164 R7 and `Jurisdictions::tier()` (sensitive, on a nation's land)
-  it is **restricted**. It must not become a town, a stop or a destination in 1C's guide. *Suggest a change to
-  regions.md: drop "Hawikuh site" from 1C's town list (0164 R7).* For Jason via the session manager; I check the live
-  `micro_clusters` for it before E.1.
+- **G3. Hawikuh, a held place named in a cluster's towns** (corrected 2026-11-27 with the CEO). regions.md lists
+  "Hawikuh site" among 1C's towns. It's an ancestral Zuni village on Zuni land, so it is **held** under 0164 R7's
+  nations bullet ("anything specific to a nation is held until the nation's own tools exist and it says otherwise")
+  and 0058 §27; story only applies only off a nation's land (R7, P5-3; CLAUDE.md). The live code agrees:
+  `Landmarks::publiclyKnown()` never releases a place on a nation's land, and `Jurisdictions::tier()` keeps it
+  restricted. **The name stays in regions.md as a cluster label** (the earlier suggestion to drop it is withdrawn).
+  1C's guide uses R7's held wording ("the area holds sacred places that aren't for visiting without permission, and
+  whose") until (a) Zuni's own visitor page lists it and an Editor opens it with that link (0058 §27; G4), or (b) Jason
+  rules otherwise; the CEO has put both to him.
 - **G4. The nations' rules are unchecked everywhere.** Not a block (pages point to the nation's own site), but 1A's
   neighbours (Navajo, Hopi, Zuni, White Mountain Apache) are where visitors from 1A go. Filling them is a person's job
   from each nation's own site (0058 §26: "needs an Editor"); nations' sites are never crawled (0058 §26, 0164 R7).
@@ -233,7 +237,7 @@ in A and C):
 rule would restrict them. Keep P5-3 as it is in Arizona and New Mexico (it never applies on a nation's land), or hold
 story-only places until the state's record is signed?
 
-**Suggest a change to regions.md (G3):** drop "Hawikuh site" from 1C's towns: it's a restricted place under 0164 R7.
+**G3 (Hawikuh): withdrawn as a regions.md change;** it stays held on Zuni land (above), and the CEO has put options (a) and (b) to Jason.
 
 **G4, a gap:** who checks the four nearest nations' visitor rules for 1A before launch, or launch with pointers only.
 
