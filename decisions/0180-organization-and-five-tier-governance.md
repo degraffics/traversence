@@ -378,3 +378,11 @@ drafting, briefs, Prior Ruling Checks), a separate counter in `AiClient` with it
 on the meter, built with the AI items release (IT lane, the CFO's Tier 4); (4) the CEO's $20, unchanged. Worst case
 $209.10 a month. The CFO allocates projects within (3); nothing is spent from (3) until its counter is live, and until
 then agents stay on sessions.
+
+**Note to §6 (Jason, 2026-11-27: "we pipe agents into session work and system into api work. The workflows should only
+require api to answer specific focused calls vs agents needing to reason and work out more complex processes"; refines
+the two notes above; recorded as Operations & Policy (16)): the routing rule, cheapest first.** (1) Code and templates
+($0) wherever they settle it (§6, internal first). (2) The API for specific, focused calls with a small, known context:
+the system's workflows (guides, research, place descriptions) on the platform's $40, and an agent's bounded call (a
+draft, a brief, a lean Prior Ruling Check) on the agents' $40. (3) Sessions (Claude Max) for agents' multi-step reasoning
+and build work. The move to the API applies only to (2); complex agent work stays in sessions.
