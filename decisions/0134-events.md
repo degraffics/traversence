@@ -342,3 +342,15 @@ the code being switched off or changed in business/codes, update or withdraw it,
 switch may stay as a kill switch (on by default, anyone can turn it off). The CTO's Tier 4 independent check is re-run
 on this design and recorded in `handoffs/events-p2/tier4-review.md`. MarketCheckout's `writeOrder`, which switches the
 tenant per business at checkout, is a separate question for the Founder (no written exception in 0110 yet).
+
+**The pilot's scope: the organizer sells, participants get exposure** (Jason, 2026-11-27: "The tool I had in mind was
+the theater as organizer of an event with participants that also get exposure but only the event tickets are sold and
+participants route deals to their location for in person purchase. Asking each to participate at an e-commerce level is
+too high of a bar for pilot event test."; recorded as Operations & Policy (16); it supersedes the discount-code parts of
+the participants note (#1594) and the note above on publishing a code). Only the host's event tickets sell on the
+platform (ticket items, live). A participant's deal is redeemed in person at its own location: its card on the event page
+shows its name, its owner's own offer line and a GO Code that routes to its location (the listing's Share code,
+Directions, Send to Maps through the trail). No participant e-commerce, no participant discount codes and no read of a
+participant's business data; publish-a-code and the `event_codes` switch are dropped from P2. Invitations, accept and
+leave, and the trail stay as built in P1. The pilot's one checkout is the host's ticket sale (MarketCheckout's
+`writeOrder`), whose tenant switch stays a separate question for the Founder.
