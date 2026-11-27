@@ -117,8 +117,8 @@
    "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
    "why": "R2 (decisions/0180 \u00a75, \u00a77): swimlanes and locks",
    "since": "2026-11-27T02:29:25Z",
-   "expires": "2026-11-27T06:29:25Z",
-   "release": "",
+   "expires": "2026-11-27T07:00:45Z",
+   "release": "r2-lanes.zip",
    "callers": {}
   },
   {
@@ -131,8 +131,8 @@
    "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
    "why": "R2 (decisions/0180 \u00a75, \u00a77): swimlanes and locks",
    "since": "2026-11-27T02:29:25Z",
-   "expires": "2026-11-27T06:29:25Z",
-   "release": "",
+   "expires": "2026-11-27T07:00:45Z",
+   "release": "r2-lanes.zip",
    "callers": {}
   },
   {
@@ -142,8 +142,8 @@
    "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
    "why": "R2 (decisions/0180 \u00a75, \u00a77): swimlanes and locks",
    "since": "2026-11-27T02:29:25Z",
-   "expires": "2026-11-27T06:29:25Z",
-   "release": "",
+   "expires": "2026-11-27T07:00:45Z",
+   "release": "r2-lanes.zip",
    "callers": {}
   },
   {
@@ -155,8 +155,8 @@
    "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
    "why": "R2 (decisions/0180 \u00a75, \u00a77): swimlanes and locks",
    "since": "2026-11-27T02:29:25Z",
-   "expires": "2026-11-27T06:29:25Z",
-   "release": "",
+   "expires": "2026-11-27T07:00:45Z",
+   "release": "r2-lanes.zip",
    "callers": {
     "ask": [
      "app/ui/card-scanner.php",
@@ -192,8 +192,8 @@
    "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
    "why": "R2 (decisions/0180 \u00a75, \u00a77): swimlanes and locks",
    "since": "2026-11-27T02:29:25Z",
-   "expires": "2026-11-27T06:29:25Z",
-   "release": "",
+   "expires": "2026-11-27T07:00:45Z",
+   "release": "r2-lanes.zip",
    "callers": {}
   },
   {
@@ -203,8 +203,8 @@
    "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
    "why": "R2 (decisions/0180 \u00a75, \u00a77): swimlanes and locks",
    "since": "2026-11-27T02:29:34Z",
-   "expires": "2026-11-27T06:29:34Z",
-   "release": "",
+   "expires": "2026-11-27T07:00:45Z",
+   "release": "r2-lanes.zip",
    "callers": {}
   },
   {
@@ -214,8 +214,8 @@
    "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
    "why": "R2 (decisions/0180 \u00a75, \u00a77): swimlanes and locks",
    "since": "2026-11-27T02:29:34Z",
-   "expires": "2026-11-27T06:29:34Z",
-   "release": "",
+   "expires": "2026-11-27T07:00:45Z",
+   "release": "r2-lanes.zip",
    "callers": {}
   },
   {
@@ -270,6 +270,17 @@
    "since": "2026-11-27T02:30:01Z",
    "expires": "2026-11-27T06:30:01Z",
    "release": "j1-jurisdictions.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/migrations/2026-11-26_0180_r2_lanes.sql",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
+   "why": "release r2-lanes.zip",
+   "since": "2026-11-27T03:00:45Z",
+   "expires": "2026-11-27T07:00:45Z",
+   "release": "r2-lanes.zip",
    "callers": {}
   }
  ],
