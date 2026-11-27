@@ -22,6 +22,19 @@
    "expires": "2026-11-27T14:52:25Z",
    "release": "b2-backups-3.zip",
    "callers": {}
+  },
+  {
+   "path": "app/admin/sections.php",
+   "functions": [
+    "tv_admin_mod_releases"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
+   "why": "the Releases page's look line says what GitHub did (pipeline release, the Design reviewer 2026-11-27)",
+   "since": "2026-11-27T11:52:34Z",
+   "expires": "2026-11-27T15:52:34Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
