@@ -1,4 +1,10 @@
-# Tier 4 review: reading a business's discount code from a public page (`BusinessData::publicCode`, `Events::liveCode`)
+**Superseded, 2026-11-27 (decisions/0134's notes #1605 then #1606, Jason):** first the code was to be published by its
+owner like a post, then the pilot's scope dropped participant codes altogether: only the host's tickets sell, each
+participant shows its owner's own offer line, given in person. Everything below is the history of the code design and no
+longer applies to the build. With no read of a participant's business data, the CTO's Tier 4 condition is moot; the
+session manager asked for one fresh QA check that no `b_biz_codes` or tenant code remains (recorded at the end).
+
+# Tier 4 review: a business's discount code on a public page (superseded: no codes in the pilot) (`BusinessData::publicCode`, `Events::liveCode`)
 
 Asked by the session manager, 2026-11-27 (a data wall, decisions/0110, is a high-risk area: CLAUDE.md "Five tiers").
 Each reviewer was a fresh, independent agent, given the code, the tests and 0110, never this session's conclusions:

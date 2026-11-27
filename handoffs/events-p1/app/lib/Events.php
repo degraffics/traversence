@@ -148,7 +148,7 @@ final class Events
         if ($f === 'created') return 'added it';
         if (isset(self::MOVE_WORDS[$f])) return self::MOVE_WORDS[$f] . ' (was ' . (self::STATUSES[(string) $was] ?? (string) $was) . ')';
         if (str_starts_with($f, 'part:')) { [$nm, $ow] = array_pad(explode('|', (string) $was, 2), 2, null); $mv = substr($f, 5);
-            return ['invited' => 'invited ' . $nm, 'accepted' => $nm . ' accepted', 'declined' => $nm . ' declined', 'left' => $nm . ' left', 'rejoined' => $nm . ' came back', 'removed' => 'removed ' . $nm, 'put back' => 'put ' . $nm . ' back', 'offer' => $nm . ' changed its offer' . ($ow !== null && $ow !== '' ? ' (was ' . $ow . ')' : ' (it had none)'), 'code_off' => $nm . '\'s code ' . $ow . ' came off: switched off, ended or used up in its Discount codes', 'code_changed' => $nm . '\'s code changed in its Discount codes (was ' . $ow . ')'][$mv] ?? $mv; }
+            return ['invited' => 'invited ' . $nm, 'accepted' => $nm . ' accepted', 'declined' => $nm . ' declined', 'left' => $nm . ' left', 'rejoined' => $nm . ' came back', 'removed' => 'removed ' . $nm, 'put back' => 'put ' . $nm . ' back', 'offer' => $nm . ' changed its offer' . ($ow !== null && $ow !== '' ? ' (was ' . $ow . ')' : ' (it had none)')][$mv] ?? $mv; }
         if ($f === 'status') return 'changed its state (was ' . (self::STATUSES[(string) $was] ?? (string) $was) . ')';   // before the moves were named
         return 'changed ' . str_replace('_', ' ', $f) . ($was !== null && $was !== '' ? ' (was "' . mb_strimwidth((string) $was, 0, 80, '…') . '")' : '');
     }
@@ -274,11 +274,8 @@ final class Events
     // ---- businesses taking part (decisions/0134's note #1589, P1): the host invites, each answers, both can step back ----
     //   invited → accepted (with its offer) | declined; accepted → removed (by the host) | left (by the business); each of
     //   those two has Undo (back to accepted). A listing nobody has claimed can't answer: its invitation waits ('waiting')
-    //   until we can reach unclaimed businesses by email (SES), and says so. Its offer (the CMO's ruling, 0134's note #1594):
-    //   one of its own discount codes (BizCodes, decisions/0121; the business's Discount codes) and/or a short line in its
-    //   owner's words, shown as written beside its GO Code. The code's words are kept with it (the event page can't read a
-    //   business's walled data, 0110) and checked again each time its team opens Events: a code switched off or ended comes
-    //   off, said there. Editorial (12) checks only for an offer that misleads; none reads as paid or ranked (0007).
+    //   until we can reach unclaimed businesses by email (SES), and says so. Its offer is a line in its owner's own words, its deal redeemed in person at
+    //   its own location (Jason's pilot scope, decisions/0134's note #1606): no codes, no read of its business's data.
 
     public const PART = ['waiting' => 'Waiting to be sent', 'invited' => 'Invited', 'accepted' => 'Taking part', 'declined' => 'Declined', 'removed' => 'Removed by the host', 'left' => 'Left'];
 
@@ -329,7 +326,7 @@ final class Events
     }
 
     /** The invited business answers: accept (with its offer line) or decline; or leaves, or undoes leaving. */
-    public static function answer(PDO $pdo, int $uid, int $entity, int $pid, string $what, string $offer = '', string $tz = '', ?string $code = null): string
+    public static function answer(PDO $pdo, int $uid, int $entity, int $pid, string $what, string $offer = '', string $tz = ''): string
     {
         [$ok, $why] = self::canPost($pdo, $uid, $entity); if (!$ok) throw new InvalidArgumentException($why);
         $p = self::part($pdo, $pid); if (!$p || (int) $p['entity_id'] !== $entity) throw new InvalidArgumentException('That invitation isn\'t this business\'s.');
@@ -337,111 +334,21 @@ final class Events
         if (mb_strlen($offer) > 140) throw new InvalidArgumentException('Keep the offer to 140 characters.');
         if (preg_match('~(https?://|www\.)\S+~i', $offer)) throw new InvalidArgumentException('No links in the offer: its GO Code takes people to you.');
         $withOffer = in_array($what, ['accept', 'offer'], true);
-        $c = ['', '', null, null, 0];   // the published code: code, the owner's words for it, first day, last day, smallest order
-        if ($withOffer && $code !== null && trim($code) !== '') {
-            $all = self::codeChoices($pdo); $k = strtoupper(trim($code));
-            if (!isset($all[$k])) throw new InvalidArgumentException('Choose one of your own discount codes that\'s switched on and not ended (Discount codes).');
-            $c = [$k, $all[$k]['words'], $all[$k]['starts'], $all[$k]['ends'], $all[$k]['min']];
-        } elseif ($withOffer && $code === null) $c = [(string) $p['offer_code'], (string) $p['offer_code_words'], $p['offer_code_starts'] ?: null, $p['offer_code_ends'] ?: null, (int) $p['offer_code_min']];   // left as it was
         $moves = ['accept' => [['invited', 'declined'], 'accepted', 'You\'re taking part. Your business shows on the event\'s page once that opens with the next update.'], 'decline' => [['invited'], 'declined', 'Declined. The host can ask again.'],
                   'leave' => [['accepted'], 'left', 'You\'ve left the event. Undo puts you back.'], 'rejoin' => [['left'], 'accepted', 'Back in: you\'re taking part again.'], 'offer' => [['accepted'], 'accepted', 'Your offer is saved.']];
         if (!isset($moves[$what])) throw new InvalidArgumentException('Unknown action.');
         [$from, $to, $words] = $moves[$what];
         if (!in_array($p['status'], $from, true)) return 'Already ' . strtolower(self::PART[$p['status']] ?? $p['status']) . ': nothing to change.';
-        $pdo->prepare('UPDATE event_participants SET status = ?, prev_status = ?, answered_by = ?, changed_at = UTC_TIMESTAMP(), changed_tz = ?' . ($withOffer ? ', offer_text = ?, offer_code = ?, offer_code_words = ?, offer_code_starts = ?, offer_code_ends = ?, offer_code_min = ?' : '') . ' WHERE id = ?')
-            ->execute(array_merge([$to, $p['status'], $uid, self::tzOk($tz)], $withOffer ? [$offer, $c[0], $c[1], $c[2], $c[3], $c[4]] : [], [$pid]));
-        self::log($pdo, (int) $p['event_id'], $uid, ['accept' => 'accepted', 'decline' => 'declined', 'leave' => 'left', 'rejoin' => 'rejoined', 'offer' => 'offer'][$what], (string) $p['name'], $tz, $what === 'offer' ? self::offerWords((string) $p['offer_text'], (string) $p['offer_code']) : null);
+        $pdo->prepare('UPDATE event_participants SET status = ?, prev_status = ?, answered_by = ?, changed_at = UTC_TIMESTAMP(), changed_tz = ?' . ($withOffer ? ', offer_text = ?' : '') . ' WHERE id = ?')
+            ->execute(array_merge([$to, $p['status'], $uid, self::tzOk($tz)], $withOffer ? [$offer] : [], [$pid]));
+        self::log($pdo, (int) $p['event_id'], $uid, ['accept' => 'accepted', 'decline' => 'declined', 'leave' => 'left', 'rejoin' => 'rejoined', 'offer' => 'offer'][$what], (string) $p['name'], $tz, $what === 'offer' ? self::offerWords((string) $p['offer_text']) : null);
         return $words;
     }
 
-    /** "code SHOW10 until Dec 31": after the business's own words, the code and its last day only (the Design reviewer). */
-    public static function codeWords(array $c): string
+    /** An offer in words, for History: "the line". */
+    public static function offerWords(string $text): string
     {
-        return 'code ' . $c['code'] . (!empty($c['min_cents']) ? ' on orders of $' . number_format((int) $c['min_cents'] / 100, 2) . ' or more' : '') . ($c['ends'] ? ' until ' . date('M j', strtotime((string) $c['ends'])) : '');
-    }
-
-    /** An offer in words, for History: 'the line' · code CODE. */
-    public static function offerWords(string $text, string $code): string
-    {
-        return implode(' · ', array_filter([$text !== '' ? '"' . $text . '"' : '', $code !== '' ? 'code ' . $code : '']));
-    }
-
-    /**
-     * The business's own discount codes it can offer: switched on and not ended (BizCodes, decisions/0121). Only inside the
-     * business portal, where Scope reads that business's codes; [] elsewhere. [CODE => [words, starts, ends, min]].
-     */
-    public static function codeChoices(PDO $pdo): array
-    {
-        if (!is_file(__DIR__ . '/BizCodes.php')) return [];
-        require_once __DIR__ . '/BizCodes.php';
-        if (!class_exists('Scope') || !Scope::isBusiness()) return [];
-        $out = []; $today = date('Y-m-d');
-        try { $rows = BizCodes::all($pdo); } catch (Throwable $x) { error_log('Events::codeChoices: ' . $x->getMessage()); return []; }
-        foreach ($rows as $r) {
-            if (!(int) $r['active'] || ($r['ends'] && (string) $r['ends'] < $today) || ((int) $r['max_uses'] && (int) ($r['uses'] ?? 0) >= (int) $r['max_uses'])) continue;
-            $w = BizCodes::offer((string) $r['kind'], (int) $r['value']) . ((int) $r['min_order_cents'] ? ' orders of $' . number_format((int) $r['min_order_cents'] / 100, 2) . ' or more' : '')
-                . ($r['starts'] && (string) $r['starts'] > $today ? ', from ' . date('M j', strtotime((string) $r['starts'])) : '') . ($r['ends'] ? ', until ' . date('M j', strtotime((string) $r['ends'])) : '');
-            $out[(string) $r['code']] = ['words' => $w, 'starts' => $r['starts'] ?: null, 'ends' => $r['ends'] ?: null, 'min' => (int) $r['min_order_cents']];
-        }
-        return $out;
-    }
-
-    /**
-     * A participant's code is published by its owner, like a post (Jason's ruling, decisions/0134's note #1605): when the
-     * owner attaches it (answer(), in its portal, its codes read on its own walled connection) its public terms are written
-     * into the participation: code, first day, last day, smallest order. The event page reads only that copy
-     * (publishedCode), never the business's data. The copy follows the code: a change saved in Discount codes, or a use
-     * that reaches its limit, updates or withdraws it from BizCodes itself (codeChanged), and each visit to Events checks
-     * again (recheckCodes). History keeps each change. A copy past its last day stops showing by itself.
-     */
-    public static function codeChanged(PDO $main, int $entity, string $oldCode, ?array $c): array
-    {
-        if (!self::partsReady($main) || $entity <= 0 || $oldCode === '') return [];
-        $st = $main->prepare("SELECT p.*, ev.title, e.name FROM event_participants p JOIN events ev ON ev.id = p.event_id JOIN entities e ON e.id = p.entity_id WHERE p.entity_id = ? AND p.offer_code = ?");
-        $st->execute([$entity, strtoupper($oldCode)]); $rows = $st->fetchAll(PDO::FETCH_ASSOC); if (!$rows) return [];
-        $today = date('Y-m-d');
-        $live = $c && (int) $c['active'] && !($c['ends'] && (string) $c['ends'] < $today) && !((int) $c['max_uses'] && (int) ($c['uses'] ?? 0) >= (int) $c['max_uses']);
-        $gone = [];
-        foreach ($rows as $r) {
-            if (!$live) {   // switched off, ended, used up or gone: withdrawn; the owner's own line stays
-                $main->prepare("UPDATE event_participants SET offer_code = '', offer_code_words = '', offer_code_starts = NULL, offer_code_ends = NULL, offer_code_min = 0 WHERE id = ?")->execute([(int) $r['id']]);
-                self::log($main, (int) $r['event_id'], 0, 'code_off', (string) $r['name'], '', (string) $r['offer_code']);
-                $gone[] = $r['offer_code'] . ' (' . $r['title'] . ')';
-                continue;
-            }
-            $new = [strtoupper((string) $c['code']), $c['starts'] ?: null, $c['ends'] ?: null, (int) $c['min_order_cents']];
-            if ($new === [(string) $r['offer_code'], $r['offer_code_starts'] ?: null, $r['offer_code_ends'] ?: null, (int) $r['offer_code_min']]) continue;
-            $main->prepare('UPDATE event_participants SET offer_code = ?, offer_code_starts = ?, offer_code_ends = ?, offer_code_min = ? WHERE id = ?')->execute([$new[0], $new[1], $new[2], $new[3], (int) $r['id']]);
-            self::log($main, (int) $r['event_id'], 0, 'code_changed', (string) $r['name'], '', self::codeWords(['code' => (string) $r['offer_code'], 'ends' => $r['offer_code_ends'], 'min_cents' => (int) $r['offer_code_min']]));
-        }
-        return $gone;
-    }
-
-    /** The published copy of a participant's code, as it shows today: [code, ends, min_cents], or null (none, not yet, or past). */
-    public static function publishedCode(array $p): ?array
-    {
-        if ((string) ($p['offer_code'] ?? '') === '') return null;
-        $today = date('Y-m-d');   // as checkout counts a code's days (BizCodes::check)
-        if (!empty($p['offer_code_starts']) && (string) $p['offer_code_starts'] > $today) return null;
-        if (!empty($p['offer_code_ends']) && (string) $p['offer_code_ends'] < $today) return null;
-        return ['code' => (string) $p['offer_code'], 'ends' => $p['offer_code_ends'] ?: null, 'min_cents' => (int) ($p['offer_code_min'] ?? 0)];
-    }
-
-    /**
-     * Each time the business's team opens Events: each code it has published checked against its Discount codes, on its
-     * own connection (Scope). One changed or switched off since is updated or withdrawn (codeChanged). Returns what came off.
-     */
-    public static function recheckCodes(PDO $pdo, int $entity): array
-    {
-        if (!self::partsReady($pdo) || !class_exists('Scope') || !Scope::isBusiness() || !is_file(__DIR__ . '/BizCodes.php')) return [];
-        require_once __DIR__ . '/BizCodes.php';
-        $st = $pdo->prepare("SELECT DISTINCT offer_code FROM event_participants WHERE entity_id = ? AND offer_code <> ''"); $st->execute([$entity]);
-        $gone = [];
-        foreach ($st->fetchAll(PDO::FETCH_COLUMN) as $code) {
-            try { $c = BizCodes::byCode($pdo, (string) $code); } catch (Throwable $x) { error_log('Events::recheckCodes: ' . $x->getMessage()); continue; }   // unreachable: left as published
-            $gone = array_merge($gone, self::codeChanged($pdo, $entity, (string) $code, $c));
-        }
-        return $gone;
+        return $text !== '' ? '"' . $text . '"' : '';
     }
 
     /** The host takes a business off the event, or undoes it. */

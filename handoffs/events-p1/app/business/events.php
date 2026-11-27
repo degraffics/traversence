@@ -24,22 +24,16 @@ function tv_biz_events(PDO $main, array $ctx, int $uid): string
         . '</div>';
     if (!$canEdit) $h .= '<p data-tv-status="info" data-tv-label="Can\'t post:" data-tv-keep>' . $e($whyEdit) . '</p>';
     // ---- invitations to this business from other hosts (decisions/0134's note #1589): accept with an offer, decline, leave, Undo
-    $gone = $canEdit ? Events::recheckCodes($main, $id) : [];   // a code switched off or ended in Discount codes comes off its events
-    if ($gone) $h .= '<p data-tv-status="info" data-tv-label="Code taken off:" data-tv-keep>' . $e(implode(', ', $gone)) . ' ' . (count($gone) === 1 ? 'is' : 'are') . ' switched off, ended or used up in Discount codes, so the event page no longer shows ' . (count($gone) === 1 ? 'it' : 'them') . '. Your offer line stays. Choose another code below, or switch it on again in <a class="underline" href="/business/' . $id . '/codes">Discount codes</a>.</p>';
-    $codes = $canEdit ? Events::codeChoices($main) : [];
     $inv = Events::partsReady($main) ? Events::invitationsFor($main, $id) : [];
     if ($inv) {
         $h .= '<h2 class="ak-h">Invitations</h2><div class="ak-card tv-bleed ev-list">';
         foreach ($inv as $iv) {
             $pid = (int) $iv['id']; $ps = (string) $iv['status'];
-            $line = ['invited' => ['info', 'Invited:', $iv['host_name'] . ' asks your business to take part.'], 'accepted' => ['ok', 'Taking part:', 'your business will show on the event\'s page' . ((string) $iv['offer_text'] !== '' ? ', with your offer,' : ((string) $iv['offer_code'] !== '' ? ', with your code,' : '')) . ' when that opens with the next update.'],
+            $line = ['invited' => ['info', 'Invited:', $iv['host_name'] . ' asks your business to take part.'], 'accepted' => ['ok', 'Taking part:', 'your business will show on the event\'s page' . ((string) $iv['offer_text'] !== '' ? ', with your offer,' : '') . ' when that opens with the next update.'],
                      'declined' => ['info', 'Declined:', 'the host can ask again.'], 'left' => ['info', 'Left:', 'you\'ve stepped out of it.'], 'removed' => ['info', 'Removed:', $iv['host_name'] . ' took your business off this event.']][$ps] ?? ['info', '', ''];
             $h .= '<div class="ev-row"><div class="ev-top"><a class="ev-t" href="/event/?id=' . (int) $iv['event_id'] . '" data-peek-frame>' . $e((string) $iv['title']) . '</a><small>' . $e(Events::when($iv)) . ' · hosted by ' . $e((string) $iv['host_name']) . '</small></div>'
                 . '<p data-tv-status="' . $line[0] . '" data-tv-label="' . $e($line[1]) . '" data-tv-keep style="margin:.3rem 0">' . $e($line[2]) . '</p>';
-            if ($canEdit && in_array($ps, ['invited', 'accepted', 'declined'], true)) $h .= '<div class="ev-acts ev-offer"><label class="ev-lab">Your offer <small>Optional, in your own words</small>' . '<input class="ak-in" data-ev-offer="' . $pid . '" maxlength="140" data-spell placeholder="10% off dinner with your ticket" value="' . $e((string) $iv['offer_text']) . '" aria-label="Your offer for ' . $e((string) $iv['title']) . '">' . '</label>'
-                . ('<label class="ev-lab">Discount code <small>Optional, one of yours</small><select class="ak-in" data-ev-code="' . $pid . '" aria-label="A discount code for ' . $e((string) $iv['title']) . '"><option value="">No discount code</option>'
-                . implode('', array_map(fn ($k, $c) => '<option value="' . $e($k) . '"' . ($k === (string) $iv['offer_code'] ? ' selected' : '') . '>' . $e($k . ': ' . $c['words']) . '</option>', array_keys($codes), $codes)) . '</select></label>'
-                . ($codes ? '' : '<small class="ev-nc">No codes switched on yet: make one in <a class="underline" href="/business/' . $id . '/codes">Discount codes</a>.</small>'))
+            if ($canEdit && in_array($ps, ['invited', 'accepted', 'declined'], true)) $h .= '<div class="ev-acts ev-offer"><label class="ev-lab">Your offer <small>Optional, in your own words: a deal you give in person</small>' . '<input class="ak-in" data-ev-offer="' . $pid . '" maxlength="140" data-spell placeholder="10% off dinner with your ticket" value="' . $e((string) $iv['offer_text']) . '" aria-label="Your offer for ' . $e((string) $iv['title']) . '">' . '</label>'
                 . '<span class="ev-bt">' . ($ps === 'accepted' ? '<button type="button" class="ak-b" data-ev-part="offer" data-id="' . $pid . '">Save offer</button><button type="button" class="ak-b" data-ev-part="leave" data-id="' . $pid . '" data-ask="Leave this event? Your business comes off its page; Undo puts it back.">Leave</button>'
                     : '<button type="button" class="ak-b" data-ev-part="accept" data-id="' . $pid . '">Take part</button>' . ($ps === 'invited' ? '<button type="button" class="ak-b" data-ev-part="decline" data-id="' . $pid . '">Decline</button>' : '')) . '</span></div>';
             elseif ($canEdit && $ps === 'left') $h .= '<div class="ev-acts"><button type="button" class="ak-b" data-ev-part="rejoin" data-id="' . $pid . '">Undo: take part again</button></div>';
@@ -109,7 +103,7 @@ function tv_biz_events(PDO $main, array $ctx, int $uid): string
                 $h .= '<div class="ev-parts"><b>Taking part</b>' . ($parts ? '' : ' <small>No other businesses yet. Invite the ones nearby: a place to eat before, a shop after.</small>') . '<ul>';
                 foreach ($parts as $pt) {
                     $pst = (string) $pt['status'];
-                    $h .= '<li><span class="ev-pn"><a href="/listing/view.php?id=' . (int) $pt['entity_id'] . '" data-peek-frame>' . $e((string) $pt['name']) . '</a><small>' . $e(Events::PART[$pst] ?? $pst) . ($pst === 'waiting' ? ' (it hasn\'t claimed its listing: we\'ll send the invitation once we can email it)' : '') . ((string) $pt['offer_text'] !== '' ? ' · "' . $e((string) $pt['offer_text']) . '"' : '') . (($lc = $pst === 'accepted' && (string) ($pt['listing_status'] ?? '') !== 'unclaimed' ? Events::publishedCode($pt) : null) ? ' · ' . $e(Events::codeWords($lc)) : '') . '</small></span>'
+                    $h .= '<li><span class="ev-pn"><a href="/listing/view.php?id=' . (int) $pt['entity_id'] . '" data-peek-frame>' . $e((string) $pt['name']) . '</a><small>' . $e(Events::PART[$pst] ?? $pst) . ($pst === 'waiting' ? ' (it hasn\'t claimed its listing: we\'ll send the invitation once we can email it)' : '') . ((string) $pt['offer_text'] !== '' ? ' · "' . $e((string) $pt['offer_text']) . '"' : '') . '</small></span>'
                         . ($canEdit ? (in_array($pst, ['accepted', 'invited', 'waiting'], true) ? '<button type="button" class="ak-b ev-sb" data-ev-part="remove" data-id="' . (int) $pt['id'] . '" data-ask="Take ' . $e((string) $pt['name']) . ' off this event? Undo puts it back." data-danger="1">Remove</button>' : ($pst === 'removed' ? '<button type="button" class="ak-b ev-sb" data-ev-part="unremove" data-id="' . (int) $pt['id'] . '">Undo</button>' : '')) : '') . '</li>';
                 }
                 $h .= '</ul>' . ($canEdit ? '<div class="ev-inv"><input class="ak-in" data-ev-find="' . $rid . '" autocomplete="off" placeholder="Invite a business: type its name" aria-label="Invite a business to ' . $e((string) $r['title']) . '"><div class="ev-sug" data-ev-sug="' . $rid . '" hidden></div></div>' : '') . '</div>';
@@ -145,9 +139,9 @@ function tv_biz_events(PDO $main, array $ctx, int $uid): string
   document.addEventListener("click", function (e) {   // taking part: the invited business and the host
     var b = e.target.closest("[data-ev-part]"); if (!b) return;
     var ask = b.getAttribute("data-ask"); if (ask && !TvAsk.gate(b, ask, { yes: b.textContent, danger: b.hasAttribute("data-danger") })) return;
-    var id = +b.getAttribute("data-id"), o = document.querySelector(\'[data-ev-offer="\' + id + \'"]\'), k = document.querySelector(\'[data-ev-code="\' + id + \'"]\');
+    var id = +b.getAttribute("data-id"), o = document.querySelector(\'[data-ev-offer="\' + id + \'"]\');
     TvAsk.busy(b, true);
-    post({ action: "part", move: b.getAttribute("data-ev-part"), id: id, offer: o ? o.value : "", code: k ? k.value : null }).then(function (d) { TvAsk.busy(b, false); TvAsk.say(d.message, { anchor: b }); setTimeout(function () { location.reload(); }, 1100); },
+    post({ action: "part", move: b.getAttribute("data-ev-part"), id: id, offer: o ? o.value : "" }).then(function (d) { TvAsk.busy(b, false); TvAsk.say(d.message, { anchor: b }); setTimeout(function () { location.reload(); }, 1100); },
       function (x) { TvAsk.busy(b, false); TvAsk.say(x.message, { anchor: b, bad: true }); });
   });
   var tf = null;
@@ -195,7 +189,7 @@ function tv_biz_events_act(PDO $main, array $ctx, int $uid, string $act, array $
     if ($act === 'part') {
         $mv = (string) ($in['move'] ?? '');
         return in_array($mv, ['remove', 'unremove'], true) ? Events::hostMove($main, $uid, (int) $ctx['id'], (int) ($in['id'] ?? 0), $mv, $tz)
-            : Events::answer($main, $uid, (int) $ctx['id'], (int) ($in['id'] ?? 0), $mv, (string) ($in['offer'] ?? ''), $tz, array_key_exists('code', $in) && $in['code'] !== null ? (string) $in['code'] : null);
+            : Events::answer($main, $uid, (int) $ctx['id'], (int) ($in['id'] ?? 0), $mv, (string) ($in['offer'] ?? ''), $tz);
     }
     return Events::act($main, $uid, (int) $ctx['id'], (int) ($in['id'] ?? 0), $act, $tz);
 }

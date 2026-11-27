@@ -48,3 +48,12 @@ comes (`Events::codeChanged`, History `part:code_changed` / `part:code_off`); ea
 (`recheckCodes`, "Code taken off:"). `BusinessData::publicCode` and the `event_codes` switch are gone; files: `app/lib/BizCodes.php`
 added to the build. Tests: `tools/event-tests/publish-code.php` 21/21 (P2's build), P1 rendered 51/51, P2 rendered 53/53, P1's
 database test 22/22. Note found on the bench: Discount codes are Basic Partner and up (Plan), so a Free business has no codes to offer.
+
+## The pilot's scope (Jason, 2026-11-27, decisions/0134's note #1606): no codes. **This replaces the code sections above.**
+Only the host's event tickets sell. A participant's card shows its name, its owner's own offer line (the deal given in
+person at its own place) and its GO Code to its location (the listing's Share code, Directions, Send to Maps through the
+trail). Every discount-code piece is out: the code select and its notices, `offer_code*` columns, `codeChoices`,
+`codeChanged`, `publishedCode`, `recheckCodes`, `BusinessData::publicCode`, the `event_codes` switch and the BizCodes hook
+(its claims released). Nothing reads a participant's business data; P1 no longer changes `website/business/router.php`.
+Tests: P1 rendered 37/37, P1 database 22/22. The CTO's Tier 4 condition is moot (no walled read); a fresh QA check is recorded in
+`handoffs/events-p2/tier4-review.md`.

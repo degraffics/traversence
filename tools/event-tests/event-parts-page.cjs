@@ -1,28 +1,20 @@
-// Events P2 rendered (decisions/0134's note #1594): an event page's Taking part, by name, each card to 0058 §11 (the name
-// the link, Link top right, round icons with their names, Add to a trip), its own offer shown as written (line and/or code;
-// a code past its last day not shown; none for a listing nobody runs), its GO Code; Send the evening to Maps ending at the
+// Events P2 rendered (decisions/0134's notes #1594, #1606): an event page's Taking part, by name, each card to 0058 §11 (the
+// name the link, Link top right, round icons with their names, Add to a trip), its owner's own offer line as written, its
+// deal given in person (no codes; none for a listing nobody runs), its GO Code; Send the evening to Maps ending at the
 // venue; none on a cancelled event; the listing's "Part of <event>"; at 1280 and 390 on the design harness.
-// Seeds: event EV (host 7) with 8 (line + code), 101 (line, an ended code), 102 (unclaimed, an offer that must not show),
+// Seeds: event EV (host 7) with 8 and 101 (their lines), 102 (unclaimed: an offer that must not show),
 // 103 removed; the cancelled event 6 with 8 taking part.
 const { chromium } = require('playwright'); const fs = require('fs'); const cp = require('child_process');
 const TW = process.env.TW_INJECT ? fs.readFileSync(process.env.TW_INJECT, 'utf8') : ''; const out = process.argv[2] || '.';
 const H = process.env.HARNESS || 'http://127.0.0.1:8790', EV = '5';
 const sh = (q, db) => cp.execFileSync('mysql', ['-utv', '-ptv', db || 'tvh', '-e', q]);
-const seed = () => { sh(`DELETE FROM event_participants; INSERT INTO event_participants (event_id, entity_id, status, offer_text, offer_code, offer_code_words, offer_code_ends, invited_at, changed_at) VALUES
- (5, 8, 'accepted', '10% off a pizza with your ticket', 'SHOW10', '10% off, until Dec 31', '2026-12-31', NOW(), NOW()),
- (5, 101, 'accepted', 'Free dessert before the show', 'OLDCODE', '5% off', '2026-11-01', NOW(), NOW()),
- (5, 102, 'accepted', 'Must not show', 'NOPE', '1% off', NULL, NOW(), NOW()),
- (5, 103, 'removed', 'Removed one', '', '', NULL, NOW(), NOW()),
- (6, 8, 'accepted', 'Cancelled night offer', '', '', NULL, NOW(), NOW())`); sh("SET @tv_tenant=8; UPDATE biz_codes SET active = 1, ends = '2026-12-31', min_order_cents = 0 WHERE code = 'SHOW10'", 'tvl'); };
+const seed = () => { sh(`DELETE FROM event_participants; INSERT INTO event_participants (event_id, entity_id, status, offer_text, invited_at, changed_at) VALUES
+ (5, 8, 'accepted', '10% off a pizza with your ticket', NOW(), NOW()),
+ (5, 101, 'accepted', 'Free dessert before the show', NOW(), NOW()),
+ (5, 102, 'accepted', 'Must not show', NOW(), NOW()),
+ (5, 103, 'removed', 'Removed one', NOW(), NOW()),
+ (6, 8, 'accepted', 'Cancelled night offer', NOW(), NOW())`); };
 seed();
-// the owner's own Discount codes tool (business/codes through the portal's API), as its team changes a code: BizCodes::save
-const codeId = () => +cp.execFileSync('mysql', ['-utv', '-ptv', 'tvl', '-N', '-e', "SELECT id FROM biz_codes WHERE owner_id = 8 AND code = 'SHOW10'"]).toString().trim();
-const codeEdit = async (page, over) => page.evaluate(async ({ id, over }) => {
-  const tok = (document.documentElement.innerHTML.match(/TOK = "([^"]+)"/) || [])[1];
-  const input = Object.assign({ code: 'SHOW10', kind: 'percent', value: '10', min_order: '', starts: '', ends: '2026-12-31', max_uses: '0', once_each: '1', active: '1', note: '' }, over);
-  const r = await fetch('/business/api/8/discounts', { method: 'POST', credentials: 'include', headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': tok }, body: JSON.stringify({ action: 'act', id, act: 'edit', input }) });
-  return r.status + ' ' + (await r.text()).slice(0, 160);
-}, { id: codeId(), over });
 (async () => { const b = await chromium.launch(); let ok = 0, bad = 0; const t = (n, c, x) => { c ? ok++ : bad++; console.log((c ? 'PASS ' : 'FAIL ') + n + (x ? '  [' + x + ']' : '')); };
  for (const w of [1280, 390]) {
   const ua = w < 800 ? 'Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Mobile Safari/537.36' : 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36';
@@ -42,13 +34,13 @@ const codeEdit = async (page, over) => page.evaluate(async ({ id, over }) => {
   t(w + ' round icons each name their action and its business', labels.length >= 2 && labels.every(l => /Show Low Pizza/.test(l) && /\/T$/.test(l)), labels.join(' , '));
   t(w + ' the icons are 30px rounds', (await ics.first().evaluate(x => { const r = x.getBoundingClientRect(); return Math.round(r.width) + 'x' + Math.round(r.height); })) === '30x30');
   t(w + ' Directions counts its tap', await pz.locator('.evp-ic[data-out="directions"][data-e="8"]').count() === 1);
-  t(w + ' nothing else of its codes reaches the page (its other code OLD5, counts)', !/OLD5|uses/.test(await sec.innerHTML()));
-  t(w + ' its offer as written, then only its code and last day', /Their offer:\s*10% off a pizza with your ticket · code SHOW10 until Dec 31/.test(await pz.innerText()) && !/10% off, until/.test(await pz.innerText()));
+  t(w + ' no discount code anywhere on the cards (the pilot)', !/\bcode [A-Z0-9]{3,}|<code>/.test(await sec.innerHTML()));
+  t(w + ' its offer as written', /Their offer:\s*10% off a pizza with your ticket/.test(await pz.innerText()));
   t(w + ' its GO Code', /GO Code\s*\S*\/\w{6}/.test(await pz.locator('.evp-go-c').innerText()) && await pz.locator('.evp-go-c a').count() === 1);
   const od = cards.filter({ hasText: 'Owner Diner' });
-  t(w + ' a code past its last day isn\'t shown; the line is', /Free dessert before the show/.test(await od.innerText()) && !/OLDCODE/.test(await od.innerText()));
+  t(w + ' another\'s line as written', /Free dessert before the show/.test(await od.innerText()));
   const cc = cards.filter({ hasText: 'Crawler Cafe' });
-  t(w + ' a listing nobody runs shows no offer', await cc.locator('.evp-offer').count() === 0 && !/Must not show|NOPE/.test(await cc.innerText()));
+  t(w + ' a listing nobody runs shows no offer', await cc.locator('.evp-offer').count() === 0 && !/Must not show/.test(await cc.innerText()));
   const rt = sec.locator('a.evp-rt[data-maps]');
   const stops = rt.count() ? JSON.parse(await rt.getAttribute('data-maps')) : [];
   t(w + ' Send the evening to Maps: every stop with Directions, the venue last', stops.length >= 3 && stops[stops.length - 1][2] === 'Test Cafe', JSON.stringify(stops.map(s => s[2])));
@@ -66,25 +58,6 @@ const codeEdit = async (page, over) => page.evaluate(async ({ id, over }) => {
   await p.screenshot({ path: out + '/p2-trip-' + w + '.png' }); await p.keyboard.press('Escape');
   t(w + ' no sideways scroll', (await p.evaluate(() => document.documentElement.scrollWidth)) <= w);
   if (w < 800) { const e = await cards.first().evaluate(x => { const r = x.getBoundingClientRect(); return [Math.round(r.left), Math.round(innerWidth - r.right)]; }); t(w + ' cards edge to edge on phones', e[0] <= 16 && e[1] <= 16, e.join(',')); }
-  // the copy its owner published follows the code: changed or switched off in the owner's Discount codes (decisions/0134's note #1605)
-  const oc = await b.newContext({ userAgent: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36' }); const op = await oc.newPage();
-  await op.goto(H + '/__login?uid=3'); await op.goto(H + '/business/8/events', { waitUntil: 'load' });
-  let said = await codeEdit(op, { min_order: '20.00' });
-  await p.goto(H + '/event/?id=' + EV, { waitUntil: 'load' }); await p.waitForTimeout(300);
-  let pz2 = p.locator('#evp-parts .evp-pc').filter({ hasText: 'Show Low Pizza' });
-  t(w + ' its owner adds a smallest order: the page says it', /code SHOW10 on orders of \$20\.00 or more until Dec 31/.test(await pz2.innerText()), said);
-  said = await codeEdit(op, { active: '0' });
-  await p.goto(H + '/event/?id=' + EV, { waitUntil: 'load' }); await p.waitForTimeout(300);
-  pz2 = p.locator('#evp-parts .evp-pc').filter({ hasText: 'Show Low Pizza' });
-  t(w + ' switched off there: withdrawn from the page, its line stays', !/SHOW10/.test(await pz2.innerText()) && /10% off a pizza with your ticket/.test(await pz2.innerText()), said);
-  seed(); said = await codeEdit(op, { ends: '2026-11-01' });
-  await p.goto(H + '/event/?id=' + EV, { waitUntil: 'load' }); await p.waitForTimeout(300);
-  pz2 = p.locator('#evp-parts .evp-pc').filter({ hasText: 'Show Low Pizza' });
-  t(w + ' ended there: withdrawn too', !/SHOW10/.test(await pz2.innerText()), said);
-  sh("UPDATE event_participants SET offer_code = 'SHOW10', offer_code_ends = '2000-01-01' WHERE event_id = 5 AND entity_id = 8");
-  await p.goto(H + '/event/?id=' + EV, { waitUntil: 'load' }); await p.waitForTimeout(300);
-  t(w + ' a published copy past its last day doesn\'t show, whatever its row says', !/SHOW10/.test(await p.locator('#evp-parts').innerText()));
-  await oc.close(); seed();
   // a cancelled event: no Taking part
   await p.goto(H + '/event/?id=6', { waitUntil: 'load' }); await p.waitForTimeout(300);
   t(w + ' a cancelled event shows no Taking part', await p.locator('#evp-parts').count() === 0 && !/Cancelled night offer/.test(await p.content()));
