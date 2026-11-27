@@ -386,3 +386,13 @@ the two notes above; recorded as Operations & Policy (16)): the routing rule, ch
 the system's workflows (guides, research, place descriptions) on the platform's $40, and an agent's bounded call (a
 draft, a brief, a lean Prior Ruling Check) on the agents' $40. (3) Sessions (Claude Max) for agents' multi-step reasoning
 and build work. The move to the API applies only to (2); complex agent work stays in sessions.
+Batched, not real time (Jason, 2026-11-27: "Also utilize the overnight batch api for lowering costs for non-critical work
+that can meet our workflow and work queue needs"): non-urgent API work goes through Anthropic's Message Batches API (half
+the standard rate, results within 24 hours): queued guide builds beyond 0147's on-demand share, research briefs and topic
+research, place descriptions not yet asked for, overnight audits and summaries, and work-queue drafting that can wait
+until morning. Real time stays for anything a person is waiting on (0147's on-demand builds, Ask Claude in a thread, live
+checks). Conflict cited: `AiClient` makes single calls and the caps count a call's cost as it returns, while a batch's
+cost is known only when its results come back. Solution: the batch path reserves its estimated cost against the right
+budget (the platform's $40 or the agents' $40) at submission, settles it at the result, never submits past the cap, and
+goes through `StagingGate::hold()` and counts failures like every call. IT Manager's (11) lane, the CFO's (4) Tier 4;
+money it protects; with the AI items release.
