@@ -329,3 +329,16 @@ participants form the event's trail (0174: Add to a trip, Send to Maps). Partici
 only, never paid placement (0007); the host can remove a participant and a participant can leave, each with Undo. For the
 pilot, if this can't be live by about Dec 14–15, Sales (14) sets the participants up by hand as a showcase. If a look slips past Dec 13, the PM (8) switches the
 pilot to the showcase without asking (within Jason's "have our tools in place for them to succeed").
+
+**A participant's code is published by its owner, like a post** (Jason, 2026-11-27, on the 0110 brief: "This makes me
+think about how the listings can post in a community, the wall is not the post?"; recorded as Operations & Policy (16),
+replacing the per-request read the CTO's Tier 4 flagged). When the owner attaches one of its discount codes
+(BizCodes.php, decisions/0121) to an event, the portal, the owner's own act on its own walled connection, publishes the
+code's public terms (the code, its end date, its minimum order) into the event's public participant record, as a
+community post leaves the wall by the owner's choice. The event page reads only that published record; nothing unlocks a
+business's data at view time, so `BusinessData::publicCode` and its per-request tenant switch are dropped and 0110 §3
+stands as written. The published copy stops showing after its end date; the owner's Edit or Remove in the portal, and
+the code being switched off or changed in business/codes, update or withdraw it, with History kept. The `event_codes`
+switch may stay as a kill switch (on by default, anyone can turn it off). The CTO's Tier 4 independent check is re-run
+on this design and recorded in `handoffs/events-p2/tier4-review.md`. MarketCheckout's `writeOrder`, which switches the
+tenant per business at checkout, is a separate question for the Founder (no written exception in 0110 yet).
