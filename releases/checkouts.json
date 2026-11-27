@@ -171,14 +171,15 @@
    "path": "app/lib/Notify.php",
    "functions": [
     "BODIES",
+    "KINDS",
     "deliverEmail",
     "deliverPush"
    ],
    "kind": "change",
    "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
-   "why": "founder-link: the Founder's push and email words (founder.* only)",
+   "why": "founder-link: founder.message's name",
    "since": "2026-11-27T16:45:19Z",
-   "expires": "2026-11-27T20:45:24Z",
+   "expires": "2026-11-27T21:55:04Z",
    "release": "",
    "callers": {}
   }
