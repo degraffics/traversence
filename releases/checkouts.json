@@ -55,40 +55,6 @@
    "expires": "2026-11-27T21:55:04Z",
    "release": "",
    "callers": {}
-  },
-  {
-   "path": "app/lib/BizCodes.php",
-   "functions": [
-    "redeem",
-    "save"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
-   "why": "Events P1/P2 (decisions/0134's note #1605): a code's change or last use updates or withdraws the copy its owner published on events",
-   "since": "2026-11-27T19:56:01Z",
-   "expires": "2026-11-27T23:56:01Z",
-   "release": "events-p1",
-   "callers": {
-    "save": [
-     "app/admin/tools.php"
-    ],
-    "redeem": [
-     "app/lib/BizQuotes.php"
-    ]
-   }
-  },
-  {
-   "path": "app/lib/BizCodes.php",
-   "functions": [
-    "published"
-   ],
-   "kind": "add",
-   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
-   "why": "Events P1: the published copy's updater",
-   "since": "2026-11-27T19:56:06Z",
-   "expires": "2026-11-27T23:56:06Z",
-   "release": "events-p1",
-   "callers": {}
   }
  ],
  "lapsed": [

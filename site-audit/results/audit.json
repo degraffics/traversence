@@ -2,15 +2,15 @@
  "version": 1,
  "check": "AUDIT",
  "name": "The audit's own load: what each run asks of the site",
- "generated_at": "2026-11-27T18:52:11Z",
+ "generated_at": "2026-11-27T20:04:20Z",
  "site": "https://traversence.com",
- "run_url": "https://github.com/degraffics/traversence/actions/runs/46052503949",
+ "run_url": "https://github.com/degraffics/traversence/actions/runs/46059663784",
  "target": "a light run asks at most about 20 requests, one at a time with a 1 s gap; the probe pages' response times stay within 20% of their 7-day median, or the next run backs off",
  "target_source": "Jason, 2026-11-22 (the schedule below); the 20% is ours, approved with the schedule",
  "source": "handoffs/control-board-plan/step3/sections/check-register.md",
  "runs": {
   "sample": {
-   "id": "audit-2026-11-27T18:52:11Z",
+   "id": "audit-2026-11-27T20:04:20Z",
    "check": "AUDIT",
    "mode": "sample",
    "requests": 0,
@@ -18,8 +18,7 @@
   }
  },
  "counts": {
-  "pass": 5,
-  "fail": 2
+  "pass": 7
  },
  "backoff": {
   "level": 2,
@@ -286,7 +285,7 @@
      "BRAND"
     ]
    },
-   "at": "2026-11-27T18:52:11Z",
+   "at": "2026-11-27T20:04:20Z",
    "evidence": "https://github.com/degraffics/traversence/actions/runs/46052503949",
    "finding": null,
    "kind": "run",
@@ -312,7 +311,7 @@
      "LOAD"
     ]
    },
-   "at": "2026-11-27T18:52:11Z",
+   "at": "2026-11-27T20:04:20Z",
    "evidence": "https://github.com/degraffics/traversence/actions/runs/46052503949",
    "finding": null,
    "kind": "run",
@@ -336,7 +335,7 @@
     "skipped": "backing off until 2026-11-27T09:58:12Z",
     "shared_by": null
    },
-   "at": "2026-11-27T18:52:11Z",
+   "at": "2026-11-27T20:04:20Z",
    "evidence": "https://github.com/degraffics/traversence/actions/runs/45972418671",
    "finding": null,
    "kind": "run",
@@ -350,11 +349,11 @@
    "result": "pass",
    "measured": {
     "ms": 127.5,
-    "median_7d_ms": 114.5,
-    "ratio": 1.11,
-    "samples": 10
+    "median_7d_ms": 118.0,
+    "ratio": 1.08,
+    "samples": 11
    },
-   "at": "2026-11-27T18:52:11Z",
+   "at": "2026-11-27T20:04:20Z",
    "evidence": "https://github.com/degraffics/traversence/actions/runs/46052503949",
    "finding": null,
    "kind": "response time"
@@ -364,16 +363,16 @@
    "item": "/directory/",
    "who": null,
    "target": "a light run asks at most about 20 requests, one at a time with a 1 s gap; the probe pages' response times stay within 20% of their 7-day median, or the next run backs off",
-   "result": "fail",
+   "result": "pass",
    "measured": {
     "ms": 72.5,
-    "median_7d_ms": 60.25,
-    "ratio": 1.2,
-    "samples": 10
+    "median_7d_ms": 61.0,
+    "ratio": 1.19,
+    "samples": 11
    },
-   "at": "2026-11-27T18:52:11Z",
+   "at": "2026-11-27T20:04:20Z",
    "evidence": "https://github.com/degraffics/traversence/actions/runs/46052503949",
-   "finding": "f-bceb24eb49",
+   "finding": null,
    "kind": "response time"
   },
   {
@@ -381,16 +380,16 @@
    "item": "/discovery/",
    "who": null,
    "target": "a light run asks at most about 20 requests, one at a time with a 1 s gap; the probe pages' response times stay within 20% of their 7-day median, or the next run backs off",
-   "result": "fail",
+   "result": "pass",
    "measured": {
     "ms": 75.0,
-    "median_7d_ms": 62.25,
-    "ratio": 1.2,
-    "samples": 10
+    "median_7d_ms": 63.0,
+    "ratio": 1.19,
+    "samples": 11
    },
-   "at": "2026-11-27T18:52:11Z",
+   "at": "2026-11-27T20:04:20Z",
    "evidence": "https://github.com/degraffics/traversence/actions/runs/46052503949",
-   "finding": "f-f17d958636",
+   "finding": null,
    "kind": "response time"
   },
   {
@@ -401,11 +400,11 @@
    "result": "pass",
    "measured": {
     "ms": 73.0,
-    "median_7d_ms": 63.5,
-    "ratio": 1.15,
-    "samples": 10
+    "median_7d_ms": 65.0,
+    "ratio": 1.12,
+    "samples": 11
    },
-   "at": "2026-11-27T18:52:11Z",
+   "at": "2026-11-27T20:04:20Z",
    "evidence": "https://github.com/degraffics/traversence/actions/runs/46052503949",
    "finding": null,
    "kind": "response time"
