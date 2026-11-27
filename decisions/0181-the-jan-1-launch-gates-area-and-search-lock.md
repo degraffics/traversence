@@ -226,3 +226,21 @@ day. This qualifies 0180's "R1–R5 ship as each passes" (note added there).
   owner and the theater, with the promise check on (every link lands on its thing, every email in the branded template,
   0172's note) and money in the sandbox only. Each break becomes a gate 1 or 2 ticket, fixed before Dec 18; the result
   goes in the CEO's launch report.
+- **Search must give superior results: accurate, useful and fast; health and emergency needs first** (Jason, 2026-11-27, with screenshots of an "urgent care" search near Lakeside, AZ against Google Maps: "Just to be extremely clear. Our site must excel at delivering superior results, accuracy, and usefulness. Search is running really slow too." Recorded as
+  Operations & Policy (16); notes the same on 0053 and 0060; treated as live harm, first within the gates.) His screens:
+  the top results were two pain-relief companies, a residential facility and a biotech company under Doctors; the regional
+  hospital labelled a Clinic; one result with open now; the real urgent cares (in Show Low and Lakeside) missing; and
+  "Location: Everywhere" until a place was chosen. Under "Emergency: open now first", that is a safety issue. It adds to
+  gate 1 and gate 3:
+  - **Gate 3, health data:** 1A's urgent cares, clinics, hospitals and pharmacies found from licensed public sources (the
+    CMS NPI registry, Arizona's licensed health-facility lists, Overture; 0164: the licence decides, never copied from
+    Google), and miscategorized listings corrected through the identity queue with Undo. Show Low, Lakeside and Pinetop
+    first. Data & Content.
+  - **Gate 1, relevance:** the exact kind first, then broader health kinds, never outside the kind; honest hours; hospitals
+    and emergency rooms labelled. The IT lane with Frontend & Shop.
+  - **Gate 1, speed:** results on screen in about a second on a phone, measured from search-probe.yml's daily timings.
+    The IT lane.
+  - **Gate 1 acceptance, the search excellence test:** for each 1A town, the common needs (urgent care, pharmacy, gas,
+    groceries, lunch, a place to stay, a mechanic) checked against a reference list built from licensed public sources:
+    the right places in the top results, correctly labelled, with honest hours. It runs in the path checker, and a town
+    that fails it fails gate 1. Owners: the CMO (7) and Editorial (12).
