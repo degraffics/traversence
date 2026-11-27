@@ -23,3 +23,27 @@ suppressed. The search for "hometown" found one other row (a construction compan
 - Whose codes print for an unclaimed restaurant: ruled by the CMO (7), in `go-code-kit.md`.
 - The events build (option (a): host-posted event pages) is Frontend & Shop's, live by about Dec 10–12 (0134 note).
   The offer's event page depends on it; tickets can sell through the ticket item before it.
+
+## The touch-point map and the rehearsal (Jason, 2026-11-27; decisions/0181's note)
+
+Jason: "when I think about rolling out something to say the theater and how all touch points draw users, listings, and
+potential revenue I feel the need for the platform to be thorough and able to succeed."
+
+**The map**, owned by the CMO (7), drawn by Data & Content and Frontend & Shop, ready by **Dec 3** with the offer
+(`touch-points.md`, to come). It names each point, what it depends on in the platform, its owner and whether it works
+today:
+- the poster's GO Code scan;
+- the listing (#8807);
+- the event page;
+- the ticket purchase and its email, the QR pass and the door check-in;
+- the restaurant cards and their own offers;
+- a restaurant's invite and claim;
+- the trail (Add to a trip, Send to Maps);
+- the pushes and emails;
+- the story afterwards;
+- a guest, a member and an owner each signing up from any of these.
+
+**The rehearsal**, about **Dec 15–16**, on staging: the advocates walk every point end to end at 1280 and 390 as a guest,
+a member, a business owner and the theater. The promise check is on: every link lands on its thing, every email uses the
+branded template (0172's note). Money in the sandbox only (guardReal). Each break becomes a gate 1 or 2 ticket, fixed
+before Dec 18. The result goes in the CEO's launch report.

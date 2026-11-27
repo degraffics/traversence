@@ -216,3 +216,13 @@ day. This qualifies 0180's "R1–R5 ship as each passes" (note added there).
   multipliers and promotions support it. Lanes: the CMO (7) with Editorial (12) and Marketing (13) for showcases, trails
   and stories; Sales (14) for event organizers and vendors; IT (11) and Frontend & Shop for the events build. Whether a
   minimum events build ships before Jan 1 is open for the Founder.
+- **The machine work that counts is what a rollout's touch points depend on** (Jason, 2026-11-27: "when I think about
+  rolling out something to say the theater and how all touch points draw users, listings, and potential revenue I feel
+  the need for the platform to be thorough and able to succeed"; recorded as Operations & Policy (16), qualifying §2).
+  Under §2, machine work (checks, the pipeline, the board) earns a slot when a rollout's touch point depends on it. The
+  Hometown theater pilot (0134's note) is the first full test: its touch-point map, owned by the CMO (7) and drawn by
+  Data & Content and Frontend & Shop, is ready by Dec 3 with the offer (`handoffs/hometown-theater/README.md`). About
+  Dec 15–16, on staging, the advocates walk every point end to end at 1280 and 390 as a guest, a member, a business
+  owner and the theater, with the promise check on (every link lands on its thing, every email in the branded template,
+  0172's note) and money in the sandbox only. Each break becomes a gate 1 or 2 ticket, fixed before Dec 18; the result
+  goes in the CEO's launch report.
