@@ -85,6 +85,19 @@ $n = count($rel($a)['log']); $out = BeforeAfter::advance($pdo);
 $t('… once it\'s free: its verdict is read and it goes on (here staging isn\'t set up, so it says so)', (bool) array_filter($out, fn ($l) => str_contains($l, 'Release #' . $a)) && (bool) preg_grep('/Plan approved|not on staging yet|staging/i', $msgs($a, $n)), [$out, $msgs($a, $n)]);
 $t('… and the lock is let go after it', (int) $pdo->query("SELECT IS_FREE_LOCK('tv_rel_ba')")->fetchColumn() === 1);
 
+// the step's order (the CEO's and the session manager's condition, 2026-11-27): a verdict that can't be decided (a step that
+// throws, as checkedByAdvocates does on a web call with no grant) leaves the release waiting; the next run decides it
+$e = $mk('tv-e.zip'); BeforeAfter::begin($pdo, $e, 'tv-e.zip', $sha, false); $d = $ba($e); $d['phase'] = 'after'; $d['asked_at'] = time() - 120; $d['before_seconds'] = 10;
+$pdo->prepare('REPLACE INTO site_release_settings (k, v) VALUES (?, ?)')->execute(['ba:' . $e, json_encode($d)]);
+BeforeAfter::$readFn = fn ($p) => $p === 'site-audit/results/beforeafter/' . $e . '.json' ? json_encode(['release' => (string) $e, 'phase' => 'after-done', 'verdict' => 'pass', 'seconds' => 40, 'views' => 3]) : null;
+BeforeAfter::$decideFn = function () { throw new RuntimeException('Sign in with your staff login first'); };
+$l1 = BeforeAfter::advance($pdo); $kept = $ba($e);
+$t('(d) deciding throws (no grant on the web): the release is still waiting, its time counted once', is_array($kept) && $kept['phase'] === 'after' && !empty($kept['counted_after']) && (bool) array_filter($l1, fn ($l) => str_contains($l, 'Release #' . $e . ' (before-and-after)')), [$l1, $kept]);
+$decided = 0; BeforeAfter::$decideFn = function () use (&$decided, $e) { $decided++; return 'Release #' . $e . ': decided.'; };
+$l2 = BeforeAfter::advance($pdo);
+$t('(d) … the next run decides it, and only then is its waiting cleared', $decided === 1 && $ba($e) === null && in_array('Release #' . $e . ': decided.', $l2, true), [$l2, $ba($e)]);
+BeforeAfter::$decideFn = null; BeforeAfter::$readFn = null;
+
 // (b) the endpoint release-ping.yml calls, run for real: with nothing new in main it takes nothing and changes nothing; a
 // waiting release is left for the 10-minute job (verdicts are never moved on here: the CEO's Tier 4, 2026-11-27)
 BeforeAfter::$readFn = null;

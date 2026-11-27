@@ -22,6 +22,8 @@ final class BeforeAfter
     /** Tests replace these: fn(string $event, array $payload): string ('' = asked), and fn(string $path): ?string. */
     public static $askFn = null;
     public static $readFn = null;
+    /** Test seam: stands in for Releases::checkedByAdvocates (tools/piece3-tests/tickverdict.php); null in use. */
+    public static $decideFn = null;
 
     public static function on(PDO $pdo): bool
     {
@@ -242,7 +244,7 @@ final class BeforeAfter
             // decided first, its waiting cleared after: a step that throws (a permission, the database) leaves it waiting, so the
             // next run decides it again, never a release left on staging with nothing waiting for it (2026-11-27)
             if (empty($d['counted_after'])) { self::spend($pdo, max(0.0, $v['seconds'] - (float) ($d['before_seconds'] ?? 0))); $d['counted_after'] = 1; self::put($pdo, $id, $d); }   // once, as the before look's
-            $line = Releases::checkedByAdvocates($pdo, $id, $v, (bool) ($d['hold'] ?? false) || self::spent($pdo));
+            $line = self::$decideFn ? (string) (self::$decideFn)($id, $v) : Releases::checkedByAdvocates($pdo, $id, $v, (bool) ($d['hold'] ?? false) || self::spent($pdo));
             self::put($pdo, $id, null);
             foreach ($v['far'] as $n) Releases::noteFromCheck($pdo, $id, $n);   // kept on its card and in the daily summary's record
             return $line;

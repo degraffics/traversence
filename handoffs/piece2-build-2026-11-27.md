@@ -114,6 +114,10 @@ state with `live-read.yml`: rows `feature_switches`, q `before_after`.
    - **The fix:** build it in A3 (staging holds still during a look, 0165's note) and test it against the 0165 suites (`tools/staging-tests/`). A3's migration seeds the ticket once, by `what`. The CEO's Tier 4 comes before sending.
    - **Words follow the state (the CEO, 2026-11-27):** Keep staging caught up's card (`admin/sections.php:1685`, `StagingSite::mirrorState()` at StagingSite.php:1311) says "(on): … A full check runs nightly" even when last night's check stopped. The fix in the same release: the card reads staging_night_tick's last outcome and says it stopped, with its error once and its fix there.
 10. **The verdict read** (#320, 2026-11-27): the site waited on #320's after verdict for over an hour, because `DocsRepo::raw($path, true)` falls back to its kept copy (the before-done verdict) whenever raw.githubusercontent doesn't answer 200. The pipeline release's `DocsRepo::now` (the contents API with the token) is the fix, so it moves up to right after B.2 (the session manager, 2026-11-27).
+11. **Webhooks' live proof** (IT lane ticket, the CEO, 2026-11-27, after the #314 re-audit):
+   - **The gap:** the re-audit proved no webhook regressed from the code alone. Their last success on live couldn't be read, because /api/health.php needs HEALTH_TOKEN and live-read doesn't have it.
+   - **The fix:** live-read, or the daily health snapshot, reports each webhook's last-received time and its 24-hour count, read server-side through HEALTH_TOKEN and never exposing the token.
+   - **Jason's call:** whether live-read gets that read is his, when he's back (the session manager won't ask him over the holiday). Its migration seeds the ticket once, by `what`.
 
 ## 4. Seeded tickets (R2's migration; each added once, by `what`) and their lanes
 
