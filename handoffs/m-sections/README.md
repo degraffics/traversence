@@ -29,3 +29,7 @@ These come in Q1:
 - services in Regional (a "guided" flag);
 - physical goods (a "made here" tick);
 - the Native-made field, notice and attestation box.
+
+## Design: approved (the Design reviewer, 2026-11-27, on commit 6fa7e29)
+- **Icons:** `store` stays on both Browse all and Shops. Setting them apart later means changing the rail and the tabs together.
+- **"Made in":** on the item page only for Jan 1. Revisit when physical goods join Regional in Q1.
