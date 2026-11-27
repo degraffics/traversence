@@ -89,9 +89,9 @@
    ],
    "kind": "change",
    "session": "session_01CXLi5hB3G6GziaxeT9zngX",
-   "why": "C.1: the device's place inside our areas read as its town (loosePlace's docblock)",
+   "why": "C.1: the device's place inside our areas read as its town, not outside (the launch plan's C.1)",
    "since": "2026-11-27T02:00:53Z",
-   "expires": "2026-11-27T06:28:04Z",
+   "expires": "2026-11-27T06:28:09Z",
    "release": "",
    "callers": {}
   },
