@@ -279,3 +279,16 @@ touches the admin.
 **Since 2026-11-01** (decisions/0133, "The observations store is the identity record"): Data separation no longer moves `identity_facts`, `identity_fact_sources` or `identity_applied`: public cards read them, so they live in main, and any an earlier move took to the admin database come back on their own.
 
 **Since 2026-11-03 (decisions/0141):** 0141 §2.6: a business's customers (people who transacted) live in its walls and can be exported; people who only linked are a live view of their own settings, never copied into the business's data. Tax-exemption certificates (0141 §4) stay in the walls too.
+
+**Note (2026-11-27): checkout writes the business's own copy of a sale through one scoped run** (recorded as Operations &
+Policy (16), with the CEO's Prior Ruling Check: it implements decisions/0135, Marketplace orders recorded for the
+business, and fills a gap in §3's text; kept in Tier 4 by the Prior Ruling Check, 0135 and 0110 §3, so the Founder can
+overturn it from the daily summary). §3's "set once by the router" stands for every request. The one exception is
+`MarketCheckout::writeOrder`, which may set the tenant to the business being bought from, on its own listings
+connection (`Database::realmOwn`), only to write that one sale's order and payment, through a BusinessData scoped run
+that sets the tenant, does the writes, and in a `finally` puts the tenant and Scope back; a request already inside a
+business is refused. The IT Manager's (11) read of the live code (Sync 19:50 UTC, dd02bdd) found it doesn't meet this yet:
+no reset and no `finally` (MarketCheckout.php:617–642, BusinessData.php:79–87, Scope.php:17–23, which has no exit), so a
+second card order in one request fails to write its business copy (:586, :756); the scope stays on that business for the
+rest of the request; the direct-pay call at :391 has no try; and there are no tests. That is an IT ticket under gate 5
+(money records), built with the CFO's (4) Tier 4 and an independent check, and this exception holds only once it's live.
