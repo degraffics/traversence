@@ -172,3 +172,7 @@ ledger and Undo. Areas seeded under the Ancient Borderlands that lie outside it 
 - One rule, in one place (Phase 4), to test and to explain; the indexer's reading priority uses the same levels.
 - Each level's guide and readiness come from what's actually gathered under it.
 - More geography to keep (each zone's ZIPs and counties); it comes from regions.md and our locations data, not by hand.
+
+- **Hold released: build it now** (Jason, 2026-11-27: "Yes"; decisions/0181). Every find and listing goes to its real
+  area, and nothing auto-seeds duplicate areas. The existing duplicates are merged into their real areas, with Undo,
+  never deleted. It changes existing records, so its Tier 4 review is recorded before live.

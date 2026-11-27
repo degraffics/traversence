@@ -234,3 +234,6 @@ will look into developing better search results for this specific topic and area
   (`Landmarks::activityWords`: peaks, canyons, trails, preserves, parks → hiking; lakes, rivers → fishing; campgrounds →
   camping), indexed with it (every landmark re-indexed once, `landmark_kind_walk2`), never read from the name. With
   outdoor places among the results, **Let's Explore** opens Discovery's Outdoors view, not the overview.
+
+- **"Open now" reopens** (Jason, 2026-11-27: "Reopen"; decisions/0181; P10). It's marked and filtered only where hours
+  are known (the owner's or OpenStreetMap's). Everything else says "hours not known", never a guess.

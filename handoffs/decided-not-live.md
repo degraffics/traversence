@@ -14,6 +14,9 @@ its built right. I want the frontend and the shop ready from end to end so we ca
 1A is regions.md's St. Johns, Springerville, Eagar, Show Low, Holbrook, Winslow and the Petrified Forest gateway.
 "Ready" is measured by 0145's paths (`tools/page-audit/paths.mjs`).
 
+**Open with the Founder:** Order #12's books ($1,111.14 invoiced against $809.10 of lines): "I will address this after
+holiday" (Jason, 2026-11-27). Nothing changes until he answers. Brief D (the CEO's) comes by Dec 14–21.
+
 ## Building now
 
 | Decision (when) | Release | Session | Next step |
