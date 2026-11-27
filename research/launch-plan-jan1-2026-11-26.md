@@ -572,11 +572,20 @@ own pages and checked before it's published.
    not claim, why "Southwest style" or "Native-inspired" can still mislead, and how Traversence's "made in <region>"
    label is earned.
 3. **"What 'made in <region>' means on Traversence":** the standard, how it's earned, why it can't be bought.
-4. **Maker stories, with consent only:** Native and non-Native makers who choose to be featured, in their own words,
-   through the multipliers (trading posts, galleries, co-ops, museums and cultural centres). Each story is told by the
-   maker, approved by them before it goes live, and withdrawn at their word.
-   - Under 0066 these are relationships with **individual makers and their businesses**, never outreach to a nation as
-     a segment, and nothing nation-specific is shown without the nation's say.
+4. **Maker and product stories, written as a magazine writes them** (Jason, 2026-11-27, the magazine model; notes on
+   0164 and 0056):
+   - We write about makers and products from public sources, citing them. No outside approval or data confirmation
+     is needed to publish.
+   - Contributors self-publish their own journeys under 0056.
+   - **The privacy line, "public role, public act":** a maker is named in their public role and their public work is
+     covered. Nobody in a private capacity is named, nothing sensitive about a private person is told, and our users'
+     account data is never content.
+   - **Accuracy:** corrections and takedowns go through 0164's rules.
+   - **Coverage is never endorsement or paid for** (0007).
+   - **A maker's heritage** is told only as they've stated it publicly, and goods for sale are never labelled
+     "Native-made" by us.
+   - **0066** holds: relationships are with individual makers and their businesses, never outreach to a nation as a
+     segment.
 5. **FAQ entries:** "Does Traversence verify Native-made claims?" (No: it's the seller's statement under the Act;
    here's the Board), "What does 'made in <region>' mean?", "How do I report a false claim?" (0057).
 
@@ -587,17 +596,16 @@ own pages and checked before it's published.
 - **What we offer a maker:**
   - a free listing;
   - a Core trial;
-  - their story, in their words, with their approval;
+  - their story told well, and the offer to write their own as a contributor (0056);
   - GO Codes for their booth or shop;
   - 0% on their sales.
-- **Never:** speaking for a maker, using a nation's name or symbols to sell, or featuring a maker's work without
-  consent.
+- **Never:** speaking for a maker, using a nation's name or symbols to sell, or naming anyone in a private capacity.
 
 ### 10.4 Order and cost
 
 - **Before Jan 1:** 1, 2, 3 and the FAQ entries. That's three guides inside the AI cap (E1), each read by the
   Editorial lane against the Board's text before publishing.
-- **From January:** maker stories, as makers agree. The item form's notice in Q1.
+- **From January:** maker and product stories, magazine-style, and contributors' own journeys. The item form's notice in Q1.
 - **Cost:** within E1, $0 extra.
 
 ### 10.5 What's open
