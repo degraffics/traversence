@@ -94,7 +94,11 @@ async function extra(p, size) {
     const SEC = 'section, article, details, fieldset, .ak-card, .tv-bleed, [data-region]';
     const secOf = el => { const c = el.closest(SEC); return c && c.querySelector(REC) ? c : null; };
     const secName = c => { const h = c.querySelector('h1, h2, h3, h4, h5, h6, summary, legend'); return h ? (h.innerText || h.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 120) : (c.id || c.className || '').toString().slice(0, 60); };
-    const ctl = [...document.querySelectorAll('a[href], button, [role=button], input[type=submit]')].filter(vis);
+    // a pill row too narrow for its tabs folds the last ones under "More ▾" (js/tv-ask.js, data-more): the same tabs, folded
+    // or not by a few pixels of width (#322's look, /admin/people.php at 390px: Staff logins one look, More ▾ the next). Its
+    // folded tabs count as shown and its More button as none, so a fold is never a control gone or new
+    const CTL = 'a[href], button, [role=button], input[type=submit]';
+    const ctl = [...document.querySelectorAll(CTL)].filter(el => !el.classList.contains('tvm-btn') && (el.closest('.tvm-menu') || vis(el)));
     const name = el => ((el.innerText || el.textContent || '').trim() || el.getAttribute('aria-label') || el.getAttribute('title') || '').replace(/\s+/g, ' ').slice(0, 80);
     const controls = ctl.slice(0, 300).map(el => ({ n: name(el), h: (el.getAttribute('href') || '').replace(/^https?:\/\/[^/]+/, '').slice(0, 120), d: !!(el.disabled || el.getAttribute('aria-disabled') === 'true'), ...(el.closest(STATE) ? { st: 1 } : {}), ...(el.closest(REC) ? { rec: 1 } : {}), ...(secOf(el) ? { sec: secName(secOf(el)) } : {}), ...(el.tagName === 'A' && !el.closest('header, nav, [role=navigation], [role=tablist]') ? { lk: 1 } : {}) }));
     // regions: the header, main, and each card, by a stable key (its id, else its class and place among its kind)
