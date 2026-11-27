@@ -244,7 +244,7 @@ export function compare(b1, b2, a, exp = {}, release = '', heldKey = STAGING?.to
   // (the session manager, 2026-11-26); unknown files (no list given) count as touching them
   const stateDrawn = !Array.isArray(exp.files) || exp.files.some(f => STATE_DRAWERS.test(f));
   const held = new Set(exp.held?.hashes || []); const heldUnread = !!exp.held?.error;
-  const blocks = [], notes = [];
+  const blocks = [], notes = [], far = [];   // far: the slow pages reached only through a shared file, for the release's card
   if (heldUnread) notes.push('0066 not checked: the held names couldn\'t be read (' + String(exp.held.error).slice(0, 120) + ')');
   else if (!exp.held) notes.push('0066: no held names given to this run (held.json)');
   const block = (rule, f, what, before = '', after = '') => blocks.push({ rule, rule_name: RULES[rule], advocate: f.advocate, who: f.who, page: f.url, size: f.size, what, before: String(before).slice(0, 300), after: String(after).slice(0, 300) });
@@ -266,6 +266,13 @@ export function compare(b1, b2, a, exp = {}, release = '', heldKey = STAGING?.to
     // a view that timed out after, on a page the release doesn't reach (reach.py's pages, the names it gives), is staging's
     // slowness, not the change: noted for the IT Manager's lane, never an access block (#307's look, /admin/crawler-review.php,
     // which timed out in #305's look too); on a page the release reaches it still blocks, below
+    // timed out in the first before look and after (so not tried again): slowness already there, never a block (the access rule
+    // needs a before look that opened); said, and on the card when the release reaches it only through a shared file
+    if (f.error && /Timeout/i.test(f.error) && b.error && /Timeout/i.test(b.error) && expected.has(f.url)) {
+      const sharedOnly = Array.isArray(exp.drawn) && (exp.shared || []).length && expected.has(f.url) && !new Set(exp.drawn).has(f.url);
+      notes.push(`${key(f)}: far timeout, noted: timed out in the before look and after: slowness already there, not this change's (the slow-pages ticket)`);
+      if (sharedOnly) far.push({ who: f.who, page: f.url, size: f.size, outcome: 'before_too', ms: 0, via: exp.shared });
+    }
     if (f.error && /Timeout/i.test(f.error) && !refused(b) && !expected.has(f.url)) { compared--; notes.push(`${key(f)}: timed out after on a page this release doesn't reach (staging is slow there; the IT Manager's lane), not compared`); continue; }
     // reached only through a shared file the release changes (tv-ask.js, the shell): tried once more after the look (capture's
     // farTimeouts). Opened then: compared as usual, and noted; timed out again, it blocks below as any reached page does
@@ -276,6 +283,7 @@ export function compare(b1, b2, a, exp = {}, release = '', heldKey = STAGING?.to
       const also = other ? (other.error ? `; at ${w2} it timed out too` : `; at ${w2} it opened in the same run (${secs(other)})`) : '';
       const slowBefore = x => x && ((x.error && /Timeout/i.test(x.error)) || x.retried);
       const was = secs(b) + (bb && bb !== b ? ', then ' + secs(bb) : '');
+      far.push({ who: f.who, page: f.url, size: f.size, outcome: !f.error ? 'opened' : (slowBefore(b) || slowBefore(bb) ? 'before_too' : 'blocks'), ms: f.ms || 0, via: exp.shared || [] });
       if (!f.error) notes.push(`${key(f)}: far timeout, noted: timed out, then opened in ${secs(f)} when tried again after the look with ${LATE_MS / 1000} s (the before looks: ${was}${also}; reached only through ${via}; staging is slow there, the IT Manager's lane)`);
       else if (slowBefore(b) || slowBefore(bb)) { compared--; notes.push(`${key(f)}: far timeout, noted: didn't open after, even with ${LATE_MS / 1000} s, but the before looks were slow there too (${was}${also}): slowness already there, not this change's (reached only through ${via}; the slow-pages ticket)`); continue; }
       else notes.push(`${key(f)}: didn't open after, even with ${LATE_MS / 1000} s when tried again after the look, though it opened before (${was}${also}; reached through ${via}, which this release changes): it blocks`);
@@ -346,7 +354,7 @@ export function compare(b1, b2, a, exp = {}, release = '', heldKey = STAGING?.to
   if (!compared && a.results.length) notes.unshift('No view had a usable before look (staging was closed or erroring when it was taken): a person looks before it goes on');
   return { release: String(release), at: new Date().toISOString(), verdict: uniq.length ? 'block' : (incomplete ? 'incomplete' : 'pass'),
     first: uniq[0] ? `${uniq[0].rule_name}: ${uniq[0].what} (${uniq[0].who}, ${uniq[0].page}, ${uniq[0].size})` : '',
-    blocks: uniq.slice(0, 50), blocks_total: uniq.length, notes: notes.slice(0, 30), views: a.results.length, seconds: (b1.seconds || 0) + (b2.seconds || 0) + (a.seconds || 0) };
+    blocks: uniq.slice(0, 50), blocks_total: uniq.length, notes: notes.slice(0, 30), far: far.slice(0, 10), views: a.results.length, seconds: (b1.seconds || 0) + (b2.seconds || 0) + (a.seconds || 0) };
 }
 
 // ---- command line ----------------------------------------------------------------------------------------------------

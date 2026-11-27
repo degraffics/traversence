@@ -47,6 +47,11 @@ ok(r2b.verdict === 'pass' && r2b.notes.some(n => /before looks were slow there t
 // 3. opened before, hung after even at 90 s: it blocks
 const r3x = compare(look([dev, desk, b38]), look([dev, desk, b38]), look([dev, desk, hungAfter]), exp318, '318', 'k');
 ok(r3x.verdict === 'block' && r3x.blocks.some(x => x.rule === 'access' && x.page === '/admin/crawler-review.php') && r3x.notes.some(n => /didn't open after, even with 90 s .* though it opened before \(38 s; at 1280 it opened in the same run \(21 s\); reached through website\/js\/tv-ask\.js, which this release changes\): it blocks/.test(n)), '3. opened before, hung after even at 90 s: it blocks, the note saying why', r3x);
+// the verdict's far list, for the release's card (the site writes the sentence): what happened to each, never a block's
+ok(r1.far.length === 1 && r1.far[0].outcome === 'opened' && r1.far[0].page === '/admin/crawler-review.php' && r1.far[0].size === 'phone' && r1.far[0].who === 'executive' && r1.far[0].ms === 62000 && r1.far[0].via[0] === 'website/js/tv-ask.js', 'the verdict\'s far list: opened, with who, page, width, time and the shared file', r1.far);
+ok(r2.far.length === 1 && r2.far[0].outcome === 'before_too' && r3x.far[0].outcome === 'blocks', '… slow before too: before_too; hung after a clean before: blocks', [r2.far, r3x.far]);
+const hungB = { ...late }; const r6 = compare(look([dev, hungB]), look([dev, hungB]), look([dev, { ...late }]), exp318, '318', 'k');
+ok(r6.verdict === 'pass' && r6.notes.some(n => /timed out in the before look and after: slowness already there/.test(n)) && r6.far.length === 1 && r6.far[0].outcome === 'before_too', 'timed out in the first before look and after (so not tried again): a note and before_too, never a block', r6);
 const LATE = (await import('../page-audit/beforeafter.mjs')).LATE_MS;
 ok(LATE === 90000 && /timeout: LATE_MS/.test(src) && /timeout: opts\.timeout \|\| 45000/.test(readFileSync(new URL('../page-audit/page-check.mjs', import.meta.url), 'utf8')), 'the late retry is given 90 s (double a view\'s 45 s); every other view keeps 45 s');
 const devOk = v('executive', '/admin/config/control?tab=development', 'phone'); const devLate = v('executive', '/admin/config/control?tab=development', 'phone', { status: 0, error: TO, ba: undefined });
