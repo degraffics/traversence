@@ -306,3 +306,5 @@ Nothing above raises a stage ceiling or the reach fence. Those stay the Founder'
     reporting line are the appendix's, and R2 routes each ticket to its lane's manager by them. The CEO doesn't reassign
     work or put a role on standby; standby and active stay the Founder's (§ Fences). The note above's "undone by putting
     the role back on standby" no longer applies.
+- **Launch work first, until the Jan 1 gates pass** (Jason, 2026-11-27, Brief A2; decisions/0181 §2): R2–R5 get at
+  most one release slot a day until 0181's launch gates pass. This qualifies "R1–R5 ship as each passes" above.
