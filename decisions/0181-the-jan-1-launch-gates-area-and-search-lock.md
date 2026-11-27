@@ -105,3 +105,14 @@ day. This qualifies 0180's "R1–R5 ship as each passes" (note added there).
   - St. Johns' cornerstones stand within it. Other towns' cornerstones are found by spec §30's method.
   - The success ladder applies to the zone.
   - 0066 governs 1B's Navajo Nation towns and Zuni: public businesses only, and nation-specific content held.
+- **The system leads, and in-person time goes to multipliers** (Jason, 2026-11-27, in his words):
+  - "Flip your assumption from in-person driving interest and focus on the system pushing content generation and
+    linking content to search for relevance and promoting rural businesses getting online and doing business with us
+    driving local interest and experience connection to them. That drives claims."
+  - "In-person should focus on key multiple contact relations. Chamber of commerce, regional or town guide influences,
+    venues...etc."
+  - The pilot runs in order: content (0164, 0131, 0146), then search, then counted demand, then demand-carrying
+    invites (0172 §3.3, 0108), then claims.
+  - The Founder's in-person time goes to multipliers: chambers, town and regional guide influencers, and venues. It
+    doesn't go to cold visits to one business at a time.
+  - This refines the "Founder is first point of contact" note above.
