@@ -303,8 +303,12 @@ an irreversible act, a deadlock, or real money moving (never autonomous; refunds
 session that needs Jason's OK (a PR, a decision, a key) sends the question (or the release summary and PR) to the
 session manager, never to Jason in its own chat. The session manager reviews it against the decision, the brief and
 these rules (scope creep, drift, conflicts, anything already decided); once it's clear to ask, or its fixes are made, it
-sends it to the CEO session, which puts it to Jason in its chat, **written for him and Gemini to review, never a
-pop-up** (0179), never a Pulse case, with a push notification, noting "reviewed by the session manager". Not forwarded in
+sends it to the CEO session. **The CEO answers what's within its authority** (Tiers 1–4, the Prior Ruling Check, and
+whatever an ADR or his past rulings settle, cited; Jason, 2026-11-27: "I wont be looking at other session, just this one…
+if there is a question I need you to answer them as best you can, if you cant email me the questions"). What it can't
+(Tier 5, real money, his own presses) goes to him as a Decision Brief through the site's own email (`releases/batch.json`
+"messages") and push, **written for him and Gemini to review, never a pop-up** (0179), never a Pulse case, noting
+"reviewed by the session manager"; never answered or approved in his name. Jason reads only the CEO session. Not forwarded in
 10 minutes, the asking session reminds the session manager; in 30, it goes to the CEO marked "not reviewed". The CEO sends
 his answer, in his words, to the session manager and the asking session. The session manager never asks the same
 question again; it lists what's still open at the top of its replies as **"Waiting for your OK:"** (with each session's
