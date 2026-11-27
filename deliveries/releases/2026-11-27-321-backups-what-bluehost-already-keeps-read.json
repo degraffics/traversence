@@ -6,37 +6,42 @@
     "zip": "b2-backups-3.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "staged",
-    "step": 0,
+    "state": "live",
+    "step": 3,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
     "plan_at": "2026-11-27 12:24:02",
     "staged_at": "2026-11-27 12:24:03",
-    "vetted_at": null,
-    "live_at": null,
+    "vetted_at": "2026-11-27 12:48:01",
+    "live_at": "2026-11-27 12:48:01",
     "files": {
         "app/admin/module-cards.php": {
             "sha": "4cac10629258d5828e9a5b98454fd66f0d4e7f6da0cf4b23baa6cdce80a078b4",
             "size": 65214,
-            "live_was": "5e5f6224a705ec557b0800c23fd95b00eb0a1fced1c79e827aac69e7d998efc3"
+            "live_was": "5e5f6224a705ec557b0800c23fd95b00eb0a1fced1c79e827aac69e7d998efc3",
+            "existed": true,
+            "old_sha": "5e5f6224a705ec557b0800c23fd95b00eb0a1fced1c79e827aac69e7d998efc3"
         },
         "app/ui/faq.md": {
             "sha": "9935a7e2e142c58097314cfce6734a549352f11cd9631a768b066c90dc94383b",
             "size": 469564,
-            "live_was": "2ddb7c04050ece3259a459f0ee675c647bfb4e13d3d724494f508699cc795a7d"
+            "live_was": "2ddb7c04050ece3259a459f0ee675c647bfb4e13d3d724494f508699cc795a7d",
+            "existed": true,
+            "old_sha": "2ddb7c04050ece3259a459f0ee675c647bfb4e13d3d724494f508699cc795a7d"
         },
         "app/lib/HostBackups.php": {
             "sha": "802cab9979f9fd15ce5e648cf227533c929ef1854386e7dfe12935819b5e4e63",
             "size": 6172,
-            "live_was": null
+            "live_was": null,
+            "existed": false
         }
     },
     "migrations": [],
     "checks": {
         "ok": true,
-        "where": "staging",
-        "at": "2026-11-27T12:24:04+00:00",
+        "where": "live",
+        "at": "2026-11-27T12:48:02+00:00",
         "items": [
             [
                 "PHP files parse",
@@ -46,7 +51,7 @@
             [
                 "Pages answer",
                 true,
-                "2 pages answered on staging.trvgo.us"
+                "2 pages answered on traversence.com"
             ],
             [
                 "No new fatal errors in the logs",
@@ -86,6 +91,21 @@
             "at": "2026-11-27T12:24:06+00:00",
             "by": 0,
             "msg": "On staging and its checks passed; the advocates look again now (the before-and-after check)."
+        },
+        {
+            "at": "2026-11-27T12:48:01+00:00",
+            "by": 0,
+            "msg": "The before-and-after check: passed."
+        },
+        {
+            "at": "2026-11-27T12:48:01+00:00",
+            "by": 0,
+            "msg": "Approved in chat before it was sent through git, and its checks on staging passed: publishing by itself."
+        },
+        {
+            "at": "2026-11-27T12:48:01+00:00",
+            "by": 0,
+            "msg": "Published: 3 files; everyone at once (no switch)."
         }
     ]
 }
