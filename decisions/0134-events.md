@@ -313,3 +313,14 @@ place for them to succeed." Recorded as Operations & Policy (16), under CLAUDE.m
   night, with the CFO's (4) Tier 4.
 - **The offer** is made in person (the Founder with Sales (14)): a one-page offer and its GO Code kit by about Dec 3; the
   theater claims its listing and agrees. Dates confirmed with the theater (the film is reported for about Dec 18, 2026).
+
+**Participating businesses** (Jason, 2026-11-27: "Dinner and a movie: a tool for the theater to organize the food vendors
+into their event?"; extends §2–3, which have hosts and audiences only; recorded as Operations & Policy (16)). From its
+event, the host invites listings, claimed or not, as participating businesses ("Dinner before the show"). An unclaimed
+business's invite is a demand-carrying claim invite (0172 §3.3, 0108), pressed by the host, a person, never an agent;
+it sends only once real email sending is on (SES_MODE live is the Founder's call, 0181's note), and until then the host's
+invite waits with that said. Each business that accepts shows on the event page with its own offer, which may be a 0108
+promotion issued as a GO Code ("show your ticket: 10% off"); the event shows on its listing as "Part of <event>". The
+participants form the event's trail (0174: Add to a trip, Send to Maps). Participation is by invitation and acceptance
+only, never paid placement (0007); the host can remove a participant and a participant can leave, each with Undo. For the
+pilot, if this can't be live by about Dec 14–15, Sales (14) sets the participants up by hand as a showcase.
