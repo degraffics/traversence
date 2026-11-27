@@ -114,6 +114,20 @@ state with `live-read.yml`: rows `feature_switches`, q `before_after`.
    - **The fix:** build it in A3 (staging holds still during a look, 0165's note) and test it against the 0165 suites (`tools/staging-tests/`). A3's migration seeds the ticket once, by `what`. The CEO's Tier 4 comes before sending.
    - **Words follow the state (the CEO, 2026-11-27):** Keep staging caught up's card (`admin/sections.php:1685`, `StagingSite::mirrorState()` at StagingSite.php:1311) says "(on): … A full check runs nightly" even when last night's check stopped. The fix in the same release: the card reads staging_night_tick's last outcome and says it stopped, with its error once and its fix there.
 10. **The verdict read** (#320, 2026-11-27): the site waited on #320's after verdict for over an hour, because `DocsRepo::raw($path, true)` falls back to its kept copy (the before-done verdict) whenever raw.githubusercontent doesn't answer 200. The pipeline release's `DocsRepo::now` (the contents API with the token) is the fix, so it moves up to right after B.2 (the session manager, 2026-11-27).
+11. **Webhooks' live proof** (IT lane ticket, the CEO, 2026-11-27, after the #314 re-audit):
+   - **The gap:** the re-audit proved no webhook regressed from the code alone. Their last success on live couldn't be read, because /api/health.php needs HEALTH_TOKEN and live-read doesn't have it.
+   - **The fix:** live-read, or the daily health snapshot, reports each webhook's last-received time and its 24-hour count, read server-side through HEALTH_TOKEN and never exposing the token.
+   - **Jason's call:** whether live-read gets that read is his, when he's back (the session manager won't ask him over the holiday). Its migration seeds the ticket once, by `what`.
+12. **Order from the session manager, 2026-11-27 (after #321 Live):**
+   1. the pipeline release;
+   2. r2-lanes-3;
+   3. **"Recovered" only for a notice that was sent:** its own small release. 14 "Releases (job): Recovered" emails went out with no raise ever sent, because ControlAlarms.php:607 sends Recovered whenever `tripped_at` is set. It goes with a test. **Tier 3, in the IT Manager's (11) lane** (the CEO, 2026-11-27): not one of 0180 §4's territories, and Founder alarm emails aren't territory 5's messages; a bug fix inside 0176 R1. The ticket records the lane and the ruling, with a daily-batch line;
+   4. task-seed-4 (data only, the list from the session manager);
+   5. A3, with the collation fix and the card's words;
+   6. the Scheduler bundle: Pre-flight's self-continue, DailyReport keeping its items with sources in its `dailyrep:` record (Executive-readable), the :02 move, the 6:13 spread;
+   7. phase 2 release 1 (Tier 3, the PM's lane: the thread, task-notes.json, task-rulings.json, the four-stage redesign, and role queues with counts and SLA, jason-spec §7);
+   8. the Executive channel;
+   9. a parallel week, then cutover about Dec 15.
 
 ## 4. Seeded tickets (R2's migration; each added once, by `what`) and their lanes
 
