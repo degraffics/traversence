@@ -94,3 +94,20 @@ read "See the listing" when there's one; at 390 the location line says "ZIP: 859
 
 Queue (the session manager, 03:58 UTC): C.4 (summary first), then C.8 open now (P10, reopened by Jason 2026-11-27, the
 CEO's brief 03:42 UTC).
+
+## C.4: a town as a point (town-point.zip)
+
+Built on Sync 2026-11-27 02:50 UTC (`122090e`). Files: `website/directory/index.php`, `website/js/location-scope.js`.
+- Found: the place pop-up already set our towns as a point (place.php row 0, P9), but Get Local started every point at
+  radius 250 ("any distance"), so a town picked showed "within any distance", against 0053's "within 10 miles by default".
+  The path checker read the old `#dr-dist` list, hidden since Get Local R2 put the distance in the sentence, so it
+  reported "no distance to set" instead.
+- Fix: a town picked, or opened by `?town=`, starts at 10 mi; `?radius=` wins; near me, a ZIP and a map area keep no cap
+  (0060). In the pop-up the area search reads for a town is listed once, by the area's name, as "Town area" (it was
+  listed with the town's name), and a city suggestion naming the same town isn't listed again.
+- The FAQ's "When I choose a town, why can I set how far to look, and what is its 'Town area'?" already says this.
+- `paths.mjs` set-place reads the sentence's distance, flags a town not opening at 10 mi (J02), and changes it.
+- Tests: `tools/search-tests/town-point.cjs` 20/20 at 390 and 1280. The set-place path on the harness: live code
+  "issues: Show Low opened within any distance, not 10 mi (decisions/0053)"; with C.4, passed.
+- Seen, not this release's: the place pop-up's list runs past the right edge at 390 on the harness, the same with the live
+  code (maybe the Tailwind stand-in); sent to the Design reviewer.

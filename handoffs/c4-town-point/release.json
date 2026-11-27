@@ -1,0 +1,10 @@
+{
+ "title": "Get Local: a town you choose opens within 10 miles; its area is its own choice",
+ "why": "decisions/0053 (\"Town names on a place page open Get Local\": a town opens centred on it, nearest first, within 10 miles by default, the distance changeable), applied to the place pop-up by P9 (Jason, 2026-11-13: \"choosing one of our towns in Get Local sets the town (Within 10 mi), and its area stays a separate choice\"); the launch plan's C.4, which blocks the path \"Set my place and distance\" (decisions/0181 §1 gate 1). The pop-up already set the town as a point (place.php), but Get Local started every point at any distance, so a chosen town showed \"within any distance\"; now a town picked, or opened by ?town=, starts within 10 mi, and a ?radius= in the address still wins. Near me, a ZIP and a map area keep the nearest first with no cap (decisions/0060). In the pop-up, the area that search reads for a town (\"Show Low, AZ · Town in …\") was listed with the town's own name; it's now listed once, by the area's name, as \"Town area\". The FAQ's \"When I choose a town, why can I set how far to look, and what is its 'Town area'?\" already says this; the page now matches it. No data, no outside calls, no cost.",
+ "changes": [
+  {"what": "Get Local: choose a town in the place pop-up: \"within 10 mi of <town>\", the distance changeable in the sentence", "where": "https://traversence.com/directory/"},
+  {"what": "The place pop-up: the town first, its area once by its own name as \"Town area\"", "where": "https://traversence.com/directory/"}
+ ],
+ "proposals": [],
+ "switch": ""
+}

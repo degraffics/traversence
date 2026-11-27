@@ -281,9 +281,24 @@ const CORE = [
     const head = (await page.locator('#dr-title, .tvs-panel, #location-modal').first().innerText().catch(() => '')) || '';
     w.goal = /Show Low/i.test(label + ' ' + head);
     if (!w.goal) { w.add('accuracy', 'J02', w.here(), 'after choosing Show Low, the page doesn\'t show it as the place'); await w.shot('noplace'); }
-    // the distance: Get Local's "Within" list, else the search panel's slider
-    const dist = await firstVisible(page, ['#dr-dist']);
-    if (dist) {
+    // the distance: Get Local's sentence ("N businesses within [10 mi ▾] of [Show Low ▾]", R2; its old #dr-dist list is kept
+    // hidden), a town opening within 10 mi (decisions/0053; P9); else the older list, else the search panel's slider
+    const tok = await firstVisible(page, ['#dr-sent [data-tok="dist"]']);
+    const dist = tok ? null : await firstVisible(page, ['#dr-dist']);
+    if (tok) {
+      const was = ((await tok.innerText().catch(() => '')) || '').replace(/[▾\s]+/g, ' ').trim();
+      if (!/^10 mi$/.test(was)) w.add('accuracy', 'J02', w.here(), `Show Low opened within ${was || '(nothing)'}, not 10 mi (decisions/0053)`);
+      await w.tap(tok, `within ${was}`);
+      const pill = await firstVisible(page, ['#dr-pop [data-dist="25"]', '#dr-pop [data-dist]:not([aria-pressed="true"])']);
+      if (!pill) { w.add('dead_end', 'J01', w.here(), 'the distance opened no choices'); await w.shot('nodist'); }
+      else {
+        await w.tap(pill, (await pill.innerText().catch(() => '')).trim());
+        await page.waitForTimeout(1500);
+        const t = ((await page.locator('#dr-sent').first().innerText().catch(() => '')) || '').replace(/[▾\s]+/g, ' ').trim();
+        w.note(`after choosing a distance: ${t.slice(0, 100) || '(no sentence)'}`);
+        if (!/within \d+ mi|within any distance/i.test(t)) w.add('accuracy', 'J02', w.here(), 'the sentence doesn\'t say the new distance');
+      }
+    } else if (dist) {
       w.taps++;
       const vals = await dist.evaluate((el) => [...el.options].map((o) => o.value)).catch(() => []);
       const cur = await dist.inputValue().catch(() => '');
@@ -296,9 +311,9 @@ const CORE = [
       if (rng) { w.taps++; await rng.focus().catch(() => {}); await page.keyboard.press('ArrowRight').catch(() => {}); await page.waitForTimeout(800);
         const v = (await page.locator('.tvs-rngv').first().textContent().catch(() => '')) || ''; w.note(`distance now ${v.trim() || '(not shown)'}`); if (!v.trim()) w.add('clarity', 'J03', w.here(), 'the distance slider doesn\'t say how far'); }
       else {
-        // Get Local offers Within only for a point (a town, a ZIP, my location). One of our towns is listed in the place
-        // pop-up as its area (location-scope.js placeOptions doesn't list it twice), and an area has no distance: the list
-        // covers the area. Said as what it is, not a dead end (2026-11-13; proposal in site-audit/proposals.md).
+        // Get Local offers Within only for a point (a town, a ZIP, my location). The place pop-up lists one of our towns as
+        // the town (a point) and its area as its own "Town area" choice (P9); an area has no distance, as the list covers
+        // it. Said as what it is, not a dead end.
         const area = await page.evaluate(() => { try { const l = (typeof currentLocation !== 'undefined' && currentLocation) || JSON.parse(sessionStorage.getItem('traversence_location') || 'null'); return l && l.scope ? String(l.scope.label || l.scope.slug) : ''; } catch (e) { return ''; } }).catch(() => '');
         if (area || /area|region/i.test(label + ' ' + head)) w.add('clarity', 'J03', w.here(), `Show Low was set as its area${area ? ' ("' + area + '")' : ''}, which has no distance: Get Local offers "Within" only for a town as a point, a ZIP or my location`);
         else w.add('dead_end', 'J01', w.here(), 'no distance to set once the place is chosen');
