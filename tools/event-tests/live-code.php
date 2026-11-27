@@ -6,6 +6,8 @@
 //   2. it's read only (no INSERT, UPDATE, DELETE or REPLACE on the connection; only SET and one SELECT);
 //   3. @tv_tenant is reset after the read, also when the read fails, and never leaks into the next query;
 //   4. nothing else reaches the page: only [code, ends] comes back (no counts, no other codes, no notes).
+//   5. the page's own path: the listings login's own connection, a passed-in one never filling its cache, a failed
+//      connection tried once per request.
 // Run: php live-code.php <root>/app     (it resets lv_codes; user tv/tv on 127.0.0.1)
 declare(strict_types=1);
 $app = rtrim($argv[1] ?? '', '/');
@@ -57,6 +59,27 @@ $r = Events::liveCode(8, 'SHOW10', $db);
 $t('4. only code and ends come back', $r !== null && array_keys($r) === ['code', 'ends'], $r);
 $t('4. no counts, notes, value or kind', !preg_match('/uses|note|value|kind|private|50/', json_encode($r)), $r);
 $t('4. its words say only the code and its last day', Events::codeWords($r) === 'code SHOW10 until Dec 31', Events::codeWords($r));
+
+// 5. the page's own path (the CTO's review, finding F): the listings login's own connection, its cache, its failure
+$root->exec('DROP DATABASE IF EXISTS lv_codes2'); $root->exec('CREATE DATABASE lv_codes2'); $root->exec('USE lv_codes2');
+$root->exec("CREATE TABLE biz_codes LIKE lv_codes.biz_codes"); $root->exec('CREATE FUNCTION tv_tenant() RETURNS INT UNSIGNED DETERMINISTIC NO SQL RETURN @tv_tenant');
+$root->exec('CREATE VIEW b_biz_codes AS SELECT * FROM biz_codes WHERE owner_id = tv_tenant()');   // the "live" realm: no codes at all
+$root->exec('USE lv_codes');
+$sub = function (string $env, string $code) use ($app): array {   // a fresh request: its own statics
+    $log = tempnam(sys_get_temp_dir(), 'lc');
+    $php = 'require "' . $app . '/lib/Database.php"; require "' . $app . '/lib/Events.php"; $db = new PDO("mysql:host=127.0.0.1;dbname=lv_codes;charset=utf8mb4", "tv", "tv", [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]); ' . $code;
+    $out = []; exec($env . ' ' . escapeshellarg(PHP_BINARY) . ' -d log_errors=1 -d error_log=' . escapeshellarg($log) . ' -r ' . escapeshellarg($php) . ' 2>&1', $out);
+    $l = (string) @file_get_contents($log); @unlink($log); return [implode("\n", $out), $l];
+};
+$ok = 'DB_HOST=127.0.0.1 DB_LISTINGS_DATABASE=lv_codes2 DB_LISTINGS_USERNAME=tv DB_LISTINGS_PASSWORD=tv';
+[$o] = $sub($ok, 'Events::liveCode(8, "SHOW10", $db); echo json_encode(Events::liveCode(8, "SHOW10"));');
+$t('5. a passed-in connection never fills the page\'s cache (the page then reads its own realm: nothing there)', trim($o) === 'null', $o);
+[$o] = $sub(str_replace('lv_codes2', 'lv_codes', $ok), 'echo json_encode(Events::liveCode(8, "SHOW10"));');
+$t('5. the page\'s path reads through the listings login\'s own connection (Database::realmOwn)', str_contains($o, 'SHOW10'), $o);
+[$o, $l] = $sub('DB_HOST=127.0.0.1 DB_LISTINGS_DATABASE=lv_codes DB_LISTINGS_USERNAME=nobody DB_LISTINGS_PASSWORD=wrong', 'echo json_encode([Events::liveCode(8, "SHOW10"), Events::liveCode(9, "ONLY9"), Events::liveCode(8, "OLD")]);');
+$t('5. a connection that fails gives nothing for every business on the page', trim($o) === '[null,null,null]', $o);
+$t('5. and is tried once, not once per business', substr_count($l, 'Events::liveCode') === 1, $l);
+$root->exec('DROP DATABASE lv_codes2');
 
 $root->exec('DROP DATABASE lv_codes');
 echo "$pass passed, $fail failed\n"; exit($fail ? 1 : 0);

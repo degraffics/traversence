@@ -407,19 +407,23 @@ final class Events
         static $own = null, $seen = [];
         $code = strtoupper(trim($code));
         if ($code === '' || $entity <= 0) return null;
-        $k = $entity . ':' . $code; if ($db === null && array_key_exists($k, $seen)) return $seen[$k];
+        $k = $entity . ':' . $code; $live = $db === null;   // only the page's own reads are remembered (a passed-in connection never fills the cache)
+        if ($live && array_key_exists($k, $seen)) return $seen[$k];
+        if ($live && $own === false) return null;   // the listings data couldn't be reached once this request: not tried again for each business
         $c = null;
         try {
-            if ($db === null) { if ($own === null) { require_once __DIR__ . '/BusinessData.php'; $own = Database::realmOwn('listings'); } $db = $own; }
+            if ($live) { if ($own === null) { require_once __DIR__ . '/BusinessData.php'; try { $own = Database::realmOwn('listings'); } catch (Throwable $x) { $own = false; throw $x; } } $db = $own; }
             $db->prepare('SET @tv_tenant = ?')->execute([$entity]);
             try {   // one row: the code this business attached, and only the columns that decide whether it holds
                 $st = $db->prepare('SELECT code, active, starts, ends, max_uses, uses FROM `b_biz_codes` WHERE code = ? LIMIT 1'); $st->execute([$code]);
                 $c = $st->fetch(PDO::FETCH_ASSOC) ?: null;
             } finally { $db->exec('SET @tv_tenant = NULL'); }   // never left set for the next query on this connection
-        } catch (Throwable $x) { error_log('Events::liveCode ' . $entity . ': ' . $x->getMessage()); return $seen[$k] = null; }
+        } catch (Throwable $x) { error_log('Events::liveCode ' . $entity . ': ' . $x->getMessage()); if ($live) $seen[$k] = null; return null; }
         $today = date('Y-m-d');
         $ok = $c && (int) $c['active'] && !($c['starts'] && (string) $c['starts'] > $today) && !($c['ends'] && (string) $c['ends'] < $today) && !((int) $c['max_uses'] && (int) $c['uses'] >= (int) $c['max_uses']);
-        return $seen[$k] = $ok ? ['code' => (string) $c['code'], 'ends' => $c['ends'] ?: null] : null;   // only these two reach a page: no counts, no other codes
+        $r = $ok ? ['code' => (string) $c['code'], 'ends' => $c['ends'] ?: null] : null;   // only these two reach a page: no counts, no other codes
+        if ($live) $seen[$k] = $r;
+        return $r;
     }
 
     /** "code SHOW10 until Dec 31": after the business's own words, the code and its last day only (the Design reviewer). */
