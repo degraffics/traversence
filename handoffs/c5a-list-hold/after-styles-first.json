@@ -1,0 +1,98 @@
+{
+ "390 /directory/": {
+  "cls": 0.0321,
+  "shifts": [
+   {
+    "v": 0.0312,
+    "t": 217,
+    "src": [
+     "footer.border-t.border-[color:var(--tv-line-strong)]"
+    ]
+   },
+   {
+    "v": 0.0008,
+    "t": 107,
+    "src": [
+     "#tv-main-nav",
+     "#tv-brand"
+    ]
+   }
+  ]
+ },
+ "390 /directory/?town=Show%20Low": {
+  "cls": 0.0034,
+  "shifts": [
+   {
+    "v": 0.0023,
+    "t": 399,
+    "src": [
+     "#dr-it-101",
+     "#dr-it-102",
+     "#dr-it-104",
+     "div.dr-acts"
+    ]
+   },
+   {
+    "v": 0.0008,
+    "t": 81,
+    "src": [
+     "#tv-main-nav",
+     "#tv-brand"
+    ]
+   },
+   {
+    "v": 0.0003,
+    "t": 162,
+    "src": [
+     "#dr-where-tgt"
+    ]
+   }
+  ]
+ },
+ "1280 /directory/": {
+  "cls": 0,
+  "shifts": [
+   {
+    "v": 0,
+    "t": 95,
+    "src": [
+     "a.ta-i.on",
+     "a.ta-i",
+     "div.ta-sec"
+    ]
+   }
+  ]
+ },
+ "1280 /directory/?town=Show%20Low": {
+  "cls": 0.0199,
+  "shifts": [
+   {
+    "v": 0.0189,
+    "t": 177,
+    "src": [
+     "#dr-list",
+     "#dr-where-tgt"
+    ]
+   },
+   {
+    "v": 0.0009,
+    "t": 386,
+    "src": [
+     "#dr-it-105",
+     "#dr-it-101",
+     "#dr-it-102",
+     "#dr-it-104"
+    ]
+   },
+   {
+    "v": 0,
+    "t": 89,
+    "src": [
+     "a.ta-i.on",
+     "a.ta-i",
+     "div.ta-sec"
+    ]
+   }
+  ]
+ }
+}

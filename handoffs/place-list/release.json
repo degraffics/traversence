@@ -1,0 +1,9 @@
+{
+ "title": "Phones: the town list under a place box floats again, so GO and the suggestions aren't cut off",
+ "why": "decisions/0058 §11 (every page at 390px: nothing cut off, no sideways scroll). The location window's phone rule (app/ui/location-modal.php, ≤640px) puts its own destination list in the page's flow (0058 §25), but it was written for every .lm-sug, and the place box's list (.tv-pbox-list, js/location-scope.js) carries that class too. So on a phone the list under any place box (Get Local's \"We need a location to search\", the search panel's place, Discovery, the map) landed inside its bar: the bar grew to about 216px and the list ran to 497px on a 390px screen, cutting off the typed town, GO and the choices. The rule now names the location window's own box (.lm-box .lm-sug), so its list still flows on phones and every place box's list floats under it again, as on a computer. Found by the Design reviewer in C.4's screens (2026-11-27). One CSS selector; no words, data, outside calls or cost.",
+ "changes": [
+  {"what": "On a phone, Get Local's \"We need a location to search\": type a town, and the choices float under the box with GO beside it", "where": "https://traversence.com/directory/"}
+ ],
+ "proposals": [],
+ "switch": ""
+}
