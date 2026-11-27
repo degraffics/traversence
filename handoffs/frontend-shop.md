@@ -158,3 +158,9 @@ Comes after C.5a and C.5b, as its own release. Its plan went to the session mana
 - **Claims:** tv.css is claimed with --change.
 - **Retiring the CDN:** the CSP and service entries keep the CDN until the stylesheet has run a week clean.
 - **Before-and-after look:** Piece 2 runs it at full reach.
+- **Session manager, 2026-11-27: "clear, with four fixes":**
+  1. TV_TAILWIND becomes a switch under System Configuration → Switches, with Undo and History.
+  2. The zip-check rule for tv.css ships first, as its own check change with three tests, after the CEO's Tier 4. Piece 2 reviews the diff.
+  3. Before building, list the Play CDN-only blocks (`type="text/tailwindcss"`, `@apply` in pages, per-page `tailwind.config`) and send the list to the Design reviewer.
+  4. Dynamic class names become whole literal classes first. Any safelist lives in tools/stylesheet/ with file:line for each entry.
+- **The before-and-after look:** the check can't cover every page (BA_MAX_PAGES 40; about 213 pages). It takes about 20, one per family of how a page loads Tailwind, plus each distinct layout in the page shell. Piece 2 is adding `"look_pages"` to the check, a check change through the CEO and the session manager. **Ping Piece 2 when we're two releases out.**
