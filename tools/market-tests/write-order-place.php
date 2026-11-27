@@ -50,7 +50,7 @@ $main->exec("CREATE TABLE market_orders (id INT UNSIGNED AUTO_INCREMENT PRIMARY 
   hold_until DATETIME, note TEXT, created_at DATETIME, paid_at DATETIME, provider_ref VARCHAR(120) NOT NULL DEFAULT '', updated_at DATETIME, biz_quote_id INT UNSIGNED DEFAULT NULL, pay_now_cents INT DEFAULT NULL, pay_mode VARCHAR(20) DEFAULT NULL, policy_json TEXT)");
 $main->exec("CREATE TABLE market_checkout (entity_id INT UNSIGNED PRIMARY KEY, settings TEXT, live TINYINT DEFAULT 1)");
 $main->exec("CREATE TABLE market_cart (user_id INT, entity_id INT)");
-$main->exec("CREATE TABLE market_items (id INT UNSIGNED PRIMARY KEY, stock INT DEFAULT 0, track_stock TINYINT DEFAULT 0)");
+$main->exec("CREATE TABLE market_items (id INT UNSIGNED PRIMARY KEY, stock INT DEFAULT 0, track_stock TINYINT DEFAULT 0, taxable TINYINT DEFAULT 0)");
 register_shutdown_function(function () use ($sys, $base) { foreach (['wo_main', 'wo_list'] as $d) $sys->exec("DROP DATABASE IF EXISTS $d"); $sys->exec("DROP USER IF EXISTS 'wo'@'localhost'"); exec('rm -rf ' . escapeshellarg($base)); });   // also after a fatal
 $main->exec("CREATE TABLE users (id INT UNSIGNED PRIMARY KEY, email VARCHAR(190), display_name VARCHAR(160))");
 $main->exec("CREATE TABLE market_gateways (entity_id INT, provider VARCHAR(20), status VARCHAR(20), account_id VARCHAR(80), env VARCHAR(20))");
@@ -97,6 +97,17 @@ $t('our team gets one Work queue ticket per failed copy, naming the order and it
 $t('the card order\'s business is told not to record the payment itself', str_contains($cardMsg, 'will add it with its card payment, so don\'t record that payment yourself'));
 $t('the direct-pay order\'s business is told it can mark it paid once it\'s there', str_contains($msg, 'will add it, so you can mark it paid there'));
 $t('nothing of the card order half-written in business 202', (int) $list->query("SELECT COUNT(*) FROM biz_payments WHERE owner_id = 202 AND note LIKE '%sq-77'")->fetchColumn() === 0);
+
+// the hold waits for the copy: a direct-pay order whose copy failed isn't expired (nor its dates released) by the daily check until our team has linked it
+$main->exec("UPDATE market_orders SET hold_until = DATE_SUB(NOW(), INTERVAL 1 DAY) WHERE status = 'awaiting'");
+$tick = function () use ($main) { try { MarketCheckout::tick($main); } catch (Throwable $x) { echo '      (tick: ' . $x->getMessage() . ")\n"; } };
+$tick();
+$t('the order whose copy failed stays waiting past its hold', (string) $main->query('SELECT status FROM market_orders WHERE id = ' . (int) $o2['id'])->fetchColumn() === 'awaiting');
+$t('an order with its copy expires at its hold as before', (string) $main->query('SELECT status FROM market_orders WHERE id = ' . (int) $o['id'])->fetchColumn() === 'expired');
+$t('the ticket names the hold\'s deadline', (int) $main->query("SELECT COUNT(*) FROM control_gauge_tasks WHERE what LIKE 'Marketplace order #" . (int) $o2['id'] . ":%' AND why LIKE '%its hold, until %waits for the copy%'")->fetchColumn() === 1);
+$main->prepare('UPDATE market_orders SET biz_quote_id = 999 WHERE id = ?')->execute([(int) $o2['id']]);   // our team linked it
+$tick();
+$t('once its copy is linked, it expires at its hold like any other', (string) $main->query('SELECT status FROM market_orders WHERE id = ' . (int) $o2['id'])->fetchColumn() === 'expired');
 
 echo "\n$n checks, $bad failed\n";
 foreach (['wo_main', 'wo_list'] as $d) $sys->exec("DROP DATABASE IF EXISTS $d");

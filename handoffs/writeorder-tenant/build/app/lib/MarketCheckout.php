@@ -30,6 +30,8 @@ final class MarketCheckout
     /** a method's kind in the business's invoices (BizQuotes::METHODS) */
     private const QUOTE_METHOD = ['zelle' => 'zelle', 'bank' => 'bank', 'check' => 'check', 'pickup' => 'cash', 'other' => 'other', 'card' => 'card'];
     public const STATUSES = ['pending' => 'Paying', 'awaiting' => 'Waiting for payment', 'paid' => 'Paid', 'cancelled' => 'Cancelled', 'expired' => 'Expired', 'refunded' => 'Refunded'];
+    /** The note on an order whose copy failed (copyFailed): its hold doesn't run out until our team has put the copy there (tick). */
+    private const COPY_HELD = 'Its copy in the business\'s Quotes & invoices wasn\'t written; our team has it, and its hold waits for it.';
     public const CARD_HOLD_MIN = 35;   // a little past the gateway's own pay window (Stripe's session: 31 minutes), so nothing is paid for after release
     public const MAX_QTY = 999;
 
@@ -669,11 +671,11 @@ final class MarketCheckout
      */
     private static function copyFailed(PDO $pdo, array $o): void
     {
-        self::note($pdo, (int) $o['id'], 'Its copy in the business\'s Quotes & invoices wasn\'t written; our team has it.');
+        try { self::note($pdo, (int) $o['id'], self::COPY_HELD); } catch (Throwable $x) { error_log('market order ' . $o['id'] . ' copy note: ' . $x->getMessage()); }   // never stops the order's own steps
         try {
             require_once __DIR__ . '/GaugeTasks.php';
             GaugeTasks::add($pdo, 'area:backlog', 'Marketplace order #' . (int) $o['id'] . ': its copy in business ' . (int) $o['entity_id'] . '\'s Quotes & invoices wasn\'t written',
-                'Gate 5: MarketCheckout::writeOrder threw (the reason is in the server\'s log, "market order ' . (int) $o['id'] . ' to the business"); nothing half-written was left. The order is ' . ($o['method'] === 'card' ? 'paid by card' : 'waiting for a direct payment')
+                'Gate 5: MarketCheckout::writeOrder threw (the reason is in the server\'s log, "market order ' . (int) $o['id'] . ' to the business"); nothing half-written was left. The order is ' . ($o['method'] === 'card' ? 'paid by card' : 'waiting for a direct payment (its hold, until ' . (string) $o['hold_until'] . ' UTC, waits for the copy)')
                 . ', ' . self::money((int) $o['total_cents']) . '. The business was told our team has it.', 'MarketCheckout (a Marketplace order\'s copy)', 'the Marketplace', 0);
         } catch (Throwable $x) { error_log('market order ' . $o['id'] . ' copy ticket: ' . $x->getMessage()); }
     }
@@ -802,9 +804,10 @@ final class MarketCheckout
         $st = $pdo->prepare("SELECT id FROM market_orders WHERE status = 'pending' AND method = 'card' AND provider_ref <> '' AND created_at < ? LIMIT 200"); $st->execute([date('Y-m-d H:i:s', strtotime('-10 minutes'))]);
         foreach ($st->fetchAll(PDO::FETCH_COLUMN) as $id) { try { if (self::confirmAndMark($pdo, (int) $id)) $paid++; } catch (Throwable $x) { error_log('market reconcile: ' . $x->getMessage()); } }
         // a stay or rental waiting for a direct payment whose hold ran out: both sides are told its dates are released (decisions/0172 §2.5)
-        $st = $pdo->prepare("SELECT id FROM market_orders WHERE status = 'awaiting' AND hold_until < ? AND (order_lines LIKE '%\"kind\":\"booking\"%' OR order_lines LIKE '%\"kind\":\"rental\"%') LIMIT 200"); $st->execute([$now]);
+        $held = " AND NOT (note LIKE " . $pdo->quote('%' . self::COPY_HELD . '%') . " AND (biz_quote_id IS NULL OR biz_quote_id = 0))";   // a direct-pay order whose copy our team is putting there: never released before the business can mark it paid
+        $st = $pdo->prepare("SELECT id FROM market_orders WHERE status = 'awaiting' AND hold_until < ?" . $held . " AND (order_lines LIKE '%\"kind\":\"booking\"%' OR order_lines LIKE '%\"kind\":\"rental\"%') LIMIT 200"); $st->execute([$now]);
         $released = array_map('intval', $st->fetchAll(PDO::FETCH_COLUMN));
-        $st = $pdo->prepare("UPDATE market_orders SET status = 'expired', updated_at = ? WHERE status IN ('pending','awaiting') AND hold_until < ?"); $st->execute([$now, $now]); $expired = $st->rowCount();
+        $st = $pdo->prepare("UPDATE market_orders SET status = 'expired', updated_at = ? WHERE status IN ('pending','awaiting') AND hold_until < ?" . $held); $st->execute([$now, $now]); $expired = $st->rowCount();
         if ($released) {
             require_once __DIR__ . '/Bookings.php';
             foreach ($released as $id) {
