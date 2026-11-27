@@ -27,6 +27,7 @@ holiday" (Jason, 2026-11-27). Nothing changes until he answers. Brief D (the CEO
 | 0179: publish authority, interim daily batch, target safe kinds alone (2026-11-25) | **Decision, in effect now for sessions** (daily batch); rule 2 waits for piece 3 | session manager | the daily summary written in chat until piece 2 builds its page |
 | Piece 2: Team roster, three ticket types, agent runner, staging only (approved and pre-approved to publish, 2026-11-25) | P2-2 team-roster, P2-1 team-tickets, P2-3 team-runner, P2-4 audit, P2-5 daily batch, in that order | Piece 2 build (session_01CXLi5kEx1NbamxWYoRxUDh) | built and reviewed; each sent once the one before is live and synced |
 | Gaps for Jason's return (session manager's holiday rulings) | — | — | Q-A: tickets reach the Team by a person's "Give it to the Team", or by themselves only when the audit raised them; Q-B: no stall limit per stage (none decided), so no stall step |
+| The site's stylesheet built once with the tailwindcss CLI, in place of the Play CDN (Jason, 2026-11-27: "Yes to the stylesheet"; note on `design/css-theme-brand.md`) | its own release, after C.5a and C.5b | Frontend & Shop | a plan to the session manager first, then the Design reviewer at 1280 and 390 on every page kind |
 | Piece 3: before-and-after check, Undo per agent action, spend limit per agent (2026-11-25) | not started | — | after piece 2; switches on 0179 rule 2 |
 
 ## Queued, in order
