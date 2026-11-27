@@ -1,6 +1,18 @@
 {
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
- "claims": [],
+ "claims": [
+  {
+   "path": "app/ui/security-headers.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
+   "why": "G.1: the search lock's leaks closed (decisions/0181 \u00a74)",
+   "since": "2026-11-27T01:52:14Z",
+   "expires": "2026-11-27T05:52:14Z",
+   "release": "",
+   "callers": {}
+  }
+ ],
  "lapsed": [
   {
    "path": "app/lib/TeamRunner.php",
