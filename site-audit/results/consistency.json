@@ -1,9 +1,9 @@
 {
- "at": "2026-11-27T02:05:07.680Z",
+ "at": "2026-11-27T10:20:41.375Z",
  "consistency": {
   "alarms": 300,
-  "open": 46,
-  "checks": 1539,
+  "open": 42,
+  "checks": 1531,
   "mismatches": [],
   "by_check": []
  },
@@ -11,69 +11,69 @@
   "hours": 24,
   "endpoints": {
    "crawl/geocode": {
-    "calls": 87,
-    "ok": 87,
+    "calls": 89,
+    "ok": 89,
     "client_errors": 0,
     "server_errors": 0,
     "received": 0,
     "sent": 0,
+    "stored": 0,
+    "updated": 2,
+    "review": 0,
+    "refused": 0,
+    "ms_avg": 112
+   },
+   "crawl/guides": {
+    "calls": 122,
+    "ok": 122,
+    "client_errors": 0,
+    "server_errors": 0,
+    "received": 0,
+    "sent": 0,
+    "stored": 0,
+    "updated": 0,
+    "review": 0,
+    "refused": 0,
+    "ms_avg": 4
+   },
+   "crawl/heritage": {
+    "calls": 134,
+    "ok": 134,
+    "client_errors": 0,
+    "server_errors": 0,
+    "received": 0,
+    "sent": 24,
+    "stored": 0,
+    "updated": 0,
+    "review": 0,
+    "refused": 0,
+    "ms_avg": 4
+   },
+   "crawl/identity": {
+    "calls": 372,
+    "ok": 372,
+    "client_errors": 0,
+    "server_errors": 0,
+    "received": 4,
+    "sent": 125,
     "stored": 0,
     "updated": 1,
     "review": 0,
     "refused": 0,
-    "ms_avg": 106
-   },
-   "crawl/guides": {
-    "calls": 120,
-    "ok": 120,
-    "client_errors": 0,
-    "server_errors": 0,
-    "received": 0,
-    "sent": 0,
-    "stored": 0,
-    "updated": 0,
-    "review": 0,
-    "refused": 0,
-    "ms_avg": 3
-   },
-   "crawl/heritage": {
-    "calls": 131,
-    "ok": 131,
-    "client_errors": 0,
-    "server_errors": 0,
-    "received": 0,
-    "sent": 22,
-    "stored": 0,
-    "updated": 0,
-    "review": 0,
-    "refused": 0,
-    "ms_avg": 3
-   },
-   "crawl/identity": {
-    "calls": 729,
-    "ok": 729,
-    "client_errors": 0,
-    "server_errors": 0,
-    "received": 17,
-    "sent": 413,
-    "stored": 0,
-    "updated": 6,
-    "review": 0,
-    "refused": 0,
-    "ms_avg": 439
+    "ms_avg": 396
    },
    "crawl/index": {
-    "calls": 8555,
-    "ok": 8555,
+    "calls": 8556,
+    "ok": 8556,
     "client_errors": 0,
     "server_errors": 0,
-    "received": 1934000,
-    "sent": 45045,
-    "stored": 1933718,
+    "received": 1934500,
+    "sent": 44990,
+    "stored": 1934152,
     "updated": 0,
     "review": 0,
-    "refused": 282,
-    "ms_avg": 48
+    "refused": 348,
+    "ms_avg": 54
    },
    "crawl/landmarks": {
     "calls": 1,
@@ -89,17 +89,17 @@
     "ms_avg": 3
    },
    "crawl/learn": {
-    "calls": 120,
-    "ok": 120,
+    "calls": 122,
+    "ok": 122,
     "client_errors": 0,
     "server_errors": 0,
     "received": 0,
-    "sent": 388800,
+    "sent": 395280,
     "stored": 0,
     "updated": 0,
     "review": 0,
     "refused": 0,
-    "ms_avg": 20
+    "ms_avg": 22
    },
    "crawl/places": {
     "calls": 60,
@@ -112,7 +112,7 @@
     "updated": 0,
     "review": 0,
     "refused": 0,
-    "ms_avg": 103
+    "ms_avg": 107
    },
    "crawl/rec": {
     "calls": 1,
@@ -128,17 +128,17 @@
     "ms_avg": 2
    },
    "crawl/refresh": {
-    "calls": 852,
-    "ok": 852,
+    "calls": 864,
+    "ok": 864,
     "client_errors": 0,
     "server_errors": 0,
-    "received": 121,
-    "sent": 603,
-    "stored": 1,
-    "updated": 853,
-    "review": 86,
+    "received": 120,
+    "sent": 612,
+    "stored": 2,
+    "updated": 865,
+    "review": 88,
     "refused": 0,
-    "ms_avg": 100
+    "ms_avg": 106
    },
    "crawl/service": {
     "calls": 576,
@@ -151,11 +151,11 @@
     "updated": 0,
     "review": 0,
     "refused": 0,
-    "ms_avg": 372
+    "ms_avg": 407
    },
    "crawl/usage": {
-    "calls": 819,
-    "ok": 819,
+    "calls": 822,
+    "ok": 822,
     "client_errors": 0,
     "server_errors": 0,
     "received": 0,
@@ -164,7 +164,7 @@
     "updated": 0,
     "review": 0,
     "refused": 0,
-    "ms_avg": 4
+    "ms_avg": 5
    },
    "video/jobs": {
     "calls": 288,
@@ -182,20 +182,20 @@
   },
   "workflows": {
    "wf:W2": {
-    "calls": 1728,
-    "ok": 1728,
+    "calls": 1385,
+    "ok": 1385,
     "client_errors": 0,
     "server_errors": 0,
-    "received": 168,
-    "sent": 1046,
-    "stored": 1,
-    "updated": 860,
-    "review": 86,
+    "received": 154,
+    "sent": 767,
+    "stored": 2,
+    "updated": 868,
+    "review": 88,
     "refused": 0
    },
    "wf:W11": {
-    "calls": 120,
-    "ok": 120,
+    "calls": 122,
+    "ok": 122,
     "client_errors": 0,
     "server_errors": 0,
     "received": 0,
@@ -206,28 +206,28 @@
     "refused": 0
    },
    "wf:W6": {
-    "calls": 131,
-    "ok": 131,
+    "calls": 134,
+    "ok": 134,
     "client_errors": 0,
     "server_errors": 0,
     "received": 0,
-    "sent": 22,
+    "sent": 24,
     "stored": 0,
     "updated": 0,
     "review": 0,
     "refused": 0
    },
    "wf:W0": {
-    "calls": 8555,
-    "ok": 8555,
+    "calls": 8556,
+    "ok": 8556,
     "client_errors": 0,
     "server_errors": 0,
-    "received": 1934000,
-    "sent": 45045,
-    "stored": 1933718,
+    "received": 1934500,
+    "sent": 44990,
+    "stored": 1934152,
     "updated": 0,
     "review": 0,
-    "refused": 282
+    "refused": 348
    },
    "wf:W9": {
     "calls": 2,
@@ -242,20 +242,20 @@
     "refused": 0
    },
    "wf:W12": {
-    "calls": 120,
-    "ok": 120,
+    "calls": 122,
+    "ok": 122,
     "client_errors": 0,
     "server_errors": 0,
     "received": 0,
-    "sent": 388800,
+    "sent": 395280,
     "stored": 0,
     "updated": 0,
     "review": 0,
     "refused": 0
    },
    "wk:crawler": {
-    "calls": 1395,
-    "ok": 1395,
+    "calls": 1398,
+    "ok": 1398,
     "client_errors": 0,
     "server_errors": 0,
     "received": 0,
