@@ -213,6 +213,17 @@
    "expires": "2026-11-27T17:35:26Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/migrations/2026-11-27_e1_st_johns_renew.sql",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jsi4U8fUwJYPkZsMx",
+   "why": "E.1: St. Johns' guide renewed from its research brief (gate 3)",
+   "since": "2026-11-27T13:40:27Z",
+   "expires": "2026-11-27T17:40:27Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
