@@ -52,8 +52,10 @@ Founder ruling or an OK) is written for him, through the CEO session ("Asking Ja
 
 Jason: "after months of development I'm still having to re-engage a repeating loop of machine work/fixes. I need you to
 represent me in ceasing this and move us forward to market release." (The CEO's Tier 4, enforcing 0181 §2; recorded as
-Operations & Policy (16).) Every ticket names the gate (1–6) it moves, or a live harm to people or money; without one it's
-logged in its role's queue, not built before Jan 1. No new tooling, meters, board features, check refinements or process
+Operations & Policy (16).) Every ticket names the gate (1–6) it moves, or a live harm to people or money, or the revenue goal
+it enables (0181's ladder) or the money it protects (caps, meters, the money line), the indirect link stated (Jason,
+2026-11-27: "dont narrow your view to disregard indirect over direct implications"); without one it's logged in its
+role's queue, not built before Jan 1. No new tooling, meters, board features, check refinements or process
 releases unless one blocks a gate; rollout releases get 0181 §2's one slot a day. What reaches Jason: a Tier 5 brief, live
 harm, and the CEO's one daily launch report against the gates. No new sessions before launch.
 
