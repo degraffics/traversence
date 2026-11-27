@@ -297,6 +297,11 @@ export function compare(b1, b2, a, exp = {}, release = '', heldKey = STAGING?.to
     const b = B.get(key(f)), bb = B2.get(key(f)); if (!b) { notes.push(`${key(f)}: no before look to compare`); continue; }
     if (f.retried) notes.push(`${key(f)}: timed out once, opened again (${f.error ? 'timed out again' : 'answered ' + f.status})`);
     if (unusable(b)) { notes.push(`${key(f)}: its before look wasn't usable (staging answered ${b.status || b.error || 'nothing'}); not compared`); continue; }
+    // a before look that timed out holds only the part of the page drawn by then (#323's look, /admin/crawler-review.php at
+    // 390: its header, not its "Find any listing to edit" box), so the page opening in full after reads as new parts. On a page
+    // the release doesn't reach, that's staging's slowness, never this change's: said, not compared. A page it reaches is
+    // still compared (its change has to be seen)
+    if (b.error && /Timeout/i.test(b.error) && !f.error && !expected.has(f.url)) { notes.push(`${key(f)}: its before look timed out (part of the page drawn), and it opened in full after, on a page this release doesn't reach: staging is slow there (the IT Manager's lane), not compared`); continue; }
     compared++;
     // a view that timed out after, on a page the release doesn't reach (reach.py's pages, the names it gives), is staging's
     // slowness, not the change: noted for the IT Manager's lane, never an access block (#307's look, /admin/crawler-review.php,
