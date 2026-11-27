@@ -133,14 +133,12 @@
   },
   {
    "path": "app/lib/crawler/OpenLoads.php",
-   "functions": [
-    "batch"
-   ],
+   "functions": [],
    "kind": "change",
    "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
-   "why": "W1 load trips (#11): a load batch's reply accounts for every record it received (launch plan B.7)",
+   "why": "W1 load trips (#11): the ledger reads a closure as updated (COUNTS); batch's docblock names its new counts",
    "since": "2026-11-27T02:02:11Z",
-   "expires": "2026-11-27T06:02:11Z",
+   "expires": "2026-11-27T06:09:36Z",
    "release": "",
    "callers": {
     "batch": [
@@ -150,14 +148,12 @@
   },
   {
    "path": "app/lib/ControlLedger.php",
-   "functions": [
-    "counts"
-   ],
+   "functions": [],
    "kind": "change",
    "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
-   "why": "W1 load trips (#11): a load batch's reply accounts for every record it received (launch plan B.7)",
+   "why": "W1 load trips (#11): the ledger reads a closure as updated (COUNTS); batch's docblock names its new counts",
    "since": "2026-11-27T02:02:11Z",
-   "expires": "2026-11-27T06:02:11Z",
+   "expires": "2026-11-27T06:09:36Z",
    "release": "",
    "callers": {}
   }
