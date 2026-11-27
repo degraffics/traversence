@@ -231,6 +231,60 @@
    "expires": "2026-11-27T06:29:34Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/Jurisdictions.php",
+   "functions": [
+    "closedWhy",
+    "regionOpen",
+    "review",
+    "reviewer",
+    "undoReview"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jsi4U8fUwJYPkZsMx",
+   "why": "J1: a region opens on its team-reviewed jurisdiction record (Jason, 2026-11-27, R8 advisory; 0164 R8/R17 note)",
+   "since": "2026-11-27T02:30:01Z",
+   "expires": "2026-11-27T06:30:01Z",
+   "release": "j1-jurisdictions.zip",
+   "callers": {
+    "regionOpen": [
+     "app/admin/sections.php",
+     "app/lib/Heritage.php"
+    ],
+    "review": [
+     "app/admin/sections.php"
+    ],
+    "closedWhy": [
+     "app/lib/Guides.php"
+    ]
+   }
+  },
+  {
+   "path": "app/admin/sections.php",
+   "functions": [
+    "tv_admin_mod_jurisdictions"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jsi4U8fUwJYPkZsMx",
+   "why": "J1: a region opens on its team-reviewed jurisdiction record (Jason, 2026-11-27, R8 advisory; 0164 R8/R17 note)",
+   "since": "2026-11-27T02:30:01Z",
+   "expires": "2026-11-27T06:30:01Z",
+   "release": "j1-jurisdictions.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/HubOpening.php",
+   "functions": [
+    "lawSigned"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jsi4U8fUwJYPkZsMx",
+   "why": "J1: a region opens on its team-reviewed jurisdiction record (Jason, 2026-11-27, R8 advisory; 0164 R8/R17 note)",
+   "since": "2026-11-27T02:30:01Z",
+   "expires": "2026-11-27T06:30:01Z",
+   "release": "j1-jurisdictions.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
