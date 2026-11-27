@@ -8,10 +8,10 @@ not as a hand-over (builder playbook §5).
 
 | # | Release | Source | State |
 |---|---|---|---|
-| 1 | **G.1 the search lock's leaks** (`search-lock.zip`) | 0181 §4 | Built on Sync 2026-11-27 01:35 UTC; zip check clean; sent to the session manager for its order OK and to the Design reviewer |
+| 1 | **G.1 the search lock's leaks** (`search-lock.zip`) | 0181 §4 | Built on Sync 2026-11-27 01:35 UTC; zip check clean; the Design reviewer's one fix made (private or confidential businesses named in the FAQ), approved once made; waiting for the session manager's order OK |
 | 2 | **C.1 the device's place read as "outside"** (`device-place.zip`, build in `c1-device-place/`) | plan C.1; CLAUDE.md "Places in search", 0060 | Built on Sync 01:35 UTC, tested; waits for G.1 to go live, then rebuilt on the newest sync |
-| 3 | C.2 the path checker: sign-in selector (`paths.mjs`) and the staff two-step | plan C.2; 0145 | Queued |
-| 4 | C.3 new 0145 paths: each 1A town; the Shop, plan-buy, Marketplace-buy in the sandbox | 0181 §1.2; 0145 §2 | Queued |
+| 3 | **C.2 the path checker** (repo only, branch `claude/c2-path-checker`): the phone menu's Sign in, and staff two-step codes never reused | plan C.2; 0145 | Built and tested (`tools/path-checker-tests/staff-in.mjs` 4/4; the selector miss reproduced on the harness); PR after G.1's |
+| 4 | **C.3 the launch paths** (same branch): each 1A town's eat, stay, see, guide; the three buying paths defined | 0181 §1 gate 2; 0145 §2 | Town paths built and run on the harness; buying paths' steps written, their runners next (sandbox, staging only, tested against the payment mock first) |
 | 5+ | The rest of C and F in the plan's order | plan §4 C, F | Queued |
 
 ## G.1: the search lock (search-lock.zip)
@@ -58,3 +58,20 @@ and a point at sea stay outside; an unknown slug falls through). The whole `Univ
 before, "pizza" with Show Low set gave the place chip `out=true`; after, `out=false`; Seattle `out=true` both. The
 effect on the live notes ("did you mean", "We have no listings in …") is checked on live after it publishes, with the
 search probe.
+
+## C.2 and C.3: the path checker (repo only)
+
+- **Sign in** (`paths.mjs`): since #253 the phone menu's Sign in is `a.tvpm-sin` and `.tvpm-in` is the menu's column, so
+  after opening the menu at 390 the old list found no visible Sign in (`a[href="/login.php"]`'s first match is the
+  hidden panel copy). Reproduced on the harness with `.hidden` applied; the new list finds it.
+- **Staff two-step** (`check-kit.mjs`): the site takes each 30-second step once (`StaffLogin::totpMatch`,
+  `totp_last_step`); the run signs the same logins in several times, so later sign-ins got "That code doesn't match".
+  `staffIn` keeps the last step per login (in the process and a temp file the run's steps share), waits for a fresh step,
+  and retries once on the next. Old code fails the stand-in with the live error; new passes 4/4.
+- **Launch paths** (`paths.mjs`): `1a:<town>:eat|stay|see|guide` for regions.md's 1A towns (six; "Petrified Forest
+  gateway" names no town: gap sent to the session manager), with their own 300 s budget, and a Launch paths table in
+  `paths.md`. `shop-buy`, `plan-buy`, `market-buy` defined (staging, sandbox, a runner stops unless the page says Test
+  mode); runners next.
+
+Harness note: Tailwind's CDN is refused in this sandbox, so `.hidden` and the utilities don't apply unless stood in for
+(a stylesheet built with `tailwindcss@3.4.17` from the site's files, served in place of the CDN by Playwright's route).
