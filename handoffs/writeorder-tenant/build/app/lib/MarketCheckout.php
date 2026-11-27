@@ -389,9 +389,9 @@ final class MarketCheckout
         if ($fromCart) $pdo->prepare('DELETE FROM market_cart WHERE user_id = ? AND entity_id = ?')->execute([$uid, $e]);
         if (!$card) {   // a direct way: the business's order now, waiting for its payment; the buyer gets the instructions
             $copy = '';   // the business's own order: a failure is noted and said, never the buyer's error (the order is placed)
-            try { self::writeOrder($pdo, $o, null); } catch (Throwable $x) { error_log('market order to the business: ' . $x->getMessage()); $copy = $x->getMessage(); self::note($pdo, (int) $o['id'], 'Placed, but the business\'s own order wasn\'t written: ' . $copy); }
+            try { self::writeOrder($pdo, $o, null); } catch (Throwable $x) { error_log('market order ' . $o['id'] . ' to the business: ' . $x->getMessage()); $copy = 'no'; }
             self::notify($pdo, $o, 'New order #' . $o['id'] . ' from the Marketplace: ' . self::money((int) $o['total_cents']) . ', paying by ' . strtolower($ways[$method]) . '. '
-                . ($copy === '' ? 'Mark it paid in Quotes & invoices when it arrives.' : 'Its invoice in Quotes & invoices wasn\'t written (' . mb_substr($copy, 0, 120) . '). The order and its total are in your Marketplace orders.'));
+                . ($copy === '' ? 'Mark it paid in Quotes & invoices when it arrives.' : self::copyLater()));
             self::mailBuyer($pdo, $o, 'Your order from ' . self::bizName($pdo, $e) . ': how to pay', self::instructions($pdo, $o));
         }
         return self::get($pdo, (int) $o['id']);
@@ -585,10 +585,10 @@ final class MarketCheckout
             catch (Throwable $x) { error_log('market order to Square: ' . $x->getMessage()); self::note($pdo, $id, 'Paid; Square\'s stock or order wasn\'t updated (' . $x->getMessage() . '): adjust it in Square.'); }
         }
         if ($via !== 'quote') {
-            try { self::writeOrder($pdo, $o, $ref); } catch (Throwable $x) { error_log('market order to the business: ' . $x->getMessage()); self::note($pdo, $id, 'Paid, but the business\'s own order wasn\'t written: ' . $x->getMessage()); }
+            $copy = true; try { self::writeOrder($pdo, $o, $ref); } catch (Throwable $x) { error_log('market order ' . $id . ' to the business: ' . $x->getMessage()); $copy = false; }
             $mto = in_array('madetoorder', array_column((array) $o['lines'], 'kind'), true);
-            self::notify($pdo, $o, 'Order #' . $o['id'] . ' from the Marketplace is paid by card: ' . self::money(self::due($o)) . (self::due($o) < (int) $o['total_cents'] ? ' deposit of ' . self::money((int) $o['total_cents']) : '') . '. It\'s in your Orders.'
-                . ($mto ? ' Made to order: in Quotes & invoices, add your proof to it and Send; the buyer approves the proof and pays the balance from there.' : ''));
+            self::notify($pdo, $o, 'Order #' . $o['id'] . ' from the Marketplace is paid by card: ' . self::money(self::due($o)) . (self::due($o) < (int) $o['total_cents'] ? ' deposit of ' . self::money((int) $o['total_cents']) : '') . '. ' . ($copy ? 'It\'s in your Orders.' : self::copyLater())
+                . ($mto && $copy ? ' Made to order: in Quotes & invoices, add your proof to it and Send; the buyer approves the proof and pays the balance from there.' : ''));
         }
         $got = []; try { $got = KindCheckout::fulfil($pdo, $o); } catch (Throwable $x) { error_log('market order ' . $id . ' fulfil: ' . $x->getMessage()); self::note($pdo, $id, 'Paid, but its tickets or download weren\'t made: ' . $x->getMessage()); }   // tickets, downloads (decisions/0141 §5)
         $due = self::due($o);
@@ -618,28 +618,75 @@ final class MarketCheckout
      */
     private static function writeOrder(PDO $pdo, array $o, ?string $paidRef): void
     {
-        require_once __DIR__ . '/BusinessData.php'; require_once __DIR__ . '/BizQuotes.php';
+        require_once __DIR__ . '/BusinessData.php'; require_once __DIR__ . '/BizQuotes.php'; require_once __DIR__ . '/Customers.php';
         $main = Database::connection();
-        BusinessData::scoped((int) $o['entity_id'], function () use ($pdo, $o, $paidRef, $main) {   // the tenant put back after, also on a throw
-        $qid = (int) ($o['biz_quote_id'] ?? 0);
-        if (!$qid) {
-            $qid = BizQuotes::create($main, (string) $o['email'], (string) $o['name'], 'Marketplace order #' . (int) $o['id'], 0);
-            foreach ($o['lines'] as $l) {
-                $price = number_format((int) $l['unit_cents'] / 100, 2, '.', '');
-                try { BizQuotes::addLine($main, $qid, (int) $l['product_id'], (string) $l['title'], (int) $l['qty'], $price, (string) (int) $l['taxable'], 0); }
-                catch (InvalidArgumentException $x) { BizQuotes::addLine($main, $qid, 0, (string) $l['title'], (int) $l['qty'], $price, (string) (int) $l['taxable'], 0); }   // gone from the catalog since
+        $had = (int) ($o['biz_quote_id'] ?? 0);
+        $qid = BusinessData::scoped((int) $o['entity_id'], function (PDO $bp) use ($pdo, $o, $paidRef, $main, $had): int {   // the tenant put back after, also on a throw
+            Customers::ensure($main);   // its one-time set-up first: nothing in it may end the transaction below
+            $title = 'Marketplace order #' . (int) $o['id'];
+            $note = (MarketPay::PROVIDERS[$o['provider']] ?? 'Card') . ($paidRef !== null && $paidRef !== '' ? ' ' . $paidRef : '');
+            $bp->beginTransaction();   // the copy whole or not at all: its lines, its total and its payment; a throw leaves nothing in the business's books
+            try {
+                $qid = $had;
+                if (!$qid) {   // written before but never linked (the link below failed): that one, never a second
+                    $st = $bp->prepare('SELECT id FROM ' . Scope::t('biz_quotes') . ' WHERE title = ? ORDER BY id LIMIT 1'); $st->execute([$title]);
+                    $qid = (int) $st->fetchColumn();
+                }
+                if (!$qid) {
+                    $qid = BizQuotes::create($main, (string) $o['email'], (string) $o['name'], $title, 0);
+                    foreach ($o['lines'] as $l) {
+                        $price = number_format((int) $l['unit_cents'] / 100, 2, '.', '');
+                        try { BizQuotes::addLine($main, $qid, (int) $l['product_id'], (string) $l['title'], (int) $l['qty'], $price, (string) (int) $l['taxable'], 0); }
+                        catch (InvalidArgumentException $x) { BizQuotes::addLine($main, $qid, 0, (string) $l['title'], (int) $l['qty'], $price, (string) (int) $l['taxable'], 0); }   // gone from the catalog since
+                    }
+                    if ((int) $o['ship_cents']) BizQuotes::addLine($main, $qid, 0, (string) $o['ship_name'], 1, number_format((int) $o['ship_cents'] / 100, 2, '.', ''), '0', 0);
+                    $s = self::settings($pdo, (int) $o['entity_id']);
+                    $how = $o['method'] === 'card' ? 'Paid by card on the Traversence Marketplace' : self::instructions($pdo, $o);
+                    $bp->prepare('UPDATE ' . Scope::t('biz_quotes') . " SET tax_milli = ?, deposit_pct = " . (self::due($o) < (int) $o['total_cents'] ? (int) round(100 * self::due($o) / max(1, (int) $o['total_cents'])) : 0) . ", status = 'approved', stage = 'new', approved_at = ?, approved_name = ?, due_at = ?, total_cents = ?, pay_note = ?, notes = ?, updated_at = ? WHERE id = ?")
+                        ->execute([(int) $s['tax_milli'], self::now(), 'Ordered on the Traversence Marketplace', date('Y-m-d', strtotime((string) $o['hold_until'])), (int) $o['total_cents'], mb_substr($how, 0, 400),
+                            trim($title . ' · ' . $o['ship_name'] . ($o['ship_address'] !== '' ? ': ' . $o['ship_address'] : '') . ($o['note'] !== '' ? "\n" . $o['note'] : '')), self::now(), $qid]);
+                }
+                if ($paidRef !== null) {   // the card payment, once: a copy written before with it already recorded isn't paid again
+                    $st = $bp->prepare('SELECT COUNT(*) FROM ' . Scope::t('biz_payments') . ' WHERE quote_id = ? AND note = ?'); $st->execute([$qid, mb_substr($note, 0, 300)]);
+                    if (!(int) $st->fetchColumn()) BizQuotes::pay($main, $qid, number_format(self::due($o) / 100, 2, '.', ''), 'card', date('Y-m-d'), $note, 0);
+                }
+                $bp->commit();
+                return $qid;
+            } catch (Throwable $x) {
+                if ($bp->inTransaction()) $bp->rollBack();
+                throw $x;
             }
-            if ((int) $o['ship_cents']) BizQuotes::addLine($main, $qid, 0, (string) $o['ship_name'], 1, number_format((int) $o['ship_cents'] / 100, 2, '.', ''), '0', 0);
-            $s = self::settings($pdo, (int) $o['entity_id']);
-            $how = $o['method'] === 'card' ? 'Paid by card on the Traversence Marketplace' : self::instructions($pdo, $o);
-            $bp = Scope::pdo($main);
-            $bp->prepare('UPDATE ' . Scope::t('biz_quotes') . " SET tax_milli = ?, deposit_pct = " . (self::due($o) < (int) $o['total_cents'] ? (int) round(100 * self::due($o) / max(1, (int) $o['total_cents'])) : 0) . ", status = 'approved', stage = 'new', approved_at = ?, approved_name = ?, due_at = ?, total_cents = ?, pay_note = ?, notes = ?, updated_at = ? WHERE id = ?")
-                ->execute([(int) $s['tax_milli'], self::now(), 'Ordered on the Traversence Marketplace', date('Y-m-d', strtotime((string) $o['hold_until'])), (int) $o['total_cents'], mb_substr($how, 0, 400),
-                    trim('Marketplace order #' . (int) $o['id'] . ' · ' . $o['ship_name'] . ($o['ship_address'] !== '' ? ': ' . $o['ship_address'] : '') . ($o['note'] !== '' ? "\n" . $o['note'] : '')), self::now(), $qid]);
-            $pdo->prepare('UPDATE market_orders SET biz_quote_id = ? WHERE id = ?')->execute([$qid, (int) $o['id']]);
-        }
-        if ($paidRef !== null) BizQuotes::pay($main, $qid, number_format(self::due($o) / 100, 2, '.', ''), 'card', date('Y-m-d'), (MarketPay::PROVIDERS[$o['provider']] ?? 'Card') . ($paidRef !== '' ? ' ' . $paidRef : ''), 0);
         });
+        if ($qid !== $had) $pdo->prepare('UPDATE market_orders SET biz_quote_id = ? WHERE id = ?')->execute([$qid, (int) $o['id']]);
+    }
+
+    /**
+     * The daily pass's second try at a business's copy that couldn't be written (writeOrder threw; nothing half-written is
+     * left): orders waiting for a direct payment or paid by card with no copy yet, oldest first. Each written is linked and
+     * its business told it's in Quotes & invoices now. Before the expiry below, so a waiting order can still be marked paid.
+     */
+    private static function rewriteCopies(PDO $pdo): int
+    {
+        $st = $pdo->prepare("SELECT id FROM market_orders WHERE status IN ('awaiting','paid') AND (biz_quote_id IS NULL OR biz_quote_id = 0) AND created_at < ? AND note NOT LIKE ? ORDER BY id LIMIT 50");
+        $st->execute([date('Y-m-d H:i:s', strtotime('-10 minutes')), self::TEST_NOTE . '%']);
+        $done = 0;
+        foreach ($st->fetchAll(PDO::FETCH_COLUMN) as $id) {
+            $o = self::get($pdo, (int) $id);
+            if (!$o) continue;
+            try {
+                self::writeOrder($pdo, $o, $o['status'] === 'paid' ? (string) $o['provider_ref'] : null);
+                $done++;
+                self::notify($pdo, $o, 'Order #' . (int) $o['id'] . ' from the Marketplace is now in Quotes & invoices' . ($o['status'] === 'paid' ? ', with its card payment.' : ': mark it paid there when the payment arrives.'));
+            } catch (Throwable $x) { error_log('market order ' . $id . ' copy, second try: ' . $x->getMessage()); }
+        }
+        return $done;
+    }
+
+    /** What the business is told when its copy couldn't be written: where the order is now, and what happens next. */
+    private static function copyLater(): string
+    {
+        return 'Its invoice couldn\'t be added to Quotes & invoices just now. Until it is, the order and its total are in E-commerce setup → Marketplace orders. '
+            . 'It\'s added again at the next daily Marketplace check, and you\'ll get a message when it\'s there to mark paid. If that message doesn\'t come, write to support@traversence.com with the order number.';
     }
 
     // ---- telling people -----------------------------------------------------------------------------------------------
@@ -760,6 +807,7 @@ final class MarketCheckout
         // a stay or rental waiting for a direct payment whose hold ran out: both sides are told its dates are released (decisions/0172 §2.5)
         $st = $pdo->prepare("SELECT id FROM market_orders WHERE status = 'awaiting' AND hold_until < ? AND (order_lines LIKE '%\"kind\":\"booking\"%' OR order_lines LIKE '%\"kind\":\"rental\"%') LIMIT 200"); $st->execute([$now]);
         $released = array_map('intval', $st->fetchAll(PDO::FETCH_COLUMN));
+        try { self::rewriteCopies($pdo); } catch (Throwable $x) { error_log('market copies, second try: ' . $x->getMessage()); }   // before the expiry: a waiting order's copy, so it can still be marked paid
         $st = $pdo->prepare("UPDATE market_orders SET status = 'expired', updated_at = ? WHERE status IN ('pending','awaiting') AND hold_until < ?"); $st->execute([$now, $now]); $expired = $st->rowCount();
         if ($released) {
             require_once __DIR__ . '/Bookings.php';
