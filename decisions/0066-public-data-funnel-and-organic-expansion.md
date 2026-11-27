@@ -105,3 +105,17 @@ mark a sacred, burial or protected site can be named in our writing (a guide) wh
 place's own landmark page still waits for a person, and a place a nation has asked to be closed stays closed.
 
 **Since 2026-11-01** (decisions/0133, "The observations store is the identity record"): OpenStreetMap and other share-alike or commercial sources are leads only; nothing publishes without passing readiness (0076) and the listing confidence of 0133.
+
+- **Story only for what public sources already present on a nation's land** (Jason, 2026-11-27, ruling Q7: "B. If we
+  find it online it is already public, we share its story, we do not show how to violate sovereignty.").
+  - **What changes:** on a nation's land, a place that public sources already present is **story only**. It's named
+    and told as those sources present it, with "visit only with the authorization of <the nation>" and the nation's
+    visitor rules where they're public. It never gets a pin, coordinates, directions or access, and never how to go
+    there without the nation's authorization.
+  - **Unchanged, as sovereignty itself:**
+    - a place the nation has closed or restricted stays restricted, and reopens only at its request;
+    - a place no public source names stays held;
+    - the restricted vault of access details is never published;
+    - a person's call on a nation's sites stays, so an Editor confirms the public source before a place on nation land
+      moves to story only.
+  - **The build:** `Landmarks::publiclyKnown()` and `Jurisdictions::tier()` follow this rule, in one release.

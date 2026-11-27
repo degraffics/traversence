@@ -1536,3 +1536,17 @@ So:
   - It replaces R8's "an attorney signs" and R17's "stays Planned until that state's R8 record is signed" as gates.
   - A region opens on its team-reviewed record. `Jurisdictions::OPENED` gives way to the reviewed records, by a release.
   - 0066 is unchanged: nation-specific content stays held until the nation says so (Hawikuh included).
+
+- **Story only for what public sources already present on a nation's land** (Jason, 2026-11-27, ruling Q7, 0066 note; "B. If we
+  find it online it is already public, we share its story, we do not show how to violate sovereignty.").
+  - **What changes:** on a nation's land, a place that public sources already present is **story only**. It's named
+    and told as those sources present it, with "visit only with the authorization of <the nation>" and the nation's
+    visitor rules where they're public. It never gets a pin, coordinates, directions or access, and never how to go
+    there without the nation's authorization.
+  - **Unchanged, as sovereignty itself:**
+    - a place the nation has closed or restricted stays restricted, and reopens only at its request;
+    - a place no public source names stays held;
+    - the restricted vault of access details is never published;
+    - a person's call on a nation's sites stays, so an Editor confirms the public source before a place on nation land
+      moves to story only.
+  - **The build:** `Landmarks::publiclyKnown()` and `Jurisdictions::tier()` follow this rule, in one release.

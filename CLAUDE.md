@@ -425,6 +425,11 @@ wraps, `app/bootstrap.php` unwraps). JSON `fetch`: `JSON.stringify(window.tvSafe
   only to story only (named and told, no pin or coordinates); it shows fully only when the managing authority's page says
   it's open to visitors. Archaeological words are held like the sacred and burials (`Landmarks::publiclyKnown()`;
   Jason, 2026-11-14, decisions/0164 R7). "Closed by the nation" reopens only at its request. Never delete the data.
+- **On a nation's land, what public sources already present is story only** (Jason, 2026-11-27: "If we find it
+  online it is already public, we share its story, we do not show how to violate sovereignty"; 0066's note). It's named
+  and told as those sources present it, with "visit only with the authorization of <the nation>" and its visitor rules.
+  It never gets a pin, coordinates, directions or access, and an Editor confirms the public source first. A place the
+  nation closed, or that no public source names, stays held.
 - Anything about a user or owner is private unless they say otherwise.
 - All landmark reads go through `Landmarks::visibleSql()` / `visible()`; pins on nation land (`Nations::pin()`) move to a
   public place.
