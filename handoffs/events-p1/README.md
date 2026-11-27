@@ -15,7 +15,7 @@ Built 2026-11-27 on E1 (`handoffs/events-e1/`) and E2 (`handoffs/events-e2/`); s
 
 ## Tests
 - `tools/event-tests/events-parts.php <app> <e1 events.sql> <p1 sql>`: 22/22 on MariaDB.
-- `tools/event-tests/portal-parts.cjs <shots>`: 46/46 rendered at 1280 and 390, two owners (invite; take part with a line and a code, only live codes offered; the host sees both; the code switched off comes off with its notice, said once; remove/Undo; leave/Undo; no sideways scroll; no script errors). The harness needs a listings realm (`tvl`, DB_LISTINGS_*). Screens in `screens/`.
+- `tools/event-tests/portal-parts.cjs <shots>`: 49/49 rendered at 1280 and 390, two owners (invite; take part with a line and a code, only live codes offered; the host sees both; the code switched off comes off with its notice, said once; remove/Undo; leave/Undo; no sideways scroll; no script errors). The harness needs a listings realm (`tvl`, DB_LISTINGS_*). Screens in `screens/`.
 
 
 ## Design fixes (the Design reviewer, 5c391af and 94c92b7) and the live code (the session manager, 2026-11-27)
@@ -27,3 +27,12 @@ Built 2026-11-27 on E1 (`handoffs/events-e1/`) and E2 (`handoffs/events-e2/`); s
   in its dates and not used up, as "code SHOW10 until Dec 31"; otherwise the owner's line alone. Unreachable: nothing shown.
   The stored snapshot and the "Code taken off:" notice in the owner's Events stay (approved). The earlier gap note is replaced by this.
 - Editorial (12) reads the pilot's offer lines by hand before Dec 15 (the session manager); its queue is logged not-before-Jan-1.
+
+## Before live: the CTO's Tier 4 on `Events::liveCode` (the session manager, 2026-11-27: a data wall, 0110)
+Four things, each tested in `tools/event-tests/live-code.php` (17/17 on MariaDB, a realm built like BusinessData's):
+the read is limited to the one code that business attached (`WHERE code = ? LIMIT 1` through `b_biz_codes` only; same-named
+codes of two businesses each read only their own); it's read only (forty reads, the server's write counters unchanged; no
+write in its code); `@tv_tenant` is reset in `finally` after the read, also when it fails, and the next query sees no
+business's rows; only `[code, ends]` comes back (no counts, notes or other codes; the P2 page test checks the HTML too).
+Also: the guest's offer form at 390 (one-line field, the code select full width, Save offer and Leave below; tested).
+The sticky bars drawn part way down an earlier full-page screenshot were the screenshot's stitching, not the page.

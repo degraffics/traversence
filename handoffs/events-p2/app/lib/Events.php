@@ -402,21 +402,24 @@ final class Events
      * The code only while it's switched on, in its dates and not used up, with its last day; null otherwise, and null
      * when the data can't be reached (nothing shown rather than something untrue).
      */
-    public static function liveCode(int $entity, string $code): ?array
+    public static function liveCode(int $entity, string $code, ?PDO $db = null): ?array
     {
-        static $db = false, $seen = [];
+        static $own = null, $seen = [];
+        $code = strtoupper(trim($code));
         if ($code === '' || $entity <= 0) return null;
-        $k = $entity . ':' . $code; if (array_key_exists($k, $seen)) return $seen[$k];
+        $k = $entity . ':' . $code; if ($db === null && array_key_exists($k, $seen)) return $seen[$k];
+        $c = null;
         try {
-            if ($db === false) { require_once __DIR__ . '/BusinessData.php'; $db = Database::realmOwn('listings'); }
+            if ($db === null) { if ($own === null) { require_once __DIR__ . '/BusinessData.php'; $own = Database::realmOwn('listings'); } $db = $own; }
             $db->prepare('SET @tv_tenant = ?')->execute([$entity]);
-            $st = $db->prepare('SELECT code, active, starts, ends, max_uses, uses FROM `b_biz_codes` WHERE code = ?'); $st->execute([strtoupper($code)]);
-            $c = $st->fetch(PDO::FETCH_ASSOC) ?: null;
-            $db->exec('SET @tv_tenant = NULL');
+            try {   // one row: the code this business attached, and only the columns that decide whether it holds
+                $st = $db->prepare('SELECT code, active, starts, ends, max_uses, uses FROM `b_biz_codes` WHERE code = ? LIMIT 1'); $st->execute([$code]);
+                $c = $st->fetch(PDO::FETCH_ASSOC) ?: null;
+            } finally { $db->exec('SET @tv_tenant = NULL'); }   // never left set for the next query on this connection
         } catch (Throwable $x) { error_log('Events::liveCode ' . $entity . ': ' . $x->getMessage()); return $seen[$k] = null; }
         $today = date('Y-m-d');
-        if (!$c || !(int) $c['active'] || ($c['starts'] && (string) $c['starts'] > $today) || ($c['ends'] && (string) $c['ends'] < $today) || ((int) $c['max_uses'] && (int) $c['uses'] >= (int) $c['max_uses'])) return $seen[$k] = null;
-        return $seen[$k] = ['code' => (string) $c['code'], 'ends' => $c['ends'] ?: null];
+        $ok = $c && (int) $c['active'] && !($c['starts'] && (string) $c['starts'] > $today) && !($c['ends'] && (string) $c['ends'] < $today) && !((int) $c['max_uses'] && (int) $c['uses'] >= (int) $c['max_uses']);
+        return $seen[$k] = $ok ? ['code' => (string) $c['code'], 'ends' => $c['ends'] ?: null] : null;   // only these two reach a page: no counts, no other codes
     }
 
     /** "code SHOW10 until Dec 31": after the business's own words, the code and its last day only (the Design reviewer). */

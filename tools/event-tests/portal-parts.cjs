@@ -30,6 +30,9 @@ const sh = (q, db) => require('child_process').execFileSync('mysql', ['-utv', '-
   await gRow().locator('[data-ev-offer]').fill('10% off a pizza with your ticket'); await gRow().locator('[data-ev-code]').selectOption('SHOW10'); await gRow().locator('[data-ev-part=accept]').click(); await gp.waitForTimeout(1800);
   t(w + ' Take part: its line says so, honestly (the page comes with the next update)', /Taking part:/.test(await gRow().innerText()) && /next update/.test(await gRow().innerText()) && await gRow().locator('[data-ev-part=leave]').count() === 1);
   await gp.screenshot({ path: out + '/p1-guest-taking-part-' + w + '.png', fullPage: true });
+  const geo = await gRow().evaluate(r => { const b = s => r.querySelector(s).getBoundingClientRect(); const o = b('[data-ev-offer]'), k = b('[data-ev-code]'), sv = b('[data-ev-part=offer]'), lv = b('[data-ev-part=leave]'); return { oh: o.height, kw: k.width, rw: r.getBoundingClientRect().width, same: Math.abs(sv.top - lv.top) < 2, below: sv.top >= k.bottom - 1 }; });
+  t(w + ' the offer field is one line tall', geo.oh <= 48, JSON.stringify(geo));
+  if (w < 800) t(w + ' on a phone the code select has the full width, Save offer and Leave together below it', geo.kw >= geo.rw - 40 && geo.same && geo.below, JSON.stringify(geo));
   await hp.reload(); await hp.waitForTimeout(500);
   t(w + ' one filled button in each view (brand.md §4): New event only', await hp.locator('.ak-b.go:visible').count() === 1 && await gp.locator('.ak-b.go:visible').count() <= 1);
   t(w + ' the offer and the code have visible labels', await gp.locator('label.ev-lab', { hasText: 'Your offer' }).count() >= 1 && await gp.locator('label.ev-lab', { hasText: 'Discount code' }).count() >= 1);
