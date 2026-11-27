@@ -1,9 +1,8 @@
 <?php
 // tools/market-tests/write-order-place.php <root>: placing a direct-pay order whose copy in the business's data fails
 // (MarketCheckout::place, the !$card branch), and a card order's (markPaid). The order is placed or paid, the buyer still
-// gets the payment instructions or the receipt, the business is told where the order is meanwhile and that it's added
-// again at the daily check (never the raw error); the daily second try (rewriteCopies) writes it once it can, links it,
-// records a card payment once and tells the business; with a working copy, the usual words.
+// gets the payment instructions or the receipt, the business is told where the order is meanwhile and that our team adds
+// the invoice (never the raw error), and the team gets one Work queue ticket per order; with a working copy, the usual words.
 // Runs MarketCheckout, BusinessData, Scope and BizQuotes as built on a copy of <root>'s app/ in which the outside
 // libraries the branch passes through (MarketBiz, KindCheckout, Standing, policies, messages, mail) are stand-ins that
 // record what they're given. MariaDB: makes and drops wo_main and wo_list.
@@ -75,7 +74,7 @@ try { $o2 = MarketCheckout::place($main, 10, 101, ['item' => 1, 'qty' => 1, 'met
 $t('a failed copy never reaches the buyer as an error', $threw === '' && ($o2['status'] ?? '') === 'awaiting');
 $t('the buyer still gets how to pay', count(Mailer::$sent) === $mails + 1 && str_contains(end(Mailer::$sent)[2], 'by Zelle'));
 $msg = end(BizMessages::$sent);
-$t('the business is told where the order is meanwhile and what happens next', str_contains($msg, 'couldn\'t be added to Quotes & invoices just now') && str_contains($msg, 'E-commerce setup → Marketplace orders') && str_contains($msg, 'next daily Marketplace check') && str_contains($msg, 'support@traversence.com') && !str_contains($msg, 'Mark it paid in Quotes'));
+$t('the business is told where the order is meanwhile and what happens next', str_contains($msg, 'couldn\'t be added to Quotes & invoices yet') && str_contains($msg, 'E-commerce setup → Marketplace orders') && str_contains($msg, 'Our team has been told') && str_contains($msg, 'support@traversence.com') && !str_contains($msg, 'Mark it paid in Quotes'));
 $t('the raw error never reaches the business', !str_contains($msg, 'Add the customer') && !str_contains($msg, 'SQLSTATE'));
 $t('nothing half-written in the business\'s data', (int) $list->query('SELECT COUNT(*) FROM biz_quotes WHERE owner_id = 101')->fetchColumn() === 1);
 $t('the scope is at 0 after the failure', Scope::owner() === 0 && !Scope::isBusiness());
@@ -84,31 +83,20 @@ $t('the scope is at 0 after the failure', Scope::owner() === 0 && !Scope::isBusi
 $o3 = MarketCheckout::place($main, 9, 202, ["item" => 2, 'qty' => 1, 'method' => 'zelle']);
 $t('the next business\'s order in the same request is written in its own data', (int) $list->query('SELECT COUNT(*) FROM biz_quotes WHERE owner_id = 202')->fetchColumn() === 1);
 
-// the daily second try (rewriteCopies, before the expiry): still failing, nothing said; once it can be written, written and said
-$rw = new ReflectionMethod('MarketCheckout', 'rewriteCopies'); $rw->setAccessible(true);
-$main->exec('UPDATE market_orders SET created_at = DATE_SUB(NOW(), INTERVAL 1 HOUR)');
-$said = count(BizMessages::$sent);
-$t('the second try while it still can\'t be written: nothing written, nothing said', $rw->invoke(null, $main) === 0 && count(BizMessages::$sent) === $said && Scope::owner() === 0);
-$main->prepare('UPDATE market_orders SET email = ? WHERE id = ?')->execute(['fixed@example.test', (int) $o2['id']]);
-$t('once it can be, the second try writes it', $rw->invoke(null, $main) === 1 && (int) $list->query('SELECT COUNT(*) FROM biz_quotes WHERE owner_id = 101')->fetchColumn() === 2);
-$t('and links the order to it', (int) $main->query('SELECT IFNULL(biz_quote_id, 0) FROM market_orders WHERE id = ' . (int) $o2['id'])->fetchColumn() > 0);
-$t('the business is told it\'s there to mark paid', str_contains(end(BizMessages::$sent), 'is now in Quotes & invoices: mark it paid there'));
-$t('a third pass finds nothing left to write', $rw->invoke(null, $main) === 0);
-
 // a card order whose copy fails: paid, the business told the same, then the second try records its payment once
 $main->exec("INSERT INTO market_orders (token, entity_id, buyer_id, email, name, order_lines, ship_name, ship_address, subtotal_cents, ship_cents, tax_cents, total_cents, method, provider, env, status, hold_until, note, created_at, updated_at)
   VALUES (REPEAT('a', 32), 202, 10, 'not an email', 'Test Bad', '[{\"item_id\":0,\"product_id\":0,\"title\":\"TEST · lamp\",\"qty\":1,\"unit_cents\":3000,\"taxable\":0}]', 'Pick up', '', 3000, 0, 0, 3000, 'card', 'square', 'sandbox', 'pending', DATE_ADD(NOW(), INTERVAL 30 MINUTE), '', NOW(), NOW())");
 $cid = (int) $main->lastInsertId(); $mails = count(Mailer::$sent);
 $threw = ''; try { $ok = MarketCheckout::markPaid($main, $cid, 'sq-77'); } catch (Throwable $x) { $threw = $x->getMessage(); $ok = false; }
 $t('a card order whose copy fails is still marked paid, no error', $threw === '' && $ok && (string) $main->query('SELECT status FROM market_orders WHERE id = ' . $cid)->fetchColumn() === 'paid');
-$t('its business is told where it is meanwhile, not "It\'s in your Orders"', str_contains(end(BizMessages::$sent), 'paid by card') && str_contains(end(BizMessages::$sent), 'next daily Marketplace check') && !str_contains(end(BizMessages::$sent), 'It\'s in your Orders'));
+$cardMsg = end(BizMessages::$sent);
+$t('its business is told where it is meanwhile, not "It\'s in your Orders"', str_contains($cardMsg, 'paid by card') && str_contains($cardMsg, 'E-commerce setup → Marketplace orders') && !str_contains($cardMsg, 'It\'s in your Orders'));
 $t('the buyer still gets the receipt', count(Mailer::$sent) === $mails + 1 && str_contains(end(Mailer::$sent)[1], 'Paid:'));
 $t('the scope is at 0 after it', Scope::owner() === 0 && !Scope::isBusiness());
-$main->prepare('UPDATE market_orders SET email = ?, created_at = DATE_SUB(NOW(), INTERVAL 1 HOUR) WHERE id = ?')->execute(['fixed@example.test', $cid]);
-$before = (int) $list->query('SELECT COUNT(*) FROM biz_payments WHERE owner_id = 202')->fetchColumn();
-$t('the second try writes the card order\'s copy', $rw->invoke(null, $main) === 1);
-$t('with its card payment, once', (int) $list->query('SELECT COUNT(*) FROM biz_payments WHERE owner_id = 202')->fetchColumn() === $before + 1 && (int) $list->query("SELECT COUNT(*) FROM biz_payments WHERE owner_id = 202 AND note LIKE '%sq-77'")->fetchColumn() === 1);
-$t('and its business is told it\'s there with its card payment', str_contains(end(BizMessages::$sent), 'is now in Quotes & invoices, with its card payment'));
+$t('our team gets one Work queue ticket per failed copy, naming the order and its business', (int) $main->query("SELECT COUNT(*) FROM control_gauge_tasks WHERE what LIKE 'Marketplace order #" . (int) $o2['id'] . ": its copy in business 101%'")->fetchColumn() === 1 && (int) $main->query("SELECT COUNT(*) FROM control_gauge_tasks WHERE what LIKE 'Marketplace order #" . $cid . ": its copy in business 202%'")->fetchColumn() === 1);
+$t('the card order\'s business is told not to record the payment itself', str_contains($cardMsg, 'will add it with its card payment, so don\'t record that payment yourself'));
+$t('the direct-pay order\'s business is told it can mark it paid once it\'s there', str_contains($msg, 'will add it, so you can mark it paid there'));
+$t('nothing of the card order half-written in business 202', (int) $list->query("SELECT COUNT(*) FROM biz_payments WHERE owner_id = 202 AND note LIKE '%sq-77'")->fetchColumn() === 0);
 
 echo "\n$n checks, $bad failed\n";
 foreach (['wo_main', 'wo_list'] as $d) $sys->exec("DROP DATABASE IF EXISTS $d");

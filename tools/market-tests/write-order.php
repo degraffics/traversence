@@ -9,8 +9,7 @@
 //   4. a request already inside a business (the portal) is refused before anything is written, its own scope untouched;
 //   5. Scope::leave refuses any connection but the one that entered;
 //   6. a copy that fails after its first line leaves nothing in the business's books and isn't linked (one transaction);
-//   7. a copy written but never linked is reused on the next try, and its card payment is recorded once.
-// (A direct-pay or card order whose copy fails, and the daily second try: write-order-place.php.)
+// (A direct-pay or card order whose copy fails: write-order-place.php.)
 declare(strict_types=1);
 $root = rtrim($argv[1] ?? '', '/'); $app = $root . '/app';
 if (!is_file($app . '/lib/MarketCheckout.php')) { fwrite(STDERR, "usage: write-order.php <root with app/>\n"); exit(2); }
@@ -88,15 +87,6 @@ $t('6. a copy failing after its first line comes back as a failure', $why !== ''
 $t('6. nothing half-written: no invoice, no line, no customer in that business', $quotes(909) === 0 && (int) $list->query('SELECT COUNT(*) FROM biz_quote_lines WHERE owner_id = 909')->fetchColumn() === 0 && (int) $list->query('SELECT COUNT(*) FROM crm_customers WHERE owner_id = 909')->fetchColumn() === 0);
 $t('6. and the order isn\'t linked to anything', (int) $main->query('SELECT IFNULL(biz_quote_id, 0) FROM market_orders WHERE id = 9')->fetchColumn() === 0);
 $t('6. the scope is at 0 after it', Scope::owner() === 0 && !Scope::isBusiness());
-
-// 7: written but never linked (the link after the commit failed): the next try links that one, and a card payment is never recorded twice
-$o10 = $order(10, 1010); $write->invoke(null, $main, $o10, 'sq-10');
-$main->exec('UPDATE market_orders SET biz_quote_id = NULL WHERE id = 10');
-$write->invoke(null, $main, $o10, 'sq-10');
-$t('7. a copy written but not linked is reused, never a second invoice', $quotes(1010) === 1 && (int) $main->query('SELECT biz_quote_id FROM market_orders WHERE id = 10')->fetchColumn() === (int) $list->query('SELECT id FROM biz_quotes WHERE owner_id = 1010')->fetchColumn());
-$t('7. its card payment recorded once', (int) $list->query('SELECT COUNT(*) FROM biz_payments WHERE owner_id = 1010')->fetchColumn() === 1);
-$write->invoke(null, $main, $o10 + ['biz_quote_id' => 0], 'sq-10');
-$t('7. a third try with the same payment adds nothing', $quotes(1010) === 1 && (int) $list->query('SELECT COUNT(*) FROM biz_payments WHERE owner_id = 1010')->fetchColumn() === 1);
 
 echo "\n$n checks, $bad failed\n";
 foreach (['wo_main', 'wo_list'] as $d) $sys->exec("DROP DATABASE IF EXISTS $d");
