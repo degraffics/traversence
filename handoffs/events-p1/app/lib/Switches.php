@@ -93,7 +93,11 @@ final class Switches
             require_once __DIR__ . '/../admin/Access.php';
             if (!Access::isFounder()) throw new RuntimeException('Only the Founder, signed in with the Founder\'s own staff login, turns on rule 2 (decisions/0179).');
         }
-        if ($key === 'event_codes' && ($state !== 'off' && !$killed)) {   // 0110's note is the Founder's ruling (Tier 5): so is switching it on
+        // 0110's note is the Founder's ruling (Tier 5): so is any setting that is, or could later become, on. Anyone may still
+        // kill it at its current setting (a kill only ever turns it off); saving it on-but-killed is the Founder's, since
+        // lifting the kills later would turn it on without anyone choosing it.
+        $stored = self::fresh($pdo, $key);
+        if ($key === 'event_codes' && $state !== 'off' && !($killed && ($stored['state'] ?? 'off') === $state)) {
             require_once __DIR__ . '/../admin/Access.php';
             if (!Access::isFounder()) throw new RuntimeException('Only the Founder, signed in with the Founder\'s own staff login, turns on discount codes on event pages (decisions/0110\'s note).');
         }
@@ -108,7 +112,10 @@ final class Switches
     public static function killAll(PDO $pdo, bool $kill, int $by): int
     {
         $n = 0;
-        foreach (self::all($pdo) as $k => $s) { self::set($pdo, $k, $s['state'], $s['share_pct'], $kill, $s['note'], $by); $n++; }
+        foreach (self::all($pdo) as $k => $s) {
+            try { self::set($pdo, $k, $s['state'], $s['share_pct'], $kill, $s['note'], $by); $n++; }
+            catch (RuntimeException $x) { if (!in_array($k, ['rule2_autopublish', 'event_codes'], true)) throw $x; }   // the Founder's own switches: left as they are, never a stop half way
+        }
         return $n;
     }
 }

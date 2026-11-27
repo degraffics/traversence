@@ -29,46 +29,48 @@ $pass = 0; $fail = 0; $t = function (string $n, bool $ok, $got = null) use (&$pa
 $writes = function () use ($root): int { $n = 0; foreach ($root->query("SHOW GLOBAL STATUS WHERE Variable_name IN ('Com_insert','Com_update','Com_delete','Com_replace','Com_insert_select','Com_update_multi','Com_delete_multi')") as $r) $n += (int) $r['Value']; return $n; };
 
 // 1. limited to the one code that business attached
-$r = Events::liveCode(8, 'SHOW10', $db);
+$r = BusinessData::publicCode(8, 'SHOW10', $db);
 $t('1. its own code, on and in its dates: found', $r !== null && $r['code'] === 'SHOW10', $r);
-$a = Events::liveCode(8, 'SHOW10', $db); $b = Events::liveCode(9, 'SHOW10', $db);
+$a = BusinessData::publicCode(8, 'SHOW10', $db); $b = BusinessData::publicCode(9, 'SHOW10', $db);
 $t('1. two businesses with a code of the same name each read only their own (8\'s ends 2099-12-31, 9\'s never)', ($a['ends'] ?? '') === '2099-12-31' && $b !== null && $b['ends'] === null, [$a, $b]);
-$t('1. one business never reads another\'s code', Events::liveCode(8, 'ONLY9', $db) === null);
-$t('1. a code belonging only to another business: nothing', Events::liveCode(7, 'SHOW10', $db) === null && Events::liveCode(7, 'ONLY9', $db) === null);
-$t('1. no code asked, nothing read', Events::liveCode(8, '', $db) === null && Events::liveCode(0, 'SHOW10', $db) === null);
-$t('1. switched off, ended, used up: nothing', Events::liveCode(8, 'OFF5', $db) === null && Events::liveCode(8, 'OLD', $db) === null && Events::liveCode(8, 'FULL', $db) === null);
+$t('1. one business never reads another\'s code', BusinessData::publicCode(8, 'ONLY9', $db) === null);
+$t('1. a code belonging only to another business: nothing', BusinessData::publicCode(7, 'SHOW10', $db) === null && BusinessData::publicCode(7, 'ONLY9', $db) === null);
+$t('1. no code asked, nothing read', BusinessData::publicCode(8, '', $db) === null && BusinessData::publicCode(0, 'SHOW10', $db) === null);
+$t('1. switched off, ended, used up: nothing', BusinessData::publicCode(8, 'OFF5', $db) === null && BusinessData::publicCode(8, 'OLD', $db) === null && BusinessData::publicCode(8, 'FULL', $db) === null);
 $src = (string) file_get_contents($app . '/lib/BusinessData.php'); preg_match('/function publicCode.*?\n    }\n/s', $src, $m); $body = $m[0] ?? '';   // the read lives in the realm's gateway
 $t('1. the one query names the code and LIMIT 1, through the tenant view only', substr_count($body, '->prepare(\'SELECT') === 1 && str_contains($body, 'FROM `b_biz_codes` WHERE code = ? LIMIT 1') && !preg_match('/FROM `?biz_codes/', $body));
 
+$t('0. Events::liveCode waits for the event_codes switch whoever calls it, a passed-in connection too (off here: no switch row)', Events::liveCode(8, 'SHOW10', $db) === null);
+
 // 2. read only
-$w0 = $writes(); for ($i = 0; $i < 20; $i++) { Events::liveCode(8, 'SHOW10', $db); Events::liveCode(9, 'ONLY9', $db); }
+$w0 = $writes(); for ($i = 0; $i < 20; $i++) { BusinessData::publicCode(8, 'SHOW10', $db); BusinessData::publicCode(9, 'ONLY9', $db); }
 $t('2. forty reads write nothing (the server\'s own write counters unchanged)', $writes() === $w0, [$w0, $writes()]);
 $t('2. its code holds no INSERT, UPDATE, DELETE or REPLACE', !preg_match('/\b(INSERT|UPDATE|DELETE|REPLACE)\b/i', $body));
 $t('2. the rows are as they were', (int) $root->query("SELECT SUM(uses) FROM biz_codes")->fetchColumn() === 13);
 
 // 3. @tv_tenant reset, never leaking into the next query
-Events::liveCode(8, 'SHOW10', $db);
+BusinessData::publicCode(8, 'SHOW10', $db);
 $t('3. after a read, @tv_tenant is NULL on that connection', $db->query('SELECT @tv_tenant IS NULL')->fetchColumn() == 1);
 $t('3. so the next query on it sees no business\'s rows', (int) $db->query('SELECT COUNT(*) FROM b_biz_codes')->fetchColumn() === 0);
-$db->exec("SET @tv_tenant = '9abc'"); Events::liveCode(8, 'SHOW10', $db);
+$db->exec("SET @tv_tenant = '9abc'"); BusinessData::publicCode(8, 'SHOW10', $db);
 $t('3. whatever the caller had set is put back exactly (QA\'s third look)', $db->query('SELECT @tv_tenant')->fetchColumn() === '9abc'); $db->exec('SET @tv_tenant = NULL');
-$db->exec('SET @tv_tenant = 9'); Events::liveCode(8, 'SHOW10', $db);
+$db->exec('SET @tv_tenant = 9'); BusinessData::publicCode(8, 'SHOW10', $db);
 $t('3. a tenant the caller had set is put back as it was (QA\'s second look)', (int) $db->query('SELECT @tv_tenant')->fetchColumn() === 9); $db->exec('SET @tv_tenant = NULL');
-$d0 = Events::liveCode(8, 'OLD', $db); $root->exec("UPDATE biz_codes SET ends = CURDATE() WHERE owner_id = 8 AND code = 'OLD'"); $d1 = Events::liveCode(8, 'OLD', $db);
-$root->exec("UPDATE biz_codes SET ends = NULL, starts = CURDATE() + INTERVAL 1 DAY WHERE owner_id = 8 AND code = 'OLD'"); $d2 = Events::liveCode(8, 'OLD', $db);
+$d0 = BusinessData::publicCode(8, 'OLD', $db); $root->exec("UPDATE biz_codes SET ends = CURDATE() WHERE owner_id = 8 AND code = 'OLD'"); $d1 = BusinessData::publicCode(8, 'OLD', $db);
+$root->exec("UPDATE biz_codes SET ends = NULL, starts = CURDATE() + INTERVAL 1 DAY WHERE owner_id = 8 AND code = 'OLD'"); $d2 = BusinessData::publicCode(8, 'OLD', $db);
 $t('1. dates as checkout counts them: ends today still shows, starts tomorrow doesn\'t', $d0 === null && $d1 !== null && $d2 === null, [$d0, $d1, $d2]);
 $root->exec('RENAME TABLE biz_codes TO biz_codes_away');   // the read fails part way (its view can't be read)
-$r = Events::liveCode(8, 'SHOW10', $db);
+$r = BusinessData::publicCode(8, 'SHOW10', $db);
 $t('3. a read that fails gives nothing (nothing shown rather than something untrue)', $r === null);
 $t('3. and still resets @tv_tenant', $db->query('SELECT @tv_tenant IS NULL')->fetchColumn() == 1);
 $root->exec('RENAME TABLE biz_codes_away TO biz_codes');
 
 // 4. nothing else reaches the page
-$r = Events::liveCode(8, 'SHOW10', $db);
+$r = BusinessData::publicCode(8, 'SHOW10', $db);
 $t('4. only its public terms come back: code, ends, the smallest order', $r !== null && array_keys($r) === ['code', 'ends', 'min_cents'], $r);
 $t('4. no counts, notes, value or kind', !preg_match('/uses|note|value|kind|private|"50/', json_encode($r)), $r);
 $root->exec("UPDATE biz_codes SET min_order_cents = 2000 WHERE owner_id = 8 AND code = 'SHOW10'");
-$t('4. a smallest order is said, so the offer stays true', Events::codeWords(Events::liveCode(8, 'SHOW10', $db)) === 'code SHOW10 on orders of $20.00 or more until Dec 31');
+$t('4. a smallest order is said, so the offer stays true', Events::codeWords(BusinessData::publicCode(8, 'SHOW10', $db)) === 'code SHOW10 on orders of $20.00 or more until Dec 31');
 $root->exec("UPDATE biz_codes SET min_order_cents = 0 WHERE owner_id = 8 AND code = 'SHOW10'");
 $t('4. its words say only the code and its last day', Events::codeWords($r) === 'code SHOW10 until Dec 31', Events::codeWords($r));
 
@@ -104,6 +106,17 @@ $root->exec("DROP USER 'lc_ro'@'localhost'"); $root->exec("DROP USER 'lc_ro'@'%'
 // never the request's own business connection (finding B: its reset would leave the portal's later writes refused)
 [$o] = $sub($ok, 'require_once "' . $app . '/lib/Scope.php"; Scope::enterBusiness($db, 8); try { BusinessData::publicCode(8, "SHOW10", $db); echo "used"; } catch (LogicException $x) { echo "refused"; }');
 $t('5. a caller passing the portal\'s own business connection is refused', trim($o) === 'refused', $o);
+// a connection lost in the middle of a read (the CTO's final look): its tenant can't be put back, so it's dropped and never
+// used again in that request; the page shows no code rather than risk a connection still set to a business
+$root->exec("INSERT INTO lv_codes2.biz_codes (owner_id, code, kind, value, ends, active) VALUES (8, 'SHOW10', 'percent', 10, NULL, 1), (9, 'ONLY9', 'percent', 20, NULL, 1)");
+$root->exec('CREATE OR REPLACE VIEW lv_codes2.b_biz_codes AS SELECT * FROM lv_codes2.biz_codes WHERE owner_id = lv_codes2.tv_tenant() AND SLEEP(2) = 0');
+foreach (['localhost', '%'] as $h) { $root->exec("DROP USER IF EXISTS 'lc_kill'@'$h'"); $root->exec("CREATE USER 'lc_kill'@'$h' IDENTIFIED BY 'k'"); $root->exec("GRANT SELECT ON lv_codes2.b_biz_codes TO 'lc_kill'@'$h'"); }
+$killer = 'sleep 0.7; mysql -h127.0.0.1 -ulc_kill -pk -N -e "SELECT CONCAT(\'KILL \', ID, \';\') FROM information_schema.PROCESSLIST WHERE USER = \'lc_kill\' AND INFO LIKE \'%b_biz_codes%\' AND ID <> CONNECTION_ID()" | mysql -h127.0.0.1 -ulc_kill -pk';
+exec('(' . $killer . ') > /dev/null 2>&1 &');
+$t0 = microtime(true);
+[$o, $l] = $sub('DB_HOST=127.0.0.1 DB_LISTINGS_DATABASE=lv_codes2 DB_LISTINGS_USERNAME=lc_kill DB_LISTINGS_PASSWORD=k', 'echo json_encode([BusinessData::publicCode(8, "SHOW10"), BusinessData::publicCode(9, "ONLY9")]);');
+$t('5. a connection lost mid-read gives nothing, then isn\'t used again that request', trim($o) === '[null,null]' && substr_count($l, 'BusinessData::publicCode') === 1 && microtime(true) - $t0 < 4, [$o, $l]);
+foreach (['localhost', '%'] as $h) $root->exec("DROP USER 'lc_kill'@'$h'");
 [$o] = $sub($ok, '$m = Database::connection(); try { BusinessData::publicCode(8, "SHOW10", $m); echo "used"; } catch (LogicException $x) { echo "refused"; }');
 $t('5. main\'s own connection is refused too (the CTO\'s third look, d)', trim($o) === 'refused', $o);
 $root->exec('DROP DATABASE lv_codes2');

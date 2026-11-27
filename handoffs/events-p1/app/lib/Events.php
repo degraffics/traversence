@@ -365,7 +365,7 @@ final class Events
     /** A business's code as it stands now, its public terms only: through the realm's gateway (BusinessData::publicCode). */
     public static function liveCode(int $entity, string $code, ?PDO $db = null): ?array
     {
-        if ($db === null && !self::codesOn(Database::connection())) return null;   // until the Founder's ruling on 0110's note: the line alone
+        if (!self::codesOn(Database::connection())) return null;   // until the Founder's ruling on 0110's note: the line alone, whoever calls
         require_once __DIR__ . '/BusinessData.php';
         return BusinessData::publicCode($entity, $code, $db);
     }

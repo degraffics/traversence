@@ -33,7 +33,7 @@ function tv_biz_events(PDO $main, array $ctx, int $uid): string
         $h .= '<h2 class="ak-h">Invitations</h2><div class="ak-card tv-bleed ev-list">';
         foreach ($inv as $iv) {
             $pid = (int) $iv['id']; $ps = (string) $iv['status'];
-            $line = ['invited' => ['info', 'Invited:', $iv['host_name'] . ' asks your business to take part.'], 'accepted' => ['ok', 'Taking part:', 'your business shows on the event\'s page' . ((string) $iv['offer_text'] !== '' || (string) $iv['offer_code'] !== '' ? ', with your offer' : '') . ', its GO Code and Directions.'],
+            $line = ['invited' => ['info', 'Invited:', $iv['host_name'] . ' asks your business to take part.'], 'accepted' => ['ok', 'Taking part:', 'your business shows on the event\'s page' . ((string) $iv['offer_text'] !== '' || ($codesOn && (string) $iv['offer_code'] !== '') ? ', with your offer' : '') . ', its GO Code and Directions.'],
                      'declined' => ['info', 'Declined:', 'the host can ask again.'], 'left' => ['info', 'Left:', 'you\'ve stepped out of it.'], 'removed' => ['info', 'Removed:', $iv['host_name'] . ' took your business off this event.']][$ps] ?? ['info', '', ''];
             $h .= '<div class="ev-row"><div class="ev-top"><a class="ev-t" href="/event/?id=' . (int) $iv['event_id'] . '" data-peek-frame>' . $e((string) $iv['title']) . '</a><small>' . $e(Events::when($iv)) . ' · hosted by ' . $e((string) $iv['host_name']) . '</small></div>'
                 . '<p data-tv-status="' . $line[0] . '" data-tv-label="' . $e($line[1]) . '" data-tv-keep style="margin:.3rem 0">' . $e($line[2]) . '</p>';

@@ -139,7 +139,7 @@ final class BusinessData
         if ($live && $own === false) return null;
         $c = null;
         try {
-            if ($live) { if ($own === null) { try { $own = Database::realmOwn('listings'); } catch (Throwable $x) { $own = false; throw $x; } } $db = $own; }
+            if ($live) { if ($own === null) { try { $own = Database::realmOwn('listings'); $own->exec('SET SESSION TRANSACTION READ ONLY'); } catch (Throwable $x) { $own = false; throw $x; } } $db = $own; }
             $db->exec('SET @tv_publiccode_was = @tv_tenant');   // put back exactly as it was afterwards (NULL on its own connection)
             $db->prepare('SET @tv_tenant = ?')->execute([$entity]);
             try {
