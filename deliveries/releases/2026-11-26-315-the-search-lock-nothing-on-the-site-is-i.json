@@ -1,0 +1,84 @@
+{
+    "id": 315,
+    "title": "The search lock: nothing on the site is indexed until Jason lifts it",
+    "why": "decisions/0181 §4 (Brief B2, approved by Jason 2026-11-27; the launch plan's G.1). Pages drawn by tv_page_start already sent noindex, but the home page, sign-in, sign-up, password reset and the classic directory didn't, and storefronts on trvgo.us sent X-Robots-Tag: all. One switch, TV_SEARCH_LOCK in app/ui/search-lock.php (true), now sends X-Robots-Tag: noindex on every page and endpoint (security-headers.php), a robots meta on the five pages with their own <head>, and noindex on storefronts (a team's preview stays noindex, nofollow). While locked the sitemap is an empty index and robots.txt says the site isn't open to search engines yet; pages stay crawlable so noindex is seen. The FAQ's 'Can search engines find Traversence?' says Not yet, and what stays out after the lift (0181 §4). Lifting it is one release that sets the switch to false (0181 §4, Jason's call alone). Nothing visible changes on any page except that FAQ answer. No data, no outside calls, no cost.",
+    "proposals": "",
+    "zip": "search-lock.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/ui/search-lock.php": {
+            "sha": "67ec8985651e1b7eedeb1b7a6a40e5e76626eefaa86dcfe06f782c16de13300c",
+            "size": 882,
+            "live_was": null
+        },
+        "app/ui/storefront-view.php": {
+            "sha": "7f0cb9d6519712c612a686a5a613cee6c64b1c7412cfcdb7f24ca1911a014fe7",
+            "size": 20743,
+            "live_was": "33205abaa84cada925b3fdd4baaee92400b41f389b4b062e54225a0c4c4b8e55"
+        },
+        "app/ui/security-headers.php": {
+            "sha": "faa068161e98ac35a3510108beef1fdc8f6f618c237edfdf4cd6e5b31119edfc",
+            "size": 2547,
+            "live_was": "dff9211340d8354ee449a457ac4fb1ff728502c85473dc70cb11e427f8409208"
+        },
+        "app/ui/faq.md": {
+            "sha": "f7729b95c35be9386b15605b39218304dd27dbe5203943b6a34b61f81c801368",
+            "size": 468279,
+            "live_was": "bceab9dcd0f4f55f0346411ab97b0c462f6899abe695256d4f394483a44477d7"
+        },
+        "website/register.php": {
+            "sha": "7e0de52da5679f0b220384877c9aacbcc55972a578784c11d56b3183f3d0b71f",
+            "size": 10256,
+            "live_was": "15e9624db9bcf6d2ab79c86396aabd9a99532d9ef1172c8f0d44a938f1660676"
+        },
+        "website/sitemap.php": {
+            "sha": "993a439b9060d60e3a4da2c846c472d85e4c221ed9da02e4e21f3738d426b713",
+            "size": 4095,
+            "live_was": "7e24cf47ea199be0d0b2f61fba2e1affbbb26f9c857f74ca4a9d0770f2fcaedb"
+        },
+        "website/index.php": {
+            "sha": "078fc69cc71e48154d18f837ad6b6d72a4420ac5ad69b8f5a78628a344bcfe61",
+            "size": 48056,
+            "live_was": "2389ab572dbd14f86f93ea1cc716b61ad31e3284a17768af0d79c28532666693"
+        },
+        "website/forgot-password.php": {
+            "sha": "ae7682ecc49cad55b7bf76f28239ee0aebf04e49ac59e9a1beb670b1f3a5a590",
+            "size": 3966,
+            "live_was": "e9dff2a38d2a400b21acc6aad5735c907aefc0f79be61e0698784cff461f5796"
+        },
+        "website/directory/classic.php": {
+            "sha": "e737def66548e5d1df42dd72ddcc3af82e9071653cd0c35fbe39ab5f60625d4b",
+            "size": 109259,
+            "live_was": "a8d2715b285aa4e9e44d8817eb8a00b8246eb59142a9fc225056efe81c0f4094"
+        },
+        "website/login.php": {
+            "sha": "02694d90a1c6a4f5a29ccad430551ef84cd6b8446771b5aeff3f0c51b3aa511a",
+            "size": 20376,
+            "live_was": "fca2495029546808a4e8f4afb5590cc122a62560cfa94ceba8465ef3d0c6f207"
+        },
+        "website/robots.txt": {
+            "sha": "49cba436169f52b42af292bb46e98fd5c4160c4146061e436bc3513ba5c8870d",
+            "size": 630,
+            "live_was": "f96080237c1d209054ef32ca7b9b107b4f536db38f0b666a1f83dbdda65caf35"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-27T02:24:03+00:00",
+            "by": 0,
+            "msg": "Uploaded search-lock.zip: 11 files."
+        }
+    ]
+}
