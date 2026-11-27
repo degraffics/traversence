@@ -6,57 +6,71 @@
     "zip": "pipeline-tick-3.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "staged",
-    "step": 0,
+    "state": "live",
+    "step": 3,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
     "plan_at": "2026-11-27 19:24:02",
     "staged_at": "2026-11-27 19:24:04",
-    "vetted_at": null,
-    "live_at": null,
+    "vetted_at": "2026-11-27 19:48:02",
+    "live_at": "2026-11-27 19:48:02",
     "files": {
         "app/admin/sections.php": {
             "sha": "f35dbc65f52e3b579ef8769dac6b3d48a8ad43b15e3d6cb4913f79c2a6dd0bef",
             "size": 258621,
-            "live_was": "8ff17c35d71e71a6a9a1f33bc752aca259d2ebcc98ef27b05692dee3ddb0112b"
+            "live_was": "8ff17c35d71e71a6a9a1f33bc752aca259d2ebcc98ef27b05692dee3ddb0112b",
+            "existed": true,
+            "old_sha": "8ff17c35d71e71a6a9a1f33bc752aca259d2ebcc98ef27b05692dee3ddb0112b"
         },
         "app/ui/faq.md": {
             "sha": "3dd0f62ee74cb30618a2b03390d7ee634507499590e8ef67f0096015e7500f88",
             "size": 469787,
-            "live_was": "9935a7e2e142c58097314cfce6734a549352f11cd9631a768b066c90dc94383b"
+            "live_was": "9935a7e2e142c58097314cfce6734a549352f11cd9631a768b066c90dc94383b",
+            "existed": true,
+            "old_sha": "9935a7e2e142c58097314cfce6734a549352f11cd9631a768b066c90dc94383b"
         },
         "app/scripts/releases_tick.php": {
             "sha": "06afefd5b58cf8141d5e50f2dd96db03bf74cc5214dabf3c739ec06dc65665fd",
             "size": 2406,
-            "live_was": "27f806664add91997a43bc001a7f793ed0d6cdb7e126b51f343c7c3c4a29db41"
+            "live_was": "27f806664add91997a43bc001a7f793ed0d6cdb7e126b51f343c7c3c4a29db41",
+            "existed": true,
+            "old_sha": "27f806664add91997a43bc001a7f793ed0d6cdb7e126b51f343c7c3c4a29db41"
         },
         "app/lib/DocsRepo.php": {
             "sha": "7fb7fca083476ce16c5e607dcc815542723d536dc184028c6e95e797bb532a1b",
             "size": 21793,
-            "live_was": "012259b7e8d1e736aeb218c7f17a945407047ab26e10814dcb570f44b334e853"
+            "live_was": "012259b7e8d1e736aeb218c7f17a945407047ab26e10814dcb570f44b334e853",
+            "existed": true,
+            "old_sha": "012259b7e8d1e736aeb218c7f17a945407047ab26e10814dcb570f44b334e853"
         },
         "app/lib/BeforeAfter.php": {
             "sha": "a7cd796f6ccecc505e91de1a1330d0aec0dd4c914a3b77bcfc11dcf865de56e8",
             "size": 20659,
-            "live_was": "0d0316223823104badb5958e51be13e4cb9c6b856768d14ee220c657ac562d34"
+            "live_was": "0d0316223823104badb5958e51be13e4cb9c6b856768d14ee220c657ac562d34",
+            "existed": true,
+            "old_sha": "0d0316223823104badb5958e51be13e4cb9c6b856768d14ee220c657ac562d34"
         },
         "app/lib/Releases.php": {
             "sha": "e9511bf476c2cda53e4fa254145bd8d0be47cc6a594a72dc27bcee3454d41826",
             "size": 138444,
-            "live_was": "6e255907487dcc7f3eb6224b99d19322da54e04174ed445dae12bcda2450b732"
+            "live_was": "6e255907487dcc7f3eb6224b99d19322da54e04174ed445dae12bcda2450b732",
+            "existed": true,
+            "old_sha": "6e255907487dcc7f3eb6224b99d19322da54e04174ed445dae12bcda2450b732"
         },
         "website/api/releases-pull.php": {
             "sha": "cd41983ba4aa32512be0f30cd7123a791016ac16eb9184483673857663254011",
             "size": 2190,
-            "live_was": "4a66ee9889c1e3224069195667772fe4ad67a4a1cfd7b3d8ba7318c50ed0b30b"
+            "live_was": "4a66ee9889c1e3224069195667772fe4ad67a4a1cfd7b3d8ba7318c50ed0b30b",
+            "existed": true,
+            "old_sha": "4a66ee9889c1e3224069195667772fe4ad67a4a1cfd7b3d8ba7318c50ed0b30b"
         }
     },
     "migrations": [],
     "checks": {
         "ok": true,
-        "where": "staging",
-        "at": "2026-11-27T19:24:05+00:00",
+        "where": "live",
+        "at": "2026-11-27T19:48:02+00:00",
         "items": [
             [
                 "PHP files parse",
@@ -66,7 +80,7 @@
             [
                 "Pages answer",
                 true,
-                "2 pages answered on staging.trvgo.us"
+                "2 pages answered on traversence.com"
             ],
             [
                 "No new fatal errors in the logs",
@@ -106,6 +120,21 @@
             "at": "2026-11-27T19:24:07+00:00",
             "by": 0,
             "msg": "On staging and its checks passed; the advocates look again now (the before-and-after check)."
+        },
+        {
+            "at": "2026-11-27T19:48:02+00:00",
+            "by": 0,
+            "msg": "The before-and-after check: passed."
+        },
+        {
+            "at": "2026-11-27T19:48:02+00:00",
+            "by": 0,
+            "msg": "Approved in chat before it was sent through git, and its checks on staging passed: publishing by itself."
+        },
+        {
+            "at": "2026-11-27T19:48:02+00:00",
+            "by": 0,
+            "msg": "Published: 7 files; everyone at once (no switch)."
         }
     ]
 }
