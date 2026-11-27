@@ -71,7 +71,7 @@ try {
       const res = await p.goto(SITE + path, { waitUntil: 'load', timeout: 60000 }).catch((e) => ({ status: () => 0, err: String(e) }));
       await p.waitForLoadState('networkidle', { timeout: 15000 }).catch(() => {});   // the admin's tables fill in after load
       await p.waitForTimeout(800);
-      const name = `${READ}${READ === 'meta' || READ === 'rows' ? '-' + TABLE : (ID ? '-' + ID : '')}-${w}`;
+      const name = `${READ}${READ === 'meta' || READ === 'rows' ? '-' + TABLE : (ID ? '-' + ID : '')}-${w}`.replace(/[^A-Za-z0-9._-]+/g, '_');   // an artifact's file names: no colons, spaces or quotes (#1544's search)
       const card = READ === 'card' ? await p.evaluate((name) => {   // the register's row for that service (outside-services.php: div.os-r, data-name), its body shown; nothing pressed
         const n = name.toLowerCase();
         const r = [...document.querySelectorAll('.os-r[data-name]')].find((x) => x.dataset.name === n) || [...document.querySelectorAll('.os-r[data-name]')].find((x) => x.dataset.name.startsWith(n));
