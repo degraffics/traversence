@@ -81,8 +81,14 @@ task done. One Pulse row per task, updated in place; a push only when it moves t
 ## Note (Jason, 2026-11-27): built inside the transition plan
 
 Jason: "Yes, the transition plan; and shouldn't your team work out the design as a part of handling the plan through
-implementation?" The four-stage redesign no longer waits on him: Piece 2 drafts it with release 1, the Design reviewer
-approves it against brand.md, `design/css-theme-brand.md` and `design/table-standard.md`, the CEO runs its Tier 4, and
-Jason sees it once, as the release. Release 1 also reads `releases/task-rulings.json` (the session manager's rulings,
+implementation?", then "there's more agents involved in how something is redesigned, the this doesn't seem like a t5
+concern." The four-stage redesign and the thread no longer wait on him: they are **Tier 3** (0180 §1, "non-protected
+workflow redesigns"), in the Project Manager's (8) lane, through jason-spec §8's four stages: **Planning** (the System
+Architect (20) for the ADR check, the Public UI/UX Designers (27), the Front-End Content Writers (26) for the words, the
+Cognitive Load & Simplicity Guardian (15) with its simplicity veto); **Building** (Piece 2); **Implementation** (staging and
+the before-and-after check); **Confirmation** (the advocates, the Staff Views Advocate A12 among them, and the Design
+reviewer's fidelity check against brand.md, `design/css-theme-brand.md` and `design/table-standard.md`). Tier 4 only if
+the Prior Ruling Check finds a high-risk territory (the thread holds staff messages, so territory 5 may apply; the PM
+flags it). Jason sees it as a line in the daily batch (0179), unless it meets a §3 trigger. Release 1 also reads `releases/task-rulings.json` (the session manager's rulings,
 each made a task by the hourly path) beside `releases/task-notes.json`. Order: task-seed-4, release 1, the Executive
 channel, cutover about Dec 15; after the pipeline release and R2, alongside A3; launch work wins.
