@@ -8,10 +8,10 @@ not as a hand-over (builder playbook §5).
 
 | # | Release | Source | State |
 |---|---|---|---|
-| 1 | **G.1 the search lock's leaks** (`search-lock.zip`) | 0181 §4 | Built on Sync 2026-11-27 01:35 UTC; zip check clean; the Design reviewer's one fix made (private or confidential businesses named in the FAQ), approved once made; waiting for the session manager's order OK |
-| 2 | **C.1 the device's place read as "outside"** (`device-place.zip`, build in `c1-device-place/`) | plan C.1; CLAUDE.md "Places in search", 0060 | Built on Sync 01:35 UTC, tested; waits for G.1 to go live, then rebuilt on the newest sync |
-| 3 | **C.2 the path checker** (repo only, branch `claude/c2-path-checker`): the phone menu's Sign in, and staff two-step codes never reused | plan C.2; 0145 | Built and tested (`tools/path-checker-tests/staff-in.mjs` 4/4; the selector miss reproduced on the harness); PR after G.1's |
-| 4 | **C.3 the launch paths** (same branch): each 1A town's eat, stay, see, guide; the three buying paths defined | 0181 §1 gate 2; 0145 §2 | Town paths built and run on the harness; buying paths' steps written, their runners next (sandbox, staging only, tested against the payment mock first) |
+| 1 | **G.1 the search lock's leaks** (`search-lock.zip`) | 0181 §4 | **Live as Release #315** (02:24 UTC), synced 02:27 UTC; headers and meta checked on live |
+| 2 | **C.1 the device's place read as "outside"** (`device-place.zip`) | plan C.1; CLAUDE.md "Places in search", 0060 | Design: approved 02:24 UTC; sent, built on Sync 02:27 UTC (FAQ rebuilt on the live copy: the first build's faq.md would have put back the pre-G.1 answer) |
+| 3 | **C.2 the path checker** | plan C.2; 0145 | In main (PR #1487) |
+| 4 | **C.3 the launch paths** (same branch): each 1A town's eat, stay, see, guide; the three buying paths defined | 0181 §1 gate 2; 0145 §2 | In main (PRs #1487, #1488: the gateway is Holbrook's, 0042); buying paths' steps written, their runners next (sandbox, staging only, tested against the payment mock first) |
 | 5+ | The rest of C and F in the plan's order | plan §4 C, F | Queued |
 
 ## G.1: the search lock (search-lock.zip)
@@ -75,3 +75,6 @@ search probe.
 
 Harness note: Tailwind's CDN is refused in this sandbox, so `.hidden` and the utilities don't apply unless stood in for
 (a stylesheet built with `tailwindcss@3.4.17` from the site's files, served in place of the CDN by Playwright's route).
+
+Design reviewer's notes for a later search release (seen in C.1's screens, there before it): "See all 1 listings" should
+read "See the listing" when there's one; at 390 the location line says "ZIP: 85901" while the chip says "Show Low, AZ".
