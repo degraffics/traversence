@@ -24,6 +24,21 @@ export async function skipQuestions(page, tap, most = 6) {
   return asked;
 }
 
+/**
+ * Watches one page for the card's token request to Intuit (js/go-codes.js tokenize, QuickBooksPay::tokenUrl) and says
+ * why it failed, as the browser saw it (a network error, CORS, CSP, or Intuit's own error status), so "We couldn't reach
+ * QuickBooks Payments" carries its cause in the finding. Only that one URL is watched; nothing about the card is kept.
+ * Returns { why: [...], stop() }.
+ */
+export function watchToken(page) {
+  const TOKEN_URL = /\/quickbooks\/v4\/payments\/tokens(\?|$)/, why = [];
+  const onFail = r => { if (TOKEN_URL.test(r.url())) why.push(`the request failed: ${(r.failure() && r.failure().errorText) || 'no reason given'}`); };
+  const onDone = r => { if (TOKEN_URL.test(r.url()) && r.status() >= 400) why.push(`Intuit answered ${r.status()}`); };
+  const onLog = m => { const x = m.text(); if (m.type() === 'error' && /intuit\.com/i.test(x) && /CORS|Content Security Policy|blocked|ERR_/i.test(x)) why.push(`the browser said: ${x.replace(/\s+/g, ' ').slice(0, 160)}`); };
+  page.on('requestfailed', onFail); page.on('response', onDone); page.on('console', onLog);
+  return { why, stop() { page.off('requestfailed', onFail); page.off('response', onDone); page.off('console', onLog); } };
+}
+
 export function stagingRunners(k) {
   const { as, ACC, firstVisible, textOf, guides, FULL } = k;
 
@@ -117,9 +132,11 @@ export function stagingRunners(k) {
     if (!((await zip.inputValue().catch(() => '')) || '').trim()) await w.type('input[autocomplete="postal-code"]:visible', '85901');
     const pay = page.locator('button.go-btn.main', { hasText: /^Pay\b/ }).last();
     if (!(await pay.isVisible().catch(() => false))) { w.stuck = 'no Pay button on the card form'; await w.shot('nopaybtn'); return false; }
-    await w.tap(pay, (await pay.innerText().catch(() => 'Pay')).trim(), { nav: true, wait: 25000 });
+    const tok = watchToken(page);   // why the card's token request to Intuit failed, when it does
+    try { await w.tap(pay, (await pay.innerText().catch(() => 'Pay')).trim(), { nav: true, wait: 25000 }); } finally { tok.stop(); }
+    const why = tok.why;
     const bad = ((await page.locator('[role=alert]:visible').first().innerText().catch(() => '')) || '').trim();
-    if (bad) { w.add('dead_end', 'J01', w.here(), `paying in the sandbox said: "${bad.slice(0, 120)}"`); await w.shot('declined'); return false; }
+    if (bad) { w.add('dead_end', 'J01', w.here(), `paying in the sandbox said: "${bad.slice(0, 120)}"` + (why.length ? ` (the card's token request to Intuit: ${[...new Set(why)].join('; ').slice(0, 240)})` : '')); await w.shot('declined'); return false; }
     return true;
   }
 
