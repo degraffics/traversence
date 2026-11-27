@@ -83,6 +83,17 @@
    "expires": "2026-11-28T00:09:20Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "website/admin/api.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
+   "why": "R2 lanes and locks (decisions/0180 \u00a75, \u00a77), r2-lanes-3",
+   "since": "2026-11-27T20:09:22Z",
+   "expires": "2026-11-28T00:09:22Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
