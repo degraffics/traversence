@@ -55,6 +55,20 @@
    "expires": "2026-11-27T21:55:04Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/admin/control-console.php",
+   "functions": [
+    "tv_cb_workqueue",
+    "tv_cb_wq_row"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
+   "why": "R2 lanes and locks (decisions/0180 \u00a75, \u00a77), r2-lanes-3",
+   "since": "2026-11-27T20:09:17Z",
+   "expires": "2026-11-28T00:09:17Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
