@@ -61,6 +61,17 @@
    "expires": "2026-11-27T15:55:33Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "website/market/index.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
+   "why": "M-sections: the Marketplace's four sections (0135 note, 2026-11-27)",
+   "since": "2026-11-27T12:14:42Z",
+   "expires": "2026-11-27T16:14:42Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
