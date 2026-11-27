@@ -12,7 +12,7 @@ and "Join a group", and gate 5's sandbox ticket test). Review: the IT Manager's 
   listing's items (`app/lib/MarketBiz.php:471`, `e.is_suppressed = 0`).
 - **Join a group:** live has no public community groups, so staging's copy has none; `TestAccounts::makeAll` makes a
   Test Steward ("Stewarding a test community group") but no group.
-- Staging is a copy of live, made again at every refresh (`StagingSite::start`, :793; steps copy → tidy → strip → base →
+- Staging is a copy of live, made again at every refresh (`StagingSite::start`, :794; steps copy → tidy → strip → base →
   finish), so a row written on staging by hand is gone at the next refresh, and a migration would also run on live.
 
 ## The design: one step in staging's own copy, after the strip
@@ -22,7 +22,7 @@ switches in `Staging::ON_AFTER_COPY`). The fixtures join it as `StagingSite::fix
 
 1. **Refuses unless it writes into staging:** every statement names staging's own database (`self::stg($setup, $realm)`)
    and the call throws when that name equals live's (`self::liveDbs()[$realm][0]`) or when `Staging::here()` says it's
-   running on staging itself (the refresh runs from live's side only, :795).
+   running on staging itself (the refresh runs from live's side only, :796).
 2. **Marked as test, so Publish never carries it:** the connection runs `SET @stg_test = 1, @stg_actor = 'job:fixtures'`
    before the writes (after `base` put staging's triggers on), so staging's change record tags them as test data and
    Publish leaves them out (`StagingPublish.php:110`, "Test data (made by a test account)"). Reset after.
@@ -42,7 +42,7 @@ switches in `Staging::ON_AFTER_COPY`). The fixtures join it as `StagingSite::fix
 
 - **Buy now needs more than a visible item:** `MarketBiz::buttonsFor` (:120) gives Buy only with a set price, live
   checkout (`checkoutLive`, :107, `market_checkout.live`) and a plan that opens it ("Buy now (Core and up, through its
-  own gateway)", :18–19), and publish asks for the Seller Agreement (:254). The test listing is on Free. So the item
+  own gateway)", :18–19), and publish asks for the Seller Agreement (:253). The test listing is on Free. So the item
   will show (the run moves past "no test business item") but stops at "no Buy now" until the test business has a
   sandbox gateway (the launch plan's F.4, paths-staging.mjs:332). Whether the fixture also sets the test listing to
   Core on staging is for the IT Manager (11) and the CFO (4) to say; the gateway's test keys stay F.4's.
