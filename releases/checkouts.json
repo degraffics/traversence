@@ -409,6 +409,17 @@
    "expires": "2026-11-27T08:54:01Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/ui/header.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
+   "why": "C.8 open now from known hours only, in the listing's zone (P10, reopened by Jason 2026-11-27)",
+   "since": "2026-11-27T04:54:03Z",
+   "expires": "2026-11-27T08:54:03Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
