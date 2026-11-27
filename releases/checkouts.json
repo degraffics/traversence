@@ -66,8 +66,8 @@
    "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
    "why": "R2 lanes and locks (decisions/0180 \u00a75, \u00a77), r2-lanes-3",
    "since": "2026-11-27T20:09:17Z",
-   "expires": "2026-11-28T00:09:17Z",
-   "release": "",
+   "expires": "2026-11-28T00:09:49Z",
+   "release": "r2-lanes-3.zip",
    "callers": {}
   },
   {
@@ -80,8 +80,8 @@
    "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
    "why": "R2 lanes and locks (decisions/0180 \u00a75, \u00a77), r2-lanes-3",
    "since": "2026-11-27T20:09:20Z",
-   "expires": "2026-11-28T00:09:20Z",
-   "release": "",
+   "expires": "2026-11-28T00:09:49Z",
+   "release": "r2-lanes-3.zip",
    "callers": {}
   },
   {
@@ -91,8 +91,63 @@
    "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
    "why": "R2 lanes and locks (decisions/0180 \u00a75, \u00a77), r2-lanes-3",
    "since": "2026-11-27T20:09:22Z",
-   "expires": "2026-11-28T00:09:22Z",
-   "release": "",
+   "expires": "2026-11-28T00:09:49Z",
+   "release": "r2-lanes-3.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/migrations/2026-11-26_0180_r2_lanes.sql",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
+   "why": "release r2-lanes-3.zip",
+   "since": "2026-11-27T20:09:49Z",
+   "expires": "2026-11-28T00:09:49Z",
+   "release": "r2-lanes-3.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/GaugeTasks.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
+   "why": "release r2-lanes-3.zip",
+   "since": "2026-11-27T20:09:49Z",
+   "expires": "2026-11-28T00:09:49Z",
+   "release": "r2-lanes-3.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/TeamRoster.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
+   "why": "release r2-lanes-3.zip",
+   "since": "2026-11-27T20:09:49Z",
+   "expires": "2026-11-28T00:09:49Z",
+   "release": "r2-lanes-3.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/js/tv-ask.js",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
+   "why": "release r2-lanes-3.zip",
+   "since": "2026-11-27T20:09:49Z",
+   "expires": "2026-11-28T00:09:49Z",
+   "release": "r2-lanes-3.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/js/admin-control.js",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
+   "why": "release r2-lanes-3.zip",
+   "since": "2026-11-27T20:09:49Z",
+   "expires": "2026-11-28T00:09:49Z",
+   "release": "r2-lanes-3.zip",
    "callers": {}
   }
  ],
