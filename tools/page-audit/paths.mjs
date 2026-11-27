@@ -221,9 +221,15 @@ const CORE = [
     if (near) { await w.tap(near, 'Use my location'); await page.waitForTimeout(2500); }
     const rows = page.locator('.tvs-panel a.tvs-row[href]:visible');
     if (!(await rows.count())) { const t = await textOf(page); w.add('dead_end', 'J01', w.here(), 'the search showed no places to eat near Show Low' + (/location/i.test(t) ? ' (it still asks for a location)' : '')); await w.shot('noresults'); return; }
-    const n = await rows.count(); const open = await page.locator('.tvs-panel .tvs-open:visible').count();
-    w.note(`${n} results, ${open} marked open now`);
-    if (!open) w.add('clarity', 'J03', w.here(), 'none of the results says it\'s open now (the search asked for open now)');
+    const n = await rows.count(); const open = await page.locator('.tvs-panel .tvs-isopen:visible').count();
+    const unk = await page.locator('.tvs-panel .tvs-unk:visible').count();
+    const count = ((await page.locator('.tvs-panel [data-hours-known]').first().innerText().catch(() => '')) || '').trim();
+    w.note(`${n} results, ${open} marked open now, ${unk} Hours not known${count ? ', "' + count + '"' : ''}`);
+    // P10 (Jason, 2026-11-27): open only from known hours, the rest "Hours not known", and how many have known hours said
+    if (!open && !unk) w.add('clarity', 'J03', w.here(), 'none of the results says it\'s open now or that its hours aren\'t known (the search asked for open now)');
+    if (!count) w.add('clarity', 'J03', w.here(), 'the results don\'t say how many have known hours (P10)');
+    if (unk && open && await page.evaluate(() => { const r = [...document.querySelectorAll('.tvs-panel a.tvs-row')]; const i = r.findIndex(x => x.querySelector('.tvs-unk')); return r.slice(i).some(x => x.querySelector('.tvs-isopen')); }).catch(() => false))
+      w.add('accuracy', 'J02', w.here(), 'a place known to be open comes after one whose hours aren\'t known (P10: the open ones first)');
     const first = rows.first(); const said = (await first.innerText().catch(() => '')).replace(/\s+/g, ' ');
     const href = await first.getAttribute('href');
     if (!(await w.tap(first, 'the first place', { nav: true }))) return;
