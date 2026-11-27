@@ -48,6 +48,37 @@ hand-offs. The CEO's Decision Brief (Tier 5: roles and how the organization runs
 | 29–32 | Brand, SEO, Onboarding, Partnerships | nothing | none |
 | A1–A12 | Advocates | `beforeafter.mjs` views (no AI) | experience tickets (R4) unbuilt |
 
+## Already decided: how the roles are built, and which have AI (Jason's correction, 2026-11-27)
+
+Jason, 2026-11-27: "Didnt I already spec out how these roles where to be built? And which ones were allowed ai access?"
+He did, and the first draft of this brief re-asked it. The rules that stand:
+- **Each role's kind:** `handoffs/piece2/jason-spec.md` §5's roster gives every role its kind: AI Agent, AI/Hybrid,
+  Human/Hybrid, or an advocate bound to a test account, with its lens. Piece 2 carries it as `made_of`
+  (`human`, `ai`, `hybrid`, `persona`; `handoffs/piece2-team.md` §4) onto 0180's 32 roles.
+- **Which system does what:** the spec's §4 routing policy. Internal systems and deterministic logic come first.
+  Claude is for build and implementation, Gemini for ideation and synthesis. No silent guesswork.
+- **How roles reason:** 0180 §6. Routine work runs as $0 templates and code (gate, brief, audit). Deeper reasoning runs in a
+  Claude session within the existing allowance (Tier 4, the Prior Ruling Check, Tier 5 briefs). Keep it lean.
+- **Who may spend on AI:** 0180's note (2026-11-26). "Only people can have paid for services right now": no agent has a
+  paid service, the CEO included. The Founder and the CEO share a small budget. The platform's own AI step (Piece 2's
+  release 6, behind `staging_ai`) stays off.
+
+So nothing about *how* needs deciding. What's missing is that the build isn't finished, and the sessions don't yet work
+as the roles:
+- R2 (lanes), R3 (Tier 4 recorded), R4 (experience tickets) and R5 aren't live.
+- The AI and hybrid roles' reasoning happens in sessions named by area, not recorded under the role.
+
+**What happens next, within what's decided** (0180 §6; the note "the CEO builds out the rest of the team with him and
+reports on its performance"):
+- **R2 ships next after the pipeline release.**
+- **Each session's work is recorded under the role that did it,** within 0180 §6. The lane groups follow R2's routes, as
+  listed in the next section.
+- **The proof ticket:** the stray "Recovered" fix, carried end to end with each role's part recorded.
+- **A performance report to Jason**, once the proof ticket is live.
+
+The options below are kept as the first draft's record. **B is withdrawn**: it went against "no agent has a paid
+service". A's lane groups are how 0180 §6 is applied, not a new rule.
+
 ## Decision Brief (Tier 5: roles and how the organization runs; 0180 §1's 4 parts)
 
 **1. What's triggered.** How 0180's roles are carried out is a rule of the organization (§3), and today it doesn't match
