@@ -85,7 +85,8 @@ $t('Put back: a draft again', Events::act($pdo, 1, 10, $id, 'undelete') !== '' &
 $pdo->exec("UPDATE events SET status = 'deleted', deleted_at = UTC_TIMESTAMP() - INTERVAL 31 DAY WHERE id = $id");
 $t('after 30 days a deleted event leaves the list', !array_filter(Events::forHost($pdo, 10), fn ($r) => (int) $r['id'] === $id));
 $pdo->exec("UPDATE events SET status = 'draft', deleted_at = NULL WHERE id = $id");
-$t('every move is in the History', count(array_filter(Events::history($pdo, $id), fn ($x) => $x['field'] === 'status')) >= 6);
+$t('every move is in the History, named', count(array_filter(Events::history($pdo, $id), fn ($x) => isset(Events::MOVE_WORDS[$x['field']]))) >= 6);
+$t('History says the move with the state it left: "cancelled it (was Published)"', in_array('cancelled it (was Published)', array_map([Events::class, 'historyWords'], Events::history($pdo, $id)), true) && in_array('put it back on (was Cancelled)', array_map([Events::class, 'historyWords'], Events::history($pdo, $id)), true));
 $past = Events::save($pdo, 1, 10, ['starts_at' => (new DateTime('-10 days'))->format('Y-m-d') . 'T19:00', 'ends_at' => ''] + $base);
 $t('an event in the past can\'t be published', str_contains($err(fn () => Events::act($pdo, 1, 10, $past, 'publish')), 'past'));
 $t('a viewer can\'t move one', $err(fn () => Events::act($pdo, 3, 10, $id, 'publish')) !== '');

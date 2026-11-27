@@ -35,9 +35,9 @@ function tv_biz_events(PDO $main, array $ctx, int $uid): string
             . '<label class="w">Name<input class="ak-in" name="title" maxlength="120" required data-spell value="' . $e((string) $v['title']) . '" placeholder="Community night at the movies"></label>'
             . '<label>Kind<select class="ak-in" name="kind" required>' . ($v['kind'] === '' ? '<option value="">Choose…</option>' : '') . $opt(Events::KINDS, (string) $v['kind']) . '</select></label>'
             . '<label>Who for<select class="ak-in" name="age">' . $opt(Events::AGES, (string) $v['age']) . '</select></label>'
+            . '<label class="ev-new"><span>Starts</span><input class="ak-in" name="starts_at" type="' . ($ad ? 'date' : 'datetime-local') . '" required value="' . $e($dt($v['starts_at'])) . '"></label>'
             . '<label class="ck"><input type="checkbox" name="all_day" value="1"' . ($ad ? ' checked' : '') . '> All day</label>'
-            . '<label>Starts<input class="ak-in" name="starts_at" type="' . ($ad ? 'date' : 'datetime-local') . '" required value="' . $e($dt($v['starts_at'])) . '"></label>'
-            . '<label>Ends <small>Optional</small><input class="ak-in" name="ends_at" type="' . ($ad ? 'date' : 'datetime-local') . '" value="' . $e($dt($v['ends_at'])) . '"></label>'
+            . '<label><span>Ends <small>Optional</small></span><input class="ak-in" name="ends_at" type="' . ($ad ? 'date' : 'datetime-local') . '" value="' . $e($dt($v['ends_at'])) . '"></label>'
             . '<p class="ak-note w" style="margin:0">Times are your business\'s own (' . $e(str_replace('_', ' ', (string) $v['zone'])) . '), shown to everyone with the zone named.</p>'
             . '<label class="w">Description <small>What it is, who it\'s for, what to bring. No links or "pay at the door" notes.</small><textarea class="ak-in" name="about" rows="4" maxlength="2000">' . $e((string) $v['about']) . '</textarea></label>'
             . '<label class="w">Showtimes <small>Optional, information only: for a theater\'s regular showings, say. Shown as written, with no ticket link.</small><textarea class="ak-in" name="showtimes" rows="2" maxlength="600">' . $e((string) $v['showtimes']) . '</textarea></label>'
@@ -71,13 +71,14 @@ function tv_biz_events(PDO $main, array $ctx, int $uid): string
                 if ($s !== 'deleted') $h .= '<a class="ev-ic" href="/business/' . $id . '/events?edit=' . $rid . '" title="Edit ' . $e((string) $r['title']) . '" aria-label="Edit ' . $e((string) $r['title']) . '">' . tv_icon('pen') . '</a>';
             }
             $hist = Events::history($main, $rid);
-            $h .= '<details class="ev-h"><summary class="ev-ic" title="History of ' . $e((string) $r['title']) . '" aria-label="History of ' . $e((string) $r['title']) . '">' . tv_icon('clock') . '</summary><ul>';
+            $h .= '<button type="button" class="ev-ic" data-ev-hist="' . $rid . '" aria-expanded="false" aria-controls="evh-' . $rid . '" title="History of ' . $e((string) $r['title']) . '" aria-label="History of ' . $e((string) $r['title']) . '">' . tv_icon('clock') . '</button></div>'
+                . '<ul class="ev-hl" id="evh-' . $rid . '" hidden>';   // ✎ and 🕒 stay together on the actions line; the list opens on its own line below (the Design reviewer, 2026-11-27)
             foreach ($hist as $x) {   // the moment in the zone it was done in, labeled (CLAUDE.md "Times where they happened"); else the venue's
                 try { $hz = new DateTimeZone((string) ($x['tz'] ?: $r['zone'] ?: 'America/Phoenix')); } catch (Throwable) { $hz = new DateTimeZone('America/Phoenix'); }
                 $hd = (new DateTime((string) $x['at'], new DateTimeZone('UTC')))->setTimezone($hz);
                 $h .= '<li><time datetime="' . $e($hd->format('c')) . '">' . $e($hd->format('M j, g:i A T')) . '</time> · ' . $e((string) ($x['who'] ?: 'your team')) . ': '
-                . $e($x['field'] === 'created' ? 'added it' : ($x['field'] === 'status' ? 'moved it from ' . strtolower(Events::STATUSES[$x['old_value']] ?? (string) $x['old_value']) : 'changed ' . str_replace('_', ' ', (string) $x['field']) . ($x['old_value'] !== null && $x['old_value'] !== '' ? ' (was "' . mb_strimwidth((string) $x['old_value'], 0, 80, '…') . '")' : ''))) . '</li>'; }
-            $h .= '</ul></details></div></div>';
+                . $e(Events::historyWords($x)) . '</li>'; }
+            $h .= '</ul></div>';
         }
         $h .= '</div>';
     }
@@ -87,12 +88,16 @@ function tv_biz_events(PDO $main, array $ctx, int $uid): string
         . '.ev-up{cursor:pointer}.ev-btns{display:flex;gap:.5rem;flex-wrap:wrap}'
         . '.ev-row{border-top:1px solid #EADFC4;padding:.7rem 0}.ev-row:first-child{border-top:0}.ev-top{display:flex;flex-wrap:wrap;gap:.2rem .6rem;align-items:baseline}.ev-t{font-weight:700;color:#92400E;text-decoration:underline}.ev-top small{color:#8A7355;font-size:.8rem}'
         . '.ev-acts{display:flex;flex-wrap:wrap;gap:.35rem;align-items:center}.ev-ic{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:999px;border:1px solid #CBB98D;background:#FFFBF2;cursor:pointer;list-style:none}.ev-ic::-webkit-details-marker{display:none}.ev-ic .ta-svg{width:15px;height:15px;color:#B45309}'
-        . '.ev-h{position:relative}.ev-h ul{margin:.4rem 0 0;padding-left:1rem;font-size:.8rem;color:#5C4632}.ev-h[open]{flex-basis:100%}</style>';
+        . '.ev-hl{margin:.45rem 0 0;padding-left:1rem;font-size:.8rem;color:#5C4632}.ev-ic[aria-expanded="true"]{border-color:#B45309;background:#F7EFDC}.ev-f label>span{display:block}</style>';
     if ($canEdit) $h .= '<script>(function () {
   var API = ' . json_encode('/business/api/' . $id . '/events') . ', TOK = ' . json_encode($csrf) . ', BACK = ' . json_encode('/business/' . $id . '/events') . ';
   var tz = ""; try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ""; } catch (x) {}
   function post(b) { b.tz = tz; return fetch(API, { method: "POST", credentials: "include", headers: { "Content-Type": "application/json", "X-CSRF-Token": TOK }, body: JSON.stringify(window.tvSafe ? tvSafe(b) : b) })
     .then(function (r) { return r.json(); }).then(function (d) { if (!d.ok) throw new Error((d.error && d.error.message) || "That didn’t work."); return d; }); }
+  document.addEventListener("click", function (e) {   // History: the clock opens the list below its row
+    var hb = e.target.closest("[data-ev-hist]"); if (!hb) return; var l = document.getElementById("evh-" + hb.getAttribute("data-ev-hist")); if (!l) return;
+    var open = hb.getAttribute("aria-expanded") !== "true"; hb.setAttribute("aria-expanded", open ? "true" : "false"); l.hidden = !open;
+  });
   document.addEventListener("click", function (e) {
     var b = e.target.closest("[data-ev-act]"); if (!b) return;
     var ask = b.getAttribute("data-ask");

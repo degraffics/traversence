@@ -50,7 +50,9 @@ const H = process.env.HARNESS || 'http://127.0.0.1:8790', BIZ = process.env.BIZ 
   await p.locator('.ev-row', { hasText: 'Community night at the movies ' + w }).locator('a.ev-ic').click(); await p.waitForTimeout(500);
   await p.locator('#ev-f [name=title]').fill('Community night: the big show ' + w); await p.locator('#ev-f button.go').click(); await p.waitForURL(/\/events$/, { timeout: 8000 }).catch(() => {}); await p.waitForTimeout(700);
   const row4 = p.locator('.ev-row', { hasText: 'the big show ' + w });
-  await row4.locator('summary.ev-ic').click(); await p.waitForTimeout(200);
+  const hb = row4.locator('[data-ev-hist]'); t(w + ' ✎ and 🕒 together on the actions line', await row4.locator('.ev-acts a.ev-ic, .ev-acts [data-ev-hist]').count() === 2); await hb.click(); await p.waitForTimeout(200);
+  t(w + ' the clock opens History below the row (aria-expanded)', await hb.getAttribute('aria-expanded') === 'true' && await row4.locator('.ev-acts [data-ev-hist]').count() === 1 && await row4.locator('ul.ev-hl:not([hidden])').count() === 1);
+  t(w + ' History names the moves', /put it back on \(was Cancelled\)/.test(await row4.innerText()) && /cancelled it \(was Published\)/.test(await row4.innerText()));
   t(w + ' History keeps the old name, who and when', /changed title \(was "Community night at the movies/.test(await row4.innerText()) && /Ann Owner/.test(await row4.innerText()), (await row4.innerText()).slice(0, 200));
   await p.screenshot({ path: out + '/ev1-history-' + w + '.png', fullPage: true });
   t(w + ' round icon buttons carry their names', (await row4.locator('a.ev-ic').getAttribute('aria-label') || '').startsWith('Edit '));

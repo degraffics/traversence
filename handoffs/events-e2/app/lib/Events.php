@@ -136,8 +136,19 @@ final class Events
         }
         $pdo->prepare('UPDATE events SET status = ?, updated_by = ?, updated_at = UTC_TIMESTAMP()' . ($to === 'deleted' ? ', deleted_at = UTC_TIMESTAMP()' : ($what === 'undelete' ? ', deleted_at = NULL' : '')) . ($to === 'published' && !$e['published_at'] ? ', published_at = UTC_TIMESTAMP()' : '') . ' WHERE id = ? AND status = ?')
             ->execute([$to, $uid, $id, $s]);
-        $pdo->prepare('INSERT INTO event_history (event_id, at, tz, user_id, field, old_value) VALUES (?, UTC_TIMESTAMP(), ?, ?, ?, ?)')->execute([$id, self::tzOk($tz), $uid, 'status', $s]);
+        $pdo->prepare('INSERT INTO event_history (event_id, at, tz, user_id, field, old_value) VALUES (?, UTC_TIMESTAMP(), ?, ?, ?, ?)')->execute([$id, self::tzOk($tz), $uid, $what, $s]);   // the move by name, with the state it left (the Design reviewer, 2026-11-27)
         return $words;
+    }
+
+    /** A History line's words: the move named, with the state it left in brackets, as the state line names it ("cancelled it (was Published)"). */
+    public const MOVE_WORDS = ['publish' => 'published it', 'unpublish' => 'unpublished it', 'cancel' => 'cancelled it', 'restore' => 'put it back on', 'delete' => 'deleted it', 'undelete' => 'put it back'];
+    public static function historyWords(array $x): string
+    {
+        $f = (string) $x['field']; $was = $x['old_value'];
+        if ($f === 'created') return 'added it';
+        if (isset(self::MOVE_WORDS[$f])) return self::MOVE_WORDS[$f] . ' (was ' . (self::STATUSES[(string) $was] ?? (string) $was) . ')';
+        if ($f === 'status') return 'changed its state (was ' . (self::STATUSES[(string) $was] ?? (string) $was) . ')';   // before the moves were named
+        return 'changed ' . str_replace('_', ' ', $f) . ($was !== null && $was !== '' ? ' (was "' . mb_strimwidth((string) $was, 0, 80, '…') . '")' : '');
     }
 
     /** An event's History: [at, tz, who, what changed, the old value], newest first. */
