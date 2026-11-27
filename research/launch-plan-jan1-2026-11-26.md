@@ -582,6 +582,8 @@ own pages and checked before it's published.
      account data is never content.
    - **Accuracy:** corrections and takedowns go through 0164's rules.
    - **Coverage is never endorsement or paid for** (0007).
+   - **Images follow 0164's "the licence decides the use":** a story shows only what we may use: the maker's own
+     posts, a licensed or credited image, or our own photo where the licence allows. Never an image we can't use.
    - **A maker's heritage** is told only as they've stated it publicly, and goods for sale are never labelled
      "Native-made" by us.
    - **0066** holds: relationships are with individual makers and their businesses, never outreach to a nation as a
