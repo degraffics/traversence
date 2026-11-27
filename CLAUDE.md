@@ -46,7 +46,7 @@ improvement to what's set is welcome (Jason: "suggestions are accepted, inventin
 "For all the sessions we are opening and closing, let them work silently, so they don't waste usage explaining unread
 conversations." A session doesn't narrate, recap or explain in its own chat: its work goes into commits, hand-offs,
 release records and short messages to the session manager (facts, links, what's needed). Only what needs Jason (a
-Founder ruling or an OK) is written for him, as "Each session asks Jason itself" says.
+Founder ruling or an OK) is written for him, through the CEO session ("Asking Jason" below).
 
 ## The session manager (Jason, 2026-11-13): every session
 
@@ -262,7 +262,7 @@ New standing OKs go here in the session that hears them; the tool they need goes
   $0 spend and Tier 5 triggers hold. Approving the decision tree and raising the stage ceiling are his: his press, or his own written words for a
   one-time setup (2026-11-26, R1's tree at Implementation); a later rule change clears it and needs him again.
 
-## Each session asks Jason itself (Jason, 2026-11-18; replaces 2026-11-17's): every session
+## Asking Jason (Jason, 2026-11-18; routed through the CEO, 2026-11-27): every session
 
 **Publish authority (decisions/0179, Jason, 2026-11-25): every release.** Until the before-and-after checks exist,
 nothing that needs approval goes live until Jason approves the **daily batch** (the session manager's daily summary);
@@ -272,16 +272,17 @@ their lanes; a change touching a high-risk area needs its Tier 4 review recorded
 (Tier 5)** comes to him as a Decision Brief: a rule, tier, permission or fence change, an ADR amendment or new policy,
 an irreversible act, a deadlock, or real money moving (never autonomous; refunds per 0178).
 
-A session that needs Jason's OK (a PR, a decision, a key) asks him in its own chat, **written in the reply for him and
-Gemini to review, never a pop-up** (Jason, 2026-11-25; 0179), never a Pulse case, and sends a push notification.
-**Before asking, it sends the question (or the release summary and PR) to the session manager for review**
-(Jason, 2026-11-18): against the decision, the brief and these rules, for scope creep, drift, conflicts and anything
-already decided. It asks Jason only once the session manager answers "clear to ask" or its fixes are made, noting
-"reviewed by the session manager"; no answer in 10 minutes, it reminds the session manager; none in 30, it asks and marks it "not reviewed". It then tells the
-session manager the answer and the link by send_message. The session manager never asks the same
-question again; it lists what's still open at the top of its replies as **"Waiting for your OK:"** (with each
-session's name), and asks only its own questions. **Sessions merge their own PR** once Jason approves it
-(Jason, 2026-11-18: no waiting on the session manager), then tell it the merge; it runs the sync and records deliveries.
+**Questions for Jason go through the CEO session** (Jason, 2026-11-27: "Yes, route their questions through you"). A
+session that needs Jason's OK (a PR, a decision, a key) sends the question (or the release summary and PR) to the
+session manager, never to Jason in its own chat. The session manager reviews it against the decision, the brief and
+these rules (scope creep, drift, conflicts, anything already decided); once it's clear to ask, or its fixes are made, it
+sends it to the CEO session, which puts it to Jason in its chat, **written for him and Gemini to review, never a
+pop-up** (0179), never a Pulse case, with a push notification, noting "reviewed by the session manager". Not forwarded in
+10 minutes, the asking session reminds the session manager; in 30, it goes to the CEO marked "not reviewed". The CEO sends
+his answer, in his words, to the session manager and the asking session. The session manager never asks the same
+question again; it lists what's still open at the top of its replies as **"Waiting for your OK:"** (with each session's
+name). **Sessions merge their own PR** once Jason approves it (Jason, 2026-11-18), then tell the session manager the
+merge; it runs the sync and records deliveries.
 
 **Decision or release: said every time** (Jason, 2026-11-24: "make the decisions vs work to live very clear"). Every
 question's first words say which it is: **"Decision (nothing changes on the site yet): goes live in <release>, <its

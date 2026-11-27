@@ -182,3 +182,8 @@ After it blocked its own fix four times on staging's own changing data, Jason ch
   once).
 - **It switches back on** before any agent-built release, and before R2.
 - No agent release publishes while it's off: Releases::agentGate already waits for a person when the check is off.
+
+**Note (Jason, 2026-11-27: "Yes, route their questions through you"):** the line above now reads through the CEO
+session. A build session's question for Jason goes to the session manager for review, then to the CEO session, which
+puts it to him in its chat in the same form (written for him and Gemini, never a pop-up). Sessions work silently in
+their own chats (CLAUDE.md, "Work silently" and "Asking Jason").
