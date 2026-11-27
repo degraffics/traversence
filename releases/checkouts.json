@@ -71,17 +71,6 @@
    "callers": {}
   },
   {
-   "path": "website/robots.txt",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
-   "why": "G.1: the search lock's leaks closed (decisions/0181 \u00a74)",
-   "since": "2026-11-27T01:52:30Z",
-   "expires": "2026-11-27T06:14:39Z",
-   "release": "search-lock.zip",
-   "callers": {}
-  },
-  {
    "path": "website/sitemap.php",
    "functions": [],
    "kind": "change",
@@ -90,32 +79,6 @@
    "since": "2026-11-27T01:52:32Z",
    "expires": "2026-11-27T05:52:32Z",
    "release": "",
-   "callers": {}
-  },
-  {
-   "path": "app/ui/storefront-view.php",
-   "functions": [
-    "(top)",
-    "tv_storefront_render",
-    "tv_storefront_serve"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
-   "why": "G.1: the search lock's leaks closed (decisions/0181 \u00a74)",
-   "since": "2026-11-27T01:52:34Z",
-   "expires": "2026-11-27T06:14:39Z",
-   "release": "search-lock.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/ui/search-lock.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
-   "why": "G.1: the search lock's leaks closed (decisions/0181 \u00a74)",
-   "since": "2026-11-27T01:53:36Z",
-   "expires": "2026-11-27T06:14:39Z",
-   "release": "search-lock.zip",
    "callers": {}
   },
   {
@@ -155,86 +118,6 @@
    "since": "2026-11-27T02:02:11Z",
    "expires": "2026-11-27T06:09:36Z",
    "release": "",
-   "callers": {}
-  },
-  {
-   "path": "app/ui/security-headers.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
-   "why": "release search-lock.zip",
-   "since": "2026-11-27T02:14:39Z",
-   "expires": "2026-11-27T06:14:39Z",
-   "release": "search-lock.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/register.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
-   "why": "release search-lock.zip",
-   "since": "2026-11-27T02:14:39Z",
-   "expires": "2026-11-27T06:14:39Z",
-   "release": "search-lock.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/sitemap.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
-   "why": "release search-lock.zip",
-   "since": "2026-11-27T02:14:39Z",
-   "expires": "2026-11-27T06:14:39Z",
-   "release": "search-lock.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/index.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
-   "why": "release search-lock.zip",
-   "since": "2026-11-27T02:14:39Z",
-   "expires": "2026-11-27T06:14:39Z",
-   "release": "search-lock.zip",
-   "callers": {},
-   "zones": [
-    "home.after-doors"
-   ]
-  },
-  {
-   "path": "website/forgot-password.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
-   "why": "release search-lock.zip",
-   "since": "2026-11-27T02:14:39Z",
-   "expires": "2026-11-27T06:14:39Z",
-   "release": "search-lock.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/directory/classic.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
-   "why": "release search-lock.zip",
-   "since": "2026-11-27T02:14:39Z",
-   "expires": "2026-11-27T06:14:39Z",
-   "release": "search-lock.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/login.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
-   "why": "release search-lock.zip",
-   "since": "2026-11-27T02:14:39Z",
-   "expires": "2026-11-27T06:14:39Z",
-   "release": "search-lock.zip",
    "callers": {}
   }
  ],
