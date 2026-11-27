@@ -382,12 +382,12 @@ Distances are from §2a.
 
 | Ring | Clusters | When selling opens | Message (regions.md overlay) |
 |---|---|---|---|
-| **1: 1A** | St. Johns, Springerville, Eagar, Show Low, Holbrook, Winslow, the Petrified Forest gateway | Dec 15, once gates 1 and 5 pass, the claim and verify paths are measurable and passing (C.2 first), and B.5's mail is done | Pre-Colonial Heavy (the Ancient Borderlands) |
+| **1: 1A** | St. Johns, Springerville, Eagar, Show Low, Holbrook, Winslow, the Petrified Forest gateway | Dec 15 in person, GO Codes and agencies, once gates 1 and 5 pass and the claim and verify paths are measurable and passing (C.2 first). Email invites follow the counts after the lock lifts, and B.5's mail comes first | Pre-Colonial Heavy (the Ancient Borderlands) |
 | **2: the Four Corners core** (within ~100 mi) | 1B, 1C, 2A Mesa Verde, 11B Bluff and Blanding | January | Pre-Colonial Heavy. Much of 1B is Navajo Nation land: 0066's rules first |
 | **3: the gateways** (100–200 mi) | 3A Santa Fe and Taos, 4A/4B Albuquerque, 7A/7B Flagstaff and Page, 11A Moab, 12B/12C | February–March | 3A Pre-Colonial; 4A Pre-Colonial with an industrial overlay; 7A Frontier anchored by a Pre-Colonial foundation; 12C Dual-Layer |
 
-**Selling to owners before the Dec 31 go/no-go is fine while the search lock holds:** owners reach us by invite and
-GO Code, not by search.
+**Selling to owners before the Dec 31 go/no-go is fine while the search lock holds:** owners are met in person and by
+GO Code. The demand-carrying email invites come once visitors arrive.
 
 *Suggest a change to the plan, for Jason:* the ring dates above are mine, not set anywhere. They're tied to gates, not
 to the calendar.
@@ -398,19 +398,21 @@ to the calendar.
    paths passing.
 2. **Source and score:** every unclaimed listing in the ring is a lead, scored with reasons (0108 §1–2). The ring is a
    Territory with its rep (0108 "Territories").
-3. **Reach out, free channels first:**
-   - claim invites by email: system emails cost nothing (CLAUDE.md);
-   - one GO Code per business on the invite, so a scan moves the lead to Engaged and tells the rep (0108
-     "Promotions");
-   - calls logged;
-   - in-person visits with the card scanner.
+3. **Reach out the way Jason set it: invites earned by real demand, never cold blasts** (0172 §3.3, Jason
+   2026-11-18; 0108 "Messaging"):
+   - **Every tap on an unclaimed listing is counted** (call, email, website, directions; counts only, never who).
+   - **The claim invite carries that demand:** "37 people called or emailed you through Traversence this month." It
+     goes at most once every 30 days, with an unsubscribe. 0108 lets invites go automatically by these rules.
+   - **A visitor's message on an unclaimed listing** reaches the business's public email once, then "5 visitors have
+     left you messages" (or after 10 days). It's sent from its own sender, screened, and reading the messages means
+     claiming the listing.
+   - **So the invites follow visitors.** Before launch the counts are near zero, so ring 1's first contacts are
+     in-person visits with the card scanner, GO Codes on counters, and the agencies and chambers (step 4). Email
+     invites grow as traffic grows after the lock lifts.
+   - Any invite a person sends by hand is pressed in the CRM, never by an agent.
 
-   Invites are sent by a person's press in the CRM, never by an agent.
-
-   **Mail comes before volume.** Cold invites to thousands of businesses go out only once B.5 is done: SES out of the
-   sandbox, DKIM verified on both domains, and DMARC moved off `p=none`. Every invite also carries an unsubscribe,
-   through the one dispatcher (0172). Otherwise invites land in spam and hurt the domain the site's own system mail
-   depends on.
+   **Mail comes first:** B.5 (SES production access, DKIM, DMARC off `p=none`) and the unsubscribe through the one
+   dispatcher (0172) before invites run at any volume.
 4. **Partners who reach the rest:** chambers, visitor centres and county tourism offices get their free agency page
    first, and their member lists become warm leads (research/state-tourism-apis.md for the state offices' data).
 5. **Convert:** verify, choose a tier, card on file; or a trial of 30, 60 or 90 days with no commitment, dropping to
