@@ -219,6 +219,19 @@
    "expires": "2026-11-27T20:24:54Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/FounderMail.php",
+   "functions": [
+    "linkOf"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
+   "why": "founder-link",
+   "since": "2026-11-27T16:24:56Z",
+   "expires": "2026-11-27T20:24:56Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
