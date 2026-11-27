@@ -133,3 +133,57 @@ this cloud environment's network policy (2026-11-27 ~21:00 UTC); asked through t
 Public pages found meanwhile (not a licence): the clinic's own page gives 4951 S. White Mountain Rd., Bldg A, Show Low
 85901, (928) 537-6743; Building B is Summit's Outpatient Surgery Center (a separate place). Nothing is added from these
 until the licence is read.
+
+## The IT Manager's (11) code paths, behind each defect (2026-11-27 evening, read-only, Sync 19:50)
+
+Read on the live mirror and `workers/crawler/crawler.py` (main). Each defect is given the one place its fix belongs.
+
+**A correction to C5.** Neither NPI path can load a person. The file load keeps only entity type 2 (`crawler.py:2861`), and the API lookup asks only for `NPI-2` (`crawler.py:1007`). So the 123 people came in another way. The likeliest is the open-dataset loads (Overture and Foursquare, `crawler/OpenLoads.php:81-125`).
+- `OpenLoads` drops only junk names (:93) and puts the dataset's own category into the find's offerings (:112).
+- `IntakeStager::suggestCategories` then matches the offerings against `NPI_CATEGORY` (`IntakeStager.php:471-476`). An Overture category of exactly "pharmacy", "hospital" or "clinic" is stamped `from: registry`, score 99.
+- So a dataset's label is treated as a federal record. That is also a second cause of C3.
+
+**C5, the gate that lets people through.** `AutoImport::looksPerson` (:489-498) already recognises a person at a listed practice, as the relation `place` (:440, :455, :459). But:
+- `ListingIdentity::resolve` drops `place` (:250), so the person resolves as new.
+- `evaluate`'s publish test `$real` never checks for a person (`AutoImport.php:178`).
+- The existing guard `NPI_NOT_PUBLIC` (:212-218, applied at :177) covers only finds from the NPI file and four kinds of service.
+- Data cleanup's `person` rule (`DataCleanup.php:499`) catches only listings with no category.
+
+**Fix:**
+- A find whose name `looksPerson` is kept as a record under the practice it relates to, never a place. That is one condition in `evaluate`'s floor (:177-178), and it covers every path through `IntakeStager::stage`: NPI, the open loads and the crawler.
+- `NPI_CATEGORY` applies only when the find's registry is NPI (`IntakeStager.php:471`).
+- Data cleanup's `person` rule drops its no-category condition, to catch the people already live (with Undo).
+
+**C3 and C6: the kind, and "How sure we are".**
+- The score is `ListingConfidence::compute` (`ListingConfidence.php:85-182`). It reproduces #14779's 56: base 10, registry 22, own site 14.4, two key areas +10.
+- The NPI match adds only the name or another name, the phone and the address (`Identity::fromReferences`, `Identity.php:971-980`). The rule is a name 50% alike plus the phone, or the ZIP and street number.
+- The NPI taxonomy is never read. `category` is multi-valued (`Identity.php:24`), so it can never be a conflict (:204).
+- So an NPI record saying hospital scores a listing filed as a clinic up, never down. The loose name rule also lets a department's NPI record vouch for its parent.
+- **Fix:** in `Identity::fromReferences`, read `npi_orgs.taxonomy` and `label`. Add a `category` fact sourced from the registry. Make a mismatch between the registry's kind and the crawler's kind a conflict, which `ListingConfidence` already scores down (:151).
+- The NPI code-to-category mapping (C3's fix) goes through the one category writer below.
+
+**Who sets a listing's kind, and why a person's choice isn't safe.** The last writer wins:
+- staging's suggestion (`IntakeStager.php:467-492`);
+- the auto line (`AutoImport.php:120-140`);
+- publish (`IntakeStager.php:570-572`);
+- merge, which overwrites `category_id` on any unclaimed listing (:758-762);
+- `CategoryClassifier::reclassifyTick` (:241-275, via `setCategory` :289-293);
+- staff (`adminSave` :608-610);
+- data cleanup (`DataCleanup.php:1056`).
+
+`adminSave` never writes a locked `category` key (:611-618). So a staff re-file on an unclaimed listing can be undone by the next reclassify or merge.
+
+**Fix:** one rule in `CategoryClassifier::setCategory`, used by `merge` and `approveNew` too: a category a person set (staff, the owner or a member) is never overwritten. `adminSave` writes a locked `category` key, source admin.
+
+**C4: departments as places.** The one identity check is `ListingIdentity::resolve` (:237-262), with candidates by ZIP, phone or geohash (:180-198), related by `AutoImport::relationTo` (:405-464). "Summit Family Medicine" at the hospital's address has another phone and a name under 40% alike, so the relation is `other`, a new place (:458).
+
+**Fix:** a branch in `relationTo` before the `other` fall-through (:450-461). The same address plus the same organisation family gives `covered`, or a `department` relation that `resolve` records as a sub-record. Every path gets it: resolve, fold, `recheckTick` and NpiBulk's `stageNew` (`NpiBulk.php:191-192`). There is no second identity path, and Undo is through `ListingIdentity::merge`/`undo` (:380, :453).
+
+The family needs data the copy doesn't keep: `npi_orgs` has no parent or authorized-official columns (`NpiBulk.php:100`). The file loader (`crawler.py:2867`) would carry NPPES's "Parent Organization LBN" and the authorized official's name.
+
+**The hero photo.** The order is the owner's photos (`listing/view.php:363`), then a photo of the place (`PlacePhotos::slides`, :366), then stock (:370, `ui/explore-hero.php:33-43`).
+- `PlacePhotos` looks only for parks, monuments, visitor centres and historic sites (`PlacePhotos.php:20-21`), so a hospital always gets stock.
+- The stock subject is the listing's category (`view.php:370` → `StockLibrary::pick`/`rank`, `StockLibrary.php:434-467`), so a wrong kind picks a wrong photo. A photo tagged for the town outranks any subject.
+- **Fix:** the kind (above). Adding Hospitals and Medical Centers to `PlacePhotos::CATEGORIES` is optional.
+
+**C1 and C2** are as Data & Content traced them (`crawler.py:805` `meta_description`; `listing/view.php:500-502`).
