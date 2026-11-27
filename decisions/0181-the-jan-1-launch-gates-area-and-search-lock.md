@@ -135,3 +135,10 @@ day. This qualifies 0180's "R1–R5 ship as each passes" (note added there).
   the Master Hub).
 - **Still open with him:** chambers are nonprofits, so Free under 0108's claim kinds, but the Master Hub is a
   Cornerstone feature and trials are Core only.
+- **Chambers get the Co-Op Master Hub by grant** (Jason, 2026-11-27: "Your suggestion", option A).
+  - During the pilot, up to **3** partnering chambers in the pilot zone get the Co-Op Master Hub (a Cornerstone
+    feature) through a comped 0034 grant.
+  - Each grant is recorded, carries a review date, and continues only by the Founder's review.
+  - Its AI credits are capped to fit E1.
+  - This is a named exception to the Core-only trials rule, for chambers only.
+  - Members keep their own plans (Master AOS §6B, dual compliance).
