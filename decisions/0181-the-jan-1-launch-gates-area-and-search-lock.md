@@ -75,3 +75,13 @@ day. This qualifies 0180's "R1–R5 ship as each passes" (note added there).
 - **Three build sessions run it:** Piece 2 (backend), Frontend & Shop, and Data & Content. That's CLAUDE.md's cap. The
   session manager keeps one queue, and releases go one at a time.
 - The CEO reports to Jason against the gates. Briefs C (by Dec 7) and D (by Dec 14–21) come to him as Founder rulings.
+
+## Notes
+
+- **The launch area runs at $0 extra** (Jason, 2026-11-27, Brief E: "E1"):
+  - all 340 towns come from free sources;
+  - Google's listing checks stay inside the existing 1,000 a month, 1A first;
+  - guides stay inside the $40 monthly AI cap, in rings: first the zone, then the ~13 cluster guides, then 1A's towns.
+
+  A one-time December allowance (E2) isn't approved. The CEO brings it back only if week 1's measured costs show the
+  gates can't be met at $0.
