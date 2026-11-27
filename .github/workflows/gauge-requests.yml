@@ -39,5 +39,4 @@ jobs:
           git config user.name "gauge-requests"
           git config user.email "gauge-requests@users.noreply.github.com"
           git commit -m "Gauge requests: the panel's open requests"
-          git pull --rebase -X theirs -q
-          git push
+          for i in 1 2 3 4 5; do git pull --rebase -X theirs -q && git push && break; [ "$i" = 5 ] && exit 1; sleep $((i * 10)); done   # main moves often: retry, the run's own generated files winning a collision (the 11-26 snapshot was lost to one rejected push)

@@ -30,7 +30,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           since=$(date -u -d '-10 hours' +%Y-%m-%dT%H:%M:%SZ)
-          n=$(gh api "repos/${{ github.repository }}/actions/workflows/site-audit.yml/runs?created=%3E%3D$since&per_page=20" --jq '[.workflow_runs[] | select(.id != ${{ github.run_id }})] | length' || echo 0)
+          n=$(gh api "repos/${{ github.repository }}/actions/workflows/site-audit.yml/runs?created=%3E%3D$since&per_page=20" --jq '[.workflow_runs[] | select(.id != ${{ github.run_id }} and .conclusion != "failure" and .conclusion != "cancelled")] | length' || echo 0)   # a failed or cancelled run doesn't fill the window
           if [ "${n:-0}" -gt 0 ]; then echo "Run $n time(s) in the last 10 hours already: nothing to do."; echo "SKIP=1" >> "$GITHUB_ENV"; fi
 
       - uses: actions/checkout@v4
@@ -105,8 +105,7 @@ jobs:
           [ -d deliveries ] && git add deliveries
           if git diff --cached --quiet; then echo "No change."; exit 0; fi
           git commit -m "Site audit: mirror $(cat site-audit/results/mirror-sha.txt)"
-          git pull --rebase -X theirs -q   # the run's own generated files win a collision
-          git push
+          for i in 1 2 3 4 5; do git pull --rebase -X theirs -q && git push && break; [ "$i" = 5 ] && exit 1; sleep $((i * 10)); done   # main moves often: retry, the run's own generated files winning a collision (the 11-26 snapshot was lost to one rejected push)
 
       - name: Check-in (decisions/0161) - release the claims of releases now live, report lapsed ones
         if: env.SKIP != '1'
