@@ -6,6 +6,7 @@ const { chromium } = require('playwright'); const fs = require('fs');
 const TW = process.env.TW_INJECT ? fs.readFileSync(process.env.TW_INJECT, 'utf8') : ''; const out = process.argv[2] || '.';
 const H = process.env.HARNESS || 'http://127.0.0.1:8790', HOST = process.env.HOST || '7', HUID = process.env.HUID || '2', GUEST = process.env.GUEST || '8', GUID = process.env.GUID || '3', GNAME = process.env.GNAME || 'Show Low Pizza', EV = process.env.EV || '5';
 const sh = (q, db) => require('child_process').execFileSync('mysql', ['-utv', '-ptv', db || 'tvh', '-e', q]);
+const sw = st => sh("INSERT INTO feature_switches (switch_key, state) VALUES ('event_codes', '" + st + "') ON DUPLICATE KEY UPDATE state = VALUES(state)");
 (async () => { const b = await chromium.launch(); let ok = 0, bad = 0; const t = (n, c, x) => { c ? ok++ : bad++; console.log((c ? 'PASS ' : 'FAIL ') + n + (x ? '  [' + x + ']' : '')); };
  for (const w of [1280, 390]) {
   const ua = w < 800 ? 'Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Mobile Safari/537.36' : 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36';
@@ -25,6 +26,9 @@ const sh = (q, db) => require('child_process').execFileSync('mysql', ['-utv', '-
   await gp.goto(H + '/business/' + GUEST + '/events', { waitUntil: 'load' }); await gp.waitForTimeout(500);
   t(w + ' the business sees the invitation, with Take part and Decline', await gRow().count() === 1 && /Invited:/.test(await gRow().innerText()) && await gRow().locator('[data-ev-part=accept]').count() === 1 && await gRow().locator('[data-ev-part=decline]').count() === 1);
   await gp.screenshot({ path: out + '/p1-guest-invited-' + w + '.png', fullPage: true });
+  sw('off'); await gp.reload(); await gp.waitForTimeout(400);
+  t(w + ' codes switched off (as it ships): no code to choose, the offer line still there', await gRow().locator('[data-ev-code]').count() === 0 && await gRow().locator('[data-ev-offer]').count() === 1);
+  sw('on'); await gp.reload(); await gp.waitForTimeout(400);
   const opts = await gRow().locator('[data-ev-code] option').allTextContents();
   t(w + ' its discount codes are offered: switched on and not ended only', opts.some(o => /^SHOW10: 10% off, until Dec 31/.test(o)) && !opts.some(o => /OLD5/.test(o)), opts.join(' | '));
   await gRow().locator('[data-ev-offer]').fill('10% off a pizza with your ticket'); await gRow().locator('[data-ev-code]').selectOption('SHOW10'); await gRow().locator('[data-ev-part=accept]').click(); await gp.waitForTimeout(1800);
@@ -69,4 +73,4 @@ const sh = (q, db) => require('child_process').execFileSync('mysql', ['-utv', '-
   await hc.close(); await gc.close();
   sh('DELETE FROM event_participants');
  }
- console.log(ok + ' passed, ' + bad + ' failed'); await b.close(); process.exit(bad ? 1 : 0); })();
+ sw('off'); console.log(ok + ' passed, ' + bad + ' failed'); await b.close(); process.exit(bad ? 1 : 0); })();

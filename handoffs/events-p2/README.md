@@ -13,7 +13,7 @@ Built 2026-11-27 on P1 (`handoffs/events-p1/`; E1 and E2 before it). Sends after
 `app/lib/Events.php` (publicParticipants, partOf, html's Part of), `website/event/index.php`, `website/listing/view.php`, `app/business/events.php`, `app/ui/faq.md`; P1's files carried as built.
 
 ## Tests
-- `tools/event-tests/event-parts-page.cjs <shots>`: 49/49 rendered at 1280 and 390 (order by name, card anatomy, icons' names and size, offer and code, a switched-off and an ended code hidden (read live), an unclaimed listing's offer hidden, GO Code, Maps stops with the venue last and its chooser, Esc, the trip picker, no sideways scroll, edges at 390, none on a cancelled event, Part of on the listing, no script errors). Screens in `screens/`.
+- `tools/event-tests/event-parts-page.cjs <shots>`: 51/51 rendered at 1280 and 390 (order by name, card anatomy, icons' names and size, offer and code, a switched-off and an ended code hidden (read live), an unclaimed listing's offer hidden, GO Code, Maps stops with the venue last and its chooser, Esc, the trip picker, no sideways scroll, edges at 390, none on a cancelled event, Part of on the listing, no script errors). Screens in `screens/`.
 - The bench's `short_codes` lacked columns the live code writes (bench only; healed).
 
 Design: approved but for the repeated discount (fixed: the code and its last day only, here and on the host's row).
@@ -26,3 +26,5 @@ write in its code); `@tv_tenant` is reset in `finally` after the read, also when
 business's rows; only `[code, ends]` comes back (no counts, notes or other codes; the P2 page test checks the HTML too).
 Also: the guest's offer form at 390 (one-line field, the code select full width, Save offer and Leave below; tested).
 The sticky bars drawn part way down an earlier full-page screenshot were the screenshot's stitching, not the page.
+
+**The code behind the `event_codes` switch** (off until the Founder's ruling on 0110's note); the Tier 4 review and QA in `handoffs/events-p2/tier4-review.md`. Files added: `app/lib/BusinessData.php` (publicCode), `app/lib/Switches.php` (event_codes, the Founder's).

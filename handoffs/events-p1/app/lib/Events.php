@@ -338,6 +338,7 @@ final class Events
         if (preg_match('~(https?://|www\.)\S+~i', $offer)) throw new InvalidArgumentException('No links in the offer: its GO Code takes people to you.');
         $withOffer = in_array($what, ['accept', 'offer'], true);
         $c = ['', '', null];   // the code, its words, its last day
+        if ($code !== null && !self::codesOn(Database::connection())) $code = '';   // codes are off: the line alone
         if ($withOffer && $code !== null && trim($code) !== '') {
             $all = self::codeChoices($pdo); $k = strtoupper(trim($code));
             if (!isset($all[$k])) throw new InvalidArgumentException('Choose one of your own discount codes that\'s switched on and not ended (Discount codes).');
@@ -354,37 +355,25 @@ final class Events
         return $words;
     }
 
-    /**
-     * A business's discount code as it stands now, read when a page is drawn (the session manager, 2026-11-27: words follow
-     * the state): from its walled data through the business gate, as MarketCheckout::writeOrder writes there (0110:
-     * the listings login on a connection of its own, set to that business by @tv_tenant, read only through its b_ view).
-     * The code only while it's switched on, in its dates and not used up, with its last day; null otherwise, and null
-     * when the data can't be reached (nothing shown rather than something untrue).
-     */
+    /** Discount codes on event pages: the switch the Founder's ruling on 0110's note turns on (Switches 'event_codes', off until then). */
+    public static function codesOn(PDO $pdo): bool
+    {
+        require_once __DIR__ . '/Switches.php';
+        try { return Switches::on($pdo, 'event_codes'); } catch (Throwable $x) { return false; }
+    }
+
+    /** A business's code as it stands now, its public terms only: through the realm's gateway (BusinessData::publicCode). */
     public static function liveCode(int $entity, string $code, ?PDO $db = null): ?array
     {
-        static $own = null, $seen = [];
-        $code = strtoupper(trim($code));
-        if ($code === '' || $entity <= 0) return null;
-        $k = $entity . ':' . $code; if ($db === null && array_key_exists($k, $seen)) return $seen[$k];
-        $c = null;
-        try {
-            if ($db === null) { if ($own === null) { require_once __DIR__ . '/BusinessData.php'; $own = Database::realmOwn('listings'); } $db = $own; }
-            $db->prepare('SET @tv_tenant = ?')->execute([$entity]);
-            try {   // one row: the code this business attached, and only the columns that decide whether it holds
-                $st = $db->prepare('SELECT code, active, starts, ends, max_uses, uses FROM `b_biz_codes` WHERE code = ? LIMIT 1'); $st->execute([$code]);
-                $c = $st->fetch(PDO::FETCH_ASSOC) ?: null;
-            } finally { $db->exec('SET @tv_tenant = NULL'); }   // never left set for the next query on this connection
-        } catch (Throwable $x) { error_log('Events::liveCode ' . $entity . ': ' . $x->getMessage()); return $seen[$k] = null; }
-        $today = date('Y-m-d');
-        $ok = $c && (int) $c['active'] && !($c['starts'] && (string) $c['starts'] > $today) && !($c['ends'] && (string) $c['ends'] < $today) && !((int) $c['max_uses'] && (int) $c['uses'] >= (int) $c['max_uses']);
-        return $seen[$k] = $ok ? ['code' => (string) $c['code'], 'ends' => $c['ends'] ?: null] : null;   // only these two reach a page: no counts, no other codes
+        if (!self::codesOn(Database::connection())) return null;   // until the Founder's ruling on 0110's note: the line alone, whoever calls
+        require_once __DIR__ . '/BusinessData.php';
+        return BusinessData::publicCode($entity, $code, $db);
     }
 
     /** "code SHOW10 until Dec 31": after the business's own words, the code and its last day only (the Design reviewer). */
     public static function codeWords(array $c): string
     {
-        return 'code ' . $c['code'] . ($c['ends'] ? ' until ' . date('M j', strtotime((string) $c['ends'])) : '');
+        return 'code ' . $c['code'] . (!empty($c['min_cents']) ? ' on orders of $' . number_format((int) $c['min_cents'] / 100, 2) . ' or more' : '') . ($c['ends'] ? ' until ' . date('M j', strtotime((string) $c['ends'])) : '');
     }
 
     /** An offer in words, for History: 'the line' · code CODE. */
@@ -399,6 +388,7 @@ final class Events
      */
     public static function codeChoices(PDO $pdo): array
     {
+        if (!self::codesOn(Database::connection())) return [];
         if (!is_file(__DIR__ . '/BizCodes.php')) return [];
         require_once __DIR__ . '/BizCodes.php';
         if (!class_exists('Scope') || !Scope::isBusiness()) return [];
@@ -419,6 +409,7 @@ final class Events
      */
     public static function recheckCodes(PDO $pdo, int $entity): array
     {
+        if (!self::codesOn(Database::connection())) return [];
         if (!self::partsReady($pdo) || !class_exists('Scope') || !Scope::isBusiness()) return [];
         $st = $pdo->prepare("SELECT p.id, p.offer_code, p.offer_code_words, ev.title FROM event_participants p JOIN events ev ON ev.id = p.event_id WHERE p.entity_id = ? AND p.offer_code <> ''");
         $st->execute([$entity]); $rows = $st->fetchAll(PDO::FETCH_ASSOC); if (!$rows) return [];

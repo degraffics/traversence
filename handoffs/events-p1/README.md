@@ -15,7 +15,7 @@ Built 2026-11-27 on E1 (`handoffs/events-e1/`) and E2 (`handoffs/events-e2/`); s
 
 ## Tests
 - `tools/event-tests/events-parts.php <app> <e1 events.sql> <p1 sql>`: 22/22 on MariaDB.
-- `tools/event-tests/portal-parts.cjs <shots>`: 49/49 rendered at 1280 and 390, two owners (invite; take part with a line and a code, only live codes offered; the host sees both; the code switched off comes off with its notice, said once; remove/Undo; leave/Undo; no sideways scroll; no script errors). The harness needs a listings realm (`tvl`, DB_LISTINGS_*). Screens in `screens/`.
+- `tools/event-tests/portal-parts.cjs <shots>`: 51/51 rendered at 1280 and 390, two owners (invite; take part with a line and a code, only live codes offered; the host sees both; the code switched off comes off with its notice, said once; remove/Undo; leave/Undo; no sideways scroll; no script errors). The harness needs a listings realm (`tvl`, DB_LISTINGS_*). Screens in `screens/`.
 
 
 ## Design fixes (the Design reviewer, 5c391af and 94c92b7) and the live code (the session manager, 2026-11-27)
@@ -36,3 +36,5 @@ write in its code); `@tv_tenant` is reset in `finally` after the read, also when
 business's rows; only `[code, ends]` comes back (no counts, notes or other codes; the P2 page test checks the HTML too).
 Also: the guest's offer form at 390 (one-line field, the code select full width, Save offer and Leave below; tested).
 The sticky bars drawn part way down an earlier full-page screenshot were the screenshot's stitching, not the page.
+
+**The code behind the `event_codes` switch** (off until the Founder's ruling on 0110's note); the Tier 4 review and QA in `handoffs/events-p2/tier4-review.md`. Files added: `app/lib/BusinessData.php` (publicCode), `app/lib/Switches.php` (event_codes, the Founder's).

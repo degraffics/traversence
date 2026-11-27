@@ -170,6 +170,27 @@ Comes after C.5a and C.5b, as its own release. Its plan went to the session mana
   named in csp.php:63, StagingGate.php:313, OutsideServices.php:184/283, service-defs.php:499, Preflight.php:1129 (kept a week).
   Class names built in code: about 140 sites by a rough grep (`class="…' . $x`, `className +=`, `$cls`, `$tv_item`), to
   be listed one by one with file:line before the build (fix 4).
+- **Fix 4 done, 2026-11-27 (the class names; Sync 16:23 UTC):** `tools/stylesheet/dynamic-classes.py` lists every place a
+  Tailwind name is glued from pieces (`'bg-' . $x`, `"text-" + c`, `` `w-${n}` ``, `"bg-$tone"`, `'sm:' . $x`): **10 places in
+  8 files, none of them Tailwind**. All are the site's own classes: Blocks.php:555 (`.tvb-$bp-mt-$k`, its own CSS),
+  tv-proof.js:109 (`m-page`, `m-c2`…), admin-outside.js:66 (`os-m-`), control-console.php:189 and :2056 and
+  ControlConsistency.php:71 (`cb-p-`), MarketSquare.php:239, MarketPay.php:271 and :290 (`tv-order-`, not a class),
+  client-order.php:828 (`order-`, a key). So **no safelist line is needed**; the "about 140" were whole names in variables,
+  which the CLI reads. The earlier "about 380" was the same over-count.
+  **Proof:** the CLI built tv.css from the live mirror in 5 s (33 KB; `app/data/` excluded: 11 MB of word lists, no markup,
+  which stalled it). `tools/stylesheet/harvest.cjs` opened 17 pages at 390 and 1280 (home, sign-in and Create account, Get Local
+  with and without a place, a guide, a listing, an event, the Marketplace, FAQ, Explore, Journeys, Community, a member's
+  dashboard, the business portal) and matched each of the **762 class names in use** against tv.css's rules in the browser.
+  Every Tailwind name matched but three, and those three are **already broken today**: `border-[color:var(--tv-umber)]/40`
+  (login.php:35), `border-[color:var(--tv-line-strong)]/60` and `/70` (the home page, sign-in, a listing). Tailwind 3.4
+  can't put an opacity on a `var()` colour, so the CLI skips them, and so does the Play CDN (the same v3.4 engine; its exact
+  version couldn't be fetched from here, the proxy blocks the host), leaving the default border colour. Flagged for the Design
+  reviewer: written as `border-[color:color-mix(in_srgb,var(--tv-umber)_40%,transparent)]` they'd show as meant. The others the
+  harvest named (`pl-h`, `pl-r`… on the dashboard; bare `pl`, `mt`, `m`) are the pages' own classes, not Tailwind.
+  **The Design reviewer, 2026-11-27:** the intended look is wanted; in the stylesheet release write the three as
+  `color-mix(in_srgb,var(--tv-umber)_40%,transparent)` (and line-strong at 60/70%), with before/after screens of the sign-in
+  card, home and a listing at 1280 and 390.
+    **Content for the build:** `website/**/*.{php,js,html}`, `app/**/*.php`, `trvgo/**/*.php`, excluding `app/data/**`.
 - **Measured for it (C.5a):** login 390 0.250 / 1280 0.653 with the CDN late; 0.009 / 0 with the styles in first; the hub 0.001 / 0.
 - **The before-and-after look:** the check can't cover every page (BA_MAX_PAGES 40; about 213 pages). It takes about 20, one per family of how a page loads Tailwind, plus each distinct layout in the page shell. Piece 2 is adding `"look_pages"` to the check, a check change through the CEO and the session manager. **Ping Piece 2 when we're two releases out.**
 
