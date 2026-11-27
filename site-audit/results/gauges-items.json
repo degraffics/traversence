@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-27T16:38:53Z",
+ "generated_at": "2026-11-27T20:18:54Z",
  "version": 2,
  "generated_by": "tools/page-audit/gauges.py",
  "note": "Each gauge's detail for its drawer (ControlGauges::detail): read when the drawer opens.",
@@ -8,7 +8,7 @@
    "name": "Every method a file calls exists (a zip can't drop one still in use)",
    "status": "built",
    "result": "pass",
-   "latest": "0 failures (2026-11-27 12:39 UTC)",
+   "latest": "0 failures (2026-11-27 19:17 UTC)",
    "target": "0 failures in the files it reads",
    "evidence": "https://github.com/degraffics/traversence/blob/main/site-audit/scorecard.md"
   },
@@ -16,7 +16,7 @@
    "name": "No alert(), confirm(), prompt(); use TvAsk",
    "status": "built",
    "result": "pass",
-   "latest": "0 failures (2026-11-27 12:39 UTC)",
+   "latest": "0 failures (2026-11-27 19:17 UTC)",
    "target": "0 failures in the files it reads",
    "evidence": "https://github.com/degraffics/traversence/blob/main/site-audit/scorecard.md"
   },
@@ -24,7 +24,7 @@
    "name": "Uploads only through Uploads.php and /api/upload.php",
    "status": "built",
    "result": "pass",
-   "latest": "0 failures (2026-11-27 12:39 UTC)",
+   "latest": "0 failures (2026-11-27 19:17 UTC)",
    "target": "0 failures in the files it reads",
    "evidence": "https://github.com/degraffics/traversence/blob/main/site-audit/scorecard.md"
   },
@@ -32,7 +32,7 @@
    "name": "No PHP the server can't run (readonly, enum, never on a function that can return (P8), first-class callables, array_is_list, json_validate, typed constants, new in defaults)",
    "status": "built",
    "result": "pass",
-   "latest": "0 failures (2026-11-27 12:39 UTC)",
+   "latest": "0 failures (2026-11-27 19:17 UTC)",
    "target": "0 failures in the files it reads",
    "evidence": "https://github.com/degraffics/traversence/blob/main/site-audit/scorecard.md"
   },
@@ -40,7 +40,7 @@
    "name": "Pages load the session and draw the account bar",
    "status": "built",
    "result": "pass",
-   "latest": "0 failures (2026-11-27 12:39 UTC)",
+   "latest": "0 failures (2026-11-27 19:17 UTC)",
    "target": "0 failures in the files it reads",
    "evidence": "https://github.com/degraffics/traversence/blob/main/site-audit/scorecard.md"
   },
@@ -48,7 +48,7 @@
    "name": "FAQ links point at questions that exist",
    "status": "built",
    "result": "pass",
-   "latest": "0 failures (2026-11-27 12:39 UTC)",
+   "latest": "0 failures (2026-11-27 19:17 UTC)",
    "target": "0 failures in the files it reads",
    "evidence": "https://github.com/degraffics/traversence/blob/main/site-audit/scorecard.md"
   },
@@ -56,7 +56,7 @@
    "name": "Endpoints that change things check the security token (or a signature)",
    "status": "built",
    "result": "pass",
-   "latest": "0 failures (2026-11-27 12:39 UTC)",
+   "latest": "0 failures (2026-11-27 19:17 UTC)",
    "target": "0 failures in the files it reads",
    "evidence": "https://github.com/degraffics/traversence/blob/main/site-audit/scorecard.md"
   },
@@ -64,7 +64,7 @@
    "name": "Migrations: add-only, safe twice, no IF NOT EXISTS in ALTER, no routines",
    "status": "built",
    "result": "pass",
-   "latest": "0 failures (2026-11-27 12:39 UTC)",
+   "latest": "0 failures (2026-11-27 19:17 UTC)",
    "target": "0 failures in the files it reads",
    "evidence": "https://github.com/degraffics/traversence/blob/main/site-audit/scorecard.md"
   },
@@ -72,7 +72,7 @@
    "name": "Every page is in site-audit/pages.md or archive.md",
    "status": "built",
    "result": "pass",
-   "latest": "0 failures (2026-11-27 12:39 UTC)",
+   "latest": "0 failures (2026-11-27 19:17 UTC)",
    "target": "0 failures in the files it reads",
    "evidence": "https://github.com/degraffics/traversence/blob/main/site-audit/scorecard.md"
   },
@@ -80,7 +80,7 @@
    "name": "The brand's icons, not emoji",
    "status": "built",
    "result": "pass",
-   "latest": "0 failures (2026-11-27 12:39 UTC)",
+   "latest": "0 failures (2026-11-27 19:17 UTC)",
    "target": "0 failures in the files it reads",
    "evidence": "https://github.com/degraffics/traversence/blob/main/site-audit/scorecard.md"
   },
@@ -88,7 +88,7 @@
    "name": "No breadcrumbs on content pages",
    "status": "built",
    "result": "pass",
-   "latest": "0 failures (2026-11-27 12:39 UTC)",
+   "latest": "0 failures (2026-11-27 19:17 UTC)",
    "target": "0 failures in the files it reads",
    "evidence": "https://github.com/degraffics/traversence/blob/main/site-audit/scorecard.md"
   },
@@ -96,7 +96,7 @@
    "name": "Every outside service the code calls has its card in Outside services: a host the site, its pages or the workers call that's on no card (OutsideServices::HOSTS or a card's links), or a standing source on Sources with no card (ignored hosts: site-audit/services-ignore.txt)",
    "status": "built",
    "result": "pass",
-   "latest": "0 failures (2026-11-27 12:39 UTC)",
+   "latest": "0 failures (2026-11-27 19:17 UTC)",
    "target": "0 failures in the files it reads",
    "evidence": "https://github.com/degraffics/traversence/blob/main/site-audit/scorecard.md"
   },
@@ -104,7 +104,7 @@
    "name": "A new outside call (curl, an http file read, a socket) goes through staging's gate (StagingGate::hold(), or another gate), or says why not with an @gate note; the message names the function, so only a new one counts",
    "status": "built",
    "result": "pass",
-   "latest": "0 failures (2026-11-27 12:39 UTC)",
+   "latest": "0 failures (2026-11-27 19:17 UTC)",
    "target": "0 failures in the files it reads",
    "evidence": "https://github.com/degraffics/traversence/blob/main/site-audit/scorecard.md"
   },
@@ -112,7 +112,7 @@
    "name": "A new table (a migration's or code's CREATE TABLE, AdminTables::make) has its class in app/lib/staging-tables.php",
    "status": "built",
    "result": "pass",
-   "latest": "0 failures (2026-11-27 12:39 UTC)",
+   "latest": "0 failures (2026-11-27 19:17 UTC)",
    "target": "0 failures in the files it reads",
    "evidence": "https://github.com/degraffics/traversence/blob/main/site-audit/scorecard.md"
   },
@@ -120,7 +120,7 @@
    "name": "A worker's endpoint is named by a process in app/lib/ControlRegister.php (decisions/0171 §3)",
    "status": "built",
    "result": "pass",
-   "latest": "0 failures (2026-11-27 12:39 UTC)",
+   "latest": "0 failures (2026-11-27 19:17 UTC)",
    "target": "0 failures in the files it reads",
    "evidence": "https://github.com/degraffics/traversence/blob/main/site-audit/scorecard.md"
   },
@@ -136,7 +136,7 @@
    "name": "The paths check: what a visitor comes to do, end to end",
    "status": "built",
    "result": "per path",
-   "latest": "run 2026-11-27 09:51 UTC",
+   "latest": "run 2026-11-27 20:04 UTC",
    "target": "every path reaches its goal: 3 taps or fewer from home to a place to eat and to a town's guide, 5 or fewer for the rest",
    "evidence": "https://github.com/degraffics/traversence/blob/main/site-audit/paths.md"
   },
@@ -184,9 +184,9 @@
    "name": "Load time for every page against a target",
    "status": "built",
    "result": "per item",
-   "latest": "258 fail, 114 pass (2026-11-27 09:51 UTC)",
+   "latest": "259 fail, 113 pass (2026-11-27 18:52 UTC)",
    "target": "Core Web Vitals \"good\": LCP ≤ 2.5 s, CLS ≤ 0.1, INP ≤ 200 ms, each at the 75th percentile",
-   "evidence": "https://github.com/degraffics/traversence/actions/runs/45972418671"
+   "evidence": "https://github.com/degraffics/traversence/actions/runs/46052503949"
   },
   "PHOTOS-SHOWN": {
    "name": "Every photo on a page shown",
@@ -208,9 +208,9 @@
    "name": "The audit's own load: what each run asks of the site",
    "status": "built",
    "result": "per item",
-   "latest": "4 pass, 3 fail (2026-11-27 09:51 UTC)",
+   "latest": "7 pass (2026-11-27 20:04 UTC)",
    "target": "a light run asks at most about 20 requests, one at a time with a 1 s gap; the probe pages' response times stay within 20% of their 7-day median, or the next run backs off",
-   "evidence": "https://github.com/degraffics/traversence/actions/runs/45972418671"
+   "evidence": "https://github.com/degraffics/traversence/actions/runs/46059663784"
   }
  },
  "results_read": [
@@ -1415,7 +1415,7 @@
       [
        "PATHS",
        "fail",
-       "f-c85353105f"
+       "f-f6c83277d3"
       ],
       [
        "LOAD",
@@ -1442,7 +1442,7 @@
       "PHOTOS",
       "TOOLS"
      ],
-     "review": "open finding: f-c85353105f: Dead end: no distance to set once the place is chosen; f-62aa6d2538: A surprise: the page jumps as it loads (layout shift 0.67)",
+     "review": "open finding: f-f6c83277d3: Not accurate: Show Low opened within any distance, not 10 mi (decisions/0053)",
      "route": "/directory/",
      "source": "site-audit/pages.md:19; in the mirror (Sync e229587, 22:55 UTC Nov 21); release #164 (live 2026-11-19), release #178 (live 2026-11-19), release #208 (live 2026-11-19)"
     },
@@ -4594,7 +4594,7 @@
       ],
       [
        "LOAD",
-       "pass"
+       "fail"
       ],
       [
        "PHOTOS",
@@ -4617,7 +4617,7 @@
       "PHOTOS",
       "TOOLS"
      ],
-     "review": "open finding: f-5244888eb9: Dead end: searching \"Winslow, AZ\" offered no guide; f-c93daeab66: Not accurate: \"We have no listings in …\" shows above 17 results for Winslow, AZ (decisions/0181 §1 gate 3); f-fa035ddd5a: Not clear: none of the results says it's open now (the search asked for open now)",
+     "review": "open finding: f-5244888eb9: Dead end: searching \"Winslow, AZ\" offered no guide; f-c93daeab66: Not accurate: \"We have no listings in …\" shows above 17 results for Winslow, AZ (decisions/0181 §1 gate 3); f-bbf46fb448: Not clear: the results don't say how many have known hours (P10); f-b8d53e3690: Slow: took 4.1 s to open",
      "route": "/",
      "source": "site-audit/pages.md:17; in the mirror (Sync e229587, 22:55 UTC Nov 21); decisions/0138:95, 114 Built"
     },
@@ -4643,7 +4643,8 @@
       ],
       [
        "LOAD",
-       "fail"
+       "fail",
+       "f-403de6bd59"
       ],
       [
        "PHOTOS",
@@ -5190,7 +5191,8 @@
       ],
       [
        "LOAD",
-       "fail"
+       "fail",
+       "f-20c0bc6988"
       ],
       [
        "BRAND",
@@ -5204,7 +5206,7 @@
      "no_check": [
       "TOOLS"
      ],
-     "review": "open issue: LOAD, BRAND fails",
+     "review": "open finding: f-20c0bc6988: A surprise: 2 dialogs open on top of each other; f-8c3809a518: Slow: took 4.8 s to open",
      "route": "/admin/dashboard/stream",
      "source": "app/admin/manifests.php (mirror Sync e229587, 22:55 UTC Nov 21):20 ($W)"
     },
@@ -10685,7 +10687,7 @@
    "setup_why": {
     "probe": "the paths check: sign in, then sign out",
     "target": "both pass on every run",
-    "check": "Working · Nov 27, 2:51 AM MST",
+    "check": "Working · Nov 27, 1:04 PM MST",
     "alarm": "its reading isn't from the alarms yet"
    },
    "records": "sign-ins and sign-outs (the paths check)",
@@ -10992,7 +10994,7 @@
    "setup_why": {
     "probe": "the paths check: a visitor's whole task, start to finish",
     "target": "target: set by Jason",
-    "check": "Less than optimal · Nov 27, 2:51 AM MST",
+    "check": "Less than optimal · Nov 27, 1:04 PM MST",
     "alarm": "its reading isn't from the alarms yet"
    },
    "records": "visitors' whole tasks (the paths check)",
