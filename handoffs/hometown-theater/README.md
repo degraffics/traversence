@@ -30,7 +30,7 @@ Jason: "when I think about rolling out something to say the theater and how all 
 potential revenue I feel the need for the platform to be thorough and able to succeed."
 
 **The map**, owned by the CMO (7), drawn by Data & Content and Frontend & Shop, ready by **Dec 3** with the offer
-(`touch-points.md`, to come). It names each point, what it depends on in the platform, its owner and whether it works
+(`touch-points.md`). It names each point, what it depends on in the platform, its owner and whether it works
 today:
 - the poster's GO Code scan;
 - the listing (#8807);
