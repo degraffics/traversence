@@ -41,7 +41,7 @@ $t('tier: sensitive off nation land in a draft state is story', Jurisdictions::t
 $t('tier: sensitive on nation land stays restricted', Jurisdictions::tier($pdo, true, 'AZ', 12) === 'restricted');
 $t('tier: not sensitive is public', Jurisdictions::tier($pdo, false, 'UT') === 'public');
 // review by a team role, no attorney
-$role = 'Privacy & Decision 0066 Guards (25), the Data & Content session, 2026-11-27';
+$role = 'Privacy & Decision 0066 Guards (the Data & Content session)';   // decisions/0180's role 25, in words
 $t('review needs a person or a role', str_contains($throws(fn () => Jurisdictions::review($pdo, 'US-CO', 0)), 'Who reviewed it'));
 // the reading rule (CEO's Tier 4, 2026-11-27): no review while a law is unread against its official text
 $t('review refused while a law is unread, naming it', str_contains($m = $throws(fn () => Jurisdictions::review($pdo, 'US-CO', 0, '', '', $role)), 'read against the official text yet') && str_contains($m, 'Mark read') && Jurisdictions::get($pdo, 'US-CO')['status'] === 'draft');
@@ -60,6 +60,7 @@ $j = Jurisdictions::get($pdo, 'US-CO');
 $t('the reviewer shown is the role', Jurisdictions::reviewer($pdo, $j) === $role && $j['signed_by'] === '' && $j['signed_at'] === null);
 $t('a person can still review, with an attorney named', $throws(fn () => Jurisdictions::review($pdo, 'US-UT', 7, 'A. Counsel', '2026-11-27')) === '' && Jurisdictions::get($pdo, 'US-UT')['signed_by'] === 'A. Counsel');
 $t('the review is logged on the board\'s logbook', (int) $pdo->query("SELECT COUNT(*) FROM control_log WHERE proc = 'jur:US-CO' AND what LIKE '%marked reviewed%'")->fetchColumn() === 1);
+$t('a role given with its number and a date is shown in words, said once', Jurisdictions::reviewer($pdo, ['status' => 'reviewed', 'reviewed_as' => 'Privacy & Decision 0066 Guards (25), the Data & Content session, 2026-11-27']) === 'Privacy & Decision 0066 Guards, the Data & Content session');
 // R17's gate (HubOpening::lawSigned) reads the reviewed record
 $gate = new ReflectionMethod('HubOpening', 'lawSigned'); $gate->setAccessible(true);
 $t('R17 gate: CO reviewed passes; NM (draft) does not', $gate->invoke(null, $pdo, 'CO') === true && $gate->invoke(null, $pdo, 'NM') === false);

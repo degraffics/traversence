@@ -228,7 +228,9 @@ final class Jurisdictions
     public static function reviewer(PDO $pdo, array $j): string
     {
         if (($j['status'] ?? '') !== 'reviewed') return '';
-        if (trim((string) ($j['reviewed_as'] ?? '')) !== '') return (string) $j['reviewed_as'];
+        // in words, said once (the Design reviewer, 2026-11-27): no role number, no second date
+        $as = trim((string) preg_replace(['/\s*\(\d{1,3}\)/', '/,?\s*\d{4}-\d{2}-\d{2}\b/'], '', (string) ($j['reviewed_as'] ?? '')), " ,");
+        if ($as !== '') return $as;
         return self::personName($pdo, (int) ($j['reviewed_by'] ?? 0)) ?: 'the team';
     }
 

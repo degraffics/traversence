@@ -436,7 +436,7 @@ function tv_admin_mod_jurisdictions(PDO $pdo): string
     $dis = $can ? '' : ' disabled title="' . $e($why) . '"';
     $hid = fn (string $do, string $code) => '<input type="hidden" name="csrf" value="' . $e($csrf) . '"><input type="hidden" name="jur" value="' . $do . '"><input type="hidden" name="code" value="' . $e($code) . '">';
     $h = '<p class="ak-note">The law of the place decides what we show: the federal baseline everywhere, then each state or territory, then the tribal nation whose land it is (its rules outrank ours there). '
-       . 'Where a record is missing or not yet reviewed, the strictest rule applies: a protected place\'s story is told without its place (no pin, coordinates or directions), and on a nation\'s land it stays held. A state\'s or territory\'s record is reviewed by the team against its laws before its region opens; an attorney\'s review is advised, not required (0164 R8, its note of 2026-11-27). Until then its guides don\'t go live and the crawler doesn\'t gather its history (Arizona and New Mexico were open before the register and stay open while theirs are drafts). Where a record lists a law limiting reading or copying websites, official websites there are kept as pointers unless their rules are set in Sources. Changing a record sends it back to draft.' . ($can ? '' : ' <b>' . $e($why) . '</b>') . '</p>' . $msg;
+       . 'Where a record is missing or not yet reviewed, the strictest rule applies: a protected place\'s story is told without its place (no pin, coordinates or directions), and on a nation\'s land it stays held. A state\'s or territory\'s record is reviewed by the team against its laws before its region opens; an attorney\'s review is advised, not required (0164 R8, its note of Nov 27, 2026). Until then its guides don\'t go live and the crawler doesn\'t gather its history (Arizona and New Mexico were open before the register and stay open while theirs are drafts). Where a record lists a law limiting reading or copying websites, official websites there are kept as pointers unless their rules are set in Sources. Changing a record sends it back to draft.' . ($can ? '' : ' <b>' . $e($why) . '</b>') . '</p>' . $msg;
     $closed = [];
     foreach (Jurisdictions::register($pdo) as [$code, $level, $name, $r]) {
         if (!$r) { $closed[] = [$code, $level, $name]; continue; }
@@ -460,16 +460,16 @@ function tv_admin_mod_jurisdictions(PDO $pdo): string
         $rdis = $unread ? ' disabled title="' . $unread . ' law' . ($unread === 1 ? ' isn\'t' : 's aren\'t') . ' read against the official text yet: Mark read beside each one first"' : $dis;
         if ($j['status'] !== 'reviewed' && $unread) $body .= '<p data-tv-status="info" data-tv-label="Waiting:">' . $unread . ' of its laws ' . ($unread === 1 ? 'isn\'t' : 'aren\'t') . ' read against the official text yet. Mark read beside each one (with its official link), then review the record.</p>';
         if ($j['status'] !== 'reviewed') $body .= '<form method="post" class="ak-jf">' . $hid('review', $code)
-            . ($level !== 'nation' ? '<label>Attorney\'s review (advised, not required)<input class="ak-in" name="attorney" data-spell value="' . $e((string) $j['signed_by']) . '"></label><label>On<input class="ak-in" type="date" name="signed_at"></label>' : '')
+            . ($level !== 'nation' ? '<label>Attorney who reviewed it (advised, not required)<input class="ak-in" name="attorney" data-spell value="' . $e((string) $j['signed_by']) . '"></label><label>Reviewed on<input class="ak-in" type="date" name="signed_at"></label>' : '')
             . '<button class="ak-b go"' . $rdis . ' data-confirm="Mark ' . $e($name) . '\'s record reviewed? Its rules then apply as written." data-yes="Mark reviewed">Mark reviewed</button></form>';
         else $body .= '<form method="post" class="ak-jf">' . $hid('unreview', $code)
             . '<button class="ak-b"' . $dis . ' data-confirm="Undo the review of ' . $e($name) . '\'s record? It goes back to draft and the strictest rule applies until it\'s reviewed again." data-yes="Undo the review" data-danger>Undo the review</button></form>';
-        $h .= tv_admin_fold($name, $status, $j['status'] === 'reviewed' ? 'ok' : 'bad', '', $body, false);
+        $h .= tv_admin_fold($name, $status, $j['status'] === 'reviewed' ? 'ok' : 'hold', '', $body, false);
     }
     $list = '';
     foreach ($closed as [$code, $level, $name]) $list .= '<form method="post" class="ak-jo">' . $hid('open', $code) . '<input type="hidden" name="level" value="' . $e($level) . '"><input type="hidden" name="name" value="' . $e($name) . '"><span>' . $e($name) . '</span><button class="ak-b"' . $dis . '>Open</button></form>';
     if ($list !== '') $h .= tv_admin_fold('Not opened yet', count($closed) . ' states, territories and nations: the strictest rule applies there', '', '', '<div class="ak-jl">' . $list . '</div>', false);
-    return '<div>' . $h . '</div><style>.ak-law{border-top:1px solid rgba(203,185,141,.5);padding:.5rem 0}.ak-law p{margin:.1rem 0}.ak-law form{margin-top:.3rem}'
+    return '<div>' . $h . '</div><style>.ak-foldt small.hold{color:var(--tv-hold);font-weight:700}.ak-law{border-top:1px solid rgba(203,185,141,.5);padding:.5rem 0}.ak-law p{margin:.1rem 0}.ak-law form{margin-top:.3rem}'
         . '.ak-jf{display:grid;grid-template-columns:repeat(auto-fit,minmax(12rem,1fr));gap:.5rem .8rem;align-items:end;margin:.5rem 0}.ak-jf label{display:grid;gap:.15rem;font-size:.8rem;color:#5C4632}.ak-jf .ak-in{width:100%}.ak-jf .w{grid-column:1/-1}'
         . '.ak-jl{display:grid;grid-template-columns:repeat(auto-fill,minmax(14rem,1fr));gap:.3rem .8rem}.ak-jo{display:flex;justify-content:space-between;align-items:center;gap:.5rem;font-size:.85rem}</style>';
 }
