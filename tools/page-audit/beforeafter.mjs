@@ -71,7 +71,7 @@ export function plan(pages, acc) {
 }
 
 /** What §1.5 adds to the page check, read from the loaded page. */
-async function extra(p, size) {
+export async function extra(p, size) {
   const r = await p.evaluate(() => {
     const vis = el => { const r = el.getBoundingClientRect(); const s = getComputedStyle(el); return r.width > 0 && r.height > 0 && s.visibility !== 'hidden' && s.display !== 'none' && +s.opacity !== 0; };
     const clean = el => { const c = el.cloneNode(true); c.querySelectorAll('[data-tv-time], time, script, style, noscript').forEach(x => x.remove()); return (c.innerText || c.textContent || '').replace(/\s+/g, ' ').trim(); };
@@ -94,8 +94,17 @@ async function extra(p, size) {
     const SEC = 'section, article, details, fieldset, .ak-card, .tv-bleed, [data-region]';
     const secOf = el => { const c = el.closest(SEC); return c && c.querySelector(REC) ? c : null; };
     const secName = c => { const h = c.querySelector('h1, h2, h3, h4, h5, h6, summary, legend'); return h ? (h.innerText || h.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 120) : (c.id || c.className || '').toString().slice(0, 60); };
-    const ctl = [...document.querySelectorAll('a[href], button, [role=button], input[type=submit]')].filter(vis);
-    const name = el => ((el.innerText || el.textContent || '').trim() || el.getAttribute('aria-label') || el.getAttribute('title') || '').replace(/\s+/g, ' ').slice(0, 80);
+    // a pill row too narrow for its tabs folds the last ones under "More ▾" (js/tv-ask.js, data-more): the same tabs, folded
+    // or not by a few pixels of width (#322's look, /admin/people.php at 390px: Staff logins one look, More ▾ the next). Its
+    // folded tabs count as shown and its More button as none, so a fold is never a control gone or new. A folded one counts
+    // only if nothing up to the menu hides it of its own: the menu's ">*{display:flex!important}" would show a tab hidden in
+    // the row, so its hidden attribute and inline display are read, not its computed display (the CTO's Tier 4, 2026-11-27)
+    const CTL = 'a[href], button, [role=button], input[type=submit]';
+    const foldVis = el => { const m = el.closest('.tvm-menu'); for (let x = el; x && x !== m; x = x.parentElement) { const cs = getComputedStyle(x); if (x.hasAttribute('hidden') || x.style.display === 'none' || cs.visibility === 'hidden' || (x.parentElement !== m && cs.display === 'none')) return false; } return true; };
+    const ctl = [...document.querySelectorAll(CTL)].filter(el => !el.classList.contains('tvm-btn') && (el.closest('.tvm-menu') ? foldVis(el) : vis(el)));
+    // a pill row's items are named from their text as written, shown or folded alike: a shown pill's innerText takes its
+    // CSS text-transform, a folded one's doesn't (the CTO's Tier 4)
+    const name = el => ((el.closest('.tvpills, [data-more]') ? el.textContent : (el.innerText || el.textContent || '')).trim() || el.getAttribute('aria-label') || el.getAttribute('title') || '').replace(/\s+/g, ' ').slice(0, 80);
     const controls = ctl.slice(0, 300).map(el => ({ n: name(el), h: (el.getAttribute('href') || '').replace(/^https?:\/\/[^/]+/, '').slice(0, 120), d: !!(el.disabled || el.getAttribute('aria-disabled') === 'true'), ...(el.closest(STATE) ? { st: 1 } : {}), ...(el.closest(REC) ? { rec: 1 } : {}), ...(secOf(el) ? { sec: secName(secOf(el)) } : {}), ...(el.tagName === 'A' && !el.closest('header, nav, [role=navigation], [role=tablist]') ? { lk: 1 } : {}) }));
     // regions: the header, main, and each card, by a stable key (its id, else its class and place among its kind)
     const regions = {}; const seen = {};
@@ -256,7 +265,7 @@ const refused = f => !f || f.error || f.status >= 400 || f.ba?.landed_signin;
 const errs = f => f && (f.status >= 500 || (f.console || []).length || (f.requests || []).length);
 // a page's controls as the set of distinct ones (more of the same button is more data, never a new control: #308's look), less
 // those of a section that holds records and came or went between the looks (skip: its names)
-const ctlSig = (f, st = true, skip = new Set()) => [...new Set((f?.ba?.controls || []).filter(c => (st || !c.st) && !c.rec && !(c.sec && skip.has(c.sec)) && !(c.lk && /^\/admin(\/|\.|$)/.test(f?.url || ''))).map(c => (c.n + '→' + c.h).replace(/\d+/g, '#')))].sort().join('\n');
+export const ctlSig = (f, st = true, skip = new Set()) => [...new Set((f?.ba?.controls || []).filter(c => (st || !c.st) && !c.rec && !(c.sec && skip.has(c.sec)) && !(c.lk && /^\/admin(\/|\.|$)/.test(f?.url || ''))).map(c => (c.n + '→' + c.h).replace(/\d+/g, '#')))].sort().join('\n');
 
 /** The verdict for one release: blocks (each a rule, who, page, size, what), notes, and pass / block / incomplete. */
 export function compare(b1, b2, a, exp = {}, release = '', heldKey = STAGING?.token || CHECK_TOKEN) {

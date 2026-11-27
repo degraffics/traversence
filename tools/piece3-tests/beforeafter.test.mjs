@@ -40,6 +40,8 @@ try {
     ['datasection', 'pass', null, 'a section that holds records appearing with its data (#308\'s look: "Recently published automatically"), its button with it: data, not drift'],
     ['newsection', 'block', 'drift', '… a section with no records appearing (a heading and a button of the page\'s own): drift'],
     ['countbtn', 'pass', null, 'a count in a button\'s name moved (Waiting 3, then 4; #320\'s look): its data, never a new control'],
+    ['folded', 'pass', null, 'a tab folded under More ▾ by a few pixels (#322\'s look, /admin/people.php at 390px): the same tabs, never drift'],
+    ['foldgone', 'block', 'drift', 'a tab gone, More ▾ drawn with nothing of it inside: still drift'],
     ['renamebtn', 'block', 'drift', 'a button renamed with no digits involved (Send, then Dispatch): still drift; the masking hasn\'t widened'],
     ['morebuttons', 'pass', null, 'one more of a button already there: more data, never a new control'],
     ['longrec', 'pass', null, 'a record\'s long address making the page wider at 390, on a page the change doesn\'t name (#308\'s look, crawler-review): its data, noted'],
