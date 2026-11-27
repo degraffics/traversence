@@ -89,6 +89,22 @@
    "expires": "2026-11-27T16:52:27Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/BeforeAfter.php",
+   "functions": [
+    "advance",
+    "on",
+    "step",
+    "verdict"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
+   "why": "the pipeline release: tick and verdict, the ping, a silent look says why (Tier 4 review: CEO, 2026-11-27)",
+   "since": "2026-11-27T12:52:29Z",
+   "expires": "2026-11-27T16:52:29Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
