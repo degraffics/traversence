@@ -149,3 +149,9 @@ day. This qualifies 0180's "R1–R5 ship as each passes" (note added there).
      and 12B/12C the High Plateaus.
 
   The order is for selling only. Visitors see the whole 200-mile area from Jan 1.
+- **Businesses on nation land, under 0066** (Jason, 2026-11-27: "Yes"):
+  - Public businesses on a nation's land are listed and can claim their listing like any other business.
+  - There's no outreach to a nation as a segment.
+  - Nothing nation-specific is shown until the nation's own tools exist and it says so.
+  - An owner on nation land who joins is welcome on the same terms, with the nation's visitor rules linked on their
+    page (`Nations::rules()`).
