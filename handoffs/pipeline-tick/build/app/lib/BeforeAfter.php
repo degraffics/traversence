@@ -166,7 +166,7 @@ final class BeforeAfter
             $tail = ' Staging is slow there; it\'s reached only through ' . ($via ? implode(', ', $via) : 'a file nearly every page loads') . '.';
             $out[] = $x['outcome'] === 'opened'
                 ? $head . 'timed out, then opened when tried again.' . $tail . ' The IT Manager\'s lane has it.'
-                : $head . 'was slow before this release too, and didn\'t open after.' . $tail . ' The slow-pages ticket has it.';
+                : $head . 'was slow before this release too, and still didn\'t open after it.' . $tail . ' The slow-pages ticket has it.';
             if (count($out) === 3) break;
         }
         return $out;
