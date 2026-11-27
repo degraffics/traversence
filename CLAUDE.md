@@ -249,8 +249,10 @@ Jason, 2026-11-25: "when I say send me email that should now it is allowed to se
 use of what ever tool it needs". An OK he has given once is not asked again: not by the session, not as a tool prompt.
 New standing OKs go here in the session that hears them; the tool they need goes in `.claude/settings.json`'s allow list.
 - **Email and push to Jason:** when he asks (or a rule here says to tell him), send it, to his address only, through
-  the site's own email (`releases/batch.json` "messages", notify-founder; Jason, 2026-11-27: "Use system email"), with
-  the Microsoft 365 connector as the fallback, and a push notification. No other recipient without asking.
+  the site's own email (`releases/batch.json` "messages", notify-founder; Jason, 2026-11-27: "Use system email") and a
+  push notification. degraffics.com is out of system mail (Jason, 2026-11-27: "mail only, OneDrive stays"): no M365 mail
+  fallback, and no agent reads his degraffics.com inbox; the 3-way sync's OneDrive use is unchanged. No email accounts
+  for agents: they talk through the role queues on the platform (jason-spec §7). No other recipient without asking.
 - **Adding both repos**, **archiving finished sessions**, **merging your own approved PR**: as their sections say.
 - **Piece 2 to running, over the holiday** (Jason, 2026-11-25: "publish yes as long as we can roll back… I want all of
   this up and running by the time I am back… make your best judgement calls based on the adr's and the outlined plan…
