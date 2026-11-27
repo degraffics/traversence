@@ -559,8 +559,7 @@ own pages and checked before it's published.
     attestation box.
   - The item then reads "The seller states: Native-made (Indian Arts and Crafts Act)".
   - We never check, store or ask for anyone's tribal enrollment (privacy).
-  - A report of a false claim goes to the Board's complaint process, linked, and to our own report flow (0133
-    takedowns).
+  - A report of a false claim goes to the Board's complaint process, linked, and to our own report flow (0164's takedown rules).
 - **Timing:** the label rule ships with Experiences & Regional Goods; the item form's notice and attestation come in Q1
   with Trade.
 
@@ -605,5 +604,5 @@ own pages and checked before it's published.
 
 - **Who reviews the law-facing guides:** the Editorial lane is set. An attorney's read is advised, not required, in
   line with R8's ruling. Jason's call if he wants one for this topic.
-- **The Board's site** (doi.gov/iacb) must be reachable from where the guides are written, to quote its text. Check it
-  before the build.
+- **The Board's site** (doi.gov/iacb) isn't in this environment's allowlist. The session that builds the guides asks for
+  its exact hosts through the environment tools at that point, not before.
