@@ -145,6 +145,17 @@
    "expires": "2026-11-27T16:53:53Z",
    "release": "pipeline-tick.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/Scheduler.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
+   "why": "goal_check_tick: added to JOBS, AUTO and NOT_ON_STAGING only (CLAUDE.md Goals and records)",
+   "since": "2026-11-27T13:22:20Z",
+   "expires": "2026-11-27T17:22:20Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
