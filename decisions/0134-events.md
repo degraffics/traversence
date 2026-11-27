@@ -319,8 +319,13 @@ into their event?"; extends §2–3, which have hosts and audiences only; record
 event, the host invites listings, claimed or not, as participating businesses ("Dinner before the show"). An unclaimed
 business's invite is a demand-carrying claim invite (0172 §3.3, 0108), pressed by the host, a person, never an agent;
 it sends only once real email sending is on (SES_MODE live is the Founder's call, 0181's note), and until then the host's
-invite waits with that said. Each business that accepts shows on the event page with its own offer, which may be a 0108
-promotion issued as a GO Code ("show your ticket: 10% off"); the event shows on its listing as "Part of <event>". The
+invite waits with that said. Each business that accepts shows on the event page with its own offer (corrected by the CMO (7), 2026-11-27:
+0108's Promotions are ours, for our own products, Promotions.php:2–9): one of its existing discount codes (the
+business's Discount codes module, business/codes) or a short offer line its owner writes, shown beside its GO Code; the
+owner's words are shown as written (0164), Editorial (12) checks only for an offer that misleads, and none reads as paid
+or ranked placement (0007); an unclaimed business shows no offer until it claims and makes one. The event shows on its
+listing as "Part of <event>". The
 participants form the event's trail (0174: Add to a trip, Send to Maps). Participation is by invitation and acceptance
 only, never paid placement (0007); the host can remove a participant and a participant can leave, each with Undo. For the
-pilot, if this can't be live by about Dec 14–15, Sales (14) sets the participants up by hand as a showcase.
+pilot, if this can't be live by about Dec 14–15, Sales (14) sets the participants up by hand as a showcase. If a look slips past Dec 13, the PM (8) switches the
+pilot to the showcase without asking (within Jason's "have our tools in place for them to succeed").
