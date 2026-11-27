@@ -382,9 +382,12 @@ Distances are from §2a.
 
 | Ring | Clusters | When selling opens | Message (regions.md overlay) |
 |---|---|---|---|
-| **1: 1A** | St. Johns, Springerville, Eagar, Show Low, Holbrook, Winslow, the Petrified Forest gateway | Dec 15, once the claim and upgrade paths pass (gates 1 and 5) | Pre-Colonial Heavy (the Ancient Borderlands) |
+| **1: 1A** | St. Johns, Springerville, Eagar, Show Low, Holbrook, Winslow, the Petrified Forest gateway | Dec 15, once gates 1 and 5 pass, the claim and verify paths are measurable and passing (C.2 first), and B.5's mail is done | Pre-Colonial Heavy (the Ancient Borderlands) |
 | **2: the Four Corners core** (within ~100 mi) | 1B, 1C, 2A Mesa Verde, 11B Bluff and Blanding | January | Pre-Colonial Heavy. Much of 1B is Navajo Nation land: 0066's rules first |
 | **3: the gateways** (100–200 mi) | 3A Santa Fe and Taos, 4A/4B Albuquerque, 7A/7B Flagstaff and Page, 11A Moab, 12B/12C | February–March | 3A Pre-Colonial; 4A Pre-Colonial with an industrial overlay; 7A Frontier anchored by a Pre-Colonial foundation; 12C Dual-Layer |
+
+**Selling to owners before the Dec 31 go/no-go is fine while the search lock holds:** owners reach us by invite and
+GO Code, not by search.
 
 *Suggest a change to the plan, for Jason:* the ring dates above are mine, not set anywhere. They're tied to gates, not
 to the calendar.
@@ -403,6 +406,11 @@ to the calendar.
    - in-person visits with the card scanner.
 
    Invites are sent by a person's press in the CRM, never by an agent.
+
+   **Mail comes before volume.** Cold invites to thousands of businesses go out only once B.5 is done: SES out of the
+   sandbox, DKIM verified on both domains, and DMARC moved off `p=none`. Every invite also carries an unsubscribe,
+   through the one dispatcher (0172). Otherwise invites land in spam and hurt the domain the site's own system mail
+   depends on.
 4. **Partners who reach the rest:** chambers, visitor centres and county tourism offices get their free agency page
    first, and their member lists become warm leads (research/state-tourism-apis.md for the state offices' data).
 5. **Convert:** verify, choose a tier, card on file; or a trial of 30, 60 or 90 days with no commitment, dropping to
@@ -449,7 +457,8 @@ Mar 31, 150 claimed and 30 paying. The number is his to set.
 
 1. The launch offer: trial length, and whether a "founding partner" price exists. *Suggestion:* the 0108 trials only,
    since a new price is new policy.
-2. Who the ring 1 rep is: a person, since only a person sends invites and visits.
+2. **A gap: who presses the CRM invites in December?** No rep exists and nobody is seated in the sales lane, so today
+   only Jason can send them. It's Jason, or a rep he names (H.2).
 3. The ring dates and the Q1 target (9.2, 9.5).
 4. Paid outreach, if any, and its source (9.4).
 5. Tribal enterprises: confirm 9.1's rule.
