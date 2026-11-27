@@ -19,8 +19,10 @@ it. Data & Content's part (the data: categories, hours, duplicates, sources) goe
   memorial, the credit on the photo) never checked the photo against the business's kind.
 - **Touches:** every listing with no photo of its own (no hero media, no place photo) whose town or area has a live
   stock photo whose subjects don't match its category. The count comes from one live read (pending).
-- **Fix (the session manager agreed the direction; a ranked ticket after the audit, not built yet):** a representative
-  pick needs at least one subject hit, with place only breaking ties. With no subject hit, a neutral hero (no photo),
+- **Ruled:** the CMO (7) approved the fix as proposed (2026-11-27, through the session manager): gate 1, one root-cause
+  fix, tested at 1280 and 390, its slot with the audit's ranked tickets.
+- **Fix:** a representative
+  pick needs at least one subject hit, with place only breaking ties. With no subject hit, a neutral hero (the brand pattern, no photo),
   never another kind's photo. Health and emergency kinds never get a stock storefront.
 
 ### Still to come
