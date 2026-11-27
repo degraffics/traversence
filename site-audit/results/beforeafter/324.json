@@ -1,8 +1,24 @@
 {
  "release": "324",
- "phase": "before-done",
- "verdict": "waiting",
+ "at": "2026-11-27T19:37:01.065Z",
+ "verdict": "pass",
+ "first": "",
+ "blocks": [],
+ "blocks_total": 0,
+ "notes": [
+  "member|/admin/chamber-builder.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "viewer|/admin/chamber-builder.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "executive|/admin/config/scheduler|phone: already missed \"Cards 3px from the screen edge at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "executive|/admin/settings.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "executive|/admin/chamber-builder.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "executive|/admin/crawler-review.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "ops-staff|/admin/chamber-builder.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "ops-staff|/admin/crawler-review.php|phone: its before looks timed out (part of the page drawn) and it opened in full after, on a page this release doesn't reach: access, 0066 and errors read; drift and layout not compared (1 in a row; staging is slow there)"
+ ],
+ "far": [],
+ "tickets": [],
  "views": 223,
- "seconds": 789,
- "run": "https://github.com/degraffics/traversence/actions/runs/46049187321"
+ "seconds": 2334,
+ "run": "https://github.com/degraffics/traversence/actions/runs/46056443909",
+ "phase": "after-done"
 }
