@@ -703,7 +703,14 @@ final class Releases
         $list = DocsRepo::inbox();
         // when the site last looked, and who (the 10-minute job or Check for builds): shown on the site manager, so a job
         // that isn't running shows (2026-11-13: two builds waited for Check for builds)
-        try { $pdo->prepare('REPLACE INTO site_release_settings (k, v) VALUES (?, ?)')->execute([$uid ? 'git_seen_hand' : ($by === 'ping' ? 'git_seen_ping' : 'git_seen_job'), json_encode(['at' => time(), 'found' => $list === null ? -1 : count($list)])]); } catch (Throwable $e) {}
+        $seenKey = $uid ? 'git_seen_hand' : ($by === 'ping' ? 'git_seen_ping' : 'git_seen_job');
+        $seen = function (int $found, string $why) use ($pdo, $seenKey) {   // when it looked and what it found; -1 with why when GitHub didn't answer
+            try { $pdo->prepare('REPLACE INTO site_release_settings (k, v) VALUES (?, ?)')->execute([$seenKey, json_encode(['at' => time(), 'found' => $found] + ($why !== '' ? ['why' => mb_substr($why, 0, 200)] : []))]); } catch (Throwable $e) {}
+        };
+        // a look that took nothing says why, never silently (2026-11-27: b2-backups-3 waited 55 minutes in the inbox, the job's
+        // two runs silent): the Releases page's "looked … (GitHub didn't answer)" and the error log, with GitHub's answer
+        if ($list === null) { $why = 'the inbox listing: HTTP ' . (DocsRepo::$inboxCode ?: 'none'); error_log('releases from git (' . $seenKey . '): GitHub didn\'t answer, ' . $why); $seen(-1, $why); }
+        else $seen(count($list), '');
         if ($list === null) return !$uid ? [] : (DocsRepo::canSave() ? ['GitHub didn\'t answer: try again in a minute (the site also looks every 10 minutes).'] : ['No GITHUB_DOCS_TOKEN in .env: builds can\'t come from git.']);   // the job stays quiet
         $out = [];
         foreach (array_slice($list, 0, 5) as $f) {
@@ -712,7 +719,7 @@ final class Releases
             $had = (int) $st->fetchColumn();
             if ($had) { DocsRepo::takeFromInbox($f['path'], $f['sha'], 'Release #' . $had . ': taken from the inbox (it was already in)'); $out[] = $f['name'] . ': already release #' . $had . '.'; continue; }
             $data = DocsRepo::blob($f['sha']);
-            if ($data === null) { $out[] = $f['name'] . ': couldn\'t fetch it whole from GitHub; tried again next time.'; continue; }
+            if ($data === null) { $out[] = $f['name'] . ': couldn\'t fetch it whole from GitHub; tried again next time.'; error_log('releases from git (' . $seenKey . '): GitHub didn\'t answer, ' . $f['name'] . '\'s file'); $seen(-1, $f['name'] . '\'s file'); continue; }
             $tmp = tempnam(sys_get_temp_dir(), 'tvrel');
             file_put_contents($tmp, $data);
             $id = 0;

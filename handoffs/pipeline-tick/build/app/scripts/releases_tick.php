@@ -11,6 +11,10 @@ require_once __DIR__ . '/../lib/Staging.php';
 if (Staging::here()) exit;
 require_once __DIR__ . '/../lib/Releases.php';
 $pdo = Database::connection();
+// every run is logged, so Scheduled tasks' "last ran" is when it last ran, with what it said (2026-11-27: it logged only when a
+// release was scheduled, so it read "last ran 44 minutes ago" while it looked in git every run, its lines going nowhere)
+require_once __DIR__ . '/../lib/Scheduler.php';
+Scheduler::run('releases_tick');
 // Claude's builds waiting in git (decisions/0159 §5, Phase 6): onto staging, every run (one GitHub request when none wait)
 $git = [];
 try { $git = Releases::fromGit($pdo, 0); } catch (Throwable $e) { error_log('releases_tick from git: ' . $e->getMessage()); }
@@ -22,9 +26,7 @@ try { $l = BeforeAfter::tickLine($pdo); if ($l !== '') echo $l, "\n"; } catch (T
 try {
     Releases::ensure($pdo);
     $n = (int) $pdo->query("SELECT COUNT(*) FROM site_releases WHERE state = 'scheduled' OR (state = 'live' AND step < 3 AND paused = 0)")->fetchColumn();
-    if (!$n) exit;   // nothing waiting: no run logged
+    if (!$n) { echo "Nothing scheduled or stepping on.\n"; exit; }
 } catch (Throwable $e) { exit; }
-require_once __DIR__ . '/../lib/Scheduler.php';
-Scheduler::run('releases_tick');   // its runs show in System Configuration → Scheduled tasks
 $lines = Releases::tick($pdo);
 echo $lines ? implode("\n", $lines) . "\n" : "Nothing due.\n";

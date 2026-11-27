@@ -22,9 +22,10 @@ and C.8. It needs the CEO's Tier 4 check first (the release pipeline, StagingPub
 |---|---|
 | `app/lib/DocsRepo.php` | `now($path)`: the file on main through the contents API (with the key), never kept; 404 is null; the API away: `raw($path, true)` |
 | `app/lib/BeforeAfter.php` | `verdict()` reads through `now()` and writes the verdict's far list on the card at the after verdict (`farLines`, the Design reviewer's words, at most three); `NOTE_MINUTES = 30`: no verdict past it is said once on the release's card, naming the file; `advance()` holds the lock `tv_rel_ba`; `tickLine()`: releases_tick's line to the `'10min'` preset once, remembered (`site_release_settings` `tick_line_10min`), a later Change is a person's |
-| `app/scripts/releases_tick.php` | calls `BeforeAfter::tickLine()` |
+| `app/scripts/releases_tick.php` | calls `BeforeAfter::tickLine()`; logs every run (Scheduler::run first), so "last ran" is true |
 | `website/api/releases-pull.php` | takes merged builds under `Releases::asPing` (releases.publish only, for that one call); never moves a verdict on |
-| `app/lib/Releases.php` | `asPing()`: the ping's grant, dropped in a finally (since #314 every ping was refused) |
+| `app/lib/Releases.php` | `asPing()`: the ping's grant, dropped in a finally (since #314 every ping was refused); a look in git that takes nothing records why (-1, GitHub's answer or the build's name) and logs it |
+| `app/lib/DocsRepo.php` (also) | `$inboxCode`: the inbox listing's last HTTP answer |
 | `app/ui/faq.md` | the before-and-after entry: the site picks up the verdict within 10 minutes; the 30-minute note |
 
 Option (a) (the CEO's Tier 4 and the session manager, 2026-11-27): beforeafter.yml doesn't ping the site; `BeforeAfter::step` clears a release's waiting only after its verdict is decided.

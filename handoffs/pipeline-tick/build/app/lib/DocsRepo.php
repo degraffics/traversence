@@ -189,10 +189,14 @@ final class DocsRepo
     public const INBOX = 'releases/inbox';
 
     /** The zips waiting in releases/inbox on main: [['path', 'name', 'sha' (git's blob id), 'size']]. null: GitHub didn't answer. */
+    /** The inbox listing's last HTTP answer (0 when none was asked). */
+    public static int $inboxCode = 0;
+
     public static function inbox(): ?array
     {
         if (!self::canSave()) return null;
         [$code, $body] = self::http('GET', 'https://api.github.com/repos/' . self::REPO . '/contents/' . self::INBOX . '?ref=' . self::BRANCH, null, true);
+        self::$inboxCode = (int) $code;   // what GitHub answered, for the look's record (Releases::fromGit)
         if ($code === 404) return [];
         if ($code !== 200) return null;
         $out = [];

@@ -98,6 +98,28 @@ $l2 = BeforeAfter::advance($pdo);
 $t('(d) … the next run decides it, and only then is its waiting cleared', $decided === 1 && $ba($e) === null && in_array('Release #' . $e . ': decided.', $l2, true), [$l2, $ba($e)]);
 BeforeAfter::$decideFn = null; BeforeAfter::$readFn = null;
 
+// (e) a look in git that takes nothing says why (2026-11-27: b2-backups-3 waited 55 minutes, the job's runs silent): GitHub's
+// inbox listing not answering, and a build's file that couldn't be fetched, each recorded with -1 and why for the Releases page
+$tok0 = getenv('GITHUB_DOCS_TOKEN'); putenv('GITHUB_DOCS_TOKEN=test-token');
+$seenJob = fn () => json_decode((string) $pdo->query("SELECT v FROM site_release_settings WHERE k = 'git_seen_job'")->fetchColumn(), true);
+$inboxU = 'https://api.github.com/repos/degraffics/traversence/contents/releases/inbox?ref=main';
+DocsRepo::$fake = fn ($m, $u, $j) => str_starts_with($u, $inboxU) ? [503, ''] : [404, ''];
+Releases::fromGit($pdo, 0); $sj = $seenJob();
+$t('(e) the inbox listing not answering (503): looked, found -1, and why with GitHub\'s answer', ($sj['found'] ?? null) === -1 && ($sj['why'] ?? '') === 'the inbox listing: HTTP 503', $sj);
+$zsha = str_repeat('b', 40);
+DocsRepo::$fake = fn ($m, $u, $j) => str_starts_with($u, $inboxU) ? [200, json_encode([['type' => 'file', 'name' => 'tv-f.zip', 'sha' => $zsha, 'size' => 10]])] : [502, ''];
+$lines = Releases::fromGit($pdo, 0); $sj = $seenJob();
+$t('(e) a build\'s file that couldn\'t be fetched (502): its line, and the look says why, found -1', ($sj['found'] ?? null) === -1 && ($sj['why'] ?? '') === 'tv-f.zip\'s file' && (bool) preg_grep('/^tv-f\.zip: couldn\'t fetch it whole/', $lines), [$sj, $lines]);
+DocsRepo::$fake = fn ($m, $u, $j) => str_starts_with($u, $inboxU) ? [200, '[]'] : [404, ''];
+Releases::fromGit($pdo, 0); $sj = $seenJob();
+$t('(e) … and a look that answers clears it: found 0, no why', ($sj['found'] ?? null) === 0 && !isset($sj['why']), $sj);
+$k = array_values(array_filter(Releases::lastLooked($pdo), fn ($l) => $l[0] === 'the 10-minute job'));
+$t('(e) the Releases page\'s line reads it (lastLooked: the job, when, found)', ($k[0][2] ?? null) === 0 && ($k[0][1] ?? 0) > time() - 60, $k);
+putenv($tok0 === false ? 'GITHUB_DOCS_TOKEN' : 'GITHUB_DOCS_TOKEN=' . $tok0); DocsRepo::$fake = null;
+// (f) every run of releases_tick is logged, so Scheduled tasks' "last ran" is when it ran, with nothing scheduled too
+$src = (string) file_get_contents($root . '/app/scripts/releases_tick.php');
+$t('(f) releases_tick logs every run (Scheduler::run before its first step), and says when nothing is scheduled', strpos($src, "Scheduler::run('releases_tick')") !== false && strpos($src, "Scheduler::run('releases_tick')") < strpos($src, 'Releases::fromGit') && substr_count($src, "Scheduler::run('releases_tick')") === 1 && str_contains($src, 'Nothing scheduled or stepping on.'), null);
+
 // (b) the endpoint release-ping.yml calls, run for real: with nothing new in main it takes nothing and changes nothing; a
 // waiting release is left for the 10-minute job (verdicts are never moved on here: the CEO's Tier 4, 2026-11-27)
 BeforeAfter::$readFn = null;
