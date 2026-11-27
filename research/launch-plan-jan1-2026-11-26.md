@@ -311,7 +311,7 @@ false-blocks.
 5. W15 and 1A's area (D.3).
 6. Reopen P10, open now (C.8).
 
-**Brief D, by Dec 14–21: money and going to market.**
+**Brief D, by Dec 14–21: money and going to market** (with §9.6's five marketing calls).
 1. Which priced items sell on Jan 1 (F.3).
 2. Marketplace keys (F.4).
 3. Print at launch (F.8).
@@ -341,3 +341,124 @@ false-blocks.
 - **The server under real traffic.** It's unmeasured. B.6's test decides whether the hosting question becomes urgent.
 - **The holiday.** Jason's presses (money, legal, tax, the lock) cluster in late December. Brief D asks for them early
   on purpose.
+
+## 9. Going to market: rolling out the segments across the area (CMO lane)
+
+Jason, 2026-11-27: "use key marketing implementation strategy for rolling out new segments to meet expansion plan."
+
+**Built only from what's set.** Each source is named, and anything new is labelled a suggestion:
+- commercial.md: §0.B Content-to-Commerce, §1.1 tiers, §1.3 GO Codes, §2's "What we don't sell" and the Sales &
+  Partner Onboarding Framework, §3 targets, §9 positioning;
+- regions.md: the zones and the Thematic Messaging Overlay;
+- decisions/0108: the funnel, territories, promotions, trials and the 65% profit floor;
+- 0007: paid tiers sell tools, never placement;
+- 0094: GO Codes;
+- 0136/0137: groups;
+- 0066;
+- CLAUDE.md "No income, no expense".
+
+**Owners (0180's appendix):** the CMO, with the Marketing Director (13), Brand & Campaign (29) and SEO, Taxonomy &
+Funnel (30); the Sales Director (14), Merchant Onboarding (31) and Partnerships (32); and the Editorial Director (12)
+for content. Agents are fenced to the backend, so anything public or outward is drafted as a brief and pressed by a
+person.
+
+### 9.1 The segments (who we're winning, and the offer to each)
+
+| Segment | What they get | The offer (source) |
+|---|---|---|
+| **Travelers** ("Let's Explore") | Guides, journeys, trips, the Living Geography | Free. Reached by search once the lock lifts (G.4) and by shared trips (0174 R4). No ad pixels or retargeting (§2) |
+| **Residents** ("Get Local") | The directory, open now, community groups | Free. Reached through the businesses they use (GO Codes on counters) and the groups |
+| **Visitor-facing businesses:** lodges, outfitters, cafés, artisans, attractions | A place in the Living Geography; card checkout at 0%; storefront; GO Codes | Free → Basic / Core. The pitch leads with the Nationwide Narrative (§2 Sales Framework) |
+| **Everyday services:** plumbers, clinics, repair | Directory presence, hours, messaging | Free first; Basic for AI help and more posts |
+| **Multi-unit and co-ops** | The master hub, joint campaigns | Strategic / Cornerstone, with White Glove (§1.1, 0117) |
+| **Agencies and nonprofits** (chambers, visitor centres, parks' friends) | A claimed page for the agency, and visitor rules | Free for agencies and nonprofits (claim-kinds, 0108), and the natural partners for reaching the rest |
+| **Creators and members** | Moments, Snaps and Keeps | Free, paid from the community budget (0154) |
+| **Tribal enterprises and nation lands** | Public listings as any business; nation-specific content held | **No outreach as a segment** until the nation's own tools exist and it says so (0066). Their public businesses are treated like any other |
+
+### 9.2 Where: three selling rings inside the 200-mile area
+
+The visitor sees the whole area on Jan 1. Selling goes ring by ring, so each ring is won before the next opens.
+Distances are from §2a.
+
+| Ring | Clusters | When selling opens | Message (regions.md overlay) |
+|---|---|---|---|
+| **1: 1A** | St. Johns, Springerville, Eagar, Show Low, Holbrook, Winslow, the Petrified Forest gateway | Dec 15, once gates 1 and 5 pass, the claim and verify paths are measurable and passing (C.2 first), and B.5's mail is done | Pre-Colonial Heavy (the Ancient Borderlands) |
+| **2: the Four Corners core** (within ~100 mi) | 1B, 1C, 2A Mesa Verde, 11B Bluff and Blanding | January | Pre-Colonial Heavy. Much of 1B is Navajo Nation land: 0066's rules first |
+| **3: the gateways** (100–200 mi) | 3A Santa Fe and Taos, 4A/4B Albuquerque, 7A/7B Flagstaff and Page, 11A Moab, 12B/12C | February–March | 3A Pre-Colonial; 4A Pre-Colonial with an industrial overlay; 7A Frontier anchored by a Pre-Colonial foundation; 12C Dual-Layer |
+
+**Selling to owners before the Dec 31 go/no-go is fine while the search lock holds:** owners reach us by invite and
+GO Code, not by search.
+
+*Suggest a change to the plan, for Jason:* the ring dates above are mine, not set anywhere. They're tied to gates, not
+to the calendar.
+
+### 9.3 How: the funnel per ring, at $0 (0108)
+
+1. **Ready:** the ring's towns built and cleaned (D.1, D.2), the area guide live (E.1), the claim, verify and upgrade
+   paths passing.
+2. **Source and score:** every unclaimed listing in the ring is a lead, scored with reasons (0108 §1–2). The ring is a
+   Territory with its rep (0108 "Territories").
+3. **Reach out, free channels first:**
+   - claim invites by email: system emails cost nothing (CLAUDE.md);
+   - one GO Code per business on the invite, so a scan moves the lead to Engaged and tells the rep (0108
+     "Promotions");
+   - calls logged;
+   - in-person visits with the card scanner.
+
+   Invites are sent by a person's press in the CRM, never by an agent.
+
+   **Mail comes before volume.** Cold invites to thousands of businesses go out only once B.5 is done: SES out of the
+   sandbox, DKIM verified on both domains, and DMARC moved off `p=none`. Every invite also carries an unsubscribe,
+   through the one dispatcher (0172). Otherwise invites land in spam and hurt the domain the site's own system mail
+   depends on.
+4. **Partners who reach the rest:** chambers, visitor centres and county tourism offices get their free agency page
+   first, and their member lists become warm leads (research/state-tourism-apis.md for the state offices' data).
+5. **Convert:** verify, choose a tier, card on file; or a trial of 30, 60 or 90 days with no commitment, dropping to
+   Free at its end and the listing staying up (0108 "Trials"). Every offer stays above the 65% profit floor.
+6. **Onboard:** self-serve, or White Glove for Strategic and Cornerstone (0108 §7–8). The asset upload GO Code collects
+   the menu and storefront photos.
+7. **Keep:** the owner adds hours (the only fix 0164 allows for open now), posts and GO Codes on the counter. That
+   brings residents in, which brings the next owner in.
+
+**Content leads, sales follow** (commercial §0.B): each ring opens with its area guide and the zone's story, so a rep's
+pitch can point to a live page about the owner's own town.
+
+### 9.4 What isn't free (each waits on revenue or Jason)
+
+From commercial §5, at target scale:
+- printed GO Code mail-outs and collateral;
+- geo-fenced ads (§5's "Hyper-Local Digital Acquisition", $800 a month per hub at scale);
+- paid field reps and commission (0108: "Commission comes later");
+- texting (no text provider, H.1).
+
+Under "No income, no expense", none of these starts until revenue covers it or Jason funds it. *Suggest a change for
+Jason:* the first ring's paid plans fund ring 2's printed mail-out.
+
+### 9.5 How we'll know (counts only, never who: 0051, 0094)
+
+**Per ring, each week:**
+- leads;
+- invites sent;
+- GO Code scans;
+- claims;
+- verified;
+- trials;
+- paid, by tier;
+- churn at the trial's end;
+- the share of listings with hours;
+- the ring's paths passing.
+
+**Visitors:** guide views, searches with results, trips saved and shared.
+
+*Suggest a target for Jason* (commercial §3's 100 paying partners a sub-hub is target scale, not Q1): ring 1 by
+Mar 31, 150 claimed and 30 paying. The number is his to set.
+
+### 9.6 For Jason (in Brief D)
+
+1. The launch offer: trial length, and whether a "founding partner" price exists. *Suggestion:* the 0108 trials only,
+   since a new price is new policy.
+2. **A gap: who presses the CRM invites in December?** No rep exists and nobody is seated in the sales lane, so today
+   only Jason can send them. It's Jason, or a rep he names (H.2).
+3. The ring dates and the Q1 target (9.2, 9.5).
+4. Paid outreach, if any, and its source (9.4).
+5. Tribal enterprises: confirm 9.1's rule.
