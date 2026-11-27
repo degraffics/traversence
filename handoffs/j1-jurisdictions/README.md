@@ -16,7 +16,8 @@ In `build/`:
 
 Tests: `tools/jurisdiction-tests/j1.php`, 31 checks on MariaDB (with the landmark gate downstream of `tier()`). Screens:
 `screens/jurisdictions-1280.png`, `-390.png`. Tier 4 review: CEO, 2026-11-27, Prior Ruling Check yes (0164 R8 note, Q8;
-R17 repair). Design reviewer: asked.
+R17 repair). Design: approved (the Design reviewer, 2026-11-27, at b72c80d). Order OK: the session manager, slot after
+R2 (#317) and B.2 step 1. Tests now 32 checks.
 
 Reading the laws (the follow-up release, by role 25) waits for the statute hosts: uscode.house.gov, www.azleg.gov,
 nmonesource.com, leg.colorado.gov, le.utah.gov, www.govinfo.gov. Until then the records stay drafts, which is safe.
