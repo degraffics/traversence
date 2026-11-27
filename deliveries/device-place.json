@@ -1,0 +1,18 @@
+{
+ "zip": "device-place.zip",
+ "built_on": "31261dc Sync: 2026-11-27 02:27 UTC",
+ "recorded": "2026-11-27 02:28 UTC",
+ "note": "C.1 the device's place inside our areas read as its town, not outside (the launch plan's C.1; decisions/0060); Design: approved 02:24 UTC; session manager's order OK; built on Sync: 2026-11-27 02:27 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/UniversalSearch.php": {
+   "sha256": "8c79f23f916d3bbf9102d3f90409b976a5c9077820e7b5b756274f0e35112e37",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "2ddb7c04050ece3259a459f0ee675c647bfb4e13d3d724494f508699cc795a7d",
+   "live": false
+  }
+ }
+}

@@ -45,7 +45,7 @@ In **Destination** you can type a town, a town area, a local name, or a landmark
 Signed in, you can make a place your default (**My default**), so you start there next time: whenever you're signed in and haven't chosen a place yet this visit, every page starts from it (shown as "your default"). A region you arrive through, or choosing everywhere, still wins for that visit.
 
 ### Does Auto-detect share where I am?
-No. Auto-detect only picks a starting place for you on this visit. Your location is never shown to anyone. When the place it finds (or a town or ZIP you set) is in one of our town areas, search treats it as that town in its area, just as if you'd chosen it: what we list there comes first, and you never see "We have no listings here yet" for a town where we do.
+No. Auto-detect only picks a starting place for you on this visit. Your location is never shown to anyone. When the place it finds (or a town or ZIP you set) is in one of our town areas, search treats it as that town in its area, just as if you'd chosen it: what we list there comes first, and you never see "We have no listings in <your town> yet" for a town where we do.
 
 ## Exploring places
 
@@ -984,7 +984,7 @@ Every way a listing is made or shown again (our crawler's finds, the businesses'
 Coming, and switched off until our team turns it on. Open datasets that anyone may use (Overture Maps and Foursquare's open places, under their licences, credited) will tell our crawler which businesses are in a town we don't cover well yet. Each one goes through the same identity check as everything else, so a business we already list only gets what's missing filled in, and a find is listed only once it has a real name and a phone or street address we're allowed to keep, at the confidence its sources earn. A dataset saying a place has closed only asks our team to check it; it never takes a listing down by itself.
 
 ### Can search engines find Traversence?
-Yes, the public pages: listings, places, towns, guides and the like. We publish a sitemap so search engines find them, and ask them (in our robots.txt) to leave out sign-in, your account, your messages, the admin and our own tools. A business that's private or confidential isn't in the sitemap. Staging, where our team tests changes, is never indexed.
+Not yet. Until we open the site to search engines, every page (the home page, sign-in, the directory, listings, guides and businesses' storefronts on trvgo.us) asks them not to list it, and our sitemap lists nothing. You can still share any link, and anyone can open it. When we open the site, the public pages (listings, places, towns, guides and the like) go into the sitemap, while trial and unverified listings, private or confidential businesses, first-look guides, drafts and places told only as a story stay out. Sign-in, your account, your messages, the admin and our own tools are never listed, and nor is staging, where our team tests changes.
 
 ### Why did a listing I saw move to another link?
 It was the same business as another listing, so the two became one. The old link takes you to the one we kept, with everything we knew about both. If we got it wrong, tell us with **Closed, moved or listed twice? Tell us** on the listing: our team can undo it exactly, and the two are never put together again.
