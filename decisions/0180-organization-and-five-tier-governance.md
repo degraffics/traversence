@@ -369,3 +369,12 @@ this month. Solution, acted on: until 0181's gates pass, guides and gate work ha
 (Ask Claude, drafting, briefs) gets only what's left, through `AiClient::allow()` with a per-feature limit, so it never
 starves the guides; the CFO (4) allocates per project within it; at the cap every feature stops with `allow()`'s own
 words and the meter shows it.
+
+**Correction (Jason, 2026-11-27: "Separate each"; replaces the note above's "first call" solution; recorded as
+Operations & Policy (16)).** Four separate budgets, none drawing on another: (1) sessions, Claude Max $100 a month
+($109.10 with tax); (2) the platform's AI, the existing $40 `ai_month_usd` for guides, research and site features
+(0131, 0147, 0160 §5), unchanged; (3) agents' API, its own hard $40 a month cap for the team's API use (Ask Claude,
+drafting, briefs, Prior Ruling Checks), a separate counter in `AiClient` with its own `allow()` refusal and its own line
+on the meter, built with the AI items release (IT lane, the CFO's Tier 4); (4) the CEO's $20, unchanged. Worst case
+$209.10 a month. The CFO allocates projects within (3); nothing is spent from (3) until its counter is live, and until
+then agents stay on sessions.
