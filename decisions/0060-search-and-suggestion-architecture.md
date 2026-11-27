@@ -243,3 +243,13 @@ will look into developing better search results for this specific topic and area
 ranks that exact kind first, then the broader health kinds, never businesses outside the kind; open now and closing time
 show where hours are known, and "Hours not known" where they aren't (never an implied open); a hospital or emergency room
 carries its own label. Treated as live harm, first within the gates.
+
+**Note (2026-11-27), on the 2026-11-10 note: an everyday local need asks where you are** (recorded as Operations &
+Policy (16), by the CEO under CLAUDE.md's "His stated direction is the ruling", citing Jason's "must excel at delivering
+superior results, accuracy, and usefulness", 2026-11-27). A search with no place whose words are an everyday local need
+opens the "Where are you?" picker, Auto-detect first: health and emergency kinds, and this decision's everyday list
+(coffee, eat, groceries, gas, pharmacy, things to do, stay, parks, health care), not only "near me". It asks; it never
+guesses or tracks (above, "We never track where anyone is"; 0058 §8, "applied when tapped"). Closing it without a place
+keeps today's everywhere. The rule `saysNear` becomes `needsPlace` (js/search-panel.js). $0. Gate 1, built by Frontend &
+Shop in one release with every result row's honest hours (the listing's own zone, one shared function). In the daily
+summary for the Founder to overturn.
