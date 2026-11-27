@@ -133,6 +133,14 @@ state with `live-read.yml`: rows `feature_switches`, q `before_after`.
    2. r2-lanes-3 (Monday's rollout slot);
    3. gate 4's work: B.2's nightly backups and restore drill; the Scheduler bundle (jobs on time for 7 days, Pre-flight's self-continue), built from the live Scheduler.php only after Frontend & Shop's goal-check release is live; A3 only if a withdrawal blocks gate work;
    4. after Monday's four: phase 2 release 1, the Executive channel, and the AI items 1, 2 and 4.
+   - **Phase 2 release 1 also takes a task's documents** (the session manager, 2026-11-27; 0127's note, #1580): a new upload
+     target, "a task's documents", in `app/lib/upload-targets.php`, owned by GaugeTasks. `task-notes.json` gains an optional
+     `file`. The hourly pull fetches it through DocsRepo's contents-API read (never raw) and stores it through `Uploads.php`
+     on the task, with Open and Download on the task's page. Files belong to the task, never a person. Its table is named in
+     `staging-tables.php` (R14), and the one-uploader grep still matches only `Uploads.php` and `api/upload.php`.
+   - **Held for after the goal check:** founder-link (`claude/founder-link`, `handoffs/founder-link/`). The Founder's
+     message emails open their own `link` (ours only) or their `task` (`#wq-<id>`); gauges.py warns on neither (the session
+     manager's option (a), 2026-11-27). IT lane.
    - **Parked:** the "Recovered" fix (no gate; #322 removes its cause).
    - **20:00 UTC daily to the session manager:** each item with its gate and the revenue or money it serves, plus gate 4's status with its evidence.
 
