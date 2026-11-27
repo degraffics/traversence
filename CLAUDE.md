@@ -48,6 +48,15 @@ conversations." A session doesn't narrate, recap or explain in its own chat: its
 release records and short messages to the session manager (facts, links, what's needed). Only what needs Jason (a
 Founder ruling or an OK) is written for him, through the CEO session ("Asking Jason" below).
 
+## Launch first: no gate, no build (Jason, 2026-11-27; 0181 §2): every session, until 0181 §1's six gates pass
+
+Jason: "after months of development I'm still having to re-engage a repeating loop of machine work/fixes. I need you to
+represent me in ceasing this and move us forward to market release." (The CEO's Tier 4, enforcing 0181 §2; recorded as
+Operations & Policy (16).) Every ticket names the gate (1–6) it moves, or a live harm to people or money; without one it's
+logged in its role's queue, not built before Jan 1. No new tooling, meters, board features, check refinements or process
+releases unless one blocks a gate; rollout releases get 0181 §2's one slot a day. What reaches Jason: a Tier 5 brief, live
+harm, and the CEO's one daily launch report against the gates. No new sessions before launch.
+
 ## The session manager (Jason, 2026-11-13): every session
 
 A standing session watches the others (hourly while Jason is checked in): context size, restarts, cost, release clashes,
