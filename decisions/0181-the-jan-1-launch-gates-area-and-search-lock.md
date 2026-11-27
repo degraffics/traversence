@@ -207,3 +207,12 @@ day. This qualifies 0180's "R1–R5 ship as each passes" (note added there).
   promise, the Editorial Director (12) for the words, the IT Manager's (11) lane for the build, the advocates A1–A12 to run
   it. First fixes: the per-message `link` (queued), then what the check finds in sign-up, claims, orders and alerts. After
   Monday's four, as gate 1 work.
+- **Content to commerce leads the penetration strategy** (Jason, 2026-11-27: "Events using our tools, marketplace features
+  and showcases? We need to really look at how to harness the power of our platform to push content to commerce
+  success"; research/rural-penetration-2026-11-27.md, "Revised: content to commerce"; recorded as Operations & Policy
+  (16), for the launch plan §9's CMO lane). The lead is the platform's own tools: events (0134; 0135's Jan 1 tickets) with
+  vendor listings, booth GO Codes, pre-orders and tickets; showcases (magazine stories, "Made in <geo hub>" collections,
+  the Spotlight); a GO Code trail passport across 1A's stops (0174); and buy buttons on guide cards. The Free tier,
+  multipliers and promotions support it. Lanes: the CMO (7) with Editorial (12) and Marketing (13) for showcases, trails
+  and stories; Sales (14) for event organizers and vendors; IT (11) and Frontend & Shop for the events build. Whether a
+  minimum events build ships before Jan 1 is open for the Founder.
