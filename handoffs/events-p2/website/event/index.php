@@ -123,7 +123,7 @@ echo tv_explore_hero($pdo, ['name' => $title, 'heading' => '', 'edit' => false, 
   .evp-ics{display:inline-flex;flex-wrap:wrap;gap:.3rem}
   .evp-ic{width:30px;height:30px;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;background:var(--tv-card-a,#FFFBF2);border:1px solid var(--tv-line-strong,#CBB98D);color:var(--tv-icon,#B45309);cursor:pointer;padding:0}
   .evp-ic .ta-svg{width:15px;height:15px}.evp-ic:hover{border-color:var(--tv-icon,#B45309)}
-  .evp-offer{font-size:.9rem;color:var(--tv-ink,#3E2B1F);margin:.4rem 0 0;overflow-wrap:anywhere}.evp-offer code{font-weight:700;background:var(--tv-sec,#F7EFDC);border-radius:.3rem;padding:0 .3rem}
+  .evp-offer{font-size:.9rem;color:var(--tv-ink,#3E2B1F);margin:.4rem 0 0;overflow-wrap:anywhere}
   .evp-go-c{display:flex;align-items:center;gap:.3rem;font-size:.82rem;color:var(--tv-meta,#5C4632);margin:.35rem 0 0}.evp-go-c a{color:var(--tv-link,#92400E);text-decoration:underline}.evp-go-c .ta-svg{width:14px;height:14px;color:var(--tv-icon,#B45309)}
   .evp-route{display:flex;flex-wrap:wrap;align-items:center;gap:.4rem .8rem;margin:.7rem 0 0}.evp-route span{font-size:.82rem;color:var(--tv-meta,#5C4632)}
   .evp-rt{display:inline-flex;align-items:center;gap:.4rem;border:1px solid var(--tv-btn,#92400E);color:var(--tv-link,#92400E);border-radius:.7rem;padding:.5rem .9rem;font-weight:700;text-decoration:none;background:var(--tv-card-a,#FFFBF2)}.evp-rt .ta-svg{width:16px;height:16px}
