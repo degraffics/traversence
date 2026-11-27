@@ -130,3 +130,11 @@ visitor's clock, never the listing's zone (JourneyPlan::timezone exists).
 Plan: known = owner or OpenStreetMap; open in the listing's zone; "Hours not known" wherever status shows; "N of M have
 known hours"; FAQ; eat-near-me checks it. Gaps asked: (a) staff hours known? (b) unknown kept labelled or dropped on an
 open-now search? (c) Navajo land's daylight time.
+
+## Queue at 04:57 UTC (each rebuilt on the newest sync before it's sent)
+
+1. **C.4 town-point.zip**: Design: approved; order OK. After r2-lanes-2, B.2 step 1 and J1 are live and synced.
+2. **place-list.zip**: Design: approved; order OK. Rebuild location-modal.php on the sync after C.4.
+3. **C.8 open-now.zip**: Design: approved (after two fixes: the row tag's "·" and meta italic; one count sentence);
+   order OK. Waits also for r2-lanes-2's faq.md; directory/index.php is built on C.4's. Its why names the .tvs-open clash
+   as the likely cause of P10's "marks nothing open".
