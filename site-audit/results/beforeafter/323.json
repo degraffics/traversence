@@ -1,8 +1,34 @@
 {
  "release": "323",
- "phase": "before-done",
- "verdict": "waiting",
+ "at": "2026-11-27T17:38:55.286Z",
+ "verdict": "block",
+ "first": "Out-of-scope drift: This page changed, and the change doesn't name it (executive, /admin/crawler-review.php, phone)",
+ "blocks": [
+  {
+   "rule": "drift",
+   "rule_name": "Out-of-scope drift",
+   "advocate": "advocate-staff-views",
+   "who": "executive",
+   "page": "/admin/crawler-review.php",
+   "size": "phone",
+   "what": "This page changed, and the change doesn't name it",
+   "before": "",
+   "after": "Find any listing to edit"
+  }
+ ],
+ "blocks_total": 1,
+ "notes": [
+  "member|/admin/chamber-builder.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "viewer|/admin/chamber-builder.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "executive|/admin/config/scheduler|phone: already missed \"Cards 3px from the screen edge at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "executive|/admin/settings.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "executive|/admin/chamber-builder.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "executive|/admin/crawler-review.php|phone: \"No sideways scroll at 390px (0058 \u00a711)\" missed after, from a record's own content (its data); not this change's",
+  "ops-staff|/admin/chamber-builder.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)"
+ ],
+ "far": [],
  "views": 223,
- "seconds": 827,
- "run": "https://github.com/degraffics/traversence/actions/runs/46033293600"
+ "seconds": 2416,
+ "run": "https://github.com/degraffics/traversence/actions/runs/46041550470",
+ "phase": "after-done"
 }
