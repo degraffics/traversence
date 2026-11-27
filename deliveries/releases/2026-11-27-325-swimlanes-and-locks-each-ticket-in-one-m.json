@@ -1,0 +1,76 @@
+{
+    "id": 325,
+    "title": "Swimlanes and locks: each ticket in one manager's lane, one owner at a time, hand-offs with a note",
+    "why": "decisions/0180 R2 (rollout item 2; §5 \"Every ticket routes to exactly one of the seven middle managers by its domain\"; §7 \"One owner at a time\" and \"Sequential hand-offs … with hand-off notes\"; #1460: who works what comes from the appendix). The gap 0180 §5 leaves (how a ticket's domain is read, and which lane is which) is filled by who does the work, from the appendix's reporting lines, as reviewed by the session manager (2026-11-26): orders and fulfilment the Customer Service Manager (17 reports there), billing the Accounting Manager (19), an order's payment Customer Service; data, addresses, nations, privacy, the system's own pages and audits the IT Manager (20-25); the marketplace the Sales Director (31, 32); content and design the Editorial Director (26-28); SEO and campaigns the Marketing Director (29, 30); else the Project Manager. Territory still decides the Tier 4 review (§4). One owner per ticket: the existing owner (a person, or one role); a role never takes a person's ticket, and another role's hold lapses after the hour (TeamRunner::mayWork). Hand off to another lane… with a required note, logged, by the lane's manager, an executive above it, or the Founder (Tier 3, §1). Lanes are routing: never in TeamRunner::ruleData, so the decision tree's approval stands (tested: the same fingerprint before and after). Also: live's why column holds 400 characters, so R1's two long tickets kept only their first 400; their full reason goes into goal where it's empty. The before-and-after check is on for this release, as the role-22 fix's proof (#1472). Sent again (Release #317 withdrew itself on staging: \"Migrations ran on staging: 2026-11-26_0180_r2_lanes.sql: Integrity constraint violation: 1062 Duplicate entry '59' for key 'PRIMARY'\"): staging's counter for control_gauge_tasks sits behind the rows catch-up copied from live, so the seven new tickets now name their own id, one past the highest there, each still added only once. Sent a third time (Release #318 was withdrawn by the before-and-after check at 06:24 UTC: \"Doesn't open now: TimeoutError\" on /admin/crawler-review.php at 390, as executive and ops-staff; its own checks on staging passed). The shared file this release changes is website/js/tv-ask.js (reach.py: within two steps of 80 of the site's 92 pages); crawler-review.php is reached only through it. The check now tries such a page once more after the look with 90 s, a note if it opens or was slow before too, a block only if it opened before and hangs after (Tier 4 review: CEO, 2026-11-27, Prior Ruling Check yes (0179 rule 2's far-page note, measured)). Nothing in the release changed. Sent a fourth time as r2-lanes-3 on Sync 19:50 UTC (dd02bdd): the before-and-after check's tab fold (#1569) and timed-out before looks (#1598) are fixed and live in Release #324; faq.md's one entry re-applied on the live copy, the other eight files unchanged since 02:50.",
+    "proposals": "",
+    "zip": "r2-lanes-3.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/admin/control-console.php": {
+            "sha": "bfa48fe263127b4dc3836f8e2b7bd5ebfd56f80b4e3f00256168b194f76a350c",
+            "size": 307921,
+            "live_was": "22b9397dd15394fefbad741561fcd6ba56b11e2639fe687b7c173a039fe602d8"
+        },
+        "app/ui/faq.md": {
+            "sha": "2446c57d81079c72aa5efe24fe0ce5c16779eafb374a94d229ecd5f87eee5dcf",
+            "size": 471043,
+            "live_was": "3dd0f62ee74cb30618a2b03390d7ee634507499590e8ef67f0096015e7500f88"
+        },
+        "app/migrations/2026-11-26_0180_r2_lanes.sql": {
+            "sha": "318e5f3a577eda0d811b21c75e93f3d2186d50cd3c01b9ac6394238ada69a809",
+            "size": 9629,
+            "live_was": null
+        },
+        "app/lib/GaugeTasks.php": {
+            "sha": "5ca26c9d5987299caf92e480af9fa489a7ab8bcf5ca046d613e3a99f3dfddad7",
+            "size": 61682,
+            "live_was": "ca836f9c4dd8c5f4153e5586268f138fbca884b5f4e682299991976a4fc083d4"
+        },
+        "app/lib/TeamRunner.php": {
+            "sha": "2d5b56998546dd0b6dc5ff39d49157301fc7eb149d5877004c4cf04bd41636e4",
+            "size": 60122,
+            "live_was": "f9e2b9baf3eeabb7d30060de9c555b2e966c4c31ddbcce6bc99f4442d5ec6f18"
+        },
+        "app/lib/TeamRoster.php": {
+            "sha": "51794ae17cc47c24cee1cdab4c6e1588440ab1bdd77be439eded7f7dbb2685dd",
+            "size": 23417,
+            "live_was": "289d90d140da4c61801288b38439460c6d8e283ed09e80d877037b27f4e5d878"
+        },
+        "website/admin/api.php": {
+            "sha": "636b5f01ebe1f0609105b51cfbaaa948834143014f6f4de8ae5cf071644f9b44",
+            "size": 58995,
+            "live_was": "e5e9257952e51b71bcd384ea27dcfd0e19ce1023660b36316df07864d3301ee2"
+        },
+        "website/js/tv-ask.js": {
+            "sha": "7674c71b4deea49056e3608135fb7c983d3bafa572d0b6ff92066cb6c71c84e6",
+            "size": 55907,
+            "live_was": "e63229d90b84f1eb1c01a73570659a22f66fe17e169dcf6fadc254f5ffc2b242"
+        },
+        "website/js/admin-control.js": {
+            "sha": "a7faf0cc95a7ab6e3e1945c0e9c9e190e98933734123c5f910f85e41003827ec",
+            "size": 82398,
+            "live_was": "db1d48b2deaf3d5ebf07a737843358b784a8d6285d9e6c08b5cf11794556566a"
+        }
+    },
+    "migrations": [
+        "app/migrations/2026-11-26_0180_r2_lanes.sql"
+    ],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-27T20:10:43+00:00",
+            "by": 0,
+            "msg": "Uploaded r2-lanes-3.zip: 9 files."
+        }
+    ]
+}
