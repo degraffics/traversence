@@ -651,7 +651,16 @@ final class MarketCheckout
                 throw $x;
             }
         });
-        if ($qid !== $had) $pdo->prepare('UPDATE market_orders SET biz_quote_id = ? WHERE id = ?')->execute([$qid, (int) $o['id']]);
+        if ($qid === $had) return;
+        try { $pdo->prepare('UPDATE market_orders SET biz_quote_id = ? WHERE id = ?')->execute([$qid, (int) $o['id']]); }
+        catch (Throwable $x) {   // the copy is in the business's books; only our link to it failed: never reported to the business as missing
+            error_log('market order ' . $o['id'] . ' link to its copy ' . $qid . ': ' . $x->getMessage());
+            try {
+                require_once __DIR__ . '/GaugeTasks.php';
+                GaugeTasks::add($pdo, 'area:backlog', 'Marketplace order #' . (int) $o['id'] . ': link it to its invoice ' . $qid . ' in business ' . (int) $o['entity_id'] . '\'s Quotes & invoices',
+                    'Gate 5: the copy was written (invoice ' . $qid . '), but market_orders.biz_quote_id couldn\'t be set (the server\'s log). Until it is, a direct payment marked on that invoice doesn\'t reach the Marketplace order.', 'MarketCheckout (a Marketplace order\'s copy)', 'the Marketplace', 0);
+            } catch (Throwable $y) { error_log('market order ' . $o['id'] . ' link ticket: ' . $y->getMessage()); }
+        }
     }
 
     /**

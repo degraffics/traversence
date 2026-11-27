@@ -9,6 +9,7 @@
 //   4. a request already inside a business (the portal) is refused before anything is written, its own scope untouched;
 //   5. Scope::leave refuses any connection but the one that entered;
 //   6. a copy that fails after its first line leaves nothing in the business's books and isn't linked (one transaction);
+//   7. a copy written whose link fails: no throw, one Work queue ticket to link it.
 // (A direct-pay or card order whose copy fails: write-order-place.php.)
 declare(strict_types=1);
 $root = rtrim($argv[1] ?? '', '/'); $app = $root . '/app';
@@ -32,7 +33,7 @@ $list = new PDO('mysql:unix_socket=/run/mysqld/mysqld.sock;dbname=wo_list', 'wo'
 BusinessData::ensure($list);
 
 $order = function (int $id, int $e, string $email = 'buyer@example.test') use ($main) {
-    $main->prepare('INSERT INTO market_orders (id, entity_id) VALUES (?, ?)')->execute([$id, $e]);
+    $main->prepare('INSERT IGNORE INTO market_orders (id, entity_id) VALUES (?, ?)')->execute([$id, $e]);
     return ['id' => $id, 'entity_id' => $e, 'biz_quote_id' => 0, 'email' => $email, 'name' => 'Test Buyer', 'method' => 'card', 'provider' => 'square',
         'lines' => [['product_id' => 0, 'title' => 'TEST · item', 'qty' => 2, 'unit_cents' => 1250, 'taxable' => 0]], 'ship_cents' => 0, 'ship_name' => 'Pickup',
         'ship_address' => '', 'note' => '', 'hold_until' => date('Y-m-d H:i:s', strtotime('+3 days')), 'total_cents' => 2500, 'pay_now_cents' => null];
@@ -87,6 +88,13 @@ $t('6. a copy failing after its first line comes back as a failure', $why !== ''
 $t('6. nothing half-written: no invoice, no line, no customer in that business', $quotes(909) === 0 && (int) $list->query('SELECT COUNT(*) FROM biz_quote_lines WHERE owner_id = 909')->fetchColumn() === 0 && (int) $list->query('SELECT COUNT(*) FROM crm_customers WHERE owner_id = 909')->fetchColumn() === 0);
 $t('6. and the order isn\'t linked to anything', (int) $main->query('SELECT IFNULL(biz_quote_id, 0) FROM market_orders WHERE id = 9')->fetchColumn() === 0);
 $t('6. the scope is at 0 after it', Scope::owner() === 0 && !Scope::isBusiness());
+
+// 7: the copy written but our link to it failing: no throw (the business isn't told it's missing), one ticket to link it
+$main->exec('ALTER TABLE market_orders CHANGE biz_quote_id bq INT UNSIGNED DEFAULT NULL');
+$why = ''; try { $write->invoke(null, $main, $order(11, 1111) + ['biz_quote_id' => 0], 'sq-11'); } catch (Throwable $x) { $why = $x->getMessage(); }
+$main->exec('ALTER TABLE market_orders CHANGE bq biz_quote_id INT UNSIGNED DEFAULT NULL');
+$t('7. a failed link after the copy is written doesn\'t throw', $why === '' && $quotes(1111) === 1);
+$t('7. it raises one ticket to link it', (int) $main->query("SELECT COUNT(*) FROM control_gauge_tasks WHERE what LIKE 'Marketplace order #11: link it to its invoice%'")->fetchColumn() === 1);
 
 echo "\n$n checks, $bad failed\n";
 foreach (['wo_main', 'wo_list'] as $d) $sys->exec("DROP DATABASE IF EXISTS $d");
