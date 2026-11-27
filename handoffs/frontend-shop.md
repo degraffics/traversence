@@ -180,3 +180,11 @@ Sent to the session manager on 2026-11-27, waiting for its place in the queue an
   3. "<region>" in the label: suggest the geo hub's name.
   4. The Native-made field: suggest none for Jan 1.
   5. All physical goods, or only made-here?
+- **The CEO's rulings (Tier 4, 2026-11-27):**
+  1. No services in Regional for Jan 1. A "guided" flag comes in Q1.
+  2. "In the area" = any geo hub, by geo_hub_id.
+  3. The label is "made in <geo hub name>".
+  4. Native-made on Jan 1 is the FAQ only.
+  5. Regional and its label cover tickets, bookings, harvest and made to order only. Physical goods join in Q1 with a "made here" tick.
+- **Build notes:** ship before the stylesheet; keep /market/'s default landing, or update the market-buy runner in the same release; re-run plan-buy, shop-buy, market-buy and the post path before sending.
+- **Don't build until the session manager places it.** It goes after C.8 (they share faq.md).
