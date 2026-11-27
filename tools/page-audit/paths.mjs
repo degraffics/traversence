@@ -387,8 +387,14 @@ const CORE = [
   // ---- these change something: staging only ----
   { id: 'sign-up', steps: "Home → menu → Create account → email, password, 18+ → the link in staging's held mail → the two questions → signed in on the dashboard", title: 'Sign up (all steps)', who: ['guest'], limit: 5, changes: true, run: null },
   { id: 'like-guest', steps: 'Like on a journey, then another, then a third → the account panel → Keep going as a guest → the like counts', title: 'Like as a guest (3, then Keep going as a guest)', who: ['guest'], limit: 5, changes: true, run: async (w, page) => {
-    const pages = (GUIDE_LIST.flatMap(g => g.journeys.map(j => j.url))).slice(0, 4);
+    // four journeys picked by the run's hour, so a second run in a day doesn't like the same four from the same connection
+    // (Guest::PER_ITEM_CONNECTION refuses a 4th guest like of one item a day; 2026-11-27, the session manager's OK)
+    const all = GUIDE_LIST.flatMap(g => g.journeys.map(j => j.url)), k = all.length ? new Date().getUTCHours() % all.length : 0;
+    const pages = [...all.slice(k), ...all.slice(0, k)].slice(0, 4);
     if (pages.length < 4) { w.stuck = 'not enough pages with a Like to try (suggested journeys)'; return; }
+    const said = [];   // each like's answer, so a refusal is named (the guard, its words), never just "didn't come"
+    const hear = async (r) => { if (/\/api\/engage\.php/.test(r.url()) && r.request().method() === 'POST') { let m = ''; try { const d = await r.json(); m = d.ok ? (d.liked ? 'liked' : 'not liked') : ((d.error && (d.error.code + ': ' + d.error.message)) || ''); } catch (e) {} said.push(r.status() + ' ' + m.slice(0, 120)); } };
+    page.on('response', hear);
     for (const u of pages) {
       await w.goto(u);
       const like = await firstVisible(page, ['[data-eg-like]']);
@@ -397,7 +403,12 @@ const CORE = [
       const more = await firstVisible(page, ['.tvj-more']);
       if (more) { await w.tap(more, 'Keep going as a guest'); w.goal = (await like.getAttribute('aria-pressed')) === 'true'; break; }
     }
-    if (!w.goal) w.add('accuracy', 'J02', w.here(), 'after several likes, the account panel with Keep going as a guest didn\'t come, or the like didn\'t take');
+    page.off('response', hear);
+    if (!w.goal) {
+      const note = ((await page.locator('.tv-note .tv-note-t').last().innerText().catch(() => '')) || '').replace(/\s+/g, ' ').trim();
+      w.add('accuracy', 'J02', w.here(), 'after several likes, the account panel with Keep going as a guest didn\'t come, or the like didn\'t take'
+        + (said.length ? '; the likes answered: ' + said.join(' | ') : '') + (note ? '; the notice: ' + note.slice(0, 120) : ''));
+    }
   } },
   { id: 'like-member', steps: 'Like as the member until the 100th of the day → Keep liking → the 101st counts', title: 'Like as a member (past 100)', who: ['member'], limit: 5, changes: true, run: null },
   { id: 'comment', steps: 'A journey → Add a comment → Post comment → it shows → Remove it', title: 'Comment', who: ['member'], limit: 5, changes: true, run: async (w, page) => {
