@@ -120,6 +120,95 @@
    "expires": "2026-11-27T06:09:36Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/admin/control-console.php",
+   "functions": [
+    "tv_cb_workqueue",
+    "tv_cb_wq_row"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
+   "why": "R2 (decisions/0180 \u00a75, \u00a77): swimlanes and locks",
+   "since": "2026-11-27T02:29:25Z",
+   "expires": "2026-11-27T06:29:25Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/TeamRunner.php",
+   "functions": [
+    "mayWork",
+    "pick"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
+   "why": "R2 (decisions/0180 \u00a75, \u00a77): swimlanes and locks",
+   "since": "2026-11-27T02:29:25Z",
+   "expires": "2026-11-27T06:29:25Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "website/admin/api.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
+   "why": "R2 (decisions/0180 \u00a75, \u00a77): swimlanes and locks",
+   "since": "2026-11-27T02:29:25Z",
+   "expires": "2026-11-27T06:29:25Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "website/js/tv-ask.js",
+   "functions": [
+    "ask"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
+   "why": "R2 (decisions/0180 \u00a75, \u00a77): swimlanes and locks",
+   "since": "2026-11-27T02:29:25Z",
+   "expires": "2026-11-27T06:29:25Z",
+   "release": "",
+   "callers": {
+    "ask": [
+     "app/ui/card-scanner.php",
+     "app/ui/explore-hero.php",
+     "app/ui/lead-panel.php",
+     "app/ui/market-ui.php",
+     "app/ui/pulse-ui.php",
+     "website/admin/client-order.php",
+     "website/admin/listing-intake.php",
+     "website/admin/order.php",
+     "website/js/address-book.js",
+     "website/js/admin-control.js",
+     "website/js/admin-kit.js",
+     "website/js/admin-releases.js",
+     "website/js/engage.js",
+     "website/js/gallery.js",
+     "website/js/photo-viewer.js",
+     "website/js/short-link.js",
+     "website/js/tv-env-edit.js",
+     "website/js/tv-moments.js",
+     "website/js/tv-pulse.js",
+     "website/js/tv-vault.js",
+     "website/order.php"
+    ]
+   }
+  },
+  {
+   "path": "website/js/admin-control.js",
+   "functions": [
+    "wqFilter"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
+   "why": "R2 (decisions/0180 \u00a75, \u00a77): swimlanes and locks",
+   "since": "2026-11-27T02:29:25Z",
+   "expires": "2026-11-27T06:29:25Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
