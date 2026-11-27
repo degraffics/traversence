@@ -421,3 +421,7 @@ responsibility isn't it?" Under decisions/0180, settling staging conflicts belon
 - **A conflict where a person changed the row on staging** becomes a Work queue ticket in the Operations &
   Reconciliation Manager's lane (0180 role 23, under the IT Manager; the Project Manager sequences it). It never comes
   to the Founder as a question. It reaches him only if it meets a Tier 5 trigger (0180 §3).
+
+- **Staging holds still during a before or after look** (Jason, 2026-11-27, Brief A3; decisions/0181). Staging's own
+  jobs and its catch-up from live pause while a release's before or after look runs, then resume. The looks then compare
+  the release, not staging's data moving underneath it (the cause of #305–#308's false blocks).

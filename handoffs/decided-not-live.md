@@ -4,6 +4,16 @@ Kept by the session manager (CLAUDE.md, "Decision or release: said every time"; 
 decision, the release that will put it live, and its place in the queue. A line moves to "Live" only when its release
 is synced and byte-checked. Updated with every approval and every release.
 
+**Company goal (Jason, 2026-11-26, to the CEO):** "Work with your team to analyze the entire platform and let me see
+your best plan for development based on both the frontend and back end being ready by Jan 1 for market roll out." The
+front end and the back end ready for the market roll-out on **January 1, 2027**. The CEO's plan comes to Jason after the
+session manager's review.
+
+**Company priority (Jason, 2026-11-26, to the CEO):** "No real numbers yet, I've kept the system locked for SEO until
+its built right. I want the frontend and the shop ready from end to end so we can strategies how to penetrate 1a properly."
+1A is regions.md's St. Johns, Springerville, Eagar, Show Low, Holbrook, Winslow and the Petrified Forest gateway.
+"Ready" is measured by 0145's paths (`tools/page-audit/paths.mjs`).
+
 ## Building now
 
 | Decision (when) | Release | Session | Next step |

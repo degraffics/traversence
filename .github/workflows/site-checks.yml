@@ -62,7 +62,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           since=$(date -u -d '-20 hours' +%Y-%m-%dT%H:%M:%SZ)
-          n=$(gh api "repos/${{ github.repository }}/actions/workflows/site-checks.yml/runs?created=%3E%3D$since&per_page=20" --jq '[.workflow_runs[] | select(.id != ${{ github.run_id }} and .event != "schedule")] | length' || echo 0)   # the hourly probe's runs don't count
+          n=$(gh api "repos/${{ github.repository }}/actions/workflows/site-checks.yml/runs?created=%3E%3D$since&per_page=20" --jq '[.workflow_runs[] | select(.id != ${{ github.run_id }} and .event != "schedule" and .conclusion != "failure" and .conclusion != "cancelled")] | length' || echo 0)   # the hourly probe's runs don't count, nor a failed or cancelled one
           if [ "${n:-0}" -gt 0 ]; then echo "Run $n time(s) in the last 20 hours already: nothing to do."; echo "SKIP=1" >> "$GITHUB_ENV"; fi
 
       - uses: actions/checkout@v4
@@ -177,8 +177,7 @@ jobs:
           git add site-audit/results/tools.json site-audit/results/load.json site-audit/results/photos-shown.json site-audit/results/brand.json site-audit/results/audit.json 2>/dev/null || true
           if git diff --cached --quiet; then echo "No change."; exit 0; fi
           git commit -m "Site checks: rendered pages and paths"
-          git pull --rebase -X theirs -q   # the run's own generated files win a collision
-          git push
+          for i in 1 2 3 4 5; do git pull --rebase -X theirs -q && git push && break; [ "$i" = 5 ] && exit 1; sleep $((i * 10)); done   # main moves often: retry, the run's own generated files winning a collision (the 11-26 snapshot was lost to one rejected push)
 
       - name: Public photos load (stock and member; the uploads rule for every kind)
         if: always() && env.SKIP != '1'
@@ -239,5 +238,4 @@ jobs:
           git add site-audit/results/load.json site-audit/results/audit.json
           if git diff --cached --quiet; then echo "No change."; exit 0; fi
           git commit -m "Light probe: load on the key pages and the audit's own load"
-          git pull --rebase -X theirs -q   # the run's own generated files win a collision
-          git push
+          for i in 1 2 3 4 5; do git pull --rebase -X theirs -q && git push && break; [ "$i" = 5 ] && exit 1; sleep $((i * 10)); done   # main moves often: retry, the run's own generated files winning a collision (the 11-26 snapshot was lost to one rejected push)

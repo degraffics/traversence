@@ -1,6 +1,278 @@
 {
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
- "claims": [],
+ "claims": [
+  {
+   "path": "app/ui/security-headers.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
+   "why": "G.1: the search lock's leaks closed (decisions/0181 \u00a74)",
+   "since": "2026-11-27T01:52:14Z",
+   "expires": "2026-11-27T05:52:14Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "website/index.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
+   "why": "G.1: the search lock's leaks closed (decisions/0181 \u00a74)",
+   "since": "2026-11-27T01:52:17Z",
+   "expires": "2026-11-27T05:52:17Z",
+   "release": "",
+   "callers": {},
+   "zones": [
+    "home.after-doors"
+   ]
+  },
+  {
+   "path": "website/login.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
+   "why": "G.1: the search lock's leaks closed (decisions/0181 \u00a74)",
+   "since": "2026-11-27T01:52:21Z",
+   "expires": "2026-11-27T05:52:21Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "website/register.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
+   "why": "G.1: the search lock's leaks closed (decisions/0181 \u00a74)",
+   "since": "2026-11-27T01:52:23Z",
+   "expires": "2026-11-27T05:52:23Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "website/forgot-password.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
+   "why": "G.1: the search lock's leaks closed (decisions/0181 \u00a74)",
+   "since": "2026-11-27T01:52:25Z",
+   "expires": "2026-11-27T05:52:25Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "website/directory/classic.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
+   "why": "G.1: the search lock's leaks closed (decisions/0181 \u00a74)",
+   "since": "2026-11-27T01:52:28Z",
+   "expires": "2026-11-27T05:52:28Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "website/sitemap.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
+   "why": "G.1: the search lock's leaks closed (decisions/0181 \u00a74)",
+   "since": "2026-11-27T01:52:32Z",
+   "expires": "2026-11-27T05:52:32Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/crawler/OpenLoads.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
+   "why": "W1 load trips (#11): the ledger reads a closure as updated (COUNTS); batch's docblock names its new counts",
+   "since": "2026-11-27T02:02:11Z",
+   "expires": "2026-11-27T06:09:36Z",
+   "release": "",
+   "callers": {
+    "batch": [
+     "website/api/crawl/loads.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/ControlLedger.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
+   "why": "W1 load trips (#11): the ledger reads a closure as updated (COUNTS); batch's docblock names its new counts",
+   "since": "2026-11-27T02:02:11Z",
+   "expires": "2026-11-27T06:09:36Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/admin/control-console.php",
+   "functions": [
+    "tv_cb_workqueue",
+    "tv_cb_wq_row"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
+   "why": "R2 (decisions/0180 \u00a75, \u00a77): swimlanes and locks",
+   "since": "2026-11-27T02:29:25Z",
+   "expires": "2026-11-27T06:29:25Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/TeamRunner.php",
+   "functions": [
+    "mayWork",
+    "pick"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
+   "why": "R2 (decisions/0180 \u00a75, \u00a77): swimlanes and locks",
+   "since": "2026-11-27T02:29:25Z",
+   "expires": "2026-11-27T06:29:25Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "website/admin/api.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
+   "why": "R2 (decisions/0180 \u00a75, \u00a77): swimlanes and locks",
+   "since": "2026-11-27T02:29:25Z",
+   "expires": "2026-11-27T06:29:25Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "website/js/tv-ask.js",
+   "functions": [
+    "ask"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
+   "why": "R2 (decisions/0180 \u00a75, \u00a77): swimlanes and locks",
+   "since": "2026-11-27T02:29:25Z",
+   "expires": "2026-11-27T06:29:25Z",
+   "release": "",
+   "callers": {
+    "ask": [
+     "app/ui/card-scanner.php",
+     "app/ui/explore-hero.php",
+     "app/ui/lead-panel.php",
+     "app/ui/market-ui.php",
+     "app/ui/pulse-ui.php",
+     "website/admin/client-order.php",
+     "website/admin/listing-intake.php",
+     "website/admin/order.php",
+     "website/js/address-book.js",
+     "website/js/admin-control.js",
+     "website/js/admin-kit.js",
+     "website/js/admin-releases.js",
+     "website/js/engage.js",
+     "website/js/gallery.js",
+     "website/js/photo-viewer.js",
+     "website/js/short-link.js",
+     "website/js/tv-env-edit.js",
+     "website/js/tv-moments.js",
+     "website/js/tv-pulse.js",
+     "website/js/tv-vault.js",
+     "website/order.php"
+    ]
+   }
+  },
+  {
+   "path": "website/js/admin-control.js",
+   "functions": [
+    "wqFilter"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
+   "why": "R2 (decisions/0180 \u00a75, \u00a77): swimlanes and locks",
+   "since": "2026-11-27T02:29:25Z",
+   "expires": "2026-11-27T06:29:25Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/TeamRoster.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
+   "why": "R2 (decisions/0180 \u00a75, \u00a77): swimlanes and locks",
+   "since": "2026-11-27T02:29:34Z",
+   "expires": "2026-11-27T06:29:34Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/GaugeTasks.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
+   "why": "R2 (decisions/0180 \u00a75, \u00a77): swimlanes and locks",
+   "since": "2026-11-27T02:29:34Z",
+   "expires": "2026-11-27T06:29:34Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Jurisdictions.php",
+   "functions": [
+    "closedWhy",
+    "regionOpen",
+    "review",
+    "reviewer",
+    "undoReview"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jsi4U8fUwJYPkZsMx",
+   "why": "J1: a region opens on its team-reviewed jurisdiction record (Jason, 2026-11-27, R8 advisory; 0164 R8/R17 note)",
+   "since": "2026-11-27T02:30:01Z",
+   "expires": "2026-11-27T06:30:01Z",
+   "release": "j1-jurisdictions.zip",
+   "callers": {
+    "regionOpen": [
+     "app/admin/sections.php",
+     "app/lib/Heritage.php"
+    ],
+    "review": [
+     "app/admin/sections.php"
+    ],
+    "closedWhy": [
+     "app/lib/Guides.php"
+    ]
+   }
+  },
+  {
+   "path": "app/admin/sections.php",
+   "functions": [
+    "tv_admin_mod_jurisdictions"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jsi4U8fUwJYPkZsMx",
+   "why": "J1: a region opens on its team-reviewed jurisdiction record (Jason, 2026-11-27, R8 advisory; 0164 R8/R17 note)",
+   "since": "2026-11-27T02:30:01Z",
+   "expires": "2026-11-27T06:30:01Z",
+   "release": "j1-jurisdictions.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/HubOpening.php",
+   "functions": [
+    "lawSigned"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jsi4U8fUwJYPkZsMx",
+   "why": "J1: a region opens on its team-reviewed jurisdiction record (Jason, 2026-11-27, R8 advisory; 0164 R8/R17 note)",
+   "since": "2026-11-27T02:30:01Z",
+   "expires": "2026-11-27T06:30:01Z",
+   "release": "j1-jurisdictions.zip",
+   "callers": {}
+  }
+ ],
  "lapsed": [
   {
    "path": "app/lib/TeamRunner.php",

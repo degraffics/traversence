@@ -1,0 +1,90 @@
+{
+    "id": 316,
+    "title": "Search reads your detected or set place inside our areas as that town, not as \"outside\"",
+    "why": "The launch plan's C.1 (decisions/0181 §1 gate 1 and §2: launch work first). A place taken from the visitor's device, or a town or ZIP set with no area named, was always marked \"outside our areas\" (UniversalSearch::loosePlace), which switched off \"did you mean\" and the area's own answers and could say \"We have no listings in Show Low, AZ yet\" where we have them. It now reads the place's ZIPs (or, for a bare point, the nearest town's, Landmarks::nearestZip) against our clusters, the same check a typed town or county already gets, and returns the town in its area in the shape a town chosen there already has. A place outside every area is unchanged (decisions/0060; CLAUDE.md \"Places in search\"). No data, no outside calls, no cost.",
+    "proposals": "",
+    "zip": "device-place.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "live",
+    "step": 3,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": "2026-11-27 02:48:04",
+    "staged_at": "2026-11-27 02:48:06",
+    "vetted_at": "2026-11-27 02:48:08",
+    "live_at": "2026-11-27 02:48:08",
+    "files": {
+        "app/ui/faq.md": {
+            "sha": "2ddb7c04050ece3259a459f0ee675c647bfb4e13d3d724494f508699cc795a7d",
+            "size": 468545,
+            "live_was": "f7729b95c35be9386b15605b39218304dd27dbe5203943b6a34b61f81c801368",
+            "existed": true,
+            "old_sha": "f7729b95c35be9386b15605b39218304dd27dbe5203943b6a34b61f81c801368"
+        },
+        "app/lib/UniversalSearch.php": {
+            "sha": "8c79f23f916d3bbf9102d3f90409b976a5c9077820e7b5b756274f0e35112e37",
+            "size": 285018,
+            "live_was": "0e7d552c925e4dc5348f542acf71634f3e960344098432fdb4dbb6793216739e",
+            "existed": true,
+            "old_sha": "0e7d552c925e4dc5348f542acf71634f3e960344098432fdb4dbb6793216739e"
+        }
+    },
+    "migrations": [],
+    "checks": {
+        "ok": true,
+        "where": "live",
+        "at": "2026-11-27T02:48:09+00:00",
+        "items": [
+            [
+                "PHP files parse",
+                true,
+                "1 checked"
+            ],
+            [
+                "Pages answer",
+                true,
+                "2 pages answered on traversence.com"
+            ],
+            [
+                "No new fatal errors in the logs",
+                true,
+                "3 logs read"
+            ]
+        ],
+        "first_fail": ""
+    },
+    "log": [
+        {
+            "at": "2026-11-27T02:48:02+00:00",
+            "by": 0,
+            "msg": "Uploaded device-place.zip: 2 files."
+        },
+        {
+            "at": "2026-11-27T02:48:04+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/device-place.zip (git d5eb25f604)."
+        },
+        {
+            "at": "2026-11-27T02:48:04+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
+        },
+        {
+            "at": "2026-11-27T02:48:07+00:00",
+            "by": 0,
+            "msg": "Put on staging (2 files); its checks passed."
+        },
+        {
+            "at": "2026-11-27T02:48:08+00:00",
+            "by": 0,
+            "msg": "Approved in chat before it was sent through git, and its checks on staging passed: publishing by itself."
+        },
+        {
+            "at": "2026-11-27T02:48:08+00:00",
+            "by": 0,
+            "msg": "Published: 2 files; everyone at once (no switch)."
+        }
+    ]
+}

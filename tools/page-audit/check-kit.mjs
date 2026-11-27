@@ -3,6 +3,9 @@
 // a two-step code made from the login's key), and a browser context that's never counted as a visit.
 // Used by rendered.mjs (the page checks) and paths.mjs (the paths). Nothing here changes anything on the site.
 import { createHmac } from 'node:crypto';
+import { readFileSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 
 export const SITE = (process.env.SITE || 'https://traversence.com').replace(/\/$/, '');
 export let ACC = null;
@@ -27,17 +30,37 @@ export async function memberIn(ctx, a, site = SITE, token = CHECK_TOKEN) {
   if (!r.ok()) throw new Error(`member sign-in ${a.email}: ${r.status()} ${(await r.text()).slice(0, 160)}`);
 }
 
-/** A staff login signs in on the admin's page: staff ID and password, then the two-step code. */
+// The site takes each two-step code once: a code from a 30-second step at or before the login's last used one is
+// refused as "That code doesn't match" (StaffLogin::totpMatch, totp_last_step). The checks sign the same staff logins in
+// several times a run (rendered, tools, load, paths), so a step is never reused here: the last one used per login is
+// kept, in this process and in a file the run's other steps share, and a sign-in waits for the next step if needed.
+const STEP_FILE = join(tmpdir(), 'tv-staff-steps.json');
+const readSteps = () => { try { return JSON.parse(readFileSync(STEP_FILE, 'utf8')) || {}; } catch { return {}; } };
+async function freshStep(id) {
+  const last = Number(readSteps()[id] || 0);
+  let step = Math.floor(Date.now() / 30000);
+  if (step <= last) { await new Promise(r => setTimeout(r, (last + 1) * 30000 - Date.now() + 400)); step = Math.floor(Date.now() / 30000); }
+  const all = readSteps(); all[id] = step; try { writeFileSync(STEP_FILE, JSON.stringify(all)); } catch {}
+  return step;
+}
+
+/** A staff login signs in on the admin's page: staff ID and password, then the two-step code (a fresh step; once more on
+ * the next step if another check took this one). */
 export async function staffIn(ctx, a, site = SITE) {
   const p = await ctx.newPage();
-  await p.goto(`${site}/admin/login.php`, { waitUntil: 'domcontentloaded' });
-  await p.fill('#sid', a.staff_id); await p.fill('#pw', a.password);
-  await Promise.all([p.waitForNavigation({ waitUntil: 'domcontentloaded', timeout: 30000 }), p.click('button.b')]);   // the password step reloads the page with the code box
-  if (await p.$('#code')) {
+  for (let tries = 0; tries < 2; tries++) {
+    if (!(await p.$('#code'))) {
+      await p.goto(`${site}/admin/login.php`, { waitUntil: 'domcontentloaded' });
+      await p.fill('#sid', a.staff_id); await p.fill('#pw', a.password);
+      await Promise.all([p.waitForNavigation({ waitUntil: 'domcontentloaded', timeout: 30000 }), p.click('button.b')]);   // the password step reloads the page with the code box
+    }
+    if (!(await p.$('#code'))) break;
+    const code = totp(a.totp, await freshStep(a.staff_id));
     // the code box sends itself on the 6th digit (js/code-link.js, 3f A11, 2026-11-22), so wait for that first; press
-    // Sign in only if the page is still on the code step (an older page, or the script not loaded)
-    await Promise.all([p.waitForNavigation({ waitUntil: 'domcontentloaded', timeout: 10000 }).catch(() => {}), p.fill('#code', totp(a.totp))]);
-    if (await p.$('#code')) await Promise.all([p.waitForNavigation({ waitUntil: 'domcontentloaded', timeout: 30000 }).catch(() => {}), p.click('button.b')]);
+    // Sign in only if the page is still on the code step with the code in it (an older page, or the script not loaded)
+    await Promise.all([p.waitForNavigation({ waitUntil: 'domcontentloaded', timeout: 10000 }).catch(() => {}), p.fill('#code', code)]);
+    if (await p.$('#code') && (await p.inputValue('#code').catch(() => '')) === code) await Promise.all([p.waitForNavigation({ waitUntil: 'domcontentloaded', timeout: 30000 }).catch(() => {}), p.click('button.b')]);
+    if (!/\/admin\/login\.php/.test(p.url())) break;
   }
   const ok = !/\/admin\/login\.php/.test(p.url());
   const said = ok ? '' : ((await p.locator('p.no[role=alert], [data-tv-flash], [data-tv-status="bad"]').first().innerText().catch(() => '')) || '').slice(0, 160);
