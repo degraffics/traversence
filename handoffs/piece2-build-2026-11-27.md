@@ -192,6 +192,13 @@ is Live. Answer it with that and delete it.
 - **The mirror behind `main`** blocks a zip: re-sync first.
 - **A conflict in `deliveries/README.md`** at merge: resolve it by hand, keeping both sides.
 - `send.py` takes `--allow-pending` (a comma list) and `--session`.
+- **Merge only by the number the create call returns** (2026-11-27): twice a merge was sent by a guessed PR number
+  before the create call came back. #1536 was already merged by its owner. #1570, the session manager's own, was merged
+  in the same second as the session manager's merge, so nothing was lost. Never merge a number you didn't get back.
+- **A resend whose predecessor was withdrawn:** mark the old `deliveries/<zip>.json` `"status": "replaced"` with
+  `replaced_by`, or the zip check blocks the resend as another zip in flight. Add `"replaces"` in `release.json`.
+- **Match a live-read run's READ and ORDER_ID before reading or deleting its log** (2026-11-27: runs #131 and #133,
+  someone else's, were deleted by mistake).
 
 ## 8. Live reads (`live-read.yml`)
 
