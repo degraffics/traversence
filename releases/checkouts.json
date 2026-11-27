@@ -1,6 +1,124 @@
 {
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
- "claims": [],
+ "claims": [
+  {
+   "path": "app/ui/security-headers.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
+   "why": "G.1: the search lock's leaks closed (decisions/0181 \u00a74)",
+   "since": "2026-11-27T01:52:14Z",
+   "expires": "2026-11-27T05:52:14Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "website/index.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
+   "why": "G.1: the search lock's leaks closed (decisions/0181 \u00a74)",
+   "since": "2026-11-27T01:52:17Z",
+   "expires": "2026-11-27T05:52:17Z",
+   "release": "",
+   "callers": {},
+   "zones": [
+    "home.after-doors"
+   ]
+  },
+  {
+   "path": "website/login.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
+   "why": "G.1: the search lock's leaks closed (decisions/0181 \u00a74)",
+   "since": "2026-11-27T01:52:21Z",
+   "expires": "2026-11-27T05:52:21Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "website/register.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
+   "why": "G.1: the search lock's leaks closed (decisions/0181 \u00a74)",
+   "since": "2026-11-27T01:52:23Z",
+   "expires": "2026-11-27T05:52:23Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "website/forgot-password.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
+   "why": "G.1: the search lock's leaks closed (decisions/0181 \u00a74)",
+   "since": "2026-11-27T01:52:25Z",
+   "expires": "2026-11-27T05:52:25Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "website/directory/classic.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
+   "why": "G.1: the search lock's leaks closed (decisions/0181 \u00a74)",
+   "since": "2026-11-27T01:52:28Z",
+   "expires": "2026-11-27T05:52:28Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "website/robots.txt",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
+   "why": "G.1: the search lock's leaks closed (decisions/0181 \u00a74)",
+   "since": "2026-11-27T01:52:30Z",
+   "expires": "2026-11-27T05:52:30Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "website/sitemap.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
+   "why": "G.1: the search lock's leaks closed (decisions/0181 \u00a74)",
+   "since": "2026-11-27T01:52:32Z",
+   "expires": "2026-11-27T05:52:32Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/storefront-view.php",
+   "functions": [
+    "(top)",
+    "tv_storefront_render",
+    "tv_storefront_serve"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
+   "why": "G.1: the search lock's leaks closed (decisions/0181 \u00a74)",
+   "since": "2026-11-27T01:52:34Z",
+   "expires": "2026-11-27T05:57:26Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/search-lock.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
+   "why": "G.1: the search lock's leaks closed (decisions/0181 \u00a74)",
+   "since": "2026-11-27T01:53:36Z",
+   "expires": "2026-11-27T05:53:36Z",
+   "release": "",
+   "callers": {}
+  }
+ ],
  "lapsed": [
   {
    "path": "app/lib/TeamRunner.php",
