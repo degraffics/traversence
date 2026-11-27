@@ -256,7 +256,7 @@ const refused = f => !f || f.error || f.status >= 400 || f.ba?.landed_signin;
 const errs = f => f && (f.status >= 500 || (f.console || []).length || (f.requests || []).length);
 // a page's controls as the set of distinct ones (more of the same button is more data, never a new control: #308's look), less
 // those of a section that holds records and came or went between the looks (skip: its names)
-const ctlSig = (f, st = true, skip = new Set()) => [...new Set((f?.ba?.controls || []).filter(c => (st || !c.st) && !c.rec && !(c.sec && skip.has(c.sec)) && !(c.lk && /^\/admin(\/|\.|$)/.test(f?.url || ''))).map(c => c.n + '→' + c.h))].sort().join('\n');
+const ctlSig = (f, st = true, skip = new Set()) => [...new Set((f?.ba?.controls || []).filter(c => (st || !c.st) && !c.rec && !(c.sec && skip.has(c.sec)) && !(c.lk && /^\/admin(\/|\.|$)/.test(f?.url || ''))).map(c => (c.n + '→' + c.h).replace(/\d+/g, '#')))].sort().join('\n');
 
 /** The verdict for one release: blocks (each a rule, who, page, size, what), notes, and pass / block / incomplete. */
 export function compare(b1, b2, a, exp = {}, release = '', heldKey = STAGING?.token || CHECK_TOKEN) {
@@ -364,7 +364,12 @@ export function compare(b1, b2, a, exp = {}, release = '', heldKey = STAGING?.to
     if (!expected.has(f.url)) {
       // a part of the page gone, on a page the change doesn't name, is missing data; any other change there is drift
       if (regionsGone.length) block('data', f, 'A part of the page is gone: ' + regionsGone.slice(0, 2).join(', '), regionsGone[0], '');
-      else if (goneL.length || newL.length || ctlChanged) block('drift', f, 'This page changed, and the change doesn\'t name it', goneL[0] || '', newL[0] || (ctlChanged ? '(its links and buttons)' : ''));
+      else if (goneL.length || newL.length || ctlChanged) {
+        // the controls by name (#320's look said only "(its links and buttons)", which no one could act on)
+        const cs = x => new Set(ctlSig(x, stateDrawn, toggled).split('\n').filter(Boolean));
+        const c0 = cs(b), c1 = cs(f); const cGone = [...c0].filter(c => !c1.has(c)), cNew = [...c1].filter(c => !c0.has(c));
+        block('drift', f, 'This page changed, and the change doesn\'t name it', goneL[0] || (ctlChanged && cGone.length ? 'control: ' + cGone.slice(0, 3).join(' | ') : ''), newL[0] || (ctlChanged ? (cNew.length ? 'control: ' + cNew.slice(0, 3).join(' | ') : '(its links and buttons)') : ''));
+      }
     }
     for (const [k] of Object.entries({ scroll: 1, edges: 1, names: 1 })) if (b[k] && f[k]) notes.push(`${key(f)}: already missed "${STANDARDS[k]}" before (Site health's, not this change's)`);
   }
