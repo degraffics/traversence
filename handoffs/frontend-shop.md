@@ -195,3 +195,19 @@ Sent to the session manager on 2026-11-27, waiting for its place in the queue an
 - **Tickets:** Work tickets keyed by audit_key `goal-stall:`/`goal-risk:`, not Audit tickets (TeamRunner.php:514 clears unknown audit keys).
 - **Dependency:** needs R2's TeamRoster::lane().
 - **Order:** after the pipeline release, R2 and task-seed-4; then C.4.
+
+## Gates (CLAUDE.md #1553: no gate, no build). Reported to the session manager 13:27 UTC, 2026-11-27
+**Items → gate:**
+- C.4: 1. Set my place, F×7, J01.
+- place-list: 1.
+- C.8: 1. J03 "none says open now".
+- M-sections: none. Jason's Jan 1 ruling; the session manager decides.
+- C.5a: 1 and 2 (V06).
+- C.5b: 2. The 1A guide shifts on /hub/.
+- The zip-check rule: none on its own.
+- The stylesheet: 1 and 2. Suggested parked until C.5a/b are re-measured.
+
+**Status:**
+- Gate 1: fail.
+- Gate 2: fail. Winslow; buying paths unknown (no staging run).
+- Gate 6: noindex holds live; the lift date is Jason's.
