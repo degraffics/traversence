@@ -197,3 +197,13 @@ day. This qualifies 0180's "R1–R5 ship as each passes" (note added there).
   Editorial Director's lane (12, 26) takes 1A's guides to 70 on public sources now (names linked, open checks closed);
   the rollout's targeting list puts 1A towns whose guides are under 70 first (Sales Director 14, Marketing Director 13),
   and ground notes add their +10 as they arrive.
+- **The promise check, part of gate 1** (Jason, 2026-11-27: "I see this as systemic problem, if we dont make our
+  communication align with delivery on UI/UX/and delivery on our promises we fail to be the choice or go to because we
+  didn't make getting what people want or need easier and better than our competition"; recorded as Operations & Policy
+  (16); notes the same on 0172 and 0176). Every outbound message kind (Notify's email, push, Pulse rows and notices) is
+  tested in the path checker: its link lands on exactly the thing it names (CLAUDE.md "Never a dead end") and its words
+  match the real state ("words follow the state"). The advocates follow their own messages as a guest, a member and a
+  business owner. A message that fails blocks its release, like a page drift. Owners: the CMO (7) for trust and the brand
+  promise, the Editorial Director (12) for the words, the IT Manager's (11) lane for the build, the advocates A1–A12 to run
+  it. First fixes: the per-message `link` (queued), then what the check finds in sign-up, claims, orders and alerts. After
+  Monday's four, as gate 1 work.

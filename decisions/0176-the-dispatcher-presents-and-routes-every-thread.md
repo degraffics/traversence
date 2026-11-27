@@ -450,3 +450,7 @@ manager, 2026-11-21). §6 as built, the staff thread first (Question 3's answer)
 - **A trip that joins an incident** (02 row 124; the session manager's ruling, 2026-11-22): it updates the incident's Pulse
   item and replies in the incident's existing email thread, under the first trip's subject, with no push (§1: one thread
   per alarm, updated in place). `Notify::send` takes `no_push` for it.
+
+**Note (Jason, 2026-11-27):** every message kind this dispatcher sends is held to the promise check (0181's gate 1 note of
+the same date): its link lands on exactly what it names, its words match the real state, and a failing message blocks its
+release.
