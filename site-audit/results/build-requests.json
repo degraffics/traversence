@@ -1,5 +1,5 @@
 {
- "at": "2026-11-27T16:17:25.264Z",
+ "at": "2026-11-27T18:17:32.039Z",
  "requests": [
   {
    "id": 3,
@@ -1055,6 +1055,24 @@
    "was": "task",
    "why": "An advocate's view was worse after it (decisions/0179 rule 2's four rules): Out-of-scope drift: This page changed, and the change doesn't name it (executive, /admin/people.php, phone). It withdrew itself; nothing on the live site changed. Fix it and send it again. The report: https://github.com/degraffics/traversence/actions/runs/46019183192",
    "source": "the daily audit (ba:322)",
+   "owner": "system · before-and-after check",
+   "release": "",
+   "ticket": "audit",
+   "stage": "found",
+   "tier": 2,
+   "build_brief": "",
+   "late": false
+  },
+  {
+   "id": 63,
+   "at_utc": "2026-11-27T17:48:04Z",
+   "gauge": "area:audit",
+   "build": "",
+   "item": "Release #323 was stopped by the before-and-after check: Out-of-scope drift: This page changed, and the change doesn't name it (executive, /admin/crawler-review.php, phone)",
+   "what": "Release #323 was stopped by the before-and-after check: Out-of-scope drift: This page changed, and the change doesn't name it (executive, /admin/crawler-review.php, phone)",
+   "was": "task",
+   "why": "An advocate's view was worse after it (decisions/0179 rule 2's four rules): Out-of-scope drift: This page changed, and the change doesn't name it (executive, /admin/crawler-review.php, phone). It withdrew itself; nothing on the live site changed. Fix it and send it again. The report: https://github.com/degraffics/traversence/actions/runs/46041550470",
+   "source": "the daily audit (ba:323)",
    "owner": "system · before-and-after check",
    "release": "",
    "ticket": "audit",
