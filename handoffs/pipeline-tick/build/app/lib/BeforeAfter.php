@@ -105,8 +105,8 @@ final class BeforeAfter
         return ['phase' => in_array($v['phase'] ?? '', ['before-done', 'after-done'], true) ? $v['phase'] : '', 'verdict' => in_array($v['verdict'] ?? '', ['waiting', 'pass', 'block', 'incomplete'], true) ? $v['verdict'] : '',
                 'first' => $s('first'), 'run' => preg_match('#^https://github\.com/degraffics/traversence/actions/runs/\d+$#', (string) ($v['run'] ?? '')) ? (string) $v['run'] : '',
                 'blocks' => (int) ($v['blocks_total'] ?? 0), 'views' => (int) ($v['views'] ?? 0), 'seconds' => (float) ($v['seconds'] ?? 0),
-                // its far timeouts, said on the release's card (the CEO's Tier 4 condition, 2026-11-27): at most three, as the check wrote them
-                'far' => array_slice(array_values(array_map(fn ($n) => mb_substr(preg_replace_callback('/^([a-z0-9-]+)\|(\/[^|\s]*)\|(phone|desktop): /', fn ($m) => 'as ' . $m[1] . ' on ' . $m[2] . ' at ' . ($m[3] === 'phone' ? '390' : '1280') . ': ', trim((string) $n)), 0, 300), array_filter((array) ($v['notes'] ?? []), fn ($n) => is_string($n) && preg_match('/far timeout, noted|tried again after the look/', $n)))), 0, 3)];
+                // its slow pages reached only through a shared file, said on the release's card (the CEO's Tier 4 condition, 2026-11-27)
+                'far' => self::farLines((array) ($v['far'] ?? []))];
     }
 
     // ---- the steps ---------------------------------------------------------------------------------------------------------
@@ -145,6 +145,30 @@ final class BeforeAfter
                 catch (Throwable $e) { $out[] = 'Release #' . $id . ' (before-and-after): ' . $e->getMessage(); }
             }
         } finally { try { $pdo->query("SELECT RELEASE_LOCK('tv_rel_ba')"); } catch (Throwable $x) {} }
+        return $out;
+    }
+
+    /**
+     * The verdict's far list as the card's sentences, at most three (the Design reviewer's words, 2026-11-27): a slow page the
+     * release reaches only through a file nearly every page loads, tried again after the look. "blocks" isn't one: its block
+     * says it. Only what the check gives in its own fields: an account's slug, the page's address, the width, the file.
+     */
+    public static function farLines(array $far): array
+    {
+        $out = [];
+        foreach ($far as $x) {
+            if (!is_array($x) || !in_array($x['outcome'] ?? '', ['opened', 'before_too'], true)) continue;
+            $who = (string) ($x['who'] ?? ''); $page = (string) ($x['page'] ?? '');
+            if (!preg_match('/^[a-z0-9-]{1,40}$/', $who) || !preg_match('#^/[A-Za-z0-9/._?=&%-]{0,200}$#', $page)) continue;
+            $via = array_values(array_filter(array_map('strval', (array) ($x['via'] ?? [])), fn ($f) => (bool) preg_match('#^[A-Za-z0-9/_.-]{1,120}$#', $f)));
+            $at = ($x['size'] ?? '') === 'phone' ? '390' : '1280';
+            $head = 'Before-and-after check: ' . $page . ' (as the test ' . ucfirst(str_replace('-', ' ', $who)) . ', at ' . $at . ') ';
+            $tail = ' Staging is slow there; it\'s reached only through ' . ($via ? implode(', ', $via) : 'a file nearly every page loads') . '.';
+            $out[] = $x['outcome'] === 'opened'
+                ? $head . 'timed out, then opened when tried again.' . $tail . ' The IT Manager\'s lane has it.'
+                : $head . 'was slow before this release too, and didn\'t open after.' . $tail . ' The slow-pages ticket has it.';
+            if (count($out) === 3) break;
+        }
         return $out;
     }
 
@@ -217,7 +241,7 @@ final class BeforeAfter
         if ($d['phase'] === 'after' && $v && $v['phase'] === 'after-done' && $v['verdict'] !== 'waiting') {
             self::spend($pdo, max(0.0, $v['seconds'] - (float) ($d['before_seconds'] ?? 0)));
             self::put($pdo, $id, null);
-            foreach ($v['far'] as $n) Releases::noteFromCheck($pdo, $id, 'The before-and-after check noted: ' . $n);   // kept on its card and in the daily summary's record
+            foreach ($v['far'] as $n) Releases::noteFromCheck($pdo, $id, $n);   // kept on its card and in the daily summary's record
             return Releases::checkedByAdvocates($pdo, $id, $v, (bool) ($d['hold'] ?? false) || self::spent($pdo));
         }
         // late: asked again once, then a person is told in the Work queue

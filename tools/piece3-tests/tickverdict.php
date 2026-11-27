@@ -108,11 +108,16 @@ $c = $mk('tv-c.zip'); BeforeAfter::begin($pdo, $c, 'tv-c.zip', $sha, false);
 $pdo->prepare("UPDATE site_releases SET state = 'staged', checks_ok = 1, checks = ? WHERE id = ?")->execute([json_encode(['ok' => true, 'items' => [['PHP files parse', true, '1 checked']]]), $c]);
 $files['site-audit/results/beforeafter/' . $c . '.json'] = json_encode(['release' => (string) $c, 'phase' => 'before-done', 'verdict' => 'waiting', 'seconds' => 60]);
 BeforeAfter::advance($pdo);
-$far = 'executive|/admin/crawler-review.php|phone: far timeout, noted: timed out, then opened when tried again after the look (reached only through website/js/tv-ask.js; staging is slow there, the IT Manager\'s lane)';
-$files['site-audit/results/beforeafter/' . $c . '.json'] = json_encode(['release' => (string) $c, 'phase' => 'after-done', 'verdict' => 'pass', 'seconds' => 120, 'views' => 174, 'notes' => ['executive|/admin/data.php|phone: already missed "No sideways scroll at 390px (0058 §11)" before (Site health\'s, not this change\'s)', $far], 'run' => 'https://github.com/degraffics/traversence/actions/runs/4']);
+$farList = [['who' => 'executive', 'page' => '/admin/crawler-review.php', 'size' => 'phone', 'outcome' => 'opened', 'ms' => 62000, 'via' => ['website/js/tv-ask.js']],
+            ['who' => 'ops-staff', 'page' => '/admin/crawler-review.php', 'size' => 'desktop', 'outcome' => 'before_too', 'ms' => 0, 'via' => ['website/js/tv-ask.js']],
+            ['who' => 'executive', 'page' => '/admin/other.php', 'size' => 'phone', 'outcome' => 'blocks', 'ms' => 0, 'via' => ['website/js/tv-ask.js']],
+            ['who' => 'Bad Name <b>', 'page' => 'javascript:x', 'size' => 'phone', 'outcome' => 'opened', 'via' => []]];
+$files['site-audit/results/beforeafter/' . $c . '.json'] = json_encode(['release' => (string) $c, 'phase' => 'after-done', 'verdict' => 'pass', 'seconds' => 120, 'views' => 174, 'notes' => ['executive|/admin/data.php|phone: already missed "No sideways scroll at 390px (0058 §11)" before (Site health\'s, not this change\'s)'], 'far' => $farList, 'run' => 'https://github.com/degraffics/traversence/actions/runs/4']);
 $n = count($rel($c)['log']); BeforeAfter::advance($pdo); $m = $msgs($c, $n);
-$t('a pass with a far timeout: "far timeout, noted" written on its card, once, as the check wrote it', count(preg_grep('/^The before-and-after check noted: as executive on \/admin\/crawler-review\.php at 390: far timeout, noted/', $m)) === 1, $m);
-$t('… and only the far timeouts: Site health\'s other notes aren\'t copied there', !preg_grep('/already missed/', $m), $m);
+$t('a pass with a slow page that opened when tried again: the Design reviewer\'s sentence on its card, once', count(array_filter($m, fn ($x) => $x === "Before-and-after check: /admin/crawler-review.php (as the test Executive, at 390) timed out, then opened when tried again. Staging is slow there; it's reached only through website/js/tv-ask.js. The IT Manager's lane has it.")) === 1, $m);
+$t('… slow before too: its own sentence, naming the slow-pages ticket', count(array_filter($m, fn ($x) => $x === "Before-and-after check: /admin/crawler-review.php (as the test Ops staff, at 1280) was slow before this release too, and didn't open after. Staging is slow there; it's reached only through website/js/tv-ask.js. The slow-pages ticket has it.")) === 1, $m);
+$t('… a block\'s entry isn\'t written there (its block says it), and an entry with a bad name or address is left out', !preg_grep('#/admin/other\.php|javascript|Bad Name#', $m), $m);
+$t('… and Site health\'s notes aren\'t copied there', !preg_grep('/already missed/', $m), $m);
 $t('… then its verdict as before', (bool) preg_grep('/before-and-after check: passed/', $m), $m);
 
 // (a) releases_tick's cron line: to every 10 minutes once; a person's later Change stays
