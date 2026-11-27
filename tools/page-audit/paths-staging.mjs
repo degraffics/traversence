@@ -11,6 +11,19 @@
 const STAMP = new Date().toISOString().slice(0, 16).replace(/[-:T]/g, '');
 const TAG = `TEST · path check ${STAMP}`;
 
+// The questions after the email's link, each skipped: the Skip on show, never the first in the page (every question has
+// one, and s1's stays in the page hidden once it's answered; 2026-11-27, Gate 2's false dead end). Returns how many.
+export const SKIP_Q = 'button.vs-s[data-skip]:visible';
+export async function skipQuestions(page, tap, most = 6) {
+  let asked = 0;
+  for (let i = 0; i < most; i++) {
+    const skip = page.locator(SKIP_Q).first();
+    if (!(await skip.isVisible().catch(() => false))) break;
+    asked++; await tap(skip); await page.waitForTimeout(600);
+  }
+  return asked;
+}
+
 export function stagingRunners(k) {
   const { as, ACC, firstVisible, textOf, guides, FULL } = k;
 
@@ -132,12 +145,7 @@ export function stagingRunners(k) {
       w.taps++;   // the link in the email
       await w.goto(w.site + link.replace(/^https?:\/\/[^/]+/, ''), 'the email\'s link');
       await page.waitForSelector('button.vs-s[data-skip]:visible, #s0 [data-tv-status="bad"]', { timeout: 20000 }).catch(() => {});   // the link is checked first
-      let asked = 0;
-      for (let i = 0; i < 6; i++) {   // the questions after the link: each skipped, as a visitor in a hurry would
-        const skip = await firstVisible(page, ['button.vs-s[data-skip]']);
-        if (!skip) break;
-        asked++; await w.tap(skip, 'Skip'); await page.waitForTimeout(600);
-      }
+      const asked = await skipQuestions(page, (b) => w.tap(b, 'Skip'));   // the questions after the link: each skipped, as a visitor in a hurry would
       const words = { one: 1, two: 2, three: 3, four: 4, five: 5 };
       if (promised && words[promised.toLowerCase()] && asked > words[promised.toLowerCase()]) w.add('clarity', 'J03', w.here(), `the sign-up said "${promised} quick questions"; the page asked ${asked}`);
       const go = await firstVisible(page, ['a#s5-go']);

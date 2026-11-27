@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Confirm your email — Traversence</title>
+  <link rel="icon" href="/favicon.ico"><link rel="icon" type="image/png" sizes="64x64" href="/image/favicon.png"><link rel="apple-touch-icon" href="/image/apple-touch-icon.png"><link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#92400E">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preload" href="/fonts/inter-400.woff2?v=1795744418" as="font" type="font/woff2" crossorigin>
+<style>
+  /* the families and weights Jason named (2026-11-18): Inter 400–700 (four hinted files), Merriweather 300/400/700 and 300
+     italic, Playfair Display 400/600/700 and 400 italic. A browser fetches only the ones a page uses. */
+  @font-face{font-family:"Merriweather";font-style:normal;font-weight:300;font-display:swap;src:url(/fonts/merriweather-300.woff2) format("woff2")}
+  @font-face{font-family:"Merriweather";font-style:italic;font-weight:300;font-display:swap;src:url(/fonts/merriweather-300-italic.woff2) format("woff2")}
+  @font-face{font-family:"Playfair Display";font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/playfair-400.woff2) format("woff2")}
+  @font-face{font-family:"Playfair Display";font-style:italic;font-weight:400;font-display:swap;src:url(/fonts/playfair-400-italic.woff2) format("woff2")}
+  @font-face{font-family:"Playfair Display";font-style:normal;font-weight:600;font-display:swap;src:url(/fonts/playfair-600.woff2) format("woff2")}
+  @font-face{font-family:"Playfair Display";font-style:normal;font-weight:700;font-display:swap;src:url(/fonts/playfair-700.woff2) format("woff2")}
+  @font-face{font-family:"Merriweather";font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/merriweather-400.woff2) format("woff2")}
+  @font-face{font-family:"Merriweather";font-style:normal;font-weight:700;font-display:swap;src:url(/fonts/merriweather-700.woff2) format("woff2")}
+  /* Inter as four fixed weights with hinting added (ttfautohint, 2026-11-19): the variable file has none, and Windows draws
+     unhinted text jagged at small sizes (Jason: "it feels pixelated"). Same family, same weights; inter-var.woff2 stays
+     on the server, unused. */
+  @font-face{font-family:"Inter";font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/inter-400.woff2) format("woff2")}
+  @font-face{font-family:"Inter";font-style:normal;font-weight:500;font-display:swap;src:url(/fonts/inter-500.woff2) format("woff2")}
+  @font-face{font-family:"Inter";font-style:normal;font-weight:600;font-display:swap;src:url(/fonts/inter-600.woff2) format("woff2")}
+  @font-face{font-family:"Inter";font-style:normal;font-weight:700;font-display:swap;src:url(/fonts/inter-700.woff2) format("woff2")}
+  @font-face{font-family:"Inter";font-style:normal;font-weight:800;font-display:swap;src:url(/fonts/inter-800.woff2) format("woff2")}
+  :root{
+    /* canvas and surfaces (brand.md §4) */
+    /* three levels (Jason, 2026-11-19, set A; brand.md §4's note): one warm hue, stepping only in lightness, page → section →
+       card; replaces the vellum canvas and the micro-gradient card of design/css-theme-brand.md §3 */
+    --tv-canvas:#E4DCC5;          /* the page */
+    --tv-sec:#EDE6D5;--tv-sec-edge:#DBD2BA;   /* a section: a group of cards, a panel */
+    --tv-card-edge:#E3DBC6;--tv-tag:#EDE6D5;  /* a card's edge; a tag or badge on a card */
+    --tv-umber:#3E2B1F;           /* Deep Umber: top bars, the rail, structure */
+    --tv-void:#231D17;            /* Slate-Umbra: deep backgrounds, map oceans */
+    --tv-card-a:#F6F1E4;--tv-card-b:#F6F1E4;   /* the card (Jason: "i like this card color"), flat */
+    --tv-card:linear-gradient(180deg,var(--tv-card-a),var(--tv-card-b));   /* elevated surfaces: the micro-gradient */
+    --tv-field:#F6F1E4;--tv-field-edge:#8D7E68;   /* fields share the card colour (Jason, 2026-11-19); their edge is 3.5:1 on it, so a box is found */   /* text boxes and dropdowns: a lighter vellum, so a field reads apart from the page (Jason, 2026-11-19) */
+    /* type colours */
+    --tv-ink:#2A1D14;             /* Warm Near-Black: headings and body text */
+    --tv-taupe:#7A6A52;           /* Muted Taupe: icons, rules, large metadata */
+    --tv-meta:color-mix(in srgb,#2A1D14 35%,#7A6A52);   /* metadata text, 4.5:1 on every surface (see the note above) */
+    /* lines, mixed from Deep Umber into the vellum (brand.md names none) */
+    --tv-line:color-mix(in srgb,#3E2B1F 20%,#E4DCC5);          /* hairlines and dividers */
+    --tv-line-strong:color-mix(in srgb,#3E2B1F 58%,#E4DCC5);   /* input and control edges, 3.35:1 on the vellum */
+    /* on the umber rail and bars */
+    --tv-on-umber:#EFE3C8;
+    --tv-on-umber-meta:color-mix(in srgb,#EFE3C8 70%,#7A6A52); /* 7.4:1 on Deep Umber */
+    --tv-umber-line:color-mix(in srgb,#EFE3C8 16%,#3E2B1F);   /* dividers and hovers on the umber */
+    /* buttons (Jason, 2026-11-19): one filled button, brand brown with the page colour as its text (5.18:1); on a dark bar
+       the reverse (5.18:1); --tv-btn-hover is his pick in the release's pop-up */
+    --tv-btn:#92400E;--tv-btn-hover:#78350F;--tv-btn-text:#E4DCC5;
+    --tv-btn-inv:#E4DCC5;--tv-btn-inv-hover:#F6F1E4;--tv-btn-inv-text:#92400E;
+    --tv-link:#92400E;            /* names and links: brand brown, CLAUDE.md's card anatomy (decisions/0058 §11), 5.6:1 */
+    /* accents and tracks (brand.md §4) */
+    --tv-copper:#C85A17;          /* primary actions, Traveler ("Let's Explore") */
+    --tv-sage:#92BEA5;            /* active states, Resident ("Get Local") */
+    --tv-amethyst:#7D6B8D;        /* Community ("Connect") */
+    --tv-river:#3B5A6B;--tv-moss:#6B7F62;--tv-crimson:#8C3A23;   /* cartographic: water, reserves, sites */
+    --tv-route:#B6F22E;--tv-route-casing:#3E2B1F;   /* routes and trails only (activity): Electric Lime over a Deep Umber casing
+                                                       (Jason, 2026-11-19); lime alone is 1.05:1 on the vellum (10:1 against its casing), so never text */
+    /* status (brand.md §4's note, 2026-11-18) */
+    --tv-fail:#a62b2b;            /* System Red: a halting or core failure, or an open trip only */
+    --tv-hold:#8f5600;            /* Grounded Amber: routine timeouts, waits, holds ("Held") */
+    --tv-fail-bg:color-mix(in srgb,#a62b2b 10%,#EFE3C8);
+    --tv-hold-bg:color-mix(in srgb,#8f5600 12%,#EFE3C8);
+    /* type (brand.md §7) */
+    --tv-font-head:"Merriweather","Playfair Display",ui-serif,Georgia,serif;    /* editorial and brand headings */
+    --tv-font-display:"Playfair Display","Merriweather",ui-serif,Georgia,serif;   /* display titles (heroes, landings) */
+    --tv-font-ui:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    /* motion (brand.md §8) */
+    --tv-ease:150ms ease-out;
+    /* geometry: soft corners, warm shadows, and the space between groups (never inside list rows) */
+    --tv-r-sm:.5rem;--tv-r:.75rem;--tv-r-lg:1rem;
+    --tv-shadow:0 1px 2px rgba(62,43,31,.08),0 6px 16px -10px rgba(62,43,31,.3);
+    --tv-shadow-lg:0 22px 44px -22px rgba(35,29,23,.5);
+    --tv-gap:1.5rem;
+    /* focus rings in the active tokens (brand.md §8): copper on light surfaces (3.3:1), sage on the umber */
+    --tv-focus:#C85A17;--tv-focus-dark:#92BEA5;
+  }
+  html,body{background-color:var(--tv-canvas)}
+  html :is(#top-bar,#tv-nav),html.tv-brand-min.tv-nav-min :is(#top-bar,#tv-nav){border-bottom:1px solid color-mix(in srgb,#E4DCC5 42%,#3E2B1F)!important}   /* a thin cream line under the header, so a dark hero below reads apart (Jason, 2026-11-19) */
+  body,body.font-sans{font-family:var(--tv-font-ui)}   /* the UI face; headings move to the serif token page by page (Release 3) */
+  :focus-visible{outline:2px solid var(--tv-focus);outline-offset:2px}
+  :where(input:not([type=checkbox],[type=radio],[type=range],[type=color],[type=submit],[type=button],[type=reset],[type=file],[type=image]),select,textarea){background-color:var(--tv-field);border-color:var(--tv-field-edge)}
+  @media (prefers-reduced-motion:reduce){:root{--tv-ease:0s linear}}
+</style>
+<style>#tv-nav{font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}</style>
+  <style>
+    .vs,.vs *{box-sizing:border-box}
+    .vs{max-width:28rem;width:100%;background:var(--tv-sec,#E3D3AC);border:1px solid var(--tv-line-strong,#CBB98D);border-radius:1rem;padding:1.6rem 1.5rem;box-shadow:0 18px 40px -20px rgba(0,0,0,.45);color:var(--tv-ink,#3E2B1F)}
+    .vs h1{font:700 1.35rem/1.25 var(--tv-font-head,Georgia,serif);margin:0 0 .4rem}
+    .vs p{font-size:.93rem;line-height:1.5;margin:.35rem 0}
+    .vs-step[hidden]{display:none}
+    .vs-n{font:700 .72rem system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--tv-meta,#8A7355);margin-bottom:.35rem}
+    .vs-bar{height:4px;border-radius:999px;background:#CBB98D;margin:0 0 1rem;overflow:hidden}.vs-bar i{display:block;height:100%;background:#C85A17;width:0;transition:width .2s}
+    .vs label.f{display:block;font-size:.82rem;font-weight:700;margin:.8rem 0 .25rem}
+    .vs select,.vs input[type=text]{width:100%;font-size:1rem;padding:.55rem .65rem;border:1px solid var(--tv-line-strong,#CBB98D);border-radius:.6rem;background:var(--tv-card-a,#F7F1E3);color:var(--tv-ink,#3E2B1F)}
+    .vs .tick{display:flex;gap:.6rem;align-items:flex-start;margin:.9rem 0 .2rem;font-size:.95rem;font-weight:600;cursor:pointer}
+    .vs .tick input{width:1.15rem;height:1.15rem;margin-top:.15rem;accent-color:#C85A17;flex:none}
+    .vs details{margin:.5rem 0 0;font-size:.85rem}.vs summary{cursor:pointer;color:var(--tv-link,#92400E);font-weight:700}
+    .vs details p{font-size:.85rem;color:var(--tv-meta,#5C4632)}
+    .vs-go{display:flex;gap:.6rem;margin-top:1.3rem}
+    .vs-go button,.vs-go a{flex:1;text-align:center;border-radius:.6rem;padding:.65rem;font:700 .95rem system-ui,sans-serif;cursor:pointer;text-decoration:none}
+    .vs-c{background:var(--tv-btn);border:1px solid var(--tv-link,#92400E);color:var(--tv-btn-text)}.vs-s{background:none;border:1px solid var(--tv-link,#92400E);color:var(--tv-link,#92400E)}
+    @media (max-width:767px){.vs{border-radius:.5rem;margin:0 3px;width:calc(100% - 6px);padding:1.3rem 1rem}}
+  </style>
+</head>
+<body class="bg-[color:var(--tv-canvas)] text-[color:var(--tv-ink)] min-h-screen flex flex-col font-sans">
+  <div id="tv-nav" class="bg-[#3E2B1F] border-b border-[#2A1B12] sticky top-0 z-40 shadow-lg">
+  <div class="px-3 sm:px-6 py-1 flex items-center justify-between">
+    <style>
+  .tvb{display:flex;align-items:center;flex:none}
+  .tvb-box{display:flex;align-items:center;gap:.6rem;border:1.5px solid var(--tv-taupe);border-radius:.8rem;padding:.3rem .7rem .3rem .45rem;text-decoration:none}
+  .tvb-box:focus-visible{outline:2px solid var(--tv-line);outline-offset:2px}
+  .tvb-mark{display:none;width:40px;height:40px}
+  .tvb-full{display:flex;align-items:center;gap:.55rem}
+  .tvb-full img{height:46px;width:auto;display:block}
+  .tvb-full .tvb-star{height:50px}
+  .tvb-tab{display:flex;align-items:center;justify-content:center;width:14px;height:26px;margin-left:-1px;background:var(--tv-taupe);color:var(--tv-ink);border:0;border-radius:0 .35rem .35rem 0;cursor:pointer;padding:0}
+  .tvb-tab svg{width:10px;height:10px}
+  .tv-brand-min .tvb-full{display:none}
+  .tv-brand-min .tvb-mark{display:block}
+  .tv-brand-min .tvb-box{padding:.25rem}
+  .tv-brand-min .tvb-tab svg{transform:scaleX(-1)}
+  /* collapsed: a small mark, no box, so the bar is slim */
+  .tv-brand-min .tvb-box{border-color:transparent;padding:.1rem}
+  .tv-brand-min .tvb-mark{width:34px;height:34px}
+  .tv-brand-min.tv-nav-min #top-bar>div,.tv-brand-min.tv-nav-min #tv-nav>div{padding-top:2px;padding-bottom:2px}
+  /* both collapsed (Jason's mockup, 2026-10-09): no bar. The compass is a brown block in the top-left corner, on top of the
+     toolbar; the menu is a brown tab hanging from the top-right corner; the bell moves into the Pulse (a dot on the menu
+     says something is waiting). Search, where a page has it, floats between them. */
+  .tv-brand-min.tv-nav-min :is(#top-bar,#tv-nav){background:var(--tv-umber)!important;border-color:var(--tv-umber)!important;box-shadow:none!important;pointer-events:none}   /* collapsed, the bar keeps its dark brown (Jason, 2026-11-05) */
+  .tv-brand-min.tv-nav-min :is(#top-bar,#tv-nav)>div{padding:0!important;align-items:flex-start}
+  .tv-brand-min.tv-nav-min :is(#top-bar,#tv-nav) .tvn{pointer-events:none;align-items:flex-start;gap:0}
+  .tv-brand-min.tv-nav-min :is(#top-bar,#tv-nav) :is(.tvb,.tvs-bar,.tvn-tab,.tvn-box){pointer-events:auto}
+  .tv-brand-min.tv-nav-min .tvb{align-items:flex-start}
+  .tv-brand-min.tv-nav-min .tvb-box{background:var(--tv-umber);border:0;border-radius:0 0 .7rem 0;padding:.45rem .65rem;width:64px;justify-content:center;box-shadow:2px 3px 10px -4px rgba(42,27,18,.55)}
+  .tv-brand-min.tv-nav-min .tvb-mark{width:36px;height:36px}
+  .tv-brand-min.tv-nav-min .tvb-tab{height:26px;margin-top:.7rem;border-radius:0 .35rem .35rem 0}
+  .tv-brand-min.tv-nav-min .tvn-bell{display:none}
+  .tv-brand-min.tv-nav-min .tvn-tab{margin:.7rem 0 0;border-radius:.35rem 0 0 .35rem}
+  .tv-brand-min.tv-nav-min .tvn-box{background:var(--tv-umber);border:0;border-radius:0 0 0 .8rem;padding:.2rem .45rem .25rem .5rem;box-shadow:-2px 3px 10px -4px rgba(42,27,18,.55)}
+  .tv-brand-min.tv-nav-min .tvn-menu{position:relative;width:40px;height:42px}.tv-brand-min.tv-nav-min .tvn-menu svg{width:28px;height:28px}
+  .tv-brand-min.tv-nav-min .tvn:has(.tvn-badge:not([hidden])) .tvn-menu::after{content:"";position:absolute;top:7px;right:3px;width:9px;height:9px;border-radius:50%;background:var(--tv-copper);box-shadow:0 0 0 2px var(--tv-umber)}
+  .tv-brand-min.tv-nav-min .tvs-bar{margin-top:.45rem;border:2px solid var(--tv-umber);box-shadow:0 2px 8px rgba(42,27,18,.3)}
+  @media (min-width: 768px){ .tv-brand-min.tv-nav-min .tvb-box{border-radius:0;box-shadow:none} }   /* it sits on the toolbar, one piece */
+  @media (max-width: 767px){ .tv-brand-min.tv-nav-min .tvb-box{width:auto;padding:.4rem .5rem} .tv-brand-min.tv-nav-min .tvs-bar{border:0;box-shadow:none;margin-top:.4rem}
+    .tv-brand-min.tv-nav-min .tvs-open{border:2px solid var(--tv-umber);box-shadow:0 2px 8px rgba(42,27,18,.3)} }
+  @media (max-width: 767px){ .tvb-full{display:none!important} .tvb-mark{display:block!important} .tvb-box{padding:.25rem} .tvb-tab{display:none} }
+</style>
+<div class="tvb" id="tv-brand">
+  <a href="/" id="brand-link" class="tvb-box" aria-label="Traversence home" title="Traversence home">
+    <span id="brand-mark" class="tvb-full"><img class="tvb-star" src="/image/North-Star-logo.svg" alt=""><img id="header-logo" src="/image/Traversence-IC-logo.svg" alt="Traversence: The Immersion and Connection Engine"
+      data-tv-fallback="/image/Logo-Gtext.png"></span>
+    <img id="brand-icon-img" class="tvb-mark" src="/image/North-Star-logo.svg" alt="Traversence">
+  </a>
+  <button type="button" class="tvb-tab" data-tv-toggle="brand" aria-label="Collapse or expand the logo" title="Collapse or expand">
+    <svg viewBox="0 0 10 10" aria-hidden="true"><path d="M7 1 3 5l4 4" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+  </button>
+</div>
+<script nonce="wrWOgOsnoXs/dkA21gtZwnw5">
+  // the signed-in side (your account, staff) looks different on a phone (app-shell.php): mark it here, since every page has the logo
+  if (/^\/(user|admin)\/|^\/listing\/businessportal/.test(location.pathname)) document.body.classList.add('tv-back');
+  // Remembered state before first paint, so nothing jumps. Collapsed (the slim bar) unless the person opened it.
+  (function () { try { var s = JSON.parse(localStorage.getItem('tv_header') || '{}'); if (s.brand !== 'full') document.documentElement.classList.add('tv-brand-min'); if (s.nav !== 'full') document.documentElement.classList.add('tv-nav-min'); } catch (e) {} })();
+</script>
+    <style>
+  .tvn{display:flex;align-items:center;gap:.5rem;flex:1 1 auto;justify-content:flex-end;min-width:0}
+  /* Universal search (decisions/0053) */
+  .tvs-bar{flex:1 1 auto;max-width:34rem;margin:0 auto 0 1rem;display:flex;align-items:center;background:var(--tv-canvas);border:1px solid var(--tv-line-strong);border-radius:.7rem;padding:0 .6rem;min-width:0}
+  .tvs-bar .tvs-icon{color:var(--tv-meta);display:flex}.tvs-bar .tvs-icon svg{width:18px;height:18px}
+  .tvs-in{flex:1;min-width:0;border:0;background:transparent;padding:.55rem .5rem;font-size:.95rem;color:var(--tv-ink);outline:none}
+  .tvs-pin{display:flex;align-items:center;justify-content:center;width:34px;height:34px;border:0;border-left:1px solid var(--tv-line-strong);background:none;color:var(--tv-meta);cursor:pointer;padding-left:.35rem}
+  .tvs-pin svg{width:19px;height:19px}.tvs-pin:hover{color:var(--tv-icon,#B45309)}.tvs-pin.set{color:color-mix(in srgb,var(--tv-moss) 50%,var(--tv-ink))}
+  .tvs-open{display:none;background:none;border:0;color:var(--tv-meta);cursor:pointer;width:40px;height:40px;align-items:center;justify-content:center}.tvs-open svg{width:26px;height:26px}
+  .tvs-open span{display:none}
+  /* phones: a search box, not a lone icon (decisions/0058 §31); a tap opens the full search panel */
+  @media (max-width: 767px){ .tvs-bar{flex:1 1 auto;margin:0 .35rem 0 .6rem;background:none;border:0;padding:0;max-width:none} .tvs-bar .tvs-icon,.tvs-in,.tvs-pin{display:none}
+    .tvs-open{display:flex;flex:1;min-width:0;width:auto;height:38px;justify-content:flex-start;gap:.45rem;padding:0 .7rem;background:var(--tv-canvas);border:1px solid var(--tv-line-strong);border-radius:999px;color:var(--tv-meta);font:inherit;font-size:.86rem;text-align:left}
+    .tvs-open svg{width:18px;height:18px;flex:0 0 auto}.tvs-open span{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--tv-meta);font-weight:500} }
+  .tvs-dim{position:fixed;inset:0;background:rgba(62,43,31,.28);z-index:1370}
+  .tvs-panel{position:fixed;z-index:1371;max-height:86vh;overflow:auto;background:var(--tv-card-a);border:1px solid var(--tv-line-strong);border-radius:1rem;box-shadow:0 18px 44px -12px rgba(0,0,0,.45);color:var(--tv-ink)}
+  .tvs-panel.full{inset:0;max-height:none;border-radius:0;border:0;display:flex;flex-direction:column}
+  .tvs-top{display:flex;gap:.4rem;align-items:center;padding:.7rem .8rem;border-bottom:1px solid var(--tv-line);background:var(--tv-umber)}
+  .tvs-in2{flex:1;min-width:0;border:1px solid var(--tv-line-strong);border-radius:.6rem;padding:.6rem .7rem;font-size:1rem;background:var(--tv-canvas);color:var(--tv-ink)}
+  .tvs-pin2{flex:0 0 40px;background:none;border:0;color:var(--tv-on-umber-meta);width:40px;height:40px;display:flex;align-items:center;justify-content:center;cursor:pointer}
+  .tvs-x{background:none;border:0;font-size:1.8rem;line-height:1;color:var(--tv-meta);cursor:pointer;width:40px;height:40px}
+  .tvs-panel.full .tvs-x{color:var(--tv-on-umber-meta)}
+  /* on a computer the search is its own pop-up over the dimmed page (Jason, 2026-11-05): its field and the place on top,
+     the results below; a click on the dimmed page, × or Esc closes it. Above the header, below Peek and the place picker. */
+  .tvs-dim.pop{z-index:1450;background:rgba(30,20,14,.55)}
+  .tvs-panel.full.pop{z-index:1451;inset:auto;top:4vh;left:50%;transform:translateX(-50%);width:min(1100px,calc(100vw - 32px));min-height:min(60vh,36rem);max-height:92vh;border:1px solid var(--tv-line-strong);border-radius:1rem;box-shadow:0 30px 60px -18px rgba(0,0,0,.6)}
+  .tvs-panel.full .tvs-top{position:sticky;top:0;z-index:2}
+  .tvs-panel.pop .tvs-top{padding:.8rem 1rem;gap:.6rem}
+  .tvs-panel.pop .tvs-in2{font-size:1.05rem;padding:.7rem .85rem}
+  .tvs-pl2{display:none}
+  .tvs-panel.pop .tvs-pin2{flex:0 1 auto;width:auto;max-width:42%;height:44px;gap:.45rem;padding:0 .8rem;border:1px solid var(--tv-taupe);border-radius:.6rem}
+  .tvs-panel.pop .tvs-pin2:hover{background:var(--tv-void)}
+  .tvs-panel.pop .tvs-pl2{display:inline;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--tv-on-umber);font-size:.95rem;font-weight:600}
+  @media (min-width:768px){.tvs-panel.pop .tvs-hd>.tvs-loc,.tvs-panel.pop .tvs-hd>.tvs-reach{display:none}}   /* the place button and its picker hold them */
+  .tvs-body{padding:.5rem .85rem .6rem;overflow:auto}
+  .tvs-lbl{font-size:.7rem;text-transform:uppercase;letter-spacing:.06em;color:var(--tv-meta);margin:.8rem 0 .25rem;font-weight:700}
+  .tvs-row{display:flex;justify-content:space-between;align-items:center;gap:.6rem;padding:.45rem .55rem;border-radius:.6rem;color:var(--tv-ink);text-decoration:none}
+  .tvs-row:hover,.tvs-row:focus{background:var(--tv-canvas)}.tvs-row b{font-weight:600}.tvs-row small{display:block;font-size:.75rem;color:var(--tv-meta)}
+  .tvs-go{font-size:.72rem;color:var(--tv-icon,#B45309);font-weight:700;white-space:nowrap}
+  .tvs-peekb{display:inline-block;border:1px solid var(--tv-line-strong);border-radius:999px;padding:.15rem .6rem;background:var(--tv-card-a);color:var(--tv-icon,#B45309);cursor:pointer}.tvs-peekb:hover,.tvs-peekb:focus-visible{background:var(--tv-sage);color:var(--tv-umber);border-color:var(--tv-sage);box-shadow:0 0 0 3px rgba(143,188,168,.35);outline:0}
+  .tvs-more{display:inline-block;font-size:.8rem;color:var(--tv-icon,#B45309);font-weight:600;margin:.15rem 0 0 .55rem;text-decoration:none}
+  .tvs-chips{display:flex;flex-wrap:wrap;gap:.35rem;align-items:center}
+  .tvs-chip{display:inline-flex;align-items:center;gap:.3rem;font-size:.82rem;border:1px solid var(--tv-line-strong);background:var(--tv-canvas);border-radius:999px;padding:.2rem .65rem;cursor:pointer;color:var(--tv-ink)}
+  .tvs-chip.on{background:var(--tv-umber);color:var(--tv-on-umber);border-color:var(--tv-umber);cursor:default}.tvs-chip.on small{opacity:.7}
+  .tvs-chip.on button{background:none;border:0;color:var(--tv-meta);font-size:1rem;cursor:pointer;padding:0 0 0 .1rem}
+  .tvs-chip.ghost{background:none}
+  .tvs-read{display:flex;align-items:flex-start;gap:.5rem;margin:.35rem 0 .3rem}.tvs-read .tvs-chips{flex:1;min-width:0}.tvs-read .tvs-savebtn{flex:0 0 auto;margin-left:auto;white-space:nowrap}
+  .tvs-where{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:.3rem .8rem;background:var(--tv-canvas);border:1px solid var(--tv-line);border-radius:.7rem;padding:.45rem .7rem;font-size:.86rem;color:var(--tv-ink);margin-bottom:.5rem}
+  .tvs-why{color:var(--tv-meta);font-size:.78rem}.tvs-wacts{white-space:nowrap}
+  .tvs-cols{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:.3rem 1.2rem}
+  .tvs-col2{border-left:1px solid var(--tv-line);padding-left:1rem}
+  .tvs-sec{margin-bottom:.45rem}
+  .tvs-sh{display:flex;justify-content:space-between;align-items:baseline;gap:.5rem;font-size:.7rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--tv-meta);margin:.1rem 0 .2rem}
+  .tvs-sh .tvs-link{font-size:.75rem;text-transform:none;letter-spacing:0;font-weight:600}
+  .tvs-li{display:flex;align-items:center;gap:.2rem;border-radius:.55rem}.tvs-li:hover{background:var(--tv-canvas)}
+  .tvs-lb{flex:1;min-width:0;text-align:left;background:none;border:0;padding:.22rem .4rem;font-size:.9rem;color:var(--tv-ink);cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .tvs-lx{flex:0 0 auto;width:28px;height:28px;border:0;background:none;color:var(--tv-meta);border-radius:999px;cursor:pointer;font-size:1rem}
+  .tvs-lx:hover{background:var(--tv-card-b);color:var(--tv-ink)}.tvs-ed{font-size:.85rem}
+  .tvs-sh2{margin-top:.6rem}
+  .tvs-here{width:100%;text-align:left;background:var(--tv-canvas);border:1px solid var(--tv-line-strong);cursor:pointer;margin-bottom:.4rem}.tvs-here small{display:block;color:var(--tv-meta);font-size:.76rem}
+  .tvs-phr{flex:1;min-width:0;box-sizing:border-box;height:2rem;line-height:1.2;border:1px solid var(--tv-line-strong);background:var(--tv-card-a);border-radius:.45rem;padding:.3rem .5rem;font-size:.88rem;color:var(--tv-ink);margin:.1rem 0}
+  .tvs-pe .tvs-li{gap:.35rem;padding-left:.3rem}.tvs-plain{cursor:default}
+  .tvs-n{display:inline-block;margin-left:.3rem;min-width:1.6rem;text-align:center;font-size:.72rem;font-weight:600;color:var(--tv-meta);background:var(--tv-card-b);border-radius:999px;padding:0 .4rem}
+  .tvs-empty{font-size:.82rem;color:var(--tv-meta);margin:.1rem .4rem .3rem}.tvs-empty a{color:var(--tv-link);text-decoration:underline}
+  /* carry on on Google Maps where we have no listings yet: one tappable row each, brand brown, opens a new tab */
+  .tvs-gmaps{display:flex;flex-direction:column;gap:3px;margin:.25rem 0 .5rem}
+  .tvs-gmap{display:flex;align-items:center;gap:.35rem;padding:.55rem .7rem;border:1px solid var(--tv-line);border-radius:.5rem;background:var(--tv-card-a);color:var(--tv-link);font-size:.88rem;font-weight:600;text-decoration:underline;text-underline-offset:2px}
+  .tvs-gmap small{color:var(--tv-meta);font-weight:400;text-decoration:none}.tvs-gmap span{margin-left:auto;color:var(--tv-icon,#B45309);text-decoration:none}
+  .tvs-gmap:hover,.tvs-gmap:focus-visible{background:var(--tv-card-a)}
+  .tvs-askpl .tvs-askb{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:3px}.tvs-askpl .tvs-setpl{border-style:dashed}.tvs-alts{margin:.35rem 0 0}.tvs-alts .tvs-link{color:var(--tv-link);text-decoration:underline}
+  .tvs-osm{margin:.15rem 0}.tvs-osmc{font-size:.72rem;color:var(--tv-meta);margin:.2rem .4rem .35rem}.tvs-osmc a{color:var(--tv-link);text-decoration:underline}
+  .tvs-scopes{display:flex;flex-wrap:wrap;gap:.3rem}
+  .tvs-sc{border:1px solid var(--tv-line-strong);background:var(--tv-card-a);color:var(--tv-ink);border-radius:999px;padding:.2rem .65rem;font-size:.8rem;cursor:pointer}
+  .tvs-sc.on{background:var(--tv-umber);color:var(--tv-on-umber);border-color:var(--tv-umber)}
+  .tvs-token{display:inline-flex;align-items:center;gap:.25rem;flex:0 0 auto;background:var(--tv-umber);color:var(--tv-on-umber);border-radius:999px;padding:.1rem .55rem;font-size:.78rem;font-weight:600;margin-right:.35rem;white-space:nowrap}
+  .tvs-token button{background:none;border:0;color:var(--tv-meta);cursor:pointer;font-size:.95rem;line-height:1;padding:0}
+  .tvs-savebtn.on{background:var(--tv-hold-bg);border-color:var(--tv-copper)}
+  .tvs-foot{color:var(--tv-ink)!important}.tvs-foot a{color:var(--tv-link);text-decoration:underline;font-weight:600}
+  @media (max-width:767px){.tvs-cols{grid-template-columns:minmax(0,1fr)}.tvs-col2{border-left:0;padding-left:0;border-top:1px solid var(--tv-line);padding-top:.6rem}}
+  .tvs-rhead{display:flex;justify-content:space-between;align-items:baseline;gap:.5rem}.tvs-kind{font-style:normal;font-size:.7rem;color:var(--tv-meta);border:1px solid var(--tv-line);border-radius:999px;padding:0 .4rem;margin-right:.3rem}.tvs-open{font-style:normal;color:color-mix(in srgb,var(--tv-moss) 50%,var(--tv-ink));font-weight:600}.tvs-isopen{font-style:normal;color:color-mix(in srgb,var(--tv-moss) 50%,var(--tv-ink));font-weight:600}.tvs-unk{font-style:italic;color:var(--tv-meta)}.tvs-lbl.tvs-sub{margin-top:.5rem}.tvs-tabs{display:flex;flex-wrap:wrap;gap:.3rem;margin:.1rem 0 .4rem}.tvs-tab{font-size:.78rem;font-weight:600;border:1px solid var(--tv-line-strong);background:var(--tv-card-a);color:var(--tv-ink);border-radius:999px;padding:.15rem .6rem;cursor:pointer}.tvs-tab.on{background:var(--tv-umber);color:var(--tv-on-umber);border-color:var(--tv-umber)}.tvs-tab small{opacity:.7;font-weight:400}.tvs-tab.off{opacity:.55;cursor:default}.tvs-more.tvs-sm{font-size:.78rem;margin:.1rem 0 .3rem .6rem}
+  .tvs-showmore{display:block;margin:.2rem 0 .3rem .6rem;font-size:.8rem}.tvs-row[hidden]{display:none}
+  .tvs-tools{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;margin:.45rem 0 .2rem}.tvs-rad{border:1px solid var(--tv-line-strong);background:var(--tv-card-a);border-radius:.55rem;padding:.2rem .35rem;font-size:.82rem;color:var(--tv-ink);margin-left:.25rem}.tvs-mapbtn{font-weight:600}
+  .tvs-muted{color:var(--tv-meta);font-size:.78rem}.tvs-note{font-size:.88rem;margin:.6rem 0}.tvs-foot{font-size:.82rem;color:var(--tv-ink);margin-top:.4rem}.tvs-foot a{color:var(--tv-link);text-decoration:underline;font-weight:600}
+  .tvs-link{background:none;border:0;color:var(--tv-icon,#B45309);text-decoration:underline;cursor:pointer;font-size:inherit}
+  .tvs-none{background:var(--tv-card-a);border:1px solid color-mix(in srgb,var(--tv-hold) 35%,var(--tv-canvas));border-radius:.8rem;padding:.7rem .8rem;margin:.6rem 0}
+  .tvs-none-h{font-family:var(--tv-font-head);font-weight:700;font-size:1.05rem;color:var(--tv-ink);margin:0}
+  .tvs-none-acts{display:flex;flex-wrap:wrap;gap:.4rem;margin:.5rem 0 .2rem}
+  .tvs-none button.tvs-row{display:flex;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--tv-line);border-radius:0;padding:.45rem .2rem;cursor:pointer;font:inherit;color:inherit}
+  .tvs-none button.tvs-row b{display:block;font-weight:600;color:var(--tv-ink)}.tvs-none button.tvs-row small{display:block;color:var(--tv-meta);font-size:.78rem}
+  .tvs-none button.tvs-row .tvs-go{margin-left:auto;align-self:center;color:var(--tv-link);font-weight:600;font-size:.8rem}
+  .tvs-town{display:flex;justify-content:space-between;gap:.5rem;align-items:baseline;margin:.6rem 0 .1rem;font-size:.85rem;color:var(--tv-ink)}.tvs-town small{color:var(--tv-meta)}
+  .tvs-top-card{background:var(--tv-canvas);border:1px solid var(--tv-line-strong);border-radius:.8rem;padding:.7rem .9rem;margin-top:.6rem}.tvs-top-card ul{margin:.2rem 0 .3rem 1rem;list-style:disc;font-size:1rem}
+  .tvs-people{border-top:1px dashed var(--tv-line);margin-top:.6rem}
+  .tvs-btn{display:inline-block;font-size:.82rem;font-weight:600;border:1px solid var(--tv-line-strong);background:var(--tv-card-a);color:var(--tv-ink);border-radius:.6rem;padding:.35rem .75rem;text-decoration:none;margin-top:.3rem}
+  .tvs-btn.go{background:var(--tv-btn);color:var(--tv-btn-text);border-color:var(--tv-btn);border-radius:999px}.tvs-btn.go:hover{background:var(--tv-btn-hover);border-color:var(--tv-btn-hover)}
+  .tvs-peek-dim{position:fixed;inset:0;z-index:1599;background:rgba(42,27,18,.55)}   /* the page dims behind a Peek (Jason, 2026-11-19) */.tvs-acts{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.5rem}
+  .tvs-peek{position:fixed;z-index:1600;left:50%;top:50%;transform:translate(-50%,-50%);width:min(26rem,calc(100vw - 2rem));max-height:85vh;overflow:auto;background:var(--tv-card-a);border:1px solid var(--tv-line-strong);border-radius:1rem;box-shadow:0 20px 50px -12px rgba(0,0,0,.55);padding:1rem 1.1rem;color:var(--tv-ink)}
+  .tvs-peek h3{font-family:var(--tv-font-head);font-weight:700;font-size:1.25rem;margin:.1rem 0 .3rem}.tvs-peek .tvs-x{position:absolute;top:.3rem;right:.4rem}.tvs-about{font-size:.88rem;color:var(--tv-meta);margin:.4rem 0}.tvs-keep{position:relative;display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;margin-top:.7rem;padding:.55rem 3rem .1rem 0;border-top:1px solid var(--tv-line)}
+  /* the bar and its panel (decisions/0058 §35): a cream field, then a gold block with Search and the place pin; the
+     panel hangs from the bar in two columns */
+  @media (min-width:768px){
+    .tvs-bar{max-width:52rem;background:var(--tv-canvas);border:1px solid var(--tv-line-strong);border-radius:.45rem;padding:0 0 0 .3rem;overflow:hidden;align-self:stretch;margin-top:.45rem;margin-bottom:.45rem}
+    .tvs-bar .tvs-icon{display:none}
+    .tvs-btns{display:flex;align-items:center;gap:.45rem;align-self:stretch;background:var(--tv-card-b);padding:0 .55rem}
+    .tvs-sbtn,.tvs-btns .tvs-pin{width:38px;height:38px;border-radius:999px;border:3px solid var(--tv-umber);background:var(--tv-card-a);color:var(--tv-ink);display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0}
+    .tvs-sbtn svg,.tvs-btns .tvs-pin svg{width:20px;height:20px}
+    .tvs-sbtn:hover,.tvs-btns .tvs-pin:hover,.tvs-btns .tvs-pin.set{background:var(--tv-sage);color:var(--tv-umber);box-shadow:0 0 0 3px rgba(143,188,168,.35)}
+    /* the split bar's look (Jason, 2026-11-19): a cream pill, ⌕ inside, the place as a chip, the round copper button */
+    .tvs-bar{border-radius:999px;padding:0 .3rem 0 .85rem;background:var(--tv-field,#FFFBF2);overflow:visible;gap:.35rem}.tvs-bar .tvs-icon{display:flex;color:var(--tv-icon,#B45309)}
+    .tvs-btns{background:none;padding:0;gap:.35rem}
+    .tvs-btns .tvs-pin{width:auto;height:32px;border:1px solid var(--tv-line-strong);border-radius:999px;padding:0 .7rem;gap:.3rem;background:var(--tv-card-a);color:var(--tv-ink);font:600 .84rem var(--tv-font-ui);white-space:nowrap;max-width:15rem}
+    .tvs-btns .tvs-pin svg{width:15px;height:15px;color:var(--tv-icon,#B45309);flex:none}.tvs-pl{overflow:hidden;text-overflow:ellipsis}.tvs-car{font-style:normal;font-size:.7rem;color:var(--tv-meta)}
+    .tvs-btns .tvs-pin.set{box-shadow:none;background:var(--tv-card-a)}.tvs-btns .tvs-pin:hover{background:var(--tv-sec,#EDE6D5);box-shadow:none}
+    .tvs-sbtn{order:2;width:36px;height:36px;border:0;background:var(--tv-btn,#92400E);color:var(--tv-btn-text,#E4DCC5)}.tvs-sbtn:hover{background:var(--tv-btn-hover,#78350F);color:var(--tv-btn-text,#E4DCC5);box-shadow:none}
+    .tvs-fold{flex:0 0 auto!important;max-width:none!important;background:none!important;border:0!important;padding:0!important;margin-left:auto!important}
+    .tvs-fold>.tvs-icon,.tvs-fold>.tvs-in,.tvs-fold>.tvs-btns{display:none!important}
+    .tvs-fold>.tvs-open{display:flex!important;width:40px;height:40px;flex:none;justify-content:center;border:1px solid var(--tv-line-strong);border-radius:999px;background:var(--tv-field,#FFFBF2);color:var(--tv-icon,#B45309)}.tvs-fold>.tvs-open span{display:none}
+    .tvs-panel:not(.full){border:1px solid var(--tv-line-strong);border-top:0;border-radius:0 0 1rem 1rem;background:var(--tv-card-a)}
+  }
+  @media (max-width:767px){.tvs-btns{display:none}}
+  .tvs-hd{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem 2rem;padding:.2rem .1rem .55rem}
+  @media (min-width:900px){.tvs-hd{flex-wrap:nowrap;gap:1.2rem}.tvs-hd .tvs-reach{margin-left:auto}.tvs-hd .tvs-loc b{max-width:16rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}}   /* one row: Location, Search Directory, Distance top right */
+  .tvs-intent{margin:.1rem 0 .45rem;padding:.4rem .6rem;border-left:3px solid var(--tv-sage);background:var(--tv-canvas);border-radius:.25rem;font-family:var(--tv-font-head);font-size:.98rem;color:var(--tv-ink)}
+  .tvs-nearask>span:not(.tvs-nearrow):not(.tvs-nearlist){color:var(--tv-meta)}
+  .tvs-nearrow{display:flex;gap:.4rem;align-items:center;margin:.4rem 0 .25rem;flex-wrap:wrap}
+  .tvs-nearin{flex:1 1 10rem;min-width:0;background:var(--tv-card-a);border:1px solid var(--tv-line-strong);border-radius:.5rem;padding:.35rem .55rem;font:inherit;font-size:.9rem;color:var(--tv-ink)}
+  .tvs-nearlist{display:block;margin:.1rem 0 .3rem;background:var(--tv-card-a);border:1px solid var(--tv-line);border-radius:.5rem;overflow:hidden}
+  .tvs-nearlist[hidden]{display:none}
+  .tvs-nearlist .tvs-row{width:100%;text-align:left;border:0;border-top:1px solid var(--tv-line);background:transparent;cursor:pointer}
+  .tvs-nearlist .tvs-row:first-child{border-top:0}
+  .tvs-nearask small{display:block;font-family:var(--tv-font-ui)}
+  .tvs-loc,.tvs-dir{display:inline-flex;align-items:center;gap:.4rem;font-family:var(--tv-font-head);font-size:1.15rem;color:var(--tv-ink);border-bottom:1px solid var(--tv-line-strong);padding-bottom:.15rem}
+  .tvs-loc b{font-weight:400}
+  .tvs-pinc{display:inline-flex;width:28px;height:28px;border-radius:999px;border:2px solid var(--tv-umber);align-items:center;justify-content:center;color:var(--tv-ink)}
+  .tvs-ib{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border:1.5px solid var(--tv-umber);border-radius:999px;background:var(--tv-card-a);color:var(--tv-ink);cursor:pointer;padding:0}
+  .tvs-ib:hover,.tvs-ib:focus-visible{background:var(--tv-sage);color:var(--tv-umber);outline:0;box-shadow:0 0 0 3px rgba(143,188,168,.35)}
+  .tvs-ib svg{width:15px;height:15px}
+  .tvs-dsel{font:inherit;font-family:ui-sans-serif,var(--tv-font-ui);font-size:.9rem;min-width:10rem;border:1px solid var(--tv-line-strong);border-radius:.3rem;background:var(--tv-card-a);color:var(--tv-ink);padding:.15rem .4rem}
+  .tvs-h{display:flex;align-items:center;justify-content:space-between;gap:.5rem;font-family:var(--tv-font-head);font-weight:400;font-size:1.15rem;color:var(--tv-ink);border-bottom:1px solid var(--tv-line-strong);margin:.3rem 0 .4rem;padding:0 0 .15rem}
+  .tvs-hbs{display:inline-flex;gap:.25rem}
+  .tvs-cols{display:grid;grid-template-columns:minmax(0,2.4fr) minmax(0,1fr);gap:.3rem 1.4rem}
+  .tvs-res .tvs-row{background:var(--tv-canvas);border-radius:.2rem;margin-bottom:2px}.tvs-res .tvs-row:hover,.tvs-res .tvs-row:focus{background:var(--tv-card-b)}
+  .tvs-try{width:100%;border:0;text-align:left;cursor:pointer;font:inherit}.tvs-try b{font-family:var(--tv-font-head);font-weight:400;font-size:1rem}
+  .tvs-t1 .tvs-row{background:var(--tv-card-a);border:1px solid var(--tv-line);border-radius:.3rem;margin-bottom:2px}.tvs-t1 .tvs-row:hover{background:var(--tv-canvas)}
+  .tvs-t1 .tvs-row small{color:var(--tv-meta)}.tvs-t1 .tvs-row.far small{color:var(--tv-meta)}.tvs-s1{width:100%;box-sizing:border-box;text-align:left;font:inherit;cursor:pointer}
+  .tvs-t1 .tvs-wide{background:var(--tv-canvas);border-style:dashed}.tvs-t1:not(:empty){margin-bottom:.5rem}
+  .tvs-ask{background:var(--tv-canvas);border:1px solid var(--tv-line-strong);border-radius:.5rem;padding:.55rem .65rem;margin:.1rem 0 .5rem}
+  .tvs-ask p{margin:0 0 .4rem;font-family:var(--tv-font-head);font-size:1.02rem;color:var(--tv-ink)}
+  .tvs-askb{display:flex;flex-wrap:wrap;align-items:center;gap:.4rem}.tvs-or{font-size:.8rem;color:var(--tv-meta)}
+  .tvs-askc{flex:1 1 12rem;display:block;text-align:left;border:1px solid var(--tv-line-strong);background:var(--tv-card-a);border-radius:.4rem;padding:.4rem .6rem;color:var(--tv-ink);text-decoration:none;cursor:pointer;font:inherit}
+  .tvs-askc b{display:block;font-weight:600}.tvs-askc small{display:block;font-size:.76rem;color:var(--tv-meta)}.tvs-askc:hover{background:var(--tv-sage);border-color:var(--tv-sage)}
+  /* Suggestions: a plain list, one line each; each line says what it is (decisions/0058 §38, §39) */
+  /* situations (decisions/0061): the danger line, then each need, marked by its track (the Chameleon Filter) */
+  .tvs-danger{margin:.2rem 0 .5rem;padding:.55rem .7rem;border-radius:.4rem;background:var(--tv-fail-bg);border:1px solid color-mix(in srgb,var(--tv-fail) 35%,var(--tv-canvas));color:var(--tv-fail);font-size:1rem}
+  .tvs-danger a{color:var(--tv-fail);text-decoration:underline}
+  .tvs-sit{margin:.1rem 0 .6rem}.tvs-sith{margin:.1rem 0 .35rem;font-family:var(--tv-font-head);font-size:1.15rem;color:var(--tv-ink)}.tvs-sith small{font-family:ui-sans-serif,var(--tv-font-ui);font-size:.78rem;color:var(--tv-meta)}
+  .tvs-need{border-left:3px solid var(--tv-sage);padding-left:.55rem;margin:.45rem 0 .6rem}.tvs-need.trv{border-color:var(--tv-line-strong)}.tvs-need.com{border-color:var(--tv-amethyst)}
+  .tvs-needh{display:flex;justify-content:space-between;align-items:baseline;margin:0 0 .25rem;font-weight:700;font-size:.85rem;letter-spacing:.03em;text-transform:uppercase;color:var(--tv-meta)}
+  .tvs-needh i{font-style:normal;font-weight:600;font-size:.66rem;color:var(--tv-meta);letter-spacing:.06em}
+  .tvs-sol .tvs-go{display:inline-flex;align-items:center;gap:.3rem;flex:0 0 auto}
+  .tvs-call{cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:.3rem;min-width:30px;height:30px;padding:0 .35rem;border-radius:999px;border:1px solid var(--tv-line-strong);background:var(--tv-field);color:var(--tv-icon,#B45309);text-decoration:none;font-weight:700;font-size:.82rem}
+  .tvs-call:hover{background:var(--tv-sage);color:var(--tv-umber);border-color:var(--tv-sage)}
+  .tvs-sit.urgent .tvs-call{background:color-mix(in srgb,var(--tv-moss) 50%,var(--tv-ink));color:#fff;border-color:color-mix(in srgb,var(--tv-moss) 40%,var(--tv-canvas));padding:0 .7rem}
+  .tvs-other{margin-top:.6rem}.tvs-other>summary{cursor:pointer;color:var(--tv-link);font-weight:600;font-size:.9rem;margin:.2rem 0 .4rem}
+  .tvs-t1 .tvs-enter{background:var(--tv-canvas);border-color:var(--tv-line-strong)}.tvs-t1 .tvs-enter small{color:var(--tv-meta)}.tvs-t1 .tvs-enter .tvs-go{font-size:1.1rem;color:var(--tv-link)}
+  .tvs-t1 .tvs-sits{border-left:3px solid var(--tv-sage)}.tvs-t1 .tvs-sits.urgent{border-left-color:var(--tv-icon,#B45309)}
+  .tvs-learn{border-left:3px solid var(--tv-sage)}
+  .tvs-rmw{position:relative}.tvs-rmw>.tvs-row,.tvs-rmw>.tvs-cmp{padding-right:2.4rem}
+  .tvs-rm{position:absolute;top:50%;right:.35rem;transform:translateY(-50%);width:26px;height:26px;border-radius:999px;border:1px solid var(--tv-line-strong);background:var(--tv-card-a);color:var(--tv-meta);font-size:1rem;line-height:1;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;padding:0}
+  .tvs-rm:hover{background:var(--tv-sage);color:var(--tv-umber);border-color:var(--tv-sage)}
+  .tvs-lex{display:flex;flex-wrap:wrap;align-items:center;gap:.4rem .6rem;margin:.2rem 0 .45rem;padding:.5rem .65rem;border-left:3px solid var(--tv-icon,#B45309);background:var(--tv-card-a);border-radius:.25rem;font-size:.84rem;color:var(--tv-ink)}
+  .tvs-lex p{margin:0;flex:1 1 12rem}.tvs-lexb{border:1px solid var(--tv-umber);background:var(--tv-umber);color:var(--tv-on-umber);border-radius:.45rem;padding:.25rem .65rem;font:inherit;font-size:.78rem;font-weight:600;cursor:pointer;text-decoration:none}
+  .tvs-lexb:hover{background:var(--tv-sage);border-color:var(--tv-sage);color:var(--tv-umber)}
+  .tvs-dymr{border-left:3px solid var(--tv-icon,#B45309)}.tvs-dymq{display:block;font-size:.9rem;color:var(--tv-ink)}.tvs-dymq b{color:var(--tv-link)}
+  .tvs-sugw{margin-top:.7rem}.tvs-sugs{display:flex;flex-direction:column}
+  .tvs-sg{display:flex;align-items:baseline;justify-content:space-between;gap:.5rem;width:100%;border:0;border-bottom:1px solid var(--tv-line);background:none;color:var(--tv-ink);
+    padding:.3rem .45rem;font:inherit;font-family:var(--tv-font-head);font-size:.95rem;text-align:left;text-decoration:none;cursor:pointer;border-radius:.25rem}
+  .tvs-sg span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}   /* one line; the whole of it is its title */
+  .tvs-sg i{flex:0 0 auto;font-style:normal;font-family:ui-sans-serif,var(--tv-font-ui);font-size:.68rem;letter-spacing:.04em;text-transform:uppercase;color:var(--tv-meta)}
+  .tvs-sg:hover,.tvs-sg:focus-visible{background:var(--tv-card-b);outline:0}.tvs-sg.on{color:color-mix(in srgb,var(--tv-moss) 50%,var(--tv-ink));font-weight:600}.tvs-sg.on i{color:color-mix(in srgb,var(--tv-moss) 50%,var(--tv-ink))}
+  .tvs-mapb{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border:1px solid var(--tv-line-strong);border-radius:999px;background:var(--tv-card-a);color:var(--tv-icon,#B45309);cursor:pointer;vertical-align:middle}
+  .tvs-mapb:hover,.tvs-mapb:focus-visible{background:var(--tv-sage);color:var(--tv-umber);border-color:var(--tv-sage);outline:0}
+  .tvs-none a.tvs-row{border-top:1px solid var(--tv-line);border-radius:0;padding:.45rem .2rem}
+  /* the Distance slider, beside Search Directory */
+  .tvs-reach{display:inline-flex;align-items:center;gap:.45rem;font-family:var(--tv-font-head);font-size:1.15rem;color:var(--tv-ink);border-bottom:1px solid var(--tv-line-strong);padding-bottom:.15rem}
+  .tvs-rng{width:8rem;accent-color:var(--tv-copper);cursor:pointer}
+  .tvs-rngv{font-family:ui-sans-serif,var(--tv-font-ui);font-size:.85rem;color:var(--tv-link);min-width:4.6rem}
+  /* the filters at the foot of Quick Search */
+  .tvs-qf{border-top:1px dashed var(--tv-line);margin-top:.3rem;padding-top:.25rem}
+  .tvs-qfl .tvs-ftag{font-style:normal;font-family:ui-sans-serif,var(--tv-font-ui);font-size:.66rem;letter-spacing:.05em;text-transform:uppercase;color:var(--tv-meta)}
+  .tvs-qfl.on{color:color-mix(in srgb,var(--tv-moss) 50%,var(--tv-ink));font-weight:600}.tvs-qfl.on .tvs-ftag{color:color-mix(in srgb,var(--tv-moss) 50%,var(--tv-ink))}
+  @media (max-width:767px){.tvs-reach{font-size:1rem}.tvs-rng{width:7rem}}
+  .tvs-reach.off{opacity:.5;cursor:help}.tvs-reach.off .tvs-rng{cursor:help}   /* no place set: nothing to measure from */
+  .tvs-widen{margin:.4rem 0 .6rem}.tvs-wbtn{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.35rem}
+  .tvs-meant{margin:.4rem 0 .6rem}.tvs-chipr{display:flex;flex-wrap:wrap;gap:.35rem}.tvs-meant .tvs-chipb,.tvs-widen .tvs-chipb{border:1px solid var(--tv-line-strong);background:var(--tv-card-a);color:var(--tv-link);border-radius:999px;padding:.3rem .8rem;font-size:.85rem;cursor:pointer}
+  .tvs-meant .tvs-chipb:hover,.tvs-widen .tvs-chipb:hover{background:var(--tv-sage);color:var(--tv-ink);box-shadow:0 0 0 3px rgba(143,188,168,.35)}
+  .tvs-qr{display:flex;width:100%;align-items:center;justify-content:space-between;gap:.5rem;border:0;background:none;text-align:left;font:inherit;font-family:var(--tv-font-head);font-size:.98rem;color:var(--tv-ink);padding:.12rem .4rem;border-radius:.3rem;cursor:pointer}
+  .tvs-qr:hover{background:var(--tv-canvas)}.tvs-qr span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .tvs-qr .tvs-n{font-style:normal;background:var(--tv-card-b);color:var(--tv-meta);font-weight:700}
+  .tvs-recent .tvs-lb{font-family:var(--tv-font-head);font-size:.98rem}
+  .tvs-ab{display:flex;align-items:center;justify-content:space-between;gap:.6rem;margin-top:.8rem;padding-top:.6rem;border-top:1px solid var(--tv-line-strong);text-decoration:none;font-family:var(--tv-font-head);font-size:.95rem;color:var(--tv-ink)}
+  .tvs-ab b{display:block;font-weight:400;color:var(--tv-meta);font-size:1.05rem}.tvs-ab:hover b{text-decoration:underline}
+  .tvs-abi{flex:0 0 40px;width:40px;height:40px;border-radius:999px;border:2px solid var(--tv-umber);display:flex;align-items:center;justify-content:center;color:var(--tv-ink);background:var(--tv-card-a)}
+  .tvs-ab:hover .tvs-abi{background:var(--tv-sage);color:var(--tv-umber)}
+  @media (max-width:767px){.tvs-hd{gap:.4rem 1rem}.tvs-loc,.tvs-dir{font-size:1rem}.tvs-cols{grid-template-columns:minmax(0,1fr)}.tvs-side{border-top:0;padding-top:0}}
+  /* Small text throughout the search panel (Jason, 2026-10-02): headings .85rem, rows .82rem, second lines .72rem.
+     Labels never wrap ("Search Directory:" on one line). */
+  .tvs-panel .tvs-loc,.tvs-panel .tvs-dir,.tvs-panel .tvs-reach,.tvs-panel .tvs-h,.tvs-panel .tvs-sith{font-size:.85rem}
+  .tvs-panel .tvs-loc,.tvs-panel .tvs-dir,.tvs-panel .tvs-reach{white-space:nowrap;flex:0 0 auto}
+  .tvs-panel .tvs-dsel{font-size:.78rem;min-width:7.5rem}.tvs-panel .tvs-rngv{font-size:.75rem;min-width:3.6rem}
+  .tvs-panel .tvs-hd{gap:.4rem 1rem}
+  .tvs-panel .tvs-row,.tvs-panel .tvs-sg,.tvs-panel .tvs-qr,.tvs-panel .tvs-lb,.tvs-panel .tvs-recent .tvs-lb,.tvs-panel .tvs-try b,.tvs-panel .tvs-ab,
+  .tvs-panel .tvs-note,.tvs-panel .tvs-intent,.tvs-panel .tvs-danger,.tvs-panel .tvs-ask p,.tvs-panel .tvs-none-h,.tvs-panel .tvs-where,.tvs-panel .tvs-other>summary{font-size:.82rem}
+  .tvs-panel .tvs-row small,.tvs-panel .tvs-muted,.tvs-panel .tvs-foot,.tvs-panel .tvs-empty,.tvs-panel .tvs-chip,.tvs-panel .tvs-sc,.tvs-panel .tvs-btn,
+  .tvs-panel .tvs-more,.tvs-panel .tvs-showmore,.tvs-panel .tvs-widen .tvs-chipb,.tvs-panel .tvs-needh,.tvs-panel .tvs-call,.tvs-panel .tvs-ab b{font-size:.72rem}
+  .tvs-panel .tvs-sg i,.tvs-panel .tvs-qfl .tvs-ftag,.tvs-panel .tvs-lbl,.tvs-panel .tvs-n,.tvs-panel .tvs-go,.tvs-panel .tvs-kind{font-size:.62rem}
+  .tvs-panel .tvs-row{padding:.32rem .5rem}.tvs-panel .tvs-qr{padding:.08rem .4rem}.tvs-panel .tvs-sg{padding:.22rem .45rem}
+  .tvs-offers{margin:.15rem 0 .5rem .5rem;font-size:.75rem;color:var(--tv-meta)}.tvs-offers b{font-weight:600;color:var(--tv-ink)}
+  .tvs-unread{margin:.3rem 0 .5rem;padding:.5rem .65rem;border-left:3px solid var(--tv-line-strong);background:var(--tv-canvas);border-radius:.25rem}.tvs-unread p{margin:0 0 .2rem}
+  .tvs-panel .tvs-askc{padding:.3rem .6rem}.tvs-panel .tvs-askc b{font-size:.82rem}.tvs-panel .tvs-askc small,.tvs-panel .tvs-or{font-size:.72rem}
+  .tvs-cmp{display:flex;align-items:center;gap:.55rem;width:100%;border:0;border-bottom:1px solid var(--tv-line);background:none;text-align:left;cursor:pointer;padding:.3rem .5rem;font:inherit;font-size:.82rem;color:var(--tv-meta)}
+  .tvs-cmp b{font-weight:700;color:var(--tv-ink)}.tvs-cmp:hover,.tvs-cmp:focus-visible{background:var(--tv-canvas);outline:0}.tvs-cmpi{display:inline-flex;color:var(--tv-taupe);flex:0 0 auto}
+  /* while typing, only the predictions (decisions/0061): results, Suggestions and the side column wait for a tap or Enter */
+  .tvs-panel.tvs-typing .tvs-full,.tvs-panel.tvs-typing .tvs-sugw,.tvs-panel.tvs-typing .tvs-side{display:none}
+  .tvs-panel.tvs-typing .tvs-cols{grid-template-columns:minmax(0,1fr)}
+  /* the search tools: one line on a phone, opened with a tap */
+  .tvs-tooltg{display:none}
+  /* no built-in clear × inside the search boxes (Jason): the close ✕ sits past the pin; Esc clears */
+  .tvs-in::-webkit-search-cancel-button,.tvs-in2::-webkit-search-cancel-button,.lm-in::-webkit-search-cancel-button{-webkit-appearance:none;appearance:none;display:none}.tvs-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+  @media (max-width:767px){
+    .tvs-tooltg{display:flex;align-items:center;gap:.3rem;width:100%;border-bottom:1px solid var(--tv-line-strong);padding:.1rem .1rem .25rem}
+    .tvs-tbtn{flex:1;min-width:0;display:flex;align-items:center;gap:.4rem;border:0;background:none;padding:0;font:inherit;font-family:var(--tv-font-head);font-size:.85rem;color:var(--tv-ink);cursor:pointer;text-align:left}
+    .tvs-tbtn .tvs-tsum{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.tvs-tbtn b{font-weight:400}
+    .tvs-tbtn small{font-family:ui-sans-serif,var(--tv-font-ui);font-size:.72rem;color:var(--tv-meta)}.tvs-tcar{color:var(--tv-link);font-size:.8rem}
+    .tvs-hd>.tvs-loc{display:none}   /* the toggle line is the Location line */
+    .tvs-hd:not(.open)>.tvs-dir,.tvs-hd:not(.open)>.tvs-reach{display:none}
+    .tvs-hd{padding-bottom:.3rem}
+  }
+  .tvs-panel .tvs-in2{font-size:16px}   /* the phone's box stays 16px so iOS doesn't zoom in */
+  .tvn-bell{position:relative;display:flex;align-items:center;justify-content:center;width:40px;height:40px;color:var(--tv-meta)}
+  .tvn-bell svg{width:30px;height:30px}.tvn-bell:hover{color:var(--tv-on-umber-meta)}
+  .tvn-cart svg{width:28px;height:28px}
+  @media (max-width:767px){ .tvn-bell{width:34px} }   /* cart and bell side by side on a phone */
+  .tvn-badge[hidden]{display:none}
+  .tvn-badge{position:absolute;top:2px;right:0;min-width:18px;height:18px;padding:0 4px;border-radius:999px;background:var(--tv-copper);color:#fff;font-size:.68rem;font-weight:700;display:flex;align-items:center;justify-content:center}
+  .tvn-tab{display:flex;align-items:center;justify-content:center;width:14px;height:26px;background:var(--tv-taupe);color:var(--tv-ink);border:0;border-radius:.35rem 0 0 .35rem;cursor:pointer;padding:0;margin-right:-.5rem}
+  .tvn-tab svg{width:10px;height:10px}
+  .tvn-box{display:flex;align-items:center;gap:.45rem;border:1.5px solid var(--tv-taupe);border-radius:.8rem;padding:.3rem .45rem}
+  .tvn-funnels{display:flex;align-items:center;gap:.45rem}
+  .tvn-f{position:relative;display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:999px;background:var(--tv-card-a);color:var(--tv-ink);border:3px solid var(--tv-taupe);text-decoration:none}
+  .tvn-f svg{width:22px;height:22px}
+  .tvn-f:hover{border-color:var(--tv-line-strong)}
+  .tvn-f.on{background:var(--tv-sage);box-shadow:0 0 0 2px rgba(143,188,168,.35),0 0 12px rgba(143,188,168,.85)}
+  .tvn-f.soon{opacity:.55;cursor:default}
+  .tvn-f.me.on,.tvn-f.me.in{background:var(--tv-sage)}
+  .tvn-menu{display:flex;align-items:center;justify-content:center;width:44px;height:40px;color:var(--tv-meta);background:none;border:0;cursor:pointer}
+  .tvn-menu svg{width:32px;height:32px}.tvn-menu:hover{color:var(--tv-on-umber-meta)}
+  #menu-location-dot{display:none!important}   /* the ☰ no longer glows when a location is set: location has its own pin in search (Jason, 2026-11-05) */
+  .tvn-up{background:var(--tv-btn-inv);color:var(--tv-btn-inv-text);border:1px solid var(--tv-copper);border-radius:999px;padding:.4rem .95rem;font:700 .85rem var(--tv-font-ui);text-decoration:none;white-space:nowrap}
+  .tvn-up:hover{background:var(--tv-btn-inv-hover);border-color:var(--tv-icon,#B45309)}
+  .tvn-in{color:var(--tv-on-umber);border:1px solid var(--tv-taupe);border-radius:999px;padding:.38rem .85rem;font:600 .85rem var(--tv-font-ui);text-decoration:none;white-space:nowrap}
+  .tvn-in:hover{border-color:var(--tv-line);color:#fff}
+  .tvn-acct{display:flex;flex-direction:column;gap:.4rem;padding:.35rem .9rem .6rem}.tvn-acct.hidden{display:none}
+  .tvn-acct .tvn-up,.tvn-acct .tvn-in{text-align:center;display:block}.tvn-acct .tvn-in{color:var(--tv-meta);border-color:var(--tv-link)}
+  /* the open menu over everything on the page: the home page's search box sits at 1372 (index.php), above the header's 40 */
+  :is(#top-bar,#tv-nav):has(#site-menu-panel:not(.hidden)){z-index:1400!important}
+  body:has(.tv-as) :is(.tvn-acct,.tvpm-acct){display:none!important}   /* signed in (the account bar is there): never the visitor buttons, even before the page's script knows */
+  @media (min-width:768px){.tvn-mw.tvn-signed,body:has(.tv-as) .tvn-mw{display:none}}   /* signed in, wider screens: the account bar has you; no menu */
+  .tvn-me{display:none}   /* you, in the menu corner: phones on the signed-in side only (app-shell.php) */
+  .tv-nav-min .tvn-funnels{display:none}
+  .tv-nav-min .tvn-tab svg{transform:scaleX(-1)}
+  .tv-nav-min .tvn-box{border-color:transparent;padding:0}   /* the slim bar: just the menu */
+  .tv-nav-min .tvn-bell,.tv-nav-min .tvn-menu{height:36px}
+  .tv-nav-min .tvs-in{padding-top:.4rem;padding-bottom:.4rem}
+  @media (max-width: 767px){ .tvn-funnels{display:none!important} .tvn-tab{display:none} .tvn-box{border:0;padding:0} }
+  /* The phone menu (decisions/0055, Jason's mockup): full screen over a topographic background. */
+  .tvpm{position:fixed;inset:0;z-index:1500;overflow:auto;background:var(--tv-canvas);color:var(--tv-ink);
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='420' viewBox='0 0 420 420'%3E%3Cg fill='none' stroke='%23D9C7A3' stroke-width='1.6'%3E%3Cpath d='M60 90c40-50 120-40 150 0s10 110-50 120-150-20-100-120z'/%3E%3Cpath d='M85 100c30-30 85-25 105 5s0 75-45 80-100-35-60-85z'/%3E%3Cpath d='M112 112c18-15 50-12 60 5s-4 42-30 44-50-24-30-49z' stroke-dasharray='5 5'/%3E%3Cpath d='M250 250c50-40 140-20 150 40s-60 120-130 100-70-100-20-140z'/%3E%3Cpath d='M275 265c35-25 95-10 100 30s-45 80-90 65-45-70-10-95z' stroke-dasharray='5 5'/%3E%3Cpath d='M300 285c18-12 48-4 50 15s-22 40-45 32-22-36-5-47z'/%3E%3Cpath d='M-20 300c40 10 70 60 60 110M20 260c50 20 90 80 80 160'/%3E%3Cpath d='M300 -10c-10 40 20 80 80 90M340 -10c0 30 30 50 90 55' stroke-dasharray='5 5'/%3E%3C/g%3E%3C/svg%3E")}
+  .tvpm[hidden]{display:none}
+  .tvpm .hidden{display:none !important}   /* signed in: Login stays hidden (the menu's own display would win) */
+  .tvpm-x{position:absolute;top:.9rem;right:1rem;width:40px;height:40px;border:0;background:none;color:var(--tv-ink);font-size:2rem;line-height:1;cursor:pointer}
+  .tvpm-in{max-width:22rem;margin:0 auto;padding:1.5rem 1.5rem 2.5rem;display:flex;flex-direction:column;align-items:center}
+  /* the quieter menu (Jason, 2026-11-22, option B): 1.35rem/700 words, a 96px logo, Help Center in sentence case, so it fits one screen */
+  .tvpm-logo{width:96px;height:96px;margin:.2rem 0 .9rem}
+  .tvpm-list{display:flex;flex-direction:column;gap:.65rem;align-self:stretch;padding-left:1.2rem}
+  .tvpm-a{display:flex;align-items:center;gap:.7rem;font-weight:700;font-size:1.35rem;color:var(--tv-ink);text-decoration:none;font-family:ui-sans-serif,var(--tv-font-ui);letter-spacing:-.01em}
+  .tvpm-a .ic{flex:none;display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:999px;border:2.5px solid var(--tv-umber);background:var(--tv-card-a)}
+  .tvpm-a .ic svg{width:19px;height:19px}
+  .tvpm-a.soon{opacity:.5}.tvpm-a small{font-size:.8rem;font-weight:600;color:var(--tv-meta)}
+  .tvpm-help{margin-top:1.4rem;background:var(--tv-btn);color:var(--tv-btn-text);border-radius:999px;padding:.45rem 2.3rem;font-weight:700;text-decoration:none;font-size:1rem}
+  .tvpm-acct{align-self:stretch;display:flex;flex-direction:column;gap:.55rem;margin:0 0 1.3rem}
+  .tvpm-up{display:block;text-align:center;background:var(--tv-btn);color:var(--tv-btn-text);border-radius:.7rem;padding:.75rem;font:800 1.1rem var(--tv-font-ui);text-decoration:none}
+  .tvpm-sin{display:block;text-align:center;border:2px solid var(--tv-umber);color:var(--tv-ink);border-radius:.7rem;padding:.6rem;font:700 1rem var(--tv-font-ui);text-decoration:none}   /* Sign in: its own class (it shared .tvpm-in with the menu's column, which took its outline and width, 2026-11-20) */
+  .tvpm-sub{margin-top:1.1rem;display:flex;flex-wrap:wrap;gap:.4rem 1.1rem;justify-content:center;font-size:.9rem}
+  .tvpm-sub a,.tvpm-sub button{color:var(--tv-meta);text-decoration:underline;background:none;border:0;cursor:pointer;font-size:.9rem}
+</style>
+<nav id="tv-main-nav" class="tvn" aria-label="Main">
+      <a id="tv-cart" class="tvn-bell tvn-cart" href="/qr/cart.php" title="Cart" aria-label="Cart">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.3"/><circle cx="18" cy="20" r="1.3"/><path d="M2 3h3l2.4 11.2a1.8 1.8 0 0 0 1.8 1.4h8.6a1.8 1.8 0 0 0 1.8-1.4L21 7H6.2"/></svg><span class="tvn-badge" data-go-count hidden></span>
+  </a>
+  <a id="tv-bell" class="tvn-bell" href="/user/dashboard.php#notifications" title="Notifications" aria-label="Notifications">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 20.5a2 2 0 0 0 4 0"/></svg><span class="tvn-badge" id="tv-bell-n" hidden></span>
+  </a>
+    <button type="button" class="tvn-tab" data-tv-toggle="nav" aria-label="Collapse or expand the menu icons" title="Collapse or expand">
+    <svg viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+  </button>
+  <div class="tvn-box">
+    <span class="tvn-funnels">
+                        <a class="tvn-f" href="/ai/" title="AI Assist" aria-label="AI Assist"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.6 10.8c.7.6 1.1 1.3 1.1 2.2v.5h5v-.5c0-.9.4-1.6 1.1-2.2A6 6 0 0 0 12 3z"/><path d="M12 6.5v6M10 8.5c0-1 .9-1.6 2-1.6M14 8.5c0-1-.9-1.6-2-1.6M9.8 11c.5.6 1.3.9 2.2.9s1.7-.3 2.2-.9"/></svg></a>
+                                <a class="tvn-f" href="/discovery/" title="Let&#039;s Explore" aria-label="Let&#039;s Explore"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M16.5 7.5 13.6 13.6 7.5 16.5l2.9-6.1z" fill="currentColor"/></svg></a>
+                                <a class="tvn-f" href="/directory/" title="Get Local" aria-label="Get Local"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5a7 7 0 0 0-7 7c0 5.2 7 12 7 12s7-6.8 7-12a7 7 0 0 0-7-7z" fill="currentColor"/><circle cx="12" cy="9.5" r="2.6" fill="var(--tv-on-umber)"/></svg></a>
+                                <a class="tvn-f" href="/community/" title="Connect" aria-label="Connect"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M12 8.8V4.5M12 15.2v4.3M8.8 12H4.5M15.2 12h4.3M9.7 9.7 6.7 6.7M14.3 14.3l3 3M14.3 9.7l3-3M9.7 14.3l-3 3"/><circle cx="12" cy="3.6" r="1.1" fill="currentColor"/><circle cx="12" cy="20.4" r="1.1" fill="currentColor"/><circle cx="3.6" cy="12" r="1.1" fill="currentColor"/><circle cx="20.4" cy="12" r="1.1" fill="currentColor"/><circle cx="6" cy="6" r="1.1" fill="currentColor"/><circle cx="18" cy="18" r="1.1" fill="currentColor"/><circle cx="18" cy="6" r="1.1" fill="currentColor"/><circle cx="6" cy="18" r="1.1" fill="currentColor"/></svg></a>
+                                <a class="tvn-f" href="/market/" title="Marketplace" aria-label="Marketplace"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M4 10v10h16V10"/><path d="M3 5.5 4.5 3h15L21 5.5v2a2.5 2.5 0 0 1-4.5 1.5A2.5 2.5 0 0 1 12 9a2.5 2.5 0 0 1-4.5 0A2.5 2.5 0 0 1 3 7.5z"/><path d="M9.5 20v-5h5v5"/></svg></a>
+                  </span>
+    <div class="relative tvn-mw">
+      <button type="button" id="icon-menu-btn" class="tvn-menu" title="Menu" aria-label="Open menu"
+              aria-haspopup="true" aria-expanded="false" aria-controls="site-menu-panel"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="2.2" rx="1" fill="currentColor"/><rect x="3" y="10.9" width="18" height="2.2" rx="1" fill="currentColor"/><rect x="3" y="16.8" width="18" height="2.2" rx="1" fill="currentColor"/></svg>        <span id="menu-location-dot" class="hidden absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-[var(--tv-sage)]" aria-hidden="true"></span>
+      </button>
+      <div id="site-menu-panel" role="menu" aria-labelledby="icon-menu-btn" class="absolute right-0 top-full pt-2 w-60 hidden z-50">
+        <div class="bg-[var(--tv-card-b)] border border-[color:var(--tv-line-strong)] rounded-xl shadow-2xl py-2 text-xs">
+          <div class="tvn-acct" data-auth="out"><a href="/login.php?tab=create" role="menuitem" class="tvn-up">Create account</a><a href="/login.php" role="menuitem" class="tvn-in">Sign in</a></div>
+          <button type="button" role="menuitem" data-tv-click="toggleSiteMenu:true openLocationModal" class="block w-full text-left px-4 py-2 text-[color:var(--tv-ink)] hover:bg-[var(--tv-card-b)]">
+            <span class="block font-semibold">Set Location</span>
+            <span id="menu-location-label" class="block text-[11px] text-[color:var(--tv-meta)] truncate">Not set</span>
+          </button>
+                    <div class="my-1 border-t border-[color:var(--tv-line-strong)]"></div>
+          <a href="/our-approach.php" role="menuitem" class="block w-full text-left px-4 py-2 text-[color:var(--tv-ink)] hover:bg-[var(--tv-card-b)]">About Traversence</a>
+          <a href="/plans.php" role="menuitem" class="block w-full text-left px-4 py-2 text-[color:var(--tv-ink)] hover:bg-[var(--tv-card-b)]">Plans</a>
+          <a href="/faq.php" role="menuitem" class="block w-full text-left px-4 py-2 text-[color:var(--tv-ink)] hover:bg-[var(--tv-card-b)]">Help Center</a>
+          <a href="mailto:support@traversence.com" role="menuitem" class="block w-full text-left px-4 py-2 text-[color:var(--tv-ink)] hover:bg-[var(--tv-card-b)]">Contact us</a>
+          <button type="button" role="menuitem" class="block w-full text-left px-4 py-2 text-[color:var(--tv-ink)] hover:bg-[var(--tv-card-b)]" data-tv-suggest="{}">Make a suggestion</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<template id="tv-join-social"></template>
+<script src="/js/tv-join.js?v=1795744418" defer></script>
+<script src="/js/tv-on.js?v=1795744418"></script><script src="/js/tv-ask.js?v=1795744418"></script><script src="/js/tv-pager.js?v=1795744418" defer></script><script src="/js/tv-trail.js?v=1795744418" defer></script><script src="/js/tv-password.js?v=1795744418"></script><script src="/js/tv-upload.js?v=1795744418"></script><script src="/js/tv-conf.js?v=1795744418" defer></script>
+<script nonce="wrWOgOsnoXs/dkA21gtZwnw5">window.TV_CHOICES = {"analytics":null,"video":null};</script>
+<script src="/js/consent.js?v=1795744418" defer></script>
+<script src="/js/suggest.js?v=1795744418" defer></script>
+<script src="/js/out-count.js?v=1795744418" defer></script>
+<script src="/js/short-link.js?v=1795744418" defer></script>
+<div class="tvpm" id="tv-phone-menu" role="dialog" aria-modal="true" aria-label="Menu" hidden>
+  <button type="button" class="tvpm-x" data-tvpm-close aria-label="Close menu">&times;</button>
+  <div class="tvpm-in">
+    <a href="/" aria-label="Traversence home"><img class="tvpm-logo" src="/image/North-Star-logo.svg" alt="Traversence"></a>
+    <div class="tvpm-acct" data-auth="out"><a class="tvpm-up" href="/login.php?tab=create">Create account</a><a class="tvpm-sin" href="/login.php">Sign in</a></div>
+    <div class="tvpm-list">
+              <a class="tvpm-a" href="/discovery/"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M16.5 7.5 13.6 13.6 7.5 16.5l2.9-6.1z" fill="currentColor"/></svg></span>Let&#039;s Explore</a>
+                      <a class="tvpm-a" href="/directory/"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5a7 7 0 0 0-7 7c0 5.2 7 12 7 12s7-6.8 7-12a7 7 0 0 0-7-7z" fill="currentColor"/><circle cx="12" cy="9.5" r="2.6" fill="var(--tv-on-umber)"/></svg></span>Get Local</a>
+                      <a class="tvpm-a" href="/community/"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M12 8.8V4.5M12 15.2v4.3M8.8 12H4.5M15.2 12h4.3M9.7 9.7 6.7 6.7M14.3 14.3l3 3M14.3 9.7l3-3M9.7 14.3l-3 3"/><circle cx="12" cy="3.6" r="1.1" fill="currentColor"/><circle cx="12" cy="20.4" r="1.1" fill="currentColor"/><circle cx="3.6" cy="12" r="1.1" fill="currentColor"/><circle cx="20.4" cy="12" r="1.1" fill="currentColor"/><circle cx="6" cy="6" r="1.1" fill="currentColor"/><circle cx="18" cy="18" r="1.1" fill="currentColor"/><circle cx="18" cy="6" r="1.1" fill="currentColor"/><circle cx="6" cy="18" r="1.1" fill="currentColor"/></svg></span>Connect</a>
+                      <a class="tvpm-a" href="/market/"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M4 10v10h16V10"/><path d="M3 5.5 4.5 3h15L21 5.5v2a2.5 2.5 0 0 1-4.5 1.5A2.5 2.5 0 0 1 12 9a2.5 2.5 0 0 1-4.5 0A2.5 2.5 0 0 1 3 7.5z"/><path d="M9.5 20v-5h5v5"/></svg></span>Marketplace</a>
+                      <a class="tvpm-a" href="/discovery/?view=plan"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="19" r="3"/><path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"/><circle cx="18" cy="5" r="3"/></svg></span>Trip planner</a>
+                    <a class="tvpm-a hidden" href="/user/dashboard.php" data-auth="in"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4.5 21a7.5 7.5 0 0 1 15 0"/></svg></span>Dashboard</a>
+            <a class="tvpm-a" href="/ai/"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.6 10.8c.7.6 1.1 1.3 1.1 2.2v.5h5v-.5c0-.9.4-1.6 1.1-2.2A6 6 0 0 0 12 3z"/><path d="M12 6.5v6M10 8.5c0-1 .9-1.6 2-1.6M14 8.5c0-1-.9-1.6-2-1.6M9.8 11c.5.6 1.3.9 2.2.9s1.7-.3 2.2-.9"/></svg></span>AI Assist</a>
+          </div>
+    <a class="tvpm-help" href="/faq.php">Help Center</a>
+    <div class="tvpm-sub">
+      <button type="button" data-tv-click="toggleSiteMenu:true openLocationModal">Set location: <span id="tvpm-loc">not set</span></button>
+      <a href="/our-approach.php">About</a>
+      <a href="/plans.php">Plans</a>
+      <a href="mailto:support@traversence.com">Contact</a>
+      <a href="/privacy.php">Privacy</a>
+      <a href="/terms.php">Terms</a>
+      <a href="/admin/" data-auth="admin" class="hidden">Admin dashboard</a>    </div>
+  </div>
+</div>
+  </div>
+</div>
+  <main class="flex-1 flex items-center justify-center py-8">
+  <div class="vs tv-bleed">
+    <div class="vs-step" id="s0">
+      <h1>Confirming your email…</h1>
+      <p id="s0-msg" data-tv-status="info" data-tv-label="One moment:">Checking your link.</p>
+    </div>
+
+    <div class="vs-step" id="s1" hidden>
+      <div class="vs-n">✓ Email confirmed · Question 1 of 4</div><div class="vs-bar"><i style="width:25%"></i></div>
+      <h1>Where are you from?</h1>
+      <p>So the places, guides and events you see start near home. Only you see it.</p>
+      <label class="f" for="q-country">Country</label>
+      <select id="q-country"><option value="">Choose…</option><option value="US">United States</option><option value="CA">Canada</option><option value="MX">Mexico</option><option value="other">Another country</option></select>
+      <div id="q-zipw"><label class="f" for="q-zip">ZIP code</label><input type="text" id="q-zip" inputmode="numeric" maxlength="5" autocomplete="postal-code" placeholder="85936"></div>
+      <div id="q-otherw" hidden><label class="f" for="q-other">Which country?</label><input type="text" id="q-other" maxlength="60" autocomplete="country-name" data-spell></div>
+      <div class="vs-go"><button type="button" class="vs-s" data-skip>Skip</button><button type="button" class="vs-c" data-next="where">Continue</button></div>
+    </div>
+
+        <div class="vs-step" id="s2" hidden>
+      <div class="vs-n">Question 2 of 4</div><div class="vs-bar"><i style="width:50%"></i></div>
+      <h1>AI Assist &amp; Learning</h1>
+      <p>Help us help you, and help others.</p>
+      <label class="tick"><input type="checkbox" id="q-ai_learning"> <span>Yes, turn on AI Assist &amp; Learning</span></label>
+      <details data-read="ai_learning"><summary>ⓘ What this means</summary><p>With AI Assist &amp; Learning on, Traversence looks at abstract patterns in how the site is used and in the posts you contribute, to improve the interface and build guides, stories and listings that are more accurate and complete for everyone. AI Assist also helps you directly: suggestions, answers and drafts.</p><p>Your specific information stays safeguarded, and your private messages and contact cards are never used.</p><p>This is for the benefit of everyone on Traversence, and never, ever used for ads, selling or profiling labels.</p><p>See what it has learned about you, reset it, or turn it off any time in Privacy Settings → Your tools.</p></details>
+      <p style="font-size:.8rem;color:var(--tv-meta,#8A7355)">Off unless you tick it. Change it any time in Privacy Settings.</p>
+      <div class="vs-go"><button type="button" class="vs-s" data-skip>Skip</button><button type="button" class="vs-c" data-next="ai_learning">Continue</button></div>
+    </div>
+        <div class="vs-step" id="s3" hidden>
+      <div class="vs-n">Question 3 of 4</div><div class="vs-bar"><i style="width:75%"></i></div>
+      <h1>Usage analytics</h1>
+      <p>Let us count how Traversence is used (pages visited, searches that found nothing, what&#039;s hard to use) with an analytics service, so we can fix and improve it.</p>
+      <label class="tick"><input type="checkbox" id="q-analytics"> <span>Yes, turn on Usage analytics</span></label>
+      <details data-read="analytics"><summary>ⓘ What this means</summary><p>With Usage analytics on, an analytics service we use measures how the site is used: which pages are visited, how people move between them, the kind of device and browser, and roughly where (city level, from the internet address). It sets its own cookies to tell a returning visit from a new one.</p><p>We use what it shows us only to improve Traversence. We don&#039;t sell it, we don&#039;t use it for advertising, and we don&#039;t let the analytics service use it for its own advertising.</p><p>Off by default. Everything on Traversence works the same either way. Change it any time on the Privacy page or in Privacy Settings → Your tools.</p></details>
+      <p style="font-size:.8rem;color:var(--tv-meta,#8A7355)">Off unless you tick it. Change it any time in Privacy Settings.</p>
+      <div class="vs-go"><button type="button" class="vs-s" data-skip>Skip</button><button type="button" class="vs-c" data-next="analytics">Continue</button></div>
+    </div>
+        <div class="vs-step" id="s4" hidden>
+      <div class="vs-n">Question 4 of 4</div><div class="vs-bar"><i style="width:100%"></i></div>
+      <h1>Videos from YouTube</h1>
+      <p>Play videos that come from YouTube or Vimeo right on the page. Playing one lets YouTube (Google) or Vimeo see your visit and set their cookies.</p>
+      <label class="tick"><input type="checkbox" id="q-video"> <span>Yes, turn on Videos from YouTube</span></label>
+      <details data-read="video"><summary>ⓘ What this means</summary><p>Some places, listings and journeys include a video hosted on YouTube or Vimeo. We load them in YouTube&#039;s privacy-enhanced mode, but once a video plays, YouTube (Google) or Vimeo receives your internet address and the page you&#039;re on, and may set cookies, under their own privacy policies.</p><p>With Videos on, videos load as part of the page. With it off, each video shows a Play button and loads only when you tap it, or you can open it on YouTube instead.</p><p>Change it any time on the Privacy page or in Privacy Settings → Your tools.</p></details>
+      <p style="font-size:.8rem;color:var(--tv-meta,#8A7355)">Off unless you tick it. Change it any time in Privacy Settings.</p>
+      <div class="vs-go"><button type="button" class="vs-s" data-skip>Skip</button><button type="button" class="vs-c" data-next="video">Continue</button></div>
+    </div>
+    
+    <div class="vs-step" id="s5" hidden>
+      <div class="vs-n">All done</div><div class="vs-bar"><i style="width:100%"></i></div>
+      <h1>You're all set.</h1>
+      <p id="s5-msg">Your email is confirmed and your account is ready.</p>
+      <div class="vs-go"><a class="vs-c" id="s5-go" href="/login.php">Sign in</a></div>
+    </div>
+  </div>
+  </main>
+  <footer class="border-t border-[color:var(--tv-line-strong)] bg-[var(--tv-canvas)] px-4 sm:px-8 pt-8 pb-6 text-xs text-[color:var(--tv-meta)]">
+  <div class="max-w-5xl mx-auto space-y-6">
+
+        <!-- Claim / create call-out -->
+    <section aria-labelledby="ft-claim-h" class="rounded-2xl border-2 border-[color:var(--tv-line-strong)] bg-[var(--tv-canvas)] px-5 py-4 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6">
+      <div class="flex-1">
+        <h2 id="ft-claim-h" class="font-serif font-bold text-base text-[color:var(--tv-ink)]">Own a business? Claim or create your listing.</h2>
+        <p class="mt-0.5">Be visible where it matters most: anchored directly to the community and travelers looking to connect with the offerings you provide. Let&rsquo;s get local.</p>
+      </div>
+      <div class="flex flex-wrap gap-2">
+        <a href="/directory/" class="px-4 py-2 rounded-full bg-[var(--tv-btn)] hover:bg-[var(--tv-btn-hover)] text-[color:var(--tv-btn-text)] font-semibold no-underline transition">Find &amp; claim yours</a>        <a href="/claim.php?new=1" class="px-4 py-2 rounded-lg border border-[color:var(--tv-line-strong)] text-[color:var(--tv-ink)] hover:bg-[var(--tv-card-a)] font-semibold no-underline transition">Create your listing</a>      </div>
+    </section>
+    
+    <div class="grid gap-6 sm:grid-cols-3">
+      <div>
+        <p class="font-serif font-bold text-sm text-[color:var(--tv-ink)]">Traversence</p>
+        <p class="mt-1">Regional business directory and travel guide</p>      </div>
+      <nav aria-label="Footer" class="flex flex-col gap-1">
+        <a href="/" class="hover:text-[color:var(--tv-ink)] underline-offset-2 hover:underline">Home</a>
+        <a href="/discovery/" class="hover:text-[color:var(--tv-ink)] underline-offset-2 hover:underline">Let's Explore</a>        <a href="/directory/" class="hover:text-[color:var(--tv-ink)] underline-offset-2 hover:underline">Get Local (Directory)</a>        <a href="/claim.php?new=1" class="hover:text-[color:var(--tv-ink)] underline-offset-2 hover:underline">Add or claim a business</a>      </nav>
+      <div class="flex flex-col gap-1">
+                        <a href="mailto:support@traversence.com" class="hover:text-[color:var(--tv-ink)] underline-offset-2 hover:underline">support@traversence.com</a>        <a href="/faq.php" class="hover:text-[color:var(--tv-ink)] underline-offset-2 hover:underline">FAQ</a>
+        <a href="/our-approach.php" class="hover:text-[color:var(--tv-ink)] underline-offset-2 hover:underline">Our approach</a>
+        <a href="/privacy.php" class="hover:text-[color:var(--tv-ink)] underline-offset-2 hover:underline">Privacy</a>        <a href="/terms.php" class="hover:text-[color:var(--tv-ink)] underline-offset-2 hover:underline">Terms</a>      </div>
+    </div>
+
+    <p class="text-center text-[color:var(--tv-meta)] pt-2 border-t border-[color:var(--tv-line-strong)]/60">&copy; 2026 Traversence</p>
+  </div>
+</footer>
+  <style>
+    #location-modal.hidden{display:none}
+    .lm-box{box-sizing:border-box;background:#E3D3AC;border:1px solid #CBB98D;border-radius:1rem;padding:1.1rem 1.15rem 1rem;max-width:30rem;width:100%;position:relative;box-shadow:0 25px 50px -12px rgba(0,0,0,.5);max-height:92vh;overflow:auto}
+    .lm-h{font-family:var(--tv-font-head,ui-serif,Georgia,serif);font-weight:700;font-size:1.35rem;color:#3E2B1F;margin:0 0 .6rem}
+    .lm-lbl{display:block;font-size:.66rem;letter-spacing:.09em;text-transform:uppercase;color:#7A6348;font-weight:700;margin:.75rem 0 .3rem}
+    .lm-na{display:flex;align-items:center;gap:.6rem;width:100%;text-align:left;background:#3E2B1F;color:#FFFBF2;border:0;border-radius:.75rem;padding:.6rem .8rem;cursor:pointer}
+    .lm-na:hover{background:#2A1B12}.lm-na{text-decoration:none}.lm-tp{display:flex;color:#E0C68E}.lm-na b{display:block;font-size:.92rem}.lm-na small{color:#E8D6AE;font-size:.74rem}.lm-na span:last-child{margin-left:auto;font-size:1.1rem}
+    .lm-row{display:flex;gap:.4rem;overflow-x:auto;scrollbar-width:none;padding-bottom:.15rem}.lm-row::-webkit-scrollbar{display:none}
+    .lm-row button{flex:0 0 auto;white-space:nowrap}
+    .lm-in{width:100%;box-sizing:border-box;background:#EFE3C8;border:1px solid #CBB98D;border-radius:.6rem;padding:.5rem .65rem;color:#3E2B1F;font-size:.88rem}
+    .lm-3{display:grid;grid-template-columns:5.2rem minmax(0,1fr) 5.4rem auto;gap:.35rem;align-items:center}
+    .lm-go{background:var(--tv-btn);color:var(--tv-btn-text);border:0;border-radius:.6rem;padding:.5rem .8rem;font-weight:600;font-size:.84rem;cursor:pointer}.lm-go:hover{background:var(--tv-btn-hover)}
+    .lm-dest{position:relative}
+    .lm-one{display:flex;gap:.4rem;align-items:flex-start}.lm-one .lm-dest{flex:1}
+    .lm-tgt{flex:0 0 auto;width:2.3rem;height:2.3rem;border-radius:.6rem;border:0;background:var(--tv-btn);color:var(--tv-btn-text);display:flex;align-items:center;justify-content:center;cursor:pointer}.lm-tgt:hover{background:var(--tv-btn-hover)}
+    .lm-sug{position:absolute;left:0;right:0;top:100%;z-index:5;background:#FFFBF2;border:1px solid #CBB98D;border-radius:.6rem;margin-top:.2rem;box-shadow:0 12px 24px -12px rgba(0,0,0,.4);overflow:hidden}
+    .lm-sug[hidden]{display:none}
+    .lm-sug button{display:flex;justify-content:space-between;gap:.6rem;width:100%;text-align:left;background:none;border:0;border-top:1px solid #EADFC4;padding:.45rem .65rem;font-size:.86rem;color:#3E2B1F;cursor:pointer}
+    .lm-sug button:first-child{border-top:0}.lm-sug button:hover,.lm-sug button:focus{background:#F7EFDC;outline:none}.lm-sug small{color:#7A6348;text-align:right}
+    .lm-sug p{margin:0;padding:.45rem .65rem;font-size:.82rem;color:#5C4632}
+    .lm-two{display:grid;grid-template-columns:1fr 1fr;gap:.4rem;margin-top:.8rem}
+    .lm-b{display:flex;align-items:center;justify-content:center;gap:.4rem;background:#EFE3C8;border:1px solid #CBB98D;border-radius:.6rem;padding:.5rem .6rem;font-size:.82rem;font-weight:600;color:#92400E;cursor:pointer;text-decoration:none}
+    .lm-b:hover{background:#D5C39A}.lm-b.hidden{display:none}
+    .lm-reach[hidden]{display:none}
+    /* "near me" with no place (Jason, 2026-11-10: "It should try and set Auto-detect first? Maybe drop regions and trip
+       planner since near me is already saying its local"): where you are, first; nothing about trips, regions, distance
+       (near me is 2 mi) or everywhere */
+    .lm-box.lm-near{display:flex;flex-direction:column}
+    .lm-near .lm-na,.lm-near #loc-reach,.lm-near #loc-regions,.lm-near #loc-anywhere,.lm-near #loc-context-message{display:none !important}
+    .lm-near .lm-h{order:-4}.lm-near #loc-near-why{order:-3;display:block}.lm-near .lm-one{order:-2;margin-bottom:.4rem}.lm-near .lm-two{order:-2;margin-top:0}.lm-near #device-suggestion{order:-1}
+    .lm-near #loc-detect{grid-column:1/-1;background:var(--tv-btn);border-color:var(--tv-btn);color:var(--tv-btn-text);padding:.8rem;font-size:1rem}.lm-near #loc-detect:hover{background:var(--tv-btn-hover)}
+    #loc-near-why{display:none;margin:-.2rem 0 .7rem;font-size:.88rem;color:#5C4632}
+    /* inside the search's window (with the search open): under its top line, in place of the results */
+    #location-modal.lm-docked{display:none !important}
+    .tvs-panel.tvs-placing>.tvs-body{display:none}
+    .tvs-panel .lm-box{max-width:none;width:auto;height:auto;max-height:none;margin:0;border:0;border-radius:0;box-shadow:none;overflow:visible;padding:1rem 1.15rem 1.2rem}
+    .lm-rr{display:flex;align-items:center;gap:.7rem}.lm-rr input{flex:1;accent-color:#B45309}.lm-rr output{min-width:4.5rem;font-size:.86rem;font-weight:600;color:#3E2B1F}
+    .lm-rr input:disabled+output{color:#8A7355}
+    @media (max-width:420px){.lm-3{grid-template-columns:4.4rem minmax(0,1fr) 4.8rem}.lm-3 .lm-go{grid-column:1/-1}}
+    /* phones: the whole screen, and the destination list in the page's flow so every match shows (decisions/0058 §25) */
+    @media (max-width:640px){
+      #location-modal{padding:0 !important;align-items:stretch !important}
+      #location-modal:not(.hidden){position:fixed;inset:0;display:flex;background:rgba(0,0,0,.6)}
+      .lm-box{max-width:none;height:100vh;height:100dvh;max-height:none;border-radius:0;border:0;padding:1rem 1rem 1.4rem;-webkit-overflow-scrolling:touch}
+      .lm-h{font-size:1.5rem;padding-right:2.2rem}
+      .lm-box .lm-sug{position:static;margin-top:.35rem;box-shadow:none}   /* this box's own list only: a place box's list (.tv-pbox-list, also .lm-sug) keeps floating under its box, or it lands inside the bar and pushes GO off a phone (2026-11-27) */
+      .lm-sug button{padding:.7rem .75rem;font-size:.95rem}
+      .lm-in{font-size:1rem;padding:.65rem .75rem}
+    }
+  </style>
+  <div id="location-modal" role="dialog" aria-modal="true" aria-labelledby="location-modal-title" style="z-index:2000" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="lm-box">
+      <button type="button" data-tv-click="closeLocationModal" aria-label="Close" class="absolute top-3 right-4 text-[#8A7355] hover:text-[#3E2B1F] text-xl">&times;</button>
+      <h2 id="location-modal-title" class="lm-h">Where are you looking?</h2>
+      <!-- Shown only when this modal was triggered by an attempted search with no place yet (requireLocationToSearch). -->
+      <p id="loc-context-message" class="text-xs text-amber-700 mb-2 hidden">Choose where to search first.</p>
+      <p id="loc-near-why">“Near me” searches 2 miles around you. Or type your town or ZIP below.</p>
+
+      <!-- 1. The trip planner: where, when, how long and what (decisions/0058 §37). Your place stays as it is. -->
+      <a class="lm-na" href="/discovery/?view=plan" data-tv-click="closeLocationModal">
+        <span class="lm-tp" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="19" r="3"/><path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"/><circle cx="18" cy="5" r="3"/></svg></span>
+        <span><b>Trip Planner</b><small>Plan a trip: where, when, how long and what you're after</small></span><span aria-hidden="true">&rsaquo;</span>
+      </a>
+
+
+      <!-- Saved places (signed in; filled by js/location-scope.js) -->
+      <div id="saved-places-section" class="hidden">
+        <span class="lm-lbl">Your places</span>
+        <div id="saved-places-list" class="lm-row" data-more></div>
+      </div>
+
+      <!-- Regions: one swipeable row (the pilot first, the rest coming soon) -->
+      <div id="loc-regions">
+        <span class="lm-lbl">Regions</span>
+        <div id="region-picker" data-more class="lm-row text-xs text-[#5C4632]"></div>
+      </div>
+
+      <!-- 3. A destination by name: a town, an area, a region or a local name ("Wide Ruins") -->
+      <label class="lm-lbl" for="loc-dest">Destination</label>
+      <!-- Jason, 2026-11-11: the town box as on the home page's split search, one box for a town or ZIP and the target icon
+           beside it (Auto-detect, in one tap); the rest of this window as it was -->
+      <div class="lm-one">
+        <div class="lm-dest">
+          <input id="loc-dest" class="lm-in" type="search" placeholder="Town or ZIP" autocomplete="off" aria-autocomplete="list" aria-controls="loc-dest-list">
+          <div id="loc-dest-list" class="lm-sug" role="listbox" hidden></div>
+        </div>
+        <button type="button" class="lm-tgt" id="loc-detect" data-tv-click="autoDetectLocation:event" title="Use my location" aria-label="Use my location"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg></button>
+      </div>
+
+      <!-- 2. State | City | ZIP on one line -->
+      <form data-tv-submit="handleLocationSubmit:event">
+        <span class="lm-lbl">Or State · City · ZIP</span>
+        <div class="lm-3">
+          <select id="loc-state" class="lm-in" aria-label="State">
+            <option value="all">State</option>
+            <option value="AZ">AZ</option>
+            <option value="NM">NM</option>
+            <option value="UT">UT</option>
+            <option value="CO">CO</option>
+            <option disabled>──</option>
+            <option value="AL">AL</option>
+            <option value="AK">AK</option>
+            <option value="AR">AR</option>
+            <option value="CA">CA</option>
+            <option value="CT">CT</option>
+            <option value="DE">DE</option>
+            <option value="DC">DC</option>
+            <option value="FL">FL</option>
+            <option value="GA">GA</option>
+            <option value="HI">HI</option>
+            <option value="ID">ID</option>
+            <option value="IL">IL</option>
+            <option value="IN">IN</option>
+            <option value="IA">IA</option>
+            <option value="KS">KS</option>
+            <option value="KY">KY</option>
+            <option value="LA">LA</option>
+            <option value="ME">ME</option>
+            <option value="MD">MD</option>
+            <option value="MA">MA</option>
+            <option value="MI">MI</option>
+            <option value="MN">MN</option>
+            <option value="MS">MS</option>
+            <option value="MO">MO</option>
+            <option value="MT">MT</option>
+            <option value="NE">NE</option>
+            <option value="NV">NV</option>
+            <option value="NH">NH</option>
+            <option value="NJ">NJ</option>
+            <option value="NY">NY</option>
+            <option value="NC">NC</option>
+            <option value="ND">ND</option>
+            <option value="OH">OH</option>
+            <option value="OK">OK</option>
+            <option value="OR">OR</option>
+            <option value="PA">PA</option>
+            <option value="RI">RI</option>
+            <option value="SC">SC</option>
+            <option value="SD">SD</option>
+            <option value="TN">TN</option>
+            <option value="TX">TX</option>
+            <option value="VT">VT</option>
+            <option value="VA">VA</option>
+            <option value="WA">WA</option>
+            <option value="WV">WV</option>
+            <option value="WI">WI</option>
+            <option value="WY">WY</option>
+          </select>
+          <input type="text" id="loc-city" class="lm-in" placeholder="City or town" aria-label="City or town">
+          <input type="text" id="loc-zip" class="lm-in" placeholder="ZIP" inputmode="numeric" maxlength="10" aria-label="ZIP code">
+          <button type="submit" class="lm-go">Go</button>
+        </div>
+      </form>
+
+      <!-- After the place (Jason, 2026-11-11: shown only once a place is set). How far around the place to search: the search's own Distance setting, kept on this device; shown wherever
+           the search is -->
+      <div id="loc-reach" class="lm-reach" hidden>
+        <label class="lm-lbl" for="loc-reach-in">Distance</label>
+        <div class="lm-rr"><input type="range" id="loc-reach-in" min="0" max="7" step="1" value="2" aria-label="How far to search"><output id="loc-reach-v"></output></div>
+      </div>
+
+      <!-- 4. Auto-detect is the target beside the town box (applied when tapped, as the town area it finds; decisions/0058 §8) · 5. Sign in for saved places, or your default -->
+      <div class="lm-two">
+        <a class="lm-b" id="loc-signin" href="/login.php">Sign in for your places</a>
+        <button type="button" class="lm-b hidden" id="loc-default" data-tv-click="resetLocationScope">My default place</button>
+        <button type="button" class="lm-b" id="loc-anywhere" data-tv-click="chooseAnywhere" title="No place: search everywhere, nearest first only when you set one">Search everywhere</button>
+      </div>
+      <div id="device-suggestion" class="hidden mt-3 p-3 bg-[#EFE3C8] border border-[#CBB98D] rounded-lg" aria-live="polite"></div>
+    </div>
+  </div>
+<script src="/js/location-scope.js?v=1795754197"></script>
+<script src="/js/header-nav.js?v=1795744418" defer></script>
+  <script>
+  (function () {
+    const P = new URLSearchParams(location.search), token = P.get('token'), setup = P.get('setup') === '1';
+    let csrf = '', email = '', signedIn = false, at = 0;
+    const show = n => { document.querySelectorAll('.vs-step').forEach(s => { s.hidden = s.id !== 's' + n; }); at = n; window.scrollTo(0, 0); };
+    const say = (msg, el, bad) => { if (window.TvAsk) TvAsk.say(msg, { anchor: el, bad: !!bad }); };
+    const s0 = document.getElementById('s0-msg');
+    const fail = m => { s0.textContent = m; s0.setAttribute('data-tv-status', 'bad'); s0.setAttribute('data-tv-label', 'Error:'); document.querySelector('#s0 h1').textContent = 'That link didn’t work';
+      const a = document.createElement('a'); a.href = '/login.php'; a.className = 'inline-block mt-3 underline font-semibold text-[color:var(--tv-link)]'; a.textContent = 'Go to Sign in (it can send you a new link)'; s0.after(a); };
+    function finish() {
+      let draft = null; try { draft = localStorage.getItem('tv_add_business'); } catch (e) {}
+      const go = document.getElementById('s5-go'), next = P.get('next') || '';
+      const safe = /^\/(?!\/)[^\s\\]*$/.test(next) ? next : '';
+      if (signedIn) { go.textContent = draft ? 'Continue adding your business' : 'Go to your dashboard'; go.href = draft ? '/claim.php?new=1' : (safe || '/user/dashboard.php'); }
+      else {
+        go.textContent = 'Sign in';
+        const q = new URLSearchParams(); if (email) q.set('email', email); const after = draft ? '/claim.php?new=1' : safe; if (after) q.set('next', after);
+        go.href = '/login.php' + (q.toString() ? '?' + q.toString() : '');
+        document.getElementById('s5-msg').textContent = 'Your email is confirmed and your account is ready. Sign in to start.';
+      }
+      show(5);
+    }
+    const step = () => (at < 4 ? show(at + 1) : finish());
+    document.getElementById('q-country').addEventListener('change', e => {
+      const v = e.target.value; document.getElementById('q-zipw').hidden = v !== 'US' && v !== ''; document.getElementById('q-otherw').hidden = v !== 'other';
+    });
+    document.querySelectorAll('[data-skip]').forEach(b => b.addEventListener('click', step));
+    document.querySelectorAll('[data-next]').forEach(b => b.addEventListener('click', async () => {
+      const k = b.getAttribute('data-next'); let body;
+      if (k === 'where') {
+        let c = document.getElementById('q-country').value;
+        if (c === 'other') c = document.getElementById('q-other').value.trim();
+        if (!c) { say('Choose your country, or tap Skip.', b, true); return; }
+        body = { country: c, zip: document.getElementById('q-zip').value.trim() };
+      } else {
+        body = { choices: { [k]: document.getElementById('q-' + k).checked }, read: { [k]: !!document.querySelector('details[data-read="' + k + '"][open]') } };
+      }
+      if (window.TvAsk) TvAsk.busy(b, true);
+      try {
+        const r = await fetch('/api/auth/setup.php', { method: 'POST', credentials: 'include', headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': csrf }, body: JSON.stringify(window.tvSafe ? tvSafe(body) : body) });
+        const d = await r.json();
+        if (window.TvAsk) TvAsk.busy(b, false);
+        if (!r.ok || !d.ok) { say((d.error && d.error.message) || 'That didn’t save. Try again.', b, true); return; }
+        step();
+      } catch (e) { if (window.TvAsk) TvAsk.busy(b, false); say('Something went wrong. Try again.', b, true); }
+    }));
+    (async function start() {
+      try {
+        const ses = await fetch('/api/auth/session.php', { credentials: 'include' }).then(r => r.json());
+        csrf = (ses && ses.csrf_token) || ''; signedIn = !!(ses && ses.authenticated);
+        if (setup) { if (signedIn) { show(1); return; } fail('Sign in first, then finish these in Privacy Settings.'); return; }
+        if (!token) { fail('This page needs the link from your email.'); return; }
+        const res = await fetch('/api/auth/verify-email.php', { method: 'POST', credentials: 'include', headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': csrf }, body: JSON.stringify({ token }) });
+        const d = await res.json();
+        if (res.ok && d.ok) { email = d.email || ''; if (d.signed_in) { signedIn = true; csrf = d.csrf_token || csrf; } show(1); }
+        else fail((d.error && d.error.message) || 'That link didn’t work.');
+      } catch (e) { fail('Something went wrong. Try the link again.'); }
+    })();
+  })();
+  </script>
+</body>
+</html>
