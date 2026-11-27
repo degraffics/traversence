@@ -120,3 +120,13 @@ on a phone the list landed inside its bar (bar 48 → 216px, list to 497px on a 
 and the choices. Scoped to `.lm-box .lm-sug`. Built on Sync 02:50 UTC; zipcheck clean. Tests:
 `tools/search-tests/place-list.cjs` 14/14 (live code fails 2 at 390); screens before and after in `place-list/screens/`.
 No FAQ change (a layout fix: nothing for a visitor to learn).
+
+## C.8 open now (P10, reopened by Jason 2026-11-27): plan sent to the session manager 04:50 UTC, three gaps open
+
+Live today: hours only in entity_metadata 'hours' (source_type owner / admin / ai_crawler; OSM-only values known through
+identity_fact_sources, DataCleanup osm_only). Search keeps unknown-hours listings on an open-now search ("Hours not
+listed", search-panel.js:955); Get Local drops them (search_listings.php:262). No known-hours count. "Now" is the
+visitor's clock, never the listing's zone (JourneyPlan::timezone exists).
+Plan: known = owner or OpenStreetMap; open in the listing's zone; "Hours not known" wherever status shows; "N of M have
+known hours"; FAQ; eat-near-me checks it. Gaps asked: (a) staff hours known? (b) unknown kept labelled or dropped on an
+open-now search? (c) Navajo land's daylight time.
