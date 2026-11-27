@@ -1,24 +1,26 @@
 {
- "at": "2026-11-27T09:51:44.455Z",
+ "at": "2026-11-27T20:04:20.544Z",
  "site": "https://traversence.com",
- "run_url": "https://github.com/degraffics/traversence/actions/runs/45972418671",
+ "run_url": "https://github.com/degraffics/traversence/actions/runs/46059663784",
  "staging": "https://staging.trvgo.us",
  "signed_in": true,
  "full": false,
- "budget_s": 720,
- "took_s": 353,
+ "budget_s": 1400,
+ "took_s": 706,
  "guides": {
   "source": "endpoint",
   "total": 6,
   "this_run": [
-   "town:73",
-   "town:84"
+   "town:66",
+   "town:67",
+   "town:68",
+   "town:72"
   ],
   "per_run": 4
  },
  "rotation": {
-  "from": 4,
-  "next": 0
+  "from": 0,
+  "next": 4
  },
  "measures": {
   "eat-near-me": 3,
@@ -52,11 +54,11 @@
      "kind": "clarity",
      "rule": "J03",
      "page": "/",
-     "what": "none of the results says it's open now (the search asked for open now)"
+     "what": "the results don't say how many have known hours (P10)"
     }
    ],
    "notes": [
-    "5 results, 0 marked open now"
+    "5 results, 0 marked open now, 5 Hours not known"
    ],
    "pages": [
     "/",
@@ -66,15 +68,15 @@
    "timings": [
     {
      "page": "/",
-     "ms": 1464
+     "ms": 1498
     },
     {
      "page": "/listing/view.php?id=7952",
-     "ms": 2088
+     "ms": 2043
     }
    ],
    "where": "live",
-   "ms": 10805
+   "ms": 40737
   },
   {
    "id": "eat-near-me",
@@ -102,11 +104,11 @@
      "kind": "clarity",
      "rule": "J03",
      "page": "/",
-     "what": "none of the results says it's open now (the search asked for open now)"
+     "what": "the results don't say how many have known hours (P10)"
     }
    ],
    "notes": [
-    "5 results, 0 marked open now"
+    "5 results, 0 marked open now, 5 Hours not known"
    ],
    "pages": [
     "/",
@@ -116,15 +118,15 @@
    "timings": [
     {
      "page": "/",
-     "ms": 1480
+     "ms": 1499
     },
     {
      "page": "/listing/view.php?id=7952",
-     "ms": 2087
+     "ms": 2074
     }
    ],
    "where": "live",
-   "ms": 8848
+   "ms": 38742
   },
   {
    "id": "town-guide",
@@ -149,25 +151,25 @@
    },
    "problems": [],
    "notes": [
-    "the town: Phoenix, AZ"
+    "the town: Dana Point, CA"
    ],
    "pages": [
     "/",
-    "/hub/?town=phoenix-az-2"
+    "/hub/?cluster=cluster-auto-laguna-niguel"
    ],
    "shots": [],
    "timings": [
     {
      "page": "/",
-     "ms": 1240
+     "ms": 1177
     },
     {
-     "page": "/hub/?town=phoenix-az-2",
-     "ms": 2678
+     "page": "/hub/?cluster=cluster-auto-laguna-niguel",
+     "ms": 2275
     }
    ],
    "where": "live",
-   "ms": 10366
+   "ms": 9973
   },
   {
    "id": "search-typo",
@@ -207,52 +209,48 @@
    "timings": [
     {
      "page": "/",
-     "ms": 2882
+     "ms": 1056
     },
     {
      "page": "/hub/?cluster=cluster-auto-show-low",
-     "ms": 3005
+     "ms": 2853
     }
    ],
    "where": "live",
-   "ms": 12744
+   "ms": 10720
   },
   {
    "id": "set-place",
    "kind": "core",
    "title": "Set my place and distance",
    "who": "guest",
-   "status": "failed",
+   "status": "issues",
    "goal": true,
    "stuck": "",
    "steps": {
-    "taps": 1,
+    "taps": 3,
     "pages": 1,
     "limit": 5,
     "over": false
    },
    "counts": {
-    "dead_ends": 1,
-    "surprises": 1,
-    "accuracy": 0,
+    "dead_ends": 0,
+    "surprises": 0,
+    "accuracy": 1,
     "clarity": 0,
     "slow": 0
    },
    "problems": [
     {
-     "kind": "surprise",
-     "rule": "V06",
+     "kind": "accuracy",
+     "rule": "J02",
      "page": "/directory/",
-     "what": "the page jumps as it loads (layout shift 0.67)"
-    },
-    {
-     "kind": "dead_end",
-     "rule": "J01",
-     "page": "/directory/",
-     "what": "no distance to set once the place is chosen"
+     "what": "Show Low opened within any distance, not 10 mi (decisions/0053)"
     }
    ],
-   "notes": [],
+   "notes": [
+    "after choosing a distance: 2,621 businesses within 25 mi of Show Low, AZ"
+   ],
    "pages": [
     "/directory/"
    ],
@@ -260,11 +258,11 @@
    "timings": [
     {
      "page": "/directory/",
-     "ms": 1065
+     "ms": 1018
     }
    ],
    "where": "live",
-   "ms": 7294
+   "ms": 11797
   },
   {
    "id": "sign-in",
@@ -300,15 +298,15 @@
    "timings": [
     {
      "page": "/",
-     "ms": 1502
+     "ms": 1499
     },
     {
      "page": "/login.php",
-     "ms": 1871
+     "ms": 1848
     }
    ],
    "where": "live",
-   "ms": 15640
+   "ms": 14672
   },
   {
    "id": "sign-out",
@@ -341,15 +339,15 @@
    "timings": [
     {
      "page": "/user/dashboard.php",
-     "ms": 1419
+     "ms": 1344
     },
     {
      "page": "/",
-     "ms": 1541
+     "ms": 1528
     }
    ],
    "where": "live",
-   "ms": 5551
+   "ms": 5457
   },
   {
    "id": "my-listing",
@@ -382,45 +380,99 @@
    "timings": [
     {
      "page": "/",
-     "ms": 1484
+     "ms": 1537
     },
     {
      "page": "/listing/view.php?id=8916",
-     "ms": 1986
+     "ms": 2165
     }
    ],
    "where": "live",
-   "ms": 4019
+   "ms": 4241
   },
   {
    "id": "sign-up",
    "kind": "core",
    "title": "Sign up (all steps)",
    "who": "guest",
-   "status": "skipped",
-   "notes": [
-    "Runs on staging on Mondays and Thursdays (and in a full run, or Run workflow naming it in PATHS_ONLY), to keep GitHub's run minutes down."
-   ],
-   "problems": [],
+   "status": "failed",
+   "goal": false,
+   "stuck": "",
    "steps": {
-    "taps": 0,
-    "pages": 0,
+    "taps": 6,
+    "pages": 3,
     "limit": 5,
-    "over": false
+    "over": true
    },
-   "counts": {},
-   "changes": true
+   "counts": {
+    "dead_ends": 1,
+    "surprises": 2,
+    "accuracy": 0,
+    "clarity": 0,
+    "slow": 0
+   },
+   "problems": [
+    {
+     "kind": "surprise",
+     "rule": "V06",
+     "page": "/login.php?tab=create",
+     "what": "the page jumps as it loads (layout shift 0.45)"
+    },
+    {
+     "kind": "surprise",
+     "rule": "V06",
+     "page": "/verify-email.php?token=62cb715616b1aaf4facf4be15baf4621c8899891ebb3d564673236d32cf9c5d5",
+     "what": "the page jumps as it loads (layout shift 0.40)"
+    },
+    {
+     "kind": "dead_end",
+     "rule": "J01",
+     "page": "/verify-email.php?token=62cb715616b1aaf4facf4be15baf4621c8899891ebb3d564673236d32cf9c5d5",
+     "what": "after the questions, no way on (\"You're all set\" and its link didn't show)"
+    },
+    {
+     "kind": "steps",
+     "rule": "J01",
+     "page": "/verify-email.php?token=62cb715616b1aaf4facf4be15baf4621c8899891ebb3d564673236d32cf9c5d5",
+     "what": "6 taps to the goal (the measure is 5 or fewer)"
+    }
+   ],
+   "notes": [],
+   "pages": [
+    "/",
+    "/login.php?tab=create",
+    "/verify-email.php?token=62cb715616b1aaf4facf4be15baf4621c8899891ebb3d564673236d32cf9c5d5"
+   ],
+   "shots": [
+    "path-sign-up-guest-1-noend.png"
+   ],
+   "timings": [
+    {
+     "page": "/",
+     "ms": 2348
+    },
+    {
+     "page": "/login.php?tab=create",
+     "ms": 2002
+    },
+    {
+     "page": "/verify-email.php?token=62cb715616b1aaf4facf4be15baf4621c8899891ebb3d564673236d32cf9c5d5",
+     "ms": 1359
+    }
+   ],
+   "where": "staging",
+   "ms": 32928
   },
   {
    "id": "like-guest",
    "kind": "core",
    "title": "Like as a guest (3, then Keep going as a guest)",
    "who": "guest",
-   "status": "passed",
-   "goal": true,
+   "status": "failed",
+   "goal": false,
    "stuck": "",
    "steps": {
-    "taps": 5,
+    "taps": 4,
     "pages": 4,
     "limit": 5,
     "over": false
@@ -428,39 +480,46 @@
    "counts": {
     "dead_ends": 0,
     "surprises": 0,
-    "accuracy": 0,
+    "accuracy": 1,
     "clarity": 0,
     "slow": 0
    },
-   "problems": [],
+   "problems": [
+    {
+     "kind": "accuracy",
+     "rule": "J02",
+     "page": "/journeys/suggested.php?id=17",
+     "what": "after several likes, the account panel with Keep going as a guest didn't come, or the like didn't take"
+    }
+   ],
    "notes": [],
    "pages": [
-    "/journeys/suggested.php?id=8",
-    "/journeys/suggested.php?id=10",
-    "/journeys/suggested.php?id=32",
-    "/journeys/suggested.php?id=9"
+    "/journeys/suggested.php?id=14",
+    "/journeys/suggested.php?id=15",
+    "/journeys/suggested.php?id=16",
+    "/journeys/suggested.php?id=17"
    ],
    "shots": [],
    "timings": [
     {
-     "page": "/journeys/suggested.php?id=8",
-     "ms": 2106
+     "page": "/journeys/suggested.php?id=14",
+     "ms": 1393
     },
     {
-     "page": "/journeys/suggested.php?id=10",
-     "ms": 1192
+     "page": "/journeys/suggested.php?id=15",
+     "ms": 1313
     },
     {
-     "page": "/journeys/suggested.php?id=32",
-     "ms": 1190
+     "page": "/journeys/suggested.php?id=16",
+     "ms": 1200
     },
     {
-     "page": "/journeys/suggested.php?id=9",
-     "ms": 1195
+     "page": "/journeys/suggested.php?id=17",
+     "ms": 1222
     }
    ],
    "where": "staging",
-   "ms": 13439
+   "ms": 11338
   },
   {
    "id": "like-member",
@@ -469,7 +528,7 @@
    "who": "member",
    "status": "skipped",
    "notes": [
-    "Runs on staging on Mondays and Thursdays (and in a full run, or Run workflow naming it in PATHS_ONLY), to keep GitHub's run minutes down."
+    "runs in the full run only (Mondays, or Run workflow with \"full\"): 100 likes at a person's pace take about 7 minutes"
    ],
    "problems": [],
    "steps": {
@@ -479,7 +538,7 @@
     "over": false
    },
    "counts": {},
-   "changes": true
+   "where": "staging"
   },
   {
    "id": "comment",
@@ -505,131 +564,279 @@
    "problems": [],
    "notes": [],
    "pages": [
-    "/journeys/suggested.php?id=8"
+    "/journeys/suggested.php?id=14"
    ],
    "shots": [],
    "timings": [
     {
-     "page": "/journeys/suggested.php?id=8",
-     "ms": 1526
+     "page": "/journeys/suggested.php?id=14",
+     "ms": 1514
     }
    ],
    "where": "staging",
-   "ms": 7271
+   "ms": 7188
   },
   {
    "id": "claim",
    "kind": "core",
    "title": "Claim my business",
    "who": "member",
-   "status": "skipped",
-   "notes": [
-    "Runs on staging on Mondays and Thursdays (and in a full run, or Run workflow naming it in PATHS_ONLY), to keep GitHub's run minutes down."
-   ],
-   "problems": [],
+   "status": "passed",
+   "goal": true,
+   "stuck": "",
    "steps": {
-    "taps": 0,
-    "pages": 0,
+    "taps": 3,
+    "pages": 2,
     "limit": 5,
     "over": false
    },
-   "counts": {},
-   "changes": true
+   "counts": {
+    "dead_ends": 0,
+    "surprises": 0,
+    "accuracy": 0,
+    "clarity": 0,
+    "slow": 0
+   },
+   "problems": [],
+   "notes": [
+    "the claim stands at: Managed by owner"
+   ],
+   "pages": [
+    "/listing/view.php?id=9033",
+    "/claim.php?listing=9033"
+   ],
+   "shots": [],
+   "timings": [
+    {
+     "page": "/listing/view.php?id=9033",
+     "ms": 1632
+    },
+    {
+     "page": "/claim.php?listing=9033",
+     "ms": 2045
+    }
+   ],
+   "where": "staging",
+   "ms": 16435
   },
   {
    "id": "edit-listing",
    "kind": "core",
    "title": "Edit my listing",
    "who": "owner",
-   "status": "skipped",
-   "notes": [
-    "Runs on staging on Mondays and Thursdays (and in a full run, or Run workflow naming it in PATHS_ONLY), to keep GitHub's run minutes down."
-   ],
-   "problems": [],
+   "status": "passed",
+   "goal": true,
+   "stuck": "",
    "steps": {
-    "taps": 0,
-    "pages": 0,
+    "taps": 3,
+    "pages": 4,
     "limit": 5,
     "over": false
    },
-   "counts": {},
-   "changes": true
+   "counts": {
+    "dead_ends": 0,
+    "surprises": 0,
+    "accuracy": 0,
+    "clarity": 0,
+    "slow": 0
+   },
+   "problems": [],
+   "notes": [],
+   "pages": [
+    "/business/9035",
+    "/listing/businessportal.php?id=9035",
+    "/listing/view.php?id=9035",
+    "/listing/businessportal.php?id=9035"
+   ],
+   "shots": [],
+   "timings": [
+    {
+     "page": "/business/9035",
+     "ms": 1765
+    },
+    {
+     "page": "/listing/businessportal.php?id=9035",
+     "ms": 2095
+    },
+    {
+     "page": "/listing/view.php?id=9035",
+     "ms": 2362
+    }
+   ],
+   "where": "staging",
+   "ms": 15695
   },
   {
    "id": "market-post",
    "kind": "core",
    "title": "Post on the Marketplace",
    "who": "member",
-   "status": "skipped",
-   "notes": [
-    "Runs on staging on Mondays and Thursdays (and in a full run, or Run workflow naming it in PATHS_ONLY), to keep GitHub's run minutes down."
-   ],
-   "problems": [],
+   "status": "passed",
+   "goal": true,
+   "stuck": "",
    "steps": {
-    "taps": 0,
-    "pages": 0,
+    "taps": 5,
+    "pages": 3,
     "limit": 5,
     "over": false
    },
-   "counts": {},
-   "changes": true
+   "counts": {
+    "dead_ends": 0,
+    "surprises": 0,
+    "accuracy": 0,
+    "clarity": 0,
+    "slow": 0
+   },
+   "problems": [],
+   "notes": [
+    "the post's status: SHOWING"
+   ],
+   "pages": [
+    "/market/",
+    "/user/market/?new=1",
+    "/user/market/?x=1795809390902#p1"
+   ],
+   "shots": [],
+   "timings": [
+    {
+     "page": "/market/",
+     "ms": 1458
+    },
+    {
+     "page": "/user/market/?new=1",
+     "ms": 2063
+    }
+   ],
+   "where": "staging",
+   "ms": 14132
   },
   {
    "id": "message-business",
    "kind": "core",
    "title": "Message a business",
    "who": "member",
-   "status": "skipped",
-   "notes": [
-    "Runs on staging on Mondays and Thursdays (and in a full run, or Run workflow naming it in PATHS_ONLY), to keep GitHub's run minutes down."
-   ],
-   "problems": [],
+   "status": "passed",
+   "goal": true,
+   "stuck": "",
    "steps": {
-    "taps": 0,
-    "pages": 0,
+    "taps": 1,
+    "pages": 1,
     "limit": 5,
     "over": false
    },
-   "counts": {},
-   "changes": true
+   "counts": {
+    "dead_ends": 0,
+    "surprises": 0,
+    "accuracy": 0,
+    "clarity": 0,
+    "slow": 0
+   },
+   "problems": [],
+   "notes": [
+    "starts at the conversation: the test listing's own page is hidden from members, so its Message button can't be tapped",
+    "messages can't be deleted (BizMessages has no remove): the test message stays until staging's refresh"
+   ],
+   "pages": [
+    "/user/dashboard.php#addressbook:biz=9035"
+   ],
+   "shots": [],
+   "timings": [
+    {
+     "page": "/user/dashboard.php#addressbook:biz=9035",
+     "ms": 1449
+    }
+   ],
+   "where": "staging",
+   "ms": 16005
   },
   {
    "id": "join-group",
    "kind": "core",
    "title": "Join a group",
    "who": "member",
-   "status": "skipped",
-   "notes": [
-    "Runs on staging on Mondays and Thursdays (and in a full run, or Run workflow naming it in PATHS_ONLY), to keep GitHub's run minutes down."
-   ],
-   "problems": [],
+   "status": "stuck",
+   "goal": false,
+   "stuck": "no groups listed on Community: \"Community groups Groups for any interest, pastime or cause, and local groups for a town or area. Anyone can find a group; only members see i\"",
    "steps": {
     "taps": 0,
-    "pages": 0,
+    "pages": 1,
     "limit": 5,
     "over": false
    },
-   "counts": {},
-   "changes": true
+   "counts": {
+    "dead_ends": 0,
+    "surprises": 0,
+    "accuracy": 0,
+    "clarity": 0,
+    "slow": 0
+   },
+   "problems": [],
+   "notes": [],
+   "pages": [
+    "/community/"
+   ],
+   "shots": [
+    "path-join-group-member-1-nogroups.png"
+   ],
+   "timings": [
+    {
+     "page": "/community/",
+     "ms": 1444
+    }
+   ],
+   "where": "staging",
+   "ms": 16494
   },
   {
    "id": "staff-report",
    "kind": "core",
    "title": "Staff: decide a report",
    "who": "staff-ops-staff",
-   "status": "skipped",
-   "notes": [
-    "Runs on staging on Mondays and Thursdays (and in a full run, or Run workflow naming it in PATHS_ONLY), to keep GitHub's run minutes down."
-   ],
-   "problems": [],
+   "status": "issues",
+   "goal": true,
+   "stuck": "",
    "steps": {
-    "taps": 0,
-    "pages": 0,
+    "taps": 3,
+    "pages": 1,
     "limit": 5,
     "over": false
    },
-   "counts": {},
-   "changes": true
+   "counts": {
+    "dead_ends": 0,
+    "surprises": 1,
+    "accuracy": 0,
+    "clarity": 0,
+    "slow": 1
+   },
+   "problems": [
+    {
+     "kind": "slow",
+     "rule": "D02",
+     "page": "/admin/dashboard/stream",
+     "what": "took 4.8 s to open"
+    },
+    {
+     "kind": "surprise",
+     "rule": "V06",
+     "page": "/admin/dashboard/stream",
+     "what": "2 dialogs open on top of each other"
+    }
+   ],
+   "notes": [],
+   "pages": [
+    "/admin/dashboard/stream"
+   ],
+   "shots": [
+    "path-staff-report-staff-ops-staff-1-stacked.png"
+   ],
+   "timings": [
+    {
+     "page": "/admin/dashboard/stream",
+     "ms": 4837
+    }
+   ],
+   "where": "staging",
+   "ms": 25726
   },
   {
    "id": "staff-like-check",
@@ -638,7 +845,7 @@
    "who": "staff-ops-staff",
    "status": "skipped",
    "notes": [
-    "Runs on staging on Mondays and Thursdays (and in a full run, or Run workflow naming it in PATHS_ONLY), to keep GitHub's run minutes down."
+    "no like check waiting: three guest likes on a test item were made, so the hourly Like checks job opens one for the next run"
    ],
    "problems": [],
    "steps": {
@@ -648,45 +855,125 @@
     "over": false
    },
    "counts": {},
-   "changes": true
+   "where": "staging"
   },
   {
    "id": "staff-held-post",
    "kind": "core",
    "title": "Staff: decide a held Marketplace post",
    "who": "staff-ops-staff",
-   "status": "skipped",
-   "notes": [
-    "Runs on staging on Mondays and Thursdays (and in a full run, or Run workflow naming it in PATHS_ONLY), to keep GitHub's run minutes down."
-   ],
-   "problems": [],
+   "status": "passed",
+   "goal": true,
+   "stuck": "",
    "steps": {
-    "taps": 0,
-    "pages": 0,
+    "taps": 1,
+    "pages": 1,
     "limit": 5,
     "over": false
    },
-   "counts": {},
-   "changes": true
+   "counts": {
+    "dead_ends": 0,
+    "surprises": 0,
+    "accuracy": 0,
+    "clarity": 0,
+    "slow": 1
+   },
+   "problems": [
+    {
+     "kind": "slow",
+     "rule": "D02",
+     "page": "/admin/dashboard/stream#case=mkt%3Aheld",
+     "what": "took 4.8 s to open"
+    }
+   ],
+   "notes": [],
+   "pages": [
+    "/admin/dashboard/stream#case=mkt%3Aheld"
+   ],
+   "shots": [],
+   "timings": [
+    {
+     "page": "/admin/dashboard/stream#case=mkt%3Aheld",
+     "ms": 4764
+    }
+   ],
+   "where": "staging",
+   "ms": 17725
   },
   {
    "id": "send-order",
    "kind": "core",
    "title": "Staff: send an order",
    "who": "staff-sal-staff",
-   "status": "skipped",
-   "notes": [
-    "Runs on staging on Mondays and Thursdays (and in a full run, or Run workflow naming it in PATHS_ONLY), to keep GitHub's run minutes down."
-   ],
-   "problems": [],
+   "status": "failed",
+   "goal": false,
+   "stuck": "",
    "steps": {
-    "taps": 0,
-    "pages": 0,
+    "taps": 5,
+    "pages": 3,
     "limit": 5,
     "over": false
    },
-   "counts": {},
-   "changes": true
+   "counts": {
+    "dead_ends": 2,
+    "surprises": 3,
+    "accuracy": 0,
+    "clarity": 0,
+    "slow": 0
+   },
+   "problems": [
+    {
+     "kind": "surprise",
+     "rule": "V14",
+     "page": "/admin/backoffice/orders/10",
+     "what": "a script error: TypeError: Cannot read properties of null (reading 'hasAttribute')"
+    },
+    {
+     "kind": "surprise",
+     "rule": "V06",
+     "page": "/admin/backoffice/orders/10",
+     "what": "the page jumps as it loads (layout shift 0.65)"
+    },
+    {
+     "kind": "dead_end",
+     "rule": "J01",
+     "page": "/admin/backoffice/orders/10",
+     "what": "\"Test copy, billed to you\" couldn't be tapped: TimeoutError: locator.click: Timeout 8000ms exceeded.\nCall log:\n  - waiting for "
+    },
+    {
+     "kind": "dead_end",
+     "rule": "J01",
+     "page": "/admin/backoffice/orders/13",
+     "what": "the test copy has no Send"
+    },
+    {
+     "kind": "surprise",
+     "rule": "V14",
+     "page": "/admin/backoffice/orders/13",
+     "what": "a script error: TypeError: Cannot read properties of null (reading 'hasAttribute')"
+    }
+   ],
+   "notes": [],
+   "pages": [
+    "/admin/backoffice/orders",
+    "/admin/backoffice/orders/10",
+    "/admin/backoffice/orders/13"
+   ],
+   "shots": [
+    "path-send-order-staff-sal-staff-1-nosend.png"
+   ],
+   "timings": [
+    {
+     "page": "/admin/backoffice/orders",
+     "ms": 3770
+    },
+    {
+     "page": "/admin/backoffice/orders/10",
+     "ms": 5488
+    }
+   ],
+   "where": "staging",
+   "ms": 26903
   },
   {
    "id": "1a:st-johns:eat",
@@ -721,15 +1008,15 @@
    "timings": [
     {
      "page": "/",
-     "ms": 1208
+     "ms": 1225
     },
     {
      "page": "/listing/view.php?id=8024",
-     "ms": 2045
+     "ms": 1945
     }
    ],
    "where": "live",
-   "ms": 8483
+   "ms": 8385
   },
   {
    "id": "1a:st-johns:stay",
@@ -764,15 +1051,15 @@
    "timings": [
     {
      "page": "/",
-     "ms": 1101
+     "ms": 1099
     },
     {
      "page": "/listing/view.php?id=4838",
-     "ms": 1901
+     "ms": 1892
     }
    ],
    "where": "live",
-   "ms": 8285
+   "ms": 8253
   },
   {
    "id": "1a:st-johns:see",
@@ -807,15 +1094,15 @@
    "timings": [
     {
      "page": "/",
-     "ms": 1084
+     "ms": 1097
     },
     {
      "page": "/hub/?cluster=cluster-1a-st-johns",
-     "ms": 2611
+     "ms": 2509
     }
    ],
    "where": "live",
-   "ms": 10940
+   "ms": 10856
   },
   {
    "id": "1a:st-johns:guide",
@@ -848,15 +1135,15 @@
    "timings": [
     {
      "page": "/",
-     "ms": 1084
+     "ms": 1321
     },
     {
      "page": "/hub/?cluster=cluster-1a-st-johns",
-     "ms": 2373
+     "ms": 2272
     }
    ],
    "where": "live",
-   "ms": 9976
+   "ms": 10092
   },
   {
    "id": "1a:springerville:eat",
@@ -891,15 +1178,15 @@
    "timings": [
     {
      "page": "/",
-     "ms": 1115
+     "ms": 1065
     },
     {
      "page": "/listing/view.php?id=8039",
-     "ms": 1897
+     "ms": 1957
     }
    ],
    "where": "live",
-   "ms": 8415
+   "ms": 8400
   },
   {
    "id": "1a:springerville:stay",
@@ -934,15 +1221,15 @@
    "timings": [
     {
      "page": "/",
-     "ms": 1090
+     "ms": 1089
     },
     {
      "page": "/listing/view.php?id=6268",
-     "ms": 1956
+     "ms": 1869
     }
    ],
    "where": "live",
-   "ms": 8488
+   "ms": 8384
   },
   {
    "id": "1a:springerville:see",
@@ -977,15 +1264,15 @@
    "timings": [
     {
      "page": "/",
-     "ms": 1091
+     "ms": 1064
     },
     {
      "page": "/listing/view.php?id=8615",
-     "ms": 1951
+     "ms": 1894
     }
    ],
    "where": "live",
-   "ms": 8448
+   "ms": 8347
   },
   {
    "id": "1a:springerville:guide",
@@ -1025,15 +1312,15 @@
    "timings": [
     {
      "page": "/",
-     "ms": 1103
+     "ms": 1069
     },
     {
      "page": "/hub/?cluster=cluster-1b-round-valley",
-     "ms": 2698
+     "ms": 2661
     }
    ],
    "where": "live",
-   "ms": 10494
+   "ms": 10400
   },
   {
    "id": "1a:eagar:eat",
@@ -1068,15 +1355,15 @@
    "timings": [
     {
      "page": "/",
-     "ms": 1122
+     "ms": 1059
     },
     {
      "page": "/listing/view.php?id=7986",
-     "ms": 1982
+     "ms": 1944
     }
    ],
    "where": "live",
-   "ms": 8162
+   "ms": 8037
   },
   {
    "id": "1a:eagar:stay",
@@ -1111,15 +1398,15 @@
    "timings": [
     {
      "page": "/",
-     "ms": 1097
+     "ms": 1071
     },
     {
      "page": "/listing/view.php?id=7932",
-     "ms": 1898
+     "ms": 1895
     }
    ],
    "where": "live",
-   "ms": 8074
+   "ms": 8066
   },
   {
    "id": "1a:eagar:see",
@@ -1154,15 +1441,15 @@
    "timings": [
     {
      "page": "/",
-     "ms": 1114
+     "ms": 1071
     },
     {
      "page": "/listing/view.php?id=8615",
-     "ms": 1866
+     "ms": 1937
     }
    ],
    "where": "live",
-   "ms": 8025
+   "ms": 8050
   },
   {
    "id": "1a:eagar:guide",
@@ -1195,15 +1482,15 @@
    "timings": [
     {
      "page": "/",
-     "ms": 1087
+     "ms": 1125
     },
     {
      "page": "/hub/?cluster=cluster-1b-round-valley",
-     "ms": 2425
+     "ms": 2532
     }
    ],
    "where": "live",
-   "ms": 9864
+   "ms": 9971
   },
   {
    "id": "1a:show-low:eat",
@@ -1238,15 +1525,15 @@
    "timings": [
     {
      "page": "/",
-     "ms": 1069
+     "ms": 1099
     },
     {
      "page": "/listing/view.php?id=7952",
-     "ms": 1953
+     "ms": 1966
     }
    ],
    "where": "live",
-   "ms": 8195
+   "ms": 8229
   },
   {
    "id": "1a:show-low:stay",
@@ -1281,15 +1568,15 @@
    "timings": [
     {
      "page": "/",
-     "ms": 1080
+     "ms": 1082
     },
     {
      "page": "/listing/view.php?id=6242",
-     "ms": 1857
+     "ms": 1931
     }
    ],
    "where": "live",
-   "ms": 8144
+   "ms": 8179
   },
   {
    "id": "1a:show-low:see",
@@ -1324,22 +1611,22 @@
    "timings": [
     {
      "page": "/",
-     "ms": 1070
+     "ms": 1064
     },
     {
      "page": "/listing/view.php?id=8605",
-     "ms": 1895
+     "ms": 1916
     }
    ],
    "where": "live",
-   "ms": 8139
+   "ms": 8141
   },
   {
    "id": "1a:show-low:guide",
    "kind": "town",
    "title": "Show Low: read its guide",
    "who": "guest",
-   "status": "issues",
+   "status": "passed",
    "goal": true,
    "stuck": "",
    "steps": {
@@ -1350,19 +1637,12 @@
    },
    "counts": {
     "dead_ends": 0,
-    "surprises": 1,
+    "surprises": 0,
     "accuracy": 0,
     "clarity": 0,
     "slow": 0
    },
-   "problems": [
-    {
-     "kind": "surprise",
-     "rule": "V06",
-     "page": "/hub/?cluster=cluster-auto-show-low",
-     "what": "the page jumps as it loads (layout shift 0.35)"
-    }
-   ],
+   "problems": [],
    "notes": [],
    "pages": [
     "/",
@@ -1372,15 +1652,15 @@
    "timings": [
     {
      "page": "/",
-     "ms": 1080
+     "ms": 1057
     },
     {
      "page": "/hub/?cluster=cluster-auto-show-low",
-     "ms": 2544
+     "ms": 2925
     }
    ],
    "where": "live",
-   "ms": 10087
+   "ms": 10428
   },
   {
    "id": "1a:holbrook:eat",
@@ -1401,9 +1681,16 @@
     "surprises": 0,
     "accuracy": 0,
     "clarity": 0,
-    "slow": 0
+    "slow": 1
    },
-   "problems": [],
+   "problems": [
+    {
+     "kind": "slow",
+     "rule": "D02",
+     "page": "/",
+     "what": "took 4.1 s to open"
+    }
+   ],
    "notes": [
     "3 results"
    ],
@@ -1415,15 +1702,15 @@
    "timings": [
     {
      "page": "/",
-     "ms": 1067
+     "ms": 4099
     },
     {
      "page": "/listing/view.php?id=8055",
-     "ms": 1915
+     "ms": 2038
     }
    ],
    "where": "live",
-   "ms": 8149
+   "ms": 11283
   },
   {
    "id": "1a:holbrook:stay",
@@ -1458,15 +1745,15 @@
    "timings": [
     {
      "page": "/",
-     "ms": 1085
+     "ms": 1056
     },
     {
      "page": "/listing/view.php?id=6279",
-     "ms": 1907
+     "ms": 1888
     }
    ],
    "where": "live",
-   "ms": 8204
+   "ms": 8147
   },
   {
    "id": "1a:holbrook:see",
@@ -1501,15 +1788,15 @@
    "timings": [
     {
      "page": "/",
-     "ms": 1087
+     "ms": 1059
     },
     {
      "page": "/listing/view.php?id=6816",
-     "ms": 1899
+     "ms": 1867
     }
    ],
    "where": "live",
-   "ms": 8146
+   "ms": 8069
   },
   {
    "id": "1a:holbrook:guide",
@@ -1549,15 +1836,15 @@
    "timings": [
     {
      "page": "/",
-     "ms": 1075
+     "ms": 1066
     },
     {
      "page": "/hub/?cluster=cluster-auto-holbrook",
-     "ms": 2564
+     "ms": 2472
     }
    ],
    "where": "live",
-   "ms": 10105
+   "ms": 9983
   },
   {
    "id": "1a:winslow:eat",
@@ -1592,15 +1879,15 @@
    "timings": [
     {
      "page": "/",
-     "ms": 1099
+     "ms": 1075
     },
     {
      "page": "/place/landmark.php?id=900001728",
-     "ms": 1883
+     "ms": 2241
     }
    ],
    "where": "live",
-   "ms": 10119
+   "ms": 10427
   },
   {
    "id": "1a:winslow:stay",
@@ -1641,11 +1928,11 @@
    "timings": [
     {
      "page": "/",
-     "ms": 1101
+     "ms": 1095
     }
    ],
    "where": "live",
-   "ms": 7289
+   "ms": 7260
   },
   {
    "id": "1a:winslow:see",
@@ -1687,15 +1974,15 @@
    "timings": [
     {
      "page": "/",
-     "ms": 1082
+     "ms": 1061
     },
     {
      "page": "/login.php",
-     "ms": 2022
+     "ms": 1992
     }
    ],
    "where": "live",
-   "ms": 10231
+   "ms": 10154
   },
   {
    "id": "1a:winslow:guide",
@@ -1736,73 +2023,156 @@
    "timings": [
     {
      "page": "/",
-     "ms": 1101
+     "ms": 1078
     }
    ],
    "where": "live",
-   "ms": 7064
+   "ms": 7004
   },
   {
    "id": "plan-buy",
    "kind": "core",
    "title": "Buy a plan (sandbox)",
    "who": "member",
-   "status": "skipped",
-   "notes": [
-    "Runs on staging on Mondays and Thursdays (and in a full run, or Run workflow naming it in PATHS_ONLY), to keep GitHub's run minutes down."
-   ],
-   "problems": [],
+   "status": "failed",
+   "goal": false,
+   "stuck": "",
    "steps": {
-    "taps": 0,
-    "pages": 0,
+    "taps": 3,
+    "pages": 2,
     "limit": 5,
     "over": false
    },
-   "counts": {},
-   "changes": true
+   "counts": {
+    "dead_ends": 1,
+    "surprises": 0,
+    "accuracy": 0,
+    "clarity": 0,
+    "slow": 0
+   },
+   "problems": [
+    {
+     "kind": "dead_end",
+     "rule": "J01",
+     "page": "/qr/cart.php",
+     "what": "paying in the sandbox said: \"We couldn't reach QuickBooks Payments from this page. Nothing was charged.\""
+    }
+   ],
+   "notes": [
+    "the plan: Personal Plus"
+   ],
+   "pages": [
+    "/shop/",
+    "/qr/cart.php"
+   ],
+   "shots": [
+    "path-plan-buy-member-1-declined.png"
+   ],
+   "timings": [
+    {
+     "page": "/shop/",
+     "ms": 2028
+    },
+    {
+     "page": "/qr/cart.php",
+     "ms": 1533
+    }
+   ],
+   "where": "staging",
+   "ms": 18197
   },
   {
    "id": "shop-buy",
    "kind": "core",
    "title": "Buy from the Shop (sandbox)",
    "who": "member",
-   "status": "skipped",
-   "notes": [
-    "Runs on staging on Mondays and Thursdays (and in a full run, or Run workflow naming it in PATHS_ONLY), to keep GitHub's run minutes down."
-   ],
-   "problems": [],
+   "status": "failed",
+   "goal": false,
+   "stuck": "",
    "steps": {
-    "taps": 0,
-    "pages": 0,
+    "taps": 3,
+    "pages": 2,
     "limit": 5,
     "over": false
    },
-   "counts": {},
-   "changes": true
+   "counts": {
+    "dead_ends": 1,
+    "surprises": 0,
+    "accuracy": 0,
+    "clarity": 0,
+    "slow": 0
+   },
+   "problems": [
+    {
+     "kind": "dead_end",
+     "rule": "J01",
+     "page": "/qr/cart.php",
+     "what": "paying in the sandbox said: \"We couldn't reach QuickBooks Payments from this page. Nothing was charged.\""
+    }
+   ],
+   "notes": [],
+   "pages": [
+    "/shop/",
+    "/qr/cart.php"
+   ],
+   "shots": [
+    "path-shop-buy-member-1-declined.png"
+   ],
+   "timings": [
+    {
+     "page": "/shop/",
+     "ms": 1448
+    },
+    {
+     "page": "/qr/cart.php",
+     "ms": 1543
+    }
+   ],
+   "where": "staging",
+   "ms": 17633
   },
   {
    "id": "market-buy",
    "kind": "core",
    "title": "Buy on the Marketplace (sandbox)",
    "who": "member",
-   "status": "skipped",
-   "notes": [
-    "Runs on staging on Mondays and Thursdays (and in a full run, or Run workflow naming it in PATHS_ONLY), to keep GitHub's run minutes down."
-   ],
-   "problems": [],
+   "status": "stuck",
+   "goal": false,
+   "stuck": "no test business item on the Marketplace",
    "steps": {
     "taps": 0,
-    "pages": 0,
+    "pages": 1,
     "limit": 5,
     "over": false
    },
-   "counts": {},
-   "changes": true
+   "counts": {
+    "dead_ends": 0,
+    "surprises": 0,
+    "accuracy": 0,
+    "clarity": 0,
+    "slow": 0
+   },
+   "problems": [],
+   "notes": [],
+   "pages": [
+    "/market/"
+   ],
+   "shots": [
+    "path-market-buy-member-1-noitem.png"
+   ],
+   "timings": [
+    {
+     "page": "/market/",
+     "ms": 1487
+    }
+   ],
+   "where": "staging",
+   "ms": 1551
   },
   {
-   "id": "guide:town:73",
+   "id": "guide:town:66",
    "kind": "guide",
-   "title": "Follow the Phoenix, AZ guide",
+   "title": "Follow the Dana Point, CA guide",
    "who": "guest",
    "status": "passed",
    "goal": true,
@@ -1823,112 +2193,110 @@
    "problems": [],
    "notes": [],
    "pages": [
-    "/hub/?town=phoenix-az",
-    "/journeys/suggested.php?id=8",
-    "/listing/view.php?id=9116",
-    "/journeys/suggested.php?id=8",
-    "/place/landmark.php?id=900000029",
-    "/journeys/suggested.php?id=8",
-    "/place/landmark.php?id=900000023",
-    "/journeys/suggested.php?id=8",
-    "/listing/view.php?id=9113",
-    "/journeys/suggested.php?id=8",
-    "/place/landmark.php?id=900000030",
-    "/journeys/suggested.php?id=8",
-    "/place/recreation.php?id=f247732",
-    "/journeys/suggested.php?id=8"
+    "/hub/?town=dana-point-ca",
+    "/journeys/suggested.php?id=14",
+    "/place/landmark.php?id=900000005",
+    "/journeys/suggested.php?id=14",
+    "/place/landmark.php?id=900000004",
+    "/journeys/suggested.php?id=14",
+    "/listing/view.php?id=9033",
+    "/journeys/suggested.php?id=14",
+    "/place/landmark.php?id=900000001",
+    "/journeys/suggested.php?id=14",
+    "/place/landmark.php?id=900000003",
+    "/journeys/suggested.php?id=14",
+    "/place/landmark.php?id=900000796",
+    "/journeys/suggested.php?id=14"
    ],
    "shots": [],
    "timings": [
     {
-     "page": "/hub/?town=phoenix-az",
-     "ms": 2059
+     "page": "/hub/?town=dana-point-ca",
+     "ms": 1466
     },
     {
-     "page": "/journeys/suggested.php?id=8",
-     "ms": 1781
+     "page": "/journeys/suggested.php?id=14",
+     "ms": 1762
     },
     {
-     "page": "/listing/view.php?id=9116",
-     "ms": 1869
+     "page": "/place/landmark.php?id=900000005",
+     "ms": 1787
     },
     {
-     "page": "/place/landmark.php?id=900000029",
-     "ms": 1899
+     "page": "/place/landmark.php?id=900000004",
+     "ms": 1850
     },
     {
-     "page": "/place/landmark.php?id=900000023",
-     "ms": 1832
+     "page": "/listing/view.php?id=9033",
+     "ms": 1859
     },
     {
-     "page": "/listing/view.php?id=9113",
-     "ms": 1872
+     "page": "/place/landmark.php?id=900000001",
+     "ms": 1795
     },
     {
-     "page": "/place/landmark.php?id=900000030",
-     "ms": 1821
+     "page": "/place/landmark.php?id=900000003",
+     "ms": 1817
     },
     {
-     "page": "/place/recreation.php?id=f247732",
-     "ms": 1802
+     "page": "/place/landmark.php?id=900000796",
+     "ms": 1797
     }
    ],
    "where": "live",
-   "ms": 23618,
+   "ms": 22783,
    "guide": {
-    "key": "town:73",
-    "name": "Phoenix",
-    "url": "/hub/?town=phoenix-az",
-    "journeys": 5,
+    "key": "town:66",
+    "name": "Dana Point",
+    "url": "/hub/?town=dana-point-ca",
+    "journeys": 4,
     "stops": [
      {
-      "name": "Subway",
-      "url": "/listing/view.php?id=9116",
+      "name": "Salt Creek Beach Park",
+      "url": "/place/landmark.php?id=900000005",
+      "opened": true
+     },
+     {
+      "name": "Ocean Institute",
+      "url": "/place/landmark.php?id=900000004",
+      "opened": true
+     },
+     {
+      "name": "Starbucks",
+      "url": "/listing/view.php?id=9033",
       "opened": true,
       "phone": true,
       "open_shown": true
      },
      {
-      "name": "Executive Towers",
-      "url": "/place/landmark.php?id=900000029",
+      "name": "Doheny State Beach",
+      "url": "/place/landmark.php?id=900000001",
       "opened": true
      },
      {
-      "name": "Orpheum Theatre",
-      "url": "/place/landmark.php?id=900000023",
+      "name": "Mission San Juan Capistrano",
+      "url": "/place/landmark.php?id=900000003",
       "opened": true
      },
      {
-      "name": "Domino's",
-      "url": "/listing/view.php?id=9113",
-      "opened": true,
-      "phone": true,
-      "open_shown": true
-     },
-     {
-      "name": "Bragg's Pies Building",
-      "url": "/place/landmark.php?id=900000030",
-      "opened": true
-     },
-     {
-      "name": "Hotel San Carlos",
-      "url": "/place/recreation.php?id=f247732",
+      "name": "Chet Holifield Federal Building",
+      "url": "/place/landmark.php?id=900000796",
       "opened": true
      }
     ]
    }
   },
   {
-   "id": "guide:town:84",
+   "id": "guide:town:67",
    "kind": "guide",
-   "title": "Follow the Globe, AZ guide",
+   "title": "Follow the Laguna Niguel, CA guide",
    "who": "guest",
    "status": "passed",
    "goal": true,
    "stuck": "",
    "steps": {
     "taps": 1,
-    "pages": 10,
+    "pages": 14,
     "limit": 3,
     "over": false
    },
@@ -1942,80 +2310,354 @@
    "problems": [],
    "notes": [],
    "pages": [
-    "/hub/?town=globe-az",
-    "/journeys/suggested.php?id=40",
-    "/place/landmark.php?id=900000192",
-    "/journeys/suggested.php?id=40",
-    "/place/landmark.php?id=900000191",
-    "/journeys/suggested.php?id=40",
-    "/place/landmark.php?id=900000190",
-    "/journeys/suggested.php?id=40",
-    "/place/landmark.php?id=900000196",
-    "/journeys/suggested.php?id=40"
+    "/hub/?town=laguna-niguel-ca",
+    "/journeys/suggested.php?id=1",
+    "/listing/view.php?id=9043",
+    "/journeys/suggested.php?id=1",
+    "/place/landmark.php?id=900000003",
+    "/journeys/suggested.php?id=1",
+    "/place/landmark.php?id=900000007",
+    "/journeys/suggested.php?id=1",
+    "/listing/view.php?id=9038",
+    "/journeys/suggested.php?id=1",
+    "/place/landmark.php?id=900000006",
+    "/journeys/suggested.php?id=1",
+    "/place/landmark.php?id=900000773",
+    "/journeys/suggested.php?id=1"
    ],
    "shots": [],
    "timings": [
     {
-     "page": "/hub/?town=globe-az",
-     "ms": 1365
+     "page": "/hub/?town=laguna-niguel-ca",
+     "ms": 1366
     },
     {
-     "page": "/journeys/suggested.php?id=40",
-     "ms": 1809
+     "page": "/journeys/suggested.php?id=1",
+     "ms": 1789
     },
     {
-     "page": "/place/landmark.php?id=900000192",
-     "ms": 1794
+     "page": "/listing/view.php?id=9043",
+     "ms": 1836
     },
     {
-     "page": "/place/landmark.php?id=900000191",
-     "ms": 1802
+     "page": "/place/landmark.php?id=900000003",
+     "ms": 1782
     },
     {
-     "page": "/place/landmark.php?id=900000190",
-     "ms": 1830
+     "page": "/place/landmark.php?id=900000007",
+     "ms": 1800
     },
     {
-     "page": "/place/landmark.php?id=900000196",
-     "ms": 1819
+     "page": "/listing/view.php?id=9038",
+     "ms": 1844
+    },
+    {
+     "page": "/place/landmark.php?id=900000006",
+     "ms": 1780
+    },
+    {
+     "page": "/place/landmark.php?id=900000773",
+     "ms": 1785
     }
    ],
    "where": "live",
-   "ms": 16346,
+   "ms": 21462,
    "guide": {
-    "key": "town:84",
-    "name": "Globe",
-    "url": "/hub/?town=globe-az",
+    "key": "town:67",
+    "name": "Laguna Niguel",
+    "url": "/hub/?town=laguna-niguel-ca",
     "journeys": 4,
     "stops": [
      {
-      "name": "Copper Bean Coffee",
-      "url": "https://www.openstreetmap.org/way/1557525401",
+      "name": "Pizza Hut",
+      "url": "/listing/view.php?id=9043",
+      "opened": true,
+      "phone": true,
+      "open_shown": true
+     },
+     {
+      "name": "Mission San Juan Capistrano",
+      "url": "/place/landmark.php?id=900000003",
       "opened": true
      },
      {
-      "name": "International House",
-      "url": "/place/landmark.php?id=900000192",
+      "name": "Laguna Niguel Regional Park",
+      "url": "/place/landmark.php?id=900000007",
       "opened": true
      },
      {
-      "name": "Elks Building",
-      "url": "/place/landmark.php?id=900000191",
+      "name": "Wendy's",
+      "url": "/listing/view.php?id=9038",
+      "opened": true,
+      "phone": true,
+      "open_shown": true
+     },
+     {
+      "name": "Esslinger Building",
+      "url": "/place/landmark.php?id=900000006",
       "opened": true
      },
      {
-      "name": "Gila Valley Bank and Trust Building",
-      "url": "/place/landmark.php?id=900000190",
+      "name": "Laguna Niguel Lake",
+      "url": "/place/landmark.php?id=900000773",
+      "opened": true
+     }
+    ]
+   }
+  },
+  {
+   "id": "guide:town:68",
+   "kind": "guide",
+   "title": "Follow the Laguna Beach, CA guide",
+   "who": "guest",
+   "status": "issues",
+   "goal": true,
+   "stuck": "",
+   "steps": {
+    "taps": 1,
+    "pages": 14,
+    "limit": 3,
+    "over": false
+   },
+   "counts": {
+    "dead_ends": 0,
+    "surprises": 0,
+    "accuracy": 2,
+    "clarity": 0,
+    "slow": 0
+   },
+   "problems": [
+    {
+     "kind": "accuracy",
+     "rule": "J02",
+     "page": "/listing/view.php?id=9028",
+     "what": "The Habit Burger Grill's page says closed; our data says Open · Closes 9 PM"
+    },
+    {
+     "kind": "accuracy",
+     "rule": "J02",
+     "page": "/listing/view.php?id=9031",
+     "what": "The Cliff's page says closed; our data says Open · Closes 10 PM"
+    }
+   ],
+   "notes": [],
+   "pages": [
+    "/hub/?town=laguna-beach-ca",
+    "/journeys/suggested.php?id=18",
+    "/listing/view.php?id=9028",
+    "/journeys/suggested.php?id=18",
+    "/place/landmark.php?id=900000003",
+    "/journeys/suggested.php?id=18",
+    "/place/landmark.php?id=900000796",
+    "/journeys/suggested.php?id=18",
+    "/place/landmark.php?id=900000800",
+    "/journeys/suggested.php?id=18",
+    "/listing/view.php?id=9031",
+    "/journeys/suggested.php?id=18",
+    "/place/landmark.php?id=900000008",
+    "/journeys/suggested.php?id=18"
+   ],
+   "shots": [],
+   "timings": [
+    {
+     "page": "/hub/?town=laguna-beach-ca",
+     "ms": 1383
+    },
+    {
+     "page": "/journeys/suggested.php?id=18",
+     "ms": 1778
+    },
+    {
+     "page": "/listing/view.php?id=9028",
+     "ms": 1870
+    },
+    {
+     "page": "/place/landmark.php?id=900000003",
+     "ms": 1805
+    },
+    {
+     "page": "/place/landmark.php?id=900000796",
+     "ms": 1785
+    },
+    {
+     "page": "/place/landmark.php?id=900000800",
+     "ms": 1776
+    },
+    {
+     "page": "/listing/view.php?id=9031",
+     "ms": 1841
+    },
+    {
+     "page": "/place/landmark.php?id=900000008",
+     "ms": 1809
+    }
+   ],
+   "where": "live",
+   "ms": 21719,
+   "guide": {
+    "key": "town:68",
+    "name": "Laguna Beach",
+    "url": "/hub/?town=laguna-beach-ca",
+    "journeys": 4,
+    "stops": [
+     {
+      "name": "The Habit Burger Grill",
+      "url": "/listing/view.php?id=9028",
+      "opened": true,
+      "phone": true,
+      "open_shown": true
+     },
+     {
+      "name": "Mission San Juan Capistrano",
+      "url": "/place/landmark.php?id=900000003",
       "opened": true
      },
      {
-      "name": "Taco Bell",
-      "url": "https://www.openstreetmap.org/way/1149205695",
+      "name": "Chet Holifield Federal Building",
+      "url": "/place/landmark.php?id=900000796",
       "opened": true
      },
      {
-      "name": "Holy Angels Church",
-      "url": "/place/landmark.php?id=900000196",
+      "name": "Laguna South Coast Cinemas",
+      "url": "/place/landmark.php?id=900000800",
+      "opened": true
+     },
+     {
+      "name": "The Cliff",
+      "url": "/listing/view.php?id=9031",
+      "opened": true,
+      "phone": true,
+      "open_shown": true
+     },
+     {
+      "name": "St. Francis by-the-Sea American Catholic Church",
+      "url": "/place/landmark.php?id=900000008",
+      "opened": true
+     }
+    ]
+   }
+  },
+  {
+   "id": "guide:town:72",
+   "kind": "guide",
+   "title": "Follow the Glendale, AZ guide",
+   "who": "guest",
+   "status": "issues",
+   "goal": true,
+   "stuck": "",
+   "steps": {
+    "taps": 1,
+    "pages": 14,
+    "limit": 3,
+    "over": false
+   },
+   "counts": {
+    "dead_ends": 0,
+    "surprises": 0,
+    "accuracy": 1,
+    "clarity": 0,
+    "slow": 0
+   },
+   "problems": [
+    {
+     "kind": "accuracy",
+     "rule": "J02",
+     "page": "/listing/view.php?id=9051",
+     "what": "Cheese 'N Stuff Deli's page says closed; our data says Open · Closes 4 PM"
+    }
+   ],
+   "notes": [],
+   "pages": [
+    "/hub/?town=glendale-az",
+    "/journeys/suggested.php?id=5",
+    "/listing/view.php?id=9051",
+    "/journeys/suggested.php?id=5",
+    "/place/recreation.php?id=f247732",
+    "/journeys/suggested.php?id=5",
+    "/listing/view.php?id=9047",
+    "/journeys/suggested.php?id=5",
+    "/place/landmark.php?id=8747",
+    "/journeys/suggested.php?id=5",
+    "/place/landmark.php?id=900000012",
+    "/journeys/suggested.php?id=5",
+    "/place/landmark.php?id=900000011",
+    "/journeys/suggested.php?id=5"
+   ],
+   "shots": [],
+   "timings": [
+    {
+     "page": "/hub/?town=glendale-az",
+     "ms": 1948
+    },
+    {
+     "page": "/journeys/suggested.php?id=5",
+     "ms": 1783
+    },
+    {
+     "page": "/listing/view.php?id=9051",
+     "ms": 1868
+    },
+    {
+     "page": "/place/recreation.php?id=f247732",
+     "ms": 1809
+    },
+    {
+     "page": "/listing/view.php?id=9047",
+     "ms": 1835
+    },
+    {
+     "page": "/place/landmark.php?id=8747",
+     "ms": 1896
+    },
+    {
+     "page": "/place/landmark.php?id=900000012",
+     "ms": 1823
+    },
+    {
+     "page": "/place/landmark.php?id=900000011",
+     "ms": 1800
+    }
+   ],
+   "where": "live",
+   "ms": 22469,
+   "guide": {
+    "key": "town:72",
+    "name": "Glendale",
+    "url": "/hub/?town=glendale-az",
+    "journeys": 4,
+    "stops": [
+     {
+      "name": "Cheese 'N Stuff Deli",
+      "url": "/listing/view.php?id=9051",
+      "opened": true,
+      "phone": true,
+      "open_shown": true
+     },
+     {
+      "name": "Hotel San Carlos",
+      "url": "/place/recreation.php?id=f247732",
+      "opened": true
+     },
+     {
+      "name": "Akaihana",
+      "url": "/listing/view.php?id=9047",
+      "opened": true,
+      "phone": true,
+      "open_shown": true
+     },
+     {
+      "name": "North Mountain",
+      "url": "/place/landmark.php?id=8747",
+      "opened": true
+     },
+     {
+      "name": "Glendale Grammar School One-room Class Building",
+      "url": "/place/landmark.php?id=900000012",
+      "opened": true
+     },
+     {
+      "name": "Glendale High School Auditorium",
+      "url": "/place/landmark.php?id=900000011",
       "opened": true
      }
     ]
@@ -2026,30 +2668,6 @@
   "php": "8.0",
   "jobs": [
    {
-    "job": "market_tick",
-    "fails_today": 0,
-    "last": "2026-11-25 06:13:01",
-    "ok": 1
-   },
-   {
-    "job": "notice_digest",
-    "fails_today": 0,
-    "last": "2026-11-25 06:13:01",
-    "ok": 1
-   },
-   {
-    "job": "billing_tick",
-    "fails_today": 0,
-    "last": "2026-11-25 06:13:01",
-    "ok": 1
-   },
-   {
-    "job": "earned_storage_tick",
-    "fails_today": 0,
-    "last": "2026-11-25 06:13:01",
-    "ok": 1
-   },
-   {
     "job": "staging_night_tick",
     "fails_today": 1,
     "last": "2026-11-27 02:13:01",
@@ -2057,7 +2675,7 @@
    }
   ],
   "cache": {
-   "entries": 159,
+   "entries": 712,
    "expired": 0,
    "expired_share": 0
   },
