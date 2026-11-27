@@ -167,6 +167,13 @@ each zone keeps its reasons, has Undo and a daily-summary line Jason can overtur
 (Ancient America's 15, or Jason's own) is never changed by the team; a suggested change to one goes to him. A hub's
 opening is only the support decision (HubOpening's stages). The suggester is code, not AI (0164 R5 untouched). Designed
 after gate 3's W15 and 1A guides; built in Q1.
+The CMO's (7) independent check (2026-11-27, 0180's note "roles check one another"), naming conditions: (1) code
+proposes boundaries, names stay curated (0066 §1; brand.md §1–2): a name is never taken from CBSAs, commuting zones or
+state tourism regions, and every zone name gets an Editorial Director (12) and CMO step; (2) no zone is named after a
+nation or uses a nation's name or symbols (launch plan §10.3; 0181's note on nation land), and a town on or across a
+reservation names a zone spanning that land only with the Privacy & 0066 Guard's (25) step on the name; (3) where a zone
+overlaps a nation's land, that land shows as the nation's own named land inside the zone, with its visitor rules (0066
+§3, 0058 §26), never as a non-Native tourism region.
 
 ### 6. What's already there
 
