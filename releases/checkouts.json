@@ -286,6 +286,17 @@
    "expires": "2026-11-27T08:28:20Z",
    "release": "r2-lanes-2.zip",
    "callers": {}
+  },
+  {
+   "path": "website/directory/index.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
+   "why": "C.4: a town picked in Get Local opens within 10 mi; its area listed as its own choice (decisions/0053; P9)",
+   "since": "2026-11-27T04:34:57Z",
+   "expires": "2026-11-27T08:34:57Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
