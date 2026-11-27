@@ -116,3 +116,10 @@ day. This qualifies 0180's "R1–R5 ship as each passes" (note added there).
   - The Founder's in-person time goes to multipliers: chambers, town and regional guide influencers, and venues. It
     doesn't go to cold visits to one business at a time.
   - This refines the "Founder is first point of contact" note above.
+- **The pilot's success ladder** (Jason, 2026-11-27: "Yes", to the CEO's proposal in research/launch-plan §9). It
+  replaces the cold-start note's 4a ("10 Cornerstone grants convert") and 4b ($83,760, 10% of a hub) in
+  claude-docs/competitive-positioning.md:
+  - **4a:** 10 Core trials convert to paid, by about April 2027.
+  - **4b:** the pilot zone's full share, about 73 paying businesses, or about $69,800 a year, by about October 2027.
+  - **Stretch:** 100 paying by Dec 31, 2027.
+  - **Reported weekly** (counts only): visitors, taps per listing, invites, claims, and multipliers partnered.
