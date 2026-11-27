@@ -347,3 +347,16 @@ written cases, citing the ADR the decision rests on.
 $9.10), a person's service under the note above; every session draws on its usage limits. Project cost projections carry
 each project's share of session usage against those limits, and the monthly overview shows $109.10 (Max) + the CEO's $20
 + the platform's $40 cap. Recorded in commercial.md §5.1.
+
+**Note (Jason, 2026-11-27: "claude llm and Google ai are services under api which we will move to using over the monthly
+claude sessions so another real reason for transitioning"; recorded as Operations & Policy (16), for the CFO (4) and
+Accounting (10)).** The team moves from the Claude Max sessions to the Claude and Google AI APIs through the platform's own
+AI path (`AiClient`, its meter and caps), as part of the transition plan. Conflict cited (the CFO's check): the API bills
+per token, and a build session's usage at list price ran about $74.6 in its first ~12 hours (Frontend & Shop, 2026-11-27),
+on the order of $2,000 a month against Max's $109.10; the platform's cap is $40 (84% used) and agent spend stays $0
+outside the Founder's envelope. Solution, acted on: move in stages, cheapest first: the platform-native, bounded jobs
+(the thread's Ask Claude, drafting, briefs, lean Prior Ruling Checks) through `AiClient`, on project budgets the CFO
+approves; heavy code builds move only once the usage measurement (the AI items' item 2) shows the API costs no more than
+Max for that work, and Max stays for builds until then. Cost per task, API against Max, shows in the monthly overview.
+The API envelope is the Founder's (a fence, §2). Suggestion, labelled: hold total AI spend near today's $169.10 a month,
+moving Max's $109.10 into the API envelope as sessions retire.
