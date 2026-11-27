@@ -2,32 +2,32 @@
  "version": 1,
  "check": "PHOTOS-SHOWN",
  "name": "Every photo on a page shown",
- "generated_at": "2026-11-26T10:38:44Z",
+ "generated_at": "2026-11-27T09:51:44Z",
  "site": "https://traversence.com",
- "run_url": "https://github.com/degraffics/traversence/actions/runs/45790539517",
+ "run_url": "https://github.com/degraffics/traversence/actions/runs/45972418671",
  "target": "every image on the page loaded and drawn (decoded, wider than 0) and with a text alternative",
  "target_source": "Jason, 2026-11-22 (\"the photo loads and display\"); W3C WCAG 2.2 SC 1.1.1 Non-text Content",
  "source": "handoffs/control-board-plan/step3/sections/check-register.md",
  "runs": {
   "full": {
-   "id": "load+photos-shown+brand-full-1795687664798",
+   "id": "load+photos-shown+brand-full-1795773104789",
    "check": "LOAD+PHOTOS-SHOWN+BRAND",
    "mode": "full",
-   "started_at": "2026-11-26T10:07:44.798Z",
-   "seconds": 1859.3,
-   "requests": 431,
-   "page_views": 431,
+   "started_at": "2026-11-27T09:51:44.789Z",
+   "seconds": 0,
+   "requests": 0,
+   "page_views": 0,
    "calls": 0,
-   "subrequests": 12530,
+   "subrequests": 0,
    "one_at_a_time": true,
    "gap_ms": 1000,
-   "min_gap_ms": 1000,
+   "min_gap_ms": null,
+   "skipped": "backing off until 2026-11-27T09:58:12Z: the probe pages were slow: / 138 ms against a 7-day median of 111 ms; /directory/ 82 ms against a 7-day median of 60 ms; /discovery/ 84 ms against a 7-day median of 62 ms",
    "shared_by": [
     "LOAD",
     "PHOTOS-SHOWN",
     "BRAND"
-   ],
-   "pages": 183
+   ]
   }
  },
  "counts": {
