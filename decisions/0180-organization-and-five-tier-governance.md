@@ -320,3 +320,15 @@ and the $40 platform cap); a project that needs more goes to him as a Decision B
 envelope proposal for when revenue exists goes to him then. This replaces the open agent AI allowance question. Built
 with the AI items release (meter, usage, matrix), after phase 2 release 1, in the IT Manager's (11) lane with the
 Accounting Manager (10).
+
+**Note (Jason, 2026-11-27): roles check one another** ("CMO and other staff members have important roles that balance or
+check one another. As CEO you must see these and ensure our team, systems, and platform functions optimally and delivers
+upon our vision and mission"; recorded as Operations & Policy (16), under CLAUDE.md's "His stated direction is the
+ruling"). Conflict cited: every executive hat sat in one session, so a Tier 4 signed as one executive went unchecked (W15,
+2026-11-27, signed as CTO alone). Solution, acted on: every review carries the checks already set, each citing its
+source: the CTO's (data, routes) by the CMO's mission duty (appendix row 7; spec §5 #5) and the Privacy & 0066 Guard (25);
+any spend or budget by the CFO (4) and Accounting (10) (§4.1; the project-budget note); screens by the Simplicity
+Guardian (15) and the Editorial Director (12), who hold the veto; releases by the advocates A1–A12 (before-and-after);
+executives who disagree raise a deadlock to Tier 5 (§3). The checking executive's review runs as a separate, fresh agent
+given the change and its role's charter, never the first reviewer's conclusion, lean and inside §6's allowance, recorded
+on the ticket under its role.
