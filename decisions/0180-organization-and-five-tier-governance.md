@@ -341,3 +341,9 @@ when the resolution needs a rule, ADR or fence change, or the CEO is a party to 
 in the CEO's one session, so its ruling between them isn't independent). Solution, acted on: each side's case is written
 by its own fresh agent from that role's charter (as the CMO's check, the note above), and the CEO decides between the
 written cases, citing the ADR the decision rests on.
+
+**Note (2026-11-27, from the Founder's receipt; recorded as Operations & Policy (16), for Accounting (10) and the CFO
+(4)):** §6's "$0 route" (session reasoning) is the Founder's own Claude Max plan, $109.10 a month ($100 + Arizona tax
+$9.10), a person's service under the note above; every session draws on its usage limits. Project cost projections carry
+each project's share of session usage against those limits, and the monthly overview shows $109.10 (Max) + the CEO's $20
++ the platform's $40 cap. Recorded in commercial.md §5.1.
