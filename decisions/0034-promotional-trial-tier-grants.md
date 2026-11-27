@@ -25,3 +25,6 @@ SJ Portables needs live Cornerstone-tier access — specifically multi-location 
 - **Core only during the pilot** (Jason, 2026-11-27: "Free trials for core subscribers only. That will limit our
   expenses while we beta test our pilot."; decisions/0181). Comped grants issued during the 1A pilot are at Core,
   whose allowances fit 0181's $0-extra ruling (E1).
+- **The chamber exception** (Jason, 2026-11-27, option A; decisions/0181): during the pilot, up to 3 partnering
+  chambers in the pilot zone may be granted the Co-Op Master Hub (Cornerstone). Each grant is recorded with a review
+  date and continues only by the Founder's review, with AI credits capped to fit E1. Every other pilot grant stays Core.
