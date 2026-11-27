@@ -143,6 +143,3 @@ jobs:
           if git diff --cached --quiet; then echo "No change."; exit 0; fi
           git commit -m "Before and after: release #$RELEASE, $PHASE"
           for i in 1 2 3 4; do git pull --rebase -q && git push && break; sleep $((i * 5)); done
-      # the site moves on now its verdict is on main, instead of at releases_tick's next run (2026-11-27: #317 and #318 each
-      # waited up to an hour). The same endpoint and manners as release-ping.yml; when the site doesn't answer, nothing is
-      # lost: releases_tick reads the verdict on its next run.
