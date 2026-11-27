@@ -2,11 +2,18 @@
 // takes part with its offer in its own portal, both see it, the host removes and undoes, the business leaves and undoes;
 // its offer one of its own discount codes and/or a line (the CMO's ruling, 0134's note #1594), a code switched off coming
 // off with its line said; at 1280 and 390 on the design harness (a listings realm, tvl, with GUEST's codes SHOW10 and the ended OLD5) (HOST listing owned by HUID, GUEST listing owned by GUID; EV a published event).
-const { chromium } = require('playwright'); const fs = require('fs');
+const { chromium } = require('playwright'); const fs = require('fs'); const cp = require('child_process');
 const TW = process.env.TW_INJECT ? fs.readFileSync(process.env.TW_INJECT, 'utf8') : ''; const out = process.argv[2] || '.';
 const H = process.env.HARNESS || 'http://127.0.0.1:8790', HOST = process.env.HOST || '7', HUID = process.env.HUID || '2', GUEST = process.env.GUEST || '8', GUID = process.env.GUID || '3', GNAME = process.env.GNAME || 'Show Low Pizza', EV = process.env.EV || '5';
 const sh = (q, db) => require('child_process').execFileSync('mysql', ['-utv', '-ptv', db || 'tvh', '-e', q]);
-const sw = st => sh("INSERT INTO feature_switches (switch_key, state) VALUES ('event_codes', '" + st + "') ON DUPLICATE KEY UPDATE state = VALUES(state)");
+// the owner's own Discount codes tool (business/codes through the portal's API), as its team changes a code: BizCodes::save
+const codeId = () => +cp.execFileSync('mysql', ['-utv', '-ptv', 'tvl', '-N', '-e', "SELECT id FROM biz_codes WHERE owner_id = 8 AND code = 'SHOW10'"]).toString().trim();
+const codeEdit = async (page, over) => page.evaluate(async ({ id, over, H }) => {
+  const tok = (document.documentElement.innerHTML.match(/TOK = "([^"]+)"/) || [])[1];
+  const input = Object.assign({ code: 'SHOW10', kind: 'percent', value: '10', min_order: '', starts: '', ends: '2026-12-31', max_uses: '0', once_each: '1', active: '1', note: '' }, over);
+  const r = await fetch('/business/api/8/discounts', { method: 'POST', credentials: 'include', headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': tok }, body: JSON.stringify({ action: 'act', id, act: 'edit', input }) });
+  return r.status + ' ' + (await r.text()).slice(0, 160);
+}, { id: codeId(), over, H });
 (async () => { const b = await chromium.launch(); let ok = 0, bad = 0; const t = (n, c, x) => { c ? ok++ : bad++; console.log((c ? 'PASS ' : 'FAIL ') + n + (x ? '  [' + x + ']' : '')); };
  for (const w of [1280, 390]) {
   const ua = w < 800 ? 'Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Mobile Safari/537.36' : 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36';
@@ -26,9 +33,6 @@ const sw = st => sh("INSERT INTO feature_switches (switch_key, state) VALUES ('e
   await gp.goto(H + '/business/' + GUEST + '/events', { waitUntil: 'load' }); await gp.waitForTimeout(500);
   t(w + ' the business sees the invitation, with Take part and Decline', await gRow().count() === 1 && /Invited:/.test(await gRow().innerText()) && await gRow().locator('[data-ev-part=accept]').count() === 1 && await gRow().locator('[data-ev-part=decline]').count() === 1);
   await gp.screenshot({ path: out + '/p1-guest-invited-' + w + '.png', fullPage: true });
-  sw('off'); await gp.reload(); await gp.waitForTimeout(400);
-  t(w + ' codes switched off (as it ships): no code to choose, the offer line still there', await gRow().locator('[data-ev-code]').count() === 0 && await gRow().locator('[data-ev-offer]').count() === 1);
-  sw('on'); await gp.reload(); await gp.waitForTimeout(400);
   const opts = await gRow().locator('[data-ev-code] option').allTextContents();
   t(w + ' its discount codes are offered: switched on and not ended only', opts.some(o => /^SHOW10: 10% off, until Dec 31/.test(o)) && !opts.some(o => /OLD5/.test(o)), opts.join(' | '));
   await gRow().locator('[data-ev-offer]').fill('10% off a pizza with your ticket'); await gRow().locator('[data-ev-code]').selectOption('SHOW10'); await gRow().locator('[data-ev-part=accept]').click(); await gp.waitForTimeout(1800);
@@ -43,11 +47,13 @@ const sw = st => sh("INSERT INTO feature_switches (switch_key, state) VALUES ('e
   t(w + ' the host sees it taking part, with its offer and its code', /Taking part/.test(await hostRow().locator('.ev-parts').innerText()) && /10% off a pizza/.test(await hostRow().locator('.ev-parts').innerText()) && /SHOW10/.test(await hostRow().locator('.ev-parts').innerText()));
   t(w + ' the host\'s row says the code and its last day once: code SHOW10 until Dec 31', /code SHOW10 until Dec 31/.test(await hostRow().locator('.ev-parts').innerText()) && !/10% off, until/.test(await hostRow().locator('.ev-parts').innerText()));
   t(w + ' Remove is sized like the row buttons, the row aligned with its heading', await (async () => { const r = await hostRow().locator('[data-ev-part=remove]').boundingBox(), h = await hostRow().locator('.ev-parts > b').boundingBox(), n = await hostRow().locator('.ev-pn a').first().boundingBox(); return r.height <= 30 && Math.abs(n.x - h.x) <= 2; })());
-  sh('SET @tv_tenant=8; UPDATE biz_codes SET active = 0 WHERE code = \'SHOW10\'', 'tvl'); await hp.reload(); await hp.waitForTimeout(400);
-  t(w + ' a code switched off is read live: the host\'s row drops it, the line stays', !/SHOW10/.test(await hostRow().locator('.ev-parts').innerText()) && /10% off a pizza/.test(await hostRow().locator('.ev-parts').innerText()));
-  sh('SET @tv_tenant=8; UPDATE biz_codes SET active = 1, ends = \'2026-11-01\' WHERE code = \'SHOW10\'', 'tvl'); await hp.reload(); await hp.waitForTimeout(400);
-  t(w + ' a code past its last day is read live: dropped too', !/SHOW10/.test(await hostRow().locator('.ev-parts').innerText()));
-  sh('SET @tv_tenant=8; UPDATE biz_codes SET ends = \'2026-12-31\' WHERE code = \'SHOW10\'', 'tvl'); await hp.reload(); await hp.waitForTimeout(400);
+  let said = await codeEdit(gp, { min_order: '20.00' }); await hp.reload(); await hp.waitForTimeout(400);
+  t(w + ' its owner changes the code in Discount codes: the published copy follows at once', /code SHOW10 on orders of \$20\.00 or more until Dec 31/.test(await hostRow().locator('.ev-parts').innerText()), said);
+  said = await codeEdit(gp, { active: '0' }); await hp.reload(); await hp.waitForTimeout(400);
+  t(w + ' switched off there: withdrawn from the event, the owner\'s line stays', !/SHOW10/.test(await hostRow().locator('.ev-parts').innerText()) && /10% off a pizza/.test(await hostRow().locator('.ev-parts').innerText()), said);
+  await codeEdit(gp, {}); await gp.reload(); await gp.waitForTimeout(400);
+  await gRow().locator('[data-ev-code]').selectOption('SHOW10'); await gRow().locator('[data-ev-part=offer]').click(); await gp.waitForTimeout(1500); await hp.reload(); await hp.waitForTimeout(400);
+  t(w + ' attached again by its owner: published again', /code SHOW10 until Dec 31/.test(await hostRow().locator('.ev-parts').innerText()));
   await hostRow().locator('[data-ev-part=remove]').click(); await hp.waitForTimeout(300); if (await hp.locator('.tv-ask-b.yes').count()) await hp.locator('.tv-ask-b.yes').click(); await hp.waitForTimeout(1800);
   t(w + ' Remove asks first, then Undo is offered', /Removed by the host/.test(await hostRow().locator('.ev-parts').innerText()) && await hostRow().locator('[data-ev-part=unremove]').count() === 1);
   await hostRow().locator('[data-ev-part=unremove]').click(); await hp.waitForTimeout(1800);
@@ -73,4 +79,4 @@ const sw = st => sh("INSERT INTO feature_switches (switch_key, state) VALUES ('e
   await hc.close(); await gc.close();
   sh('DELETE FROM event_participants');
  }
- sw('off'); console.log(ok + ' passed, ' + bad + ' failed'); await b.close(); process.exit(bad ? 1 : 0); })();
+ console.log(ok + ' passed, ' + bad + ' failed'); await b.close(); process.exit(bad ? 1 : 0); })();
