@@ -289,3 +289,27 @@ A business can start with B and move to C at any time. Built after the Marketpla
 (`decisions/0135`, "Step 4 decided"), which card ticket sales need anyway.
 
 **Since 2026-11-03 (decisions/0141):** 0141 §5: tickets become the catalog's Event tickets kind (date and time, capacity, terms, a GO Code ticket scanned at the door), sold through the business's own gateway.
+
+## Note (Jason, 2026-11-27): a minimum build before Jan 1, piloted by the Hometown theater
+
+Jason: "Hometown theater is showing Avengers Doomsday during Dec. It would be a great opportunity to have our tools in
+place for them to succeed." Recorded as Operations & Policy (16), under CLAUDE.md's "His stated direction is the ruling".
+- **Option (a) goes ahead before Jan 1:** host-posted event pages (business hosts on claimed listings; the `events` store
+  and form, then the `/event/` page with the listing and guide hook, 0058 §20–21), free events, and an event that links
+  the host's existing ticket item (Event tickets, ItemKinds.php:23, on the Marketplace path). GO Codes come from the
+  page's Link button. Two releases, Frontend & Shop, after the gate 1/2 items and M-sections; live by about Dec 10–12.
+- **For Jan 1, Live events stay separate from host events** (a departure from §1's "one store"); the merge moves to Q1
+  with the full tool (calendar, Going/Interested, repeats, the Ticket Sales module of §6b).
+- **Conflict cited:** "no links to outside ticket sellers and no 'pay at the door' notes", while a theater sells through
+  its own box office. **Solution, acted on:** the pilot is a community night, a block of seats or a special screening
+  sold through our ticket items (paid the theater's way on Free or Basic, or its own gateway on Core); the regular
+  showtimes show on the event page as information only, with no ticket link and no door note; the theater's own sales are
+  untouched.
+- **Around it (the CMO (7) with Editorial (12) and Sales (14)):** "Dinner and a movie", a trail and showcase linking
+  nearby 1A restaurants to the night; GO Code posters at the theater and the restaurants; a story after the event.
+- **The brand line (CMO):** the film's title is used factually only; no studio artwork or logos, except the theater's own
+  licensed promotional material with its permission.
+- **Money (gate 5):** if tickets sell, a sandbox ticket purchase and refund join the payments checklist before the
+  night, with the CFO's (4) Tier 4.
+- **The offer** is made in person (the Founder with Sales (14)): a one-page offer and its GO Code kit by about Dec 3; the
+  theater claims its listing and agrees. Dates confirmed with the theater (the film is reported for about Dec 18, 2026).
