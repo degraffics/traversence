@@ -73,3 +73,61 @@ traffic, can't show while search engines are locked out.
 3. The search lock's lift date (already Brief D).
 
 Everything else above is decided already, or is research or time only.
+
+## Revised: content to commerce, by the platform's own power (Jason, 2026-11-27)
+
+Jason: "Not sure if that is really the solution. Events using our tools, marketplace features and showcases? We need
+to really look at how to harness the power of our platform to push content to commerce success."
+
+His direction replaces the approach above as the lead. The sections above stay as supporting tactics. **The
+platform makes the demand and the sales; businesses join because it already sells for them.** It builds on the
+decided pipeline: the Authority Engine (content) → the Connection Layer → the Conversion Engine (direct-to-operator
+commerce; commercial.md §0).
+
+### 1. Events: one event brings many businesses at once (0134, 0135)
+- **Decided, designed, not built:** 0134 makes events one site-wide tool:
+  - one store, with the crawler's Live events as a source;
+  - pages at `/event/`, a calendar, Going and Interested;
+  - GO Codes for events;
+  - tickets and registration as catalog items on our order system: from Core through the business's own gateway, on
+    Free and Basic paid the business's way (0134 §6a; 0135).
+- 0135's note puts **event tickets, bookings, harvest and made-to-order** in Jan 1's Experiences & Regional Goods.
+- **Suggest, the wedge:** we run the digital side of 1A's community events (markets, fairs, rodeos, art walks,
+  festivals) for the organizer, who is a decided multiplier:
+  - the event page and map;
+  - a vendor list, each vendor a listing (claim or free);
+  - booth GO Code signs;
+  - pre-orders and pickup through the Marketplace;
+  - tickets through our cart.
+
+  One event signs up its whole vendor roster in a day, and every vendor sees sales tied to its own listing.
+- **After the event:** a story (the magazine model, 0164 and 0056 notes) features the event and its vendors, linking
+  to each listing and its items. It's content that ranks and feeds the next event.
+
+### 2. Showcases: features that sell (decided parts, new packaging)
+- The magazine model: stories about makers and businesses from public sources, published without approvals, within
+  the privacy line (a public role and public act).
+- The Strategic tier's Connection Feature (the Owner Spotlight Interview) and storefronts on trvgo.us (0139, live).
+- **Suggest:** "Made in <geo hub>" collections (0135's regional label) and seasonal showcases (harvest, holiday,
+  rodeo). Each is a story, a collection and a GO Code poster. Free cornerstone businesses are featured first, because
+  a feature is the proof that brings the claim.
+
+### 3. Trails and journeys: a route that buys at every stop
+- Journeys and trips are live (0174 R1–R4): Add to a trip, Send to Maps, sharing.
+- **Suggest:** food, art and made-here trails in 1A, with a GO Code passport (a scan at each stop). Each stop links to
+  that business's items and bookings.
+
+### 4. The Connection Layer: every guide has a buy button
+- Guides and stories already surface listings (commercial.md, the Connection Layer).
+- **Suggest:** where a business sells, its card in a guide carries **Book, Order or Tickets** straight to its catalog,
+  not only Call and Directions. The commerce is in the content.
+
+### What it changes in the plan
+- **Jan 1:** a minimum of events: crawler events plus host-posted event pages, tickets as catalog items (0135's Jan 1
+  kinds), GO Codes, and one pilot event in 1A with its vendors. The full 0134 tool comes in Q1.
+- **Lanes:** the CMO with Editorial and Marketing for showcases, trails and stories; Sales for event organizers and
+  vendors; IT and Frontend & Shop for the events build.
+- **Measure:** orders and bookings through listings, vendors per event, vendors claimed, and showcase → claim. These
+  join the ladder metrics.
+- **Tier 5:** scheduling the 0134 build before Jan 1 is a scope change against 0181's gates, so it's Jason's call. The
+  rest are suggestions within decided lanes.
