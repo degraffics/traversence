@@ -15,8 +15,10 @@ $s = ['at' => 1764214800, 'ok' => true, 'backups' => ['2026-11-24', '2026-11-25'
 $t('found: one fact, the site\'s dates, how often, JetBackup in plain words', $st === 'found' && $w === 'Bluehost keeps 3, from Nov 24 to Nov 26, about daily, going by their dates. JetBackup is on for the account.', $w);
 [$st, $w] = HostBackups::words(['count' => 0, 'backups' => [], 'jetbackup' => []] + $s);
 $t('none listed', $st === 'none' && $w === 'cPanel lists no backups for this account. JetBackup isn\'t on for the account.', $w);
-[$st, $w, $at, $next] = HostBackups::words(['ok' => false, 'why' => 'cPanel\'s Backup module: cPanel: The feature is not enabled.'] + $s);
-$t('unread: cPanel\'s own error, and the next read a day on', $st === 'unread' && str_contains($w, 'couldn\'t be read: cPanel\'s Backup module') && $next - $at === 86400, [$w, $at, $next]);
+[$st, $w, $at, $next] = HostBackups::words(['ok' => false, 'said' => 'The feature “backup” is not enabled for this account.'] + $s);
+$t("unread: cPanel's words quoted once, one sentence; the next read a day on", $st === 'unread' && $w === "Couldn't be read: cPanel says \"The feature “backup” is not enabled for this account.\"" && $next - $at === 86400, [$w, $at, $next]);
+[$st, $w] = HostBackups::words(['ok' => false, 'said' => '', 'why' => "cPanel didn't answer. Check CPANEL_HOST in .env, or try again."] + $s);
+$t("unread, not cPanel's words: said as ours, never as \"cPanel says\"", !str_contains($w, 'cPanel says') && str_contains($w, "cPanel didn't answer"), $w);
 [$st, $w] = HostBackups::words($s, true);
 $t('staging: said plainly, never as a fault', $st === 'staging' && $w === 'Not read on staging; cPanel is read on live only.', $w);
 [$st, $w] = HostBackups::words(['jetbackup' => null] + $s);

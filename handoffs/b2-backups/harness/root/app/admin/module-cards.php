@@ -373,8 +373,8 @@ function tv_mc_host_backups(PDO $pdo): string
     $h = $e($words);
     if ($st === 'found' || $st === 'none') $h .= $t($at, 'Read') . '; read again daily.';
     if ($st === 'unread') $h .= ' Read again daily; next about' . $t($next, '') . '.';
-    if ($st === 'none') $h .= ' ' . tv_mc_ic('link', 'Open Bluehost\'s backups (cPanel) for traversence', 'https://my.bluehost.com/hosting/app#/cpanel', true);
-    return '<p class="mc-sub" data-tv-status="' . ($st === 'found' ? 'ok' : 'info') . '" data-tv-label="Backups:">' . $h . '</p>';
+    if ($st === 'none' || $st === 'unread') $h .= ' ' . tv_mc_ic('link', 'Open Bluehost\'s backups (cPanel) for traversence', 'https://my.bluehost.com/hosting/app#/cpanel', true);
+    return '<p class="mc-sub" data-tv-status="' . ($st === 'found' ? 'ok' : 'info') . '"' . ($st === 'none' || $st === 'unread' ? ' data-tv-keep' : '') . ' data-tv-label="Backups:">' . $h . '</p>';
 }
 
 /** One hosted part's row in zone 2: its role, what it carries, its state, Check now (03 §1 Zone 2). */

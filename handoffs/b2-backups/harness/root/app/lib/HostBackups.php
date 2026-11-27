@@ -28,7 +28,7 @@ final class HostBackups
     public static function read(): array
     {
         require_once __DIR__ . '/CPanel.php';
-        $out = ['at' => time(), 'ok' => false, 'backups' => [], 'latest' => '', 'count' => 0, 'jetbackup' => null, 'why' => ''];
+        $out = ['at' => time(), 'ok' => false, 'backups' => [], 'latest' => '', 'count' => 0, 'jetbackup' => null, 'why' => '', 'said' => ''];
         if (!CPanel::ready()) { $out['why'] = 'cPanel isn\'t connected (CPANEL_HOST, CPANEL_USER and CPANEL_TOKEN in .env).'; return $out; }
         // cPanel's own Backup module: the account's backups the host keeps (UAPI Backup::list_backups)
         try {
@@ -37,7 +37,7 @@ final class HostBackups
             $out['backups'] = self::dates(is_array($list) ? $list : []);
             $out['count'] = count($out['backups']);
             $out['latest'] = $out['backups'] ? max($out['backups']) : '';
-        } catch (Throwable $x) { $out['why'] = 'cPanel\'s Backup module: ' . mb_substr($x->getMessage(), 0, 200); }
+        } catch (Throwable $x) { $m = $x->getMessage(); if (str_starts_with($m, 'cPanel: ')) $out['said'] = mb_substr(substr($m, 8), 0, 200); else $out['why'] = mb_substr($m, 0, 200); }   // cPanel's own words, quoted once on the card
         // JetBackup (Bluehost's backup tool on many plans): is its feature on for the account? (UAPI Features::list_features)
         try {
             $f = CPanel::uapi('Features', 'list_features');
@@ -48,7 +48,7 @@ final class HostBackups
                 if ($enabled && stripos($name, 'jetbackup') !== false) $on[] = $name;
             }
             $out['jetbackup'] = $on;
-        } catch (Throwable $x) { $out['jetbackup'] = null; if ($out['why'] === '') $out['why'] = 'cPanel\'s feature list: ' . mb_substr($x->getMessage(), 0, 200); }
+        } catch (Throwable $x) { $out['jetbackup'] = null; }   // left unsaid on the card
         return $out;
     }
 
@@ -87,7 +87,7 @@ final class HostBackups
         $md = fn (string $d) => date('M j', (int) strtotime($d));
         $jb = $s['jetbackup'] ?? null;
         $jbw = $jb ? ' JetBackup is on for the account.' : ($jb === [] ? ' JetBackup isn\'t on for the account.' : '');
-        if (empty($s['ok'])) return ['unread', 'Bluehost\'s backups couldn\'t be read: ' . rtrim((string) ($s['why'] ?: 'no answer'), '. ') . '.', $at, $next];
+        if (empty($s['ok'])) return ['unread', (string) ($s['said'] ?? '') !== '' ? 'Couldn\'t be read: cPanel says "' . rtrim((string) $s['said'], '. ') . '."' : 'Couldn\'t be read: ' . rtrim((string) ($s['why'] ?: 'no answer'), '. ') . '.', $at, $next];
         if ((int) ($s['count'] ?? 0) === 0) return ['none', 'cPanel lists no backups for this account.' . $jbw, $at, $next];
         $b = (array) $s['backups']; $how = self::cadence($b);
         return ['found', 'Bluehost keeps ' . (int) $s['count'] . ', from ' . $md($b[0]) . ' to ' . $md((string) $s['latest']) . ($how !== '' ? ', ' . $how . ', going by their dates' : '') . '.' . $jbw, $at, $next];
