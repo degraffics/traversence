@@ -37,3 +37,13 @@ messages may touch §4's privacy and identity). Jason sees it as a line in the d
   0181's gates.
 - $0 new spend: hourly paths and existing tables.
 - Gaps (suggestions only): Gemini stays public-only until Jason rules on 0164 §0.8; the hourly lag could be shortened.
+
+## Agents' inbox: role queues, not mailboxes (Jason, 2026-11-27: "Yes to role queues; mail only, OneDrive stays")
+- No email accounts for agents. The inbox system is the role queues on the platform (`handoffs/piece2/jason-spec.md` §7):
+  each department and role has its own queue view on the Work queue, with counts and SLA. An alarm or report the site
+  emails Jason also lands as a row in the owning role's queue, so agents read it there. It joins step 1 (Tier 3, the
+  PM's lane).
+- degraffics.com is out of system mail: email to Jason goes through the site's own email (notify-founder) and push only,
+  with no Microsoft 365 mail fallback and no agent reading his degraffics.com inbox. Mail he receives stays in his
+  mailboxes (0167 §2a, My inbox in Pulse).
+- The OneDrive working copy and the 3-way sync's Microsoft 365 use stay as they are.
