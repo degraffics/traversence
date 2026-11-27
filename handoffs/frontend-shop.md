@@ -111,3 +111,12 @@ Built on Sync 2026-11-27 02:50 UTC (`122090e`). Files: `website/directory/index.
   "issues: Show Low opened within any distance, not 10 mi (decisions/0053)"; with C.4, passed.
 - Seen, not this release's: the place pop-up's list runs past the right edge at 390 on the harness, the same with the live
   code (maybe the Tailwind stand-in); sent to the Design reviewer.
+
+## Place box lists on phones (place-list.zip): next after C.4, ahead of C.8 (the session manager, 04:39 UTC)
+
+Found by the Design reviewer in C.4's screens. `app/ui/location-modal.php`'s phone rule (≤640px) `.lm-sug{position:static}`
+was meant for the location window's own list (0058 §25) but also hit every place box's list (`.tv-pbox-list lm-sug`), so
+on a phone the list landed inside its bar (bar 48 → 216px, list to 497px on a 390px screen), cutting off the town, GO
+and the choices. Scoped to `.lm-box .lm-sug`. Built on Sync 02:50 UTC; zipcheck clean. Tests:
+`tools/search-tests/place-list.cjs` 14/14 (live code fails 2 at 390); screens before and after in `place-list/screens/`.
+No FAQ change (a layout fix: nothing for a visitor to learn).
