@@ -187,7 +187,10 @@ Comes after C.5a and C.5b, as its own release. Its plan went to the session mana
   version couldn't be fetched from here, the proxy blocks the host), leaving the default border colour. Flagged for the Design
   reviewer: written as `border-[color:color-mix(in_srgb,var(--tv-umber)_40%,transparent)]` they'd show as meant. The others the
   harvest named (`pl-h`, `pl-r`… on the dashboard; bare `pl`, `mt`, `m`) are the pages' own classes, not Tailwind.
-  **Content for the build:** `website/**/*.{php,js,html}`, `app/**/*.php`, `trvgo/**/*.php`, excluding `app/data/**`.
+  **The Design reviewer, 2026-11-27:** the intended look is wanted; in the stylesheet release write the three as
+  `color-mix(in_srgb,var(--tv-umber)_40%,transparent)` (and line-strong at 60/70%), with before/after screens of the sign-in
+  card, home and a listing at 1280 and 390.
+    **Content for the build:** `website/**/*.{php,js,html}`, `app/**/*.php`, `trvgo/**/*.php`, excluding `app/data/**`.
 - **Measured for it (C.5a):** login 390 0.250 / 1280 0.653 with the CDN late; 0.009 / 0 with the styles in first; the hub 0.001 / 0.
 - **The before-and-after look:** the check can't cover every page (BA_MAX_PAGES 40; about 213 pages). It takes about 20, one per family of how a page loads Tailwind, plus each distinct layout in the page shell. Piece 2 is adding `"look_pages"` to the check, a check change through the CEO and the session manager. **Ping Piece 2 when we're two releases out.**
 
