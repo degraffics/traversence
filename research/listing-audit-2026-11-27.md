@@ -1,4 +1,42 @@
-# The end-to-end listing audit: 1A's health listings and top 50 (first findings)
+# Listing audit, end to end (2026-11-27)
+
+Jason, 2026-11-27, with a 390 screenshot of Summit Healthcare Regional Medical Center (Show Low): "End to end audit"
+(decisions/0181's note, #1620; gates 1 and 3; live harm). Scope: every 1A health listing and 1A's top 50 by taps. Each
+defect is traced to its root cause with file:line, how many listings it touches, and one fix per cause, never a one-off.
+Read on the live mirror (`degraffics/traverse-3way-sync`, Sync 2026-11-27 19:50 UTC) and rendered on a harness built from
+it. Data & Content's part (the data: categories, hours, duplicates, sources) goes in its own section below.
+
+## Frontend & Shop's part: the page, its links, its photo, hours, claim, search
+
+### F1. A stock storefront as a hospital's hero photo (found 2026-11-27)
+
+- **Seen:** Summit Healthcare's hero is a stock "antiques storefront", labelled Representative.
+- **Root cause:** `app/lib/StockLibrary.php:450-467` (`rank`). A library photo tagged to the listing's town or an area
+  above it scores 20–100 on place alone (:456); the subject match (:458-461, the listing's category against the photo's
+  subjects) only adds to it and isn't required. So any stock photo of Show Low outranks "nothing fits", and the
+  `'fallback' => 'main street'` (`website/listing/view.php:370`) is never reached.
+- **Why card-fixes didn't stop it:** its rules (handoffs/card-fixes.md: no stock photo twice in a list, none on a
+  memorial, the credit on the photo) never checked the photo against the business's kind.
+- **Touches:** every listing with no photo of its own (no hero media, no place photo) whose town or area has a live
+  stock photo whose subjects don't match its category. The count comes from one live read (pending).
+- **Ruled:** the CMO (7) approved the fix as proposed (2026-11-27, through the session manager): gate 1, one root-cause
+  fix, tested at 1280 and 390, its slot with the audit's ranked tickets.
+- **Fix:** a representative
+  pick needs at least one subject hit, with place only breaking ties. With no subject hit, a neutral hero (the brand pattern, no photo),
+  never another kind's photo. Health and emergency kinds never get a stock storefront.
+
+### Still to come
+
+Rendered at 1280 and 390, as a guest and as staff: the kind line running under the photo credit; Edit and ⋯ over the
+title; every link and button followed ("Location and map pin" → `/listing/location.php`); hours against `Hours::status`
+in the listing's own zone; the claim path; its place in search ("hospital show low", "urgent care show low").
+
+### Housekeeping found on the way
+
+- `app/ui/faq.md.orig` is on the live server: a stray copy, read by nothing (no `.php` or `.js` in the mirror names it).
+  It goes under "removes" in the next Frontend & Shop release.
+
+## Data & Content's part
 
 *Data & Content, for the PM (8), shared with Frontend & Shop and the IT Manager (11). Live harm, gates 1 and 3 (0181's
 note, #1620). Jason: "End to end audit", on Summit Healthcare Regional Medical Center, Show Low. Read-only: the site's
@@ -6,7 +44,7 @@ public pages and search, live-read.yml (logs deleted), the CMS NPI Registry's pu
 2026-11-27 19:50 UTC. **First findings, 2026-11-27 evening; the full audit (every 1A health listing and the top 50 by
 taps, with counts per cause) by about Dec 2.** Companion counts: `handoffs/health-1a/counts-2026-11-27.md`.*
 
-## The listing Jason opened: #14779, Summit Healthcare Regional Medical Center (public page, 20:45 UTC)
+### The listing Jason opened: #14779, Summit Healthcare Regional Medical Center (public page, 20:45 UTC)
 
 What a visitor sees: kind **Clinics**; **"How sure we are: Qualified, 56 of 100"** ("Address and phone in the NPI
 Registry · Nov 2026", "Website on its own website · Nov 2026"); **About:** "Comprehensive healthcare in Show Low, AZ.
@@ -15,7 +53,7 @@ different lines ("Monday – Thursday 8 AM – 5 PM", "Friday 8 AM – 12 PM", "
 Friday 7 AM – 5 PM"); a stock photo; unclaimed. NPI: General Acute Care Hospital, Rural (282NR1301X), 2200 E Show Low
 Lake Rd. And the same hospital is **listed 8 times** (counts file).
 
-## Each defect to its root cause (first pass)
+### Each defect to its root cause (first pass)
 
 **C1. The About is the whole health system's website description, copied as this place's.** Not AI-written. The
 crawler fills a missing description with the website's `<meta name="description">` (`workers/crawler/crawler.py:805`
@@ -70,7 +108,7 @@ checked" ("words follow the state").
 listing number, so five Lakeside clinics come before Banner's urgent care (#8938). Search's lane (Frontend & Shop):
 urgent care before clinics in that need.
 
-## Ranked by harm (first pass)
+### Ranked by harm (first pass)
 
 1. **C3 + C4** (a hospital shown as a clinic, eight times): someone needing a hospital can't tell which is real.
 2. **C5** (people as places; pharmacists ahead of pharmacies): wrong answers to a health need.
@@ -78,7 +116,7 @@ urgent care before clinics in that need.
 4. **C6** (a label that vouches for more than it checks): trust.
 5. **C7** (urgent care ranked under clinics).
 
-## Next, for the full audit (by about Dec 2)
+### Next, for the full audit (by about Dec 2)
 
 - Each of 1A's health listings and the top 50 by taps (from the outbound-tap counts) traced: source, identity, kind and
   why, About and its source, hours and their source, confidence lines; one row each.
@@ -87,3 +125,11 @@ urgent care before clinics in that need.
 - Where the individuals (C5) and the departments (C4) entered: which load or crawler step, with file:line.
 - 0066: Pinetop–Lakeside borders the White Mountain Apache Tribe's land; every listing traced is a public facility or
   business off the nation's land; nothing held is named.
+
+### Open: ADHS's licensed list (Summit Healthcare Urgent Care, Show Low)
+
+Not in NPI, not in our listings. The read of ADHS's AZ Care Check (`azcarecheck.azdhs.gov`, `www.azdhs.gov`) is refused by
+this cloud environment's network policy (2026-11-27 ~21:00 UTC); asked through the session manager to allow the two hosts.
+Public pages found meanwhile (not a licence): the clinic's own page gives 4951 S. White Mountain Rd., Bldg A, Show Low
+85901, (928) 537-6743; Building B is Summit's Outpatient Surgery Center (a separate place). Nothing is added from these
+until the licence is read.
