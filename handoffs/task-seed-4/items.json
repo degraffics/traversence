@@ -331,6 +331,18 @@
    "priority": 1,
    "children": [
     {
+     "what": "notify-founder: each batch.json message carries its own link; the email's \"Open it\" uses it, else the message on the Work queue",
+     "why": "CLAUDE.md \"Never a dead end\": it is the channel Tier 5 briefs and live harm reach the Founder by",
+     "source": "CLAUDE.md \"Never a dead end\" \u00b7 handoffs/notify-founder.md \u00b7 releases/batch.json",
+     "done": "Every Founder email's Open it lands on its message or its ticket, never a dead end",
+     "adrs": [
+      "0179",
+      "0180"
+     ],
+     "priority": 1,
+     "owner": "IT Manager (11)"
+    },
+    {
      "what": "Mail: SES_MODE into the Service register, DKIM verified on both domains, DMARC to quarantine (B.5)",
      "why": "Production access is granted; only SES_MODE=mock stops sending, Jason's call to switch",
      "source": "research/launch-plan-jan1-2026-11-26.md \u00a74 B.5 \u00b7 decisions/0181 note (SES)",
@@ -877,6 +889,22 @@
       "0179"
      ],
      "priority": 2
+    }
+   ],
+   "update": [
+    {
+     "id": 22,
+     "gauge": "area:control-board",
+     "item": "Work queue phase 2",
+     "seed_why": "Your spec, 2026-11-24",
+     "seed_done": "A task can be scoped and worked to Done on the site",
+     "why": "Jason, 2026-11-27: \"Yes, the transition plan\" (handoffs/decided-not-live.md). Tier 3 in the PM's (8) lane with the four stages (#1539), and the role queues (#1542)",
+     "done": "The transition plan's phase 2 live: tasks worked in their thread through the four stages, each role's queue on the Work queue, cutover by Tue Dec 15, 2026",
+     "owner": "Project Manager (8)",
+     "adrs": [
+      "0180",
+      "0179"
+     ]
     }
    ],
    "link": [

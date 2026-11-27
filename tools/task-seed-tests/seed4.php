@@ -12,7 +12,9 @@ $ok = 0; $bad = 0; $t = function (string $w, bool $p) use (&$ok, &$bad) { $p ? $
 $links = json_decode((string) file_get_contents(__DIR__ . '/../../handoffs/task-seed-4/items.json'), true);
 $named = []; $byId = []; foreach ($links['goals'] as $g) { foreach ($g['link'] ?? [] as [$ga, $it]) $named[] = [$ga, $it]; foreach ($g['link_ids'] ?? [] as $i) $byId[] = $i; }
 $ins = $pdo->prepare("INSERT INTO control_gauge_tasks (id, at, gauge, item, kind, what, bucket) VALUES (?, UTC_TIMESTAMP(), ?, ?, 'fix', ?, 'task')");
-for ($i = 1; $i <= 61; $i++) { [$ga, $it] = ($i >= 59 ? $named[$i - 59] ?? null : null) ?? ['area:old', 'old task ' . $i]; $ins->execute([$i, $ga, $it, $it]); }
+$named = array_values(array_filter($named, fn ($n) => $n[1] !== 'Work queue phase 2'));   // #22 is live's own row (the seed of 2026-11-24)
+for ($i = 1; $i <= 61; $i++) { [$ga, $it] = $i === 22 ? ['area:control-board', 'Work queue phase 2'] : (($i >= 59 ? $named[$i - 59] ?? null : null) ?? ['area:old', 'old task ' . $i]); $ins->execute([$i, $ga, $it, $it]); }
+$pdo->exec("UPDATE control_gauge_tasks SET why = 'Your spec, 2026-11-24', done_when = 'Jason wrote this himself' WHERE id = 22");   // the seed's why, a person's Done when
 $pdo->exec("INSERT INTO control_gauge_task_adrs (id, task_id, adr, at) VALUES (40, 1, '0162', UTC_TIMESTAMP())");
 $sql = (string) file_get_contents($mig);
 $run = function () use ($pdo, $sql) { foreach (array_filter(array_map('trim', explode(';', $sql))) as $s) { $s = trim(preg_replace('/^--.*$/m', '', $s)); if ($s !== '') $pdo->exec($s); } };
@@ -23,18 +25,27 @@ $goals = $pdo->query("SELECT * FROM control_gauge_tasks WHERE gauge = 'area:goal
 $t('10 goals, each a parent with an owner, a measure and a due date', count($goals) === 10 && !array_filter($goals, fn ($g) => $g['owner'] === '' || !str_contains((string) $g['done_when'], 'Measure:') || !str_contains((string) $g['done_when'], 'Due:') || $g['parent_id'] !== null));
 $t('every goal has its decision attached', (int) $pdo->query("SELECT COUNT(DISTINCT g.id) FROM control_gauge_tasks g JOIN control_gauge_task_adrs a ON a.task_id = g.id WHERE g.gauge = 'area:goals'")->fetchColumn() === 10);
 $kids = $pdo->query("SELECT c.*, p.gauge pg FROM control_gauge_tasks c LEFT JOIN control_gauge_tasks p ON p.id = c.parent_id WHERE c.id > 61 AND c.gauge <> 'area:goals'")->fetchAll(PDO::FETCH_ASSOC);
-$t('every new child links to a goal', count($kids) === 60 && !array_filter($kids, fn ($k) => $k['pg'] !== 'area:goals'));
+$t('every new child links to a goal', count($kids) === 61 && !array_filter($kids, fn ($k) => $k['pg'] !== 'area:goals'));
 $t('every new task cites its source', (int) $pdo->query("SELECT COUNT(*) FROM control_gauge_tasks WHERE id > 61 AND source = ''")->fetchColumn() === 0);
 $ids = $pdo->query('SELECT id FROM control_gauge_tasks WHERE id > 61 ORDER BY id')->fetchAll(PDO::FETCH_COLUMN);
 $t('ids named: 62 onward, contiguous (MAX(id)+1)', $ids === range(62, 61 + count($ids)));
 $aid = $pdo->query('SELECT id FROM control_gauge_task_adrs WHERE id > 40 ORDER BY id')->fetchAll(PDO::FETCH_COLUMN);
 $t('decision rows named from MAX(id)+1 too', $aid === range(41, 40 + count($aid)));
-$t('the existing tasks named gain their goal; others untouched', (int) $pdo->query("SELECT COUNT(*) FROM control_gauge_tasks WHERE id <= 61 AND parent_id IS NOT NULL")->fetchColumn() === count($named) + count($byId));
+$t('the existing tasks named gain their goal; others untouched', (int) $pdo->query("SELECT COUNT(*) FROM control_gauge_tasks WHERE id <= 61 AND parent_id IS NOT NULL")->fetchColumn() === count($named) + 1 + count($byId));
 $t('Founder rulings: 13 Resolution tickets at Tier 5, each with its brief', (int) $pdo->query("SELECT COUNT(*) FROM control_gauge_tasks t JOIN control_gauge_task_briefs b ON b.task_id = t.id WHERE t.ticket = 'resolution' AND t.tier = 5")->fetchColumn() === 13);
 $t('Order #12 linked under the launch, not made twice', (int) $pdo->query("SELECT COUNT(*) FROM control_gauge_tasks WHERE item LIKE 'Order #12%'")->fetchColumn() === 1);
 $t('work tickets start at Planning', (int) $pdo->query("SELECT COUNT(*) FROM control_gauge_tasks WHERE id > 61 AND ticket = 'work' AND stage <> 'planning'")->fetchColumn() === 0);
 $t('the goal fields: due_on and measure on every goal, none on children', (int) $pdo->query("SELECT COUNT(*) FROM control_gauge_tasks WHERE gauge = 'area:goals' AND due_on IS NOT NULL AND measure <> ''")->fetchColumn() === 10 && (int) $pdo->query("SELECT COUNT(*) FROM control_gauge_tasks WHERE gauge <> 'area:goals' AND due_on IS NOT NULL")->fetchColumn() === 0);
 $t('records goal due Nov 30', $pdo->query("SELECT due_on FROM control_gauge_tasks WHERE item LIKE 'Goals and records%'")->fetchColumn() === '2026-11-30');
+$w = $pdo->query('SELECT * FROM control_gauge_tasks WHERE id = 22')->fetch(PDO::FETCH_ASSOC);
+$t('#22 Work queue phase 2 updated in place: one row, never a duplicate', (int) $pdo->query("SELECT COUNT(*) FROM control_gauge_tasks WHERE item = 'Work queue phase 2'")->fetchColumn() === 1);
+$t('#22: the seed\'s why replaced by today\'s rulings, a person\'s Done when kept', str_contains((string) $w['why'], '#1539') && str_contains((string) $w['why'], '#1542') && $w['done_when'] === 'Jason wrote this himself');
+$t('#22: under the transition goal, the PM (8) has it', $pdo->query('SELECT item FROM control_gauge_tasks WHERE id = ' . (int) $w['parent_id'])->fetchColumn() === 'The transition cutover: our business and conversations on the platform by Dec 15' && $w['owner'] === 'Project Manager (8)');
+$t('#22: its decisions attached, so Planning no longer asks for one', !in_array('a decision attached (or "No decision applies")', GaugeTasks::gate($pdo, $w), true));
+$pdo->exec("UPDATE control_gauge_tasks SET why = 'A person rewrote it' WHERE id = 22"); $run();
+$t('#22: a person\'s why is never overwritten on a rerun', $pdo->query('SELECT why FROM control_gauge_tasks WHERE id = 22')->fetchColumn() === 'A person rewrote it');
+$nf = $pdo->query("SELECT c.owner, p.item pi FROM control_gauge_tasks c JOIN control_gauge_tasks p ON p.id = c.parent_id WHERE c.item LIKE 'notify-founder:%'")->fetchAll(PDO::FETCH_ASSOC);
+$t('notify-founder\'s link: one IT Manager (11) child under gate 4', count($nf) === 1 && $nf[0]['owner'] === 'IT Manager (11)' && str_starts_with($nf[0]['pi'], 'Launch gate 4'));
 $q = GaugeTasks::queue($pdo);
 $t('the queue reads them', count($q) >= 131);
 echo "\n$ok passed, $bad failed\n"; exit($bad ? 1 : 0);

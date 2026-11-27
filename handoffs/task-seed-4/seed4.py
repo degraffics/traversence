@@ -37,7 +37,7 @@ def task(g, t, parent_sql=None):
         out.append(f"SET @t = ({find(g, t['what'])});")
         out.append(f"INSERT INTO control_gauge_task_briefs (id, task_id, decision, why_you, delay_impact) SELECT @b, @t, {q(t.get('decision', t['what']))}, {q(t.get('why_you'))}, {q(t.get('delay'))} FROM DUAL WHERE @t IS NOT NULL AND NOT EXISTS (SELECT 1 FROM control_gauge_task_briefs x WHERE x.task_id = @t);")
     for d in t.get('adrs', []): adr(find(g, t['what']), d)
-n_goal = n_child = n_link = 0
+n_goal = n_child = n_link = n_upd = 0
 for goal in G['goals']:
     task('area:goals', goal); n_goal += 1
     psql = find('area:goals', goal['what'])
@@ -45,6 +45,13 @@ for goal in G['goals']:
     out.append(f"UPDATE control_gauge_tasks SET due_on = {qs(goal['due'])}, measure = {qs(goal['measure'])} WHERE kind = 'fix' AND gauge = 'area:goals' AND item = {qs(goal['what'])} AND due_on IS NULL;")
     for c in goal.get('children', []):
         task(c.get('gauge', 'area:' + goal['key']), c, psql); n_child += 1
+    for u in goal.get('update', []):   # an existing task updated in place, never a duplicate: only the seed's own text is replaced, never a person's
+        w = f"id = {int(u['id'])} AND kind = 'fix' AND gauge = {qs(u['gauge'])} AND item = {qs(u['item'])}"
+        out.append(f"UPDATE control_gauge_tasks SET why = {qs(u['why'])} WHERE {w} AND (why IS NULL OR why = '' OR why = {qs(u['seed_why'])});")
+        out.append(f"UPDATE control_gauge_tasks SET done_when = {qs(u['done'])} WHERE {w} AND (done_when IS NULL OR done_when = '' OR done_when = {qs(u['seed_done'])});")
+        out.append(f"UPDATE control_gauge_tasks SET owner = {qs(u['owner'])}, owner_at = UTC_TIMESTAMP() WHERE {w} AND (owner IS NULL OR owner = '');")
+        for d in u.get('adrs', []): adr(f"SELECT id FROM control_gauge_tasks WHERE {w}", d)   # its decisions attached: the Planning gate no longer asks for one
+        n_upd += 1
     for (g, item) in goal.get('link', []):
         out.append(f"SET @p = ({psql});")
         out.append(f"UPDATE control_gauge_tasks SET parent_id = @p WHERE kind = 'fix' AND gauge = {qs(g)} AND item = {qs(item)} AND parent_id IS NULL AND @p IS NOT NULL;"); n_link += 1
@@ -53,4 +60,4 @@ for goal in G['goals']:
         out.append(f"UPDATE control_gauge_tasks SET parent_id = @p WHERE id = {int(i)} AND parent_id IS NULL AND @p IS NOT NULL;"); n_link += 1
 s = "\n".join(out) + "\n"
 open('app/migrations/2026-11-27_task_seed_4.sql', 'w').write(s)
-print(n_goal, 'goals', n_child, 'children', n_link, 'links')
+print(n_goal, 'goals', n_child, 'children', n_link, 'links', n_upd, 'updated in place')

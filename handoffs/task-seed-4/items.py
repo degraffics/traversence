@@ -48,6 +48,7 @@ goals = [
  dict(key='gate-safety', due='2026-12-21', measure='Nightly backups with one restore drill done; scheduled jobs on time 7 days running', link_ids=[51, 32, 13, 45, 57, 42, 11, 10, 56], what='Launch gate 4: access closed, nightly backups with one restore drill, scheduled jobs on time for 7 days', owner='IT Manager (11)',
   why='0181 §1 gate 4: safety. The access hole is closed (live as #314) Owner suggested (inferred from 0180\'s appendix), for the Founder\'s yes.', source='decisions/0181 §1 · ' + LP + ' §4 B',
   goal='Backups nightly with a restore drilled, and every scheduled job on time 7 days running', done='Measure: 7 days of jobs on time and one restore done. ' + DUE_GATES, adrs=['0181','0163'], priority=1, children=[
+   c('notify-founder: each batch.json message carries its own link; the email\'s "Open it" uses it, else the message on the Work queue', 'CLAUDE.md "Never a dead end": it is the channel Tier 5 briefs and live harm reach the Founder by', 'CLAUDE.md "Never a dead end" · handoffs/notify-founder.md · releases/batch.json', 'Every Founder email\'s Open it lands on its message or its ticket, never a dead end', ['0179','0180'], 1, owner='IT Manager (11)'),
    c('Mail: SES_MODE into the Service register, DKIM verified on both domains, DMARC to quarantine (B.5)', 'Production access is granted; only SES_MODE=mock stops sending, Jason\'s call to switch', LP + ' §4 B.5 · decisions/0181 note (SES)', 'DKIM verified, DMARC quarantine, SES_MODE shown in the register', ['0137','0172'], 2),
    c('Capacity: one test of many visitors at once on staging; W0 paced in busy hours (B.6)', 'Gap: no capacity target exists. Suggestion, not a decision: 50 at once, median TTFB under 500 ms', LP + ' §4 B.6', 'The test run and its numbers recorded', ['0163'], 2),
    c('releases_tick every 10 minutes, in the Scheduler bundle (A.2)', 'As Piece 3 designed', LP + ' §4 A.2 · handoffs/piece3-check.md', 'The tick runs every 10 minutes', ['0179'], 2),
@@ -96,7 +97,10 @@ goals = [
    c('Role queues as the agents\' inbox: each department and role a queue view with counts and SLA', 'Jason, 2026-11-27: "Yes to role queues; mail only, OneDrive stays"', 'handoffs/decided-not-live.md · handoffs/piece2/jason-spec.md §7', 'Each role\'s queue on the Work queue; an alarm emailed to Jason also a row', ['0180'], 2),
    c('The Executive channel: + Add with To: the CEO, answered in its thread', 'Jason, 2026-11-26; built after R2 with phase 2\'s thread', 'handoffs/decided-not-live.md · decisions/0180 notes', 'A post to the CEO answered in its thread', ['0180'], 2),
    c('task-notes.json and task-rulings.json carried into phase 2 release 1', 'The transition plan\'s order', 'handoffs/decided-not-live.md (the transition plan)', 'Both files read into the queue', ['0179'], 2),
- ], link=[('area:control-board', 'Work queue phase 2'), ('area:control-board', "The Work queue redesigned around Jason's four stages")]),
+ ], update=[dict(id=22, gauge='area:control-board', item='Work queue phase 2', seed_why='Your spec, 2026-11-24', seed_done='A task can be scoped and worked to Done on the site',
+   why='Jason, 2026-11-27: "Yes, the transition plan" (handoffs/decided-not-live.md). Tier 3 in the PM\'s (8) lane with the four stages (#1539), and the role queues (#1542)',
+   done='The transition plan\'s phase 2 live: tasks worked in their thread through the four stages, each role\'s queue on the Work queue, cutover by Tue Dec 15, 2026', owner='Project Manager (8)', adrs=['0180','0179'])],
+ link=[('area:control-board', 'Work queue phase 2'), ('area:control-board', "The Work queue redesigned around Jason's four stages")]),
 ]
 json.dump({'goals': goals}, open('items.json', 'w'), indent=1)
 print(len(goals), sum(len(g['children']) for g in goals))
