@@ -11,6 +11,20 @@
    "expires": "2026-11-27T05:52:14Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "website/index.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
+   "why": "G.1: the search lock's leaks closed (decisions/0181 \u00a74)",
+   "since": "2026-11-27T01:52:17Z",
+   "expires": "2026-11-27T05:52:17Z",
+   "release": "",
+   "callers": {},
+   "zones": [
+    "home.after-doors"
+   ]
   }
  ],
  "lapsed": [
