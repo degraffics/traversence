@@ -10,6 +10,10 @@
 - `fold-real.test.mjs`: the More fold drawn by the live `js/tv-ask.js` (`TV_ASK_JS`, else the mirror beside the repo) at
   1280 and 390: folded tabs read as the same controls, a tab really gone or hidden inside the fold still differs (the
   CTO's Tier 4 on #322's look, 2026-11-27; 7 checks). Run: `node tools/piece3-tests/fold-real.test.mjs`.
+- `before-timeout.test.mjs`: `compare()` on its own for a before look that timed out (#323's look): the second before look
+  used when it opened; else, on a page the release doesn't reach, drift and layout left out while access, 0066, canaries
+  and errors are read; a 500 or a network error as before; the 3rd release in a row a ticket for the IT Manager's lane
+  (`priorSkips`). The CTO's Tier 4, 2026-11-27; 12 checks. Run: `node tools/piece3-tests/before-timeout.test.mjs`.
 - `reach_test.py`: `reach.py` on a mirror it makes. A class reached through a UI part; a link isn't a load; a comment
   isn't a use; endpoints aren't pages; a page's own helpers; a script by its tag; a release's pages and expected list.
   9 checks. Run: `python3 tools/piece3-tests/reach_test.py`

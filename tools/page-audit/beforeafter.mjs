@@ -18,7 +18,7 @@
 //
 // The advocates (team_roster, P2-2; Staff Views added in P3-2, Jason 2026-11-25): each bound to a test account key.
 import { chromium } from 'playwright';
-import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, readdirSync } from 'node:fs';
 import { createHmac } from 'node:crypto';
 import { ACC, STAGING, CHECK_TOKEN, memberIn, staffIn, checkContext } from './check-kit.mjs';
 import { STANDARDS, pageCheck } from './page-check.mjs';
@@ -268,6 +268,18 @@ const errs = f => f && (f.status >= 500 || (f.console || []).length || (f.reques
 export const ctlSig = (f, st = true, skip = new Set()) => [...new Set((f?.ba?.controls || []).filter(c => (st || !c.st) && !c.rec && !(c.sec && skip.has(c.sec)) && !(c.lk && /^\/admin(\/|\.|$)/.test(f?.url || ''))).map(c => (c.n + '→' + c.h).replace(/\d+/g, '#')))].sort().join('\n');
 
 /** The verdict for one release: blocks (each a rule, who, page, size, what), notes, and pass / block / incomplete. */
+/** How many releases in a row, just before this one, left each view's drift and layout unchecked because its before looks
+ *  timed out (the CTO's Tier 4, 2026-11-27: the 3rd in a row becomes a ticket): read from the earlier verdicts' notes. */
+export function priorSkips(dir, release) {
+  const n = Number(release) || Infinity; let files = [];
+  try { files = readdirSync(dir).map(f => [Number(f.replace(/\.json$/, '')), f]).filter(([r]) => r > 0 && r < n).sort((x, y) => y[0] - x[0]); } catch (x) { return {}; }
+  const skipped = v => new Set((v.notes || []).map(t => (t.match(/^([^|]+\|[^|]+\|[a-z]+): its before looks? timed out/) || [])[1]).filter(Boolean));
+  const vs = []; for (const [, f] of files.slice(0, 20)) { try { vs.push(JSON.parse(readFileSync(dir + '/' + f, 'utf8'))); } catch (x) { vs.push({}); } }
+  const out = {}; if (!vs.length) return out;
+  for (const k of skipped(vs[0])) { let c = 0; for (const v of vs) { if (skipped(v).has(k)) c++; else break; } out[k] = c; }
+  return out;
+}
+
 export function compare(b1, b2, a, exp = {}, release = '', heldKey = STAGING?.token || CHECK_TOKEN) {
   const B = new Map(b1.results.map(f => [key(f), f])), B2 = new Map(b2.results.map(f => [key(f), f]));
   const A = new Map(a.results.map(f => [key(f), f]));
@@ -279,7 +291,7 @@ export function compare(b1, b2, a, exp = {}, release = '', heldKey = STAGING?.to
   // made the dashboard Inbox's new Visitor row drift on /admin/). With no pages named, a drawer still turns them on everywhere
   const stateDrawn = !Array.isArray(exp.files) || (exp.files.some(f => STATE_DRAWERS.test(f)) && !(exp.pages || []).length);
   const held = new Set(exp.held?.hashes || []); const heldUnread = !!exp.held?.error;
-  const blocks = [], notes = [], far = [];   // far: the slow pages reached only through a shared file, for the release's card
+  const blocks = [], notes = [], far = [], tickets = [];   // tickets: a page skipped 3 releases in a row (the CTO's Tier 4)   // far: the slow pages reached only through a shared file, for the release's card
   if (heldUnread) notes.push('0066 not checked: the held names couldn\'t be read (' + String(exp.held.error).slice(0, 120) + ')');
   else if (!exp.held) notes.push('0066: no held names given to this run (held.json)');
   const block = (rule, f, what, before = '', after = '') => blocks.push({ rule, rule_name: RULES[rule], advocate: f.advocate, who: f.who, page: f.url, size: f.size, what, before: String(before).slice(0, 300), after: String(after).slice(0, 300) });
@@ -293,15 +305,17 @@ export function compare(b1, b2, a, exp = {}, release = '', heldKey = STAGING?.to
   // with no usable before look at all, the verdict is incomplete (a person looks), never pass
   const unusable = x => !x || x.status >= 500 || (!x.ba && !refused(x));
   let compared = 0;
+  const timedOut = x => !!(x && x.error && /Timeout/i.test(x.error));
   for (const f of a.results) {
-    const b = B.get(key(f)), bb = B2.get(key(f)); if (!b) { notes.push(`${key(f)}: no before look to compare`); continue; }
+    let b = B.get(key(f)), bb = B2.get(key(f)); if (!b) { notes.push(`${key(f)}: no before look to compare`); continue; }
+    // a before look that timed out holds only the part of the page drawn by then (#323's look, /admin/crawler-review.php at
+    // 390: its header, not its "Find any listing to edit" box). When the second before look opened, it's the one compared
+    // with (the CTO's Tier 4, 2026-11-27); when neither did, on a page the release doesn't reach, only drift and layout are
+    // left out (partial, below): access, 0066, canaries and errors are always read
+    if (timedOut(b) && bb && !bb.error && bb.ba) { b = bb; }
+    const partial = timedOut(b) && !f.error && !expected.has(f.url);
     if (f.retried) notes.push(`${key(f)}: timed out once, opened again (${f.error ? 'timed out again' : 'answered ' + f.status})`);
     if (unusable(b)) { notes.push(`${key(f)}: its before look wasn't usable (staging answered ${b.status || b.error || 'nothing'}); not compared`); continue; }
-    // a before look that timed out holds only the part of the page drawn by then (#323's look, /admin/crawler-review.php at
-    // 390: its header, not its "Find any listing to edit" box), so the page opening in full after reads as new parts. On a page
-    // the release doesn't reach, that's staging's slowness, never this change's: said, not compared. A page it reaches is
-    // still compared (its change has to be seen)
-    if (b.error && /Timeout/i.test(b.error) && !f.error && !expected.has(f.url)) { notes.push(`${key(f)}: its before look timed out (part of the page drawn), and it opened in full after, on a page this release doesn't reach: staging is slow there (the IT Manager's lane), not compared`); continue; }
     compared++;
     // a view that timed out after, on a page the release doesn't reach (reach.py's pages, the names it gives), is staging's
     // slowness, not the change: noted for the IT Manager's lane, never an access block (#307's look, /admin/crawler-review.php,
@@ -338,6 +352,13 @@ export function compare(b1, b2, a, exp = {}, release = '', heldKey = STAGING?.to
     for (const c of f.ba?.canaries || []) if (c !== own && !was.has(c)) block('access', f, `Another account's email shows (check+${c}@)`, '', 'check+' + c + '@');
     if (held.size) { const was0 = heldIn(b.ba?.words ?? b.ba?.text ?? '', held, heldKey); for (const h of heldIn(f.ba?.words ?? f.ba?.text ?? '', held, heldKey)) if (!was0.has(h)) block('access', f, '0066: a name the site holds back shows (held ' + h.slice(0, 8) + ')', '', 'held ' + h.slice(0, 8)); }
     if (refused(f)) continue;
+    if (partial) {
+      const n = 1 + ((exp.skips || {})[key(f)] || 0);
+      notes.push(`${key(f)}: its before looks timed out (part of the page drawn) and it opened in full after, on a page this release doesn't reach: access, 0066 and errors read; drift and layout not compared (${n} in a row${n >= 3 ? ': a ticket for the IT Manager\'s (11) lane' : ''}; staging is slow there)`);
+      if (n >= 3) tickets.push({ lane: 'IT Manager (11)', what: `${f.url} (${f.who}, ${f.size}): its before look timed out ${n} releases in a row, so drift and layout there go unchecked`, why: 'the CTO\'s Tier 4, 2026-11-27: no page unchecked forever', release: String(release) });
+      for (const k of ['cards', 'rows', 'pins']) if ((f.ba?.[k] || 0) < (b.ba?.[k] || 0)) block('data', f, `Fewer ${k}: ${b.ba[k]} before, ${f.ba[k]} after`, b.ba[k], f.ba[k]);
+      continue;
+    }
     // 2. layout or phone
     for (const [k, on] of [['scroll', x => x.scroll && x.size === 'phone'], ['edges', x => x.edges > 0], ['dialogs', x => (x.dialogs || []).length], ['names', x => x.names > 0], ['alt', x => x.alt > 0]])
       if (on(f) && !on(b)) {
@@ -401,7 +422,7 @@ export function compare(b1, b2, a, exp = {}, release = '', heldKey = STAGING?.to
   if (!compared && a.results.length) notes.unshift('No view had a usable before look (staging was closed or erroring when it was taken): a person looks before it goes on');
   return { release: String(release), at: new Date().toISOString(), verdict: uniq.length ? 'block' : (incomplete ? 'incomplete' : 'pass'),
     first: uniq[0] ? `${uniq[0].rule_name}: ${uniq[0].what} (${uniq[0].who}, ${uniq[0].page}, ${uniq[0].size})` : '',
-    blocks: uniq.slice(0, 50), blocks_total: uniq.length, notes: notes.slice(0, 30), far: far.slice(0, 10), views: a.results.length, seconds: (b1.seconds || 0) + (b2.seconds || 0) + (a.seconds || 0) };
+    blocks: uniq.slice(0, 50), blocks_total: uniq.length, notes: notes.slice(0, 30), far: far.slice(0, 10), tickets: tickets.slice(0, 10), views: a.results.length, seconds: (b1.seconds || 0) + (b2.seconds || 0) + (a.seconds || 0) };
 }
 
 // ---- command line ----------------------------------------------------------------------------------------------------
@@ -426,6 +447,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     const rd = f => JSON.parse(readFileSync(f, 'utf8'));
     const exp = arg('expected') ? rd(arg('expected')) : {};
     if (arg('held')) { try { exp.held = rd(arg('held')); } catch (x) { exp.held = { error: 'held.json unreadable' }; } }
+    exp.skips = priorSkips(arg('verdicts', 'site-audit/results/beforeafter'), arg('release'));   // the CTO's Tier 4: no page unchecked forever
     const v = compare(rd(arg('before')), rd(arg('before2') || arg('before')), rd(arg('after')), exp, arg('release'));
     writeFileSync(arg('out', 'ba-verdict.json'), JSON.stringify(v, null, 1) + '\n');
     console.log(`${v.verdict}${v.first ? ': ' + v.first : ''} (${v.views} views, ${v.blocks_total} block${v.blocks_total === 1 ? '' : 's'})`);
