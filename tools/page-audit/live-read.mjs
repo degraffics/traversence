@@ -67,13 +67,12 @@ try {
       await p.waitForLoadState('networkidle', { timeout: 15000 }).catch(() => {});   // the admin's tables fill in after load
       await p.waitForTimeout(800);
       const name = `${READ}${READ === 'meta' || READ === 'rows' ? '-' + TABLE : (ID ? '-' + ID : '')}-${w}`;
-      const card = READ === 'card' ? await p.evaluate((name) => {   // open the named card only; its text is the read
-        const n = name.toLowerCase();   // the card itself: its title starts with the name (an inner fold only mentions it); the biggest such fold
-        const all = [...document.querySelectorAll('details')].filter((x) => (x.querySelector(':scope > summary')?.innerText || '').trim().toLowerCase().startsWith(n));
-        const d = all.sort((a, b) => b.querySelectorAll('*').length - a.querySelectorAll('*').length)[0];
-        if (!d) return null;
-        d.open = true; d.querySelectorAll('details').forEach((x) => { x.open = true; });
-        return d.innerText;
+      const card = READ === 'card' ? await p.evaluate((name) => {   // the register's row for that service (outside-services.php: div.os-r, data-name), its body shown; nothing pressed
+        const n = name.toLowerCase();
+        const r = [...document.querySelectorAll('.os-r[data-name]')].find((x) => x.dataset.name === n) || [...document.querySelectorAll('.os-r[data-name]')].find((x) => x.dataset.name.startsWith(n));
+        if (!r) return null;
+        r.querySelectorAll('[hidden]').forEach((x) => x.removeAttribute('hidden')); r.querySelectorAll('details').forEach((x) => { x.open = true; });
+        return r.innerText;
       }, ID) : null;
       if (READ === 'card') await p.waitForTimeout(500);
       const read = await p.evaluate(() => ({
