@@ -310,6 +310,17 @@
    "expires": "2026-11-27T08:35:08Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/ui/location-modal.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
+   "why": "Place box lists float again on phones: location-modal.php's phone rule scoped to its own box (0058 \u00a711, \u00a725)",
+   "since": "2026-11-27T04:42:35Z",
+   "expires": "2026-11-27T08:42:35Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
