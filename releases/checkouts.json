@@ -2,6 +2,30 @@
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
  "claims": [
   {
+   "path": "app/admin/module-cards.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
+   "why": "release b2-backups.zip",
+   "since": "2026-11-27T06:27:04Z",
+   "expires": "2026-11-27T14:52:25Z",
+   "release": "b2-backups-3.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/HostBackups.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
+   "why": "release b2-backups.zip",
+   "since": "2026-11-27T06:27:04Z",
+   "expires": "2026-11-27T14:52:25Z",
+   "release": "b2-backups-3.zip",
+   "callers": {}
+  }
+ ],
+ "lapsed": [
+  {
    "path": "app/lib/OpenNow.php",
    "functions": [],
    "kind": "add",
@@ -10,7 +34,8 @@
    "since": "2026-11-27T04:53:49Z",
    "expires": "2026-11-27T08:53:49Z",
    "release": "",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-27T10:52:25Z"
   },
   {
    "path": "app/lib/Nations.php",
@@ -24,7 +49,8 @@
    "since": "2026-11-27T04:53:51Z",
    "expires": "2026-11-27T08:53:51Z",
    "release": "",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-27T10:52:25Z"
   },
   {
    "path": "app/lib/SearchIndex.php",
@@ -39,7 +65,8 @@
    "since": "2026-11-27T04:53:53Z",
    "expires": "2026-11-27T08:53:53Z",
    "release": "",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-27T10:52:25Z"
   },
   {
    "path": "app/lib/UniversalSearch.php",
@@ -53,7 +80,8 @@
    "since": "2026-11-27T04:53:55Z",
    "expires": "2026-11-27T08:54:45Z",
    "release": "",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-27T10:52:25Z"
   },
   {
    "path": "website/api/search_listings.php",
@@ -64,7 +92,8 @@
    "since": "2026-11-27T04:53:57Z",
    "expires": "2026-11-27T08:53:57Z",
    "release": "",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-27T10:52:25Z"
   },
   {
    "path": "website/js/search-panel.js",
@@ -75,7 +104,8 @@
    "since": "2026-11-27T04:53:59Z",
    "expires": "2026-11-27T08:53:59Z",
    "release": "",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-27T10:52:25Z"
   },
   {
    "path": "website/hub/index.php",
@@ -88,7 +118,8 @@
    "since": "2026-11-27T04:54:01Z",
    "expires": "2026-11-27T08:54:01Z",
    "release": "",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-27T10:52:25Z"
   },
   {
    "path": "app/ui/header.php",
@@ -99,32 +130,9 @@
    "since": "2026-11-27T04:54:03Z",
    "expires": "2026-11-27T08:54:03Z",
    "release": "",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-27T10:52:25Z"
   },
-  {
-   "path": "app/admin/module-cards.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
-   "why": "release b2-backups.zip",
-   "since": "2026-11-27T06:27:04Z",
-   "expires": "2026-11-27T12:43:28Z",
-   "release": "b2-backups-2.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/HostBackups.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
-   "why": "release b2-backups.zip",
-   "since": "2026-11-27T06:27:04Z",
-   "expires": "2026-11-27T12:43:28Z",
-   "release": "b2-backups-2.zip",
-   "callers": {}
-  }
- ],
- "lapsed": [
   {
    "path": "app/admin/control-console.php",
    "functions": [
@@ -788,153 +796,6 @@
    "release": "board-phone-header.zip",
    "callers": {},
    "lapsed": "2026-11-24T11:59:12Z"
-  },
-  {
-   "path": "app/lib/ControlBoard.php",
-   "functions": [
-    "boardLight"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
-   "why": "board-phone-header: the Control Board on a phone (pages under \u2630, one Alerts dropdown, one alarm count), the side panel's look, words that follow the state, the audit clock's retry, daily jobs' late limits",
-   "since": "2026-11-24T05:47:58Z",
-   "expires": "2026-11-24T09:47:58Z",
-   "release": "board-phone-header.zip",
-   "callers": {
-    "boardLight": [
-     "app/admin/control-console.php",
-     "app/lib/ControlHistorian.php"
-    ]
-   },
-   "lapsed": "2026-11-24T11:59:12Z"
-  },
-  {
-   "path": "app/lib/Scheduler.php",
-   "functions": [
-    "(top)",
-    "JOBS"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
-   "why": "board-phone-header: the Control Board on a phone (pages under \u2630, one Alerts dropdown, one alarm count), the side panel's look, words that follow the state, the audit clock's retry, daily jobs' late limits",
-   "since": "2026-11-24T05:47:58Z",
-   "expires": "2026-11-24T09:47:58Z",
-   "release": "board-phone-header.zip",
-   "callers": {
-    "JOBS": [
-     "app/admin/automation-console.php",
-     "app/admin/job-line.php",
-     "app/admin/operations-console.php",
-     "app/admin/sections.php",
-     "app/lib/ControlAlarms.php",
-     "app/lib/ControlMaintenance.php",
-     "app/lib/ControlRegister.php",
-     "app/lib/OutsideServices.php",
-     "app/lib/Preflight.php",
-     "app/lib/SystemStart.php",
-     "app/scripts/control_tick.php",
-     "app/ui/admin-dashboard.php",
-     "website/admin/api/find.php",
-     "website/api/health.php"
-    ]
-   },
-   "lapsed": "2026-11-24T11:59:12Z"
-  },
-  {
-   "path": "app/lib/AuditClock.php",
-   "functions": [
-    "dispatch"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
-   "why": "board-phone-header: the Control Board on a phone (pages under \u2630, one Alerts dropdown, one alarm count), the side panel's look, words that follow the state, the audit clock's retry, daily jobs' late limits",
-   "since": "2026-11-24T05:47:58Z",
-   "expires": "2026-11-24T09:47:58Z",
-   "release": "board-phone-header.zip",
-   "callers": {},
-   "lapsed": "2026-11-24T11:59:12Z"
-  },
-  {
-   "path": "app/lib/ControlAlarms.php",
-   "functions": [
-    "counts"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
-   "why": "board-phone-header: the Control Board on a phone (pages under \u2630, one Alerts dropdown, one alarm count), the side panel's look, words that follow the state, the audit clock's retry, daily jobs' late limits",
-   "since": "2026-11-24T05:47:58Z",
-   "expires": "2026-11-24T09:47:58Z",
-   "release": "board-phone-header.zip",
-   "callers": {
-    "counts": [
-     "app/admin/control-console.php",
-     "app/lib/ControlConsistency.php",
-     "website/admin/router.php"
-    ]
-   },
-   "lapsed": "2026-11-24T11:59:12Z"
-  },
-  {
-   "path": "website/admin/router.php",
-   "functions": [
-    "tv_admin_board_light"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
-   "why": "board-phone-header: the Control Board on a phone (pages under \u2630, one Alerts dropdown, one alarm count), the side panel's look, words that follow the state, the audit clock's retry, daily jobs' late limits",
-   "since": "2026-11-24T05:47:58Z",
-   "expires": "2026-11-24T09:47:58Z",
-   "release": "board-phone-header.zip",
-   "callers": {},
-   "lapsed": "2026-11-24T11:59:12Z"
-  },
-  {
-   "path": "website/api/health.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
-   "why": "board-phone-header: the health report keeps refused starts and connection counts outside the jobs section, and says why that section is empty (jobs_error)",
-   "since": "2026-11-24T05:52:29Z",
-   "expires": "2026-11-24T09:52:29Z",
-   "release": "board-phone-header.zip",
-   "callers": {},
-   "lapsed": "2026-11-24T11:59:12Z"
-  },
-  {
-   "path": "website/admin/api.php",
-   "functions": [
-    "(top)"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5kEUy5gPJ4PG34SZhy",
-   "why": "Orders release A: a row action's Copy the link (the design review, 2026-11-23)",
-   "since": "2026-11-23T16:09:58Z",
-   "expires": "2026-11-23T20:09:58Z",
-   "release": "",
-   "callers": {},
-   "lapsed": "2026-11-23T20:10:03Z"
-  },
-  {
-   "path": "app/admin/control-console.php",
-   "functions": [
-    "(top)",
-    "tv_admin_mod_control",
-    "tv_cb_alarms",
-    "tv_cb_evidence",
-    "tv_cb_qbar"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5iMkDf1xiJ4V9rScRe",
-   "why": "board-fixes: the Design reviewer changes (one button, short titles, true words, one time format)",
-   "since": "2026-11-23T14:57:50Z",
-   "expires": "2026-11-23T19:48:52Z",
-   "release": "board-fixes-4.zip",
-   "callers": {
-    "tv_cb_alarms": [
-     "app/lib/ControlConsistency.php"
-    ]
-   },
-   "lapsed": "2026-11-23T19:57:52Z"
   }
  ]
 }
