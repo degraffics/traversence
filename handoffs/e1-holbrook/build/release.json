@@ -1,0 +1,13 @@
+{
+ "title": "The Holbrook Corridor's guide written again from its research brief (gate 3, E.1)",
+ "why": "0181 §1 gate 3 and its C7 note: guides publish themselves at 70, and the Editorial lane raises the pilot zone's drafts that are under 70. Order (the session manager, 2026-11-27): St. Johns, Round Valley, Show Low, Holbrook. The Holbrook Corridor's guide (cluster:55) is a draft scoring about 50 (live read, 2026-11-27: Claude's confidence 55, no research brief, 12 things to check). All its sections are written, so a redraft adds nothing (Guides.php:1097). The existing route is draft_info.renew, the field the guide check itself sets (Guides.php:709): the guide job writes Claude's own sections again with a fresh research brief (Guides.php:802, :1088), keeping any a person wrote. Its cost comes from the AI cap like any renewal, and is recorded on its ticket. Ordered by the session manager (for the PM (8)), after W15 r1.",
+ "changes": [
+  {
+   "what": "The Holbrook Corridor's guide is rewritten by the next guide job, with a research brief; if its score reaches 70 it publishes itself, else it stays a draft for the Editorial lane",
+   "where": "https://traversence.com/hub/?cluster=cluster-auto-holbrook"
+  }
+ ],
+ "proposals": [],
+ "switch": "",
+ "data_reason": "Updates one row of place_guides (cluster:55): adds draft_info.renew so the guide job writes Claude's own sections again. Only when it's a draft, finished, not marked kept, and not already waiting. No other field or row changes. Undo: remove draft_info.renew before the guide job runs. Once it has run, the rewritten sections stand (a person's sections are never touched)."
+}
