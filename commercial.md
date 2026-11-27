@@ -309,6 +309,14 @@ from Accounting's prepared entry: vendor Anthropic, PBC; 2026-11-27; $100.00 Cla
 Software & subscriptions; receipt #2088-0359-9509; recurring monthly on the 27th. Logged for after launch (Accounting's
 queue, "money it protects"): an operating-expense register posting recurring costs (Claude Max, Railway, Name.com,
 Fly.io, Bluehost…) to QuickBooks as Purchases, on the same guards (`guardReal()`, `StagingGate`, mock mode).
+**Brought forward** (Jason, 2026-11-27: "Commercial md... what about our qbo ledger?"; recorded as Operations & Policy
+(16), amending the line above): the operating-expense register is built now, as money it protects (true books, under
+CLAUDE.md's "Launch first"). Accounting Manager's (10) lane, built by Build & QA (21); the CFO's (4) Tier 4 with an
+independent check before live (territory 1). It moves no money; it writes ledger entries only (0180 §4.1, "reconciling
+ledger entries"): recurring costs entered once with account, vendor and cadence; each posted as a QuickBooks Purchase or
+Bill through `QuickBooksPay`'s guards; receipts attached; marked so the card's bank feed matches rather than duplicates.
+Proof first in the QuickBooks sandbox, then one real entry (Claude Max, Nov 27) checked in QBO. After Monday's four; data
+rules apply. Until it's live, Jason's own entry stands.
 
 ## 6. Profitability Summary
 
