@@ -602,7 +602,7 @@ own pages and checked before it's published.
 
 ### 10.5 What's open
 
-- **Who reviews the law-facing guides:** the Editorial lane is set. An attorney's read is advised, not required, in
-  line with R8's ruling. Jason's call if he wants one for this topic.
+- **Who reviews the law-facing guides:** settled (Jason, 2026-11-27: "Team review is fine"). The Editorial lane
+  reviews them against the Board's text; no attorney's read.
 - **The Board's site** (doi.gov/iacb) isn't in this environment's allowlist. The session that builds the guides asks for
   its exact hosts through the environment tools at that point, not before.
