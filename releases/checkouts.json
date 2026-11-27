@@ -202,6 +202,17 @@
    "expires": "2026-11-27T17:24:26Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/migrations/2026-11-27_w15_winslow.sql",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jsi4U8fUwJYPkZsMx",
+   "why": "W15 r1: Winslow's own area under 1A (gate 3; CEO Tier 4 2026-11-27)",
+   "since": "2026-11-27T13:35:26Z",
+   "expires": "2026-11-27T17:35:26Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
