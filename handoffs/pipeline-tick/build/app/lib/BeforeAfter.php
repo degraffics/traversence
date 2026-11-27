@@ -104,7 +104,9 @@ final class BeforeAfter
         $s = fn ($k, $n = 400) => mb_substr(trim((string) ($v[$k] ?? '')), 0, $n);
         return ['phase' => in_array($v['phase'] ?? '', ['before-done', 'after-done'], true) ? $v['phase'] : '', 'verdict' => in_array($v['verdict'] ?? '', ['waiting', 'pass', 'block', 'incomplete'], true) ? $v['verdict'] : '',
                 'first' => $s('first'), 'run' => preg_match('#^https://github\.com/degraffics/traversence/actions/runs/\d+$#', (string) ($v['run'] ?? '')) ? (string) $v['run'] : '',
-                'blocks' => (int) ($v['blocks_total'] ?? 0), 'views' => (int) ($v['views'] ?? 0), 'seconds' => (float) ($v['seconds'] ?? 0)];
+                'blocks' => (int) ($v['blocks_total'] ?? 0), 'views' => (int) ($v['views'] ?? 0), 'seconds' => (float) ($v['seconds'] ?? 0),
+                // its far timeouts, said on the release's card (the CEO's Tier 4 condition, 2026-11-27): at most three, as the check wrote them
+                'far' => array_slice(array_values(array_map(fn ($n) => mb_substr(trim((string) $n), 0, 300), array_filter((array) ($v['notes'] ?? []), fn ($n) => is_string($n) && preg_match('/when tried (again )?after the look/', $n)))), 0, 3)];
     }
 
     // ---- the steps ---------------------------------------------------------------------------------------------------------
@@ -215,6 +217,7 @@ final class BeforeAfter
         if ($d['phase'] === 'after' && $v && $v['phase'] === 'after-done' && $v['verdict'] !== 'waiting') {
             self::spend($pdo, max(0.0, $v['seconds'] - (float) ($d['before_seconds'] ?? 0)));
             self::put($pdo, $id, null);
+            foreach ($v['far'] as $n) Releases::noteFromCheck($pdo, $id, 'The before-and-after check noted: ' . $n);   // kept on its card and in the daily summary's record
             return Releases::checkedByAdvocates($pdo, $id, $v, (bool) ($d['hold'] ?? false) || self::spent($pdo));
         }
         // late: asked again once, then a person is told in the Work queue

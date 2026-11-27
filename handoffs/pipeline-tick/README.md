@@ -21,7 +21,7 @@ and C.8. It needs the CEO's Tier 4 check first (the release pipeline, StagingPub
 | File | Change |
 |---|---|
 | `app/lib/DocsRepo.php` | `now($path)`: the file on main through the contents API (with the key), never kept; 404 is null; the API away: `raw($path, true)` |
-| `app/lib/BeforeAfter.php` | `verdict()` reads through `now()`; `NOTE_MINUTES = 30`: no verdict past it is said once on the release's card, naming the file; `advance()` holds the lock `tv_rel_ba`; `tickLine()`: releases_tick's line to the `'10min'` preset once, remembered (`site_release_settings` `tick_line_10min`), a later Change is a person's |
+| `app/lib/BeforeAfter.php` | `verdict()` reads through `now()` and keeps its far timeouts (`far`, at most three), written on the card at the after verdict; `NOTE_MINUTES = 30`: no verdict past it is said once on the release's card, naming the file; `advance()` holds the lock `tv_rel_ba`; `tickLine()`: releases_tick's line to the `'10min'` preset once, remembered (`site_release_settings` `tick_line_10min`), a later Change is a person's |
 | `app/scripts/releases_tick.php` | calls `BeforeAfter::tickLine()` |
 | `website/api/releases-pull.php` | also runs `BeforeAfter::advance()` |
 | `app/ui/faq.md` | the before-and-after entry: it moves on once the look is done; the 30-minute note |
@@ -31,7 +31,7 @@ No migration and no new table: `site_release_settings` (live's) holds the one ne
 
 ## Proof
 
-`php tools/piece3-tests/tickverdict.php <root>` (root holds `app/` and `website/`), 24 checks on MariaDB. It runs the real
+`php tools/piece3-tests/tickverdict.php <root>` (root holds `app/` and `website/`), 27 checks on MariaDB. It runs the real
 endpoint in its own process with `tickverdict-pull.php`. Kept: pipeline 22, tickwait 6, closed 10, onstates 7, held 14,
 release-tests/record 15. The bench root is the mirror at Sync 02:50 UTC with this build over it.
 

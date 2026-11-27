@@ -102,6 +102,19 @@ $stage(true);
 $t('never on staging: advance and tickLine do nothing', BeforeAfter::advance($pdo) === [] && BeforeAfter::tickLine($pdo) === '');
 $stage(false);
 
+// the far timeouts on the release's card (the CEO's Tier 4 condition, 2026-11-27): each "after the look" note, once
+$files = []; BeforeAfter::$readFn = function ($p) use (&$files) { return $files[$p] ?? null; };
+$c = $mk('tv-c.zip'); BeforeAfter::begin($pdo, $c, 'tv-c.zip', $sha, false);
+$pdo->prepare("UPDATE site_releases SET state = 'staged', checks_ok = 1, checks = ? WHERE id = ?")->execute([json_encode(['ok' => true, 'items' => [['PHP files parse', true, '1 checked']]]), $c]);
+$files['site-audit/results/beforeafter/' . $c . '.json'] = json_encode(['release' => (string) $c, 'phase' => 'before-done', 'verdict' => 'waiting', 'seconds' => 60]);
+BeforeAfter::advance($pdo);
+$far = 'executive|/admin/crawler-review.php|phone: far timeout, noted: timed out, then opened when tried again after the look (reached only through website/js/tv-ask.js; staging is slow there, the IT Manager\'s lane)';
+$files['site-audit/results/beforeafter/' . $c . '.json'] = json_encode(['release' => (string) $c, 'phase' => 'after-done', 'verdict' => 'pass', 'seconds' => 120, 'views' => 174, 'notes' => ['executive|/admin/data.php|phone: already missed "No sideways scroll at 390px (0058 §11)" before (Site health\'s, not this change\'s)', $far], 'run' => 'https://github.com/degraffics/traversence/actions/runs/4']);
+$n = count($rel($c)['log']); BeforeAfter::advance($pdo); $m = $msgs($c, $n);
+$t('a pass with a far timeout: "far timeout, noted" written on its card, once, as the check wrote it', count(preg_grep('/^The before-and-after check noted: executive\|\/admin\/crawler-review\.php\|phone: far timeout, noted/', $m)) === 1, $m);
+$t('… and only the far timeouts: Site health\'s other notes aren\'t copied there', !preg_grep('/already missed/', $m), $m);
+$t('… then its verdict as before', (bool) preg_grep('/before-and-after check: passed/', $m), $m);
+
 // (a) releases_tick's cron line: to every 10 minutes once; a person's later Change stays
 $lines = [['line' => 7, 'linekey' => 'k', 'minute' => '*/24', 'hour' => '*', 'day' => '*', 'month' => '*', 'weekday' => '*', 'command' => '/usr/local/bin/php /home/x/app/scripts/releases_tick.php >/dev/null 2>&1']];
 $changes = [];
