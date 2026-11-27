@@ -11,34 +11,8 @@
    "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
    "why": "the pipeline release: tick and verdict, the ping, a silent look says why (Tier 4 review: CEO, 2026-11-27)",
    "since": "2026-11-27T11:52:34Z",
-   "expires": "2026-11-27T16:53:53Z",
-   "release": "pipeline-tick.zip",
-   "callers": {}
-  },
-  {
-   "path": "website/directory/index.php",
-   "functions": [
-    "esc"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
-   "why": "C.4: a town picked opens within 10 mi (decisions/0053)",
-   "since": "2026-11-27T11:55:31Z",
-   "expires": "2026-11-27T15:55:31Z",
-   "release": "",
-   "callers": {}
-  },
-  {
-   "path": "website/js/location-scope.js",
-   "functions": [
-    "placeOptions"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
-   "why": "C.4: a town's area listed once as Town area",
-   "since": "2026-11-27T11:55:33Z",
-   "expires": "2026-11-27T15:55:33Z",
-   "release": "",
+   "expires": "2026-11-27T20:02:04Z",
+   "release": "pipeline-tick-2.zip",
    "callers": {}
   },
   {
@@ -73,8 +47,8 @@
    "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
    "why": "the pipeline release: tick and verdict, the ping, a silent look says why (Tier 4 review: CEO, 2026-11-27)",
    "since": "2026-11-27T12:52:24Z",
-   "expires": "2026-11-27T16:53:53Z",
-   "release": "pipeline-tick.zip",
+   "expires": "2026-11-27T20:02:04Z",
+   "release": "pipeline-tick-2.zip",
    "callers": {}
   },
   {
@@ -86,8 +60,8 @@
    "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
    "why": "the pipeline release: tick and verdict, the ping, a silent look says why (Tier 4 review: CEO, 2026-11-27)",
    "since": "2026-11-27T12:52:27Z",
-   "expires": "2026-11-27T16:53:53Z",
-   "release": "pipeline-tick.zip",
+   "expires": "2026-11-27T20:02:04Z",
+   "release": "pipeline-tick-2.zip",
    "callers": {
     "blob": [
      "app/lib/Releases.php"
@@ -106,8 +80,8 @@
    "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
    "why": "the pipeline release: tick and verdict, the ping, a silent look says why (Tier 4 review: CEO, 2026-11-27)",
    "since": "2026-11-27T12:52:29Z",
-   "expires": "2026-11-27T16:53:53Z",
-   "release": "pipeline-tick.zip",
+   "expires": "2026-11-27T20:02:04Z",
+   "release": "pipeline-tick-2.zip",
    "callers": {
     "advance": [
      "app/lib/Releases.php",
@@ -125,8 +99,8 @@
    "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
    "why": "the pipeline release: asPing (Tier 4 review: CEO, 2026-11-27)",
    "since": "2026-11-27T12:52:31Z",
-   "expires": "2026-11-27T16:53:53Z",
-   "release": "pipeline-tick.zip",
+   "expires": "2026-11-27T20:02:04Z",
+   "release": "pipeline-tick-2.zip",
    "callers": {
     "lastLooked": [
      "app/admin/sections.php",
@@ -142,8 +116,8 @@
    "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
    "why": "the pipeline release: tick and verdict, the ping, a silent look says why (Tier 4 review: CEO, 2026-11-27)",
    "since": "2026-11-27T12:52:34Z",
-   "expires": "2026-11-27T16:53:53Z",
-   "release": "pipeline-tick.zip",
+   "expires": "2026-11-27T20:02:04Z",
+   "release": "pipeline-tick-2.zip",
    "callers": {}
   },
   {
@@ -260,6 +234,34 @@
   }
  ],
  "lapsed": [
+  {
+   "path": "website/directory/index.php",
+   "functions": [
+    "esc"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
+   "why": "C.4: a town picked opens within 10 mi (decisions/0053)",
+   "since": "2026-11-27T11:55:31Z",
+   "expires": "2026-11-27T15:55:31Z",
+   "release": "",
+   "callers": {},
+   "lapsed": "2026-11-27T16:02:04Z"
+  },
+  {
+   "path": "website/js/location-scope.js",
+   "functions": [
+    "placeOptions"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
+   "why": "C.4: a town's area listed once as Town area",
+   "since": "2026-11-27T11:55:33Z",
+   "expires": "2026-11-27T15:55:33Z",
+   "release": "",
+   "callers": {},
+   "lapsed": "2026-11-27T16:02:04Z"
+  },
   {
    "path": "app/lib/OpenNow.php",
    "functions": [],
@@ -997,32 +999,6 @@
   {
    "path": "website/js/admin-control.js",
    "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
-   "why": "board-phone-header: the Control Board on a phone (pages under \u2630, one Alerts dropdown, one alarm count), the side panel's look, words that follow the state, the audit clock's retry, daily jobs' late limits",
-   "since": "2026-11-24T05:47:58Z",
-   "expires": "2026-11-24T09:47:58Z",
-   "release": "board-phone-header.zip",
-   "callers": {},
-   "lapsed": "2026-11-24T11:59:12Z"
-  },
-  {
-   "path": "website/js/tv-ask.js",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
-   "why": "board-phone-header: the Control Board on a phone (pages under \u2630, one Alerts dropdown, one alarm count), the side panel's look, words that follow the state, the audit clock's retry, daily jobs' late limits",
-   "since": "2026-11-24T05:47:58Z",
-   "expires": "2026-11-24T09:47:58Z",
-   "release": "board-phone-header.zip",
-   "callers": {},
-   "lapsed": "2026-11-24T11:59:12Z"
-  },
-  {
-   "path": "app/admin/tools.php",
-   "functions": [
-    "'config/alarms'"
-   ],
    "kind": "change",
    "session": "session_01CXLi5gqPa5AQKoZXC7gZxx",
    "why": "board-phone-header: the Control Board on a phone (pages under \u2630, one Alerts dropdown, one alarm count), the side panel's look, words that follow the state, the audit clock's retry, daily jobs' late limits",
