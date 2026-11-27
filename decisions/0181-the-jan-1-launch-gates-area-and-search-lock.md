@@ -158,3 +158,7 @@ day. This qualifies 0180's "R1–R5 ship as each passes" (note added there).
 - **Nations' visitor rules at launch are pointers only** (Jason, 2026-11-27, ruling Q9: "A"). Each nation's page
   links to the nation's own visitor rules. After launch, a person checks the four nearest nations (Navajo, Hopi, Zuni,
   White Mountain Apache), as 0058 §26 asks.
+- **SES production access when it's needed** (Jason, 2026-11-27: "Aws can be done when necessary. Check it in the
+  registry also."). Jason requests Amazon SES production access when it's needed: before demand-carrying invites run
+  at volume, after the search lock lifts. It isn't a December blocker. SES's current state is read from the Service
+  register.
