@@ -39,4 +39,22 @@ with zipfile.ZipFile(z, 'w') as f:
 pages, exp = R.for_release(m, z)
 t('a release: / and /faq.php first, its own page, what it names, then the reach', pages[:4] == ['/', '/faq.php', '/admin/backoffice/orders', '/cart.php'] or pages[:3] == ['/', '/faq.php', '/admin/backoffice/orders'], pages)
 t('… expected: its pages, what it names, the near reach; also_changes only with a reason', '/cart.php' in exp['pages'] and '/admin/backoffice/orders' in exp['pages'] and exp['also_changes'] == [{'page': '/shop.php', 'why': 'its cart line'}], exp)
+# #318 (2026-11-27): a file nearly every page loads (the shell's tv-ask.js) reaches them all but draws none of them
+m2 = tempfile.mkdtemp()
+def w2(p, s):
+    full = os.path.join(m2, p); os.makedirs(os.path.dirname(full), exist_ok=True); open(full, 'w').write(s)
+w2('sync-app/ui/admin-shell.php', "<?php\nfunction tv_admin_shell() { echo '<script src=\"/js/tv-ask.js\"></script>'; }\n")
+w2('sync-app/lib/Lanes.php', "<?php\nfinal class Lanes { public static function all() {} }\n")
+w2('sync-storage/js/tv-ask.js', "window.TvAsk = {};\n")
+for n in ('a', 'b', 'c', 'd'):
+    w2('sync-storage/admin/%s.php' % n, "<?php\nrequire_once __DIR__ . '/../../app/ui/admin-shell.php'; tv_admin_shell();\n" + ("Lanes::all();\n" if n == 'a' else ''))
+w2('sync-storage/admin/e.php', "<?php\necho 'no shell';\n")
+z2 = os.path.join(m2, 'r.zip')
+with zipfile.ZipFile(z2, 'w') as f:
+    f.writestr('website/js/tv-ask.js', 'x'); f.writestr('app/lib/Lanes.php', 'x'); f.writestr('release.json', '{}')
+_, e2 = R.for_release(m2, z2)
+t('a file within NEAR of half the pages or more is shared', e2['shared'] == ['website/js/tv-ask.js'], e2)
+t('… its pages stay expected (a change there isn\'t drift)', all(u in e2['pages'] for u in ('/admin/a.php', '/admin/b.php', '/admin/c.php', '/admin/d.php')), e2['pages'])
+t('… but only what the release\'s own files draw is drawn: the page Lanes reaches, not the others', '/admin/a.php' in e2['drawn'] and not any(u in e2['drawn'] for u in ('/admin/b.php', '/admin/c.php', '/admin/d.php')), e2['drawn'])
+t('the earlier release: no shared file, so drawn is expected', exp['shared'] == [] and set(exp['drawn']) >= set(exp['pages']) - {'/shop.php'}, exp)
 print('\n%d passed, %d failed' % (ok, bad)); sys.exit(1 if bad else 0)
