@@ -3,7 +3,7 @@
  "built_on": "122090e Sync: 2026-11-27 02:50 UTC",
  "recorded": "2026-11-27 08:43 UTC",
  "note": "B.2 step 1 sent again unchanged after #319 withdrew on catch-up data (the check fixed by #1518, Tier 4 review: CEO, 2026-11-27); Design: approved; built on Sync: 2026-11-27 02:50 UTC Sent through git (releases/inbox).",
- "status": "pending",
+ "status": "replaced",
  "live_in": "",
  "files": {
   "app/admin/module-cards.php": {
@@ -18,5 +18,6 @@
    "sha256": "9935a7e2e142c58097314cfce6734a549352f11cd9631a768b066c90dc94383b",
    "live": false
   }
- }
+ },
+ "replaced_by": "b2-backups-3.zip: withdrawn as Release #320 (the before-and-after check, 09:30 UTC 2026-11-27; controls changing on pages it doesn't reach, named by #1520); sent again unchanged on Sync: 2026-11-27 02:50 UTC"
 }
