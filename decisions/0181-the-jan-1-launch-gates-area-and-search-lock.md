@@ -162,3 +162,25 @@ day. This qualifies 0180's "R1–R5 ship as each passes" (note added there).
   registry also."). Jason requests Amazon SES production access when it's needed: before demand-carrying invites run
   at volume, after the search lock lifts. It isn't a December blocker. SES's current state is read from the Service
   register.
+  - **Correction (2026-11-27):** the register shows production access is already granted. Only `SES_MODE=mock` stops
+    real sending, so "when necessary" now means switching SES_MODE to live. That's Jason's call when invites need it.
+    B.5 moves the switch into the register, verifies DKIM, and then moves DMARC to quarantine.
+- **Guides publish themselves at 70, and the team gets them there** (Jason, 2026-11-27, C7: "Guides should be able to
+  reach 70 or better, especially now that we have a team in place"):
+  - Guides keep publishing themselves at a score of 70 (0131's 2026-10-30 addendum; note added to 0131).
+  - The Editorial Director's lane (Front-End Content Writers, 26) works the pilot zone's drafts under 70, does 0164
+    R10's review and quarterly sample, and meets 0131's "St. Johns fact-checked before live" with its own check.
+  - No person publishes a guide that scores 70 or more.
+- **W15 is released** (Jason, 2026-11-27, C8: "Yes"; note added to 0170). Data & Content builds it after the 1A data
+  work starts:
+  - every find and listing goes to its real area;
+  - nothing auto-seeds duplicate areas;
+  - the existing duplicates (13+ Tucsons, Phoenix ×3, "New York", the ZIP-named ones) are merged into their real areas,
+    with Undo, never deleted.
+
+  It changes existing records (0180 territory 2), so its Tier 4 review comes before live.
+- **"Open now" reopens** (Jason, 2026-11-27, C9: "Reopen"; notes added to 0060 and to P10 in site-audit/proposals.md).
+  Open now is marked and filtered only where hours are known (the owner's or OpenStreetMap's). Everything else says
+  "hours not known", never a guess. It's the Frontend & Shop session's C.8.
+- **Order #12 waits for the Founder** (Jason, 2026-11-27: "I will address this after holiday"). Nothing on it changes
+  until he answers.

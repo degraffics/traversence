@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-26T12:06:10Z",
+ "generated_at": "2026-11-27T03:58:12Z",
  "version": 2,
  "generated_by": "tools/page-audit/gauges.py",
  "note": "Each gauge's detail for its drawer (ControlGauges::detail): read when the drawer opens.",
@@ -144,7 +144,7 @@
    "name": "The search probe and its scorecard",
    "status": "built",
    "result": "fail",
-   "latest": "91 of 106 cases pass (2026-11-25 10:20 UTC)",
+   "latest": "94 of 106 cases pass (2026-11-27 02:05 UTC)",
    "target": "every probe case passes; typing suggestions answer within 300 ms",
    "evidence": "https://github.com/degraffics/traversence/blob/main/site-audit/search-scorecard.md"
   },
@@ -152,7 +152,7 @@
    "name": "The layout probe: what a phone shows at the top of a page",
    "status": "built",
    "result": "pass",
-   "latest": "no gap above the hero on 3 pages (2026-11-25 10:20 UTC)",
+   "latest": "no gap above the hero on 3 pages (2026-11-27 02:05 UTC)",
    "target": "no gap between the top bar and the hero; nothing drawn over a card's action icons",
    "evidence": "https://github.com/degraffics/traversence/blob/main/site-audit/layout-probe.md"
   },
@@ -184,9 +184,9 @@
    "name": "Load time for every page against a target",
    "status": "built",
    "result": "per item",
-   "latest": "113 pass, 259 fail (2026-11-26 10:38 UTC)",
+   "latest": "259 fail, 113 pass (2026-11-26 23:44 UTC)",
    "target": "Core Web Vitals \"good\": LCP ≤ 2.5 s, CLS ≤ 0.1, INP ≤ 200 ms, each at the 75th percentile",
-   "evidence": "https://github.com/degraffics/traversence/actions/runs/45790539517"
+   "evidence": "https://github.com/degraffics/traversence/actions/runs/45912599655"
   },
   "PHOTOS-SHOWN": {
    "name": "Every photo on a page shown",
@@ -208,9 +208,9 @@
    "name": "The audit's own load: what each run asks of the site",
    "status": "built",
    "result": "per item",
-   "latest": "5 pass, 2 fail (2026-11-26 10:38 UTC)",
+   "latest": "7 pass (2026-11-26 23:44 UTC)",
    "target": "a light run asks at most about 20 requests, one at a time with a 1 s gap; the probe pages' response times stay within 20% of their 7-day median, or the next run backs off",
-   "evidence": "https://github.com/degraffics/traversence/actions/runs/45790539517"
+   "evidence": "https://github.com/degraffics/traversence/actions/runs/45912599655"
   }
  },
  "results_read": [
@@ -10770,7 +10770,7 @@
    "setup_why": {
     "probe": "the search scorecard (decisions/0060 and the probe's cases)",
     "target": "target: set by Jason (the probe's own bar: every case passes)",
-    "check": "Less than optimal · Nov 25, 3:20 AM MST",
+    "check": "Less than optimal · Nov 26, 7:05 PM MST",
     "alarm": "read from the alarms snapshot"
    },
    "records": "search answers (the scorecard's 106 cases)",
@@ -11013,7 +11013,7 @@
    "setup_why": {
     "probe": "each copy's last load inside its cadence (the health report's status)",
     "target": "target: set by Jason",
-    "check": "Less than optimal · Nov 25, 3:20 AM MST",
+    "check": "Less than optimal · Nov 26, 7:05 PM MST",
     "alarm": "read from the alarms snapshot"
    },
    "records": "each copy's last load",
@@ -11345,7 +11345,7 @@
    "setup_why": {
     "probe": "workflows running, and records in and stored (the alarms snapshot)",
     "target": "every workflow on; records in every day",
-    "check": "Trip · Nov 25, 3:20 AM MST",
+    "check": "Trip · Nov 26, 7:05 PM MST",
     "alarm": "read from the alarms snapshot"
    },
    "records": "records in and stored (the alarms snapshot: 0 in 24 hours)",
@@ -11777,7 +11777,7 @@
    "setup_why": {
     "probe": "billing_tick, a critical job (payments)",
     "target": "runs on time",
-    "check": "Less than optimal · Nov 25, 3:20 AM MST",
+    "check": "Less than optimal · Nov 26, 7:05 PM MST",
     "alarm": "read from the alarms snapshot"
    },
    "records": "plan renewals (billing_tick)",
@@ -11846,7 +11846,7 @@
    "setup_why": {
     "probe": "spend against its monthly cap",
     "target": "$40.00 a month (ai_month_usd)",
-    "check": "Less than optimal · Nov 25, 3:20 AM MST",
+    "check": "Less than optimal · Nov 26, 7:05 PM MST",
     "alarm": "read from the alarms snapshot"
    },
    "records": "Claude's spend this month",
@@ -11953,7 +11953,7 @@
    "setup_why": {
     "probe": "checks against the monthly cap",
     "target": "1,000 checks a month",
-    "check": "Less than optimal · Nov 25, 3:20 AM MST",
+    "check": "Less than optimal · Nov 26, 7:05 PM MST",
     "alarm": "read from the alarms snapshot"
    },
    "records": "Google Places checks this month",
@@ -12060,7 +12060,7 @@
    "setup_why": {
     "probe": "each trip's email and push",
     "target": "every trip, at once",
-    "check": "Working · Nov 25, 3:20 AM MST",
+    "check": "Working · Nov 26, 7:05 PM MST",
     "alarm": "read from the alarms snapshot"
    },
    "records": "trips and the messages that reached a person",
@@ -12090,7 +12090,7 @@
    "setup_why": {
     "probe": "the whole system's uptime, last 24 hours (the historian)",
     "target": "target: set by Jason",
-    "check": "Less than optimal · Nov 25, 3:20 AM MST",
+    "check": "Less than optimal · Nov 26, 7:05 PM MST",
     "alarm": "read from the alarms snapshot"
    },
    "records": "the whole system's hours up (the historian)",
@@ -12126,7 +12126,7 @@
    "setup_why": {
     "probe": "open IRs and their root cause",
     "target": "every IR closed with a confirmed cause",
-    "check": "Less than optimal · Nov 25, 3:20 AM MST",
+    "check": "Less than optimal · Nov 26, 7:05 PM MST",
     "alarm": "read from the alarms snapshot"
    },
    "records": "open Incident Reports",
