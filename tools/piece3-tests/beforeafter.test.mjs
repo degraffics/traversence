@@ -40,6 +40,7 @@ try {
     ['datasection', 'pass', null, 'a section that holds records appearing with its data (#308\'s look: "Recently published automatically"), its button with it: data, not drift'],
     ['newsection', 'block', 'drift', '… a section with no records appearing (a heading and a button of the page\'s own): drift'],
     ['countbtn', 'pass', null, 'a count in a button\'s name moved (Waiting 3, then 4; #320\'s look): its data, never a new control'],
+    ['renamebtn', 'block', 'drift', 'a button renamed with no digits involved (Send, then Dispatch): still drift; the masking hasn\'t widened'],
     ['morebuttons', 'pass', null, 'one more of a button already there: more data, never a new control'],
     ['longrec', 'pass', null, 'a record\'s long address making the page wider at 390, on a page the change doesn\'t name (#308\'s look, crawler-review): its data, noted'],
     ['widebar', 'block', 'layout', '… a wide bar of the page\'s own on that page: still a layout block'],
@@ -75,6 +76,8 @@ try {
   t('partsGone: gone on a far page, named; on a page the release reaches, or gone in a before look already, never', partsGone(vb, vb, va).length === 1 && partsGone(vb, vb, va, { pages: ['/admin/x'] }).length === 0 && partsGone(vb, va, va).length === 0);
   const rb = cmp(path.join(dir, 'a-newbutton.json'));
   t('… the drift block names the control that came (#320\'s look said only "its links and buttons")', rb.blocks.some(x => x.rule === 'drift' && /control: Export/.test(x.after)), rb.blocks.map(x => x.after));
+  const rr = cmp(path.join(dir, 'a-renamebtn.json'));
+  t('… and names both: the control gone and the one that came', rr.blocks.some(x => x.rule === 'drift' && /control: Send/.test(x.before) && /control: Dispatch/.test(x.after)), rr.blocks.map(x => [x.before, x.after]));
   const r0 = cmp(path.join(dir, 'a-canary0066.json'), { pages: ['/'], held: { hashes: [heldHash('Zz Held Burial Canary', KEY)] } });
   t('… the block names the held name by its hash only, never the name, in the verdict file', !readFileSync(path.join(dir, 'v.json'), 'utf8').toLowerCase().includes('burial') && r0.blocks.some(x => /held [0-9a-f]{8}/.test(x.what)), r0.blocks);
   t('heldIn: a name inside a sentence, any case and punctuation, found; one word alone never', heldIn('Visit the zz HELD burial, canary today', new Set([heldHash('zz held burial canary', KEY)]), KEY).size === 1 && heldIn('Canary', new Set([heldHash('canary', KEY)]), KEY).size === 0);
