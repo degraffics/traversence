@@ -1,6 +1,6 @@
 # Decision register
 
-Decision 0145 §1a. Generated on 2026-11-27 12:39 UTC from `decisions/` and the live mirror (`122090e`). Don't edit by hand:
+Decision 0145 §1a. Generated on 2026-11-27 19:17 UTC from `decisions/` and the live mirror (`aaea746`). Don't edit by hand:
 edit the decision, and this follows. "Missing files" are files a decision names that the site no longer has: the
 decision may be stale, or the file moved.
 
@@ -71,7 +71,7 @@ decision may be stale, or the file moved.
 | 0063 | [0063: Lexicon and syntax: how search reads each word, and how a person corrects it](0063-lexicon-syntax-and-the-workbench.md) | accepted |  |  | 0 |  |
 | 0064 | [0064: Search learns words on its own; people have access and control, not chores](0064-search-learns-words-on-its-own.md) | accepted |  | 3 | 0 |  |
 | 0065 | [0065. OpenStreetMap businesses where we have no listings yet](0065-openstreetmap-businesses-outside-our-regions.md) | accepted | 0133 | 2 | 0 |  |
-| 0066 | [0066. Public data, the Discovery funnel, and expansion that grows on its own](0066-public-data-funnel-and-organic-expansion.md) | accepted | 0133 | 2 | 0 |  |
+| 0066 | [0066. Public data, the Discovery funnel, and expansion that grows on its own](0066-public-data-funnel-and-organic-expansion.md) | accepted | 0133 | 3 | 0 |  |
 | 0067 | [0067. What words mean: from a word to the kinds of place that serve it](0067-what-words-mean-concepts.md) | accepted | 0133 | 2 | 0 |  |
 | 0068 | [0068. Plain names for categories](0068-plain-names-for-categories.md) | accepted |  |  | 0 |  |
 | 0069 | [0069. Frontend and backend folders: website/ and app/](0069-frontend-and-backend-folders.md) | accepted |  |  | 4 |  |
@@ -132,7 +132,7 @@ decision may be stale, or the file moved.
 | 0124 | [0124: Every owner's files in one folder; moving them on a schedule](0124-owner-folders-and-files-schedule.md) | accepted |  |  | 3 |  |
 | 0125 | [0125: Plain settings changed from the admin, not File Manager](0125-settings-changed-from-the-admin.md) | accepted |  | 2 | 0 |  |
 | 0126 | [0126: The gallery, one module for every photo and video](0126-gallery.md) | accepted |  |  | 4 |  |
-| 0127 | [0127: One uploader for every file](0127-one-uploader.md) | accepted |  |  | 4 |  |
+| 0127 | [0127: One uploader for every file](0127-one-uploader.md) | accepted |  | 1 | 4 |  |
 | 0128 | [0128: QuickBooks invoices into Traversence orders, and one product list across both](0128-quickbooks-invoices-and-products.md) | accepted |  |  | 4 |  |
 | 0129 | [0129: The command strip on record pages, and section controls](0129-command-strip.md) | accepted |  | 2 | 1 |  |
 | 0130 | [0130: The catalog model, and how it maps to the books](0130-catalog-model-and-books-mapping.md) | accepted |  |  | 0 |  |
@@ -175,15 +175,15 @@ decision may be stale, or the file moved.
 | 0167 | [0167: Communications in one place: set up in System Configuration, handled in Pulse](0167-communications-in-one-place.md) | accepted |  | 2 | 0 |  |
 | 0168 | [0168: Facebook and Instagram for members and businesses: sign-in, sharing, connected Pages](0168-facebook-and-instagram-for-members-and-businesses.md) | accepted |  | 1 | 0 |  |
 | 0169 | [0169: The Shop's App store, and one lifecycle for every app](0169-the-shop-app-store-and-the-app-lifecycle.md) | accepted |  | 1 | 1 |  |
-| 0170 | [0170: Everything placed in the discovery funnel, by location, active or planned](0170-everything-placed-in-the-discovery-funnel.md) | accepted |  | 1 | 0 |  |
+| 0170 | [0170: Everything placed in the discovery funnel, by location, active or planned](0170-everything-placed-in-the-discovery-funnel.md) | accepted |  | 2 | 0 |  |
 | 0171 | [0171: The System Control Board: start-to-finish management and control of the whole system](0171-the-control-board.md) | accepted |  | 7 | 9 |  |
-| 0172 | [0172: Communications: who reaches whom, about what, by which channel, and one way to deliver](0172-communications-who-reaches-whom.md) | accepted |  | 3 | 2 |  |
+| 0172 | [0172: Communications: who reaches whom, about what, by which channel, and one way to deliver](0172-communications-who-reaches-whom.md) | accepted |  | 5 | 2 |  |
 | 0173 | [0173: One lifecycle for every outside service: add, activate, pause, retire, remove](0173-one-lifecycle-for-every-outside-service.md) | accepted |  | 4 | 3 |  |
 | 0174 | [0174: Trips you can save: Add to a trip, the trip page, sending it to Maps, and routes on our own site](0174-trips-you-can-save.md) | accepted |  | 4 | 1 |  |
 | 0175 | [0175: One lifecycle for every module: our services and account apps, from selection to removal, acted on from the board](0175-one-lifecycle-for-every-module.md) | accepted |  | 11 | 1 |  |
-| 0176 | [0176: The dispatcher presents and routes every thread](0176-the-dispatcher-presents-and-routes-every-thread.md) | accepted |  | 8 | 2 |  |
+| 0176 | [0176: The dispatcher presents and routes every thread](0176-the-dispatcher-presents-and-routes-every-thread.md) | accepted |  | 9 | 2 |  |
 | 0177 | [0177: One order, several destinations: invoices, tax and the deposit](0177-one-order-several-destinations.md) | accepted |  | 1 | 0 |  |
 | 0178 | [0178: Order money policy: refunds, cancelling, credit, terms, cards and delivery with a balance](0178-order-money-policy.md) | accepted |  | 4 | 0 |  |
 | 0179 | [0179: Publish authority and escalation: what the team finishes alone, and what comes to Jason](0179-publish-authority-and-escalation.md) | accepted |  | 1 | 0 |  |
-| 0180 | [0180: The organization and five-tier governance: who decides what, and the hard money line](0180-organization-and-five-tier-governance.md) | accepted |  |  | 0 |  |
+| 0180 | [0180: The organization and five-tier governance: who decides what, and the hard money line](0180-organization-and-five-tier-governance.md) | accepted |  | 7 | 0 |  |
 | 0181 | [0181: The Jan 1 launch: its gates, its area and the search lock](0181-the-jan-1-launch-gates-area-and-search-lock.md) | accepted |  |  | 0 |  |

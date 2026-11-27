@@ -17,7 +17,7 @@
 "app/admin/kit-table.php": "6f1a0e16bc3ced260b3911e631168b6ece1fcee605fd7ad5297d348985618e8e",
 "app/admin/legal-editor.php": "83934768321605caf57d1cf5a3826beb4250ea4b38dd8ba452114187543ec660",
 "app/admin/manifests.php": "c4f92a5e9e8bfc1ba3248c9e53133ebb0d9d6632dcae1dbef6651d4287c2dc69",
-"app/admin/module-cards.php": "5e5f6224a705ec557b0800c23fd95b00eb0a1fced1c79e827aac69e7d998efc3",
+"app/admin/module-cards.php": "4cac10629258d5828e9a5b98454fd66f0d4e7f6da0cf4b23baa6cdce80a078b4",
 "app/admin/operations-console.php": "fe3a7d915cbf7e7f26d36fc9a7f98aaae24028759dd43d5c9727e401d98eb16b",
 "app/admin/preflight-console.php": "4252cc6c35aec8708d643ceb4f05744b63e4802d85c1bdad3bf5a88cc838b511",
 "app/admin/section-about.php": "1b537189ded6f02c3cba2dc6e18ab942a5660ae35849b7ef429023fe54061033",
@@ -149,6 +149,7 @@
 "app/lib/Helper.php": "bb8d43240344be2d90416f83285992b91a27bfa38dbe24f1bfd02c4738a60916",
 "app/lib/Heritage.php": "3b06ca5e81052fc040c61ccde457a8e55ac088d6f7b0bf831bd6ed756747251e",
 "app/lib/HeroMedia.php": "ff0eab5081dd1e62d76135b4dff2f0755b15214e41b44cb7c4e494f84d46c786",
+"app/lib/HostBackups.php": "802cab9979f9fd15ce5e648cf227533c929ef1854386e7dfe12935819b5e4e63",
 "app/lib/Hours.php": "fc33c983aa7a008afd0d0f1411cac946853a9b0983108b2bb23e2a6bb20ad985",
 "app/lib/HowGuides.php": "cf76097607f92a26016908fc8d5155c330e1e7804d4c57b6e4a2eb2914471f34",
 "app/lib/HubOpening.php": "86a7b5e558887d6d569b804e788e546dbf0d008ad8b80d40fbd9699d9e24a006",
@@ -447,7 +448,7 @@
 "app/ui/engage-ui.php": "44905ad01f6ae45df9b187f8f00010d215087352878ef5c25fdd7777367406ea",
 "app/ui/experience-ui.php": "a019ced9a4add3064877142cb1964092ede50750ce53aa6074e806e683fe90d8",
 "app/ui/explore-hero.php": "069131eef4e6b3d2350130154356b5d9867643de2adc3a8ab2455f470fe2f45a",
-"app/ui/faq.md": "2ddb7c04050ece3259a459f0ee675c647bfb4e13d3d724494f508699cc795a7d",
+"app/ui/faq.md": "9935a7e2e142c58097314cfce6734a549352f11cd9631a768b066c90dc94383b",
 "app/ui/faq.md.orig": "b7ca3f5d1ed6b12466e83dbd43e7c24b9fd052539dfa9f3fb0f0d691e72bf6fa",
 "app/ui/favicon.php": "1e358b34d5a8e12a8cfbce6e6b9f6e796e0ae19284e929a205246da9420456fb",
 "app/ui/featured-in.php": "2ab661a4aac663ce050877bc828d07fd1dffb7b16790c1306ecc637d99c31a01",
@@ -999,6 +1000,6 @@
 "website/verify-listing.php": "7222fe5353bc0f93db32bd49255d5d0fb04bfa09e16d76ae0b5a669e5425e31d",
 "website/wo.php": "6034abf88b20224783c84097047692cc06737970d2ed6ee02363a19f19cd527d"
 },
-"generated_at": "2026-11-27T12:39:51Z",
-"sync": "Sync: 2026-11-27 02:50 UTC"
+"generated_at": "2026-11-27T19:17:48Z",
+"sync": "Sync: 2026-11-27 16:23 UTC"
 }
