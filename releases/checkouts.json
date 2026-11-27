@@ -4,13 +4,14 @@
   {
    "path": "app/admin/sections.php",
    "functions": [
-    "tv_admin_mod_releases"
+    "tv_admin_mod_releases",
+    "tv_admin_staging_mirror"
    ],
    "kind": "change",
    "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
-   "why": "the Releases page's look line says what GitHub did (pipeline release, the Design reviewer 2026-11-27)",
+   "why": "the pipeline release: tick and verdict, the ping, a silent look says why (Tier 4 review: CEO, 2026-11-27)",
    "since": "2026-11-27T11:52:34Z",
-   "expires": "2026-11-27T15:52:34Z",
+   "expires": "2026-11-27T16:52:22Z",
    "release": "",
    "callers": {}
   },
