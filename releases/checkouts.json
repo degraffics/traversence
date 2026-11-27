@@ -35,6 +35,19 @@
    "expires": "2026-11-27T15:52:34Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "website/directory/index.php",
+   "functions": [
+    "esc"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
+   "why": "C.4: a town picked opens within 10 mi (decisions/0053)",
+   "since": "2026-11-27T11:55:31Z",
+   "expires": "2026-11-27T15:55:31Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
