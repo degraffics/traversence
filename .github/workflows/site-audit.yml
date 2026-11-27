@@ -94,7 +94,7 @@ jobs:
           old=$(python3 -c "import json;print(json.dumps(json.load(open('site-audit/results/fence.json')).get('backend',[])))" 2>/dev/null || echo none)
           python3 tools/page-audit/reach.py --mirror mirror --fence-map site-audit/results/fence.json
           new=$(python3 -c "import json;print(json.dumps(json.load(open('site-audit/results/fence.json')).get('backend',[])))")
-          if [ "$old" = "$new" ]; then git checkout -q -- site-audit/results/fence.json 2>/dev/null || true; else python3 tools/page-audit/gauges.py; fi
+          if [ "$old" = "$new" ]; then git checkout -q -- site-audit/results/fence.json 2>/dev/null || true; else python3 tools/page-audit/gauges.py --mirror mirror; fi
 
       - name: Commit what changed
         if: env.SKIP != '1'

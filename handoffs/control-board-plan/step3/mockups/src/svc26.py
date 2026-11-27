@@ -1,11 +1,11 @@
 # The 26 services the needs name with no card yet (03 §26): their records, cards for the interactive board, and §26's text.
 # Read from the live mirror (aeb5f31): service-defs.php, Preflight::NEEDS, Automation::WORKFLOWS and each service's callers.
 # Static design data; not site code.
-import html, re
+import os, html, re
 import kit
 
 E = html.escape
-MIRROR = '/home/user/traverse-3way-sync/'
+MIRROR = os.path.join(os.environ.get('TV_MIRROR') or '/home/user/traverse-3way-sync', '')   # the live mirror: TV_MIRROR (CI's ./mirror, gauges.py --mirror), else the session's clone
 SD = open(MIRROR + 'sync-app/lib/service-defs.php').read()
 Q = r"'((?:[^'\\]|\\.)*)'"
 

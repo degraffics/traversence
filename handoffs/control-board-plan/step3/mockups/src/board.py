@@ -11,7 +11,7 @@ import kit  # CSS only: importing kit generates nothing
 
 E = html.escape
 ROOT = '/home/user/traversence/'
-MIRROR = '/home/user/traverse-3way-sync/'
+MIRROR = os.path.join(os.environ.get('TV_MIRROR') or '/home/user/traverse-3way-sync', '')   # the live mirror: TV_MIRROR (CI's ./mirror, gauges.py --mirror), else the session's clone
 STEP3 = ROOT + 'handoffs/control-board-plan/step3/'
 MOCK = STEP3 + 'mockups/'
 OUT = STEP3 + 'board/'
