@@ -951,13 +951,13 @@
     if (R.note) h += '<p class="tvs-note">' + esc(R.note) + '</p>';
     // asked open now (or open on a day): how many of the businesses have known hours, the owner's, our staff's or
     // OpenStreetMap's (P10, 2026-11-27); the rest say Hours not known, never a guess
-    if (when && R.hours_known && R.hours_known.of) h += '<p class="tvs-note" data-hours-known>' + R.hours_known.known + ' of ' + R.hours_known.of + ' have known hours.</p>';
+    if (when && R.hours_known && R.hours_known.of) h += '<p class="tvs-note" data-hours-known>' + R.hours_known.known + ' of ' + R.hours_known.of + ' have known hours' + (R.hours_known.known < R.hours_known.of ? '; the rest say Hours not known.' : '.') + '</p>';   // the same sentence as Get Local's
     if (R.near) h += nearFoot(R.near, d);   // fewer than enough near: said above the rows (2026-11-22)
     h += meantHtml(R);
     function item(it, showKind) {   // a declaration: the "nothing here, something beyond" return above uses it too
       var tag = it.open === true ? '<em class="tvs-isopen">Open</em>' : (when && it.kind === 'listing' && it.open === null && it.hours_known === false ? '<em class="tvs-unk">Hours not known</em>' : '');
       return '<a class="tvs-row" href="' + esc(it.url || '#') + '" data-kind="' + esc(it.kind) + '"><span><b>' + esc(it.label) + '</b>'
-        + '<small>' + esc(it.sub) + (tag ? ' ' + tag : '') + '</small></span><span class="tvs-go">' + (sectionOf(it) ? '<i class="tvs-kind" aria-hidden="true">' + esc(sectionOf(it)) + '</i> ' : '') + (it.peek || (it.url && it.kind !== 'topic') ? peekBtn(it) : '<span aria-hidden="true">&rsaquo;</span>') + '</span></a>';
+        + '<small>' + esc(it.sub) + (tag ? ' · ' + tag : '') + '</small></span><span class="tvs-go">' + (sectionOf(it) ? '<i class="tvs-kind" aria-hidden="true">' + esc(sectionOf(it)) + '</i> ' : '') + (it.peek || (it.url && it.kind !== 'topic') ? peekBtn(it) : '<span aria-hidden="true">&rsaquo;</span>') + '</span></a>';
     }
     var fOf = function (k) { return (R.funnels || []).filter(function (f) { return f.key === k; })[0]; };
     if (funnel) {

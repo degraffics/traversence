@@ -742,7 +742,7 @@ tv_app_start('Get Local', ['rail' => $rail, 'active' => 'directory', 'rail_label
     $('dr-tellbox').innerHTML = '';
     $('dr-sum').textContent = S.total ? [localName && urlPlace && urlPlace.key ? localName + ' is part of this area' : '',
       S.q && S.meant && S.meant.length ? 'Includes ' + S.meant.slice(0, 3).join(', ') : '',
-      S.open && S.hoursKnown && S.hoursKnown.of ? S.hoursKnown.known + ' of ' + S.hoursKnown.of + ' have known hours; the rest say Hours not known' : ''].filter(Boolean).join(' · ') : '';   // P10, 2026-11-27   // the page bar says which ones show (2026-11-19)
+      S.open && S.hoursKnown && S.hoursKnown.of ? S.hoursKnown.known + ' of ' + S.hoursKnown.of + ' have known hours' + (S.hoursKnown.known < S.hoursKnown.of ? '; the rest say Hours not known.' : '.') : ''].filter(Boolean).join(' · ') : '';   // P10, 2026-11-27: the same sentence as Quick Search's   // the page bar says which ones show (2026-11-19)
     // spelling: offered, never changed (decisions/0064, as the site's search)
     var offerHtml = S.q && S.offers && S.offers.length ? '<p class="dr-sum dr-dym">Did you mean ' + S.offers.map(function (o) { return '<button type="button" class="dr-tg" data-dym="' + esc(o) + '">' + esc(o) + '</button>'; }).join(' ') + '?</p>' : '';
     if (!S.items.length && S.fav) {

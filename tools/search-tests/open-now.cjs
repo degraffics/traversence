@@ -18,7 +18,7 @@ const loc = { state: 'AZ', city: 'Show Low', zip: '85901', lat: 34.254, lon: -11
   t(w + ' search: the rest say Hours not known', unk >= 2 && rows.some(r => /Crawler Cafe.*Hours not known/.test(r)));
   t(w + ' search: no "Hours not listed" left', !rows.some(r => /Hours not listed/.test(r)));
   t(w + ' search: the closed bar left out', !rows.some(r => /Shut Owner Bar/.test(r)));
-  t(w + ' search: says how many have known hours', /^3 of \d+ have known hours\.$/.test(cnt), cnt);
+  t(w + ' search: says how many have known hours', /^3 of \d+ have known hours; the rest say Hours not known\.$/.test(cnt), cnt);
   t(w + ' search: open ones first', rows.findIndex(r => /Hours not known/.test(r)) > rows.map(r => / Open( |$)/.test(r)).lastIndexOf(true));
   await p.screenshot({ path: out + '/c8-search-' + w + '.png' });
   // Get Local, Open now on
@@ -27,7 +27,7 @@ const loc = { state: 'AZ', city: 'Show Low', zip: '85901', lat: 34.254, lon: -11
   const sum = ((await p.locator('#dr-sum').innerText().catch(() => '')) || '').trim();
   t(w + ' Get Local: open first, then Hours not known', cards.length >= 5 && /Owner Diner|Staff Pizza|OSM Grill/.test(cards[0]) && /Hours not known/.test(cards[cards.length - 1]), cards.map(x => x.slice(0, 40)).join(' | '));
   t(w + ' Get Local: no crawler place marked open', cards.some(x => /Crawler Cafe.*Hours not known/.test(x)));
-  t(w + ' Get Local: says how many have known hours', /3 of 6 have known hours/.test(sum), sum);
+  t(w + ' Get Local: says how many have known hours', /3 of 6 have known hours; the rest say Hours not known\./.test(sum), sum);
   t(w + ' no sideways scroll', (await p.evaluate(() => document.documentElement.scrollWidth)) <= w);
   t(w + ' no script errors', !errs.length, errs.slice(0, 2).join(' / '));
   await p.screenshot({ path: out + '/c8-getlocal-' + w + '.png', fullPage: false }); await c.close();
