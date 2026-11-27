@@ -9,7 +9,7 @@ not as a hand-over (builder playbook §5).
 | # | Release | Source | State |
 |---|---|---|---|
 | 1 | **G.1 the search lock's leaks** (`search-lock.zip`) | 0181 §4 | **Live as Release #315** (02:24 UTC), synced 02:27 UTC; headers and meta checked on live |
-| 2 | **C.1 the device's place read as "outside"** (`device-place.zip`) | plan C.1; CLAUDE.md "Places in search", 0060 | Design: approved 02:24 UTC; sent, built on Sync 02:27 UTC (FAQ rebuilt on the live copy: the first build's faq.md would have put back the pre-G.1 answer) |
+| 2 | **C.1 the device's place read as "outside"** (`device-place.zip`) | plan C.1; CLAUDE.md "Places in search", 0060 | **Live as Release #316** (02:48 UTC) |
 | 3 | **C.2 the path checker** | plan C.2; 0145 | In main (PR #1487) |
 | 4 | **C.3 the launch paths** (same branch): each 1A town's eat, stay, see, guide; the three buying paths defined | 0181 §1 gate 2; 0145 §2 | In main (PRs #1487, #1488: the gateway is Holbrook's, 0042); buying paths' steps written, their runners next (sandbox, staging only, tested against the payment mock first) |
 | 5+ | The rest of C and F in the plan's order | plan §4 C, F | Queued |
