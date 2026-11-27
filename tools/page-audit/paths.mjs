@@ -308,9 +308,13 @@ const CORE = [
   { id: 'sign-in', title: 'Sign in, including the human check', who: ['member'], limit: 5, signedOut: true, run: async (w, page) => {
     const a = ACC?.members?.member; if (!a) { w.stuck = 'no member account in CHECK_ACCOUNTS'; return; }
     await w.goto('/', 'the home page');
-    const menu = await firstVisible(page, ['#tv-main-nav [aria-haspopup]', '#tv-main-nav button[aria-controls]', '#tv-main-nav .tvn-burger', '#tv-main-nav button']);
-    let si = await firstVisible(page, ['[data-auth="out"] a.tvn-in', '[data-auth="out"] a[href="/login.php"]', 'a.tvpm-in']);
-    if (!si && menu) { await w.tap(menu, 'the menu'); si = await firstVisible(page, ['[data-auth="out"] a.tvn-in', 'a.tvpm-in', 'a[href="/login.php"]']); }
+    // the menu button (#icon-menu-btn) opens the phone menu (#tv-phone-menu) at 390 and the menu panel on a computer;
+    // Sign in is a.tvpm-sin in the phone menu (its own class since #253; .tvpm-in is the menu's column) and a.tvn-in in the
+    // panel (app/ui/header.php). Only a visible one counts: the other one's hidden copy is first in the page.
+    const SIGN_IN = ['#tv-phone-menu [data-auth="out"] a.tvpm-sin', '#site-menu-panel [data-auth="out"] a.tvn-in', '[data-auth="out"] a.tvpm-sin', '[data-auth="out"] a.tvn-in', '[data-auth="out"] a[href="/login.php"]'];
+    const menu = await firstVisible(page, ['#icon-menu-btn', '#tv-main-nav [aria-haspopup]', '#tv-main-nav button[aria-controls]', '#tv-main-nav button']);
+    let si = await firstVisible(page, SIGN_IN);
+    if (!si && menu) { await w.tap(menu, 'the menu'); await page.waitForTimeout(300); si = await firstVisible(page, SIGN_IN); }
     if (!si) { w.stuck = 'no Sign in in the menu'; await w.shot('nosignin'); return; }
     await w.tap(si, 'Sign in', { nav: true });
     if (!(await w.type('#email', a.email)) || !(await w.type('#password', a.password))) return;
