@@ -156,7 +156,16 @@ export function slowViews(file) {
   try { return new Set((JSON.parse(readFileSync(file, 'utf8')).results || []).filter(f => f.error && /Timeout/i.test(f.error)).map(f => f.who + '|' + f.url + '|' + f.size)); } catch (e) { return new Set(); }
 }
 
-async function capture(pages, out, shotDir, slow = new Set()) {
+/** The views to try once more after an advocate's whole look (the CEO's Tier 4 condition, 2026-11-27, #318): a timeout on a
+ *  page the release reaches only through a shared file it changes (reach.py's expected, not drawn), and not already slow in
+ *  the first before look. Opened then: compared as usual, noted; timed out again: it blocks, as a timeout on a reached page. */
+export function farTimeouts(results, exp = {}, slow = new Set()) {
+  if (!Array.isArray(exp.drawn) || !(exp.shared || []).length) return [];
+  const expected = new Set(exp.pages || []), drawn = new Set(exp.drawn);
+  return results.map((f, i) => [f, i]).filter(([f]) => f.error && /Timeout/i.test(f.error) && expected.has(f.url) && !drawn.has(f.url) && !slow.has(f.who + '|' + f.url + '|' + f.size)).map(([, i]) => i);
+}
+
+async function capture(pages, out, shotDir, slow = new Set(), exp = {}) {
   const site = process.env.BA_SITE || STAGING?.site; if (!site) throw new Error('No staging in CHECK_ACCOUNTS and no BA_SITE: nothing to check.');
   const st = process.env.BA_SITE ? null : STAGING; const token = st ? st.token : CHECK_TOKEN;
   const t0 = Date.now(); const browser = await chromium.launch(); const results = []; const signins = {};
@@ -186,6 +195,13 @@ async function capture(pages, out, shotDir, slow = new Set()) {
           console.log(`retried once: ${who} ${url} ${size} timed out (${f.error.split('\n')[0].slice(0, 80)}); again: ${again.error ? 'timed out too' : again.status}`); f = again;
         }
         f.advocate = slug; done[gi].push(f);
+      }
+      // once the advocate's whole look is done: a far timeout (farTimeouts) once more, same account and width
+      for (const i of farTimeouts(done[gi], exp, slow)) {
+        const f = done[gi][i]; const opts = { site, shots: !!shotDir, shotDir, allSizes: true, must: () => false, extra };
+        const again = await pageCheck(ctx, f.who, f.url, f.size, opts); again.retried = f.retried; again.late = f.error.split('\n')[0].slice(0, 120); again.advocate = f.advocate;
+        console.log(`tried again after the look: ${f.who} ${f.url} ${f.size} (reached only through ${(exp.shared || []).join(', ')}): ${again.error ? 'timed out again' : again.status}`);
+        done[gi][i] = again;
       }
     } finally { await ctx.close(); }
   };
@@ -221,9 +237,6 @@ const ctlSig = (f, st = true, skip = new Set()) => [...new Set((f?.ba?.controls 
 export function compare(b1, b2, a, exp = {}, release = '', heldKey = STAGING?.token || CHECK_TOKEN) {
   const B = new Map(b1.results.map(f => [key(f), f])), B2 = new Map(b2.results.map(f => [key(f), f]));
   const expected = new Set([...(exp.pages || []), ...(exp.also_changes || []).map(x => x.page)]);
-  // the pages this release's own files draw (reach.py's "drawn": expected less what only a file nearly every page loads reaches,
-  // like tv-ask.js or the shell); a timeout blocks only there (the session manager, 2026-11-27, #318). No list given: expected
-  const drawn = Array.isArray(exp.drawn) ? new Set([...exp.drawn, ...(exp.also_changes || []).map(x => x.page)]) : expected;
   // the system's state lines (alarms, status lines, Scheduled tasks) are drift only for a release that touches what draws them
   // (the session manager, 2026-11-26); unknown files (no list given) count as touching them
   const stateDrawn = !Array.isArray(exp.files) || exp.files.some(f => STATE_DRAWERS.test(f));
@@ -247,10 +260,14 @@ export function compare(b1, b2, a, exp = {}, release = '', heldKey = STAGING?.to
     if (f.retried) notes.push(`${key(f)}: timed out once, opened again (${f.error ? 'timed out again' : 'answered ' + f.status})`);
     if (unusable(b)) { notes.push(`${key(f)}: its before look wasn't usable (staging answered ${b.status || b.error || 'nothing'}); not compared`); continue; }
     compared++;
-    // a view that timed out after, on a page the release doesn't draw (reach.py's drawn pages, the names it gives), is staging's
+    // a view that timed out after, on a page the release doesn't reach (reach.py's pages, the names it gives), is staging's
     // slowness, not the change: noted for the IT Manager's lane, never an access block (#307's look, /admin/crawler-review.php,
     // which timed out in #305's look too); on a page the release reaches it still blocks, below
-    if (f.error && /Timeout/i.test(f.error) && !refused(b) && !drawn.has(f.url)) { compared--; notes.push(`${key(f)}: timed out after on a page ${expected.has(f.url) ? 'this release reaches only through a file nearly every page loads' : 'this release doesn\'t reach'} (staging is slow there; the IT Manager's lane), not compared`); continue; }
+    if (f.error && /Timeout/i.test(f.error) && !refused(b) && !expected.has(f.url)) { compared--; notes.push(`${key(f)}: timed out after on a page this release doesn't reach (staging is slow there; the IT Manager's lane), not compared`); continue; }
+    // reached only through a shared file the release changes (tv-ask.js, the shell): tried once more after the look (capture's
+    // farTimeouts). Opened then: compared as usual, and noted; timed out again, it blocks below as any reached page does
+    if (f.late && !f.error) notes.push(`${key(f)}: far timeout, noted: timed out, then opened when tried again after the look (reached only through ${(exp.shared || []).join(', ') || 'a shared file'}; staging is slow there, the IT Manager's lane)`);
+    if (f.late && f.error) notes.push(`${key(f)}: timed out, and again when tried after the look (reached through ${(exp.shared || []).join(', ') || 'a shared file'} this release changes): it blocks`);
     const moving = (get) => JSON.stringify(get(b)) !== JSON.stringify(get(bb || b));
     // 1. access or privacy (0066 included)
     const shut = x => x && (x.status === 401 || x.status === 403 || x.ba?.landed_signin);   // refused this account (not merely missing)
@@ -337,7 +354,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     } catch (x) { out = { error: String(x.message || x).slice(0, 200) }; }
     writeFileSync(arg('out', 'ba-held.json'), JSON.stringify(out) + '\n');
     console.log(out.error ? 'held names: unread (' + out.error + ')' : `held names: ${out.hashes.length} hashes`);
-  } else if (mode === 'capture') await capture(JSON.parse(readFileSync(arg('pages'), 'utf8')), arg('out', 'ba-capture.json'), arg('shots'), slowViews(arg('slow')));
+  } else if (mode === 'capture') await capture(JSON.parse(readFileSync(arg('pages'), 'utf8')), arg('out', 'ba-capture.json'), arg('shots'), slowViews(arg('slow')), arg('expected') ? JSON.parse(readFileSync(arg('expected'), 'utf8')) : {});
   else if (mode === 'compare') {
     const rd = f => JSON.parse(readFileSync(f, 'utf8'));
     const exp = arg('expected') ? rd(arg('expected')) : {};
