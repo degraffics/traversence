@@ -1,0 +1,25 @@
+{
+ "title": "Jurisdictions: a state's record reviewed by the team (R8's note), the R17 gate fixed, Colorado's and Utah's records drafted",
+ "why": "decisions/0164 R8's note (the attorney's review advised, not required) and the session manager's ruling on J1 (option b): the team (role 25) reviews a jurisdiction record, Jurisdictions::OPENED (AZ, NM) is kept until their records are reviewed, and CO and UT are written up as drafts whose laws say 'Found by search, not yet read against its official text'. HubOpening::lawSigned compared UPPER(code) with 'AZ' while records are keyed 'US-AZ', so R17's gate never matched: it now needs the US and the state record reviewed. tier() follows Q8: a sensitive place is story only off a nation's land, restricted on it. Tested: tools/jurisdiction-tests/j1.php, 23 checks on MariaDB.",
+ "changes": [
+  {
+   "what": "A jurisdiction record is marked reviewed by a person or a team role, the attorney's review optional with its date; Undo the review puts it back to draft; each review and undo is in the logbook",
+   "where": "https://traversence.com/admin/config/jurisdictions"
+  },
+  {
+   "what": "Colorado and Utah appear as draft records with the laws found so far, each marked not yet read against its official text; New Mexico gains its unmarked-burials statute's citation. Nothing opens: drafts stay closed",
+   "where": "https://traversence.com/admin/config/jurisdictions"
+  },
+  {
+   "what": "A hub's opening (R17) waits for the US and its state record to be reviewed, and says so",
+   "where": "https://traversence.com/admin/config/jurisdictions"
+  },
+  {
+   "what": "FAQ: \"Why isn't there a guide for my state yet?\" says the team reviews a state's record (an attorney advised) and that Colorado's and Utah's are being written up",
+   "where": "https://traversence.com/faq.php#why-isnt-there-a-guide-for-my-state-yet"
+  }
+ ],
+ "proposals": [],
+ "switch": "",
+ "data_reason": "The migration adds the column reviewed_as to jurisdictions (guarded, safe to run twice), inserts the US-CO and US-UT draft records (INSERT IGNORE) and their laws and New Mexico's burial statute only where they aren't there yet, and writes the notes of those two new draft records. No reviewed record is changed and nothing is deleted."
+}

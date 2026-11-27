@@ -85,13 +85,14 @@ final class Jurisdictions
      * The tier a piece of heritage gets here (decisions/0133 protected-information standard): 'public', 'story' (the story
      * may be told, never the way in: no point, no directions) or 'restricted' (kept, never shown). $sensitive: it is about
      * an archaeological, sacred, burial or ceremonial place. On a nation's land a sensitive item stays restricted until the
-     * nation says; elsewhere it is 'story' once every layer is reviewed, and restricted until then (the strictest rule).
+     * nation says; elsewhere it is 'story', also while its state's record is still under the team's review (Jason,
+     * 2026-11-27, ruling Q8 "Show"; 0164 R8/P5-3 note): the strictest known rule applies, so never the way in.
      */
     public static function tier(PDO $pdo, bool $sensitive, string $state, ?int $nationId = null): string
     {
         if (!$sensitive) return 'public';
         if ($nationId) return 'restricted';
-        return self::forPlace($pdo, $state)['reviewed'] ? 'story' : 'restricted';
+        return 'story';
     }
 
     /**

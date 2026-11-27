@@ -45,7 +45,7 @@ In **Destination** you can type a town, a town area, a local name, or a landmark
 Signed in, you can make a place your default (**My default**), so you start there next time: whenever you're signed in and haven't chosen a place yet this visit, every page starts from it (shown as "your default"). A region you arrive through, or choosing everywhere, still wins for that visit.
 
 ### Does Auto-detect share where I am?
-No. Auto-detect only picks a starting place for you on this visit. Your location is never shown to anyone.
+No. Auto-detect only picks a starting place for you on this visit. Your location is never shown to anyone. When the place it finds (or a town or ZIP you set) is in one of our town areas, search treats it as that town in its area, just as if you'd chosen it: what we list there comes first, and you never see "We have no listings in <your town> yet" for a town where we do.
 
 ## Exploring places
 
@@ -177,7 +177,7 @@ When you search somewhere we don't have a guide for yet (Dana Point, California,
 ### Why does a guide I asked for say new guides are paused?
 Now and then we pause building new guides (to check how our tools gather information, for example). While they're paused, search still shows everything we already list for the place, and asking for a guide still counts: we keep your ask, and once guides are back on they're built in order, the most asked-for places first. Tap **Notify me when it's ready** to hear when yours is up (in your Pulse and by email when you're signed in, or once to the email you type), or tap **See what we list near** the place to look around now. Questions? Write to us at support@traversence.com.
 ### Why isn't there a guide for my state yet?
-We open one state at a time. Before a state opens, its laws on archaeological sites, burials and privacy are written up and reviewed with an attorney, so we know what may be told there and what must be held back. Until then its guides don't go live and we don't gather its history. Arizona and New Mexico are open; others are coming.
+We open one state at a time. Before a state opens, its laws on archaeological sites, burials and privacy are written up and reviewed by our team (an attorney's review is advised, not required), so we know what may be told there and what must be held back. Until its record is reviewed, its guides don't go live and we don't gather its history. Arizona and New Mexico are open. Colorado's and Utah's records are being written up; other states are coming.
 
 ### I searched for a local name (like Wide Ruins) and landed on a town. Why?
 Many small communities are known by local names that aren't on maps as towns. We file each local name under the town area it belongs to, so searching it shows that town area's places. **Get Local**'s Map shows them on the map.
