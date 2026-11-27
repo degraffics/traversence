@@ -179,11 +179,39 @@ final class Jurisdictions
         if (!$j['laws'] && $j['level'] !== 'nation') throw new InvalidArgumentException('Add its laws first.');
         $attorney = trim($attorney); $as = mb_substr(trim($as), 0, 160);
         if ($uid <= 0 && $as === '') throw new InvalidArgumentException('Who reviewed it? A person signed in, or a team role.');
+        $unread = array_filter($j['laws'], [self::class, 'unread']);
+        if ($unread) throw new InvalidArgumentException(count($unread) . ' of its laws ' . (count($unread) === 1 ? 'isn\'t' : 'aren\'t') . ' read against the official text yet (' . implode(', ', array_map(fn ($l) => (string) $l['name'], $unread)) . '). Read each one and press Mark read beside it, with its official link, then review.');
         $d = $date !== '' ? date('Y-m-d', strtotime($date) ?: time()) : date('Y-m-d');
         $pdo->prepare("UPDATE jurisdictions SET status = 'reviewed', reviewed_by = ?, reviewed_as = ?, reviewed_at = NOW(), signed_by = IF(? <> '', ?, signed_by), signed_at = IF(? <> '', ?, signed_at) WHERE code = ?")
             ->execute([$uid > 0 ? $uid : null, $as, $attorney, mb_substr($attorney, 0, 160), $attorney, $d, $code]);
         require_once __DIR__ . '/ControlLog.php';
         ControlLog::add($pdo, 'control', 'jur:' . $code, (string) $j['name'] . '\'s jurisdiction record marked reviewed' . ($attorney !== '' ? ' (attorney: ' . $attorney . ')' : ''), $as !== '' ? $as : self::personName($pdo, $uid));
+    }
+
+    /** A law found by search and not yet read against its official text (the session manager's reading rule, J1, 2026-11-27). */
+    public const UNREAD = 'not yet read against its official text';
+    public static function unread(array $l): bool
+    {
+        return stripos((string) ($l['requires_us'] ?? ''), self::UNREAD) !== false;
+    }
+
+    /**
+     * A law read against its official text: its link becomes the official one and the "not yet read" words come off. The
+     * record goes back to draft (a changed record is reviewed again); logged with who read it (a person, or a team role).
+     */
+    public static function readLaw(PDO $pdo, int $id, string $url, int $uid, string $as = ''): void
+    {
+        $st = $pdo->prepare('SELECT * FROM jurisdiction_laws WHERE id = ?'); $st->execute([$id]);
+        $l = $st->fetch(PDO::FETCH_ASSOC) ?: throw new InvalidArgumentException('That law isn\'t on the record.');
+        if (!self::unread($l)) throw new InvalidArgumentException('It\'s already read against its official text.');
+        $url = trim($url); $as = mb_substr(trim($as), 0, 160);
+        if (!preg_match('#^https?://\S+$#i', $url)) throw new InvalidArgumentException('Add the link to its official text (the legislature\'s or the code\'s own page).');
+        if ($uid <= 0 && $as === '') throw new InvalidArgumentException('Who read it? A person signed in, or a team role.');
+        $req = trim((string) preg_replace('/\s*Found by search,\s*' . preg_quote(self::UNREAD, '/') . '\.?/i', '', (string) $l['requires_us']));
+        $pdo->prepare('UPDATE jurisdiction_laws SET url = ?, requires_us = ? WHERE id = ?')->execute([mb_substr($url, 0, 500), mb_substr($req, 0, 500), $id]);
+        self::reopen($pdo, (string) $l['code']);
+        require_once __DIR__ . '/ControlLog.php';
+        ControlLog::add($pdo, 'control', 'jur:' . $l['code'], (string) $l['name'] . ' read against its official text', $as !== '' ? $as : self::personName($pdo, $uid), 'was ' . ($l['url'] !== '' ? $l['url'] : 'no link'));
     }
 
     /** Undo a review: the record goes back to draft as if it was never reviewed (the strictest rule applies again). */

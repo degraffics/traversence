@@ -2,7 +2,8 @@
 // tools/jurisdiction-tests/j1.php — J1 (2026-11-27): a region opens on its team-reviewed jurisdiction record (Jason, R8
 // "advisory, not a mandate"; 0164 R8/R17 note), story only off nation land while a record is under review (Q8 "Show"),
 // and HubOpening's R17 gate reading the reviewed record. On a real MariaDB: php j1.php <lib dir> <migration.sql>
-// (<lib dir>: the build's app/lib with the live Database.php and ControlLog.php beside it). It drops and remakes its tables.
+// (<lib dir>: a copy of the live sync-app/lib with the build's Jurisdictions.php and HubOpening.php laid over). It drops and
+// remakes its tables. Also: the reading rule (no review while a law is unread) and the landmark gate downstream of tier().
 declare(strict_types=1);
 [$lib, $mig] = [$argv[1] ?? '', $argv[2] ?? ''];
 require_once $lib . '/Jurisdictions.php'; require_once $lib . '/HubOpening.php';
@@ -42,14 +43,23 @@ $t('tier: not sensitive is public', Jurisdictions::tier($pdo, false, 'UT') === '
 // review by a team role, no attorney
 $role = 'Privacy & Decision 0066 Guards (25), the Data & Content session, 2026-11-27';
 $t('review needs a person or a role', str_contains($throws(fn () => Jurisdictions::review($pdo, 'US-CO', 0)), 'Who reviewed it'));
-$t('a role reviews Colorado with no attorney', $throws(fn () => Jurisdictions::review($pdo, 'US-CO', 0, '', '', $role)) === '');
+// the reading rule (CEO's Tier 4, 2026-11-27): no review while a law is unread against its official text
+$t('review refused while a law is unread, naming it', str_contains($m = $throws(fn () => Jurisdictions::review($pdo, 'US-CO', 0, '', '', $role)), 'read against the official text yet') && str_contains($m, 'Mark read') && Jurisdictions::get($pdo, 'US-CO')['status'] === 'draft');
+$t('reviewing NM is refused too (its new burial-site law is unread)', $throws(fn () => Jurisdictions::review($pdo, 'US-NM', 7)) !== '');
+$law = (int) $pdo->query("SELECT id FROM jurisdiction_laws WHERE code = 'US-CO' ORDER BY id LIMIT 1")->fetchColumn();
+$t('Mark read needs the official link', str_contains($throws(fn () => Jurisdictions::readLaw($pdo, $law, 'not a link', 0, $role)), 'official text'));
+foreach (['US-CO', 'US-UT'] as $c) foreach (Jurisdictions::get($pdo, $c)['laws'] as $l) if (Jurisdictions::unread($l)) Jurisdictions::readLaw($pdo, (int) $l['id'], 'https://leg.example.gov/' . $l['id'], 0, $role);
+$l = $pdo->query("SELECT * FROM jurisdiction_laws WHERE id = $law")->fetch(PDO::FETCH_ASSOC);
+$t('a law read: official link kept, the unread words gone, its rule kept, logged', $l['url'] === 'https://leg.example.gov/' . $law && !Jurisdictions::unread($l) && $l['requires_us'] !== '' && (int) $pdo->query("SELECT COUNT(*) FROM control_log WHERE what LIKE '%read against its official text'")->fetchColumn() >= 3);
+$t('reading it twice is refused with why', str_contains($throws(fn () => Jurisdictions::readLaw($pdo, $law, 'https://x.gov', 0, $role)), 'already read'));
+$t('a role reviews Colorado with no attorney, every law read', $throws(fn () => Jurisdictions::review($pdo, 'US-CO', 0, '', '', $role)) === '');
 $t('CO still closed until the federal record is reviewed too', !Jurisdictions::regionOpen($pdo, 'CO'));
 Jurisdictions::review($pdo, 'US', 0, '', '', $role);
 $t('CO opens on the team-reviewed records', Jurisdictions::regionOpen($pdo, 'CO'));
 $j = Jurisdictions::get($pdo, 'US-CO');
 $t('the reviewer shown is the role', Jurisdictions::reviewer($pdo, $j) === $role && $j['signed_by'] === '' && $j['signed_at'] === null);
 $t('a person can still review, with an attorney named', $throws(fn () => Jurisdictions::review($pdo, 'US-UT', 7, 'A. Counsel', '2026-11-27')) === '' && Jurisdictions::get($pdo, 'US-UT')['signed_by'] === 'A. Counsel');
-$t('the review is logged on the board\'s logbook', (int) $pdo->query("SELECT COUNT(*) FROM control_log WHERE proc = 'jur:US-CO'")->fetchColumn() === 1);
+$t('the review is logged on the board\'s logbook', (int) $pdo->query("SELECT COUNT(*) FROM control_log WHERE proc = 'jur:US-CO' AND what LIKE '%marked reviewed%'")->fetchColumn() === 1);
 // R17's gate (HubOpening::lawSigned) reads the reviewed record
 $gate = new ReflectionMethod('HubOpening', 'lawSigned'); $gate->setAccessible(true);
 $t('R17 gate: CO reviewed passes; NM (draft) does not', $gate->invoke(null, $pdo, 'CO') === true && $gate->invoke(null, $pdo, 'NM') === false);
@@ -64,4 +74,13 @@ Jurisdictions::review($pdo, 'US-CO', 0, '', '', $role);
 Jurisdictions::addLaw($pdo, 'US-CO', ['name' => 'Colorado Privacy Act', 'effect' => 'privacy', 'citation' => 'C.R.S. 6-1-1301'], 7);
 $j = Jurisdictions::get($pdo, 'US-CO');
 $t('a law added sends the record back to draft, reviewer cleared', $j['status'] === 'draft' && $j['reviewed_as'] === '');
+// downstream (CEO's Tier 4): whatever tier() returns, the landmark gate still holds a sensitive place no public source presents
+if (is_file($lib . '/Landmarks.php')) {
+    require_once $lib . '/Landmarks.php';
+    $none = ['name' => 'Sacred Spring', 'wd_desc' => '', 'wiki_title' => '', 'extract' => '', 'nation' => '', 'fclass' => 'Spring'];
+    $t('a sensitive place with no public source is held (Landmarks::decide), story tier or not', Jurisdictions::tier($pdo, true, 'CO') === 'story' && !Landmarks::publiclyKnown($none) && Landmarks::decide($none)[0] === 'waiting');
+    $ruin = ['name' => 'Cliff Ruins', 'wd_desc' => '', 'wiki_title' => '', 'extract' => '', 'nation' => '', 'fclass' => 'Area'];
+    $t('a ruin with no article and no visitor page is held too', Landmarks::decide($ruin)[0] === 'waiting');
+    $t('on a nation\'s land, held even with an article', Landmarks::decide(['name' => 'Cliff Ruins', 'wiki_title' => 'Cliff Ruins', 'nation' => 'Zuni', 'fclass' => 'Area'])[0] === 'waiting');
+} else $t('Landmarks.php beside the lib (copy the live one)', false);
 echo "\n$ok passed, $bad failed\n"; exit($bad ? 1 : 0);
