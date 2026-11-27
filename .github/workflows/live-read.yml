@@ -10,7 +10,7 @@ on:
       read:
         description: 'What to read'
         type: choice
-        options: [orders, order, ir0001, w0, board, jobs, rows, meta, register, workflows, card]
+        options: [orders, order, ir0001, w0, board, dashboard, jobs, rows, meta, register, workflows, card]
         default: orders
       order_id:
         description: "The order's number (for: order), the crawler run's (for: ir0001, default 1290), the search (for: rows), or a service's name (for: card)"

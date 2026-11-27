@@ -29,6 +29,8 @@ const PAGES = { orders: () => ['/admin/backoffice/orders'], order: () => (/^\d{1
   // the jobs (the Control Board session, 2026-11-24, queue item 7): Scheduled tasks, each job's last run and next due
   jobs: () => ['/admin/config/scheduler?panel=1'],   // drawn on its own (the router doesn't fold it into the board's tab then)
   board: () => ['/admin/config/control', '/admin/config/control/wf-W1', '/admin/config/alarms'],
+  // the admin's dashboard (the session manager, 2026-11-27: the daily report's "need you now", each need with its source)
+  dashboard: () => ['/admin/'],
   // the register and the workflows (the Data & Content session, 2026-11-27, at the CEO's ask: D.1 across 0181's area):
   // Modules (Service register), each service's stage, caps and paces; the Workflows page and each workflow's own page
   register: () => ['/admin/config/register'],
