@@ -1,0 +1,11 @@
+{
+ "title": "The goals in the Work queue: ten parent tasks with their owners, and every open item since Nov 25 under its goal",
+ "why": "CLAUDE.md #1552 (Jason, 2026-11-27: goals and records live with the roles, by Monday 06:00 MST) and #1553 (launch first). For the PM (8), built as Build & QA (21). Sources: decisions/0181 and its notes, 0180's appendix, 0135's and 0164's notes of 2026-11-27, research/launch-plan-jan1-2026-11-26.md §4, §7 (Brief D) and §10, handoffs/decided-not-live.md.",
+ "changes": [
+  {"what": "Ten goals as parent tasks (records with the roles, the six launch gates, the Jan 1 launch, the pilot's ladder, the transition cutover), each with its owner from 0180's appendix, its measure, its due date and its decisions", "where": "https://traversence.com/admin/config/control?tab=development"},
+  {"what": "59 open items as their children, each citing its source; Brief D's 13 calls as Founder rulings (Tier 5); 14 existing tasks placed under their goals", "where": "https://traversence.com/admin/config/control?tab=development"}
+ ],
+ "proposals": [],
+ "switch": "",
+ "data_reason": "Adds 10 goal tasks and 59 child tasks to control_gauge_tasks, their decisions to control_gauge_task_adrs and 13 briefs to control_gauge_task_briefs, each only where it isn't there yet and each with its id named (MAX(id)+1, the staging catch-up rule); sets parent_id on 14 existing tasks only where it is empty. Nothing is deleted or overwritten."
+}

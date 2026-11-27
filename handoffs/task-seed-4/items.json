@@ -1,0 +1,861 @@
+{
+ "goals": [
+  {
+   "key": "records",
+   "what": "Goals and records with the roles, live by Mon Nov 30 13:00 UTC",
+   "owner": "Chief Executive Officer (2)",
+   "why": "Jason, 2026-11-27: \"Yes, approve the plan\u2026 up and running by Monday morning 6 am\". No goal, ruling or order lives only in a session.",
+   "source": "CLAUDE.md \"Goals and records live with the roles\" (#1552), recorded as Operations & Policy (16)",
+   "goal": "Each long-term goal is a parent task with an owner from 0180's appendix, a measure, a due date and its decision, and every ticket links to its goal",
+   "done": "Measure: every goal is a parent task on live with owner, measure, due and decision, and every open ticket has a goal. Due: Mon Nov 30, 2026 13:00 UTC (06:00 MST)",
+   "adrs": [
+    "0180",
+    "0179"
+   ],
+   "priority": 1,
+   "children": [
+    {
+     "what": "Due dates on tasks: a goal's date in a field of its own",
+     "why": "Gap: control_gauge_tasks has no due-date column, so a goal's due date is written in its Done when for now",
+     "source": "GaugeTasks.php ensure() (no due column) \u00b7 CLAUDE.md #1552",
+     "done": "A task has a due date the goal check can read",
+     "adrs": [
+      "0180"
+     ],
+     "priority": 1
+    },
+    {
+     "what": "The daily goal check: a ticket for the owner when a goal's tickets sit 3 days or its date is at risk",
+     "why": "CLAUDE.md #1552: a live-side $0 daily goal check, escalating by the tiers",
+     "source": "CLAUDE.md #1552 \u00b7 decisions/0180 (tiers)",
+     "done": "The check runs daily on live at $0 and opens the owner's ticket",
+     "adrs": [
+      "0180"
+     ],
+     "priority": 1
+    },
+    {
+     "what": "Every open ticket placed under its goal by the Project Manager (8)",
+     "why": "Tickets made before the goals existed have no parent; queue order and goal status are the PM's",
+     "source": "CLAUDE.md #1552 \u00b7 handoffs/decided-not-live.md (for the PM (8))",
+     "done": "No open ticket without a goal",
+     "adrs": [
+      "0180"
+     ],
+     "priority": 1
+    }
+   ]
+  },
+  {
+   "key": "gate-paths",
+   "what": "Launch gate 1: every core path passes as guest and member at 390px, 5 runs in a row",
+   "owner": "IT Manager (11)",
+   "why": "0181 \u00a71 gate 1: \"Ready\" is measured, never judged",
+   "source": "decisions/0181 \u00a71 \u00b7 site-audit/paths.md \u00b7 research/launch-plan-jan1-2026-11-26.md \u00a74 C",
+   "goal": "Search, explore, read, act, sign up, sign in, claim, edit, post and message pass on live",
+   "done": "Measure: paths.mjs green 5 runs in a row. Due: all six green 5 runs in a row by Mon Dec 21, 2026; code freeze Dec 22; go/no-go Thu Dec 31, 2026 (0181 \u00a71, launch plan \u00a75)",
+   "adrs": [
+    "0181",
+    "0145"
+   ],
+   "priority": 1,
+   "children": [
+    {
+     "what": "Repair the path checker: the sign-in selector and the staff two-step (C.2)",
+     "why": "Without it joining and claiming can't be called ready",
+     "source": "research/launch-plan-jan1-2026-11-26.md \u00a74 C.2 \u00b7 tools/path-checker-tests/",
+     "done": "The checker signs in as guest, member and staff every run",
+     "adrs": [
+      "0145"
+     ],
+     "priority": 1
+    },
+    {
+     "what": "The device's place read as outside one of our areas (C.1)",
+     "why": "Likely behind the Show Low dead end",
+     "source": "research/launch-plan-jan1-2026-11-26.md \u00a74 C.1 \u00b7 tools/search-tests/device-place.php",
+     "done": "A device in an area's town is that town",
+     "adrs": [
+      "0060"
+     ],
+     "priority": 1
+    },
+    {
+     "what": "Layout shift: the shared 0.212, then the directory, hub, login and /trip/ (C.5)",
+     "why": "Core Web Vitals on the core pages",
+     "source": "research/launch-plan-jan1-2026-11-26.md \u00a74 C.5",
+     "done": "CLS under 0.1 on those pages",
+     "adrs": [
+      "0145"
+     ],
+     "priority": 2
+    },
+    {
+     "what": "Contrast and focus (C.6)",
+     "why": "#8A7355 and location-scope.js:249 against brand.md \u00a74",
+     "source": "research/launch-plan-jan1-2026-11-26.md \u00a74 C.6 \u00b7 brand.md \u00a74",
+     "done": "Contrast 4.5:1 and a visible focus on those",
+     "adrs": [
+      "0058"
+     ],
+     "priority": 2
+    },
+    {
+     "what": "Get Local's filter at around 10,000 rows (C.7)",
+     "why": "The filter slows at that size",
+     "source": "research/launch-plan-jan1-2026-11-26.md \u00a74 C.7 \u00b7 0058 note 2026-11-19",
+     "done": "Filtering stays quick at 10,000 rows",
+     "adrs": [
+      "0058"
+     ],
+     "priority": 3
+    },
+    {
+     "what": "The site's stylesheet built once with the tailwindcss CLI, in place of the Play CDN",
+     "why": "Jason, 2026-11-27: \"Yes to the stylesheet\"",
+     "source": "handoffs/decided-not-live.md \u00b7 design/css-theme-brand.md note",
+     "done": "Every page kind passes the Design reviewer at 1280 and 390 on the built sheet",
+     "adrs": [],
+     "priority": 2
+    }
+   ]
+  },
+  {
+   "key": "gate-new-paths",
+   "what": "Launch gate 2: the new paths pass (each 1A town; Shop, plan-buy and Marketplace-buy in the sandbox)",
+   "owner": "Chief Executive Officer (2)",
+   "why": "0181 \u00a71 gate 2; it crosses the data, front-end and shop lanes, so the CEO holds it",
+   "source": "decisions/0181 \u00a71 \u00b7 research/launch-plan-jan1-2026-11-26.md \u00a74 C.3, F.3",
+   "goal": "One path per 1A town (eat, stay, see, read its guide) and the three buying paths, sandbox only",
+   "done": "Measure: the new paths green 5 runs in a row. Due: all six green 5 runs in a row by Mon Dec 21, 2026; code freeze Dec 22; go/no-go Thu Dec 31, 2026 (0181 \u00a71, launch plan \u00a75)",
+   "adrs": [
+    "0181",
+    "0145"
+   ],
+   "priority": 1,
+   "children": [
+    {
+     "what": "New paths in paths.mjs: each 1A town, the Shop, plan-buy and Marketplace-buy (C.3)",
+     "why": "No test moves real money: sandbox only",
+     "source": "research/launch-plan-jan1-2026-11-26.md \u00a74 C.3 \u00b7 tools/path-checker-tests/buy-runners.mjs",
+     "done": "The paths run on live, failing honestly until they pass",
+     "adrs": [
+      "0145"
+     ],
+     "priority": 1
+    },
+    {
+     "what": "Plans and the Shop buyable end to end: the QR plan and the Maps add-on (F.3)",
+     "why": "Priced (commercial \u00a71.3, \u00a72) but can't be bought",
+     "source": "research/launch-plan-jan1-2026-11-26.md \u00a74 F.3 \u00b7 commercial.md",
+     "done": "Each priced item buys in the sandbox; which sell on Jan 1 is Brief D's",
+     "adrs": [
+      "0145"
+     ],
+     "priority": 2
+    }
+   ]
+  },
+  {
+   "key": "gate-data",
+   "what": "Launch gate 3: 1A's towns built, each with a guide that passed 0164's checks and a person's read",
+   "owner": "Editorial Director (12)",
+   "why": "0181 \u00a71 gate 3: data. Directory accuracy and guides are Front-End Content Writers' (26) duties (0180 appendix)",
+   "source": "decisions/0181 \u00a71 and notes (E1, C7, W15) \u00b7 research/launch-plan-jan1-2026-11-26.md \u00a74 D, E",
+   "goal": "Every 1A town has listings, a guide passed and read, and no \"no listings\" note where we have listings",
+   "done": "Measure: the scorecard for 1A green. Due: all six green 5 runs in a row by Mon Dec 21, 2026; code freeze Dec 22; go/no-go Thu Dec 31, 2026 (0181 \u00a71, launch plan \u00a75)",
+   "adrs": [
+    "0181",
+    "0164",
+    "0131"
+   ],
+   "priority": 1,
+   "children": [
+    {
+     "what": "Build the 341 towns within 200 miles of Four Corners, 1A first, from free sources (D.1)",
+     "why": "Brief B1 and E1: Overture and our OpenStreetMap copy, then NPI, Google's check on 1A only, paced",
+     "source": "research/launch-plan-jan1-2026-11-26.md \u00a74 D.1 \u00b7 research/launch-area-nations-and-towns-2026-11-27.md (D.1)",
+     "done": "Every 1A town has data, then the rings outward",
+     "adrs": [
+      "0149",
+      "0164",
+      "0181"
+     ],
+     "priority": 1
+    },
+    {
+     "what": "1A's staged backlog and Review cleared, and the identity check on its duplicates (D.2)",
+     "why": "Duplicates and misfiled towns",
+     "source": "research/launch-plan-jan1-2026-11-26.md \u00a74 D.2 \u00b7 handoffs/duplicates.md",
+     "done": "1A has no open duplicates or staged finds",
+     "adrs": [
+      "0164"
+     ],
+     "priority": 1
+    },
+    {
+     "what": "W15: every find and listing in its real area, the duplicate areas merged with Undo (D.3)",
+     "why": "Jason, 2026-11-27, C8: \"Yes\". It changes existing records, so a Tier 4 review before live",
+     "source": "decisions/0181 note (W15) \u00b7 decisions/0170 note",
+     "done": "No duplicate areas; 1A under its real area",
+     "adrs": [
+      "0170",
+      "0181"
+     ],
+     "priority": 1,
+     "tier": 4
+    },
+    {
+     "what": "Colorado and Utah open on team-reviewed records, every law read against its official text",
+     "why": "Jason, 2026-11-27 (R8 note): CO's and UT's towns open once their records are reviewed; J1 builds Mark read",
+     "source": "decisions/0181 note \u00b7 decisions/0164 R8 note \u00b7 handoffs/j1-jurisdictions/",
+     "done": "US, AZ, NM, CO and UT records reviewed; J1b removes OPENED",
+     "adrs": [
+      "0164",
+      "0066"
+     ],
+     "priority": 1
+    },
+    {
+     "what": "The nations' boundaries in CO and UT under 0066 (G1)",
+     "why": "Story only and held names follow once CO and UT open",
+     "source": "research/launch-area-nations-and-towns-2026-11-27.md (G1)",
+     "done": "Every nation's land in the area holds what 0066 holds",
+     "adrs": [
+      "0066"
+     ],
+     "priority": 2
+    },
+    {
+     "what": "Guides in rings: the zone, the ~13 cluster guides, then 1A's towns, inside the $40 cap (E.1)",
+     "why": "Jason, E1 and C7: guides publish themselves at 70; the Editorial lane works drafts under 70 and reads St. Johns first",
+     "source": "research/launch-plan-jan1-2026-11-26.md \u00a74 E.1 \u00b7 decisions/0181 notes (E1, C7) \u00b7 decisions/0131 note",
+     "done": "Each 1A town's guide at 70 or more, read by the lane",
+     "adrs": [
+      "0131",
+      "0147",
+      "0164"
+     ],
+     "priority": 1
+    },
+    {
+     "what": "Hours: owners add their hours at claim (D.4)",
+     "why": "The one fix the decisions allow (0164's Google rule)",
+     "source": "research/launch-plan-jan1-2026-11-26.md \u00a74 D.4",
+     "done": "Claim asks for hours",
+     "adrs": [
+      "0164"
+     ],
+     "priority": 3
+    },
+    {
+     "what": "One starter community group per 1A town (D.5)",
+     "why": "Who starts them is open",
+     "source": "research/launch-plan-jan1-2026-11-26.md \u00a74 D.5",
+     "done": "A group per 1A town",
+     "adrs": [
+      "0047",
+      "0136",
+      "0137"
+     ],
+     "priority": 3
+    },
+    {
+     "what": "FAQ truth: faq.md:983, an entry on the lock, the repo's faq.md in step with live (E.3)",
+     "why": "The README's claim hides the gap",
+     "source": "research/launch-plan-jan1-2026-11-26.md \u00a74 E.3",
+     "done": "The repo's faq.md equals the live app/ui/faq.md",
+     "adrs": [
+      "0057"
+     ],
+     "priority": 2
+    },
+    {
+     "what": "Laws read from their sources: GovInfo's API (api.data.gov key), the eCFR and Federal Register",
+     "why": "Jason, 2026-11-27: \"is there an api to federal and states laws?\"",
+     "source": "decisions/0164 note 2026-11-27 (Laws read from their sources)",
+     "done": "Federal laws read through the API; states through their official sites",
+     "adrs": [
+      "0164"
+     ],
+     "priority": 2
+    }
+   ]
+  },
+  {
+   "key": "gate-safety",
+   "link_ids": [
+    51,
+    32,
+    13,
+    45,
+    57,
+    42,
+    11,
+    10,
+    56
+   ],
+   "what": "Launch gate 4: access closed, nightly backups with one restore drill, scheduled jobs on time for 7 days",
+   "owner": "IT Manager (11)",
+   "why": "0181 \u00a71 gate 4: safety. The access hole is closed (live as #314)",
+   "source": "decisions/0181 \u00a71 \u00b7 research/launch-plan-jan1-2026-11-26.md \u00a74 B",
+   "goal": "Backups nightly with a restore drilled, and every scheduled job on time 7 days running",
+   "done": "Measure: 7 days of jobs on time and one restore done. Due: all six green 5 runs in a row by Mon Dec 21, 2026; code freeze Dec 22; go/no-go Thu Dec 31, 2026 (0181 \u00a71, launch plan \u00a75)",
+   "adrs": [
+    "0181",
+    "0163"
+   ],
+   "priority": 1,
+   "children": [
+    {
+     "what": "Mail: SES_MODE into the Service register, DKIM verified on both domains, DMARC to quarantine (B.5)",
+     "why": "Production access is granted; only SES_MODE=mock stops sending, Jason's call to switch",
+     "source": "research/launch-plan-jan1-2026-11-26.md \u00a74 B.5 \u00b7 decisions/0181 note (SES)",
+     "done": "DKIM verified, DMARC quarantine, SES_MODE shown in the register",
+     "adrs": [
+      "0137",
+      "0172"
+     ],
+     "priority": 2
+    },
+    {
+     "what": "Capacity: one test of many visitors at once on staging; W0 paced in busy hours (B.6)",
+     "why": "Gap: no capacity target exists. Suggestion, not a decision: 50 at once, median TTFB under 500 ms",
+     "source": "research/launch-plan-jan1-2026-11-26.md \u00a74 B.6",
+     "done": "The test run and its numbers recorded",
+     "adrs": [
+      "0163"
+     ],
+     "priority": 2
+    },
+    {
+     "what": "releases_tick every 10 minutes, in the Scheduler bundle (A.2)",
+     "why": "As Piece 3 designed",
+     "source": "research/launch-plan-jan1-2026-11-26.md \u00a74 A.2 \u00b7 handoffs/piece3-check.md",
+     "done": "The tick runs every 10 minutes",
+     "adrs": [
+      "0179"
+     ],
+     "priority": 2
+    }
+   ]
+  },
+  {
+   "key": "gate-money",
+   "link_ids": [
+    47
+   ],
+   "what": "Launch gate 5: the payments checklist passed in the sandbox, and one real $4.95 purchase and refund by Jason",
+   "owner": "Accounting Manager (10)",
+   "why": "0181 \u00a71 gate 5. Real money moves only by the Founder's press (0180 \u00a74.1)",
+   "source": "decisions/0181 \u00a71 \u00b7 research/launch-plan-jan1-2026-11-26.md \u00a74 F",
+   "goal": "Paying works end to end, proved in the sandbox and once for real by Jason",
+   "done": "Measure: the checklist green and Jason's purchase and refund done. Due: all six green 5 runs in a row by Mon Dec 21, 2026; code freeze Dec 22; go/no-go Thu Dec 31, 2026 (0181 \u00a71, launch plan \u00a75)",
+   "adrs": [
+    "0181",
+    "0096",
+    "0098",
+    "0178"
+   ],
+   "priority": 1,
+   "children": [
+    {
+     "what": "The payments checklist on the test accounts, sandbox only (F.2)",
+     "why": "No test moves real money",
+     "source": "research/launch-plan-jan1-2026-11-26.md \u00a74 F.2 \u00b7 site-audit/payments-checklist.md",
+     "done": "Every line passes in the sandbox",
+     "adrs": [
+      "0145"
+     ],
+     "priority": 1
+    },
+    {
+     "what": "Marketplace payments live: Stripe platform, Square app, MARKET_PAY_ENV=live (F.4)",
+     "why": "The keys are entered by Jason in .env, never by an agent",
+     "source": "research/launch-plan-jan1-2026-11-26.md \u00a74 F.4 \u00b7 MarketPay.php",
+     "done": "A sandbox buy, then live once the keys are in",
+     "adrs": [
+      "0135"
+     ],
+     "priority": 2
+    },
+    {
+     "what": "Sales tax: Automated Sales Tax in QuickBooks, plan taxability, Arizona TPT (F.6)",
+     "why": "Founder and accountant",
+     "source": "research/launch-plan-jan1-2026-11-26.md \u00a74 F.6",
+     "done": "Tax set and checked on a sandbox order",
+     "adrs": [],
+     "priority": 2
+    },
+    {
+     "what": "Legal texts: the Terms and Seller Agreement reviewed, then published (F.7)",
+     "why": "Founder and attorney",
+     "source": "research/launch-plan-jan1-2026-11-26.md \u00a74 F.7 \u00b7 legal-seed.php",
+     "done": "Both published",
+     "adrs": [
+      "0142"
+     ],
+     "priority": 2
+    }
+   ]
+  },
+  {
+   "key": "gate-search",
+   "what": "Launch gate 6: per-page noindex holds on live, then the lock lifts on Jason's date",
+   "owner": "Marketing Director (13)",
+   "why": "0181 \u00a71 gate 6 and \u00a74, the search lock (SEO, Taxonomy & Funnel Analysts, 30, in this lane)",
+   "source": "decisions/0181 \u00a71, \u00a74 \u00b7 research/launch-plan-jan1-2026-11-26.md \u00a74 G",
+   "goal": "Only what should be indexed is, from the day the lock lifts",
+   "done": "Measure: a guide indexable and a trial listing not, on live. Due: all six green 5 runs in a row by Mon Dec 21, 2026; code freeze Dec 22; go/no-go Thu Dec 31, 2026 (0181 \u00a71, launch plan \u00a75)",
+   "adrs": [
+    "0181"
+   ],
+   "priority": 1,
+   "children": [
+    {
+     "what": "Per-page holds: trial and unverified listings, first-look guides, drafts, story-only places, posts and results (G.2)",
+     "why": "Then page-shell.php prints noindex only for those and staging",
+     "source": "research/launch-plan-jan1-2026-11-26.md \u00a74 G.2",
+     "done": "Each kind carries its noindex on live",
+     "adrs": [
+      "0034",
+      "0070",
+      "0147"
+     ],
+     "priority": 1
+    },
+    {
+     "what": "Sitemap and tags: guides, journeys and public landmarks in; canonical, Open Graph and real descriptions (G.3)",
+     "why": "Landmarks say \"Traversence placeholder page.\" today",
+     "source": "research/launch-plan-jan1-2026-11-26.md \u00a74 G.3",
+     "done": "The sitemap lists them and no page says placeholder",
+     "adrs": [],
+     "priority": 2
+    },
+    {
+     "what": "Lift the lock: one release removes the fixed noindex, with the FAQ, then Search Console (G.4)",
+     "why": "The date and the Search Console account are the Founder's (Brief D)",
+     "source": "research/launch-plan-jan1-2026-11-26.md \u00a74 G.4",
+     "done": "The lock off on Jason's date and checked on live",
+     "adrs": [
+      "0181"
+     ],
+     "priority": 2
+    }
+   ]
+  },
+  {
+   "key": "launch",
+   "link_ids": [
+    58
+   ],
+   "link": [
+    [
+     "area:orders",
+     "Order #12's books"
+    ]
+   ],
+   "what": "The Jan 1, 2027 launch: front end and back end ready for the market roll-out",
+   "owner": "Chief Executive Officer (2)",
+   "why": "Jason, 2026-11-26: \"both the frontend and back end being ready by Jan 1 for market roll out\"",
+   "source": "decisions/0181 \u00b7 handoffs/decided-not-live.md (company goal) \u00b7 research/launch-plan-jan1-2026-11-26.md",
+   "goal": "Go on Dec 31 against the six gates; launch Jan 1 in the 200-mile area",
+   "done": "Measure: go/no-go passed on Thu Dec 31, 2026. Due: Fri Jan 1, 2027",
+   "adrs": [
+    "0181"
+   ],
+   "priority": 1,
+   "children": [
+    {
+     "what": "The Marketplace's four sections for Jan 1: Shops and the Aftermarket live, Regional showing what qualifies, Trade \"coming\"",
+     "why": "Jason, 2026-11-27: \"Yes.\" The CEO's Tier 4 ruling sets how it's built",
+     "source": "decisions/0135 note 2026-11-27 (four sections, How it's built for Jan 1)",
+     "done": "All four named on live as the note says",
+     "adrs": [
+      "0135",
+      "0141",
+      "0007"
+     ],
+     "priority": 1
+    },
+    {
+     "what": "Q1: Trade (B2B), the guided flag, and the seller's \"made here\" tick with the Native-made attestation",
+     "why": "Out of Jan 1 by the CEO's Tier 4 ruling",
+     "source": "decisions/0135 note 2026-11-27 (items 1, 4, 5) \u00b7 research/launch-plan-jan1-2026-11-26.md \u00a710.1",
+     "done": "Built in Q1 2027",
+     "adrs": [
+      "0135",
+      "0112"
+     ],
+     "priority": 3
+    },
+    {
+     "what": "Three authenticity guides and their FAQ entries before Jan 1 (Native-made vs made in the region)",
+     "why": "Jason, 2026-11-27: \"NATIVE MADE VS REGIONAL AUTHENTICITY\". From the Indian Arts and Crafts Board's text; team review",
+     "source": "research/launch-plan-jan1-2026-11-26.md \u00a710.2 (1-3, 5), \u00a710.4",
+     "done": "Three guides and the FAQ entries live, each read by the Editorial lane",
+     "adrs": [
+      "0164",
+      "0135",
+      "0057"
+     ],
+     "priority": 1
+    },
+    {
+     "what": "Nations' visitor rules: after launch, a person checks the four nearest nations",
+     "why": "Jason, Q9 \"A\": pointers only at launch; Navajo, Hopi, Zuni, White Mountain Apache after",
+     "source": "decisions/0181 note (Q9) \u00b7 decisions/0058 \u00a726",
+     "done": "The four checked and recorded",
+     "adrs": [
+      "0066",
+      "0058"
+     ],
+     "priority": 3
+    },
+    {
+     "what": "Piece 3: Undo per agent action and the spend limit per agent",
+     "why": "Switches on 0179 rule 2",
+     "source": "handoffs/decided-not-live.md \u00b7 handoffs/piece3-check.md",
+     "done": "Both live",
+     "adrs": [
+      "0179"
+     ],
+     "priority": 3
+    },
+    {
+     "what": "Brief D: which priced items sell on Jan 1 (F.3)",
+     "why": "Brief D, by Dec 14\u201321: money and going to market (Founder rulings, 0180 \u00a73)",
+     "source": "research/launch-plan-jan1-2026-11-26.md \u00a77 Brief D (1)",
+     "done": "His answer recorded",
+     "adrs": [
+      "0181",
+      "0180"
+     ],
+     "priority": 2,
+     "ticket": "resolution",
+     "stage": "brief",
+     "tier": 5
+    },
+    {
+     "what": "Brief D: the Marketplace keys (F.4)",
+     "why": "Brief D, by Dec 14\u201321: money and going to market (Founder rulings, 0180 \u00a73)",
+     "source": "research/launch-plan-jan1-2026-11-26.md \u00a77 Brief D (2)",
+     "done": "His answer recorded",
+     "adrs": [
+      "0181",
+      "0180"
+     ],
+     "priority": 2,
+     "ticket": "resolution",
+     "stage": "brief",
+     "tier": 5
+    },
+    {
+     "what": "Brief D: print at launch: quote by email or self-serve (F.8)",
+     "why": "Brief D, by Dec 14\u201321: money and going to market (Founder rulings, 0180 \u00a73)",
+     "source": "research/launch-plan-jan1-2026-11-26.md \u00a77 Brief D (3)",
+     "done": "His answer recorded",
+     "adrs": [
+      "0181",
+      "0180"
+     ],
+     "priority": 2,
+     "ticket": "resolution",
+     "stage": "brief",
+     "tier": 5
+    },
+    {
+     "what": "Brief D: Order #12 and M2b (F.9)",
+     "why": "Brief D, by Dec 14\u201321: money and going to market (Founder rulings, 0180 \u00a73)",
+     "source": "research/launch-plan-jan1-2026-11-26.md \u00a77 Brief D (4)",
+     "done": "His answer recorded",
+     "adrs": [
+      "0181",
+      "0180"
+     ],
+     "priority": 2,
+     "ticket": "resolution",
+     "stage": "brief",
+     "tier": 5
+    },
+    {
+     "what": "Brief D: verification: the verify number, and a rep's in-person visit counting (0070; H.1)",
+     "why": "Brief D, by Dec 14\u201321: money and going to market (Founder rulings, 0180 \u00a73)",
+     "source": "research/launch-plan-jan1-2026-11-26.md \u00a77 Brief D (5)",
+     "done": "His answer recorded",
+     "adrs": [
+      "0181",
+      "0180"
+     ],
+     "priority": 2,
+     "ticket": "resolution",
+     "stage": "brief",
+     "tier": 5
+    },
+    {
+     "what": "Brief D: real money once (F.5)",
+     "why": "Brief D, by Dec 14\u201321: money and going to market (Founder rulings, 0180 \u00a73)",
+     "source": "research/launch-plan-jan1-2026-11-26.md \u00a77 Brief D (6)",
+     "done": "His answer recorded",
+     "adrs": [
+      "0181",
+      "0180"
+     ],
+     "priority": 2,
+     "ticket": "resolution",
+     "stage": "brief",
+     "tier": 5
+    },
+    {
+     "what": "Brief D: tax (F.6)",
+     "why": "Brief D, by Dec 14\u201321: money and going to market (Founder rulings, 0180 \u00a73)",
+     "source": "research/launch-plan-jan1-2026-11-26.md \u00a77 Brief D (7)",
+     "done": "His answer recorded",
+     "adrs": [
+      "0181",
+      "0180"
+     ],
+     "priority": 2,
+     "ticket": "resolution",
+     "stage": "brief",
+     "tier": 5
+    },
+    {
+     "what": "Brief D: legal texts (F.7)",
+     "why": "Brief D, by Dec 14\u201321: money and going to market (Founder rulings, 0180 \u00a73)",
+     "source": "research/launch-plan-jan1-2026-11-26.md \u00a77 Brief D (8)",
+     "done": "His answer recorded",
+     "adrs": [
+      "0181",
+      "0180"
+     ],
+     "priority": 2,
+     "ticket": "resolution",
+     "stage": "brief",
+     "tier": 5
+    },
+    {
+     "what": "Brief D: promos and outreach spend (H.2)",
+     "why": "Brief D, by Dec 14\u201321: money and going to market (Founder rulings, 0180 \u00a73)",
+     "source": "research/launch-plan-jan1-2026-11-26.md \u00a77 Brief D (9)",
+     "done": "His answer recorded",
+     "adrs": [
+      "0181",
+      "0180"
+     ],
+     "priority": 2,
+     "ticket": "resolution",
+     "stage": "brief",
+     "tier": 5
+    },
+    {
+     "what": "Brief D: the revenue mix (H.3)",
+     "why": "Brief D, by Dec 14\u201321: money and going to market (Founder rulings, 0180 \u00a73)",
+     "source": "research/launch-plan-jan1-2026-11-26.md \u00a77 Brief D (10)",
+     "done": "His answer recorded",
+     "adrs": [
+      "0181",
+      "0180"
+     ],
+     "priority": 2,
+     "ticket": "resolution",
+     "stage": "brief",
+     "tier": 5
+    },
+    {
+     "what": "Brief D: the lock's lift date and Search Console (G.4)",
+     "why": "Brief D, by Dec 14\u201321: money and going to market (Founder rulings, 0180 \u00a73)",
+     "source": "research/launch-plan-jan1-2026-11-26.md \u00a77 Brief D (11)",
+     "done": "His answer recorded",
+     "adrs": [
+      "0181",
+      "0180"
+     ],
+     "priority": 2,
+     "ticket": "resolution",
+     "stage": "brief",
+     "tier": 5
+    },
+    {
+     "what": "Brief D: hosting, after B.6's test",
+     "why": "Brief D, by Dec 14\u201321: money and going to market (Founder rulings, 0180 \u00a73)",
+     "source": "research/launch-plan-jan1-2026-11-26.md \u00a77 Brief D (12)",
+     "done": "His answer recorded",
+     "adrs": [
+      "0181",
+      "0180"
+     ],
+     "priority": 2,
+     "ticket": "resolution",
+     "stage": "brief",
+     "tier": 5
+    },
+    {
+     "what": "Brief D: GITHUB_SYNC_TOKEN, which expires Dec 16",
+     "why": "Brief D, by Dec 14\u201321: money and going to market (Founder rulings, 0180 \u00a73)",
+     "source": "research/launch-plan-jan1-2026-11-26.md \u00a77 Brief D (13)",
+     "done": "His answer recorded",
+     "adrs": [
+      "0181",
+      "0180"
+     ],
+     "priority": 2,
+     "ticket": "resolution",
+     "stage": "brief",
+     "tier": 5
+    }
+   ]
+  },
+  {
+   "key": "ladder",
+   "what": "The pilot's success ladder: 4a 10 Core trials convert by ~Apr 2027, 4b ~73 paying (~$69,800 a year) by ~Oct 2027",
+   "owner": "Chief Marketing Officer (7)",
+   "why": "Jason, 2026-11-27: \"Yes\" to the CEO's proposal (launch plan \u00a79). The pilot is the Ancient Borderlands zone (1A, 1B, 1C)",
+   "source": "decisions/0181 notes (ladder, pilot, multipliers) \u00b7 research/launch-plan-jan1-2026-11-26.md \u00a79",
+   "goal": "Not a gate: logged, built after Jan 1 unless it blocks one (CLAUDE.md #1553). The pilot zone clears its ladder; stretch 100 paying by Dec 31, 2027",
+   "done": "Measure: 4a by ~Apr 2027, 4b by ~Oct 2027, reported weekly (counts only). Due: 4a Apr 30, 2027 \u00b7 4b Oct 31, 2027",
+   "adrs": [
+    "0181",
+    "0108",
+    "0034"
+   ],
+   "priority": 2,
+   "children": [
+    {
+     "what": "The weekly ladder report, counts only: visitors, taps per listing, invites, claims, multipliers partnered",
+     "why": "Reported weekly (0181 note)",
+     "source": "decisions/0181 note (ladder)",
+     "done": "The first weekly report filed",
+     "adrs": [
+      "0181"
+     ],
+     "priority": 2
+    },
+    {
+     "what": "The multiplier kit: a live enhanced page, a prototype store, GO Codes, a leave-behind, members' Core trials",
+     "why": "Existing parts only, for the Founder's meetings with chambers, guide influencers and venues",
+     "source": "decisions/0181 note (multiplier kit)",
+     "done": "The kit ready for the first meeting",
+     "adrs": [
+      "0034",
+      "0139",
+      "0094",
+      "0081"
+     ],
+     "priority": 2
+    },
+    {
+     "what": "Up to 3 chambers get the Co-Op Master Hub by a comped grant, each with a review date, AI credits capped",
+     "why": "Jason, 2026-11-27: option A; a named exception to Core-only trials",
+     "source": "decisions/0181 note (chambers)",
+     "done": "Each grant recorded with its review date",
+     "adrs": [
+      "0034",
+      "0108",
+      "0137"
+     ],
+     "priority": 2
+    },
+    {
+     "what": "Core-only trials and grants during the pilot",
+     "why": "Jason: \"Free trials for core subscribers only\"",
+     "source": "decisions/0181 note (pilot people and trials) \u00b7 0108 and 0034 notes",
+     "done": "Trials offered are Core only",
+     "adrs": [
+      "0108",
+      "0034"
+     ],
+     "priority": 2
+    },
+    {
+     "what": "Maker and product stories, magazine-style, and contributors' own journeys, from January",
+     "why": "Jason, 2026-11-27: the magazine model and the privacy line (public role, public act)",
+     "source": "decisions/0164 note 2026-11-27 \u00b7 research/launch-plan-jan1-2026-11-26.md \u00a710.2(4)",
+     "done": "The first stories live under the privacy line",
+     "adrs": [
+      "0164",
+      "0056",
+      "0007"
+     ],
+     "priority": 3
+    },
+    {
+     "what": "Relationships with Native makers through the pilot's multipliers, never outreach to a nation",
+     "why": "Free listing, Core trial, their story, GO Codes, 0% on sales",
+     "source": "research/launch-plan-jan1-2026-11-26.md \u00a710.3 \u00b7 decisions/0066 (Q6)",
+     "done": "Recorded per maker, with their consent to anything private",
+     "adrs": [
+      "0066"
+     ],
+     "priority": 3
+    },
+    {
+     "what": "The 1A territory: prospects from 1A's listings and GO Code promo codes (H.2)",
+     "why": "Promos and spend are Brief D's; no rep for now",
+     "source": "research/launch-plan-jan1-2026-11-26.md \u00a74 H.2 \u00b7 decisions/0181 note (no rep)",
+     "done": "Prospects seeded and codes ready",
+     "adrs": [
+      "0108"
+     ],
+     "priority": 3
+    }
+   ]
+  },
+  {
+   "key": "transition",
+   "what": "The transition cutover: our business and conversations on the platform by Dec 15",
+   "owner": "Project Manager (8)",
+   "why": "Jason, 2026-11-27: \"Yes, the transition plan\". Tier 3, the PM's lane",
+   "source": "handoffs/decided-not-live.md (the transition plan) \u00b7 handoffs/work-queue-phase2.md",
+   "goal": "Not a gate: built only where it blocks one before Jan 1 (CLAUDE.md #1553). The Work queue holds every goal, ticket and ruling; sessions start from it",
+   "done": "Measure: a parallel week, then cutover with nothing living only in a session. Due: Tue Dec 15, 2026",
+   "adrs": [
+    "0180",
+    "0179"
+   ],
+   "priority": 2,
+   "children": [
+    {
+     "what": "Role queues as the agents' inbox: each department and role a queue view with counts and SLA",
+     "why": "Jason, 2026-11-27: \"Yes to role queues; mail only, OneDrive stays\"",
+     "source": "handoffs/decided-not-live.md \u00b7 handoffs/piece2/jason-spec.md \u00a77",
+     "done": "Each role's queue on the Work queue; an alarm emailed to Jason also a row",
+     "adrs": [
+      "0180"
+     ],
+     "priority": 2
+    },
+    {
+     "what": "The Executive channel: + Add with To: the CEO, answered in its thread",
+     "why": "Jason, 2026-11-26; built after R2 with phase 2's thread",
+     "source": "handoffs/decided-not-live.md \u00b7 decisions/0180 notes",
+     "done": "A post to the CEO answered in its thread",
+     "adrs": [
+      "0180"
+     ],
+     "priority": 2
+    },
+    {
+     "what": "task-notes.json and task-rulings.json carried into phase 2 release 1",
+     "why": "The transition plan's order",
+     "source": "handoffs/decided-not-live.md (the transition plan)",
+     "done": "Both files read into the queue",
+     "adrs": [
+      "0179"
+     ],
+     "priority": 2
+    }
+   ],
+   "link": [
+    [
+     "area:control-board",
+     "Work queue phase 2"
+    ],
+    [
+     "area:control-board",
+     "The Work queue redesigned around Jason's four stages"
+    ]
+   ]
+  }
+ ]
+}
