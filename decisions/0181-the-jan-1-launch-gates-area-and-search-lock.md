@@ -188,3 +188,12 @@ day. This qualifies 0180's "R1–R5 ship as each passes" (note added there).
   0135 and 0164). For Jan 1: Shops (B2C) and the Aftermarket (C2C) live, Experiences & Regional Goods showing what
   qualifies, Trade (B2B) named as "coming" and built in Q1. The pilot's content plans how to navigate the Indian Arts and
   Crafts Act, from official sources, with relationships with individual Native makers (launch plan §10).
+- **Ground notes come through the rollout** (Jason, 2026-11-27: "this should be part of the strategic roll out, wrapped
+  into the sales/high value targeting method"; recorded as Operations & Policy (16), under CLAUDE.md's "His stated
+  direction is the ruling"). A guide's ground notes (`field_notes`, Guides.php:511) come from the launch plan §9's
+  in-person multipliers (chambers, regional and town guide influencers, venues; the Founder's role) and from contributors
+  under the magazine model (0164's note), not from Jason personally. Conflict cited, gate 3 (every 1A guide at 70 with a
+  person's read): public sources alone reach about 70 and rollout contacts may come after Jan 1. Solution, acted on: the
+  Editorial Director's lane (12, 26) takes 1A's guides to 70 on public sources now (names linked, open checks closed);
+  the rollout's targeting list puts 1A towns whose guides are under 70 first (Sales Director 14, Marketing Director 13),
+  and ground notes add their +10 as they arrive.
