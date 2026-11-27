@@ -99,3 +99,15 @@ asked first and went in pieces. Nothing left in `incoming/` or in S3's unfinishe
   as before, and links, the command strip's Back/Close and closing the tab ask first, with how far it got.
 - **Not possible:** sending while no Traversence page is open at all (a closed browser, or a phone with the browser in
   the background). That needs Background Fetch, which only Chromium has and which can't send our pieces; not taken.
+
+**Note (Jason, 2026-11-27: "using git as a file repo instead of our own server or the file management system we live
+build is contributing to the degradation of our promises too"; recorded as Operations & Policy (16)).** Documents for
+Jason and the team live on our platform, attached to their record, never as a GitHub link. Conflict cited: sessions can't
+write to live (only releases change the site), and no upload target exists for a Work queue task. Solution, acted on: a
+new target in `upload-targets.php`, "a task's documents", owned by `GaugeTasks` (files belong to the task, never a person;
+staff with the Work queue's access read them). Git is transport only: a session commits the file and names it in
+`releases/task-notes.json` (`{task, line, file}`); the site's hourly pull fetches it (through the contents API read the
+pipeline release brings, not the cached raw read) and stores it through `Uploads.php` on the task, shown with Open and
+Download. Emails and pushes link to the task page with the file (the per-message `link`). First file: the Wix and
+Squarespace comparison, on a task under the revenue goal. Built with phase 2 release 1 in the IT Manager's (11) lane, as
+the promise check's first fix (gate 1). Until then a GitHub link is the stopgap, said as one.
