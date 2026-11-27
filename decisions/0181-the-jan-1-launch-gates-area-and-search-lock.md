@@ -85,3 +85,8 @@ day. This qualifies 0180's "R1–R5 ship as each passes" (note added there).
 
   A one-time December allowance (E2) isn't approved. The CEO brings it back only if week 1's measured costs show the
   gates can't be met at $0.
+- **Colorado and Utah open on team-reviewed records** (Jason, 2026-11-27; 0164's R8/R17 note "advised, not required").
+  - CO's and UT's towns in the area open once their jurisdiction records are reviewed by the team, and AZ's and NM's
+    drafts are completed the same way.
+  - One release moves `Jurisdictions::regionOpen()` onto the reviewed records (the Data & Content session's, after this
+    note).

@@ -1528,3 +1528,11 @@ So:
 - The URL Index's file map for a crawl (each file's range of keys) is read once per crawl and kept, so the runs every
   few minutes don't read it again (§2(f)).
 - When the URL Index can't be read, the bulk task is held and waits. It never falls back to the index server for bulk.
+
+- **R8/R17: an attorney's review is advised, not required** (Jason, 2026-11-27: "I am ok with the advisory to legal
+  adjustment." "R8 confirmed."). The confirmed wording: "Each place's jurisdiction record is reviewed by the team against
+  its laws. An attorney's review is advised, not required to open a region. Where a record is missing or unclear, the
+  strictest known rule still applies."
+  - It replaces R8's "an attorney signs" and R17's "stays Planned until that state's R8 record is signed" as gates.
+  - A region opens on its team-reviewed record. `Jurisdictions::OPENED` gives way to the reviewed records, by a release.
+  - 0066 is unchanged: nation-specific content stays held until the nation says so (Hawikuh included).
