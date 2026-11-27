@@ -138,6 +138,10 @@ state with `live-read.yml`: rows `feature_switches`, q `before_after`.
      `file`. The hourly pull fetches it through DocsRepo's contents-API read (never raw) and stores it through `Uploads.php`
      on the task, with Open and Download on the task's page. Files belong to the task, never a person. Its table is named in
      `staging-tables.php` (R14), and the one-uploader grep still matches only `Uploads.php` and `api/upload.php`.
+   - **Logged under the promise check (gate 1), fixed when that check is built, not before** (the session manager,
+     2026-11-27): `tools/notify-tests/` no longer runs against live's Notify (Notices isn't required there; its comms
+     migration ran and was deleted on live, kept in `notify-1.zip`), and it writes its stand-ins into the app folder it's
+     given (run it only on a throwaway copy). Bring it up to live so the promise check can lean on it.
    - **Held for after the goal check:** founder-link (`claude/founder-link`, `handoffs/founder-link/`). The Founder's
      message emails open their own `link` (ours only) or their `task` (`#wq-<id>`); gauges.py warns on neither (the session
      manager's option (a), 2026-11-27). IT lane.
