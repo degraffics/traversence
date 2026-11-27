@@ -1569,3 +1569,33 @@ review). Within this record's rules and 0066:
   (0181's note "Businesses on nation land"); nothing nation-specific is shown without the nation's say (0066).
 - We never check or state anyone's tribal membership. A seller's "Native-made" claim is theirs under the Act; our label
   says only "made in <region>" (0135's note of the same date).
+
+## Note (Jason, 2026-11-27): the magazine model, and the privacy line
+
+**The magazine model.** Jason, to the CEO: "Following what a magazine would do, regarding us writing content about
+makers and products, I dont want us to rely on outside approvals or data confirmations to be able to create content, we
+need to support content like a magazine and allow contributors to self publish as well."
+- We write about makers, businesses and products as a magazine does, from public sources, citing them. No outside
+  approval or data confirmation is needed to publish. This replaces the launch plan §10.2(4)'s "maker stories, with
+  consent only".
+- Contributors self-publish under 0056 (journeys publish when posted; "we don't control the contributor").
+- Guardrails, from what's set: accuracy (sources cited; corrections and takedowns through this record's rules);
+  coverage is never endorsement and can't be bought (0007); an article may tell a maker's heritage as they have stated
+  it publicly, but goods for sale are never labelled "Native-made" by us (0135's note, 2026-11-27); 0066 is unchanged
+  (nothing nation-specific without the nation's say; on a nation's land, story only).
+
+**The privacy line: public role, public act.** Jason: "Saying Joe Smith, owner of Smithies gallery is... should be
+publicly vs. Naming a shelter, and then listing its residents.... bad.", then "Yes, record it with the magazine model".
+1. People are named in their public roles, and their public work is written about.
+2. People in a private capacity (residents, patients, clients, customers, children, non-public staff) are never named
+   or described, above all anyone tied to a vulnerable service. Naming the service is fine.
+3. No sensitive fact about a private person (health, immigration, religion, sexuality, accusations).
+4. Our users' account data is never content (CLAUDE.md: "Anything about a user or owner is private unless they say
+   otherwise").
+5. Contributors follow the same line; reports go through this record's takedown rules.
+A shelter's address stays restricted (0076; R7's protected tiers).
+
+**Laws read from their sources** (Jason: "Team review is fine, but is there an api to federal and states laws?"):
+federal law through GovInfo's API (a free api.data.gov key), the eCFR and the Federal Register APIs; the states have
+no single official API, so their official sites are read, as J1's "Mark read" does with the official link. The hosts,
+and the key, are asked for at build time through the environment tools, never before.

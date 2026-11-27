@@ -125,3 +125,11 @@ phones the Trip Planner is a tool icon and the right column follows the feed.
   - contributors are people and listings (a member can post as a listing whose team they're on);
   - Traversence's voice is written by staff with the new Content Creator and Editor roles, from Admin → Journeys,
     which replaces "staff post as Traversence or as themselves" in the member editor.
+
+## Note (Jason, 2026-11-27): contributors self-publish, within the privacy line
+
+Jason: "…we need to support content like a magazine and allow contributors to self publish as well." Contributors
+publish as this record already says (journeys publish when posted; reports to Admin → Reports). They follow 0164's
+note of the same date: the magazine model and the privacy line (public role, public act; never people in a private
+capacity, nothing sensitive about a private person, never anyone tied to a vulnerable service). Reports of a breach go
+through 0164's takedown rules.
