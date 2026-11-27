@@ -293,7 +293,7 @@ are settled by the team. Each brief opens "Decision (nothing changes on the site
 1. The launch definition: §3's six gates, the Dec 22 freeze and the Dec 31 go/no-go.
 2. Launch work first in the one queue. R2–R5 get at most one slot a day until the gates pass.
 3. *Suggest a change to 0165:* pause staging's own jobs and catch-up while a before or after look runs.
-4. Turn the before-and-after check back **On** (System Configuration → Staging), so A.1 can be proved on R2.
+4. Turn the before-and-after check back **On** at https://traversence.com/admin/config/switches ("The before-and-after check" → On for Everyone → Save), so A.1 can be proved on R2.
 
 Blocking only on a page's own files is partly done by the role-22 fix (#1472). It becomes a brief only if R2 still
 false-blocks.
