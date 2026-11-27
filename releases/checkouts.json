@@ -11,8 +11,8 @@
    "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
    "why": "the pipeline release: tick and verdict, the ping, a silent look says why (Tier 4 review: CEO, 2026-11-27)",
    "since": "2026-11-27T11:52:34Z",
-   "expires": "2026-11-27T20:02:04Z",
-   "release": "pipeline-tick-2.zip",
+   "expires": "2026-11-27T22:13:49Z",
+   "release": "pipeline-tick-3.zip",
    "callers": {}
   },
   {
@@ -22,8 +22,8 @@
    "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
    "why": "the pipeline release: tick and verdict, the ping, a silent look says why (Tier 4 review: CEO, 2026-11-27)",
    "since": "2026-11-27T12:52:24Z",
-   "expires": "2026-11-27T20:02:04Z",
-   "release": "pipeline-tick-2.zip",
+   "expires": "2026-11-27T22:13:49Z",
+   "release": "pipeline-tick-3.zip",
    "callers": {}
   },
   {
@@ -35,8 +35,8 @@
    "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
    "why": "the pipeline release: tick and verdict, the ping, a silent look says why (Tier 4 review: CEO, 2026-11-27)",
    "since": "2026-11-27T12:52:27Z",
-   "expires": "2026-11-27T20:02:04Z",
-   "release": "pipeline-tick-2.zip",
+   "expires": "2026-11-27T22:13:49Z",
+   "release": "pipeline-tick-3.zip",
    "callers": {
     "blob": [
      "app/lib/Releases.php"
@@ -55,8 +55,8 @@
    "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
    "why": "the pipeline release: tick and verdict, the ping, a silent look says why (Tier 4 review: CEO, 2026-11-27)",
    "since": "2026-11-27T12:52:29Z",
-   "expires": "2026-11-27T20:02:04Z",
-   "release": "pipeline-tick-2.zip",
+   "expires": "2026-11-27T22:13:49Z",
+   "release": "pipeline-tick-3.zip",
    "callers": {
     "advance": [
      "app/lib/Releases.php",
@@ -74,8 +74,8 @@
    "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
    "why": "the pipeline release: asPing (Tier 4 review: CEO, 2026-11-27)",
    "since": "2026-11-27T12:52:31Z",
-   "expires": "2026-11-27T20:02:04Z",
-   "release": "pipeline-tick-2.zip",
+   "expires": "2026-11-27T22:13:49Z",
+   "release": "pipeline-tick-3.zip",
    "callers": {
     "lastLooked": [
      "app/admin/sections.php",
@@ -91,41 +91,8 @@
    "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
    "why": "the pipeline release: tick and verdict, the ping, a silent look says why (Tier 4 review: CEO, 2026-11-27)",
    "since": "2026-11-27T12:52:34Z",
-   "expires": "2026-11-27T20:02:04Z",
-   "release": "pipeline-tick-2.zip",
-   "callers": {}
-  },
-  {
-   "path": "app/migrations/2026-11-27_e1_round_valley_renew.sql",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5jsi4U8fUwJYPkZsMx",
-   "why": "E.1: round-valley's guide renewed from its research brief (gate 3)",
-   "since": "2026-11-27T14:10:54Z",
-   "expires": "2026-11-27T18:10:54Z",
-   "release": "",
-   "callers": {}
-  },
-  {
-   "path": "app/migrations/2026-11-27_e1_show_low_renew.sql",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5jsi4U8fUwJYPkZsMx",
-   "why": "E.1: show-low's guide renewed from its research brief (gate 3)",
-   "since": "2026-11-27T14:11:16Z",
-   "expires": "2026-11-27T18:11:16Z",
-   "release": "",
-   "callers": {}
-  },
-  {
-   "path": "app/migrations/2026-11-27_e1_holbrook_renew.sql",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5jsi4U8fUwJYPkZsMx",
-   "why": "E.1: holbrook's guide renewed from its research brief (gate 3)",
-   "since": "2026-11-27T14:11:35Z",
-   "expires": "2026-11-27T18:11:35Z",
-   "release": "",
+   "expires": "2026-11-27T22:13:49Z",
+   "release": "pipeline-tick-3.zip",
    "callers": {}
   },
   {
@@ -185,6 +152,42 @@
   }
  ],
  "lapsed": [
+  {
+   "path": "app/migrations/2026-11-27_e1_round_valley_renew.sql",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jsi4U8fUwJYPkZsMx",
+   "why": "E.1: round-valley's guide renewed from its research brief (gate 3)",
+   "since": "2026-11-27T14:10:54Z",
+   "expires": "2026-11-27T18:10:54Z",
+   "release": "",
+   "callers": {},
+   "lapsed": "2026-11-27T18:13:49Z"
+  },
+  {
+   "path": "app/migrations/2026-11-27_e1_show_low_renew.sql",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jsi4U8fUwJYPkZsMx",
+   "why": "E.1: show-low's guide renewed from its research brief (gate 3)",
+   "since": "2026-11-27T14:11:16Z",
+   "expires": "2026-11-27T18:11:16Z",
+   "release": "",
+   "callers": {},
+   "lapsed": "2026-11-27T18:13:49Z"
+  },
+  {
+   "path": "app/migrations/2026-11-27_e1_holbrook_renew.sql",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jsi4U8fUwJYPkZsMx",
+   "why": "E.1: holbrook's guide renewed from its research brief (gate 3)",
+   "since": "2026-11-27T14:11:35Z",
+   "expires": "2026-11-27T18:11:35Z",
+   "release": "",
+   "callers": {},
+   "lapsed": "2026-11-27T18:13:49Z"
+  },
   {
    "path": "app/lib/Scheduler.php",
    "functions": [],
@@ -838,65 +841,6 @@
     "tv_admin_staging_mirror"
    ],
    "kind": "change",
-   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
-   "why": "release staging-mirror-words.zip",
-   "since": "2026-11-26T03:35:09Z",
-   "expires": "2026-11-26T07:35:09Z",
-   "release": "staging-mirror-words.zip",
-   "callers": {},
-   "lapsed": "2026-11-26T09:07:57Z"
-  },
-  {
-   "path": "app/lib/StagingSite.php",
-   "functions": [
-    "conn",
-    "step",
-    "syncTestAccounts"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
-   "why": "release staging-mirror-words.zip",
-   "since": "2026-11-26T03:35:09Z",
-   "expires": "2026-11-26T07:35:09Z",
-   "release": "staging-mirror-words.zip",
-   "callers": {
-    "step": [
-     "website/admin/api.php"
-    ],
-    "syncTestAccounts": [
-     "app/lib/TestAccounts.php"
-    ]
-   },
-   "lapsed": "2026-11-26T09:07:57Z"
-  },
-  {
-   "path": "app/lib/StagingApi.php",
-   "functions": [
-    "line",
-    "summary"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
-   "why": "release staging-mirror-words.zip",
-   "since": "2026-11-26T03:35:09Z",
-   "expires": "2026-11-26T07:35:09Z",
-   "release": "staging-mirror-words.zip",
-   "callers": {
-    "line": [
-     "app/admin/sections.php",
-     "website/api/release-bar.php"
-    ],
-    "summary": [
-     "app/admin/sections.php",
-     "website/api/release-bar.php"
-    ]
-   },
-   "lapsed": "2026-11-26T09:07:57Z"
-  },
-  {
-   "path": "app/lib/StagingPublish.php",
-   "functions": [],
-   "kind": "add",
    "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
    "why": "release staging-mirror-words.zip",
    "since": "2026-11-26T03:35:09Z",
