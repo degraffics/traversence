@@ -1,0 +1,64 @@
+{
+    "id": 322,
+    "title": "Release pipeline: tick and verdict: a release moves on as soon as its before-and-after look is in",
+    "why": "#317 and #318 (2026-11-27) each waited an hour between their before look and staging. Two causes. First, releases_tick's cron line on live reads */24 (the live read of Scheduled tasks, 2026-11-27 05:50 UTC), while Scheduler::JOBS sets it every 10 minutes and the before-and-after check's design counts on that (handoffs/piece3-check.md §3: \"releases_tick (every 10 minutes)\"; research/launch-plan-jan1-2026-11-26.md, item 2). Second, the site's read of the verdict file (raw.githubusercontent.com) came back empty from :00 until the late re-ask at 60 minutes, though the file was on main from 05:07:26 (run 45942037912); the job logs nothing, so the wait didn't say why. The fix, as the session manager ruled (2026-11-27, its own release, not the Scheduler bundle): (a) releases_tick puts its own line to every 10 minutes once (BeforeAfter::tickLine, through Scheduler::change's '10min' preset); a later Change on Scheduled tasks is a person's and stays. (b) one advance at a time (a lock), and a release's waiting is cleared only once its verdict is decided, so a step that throws leaves it waiting for the next run, never on staging with nothing waiting for it. (c) the verdict is read through GitHub's contents API on main (DocsRepo::now, with the key; raw only when the API is away), and a release whose verdict isn't there 30 minutes after it was asked says so once on its card, naming the file. Backend only: nothing a visitor sees changes. Reviewed: Tier 4 clear (the CEO, 2026-11-27; it's the launch plan's A.2) and Design: approved (words only). A run that arrives while another holds the lock skips: it returns no line, writes nothing and never errors, and the next run takes it. The 30-minute note has no link to the look's run: the run is named only in the verdict file, which is what's missing when the note is written. Also (the CEO's Tier 4 condition on the check's far-timeout fix, 2026-11-27): a verdict's slow pages reached only through a shared file (its far list) are written on the release's card, at most three, in the Design reviewer's words (2026-11-27): \"Before-and-after check: /admin/crawler-review.php (as the test Executive, at 390) timed out, then opened when tried again. Staging is slow there; it's reached only through website/js/tv-ask.js. The IT Manager's lane has it.\", or, slow before too, \"… was slow before this release too, and still didn't open after it. … The slow-pages ticket has it.\" A block isn't one (its block says it); Site health's notes aren't copied there. Design: approved with that wording. The ping itself, a widened trust named for the record: /api/releases-pull.php has no secret by design (decisions/0159 §5; Jason, 2026-11-15: any call only makes the site look sooner), and since #314 a web call with no staff session is nobody, so every ping was refused (\"not taken: Sign in with your staff login first\", fromUpload's need('releases.publish')) and every release waited for the job's next run. Releases::asPing() carries releases.publish, and nothing else, for its one fromGit call, dropped in a finally even when it throws: it takes only builds already merged into main, listed by DocsRepo with the token, nothing from the request, at most once a minute; it never schedules, approves, publishes past staging's checks, turns off, rolls back or moves a verdict on (those stay with the 10-minute job and people). Tier 4 review: CEO, 2026-11-27 (a repair of #314's fallout, Prior Ruling Check yes). The #314 re-audit (the CEO, 2026-11-27) found no other web entry point regressed: every webhook and token endpoint reaches none of the guarded checks. One approved piece dropped (the session manager and the CEO, 2026-11-27, option (a)): beforeafter.yml no longer pings the site once a verdict is committed and the ping never moves a verdict on, so a verdict now waits up to one run of the 10-minute job (every 10 minutes once (a) above puts it back from */24). The slow-page wording on the card is unchanged. Design: approved again after option ",
+    "proposals": "",
+    "zip": "pipeline-tick.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/admin/sections.php": {
+            "sha": "f35dbc65f52e3b579ef8769dac6b3d48a8ad43b15e3d6cb4913f79c2a6dd0bef",
+            "size": 258621,
+            "live_was": "8ff17c35d71e71a6a9a1f33bc752aca259d2ebcc98ef27b05692dee3ddb0112b"
+        },
+        "app/ui/faq.md": {
+            "sha": "3dd0f62ee74cb30618a2b03390d7ee634507499590e8ef67f0096015e7500f88",
+            "size": 469787,
+            "live_was": "9935a7e2e142c58097314cfce6734a549352f11cd9631a768b066c90dc94383b"
+        },
+        "app/scripts/releases_tick.php": {
+            "sha": "06afefd5b58cf8141d5e50f2dd96db03bf74cc5214dabf3c739ec06dc65665fd",
+            "size": 2406,
+            "live_was": "27f806664add91997a43bc001a7f793ed0d6cdb7e126b51f343c7c3c4a29db41"
+        },
+        "app/lib/DocsRepo.php": {
+            "sha": "7fb7fca083476ce16c5e607dcc815542723d536dc184028c6e95e797bb532a1b",
+            "size": 21793,
+            "live_was": "012259b7e8d1e736aeb218c7f17a945407047ab26e10814dcb570f44b334e853"
+        },
+        "app/lib/BeforeAfter.php": {
+            "sha": "a7cd796f6ccecc505e91de1a1330d0aec0dd4c914a3b77bcfc11dcf865de56e8",
+            "size": 20659,
+            "live_was": "0d0316223823104badb5958e51be13e4cb9c6b856768d14ee220c657ac562d34"
+        },
+        "app/lib/Releases.php": {
+            "sha": "e9511bf476c2cda53e4fa254145bd8d0be47cc6a594a72dc27bcee3454d41826",
+            "size": 138444,
+            "live_was": "6e255907487dcc7f3eb6224b99d19322da54e04174ed445dae12bcda2450b732"
+        },
+        "website/api/releases-pull.php": {
+            "sha": "cd41983ba4aa32512be0f30cd7123a791016ac16eb9184483673857663254011",
+            "size": 2190,
+            "live_was": "4a66ee9889c1e3224069195667772fe4ad67a4a1cfd7b3d8ba7318c50ed0b30b"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-27T13:24:03+00:00",
+            "by": 0,
+            "msg": "Uploaded pipeline-tick.zip: 7 files."
+        }
+    ]
+}
