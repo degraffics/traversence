@@ -1,0 +1,16 @@
+{
+  "title": "The Founder's emails: Open it goes where the message is about",
+  "why": "The site's email to the Founder for a session manager's message (FounderMail::messages, notify-founder) always ended \"Open it: https://traversence.com/admin/config/control?tab=development\", a dead end for a message about anything else (the session manager, 2026-11-27, after the Wix and Squarespace comparison's PDF link; CLAUDE.md \"Never a dead end\"). Option (a), the session manager's ruling for the PM (8), 2026-11-27: each releases/batch.json message may carry an optional link and an optional task. Open it goes to its link when it's one of ours (a /path on our site, or https on traversence.com, staging.trvgo.us or github.com/degraffics/); else to its Work queue ticket, ...?tab=development#wq-<task>, as a decision's email already does (FounderMail.php:79); else to the Work queue, as before. A link not ours is dropped, never sent. gauges.py carries both and warns, never refuses, when a message has neither. Backend only: an email's link, no page changes. Gate: none directly; it serves the Founder's daily launch reporting (0181 §2: what reaches Jason), so his messages open where they're about. IT Manager's (11) lane.",
+  "proposals": [],
+  "switch": "",
+  "changes": [
+    {
+      "what": "A session manager's email to the Founder opens its own link or its Work queue ticket, not always the Work queue",
+      "where": "https://traversence.com/admin/config/control?tab=development"
+    }
+  ],
+  "checks": {
+    "founder": "tools/notify-founder-tests/founder.php 24 on MariaDB: a GitHub file of ours as Open it; a path on our site over its task; a task alone as #wq-<task>; a link not ours dropped for its task; another GitHub owner and // dropped; our hosts pass, a look-alike host, javascript:, a space and a backslash refused; the earlier 15 unchanged.",
+    "gauges": "tools/team-tests/batch_py.py 9: link and task carried, a true task is no task, neither warned and never refused."
+  }
+}

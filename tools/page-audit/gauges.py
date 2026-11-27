@@ -220,7 +220,7 @@ def _batch(path=None):
 
 def _messages(path=None):
     """The session manager's messages for the Founder (releases/batch.json "messages"; notify-founder, Jason 2026-11-25): the
-    site emails each id once, to the Founder only (FounderMail). [{id, at, subject, body}], checked field by field."""
+    site emails each id once, to the Founder only (FounderMail). [{id, at, subject, body, link?, task?}], checked field by field."""
     try:
         d = json.load(open(path or os.path.join(os.path.dirname(__file__), '..', '..', 'releases', 'batch.json')))
     except (OSError, ValueError):
@@ -228,7 +228,17 @@ def _messages(path=None):
     out = []
     for m in (d.get('messages') or [])[:20] if isinstance(d, dict) else []:
         if isinstance(m, dict) and re.match(r'^[A-Za-z0-9._:-]{1,80}$', str(m.get('id') or '')) and str(m.get('subject') or '').strip():
-            out.append({'id': str(m['id']), 'at': str(m.get('at') or ''), 'subject': str(m['subject'])[:200], 'body': str(m.get('body') or '')[:2000]})
+            o = {'id': str(m['id']), 'at': str(m.get('at') or ''), 'subject': str(m['subject'])[:200], 'body': str(m.get('body') or '')[:2000]}
+            # where its email's "Open it" goes (FounderMail::urlOf; the session manager, 2026-11-27, option (a)): its link, else
+            # its Work queue ticket; neither is warned here, never refused, so it's caught when it's written
+            link, task = str(m.get('link') or '').strip(), m.get('task')
+            if link:
+                o['link'] = link[:500]
+            if isinstance(task, int) and not isinstance(task, bool) and task > 0:
+                o['task'] = task
+            if 'link' not in o and 'task' not in o:
+                print('warning: message %s has neither "link" nor "task": its email will open the Work queue' % o['id'], file=sys.stderr)
+            out.append(o)
     return out
 
 

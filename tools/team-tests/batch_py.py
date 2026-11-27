@@ -23,5 +23,11 @@ t('answers: id, a/b/o and the words kept; any other answer, a bad id or junk lef
 t('words cut at 4000', len(g._answers(tmp({'answers': [{'id': 1, 'ans': 'o', 'words': 'w' * 5000}]}))[0]['words']) == 4000)
 t('no answers key, no file: none', g._answers(tmp({'pickups': []})) == [] and g._answers('/nonexistent.json') == [])
 s, _ = g.build()
+import io, contextlib
+_e = io.StringIO()
+with contextlib.redirect_stderr(_e):
+    m = g._messages(tmp({'messages': [{'id': 'a', 'subject': 's', 'link': 'https://github.com/degraffics/traversence/x.pdf'}, {'id': 'b', 'subject': 's', 'task': 41}, {'id': 'c', 'subject': 's'}, {'id': 'd', 'subject': 's', 'task': True}]}))
+t('messages carry link and task (notify-founder\'s Open it); a true task is no task', m[0].get('link', '').endswith('x.pdf') and m[1].get('task') == 41 and 'task' not in m[3], m)
+t('… neither: warned at write time, never refused', [x['id'] for x in m] == ['a', 'b', 'c', 'd'] and 'message c has neither' in _e.getvalue() and 'message d has neither' in _e.getvalue() and 'message a' not in _e.getvalue(), _e.getvalue())
 t('gauges.json carries batch and answers', 'batch' in s and 'answers' in s and isinstance(s['answers'], list))
 print('\n%d passed, %d failed' % (ok, bad)); sys.exit(1 if bad else 0)

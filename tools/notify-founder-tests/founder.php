@@ -59,6 +59,21 @@ $out = FounderMail::tick($pdo); $m = end(Notify::$sent);
 $t('a message: emailed once by its id, its subject and plain-text body with links, to the Founder', count(Notify::$sent) === 3 && $m['kind'] === 'founder.message' && $m['words']['title'] === 'Three clicks to start the Team' && str_contains($m['words']['body'], 'https://traversence.com/admin/config/staging#against') && $m['to'] === ['staff' => [6]], [$out, $m]);
 $t('… a bad id and one with no subject are skipped', count($out) === 1);
 $t('… again: nothing', FounderMail::tick($pdo) === [] && count(Notify::$sent) === 3);
+// where a message's "Open it" goes (the session manager, 2026-11-27, option (a)): its link, else its ticket, else the Work queue
+$t('… with no link or task: the Work queue, as before', $m['about']['url'] === '/admin/config/control?tab=development', $m['about']['url']);
+$gauges([], [['id' => 'sm-l1', 'subject' => 'The comparison', 'body' => 'b', 'link' => 'https://github.com/degraffics/traversence/blob/main/research/x.pdf'],
+    ['id' => 'sm-l2', 'subject' => 'A page', 'body' => 'b', 'link' => '/admin/config/releases#r322', 'task' => 9],
+    ['id' => 'sm-l3', 'subject' => 'A ticket', 'body' => 'b', 'task' => 41],
+    ['id' => 'sm-l4', 'subject' => 'Not ours', 'body' => 'b', 'link' => 'https://evil.example/x', 'task' => 7],
+    ['id' => 'sm-l5', 'subject' => 'Another owner', 'body' => 'b', 'link' => 'https://github.com/someone/x'],
+    ['id' => 'sm-l6', 'subject' => 'Two slashes', 'body' => 'b', 'link' => '//evil.example/x']]);
+$n0 = count(Notify::$sent); FounderMail::tick($pdo); $u = []; foreach (array_slice(Notify::$sent, $n0) as $x) $u[$x['about']['thing']] = $x['about']['url'];
+$t('a GitHub file of ours: Open it is that link', ($u['message:sm-l1'] ?? '') === 'https://github.com/degraffics/traversence/blob/main/research/x.pdf', $u);
+$t('a path on our site wins over its task', ($u['message:sm-l2'] ?? '') === '/admin/config/releases#r322');
+$t('a task alone: its place on the Work queue (#wq-, as a decision\'s email)', ($u['message:sm-l3'] ?? '') === '/admin/config/control?tab=development#wq-41');
+$t('a link not ours is dropped: its task instead', ($u['message:sm-l4'] ?? '') === '/admin/config/control?tab=development#wq-7');
+$t('… another GitHub owner, or a protocol-relative //: dropped, the Work queue', ($u['message:sm-l5'] ?? '') === '/admin/config/control?tab=development' && ($u['message:sm-l6'] ?? '') === '/admin/config/control?tab=development');
+$t('our own hosts pass: traversence.com and staging.trvgo.us', FounderMail::linkOf('https://traversence.com/admin/config/staging#against') !== '' && FounderMail::linkOf('https://staging.trvgo.us/admin/config/switches') !== '' && FounderMail::linkOf('https://traversence.com.evil.example/') === '' && FounderMail::linkOf('javascript:alert(1)') === '' && FounderMail::linkOf('/a b') === '' && FounderMail::linkOf('/x\\y') === '' && FounderMail::linkOf('/admin/x#y') === '/admin/x#y');
 // a Tier 3 decision
 $r = GaugeTasks::add($pdo, 'area:backlog', 'May staff text go to Gemini\'s paid key?', 'why', '0164 §0.8', 'Jason (test)', 1, '', 'resolution');
 foreach (['why_you' => 'Privacy (0179 rule 3)', 'boundary' => 'privacy', 'a_text' => 'Paid key, checked', 'a_pros' => 'A second model', 'a_cons' => 'A privacy risk', 'b_text' => 'Public only', 'b_pros' => 'No new risk', 'b_cons' => 'One model', 'recommend' => 'b', 'delay_impact' => 'Safe on hold', 'cost' => 'None'] as $k => $v) GaugeTasks::briefEdit($pdo, $r, $k, $v, 'Jason (test)');
