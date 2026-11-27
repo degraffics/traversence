@@ -6,7 +6,7 @@
     "zip": "pipeline-tick-2.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "staged",
+    "state": "withdrawn",
     "step": 0,
     "paused": false,
     "urgent": null,
@@ -54,9 +54,9 @@
     },
     "migrations": [],
     "checks": {
-        "ok": true,
+        "ok": false,
         "where": "staging",
-        "at": "2026-11-27T17:24:06+00:00",
+        "at": "2026-11-27T17:48:02+00:00",
         "items": [
             [
                 "PHP files parse",
@@ -72,9 +72,14 @@
                 "No new fatal errors in the logs",
                 true,
                 "3 logs read"
+            ],
+            [
+                "Before and after (advocates)",
+                false,
+                "1 problem: Out-of-scope drift: This page changed, and the change doesn't name it (executive, /admin/crawler-review.php, phone) · https://github.com/degraffics/traversence/actions/runs/46041550470"
             ]
         ],
-        "first_fail": ""
+        "first_fail": "Before and after (advocates): 1 problem: Out-of-scope drift: This page changed, and the change doesn't name it (executive, /admin/crawler-review.php, phone) · https://github.com/degraffics/traversence/actions/runs/46041550470"
     },
     "log": [
         {
@@ -106,6 +111,16 @@
             "at": "2026-11-27T17:24:08+00:00",
             "by": 0,
             "msg": "On staging and its checks passed; the advocates look again now (the before-and-after check)."
+        },
+        {
+            "at": "2026-11-27T17:48:02+00:00",
+            "by": 0,
+            "msg": "The before-and-after check: blocked it: Out-of-scope drift: This page changed, and the change doesn't name it (executive, /admin/crawler-review.php, phone)"
+        },
+        {
+            "at": "2026-11-27T17:48:02+00:00",
+            "by": 0,
+            "msg": "Withdrawn by itself: its checks on staging failed (Before and after (advocates): 1 problem: Out-of-scope drift: This page changed, and the change doesn't name it (executive, /admin/crawler-review.php, phone) · https://github.com/degraffics/traversence/actions/runs/46041550470). Nothing on the live site changed; the session that built it sends a fixed build (7 files back to live's copy on staging)."
         }
     ]
 }
