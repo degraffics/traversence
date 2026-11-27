@@ -11,6 +11,16 @@
 const STAMP = new Date().toISOString().slice(0, 16).replace(/[-:T]/g, '');
 const TAG = `TEST · path check ${STAMP}`;
 
+// After Duplicate's Test copy: the post can take a while on staging (its proofs are copied), so wait for the new order's
+// page and its Send before saying there's none (2026-11-27, Gate 2: the click timed out on orders/10 and Send was looked
+// for while the browser was still on its way to orders/13). True when the page left `from` and Send is on show.
+export async function copyLanded(page, from, { leave = 30000, show = 15000 } = {}) {
+  const base = String(from).split('#')[0];
+  await page.waitForURL(u => String(u).split('#')[0] !== base, { timeout: leave }).catch(() => {});
+  if (page.url().split('#')[0] === base) return false;
+  return page.locator('#co-send-btn').first().waitFor({ state: 'visible', timeout: show }).then(() => true, () => false);
+}
+
 // The questions after the email's link, each skipped: the Skip on show, never the first in the page (every question has
 // one, and s1's stays in the page hidden once it's answered; 2026-11-27, Gate 2's false dead end). Returns how many.
 export const SKIP_Q = 'button.vs-s[data-skip]:visible';
@@ -488,8 +498,9 @@ export function stagingRunners(k) {
       await w.tap('details#co-dup > summary', 'Duplicate');
       const copy = await firstVisible(page, ['details#co-dup button.hb-b.go']);
       if (!copy) { w.stuck = 'no "Test copy, billed to you"'; return; }
-      await w.tap(copy, 'Test copy, billed to you', { nav: true, wait: 10000 });
-      const send = await firstVisible(page, ['#co-send-btn']);
+      const from = page.url();
+      await w.tap(copy, 'Test copy, billed to you', { nav: true, wait: 10000, click: 30000 });
+      const send = await copyLanded(page, from) ? page.locator('#co-send-btn').first() : null;
       if (!send) { w.add('dead_end', 'J01', w.here(), 'the test copy has no Send'); await w.shot('nosend'); return; }
       await w.tap(send, 'Send to the client');
       const yes = await firstVisible(page, ['.tv-ask button.tv-ask-b.yes']);
