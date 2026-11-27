@@ -148,3 +148,13 @@ the flow, the bar's wrapper (page-shell.php:85, auth-nav.php:37) isn't a row, bo
 hub/index.php:308 #wx-alerts/#roads revealed above #g-essentials ~4.5 s late, #gd-wx widening. Proposed: C.5a (1)+(2) after
 C.8 (same files), C.5b (3) via the Design reviewer; suggested change: a built Tailwind stylesheet instead of the Play CDN.
 Measuring scripts were in the session scratchpad (measure.cjs etc.), not kept.
+
+## The built stylesheet (Jason, 2026-11-27: "Yes to the stylesheet"; design/css-theme-brand.md note, PR #1522)
+Comes after C.5a and C.5b, as its own release. Its plan went to the session manager on 2026-11-27 and is waiting for "clear":
+- **Build:** tools/stylesheet/ runs the tailwindcss 3.4.17 CLI over the mirror and writes website/css/tv.css.
+- **Switch:** one switch, tv_tailwind_tags() in app/ui/tailwind.php, used by all six places that load the CDN today: page-shell.php:56, auth-nav.php:27, and index.php, directory/classic.php, listing/confirm-referral.php, user/dashboard.php.
+- **Zip check:** a new rule rebuilds and compares tv.css.
+- **Gap:** about 380 places build class names in code, which the CLI can't see. Each needs a safelist line or a whole literal class.
+- **Claims:** tv.css is claimed with --change.
+- **Retiring the CDN:** the CSP and service entries keep the CDN until the stylesheet has run a week clean.
+- **Before-and-after look:** Piece 2 runs it at full reach.
