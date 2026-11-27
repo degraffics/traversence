@@ -156,6 +156,17 @@
    "expires": "2026-11-27T17:22:20Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/GoalCheck.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
+   "why": "the daily goal check",
+   "since": "2026-11-27T13:22:22Z",
+   "expires": "2026-11-27T17:22:22Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
