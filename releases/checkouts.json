@@ -131,13 +131,15 @@
   {
    "path": "app/lib/FounderMail.php",
    "functions": [
+    "batch",
+    "decision",
     "messages"
    ],
    "kind": "change",
    "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
-   "why": "notify-founder: Open it by the message's link or task (founder-link)",
+   "why": "founder-link: one link, the button",
    "since": "2026-11-27T16:24:54Z",
-   "expires": "2026-11-27T20:24:54Z",
+   "expires": "2026-11-27T21:55:02Z",
    "release": "",
    "callers": {}
   },
