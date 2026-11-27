@@ -34,12 +34,22 @@ ROOT = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)),
 SRC = ROOT + 'handoffs/control-board-plan/step3/mockups/src'
 RESULTS = ROOT + 'site-audit/results/'
 OUT = RESULTS + 'gauges.json'
-MIRROR = '/home/user/traverse-3way-sync/'   # board.py's own path for the live mirror
+def _mirror_arg():
+    """The live mirror: --mirror (read here, before the generators are imported at load), else TV_MIRROR, else the session's clone."""
+    v = ''
+    for i, x in enumerate(sys.argv):
+        if x == '--mirror' and i + 1 < len(sys.argv): v = sys.argv[i + 1]
+        elif x.startswith('--mirror='): v = x.split('=', 1)[1]
+    return os.path.join(os.path.abspath(v or os.environ.get('TV_MIRROR') or '/home/user/traverse-3way-sync'), '')
+
+
+MIRROR = _mirror_arg()   # board.py and svc26.py read it as TV_MIRROR when imported (CI: --mirror mirror)
 
 sys.path.insert(0, SRC)
 
 
 def _load():
+    os.environ['TV_MIRROR'] = MIRROR   # board.py and svc26.py read it when imported
     if not os.path.isdir(MIRROR + 'sync-app'):
         sys.exit(f'gauges.py: the live mirror isn\'t at {MIRROR} (board.py reads manifests.php, Automation.php and Preflight.php there). '
                  'Clone degraffics/traverse-3way-sync there first (CLAUDE.md: shallow and sparse).')
@@ -478,6 +488,7 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__.split('\n')[0])
     ap.add_argument('--check', action='store_true', help='fail if the committed gauges.json or gauges-items.json is stale')
     ap.add_argument('--out', default=OUT, help='gauges.json; gauges-items.json is written beside it')
+    ap.add_argument('--mirror', default=MIRROR, help='the live mirror\'s checkout (CI: mirror; a session: /home/user/traverse-3way-sync); read at load')
     a = ap.parse_args()
     items_out = os.path.join(os.path.dirname(a.out), 'gauges-items.json')
     summary, detail = build()
