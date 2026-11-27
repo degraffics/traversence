@@ -164,3 +164,19 @@ Comes after C.5a and C.5b, as its own release. Its plan went to the session mana
   3. Before building, list the Play CDN-only blocks (`type="text/tailwindcss"`, `@apply` in pages, per-page `tailwind.config`) and send the list to the Design reviewer.
   4. Dynamic class names become whole literal classes first. Any safelist lives in tools/stylesheet/ with file:line for each entry.
 - **The before-and-after look:** the check can't cover every page (BA_MAX_PAGES 40; about 213 pages). It takes about 20, one per family of how a page loads Tailwind, plus each distinct layout in the page shell. Piece 2 is adding `"look_pages"` to the check, a check change through the CEO and the session manager. **Ping Piece 2 when we're two releases out.**
+
+## The Marketplace's four sections (0135 note, Jason 2026-11-27): sized only
+Sent to the session manager on 2026-11-27, waiting for its place in the queue and the gaps' rulings.
+- **Release M-sections, about 6 files, no migration:**
+  - market/index.php: `?section=` maps onto the existing `from` (people = Aftermarket, business = Shops), plus `regional`; Trade shows a "coming" panel;
+  - MarketBiz::browseWhere/count: `regional` = kind × geo_hub_id; a new madeIn() for the label;
+  - section-rails.php: the market case;
+  - item.php and view.php: the label;
+  - faq.md;
+  - tests.
+- **Gaps, with my suggestions:**
+  1. Guided services: none in ItemKinds. Suggest leaving services out for now.
+  2. "In the area": suggest any geo hub.
+  3. "<region>" in the label: suggest the geo hub's name.
+  4. The Native-made field: suggest none for Jan 1.
+  5. All physical goods, or only made-here?
