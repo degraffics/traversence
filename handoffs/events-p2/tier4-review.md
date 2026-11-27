@@ -1,4 +1,10 @@
-# Tier 4 review: reading a business's discount code from a public page (`BusinessData::publicCode`, `Events::liveCode`)
+**Superseded, 2026-11-27 (decisions/0134's notes #1605 then #1606, Jason):** first the code was to be published by its
+owner like a post, then the pilot's scope dropped participant codes altogether: only the host's tickets sell, each
+participant shows its owner's own offer line, given in person. Everything below is the history of the code design and no
+longer applies to the build. With no read of a participant's business data, the CTO's Tier 4 condition is moot; the
+session manager asked for one fresh QA check that no `b_biz_codes` or tenant code remains (recorded at the end).
+
+# Tier 4 review: a business's discount code on a public page (superseded: no codes in the pilot) (`BusinessData::publicCode`, `Events::liveCode`)
 
 Asked by the session manager, 2026-11-27 (a data wall, decisions/0110, is a high-risk area: CLAUDE.md "Five tiers").
 Each reviewer was a fresh, independent agent, given the code, the tests and 0110, never this session's conclusions:
@@ -33,3 +39,15 @@ exception as tested above, says wall 4's gateway rule holds (the read is in Busi
 directly); suggested for later, kept out of this release: `feature_switches.event_codes` left out of staging's publish
 copy (StagingPublish.php:183). Noted, no change: `@tv_publiccode_was` is publicCode's own name; a code chosen before the
 switch went off comes back when it's on again, checked again by its owner's next visit.
+
+## QA check after the pilot-scope strip (2026-11-27, against the mirror at Sync 19:50 UTC, dd02bdd)
+
+Verdict: pass, one defect fixed. No code remnants in P1 or P2: none of the 17 code names in `Events.php`,
+`business/events.php`, `event/index.php`, `listing/view.php`, `Notify.php` or the migration; the other hits
+(`business/api.php`'s `BusinessData` and `Scope::setPeople`, `staging-tables.php`'s `biz_codes`, the FAQ's own "Discount
+codes" entries) are byte-identical to live. The migration creates `event_participants` only, with no code columns. The
+page reads only main tables (events, entities, zip_coordinates, event_participants, short_codes, market_*), never a
+`b_` view or BusinessData. The offer prints as written through `tv_e`; an unclaimed listing's offer is blanked. All 12
+PHP files pass `php -l`.
+Fixed: both builds' `faq.md` had an old line 487 (live gained a sentence on the before-and-after look since); rebuilt from
+live with only the four event entries added. Dropped P2's unused `.evp-offer code{…}` rule.

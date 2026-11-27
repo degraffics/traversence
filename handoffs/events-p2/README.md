@@ -28,3 +28,22 @@ Also: the guest's offer form at 390 (one-line field, the code select full width,
 The sticky bars drawn part way down an earlier full-page screenshot were the screenshot's stitching, not the page.
 
 **The code behind the `event_codes` switch** (off until the Founder's ruling on 0110's note); the Tier 4 review and QA in `handoffs/events-p2/tier4-review.md`. Files added: `app/lib/BusinessData.php` (publicCode), `app/lib/Switches.php` (event_codes, the Founder's).
+
+## The code, published by its owner (Jason's ruling, decisions/0134's note #1605; replaces the live read and the `event_codes` switch)
+Attaching a code (Take part, Save offer) writes its public terms, read on the owner's own walled connection, into the
+participation: `offer_code`, `offer_code_starts`, `offer_code_ends`, `offer_code_min`. The event page and the host's row read
+only that copy (`Events::publishedCode`), shown between its first and last day. `BizCodes::save` and `BizCodes::redeem`
+(claimed, decisions/0161) update or withdraw the copies when the owner changes the code, switches it off or its last use
+comes (`Events::codeChanged`, History `part:code_changed` / `part:code_off`); each visit to Events checks again
+(`recheckCodes`, "Code taken off:"). `BusinessData::publicCode` and the `event_codes` switch are gone; files: `app/lib/BizCodes.php`
+added to the build. Tests: `tools/event-tests/publish-code.php` 21/21 (P2's build), P1 rendered 51/51, P2 rendered 53/53, P1's
+database test 22/22. Note found on the bench: Discount codes are Basic Partner and up (Plan), so a Free business has no codes to offer.
+
+## The pilot's scope (Jason, 2026-11-27, decisions/0134's note #1606): no codes. **This replaces the code sections above.**
+Only the host's event tickets sell. A participant's card shows its name, its owner's own offer line (the deal given in
+person at its own place) and its GO Code to its location (the listing's Share code, Directions, Send to Maps through the
+trail). Every discount-code piece is out: the code select and its notices, `offer_code*` columns, `codeChoices`,
+`codeChanged`, `publishedCode`, `recheckCodes`, `BusinessData::publicCode`, the `event_codes` switch and the BizCodes hook
+(its claims released). Nothing reads a participant's business data; P1 no longer changes `website/business/router.php`.
+Tests: P2 rendered 45/45. The CTO's Tier 4 condition is moot (no walled read); a fresh QA check is recorded in
+`handoffs/events-p2/tier4-review.md`.

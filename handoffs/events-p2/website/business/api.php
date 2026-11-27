@@ -72,7 +72,6 @@ if ($mk === 'policies' && $post) {   // Store policies (decisions/0142): save an
 }
 if ($mk === 'events' && $post) {   // Events (decisions/0134's minimum): save one, publish, cancel, delete and their ways back
     require_once __DIR__ . '/../../app/business/events.php';
-    if (($in['code'] ?? '') !== '' && ($in['code'] ?? null) !== null) { try { BusinessData::open($id); Scope::setPeople($ctx['people']); } catch (Throwable $x) { error_log('business events api: ' . $x->getMessage()); Response::error('Your discount codes can\'t be reached right now. Try again in a minute, or save the offer without a code.', 503, 'realm'); } }   // a chosen code is checked in the business's own data (0110)
     try { $r = tv_biz_events_act($main, $ctx, $uid, $act, $in); Response::success(is_array($r) ? $r : ['message' => $r]); }   // finding a business to invite answers with its list
     catch (InvalidArgumentException | RuntimeException $x) { Response::error($x->getMessage(), 422, 'not_allowed'); }
 }
