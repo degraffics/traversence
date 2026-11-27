@@ -234,6 +234,17 @@ final class Events
         return $r ? ['id' => (int) $r['id'], 'title' => (string) $r['title'], 'url' => '/market/item.php?id=' . (int) $r['id']] : null;
     }
 
+    /** The signed-in viewer's own Marketplace order holding tickets for this event: its token (for market/order.php?t=), or ''. */
+    public static function buyerOrder(PDO $pdo, array $e, int $uid): string
+    {
+        if (!$uid || empty($e['ticket_item_id'])) return '';
+        try {
+            $st = $pdo->prepare('SELECT o.token FROM market_tickets t JOIN market_orders o ON o.id = t.order_id WHERE t.item_id = ? AND o.buyer_id = ? ORDER BY o.id DESC LIMIT 1');
+            $st->execute([(int) $e['ticket_item_id'], $uid]);
+            return (string) ($st->fetchColumn() ?: '');
+        } catch (Throwable) { return ''; }
+    }
+
     /** Events as cards, in the same look as the crawler's Live events (LiveEvents::html), each opening its own page. */
     public static function html(array $rows, bool $venue = true): string
     {

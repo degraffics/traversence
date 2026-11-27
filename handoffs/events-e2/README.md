@@ -23,7 +23,7 @@
 
 ## Tests
 - events-public.php: **18 of 18** on MariaDB.
-- event-page.cjs: **32 of 32** at 1280 and 390.
+- event-page.cjs: **40 of 40** at 1280 and 390.
 - E1's events.php: 42 of 42, still passing.
 
 ## Gaps

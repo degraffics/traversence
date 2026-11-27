@@ -23,10 +23,13 @@ const H = process.env.HARNESS || 'http://127.0.0.1:8790', EV = process.env.EV ||
   const st = p.locator('section.evp-card:has(h2:has-text("Showtimes"))');
   t(w + ' showtimes as information only: no link, no button', await st.count() === 1 && await st.locator('a, button').count() === 0);
   t(w + ' comments at the end', await p.locator('[id*="comment"], .eg-comments, [class*="eg-c"]').count() > 0);
+  t(w + ' More at the host: a heading and the cards, not a card in a card', await p.locator('section.evp-more h2').count() === (await p.locator('section.evp-more').count()) && await p.locator('.evp-card .lv-ev').count() === 0);
+  t(w + ' no raw database error anywhere', !/SQLSTATE/.test(await p.content()));
   t(w + ' no sideways scroll', (await p.evaluate(() => document.documentElement.scrollWidth)) <= w);
   await p.screenshot({ path: out + '/ev2-page-' + w + '.png', fullPage: true });
   await p.goto(H + '/event/?id=' + OFF, { waitUntil: 'load' }); await p.waitForTimeout(600);
   t(w + ' a cancelled event says so, kept, with what else is on; no Get tickets', /Cancelled:/.test(await p.innerText('#evp')) && await p.locator('a.evp-go').count() === 0 && await p.locator('#evp a[href*="/listing/view.php"]').count() >= 1);
+  t(w + ' a cancelled ticketed event: Tickets: sales stopped, and a way forward for ticket holders (their order or its email, Ask our team)', /Tickets: sales stopped/i.test(await p.innerText('#evp')) && /Have tickets\?/.test(await p.innerText('#evp')) && await p.locator('#evp a[href="/contact.php"]').count() === 1 && !/refund/i.test(await p.innerText('#evp')));
   await p.screenshot({ path: out + '/ev2-cancelled-' + w + '.png' });
   const r = await p.goto(H + '/event/?id=999999', { waitUntil: 'load' });
   t(w + ' one not there: 404 with a way forward', r.status() === 404 && /Not here:/.test(await p.innerText('body')) && await p.locator('a[href="/directory/"]').count() >= 1);
@@ -34,6 +37,7 @@ const H = process.env.HARNESS || 'http://127.0.0.1:8790', EV = process.env.EV ||
   const cu = p.locator('section[aria-labelledby="tv-ev-h"]');
   t(w + ' the listing\'s Coming up here lists its events, each opening its page', await cu.count() === 1 && await cu.locator('a.lv-ev-n[href="/event/?id=' + EV + '"]').count() === 1);
   t(w + ' a cancelled one is marked', /Cancelled/.test(await cu.innerText()));
+  await p.waitForTimeout(1200); t(w + ' the listing shows no raw database error (Posts)', !/SQLSTATE/.test(await p.innerText('body')));
   await cu.scrollIntoViewIfNeeded(); await p.screenshot({ path: out + '/ev2-listing-' + w + '.png' });
   await p.goto(H + '/hub/?cluster=' + CLUSTER, { waitUntil: 'load' }); await p.waitForTimeout(900);
   t(w + ' the town\'s guide lists it under Coming up', await p.locator('a.lv-ev-n[href="/event/?id=' + EV + '"]').count() >= 1);

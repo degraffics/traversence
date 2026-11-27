@@ -50,12 +50,13 @@ echo tv_explore_hero($pdo, ['name' => $title, 'heading' => '', 'edit' => false, 
     <span class="evp-link" data-link="place:ev:<?= $id ?>" data-link-label="<?= tv_e($title) ?>"></span>
   </div>
   <h1 class="evp-h"><?= tv_e($title) ?></h1>
-  <?php if ($off): ?><p data-tv-status="bad" data-tv-label="Cancelled:" data-tv-keep>Its host has cancelled this event.<?= ' <a class="underline" href="/listing/view.php?id=' . (int) $ev['entity_id'] . '">See what else is on at ' . tv_e($ev['host_name']) . '</a>.' ?></p>
+  <?php if ($off): $tok = Events::buyerOrder($pdo, $ev, (int) (Auth::currentUserId() ?? 0)); ?><p data-tv-status="bad" data-tv-label="Cancelled:" data-tv-keep>Its host has cancelled this event.<?= ' <a class="underline" href="/listing/view.php?id=' . (int) $ev['entity_id'] . '">See what else is on at ' . tv_e($ev['host_name']) . '</a>.' ?></p>
+  <?php if ($ev['ticket_item_id']): /* ticket holders: their order, and our team; no refund terms promised (the Design reviewer, 2026-11-27) */ ?><p data-tv-status="info" data-tv-label="Have tickets?" data-tv-keep><?= $tok !== '' ? '<a class="underline font-semibold" href="/market/order.php?t=' . tv_e($tok) . '">Open your order</a> to see where it stands and message ' . tv_e($ev['host_name']) . '.' : 'Your order is linked in the email you got when you bought them; from there you can message ' . tv_e($ev['host_name']) . '.' ?> Or <a class="underline font-semibold" href="/contact.php">ask our team</a> (support@traversence.com).</p><?php endif; ?>
   <?php elseif ($over): ?><p data-tv-status="info" data-tv-label="This has happened:" data-tv-keep>It was on <?= tv_e(Events::when($ev)) ?>. <a class="underline" href="/listing/view.php?id=<?= (int) $ev['entity_id'] ?>">See what&rsquo;s coming up at <?= tv_e($ev['host_name']) ?></a>.</p><?php endif; ?>
   <dl class="evp-facts">
     <div><dt>When</dt><dd><?= tv_e(Events::when($ev)) ?></dd></div>
     <div><dt>Where</dt><dd><a class="evp-name" href="/listing/view.php?id=<?= (int) $ev['entity_id'] ?>"><?= tv_e($ev['host_name']) ?></a><?= $town !== '' ? ', ' . tv_e($town) : '' ?> <span class="evp-host">· the host</span></dd></div>
-    <div><dt>Cost</dt><dd><?= $ev['ticket_item_id'] ? 'Tickets' : 'Free' ?></dd></div>
+    <div><dt>Cost</dt><dd><?= $ev['ticket_item_id'] ? ($off ? 'Tickets: sales stopped' : 'Tickets') : 'Free' ?></dd></div>
   </dl>
   <?php if ($ticket): ?><p class="evp-buy"><a class="evp-go" href="<?= tv_e($ticket['url']) ?>"><?= tv_icon('cart') ?>Get tickets</a> <span><?= tv_e($ticket['title']) ?>, sold by <?= tv_e($ev['host_name']) ?> on the Marketplace.</span></p>
   <?php elseif ($ev['ticket_item_id'] && !$off && !$over): ?><p data-tv-status="info" data-tv-label="Tickets:" data-tv-keep>None on sale right now. <a class="underline" href="/listing/view.php?id=<?= (int) $ev['entity_id'] ?>#contact">Ask <?= tv_e($ev['host_name']) ?></a>.</p><?php endif; ?>
@@ -64,7 +65,7 @@ echo tv_explore_hero($pdo, ['name' => $title, 'heading' => '', 'edit' => false, 
 <?php if (trim((string) $ev['about']) !== ''): ?><section class="evp-card tv-bleed mt-3"><h2 class="evp-h2">About</h2><p class="evp-about"><?= nl2br(tv_e((string) $ev['about'])) ?></p></section><?php endif; ?>
 <?php if (trim((string) $ev['showtimes']) !== ''): /* information only: no ticket link, no door note (the note of 2026-11-27) */ ?><section class="evp-card tv-bleed mt-3"><h2 class="evp-h2">Showtimes</h2><p class="evp-about"><?= nl2br(tv_e((string) $ev['showtimes'])) ?></p><p class="evp-meta">As listed by <?= tv_e($ev['host_name']) ?>. Times are local (<?= tv_e((new DateTime('now', new DateTimeZone((string) ($ev['zone'] ?: 'America/Phoenix'))))->format('T')) ?>).</p></section><?php endif; ?>
 <?php $more = array_values(array_filter(Events::forEntity($pdo, (int) $ev['entity_id'], 4), fn ($r) => (int) $r['id'] !== $id)); if ($more): ?>
-<section class="evp-card tv-bleed mt-3"><h2 class="evp-h2">More at <?= tv_e($ev['host_name']) ?></h2><?= Events::html($more, false) ?></section><?php endif; ?>
+<section class="evp-more mt-4"><h2 class="evp-h2">More at <?= tv_e($ev['host_name']) ?></h2><?= Events::html($more, false) ?></section><?php endif; /* a heading and the event cards, as the listing's Coming up here: one 3px edge on phones */ ?>
 <?= tv_engage_comments($pdo, 'event', (string) $id) ?>
 <style>
   .evp,.evp-card{background:var(--tv-card-a,#FFFBF2);border:1px solid var(--tv-line-strong,#CBB98D);border-radius:.9rem;padding:.9rem 1rem}
