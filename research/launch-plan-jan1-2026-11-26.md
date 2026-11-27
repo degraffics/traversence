@@ -344,6 +344,8 @@ false-blocks.
 
 ## 9. Going to market: the decided market-penetration strategy, ring by ring (CMO lane)
 
+*Reviewed by the session manager, 2026-11-27.*
+
 Jason, 2026-11-27: "use key marketing implementation strategy for rolling out new segments to meet expansion plan",
 then "For targeting markets we need to flesh this out. I didn't see what I was expecting."
 
@@ -465,6 +467,10 @@ decided strategy is organic in any case).
    before the rings open broadly.
 2. **The 0034 grants:** how many complimentary grants for St. Johns' cornerstones and influencers, and who reviews
    them. 4a counts 10 converting.
+   - **What a grant costs:** a grant moves no money; it gives the plan free (0034). But the plan's allowances use real
+     resources: AI credits (Cornerstone 500 a month, 0108) and emails, texts and push (commercial §1.1). Under "No
+     income, no expense" those count against our caps; AI credits come out of the $40 AI cap under E1.
+   - So the number of grants is also a spend call, or the grants are issued with their AI allowance set to fit E1.
 3. **A gap:** who is the Regional Admin and rep who runs the pilot's funnel, and presses the invites, in December? It's
    Jason, or someone he names.
 4. **The ring order in 9.2.** It's a suggestion; the ladder itself is decided.
