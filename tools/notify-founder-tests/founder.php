@@ -74,6 +74,21 @@ $t('a task alone: its place on the Work queue (#wq-, as a decision\'s email)', (
 $t('a link not ours is dropped: its task instead', ($u['message:sm-l4'] ?? '') === '/admin/config/control?tab=development#wq-7');
 $t('… another GitHub owner, or a protocol-relative //: dropped, the Work queue', ($u['message:sm-l5'] ?? '') === '/admin/config/control?tab=development' && ($u['message:sm-l6'] ?? '') === '/admin/config/control?tab=development');
 $t('our own hosts pass: traversence.com and staging.trvgo.us', FounderMail::linkOf('https://traversence.com/admin/config/staging#against') !== '' && FounderMail::linkOf('https://staging.trvgo.us/admin/config/switches') !== '' && FounderMail::linkOf('https://traversence.com.evil.example/') === '' && FounderMail::linkOf('javascript:alert(1)') === '' && FounderMail::linkOf('/a b') === '' && FounderMail::linkOf('/x\\y') === '' && FounderMail::linkOf('/admin/x#y') === '/admin/x#y');
+// the words, clean and on brand (Jason, 2026-11-27: "The push is clutter with code vs a clean on brand message")
+$wb = "The comparison is ready: [Open the comparison](https://github.com/degraffics/traversence/blob/main/research/x.pdf). Run `gauges.py --write` first.\n\nApprove it on the Work queue: https://traversence.com/admin/config/control?tab=development\nOr https://evil.example/x.";
+$pl = FounderMail::pushLine($wb);
+$t('a push: one plain sentence, its links by their names, no address and no code', $pl === 'The comparison is ready: Open the comparison.', $pl);
+$pl2 = FounderMail::pushLine('See https://traversence.com/admin/x and `rm -rf` now, then ' . str_repeat('more words ', 30));
+$t('… an address and code in it: stripped; at most 140 characters', !preg_match('#https?://|`|rm -rf#', $pl2) && mb_strlen($pl2) <= 140, $pl2);
+[$tx, $hx] = FounderMail::emailParts('The comparison', $wb, 'https://traversence.com/admin/config/control?tab=development#wq-4', "The comparison\n\n" . $wb . "\n\nOpen it: https://traversence.com/admin/config/control?tab=development#wq-4\n\n-- \nfooter");
+$t('an email\'s bare link is named: "Approve it on the Work queue" as an anchor, never the address as its words', str_contains($hx, '>Approve it on the Work queue</a>') && !preg_match('#>https?://#', $hx) && str_contains($hx, '>Open the comparison</a>'), $hx);
+$t('… Open it is a named button to the message\'s place', str_contains($hx, 'href="https://traversence.com/admin/config/control?tab=development#wq-4"') && str_contains($hx, '>Open it</span></a>'));
+$t('… a link not ours keeps only its name, never an anchor', !str_contains($hx, 'evil.example/x') && !str_contains($tx, 'evil.example/x') && str_contains($hx, 'evil.example'));
+$t('… the text part keeps each address after its name, for mail apps without HTML; code shown as code in HTML', str_contains($tx, 'Open the comparison: https://github.com/degraffics/') && str_contains($tx, 'Approve it on the Work queue: https://traversence.com/') && str_contains($hx, '<code>gauges.py --write</code>') && str_ends_with($tx, "footer"), $tx);
+$pb = FounderMail::pulseBody($pdo, ['body' => $wb, 'url' => '/admin/config/control?tab=development#wq-4'], 1);
+$t('Pulse: the same named links, and Open it', str_contains($pb['html'], '>Open the comparison</a>') && str_contains($pb['html'], '>Approve it on the Work queue</a>') && str_contains($pb['html'], 'class="tv-btn" href="/admin/config/control?tab=development#wq-4">Open it</a>'), $pb);
+$nv = (string) file_get_contents($src . '/lib/Notify.php');
+$t('the dispatcher hands only founder.* kinds to FounderMail: push line, email parts, Pulse body', substr_count($nv, "str_starts_with((string) \$m['kind'], 'founder.')") === 2 && str_contains($nv, "'founder.message' => ['FounderMail.php', 'FounderMail', 'pulseBody']"));
 // a Tier 3 decision
 $r = GaugeTasks::add($pdo, 'area:backlog', 'May staff text go to Gemini\'s paid key?', 'why', '0164 §0.8', 'Jason (test)', 1, '', 'resolution');
 foreach (['why_you' => 'Privacy (0179 rule 3)', 'boundary' => 'privacy', 'a_text' => 'Paid key, checked', 'a_pros' => 'A second model', 'a_cons' => 'A privacy risk', 'b_text' => 'Public only', 'b_pros' => 'No new risk', 'b_cons' => 'One model', 'recommend' => 'b', 'delay_impact' => 'Safe on hold', 'cost' => 'None'] as $k => $v) GaugeTasks::briefEdit($pdo, $r, $k, $v, 'Jason (test)');

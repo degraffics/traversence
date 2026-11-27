@@ -102,6 +102,112 @@ final class FounderMail
         return '/admin/config/control?tab=development' . ($task > 0 ? '#wq-' . $task : '');
     }
 
+    // ---- the Founder's words, clean and on brand (Jason, 2026-11-27: "The push is clutter with code vs a clean on brand
+    // message"; the standard is the CMO's (7) and Editorial's (12)). A body writes a link as [its name](address); a bare
+    // address is named by where it goes. Links not ours (linkOf) keep only their name, never an address that leads off.
+
+    private const BARE = '#https?://[^\s<>"\'()\[\]]+#';
+
+    /** A body as pieces: ['t', text] or ['l', name, address ('' when it isn't ours)]. */
+    public static function pieces(string $body): array
+    {
+        $out = []; $at = 0;
+        if (preg_match_all('#\[([^\]\n]{1,120})\]\(([^)\s]{1,500})\)|https?://[^\s<>"\'()\[\]]+#', $body, $mm, PREG_SET_ORDER | PREG_OFFSET_CAPTURE) === false) return [['t', $body]];
+        foreach ($mm as $x) {
+            [$all, $pos] = $x[0];
+            if (($x[1][1] ?? -1) >= 0) { $name = trim($x[1][0]); $url = $x[2][0]; }
+            else { $all = rtrim($all, '.,;:!?'); $url = $all; $name = self::nameOf($url); }
+            $before = $pos > $at ? substr($body, $at, $pos - $at) : '';
+            // a bare address after "Approve it on the Work queue: " takes that phrase as its name (the words already name it)
+            if (($x[1][1] ?? -1) < 0 && preg_match('/(^|[\n.!?]\s*)([^\n:.!?]{3,80}):\s*$/u', $before, $ph, PREG_OFFSET_CAPTURE) === 1) {
+                $name = trim($ph[2][0]); $before = substr($before, 0, $ph[2][1]);
+            }
+            if ($before !== '') $out[] = ['t', $before];
+            $out[] = ['l', $name, self::linkOf($url)];
+            $at = $pos + strlen($all);
+        }
+        if ($at < strlen($body)) $out[] = ['t', substr($body, $at)];
+        return $out;
+    }
+
+    /** A bare address's name, by where it goes (a suggestion for the CMO and Editorial to settle in the Design review). */
+    public static function nameOf(string $url): string
+    {
+        $h = strtolower((string) parse_url($url, PHP_URL_HOST));
+        if ($h === 'traversence.com' || $h === 'www.traversence.com') return 'Open it on Traversence';
+        if ($h === 'staging.trvgo.us') return 'Open it on staging';
+        if ($h === 'github.com') return 'Open it on GitHub';
+        return $h !== '' ? $h : 'a link';
+    }
+
+    /** The text part: each of our links as "its name: its address" (mail apps without HTML need the address). */
+    public static function textOf(string $body): string
+    {
+        $t = '';
+        foreach (self::pieces($body) as $p) $t .= $p[0] === 't' ? $p[1] : ($p[2] !== '' ? $p[1] . ': ' . (str_starts_with($p[2], '/') ? 'https://traversence.com' . $p[2] : $p[2]) : $p[1]);
+        return $t;
+    }
+
+    /** A push's one plain sentence: links as their names, no address and no `code`, at most 140 characters. */
+    public static function pushLine(string $body): string
+    {
+        $t = '';
+        foreach (self::pieces($body) as $p) $t .= $p[1];   // a link is its name
+        $t = (string) preg_replace('/`[^`\n]*`/u', '', $t);
+        $t = (string) preg_replace(self::BARE, '', $t);
+        $t = trim((string) preg_replace('/\s+/u', ' ', $t));
+        if (preg_match('/^(.+?[.!?])(\s|$)/u', $t, $x) === 1) $t = $x[1];
+        $t = (string) preg_replace('/\s+([.,;:!?])/u', '$1', $t);
+        if (mb_strlen($t) > 140) { $cut = mb_substr($t, 0, 139); $sp = mb_strrpos($cut, ' '); $t = rtrim($sp > 80 ? mb_substr($cut, 0, $sp) : $cut, ' ,;:') . '…'; }
+        return $t;
+    }
+
+    /** The body in HTML: paragraphs, our links by their names, `code` as code. */
+    public static function htmlOf(string $body, string $font = ''): string
+    {
+        $e = fn ($s) => htmlspecialchars((string) $s, ENT_QUOTES);
+        $h = '';
+        foreach (self::pieces($body) as $p) {
+            if ($p[0] === 't') { $h .= (string) preg_replace('/`([^`\n]*)`/u', '<code>$1</code>', $e($p[1])); continue; }
+            $h .= $p[2] !== '' ? '<a href="' . $e(str_starts_with($p[2], '/') ? 'https://traversence.com' . $p[2] : $p[2]) . '" style="color:#92400E;text-decoration:underline">' . $e($p[1]) . '</a>' : $e($p[1]);
+        }
+        $out = '';
+        foreach (preg_split('/\n{2,}/', trim($h)) as $para) if (trim($para) !== '') $out .= '<p style="margin:0 0 12px;' . $font . 'font-size:15px;line-height:22px;color:#3E2B1F">' . nl2br($para, false) . '</p>';
+        return $out;
+    }
+
+    /** Notify's email for a founder.* kind: [text, html]. The text is Notify's own with the body's links named. */
+    public static function emailParts(string $title, string $body, string $link, string $text): array
+    {
+        if ($body !== '') $text = str_replace($body, self::textOf($body), $text);
+        $e = fn ($s) => htmlspecialchars((string) $s, ENT_QUOTES);
+        $font = 'font-family:Segoe UI,Roboto,Helvetica,Arial,sans-serif;';
+        $html = '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" bgcolor="#EFE3C8" style="background:#EFE3C8"><tr><td align="center" style="padding:24px 12px">'
+              . '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" bgcolor="#FFFBF2" style="width:100%;max-width:560px;background:#FFFBF2;border:1px solid #CBB98D;border-radius:12px">'
+              . '<tr><td bgcolor="#3E2B1F" style="padding:14px 28px;border-radius:12px 12px 0 0;font-family:Georgia,serif;font-size:20px;font-weight:700;color:#F7EFDC">Traversence</td></tr>'
+              . '<tr><td style="padding:24px 28px 10px;' . $font . 'font-size:18px;font-weight:700;line-height:24px;color:#3E2B1F">' . $e($title) . '</td></tr>'
+              . '<tr><td style="padding:0 28px 6px">' . self::htmlOf($body, $font) . '</td></tr>'
+              . '<tr><td style="padding:6px 28px 24px"><table role="presentation" cellpadding="0" cellspacing="0"><tr><td bgcolor="#92400E" style="border-radius:8px;padding:12px 26px">'
+              . '<a href="' . $e($link) . '" style="display:inline-block;' . $font . 'font-size:16px;font-weight:700;color:#FFFBF2;text-decoration:none"><span style="color:#FFFBF2;text-decoration:none">Open it</span></a></td></tr></table></td></tr>'
+              . '<tr><td style="padding:12px 28px;border-top:1px solid #EADFC4;' . $font . 'font-size:12px;line-height:18px;color:#8A7355">You get this email because you\'re the Founder. '
+              . '<a href="https://traversence.com/admin/dashboard/comms" style="color:#8A7355;text-decoration:underline">Change what reaches you</a></td></tr>'
+              . '</table></td></tr></table>';
+        return [$text, $html];
+    }
+
+    /** Pulse's body for a founder.* kind (Notify::BODIES): the words with their links named, and Open it. */
+    public static function pulseBody(PDO $pdo, array $m, int $viewer): array
+    {
+        $e = fn ($s) => htmlspecialchars((string) $s, ENT_QUOTES);
+        $html = '';
+        foreach (preg_split('/\n{2,}/', trim((string) $m['body'])) as $para) if (trim($para) !== '') {
+            $h = ''; foreach (self::pieces($para) as $p) $h .= $p[0] === 't' ? (string) preg_replace('/`([^`\n]*)`/u', '<code>$1</code>', $e($p[1])) : ($p[2] !== '' ? '<a href="' . $e($p[2]) . '">' . $e($p[1]) . '</a>' : $e($p[1]));
+            $html .= '<p>' . nl2br($h, false) . '</p>';
+        }
+        if ((string) ($m['url'] ?? '') !== '') $html .= '<p class="tv-msg-acts"><a class="tv-btn" href="' . $e($m['url']) . '">Open it</a></p>';
+        return ['html' => $html, 'state' => ''];
+    }
+
     /** The session manager's messages (gauges.json's "messages"), each id once. */
     public static function messages(PDO $pdo, array $cfg): array
     {
