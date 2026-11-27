@@ -362,6 +362,64 @@ was not invented here. Its sources:
 
 **Owners:** the CMO, with the Marketing (13), Sales (14) and Editorial (12) Directors, under 0180's appendix.
 
+### 9.0 The pilot as ruled (Jason, 2026-11-27; 0181 notes)
+
+These rulings refine §9.1 below. Where they differ, the rulings win.
+
+- **The pilot is the whole Ancient Borderlands & Painted Desert zone** (1A, 1B, 1C), not St. Johns alone.
+  - St. Johns' cornerstones stand within it.
+  - The other towns' cornerstones are found by spec §30's method.
+  - Navajo Nation and Zuni land follow 0066.
+- **The system leads:** content (0164, 0131, 0146) → search → counted demand on listings → demand-carrying claim
+  invites (0172 §3.3, 0108) → claims → Core trial → paid.
+- **The Founder's in-person time goes to multipliers:** chambers of commerce, town and regional guide influences, and
+  venues (theaters, museums, fairgrounds, visitor centres), plus the civic cornerstones. Each multiplier is offered:
+  - its own page, free for agencies and nonprofits;
+  - its events and members in the zone's guides;
+  - GO Codes;
+  - Core trials for its businesses;
+  - counts back to it (never who).
+
+  The multipliers are found by role, never by profiling a person. The Founder is first contact for pilot oversight.
+- **Trials and grants are Core only** during the pilot (0108, 0034).
+
+**The CEO's projection for the pilot zone.** These are estimates, labelled as such, not set anywhere.
+
+Assumptions:
+- the lock lifts around Jan 1;
+- a new site takes 3–6 months to rank;
+- ~10% of visits tap a listing;
+- ~40% of listings carry a public email;
+- ~1 in 10 demand-carrying invites claims;
+- claim → Core trial is 1 in 3, and trial → paid is 1 in 3;
+- ~6 chambers and ~10 venues or influencers partnered by March.
+
+| By | Monthly visitors | Claims (running total) | Paying Core | Annual recurring revenue |
+|---|---|---|---|---|
+| Mar 31 | ~4,000 | 25–40 | 4–7 | ~$4–7k |
+| Jun 30 | ~12,000 | 80–120 | 15–25 | ~$15–24k |
+| Sep 30 | ~25,000 | 170–240 | 40–60 | ~$38–58k |
+| Dec 31, 2027 | ~30,000+ | 300–420 | 80–110 | ~$77–105k |
+
+**What the numbers rest on** (commercial §1.1, §3):
+- Core is $79.95 a month, $959 a year;
+- a hub's $837,600 spread over ~12 sub-hubs is about $69,800 a year per sub-hub, about 73 Core partners;
+- the zone has ~1,440 businesses by regions.md's estimates.
+
+**What moves the curve:**
+- **The AI cap:** content is the engine, and $40 a month is a trickle. E2 is to be revisited with week 1's cost per guide.
+- **The lock's lift date.**
+- **Listing quality:** hours, photos and accurate kinds.
+
+**The ladder as proposed, waiting for Jason's ruling:**
+- 4a: 10 Core trials convert, by about April;
+- 4b: the zone's full share, ~73 paying, by about October 2027;
+- stretch: 100 paying by Dec 31, 2027;
+- reported weekly: visitors, taps per listing, invites, claims, and multipliers partnered.
+
+**One inconsistency to correct:** the cold-start note's 4b figure ($83,760, "10%") was 10% of a whole hub, not of a
+sub-hub.
+
 ### 9.1 The decided strategy (cold start, decided)
 
 1. **Pilot market: St. Johns (1A).** The Regional Admin and the AI content engine name the target local market and the
