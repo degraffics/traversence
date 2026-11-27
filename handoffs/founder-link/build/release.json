@@ -14,9 +14,9 @@
     }
   ],
   "checks": {
-    "founder": "tools/notify-founder-tests/founder.php 35 on MariaDB: the 24 of the link fix; a push is one plain sentence with links by their names; an address and code stripped and at most 140; an email's bare link named (\"Approve it on the Work queue\") and never its address as words; Open it a named button; a link not ours its name only; the text part keeps addresses after names; Pulse the same; the dispatcher hands only founder.* to FounderMail.",
+    "founder": "tools/notify-founder-tests/founder.php 36 on MariaDB: the 24 of the link fix; a push is one plain sentence with links by their names; an address and code stripped and at most 140; an email's bare link named (\"Approve it on the Work queue\") and never its address as words; Open it a named button; a link not ours its name only; the text part keeps addresses after names; Pulse the same; the dispatcher hands only founder.* to FounderMail.",
     "gauges": "tools/team-tests/batch_py.py 9: link and task carried, a true task is no task, neither warned and never refused.",
     "notify_diff": "tools/notify-founder-tests/notify-diff.php 7: Notify.php less its three founder.* additions is live's byte for byte; Mailer::send's $html is '' for every other kind. tools/notify-tests/ no longer runs against live's Notify, on live or the release alike (Notices isn't required there, and its migrations ran and were deleted on live): a finding for the IT lane, not this release's. It also writes its stand-ins into the app folder it's given: run it only on a throwaway copy.",
-    "design": "handoffs/founder-link/screens/: email-1280.png and email-390.png (no sideways scroll), email.txt, push.txt. Design: fixes 1–5 made (2026-11-27), re-review pending."
+    "design": "handoffs/founder-link/screens/: email-1280.png and email-390.png (no sideways scroll), email.txt, push.txt. Design: approved (the Design reviewer, 2026-11-27, be1626c; its note applied: in the text part an address ends its line)."
   }
 }

@@ -144,8 +144,12 @@ final class FounderMail
     /** The text part: each of our links as "its name: its address" (mail apps without HTML need the address). */
     public static function textOf(string $body): string
     {
-        $t = '';
-        foreach (self::pieces($body) as $p) $t .= $p[0] === 't' ? $p[1] : ($p[2] !== '' ? $p[1] . ': ' . (str_starts_with($p[2], '/') ? 'https://traversence.com' . $p[2] : $p[2]) : $p[1]);
+        $t = ''; $after = false;   // after an address, its line ends there: a mail app would take a full stop into the link
+        foreach (self::pieces($body) as $p) {
+            if ($p[0] === 't') { $x = $p[1]; if ($after && preg_match('/^[.,;:!?]+[ \t]*/', $x, $q) === 1) { $x = substr($x, strlen($q[0])); $x = ($x !== '' && $x[0] !== "\n" ? "\n" : '') . $x; } $t .= $x; $after = false; continue; }
+            $t .= $p[2] !== '' ? $p[1] . ': ' . (str_starts_with($p[2], '/') ? 'https://traversence.com' . $p[2] : $p[2]) : $p[1];
+            $after = $p[2] !== '';
+        }
         return $t;
     }
 
