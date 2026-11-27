@@ -360,3 +360,12 @@ approves; heavy code builds move only once the usage measurement (the AI items' 
 Max for that work, and Max stays for builds until then. Cost per task, API against Max, shows in the monthly overview.
 The API envelope is the Founder's (a fence, §2). Suggestion, labelled: hold total AI spend near today's $169.10 a month,
 moving Max's $109.10 into the API envelope as sessions retire.
+
+**Note (Jason, 2026-11-27: "100 for sessions and 40 cap for api"; the envelope above; recorded as Operations & Policy
+(16)).** Sessions: the Claude Max plan, $100 a month ($109.10 with Arizona tax), stays the session plan. API: the existing
+hard $40 a month cap (`Thresholds::ai_month_usd`; 0160 §5) now covers agent API use too; no new envelope. The CEO's $20 is
+unchanged. Conflict cited: the $40 also writes the guides (0131, 0147, 0160 §5), gate 3's critical path, and is at 84%
+this month. Solution, acted on: until 0181's gates pass, guides and gate work have first call on the $40; agent API use
+(Ask Claude, drafting, briefs) gets only what's left, through `AiClient::allow()` with a per-feature limit, so it never
+starves the guides; the CFO (4) allocates per project within it; at the cap every feature stops with `allow()`'s own
+words and the meter shows it.
