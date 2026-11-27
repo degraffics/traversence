@@ -20,5 +20,6 @@ suppressed. The search for "hometown" found one other row (a construction compan
   a ZIP alone reads as a row id), so the trail's stops are chosen by Editorial (12) from Get Local St. Johns, by the
   rule in `dinner-and-a-movie.md`. No restaurant is named until then.
 - The night's date, the seats and the price are the theater's; the film is reported for about Dec 18, 2026 (0134 note).
+- Whose codes print for an unclaimed restaurant: ruled by the CMO (7), in `go-code-kit.md`.
 - The events build (option (a): host-posted event pages) is Frontend & Shop's, live by about Dec 10–12 (0134 note).
   The offer's event page depends on it; tickets can sell through the ticket item before it.
