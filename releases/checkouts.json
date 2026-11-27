@@ -149,6 +149,20 @@
    "expires": "2026-11-28T00:09:49Z",
    "release": "r2-lanes-3.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/MarketCheckout.php",
+   "functions": [
+    "place",
+    "writeOrder"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
+   "why": "Gate 5: writeOrder's tenant put back (scoped run), portal refused, direct-pay instructions kept",
+   "since": "2026-11-27T20:13:08Z",
+   "expires": "2026-11-28T00:13:08Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
