@@ -1,0 +1,11 @@
+{
+ "title": "The daily goal check: a goal's stalled ticket goes to its lane's manager, a date at risk to its executive",
+ "why": "CLAUDE.md \"Goals and records live with the roles\" (Jason, 2026-11-27: \"Yes, approve the plan… up and running by Monday morning 6 am\"): each long-term goal is a parent task in the Work queue; escalation follows the tiers (decisions/0180): a stalled ticket to its T3 manager, a goal's date at risk to its T4 executive; \"A live-side $0 daily goal check opens a ticket for the owner when a goal's tickets sit 3 days or its date is at risk.\" Built for the Project Manager (8) as Build & QA (21), IT lane; Tier 2, additive. At risk is the PM's (8) ruling of 2026-11-27 (Tier 3, within 0180 §2): due date passed with any ticket open, or within 7 days with any ticket at Planning or Building (GoalCheck::AT_RISK, adjustable by the PM). A goal across lanes is the CEO's (role 'ceo', seeded by R1's 2026-11-26_0180_tiers_roster.sql, handoffs/r1-tiers/r1-tiers.patch:984). Lanes are R2's TeamRoster::lane() (live before this); a manager's executive is the Team's reports_to. Due dates are task-seed-4's due_on column (live before this); a goal without one is checked for stalls only. One open Work ticket per goal and kind (audit_key goal-stall:/goal-risk:), never doubled; it closes itself, cleared by its own check. Work tickets, not Audit ones, since the Team's audit clears Audit tickets it didn't find (TeamRunner.php:514). Live only (NOT_ON_STAGING); logs every run; no table, no outside call, no AI, $0.",
+ "changes": [
+  {"what": "System Configuration → Scheduled tasks: The daily goal check, daily", "where": "https://traversence.com/admin/config/scheduled"},
+  {"what": "The Work queue: a goal's escalation tickets (area:goals), Tier 3 to its lane's manager, Tier 4 to its executive or the CEO", "where": "https://traversence.com/admin/development/queue"},
+  {"what": "FAQ (team): Why did a ticket open saying a goal's work hasn't moved, or its date is at risk?", "where": "https://traversence.com/faq.php"}
+ ],
+ "proposals": [],
+ "switch": ""
+}
