@@ -106,7 +106,7 @@ final class BeforeAfter
                 'first' => $s('first'), 'run' => preg_match('#^https://github\.com/degraffics/traversence/actions/runs/\d+$#', (string) ($v['run'] ?? '')) ? (string) $v['run'] : '',
                 'blocks' => (int) ($v['blocks_total'] ?? 0), 'views' => (int) ($v['views'] ?? 0), 'seconds' => (float) ($v['seconds'] ?? 0),
                 // its far timeouts, said on the release's card (the CEO's Tier 4 condition, 2026-11-27): at most three, as the check wrote them
-                'far' => array_slice(array_values(array_map(fn ($n) => mb_substr(preg_replace_callback('/^([a-z0-9-]+)\|(\/[^|\s]*)\|(phone|desktop): /', fn ($m) => 'as ' . $m[1] . ' on ' . $m[2] . ' at ' . ($m[3] === 'phone' ? '390' : '1280') . ': ', trim((string) $n)), 0, 300), array_filter((array) ($v['notes'] ?? []), fn ($n) => is_string($n) && preg_match('/when tried (again )?after the look/', $n)))), 0, 3)];
+                'far' => array_slice(array_values(array_map(fn ($n) => mb_substr(preg_replace_callback('/^([a-z0-9-]+)\|(\/[^|\s]*)\|(phone|desktop): /', fn ($m) => 'as ' . $m[1] . ' on ' . $m[2] . ' at ' . ($m[3] === 'phone' ? '390' : '1280') . ': ', trim((string) $n)), 0, 300), array_filter((array) ($v['notes'] ?? []), fn ($n) => is_string($n) && preg_match('/far timeout, noted|tried again after the look/', $n)))), 0, 3)];
     }
 
     // ---- the steps ---------------------------------------------------------------------------------------------------------
