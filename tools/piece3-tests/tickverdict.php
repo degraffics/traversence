@@ -111,7 +111,7 @@ BeforeAfter::advance($pdo);
 $far = 'executive|/admin/crawler-review.php|phone: far timeout, noted: timed out, then opened when tried again after the look (reached only through website/js/tv-ask.js; staging is slow there, the IT Manager\'s lane)';
 $files['site-audit/results/beforeafter/' . $c . '.json'] = json_encode(['release' => (string) $c, 'phase' => 'after-done', 'verdict' => 'pass', 'seconds' => 120, 'views' => 174, 'notes' => ['executive|/admin/data.php|phone: already missed "No sideways scroll at 390px (0058 §11)" before (Site health\'s, not this change\'s)', $far], 'run' => 'https://github.com/degraffics/traversence/actions/runs/4']);
 $n = count($rel($c)['log']); BeforeAfter::advance($pdo); $m = $msgs($c, $n);
-$t('a pass with a far timeout: "far timeout, noted" written on its card, once, as the check wrote it', count(preg_grep('/^The before-and-after check noted: executive\|\/admin\/crawler-review\.php\|phone: far timeout, noted/', $m)) === 1, $m);
+$t('a pass with a far timeout: "far timeout, noted" written on its card, once, as the check wrote it', count(preg_grep('/^The before-and-after check noted: as executive on \/admin\/crawler-review\.php at 390: far timeout, noted/', $m)) === 1, $m);
 $t('… and only the far timeouts: Site health\'s other notes aren\'t copied there', !preg_grep('/already missed/', $m), $m);
 $t('… then its verdict as before', (bool) preg_grep('/before-and-after check: passed/', $m), $m);
 
