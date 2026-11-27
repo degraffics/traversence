@@ -117,8 +117,8 @@
    "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
    "why": "R2 (decisions/0180 \u00a75, \u00a77): swimlanes and locks",
    "since": "2026-11-27T02:29:25Z",
-   "expires": "2026-11-27T07:00:45Z",
-   "release": "r2-lanes.zip",
+   "expires": "2026-11-27T08:28:20Z",
+   "release": "r2-lanes-2.zip",
    "callers": {}
   },
   {
@@ -131,8 +131,8 @@
    "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
    "why": "R2 (decisions/0180 \u00a75, \u00a77): swimlanes and locks",
    "since": "2026-11-27T02:29:25Z",
-   "expires": "2026-11-27T07:00:45Z",
-   "release": "r2-lanes.zip",
+   "expires": "2026-11-27T08:28:20Z",
+   "release": "r2-lanes-2.zip",
    "callers": {}
   },
   {
@@ -142,8 +142,8 @@
    "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
    "why": "R2 (decisions/0180 \u00a75, \u00a77): swimlanes and locks",
    "since": "2026-11-27T02:29:25Z",
-   "expires": "2026-11-27T07:00:45Z",
-   "release": "r2-lanes.zip",
+   "expires": "2026-11-27T08:28:20Z",
+   "release": "r2-lanes-2.zip",
    "callers": {}
   },
   {
@@ -155,8 +155,8 @@
    "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
    "why": "R2 (decisions/0180 \u00a75, \u00a77): swimlanes and locks",
    "since": "2026-11-27T02:29:25Z",
-   "expires": "2026-11-27T07:00:45Z",
-   "release": "r2-lanes.zip",
+   "expires": "2026-11-27T08:28:20Z",
+   "release": "r2-lanes-2.zip",
    "callers": {
     "ask": [
      "app/ui/card-scanner.php",
@@ -192,8 +192,8 @@
    "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
    "why": "R2 (decisions/0180 \u00a75, \u00a77): swimlanes and locks",
    "since": "2026-11-27T02:29:25Z",
-   "expires": "2026-11-27T07:00:45Z",
-   "release": "r2-lanes.zip",
+   "expires": "2026-11-27T08:28:20Z",
+   "release": "r2-lanes-2.zip",
    "callers": {}
   },
   {
@@ -203,8 +203,8 @@
    "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
    "why": "R2 (decisions/0180 \u00a75, \u00a77): swimlanes and locks",
    "since": "2026-11-27T02:29:34Z",
-   "expires": "2026-11-27T07:00:45Z",
-   "release": "r2-lanes.zip",
+   "expires": "2026-11-27T08:28:20Z",
+   "release": "r2-lanes-2.zip",
    "callers": {}
   },
   {
@@ -214,8 +214,8 @@
    "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
    "why": "R2 (decisions/0180 \u00a75, \u00a77): swimlanes and locks",
    "since": "2026-11-27T02:29:34Z",
-   "expires": "2026-11-27T07:00:45Z",
-   "release": "r2-lanes.zip",
+   "expires": "2026-11-27T08:28:20Z",
+   "release": "r2-lanes-2.zip",
    "callers": {}
   },
   {
@@ -225,13 +225,14 @@
     "regionOpen",
     "review",
     "reviewer",
+    "tier",
     "undoReview"
    ],
    "kind": "change",
    "session": "session_01CXLi5jsi4U8fUwJYPkZsMx",
-   "why": "J1: a region opens on its team-reviewed jurisdiction record (Jason, 2026-11-27, R8 advisory; 0164 R8/R17 note)",
+   "why": "J1: Q8 'Show' (0164 R8/P5-3 note, 2026-11-27): story only off nation land while a record is under review",
    "since": "2026-11-27T02:30:01Z",
-   "expires": "2026-11-27T06:30:01Z",
+   "expires": "2026-11-27T08:09:01Z",
    "release": "j1-jurisdictions.zip",
    "callers": {
     "regionOpen": [
@@ -243,6 +244,9 @@
     ],
     "closedWhy": [
      "app/lib/Guides.php"
+    ],
+    "tier": [
+     "app/lib/Heritage.php"
     ]
    }
   },
@@ -279,8 +283,143 @@
    "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
    "why": "release r2-lanes.zip",
    "since": "2026-11-27T03:00:45Z",
-   "expires": "2026-11-27T07:00:45Z",
-   "release": "r2-lanes.zip",
+   "expires": "2026-11-27T08:28:20Z",
+   "release": "r2-lanes-2.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/directory/index.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
+   "why": "C.4: a town picked in Get Local opens within 10 mi; its area listed as its own choice (decisions/0053; P9)",
+   "since": "2026-11-27T04:34:57Z",
+   "expires": "2026-11-27T08:34:57Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "website/js/location-scope.js",
+   "functions": [
+    "placeOptions"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
+   "why": "C.4: a town picked in Get Local opens within 10 mi; its area listed as its own choice (decisions/0053; P9)",
+   "since": "2026-11-27T04:35:08Z",
+   "expires": "2026-11-27T08:35:08Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/location-modal.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
+   "why": "Place box lists float again on phones: location-modal.php's phone rule scoped to its own box (0058 \u00a711, \u00a725)",
+   "since": "2026-11-27T04:42:35Z",
+   "expires": "2026-11-27T08:42:35Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/OpenNow.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
+   "why": "C.8 open now from known hours only, in the listing's zone (P10, reopened by Jason 2026-11-27)",
+   "since": "2026-11-27T04:53:49Z",
+   "expires": "2026-11-27T08:53:49Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Nations.php",
+   "functions": [
+    "allAt",
+    "at"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
+   "why": "C.8 open now from known hours only, in the listing's zone (P10, reopened by Jason 2026-11-27)",
+   "since": "2026-11-27T04:53:51Z",
+   "expires": "2026-11-27T08:53:51Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/SearchIndex.php",
+   "functions": [
+    "find",
+    "indexListings",
+    "refresh"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
+   "why": "C.8 open now from known hours only, in the listing's zone (P10, reopened by Jason 2026-11-27)",
+   "since": "2026-11-27T04:53:53Z",
+   "expires": "2026-11-27T08:53:53Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/UniversalSearch.php",
+   "functions": [
+    "search",
+    "searchAs"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
+   "why": "C.8 open now: the known-hours count carried to search's results (P10)",
+   "since": "2026-11-27T04:53:55Z",
+   "expires": "2026-11-27T08:54:45Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "website/api/search_listings.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
+   "why": "C.8 open now from known hours only, in the listing's zone (P10, reopened by Jason 2026-11-27)",
+   "since": "2026-11-27T04:53:57Z",
+   "expires": "2026-11-27T08:53:57Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "website/js/search-panel.js",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
+   "why": "C.8 open now from known hours only, in the listing's zone (P10, reopened by Jason 2026-11-27)",
+   "since": "2026-11-27T04:53:59Z",
+   "expires": "2026-11-27T08:53:59Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "website/hub/index.php",
+   "functions": [
+    "hub_card"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
+   "why": "C.8 open now from known hours only, in the listing's zone (P10, reopened by Jason 2026-11-27)",
+   "since": "2026-11-27T04:54:01Z",
+   "expires": "2026-11-27T08:54:01Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/header.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
+   "why": "C.8 open now from known hours only, in the listing's zone (P10, reopened by Jason 2026-11-27)",
+   "since": "2026-11-27T04:54:03Z",
+   "expires": "2026-11-27T08:54:03Z",
+   "release": "",
    "callers": {}
   }
  ],

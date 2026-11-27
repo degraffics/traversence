@@ -75,6 +75,41 @@ export function stagingRunners(k) {
   }
   const takeDown = (page, site, id) => id ? api(page, site, '/api/market.php', { action: 'act', id, what: 'remove' }).catch(() => null) : null;
 
+  /** The buying paths pay only on the staging copy (sandbox for everyone there, QuickBooksPay::testHere) and only once the
+   *  card form says Test mode (js/go-codes.js cardForm): never real money (CLAUDE.md "No test moves real money"). */
+  const onStaging = (w) => !!ACC?.staging?.site && w.site === String(ACC.staging.site).replace(/\/$/, '');
+  /** In the cart (qr/cart.php): Continue to payment (data-plpay), then the sandbox card 4111…, then Pay. True when paid. */
+  async function payInCart(w, page) {
+    await page.waitForSelector('[data-plpay]', { timeout: 15000 }).catch(() => {});
+    const go = await firstVisible(page, ['[data-plpay]']);
+    if (!go) {   // the cart holds payment back when a group can't be paid (qr/cart.php: card 'none', its reason in bold)
+      const why = ((await page.locator('#go-plans .go-note b').first().innerText().catch(() => '')) || '').trim();
+      w.stuck = why ? `the cart holds payment back: "${why.slice(0, 140)}"` : `the cart offered no Continue to payment: "${(await textOf(page)).slice(0, 140)}"`; await w.shot('nopay'); return false;
+    }
+    const words = (await go.innerText().catch(() => '')).trim();
+    if (/card on file/i.test(words)) {   // a card kept from an earlier run: one press pays it (staging, the sandbox)
+      await w.tap(go, words, { nav: true, wait: 20000 }); return true;
+    }
+    await w.tap(go, words || 'Continue to payment', { wait: 4000 });
+    const num = page.locator('input[autocomplete="cc-number"]').first();
+    if (!(await num.isVisible().catch(() => false))) { w.stuck = 'no card form after Continue to payment'; await w.shot('nocard'); return false; }
+    if (!(await page.locator('.go-banner', { hasText: 'Test mode' }).first().isVisible().catch(() => false))) {
+      w.stuck = 'the card form doesn\'t say Test mode: stopped before the card (no test moves real money)'; await w.shot('notest'); return false;
+    }
+    await w.type('input[autocomplete="cc-name"]', 'Test Path Check');
+    await w.type('input[autocomplete="cc-number"]', '4111 1111 1111 1111');
+    await w.type('input[autocomplete="cc-exp"]', '12/30');
+    await w.type('input[autocomplete="cc-csc"]', '123');
+    const zip = page.locator('input[autocomplete="postal-code"]:visible').first();   // the card's own (the cart's billing ZIP is hidden)
+    if (!((await zip.inputValue().catch(() => '')) || '').trim()) await w.type('input[autocomplete="postal-code"]:visible', '85901');
+    const pay = page.locator('button.go-btn.main', { hasText: /^Pay\b/ }).last();
+    if (!(await pay.isVisible().catch(() => false))) { w.stuck = 'no Pay button on the card form'; await w.shot('nopaybtn'); return false; }
+    await w.tap(pay, (await pay.innerText().catch(() => 'Pay')).trim(), { nav: true, wait: 25000 });
+    const bad = ((await page.locator('[role=alert]:visible').first().innerText().catch(() => '')) || '').trim();
+    if (bad) { w.add('dead_end', 'J01', w.here(), `paying in the sandbox said: "${bad.slice(0, 120)}"`); await w.shot('declined'); return false; }
+    return true;
+  }
+
   return {
     // ---- Sign up (all steps): login.php?tab=create → the held email's link (verify-email.php) → the questions → sign in
     'sign-up': async (w, page) => {
@@ -250,6 +285,66 @@ export function stagingRunners(k) {
     },
 
     // ---- Join a group: Community → a group → Join (and Agree, with a charter) → Joined; left after
+    // ---- The buying paths (decisions/0181 §1 gate 2): the sandbox on staging only --------------------------------------
+    // Shop → A month of Personal Pro → Add to cart → Continue to payment → Test mode → 4111… → Pay → the Plans page
+    'shop-buy': async (w, page) => {
+      if (!onStaging(w)) { w.stuck = 'not on the staging copy: the buying paths never run on live'; return; }
+      await w.goto('/shop/', 'the Shop');
+      // A month of Pro is offered while no plan renews; once one does (plan-buy's, kept till its period ends), the Shop
+      // offers storage packs instead, so the path buys the first of those: either way one paid Shop item
+      let row = page.locator('.sh-it', { hasText: 'A month of Personal Pro' }).first();
+      let btn = row.locator('[data-cart], a.go-btn').first(), what = 'Personal Pro';
+      if (!(await btn.isVisible().catch(() => false))) {
+        row = page.locator('section#packs .sh-it').filter({ has: page.locator('[data-cart]') }).first(); btn = row.locator('[data-cart]').first();
+        what = (((await row.locator('b').first().innerText().catch(() => '')) || '').split('\n')[0] || '').trim();
+        if (!(await btn.isVisible().catch(() => false)) || !what) { w.stuck = 'neither A month of Personal Pro nor a storage pack to add on the Shop'; await w.shot('noitem'); return; }
+        w.note(`a plan renews, so the Shop item is a pack: ${what}`);
+      }
+      await w.tap(btn, (await btn.innerText().catch(() => 'Add to cart')).trim(), { nav: true, wait: 8000 });
+      if (!(await payInCart(w, page))) return;
+      if (!/\/plans\.php/.test(w.here())) await w.goto('/plans.php?me=1', 'the Plans page');
+      await page.waitForTimeout(2000);
+      const t = await textOf(page);
+      w.goal = t.includes(what);
+      if (!w.goal) w.add('dead_end', 'J01', w.here(), `after paying, the Plans page doesn't name ${what}: "${t.slice(0, 120)}"`);
+    },
+    // Shop → Your plan → a paid plan that isn't yours now → Add to cart → pay in the sandbox → the plan on the Plans page;
+    // then Stop at the end of this period, so nothing renews (its way back, plans.php data-stop)
+    'plan-buy': async (w, page) => {
+      if (!onStaging(w)) { w.stuck = 'not on the staging copy: the buying paths never run on live'; return; }
+      await w.goto('/shop/', 'the Shop');
+      const sec = page.locator('section.go-card', { hasText: 'Your plan' }).first();
+      const btn = sec.locator('[data-cart]').first();
+      if (!(await btn.isVisible().catch(() => false))) { w.stuck = 'no plan to add under Your plan on the Shop'; await w.shot('noplan'); return; }
+      const name = ((await btn.locator('xpath=ancestor::div[contains(@class,"sh-it")]').locator('b').first().innerText().catch(() => '')) || '').split('\n')[0].trim();
+      w.note(`the plan: ${name || '(unnamed)'}`);
+      await w.tap(btn, 'Add to cart', { nav: true, wait: 8000 });
+      if (!(await payInCart(w, page))) return;
+      if (!/\/plans\.php/.test(w.here())) await w.goto('/plans.php?me=1', 'the Plans page');
+      await page.waitForTimeout(2000);
+      const t = await textOf(page);
+      w.goal = !!name && t.includes(name);
+      if (!w.goal) { w.add('dead_end', 'J01', w.here(), `after paying, the Plans page doesn't name ${name || 'the plan'}`); return; }
+      const stop = await firstVisible(page, ['[data-stop]']);
+      if (stop) { await stop.click().catch(() => {}); const y = await firstVisible(page, ['.tv-ask button.tv-ask-b.yes']); if (y) await y.click().catch(() => {}); await page.waitForTimeout(2500); }
+      if (!/Stops on/i.test(await textOf(page))) w.note('the plan was left renewing (no Stop at the end of this period): staging\'s refresh clears it');
+    },
+    // Marketplace → the test business's item → Buy now → the business's own checkout (Stripe or Square, test mode). The
+    // gateway's card step waits for the business's test keys (the launch plan's F.4): until then the runner says so.
+    'market-buy': async (w, page) => {
+      if (!onStaging(w)) { w.stuck = 'not on the staging copy: the buying paths never run on live'; return; }
+      await w.goto('/market/', 'the Marketplace');
+      const item = page.locator('a[href*="/market/item.php"]', { hasText: /test/i }).first();
+      if (!(await item.isVisible().catch(() => false))) { w.stuck = 'no test business item on the Marketplace'; await w.shot('noitem'); return; }
+      await w.tap(item, 'the test item', { nav: true });
+      const buy = await firstVisible(page, ['button:has-text("Buy now")', 'a:has-text("Buy now")']);
+      if (!buy) { w.stuck = `no Buy now on the item: "${((await page.locator('.mv-safe, main').first().innerText().catch(() => '')) || '').replace(/\s+/g, ' ').slice(0, 160)}"`; await w.shot('nobuy'); return; }
+      await w.tap(buy, 'Buy now', { nav: true, wait: 10000 });
+      const gw = await page.locator('iframe[src*="stripe.com"], iframe[src*="squareup"], iframe[src*="squareupsandbox"]').count();
+      w.stuck = gw ? 'reached the business\'s checkout; its card step (Stripe or Square test mode) is still to write' : `Buy now didn't open a checkout: "${(await textOf(page)).slice(0, 140)}"`;
+      await w.shot('checkout');
+    },
+
     'join-group': async (w, page) => {
       await w.goto('/community/', 'Community');
       await page.waitForSelector('a.cg-g', { timeout: 15000 }).catch(() => {});   // drawn by the page's script after it loads

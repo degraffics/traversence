@@ -3,7 +3,7 @@
  "built_on": "122090e Sync: 2026-11-27 02:50 UTC",
  "recorded": "2026-11-27 03:01 UTC",
  "note": "R2 (decisions/0180 \u00a75, \u00a77): swimlanes and locks, design-approved; built on Sync: 2026-11-27 02:50 UTC Sent through git (releases/inbox).",
- "status": "pending",
+ "status": "replaced",
  "live_in": "",
  "files": {
   "app/admin/control-console.php": {
@@ -42,5 +42,6 @@
    "sha256": "7674c71b4deea49056e3608135fb7c983d3bafa572d0b6ff92066cb6c71c84e6",
    "live": false
   }
- }
+ },
+ "replaced_by": "r2-lanes-2.zip"
 }

@@ -33,6 +33,9 @@ const PAGES = { orders: () => ['/admin/backoffice/orders'], order: () => (/^\d{1
   // Modules (Service register), each service's stage, caps and paces; the Workflows page and each workflow's own page
   register: () => ['/admin/config/register'],
   workflows: () => ['/admin/config/workflows', ...Array.from({ length: 16 }, (_, i) => `/admin/config/control/wf-W${i}`)],
+  // one service's card on the register, opened in the page (its <details> set open; nothing pressed), by the name in the
+  // order/run field ("Amazon Web Services"): the CEO's ask, 2026-11-27, for SES's stage, mode, cap and notices
+  card: () => (/^[A-Za-z0-9 .()&'-]{2,60}$/.test(ID) ? ['/admin/config/register'] : null),
   // rows: a table's newest rows matching a search, through the admin's data API (read-only; operational tables such as
   // job_runs only: never a table of people's details; the Control Board session, 2026-11-24, for the audit clock's runs)
   // the search may instead be up to 8 row ids ("35237,35160"): each row whole (action=row)
@@ -43,7 +46,7 @@ const PAGES = { orders: () => ['/admin/backoffice/orders'], order: () => (/^\d{1
 const fail = (m) => { console.log(`::error::${m}`); process.exit(1); };
 if (!PAGES[READ]) fail(`READ must be one of: ${Object.keys(PAGES).join(', ')}.`);
 const paths = PAGES[READ]();
-if (!paths) fail(READ === 'meta' || READ === 'rows' ? 'TABLE must be an operational table\'s name (letters, digits and _; no tables of people), and the search letters, digits and _ :.-' : 'ORDER_ID must be the order\'s number (digits only).');
+if (!paths) fail(READ === 'card' ? 'For card, put the service\'s name (letters, digits, spaces and . ( ) & \' -) in the order/run field.' : READ === 'meta' || READ === 'rows' ? 'TABLE must be an operational table\'s name (letters, digits and _; no tables of people), and the search letters, digits and _ :.-' : 'ORDER_ID must be the order\'s number (digits only).');
 const exec = ACC?.staff?.executive;
 if (!exec) fail('CHECK_ACCOUNTS has no staff.executive login (System Configuration → Test accounts).');
 mkdirSync(OUT, { recursive: true });
@@ -64,13 +67,22 @@ try {
       await p.waitForLoadState('networkidle', { timeout: 15000 }).catch(() => {});   // the admin's tables fill in after load
       await p.waitForTimeout(800);
       const name = `${READ}${READ === 'meta' || READ === 'rows' ? '-' + TABLE : (ID ? '-' + ID : '')}-${w}`;
+      const card = READ === 'card' ? await p.evaluate((name) => {   // the register's row for that service (outside-services.php: div.os-r, data-name), its body shown; nothing pressed
+        const n = name.toLowerCase();
+        const r = [...document.querySelectorAll('.os-r[data-name]')].find((x) => x.dataset.name === n) || [...document.querySelectorAll('.os-r[data-name]')].find((x) => x.dataset.name.startsWith(n));
+        if (!r) return null;
+        r.querySelectorAll('[hidden]').forEach((x) => x.removeAttribute('hidden')); r.querySelectorAll('details').forEach((x) => { x.open = true; });
+        return r.innerText;
+      }, ID) : null;
+      if (READ === 'card') await p.waitForTimeout(500);
       const read = await p.evaluate(() => ({
         url: location.pathname + location.search,
         title: document.title,
-        text: document.body.innerText,
+        text: document.body.innerText,   // a card read replaces it below
         links: [...document.querySelectorAll('a[href]')].map((a) => [a.textContent.trim().replace(/\s+/g, ' ').slice(0, 80), a.getAttribute('href')]).filter((x) => x[1].startsWith('/admin/')),
         wide: document.documentElement.scrollWidth <= window.innerWidth + 1,
       }));
+      if (READ === 'card') read.text = card === null ? `No card on the register whose title holds "${ID}".` : card;
       writeFileSync(`${OUT}/${name}.json`, JSON.stringify({ path, width: w, status: res.status(), refused_writes: refused, ...read }, null, 1));
       writeFileSync(`${OUT}/${name}.txt`, read.text);
       await p.screenshot({ path: `${OUT}/${name}.png`, fullPage: true });

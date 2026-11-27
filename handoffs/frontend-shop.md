@@ -11,7 +11,7 @@ not as a hand-over (builder playbook §5).
 | 1 | **G.1 the search lock's leaks** (`search-lock.zip`) | 0181 §4 | **Live as Release #315** (02:24 UTC), synced 02:27 UTC; headers and meta checked on live |
 | 2 | **C.1 the device's place read as "outside"** (`device-place.zip`) | plan C.1; CLAUDE.md "Places in search", 0060 | **Live as Release #316** (02:48 UTC) |
 | 3 | **C.2 the path checker** | plan C.2; 0145 | In main (PR #1487) |
-| 4 | **C.3 the launch paths** (same branch): each 1A town's eat, stay, see, guide; the three buying paths defined | 0181 §1 gate 2; 0145 §2 | In main (PRs #1487, #1488: the gateway is Holbrook's, 0042); buying paths' steps written, their runners next (sandbox, staging only, tested against the payment mock first) |
+| 4 | **C.3 the launch paths** (same branch): each 1A town's eat, stay, see, guide; the three buying paths defined | 0181 §1 gate 2; 0145 §2 | In main (PRs #1487, #1488: the gateway is Holbrook's, 0042); buying paths' runners written: plan-buy and shop-buy pass on the harness (QuickBooks mock), market-buy goes as far as the business's checkout (its card step waits for F.4's test keys) |
 | 5+ | The rest of C and F in the plan's order | plan §4 C, F | Queued |
 
 ## G.1: the search lock (search-lock.zip)
@@ -78,3 +78,19 @@ Harness note: Tailwind's CDN is refused in this sandbox, so `.hidden` and the ut
 
 Design reviewer's notes for a later search release (seen in C.1's screens, there before it): "See all 1 listings" should
 read "See the listing" when there's one; at 390 the location line says "ZIP: 85901" while the chip says "Show Low, AZ".
+
+## Buying paths' runners (`paths-staging.mjs`)
+
+- Staging only (`onStaging`: the run's site must be `CHECK_ACCOUNTS`' staging site), and the card is typed only after
+  the card form says Test mode; otherwise stuck before any card (CLAUDE.md "No test moves real money").
+- `plan-buy` (runs first): Shop → Your plan → the first plan to add → the cart → Continue to payment → 4111… → the Plans
+  page names it → Stop at the end of this period.
+- `shop-buy`: A month of Personal Pro; when a plan renews (the Shop then offers no month), the first storage pack, paid
+  on the card on file. When the cart holds payment back, the runner reports the cart's own reason.
+- `market-buy`: Marketplace → the test item → Buy now → the business's checkout; stuck there with the reason, as its
+  Stripe or Square test step waits for the launch plan's F.4.
+- Harness proof: `tools/path-checker-tests/buy-runners.mjs`, plan-buy then shop-buy both reach their goals; the guard
+  refuses off staging with 0 taps. Their first real run is on staging (Mondays and Thursdays, or PATHS_ONLY).
+
+Queue (the session manager, 03:58 UTC): C.4 (summary first), then C.8 open now (P10, reopened by Jason 2026-11-27, the
+CEO's brief 03:42 UTC).
