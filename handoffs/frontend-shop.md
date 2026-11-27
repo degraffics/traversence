@@ -219,3 +219,36 @@ Sent to the session manager on 2026-11-27, waiting for its place in the queue an
 - **The pilot:** content, needing a real host.
 - **Total:** 3–4 releases.
 - **Suggested option (a):** free events, with a listing's ticket item linked; 2 releases.
+
+## State at 2026-11-27 ~18:10 UTC (for a fresh session if this one hands off)
+**Live from this session:**
+- G.1 search lock (#315);
+- C.1 device place (#316);
+- C.2 and C.3 (repo: path checker, launch paths, buy runners).
+
+**Built, approved and waiting for the session manager's go**, in this order: goal_check_tick, then C.4, place-list, C.8, C.5a, C.5b, M-sections. Each has its build in handoffs/ and a README.
+- **goal_check_tick:** handoffs/goal-check. Sends after task-seed-4. Claims taken; rebuild Scheduler.php and faq.md on the live copy.
+- **C.4:** handoffs/c4-town-point.
+- **place-list:** handoffs/place-list.
+- **C.8:** handoffs/c8-open-now.
+- **C.5a and C.5b:** not built yet. The findings are in this file, above. Each needs the Design reviewer with before and after.
+- **M-sections:** handoffs/m-sections, Design approved.
+
+**Events:** decisions/0134's minimum, the note of 2026-11-27, option (a) plus participants (#1589).
+- **E1:** the store and host form, in handoffs/events-e1. Design: four fixes done (commit 2196f08a), waiting for "approved".
+- **E2:** the event page, the listing and the guide, in handoffs/events-e2. Design: three fixes done (commit f80f0900), waiting for "approved".
+- **P1:** invitations. Next to build; the offer field stays open until the CMO's ruling (the business's own Discount codes, or an offer line).
+- **P2:** the event page's "Taking part", "Part of <event>" on listings, the trail (0174). Waits for the offer ruling.
+- **Plan:** all four to about Dec 13; the pilot is the Hometown theater's community night. A hand-set showcase is the fallback, kept ready.
+
+**Parked:** the built stylesheet and its zip-check rule, until C.5a and C.5b are re-measured (the plan is above).
+
+**Pending work:**
+- **The gate 2 staging paths run:** the Shop, plan-buy, Marketplace-buy, the skipped member and staff paths, plus the sandbox ticket purchase and refund for the CFO's Tier 4. Start it on the session manager's word after #322 is Live (site-checks.yml, staging_paths). R2 waits for it.
+- **The latent posts error:** user/api/posts.php:81 returns a PDOException's raw message. Reported to the session manager; owner to be decided.
+
+**Bench:**
+- the PHP server on 8790, rooted in scratchpad g1test, with srv-ev.php (business portal routes and /__login?uid=);
+- MariaDB tvh (tv/tv); the heal scripts heal3.py;
+- the Tailwind stand-in tw/tw-inject.js;
+- a headless browser needs a normal Chrome user agent, or it gets no session.
