@@ -1,5 +1,5 @@
 {
- "at": "2026-11-27T18:17:32.039Z",
+ "at": "2026-11-27T22:17:31.570Z",
  "requests": [
   {
    "id": 3,
@@ -953,7 +953,7 @@
    "stage": "",
    "tier": null,
    "build_brief": "",
-   "late": false
+   "late": true
   },
   {
    "id": 57,
@@ -971,7 +971,7 @@
    "stage": "",
    "tier": null,
    "build_brief": "",
-   "late": false
+   "late": true
   },
   {
    "id": 58,
@@ -989,7 +989,7 @@
    "stage": "",
    "tier": null,
    "build_brief": "",
-   "late": false
+   "late": true
   },
   {
    "id": 59,
@@ -1073,6 +1073,24 @@
    "was": "task",
    "why": "An advocate's view was worse after it (decisions/0179 rule 2's four rules): Out-of-scope drift: This page changed, and the change doesn't name it (executive, /admin/crawler-review.php, phone). It withdrew itself; nothing on the live site changed. Fix it and send it again. The report: https://github.com/degraffics/traversence/actions/runs/46041550470",
    "source": "the daily audit (ba:323)",
+   "owner": "system · before-and-after check",
+   "release": "",
+   "ticket": "audit",
+   "stage": "found",
+   "tier": 2,
+   "build_brief": "",
+   "late": false
+  },
+  {
+   "id": 64,
+   "at_utc": "2026-11-27T20:50:03Z",
+   "gauge": "area:audit",
+   "build": "",
+   "item": "Release #325 was stopped by the before-and-after check: Layout or phone: No sideways scroll at 390px (0058 §11) (executive, /admin/crawler-review.php, phone)",
+   "what": "Release #325 was stopped by the before-and-after check: Layout or phone: No sideways scroll at 390px (0058 §11) (executive, /admin/crawler-review.php, phone)",
+   "was": "task",
+   "why": "An advocate's view was worse after it (decisions/0179 rule 2's four rules): Layout or phone: No sideways scroll at 390px (0058 §11) (executive, /admin/crawler-review.php, phone). It withdrew itself; nothing on the live site changed. Fix it and send it again. The report: https://github.com/degraffics/traversence/actions/runs/46065196516",
+   "source": "the daily audit (ba:325)",
    "owner": "system · before-and-after check",
    "release": "",
    "ticket": "audit",
