@@ -7,7 +7,7 @@
     "switch": "before_after",
     "advance": "schedule",
     "state": "live",
-    "step": 1,
+    "step": 2,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
@@ -84,7 +84,7 @@
     "checks": {
         "ok": true,
         "where": "live",
-        "at": "2026-11-26T02:33:47+00:00",
+        "at": "2026-11-27T13:00:02+00:00",
         "items": [
             [
                 "PHP files parse",
@@ -93,8 +93,8 @@
             ],
             [
                 "Pages answer",
-                true,
-                "3 pages answered on traversence.com"
+                null,
+                "The server couldn't reach traversence.com to ask (not counted as a failure; the error logs below still are)"
             ],
             [
                 "No new fatal errors in the logs",
@@ -134,6 +134,11 @@
             "at": "2026-11-26T02:33:47+00:00",
             "by": 0,
             "msg": "Published: 9 files; step 1, staff and test accounts."
+        },
+        {
+            "at": "2026-11-27T13:00:03+00:00",
+            "by": 0,
+            "msg": "On schedule: step 2, 25% of members (and staff and test accounts)."
         }
     ]
 }
