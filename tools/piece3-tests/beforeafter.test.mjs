@@ -43,6 +43,7 @@ try {
     ['longrec', 'pass', null, 'a record\'s long address making the page wider at 390, on a page the change doesn\'t name (#308\'s look, crawler-review): its data, noted'],
     ['widebar', 'block', 'layout', '… a wide bar of the page\'s own on that page: still a layout block'],
     ['alarm', 'block', 'drift', '… the same, when the release changes what draws them (lib/Thread.php): drift', { files: ['app/lib/Thread.php'] }],
+    ['alarm', 'pass', null, '… a drawer the release changes, with reach naming its pages and not this one (#319\'s look: module-cards.php, the dashboard Inbox): not drift', { files: ['app/admin/module-cards.php'], pages: ['/user/account.php'] }],
     ['leak', 'block', 'access', 'a member opens an admin page: access'],
     ['lost', 'block', 'access', 'a member\'s own page sends it to sign in: access'],
     ['canary', 'block', 'access', 'another account\'s email shows: privacy'],

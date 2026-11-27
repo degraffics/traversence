@@ -241,8 +241,11 @@ export function compare(b1, b2, a, exp = {}, release = '', heldKey = STAGING?.to
   const A = new Map(a.results.map(f => [key(f), f]));
   const expected = new Set([...(exp.pages || []), ...(exp.also_changes || []).map(x => x.page)]);
   // the system's state lines (alarms, status lines, Scheduled tasks) are drift only for a release that touches what draws them
-  // (the session manager, 2026-11-26); unknown files (no list given) count as touching them
-  const stateDrawn = !Array.isArray(exp.files) || exp.files.some(f => STATE_DRAWERS.test(f));
+  // (the session manager, 2026-11-26); unknown files (no list given) count as touching them. Drift is read only on pages the
+  // release doesn't reach, and reach.py puts every page a drawer draws into expected; so once reach has named the pages, a page
+  // outside them isn't drawn by the release's drawers and its state lines are catch-up's (#319's look, 2026-11-27: module-cards.php
+  // made the dashboard Inbox's new Visitor row drift on /admin/). With no pages named, a drawer still turns them on everywhere
+  const stateDrawn = !Array.isArray(exp.files) || (exp.files.some(f => STATE_DRAWERS.test(f)) && !(exp.pages || []).length);
   const held = new Set(exp.held?.hashes || []); const heldUnread = !!exp.held?.error;
   const blocks = [], notes = [], far = [];   // far: the slow pages reached only through a shared file, for the release's card
   if (heldUnread) notes.push('0066 not checked: the held names couldn\'t be read (' + String(exp.held.error).slice(0, 120) + ')');
