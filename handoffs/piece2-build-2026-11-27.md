@@ -118,6 +118,16 @@ state with `live-read.yml`: rows `feature_switches`, q `before_after`.
    - **The gap:** the re-audit proved no webhook regressed from the code alone. Their last success on live couldn't be read, because /api/health.php needs HEALTH_TOKEN and live-read doesn't have it.
    - **The fix:** live-read, or the daily health snapshot, reports each webhook's last-received time and its 24-hour count, read server-side through HEALTH_TOKEN and never exposing the token.
    - **Jason's call:** whether live-read gets that read is his, when he's back (the session manager won't ask him over the holiday). Its migration seeds the ticket once, by `what`.
+12. **Order from the session manager, 2026-11-27 (after #321 Live):**
+   1. the pipeline release;
+   2. r2-lanes-3;
+   3. **"Recovered" only for a notice that was sent:** its own small release. 14 "Releases (job): Recovered" emails went out with no raise ever sent, because ControlAlarms.php:607 sends Recovered whenever `tripped_at` is set. It goes with a test, and the CEO sets its Tier (0176 R1);
+   4. task-seed-4 (data only, the list from the session manager);
+   5. A3, with the collation fix and the card's words;
+   6. the Scheduler bundle: Pre-flight's self-continue, DailyReport keeping its items with sources in its `dailyrep:` record (Executive-readable), the :02 move, the 6:13 spread;
+   7. phase 2 release 1 (Tier 3, the PM's lane: the thread, task-notes.json, task-rulings.json, the four-stage redesign, and role queues with counts and SLA, jason-spec §7);
+   8. the Executive channel;
+   9. a parallel week, then cutover about Dec 15.
 
 ## 4. Seeded tickets (R2's migration; each added once, by `what`) and their lanes
 
