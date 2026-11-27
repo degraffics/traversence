@@ -231,7 +231,7 @@ final class BeforeAfter
             $line = $r['state'] === 'staged' ? 'Release #' . $id . ': on staging already.' : Releases::straightOn($pdo, $id, 0);
             $r = (array) Releases::get($pdo, $id);
             if (($r['state'] ?? '') !== 'staged') return $line . ' (its before look is in; it goes on staging when it can)';
-            if (!$r['checks_ok']) { self::put($pdo, $id, null); $w = Releases::selfWithdraw($pdo, $r); return $line . ($w !== '' ? ' ' . $w : ''); }
+            if (!$r['checks_ok']) { $w = Releases::selfWithdraw($pdo, $r); self::put($pdo, $id, null); return $line . ($w !== '' ? ' ' . $w : ''); }   // its waiting cleared only once that's done
             $d['phase'] = 'after'; $d['asked_at'] = time(); $d['tries'] = 1; $d['before_seconds'] = $v['seconds']; unset($d['noted_missing']);   // the after verdict counts the before looks again
             $why = self::ask($id, 'after', $d); if ($why !== '') { $d['asked_at'] = 0; $d['ask_error'] = $why; }
             self::put($pdo, $id, $d);
@@ -239,10 +239,13 @@ final class BeforeAfter
             return 'Release #' . $id . ': on staging; its after look asked for.';
         }
         if ($d['phase'] === 'after' && $v && $v['phase'] === 'after-done' && $v['verdict'] !== 'waiting') {
-            self::spend($pdo, max(0.0, $v['seconds'] - (float) ($d['before_seconds'] ?? 0)));
+            // decided first, its waiting cleared after: a step that throws (a permission, the database) leaves it waiting, so the
+            // next run decides it again, never a release left on staging with nothing waiting for it (2026-11-27)
+            if (empty($d['counted_after'])) { self::spend($pdo, max(0.0, $v['seconds'] - (float) ($d['before_seconds'] ?? 0))); $d['counted_after'] = 1; self::put($pdo, $id, $d); }   // once, as the before look's
+            $line = Releases::checkedByAdvocates($pdo, $id, $v, (bool) ($d['hold'] ?? false) || self::spent($pdo));
             self::put($pdo, $id, null);
             foreach ($v['far'] as $n) Releases::noteFromCheck($pdo, $id, $n);   // kept on its card and in the daily summary's record
-            return Releases::checkedByAdvocates($pdo, $id, $v, (bool) ($d['hold'] ?? false) || self::spent($pdo));
+            return $line;
         }
         // late: asked again once, then a person is told in the Work queue
         $mins = (time() - (int) $d['asked_at']) / 60;

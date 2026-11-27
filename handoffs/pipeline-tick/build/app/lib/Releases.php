@@ -484,14 +484,14 @@ final class Releases
     }
 
     /**
-     * The release ping (website/api/releases-pull.php) acting as the 10-minute job does: it takes only builds already merged
-     * into main and moves on the releases waiting for their looks, so it carries what that needs (publish, schedule) and no
-     * more; turning a release off and rolling one back stay a person's (2026-11-27: every ping was refused "Sign in with your
-     * staff login first", so each release waited for the job's next run).
+     * The release ping (website/api/releases-pull.php) taking builds as the 10-minute job does: only those already merged
+     * into main, listed by DocsRepo with the token, nothing from the request. It carries releases.publish for that one call
+     * and no other permission, dropped after it even when it throws (the CEO's Tier 4, 2026-11-27: since #314 a web call
+     * with no staff session is nobody, and every ping was refused "Sign in with your staff login first").
      */
     public static function asPing(callable $fn)
     {
-        self::$grant = ['releases.publish', 'releases.schedule'];
+        self::$grant = ['releases.publish'];
         try { return $fn(); } finally { self::$grant = null; }
     }
 

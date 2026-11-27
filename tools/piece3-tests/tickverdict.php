@@ -2,8 +2,8 @@
 // The release pipeline's tick and verdict (2026-11-27, the session manager's release "release pipeline: tick and verdict"):
 // #317 and #318 each waited an hour on the way to staging with their before verdict on main. (c) the verdict is read
 // through GitHub's contents API (DocsRepo::now), never raw.githubusercontent.com's cache; a missing file is said once on
-// the release's card past NOTE_MINUTES. (b) /api/releases-pull.php, which beforeafter.yml now calls right after it commits
-// a verdict, moves a waiting release on (run for real in its own process). One advance at a time (a lock). (a) releases_tick's
+// the release's card past NOTE_MINUTES. (b) /api/releases-pull.php takes merged builds only, with releases.publish for that
+// one call (run for real in its own process); verdicts are moved on by the 10-minute job. One advance at a time (a lock). (a) releases_tick's
 // own cron line goes to every 10 minutes, once, and a person's later Change stays.
 // Run: php tickverdict.php <root>   (<root> holds app/ and website/; it resets lv_main; its setup is pipeline.php's)
 declare(strict_types=1);
@@ -85,17 +85,19 @@ $n = count($rel($a)['log']); $out = BeforeAfter::advance($pdo);
 $t('… once it\'s free: its verdict is read and it goes on (here staging isn\'t set up, so it says so)', (bool) array_filter($out, fn ($l) => str_contains($l, 'Release #' . $a)) && (bool) preg_grep('/Plan approved|not on staging yet|staging/i', $msgs($a, $n)), [$out, $msgs($a, $n)]);
 $t('… and the lock is let go after it', (int) $pdo->query("SELECT IS_FREE_LOCK('tv_rel_ba')")->fetchColumn() === 1);
 
-// (b) the endpoint the workflow pings, run for real: it moves a waiting release on, reading the verdict through the API
+// (b) the endpoint release-ping.yml calls, run for real: with nothing new in main it takes nothing and changes nothing; a
+// waiting release is left for the 10-minute job (verdicts are never moved on here: the CEO's Tier 4, 2026-11-27)
 BeforeAfter::$readFn = null;
 $b = $mk('tv-b.zip'); BeforeAfter::begin($pdo, $b, 'tv-b.zip', $sha, false); $asked($b, 20);
 $pdo->exec("DELETE FROM site_release_settings WHERE k = 'git_seen_ping'");
-$n = count($rel($b)['log']);
+$n = count($rel($b)['log']); $was = BeforeAfter::state($pdo, $b);
 $cmd = 'TV_TEST=1 ' . escapeshellarg(PHP_BINARY) . ' ' . escapeshellarg(__DIR__ . '/tickverdict-pull.php') . ' ' . escapeshellarg($root) . ' ' . $b . ' 2>&1';
 $res = (string) shell_exec($cmd);
 preg_match('/\{"ok":.*\}/', $res, $mm); $j = json_decode($mm[0] ?? '', true);
-$t('(b) releases-pull.php answers ok, with the before-and-after step\'s line for the release', is_array($j) && !empty($j['ok']) && (bool) array_filter((array) $j['lines'], fn ($l) => str_contains((string) $l, 'Release #' . $b)), $res);
-$t('(b) … it read the verdict through the contents API on main', str_contains($res, 'contents/site-audit/results/beforeafter/' . $b . '.json?ref=main') && !str_contains($res, 'raw.githubusercontent.com'), $res);
-$t('(b) … and the release moved on from waiting: its plan approved and the staging step tried', (bool) preg_grep('/Plan approved|not on staging yet|staging/i', $msgs($b, $n)) && !preg_grep('/^Waiting for its before look: the advocates/', $msgs($b, $n)), $msgs($b, $n));
+$t('(b) releases-pull.php with nothing new in main: ok, and no release named', is_array($j) && !empty($j['ok']) && !array_filter((array) $j['lines'], fn ($l) => str_contains((string) $l, 'Release #')), $res);
+$t('(b) … it changed nothing: the waiting release as it was, its record untouched, no verdict read', BeforeAfter::state($pdo, $b) == $was && count($rel($b)['log']) === $n && !str_contains($res, 'beforeafter/' . $b . '.json'), $res);
+preg_match('/GITHUB (\[.*\])/', $res, $gm); $gh = json_decode($gm[1] ?? 'null', true);
+$t('(b) … and asked GitHub for nothing but the inbox\'s listing on main (nothing from the request is used)', is_array($gh) && !array_filter($gh, fn ($c) => !preg_match('#^GET https://api\.github\.com/repos/degraffics/traversence/contents/releases/inbox#', (string) $c)), $res);
 $res2 = (string) shell_exec($cmd); preg_match('/\{"ok":.*\}/', $res2, $mm2); $j2 = json_decode($mm2[0] ?? '', true);
 $t('(b) a second ping within the minute: 429 too_soon, as before (the workflow waits 65 s and asks again)', is_array($j2) && ($j2['code'] ?? $j2['error']['code'] ?? '') === 'too_soon' || str_contains($res2, 'too_soon'), $res2);
 $stage(true);
@@ -140,6 +142,6 @@ $t('(a) cPanel not connected: waits, saying nothing, and isn\'t remembered (trie
 // publish and schedule while it runs, never turning off or rolling back, and nothing granted after it
 $g = new ReflectionProperty(Releases::class, 'grant'); $g->setAccessible(true);
 $in = Releases::asPing(fn () => [Releases::can('releases.publish')[0], Releases::can('releases.schedule')[0], Releases::can('releases.turn_off')[0], Releases::can('releases.rollback')[0], $g->getValue()]);
-$t('(c) the ping takes and moves releases on as the job does: publish and schedule, never turn off or roll back', $in[0] && $in[1] && !$in[2] && !$in[3], $in);
+$t('(c) the ping carries releases.publish only while it takes builds: never schedule, turn off or roll back', $in[0] && !$in[1] && !$in[2] && !$in[3], $in);
 $t('(c) … and nothing is granted once it\'s done, even when its step throws', $g->getValue() === null && (function () use ($g) { try { Releases::asPing(function () { throw new RuntimeException('x'); }); } catch (RuntimeException $e) {} return $g->getValue() === null; })());
 echo "\n$pass passed, $fail failed\n"; exit($fail ? 1 : 0);
