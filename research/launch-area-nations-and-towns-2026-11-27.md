@@ -201,11 +201,14 @@ are inside (Show Low, St. Johns, Springerville, Holbrook, Winslow, the park's ZI
 
 ---
 
-## Questions for Jason (Founder rulings; to the session manager first)
+## Questions for Jason (Founder rulings; reviewed by the session manager, 2026-11-27; delivered by the CEO in Brief C, 0180)
 
-**Q1. Decision (nothing changes on the site yet): Colorado's and Utah's 154 towns.** 0181 §3 builds every town in the
-area; 0164 R17 loads only open regions (AZ, NM), and R8 keeps CO and UT closed (no record, no signature): no guide
-live, no history gathered. Options:
+**Q1. Decision (nothing changes on the site yet): the launch area's four states and R8's sign-off.** 0164 R8 and R17
+open a region only after its jurisdiction record is signed. **No state is signed today:** Arizona and New Mexico are
+open only by the `Jurisdictions::OPENED` constant (0048) while their records are drafts, and Colorado and Utah have
+no record, so they're closed (no guide live, no history gathered). 0181 §3 builds every town in the area and didn't
+address this. Options (Colorado's and Utah's 154 towns turn on it; Arizona and New Mexico keep running on the constant
+in A and C):
 - **A (recommended):** load Colorado's and Utah's public business listings now, as 0181 §3 says (business records
   aren't heritage), after G1's boundaries; their guides (2A, 11A, 11B, 12B, 12C) and history wait for the attorney's
   sign-off on US, US-CO and US-UT. A dated note on 0164 R17 records it.
