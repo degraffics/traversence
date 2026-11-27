@@ -22,7 +22,7 @@ function tv_biz_events(PDO $main, array $ctx, int $uid): string
     $h = '<div class="ak-card tv-bleed"><p class="ak-note" style="margin:0">Post what\'s happening at your business: a show, a class, a market day, a community night. '
         . 'Events are free to post. To sell tickets, publish an <b>Event tickets</b> item on the Marketplace and link it here; people buy them there, and you\'re paid your usual way.</p>'
         . '<p data-tv-status="info" data-tv-label="Coming:" style="margin:.5rem 0 0">Each published event\'s own page, and its place on your listing, open with the next update.</p></div>';
-    if (!$canEdit) $h .= '<p data-tv-status="info" data-tv-label="Can\'t post:">' . $e($whyEdit) . '</p>';
+    if (!$canEdit) $h .= '<p data-tv-status="info" data-tv-label="Can\'t post:" data-tv-keep>' . $e($whyEdit) . '</p>';
     // ---- the form: add or edit (closed until asked for, so the list is the first thing seen)
     if ($canEdit && $new) {
         $v = $ev ?: ['title' => '', 'about' => '', 'kind' => '', 'starts_at' => '', 'ends_at' => '', 'all_day' => 0, 'age' => 'all', 'showtimes' => '', 'ticket_item_id' => null, 'gallery_item_id' => null, 'zone' => Events::zone($main, $id)];
@@ -63,7 +63,7 @@ function tv_biz_events(PDO $main, array $ctx, int $uid): string
             if (in_array($s, ['draft', 'cancelled'], true)) $moves[] = ['delete', 'Delete', 'Delete it? It\'s kept ' . Events::KEEP_DAYS . ' days, with Put back.'];
             $h .= '<div class="ev-row" data-ev="' . $rid . '"><div class="ev-top"><a class="ev-t" href="/business/' . $id . '/events?edit=' . $rid . '">' . $e((string) $r['title']) . '</a>'
                 . '<small>' . $e(Events::KINDS[$r['kind']] ?? '') . ' · ' . $e(Events::when($r)) . ($r['ticket_item_id'] ? ' · tickets linked' : ' · free') . ($past ? ' · past' : '') . '</small></div>'
-                . '<p data-tv-status="' . $label[0] . '" data-tv-label="' . $e($label[1]) . '" style="margin:.3rem 0">' . $e($label[2]) . '</p>'
+                . '<p data-tv-status="' . $label[0] . '" data-tv-label="' . $e($label[1]) . '" data-tv-keep style="margin:.3rem 0">' . $e($label[2]) . '</p>'
                 . '<div class="ev-acts">';
             if ($canEdit) {
                 foreach ($moves as [$act, $word, $ask]) $h .= '<button type="button" class="ak-b' . ($act === 'publish' || $act === 'restore' ? ' go' : '') . '" data-ev-act="' . $act . '" data-id="' . $rid . '"' . ($ask !== '' ? ' data-ask="' . $e($ask) . '"' . ($act === 'delete' || $act === 'cancel' ? ' data-danger="1"' : '') : '') . '>' . $e($word) . '</button>';
@@ -71,8 +71,11 @@ function tv_biz_events(PDO $main, array $ctx, int $uid): string
             }
             $hist = Events::history($main, $rid);
             $h .= '<details class="ev-h"><summary class="ev-ic" title="History of ' . $e((string) $r['title']) . '" aria-label="History of ' . $e((string) $r['title']) . '">' . tv_icon('clock') . '</summary><ul>';
-            foreach ($hist as $x) $h .= '<li><time datetime="' . $e(str_replace(' ', 'T', (string) $x['at'])) . 'Z" data-tv-time data-tz="' . $e((string) $x['tz']) . '">' . $e((string) $x['at']) . ' UTC</time> · ' . $e((string) ($x['who'] ?: 'your team')) . ': '
-                . $e($x['field'] === 'created' ? 'added it' : ($x['field'] === 'status' ? 'moved it from ' . strtolower(Events::STATUSES[$x['old_value']] ?? (string) $x['old_value']) : 'changed ' . str_replace('_', ' ', (string) $x['field']) . ($x['old_value'] !== null && $x['old_value'] !== '' ? ' (was "' . mb_strimwidth((string) $x['old_value'], 0, 80, '…') . '")' : ''))) . '</li>';
+            foreach ($hist as $x) {   // the moment in the zone it was done in, labeled (CLAUDE.md "Times where they happened"); else the venue's
+                try { $hz = new DateTimeZone((string) ($x['tz'] ?: $r['zone'] ?: 'America/Phoenix')); } catch (Throwable) { $hz = new DateTimeZone('America/Phoenix'); }
+                $hd = (new DateTime((string) $x['at'], new DateTimeZone('UTC')))->setTimezone($hz);
+                $h .= '<li><time datetime="' . $e($hd->format('c')) . '">' . $e($hd->format('M j, g:i A T')) . '</time> · ' . $e((string) ($x['who'] ?: 'your team')) . ': '
+                . $e($x['field'] === 'created' ? 'added it' : ($x['field'] === 'status' ? 'moved it from ' . strtolower(Events::STATUSES[$x['old_value']] ?? (string) $x['old_value']) : 'changed ' . str_replace('_', ' ', (string) $x['field']) . ($x['old_value'] !== null && $x['old_value'] !== '' ? ' (was "' . mb_strimwidth((string) $x['old_value'], 0, 80, '…') . '")' : ''))) . '</li>'; }
             $h .= '</ul></details></div></div>';
         }
         $h .= '</div>';

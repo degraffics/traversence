@@ -24,7 +24,9 @@
 ## Tests
 `tools/event-tests/events.php <root>/app <migration>`: **42 of 42** on MariaDB.
 
+- `tools/event-tests/portal.cjs`: the portal section rendered at 1280 and 390, signed in as the business's owner on the design harness: **28 of 28**. Screens are in `screens/`.
+- **Harness note:** the harness's zip_coordinates lacks 85936, so Test Cafe's zone fell back to America/Denver. Live has the ZIP: Arizona reads America/Phoenix (the DB test checks AZ and NM).
+
 ## Still to do before send
-- The rendered check of the portal section at 1280 and 390.
 - The Design reviewer.
-- The zip check and claims.
+- The zip check and claims, on the newest live copy.
