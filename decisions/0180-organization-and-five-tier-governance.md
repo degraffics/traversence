@@ -332,3 +332,12 @@ Guardian (15) and the Editorial Director (12), who hold the veto; releases by th
 executives who disagree raise a deadlock to Tier 5 (§3). The checking executive's review runs as a separate, fresh agent
 given the change and its role's charter, never the first reviewer's conclusion, lean and inside §6's allowance, recorded
 on the ticket under its role.
+
+**Note (Jason, 2026-11-27): a deadlock goes to the CEO first** ("send it to you as a deadlock: you first, the t5 for
+me"; amends §3's "is an executive deadlock" and §4 item 7; recorded as Operations & Policy (16), under CLAUDE.md's "His
+stated direction is the ruling"). An executive deadlock goes to the CEO, who resolves it by the Prior Ruling Check, records
+the reasoning on the ticket and puts a daily-summary line under it (§3, so Jason can overturn it). It goes to Tier 5 only
+when the resolution needs a rule, ADR or fence change, or the CEO is a party to it. Conflict cited (every executive runs
+in the CEO's one session, so its ruling between them isn't independent). Solution, acted on: each side's case is written
+by its own fresh agent from that role's charter (as the CMO's check, the note above), and the CEO decides between the
+written cases, citing the ADR the decision rests on.
