@@ -126,6 +126,35 @@ urgent care before clinics in that need.
 - 0066: Pinetop–Lakeside borders the White Mountain Apache Tribe's land; every listing traced is a public facility or
   business off the nation's land; nothing held is named.
 
+### Counts per cause, from the public search (2026-11-27 ~21:30 UTC)
+
+Read as a visitor through `/api/search_listings.php` (`category=health-and-medical`, 8 mi around 85901, 85929, 85935,
+85936, 85938, 85925, 86025, 85937; de-duplicated by id). **852 health listings**: Show Low 440, Lakeside 137, Snowflake
+74, Pinetop 44, Holbrook 42, Springerville 41, Taylor 28, St. Johns 29 (spelled four ways: "Saint Johns" 25, "St. Johns"
+2, "St Johns" 1, "St John'S" 1), Eagar 17. None claimed. The search's own fields: a description on 65, a website on 28,
+hours on 4. So C1 and C2 have to be counted from the listing page or a live read, not from search.
+
+- **C3, kinds:** 17 records named as a hospital or medical center. **None is filed under Hospitals**: Doctors 9,
+  Clinics 2, Medical Centers 2, Health Services 2, Physician Assistants 1. Both of 1A's hospitals are affected: Summit
+  (#14779 Clinics; #6231, #7325, #7326, #7327, #7332 Doctors) and White Mountain Regional, Springerville (#7390 Doctors,
+  #6232 Physician Assistants). The "8 times" from the first pass is 6 Summit-named records plus 2 hospitalist groups at
+  its address (#8831, #9196). #7276 "Evans Army Church Hospital" at Summit's address is an NPI name that belongs to no
+  place there; trace it in the live read.
+- **C4, one address with many listings:** 72 addresses carry 3 or more health listings, 418 listings in all. The
+  largest: 2200 E Show Low Lake Rd (Summit) **59**, 4951 S White Mountain Rd Bldg A (Summit's urgent care and clinics) 26,
+  118 S Mountain Ave, Springerville (White Mountain Regional) 12, 2650 E Show Low Lake Rd 11, 2109 Navajo Blvd, Holbrook
+  11. Most of the 59 are C5's people, not departments, so C4's fix comes after C5's.
+- **C5, people as places:** **182** names in NPI's "Last, First" form with no business word, across all nine towns (Show
+  Low 113, Holbrook 17, Lakeside 15, Springerville 9, Snowflake 7, St. Johns 6, Taylor 6, Eagar 5, Pinetop 4). By kind:
+  Nurse Practitioners 68, Physician Assistants 23, Doctors 18, **Pharmacies 17**, Counselors 15, and others. There are
+  about 60 more in the "Last First Credential" form ("Iverson Alison NP"), so the total is about 240. The first pass's
+  123 covered three towns; this covers 1A. The exact figure, by NPI entity type (NPI-1), comes from the live read.
+- **C1, a shared website:** the search shows only 2 domains used at more than one address (summithealthcare.net 3,
+  communitybridgesinc.org 2). That is a floor, because only 28 listings show a website there.
+
+Next: the live read per id for C1, C2 and C5's NPI type; where the individuals entered (the load and its file:line);
+the top 50 by taps.
+
 ### Open: ADHS's licensed list (Summit Healthcare Urgent Care, Show Low)
 
 Not in NPI, not in our listings. The read of ADHS's AZ Care Check (`azcarecheck.azdhs.gov`, `www.azdhs.gov`) is refused by
