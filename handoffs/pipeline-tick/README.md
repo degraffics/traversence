@@ -25,7 +25,8 @@ and C.8. It needs the CEO's Tier 4 check first (the release pipeline, StagingPub
 | `app/scripts/releases_tick.php` | calls `BeforeAfter::tickLine()`; logs every run (Scheduler::run first), so "last ran" is true |
 | `website/api/releases-pull.php` | takes merged builds under `Releases::asPing` (releases.publish only, for that one call); never moves a verdict on |
 | `app/lib/Releases.php` | `asPing()`: the ping's grant, dropped in a finally (since #314 every ping was refused); a look in git that takes nothing records why (-1, GitHub's answer or the build's name) and logs it |
-| `app/lib/DocsRepo.php` (also) | `$inboxCode`: the inbox listing's last HTTP answer |
+| `app/lib/DocsRepo.php` (also) | `$inboxCode` and `$blobWhy`: what GitHub answered for the inbox and a build's file |
+| `app/admin/sections.php` (`tv_admin_mod_releases`, claimed) | the look line says what GitHub did: no answer, an HTTP answer for the inbox, or a build's file not fetched and why |
 | `app/ui/faq.md` | the before-and-after entry: the site picks up the verdict within 10 minutes; the 30-minute note |
 
 Option (a) (the CEO's Tier 4 and the session manager, 2026-11-27): beforeafter.yml doesn't ping the site; `BeforeAfter::step` clears a release's waiting only after its verdict is decided.

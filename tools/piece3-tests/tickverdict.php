@@ -103,18 +103,35 @@ BeforeAfter::$decideFn = null; BeforeAfter::$readFn = null;
 $tok0 = getenv('GITHUB_DOCS_TOKEN'); putenv('GITHUB_DOCS_TOKEN=test-token');
 $seenJob = fn () => json_decode((string) $pdo->query("SELECT v FROM site_release_settings WHERE k = 'git_seen_job'")->fetchColumn(), true);
 $inboxU = 'https://api.github.com/repos/degraffics/traversence/contents/releases/inbox?ref=main';
-DocsRepo::$fake = fn ($m, $u, $j) => str_starts_with($u, $inboxU) ? [503, ''] : [404, ''];
-Releases::fromGit($pdo, 0); $sj = $seenJob();
-$t('(e) the inbox listing not answering (503): looked, found -1, and why with GitHub\'s answer', ($sj['found'] ?? null) === -1 && ($sj['why'] ?? '') === 'the inbox listing: HTTP 503', $sj);
-$zsha = str_repeat('b', 40);
-DocsRepo::$fake = fn ($m, $u, $j) => str_starts_with($u, $inboxU) ? [200, json_encode([['type' => 'file', 'name' => 'tv-f.zip', 'sha' => $zsha, 'size' => 10]])] : [502, ''];
-$lines = Releases::fromGit($pdo, 0); $sj = $seenJob();
-$t('(e) a build\'s file that couldn\'t be fetched (502): its line, and the look says why, found -1', ($sj['found'] ?? null) === -1 && ($sj['why'] ?? '') === 'tv-f.zip\'s file' && (bool) preg_grep('/^tv-f\.zip: couldn\'t fetch it whole/', $lines), [$sj, $lines]);
+$cases = [
+  ['the inbox listing with no answer (a timeout: HTTP 0)', fn ($u) => str_starts_with($u, $inboxU) ? [0, ''] : [404, ''], ''],
+  ['the inbox listing answered 403', fn ($u) => str_starts_with($u, $inboxU) ? [403, '{"message":"rate limited"}'] : [404, ''], 'GitHub answered HTTP 403 for the inbox'],
+];
+foreach ($cases as [$name, $ans, $want]) {
+  DocsRepo::$fake = fn ($m, $u, $j) => $ans($u); Releases::fromGit($pdo, 0); $sj = $seenJob();
+  $t('(e) ' . $name . ': found -1, why ' . ($want === '' ? 'none (the page says "GitHub didn\'t answer")' : '"' . $want . '"'), ($sj['found'] ?? null) === -1 && ($sj['why'] ?? '') === $want, $sj);
+}
+$zsha = str_repeat('b', 40); $list = json_encode([['type' => 'file', 'name' => 'tv-f.zip', 'sha' => $zsha, 'size' => 10]]);
+$blobs = [
+  ['GitHub answered 404', [404, ''], 'a build\'s file couldn\'t be fetched: tv-f.zip, HTTP 404'],
+  ['no answer', [0, ''], 'a build\'s file couldn\'t be fetched: tv-f.zip, no answer'],
+  ['bytes that aren\'t the file in git', [200, json_encode(['encoding' => 'base64', 'content' => base64_encode('not it')])], 'a build\'s file couldn\'t be fetched: tv-f.zip, not the bytes in git'],
+];
+foreach ($blobs as [$name, $ba2, $want]) {
+  DocsRepo::$fake = fn ($m, $u, $j) => str_starts_with($u, $inboxU) ? [200, $list] : (str_contains($u, '/git/blobs/') ? $ba2 : [404, '']);
+  $lines = Releases::fromGit($pdo, 0); $sj = $seenJob();
+  $t('(e) a build\'s file, ' . $name . ': its line, found -1, why "' . $want . '"', ($sj['found'] ?? null) === -1 && ($sj['why'] ?? '') === $want && (bool) preg_grep('/^tv-f\.zip: couldn\'t fetch it whole/', $lines), [$sj, $lines]);
+}
+$k = array_values(array_filter(Releases::lastLooked($pdo), fn ($l) => $l[0] === 'the 10-minute job'));
+$t('(e) lastLooked carries the why to the Releases page', ($k[0][3] ?? '') === 'a build\'s file couldn\'t be fetched: tv-f.zip, not the bytes in git', $k);
 DocsRepo::$fake = fn ($m, $u, $j) => str_starts_with($u, $inboxU) ? [200, '[]'] : [404, ''];
 Releases::fromGit($pdo, 0); $sj = $seenJob();
 $t('(e) … and a look that answers clears it: found 0, no why', ($sj['found'] ?? null) === 0 && !isset($sj['why']), $sj);
 $k = array_values(array_filter(Releases::lastLooked($pdo), fn ($l) => $l[0] === 'the 10-minute job'));
-$t('(e) the Releases page\'s line reads it (lastLooked: the job, when, found)', ($k[0][2] ?? null) === 0 && ($k[0][1] ?? 0) > time() - 60, $k);
+$t('(e) the Releases page\'s line reads it (lastLooked: the job, when, found, why)', ($k[0][2] ?? null) === 0 && ($k[0][1] ?? 0) > time() - 60 && ($k[0][3] ?? 'x') === '', $k);
+// the words the page draws from it (admin/sections.php's look line), each case
+$sec = (string) file_get_contents($root . '/app/admin/sections.php');
+$t('(e) the Releases page says what GitHub did: its why, or "GitHub didn\'t answer" when it gave none', str_contains($sec, "(\$why !== '' ? \$e(\$why) : 'GitHub didn\\'t answer')") && str_contains($sec, '$why = (string) ($lk[3] ?? \'\');'), null);
 putenv($tok0 === false ? 'GITHUB_DOCS_TOKEN' : 'GITHUB_DOCS_TOKEN=' . $tok0); DocsRepo::$fake = null;
 // (f) every run of releases_tick is logged, so Scheduled tasks' "last ran" is when it ran, with nothing scheduled too
 $src = (string) file_get_contents($root . '/app/scripts/releases_tick.php');

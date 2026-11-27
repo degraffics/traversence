@@ -709,7 +709,7 @@ final class Releases
         };
         // a look that took nothing says why, never silently (2026-11-27: b2-backups-3 waited 55 minutes in the inbox, the job's
         // two runs silent): the Releases page's "looked … (GitHub didn't answer)" and the error log, with GitHub's answer
-        if ($list === null) { $why = 'the inbox listing: HTTP ' . (DocsRepo::$inboxCode ?: 'none'); error_log('releases from git (' . $seenKey . '): GitHub didn\'t answer, ' . $why); $seen(-1, $why); }
+        if ($list === null) { $why = DocsRepo::$inboxCode ? 'GitHub answered HTTP ' . DocsRepo::$inboxCode . ' for the inbox' : ''; error_log('releases from git (' . $seenKey . '): ' . ($why ?: 'GitHub didn\'t answer the inbox listing')); $seen(-1, $why); }
         else $seen(count($list), '');
         if ($list === null) return !$uid ? [] : (DocsRepo::canSave() ? ['GitHub didn\'t answer: try again in a minute (the site also looks every 10 minutes).'] : ['No GITHUB_DOCS_TOKEN in .env: builds can\'t come from git.']);   // the job stays quiet
         $out = [];
@@ -719,7 +719,7 @@ final class Releases
             $had = (int) $st->fetchColumn();
             if ($had) { DocsRepo::takeFromInbox($f['path'], $f['sha'], 'Release #' . $had . ': taken from the inbox (it was already in)'); $out[] = $f['name'] . ': already release #' . $had . '.'; continue; }
             $data = DocsRepo::blob($f['sha']);
-            if ($data === null) { $out[] = $f['name'] . ': couldn\'t fetch it whole from GitHub; tried again next time.'; error_log('releases from git (' . $seenKey . '): GitHub didn\'t answer, ' . $f['name'] . '\'s file'); $seen(-1, $f['name'] . '\'s file'); continue; }
+            if ($data === null) { $out[] = $f['name'] . ': couldn\'t fetch it whole from GitHub; tried again next time.'; $why = 'a build\'s file couldn\'t be fetched: ' . $f['name'] . ', ' . (DocsRepo::$blobWhy ?: 'no answer'); error_log('releases from git (' . $seenKey . '): ' . $why); $seen(-1, $why); continue; }
             $tmp = tempnam(sys_get_temp_dir(), 'tvrel');
             file_put_contents($tmp, $data);
             $id = 0;
@@ -938,7 +938,7 @@ final class Releases
             self::ensure($pdo);
             $names = ['git_seen_job' => 'the 10-minute job', 'git_seen_ping' => 'the ping from git', 'git_seen_hand' => 'Check for builds'];
             $st = $pdo->query("SELECT k, v FROM site_release_settings WHERE k IN ('git_seen_job', 'git_seen_ping', 'git_seen_hand')");
-            foreach ($st->fetchAll(PDO::FETCH_KEY_PAIR) as $k => $v) { $j = json_decode((string) $v, true) ?: []; $out[] = [$names[$k], (int) ($j['at'] ?? 0), (int) ($j['found'] ?? 0)]; }
+            foreach ($st->fetchAll(PDO::FETCH_KEY_PAIR) as $k => $v) { $j = json_decode((string) $v, true) ?: []; $out[] = [$names[$k], (int) ($j['at'] ?? 0), (int) ($j['found'] ?? 0), (string) ($j['why'] ?? '')]; }   // why: '' when GitHub didn't answer
         } catch (Throwable $x) {}
         usort($out, fn ($a, $b) => $b[1] <=> $a[1]);
         return $out;

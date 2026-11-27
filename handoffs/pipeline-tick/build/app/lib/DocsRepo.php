@@ -189,8 +189,10 @@ final class DocsRepo
     public const INBOX = 'releases/inbox';
 
     /** The zips waiting in releases/inbox on main: [['path', 'name', 'sha' (git's blob id), 'size']]. null: GitHub didn't answer. */
-    /** The inbox listing's last HTTP answer (0 when none was asked). */
+    /** The inbox listing's last HTTP answer (0: no answer, as a timeout or no connection). */
     public static int $inboxCode = 0;
+    /** Why the last blob() came back null: 'no answer', 'HTTP <code>', or 'not the bytes in git' ('' when it came back). */
+    public static string $blobWhy = '';
 
     public static function inbox(): ?array
     {
@@ -210,11 +212,12 @@ final class DocsRepo
     public static function blob(string $sha): ?string
     {
         if (!self::canSave() || !preg_match('/^[a-f0-9]{40}$/', $sha)) return null;
+        self::$blobWhy = '';
         [$code, $body] = self::http('GET', 'https://api.github.com/repos/' . self::REPO . '/git/blobs/' . $sha, null, true);
-        if ($code !== 200) return null;
+        if ($code !== 200) { self::$blobWhy = $code ? 'HTTP ' . $code : 'no answer'; return null; }
         $j = json_decode($body, true);
         $data = ($j['encoding'] ?? '') === 'base64' ? base64_decode(str_replace(["\n", "\r"], '', (string) ($j['content'] ?? '')), true) : null;
-        if (!is_string($data) || sha1('blob ' . strlen($data) . "\0" . $data) !== $sha) return null;   // exactly the bytes in git
+        if (!is_string($data) || sha1('blob ' . strlen($data) . "\0" . $data) !== $sha) { self::$blobWhy = 'not the bytes in git'; return null; }   // exactly the bytes in git
         return $data;
     }
 
