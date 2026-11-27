@@ -38,16 +38,25 @@ switches in `Staging::ON_AFTER_COPY`). The fixtures join it as `StagingSite::fix
 6. **Each fixture written once a refresh,** found by its name first (never a second copy), and said in the refresh log
    ("Fixtures: the test listing shown, 1 test item, 1 test group").
 
-## Open, before building (from the code, not invented)
+## Both ways the theater might sell (the session manager, 2026-11-27 20:12: (a), with the direct-pay check)
 
-- **Buy now needs more than a visible item:** `MarketBiz::buttonsFor` (:120) gives Buy only with a set price, live
-  checkout (`checkoutLive`, :107, `market_checkout.live`) and a plan that opens it ("Buy now (Core and up, through its
-  own gateway)", :18–19), and publish asks for the Seller Agreement (:253). The test listing is on Free. So the item
-  will show (the run moves past "no test business item") but stops at "no Buy now" until the test business has a
-  sandbox gateway (the launch plan's F.4, paths-staging.mjs:332). Whether the fixture also sets the test listing to
-  Core on staging is for the IT Manager (11) and the CFO (4) to say; the gateway's test keys stay F.4's.
-- **The walled catalog's columns** (listings database, `Scope`) are read from staging's copy at build time; the zip
-  check's R14 needs no new table (nothing new is made).
+**Read-only, Sync 19:50:** a Free or Basic listing **can** show Buy now with direct pay today. Buy is
+`'buy' => ['Buy now and Add to cart', 'manual_pay', …]` ("on every plan once its checkout is live (card from Core)",
+`MarketBiz.php:36`), and `manual_pay` opens on Free (`Plan.php:18`, "Manual payments (Zelle, bank transfer, check, pay
+on pickup)"). `allowed()` (MarketBiz.php:85–93) then needs only a live checkout (`checkoutLive`, :107); `setLive`
+(`MarketCheckout.php:200–210`) takes a direct way alone ("card (Core and up…) or a direct way like Zelle"), after the
+Seller Agreement and the INFORM Act details (:202–203). A direct-pay order goes to the business waiting for payment, the
+buyer told how to pay (:391–394). So the pilot theater on Free can sell its seats "paid the theater's way" (0134's note):
+**no pilot gap.**
+
+So the fixtures make **two test businesses**, both on staging only, each with one "TEST · Community night seats" item:
+- **The test listing on Core** (the session manager's (a)): card checkout through a sandbox gateway; its
+  `market_checkout` row live; the card step waits for F.4's sandbox keys.
+- **A second test listing on Free with direct pay:** "TEST · Direct-pay theater", its checkout live with one direct way
+  (pay at pickup), its Seller Agreement and INFORM details recorded as test; Buy now then places an order awaiting
+  payment, no money moving at all.
+Both rows carry `@stg_test`; guardReal and testHere stay in force; Tier 4: the IT Manager (11) and the CFO (4) for the
+checkout rows. The second listing is made by the fixture on staging only (never by TestAccounts on live).
 
 ## Tests (to build)
 
@@ -55,4 +64,5 @@ switches in `Staging::ON_AFTER_COPY`). The fixtures join it as `StagingSite::fix
 - writes only into staging's database; refuses when the target is live's or when run on staging;
 - the listing shown, one item, one group, each once; a second refresh re-applies them after a fresh copy;
 - the rows carry `@stg_test = 1` in the change record, and a Publish preview leaves them out;
-- the market browse query (`MarketBiz::browse`) finds the item on staging; live's copy has nothing new.
+- the market browse query (`MarketBiz::browse`) finds both items on staging; live's copy has nothing new;
+- `MarketBiz::buttonsFor` gives Buy on both: card-ready on Core, direct pay on Free; a direct-pay order is awaiting payment.
