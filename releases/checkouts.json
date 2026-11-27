@@ -233,6 +233,19 @@
    "expires": "2026-11-27T20:24:58Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/Notify.php",
+   "functions": [
+    "deliverPush"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
+   "why": "founder-link: the Founder's push and email words (founder.* only)",
+   "since": "2026-11-27T16:45:19Z",
+   "expires": "2026-11-27T20:45:19Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
