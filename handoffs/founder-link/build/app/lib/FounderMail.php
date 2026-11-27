@@ -222,12 +222,12 @@ final class FounderMail
               . '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" bgcolor="#FFFBF2" style="width:100%;max-width:560px;background:#FFFBF2;border:1px solid #CBB98D;border-radius:12px">'
               . '<tr><td bgcolor="#3E2B1F" style="padding:14px 28px;border-radius:12px 12px 0 0;font-family:Georgia,serif;font-size:20px;font-weight:700;color:#F7EFDC">Traversence</td></tr>'
               . '<tr><td style="padding:24px 28px 10px;' . $font . 'font-size:18px;font-weight:700;line-height:24px;color:#3E2B1F">' . $e($title) . '</td></tr>'
-              . ($from === 'ceo' ? '<tr><td style="padding:0 28px 10px;' . $font . 'font-size:13px;line-height:18px;color:#8A7355">From the CEO</td></tr>' : '')
+              . ($from === 'ceo' ? '<tr><td style="padding:0 28px 10px;' . $font . 'font-size:13px;line-height:18px;color:#5E4F3C">From the CEO</td></tr>' : '')
               . '<tr><td style="padding:0 28px 6px">' . self::htmlOf($body, $font, $link) . '</td></tr>'
               . '<tr><td style="padding:6px 28px 24px"><table role="presentation" cellpadding="0" cellspacing="0"><tr><td bgcolor="#92400E" style="border-radius:8px;padding:12px 26px">'
               . '<a href="' . $e($link) . '" style="display:inline-block;' . $font . 'font-size:16px;font-weight:700;color:#FFFBF2;text-decoration:none"><span style="color:#FFFBF2;text-decoration:none">' . $e($open) . '</span></a></td></tr></table></td></tr>'
-              . '<tr><td style="padding:12px 28px;border-top:1px solid #EADFC4;' . $font . 'font-size:12px;line-height:18px;color:#8A7355">' . $e(self::FOOTER) . ' '
-              . '<a href="' . self::CHOICES . '" style="color:#8A7355;text-decoration:underline">Change what reaches you</a></td></tr>'
+              . '<tr><td style="padding:12px 28px;border-top:1px solid #EADFC4;' . $font . 'font-size:12px;line-height:18px;color:#5E4F3C">' . $e(self::FOOTER) . ' '
+              . '<a href="' . self::CHOICES . '" style="color:#5E4F3C;text-decoration:underline">Change what reaches you</a></td></tr>'
               . '</table></td></tr></table>';
         return [$text, $html];
     }
