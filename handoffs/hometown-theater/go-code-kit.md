@@ -33,3 +33,11 @@ from the page's Link button").*
 
 **Logged for Q1, the IT lane (11):** short codes don't move to a business when it claims. Suggest a change to
 decisions/0094: a listing's page code passes to its owner at claim, with its scan counts. For Jason via the session manager.
+
+**The CMO's (7) addendum (2026-11-27, via the session manager):**
+- **Before anything is printed:** check each chosen restaurant's listing, and #8807, for duplicates (the identity check,
+  decisions/0164 §3.1). Resolve any duplicate first, or hold that listing out of every merge (W15 r2, the identity
+  queue) until after the pilot. A Share code has no owner and can't be re-pointed or switched off, so a printed code
+  must never point at a merged-away page.
+- **A Share code's scope:** it points at the listing page only. On the event page, a restaurant's card uses its own
+  code once the participants tool is live (0134's note, #1589).
