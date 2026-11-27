@@ -9,7 +9,7 @@ not as a hand-over (builder playbook §5).
 | # | Release | Source | State |
 |---|---|---|---|
 | 1 | **G.1 the search lock's leaks** (`search-lock.zip`) | 0181 §4 | Built on Sync 2026-11-27 01:35 UTC; zip check clean; sent to the session manager for its order OK and to the Design reviewer |
-| 2 | C.1 the device's place read as "outside" (`UniversalSearch.php` ~1036) | plan C.1; CLAUDE.md "Places in search", 0060 | Next |
+| 2 | **C.1 the device's place read as "outside"** (`device-place.zip`, build in `c1-device-place/`) | plan C.1; CLAUDE.md "Places in search", 0060 | Built on Sync 01:35 UTC, tested; waits for G.1 to go live, then rebuilt on the newest sync |
 | 3 | C.2 the path checker: sign-in selector (`paths.mjs`) and the staff two-step | plan C.2; 0145 | Queued |
 | 4 | C.3 new 0145 paths: each 1A town; the Shop, plan-buy, Marketplace-buy in the sandbox | 0181 §1.2; 0145 §2 | Queued |
 | 5+ | The rest of C and F in the plan's order | plan §4 C, F | Queued |
@@ -43,3 +43,18 @@ answers `all`, no header or meta is sent, and the sitemap lists its parts as bef
 `search-lock/screens/`: no sideways scroll, no script errors, pages unchanged but for the FAQ answer.
 
 Admin's test: nothing new to press. Jason sees the FAQ's answer say "Not yet"; a search engine sees noindex everywhere.
+
+## C.1: the device's place (device-place.zip)
+
+`UniversalSearch::loosePlace` (the place from Auto-detect, or a town or ZIP set with no area named) returned
+`'outside' => true` always. It now checks the place's ZIPs, or for a bare point the nearest town's
+(`Landmarks::nearestZip`), with `clusterForZips` (the check `placeNamed` and `countyNamed` already use) and, inside an
+area, returns the shape `placeFromScope` gives a town chosen in its area (`'sub' => 'Your place'`, the cluster's key,
+level, slug and url, `town`, `area`), with `'outside' => false`. Outside every area: unchanged. FAQ: one sentence added
+to "Does Auto-detect share where I am?".
+
+Tests: `tools/search-tests/device-place.php` 7/7 (Show Low by city, ZIP, an area ZIP (Pinetop), a bare point; Seattle
+and a point at sea stay outside; an unknown slug falls through). The whole `UniversalSearch::search` on the harness:
+before, "pizza" with Show Low set gave the place chip `out=true`; after, `out=false`; Seattle `out=true` both. The
+effect on the live notes ("did you mean", "We have no listings in …") is checked on live after it publishes, with the
+search probe.
