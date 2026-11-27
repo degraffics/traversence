@@ -54,12 +54,30 @@ hand-offs. The CEO's Decision Brief (Tier 5: roles and how the organization runs
 0180 §5. Every ticket should route to one of seven middle managers, but none exists outside a label.
 
 **2. The options.**
-- **A. Sessions hold lanes, not areas.** About three sessions at once (CLAUDE.md), so each takes a group of lanes, named by role:
-  - IT Manager (11), with the guards and the pipeline: today's Piece 2/3 session;
-  - Editorial Director and Marketing Director (12–13), with copy, design and SEO: Data & Content plus the design work;
-  - Customer Service, Accounting and Sales (9, 10, 14), with orders, billing and merchants: Frontend & Shop.
-
-  The session manager is formally the COO (3) and Project Manager (8). The CEO session holds the executive suite and does each Tier 4 review under the named executive. Specialists (15–32) are checklist steps the lane's session runs and records on the ticket under the role's name ("Simplicity Guardian: held, clutter in the filter row"). $0 new spend, inside today's usage; accountability becomes real now.
+- **A. Sessions hold lanes, not areas.** It changes only *who performs* each role. The roster, reporting lines and
+  active/standby stay exactly as 0180's appendix sets them (#1460), and standby stays the Founder's.
+  - **Lanes by R2's routes** (`TeamRoster::LANE_ROUTES`, held on `claude/r2-design`; 0180 §5 names the seven lanes but not
+    their scope). The ~three sessions (CLAUDE.md) each own a lane group as its manager:
+    - **The Piece 2/3 session owns the IT Manager's lane (11):** releases, staging, alarms, config, the crawler and sources,
+      migrations, and the data, address, nations and privacy territories.
+    - **Data & Content owns the Editorial Director (12) and Marketing Director (13) lanes:** places, listings, guides,
+      journeys, the FAQ and copy, design; SEO, taxonomy and campaigns. Its crawler, W-workflow and jurisdiction work is the
+      IT Manager's lane under R2's routes, so the IT Manager owns those tickets. Data & Content builds them as Build & QA (21).
+    - **Frontend & Shop owns the Customer Service (9), Accounting (10) and Sales (14) lanes:** orders, the cart and support;
+      billing and QuickBooks; the Marketplace, storefronts and claims. Its page builds are Build & QA (21).
+  - **Every build session is also Build & QA (21)**, reporting to the IT Manager, whichever lane owns the ticket.
+  - **The session manager is the COO (3) and Project Manager (8).**
+  - **The CEO session is the executive suite (2–7),** each Tier 4 recorded under the named executive (CFO for money, CTO for
+    data, and so on).
+  - **The Design reviewer stays a standing session** doing roles 15 and 27's approvals (fidelity, the simplicity veto)
+    across all lanes.
+  - **Specialists (16–20, 22–32)** are checklist steps the owning lane's session runs and records on the ticket under the role's
+    name ("Privacy & 0066 Guard: clear, no held names"); the code that already does some (22–25, A1–A12) stays.
+  - **What A amends** (named so a yes covers it, nothing changed by default):
+    - CLAUDE.md's "one session per area" becomes "one session per lane group";
+    - `handoffs/session-manager.md` names the session manager as COO (3) and PM (8);
+    - Tier 4 reviews are recorded under the named executive.
+  - $0 new spend, inside today's usage; accountability becomes real now.
 - **B. Roles as platform agents.** Each role a prompted Claude call in `TeamRunner`. Real judgement on the platform, but
   it spends Claude money. The $40 cap is at 84% this month and "No income, no expense" holds, so not before revenue.
 - **C. A now, B later.** A until revenue covers it. Then the specialists that are mostly rules (audit, gate, guards,
