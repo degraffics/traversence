@@ -403,8 +403,8 @@ const CORE = [
 // ---- the launch paths (decisions/0181 §1 gate 2) -----------------------------------------------------------------------
 // One per 1A town: eat, stay, see, read its guide, as a guest on a phone, 3 taps or fewer from the home page (the same
 // measure as "find a place to eat" and "read a town's guide"). The towns are read from regions.md's 1A micro-cluster
-// (the launch plan's C.3), never a list kept here; "Petrified Forest gateway" names no town, so it waits for one (a gap,
-// asked of the session manager). All of 1A is in Arizona (regions.md: The Ancient Borderlands & Painted Desert, 1A).
+// (the launch plan's C.3), never a list kept here; "Petrified Forest gateway" is Holbrook's (decisions/0042: Petrified
+// Forest is bound to Holbrook by hand, the first Extension Layer A override), so Holbrook's paths cover it. All of 1A is in Arizona (regions.md: The Ancient Borderlands & Painted Desert, 1A).
 // They read only, so they run on live, with their own time budget (PATHS_LAUNCH_S) so the guides keep theirs.
 const LAUNCH_ON = process.env.PATHS_LAUNCH !== '0';
 const LAUNCH_TOWNS = (() => {
@@ -660,7 +660,7 @@ if (waits.length) { L.push('', '### Waiting for staging', '', 'These change some
   for (const r of waits) { const d = [...CORE, ...LAUNCH].find(x => x.id === r.id); L.push(`| ${esc(r.title)} | ${r.who} | ${esc(d?.steps || '')} | ${d && d.run ? 'written' : 'to write once staging can be looked at'} |`); } }
 const launch = results.filter(r => r.kind === 'town');
 if (launch.length || LAUNCH_ON) {
-  L.push('', '## Launch paths: 1A\'s towns', '', `decisions/0181 §1 gate 2: one path per 1A town (${LAUNCH_TOWNS.join(', ') || 'none read from regions.md'}): eat, stay, see, read its guide, as a guest at 390px, 3 taps or fewer. "Petrified Forest gateway" names no town yet, so it has no path. The Shop, plan-buy and Marketplace-buy paths run on staging in the sandbox (above, with the paths that change something).`, '',
+  L.push('', '## Launch paths: 1A\'s towns', '', `decisions/0181 §1 gate 2: one path per 1A town (${LAUNCH_TOWNS.join(', ') || 'none read from regions.md'}): eat, stay, see, read its guide, as a guest at 390px, 3 taps or fewer. "Petrified Forest gateway" is Holbrook's (decisions/0042: Petrified Forest is bound to Holbrook), so Holbrook's paths cover it. The Shop, plan-buy and Marketplace-buy paths run on staging in the sandbox (above, with the paths that change something).`, '',
     '| Town | Eat | Stay | See | Guide | Last 7 runs (eat / stay / see / guide) |', '|---|---|---|---|---|---|');
   const cell = id => { const r = launch.find(x => x.id === id); if (!r) return '—'; const why = r.stuck || (r.problems || [])[0]?.what || ''; return r.status + (why && r.status !== 'passed' ? ': ' + esc(why).slice(0, 80) : ''); };
   const NEEDS = ['eat', 'stay', 'see', 'guide'];
