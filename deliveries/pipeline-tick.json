@@ -3,7 +3,7 @@
  "built_on": "eb848e8 Sync: 2026-11-27 12:50 UTC",
  "recorded": "2026-11-27 12:54 UTC",
  "note": "The release pipeline: tick and verdict, the ping taking builds (publish only), a silent look in git says why, releases_tick logs every run; Tier 4 review: CEO, 2026-11-27; Design: approved; built on Sync: 2026-11-27 12:50 UTC Sent through git (releases/inbox).",
- "status": "pending",
+ "status": "replaced",
  "live_in": "",
  "files": {
   "app/admin/sections.php": {
@@ -34,5 +34,6 @@
    "sha256": "cd41983ba4aa32512be0f30cd7123a791016ac16eb9184483673857663254011",
    "live": false
   }
- }
+ },
+ "replaced_by": "pipeline-tick-2.zip: withdrawn as Release #322 (the before-and-after check, 15:01 UTC 2026-11-27; a tab folded under More on /admin/people.php at 390, read as a tab by #1569); sent again unchanged on Sync: 2026-11-27 12:50 UTC"
 }
