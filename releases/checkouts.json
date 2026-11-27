@@ -202,6 +202,19 @@
    "expires": "2026-11-28T00:24:31Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/crawler/OpenLoads.php",
+   "functions": [
+    "area"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5jsi4U8fUwJYPkZsMx",
+   "why": "R-D1: the launch area's towns in load order",
+   "since": "2026-11-27T20:24:33Z",
+   "expires": "2026-11-28T00:24:33Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
