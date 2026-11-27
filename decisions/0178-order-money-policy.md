@@ -74,3 +74,13 @@ credited (and nothing made in QuickBooks) until he approves. Built in M2.
 2026-11-24 note, credit memos prepared on the order and waiting for Jason's Approve or Decline in Pulse; §2 cancel until
 the vendor accepts; §5 no keyed cards, the pay link to copy; the money note's ↗ / Cancel the record / Refund… on each
 payment. Not built: §6's credit terms (Net 15 / Net 30), M7 in the queue; Outstanding and Take a payment across orders, M3.
+
+**Note (the CFO (4), 2026-11-27, kept in Tier 4 by the Prior Ruling Check; recorded as Operations & Policy (16)): a
+refund the business made itself is recorded by the business.** A Marketplace refund made in the business's own Stripe or
+Square dashboard (app/business/checkout.php:133) never reached our order: 'refunded' is only displayed
+(market/order.php:34), never set, so a refunded ticket order stayed paid and its tickets still checked in at the door
+(`KindCheckout::checkIn` checks only for a paid order). The fix: the business's own **Mark refunded** on the order in the
+portal records the refund it already made (no money of ours moves) and voids that order's tickets, so check-in refuses
+them, with History kept. As a money record it takes **Cancel the record**, not Undo (CLAUDE.md "Edit or Undo": money never
+has Undo; a recorded, unprocessed entry has Cancel the record), which restores the paid state and the tickets.
+Gateway refund webhooks come later. A gate 5 ticket in the IT lane, after the writeOrder fix, with an independent check.
