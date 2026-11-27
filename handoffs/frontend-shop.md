@@ -39,7 +39,7 @@ Each behaviour and its source:
 Tested on the harness (MariaDB, the mirror with the zip laid over): each named page answers `X-Robots-Tag: noindex` and
 carries the meta; register.php redirects to `login.php?tab=create`, also noindex; a seeded storefront answers 200 with
 `noindex` (the plan check stubbed in the test copy only); the sitemap is empty; with the switch false, the storefront
-answers `all`, no header or meta is sent, and the sitemap lists its parts as before. Screens at 1280 and 390 in
+answers `all`, no header or meta is sent, and the sitemap lists its parts as before. Screens at 1280 and 390 (Tailwind built locally from the site's files, as its CDN is refused in the build sandbox) in
 `search-lock/screens/`: no sideways scroll, no script errors, pages unchanged but for the FAQ answer.
 
 Admin's test: nothing new to press. Jason sees the FAQ's answer say "Not yet"; a search engine sees noindex everywhere.
