@@ -142,3 +142,10 @@ day. This qualifies 0180's "R1–R5 ship as each passes" (note added there).
   - Its AI credits are capped to fit E1.
   - This is a named exception to the Core-only trials rule, for chambers only.
   - Members keep their own plans (Master AOS §6B, dual compliance).
+- **The selling order after the pilot zone** (Jason, 2026-11-27: "Yes"). Selling moves on, ring by ring, only after
+  the pilot zone clears its ladder:
+  1. **The Four Corners core:** 2A Mesa Verde and the San Juan Basin, and 11B Bluff and Blanding.
+  2. **The gateways:** 3A Santa Fe and Taos, 4A/4B Albuquerque, 7A/7B Flagstaff, the Grand Canyon and Page, 11A Moab,
+     and 12B/12C the High Plateaus.
+
+  The order is for selling only. Visitors see the whole 200-mile area from Jan 1.
