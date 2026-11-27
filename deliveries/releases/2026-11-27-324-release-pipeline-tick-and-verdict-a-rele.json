@@ -59,6 +59,16 @@
             "at": "2026-11-27T18:24:03+00:00",
             "by": 0,
             "msg": "Uploaded pipeline-tick-3.zip: 7 files."
+        },
+        {
+            "at": "2026-11-27T18:24:04+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/pipeline-tick-3.zip (git 2088e61b7a)."
+        },
+        {
+            "at": "2026-11-27T18:24:05+00:00",
+            "by": 0,
+            "msg": "Waiting for its before look: the advocates look at staging as it is, then it goes on staging (the before-and-after check)."
         }
     ]
 }
