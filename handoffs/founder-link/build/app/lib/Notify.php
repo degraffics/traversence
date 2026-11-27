@@ -86,7 +86,7 @@ final class Notify
         // batch, a Founder ruling (Tier 5) waiting, the session manager's messages. Email on, and not one that can be turned off.
         'founder.batch'    => ['Today\'s batch for your OK', 'The releases waiting for your approval today (decisions/0179 rule 1), with the link to approve them.', 'alert', 'staff', 'Team', true, false, 'system', ''],
         'founder.decision' => ['A Founder ruling for you (Tier 5)', 'A 4-part Decision Brief waiting for your ruling (decisions/0180): the decision, why it needs you, the options and the recommendation.', 'urgent', 'staff', 'Team', true, false, 'system', ''],
-        'founder.message'  => ['A message from the session manager', 'What the session manager needs you to know or answer, sent by the site.', 'alert', 'staff', 'Team', true, false, 'system', ''],
+        'founder.message'  => ['A message for the Founder', 'What the CEO or the team needs you to know or answer, sent by the site.', 'alert', 'staff', 'Team', true, false, 'system', ''],
         // staging's own news to whoever pressed (2026-11-26: "Staging is refreshed" had gone to a staff login's hidden address):
         // a fresh copy finished or stopped, a publish done or stopped (StagingSite::tellPerson)
         'staging.done'   => ['Staging: a copy or a publish finished', 'Staging was refreshed or published, or one of those stopped: what happened and where to see it.', 'notice', 'staff', 'Team', true, true, 'system', ''],
@@ -594,7 +594,7 @@ final class Notify
         // the Founder's emails name their links (Jason, 2026-11-27; FounderMail): an HTML part with each link as its name and
         // Open it as a button; the text part keeps each address after its name, for mail apps without HTML
         $html = '';
-        if (str_starts_with((string) $m['kind'], 'founder.')) { require_once __DIR__ . '/FounderMail.php'; [$text, $html] = FounderMail::emailParts((string) $m['title'], (string) $m['body'], $link, $text); }
+        if (str_starts_with((string) $m['kind'], 'founder.')) { require_once __DIR__ . '/FounderMail.php'; [$text, $html] = FounderMail::emailParts((string) $m['title'], (string) $m['body'], $link, $text, (string) $m['thing'], FounderMail::fromOf($pdo, (string) $m['thing'])); }
         try {
             require_once __DIR__ . '/Mailer.php';
             $flag = property_exists('Mailer', 'routed');   // Mailer logs its own sends; this message's route is written here instead

@@ -29,5 +29,10 @@ with contextlib.redirect_stderr(_e):
     m = g._messages(tmp({'messages': [{'id': 'a', 'subject': 's', 'link': 'https://github.com/degraffics/traversence/x.pdf'}, {'id': 'b', 'subject': 's', 'task': 41}, {'id': 'c', 'subject': 's'}, {'id': 'd', 'subject': 's', 'task': True}]}))
 t('messages carry link and task (notify-founder\'s Open it); a true task is no task', m[0].get('link', '').endswith('x.pdf') and m[1].get('task') == 41 and 'task' not in m[3], m)
 t('… neither: warned at write time, never refused', [x['id'] for x in m] == ['a', 'b', 'c', 'd'] and 'message c has neither' in _e.getvalue() and 'message d has neither' in _e.getvalue() and 'message a' not in _e.getvalue(), _e.getvalue())
+_e2 = io.StringIO()
+with contextlib.redirect_stderr(_e2):
+    m2 = g._messages(tmp({'messages': [{'id': 'f1', 'subject': 's', 'task': 1, 'from': 'ceo'}, {'id': 'f2', 'subject': 's', 'task': 1, 'from': 'someone'}, {'id': 'f3', 'subject': 's', 'task': 1, 'body': 'a\nb\nc\nd'}]}))
+t('from: ceo or session-manager carried, anything else left out', m2[0].get('from') == 'ceo' and 'from' not in m2[1], m2)
+t('… a body over 3 lines warned (the template is 2-3 short lines), never refused', 'message f3 runs 4 lines' in _e2.getvalue() and len(m2) == 3 and 'f1 runs' not in _e2.getvalue(), _e2.getvalue())
 t('gauges.json carries batch and answers', 'batch' in s and 'answers' in s and isinstance(s['answers'], list))
 print('\n%d passed, %d failed' % (ok, bad)); sys.exit(1 if bad else 0)

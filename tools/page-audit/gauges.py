@@ -220,7 +220,7 @@ def _batch(path=None):
 
 def _messages(path=None):
     """The session manager's messages for the Founder (releases/batch.json "messages"; notify-founder, Jason 2026-11-25): the
-    site emails each id once, to the Founder only (FounderMail). [{id, at, subject, body, link?, task?}], checked field by field."""
+    site emails each id once, to the Founder only (FounderMail). [{id, at, subject, body, link?, task?, from?}], checked field by field."""
     try:
         d = json.load(open(path or os.path.join(os.path.dirname(__file__), '..', '..', 'releases', 'batch.json')))
     except (OSError, ValueError):
@@ -236,6 +236,11 @@ def _messages(path=None):
                 o['link'] = link[:500]
             if isinstance(task, int) and not isinstance(task, bool) and task > 0:
                 o['task'] = task
+            if m.get('from') in ('ceo', 'session-manager'):
+                o['from'] = m['from']   # "From the CEO" under the title for the CEO's (the 0172 note, 2026-11-27)
+            lines = [x for x in o['body'].split('\n') if x.strip()]
+            if len(lines) > 3 or len(o['body']) > 400:
+                print('warning: message %s runs %d lines (%d characters): the Founder\'s template is 2-3 short lines' % (o['id'], len(lines), len(o['body'])), file=sys.stderr)
             if 'link' not in o and 'task' not in o:
                 print('warning: message %s has neither "link" nor "task": its email will open the Work queue' % o['id'], file=sys.stderr)
             out.append(o)

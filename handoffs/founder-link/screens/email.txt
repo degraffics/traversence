@@ -1,13 +1,11 @@
 Traversence Core against Wix and Squarespace
+From the CEO
 
 What each costs and what it gives a small business in our area.
 
-The comparison is ready: https://github.com/degraffics/traversence/blob/main/research/compare/compare.pdf
-It's two pages.
+The comparison is ready. It's two pages.
 
-Nothing needs your press today. The launch report follows at 8 PM.
-
-Open it on the Work queue: https://traversence.com/admin/config/control?tab=development#wq-212
+Open the comparison: https://github.com/degraffics/traversence/blob/main/research/compare/compare.pdf
 
 -- 
 You get this email because you're the Founder. Change what reaches you: https://traversence.com/admin/dashboard/comms

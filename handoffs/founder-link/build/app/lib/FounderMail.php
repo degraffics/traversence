@@ -57,7 +57,7 @@ final class FounderMail
         $lines = (array) $b['lines'];
         $body = ($b['date'] === gmdate('Y-m-d') ? "Today's batch: " : 'The batch of ' . date('M j', (int) strtotime($b['date'])) . ': ') . count($lines) . ' release' . (count($lines) === 1 ? '' : 's') . " waiting for your OK.\n\n";
         foreach ($lines as $l) $body .= '- ' . $l['release'] . ': ' . $l['what'] . ($l['why'] !== '' ? "\n  Why: " . $l['why'] : '') . ($l['checks'] !== '' ? "\n  Checks on staging: " . $l['checks'] : '') . ($l['way_back'] !== '' ? "\n  Way back: " . $l['way_back'] : '') . "\n";
-        $body .= "\nApprove it on the Work queue: " . self::DEV . "\nOr reply to this email.";
+        $body .= "\nOr reply to this email.";   // the button opens the batch (one link, the Founder's template; 0172 note)
         return self::once($pdo, 'batch:' . $b['date'], 'founder.batch', ['thread' => 'batch:' . $b['date'], 'url' => '/admin/config/control?tab=development'],
             ['title' => ($b['date'] === gmdate('Y-m-d') ? "Today's batch (" : 'The batch (') . date('M j', (int) strtotime($b['date'])) . '): ' . count($lines) . ' release' . (count($lines) === 1 ? '' : 's') . ' for your OK', 'body' => $body])
             ? 'Emailed the Founder the batch of ' . $b['date'] . '.' : '';
@@ -75,7 +75,7 @@ final class FounderMail
             . "\n\nOption B: " . $f('b_text') . "\n  For: " . $f('b_pros') . "\n  Against: " . $f('b_cons')
             . ($f('recommend') !== '' ? "\n\nRecommended: Option " . strtoupper($f('recommend')) : '')
             . ($f('delay_impact') !== '' ? "\n\nIf it waits: " . $f('delay_impact') : '') . ($f('cost') !== '' ? "\nCost: " . $f('cost') : '')
-            . "\n\nAnswer on its page: " . self::DEV . '#wq-' . $id . "\nOr reply to this email with A, B or your own words.";
+            . "\n\nOr reply to this email with A, B or your own words.";   // the button opens its page
         return self::once($pdo, 'decision:' . $id, 'founder.decision', ['thread' => 'task:' . $id, 'url' => '/admin/config/control?tab=development#wq-' . $id],
             ['title' => 'Founder ruling for you: ' . mb_substr((string) $t['what'], 0, 150), 'body' => $body]) ? 'Emailed the Founder task #' . $id . '\'s decision.' : '';
     }
@@ -117,6 +117,7 @@ final class FounderMail
             [$all, $pos] = $x[0];
             if (($x[1][1] ?? -1) >= 0) { $name = trim($x[1][0]); $url = $x[2][0]; }
             else { $all = rtrim($all, '.,;:!?'); $url = $all; $name = self::nameOf($url); }
+            $own = ($x[1][1] ?? -1) >= 0 ? $name : '';   // the name the words gave it, before a phrase takes over
             $before = $pos > $at ? substr($body, $at, $pos - $at) : '';
             // a phrase before a link ("Approve it on the Work queue: …", "The comparison is ready: […](…)") is the link itself,
             // so a line says one thing and calls once (the Design reviewer, 2026-11-27)
@@ -124,7 +125,7 @@ final class FounderMail
                 $name = trim($ph[2][0]); $before = substr($before, 0, $ph[2][1]);
             }
             if ($before !== '') $out[] = ['t', $before];
-            $out[] = ['l', $name, self::linkOf($url)];
+            $out[] = ['l', $name, self::linkOf($url), $own];
             $at = $pos + strlen($all);
         }
         if ($at < strlen($body)) $out[] = ['t', substr($body, $at)];
@@ -142,13 +143,14 @@ final class FounderMail
     }
 
     /** The text part: each of our links as "its name: its address" (mail apps without HTML need the address). */
-    public static function textOf(string $body): string
+    public static function textOf(string $body, string $except = ''): string
     {
         $t = ''; $after = false;   // after an address, its line ends there: a mail app would take a full stop into the link
         foreach (self::pieces($body) as $p) {
             if ($p[0] === 't') { $x = $p[1]; if ($after && preg_match('/^[.,;:!?]+[ \t]*/', $x, $q) === 1) { $x = substr($x, strlen($q[0])); $x = ($x !== '' && $x[0] !== "\n" ? "\n" : '') . $x; } $t .= $x; $after = false; continue; }
-            $t .= $p[2] !== '' ? $p[1] . ': ' . (str_starts_with($p[2], '/') ? 'https://traversence.com' . $p[2] : $p[2]) : $p[1];
-            $after = $p[2] !== '';
+            $to = $p[2] !== '' && !self::same($p[2], $except);   // the button's own place: words only, the button carries it
+            $t .= $to ? $p[1] . ': ' . (str_starts_with($p[2], '/') ? 'https://traversence.com' . $p[2] : $p[2]) : $p[1];
+            $after = $to;
         }
         return $t;
     }
@@ -190,13 +192,13 @@ final class FounderMail
     }
 
     /** The body in HTML: paragraphs, our links by their names, `code` as code. */
-    public static function htmlOf(string $body, string $font = ''): string
+    public static function htmlOf(string $body, string $font = '', string $except = ''): string
     {
         $e = fn ($s) => htmlspecialchars((string) $s, ENT_QUOTES);
         $h = '';
         foreach (self::pieces($body) as $p) {
             if ($p[0] === 't') { $h .= (string) preg_replace('/`([^`\n]*)`/u', '<code>$1</code>', $e($p[1])); continue; }
-            $h .= $p[2] !== '' ? '<a href="' . $e(str_starts_with($p[2], '/') ? 'https://traversence.com' . $p[2] : $p[2]) . '" style="color:#92400E;text-decoration:underline">' . $e($p[1]) . '</a>' : $e($p[1]);
+            $h .= $p[2] !== '' && !self::same($p[2], $except) ? '<a href="' . $e(str_starts_with($p[2], '/') ? 'https://traversence.com' . $p[2] : $p[2]) . '" style="color:#92400E;text-decoration:underline">' . $e($p[1]) . '</a>' : $e($p[1]);
         }
         $out = '';
         foreach (preg_split('/\n{2,}/', trim($h)) as $para) if (trim($para) !== '') $out .= '<p style="margin:0 0 12px;' . $font . 'font-size:15px;line-height:22px;color:#3E2B1F">' . nl2br($para, false) . '</p>';
@@ -208,11 +210,11 @@ final class FounderMail
     public const FOOTER = 'You get this email because you\'re the Founder.';
     public const CHOICES = 'https://traversence.com/admin/dashboard/comms';
 
-    public static function emailParts(string $title, string $body, string $link, string $text = ''): array
+    public static function emailParts(string $title, string $body, string $link, string $text = '', string $thing = '', string $from = ''): array
     {
         $body = self::untitled($body, $title);
-        $open = self::openLabel($link);
-        $text = trim($title) . "\n\n" . (trim($body) !== '' ? trim(self::textOf($body)) . "\n\n" : '') . $open . ': ' . $link . "\n\n"
+        $open = $thing !== '' ? self::buttonOf($thing, $link, $body) : self::openLabel($link);
+        $text = trim($title) . "\n" . ($from === 'ceo' ? "From the CEO\n" : '') . "\n" . (trim($body) !== '' ? trim(self::textOf($body, $link)) . "\n\n" : '') . $open . ': ' . $link . "\n\n"
               . "-- \n" . self::FOOTER . ' Change what reaches you: ' . self::CHOICES . "\nTraversence";
         $e = fn ($s) => htmlspecialchars((string) $s, ENT_QUOTES);
         $font = 'font-family:Segoe UI,Roboto,Helvetica,Arial,sans-serif;';
@@ -220,7 +222,8 @@ final class FounderMail
               . '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" bgcolor="#FFFBF2" style="width:100%;max-width:560px;background:#FFFBF2;border:1px solid #CBB98D;border-radius:12px">'
               . '<tr><td bgcolor="#3E2B1F" style="padding:14px 28px;border-radius:12px 12px 0 0;font-family:Georgia,serif;font-size:20px;font-weight:700;color:#F7EFDC">Traversence</td></tr>'
               . '<tr><td style="padding:24px 28px 10px;' . $font . 'font-size:18px;font-weight:700;line-height:24px;color:#3E2B1F">' . $e($title) . '</td></tr>'
-              . '<tr><td style="padding:0 28px 6px">' . self::htmlOf($body, $font) . '</td></tr>'
+              . ($from === 'ceo' ? '<tr><td style="padding:0 28px 10px;' . $font . 'font-size:13px;line-height:18px;color:#8A7355">From the CEO</td></tr>' : '')
+              . '<tr><td style="padding:0 28px 6px">' . self::htmlOf($body, $font, $link) . '</td></tr>'
               . '<tr><td style="padding:6px 28px 24px"><table role="presentation" cellpadding="0" cellspacing="0"><tr><td bgcolor="#92400E" style="border-radius:8px;padding:12px 26px">'
               . '<a href="' . $e($link) . '" style="display:inline-block;' . $font . 'font-size:16px;font-weight:700;color:#FFFBF2;text-decoration:none"><span style="color:#FFFBF2;text-decoration:none">' . $e($open) . '</span></a></td></tr></table></td></tr>'
               . '<tr><td style="padding:12px 28px;border-top:1px solid #EADFC4;' . $font . 'font-size:12px;line-height:18px;color:#8A7355">' . $e(self::FOOTER) . ' '
@@ -235,11 +238,41 @@ final class FounderMail
         $e = fn ($s) => htmlspecialchars((string) $s, ENT_QUOTES);
         $html = '';
         foreach (preg_split('/\n{2,}/', trim(self::untitled((string) $m['body'], (string) ($m['title'] ?? '')))) as $para) if (trim($para) !== '') {
-            $h = ''; foreach (self::pieces($para) as $p) $h .= $p[0] === 't' ? (string) preg_replace('/`([^`\n]*)`/u', '<code>$1</code>', $e($p[1])) : ($p[2] !== '' ? '<a href="' . $e($p[2]) . '">' . $e($p[1]) . '</a>' : $e($p[1]));
+            $h = ''; foreach (self::pieces($para) as $p) $h .= $p[0] === 't' ? (string) preg_replace('/`([^`\n]*)`/u', '<code>$1</code>', $e($p[1])) : ($p[2] !== '' && !self::same($p[2], (string) ($m['url'] ?? '')) ? '<a href="' . $e($p[2]) . '">' . $e($p[1]) . '</a>' : $e($p[1]));
             $html .= '<p>' . nl2br($h, false) . '</p>';
         }
-        if ((string) ($m['url'] ?? '') !== '') $html .= '<p class="tv-msg-acts"><a class="tv-btn" href="' . $e($m['url']) . '">' . $e(self::openLabel((string) $m['url'])) . '</a></p>';
+        if ((string) ($m['url'] ?? '') !== '') $html .= '<p class="tv-msg-acts"><a class="tv-btn" href="' . $e($m['url']) . '">' . $e(self::buttonOf((string) ($m['thing'] ?? ''), (string) $m['url'], (string) $m['body'])) . '</a></p>';
         return ['html' => $html, 'state' => ''];
+    }
+
+    /** Who a message is from, by its thing ("message:<id>"): "ceo" when batch.json's message says so, else '' (the 0172
+     *  note, 2026-11-27: "From the CEO" under the title for the CEO's messages only). */
+    public static function fromOf(PDO $pdo, string $thing): string
+    {
+        if (!str_starts_with($thing, 'message:')) return '';
+        try {
+            require_once __DIR__ . '/ControlGauges.php';
+            foreach ((array) (ControlGauges::config($pdo, true)['messages'] ?? []) as $m)
+                if (is_array($m) && 'message:' . ($m['id'] ?? '') === $thing) return ($m['from'] ?? '') === 'ceo' ? 'ceo' : '';
+        } catch (Throwable $x) {}
+        return '';
+    }
+
+    /** Whether a link in the words goes where the button goes (one link to a place: the button). */
+    public static function same(string $a, string $b): bool
+    {
+        $f = fn ($u) => str_starts_with($u, '/') ? 'https://traversence.com' . $u : $u;
+        return $a !== '' && $f($a) === $f($b);
+    }
+
+    /** The one button, named for what it opens (the Founder's template, the 0172 note; Design, 2026-11-27): today's batch,
+     *  the decision, or the message's own link by its name in the words, else by where it goes. */
+    public static function buttonOf(string $thing, string $link, string $body = ''): string
+    {
+        if (str_starts_with($thing, 'batch:')) return substr($thing, 6) === gmdate('Y-m-d') ? 'Open today\'s batch' : 'Open the batch';
+        if (str_starts_with($thing, 'decision:')) return 'Open the decision';
+        foreach (self::pieces($body) as $p) if ($p[0] === 'l' && $p[2] !== '' && self::same($p[2], $link) && ($p[3] ?? '') !== '') return 'Open ' . lcfirst((string) preg_replace('/^Open\s+/i', '', $p[3]));
+        return self::openLabel($link);
     }
 
     /** The session manager's messages (gauges.json's "messages"), each id once. */

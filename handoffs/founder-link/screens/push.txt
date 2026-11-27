@@ -1,2 +1,3 @@
 Title: Traversence Core against Wix and Squarespace
 Body: What each costs and what it gives a small business in our area.
+Opens: https://github.com/degraffics/traversence/blob/main/research/compare/compare.pdf
