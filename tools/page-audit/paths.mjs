@@ -80,14 +80,14 @@ class Walk {
     return r;
   }
   /** A tap, as a visitor makes it: counted, and checked for a visible result (a new page, a change on this one, a notice). */
-  async tap(loc, label, { wait = 4000, nav = false } = {}) {
+  async tap(loc, label, { wait = 4000, nav = false, click = 8000 } = {}) {   // click: how long a slow form post may take (Duplicate)
     const el = typeof loc === 'string' ? this.page.locator(loc).first() : loc;
     if (!(await el.count().catch(() => 0)) || !(await el.isVisible().catch(() => false))) { this.stuck = this.stuck || `couldn't find "${label}" to tap on ${this.here()}`; await this.shot('stuck'); return false; }
     this.taps++; this.inTap = 0;
     const before = await this.page.evaluate(() => (window.__tv ? window.__tv.mut : 0)).catch(() => 0);
     const url = this.page.url();
     const t = Date.now();
-    await el.click({ timeout: 8000 }).catch(e => this.add('dead_end', 'J01', this.here(), `"${label}" couldn't be tapped: ${String(e).slice(0, 80)}`));
+    await el.click({ timeout: click }).catch(e => this.add('dead_end', 'J01', this.here(), `"${label}" couldn't be tapped: ${String(e).slice(0, 80)}`));
     if (nav) await this.page.waitForLoadState('load', { timeout: 30000 }).catch(() => {});
     await this.page.waitForTimeout(Math.min(wait, 1500));
     let changed = this.page.url() !== url;
