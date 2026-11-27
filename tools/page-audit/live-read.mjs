@@ -29,6 +29,10 @@ const PAGES = { orders: () => ['/admin/backoffice/orders'], order: () => (/^\d{1
   // the jobs (the Control Board session, 2026-11-24, queue item 7): Scheduled tasks, each job's last run and next due
   jobs: () => ['/admin/config/scheduler?panel=1'],   // drawn on its own (the router doesn't fold it into the board's tab then)
   board: () => ['/admin/config/control', '/admin/config/control/wf-W1', '/admin/config/alarms'],
+  // the register and the workflows (the Data & Content session, 2026-11-27, at the CEO's ask: D.1 across 0181's area):
+  // Modules (Service register), each service's stage, caps and paces; the Workflows page and each workflow's own page
+  register: () => ['/admin/config/register'],
+  workflows: () => ['/admin/config/workflows', ...Array.from({ length: 16 }, (_, i) => `/admin/config/control/wf-W${i}`)],
   // rows: a table's newest rows matching a search, through the admin's data API (read-only; operational tables such as
   // job_runs only: never a table of people's details; the Control Board session, 2026-11-24, for the audit clock's runs)
   // the search may instead be up to 8 row ids ("35237,35160"): each row whole (action=row)
