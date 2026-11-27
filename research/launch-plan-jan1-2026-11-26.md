@@ -533,3 +533,77 @@ decided strategy is organic in any case).
    Jason, or someone he names.
 4. **The ring order in 9.2.** It's a suggestion; the ladder itself is decided.
 5. **Tribal enterprises:** 9.2's rule (public businesses only; no outreach to a nation as a segment, 0066).
+
+## 10. Native-made vs regional authenticity: the content plan (CMO and Editorial lanes)
+
+Jason, 2026-11-27: "for the federal Indian Arts and Crafts Act. This is very important and under educated, our content
+strategy should plan to highlight how to navigate this while creating relationships with native makers as well as
+education for how to be authentic sellers of regional goods. NATIVE MADE VS REGIONAL AUTHENTICITY."
+
+**Rests on:**
+- the Marketplace's four sections (Jason, 2026-11-27; a 0135 note);
+- 0066 and its 2026-11-27 rulings (Q6: no outreach to a nation as a segment; Q7: tell the story, never the way in);
+- 0164: tell the story; the licence decides the use; a person reads what's written about nations;
+- 0058 §26: nations' visitor rules from the nation's own site.
+
+**The law is explained from its official source,** the Indian Arts and Crafts Board (U.S. Department of the
+Interior), linked, never paraphrased into legal advice. Every figure (penalties, definitions) is quoted from the Board's
+own pages and checked before it's published.
+
+### 10.1 The rule on our side, built into the product
+
+- **Our label says only "made in <region>"**, earned by data: the business's home is in the area (Single Home Rule) and
+  the item is one of 0141's kinds made or grown there.
+- **"Native-made" is never our label.** It's the seller's own statement, under the Act and the seller's responsibility.
+  - When a seller chooses it, the item form shows a short notice on what the Act requires, with the Board's link and an
+    attestation box.
+  - The item then reads "The seller states: Native-made (Indian Arts and Crafts Act)".
+  - We never check, store or ask for anyone's tribal enrollment (privacy).
+  - A report of a false claim goes to the Board's complaint process, linked, and to our own report flow (0133
+    takedowns).
+- **Timing:** the label rule ships with Experiences & Regional Goods; the item form's notice and attestation come in Q1
+  with Trade.
+
+### 10.2 The content
+
+1. **For buyers: "Buying Native-made art and crafts: what the law means for you."** What "Native-made" means under
+   the Act; how to buy with confidence (ask the artist, ask for tribal affiliation as the Act defines it, read the
+   Board's guidance); how to report misrepresentation. Linked from every item that carries the seller's statement.
+2. **For sellers: "Selling regional goods honestly: Native-made vs made in the region."** What a seller may and may
+   not claim, why "Southwest style" or "Native-inspired" can still mislead, and how Traversence's "made in <region>"
+   label is earned.
+3. **"What 'made in <region>' means on Traversence":** the standard, how it's earned, why it can't be bought.
+4. **Maker stories, with consent only:** Native and non-Native makers who choose to be featured, in their own words,
+   through the multipliers (trading posts, galleries, co-ops, museums and cultural centres). Each story is told by the
+   maker, approved by them before it goes live, and withdrawn at their word.
+   - Under 0066 these are relationships with **individual makers and their businesses**, never outreach to a nation as
+     a segment, and nothing nation-specific is shown without the nation's say.
+5. **FAQ entries:** "Does Traversence verify Native-made claims?" (No: it's the seller's statement under the Act;
+   here's the Board), "What does 'made in <region>' mean?", "How do I report a false claim?" (0057).
+
+### 10.3 Relationships with Native makers
+
+- **Through the pilot's multipliers:** trading posts, galleries, artist co-ops, museums and cultural centres in the
+  Ancient Borderlands zone. The Founder makes first contact in person (0181).
+- **What we offer a maker:**
+  - a free listing;
+  - a Core trial;
+  - their story, in their words, with their approval;
+  - GO Codes for their booth or shop;
+  - 0% on their sales.
+- **Never:** speaking for a maker, using a nation's name or symbols to sell, or featuring a maker's work without
+  consent.
+
+### 10.4 Order and cost
+
+- **Before Jan 1:** 1, 2, 3 and the FAQ entries. That's three guides inside the AI cap (E1), each read by the
+  Editorial lane against the Board's text before publishing.
+- **From January:** maker stories, as makers agree. The item form's notice in Q1.
+- **Cost:** within E1, $0 extra.
+
+### 10.5 What's open
+
+- **Who reviews the law-facing guides:** the Editorial lane is set. An attorney's read is advised, not required, in
+  line with R8's ruling. Jason's call if he wants one for this topic.
+- **The Board's site** (doi.gov/iacb) must be reachable from where the guides are written, to quote its text. Check it
+  before the build.
