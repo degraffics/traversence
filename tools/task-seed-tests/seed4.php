@@ -23,7 +23,7 @@ $goals = $pdo->query("SELECT * FROM control_gauge_tasks WHERE gauge = 'area:goal
 $t('10 goals, each a parent with an owner, a measure and a due date', count($goals) === 10 && !array_filter($goals, fn ($g) => $g['owner'] === '' || !str_contains((string) $g['done_when'], 'Measure:') || !str_contains((string) $g['done_when'], 'Due:') || $g['parent_id'] !== null));
 $t('every goal has its decision attached', (int) $pdo->query("SELECT COUNT(DISTINCT g.id) FROM control_gauge_tasks g JOIN control_gauge_task_adrs a ON a.task_id = g.id WHERE g.gauge = 'area:goals'")->fetchColumn() === 10);
 $kids = $pdo->query("SELECT c.*, p.gauge pg FROM control_gauge_tasks c LEFT JOIN control_gauge_tasks p ON p.id = c.parent_id WHERE c.id > 61 AND c.gauge <> 'area:goals'")->fetchAll(PDO::FETCH_ASSOC);
-$t('every new child links to a goal', count($kids) === 58 && !array_filter($kids, fn ($k) => $k['pg'] !== 'area:goals'));
+$t('every new child links to a goal', count($kids) === 60 && !array_filter($kids, fn ($k) => $k['pg'] !== 'area:goals'));
 $t('every new task cites its source', (int) $pdo->query("SELECT COUNT(*) FROM control_gauge_tasks WHERE id > 61 AND source = ''")->fetchColumn() === 0);
 $ids = $pdo->query('SELECT id FROM control_gauge_tasks WHERE id > 61 ORDER BY id')->fetchAll(PDO::FETCH_COLUMN);
 $t('ids named: 62 onward, contiguous (MAX(id)+1)', $ids === range(62, 61 + count($ids)));
@@ -36,5 +36,5 @@ $t('work tickets start at Planning', (int) $pdo->query("SELECT COUNT(*) FROM con
 $t('the goal fields: due_on and measure on every goal, none on children', (int) $pdo->query("SELECT COUNT(*) FROM control_gauge_tasks WHERE gauge = 'area:goals' AND due_on IS NOT NULL AND measure <> ''")->fetchColumn() === 10 && (int) $pdo->query("SELECT COUNT(*) FROM control_gauge_tasks WHERE gauge <> 'area:goals' AND due_on IS NOT NULL")->fetchColumn() === 0);
 $t('records goal due Nov 30', $pdo->query("SELECT due_on FROM control_gauge_tasks WHERE item LIKE 'Goals and records%'")->fetchColumn() === '2026-11-30');
 $q = GaugeTasks::queue($pdo);
-$t('the queue reads them', count($q) >= 129);
+$t('the queue reads them', count($q) >= 131);
 echo "\n$ok passed, $bad failed\n"; exit($bad ? 1 : 0);

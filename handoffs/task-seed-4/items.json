@@ -44,7 +44,7 @@
    "measure": "paths.mjs core paths green as guest and member at 390px, 5 runs in a row",
    "what": "Launch gate 1: every core path passes as guest and member at 390px, 5 runs in a row",
    "owner": "IT Manager (11)",
-   "why": "0181 \u00a71 gate 1: \"Ready\" is measured, never judged",
+   "why": "0181 \u00a71 gate 1: \"Ready\" is measured, never judged Owner suggested (inferred from 0180's appendix), for the Founder's yes.",
    "source": "decisions/0181 \u00a71 \u00b7 site-audit/paths.md \u00b7 research/launch-plan-jan1-2026-11-26.md \u00a74 C",
    "goal": "Search, explore, read, act, sign up, sign in, claim, edit, post and message pass on live",
    "done": "Measure: paths.mjs green 5 runs in a row. Due: all six green 5 runs in a row by Mon Dec 21, 2026; code freeze Dec 22; go/no-go Thu Dec 31, 2026 (0181 \u00a71, launch plan \u00a75)",
@@ -158,7 +158,7 @@
    "measure": "Every 1A town built; each guide passed 0164's checks and a person's read; no wrong \"no listings\" note",
    "what": "Launch gate 3: 1A's towns built, each with a guide that passed 0164's checks and a person's read",
    "owner": "Editorial Director (12)",
-   "why": "0181 \u00a71 gate 3: data. Directory accuracy and guides are Front-End Content Writers' (26) duties (0180 appendix)",
+   "why": "0181 \u00a71 gate 3: data. Directory accuracy and guides are Front-End Content Writers' (26) duties (0180 appendix) Owner suggested (inferred from 0180's appendix), for the Founder's yes.",
    "source": "decisions/0181 \u00a71 and notes (E1, C7, W15) \u00b7 research/launch-plan-jan1-2026-11-26.md \u00a74 D, E",
    "goal": "Every 1A town has listings, a guide passed and read, and no \"no listings\" note where we have listings",
    "done": "Measure: the scorecard for 1A green. Due: all six green 5 runs in a row by Mon Dec 21, 2026; code freeze Dec 22; go/no-go Thu Dec 31, 2026 (0181 \u00a71, launch plan \u00a75)",
@@ -169,6 +169,29 @@
    ],
    "priority": 1,
    "children": [
+    {
+     "what": "Winslow: the wrong \"We have no listings in \u2026\" note above its stay (17) and see (1) results",
+     "why": "Gate 3: no \"no listings\" note where we have listings. Paths run 09:51 UTC 2026-11-27 (rule J02)",
+     "source": "site-audit/results/paths.json (1a:winslow:stay, 1a:winslow:see) \u00b7 research/launch-plan-jan1-2026-11-26.md \u00a74 C.9",
+     "done": "Both Winslow paths pass with no such note",
+     "adrs": [
+      "0181",
+      "0145"
+     ],
+     "priority": 1
+    },
+    {
+     "what": "Winslow: a guide (searching \"Winslow, AZ\" offers none)",
+     "why": "Gate 3: each 1A town with a guide. Paths run 09:51 UTC 2026-11-27: a dead end",
+     "source": "site-audit/results/paths.json (1a:winslow:guide)",
+     "done": "The Winslow guide path passes",
+     "adrs": [
+      "0181",
+      "0131",
+      "0164"
+     ],
+     "priority": 1
+    },
     {
      "what": "Build the 341 towns within 200 miles of Four Corners, 1A first, from free sources (D.1)",
      "why": "Brief B1 and E1: Overture and our OpenStreetMap copy, then NPI, Google's check on 1A only, paced",
@@ -297,7 +320,7 @@
    ],
    "what": "Launch gate 4: access closed, nightly backups with one restore drill, scheduled jobs on time for 7 days",
    "owner": "IT Manager (11)",
-   "why": "0181 \u00a71 gate 4: safety. The access hole is closed (live as #314)",
+   "why": "0181 \u00a71 gate 4: safety. The access hole is closed (live as #314) Owner suggested (inferred from 0180's appendix), for the Founder's yes.",
    "source": "decisions/0181 \u00a71 \u00b7 research/launch-plan-jan1-2026-11-26.md \u00a74 B",
    "goal": "Backups nightly with a restore drilled, and every scheduled job on time 7 days running",
    "done": "Measure: 7 days of jobs on time and one restore done. Due: all six green 5 runs in a row by Mon Dec 21, 2026; code freeze Dec 22; go/no-go Thu Dec 31, 2026 (0181 \u00a71, launch plan \u00a75)",
@@ -349,7 +372,7 @@
    ],
    "what": "Launch gate 5: the payments checklist passed in the sandbox, and one real $4.95 purchase and refund by Jason",
    "owner": "Accounting Manager (10)",
-   "why": "0181 \u00a71 gate 5. Real money moves only by the Founder's press (0180 \u00a74.1)",
+   "why": "0181 \u00a71 gate 5. Real money moves only by the Founder's press (0180 \u00a74.1) Owner suggested (inferred from 0180's appendix), for the Founder's yes.",
    "source": "decisions/0181 \u00a71 \u00b7 research/launch-plan-jan1-2026-11-26.md \u00a74 F",
    "goal": "Paying works end to end, proved in the sandbox and once for real by Jason",
    "done": "Measure: the checklist green and Jason's purchase and refund done. Due: all six green 5 runs in a row by Mon Dec 21, 2026; code freeze Dec 22; go/no-go Thu Dec 31, 2026 (0181 \u00a71, launch plan \u00a75)",
@@ -407,7 +430,7 @@
    "measure": "Per-page noindex holds on live; the lock lifted on Jason's date",
    "what": "Launch gate 6: per-page noindex holds on live, then the lock lifts on Jason's date",
    "owner": "Marketing Director (13)",
-   "why": "0181 \u00a71 gate 6 and \u00a74, the search lock (SEO, Taxonomy & Funnel Analysts, 30, in this lane)",
+   "why": "0181 \u00a71 gate 6 and \u00a74, the search lock (SEO, Taxonomy & Funnel Analysts, 30, in this lane) Owner suggested (inferred from 0180's appendix), for the Founder's yes.",
    "source": "decisions/0181 \u00a71, \u00a74 \u00b7 research/launch-plan-jan1-2026-11-26.md \u00a74 G",
    "goal": "Only what should be indexed is, from the day the lock lifts",
    "done": "Measure: a guide indexable and a trial listing not, on live. Due: all six green 5 runs in a row by Mon Dec 21, 2026; code freeze Dec 22; go/no-go Thu Dec 31, 2026 (0181 \u00a71, launch plan \u00a75)",
@@ -718,9 +741,9 @@
    "measure": "4a: 10 Core trials paid (by ~Apr 2027); 4b: ~73 paying, ~$69,800 a year (by ~Oct 2027)",
    "what": "The pilot's success ladder: 4a 10 Core trials convert by ~Apr 2027, 4b ~73 paying (~$69,800 a year) by ~Oct 2027",
    "owner": "Chief Marketing Officer (7)",
-   "why": "Jason, 2026-11-27: \"Yes\" to the CEO's proposal (launch plan \u00a79). The pilot is the Ancient Borderlands zone (1A, 1B, 1C)",
+   "why": "Jason, 2026-11-27: \"Yes\" to the CEO's proposal (launch plan \u00a79). The pilot is the Ancient Borderlands zone (1A, 1B, 1C) Owner suggested (inferred from 0180's appendix), for the Founder's yes.",
    "source": "decisions/0181 notes (ladder, pilot, multipliers) \u00b7 research/launch-plan-jan1-2026-11-26.md \u00a79",
-   "goal": "Not a gate: logged, built after Jan 1 unless it blocks one (CLAUDE.md #1553). The pilot zone clears its ladder; stretch 100 paying by Dec 31, 2027",
+   "goal": "Revenue: 4a/4b (CLAUDE.md #1554). The pilot zone clears its ladder; stretch 100 paying by Dec 31, 2027",
    "done": "Measure: 4a by ~Apr 2027, 4b by ~Oct 2027, reported weekly (counts only). Due: 4a Apr 30, 2027 \u00b7 4b Oct 31, 2027",
    "adrs": [
     "0181",
@@ -817,7 +840,7 @@
    "owner": "Project Manager (8)",
    "why": "Jason, 2026-11-27: \"Yes, the transition plan\". Tier 3, the PM's lane",
    "source": "handoffs/decided-not-live.md (the transition plan) \u00b7 handoffs/work-queue-phase2.md",
-   "goal": "Not a gate: built only where it blocks one before Jan 1 (CLAUDE.md #1553). The Work queue holds every goal, ticket and ruling; sessions start from it",
+   "goal": "Revenue: the team scales claims toward the ladder (CLAUDE.md #1554). The Work queue holds every goal, ticket and ruling; sessions start from it",
    "done": "Measure: a parallel week, then cutover with nothing living only in a session. Due: Tue Dec 15, 2026",
    "adrs": [
     "0180",
