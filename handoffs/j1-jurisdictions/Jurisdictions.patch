@@ -1,0 +1,151 @@
+--- /home/user/traverse-3way-sync/sync-app/lib/Jurisdictions.php	2026-11-27 01:51:09.659093156 +0000
++++ build/app/lib/Jurisdictions.php	2026-11-27 04:23:46.299608952 +0000
+@@ -1,8 +1,9 @@
+ <?php
+ // app/lib/Jurisdictions.php — the jurisdiction register (decisions/0133): the law of the place, layered federal, then the
+ // state or territory, then the tribal nation whose land it is. Each record lists its laws and their effect on what we
+-// may show, who reviewed it and the attorney's sign-off. Where a layer is missing or not reviewed, the strictest known
+-// rule applies: a protected place's story is held back entirely until it is reviewed. A nation's rule outranks ours on
++// may show, and who reviewed it: the team reviews each record against its laws, and an attorney's review is advised, not
++// required (Jason, 2026-11-27, 0164 R8's note). Where a layer is missing or not reviewed, the strictest known rule still
++// applies: a protected place's story is held back entirely until it is reviewed. A nation's rule outranks ours on
+ // its land, and a nation that hasn't published its rules is treated as restricting what it hasn't made public.
+ // Read by the heritage catalog (tiers) and the source register; the protected tiers (decisions/0133 item 11) build on it.
+ declare(strict_types=1);
+@@ -32,7 +33,11 @@
+         'WA' => 'Washington', 'WV' => 'West Virginia', 'WI' => 'Wisconsin', 'WY' => 'Wyoming',
+         'PR' => 'Puerto Rico', 'GU' => 'Guam', 'VI' => 'U.S. Virgin Islands', 'MP' => 'Northern Mariana Islands', 'AS' => 'American Samoa'];
+     public const TERRITORIES = ['PR', 'GU', 'VI', 'MP', 'AS'];
+-    /** Regions open before the register (decisions/0048: Arizona and New Mexico first): open while their records are reviewed. */
++    /**
++     * Regions open before the register (decisions/0048: Arizona and New Mexico first): kept open while their records are
++     * drafts, so they never go dark; once a record is reviewed, the record rules (0164 R8's note, 2026-11-27). Retired by a
++     * later release once US, US-AZ and US-NM are reviewed on live.
++     */
+     public const OPENED = ['AZ', 'NM'];
+ 
+     public static function ready(PDO $pdo): bool
+@@ -80,19 +85,20 @@
+      * The tier a piece of heritage gets here (decisions/0133 protected-information standard): 'public', 'story' (the story
+      * may be told, never the way in: no point, no directions) or 'restricted' (kept, never shown). $sensitive: it is about
+      * an archaeological, sacred, burial or ceremonial place. On a nation's land a sensitive item stays restricted until the
+-     * nation says; elsewhere it is 'story' once every layer is reviewed, and restricted until then (the strictest rule).
++     * nation says; elsewhere it is 'story', also while its state's record is still under the team's review (Jason,
++     * 2026-11-27, ruling Q8 "Show"; 0164 R8/P5-3 note): the strictest known rule applies, so never the way in.
+      */
+     public static function tier(PDO $pdo, bool $sensitive, string $state, ?int $nationId = null): string
+     {
+         if (!$sensitive) return 'public';
+         if ($nationId) return 'restricted';
+-        return self::forPlace($pdo, $state)['reviewed'] ? 'story' : 'restricted';
++        return 'story';
+     }
+ 
+     /**
+-     * Is the region open (decisions/0133: a region opens only after its records are reviewed)? A state or territory opens
+-     * when its record and the federal baseline are both reviewed; the ones open before the register (OPENED) stay open
+-     * while theirs are. A place with no state yet is in a region we opened (our hubs and regions are only made there).
++     * Is the region open (0164 R8, its 2026-11-27 note: a region opens on its team-reviewed jurisdiction record)? A state or
++     * territory opens when its record and the federal baseline are both reviewed; the ones open before the register (OPENED)
++     * stay open while theirs are drafts. A place with no state yet is in a region we opened (our hubs and regions are only made there).
+      * Closed: guides there don't go live (by themselves or by a person), and the crawler doesn't gather history there.
+      */
+     public static function regionOpen(PDO $pdo, string $state): bool
+@@ -109,7 +115,7 @@
+     {
+         if (self::regionOpen($pdo, $state)) return '';
+         $name = self::STATES[strtoupper(trim($state))] ?? $state;
+-        return $name . ' isn\'t open yet: its laws are reviewed with an attorney first (System Configuration → Jurisdictions).';
++        return $name . ' isn\'t open yet: its jurisdiction record is reviewed by the team first (System Configuration → Jurisdictions).';
+     }
+ 
+     /** Does the law of the place limit reading or copying websites there (a 'scraping' law, federal or the state's)? */
+@@ -162,20 +168,81 @@
+         self::reopen($pdo, (string) $code);
+     }
+ 
+-    /** A person marks the record reviewed; a state or territory also needs the attorney's sign-off (name and date). */
+-    public static function review(PDO $pdo, string $code, int $uid, string $attorney = '', string $date = ''): void
++    /**
++     * The team marks the record reviewed against its laws (0164 R8's note, 2026-11-27: "An attorney's review is advised, not
++     * required to open a region"). $as: a team role's name when a role did the review (decisions/0180 §5, e.g. "Privacy &
++     * Decision 0066 Guards (25)"), else the person ($uid). $attorney and $date: an attorney's review, when there was one.
++     */
++    public static function review(PDO $pdo, string $code, int $uid, string $attorney = '', string $date = '', string $as = ''): void
+     {
+         $j = self::get($pdo, $code) ?? throw new InvalidArgumentException('Open the record first.');
+         if (!$j['laws'] && $j['level'] !== 'nation') throw new InvalidArgumentException('Add its laws first.');
+-        $attorney = trim($attorney);
+-        if (in_array($j['level'], ['state', 'territory', 'federal'], true) && $attorney === '' && trim((string) $j['signed_by']) === '') throw new InvalidArgumentException('A state\'s or territory\'s record needs the attorney\'s sign-off: their name and the date.');
++        $attorney = trim($attorney); $as = mb_substr(trim($as), 0, 160);
++        if ($uid <= 0 && $as === '') throw new InvalidArgumentException('Who reviewed it? A person signed in, or a team role.');
++        $unread = array_filter($j['laws'], [self::class, 'unread']);
++        if ($unread) throw new InvalidArgumentException(count($unread) . ' of its laws ' . (count($unread) === 1 ? 'isn\'t' : 'aren\'t') . ' read against the official text yet (' . implode(', ', array_map(fn ($l) => (string) $l['name'], $unread)) . '). Read each one and press Mark read beside it, with its official link, then review.');
+         $d = $date !== '' ? date('Y-m-d', strtotime($date) ?: time()) : date('Y-m-d');
+-        $pdo->prepare("UPDATE jurisdictions SET status = 'reviewed', reviewed_by = ?, reviewed_at = NOW(), signed_by = IF(? <> '', ?, signed_by), signed_at = IF(? <> '', ?, signed_at) WHERE code = ?")
+-            ->execute([$uid, $attorney, mb_substr($attorney, 0, 160), $attorney, $d, $code]);
++        $pdo->prepare("UPDATE jurisdictions SET status = 'reviewed', reviewed_by = ?, reviewed_as = ?, reviewed_at = NOW(), signed_by = IF(? <> '', ?, signed_by), signed_at = IF(? <> '', ?, signed_at) WHERE code = ?")
++            ->execute([$uid > 0 ? $uid : null, $as, $attorney, mb_substr($attorney, 0, 160), $attorney, $d, $code]);
++        require_once __DIR__ . '/ControlLog.php';
++        ControlLog::add($pdo, 'control', 'jur:' . $code, (string) $j['name'] . '\'s jurisdiction record marked reviewed' . ($attorney !== '' ? ' (attorney: ' . $attorney . ')' : ''), $as !== '' ? $as : self::personName($pdo, $uid));
++    }
++
++    /** A law found by search and not yet read against its official text (the session manager's reading rule, J1, 2026-11-27). */
++    public const UNREAD = 'not yet read against its official text';
++    public static function unread(array $l): bool
++    {
++        return stripos((string) ($l['requires_us'] ?? ''), self::UNREAD) !== false;
++    }
++
++    /**
++     * A law read against its official text: its link becomes the official one and the "not yet read" words come off. The
++     * record goes back to draft (a changed record is reviewed again); logged with who read it (a person, or a team role).
++     */
++    public static function readLaw(PDO $pdo, int $id, string $url, int $uid, string $as = ''): void
++    {
++        $st = $pdo->prepare('SELECT * FROM jurisdiction_laws WHERE id = ?'); $st->execute([$id]);
++        $l = $st->fetch(PDO::FETCH_ASSOC) ?: throw new InvalidArgumentException('That law isn\'t on the record.');
++        if (!self::unread($l)) throw new InvalidArgumentException('It\'s already read against its official text.');
++        $url = trim($url); $as = mb_substr(trim($as), 0, 160);
++        if (!preg_match('#^https?://\S+$#i', $url)) throw new InvalidArgumentException('Add the link to its official text (the legislature\'s or the code\'s own page).');
++        if ($uid <= 0 && $as === '') throw new InvalidArgumentException('Who read it? A person signed in, or a team role.');
++        $req = trim((string) preg_replace('/\s*Found by search,\s*' . preg_quote(self::UNREAD, '/') . '\.?/i', '', (string) $l['requires_us']));
++        $pdo->prepare('UPDATE jurisdiction_laws SET url = ?, requires_us = ? WHERE id = ?')->execute([mb_substr($url, 0, 500), mb_substr($req, 0, 500), $id]);
++        self::reopen($pdo, (string) $l['code']);
++        require_once __DIR__ . '/ControlLog.php';
++        ControlLog::add($pdo, 'control', 'jur:' . $l['code'], (string) $l['name'] . ' read against its official text', $as !== '' ? $as : self::personName($pdo, $uid), 'was ' . ($l['url'] !== '' ? $l['url'] : 'no link'));
++    }
++
++    /** Undo a review: the record goes back to draft as if it was never reviewed (the strictest rule applies again). */
++    public static function undoReview(PDO $pdo, string $code, int $uid, string $who = ''): void
++    {
++        $j = self::get($pdo, $code) ?? throw new InvalidArgumentException('That record isn\'t open.');
++        if ($j['status'] !== 'reviewed') throw new InvalidArgumentException('It isn\'t reviewed, so there\'s nothing to undo.');
++        $pdo->prepare("UPDATE jurisdictions SET status = 'draft', reviewed_by = NULL, reviewed_as = '', reviewed_at = NULL WHERE code = ?")->execute([$code]);
++        require_once __DIR__ . '/ControlLog.php';
++        ControlLog::add($pdo, 'control', 'jur:' . $code, (string) $j['name'] . '\'s review undone: back to draft, the strictest rule applies', $who !== '' ? $who : self::personName($pdo, $uid), 'was reviewed by ' . self::reviewer($pdo, $j));
++    }
++
++    /** Who reviewed a record, in words: the team role, else the person; '' when it isn't reviewed. */
++    public static function reviewer(PDO $pdo, array $j): string
++    {
++        if (($j['status'] ?? '') !== 'reviewed') return '';
++        // in words, said once (the Design reviewer, 2026-11-27): no role number, no second date
++        $as = trim((string) preg_replace(['/\s*\(\d{1,3}\)/', '/,?\s*\d{4}-\d{2}-\d{2}\b/'], '', (string) ($j['reviewed_as'] ?? '')), " ,");
++        if ($as !== '') return $as;
++        return self::personName($pdo, (int) ($j['reviewed_by'] ?? 0)) ?: 'the team';
++    }
++
++    private static function personName(PDO $pdo, int $uid): string
++    {
++        if ($uid <= 0) return '';
++        try { $st = $pdo->prepare("SELECT COALESCE(NULLIF(display_name, ''), email) FROM users WHERE id = ?"); $st->execute([$uid]); $n = (string) $st->fetchColumn(); if ($n !== '') return $n; } catch (Throwable) {}
++        return 'Staff #' . $uid;
+     }
+ 
+     private static function reopen(PDO $pdo, string $code): void
+     {
+-        $pdo->prepare("UPDATE jurisdictions SET status = 'draft' WHERE code = ?")->execute([$code]);
++        $pdo->prepare("UPDATE jurisdictions SET status = 'draft', reviewed_as = '' WHERE code = ?")->execute([$code]);
+     }
+ }

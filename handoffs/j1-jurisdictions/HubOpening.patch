@@ -1,0 +1,40 @@
+--- /home/user/traverse-3way-sync/sync-app/lib/HubOpening.php	2026-11-27 01:51:09.655093156 +0000
++++ build/app/lib/HubOpening.php	2026-11-27 04:18:46.827101166 +0000
+@@ -2,7 +2,7 @@
+ // app/lib/HubOpening.php — Opening a hub and W14, authority sources staged ahead of every hub (decisions/0164 R17, §7.1;
+ // 0163 §8 stage 10, §10's hub line; H1–H5):
+ //   - a hub's stage on its readiness meter (Planned → Seeding → Opening budget → Soft open → Open), moved by a director;
+-//     marking a hub Planned starts W14 for its state (H1), and a state's first hub stays Planned until its R8 record is signed
++//     marking a hub Planned starts W14 for its state (H1), and a state's first hub stays Planned until its R8 record is reviewed by the team (R8's note, 2026-11-27)
+ //   - W14's staged sources (`authority_sources`): each state's licence and registry sources, status staged and switched
+ //     off, with their real use (bulk data, lookup only, blocked, claim-time check: Run 2), their terms and their reader's
+ //     test. Government pages, or a vendor page one links to, its link kept as provenance (H2). Arizona's and New
+@@ -73,7 +73,7 @@
+         $h = self::hubs($pdo)[$hub] ?? null;
+         if (!$h) throw new InvalidArgumentException('That hub isn\'t here.');
+         $state = strtoupper($state ?: $h['state']);
+-        if ($stage !== 'planned' && !self::lawSigned($pdo, $state) && !self::anyOpen($pdo, $state)) throw new InvalidArgumentException('A state\'s first hub stays Planned until its jurisdiction record (R8) is signed.');
++        if ($stage !== 'planned' && !self::lawSigned($pdo, $state) && !self::anyOpen($pdo, $state)) throw new InvalidArgumentException('A state\'s first hub stays Planned until its jurisdiction record (R8) is reviewed by the team (System Configuration → Jurisdictions).');
+         $pdo->prepare('INSERT INTO hub_stages (hub_id, stage, state, set_by, set_at) VALUES (?, ?, ?, ?, UTC_TIMESTAMP()) ON DUPLICATE KEY UPDATE stage = VALUES(stage), state = VALUES(state), set_by = VALUES(set_by), set_at = VALUES(set_at)')
+             ->execute([$hub, $stage, $state ?: null, $uid ?: null]);
+         return $h['name'] . ': ' . self::STAGES[$stage] . ($stage === 'planned' ? '. W14 stages ' . $state . '\'s authority sources (while W14 is on).' : '.');
+@@ -85,9 +85,18 @@
+             ->execute([$hub, max(0, round($usd, 2)), $uid ?: null]);
+     }
+ 
++    /**
++     * Is the state's jurisdiction record reviewed (0164 R17; R8's note of 2026-11-27: a region opens on its team-reviewed
++     * record, an attorney's review advised, not required)? The state's record and the federal one, as regionOpen reads them.
++     * (Before 2026-11-27 this compared the bare state with codes stored as 'US-AZ', so it never matched.)
++     */
+     private static function lawSigned(PDO $pdo, string $state): bool
+     {
+-        try { $st = $pdo->prepare("SELECT COUNT(*) FROM jurisdictions WHERE UPPER(code) = ? AND signed_at IS NOT NULL"); $st->execute([$state]); return (int) $st->fetchColumn() > 0; } catch (Throwable) { return false; }
++        try {
++            require_once __DIR__ . '/Jurisdictions.php';
++            $us = Jurisdictions::get($pdo, 'US'); $st = Jurisdictions::get($pdo, 'US-' . strtoupper(trim($state)));
++            return $us && $st && $us['status'] === 'reviewed' && $st['status'] === 'reviewed';
++        } catch (Throwable) { return false; }
+     }
+ 
+     private static function anyOpen(PDO $pdo, string $state): bool
