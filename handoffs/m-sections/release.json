@@ -1,0 +1,14 @@
+{
+ "title": "Marketplace: four sections (Shops, Experiences & Regional Goods, Trade coming, Aftermarket) and the \"Made in\" label",
+ "why": "decisions/0135's note (Jason, 2026-11-27: the Marketplace's four sections; for Jan 1 all four named, Shops and the Aftermarket live, Experiences & Regional Goods shows what qualifies, Trade marked coming; our own label says only \"made in <region>\"), and the CEO's rulings of the same date recorded on 0135 (PR #1527): services out of Regional until Q1's guided flag; a business's home is any geo hub, by the item's geo_hub_id; the label is the geo hub's name; Native-made is the FAQ only for Jan 1; Regional and its label hold only event tickets, bookings and reservations, harvest and perishables, and made to order, physical goods joining with Q1's \"made here\" tick so our label is never untrue on a resale item. Tier 4 review: CEO, 2026-11-27, Prior Ruling Check yes (0135's note, 0007, 0141). Built on what's live: /market/ already merged people's posts and businesses' items with a From filter (market/index.php); a section sets that source (Shops = businesses, Aftermarket = people), Regional adds MarketBiz::REGIONAL_KINDS and the item's existing geo_hub_id, never bought or ranked (0007). Browse all (no section) stays the landing, so every link to /market/ and the paths' runners open as before. Trade shows what it will be and a way to the Shops, no grid. No data change, no migration, no money or checkout path touched, no outside calls, no cost.",
+ "changes": [
+  {"what": "The Marketplace: tabs for Browse all and the four sections, each with its one-line meaning; the grid's heading names the section", "where": "https://traversence.com/market/"},
+  {"what": "Experiences & Regional Goods: tickets, stays, harvest and made to order from businesses at home in one of our areas", "where": "https://traversence.com/market/?section=regional"},
+  {"what": "Trade: what it will be, coming in early 2027, with a way to the Shops", "where": "https://traversence.com/market/?section=trade"},
+  {"what": "An item in Experiences & Regional Goods shows \"Made in <its area>\", opening the section", "where": "https://traversence.com/market/item.php"},
+  {"what": "The Marketplace menu lists the four sections", "where": "https://traversence.com/market/"},
+  {"what": "FAQ: What are the Marketplace's four sections?, What does the \"Made in\" label on an item mean?, What is Trade on the Marketplace?; What is the Marketplace? names the sections", "where": "https://traversence.com/faq.php#what-are-the-marketplace-s-four-sections"}
+ ],
+ "proposals": [],
+ "switch": ""
+}
