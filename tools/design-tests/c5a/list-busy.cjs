@@ -1,0 +1,10 @@
+const { chromium } = require('playwright'); const fs=require('fs'); const TW=fs.readFileSync(process.env.TW_INJECT,'utf8'); let ok=0,bad=0; const t=(n,c)=>{c?ok++:bad++; console.log((c?'PASS ':'FAIL ')+n);};
+(async () => { const b = await chromium.launch(); const c = await b.newContext({viewport:{width:390,height:844},userAgent:'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36'}); await c.route(/cdn\.tailwindcss\.com/, r => r.fulfill({ contentType: 'application/javascript', body: TW }));
+let hold = true; await c.route(/search_listings/, async r => { while (hold) await new Promise(x => setTimeout(x, 100)); r.continue(); });
+const p = await c.newPage(); await p.goto('http://127.0.0.1:8790/directory/?town=Show%20Low', {waitUntil:'load'}); await p.waitForTimeout(300);
+t('loading: the list is aria-busy, Loading… a polite status', await p.locator('#dr-list[aria-busy=true] .dr-sum[role=status][aria-live=polite]').count() === 1);
+hold = false; await p.waitForTimeout(1500);
+t('loaded: no longer busy, the cards in', await p.locator('#dr-list[aria-busy]').count() === 0 && await p.locator('#dr-list [id^=dr-it-]').count() > 0);
+await p.goto('http://127.0.0.1:8790/directory/', {waitUntil:'load'}); await p.waitForTimeout(500);
+t('no place: never busy', await p.locator('#dr-list[aria-busy]').count() === 0);
+console.log(ok+' passed, '+bad+' failed'); await b.close(); })();

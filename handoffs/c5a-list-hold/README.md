@@ -32,3 +32,5 @@ Two causes, separated by loading the styles before the first paint (`DELAY=-1`, 
 ## Recommendation for the session manager
 Unpark the built stylesheet (Jason's "Yes to the stylesheet", its plan in `handoffs/frontend-shop.md`): it's the one fix
 for cause (1), measured here at 0.25–0.65 on the sign-in page every guest is sent to.
+
+Design: approved (3769606). Its note done: the list is `aria-busy` while loading and "Loading…" a polite status (`tools/design-tests/c5a/list-busy.cjs`, 3/3); shift unchanged.

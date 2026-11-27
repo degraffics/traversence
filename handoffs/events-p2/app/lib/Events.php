@@ -375,7 +375,7 @@ final class Events
             $acts = ListingActions::actions($pdo, $id, $viewer);
             $mine = (string) $r['status'] !== 'unclaimed';   // a listing nobody runs now makes no offer (the CMO's ruling)
             if (!$mine) { $r['offer_text'] = ''; $r['offer_code'] = ''; }
-            $code = (string) $r['offer_code'] !== '' && (!$r['offer_code_ends'] || (string) $r['offer_code_ends'] >= $today) ? [(string) $r['offer_code'], (string) $r['offer_code_words']] : null;
+            $code = (string) $r['offer_code'] !== '' ? self::liveCode($id, (string) $r['offer_code']) : null;   // read as it stands now
             $go = ''; try { $go = ShortCodes::forPage($pdo, '/listing/view.php?id=' . $id); } catch (Throwable $x) { error_log('Events go code: ' . $x->getMessage()); }
             $out[] = ['id' => $id, 'name' => (string) $r['name'], 'town' => (string) $r['town'] !== '' ? (function ($t) { [$c, $st] = array_pad(explode('|', $t, 2), 2, ''); return ucwords(strtolower($c)) . ($st !== '' ? ', ' . $st : ''); })((string) $r['town']) : '', 'acts' => $acts,
                       'offer' => (string) $r['offer_text'], 'code' => $code, 'go' => $go,
@@ -393,6 +393,36 @@ final class Events
                               WHERE p.entity_id = ? AND p.status = 'accepted' AND ev.status = 'published' AND h.is_suppressed = 0 AND COALESCE(ev.ends_at, ev.starts_at) >= UTC_TIMESTAMP() - INTERVAL 2 DAY ORDER BY ev.starts_at LIMIT " . max(1, min(40, $n * 2)));
         $st->execute([$entity]);
         return array_slice(array_values(array_filter($st->fetchAll(PDO::FETCH_ASSOC), fn ($r) => !self::over($r))), 0, $n);
+    }
+
+    /**
+     * A business's discount code as it stands now, read when a page is drawn (the session manager, 2026-11-27: words follow
+     * the state): from its walled data through the business gate, as MarketCheckout::writeOrder writes there (0110:
+     * the listings login on a connection of its own, set to that business by @tv_tenant, read only through its b_ view).
+     * The code only while it's switched on, in its dates and not used up, with its last day; null otherwise, and null
+     * when the data can't be reached (nothing shown rather than something untrue).
+     */
+    public static function liveCode(int $entity, string $code): ?array
+    {
+        static $db = false, $seen = [];
+        if ($code === '' || $entity <= 0) return null;
+        $k = $entity . ':' . $code; if (array_key_exists($k, $seen)) return $seen[$k];
+        try {
+            if ($db === false) { require_once __DIR__ . '/BusinessData.php'; $db = Database::realmOwn('listings'); }
+            $db->prepare('SET @tv_tenant = ?')->execute([$entity]);
+            $st = $db->prepare('SELECT code, active, starts, ends, max_uses, uses FROM `b_biz_codes` WHERE code = ?'); $st->execute([strtoupper($code)]);
+            $c = $st->fetch(PDO::FETCH_ASSOC) ?: null;
+            $db->exec('SET @tv_tenant = NULL');
+        } catch (Throwable $x) { error_log('Events::liveCode ' . $entity . ': ' . $x->getMessage()); return $seen[$k] = null; }
+        $today = date('Y-m-d');
+        if (!$c || !(int) $c['active'] || ($c['starts'] && (string) $c['starts'] > $today) || ($c['ends'] && (string) $c['ends'] < $today) || ((int) $c['max_uses'] && (int) $c['uses'] >= (int) $c['max_uses'])) return $seen[$k] = null;
+        return $seen[$k] = ['code' => (string) $c['code'], 'ends' => $c['ends'] ?: null];
+    }
+
+    /** "code SHOW10 until Dec 31": after the business's own words, the code and its last day only (the Design reviewer). */
+    public static function codeWords(array $c): string
+    {
+        return 'code ' . $c['code'] . ($c['ends'] ? ' until ' . date('M j', strtotime((string) $c['ends'])) : '');
     }
 
     /** An offer in words, for History: 'the line' · code CODE. */

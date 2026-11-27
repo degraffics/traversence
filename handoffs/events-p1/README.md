@@ -15,8 +15,15 @@ Built 2026-11-27 on E1 (`handoffs/events-e1/`) and E2 (`handoffs/events-e2/`); s
 
 ## Tests
 - `tools/event-tests/events-parts.php <app> <e1 events.sql> <p1 sql>`: 22/22 on MariaDB.
-- `tools/event-tests/portal-parts.cjs <shots>`: 34/34 rendered at 1280 and 390, two owners (invite; take part with a line and a code, only live codes offered; the host sees both; the code switched off comes off with its notice, said once; remove/Undo; leave/Undo; no sideways scroll; no script errors). The harness needs a listings realm (`tvl`, DB_LISTINGS_*). Screens in `screens/`.
+- `tools/event-tests/portal-parts.cjs <shots>`: 46/46 rendered at 1280 and 390, two owners (invite; take part with a line and a code, only live codes offered; the host sees both; the code switched off comes off with its notice, said once; remove/Undo; leave/Undo; no sideways scroll; no script errors). The harness needs a listings realm (`tvl`, DB_LISTINGS_*). Screens in `screens/`.
 
-## Gaps (flagged, not built)
-- **A code switched off in Discount codes** stays on the event page until the business next opens Events, or its last day passes. Suggest a change to 0121's Discount codes: on Save, take the code off its events at once (one line in the codes tool's save, `app/admin/tools.php`, a shared file, so its own release).
-- **Editorial (12)'s check for a misleading offer** has no queue yet: the line is shown as written the moment it's saved. Suggest: new or changed offer lines go to Editorial's existing review list as information, with Hide in place.
+
+## Design fixes (the Design reviewer, 5c391af and 94c92b7) and the live code (the session manager, 2026-11-27)
+- One filled button per view (brand.md §4): row moves (Publish, Put back on, Take part) are outlined; New event is the primary.
+- Visible labels: "Your offer (Optional, in your own words)" with the example as a hint, and "Discount code (Optional, one of yours)".
+- Taking part rows aligned with their heading, the offer and code under the name, Remove and Undo sized like row buttons.
+- The code reads **live** when drawn (`Events::liveCode`): from the business's walled data through the same gate MarketCheckout::writeOrder
+  uses (0110: the listings login on its own connection, `@tv_tenant` set to that business, read only through `b_biz_codes`). Shown only while on,
+  in its dates and not used up, as "code SHOW10 until Dec 31"; otherwise the owner's line alone. Unreachable: nothing shown.
+  The stored snapshot and the "Code taken off:" notice in the owner's Events stay (approved). The earlier gap note is replaced by this.
+- Editorial (12) reads the pilot's offer lines by hand before Dec 15 (the session manager); its queue is logged not-before-Jan-1.
