@@ -30,6 +30,7 @@ $cnt = fn (string $c) => (int) $pdo->query("SELECT COUNT(*) FROM jurisdiction_la
 $t('reviewed_as column added', (bool) $pdo->query("SELECT COUNT(*) FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'jurisdictions' AND COLUMN_NAME = 'reviewed_as'")->fetchColumn());
 $t('Colorado and Utah opened as drafts', $pdo->query("SELECT GROUP_CONCAT(code, ':', status ORDER BY code) FROM jurisdictions WHERE code IN ('US-CO','US-UT')")->fetchColumn() === 'US-CO:draft,US-UT:draft');
 $t('laws after two runs: US 4, AZ 3, NM 3, CO 2, UT 3 (no duplicates)', [$cnt('US'), $cnt('US-AZ'), $cnt('US-NM'), $cnt('US-CO'), $cnt('US-UT')] === [4, 3, 3, 2, 3]);
+$t('each new law names its id (MAX(id)+1), never relying on AUTO_INCREMENT (staging catch-up)', $pdo->query("SELECT GROUP_CONCAT(id ORDER BY id) FROM jurisdiction_laws WHERE id > 9")->fetchColumn() === '10,11,12,13,14,15');
 $t('every new law says it is not yet read against its official text', (int) $pdo->query("SELECT COUNT(*) FROM jurisdiction_laws WHERE code IN ('US-CO','US-UT') OR citation LIKE '%18-6-11.1%'")->fetchColumn() === (int) $pdo->query("SELECT COUNT(*) FROM jurisdiction_laws WHERE requires_us LIKE '%not yet read against its official text%'")->fetchColumn());
 $t('the migration reviewed nothing', (int) $pdo->query("SELECT COUNT(*) FROM jurisdictions WHERE status <> 'draft'")->fetchColumn() === 0);
 // regions: AZ and NM open on OPENED while drafts; CO and UT closed
