@@ -224,6 +224,17 @@
    "expires": "2026-11-27T17:40:27Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/migrations/2026-11-27_e1_round_valley_renew.sql",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jsi4U8fUwJYPkZsMx",
+   "why": "E.1: round-valley's guide renewed from its research brief (gate 3)",
+   "since": "2026-11-27T14:10:54Z",
+   "expires": "2026-11-27T18:10:54Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
