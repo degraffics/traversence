@@ -613,3 +613,16 @@ shows what qualifies; Trade is marked "coming".
 "Native-made" claim is the seller's own statement, made under the federal Indian Arts and Crafts Act and their
 responsibility, never ours to assert; it carries a link to the Indian Arts and Crafts Board's guidance. We never check
 anyone's tribal membership (privacy; 0066). The content that goes with it is 0164's and 0181's note of the same date.
+
+**How it's built for Jan 1** (the CEO's Tier 4 ruling within the note above, 2026-11-27; Prior Ruling Check: this
+note, 0007, 0141; the Frontend & Shop session's sizing, "M-sections"):
+1. Guided services stay out of Experiences & Regional Goods for Jan 1; a "guided" flag on service items comes in Q1
+   with Trade's item-form work (ItemKinds has no guided kind).
+2. "In the area" is the item's `geo_hub_id` (regions.md) until the Single Home Rule is in code (`Workspaces.php:88`).
+3. The label's "<region>" is the geo hub's name from regions.md.
+4. A seller's Native-made statement: for Jan 1 only the launch plan §10's FAQ entries; the field, notice and attestation
+   in Q1 (§10.1).
+5. Regional and its label cover, for Jan 1, only kinds made, grown or led here by nature: event tickets, bookings and
+   reservations, harvest and perishables, made to order. Physical goods join in Q1 with a seller's "made here" tick
+   beside the attestation, since the code can't tell resale from made-here and our label is never untrue. Handmade
+   physical goods are in Shops from Jan 1. If Jason wants them in Regional sooner, it's his call.
