@@ -193,6 +193,20 @@ are inside (Show Low, St. Johns, Springerville, Holbrook, Winslow, the park's ZI
     loads.
   - Tests on MariaDB: the order, 1A first, Eagar in, nothing outside the area, Google's check refused outside 1A, no
     Colorado or Utah record before their boundaries are loaded.
+  - **The load's unit today is a community, not a town** (found 2026-11-27, live code): `OpenLoads::due()` walks
+    `micro_clusters` and loads a 7 km box around each one's main ZIP (`place_key` `cluster:<id>`). A town made on demand
+    is an `anchors` row (`town:<id>`, `OnDemand::townFor`, 0149), and `TownCrawl` works on anchors. So a launch-area town
+    that isn't a community's main ZIP never gets an Overture or Foursquare load. R-D1 makes the launch area's towns the
+    unit (each made an anchor first, `town:<id>` as the key). That carries out 0181 §3 ("every town… built") with the
+    loads 0164 §1.5 already names ("by town box"). A box already loaded under a `cluster:` key is read again
+    once under its town's key; the one identity check drops what's already listed (`OpenLoads::batch`,
+    `ListingIdentity::fold`), so nothing is listed twice, at the cost of one read.
+  - **The trip state (live read, 2026-11-27 02:04 UTC):** W1 is paused whole by the system since Nov 21 after
+    foursquare_bulk crashed (run #2148); overture_bulk crashed too (run #1290), and five W1 tasks were left off by a
+    closed trip (coverage, the second look, targets, the NPI file, the IRS file), to be switched on by a person (R98).
+    The session manager has widened Piece 2's "W1 load trips" release to cover both crashes, #10, #11, W2's hung identity
+    recheck if it shares the cause, and one press for Jason to switch the five on. Nothing loads until that release is
+    live and the five are on.
 - **D.2** after 1A's first loads: clear 1A's staged backlog and Review (the plan counts 31,057 staged, 700 ready but
   stuck, 2,107 with no kind), then the identity check on 1A's duplicates (`handoffs/duplicates.md`; 0164 §3.2; 0163
   §12). I'll read Insights → Data cleanup and Listing Intake for 1A through the live read first.
