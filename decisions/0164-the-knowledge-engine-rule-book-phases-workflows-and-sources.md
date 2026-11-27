@@ -1555,3 +1555,17 @@ So:
   nation's land, a story-only place shows while its state's jurisdiction record is still under the team's review. The
   strictest known rule applies, and the way in is never shown. This covers CO and UT as their records are written. The
   four protections in the Q7 note above stand as kept; Jason raised no objection.
+
+## Note (Jason, 2026-11-27): Native made vs regional authenticity
+
+Jason, to the CEO: "for the federal Indian Arts and Crafts Act. This is very important and under educated, our content
+strategy should plan to highlight how to navigate this while creating relationships with native makers as well as
+education for how to be authentic sellers of regional goods. NATIVE MADE VS REGIONAL AUTHENTICITY." Content direction,
+owned by the CMO and Editorial lanes (0180); the plan is the launch plan's §10 (the CEO's, for the session manager's
+review). Within this record's rules and 0066:
+- The law is explained from official sources (the Indian Arts and Crafts Board, U.S. Department of the Interior),
+  never as legal advice.
+- Relationships are with individual Native makers and their businesses, never outreach to a nation as a segment
+  (0181's note "Businesses on nation land"); nothing nation-specific is shown without the nation's say (0066).
+- We never check or state anyone's tribal membership. A seller's "Native-made" claim is theirs under the Act; our label
+  says only "made in <region>" (0135's note of the same date).
