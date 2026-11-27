@@ -1,9 +1,11 @@
-# The Jan 1 launch plan: front end and back end ready for the 1A market roll-out
+# The Jan 1 launch plan: front end and back end ready for the market roll-out, 200 miles around Four Corners
 
 The CEO, for Jason (2026-11-26). Jason asked: "Work with your team to analyze the entire platform and let me see your best
 plan for development based on both the frontend and back end being ready by Jan 1 for market roll out."
 
-**Status:** a proposal. Nothing in it is decided until Jason rules. No release is sent from it.
+**Status:** Briefs A and B approved by Jason (2026-11-27, in chat: "A and b is good, expand to include surrounding 200
+miles from the four corners"). B1 is widened from 1A's seven towns to every town within 200 miles of Four Corners
+(§2a). Briefs C and D are still to come.
 
 **Built on:**
 - the live mirror at Sync 2026-11-26 21:32 UTC (`45926f0`);
@@ -39,6 +41,33 @@ this week:
 
 **The rest of the queue waits until after launch:** most of the control board (about 40 of the 55 items), the App
 builder and App store, and orders M5–M7.
+
+## 2a. The launch area: 200 miles around Four Corners (Jason, 2026-11-27)
+
+Measured from the site's own ZIP data (`sync-app/data/US.txt`) around the Four Corners Monument (36.999, -109.045):
+**419 ZIP codes and 340 towns**: New Mexico 126, Colorado 106, Arizona 60, Utah 48. By distance, 24 towns are within
+50 mi, 74 within 100 mi and 156 within 150 mi.
+
+**regions.md's micro-clusters inside the circle** (their estimated businesses), about 6,100 businesses against 1A's 600:
+- **Wholly or almost wholly inside:**
+  - 1A (~600): Eagar sits right on the line at 200 mi, so all of 1A is kept;
+  - 1B (~340), 1C (~500), 2A (~450), 3A (~600; Las Vegas NM at 234 and Pecos at 212 lie outside);
+  - 4A (~750), 4B (~500), 7A (~560; Williams at 201), 7B (~350), 11A (~450), 11B (~300), 12B (~250).
+- **Partly inside:** 12C (Kanab, Panguitch, Tropic, Escalante, Boulder in; Springdale at 219 out) and 4C (Los Lunas at
+  201, Belen at 209: on the edge).
+- **Outside:** 6B (Sedona, about 213), 12A (Payson, about 230), 14C, 15A, 8A, 13B.
+
+**What changes in the plan:**
+- **Data (D.1) covers all 340 towns,** from the free bulk sources first: Overture, our OpenStreetMap copy and NPI
+  (rural test §8.9). Google's paid check stays on 1A only unless Jason funds more ("No income, no expense"). At about
+  $0.03 a check, the whole area would cost about $180.
+- **Guides (E.1)** go in rings: the Ancient Borderlands zone and one guide per micro-cluster inside the circle (about 13),
+  then 1A's towns, then other towns as the cap allows. 340 town guides won't fit December's AI cap.
+- **Selling stays on 1A first:** Jason's "penetrate 1a properly". The wider area is what a visitor sees.
+- **Load:** about 10 times 1A's records, into the same MySQL that took 1.78M index rows in a day (`consistency.json`).
+  B.6's capacity test and pacing the loads matter more now.
+- **Nations' land:** the circle takes in the Navajo Nation, Hopi, Ute Mountain Ute, Southern Ute, Jicarilla Apache,
+  Zuni, and many Pueblos along the Rio Grande. E.2's 0066 audit covers every one, and nothing is shown that 0066 holds.
 
 ## 2. Where we stand
 
@@ -82,8 +111,8 @@ No decision defines it (gap). I propose these launch gates. Each is measured, ne
    - one each for the Shop, plan-buy and Marketplace-buy, in the sandbox, never real money (CLAUDE.md "No test moves
      real money").
 3. **Data:**
-   - all seven 1A towns built;
-   - each has a guide that passed 0164's checks and a person's read;
+   - every town within 200 miles of Four Corners built (§2a);
+   - a guide for each micro-cluster inside the circle and for each 1A town, each passed by 0164's checks and a person's read;
    - no "no listings" note where we have listings.
 4. **Safety:** the access hole closed; nightly backups running, with one restore drill done; the scheduled jobs on time
    for 7 days.
@@ -144,11 +173,12 @@ call.
 9. **The scorecard:** a "no listings" note for a town that has listings fails the check. S.
 
 ### D. 1A's data
-1. **Build all seven 1A towns:** St. Johns, Springerville, Eagar, Show Low, Holbrook, Winslow, the Petrified Forest
-   gateway. Use rural test §8.9's order: Overture, then NPI, then Google's check. 0149, 0164. M.
+1. **Build every town within 200 miles of Four Corners** (§2a: 340 towns; approved, Brief B1). Use rural test §8.9's
+   order: Overture and OpenStreetMap, then NPI, then Google's check on 1A only. 0149 (as changed by B1), 0164. L.
+   The towns go in rings: 1A first, then nearest-out, paced so the server stays inside its limits.
    - Depends on the W1 trips being cleared (#10, #11).
-   - **Founder:** 0149 builds towns only on demand. *Suggest a change to 0149: build every town in an active
-     micro-cluster before launch.*
+   - **Approved** (Brief B1, 2026-11-27): towns are built ahead of demand, within 200 miles of Four Corners. It's
+     recorded as a note on 0149.
 2. **Clear the staged backlog and Review for 1A,** run the identity check on 1A's duplicates, and fix misfiled towns
    (0164 §3, R12; `handoffs/duplicates.md`). M.
 3. **1A's towns under their real area** (`cluster-auto-show-low` against regions.md's 1A; Greer in
@@ -159,7 +189,8 @@ call.
    - **Founder:** who starts them?
 
 ### E. Content
-1. **A guide for each 1A town, plus the Ancient Borderlands zone.** Read Admin → Guides (live read) to see why the 116
+1. **Guides in rings:** the Ancient Borderlands zone, one per micro-cluster inside the circle (about 13), then each 1A
+   town, then more as the cap allows. Read Admin → Guides (live read) to see why the 116
    drafts wait, then queue 1A. 0131, 0147, 0164. L.
    - **Founder:**
      - December's AI cap: $40 a month is shared with everything, and it was over 80% this month;
@@ -195,8 +226,7 @@ call.
 
 ### G. Search (the lock)
 1. **Close today's leaks:** noindex on the home page, sign-in, sign-up, reset, the classic directory and storefronts,
-   while the lock is on. S. **Founder's call first** (Brief B): it changes what's indexed, so nothing is built before
-   he answers.
+   while the lock is on. S. **Approved** (Brief B2, 2026-11-27).
 2. **Per-page holds:** trial and unverified listings (0034, 0070, 0071), first-look guides (0147), drafts, story-only
    places, user posts and search results. Then `page-shell.php:51` prints noindex only for those and for staging. M.
 3. **Sitemap and tags:**
@@ -258,7 +288,7 @@ Work queue ids:
 Only true Founder rulings (0180 §3). Calls the team can settle (1A's community groups, sequencing, the session count)
 are settled by the team. Each brief opens "Decision (nothing changes on the site yet)".
 
-**Brief A, this week: the launch and the pipeline.** Triggers: new policy (no decision defines a launch), a change to
+**Brief A, approved 2026-11-27: the launch and the pipeline.** Triggers: new policy (no decision defines a launch), a change to
 0180's "R1–R5 back to back" note, a change to 0165, and the before-and-after switch (his press).
 1. The launch definition: §3's six gates, the Dec 22 freeze and the Dec 31 go/no-go.
 2. Launch work first in the one queue. R2–R5 get at most one slot a day until the gates pass.
@@ -268,7 +298,7 @@ are settled by the team. Each brief opens "Decision (nothing changes on the site
 Blocking only on a page's own files is partly done by the role-22 fix (#1472). It becomes a brief only if R2 still
 false-blocks.
 
-**Brief B, this week: 1A and the lock.** Triggers: a change to 0149, and new policy (no decision governs the lock).
+**Brief B, approved 2026-11-27, with B1 widened to 200 miles around Four Corners: the area and the lock.** Triggers: a change to 0149, and new policy (no decision governs the lock).
 1. *Suggest a change to 0149:* build all seven 1A towns before launch, not only on demand (D.1).
 2. The lock covers the home page, sign-in pages, the classic directory and storefronts until he lifts it (G.1).
 
@@ -298,6 +328,8 @@ false-blocks.
 
 ## 8. Risks
 
+- **The 200-mile area is ten times 1A.** If the loads outrun the server or the month, the rings stop where they've
+  reached: 1A and the nearest clusters first, the rest after launch, and Jason is told.
 - **The before-and-after check is Off right now, and R2 is held on it.** Unless Jason presses On (Brief A.4),
   A.1 can't be proved and R2 can't ship.
 - **The pipeline stays blocked.** Then the plan halves. A.1 is the first thing done, and if it isn't fixed by Nov 30, I
