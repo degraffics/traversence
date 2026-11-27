@@ -32,12 +32,23 @@ const slowOne = v('ops-staff', '/admin/other.php', 'phone', { status: 0, error: 
 const pick = farTimeouts([dev, late, devTO, gone, slowOne], exp318, new Set(['ops-staff|/admin/other.php|phone']));
 ok(JSON.stringify(pick) === '[1]', 'after the look, tried again: only the timeout on an expected page that isn\'t drawn (not a drawn page, not one it doesn\'t reach, not one slow in the first before look)', pick);
 ok(farTimeouts([late], { ...exp318, shared: [] }).length === 0 && farTimeouts([late], { pages: exp318.pages }).length === 0, '… none when the release changes no shared file, or reach.py gave no drawn list');
-const opened = { ...ok200, late: 'TimeoutError: page.goto: Timeout 45000ms exceeded.' };
-const r1 = compare(look([dev, ok200]), look([dev, ok200]), look([dev, opened]), exp318, '318', 'k');
-ok(r1.verdict === 'pass' && !r1.blocks.length && r1.notes.some(n => /far timeout, noted: timed out, then opened when tried again after the look \(reached only through website\/js\/tv-ask\.js/.test(n)), 'tried again after the look and it opened: compared as usual, passes, and "far timeout, noted" is kept', r1);
-const twice = { ...late, late: 'TimeoutError: page.goto: Timeout 45000ms exceeded.' };
-const r2 = compare(look([dev, ok200]), look([dev, ok200]), look([dev, twice]), exp318, '318', 'k');
-ok(r2.verdict === 'block' && r2.blocks.some(x => x.rule === 'access' && x.page === '/admin/crawler-review.php') && r2.notes.some(n => /and again when tried after the look .* it blocks/.test(n)), 'tried again after the look and it timed out again: it blocks (the release\'s own change to the shared file could be the hang)', r2);
+// the CEO's three (amended condition): 1. slow, then opens on the 90 s retry: a note, its time against the before look's
+const b38 = { ...ok200, ms: 38000 }; const desk = v('executive', '/admin/crawler-review.php', 'desktop', { ms: 21000 });
+const opened = { ...ok200, ms: 62000, late: 'TimeoutError: page.goto: Timeout 45000ms exceeded.' };
+const r1 = compare(look([dev, desk, b38]), look([dev, desk, b38]), look([dev, desk, opened]), exp318, '318', 'k');
+ok(r1.verdict === 'pass' && !r1.blocks.length && r1.notes.some(n => /far timeout, noted: timed out, then opened in 62 s when tried again after the look with 90 s \(the before looks: 38 s; at 1280 it opened in the same run \(21 s\); reached only through website\/js\/tv-ask\.js/.test(n)), '1. slow, then opened on the 90 s retry: a note, with its time, the before look\'s, and the other width in the same run', r1.notes);
+// 2. hung before (it needed its retry) and after, even at 90 s: slowness already there, a note
+const hungAfter = { ...late, late: 'TimeoutError: page.goto: Timeout 45000ms exceeded.' };
+const slowB = { ...ok200, retried: TO, ms: 44000 };
+const r2 = compare(look([dev, slowB]), look([dev, slowB]), look([dev, hungAfter]), exp318, '318', 'k');
+ok(r2.verdict === 'pass' && !r2.blocks.length && r2.notes.some(n => /far timeout, noted: didn't open after, even with 90 s, but the before looks were slow there too \(44 s after a retry\): slowness already there/.test(n)), '2. hung in the before look too (it needed its retry) and after even at 90 s: pre-existing, a note', r2.notes);
+const r2b = compare(look([dev, b38]), look([dev, { ...late }]), look([dev, hungAfter]), exp318, '318', 'k');
+ok(r2b.verdict === 'pass' && r2b.notes.some(n => /before looks were slow there too \(38 s, then timed out\)/.test(n)), '… the second before look timing out counts too', r2b.notes);
+// 3. opened before, hung after even at 90 s: it blocks
+const r3x = compare(look([dev, desk, b38]), look([dev, desk, b38]), look([dev, desk, hungAfter]), exp318, '318', 'k');
+ok(r3x.verdict === 'block' && r3x.blocks.some(x => x.rule === 'access' && x.page === '/admin/crawler-review.php') && r3x.notes.some(n => /didn't open after, even with 90 s .* though it opened before \(38 s; at 1280 it opened in the same run \(21 s\); reached through website\/js\/tv-ask\.js, which this release changes\): it blocks/.test(n)), '3. opened before, hung after even at 90 s: it blocks, the note saying why', r3x);
+const LATE = (await import('../page-audit/beforeafter.mjs')).LATE_MS;
+ok(LATE === 90000 && /timeout: LATE_MS/.test(src) && /timeout: opts\.timeout \|\| 45000/.test(readFileSync(new URL('../page-audit/page-check.mjs', import.meta.url), 'utf8')), 'the late retry is given 90 s (double a view\'s 45 s); every other view keeps 45 s');
 const devOk = v('executive', '/admin/config/control?tab=development', 'phone'); const devLate = v('executive', '/admin/config/control?tab=development', 'phone', { status: 0, error: TO, ba: undefined });
 const r3 = compare(look([dev, devOk]), look([dev, devOk]), look([dev, devLate]), exp318, '318', 'k');
 ok(r3.verdict === 'block' && r3.blocks.some(x => x.rule === 'access' && x.size === 'phone'), 'the counter-case: a timeout on a page the release\'s own files draw blocks, as before', r3);

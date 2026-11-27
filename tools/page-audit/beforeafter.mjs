@@ -156,9 +156,11 @@ export function slowViews(file) {
   try { return new Set((JSON.parse(readFileSync(file, 'utf8')).results || []).filter(f => f.error && /Timeout/i.test(f.error)).map(f => f.who + '|' + f.url + '|' + f.size)); } catch (e) { return new Set(); }
 }
 
-/** The views to try once more after an advocate's whole look (the CEO's Tier 4 condition, 2026-11-27, #318): a timeout on a
- *  page the release reaches only through a shared file it changes (reach.py's expected, not drawn), and not already slow in
- *  the first before look. Opened then: compared as usual, noted; timed out again: it blocks, as a timeout on a reached page. */
+/** The views to try once more, with LATE_MS, after an advocate's whole look (the CEO's amended Tier 4 condition, 2026-11-27,
+ *  #318): a timeout on a page the release reaches only through a shared file it changes (reach.py's expected, not drawn), and
+ *  not already slow in the first before look. Opened then: a note with its time against the before look's; still not: a
+ *  block, unless a before look of it timed out or needed its retry too (slowness already there: a note). */
+export const LATE_MS = 90000;   // the late retry's time: double a view's 45 s (the CEO's amended condition, 2026-11-27)
 export function farTimeouts(results, exp = {}, slow = new Set()) {
   if (!Array.isArray(exp.drawn) || !(exp.shared || []).length) return [];
   const expected = new Set(exp.pages || []), drawn = new Set(exp.drawn);
@@ -198,7 +200,7 @@ async function capture(pages, out, shotDir, slow = new Set(), exp = {}) {
       }
       // once the advocate's whole look is done: a far timeout (farTimeouts) once more, same account and width
       for (const i of farTimeouts(done[gi], exp, slow)) {
-        const f = done[gi][i]; const opts = { site, shots: !!shotDir, shotDir, allSizes: true, must: () => false, extra };
+        const f = done[gi][i]; const opts = { site, shots: !!shotDir, shotDir, allSizes: true, must: () => false, extra, timeout: LATE_MS };
         const again = await pageCheck(ctx, f.who, f.url, f.size, opts); again.retried = f.retried; again.late = f.error.split('\n')[0].slice(0, 120); again.advocate = f.advocate;
         console.log(`tried again after the look: ${f.who} ${f.url} ${f.size} (reached only through ${(exp.shared || []).join(', ')}): ${again.error ? 'timed out again' : again.status}`);
         done[gi][i] = again;
@@ -236,6 +238,7 @@ const ctlSig = (f, st = true, skip = new Set()) => [...new Set((f?.ba?.controls 
 /** The verdict for one release: blocks (each a rule, who, page, size, what), notes, and pass / block / incomplete. */
 export function compare(b1, b2, a, exp = {}, release = '', heldKey = STAGING?.token || CHECK_TOKEN) {
   const B = new Map(b1.results.map(f => [key(f), f])), B2 = new Map(b2.results.map(f => [key(f), f]));
+  const A = new Map(a.results.map(f => [key(f), f]));
   const expected = new Set([...(exp.pages || []), ...(exp.also_changes || []).map(x => x.page)]);
   // the system's state lines (alarms, status lines, Scheduled tasks) are drift only for a release that touches what draws them
   // (the session manager, 2026-11-26); unknown files (no list given) count as touching them
@@ -266,8 +269,17 @@ export function compare(b1, b2, a, exp = {}, release = '', heldKey = STAGING?.to
     if (f.error && /Timeout/i.test(f.error) && !refused(b) && !expected.has(f.url)) { compared--; notes.push(`${key(f)}: timed out after on a page this release doesn't reach (staging is slow there; the IT Manager's lane), not compared`); continue; }
     // reached only through a shared file the release changes (tv-ask.js, the shell): tried once more after the look (capture's
     // farTimeouts). Opened then: compared as usual, and noted; timed out again, it blocks below as any reached page does
-    if (f.late && !f.error) notes.push(`${key(f)}: far timeout, noted: timed out, then opened when tried again after the look (reached only through ${(exp.shared || []).join(', ') || 'a shared file'}; staging is slow there, the IT Manager's lane)`);
-    if (f.late && f.error) notes.push(`${key(f)}: timed out, and again when tried after the look (reached through ${(exp.shared || []).join(', ') || 'a shared file'} this release changes): it blocks`);
+    if (f.late) {
+      const via = (exp.shared || []).join(', ') || 'a shared file';
+      const secs = x => x?.error ? 'timed out' : (x && x.ms ? Math.round(x.ms / 1000) + ' s' : 'no time kept') + (x?.retried && !x?.late ? ' after a retry' : '');
+      const w2 = f.size === 'phone' ? '1280' : '390'; const other = A.get(f.who + '|' + f.url + '|' + (f.size === 'phone' ? 'desktop' : 'phone'));
+      const also = other ? (other.error ? `; at ${w2} it timed out too` : `; at ${w2} it opened in the same run (${secs(other)})`) : '';
+      const slowBefore = x => x && ((x.error && /Timeout/i.test(x.error)) || x.retried);
+      const was = secs(b) + (bb && bb !== b ? ', then ' + secs(bb) : '');
+      if (!f.error) notes.push(`${key(f)}: far timeout, noted: timed out, then opened in ${secs(f)} when tried again after the look with ${LATE_MS / 1000} s (the before looks: ${was}${also}; reached only through ${via}; staging is slow there, the IT Manager's lane)`);
+      else if (slowBefore(b) || slowBefore(bb)) { compared--; notes.push(`${key(f)}: far timeout, noted: didn't open after, even with ${LATE_MS / 1000} s, but the before looks were slow there too (${was}${also}): slowness already there, not this change's (reached only through ${via}; the slow-pages ticket)`); continue; }
+      else notes.push(`${key(f)}: didn't open after, even with ${LATE_MS / 1000} s when tried again after the look, though it opened before (${was}${also}; reached through ${via}, which this release changes): it blocks`);
+    }
     const moving = (get) => JSON.stringify(get(b)) !== JSON.stringify(get(bb || b));
     // 1. access or privacy (0066 included)
     const shut = x => x && (x.status === 401 || x.status === 403 || x.ba?.landed_signin);   // refused this account (not merely missing)
