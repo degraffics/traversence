@@ -72,6 +72,19 @@
    "expires": "2026-11-27T16:14:42Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/ui/section-rails.php",
+   "functions": [
+    "tv_section_for"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
+   "why": "M-sections: a section lights its rail line",
+   "since": "2026-11-27T12:14:45Z",
+   "expires": "2026-11-27T16:14:45Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
