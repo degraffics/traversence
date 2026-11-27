@@ -30,4 +30,13 @@ try:
     t('no mirror there: refused (exit 1), naming the path, nothing written', r.returncode == 1 and os.path.join(d, 'none') in (r.stdout + r.stderr) and not os.path.exists(os.path.join(d, 'x.json')), r.stdout + r.stderr)
 finally:
     shutil.rmtree(d, ignore_errors=True)
+# the generators gauges.py imports find the repo from where they are, never a session's path (CI checks out elsewhere)
+import re
+SRC_DIR = os.path.join(HERE, '..', '..', 'handoffs', 'control-board-plan', 'step3', 'mockups', 'src')
+bad = []
+for f in sorted(os.listdir(SRC_DIR)):
+    if not f.endswith('.py') or f == 'board-validate.py': continue   # board-validate takes its path as an argument
+    for n, line in enumerate(open(os.path.join(SRC_DIR, f)), 1):
+        if '/home/user/traversence' in line: bad.append(f'{f}:{n}')
+t('no generator hard-codes the repo\'s path (each finds it from its own file)', not bad, bad)
 print(f'{ok} of {ok + fail} checks pass'); sys.exit(1 if fail else 0)

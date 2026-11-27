@@ -8,7 +8,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import board  # the page states from the rendered check, read the same way as the runtime board
 
-ROOT = '/home/user/traversence/'
+ROOT = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', '..', '..', '..')) + '/'   # the repo, wherever it's checked out
 OUT = ROOT + 'handoffs/control-board-plan/step3/sections/'
 PAGES_MD = open(ROOT + 'site-audit/pages.md').read().split('\n')
 MIRROR_AT = 'Sync e229587, 22:55 UTC Nov 21'

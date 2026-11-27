@@ -5,7 +5,7 @@
 import json, os, re
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-ROOT = '/home/user/traversence/'
+ROOT = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', '..', '..', '..')) + '/'   # the repo, wherever it's checked out
 OUT = ROOT + 'handoffs/control-board-plan/step3/sections/'
 GH = 'https://github.com/degraffics/traversence/blob/main/'
 RULES = open(ROOT + 'site-audit/rules.md').read()
