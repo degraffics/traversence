@@ -626,3 +626,5 @@ note, 0007, 0141; the Frontend & Shop session's sizing, "M-sections"):
    reservations, harvest and perishables, made to order. Physical goods join in Q1 with a seller's "made here" tick
    beside the attestation, since the code can't tell resale from made-here and our label is never untrue. Handmade
    physical goods are in Shops from Jan 1. If Jason wants them in Regional sooner, it's his call.
+
+Writing about makers and their goods follows 0164's note of 2026-11-27 (the magazine model and the privacy line).
