@@ -167,7 +167,17 @@ export function farTimeouts(results, exp = {}, slow = new Set()) {
   return results.map((f, i) => [f, i]).filter(([f]) => f.error && /Timeout/i.test(f.error) && expected.has(f.url) && !drawn.has(f.url) && !slow.has(f.who + '|' + f.url + '|' + f.size)).map(([, i]) => i);
 }
 
-async function capture(pages, out, shotDir, slow = new Set(), exp = {}) {
+/** The parts of a page (its regions: the header, main, each card) there in both before looks and gone in this one, on a page the
+ *  release doesn't reach (the session manager, 2026-11-27, after #319's look: /business/'s Storage tile, dropped by a silent catch
+ *  on staging). Capture looks at such a view once more after the advocate's look: back then, compare notes it as flaky on
+ *  staging; still gone, it blocks as before. A release that really removes a part stays gone on the re-look. */
+export function partsGone(b, bb, f, exp = {}) {
+  if (!b?.ba?.regions || !f?.ba?.regions || f.error || new Set([...(exp.pages || []), ...(exp.also_changes || []).map(x => x.page)]).has(f.url)) return [];
+  const two = bb?.ba?.regions || b.ba.regions;
+  return Object.keys(b.ba.regions).filter(r => (b.ba.regions[r]?.t || '') && !f.ba.regions[r] && two[r]);
+}
+
+async function capture(pages, out, shotDir, slow = new Set(), exp = {}, before = null, before2 = null) {
   const site = process.env.BA_SITE || STAGING?.site; if (!site) throw new Error('No staging in CHECK_ACCOUNTS and no BA_SITE: nothing to check.');
   const st = process.env.BA_SITE ? null : STAGING; const token = st ? st.token : CHECK_TOKEN;
   const t0 = Date.now(); const browser = await chromium.launch(); const results = []; const signins = {};
@@ -204,6 +214,19 @@ async function capture(pages, out, shotDir, slow = new Set(), exp = {}) {
         const again = await pageCheck(ctx, f.who, f.url, f.size, opts); again.retried = f.retried; again.late = f.error.split('\n')[0].slice(0, 120); again.advocate = f.advocate;
         console.log(`tried again after the look: ${f.who} ${f.url} ${f.size} (reached only through ${(exp.shared || []).join(', ')}): ${again.error ? 'timed out again' : again.status}`);
         done[gi][i] = again;
+      }
+      // then a part gone on a far page (partsGone), once more: back, it's staging's flake (compare notes it); still gone, it blocks
+      if (before) {
+        const k = x => x.who + '|' + x.url + '|' + x.size;
+        const B1 = new Map((before.results || []).map(x => [k(x), x])), B2 = new Map(((before2 || before).results || []).map(x => [k(x), x]));
+        for (let i = 0; i < done[gi].length; i++) {
+          const f = done[gi][i]; const gone = partsGone(B1.get(k(f)), B2.get(k(f)), f, exp); if (!gone.length) continue;
+          const opts = { site, shots: !!shotDir, shotDir, allSizes: true, must: () => false, extra };
+          const again = await pageCheck(ctx, f.who, f.url, f.size, opts); again.retried = f.retried; again.late = f.late; again.relook = gone.slice(0, 5); again.advocate = f.advocate;
+          const still = partsGone(B1.get(k(f)), B2.get(k(f)), again, exp);
+          console.log(`looked again: ${f.who} ${f.url} ${f.size}, gone ${gone.slice(0, 2).join(', ')}: ${again.error ? 'didn\'t open' : still.length ? 'still gone' : 'back'}`);
+          done[gi][i] = again.error ? Object.assign(f, { relook: gone.slice(0, 5), relook_error: again.error.split('\n')[0].slice(0, 120) }) : again;
+        }
       }
     } finally { await ctx.close(); }
   };
@@ -336,6 +359,8 @@ export function compare(b1, b2, a, exp = {}, release = '', heldKey = STAGING?.to
     // is the queue filling, not a part of the page gone: a region that held no records, with the page holding more records after
     const filled = r => !(b.ba.regions[r]?.n) && (f.ba?.recs ?? 0) > (b.ba?.recs ?? 0);
     const regionsGone = Object.keys(b.ba?.regions || {}).filter(r => (b.ba.regions[r]?.t || '') && !(f.ba?.regions || {})[r] && (bb?.ba?.regions || b.ba.regions)[r] && !filled(r));
+    if (f.relook && !regionsGone.length) notes.push(`${key(f)}: flaky on staging, noted: ${f.relook.slice(0, 2).join(', ')} was gone after, then back when looked at again (in both before looks; a page this release doesn't reach)`);
+    else if (f.relook) notes.push(`${key(f)}: looked at again: ${regionsGone.slice(0, 2).join(', ')} still gone${f.relook_error ? ' (the re-look didn\'t open: ' + f.relook_error + ')' : ''}: it blocks`);
     if (!expected.has(f.url)) {
       // a part of the page gone, on a page the change doesn't name, is missing data; any other change there is drift
       if (regionsGone.length) block('data', f, 'A part of the page is gone: ' + regionsGone.slice(0, 2).join(', '), regionsGone[0], '');
@@ -377,7 +402,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     } catch (x) { out = { error: String(x.message || x).slice(0, 200) }; }
     writeFileSync(arg('out', 'ba-held.json'), JSON.stringify(out) + '\n');
     console.log(out.error ? 'held names: unread (' + out.error + ')' : `held names: ${out.hashes.length} hashes`);
-  } else if (mode === 'capture') await capture(JSON.parse(readFileSync(arg('pages'), 'utf8')), arg('out', 'ba-capture.json'), arg('shots'), slowViews(arg('slow')), arg('expected') ? JSON.parse(readFileSync(arg('expected'), 'utf8')) : {});
+  } else if (mode === 'capture') await capture(JSON.parse(readFileSync(arg('pages'), 'utf8')), arg('out', 'ba-capture.json'), arg('shots'), slowViews(arg('slow')), arg('expected') ? JSON.parse(readFileSync(arg('expected'), 'utf8')) : {}, arg('before') ? JSON.parse(readFileSync(arg('before'), 'utf8')) : null, arg('before2') ? JSON.parse(readFileSync(arg('before2'), 'utf8')) : null);
   else if (mode === 'compare') {
     const rd = f => JSON.parse(readFileSync(f, 'utf8'));
     const exp = arg('expected') ? rd(arg('expected')) : {};
@@ -386,5 +411,5 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     writeFileSync(arg('out', 'ba-verdict.json'), JSON.stringify(v, null, 1) + '\n');
     console.log(`${v.verdict}${v.first ? ': ' + v.first : ''} (${v.views} views, ${v.blocks_total} block${v.blocks_total === 1 ? '' : 's'})`);
     process.exit(v.verdict === 'pass' ? 0 : 1);
-  } else { console.log('usage: beforeafter.mjs capture --pages p.json --out c.json | compare --before a --before2 b --after c [--expected e] [--release N] [--out v]'); process.exit(2); }
+  } else { console.log('usage: beforeafter.mjs capture --pages p.json --out c.json [--slow a] [--expected e] [--before a --before2 b] | compare --before a --before2 b --after c [--expected e] [--release N] [--out v]'); process.exit(2); }
 }

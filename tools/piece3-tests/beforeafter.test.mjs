@@ -13,7 +13,7 @@ const ACC = { members: { member: { email: 'check+member@traversence.com', passwo
 const env = { ...process.env, BA_SITE: site, CHECK_ACCOUNTS: JSON.stringify(ACC) };
 const srv = spawn('php', ['-S', '127.0.0.1:' + port, path.join(here, 'fixture-router.php')], { env: { ...process.env, VARIANT_FILE: vf }, stdio: 'ignore' });
 const pages = path.join(dir, 'pages.json'); writeFileSync(pages, JSON.stringify(['/', '/faq.php', '/user/account.php', '/admin/x']));
-const cap = (v, out) => { writeFileSync(vf, v); execFileSync('node', [tool, 'capture', '--pages', pages, '--out', out], { env, stdio: 'ignore' }); };
+const cap = (v, out, more = []) => { writeFileSync(vf, v); execFileSync('node', [tool, 'capture', '--pages', pages, '--out', out, ...more], { env, stdio: 'ignore' }); };
 const cmp = (after, exp) => { const e = path.join(dir, 'exp.json'); writeFileSync(e, JSON.stringify(exp || {}));
   try { execFileSync('node', [tool, 'compare', '--before', path.join(dir, 'b1.json'), '--before2', path.join(dir, 'b2.json'), '--after', after, '--expected', e, '--out', path.join(dir, 'v.json')], { stdio: 'ignore', env: { ...process.env, CHECK_ACCOUNTS: '', HEALTH_TOKEN: KEY } }); } catch (x) {}
   return JSON.parse(readFileSync(path.join(dir, 'v.json'), 'utf8')); };
@@ -43,6 +43,7 @@ try {
     ['longrec', 'pass', null, 'a record\'s long address making the page wider at 390, on a page the change doesn\'t name (#308\'s look, crawler-review): its data, noted'],
     ['widebar', 'block', 'layout', '… a wide bar of the page\'s own on that page: still a layout block'],
     ['alarm', 'block', 'drift', '… the same, when the release changes what draws them (lib/Thread.php): drift', { files: ['app/lib/Thread.php'] }],
+    ['alarm', 'block', 'drift', '… a drawer the release changes and reach named no pages (it can\'t say which it draws): still drift', { files: ['app/admin/module-cards.php'], pages: [] }],
     ['alarm', 'pass', null, '… a drawer the release changes, with reach naming its pages and not this one (#319\'s look: module-cards.php, the dashboard Inbox): not drift', { files: ['app/admin/module-cards.php'], pages: ['/user/account.php'] }],
     ['leak', 'block', 'access', 'a member opens an admin page: access'],
     ['lost', 'block', 'access', 'a member\'s own page sends it to sign in: access'],
@@ -62,6 +63,15 @@ try {
     const ok = r.verdict === want && (!rule || r.blocks.some(x => x.rule === rule)) && (want !== 'pass' || r.blocks_total === 0);
     t(name, ok, { verdict: r.verdict, first: r.first, rules: [...new Set(r.blocks.map(x => x.rule))] });
   }
+  // #319's look: a part gone on a far page is looked at once more (capture given the before looks): back, a note; still gone, a block
+  const bl = ['--before', path.join(dir, 'b1.json'), '--before2', path.join(dir, 'b2.json')];
+  cap('flakygone', path.join(dir, 'a-flaky.json'), bl); const rf = cmp(path.join(dir, 'a-flaky.json'));
+  const fl = JSON.parse(readFileSync(path.join(dir, 'a-flaky.json'), 'utf8')).results.filter(f => f.relook);
+  t('a part gone on a far page, back when looked at again (#319\'s Storage tile): flaky on staging, a note, pass', rf.verdict === 'pass' && fl.length > 0 && rf.notes.some(n => /flaky on staging/.test(n)), { verdict: rf.verdict, first: rf.first, relooked: fl.length });
+  cap('emptygone', path.join(dir, 'a-gone2.json'), bl); const rg = cmp(path.join(dir, 'a-gone2.json'));
+  t('… still gone when looked at again: it blocks (data), and says it was looked at again', rg.verdict === 'block' && rg.blocks.some(x => x.rule === 'data') && rg.notes.some(n => /looked at again: .* still gone/.test(n)), { verdict: rg.verdict, first: rg.first });
+  const { partsGone } = await import(tool); const vb = { url: '/admin/x', ba: { regions: { 'div.hp-done:1': { t: 'All caught up.' } } } }, va = { url: '/admin/x', ba: { regions: {} } };
+  t('partsGone: gone on a far page, named; on a page the release reaches, or gone in a before look already, never', partsGone(vb, vb, va).length === 1 && partsGone(vb, vb, va, { pages: ['/admin/x'] }).length === 0 && partsGone(vb, va, va).length === 0);
   const r0 = cmp(path.join(dir, 'a-canary0066.json'), { pages: ['/'], held: { hashes: [heldHash('Zz Held Burial Canary', KEY)] } });
   t('… the block names the held name by its hash only, never the name, in the verdict file', !readFileSync(path.join(dir, 'v.json'), 'utf8').toLowerCase().includes('burial') && r0.blocks.some(x => /held [0-9a-f]{8}/.test(x.what)), r0.blocks);
   t('heldIn: a name inside a sentence, any case and punctuation, found; one word alone never', heldIn('Visit the zz HELD burial, canary today', new Set([heldHash('zz held burial canary', KEY)]), KEY).size === 1 && heldIn('Canary', new Set([heldHash('canary', KEY)]), KEY).size === 0);
