@@ -2,25 +2,67 @@
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
  "claims": [
   {
-   "path": "app/admin/module-cards.php",
-   "functions": [],
-   "kind": "add",
+   "path": "app/admin/sections.php",
+   "functions": [
+    "tv_admin_mod_releases"
+   ],
+   "kind": "change",
    "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
-   "why": "release b2-backups.zip",
-   "since": "2026-11-27T06:27:04Z",
-   "expires": "2026-11-27T14:52:25Z",
-   "release": "b2-backups-3.zip",
+   "why": "the Releases page's look line says what GitHub did (pipeline release, the Design reviewer 2026-11-27)",
+   "since": "2026-11-27T11:52:34Z",
+   "expires": "2026-11-27T15:52:34Z",
+   "release": "",
    "callers": {}
   },
   {
-   "path": "app/lib/HostBackups.php",
+   "path": "website/directory/index.php",
+   "functions": [
+    "esc"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
+   "why": "C.4: a town picked opens within 10 mi (decisions/0053)",
+   "since": "2026-11-27T11:55:31Z",
+   "expires": "2026-11-27T15:55:31Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "website/js/location-scope.js",
+   "functions": [
+    "placeOptions"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
+   "why": "C.4: a town's area listed once as Town area",
+   "since": "2026-11-27T11:55:33Z",
+   "expires": "2026-11-27T15:55:33Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "website/market/index.php",
    "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
-   "why": "release b2-backups.zip",
-   "since": "2026-11-27T06:27:04Z",
-   "expires": "2026-11-27T14:52:25Z",
-   "release": "b2-backups-3.zip",
+   "kind": "change",
+   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
+   "why": "M-sections: the Marketplace's four sections (0135 note, 2026-11-27)",
+   "since": "2026-11-27T12:14:42Z",
+   "expires": "2026-11-27T16:14:42Z",
+   "release": "",
+   "callers": {}
+  },
+  {
+   "path": "app/ui/section-rails.php",
+   "functions": [
+    "(top)",
+    "tv_section_for"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
+   "why": "M-sections: the market rail's four sections",
+   "since": "2026-11-27T12:14:45Z",
+   "expires": "2026-11-27T16:14:47Z",
+   "release": "",
    "callers": {}
   }
  ],
