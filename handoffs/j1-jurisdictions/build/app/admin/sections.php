@@ -425,7 +425,8 @@ function tv_admin_mod_jurisdictions(PDO $pdo): string
                 case 'open': Jurisdictions::open($pdo, $code, (string) ($_POST['level'] ?? 'state'), (string) ($_POST['name'] ?? '')); $done = 'Opened. Add its laws, then review it.'; break;
                 case 'law': Jurisdictions::addLaw($pdo, $code, $_POST, $uid); $done = 'Law added. The record goes back to draft until it is reviewed again.'; break;
                 case 'unlaw': Jurisdictions::removeLaw($pdo, (int) ($_POST['law'] ?? 0)); $done = 'Law removed. The record goes back to draft.'; break;
-                case 'review': Jurisdictions::review($pdo, $code, $uid, (string) ($_POST['attorney'] ?? ''), (string) ($_POST['signed_at'] ?? '')); $done = 'Marked reviewed.'; break;
+                case 'review': Jurisdictions::review($pdo, $code, $uid, (string) ($_POST['attorney'] ?? ''), (string) ($_POST['signed_at'] ?? '')); $done = 'Marked reviewed: its rules apply as written.'; break;
+                case 'unreview': Jurisdictions::undoReview($pdo, $code, $uid); $done = 'Review undone: the record is a draft again, and the strictest rule applies.'; break;
                 default: $done = '';
             }
             if ($done !== '') $msg = '<p class="ak-flash" role="status" data-tv-flash="ok">' . $e($done) . '</p>';
@@ -434,12 +435,12 @@ function tv_admin_mod_jurisdictions(PDO $pdo): string
     $dis = $can ? '' : ' disabled title="' . $e($why) . '"';
     $hid = fn (string $do, string $code) => '<input type="hidden" name="csrf" value="' . $e($csrf) . '"><input type="hidden" name="jur" value="' . $do . '"><input type="hidden" name="code" value="' . $e($code) . '">';
     $h = '<p class="ak-note">The law of the place decides what we show: the federal baseline everywhere, then each state or territory, then the tribal nation whose land it is (its rules outrank ours there). '
-       . 'Where a record is missing or not yet reviewed, the strictest rule applies: the story of a protected place is held back entirely. A state\'s or territory\'s record is reviewed with an attorney\'s sign-off before its region opens: until then its guides don\'t go live and the crawler doesn\'t gather its history (Arizona and New Mexico were open before the register and stay open while theirs are reviewed). Where a record lists a law limiting reading or copying websites, official websites there are kept as pointers unless their rules are set in Sources. Changing a record sends it back to draft.' . ($can ? '' : ' <b>' . $e($why) . '</b>') . '</p>' . $msg;
+       . 'Where a record is missing or not yet reviewed, the strictest rule applies: a protected place\'s story is told without its place (no pin, coordinates or directions), and on a nation\'s land it stays held. A state\'s or territory\'s record is reviewed by the team against its laws before its region opens; an attorney\'s review is advised, not required (0164 R8, its note of 2026-11-27). Until then its guides don\'t go live and the crawler doesn\'t gather its history (Arizona and New Mexico were open before the register and stay open while theirs are drafts). Where a record lists a law limiting reading or copying websites, official websites there are kept as pointers unless their rules are set in Sources. Changing a record sends it back to draft.' . ($can ? '' : ' <b>' . $e($why) . '</b>') . '</p>' . $msg;
     $closed = [];
     foreach (Jurisdictions::register($pdo) as [$code, $level, $name, $r]) {
         if (!$r) { $closed[] = [$code, $level, $name]; continue; }
         $j = Jurisdictions::get($pdo, $code);
-        $status = ($j['status'] === 'reviewed' ? 'Reviewed ' . date('M j, Y', strtotime((string) $j['reviewed_at'])) . ($j['signed_by'] !== '' ? ' · signed off by ' . $j['signed_by'] : '') : 'Draft: the strictest rule applies') . ' · ' . count($j['laws']) . ' law' . (count($j['laws']) === 1 ? '' : 's');
+        $status = ($j['status'] === 'reviewed' ? 'Reviewed ' . date('M j, Y', strtotime((string) $j['reviewed_at'])) . ' by ' . Jurisdictions::reviewer($pdo, $j) . ($j['signed_by'] !== '' ? ' · attorney\'s review: ' . $j['signed_by'] : '') : 'Draft: the strictest rule applies') . ' · ' . count($j['laws']) . ' law' . (count($j['laws']) === 1 ? '' : 's');
         if (in_array($level, ['state', 'territory'], true)) $status .= ' · ' . (Jurisdictions::regionOpen($pdo, substr($code, 3)) ? (in_array(substr($code, 3), Jurisdictions::OPENED, true) && $j['status'] !== 'reviewed' ? 'open (before the register; its review is pending)' : 'open') : 'closed until reviewed');
         $body = $j['notes'] ? '<p class="ak-note">' . $e((string) $j['notes']) . '</p>' : '';
         foreach ($j['laws'] as $l) {
@@ -454,8 +455,10 @@ function tv_admin_mod_jurisdictions(PDO $pdo): string
             . '<label class="w">What it protects<input class="ak-in" name="protects"></label><label class="w">What it asks of us<input class="ak-in" name="requires_us"></label>'
             . '<button class="ak-b go"' . $dis . '>Add</button></form>', false);
         if ($j['status'] !== 'reviewed') $body .= '<form method="post" class="ak-jf">' . $hid('review', $code)
-            . ($level !== 'nation' ? '<label>Attorney who signed off<input class="ak-in" name="attorney" value="' . $e((string) $j['signed_by']) . '"></label><label>Signed on<input class="ak-in" type="date" name="signed_at"></label>' : '')
+            . ($level !== 'nation' ? '<label>Attorney\'s review (advised, not required)<input class="ak-in" name="attorney" data-spell value="' . $e((string) $j['signed_by']) . '"></label><label>On<input class="ak-in" type="date" name="signed_at"></label>' : '')
             . '<button class="ak-b go"' . $dis . ' data-confirm="Mark ' . $e($name) . '\'s record reviewed? Its rules then apply as written." data-yes="Mark reviewed">Mark reviewed</button></form>';
+        else $body .= '<form method="post" class="ak-jf">' . $hid('unreview', $code)
+            . '<button class="ak-b"' . $dis . ' data-confirm="Undo the review of ' . $e($name) . '\'s record? It goes back to draft and the strictest rule applies until it\'s reviewed again." data-yes="Undo the review" data-danger>Undo the review</button></form>';
         $h .= tv_admin_fold($name, $status, $j['status'] === 'reviewed' ? 'ok' : 'bad', '', $body, false);
     }
     $list = '';
