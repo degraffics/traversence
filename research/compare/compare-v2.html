@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Traversence vs Wix and Squarespace, v2</title>
+<style>
+@page { size: Letter; margin: 0.55in 0.55in 0.6in; }
+* { box-sizing: border-box; }
+body { font-family: Georgia, "Times New Roman", serif; color: #2A1D14; background: #F6F1E4; font-size: 9.6pt; line-height: 1.38; margin: 0; }
+h1 { color: #92400E; font-size: 18pt; margin: 0 0 2pt; }
+h2 { color: #92400E; font-size: 12.5pt; margin: 13pt 0 4pt; border-bottom: 1.5px solid #92400E; padding-bottom: 2pt; break-after: avoid; }
+h3 { color: #92400E; font-size: 10.5pt; margin: 8pt 0 3pt; break-after: avoid; }
+p { margin: 0 0 5pt; }
+.meta { color: #5E5040; font-size: 8.6pt; margin-bottom: 8pt; }
+.bl { background: #EDE6D5; border-left: 4px solid #92400E; padding: 7pt 9pt; margin: 6pt 0 4pt; }
+table { width: 100%; border-collapse: collapse; margin: 4pt 0 6pt; font-size: 8pt; line-height: 1.28; }
+th, td { border: 1px solid #CBB98D; padding: 3pt 4pt; vertical-align: top; text-align: left; }
+th { background: #3E2B1F; color: #F6F1E4; font-weight: bold; }
+td.r { font-weight: bold; background: #EDE6D5; width: 12%; }
+tr { break-inside: avoid; }
+.us { background: #FFF8E8; }
+.num td { text-align: right; } .num td:first-child { text-align: left; }
+.tag { display: inline-block; font-size: 7.4pt; font-weight: bold; padding: 0 4pt; border-radius: 3pt; font-family: Arial, sans-serif; }
+.live { background: #DCEBDD; color: #1F5130; }
+.built { background: #F6E3C2; color: #6B3D00; }
+.plan { background: #E8DEEF; color: #4B3560; }
+.none { background: #F1D6D6; color: #7A1F1F; }
+ul { margin: 0 0 5pt 14pt; padding: 0; } li { margin: 0 0 2pt; }
+.small { font-size: 8pt; color: #4A3D30; }
+.cols { display: flex; gap: 12pt; } .cols > div { flex: 1; }
+code { font-family: "Courier New", monospace; font-size: 7.8pt; }
+.src li { font-size: 7.9pt; margin-bottom: 1.5pt; word-break: break-word; }
+.pb { break-before: page; }
+</style></head><body>
+
+<h1>Traversence vs Wix and Squarespace</h1>
+<div class="meta">A business listing that sells online with its own store domain: costs against benefits. Prepared 2026-11-27 for the Founder's review with Gemini. Version 2: adds Basic against plain websites, a SWOT, where to compete, pricing levers and a suggestion (§6–10). Our figures: <code>commercial.md</code> and the decisions on <code>main</code>, checked against the live mirror (Sync 2026-11-27 12:50 UTC). Their figures: their official pricing and help pages, as of 2026-11-27 (see §6 for how they were read).</div>
+
+<h2>1. Bottom line</h2>
+<div class="bl">On price alone, Traversence Core ($79.95 a month) costs more than the comparable Wix and Squarespace plans ($29–$49 a month billed yearly). Card processing is the same for all of them at about 2.9% + 30¢, and none of the three takes a platform cut on its standard store plans (Squarespace Basic is the exception, at 2%). At $2,000 a month in sales, Core costs about $51 a month more than Wix Core or Squarespace Core. At $10,000 it costs about the same $51 more, except against Squarespace Basic, which Core beats by about $139. What Core adds that they don't is a place in a regional directory and editorial guides, GO Codes and short links, and a team close to rural shops. But today card checkout, Connect your domain and domain sales are built and switched off, the site is closed to search engines, and the directory's traffic is unproven. Wix and Squarespace have mature site builders, templates, app markets, abandoned-cart emails and unlimited products. The case for Core is local reach, not a cheaper store, and it can't be made on traffic until the site opens to search and the 1A content is live. Basic ($29.95) is not cheaper than a plain Wix or Squarespace site, but most of what it sells is live today, so it's our strongest proof point now (§6). The suggestion in §10: keep list prices, lead with Basic for presence and Core for commerce, run 60-day Core trials through the chambers, and decide on any price cut on April 30, 2027, with data.</div>
+
+<h2>2. Side by side</h2>
+<p class="small">Prices are US dollars a month. "Yr" is billed yearly; "mo" is billed monthly. Traversence's decided prices are monthly (<code>commercial.md</code> §1.1); the live plans page also offers a year at 10 months' price (<code>Billing.php:47–51</code>, <code>plans.php:85</code>), which <code>commercial.md</code> doesn't state. Status tags for our side: <span class="tag live">Live</span> <span class="tag built">Built, not live</span> <span class="tag plan">Planned</span> <span class="tag none">Not planned</span>.</p>
+<table>
+<tr><th></th><th class="">Traversence Basic</th><th>Traversence Core</th><th>Traversence Strategic</th><th>Wix Core / Business / Business Elite</th><th>Squarespace Basic / Core / Plus / Advanced</th></tr>
+<tr><td class="r">Monthly cost</td><td class="us">$29.95</td><td class="us">$79.95 (a year: $799.50 in the live code)</td><td class="us">$229.95</td><td>Yr: $29 / $39 / $159<br>Mo: $36 / $46 / $172</td><td>Yr: $19 / $29 / $49 / $99<br>Mo: $25 / $39 / $65 / $139</td></tr>
+<tr><td class="r">Platform transaction fee</td><td class="us">0% (manual payments only)</td><td class="us">0%: "0% system processing fees" (commercial.md §0.A)</td><td class="us">0%</td><td>None found on these plans; Wix lists no setup or monthly payment fee from Core up</td><td>2% / 0% / 0% / 0% (digital products: 7% / 5% / 1% / 0%)</td></tr>
+<tr><td class="r">Card processing</td><td class="us">No card checkout. Zelle, transfer, check, pickup, marked paid by the business <span class="tag live">Live</span></td><td class="us">The business's own Stripe or Square; their fees (Stripe 2.9% + 30¢; Square API 2.9% + 30¢). We hold no money and aren't merchant of record (0135 §6) <span class="tag built">Built, not live</span></td><td class="us">Same as Core</td><td>Wix Payments 2.9% + 30¢ (Amex 3.7% + 30¢; PayPal 3.49% + 49¢); Stripe can be connected at Stripe's rate</td><td>Squarespace Payments 2.9% + 30¢ / 2.9% + 30¢ / 2.7% + 30¢ / 2.5% + 30¢</td></tr>
+<tr><td class="r">Domain</td><td class="us">trvgo.us storefront is Core and up; Basic has its listing page</td><td class="us">Storefront at <code>trvgo.us/&lt;shop&gt;</code> <span class="tag live">Live</span>. Bring your own domain <span class="tag built">Built, not live</span>. Buy one through Name.com, priced at Name.com's cost plus our markup, renewing yearly (0139, 0169 §1a) <span class="tag built">Built, not live</span>. No free domain.</td><td class="us">Same as Core</td><td>Free domain voucher for the first year on yearly plans; then Wix's renewal rate</td><td>Free domain for the first year on yearly plans; then the standard rate</td></tr>
+<tr><td class="r">Email</td><td class="us">None stated</td><td class="us">500 emails a month (0137 §8), top-ups from +1,000 for $2.95. No allowance meter or campaign tool in the live code <span class="tag plan">Planned</span></td><td class="us">10k emails, 500 SMS, 10k push a month; the communication suite <span class="tag plan">Planned</span></td><td>Email marketing built in; 200 a month free. Paid-plan allowances not confirmed</td><td>Email Campaigns is a separate subscription; prices not confirmed</td></tr>
+<tr><td class="r">Item cap</td><td class="us">25 active items</td><td class="us">100 active items per listing <span class="tag live">Live</span> (<code>MarketBiz.php:29</code>)</td><td class="us">250</td><td>50,000 products on all three (dropshipping 25 / 250 / 50,000)</td><td>Unlimited products on all four</td></tr>
+<tr><td class="r">Storage</td><td class="us">10 GB</td><td class="us">25 GB <span class="tag live">Live</span> (<code>Billing.php:22</code>); packs from +25 GB for $2.95</td><td class="us">100 GB</td><td>50 GB / 100 GB / unlimited</td><td>Unlimited bandwidth; video 30 min / 5 h / 50 h / unlimited (other storage figures not confirmed)</td></tr>
+<tr><td class="r">SEO</td><td class="us">schema.org LocalBusiness markup on every listing</td><td class="us">"Automated local SEO" (§1.1). Storefronts carry LocalBusiness data and a canonical address <span class="tag live">Live</span>, but the whole site, storefronts included, is closed to search engines for now (<code>faq.md:990</code>, <code>TV_SEARCH_LOCK</code>)</td><td class="us">Same as Core</td><td>Built-in SEO tools (details not checked)</td><td>Built-in SEO tools (details not checked)</td></tr>
+<tr><td class="r">QR codes and short links</td><td class="us">5 free static GO Codes; more at $4.95 each</td><td class="us">Dynamic GO Codes and short links on trvgo.us, scan counts, never a broken print (0094) <span class="tag live">Live</span> (<code>ShortCodes.php:20</code>)</td><td class="us">Same as Core</td><td>Not checked</td><td>Not checked</td></tr>
+<tr><td class="r">Built-in local discovery traffic</td><td class="us" colspan="3">Every listing, free or paid, sits in the regional directory and Marketplace and can be named in guides (the Connection Layer, commercial.md §0.B). Paid plans buy no ranking (0007). Today the site is closed to search engines, 6 guides are live and none are in 1A (launch plan, 2026-11-26) <span class="tag plan">Unproven</span></td><td>None: the shop brings its own traffic</td><td>None: the shop brings its own traffic</td></tr>
+<tr><td class="r">Content and articles</td><td class="us">AI text help</td><td class="us">AI text help; no article quota stated (§1.4 "Open")</td><td class="us">25 AI catalog articles a month, Owner Spotlight, own stories via the Connection Layer <span class="tag plan">Planned</span></td><td>Blog built in (AI tools not checked)</td><td>Blog built in (AI tools not checked)</td></tr>
+<tr><td class="r">Support and setup</td><td class="us">Self-service</td><td class="us">Self-service</td><td class="us">White-Glove setup and an assigned agent (0117) <span class="tag built">Partly built</span></td><td>24/7 customer care on all premium plans; priority on Business Elite</td><td>Support on all plans (levels not checked)</td></tr>
+</table>
+
+<h2 class="pb">3. Worked example: what a month costs</h2>
+<p>Two small rural shops, one selling $2,000 a month and one $10,000. Assumed: a $40 average order, so 50 and 250 orders; US cards; no Amex, international or digital goods; plan billed yearly where the platform offers it. Our side uses Stripe's standard US online rate, 2.9% + 30¢ (stripe.com/pricing), the same as Square's online API rate (developer.squareup.com/docs/payments-pricing). Traversence Core is at its decided monthly price. Domain renewals, taxes, shipping and apps are left out.</p>
+<table class="num">
+<tr><th>Platform and plan</th><th>Plan</th><th>Platform fee</th><th>Processing at $2,000</th><th>Total at $2,000</th><th>Processing at $10,000</th><th>Total at $10,000</th></tr>
+<tr class="us"><td><b>Traversence Core</b></td><td>$79.95</td><td>$0</td><td>$73.00</td><td><b>$152.95</b></td><td>$365.00</td><td><b>$444.95</b></td></tr>
+<tr class="us"><td>Traversence Core, a year at 10 months (live code)</td><td>$66.63</td><td>$0</td><td>$73.00</td><td>$139.63</td><td>$365.00</td><td>$431.63</td></tr>
+<tr class="us"><td>Traversence Strategic</td><td>$229.95</td><td>$0</td><td>$73.00</td><td>$302.95</td><td>$365.00</td><td>$594.95</td></tr>
+<tr class="us"><td>Traversence Basic (no card checkout; manual payments)</td><td>$29.95</td><td>$0</td><td>n/a</td><td>$29.95 + the business's own costs</td><td>n/a</td><td>$29.95 + own costs</td></tr>
+<tr><td>Wix Core</td><td>$29</td><td>$0</td><td>$73.00</td><td>$102.00</td><td>$365.00</td><td>$394.00</td></tr>
+<tr><td>Wix Business</td><td>$39</td><td>$0</td><td>$73.00</td><td>$112.00</td><td>$365.00</td><td>$404.00</td></tr>
+<tr><td>Wix Business Elite</td><td>$159</td><td>$0</td><td>$73.00</td><td>$232.00</td><td>$365.00</td><td>$524.00</td></tr>
+<tr><td>Squarespace Basic</td><td>$19</td><td>2%: $40 / $200</td><td>$73.00</td><td>$132.00</td><td>$365.00</td><td>$584.00</td></tr>
+<tr><td>Squarespace Core</td><td>$29</td><td>$0</td><td>$73.00</td><td>$102.00</td><td>$365.00</td><td>$394.00</td></tr>
+<tr><td>Squarespace Plus (2.7% + 30¢)</td><td>$49</td><td>$0</td><td>$69.00</td><td>$118.00</td><td>$345.00</td><td>$394.00</td></tr>
+<tr><td>Squarespace Advanced (2.5% + 30¢)</td><td>$99</td><td>$0</td><td>$65.00</td><td>$164.00</td><td>$325.00</td><td>$424.00</td></tr>
+</table>
+<p class="small">Billed monthly instead, Wix totals rise by $7, $7 and $13, and Squarespace's by $6, $10, $16 and $40. At $2,000, for example, Wix Core is $109 and Squarespace Core $112. A domain bought through us adds Name.com's cost plus our markup each year (default $5.00 a year, <code>Domains.php:23</code>). Name.com's reseller cost isn't known yet (ticket #3113488), so it isn't shown. Wix and Squarespace include the first year free, then charge their renewal rate (not confirmed here).</p>
+<p><b>What it shows.</b> Because processing is the same everywhere, the difference is the plan price. Core costs $50.95 a month more than Wix Core or Squarespace Core at any volume: $611 a year. Core comes out ahead only against Squarespace Basic once sales pass about $3,050 a month, where Basic's 2% fee overtakes Core's higher price. To justify the gap, Core has to bring in sales the shop wouldn't get otherwise. At a 30% gross margin, that's about $170 a month in extra sales, or about four $40 orders.</p>
+
+<h2>4. Benefits, and where they're stronger</h2>
+<div class="cols"><div>
+<h3>Only Traversence</h3>
+<ul>
+<li><b>A place in a regional directory and its stories.</b> The listing, its items in the shared Marketplace and in guides (the Connection Layer). Wix and Squarespace bring no audience. The value depends on our traffic, which is unproven (§5).</li>
+<li><b>No paid ranking.</b> Free and paid listings rank on trust alone (0007), so a small shop doesn't compete with bigger budgets.</li>
+<li><b>GO Codes and short links</b> on trvgo.us, dynamic from Core, with scan counts. A printed code never breaks: when a plan ends it falls back to the free listing (§1.3, 0094).</li>
+<li><b>Manual payments on every plan, Free included.</b> Zelle, transfer, check, pay at pickup. Fits counter shops with no card account (<code>Plan.php</code> manual_pay: free).</li>
+<li><b>Square catalog and stock sync from Basic</b> (built, waiting on Square's live keys) for shops that already use Square at the counter.</li>
+<li><b>Quotes and invoices, discount codes, sales tax, shipping and pickup, customer records and store policies</b> from Basic, live in the business portal (<code>portal.php</code>).</li>
+<li><b>Local people:</b> field staff, and White-Glove setup from Strategic; print, signs and video sold as add-ons (§2).</li>
+<li><b>No ad pixels or retargeting</b> on trvgo.us; scans are counted, never who scanned.</li>
+</ul>
+</div><div>
+<h3>Where Wix and Squarespace are stronger</h3>
+<ul>
+<li><b>Price:</b> $19–$49 a month billed yearly against $79.95. Core's extra $51 a month has to be earned in traffic.</li>
+<li><b>Mature site builders and templates:</b> many templates, drag-and-drop editing, years of polish. Our storefront has four ready themes and a script-free page (0139 5a); Storefront Studio's blocks come later (0159).</li>
+<li><b>App markets</b> (Wix App Market, Squarespace Extensions) for shipping, accounting, reviews, booking and more. We have none.</li>
+<li><b>Store features we haven't built:</b> abandoned-cart recovery emails (Wix from Core; Squarespace on all four), built-in email campaigns, and unlimited or 50,000 products against our 100.</li>
+<li><b>Payments live today,</b> including Apple Pay, Google Pay and PayPal on Wix. Ours need the platform keys set; PayPal comes later (0135 §6).</li>
+<li><b>A free domain for the first year</b> and a domain that works today. Ours is built and switched off.</li>
+<li><b>Search traffic now:</b> their sites can be indexed from day one. Ours are closed to search engines until the lock lifts.</li>
+<li><b>Scale and 24/7 support</b> (Wix: priority on Business Elite).</li>
+</ul>
+</div></div>
+
+<h2>5. Risks and gaps for us</h2>
+<table>
+<tr><th style="width:26%">Feature (our source)</th><th style="width:13%">Status</th><th>Evidence in the live mirror and the record</th></tr>
+<tr><td>Card checkout through the business's own Stripe or Square (0135 step 4)</td><td><span class="tag built">Built, not live</span></td><td>Code is live: <code>MarketPay.php</code>, <code>MarketCheckout.php</code>, <code>business/pay-connect.php</code>. Its keys are sandbox only, "no live keys yet" (<code>handoffs/session-manager.md:428</code>, 2026-11-16). Launch plan F.4: "Marketplace payments live" is the Founder's step to take.</td></tr>
+<tr><td>0% platform fee (commercial.md §0.A)</td><td><span class="tag live">Live</span> (policy)</td><td><code>Plan.php</code>: "Card checkout through your own payment gateway (0% system processing fees)". No fee in the checkout code.</td></tr>
+<tr><td>Storefront on trvgo.us (0139 5a)</td><td><span class="tag live">Live</span></td><td><code>sync-trvgo/index.php:73–77</code>, <code>Storefront.php</code>, the portal's Storefront &amp; pages marked live. Not indexed yet (<code>storefront-view.php:108</code>, <code>TV_SEARCH_LOCK</code>).</td></tr>
+<tr><td>Connect your domain, bring your own (0139 5b)</td><td><span class="tag built">Built, not live</span></td><td><code>Domains.php</code>; the Fly edge is set up with <code>DOMAINS_MODE=test</code>, so only our team sees it (<code>handoffs/preflight.md</code>, 2026-11-17).</td></tr>
+<tr><td>Buy a domain through Name.com (0139, 0169 §1a)</td><td><span class="tag built">Built, not live</span></td><td><code>AccountDomains.php</code>, <code>shop/domains.php</code>. <code>DOMAIN_SALES_MODE</code> is off (<code>handoffs/domains.md:11</code>). The price policy waits on Name.com's reseller pricing (ticket #3113488).</td></tr>
+<tr><td>Dynamic GO Codes and short links from Core (0094)</td><td><span class="tag live">Live</span></td><td><code>ShortCodes.php:20</code> <code>DYNAMIC_TIERS = core, strategic, cornerstone</code>; <code>/qr/</code>. The portal's Marketing module (codes and campaigns) is still "coming" (<code>portal.php:29</code>).</td></tr>
+<tr><td>Plans at the decided prices</td><td><span class="tag live">Live</span>, not proved</td><td><code>Billing.php:20–24</code> matches §1.1 ($29.95 / $79.95 / $229.95 / $399.95); the FAQ agrees (<code>faq.md:1052</code>). No older prices were found on the site. A real purchase and refund has never been recorded (launch plan, "Taking real money: Not proved").</td></tr>
+<tr><td>Item caps 10 / 25 / 100 / 250 / 1,000</td><td><span class="tag live">Live</span></td><td><code>MarketBiz.php:29</code>. 100 at Core is low for a gift shop or grocer against 50,000 or unlimited.</td></tr>
+<tr><td>Core's 500 emails a month; email campaigns</td><td><span class="tag plan">Planned</span></td><td>No allowance meter in <code>sync-app/lib</code>; campaigns start at Strategic (<code>Plan.php</code>) and the Marketing module is coming.</td></tr>
+<tr><td>Abandoned-cart recovery</td><td><span class="tag none">Not planned</span></td><td>No decision or code mentions it.</td></tr>
+<tr><td>Automated local SEO; discovery traffic</td><td><span class="tag plan">Partly / unproven</span></td><td>Markup is live, but the site is noindex until the Founder lifts the lock (<code>faq.md:990</code>). Six guides are live, none in 1A. St. Johns has 182 listings, 1 verified (launch plan, 2026-11-26).</td></tr>
+<tr><td>Strategic's 25 AI articles a month; White-Glove</td><td><span class="tag plan">Planned</span> / partly built</td><td>No catalog-article quota in the live code; §1.4 leaves Core's quota "Open". White-Glove access is built (0117); the White Glove board isn't (launch plan).</td></tr>
+<tr><td>Square catalog sync (0135 4b)</td><td><span class="tag built">Built, not live</span></td><td><code>MarketSquare.php</code>; needs Square's live app.</td></tr>
+</table>
+<p><b>Other risks.</b> (1) If we sell Core as "your own store on your own domain" before checkout and domains are on, we promise what isn't live, so the sales wording should follow the switches. (2) Without a free first-year domain, the first-year comparison looks worse still. (3) Card checkout runs on our page, with the gateway's own card fields; if our site is down, so is the shop's checkout. (4) The legal texts (Terms, Seller Agreement) are drafts awaiting the attorney (launch plan F.7). (5) Squarespace's prices rose in 2026, but both still undercut us on plan price.</p>
+<p><b>Possible responses, for the Founder (suggestions, not decided):</b> turn on Stripe and Square live keys and Connect your domain before Core is sold for e-commerce; consider a first-year domain credit on yearly Core (it would change 0139/0169 pricing, so a Founder ruling); raise Core's item cap or add item packs (0135 §7 rules packs out, so a Founder ruling); measure referral traffic per listing once the search lock lifts, so Core's value can be shown in numbers.</p>
+
+<h2 class="pb">6. Second comparison: Basic Partner against a plain website</h2>
+<p>The Founder's point (2026-11-27): "our listings at the 29.95 level still leverage online presence and enrichment vs wix and square at non e-commerce levels." Here is Basic ($29.95 a month) against each builder's cheapest plan that gives a site on its own domain. Squarespace's old Personal plan is now called Basic, and it can sell, with a 2% fee. Wix Light can't take payments.</p>
+<table>
+<tr><th style="width:17%"></th><th style="width:37%">Traversence Basic Partner (commercial.md §1.1, §1.4)</th><th style="width:23%">Wix Light</th><th style="width:23%">Squarespace Basic</th></tr>
+<tr><td class="r">Monthly cost</td><td class="us">$29.95; a year is $299.50 in the live code, about $24.96 a month (<code>Billing.php:21, 47–51</code>) <span class="tag live">Live</span></td><td>Yr $17; mo $24</td><td>Yr $19; mo $25</td></tr>
+<tr><td class="r">What you get</td><td class="us">A listing page inside a regional directory, not a website of your own. No own domain: the storefront and Connect your domain start at Core (<code>Plan.php</code> storefront: core).</td><td>A full website of your own on your domain, built from templates</td><td>A full website of your own (up to 1,000 pages) on your domain</td></tr>
+<tr><td class="r">Domain</td><td class="us">None at Basic. The listing lives on traversence.com.</td><td>Free voucher for year one (new domain from Wix); then for example .com at $21.35 a year</td><td>Free for year one on yearly billing</td></tr>
+<tr><td class="r">Presence in a directory and guides</td><td class="us">The listing sits in Get Local and Let's Explore, and guides can name it through the Connection Layer (§0.B) <span class="tag live">Live</span>. Traffic is unproven: the site is closed to search (0181 §4), and 6 guides are live, none in 1A (launch plan).</td><td>None: brings its own visitors</td><td>None: brings its own visitors</td></tr>
+<tr><td class="r">Search markup</td><td class="us">schema.org LocalBusiness on every listing (§1.1) <span class="tag live">Live</span> (<code>listing/view.php:331</code>), held noindex until the lock lifts</td><td>Built-in SEO tools (details not checked)</td><td>Built-in SEO tools (details not checked)</td></tr>
+<tr><td class="r">AI text help</td><td class="us">10 AI Assist credits a month (<code>Billing.php:21</code>; 0108). "Write it for me" drafts an item's description from the business's own facts (<code>ItemWriter.php</code>) <span class="tag live">Live</span>. Each ask counts against the $40 AI cap (0181 E1).</td><td>Not checked</td><td>Not checked</td></tr>
+<tr><td class="r">Profile and categories</td><td class="us">Listing categories and kinds route it into search (taxonomy routing, §1.1) <span class="tag live">Live</span>. "Profile sections" as a separate feature wasn't found in the code; not confirmed.</td><td>Any page design</td><td>Any page design</td></tr>
+<tr><td class="r">Selling</td><td class="us">Marketplace selling with manual payments (Zelle, transfer, check, pickup), 0% to us (0135 §6) <span class="tag live">Live</span>. From Basic, also live: quotes and invoices, order emails, sales tax, shipping and pickup, discount codes (<code>Plan.php</code>, <code>portal.php</code>). Square catalog sync from Basic <span class="tag built">Built, not live</span>.</td><td>Can't accept payments</td><td>Online store, unlimited products, 2% fee + 2.9% + 30¢ processing</td></tr>
+<tr><td class="r">Item cap</td><td class="us">25 active items (<code>MarketBiz.php:29</code>)</td><td>No store</td><td>Unlimited</td></tr>
+<tr><td class="r">QR codes</td><td class="us">5 free static GO Codes with any account; more at $4.95 each; dynamic codes are Core and up (§1.3, <code>ShortCodes.php:20</code>) <span class="tag live">Live</span></td><td>Not checked</td><td>Not checked</td></tr>
+<tr><td class="r">Storage</td><td class="us">10 GB (<code>Billing.php:21</code>) <span class="tag live">Live</span></td><td>2 GB</td><td>Unlimited bandwidth; 30 min of video</td></tr>
+<tr><td class="r">Ranking</td><td class="us">Paid plans buy no ranking: free and Basic listings rank on trust alone (0007). This is policy, not a feature to sell.</td><td>n/a</td><td>n/a</td></tr>
+</table>
+<p><b>What it shows.</b> Basic isn't cheaper than a plain website. Billed yearly, it's about $8 a month more than Wix Light and $6 more than Squarespace Basic. Billed monthly, it's $6 and $5 more. Our yearly price ($24.96 a month) is about the same as their monthly prices. Basic also doesn't give a site of one's own or a domain. What it gives that they don't is a place among the region's listings and stories, search markup, 10 GB, AI help, quotes and invoices, and selling at 0% with no card account. For a rural shop with no website and no card processor, which the county's figures suggest is common (60% broadband, 442 employer establishments; launch plan §9.1), Basic is a fair alternative to a plain website. For a shop that wants its own branded site, it isn't. Basic's value rests on our traffic, which can't be shown until the lock lifts. Unlike Core's headline features, though, most of what Basic sells is live today.</p>
+
+<h2 class="pb">7. A. SWOT: Traversence against Wix and Squarespace, for a rural 1A business</h2>
+<table>
+<tr><th style="width:50%">Strengths</th><th>Weaknesses</th></tr>
+<tr><td><ul>
+<li>0% commission and no platform fee; the business's own gateway (commercial §0.A; 0135 §6).</li>
+<li>A place in the regional directory and guides, the Connection Layer (§0.B).</li>
+<li>No paid ranking; trust alone decides (0007).</li>
+<li>GO Codes; printed codes never break (§1.3; 0094).</li>
+<li>Selling with manual payments on every plan, from Free (0135 §6).</li>
+<li>Basic's presence features are live today (§6 above).</li>
+<li>The Founder in person with chambers and venues (0181 notes).</li>
+<li>A "made in &lt;region&gt;" label earned by data, with Native-made guidance (launch plan §10).</li>
+</ul></td><td><ul>
+<li>Core is $79.95 against $29 for Wix Core or Squarespace Core (§2–3 above).</li>
+<li>Card checkout, domains and domain sales are built, not live (§5).</li>
+<li>The site is closed to search, and trial listings stay noindex (0181 §4; 0034).</li>
+<li>Item caps: 25 on Basic, 100 on Core, no packs (0135 §7).</li>
+<li>No own site at Basic; four storefront themes; no app market (0139).</li>
+<li>No real purchase proved yet (0181 gate 5).</li>
+<li>One person in the field; a $40 AI cap slows content (0181; launch plan §9.0).</li>
+</ul></td></tr>
+<tr><th>Opportunities</th><th>Threats</th></tr>
+<tr><td><ul>
+<li>Offline-heavy county: GO Codes, counters, the Chamber (launch plan §9.1, item 6).</li>
+<li>Up to 3 chambers on a comped Co-Op Master Hub (0034; 0181).</li>
+<li>Claim invites that carry counted demand (0108; 0172 §3.3).</li>
+<li>Promotions already built: 30/60/90-day trials, percent off within the 65% floor, issued as GO Codes (0108).</li>
+<li>A year is already 10 months' price (0108; <code>Billing.php</code>).</li>
+<li>Regional authenticity content a builder can't offer (launch plan §10).</li>
+</ul></td><td><ul>
+<li>Cheaper builders with free first-year domains and abandoned-cart emails (§2).</li>
+<li>A new site takes 3–6 months to rank, longer than a 30-day trial (launch plan §9.0).</li>
+<li>A 29.3% poverty rate means price matters (launch plan §9.1, item 6).</li>
+<li>The conversion rates (1 in 10 claims, 1 in 3 trials) are assumptions (launch plan §9.0).</li>
+<li>Nextdoor's similar trust pitch (competitive-positioning, Risks).</li>
+<li>Google Business Profile is free and already used for navigation (competitive-positioning).</li>
+</ul></td></tr>
+</table>
+
+<h2>8. B. Where we win, and where we shouldn't compete</h2>
+<div class="cols"><div>
+<h3>Compete here</h3>
+<ul>
+<li><b>Local discovery traffic:</b> the directory and guides bring visitors no builder brings (§0.B). It has to be shown in counts once the lock lifts.</li>
+<li><b>Regional trust:</b> ranking by trust, never by payment (0007), and the "made in &lt;region&gt;" label (launch plan §10).</li>
+<li><b>Physical to digital:</b> GO Codes on doors, counters and handouts, counted back (0094; 0181's multiplier kit).</li>
+<li><b>Zero commission:</b> 0% to us on every plan (§0.A).</li>
+<li><b>Local people:</b> the Founder with chambers and venues, and White-Glove from Strategic (0181; §2).</li>
+<li><b>Presence at Basic's price</b> for shops with no website (§6 above).</li>
+</ul></div><div>
+<h3>Don't compete here</h3>
+<ul>
+<li><b>Site builders and templates:</b> they have years of design tools; our storefront is four themes on purpose (0139).</li>
+<li><b>App markets and integrations:</b> we have none.</li>
+<li><b>Large catalogs:</b> caps of 25 to 1,000 against unlimited (0135 §7).</li>
+<li><b>Lowest plan price:</b> a builder will always undercut a plan that carries content and people.</li>
+<li><b>Store automation:</b> abandoned-cart emails and campaigns aren't built or planned at Core.</li>
+</ul></div></div>
+<p class="small">For a business that already has a good Wix or Squarespace site, the pitch is "keep your site, add the listing." A free listing links to it, Basic adds presence, and GO Codes can point at either. It isn't "switch."</p>
+
+<h2 class="pb">9. C. Pricing levers: cost, risk and who decides</h2>
+<p class="small">The numbers rest on the pilot ladder (0181 notes; launch plan §9.0). 4a: 10 Core trials convert to paid by about April 2027. 4b: about 73 paying, about $69,800 a year, by about October 2027. Core is $959.40 a year. At the assumed 1 in 3 trial-to-paid rate, 4a needs about 30 trials, and 4b's 73 payers need about 219. The $69,800 rests on commercial §4's hub model, which commercial.md itself marks out of date. "Months given up" is shown two ways: as list value (months × $79.95 × trials) and as revenue actually deferred (× the businesses that would have paid anyway). Pricing rule changes are Tier 5 (0180 §3: a billing rule change "is not a bug fix"). Applying an already decided rule stays in Tiers 3–4 under the Prior Ruling Check.</p>
+<table>
+<thead><tr><th style="width:15%">Lever</th><th style="width:22%">Effect on 4a and 4b</th><th style="width:23%">Revenue cost</th><th style="width:22%">"No income, no expense" and 0007</th><th>Founder ruling?</th></tr></thead>
+<tr><td><b>0. Lead with Basic for presence</b> (list price, $29.95)</td><td>Basic payers don't count toward 4a (Core trials). For 4b, 73 Basic payers bring only $26,236, so $69,800 would take about 194. Basic → Core upgrades once card checkout is live feed both.</td><td>None at list price. Mix example: 40 Core + 60 Basic = $59,940 a year.</td><td>Fits. Basic's allowance (10 AI credits) counts against E1. No ranking change (0007).</td><td>No: selling a decided plan. A Basic trial would need one, since pilot trials are Core only (0181).</td></tr>
+<tr><td><b>1. Lower entry price</b>: a $49.95 Core-lite, or Basic with card checkout</td><td>Might raise trial → paid, which is unproven. To reach $69,800: about 117 payers at $49.95, about 195 at $29.95.</td><td>For 73 payers: $26,280 a year at $49.95 (38% of target), $43,800 a year with card checkout in Basic (63%). Cannibalizes Core.</td><td>Fits: card checkout costs us $0 (the business's gateway). 0007 unaffected.</td><td><b>Yes</b>, Tier 5 (a tier definition and price). Short of that, 0108's promotions allow up to 42% off the first 1–12 payments within the 65% floor (<code>Promotions.php</code>). 25% off the first 6 Core payments is $119.93 a business: $1,199 for 4a, $8,755 for 73. The 42% maximum is $201.47 a business, $14,708 for 73.</td></tr>
+<tr><td><b>2. Longer Core trials</b> (30, 60, 90 days, decided in 0108; a claim starts 30, <code>Claims.php:748</code>)</td><td>60 days: January claims convert in March, still within 4a's April. 90 days: conversions slip to April or May, so 4a is at risk. Trial pages stay noindex (0034), so a longer trial is longer without search value.</td><td>Per extra month: 30 trials × $79.95 = $2,399 list value for 4a ($799.50 actually deferred from 10 payers); 219 trials = $17,509 for 4b ($5,836 deferred from 73, 8% of target). A 90-day trial doubles these.</td><td>Trials use real allowances: Core's 50 AI credits a month count against the $40 cap (launch plan §9.6). Set the trial's AI allowance to fit E1.</td><td>No for 30, 60 or 90 days, Core only (0108; 0181). Beyond 90 days, yes.</td></tr>
+<tr><td><b>3. Annual prepay</b>: already 2 months free ($799.50 for 12, 0108; <code>Billing.php:47–51</code>)</td><td>Locks in payers for a year: cash up front, less churn before 4b's date. The wording is already on the plans page (<code>plans.php:85</code>).</td><td>$159.90 a business a year. If all 73 paid yearly: $11,673 less, so $69,800 would take about 88 yearly payers.</td><td>Fits. No ranking effect.</td><td>No: already decided. A deeper discount would be Tier 5.</td></tr>
+<tr><td><b>4. A bundled first-year domain</b></td><td>Matches the builders' free year and removes one objection. Needs Connect your domain and domain sales live first (§5).</td><td>Name.com's cost per name is unknown (ticket #3113488), plus the $5.00 markup forgone. Each $10 of Name.com cost is $730 for 73 businesses.</td><td>Only if a paid yearly plan is charged first, then Name.com paid (0169: "charged before Name.com is paid"). Otherwise it's an expense with no income.</td><td><b>Yes</b>, Tier 5 (amends 0139 and 0169's cost-plus price).</td></tr>
+<tr><td><b>5. "Switch from Wix or Squarespace" credits</b></td><td>Unknown: how many 1A businesses use these builders isn't counted. And §8 suggests "add," not "switch."</td><td>A 90-day trial code is lever 2's cost. A 3-month cash credit is $239.85 a switcher.</td><td>Fits as a promotion. No migration tool exists; only Square catalog sync (0135 4b).</td><td>No, if issued as a decided 0108 trial or promo code. Yes, Tier 5, for a new switcher price or cash credit.</td></tr>
+<tr><td><b>6. Chamber co-op</b> (0034; 0181: up to 3 comped Co-Op Master Hubs)</td><td>The multiplier: each chamber brings its members to Core trials and invites. The projection assumes about 6 chambers by March (launch plan §9.0).</td><td>List value $1,199.85 a month for 3 hubs ($7,199 over 6 months). Little real revenue lost: chambers are nonprofits, Free under 0108's claim kinds.</td><td>Cornerstone's 500 AI credits are capped to fit E1 (0181). Members must get no ranking boost (0007).</td><td>No for up to 3 (decided). Yes, Tier 5, for more hubs or a standing members' price. A members' promo code within 0108's floor stays Tier 3–4.</td></tr>
+</table>
+
+<h2>10. D. Recommendation (a suggestion for the Founder, not decided)</h2>
+<div class="bl"><b>Suggestion:</b> keep list prices. Prove the case with what's already decided and live, in two moves.
+<ol style="margin:4pt 0 4pt 16pt;padding:0">
+<li><b>Lead with Basic for presence; keep Core for commerce.</b> Most of what Basic sells is live today, at about a plain website's price (§6). Core's headline features are switched off. Offer Basic at list price, yearly at $299.50 (lever 0 + 3, no ruling). Move a business to Core when it wants card checkout and its own domain, and Core's live keys are set (launch plan F.4).</li>
+<li><b>Run Core trials through the chambers.</b> Issue 60-day Core trial codes as GO Codes through the up to 3 co-op chambers and the other multipliers (levers 2 + 6; 0108, 0034, 0181; no ruling). Start them only once card checkout is live, so a trial shows what it sells. Extra cost for 4a: about $800 deferred, and AI allowances held within E1.</li>
+</ol>
+<b>Hold</b> levers 1, 4 and 5 (Tier 5) until there's data.<br>
+<b>Proof metrics, weekly, counts only</b> (launch plan §9.5):
+<ul style="margin:2pt 0 2pt 16pt;padding:0">
+<li>claims;</li>
+<li>taps per listing, our referral traffic;</li>
+<li>Basic payers, and Basic → Core upgrades;</li>
+<li>Core trial → paid;</li>
+<li>the share paying yearly.</li>
+</ul>
+<b>Checkpoints:</b>
+<ul style="margin:2pt 0 2pt 16pt;padding:0">
+<li><b>March 31, 2027,</b> against the CEO's projection: 25–40 claims, 4–7 paying.</li>
+<li><b>Decision point April 30, 2027</b> (4a's date). If 10 Core trials have converted, keep prices. If trial → paid is below 1 in 3 and owners name price as the reason, asked in person by the Founder (no new tool), the CEO brings a Tier 5 brief on a Core-lite (lever 1).</li>
+</ul>
+"Dominant over Wix and Squarespace" can't be measured directly with what we count. What can be proved is that our listings get visitors and that businesses pay for that.</div>
+
+<h2>11. Sources</h2>
+<p class="small"><b>How the competitor figures were read.</b> This session's network doesn't reach wix.com, squarespace.com, stripe.com or squareup.com directly, so every competitor figure comes from search-engine results limited to each company's own domains, run on 2026-11-27. They're the official pages' words as the search returned them, not a direct reading of each page. Confirm the totals on the pages before any decision.</p>
+<ul class="src">
+<li><b>Ours</b> (degraffics/traversence, <code>origin/main</code>): <code>commercial.md</code> §0.A, §0.B, §1.1, §1.3, §1.4, §2 and the top-ups; <code>decisions/0007</code>, <code>0094</code>, <code>0135</code> (§6, §7, steps 4a, 4b), <code>0139</code> (5a, 5b and its notes), <code>0169</code> §1a; <code>research/launch-plan-jan1-2026-11-26.md</code>; <code>handoffs/domains.md</code>, <code>handoffs/preflight.md</code>, <code>handoffs/session-manager.md</code>.</li>
+<li><b>Live mirror</b> (degraffics/traverse-3way-sync, Sync 2026-11-27 12:50 UTC, <code>eb848e8</code>): <code>sync-app/lib/Billing.php</code>, <code>Plan.php</code>, <code>MarketBiz.php</code>, <code>MarketPay.php</code>, <code>MarketCheckout.php</code>, <code>MarketSquare.php</code>, <code>Domains.php</code>, <code>AccountDomains.php</code>, <code>ShortCodes.php</code>, <code>Storefront.php</code>; <code>sync-app/ui/storefront-view.php</code>, <code>sync-app/ui/faq.md</code>; <code>sync-app/business/portal.php</code>; <code>sync-trvgo/index.php</code>; <code>sync-storage/plans.php</code>.</li>
+<li>Wix plans: https://www.wix.com/plans; https://www.wix.com/blog/how-much-is-a-wix-website (prices "as of November 2026"; monthly billing figures); https://www.wix.com/blog/wix-premium-plans (24/7 care, priority on Business Elite).</li>
+<li>Wix Payments: https://support.wix.com/en/article/wix-payments-service-fees; https://support.wix.com/en/article/multi-currency-overview; https://www.wix.com/blog/what-is-wix-payments; https://support.wix.com/en/article/connecting-stripe-as-a-payment-provider.</li>
+<li>Wix Stores: https://www.wix.com/ecommerce/online-store (50,000 products; dropshipping limits); https://support.wix.com/en/article/wix-stores-setting-up-and-managing-abandoned-carts; https://support.wix.com/en/article/email-marketing-understanding-your-monthly-balance (200 free emails a month).</li>
+<li>Squarespace plans: https://www.squarespace.com/pricing; https://support.squarespace.com/hc/en-us/articles/27853679334157-Transaction-fees-and-payment-processing-rates.</li>
+<li>Squarespace features: https://support.squarespace.com/hc/en-us/articles/207294117-Abandoned-checkout-recovery; https://support.squarespace.com/hc/en-us/articles/360002123507-Email-Campaigns-pricing-billing-and-invoices; https://www.squarespace.com/email-marketing.</li>
+<li><b>Added in v2 (ours):</b> <code>research/launch-plan-jan1-2026-11-26.md</code> §9.0, §9.1, §9.5, §9.6, §10; <code>decisions/0181</code> (gates, §4 the search lock, notes: E1, Core-only trials, the pilot zone, the ladder, multipliers, chambers' co-op grants); <code>decisions/0034</code> (with its 2026-11-27 notes); <code>decisions/0108</code> (trials 30/60/90 days, the 65% profit floor, promotions, yearly at 10 months, AI credits by tier); <code>decisions/0180</code> §2–3 (Tier 5 triggers); <code>commercial.md</code> §3, §4 (marked out of date there), §5.1 (current AI and session costs, up to $209.10 a month); <code>claude-docs/competitive-positioning.md</code> (the cold-start decision and its 2026-11-27 notes); <code>traversence-platform-spec.md</code> §30. Live: <code>sync-app/lib/Promotions.php</code> (<code>FLOOR = 0.65</code>, <code>PLAN_COST_PCT</code> default 20), <code>Claims.php:748</code>, <code>ItemWriter.php</code>, <code>sync-storage/listing/view.php:331</code>. The "No income, no expense" rule: CLAUDE.md (Jason, 2026-11-03).</li>
+<li>Wix Light (added in v2): https://www.wix.com/plans; https://www.wix.com/blog/how-much-is-a-wix-website ($17 yearly, $24 monthly, 2 GB, .com renewal $21.35 a year, November 2026); https://support.wix.com/en/article/choosing-a-premium-plan (Light can't accept payments). Squarespace Basic, formerly Personal: https://www.squarespace.com/pricing; https://support.squarespace.com/hc/en-us/articles/206536797-Choose-the-right-Squarespace-plan.</li>
+<li>Stripe: https://stripe.com/pricing (US domestic cards 2.9% + 30¢). Square: https://developer.squareup.com/docs/payments-pricing (eCommerce API 2.9% + 30¢); https://squareup.com/us/en/payments/our-fees (Square's own online products 3.3% + 30¢, which doesn't apply to our API checkout).</li>
+</ul>
+<p class="small"><b>Not confirmed:</b> Wix's email allowance on each paid plan; whether Wix's and Squarespace's free domain applies to monthly billing, and their renewal prices; Squarespace Email Campaigns' prices (only third-party figures were found: $5–$48 a month); Squarespace storage other than video, and its support levels; both platforms' SEO and QR tools in detail; Wix Light's QR, AI and SEO tools, and whether its free-domain voucher still applies (an older help article lists it, newer pages say "most paid plans"); the Squarespace Personal-to-Basic rename date. Any Wix platform fee on these plans: none was found, but none was ruled out either.</p>
+</body></html>
