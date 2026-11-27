@@ -77,3 +77,12 @@ task done. One Pulse row per task, updated in place; a push only when it moves t
 1. **The thread:** posts, system lines from History, the box. No AI.
 2. **Ask Claude:** `task_assist`, Draft the scope / Split into steps / Write the brief, cost on the task, the cap's words.
 3. **Start the build:** the brief through `report()` to the session manager, its state lines; then Gemini's public-page read.
+
+## Note (Jason, 2026-11-27): built inside the transition plan
+
+Jason: "Yes, the transition plan; and shouldn't your team work out the design as a part of handling the plan through
+implementation?" The four-stage redesign no longer waits on him: Piece 2 drafts it with release 1, the Design reviewer
+approves it against brand.md, `design/css-theme-brand.md` and `design/table-standard.md`, the CEO runs its Tier 4, and
+Jason sees it once, as the release. Release 1 also reads `releases/task-rulings.json` (the session manager's rulings,
+each made a task by the hourly path) beside `releases/task-notes.json`. Order: task-seed-4, release 1, the Executive
+channel, cutover about Dec 15; after the pipeline release and R2, alongside A3; launch work wins.
