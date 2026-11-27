@@ -182,6 +182,9 @@ run since Nov 12 (morning and afternoon, Arizona time). The search panel draws "
 **Decided (Jason, 2026-11-13): wait for the crawler revamp.** He thinks the crawler has been wiping hours data
 (handoffs/crawler-revamp.md). Looked at again once its fixes are live.
 
+**Reopened (Jason, 2026-11-27: "Reopen"; decisions/0181).** Open now is marked and filtered only where hours are known
+(the owner's or OpenStreetMap's). Everything else says "hours not known", never a guess. It's the launch plan's C.8.
+
 ### P11. Things the staging paths will check, found in their code (verdict: fix)
 
 Read while writing the staging paths (2026-11-13); each is confirmed or cleared by their first runs:

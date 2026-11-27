@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-26T12:06:10Z",
+ "generated_at": "2026-11-27T03:58:12Z",
  "version": 2,
  "generated_by": "tools/page-audit/gauges.py",
  "note": "The gauges' configuration (handoffs/control-board-plan/step3/sections/gauge-lifecycle.md), compact: the site computes every stage from it (app/lib/ControlGauges.php); each gauge's detail is in gauges-items.json.",
@@ -3854,6 +3854,18 @@
    "at": "2026-11-26T09:25:00Z",
    "subject": "Traversence: staging is fixed, one press when you're up",
    "body": "The staging fix is live (#300) and checked. When you're up: open https://traversence.com/admin/config/staging#against. In \"Staging against live\" it reads \"Keep staging caught up didn't turn on…\". Press Try again. You'll see \"turning on\" with a percentage; about 30 minutes later it reads (on) and you get an email. Then: https://staging.trvgo.us/admin/config/switches, set Staging: the Team's runner to Everyone and Save. Then https://traversence.com/admin/config/team: Approve the decision tree, Raise to Building, Raise to Implementation."
+  },
+  {
+   "id": "sm-2026-11-26-r1-live",
+   "at": "2026-11-26T21:45:00Z",
+   "subject": "Traversence: R1 is live, three presses for you",
+   "body": "R1 (Release #313) is live and checked: the five tiers and all 32 roles on, plus the 12 advocates. Open https://traversence.com/admin/config/team and press, in order: 1. Approve the decision tree (the five-tier version). 2. Raise to Building. 3. Raise to Implementation. Agents then build backend releases on their own: Backend only, $0 spend (yours and the CEO's $20 aside), no real money moved. While you're there, check the roster shows 44 active and 0 on standby; I couldn't read those counts from outside. Next: the before-and-after check's fix, the check switched back on, then R2."
+  },
+  {
+   "id": "ceo-rulings-2026-11-27",
+   "at": "2026-11-27T03:50:00Z",
+   "subject": "CEO: tonight's rulings (Nov 26–27)",
+   "body": "Launch (0181): A approved: 6 gates, freeze Dec 22, go/no-go Dec 31, launch work first. B approved: 200 miles around Four Corners (340 towns) built ahead of demand; the lock covers home, sign-in and storefronts. E1: $0 extra; Google checks 1A first; guides inside the $40 AI cap. The before-and-after check is On for everyone; R2 next.\n\nPilot: the whole Ancient Borderlands zone. The system leads (content > search > demand > invites > claims). You run oversight and the multiplier meetings: chambers, guide influences, venues. Multiplier kit approved. Up to 3 chambers get a comped Co-Op hub. Trials Core only. Ladder: 10 Core paying by ~April; ~73 paying (~$70k/yr) by ~Oct 2027; stretch 100 by Dec 31. After the pilot: Four Corners core, then the gateways.\n\nNations: public businesses welcome, with no outreach to a nation as a group. Option B: a public place's story is told, never the way in; closures hold. Story-only places show during state review. Launch with pointers to each nation's rules; a person checks them after launch.\n\nData and ops: R8 advisory (team-reviewed records; CO and UT open). W15 built now (duplicates merged, with Undo). Guides publish at 70+, the team gets them there. \"Open now\" reopens (known hours only). Backups read through cPanel's API, then built. SES production access is already granted; only the SES_MODE switch remains, for when invites need it.\n\nLive tonight: #314 security fix; #315 search lock; #316 in-area search; #309 the 6:13 jobs fix.\nOpen: Order #12 after the holiday. Brief D by Dec 14–21.\nPlan: https://github.com/degraffics/traversence/blob/main/research/launch-plan-jan1-2026-11-26.md"
   }
  ],
  "answers": [],

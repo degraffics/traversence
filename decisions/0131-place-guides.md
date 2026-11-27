@@ -243,3 +243,7 @@ written again (`DRAFT_V` 3).
 **Since 2026-11-01** (decisions/0133, "The observations store is the identity record"): Find it's own score (with Claude's confidence and OpenStreetMap's 40) is replaced: a find becomes a candidate identity and the same listing confidence decides it (to build; see 0133, "Find it under the one record").
 
 **Note (2026-11-05): guides in Stories & guides.** Discovery's Stories & guides (`/discovery/?view=stories`) read only the older `place_stories`, so live guides (`place_guides`, on /hub/ pages) never showed there: St. Johns's guide looked missing. It now lists the live guides for the place and the towns and neighborhoods in it (`dv_guides()`), first, each linking to its guide page; the overview's tile counts them too.
+
+- **The team gets guides to 70; no person publishes at 70+** (Jason, 2026-11-27: "Guides should be able to reach 70 or
+  better, especially now that we have a team in place"; decisions/0181). The 2026-10-30 auto-publish at 70 stands. The
+  Editorial Director's lane works drafts under 70 and meets the St. Johns fact-check (line 102) itself.
