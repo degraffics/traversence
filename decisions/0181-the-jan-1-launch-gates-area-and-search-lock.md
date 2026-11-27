@@ -184,3 +184,45 @@ day. This qualifies 0180's "R1–R5 ship as each passes" (note added there).
   "hours not known", never a guess. It's the Frontend & Shop session's C.8.
 - **Order #12 waits for the Founder** (Jason, 2026-11-27: "I will address this after holiday"). Nothing on it changes
   until he answers.
+- **The Marketplace's four sections and Native made vs regional authenticity** (Jason, 2026-11-27: "Yes."; notes on
+  0135 and 0164). For Jan 1: Shops (B2C) and the Aftermarket (C2C) live, Experiences & Regional Goods showing what
+  qualifies, Trade (B2B) named as "coming" and built in Q1. The pilot's content plans how to navigate the Indian Arts and
+  Crafts Act, from official sources, with relationships with individual Native makers (launch plan §10).
+- **Ground notes come through the rollout** (Jason, 2026-11-27: "this should be part of the strategic roll out, wrapped
+  into the sales/high value targeting method"; recorded as Operations & Policy (16), under CLAUDE.md's "His stated
+  direction is the ruling"). A guide's ground notes (`field_notes`, Guides.php:511) come from the launch plan §9's
+  in-person multipliers (chambers, regional and town guide influencers, venues; the Founder's role) and from contributors
+  under the magazine model (0164's note), not from Jason personally. Conflict cited, gate 3 (every 1A guide at 70 with a
+  person's read): public sources alone reach about 70 and rollout contacts may come after Jan 1. Solution, acted on: the
+  Editorial Director's lane (12, 26) takes 1A's guides to 70 on public sources now (names linked, open checks closed);
+  the rollout's targeting list puts 1A towns whose guides are under 70 first (Sales Director 14, Marketing Director 13),
+  and ground notes add their +10 as they arrive.
+- **The promise check, part of gate 1** (Jason, 2026-11-27: "I see this as systemic problem, if we dont make our
+  communication align with delivery on UI/UX/and delivery on our promises we fail to be the choice or go to because we
+  didn't make getting what people want or need easier and better than our competition"; recorded as Operations & Policy
+  (16); notes the same on 0172 and 0176). Every outbound message kind (Notify's email, push, Pulse rows and notices) is
+  tested in the path checker: its link lands on exactly the thing it names (CLAUDE.md "Never a dead end") and its words
+  match the real state ("words follow the state"). The advocates follow their own messages as a guest, a member and a
+  business owner. A message that fails blocks its release, like a page drift. Owners: the CMO (7) for trust and the brand
+  promise, the Editorial Director (12) for the words, the IT Manager's (11) lane for the build, the advocates A1–A12 to run
+  it. First fixes: the per-message `link` (queued), then what the check finds in sign-up, claims, orders and alerts. After
+  Monday's four, as gate 1 work.
+- **Content to commerce leads the penetration strategy** (Jason, 2026-11-27: "Events using our tools, marketplace features
+  and showcases? We need to really look at how to harness the power of our platform to push content to commerce
+  success"; research/rural-penetration-2026-11-27.md, "Revised: content to commerce"; recorded as Operations & Policy
+  (16), for the launch plan §9's CMO lane). The lead is the platform's own tools: events (0134; 0135's Jan 1 tickets) with
+  vendor listings, booth GO Codes, pre-orders and tickets; showcases (magazine stories, "Made in <geo hub>" collections,
+  the Spotlight); a GO Code trail passport across 1A's stops (0174); and buy buttons on guide cards. The Free tier,
+  multipliers and promotions support it. Lanes: the CMO (7) with Editorial (12) and Marketing (13) for showcases, trails
+  and stories; Sales (14) for event organizers and vendors; IT (11) and Frontend & Shop for the events build. Whether a
+  minimum events build ships before Jan 1 is open for the Founder.
+- **The machine work that counts is what a rollout's touch points depend on** (Jason, 2026-11-27: "when I think about
+  rolling out something to say the theater and how all touch points draw users, listings, and potential revenue I feel
+  the need for the platform to be thorough and able to succeed"; recorded as Operations & Policy (16), qualifying §2).
+  Under §2, machine work (checks, the pipeline, the board) earns a slot when a rollout's touch point depends on it. The
+  Hometown theater pilot (0134's note) is the first full test: its touch-point map, owned by the CMO (7) and drawn by
+  Data & Content and Frontend & Shop, is ready by Dec 3 with the offer (`handoffs/hometown-theater/README.md`). About
+  Dec 15–16, on staging, the advocates walk every point end to end at 1280 and 390 as a guest, a member, a business
+  owner and the theater, with the promise check on (every link lands on its thing, every email in the branded template,
+  0172's note) and money in the sandbox only. Each break becomes a gate 1 or 2 ticket, fixed before Dec 18; the result
+  goes in the CEO's launch report.

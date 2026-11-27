@@ -1381,24 +1381,24 @@
   }
  },
  "2026-11-27": {
-  "at": "2026-11-26T19:05:06-07:00",
+  "at": "2026-11-27T03:20:39-07:00",
   "finds": {
-   "staged": 31144,
+   "staged": 31148,
    "quarantined": 41,
-   "published": 11486,
-   "merged": 431,
-   "rejected": 1041
+   "published": 11487,
+   "merged": 432,
+   "rejected": 1048
   },
   "staged": {
    "checked": 3000,
-   "ready_stuck": 675,
+   "ready_stuck": 672,
    "review": 0,
-   "looking": 2325,
-   "no_kind": 2141,
+   "looking": 2328,
+   "no_kind": 2145,
    "one_source": 364,
    "by_reason": [],
    "auto_import_on": true,
-   "of": 31144
+   "of": 31148
   },
   "place_store": {
    "places": 3728,
@@ -1407,14 +1407,14 @@
    "sources_read_empty": 291
   },
   "websites_taken_off": {
-   "2026-11": 370
+   "2026-11": 400
   },
   "refresh": {
    "abandoned_listings": 2,
-   "failed_once": 222
+   "failed_once": 214
   },
   "map_points": {
-   "public": 15694,
+   "public": 15695,
    "no_point": 0,
    "approximate": 1709
   },

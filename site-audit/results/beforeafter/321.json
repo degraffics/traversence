@@ -1,0 +1,17 @@
+{
+ "release": "321",
+ "at": "2026-11-27T12:31:49.420Z",
+ "verdict": "pass",
+ "first": "",
+ "blocks": [],
+ "blocks_total": 0,
+ "notes": [
+  "executive|/admin/config/register|phone: already missed \"Cards 3px from the screen edge at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "executive|/admin/settings.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)"
+ ],
+ "far": [],
+ "views": 264,
+ "seconds": 1308,
+ "run": "https://github.com/degraffics/traversence/actions/runs/45998330587",
+ "phase": "after-done"
+}

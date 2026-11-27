@@ -105,6 +105,48 @@ state with `live-read.yml`: rows `feature_switches`, q `before_after`.
 7. **The conflict release** (decisions/0165 note #1455):
    - auto Keep live ships **ON** for conflicts no person made;
    - a conflict a person made becomes a Work queue ticket in Ops & Reconciliation's lane (role 23, which reports to the IT Manager).
+8. **The Storage tile's silent catch** (IT Manager's lane ticket, the session manager and the CEO, 2026-11-27, after #319's look):
+   - **The fault:** `website/business/router.php:163–166` returns `''` from `catch (Throwable)` with no log, so `/business/`'s Storage used tile vanishes when `BizFiles::used()` or `Billing::allowance()` fails. It's a database read; the likely cause is catch-up mid-copy, unconfirmed because nothing is logged.
+   - **The fix:** log `error_log('biz storage tile: …')` and draw the tile with its label and "Storage figures unavailable right now" (words follow the state).
+   - **Delivery:** its own small release after the check release, b2-backups-2, r2-lanes-3 and the pipeline release. The Design reviewer sees it first. Its migration seeds the Work ticket in the IT Manager's lane, once, by `what`.
+9. **A3's scope adds the staging night job's collation stop** (IT lane ticket, the session manager, 2026-11-27, from a live read of Scheduled tasks):
+   - **The fault:** `staging_night_tick.php` (2:13 am Arizona) stopped at 09:13 UTC on `Illegal mix of collations (utf8mb4_general_ci,IMPLICIT) and (utf8mb4_unicode_ci,IMPLICIT) for operation '='` at `app/lib/StagingSync.php:608`, so last night's fingerprint pass didn't finish.
+   - **The fix:** build it in A3 (staging holds still during a look, 0165's note) and test it against the 0165 suites (`tools/staging-tests/`). A3's migration seeds the ticket once, by `what`. The CEO's Tier 4 comes before sending.
+   - **Words follow the state (the CEO, 2026-11-27):** Keep staging caught up's card (`admin/sections.php:1685`, `StagingSite::mirrorState()` at StagingSite.php:1311) says "(on): … A full check runs nightly" even when last night's check stopped. The fix in the same release: the card reads staging_night_tick's last outcome and says it stopped, with its error once and its fix there.
+10. **The verdict read** (#320, 2026-11-27): the site waited on #320's after verdict for over an hour, because `DocsRepo::raw($path, true)` falls back to its kept copy (the before-done verdict) whenever raw.githubusercontent doesn't answer 200. The pipeline release's `DocsRepo::now` (the contents API with the token) is the fix, so it moves up to right after B.2 (the session manager, 2026-11-27).
+11. **Webhooks' live proof** (IT lane ticket, the CEO, 2026-11-27, after the #314 re-audit):
+   - **The gap:** the re-audit proved no webhook regressed from the code alone. Their last success on live couldn't be read, because /api/health.php needs HEALTH_TOKEN and live-read doesn't have it.
+   - **The fix:** live-read, or the daily health snapshot, reports each webhook's last-received time and its 24-hour count, read server-side through HEALTH_TOKEN and never exposing the token.
+   - **Jason's call:** whether live-read gets that read is his, when he's back (the session manager won't ask him over the holiday). Its migration seeds the ticket once, by `what`.
+12. **Order from the session manager, 2026-11-27 (after #321 Live):**
+   1. the pipeline release;
+   2. r2-lanes-3;
+   3. **"Recovered" only for a notice that was sent:** its own small release. 14 "Releases (job): Recovered" emails went out with no raise ever sent, because ControlAlarms.php:607 sends Recovered whenever `tripped_at` is set. It goes with a test. **Tier 3, in the IT Manager's (11) lane** (the CEO, 2026-11-27): not one of 0180 §4's territories, and Founder alarm emails aren't territory 5's messages; a bug fix inside 0176 R1. The ticket records the lane and the ruling, with a daily-batch line;
+   4. task-seed-4 (data only, the list from the session manager);
+   5. A3, with the collation fix and the card's words;
+   6. the Scheduler bundle: Pre-flight's self-continue, DailyReport keeping its items with sources in its `dailyrep:` record (Executive-readable), the :02 move, the 6:13 spread;
+   7. phase 2 release 1 (Tier 3, the PM's lane: the thread, task-notes.json, task-rulings.json, the four-stage redesign, and role queues with counts and SLA, jason-spec §7);
+   8. the Executive channel;
+   9. a parallel week, then cutover about Dec 15.
+13. **Gates first (CLAUDE.md #1553, #1554; 0181 §1–2, 2026-11-27):** a build goes ahead only when it names the 0181 gate (1–6) it moves, a live harm to people or money, or the revenue goal or money it serves, with the link stated. This re-sorts item 12:
+   1. #322, the pipeline release (gate 4);
+   2. r2-lanes-3 (Monday's rollout slot);
+   3. gate 4's work: B.2's nightly backups and restore drill; the Scheduler bundle (jobs on time for 7 days, Pre-flight's self-continue), built from the live Scheduler.php only after Frontend & Shop's goal-check release is live; A3 only if a withdrawal blocks gate work;
+   4. after Monday's four: phase 2 release 1, the Executive channel, and the AI items 1, 2 and 4.
+   - **Phase 2 release 1 also takes a task's documents** (the session manager, 2026-11-27; 0127's note, #1580): a new upload
+     target, "a task's documents", in `app/lib/upload-targets.php`, owned by GaugeTasks. `task-notes.json` gains an optional
+     `file`. The hourly pull fetches it through DocsRepo's contents-API read (never raw) and stores it through `Uploads.php`
+     on the task, with Open and Download on the task's page. Files belong to the task, never a person. Its table is named in
+     `staging-tables.php` (R14), and the one-uploader grep still matches only `Uploads.php` and `api/upload.php`.
+   - **Logged under the promise check (gate 1), fixed when that check is built, not before** (the session manager,
+     2026-11-27): `tools/notify-tests/` no longer runs against live's Notify (Notices isn't required there; its comms
+     migration ran and was deleted on live, kept in `notify-1.zip`), and it writes its stand-ins into the app folder it's
+     given (run it only on a throwaway copy). Bring it up to live so the promise check can lean on it.
+   - **Held for after the goal check:** founder-link (`claude/founder-link`, `handoffs/founder-link/`). The Founder's
+     message emails open their own `link` (ours only) or their `task` (`#wq-<id>`); gauges.py warns on neither (the session
+     manager's option (a), 2026-11-27). IT lane.
+   - **Parked:** the "Recovered" fix (no gate; #322 removes its cause).
+   - **20:00 UTC daily to the session manager:** each item with its gate and the revenue or money it serves, plus gate 4's status with its evidence.
 
 ## 4. Seeded tickets (R2's migration; each added once, by `what`) and their lanes
 
@@ -162,6 +204,13 @@ is Live. Answer it with that and delete it.
 - **The mirror behind `main`** blocks a zip: re-sync first.
 - **A conflict in `deliveries/README.md`** at merge: resolve it by hand, keeping both sides.
 - `send.py` takes `--allow-pending` (a comma list) and `--session`.
+- **Merge only by the number the create call returns** (2026-11-27): twice a merge was sent by a guessed PR number
+  before the create call came back. #1536 was already merged by its owner. #1570, the session manager's own, was merged
+  in the same second as the session manager's merge, so nothing was lost. Never merge a number you didn't get back.
+- **A resend whose predecessor was withdrawn:** mark the old `deliveries/<zip>.json` `"status": "replaced"` with
+  `replaced_by`, or the zip check blocks the resend as another zip in flight. Add `"replaces"` in `release.json`.
+- **Match a live-read run's READ and ORDER_ID before reading or deleting its log** (2026-11-27: runs #131 and #133,
+  someone else's, were deleted by mistake).
 
 ## 8. Live reads (`live-read.yml`)
 

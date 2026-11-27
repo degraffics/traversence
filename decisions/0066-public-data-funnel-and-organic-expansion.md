@@ -119,3 +119,10 @@ place's own landmark page still waits for a person, and a place a nation has ask
     - a person's call on a nation's sites stays, so an Editor confirms the public source before a place on nation land
       moves to story only.
   - **The build:** `Landmarks::publiclyKnown()` and `Jurisdictions::tier()` follow this rule, in one release.
+
+**Note (Jason, 2026-11-27: "Town names on nations' land: this is a public known domain issue, address it as we've
+outlined and correct this pattern if it blocks us for accuracy regarding public domain"; recorded as Operations &
+Policy (16)):** public town names on a nation's land are Public tier and shown automatically, with the nation's name
+(`Nations::label()`, and the nation's own name for the town where public sources give it) and its visitor rules
+(`Nations::rules()`). A person's confirmation stays only for a story-only site's source; held names never appear. 0170
+§5's zone-naming conditions cover our own region branding, not a town's public name.

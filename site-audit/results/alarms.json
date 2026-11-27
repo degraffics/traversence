@@ -1,5 +1,5 @@
 {
- "at": "2026-11-27T02:05:07.680Z",
+ "at": "2026-11-27T10:20:41.375Z",
  "open": [
   {
    "key": "joblate:billing_tick",
@@ -35,39 +35,6 @@
    "stopped": "W1 (its tasks wait with it)"
   },
   {
-   "key": "ops:cap:anthropic",
-   "level": "warning",
-   "process": "svc:anthropic",
-   "title": "Anthropic (Claude) at 83%: $33.44 of $40.00",
-   "reading": "83%",
-   "means": "Claude (AI): $33.44 of $40.00 (83%).",
-   "since": "2026-11-19T07:20:02+00:00",
-   "tripped": null,
-   "stopped": ""
-  },
-  {
-   "key": "ops:cap:google",
-   "level": "warning",
-   "process": "svc:google",
-   "title": "Google Cloud at 71%: 714 of 1,000 checks",
-   "reading": "71%",
-   "means": "Google Places check: 714 of 1,000 checks (71%).",
-   "since": "2026-11-19T22:21:02+00:00",
-   "tripped": null,
-   "stopped": ""
-  },
-  {
-   "key": "ops:cap:tavily",
-   "level": "warning",
-   "process": "svc:tavily",
-   "title": "Tavily at 52%: 523 of 1,000 searches",
-   "reading": "52%",
-   "means": "Web search (Tavily): 523 of 1,000 searches (52%).",
-   "since": "2026-11-25T20:00:02+00:00",
-   "tripped": null,
-   "stopped": ""
-  },
-  {
    "key": "joblate:earned_storage_tick",
    "level": "warning",
    "process": "job:earned_storage_tick",
@@ -101,112 +68,90 @@
    "stopped": ""
   },
   {
-   "key": "joblate:got_it_tick",
+   "key": "ops:cap:anthropic",
    "level": "warning",
-   "process": "job:got_it_tick",
-   "title": "Did it arrive? is late",
-   "reading": "due Nov 26, 9:17 PM UTC · last started Nov 26, 8:17 PM UTC",
-   "means": "Its cron line is there, but the server didn't start it on time (the server's cron, or too many jobs at once); what it does waits.",
-   "since": "2026-11-26T21:30:02+00:00",
+   "process": "svc:anthropic",
+   "title": "Anthropic (Claude) at 85%: $34.17 of $40.00",
+   "reading": "85%",
+   "means": "Claude (AI): $34.17 of $40.00 (85%).",
+   "since": "2026-11-19T07:20:02+00:00",
    "tripped": null,
    "stopped": ""
   },
   {
-   "key": "joblate:pay_wait_tick",
+   "key": "ops:cap:google",
    "level": "warning",
-   "process": "job:pay_wait_tick",
-   "title": "Payment reminders is late",
-   "reading": "due Nov 26, 9:17 PM UTC · last started Nov 26, 8:17 PM UTC",
-   "means": "Its cron line is there, but the server didn't start it on time (the server's cron, or too many jobs at once); what it does waits.",
-   "since": "2026-11-26T21:30:02+00:00",
+   "process": "svc:google",
+   "title": "Google Cloud at 72%: 725 of 1,000 checks",
+   "reading": "72%",
+   "means": "Google Places check: 725 of 1,000 checks (72%).",
+   "since": "2026-11-19T22:21:02+00:00",
    "tripped": null,
    "stopped": ""
   },
   {
-   "key": "joblate:work_orders_tick",
+   "key": "ops:cap:tavily",
    "level": "warning",
-   "process": "job:work_orders_tick",
-   "title": "Work order reminders is late",
-   "reading": "due Nov 26, 9:17 PM UTC · last started Nov 26, 8:17 PM UTC",
-   "means": "Its cron line is there, but the server didn't start it on time (the server's cron, or too many jobs at once); what it does waits.",
-   "since": "2026-11-26T21:30:02+00:00",
+   "process": "svc:tavily",
+   "title": "Tavily at 52%: 523 of 1,000 searches",
+   "reading": "52%",
+   "means": "Web search (Tavily): 523 of 1,000 searches (52%).",
+   "since": "2026-11-25T20:00:02+00:00",
    "tripped": null,
    "stopped": ""
   },
   {
-   "key": "joblate:sales_tick",
+   "key": "job:staging_night_tick",
    "level": "warning",
-   "process": "job:sales_tick",
-   "title": "Lead scores is late",
-   "reading": "due Nov 26, 10:17 PM UTC · last started Nov 26, 9:17 PM UTC",
-   "means": "Its cron line is there, but the server didn't start it on time (the server's cron, or too many jobs at once); what it does waits.",
-   "since": "2026-11-26T22:30:06+00:00",
+   "process": "job:staging_night_tick",
+   "title": "Staging: the nightly full pass (job) failed",
+   "reading": "Stopped: Uncaught PDOException: SQLSTATE[HY000]: General error: 1267 Illegal mix of collations (utf8mb4_general_ci,IMPLICIT) and (utf8mb4_unicode_ci,IMPLICIT) for operation '=' in /home4/degraff1/public_html/traversence/app/lib/StagingSync.php:608\nStack t",
+   "means": "Its last run ended with a problem (1 in a row); what it does waits until it runs well again.",
+   "since": "2026-11-27T09:15:02+00:00",
    "tripped": null,
    "stopped": ""
   },
   {
-   "key": "joblate:listing_messages_tick",
+   "key": "ops:pf:stopped",
    "level": "warning",
-   "process": "job:listing_messages_tick",
-   "title": "Messages left on unclaimed listings is late",
-   "reading": "due Nov 27, 1:17 AM UTC · last started Nov 27, 12:17 AM UTC",
-   "means": "Its cron line is there, but the server didn't start it on time (the server's cron, or too many jobs at once); what it does waits.",
-   "since": "2026-11-27T01:30:07+00:00",
+   "process": "stage:preflight",
+   "title": "Pre-flight: a run stopped at 0 of 193",
+   "reading": "",
+   "means": "Interrupted at 0 of 193 (started by Pre-flight (the nightly run) at Nov 27, 9:00 AM UTC): waiting for Continue or Cancel. Continue it from there, or cancel it.",
+   "since": "2026-11-27T09:15:03+00:00",
    "tripped": null,
    "stopped": ""
   },
   {
-   "key": "joblate:moments_tick",
+   "key": "joblate:journeys_tick",
    "level": "warning",
-   "process": "job:moments_tick",
-   "title": "Moments is late",
-   "reading": "due Nov 27, 1:17 AM UTC · last started Nov 27, 12:17 AM UTC",
+   "process": "job:journeys_tick",
+   "title": "Suggested journeys is late",
+   "reading": "due Nov 27, 9:17 AM UTC · last started Nov 27, 8:17 AM UTC",
    "means": "Its cron line is there, but the server didn't start it on time (the server's cron, or too many jobs at once); what it does waits.",
-   "since": "2026-11-27T01:30:07+00:00",
+   "since": "2026-11-27T09:30:02+00:00",
    "tripped": null,
    "stopped": ""
   },
   {
-   "key": "joblate:services_tick",
+   "key": "joblate:landmark_photos_tick",
    "level": "warning",
-   "process": "job:services_tick",
-   "title": "Services & usage is late",
-   "reading": "due Nov 27, 1:17 AM UTC · last started Nov 27, 12:17 AM UTC",
+   "process": "job:landmark_photos_tick",
+   "title": "Landmark and place photos is late",
+   "reading": "due Nov 27, 9:17 AM UTC · last started Nov 27, 8:17 AM UTC",
    "means": "Its cron line is there, but the server didn't start it on time (the server's cron, or too many jobs at once); what it does waits.",
-   "since": "2026-11-27T01:30:07+00:00",
+   "since": "2026-11-27T09:30:02+00:00",
    "tripped": null,
    "stopped": ""
   },
   {
-   "key": "joblate:guide_finds_tick",
+   "key": "jobslow:guide_ondemand_tick",
    "level": "warning",
-   "process": "job:guide_finds_tick",
-   "title": "Find it and guide drafts is late",
-   "reading": "due Nov 27, 1:45 AM UTC · last started Nov 27, 1:30 AM UTC",
-   "means": "Its cron line is there, but the server didn't start it on time (the server's cron, or too many jobs at once); what it does waits.",
-   "since": "2026-11-27T02:00:02+00:00",
-   "tripped": null,
-   "stopped": ""
-  },
-  {
-   "key": "joblate:guide_live_tick",
-   "level": "warning",
-   "process": "job:guide_live_tick",
-   "title": "Guide weather and roads is late",
-   "reading": "due Nov 27, 1:45 AM UTC · last started Nov 27, 1:30 AM UTC",
-   "means": "Its cron line is there, but the server didn't start it on time (the server's cron, or too many jobs at once); what it does waits.",
-   "since": "2026-11-27T02:00:02+00:00",
-   "tripped": null,
-   "stopped": ""
-  },
-  {
-   "key": "w3:offregion",
-   "level": "warning",
-   "process": "wf:W3",
-   "title": "77 sources are read regularly outside our region (ebi.ac.uk, va.gov, jcis.jp and more)",
-   "reading": "ebi.ac.uk, va.gov, jcis.jp, educacionyfp.gob.es, gov.uk, hud.gov, acquisition.gov, curl.se, cmu.edu, govbooktalk.gpo.gov, campus.murraystate.edu, usbr.gov",
-   "means": "W3 reads them every few days; their facts are likely about other places, and reading them uses the crawler's time. Nothing is paused unless you or a rule says so.",
-   "since": "2026-11-18T20:05:05+00:00",
+   "process": "job:guide_ondemand_tick",
+   "title": "Guides on demand is slow",
+   "reading": "62 s (usual 9)",
+   "means": "Its last run took 62 s against its usual 9 s (1 slow in a row): what follows it waits.",
+   "since": "2026-11-27T10:15:02+00:00",
    "tripped": null,
    "stopped": ""
   },
@@ -226,9 +171,20 @@
    "level": "warning",
    "process": "wf:W2",
    "title": "/api/crawl/refresh counted more than it received",
-   "reading": "received 25, counted 26",
+   "reading": "received 5, counted 6",
    "means": "Its record of what it stored, updated, sent to Review or refused doesn't add up, so its numbers on the board can't be trusted.",
    "since": "2026-11-26T20:16:07+00:00",
+   "tripped": null,
+   "stopped": ""
+  },
+  {
+   "key": "w3:offregion",
+   "level": "warning",
+   "process": "wf:W3",
+   "title": "77 sources are read regularly outside our region (ebi.ac.uk, va.gov, jcis.jp and more)",
+   "reading": "ebi.ac.uk, va.gov, jcis.jp, educacionyfp.gob.es, gov.uk, hud.gov, acquisition.gov, curl.se, cmu.edu, govbooktalk.gpo.gov, campus.murraystate.edu, usbr.gov",
+   "means": "W3 reads them every few days; their facts are likely about other places, and reading them uses the crawler's time. Nothing is paused unless you or a rule says so.",
+   "since": "2026-11-18T20:05:05+00:00",
    "tripped": null,
    "stopped": ""
   },
@@ -256,20 +212,20 @@
   }
  ],
  "summary": [
-  "The whole system, the last 24 hours: uptime 98.4%.",
-  "4 trips raised; 46 alarms open now.",
+  "The whole system, the last 24 hours: uptime 98%.",
+  "7 trips raised; 42 alarms open now.",
   "Records: 0 in, 0 stored, 0 refused.",
-  "Nearest a cap: Claude (AI) at 83%."
+  "Nearest a cap: Claude (AI) at 85%."
  ],
  "releases_looked": [
   {
    "who": "the 10-minute job",
-   "at": "2026-11-27T01:48:02+00:00",
-   "found": 0
+   "at": "2026-11-27T10:00:02+00:00",
+   "found": -1
   },
   {
    "who": "the ping from git",
-   "at": "2026-11-26T23:01:21+00:00",
+   "at": "2026-11-27T08:48:12+00:00",
    "found": 0
   },
   {

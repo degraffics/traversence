@@ -285,6 +285,40 @@ refund" (`decisions/0098`).
 | Administrative & Legal Contingency | Licensing, regional software (CRM, scheduling, accounting), operational buffer | $1,000 | $12,000 |
 | **Total** | | **$11,150/mo** | **$133,800/yr** |
 
+### 5.1 Current monthly costs today (pre-revenue, the team itself)
+
+Recorded by the Accounting Manager (10) for the CFO (4), 2026-11-27 (0180's note on project budgets). These are what the
+team costs now, before any hub is open; §5 above is the per-hub model at scale.
+
+| Cost | Paid by | Monthly |
+|---|---|---|
+| Claude Max plan (the sessions' usage, 0180 §6's "$0 route" pool): $100.00 + Arizona tax $9.10 | the Founder, himself (Nov 27–Dec 27, 2026, from his receipt) | $109.10 |
+| The CEO's shared AI budget (0180's note) | Founder-approved | up to $20 |
+| The platform's AI cap (0163 §7): guides, research, site features | Founder-approved | up to $40 |
+| The agents' API cap, its own counter (Jason, 2026-11-27: "Separate each") | Founder-approved | up to $40 |
+| **Total AI and session cost** | | **up to $209.10** |
+
+The sessions' "$0 route" isn't free: it is the fixed Max plan, and every session draws on its usage limits. Project cost
+projections carry each project's share of session usage against those limits (0180's note). Nothing here touches
+payments or QuickBooks.
+
+**In the books** (Jason, 2026-11-27: "Should go in books for expenses"; recorded as Operations & Policy (16), for
+Accounting (10)). Conflict cited: the platform's only QuickBooks write is `QuickBooksPay::createBill` (VendorBills.php:182,
+orders' vendor bills to cost of goods sold); there's no path for a card-paid operating expense, and building one is new
+money tooling. Solution, acted on: Jason records it himself in QuickBooks (the card's bank feed, or receipt forwarding)
+from Accounting's prepared entry: vendor Anthropic, PBC; 2026-11-27; $100.00 Claude Max + $9.10 Arizona tax = $109.10;
+Software & subscriptions; receipt #2088-0359-9509; recurring monthly on the 27th. Logged for after launch (Accounting's
+queue, "money it protects"): an operating-expense register posting recurring costs (Claude Max, Railway, Name.com,
+Fly.io, Bluehost…) to QuickBooks as Purchases, on the same guards (`guardReal()`, `StagingGate`, mock mode).
+**Brought forward** (Jason, 2026-11-27: "Commercial md... what about our qbo ledger?"; recorded as Operations & Policy
+(16), amending the line above): the operating-expense register is built now, as money it protects (true books, under
+CLAUDE.md's "Launch first"). Accounting Manager's (10) lane, built by Build & QA (21); the CFO's (4) Tier 4 with an
+independent check before live (territory 1). It moves no money; it writes ledger entries only (0180 §4.1, "reconciling
+ledger entries"): recurring costs entered once with account, vendor and cadence; each posted as a QuickBooks Purchase or
+Bill through `QuickBooksPay`'s guards; receipts attached; marked so the card's bank feed matches rather than duplicates.
+Proof first in the QuickBooks sandbox, then one real entry (Claude Max, Nov 27) checked in QBO. After Monday's four; data
+rules apply. Until it's live, Jason's own entry stands.
+
 ## 6. Profitability Summary
 
 - **Per regional hub:** ~$837,600 gross revenue − ~$133,800 OpEx = **~$703,800 net annual operating profit** (84.0% net margin).

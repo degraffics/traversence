@@ -120,7 +120,7 @@ jobs:
         env:
           CHECK_ACCOUNTS: ${{ secrets.CHECK_ACCOUNTS }}
         run: |
-          node tools/page-audit/beforeafter.mjs capture --pages before/ba-pages.json --out ba-after.json --shots ba-shots/after --slow before/ba-before-1.json
+          node tools/page-audit/beforeafter.mjs capture --pages before/ba-pages.json --out ba-after.json --shots ba-shots/after --slow before/ba-before-1.json --expected before/ba-expected.json --before before/ba-before-1.json --before2 before/ba-before-2.json
           mkdir -p site-audit/results/beforeafter
           node tools/page-audit/beforeafter.mjs compare --before before/ba-before-1.json --before2 before/ba-before-2.json --after ba-after.json \
             --expected before/ba-expected.json --held before/ba-held.json --release "$RELEASE" --out "site-audit/results/beforeafter/$RELEASE.json" || true

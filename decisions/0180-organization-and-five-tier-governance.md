@@ -308,3 +308,91 @@ Nothing above raises a stage ceiling or the reach fence. Those stay the Founder'
     the role back on standby" no longer applies.
 - **Launch work first, until the Jan 1 gates pass** (Jason, 2026-11-27, Brief A2; decisions/0181 §2): R2–R5 get at
   most one release slot a day until 0181's launch gates pass. This qualifies "R1–R5 ship as each passes" above.
+
+**Note (Jason, 2026-11-27): a project's budget, from its cost projection** ("we should have a way to use cost projections
+when contracting a project so allocation becomes a budget approve, and this should be something a CFO or accountant would
+have requested or mandated"; recorded as Operations & Policy (16), under CLAUDE.md's "His stated direction is the
+ruling"). Every project (a goal or parent task) carries a cost projection at Planning: AI dollars by pool, the sessions'
+usage size, and outside services. The Accounting Manager (10) prepares it; the CFO (4) approves it as the project's budget
+(Tier 4); spend is tracked against it. Conflict cited (§4.1 and §2: the overall envelope and any real spend above $0 are
+fences, the Founder's). Solution, acted on: the CFO approves within the envelope Jason has set (today the $20 CEO budget
+and the $40 platform cap); a project that needs more goes to him as a Decision Brief; "No income, no expense" holds; an
+envelope proposal for when revenue exists goes to him then. This replaces the open agent AI allowance question. Built
+with the AI items release (meter, usage, matrix), after phase 2 release 1, in the IT Manager's (11) lane with the
+Accounting Manager (10).
+
+**Note (Jason, 2026-11-27): roles check one another** ("CMO and other staff members have important roles that balance or
+check one another. As CEO you must see these and ensure our team, systems, and platform functions optimally and delivers
+upon our vision and mission"; recorded as Operations & Policy (16), under CLAUDE.md's "His stated direction is the
+ruling"). Conflict cited: every executive hat sat in one session, so a Tier 4 signed as one executive went unchecked (W15,
+2026-11-27, signed as CTO alone). Solution, acted on: every review carries the checks already set, each citing its
+source: the CTO's (data, routes) by the CMO's mission duty (appendix row 7; spec §5 #5) and the Privacy & 0066 Guard (25);
+any spend or budget by the CFO (4) and Accounting (10) (§4.1; the project-budget note); screens by the Simplicity
+Guardian (15) and the Editorial Director (12), who hold the veto; releases by the advocates A1–A12 (before-and-after);
+executives who disagree raise a deadlock to Tier 5 (§3). The checking executive's review runs as a separate, fresh agent
+given the change and its role's charter, never the first reviewer's conclusion, lean and inside §6's allowance, recorded
+on the ticket under its role.
+
+**Note (Jason, 2026-11-27): a deadlock goes to the CEO first** ("send it to you as a deadlock: you first, the t5 for
+me"; amends §3's "is an executive deadlock" and §4 item 7; recorded as Operations & Policy (16), under CLAUDE.md's "His
+stated direction is the ruling"). An executive deadlock goes to the CEO, who resolves it by the Prior Ruling Check, records
+the reasoning on the ticket and puts a daily-summary line under it (§3, so Jason can overturn it). It goes to Tier 5 only
+when the resolution needs a rule, ADR or fence change, or the CEO is a party to it. Conflict cited (every executive runs
+in the CEO's one session, so its ruling between them isn't independent). Solution, acted on: each side's case is written
+by its own fresh agent from that role's charter (as the CMO's check, the note above), and the CEO decides between the
+written cases, citing the ADR the decision rests on.
+
+**Note (2026-11-27, from the Founder's receipt; recorded as Operations & Policy (16), for Accounting (10) and the CFO
+(4)):** §6's "$0 route" (session reasoning) is the Founder's own Claude Max plan, $109.10 a month ($100 + Arizona tax
+$9.10), a person's service under the note above; every session draws on its usage limits. Project cost projections carry
+each project's share of session usage against those limits, and the monthly overview shows $109.10 (Max) + the CEO's $20
++ the platform's $40 cap. Recorded in commercial.md §5.1.
+
+**Note (Jason, 2026-11-27: "claude llm and Google ai are services under api which we will move to using over the monthly
+claude sessions so another real reason for transitioning"; recorded as Operations & Policy (16), for the CFO (4) and
+Accounting (10)).** The team moves from the Claude Max sessions to the Claude and Google AI APIs through the platform's own
+AI path (`AiClient`, its meter and caps), as part of the transition plan. Conflict cited (the CFO's check): the API bills
+per token, and a build session's usage at list price ran about $74.6 in its first ~12 hours (Frontend & Shop, 2026-11-27),
+on the order of $2,000 a month against Max's $109.10; the platform's cap is $40 (84% used) and agent spend stays $0
+outside the Founder's envelope. Solution, acted on: move in stages, cheapest first: the platform-native, bounded jobs
+(the thread's Ask Claude, drafting, briefs, lean Prior Ruling Checks) through `AiClient`, on project budgets the CFO
+approves; heavy code builds move only once the usage measurement (the AI items' item 2) shows the API costs no more than
+Max for that work, and Max stays for builds until then. Cost per task, API against Max, shows in the monthly overview.
+The API envelope is the Founder's (a fence, §2). Suggestion, labelled: hold total AI spend near today's $169.10 a month,
+moving Max's $109.10 into the API envelope as sessions retire.
+
+**Note (Jason, 2026-11-27: "100 for sessions and 40 cap for api"; the envelope above; recorded as Operations & Policy
+(16)).** Sessions: the Claude Max plan, $100 a month ($109.10 with Arizona tax), stays the session plan. API: the existing
+hard $40 a month cap (`Thresholds::ai_month_usd`; 0160 §5) now covers agent API use too; no new envelope. The CEO's $20 is
+unchanged. Conflict cited: the $40 also writes the guides (0131, 0147, 0160 §5), gate 3's critical path, and is at 84%
+this month. Solution, acted on: until 0181's gates pass, guides and gate work have first call on the $40; agent API use
+(Ask Claude, drafting, briefs) gets only what's left, through `AiClient::allow()` with a per-feature limit, so it never
+starves the guides; the CFO (4) allocates per project within it; at the cap every feature stops with `allow()`'s own
+words and the meter shows it.
+
+**Correction (Jason, 2026-11-27: "Separate each"; replaces the note above's "first call" solution; recorded as
+Operations & Policy (16)).** Four separate budgets, none drawing on another: (1) sessions, Claude Max $100 a month
+($109.10 with tax); (2) the platform's AI, the existing $40 `ai_month_usd` for guides, research and site features
+(0131, 0147, 0160 §5), unchanged; (3) agents' API, its own hard $40 a month cap for the team's API use (Ask Claude,
+drafting, briefs, Prior Ruling Checks), a separate counter in `AiClient` with its own `allow()` refusal and its own line
+on the meter, built with the AI items release (IT lane, the CFO's Tier 4); (4) the CEO's $20, unchanged. Worst case
+$209.10 a month. The CFO allocates projects within (3); nothing is spent from (3) until its counter is live, and until
+then agents stay on sessions.
+
+**Note to §6 (Jason, 2026-11-27: "we pipe agents into session work and system into api work. The workflows should only
+require api to answer specific focused calls vs agents needing to reason and work out more complex processes"; refines
+the two notes above; recorded as Operations & Policy (16)): the routing rule, cheapest first.** (1) Code and templates
+($0) wherever they settle it (§6, internal first). (2) The API for specific, focused calls with a small, known context:
+the system's workflows (guides, research, place descriptions) on the platform's $40, and an agent's bounded call (a
+draft, a brief, a lean Prior Ruling Check) on the agents' $40. (3) Sessions (Claude Max) for agents' multi-step reasoning
+and build work. The move to the API applies only to (2); complex agent work stays in sessions.
+Batched, not real time (Jason, 2026-11-27: "Also utilize the overnight batch api for lowering costs for non-critical work
+that can meet our workflow and work queue needs"): non-urgent API work goes through Anthropic's Message Batches API (half
+the standard rate, results within 24 hours): queued guide builds beyond 0147's on-demand share, research briefs and topic
+research, place descriptions not yet asked for, overnight audits and summaries, and work-queue drafting that can wait
+until morning. Real time stays for anything a person is waiting on (0147's on-demand builds, Ask Claude in a thread, live
+checks). Conflict cited: `AiClient` makes single calls and the caps count a call's cost as it returns, while a batch's
+cost is known only when its results come back. Solution: the batch path reserves its estimated cost against the right
+budget (the platform's $40 or the agents' $40) at submission, settles it at the result, never submits past the cap, and
+goes through `StagingGate::hold()` and counts failures like every call. IT Manager's (11) lane, the CFO's (4) Tier 4;
+money it protects; with the AI items release.

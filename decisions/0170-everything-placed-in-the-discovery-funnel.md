@@ -151,6 +151,30 @@ The plan is 20 continental hubs; only Ancient America is defined. **Jason suppli
 states each covers.** Each is added as planned with its states; its zones are drawn when that hub is scheduled
 (0048). Until then, finds outside Ancient America are "no hub yet".
 
+**Note (Jason, 2026-11-27: "we have hubs for those, just no sub hubs", of Abilene and New York under W15; recorded
+as Operations & Policy (16)):** the other continental hubs exist; only their zones (sub-hubs) aren't drawn yet. A find
+in a hub with no zones goes to that hub by §2's cascade; "no hub yet" is only for what no hub covers.
+
+**Amendment (Jason, 2026-11-27: "The only reason a hub is not available is to stage pilot data and allocate support
+to it before launching"; "shouldnt our team be able to determine this without human hand holding"; recorded as
+Operations & Policy (16)):** this replaces "its zones are drawn when that hub is scheduled (0048). Until then, finds
+outside Ancient America are 'no hub yet'". Code suggests zones (sub-hubs) for every hub now, from regional economic and
+tourism patterns, and the team adopts them: the IT Manager's (11) lane adopts each, Data & Content builds (Build & QA,
+21); the CTO's Tier 4 is recorded before live (zones are routes, territory 3; re-placing records, territory 2), with the
+Privacy & 0066 Guard's step where a zone touches a nation's land (territory 4). Every zone change keeps a redirect from
+each old address, checked before live; zones' pages stay under the per-page noindex until the search lock lifts (0181);
+each zone keeps its reasons, has Undo and a daily-summary line Jason can overturn (0180 §3). A zone a person drew
+(Ancient America's 15, or Jason's own) is never changed by the team; a suggested change to one goes to him. A hub's
+opening is only the support decision (HubOpening's stages). The suggester is code, not AI (0164 R5 untouched). Designed
+after gate 3's W15 and 1A guides; built in Q1.
+The CMO's (7) independent check (2026-11-27, 0180's note "roles check one another"), naming conditions: (1) code
+proposes boundaries, names stay curated (0066 §1; brand.md §1–2): a name is never taken from CBSAs, commuting zones or
+state tourism regions, and every zone name gets an Editorial Director (12) and CMO step; (2) no zone is named after a
+nation or uses a nation's name or symbols (launch plan §10.3; 0181's note on nation land), and a town on or across a
+reservation names a zone spanning that land only with the Privacy & 0066 Guard's (25) step on the name; (3) where a zone
+overlaps a nation's land, that land shows as the nation's own named land inside the zone, with its visitor rules (0066
+§3, 0058 §26), never as a non-Native tourism region.
+
 ### 6. What's already there
 
 Data cleanup (0163 §8 stage 1b) re-places existing content through Phase 4's placement: a preview of every move, a

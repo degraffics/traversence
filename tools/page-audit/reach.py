@@ -90,13 +90,16 @@ def pages_of(path, used_by):
 
 NEAR = 2   # a page this close is expected to change; farther ones are looked at, and a change there is drift (piece3-check.md §2.4)
 
+SHARED = 0.5   # a changed file within NEAR of this share of the site's pages is one nearly every page loads: it draws none
+
 CAP = 40   # pages a run looks at (the minutes' budget, DB4)
 
 def for_release(mirror, zpath):
     """A release zip's pages and expected list for beforeafter.mjs: its own pages (Releases::pagesOf's rule, with / and
     /faq.php), the pages its files reach (nearest first), and every address its release.json's changes name; an admin
     section is named by its address there (the router draws them all). Expected: its own pages, the near reach, the
-    addresses it names, and its "also_changes" (with their reasons)."""
+    addresses it names, and its "also_changes" (with their reasons). Drawn: the same, less the near reach of a shared file
+    (one within NEAR of SHARED of the site's pages): the pages this release's own files draw, where a timeout still blocks."""
     import zipfile
     z = zipfile.ZipFile(zpath)
     files = [n for n in z.namelist() if not n.endswith('/') and n != 'release.json']
@@ -108,16 +111,28 @@ def for_release(mirror, zpath):
         m = re.match(r'https://(?:traversence\.com|staging\.trvgo\.us)(/[^\s#]*)', w)
         if m:
             named.append(m.group(1))
-    _, used_by = index(mirror)
-    best = {}
+    texts, used_by = index(mirror)
+    total = len({u for u in (page_url(p) for p in texts) if u}) or 1
+    best, drawn_near, shared = {}, set(), []
     for f in files:
-        for u, n in pages_of(f, used_by).items():
+        reached = pages_of(f, used_by)
+        for u, n in reached.items():
             best[u] = min(n, best.get(u, n))
+        near = {u for u, n in reached.items() if n <= NEAR}
+        # a file nearly every page loads (tv-ask.js, the shell: SHARED of the site's pages or more within NEAR) reaches them
+        # all, but draws none of them: its pages are looked at, and a change there isn't drift (they stay expected), yet a
+        # timeout there is staging's slowness, not this change's (the session manager, 2026-11-27: #318 withdrawn on
+        # /admin/crawler-review.php at 390, reached only through tv-ask.js)
+        if len(near) >= SHARED * total:
+            shared.append(f)
+        else:
+            drawn_near |= near
     reach_order = [u for u in sorted(best, key=lambda u: (best[u], u)) if u not in ('/admin/router.php', '/business/router.php')]
     pages = list(dict.fromkeys(own + named + reach_order))[:CAP]
     also = [x for x in rel.get('also_changes') or [] if isinstance(x, dict) and x.get('page') and x.get('why')]
     expected = list(dict.fromkeys(own + named + [u for u in reach_order if best[u] <= NEAR]))
-    return pages, {'pages': expected, 'also_changes': also, 'canaries': [], 'files': files}
+    drawn = list(dict.fromkeys(own + named + [u for u in reach_order if u in drawn_near] + [x['page'] for x in also]))
+    return pages, {'pages': expected, 'drawn': drawn, 'shared': shared, 'also_changes': also, 'canaries': [], 'files': files}
 
 # ---- the fence (P3-6; decisions/0179's note "agents work on the backend first", Jason, 2026-11-26) -------------------------
 # Backend: every /admin/ page and its parts, the site's internal code and the workers, where a change reaches no public page

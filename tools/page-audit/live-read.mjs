@@ -29,6 +29,11 @@ const PAGES = { orders: () => ['/admin/backoffice/orders'], order: () => (/^\d{1
   // the jobs (the Control Board session, 2026-11-24, queue item 7): Scheduled tasks, each job's last run and next due
   jobs: () => ['/admin/config/scheduler?panel=1'],   // drawn on its own (the router doesn't fold it into the board's tab then)
   board: () => ['/admin/config/control', '/admin/config/control/wf-W1', '/admin/config/alarms'],
+  // the admin's dashboard (the session manager, 2026-11-27: the daily report's "need you now", each need with its source)
+  dashboard: () => ['/admin/'],
+  // Communications → Sent (0167 §2, 0172 §4.3: everything the site emailed: when, sender, subject, how it went; the address is
+  // kept hashed, the body isn't kept), the newest 100 matching the order/run field (the session manager, 2026-11-27)
+  sent: () => (/^[A-Za-z0-9 :().,'-]{0,60}$/.test(ID) ? ['/admin/api/comms.php?lazy=sent' + (ID ? '&q=' + encodeURIComponent(ID) : '')] : null),
   // the register and the workflows (the Data & Content session, 2026-11-27, at the CEO's ask: D.1 across 0181's area):
   // Modules (Service register), each service's stage, caps and paces; the Workflows page and each workflow's own page
   register: () => ['/admin/config/register'],
@@ -38,9 +43,10 @@ const PAGES = { orders: () => ['/admin/backoffice/orders'], order: () => (/^\d{1
   card: () => (/^[A-Za-z0-9 .()&'-]{2,60}$/.test(ID) ? ['/admin/config/register'] : null),
   // rows: a table's newest rows matching a search, through the admin's data API (read-only; operational tables such as
   // job_runs only: never a table of people's details; the Control Board session, 2026-11-24, for the audit clock's runs)
-  // the search may instead be up to 8 row ids ("35237,35160"): each row whole (action=row)
+  // the search may instead be up to 8 row ids ("35237,35160"), or text keys as kind:number ("cluster:12,town:66"; a guide's
+  // place_key, gate 3's measure, 2026-11-27): each row whole (action=row)
   rows: () => (/^[a-z0-9_]{1,64}$/.test(TABLE) && !/user|member|staff|contact|client|order|payment|vault|message|mail/.test(TABLE) && /^[A-Za-z0-9_ :.,-]{0,60}$/.test(Q)
-    ? (/^\d+(,\d+){0,7}$/.test(Q) ? Q.split(',').map((id) => `/admin/api/data.php?action=row&table=${TABLE}&id=${id}`) : [`/admin/api/data.php?action=rows&table=${TABLE}&q=${encodeURIComponent(Q)}&sort=id&dir=desc`]) : null),
+    ? (/^(\d+|[a-z]{1,12}:\d{1,9})(,(\d+|[a-z]{1,12}:\d{1,9})){0,7}$/.test(Q) ? Q.split(',').map((id) => `/admin/api/data.php?action=row&table=${TABLE}&id=${encodeURIComponent(id)}`) : [`/admin/api/data.php?action=rows&table=${TABLE}&q=${encodeURIComponent(Q)}&sort=id&dir=desc`]) : null),
   meta: () => (/^[a-z0-9_]{1,64}$/.test(TABLE) ? [`/admin/api/data.php?action=meta&table=${TABLE}`] : null) };
 
 const fail = (m) => { console.log(`::error::${m}`); process.exit(1); };
@@ -66,7 +72,7 @@ try {
       const res = await p.goto(SITE + path, { waitUntil: 'load', timeout: 60000 }).catch((e) => ({ status: () => 0, err: String(e) }));
       await p.waitForLoadState('networkidle', { timeout: 15000 }).catch(() => {});   // the admin's tables fill in after load
       await p.waitForTimeout(800);
-      const name = `${READ}${READ === 'meta' || READ === 'rows' ? '-' + TABLE : (ID ? '-' + ID : '')}-${w}`;
+      const name = `${READ}${READ === 'meta' || READ === 'rows' ? '-' + TABLE : (ID ? '-' + ID : '')}-${w}`.replace(/[^A-Za-z0-9._-]+/g, '_');   // an artifact's file names: no colons, spaces or quotes (#1544's search)
       const card = READ === 'card' ? await p.evaluate((name) => {   // the register's row for that service (outside-services.php: div.os-r, data-name), its body shown; nothing pressed
         const n = name.toLowerCase();
         const r = [...document.querySelectorAll('.os-r[data-name]')].find((x) => x.dataset.name === n) || [...document.querySelectorAll('.os-r[data-name]')].find((x) => x.dataset.name.startsWith(n));

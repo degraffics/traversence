@@ -1,0 +1,199 @@
+<?php
+// The release pipeline's tick and verdict (2026-11-27, the session manager's release "release pipeline: tick and verdict"):
+// #317 and #318 each waited an hour on the way to staging with their before verdict on main. (c) the verdict is read
+// through GitHub's contents API (DocsRepo::now), never raw.githubusercontent.com's cache; a missing file is said once on
+// the release's card past NOTE_MINUTES. (b) /api/releases-pull.php takes merged builds only, with releases.publish for that
+// one call (run for real in its own process); verdicts are moved on by the 10-minute job. One advance at a time (a lock). (a) releases_tick's
+// own cron line goes to every 10 minutes, once, and a person's later Change stays.
+// Run: php tickverdict.php <root>   (<root> holds app/ and website/; it resets lv_main; its setup is pipeline.php's)
+declare(strict_types=1);
+$root = rtrim($argv[1] ?? '', '/'); $app = $root . '/app'; if (!is_dir($app . '/lib') || !is_file($root . '/website/api/releases-pull.php')) { fwrite(STDERR, "usage: php tickverdict.php <root>\n"); exit(2); }
+putenv('TV_TEST=1');
+require_once $app . '/lib/Database.php'; require_once $app . '/lib/DbUpdates.php';
+$pdo = Database::connection(); $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+$pdo->exec('DROP DATABASE IF EXISTS lv_main'); $pdo->exec('CREATE DATABASE lv_main CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci'); $pdo->exec('USE lv_main');
+$run = function (string $f) use ($pdo) { foreach (DbUpdates::statements((string) file_get_contents($f)) as $s) { $st = $pdo->query($s); if ($st) $st->closeCursor(); } };
+$T = dirname(__DIR__) . '/team-tests'; $H = dirname(__DIR__, 2) . '/handoffs/';
+$run($T . '/before-schema.sql');
+foreach ([$H . 'task-scope/build/app/migrations/2026-11-24_task_scope.sql', $H . 'task-adrs/build/app/migrations/2026-11-24_task_adrs.sql', $H . 'piece2-build/team-tickets/build/app/migrations/2026-11-25_tickets.sql', $H . 'piece2-build/team-runner/build/app/migrations/2026-11-25_team_flag.sql'] as $f) $run($f);
+$pdo->exec("CREATE TABLE feature_switches (switch_key VARCHAR(60) PRIMARY KEY, state VARCHAR(10), share_pct INT DEFAULT 0, killed TINYINT DEFAULT 0, note VARCHAR(255), updated_by INT NULL, updated_at DATETIME)");
+$pdo->exec("CREATE TABLE IF NOT EXISTS staff_accounts (id INT AUTO_INCREMENT PRIMARY KEY, user_id INT NULL, email VARCHAR(190) NOT NULL DEFAULT '', role VARCHAR(20) NOT NULL DEFAULT '', status VARCHAR(20) NOT NULL DEFAULT 'active')");
+require_once $app . '/lib/Staging.php'; require_once $app . '/lib/Switches.php'; require_once $app . '/lib/Releases.php'; require_once $app . '/lib/BeforeAfter.php'; require_once $app . '/lib/GaugeTasks.php'; require_once $app . '/lib/DocsRepo.php';
+$here = new ReflectionProperty(Staging::class, 'here'); $here->setAccessible(true);
+$stage = function (bool $on) use ($here) { putenv('STAGING=' . ($on ? '1' : '0')); $here->setValue(null, null); };
+$stage(false);
+$pass = 0; $fail = 0;
+$t = function (string $n, bool $ok, $got = null) use (&$pass, &$fail) { if ($ok) { $pass++; echo "  ok  $n\n"; } else { $fail++; echo "FAIL  $n" . ($got !== null ? ' — ' . json_encode($got, JSON_UNESCAPED_UNICODE) : '') . "\n"; } };
+$asks = [];
+BeforeAfter::$askFn = function ($e, $p) use (&$asks) { $asks[] = [$e, $p]; return ''; };
+$mk = function (string $name) use ($pdo) {
+    $z = new ZipArchive(); $tmp = tempnam(sys_get_temp_dir(), 'tv') . '.zip'; $z->open($tmp, ZipArchive::CREATE);
+    $z->addFromString('release.json', json_encode(['title' => $name])); $z->addFromString('app/lib/TvTest' . md5($name) . '.php', "<?php\n// a test file\n"); $z->close();
+    $id = (int) Releases::fromUpload($pdo, 0, $tmp, $name, '')['id']; @unlink($tmp);
+    Releases::noteFromCheck($pdo, $id, 'Came from git: releases/inbox/' . $name . ' (git 0123456789).');
+    return $id; };
+$sha = str_repeat('a', 40);
+$rel = fn (int $id) => Releases::get($pdo, $id);
+$ba = fn (int $id) => BeforeAfter::state($pdo, $id);
+$msgs = fn (int $id, int $from) => array_column(array_slice((array) $rel($id)['log'], $from), 'msg');
+$asked = function (int $id, int $minsAgo) use ($pdo, $ba) { $d = $ba($id); $d['asked_at'] = time() - $minsAgo * 60; $pdo->prepare('REPLACE INTO site_release_settings (k, v) VALUES (?, ?)')->execute(['ba:' . $id, json_encode($d)]); };
+require_once $app . '/lib/StagingSite.php'; StagingSite::ensure($pdo);
+Switches::set($pdo, 'before_after', 'test', 0, false, 'tickverdict test', 1);
+
+// (c) the read: GitHub's contents API on main, decoded; a 404 is null with no other read; GitHub away: the raw read
+$calls = []; $answer = [];
+DocsRepo::$fake = function ($m, $u, $j) use (&$calls, &$answer) { $calls[] = $u; foreach ($answer as $pre => $a) if (str_starts_with($u, $pre)) return $a; return [404, '']; };
+$api = 'https://api.github.com/repos/degraffics/traversence/contents/site-audit/results/beforeafter/9.json?ref=main';
+$rawU = 'https://raw.githubusercontent.com/degraffics/traversence/main/site-audit/results/beforeafter/9.json';
+$answer = [$api => [200, json_encode(['encoding' => 'base64', 'content' => base64_encode('{"release":"9"}')])]];
+$got = DocsRepo::now('site-audit/results/beforeafter/9.json');
+$t('(c) now(): read through the contents API on main, decoded', $got === '{"release":"9"}' && $calls === [$api], [$got, $calls]);
+$calls = []; $answer = [];
+$t('(c) not on main (404): null, and raw.githubusercontent.com isn\'t asked', DocsRepo::now('site-audit/results/beforeafter/9.json') === null && $calls === [$api], $calls);
+$calls = []; $answer = [$api => [503, ''], $rawU => [200, '{"release":"9","via":"raw"}']];
+$t('(c) GitHub\'s API away (503): the fresh raw read instead, as before', DocsRepo::now('site-audit/results/beforeafter/9.json') === '{"release":"9","via":"raw"}' && $calls === [$api, $rawU], $calls);
+$calls = []; $answer = [$api => [200, '{"message":"too large"}'], $rawU => [200, '{"release":"9"}']];
+$t('(c) an answer with no content (a file too large for it): the raw read', DocsRepo::now('site-audit/results/beforeafter/9.json') === '{"release":"9"}', $calls);
+$t('(c) a path with .. is refused, nothing asked', ($calls = []) === [] && DocsRepo::now('site-audit/../.env') === null && $calls === [], $calls);
+$v = BeforeAfter::verdict(9);   // $readFn unset: the live path
+$answer = [$api => [200, json_encode(['encoding' => 'base64', 'content' => base64_encode(json_encode(['release' => '9', 'phase' => 'before-done', 'verdict' => 'waiting', 'seconds' => 12]))])]];
+$calls = []; $v = BeforeAfter::verdict(9);
+$t('(c) verdict() reads through now(): the before-done verdict, from the contents API', ($v['phase'] ?? '') === 'before-done' && $calls === [$api], [$v, $calls]);
+
+// the note: no verdict file yet, said once past NOTE_MINUTES on the release's card, never before
+BeforeAfter::$readFn = fn ($p) => null;
+$a = $mk('tv-a.zip'); BeforeAfter::begin($pdo, $a, 'tv-a.zip', $sha, false);
+$asked($a, 10); $n = count($rel($a)['log']); BeforeAfter::advance($pdo);
+$t('no verdict, asked 10 minutes ago: nothing written (the run takes 15 to 25)', !preg_grep('/no verdict file/', $msgs($a, $n)), $msgs($a, $n));
+$asked($a, BeforeAfter::NOTE_MINUTES + 1); $n = count($rel($a)['log']); BeforeAfter::advance($pdo);
+$m = $msgs($a, $n);
+$t('no verdict past ' . BeforeAfter::NOTE_MINUTES . ' minutes: said on its card, with the file it reads', count(preg_grep('#Waiting for its before look: no verdict file on main yet \(site-audit/results/beforeafter/' . $a . '\.json\), asked 3\d minutes ago#', $m)) === 1, $m);
+$t('… and its card\'s line says it', str_contains(Releases::standing($rel($a))[0], 'no verdict file on main yet'), Releases::standing($rel($a)));
+$n = count($rel($a)['log']); BeforeAfter::advance($pdo); BeforeAfter::advance($pdo);
+$t('… once: the next runs write nothing more', !preg_grep('/no verdict file/', $msgs($a, $n)), $msgs($a, $n));
+$t('… and nothing else moved: still waiting for its before look, the late re-ask not yet', $ba($a)['phase'] === 'before' && (int) ($ba($a)['tries'] ?? 1) === 1, $ba($a));
+
+// the lock: an advance already going, a second does nothing
+$env = parse_ini_file(dirname($app, 3) . '/.env', false, INI_SCANNER_RAW) ?: []; $other2 = new PDO('mysql:host=' . ($env['DB_HOST'] ?? 'localhost') . ';dbname=lv_main', (string) ($env['DB_USERNAME'] ?? ''), (string) ($env['DB_PASSWORD'] ?? ''));
+$other2->query("SELECT GET_LOCK('tv_rel_ba', 0)");
+$files = []; BeforeAfter::$readFn = function ($p) use (&$files) { return $files[$p] ?? null; };
+$files['site-audit/results/beforeafter/' . $a . '.json'] = json_encode(['release' => (string) $a, 'phase' => 'before-done', 'verdict' => 'waiting', 'seconds' => 60]);
+$n = count($rel($a)['log']); $out = BeforeAfter::advance($pdo);
+$t('another advance holding the lock (the ping and the job at once): this one does nothing', $out === [] && $ba($a)['phase'] === 'before' && count($rel($a)['log']) === $n, [$out, $msgs($a, $n)]);
+$other2->query("SELECT RELEASE_LOCK('tv_rel_ba')"); $other2 = null;
+$n = count($rel($a)['log']); $out = BeforeAfter::advance($pdo);
+$t('… once it\'s free: its verdict is read and it goes on (here staging isn\'t set up, so it says so)', (bool) array_filter($out, fn ($l) => str_contains($l, 'Release #' . $a)) && (bool) preg_grep('/Plan approved|not on staging yet|staging/i', $msgs($a, $n)), [$out, $msgs($a, $n)]);
+$t('… and the lock is let go after it', (int) $pdo->query("SELECT IS_FREE_LOCK('tv_rel_ba')")->fetchColumn() === 1);
+
+// the step's order (the CEO's and the session manager's condition, 2026-11-27): a verdict that can't be decided (a step that
+// throws, as checkedByAdvocates does on a web call with no grant) leaves the release waiting; the next run decides it
+$e = $mk('tv-e.zip'); BeforeAfter::begin($pdo, $e, 'tv-e.zip', $sha, false); $d = $ba($e); $d['phase'] = 'after'; $d['asked_at'] = time() - 120; $d['before_seconds'] = 10;
+$pdo->prepare('REPLACE INTO site_release_settings (k, v) VALUES (?, ?)')->execute(['ba:' . $e, json_encode($d)]);
+BeforeAfter::$readFn = fn ($p) => $p === 'site-audit/results/beforeafter/' . $e . '.json' ? json_encode(['release' => (string) $e, 'phase' => 'after-done', 'verdict' => 'pass', 'seconds' => 40, 'views' => 3]) : null;
+BeforeAfter::$decideFn = function () { throw new RuntimeException('Sign in with your staff login first'); };
+$l1 = BeforeAfter::advance($pdo); $kept = $ba($e);
+$t('(d) deciding throws (no grant on the web): the release is still waiting, its time counted once', is_array($kept) && $kept['phase'] === 'after' && !empty($kept['counted_after']) && (bool) array_filter($l1, fn ($l) => str_contains($l, 'Release #' . $e . ' (before-and-after)')), [$l1, $kept]);
+$decided = 0; BeforeAfter::$decideFn = function () use (&$decided, $e) { $decided++; return 'Release #' . $e . ': decided.'; };
+$l2 = BeforeAfter::advance($pdo);
+$t('(d) … the next run decides it, and only then is its waiting cleared', $decided === 1 && $ba($e) === null && in_array('Release #' . $e . ': decided.', $l2, true), [$l2, $ba($e)]);
+BeforeAfter::$decideFn = null; BeforeAfter::$readFn = null;
+
+// (e) a look in git that takes nothing says why (2026-11-27: b2-backups-3 waited 55 minutes, the job's runs silent): GitHub's
+// inbox listing not answering, and a build's file that couldn't be fetched, each recorded with -1 and why for the Releases page
+$tok0 = getenv('GITHUB_DOCS_TOKEN'); putenv('GITHUB_DOCS_TOKEN=test-token');
+$seenJob = fn () => json_decode((string) $pdo->query("SELECT v FROM site_release_settings WHERE k = 'git_seen_job'")->fetchColumn(), true);
+$inboxU = 'https://api.github.com/repos/degraffics/traversence/contents/releases/inbox?ref=main';
+$cases = [
+  ['the inbox listing with no answer (a timeout: HTTP 0)', fn ($u) => str_starts_with($u, $inboxU) ? [0, ''] : [404, ''], ''],
+  ['the inbox listing answered 403', fn ($u) => str_starts_with($u, $inboxU) ? [403, '{"message":"rate limited"}'] : [404, ''], 'GitHub answered HTTP 403 for the inbox'],
+];
+foreach ($cases as [$name, $ans, $want]) {
+  DocsRepo::$fake = fn ($m, $u, $j) => $ans($u); Releases::fromGit($pdo, 0); $sj = $seenJob();
+  $t('(e) ' . $name . ': found -1, why ' . ($want === '' ? 'none (the page says "GitHub didn\'t answer")' : '"' . $want . '"'), ($sj['found'] ?? null) === -1 && ($sj['why'] ?? '') === $want, $sj);
+}
+$zsha = str_repeat('b', 40); $list = json_encode([['type' => 'file', 'name' => 'tv-f.zip', 'sha' => $zsha, 'size' => 10]]);
+$blobs = [
+  ['GitHub answered 404', [404, ''], 'a build\'s file couldn\'t be fetched: tv-f.zip, HTTP 404'],
+  ['no answer', [0, ''], 'a build\'s file couldn\'t be fetched: tv-f.zip, no answer'],
+  ['bytes that aren\'t the file in git', [200, json_encode(['encoding' => 'base64', 'content' => base64_encode('not it')])], 'a build\'s file couldn\'t be fetched: tv-f.zip, not the bytes in git'],
+];
+foreach ($blobs as [$name, $ba2, $want]) {
+  DocsRepo::$fake = fn ($m, $u, $j) => str_starts_with($u, $inboxU) ? [200, $list] : (str_contains($u, '/git/blobs/') ? $ba2 : [404, '']);
+  $lines = Releases::fromGit($pdo, 0); $sj = $seenJob();
+  $t('(e) a build\'s file, ' . $name . ': its line, found -1, why "' . $want . '"', ($sj['found'] ?? null) === -1 && ($sj['why'] ?? '') === $want && (bool) preg_grep('/^tv-f\.zip: couldn\'t fetch it whole/', $lines), [$sj, $lines]);
+}
+$k = array_values(array_filter(Releases::lastLooked($pdo), fn ($l) => $l[0] === 'the 10-minute job'));
+$t('(e) lastLooked carries the why to the Releases page', ($k[0][3] ?? '') === 'a build\'s file couldn\'t be fetched: tv-f.zip, not the bytes in git', $k);
+DocsRepo::$fake = fn ($m, $u, $j) => str_starts_with($u, $inboxU) ? [200, '[]'] : [404, ''];
+Releases::fromGit($pdo, 0); $sj = $seenJob();
+$t('(e) … and a look that answers clears it: found 0, no why', ($sj['found'] ?? null) === 0 && !isset($sj['why']), $sj);
+$k = array_values(array_filter(Releases::lastLooked($pdo), fn ($l) => $l[0] === 'the 10-minute job'));
+$t('(e) the Releases page\'s line reads it (lastLooked: the job, when, found, why)', ($k[0][2] ?? null) === 0 && ($k[0][1] ?? 0) > time() - 60 && ($k[0][3] ?? 'x') === '', $k);
+// the words the page draws from it (admin/sections.php's look line), each case
+$sec = (string) file_get_contents($root . '/app/admin/sections.php');
+$t('(e) the Releases page says what GitHub did: its why, or "GitHub didn\'t answer" when it gave none', str_contains($sec, "(\$why !== '' ? \$e(\$why) : 'GitHub didn\\'t answer')") && str_contains($sec, '$why = (string) ($lk[3] ?? \'\');'), null);
+putenv($tok0 === false ? 'GITHUB_DOCS_TOKEN' : 'GITHUB_DOCS_TOKEN=' . $tok0); DocsRepo::$fake = null;
+// (f) every run of releases_tick is logged, so Scheduled tasks' "last ran" is when it ran, with nothing scheduled too
+$src = (string) file_get_contents($root . '/app/scripts/releases_tick.php');
+$t('(f) releases_tick logs every run (Scheduler::run before its first step), and says when nothing is scheduled', strpos($src, "Scheduler::run('releases_tick')") !== false && strpos($src, "Scheduler::run('releases_tick')") < strpos($src, 'Releases::fromGit') && substr_count($src, "Scheduler::run('releases_tick')") === 1 && str_contains($src, 'Nothing scheduled or stepping on.'), null);
+
+// (b) the endpoint release-ping.yml calls, run for real: with nothing new in main it takes nothing and changes nothing; a
+// waiting release is left for the 10-minute job (verdicts are never moved on here: the CEO's Tier 4, 2026-11-27)
+BeforeAfter::$readFn = null;
+$b = $mk('tv-b.zip'); BeforeAfter::begin($pdo, $b, 'tv-b.zip', $sha, false); $asked($b, 20);
+$pdo->exec("DELETE FROM site_release_settings WHERE k = 'git_seen_ping'");
+$n = count($rel($b)['log']); $was = BeforeAfter::state($pdo, $b);
+$cmd = 'TV_TEST=1 ' . escapeshellarg(PHP_BINARY) . ' ' . escapeshellarg(__DIR__ . '/tickverdict-pull.php') . ' ' . escapeshellarg($root) . ' ' . $b . ' 2>&1';
+$res = (string) shell_exec($cmd);
+preg_match('/\{"ok":.*\}/', $res, $mm); $j = json_decode($mm[0] ?? '', true);
+$t('(b) releases-pull.php with nothing new in main: ok, and no release named', is_array($j) && !empty($j['ok']) && !array_filter((array) $j['lines'], fn ($l) => str_contains((string) $l, 'Release #')), $res);
+$t('(b) … it changed nothing: the waiting release as it was, its record untouched, no verdict read', BeforeAfter::state($pdo, $b) == $was && count($rel($b)['log']) === $n && !str_contains($res, 'beforeafter/' . $b . '.json'), $res);
+preg_match('/GITHUB (\[.*\])/', $res, $gm); $gh = json_decode($gm[1] ?? 'null', true);
+$t('(b) … and asked GitHub for nothing but the inbox\'s listing on main (nothing from the request is used)', is_array($gh) && !array_filter($gh, fn ($c) => !preg_match('#^GET https://api\.github\.com/repos/degraffics/traversence/contents/releases/inbox#', (string) $c)), $res);
+$res2 = (string) shell_exec($cmd); preg_match('/\{"ok":.*\}/', $res2, $mm2); $j2 = json_decode($mm2[0] ?? '', true);
+$t('(b) a second ping within the minute: 429 too_soon, as before (the workflow waits 65 s and asks again)', is_array($j2) && ($j2['code'] ?? $j2['error']['code'] ?? '') === 'too_soon' || str_contains($res2, 'too_soon'), $res2);
+$stage(true);
+$t('never on staging: advance and tickLine do nothing', BeforeAfter::advance($pdo) === [] && BeforeAfter::tickLine($pdo) === '');
+$stage(false);
+
+// the far timeouts on the release's card (the CEO's Tier 4 condition, 2026-11-27): each "after the look" note, once
+$files = []; BeforeAfter::$readFn = function ($p) use (&$files) { return $files[$p] ?? null; };
+$c = $mk('tv-c.zip'); BeforeAfter::begin($pdo, $c, 'tv-c.zip', $sha, false);
+$pdo->prepare("UPDATE site_releases SET state = 'staged', checks_ok = 1, checks = ? WHERE id = ?")->execute([json_encode(['ok' => true, 'items' => [['PHP files parse', true, '1 checked']]]), $c]);
+$files['site-audit/results/beforeafter/' . $c . '.json'] = json_encode(['release' => (string) $c, 'phase' => 'before-done', 'verdict' => 'waiting', 'seconds' => 60]);
+BeforeAfter::advance($pdo);
+$farList = [['who' => 'executive', 'page' => '/admin/crawler-review.php', 'size' => 'phone', 'outcome' => 'opened', 'ms' => 62000, 'via' => ['website/js/tv-ask.js']],
+            ['who' => 'ops-staff', 'page' => '/admin/crawler-review.php', 'size' => 'desktop', 'outcome' => 'before_too', 'ms' => 0, 'via' => ['website/js/tv-ask.js']],
+            ['who' => 'executive', 'page' => '/admin/other.php', 'size' => 'phone', 'outcome' => 'blocks', 'ms' => 0, 'via' => ['website/js/tv-ask.js']],
+            ['who' => 'Bad Name <b>', 'page' => 'javascript:x', 'size' => 'phone', 'outcome' => 'opened', 'via' => []]];
+$files['site-audit/results/beforeafter/' . $c . '.json'] = json_encode(['release' => (string) $c, 'phase' => 'after-done', 'verdict' => 'pass', 'seconds' => 120, 'views' => 174, 'notes' => ['executive|/admin/data.php|phone: already missed "No sideways scroll at 390px (0058 §11)" before (Site health\'s, not this change\'s)'], 'far' => $farList, 'run' => 'https://github.com/degraffics/traversence/actions/runs/4']);
+$n = count($rel($c)['log']); BeforeAfter::advance($pdo); $m = $msgs($c, $n);
+$t('a pass with a slow page that opened when tried again: the Design reviewer\'s sentence on its card, once', count(array_filter($m, fn ($x) => $x === "Before-and-after check: /admin/crawler-review.php (as the test Executive, at 390) timed out, then opened when tried again. Staging is slow there; it's reached only through website/js/tv-ask.js. The IT Manager's lane has it.")) === 1, $m);
+$t('… slow before too: its own sentence, naming the slow-pages ticket', count(array_filter($m, fn ($x) => $x === "Before-and-after check: /admin/crawler-review.php (as the test Ops staff, at 1280) was slow before this release too, and still didn't open after it. Staging is slow there; it's reached only through website/js/tv-ask.js. The slow-pages ticket has it.")) === 1, $m);
+$t('… a block\'s entry isn\'t written there (its block says it), and an entry with a bad name or address is left out', !preg_grep('#/admin/other\.php|javascript|Bad Name#', $m), $m);
+$t('… and Site health\'s notes aren\'t copied there', !preg_grep('/already missed/', $m), $m);
+$t('… then its verdict as before', (bool) preg_grep('/before-and-after check: passed/', $m), $m);
+
+// (a) releases_tick's cron line: to every 10 minutes once; a person's later Change stays
+$lines = [['line' => 7, 'linekey' => 'k', 'minute' => '*/24', 'hour' => '*', 'day' => '*', 'month' => '*', 'weekday' => '*', 'command' => '/usr/local/bin/php /home/x/app/scripts/releases_tick.php >/dev/null 2>&1']];
+$changes = [];
+BeforeAfter::$linesFn = function () use (&$lines) { return $lines; };
+BeforeAfter::$changeFn = function ($job, $preset) use (&$changes, &$lines) { $changes[] = [$job, $preset]; $lines[0]['minute'] = '*/10'; };
+$l = BeforeAfter::tickLine($pdo);
+$t('(a) live\'s line read */24: changed to every 10 minutes, through Scheduler::change\'s preset', $changes === [['releases_tick', '10min']] && $l === 'releases_tick: its cron line moved from */24 to */10.', [$changes, $l]);
+$st = $pdo->query("SELECT v FROM site_release_settings WHERE k = 'tick_line_10min'")->fetchColumn();
+$t('(a) … remembered, with what it was', ($w = json_decode((string) $st, true)) && $w['was'] === '*/24', $st);
+$lines[0]['minute'] = '*/15'; $changes = [];
+$t('(a) a person changes it later on Scheduled tasks: it stays theirs', BeforeAfter::tickLine($pdo) === '' && $changes === [], $changes);
+$pdo->exec("DELETE FROM site_release_settings WHERE k = 'tick_line_10min'"); $lines[0]['minute'] = '*/10'; $changes = [];
+$t('(a) already every 10 minutes: nothing changed, only remembered', BeforeAfter::tickLine($pdo) === '' && $changes === [] && $pdo->query("SELECT COUNT(*) FROM site_release_settings WHERE k = 'tick_line_10min'")->fetchColumn() == 1, $changes);
+$pdo->exec("DELETE FROM site_release_settings WHERE k = 'tick_line_10min'"); BeforeAfter::$linesFn = null; BeforeAfter::$changeFn = null;
+putenv('CPANEL_HOST=');
+$t('(a) cPanel not connected: waits, saying nothing, and isn\'t remembered (tried next run)', BeforeAfter::tickLine($pdo) === '' && $pdo->query("SELECT COUNT(*) FROM site_release_settings WHERE k = 'tick_line_10min'")->fetchColumn() == 0);
+// the ping acts as the 10-minute job does (2026-11-27: every ping was refused "Sign in with your staff login first"):
+// publish and schedule while it runs, never turning off or rolling back, and nothing granted after it
+$g = new ReflectionProperty(Releases::class, 'grant'); $g->setAccessible(true);
+$in = Releases::asPing(fn () => [Releases::can('releases.publish')[0], Releases::can('releases.schedule')[0], Releases::can('releases.turn_off')[0], Releases::can('releases.rollback')[0], $g->getValue()]);
+$t('(c) the ping carries releases.publish only while it takes builds: never schedule, turn off or roll back', $in[0] && !$in[1] && !$in[2] && !$in[3], $in);
+$t('(c) … and nothing is granted once it\'s done, even when its step throws', $g->getValue() === null && (function () use ($g) { try { Releases::asPing(function () { throw new RuntimeException('x'); }); } catch (RuntimeException $e) {} return $g->getValue() === null; })());
+echo "\n$pass passed, $fail failed\n"; exit($fail ? 1 : 0);

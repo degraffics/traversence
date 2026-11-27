@@ -41,6 +41,24 @@ exists, flag the gap and offer possible solutions as suggestions (Jason). The se
 improvement to what's set is welcome (Jason: "suggestions are accepted, inventing new randomly is not"): labelled
 "Suggest a change to <decision>: …", citing it and why, for Jason via the session manager, never applied as decided.
 
+## Work silently (Jason, 2026-11-27): every session
+
+"For all the sessions we are opening and closing, let them work silently, so they don't waste usage explaining unread
+conversations." A session doesn't narrate, recap or explain in its own chat: its work goes into commits, hand-offs,
+release records and short messages to the session manager (facts, links, what's needed). Only what needs Jason (a
+Founder ruling or an OK) is written for him, through the CEO session ("Asking Jason" below).
+
+## Launch first: no gate, no build (Jason, 2026-11-27; 0181 §2): every session, until 0181 §1's six gates pass
+
+Jason: "after months of development I'm still having to re-engage a repeating loop of machine work/fixes. I need you to
+represent me in ceasing this and move us forward to market release." (The CEO's Tier 4, enforcing 0181 §2; recorded as
+Operations & Policy (16).) Every ticket names the gate (1–6) it moves, or a live harm to people or money, or the revenue goal
+it enables (0181's ladder) or the money it protects (caps, meters, the money line), the indirect link stated (Jason,
+2026-11-27: "dont narrow your view to disregard indirect over direct implications"); without one it's logged in its
+role's queue, not built before Jan 1. No new tooling, meters, board features, check refinements or process
+releases unless one blocks a gate; rollout releases get 0181 §2's one slot a day. What reaches Jason: a Tier 5 brief, live
+harm, and the CEO's one daily launch report against the gates. No new sessions before launch.
+
 ## The session manager (Jason, 2026-11-13): every session
 
 A standing session watches the others (hourly while Jason is checked in): context size, restarts, cost, release clashes,
@@ -54,6 +72,18 @@ a fresh session takes over from it, and the old one is archived. **Finished sess
 the report, once the session manager has checked the live build against its decision and brief (Jason, 2026-11-18). A
 session waiting on him is never archived. After each release the session manager also checks the release and its hand-off for
 scope creep and drift against the decision, and that the decision has its note (`handoffs/session-manager.md`).
+
+**Goals and records live with the roles, not the session manager** (Jason, 2026-11-27: "Yes, approve the plan… up
+and running by Monday morning 6 am"; recorded as Operations & Policy (16)). No goal, ruling or order lives only in a
+session: a session starts from the decisions, the Work queue and git. Each long-term goal is a parent task in the Work
+queue (`GaugeTasks.php` `parent_id`) with an owner from 0180's appendix (a goal that crosses lanes: the CEO), a measure, a
+due date and its decision; every ticket links to its goal, and escalation follows the tiers (a stalled ticket → its T3
+manager, a goal's date at risk → its T4 executive, a goal that must change → a T5 Decision Brief). A live-side $0 daily
+goal check opens a ticket for the owner when a goal's tickets sit 3 days or its date is at risk. Queue order and goal
+status are the Project Manager's (8); the daily summary is the Executive Translator's (28); rules and this file are
+Operations & Policy's (16). Until R2 and the goals view are live, the sessions do these under the role's name:
+`handoffs/decided-not-live.md` stays the session manager's, marked "for the PM (8)". The session manager keeps watching,
+syncing, verifying and drift review.
 
 ## End to end, verified, before anything ships (Jason, 2026-11-21): every build
 
@@ -242,8 +272,12 @@ Jason, 2026-11-25: "when I say send me email that should now it is allowed to se
 use of what ever tool it needs". An OK he has given once is not asked again: not by the session, not as a tool prompt.
 New standing OKs go here in the session that hears them; the tool they need goes in `.claude/settings.json`'s allow list.
 - **Email and push to Jason:** when he asks (or a rule here says to tell him), send it, to his address only, through
-  the site's own email (`releases/batch.json` "messages", notify-founder; Jason, 2026-11-27: "Use system email"), with
-  the Microsoft 365 connector as the fallback, and a push notification. No other recipient without asking.
+  the site's own email (`releases/batch.json` "messages", notify-founder; Jason, 2026-11-27: "Use system email") and a
+  push notification; reaching him by email when he's offline stays allowed (Jason, 2026-11-27: "Email used for reaching
+  me when I am offline is ok too"), with the Microsoft 365 send only as the fallback if the site's email fails. Otherwise
+  degraffics.com is out of system mail ("mail only, OneDrive stays"): no agent reads his degraffics.com inbox, and nothing
+  routes system mail there; the 3-way sync's OneDrive use is unchanged. No email accounts
+  for agents: they talk through the role queues on the platform (jason-spec §7). No other recipient without asking.
 - **Adding both repos**, **archiving finished sessions**, **merging your own approved PR**: as their sections say.
 - **Piece 2 to running, over the holiday** (Jason, 2026-11-25: "publish yes as long as we can roll back… I want all of
   this up and running by the time I am back… make your best judgement calls based on the adr's and the outlined plan…
@@ -255,7 +289,7 @@ New standing OKs go here in the session that hears them; the tool they need goes
   $0 spend and Tier 5 triggers hold. Approving the decision tree and raising the stage ceiling are his: his press, or his own written words for a
   one-time setup (2026-11-26, R1's tree at Implementation); a later rule change clears it and needs him again.
 
-## Each session asks Jason itself (Jason, 2026-11-18; replaces 2026-11-17's): every session
+## Asking Jason (Jason, 2026-11-18; routed through the CEO, 2026-11-27): every session
 
 **Publish authority (decisions/0179, Jason, 2026-11-25): every release.** Until the before-and-after checks exist,
 nothing that needs approval goes live until Jason approves the **daily batch** (the session manager's daily summary);
@@ -265,16 +299,32 @@ their lanes; a change touching a high-risk area needs its Tier 4 review recorded
 (Tier 5)** comes to him as a Decision Brief: a rule, tier, permission or fence change, an ADR amendment or new policy,
 an irreversible act, a deadlock, or real money moving (never autonomous; refunds per 0178).
 
-A session that needs Jason's OK (a PR, a decision, a key) asks him in its own chat, **written in the reply for him and
-Gemini to review, never a pop-up** (Jason, 2026-11-25; 0179), never a Pulse case, and sends a push notification.
-**Before asking, it sends the question (or the release summary and PR) to the session manager for review**
-(Jason, 2026-11-18): against the decision, the brief and these rules, for scope creep, drift, conflicts and anything
-already decided. It asks Jason only once the session manager answers "clear to ask" or its fixes are made, noting
-"reviewed by the session manager"; no answer in 10 minutes, it reminds the session manager; none in 30, it asks and marks it "not reviewed". It then tells the
-session manager the answer and the link by send_message. The session manager never asks the same
-question again; it lists what's still open at the top of its replies as **"Waiting for your OK:"** (with each
-session's name), and asks only its own questions. **Sessions merge their own PR** once Jason approves it
-(Jason, 2026-11-18: no waiting on the session manager), then tell it the merge; it runs the sync and records deliveries.
+**Questions for Jason go through the CEO session** (Jason, 2026-11-27: "Yes, route their questions through you"). A
+session that needs Jason's OK (a PR, a decision, a key) sends the question (or the release summary and PR) to the
+session manager, never to Jason in its own chat. The session manager reviews it against the decision, the brief and
+these rules (scope creep, drift, conflicts, anything already decided); once it's clear to ask, or its fixes are made, it
+sends it to the CEO session. **The CEO answers what's within its authority** (Tiers 1–4, the Prior Ruling Check, and
+whatever an ADR or his past rulings settle, cited; Jason, 2026-11-27: "I wont be looking at other session, just this one…
+if there is a question I need you to answer them as best you can, if you cant email me the questions"). What it can't
+(Tier 5, real money, his own presses) goes to him as a Decision Brief through the site's own email (`releases/batch.json`
+"messages") and push, **written for him and Gemini to review, never a pop-up** (0179), never a Pulse case, noting
+"reviewed by the session manager"; never answered or approved in his name. Jason reads only the CEO session. Not forwarded in
+10 minutes, the asking session reminds the session manager; in 30, it goes to the CEO marked "not reviewed". The CEO sends
+his answer, in his words, to the session manager and the asking session. The session manager never asks the same
+question again; it lists what's still open at the top of its replies as **"Waiting for your OK:"** (with each session's
+name). **Sessions merge their own PR** once Jason approves it (Jason, 2026-11-18), then tell the session manager the
+merge; it runs the sync and records deliveries.
+
+**His stated direction is the ruling** (Jason, 2026-11-27: "this is another issue: always drawing me back into the
+decisions I've already made"). When Jason states a direction, that statement is the ruling: the CEO records it and
+proceeds, never asking him to confirm what he's said. A question goes to him only for a choice his words don't settle.
+The session manager's review checks a recording against his words; it never brings the decision back to him. (Jason,
+refining it: "I am open to your suggestions, that is based on you and your team accepting my directions as plausible,
+practical, and in fact improves order position and capabilities. When it is not possible or in conflict I am open to
+your suggestions based on you citing the issue and offering a solution".) Plausible, practical and an improvement:
+recorded and acted on, no question. Not possible or in conflict (a decision, the code, a limit, the money line, 0066):
+the CEO cites the issue with its source and offers a solution ("Suggest a change to <decision>…"), and acts on it unless
+he redirects; never a yes/no question. The review checks for both.
 
 **Decision or release: said every time** (Jason, 2026-11-24: "make the decisions vs work to live very clear"). Every
 question's first words say which it is: **"Decision (nothing changes on the site yet): goes live in <release>, <its

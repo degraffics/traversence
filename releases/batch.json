@@ -69,6 +69,25 @@
    "at": "2026-11-27T03:50:00Z",
    "subject": "CEO: tonight's rulings (Nov 26–27)",
    "body": "Launch (0181): A approved: 6 gates, freeze Dec 22, go/no-go Dec 31, launch work first. B approved: 200 miles around Four Corners (340 towns) built ahead of demand; the lock covers home, sign-in and storefronts. E1: $0 extra; Google checks 1A first; guides inside the $40 AI cap. The before-and-after check is On for everyone; R2 next.\n\nPilot: the whole Ancient Borderlands zone. The system leads (content > search > demand > invites > claims). You run oversight and the multiplier meetings: chambers, guide influences, venues. Multiplier kit approved. Up to 3 chambers get a comped Co-Op hub. Trials Core only. Ladder: 10 Core paying by ~April; ~73 paying (~$70k/yr) by ~Oct 2027; stretch 100 by Dec 31. After the pilot: Four Corners core, then the gateways.\n\nNations: public businesses welcome, with no outreach to a nation as a group. Option B: a public place's story is told, never the way in; closures hold. Story-only places show during state review. Launch with pointers to each nation's rules; a person checks them after launch.\n\nData and ops: R8 advisory (team-reviewed records; CO and UT open). W15 built now (duplicates merged, with Undo). Guides publish at 70+, the team gets them there. \"Open now\" reopens (known hours only). Backups read through cPanel's API, then built. SES production access is already granted; only the SES_MODE switch remains, for when invites need it.\n\nLive tonight: #314 security fix; #315 search lock; #316 in-area search; #309 the 6:13 jobs fix.\nOpen: Order #12 after the holiday. Brief D by Dec 14–21.\nPlan: https://github.com/degraffics/traversence/blob/main/research/launch-plan-jan1-2026-11-26.md"
+  },
+  {
+   "id": "ceo-wix-squarespace-2026-11-27",
+   "at": "2026-11-27T16:01:00Z",
+   "subject": "CEO: Traversence vs Wix and Squarespace (costs vs benefits)",
+   "body": "The 5-page PDF is in the CEO chat (download it there to review with Gemini). Bottom line:\n1) Price. Core is $79.95/mo. Wix's commerce plans are $29–$159/mo billed yearly; Squarespace's are $19–$99/mo. Card processing is about the same everywhere (~2.9% + 30¢). Only Squarespace Basic adds a 2% platform fee. Core costs about $51/mo more than Wix Core or Squarespace Core at any sales volume.\n2) Only we have: a place in the regional directory and guides (never paid ranking), GO Codes and short links, zero commission, manual payments on every plan, and local support.\n3) They're stronger today: mature site builders and templates, app markets, abandoned-cart and email campaigns, bigger product limits (ours is 100 items on Core), and payments and domains that work now.\n4) Our gaps before Core can sell e-commerce: card checkout and domains are built but not live (sandbox keys, domains in test mode); Core's 500 emails and campaigns aren't built; the site is still closed to search engines, so the local-traffic benefit can't be shown yet.\n5) Suggestions in the PDF (not decided): turn on live payments and domains first; a first-year domain credit on yearly Core; revisit Core's item cap; measure each listing's referral traffic once the search lock lifts.\nCompetitor figures came from each company's own site through search results; confirm them on their pricing pages before deciding."
+  },
+  {
+   "id": "ceo-pdf-link-2026-11-27",
+   "at": "2026-11-27T16:22:00Z",
+   "subject": "CEO: the comparison PDF, direct link",
+   "body": "Open the PDF: https://github.com/degraffics/traversence/blob/main/research/compare/Traversence-vs-Wix-Squarespace.pdf (Download raw: https://github.com/degraffics/traversence/raw/main/research/compare/Traversence-vs-Wix-Squarespace.pdf). Sorry for the dead end; links in these emails will go straight to what they're about."
+  },
+  {
+   "id": "ceo-swot-2026-11-27",
+   "at": "2026-11-27T16:39:00Z",
+   "subject": "CEO: your comparison, with SWOT and strategy",
+   "body": "Your Traversence vs Wix and Squarespace comparison is ready, 9 pages, with the SWOT, where we compete, the pricing levers and their costs. The suggestion: keep list prices, lead with Basic for presence, and run 60-day Core trials through the chambers once card checkout is live.\n\nOpen the comparison:\nhttps://github.com/degraffics/traversence/blob/main/research/compare/Traversence-vs-Wix-Squarespace-v2.pdf",
+   "link": "https://github.com/degraffics/traversence/blob/main/research/compare/Traversence-vs-Wix-Squarespace-v2.pdf"
   }
  ]
 }

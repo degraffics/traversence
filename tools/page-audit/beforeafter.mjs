@@ -71,7 +71,7 @@ export function plan(pages, acc) {
 }
 
 /** What §1.5 adds to the page check, read from the loaded page. */
-async function extra(p, size) {
+export async function extra(p, size) {
   const r = await p.evaluate(() => {
     const vis = el => { const r = el.getBoundingClientRect(); const s = getComputedStyle(el); return r.width > 0 && r.height > 0 && s.visibility !== 'hidden' && s.display !== 'none' && +s.opacity !== 0; };
     const clean = el => { const c = el.cloneNode(true); c.querySelectorAll('[data-tv-time], time, script, style, noscript').forEach(x => x.remove()); return (c.innerText || c.textContent || '').replace(/\s+/g, ' ').trim(); };
@@ -94,8 +94,17 @@ async function extra(p, size) {
     const SEC = 'section, article, details, fieldset, .ak-card, .tv-bleed, [data-region]';
     const secOf = el => { const c = el.closest(SEC); return c && c.querySelector(REC) ? c : null; };
     const secName = c => { const h = c.querySelector('h1, h2, h3, h4, h5, h6, summary, legend'); return h ? (h.innerText || h.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 120) : (c.id || c.className || '').toString().slice(0, 60); };
-    const ctl = [...document.querySelectorAll('a[href], button, [role=button], input[type=submit]')].filter(vis);
-    const name = el => ((el.innerText || el.textContent || '').trim() || el.getAttribute('aria-label') || el.getAttribute('title') || '').replace(/\s+/g, ' ').slice(0, 80);
+    // a pill row too narrow for its tabs folds the last ones under "More ▾" (js/tv-ask.js, data-more): the same tabs, folded
+    // or not by a few pixels of width (#322's look, /admin/people.php at 390px: Staff logins one look, More ▾ the next). Its
+    // folded tabs count as shown and its More button as none, so a fold is never a control gone or new. A folded one counts
+    // only if nothing up to the menu hides it of its own: the menu's ">*{display:flex!important}" would show a tab hidden in
+    // the row, so its hidden attribute and inline display are read, not its computed display (the CTO's Tier 4, 2026-11-27)
+    const CTL = 'a[href], button, [role=button], input[type=submit]';
+    const foldVis = el => { const m = el.closest('.tvm-menu'); for (let x = el; x && x !== m; x = x.parentElement) { const cs = getComputedStyle(x); if (x.hasAttribute('hidden') || x.style.display === 'none' || cs.visibility === 'hidden' || (x.parentElement !== m && cs.display === 'none')) return false; } return true; };
+    const ctl = [...document.querySelectorAll(CTL)].filter(el => !el.classList.contains('tvm-btn') && (el.closest('.tvm-menu') ? foldVis(el) : vis(el)));
+    // a pill row's items are named from their text as written, shown or folded alike: a shown pill's innerText takes its
+    // CSS text-transform, a folded one's doesn't (the CTO's Tier 4)
+    const name = el => ((el.closest('.tvpills, [data-more]') ? el.textContent : (el.innerText || el.textContent || '')).trim() || el.getAttribute('aria-label') || el.getAttribute('title') || '').replace(/\s+/g, ' ').slice(0, 80);
     const controls = ctl.slice(0, 300).map(el => ({ n: name(el), h: (el.getAttribute('href') || '').replace(/^https?:\/\/[^/]+/, '').slice(0, 120), d: !!(el.disabled || el.getAttribute('aria-disabled') === 'true'), ...(el.closest(STATE) ? { st: 1 } : {}), ...(el.closest(REC) ? { rec: 1 } : {}), ...(secOf(el) ? { sec: secName(secOf(el)) } : {}), ...(el.tagName === 'A' && !el.closest('header, nav, [role=navigation], [role=tablist]') ? { lk: 1 } : {}) }));
     // regions: the header, main, and each card, by a stable key (its id, else its class and place among its kind)
     const regions = {}; const seen = {};
@@ -156,7 +165,28 @@ export function slowViews(file) {
   try { return new Set((JSON.parse(readFileSync(file, 'utf8')).results || []).filter(f => f.error && /Timeout/i.test(f.error)).map(f => f.who + '|' + f.url + '|' + f.size)); } catch (e) { return new Set(); }
 }
 
-async function capture(pages, out, shotDir, slow = new Set()) {
+/** The views to try once more, with LATE_MS, after an advocate's whole look (the CEO's amended Tier 4 condition, 2026-11-27,
+ *  #318): a timeout on a page the release reaches only through a shared file it changes (reach.py's expected, not drawn), and
+ *  not already slow in the first before look. Opened then: a note with its time against the before look's; still not: a
+ *  block, unless a before look of it timed out or needed its retry too (slowness already there: a note). */
+export const LATE_MS = 90000;   // the late retry's time: double a view's 45 s (the CEO's amended condition, 2026-11-27)
+export function farTimeouts(results, exp = {}, slow = new Set()) {
+  if (!Array.isArray(exp.drawn) || !(exp.shared || []).length) return [];
+  const expected = new Set(exp.pages || []), drawn = new Set(exp.drawn);
+  return results.map((f, i) => [f, i]).filter(([f]) => f.error && /Timeout/i.test(f.error) && expected.has(f.url) && !drawn.has(f.url) && !slow.has(f.who + '|' + f.url + '|' + f.size)).map(([, i]) => i);
+}
+
+/** The parts of a page (its regions: the header, main, each card) there in both before looks and gone in this one, on a page the
+ *  release doesn't reach (the session manager, 2026-11-27, after #319's look: /business/'s Storage tile, dropped by a silent catch
+ *  on staging). Capture looks at such a view once more after the advocate's look: back then, compare notes it as flaky on
+ *  staging; still gone, it blocks as before. A release that really removes a part stays gone on the re-look. */
+export function partsGone(b, bb, f, exp = {}) {
+  if (!b?.ba?.regions || !f?.ba?.regions || f.error || new Set([...(exp.pages || []), ...(exp.also_changes || []).map(x => x.page)]).has(f.url)) return [];
+  const two = bb?.ba?.regions || b.ba.regions;
+  return Object.keys(b.ba.regions).filter(r => (b.ba.regions[r]?.t || '') && !f.ba.regions[r] && two[r]);
+}
+
+async function capture(pages, out, shotDir, slow = new Set(), exp = {}, before = null, before2 = null) {
   const site = process.env.BA_SITE || STAGING?.site; if (!site) throw new Error('No staging in CHECK_ACCOUNTS and no BA_SITE: nothing to check.');
   const st = process.env.BA_SITE ? null : STAGING; const token = st ? st.token : CHECK_TOKEN;
   const t0 = Date.now(); const browser = await chromium.launch(); const results = []; const signins = {};
@@ -187,6 +217,26 @@ async function capture(pages, out, shotDir, slow = new Set()) {
         }
         f.advocate = slug; done[gi].push(f);
       }
+      // once the advocate's whole look is done: a far timeout (farTimeouts) once more, same account and width
+      for (const i of farTimeouts(done[gi], exp, slow)) {
+        const f = done[gi][i]; const opts = { site, shots: !!shotDir, shotDir, allSizes: true, must: () => false, extra, timeout: LATE_MS };
+        const again = await pageCheck(ctx, f.who, f.url, f.size, opts); again.retried = f.retried; again.late = f.error.split('\n')[0].slice(0, 120); again.advocate = f.advocate;
+        console.log(`tried again after the look: ${f.who} ${f.url} ${f.size} (reached only through ${(exp.shared || []).join(', ')}): ${again.error ? 'timed out again' : again.status}`);
+        done[gi][i] = again;
+      }
+      // then a part gone on a far page (partsGone), once more: back, it's staging's flake (compare notes it); still gone, it blocks
+      if (before) {
+        const k = x => x.who + '|' + x.url + '|' + x.size;
+        const B1 = new Map((before.results || []).map(x => [k(x), x])), B2 = new Map(((before2 || before).results || []).map(x => [k(x), x]));
+        for (let i = 0; i < done[gi].length; i++) {
+          const f = done[gi][i]; const gone = partsGone(B1.get(k(f)), B2.get(k(f)), f, exp); if (!gone.length) continue;
+          const opts = { site, shots: !!shotDir, shotDir, allSizes: true, must: () => false, extra };
+          const again = await pageCheck(ctx, f.who, f.url, f.size, opts); again.retried = f.retried; again.late = f.late; again.relook = gone.slice(0, 5); again.advocate = f.advocate;
+          const still = partsGone(B1.get(k(f)), B2.get(k(f)), again, exp);
+          console.log(`looked again: ${f.who} ${f.url} ${f.size}, gone ${gone.slice(0, 2).join(', ')}: ${again.error ? 'didn\'t open' : still.length ? 'still gone' : 'back'}`);
+          done[gi][i] = again.error ? Object.assign(f, { relook: gone.slice(0, 5), relook_error: again.error.split('\n')[0].slice(0, 120) }) : again;
+        }
+      }
     } finally { await ctx.close(); }
   };
   let next = 0; await Promise.all(Array.from({ length: Math.min(PAR, groups.length) }, async () => { while (next < groups.length) await one(next++); }));
@@ -215,17 +265,21 @@ const refused = f => !f || f.error || f.status >= 400 || f.ba?.landed_signin;
 const errs = f => f && (f.status >= 500 || (f.console || []).length || (f.requests || []).length);
 // a page's controls as the set of distinct ones (more of the same button is more data, never a new control: #308's look), less
 // those of a section that holds records and came or went between the looks (skip: its names)
-const ctlSig = (f, st = true, skip = new Set()) => [...new Set((f?.ba?.controls || []).filter(c => (st || !c.st) && !c.rec && !(c.sec && skip.has(c.sec)) && !(c.lk && /^\/admin(\/|\.|$)/.test(f?.url || ''))).map(c => c.n + '→' + c.h))].sort().join('\n');
+export const ctlSig = (f, st = true, skip = new Set()) => [...new Set((f?.ba?.controls || []).filter(c => (st || !c.st) && !c.rec && !(c.sec && skip.has(c.sec)) && !(c.lk && /^\/admin(\/|\.|$)/.test(f?.url || ''))).map(c => (c.n + '→' + c.h).replace(/\d+/g, '#')))].sort().join('\n');
 
 /** The verdict for one release: blocks (each a rule, who, page, size, what), notes, and pass / block / incomplete. */
 export function compare(b1, b2, a, exp = {}, release = '', heldKey = STAGING?.token || CHECK_TOKEN) {
   const B = new Map(b1.results.map(f => [key(f), f])), B2 = new Map(b2.results.map(f => [key(f), f]));
+  const A = new Map(a.results.map(f => [key(f), f]));
   const expected = new Set([...(exp.pages || []), ...(exp.also_changes || []).map(x => x.page)]);
   // the system's state lines (alarms, status lines, Scheduled tasks) are drift only for a release that touches what draws them
-  // (the session manager, 2026-11-26); unknown files (no list given) count as touching them
-  const stateDrawn = !Array.isArray(exp.files) || exp.files.some(f => STATE_DRAWERS.test(f));
+  // (the session manager, 2026-11-26); unknown files (no list given) count as touching them. Drift is read only on pages the
+  // release doesn't reach, and reach.py puts every page a drawer draws into expected; so once reach has named the pages, a page
+  // outside them isn't drawn by the release's drawers and its state lines are catch-up's (#319's look, 2026-11-27: module-cards.php
+  // made the dashboard Inbox's new Visitor row drift on /admin/). With no pages named, a drawer still turns them on everywhere
+  const stateDrawn = !Array.isArray(exp.files) || (exp.files.some(f => STATE_DRAWERS.test(f)) && !(exp.pages || []).length);
   const held = new Set(exp.held?.hashes || []); const heldUnread = !!exp.held?.error;
-  const blocks = [], notes = [];
+  const blocks = [], notes = [], far = [];   // far: the slow pages reached only through a shared file, for the release's card
   if (heldUnread) notes.push('0066 not checked: the held names couldn\'t be read (' + String(exp.held.error).slice(0, 120) + ')');
   else if (!exp.held) notes.push('0066: no held names given to this run (held.json)');
   const block = (rule, f, what, before = '', after = '') => blocks.push({ rule, rule_name: RULES[rule], advocate: f.advocate, who: f.who, page: f.url, size: f.size, what, before: String(before).slice(0, 300), after: String(after).slice(0, 300) });
@@ -247,7 +301,28 @@ export function compare(b1, b2, a, exp = {}, release = '', heldKey = STAGING?.to
     // a view that timed out after, on a page the release doesn't reach (reach.py's pages, the names it gives), is staging's
     // slowness, not the change: noted for the IT Manager's lane, never an access block (#307's look, /admin/crawler-review.php,
     // which timed out in #305's look too); on a page the release reaches it still blocks, below
+    // timed out in the first before look and after (so not tried again): slowness already there, never a block (the access rule
+    // needs a before look that opened); said, and on the card when the release reaches it only through a shared file
+    if (f.error && /Timeout/i.test(f.error) && b.error && /Timeout/i.test(b.error) && expected.has(f.url)) {
+      const sharedOnly = Array.isArray(exp.drawn) && (exp.shared || []).length && expected.has(f.url) && !new Set(exp.drawn).has(f.url);
+      notes.push(`${key(f)}: far timeout, noted: timed out in the before look and after: slowness already there, not this change's (the slow-pages ticket)`);
+      if (sharedOnly) far.push({ who: f.who, page: f.url, size: f.size, outcome: 'before_too', ms: 0, via: exp.shared });
+    }
     if (f.error && /Timeout/i.test(f.error) && !refused(b) && !expected.has(f.url)) { compared--; notes.push(`${key(f)}: timed out after on a page this release doesn't reach (staging is slow there; the IT Manager's lane), not compared`); continue; }
+    // reached only through a shared file the release changes (tv-ask.js, the shell): tried once more after the look (capture's
+    // farTimeouts). Opened then: compared as usual, and noted; timed out again, it blocks below as any reached page does
+    if (f.late) {
+      const via = (exp.shared || []).join(', ') || 'a shared file';
+      const secs = x => x?.error ? 'timed out' : (x && x.ms ? Math.round(x.ms / 1000) + ' s' : 'no time kept') + (x?.retried && !x?.late ? ' after a retry' : '');
+      const w2 = f.size === 'phone' ? '1280' : '390'; const other = A.get(f.who + '|' + f.url + '|' + (f.size === 'phone' ? 'desktop' : 'phone'));
+      const also = other ? (other.error ? `; at ${w2} it timed out too` : `; at ${w2} it opened in the same run (${secs(other)})`) : '';
+      const slowBefore = x => x && ((x.error && /Timeout/i.test(x.error)) || x.retried);
+      const was = secs(b) + (bb && bb !== b ? ', then ' + secs(bb) : '');
+      far.push({ who: f.who, page: f.url, size: f.size, outcome: !f.error ? 'opened' : (slowBefore(b) || slowBefore(bb) ? 'before_too' : 'blocks'), ms: f.ms || 0, via: exp.shared || [] });
+      if (!f.error) notes.push(`${key(f)}: far timeout, noted: timed out, then opened in ${secs(f)} when tried again after the look with ${LATE_MS / 1000} s (the before looks: ${was}${also}; reached only through ${via}; staging is slow there, the IT Manager's lane)`);
+      else if (slowBefore(b) || slowBefore(bb)) { compared--; notes.push(`${key(f)}: far timeout, noted: didn't open after, even with ${LATE_MS / 1000} s, but the before looks were slow there too (${was}${also}): slowness already there, not this change's (reached only through ${via}; the slow-pages ticket)`); continue; }
+      else notes.push(`${key(f)}: didn't open after, even with ${LATE_MS / 1000} s when tried again after the look, though it opened before (${was}${also}; reached through ${via}, which this release changes): it blocks`);
+    }
     const moving = (get) => JSON.stringify(get(b)) !== JSON.stringify(get(bb || b));
     // 1. access or privacy (0066 included)
     const shut = x => x && (x.status === 401 || x.status === 403 || x.ba?.landed_signin);   // refused this account (not merely missing)
@@ -293,10 +368,17 @@ export function compare(b1, b2, a, exp = {}, release = '', heldKey = STAGING?.to
     // is the queue filling, not a part of the page gone: a region that held no records, with the page holding more records after
     const filled = r => !(b.ba.regions[r]?.n) && (f.ba?.recs ?? 0) > (b.ba?.recs ?? 0);
     const regionsGone = Object.keys(b.ba?.regions || {}).filter(r => (b.ba.regions[r]?.t || '') && !(f.ba?.regions || {})[r] && (bb?.ba?.regions || b.ba.regions)[r] && !filled(r));
+    if (f.relook && !regionsGone.length) notes.push(`${key(f)}: flaky on staging, noted: ${f.relook.slice(0, 2).join(', ')} was gone after, then back when looked at again (in both before looks; a page this release doesn't reach)`);
+    else if (f.relook) notes.push(`${key(f)}: looked at again: ${regionsGone.slice(0, 2).join(', ')} still gone${f.relook_error ? ' (the re-look didn\'t open: ' + f.relook_error + ')' : ''}: it blocks`);
     if (!expected.has(f.url)) {
       // a part of the page gone, on a page the change doesn't name, is missing data; any other change there is drift
       if (regionsGone.length) block('data', f, 'A part of the page is gone: ' + regionsGone.slice(0, 2).join(', '), regionsGone[0], '');
-      else if (goneL.length || newL.length || ctlChanged) block('drift', f, 'This page changed, and the change doesn\'t name it', goneL[0] || '', newL[0] || (ctlChanged ? '(its links and buttons)' : ''));
+      else if (goneL.length || newL.length || ctlChanged) {
+        // the controls by name (#320's look said only "(its links and buttons)", which no one could act on)
+        const cs = x => new Set(ctlSig(x, stateDrawn, toggled).split('\n').filter(Boolean));
+        const c0 = cs(b), c1 = cs(f); const cGone = [...c0].filter(c => !c1.has(c)), cNew = [...c1].filter(c => !c0.has(c));
+        block('drift', f, 'This page changed, and the change doesn\'t name it', goneL[0] || (ctlChanged && cGone.length ? 'control: ' + cGone.slice(0, 3).join(' | ') : ''), newL[0] || (ctlChanged ? (cNew.length ? 'control: ' + cNew.slice(0, 3).join(' | ') : '(its links and buttons)') : ''));
+      }
     }
     for (const [k] of Object.entries({ scroll: 1, edges: 1, names: 1 })) if (b[k] && f[k]) notes.push(`${key(f)}: already missed "${STANDARDS[k]}" before (Site health's, not this change's)`);
   }
@@ -314,7 +396,7 @@ export function compare(b1, b2, a, exp = {}, release = '', heldKey = STAGING?.to
   if (!compared && a.results.length) notes.unshift('No view had a usable before look (staging was closed or erroring when it was taken): a person looks before it goes on');
   return { release: String(release), at: new Date().toISOString(), verdict: uniq.length ? 'block' : (incomplete ? 'incomplete' : 'pass'),
     first: uniq[0] ? `${uniq[0].rule_name}: ${uniq[0].what} (${uniq[0].who}, ${uniq[0].page}, ${uniq[0].size})` : '',
-    blocks: uniq.slice(0, 50), blocks_total: uniq.length, notes: notes.slice(0, 30), views: a.results.length, seconds: (b1.seconds || 0) + (b2.seconds || 0) + (a.seconds || 0) };
+    blocks: uniq.slice(0, 50), blocks_total: uniq.length, notes: notes.slice(0, 30), far: far.slice(0, 10), views: a.results.length, seconds: (b1.seconds || 0) + (b2.seconds || 0) + (a.seconds || 0) };
 }
 
 // ---- command line ----------------------------------------------------------------------------------------------------
@@ -334,7 +416,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     } catch (x) { out = { error: String(x.message || x).slice(0, 200) }; }
     writeFileSync(arg('out', 'ba-held.json'), JSON.stringify(out) + '\n');
     console.log(out.error ? 'held names: unread (' + out.error + ')' : `held names: ${out.hashes.length} hashes`);
-  } else if (mode === 'capture') await capture(JSON.parse(readFileSync(arg('pages'), 'utf8')), arg('out', 'ba-capture.json'), arg('shots'), slowViews(arg('slow')));
+  } else if (mode === 'capture') await capture(JSON.parse(readFileSync(arg('pages'), 'utf8')), arg('out', 'ba-capture.json'), arg('shots'), slowViews(arg('slow')), arg('expected') ? JSON.parse(readFileSync(arg('expected'), 'utf8')) : {}, arg('before') ? JSON.parse(readFileSync(arg('before'), 'utf8')) : null, arg('before2') ? JSON.parse(readFileSync(arg('before2'), 'utf8')) : null);
   else if (mode === 'compare') {
     const rd = f => JSON.parse(readFileSync(f, 'utf8'));
     const exp = arg('expected') ? rd(arg('expected')) : {};
@@ -343,5 +425,5 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     writeFileSync(arg('out', 'ba-verdict.json'), JSON.stringify(v, null, 1) + '\n');
     console.log(`${v.verdict}${v.first ? ': ' + v.first : ''} (${v.views} views, ${v.blocks_total} block${v.blocks_total === 1 ? '' : 's'})`);
     process.exit(v.verdict === 'pass' ? 0 : 1);
-  } else { console.log('usage: beforeafter.mjs capture --pages p.json --out c.json | compare --before a --before2 b --after c [--expected e] [--release N] [--out v]'); process.exit(2); }
+  } else { console.log('usage: beforeafter.mjs capture --pages p.json --out c.json [--slow a] [--expected e] [--before a --before2 b] | compare --before a --before2 b --after c [--expected e] [--release N] [--out v]'); process.exit(2); }
 }

@@ -1,0 +1,39 @@
+{
+ "zip": "pipeline-tick.zip",
+ "built_on": "eb848e8 Sync: 2026-11-27 12:50 UTC",
+ "recorded": "2026-11-27 12:54 UTC",
+ "note": "The release pipeline: tick and verdict, the ping taking builds (publish only), a silent look in git says why, releases_tick logs every run; Tier 4 review: CEO, 2026-11-27; Design: approved; built on Sync: 2026-11-27 12:50 UTC Sent through git (releases/inbox).",
+ "status": "replaced",
+ "live_in": "",
+ "files": {
+  "app/admin/sections.php": {
+   "sha256": "f35dbc65f52e3b579ef8769dac6b3d48a8ad43b15e3d6cb4913f79c2a6dd0bef",
+   "live": false
+  },
+  "app/lib/BeforeAfter.php": {
+   "sha256": "a7cd796f6ccecc505e91de1a1330d0aec0dd4c914a3b77bcfc11dcf865de56e8",
+   "live": false
+  },
+  "app/lib/DocsRepo.php": {
+   "sha256": "7fb7fca083476ce16c5e607dcc815542723d536dc184028c6e95e797bb532a1b",
+   "live": false
+  },
+  "app/lib/Releases.php": {
+   "sha256": "e9511bf476c2cda53e4fa254145bd8d0be47cc6a594a72dc27bcee3454d41826",
+   "live": false
+  },
+  "app/scripts/releases_tick.php": {
+   "sha256": "06afefd5b58cf8141d5e50f2dd96db03bf74cc5214dabf3c739ec06dc65665fd",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "3dd0f62ee74cb30618a2b03390d7ee634507499590e8ef67f0096015e7500f88",
+   "live": false
+  },
+  "website/api/releases-pull.php": {
+   "sha256": "cd41983ba4aa32512be0f30cd7123a791016ac16eb9184483673857663254011",
+   "live": false
+  }
+ },
+ "replaced_by": "pipeline-tick-2.zip: withdrawn as Release #322 (the before-and-after check, 15:01 UTC 2026-11-27; a tab folded under More on /admin/people.php at 390, read as a tab by #1569); sent again unchanged on Sync: 2026-11-27 12:50 UTC"
+}

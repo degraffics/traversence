@@ -1,0 +1,22 @@
+{
+ "zip": "b2-backups-3.zip",
+ "built_on": "122090e Sync: 2026-11-27 02:50 UTC",
+ "recorded": "2026-11-27 10:52 UTC",
+ "note": "B.2 step 1 sent a third time, unchanged, after #320 withdrew on controls changing on pages it doesn't reach (the check names them since #1520, Tier 4 review: CEO, 2026-11-27); Design: approved; built on Sync: 2026-11-27 02:50 UTC Sent through git (releases/inbox).",
+ "status": "live",
+ "live_in": "eb848e8 Sync: 2026-11-27 12:50 UTC",
+ "files": {
+  "app/admin/module-cards.php": {
+   "sha256": "4cac10629258d5828e9a5b98454fd66f0d4e7f6da0cf4b23baa6cdce80a078b4",
+   "live": true
+  },
+  "app/lib/HostBackups.php": {
+   "sha256": "802cab9979f9fd15ce5e648cf227533c929ef1854386e7dfe12935819b5e4e63",
+   "live": true
+  },
+  "app/ui/faq.md": {
+   "sha256": "9935a7e2e142c58097314cfce6734a549352f11cd9631a768b066c90dc94383b",
+   "live": true
+  }
+ }
+}

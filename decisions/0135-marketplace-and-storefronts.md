@@ -589,3 +589,42 @@ conducting final transaction and money transfer."
   digital) for entry, delivered when issued, not the person's use of it.
 - **Every kind's terms are explicit before money moves:** what's delivered, when it counts as delivered, whether it's
   final, and what needs confirming first, shown to the buyer before the final transaction.
+
+## Note (Jason, 2026-11-27): the Marketplace's four sections
+
+Jason, to the CEO: "Handmade, personalized services should be shops, over aftermarket. But it could also be a fourth
+section. Experiences and authentic regional goods?", then "Yes." to the CEO's four sections. Decision; nothing
+changes on the site yet. Built on 0141's levels and item kinds and 0142's build briefs; nothing set there is replaced.
+1. **Shops (B2C):** businesses and makers, handmade goods and personalized services included, on 0141 §5's item kinds
+   (physical goods, made to order, service/labour…). A maker who isn't a business opens a free listing.
+2. **Experiences & Regional Goods:** a curated window onto Shops, not a second catalog: an item is listed once in its
+   shop and shows here when it qualifies, by kind (event tickets, bookings and reservations, guided services, harvest
+   and perishables, made to order, physical goods) and by origin (the business's home is in the area, the Single Home
+   Rule, 0042/0054). Earned by data, never bought (0007).
+3. **Trade (B2B):** built in Q1 2027 from parts that exist: trade accounts for verified, claimed businesses; 0112's
+   wholesale price lists and minimums; a supplier directory by region; Co-Op shared packages (Master AOS §6B). 0% to
+   us, through the business's own payment account; no money held by us (this record's rules).
+4. **Aftermarket (C2C):** members' used goods, paid offline (Master AOS §7; this record's step 1).
+
+**For Jan 1 (decisions/0181):** all four are named; Shops and the Aftermarket are live; Experiences & Regional Goods
+shows what qualifies; Trade is marked "coming".
+
+**The label rule:** our own label says only **"made in <region>"**. We never label goods by heritage. A seller's
+"Native-made" claim is the seller's own statement, made under the federal Indian Arts and Crafts Act and their
+responsibility, never ours to assert; it carries a link to the Indian Arts and Crafts Board's guidance. We never check
+anyone's tribal membership (privacy; 0066). The content that goes with it is 0164's and 0181's note of the same date.
+
+**How it's built for Jan 1** (the CEO's Tier 4 ruling within the note above, 2026-11-27; Prior Ruling Check: this
+note, 0007, 0141; the Frontend & Shop session's sizing, "M-sections"):
+1. Guided services stay out of Experiences & Regional Goods for Jan 1; a "guided" flag on service items comes in Q1
+   with Trade's item-form work (ItemKinds has no guided kind).
+2. "In the area" is the item's `geo_hub_id` (regions.md) until the Single Home Rule is in code (`Workspaces.php:88`).
+3. The label's "<region>" is the geo hub's name from regions.md.
+4. A seller's Native-made statement: for Jan 1 only the launch plan §10's FAQ entries; the field, notice and attestation
+   in Q1 (§10.1).
+5. Regional and its label cover, for Jan 1, only kinds made, grown or led here by nature: event tickets, bookings and
+   reservations, harvest and perishables, made to order. Physical goods join in Q1 with a seller's "made here" tick
+   beside the attestation, since the code can't tell resale from made-here and our label is never untrue. Handmade
+   physical goods are in Shops from Jan 1. If Jason wants them in Regional sooner, it's his call.
+
+Writing about makers and their goods follows 0164's note of 2026-11-27 (the magazine model and the privacy line).

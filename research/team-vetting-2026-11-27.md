@@ -1,0 +1,155 @@
+# The team, vetted: who actually does each role (2026-11-27)
+
+Jason, 2026-11-27: "I can tell that my team roles and responsibilities have not been fully adopted. The fact that your
+acting like the project/session manager and CEO is the tell-tale sign. We need to address this because my team concept
+needs to be vetted and accurate before we truly know its working."
+
+A read-only check of decisions/0180's 32 roles and the 12 advocates against the live code (Sync 12:50 UTC) and the
+hand-offs. The CEO's Decision Brief (Tier 5: roles and how the organization runs) follows the map.
+
+## What's true today
+- **The roster is real; the roles mostly aren't.** R1 (#313) seeded all 32 roles and the advocates as active. R2 (lanes) is
+  held on `claude/r2-design`, so no lane exists in live code. R3 (recorded Tier 4, the Prior Ruling Check), R4
+  (advocates' experience tickets) and R5 (rule-based auto-rollback, the simplicity veto) aren't built.
+- **Four roles have code**, each a fixed $0 step in `TeamRunner` on staging (`app/lib/TeamRunner.php` STEPS): the Project
+  Manager's `gate`, the System Architect's `handoff` (off at the Planning ceiling), the Executive Translator's `brief` (one
+  proposed field) and Operations & Reconciliation's daily `audit`. There's no reasoning and no AI. Whether `team_runner` is on, on staging,
+  is unknown.
+- **The guards are code, not roles:** the zip check and `ReleaseKind` (24), `Landmarks::visibleSql` and `HeldNames` (25),
+  the release pipeline and before-and-after check (22), the advocates' views in `beforeafter.mjs` (A1–A12).
+- **The judgement is all in Claude sessions organized by area, not by role:**
+  - the session manager acts as COO and Project Manager;
+  - the CEO session acts as CEO, all five other executives, the Executive Translator and, until today, the Project Manager;
+  - the build sessions (Piece 2/3, Frontend & Shop, Data & Content) are the "Build & QA Sessions" (21) and also write the copy (26) and design (27);
+  - the Design reviewer stands in for the Simplicity Guardian (15).
+- **Nothing performs** the Customer Service, Accounting, IT, Editorial, Marketing and Sales managers (9–14) or roles 16–19
+  and 29–32. Lane assignments are written by the session manager or the CEO in hand-offs.
+
+## The map
+
+| # | Role | Performs it today | Gap |
+|---|---|---|---|
+| 1 | Founder | Jason | — |
+| 2 | CEO | the CEO session | the "To: the CEO" channel unbuilt; budget only a session rule |
+| 3–7 | COO, CFO, CTO, CIO, CMO | the CEO session wears each hat | label only; R3 unbuilt |
+| 8 | Project Manager | `TeamRunner` gate (mechanical) + the session manager and the CEO by hand | no judgement on the platform; no lanes (R2) |
+| 9–14 | Customer Service, Accounting, IT, Editorial, Marketing, Sales managers | nothing (roster rows) | no steps, no lanes |
+| 15 | Simplicity Guardian | the Design reviewer session | no veto on the platform |
+| 16 | Operations & Policy | nearest: the session manager's drift review | none |
+| 17 | Order & Fulfillment | the Orders session (paused) | none |
+| 18, 19 | Support Specialists; Finance, Tax & Billing Ops | nothing (QuickBooks jobs are platform jobs) | none |
+| 20 | System Architect | `TeamRunner` handoff (template; off at Planning) | template only |
+| 21 | Build & QA Sessions | the build sessions | works; not tied to the roster |
+| 22 | Staging & Release Workers | `Releases.php`, `beforeafter.mjs` | code, not a role |
+| 23 | Operations & Reconciliation | `TeamRunner::audit()` daily on staging | rules only, staging only |
+| 24, 25 | Schema & Migration Guards; Privacy & 0066 Guards | the zip check, `ReleaseKind`; `Landmarks`, `HeldNames` | code, not a role |
+| 26, 27 | Content Writers; UI/UX Designers | the build sessions; the Design reviewer approves | no role step |
+| 28 | Executive Translator | `TeamRunner` brief (one field) + the CEO session | template only |
+| 29–32 | Brand, SEO, Onboarding, Partnerships | nothing | none |
+| A1–A12 | Advocates | `beforeafter.mjs` views (no AI) | experience tickets (R4) unbuilt |
+
+## Already decided: how the roles are built, and which have AI (Jason's correction, 2026-11-27)
+
+Jason, 2026-11-27: "Didnt I already spec out how these roles where to be built? And which ones were allowed ai access?"
+He did, and the first draft of this brief re-asked it. The rules that stand:
+- **Each role's kind:** `handoffs/piece2/jason-spec.md` §5's roster gives every role its kind: AI Agent, AI/Hybrid,
+  Human/Hybrid, or an advocate bound to a test account, with its lens. Piece 2 carries it as `made_of`
+  (`human`, `ai`, `hybrid`, `persona`; `handoffs/piece2-team.md` §4) onto 0180's 32 roles.
+- **Which system does what:** the spec's §4 routing policy. Internal systems and deterministic logic come first.
+  Claude is for build and implementation, Gemini for ideation and synthesis. No silent guesswork.
+- **How roles reason:** 0180 §6. Routine work runs as $0 templates and code (gate, brief, audit). Deeper reasoning runs in a
+  Claude session within the existing allowance (Tier 4, the Prior Ruling Check, Tier 5 briefs). Keep it lean.
+- **Who may spend on AI:** 0180's note (2026-11-26). "Only people can have paid for services right now": no agent has a
+  paid service, the CEO included. The Founder and the CEO share a small budget. The platform's own AI step (Piece 2's
+  release 6, behind `staging_ai`) stays off.
+
+So nothing about *how* needs deciding. What's missing is that the build isn't finished, and the sessions don't yet work
+as the roles:
+- R2 (lanes), R3 (Tier 4 recorded), R4 (experience tickets) and R5 aren't live.
+- The AI and hybrid roles' reasoning happens in sessions named by area, not recorded under the role.
+
+**What happens next, within what's decided** (0180 §6; the note "the CEO builds out the rest of the team with him and
+reports on its performance"):
+- **R2 ships next after the pipeline release.**
+- **Each session's work is recorded under the role that did it,** within 0180 §6. The lane groups follow R2's routes, as
+  listed in the next section.
+- **The proof ticket:** the stray "Recovered" fix, carried end to end with each role's part recorded.
+- **A performance report to Jason**, once the proof ticket is live. **Its baseline:** until R2 is live, the session
+  manager marks its ordering calls "for the PM (8)", and the CEO marks its executive hats by role, so the report can
+  show the gap closing.
+
+The options below are kept as the first draft's record. **B is withdrawn**: it went against "no agent has a paid
+service". A's lane groups are how 0180 §6 is applied, not a new rule.
+
+## Decision Brief (Tier 5: roles and how the organization runs; 0180 §1's 4 parts)
+
+**1. What's triggered.** How 0180's roles are carried out is a rule of the organization (§3), and today it doesn't match
+0180 §5. Every ticket should route to one of seven middle managers, but none exists outside a label.
+
+**2. The options.**
+- **A. Sessions hold lanes, not areas.** It changes only *who performs* each role. The roster, reporting lines and
+  active/standby stay exactly as 0180's appendix sets them (#1460), and standby stays the Founder's.
+  - **Lanes by R2's routes** (`TeamRoster::LANE_ROUTES`, held on `claude/r2-design`; 0180 §5 names the seven lanes but not
+    their scope). The ~three sessions (CLAUDE.md) each own a lane group as its manager:
+    - **The Piece 2/3 session owns the IT Manager's lane (11):** releases, staging, alarms, config, the crawler and sources,
+      migrations, and the data, address, nations and privacy territories.
+    - **Data & Content owns the Editorial Director (12) and Marketing Director (13) lanes:** places, listings, guides,
+      journeys, the FAQ and copy, design; SEO, taxonomy and campaigns. Its crawler, W-workflow and jurisdiction work is the
+      IT Manager's lane under R2's routes, so the IT Manager owns those tickets. Data & Content builds them as Build & QA (21).
+    - **Frontend & Shop owns the Customer Service (9), Accounting (10) and Sales (14) lanes:** orders, the cart and support;
+      billing and QuickBooks; the Marketplace, storefronts and claims. Its page builds are Build & QA (21).
+  - **Every build session is also Build & QA (21)**, reporting to the IT Manager, whichever lane owns the ticket.
+  - **The session manager is not the PM or COO** (the session manager's caution, 2026-11-27). Under R2's routes, the PM's (8)
+    decisions (queue order, lane hand-offs) are recorded on the ticket as the PM's, by the role's own step. The session
+    manager keeps only CLAUDE.md's job: watching sessions, syncing and verifying, and reviewing for drift.
+  - **The CEO session is the executive suite (2–7),** each Tier 4 recorded under the named executive (CFO for money, CTO for
+    data, and so on).
+  - **The Design reviewer stays a standing session** doing roles 15 and 27's approvals (fidelity, the simplicity veto)
+    across all lanes.
+  - **Specialists (16–20, 22–32)** are checklist steps the owning lane's session runs and records on the ticket under the role's
+    name ("Privacy & 0066 Guard: clear, no held names"); the code that already does some (22–25, A1–A12) stays.
+  - **What A amends** (named so a yes covers it, nothing changed by default):
+    - CLAUDE.md's "one session per area" becomes "one session per lane group";
+    - Tier 4 reviews are recorded under the named executive.
+  - $0 new spend, inside today's usage; accountability becomes real now.
+- **B. Roles as platform agents.** Each role a prompted Claude call in `TeamRunner`. Real judgement on the platform, but
+  it spends Claude money. The $40 cap is at 84% this month and "No income, no expense" holds, so not before revenue.
+- **C. A now, B later.** A until revenue covers it. Then the specialists that are mostly rules (audit, gate, guards,
+  translator) move to the platform first, the managers last.
+
+**3. Recommendation: C.** A makes every role answerable today at no cost, and B grows from what A proves.
+
+To prove it works, one real ticket goes from intake to live with each role's part recorded on it. Suggested: the stray "Recovered" email fix, which is in the IT Manager's lane. R2 (lanes) carries the lane names into the code. R3 records Tier 4 and the Prior Ruling Check.
+
+**4. Your options.** Yes to C. Yes to A only. B now (it needs a money ruling). Or change the lane groups.
+
+## Protecting short- and long-term goals (approved, Jason, 2026-11-27)
+Jason: "The session manager is not reliable in maintaining long term building and implementation, hence why I created
+the team… T1-t5 is how I see goals, projects, etc managed… Yes, approve the plan. Also I want this implementation to up
+and running by Monday morning 6 am." Reviewed by the session manager.
+- **Durable homes only.** No goal, ruling or work order lives only in a session. They live in the decisions, the Work queue and git.
+- **Goals are parent tasks** in the Work queue (`control_gauge_tasks.parent_id`, `app/lib/GaugeTasks.php:41`, :81, :541;
+  mirror 122090e), each with its owner, measure, due date and decision. Every ticket links to its goal. task-seed-4
+  seeds the goals first.
+- **Managed by tier (0180 §1):**
+  - T5 sets and changes the long-term goals;
+  - T4 re-plans projects to hold a goal;
+  - T3 owns the projects and tickets in its lane;
+  - T1–T2 do the tickets.
+- **A goal's executive owner** comes from the appendix's reporting lines:
+  - COO: the PM and Customer Service;
+  - CFO: Accounting;
+  - CTO and CIO: IT;
+  - CMO: Editorial, Marketing and Sales.
+
+  A goal whose projects cross lanes is the CEO's.
+- **A live-side $0 daily goal check** (a new Scheduler job). A ticket idle for 3 days, or a due date its open tickets
+  can't meet, opens a ticket. It escalates: ticket → T3 manager, project at risk → T4 executive, goal change → T5 Brief.
+  The CEO reviews goal status weekly and reports to Jason.
+- **Recordkeeping by role.** Until R2 and the goals view are live:
+  - decided-not-live stays the session manager's, marked "for the PM (8)";
+  - the daily summary is written by the CEO session "as the Executive Translator (28)";
+  - CLAUDE.md is kept "as Operations & Policy (16)".
+
+  The session manager keeps watching, syncing and verifying, and drift review.
+- **Due:** live by Monday 2026-11-30, 06:00 MST (13:00 UTC). This needs the pipeline release, R2, task-seed-4 with the goals, and the goal check.

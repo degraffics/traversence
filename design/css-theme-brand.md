@@ -49,3 +49,10 @@ To prevent build drift and maintain stability across live operations, the platfo
 * **Mandatory Pre-Flight Checks:** Verify token integrity (`brand.md` literal hex values only), single-scroll compliance (ADR `0080`), header consolidation, and mobile edge-to-edge integrity (`390px` viewports per `0058 §11`).
 * **Anti-Pattern Rejection:** Instantly reject sprawling filter pill rows, competing global search bars, generic tech-startup white cards, and improper alarm red coloring.
 * **Required Response Structure:** When presenting work, omit conversational cheerleading. Detail your token compliance, rule verification, and clean production code.
+
+*Note (Jason, 2026-11-27: "Yes to the stylesheet", to the CEO's Decision):* the site's styling is built once as its
+own stylesheet with the tailwindcss CLI over the site's files, served from our server, in place of Tailwind's Play CDN
+(`cdn.tailwindcss.com`) at runtime. It ends the CDN-caused layout shift sitewide and drops a third-party script, at $0;
+decisions/0135 and 0098's outside-services rows ("To self-host as a built stylesheet (then dropped from the list)") are
+carried out by it. The Frontend & Shop session builds it with the design releases, through the Design reviewer, in the
+session manager's order; C.5a and C.5b stay as they are meanwhile.
