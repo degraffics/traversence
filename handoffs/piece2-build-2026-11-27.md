@@ -105,6 +105,10 @@ state with `live-read.yml`: rows `feature_switches`, q `before_after`.
 7. **The conflict release** (decisions/0165 note #1455):
    - auto Keep live ships **ON** for conflicts no person made;
    - a conflict a person made becomes a Work queue ticket in Ops & Reconciliation's lane (role 23, which reports to the IT Manager).
+8. **The Storage tile's silent catch** (IT Manager's lane ticket, the session manager and the CEO, 2026-11-27, after #319's look):
+   - **The fault:** `website/business/router.php:163–166` returns `''` from `catch (Throwable)` with no log, so `/business/`'s Storage used tile vanishes when `BizFiles::used()` or `Billing::allowance()` fails. It's a database read; the likely cause is catch-up mid-copy, unconfirmed because nothing is logged.
+   - **The fix:** log `error_log('biz storage tile: …')` and draw the tile with its label and "Storage figures unavailable right now" (words follow the state).
+   - **Delivery:** its own small release after the check release, b2-backups-2, r2-lanes-3 and the pipeline release. The Design reviewer sees it first. Its migration seeds the Work ticket in the IT Manager's lane, once, by `what`.
 
 ## 4. Seeded tickets (R2's migration; each added once, by `what`) and their lanes
 
