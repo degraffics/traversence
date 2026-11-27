@@ -1,5 +1,5 @@
 {
- "at": "2026-11-26T21:17:25.647Z",
+ "at": "2026-11-27T07:17:31.688Z",
  "requests": [
   {
    "id": 3,
@@ -988,6 +988,24 @@
    "ticket": "work",
    "stage": "",
    "tier": null,
+   "build_brief": "",
+   "late": false
+  },
+  {
+   "id": 59,
+   "at_utc": "2026-11-27T06:24:04Z",
+   "gauge": "area:audit",
+   "build": "",
+   "item": "Release #318 was stopped by the before-and-after check: Access or privacy (0066 included): Doesn't open now: TimeoutError: page.goto: Timeout 45000ms exceeded. Call log: - navigating to \"https://staging.trvgo.us/admin/crawler-review.php\", waiting until \"",
+   "what": "Release #318 was stopped by the before-and-after check: Access or privacy (0066 included): Doesn't open now: TimeoutError: page.goto: Timeout 45000ms exceeded. Call log: - navigating to \"https://staging.trvgo.us/admin/crawler-review.php\", waiting until \"",
+   "was": "task",
+   "why": "An advocate's view was worse after it (decisions/0179 rule 2's four rules): Access or privacy (0066 included): Doesn't open now: TimeoutError: page.goto: Timeout 45000ms exceeded.\nCall log:\n  - navigating to \"https://staging.trvgo.us/admin/crawler-review.php\", waiting until \"load\"\n (executive, /admin/crawler-review.php, phone). It withdrew itself; nothing on the live site changed. Fix it and send ",
+   "source": "the daily audit (ba:318)",
+   "owner": "system · before-and-after check",
+   "release": "",
+   "ticket": "audit",
+   "stage": "found",
+   "tier": 2,
    "build_brief": "",
    "late": false
   }
