@@ -76,6 +76,19 @@
      "app/lib/BizQuotes.php"
     ]
    }
+  },
+  {
+   "path": "app/lib/BizCodes.php",
+   "functions": [
+    "published"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
+   "why": "Events P1: the published copy's updater",
+   "since": "2026-11-27T19:56:06Z",
+   "expires": "2026-11-27T23:56:06Z",
+   "release": "events-p1",
+   "callers": {}
   }
  ],
  "lapsed": [
