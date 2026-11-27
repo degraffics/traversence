@@ -589,3 +589,27 @@ conducting final transaction and money transfer."
   digital) for entry, delivered when issued, not the person's use of it.
 - **Every kind's terms are explicit before money moves:** what's delivered, when it counts as delivered, whether it's
   final, and what needs confirming first, shown to the buyer before the final transaction.
+
+## Note (Jason, 2026-11-27): the Marketplace's four sections
+
+Jason, to the CEO: "Handmade, personalized services should be shops, over aftermarket. But it could also be a fourth
+section. Experiences and authentic regional goods?", then "Yes." to the CEO's four sections. Decision; nothing
+changes on the site yet. Built on 0141's levels and item kinds and 0142's build briefs; nothing set there is replaced.
+1. **Shops (B2C):** businesses and makers, handmade goods and personalized services included, on 0141 §5's item kinds
+   (physical goods, made to order, service/labour…). A maker who isn't a business opens a free listing.
+2. **Experiences & Regional Goods:** a curated window onto Shops, not a second catalog: an item is listed once in its
+   shop and shows here when it qualifies, by kind (event tickets, bookings and reservations, guided services, harvest
+   and perishables, made to order, physical goods) and by origin (the business's home is in the area, the Single Home
+   Rule, 0042/0054). Earned by data, never bought (0007).
+3. **Trade (B2B):** built in Q1 2027 from parts that exist: trade accounts for verified, claimed businesses; 0112's
+   wholesale price lists and minimums; a supplier directory by region; Co-Op shared packages (Master AOS §6B). 0% to
+   us, through the business's own payment account; no money held by us (this record's rules).
+4. **Aftermarket (C2C):** members' used goods, paid offline (Master AOS §7; this record's step 1).
+
+**For Jan 1 (decisions/0181):** all four are named; Shops and the Aftermarket are live; Experiences & Regional Goods
+shows what qualifies; Trade is marked "coming".
+
+**The label rule:** our own label says only **"made in <region>"**. We never label goods by heritage. A seller's
+"Native-made" claim is the seller's own statement, made under the federal Indian Arts and Crafts Act and their
+responsibility, never ours to assert; it carries a link to the Indian Arts and Crafts Board's guidance. We never check
+anyone's tribal membership (privacy; 0066). The content that goes with it is 0164's and 0181's note of the same date.

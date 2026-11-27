@@ -184,3 +184,7 @@ day. This qualifies 0180's "R1–R5 ship as each passes" (note added there).
   "hours not known", never a guess. It's the Frontend & Shop session's C.8.
 - **Order #12 waits for the Founder** (Jason, 2026-11-27: "I will address this after holiday"). Nothing on it changes
   until he answers.
+- **The Marketplace's four sections and Native made vs regional authenticity** (Jason, 2026-11-27: "Yes."; notes on
+  0135 and 0164). For Jan 1: Shops (B2C) and the Aftermarket (C2C) live, Experiences & Regional Goods showing what
+  qualifies, Trade (B2B) named as "coming" and built in Q1. The pilot's content plans how to navigate the Indian Arts and
+  Crafts Act, from official sources, with relationships with individual Native makers (launch plan §10).
