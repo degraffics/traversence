@@ -123,3 +123,15 @@ day. This qualifies 0180's "R1–R5 ship as each passes" (note added there).
   - **4b:** the pilot zone's full share, about 73 paying businesses, or about $69,800 a year, by about October 2027.
   - **Stretch:** 100 paying by Dec 31, 2027.
   - **Reported weekly** (counts only): visitors, taps per listing, invites, claims, and multipliers partnered.
+- **The multiplier kit, and the co-op for chambers** (Jason, 2026-11-27: "Yes, also look at co-op for chamber
+  model"). For a meeting with a chamber, guide influencer or venue, the Founder brings existing parts only:
+  1. a live enhanced page, built before the meeting and noindex until they say yes (0034);
+  2. a prototype store: a draft storefront with Preview (0139);
+  3. GO Codes for the door, handouts and each event, counted back (0094–0096);
+  4. a leave-behind with the claim link and QR code (0081);
+  5. members' Core trials, and invites that carry the counted demand.
+- **For chambers, the model is the co-op, which is already set:** Master AOS §6B's Co-Op Master Hub, 0137's co-op
+  group and members-only chapters, 0108's Co-Op/Chamber model chosen at claim, and commercial §1.1 (Cornerstone carries
+  the Master Hub).
+- **Still open with him:** chambers are nonprofits, so Free under 0108's claim kinds, but the Master Hub is a
+  Cornerstone feature and trials are Core only.
