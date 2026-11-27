@@ -122,3 +122,34 @@ service". A's lane groups are how 0180 §6 is applied, not a new rule.
 To prove it works, one real ticket goes from intake to live with each role's part recorded on it. Suggested: the stray "Recovered" email fix, which is in the IT Manager's lane. R2 (lanes) carries the lane names into the code. R3 records Tier 4 and the Prior Ruling Check.
 
 **4. Your options.** Yes to C. Yes to A only. B now (it needs a money ruling). Or change the lane groups.
+
+## Protecting short- and long-term goals (approved, Jason, 2026-11-27)
+Jason: "The session manager is not reliable in maintaining long term building and implementation, hence why I created
+the team… T1-t5 is how I see goals, projects, etc managed… Yes, approve the plan. Also I want this implementation to up
+and running by Monday morning 6 am." Reviewed by the session manager.
+- **Durable homes only.** No goal, ruling or work order lives only in a session. They live in the decisions, the Work queue and git.
+- **Goals are parent tasks** in the Work queue (`control_gauge_tasks.parent_id`, `app/lib/GaugeTasks.php:41`, :81, :541;
+  mirror 122090e), each with its owner, measure, due date and decision. Every ticket links to its goal. task-seed-4
+  seeds the goals first.
+- **Managed by tier (0180 §1):**
+  - T5 sets and changes the long-term goals;
+  - T4 re-plans projects to hold a goal;
+  - T3 owns the projects and tickets in its lane;
+  - T1–T2 do the tickets.
+- **A goal's executive owner** comes from the appendix's reporting lines:
+  - COO: the PM and Customer Service;
+  - CFO: Accounting;
+  - CTO and CIO: IT;
+  - CMO: Editorial, Marketing and Sales.
+
+  A goal whose projects cross lanes is the CEO's.
+- **A live-side $0 daily goal check** (a new Scheduler job). A ticket idle for 3 days, or a due date its open tickets
+  can't meet, opens a ticket. It escalates: ticket → T3 manager, project at risk → T4 executive, goal change → T5 Brief.
+  The CEO reviews goal status weekly and reports to Jason.
+- **Recordkeeping by role.** Until R2 and the goals view are live:
+  - decided-not-live stays the session manager's, marked "for the PM (8)";
+  - the daily summary is written by the CEO session "as the Executive Translator (28)";
+  - CLAUDE.md is kept "as Operations & Policy (16)".
+
+  The session manager keeps watching, syncing and verifying, and drift review.
+- **Due:** live by Monday 2026-11-30, 06:00 MST (13:00 UTC). This needs the pipeline release, R2, task-seed-4 with the goals, and the goal check.
