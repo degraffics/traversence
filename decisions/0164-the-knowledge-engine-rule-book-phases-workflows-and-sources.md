@@ -1550,3 +1550,8 @@ So:
     - a person's call on a nation's sites stays, so an Editor confirms the public source before a place on nation land
       moves to story only.
   - **The build:** `Landmarks::publiclyKnown()` and `Jurisdictions::tier()` follow this rule, in one release.
+
+- **Story only shows while a state's record is under review** (Jason, 2026-11-27, ruling Q8: "Show"; R8, P5-3). Off a
+  nation's land, a story-only place shows while its state's jurisdiction record is still under the team's review. The
+  strictest known rule applies, and the way in is never shown. This covers CO and UT as their records are written. The
+  four protections in the Q7 note above stand as kept; Jason raised no objection.
