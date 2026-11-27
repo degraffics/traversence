@@ -1,7 +1,7 @@
 # Shared kit for the Railway card mockups (step 3). Generates static HTML; not site code.
-import html
+import os, html
 
-OUT = '/home/user/traversence/handoffs/control-board-plan/step3/mockups/'
+OUT = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')) + '/'   # step3/mockups/, wherever the repo is
 E = html.escape
 
 CSS = r"""

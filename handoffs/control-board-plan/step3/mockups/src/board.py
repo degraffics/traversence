@@ -10,7 +10,7 @@ sys.path.insert(0, HERE)
 import kit  # CSS only: importing kit generates nothing
 
 E = html.escape
-ROOT = '/home/user/traversence/'
+ROOT = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', '..', '..', '..')) + '/'   # the repo, wherever it's checked out (CI too)
 MIRROR = os.path.join(os.environ.get('TV_MIRROR') or '/home/user/traverse-3way-sync', '')   # the live mirror: TV_MIRROR (CI's ./mirror, gauges.py --mirror), else the session's clone
 STEP3 = ROOT + 'handoffs/control-board-plan/step3/'
 MOCK = STEP3 + 'mockups/'
