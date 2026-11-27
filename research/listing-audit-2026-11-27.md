@@ -151,6 +151,14 @@ hours on 4. So C1 and C2 have to be counted from the listing page or a live read
   123 covered three towns; this covers 1A. The exact figure, by NPI entity type (NPI-1), comes from the live read.
 - **C1, a shared website:** the search shows only 2 domains used at more than one address (summithealthcare.net 3,
   communitybridgesinc.org 2). That is a floor, because only 28 listings show a website there.
+- **C5, where the people entered (first trace):** not the NPI file. Its load keeps organisations only:
+  `workers/crawler/crawler.py:2860` drops every row whose Entity Type Code isn't "2", and the verify query asks for
+  `NPI-2` (`:1007`). The public pages of #6978 and #8375 say "Found by our crawler; no other source has confirmed it
+  yet", so they came from the crawler's discovery. #4929 ("Larson, J W Dc") says "Address and phone in the NPI Registry",
+  so an organisation record matched a person's listing at the same address, which is C4's identity gap in reverse. The
+  category names ("Speech Therapists", "Accounting & Bookkeeping General Svc", cut at 45 characters) are in neither the
+  crawler's nor the site's code. They are rows in the live `categories` table, which points to an older bulk directory
+  source. The source and the date each record was created come from the live read.
 
 Next: the live read per id for C1, C2 and C5's NPI type; where the individuals entered (the load and its file:line);
 the top 50 by taps.
