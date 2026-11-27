@@ -118,8 +118,9 @@ final class FounderMail
             if (($x[1][1] ?? -1) >= 0) { $name = trim($x[1][0]); $url = $x[2][0]; }
             else { $all = rtrim($all, '.,;:!?'); $url = $all; $name = self::nameOf($url); }
             $before = $pos > $at ? substr($body, $at, $pos - $at) : '';
-            // a bare address after "Approve it on the Work queue: " takes that phrase as its name (the words already name it)
-            if (($x[1][1] ?? -1) < 0 && preg_match('/(^|[\n.!?]\s*)([^\n:.!?]{3,80}):\s*$/u', $before, $ph, PREG_OFFSET_CAPTURE) === 1) {
+            // a phrase before a link ("Approve it on the Work queue: …", "The comparison is ready: […](…)") is the link itself,
+            // so a line says one thing and calls once (the Design reviewer, 2026-11-27)
+            if (preg_match('/(^|[\n.!?]\s*)([^\n:.!?]{3,80}):\s*$/u', $before, $ph, PREG_OFFSET_CAPTURE) === 1) {
                 $name = trim($ph[2][0]); $before = substr($before, 0, $ph[2][1]);
             }
             if ($before !== '') $out[] = ['t', $before];
@@ -148,9 +149,31 @@ final class FounderMail
         return $t;
     }
 
-    /** A push's one plain sentence: links as their names, no address and no `code`, at most 140 characters. */
-    public static function pushLine(string $body): string
+    /** The body without a first line that only repeats the title ("<title>: what each costs…" → "What each costs…"). */
+    public static function untitled(string $body, string $title): string
     {
+        $title = trim($title); $b = ltrim($body);
+        if ($title === '' || mb_stripos($b, $title) !== 0) return $body;
+        // only a title that ends where the words pause (":", ".", a dash or the line's end), never one that starts a sentence
+        if (preg_match('/^\s*([:.\-]|\x{2014}|\n|$)/u', mb_substr($b, mb_strlen($title))) !== 1) return $body;
+        $rest = ltrim(mb_substr($b, mb_strlen($title)), " \t:.,;-");
+        if ($rest === '' || $rest[0] === "\n") return ltrim($rest);
+        return mb_strtoupper(mb_substr($rest, 0, 1)) . mb_substr($rest, 1);
+    }
+
+    /** Where Open it goes, by name: "Open it on the Work queue", "Open it on GitHub", … (the Design reviewer, 2026-11-27:
+     *  the button names its place). */
+    public static function openLabel(string $link): string
+    {
+        if (str_contains($link, '/admin/config/control?tab=development')) return 'Open it on the Work queue';
+        return self::nameOf(str_starts_with($link, '/') ? 'https://traversence.com' . $link : $link);
+    }
+
+    /** A push's one plain sentence: links as their names, no address and no `code`, at most 140 characters, and never the
+     *  title again. */
+    public static function pushLine(string $body, string $title = ''): string
+    {
+        $body = self::untitled($body, $title);
         $t = '';
         foreach (self::pieces($body) as $p) $t .= $p[1];   // a link is its name
         $t = (string) preg_replace('/`[^`\n]*`/u', '', $t);
@@ -176,10 +199,17 @@ final class FounderMail
         return $out;
     }
 
-    /** Notify's email for a founder.* kind: [text, html]. The text is Notify's own with the body's links named. */
-    public static function emailParts(string $title, string $body, string $link, string $text): array
+    /** Notify's email for a founder.* kind: [text, html]. Its title once, the body without it, Open it naming its place,
+     *  and the Founder's footer in both parts (the Design reviewer, 2026-11-27). */
+    public const FOOTER = 'You get this email because you\'re the Founder.';
+    public const CHOICES = 'https://traversence.com/admin/dashboard/comms';
+
+    public static function emailParts(string $title, string $body, string $link, string $text = ''): array
     {
-        if ($body !== '') $text = str_replace($body, self::textOf($body), $text);
+        $body = self::untitled($body, $title);
+        $open = self::openLabel($link);
+        $text = trim($title) . "\n\n" . (trim($body) !== '' ? trim(self::textOf($body)) . "\n\n" : '') . $open . ': ' . $link . "\n\n"
+              . "-- \n" . self::FOOTER . ' Change what reaches you: ' . self::CHOICES . "\nTraversence";
         $e = fn ($s) => htmlspecialchars((string) $s, ENT_QUOTES);
         $font = 'font-family:Segoe UI,Roboto,Helvetica,Arial,sans-serif;';
         $html = '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" bgcolor="#EFE3C8" style="background:#EFE3C8"><tr><td align="center" style="padding:24px 12px">'
@@ -188,9 +218,9 @@ final class FounderMail
               . '<tr><td style="padding:24px 28px 10px;' . $font . 'font-size:18px;font-weight:700;line-height:24px;color:#3E2B1F">' . $e($title) . '</td></tr>'
               . '<tr><td style="padding:0 28px 6px">' . self::htmlOf($body, $font) . '</td></tr>'
               . '<tr><td style="padding:6px 28px 24px"><table role="presentation" cellpadding="0" cellspacing="0"><tr><td bgcolor="#92400E" style="border-radius:8px;padding:12px 26px">'
-              . '<a href="' . $e($link) . '" style="display:inline-block;' . $font . 'font-size:16px;font-weight:700;color:#FFFBF2;text-decoration:none"><span style="color:#FFFBF2;text-decoration:none">Open it</span></a></td></tr></table></td></tr>'
-              . '<tr><td style="padding:12px 28px;border-top:1px solid #EADFC4;' . $font . 'font-size:12px;line-height:18px;color:#8A7355">You get this email because you\'re the Founder. '
-              . '<a href="https://traversence.com/admin/dashboard/comms" style="color:#8A7355;text-decoration:underline">Change what reaches you</a></td></tr>'
+              . '<a href="' . $e($link) . '" style="display:inline-block;' . $font . 'font-size:16px;font-weight:700;color:#FFFBF2;text-decoration:none"><span style="color:#FFFBF2;text-decoration:none">' . $e($open) . '</span></a></td></tr></table></td></tr>'
+              . '<tr><td style="padding:12px 28px;border-top:1px solid #EADFC4;' . $font . 'font-size:12px;line-height:18px;color:#8A7355">' . $e(self::FOOTER) . ' '
+              . '<a href="' . self::CHOICES . '" style="color:#8A7355;text-decoration:underline">Change what reaches you</a></td></tr>'
               . '</table></td></tr></table>';
         return [$text, $html];
     }
@@ -200,11 +230,11 @@ final class FounderMail
     {
         $e = fn ($s) => htmlspecialchars((string) $s, ENT_QUOTES);
         $html = '';
-        foreach (preg_split('/\n{2,}/', trim((string) $m['body'])) as $para) if (trim($para) !== '') {
+        foreach (preg_split('/\n{2,}/', trim(self::untitled((string) $m['body'], (string) ($m['title'] ?? '')))) as $para) if (trim($para) !== '') {
             $h = ''; foreach (self::pieces($para) as $p) $h .= $p[0] === 't' ? (string) preg_replace('/`([^`\n]*)`/u', '<code>$1</code>', $e($p[1])) : ($p[2] !== '' ? '<a href="' . $e($p[2]) . '">' . $e($p[1]) . '</a>' : $e($p[1]));
             $html .= '<p>' . nl2br($h, false) . '</p>';
         }
-        if ((string) ($m['url'] ?? '') !== '') $html .= '<p class="tv-msg-acts"><a class="tv-btn" href="' . $e($m['url']) . '">Open it</a></p>';
+        if ((string) ($m['url'] ?? '') !== '') $html .= '<p class="tv-msg-acts"><a class="tv-btn" href="' . $e($m['url']) . '">' . $e(self::openLabel((string) $m['url'])) . '</a></p>';
         return ['html' => $html, 'state' => ''];
     }
 

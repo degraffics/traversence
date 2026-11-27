@@ -393,7 +393,7 @@ final class Notify
             $pbody = in_array((string) $m['kind'], self::IN_PLACE, true) ? (string) strtok((string) $m['body'], "\n") : (string) $m['body'];
             // the Founder's push is its subject and one plain sentence, no address or code (Jason, 2026-11-27: "The push is
             // clutter with code vs a clean on brand message"); FounderMail owns the founder.* kinds' words
-            if (str_starts_with((string) $m['kind'], 'founder.')) { require_once __DIR__ . '/FounderMail.php'; $pbody = FounderMail::pushLine((string) $m['body']); }
+            if (str_starts_with((string) $m['kind'], 'founder.')) { require_once __DIR__ . '/FounderMail.php'; $pbody = FounderMail::pushLine((string) $m['body'], (string) $m['title']); }
             // an alarm's push: "SYSTEM ALARM: <item>", its body starting with the action (decisions/0176's note, 2026-11-20:
             // "Push shortened"; a phone cuts a title at about 40 characters)
             // its action may hold a colon ("Down: the system is still trying", the one engine's §5.4), so it's matched by name
