@@ -3,7 +3,7 @@
 // #317 and #318 each waited an hour on the way to staging with their before verdict on main. (c) the verdict is read
 // through GitHub's contents API (DocsRepo::now), never raw.githubusercontent.com's cache; a missing file is said once on
 // the release's card past NOTE_MINUTES. (b) /api/releases-pull.php takes merged builds only, with releases.publish for that
-// one call (run for real in its own process); verdicts are moved on by the 10-minute job. One advance at a time (a lock). (a) releases_tick's
+// one call (run for real in its own process); since 2026-11-28 it also moves each waiting release on by its verdict on main, as the 10-minute job does (a pass publishes then). One advance at a time (a lock). (a) releases_tick's
 // own cron line goes to every 10 minutes, once, and a person's later Change stays.
 // Run: php tickverdict.php <root>   (<root> holds app/ and website/; it resets lv_main; its setup is pipeline.php's)
 declare(strict_types=1);
@@ -137,21 +137,42 @@ putenv($tok0 === false ? 'GITHUB_DOCS_TOKEN' : 'GITHUB_DOCS_TOKEN=' . $tok0); Do
 $src = (string) file_get_contents($root . '/app/scripts/releases_tick.php');
 $t('(f) releases_tick logs every run (Scheduler::run before its first step), and says when nothing is scheduled', strpos($src, "Scheduler::run('releases_tick')") !== false && strpos($src, "Scheduler::run('releases_tick')") < strpos($src, 'Releases::fromGit') && substr_count($src, "Scheduler::run('releases_tick')") === 1 && str_contains($src, 'Nothing scheduled or stepping on.'), null);
 
-// (b) the endpoint release-ping.yml calls, run for real: with nothing new in main it takes nothing and changes nothing; a
-// waiting release is left for the 10-minute job (verdicts are never moved on here: the CEO's Tier 4, 2026-11-27)
+// (b) the endpoint release-ping.yml and beforeafter.yml call, run for real (Jason, 2026-11-28: "Push to live should be done
+// immediately, upon pass"; it replaces the CEO's Tier 4 option (a) of 2026-11-27, verdicts moved on by the job only): with
+// nothing new in main it takes nothing, and each waiting release moves on by what main says of it, as the job's advance
+// does: one whose look is back goes on, one with no verdict on main stays as it was. Nothing from the request is used.
 BeforeAfter::$readFn = null;
 $b = $mk('tv-b.zip'); BeforeAfter::begin($pdo, $b, 'tv-b.zip', $sha, false); $asked($b, 20);
 $pdo->exec("DELETE FROM site_release_settings WHERE k = 'git_seen_ping'");
-$n = count($rel($b)['log']); $was = BeforeAfter::state($pdo, $b);
+$n = count($rel($b)['log']); $was = BeforeAfter::state($pdo, $b); $wasA = BeforeAfter::state($pdo, $a); $nA = count($rel($a)['log']);
 $cmd = 'TV_TEST=1 ' . escapeshellarg(PHP_BINARY) . ' ' . escapeshellarg(__DIR__ . '/tickverdict-pull.php') . ' ' . escapeshellarg($root) . ' ' . $b . ' 2>&1';
 $res = (string) shell_exec($cmd);
 preg_match('/\{"ok":.*\}/', $res, $mm); $j = json_decode($mm[0] ?? '', true);
-$t('(b) releases-pull.php with nothing new in main: ok, and no release named', is_array($j) && !empty($j['ok']) && !array_filter((array) $j['lines'], fn ($l) => str_contains((string) $l, 'Release #')), $res);
-$t('(b) … it changed nothing: the waiting release as it was, its record untouched, no verdict read', BeforeAfter::state($pdo, $b) == $was && count($rel($b)['log']) === $n && !str_contains($res, 'beforeafter/' . $b . '.json'), $res);
+$t('(b) releases-pull.php with nothing new in main: ok, and the release whose before look is on main moves on in that call', is_array($j) && !empty($j['ok']) && count(array_filter((array) $j['lines'], fn ($l) => str_contains((string) $l, 'Release #' . $b) && str_contains((string) $l, 'its before look is in'))) === 1, $res);
+$t('(b) … its look counted once and its record written, as the job writes it', !empty(BeforeAfter::state($pdo, $b)['counted_before']) && empty($was['counted_before']) && count($rel($b)['log']) >= $n, [BeforeAfter::state($pdo, $b), $was]);
+$t('(b) … a waiting release with no verdict on main stays as it was: nothing decided without one', BeforeAfter::state($pdo, $a) == $wasA && count($rel($a)['log']) === $nA && !array_filter((array) ($j['lines'] ?? []), fn ($l) => str_contains((string) $l, 'Release #' . $a . ' ') || str_contains((string) $l, 'Release #' . $a . ':')), [$res, $wasA]);
 preg_match('/GITHUB (\[.*\])/', $res, $gm); $gh = json_decode($gm[1] ?? 'null', true);
-$t('(b) … and asked GitHub for nothing but the inbox\'s listing on main (nothing from the request is used)', is_array($gh) && !array_filter($gh, fn ($c) => !preg_match('#^GET https://api\.github\.com/repos/degraffics/traversence/contents/releases/inbox#', (string) $c)), $res);
+$t('(b) … and it asked GitHub only for the inbox\'s listing and the waiting releases\' verdict files, on main (nothing from the request is used)', is_array($gh) && !array_filter($gh, fn ($c) => !preg_match('#^GET https://api\.github\.com/repos/degraffics/traversence/contents/(releases/inbox|site-audit/results/beforeafter/\d+\.json\?ref=main$)#', (string) $c)), $res);
 $res2 = (string) shell_exec($cmd); preg_match('/\{"ok":.*\}/', $res2, $mm2); $j2 = json_decode($mm2[0] ?? '', true);
 $t('(b) a second ping within the minute: 429 too_soon, as before (the workflow waits 65 s and asks again)', is_array($j2) && ($j2['code'] ?? $j2['error']['code'] ?? '') === 'too_soon' || str_contains($res2, 'too_soon'), $res2);
+// the after look: a verdict on main is decided in the ping's call (a pass publishes then), carrying releases.publish only;
+// with no after verdict on main nothing is decided
+$p1 = $mk('tv-p.zip'); BeforeAfter::begin($pdo, $p1, 'tv-p.zip', $sha, false); $d = $ba($p1); $d['phase'] = 'after'; $d['asked_at'] = time() - 120; $d['before_seconds'] = 10;
+$pdo->prepare('REPLACE INTO site_release_settings (k, v) VALUES (?, ?)')->execute(['ba:' . $p1, json_encode($d)]);
+$pull = function (int $id, string $after) use ($pdo, $root) { $pdo->exec("DELETE FROM site_release_settings WHERE k = 'git_seen_ping'"); return (string) shell_exec('TV_TEST=1 ' . escapeshellarg(PHP_BINARY) . ' ' . escapeshellarg(__DIR__ . '/tickverdict-pull.php') . ' ' . escapeshellarg($root) . ' ' . $id . ' ' . escapeshellarg($after) . ' 2>&1'); };
+$r0 = $pull(0, 'pass');
+$t('(b) an after look with no verdict on main: the ping decides nothing, the release still waiting', !str_contains($r0, 'DECIDED') && ($ba($p1)['phase'] ?? '') === 'after', $r0);
+$r1 = $pull($p1, 'pass');
+$t('(b) an after pass on main: decided in the ping\'s call, not at the job\'s next run', str_contains($r1, 'DECIDED #' . $p1 . ' pass') && $ba($p1) === null, [$r1, $ba($p1)]);
+$t('(b) … carrying releases.publish only: never schedule, turn off or roll back', str_contains($r1, 'DECIDED #' . $p1 . ' pass grant 1000'), $r1);
+$r2 = $pull($p1, 'pass');
+$t('(b) … once: a second ping finds nothing waiting and decides nothing', !str_contains($r2, 'DECIDED'), $r2);
+$p2 = $mk('tv-q.zip'); BeforeAfter::begin($pdo, $p2, 'tv-q.zip', $sha, false); $d = $ba($p2); $d['phase'] = 'after'; $d['asked_at'] = time() - 120; $d['before_seconds'] = 10;
+$pdo->prepare('REPLACE INTO site_release_settings (k, v) VALUES (?, ?)')->execute(['ba:' . $p2, json_encode($d)]);
+$r3 = $pull($p2, 'block');
+$t('(b) an after block on main reaches the same decision step as a block (it withdraws there), never as a pass', str_contains($r3, 'DECIDED #' . $p2 . ' block') && !str_contains($r3, 'pass'), $r3);
+$src = (string) file_get_contents($root . '/website/api/releases-pull.php');
+$t('(b) the endpoint runs advance under the ping\'s grant and reads nothing from the request', str_contains($src, 'Releases::asPing(fn () => BeforeAfter::advance($pdo))') && !preg_match('/\$_(GET|POST|REQUEST|COOKIE)|php:\/\/input|Response::(json|input|unwrap)/', $src));
 $stage(true);
 $t('never on staging: advance and tickLine do nothing', BeforeAfter::advance($pdo) === [] && BeforeAfter::tickLine($pdo) === '');
 $stage(false);

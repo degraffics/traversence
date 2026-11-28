@@ -212,3 +212,7 @@ changed code runs):
 ## Note (Jason, 2026-11-28): the advocates leave the release path; amends rule 2
 
 Jason: "The account advocates should also act like the audit, and independently operations vs attached to key deployment work." (1) The advocates come out of the release path: a release's before-and-after check is only the narrowed regression check (pages running the changed code, worse only; 0179's note of the same date). (2) The advocates run on their own schedule as an independent audit of the live site: each walks its own account type's paths (0180's appendix) at 1280 and 390, and each finding becomes a Work-queue ticket in the owning lane, its gate or harm named, in the daily audit and the daily report. (3) Advocates never block a release and no deployment session runs them; their tickets follow the normal tiers, a live harm escalating at once. Owners: IT Manager (11) and PM (8). The scheduled audit is the release line's build after the check change (batch-drafted).
+
+## Note (Jason, 2026-11-28, 15:55 UTC): publish the moment the check passes
+
+Jason: "Push to live should be done immediately, upon pass." The before-and-after check tells the site when its verdict is on main, and the site reads it and moves the release on then (a pass publishes), not at its next 10-minute run. It replaces the CEO's Tier 4 option (a) of 2026-11-27 (verdicts moved on by the job only). Never unchecked: only a pass on main publishes (`handoffs/publish-on-pass/README.md`).
