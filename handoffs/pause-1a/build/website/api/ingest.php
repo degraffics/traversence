@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/../../app/bootstrap.php';
 require_once __DIR__ . '/../../app/lib/CrawlerIngest.php';
+require_once __DIR__ . '/../../app/lib/crawler/IntakeStager.php';
 
 Response::requireMethod('POST');
 
@@ -21,10 +22,6 @@ if ($expectedToken === '') {
 if (!preg_match('/^Bearer\s+(.+)$/i', $authHeader, $matches) || !hash_equals($expectedToken, $matches[1])) {
     Response::error('Invalid or missing crawler API token.', 401, 'unauthenticated');
 }
-
-// the pause (Jason, 2026-11-28): this endpoint makes listings with no gate of its own, so it takes nothing while it holds
-require_once __DIR__ . '/../../app/lib/crawler/AutoImport.php';
-if (($why = AutoImport::pausedWhy()) !== null) Response::error($why, 503, 'paused');
 
 $body = Response::jsonBody();
 
@@ -51,6 +48,28 @@ if ($defaultGeoHubId === false) {
     Response::error('Default geo-hub is not configured correctly on this server.', 503, 'not_configured');
 }
 $defaultGeoHubId = (int) $defaultGeoHubId;
+
+// the pause (Jason, 2026-11-28, "Pause it. Yes"; the CEO: no caller fails, retries or loses a find): this endpoint makes
+// listings with no gate of its own, so while the pause holds it stages each record for Review, unpublished, like every
+// other path, and answers success with "held for review"
+require_once __DIR__ . '/../../app/lib/crawler/AutoImport.php';
+if (($paused = AutoImport::pausedWhy()) !== null) {
+    require_once __DIR__ . '/../../app/lib/crawler/CrawlQueue.php';
+    $cands = [];
+    foreach ($records as $record) {
+        if (!is_array($record)) continue;
+        $c = CrawlQueue::normalize(['name' => $record['name'] ?? '', 'source' => ['site' => 'api/ingest.php'],
+            'where' => ['address' => $record['address'] ?? '', 'city' => $record['city'] ?? '', 'state' => $record['state'] ?? '', 'zip' => CrawlerIngest::normalizeZip($record['zip'] ?? '')],
+            'actions' => ['phone' => $record['phone'] ?? '', 'website' => $record['website'] ?? ''], 'what' => ['description' => $record['description'] ?? '']]);
+        if ($c) { $c['hold'] = 'api/ingest.php while paused'; $cands[] = $c; }
+    }
+    $held = 0;
+    if ($cands) {
+        $sid = IntakeStager::createSource($pdo, 'https://traversence.com/api/ingest.php', ['create_listings'], 'api/ingest.php while paused: held for Review', 0);
+        $held = count((IntakeStager::stage($pdo, $sid, $cands))['staged'] ?? []);
+    }
+    Response::success(['processed' => count($records), 'status' => 'held for review', 'held_for_review' => $held, 'why' => $paused], 200);
+}
 
 $results = [];
 $hasErrors = false;

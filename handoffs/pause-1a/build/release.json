@@ -11,8 +11,12 @@
    "where": "https://traversence.com/admin"
   },
   {
-   "what": "The ingest endpoint (api/ingest.php, a worker's direct write with no gate of its own; nothing of ours calls it today) refuses while the pause holds.",
+   "what": "The ingest endpoint (api/ingest.php: a worker's direct write with no gate of its own; nothing of ours calls it today) doesn't refuse while paused (the CEO: no caller fails, retries or loses a find). It stages each record for Review, unpublished and held, and answers success with \"held for review\" and how many it held.",
    "where": "https://traversence.com/api/ingest.php"
+  },
+  {
+   "what": "While paused, the system writes no About text or hours into a published listing on its own: W2's refresh (from its website, or Common Crawl's copy) and the automatic gap-filling of a matched find (obvious merges, the helper's sweep) hold them as one suggestion for Review instead (the audit's C1 and C2; the IT Manager's Tier 4). Phone, offerings and the map point still fill. A person's own merge or edit is untouched.",
+   "where": "https://traversence.com/admin/review"
   },
   {
    "what": "The FAQ says new businesses aren't added by the crawler for now, and why.",
@@ -22,5 +26,5 @@
  "proposals": [],
  "switch": "",
  "tier4": "IT Manager (11): a change to the listings pipeline's gate",
- "notes": "Why the gate and not the W1 task switches (the first plan): switching the tasks off would also stop reading (CEO: \"reading, matching, the indexer … keep running\"). And it would leave five other paths publishing: refresh's other locations (W2), the place store (W3), Find it, the listings pipeline, and api/ingest.php. No per-job pause flag exists in Scheduler (Automation::job only follows workflows). The gate stops all of them in one place, and no switch or record is changed. Way back: this release's Roll back, or a one-line release emptying AutoImport::PAUSED once the review's fixes are live. Admin's test: Admin → Auto-imports and the dashboard say Off with the reason; Review keeps filling; a person's Approve still publishes. Nothing is deleted or hidden. Check after live: no new crawler-made listings in 1A (the public search's counts at 01:30 UTC against an hour after live)."
+ "notes": "Why the gate and not the W1 task switches (the first plan): switching the tasks off would also stop reading (CEO: \"reading, matching, the indexer … keep running\"). And it would leave five other paths publishing: refresh's other locations (W2), the place store (W3), Find it, the listings pipeline, and api/ingest.php. No per-job pause flag exists in Scheduler (Automation::job only follows workflows). The gate stops all of them in one place, and no switch or record is changed. Way back: this release's Roll back, or a one-line release emptying AutoImport::PAUSED once the review's fixes are live. About text and hours: held for Review while paused (AutoImport::holdForReview: one suggestion per listing and source, kind fix, its note naming the pause). Admin's test: Admin → Auto-imports and the dashboard say Off with the reason; Review keeps filling; a person's Approve still publishes. Nothing is deleted or hidden. Check after live: no new crawler-made listings in 1A (the public search's counts at 01:30 UTC against an hour after live)."
 }
