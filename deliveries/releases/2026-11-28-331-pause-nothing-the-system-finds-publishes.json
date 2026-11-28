@@ -1,0 +1,84 @@
+{
+    "id": 331,
+    "title": "Pause: nothing the system finds publishes by itself until the data-capture review's fixes are live",
+    "why": "Jason's explicit live-site call, through the CEO (2026-11-28 01:25 UTC): \"Pause it. Yes\". Live harm: bad health data (the listing audit, research/listing-audit-2026-11-27.md: about 240 people shown as places, hospitals filed as clinics), and the review that fixes it (research/data-capture-review-2026-12-02.md). The session manager: live harm, no daily slot, next after #326.",
+    "proposals": "",
+    "zip": "pause-1a-4.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/ui/admin-dashboard.php": {
+            "sha": "d0f5241042f39eb6e318073c4a874a87b0deb64e00bb90280de8ba480e75e76f",
+            "size": 56918,
+            "live_was": "d8de448b15b174ee420d1ce718f62c99bb150bfdf7bc6292ea8b1376aa1848f1"
+        },
+        "app/ui/faq.md": {
+            "sha": "08c729916bfb97f87677c6973ddfab80ba95316a8f98793f07e65ae0c9324d35",
+            "size": 471780,
+            "live_was": "fcb0265d8556d2ec9e57dc930861895a14e3ff9b67d035246098aa630823e729"
+        },
+        "app/lib/ListingIdentity.php": {
+            "sha": "e229881e1b809139223aaef266b8a17032bf2b17a1025adf1801ac707a01b4e0",
+            "size": 55838,
+            "live_was": "81919a27dfbaa57e49f37c7869f03082fc57ab03074b058610ca21b1cc1a7e36"
+        },
+        "app/lib/Suggestions.php": {
+            "sha": "674522007ee1e4e1895c66639b03ce6d7dc90813765bafa5c2a2491dbd753f6d",
+            "size": 13078,
+            "live_was": "eedc33cf2a26ba99379a72f6495cbe77548502f247ce9e052311d17d57f13d8b"
+        },
+        "app/lib/HelpFind.php": {
+            "sha": "884e2770c79dd58f61f80d052075857b8f2f28cf09f933bd4670fbf094f71a04",
+            "size": 15352,
+            "live_was": "dd83b6ee838ad8007a5a0971540be14284a30c691b24e404765a79534141af85"
+        },
+        "app/lib/crawler/AutoImport.php": {
+            "sha": "db1222d49463d15fb2a6b1813ba694eb2ce06fdda1f013cd9e6bd9b9327719c1",
+            "size": 63331,
+            "live_was": "0118070d570fa5da4ca8775f80503c1a942c0cb1f8d8af8df864ea45a5d1a1e3"
+        },
+        "app/lib/crawler/Refresh.php": {
+            "sha": "2ddaa11da636b132bdf124f3ca2df9f632222d5d2d7dd795a17c5944c4ac3468",
+            "size": 31294,
+            "live_was": "367f4a506556b06300e488bdae9921832b0157d40dab5ad9a3068b60fec9081f"
+        },
+        "app/lib/Identity.php": {
+            "sha": "3243d99a8bcc60953cf78dc4e1200b320de0189aba45fd22d999c3d22c7c3384",
+            "size": 100596,
+            "live_was": "dce7ff0326b729762be684e266b3189cd74ff269e66321cff8faf74655f062d3"
+        },
+        "website/admin/auto-imports.php": {
+            "sha": "6a29ef88a86b95c85aa7ae0a54bba62d1aa76aa1ce68b608a40e590f8c47dcf5",
+            "size": 6179,
+            "live_was": "6438199f6c10a6b1eb7befc60296b169e94824f704264796e875bc8bc51c500b"
+        },
+        "website/admin/crawler-review.php": {
+            "sha": "aea1fde734e804aa3f560abd0aa4f06499042c8673fb892c4a6424d872b4f1a3",
+            "size": 55716,
+            "live_was": "f3249f1be9bc026ecabc0f0bbdfdb0e2f514ec05d1db5c90dbc592977839860a"
+        },
+        "website/api/ingest.php": {
+            "sha": "f3a152434c6c3807adb0bf9f4b66717141fc33f6e3c8a7a0d89a3d3f20013c52",
+            "size": 5516,
+            "live_was": "78bd19f3b0f0bae41870cec0b3c9e295197ca3f7266162807cd020bff8d5e369"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-28T13:12:05+00:00",
+            "by": 0,
+            "msg": "Uploaded pause-1a-4.zip: 11 files."
+        }
+    ]
+}
