@@ -6,7 +6,7 @@
     "zip": "pause-1a-4.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "staged",
+    "state": "withdrawn",
     "step": 0,
     "paused": false,
     "urgent": null,
@@ -146,6 +146,11 @@
             "at": "2026-11-28T14:11:52+00:00",
             "by": 2,
             "msg": "Opened on staging by Jason DeGraff."
+        },
+        {
+            "at": "2026-11-28T14:21:45+00:00",
+            "by": 0,
+            "msg": "Replaced by release #337, a fixed build, and withdrawn by itself (11 kept for a later release on staging)."
         }
     ]
 }
