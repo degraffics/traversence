@@ -44,6 +44,16 @@
             "at": "2026-11-28T01:22:42+00:00",
             "by": 0,
             "msg": "Uploaded writeorder-tenant.zip: 4 files."
+        },
+        {
+            "at": "2026-11-28T01:22:44+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/writeorder-tenant.zip (git b910566669)."
+        },
+        {
+            "at": "2026-11-28T01:22:44+00:00",
+            "by": 0,
+            "msg": "Waiting for its before look: the advocates look at staging as it is, then it goes on staging (the before-and-after check)."
         }
     ]
 }
