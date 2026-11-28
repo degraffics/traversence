@@ -2,7 +2,7 @@
 // tools/pause-tests/pause.php — the pause on Jason's call, 2026-11-28 ("Pause it. Yes"; handoffs/pause-1a): auto-publish off
 // while AutoImport::PAUSED holds words, whatever .env says, and back on when it's emptied (the way back); the reason shown
 // where Auto-import is; every automatic publish passes through enabled() (tryImport, advance); the ingest endpoint
-// refuses before it reads a record. Run: php tools/pause-tests/pause.php <build root> <mirror's sync-app/lib>
+// stages each record for Review and answers "held for review". The real identity path is tools/pause-tests/identity.php. Run: php tools/pause-tests/pause.php <build root> <mirror's sync-app/lib>
 declare(strict_types=1);
 
 [$root, $live] = [rtrim($argv[1] ?? '', '/'), rtrim($argv[2] ?? '', '/')];
@@ -88,7 +88,7 @@ $c = AutoImport::holdForReview($pdo, 6, ["description" => "", "hours" => []], "c
 $r = $pdo->query("SELECT * FROM suggestions")->fetchAll(PDO::FETCH_ASSOC); echo json_encode([$a, $b, $c, $r]);');
 $j = json_decode((string) shell_exec('php ' . escapeshellarg("$t/run.php") . ' 2>&1'), true);
 check('holdForReview: one suggestion (kind fix), the hours as one line, the note naming the pause', is_array($j) && $j[0] === true && count($j[3]) === 1 && $j[3][0]['kind'] === 'fix' && json_decode($j[3][0]['fields'], true)['hours'] === 'Mon-Fri 8-5; Sat 9-1' && str_contains($j[3][0]['note'], 'Held for a person while the pause holds'));
-check('…one open at a time per listing and source; nothing asked for empty values', is_array($j) && $j[1] === false && $j[2] === false);
+check('…one open at a time per listing and source, a second find added to it; nothing asked for empty values', is_array($j) && $j[1] === true && count($j[3]) === 1 && str_contains((string) json_decode($j[3][0]['fields'], true)['description'], ' | Again') && $j[2] === false);
 exec('rm -rf ' . escapeshellarg($t));
 
 echo $fails ? "$fails failed\n" : "all passed\n";
