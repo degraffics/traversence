@@ -78,6 +78,9 @@ final class AutoImport
         } catch (Throwable $x) { error_log('pause hold #' . $entityId . ': ' . $x->getMessage()); return false; }
     }
 
+    /** While paused, Review evaluates at most this many staged listings at a time, newest first; Show more takes the next (#330). */
+    public const REVIEW_WINDOW = 200;
+
     /** Why auto-publish is paused by a release (not by .env), or null. */
     public static function pausedWhy(): ?string
     {
@@ -638,7 +641,11 @@ final class AutoImport
     public static function advance(PDO $pdo, int $limit = 150): array
     {
         $out = ['merged' => 0, 'published' => 0, 'covered' => 0, 'checked' => 0];
-        $st = $pdo->query("SELECT id, raw_payload FROM " . Database::t('crawler_raw_index') . " WHERE status = 'staged' AND payload_type = 'listing'
+        // while paused, a row is passed once (matched, merged if obvious) and then waits for a person: nothing it could
+        // become publishes, so passing it again on every Review load only made the page heavier with each crawl (#330)
+        $paused = self::pausedWhy() !== null;
+        $st = $pdo->query("SELECT id, raw_payload FROM " . Database::t('crawler_raw_index') . " WHERE status = 'staged' AND payload_type = 'listing'"
+                            . ($paused ? " AND JSON_EXTRACT(raw_payload, '$.paused_pass') IS NULL" : '') . "
                             ORDER BY JSON_UNQUOTE(JSON_EXTRACT(raw_payload, '$.advanced_at')), confidence_score DESC, id LIMIT " . max(1, min(500, $limit)));
         foreach ($st->fetchAll(PDO::FETCH_ASSOC) as $r) {
             $c = json_decode((string) $r['raw_payload'], true);
@@ -649,6 +656,7 @@ final class AutoImport
                 $c['match'] = IntakeStager::freshMatch($pdo, $c);
                 $c['category_suggestions'] = IntakeStager::suggestFor($pdo, $c);   // today's reading, not the one it was staged with
                 $c['advanced_at'] = date('c');
+                if ($paused) $c['paused_pass'] = 1;   // passed once while paused; read only by the skip above
                 if (empty($c['hold'])) {
                     if (!self::obvious($pdo, $c) && ($cov = self::coveredBy($pdo, $c))) {
                         IntakeStager::reject($pdo, $rowId, mb_substr('auto: covered by #' . $cov['id'] . ' ' . $cov['name'] . ' (the same phone and street address under another name); not listed again', 0, 1000), null);

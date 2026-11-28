@@ -146,7 +146,11 @@ if ($autoMerged || $autoPublished) {
 }
 // Only what the pipeline has given up on reaches a person (decisions/0076 §2), grouped by why; the rest is a number.
 $working = 0; $whyGroups = []; $why = (string) ($_GET['why'] ?? '');
-$all = $pdo->query("SELECT r.id, r.raw_payload, r.created_at, r.source_url, r.confidence_score FROM " . Database::t('crawler_raw_index') . " r WHERE r.status = 'staged' AND r.payload_type = 'listing' ORDER BY r.confidence_score DESC, r.id")->fetchAll(PDO::FETCH_ASSOC);
+// while auto-publish is paused, nothing staged leaves on its own, so Review reads a window, newest first: at most
+// AutoImport::REVIEW_WINDOW at a time, Show more for the next; the count above stays the true total (#330)
+$pausedWindow = AutoImport::pausedWhy() !== null ? AutoImport::REVIEW_WINDOW * (1 + min(50, max(0, (int) ($_GET['more'] ?? 0)))) : 0;
+$all = $pdo->query("SELECT r.id, r.raw_payload, r.created_at, r.source_url, r.confidence_score FROM " . Database::t('crawler_raw_index') . " r WHERE r.status = 'staged' AND r.payload_type = 'listing' "
+    . ($pausedWindow ? "ORDER BY r.id DESC LIMIT " . $pausedWindow : "ORDER BY r.confidence_score DESC, r.id"))->fetchAll(PDO::FETCH_ASSOC);
 foreach ($all as $r) {
     $p = json_decode((string) $r['raw_payload'], true);
     if (!is_array($p)) continue;
@@ -209,7 +213,7 @@ foreach ($items as $it) {
 asort($places);
 $shown = array_values(array_filter($items, fn ($it) => ($type === 'all' || $it['kind'] === $type) && (!$place || $it['cluster_id'] === $place) && ($why === '' || ($it['why'] ?? '') === $why)));
 
-$qs = fn (array $over) => '?' . http_build_query(array_filter(array_merge(['type' => $type === 'all' ? null : $type, 'place' => $place ?: null, 'why' => $why !== '' ? $why : null, 'more' => isset($_GET['more']) ? 1 : null], $over)));
+$qs = fn (array $over) => '?' . http_build_query(array_filter(array_merge(['type' => $type === 'all' ? null : $type, 'place' => $place ?: null, 'why' => $why !== '' ? $why : null, 'more' => isset($_GET['more']) ? max(1, (int) $_GET['more']) : null], $over)));
 $form = fn (string $action, int $id, string $extra = '') => '<input type="hidden" name="csrf" value="' . tv_e($csrf) . '"><input type="hidden" name="action" value="'
     . $action . '"><input type="hidden" name="id" value="' . $id . '">' . $extra;
 
@@ -286,6 +290,7 @@ tv_crawler_start('review', 'Review', $pdo, 'Everything the crawler needs you for
 </div>
 <?php $listingView = in_array($type, ['all', 'listing'], true);   // the crawler's listings stay off the other lists (From visitors is people, not the crawler) ?>
 <?php if ($working && $listingView): ?><p data-tv-status="info" data-tv-label="Working:">The crawler is still working on <b><?= number_format($working) ?></b> listing<?= $working === 1 ? '' : 's' ?>: looking for more that confirms them, and publishing each one on its own when it's ready. They reach you here only if it runs out of things to try.</p><?php endif; ?>
+<?php if ($pausedWindow && $listingView && $stagedTotal > $pausedWindow): ?><p data-tv-status="info" data-tv-label="Paused:">Auto-publish is paused, so finds wait here. Showing the newest <b><?= number_format($pausedWindow) ?></b> of <b><?= number_format($stagedTotal) ?></b> waiting. <a class="underline" href="<?= tv_e($qs(['more' => (int) ($_GET['more'] ?? 0) + 1])) ?>">Show <?= number_format(min(AutoImport::REVIEW_WINDOW, $stagedTotal - $pausedWindow)) ?> more</a></p><?php endif; ?>
 <?php if ($whyGroups && $listingView): ?>
 <div class="rv-why tv-bleed">
   <p class="rv-why-h">Listings that need you <span>(<?= array_sum(array_map(fn ($g) => count($g['ids']), $whyGroups)) ?>)</span></p>
