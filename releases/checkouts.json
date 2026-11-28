@@ -29,6 +29,19 @@
    "expires": "2026-11-28T05:20:21Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/Scope.php",
+   "functions": [
+    "leave"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
+   "why": "Gate 5: writeOrder's tenant put back, one transaction, a failed copy's ticket and held order",
+   "since": "2026-11-28T01:20:23Z",
+   "expires": "2026-11-28T05:20:23Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
