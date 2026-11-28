@@ -38,6 +38,7 @@ Roles have real operational authority inside their swimlane (Layer 3–4) and th
 
 Only these need a **Founder ruling (Tier 5)**:
 - a change to the **decision-tree rules**, the **tier definitions**, a **role's permissions**, or a **release fence** (stage ceilings, reach, the spend cap). These are the rules the tree's fingerprint covers (0179's note), so a change still clears the tree's approval.
+  - **Note (Jason, 2026-11-28, "B", on the CEO's Decision Brief):** one approval covers the 42 agents' rule changes as listed in the brief (each agent, in the four waves' order, with the steps it adds to `TeamRunner::ruleData`). Anything outside that list still clears the tree's approval as before. Agents still go live one at a time, each after its test ticket passes; stage ceilings and fences are unchanged.
 - an **amendment to a settled ADR**, or **new policy** where no ADR exists.
 
 An "operational boundary adjustment" (Tiers 3 and 4) is anything inside those rules. If one would change a rule above, it is Tier 5.
