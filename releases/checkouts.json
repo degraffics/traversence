@@ -96,8 +96,8 @@
    "session": "session_01CXLi5iAy5magAU62jYiAxM",
    "why": "Pause: About text and hours held for Review while paused (the IT Manager's Tier 4)",
    "since": "2026-11-28T01:35:49Z",
-   "expires": "2026-11-28T05:49:41Z",
-   "release": "",
+   "expires": "2026-11-28T06:53:47Z",
+   "release": "pause-1a.zip",
    "callers": {}
   },
   {
@@ -107,8 +107,8 @@
    "session": "session_01CXLi5iAy5magAU62jYiAxM",
    "why": "Pause: no new listings published by the system, on Jason's call 2026-11-28 ('Pause it. Yes')",
    "since": "2026-11-28T01:35:51Z",
-   "expires": "2026-11-28T05:35:51Z",
-   "release": "",
+   "expires": "2026-11-28T06:53:47Z",
+   "release": "pause-1a.zip",
    "callers": {}
   },
   {
@@ -118,8 +118,8 @@
    "session": "session_01CXLi5iAy5magAU62jYiAxM",
    "why": "Pause: no new listings published by the system, on Jason's call 2026-11-28 ('Pause it. Yes')",
    "since": "2026-11-28T01:35:53Z",
-   "expires": "2026-11-28T05:35:53Z",
-   "release": "",
+   "expires": "2026-11-28T06:53:47Z",
+   "release": "pause-1a.zip",
    "callers": {}
   },
   {
@@ -225,9 +225,19 @@
    "session": "session_01CXLi5iAy5magAU62jYiAxM",
    "why": "Pause: About text and hours held for Review on every machine path (the IT Manager's Tier 4)",
    "since": "2026-11-28T02:06:03Z",
-   "expires": "2026-11-28T06:06:03Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-28T06:53:47Z",
+   "release": "pause-1a.zip",
+   "callers": {
+    "create": [
+     "app/lib/DataCleanup.php",
+     "app/lib/GuideLinks.php",
+     "app/lib/ListingLocation.php",
+     "app/lib/Sales.php",
+     "app/lib/crawler/LiveDupes.php",
+     "app/lib/crawler/Refresh.php",
+     "website/api/suggestion.php"
+    ]
+   }
   },
   {
    "path": "app/lib/Suggestions.php",
@@ -263,8 +273,52 @@
    "session": "session_01CXLi5iAy5magAU62jYiAxM",
    "why": "Pause: a Help us find card comes back only on a person's phone or address while paused (the IT Manager's Tier 4)",
    "since": "2026-11-28T02:15:52Z",
-   "expires": "2026-11-28T06:15:52Z",
-   "release": "",
+   "expires": "2026-11-28T06:53:47Z",
+   "release": "pause-1a.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ListingIdentity.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5iAy5magAU62jYiAxM",
+   "why": "release pause-1a.zip",
+   "since": "2026-11-28T02:53:47Z",
+   "expires": "2026-11-28T06:53:47Z",
+   "release": "pause-1a.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/crawler/Refresh.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5iAy5magAU62jYiAxM",
+   "why": "release pause-1a.zip",
+   "since": "2026-11-28T02:53:47Z",
+   "expires": "2026-11-28T06:53:47Z",
+   "release": "pause-1a.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Identity.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5iAy5magAU62jYiAxM",
+   "why": "release pause-1a.zip",
+   "since": "2026-11-28T02:53:47Z",
+   "expires": "2026-11-28T06:53:47Z",
+   "release": "pause-1a.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/api/ingest.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5iAy5magAU62jYiAxM",
+   "why": "release pause-1a.zip",
+   "since": "2026-11-28T02:53:47Z",
+   "expires": "2026-11-28T06:53:47Z",
+   "release": "pause-1a.zip",
    "callers": {}
   }
  ],
