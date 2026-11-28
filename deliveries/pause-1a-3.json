@@ -2,7 +2,7 @@
  "zip": "pause-1a-3.zip",
  "built_on": "5b39084 Sync: 2026-11-28 02:52 UTC",
  "recorded": "2026-11-28 04:32 UTC",
- "note": "Pause sent a third time, unchanged (replaces pause-1a-2.zip, withdrawn as #329 on people.php at 390, where no changed code runs); built on Sync 2026-11-28 02:52 UTC Sent through git (releases/inbox).",
+ "note": "Pause sent a third time, unchanged (replaces pause-1a-2.zip, withdrawn as #329 on people.php at 390, where no changed code runs); built on Sync 2026-11-28 02:52 UTC Sent through git (releases/inbox). Withdrawn as #330 (Review didn't open in 45 s for the executive: every load passed the staged rows again while paused); replaced by pause-1a-4.zip.",
  "status": "pending",
  "live_in": "",
  "files": {
