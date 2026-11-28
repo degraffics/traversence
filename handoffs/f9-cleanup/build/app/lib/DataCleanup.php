@@ -319,7 +319,7 @@ final class DataCleanup
         // F9: the pilot's listings, the health group's categories, and each street's and phone's places (a person's practice)
         $pilot = array_flip(self::pilotIds($pdo)); $scope = self::legacyScope($pdo);
         // the "health" scope (the CEO's (c), 2026-11-28; the session manager): the Health & Medical group, plus the safety
-        // categories 0061's emergency needs already name (Situations.php:441, :446). A public kind (Claims::KIND_GROUPS) is
+        // categories 0061's emergency needs already name (Situations.php:441, :442, :446). A public kind (Claims::KIND_GROUPS) is
         // told apart so one with any keepable source stays up
         $health = []; $public = [];
         try {
