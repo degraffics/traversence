@@ -1,10 +1,10 @@
 {
- "at": "2026-11-27T10:20:41.375Z",
+ "at": "2026-11-28T10:22:03.014Z",
  "jobs_error": null,
  "jobs": [
   {
    "job": "control_tick",
-   "last_utc": "2026-11-27T10:15:01Z",
+   "last_utc": "2026-11-28T10:15:02Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -24,7 +24,7 @@
   },
   {
    "job": "founder_mail_tick",
-   "last_utc": "2026-11-27T04:00:02Z",
+   "last_utc": "2026-11-27T20:32:02Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": true,
@@ -44,7 +44,7 @@
   },
   {
    "job": "ai_worker",
-   "last_utc": "2026-11-27T10:20:01Z",
+   "last_utc": "2026-11-28T10:20:01Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -54,7 +54,7 @@
   },
   {
    "job": "standing_tick",
-   "last_utc": "2026-11-27T10:18:01Z",
+   "last_utc": "2026-11-28T10:18:01Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -64,7 +64,7 @@
   },
   {
    "job": "sales_tick",
-   "last_utc": "2026-11-27T09:17:01Z",
+   "last_utc": "2026-11-28T09:17:01Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -74,7 +74,7 @@
   },
   {
    "job": "files_tick",
-   "last_utc": "2026-11-27T10:00:03Z",
+   "last_utc": "2026-11-28T09:51:01Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -84,7 +84,7 @@
   },
   {
    "job": "work_orders_tick",
-   "last_utc": "2026-11-27T09:17:01Z",
+   "last_utc": "2026-11-28T09:17:01Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -94,7 +94,7 @@
   },
   {
    "job": "guide_finds_tick",
-   "last_utc": "2026-11-27T10:00:03Z",
+   "last_utc": "2026-11-28T08:30:01Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -104,7 +104,7 @@
   },
   {
    "job": "listings_tick",
-   "last_utc": "2026-11-27T10:15:02Z",
+   "last_utc": "2026-11-28T10:15:03Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -114,7 +114,7 @@
   },
   {
    "job": "guide_live_tick",
-   "last_utc": "2026-11-27T10:15:02Z",
+   "last_utc": "2026-11-28T09:30:02Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -124,7 +124,7 @@
   },
   {
    "job": "got_it_tick",
-   "last_utc": "2026-11-27T09:17:01Z",
+   "last_utc": "2026-11-27T21:17:01Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -134,7 +134,7 @@
   },
   {
    "job": "qb_orders_tick",
-   "last_utc": "2026-11-27T10:17:01Z",
+   "last_utc": "2026-11-28T10:17:01Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -144,7 +144,7 @@
   },
   {
    "job": "pay_wait_tick",
-   "last_utc": "2026-11-27T09:17:01Z",
+   "last_utc": "2026-11-27T21:17:01Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -154,7 +154,7 @@
   },
   {
    "job": "services_tick",
-   "last_utc": "2026-11-27T09:17:02Z",
+   "last_utc": "2026-11-28T09:17:01Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -164,7 +164,7 @@
   },
   {
    "job": "takedowns_tick",
-   "last_utc": "2026-11-27T10:16:01Z",
+   "last_utc": "2026-11-28T10:16:01Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -174,7 +174,7 @@
   },
   {
    "job": "heritage_tick",
-   "last_utc": "2026-11-27T10:20:01Z",
+   "last_utc": "2026-11-28T10:20:01Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -184,7 +184,7 @@
   },
   {
    "job": "daily_report",
-   "last_utc": "2026-11-27T10:02:01Z",
+   "last_utc": "2026-11-28T10:02:01Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -194,7 +194,7 @@
   },
   {
    "job": "market_tick",
-   "last_utc": "2026-11-25T13:13:01Z",
+   "last_utc": "2026-11-27T13:13:02Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -204,7 +204,7 @@
   },
   {
    "job": "mail_sync",
-   "last_utc": "2026-11-27T10:18:01Z",
+   "last_utc": "2026-11-28T10:18:01Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -214,7 +214,7 @@
   },
   {
    "job": "mail_keep",
-   "last_utc": "2026-11-26T13:13:01Z",
+   "last_utc": "2026-11-27T13:13:02Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -224,7 +224,7 @@
   },
   {
    "job": "pulse_followup",
-   "last_utc": "2026-11-27T10:00:02Z",
+   "last_utc": "2026-11-28T10:00:02Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -234,7 +234,7 @@
   },
   {
    "job": "booking_remind",
-   "last_utc": "2026-11-27T10:15:01Z",
+   "last_utc": "2026-11-28T10:15:02Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -244,7 +244,7 @@
   },
   {
    "job": "listing_messages_tick",
-   "last_utc": "2026-11-27T10:17:01Z",
+   "last_utc": "2026-11-28T10:17:01Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -254,7 +254,7 @@
   },
   {
    "job": "notify_release",
-   "last_utc": "2026-11-27T10:17:01Z",
+   "last_utc": "2026-11-28T10:00:02Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -264,7 +264,7 @@
   },
   {
    "job": "notice_digest",
-   "last_utc": "2026-11-25T13:13:01Z",
+   "last_utc": "2026-11-27T13:13:02Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -274,7 +274,7 @@
   },
   {
    "job": "ses_setup_tick",
-   "last_utc": "2026-11-27T10:15:02Z",
+   "last_utc": "2026-11-28T09:45:02Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -284,7 +284,7 @@
   },
   {
    "job": "domains_tick",
-   "last_utc": "2026-11-27T10:15:01Z",
+   "last_utc": "2026-11-28T10:15:02Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -294,7 +294,7 @@
   },
   {
    "job": "billing_tick",
-   "last_utc": "2026-11-25T13:13:01Z",
+   "last_utc": "2026-11-27T13:13:02Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -304,7 +304,7 @@
   },
   {
    "job": "region_tick",
-   "last_utc": "2026-11-26T13:13:01Z",
+   "last_utc": "2026-11-27T13:13:02Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -314,7 +314,7 @@
   },
   {
    "job": "guide_ondemand_tick",
-   "last_utc": "2026-11-27T10:00:03Z",
+   "last_utc": "2026-11-28T09:48:01Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -324,7 +324,7 @@
   },
   {
    "job": "journeys_tick",
-   "last_utc": "2026-11-27T10:17:02Z",
+   "last_utc": "2026-11-28T10:17:01Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -334,7 +334,7 @@
   },
   {
    "job": "supabase_keepalive",
-   "last_utc": "2026-11-26T13:13:01Z",
+   "last_utc": "2026-11-27T13:13:02Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -344,7 +344,7 @@
   },
   {
    "job": "page_read_tick",
-   "last_utc": "2026-11-27T10:17:01Z",
+   "last_utc": "2026-11-28T10:17:01Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -354,7 +354,7 @@
   },
   {
    "job": "vectors_tick",
-   "last_utc": "2026-11-27T10:17:02Z",
+   "last_utc": "2026-11-28T10:17:01Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -364,7 +364,7 @@
   },
   {
    "job": "identity_recheck_tick",
-   "last_utc": "2026-11-26T13:13:01Z",
+   "last_utc": "2026-11-27T13:13:02Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -384,7 +384,7 @@
   },
   {
    "job": "landmark_photos_tick",
-   "last_utc": "2026-11-27T08:17:01Z",
+   "last_utc": "2026-11-28T10:17:01Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -394,7 +394,7 @@
   },
   {
    "job": "like_watch_tick",
-   "last_utc": "2026-11-27T10:17:01Z",
+   "last_utc": "2026-11-28T10:17:02Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -404,7 +404,7 @@
   },
   {
    "job": "earned_storage_tick",
-   "last_utc": "2026-11-25T13:13:01Z",
+   "last_utc": "2026-11-27T13:13:02Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -414,7 +414,7 @@
   },
   {
    "job": "moments_tick",
-   "last_utc": "2026-11-27T10:17:01Z",
+   "last_utc": "2026-11-28T10:17:01Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -424,7 +424,7 @@
   },
   {
    "job": "guest_tick",
-   "last_utc": "2026-11-26T13:13:01Z",
+   "last_utc": "2026-11-27T13:13:02Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -434,7 +434,7 @@
   },
   {
    "job": "vault_digest_tick",
-   "last_utc": "2026-11-27T10:17:01Z",
+   "last_utc": "2026-11-28T10:17:01Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -444,13 +444,13 @@
   },
   {
    "job": "releases_tick",
-   "last_utc": "2026-11-27T10:00:02Z",
+   "last_utc": "2026-11-28T10:10:01Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": true,
    "default": "10min",
-   "line": "*/24 * * * *",
-   "line_preset": ""
+   "line": "*/15 * * * *",
+   "line_preset": "15min"
   },
   {
    "job": "staging_carry_tick",
@@ -464,7 +464,7 @@
   },
   {
    "job": "audit_clock_tick",
-   "last_utc": "2026-11-27T10:17:01Z",
+   "last_utc": "2026-11-28T10:17:01Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -484,7 +484,7 @@
   },
   {
    "job": "staging_push_tick",
-   "last_utc": "2026-11-27T10:02:50Z",
+   "last_utc": "2026-11-28T10:19:10Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": true,
@@ -494,7 +494,7 @@
   },
   {
    "job": "staging_night_tick",
-   "last_utc": "2026-11-27T09:13:01Z",
+   "last_utc": "2026-11-28T09:13:01Z",
    "ok": 0,
    "fails_today": 1,
    "quiet": false,
@@ -504,7 +504,7 @@
   },
   {
    "job": "frontier_tick",
-   "last_utc": "2026-11-27T10:17:01Z",
+   "last_utc": "2026-11-28T10:17:02Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -514,7 +514,7 @@
   },
   {
    "job": "preflight_tick",
-   "last_utc": "2026-11-27T10:15:01Z",
+   "last_utc": "2026-11-28T10:15:02Z",
    "ok": 1,
    "fails_today": 0,
    "quiet": false,
@@ -544,156 +544,156 @@
   }
  ],
  "missed": {
-  "last_24h": 51,
+  "last_24h": 54,
   "recent": [
    {
     "job": "staging_push_tick",
-    "at": "2026-11-26T18:42:45Z",
+    "at": "2026-11-27T19:43:49Z",
     "why": "SQLSTATE[HY000]: General error: 2006 MySQL server has gone away"
    },
    {
     "job": "staging_push_tick",
-    "at": "2026-11-26T19:01:06Z",
+    "at": "2026-11-27T19:57:16Z",
     "why": "SQLSTATE[HY000]: General error: 2006 MySQL server has gone away"
    },
    {
     "job": "staging_push_tick",
-    "at": "2026-11-26T19:22:40Z",
+    "at": "2026-11-27T20:22:27Z",
     "why": "SQLSTATE[HY000]: General error: 2006 MySQL server has gone away"
    },
    {
     "job": "staging_push_tick",
-    "at": "2026-11-26T19:40:08Z",
+    "at": "2026-11-27T21:00:01Z",
     "why": "SQLSTATE[HY000]: General error: 2006 MySQL server has gone away"
    },
    {
     "job": "staging_push_tick",
-    "at": "2026-11-26T20:26:34Z",
+    "at": "2026-11-27T21:21:59Z",
     "why": "SQLSTATE[HY000]: General error: 2006 MySQL server has gone away"
    },
    {
     "job": "staging_push_tick",
-    "at": "2026-11-26T20:41:13Z",
+    "at": "2026-11-27T21:40:45Z",
     "why": "SQLSTATE[HY000]: General error: 2006 MySQL server has gone away"
    },
    {
     "job": "staging_push_tick",
-    "at": "2026-11-26T20:59:22Z",
+    "at": "2026-11-27T21:57:31Z",
     "why": "SQLSTATE[HY000]: General error: 2006 MySQL server has gone away"
    },
    {
     "job": "staging_push_tick",
-    "at": "2026-11-26T21:26:02Z",
+    "at": "2026-11-27T22:26:04Z",
     "why": "SQLSTATE[HY000]: General error: 2006 MySQL server has gone away"
    },
    {
     "job": "staging_push_tick",
-    "at": "2026-11-26T21:41:52Z",
+    "at": "2026-11-27T22:40:27Z",
     "why": "SQLSTATE[HY000]: General error: 2006 MySQL server has gone away"
    },
    {
     "job": "staging_push_tick",
-    "at": "2026-11-26T21:57:30Z",
+    "at": "2026-11-27T22:57:58Z",
     "why": "SQLSTATE[HY000]: General error: 2006 MySQL server has gone away"
    },
    {
     "job": "staging_push_tick",
-    "at": "2026-11-26T22:23:41Z",
+    "at": "2026-11-27T23:23:43Z",
     "why": "SQLSTATE[HY000]: General error: 2006 MySQL server has gone away"
    },
    {
     "job": "staging_push_tick",
-    "at": "2026-11-26T22:39:46Z",
+    "at": "2026-11-27T23:39:16Z",
     "why": "SQLSTATE[HY000]: General error: 2006 MySQL server has gone away"
    },
    {
     "job": "staging_push_tick",
-    "at": "2026-11-26T22:57:30Z",
+    "at": "2026-11-27T23:57:26Z",
     "why": "SQLSTATE[HY000]: General error: 2006 MySQL server has gone away"
    },
    {
     "job": "staging_push_tick",
-    "at": "2026-11-26T23:23:57Z",
+    "at": "2026-11-28T00:23:04Z",
     "why": "SQLSTATE[HY000]: General error: 2006 MySQL server has gone away"
    },
    {
     "job": "staging_push_tick",
-    "at": "2026-11-26T23:39:39Z",
+    "at": "2026-11-28T00:39:49Z",
     "why": "SQLSTATE[HY000]: General error: 2006 MySQL server has gone away"
    },
    {
     "job": "staging_push_tick",
-    "at": "2026-11-26T23:57:46Z",
+    "at": "2026-11-28T00:57:21Z",
     "why": "SQLSTATE[HY000]: General error: 2006 MySQL server has gone away"
    },
    {
     "job": "staging_push_tick",
-    "at": "2026-11-27T00:24:45Z",
+    "at": "2026-11-28T01:23:25Z",
     "why": "SQLSTATE[HY000]: General error: 2006 MySQL server has gone away"
    },
    {
     "job": "staging_push_tick",
-    "at": "2026-11-27T00:41:08Z",
+    "at": "2026-11-28T01:40:31Z",
     "why": "SQLSTATE[HY000]: General error: 2006 MySQL server has gone away"
    },
    {
     "job": "staging_push_tick",
-    "at": "2026-11-27T00:57:15Z",
+    "at": "2026-11-28T01:57:57Z",
     "why": "SQLSTATE[HY000]: General error: 2006 MySQL server has gone away"
    },
    {
     "job": "staging_push_tick",
-    "at": "2026-11-27T01:33:38Z",
+    "at": "2026-11-28T02:24:36Z",
     "why": "SQLSTATE[HY000]: General error: 2006 MySQL server has gone away"
    },
    {
     "job": "staging_push_tick",
-    "at": "2026-11-27T01:43:31Z",
+    "at": "2026-11-28T02:40:09Z",
     "why": "SQLSTATE[HY000]: General error: 2006 MySQL server has gone away"
    },
    {
     "job": "staging_push_tick",
-    "at": "2026-11-27T02:39:26Z",
+    "at": "2026-11-28T02:57:31Z",
     "why": "SQLSTATE[HY000]: General error: 2006 MySQL server has gone away"
    },
    {
     "job": "staging_push_tick",
-    "at": "2026-11-27T04:13:52Z",
+    "at": "2026-11-28T03:23:45Z",
     "why": "SQLSTATE[HY000]: General error: 2006 MySQL server has gone away"
    },
    {
     "job": "staging_push_tick",
-    "at": "2026-11-27T04:46:51Z",
+    "at": "2026-11-28T03:39:15Z",
     "why": "SQLSTATE[HY000]: General error: 2006 MySQL server has gone away"
    },
    {
     "job": "staging_push_tick",
-    "at": "2026-11-27T05:04:05Z",
+    "at": "2026-11-28T04:39:40Z",
     "why": "SQLSTATE[HY000]: General error: 2006 MySQL server has gone away"
    },
    {
     "job": "staging_push_tick",
-    "at": "2026-11-27T05:27:59Z",
+    "at": "2026-11-28T05:25:08Z",
     "why": "SQLSTATE[HY000]: General error: 2006 MySQL server has gone away"
    },
    {
     "job": "staging_push_tick",
-    "at": "2026-11-27T05:42:25Z",
+    "at": "2026-11-28T05:42:42Z",
     "why": "SQLSTATE[HY000]: General error: 2006 MySQL server has gone away"
    },
    {
     "job": "staging_push_tick",
-    "at": "2026-11-27T06:01:04Z",
+    "at": "2026-11-28T05:58:07Z",
     "why": "SQLSTATE[HY000]: General error: 2006 MySQL server has gone away"
    },
    {
     "job": "staging_push_tick",
-    "at": "2026-11-27T06:25:40Z",
+    "at": "2026-11-28T06:26:16Z",
     "why": "SQLSTATE[HY000]: General error: 2006 MySQL server has gone away"
    },
    {
     "job": "staging_push_tick",
-    "at": "2026-11-27T06:40:05Z",
+    "at": "2026-11-28T06:40:57Z",
     "why": "SQLSTATE[HY000]: General error: 2006 MySQL server has gone away"
    }
   ]
@@ -701,9 +701,9 @@
  "db_connections": {
   "max_connections": 150,
   "max_user_connections": 25,
-  "Threads_connected": 10,
+  "Threads_connected": 5,
   "Max_used_connections": 88,
-  "Aborted_connects": 63492,
+  "Aborted_connects": 67453,
   "Connection_errors_max_connections": 0
  }
 }

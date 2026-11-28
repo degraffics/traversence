@@ -6,7 +6,7 @@
    "expect": "Dana Point, CA and its guide (it has one), not Point, TX",
    "url": "/api/search.php?q=Dana%20point",
    "status": 200,
-   "ms": 2180,
+   "ms": 12084,
    "place": "Dana Point, CA",
    "chips": [
     "place: Dana Point, CA"
@@ -48,7 +48,7 @@
    "expect": "Dana Point, CA: its guide, places and listings",
    "url": "/api/search.php?q=Dana%20Point%2C%20CA",
    "status": 200,
-   "ms": 173,
+   "ms": 174,
    "place": "Dana Point, CA",
    "chips": [
     "place: Dana Point, CA"
@@ -90,7 +90,7 @@
    "expect": "Dana Point, CA",
    "url": "/api/search.php?q=dana%20point%20california",
    "status": 200,
-   "ms": 141,
+   "ms": 140,
    "place": "Dana Point, CA",
    "chips": [
     "place: Dana Point, CA"
@@ -132,7 +132,7 @@
    "expect": "places to eat in Dana Point",
    "url": "/api/search.php?q=restaurants%20in%20Dana%20Point%2C%20CA",
    "status": 200,
-   "ms": 274,
+   "ms": 237,
    "place": "Dana Point, CA",
    "chips": [
     "place: Dana Point, CA",
@@ -179,7 +179,7 @@
    "expect": "places to eat in Dana Point",
    "url": "/api/search.php?q=Places%20to%20eat%20around%20dana%20point%2C%20ca",
    "status": 200,
-   "ms": 207,
+   "ms": 158,
    "place": "Dana Point, CA",
    "chips": [
     "why: Somewhere to eat",
@@ -226,7 +226,7 @@
    "expect": "Phoenix, AZ: its guide, listings, places",
    "url": "/api/search.php?q=Phoenix%2C%20az",
    "status": 200,
-   "ms": 176,
+   "ms": 141,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ"
@@ -270,7 +270,7 @@
    "expect": "Phoenix, AZ (the pilot state first)",
    "url": "/api/search.php?q=Phoenix",
    "status": 200,
-   "ms": 129,
+   "ms": 133,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ"
@@ -315,7 +315,7 @@
    "expect": "places to eat in Phoenix",
    "url": "/api/search.php?q=restaurants&city=Phoenix&state=AZ&reach=25",
    "status": 200,
-   "ms": 199,
+   "ms": 180,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ",
@@ -360,7 +360,7 @@
    "expect": "pizza places in Phoenix",
    "url": "/api/search.php?q=pizza%20in%20phoenix",
    "status": 200,
-   "ms": 248,
+   "ms": 285,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ",
@@ -407,7 +407,7 @@
    "expect": "coffee near Glendale, AZ 85302",
    "url": "/api/search.php?q=coffee&zip=85302&reach=10",
    "status": 200,
-   "ms": 257,
+   "ms": 168,
    "place": "Glendale, AZ",
    "chips": [
     "place: Glendale, AZ"
@@ -457,7 +457,7 @@
    "expect": "trails and hikes within 2 mi of Phoenix, then 5",
    "url": "/api/search.php?q=hiking%20near%20me&city=Phoenix&state=AZ&reach=2",
    "status": 200,
-   "ms": 746,
+   "ms": 772,
    "place": "Phoenix, AZ",
    "chips": [
     "do: Hiking",
@@ -500,7 +500,7 @@
    "expect": "trails and hikes around Phoenix",
    "url": "/api/search.php?q=hiking&city=Phoenix&state=AZ&reach=25",
    "status": 200,
-   "ms": 391,
+   "ms": 377,
    "place": "Phoenix, AZ",
    "chips": [
     "do: Hiking",
@@ -545,7 +545,7 @@
    "expect": "coffee shops in Phoenix (OpenStreetMap at once, ours once crawled)",
    "url": "/api/search.php?q=coffee%20near%20me&city=Phoenix&state=AZ&reach=10",
    "status": 200,
-   "ms": 394,
+   "ms": 367,
    "place": "Phoenix, AZ",
    "chips": [
     "place: Phoenix, AZ"
@@ -553,13 +553,13 @@
    "text": "coffee",
    "guide": "",
    "ask": "",
-   "total": 85,
+   "total": 99,
    "kinds": [
     {
      "kind": "listing",
      "label": "Listing",
      "plural": "Listings",
-     "count": 81
+     "count": 95
     },
     {
      "kind": "outdoors",
@@ -590,7 +590,7 @@
    ],
    "funnels": [
     "Let's Explore 1 → /hub/?cluster=cluster-auto-phoenix-18&view=outdoors",
-    "Get Local 81 → /directory/?lat=33.4484&lon=-112.074&radius=250&near=Phoenix%2C+AZ&q=coffee"
+    "Get Local 95 → /directory/?lat=33.4484&lon=-112.074&radius=250&near=Phoenix%2C+AZ&q=coffee"
    ],
    "intent": "",
    "near": "5 within undefined mi",
@@ -602,7 +602,7 @@
    "expect": "things to do around 85302",
    "url": "/api/search.php?q=Things%20to%20do%20near%20me&zip=85302&reach=25",
    "status": 200,
-   "ms": 330,
+   "ms": 339,
    "place": "Glendale, AZ",
    "chips": [
     "why: Things to do",
@@ -629,7 +629,7 @@
    "expect": "Glendale, AZ: its guide (built on demand) and listings",
    "url": "/api/search.php?q=Glendale%2C%20AZ",
    "status": 200,
-   "ms": 170,
+   "ms": 138,
    "place": "Glendale, AZ",
    "chips": [
     "place: Glendale, AZ"
@@ -673,7 +673,7 @@
    "expect": "places to stay in Sedona",
    "url": "/api/search.php?q=hotels%20in%20sedona",
    "status": 200,
-   "ms": 505,
+   "ms": 572,
    "place": "Sedona, AZ",
    "chips": [
     "place: Sedona, AZ"
@@ -724,7 +724,7 @@
    "expect": "Show Low, AZ (a pilot town)",
    "url": "/api/search.php?q=show%20low",
    "status": 200,
-   "ms": 233,
+   "ms": 279,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ"
@@ -765,7 +765,7 @@
    "expect": "Greer, AZ (a pilot town)",
    "url": "/api/search.php?q=greer%20arizona",
    "status": 200,
-   "ms": 124,
+   "ms": 118,
    "place": "Greer, AZ",
    "chips": [
     "place: Greer, AZ"
@@ -809,7 +809,7 @@
    "expect": "Four Corners Monument, not Four Corners, WY",
    "url": "/api/search.php?q=Four%20Corners",
    "status": 200,
-   "ms": 264,
+   "ms": 256,
    "place": "Four Corners, WY",
    "chips": [
     "place: Four Corners, WY"
@@ -837,7 +837,7 @@
    "expect": "Grand Canyon National Park",
    "url": "/api/search.php?q=grand%20canyon",
    "status": 200,
-   "ms": 600,
+   "ms": 701,
    "place": "",
    "chips": [],
    "text": "grand canyon",
@@ -886,7 +886,7 @@
    "expect": "Four Corners Monument (a landmark added by hand)",
    "url": "/api/search.php?q=four%20corners%20monument",
    "status": 200,
-   "ms": 615,
+   "ms": 624,
    "place": "",
    "chips": [],
    "text": "four corners monument",
@@ -921,7 +921,7 @@
    "expect": "Laguna Art Museum (found for the Laguna Beach guide)",
    "url": "/api/search.php?q=laguna%20art%20museum",
    "status": 200,
-   "ms": 701,
+   "ms": 598,
    "place": "",
    "chips": [],
    "text": "laguna art museum",
@@ -965,7 +965,7 @@
    "expect": "plumbers in Show Low",
    "url": "/api/search.php?q=plumber%20in%20show%20low",
    "status": 200,
-   "ms": 273,
+   "ms": 264,
    "place": "Show Low, AZ",
    "chips": [
     "place: Show Low, AZ",
@@ -1002,6 +1002,33 @@
     "Let's Explore 1 → /hub/?cluster=cluster-auto-show-low",
     "Get Local 6 → /directory/?cluster=cluster-auto-show-low&q=plumber"
    ],
+   "intent": "",
+   "near": "",
+   "did_you_mean": ""
+  },
+  {
+   "q": "urgent care near Lakeside, AZ",
+   "ctx": "",
+   "expect": "urgent care in Lakeside first, then clinics and hospitals nearby; never non-health businesses",
+   "url": "/api/search.php?q=urgent%20care%20near%20Lakeside%2C%20AZ",
+   "status": 200,
+   "ms": 189,
+   "place": "Lakeside, AZ",
+   "chips": [
+    "when: Emergency: open now first",
+    "place: Lakeside, AZ"
+   ],
+   "text": "",
+   "guide": "",
+   "ask": "",
+   "total": 0,
+   "kinds": [],
+   "note": "",
+   "osm": "",
+   "mentions": 0,
+   "first": [],
+   "groups": [],
+   "funnels": [],
    "intent": "",
    "near": "",
    "did_you_mean": ""
@@ -1053,7 +1080,7 @@
     "pizza in Phoenix, NY (place · Search there · no listings yet)",
     "pizza in Phoenix, OR (place · Search there · no listings yet)",
     "pizza in Phoenixville, PA (place · Search there · no listings yet)",
-    "Pizza (category · 122 listed · for “pizza in photographer”)"
+    "Pizza (category · 136 listed · for “pizza in photographer”)"
    ]
   },
   {
@@ -1118,7 +1145,7 @@
    "q": "four corners mon",
    "ctx": "",
    "first": [
-    "Schools (category · 401 listed · for “four corners mon”)",
+    "Schools (category · 413 listed · for “four corners mon”)",
     "Building Contractors (category · 6 listed · for “four corners mon”)",
     "Dishchii'Bikoh Community Sch (listing · Show Low › Schools)",
     "Linden Elementary (listing · Show Low › Schools)",
@@ -1147,6 +1174,28 @@
   "name": "& Gallery",
   "api": 129,
   "api_has": true,
-  "error": "browser: TimeoutError: page.waitForFunction: Timeout 20000ms exceeded."
+  "before": "1. M2 ServCoreVerified97 ⓘCall⋯×EmailWebsitePeekAdd to a tripOther · PO BOX 3570, Saint Johns Mailing address only · (602) 708-3795 / 2. Accord Hospice90 ⓘCallDirections⋯×EmailNo public email yetWebsiteNo website yetPeekAdd to a tripHospices · 5300 S Sutter Dr Bldg C, Show Low · 928-532-8013 / 3. Accord Hospice Of The White Mountains, LLC90 ⓘCallDirections⋯×EmailNo public email yetWebsiteNo website yetPeekAdd to a tripHospices · 5300 S Sutter Dr Bldg C, Show Low · 928-271-8013 / 4. Action Counseling & Training90 ⓘCallDirections⋯×EmailNo public email yetWebsiteNo website yetPeekAdd to a tripCounseling Services · 4917 Encanto Rd # 1021, Snowflake · 505-226-2733 / 5. Alpha Oxy-Med LLC90 ⓘCallDirections⋯×EmailNo public email yetWebsiteNo website yetPeekAdd to a tripMedical Equipment (wholesale) · 674 E White Mountain Blvd, Pinetop · 928-367-7415",
+  "title": "“& Gallery” near St. Johns",
+  "names": [],
+  "after": "",
+  "error": "typing \"& Gallery\" didn't narrow the list: \"1. M2 ServCoreVerified97 ⓘCall⋯×EmailWebsitePeekAdd to a tripOther · PO BOX 3570, Saint Johns Mailing address only · (602) 708-3795 / 2. Accord Hospice90 ⓘCallDirections⋯×EmailNo public email yetWebsiteNo website yetPeekAdd to a tripHospices · 5300 S Sutter Dr Bldg C, Show Low · 928-532-8013 / 3. Accord Hospice Of The White Mountains, LLC90 ⓘCallDirections⋯×EmailNo public email yetWebsiteNo website yetPeekAdd to a tripHospices · 5300 S Sutter Dr Bldg C, Show Low · 928-271-8013 / 4. Action Counseling & Training90 ⓘCallDirections⋯×EmailNo public email yetWebsiteNo website yetPeekAdd to a tripCounseling Services · 4917 Encanto Rd # 1021, Snowflake · 505-226-2733 / 5. Alpha Oxy-Med LLC90 ⓘCallDirections⋯×EmailNo public email yetWebsiteNo website yetPeekAdd to a tripMedical Equipment (wholesale) · 674 E White Mountain Blvd, Pinetop · 928-367-7415\" became \"\""
+ },
+ "screen": [
+  {
+   "q": "urgent care near Lakeside, AZ",
+   "error": "TimeoutError: page.waitForSelector: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator('.tvs-res .tvs-s1') to be visible\n"
+  },
+  {
+   "q": "restaurants in Dana Point, CA",
+   "error": "TimeoutError: page.waitForSelector: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator('.tvs-res .tvs-s1') to be visible\n"
+  },
+  {
+   "q": "plumber in show low",
+   "error": "TimeoutError: page.waitForSelector: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator('.tvs-res .tvs-s1') to be visible\n"
+  }
+ ],
+ "first_after_idle": {
+  "q": "Dana point",
+  "ms": 12084
  }
 }
