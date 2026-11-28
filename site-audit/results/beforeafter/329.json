@@ -1,8 +1,44 @@
 {
  "release": "329",
- "phase": "before-done",
- "verdict": "waiting",
- "views": 208,
- "seconds": 613,
- "run": "https://github.com/degraffics/traversence/actions/runs/46104319135"
+ "at": "2026-11-28T04:22:20.334Z",
+ "verdict": "block",
+ "first": "Layout or phone: Controls drawn over each other: 1. Dashboard & Pulse \u00d7 People in Back-Office; 4. Market 360\u00b0 \u00d7 Staff logins (executive, /admin/people.php, phone)",
+ "blocks": [
+  {
+   "rule": "layout",
+   "rule_name": "Layout or phone",
+   "advocate": "advocate-staff-views",
+   "who": "executive",
+   "page": "/admin/people.php",
+   "size": "phone",
+   "what": "Controls drawn over each other: 1. Dashboard & Pulse \u00d7 People in Back-Office; 4. Market 360\u00b0 \u00d7 Staff logins",
+   "before": "1",
+   "after": "3"
+  }
+ ],
+ "blocks_total": 1,
+ "notes": [
+  "member|/admin/chamber-builder.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "sales|/business/files.php|desktop: no before look to compare",
+  "sales|/business/files.php|phone: no before look to compare",
+  "sales|/user/dashboard.php|desktop: no before look to compare",
+  "sales|/user/dashboard.php|phone: no before look to compare",
+  "sales|/q-file.php|phone: no before look to compare",
+  "sales|/api/ingest.php|phone: no before look to compare",
+  "sales|/admin/helper.php|phone: no before look to compare",
+  "sales|/admin/staff.php|phone: no before look to compare",
+  "executive|/admin/crawler-review.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "executive|/admin/insights.php|phone: already missed \"Cards 3px from the screen edge at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "executive|/admin/settings.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "executive|/admin/chamber-builder.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "ops-staff|/admin/crawler-review.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "ops-staff|/admin/insights.php|phone: already missed \"Cards 3px from the screen edge at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "ops-staff|/admin/chamber-builder.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)"
+ ],
+ "far": [],
+ "tickets": [],
+ "views": 216,
+ "seconds": 1986,
+ "run": "https://github.com/degraffics/traversence/actions/runs/46106265072",
+ "phase": "after-done"
 }
