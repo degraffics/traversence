@@ -1,0 +1,58 @@
+{
+ "new": [
+  {
+   "goal": "records",
+   "gauge": "area:records",
+   "parent": "Goals and records with the roles, live by Mon Nov 30 13:00 UTC",
+   "what": "Releases wait for Jason only for a high-risk Tier 4 or a data_reason change (ruling 1): no other holds, no other review emails",
+   "why": "Being built by the release line session. Jason, 2026-11-28 14:10 UTC: \"I shouldnt\" be required to review these. An incomplete look is asked again (3 looks), then a ticket for the IT Manager. Adding rows no longer holds a release. The review email goes only when a release truly waits on him",
+   "source": "handoffs/ruling1-holds/README.md · release ruling1-holds.zip",
+   "stage": "implementation",
+   "lane": "it-manager",
+   "rel": "ruling1-holds.zip",
+   "priority": 1,
+   "ticket": "work"
+  },
+  {
+   "goal": "transition",
+   "gauge": "area:transition",
+   "parent": "The transition cutover: our business and conversations on the platform by Dec 15",
+   "what": "batch.py saved blank answers: jobs 18/18b/18c",
+   "why": "All 18 answers hit max_tokens at 16,000 output tokens with only a thinking block and no text, and were saved as 0-byte files. Fix: save each answer's stop_reason and usage, never write a blank as fetched, let a job set a thinking budget, a test, the README rows corrected. No re-run of the 22 roles yet",
+   "source": "tools/batch/batch.py · research/ai-results/README.md (jobs 18, 18b, 18c)",
+   "stage": "planning",
+   "lane": "it-manager",
+   "rel": "",
+   "priority": 2,
+   "ticket": "work"
+  },
+  {
+   "goal": "transition",
+   "gauge": "area:transition",
+   "parent": "The transition cutover: our business and conversations on the platform by Dec 15",
+   "what": "The Team page's words on publishing: live once its checks pass, not 'in the batch the Founder approves' (Jason's ruling 1)",
+   "why": "The Team page still says a staging Publish stays in the daily batch and Tier 1 and 2 publish in the batch the Founder approves. Untrue since ruling 1. Words only",
+   "source": "app/admin/team-console.php (the decision tree's tiers) · handoffs/ruling1-holds/README.md",
+   "stage": "planning",
+   "lane": "it-manager",
+   "rel": "",
+   "priority": 2,
+   "ticket": "work"
+  },
+  {
+   "goal": "transition",
+   "gauge": "area:transition",
+   "parent": "The transition cutover: our business and conversations on the platform by Dec 15",
+   "what": "A role's Active tied to its passed test ticket (the result is kept on staging)",
+   "why": "Not built (the session manager, 2026-11-28: keep Status as built). A test ticket's result is kept on staging and the live list can't read it. Suggested: the result travels with the agent's release record",
+   "source": "handoffs/team-test-ticket/README.md (the list card)",
+   "stage": "planning",
+   "lane": "project-manager",
+   "rel": "",
+   "priority": 3,
+   "ticket": "work"
+  }
+ ],
+ "moved": [],
+ "note": "Tickets named by the session manager on 2026-11-28, seeded with task-seed-6-2"
+}

@@ -59,7 +59,9 @@ $t('a CREATE TABLE IF NOT EXISTS migration with a new library, kind additive: pr
 $g = $mk('r2-drop.zip', ['app/migrations/2026-12-01_r2d.sql' => "CREATE TABLE IF NOT EXISTS r2y (id INT);\nDROP TABLE r2_old;"], 'additive', true);
 $t('a migration that DROPs: high-risk (data), it waits for a Founder ruling for the Founder as a Decision Brief', str_contains($why($g), 'high-risk territory (data)') && str_contains($why($g), 'Decision Brief'), $why($g));
 $h0 = $mk('r2-insert.zip', ['app/migrations/2026-12-01_r2i.sql' => "INSERT INTO team_roster (slug) SELECT 'x' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM team_roster WHERE slug = 'x');"], '', true);
-$t('a migration that INSERTs rows: a data fix, it stays in the daily batch (DB3)', str_contains($why($h0), 'DB3'), $why($h0));
+$t('a migration that only adds rows (INSERT): no hold since ruling 1 (2026-11-28); passed by the advocates, it goes alone', $why($h0) === '', $why($h0));
+$h1 = $mk('r2-update.zip', ['app/migrations/2026-12-01_r2u.sql' => "UPDATE team_roster SET name = 'y' WHERE slug = 'x';"], '', true);
+$t('a migration that changes rows (UPDATE, its data_reason): it waits for the Founder, as a high-risk territory (data)', str_contains($why($h1), 'high-risk territory (data)') && str_contains($why($h1), 'Decision Brief'), $why($h1));
 $e = $mk('r2-order.zip', ['website/order.php' => "<?php echo 'x';"], 'additive', true);
 $n0 = (int) $pdo->query("SELECT COUNT(*) FROM control_gauge_tasks WHERE ticket = 'resolution'")->fetchColumn();
 $t('a high-risk territory (money) is never published alone, whatever its kind says', str_contains($why($e), 'high-risk territory (money)'), $why($e));
