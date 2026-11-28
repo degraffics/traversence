@@ -156,6 +156,20 @@
    "expires": "2026-11-28T05:49:43Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/DataCleanup.php",
+   "functions": [
+    "legacy_unsourced",
+    "person_place"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5iAy5magAU62jYiAxM",
+   "why": "F9: two Data cleanup rules, people as places and September listings with no keepable source (the CEO's ruling, 2026-11-28)",
+   "since": "2026-11-28T01:59:41Z",
+   "expires": "2026-11-28T05:59:41Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
