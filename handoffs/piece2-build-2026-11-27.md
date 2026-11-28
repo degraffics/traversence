@@ -141,6 +141,7 @@ state with `live-read.yml`: rows `feature_switches`, q `before_after`.
    - **Logged for the IT Manager's (11) lane** (the session manager, 2026-11-27): `/admin/crawler-review.php` times out on
      staging's before looks (#322 and #323's looks; it also timed out in #305's). A slow admin page; the check now leaves its
      drift and layout out when its before looks time out, and the 3rd release in a row becomes a ticket (`priorSkips`).
+   - **Also logged for the IT lane** (the session manager, 2026-11-28): `/admin/crawler-review.php` scrolls sideways at 390 when its records are wide (an element that isn't a record's own; #322, #323, #324, then #325's block). Fix the page at its cause (0058 §11); the check now notes it with a ticket instead of blocking (`priorMissed`, `layout-flip.test.mjs`).
    - **Logged under the promise check (gate 1), fixed when that check is built, not before** (the session manager,
      2026-11-27): `tools/notify-tests/` no longer runs against live's Notify (Notices isn't required there; its comms
      migration ran and was deleted on live, kept in `notify-1.zip`), and it writes its stand-ins into the app folder it's

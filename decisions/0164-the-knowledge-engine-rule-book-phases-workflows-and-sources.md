@@ -1599,3 +1599,18 @@ A shelter's address stays restricted (0076; R7's protected tiers).
 federal law through GovInfo's API (a free api.data.gov key), the eCFR and the Federal Register APIs; the states have
 no single official API, so their official sites are read, as J1's "Mark read" does with the official link. The hosts,
 and the key, are asked for at build time through the environment tools, never before.
+
+**Note on §3.5 (2026-11-28): the floor applied to September's legacy listings in stages, by Dec 20** (recorded as
+Operations & Policy (16); the CEO as CMO (7), applying §3.5 and the CMO's provider ruling; not a waiver). The one-time
+legacy migration of September 2026 (listings up to about #8750, scripts/migrate_listings.php through CrawlerIngest) ran
+before this floor and never passed `AutoImport::evaluate`. In 1A it is 3,099 of 3,324 public listings; a 300-sample read
+(2026-11-28) found about 2,600 with no keepable source and about 310 people shown as places. Taking them all down at once
+would empty 1A before launch (0181 gates 2 and 3), so: (1) now, in Data & Content's health-corrections migration, people
+move under their practice (`person_place`) and health and safety kinds with no keepable source go back to sightings, with
+the ledger, Undo, "Check these" for anything claimed or owner-touched, and the pilot guard (every listing in
+`handoffs/hometown-theater/`); (2) as soon as the bulk-load pause is live, a confirm pass against the sources we hold
+(NPI, the licensed Overture and Foursquare, own websites via W2) checks each listing's existence and its kind, correcting
+or flagging the kind with Undo; (3) whatever is still unsourced in 1A on **Dec 20** goes to sightings through
+`legacy_unsourced`, its count to the CEO by Dec 18, so 1A meets §3.5 in full on Jan 1; (4) outside 1A, `legacy_unsourced`
+runs once 1A's pass shows its accuracy. Until a listing is confirmed or taken down it stays labelled Unconfirmed, as now.
+In Jason's daily batch with (1)'s counts.
