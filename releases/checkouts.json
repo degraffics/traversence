@@ -107,6 +107,17 @@
    "expires": "2026-11-28T05:27:52Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/ControlRegister.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5iAy5magAU62jYiAxM",
+   "why": "ADHS A1: W14 reads the licensed facilities' terms (handoffs/adhs-source.md)",
+   "since": "2026-11-28T01:27:54Z",
+   "expires": "2026-11-28T05:27:54Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
