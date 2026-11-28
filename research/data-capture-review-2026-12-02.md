@@ -52,13 +52,13 @@ showing · Undo · measured on 1A.
 | W1 `npi_bulk` (monthly NPI file) | CMS NPI, public domain | NPI taxonomy → `NpiBulk::label` (`NpiBulk.php:46–71`) → `IntakeStager::NPI_CATEGORY` (:437), `from: registry`, sure | §1, + `npiNotPublic` (:214) | as W1 | organisations only (`crawler.py:2860`) |
 | W1 `npi_town`, verify (`crawler.py:1007`, :1039) | NPI-2 API | none: evidence only, kind not re-filed (C3) | §1 | as W1 | 0 of 17 hospital records filed as Hospitals |
 | W1 `overture_bulk`, `foursquare_bulk` (`OpenLoads.php`) | Overture CDLA/ODbL parts, Foursquare OS Places (Apache 2.0), credited | their category → `suggestCategories` (`IntakeStager.php:471–476`); exact "pharmacy/hospital/clinic" stamped `from: registry`, score 99 (the IT Manager's trace, #1629) | §1; **no person check** (F2) | as W1 | ~240 people as places (C5) |
-| W1 `irs_bulk`, `rec_bulk` | IRS EO list (public), Recreation.gov RIDB (its terms) | *to do* | *to do* | *to do* | *to do* |
+| W1 `irs_bulk`, `rec_bulk` | IRS EO list (public), Recreation.gov RIDB (its terms) | none: neither makes a listing. IRS only confirms one waiting in Review (`IrsBulk.php:8–14`, "never shown and never creates a listing"); RIDB fills its own table, shown as "Outdoors & public lands" (`RecBulk.php:8–15`) | n/a | RIDB: Admin → Crawler → Recreation hides a place, kept across reloads | none found |
 | W2 refresh, identity, places, second look | the listing's own site, NPI, Google (confirms only, paid by override) | doesn't change kind | writes unlocked fields (`IdentityJobs.php:256–269`) | the field's History (`Identity::listingWrote`) | C1: 11 of 65 Abouts name another town |
 | W3 sources, page reads (`page_read_tick`, shipped off) | the source register, its licence | n/a | *to do* | *to do* | *to do* |
 | W4/W8 Find it (`guide_finds_tick`, `GuideLinks.php:504–650`) | our crawler, then web search with Claude | the classifier | §1 | as W1 | *to do* |
 | W9 landmarks, places (`Landmarks.php`) | USGS GNIS, Wikidata, Commons | landmark classes; `Landmarks::visibleSql` (0066) | `publiclyKnown` | *to do* | *to do* |
 | W14 authority sources (ADHS A1, held) | state records, R9 | ADHS licence type, in A2 | a person reads the terms | A1 adds only | n/a yet |
-| People: `AddBusiness.php`, claims, staff edits | the person (0164: never overwritten) | the person's choice | *to do* | the field's History | *to do* |
+| People: `AddBusiness.php`, claims, staff edits | the person (0164: never overwritten) | the person's choice from `AddBusiness::KINDS`, a top-level group; staff refine it | a confirmed email and phone, an emailed code, a check for one already theirs; live as Managed by owner, noindex until verified (`AddBusiness.php:8–17`) | the field's History; claims' disputes | not sampled: 0 of 852 1A health listings are claimed |
 | W0 indexer, W5–W7, W10–W13 | not listings (URLs, guides, journeys, events, stories) | n/a | n/a | n/a | out of scope for listings; *to do: confirm none writes `entities`* (the grep in §1 says none does) |
 
 ### Measured on a 1A sample (2026-11-28 ~01:45 UTC)
@@ -92,9 +92,14 @@ non-health listings for comparison.*
 | F9 | Listings public with no second source: 84 of 150 sampled 1A health listings (56%) read "Found by our crawler; no other source has confirmed it yet", Unconfirmed at 5 of 100. 49 of those 84 (58%) are people. 0164 §3.5's floor asks for a source we may keep; the page names none | Traced: all 83 of the sampled ones are listings #4931–#8722, each "Listed since September 2026". That is the one-time legacy migration (`scripts/migrate_listings.php`, through `CrawlerIngest`: "Shared logic between scripts/migrate_listings.php (one-time legacy migration) and api/ingest.php", `CrawlerIngest.php:9–14`), before 0164's floor (2026-11-14). It never passed `evaluate()`, and W2 rechecks them ("checked Nov 18–20") but never re-applies the floor. Their truncated category names ("Accounting & Bookkeeping General Svc") come from that legacy data. **Fix:** two Data cleanup rules on the tool already built (`app/lib/DataCleanup.php` RULES, with its ledger, Undo per record or per pass, and "Check these" for anything a person touched, R4): `person_place` (a person's name as a place: kept as a record under its practice, off the public site, the CMO's ruling) and `legacy_unsourced` (a September listing with no keepable source: back to a sighting until one confirms it, 0164 §3.5). Run once by a person's button and previewed first | health corrections (the two rules) | Data & Content (IT's 1b covers new finds; these are the old ones) |
 | F10 | Sources disagree, shown but unresolved: 31 of 150 (21%) carry "⚠ Sources disagree" | *to do: which fields, and why the evidence rule (most independent sources wins) didn't settle them* | health corrections | Data & Content |
 
-## 5. Checked against 0164, 0163 and 0066 (*to do*)
+## 5. Checked against 0164, 0163 and 0066 (in progress)
 
-R9 (the licence decides) per source; R4 (fill gaps, never overwrite a person) against §2; §3.5's floor against §1's
+- **0066 (nations' land):** business listings are public under 0066 ("public listings and businesses"), and the
+  funnel places their pins as given. `Nations::pin()` moves or drops a pin only for places, stories, journeys and
+  trips (`SourceIndex.php:635`, `OpenPlaces.php:131`, `Journeys.php:105`, `Trips.php:59`). That's consistent. Nothing in the
+  listings funnel names a held sacred or burial site: those are landmarks, read through `Landmarks::visibleSql()`.
+  *To do: the place store's people-guard (`DataCleanup` `store_guard`) against F2.*
+- *Still to do:* R9 (the licence decides) per source; R4 (fill gaps, never overwrite a person) against §2; §3.5's floor against §1's
 gate; 0163 §9's switches per path (the pause on Jason's call, 2026-11-28, applies to W1's creating tasks and the two
 publishing jobs); 0066 for every path that can place a pin on a nation's land (`Nations::pin()`, `Landmarks::visibleSql`).
 
