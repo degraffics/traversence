@@ -11,6 +11,19 @@
    "expires": "2026-11-28T20:09:05Z",
    "release": "task-seed-6-2.zip",
    "callers": {}
+  },
+  {
+   "path": "website/api/releases-pull.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jUERktaQyfVHekd5i",
+   "why": "release publish-on-pass.zip",
+   "since": "2026-11-28T16:42:33Z",
+   "expires": "2026-11-28T20:42:33Z",
+   "release": "publish-on-pass.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
