@@ -6,13 +6,13 @@
     "zip": "r2-lanes-4.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "approved",
+    "state": "staged",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
     "plan_at": "2026-11-28 02:30:02",
-    "staged_at": null,
+    "staged_at": "2026-11-28 02:30:04",
     "vetted_at": null,
     "live_at": null,
     "files": {
@@ -65,7 +65,44 @@
     "migrations": [
         "app/migrations/2026-11-26_0180_r2_lanes.sql"
     ],
-    "checks": [],
+    "checks": {
+        "ok": true,
+        "where": "staging",
+        "at": "2026-11-28T02:30:05+00:00",
+        "items": [
+            [
+                "PHP files parse",
+                true,
+                "5 checked"
+            ],
+            [
+                "Migrations only add",
+                true,
+                "1 checked"
+            ],
+            [
+                "Data changes have a reason",
+                true,
+                "2026-11-26_0180_r2_lanes.sql change rows: R1's two long Work tickets (the 6:13 jobs; the before-and-after check's false blocks) lost their reason past 400 characters to live's why column (live read of control_gauge_tasks, 2026-11-26); their full reason is written into goal, a TEXT column, only where goal is empty, so nothing a person wrote  (a copy of every table they touch is kept first)"
+            ],
+            [
+                "Migrations ran on staging",
+                true,
+                "Ran 2026-11-26_0180_r2_lanes.sql"
+            ],
+            [
+                "Pages answer",
+                true,
+                "3 pages answered on staging.trvgo.us"
+            ],
+            [
+                "No new fatal errors in the logs",
+                true,
+                "4 logs read"
+            ]
+        ],
+        "first_fail": ""
+    },
     "log": [
         {
             "at": "2026-11-28T02:07:56+00:00",
@@ -86,6 +123,11 @@
             "at": "2026-11-28T02:30:02+00:00",
             "by": 0,
             "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
+        },
+        {
+            "at": "2026-11-28T02:30:05+00:00",
+            "by": 0,
+            "msg": "Put on staging (9 files); its checks passed."
         }
     ]
 }
