@@ -855,10 +855,11 @@ final class Releases
     public static function reviewLead(array $r): string
     {
         require_once __DIR__ . '/BeforeAfter.php';
-        $ba = 'none'; foreach ((array) ($r['checks']['items'] ?? []) as $i) if (($i[0] ?? '') === BeforeAfter::ITEM) $ba = $i[1] === true ? 'pass' : 'not';
+        $ba = 'none'; foreach ((array) ($r['checks']['items'] ?? []) as $i) if (($i[0] ?? '') === BeforeAfter::ITEM) $ba = $i[1] === true ? 'pass' : ($i[1] === null ? 'unjudged' : 'not');
         $why = ''; foreach (array_reverse((array) ($r['log'] ?? [])) as $l) { $m = (string) ($l['msg'] ?? ''); if (str_starts_with($m, 'Waits for the daily batch: ') || str_starts_with($m, 'An agent\'s release waits: ')) { $why = ' Why it waits for you: ' . rtrim(substr($m, strpos($m, ': ') + 2), '.') . '.'; break; } }
         $id = (int) $r['id'];
         if ($ba === 'pass') return 'Release #' . $id . ' is on staging, its checks passed, and it waits for your review.' . $why;
+        if ($ba === 'unjudged') return 'Release #' . $id . ' is on staging and couldn\'t be judged: the before-and-after check tried ' . BeforeAfter::INCOMPLETE_LOOKS . ' times and its test accounts couldn\'t sign in, so nothing was compared. It stays unpublished until you review it or it is sent again; a ticket is with the IT Manager.' . $why;
         return 'Release #' . $id . ' is on staging and waits for your review. ' . ($ba === 'not' ? 'The before-and-after check has not passed it.' : 'Staging\'s own checks passed; the before-and-after check didn\'t run on it.') . $why;
     }
 
@@ -1587,8 +1588,9 @@ final class Releases
      * the release's checks as "Before and after (advocates)". A pass goes on as a release that passed always has (it
      * publishes by itself, or waits for review when $hold: its release.json asks, or the day's minutes are spent, DB4); a
      * block withdraws it as a failed check does, and puts the failure in the Work queue (DB2); an incomplete look (the
-     * accounts couldn't sign in) is asked again by BeforeAfter, and after its last look the release stays on staging,
-     * unpublished, with a ticket for the IT Manager: never a review email to the Founder (ruling 1, 2026-11-28). Returns the line for the run.
+     * accounts couldn't sign in) is asked again by BeforeAfter; after its last look the release stays on staging, unpublished,
+     * with a ticket for the IT Manager, and only then reaches the Founder, in an email that says it couldn't be judged, never
+     * "its checks passed" (ruling 1, 2026-11-28). Returns the line for the run.
      */
     public static function checkedByAdvocates(PDO $pdo, int $id, array $v, bool $hold): string
     {
@@ -1597,21 +1599,21 @@ final class Releases
         require_once __DIR__ . '/BeforeAfter.php';
         $ok = $v['verdict'] === 'pass' ? true : ($v['verdict'] === 'block' ? false : null);
         $detail = $v['verdict'] === 'pass' ? $v['views'] . ' views by the advocates, before and after: nothing worse'
-            : ($v['verdict'] === 'block' ? $v['blocks'] . ' problem' . ($v['blocks'] === 1 ? '' : 's') . ': ' . $v['first'] : 'Couldn\'t be judged in ' . BeforeAfter::INCOMPLETE_LOOKS . ' looks (the test accounts couldn\'t sign in): it stays on staging, unpublished; a ticket is with the IT Manager');
+            : ($v['verdict'] === 'block' ? $v['blocks'] . ' problem' . ($v['blocks'] === 1 ? '' : 's') . ': ' . $v['first'] : 'Couldn\'t be judged in ' . BeforeAfter::INCOMPLETE_LOOKS . ' looks (the test accounts couldn\'t sign in): it stays on staging, unpublished, and waits for a person; a ticket is with the IT Manager');
         $items = array_values(array_filter((array) ($r['checks']['items'] ?? []), fn ($i) => ($i[0] ?? '') !== BeforeAfter::ITEM));
         $items[] = [BeforeAfter::ITEM, $ok, $detail . ($v['run'] !== '' ? ' · ' . $v['run'] : '')];
         $first = ''; foreach ($items as $i) if ($i[1] === false) { $first = $i[0] . ': ' . $i[2]; break; }
         $r['checks'] = ['ok' => $first === '', 'where' => 'staging', 'at' => gmdate('c'), 'items' => $items, 'first_fail' => $first];
         $r['checks_ok'] = $first === '';
-        self::note($r, 'The before-and-after check: ' . ($ok === true ? 'passed.' : ($ok === false ? 'blocked it: ' . $v['first'] : 'couldn\'t judge it in ' . BeforeAfter::INCOMPLETE_LOOKS . ' looks (the test accounts couldn\'t sign in). It stays on staging, unpublished, and a ticket is in the Work queue for the IT Manager.')), 0);
+        self::note($r, 'The before-and-after check: ' . ($ok === true ? 'passed.' : ($ok === false ? 'blocked it: ' . $v['first'] : 'couldn\'t judge it in ' . BeforeAfter::INCOMPLETE_LOOKS . ' looks (the test accounts couldn\'t sign in). It stays on staging, unpublished: it waits for the Founder, and a ticket is in the Work queue for the IT Manager.')), 0);
         self::save($pdo, $r);
         if ($ok === null) {   // Jason's ruling 1 (2026-11-28): an incomplete look never goes to the Founder and never publishes; the IT Manager (11) gets a ticket
             require_once __DIR__ . '/GaugeTasks.php';
             $t = GaugeTasks::auditOpen($pdo, 'ba-incomplete:' . $id, 'The before-and-after check couldn\'t judge release #' . $id . ' in ' . BeforeAfter::INCOMPLETE_LOOKS . ' looks',
                 'For the IT Manager (11). The test accounts couldn\'t sign in on each look, so nothing was compared.' . ($v['run'] !== '' ? ' The last report: ' . $v['run'] . '.' : '') . ' The release stays on staging, unpublished: never live unchecked. Find why the sign-in fails (https://github.com/degraffics/traversence/actions/workflows/beforeafter.yml), then send it again.', 2, 'system · before-and-after check');
             try { $pdo->prepare("UPDATE control_gauge_tasks SET lane = 'it-manager' WHERE id = ? AND (lane IS NULL OR lane = '')")->execute([$t]); } catch (Throwable $e) {}   // R2's lane column, where it exists
-            self::record($pdo, (array) self::get($pdo, $id));
-            return 'Release #' . $id . ': the before-and-after check couldn\'t judge it in ' . BeforeAfter::INCOMPLETE_LOOKS . ' looks; it stays on staging, unpublished. Task #' . $t . ' in the Work queue (the IT Manager).';
+            // it reaches the Founder only now, after its last look, and the email says it couldn't be judged (the CEO's shape of ruling 1, 2026-11-28)
+            return self::sendForReview($pdo, (array) self::get($pdo, $id), 0) . ' The before-and-after check couldn\'t judge it in ' . BeforeAfter::INCOMPLETE_LOOKS . ' looks; it stays on staging, unpublished. Task #' . $t . ' in the Work queue (the IT Manager).';
         }
         if ($ok === false) {
             $w = self::selfWithdraw($pdo, (array) self::get($pdo, $id));

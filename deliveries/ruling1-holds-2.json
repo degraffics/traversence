@@ -1,0 +1,22 @@
+{
+ "zip": "ruling1-holds-2.zip",
+ "built_on": "da2708f Sync: 2026-11-28 13:46 UTC",
+ "recorded": "2026-11-28 14:21 UTC",
+ "note": "Ruling 1's holds sent again (replaces ruling1-holds.zip, #336, and #331): after three incomplete looks the release reaches the Founder with an email that says it couldn't be judged; adding rows no longer holds a release; built on Sync 2026-11-28 13:46 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/BeforeAfter.php": {
+   "sha256": "faf274374963c09b6e2336a417e70b3b612e06cce4494580de6f15e12bfe6cfe",
+   "live": false
+  },
+  "app/lib/ReleaseKind.php": {
+   "sha256": "649bdeb4501bccf7361071eb586bf8162e76a636aeb02159feb78c42567000b7",
+   "live": false
+  },
+  "app/lib/Releases.php": {
+   "sha256": "3a8c2759da7868076e4fcc47974668e02b6956f21e0e2f914a0cc40cc4bacacd",
+   "live": false
+  }
+ }
+}

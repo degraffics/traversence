@@ -2,8 +2,8 @@
 // Jason's ruling 1 (2026-11-28: "I shouldnt" be required to review these): releases wait for the Founder only for a high-risk
 // territory or a migration that changes or removes rows (its data_reason), or when release.json asks for review. (1) An
 // incomplete after look (the test accounts couldn't sign in) is asked again, 3 looks in all, each known by its run; still
-// incomplete, the release stays on staging, unpublished, with an Audit ticket for the IT Manager: never a review email, never
-// live unchecked. A later look that passes or blocks is acted on as ever. (2) Adding rows no longer holds a release; UPDATE
+// incomplete, the release stays on staging, unpublished, with an Audit ticket for the IT Manager, and only then reaches the
+// Founder, in an email that says it couldn't be judged: never live unchecked. A later look that passes or blocks is acted on as ever. (2) Adding rows no longer holds a release; UPDATE
 // or DELETE does. (3) The review email says "its checks passed" only when the before-and-after check passed.
 // Run: php ruling1.php <root>/app   (it resets lv_main; its setup is pipeline.php's)
 declare(strict_types=1);
@@ -63,9 +63,9 @@ $n0 = count($asks); $out = $look($a, 'incomplete', $run1 . '13');
 $tk = $tickets($a);
 $t('look 3 incomplete: not asked a fourth time; one Audit ticket for the IT Manager', count($asks) === $n0 && count($tk) === 1 && $tk[0]['ticket'] === 'audit' && str_contains($tk[0]['what'], 'couldn\'t judge release #' . $a . ' in 3 looks') && str_contains($tk[0]['why'], 'For the IT Manager (11)') && str_contains($tk[0]['why'], 'beforeafter.yml') && str_contains($tk[0]['why'], 'runs/13'), $tk);
 $t('… the ticket is in the IT Manager\'s lane', ($tk[0]['lane'] ?? '') === 'it-manager');
-$t('… the release stays on staging, unpublished, and is never sent to the Founder for review', $rel($a)['state'] === 'staged' && Releases::review($pdo, $a) === null && $rel($a)['live_at'] === null, $rel($a)['state']);
+$t('… the release stays on staging, unpublished, and only now reaches the Founder for review', $rel($a)['state'] === 'staged' && Releases::review($pdo, $a) !== null && $rel($a)['live_at'] === null, $rel($a)['state']);
 $t('… its checks say the advocates didn\'t judge it (not a pass), and its wait is over', $item($a) && $item($a)[1] === null && !$ba($a));
-$t('… its card says so in words: stays on staging, a ticket for the IT Manager', (bool) preg_grep('/couldn\'t judge it in 3 looks.*stays on staging, unpublished.*IT Manager/', array_column((array) $rel($a)['log'], 'msg')));
+$t('… its card says so in words: stays on staging, waits for the Founder, a ticket for the IT Manager', (bool) preg_grep('/couldn\'t judge it in 3 looks.*stays on staging, unpublished.*waits for the Founder.*IT Manager/', array_column((array) $rel($a)['log'], 'msg')));
 $t('… the line for the run names the task', (bool) preg_grep('/stays on staging, unpublished\. Task #' . (int) $tk[0]['id'] . '/', $out), $out);
 BeforeAfter::advance($pdo);
 $t('… and never a second ticket', count($tickets($a)) === 1);
@@ -76,11 +76,11 @@ $t('incomplete, then a pass on the second look: passed and published by itself, 
 $c = $toAfter('r1-c.zip'); $look($c, 'incomplete', $run1 . '31'); $out = $look($c, 'block', $run1 . '32', ['first' => 'Layout or phone: Sideways scroll at 390', 'blocks_total' => 1]);
 $t('incomplete, then a block: it withdraws itself with its ticket, as a block always does', $rel($c)['state'] === 'withdrawn' && $item($c)[1] === false && (int) $pdo->query("SELECT COUNT(*) FROM control_gauge_tasks WHERE audit_key = 'ba:$c'")->fetchColumn() === 1, $out);
 $d = $toAfter('r1-d.zip'); $n0 = count($asks); $out = $look($d, 'incomplete', '');
-$t('an incomplete look that names no run can\'t be told from the next: no loop, straight to the ticket, on staging', count($asks) === $n0 && count($tickets($d)) === 1 && $rel($d)['state'] === 'staged' && Releases::review($pdo, $d) === null, $out);
+$t('an incomplete look that names no run can\'t be told from the next: no loop, straight to the ticket, on staging', count($asks) === $n0 && count($tickets($d)) === 1 && $rel($d)['state'] === 'staged' && Releases::review($pdo, $d) !== null, $out);
 $e = $toAfter('r1-e.zip', true); $out = $look($e, 'pass', $run1 . '41');
 $t('a pass whose release.json asks for review still waits for the Founder\'s review', $item($e)[1] === true && Releases::review($pdo, $e) !== null && $rel($e)['state'] === 'staged', $out);
 $f = $toAfter('r1-f.zip', true); $look($f, 'incomplete', $run1 . '51'); $look($f, 'incomplete', $run1 . '52'); $look($f, 'incomplete', $run1 . '53');
-$t('even with review asked, three incomplete looks send no review: there is nothing checked to review', Releases::review($pdo, $f) === null && count($tickets($f)) === 1 && $rel($f)['state'] === 'staged');
+$t('before its last look nobody is asked: two incomplete looks send no review', (function () use ($toAfter, $look, $run1, $pdo) { $g = $toAfter('r1-g.zip'); $look($g, 'incomplete', $run1 . '61'); $look($g, 'incomplete', $run1 . '62'); return Releases::review($pdo, $g) === null; })() && Releases::review($pdo, $f) !== null && count($tickets($f)) === 1 && $rel($f)['state'] === 'staged');
 $t('only the release the advocates passed is live: none went live unchecked', array_map('intval', $pdo->query("SELECT id FROM site_releases WHERE state = 'live'")->fetchAll(PDO::FETCH_COLUMN)) === [$b]);
 
 // ---- (2) only a migration that changes or removes rows waits as data
@@ -100,7 +100,9 @@ $t('a migration that changes rows is still a high-risk territory (data), unchang
 $r = $rel($e);
 $t('passed by the advocates: "its checks passed"', str_contains(Releases::reviewLead($r), 'is on staging, its checks passed, and it waits for your review.'));
 $r2 = $rel($a);
-$t('not passed by the advocates: never "its checks passed"', !str_contains(Releases::reviewLead($r2), 'its checks passed') && str_contains(Releases::reviewLead($r2), 'The before-and-after check has not passed it.'));
+$t('couldn\'t be judged: the email says so, with the 3 tries and why, never "its checks passed"', !str_contains(Releases::reviewLead($r2), 'its checks passed') && str_contains(Releases::reviewLead($r2), 'couldn\'t be judged') && str_contains(Releases::reviewLead($r2), 'tried 3 times') && str_contains(Releases::reviewLead($r2), 'couldn\'t sign in') && str_contains(Releases::reviewLead($r2), 'IT Manager'));
+$r5 = $rel($e); $r5['checks']['items'][] = [BeforeAfter::ITEM, false, 'x']; $r5['checks']['items'] = array_values(array_filter($r5['checks']['items'], fn ($i) => $i[0] !== BeforeAfter::ITEM || $i[1] === false));
+$t('blocked by the advocates: "has not passed it", never "its checks passed"', !str_contains(Releases::reviewLead($r5), 'its checks passed') && str_contains(Releases::reviewLead($r5), 'The before-and-after check has not passed it.'));
 $r3 = $rel($e); $r3['checks']['items'] = [['PHP files parse', true, '1 checked']];
 $t('the check didn\'t run on it: said so, never "its checks passed"', !str_contains(Releases::reviewLead($r3), 'its checks passed') && str_contains(Releases::reviewLead($r3), 'didn\'t run on it'));
 $r4 = $rel($e); $r4['log'][] = ['at' => gmdate('c'), 'by' => 0, 'msg' => 'Waits for the daily batch: its migration changes or removes rows (UPDATE or DELETE, with its data_reason): it waits in the daily batch for the Founder.'];

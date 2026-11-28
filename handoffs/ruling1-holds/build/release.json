@@ -1,10 +1,10 @@
 {
- "ticket": "Releases wait for Jason only for a high-risk Tier 4 or a data_reason change (ruling 1): no other holds, no other review emails",
+ "ticket": "Data releases that only add rows go live on passing checks, only data_reason changes stay in the daily batch",
  "title": "Releases wait for the Founder only when they must: an incomplete look is asked again, adding rows no longer holds, the review email tells the truth",
  "why": "Jason's ruling 1, confirmed 2026-11-28 14:10 UTC through the session manager: \"I shouldnt\" be required to review these. Gate: every launch gate's releases pass through this pipeline (0181 §1), and three of today's releases (#331, #332, #333) stopped on the check's own sign-in, not on the release.",
  "changes": [
   {
-   "what": "When the before-and-after check can't judge a release (the test accounts couldn't sign in), the site asks for the look again, three looks in all, each known by its run. It no longer goes to the Founder for review. If the third look still can't judge it, the release stays on staging, unpublished, and an Audit ticket goes to the IT Manager's lane with the report's link. A look that passes or blocks is acted on as before. A release never goes live unchecked.",
+   "what": "When the before-and-after check can't judge a release (the test accounts couldn't sign in), the site asks for the look again, three looks in all, each known by its run. Only if the third look still can't judge it does it reach the Founder: the release stays on staging, unpublished, his email says it couldn't be judged and why (never \"its checks passed\"), and an Audit ticket goes to the IT Manager's lane with the report's link. A look that passes or blocks is acted on as before. A release never goes live unchecked.",
    "where": "https://traversence.com/admin/config/releases"
   },
   {
@@ -12,12 +12,16 @@
    "where": "https://traversence.com/admin/config/releases"
   },
   {
-   "what": "The \"waiting for your review\" email says \"its checks passed\" only when the before-and-after check passed, and says why the release waits for the Founder. It is not sent for an incomplete look.",
+   "what": "The \"waiting for your review\" email says \"its checks passed\" only when the before-and-after check passed. For a look that couldn't be judged it says so, with the three tries, and for any release it says why it waits for the Founder.",
    "where": "https://traversence.com/admin/config/releases"
   }
  ],
  "proposals": [],
  "switch": "",
  "tier4": "The release pipeline's own rules (Releases, BeforeAfter, ReleaseKind): the Founder's ruling 1, 2026-11-28. No money, security, private-data or 0066 check is changed",
- "notes": "Files: app/lib/BeforeAfter.php (INCOMPLETE_LOOKS, the re-ask in step()), app/lib/Releases.php (checkedByAdvocates' incomplete branch with its ticket, rule2's data hold, reviewLead()), app/lib/ReleaseKind.php (changesRows()). Tests: tools/piece3-tests/ruling1.php (32 checks on MariaDB), pipeline.php 22, rule2.php 25 (two expectations follow the ruling: an incomplete look, an INSERT migration), kind.php 35, tickwait.php 6, closed.php 10, onstates 7. Not changed: the day's minutes (DB4) still send a passed release for review once spent, and an agent's release still waits behind its fence. No FAQ change in this zip: faq.md is in flight in pause-1a-5, and the FAQ's words on releases stay true. The entry goes with the next release that carries faq.md. #331 and #332: their waiting records (with the zip's git id) were cleared when they went for review, so they can't be asked again from the site. They are covered by the resends (pause-1a-5, task-seed-4-2). #335 is still waiting and is re-asked by this. Way back: Roll back."
+ "notes": "Sent again as ruling1-holds-2, replacing ruling1-holds.zip (#336) before it went live: the CEO's final shape (2026-11-28 14:09 UTC) is that after three incomplete looks the release reaches the Founder with a truthful email. #336 sent it to the IT Manager's ticket alone. Both tickets are covered: this release.json's, and \"An incomplete look says 'couldn't be judged', never 'its checks passed'\". Also replaces #331: it is the same pause as #335 (pause-1a-4's files), withdrawn so it isn't applied twice. No rule of the Team's decision tree changes (TeamRunner.php is not in the zip), so the tree's approval stays. Files: app/lib/BeforeAfter.php (INCOMPLETE_LOOKS, the re-ask in step()), app/lib/Releases.php (checkedByAdvocates' incomplete branch with its ticket, rule2's data hold, reviewLead()), app/lib/ReleaseKind.php (changesRows()). Tests: tools/piece3-tests/ruling1.php (33 checks on MariaDB), pipeline.php 22, rule2.php 25 (two expectations follow the ruling: an incomplete look, an INSERT migration), kind.php 35, tickwait.php 6, closed.php 10, onstates 7. Not changed: the day's minutes (DB4) still send a passed release for review once spent, and an agent's release still waits behind its fence. No FAQ change in this zip: faq.md is in flight in pause-1a-5, and the FAQ's words on releases stay true. The entry goes with the next release that carries faq.md. #331 and #332: their waiting records (with the zip's git id) were cleared when they went for review, so they can't be asked again from the site. They are covered by the resends (pause-1a-5, task-seed-4-2). #335 is still waiting and is re-asked by this. Way back: Roll back.",
+ "replaces": [
+  "ruling1-holds.zip",
+  "#331"
+ ]
 }
