@@ -1,0 +1,2 @@
+### I'm on the Traversence team. What does "Coming with its release" mean on the Team page?
+The Team page's decision tree lists every step a Team role may take. A step that reads **Coming with its release** is a rule our founder has seen and approved in advance, for a role whose step isn't built yet. It does nothing until that role's own release goes live and its test ticket passes. Until then the role reads "Waiting for its first step". Every listed step costs $0 and only suggests: a person accepts or dismisses what it proposes.
