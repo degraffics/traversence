@@ -101,6 +101,20 @@ step it doesn't know, so `pick()` never chooses it and nothing runs. No extra sw
 - The roles' Permissions: most roles have no level yet ("only the Founder gives a role permissions", 0180 §2). A step can't run
   until its role has one. That is set on https://traversence.com/admin/config/permissions and is not part of this fingerprint.
 
+## Suggested Permissions level and department, per role (wave 1)
+
+Each is a suggestion from the role's mandate and its place in decisions/0180; the Founder gives the real one (0180 §2: "only the
+Founder gives a role permissions"), on https://traversence.com/admin/config/permissions and the role's page. A step can't run until
+its role has a level. Waves 2 to 4 follow in the same form.
+
+| # | Role | Today (live roster) | Suggested | Source |
+|---|---|---|---|---|
+| 01 | Project Manager (8) | Manager · Operations | Keep: Manager · Operations | Live today; its steps (gate, sequence, stall) ask for Manager in Operations (`team.gate`'s default) |
+| 02 | Staging & Release Workers (22) | none | Staff · Engineering | 0180's appendix: Layer 4, reports to the IT Manager; its mandate is the release pipeline and the before-and-after check. The IT Manager's other specialists with a level (System Architect, Build & QA) act as Staff · Engineering. Its step only proposes |
+| 03 | Operations & Policy Director (16) | none | Staff · Operations | 0180's appendix: Layer 4, reports to the Project Manager (Manager · Operations); its mandate is the operating procedures, the routing policy and the time limits. Its step only proposes |
+| 04 | IT Manager (11) | none | Manager · Engineering | 0180 §5: Layer 3, one of the seven middle managers, the engineering swimlane; its drafted step `triage` asks for Manager in Engineering |
+| 05 | Chief Operating Officer (3) | none | Executive · Operations | 0180 §5: Layer 2, over the Project Manager's and Customer Service Manager's lanes; it reviews Tier 4 in its scope, so its step `tier4-ops` asks for Executive |
+
 ## Not verified here
 
 - The drafts for roles 11, 12 and 26 are not run or tested by the release line yet; role 26's names a slug that isn't on the roster.
