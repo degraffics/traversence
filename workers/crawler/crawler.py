@@ -212,7 +212,7 @@ SKIP_HOSTS = {"openstreetmap.org", "npino.com", "npiprofile.com", "npidb.org", "
 
 started = time.monotonic()
 WORKER_KEYS = ("GOOGLE_PLACES_KEY", "TAVILY_API_KEY", "BRAVE_API_KEY", "RIDB_API_KEY", "HF_TOKEN")   # reported by name at each run
-WORKER_V = "2.17.0"          # 2.17.0: open loads in batches of 100 with their number, one retry on a timeout, each site call timed (IR-0001). 2.16.1: Common Crawl's bulk reads wait only on data.commoncrawl.org, the host they read (an index-server hold stopped them). 2.16.0: the Census geocoder's backup: when the site can't reach the Census on its connection, the worker sends the same batch itself and hands the reply to the site to place (decisions/0175's note, 2026-11-20). 2.15.0: Common Crawl's bulk reads (our states' public sites, a source's pages) query its URL Index (Parquet on data.commoncrawl.org, one request at a time, the crawl's file map kept on the site), never the index server, which keeps only a single page's copy (decisions/0164's note of 2026-11-20). 2.14.1: a 503 asking us to slow down (S3's SlowDown, Common Crawl's data server) is a rate wait, not a server error. 2.14.0: our copy carries health care and guides, and Utah, Colorado and Nevada (one state a run). 2.13.0: Overpass retired: never asked; a kind our copy lacks is reported as not in our copy. 2.12.1: a task stopped by a held service reports "held", never "failed": the call that trips a hold says so, and Common Crawl's task checks its holds first, so a run whose only trouble is a held service ends ok on Railway, not Crashed; 2.12.0: the identity check starts from what the site's own copies hold (the job's "local"), outside only for the rest; 2.11.0: a website that doesn't load for the refresh is looked up in Common Crawl's newest crawl (W2, decisions/0163's source map: direct, then Common Crawl); 2.10.0: web search falls to Brave when Tavily fails or is held; Google Places as the paid backup for confirming a business in the identity check, only by a director's override within its cap (decisions/0163's source map); 2.9.0: W1 reads our OpenStreetMap copy first (the job's "ours", from Geofabrik), Overpass only for a kind or town it lacks, and works on while every Overpass server is held (decisions/0163's source map); 2.8.0: every link on a page read goes to the page log (same site or not; no cap of 60, nor 40 other sites: W0, decisions/0164 §1.4); 2.7.5: a page whose reading had to stop is logged waiting to be read (P1-1); 2.7.4: reports which keys it has (names only), its per-run limits from the plan, Geofabrik's weekly load (osmium); 2.7.3: Geofabrik over IPv4; 2.7: the open-dataset loads and Geofabrik's test (Release B); the service's contract 2 (decisions/0160 §2): the site plans each run, the worker reports it; 2.4: calls by host; 2.5: issues, holds, probes, per-kind Overpass; 2.6: servers from the plan, the pace
+WORKER_V = "2.18.0"          # 2.18.0: W14's terms read (w14_terms): a staged authority source's robots.txt, its page and its terms page read once, sent to the site for a person to decide (decisions/0164 §7.1; ADHS, 2026-11-28). 2.17.0: open loads in batches of 100 with their number, one retry on a timeout, each site call timed (IR-0001). 2.16.1: Common Crawl's bulk reads wait only on data.commoncrawl.org, the host they read (an index-server hold stopped them). 2.16.0: the Census geocoder's backup: when the site can't reach the Census on its connection, the worker sends the same batch itself and hands the reply to the site to place (decisions/0175's note, 2026-11-20). 2.15.0: Common Crawl's bulk reads (our states' public sites, a source's pages) query its URL Index (Parquet on data.commoncrawl.org, one request at a time, the crawl's file map kept on the site), never the index server, which keeps only a single page's copy (decisions/0164's note of 2026-11-20). 2.14.1: a 503 asking us to slow down (S3's SlowDown, Common Crawl's data server) is a rate wait, not a server error. 2.14.0: our copy carries health care and guides, and Utah, Colorado and Nevada (one state a run). 2.13.0: Overpass retired: never asked; a kind our copy lacks is reported as not in our copy. 2.12.1: a task stopped by a held service reports "held", never "failed": the call that trips a hold says so, and Common Crawl's task checks its holds first, so a run whose only trouble is a held service ends ok on Railway, not Crashed; 2.12.0: the identity check starts from what the site's own copies hold (the job's "local"), outside only for the rest; 2.11.0: a website that doesn't load for the refresh is looked up in Common Crawl's newest crawl (W2, decisions/0163's source map: direct, then Common Crawl); 2.10.0: web search falls to Brave when Tavily fails or is held; Google Places as the paid backup for confirming a business in the identity check, only by a director's override within its cap (decisions/0163's source map); 2.9.0: W1 reads our OpenStreetMap copy first (the job's "ours", from Geofabrik), Overpass only for a kind or town it lacks, and works on while every Overpass server is held (decisions/0163's source map); 2.8.0: every link on a page read goes to the page log (same site or not; no cap of 60, nor 40 other sites: W0, decisions/0164 §1.4); 2.7.5: a page whose reading had to stop is logged waiting to be read (P1-1); 2.7.4: reports which keys it has (names only), its per-run limits from the plan, Geofabrik's weekly load (osmium); 2.7.3: Geofabrik over IPv4; 2.7: the open-dataset loads and Geofabrik's test (Release B); the service's contract 2 (decisions/0160 §2): the site plans each run, the worker reports it; 2.4: calls by host; 2.5: issues, holds, probes, per-kind Overpass; 2.6: servers from the plan, the pace
 RUN_END = None             # when this run's own work must stop (started + TIME_BUDGET, or a bulk load's end)
 TASK_END = None            # when the capture task being worked must stop (its share of the run)
 FETCH_CAP = MAX_FETCHES    # fetches this run may have made by the end of the task being worked
@@ -2880,6 +2880,51 @@ def npi_bulk():
     return True
 
 
+W14_LIST_RE = re.compile(r'(?i)href="([^"]+\.(?:csv|xlsx?|json|pdf))"')
+
+
+def w14_terms(_d):
+    """W14, an authority source's terms read (decisions/0164 §7.1 steps 2 and 3; Jason through the CEO, 2026-11-28, for
+    Arizona's licensed health facilities): for each staged source the site hands out (one service at a time, its terms
+    not read yet), its robots.txt, its terms page's words and its own page's form, each read once, politely, through
+    fetch_page_meta (robots.txt, Crawl-delay, the pace, the run's fetch budget). Nothing is read past a refusal or a
+    disallow, and nothing from the source's records is kept: a person reads the words on the source's Pulse step and
+    decides (§7.1 step 5). Returns True when it read something."""
+    st = site_call("/api/crawl/w14.php")
+    if st.get("paused"):
+        log(f"W14 terms: paused: {st.get('why', '')}"[:300])
+        return False
+    out = []
+    for src in (st.get("sources") or [])[:3]:
+        url = str(src.get("url") or "")
+        terms = str(src.get("terms_url") or url)
+        if not url.startswith("https://"):
+            continue
+        p = urllib.parse.urlsplit(url)
+        base = f"{p.scheme}://{p.netloc}"
+        ok = allowed(url)
+        rp = robots_cache.get(base)
+        item = {"id": int(src.get("id") or 0),
+                "robots": "allowed" if ok else ("unreadable" if isinstance(rp, _DenyAll) else "disallowed"),
+                "crawl_delay": crawl_delay(url), "page_status": 0, "page_why": "", "terms_status": 0, "terms_why": "",
+                "terms_text": "", "lists": []}
+        if ok:
+            pg = fetch_page_meta(url)
+            item.update(page_status=pg["status"], page_why=pg["why"] or ("" if pg["body"] else "no page"))
+            if pg["body"]:
+                item["lists"] = sorted({urllib.parse.urljoin(url, h) for h in W14_LIST_RE.findall(pg["body"])})[:10]
+            tm = pg if terms == url else fetch_page_meta(terms)
+            item.update(terms_status=tm["status"], terms_why=tm["why"])
+            if tm["body"]:
+                item["terms_text"] = re.sub(r"\s+", " ", page_text(tm["body"])).strip()[:6000]
+        log(f"W14 terms: {p.netloc}: robots {item['robots']}, page {item['page_status']} {item['page_why']}, "
+            f"terms {item['terms_status']} {item['terms_why']}, {len(item['lists'])} list file(s) linked"[:300])
+        out.append(item)
+    if out:
+        site_call("/api/crawl/w14.php", {"read": out})
+    return bool(out)
+
+
 def irs_bulk():
     """Loads the IRS exempt-organization list for the site's states when it's due. Returns True if this run did a load."""
     st = site_call("/api/crawl/irs.php")
@@ -3801,6 +3846,7 @@ HANDLERS = {
     "learn": (learn, "LEARN_PER_RUN", lambda: "" if LEARN_PER_RUN > 0 else "LEARN_PER_RUN is 0"),
     "npi_bulk": (lambda _d: npi_bulk(), None, lambda: "" if NPI_BULK else "NPI_BULK is off"),
     "irs_bulk": (lambda _d: irs_bulk(), None, lambda: "" if IRS_BULK else "IRS_BULK is off"),
+    "w14_terms": (w14_terms, None, lambda: ""),   # W14: a staged authority source's terms read (0164 §7.1); the site's switches decide
     "rec_bulk": (lambda _d: rec_bulk(), None, lambda: "" if RIDB_API_KEY or os.environ.get("RIDB_FIXTURE") else "no Recreation.gov key on Railway (RIDB_API_KEY)"),
     "landmarks_bulk": (lambda _d: landmarks_bulk(), None, lambda: "" if LANDMARKS else "LANDMARKS is off"),
     # Release B: the open-dataset loads and Geofabrik's test (decisions/0164 §1.5), each a W1 task the site adds switched off

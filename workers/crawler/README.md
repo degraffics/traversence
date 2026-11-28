@@ -196,6 +196,14 @@ middle change, and confidential listings are never sent. A batch can take a few 
 250 seconds. A Census outage is logged and the run carries on. It is the same as Admin → Crawler → Map points →
 Find points, without anyone pressing it.
 
+**W14's terms read (2.18.0, 2026-11-28; decisions/0164 §7.1; handoffs/adhs-source.md A1).** `w14_terms` asks
+`/api/crawl/w14.php` for staged authority sources whose terms no person has read (Arizona's licensed health facilities,
+ADHS, first). For each one (three at most) it checks robots.txt first, then reads the source's page and its terms page
+once each through `fetch_page_meta` (Crawl-delay, the pace, the run's fetch share). It sends back what it found: robots,
+statuses, the terms' words and any list file linked. Nothing is read past a disallow, an unreadable robots.txt or a
+refusal, and nothing from the source's records is kept. The site's switches (master, W14, the service, the task) decide
+whether it runs. `tests/test_w14_terms.py`.
+
 **Open loads in numbered batches of 100 (2.17.0, 2026-11-24; IR-0001).** The site took 101–130 s for each 500-row batch of
 an Overture or Foursquare town (the board's ledger, runs #1288 and #1290), past the worker's 120 s read, so the task failed
 while the site stored the rows. Each POST to `/api/crawl/loads.php` now carries 100 rows and its number in the town (`batch`);

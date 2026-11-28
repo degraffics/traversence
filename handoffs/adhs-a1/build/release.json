@@ -1,0 +1,27 @@
+{
+ "title": "W14 reads Arizona's licensed health facilities' terms (ADHS, AZ Care Check): staged switched off (A1)",
+ "why": "Jason through the CEO, 2026-11-28: \"Arizona's licensed health-facility list (azcarecheck.azdhs.gov, www.azdhs.gov) is read by our crawler, not from a session. Add both as sources under 0164: honour robots.txt and the site's terms, and let the licence decide the use.\" decisions/0164 §7.1 (W14: find, read its terms, classify, test the reader, stage switched off). It feeds the listing audit's C3, C5 and C6 (research/listing-audit-2026-11-27.md) and gate 3. Brief: handoffs/adhs-source.md.",
+ "changes": [
+  {
+   "what": "ADHS's licensed facilities are a W14 authority source for Arizona (kind health, lookup until its terms say otherwise), staged switched off, and a service card (azdhs: Free, public records, added off). A person decides its use from the terms, as for the other Arizona sources.",
+   "where": "https://traversence.com/admin/config/register (Arizona Department of Health Services)"
+  },
+  {
+   "what": "A new crawler task, w14_terms (W14, added switched off): once it's on, the worker reads the source's robots.txt first, then its own page and its terms page once each, politely. It sends back what it found (robots, the pages' answers, the terms' words, any list file linked). Nothing is read past a disallow, an unreadable robots.txt or a refusal. Any of those raises the service's issue with the public-records step (A.R.S. §39-121), never a workaround. Nothing from the source's records is kept.",
+   "where": "https://traversence.com/admin/config/workflows (W14)"
+  },
+  {
+   "what": "The source's Pulse step (Hubs: read its terms) shows what the crawler read and when: robots allows it and how fast, whether the page needs a browser, list files linked, the terms' first words. Terms read: allowed stays the person's press.",
+   "where": "https://traversence.com/admin/pulse (Hubs)"
+  },
+  {
+   "what": "The FAQ says how we'll know a clinic or hospital is what it says (coming).",
+   "where": "https://traversence.com/faq.php#how-do-you-know-a-clinic-or-hospital-is-what-it-says"
+  }
+ ],
+ "proposals": [],
+ "switch": "",
+ "data_reason": "The migration adds one row to authority_sources (ADHS, Arizona, staged and switched off) only when it isn't there, and three columns for the crawler's read (robots, terms_fetch, fetched_at). Nothing existing is changed.",
+ "tier4": "IT Manager (11), for a new crawler task and source (to be recorded before live)",
+ "notes": "Nothing is read until a person switches on W14, the azdhs service and the w14_terms task. Admin's test: the Hubs step reads \"The crawler hasn't read it yet\" while off; after a read it shows either the finding with Terms read: allowed, or \"Blocked by the site: …\" with the records-request step (the service's issue shows the same). The worker is 2.18.0 (workers/crawler, merged with this release). An older worker never gets the task (the plan asks what it has). Roll back: the release's Roll back puts the files back. The source row and its columns stay, unused (added only)."
+}
