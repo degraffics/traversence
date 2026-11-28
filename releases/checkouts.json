@@ -2,6 +2,146 @@
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
  "claims": [
   {
+   "path": "app/ui/admin-dashboard.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jUERktaQyfVHekd5i",
+   "why": "release pause-1a-4.zip",
+   "since": "2026-11-28T13:11:02Z",
+   "expires": "2026-11-28T17:11:02Z",
+   "release": "pause-1a-4.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/ListingIdentity.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jUERktaQyfVHekd5i",
+   "why": "release pause-1a-4.zip",
+   "since": "2026-11-28T13:11:02Z",
+   "expires": "2026-11-28T17:11:02Z",
+   "release": "pause-1a-4.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Suggestions.php",
+   "functions": [
+    "create"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jUERktaQyfVHekd5i",
+   "why": "release pause-1a-4.zip",
+   "since": "2026-11-28T13:11:02Z",
+   "expires": "2026-11-28T17:11:02Z",
+   "release": "pause-1a-4.zip",
+   "callers": {
+    "create": [
+     "app/lib/DataCleanup.php",
+     "app/lib/GuideLinks.php",
+     "app/lib/ListingLocation.php",
+     "app/lib/Sales.php",
+     "app/lib/crawler/LiveDupes.php",
+     "app/lib/crawler/Refresh.php",
+     "website/api/suggestion.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/HelpFind.php",
+   "functions": [
+    "promoteSome"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jUERktaQyfVHekd5i",
+   "why": "release pause-1a-4.zip",
+   "since": "2026-11-28T13:11:02Z",
+   "expires": "2026-11-28T17:11:02Z",
+   "release": "pause-1a-4.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/crawler/AutoImport.php",
+   "functions": [
+    "(top)",
+    "advance"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jUERktaQyfVHekd5i",
+   "why": "release pause-1a-4.zip",
+   "since": "2026-11-28T13:11:02Z",
+   "expires": "2026-11-28T17:11:02Z",
+   "release": "pause-1a-4.zip",
+   "callers": {
+    "advance": [
+     "app/scripts/listings_tick.php",
+     "website/admin/crawler-review.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/crawler/Refresh.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jUERktaQyfVHekd5i",
+   "why": "release pause-1a-4.zip",
+   "since": "2026-11-28T13:11:02Z",
+   "expires": "2026-11-28T17:11:02Z",
+   "release": "pause-1a-4.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Identity.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jUERktaQyfVHekd5i",
+   "why": "release pause-1a-4.zip",
+   "since": "2026-11-28T13:11:02Z",
+   "expires": "2026-11-28T17:11:02Z",
+   "release": "pause-1a-4.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/admin/auto-imports.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jUERktaQyfVHekd5i",
+   "why": "release pause-1a-4.zip",
+   "since": "2026-11-28T13:11:02Z",
+   "expires": "2026-11-28T17:11:02Z",
+   "release": "pause-1a-4.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/admin/crawler-review.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jUERktaQyfVHekd5i",
+   "why": "release pause-1a-4.zip",
+   "since": "2026-11-28T13:11:02Z",
+   "expires": "2026-11-28T17:11:02Z",
+   "release": "pause-1a-4.zip",
+   "callers": {}
+  },
+  {
+   "path": "website/api/ingest.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jUERktaQyfVHekd5i",
+   "why": "release pause-1a-4.zip",
+   "since": "2026-11-28T13:11:02Z",
+   "expires": "2026-11-28T17:11:02Z",
+   "release": "pause-1a-4.zip",
+   "callers": {}
+  }
+ ],
+ "lapsed": [
+  {
    "path": "app/lib/crawler/AutoImport.php",
    "functions": [],
    "kind": "change",
@@ -10,7 +150,8 @@
    "since": "2026-11-28T01:35:49Z",
    "expires": "2026-11-28T08:32:27Z",
    "release": "pause-1a-3.zip",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-28T13:11:02Z"
   },
   {
    "path": "website/admin/auto-imports.php",
@@ -21,7 +162,8 @@
    "since": "2026-11-28T01:35:51Z",
    "expires": "2026-11-28T08:32:27Z",
    "release": "pause-1a-3.zip",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-28T13:11:02Z"
   },
   {
    "path": "app/ui/admin-dashboard.php",
@@ -32,7 +174,8 @@
    "since": "2026-11-28T01:35:53Z",
    "expires": "2026-11-28T08:32:27Z",
    "release": "pause-1a-3.zip",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-28T13:11:02Z"
   },
   {
    "path": "app/lib/Suggestions.php",
@@ -55,7 +198,8 @@
      "app/lib/crawler/Refresh.php",
      "website/api/suggestion.php"
     ]
-   }
+   },
+   "lapsed": "2026-11-28T13:11:02Z"
   },
   {
    "path": "app/lib/HelpFind.php",
@@ -68,7 +212,8 @@
    "since": "2026-11-28T02:15:52Z",
    "expires": "2026-11-28T08:32:27Z",
    "release": "pause-1a-3.zip",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-28T13:11:02Z"
   },
   {
    "path": "app/lib/ListingIdentity.php",
@@ -79,7 +224,8 @@
    "since": "2026-11-28T02:53:47Z",
    "expires": "2026-11-28T08:32:27Z",
    "release": "pause-1a-3.zip",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-28T13:11:02Z"
   },
   {
    "path": "app/lib/crawler/Refresh.php",
@@ -90,7 +236,8 @@
    "since": "2026-11-28T02:53:47Z",
    "expires": "2026-11-28T08:32:27Z",
    "release": "pause-1a-3.zip",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-28T13:11:02Z"
   },
   {
    "path": "app/lib/Identity.php",
@@ -101,7 +248,8 @@
    "since": "2026-11-28T02:53:47Z",
    "expires": "2026-11-28T08:32:27Z",
    "release": "pause-1a-3.zip",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-28T13:11:02Z"
   },
   {
    "path": "website/api/ingest.php",
@@ -112,7 +260,8 @@
    "since": "2026-11-28T02:53:47Z",
    "expires": "2026-11-28T08:32:27Z",
    "release": "pause-1a-3.zip",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-28T13:11:02Z"
   },
   {
    "path": "website/admin/crawler-review.php",
@@ -123,7 +272,8 @@
    "since": "2026-11-28T03:42:50Z",
    "expires": "2026-11-28T07:42:50Z",
    "release": "",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-28T13:11:02Z"
   },
   {
    "path": "website/admin/crawler-review.php",
@@ -134,10 +284,9 @@
    "since": "2026-11-28T03:43:53Z",
    "expires": "2026-11-28T08:32:27Z",
    "release": "pause-1a-3.zip",
-   "callers": {}
-  }
- ],
- "lapsed": [
+   "callers": {},
+   "lapsed": "2026-11-28T13:11:02Z"
+  },
   {
    "path": "app/lib/HubOpening.php",
    "functions": [
@@ -673,157 +822,6 @@
    "release": "",
    "callers": {},
    "lapsed": "2026-11-27T17:54:59Z"
-  },
-  {
-   "path": "app/lib/Scheduler.php",
-   "functions": [
-    "(top)"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
-   "why": "goal_check_tick: its key in JOBS, AUTO and NOT_ON_STAGING (the session manager's OK, 2026-11-27)",
-   "since": "2026-11-27T13:24:26Z",
-   "expires": "2026-11-27T17:24:26Z",
-   "release": "",
-   "callers": {},
-   "lapsed": "2026-11-27T17:54:59Z"
-  },
-  {
-   "path": "app/migrations/2026-11-27_w15_winslow.sql",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5jsi4U8fUwJYPkZsMx",
-   "why": "W15 r1: Winslow's own area under 1A (gate 3; CEO Tier 4 2026-11-27)",
-   "since": "2026-11-27T13:35:26Z",
-   "expires": "2026-11-27T17:35:26Z",
-   "release": "",
-   "callers": {},
-   "lapsed": "2026-11-27T17:54:59Z"
-  },
-  {
-   "path": "app/migrations/2026-11-27_e1_st_johns_renew.sql",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5jsi4U8fUwJYPkZsMx",
-   "why": "E.1: St. Johns' guide renewed from its research brief (gate 3)",
-   "since": "2026-11-27T13:40:27Z",
-   "expires": "2026-11-27T17:40:27Z",
-   "release": "",
-   "callers": {},
-   "lapsed": "2026-11-27T17:54:59Z"
-  },
-  {
-   "path": "website/market/index.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
-   "why": "M-sections: the Marketplace's four sections (0135 note, 2026-11-27)",
-   "since": "2026-11-27T12:14:42Z",
-   "expires": "2026-11-27T16:14:42Z",
-   "release": "",
-   "callers": {},
-   "lapsed": "2026-11-27T16:24:54Z"
-  },
-  {
-   "path": "app/ui/section-rails.php",
-   "functions": [
-    "(top)",
-    "tv_section_for"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
-   "why": "M-sections: the market rail's four sections",
-   "since": "2026-11-27T12:14:45Z",
-   "expires": "2026-11-27T16:14:47Z",
-   "release": "",
-   "callers": {},
-   "lapsed": "2026-11-27T16:24:54Z"
-  },
-  {
-   "path": "website/directory/index.php",
-   "functions": [
-    "esc"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
-   "why": "C.4: a town picked opens within 10 mi (decisions/0053)",
-   "since": "2026-11-27T11:55:31Z",
-   "expires": "2026-11-27T15:55:31Z",
-   "release": "",
-   "callers": {},
-   "lapsed": "2026-11-27T16:02:04Z"
-  },
-  {
-   "path": "website/js/location-scope.js",
-   "functions": [
-    "placeOptions"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
-   "why": "C.4: a town's area listed once as Town area",
-   "since": "2026-11-27T11:55:33Z",
-   "expires": "2026-11-27T15:55:33Z",
-   "release": "",
-   "callers": {},
-   "lapsed": "2026-11-27T16:02:04Z"
-  },
-  {
-   "path": "app/lib/OpenNow.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
-   "why": "C.8 open now from known hours only, in the listing's zone (P10, reopened by Jason 2026-11-27)",
-   "since": "2026-11-27T04:53:49Z",
-   "expires": "2026-11-27T08:53:49Z",
-   "release": "",
-   "callers": {},
-   "lapsed": "2026-11-27T10:52:25Z"
-  },
-  {
-   "path": "app/lib/Nations.php",
-   "functions": [
-    "allAt",
-    "at"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
-   "why": "C.8 open now from known hours only, in the listing's zone (P10, reopened by Jason 2026-11-27)",
-   "since": "2026-11-27T04:53:51Z",
-   "expires": "2026-11-27T08:53:51Z",
-   "release": "",
-   "callers": {},
-   "lapsed": "2026-11-27T10:52:25Z"
-  },
-  {
-   "path": "app/lib/SearchIndex.php",
-   "functions": [
-    "find",
-    "indexListings",
-    "refresh"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
-   "why": "C.8 open now from known hours only, in the listing's zone (P10, reopened by Jason 2026-11-27)",
-   "since": "2026-11-27T04:53:53Z",
-   "expires": "2026-11-27T08:53:53Z",
-   "release": "",
-   "callers": {},
-   "lapsed": "2026-11-27T10:52:25Z"
-  },
-  {
-   "path": "app/lib/UniversalSearch.php",
-   "functions": [
-    "search",
-    "searchAs"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
-   "why": "C.8 open now: the known-hours count carried to search's results (P10)",
-   "since": "2026-11-27T04:53:55Z",
-   "expires": "2026-11-27T08:54:45Z",
-   "release": "",
-   "callers": {},
-   "lapsed": "2026-11-27T10:52:25Z"
   }
  ]
 }
