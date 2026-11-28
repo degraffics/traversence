@@ -86,6 +86,18 @@ final class BeforeAfter
 
     public static function spent(PDO $pdo): bool { [$used, $cap] = self::budget($pdo); return $cap !== null && $used >= $cap; }
 
+    /**
+     * DB4 since ruling 1 (2026-11-28): once the day's minutes are spent no new look is asked for. A release waits on staging,
+     * unpublished, until they reset (the count is by UTC day), then it is looked at and published as any other: nobody is
+     * emailed, and nothing publishes unchecked. '' when a look may be asked now, else why not and when it resumes.
+     */
+    public static function minutesHold(PDO $pdo): string
+    {
+        if (!self::spent($pdo)) return '';
+        [$used, $cap] = self::budget($pdo);
+        return 'today\'s check minutes are spent (' . rtrim(rtrim(number_format($used, 1), '0'), '.') . ' of ' . (int) $cap . ' used); its look is asked for once they reset, at 00:00 UTC';
+    }
+
     // ---- asking GitHub, reading the verdict ------------------------------------------------------------------------------
 
     private static function ask(int $id, string $phase, array $d): string
@@ -125,7 +137,8 @@ final class BeforeAfter
         $d = ['phase' => 'before', 'asked_at' => time(), 'zip' => mb_substr($zip, 0, 120), 'blob' => $blob, 'hold' => $hold, 'tries' => 1];
         // staging closed (a fresh copy going in, or one stopped part way: every page answers 503): a look now would be of
         // nothing, so it isn't asked until staging opens; the 10-minute step asks then (2026-11-26)
-        $why = ($closed = self::closed($pdo)) !== '' ? $closed : self::ask($id, 'before', $d);
+        if (($closed = self::closed($pdo)) === '') $closed = self::minutesHold($pdo);   // closed, or the day's minutes spent: asked later by the 10-minute step
+        $why = $closed !== '' ? $closed : self::ask($id, 'before', $d);
         if ($why !== '') { $d['asked_at'] = 0; $d['ask_error'] = $why; }
         self::put($pdo, $id, $d);
         require_once __DIR__ . '/Releases.php';
@@ -216,7 +229,8 @@ final class BeforeAfter
         // a release withdrawn, replaced or published some other way meanwhile: nothing left to wait for
         if (!$r || in_array($r['state'], ['withdrawn', 'live', 'off', 'rolled_back'], true)) { self::put($pdo, $id, null); return ''; }
         if ((int) ($d['asked_at'] ?? 0) === 0) {   // GitHub wasn't reached, or staging was closed: ask now, once staging is open
-            if (($closed = self::closed($pdo)) !== '') {
+            if (($closed = self::closed($pdo)) === '') $closed = self::minutesHold($pdo);
+            if ($closed !== '') {
                 if (($d['ask_error'] ?? '') !== $closed) { $d['ask_error'] = $closed; self::put($pdo, $id, $d); Releases::noteFromCheck($pdo, $id, 'Waiting for its ' . $d['phase'] . ' look: ' . $closed); }
                 return '';
             }
@@ -236,9 +250,9 @@ final class BeforeAfter
             if (($r['state'] ?? '') !== 'staged') return $line . ' (its before look is in; it goes on staging when it can)';
             if (!$r['checks_ok']) { $w = Releases::selfWithdraw($pdo, $r); self::put($pdo, $id, null); return $line . ($w !== '' ? ' ' . $w : ''); }   // its waiting cleared only once that's done
             $d['phase'] = 'after'; $d['asked_at'] = time(); $d['tries'] = 1; $d['before_seconds'] = $v['seconds']; unset($d['noted_missing']);   // the after verdict counts the before looks again
-            $why = self::ask($id, 'after', $d); if ($why !== '') { $d['asked_at'] = 0; $d['ask_error'] = $why; }
+            $why = ($mh = self::minutesHold($pdo)) !== '' ? $mh : self::ask($id, 'after', $d); if ($why !== '') { $d['asked_at'] = 0; $d['ask_error'] = $why; }
             self::put($pdo, $id, $d);
-            Releases::noteFromCheck($pdo, $id, 'On staging and its checks passed; the advocates look again now (the before-and-after check).');
+            Releases::noteFromCheck($pdo, $id, $mh !== '' ? 'On staging and its checks passed. Waiting for its after look: ' . $mh . '. It stays unpublished until then.' : 'On staging and its checks passed; the advocates look again now (the before-and-after check).');
             return 'Release #' . $id . ': on staging; its after look asked for.';
         }
         // an incomplete after look (Jason's ruling 1, 2026-11-28): never to the Founder. Asked again, INCOMPLETE_LOOKS looks in
@@ -248,7 +262,7 @@ final class BeforeAfter
         if ($d['phase'] === 'after' && $v && $v['phase'] === 'after-done' && $v['verdict'] === 'incomplete' && !$stale && $v['run'] !== '' && count($seen) + 1 < self::INCOMPLETE_LOOKS) {
             self::spend($pdo, max(0.0, $v['seconds'] - (float) ($d['before_seconds'] ?? 0)));
             $seen[] = $v['run']; $d['seen_runs'] = $seen; $d['tries'] = 1; unset($d['noted_missing'], $d['ticket']);
-            $why = self::ask($id, 'after', $d); $d['asked_at'] = $why === '' ? time() : 0; if ($why !== '') $d['ask_error'] = $why; else unset($d['ask_error']);
+            $why = ($mh = self::minutesHold($pdo)) !== '' ? $mh : self::ask($id, 'after', $d); $d['asked_at'] = $why === '' ? time() : 0; if ($why !== '') $d['ask_error'] = $why; else unset($d['ask_error']);
             self::put($pdo, $id, $d);
             Releases::noteFromCheck($pdo, $id, 'The before-and-after check couldn\'t judge it (the test accounts couldn\'t sign in): look ' . count($seen) . ' of ' . self::INCOMPLETE_LOOKS . '. Asked again; it stays on staging, unpublished, until a look judges it.');
             return 'Release #' . $id . ': an incomplete look (' . count($seen) . ' of ' . self::INCOMPLETE_LOOKS . '); asked for its after look again' . ($why !== '' ? ' (' . $why . ')' : '') . '.';
@@ -257,7 +271,7 @@ final class BeforeAfter
             // decided first, its waiting cleared after: a step that throws (a permission, the database) leaves it waiting, so the
             // next run decides it again, never a release left on staging with nothing waiting for it (2026-11-27)
             if (empty($d['counted_after'])) { self::spend($pdo, max(0.0, $v['seconds'] - (float) ($d['before_seconds'] ?? 0))); $d['counted_after'] = 1; self::put($pdo, $id, $d); }   // once, as the before look's
-            $line = self::$decideFn ? (string) (self::$decideFn)($id, $v) : Releases::checkedByAdvocates($pdo, $id, $v, (bool) ($d['hold'] ?? false) || self::spent($pdo));
+            $line = self::$decideFn ? (string) (self::$decideFn)($id, $v) : Releases::checkedByAdvocates($pdo, $id, $v, (bool) ($d['hold'] ?? false));   // looked at and passed: it publishes as any other, whatever the day's minutes (ruling 1: no review for spent minutes)
             self::put($pdo, $id, null);
             foreach ($v['far'] as $n) Releases::noteFromCheck($pdo, $id, $n);   // kept on its card and in the daily summary's record
             return $line;
@@ -277,7 +291,7 @@ final class BeforeAfter
             self::put($pdo, $id, $d);
             return 'Release #' . $id . ': no answer from the before-and-after check in ' . (int) $mins . ' minutes; task #' . $d['ticket'] . ' in the Work queue.';
         }
-        if ($mins >= self::LATE_MINUTES && (int) ($d['tries'] ?? 1) < 2) {
+        if ($mins >= self::LATE_MINUTES && (int) ($d['tries'] ?? 1) < 2 && self::minutesHold($pdo) === '') {
             $why = self::ask($id, (string) $d['phase'], $d); $d['tries'] = 2;
             self::put($pdo, $id, $d);
             return 'Release #' . $id . ': no answer in ' . (int) $mins . ' minutes; asked for its ' . $d['phase'] . ' look again' . ($why !== '' ? ' (' . $why . ')' : '') . '.';
@@ -290,6 +304,6 @@ final class BeforeAfter
     {
         $d = self::state($pdo, $id); if (!$d) return '';
         $mins = $d['asked_at'] ? (int) ((time() - (int) $d['asked_at']) / 60) : 0;
-        return ($d['phase'] === 'before' ? 'Waiting for its before look' : 'Being checked by the advocates') . ($d['asked_at'] ? ' (asked ' . $mins . ' min ago)' : (str_starts_with((string) ($d['ask_error'] ?? ''), 'staging is closed') ? ': ' . $d['ask_error'] : ' (GitHub not asked yet: ' . ($d['ask_error'] ?? '') . ')')) . '.';
+        return ($d['phase'] === 'before' ? 'Waiting for its before look' : 'Being checked by the advocates') . ($d['asked_at'] ? ' (asked ' . $mins . ' min ago)' : (str_starts_with((string) ($d['ask_error'] ?? ''), 'staging is closed') || str_starts_with((string) ($d['ask_error'] ?? ''), 'today\'s check minutes') ? ': ' . $d['ask_error'] : ' (GitHub not asked yet: ' . ($d['ask_error'] ?? '') . ')')) . '.';
     }
 }
