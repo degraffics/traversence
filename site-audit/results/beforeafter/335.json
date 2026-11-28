@@ -1,8 +1,48 @@
 {
  "release": "335",
- "phase": "before-done",
- "verdict": "waiting",
+ "at": "2026-11-28T14:28:15.831Z",
+ "verdict": "block",
+ "first": "Layout or phone: No sideways scroll at 390px (0058 \u00a711) (executive, /admin/crawler-review.php, phone)",
+ "blocks": [
+  {
+   "rule": "layout",
+   "rule_name": "Layout or phone",
+   "advocate": "advocate-staff-views",
+   "who": "executive",
+   "page": "/admin/crawler-review.php",
+   "size": "phone",
+   "what": "No sideways scroll at 390px (0058 \u00a711)",
+   "before": "met",
+   "after": "missed"
+  },
+  {
+   "rule": "layout",
+   "rule_name": "Layout or phone",
+   "advocate": "advocate-staff-views",
+   "who": "ops-staff",
+   "page": "/admin/crawler-review.php",
+   "size": "phone",
+   "what": "No sideways scroll at 390px (0058 \u00a711)",
+   "before": "met",
+   "after": "missed"
+  }
+ ],
+ "blocks_total": 2,
+ "notes": [
+  "member|/admin/chamber-builder.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "executive|/admin/settings.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "executive|/admin/chamber-builder.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "executive|/admin/insights.php|phone: already missed \"Cards 3px from the screen edge at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "executive|/admin/listing-intake.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "ops-staff|/admin/chamber-builder.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "ops-staff|/admin/insights.php|phone: already missed \"Cards 3px from the screen edge at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "ops-staff|/admin/listing-intake.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)"
+ ],
+ "far": [],
+ "tickets": [],
+ "audit": [],
  "views": 192,
- "seconds": 705,
- "run": "https://github.com/degraffics/traversence/actions/runs/46151282617"
+ "seconds": 2076,
+ "run": "https://github.com/degraffics/traversence/actions/runs/46153696597",
+ "phase": "after-done"
 }
