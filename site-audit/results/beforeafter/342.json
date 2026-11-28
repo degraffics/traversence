@@ -1,8 +1,16 @@
 {
  "release": "342",
- "phase": "before-done",
- "verdict": "waiting",
+ "at": "2026-11-28T16:17:42.523Z",
+ "verdict": "pass",
+ "first": "",
+ "blocks": [],
+ "blocks_total": 0,
+ "notes": [],
+ "far": [],
+ "tickets": [],
+ "audit": [],
  "views": 37,
- "seconds": 66,
- "run": "https://github.com/degraffics/traversence/actions/runs/46163732389"
+ "seconds": 200,
+ "run": "https://github.com/degraffics/traversence/actions/runs/46164147781",
+ "phase": "after-done"
 }
