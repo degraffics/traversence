@@ -678,3 +678,4 @@ steps 2–7 (#130–#147).
   which track leads on a place's page? Tabled by Jason for another day.
 - **Jason's own, any time:** Meta Business portfolio and Business Verification (0168 Phase 2); the OSM forum statement (`research/osm-overpass-2026-11-13.md` §2), and the SES dashboard
   check for bounces lost while the bot check blocked them.
+- **Telling Jason something waits on him (Jason, 2026-11-28: "make sure to email/push a notification when you need me"):** whenever the CEO says a Decision Brief or anything else waits on Jason, the session manager adds one message to `releases/batch.json` "messages" in the same turn: the CEO's title ("Decision waiting: <what>"), and its link set to the CEO session. Run `gauges.py`, then merge. The site emails and pushes it once (FounderMail, founder_mail_tick every 10 minutes, through Notify). It reaches him up to about an hour after the merge, because the site keeps gauges.json for an hour. Carry this into every CEO hand-off.
