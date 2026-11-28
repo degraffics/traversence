@@ -1,0 +1,36 @@
+{
+    "id": 333,
+    "title": "The Work queue is the record: every current item a ticket under its goal, in its lane, at its real phase",
+    "why": "Jason's ruling, 2026-11-28, through the session manager: \"Work queue is our only development lane so never bypass it!\" Goal: Goals and records with the roles, live by Mon Nov 30 (CLAUDE.md, launch first: the record every gate's work is picked from).",
+    "proposals": "",
+    "zip": "task-seed-5.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/migrations/2026-11-28_task_seed_5.sql": {
+            "sha": "12084557100cd98dac544c578f029da4818d3d75085532098053ae1eccf821da",
+            "size": 87222,
+            "live_was": null
+        }
+    },
+    "migrations": [
+        "app/migrations/2026-11-28_task_seed_5.sql"
+    ],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-28T13:23:00+00:00",
+            "by": 0,
+            "msg": "Uploaded task-seed-5.zip: 1 files."
+        }
+    ]
+}
