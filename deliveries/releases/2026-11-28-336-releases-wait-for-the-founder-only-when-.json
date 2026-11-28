@@ -1,0 +1,44 @@
+{
+    "id": 336,
+    "title": "Releases wait for the Founder only when they must: an incomplete look is asked again, adding rows no longer holds, the review email tells the truth",
+    "why": "Jason's ruling 1, confirmed 2026-11-28 14:10 UTC through the session manager: \"I shouldnt\" be required to review these. Gate: every launch gate's releases pass through this pipeline (0181 §1), and three of today's releases (#331, #332, #333) stopped on the check's own sign-in, not on the release.",
+    "proposals": "",
+    "zip": "ruling1-holds.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/lib/ReleaseKind.php": {
+            "sha": "649bdeb4501bccf7361071eb586bf8162e76a636aeb02159feb78c42567000b7",
+            "size": 11583,
+            "live_was": "e719c5f09b66a5b719325325f722cb20d700ded34a8fa75a68077994c54b7b0c"
+        },
+        "app/lib/BeforeAfter.php": {
+            "sha": "faf274374963c09b6e2336a417e70b3b612e06cce4494580de6f15e12bfe6cfe",
+            "size": 22461,
+            "live_was": "a7cd796f6ccecc505e91de1a1330d0aec0dd4c914a3b77bcfc11dcf865de56e8"
+        },
+        "app/lib/Releases.php": {
+            "sha": "5fabe27aa4ceac52a2256078657762a73706edd22d0477d840bff4029c509e20",
+            "size": 141464,
+            "live_was": "e9511bf476c2cda53e4fa254145bd8d0be47cc6a594a72dc27bcee3454d41826"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-28T14:17:51+00:00",
+            "by": 0,
+            "msg": "Uploaded ruling1-holds.zip: 3 files."
+        }
+    ]
+}
