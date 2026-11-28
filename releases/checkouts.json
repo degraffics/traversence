@@ -144,6 +144,17 @@
    "expires": "2026-11-28T05:35:49Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "website/admin/auto-imports.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5iAy5magAU62jYiAxM",
+   "why": "Pause: no new listings published by the system, on Jason's call 2026-11-28 ('Pause it. Yes')",
+   "since": "2026-11-28T01:35:51Z",
+   "expires": "2026-11-28T05:35:51Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
