@@ -121,7 +121,7 @@ require_once $app . '/lib/Scheduler.php';
 $t('team_tick: in the jobs, set up by itself, and QUIET (its silence on live is never late)', isset(Scheduler::JOBS['team_tick']) && in_array('team_tick', Scheduler::AUTO, true) && in_array('team_tick', Scheduler::QUIET, true));
 $t('its script exits on live before anything is recorded', preg_match('/if \(!Staging::here\(\)\) exit\(0\);[\s\S]*Scheduler::run/', (string) file_get_contents($app . '/scripts/team_tick.php')) === 1);
 $t('the switch ships off', Switches::DEFS['team_runner'][2] === 'off');
-$t('the Team page lists each working role\'s real steps', TeamRoster::steps('project-manager') === ['gate'] && TeamRoster::steps('qa-security') === [] && TeamRoster::steps('translator') === ['brief']);
+$t('the Team page lists each working role\'s real steps', TeamRoster::steps('project-manager') === ['gate', 'sequence', 'stall'] && TeamRoster::steps('qa-security') === [] && TeamRoster::steps('translator') === ['brief']);
 // "It's Tier 2" / "It's Tier 3" are a person's buttons only (the session manager's check on P2-4, 2026-11-25): the runner's code
 // never settles a flag, and with a flagged ticket in the queue at the highest ceiling, many ticks leave its flag and tier alone
 $src = (string) file_get_contents($app . '/lib/TeamRunner.php');

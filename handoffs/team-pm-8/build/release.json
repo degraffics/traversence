@@ -1,0 +1,27 @@
+{
+ "ticket": "Agent online 01 (wave 1): Project Manager (8), upgraded in place",
+ "title": "The Project Manager (8), upgraded in place: it proposes what comes first and notices work that has sat 3 days",
+ "why": "Jason, 2026-11-28, through the CEO: \"Bring each one online individually… just in case we run out of usage\". Agent 01 of 42. Goal: the transition cutover by Dec 15 (the team scales claims toward the ladder). It runs on staging's runner only (decisions/0179), costs $0, and every action has Undo.",
+ "changes": [
+  {
+   "what": "Two new Project Manager steps beside its gate. Sequence proposes a ticket's priority from what depends on it (a ruling's precedent, its goal's priority, the most urgent ticket waiting on it): always a proposal, never over a priority a person set. Stall: a Priority 1 or 2 Work ticket idle 3 days at its stage gets one \"Unstick task #N\" ticket in its lane (a proposal at Planning; from Building on it opens it, with Undo that withdraws it). If that sits 3 days too, it asks a session once.",
+   "where": "https://traversence.com/admin/config/team"
+  },
+  {
+   "what": "Its charter (what it follows, its job, what it knows, when it escalates, what it never does) and its order of reasoning: code first, the agents' paid API only once its own budget exists (off today), then a session.",
+   "where": "https://traversence.com/admin/config/team"
+  },
+  {
+   "what": "The decision tree's rules change (two steps, the reasoning order, the 3 days), so on staging the tree's approval is cleared and every role works at the Planning ceiling until the Founder approves the tree again, as decisions/0180 sets.",
+   "where": "https://traversence.com/admin/config/team"
+  },
+  {
+   "what": "The FAQ says who keeps the work moving and whether the Project Manager uses AI.",
+   "where": "https://traversence.com/faq.php"
+  }
+ ],
+ "proposals": [],
+ "switch": "",
+ "tier4": "Tier 5, a Founder ruling: the decision tree's rules change (decisions/0180 §2)",
+ "notes": "NOT SENT. Waiting on: (1) the Founder's ruling, since the tree's approval clears on staging and every role drops to the Planning ceiling until he approves it again, which differs from \"stage ceiling and fences unchanged\"; (2) pause-1a-4 live and synced, then faq.md rebuilt on the live copy with handoffs/team-pm-8/faq-entries.md. Tests: tools/team-tests/team-pm.php (50 checks, no database), tools/team-tests/team-pm-db.php (9 checks on MariaDB, staging mode), tools/team-tests/runner.php (85 checks: the Team page's steps check now expects gate, sequence, stall). Way back: Roll back; each run has Undo."
+}
