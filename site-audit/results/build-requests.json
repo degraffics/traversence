@@ -1,5 +1,5 @@
 {
- "at": "2026-11-28T03:17:36.015Z",
+ "at": "2026-11-28T04:17:30.813Z",
  "requests": [
   {
    "id": 3,
@@ -1222,6 +1222,24 @@
    "ticket": "work",
    "stage": "",
    "tier": null,
+   "build_brief": "",
+   "late": false
+  },
+  {
+   "id": 72,
+   "at_utc": "2026-11-28T03:40:03Z",
+   "gauge": "area:audit",
+   "build": "",
+   "item": "Release #328 was stopped by the before-and-after check: Layout or phone: Cards 3px from the screen edge at 390px (0058 §11) (ops-staff, /admin/crawler-review.php, phone)",
+   "what": "Release #328 was stopped by the before-and-after check: Layout or phone: Cards 3px from the screen edge at 390px (0058 §11) (ops-staff, /admin/crawler-review.php, phone)",
+   "was": "task",
+   "why": "An advocate's view was worse after it (decisions/0179 rule 2's four rules): Layout or phone: Cards 3px from the screen edge at 390px (0058 §11) (ops-staff, /admin/crawler-review.php, phone). It withdrew itself; nothing on the live site changed. Fix it and send it again. The report: https://github.com/degraffics/traversence/actions/runs/46102348625",
+   "source": "the daily audit (ba:328)",
+   "owner": "system · before-and-after check",
+   "release": "",
+   "ticket": "audit",
+   "stage": "found",
+   "tier": 2,
    "build_brief": "",
    "late": false
   }
