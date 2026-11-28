@@ -125,6 +125,8 @@ $d = $T['get']($pdo, (int) $role('advocate-guest')['id']); $f = []; foreach ($d[
 $t('an advocate\'s page says it only looks, and where its release is', str_contains($f['Test ticket'] ?? '', 'only looks') && str_contains($act($d, 'test')['off'] ?? '', 'only looks'));
 $d = $T['get']($pdo, (int) $role('founder')['id']);
 $t('no button on the Founder\'s page', $act($d, 'test') === null);
+[$rows] = ($T['list'])($pdo, ['show' => 'active']); $byRef = []; foreach ($rows as $x) if (isset($x['ref'])) $byRef[$x['ref']] = $x;
+$t('the list: an active role with no step reads "Waiting for its first step", one with a step "Active", an advocate "Active"', ($byRef['qa-security']['state']['word'] ?? '') === 'Waiting for its first step' && ($byRef['project-manager']['state']['word'] ?? '') === 'Active' && ($byRef['advocate-guest']['state']['word'] ?? '') === 'Active', [$byRef['qa-security']['state'] ?? null, $byRef['project-manager']['state'] ?? null]);
 $stage(false);
 $d = $T['get']($pdo, (int) $role('project-manager')['id']); $f = []; foreach ($d['fields'] as [$k, $v]) $f[$k] = $v;
 $t('on live: the button is greyed (staging only), and the last result still shows', str_contains($act($d, 'test')['off'] ?? '', 'staging copy only') && str_starts_with($f['Test ticket'] ?? '', 'Passed: ') && str_contains($f['Test ticket'], 'It can\'t run now: A test ticket runs on the staging copy only'));

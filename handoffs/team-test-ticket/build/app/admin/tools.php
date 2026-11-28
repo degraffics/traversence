@@ -2439,7 +2439,8 @@ return [
             $tone = ['active' => 'ok', 'standby' => 'info'];
             $row = function (array $r) use ($open, $tone): array {
                 return ['id' => (int) $r['id'], 'ref' => (string) $r['slug'], 'name' => (string) $r['name'],
-                    'state' => ['tone' => $tone[$r['status']] ?? 'info', 'word' => TeamRoster::STATUSES[$r['status']][0] ?? $r['status']],
+                    'state' => $r['status'] === 'active' && $r['kind'] !== 'advocate' && $r['kind'] !== 'founder' && !TeamRoster::hasSteps($r)   // true to "No steps yet" beside it (the CEO, 2026-11-28): active, with no step to work until its release
+                        ? ['tone' => 'info', 'word' => 'Waiting for its first step'] : ['tone' => $tone[$r['status']] ?? 'info', 'word' => TeamRoster::STATUSES[$r['status']][0] ?? $r['status']],
                     'kind' => TeamRoster::KINDS[$r['kind']][0] ?? $r['kind'],
                     'works' => (string) $r['stages'] !== '' ? (string) $r['stages'] : ($r['status'] === 'active' && $r['kind'] !== 'advocate' && $r['kind'] !== 'founder' && !TeamRoster::hasSteps($r) ? 'No steps yet' : ''),
                     'acts' => TeamRoster::actsAs($r), 'open' => (int) ($open[$r['name']] ?? 0)];
