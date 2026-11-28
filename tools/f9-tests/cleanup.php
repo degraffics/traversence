@@ -25,13 +25,15 @@ check('not people: a practice, a hospital, two plain words, a name with "of", a 
 $pdo = new PDO("mysql:unix_socket=$sock", 'root', '', [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
 $pdo->exec('DROP DATABASE IF EXISTS f9_test'); $pdo->exec('CREATE DATABASE f9_test'); $pdo->exec('USE f9_test');
 foreach ([
-  "CREATE TABLE entities (id INT PRIMARY KEY, entity_type VARCHAR(20) DEFAULT 'merchant', name VARCHAR(255), status VARCHAR(30) DEFAULT 'unclaimed', owner_user_id INT NULL, updated_by_type VARCHAR(20) DEFAULT 'ai_crawler', created_by_type VARCHAR(20) DEFAULT 'ai_crawler', is_suppressed TINYINT DEFAULT 0, primary_zip VARCHAR(10) DEFAULT '85901', category_id INT NULL, latitude DOUBLE NULL, longitude DOUBLE NULL, created_at DATETIME, updated_at DATETIME NULL)",
+  "CREATE TABLE entities (id INT PRIMARY KEY, entity_type VARCHAR(20) DEFAULT 'merchant', name VARCHAR(255), status VARCHAR(30) DEFAULT 'unclaimed', owner_user_id INT NULL, updated_by_type VARCHAR(20) DEFAULT 'ai_crawler', created_by_type VARCHAR(20) DEFAULT 'ai_crawler', is_suppressed TINYINT DEFAULT 0, primary_zip VARCHAR(10) DEFAULT '85901', category_id INT NULL, micro_cluster_id INT NULL, latitude DOUBLE NULL, longitude DOUBLE NULL, created_at DATETIME, updated_at DATETIME NULL)",
   "CREATE TABLE entity_metadata (entity_id INT, meta_key VARCHAR(60), meta_value TEXT, source_type VARCHAR(20) DEFAULT 'ai_crawler', is_locked TINYINT DEFAULT 0, trust_score DOUBLE NULL, created_at DATETIME NULL, updated_at DATETIME NULL, PRIMARY KEY (entity_id, meta_key))",
   "CREATE TABLE crawler_raw_index (id INT AUTO_INCREMENT PRIMARY KEY, entity_id INT, status VARCHAR(20), reviewed_by_user_id INT NULL, source_url VARCHAR(500) NULL, raw_payload TEXT, created_at DATETIME NULL)",
   "CREATE TABLE identity_facts (id INT AUTO_INCREMENT PRIMARY KEY, record_kind VARCHAR(20), record_id INT, fact VARCHAR(20), value TEXT, is_current TINYINT DEFAULT 1, status VARCHAR(20) DEFAULT 'current')",
   "CREATE TABLE identity_fact_sources (id INT AUTO_INCREMENT PRIMARY KEY, fact_id INT, kind VARCHAR(20), site VARCHAR(200) DEFAULT '')",
   "CREATE TABLE categories (id INT PRIMARY KEY, name VARCHAR(120), slug VARCHAR(120), parent_id INT NULL)",
-  "CREATE TABLE cleanup_settings (k VARCHAR(40) PRIMARY KEY, v VARCHAR(500), by_id INT NULL, at DATETIME NULL)",
+  "CREATE TABLE cleanup_settings (k VARCHAR(40) PRIMARY KEY, v VARCHAR(255) NOT NULL, by_id INT UNSIGNED NULL, at DATETIME NULL)",   // as live (read 2026-11-28)
+  "CREATE TABLE cleanup_runs (id INT AUTO_INCREMENT PRIMARY KEY, rule VARCHAR(40), counts_json TEXT, started_at DATETIME NULL, finished_at DATETIME NULL)",
+  "CREATE TABLE cleanup_ledger (id INT AUTO_INCREMENT PRIMARY KEY, run_id INT)",
 ] as $q) $pdo->exec($q);
 $pdo->exec("INSERT INTO categories VALUES (1, 'Health & Medical', 'health-and-medical', NULL), (2, 'Doctors', 'doctors', 1), (3, 'Food & Dining', 'food-and-dining', NULL), (4, 'Restaurants', 'restaurants', 3), (5, 'Government & Public Services', 'government-and-public-services', NULL), (6, 'Fire Departments', 'fire-departments', 5), (7, 'Post Offices', 'post-offices', 5), (8, 'Police Departments', 'police-departments', 5)");
 $L = function (int $id, string $name, int $cat, string $created, array $meta, array $extra = []) use ($pdo): void {
@@ -79,6 +81,32 @@ check('scope all: a government listing with no source at all goes back', ($items
 check('scope all: the cafe acted on; the pilot\'s theater and the listing a person edited are "Check these"', $lu['entity:105']['guard'] === 'act' && ($lu['entity:8807']['guard'] ?? '') === 'check' && ($lu['entity:108']['guard'] ?? '') === 'check');
 DataCleanup::setSetting($pdo, 'pilot_ids', '105, 999', 1);
 check('a participant Editorial adds to pilot_ids is "Check these" too', ($items('legacy_unsourced')['entity:105']['guard'] ?? '') === 'check' && DataCleanup::pilotIds($pdo) === [8807, 105, 999]);
+
+
+// ---- the once-pass (takeOnce): preview on live only, once, with its counts readable at passonce:1; nothing changed
+DataCleanup::setSetting($pdo, 'legacy_scope', 'off', 1); DataCleanup::setSetting($pdo, 'pilot_ids', '', 1);
+$snap = fn () => json_encode($pdo->query('SELECT id, is_suppressed, status FROM entities ORDER BY id')->fetchAll(PDO::FETCH_NUM));
+$before = $snap();
+$w = DataCleanup::takeOnce($pdo);
+$res = json_decode(DataCleanup::setting($pdo, 'passonce:1'), true) ?: [];
+check('takeOnce (ONCE = the f9 preview): runs once, sets the scope and area it names', is_string($w) && str_contains($w, 'preview') && DataCleanup::legacyScope($pdo) === 'health' && DataCleanup::setting($pdo, 'area_clusters') === '1,2,47,55');
+check('…its counts at passonce:1, compact (fits cleanup_settings.v, 255): pp and lu as [act, check, left]', ($res['m'] ?? '') === 'preview' && is_array($res['pp'] ?? null) && count($res['pp']) === 3 && is_array($res['lu'] ?? null) && strlen((string) DataCleanup::setting($pdo, 'passonce:1')) <= 255);
+check('…a preview changes no listing', $snap() === $before);
+check('…the area holds: listings outside clusters 1, 2, 47, 55 aren\'t counted (none of the test\'s are in them)', array_sum($res['pp']) === 0 && array_sum($res['lu']) === 0);
+$pdo->exec('UPDATE entities SET micro_cluster_id = 47');
+check('a second tick does nothing (its marker once:f9-preview-1 is kept)', DataCleanup::takeOnce($pdo) === null && DataCleanup::setting($pdo, 'once:f9-preview-1') === 'taken');
+$pdo->exec("DELETE FROM cleanup_settings WHERE k IN ('once:f9-preview-1', 'passonce:1')");
+DataCleanup::takeOnce($pdo); $res = json_decode(DataCleanup::setting($pdo, 'passonce:1'), true) ?: [];
+check('in the area (cluster 47): people act 2, check 1 (claimed); health and safety unsourced acted (the clinic, the fire district, the police), food left outside the scope', $res['pp'] === [2, 1, 0] && $res['lu'][0] >= 3 && $res['lu'][2] >= 1);
+$pdo->exec("DELETE FROM cleanup_settings WHERE k = 'once:f9-preview-1'");
+$pdo->exec('DROP TABLE categories');
+$w = DataCleanup::takeOnce($pdo); $res = json_decode(DataCleanup::setting($pdo, 'passonce:1'), true) ?: [];
+check('a failure inside is kept in the result, the marker taken (no retry loop)', is_string($w) && DataCleanup::takeOnce($pdo) === null && DataCleanup::setting($pdo, 'once:f9-preview-1') === 'taken');
+$src = file_get_contents("$root/app/lib/DataCleanup.php");
+check('staging never takes it (records are carried at Publish; unsure which copy: not taken)', str_contains($src, "if (StagingGate::here()) return null; } catch (Throwable) { return null; }"));
+check('a run goes through run() (the ledger, Undo, Check these), the rest next tick as the same open pass', str_contains($src, "self::run(\$pdo, \$rule, 0, 'the health-corrections pass") && str_contains($src, "self::setSetting(\$pdo, 'pass_once', 'run', 0)"));
+$ct = file_get_contents("$root/app/scripts/control_tick.php");
+check('control_tick takes it before the board\'s watch, in its own try', strpos($ct, 'DataCleanup::takeOnce(') !== false && strpos($ct, 'DataCleanup::takeOnce(') < strpos($ct, 'ControlAlarms::tick(') && str_contains($ct, "catch (Throwable \$x) { error_log('control_tick once-pass"));
 
 $pdo->exec('DROP DATABASE f9_test');
 exec('rm -rf ' . escapeshellarg($lib));

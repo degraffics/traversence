@@ -288,7 +288,7 @@ final class DataCleanup
         require_once __DIR__ . '/PlaceScope.php';
         $pub = implode(',', array_map(fn ($s) => $pdo->quote($s), PlaceScope::PUBLIC_STATUSES));
         $of = (int) $pdo->query("SELECT COUNT(*) FROM entities WHERE entity_type = 'merchant' AND created_by_type = 'ai_crawler' AND is_suppressed = 0 AND status IN ($pub)")->fetchColumn();
-        $rows = $pdo->query("SELECT id, name, status, owner_user_id, updated_by_type, primary_zip, category_id, latitude, longitude, created_at FROM entities
+        $rows = $pdo->query("SELECT id, name, status, owner_user_id, updated_by_type, primary_zip, category_id, latitude, longitude, created_at, micro_cluster_id FROM entities
                               WHERE entity_type = 'merchant' AND created_by_type = 'ai_crawler' AND is_suppressed = 0 AND status IN ($pub)
                               ORDER BY id DESC LIMIT " . self::READ)->fetchAll(PDO::FETCH_ASSOC);
         if (!$rows) return ['read' => 0, 'of' => $of, 'error' => ''];
@@ -318,6 +318,7 @@ final class DataCleanup
         $byPhone = [];
         // F9: the pilot's listings, the health group's categories, and each street's and phone's places (a person's practice)
         $pilot = array_flip(self::pilotIds($pdo)); $scope = self::legacyScope($pdo);
+        $area = self::areaClusters($pdo); $inArea = fn (array $e) => !$area || isset($area[(int) ($e['micro_cluster_id'] ?? 0)]);   // F9's two rules: 1A first (the CEO)
         // the "health" scope (the CEO's (c), 2026-11-28; the session manager): the Health & Medical group, plus the safety
         // categories 0061's emergency needs already name (Situations.php:441, :442, :446). A public kind (Claims::KIND_GROUPS) is
         // told apart so one with any keepable source stays up
@@ -375,7 +376,7 @@ final class DataCleanup
                 if ($want('junk_name')) $add(self::item('listings', 'entity:' . $id, $name, 'junk_name', $whole, $junk[1] . ($to === 'name_unknown' ? ': its phone or address kept, the name looked for' : ''), $link($id), $to));
                 continue;   // one reason a listing: the strongest first
             }
-            if (self::isPerson($name)) {   // F9: a person, not a place to visit (the CMO's ruling)
+            if (self::isPerson($name) && $inArea($e)) {   // F9: a person, not a place to visit (the CMO's ruling); in the pass's area
                 $at = null;
                 foreach (['address', 'phone'] as $k) if (!$at && isset($m[$k])) { $v = self::placeKey($k, self::jsonText($m[$k]['meta_value'])); if ($v !== '' && isset($practiceAt[$v]) && $practiceAt[$v]['id'] !== $id) $at = $practiceAt[$v]; }
                 if ($want('person_place')) $add(self::item('listings', 'entity:' . $id, $name, 'person_place', $whole, $at ? 'A person, kept as a record of ' . $at['name'] . ' (#' . $at['id'] . ', the same ' . ($phone !== '' ? 'street or phone' : 'street') . ')' : 'A person; no practice found at the same street or phone, so kept as a record on its own', $link($id), 'quarantine', $at ? ['practice' => $at['id']] : []));
@@ -393,7 +394,7 @@ final class DataCleanup
             }
             $legacy = (string) ($e['created_at'] ?? '') !== '' && (string) $e['created_at'] < self::LEGACY_BEFORE && $r === null;   // the September migration: never through the intake
             $anyKeep = (bool) array_filter(['phone', 'address', 'website', 'hours', 'point'], fn ($x) => $kind($x) === 'keep');
-            if ($legacy && $pk !== 'keep' && $ak !== 'keep' && !(isset($public[(int) $e['category_id']]) && $anyKeep)) {   // a government or agency listing with any source we keep stays up
+            if ($legacy && $inArea($e) && $pk !== 'keep' && $ak !== 'keep' && !(isset($public[(int) $e['category_id']]) && $anyKeep)) {   // a government or agency listing with any source we keep stays up
                 $inScope = $scope === 'all' || ($scope === 'health' && isset($health[(int) $e['category_id']]));
                 if ($want('legacy_unsourced')) $add(self::item('listings', 'entity:' . $id, $name, 'legacy_unsourced', $inScope ? $whole : 'left',
                     ($inScope ? '' : ($scope === 'off' ? 'Waiting on the CEO\'s scope (Data cleanup\'s legacy_scope is off): ' : 'Outside the scope set (' . $scope . '): ')) . 'From the September migration; no source we may keep confirms its ' . ($phone !== '' && $street ? 'phone or address' : ($phone !== '' ? 'phone' : 'address')), $link($id)));
@@ -648,6 +649,82 @@ final class DataCleanup
 
     /** F9 (2026-11-28): which September listings legacy_unsourced takes, as the CEO rules: off (shown, never acted on), health, all. */
     public const LEGACY_BEFORE = '2026-10-01';
+    /** F9's area, as micro-cluster ids (cleanup_settings area_clusters, e.g. "1,2,47,55": regions.md's 1A row as R-D1 sets it,
+     *  the session manager 2026-11-27). Empty: everywhere. Only person_place and legacy_unsourced read it. */
+    public static function areaClusters(PDO $pdo): array
+    {
+        $ids = array_filter(array_map('intval', preg_split('/[\s,]+/', self::setting($pdo, 'area_clusters'), -1, PREG_SPLIT_NO_EMPTY)), fn ($i) => $i > 0);
+        return array_flip($ids);
+    }
+
+    /** F9's rules, the ones a once-pass runs. */
+    public const ONCE_RULES = ['person_place', 'legacy_unsourced'];
+
+    /**
+     * The once-pass a release asks for (the session manager, 2026-11-28; the IT Manager's design): its id, preview or run,
+     * the scope and the area. Step one (the health-corrections release): a preview, whose exact counts go on Jason's batch
+     * line. Step two, after his batch OK: a one-line release changes this to ['f9-run-1', 'run', …]. Asked in code, not by
+     * a migration, because cleanup_settings may live in the admin database (data_moves) and a failed migration holds every
+     * one after it; setSetting finds the table wherever it is. Empty: nothing asked.
+     */
+    public const ONCE = ['f9-preview-1', 'preview', 'health', '1,2,47,55'];
+
+    /**
+     * Taken by control_tick (it runs while automation is paused: a decided pass, not gathering). Each request runs once:
+     * its marker (once:<id>) is written first with INSERT IGNORE, so a second tick, or two at once, never run it again,
+     * and a failure never loops. A run bigger than one batch leaves pass_once = 'run' for the next tick: the same open
+     * pass continued, never a retry of a failure.
+     *   preview: counts per rule (act, check, left), nothing changed; kept at passonce:1
+     *   run: each rule through run() (the ledger, Undo per record and per pass, "Check these"); kept at passonce:2, the
+     *        preview's counts staying at passonce:1 beside it
+     * Results are compact JSON in cleanup_settings under a kind:number key, so live-read's row read returns them whole.
+     */
+    public static function takeOnce(PDO $pdo): ?string
+    {
+        if (!self::ready($pdo)) return null;
+        // live only: cleanup_settings is a records table, carried at Publish, so a marker staging wrote would stop live's pass
+        // from ever running (and staging's listings aren't the ones to change); unsure which copy this is: not taken
+        try { require_once __DIR__ . '/StagingGate.php'; if (StagingGate::here()) return null; } catch (Throwable) { return null; }
+        $T = Database::t('cleanup_settings');
+        $mode = '';
+        if (self::setting($pdo, 'pass_once') === 'run') {   // a run's continuation
+            $take = $pdo->prepare("UPDATE $T SET v = '', at = ? WHERE k = 'pass_once' AND v = 'run'"); $take->execute([date('Y-m-d H:i:s')]);
+            if ($take->rowCount() === 1) $mode = 'run';
+        }
+        if ($mode === '' && self::ONCE && in_array(self::ONCE[1] ?? '', ['preview', 'run'], true)) {
+            $mark = $pdo->prepare("INSERT IGNORE INTO $T (k, v, by_id, at) VALUES (?, ?, NULL, ?)");
+            $mark->execute(['once:' . mb_substr((string) self::ONCE[0], 0, 34), 'taken', date('Y-m-d H:i:s')]);
+            if ($mark->rowCount() !== 1) return null;   // done already, or another tick took it
+            $mode = (string) self::ONCE[1];
+            self::setSetting($pdo, 'legacy_scope', in_array(self::ONCE[2] ?? '', ['off', 'health', 'all'], true) ? (string) self::ONCE[2] : 'off', 0);
+            self::setSetting($pdo, 'area_clusters', preg_replace('/[^0-9,]/', '', (string) (self::ONCE[3] ?? '')), 0);
+        }
+        if ($mode === '') return null;
+        // compact, to fit cleanup_settings.v (VARCHAR(255), read live 2026-11-28): m mode, at, s scope, a area, then per rule
+        // pp (person_place) and lu (legacy_unsourced) as [act, check, left] for a preview, [done, check, left, more] for a run
+        $out = ['m' => $mode, 'at' => gmdate('Y-m-d H:i'), 's' => self::legacyScope($pdo), 'a' => mb_substr(self::setting($pdo, 'area_clusters'), 0, 40)];
+        $short = ['person_place' => 'pp', 'legacy_unsourced' => 'lu'];
+        $again = false;
+        try {
+            foreach (self::ONCE_RULES as $rule) {
+                if ($mode === 'preview') {
+                    $p = self::preview($pdo, $rule)['rules'][$rule] ?? [];
+                    $out[$short[$rule]] = [(int) ($p['act'] ?? 0), (int) ($p['check'] ?? 0), (int) ($p['left'] ?? 0)];
+                    continue;
+                }
+                $r = self::run($pdo, $rule, 0, 'the health-corrections pass (Jason\'s batch OK)', 'UTC', 'once');
+                $c = json_decode((string) ($r['counts_json'] ?? ''), true) ?: [];
+                $out[$short[$rule]] = [array_sum(array_map('intval', (array) ($c['done'] ?? []))), (int) ($c['check'] ?? 0), (int) ($c['left'] ?? 0), empty($c['more']) ? 0 : 1];
+                if (!empty($c['more'])) { $again = true; break; }   // the rest next tick, the same open pass
+            }
+        } catch (Throwable $x) { $out['e'] = mb_substr(self::plainError($x), 0, 80); error_log('DataCleanup once: ' . $x->getMessage()); }
+        // the preview's counts stay at passonce:1 beside the run's at passonce:2, so the batch line shows both
+        $json = json_encode($out, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+        self::setSetting($pdo, $mode === 'preview' ? 'passonce:1' : 'passonce:2', mb_substr((string) $json, 0, 255), 0);
+        if ($again && !isset($out['e'])) self::setSetting($pdo, 'pass_once', 'run', 0);
+        return 'Data cleanup once-pass (' . $mode . '): ' . $json . ($again ? '; more next tick' : '');
+    }
+
     /** The safety kinds in the health scope: exactly the categories 0061's emergency needs name (Situations.php:441, :442, :446).
      *  Shelters aren't named there, so they're not here (a gap, in the data-capture review). */
     public const SAFETY_CATEGORIES = ['Fire Departments', 'County Government-Fire Protection', 'Civil Defense Agencies', 'County Government-Public Order & Safety', 'Sheriff', 'Police Departments'];

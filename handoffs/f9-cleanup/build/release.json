@@ -1,0 +1,22 @@
+{
+ "title": "Health corrections in 1A, step one: people kept under their practice, unsourced health and emergency listings counted (a preview, nothing changed)",
+ "why": "The data-capture review's F9 (research/data-capture-review-2026-12-02.md): about 310 people shown as places, and old September listings with no source we may keep. The CEO's ruling (c), 2026-11-28 (0164's note on §3.5, #1647): person_place plus health and safety kinds, 1A first, as a once-pass with the ledger and Undo, its counts on Jason's batch line. The IT Manager's design for the run (control_tick takes it once).",
+ "changes": [
+  {
+   "what": "Two Data cleanup rules. person_place: a person's name (NPI's \"Last, First\", or a provider's credential at the end), kept as a record under its practice, off the public site (the CMO's ruling). legacy_unsourced: a September 2026 listing never through the intake, with no source we may keep for its phone or address, back to a sighting. Its scope: Health & Medical and the emergency services 0061 names (Situations.php:441, :442, :446). A government or agency listing with any kept source stays up. Hometown Theater #8807, Editorial's pilot participants, and any claimed or edited listing are always Check these.",
+   "where": "https://traversence.com/admin/insights/cleanup"
+  },
+  {
+   "what": "Step one only previews. Once, on the live site, control_tick counts what each rule would do in 1A (clusters 1, 2, 47, 55) and keeps the counts for Jason's batch line. Nothing changes on any listing. Step two, after his batch OK, is a one-line release that runs it, with the ledger and Undo per record and per pass.",
+   "where": "https://traversence.com/admin/insights/cleanup"
+  },
+  {
+   "what": "The FAQ says why a provider isn't a place, and what the check means for a listing (coming).",
+   "where": "https://traversence.com/faq.php#why-isnt-a-doctor-or-nurse-listed-as-a-place-to-visit"
+  }
+ ],
+ "proposals": [],
+ "switch": "",
+ "tier4": "IT Manager (11): control_tick's hook, and the rules' scope (the CEO, 2026-11-28)",
+ "notes": "Admin's test: Insights → Data cleanup lists both rules with their counts (act, Check these, left), and legacy_unsourced's left ones say why (outside the scope). The preview's counts are at cleanup_settings passonce:1 ({m, at, s, a, pp: [act, check, left], lu: [...]}), readable with live-read rows, order_id passonce:1. The once-pass runs on live only (cleanup_settings is a records table, carried at Publish). It is asked in code (DataCleanup::ONCE), not by a migration, because cleanup_settings may live in the admin database. Tests: tools/f9-tests/cleanup.php (24 checks on MariaDB). Roll back puts the files back. Nothing was changed, so nothing needs undoing."
+}
