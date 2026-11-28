@@ -49,6 +49,28 @@ final class AutoImport
         return strtolower(trim((string) (getenv('AUTO_IMPORT') ?: 'on'))) !== 'off';
     }
 
+    /**
+     * While paused: values the system would have written into a published listing on its own (About text, hours), held
+     * as one suggestion for Review instead (Suggestions, kind fix), one open at a time per listing and source. Returns
+     * whether it was asked. A person applies it there, or doesn't.
+     */
+    public static function holdForReview(PDO $pdo, int $entityId, array $fields, string $device, string $what): bool
+    {
+        $fields = array_filter($fields, fn ($v) => $v !== null && $v !== '' && $v !== []);
+        if (!$fields) return false;
+        $fields = array_map(fn ($v) => is_array($v) ? implode('; ', array_map('strval', $v)) : (string) $v, $fields);
+        try {
+            require_once __DIR__ . '/../Suggestions.php';
+            $st = $pdo->prepare("SELECT 1 FROM suggestions WHERE entity_id = ? AND kind = 'fix' AND status = 'new' AND device_hash = ?");
+            $st->execute([$entityId, $device]);
+            if ($st->fetchColumn()) return false;
+            Suggestions::create($pdo, ['kind' => 'fix', 'topic' => 'business', 'entity_id' => $entityId, 'fields' => $fields,
+                'note' => $what . ' ' . implode(' and ', array_map(fn ($k) => $k === 'description' ? 'an About' : $k, array_keys($fields))) . '. Held for a person while the pause holds (' . self::PAUSED . '). Check it is this place\'s own, not a head office\'s or another location\'s, then apply it.',
+                'context' => 'Paused: held for Review'], null, $device);
+            return true;
+        } catch (Throwable $x) { error_log('pause hold #' . $entityId . ': ' . $x->getMessage()); return false; }
+    }
+
     /** Why auto-publish is paused by a release (not by .env), or null. */
     public static function pausedWhy(): ?string
     {
@@ -573,6 +595,16 @@ final class AutoImport
                 continue;
             }
             if ($have === null || $have === '' || $have === []) $choices[$f] = 'replace';
+        }
+        // the pause (2026-11-28; the IT Manager's Tier 4): with no person, About text and hours aren't written into a
+        // published listing (the audit's C1 and C2). They go to Review as a suggestion; a person's own merge is untouched
+        if ($adminId === null && self::pausedWhy() !== null) {
+            $held = array_values(array_intersect(array_keys($choices), ['description', 'hours']));
+            if ($held) {
+                $choices = array_diff_key($choices, array_flip($held));
+                self::holdForReview($pdo, $entityId, array_intersect_key($in, array_flip($held)), 'crawler-merge', 'A find matched to this listing (staged row #' . $rowId . ') gives');
+                $note .= '; held for Review while paused: ' . implode(', ', $held);
+            }
         }
         if ($choices) {
             try {
