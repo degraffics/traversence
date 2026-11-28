@@ -1,0 +1,1270 @@
+1: <?php
+2: /**
+3:  * api/lib/Situations.php: the Relational Intent Map (decisions/0061).
+4:  *
+5:  * People search a situation ("the power went out", "stuck on the highway", "lost my keys"), not a category. A situation
+6:  * has trigger phrases and needs; each need points at the directory (categories by name pattern, words, kinds) and says
+7:  * what a solution must have to count (a phone, hours, a place to go). A listing missing it isn't offered for that need
+8:  * (principle 5): what can't complete the task isn't a solution.
+9:  *
+10:  *   Situations::read($pdo, $q)                      -> matched situations (longest phrase first; several combine)
+11:  *   Situations::suggest($pdo, $q)                   -> situations whose phrases start with what's typed (Tier 1)
+12:  *   Situations::answer($pdo, $sits, $place, $o)     -> merged needs with their solutions, local first, then nearest
+13:  *   Situations::logTerm($pdo, $q, $placeKey, $zero) -> counts the words searched, by area and day (never who)
+14:  *
+15:  * Seeded from SEED the first time it's read (status 'live', source 'seed'); edited in Admin (batch 2). Tracks: resident
+16:  * (Get Local), traveler (Let's Explore), community. Danger situations are an Admin-only list (principle 6).
+17:  */
+18: declare(strict_types=1);
+19: 
+20: final class Situations
+21: {
+22:     /** [slug, label, urgency, danger, track, [triggers], [[need label, track, category patterns, words, kinds, requires]]] */
+23:     private const SEED = [
+24:         // ---- on the road ----
+25:         ['stuck-on-road', 'Stuck on the road', 'urgent', 1, 'resident',
+26:             ['stuck on the highway', 'stuck on the road', 'broke down', 'broken down', 'car broke down', 'car died', 'car wont start', 'need a tow', 'tow truck', 'stranded', 'stuck on the side of the road', 'ran out of gas', 'out of gas',
+27:              'stuck in the mud', 'stuck in the snow', 'stuck in a ditch', 'stuck in the sand', 'stuck in mud', 'stuck in snow', 'stuck in ditch', 'stuck in sand', 'in a ditch', 'slid off the road', 'car is stuck', 'truck is stuck', 'car stuck', 'truck stuck', 'need pulled out'],
+28:             [['Towing', 'resident', 'Wrecker Service|Towing%', 'towing tow wrecker', 'listing', 'phone'],
+29:              ['Roadside repair', 'resident', 'Automobile Repairing & Service|Truck-Repairing & Service', '', 'listing', 'phone'],
+30:              ['Gas', 'resident', 'Service Stations-Gasoline & Oil|Truck Stops & Plazas', '', 'listing', 'where'],
+31:              ['Highway patrol (non-emergency)', 'resident', 'State Government-Police', '', 'listing', 'phone']]],
+32:         ['flat-tire', 'Flat tire', 'urgent', 0, 'resident',
+33:             ['flat tire', 'flat tyre', 'blew a tire', 'tire blowout', 'tire is flat', 'need a tire', 'tire repair'],
+34:             [['Tire shops', 'resident', 'Tire-Dealers-Retail|Tire%', 'tire tires', 'listing', 'phone'],
+35:              ['Towing', 'resident', 'Wrecker Service|Towing%', 'towing', 'listing', 'phone'],
+36:              ['Repair shops', 'resident', 'Automobile Repairing & Service', '', 'listing', 'phone']]],
+37:         ['car-accident', 'Car accident', 'urgent', 1, 'resident',
+38:             ['car accident', 'car crash', 'wrecked my car', 'got in a wreck', 'fender bender', 'hit a deer', 'hit an animal'],
+39:             [['Towing', 'resident', 'Wrecker Service|Towing%', 'towing', 'listing', 'phone'],
+40:              ['Police (non-emergency)', 'resident', 'Police Departments|Sheriff|State Government-Police', '', 'listing', 'phone'],
+41:              ['Emergency care', 'resident', 'Hospitals|Emergency Medical%|Clinics', '', 'listing', 'phone'],
+42:              ['Body shops', 'resident', 'Automobile Body-Repairing & Painting', '', 'listing', 'phone'],
+43:              ['Auto insurance', 'resident', 'Insurance-Automobile|Insurance', '', 'listing', 'phone']]],
+44:         ['fix-my-car', 'Car repair', 'normal', 0, 'resident',
+45:             ['fix my car', 'car repair', 'car trouble', 'check engine light', 'car is making a noise', 'mechanic', 'brakes', 'oil change', 'car wont start'],
+46:             [['Repair shops', 'resident', 'Automobile Repairing & Service|Automobile Machine Shop Service', '', 'listing', 'phone'],
+47:              ['Oil change and lube', 'resident', 'Automobile Lubrication Service', 'oil change lube', 'listing', 'phone'],
+48:              ['Tires', 'resident', 'Tire-Dealers-Retail', '', 'listing', 'phone'],
+49:              ['Body and glass', 'resident', 'Automobile Body-Repairing & Painting|Automobile Glass%|Glass-Auto%', '', 'listing', 'phone'],
+50:              ['Parts to fix it yourself', 'resident', 'Automobile Parts & Supplies%', '', 'listing', 'where']]],
+51:         ['cracked-windshield', 'Cracked windshield', 'normal', 0, 'resident',
+52:             ['cracked windshield', 'broken windshield', 'windshield chip', 'car window broke'],
+53:             [['Auto glass', 'resident', 'Automobile Glass%|Glass-Auto%|Automotive Glass%', 'windshield glass', 'listing', 'phone']]],
+54:         ['dead-battery', 'Dead battery', 'urgent', 0, 'resident',
+55:             ['dead battery', 'battery is dead', 'need a jump', 'jump start', 'car battery'],
+56:             [['Parts and batteries', 'resident', 'Automobile Parts & Supplies%', 'battery', 'listing', 'phone'],
+57:              ['Repair shops', 'resident', 'Automobile Repairing & Service|Automobile Electric Service', '', 'listing', 'phone'],
+58:              ['Towing', 'resident', 'Wrecker Service', '', 'listing', 'phone']]],
+59:         ['car-gone', "Can't find my car", 'urgent', 0, 'resident',
+60:             ['cant find my car', 'car is gone', 'car is missing', 'my car was stolen', 'car got stolen', 'stolen car', 'car was towed', 'car got towed', 'was my car towed', 'impound', 'impounded', 'where did i park'],
+61:             [['Was it towed? Towing and impound', 'resident', 'Wrecker Service|Automobile Storage|Towing%', 'impound towing', 'listing', 'phone'],
+62:              ['Report it stolen (police non-emergency)', 'resident', 'Police Departments|Sheriff|State Government-Police', '', 'listing', 'phone'],
+63:              ['A ride for now', 'resident', 'Local Passenger Transportation NEC|Limousine Service|Bus Lines|Transportation', '', 'listing', 'phone'],
+64:              ['Rental cars', 'resident', 'Automobile Renting', '', 'listing', 'phone']]],
+65:         ['need-a-ride', 'Need a ride', 'normal', 0, 'resident',
+66:             ['need a ride', 'taxi', 'cab', 'ride to the airport', 'no car', 'bus schedule', 'shuttle'],
+67:             [['Rides and transit', 'resident', 'Local Passenger Transportation NEC|Limousine Service|Bus Lines|Transportation|Taxicabs%', 'taxi shuttle transit bus', 'listing', 'phone'],
+68:              ['Car rental', 'resident', 'Automobile Renting|Truck Renting & Leasing', '', 'listing', 'phone']]],
+69:         ['drivers-license', "Driver's license and vehicle papers", 'normal', 0, 'resident',
+70:             ['drivers license', 'renew my license', 'register my car', 'license plate', 'mvd', 'dmv', 'title for my car'],
+71:             [['Motor vehicle offices', 'resident', 'Department Of Motor Vehicles', 'mvd motor vehicle', 'listing', 'where'],
+72:              ['Title and registration services', 'resident', 'Title Companies|Notaries-Public', '', 'listing', 'phone']]],
+73: 
+74:         // ---- home and utilities ----
+75:         ['power-out', 'Power out', 'urgent', 0, 'resident',
+76:             ['power went out', 'power is out', 'power outage', 'no power', 'no electricity', 'lights went out', 'blackout'],
+77:             [['Electric company (outages)', 'resident', 'Electric Companies|Electric & Other Services-Combined', 'electric cooperative outage', 'listing', 'phone'],
+78:              ['Generators and supplies', 'resident', 'Hardware-Retail|Home Centers|Building Materials', 'generator', 'listing', 'where'],
+79:              ['Electricians', 'resident', 'Electric Contractors', '', 'listing', 'phone']]],
+80:         ['smell-gas', 'Smell of gas', 'urgent', 1, 'resident',
+81:             ['smell gas', 'gas smell', 'gas leak', 'smells like gas', 'propane leak', 'carbon monoxide', 'co alarm'],
+82:             [['Gas company', 'resident', 'Gas Companies|Propane (Lp) Gas|Gas-Propane%', 'gas propane', 'listing', 'phone'],
+83:              ['Fire department', 'resident', 'Fire Departments|County Government-Fire Protection', '', 'listing', 'phone'],
+84:              ['Gas line repair', 'resident', 'Gas Line Installation & Repair|Plumbing Contractors', '', 'listing', 'phone']]],
+85:         ['no-water', 'No water or a water problem', 'urgent', 0, 'resident',
+86:             ['no water', 'water is off', 'water main break', 'water shut off', 'well stopped working', 'well pump'],
+87:             [['Water utility', 'resident', 'Water & Sewage Companies-Utility|Water Supply%|Irrigation Districts', 'water', 'listing', 'phone'],
+88:              ['Well service', 'resident', 'Water Well Drilling & Service', 'well', 'listing', 'phone'],
+89:              ['Plumbers', 'resident', 'Plumbing Contractors|Plumbing Heating & Air Conditioning', '', 'listing', 'phone'],
+90:              ['Drinking water', 'resident', 'Water Companies-Bottled/Bulk & Etc|Grocers-Retail', 'water', 'listing', 'where']]],
+91:         ['burst-pipe', 'Leak or burst pipe', 'urgent', 0, 'resident',
+92:             ['burst pipe', 'pipe burst', 'frozen pipes', 'water leak', 'leaking', 'flooded basement', 'toilet overflow', 'clogged drain', 'sewer backup'],
+93:             [['Plumbers', 'resident', 'Plumbing Contractors|Plumbing Heating & Air Conditioning|Plumbing Drain & Sewer Cleaning', '', 'listing', 'phone'],
+94:              ['Water damage and mold', 'resident', 'Mold Mildew Moisture Control & Abatement|Carpet & Rug Cleaners', '', 'listing', 'phone'],
+95:              ['Septic', 'resident', 'Septic Tanks/Systems-Cleaning/Repairing', '', 'listing', 'phone']]],
+96:         ['no-heat', 'No heat or air conditioning', 'urgent', 0, 'resident',
+97:             ['no heat', 'heater broke', 'furnace stopped', 'furnace not working', 'ac broke', 'air conditioner broke', 'house is too cold', 'house is too hot', 'need propane'],
+98:             [['Heating and cooling repair', 'resident', 'Air Conditioning%|Heating Contractors|Plumbing Heating & Air Conditioning|Mechanical Contractors', '', 'listing', 'phone'],
+99:              ['Propane and fuel', 'resident', 'Propane (Lp) Gas|Gas-Liquefied%|Gas-Propane%|Fuel-Dealers NEC', 'propane', 'listing', 'phone'],
+100:              ['Firewood and stoves', 'resident', 'Hardware-Retail|Home Centers|Chimney Accessories & Supplies', 'firewood stove', 'listing', 'where']]],
+101:         ['locked-out', 'Locked out or lost keys', 'urgent', 0, 'resident',
+102:             ['lost my keys', 'cant find my keys', 'locked out', 'locked my keys', 'keys locked in', 'need a locksmith', 'cant get in my house', 'spare key', 'key copy'],
+103:             [['Locksmiths', 'resident', 'Locks & Locksmiths', 'locksmith', 'listing', 'phone'],
+104:              ['Key copies', 'resident', 'Hardware-Retail|Key Duplicating Service Kiosks|Home Centers', '', 'listing', 'where']]],
+105:         ['pests', 'Pests in the house', 'normal', 0, 'resident',
+106:             ['bugs in my house', 'mice', 'rats', 'cockroaches', 'termites', 'bed bugs', 'scorpions', 'pest control', 'wasps', 'bees in my wall'],
+107:             [['Pest control', 'resident', 'Pest Control', 'pest exterminator', 'listing', 'phone']]],
+108:         ['roof-leak', 'Roof leak or storm damage', 'urgent', 0, 'resident',
+109:             ['roof is leaking', 'roof leak', 'storm damage', 'tree fell on my house', 'hail damage', 'wind damage'],
+110:             [['Roofers', 'resident', 'Roofing Contractors', '', 'listing', 'phone'],
+111:              ['Tree service', 'resident', 'Tree Service', 'tree', 'listing', 'phone'],
+112:              ['Contractors', 'resident', 'General Contractors%|Remodeling & Repairing Building Contractors|Handyman Services', '', 'listing', 'phone'],
+113:              ['Home insurance', 'resident', 'Insurance', '', 'listing', 'phone']]],
+114:         ['home-repair', 'Something to fix at home', 'normal', 0, 'resident',
+115:             ['fix my house', 'home repair', 'handyman', 'broken window', 'garage door broke', 'fix my fence', 'remodel', 'paint my house', 'new floors'],
+116:             [['Handyman and repair', 'resident', 'Handyman Services|Remodeling & Repairing Building Contractors|Home Improvements', '', 'listing', 'phone'],
+117:              ['Trades', 'resident', 'Painters|Carpenters|Windows|Doors-Garage|Fence Contractors|Floor Laying%', '', 'listing', 'phone'],
+118:              ['Materials', 'resident', 'Hardware-Retail|Home Centers|Lumber-Retail|Building Materials', '', 'listing', 'where']]],
+119:         ['appliance-broke', 'Broken appliance', 'normal', 0, 'resident',
+120:             ['washer broke', 'dryer broke', 'fridge stopped working', 'refrigerator broke', 'appliance repair', 'stove not working', 'computer broke', 'phone broke', 'broke my phone', 'broke my laptop', 'broke my computer', 'cracked my phone', 'cracked screen'],
+121:             [['Appliance and electronics repair', 'resident', 'Appliances-Household-Small-Repairing|Electronic Equipment & Supplies-Repair|Computers-Service & Repair|Repair Shops%', 'repair', 'listing', 'phone'],
+122:              ['Used appliances', 'resident', 'Appliances-Household-Major-Used', '', 'listing', 'where']]],
+123:         ['trash-junk', 'Trash, junk or recycling', 'normal', 0, 'resident',
+124:             ['trash pickup', 'garbage', 'junk removal', 'dump', 'landfill', 'recycling', 'get rid of old furniture'],
+125:             [['Trash and junk', 'resident', 'Garbage Collection|Junk Removal|Landfills%|Recycling Centers%|E-Waste%', '', 'listing', 'where']]],
+126:         ['internet-phone', 'Internet or phone service', 'normal', 0, 'resident',
+127:             ['internet is down', 'no internet', 'wifi not working', 'need internet', 'cell phone service', 'phone plan', 'tv service'],
+128:             [['Internet and phone', 'resident', 'Internet Service|Telephone Companies|Cellular Telephones (Services)|Television-Cable & Catv|Agents For Wireless%', '', 'listing', 'phone']]],
+129:         ['moving', 'Moving', 'normal', 0, 'resident',
+130:             ['moving', 'moving here', 'just moved', 'new in town', 'moving next month', 'need a moving truck', 'need storage'],
+131:             [['Movers and trucks', 'resident', 'Movers|Truck Renting & Leasing', '', 'listing', 'phone'],
+132:              ['Storage', 'resident', 'Storage-Household & Commercial|Warehouses-Merchandise & Self Storage|Storage', '', 'listing', 'phone'],
+133:              ['Utilities to set up', 'resident', 'Electric Companies|Water & Sewage Companies-Utility|Internet Service|Gas Companies|Propane (Lp) Gas', '', 'listing', 'phone'],
+134:              ['Places to live', 'resident', 'Apartments|Real Estate|Real Estate Management|Mobile Homes-Parks & Communities', '', 'listing', 'phone'],
+135:              ['Get to know the area', 'traveler', '', 'history museum park', 'story,outdoors,experience', '']]],
+136: 
+137:         // ---- health ----
+138:         ['someone-hurt', 'Someone is hurt or very sick', 'urgent', 1, 'resident',
+139:             ['someone is hurt', 'badly hurt', 'bleeding badly', 'wont stop bleeding', 'chest pain', 'heart attack', 'cant breathe', 'not breathing', 'overdose', 'poisoned', 'snake bite', 'stroke', 'unconscious', 'passed out', 'seizure', 'head injury'],
+140:             [['Emergency room and hospitals', 'resident', 'Hospitals|Emergency Medical%|Medical Centers', '', 'listing', 'phone'],
+141:              ['Ambulance', 'resident', 'Ambulance Service|Air Ambulance Service|Fire Departments', '', 'listing', 'phone'],
+142:              ['Urgent care and clinics', 'resident', 'Clinics|Ambulatory Health Care Services|Health Services', '', 'listing', 'phone']]],
+143:         ['injury', 'An injury', 'urgent', 0, 'resident',
+144:             ['broke my', 'broken my', 'broke my arm', 'broke my leg', 'broke my ankle', 'broke my wrist', 'broke my foot', 'broke my hand', 'broke my finger', 'broke my toe',
+145:              'broke my nose', 'broke my rib', 'broken bone', 'broken arm', 'broken leg', 'broken ankle', 'broken wrist', 'sprained', 'sprained my ankle', 'twisted my ankle', 'twisted my knee',
+146:              'hurt my back', 'hurt my knee', 'hurt my', 'injured', 'injury', 'cut myself', 'need stitches', 'deep cut', 'dislocated', 'fell and hurt', 'bad burn'],
+147:             [['Urgent care and clinics', 'resident', 'Clinics|Ambulatory Health Care Services|Health Services|Medical Centers', '', 'listing', 'phone'],
+148:              ['Emergency room and hospitals', 'resident', 'Hospitals|Emergency Medical%', '', 'listing', 'phone'],
+149:              ['Bone and joint doctors', 'resident', 'Orthopedic Surgeons|Physicians & Surgeons', '', 'listing', 'phone'],
+150:              ['Braces, crutches and supplies', 'resident', 'Pharmacies|Home Health & Health Care Equipment', '', 'listing', 'where'],
+151:              ['Getting better', 'resident', 'Physical Therapists|Chiropractors DC|Occupational Therapists', '', 'listing', 'phone']]],
+152:         ['feel-sick', 'Feeling sick', 'normal', 0, 'resident',
+153:             ['feel sick', 'im sick', 'fever', 'flu', 'sore throat', 'need a doctor', 'see a doctor', 'urgent care', 'walk in clinic'],
+154:             [['Clinics and urgent care', 'resident', 'Clinics|Ambulatory Health Care Services|Health Services|Medical Centers', '', 'listing', 'phone'],
+155:              ['Doctors', 'resident', 'Physicians & Surgeons|Nurses-Practitioners|Physicians Assistants', '', 'listing', 'phone'],
+156:              ['Pharmacies', 'resident', 'Pharmacies|Pharmacists', '', 'listing', 'phone']]],
+157:         ['need-prescription', 'Prescriptions and medicine', 'normal', 0, 'resident',
+158:             ['need my prescription', 'refill', 'pharmacy', 'medicine', 'out of my meds'],
+159:             [['Pharmacies', 'resident', 'Pharmacies|Pharmacists', '', 'listing', 'phone']]],
+160:         ['toothache', 'Tooth pain', 'urgent', 0, 'resident',
+161:             ['toothache', 'tooth pain', 'broke a tooth', 'chipped tooth', 'need a dentist', 'emergency dentist'],
+162:             [['Dentists', 'resident', 'Dentists', '', 'listing', 'phone']]],
+163:         ['eyes', 'Eyes and glasses', 'normal', 0, 'resident',
+164:             ['broke my glasses', 'eye exam', 'need glasses', 'contacts', 'eye doctor'],
+165:             [['Eye care', 'resident', 'Optometrists OD|Opticians|Optical Goods-Retail', '', 'listing', 'phone']]],
+166:         ['mental-health', 'Someone to talk to', 'normal', 0, 'resident',
+167:             ['need someone to talk to', 'feeling depressed', 'depression', 'anxiety', 'counseling', 'therapist', 'stressed out', 'grief'],
+168:             [['Counseling and mental health', 'resident', 'Counselors%|Counseling Services|Mental Health%|Psychologists|Marriage & Family Counselors|Outpatient Mental Health%', '', 'listing', 'phone']]],
+169:         ['addiction', 'Help with alcohol or drugs', 'normal', 0, 'resident',
+170:             ['drinking problem', 'addiction', 'substance abuse', 'rehab', 'quit drinking', 'quit drugs', 'sober'],
+171:             [['Treatment and support', 'resident', 'Substance Abuse Centers|Alcoholism Information & Treatment Ctrs|Drug Abuse & Addiction%|Outpatient Mental Health%', '', 'listing', 'phone'],
+172:              ['Support groups', 'community', '', 'recovery support', 'group', '']]],
+173:         ['pregnant', 'Expecting a baby', 'normal', 0, 'resident',
+174:             ['pregnant', 'having a baby', 'baby on the way', 'expecting', 'prenatal', 'midwife'],
+175:             [['Care during pregnancy', 'resident', 'Midwives|Birth Centers|Physicians & Surgeons|Clinics|Pregnancy Counseling Svc & Information', '', 'listing', 'phone'],
+176:              ['For the baby', 'resident', 'Maternity Apparel & Supports|Child Care Service|Thrift Shops', '', 'listing', 'where'],
+177:              ['Parents nearby', 'community', '', 'parents moms families', 'group', '']]],
+178:         ['caregiving', 'Caring for an older parent', 'normal', 0, 'resident',
+179:             ['caring for my mom', 'caring for my dad', 'elderly parent', 'home health', 'assisted living', 'nursing home', 'senior care'],
+180:             [['Care at home', 'resident', 'Home Health Service|Home Health & Health Care Equipment|Hospices', '', 'listing', 'phone'],
+181:              ['Care homes', 'resident', 'Residential Care Homes|Nursing & Convalescent Homes|Retirement Communities & Homes|Homes-Adult|Assisted Living%', '', 'listing', 'phone'],
+182:              ['Senior services', 'resident', 'Senior Citizens Service%|Day Care Centers-Adult', '', 'listing', 'phone']]],
+183: 
+184:         // ---- money, work, help ----
+185:         ['cant-pay-bills', 'Help with bills', 'normal', 0, 'resident',
+186:             ['cant pay my bills', 'cant pay bills', 'behind on bills', 'need help with rent', 'cant pay rent', 'utility bill help', 'about to be evicted', 'eviction', 'need money'],
+187:             [['Assistance programs', 'resident', 'Social Service & Welfare Organizations|Community Action Agencies|Government-Individual/Family Social Svcs|Charitable Institutions|City Government-Housing Programs|Housing Authorities', '', 'listing', 'phone'],
+188:              ['Food', 'resident', 'Food Banks|Missions', 'food pantry', 'listing', 'phone'],
+189:              ['Budget and debt help', 'resident', 'Credit & Debt Counseling Services|Legal Services|Financial Planning Consultants', '', 'listing', 'phone'],
+190:              ['Benefits offices', 'resident', 'Government-Individual/Family Social Svcs|Federal Government-Social & Human Rsrcs|City Government-Social & Human Resources|Government Offices-Native American', '', 'listing', 'phone']]],
+191:         ['hungry', 'Need food', 'normal', 0, 'resident',
+192:             ['need food', 'hungry and no money', 'food bank', 'food pantry', 'free meals', 'free food', 'snap', 'food stamps'],
+193:             [['Food banks and meals', 'resident', 'Food Banks|Missions|Charitable Institutions', 'food pantry meals', 'listing', 'phone'],
+194:              ['Benefits offices', 'resident', 'Government-Individual/Family Social Svcs|Social Service & Welfare Organizations', '', 'listing', 'phone']]],
+195:         ['need-shelter', 'Need a place to stay tonight', 'urgent', 0, 'resident',
+196:             ['need a place to stay', 'homeless', 'nowhere to sleep', 'shelter', 'kicked out'],
+197:             [['Shelters and housing help', 'resident', 'Social Service & Welfare Organizations|Missions|Housing Authorities|Charitable Institutions|Group Homes', 'shelter', 'listing', 'phone'],
+198:              ['Affordable rooms', 'resident', 'Hotels & Motels|Inns', '', 'listing', 'phone']]],
+199:         ['job-interview', 'Getting ready for a job interview', 'normal', 0, 'mixed',
+200:             ['job interview', 'interview coming up', 'got an interview', 'interview tomorrow'],
+201:             [['Something to wear', 'resident', 'Clothing-Retail|Thrift Shops|Department Stores|Shoes-Retail|Consignment Shops', '', 'listing', 'where'],
+202:              ['A haircut', 'resident', 'Barbers|Beauty Salons', '', 'listing', 'phone'],
+203:              ['Resume help and printing', 'resident', 'Libraries-Public|Copying & Duplicating Service|Employment Agencies & Opportunities|Government-Job Training/Voc Rehab Svcs', '', 'listing', 'where'],
+204:              ['Interview practice and job help', 'resident', 'Employment Agencies & Opportunities|Government-Job Training/Voc Rehab Svcs|Junior-Community College-Tech Institutes', '', 'listing', 'phone']]],
+205:         ['find-a-job', 'Looking for work', 'normal', 0, 'resident',
+206:             ['need a job', 'looking for work', 'lost my job', 'unemployed', 'job openings', 'hiring'],
+207:             [['Job help', 'resident', 'Employment Agencies & Opportunities|Employment Contractors-Temporary Help|Government-Job Training/Voc Rehab Svcs', '', 'listing', 'phone'],
+208:              ['Training', 'resident', 'Junior-Community College-Tech Institutes|Educational Service-Business|Schools-Universities%', '', 'listing', 'phone']]],
+209:         ['start-business', 'Starting a business', 'normal', 0, 'resident',
+210:             ['start a business', 'starting a business', 'open a store', 'business license', 'small business help'],
+211:             [['Business help', 'resident', 'Chambers Of Commerce|Business & Trade Organizations|Business Management Consultants|Consultants-Business NEC', '', 'listing', 'phone'],
+212:              ['Licenses and permits', 'resident', 'City Hall|City Government-Regulation/Licensing & Inspec|County Government-General Offices', '', 'listing', 'phone'],
+213:              ['Accounting and legal', 'resident', 'Accountants|Accounting & Bookkeeping General Svc|Attorneys|Tax Return Preparation & Filing', '', 'listing', 'phone']]],
+214:         ['taxes', 'Taxes', 'normal', 0, 'resident',
+215:             ['do my taxes', 'tax help', 'file taxes', 'tax return'],
+216:             [['Tax preparers', 'resident', 'Tax Return Preparation & Filing|Accountants|Accounting & Bookkeeping General Svc', '', 'listing', 'phone']]],
+217:         ['legal-trouble', 'Legal help', 'normal', 0, 'resident',
+218:             ['need a lawyer', 'legal help', 'got sued', 'court date', 'divorce', 'custody', 'arrested', 'bail'],
+219:             [['Lawyers and legal aid', 'resident', 'Attorneys|Legal Services', '', 'listing', 'phone'],
+220:              ['Courts', 'resident', 'County Government-Courts|City Government-Courts', '', 'listing', 'where'],
+221:              ['Bail', 'resident', 'Bail Bonds', '', 'listing', 'phone']]],
+222:         ['send-money', 'Sending or getting money', 'normal', 0, 'resident',
+223:             ['send money', 'wire money', 'cash a check', 'money order', 'atm', 'need cash'],
+224:             [['Money services', 'resident', 'Money Transfer Service|Money Order Service|Check Cashing Service|Atm-Automated Teller Machines|Banks|Credit Unions', '', 'listing', 'where']]],
+225:         ['mail-package', 'Mail or ship something', 'normal', 0, 'resident',
+226:             ['mail a package', 'ship a package', 'post office', 'send a letter', 'shipping'],
+227:             [['Mail and shipping', 'resident', 'Post Offices|Mailing & Shipping Services|Mailing & Shipping Kiosks|Packaging Service', '', 'listing', 'where']]],
+228: 
+229:         // ---- family, kids, school ----
+230:         ['childcare', 'Childcare', 'normal', 0, 'resident',
+231:             ['need a babysitter', 'daycare', 'childcare', 'child care', 'preschool', 'after school'],
+232:             [['Childcare and preschool', 'resident', 'Child Care Service|Head Start|Schools-Pre-School/Kindergarten-Academic|Youth Organizations & Centers', '', 'listing', 'phone']]],
+233:         ['kids-bored', 'Something for the kids', 'normal', 0, 'mixed',
+234:             ['kids are bored', 'things to do with kids', 'take the kids', 'family fun', 'kid friendly'],
+235:             [['Parks and pools', 'traveler', 'Parks|Swimming Pools-Public', 'park playground', 'listing,outdoors', 'where'],
+236:              ['Indoor fun', 'resident', 'Family Entertainment Centers|Theatres-Movie|Museums|Libraries-Public', '', 'listing', 'where'],
+237:              ['Outings', 'traveler', '', 'family kids easy', 'experience,outdoors,story', '']]],
+238:         ['field-trip', 'Field trips and class activities', 'normal', 0, 'traveler',
+239:             ['field trip', 'field trips', 'class trip', 'school trip', 'for my students', 'classroom activities'],
+240:             [['Museums and history', 'traveler', 'Museums|National Landmark/Historic Site/Memorial|Historical Organizations', '', 'listing,outdoors', 'where'],
+241:              ['Parks and nature', 'traveler', 'Parks|National Parks/Preserves|National Park/Preserves Visitor Centers|Fish Farms And Hatcheries', '', 'listing,outdoors', 'where'],
+242:              ['Stories to teach from', 'traveler', '', 'history', 'story', '']]],
+243:         ['school', 'Schools', 'normal', 0, 'resident',
+244:             ['enroll my kid', 'find a school', 'school district', 'schools near me'],
+245:             [['Schools', 'resident', 'Schools|School Districts|Religious Schools|Schools-Pre-School/Kindergarten-Academic', '', 'listing', 'phone']]],
+246: 
+247:         // ---- pets ----
+248:         ['pet-sick', 'Pet is sick or hurt', 'urgent', 0, 'resident',
+249:             ['my dog is sick', 'my cat is sick', 'pet emergency', 'dog got hurt', 'vet', 'veterinarian', 'dog ate something'],
+250:             [['Vets', 'resident', 'Veterinarians', '', 'listing', 'phone']]],
+251:         ['lost-pet', 'Lost or found pet', 'urgent', 0, 'resident',
+252:             ['lost my dog', 'lost my cat', 'cant find my dog', 'cant find my cat', 'dog ran away', 'cat ran away', 'found a dog', 'found a cat', 'stray dog'],
+253:             [['Shelters and animal control', 'resident', 'Animal Shelters|Humane Societies|Animal Protection Organizations|Animal Rescue Relocation & Transporting', 'animal control', 'listing', 'phone']]],
+254:         // decisions/0064: read from any belonging the dictionary knows ("found a purse", "lost my passport")
+255:         ['found-belongings', "Found someone's belongings", 'normal', 0, 'mixed',
+256:             ['found a wallet', 'found someones wallet', 'found a purse', 'found a phone', 'found someones keys', 'found an id', 'lost and found', 'turn in a wallet', 'where to turn in lost items'],
+257:             [['Turn it in to the police (non-emergency)', 'resident', 'Police Departments|Sheriff|State Government-Police', '', 'listing', 'phone'],
+258:              ['Found it on a trail or in a park: a visitor center or ranger station', 'traveler', 'National Park/Preserves Visitor Centers%|Chambers Of Commerce', 'visitor center ranger station', 'listing,outdoors', 'where']]],
+259:         ['lost-belongings', 'Lost or stolen wallet, phone or ID', 'normal', 0, 'resident',
+260:             ['lost my wallet', 'lost my purse', 'lost my phone', 'lost my id', 'lost my license', 'wallet stolen', 'stolen wallet', 'purse stolen', 'phone stolen', 'lost my passport'],
+261:             [['Report it (police non-emergency)', 'resident', 'Police Departments|Sheriff|State Government-Police', '', 'listing', 'phone'],
+262:              ["Replace an ID or driver's license", 'resident', 'Department Of Motor Vehicles%', 'motor vehicle division', 'listing', 'where'],
+263:              ['Cancel cards: your bank', 'resident', 'Banks', '', 'listing', 'phone'],
+264:              ['Replace a phone', 'resident', 'Cellular Telephones%', '', 'listing', 'where']]],
+265:         ['pet-care', 'Pet care', 'normal', 0, 'resident',
+266:             ['dog grooming', 'pet sitter', 'board my dog', 'kennel', 'adopt a dog', 'adopt a cat', 'pet food'],
+267:             [['Grooming and boarding', 'resident', 'Pet Washing & Grooming|Pet Boarding Sitting & Kennels|Dog Training', '', 'listing', 'phone'],
+268:              ['Adopt', 'resident', 'Animal Shelters|Humane Societies|Animal Adoptions', '', 'listing', 'phone'],
+269:              ['Supplies', 'resident', 'Pet Supplies & Foods-Retail|Feed-Dealers (Whls)', '', 'listing', 'where']]],
+270: 
+271:         // ---- outdoors and things to do ----
+272:         ['stargazing', 'Stargazing', 'normal', 0, 'traveler',
+273:             ['stargazing', 'star gazing', 'stargaze', 'see the stars', 'see the milky way', 'dark sky', 'dark skies', 'night sky', 'meteor shower'],
+274:             [['Dark places to go', 'traveler', '', 'stargazing observatory astronomy', 'outdoors,listing', 'where'],
+275:              ['Camp under the stars', 'traveler', 'Campgrounds|Recreational Vehicle Parks', 'campground', 'outdoors,listing', 'where'],
+276:              ['Stories and guides', 'traveler', '', 'stars stargazing astronomy', 'story', '']]],
+277:         ['fishing', 'Fishing', 'normal', 0, 'traveler',
+278:             ['go fishing', 'going fishing', 'fishing', 'fly fishing', 'catch trout', 'where to fish'],
+279:             [['Lakes and rivers', 'traveler', 'Fishing Lakes & Ponds', 'fishing lake pond river reservoir', 'outdoors,listing', 'where'],
+280:              ['Bait, tackle and licenses', 'resident', 'Fishing Bait|Sporting Goods-Retail|Hunting & Fishing Outfitters', '', 'listing', 'where'],
+281:              ['Guides and lodges', 'resident', 'Guide Service|Fishing & Hunting Lodges', '', 'listing', 'phone']]],
+282:         ['hiking', 'Hiking', 'normal', 0, 'traveler',
+283:             ['go hiking', 'hiking', 'hike', 'trails', 'trailhead', 'walk in nature'],
+284:             [['Trails', 'traveler', '', 'hiking trail trails trailhead', 'outdoors,listing', 'where'],
+285:              ['Gear', 'resident', 'Sporting Goods-Retail', '', 'listing', 'where'],
+286:              ['Hiking groups', 'community', '', 'hiking trail runners outdoors', 'group', '']]],
+287:         ['camping', 'Camping', 'normal', 0, 'traveler',
+288:             ['go camping', 'camping', 'campground', 'campsite', 'rv park', 'place to camp'],
+289:             [['Campgrounds and RV parks', 'traveler', 'Campgrounds|Recreational Vehicle Parks', 'campground camping', 'outdoors,listing', 'where'],
+290:              ['Supplies', 'resident', 'Sporting Goods-Retail|Hardware-Retail|Propane (Lp) Gas', '', 'listing', 'where']]],
+291:         ['boating', 'Boating and water', 'normal', 0, 'traveler',
+292:             ['boating', 'kayaking', 'canoeing', 'paddle', 'go swimming', 'swimming', 'beach', 'lake day'],
+293:             [['Lakes and water', 'traveler', 'Fishing Lakes & Ponds|Swimming Pools-Public', 'lake boating swimming', 'outdoors,listing', 'where'],
+294:              ['Boats and rentals', 'resident', 'Boat Dealers Sales & Service', '', 'listing', 'phone']]],
+295:         ['hunting', 'Hunting', 'normal', 0, 'traveler',
+296:             ['hunting', 'go hunting', 'elk hunt', 'deer hunt', 'hunting license', 'hunting season'],
+297:             [['Where to hunt', 'traveler', 'Federal Government-Land/Mineral/Wildlife/Fore|State Government-Land/Mineral/Wildlife/Forest', 'hunting game', 'outdoors,listing', 'where'],
+298:              ['Outfitters and gear', 'resident', 'Hunting & Fishing Outfitters|Guns & Gunsmiths|Sporting Goods-Retail|Guide Service', '', 'listing', 'phone'],
+299:              ['Game processing', 'resident', 'Game Processing (Mfrs)|Taxidermists', '', 'listing', 'phone']]],
+300:         ['snow', 'Snow and skiing', 'normal', 0, 'traveler',
+301:             ['skiing', 'snowboarding', 'sledding', 'snow day', 'ski rental', 'snow tubing', 'tubing hill', 'tubing in the snow', 'sledding hill', 'sled hill'],
+302:             [['Ski areas and snow', 'traveler', 'Skiing Centers & Resorts', 'ski skiing snow sledding tubing', 'outdoors,listing', 'where'],
+303:              ['Rentals', 'resident', 'Skiing Equipment-Rental|Sporting Goods-Retail', '', 'listing', 'phone']]],
+304:         // "tubing" is a float down a river as well as pipe (Jason, 2026-10-15). Its phrases start with "tubing", so typing
+305:         // "tubing" offers this and Snow and skiing; "copper tubing" says neither.
+306:         ['river-fun', 'On the river: tubing and rafting', 'normal', 0, 'traveler',
+307:             ['tubing on the river', 'river tubing', 'tube the river', 'float the river', 'floating the river', 'river float', 'rafting', 'white water rafting', 'whitewater rafting', 'river rafting', 'inner tube'],
+308:             [['Rivers and put-ins', 'traveler', '', 'river float rafting boating day use', 'outdoors,listing', 'where'],
+309:              ['Outfitters, guides and rentals', 'resident', 'Outfitters|Guide Service|Water Sports Equipment-Rental', '', 'listing', 'phone']]],
+310:         ['bored', 'Something to do', 'normal', 0, 'mixed',
+311:             ['bored', 'something to do', 'things to do', 'what to do today', 'nothing to do', 'what is there to do'],
+312:             [['Worth the trip', 'traveler', '', 'things to do', 'experience', ''],
+313:              ['Get outside', 'traveler', 'Parks|National Parks/Preserves', 'park trail lake', 'outdoors,listing', 'where'],
+314:              ['Indoors', 'resident', 'Museums|Theatres-Movie|Family Entertainment Centers|Libraries-Public|Casinos', '', 'listing', 'where'],
+315:              ['What people did here', 'traveler', '', 'trip', 'story', '']]],
+316:         ['restroom', 'A restroom', 'normal', 0, 'resident',
+317:             ['need a bathroom', 'need a restroom', 'bathroom', 'restroom', 'restrooms', 'public restroom', 'public bathroom', 'toilet', 'need to pee', 'where can i pee', 'rest stop'],
+318:             [['Rest areas', 'resident', 'Rest Area', 'rest area restroom', 'listing,outdoors', 'where'],
+319:              ['Gas stations and travel centers', 'resident', 'Service Stations-Gasoline & Oil|Truck Stops & Plazas|Convenience Stores', '', 'listing', 'where'],
+320:              ['Parks and visitor centers', 'traveler', 'Parks|State Parks|National Park/Preserves Visitor Centers', 'restroom visitor center', 'listing,outdoors', 'where']]],
+321:         ['fuel', 'Gas for the car', 'normal', 0, 'resident',
+322:             ['need gas', 'need fuel', 'low on gas', 'gas station', 'fill up', 'fill up the tank', 'cheap gas', 'diesel', 'need diesel', 'where to get gas'],
+323:             [['Gas stations', 'resident', 'Service Stations-Gasoline & Oil|Truck Stops & Plazas', '', 'listing', 'where'],
+324:              ['Propane refills', 'resident', 'Propane%|Gas-Liquefied%', '', 'listing', 'phone']]],
+325:         ['parking', 'Somewhere to park', 'normal', 0, 'resident',
+326:             ['where can i park', 'can i park', 'where to park', 'place to park', 'park my car', 'park my truck', 'park my rv', 'park overnight', 'overnight parking',
+327:              'park and sleep in my car', 'park overnight for free', 'park and sleep', 'sleep in my car', 'sleep in my truck', 'sleep in my rv', 'rv parking', 'truck parking', 'parking lot', 'parking garage', 'free parking', 'parking'],
+328:             [['Overnight with an RV or camper', 'traveler', 'Recreational Vehicle Parks|Campgrounds', 'campground rv camping', 'listing,outdoors', 'where'],
+329:              ['Rest areas and truck stops', 'resident', 'Rest Area|Truck Stops & Plazas', 'rest area', 'listing,outdoors', 'where'],
+330:              ['Parking lots', 'resident', '', 'parking', 'listing', 'where'],
+331:              ['Parking rules (city and police)', 'resident', 'City Government-General Offices|City Government-Executive Offices|Police Departments', '', 'listing', 'phone']]],
+332:         ['day-trip', 'A getaway or day trip', 'normal', 0, 'traveler',
+333:             ['day trip', 'road trip', 'weekend getaway', 'weekend trip', 'scenic drive', 'get away', 'getaway', 'need a break', 'vacation', 'short trip', 'go somewhere', 'get out of town'],
+334:             [['Worth the trip', 'traveler', '', 'trip drive scenic', 'experience,outdoors', 'where'],
+335:              ['Landmarks and parks', 'traveler', 'National Parks/Preserves|National Landmark/Historic Site/Memorial|Parks', '', 'listing,outdoors', 'where'],
+336:              ['Journeys from people who went', 'traveler', '', 'trip drive', 'story', '']]],
+337:         ['history', 'History and heritage', 'normal', 0, 'traveler',
+338:             ['history of', 'local history', 'historic sites', 'heritage', 'old buildings', 'ghost town'],
+339:             [['Museums and historic sites', 'traveler', 'Museums|National Landmark/Historic Site/Memorial|Historical Organizations|Monuments', '', 'listing,outdoors', 'where'],
+340:              ['Stories and guides', 'traveler', '', 'history', 'story', '']]],
+341:         ['date-night', 'A night out', 'normal', 0, 'resident',
+342:             ['date night', 'night out', 'anniversary dinner', 'romantic dinner', 'live music', 'somewhere to dance', 'nice dinner', 'nice restaurant', 'fancy dinner', 'special dinner'],
+343:             [['Dinner', 'resident', 'Restaurants', '', 'listing', 'where'],
+344:              ['Music and drinks', 'resident', 'Music & Live Entertainment|Cocktail Lounges|Bars', '', 'listing', 'where'],
+345:              ['A show', 'resident', 'Theatres-Movie|Casinos', '', 'listing', 'where']]],
+346: 
+347:         // ---- staying, eating, errands ----
+348:         ['need-room', 'Somewhere to stay', 'normal', 0, 'resident',
+349:             ['need a hotel', 'place to stay', 'need a room', 'motel', 'cabin rental', 'vacation rental', 'bed and breakfast'],
+350:             [['Hotels and motels', 'resident', 'Hotels & Motels|Inns|Resorts', '', 'listing', 'phone'],
+351:              ['Cabins and rentals', 'resident', 'Cabin Rentals|Chalet & Cabin Rentals|Cottages & Cabins|Vacation Rentals|Bed & Breakfast Accommodations', '', 'listing', 'phone'],
+352:              ['Camping', 'traveler', 'Campgrounds|Recreational Vehicle Parks', '', 'outdoors,listing', 'where']]],
+353:         ['hungry-now', 'Something to eat', 'normal', 0, 'resident',
+354:             ['hungry', 'somewhere to eat', 'need to eat', 'grab a bite', 'lunch spot', 'dinner spot', 'breakfast spot', 'dinner', 'lunch', 'breakfast', 'brunch', 'supper', 'something to eat'],
+355:             [['Restaurants', 'resident', 'Restaurants|Pizza|Foods-Carry Out', '', 'listing', 'where'],
+356:              ['Coffee and quick bites', 'resident', 'Coffee Shops|Coffee & Tea|Bakers-Retail|Doughnuts|Convenience Stores', '', 'listing', 'where'],
+357:              ['Groceries', 'resident', 'Grocers-Retail|Grocers-Delicatessen', '', 'listing', 'where']]],
+358:         ['haircut', 'A haircut', 'normal', 0, 'resident',
+359:             ['haircut', 'hair cut', 'need a trim', 'barber', 'get my hair done', 'nails done'],
+360:             [['Barbers and salons', 'resident', 'Barbers|Beauty Salons|Manicuring|Spas-Beauty & Day', '', 'listing', 'phone']]],
+361:         ['laundry', 'Laundry', 'normal', 0, 'resident',
+362:             ['laundromat', 'do laundry', 'washer and dryer', 'dry cleaning'],
+363:             [['Laundry', 'resident', 'Laundries-Self Service|Cleaners', '', 'listing', 'where']]],
+364:         ['print-copy', 'Print, copy or a notary', 'normal', 0, 'resident',
+365:             ['print something', 'make copies', 'need a notary', 'notarize', 'fax'],
+366:             [['Printing and copies', 'resident', 'Copying & Duplicating Service|Libraries-Public|Mailing & Shipping Services', '', 'listing', 'where'],
+367:              ['Notaries', 'resident', 'Notaries-Public', '', 'listing', 'phone']]],
+368:         ['gift', 'A gift', 'normal', 0, 'resident',
+369:             ['need a gift', 'birthday present', 'gift idea', 'flowers', 'souvenir'],
+370:             [['Gifts and flowers', 'resident', 'Gift Shops|Florists-Retail|Gifts-Specialty|Gift Baskets & Parcels|Native American Jewelry|Native American Goods|Jewelers-Retail', '', 'listing', 'where']]],
+371: 
+372:         // ---- life events, community ----
+373:         ['funeral', 'Someone has died', 'normal', 0, 'resident',
+374:             ['someone died', 'funeral', 'passed away', 'plan a funeral', 'cremation', 'obituary'],
+375:             [['Funeral homes', 'resident', 'Funeral Directors|Crematories|Monuments', '', 'listing', 'phone'],
+376:              ['Grief support', 'resident', 'Counselors%|Hospices|Churches', 'grief', 'listing', 'phone'],
+377:              ['Flowers', 'resident', 'Florists-Retail', '', 'listing', 'phone']]],
+378:         ['wedding', 'Planning a wedding or party', 'normal', 0, 'resident',
+379:             ['wedding', 'getting married', 'plan a party', 'birthday party', 'event venue', 'quinceanera', 'reception'],
+380:             [['Venues', 'resident', 'Halls & Auditoriums|Convention & Meeting Facilities & Svc|Resorts|Community Centers', '', 'listing', 'phone'],
+381:              ['Food and cake', 'resident', 'Caterers|Bakers-Retail|Restaurants', '', 'listing', 'phone'],
+382:              ['Flowers, music and photos', 'resident', 'Florists-Retail|Music & Live Entertainment|Photo Finishing-Retail', '', 'listing', 'phone']]],
+383:         ['meet-people', 'Meeting people', 'normal', 0, 'community',
+384:             ['meet people', 'make friends', 'new friends', 'lonely', 'join a club', 'volunteer', 'get involved', 'feel alone', 'feeling alone', 'all alone', 'no friends'],
+385:             [['Groups nearby', 'community', '', 'club group', 'group', ''],
+386:              ['Clubs and organizations', 'community', 'Clubs|Civic Organizations|Community Organizations|Fraternal Organizations|Veterans%|Membership%', '', 'listing', 'where'],
+387:              ['Places of worship', 'community', 'Churches|Religious Organizations|Church Organizations', '', 'listing', 'where']]],
+388:         ['church', 'A place of worship', 'normal', 0, 'community',
+389:             ['church', 'place to worship', 'mass times', 'sunday service', 'bible study'],
+390:             [['Places of worship', 'community', 'Churches|Religious Organizations|Church Organizations|Missions', '', 'listing', 'where']]],
+391:         ['veterans', 'Veterans services', 'normal', 0, 'resident',
+392:             ['veteran services', 'va benefits', 'help for veterans', 'veterans help'],
+393:             [['Veterans organizations and services', 'resident', "Veterans' & Military Organizations|Federal Government-Social & Human Rsrcs", 'veterans', 'listing', 'phone']]],
+394:         ['voting-government', 'Government offices', 'normal', 0, 'resident',
+395:             ['city hall', 'county office', 'pay my water bill', 'building permit', 'register to vote', 'property taxes'],
+396:             [['City and county offices', 'resident', 'City Hall|City Government%|County Government%|Government Offices%|General Government Support', '', 'listing', 'where']]],
+397: 
+398:         // ---- getting something done: actions lead to who does it (the intent taxonomy, decisions/0061) ----
+399:         ['build-something', 'Building or remodeling', 'normal', 0, 'resident',
+400:             ['build a shed', 'build a deck', 'build a fence', 'building a house', 'build a house', 'remodel', 'remodeling', 'renovation', 'home improvement', 'diy project'],
+401:             [['Hardware and lumber', 'resident', 'Hardware-Retail|Lumber-Retail|Tools-New & Used', '', 'listing', 'where'],
+402:              ['Builders and contractors', 'resident', 'Building Contractors|Contractors|Home Builders|Remodeling & Repairing Building Contractors|Patio & Deck Builders', '', 'listing', 'phone'],
+403:              ['Tool and equipment rental', 'resident', 'Rental Service-Stores & Yards|Tools-Renting', '', 'listing', 'phone']]],
+404:         ['install-something', 'Getting something installed', 'normal', 0, 'resident',
+405:             ['need something installed', 'installation', 'install a water heater', 'install a ceiling fan', 'install a dishwasher', 'install a swamp cooler', 'hook up a washer'],
+406:             [['Contractors', 'resident', 'Building Contractors|Contractors|Remodeling & Repairing Building Contractors', '', 'listing', 'phone'],
+407:              ['Electricians', 'resident', 'Electric Contractors%|Electricians', '', 'listing', 'phone'],
+408:              ['Plumbers', 'resident', 'Plumbing Contractors|Plumbing Heating & Air Conditioning|Plumbers', '', 'listing', 'phone'],
+409:              ['Heating and cooling', 'resident', 'Heating Contractors|Air Conditioning Contractors & Systems|Air Conditioning & Heating-Service/Repair', '', 'listing', 'phone']]],
+410:         ['register-license', 'Registering or renewing a license', 'normal', 0, 'resident',
+411:             ['register my car', 'car registration', 'vehicle registration', 'renew my license', 'drivers license', 'driver license', 'license plates', 'vehicle title', 'title transfer', 'renew registration'],
+412:             [['Motor vehicle offices', 'resident', 'Department Of Motor Vehicles|Motor Vehicle%|License Services%', '', 'listing', 'where'],
+413:              ['County offices', 'resident', 'County Government-General Offices|County Government-Finance & Taxation', '', 'listing', 'where'],
+414:              ['City offices', 'resident', 'City Hall|City Government%', '', 'listing', 'where']]],
+415:         ['cooking', 'Cooking and baking', 'normal', 0, 'resident',
+416:             ['cooking class', 'cooking classes', 'learn to cook', 'baking supplies', 'kitchen supplies', 'recipe ideas'],
+417:             [['Groceries', 'resident', 'Grocers-Retail|Grocers-Delicatessen|Supermarkets%', '', 'listing', 'where'],
+418:              ['Kitchen supplies', 'resident', 'Kitchen Accessories%|Cookware%|Housewares%|Restaurant Equipment%', '', 'listing', 'where'],
+419:              ['Cooking classes', 'resident', 'Cooking Schools%|Cooking Instruction%|Culinary%', '', 'listing', 'phone']]],
+420:         ['tech-help', 'Setting up or fixing a phone or computer', 'normal', 0, 'resident',
+421:             ['computer help', 'computer repair', 'fix my computer', 'set up my phone', 'set up my computer', 'phone repair', 'printer not working', 'tech support', 'tech help'],
+422:             [['Computer repair', 'resident', 'Computers-Service & Repair|Computer Wiring|Computer%Repair%', '', 'listing', 'phone'],
+423:              ['Phone stores', 'resident', 'Cellular Telephones%|Telephone Equipment%', '', 'listing', 'where'],
+424:              ['Internet service', 'resident', 'Internet Service%|Internet Access%', '', 'listing', 'phone']]],
+425:         ['rent-equipment', 'Renting tools or equipment', 'normal', 0, 'resident',
+426:             ['equipment rental', 'tool rental', 'rent equipment', 'rent tools', 'rent a trailer', 'rent a generator', 'rent a tiller', 'rent a skid steer'],
+427:             [['Equipment and tool rental', 'resident', 'Rental Service-Stores & Yards|Tools-Renting|Contractors-Equip/Supls-Dlrs/Svc (Whls)', '', 'listing', 'phone'],
+428:              ['Truck and trailer rental', 'resident', 'Truck Renting & Leasing|Trailers-Renting%', '', 'listing', 'phone']]],
+429:         ['small-engine', 'Small engine repair', 'normal', 0, 'resident',
+430:             ['small engine repair', 'lawn mower repair', 'fix my lawn mower', 'chainsaw repair', 'generator repair', 'mower repair', 'fix my generator'],
+431:             [['Small engine repair', 'resident', 'Engines-Gasoline%|Engines-Diesel-Repairing|Lawn Mowers%|Saws-Sharpening%|Small Engine%', '', 'listing', 'phone'],
+432:              ['Hardware and parts', 'resident', 'Hardware-Retail|Tools-New & Used', '', 'listing', 'where']]],
+433:         ['tools-hardware', 'Tools and hardware', 'normal', 0, 'resident',
+434:             ['hardware store', 'buy tools', 'tool store', 'need a tool'],
+435:             [['Hardware and tools', 'resident', 'Hardware-Retail|Tools-New & Used|Lumber-Retail', '', 'listing', 'where'],
+436:              ['Tool rental', 'resident', 'Rental Service-Stores & Yards|Tools-Renting', '', 'listing', 'phone']]],
+437: 
+438:         // ---- weather and the land ----
+439:         ['wildfire', 'Wildfire or smoke', 'urgent', 1, 'resident',
+440:             ['wildfire', 'forest fire', 'fire near me', 'smoke outside', 'evacuation', 'evacuate'],
+441:             [['Fire and emergency services', 'resident', 'Fire Departments|County Government-Fire Protection|Civil Defense Agencies|County Government-Public Order & Safety', '', 'listing', 'phone'],
+442:              ['Sheriff and police', 'resident', 'Sheriff|Police Departments', '', 'listing', 'phone'],
+443:              ['Somewhere to stay', 'resident', 'Hotels & Motels|Inns|Community Centers', '', 'listing', 'phone']]],
+444:         ['flooding', 'Flooding', 'urgent', 1, 'resident',
+445:             ['flooding', 'flash flood', 'road flooded', 'water in my house'],
+446:             [['Emergency services', 'resident', 'Fire Departments|Civil Defense Agencies|County Government-Public Order & Safety|Sheriff', '', 'listing', 'phone'],
+447:              ['Water damage', 'resident', 'Mold Mildew Moisture Control & Abatement|Plumbing Contractors|Carpet & Rug Cleaners', '', 'listing', 'phone']]],
+448:         ['snowed-in', 'Winter storm', 'urgent', 0, 'resident',
+449:             ['snowed in', 'winter storm', 'road closed', 'snow plow', 'roads icy', 'chains for my tires'],
+450:             [['Roads and public works', 'resident', 'Public Works Department|State Government-Police|County Government%', 'roads', 'listing', 'phone'],
+451:              ['Fuel and heat', 'resident', 'Propane (Lp) Gas|Gas-Liquefied%|Fuel-Dealers NEC|Hardware-Retail', '', 'listing', 'phone'],
+452:              ['Tire chains and supplies', 'resident', 'Automobile Parts & Supplies%|Tire-Dealers-Retail|Hardware-Retail', '', 'listing', 'where']]],
+453:     ];
+454: 
+455:     private static ?bool $ready = null;
+456: 
+457:     public static function ready(PDO $pdo): bool
+458:     {
+459:         if (self::$ready !== null) return self::$ready;
+460:         try { $pdo->query('SELECT 1 FROM situations LIMIT 1'); self::$ready = true; } catch (PDOException) { self::$ready = false; }
+461:         if (self::$ready) self::seed($pdo);
+462:         return self::$ready;
+463:     }
+464: 
+465:     /** Bump when SEED changes: seed situations are brought up to date; ones edited in Admin (source 'admin') never are. */
+466:     private const SEED_VERSION = '13';
+467: 
+468:     private static function seed(PDO $pdo): void
+469:     {
+470:         $have = class_exists('SearchIndex') && SearchIndex::ready($pdo) ? SearchIndex::state($pdo, 'situations_seed') : '';
+471:         $count = (int) $pdo->query('SELECT COUNT(*) FROM situations')->fetchColumn();
+472:         if ($count > 0 && $have === self::SEED_VERSION) return;
+473:         $s = $pdo->prepare('INSERT INTO situations (slug, label, urgency, danger, track, status, source) VALUES (?, ?, ?, ?, ?, ?, ?)');
+474:         $t = $pdo->prepare('INSERT INTO situation_triggers (situation_id, phrase) VALUES (?, ?)');
+475:         $n = $pdo->prepare('INSERT INTO situation_needs (situation_id, pos, label, track, cats, words, kinds, requires) VALUES (?, ?, ?, ?, ?, ?, ?, ?)');
+476:         $find = $pdo->prepare('SELECT id, source FROM situations WHERE slug = ?');
+477:         $pdo->beginTransaction();
+478:         try {
+479:             foreach (self::SEED as [$slug, $label, $urg, $danger, $track, $triggers, $needs]) {
+480:                 $find->execute([$slug]);
+481:                 $old = $find->fetch(PDO::FETCH_ASSOC);
+482:                 if ($old && $old['source'] !== 'seed') continue;   // edited in Admin: theirs now
+483:                 if ($old) {
+484:                     $id = (int) $old['id'];
+485:                     $pdo->prepare('UPDATE situations SET label = ?, urgency = ?, danger = ?, track = ? WHERE id = ?')->execute([$label, $urg, $danger, $track, $id]);
+486:                     // its own phrases are refreshed; phrases added in Admin stay (decisions/0061, the situation editor)
+487:                     $pdo->prepare('DELETE FROM situation_triggers WHERE situation_id = ?' . (self::trigSource($pdo) ? " AND source = 'seed'" : ''))->execute([$id]);
+488:                     $pdo->prepare('DELETE FROM situation_needs WHERE situation_id = ?')->execute([$id]);
+489:                 } else {
+490:                     $s->execute([$slug, $label, $urg, $danger, $track, 'live', 'seed']);
+491:                     $id = (int) $pdo->lastInsertId();
+492:                 }
+493:                 $seen = [];
+494:                 foreach ($triggers as $ph) { $p = self::norm($ph); if ($p !== '' && !isset($seen[$p])) { $seen[$p] = 1; try { $t->execute([$id, $p]); } catch (PDOException) { /* also added in Admin */ } } }
+495:                 foreach ($needs as $i => [$nl, $nt, $cats, $words, $kinds, $req]) $n->execute([$id, $i, $nl, $nt, $cats, $words, $kinds, $req]);
+496:             }
+497:             $pdo->commit();
+498:             if (class_exists('SearchIndex') && SearchIndex::ready($pdo)) SearchIndex::setState($pdo, 'situations_seed', self::SEED_VERSION);
+499:         } catch (Throwable $e) { $pdo->rollBack(); error_log('situations seed: ' . $e->getMessage()); }
+500:     }
+501: 
+502:     // ---- reading -------------------------------------------------------------------------------------------------
+503: 
+504:     private const CONTRACTIONS = ["can't" => 'cant', 'cannot' => 'cant', "won't" => 'wont', "don't" => 'dont', "doesn't" => 'doesnt', "isn't" => 'isnt',
+505:         "i'm" => 'im', "it's" => 'its', "i've" => 'ive', "we're" => 'were', "didn't" => 'didnt', "wouldn't" => 'wouldnt', "aren't" => 'arent'];
+506: 
+507:     /** Lower case, contractions, punctuation and plurals: "Can't pay my Bills!" and "cant pay my bill" are the same. */
+508:     public static function norm(string $s): string
+509:     {
+510:         $s = mb_strtolower(str_replace(['’', '‘'], "'", $s));
+511:         $s = strtr($s, self::CONTRACTIONS);
+512:         $s = str_replace('&', ' and ', $s);
+513:         $s = preg_replace("/[^\\p{L}\\p{N}]+/u", ' ', $s);
+514:         $out = [];
+515:         foreach (preg_split('/\s+/', trim($s)) ?: [] as $w) {
+516:             if ($w === '') continue;
+517:             if (mb_strlen($w) > 3 && preg_match('/[^s]s$/', $w) && !preg_match('/(us|is|ss)$/', $w)) $w = mb_substr($w, 0, -1);   // bills -> bill, keys -> key
+518:             $out[] = $w;
+519:         }
+520:         return implode(' ', $out);
+521:     }
+522: 
+523:     /** The words our phrases use, for forgiving a slip ("ancle" is ankle). */
+524:     private static function vocab(PDO $pdo): array
+525:     {
+526:         static $v = null;
+527:         if ($v !== null) return $v;
+528:         $v = [];
+529:         foreach (self::phrases($pdo) as [$ph]) foreach ($ph as $w) $v[$w] = 1;
+530:         if (is_file(__DIR__ . '/SituationReasoner.php')) { require_once __DIR__ . '/SituationReasoner.php'; SituationReasoner::load($pdo); foreach (SituationReasoner::vocab() as $w) $v[$w] = 1; }   // the meaning layer's words too
+531:         return $v = array_keys($v);
+532:     }
+533: 
+534:     /** The words of the situations' phrases and needs as written (never a shortened form), for "Did you mean…?". */
+535:     public static function phraseWords(): array
+536:     {
+537:         $w = [];
+538:         foreach (self::SEED as $row) {
+539:             foreach ($row[5] as $ph) foreach (preg_split('/[^a-z]+/', mb_strtolower((string) $ph)) ?: [] as $x) if (mb_strlen($x) >= 3) $w[$x] = 1;
+540:             foreach ($row[6] as $n) foreach (preg_split('/[^a-z]+/', mb_strtolower((string) $n[0] . ' ' . $n[3])) ?: [] as $x) if (mb_strlen($x) >= 3) $w[$x] = 1;
+541:         }
+542:         return array_keys($w);
+543:     }
+544: 
+545:     /** Every word situations and their meanings know, for "Did you mean…?" (SearchText::suggestions). */
+546:     public static function knownWords(PDO $pdo): array
+547:     {
+548:         if (!self::ready($pdo)) return [];
+549:         return array_values(array_unique(array_merge(self::vocab($pdo), array_keys(self::realWords($pdo)))));
+550:     }
+551: 
+552:     /** Words the directory itself uses (its category names): real words, never treated as slips. */
+553:     private static function realWords(PDO $pdo): array
+554:     {
+555:         static $w = null;
+556:         if ($w !== null) return $w;
+557:         $w = [];
+558:         try { foreach ($pdo->query('SELECT name FROM categories WHERE is_active = 1')->fetchAll(PDO::FETCH_COLUMN) as $n) foreach (explode(' ', self::norm((string) $n)) as $x) if (mb_strlen($x) >= 4) $w[$x] = 1; } catch (Throwable) {}
+559:         foreach (['kitchen', 'bathroom', 'bedroom', 'garage', 'basement', 'yard', 'driveway', 'office', 'school', 'church', 'store', 'work', 'home', 'house', 'mother', 'father', 'brother', 'sister', 'husband', 'friend', 'neighbor', 'today', 'tonight', 'tomorrow', 'morning', 'evening', 'weekend', 'little', 'something', 'someone', 'somewhere', 'nothing', 'everything', 'really', 'please', 'thanks', 'where', 'there', 'their', 'which', 'would', 'could', 'should'] as $x) $w[$x] = 1;
+560:         // words with senses, and the words their rules look for, are read as typed: "dropped" is never "stopped"
+561:         if (is_file(__DIR__ . '/WordSenses.php')) {
+562:             require_once __DIR__ . '/WordSenses.php';
+563:             foreach (WordSenses::all($pdo) as $d) foreach ($d['forms'] as $x) $w[self::norm($x)] = 1;
+564:             foreach (WordSenses::GROUPS as $g) foreach ($g as $ph) foreach (explode(' ', self::norm($ph)) as $x) if (mb_strlen($x) >= 4) $w[$x] = 1;
+565:         }
+566:         return $w;
+567:     }
+568: 
+569:     /** All live phrases, longest first: [[phrase tokens], situation id]. Loaded once per request. */
+570:     private static function phrases(PDO $pdo): array
+571:     {
+572:         static $all = null;
+573:         if ($all !== null) return $all;
+574:         $all = [];
+575:         foreach ($pdo->query("SELECT t.situation_id, t.phrase FROM situation_triggers t JOIN situations s ON s.id = t.situation_id WHERE s.status IN ('live', 'may_help')")->fetchAll(PDO::FETCH_ASSOC) as $r) {
+576:             $all[] = [explode(' ', (string) $r['phrase']), (int) $r['situation_id']];
+577:         }
+578:         usort($all, fn ($a, $b) => count($b[0]) <=> count($a[0]));
+579:         return $all;
+580:     }
+581: 
+582:     /**
+583:      * The situations a search names: whole phrases, longest first, each word used once. A phrase may skip up to two words
+584:      * between its own ("lost my car keys" still says "lost my keys"). Several situations combine.
+585:      * [['id', 'slug', 'label', 'urgency', 'danger', 'track', 'status', 'phrase']]
+586:      */
+587:     public static function read(PDO $pdo, string $q): array
+588:     {
+589:         if (!self::ready($pdo)) return [];
+590:         $tok = explode(' ', self::norm($q));
+591:         if (!$tok || $tok[0] === '') return [];
+592:         // the words as typed: a slip is never changed here; search asks "Did you mean…?" instead (Jason, 2026-10-03)
+593:         $used = []; $found = [];
+594:         foreach (self::phrases($pdo) as [$ph, $sid]) {
+595:             if (isset($found[$sid])) continue;
+596:             $at = self::findSeq($tok, $ph, $used);
+597:             if ($at === null) continue;
+598:             foreach ($at as $i) $used[$i] = 1;
+599:             $found[$sid] = implode(' ', $ph);
+600:         }
+601:         // an action on the thing a one-word phrase named ("install a new toilet": the toilet is what's installed, not a
+602:         // restroom wanted): the action's rule wins, unless what the phrase found is a danger (decisions/0061, the intent
+603:         // taxonomy). A phrase of two or more words always stands.
+604:         if ($found && max(array_map(fn ($ph) => count(explode(' ', $ph)), $found)) === 1 && is_file(__DIR__ . '/SituationReasoner.php')) {
+605:             require_once __DIR__ . '/SituationReasoner.php';
+606:             SituationReasoner::load($pdo);
+607:             $inf = SituationReasoner::infer($tok);
+608:             // and an event with its thing ("found a passport on the trail": found + passport, not the trail's Hiking) (decisions/0064)
+609:             if ($inf && ((($inf['kind'] ?? '') === 'action' && in_array(self::norm((string) $inf['thing']), array_map(fn ($ph) => self::norm($ph), $found), true))
+610:                          || (($inf['kind'] ?? '') === 'event' && (string) $inf['thing'] !== '' && !in_array(self::norm((string) $inf['thing']), array_map(fn ($ph) => self::norm($ph), $found), true)))) {
+611:                 $in0 = implode(',', array_map('intval', array_keys($found)));
+612:                 $danger = (int) $pdo->query("SELECT COUNT(*) FROM situations WHERE id IN ($in0) AND danger = 1")->fetchColumn();
+613:                 $st = $pdo->prepare("SELECT id FROM situations WHERE slug = ? AND status IN ('live', 'may_help')"); $st->execute([$inf['slug']]);
+614:                 if (!$danger && ($sid = (int) $st->fetchColumn())) {
+615:                     $found = [$sid => implode(' ', $inf['words'])]; $why = [$sid => $inf['why']];
+616:                     if (class_exists('SearchTrace', false) && SearchTrace::active()) SearchTrace::add('Why', 'An action on a thing', ucfirst($inf['why']) . '. The one-word phrase was the thing acted on, not what was wanted.', $inf['words']);
+617:                 }
+618:             }
+619:         }
+620:         // no phrase matched: a word's sense, from the words around it ("I took a fall" is an injury; "fall festival"
+621:         // is the season, so no situation). decisions/0061, the 5 W's per word (api/lib/WordSenses.php)
+622:         $why = $why ?? [];
+623:         if (!$found && is_file(__DIR__ . '/WordSenses.php')) {
+624:             require_once __DIR__ . '/WordSenses.php';
+625:             $ws = WordSenses::read($pdo, $q);
+626:             foreach ($ws['why'] as $slug) {
+627:                 $st = $pdo->prepare("SELECT id FROM situations WHERE slug = ? AND status IN ('live', 'may_help')"); $st->execute([$slug]);
+628:                 if ($sid = (int) $st->fetchColumn()) { $found[$sid] = $q; $why[$sid] = ''; }
+629:             }
+630:             foreach ($ws['read'] as [$W, $label, $because, $w0]) {
+631:                 if ($W === 'why' && $ws['why'] && class_exists('SearchTrace', false) && SearchTrace::active()) SearchTrace::add('Why', 'Read "' . $w0 . '" as: ' . $label, ucfirst($because) . '.', [$w0]);
+632:                 if ($W !== 'why') { $tok = explode(' ', self::norm($ws['text'])); if ($tok === ['']) $tok = []; }   // not a Why: the meaning layer doesn't read it as one ("a leaf fell" isn't harm)
+633:             }
+634:             if ($found) foreach ($why as $sid => $_) $why[$sid] = 'read from the words around "' . ($ws['read'][0][3] ?? '') . '"';
+635:         }
+636:         if (!$found && $tok && is_file(__DIR__ . '/SituationReasoner.php')) {
+637:             require_once __DIR__ . '/SituationReasoner.php';
+638:             SituationReasoner::load($pdo);
+639:             // a reading from a dictionary word may lead anywhere, the 911 line included: it's offered, and what to do is the
+640:             // searcher's to decide (decisions/0064, Jason 2026-10-04)
+641:             if ($inf = SituationReasoner::infer($tok)) {
+642:                 $st = $pdo->prepare("SELECT id FROM situations WHERE slug = ? AND status IN ('live', 'may_help')"); $st->execute([$inf['slug']]);
+643:                 if ($sid = (int) $st->fetchColumn()) {
+644:                     $found[$sid] = implode(' ', $inf['words']); $why[$sid] = $inf['why'];
+645:                     if (class_exists('SearchTrace', false) && SearchTrace::active()) SearchTrace::add('Why', 'Reasoned from the meaning', ucfirst($inf['why']) . '. No phrase in the map said it; the words\' meanings did.', $inf['words']);
+646:                 }
+647:             }
+648:         }
+649:         if (!$found) return [];
+650:         $in = implode(',', array_map('intval', array_keys($found)));
+651:         $rows = $pdo->query("SELECT id, slug, label, urgency, danger, track, status FROM situations WHERE id IN ($in)")->fetchAll(PDO::FETCH_ASSOC);
+652:         foreach ($rows as &$r) { $r['id'] = (int) $r['id']; $r['danger'] = (int) $r['danger']; $r['phrase'] = $found[$r['id']]; if (isset($why[$r['id']])) $r['reasoned'] = $why[$r['id']]; }
+653:         unset($r);
+654:         usort($rows, fn ($a, $b) => [$b['danger'], $b['urgency'] === 'urgent'] <=> [$a['danger'], $a['urgency'] === 'urgent']);   // danger, then urgent, first
+655:         return $rows;
+656:     }
+657: 
+658:     /**
+659:      * Completions while typing, Google-style (decisions/0061): the situation phrases that carry on from the last words
+660:      * typed ("where can i park" -> "where can i park overnight", "...and sleep in my car"). The last word may be half
+661:      * typed. Shown as written in the seed. [['q', 'typed', 'rest']], at most $max.
+662:      */
+663:     public static function complete(PDO $pdo, string $typed, int $max = 4): array
+664:     {
+665:         if (!self::ready($pdo)) return [];
+666:         $raw = trim(preg_replace('/\s+/', ' ', mb_strtolower($typed)));
+667:         $words = $raw === '' ? [] : explode(' ', $raw);
+668:         if (!$words) return [];
+669:         // still typing the last word, unless it's a little word ("me", "the"): those are whole, and never finished into
+670:         // another ("parks near me" isn't "meteor shower")
+671:         $little = ['me', 'my', 'the', 'a', 'an', 'in', 'on', 'at', 'to', 'i', 'is', 'it', 'of', 'and', 'or', 'for', 'near', 'we', 'us', 'our', 'can', 'do'];
+672:         $partial = !preg_match('/\s$/', $typed) && !in_array(end($words), $little, true);
+673:         static $shown = null;   // the phrase as written, by its normal form
+674:         if ($shown === null) { $shown = []; foreach (self::SEED as $row) foreach ($row[5] as $ph) $shown[self::norm($ph)] = $ph; }
+675:         $out = []; $seen = [];
+676:         // the words already are one of our phrases ("need gas"): only completions of that same situation ("where can i
+677:         // park" -> "...overnight for free"), never a turn on the last word into another ("need gas" isn't "need gas leak")
+678:         $whole = self::norm($raw); $own = null;
+679:         foreach (self::phrases($pdo) as [$ph, $sid0]) if (implode(' ', $ph) === $whole) { $own = $sid0; break; }
+680:         for ($k = min(4, count($words)); $k >= 1; $k--) {
+681:             $tail = array_slice($words, -$k); $head = array_slice($words, 0, count($words) - $k);
+682:             if ($k === 1 && (mb_strlen($tail[0]) < 3 || in_array($tail[0], $little, true))) continue;   // one little word carries on to anything
+683:             // three words or more that aren't a situation's own: carry on at least two of the last words, so one word
+684:             // isn't turned into an unrelated situation ("commercial plumber for kids" isn't "…kids are bored")
+685:             if ($k === 1 && $own === null && count($words) >= 3) continue;
+686:             $tn = array_map(fn ($w) => self::norm($w) ?: $w, $tail);
+687:             foreach (self::phrases($pdo) as [$ph, $sid]) {
+688:                 if (count($ph) < $k || ($own !== null && $sid !== $own)) continue;
+689:                 $ok = true;
+690:                 for ($i = 0; $i < $k; $i++) {
+691:                     $last = $i === $k - 1;
+692:                     if ($last && $partial ? !str_starts_with($ph[$i], $tn[$i]) && !str_starts_with($ph[$i], $tail[$i]) : $ph[$i] !== $tn[$i]) { $ok = false; break; }
+693:                 }
+694:                 if (!$ok) continue;
+695:                 $pn = implode(' ', $ph);
+696:                 $disp = explode(' ', mb_strtolower($shown[$pn] ?? $pn));
+697:                 if (count($disp) !== count($ph)) $disp = $ph;
+698:                 $full = trim(implode(' ', array_merge($head, $disp)));
+699:                 if ($full === $raw || isset($seen[$full])) continue;
+700:                 // what's added after what was typed: the rest of a half-typed word, then the words after it
+701:                 $rest = mb_substr($full, mb_strlen($raw));
+702:                 if (!str_starts_with($full, $raw)) continue;   // a phrase that rewrites a typed word isn't a completion
+703:                 $seen[$full] = 1;
+704:                 $out[] = ['q' => $full, 'typed' => $raw, 'rest' => $rest];
+705:                 if (count($out) >= $max * 2) break 2;
+706:             }
+707:             if ($out) break;   // the longest overlap wins ("can i park" before "park")
+708:         }
+709:         // whole words carried on ("park overnight") before a half word finished ("parking")
+710:         usort($out, fn ($a, $b) => (!str_starts_with($a['rest'], ' ')) <=> (!str_starts_with($b['rest'], ' ')));
+711:         return array_slice($out, 0, $max);
+712:     }
+713: 
+714:     /**
+715:      * Why words (decisions/0061, the 5 W's parser): a distress or action verb that our phrases use, said in words none
+716:      * of them match ("stuck in the elevator"). The situations whose phrases use it are offered, never answered: the
+717:      * ones sharing most of the other words first. [['label', 'q']], at most $max.
+718:      */
+719:     public const ANCHORS = ['stuck', 'stranded', 'broke', 'broken', 'leak', 'leaking', 'flooded', 'flooding', 'locked', 'lost', 'dead', 'died',
+720:         'crashed', 'wrecked', 'burst', 'frozen', 'sick', 'hurt', 'injured', 'evicted', 'hungry', 'homeless', 'bored', 'lonely', 'alone', 'towed', 'stolen'];
+721:     public static function near(PDO $pdo, string $q, int $max = 3, bool $overlap = false): array
+722:     {
+723:         if (!self::ready($pdo)) return [];
+724:         $tok = array_values(array_filter(explode(' ', self::norm($q))));   // the words as typed: a slip is offered as "Did you mean", never changed
+725:         $anch = array_values(array_intersect($tok, self::ANCHORS));
+726:         if (!$anch) return [];
+727:         $others = array_diff($tok, $anch, ['the', 'a', 'an', 'my', 'in', 'on', 'at', 'of', 'to', 'i', 'im', 'is', 'it', 'and', 'got', 'get', 'am', 'was', 'were', 'so', 'just', 'help']);
+728:         // each situation: does one of its phrases use the Why word, and how many of the other words do its phrases use
+729:         // ("my pipes are leak": Burst pipe, which says "pipe", before Smell gas). Its shortest phrase with the word is
+730:         // what a tap searches.
+731:         $words = []; $phr = [];
+732:         foreach (self::phrases($pdo) as [$ph, $sid]) {
+733:             foreach ($ph as $w) $words[$sid][$w] = 1;
+734:             if (!array_intersect($ph, $anch)) continue;
+735:             $k = [count(array_intersect($ph, $others)), -count($ph)];   // the phrase sharing most words, then the shortest
+736:             if (!isset($phr[$sid]) || $k >= $phr[$sid][1]) $phr[$sid] = [implode(' ', $ph), $k];
+737:         }
+738:         $score = [];
+739:         foreach ($phr as $sid => $p0) {
+740:             $n = count(array_intersect($others, array_keys($words[$sid])));
+741:             if ($overlap && $n === 0) continue;   // beside other results, only a situation that shares another word
+742:             $score[$sid] = 1 + 2 * $n;
+743:         }
+744:         foreach ($phr as $sid => $p0) $phr[$sid] = $p0[0];
+745:         if (!$score) return [];
+746:         arsort($score);
+747:         $ids = array_slice(array_keys($score), 0, $max);
+748:         $lab = [];
+749:         foreach ($pdo->query('SELECT id, label FROM situations WHERE id IN (' . implode(',', array_map('intval', $ids)) . ')')->fetchAll(PDO::FETCH_ASSOC) as $r) $lab[(int) $r['id']] = (string) $r['label'];
+750:         $out = [];
+751:         foreach ($ids as $id) if (isset($lab[$id])) $out[] = ['label' => $lab[$id], 'q' => $phr[$id]];
+752:         return $out;
+753:     }
+754: 
+755:     /** Positions of $ph's words in $tok, in order, at most two words apart, not already used; or null. */
+756:     private static function findSeq(array $tok, array $ph, array $used): ?array
+757:     {
+758:         $n = count($tok);
+759:         for ($start = 0; $start < $n; $start++) {
+760:             if ($tok[$start] !== $ph[0] || isset($used[$start])) continue;
+761:             $pos = [$start]; $i = $start; $ok = true;
+762:             for ($k = 1; $k < count($ph); $k++) {
+763:                 $hit = null;
+764:                 for ($j = $i + 1; $j < min($n, $i + 4); $j++) if ($tok[$j] === $ph[$k] && !isset($used[$j])) { $hit = $j; break; }
+765:                 if ($hit === null) { $ok = false; break; }
+766:                 $pos[] = $hit; $i = $hit;
+767:             }
+768:             if ($ok) return $pos;
+769:         }
+770:         return null;
+771:     }
+772: 
+773:     /**
+774:      * Tier 1: situations whose phrases start with, or contain, what's typed ("the power w" -> Power out). For each, the
+775:      * phrase to search and its needs as a line. At most $max.
+776:      */
+777:     /** $done: the words are finished (a space after them, or "near me" after them), so the last one is whole too. */
+778:     public static function suggest(PDO $pdo, string $q, int $max = 3, bool $done = false): array
+779:     {
+780:         if (!self::ready($pdo)) return [];
+781:         $t0 = self::norm($q);
+782:         // "the power w…" is "power w…"; "I think I may have broken my…" is "broken my…"; "best place to star…" is "star…".
+783:         // The words as typed are tried first ("place to st…" is Somewhere to stay), then without the filler.
+784:         $lead = '/^(?:(?:the|my|our|a|an|i|im|we|so|just|help|please|may|might|have|think|maybe|probably|pretty|sure|guess|ive|did|best|good|great|nice|place|places|spot|to|where|can|could|should|go|some|find|looking|for|need|want|is|there|any) )+/';
+785:         // the last word may still be being typed ("the power w") only as it was typed: a word read as its singular
+786:         // ("trails" is "trail") or followed by a space is finished, and matches whole words only, so "trails" is never
+787:         // the start of "trailer" (Jason, 2026-10-15: "trails near me" offered Renting tools or equipment)
+788:         $rawWords = preg_split('/\s+/', trim((string) preg_replace("/[^\\p{L}\\p{N}]+/u", ' ', mb_strtolower($q)))) ?: [];
+789:         $tw = explode(' ', $t0);
+790:         $open = !$done && !preg_match('/\s$/u', $q) && end($rawWords) === end($tw);
+791:         $hits = []; $whole = [];   // $whole: matched on whole words, ranked before a word still being finished
+792:         foreach (array_unique([$t0, (string) preg_replace($lead, '', $t0)]) as $t) {
+793:             if (mb_strlen($t) < 3) continue;
+794:             foreach (self::phrases($pdo) as [$ph, $sid]) {
+795:                 if (isset($hits[$sid])) continue;
+796:                 $p = implode(' ', $ph);
+797:                 $starts = $open ? str_starts_with($p, $t) : str_starts_with($p . ' ', $t . ' ');
+798:                 $within = $open ? str_contains(' ' . $p, ' ' . $t) : str_contains(' ' . $p . ' ', ' ' . $t . ' ');
+799:                 if ($starts || (mb_strlen($t) >= 5 && ($within || str_contains(' ' . $t . ' ', ' ' . $p . ' ')))) {
+800:                     $hits[$sid] = $p;
+801:                     $whole[$sid] = str_starts_with($p . ' ', $t . ' ') || str_contains(' ' . $p . ' ', ' ' . $t . ' ') || str_contains(' ' . $t . ' ', ' ' . $p . ' ');
+802:                 }
+803:                 if (count($hits) >= $max * 6) break 2;   // room for whole-word matches past the first partial ones
+804:             }
+805:         }
+806:         if (!$hits) return [];
+807:         $in = implode(',', array_map('intval', array_keys($hits)));
+808:         $sits = $pdo->query("SELECT id, label, urgency, danger, status FROM situations WHERE id IN ($in) AND status IN ('live', 'may_help')")->fetchAll(PDO::FETCH_ASSOC);
+809:         $needs = [];
+810:         foreach ($pdo->query("SELECT situation_id, label FROM situation_needs WHERE situation_id IN ($in) ORDER BY situation_id, pos")->fetchAll(PDO::FETCH_ASSOC) as $n) $needs[(int) $n['situation_id']][] = (string) $n['label'];
+811:         $out = [];
+812:         foreach ($sits as $s) {
+813:             $id = (int) $s['id'];
+814:             $out[] = ['label' => (string) $s['label'], 'crumb' => implode(' · ', array_slice($needs[$id] ?? [], 0, 4)), 'q' => $hits[$id], 'kind' => 'situation',
+815:                       'urgent' => $s['urgency'] === 'urgent', 'danger' => (bool) (int) $s['danger'], 'here' => true, '_whole' => !empty($whole[$id])];
+816:         }
+817:         // the situation the words exactly name first ("need gas" is Gas for the car, before Smell of gas), then danger,
+818:         // then whole words before a word still being finished ("trail": Hiking before trailer rental, 2026-10-15), then urgent
+819:         $t0n = self::norm($q);
+820:         usort($out, fn ($a, $b) => [$b['q'] === $t0n, $b['danger'], $b['_whole'], $b['urgent']] <=> [$a['q'] === $t0n, $a['danger'], $a['_whole'], $a['urgent']]);
+821:         return array_map(function ($x) { unset($x['_whole']); return $x; }, array_slice($out, 0, $max));
+822:     }
+823: 
+824:     // ---- the situation editor (Admin → Missed searches; decisions/0061, batch 2) -----------------------------------
+825: 
+826:     public const STATUSES = ['live', 'draft', 'retired'];
+827:     public const TRACKS = ['resident', 'traveler', 'community', 'mixed'];
+828:     public const KINDS = ['listing', 'outdoors', 'story', 'group', 'experience'];
+829:     public const REQUIRES = ['phone', 'hours', 'where'];
+830: 
+831:     /** Whether phrases carry their source (migration 2026-10-20_situation_editor.sql). */
+832:     private static function trigSource(PDO $pdo): bool
+833:     {
+834:         static $has = null;
+835:         if ($has === null) { try { $pdo->query('SELECT source FROM situation_triggers LIMIT 1'); $has = true; } catch (PDOException) { $has = false; } }
+836:         return $has;
+837:     }
+838: 
+839:     /**
+840:      * Situations for the editor's search: the ones the words name now (as search reads them), then ones whose label or a
+841:      * phrase has the words. [['id', 'slug', 'label', 'status', 'urgency', 'danger', 'source', 'phrases' (a few), 'needs', 'reads']]
+842:      */
+843:     public static function adminFind(PDO $pdo, string $q, int $max = 12): array
+844:     {
+845:         if (!self::ready($pdo)) return [];
+846:         $q = trim($q); $ids = []; $reads = [];
+847:         if ($q !== '') {
+848:             foreach (self::read($pdo, $q) as $r) { $ids[(int) $r['id']] = 1; $reads[(int) $r['id']] = 1; }
+849:             foreach (self::suggest($pdo, $q, 4) as $r) {
+850:                 $st = $pdo->prepare('SELECT id FROM situations WHERE label = ? LIMIT 1'); $st->execute([$r['label']]);
+851:                 if ($id = (int) $st->fetchColumn()) $ids[$id] = 1;
+852:             }
+853:             $like = '%' . str_replace(['%', '_'], ['\%', '\_'], self::norm($q)) . '%';
+854:             $st = $pdo->prepare("SELECT DISTINCT s.id FROM situations s LEFT JOIN situation_triggers t ON t.situation_id = s.id
+855:                                  WHERE LOWER(s.label) LIKE ? OR s.slug LIKE ? OR t.phrase LIKE ? LIMIT 30");
+856:             $st->execute(['%' . mb_strtolower($q) . '%', $like, $like]);
+857:             foreach ($st->fetchAll(PDO::FETCH_COLUMN) as $id) $ids[(int) $id] = 1;
+858:         } else {
+859:             foreach ($pdo->query('SELECT id FROM situations ORDER BY label LIMIT 200')->fetchAll(PDO::FETCH_COLUMN) as $id) $ids[(int) $id] = 1;
+860:         }
+861:         if (!$ids) return [];
+862:         $in = implode(',', array_keys($ids));
+863:         $rows = $pdo->query("SELECT id, slug, label, status, urgency, danger, source FROM situations WHERE id IN ($in)")->fetchAll(PDO::FETCH_ASSOC);
+864:         $ph = []; $nd = [];
+865:         foreach ($pdo->query("SELECT situation_id, phrase FROM situation_triggers WHERE situation_id IN ($in) ORDER BY id")->fetchAll(PDO::FETCH_ASSOC) as $r) $ph[(int) $r['situation_id']][] = (string) $r['phrase'];
+866:         foreach ($pdo->query("SELECT situation_id, label FROM situation_needs WHERE situation_id IN ($in) ORDER BY pos")->fetchAll(PDO::FETCH_ASSOC) as $r) $nd[(int) $r['situation_id']][] = (string) $r['label'];
+867:         $out = [];
+868:         foreach ($rows as $r) {
+869:             $id = (int) $r['id'];
+870:             $out[] = ['id' => $id, 'slug' => (string) $r['slug'], 'label' => (string) $r['label'], 'status' => (string) $r['status'], 'urgency' => (string) $r['urgency'],
+871:                       'danger' => (bool) (int) $r['danger'], 'source' => (string) $r['source'], 'phrases' => array_slice($ph[$id] ?? [], 0, 4), 'count' => count($ph[$id] ?? []),
+872:                       'needs' => $nd[$id] ?? [], 'reads' => isset($reads[$id])];
+873:         }
+874:         // what search reads now first, then live before draft and retired, then by name
+875:         usort($out, fn ($a, $b) => [!$a['reads'], $a['status'] !== 'live', $a['label']] <=> [!$b['reads'], $b['status'] !== 'live', $b['label']]);
+876:         return $q === '' ? $out : array_slice($out, 0, $max);
+877:     }
+878: 
+879:     /** One situation with its phrases (and where each came from) and needs, for the editor. */
+880:     public static function adminGet(PDO $pdo, int $id): ?array
+881:     {
+882:         if (!self::ready($pdo)) return null;
+883:         $st = $pdo->prepare('SELECT id, slug, label, urgency, danger, track, status, source, note FROM situations WHERE id = ?'); $st->execute([$id]);
+884:         $s = $st->fetch(PDO::FETCH_ASSOC);
+885:         if (!$s) return null;
+886:         $st = $pdo->prepare('SELECT phrase' . (self::trigSource($pdo) ? ', source' : ", 'seed' AS source") . ' FROM situation_triggers WHERE situation_id = ? ORDER BY id'); $st->execute([$id]);
+887:         $s['phrases'] = $st->fetchAll(PDO::FETCH_ASSOC);
+888:         $st = $pdo->prepare('SELECT label, track, cats, words, kinds, requires FROM situation_needs WHERE situation_id = ? ORDER BY pos'); $st->execute([$id]);
+889:         $s['needs'] = $st->fetchAll(PDO::FETCH_ASSOC);
+890:         $s['id'] = (int) $s['id']; $s['danger'] = (bool) (int) $s['danger'];
+891:         // the frame (decisions/0063 §6): the rules that lead here, taught and built in, and the example searches
+892:         $s['frames'] = [];
+893:         try { $st = $pdo->prepare('SELECT id, event, things, why FROM search_frames WHERE slug = ? ORDER BY id'); $st->execute([$s['slug']]);
+894:               foreach ($st->fetchAll(PDO::FETCH_ASSOC) as $f) $s['frames'][] = ['lead' => (string) $f['event'], 'things' => array_values(array_filter(explode(',', (string) $f['things']))), 'why' => (string) $f['why']]; } catch (Throwable) {}
+895:         require_once __DIR__ . '/SituationReasoner.php';
+896:         $s['frames_builtin'] = SituationReasoner::builtInFramesFor((string) $s['slug']);
+897:         $s['examples'] = '';
+898:         try { $st = $pdo->prepare('SELECT examples FROM situations WHERE id = ?'); $st->execute([$id]); $s['examples'] = (string) $st->fetchColumn(); } catch (Throwable) {}
+899:         return $s;
+900:     }
+901: 
+902:     /** Adds the words as one of a situation's phrases (source 'admin': a refresh never removes it). Its normal form, or an error. */
+903:     public static function adminAddPhrase(PDO $pdo, int $id, string $phrase): array
+904:     {
+905:         $p = self::norm($phrase);
+906:         if (mb_strlen($p) < 2 || mb_strlen($p) > 160) return ['error' => 'A phrase is 2 to 160 characters.'];
+907:         $st = $pdo->prepare('SELECT label FROM situations WHERE id = ?'); $st->execute([$id]);
+908:         $label = $st->fetchColumn();
+909:         if ($label === false) return ['error' => 'That situation is gone.'];
+910:         $st = $pdo->prepare('SELECT 1 FROM situation_triggers WHERE situation_id = ? AND phrase = ?'); $st->execute([$id, $p]);
+911:         if ($st->fetchColumn()) return ['phrase' => $p, 'label' => (string) $label, 'already' => true];
+912:         if (self::trigSource($pdo)) $pdo->prepare("INSERT INTO situation_triggers (situation_id, phrase, source) VALUES (?, ?, 'admin')")->execute([$id, $p]);
+913:         else $pdo->prepare('INSERT INTO situation_triggers (situation_id, phrase) VALUES (?, ?)')->execute([$id, $p]);
+914:         // the same words in another situation: both answer (they combine); say so
+915:         $st = $pdo->prepare('SELECT s.label FROM situation_triggers t JOIN situations s ON s.id = t.situation_id WHERE t.phrase = ? AND t.situation_id <> ? LIMIT 3'); $st->execute([$p, $id]);
+916:         return ['phrase' => $p, 'label' => (string) $label, 'also' => $st->fetchAll(PDO::FETCH_COLUMN)];
+917:     }
+918: 
+919:     public static function adminRemovePhrase(PDO $pdo, int $id, string $phrase): void
+920:     {
+921:         $pdo->prepare('DELETE FROM situation_triggers WHERE situation_id = ? AND phrase = ?')->execute([$id, self::norm($phrase)]);
+922:     }
+923: 
+924:     /** The editor's form, checked: [clean, errors]. */
+925:     public static function adminClean(array $in): array
+926:     {
+927:         $err = [];
+928:         $label = trim(preg_replace('/\s+/', ' ', (string) ($in['label'] ?? '')));
+929:         if (mb_strlen($label) < 2 || mb_strlen($label) > 120) $err[] = 'Give it a name (2 to 120 characters).';
+930:         $phrases = [];
+931:         foreach (preg_split('/[\r\n]+/', (string) ($in['phrases'] ?? '')) ?: [] as $l) { $p = self::norm($l); if (mb_strlen($p) >= 2 && mb_strlen($p) <= 160) $phrases[$p] = 1; }
+932:         // the frame (decisions/0063 §6): rules first; fixed phrases only for idioms. One or the other is needed.
+933:         $frames = [];
+934:         foreach ((array) ($in['frames'] ?? []) as $f) {
+935:             $lead = trim((string) ($f['lead'] ?? '')); if (!preg_match('/^[a-z][a-z0-9-]{1,29}$/', $lead)) continue;
+936:             $things = array_values(array_unique(array_filter(array_map(fn ($t) => trim((string) $t), (array) ($f['things'] ?? [])), fn ($t) => (bool) preg_match('/^[a-z][a-z0-9-]{1,29}$/', $t))));
+937:             $frames[$lead . '|' . implode(',', $things)] = ['lead' => $lead, 'things' => array_slice($things, 0, 12), 'why' => mb_substr(trim((string) ($f['why'] ?? '')), 0, 200)];
+938:         }
+939:         $frames = array_values($frames);
+940:         if (!$phrases && !$frames) $err[] = 'Add a rule (what triggers it) or a fixed phrase.';
+941:         $examples = [];
+942:         foreach (preg_split('/[\r\n]+/', (string) ($in['examples'] ?? '')) ?: [] as $l) { $l = trim(preg_replace('/\s+/', ' ', mb_strtolower($l))); if (mb_strlen($l) >= 2 && mb_strlen($l) <= 120) $examples[$l] = 1; }
+943:         $needs = [];
+944:         foreach ((array) ($in['needs'] ?? []) as $n) {
+945:             $nl = trim((string) ($n['label'] ?? '')); if ($nl === '') continue;
+946:             $cats = implode('|', array_slice(array_values(array_filter(array_map(fn ($c) => mb_substr(trim((string) $c), 0, 120), explode('|', (string) ($n['cats'] ?? ''))))), 0, 12));
+947:             $words = mb_substr(trim(preg_replace('/\s+/', ' ', mb_strtolower((string) ($n['words'] ?? '')))), 0, 300);
+948:             $kinds = array_values(array_intersect(array_map('trim', (array) ($n['kinds'] ?? [])), self::KINDS)) ?: ['listing'];
+949:             if ($cats === '' && $words === '') $err[] = '"' . $nl . '" needs categories or words to find answers.';
+950:             $needs[] = ['label' => mb_substr($nl, 0, 120), 'track' => in_array($n['track'] ?? '', self::TRACKS, true) ? $n['track'] : 'resident', 'cats' => mb_substr($cats, 0, 600),
+951:                         'words' => $words, 'kinds' => implode(',', $kinds), 'requires' => implode(',', array_values(array_intersect((array) ($n['requires'] ?? []), self::REQUIRES)))];
+952:         }
+953:         if (!$needs) $err[] = 'Add at least one need (what would help).';
+954:         return [['label' => $label, 'urgency' => ($in['urgency'] ?? '') === 'urgent' ? 'urgent' : 'normal', 'danger' => !empty($in['danger']) ? 1 : 0,
+955:                  'track' => in_array($in['track'] ?? '', self::TRACKS, true) ? $in['track'] : 'mixed', 'status' => in_array($in['status'] ?? '', self::STATUSES, true) ? $in['status'] : 'draft',
+956:                  'note' => mb_substr(trim((string) ($in['note'] ?? '')), 0, 300), 'phrases' => array_keys($phrases), 'needs' => $needs,
+957:                  'frames' => $frames, 'examples' => array_slice(array_keys($examples), 0, 30)], $err];
+958:     }
+959: 
+960:     /** Saves a situation from the editor; it's the Admin's from now on (source 'admin': the seed never changes it). Its id. */
+961:     public static function adminSave(PDO $pdo, int $id, array $c, int $uid): int
+962:     {
+963:         $pdo->beginTransaction();
+964:         try { $id = self::adminWrite($pdo, $id, $c, $uid); $pdo->commit(); return $id; }
+965:         catch (Throwable $e) { $pdo->rollBack(); throw $e; }
+966:     }
+967: 
+968:     /**
+969:      * The frame-first builder's check (decisions/0063 §6): how each search reads, without the situation as it's being
+970:      * edited or with it (written inside a transaction and rolled back: nothing is kept; with it, it's tried as live).
+971:      * The builder asks for both, each in its own request, and compares. ['searches' => [q => [labels]], 'unknown' =>
+972:      * [q => [words]], 'slug' => the situation's slug, 'label']
+973:      */
+974:     public static function adminTest(PDO $pdo, int $id, array $c, array $searches, bool $with, int $uid): array
+975:     {
+976:         require_once __DIR__ . '/SituationReasoner.php'; require_once __DIR__ . '/Lexicon.php';
+977:         $read = function () use ($pdo, $searches): array {
+978:             $o = [];
+979:             foreach ($searches as $q) { $r = self::read($pdo, $q); $o[$q] = array_map(fn ($x) => ['slug' => (string) $x['slug'], 'label' => (string) $x['label'], 'how' => isset($x['reasoned']) ? 'a rule: ' . $x['reasoned'] : 'the phrase "' . $x['phrase'] . '"'], $r); }
+980:             return $o;
+981:         };
+982:         $slug = '';
+983:         self::ready($pdo);   // a pending refresh of the built-in situations runs now, not inside the trial's transaction
+984:         if (!$with) { $out = $read(); }
+985:         else {
+986:             $pdo->beginTransaction();
+987:             try { $tid = self::adminWrite($pdo, $id, ['status' => 'live'] + $c, $uid); SituationReasoner::reset();
+988:                   $st = $pdo->prepare('SELECT slug FROM situations WHERE id = ?'); $st->execute([$tid]); $slug = (string) $st->fetchColumn();
+989:                   $out = $read(); }
+990:             finally { $pdo->rollBack(); SituationReasoner::reset(); }
+991:         }
+992:         $unknown = []; $suggest = [];
+993:         foreach ($c['examples'] as $q) {
+994:             $unknown[$q] = Lexicon::unknown($pdo, $q);
+995:             // a rule the example's own words would make: its first event or action, and its things and tools
+996:             $lead = ''; $things = [];
+997:             foreach (Lexicon::read($pdo, $q) as $x) {
+998:                 if (!$lead && in_array($x['kind'], ['event', 'action'], true)) $lead = $x['class'];
+999:                 elseif (in_array($x['kind'], ['thing', 'tool'], true)) $things[] = $x['class'];
+1000:             }
+1001:             $suggest[$q] = $lead !== '' ? ['lead' => $lead, 'things' => array_values(array_unique($things))] : null;
+1002:         }
+1003:         return ['searches' => $out, 'unknown' => $unknown, 'suggest' => $suggest, 'slug' => $slug];
+1004:     }
+1005: 
+1006:     /** Writes a situation from the editor, inside the caller's transaction. Its id. */
+1007:     private static function adminWrite(PDO $pdo, int $id, array $c, int $uid): int
+1008:     {
+1009:             if ($id > 0) {
+1010:                 $pdo->prepare("UPDATE situations SET label = ?, urgency = ?, danger = ?, track = ?, status = ?, note = ?, source = 'admin', updated_by = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?")
+1011:                     ->execute([$c['label'], $c['urgency'], $c['danger'], $c['track'], $c['status'], $c['note'], $uid, $id]);
+1012:             } else {
+1013:                 $base = trim(preg_replace('/[^a-z0-9]+/', '-', mb_strtolower($c['label'])), '-') ?: 'situation';
+1014:                 $slug = $base; $i = 2;
+1015:                 $chk = $pdo->prepare('SELECT 1 FROM situations WHERE slug = ?');
+1016:                 while (true) { $chk->execute([$slug]); if (!$chk->fetchColumn()) break; $slug = $base . '-' . $i++; }
+1017:                 $pdo->prepare("INSERT INTO situations (slug, label, urgency, danger, track, status, source, note, updated_by) VALUES (?, ?, ?, ?, ?, ?, 'admin', ?, ?)")
+1018:                     ->execute([mb_substr($slug, 0, 80), $c['label'], $c['urgency'], $c['danger'], $c['track'], $c['status'], $c['note'], $uid]);
+1019:                 $id = (int) $pdo->lastInsertId();
+1020:             }
+1021:             $pdo->prepare('DELETE FROM situation_triggers WHERE situation_id = ?')->execute([$id]);
+1022:             $t = $pdo->prepare(self::trigSource($pdo) ? "INSERT INTO situation_triggers (situation_id, phrase, source) VALUES (?, ?, 'admin')" : 'INSERT INTO situation_triggers (situation_id, phrase) VALUES (?, ?)');
+1023:             foreach ($c['phrases'] as $p) $t->execute([$id, $p]);
+1024:             $pdo->prepare('DELETE FROM situation_needs WHERE situation_id = ?')->execute([$id]);
+1025:             $n = $pdo->prepare('INSERT INTO situation_needs (situation_id, pos, label, track, cats, words, kinds, requires) VALUES (?, ?, ?, ?, ?, ?, ?, ?)');
+1026:             foreach ($c['needs'] as $i => $x) $n->execute([$id, $i, $x['label'], $x['track'], $x['cats'], $x['words'], $x['kinds'], $x['requires']]);
+1027:             // the frame: this situation's taught rules are the ones in the builder (built-in ones stay in code)
+1028:             if (isset($c['frames'])) {
+1029:                 $st = $pdo->prepare('SELECT slug FROM situations WHERE id = ?'); $st->execute([$id]); $slug = (string) $st->fetchColumn();
+1030:                 try {
+1031:                     $pdo->prepare('DELETE FROM search_frames WHERE slug = ?')->execute([$slug]);
+1032:                     $fr = $pdo->prepare('INSERT INTO search_frames (event, things, slug, why, updated_by) VALUES (?, ?, ?, ?, ?)');
+1033:                     foreach ($c['frames'] as $f) $fr->execute([$f['lead'], implode(',', $f['things']), $slug, $f['why'], $uid]);
+1034:                 } catch (PDOException $e) { if ($c['frames']) throw $e; }   // no search_frames table yet: only an error when rules were given
+1035:             }
+1036:             if (isset($c['examples'])) { try { $pdo->prepare('UPDATE situations SET examples = ? WHERE id = ?')->execute([implode("\n", $c['examples']), $id]); } catch (PDOException) {} }
+1037:             return $id;
+1038:     }
+1039: 
+1040:     /** What a situation from the editor would answer, before it's saved: its needs and the nearest answers. */
+1041:     public static function adminPreview(PDO $pdo, array $c, ?array $place, array $o): array
+1042:     {
+1043:         $out = [];
+1044:         foreach ($c['needs'] as $n) {
+1045:             [$items, $incomplete] = self::solutions($pdo, $n, $place, $o + ['per' => 3], $c['urgency'] === 'urgent');
+1046:             $out[] = ['label' => $n['label'], 'track' => $n['track'], 'items' => $items, 'incomplete' => $incomplete, 'requires' => $n['requires']];
+1047:         }
+1048:         return ['labels' => [$c['label']], 'urgent' => $c['urgency'] === 'urgent', 'danger' => (bool) $c['danger'], 'may_help' => false, 'needs' => $out, 'place' => $place['label'] ?? null];
+1049:     }
+1050: 
+1051:     // ---- answering -----------------------------------------------------------------------------------------------
+1052: 
+1053:     /** Category ids for a need's name patterns ("Wrecker Service|Towing%"), cached per request. */
+1054:     private static function catIds(PDO $pdo, string $patterns): array
+1055:     {
+1056:         static $cache = [];
+1057:         if ($patterns === '') return [];
+1058:         if (isset($cache[$patterns])) return $cache[$patterns];
+1059:         $ids = [];
+1060:         $st = $pdo->prepare('SELECT id FROM categories WHERE name LIKE ?');
+1061:         foreach (explode('|', $patterns) as $p) { $p = trim($p); if ($p === '') continue; $st->execute([$p]); foreach ($st->fetchAll(PDO::FETCH_COLUMN) as $id) $ids[(int) $id] = 1; }
+1062:         return $cache[$patterns] = array_keys($ids);
+1063:     }
+1064: 
+1065:     /**
+1066:      * The needs of the situations read, merged without repeats, each with its solutions: in the place first, then
+1067:      * nearest; for an urgent situation, open now (or 24 hours) first. A solution must have what its need requires.
+1068:      * $o: 'center' => [lat, lon] | null, 'reach' => 'place'|'all'|miles, 'at' => [dow, minute], 'per' => 5
+1069:      */
+1070:     public static function answer(PDO $pdo, array $sits, ?array $place, array $o = []): array
+1071:     {
+1072:         if (!$sits) return [];
+1073:         $ids = implode(',', array_map(fn ($s) => (int) $s['id'], $sits));
+1074:         $urgent = (bool) array_filter($sits, fn ($s) => $s['urgency'] === 'urgent');
+1075:         $danger = (bool) array_filter($sits, fn ($s) => $s['danger']);
+1076:         $needs = []; $seen = [];
+1077:         foreach ($pdo->query("SELECT * FROM situation_needs WHERE situation_id IN ($ids) ORDER BY pos")->fetchAll(PDO::FETCH_ASSOC) as $n) {
+1078:             $k = mb_strtolower((string) $n['label']);
+1079:             if (isset($seen[$k])) continue;   // "Towing" once, however many situations ask for it
+1080:             $seen[$k] = 1; $needs[] = $n;
+1081:         }
+1082:         // the first situation's needs lead (danger and urgent first); the rest follow
+1083:         $order = array_flip(array_map(fn ($s) => (int) $s['id'], $sits));
+1084:         usort($needs, fn ($a, $b) => [$order[(int) $a['situation_id']] ?? 99, (int) $a['pos']] <=> [$order[(int) $b['situation_id']] ?? 99, (int) $b['pos']]);
+1085:         $out = [];
+1086:         foreach ($needs as $n) {
+1087:             [$items, $incomplete] = ($o['per'] ?? 5) === 0 ? [[], 0] : self::solutions($pdo, $n, $place, $o, $urgent);   // per 0: the needs only (no place yet)
+1088:             // what to search for elsewhere (Google Maps, where we have no listings yet): the need in its own words ("movers and
+1089:             // trucks", "places to live"); a need found by words alone ("Get to know the area") is things to do
+1090:             $gq = trim((string) $n['cats']) !== '' ? mb_strtolower((string) $n['label']) : 'things to do';
+1091:             // the kind of business OpenStreetMap can offer for it, where we have no listings yet (decisions/0065): "Storage" is storage
+1092:             if (!class_exists('OpenPlaces') && is_file(__DIR__ . '/OpenPlaces.php')) require_once __DIR__ . '/OpenPlaces.php';
+1093:             $osm = class_exists('OpenPlaces') ? OpenPlaces::kindFor((string) $n['label']) : '';   // its own name only: "Gas Companies" (utilities) isn't fuel
+1094:             $out[] = ['label' => (string) $n['label'], 'track' => (string) $n['track'], 'items' => $items, 'incomplete' => $incomplete, 'requires' => (string) $n['requires'], 'gq' => $gq, 'osm' => $osm];
+1095:         }
+1096:         // the phone lines and services from the area's resource guide (and the everywhere guide) that answer these
+1097:         // situations: first when it's urgent, last otherwise (decisions/0061, resource guides)
+1098:         if (($o['per'] ?? 5) !== 0 && $place && is_file(__DIR__ . '/ResourceGuides.php')) {
+1099:             require_once __DIR__ . '/ResourceGuides.php';
+1100:             try {
+1101:                 $res = ResourceGuides::forSituations($pdo, array_values(array_filter(array_column($sits, 'slug'))), $place);
+1102:                 if ($res) {
+1103:                     $need = ['label' => 'Phone lines and services', 'track' => 'mixed', 'items' => array_slice($res, 0, max(1, (int) ($o['per'] ?? 5))), 'incomplete' => 0, 'requires' => 'phone', 'resource' => true];
+1104:                     if ($urgent) array_unshift($out, $need); else $out[] = $need;
+1105:                 }
+1106:             } catch (Throwable $e) { error_log('resource guides: ' . $e->getMessage()); }
+1107:         }
+1108:         return ['labels' => array_map(fn ($s) => (string) $s['label'], $sits), 'phrases' => array_values(array_filter(array_map(fn ($s) => (string) ($s['phrase'] ?? ''), $sits))), 'urgent' => $urgent, 'danger' => $danger,
+1109:                 'may_help' => !array_filter($sits, fn ($s) => $s['status'] === 'live'), 'needs' => $out];
+1110:     }
+1111: 
+1112:     /** [items, how many matched but couldn't complete the need] for one need. */
+1113:     private static function solutions(PDO $pdo, array $n, ?array $place, array $o, bool $urgent): array
+1114:     {
+1115:         $kinds = array_values(array_intersect(array_map('trim', explode(',', (string) $n['kinds'])), ['listing', 'outdoors', 'story', 'group', 'experience', 'topic']));
+1116:         if (!$kinds) $kinds = ['listing'];
+1117:         $p = [];
+1118:         $or = [];
+1119:         $cats = self::catIds($pdo, (string) $n['cats']);
+1120:         // a need that names categories takes businesses from them only ("key" isn't Key Cannabis Dispensary); its words
+1121:         // find outdoor places, stories, groups and experiences, and businesses only when it names no category
+1122:         if ($cats) $or[] = "(si.kind = 'listing' AND si.category_id IN (" . implode(',', array_map('intval', $cats)) . '))';
+1123:         $wor = [];
+1124:         foreach (array_slice(array_values(array_filter(explode(' ', (string) $n['words']))), 0, 8) as $i => $w) {
+1125:             $wor[] = "si.terms LIKE :nw$i";
+1126:             $p[":nw$i"] = '% ' . trim(SearchIndex::norm($w)) . ' %';
+1127:         }
+1128:         if ($wor) $or[] = ($cats ? "si.kind <> 'listing' AND " : '') . '(' . implode(' OR ', $wor) . ')';
+1129:         if (!$or) return [[], 0];
+1130:         $kin = implode(',', array_map(fn ($k) => "'" . $k . "'", $kinds));
+1131:         $here = $place ? SearchIndex::whereSql($pdo, $place, null, $p) : '';
+1132:         $center = $o['center'] ?? null; $reach = (string) ($o['reach'] ?? 'all');
+1133:         $box = '';
+1134:         if ($center && $reach !== 'all' && $reach !== 'place') {
+1135:             $d = max(1, (int) $reach) / 69.0;
+1136:             $box = ' AND si.lat BETWEEN :b1 AND :b2 AND si.lon BETWEEN :b3 AND :b4';
+1137:             $p += [':b1' => $center[0] - $d, ':b2' => $center[0] + $d, ':b3' => $center[1] - $d * 1.3, ':b4' => $center[1] + $d * 1.3];
+1138:         }
+1139:         $sql = "SELECT si.kind, si.item_id, si.label, si.sub, si.url, si.lat, si.lon, si.hours, si.private_location, si.city, si.state"
+1140:              . ($here !== '' ? ", COALESCE($here, 0) AS here" : ', 0 AS here')
+1141:              . " FROM search_index si WHERE si.kind IN ($kin) AND (" . implode(' OR ', $or) . ")$box"
+1142:              . ' ORDER BY here DESC, si.weight DESC LIMIT 400';
+1143:         try { $st = $pdo->prepare($sql); $st->execute($p); $rows = $st->fetchAll(PDO::FETCH_ASSOC); } catch (Throwable $e) { error_log('situations need: ' . $e->getMessage()); return [[], 0]; }
+1144:         // phones for the listings (from their details)
+1145:         $phones = [];
+1146:         $lids = array_map(fn ($r) => (int) $r['item_id'], array_filter($rows, fn ($r) => $r['kind'] === 'listing'));
+1147:         if ($lids) {
+1148:             foreach (array_chunk($lids, 500) as $chunk) {
+1149:                 foreach ($pdo->query("SELECT entity_id, meta_value FROM entity_metadata WHERE meta_key = 'phone' AND entity_id IN (" . implode(',', $chunk) . ')')->fetchAll(PDO::FETCH_ASSOC) as $m) {
+1150:                     $v = json_decode((string) $m['meta_value'], true); $v = is_string($v) ? $v : (string) $m['meta_value'];
+1151:                     if (trim($v) !== '') $phones[(int) $m['entity_id']] = trim($v);
+1152:                 }
+1153:             }
+1154:         }
+1155:         [$dow, $min] = $o['at'] ?? [(int) date('w'), (int) date('G') * 60 + (int) date('i')];
+1156:         $req = array_filter(explode(',', (string) $n['requires']));
+1157:         $items = []; $incomplete = 0; $seenL = []; $missed = [];
+1158:         foreach ($rows as $r) {
+1159:             if ($reach === 'place' && $place && (int) $r['here'] !== 1) continue;   // the Distance slider at "My place only"
+1160:             // a place outside our areas ("Seattle, WA"): only what's in it or within about 150 miles, never Arizona's movers
+1161:             if (!empty($place['outside']) && (int) $r['here'] !== 1 && (!$center || $r['lat'] === null || (int) $r['private_location']
+1162:                 || SearchIndex::miles($center[0], $center[1], (float) $r['lat'], (float) $r['lon']) > 150)) continue;
+1163:             $phone = $r['kind'] === 'listing' ? ($phones[(int) $r['item_id']] ?? '') : '';
+1164:             $hoursTxt = (string) ($r['hours'] ?? '');
+1165:             $always = (bool) preg_match('/24\s*(h|hours|\/7)|open 24/i', $hoursTxt);
+1166:             $open = null;
+1167:             if ($always) $open = true;
+1168:             elseif ($hoursTxt !== '' && class_exists('Hours')) { try { $open = Hours::openAt(Hours::parse($hoursTxt), (int) $dow, (int) $min); } catch (Throwable) {} }
+1169:             $hasWhere = !(int) $r['private_location'] && ($r['lat'] !== null || trim((string) $r['city']) !== '');
+1170:             // what can't complete the task isn't a solution (decisions/0061, principle 5)
+1171:             $missing = (in_array('phone', $req, true) && $phone === '') || (in_array('hours', $req, true) && $hoursTxt === '') || (in_array('where', $req, true) && !$hasWhere);
+1172:             if ($missing) {
+1173:                 $incomplete++;
+1174:                 if (!empty($o['collect']) && $r['kind'] === 'listing') $missed[] = ['id' => (int) $r['item_id'], 'label' => (string) $r['label'], 'sub' => (string) $r['sub'],
+1175:                     'missing' => array_values(array_filter([in_array('phone', $req, true) && $phone === '' ? 'phone' : '', in_array('hours', $req, true) && $hoursTxt === '' ? 'hours' : '', in_array('where', $req, true) && !$hasWhere ? 'place' : '']))];
+1176:                 continue;
+1177:             }
+1178:             if ($urgent && $open === false) continue;   // known to be closed now: not a solution to an urgent need
+1179:             $miles = ($center && $r['lat'] !== null && !(int) $r['private_location']) ? SearchIndex::miles($center[0], $center[1], (float) $r['lat'], (float) $r['lon']) : null;
+1180:             $dk = mb_strtolower((string) $r['label']) . '|' . mb_strtolower(trim(explode('·', (string) $r['sub'])[0])) . '|' . mb_strtolower(trim((string) $r['city']));
+1181:             if (isset($seenL[$dk])) continue;   // the same business listed twice: once
+1182:             $seenL[$dk] = 1;
+1183:             $items[] = ['kind' => (string) $r['kind'], 'id' => (string) $r['item_id'], 'label' => (string) $r['label'], 'sub' => (string) $r['sub'], 'url' => (string) $r['url'],
+1184:                         'phone' => $phone, 'open' => $open, 'always' => $always, 'here' => (int) $r['here'] === 1, 'miles' => $miles !== null ? round($miles) : null,
+1185:                         'peek' => $r['kind'] === 'listing'];
+1186:         }
+1187:         // in the place first; urgent: open now first; then nearest
+1188:         usort($items, fn ($a, $b) => [!$a['here'], $urgent ? $a['open'] !== true : 0, $a['miles'] ?? 99999] <=> [!$b['here'], $urgent ? $b['open'] !== true : 0, $b['miles'] ?? 99999]);
+1189:         $per = (int) ($o['per'] ?? 5);
+1190:         return [array_slice($items, 0, $per), $incomplete, $missed];
+1191:     }
+1192: 
+1193:     /**
+1194:      * The incomplete-listings report (decisions/0061, principle 5): listings in a place that a live situation's need
+1195:      * matched but couldn't offer, because they lack what the need requires (a phone, hours, a place). Each with the
+1196:      * needs it missed and what's missing: a reason to complete the listing, or for the business to claim it.
+1197:      * [['id', 'label', 'sub', 'missing' => [...], 'needs' => [...]]], most needs first.
+1198:      */
+1199:     public static function incomplete(PDO $pdo, ?array $place, ?array $center = null, int $max = 60): array
+1200:     {
+1201:         if (!self::ready($pdo)) return [];
+1202:         $by = [];
+1203:         $needs = $pdo->query("SELECT n.*, s.label AS sit FROM situation_needs n JOIN situations s ON s.id = n.situation_id
+1204:                               WHERE s.status = 'live' AND n.requires <> '' AND n.kinds LIKE '%listing%' ORDER BY s.label, n.pos")->fetchAll(PDO::FETCH_ASSOC);
+1205:         foreach ($needs as $n) {
+1206:             try { $res = self::solutions($pdo, $n, $place, ['center' => $center, 'reach' => 'place', 'collect' => true, 'per' => 0], false); } catch (Throwable) { continue; }
+1207:             foreach ($res[2] ?? [] as $m) {
+1208:                 $k = $m['id'];
+1209:                 if (!isset($by[$k])) $by[$k] = $m + ['needs' => []];
+1210:                 $by[$k]['missing'] = array_values(array_unique(array_merge($by[$k]['missing'], $m['missing'])));
+1211:                 $by[$k]['needs'][] = $n['sit'] . ': ' . $n['label'];
+1212:             }
+1213:         }
+1214:         foreach ($by as &$b) $b['needs'] = array_values(array_unique($b['needs']));
+1215:         unset($b);
+1216:         usort($by, fn ($a, $b) => [count($b['needs']), $a['label']] <=> [count($a['needs']), $b['label']]);
+1217:         return array_slice(array_values($by), 0, $max);
+1218:     }
+1219: 
+1220:     // ---- counts --------------------------------------------------------------------------------------------------
+1221: 
+1222:     /** The words searched, by area and day (decisions/0061, principle 8): never who. $zero: nothing was found. */
+1223:     public const OUTCOMES = ['search', 'unread', 'zero', 'noplace', 'no_open', 'again', 'ignored', 'feedback', 'picked', 'left_pred', 'left_none'];
+1224: 
+1225:     /**
+1226:      * How a search turned out (the Missed searches report, decisions/0061): the words as typed (lower case, spaces
+1227:      * tidied), area, day and outcome, as counts. Never who.
+1228:      */
+1229:     public static function logOutcome(PDO $pdo, string $q, string $placeKey, array $outcomes): void
+1230:     {
+1231:         $q = mb_substr(trim(preg_replace('/\s+/u', ' ', preg_replace('/[\x00-\x1F\x7F]/u', '', mb_strtolower($q)))), 0, 120);
+1232:         $outcomes = array_values(array_intersect(array_unique($outcomes), self::OUTCOMES));
+1233:         if (mb_strlen($q) < 2 || !$outcomes) return;
+1234:         $day = date('Y-m-d'); $pk = mb_substr($placeKey, 0, 40);
+1235:         // real visitors only, once per visit for these words and day (decisions/0093): our team's and bots' searches
+1236:         // don't count, and a repeated search adds nothing
+1237:         if (is_file(__DIR__ . '/PlatformCounts.php')) { require_once __DIR__ . '/PlatformCounts.php'; if (PlatformCounts::isBot() || PlatformCounts::isTeam($pdo)) return; }
+1238:         if (session_status() === PHP_SESSION_ACTIVE) {
+1239:             $seen = 'oc|' . md5($q . '|' . $day);
+1240:             $outcomes = array_values(array_filter($outcomes, fn ($o) => empty($_SESSION['tv_outcomes'][$seen . $o])));
+1241:             if (!$outcomes) return;
+1242:             if (count($_SESSION['tv_outcomes'] ?? []) > 300) $_SESSION['tv_outcomes'] = [];
+1243:             foreach ($outcomes as $o) $_SESSION['tv_outcomes'][$seen . $o] = 1;
+1244:         }
+1245:         try {
+1246:             $up = $pdo->prepare('UPDATE search_outcomes SET n = n + 1 WHERE q = ? AND place_key = ? AND day = ? AND outcome = ?');
+1247:             $in = $pdo->prepare('INSERT INTO search_outcomes (q, place_key, day, outcome, n) VALUES (?, ?, ?, ?, 1)');
+1248:             foreach ($outcomes as $o) {
+1249:                 $up->execute([$q, $pk, $day, $o]);
+1250:                 if ($up->rowCount() === 0) { try { $in->execute([$q, $pk, $day, $o]); } catch (PDOException) { $up->execute([$q, $pk, $day, $o]); } }
+1251:             }
+1252:             if (random_int(1, 200) === 1) $pdo->prepare('DELETE FROM search_outcomes WHERE day < ?')->execute([date('Y-m-d', time() - 180 * 86400)]);
+1253:         } catch (PDOException) { /* the table isn't there yet: run the migration */ }
+1254:     }
+1255: 
+1256:     public static function logTerm(PDO $pdo, string $q, string $placeKey, bool $zero): void
+1257:     {
+1258:         $q = mb_substr(self::norm($q), 0, 120);
+1259:         if (mb_strlen($q) < 2) return;
+1260:         try { $pdo->query('SELECT 1 FROM search_terms LIMIT 1'); } catch (PDOException) { return; }
+1261:         $day = date('Y-m-d'); $pk = mb_substr($placeKey, 0, 40);
+1262:         $up = $pdo->prepare('UPDATE search_terms SET n = n + 1, zero = zero + ? WHERE q = ? AND place_key = ? AND day = ?');
+1263:         $up->execute([$zero ? 1 : 0, $q, $pk, $day]);
+1264:         if (!$up->rowCount()) {
+1265:             try { $pdo->prepare('INSERT INTO search_terms (q, place_key, day, n, zero) VALUES (?, ?, ?, 1, ?)')->execute([$q, $pk, $day, $zero ? 1 : 0]); }
+1266:             catch (PDOException) { $up->execute([$zero ? 1 : 0, $q, $pk, $day]); }
+1267:         }
+1268:         if (random_int(1, 200) === 1) $pdo->prepare('DELETE FROM search_terms WHERE day < ?')->execute([date('Y-m-d', time() - 180 * 86400)]);
+1269:     }
+1270: }

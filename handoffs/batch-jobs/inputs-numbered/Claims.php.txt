@@ -1,0 +1,1048 @@
+1: <?php
+2: /**
+3:  * Claims.php: claiming a listing (decisions/0070).
+4:  *
+5:  *   1. An email code to the claimant's own account → the listing is "Managed by owner" (claimed-unverified): the
+6:  *      owner record is written to listing_access (and kept in step in entities.owner_user_id), and they can edit the
+7:  *      description, photos, hours and services. Name, phone, address and website wait for an admin (claim_changes),
+8:  *      and the evidence from our sources can still update them.
+9:  *   2. Text the claim's code to the Verify number. From the listed number, an admin marks it ✓ Verified; from another
+10:  *      number, an admin contacts the claimant within 48 hours and decides, case by case.
+11:  *   Other routes: an email at the business's own domain (verified at once), a document, or an appointment.
+12:  *
+13:  * One claim goes ahead per listing; a second request is held ("Claim Request On Hold") and admins get a Notice.
+14:  * Admins decide flexibly: verify, keep as managed, ask for more, decline, or start a held request.
+15:  */
+16: declare(strict_types=1);
+17: 
+18: require_once __DIR__ . '/Database.php';
+19: require_once __DIR__ . '/StepUpAuth.php';
+20: require_once __DIR__ . '/Mailer.php';
+21: require_once __DIR__ . '/TrustScore.php';
+22: 
+23: final class Claims
+24: {
+25:     /** The Verify number claimants text (decisions/0070 §3; Jason's number in the pilot). CLAIM_VERIFY_NUMBER overrides. */
+26:     public const VERIFY_NUMBER = '602-708-3795';
+27:     public const DUE_HOURS = 48;
+28:     public const DOC_MAX = 25 * 1024 * 1024;
+29:     public const DOC_TYPES = ['application/pdf' => 'pdf', 'image/jpeg' => 'jpg', 'image/png' => 'png'];
+30:     public const PROTECTED = ['name', 'phone', 'address', 'city', 'state', 'website'];
+31:     public const PLANS = ['free' => 'Free', 'basic' => 'Basic Partner ($29.95/mo)', 'core' => 'Core Partner ($79.95/mo)', 'strategic' => 'Strategic Partner ($229.95/mo)', 'cornerstone' => 'Cornerstone ($399.95/mo)'];
+32:     /** Claims that hold the listing: nobody else's claim goes ahead while one of these is open. */
+33:     private const HOLDING = ['managed', 'verified'];
+34: 
+35:     public static function ready(PDO $pdo): bool
+36:     {
+37:         static $ok = null;
+38:         if ($ok !== null) return $ok;
+39:         try { $pdo->query('SELECT 1 FROM listing_claims LIMIT 1'); return $ok = true; } catch (Throwable) { return $ok = false; }
+40:     }
+41: 
+42:     public static function verifyNumber(): string
+43:     {
+44:         return (string) (getenv('CLAIM_VERIFY_NUMBER') ?: self::VERIFY_NUMBER);
+45:     }
+46: 
+47:     public static function phone10(?string $s): string
+48:     {
+49:         $d = preg_replace('/\D/', '', (string) $s);
+50:         if (strlen($d) === 11 && $d[0] === '1') $d = substr($d, 1);
+51:         return strlen($d) === 10 ? $d : '';
+52:     }
+53: 
+54:     public static function fmtPhone(string $p10): string
+55:     {
+56:         return strlen($p10) === 10 ? sprintf('(%s) %s-%s', substr($p10, 0, 3), substr($p10, 3, 3), substr($p10, 6)) : $p10;
+57:     }
+58: 
+59:     // ------------------------------------------------------------------ reading
+60: 
+61:     /** The listing as the claim page needs it: name, place, status, owner, phone and website on file. */
+62:     public static function listing(PDO $pdo, int $e): ?array
+63:     {
+64:         $st = $pdo->prepare(
+65:             "SELECT e.id, e.name, e.status, e.owner_user_id, e.plan_tier,
+66:                     JSON_UNQUOTE(mc.meta_value) AS city, JSON_UNQUOTE(ms.meta_value) AS state,
+67:                     JSON_UNQUOTE(mp.meta_value) AS phone, JSON_UNQUOTE(mw.meta_value) AS website, JSON_UNQUOTE(ma.meta_value) AS address
+68:                FROM entities e
+69:                LEFT JOIN entity_metadata mc ON mc.entity_id = e.id AND mc.meta_key = 'city'
+70:                LEFT JOIN entity_metadata ms ON ms.entity_id = e.id AND ms.meta_key = 'state'
+71:                LEFT JOIN entity_metadata mp ON mp.entity_id = e.id AND mp.meta_key = 'phone'
+72:                LEFT JOIN entity_metadata mw ON mw.entity_id = e.id AND mw.meta_key = 'website'
+73:                LEFT JOIN entity_metadata ma ON ma.entity_id = e.id AND ma.meta_key = 'address'
+74:               WHERE e.id = ? AND e.entity_type = 'merchant' AND (e.is_suppressed = 0
+75:                     OR EXISTS (SELECT 1 FROM entity_metadata hf WHERE hf.entity_id = e.id AND hf.meta_key = 'removed' AND hf.meta_value LIKE '%\"target\":\"help_find\"%')) LIMIT 1"
+76:         );
+77:         $st->execute([$e]);
+78:         $r = $st->fetch(PDO::FETCH_ASSOC);
+79:         return $r ?: null;
+80:     }
+81: 
+82:     /**
+83:      * The listing as its own team's portal needs it, hidden or not (site-audit case #22): an owner or manager always
+84:      * opens their own listing's editor; the public site and search keep hiding it (listing() above is unchanged).
+85:      * Only listings Team::listingsOf gives this person ($mine: that list, when the caller has it already).
+86:      * Adds is_suppressed, so the page can say it's hidden (hiddenReason()).
+87:      */
+88:     public static function ownListing(PDO $pdo, int $uid, int $e, ?array $mine = null): ?array
+89:     {
+90:         if ($uid <= 0 || $e <= 0) return null;
+91:         if ($mine === null) { require_once __DIR__ . '/Team.php'; $mine = Team::listingsOf($pdo, $uid); }
+92:         if (!isset($mine[$e])) return null;
+93:         $st = $pdo->prepare(
+94:             "SELECT e.id, e.name, e.status, e.owner_user_id, e.plan_tier, e.is_suppressed,
+95:                     JSON_UNQUOTE(mc.meta_value) AS city, JSON_UNQUOTE(ms.meta_value) AS state,
+96:                     JSON_UNQUOTE(mp.meta_value) AS phone, JSON_UNQUOTE(mw.meta_value) AS website, JSON_UNQUOTE(ma.meta_value) AS address
+97:                FROM entities e
+98:                LEFT JOIN entity_metadata mc ON mc.entity_id = e.id AND mc.meta_key = 'city'
+99:                LEFT JOIN entity_metadata ms ON ms.entity_id = e.id AND ms.meta_key = 'state'
+100:                LEFT JOIN entity_metadata mp ON mp.entity_id = e.id AND mp.meta_key = 'phone'
+101:                LEFT JOIN entity_metadata mw ON mw.entity_id = e.id AND mw.meta_key = 'website'
+102:                LEFT JOIN entity_metadata ma ON ma.entity_id = e.id AND ma.meta_key = 'address'
+103:               WHERE e.id = ? AND e.entity_type = 'merchant' LIMIT 1"
+104:         );
+105:         $st->execute([$e]);
+106:         $r = $st->fetch(PDO::FETCH_ASSOC);
+107:         return $r ?: null;
+108:     }
+109: 
+110:     /**
+111:      * Why the team's own listing isn't on the public site, in words for them; null when it's public.
+112:      * Said plainly only where the reason is theirs to know (the test listing, a private client record, merged into
+113:      * another listing, not public yet). Anything held by staff (a data check, low trust, Restricted, a nation's or a
+114:      * sensitive place's hold: decisions/0066, 0164 R7) is only "under review", with Ask our team: never the staff reason.
+115:      * A merged listing also carries 'merged' => [kept id, kept name]: changes belong on the kept one, so the editor locks.
+116:      * @return array{text: string, link: ?array{0: string, 1: string}, ask: bool, merged?: array{0: int, 1: string}}|null
+117:      */
+118:     public static function hiddenReason(PDO $pdo, array $row): ?array
+119:     {
+120:         $e = (int) ($row['id'] ?? 0);
+121:         $public = ['unclaimed', 'claimed-unverified', 'pending-verification', 'verified'];
+122:         if ((int) ($row['is_suppressed'] ?? 0) === 0 && in_array((string) ($row['status'] ?? ''), $public, true)) return null;
+123:         $review = ['text' => 'It\'s under review by our team, so it isn\'t on the public site or in search for now. You can keep editing it; your changes show once it\'s back.', 'link' => null, 'ask' => true];
+124:         if ((int) ($row['is_suppressed'] ?? 0) === 0)
+125:             return ['text' => 'It isn\'t public yet: our team checks a new or changed listing before it shows on the site and in search. You can keep editing it meanwhile.', 'link' => null, 'ask' => true];
+126:         try {   // the hidden test listing for the site's checks (TestAccounts)
+127:             $st = $pdo->prepare("SELECT 1 FROM test_records WHERE kind = 'listing' AND ref_id = ? LIMIT 1"); $st->execute([$e]);
+128:             if ($st->fetchColumn()) return ['text' => 'This is the test listing for the site\'s checks. It\'s never shown on the public site or in search.', 'link' => null, 'ask' => false];
+129:         } catch (Throwable) {}
+130:         try {   // a private client record (Clients::makePrivate): kept for orders, never public
+131:             $st = $pdo->prepare('SELECT 1 FROM client_listings WHERE entity_id = ? AND private = 1 LIMIT 1'); $st->execute([$e]);
+132:             if ($st->fetchColumn()) return ['text' => 'It\'s kept private: our team holds it for your orders with us, and it isn\'t shown on the public site or in search. To list your business publicly, ask our team.', 'link' => null, 'ask' => true];
+133:         } catch (Throwable) {}
+134:         try {   // merged into another listing of the same business (decisions/0072): its link takes visitors there
+135:             $st = $pdo->prepare("SELECT meta_value FROM entity_metadata WHERE entity_id = ? AND meta_key = 'same_as'"); $st->execute([$e]);
+136:             $same = json_decode((string) $st->fetchColumn(), true);
+137:             $keep = is_array($same) ? (int) ($same['id'] ?? 0) : 0;
+138:             if ($keep > 0) {
+139:                 $st = $pdo->prepare("SELECT name FROM entities WHERE id = ? AND is_suppressed = 0 AND entity_type = 'merchant'"); $st->execute([$keep]);
+140:                 $kept = $st->fetchColumn();
+141:                 if ($kept !== false) return ['text' => 'It was joined with ' . (string) $kept . ', another listing for the same business, which visitors see instead; its old link takes them there. Changes here wouldn\'t show anywhere, so make them on ' . (string) $kept . '.',
+142:                                              'link' => ['/listing/view.php?id=' . $keep, 'See ' . (string) $kept], 'ask' => true, 'merged' => [$keep, (string) $kept]];
+143:             }
+144:         } catch (Throwable) {}
+145:         return $review;
+146:     }
+147: 
+148:     /**
+149:      * Ask our team about a hidden listing, from its editor (Never a dead end): to our inbox, with the listing and the
+150:      * person's account email to answer at. 3 a session a day, as ListingMessages::askTeam; our inbox, so it costs nothing.
+151:      */
+152:     public static function askAboutHidden(PDO $pdo, array $user, int $e, string $note): string
+153:     {
+154:         require_once __DIR__ . '/ListingMessages.php';
+155:         $to = ListingMessages::helpTo();
+156:         $row = self::ownListing($pdo, (int) ($user['id'] ?? 0), $e);
+157:         if (!$row) throw new InvalidArgumentException('That listing isn\'t one you manage.');
+158:         $email = trim((string) ($user['email'] ?? ''));
+159:         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) throw new InvalidArgumentException('Your account has no email for us to answer at. Write to ' . $to . '.');
+160:         $tries = array_filter((array) ($_SESSION['bp_hidden_ask'] ?? []), fn ($t) => $t > time() - 86400);
+161:         if (count($tries) >= 3) throw new InvalidArgumentException('We\'ve had your notes today. Write to ' . $to . ' and we\'ll answer you there.');
+162:         $tries[] = time(); $_SESSION['bp_hidden_ask'] = array_values($tries);
+163:         $why = self::hiddenReason($pdo, $row);
+164:         $body = 'Listing: ' . $row['name'] . ' (#' . $e . ')' . "\nAdmin: " . (getenv('APP_URL') ?: 'https://traversence.com') . '/admin/listing-edit.php?id=' . $e
+165:               . "\nWhat the owner sees: " . ($why['text'] ?? 'public') . "\n\nTheir note:\n" . (trim($note) !== '' ? mb_substr(trim($note), 0, 1500) : '(none)') . "\n\nReply to: " . $email;
+166:         try { Mailer::send($to, 'Why is my listing hidden? ' . mb_substr((string) $row['name'], 0, 80), $body, null, '', '', $email); }
+167:         catch (Throwable $x) { error_log('hidden listing ask: ' . $x->getMessage()); throw new InvalidArgumentException('That didn\'t send. Write to ' . $to . ' instead.'); }
+168:         return 'Sent to our team. We\'ll answer you at ' . $email . ', usually within a business day.';
+169:     }
+170: 
+171:     public static function get(PDO $pdo, int $id): ?array
+172:     {
+173:         $st = $pdo->prepare('SELECT * FROM listing_claims WHERE id = ?');
+174:         $st->execute([$id]);
+175:         $r = $st->fetch(PDO::FETCH_ASSOC);
+176:         return $r ?: null;
+177:     }
+178: 
+179:     /** The claim that holds a listing now (managed or verified), if any. */
+180:     public static function holding(PDO $pdo, int $e): ?array
+181:     {
+182:         $st = $pdo->prepare("SELECT * FROM listing_claims WHERE entity_id = ? AND status IN ('managed','verified') ORDER BY id DESC LIMIT 1");
+183:         $st->execute([$e]);
+184:         $r = $st->fetch(PDO::FETCH_ASSOC);
+185:         return $r ?: null;
+186:     }
+187: 
+188:     /** This person's latest claim on a listing, any status. */
+189:     public static function mine(PDO $pdo, int $uid, int $e): ?array
+190:     {
+191:         $st = $pdo->prepare('SELECT * FROM listing_claims WHERE user_id = ? AND entity_id = ? ORDER BY id DESC LIMIT 1');
+192:         $st->execute([$uid, $e]);
+193:         $r = $st->fetch(PDO::FETCH_ASSOC);
+194:         return $r ?: null;
+195:     }
+196: 
+197:     /** Everything this person has claimed or asked to claim, newest first (for the business dashboard). */
+198:     public static function forUser(PDO $pdo, int $uid): array
+199:     {
+200:         $st = $pdo->prepare("SELECT c.*, e.name, e.status AS entity_status, e.plan_tier FROM listing_claims c JOIN entities e ON e.id = c.entity_id
+201:                               WHERE c.user_id = ? AND c.status IN ('managed','verified','on_hold') ORDER BY c.id DESC");
+202:         $st->execute([$uid]);
+203:         return $st->fetchAll(PDO::FETCH_ASSOC);
+204:     }
+205: 
+206:     /** Whether the person may claim: signed in, 18+, Verification on. Returns what's missing (empty = ready). */
+207:     public static function missing(PDO $pdo, int $uid): array
+208:     {
+209:         require_once __DIR__ . '/MemberVerification.php';
+210:         require_once __DIR__ . '/AgeGate.php';
+211:         $m = [];
+212:         // decisions/0071 §1: a confirmed email and a phone on the account
+213:         $st = $pdo->prepare('SELECT email_verified_at, phone FROM users WHERE id = ?');
+214:         try { $st->execute([$uid]); $u = $st->fetch(PDO::FETCH_ASSOC) ?: []; } catch (PDOException) { $u = ['email_verified_at' => 1, 'phone' => '0000000000']; }   // before the migration
+215:         if (empty($u['email_verified_at'])) $m[] = 'email';
+216:         if (self::phone10((string) ($u['phone'] ?? '')) === '') $m[] = 'phone';
+217:         if (!AgeGate::confirmed($pdo, $uid)) $m[] = 'age';
+218:         if (!MemberVerification::consented($pdo, $uid)) $m[] = 'verification';
+219:         return $m;
+220:     }
+221: 
+222:     // ------------------------------------------------------------------ step 1: the email code
+223: 
+224:     /**
+225:      * Starts a claim: emails a code to the claimant's own account. If another claim holds the listing, nothing is
+226:      * sent: the caller puts the request on hold instead (see hold()).
+227:      * @return array{held: bool}
+228:      */
+229:     public static function start(PDO $pdo, array $user, int $e): array
+230:     {
+231:         $uid = (int) $user['id'];
+232:         $l = self::listing($pdo, $e);
+233:         if (!$l) throw new InvalidArgumentException('Listing not found.');
+234:         require_once __DIR__ . '/PlaceScope.php';
+235:         if (($no = PlaceScope::notABusiness($pdo, $e)) !== '') throw new InvalidArgumentException($no . ' To fix something on it, use Suggest an edit.');   // a drop box has no owner
+236:         if ($m = self::missing($pdo, $uid)) throw new DomainException(implode(',', $m));
+237:         $h = self::holding($pdo, $e);
+238:         if ($h && (int) $h['user_id'] === $uid) throw new InvalidArgumentException('You already manage this listing. It\'s in your business dashboard.');
+239:         if ($h || !in_array($l['status'], ['unclaimed'], true)) return ['held' => true];
+240:         $code = StepUpAuth::issue($pdo, $uid, 'claim', (string) $e);
+241:         Mailer::sendCode((string) $user['email'], (string) $code, 'code to claim ' . $l['name'],
+242:             "Your code to claim {$l['name']} is: {$code}\n\nIt expires in 10 minutes. If you didn't ask for this, you can ignore this email.");
+243:         return ['held' => false];
+244:     }
+245: 
+246:     /**
+247:      * Confirms the email code: the listing becomes Managed by owner, the claim gets its text code and a 48-hour due
+248:      * time, and admins are told.
+249:      */
+250:     public static function confirm(PDO $pdo, array $user, int $e, string $code, string $role = '', string $phone = ''): array
+251:     {
+252:         $uid = (int) $user['id'];
+253:         if ($m = self::missing($pdo, $uid)) throw new DomainException(implode(',', $m));
+254:         try { StepUpAuth::verify($pdo, $uid, 'claim', $code, (string) $e); }
+255:         catch (RuntimeException $x) { throw new InvalidArgumentException($x->getMessage()); }
+256:         $l = self::listing($pdo, $e);
+257:         if (!$l) throw new InvalidArgumentException('Listing not found.');
+258:         $id = 0;
+259:         Database::transaction(function (PDO $pdo) use ($e, $uid, $l, $role, $phone, &$id) {
+260:             $st = $pdo->prepare('SELECT status FROM entities WHERE id = ? FOR UPDATE');
+261:             $st->execute([$e]);
+262:             if ($st->fetchColumn() !== 'unclaimed' || self::holding($pdo, $e)) throw new RuntimeException('held');
+263:             $id = self::open($pdo, $e, $uid, null, $role, $phone, (string) $l['phone']);
+264:         });
+265:         $c = self::get($pdo, $id);
+266:         self::tellAdmins($pdo, 'New claim: ' . $l['name'], self::who($pdo, $uid) . " claimed {$l['name']} (Managed by owner). Text code {$c['text_code']}; listed phone "
+267:             . (self::fmtPhone((string) $c['listed_phone']) ?: 'none') . '. Contact due by ' . $c['due_at'] . '.');
+268:         return $c;
+269:     }
+270: 
+271:     /**
+272:      * A business its owner just added (decisions/0071): the new listing opens straight away as their claim, Managed by
+273:      * owner, and admins get a Notice. The email code was already confirmed by AddBusiness.
+274:      */
+275:     public static function adopt(PDO $pdo, int $uid, int $e, string $phone, string $role): array
+276:     {
+277:         $id = 0;
+278:         Database::transaction(function (PDO $pdo) use ($e, $uid, $phone, $role, &$id) {
+279:             $st = $pdo->prepare('SELECT status FROM entities WHERE id = ? FOR UPDATE');
+280:             $st->execute([$e]);
+281:             if ($st->fetchColumn() !== 'unclaimed') throw new RuntimeException('held');
+282:             $id = self::open($pdo, $e, $uid, null, $role, $phone, $phone);
+283:         });
+284:         $c = self::get($pdo, $id);
+285:         $l = self::listing($pdo, $e);
+286:         self::note($pdo, $id, 'Added by its owner (decisions/0071).');
+287:         self::tellAdmins($pdo, 'Notice: new business added by its owner: ' . ($l['name'] ?? ''), self::who($pdo, $uid) . ' added ' . ($l['name'] ?? '') . ' (' . ($l['city'] ?? '') . ').'
+288:             . " It's live as Managed by owner. They can send you a verification request, or text {$c['text_code']}.");
+289:         return $c;
+290:     }
+291: 
+292:     /** Admins are told (used by the verification request). */
+293:     /** An owner claimed it: the lead goes to its territory's rep (decisions/0108). Never stops the claim. */
+294:     private static function toSales(PDO $pdo, int $e): void
+295:     {
+296:         try { require_once __DIR__ . '/Leads.php'; if (Leads::ready($pdo)) Leads::route($pdo, $e, 'inbound'); } catch (Throwable $x) { error_log('claim to sales: ' . $x->getMessage()); }
+297:     }
+298: 
+299:     public static function notifyAdmins(PDO $pdo, string $subject, string $body): void { self::tellAdmins($pdo, $subject, $body); }
+300: 
+301:     /** The claimant is told (used by the verification request). */
+302:     public static function notifyClaimant(PDO $pdo, array $c, string $subject, string $body): void { self::tellClaimant($pdo, $c, $subject, $body); }
+303: 
+304:     /** Writes a managed claim and its owner record. Inside a transaction. */
+305:     private static function open(PDO $pdo, int $e, int $uid, ?int $group, string $role, string $phone, string $listedPhone): int
+306:     {
+307:         $pdo->prepare("UPDATE entities SET owner_user_id = ?, status = 'claimed-unverified', updated_by_type = 'user', updated_at = NOW() WHERE id = ?")->execute([$uid, $e]);
+308:         $pdo->prepare("INSERT INTO listing_access (entity_id, user_id, access_level, granted_by_user_id) VALUES (?, ?, 'owner', ?)
+309:                         ON DUPLICATE KEY UPDATE access_level = 'owner'")->execute([$e, $uid, $uid]);
+310:         $pdo->prepare("INSERT INTO listing_claims (entity_id, user_id, group_id, status, role_note, text_code, listed_phone, claimant_phone, due_at)
+311:                         VALUES (?, ?, ?, 'managed', ?, ?, ?, ?, ?)")
+312:             ->execute([$e, $uid, $group, mb_substr(trim($role), 0, 80), self::newCode($pdo), self::phone10($listedPhone), self::phone10($phone),
+313:                        date('Y-m-d H:i:s', time() + self::DUE_HOURS * 3600)]);
+314:         $cid = (int) $pdo->lastInsertId();
+315:         self::toSales($pdo, $e);
+316:         return $cid;
+317:     }
+318: 
+319:     private static function newCode(PDO $pdo): string
+320:     {
+321:         for ($i = 0; $i < 20; $i++) {
+322:             $c = 'TV-' . str_pad((string) random_int(0, 9999), 4, '0', STR_PAD_LEFT);
+323:             $st = $pdo->prepare("SELECT 1 FROM listing_claims WHERE text_code = ? AND status IN ('managed','on_hold')");
+324:             $st->execute([$c]);
+325:             if (!$st->fetchColumn()) return $c;
+326:         }
+327:         return 'TV-' . random_int(10000, 99999);
+328:     }
+329: 
+330:     /** Adds the phone the claimant will text from, and what they are (owner, manager…), after the email step. */
+331:     public static function details(PDO $pdo, int $uid, int $claimId, string $phone, string $role): void
+332:     {
+333:         $c = self::ownClaim($pdo, $uid, $claimId);
+334:         $pdo->prepare('UPDATE listing_claims SET claimant_phone = ?, role_note = ? WHERE id = ?')
+335:             ->execute([self::phone10($phone), mb_substr(trim($role), 0, 80), $c['id']]);
+336:     }
+337: 
+338:     // ------------------------------------------------------------------ a second request: on hold
+339: 
+340:     /** "Claim Request On Hold": saved with whatever contact details and note they leave, and admins get a Notice. */
+341:     public static function hold(PDO $pdo, array $user, int $e, array $contact): array
+342:     {
+343:         $uid = (int) $user['id'];
+344:         $l = self::listing($pdo, $e);
+345:         if (!$l) throw new InvalidArgumentException('Listing not found.');
+346:         $mine = self::mine($pdo, $uid, $e);
+347:         $det = json_encode(array_filter([
+348:             'phone' => self::phone10($contact['phone'] ?? ''), 'role' => mb_substr(trim((string) ($contact['role'] ?? '')), 0, 80),
+349:             'note' => mb_substr(trim((string) ($contact['note'] ?? '')), 0, 1000),
+350:         ]), JSON_UNESCAPED_UNICODE);
+351:         if ($mine && $mine['status'] === 'on_hold') {
+352:             $pdo->prepare('UPDATE listing_claims SET details = ? WHERE id = ?')->execute([$det, $mine['id']]);
+353:             return self::get($pdo, (int) $mine['id']);
+354:         }
+355:         $pdo->prepare("INSERT INTO listing_claims (entity_id, user_id, status, role_note, claimant_phone, listed_phone, details) VALUES (?, ?, 'on_hold', ?, ?, ?, ?)")
+356:             ->execute([$e, $uid, mb_substr(trim((string) ($contact['role'] ?? '')), 0, 80), self::phone10($contact['phone'] ?? ''), self::phone10($l['phone']), $det]);
+357:         $id = (int) $pdo->lastInsertId();
+358:         self::toSales($pdo, $e);
+359:         $h = self::holding($pdo, $e);
+360:         self::tellAdmins($pdo, 'Notice: a second claim request for ' . $l['name'],
+361:             self::who($pdo, $uid) . " asked to claim {$l['name']}, which " . ($h ? self::who($pdo, (int) $h['user_id']) . ' already ' . ($h['status'] === 'verified' ? 'owns (verified)' : 'manages') : 'is already claimed')
+362:             . '. Their request is on hold in Admin → Claims.');
+363:         return self::get($pdo, $id);
+364:     }
+365: 
+366:     // ------------------------------------------------------------------ other routes
+367: 
+368:     // ------------------------------------------------------------------ who might claim it (Jason, 2026-11-19; decisions/0070 note)
+369: 
+370:     /** The category groups (decisions/0073) whose listings are claimed by an agency or an organization, not an owner. */
+371:     public const KIND_GROUPS = ['Government & Public Services' => 'public', 'Non-Profit & Community' => 'community', 'Religious & Faith-Based' => 'community'];
+372:     /** The roles offered on the claim form, by kind. */
+373:     public const KIND_ROLES = [
+374:         'business'  => ['Owner', 'Co-owner or partner', 'Manager', 'Employee', 'Other'],
+375:         'public'    => ['Site or park manager', 'Agency staff', 'Communications or public information', 'Other'],
+376:         'community' => ['Director, pastor or leader', 'Staff', 'Board member', 'Volunteer', 'Other'],
+377:         'nation'    => ['Nation staff', 'Tribal enterprise staff', 'Other'],
+378:     ];
+379:     /** The words, by kind: the short button, its tip (%s: the name), the claim page's title, and "yours" in its sentences. */
+380:     public const KIND_WORDS = [
+381:         'business'  => ['button' => 'Claim it', 'tip' => 'Own or manage %s? Claim it to add photos, hours and more.', 'title' => 'Claim your business', 'yours' => 'your business'],
+382:         'public'    => ['button' => 'Staff? Claim it', 'tip' => 'Work for the agency that runs %s? Claim it to keep its hours, photos and notices current.', 'title' => 'Claim this place for your agency', 'yours' => 'your agency'],
+383:         'community' => ['button' => 'Run it? Claim it', 'tip' => 'Run %s? Claim it to add photos, hours and more.', 'title' => 'Claim your organization', 'yours' => 'your organization'],
+384:         'nation'    => ['button' => 'Nation staff? Claim it', 'tip' => 'Work for the nation that runs %s? Ask to claim it: our team checks with the nation first.', 'title' => 'A place on a nation\'s land', 'yours' => 'the nation'],
+385:     ];
+386: 
+387:     /** business | public | community | nation (a public place on a nation's land: the nation's own tools decide, 0054, 0066). */
+388:     public static function kind(PDO $pdo, int $e): string
+389:     {
+390:         static $memo = [];
+391:         if (isset($memo[$e])) return $memo[$e];
+392:         $k = 'business';
+393:         try {
+394:             $st = $pdo->prepare('SELECT COALESCE(g.name, c.name) AS grp, e.latitude, e.longitude FROM entities e LEFT JOIN categories c ON c.id = e.category_id LEFT JOIN categories g ON g.id = c.parent_id WHERE e.id = ?');
+395:             $st->execute([$e]); $r = $st->fetch(PDO::FETCH_ASSOC) ?: [];
+396:             $k = self::KIND_GROUPS[(string) ($r['grp'] ?? '')] ?? 'business';
+397:             if ($k === 'public' && isset($r['latitude'], $r['longitude']) && is_file(__DIR__ . '/Nations.php')) {
+398:                 require_once __DIR__ . '/Nations.php';
+399:                 if (Nations::at($pdo, (float) $r['latitude'], (float) $r['longitude']) !== null) $k = 'nation';
+400:             }
+401:         } catch (Throwable $x) { error_log('Claims::kind: ' . $x->getMessage()); }
+402:         return $memo[$e] = $k;
+403:     }
+404: 
+405:     /** The agency that runs a listing: its Nexus (decisions/0054), with the tree above it; null when it has none yet. */
+406:     public static function agency(PDO $pdo, int $e): ?array
+407:     {
+408:         if (!is_file(__DIR__ . '/Nexus.php')) return null;
+409:         require_once __DIR__ . '/Nexus.php';
+410:         try {
+411:             if (!Nexus::ready($pdo)) return null;
+412:             $st = $pdo->prepare('SELECT nexus_id FROM entities WHERE id = ?'); $st->execute([$e]); $id = (int) $st->fetchColumn();
+413:             if ($id <= 0 || !($own = Nexus::get($pdo, $id))) return null;
+414:             $chain = [(string) $own['name']]; $site = (string) ($own['website'] ?? ''); $seen = [$id => 1];
+415:             for ($n = $own; !empty($n['parent_id']) && count($chain) < 6 && !isset($seen[(int) $n['parent_id']]); ) {
+416:                 $seen[(int) $n['parent_id']] = 1; $n = Nexus::get($pdo, (int) $n['parent_id']); if (!$n) break;
+417:                 array_unshift($chain, (string) $n['name']); if ($site === '') $site = (string) ($n['website'] ?? '');
+418:             }
+419:             return ['id' => $id, 'name' => (string) $own['name'], 'chain' => implode(' › ', $chain), 'domain' => self::siteDomain($site), 'members' => (int) ($own['members'] ?? 0)];
+420:         } catch (Throwable $x) { error_log('Claims::agency: ' . $x->getMessage()); return null; }
+421:     }
+422: 
+423:     /** The domains whose email confirms a claim at once: the listing's own website, then (a public place) its agency's. */
+424:     public static function domains(PDO $pdo, int $e, ?string $website): array
+425:     {
+426:         $d = [self::siteDomain($website)];
+427:         if (in_array(self::kind($pdo, $e), ['public', 'nation'], true) && ($a = self::agency($pdo, $e))) $d[] = $a['domain'];
+428:         return array_values(array_unique(array_filter($d)));
+429:     }
+430: 
+431:     /** The agency a claimant says runs it (none linked yet, or a different one): kept with the claim for the team to check and link (0054 §6: staff make every link). */
+432:     public static function agencyNote(PDO $pdo, int $uid, int $claimId, string $text): void
+433:     {
+434:         $text = trim(mb_substr(preg_replace('/\s+/u', ' ', strip_tags($text)), 0, 120));
+435:         if ($text === '') return;
+436:         $c = self::ownClaim($pdo, $uid, $claimId);
+437:         self::setDetail($pdo, (int) $c['id'], 'agency_suggest', $text);
+438:         $l = self::listing($pdo, (int) $c['entity_id']);
+439:         self::tellAdmins($pdo, 'Agency named on a claim: ' . ($l['name'] ?? ''), self::who($pdo, $uid) . ' says ' . ($l['name'] ?? 'this listing') . ' is run by "' . $text . '". Check it and link its Nexus (Admin → Claims; decisions/0054).');
+440:     }
+441: 
+442:     /** The domain of the listing's website, if it has one: "example.com". */
+443:     public static function siteDomain(?string $website): string
+444:     {
+445:         $w = trim((string) $website);
+446:         if ($w === '') return '';
+447:         $h = parse_url(str_contains($w, '://') ? $w : 'http://' . $w, PHP_URL_HOST) ?: '';
+448:         return strtolower(preg_replace('/^www\./i', '', $h));
+449:     }
+450: 
+451:     /** Sends a code to an address at the business's own domain. */
+452:     public static function domainStart(PDO $pdo, int $uid, int $claimId, string $email): void
+453:     {
+454:         $c = self::ownClaim($pdo, $uid, $claimId);
+455:         $l = self::listing($pdo, (int) $c['entity_id']);
+456:         $doms = self::domains($pdo, (int) $c['entity_id'], $l['website'] ?? '');   // a public place: its agency's domain too (2026-11-19)
+457:         $email = strtolower(trim($email));
+458:         if (!$doms) throw new InvalidArgumentException('This listing has no website on file, so this way isn\'t available.');
+459:         $okDom = array_filter($doms, fn ($d) => str_ends_with($email, '@' . $d));
+460:         if (!filter_var($email, FILTER_VALIDATE_EMAIL) || !$okDom) throw new InvalidArgumentException('Use an address ending in @' . implode(' or @', $doms) . '.');
+461:         $code = StepUpAuth::issue($pdo, $uid, 'claim', 'domain:' . $c['id'] . ':' . $email);
+462:         Mailer::sendCode($email, (string) $code, 'code to confirm ' . $l['name'], "Your code to confirm {$l['name']} is: {$code}\n\nIt expires in 10 minutes.");
+463:         self::setDetail($pdo, (int) $c['id'], 'domain_email', $email);
+464:         $pdo->prepare("UPDATE listing_claims SET route = 'domain' WHERE id = ?")->execute([$c['id']]);
+465:     }
+466: 
+467:     /** The code from the business's own domain: ✓ Verified at once. */
+468:     public static function domainConfirm(PDO $pdo, int $uid, int $claimId, string $code): void
+469:     {
+470:         $c = self::ownClaim($pdo, $uid, $claimId);
+471:         $email = (string) (self::detailsOf($c)['domain_email'] ?? '');
+472:         try { StepUpAuth::verify($pdo, $uid, 'claim', $code, 'domain:' . $c['id'] . ':' . $email); }
+473:         catch (RuntimeException $x) { throw new InvalidArgumentException($x->getMessage()); }
+474:         self::verify($pdo, (int) $c['id'], null, 'domain', 'Confirmed by a code sent to ' . $email . '.');
+475:     }
+476: 
+477:     /** A document (bill, license, lease, photos, brochure): kept outside the site folders, never served, purged after the decision. */
+478:     /** May this person send a document for this claim? (the uploader checks before anything is sent: decisions/0127) */
+479:     public static function canDocument(PDO $pdo, int $uid, int $claimId): void { self::ownClaim($pdo, $uid, $claimId, true); }
+480: 
+481:     public static function document(PDO $pdo, int $uid, int $claimId, array $file): void
+482:     {
+483:         $c = self::ownClaim($pdo, $uid, $claimId, true);
+484:         if (($file['error'] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_OK || !is_file((string) $file['tmp_name'])) throw new InvalidArgumentException('The file didn\'t arrive. Try again.');
+485:         if ((int) $file['size'] > self::DOC_MAX) throw new InvalidArgumentException('That file is over 25 MB.');
+486:         $type = (new finfo(FILEINFO_MIME_TYPE))->file((string) $file['tmp_name']) ?: '';
+487:         if (!isset(self::DOC_TYPES[$type])) throw new InvalidArgumentException('Send a PDF, JPG or PNG.');
+488:         require_once __DIR__ . '/Store.php';   // in the claimant's folder (decisions/0124)
+489:         $sub = 'members/' . Store::folder('members', $uid);
+490:         $dir = self::lockedDir($sub);
+491:         $name = bin2hex(random_bytes(12)) . '.' . self::DOC_TYPES[$type];
+492:         if (!@rename((string) $file['tmp_name'], "$dir/$name") && !@copy((string) $file['tmp_name'], "$dir/$name"))   // as it arrived (api/upload.php, target claim_doc)
+493:             throw new RuntimeException('Could not store the file.');
+494:         @chmod("$dir/$name", 0600);   // the site's own account only
+495:         Store::keep("$dir/$name");   // to S3 (private, decisions/0123)
+496:         if ($c['doc_path'] !== '' && !str_contains((string) $c['doc_path'], '..')) Store::remove(self::storage() . '/' . $c['doc_path']);
+497:         $pdo->prepare('UPDATE listing_claims SET doc_path = ?, doc_name = ?, route = IF(route = "text", "document", route) WHERE id = ?')
+498:             ->execute([$sub . "/$name", mb_substr(basename((string) $file['name']), 0, 160), $c['id']]);
+499:         $l = self::listing($pdo, (int) $c['entity_id']);
+500:         self::tellAdmins($pdo, 'Document for a claim: ' . ($l['name'] ?? ''), self::who($pdo, $uid) . ' sent a document for their claim. Admin → Claims.');
+501:     }
+502: 
+503:     /** An appointment with an agent: email, phone, address, preferred date and time, call or visit. */
+504:     public static function appointment(PDO $pdo, int $uid, int $claimId, array $in): void
+505:     {
+506:         $c = self::ownClaim($pdo, $uid, $claimId, true);
+507:         $a = [
+508:             'email' => strtolower(trim((string) ($in['email'] ?? ''))), 'phone' => self::phone10($in['phone'] ?? ''),
+509:             'address' => mb_substr(trim((string) ($in['address'] ?? '')), 0, 200), 'when' => mb_substr(trim((string) ($in['when'] ?? '')), 0, 40),
+510:             'how' => ($in['how'] ?? '') === 'visit' ? 'visit' : 'call',
+511:         ];
+512:         if (!filter_var($a['email'], FILTER_VALIDATE_EMAIL)) throw new InvalidArgumentException('Add an email we can reach you at.');
+513:         if ($a['phone'] === '') throw new InvalidArgumentException('Add a 10-digit phone number.');
+514:         if ($a['how'] === 'visit' && $a['address'] === '') throw new InvalidArgumentException('Add the address to meet at.');
+515:         if ($a['when'] === '' || strtotime($a['when']) === false) throw new InvalidArgumentException('Pick a date and time.');
+516:         self::setDetail($pdo, (int) $c['id'], 'appointment', $a);
+517:         $pdo->prepare("UPDATE listing_claims SET route = 'appointment' WHERE id = ?")->execute([$c['id']]);
+518:         $l = self::listing($pdo, (int) $c['entity_id']);
+519:         self::tellAdmins($pdo, 'Appointment requested: ' . ($l['name'] ?? ''), self::who($pdo, $uid) . ' asked for a ' . $a['how'] . ' on ' . $a['when'] . '. Admin → Claims.');
+520:     }
+521: 
+522:     /** The claimant takes their claim back: the listing returns to unclaimed. */
+523:     public static function withdraw(PDO $pdo, int $uid, int $claimId): void
+524:     {
+525:         $c = self::ownClaim($pdo, $uid, $claimId, true);
+526:         if ($c['status'] === 'on_hold') { $pdo->prepare("UPDATE listing_claims SET status = 'withdrawn' WHERE id = ?")->execute([$c['id']]); self::purgeDocuments($pdo); return; }
+527:         Database::transaction(fn (PDO $pdo) => self::release($pdo, $c, 'withdrawn', null));
+528:         self::purgeDocuments($pdo);
+529:     }
+530: 
+531:     // ------------------------------------------------------------------ several locations
+532: 
+533:     /** The claimant's other locations we can see: unclaimed listings with the same phone or website, or the same name. */
+534:     public static function siblings(PDO $pdo, int $e): array
+535:     {
+536:         $l = self::listing($pdo, $e);
+537:         if (!$l) return [];
+538:         $p = self::phone10($l['phone']); $d = self::siteDomain($l['website']);
+539:         $st = $pdo->prepare(
+540:             "SELECT e.id, e.name, JSON_UNQUOTE(mc.meta_value) AS city, JSON_UNQUOTE(ma.meta_value) AS address, JSON_UNQUOTE(mp.meta_value) AS phone, JSON_UNQUOTE(mw.meta_value) AS website
+541:                FROM entities e
+542:                LEFT JOIN entity_metadata mc ON mc.entity_id = e.id AND mc.meta_key = 'city'
+543:                LEFT JOIN entity_metadata ma ON ma.entity_id = e.id AND ma.meta_key = 'address'
+544:                LEFT JOIN entity_metadata mp ON mp.entity_id = e.id AND mp.meta_key = 'phone'
+545:                LEFT JOIN entity_metadata mw ON mw.entity_id = e.id AND mw.meta_key = 'website'
+546:               WHERE e.id <> ? AND e.entity_type = 'merchant' AND e.is_suppressed = 0 AND e.status = 'unclaimed'
+547:                 AND (e.name = ? OR (? <> '' AND REGEXP_REPLACE(JSON_UNQUOTE(mp.meta_value), '[^0-9]', '') LIKE CONCAT('%', ?))
+548:                      OR (? <> '' AND JSON_UNQUOTE(mw.meta_value) LIKE CONCAT('%', ?, '%')))
+549:               ORDER BY e.name LIMIT 25"
+550:         );
+551:         try { $st->execute([$e, $l['name'], $p, $p, $d, $d]); }
+552:         catch (PDOException) {   // MySQL 5.7 has no REGEXP_REPLACE: same name or website only, phone compared in PHP
+553:             $st = $pdo->prepare(
+554:                 "SELECT e.id, e.name, JSON_UNQUOTE(mc.meta_value) AS city, JSON_UNQUOTE(ma.meta_value) AS address, JSON_UNQUOTE(mp.meta_value) AS phone, JSON_UNQUOTE(mw.meta_value) AS website
+555:                    FROM entities e
+556:                    LEFT JOIN entity_metadata mc ON mc.entity_id = e.id AND mc.meta_key = 'city'
+557:                    LEFT JOIN entity_metadata ma ON ma.entity_id = e.id AND ma.meta_key = 'address'
+558:                    LEFT JOIN entity_metadata mp ON mp.entity_id = e.id AND mp.meta_key = 'phone'
+559:                    LEFT JOIN entity_metadata mw ON mw.entity_id = e.id AND mw.meta_key = 'website'
+560:                   WHERE e.id <> ? AND e.entity_type = 'merchant' AND e.is_suppressed = 0 AND e.status = 'unclaimed'
+561:                     AND (e.name = ? OR (? <> '' AND mp.meta_value LIKE CONCAT('%', ?, '%')) OR (? <> '' AND mw.meta_value LIKE CONCAT('%', ?, '%')))
+562:                   ORDER BY e.name LIMIT 25");
+563:             $st->execute([$e, $l['name'], $p, substr($p, -4), $d, $d]);
+564:         }
+565:         // the same name counts only when it's fairly rare: "ATM" or "U.S. Post Office" listings aren't one owner's
+566:         $c = $pdo->prepare("SELECT COUNT(*) FROM entities WHERE name = ? AND entity_type = 'merchant'");
+567:         $c->execute([$l['name']]);
+568:         $byName = (int) $c->fetchColumn() < 10;
+569:         return array_values(array_filter($st->fetchAll(PDO::FETCH_ASSOC), function ($r) use ($l, $p, $d, $byName) {
+570:             return ($byName && $r['name'] === $l['name']) || ($p !== '' && self::phone10($r['phone']) === $p) || ($d !== '' && self::siteDomain($r['website']) === $d);
+571:         }));
+572:     }
+573: 
+574:     /** Claims the other locations the claimant picked, together with this one: each its own listing and claim, one group. */
+575:     public static function addLocations(PDO $pdo, int $uid, int $claimId, array $ids): array
+576:     {
+577:         $c = self::ownClaim($pdo, $uid, $claimId);
+578:         $ok = array_column(self::siblings($pdo, (int) $c['entity_id']), 'id');
+579:         $added = [];
+580:         foreach (array_unique(array_map('intval', $ids)) as $e) {
+581:             if (!in_array($e, array_map('intval', $ok), true)) continue;
+582:             Database::transaction(function (PDO $pdo) use ($e, $uid, $c, &$added) {
+583:                 $st = $pdo->prepare('SELECT status FROM entities WHERE id = ? FOR UPDATE');
+584:                 $st->execute([$e]);
+585:                 if ($st->fetchColumn() !== 'unclaimed' || self::holding($pdo, $e)) return;
+586:                 $l = self::listing($pdo, $e);
+587:                 $added[] = self::open($pdo, $e, $uid, (int) ($c['group_id'] ?: $c['id']), (string) $c['role_note'], (string) $c['claimant_phone'], (string) ($l['phone'] ?? ''));
+588:             });
+589:         }
+590:         if ($added) {
+591:             $pdo->prepare('UPDATE listing_claims SET group_id = id WHERE id = ? AND group_id IS NULL')->execute([$c['id']]);
+592:             self::tellAdmins($pdo, 'Several locations claimed together', self::who($pdo, $uid) . ' added ' . count($added) . ' more location(s) to their claim. Admin → Claims.');
+593:         }
+594:         return $added;
+595:     }
+596: 
+597:     // ------------------------------------------------------------------ admin decisions (flexible)
+598: 
+599:     /** ✓ Verified. $groupToo verifies every managed claim in the same group. */
+600:     public static function verify(PDO $pdo, int $claimId, ?int $adminId, string $how, string $note = '', bool $groupToo = false): void
+601:     {
+602:         $c = self::get($pdo, $claimId);
+603:         if (!$c || $c['status'] !== 'managed') throw new InvalidArgumentException('This claim isn\'t waiting to be verified.');
+604:         $ids = [(int) $c['id']];
+605:         if ($groupToo && $c['group_id']) {
+606:             $st = $pdo->prepare("SELECT id FROM listing_claims WHERE group_id = ? AND status = 'managed'");
+607:             $st->execute([$c['group_id']]);
+608:             $ids = array_map('intval', $st->fetchAll(PDO::FETCH_COLUMN));
+609:         }
+610:         foreach ($ids as $id) {
+611:             $x = self::get($pdo, $id);
+612:             $tier = $how === 'domain' ? 1 : 4;
+613:             Database::transaction(function (PDO $pdo) use ($x, $adminId, $tier, $how, $note) {
+614:                 $pdo->prepare("UPDATE entities SET status = 'verified', verified_tier = ?, updated_by_type = ?, updated_at = NOW() WHERE id = ?")
+615:                     ->execute([$tier, $adminId ? 'admin' : 'user', $x['entity_id']]);
+616:                 $pdo->prepare("UPDATE listing_claims SET status = 'verified', decided_by = ?, decided_at = NOW(), admin_note = CONCAT_WS('\n', admin_note, ?) WHERE id = ?")
+617:                     ->execute([$adminId, $note !== '' ? $note : null, $x['id']]);
+618:                 $pdo->prepare("INSERT INTO verification_attempts (entity_id, method, status, reviewed_by_user_id, notes, created_at, resolved_at) VALUES (?, ?, 'approved', ?, ?, NOW(), NOW())")
+619:                     ->execute([$x['entity_id'], $how === 'domain' ? 'domain_match' : ($x['doc_path'] !== '' ? 'document_upload' : 'admin_override'), $adminId, 'Claim ' . $x['id'] . ': ' . ($note ?: $how)]);
+620:                 try { TrustScore::awardVerificationTier($pdo, (int) $x['entity_id'], (int) $x['user_id'], $tier, $adminId ? 'admin' : 'user', $x['doc_path'] !== ''); } catch (Throwable $t) { error_log('claims trust: ' . $t->getMessage()); }
+621:             });
+622:             // changes the owner made while Managed now apply: the fields are theirs (decisions/0070 §3)
+623:             foreach (self::changes($pdo, (int) $x['entity_id']) as $ch) if ((int) $ch['user_id'] === (int) $x['user_id']) {
+624:                 try { self::decideChange($pdo, (int) $ch['id'], (int) ($adminId ?? $x['user_id']), true); } catch (Throwable) {}
+625:             }
+626:             self::purgeDocuments($pdo);
+627:             // messages left on the listing before its claim are delivered now, into the business's Pulse (decisions/0172 §3.3)
+628:             if (is_file(__DIR__ . '/ListingMessages.php')) { try { require_once __DIR__ . '/ListingMessages.php'; ListingMessages::claimed($pdo, (int) $x['entity_id']); } catch (Throwable $t) { error_log('claims: left messages: ' . $t->getMessage()); } }
+629:             self::tellClaimant($pdo, $x, 'Your listing is verified', 'Your claim is confirmed: your listing now shows ✓ Verified, and its name, phone, address and website are yours to edit from your business dashboard.');
+630:         }
+631:     }
+632: 
+633:     /** Decline: the listing returns to unclaimed, and any changes waiting from this claimant are dismissed. */
+634:     public static function decline(PDO $pdo, int $claimId, int $adminId, string $note = ''): void
+635:     {
+636:         $c = self::get($pdo, $claimId);
+637:         if (!$c || !in_array($c['status'], ['managed', 'on_hold'], true)) throw new InvalidArgumentException('This claim is already closed.');
+638:         if ($c['status'] === 'on_hold') {
+639:             $pdo->prepare("UPDATE listing_claims SET status = 'declined', decided_by = ?, decided_at = NOW(), admin_note = CONCAT_WS('\n', admin_note, ?) WHERE id = ?")
+640:                 ->execute([$adminId, $note ?: null, $c['id']]);
+641:         } else {
+642:             Database::transaction(fn (PDO $pdo) => self::release($pdo, $c, 'declined', $adminId, $note));
+643:         }
+644:         self::purgeDocuments($pdo);
+645:         self::tellClaimant($pdo, $c, 'About your claim', 'We couldn\'t confirm your claim this time.' . ($note !== '' ? "\n\n" . $note : '') . "\n\nIf you think this is a mistake, reply to this email or start a new claim.");
+646:     }
+647: 
+648:     /** Starts a held request as the claim (the listing must be free): it becomes Managed by owner. */
+649:     public static function startHeld(PDO $pdo, int $claimId, int $adminId): void
+650:     {
+651:         $c = self::get($pdo, $claimId);
+652:         if (!$c || $c['status'] !== 'on_hold') throw new InvalidArgumentException('This request isn\'t on hold.');
+653:         Database::transaction(function (PDO $pdo) use ($c, $adminId) {
+654:             $st = $pdo->prepare('SELECT status FROM entities WHERE id = ? FOR UPDATE');
+655:             $st->execute([$c['entity_id']]);
+656:             if ($st->fetchColumn() !== 'unclaimed' || self::holding($pdo, (int) $c['entity_id'])) throw new InvalidArgumentException('Another claim still holds this listing. Decline or withdraw it first.');
+657:             $l = self::listing($pdo, (int) $c['entity_id']);
+658:             $pdo->prepare("UPDATE listing_claims SET status = 'withdrawn', decided_by = ?, decided_at = NOW(), admin_note = CONCAT_WS('\n', admin_note, 'Started as a claim.') WHERE id = ?")->execute([$adminId, $c['id']]);
+659:             self::open($pdo, (int) $c['entity_id'], (int) $c['user_id'], null, (string) $c['role_note'], (string) $c['claimant_phone'], (string) ($l['phone'] ?? ''));
+660:         });
+661:         self::tellClaimant($pdo, $c, 'Your claim is going ahead', 'Your claim request is no longer on hold: you now manage the listing. Open your business dashboard to finish the last step.');
+662:     }
+663: 
+664:     /** Ask the claimant for more: emailed, and noted on the claim. */
+665:     public static function askMore(PDO $pdo, int $claimId, int $adminId, string $message): void
+666:     {
+667:         $c = self::get($pdo, $claimId);
+668:         if (!$c) throw new InvalidArgumentException('Claim not found.');
+669:         if (trim($message) === '') throw new InvalidArgumentException('Write what you need from them.');
+670:         self::logContact($pdo, $claimId, $adminId, 'email', 'Asked for more: ' . $message);
+671:         self::tellClaimant($pdo, $c, 'About your claim: one more thing', $message . "\n\nYou can add a document or ask for a call from your business dashboard.");
+672:     }
+673: 
+674:     /** A note of what was done: who was contacted, how, and what was found. Pushes the due time off once contacted. */
+675:     public static function logContact(PDO $pdo, int $claimId, int $adminId, string $channel, string $note): void
+676:     {
+677:         $c = self::get($pdo, $claimId);
+678:         if (!$c) throw new InvalidArgumentException('Claim not found.');
+679:         $log = json_decode((string) $c['contact_log'], true) ?: [];
+680:         $log[] = ['at' => date('Y-m-d H:i'), 'by' => $adminId, 'channel' => mb_substr($channel, 0, 20), 'note' => mb_substr(trim($note), 0, 1000)];
+681:         $pdo->prepare('UPDATE listing_claims SET contact_log = ?, due_at = NULL WHERE id = ?')->execute([json_encode($log, JSON_UNESCAPED_UNICODE), $claimId]);
+682:     }
+683: 
+684:     /** Private notes on the claim, for the next admin. */
+685:     public static function note(PDO $pdo, int $claimId, string $note): void
+686:     {
+687:         $pdo->prepare("UPDATE listing_claims SET admin_note = CONCAT_WS('\n', admin_note, ?) WHERE id = ?")->execute([mb_substr(trim($note), 0, 1000), $claimId]);
+688:     }
+689: 
+690:     /** Ends a claim and returns the listing: owner record removed, status unclaimed, waiting changes dismissed. */
+691:     private static function release(PDO $pdo, array $c, string $status, ?int $adminId, string $note = ''): void
+692:     {
+693:         $e = (int) $c['entity_id']; $u = (int) $c['user_id'];
+694:         $pdo->prepare("UPDATE entities SET owner_user_id = NULL, status = 'unclaimed', verified_tier = NULL, updated_at = NOW() WHERE id = ? AND owner_user_id = ?")->execute([$e, $u]);
+695:         $pdo->prepare("DELETE FROM listing_access WHERE entity_id = ? AND user_id = ? AND access_level = 'owner'")->execute([$e, $u]);
+696:         $pdo->prepare("UPDATE claim_changes SET status = 'dismissed', decided_by = ?, decided_at = NOW() WHERE entity_id = ? AND user_id = ? AND status = 'waiting'")->execute([$adminId, $e, $u]);
+697:         $pdo->prepare("UPDATE listing_claims SET status = ?, decided_by = ?, decided_at = NOW(), admin_note = CONCAT_WS('\n', admin_note, ?) WHERE id = ?")->execute([$status, $adminId, $note ?: null, $c['id']]);
+698:     }
+699: 
+700:     // ------------------------------------------------------------------ protected fields while Managed by owner
+701: 
+702:     /** An owner's change to name, phone, address or website on a Managed listing: waits for an admin. */
+703:     public static function queueChange(PDO $pdo, int $uid, int $e, string $field, string $old, string $new): void
+704:     {
+705:         $pdo->prepare("UPDATE claim_changes SET status = 'dismissed', decided_at = NOW() WHERE entity_id = ? AND field = ? AND status = 'waiting'")->execute([$e, $field]);
+706:         $pdo->prepare('INSERT INTO claim_changes (entity_id, user_id, field, old_value, new_value) VALUES (?, ?, ?, ?, ?)')
+707:             ->execute([$e, $uid, $field, mb_substr($old, 0, 600), mb_substr($new, 0, 600)]);
+708:     }
+709: 
+710:     public static function changes(PDO $pdo, int $e, string $status = 'waiting'): array
+711:     {
+712:         $st = $pdo->prepare('SELECT * FROM claim_changes WHERE entity_id = ? AND status = ? ORDER BY id');
+713:         $st->execute([$e, $status]);
+714:         return $st->fetchAll(PDO::FETCH_ASSOC);
+715:     }
+716: 
+717:     /** An admin applies or dismisses a waiting change. Applied values are written as the owner's, locked. */
+718:     public static function decideChange(PDO $pdo, int $changeId, int $adminId, bool $apply): void
+719:     {
+720:         $st = $pdo->prepare("SELECT * FROM claim_changes WHERE id = ? AND status = 'waiting'");
+721:         $st->execute([$changeId]);
+722:         $ch = $st->fetch(PDO::FETCH_ASSOC);
+723:         if (!$ch) throw new InvalidArgumentException('That change was already decided.');
+724:         if ($apply) self::writeField($pdo, (int) $ch['entity_id'], (string) $ch['field'], (string) $ch['new_value']);
+725:         $pdo->prepare('UPDATE claim_changes SET status = ?, decided_by = ?, decided_at = NOW() WHERE id = ?')->execute([$apply ? 'applied' : 'dismissed', $adminId, $changeId]);
+726:     }
+727: 
+728:     /** Writes a field as the owner's: the name on the entity, everything else as locked metadata. */
+729:     public static function writeField(PDO $pdo, int $e, string $field, string $value): void
+730:     {
+731:         if ($field === 'name') {
+732:             $pdo->prepare("UPDATE entities SET name = ?, updated_by_type = 'owner', updated_at = NOW() WHERE id = ?")->execute([mb_substr($value, 0, 255), $e]);
+733:             require_once __DIR__ . '/Identity.php';
+734:             Identity::listingWrote($pdo, $e, 'name', mb_substr($value, 0, 255), 'owner');
+735:             return;
+736:         }
+737:         $pdo->prepare("INSERT INTO entity_metadata (entity_id, meta_key, meta_value, source_type, is_locked, trust_score, created_at, updated_at)
+738:                         VALUES (?, ?, ?, 'owner', 1, 100.00, NOW(), NOW())
+739:                         ON DUPLICATE KEY UPDATE meta_value = VALUES(meta_value), source_type = 'owner', is_locked = 1, updated_at = NOW()")
+740:             ->execute([$e, $field, json_encode($value, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)]);
+741:         require_once __DIR__ . '/Identity.php';
+742:         Identity::listingWrote($pdo, $e, $field, $value, 'owner');   // the owner's word, in the listing's identity (decisions/0133)
+743:     }
+744: 
+745:     // ------------------------------------------------------------------ activation: choosing a plan
+746: 
+747:     /**
+748:      * Free starts at once. A paid plan starts a 30-day trial (decisions/0108): it ends on Free unless the owner adds a
+749:      * card and keeps it (Billing). Trial content stays noindex (0034). Choosing again replaces a trial, never a paid plan.
+750:      */
+751:     public static function activate(PDO $pdo, int $uid, int $claimId, string $plan, bool $agreed = false): void
+752:     {
+753:         require_once __DIR__ . '/Billing.php';
+754:         $c = self::ownClaim($pdo, $uid, $claimId);
+755:         if (!isset(self::PLANS[$plan])) throw new InvalidArgumentException('Pick a plan.');
+756:         // a paid plan's trial starts only after its checkout: the plan, the dates, what happens at the end, and the
+757:         // Terms agreed (Jason, 2026-10-24: "no terms or confirmation upon clicking activate")
+758:         if ($plan !== 'free' && !$agreed) throw new InvalidArgumentException('Review the trial and agree to the Terms first.');
+759:         $e = (int) $c['entity_id'];
+760:         $cur = Billing::current($pdo, 'listing', $e);
+761:         if ($cur && $cur['status'] !== 'trial') throw new InvalidArgumentException('This listing has a paid plan: change it on its Plans page.');
+762:         Database::transaction(function (PDO $pdo) use ($c, $plan, $e, $cur) {
+763:             if ($cur) Billing::endNow($pdo, (int) $cur['id'], 'another plan chosen');
+764:             if ($plan !== 'free') Billing::trial($pdo, 0, 'listing', $e, $plan, 30);
+765:             else Billing::syncTier($pdo, 'listing', $e);
+766:             $pdo->prepare('UPDATE listing_claims SET plan = ?, activated_at = NOW() WHERE id = ?')->execute([$plan, $c['id']]);
+767:         });
+768:         if ($plan !== 'free') { try { require_once __DIR__ . '/Roles.php'; Roles::log($pdo, $uid, null, 'billing', 'trial terms agreed', 'listing ' . $e . ': ' . $plan . ', 30 days, ' . ($_SERVER['REMOTE_ADDR'] ?? '')); } catch (Throwable) {} }
+769:     }
+770: 
+771:     /** Whether the listing is on a trial: its page carries noindex (0034) until it's kept. */
+772:     public static function onTrial(PDO $pdo, int $e): bool
+773:     {
+774:         try {
+775:             $st = $pdo->prepare("SELECT 1 FROM subscriptions WHERE owner_type = 'listing' AND owner_id = ? AND status = 'trial' LIMIT 1");
+776:             $st->execute([$e]);
+777:             return (bool) $st->fetchColumn();
+778:         } catch (Throwable) { return false; }
+779:     }
+780: 
+781:     // ------------------------------------------------------------------ disputes (decisions/0070 §8)
+782: 
+783:     /** Files a dispute against the listing's owner. The challenger's proof is a document or a note; admins decide. */
+784:     public static function fileDispute(PDO $pdo, array $user, int $e, string $reason): int
+785:     {
+786:         $uid = (int) $user['id'];
+787:         if ($m = self::missing($pdo, $uid)) throw new DomainException(implode(',', $m));
+788:         $h = self::holding($pdo, $e);
+789:         if (!$h) throw new InvalidArgumentException('This listing has no owner to dispute. You can claim it instead.');
+790:         if ((int) $h['user_id'] === $uid) throw new InvalidArgumentException('This is your own listing.');
+791:         if (mb_strlen(trim($reason)) < 10) throw new InvalidArgumentException('Tell us why, in a sentence or two.');
+792:         $st = $pdo->prepare("SELECT id FROM disputes WHERE entity_id = ? AND status = 'open' LIMIT 1");
+793:         $st->execute([$e]);
+794:         if ($st->fetchColumn()) throw new InvalidArgumentException('A dispute about this listing is already open. An admin is looking at it.');
+795:         // the challenger's own claim, held, carries their proof
+796:         $mine = self::mine($pdo, $uid, $e);
+797:         $claim = ($mine && $mine['status'] === 'on_hold') ? $mine : self::hold($pdo, $user, $e, ['note' => 'Dispute: ' . $reason]);
+798:         $pdo->prepare("INSERT INTO disputes (entity_id, filed_by_user_id, claim_id, reason, status, challenge_deadline) VALUES (?, ?, ?, ?, 'open', ?)")
+799:             ->execute([$e, $uid, $claim['id'], mb_substr(trim($reason), 0, 4000), date('Y-m-d H:i:s', time() + 7 * 86400)]);
+800:         $id = (int) $pdo->lastInsertId();
+801:         $l = self::listing($pdo, $e);
+802:         self::tellClaimant($pdo, $h, 'Someone has questioned your listing',
+803:             "Someone believes they own or run {$l['name']}. Nothing changes on your listing for now. If you're the owner, answer within 7 days from your business dashboard"
+804:             . ($h['status'] === 'verified' ? '' : ', and finish the last step of your claim if you haven\'t') . '. An admin decides.');
+805:         self::tellAdmins($pdo, 'Dispute filed: ' . $l['name'], self::who($pdo, $uid) . " disputes the owner of {$l['name']}. Admin → Claims.");
+806:         return $id;
+807:     }
+808: 
+809:     public static function openDispute(PDO $pdo, int $e): ?array
+810:     {
+811:         try {
+812:             $st = $pdo->prepare("SELECT * FROM disputes WHERE entity_id = ? AND status = 'open' ORDER BY id DESC LIMIT 1");
+813:             $st->execute([$e]);
+814:             $r = $st->fetch(PDO::FETCH_ASSOC);
+815:             return $r ?: null;
+816:         } catch (Throwable) { return null; }
+817:     }
+818: 
+819:     /** Owner edits are frozen only once an admin accepts the case as worth a look (not on filing). */
+820:     public static function frozen(PDO $pdo, int $e): bool
+821:     {
+822:         $d = self::openDispute($pdo, $e);
+823:         return $d !== null && !empty($d['accepted_at']);
+824:     }
+825: 
+826:     public static function answerDispute(PDO $pdo, int $uid, int $disputeId, string $answer): void
+827:     {
+828:         $st = $pdo->prepare("SELECT d.*, e.owner_user_id FROM disputes d JOIN entities e ON e.id = d.entity_id WHERE d.id = ? AND d.status = 'open'");
+829:         $st->execute([$disputeId]);
+830:         $d = $st->fetch(PDO::FETCH_ASSOC);
+831:         if (!$d || (int) $d['owner_user_id'] !== $uid) throw new InvalidArgumentException('Dispute not found.');
+832:         $pdo->prepare('UPDATE disputes SET owner_answer = ?, answered_at = NOW() WHERE id = ?')->execute([mb_substr(trim($answer), 0, 4000), $disputeId]);
+833:         self::tellAdmins($pdo, 'Owner answered a dispute', 'The owner answered dispute #' . $disputeId . '. Admin → Claims.');
+834:     }
+835: 
+836:     /** Admin: accept (freeze edits while looking), keep the owner, transfer to the challenger, or return to unclaimed. */
+837:     public static function decideDispute(PDO $pdo, int $disputeId, int $adminId, string $what, string $note = ''): void
+838:     {
+839:         $st = $pdo->prepare("SELECT * FROM disputes WHERE id = ? AND status = 'open'");
+840:         $st->execute([$disputeId]);
+841:         $d = $st->fetch(PDO::FETCH_ASSOC);
+842:         if (!$d) throw new InvalidArgumentException('This dispute is already closed.');
+843:         $e = (int) $d['entity_id'];
+844:         if ($what === 'accept') {
+845:             $pdo->prepare('UPDATE disputes SET accepted_at = NOW(), admin_note = CONCAT_WS(\'\n\', admin_note, ?) WHERE id = ?')->execute([$note ?: null, $disputeId]);
+846:             return;
+847:         }
+848:         if (!in_array($what, ['kept', 'transferred', 'returned'], true)) throw new InvalidArgumentException('Pick a decision.');
+849:         $h = self::holding($pdo, $e);
+850:         $ch = $d['claim_id'] ? self::get($pdo, (int) $d['claim_id']) : null;
+851:         Database::transaction(function (PDO $pdo) use ($what, $h, $ch, $e, $adminId, $note, $disputeId) {
+852:             if ($what !== 'kept' && $h) self::release($pdo, $h, 'declined', $adminId, 'Dispute #' . $disputeId . ': ' . $what);
+853:             if ($what === 'transferred' && $ch) {
+854:                 $l = self::listing($pdo, $e);
+855:                 $pdo->prepare("UPDATE listing_claims SET status = 'withdrawn', decided_by = ?, decided_at = NOW() WHERE id = ?")->execute([$adminId, $ch['id']]);
+856:                 $id = self::open($pdo, $e, (int) $ch['user_id'], null, (string) $ch['role_note'], (string) $ch['claimant_phone'], (string) ($l['phone'] ?? ''));
+857:                 $pdo->prepare("UPDATE listing_claims SET doc_path = ?, doc_name = ? WHERE id = ?")->execute([$ch['doc_path'], $ch['doc_name'], $id]);
+858:             } elseif ($ch && $ch['status'] === 'on_hold') {
+859:                 $pdo->prepare("UPDATE listing_claims SET status = 'declined', decided_by = ?, decided_at = NOW() WHERE id = ?")->execute([$adminId, $ch['id']]);
+860:             }
+861:             $pdo->prepare('UPDATE disputes SET status = ?, decided_by = ?, resolved_at = NOW(), admin_note = CONCAT_WS(\'\n\', admin_note, ?) WHERE id = ?')
+862:                 ->execute([$what, $adminId, $note ?: null, $disputeId]);
+863:         });
+864:         if ($what === 'transferred' && $ch) {
+865:             $new = self::holding($pdo, $e);
+866:             if ($new) self::verify($pdo, (int) $new['id'], $adminId, 'admin', 'Transferred after dispute #' . $disputeId . '.');
+867:         }
+868:         self::purgeDocuments($pdo);
+869:         $msg = ['kept' => 'The listing stays with its current owner.', 'transferred' => 'The listing was transferred to the person who filed the dispute.', 'returned' => 'The listing returned to unclaimed; anyone can claim it again.'][$what];
+870:         if ($h) self::tellClaimant($pdo, $h, 'Dispute decided', $msg . ($note !== '' ? "\n\n" . $note : ''));
+871:         if ($ch) self::tellClaimant($pdo, $ch, 'Dispute decided', $msg . ($note !== '' ? "\n\n" . $note : ''));
+872:     }
+873: 
+874:     // ------------------------------------------------------------------ the admin queue
+875: 
+876:     /** Everything waiting, overdue first. */
+877:     public static function queue(PDO $pdo): array
+878:     {
+879:         $rows = $pdo->query(
+880:             "SELECT c.*, e.name AS listing, e.status AS entity_status, u.email, u.display_name,
+881:                     (SELECT COUNT(*) FROM listing_claims c2 WHERE c2.group_id = c.group_id AND c.group_id IS NOT NULL) AS group_n
+882:                FROM listing_claims c JOIN entities e ON e.id = c.entity_id JOIN users u ON u.id = c.user_id
+883:               WHERE c.status IN ('managed','on_hold')
+884:               ORDER BY (c.due_at IS NOT NULL AND c.due_at < NOW()) DESC, c.status = 'on_hold' DESC, c.due_at IS NULL, c.due_at, c.id"
+885:         )->fetchAll(PDO::FETCH_ASSOC);
+886:         foreach ($rows as &$r) {
+887:             $r['details'] = self::detailsOf($r);
+888:             $r['contact_log'] = json_decode((string) $r['contact_log'], true) ?: [];
+889:             $r['overdue'] = $r['due_at'] !== null && strtotime((string) $r['due_at']) < time() && $r['status'] === 'managed';
+890:         }
+891:         return $rows;
+892:     }
+893: 
+894:     public static function disputesOpen(PDO $pdo): array
+895:     {
+896:         try {
+897:             return $pdo->query("SELECT d.*, e.name AS listing, u.email, u.display_name FROM disputes d JOIN entities e ON e.id = d.entity_id LEFT JOIN users u ON u.id = d.filed_by_user_id
+898:                                  WHERE d.status = 'open' ORDER BY d.id")->fetchAll(PDO::FETCH_ASSOC);
+899:         } catch (Throwable) { return []; }
+900:     }
+901: 
+902:     public static function changesWaiting(PDO $pdo): array
+903:     {
+904:         return $pdo->query("SELECT ch.*, e.name AS listing FROM claim_changes ch JOIN entities e ON e.id = ch.entity_id WHERE ch.status = 'waiting' ORDER BY ch.id")->fetchAll(PDO::FETCH_ASSOC);
+905:     }
+906: 
+907:     /** For the dashboard and menu: ['claims' => waiting, 'overdue' => past 48 h, 'held' => on hold, 'changes' => fields, 'disputes' => open]. */
+908:     public static function counts(PDO $pdo): array
+909:     {
+910:         if (!self::ready($pdo)) return ['claims' => 0, 'overdue' => 0, 'held' => 0, 'changes' => 0, 'disputes' => 0];
+911:         $one = fn (string $sql) => (int) $pdo->query($sql)->fetchColumn();
+912:         return [
+913:             'claims' => $one("SELECT COUNT(*) FROM listing_claims WHERE status = 'managed'"),
+914:             'overdue' => $one("SELECT COUNT(*) FROM listing_claims WHERE status = 'managed' AND due_at IS NOT NULL AND due_at < NOW()"),
+915:             'held' => $one("SELECT COUNT(*) FROM listing_claims WHERE status = 'on_hold'"),
+916:             'changes' => $one("SELECT COUNT(*) FROM claim_changes WHERE status = 'waiting'"),
+917:             'disputes' => (function () use ($one) { try { return $one("SELECT COUNT(*) FROM disputes WHERE status = 'open'"); } catch (Throwable) { return 0; } })(),
+918:         ];
+919:     }
+920: 
+921:     private static function docType(string $path): string
+922:     {
+923:         $e = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+924:         return (string) (array_search($e, self::DOC_TYPES, true) ?: 'application/octet-stream');
+925:     }
+926: 
+927:     /** Streams a claim's document to an admin (the only way it's ever read). */
+928:     public static function streamDocument(PDO $pdo, int $claimId): void
+929:     {
+930:         $c = self::get($pdo, $claimId);
+931:         $path = $c && preg_match('#^(\d{4}/\d{2}|members/[a-f0-9]{16})/[a-f0-9]{24}\.[a-z]{3,4}$#', (string) $c['doc_path']) ? self::storage() . '/' . $c['doc_path'] : '';
+932:         if ($path !== '') { require_once __DIR__ . '/Store.php'; Store::redirect($path, 'claim-' . $claimId . '.' . pathinfo($path, PATHINFO_EXTENSION), self::docType($path), true); }   // in S3 (decisions/0123)
+933:         if ($path === '' || !is_file($path) || !str_starts_with(realpath($path) ?: '', realpath(self::storage()) ?: '//')) { http_response_code(404); exit('Not found.'); }
+934:         $type = (new finfo(FILEINFO_MIME_TYPE))->file($path) ?: 'application/octet-stream';
+935:         header('Content-Type: ' . $type);
+936:         header('Content-Disposition: inline; filename="claim-' . $claimId . '.' . pathinfo($path, PATHINFO_EXTENSION) . '"');
+937:         header('X-Content-Type-Options: nosniff');
+938:         header('Cache-Control: private, no-store');
+939:         readfile($path);
+940:         exit;
+941:     }
+942: 
+943:     /**
+944:      * Documents are for verification only (Jason, 2026-10-09): deleted the moment their claim is decided (verified,
+945:      * declined, withdrawn, or the dispute they support is settled). Nothing is kept. Called after every decision, and
+946:      * whenever the queue opens as a backstop.
+947:      */
+948:     public static function purgeDocuments(PDO $pdo): int
+949:     {
+950:         $st = $pdo->query("SELECT id, doc_path FROM listing_claims WHERE doc_path <> '' AND status NOT IN ('managed','on_hold')");
+951:         $n = 0;
+952:         foreach ($st->fetchAll(PDO::FETCH_ASSOC) as $r) {
+953:             require_once __DIR__ . '/Store.php';
+954:             if (!str_contains((string) $r['doc_path'], '..')) Store::remove(self::storage() . '/' . $r['doc_path']);
+955:             $pdo->prepare("UPDATE listing_claims SET doc_path = '', doc_name = CONCAT(doc_name, ' (deleted)') WHERE id = ?")->execute([$r['id']]);
+956:             $n++;
+957:         }
+958:         return $n;
+959:     }
+960: 
+961:     // ------------------------------------------------------------------ helpers
+962: 
+963:     /**
+964:      * Where claim documents live: outside the web root and outside the synced site folders, next to the .env
+965:      * (/home4/degraff1/traversence-private/claims on the server), so they never reach OneDrive or GitHub.
+966:      * CLAIM_STORAGE overrides it.
+967:      */
+968:     /**
+969:      * The document folder, locked down (Jason, 2026-10-09: "keep them local, but lock down the doc folder"):
+970:      *  - on the server only, outside the web root and outside the synced website/ and app/ folders;
+971:      *  - folders 0700 and files 0600, so only the site's own account can open them;
+972:      *  - a deny-all .htaccess and no index, in case the folder is ever moved under a web root.
+973:      * The only way to read a document is Admin → Claims (streamDocument), for admins.
+974:      */
+975:     private static function lockedDir(string $sub = ''): string
+976:     {
+977:         $root = self::storage();
+978:         $old = umask(0077);
+979:         try {
+980:             if (!is_dir($root) && !@mkdir($root, 0700, true)) throw new RuntimeException('Could not store the file.');
+981:             @chmod($root, 0700);
+982:             if (!is_file("$root/.htaccess")) @file_put_contents("$root/.htaccess", "# Claim documents: never served (decisions/0070).\nRequire all denied\nOptions -Indexes\n");
+983:             $dir = $sub === '' ? $root : "$root/$sub";
+984:             if (!is_dir($dir) && !@mkdir($dir, 0700, true)) throw new RuntimeException('Could not store the file.');
+985:             @chmod($dir, 0700);
+986:             return $dir;
+987:         } finally {
+988:             umask($old);
+989:         }
+990:     }
+991: 
+992:     private static function storage(): string
+993:     {
+994:         return rtrim((string) (getenv('CLAIM_STORAGE') ?: dirname(__DIR__, 4) . '/traversence-private/claims'), '/');
+995:     }
+996: 
+997:     private static function ownClaim(PDO $pdo, int $uid, int $claimId, bool $heldToo = false): array
+998:     {
+999:         $c = self::get($pdo, $claimId);
+1000:         $ok = $heldToo ? ['managed', 'on_hold'] : ['managed', 'verified'];
+1001:         if (!$c || (int) $c['user_id'] !== $uid || !in_array($c['status'], $ok, true)) throw new InvalidArgumentException('Claim not found.');
+1002:         return $c;
+1003:     }
+1004: 
+1005:     public static function detailsOf(array $c): array
+1006:     {
+1007:         return is_array($c['details'] ?? null) ? $c['details'] : (json_decode((string) ($c['details'] ?? ''), true) ?: []);
+1008:     }
+1009: 
+1010:     private static function setDetail(PDO $pdo, int $id, string $k, mixed $v): void
+1011:     {
+1012:         $c = self::get($pdo, $id);
+1013:         $d = self::detailsOf($c ?: []);
+1014:         $d[$k] = $v;
+1015:         $pdo->prepare('UPDATE listing_claims SET details = ? WHERE id = ?')->execute([json_encode($d, JSON_UNESCAPED_UNICODE), $id]);
+1016:     }
+1017: 
+1018:     private static function who(PDO $pdo, int $uid): string
+1019:     {
+1020:         $st = $pdo->prepare('SELECT display_name, email FROM users WHERE id = ?');
+1021:         $st->execute([$uid]);
+1022:         $u = $st->fetch(PDO::FETCH_ASSOC) ?: [];
+1023:         return trim((string) ($u['display_name'] ?? '')) ?: (string) ($u['email'] ?? ('member ' . $uid));
+1024:     }
+1025: 
+1026:     private static function tellClaimant(PDO $pdo, array $c, string $subject, string $body): void
+1027:     {
+1028:         $st = $pdo->prepare('SELECT email FROM users WHERE id = ?');
+1029:         $st->execute([$c['user_id']]);
+1030:         $to = (string) $st->fetchColumn();
+1031:         if ($to === '') return;
+1032:         try { Mailer::send($to, $subject, $body . "\n\n" . rtrim((string) (getenv('APP_URL') ?: ''), '/') . '/listing/businessportal.php'); }
+1033:         catch (Throwable $t) { error_log('claims mail: ' . $t->getMessage()); }
+1034:     }
+1035: 
+1036:     /** Admins are told by email, best effort; the dashboard and Admin → Claims show the same things. */
+1037:     private static function tellAdmins(PDO $pdo, string $subject, string $body): void
+1038:     {
+1039:         try {
+1040:             $to = $pdo->query("SELECT u.email FROM users u WHERE u.is_admin = 1 AND u.is_suspended = 0
+1041:                                 UNION SELECT u.email FROM " . Database::t('admin_access') . " a JOIN users u ON u.id = a.user_id WHERE a.tier = 'super_admin'")->fetchAll(PDO::FETCH_COLUMN);
+1042:         } catch (Throwable) { $to = []; }
+1043:         foreach (array_unique($to) as $email) {
+1044:             try { Mailer::send((string) $email, '[Traversence] ' . $subject, $body . "\n\n" . rtrim((string) (getenv('APP_URL') ?: ''), '/') . '/admin/claims.php'); }
+1045:             catch (Throwable $t) { error_log('claims admin mail: ' . $t->getMessage()); }
+1046:         }
+1047:     }
+1048: }

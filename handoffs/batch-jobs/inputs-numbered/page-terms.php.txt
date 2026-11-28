@@ -1,0 +1,170 @@
+1: <?php
+2: // terms.php — Terms of Use, which are also the end-user license agreement (the URL given to Intuit for the QuickBooks
+3: // app). DRAFT for review, like privacy.php: the [bracketed] items are facts to fill in, and the whole text should be
+4: // checked by an attorney before launch.
+5: require_once __DIR__ . '/../app/ui/page-shell.php';
+6: tv_page_start('Terms of Use', ['no_crumbs' => true, 'description' => 'The terms for using Traversence, trvgo.us short links and GO Codes, including buying GO Codes.']);
+7: $h2 = 'font-serif font-bold text-lg text-[#3E2B1F] mt-6 mb-1';
+8: ?>
+9: <style>
+10:   .pv{max-width:46rem;font-size:.95rem;line-height:1.6;color:#3E2B1F}
+11:   .pv p{margin:.45rem 0}.pv ul{margin:.3rem 0 .6rem 1.1rem;list-style:disc}.pv li{margin:.2rem 0}
+12:   .pv-box{background:#F7EFDC;border:1px solid #EADFC4;border-radius:.9rem;padding:.8rem 1rem;margin:.6rem 0}
+13:   .pv-fill{background:#FDE68A;padding:0 .2rem;border-radius:.2rem}
+14: </style>
+15: <?php
+16: // published (decisions/0142 §1): the version in effect, from System Configuration → Content templates; until one is
+17: // published, the text below
+18: require_once __DIR__ . '/../app/lib/LegalTexts.php';
+19: $tvLive = null; try { $tvLive = LegalTexts::live(Database::connection(), 'terms'); } catch (Throwable $x) { error_log('terms page: ' . $x->getMessage()); }
+20: if ($tvLive) { echo LegalTexts::css() . '<div class="pv">' . LegalTexts::page($tvLive, 'Terms of Use') . '</div>'; tv_page_end(); return; }
+21: ?>
+22: <div class="pv">
+23:   <h1 class="font-serif font-bold text-3xl">Terms of Use</h1>
+24:   <?php tv_placeholder_banner('Draft for review. Fill in the highlighted [bracketed] items and have it checked before launch.'); ?>
+25:   <p class="text-sm text-[#8A7355]">Last updated: <span class="pv-fill">[date of publishing]</span></p>
+26: 
+27:   <div class="pv-box">
+28:     <p class="font-bold">The short version</p>
+29:     <ul>
+30:       <li>Traversence helps you find places, businesses and experiences. Use it fairly and lawfully.</li>
+31:       <li>Accounts are for adults, 18 and up. What you post stays yours; you let us show it on the site.</li>
+32:       <li>GO Codes you get or buy are yours to print and use, including for your business.</li>
+33:       <li>Don't use a GO Code or a trvgo.us link to mislead people or send them somewhere harmful; we switch those off.</li>
+34:       <li>Cards are processed by QuickBooks Payments (Intuit). Your card goes straight to them; we never see or keep it.</li>
+35:     </ul>
+36:   </div>
+37: 
+38:   <h2 class="<?= $h2 ?>" id="agreement">This agreement</h2>
+39:   <p>These terms are an agreement between you and <span class="pv-fill">[legal business name]</span> ("Traversence", "we"), which runs traversence.com and trvgo.us. They cover the website, its tools, short links on trvgo.us, and GO Codes (together, "the service"). By using the service, or by creating an account or buying something, you agree to them. Our <a class="underline" href="/privacy.php">Privacy Policy</a> explains what we collect and why.</p>
+40: 
+41:   <h2 class="<?= $h2 ?>" id="license">Your license to use the service</h2>
+42:   <p>We give you a personal, limited, non-exclusive, non-transferable license to use the service as these terms allow. You may not copy, resell or rebuild the service, scrape it in bulk, get around its limits or security, or use it to build a competing directory. We own the service, its design, its software and the Traversence and TRVGO names and marks; these terms don't give you any of them, except as this section says.</p>
+43: 
+44:   <h2 class="<?= $h2 ?>" id="accounts">Accounts</h2>
+45:   <ul>
+46:     <li>You must be 18 or older to make an account. Give true details and keep your sign-in safe; you're responsible for what happens in your account.</li>
+47:     <li>You can delete your account any time (Delete my account). We may limit or close an account that breaks these terms, as explained in the FAQ under "Can my account be limited or revoked?".</li>
+48:   </ul>
+49: 
+50:   <h2 class="<?= $h2 ?>" id="content">What you post</h2>
+51:   <p>Comments, photos, journeys, suggestions and anything else you post stay yours. You give us a worldwide, free license to store, show, resize and share them on the service, for as long as they're on it. Only post what you have the right to post. Don't post anything unlawful, hateful, harassing, sexual, misleading, or that shares someone's private information. We may remove posts that break these terms.</p>
+52: 
+53:   <h2 class="<?= $h2 ?>" id="listings">Listings and business owners</h2>
+54:   <p>Listings come from public information and from owners. We work to keep them right but can't promise every detail is current: check with the business before you go. If you claim or add a business, you confirm you're allowed to act for it, and what you add must be accurate.</p>
+55: 
+56:   <h2 class="<?= $h2 ?>" id="business-quotes">Quotes, invoices and orders between a business and its customers</h2>
+57:   <ul>
+58:     <li><b>Between them, not us.</b> A business can send its customers quotes and invoices through Traversence and track their orders. The agreement, the price, the work and any refund are between the business and its customer; Traversence provides the tools and isn't a party to it.</li>
+59:     <li><b>Payments go to the business.</b> Customers pay the business directly, through its own pay link or the way it says. Traversence doesn't take, hold or pass on those payments, and payments a business records are its own records.</li>
+60:     <li><b>Approving.</b> Approving a quote by typing your name on its page is your agreement with that business to the quote as shown, including its terms and any deposit.</li>
+61:     <li><b>Discount codes.</b> A business's discount codes are its own offers, on its own terms (dates, limits, once per customer). A code counts as used when the quote it's on is approved; a business can switch a code off at any time.</li>
+62:     <li><b>Proofs and files.</b> Approving a proof on a quote's page is your approval of that version, to the business. A business's proofs and files count toward its plan's storage and are handed out only through the quote's private link or to its own team.</li>
+63:     <li><b>The business's responsibility.</b> A business sends quotes only to people it's working with, keeps its prices, taxes and terms right, and uses its customers' details only for that work, as our Privacy Policy describes.</li>
+64:   </ul>
+65: 
+66:   <h2 class="<?= $h2 ?>" id="business-handover">Handing over a business</h2>
+67:   <p>The Owner of a business on Traversence can ask someone else to take it over. Nothing changes until that person accepts; then they're the Owner, with its listing, tools, team, plan and data, and the person before stays on its team as Manager unless they leave. A paid plan's card comes off at the handover, so the previous Owner isn't charged again: the plan runs to the end of the period already paid, and the new Owner adds their own card to keep it. An unanswered request lapses after 30 days.</p>
+68: 
+69:   <h2 class="<?= $h2 ?>" id="go-codes">GO Codes and trvgo.us links</h2>
+70:   <ul>
+71:     <li><b>Yours to use.</b> Once a GO Code is issued to you (free or paid), you may download it, print it, and use it on anything you make, for personal or business use, with no fee to us for each use.</li>
+72:     <li><b>Through trvgo.us.</b> Every GO Code except Wi-Fi holds a short trvgo.us address that opens what you chose (your link, contact card, event, number, email or text), so scans are counted and a mistake can be corrected after printing. A Wi-Fi code holds the network itself.</li>
+73:     <li><b>If Traversence closes.</b> Your GO Codes stay available to download for <span class="pv-fill">[90]</span> days after we announce it, re-made to hold what they do directly (your link, number, card or event, without trvgo.us), so you can keep using them without us. trvgo.us addresses, Dynamic GO Codes and subscriptions stop working, as set out in your plan's terms.</li>
+74:     <li><b>Unless it's refunded or charged back.</b> If a paid GO Code's payment is refunded or disputed through your card (a chargeback), the code is no longer yours: it leaves your account and its trvgo.us address shows a "not active" page. While a dispute is open the code is paused, and it comes back on if the dispute is decided in our favor. A Wi-Fi code can't be switched off once printed, but it leaves your account and may not be used.</li>
+75:     <li><b>What's in it is up to you.</b> You're responsible for what a code holds and where it points, and for having the right to use any logo you add.</li>
+76:     <li><b>Not allowed:</b> codes or links that point to malware, phishing, scams, or unlawful content, that pretend to be someone else, or that collect people's details under false pretenses. We may switch off any trvgo.us link or Dynamic GO Code that does, without notice. That includes a GO Code's trvgo.us address; a Wi-Fi code can't be switched off, but we may remove it from your account and refuse further service.</li>
+77:     <li><b>Dynamic GO Codes</b> point through trvgo.us so you can change where they go. They need the QR plan or a listing on Core or higher. If that ends, your printed codes keep working: they fall back to your listing page, or to a page saying the code isn't active.</li>
+78:     <li><b>Check before you print.</b> Test-scan a code at the size you'll print it. Colors, size, paper and light all affect scanning; we can't promise a code will scan on every phone in every place.</li>
+79:   </ul>
+80: 
+81:   <h2 class="<?= $h2 ?>" id="buying">Buying GO Codes</h2>
+82:   <ul>
+83:     <li><b>Prices</b> are shown before you buy (a GO Code is $4.95 once, per code), plus sales tax where it applies, worked out from your billing address.</li>
+84:     <li><b>Payment</b> is by card on our checkout page, processed by QuickBooks Payments (Intuit): your card number goes from your browser straight to Intuit, which handles it under its own terms; we never see or keep it. You can also pay on QuickBooks' own invoice page (card or bank transfer). Your card is charged when you tap Pay, the full amount at once, and your codes are issued as soon as the payment goes through.</li>
+85:     <li><b>Fixing a mistake:</b> you can change a code yourself while it's in your cart. Once it's issued, write to us and our team corrects it; because it goes through trvgo.us, the code you printed stays the same (a Wi-Fi code is a new picture to download).</li>
+86:     <li><b>If something's wrong:</b> see <a class="underline" href="#fix-credit-refund">Fix it, credit, then refund</a> below.</li>
+87:     <li><b>Guests</b> can buy without an account. Keep your receipt email: its link opens your codes on any device.</li>
+88:     <li><b>Plans</b> renew until you cancel: see <a class="underline" href="#plans">Plans and automatic renewal</a>.</li>
+89:   </ul>
+90: 
+91:   <h2 class="<?= $h2 ?>" id="plans">Plans and automatic renewal</h2>
+92:   <ul>
+93:     <li><b>Prices.</b> Each plan's price, what it includes and how often it's billed (monthly, or yearly at 10 months' price for 12) are on the Plans page before you choose. Storage and AI Assist packs are billed at full price on your plan's schedule. <span class="pv-fill">[Sales tax on plans: confirm with counsel]</span></li>
+94:     <li><b>Automatic renewal.</b> By choosing a paid plan and adding a card, you authorize us to charge that card for the plan and any packs at the start of each period, at the price shown, until you cancel. Each charge is processed by QuickBooks Payments (Intuit), which keeps the card; we never see or keep the number. A receipt is emailed each time, and a yearly plan gets a reminder 7 days before it renews.</li>
+95:     <li><b>Cancelling.</b> Choose <i>Stop at the end of this period</i> on the Plans page, any time. You keep the plan until the end of the period you've paid for and aren't charged again. Periods already started aren't refunded.</li>
+96:     <li><b>Changes.</b> Moving to a bigger plan starts at once and the difference for the rest of the period is charged then; moving to a smaller one starts at your next renewal. If we change a plan's price, we tell you at least <span class="pv-fill">[30]</span> days before it applies to you, and it starts at your next renewal after that.</li>
+97:     <li><b>Trials.</b> A free trial starts only after you review it and agree to these Terms. It needs no card, and nothing is charged during it. We email you 5 days and 1 day before it ends, and on the day. To keep the plan, set up billing (add a card and choose <i>Keep my plan</i>); the plan's price is then charged from the day the trial ends, renewing as above. If you don't, the account goes back to the free plan on its own when the trial ends: nothing is charged, your listing and content stay, and the paid tools pause. You can end a trial early any time on the Plans page.</li>
+98:     <li><b>Promo codes.</b> A code gives the offer it describes, between its dates, once per account, and only to whom it's for (anyone with it, or one business or person). It can't be exchanged for cash or combined with another code on the same purchase, and it never applies to storage or AI Assist packs. A percentage off a plan applies to the payments it says, then the plan's full price applies. We can end an offer at any time; codes already used keep what they gave.</li>
+99:     <li><b>Declined payments.</b> If a renewal is declined we try again after 3 and 7 days; if it's still declined, the plan ends and the account goes back to the free plan. Your listing stays up.</li>
+100:   </ul>
+101: 
+102:   <h2 class="<?= $h2 ?>" id="white-glove">White Glove services and your agent's access</h2>
+103:   <ul>
+104:     <li><b>What White Glove is.</b> Strategic Partner and Cornerstone plans include White Glove: our team sets up and keeps up your business on Traversence for you. That covers your listing and profile (details, hours, photos, categories, descriptions), your catalog, your content and posts, your storefront and pages, and your GO Codes and QR codes, and helping you with your customers, orders and messages.</li>
+105:     <li><b>Your agent's access comes with the plan.</b> So we can do that work, choosing a plan that includes White Glove gives your assigned White Glove agent (a named member of our staff) access to your business on Traversence, from the day the plan starts, without a separate step. We email you who it is when it starts and whenever it changes to someone else; the person before loses access at once.</li>
+106:     <li><b>What the access covers, and doesn't.</b> Your agent can change your listing, profile, catalog, content, storefront and codes, and can see your customers, orders and messages to help with them. They can't see or change your billing, payment methods or payouts, add or remove people on your team, see or change your keys, domain settings or connections, export your data, or close or delete your business. They only work on what White Glove covers or what you ask them to.</li>
+107:     <li><b>Logged and visible.</b> Every change your agent makes is recorded with their staff ID, and you can see who has access in your Business portal (Settings &amp; team). Your customers' information is used only to do this work, as our Privacy Policy describes.</li>
+108:     <li><b>You can turn it off.</b> You can turn your agent's access off at any time, and on again, in Settings &amp; team. While it's off, White Glove work that needs access waits, and your plan's price doesn't change <span class="pv-fill">[confirm with counsel]</span>.</li>
+109:     <li><b>When it ends.</b> Access ends on its own when your plan no longer includes White Glove, or when your agent leaves our team (a new agent is then assigned and you're told).</li>
+110:   </ul>
+111: 
+112:   <h2 class="<?= $h2 ?>" id="agency-work">Design, video and other work we make for you</h2>
+113:   <ul>
+114:     <li><b>Proofs, concepts and work in progress are ours.</b> Anything we show you before the work is paid for in full (a digital proof, a concept, a sketch, a draft, an unfinished edit) remains Traversence's property. You may not use, publish, print or display it, or have someone else produce it, without our written permission.</li>
+115:     <li><b>Once it's paid in full, it's yours.</b> When the work is paid in full under these terms, you receive the full, exclusive and perpetual right to use the final files and the concept in any way you choose. Concepts you didn't choose stay ours.</li>
+116:     <li><b>Your files.</b> Released final files appear in your account's Assets, where you can download them. They count toward your account's storage.</li>
+117:     <li><b>What you give us.</b> You confirm you have the right to the logos, photos, text and other material you send us to use in the work, and you let us use them for that work.</li>
+118:   </ul>
+119: 
+120:   <h2 class="<?= $h2 ?>" id="fix-credit-refund">Fix it, credit, then refund</h2>
+121:   <p><b>All sales are final.</b> When there's a genuine problem we didn't expect, in production or with files you approved, we'll do our best to fix it first. If we can't fix it, we credit you for our failure.</p>
+122:   <p>This applies to everything you buy from Traversence: GO Codes, plans, storage, top-ups, design and video work, and printed or made-to-order products. If something isn't right, tell us at <a class="underline" href="mailto:support@traversence.com">support@traversence.com</a> within 14 days of receiving it, with your order number and, for physical items, photos.</p>
+123:   <ol style="list-style:decimal;margin:.3rem 0 .6rem 1.2rem">
+124:     <li><b>We fix it first.</b> We correct, redo or replace what we got wrong: a code that won't scan, a design that doesn't match what you approved, a misprint, damage in shipping.</li>
+125:     <li><b>If it can't be fixed, a credit.</b> A full or partial credit on your Traversence account, used toward anything we sell. Credits last 90 days from the day they're given and aren't cash.</li>
+126:     <li><b>A refund only if neither works,</b> to the card or account you paid with, for the part that can't be fixed or credited.</li>
+127:   </ol>
+128: 
+129:   <h3 class="font-semibold mt-3" id="what-is-a-fix">What counts as a fix: digital and physical</h3>
+130:   <p><b>Digital work</b> (designs, video, GO Codes, plans). A fix is limited to something that doesn't work, or that differs from the proof you approved. It isn't a chance for new creative revisions.</p>
+131:   <ul>
+132:     <li><b>A fix:</b> a GO Code or QR code that won't scan, or goes to the wrong place, because of an error on our side; a video or design file that won't open, has rendering glitches, or comes in a different resolution or format from the one agreed; a final file missing something (a logo, a line of text) that was on the proof you approved.</li>
+133:     <li><b>Not a fix:</b> a change of mind after approval ("a different color", "another font"); a typo or other mistake that was on the proof when you initialled your approval; something outside what was ordered (a 16:9 version of a video ordered and approved as a 9:16 vertical short). We're glad to quote these as new work.</li>
+134:   </ul>
+135:   <p><b>Printed and made-to-order products.</b> A fix is limited to a manufacturing defect or damage in transit that stops the product being used as intended.</p>
+136:   <ul>
+137:     <li><b>A fix:</b> items that arrive broken, torn, bent or otherwise damaged in shipping; printing or manufacturing errors such as a severe color shift beyond industry standards, bleeding text, or cuts out of line with the approved proof; the wrong size, material or quantity.</li>
+138:     <li><b>Not a fix:</b> slight differences in color between a screen (lit, RGB) and ink or material (CMYK); damage after delivery, such as from opening the package with a blade or from handling and use.</li>
+139:   </ul>
+140:   <p id="shipping-delays"><b>Shipping delays.</b> Custom and made-to-order work can be held up by a carrier, which is out of your control and ours. If your package is delayed in transit, your 14 days to report a problem start only when the carrier's tracking marks it delivered to your address.</p>
+141: 
+142:   <p><b>Made-to-order and custom products are final once you approve them.</b> Signs, banners, prints, apparel, merchandise, layouts and other custom work are made to your order, so before we make them we send you a proof (or, for a GO Code, you see it as you make it). When you approve it, the sale is final: we can't take back or refund something made to your approval because you changed your mind, or for a mistake that was in what you approved (a typo, a wrong phone number, a color choice). For an order we prepare for you, approving a proof means accepting its final-approval terms and initialling them. What we will always fix is our own error: something different from what you approved, a production defect, or damage in shipping.</p>
+143:   <p id="client-orders"><b>Orders we prepare for you.</b> When we put an order together for you (business cards and other printed items, GO Codes, design or other custom work), we email you a private link to review it. There you approve each proof or tell us what to change, and then approve the order with your name. That approval is your approval of the order and of each proof on it, as described above. The order says how you pay: in full when you approve, a deposit when you approve and the rest before delivery, or an invoice to pay by its due date. Sales tax is added when you approve, from where the order ships (or our address, when you pick it up), unless the order is exempt (resale, an exemption, or shipped out of state). A deposit pays for work we start on your approval, so it isn't refunded if you cancel after we've sent the order to be made <span class="pv-fill">[confirm with counsel]</span>; before that, cancelling refunds it in full. The link works until the date shown on it; ask us and we'll send it again.</p>
+144:   <p><b>Things outside anyone's control.</b> We're not responsible for what happens to a product after it's delivered: weather, sun, wear, how it's mounted or used, or a QR code printed too small or on a surface it won't scan from. Shipping damage reported within 14 days of delivery, with photos, is ours to fix. Delays caused by carriers, suppliers or events beyond our control aren't grounds for a refund, but we'll keep you informed and help where we can.</p>
+145:   <p><b>Subscriptions</b> (plans, storage, monthly packs) can be cancelled any time and end at the close of the period you've paid for; periods already started aren't refunded.</p>
+146:   <p><b>Chargebacks.</b> Please contact us before disputing a charge with your card: we answer quickly. A disputed payment pauses the order, and anything it paid for (codes, plans, credits) is suspended until the dispute is settled.</p>
+147: 
+148:   <h2 class="<?= $h2 ?>" id="others">Other companies' services</h2>
+149:   <p>Some parts of the service rely on other companies, such as QuickBooks (Intuit) for payments, the sign-in providers you choose (Google, Apple, Microsoft, Facebook), and maps. Their own terms apply to what they do, and we're not responsible for them. Links to other websites are for your convenience; we don't control those sites.</p>
+150: 
+151:   <h2 class="<?= $h2 ?>" id="disclaimer">No guarantees</h2>
+152:   <p>We work to keep the service running, accurate and safe, but it's provided "as is" and "as available", without warranties of any kind, to the fullest extent the law allows. Plans for a trip, a visit or a business decision are yours to check.</p>
+153: 
+154:   <h2 class="<?= $h2 ?>" id="liability">Limits on liability</h2>
+155:   <p>To the fullest extent the law allows, Traversence isn't liable for indirect, incidental, special or consequential losses, or for lost profits or data. Our total liability for any claim about the service is limited to what you paid us in the 12 months before the claim, or $50, whichever is more. Some places don't allow these limits, so they may not all apply to you.</p>
+156:   <p>If you use the service in a way that breaks these terms or the law and someone makes a claim against us because of it, you agree to cover our reasonable costs of that claim.</p>
+157: 
+158:   <h2 class="<?= $h2 ?>" id="ending">Ending</h2>
+159:   <p>You can stop using the service any time. We may suspend or end your access if you break these terms. Codes you've already been issued stay yours to use, within the rules above.</p>
+160: 
+161:   <h2 class="<?= $h2 ?>" id="law">Law and disputes</h2>
+162:   <p>These terms are governed by the laws of <span class="pv-fill">[state]</span>, USA. Please contact us first so we can try to sort it out; if we can't, disputes go to the courts of <span class="pv-fill">[county, state]</span>.</p>
+163: 
+164:   <h2 class="<?= $h2 ?>" id="changes">Changes</h2>
+165:   <p>When these terms change, the date above changes. If a change matters, we'll tell you on the site or by email before it applies. Using the service after that means you accept the new terms.</p>
+166: 
+167:   <h2 class="<?= $h2 ?>" id="contact">Contact</h2>
+168:   <p><span class="pv-fill">[legal business name]</span>, <span class="pv-fill">[mailing address]</span>. Email <a class="underline" href="mailto:support@traversence.com">support@traversence.com</a>.</p>
+169: </div>
+170: <?php tv_page_end();

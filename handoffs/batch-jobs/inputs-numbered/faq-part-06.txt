@@ -1,0 +1,318 @@
+1407: 
+1408: ### How do I know which account I'm acting as?
+1409: Whenever you're signed in, a slim bar across the very top of each page, above the menu bar, says who you are, in that account's colour: **User: your name** in rust when you're yourself; **Listing: M2 ServCore** in orange while you act as one of your businesses; **Traversence: your name** in sage on Traversence staff; **Steward:** in taupe for a Steward. Your photo at its left wears a small badge and glows while you act as another account. What you post, reply and change while acting as a listing is in its name. Tap your photo to switch accounts, the name to open that account's dashboard, ✎ beside it to edit it; the icon at the right end of the bar signs you out.
+1410: 
+1411: ### How do I stop acting as my business?
+1412: Tap your photo at the left of the account bar and choose your **Personal Account**: you're yourself again, on your own dashboard, still signed in. Opening your business's portal again (from your dashboard or the same menu) puts you back to working as it. To leave altogether, tap the sign-out icon at the right end of the bar. Beside it, the house icon takes you to the dashboard of whoever you're acting as, from any page: your own, your business's Overview, or the admin.
+1413: 
+1414: ### Where do I sign in or create an account?
+1415: Open the menu (☰) at the top right of any page and tap **Create account** or **Sign in**: both open the same page, with a tab for each, so you can switch between them without losing the email you typed. On a phone, tap the compass at the top left: both are at the top of its menu. Once you're signed in, the account bar at the very top of the page takes over, with your photo (to switch accounts) and the sign-out icon. On the Traversence team? Type your staff ID (TRV-0001) in **Sign in** and it takes you to the staff sign-in. Already signed in? The sign-in page takes you straight to your dashboard (or back to where you were going), so you never sign in twice.
+1416: 
+1417: ### What happens when I create an account?
+1418: Three short steps. **1.** On the **Create account** tab: your email, a password (twice), a tick that you're 18 or older,
+1419: and you accept the Terms of Use and Privacy Policy (or use Google, Microsoft or Facebook instead). **2.** We email you a
+1420: link; it works for 24 hours, and the sign-in page can send it again. Opening it confirms your email. You can't sign in
+1421: until you do. **3.** Four quick questions, each with **Continue** or **Skip**: where you're from (country, and ZIP in
+1422: the US), then three choices, **AI Assist & Learning**, **Usage analytics** and **Videos from YouTube**, each off unless
+1423: you tick it. Opening the link signs you in, so after the questions you're on your dashboard. Change any of them later in Privacy Settings.
+1424: 
+1425: ### My business's listing is hidden. Can I still see it?
+1426: Yes, and you can still edit it. When a listing is hidden from the public (while it's checked, or at our team's request), it isn't on the site or in search, but you and your business's team still open it from **Your business** (marked **Hidden**), and its editor works as usual. A box at the top of the editor says it's hidden and why: the test listing for our checks, a private record we keep for your orders, or joined with another listing for the same business (then it's read only, with a button to edit that one if you manage it, or to see it and ask our team to manage it). Anything else is "under review by our team", and **Ask our team** sends us your question from there; we answer at your account's email, usually within a business day. Your changes are saved and show once it's back. **See it as visitors do** opens its page for you, with a line saying it's hidden. You can also write to support@traversence.com.
+1427: 
+1428: ### I didn't get the email to confirm my account.
+1429: Check your spam folder first. Then go to **Sign in**, type your email and password, and tap **Send the link again**. Each
+1430: link works for 24 hours; the newest one is the one to use.
+1431: 
+1432: ### Can I use Traversence without an account?
+1433: Yes. Browse, search, share and see a QR code without one, and like a few things: as a guest, a like counts right away,
+1434: once per item. A guest is just this visit, so nothing about you is kept and it ends when you close the browser; we never
+1435: link it to an account later. After three likes in a visit, a small panel offers a free account, with **Keep going as a
+1436: guest** if you'd rather carry on (up to 100 likes in a visit). For anything that comes back to you (comments, so you can
+1437: see replies, edit or remove them; linking a place to keep it; messages; joining a group; becoming a contributor), the same
+1438: panel offers a free account: Google, Microsoft or Facebook, or Create account and Sign in, then brings you back to the same
+1439: page. **Not now** closes it.
+1440: 
+1441: ### Why does it say guests on this connection have liked it today already?
+1442: To keep counts honest, each item counts up to three guest likes a day from one internet connection, so a household or an
+1443: office sharing a connection can each like it, but opening new windows doesn't keep adding. Likes from an account always
+1444: count, one per person.
+1445: 
+1446: ### Why did it ask me to confirm I'm a person when I liked something?
+1447: Liking very quickly (many likes in a minute), or at a perfectly even pace, looks like a program rather than a person, so
+1448: we ask once with the "verify you're human" check (Cloudflare Turnstile; it usually passes by itself in a second). Once it
+1449: passes, you can keep liking. New accounts and guests are asked a little sooner than accounts that have been around a while.
+1450: 
+1451: ### Is there a limit on likes?
+1452: An account can like 100 things a day. At 100, it says so and offers **Keep liking**: confirm you're a person and you get
+1453: another 100 for the day, so going past it is always your choice. A guest can like up to 100 things in a visit (after the
+1454: first three, choosing **Keep going as a guest**).
+1455: 
+1456: ### Why did it ask "Help improve Traversence?" after I liked something?
+1457: Once a visit, a guest is asked whether Traversence may learn from how the visit uses the site (AI & Learning,
+1458: decisions/0051), to make guides and suggestions better for everyone. Nothing about you is kept, and it ends with your
+1459: visit. **Not now** is fine: your like still counts.
+1460: 
+1461: ### Can I create an account from Europe?
+1462: Traversence is a U.S. regional directory. If you're connecting from the EU, the EEA or the UK, **Create account** asks one
+1463: more question, where you live. If you live there too, we can't create the account on the site; email
+1464: support@traversence.com and, if you're planning a trip to the U.S., we can set one up for you. Living anywhere else, or
+1465: living in Europe but connecting from somewhere else, sign-up goes ahead as usual. Browsing never needs an account and
+1466: works everywhere. Where a connection comes from is looked up in [DB-IP](https://db-ip.com)'s free IP-to-country data
+1467: (licensed CC BY 4.0); we keep only the European ranges, and nothing about your connection is stored with your account.
+1468: 
+1469: ### How does the menu know I have a business or a staff account?
+1470: It asks each time it opens. A business shows under you as soon as you've claimed it or someone on its team has added you, and it goes when you're removed. A Traversence staff account shows when your staff login is linked to your own account. Nothing else about you is used, and no one else sees the list.
+1471: 
+1472: ### My business doesn't show in my account menu. How do I get it there?
+1473: Your business shows under **Your listings** and **Business portal** once your account is on its team: when you claim it and the claim is approved, when its owner adds you, or when our team assigns it to your account (as its owner, or with another role; we email you when we do). If you run a business that isn't showing, claim it from its page or ask us to add you.
+1474: 
+1475: ### My plan includes White Glove. Who can get into my business, and what can they do?
+1476: Strategic Partner and Cornerstone include White Glove: our team sets up and keeps up your business for you. So we can, your White Glove agent (a named member of our staff) gets access to your business when the plan starts, and we email you who it is, and again if it ever changes to someone else. They can update your profile, catalog, content, storefront and codes, and see your customers, orders and messages to help with them. They can't touch your billing or payouts, your team, your keys, exports or deleting the business. Every change they make is logged. You can see who has access, and turn it off or on again, in your Business portal → **Settings & team**. The [Terms](/terms.php#white-glove) say the rest.
+1477: 
+1478: ### How do I send a quote or an invoice from my business?
+1479: In your business portal, open **Quotes & invoices** and tap **New quote**: your customer's email (they're added to your Customers), their name and what it's for. Open it to add lines from your catalog or by hand, then **Terms & how to pay**: when it's due (on receipt, Net 15, Net 30), a deposit, your sales tax rate, your own pay link (Square, PayPal and the like) and any other way to pay (Zelle, checks). **Send** emails your customer a private link: they see the quote, approve it by typing their name (or decline it), and it becomes your invoice, with what's paid and what's still due. You get an email either way. Payments go straight to you, never through Traversence: record each one with **Record a payment** as it arrives. Included in Basic Partner and up.
+1480: 
+1481: ### How do I set my sales tax and my usual quote terms?
+1482: In your business portal, **Sales tax** holds your rates: add one for each place you collect tax (a whole state, a city or ZIP codes), with its percent. **Shipping & pickup** holds the ways you deliver (flat rate, by weight, free over an amount, local pickup or delivery). Then in **Plan & settings**, **Quotes & invoices: your usual terms** sets what every new quote starts with: when it's due, a deposit, your usual tax rate, your pay link, other ways to pay, notes and how long a quote is good. You can still change any of them on a single quote, and pick a different rate from your list there. Included in Basic Partner and up.
+1483: 
+1484: ### Can my business make its own discount codes?
+1485: Yes, on Basic Partner and up: in your business portal, open **Discount codes** and tap **New code**. Choose the code (like SPRING15) and the offer, a percent off or an amount off; if you want, add when it ends, how many times it can be used in all, a smallest order, and whether each customer can use it only once (the default). The offer is yours to set. Your customer types the code on their quote page before approving (**Have a discount code?**), or you add it to a quote yourself; it comes off before tax and counts as used when the quote is approved. Turn a code off any time; a quote still carrying it then can't be approved until the code is removed.
+1486: 
+1487: ### I have a discount code from a business. Where do I use it?
+1488: On the quote that business sent you: open it from the email and tap **Have a discount code?** before you approve. The quote shows what comes off.
+1489: 
+1490: ### Where do I keep track of orders?
+1491: In your business portal, **Orders**: every approved quote is an order there. Move each one on as you work: new, in production, ready for pickup, shipped, done. **Ready** and **Shipped** email your customer (add a tracking number or a pickup note). Its card shows what's paid and what's still due. Every plan includes orders.
+1492: 
+1493: ### I got a quote or invoice from a business through Traversence. Is it safe?
+1494: Yes. The link in the email is private to you: it shows that business's quote, and you approve or decline it there without an account. Payment goes to the business itself, through its own pay link or the way it says (Zelle, a check): Traversence never takes your payment for it. Questions about the quote go to the business.
+1495: 
+1496: ### We order printing from you for our business. Can my coworkers see our orders?
+1497: Yes. Our team keeps your business's orders together under your business, and its people as contacts: whoever orders, approves proofs or pays the bills. A contact gets an email from us (or from your business's Owner or a Manager) with a link to **claim their place**: tick **Activate my contact** and **Create my Traversence account**, choose a password, and you're in, with your business's orders, proofs, invoices and artwork on **Your orders**. Already have an account with that email? Sign in from the link instead. Claiming your place is not claiming your business's listing: that stays the usual claim, and the listing doesn't change. Invoices from QuickBooks are made out to the business, with who ordered noted on them (coming).
+1498: 
+1499: ### You made a listing for our business that I didn't ask for. Is it on the site?
+1500: No. When a business we work for isn't on Traversence, we keep a **private listing** for it, only so its orders and artwork have a home. It's never shown: not in search, on maps or in the directory. If it's already listed, we connect it instead and change nothing on it. Want your business in the directory? Claim it and publish it when you're ready; guided steps for that are coming.
+1501: 
+1502: ### How do I add people to my business's team?
+1503: In your business portal, open **Plan & settings**. Under **Your team**, type their email, choose their role and tap **Add**. Add their name too if you like. Someone with a Traversence account joins at once and gets an email; anyone else gets an invitation whose link lets them claim their place and create their free account in one step (or they join as soon as they sign up with that email). **Send again** re-sends an invitation that went astray. Change a role from the list, or take someone off with **Remove**; anyone can **Leave** a team. The Owner and Managers manage the team; only the Owner gives the Manager role. The Owner can't be removed; to hand the business to someone else, see the next question.
+1504: 
+1505: ### How do I hand my business over to someone else?
+1506: In your business portal, **Plan & settings** → **Hand over the business** (only the Owner sees it). Choose someone on your team, or type the email of any Traversence account, and tap **Ask them to take over**. They get an email with what taking over means and **Accept** or **Decline**; nothing changes until they accept, and the request lapses after 30 days. When they accept, they're the Owner, you stay on the team as Manager (you can leave after), and everyone on the team is told. If the business has a paid plan, your card comes off it so you're never charged again: the plan runs to the end of what's paid, and the new Owner adds their card on the Plans page to keep it.
+1507: 
+1508: ### Can I send proofs and files with a quote?
+1509: Yes. Open the quote in **Quotes & invoices** and choose **Proofs & files**. Upload a **proof** (a PDF or an image) and your customer sees it on their quote page, where they **Approve the proof** or **Ask for changes** (saying what to change); you get an email either way. Upload a new version after changes and it becomes the one they answer; answered versions are kept as the record. You can also add **files**: shared with your customer (a spec sheet, a contract) or kept for your team. Proofs: PDF, images or video (MP4, MOV, WebM; your customer can play it on their page); files: also Word, Excel, PowerPoint, text, CSV or ZIP. Files up to 24 MB upload straight away; bigger ones, up to 1 GB each (raw video included), ask you first and show their progress; you can move around the site while they go (see "Can I leave the page while a big file uploads?"). Files go straight from your browser to our secure file storage, and the links to see them are private and expire after a short while.
+1510: 
+1511: ### How much storage does my business have?
+1512: Your plan sets it (more with a storage pack from the Plans page). Your business's **Overview** shows how much you're using, and so does each quote's **Proofs & files** page. Proofs and files count toward it; removing a file frees its space. An upload that would go past your storage is refused, with how much you're using and an **Add storage** button: a storage pack or a bigger plan, on your Plans page. When you're past 80% the meter turns amber and offers it too.
+1513: 
+1514: ### What happens to a message I send from one of your pages?
+1515: It comes to our team, who answer by email (or by phone, if you gave a number and asked us to call). We keep your name, email, phone and message so we can answer and follow up, and they become your customer record with us. We never add you to a mailing list from it, and never sell or share it. A page's form takes a few messages an hour from one connection, to keep out spam.
+1516: 
+1517: ### Can my business set its own sales tax, shipping and wholesale prices?
+1518: Coming, with the business tools. You'll set your own sales tax rate for each place you sell in (a state, a city or a set of ZIP codes), your shipping and pickup options (flat rate, by weight, free over an amount, local pickup, or delivery by ZIP code or distance), and price lists for groups of customers, like Wholesale, with volume breaks.
+1519: 
+1520: ### Will my business have its own pages?
+1521: Coming, with the business tools. Your listing will get its own pages (About, Services, FAQ, Contact and others) with a contact or quote form, a search description and a share picture. Messages from your forms come to you and into your customer list.
+1522: 
+1523: ### I make work for Traversence. Where do I see my work orders?
+1524: Each work order we send you comes by email with its own link, and with a link to a page of all your work orders from us: the open ones first, then those finished in the last 90 days. Tap one to open the full work order, download its files and update where it stands (accept it, in production, shipped or ready, complete). No account or password is needed. The links are private, so don't forward them. You'll never see our client's prices or contact details: bill Traversence, and never contact our client directly.
+1525: 
+1526: ### My work order link has expired. How do I get a new one?
+1527: Links work for 30 days. Open the expired link and tap **Request a new link**: we email a fresh one to the address we have for you (never shown on the page), and the old link stops working. Didn't get it, or lost the link altogether? Every one of these pages has **Didn't get it, or need a hand?**: type your email to get a new link sent to it (if it's an address we have for you), or ask our team, who'll send one by hand. You're never left without a way back in.
+1528: 
+1529: ## Buying and selling (the Marketplace)
+1530: 
+1531: ### What is the Marketplace?
+1532: Where people and local businesses near you offer what they have: something to sell or give away, or a service (lessons, repairs, hauling). Open **Marketplace** from the compass. Start from a category, or search by words and a town, and narrow it with **Filters** (category, items or services, from people or businesses, price, free only). **Sort by** puts the newest first (the usual), the nearest first, or the lowest or highest price first. Nearest measures from the town you typed; without one, from the location you set at the top of the page (rounded to about a mile and never kept); or, when you're signed in, from your home town. It goes town to town, never from anyone's exact spot. Nothing is ranked by payment or clicks. Traversence takes 0% from any sale: you pay the seller directly, or a business through its own Stripe or Square.
+1533: 
+1534: ### Will I be reminded about my booking?
+1535: Yes. Your Pulse reminds you 24 hours before a stay or rental, and again 2 hours before check-in where the check-in time is known (by email and push too, as you choose). You're also told if a booking is cancelled or released, and a business is told when a customer cancels.
+1536: 
+1537: ### How do I post something on the Marketplace?
+1538: Tap **Post something** on the Marketplace (or in your Dashboard, open **Your Marketplace**). Add photos (at least one for an item, up to 10; the first is the cover), a title, a price (or **Free**, or **Ask me**), a category and the town or area. Then choose how long to offer it. You need an account and must be 18 or older. Your photos go into your Gallery, in an album called Marketplace. They show there while the post is up, and go private when it comes off.
+1539: 
+1540: ### What can I sell on the Marketplace?
+1541: Most everyday things and services. Not allowed: weapons and ammunition, drugs, alcohol and tobacco, anything stolen or fake, and anything taken from a burial, sacred or protected site. A post that names something on that list can't go up, and we tell you which word stopped it. Some words, like cultural items, protected wildlife, live animals, or a request for a deposit, mean a person on our team looks before the post shows, usually within a day.
+1542: 
+1543: ### Why does my post say "Waiting for a look"?
+1544: A word in it is one our team checks first (see What can I sell on the Marketplace?). Only you and our team can see it until then. Once it's fine, it shows on its own. If we take a post down, Your Marketplace shows why.
+1545: 
+1546: ### How many posts can I have up at once?
+1547: Five: showing, pending, or waiting for a look. Mark one **sold**, or **Take off for now**, to make room. While you have five out, **Post it** (and **Post something** on the Marketplace) is greyed out and says why. Sold and expired posts stay in your list and don't count. Businesses' catalogs have their own limits by plan (coming).
+1548: 
+1549: ### How long does a post stay up?
+1550: You choose when you post: an item for 7 to 90 days (30 unless you change it) or until a date, and a service the same, or **Ongoing** (90 days unless you change it). When the time is up, and every 30 days for Ongoing, we ask **Still available?** in your Pulse and by email. Tap **Still available** in Your Marketplace and it stays up. If nobody confirms it by the next check 30 days later, it comes off. It stays in Your Marketplace, and **Put it back up** brings it back in one tap.
+1551: 
+1552: ### How do I contact a seller?
+1553: Open the post and tap **Message the seller**, or send the quick message ("Hi, is this available?"). It goes to the seller in Traversence messages, and their reply comes to yours. They see your name, never your email. A post is an invitation to message about it, so it reaches the seller even if they usually take messages only from people they know, unless one of you blocked the other. You can message up to 20 new sellers a day.
+1554: 
+1555: ### How do I pay for something on the Marketplace?
+1556: For a person's post, between you and the seller: cash, your own payment app, whatever you agree. No payment passes through Traversence, and no one from Traversence will ever ask you to pay them. Never send a deposit to someone you haven't met, and meet somewhere public. A seller can add how they take payment (Zelle, Venmo, cash), which you see once they accept your offer. Buying from a business is different: see How do I buy from a business on the Marketplace?
+1557: 
+1558: ### Can people see my address on the Marketplace?
+1559: No. A post shows only the town or area you pick. Share the exact spot in messages with the person you're meeting.
+1560: 
+1561: ### Where are the posts I saved?
+1562: Tap the bookmark on a post to save it. Your saved posts, and the sellers you've messaged, are in **Your Marketplace → Buying** (in your Dashboard, or Saved and messaged on the Marketplace's menu). Sellers see how many people saved a post, never who.
+1563: 
+1564: ### What does "Pending" mean on a post?
+1565: The seller has someone lined up (an accepted offer) but it hasn't sold yet. It still shows, so you can message them or make an offer in case it falls through.
+1566: 
+1567: ### How do offers work on the Marketplace?
+1568: On a post, enter an amount and tap **Send offer** (on a free post, **I'd like it**). The seller can **Accept**, **Counter** with another amount, or **Decline**; you can accept their counter, counter again, or **Withdraw**. Every move also shows in your messages with them. An offer nobody answers closes after 7 days. Your offers, and offers on your posts, are in **Your Marketplace → Offers**; your Pulse tells you when one is waiting on you. An offer is what you agreed: no payment passes through Traversence.
+1569: 
+1570: ### What are Sold and Got it?
+1571: Once an offer is accepted, meet up. Then the seller taps **Sold** and the buyer taps **Got it**. When you've both tapped, the trade is complete: the post is marked sold, other offers on it close, and you both earn trust points (once a month for the same two people). If one of you hasn't tapped after 3 days, we remind them once. If the deal falls through before then, either of you can **Call it off**, and the post shows as available again.
+1572: 
+1573: ### Can I say how a trade went?
+1574: Yes, after you've both confirmed it: tap **Say how it went** on the trade in Your Marketplace and write a short note. It shows on the other person's posts, under their name, with whether you bought from them or sold to them. There are no stars: a note is only possible after a real, confirmed trade. Anyone signed in can report a note.
+1575: 
+1576: ### What if something goes wrong with a trade?
+1577: Tap **Report a problem** on the trade (once an offer is accepted, and up to 14 days after it completed) and say what happened. A person on our team reads the whole history and settles it: it went through, it fell through, or one of you was in the wrong, which lowers that person's trust. We email you both what we found, usually within two days. Traversence never holds money, so we can't refund a payment: never pay before you meet.
+1578: 
+1579: ### How do I report a post?
+1580: Open it and tap **Report** under the title. Choose why. Our team looks at it, and a post taken down tells its seller why.
+1581: 
+1582: 
+1583: ### Can my business sell on the Marketplace?
+1584: Yes, on every plan. In **Catalog**, open the item and tap **Publish** in its card: choose its Marketplace category and tap **Publish it** (what buyers can do follows its kind). The card says where it stands online, and has **Publish changes** after you edit it and **Unpublish**. The **Marketplace** page lists every item the same way, for working through several at once. Publishing puts its name, description, price and photos on the Marketplace and in your listing's **Shop** (Shop from Basic Partner up). Your cost, markup and supplier stay private to your team. Publishing needs a role with **Publish**; drafts and photos need **Catalog & content**.
+1585: 
+1586: ### How many items can my business publish?
+1587: Free 10, Basic Partner 25, Core Partner 100, Strategic Partner 250, Cornerstone 1,000 per listing. Only published items count: drafts, unpublished and expired ones don't. At your plan's number, Publish is greyed out with the plan that raises it, and nothing already up comes down. Every photo counts toward your plan's storage, so a bigger catalog grows into a storage pack or the next plan.
+1588: 
+1589: ### What happens when I change an item that's already published?
+1590: The Marketplace keeps showing the published version while you edit the draft in your Catalog. The item then says **Published, with unpublished changes**; tap **Publish changes** when you're ready, and that becomes the next version (every version is kept). **Unpublish** takes it off the Marketplace and your Shop; Publish brings it back.
+1591: 
+1592: ### How do I add photos to an item?
+1593: Open **Catalog**, tap the item, and under **Photos** tap **+ Photos** (JPG, PNG or WebP, up to 10 an item). The first one is its cover; × takes one off. They're the same photos the item's Marketplace page shows, so adding them in either place is the same thing. A published item shows new photos once you tap **Publish changes**; every photo counts toward your plan's storage.
+1594: 
+1595: ### How do I remove or delete an item from my catalog?
+1596: Open **Catalog**, tap the item, and tap **Delete** in its card, then **Delete it for good**. It comes off the Marketplace, your storefront and your Shop, and out of your catalog. Quotes, invoices and orders that have it keep their own copy, so nothing earlier changes. An item brought in from Square isn't brought back by the next import. To keep an item but stop showing it, open **Details** and set **Shown** to **Hidden** instead; to take it off the Marketplace only, tap **Unpublish** on your Marketplace page.
+1597: 
+1598: ### What can buyers do on my business's items?
+1599: It follows what each item is, so you don't set it. Goods with a set price get **Buy now**; event tickets **Get tickets**; stays **Book your stay**; rentals **Rent it**; subscriptions **Subscribe**; digital goods **Buy and download**. A service gets **Request this service** (the buyer says what they need done, where and when; you reply with a price and a time), and made-to-order work gets **Request a quote** (you send a quote, with any deposit and a proof to approve, from Quotes & invoices). Until your checkout is live, or for an item without a set price, buyers ask for a quote instead. **Message** is on every item (your team answers in your inbox). The one choice is yours: **Accept offers** on goods (physical goods, harvest, rentals), on your Marketplace page under **How buyers buy**; buyers offer an amount, and you accept, counter or decline. No payment ever passes through Traversence.
+1600: 
+1601: ### How do I buy from a business on the Marketplace?
+1602: On an item with **Buy now**, choose how many and tap it (a stay or a rental asks for its dates first, and a subscription says **Subscribe**), or **Add to cart** to buy several things from the same business together (you have a cart for each business, because each is paid separately). At checkout choose how you get it (pickup, delivery or shipping) and how you pay: by card, Apple Pay or Google Pay through the business's own Stripe or Square account, whose card form opens right on the page, or a way the business takes directly, like Zelle, a transfer or a check, with its instructions. Your money goes straight to the business: Traversence never holds it or sees your card. Your orders are in **Your Marketplace → Buying**.
+1603: 
+1604: ### What if I pay a business by Zelle, transfer or check?
+1605: You'll see the business's instructions with the amount and your order number to put in the memo. Your items are held for the days the business sets; they mark the order paid when it arrives, and you're emailed. Zelle and transfers have no buyer protection, so only pay businesses you know. You can cancel an unpaid order; nothing is charged.
+1606: 
+1607: ### Who do I ask about a refund or a problem with an order?
+1608: The business: refunds are made from its own Stripe or Square account, or the way you paid it. Your order page has a link to contact them.
+1609: 
+1610: ### How do I take payments on the Marketplace?
+1611: In your business portal, open **E-commerce setup** and go through its steps. **1. Getting paid:** from Core Partner up, connect your own Stripe or Square account by signing in (you never paste keys; on Basic, Square connects for your catalog only, below); the money goes straight to your account, Traversence takes nothing, and your processor charges its usual fee. On every plan you can also take Zelle, bank transfers, checks or payment at pickup, each with your own instructions. For a bank transfer, we suggest asking the buyer to call you for the details rather than writing your account and routing numbers there. **2. Sales tax**, **3. Shipping and pickup**, **4. how long to hold items** for a direct payment, **5. a test purchase**, then **6. Go live**. While payments are in test mode, step 5 walks you through it: **Run a test purchase** makes a $1 test order from your business, paid on the same card form your buyers see with a test card (4242 4242 4242 4242 for Stripe), with no real money and no product needed; the step ticks itself once Stripe or Square confirms it, and the order shows in Quotes & invoices, where you can void it. Once you're live, buy one of your own items from a personal account instead and refund it. Every Marketplace order also appears in Quotes & invoices: paid by card, or waiting for you to mark a direct payment received. If one ever can't be added there, your inbox says so: the order and its total stay in E-commerce setup → Marketplace orders, and our team adds the invoice (with its card payment, when it was paid by card, so don't record that payment yourself). Questions? Write to support@traversence.com with the order number.
+1612: 
+1613: ### Can I track stock on my Marketplace items?
+1614: Yes. In your portal's Marketplace page, switch on **Track stock** for an item and enter how many you have. Items being paid for are held (about half an hour for a card, your chosen days for Zelle or a check), paid orders take them off, and at 0 the item shows **Sold out** until you add more. It's offered for physical goods, made-to-order work and harvest; event tickets count their seats, and bookings and rentals their dates, by themselves. For physical goods you can set **Tell me when stock is down to** in its Kind details, and you're told when a sale reaches it.
+1615: 
+1616: ### How does search know what I mean by a word with more than one meaning?
+1617: By the words around it, as they're used here. "Shoot" can mean a photo shoot, a vaccination or a shooting range: where our listings and the pages we read use "shoot" with gun clubs and ranges, "places to shoot" finds those, and "photo shoot" finds photographers, since that's what "photo" sits with. Words our team set for a kind of business always come first. Nothing you search for is used to decide this, only what's listed.
+1618: 
+1619: ### Does Traversence check my spelling?
+1620: Yes, as you type names, descriptions and notes. Your browser underlines words it doesn't know, and once you pause, the site offers what you might have meant under the box, from its own dictionary: "Holstr: **Holster** · Host". Tap one to put it in, or **Keep it** for a name or brand you spelled on purpose (that device remembers it). Nothing is changed unless you tap. The dictionary knows this region's own words too (snickerdoodle, biscochito, sopapilla, piñon, latigo…), any our team adds, and words used by two or more businesses on the Marketplace. Lists whose choices each mean something have an **i** beside them: tap it to see what each choice is, and pick from there.
+1621: 
+1622: ### Can Traversence write my item's description?
+1623: Yes, on a paid plan. Open the item in **Catalog**, tap **Details**, and under **Description** tap **Write it for me**: AI Assist writes one from the item's name, kind and details (and improves your words if you've started), never inventing materials, origins or claims. It goes into the box for you to read and change, and nothing is saved until you tap **Save**; **Undo** puts your words back. Each one uses one of the day's free asks, then one of your plan's AI credits. It needs **AI Assist & Learning** on in your Privacy Settings; on the Free plan the button is greyed with why.
+1624: 
+1625: ### Do I charge sales tax on an item?
+1626: Each item's kind sets the usual answer, so you rarely touch it: physical goods, made-to-order work, tickets, digital goods, subscriptions and rentals are taxed at your store's rate (set in E-commerce setup); most services, fresh food for the home (harvest) and stays (whose lodging tax is added as its own line) aren't. Change it for any item in **Details** → **Sales tax** (tap the **i** for what each means); when you change an item's kind, its sales tax follows unless you've set it yourself. Your state and town decide what's taxable, so check with your accountant.
+1627: 
+1628: ### What kinds of item can my business sell?
+1629: Nine, and each one works its own way, everywhere it shows (your catalog, the Marketplace, your storefront, checkout, orders and receipts). In **Catalog**, choose an item's **Kind** (tap the **i** beside the list: a pop-up shows what each kind is, with an example, and you can pick one there), then open its card and tap **Kind details**. The kinds follow the item's name: food like tamales or snickerdoodles can be Physical goods, Made to order, Harvest & perishables or a Subscription, never a service; an animal is Physical goods only; a cabin is a booking or a rental. Kinds that don't fit the name are greyed with why, and words in the name add their own ("Kayak **rental**", "Tamale-making **class**", "Coffee **club**"). Each kind:
+1630: - **Physical goods:** weight and size, a stock alert, pickup only if you like.
+1631: - **Service / labor:** a flat price bought at checkout (with a travel fee if you charge one), or by the hour, which buyers ask you to quote; the area you serve.
+1632: - **Made to order:** the questions buyers answer at checkout ("Size", "Wording"), a deposit paid when ordering (50% unless you change it) with the rest invoiced when it's ready, and a proof they approve first.
+1633: - **Event tickets:** the date and time, where, and how many; buyers get a code for each seat to show at the door, and your team checks it in once from the ticket.
+1634: - **Digital goods:** the file, kept private (add it on your Marketplace page); buyers get a download link that works a set number of times within a set number of days.
+1635: - **Subscriptions & memberships:** charged every month or year until the buyer cancels, with a free trial if you like. Through Stripe for now.
+1636: - **Bookings & reservations:** nights at your place; guests choose their dates and number, agree to your house rules (kept as a record), and pay your lodging tax on top.
+1637: - **Harvest & perishables:** the pickup windows buyers choose from, and how fresh it is.
+1638: - **Rental equipment:** rented by the day, with the dates checked against how many you have, an optional damage waiver, and a deposit, charged and refunded on return, or held on the card for rentals of 6 days or fewer on Stripe. When it comes back, open the order and tap **Mark returned**, keeping any part of the deposit for damage.
+1639: The item says what it still needs before it can be sold (a ticket its date, a digital item its file). Square items you bring in keep their kind (Square's appointments, events, digital and memberships). Earlier items carry over: items are Physical goods, classes are Event tickets.
+1640: 
+1641: ### How do tickets, downloads, bookings, rentals and subscriptions work when I buy?
+1642: - **Tickets:** after paying, your order page has a ticket for each seat, with a code to show at the door on your phone or printed.
+1643: - **Downloads:** your order page and your email have the link. It works the number of times and days the item says; after that, ask the seller for a new one.
+1644: - **Bookings and rentals:** choose your dates (and guests) on the item, and checkout shows the price for them. A stay asks you to agree to its house rules. A rental's deposit comes back when it's returned undamaged.
+1645: - **Made to order:** answer the seller's questions at checkout; you pay the deposit then, and the rest when it's ready.
+1646: - **Subscriptions:** charged each month or year by card until you cancel. Cancel any time from your order page: it ends at the close of the period you've paid for.
+1647: 
+1648: ### Can my business have its own storefront?
+1649: Yes, from Core Partner up: your own shop at **trvgo.us/your-name**. In your business portal, open **Storefront & pages** and tap **Set up my storefront**. It shows what you already have on Traversence (your published items, how to reach you, and pages you write, like About or Hours), so there's nothing to copy, and a change shows on it at once. Pick one of four themes, add your logo and a cover photo, and an accent color. Only your team sees it, through a preview link, until you tap **Go live**; you can pause it any time. Buying, messages and offers stay on Traversence. A business with several locations can show each under its brand (trvgo.us/brand/location). You can also put it on your own domain (see the next question).
+1650: 
+1651: ### How do I build my storefront's pages?
+1652: In your business portal, open **Storefront & pages**, then under **Your pages** tap a page's name and **Edit the page**. It opens in the builder, the same one our own pages use: press **Edit** on the page, and a panel opens (from the bottom on a phone, at the side on a computer). **Add** holds the blocks: a heading, words (paragraphs, lists, **bold**, *italic*, links), a picture, a button, a divider and a spacer; tap one to add it, or drag it into place. **Layout** shows the sections (one, two or three columns) and lets you drag blocks and sections around; **Design** sets alignment, width and spacing for a computer, a tablet and a phone, each on its own. Pictures you upload are kept in your Gallery and count toward your plan's storage. A page you haven't built yet starts from the text you wrote for it, as one block, and that text is kept as it was. **Save draft** keeps your changes for your team only: you see them in the builder and through **Preview**, while visitors still see what's published. **Publish** puts it on your storefront as the next version; ▾ → **Versions** lists every one, with who and when, and **Roll back** puts any earlier one back. Who can do what is set by your roles in **Team & roles**: **Storefront & theme** to build and save drafts, **Publish** to publish, with no one asked to approve; for a role without Publish, the button is greyed and says why. Your storefront stays plain and fast: it runs no scripts, so the builder's parts of the site (a search box, a map, likes and comments, a form) aren't offered on it. Your pages take your storefront's theme (see the next question). Coming next: blocks for selling (your items, collections, a featured item, hours, map and directions, a booking or quote form, reviews), and the builder's bar on your preview. Publishing at a set time isn't offered for storefronts yet.
+1653: 
+1654: ### Do my storefront's pages follow my theme?
+1655: Yes. The theme you pick in **Storefront & pages** (Canyon, Sage, Paper or Night) is every page's starting style: the page color, the words, the heading font, the buttons' shape and color, and the two backgrounds a section can have, which take the theme's names (Canyon's Sand and Clay, Sage's Sage and Stone, Paper's Linen and Honey, Night's Ember and Dusk). Your accent color colors the buttons and links. The builder shows the page in your theme, as visitors will see it. Blocks hold no colors or fonts of their own, so when you change the theme or the accent, every page follows at once, with nothing to redo or publish again.
+1656: 
+1657: ### Why does it say my accent color is hard to read?
+1658: Your accent color colors your storefront's buttons and links, which sit on your theme's cards. In **Storefront & pages**, under **Accent color**, a note says how well it reads there, as you pick it and whenever you open the page: under 4.5:1 (the level small words need to be easy to read), it says **Hard to read** with the number. It's a note, not a stop: you can keep the color and save, and the note stays until the color reads well. A darker accent (or a lighter one on the Night theme) fixes it. A color under 3:1 is too close to the cards to read at all, so saving asks for another.
+1659: 
+1660: ### Can I put my storefront on my own domain?
+1661: Yes, from Core Partner up. In **Storefront & pages**, under **Your own domain**, either **buy a new domain** or **use one you already own**.
+1662: - **Buying one:** search for a name, pick one, confirm whose name it's registered to, and buy. It's registered to your business with privacy on, so your details don't show in public records. It's charged to your plan's card and renews each year two weeks before it runs out, unless you turn renewal off. It's set up for you, and it's yours: you can move it to another registrar any time (**Move it to another registrar** gives you its transfer code). Domain names aren't refundable once registered.
+1663: - **Using your own:** type it in, then add the records we show where your domain is registered (GoDaddy, Namecheap and so on): one for yourshop.com and one for www. We check every 15 minutes; DNS changes can take a few hours. Once it points at your storefront, it gets its security certificate and goes live by itself.
+1664: 
+1665: Either way, your trvgo.us address keeps working and sends visitors to your domain. If the domain stops pointing at your storefront for three days, your storefront goes back to trvgo.us until it's fixed, and your Pulse tells you. **Disconnect** puts it back on trvgo.us any time; a domain you bought through us stays yours. Email from your own domain is coming: its records show alongside the storefront's.
+1666: 
+1667: ### What is my business's Trust score?
+1668: The checks your business has done, so buyers know what they can count on. Open your business portal, then **Market 360°** → **Trust score**. Each check ticks itself from what we hold and has the button that does it: **Phone verified** (you confirmed by text from the phone on your listing, when you claimed it) and **Payments verified** (Stripe or Square has checked who you are and your bank and switched on payments and payouts; we ask them daily, or tap **Check now**, and if they still need something, it says what, with a link to finish it with them). Coming: your legal identity, a match in the state's own records (Arizona Corporation Commission, Arizona TPT license, New Mexico Secretary of State), an owner ID check through Stripe Identity (included on a paid, current plan, otherwise a one-time $1.95 paid first; we keep only that it was verified and when, never the images), and accepting the Seller Agreement. The badge buyers will see names only what's done, for example "Verified: phone · payments"; we never claim more.
+1669: 
+1670: ### Can my business see who linked it?
+1671: Yes, by name: Linking tells everyone that the business they link can see they did. Open your business portal, then **Market 360°** → **Linked people**. A person's phone, email or address shows only if they chose to share it with your business, and it's read from their own card each time, so it changes or disappears the moment they change it or unlink. There's no export, and it isn't for adding to other lists; people who bought from you are in **Customers**, which you can export. Links made before links were open show by name only once that person has seen the notice, and people who paused Linking don't show; both still count in your numbers.
+1672: 
+1673: ### What are a business's store policies?
+1674: Its rules for orders: returns, cancellations, deposits and any house rules. You see them on its items, its storefront and at checkout (tap **Store policies** to open them), and you agree to them, with Traversence's Terms, when you tap **Place order**. Every store's policies also say that the business is the seller, Traversence isn't a party to the sale, and problems go to the business first. Your order keeps a copy of the policies it was placed under, shown on your order page and in your receipt, so a later change never rewrites it.
+1675: 
+1676: ### How do I set my business's store policies?
+1677: In your business portal, open **Market 360°** → **Store policies** (under Money & Processing). Choose your returns (all sales final; returns within 7, 14 or 30 days; or exchanges only), your cancellations and how deposits work, and add house rules in your own words if you like. Save, and buyers see the new policies at once; orders already placed keep the ones they were placed under. The clauses every store has are shown, but can't be changed. Until you choose, buyers are told to ask you about returns before they buy.
+1678: 
+1679: ### What does Traversence keep when I agree to its Terms or place an order?
+1680: A record that you agreed: which document and which version you were shown (with a fingerprint of the exact text), the choices shown with it (for an order, the business's returns, cancellations, deposits and house rules), when, and the internet address and browser it came from. Records are only ever added to, never changed, and kept 7 years. A business can include its order's record if it answers a dispute about that order with its payment company. If you delete your account, the records stay, without your name or email. The Privacy Policy explains it under **Records of what you agreed to**.
+1681: 
+1682: ### What can my business sell on the Marketplace?
+1683: Most things, under the same written rules for every business, checked when you publish an item:
+1684: - **Never:** weapons, firearms and ammunition; illegal drugs and paraphernalia; prescription medicine; counterfeit or stolen goods; hazardous materials; adult content and services; gambling, lotteries and raffles; investments, crypto and multi-level marketing; government IDs; human remains and anything from a burial, sacred or protected site; endangered species. An item like that doesn't go up, and you're told why.
+1685: - **With your license:** alcohol, tobacco and vapes, CBD and hemp. You confirm you hold the license and meet the conditions; it's kept as a record. Card processors restrict these themselves, so buyers pay you directly or ask for a quote.
+1686: - **Under conditions:** meat and dairy (from an inspected processor or licensed dairy, kept cold), eggs (clean, kept at 45°F or below, in labeled cartons), homemade food (a licensed kitchen or Arizona's cottage food program), live animals and plants, lodging, resold tickets. You confirm the conditions once for each item (kept as a record); buyers see them, and can pay by card.
+1687: - The check reads an item's name the way search does: a wine rack is a rack, a beer mug is a mug and a gun holster is a holster, so they just publish; red wine, beef jerky or gun parts are the thing itself. When it's unsure, publishing asks once whether the item is that.
+1688: - **With a notice:** perishables, used or as-is goods, made-to-order and digital goods show buyers a short notice.
+1689: You don't have to wait until you publish to find out: in **Catalog**, the **Marketplace** column says, for every item, whether it can be published, may need your license, or can't go on the Marketplace (it can still stay in your catalog for quotes and invoices), and the item's card says why. To check any item quickly, or see the full list, open [What can be sold](/market/rules.php). Some words mean our team looks first, usually within a day. Stripe's and Square's own rules apply too, and can be stricter. Anyone can report an item; a shop that keeps breaking the rules can be paused (never its listing or map pin).
+1690: 
+1691: ### What is the Seller Agreement?
+1692: The agreement between your business and Traversence for selling on the Marketplace and your storefront: you're the seller, payments go straight to you (Traversence takes 0%), refunds and disputes are yours through your processor, what can be sold, your store policies, and your customers' information. Read and accept it in **E-commerce setup**, step 6, before you go live; it's kept as a record. If it changes in a way that needs your acceptance, we ask again before your next publish. Your shop stays open meanwhile.
+1693: 
+1694: ### A buyer disputed a card payment. What do I send?
+1695: In **E-commerce setup**, under **Marketplace orders**, tap **Dispute packet** on the order. It's one file with the order, its receipt, the store policies it was placed under, and the record of the buyer placing it (when, from what browser, and a fingerprint of the exact terms they saw). Save it as a PDF (Print, then Save as PDF) and attach it to your answer in Stripe or Square.
+1696: 
+1697: ### Why is Traversence asking for my business's tax ID and bank details?
+1698: A federal law, the INFORM Consumers Act, asks every online marketplace to collect and verify the details of a "high-volume" seller: one with 200 or more sales and $5,000 or more in a year. Once your Marketplace sales reach that (your Trust score page shows how close you are), we ask, and you have 10 days to give your legal name, address, phone, email and tax ID, in **Market 360° → Trust score → INFORM Act details**. Your bank account counts as verified through Stripe or Square once payouts are on. We ask again each year. Your tax ID is kept encrypted and never shown to buyers. Past $20,000 a year, the law shows buyers your business's name, address and contact on your items (only your state if it's a home address). If the details aren't in by the deadline, card checkout pauses until they are; your listing and pages stay up.
+1699: 
+1700: ### How do I report a problem with an item or a seller?
+1701: On the item's page, tap **Report** (signed in), and say what's wrong: something that can't be sold, a counterfeit, a safety problem or a recall, or a seller you think isn't genuine. You can also call us at the number shown there. Our team looks at every report; an item that clearly breaks the rules comes down at once. Items whose name matches a product on the CPSC's recall list are checked by our team before they show.
+1702: 
+1703: ### Can I bring my Square items onto Traversence?
+1704: Yes, from Basic Partner up. In your business portal, open **E-commerce setup** and, under **Your Square catalog**, **Connect Square** by signing in, then **Import from Square**. Each Square item comes into your catalog as a draft (an item with sizes or colors comes in once for each). Nothing goes on the Marketplace until you publish it, and drafts don't count toward your plan's limit. From then on Square is in charge of price and stock. Prices and counts update every day, when you tap **Sync now**, and as soon as your stock changes in Square. Whatever sells here also comes off your Square stock. From Core Partner up, the same connection takes card payments, and Marketplace orders also show up in Square's Orders.
+1705: 
+1706: ### Do my business's items expire?
+1707: They stay up, but every 30 days your Pulse asks **Still on offer?** for each published item. Confirm with one tap (or all at once). An item nobody confirms by the next check comes off, kept in your portal: Publish brings it back.
+1708: 
+1709: ## Domains
+1710: 
+1711: ### Can I buy a domain on Traversence?
+1712: Yes. Open the **Shop** and choose **Domains** (or go to [traversence.com/shop/domains.php](/shop/domains.php)), type the name you'd like, and we show it with the usual endings (.com, .net, .shop, .store, .co, .us, .biz, .app, .ai) and our price a year. Some endings are sold for at least two years (.ai is one): those show their shortest term's price. A .app address opens only over a secure connection (HTTPS): a storefront on it gets its certificate by itself; if you point it elsewhere, that site needs HTTPS too. Pick one, add the registrant's details, and **Add to cart**. You pay in the cart first; then it's registered for you through Name.com. Any account can buy one, for you or for a business you handle billing for: no storefront or plan needed. You and the registrant must be 18 or older.
+1713: 
+1714: ### Is buying a domain the same as putting my storefront on my own domain?
+1715: No, they're two separate things. **Buying a domain** (Shop → Domains, managed in **Your domains**) is open to any account, with or without a storefront. **Your own domain on a storefront** is part of a business's storefront, in **Storefront & pages** under **Your own domain**. Each opens on its own: if one says "opens soon", the other may already be open. Using a domain you bought in the Shop for your storefront is coming with the Storefront app.
+1716: 
+1717: ### How much does a domain cost?
+1718: Our price a year is Name.com's price for that name plus a small fixed amount for us, shown before you buy and checked again when you pay (it's never more than you were shown). Renewals are at Name.com's renewal price then, plus the same amount. When Name.com hasn't given a name's renewal price yet, we say so instead of guessing, and a renewal is never charged without it. You can buy 1, 2, 3, 4, 5 or 10 years at once: choose the years beside the name, and the price shown is Name.com's total for that many years (often a lower first year, then its regular price) plus our amount for each year. Some names are **premium**, priced by their owner: we show them marked, and you can ask us their price at support@traversence.com. Domain names aren't refundable once registered; one that can't be registered is refunded to your card at once.
+1719: 
+1720: ### Whose name is my domain registered in?
+1721: Yours, or your business's: the registrant you enter is the owner, with WHOIS privacy on so your details stay out of public records. Use real contact details: Name.com emails the registrant to confirm them (an ICANN rule). Answer that email within 15 days, or the domain is paused until it's confirmed.
+1722: 
+1723: ### Where do I manage my domains?
+1724: In **Your domains**: on your Dashboard (**Domains**), or at [traversence.com/user/domains/](/user/domains/). For a business, open its portal and choose **Domains**. Each domain shows when it's paid until, **Renew now**, **Auto-renew**, **Where it points**, its **DNS records**, its **email records**, **Transfer away**, its **History**, and **Something isn't right**. A business's storefront domain is listed there too and managed, as before, in **Storefront & pages**.

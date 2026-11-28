@@ -1,0 +1,82 @@
+1: <?php
+2: // takedown.php — ask us to take something down (decisions/0133, the protected-information standard): a guide's section,
+3: // a fact from the heritage catalog, a topic or a landmark. Anyone, signed in or not. A protected reason hides it at once;
+4: // any other within 24 hours, while a person looks (Takedowns). Opened from the "Ask us to take this down" links.
+5: declare(strict_types=1);
+6: 
+7: require_once __DIR__ . '/../app/ui/page-shell.php';
+8: require_once __DIR__ . '/../app/bootstrap.php';
+9: header('Content-Type: text/html; charset=utf-8');
+10: require_once __DIR__ . '/../app/lib/Takedowns.php';
+11: require_once __DIR__ . '/../app/lib/Captcha.php';
+12: 
+13: $pdo = Database::connection();
+14: $uid = (int) (Auth::currentUserId() ?? 0);
+15: $csrf = (string) ($_SESSION['csrf_token'] ?? '');
+16: $in = $_SERVER['REQUEST_METHOD'] === 'POST' ? $_POST : $_GET;
+17: $kind = (string) ($in['kind'] ?? ''); $ref = (string) ($in['ref'] ?? ''); $section = (string) ($in['section'] ?? '');
+18: $what = isset(Takedowns::KINDS[$kind]) ? Takedowns::describe($pdo, $kind, $ref, $section) : null;
+19: $facts = [];   // the footsteps chapter: one of its facts can be named instead of the whole section
+20: if ($what && $kind === 'guide' && $section === 'footsteps') {
+21:     try { $st = $pdo->prepare("SELECT id, title FROM heritage_facts WHERE place_key = ? AND status = 'cataloged' AND tier IN ('public', 'story') ORDER BY year_from IS NULL, year_from, id LIMIT 40"); $st->execute([$ref]); $facts = $st->fetchAll(PDO::FETCH_ASSOC); } catch (Throwable $e) {}
+22: }
+23: $msg = ''; $done = null;
+24: if ($what && $_SERVER['REQUEST_METHOD'] === 'POST' && hash_equals($csrf, (string) ($_POST['csrf'] ?? ''))) {
+25:     try {
+26:         if (!$uid) Captcha::verify((string) ($_POST['cf-turnstile-response'] ?? ''));
+27:         $one = (string) ($_POST['which'] ?? '');
+28:         $req = ['kind' => $kind, 'ref' => $ref, 'section' => $section] + $_POST;
+29:         if (preg_match('/^fact:(\d+)$/', $one, $m)) $req = ['kind' => 'fact', 'ref' => $m[1], 'section' => ''] + $_POST;
+30:         $done = Takedowns::file($pdo, $req, $uid ?: null);
+31:     } catch (InvalidArgumentException | RuntimeException $e) { $msg = '<p data-tv-flash="error">' . tv_e($e->getMessage()) . '</p>'; }
+32: } elseif ($what && $_SERVER['REQUEST_METHOD'] === 'POST') $msg = '<p data-tv-flash="error">This page had expired. Please send it again.</p>';
+33: $email = '';
+34: if ($uid) { try { $st = $pdo->prepare('SELECT email FROM users WHERE id = ?'); $st->execute([$uid]); $email = (string) $st->fetchColumn(); } catch (Throwable $e) {} }
+35: 
+36: tv_page_start('Ask us to take something down', ['description' => 'Ask Traversence to take down something we publish.', 'no_crumbs' => true, 'noindex' => true]);
+37: ?>
+38: <style>
+39:   .td-wrap{max-width:40rem;margin:0 auto;padding:.6rem .75rem 2rem}
+40:   .td-card{background:#F7EFDC;border:1px solid rgba(203,185,141,.7);border-radius:1rem;padding:1rem;margin-top:.8rem}
+41:   .td-card h2{font:700 1.1rem var(--tv-font-head,Georgia,serif);color:#3E2B1F;margin:0 0 .4rem}
+42:   .td-note{font-size:.86rem;color:#5C4632}
+43:   .td-r{display:flex;gap:.5rem;align-items:flex-start;padding:.35rem 0;font-size:.92rem}.td-r input{margin-top:.25rem}
+44:   .td-f{display:block;margin-top:.7rem;font-size:.86rem;font-weight:600;color:#3E2B1F}
+45:   .td-f textarea,.td-f input[type=email]{display:block;width:100%;margin-top:.25rem;background:#FFFBF2;border:1px solid #CBB98D;border-radius:.6rem;padding:.55rem .7rem;font:inherit;font-weight:400}
+46:   .td-btn{margin-top:.8rem;background:var(--tv-btn);color:var(--tv-btn-text);border-radius:999px;padding:.55rem 1.1rem;font-weight:600}
+47:   @media (max-width:767px){ .td-wrap{padding:.4rem 0 2rem}.td-card{border-radius:.5rem;margin:3px 3px 0;padding:.85rem .8rem}.td-wrap>h1,.td-wrap>p{margin-left:.75rem;margin-right:.75rem} }
+48: </style>
+49: <main class="td-wrap">
+50:   <h1 class="font-serif font-bold text-2xl text-[#3E2B1F]">Ask us to take something down</h1>
+51:   <p class="td-note">We tell the story of places, never the way in. If something we publish shows the way to a sacred, burial or archaeological place, shares someone's private information, or shouldn't be told, tell us. If it's about a sacred place, someone's privacy or a risk to safety, it comes down as soon as you send this. Anything else comes down within 24 hours while a person looks.</p>
+52:   <?= $msg ?>
+53:   <?php if ($done): ?>
+54:     <section class="td-card tv-bleed">
+55:       <p data-tv-status="ok" data-tv-label="Thank you:"><?= $done['hidden'] ? 'It\'s down now while we look.' : 'It comes down by ' . tv_e(date('M j, g:i a', strtotime($done['hide_by']))) . ' unless we finish looking sooner.' ?> <?= $email !== '' || trim((string) ($_POST['email'] ?? '')) !== '' ? 'We\'ll write to you when we\'ve decided.' : '' ?></p>
+56:       <p class="td-note" style="margin-top:.5rem"><a class="underline text-[#92400E]" href="<?= tv_e($what['url'] !== '' ? strtok($what['url'], '#') : '/') ?>">Back to the page</a></p>
+57:     </section>
+58:   <?php elseif (!$what): ?>
+59:     <section class="td-card tv-bleed"><p data-tv-status="info" data-tv-label="Nothing to take down:">That isn't published on Traversence now: it may be down already. For anything else, write to <a class="underline" href="mailto:support@traversence.com">support@traversence.com</a>. For a member's post, journey or comment, use its Report button.</p></section>
+60:   <?php else: ?>
+61:     <section class="td-card tv-bleed">
+62:       <h2><?= tv_e($what['title']) ?></h2>
+63:       <p class="td-note"><?= tv_e(Takedowns::KINDS[$kind]) ?><?= $what['url'] !== '' ? ' · <a class="underline" href="' . tv_e($what['url']) . '">see it</a>' : '' ?></p>
+64:       <form method="post">
+65:         <input type="hidden" name="csrf" value="<?= tv_e($csrf) ?>"><input type="hidden" name="kind" value="<?= tv_e($kind) ?>"><input type="hidden" name="ref" value="<?= tv_e($ref) ?>"><input type="hidden" name="section" value="<?= tv_e($section) ?>">
+66:         <?php if ($facts): ?>
+67:           <p class="td-f">Which part?</p>
+68:           <label class="td-r"><input type="radio" name="which" value="" checked> The whole chapter</label>
+69:           <?php foreach ($facts as $f): ?><label class="td-r"><input type="radio" name="which" value="fact:<?= (int) $f['id'] ?>"> <?= tv_e((string) $f['title']) ?></label><?php endforeach; ?>
+70:         <?php endif; ?>
+71:         <p class="td-f">Why should it come down?</p>
+72:         <?php foreach (Takedowns::REASONS as $k => [$label]): ?><label class="td-r"><input type="radio" name="reason" value="<?= tv_e($k) ?>" required> <?= tv_e($label) ?></label><?php endforeach; ?>
+73:         <label class="td-f">Tell us more (what's wrong, and where on the page)<textarea name="note" rows="4" maxlength="2000"></textarea></label>
+74:         <label class="td-f">Your email, if you'd like to hear what we decide<input type="email" name="email" value="<?= tv_e($email) ?>" autocomplete="email"></label>
+75:         <?= $uid ? '' : Captcha::widget() ?>
+76:         <button class="td-btn">Send</button>
+77:       </form>
+78:       <p class="td-note" style="margin-top:.6rem">We keep what you tell us only to decide; it's never shown on the site.</p>
+79:     </section>
+80:   <?php endif; ?>
+81: </main>
+82: <?php tv_page_end();

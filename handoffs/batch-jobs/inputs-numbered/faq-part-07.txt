@@ -1,0 +1,341 @@
+1725: 
+1726: ### Why do I need to confirm my domain's contact details?
+1727: Every domain's registrant must confirm their email (an ICANN rule). Right after you buy, Name.com emails the registrant a link to click. Until it's clicked, **Your domains** shows **Confirm the registrant** with the date it's due, and we email you reminders as the date nears. If it isn't confirmed in about 15 days, the domain stops working until it is. Can't find the email? Check spam, or choose **Send the confirmation again** on the domain. Wrong address? Use **Something isn't right** on the domain, or write to support@traversence.com.
+1728: 
+1729: ### How does auto-renew work?
+1730: Two weeks before your domain runs out, we charge the card you chose for it and renew it for a year. If the card is declined, we try again 3 and 7 days later and email you each time; replacing the card tries again at once. You can turn auto-renew off any time: the domain stays yours until its date, and you can **Renew now** whenever you like.
+1731: 
+1732: ### Where can my domain point?
+1733: Wherever you like: **forward** it to another web address, set its own **DNS records** here (an A record for a website, MX for email, TXT to prove it's yours), or put in **nameservers** from another DNS host (Cloudflare, your web host). Using one of your domains for a Traversence storefront is coming with the Storefront app.
+1734: 
+1735: ### Can I move my domain to another registrar?
+1736: Yes. Open the domain and choose **Transfer away**: we unlock it and show its transfer code once (it isn't kept here), and auto-renew stops. Give the code to the new registrar; the domain shows as **Moved away** once it has left.
+1737: 
+1738: ### Can I list a domain I already own?
+1739: Yes: in **Your domains**, choose **Add a domain you own**. It's listed for pointing only, since its records stay where it's registered (GoDaddy, Namecheap and so on).
+1740: 
+1741: ### What is my wallet?
+1742: Your saved cards, in **Your domains** under **Wallet** (a business has its own, kept separate from yours). Your card provider, QuickBooks Payments, holds them; we keep only a label like "Visa ··4242" and when it expires. One card is your default, offered first at checkout. Your plan and your domains' renewals each pay from a card in the wallet. Test accounts (and our team while testing) have a separate **test wallet**: its cards are saved in QuickBooks' sandbox and only ever charged there, and no real card can be used while testing, so a test never moves real money.
+1743: 
+1744: ### Why can't I remove a card from my wallet?
+1745: A card that pays for something that renews (your plan, a domain's auto-renew) is locked: you can **Replace** it with another card, for one thing or for everything on it, but not remove it. It unlocks by itself once nothing renews on it (the plan ends or is set to stop, auto-renew is off, or the domain moves away). We email you 30 days before a locked card expires.
+1746: 
+1747: ### What if something goes wrong with my domain?
+1748: Open it in **Your domains** and choose **Something isn't right**: it opens a support ticket, you get its number by email, and our team writes back. If we were paid but Name.com didn't register or renew it, our team is told at once and puts it right (or refunds you). You can also write to support@traversence.com.
+1749: 
+1750: ## Community groups
+1751: 
+1752: ### How do I find a group?
+1753: On **Connect → Groups** (https://traversence.com/community/), search by a group's name, topic or place, or choose a topic from **All topics**. **Most active** puts first the groups more people joined in the last 7 days, then the biggest; **Most members** lists the biggest first, and with a place, **Nearest first** lists groups there and nearby first. A card's **+12 this week** is how many joined in the last 7 days: a count only, never who. **Join group** (or **Ask to join**) opens the group's page at **What you're agreeing to**, its charter, because joining is agreeing to it. **Start a group** is at the top right.
+1754: 
+1755: ### How do I start a group?
+1756: Open **Community** and fill in **Start a group**: a name, what it's about, its kind (interest, local or support), and its charter: the purpose (required), who it's for, house rules, and what happens if you step down. You need a confirmed email to start one. One person can run up to 5 groups. If you run a business on Traversence, you can start its group instead (see Can a business run a group?).
+1757: 
+1758: ### How do I stop posts from a group reaching my Pulse?
+1759: Open a group post message and tap **Mute its posts**. You can also use the shield on a group post's row in your Pulse: **Mute the group**. Mentions of you still come through. Posts from a group gather into one unread message per group, so a busy group doesn't fill your Pulse.
+1760: 
+1761: ### Who sees join requests and reports in my group?
+1762: Its owner and moderators, or the business's team for a business's own group. Join requests and reported posts waiting in groups you moderate show in your own Pulse under **Needs you**, named by the group, and **Groups ▾** shows one group at a time. Each arrives as its own message with **Accept** / **Decline** or **Keep** / **Remove** inside it.
+1763: 
+1764: ### What's a group's charter?
+1765: The rules the group runs by, written by whoever starts it, and what you agree to when you join. Every group's page shows **What you're agreeing to**: its purpose, house rules, who sees that you're in it, what happens if the owner leaves, and how joining works, with **Read the whole charter** for everything else and every past version. Each charter also carries Traversence's ground rules, which no group can remove: our Terms, no harassment, no one's private information, no sacred or restricted sites, and selling only through Traversence. Groups started before charters show the ground rules until their owner writes one.
+1766: 
+1767: ### What's on a group's page?
+1768: At the top, the group's name with **Join** (or **Ask to join**) on the right; a local group shows photos people have shared of its place. Under it: what kind of group it is and its topic (tap either to find more like it), what it's about, **Share** and a **QR code** for the group, and its numbers at a glance: members, posts this week, how joining works, and since when. Then the charter (**What you're agreeing to**), and, for members, the posts and the member list. A group's own cover photos are coming.
+1769: 
+1770: ### What happens when a group's charter changes?
+1771: Members are told once, in their Community feed and on the group's page, with what changed. You don't have to agree again and nobody is removed by a change; if you don't like it, you can leave. Most changes take effect at once. Two give 14 days' notice first: what happens if the owner leaves, and opening the member list to all members (you can hide your own name meanwhile). Making the member list more private happens at once.
+1772: 
+1773: ### Who can see that I'm in a group?
+1774: It depends on the group's charter, which you see before you join. Usually members see each other's names; in some groups, such as support groups, only the moderators do. Nobody in a group ever sees your email or where you live. When a group is about to open its member list, you can hide your name from it; the moderators still see it, to run the group.
+1775: 
+1776: ### Can a business run a group?
+1777: Yes, one group per business, run by its team. Its Owner or a Manager starts it from **Start a group**, choosing the business under **Start it as**. The group shows **Run by** and the business's name. The Owner and Managers run it (only the Owner can close it), Creators and Support moderate it, and Sales answers as the business's rep. A business's places and topics, such as Support or How-tos, will be chapters of its one group (coming). The business contacts you outside the group only if you ask it to or Link with it.
+1778: 
+1779: ### Why does a post say "Sales, Pine Cafe"?
+1780: In a business's group, its team can post as the business (the Owner, Managers and Creators), or as its sales rep, shown as their name with "Sales" and the business's name, so you always know who's speaking for the business.
+1781: 
+1782: ### How do reports work in a group?
+1783: Tap **Report** on a post and choose why. Reports on a group's posts go to its own moderators (or only its owner, if the charter says so), never to Traversence, and nobody learns who reported. A post is hidden while it's looked at once enough members have reported it (the charter sets how many, counting only different members who've been in the group more than a week), or at once if it shares someone's private information or a sacred or restricted site. Its author still sees it, marked. The moderators keep it, remove it, or remove it and its author. Two kinds of report come to Traversence's Safety team instead, where our Terms apply: **Breaks the law or puts someone in danger**, and a report on a whole group.
+1784: 
+1785: ### Can a group ask Traversence for help?
+1786: Yes. A group's owner and moderators can use **Ask Traversence for help** on the group's page for what the group can't settle, such as someone harassing people across groups or a moderator's account taken over. It reaches our support team as a case, and we reply by email. If reports in a group wait 14 days with nobody deciding, we're asked to help on our own.
+1787: 
+1788: ### What notices will I get about groups, and can I turn them off?
+1789: Each one goes to your Pulse once, when it's about you or something you follow: your request to join a group was answered (with the group's welcome message), the charter of a group you're in changed, a group's moderators removed your post, a new group started in a place you follow, or one of your connections invited you to a group. If you run a group or lead a chapter, you also hear about its chapters; if you run a business, you hear when a group lists it among the places it's about. Switch any of them off in **Dashboard → App Settings → Communications**. There you also choose, for each one, whether it also comes by email, and whether you'd like one weekly email of them.
+1790: 
+1791: ### How do I stop emails from Traversence?
+1792: Every email we send for a group, a business or your notices has **Stop these** at the foot: one tap stops that kind (it still reaches your Pulse; a business's email stops from that business). You can also choose kind by kind in **Dashboard → App Settings → Communications**. Your mail app's own Unsubscribe button does the same. Emails about your account itself, such as sign-in codes and receipts for what you buy from us, can't be switched off. We never send to an address that bounced or marked us as spam.
+1793: 
+1794: ### What happens to a group if its owner leaves?
+1795: Whatever its charter says: the group ends (the usual choice, with no elections), a member the owner named is offered it, the longest-serving moderator is offered it, or the moderators choose one of themselves. The steps that carry this out, and closing groups that have gone quiet for 30 days, are coming.
+1796: 
+1797: ### What are a group's tags?
+1798: Up to 5 words that say what the group is about, under its topic: baking, cast iron, trail running. The owner and moderators set them, and existing tags are suggested as you type so spellings stay together. Tap one to find more groups like it; the Community page shows the popular ones for each topic. Tags help people find a group; they never rank it higher, and they're never taken from posts. A tag that might name a sacred or protected site waits for our team before it shows.
+1799: 
+1800: ### What does "Places we're about" mean?
+1801: A group can name up to 10 places it goes to or talks about: towns, businesses, outdoor places and public landmarks, each with a short note ("planned for June"). They show on the group's page, and each place's page shows the group (under **Featured in**, or **Talked about by** on a town's page) with its name and member count, nothing more. Only the group's own choice puts it there; its posts are never read for it. If you run a business a group names, you're told once, and you can take your business off its list from the group's page.
+1802: 
+1803: ### What's a chapter?
+1804: A branch of a larger group, for a place or a topic: *World Travelers* can have *World Travelers: White Mountains*, or *Cast Iron Cooks: Beginners*. A chapter has its own members, posts, moderators and lead, starts with the whole group's charter and tags, and shows on its place's page with "part of" its group. The group's owner opens chapters, or approves a member's request to start one; the person who leads it needs Verification. The group's charter says how chapters are joined: joining a chapter joins the whole group too, each chapter is joined on its own, or members of the whole group only. The group's owner and moderators can post to all its chapters at once and help moderate them. An existing local group can become a chapter when both owners agree, and a chapter can leave to stand on its own after 14 days' notice to its members. Closing quiet chapters and bringing them back are coming.
+1805: 
+1806: ### How do I invite people to a group?
+1807: On the group's page, under **Share & invite**: tick connections from your Address Book and send. Each person gets one invitation from a group (again after 30 days if they don't answer), can say no thanks, and can switch group invitations off in App Settings. Someone who blocked you never gets one. The group's owner and moderators can also make **invite codes**: a link for a meeting, a class or a list, with an end date, that can be switched off at any time. Share and the QR code are under the group's name for anyone. Inviting a business's customers by email, flyers and badges for your own site are coming.
+1808: 
+1809: ### Do I skip the approval queue if I'm invited?
+1810: Only if the group's charter says so. In a group that approves its members, the charter decides whether an invitation lets you straight in (from the owner and moderators, or from any member) and whether invite codes can. Otherwise your request goes to the moderators marked with who invited you. You always see the charter first and agree to it yourself. Some groups ask a few questions when you ask to join; only the moderators see your answers.
+1811: 
+1812: ### Can anyone read a group's posts?
+1813: Only members, except for one: the group's owner can pin a **welcome** post that anyone can read, members or not, so visitors can see what the group does. The owner can also write a welcome message each new member gets when they join.
+1814: 
+1815: ### How do I find groups near me?
+1816: Open **Community** from a place's page, or search for a place there. Groups come nearest first: those in that town or area, then nearby ones, then groups that talk about places nearby, and, if you picked a topic or typed a word, groups anywhere that match, marked "Anywhere". Groups with more active members come first within each; no one can pay to be shown higher.
+1817: 
+1818: ### How does a group see how it's growing?
+1819: Whoever runs a group sees its page views and how many joined in the last 90 days, by how they came (the group's page, a place's page, search, invitations, invite codes, groups like it). Counts only: never who.
+1820: 
+1821: ## Privacy and your account
+1822: 
+1823: ### Does loading Traversence's fonts tell another company I visited?
+1824: No. The site's typefaces (Inter for text, Merriweather and Playfair Display for headings) are served from traversence.com itself, so your browser doesn't contact a font company to show a page. They're free, open-licence fonts (SIL Open Font License). Headings use Merriweather across the site (Playfair Display for large display titles); emails keep a font every mail app has.
+1825: 
+1826: ### Does Traversence use cookies?
+1827: A few that the site needs: one keeps you signed in, one remembers your privacy choices, and one protects a business's question form from abuse when it's used without an account. Your browser also remembers things you set, like your place and recent searches, on your device only. Two optional kinds come from other companies, and only if you say yes: usage analytics, and videos from YouTube or Vimeo. The full list is in the [Privacy Policy](/privacy.php#cookies).
+1828: 
+1829: ### What is "Usage analytics", and do I have to allow it?
+1830: It lets us count how Traversence is used (which pages are visited, searches that found nothing, what's hard to use) with an analytics service, so we can fix and improve it. It's off until you say yes, and everything works the same without it. We never sell what it shows us or use it for ads. You're asked once, at the foot of the page or when you create an account; change it any time on the [Privacy page](/privacy.php#choices) or in Privacy Settings → Your tools.
+1831: 
+1832: ### Why does a video show a Play button instead of playing?
+1833: Videos come from YouTube or Vimeo, and once one plays, they can see your visit and set their cookies. So until you allow Videos, each one waits for you: tap Play to watch that one, or **Always play videos** to stop asking. Or open it on YouTube instead. Change it any time on the [Privacy page](/privacy.php#choices).
+1834: 
+1835: ### Where do I change my privacy choices?
+1836: On the [Privacy page](/privacy.php#choices), signed in or not, or in Privacy Settings → Your tools when you're signed in. Signed in, your choices follow you to any device you sign in on.
+1837: 
+1838: ### Can I sign in with Google?
+1839: Yes, and with Apple, Microsoft or Facebook too. Their buttons are under the email and password on the sign-in and sign-up pages, each with its name (**Continue with Google**…), and each shows once it's switched on. Each tells us only your name, your email address and an ID for your account with them, never your password or anything else in that account. Apple may give a "Hide My Email" address that forwards to you. If you already have an account with the same confirmed email, you're signed into it. If you're new, you finish signing up as everyone does: confirm you're 18 or older, choose about verification and privacy, and agree to the terms. With a work or school Microsoft account, we email you a link to confirm your address, the same as signing up with a password. There's no password to choose; to sign in another way too, use **Forgot password?** to set one. To disconnect one, or to have your data deleted, see [Deleting your data](/data-deletion.php).
+1840: 
+1841: ### Does signing in with Google, Facebook or Microsoft connect my account to Traversence?
+1842: No. Signing in only tells us who you are. Connecting a platform so you can bring your business details, events or products in and manage them here in one place is a separate step, asked for only when you use it and only for what it needs. That's coming.
+1843: 
+1844: 
+1845: ### A word means two things. Which one does search use?
+1846: Both, when it can't tell. "Tubing" offers tubing on the river and snow tubing first, then pipe and plumbing suppliers. The words around it decide when they can: "snow tubing" is the ski areas, "river tubing" the rivers, and "copper tubing" or "pvc tubing" only pipe. If a word you search for picks the wrong meaning, tell us with **Suggest it**, or with the Feedback button; that's how search learns its other meanings.
+1847: ### How do I delete my account?
+1848: Go to **Dashboard → Privacy → Delete my account** (or [Delete my account](/user/delete-account.php)). It shows exactly what will happen first. To make sure it's you, you need to have signed in within the last 15 minutes, and you type DELETE to confirm. Your account closes straight away: you're signed out everywhere, and your profile and what you posted are hidden. It's deleted for good after 30 days. Until then you can restore it, exactly as it was, from the link in the email we send, or just by signing in. If you'd rather not wait, tick "Delete it right away instead". When it's deleted, your profile, address book, connections, saved places, settings, likes and sign-ins are gone; what you wrote for others (journeys, stories, posts and comments) is erased, and messages you sent show "[Deleted]". A business listing you run stays on the site for the business, back to unclaimed. An admin, or the owner of a group with other members, hands those over first. Can't sign in? Email support@traversence.com; more on [Deleting your data](/data-deletion.php).
+1849: 
+1850: ### I signed in with Microsoft (or Google, Apple, Facebook) and it asked me to sign up. I already have an account.
+1851: That happens when the email on that account is different from the one on your Traversence account, so we can't tell they're the same person. On the page that asks you to finish signing up, choose **Sign in to link it** and sign in to the account you already have: the two are linked, and from then on either one signs you in. Already signed in? Go to **Dashboard → Privacy → Ways to sign in** and choose **Connect**. You can disconnect any of them there too.
+1852: 
+1853: Right after you sign in, a strip under the bar at the top of the page tells you how it went: green, "Google is now linked
+1854: to your account", or red, with the reason it couldn't be linked (most often, your account already has a different Google
+1855: account linked: one of each per account) and a **Ways to sign in** link to fix it. A sign-in that isn't linked asks again
+1856: next time.
+1857: 
+1858: ### Does Traversence use Google's information about businesses?
+1859: Only to check our listings. Our crawler asks Google whether it knows a listed place, and if Google's place has the same name and street address, we keep Google's ID for it, nothing else (Google's terms don't let us copy its hours, photos or reviews). When Google lists a place as permanently closed, a person on our team checks before anything changes; nothing is closed on Google's word alone. Places whose address is kept private, such as shelters, are never sent to Google.
+1860: 
+1861: ### How long do I stay signed in?
+1862: Until you sign out, or close your browser. A break, even a long one, doesn't sign you out. On a phone, the browser usually stays open in the background, so you stay signed in for days; close it fully, or tap **Sign out**, to end it. If you go 30 days without using Traversence, you'll be asked to sign in again.
+1863: 
+1864: ### How do I change my name or profile?
+1865: Go to your **Dashboard** and choose **Profile** (under Settings), or tap your name at the top of the menu and choose **Your profile**. There you can:
+1866: - set your **display name**, the name people see on your journeys, comments and messages;
+1867: - edit your **contributor bio**, if you're a contributor;
+1868: - make your profile **public** or **private**.
+1869: 
+1870: **See your public profile** shows you what other people see.
+1871: 
+1872: ### What shows on my public profile?
+1873: Only what you publish. Your dashboard opens on your profile: a cover photo, your card (photo, name, @handle, status) and your details (where you live, languages, a mantra, work, education and more). Fill in whatever you like with the pencils. Each item has an eye: **green means public**, plain means only you see it. Nothing you add is public until you switch on its eye. Your name always shows. **See it as others do** opens your profile as a visitor sees it. On a phone your details start folded away so your Pulse is near the top: tap **Details** in your card to open them (we remember your choice on that device).
+1874: 
+1875: ### What is the Pulse?
+1876: Everything coming in, in one place: messages, your groups and connections, and news from the places, businesses and sellers you link. Each source has a pill with its count; tap one to see only that, tap it again to see everything. What needs you (a notice on your account, a claim's last step, people who want to connect, Marketplace checks) comes in as rows under **Needs you**, and the bell shows just those; the gear sets how the Pulse looks (a list, one stream, or a tab per source) and which sources it shows. **Pulse ▾** switches between your accounts: personal, a business you manage, or staff.
+1877: 
+1878: ### Can I reply to a comment?
+1879: Yes. Tap **Reply** under any comment. Replies go one level deep, and the person you answered is told in their Pulse.
+1880: 
+1881: ### Can a business hide comments on its listing?
+1882: Its Owner and Managers can hide a comment from the notice in their Pulse, and show it again there; the notice also has Reply and Report. A comment our team hid after reports stays hidden.
+1883: 
+1884: ### How do I choose what reaches me by email, and when?
+1885: In **Dashboard → App Settings → Communications**. Everything reaches your Pulse; for each kind of message you choose whether it also comes by email, and by push on the devices where you've turned push on. **Quiet hours** are off unless you set them: while they're on, notices and activity wait and come by email when they end, in your own time zone, and push waits for messages too. Anything critical or urgent, such as a payment that failed or a new order, still comes at once, and critical ones always come by email and push. Messages and work always reach your Pulse, so nothing that needs an answer is lost. Texts are coming, after their own decision.
+1886: 
+1887: ### How do I turn on push notifications?
+1888: In **Dashboard → App Settings → Communications**, **Turn on push here**, or when something you do offers it. Your browser asks once, only after you say yes. Each push says what happened and opens it in your Pulse, with **Stop these** beside it. Push is our own and free. On an iPhone or iPad, add Traversence to your Home Screen first (Share → Add to Home Screen), then turn it on from there. On Android it works in Chrome as it is; installing the site (**⋮ → Add to Home screen** or **Install app**) makes its notifications show Traversence's name and icon. **Turn it off here** stops it on that device; **Send me a test** checks it works.
+1889: 
+1890: ### My phone says "Possible spam" about a Traversence notification. What do I do?
+1891: Tap **Show** (or **Allow**) and keep notifications on: **Unsubscribe** would stop everything we push to that phone, alarms included. Chrome on Android checks notifications from websites with its own filter and sometimes flags a site's first ones, before it has a history with you. Ours alert you once per thing: a repeat or an update replaces the notification already there instead of buzzing again, and only something getting worse alerts again. To give them Traversence's own name and icon instead of Chrome's, install the site: in Chrome, **⋮ → Add to Home screen** (or **Install app**); the status bar then shows our North Star.
+1892: 
+1893: ### Can I flag, tag, pin or file things in my Pulse?
+1894: Yes; they're yours alone and no one else sees them. On each row: the envelope marks it read or unread, the pin pins it in your own list, the folder files it in a folder of yours or Archives it, and the plus in a circle adds a **Follow up** (today, tomorrow, this week, next week or a date: at that time it comes back to the top of your Pulse, unread, until you mark it complete), High or Low importance, and **tags** (your own words with a colour; a business's team and our staff can share tags). **Inbox**, **Pinned**, **Follow up**, **Archived** and your folders above the list show each set. We never pin, move or reorder anything for you.
+1895: 
+1896: ### Can I act on a message without leaving my Pulse?
+1897: Yes. A message opens in place under its row with what happened, where it stands now, and its own buttons: hide or answer a comment on your listing, accept or decline a join request, reconnect a mailbox, mark a follow-up complete. Each answers right beside the button, and the message shows its new state. Its last few delivery steps (put in your Pulse, emailed, pushed, read) are under **Its route**.
+1898: 
+1899: ### What does the bell count?
+1900: Everything waiting for you that needs you: messages and message requests, people who want to connect, messages from businesses, and, if you help run a business, its customers' messages, guest questions and orders. Comments and other activity are in your Pulse but don't ring the bell. The bell takes the colour of the most pressing thing waiting (red for Critical, amber for Urgent), and a tap lists those items; each opens right there, with its own buttons, and **Open Pulse** shows everything.
+1901: 
+1902: ### Will my business hear about new messages, orders and comments?
+1903: Yes. When someone writes to your business, a guest asks a question, a Marketplace order is placed, paid or cancelled, or someone comments on your listing, it lands in your business's Pulse, and the team members whose role handles it (the Owner, Managers and General members; orders also reach the Accountant) are told. Messages and orders also come by email, one email per conversation until you've read it; comments come by email only if you choose. Each person on the team chooses for themselves in **Dashboard → App Settings → Communications**. The emails never include a guest's email address or phone.
+1904: 
+1905: ### What can I do with an item in my Pulse?
+1906: Tap ▾ to open it in place. A conversation shows its messages with a box to reply (from a business's Pulse, you also choose what kind of message it is); a message from the site shows its own buttons; a post shows itself with its comments; something you follow shows its words and a link to it; a message you left on a listing shows where it stands. On each row: the envelope marks it read or unread, the arrow passes it on, the pin pins it, the shield protects you (report, block, mute), the folder files it, and the plus adds a Follow up, importance, tags, the Address Book or Keep. Where one doesn't apply it's greyed, and tapping it says why. On a phone the six fold into **⋯** beside ▾. The chain icon goes to where it came from.
+1907: 
+1908: ### Can I pass a message on from my Pulse?
+1909: Yes, with the arrow on its row: to someone you're connected with (as a message from you), to someone on your business's team (it arrives in their Pulse), or to any email address. A forward always says who passed it on. Email forwards are limited to 20 a day per person so they can't be used for spam. Messages from the site itself (what needs you) can't be passed on: open them to act.
+1910: 
+1911: ### Can I report, block or mute someone from my Pulse?
+1912: Yes, with the shield on its row. **Report** goes to our team (a group's post to its moderators), and the person isn't told who reported. **Block** stops a person or a business from messaging you, and they aren't told; undo it in your Address Book. **Mute** quiets a conversation, a group's posts or a business's news for you alone. A business can't block a customer from its Pulse: report them and our team steps in.
+1913: 
+1914: ### Why don't the crawler's findings show in the admin's Pulse?
+1915: The admin's Pulse (Support) lists messages from people: visitors, members and our own calls. What the crawler finds by itself (a changed phone or hours on a listing's own website, a closing, two listings that look like one business) waits in **Review** for the review checkers, and doesn't count toward **Needs you**. Checkers that settle these by themselves are coming; until then they wait in Review. If the crawler's own findings pile up (300 waiting, or 100 in an hour), one System case says so.
+1916: 
+1917: ### Where are all my photos?
+1918: In your **Gallery** (the camera in your menu, or the **Gallery** tab of your dashboard, which shows your newest 12 and your albums with **Open your gallery** for the rest): photos and videos you uploaded, your profile and cover photos, and the photos in your journeys, grouped by when they were taken. Tap one to see it full size: swipe or use the arrows, pinch to zoom, and close it with ×, Esc or a tap on the dark background. Its ⋯ menu edits the caption, alt text and date of your own photos, saves it to your phone or computer, or shares it outside Traversence. Visitors to your profile see only what you've shared: your public albums and published journeys.
+1919: 
+1920: ### What are posts, and why do they disappear?
+1921: A post is whatever's on your mind: words, photos, a video, or all three. Write one with **What's on your mind?** at the top of your Dashboard or your Posts tab. Every post is a Moment: it lasts **3 days** (or **7 days**, if you choose that when you post, or later from its ⋯ menu) and is then deleted, with its photos, videos, reactions and comments, unless you **Keep** it. A day before it ends we tell you in your Pulse, so you can keep it. Moments keep your feed current and mean less of your life sits on a server. Posts show in your **Pulse** with everything else coming in: posts from you and the people you follow or are connected with under **Community**, posts from businesses you've linked under **Listings**. Tap ▾ on one to open it right there, with its photos or video, reactions and comments.
+1922: 
+1923: ### How do I keep a post?
+1924: Tick **Keep** when you post, or tap **Keep** on the post (or in its ⋯ menu) any time before it ends. A kept post stays on your profile, and its photos and videos go into your **Gallery**, in an album called Kept Moments (private until you share it). A video from a post you shared with **Public** goes to your **Channel** instead: the **Videos** tab on your profile. Kept photos and videos count toward your storage; Moments don't.
+1925: 
+1926: ### Who sees my posts?
+1927: You choose for each post: **Public** (anyone, on or off Traversence), **Followers** (people who follow you, and your connections), **Connections** (only people you're connected with) or **Only me**. New posts start with your default, which is Connections until you change it on your Posts tab. If your profile is private, Public works like Followers. Someone you've blocked, or who blocked you, never sees your posts. Your followers and connections see your posts in their Pulse, under **People you follow**, newest first: nothing is boosted or sold, and there are no ads. To send one straight to people instead, see "What's a Snap?" below.
+1928: 
+1929: ### What's a Snap?
+1930: A post sent straight to people instead of your feed. In **What's on your mind?**, add people or one of your groups on the **To** line, and the button becomes **Send**; tick **Also post to my feed** to do both (**Post & send**). On someone's profile, **Snap** opens it already addressed to them. It arrives in their messages as a photo or video tile with your words, and they can reply in the same conversation. A Snap stays between you: only you and the people you sent it to can open it, and it can't be shared on. Like any post it lasts 3 or 7 days; either of you can **Keep** it (it goes into the Gallery of whoever keeps it), and the conversation says who kept it. You see when it's been opened ("Opened", or "Opened by 2 of 3" in a group). Who you can send to follows their message settings: someone you haven't linked or connected with may get it as a message request, and someone who only takes messages from people they know is greyed out with the reason.
+1931: 
+1932: ### What's on my Videos tab?
+1933: Your **Channel**: the videos you kept from posts shared with **Public**, newest first, and **Playlists**, your albums that have videos in them (only the public ones show to visitors). Share the tab with its short link, or download its QR code to print. A business's videos show the same way on its listing page, under **Videos**. Your Channel is an album in your **Gallery**: make it private there and only you see it. Videos you kept from posts shared with fewer people stay in your private Kept Moments album.
+1934: 
+1935: ### How much storage do I have?
+1936: **2 GB** on the free Personal plan, **25 GB** on Personal Plus and **50 GB** on Personal Pro, plus any storage packs, plus what you've earned. Your Gallery counts: photos and videos you uploaded or kept. Moments don't count until you keep them. When something won't fit, we show your choices once: a bigger plan, a storage pack (+25 GB for $2.95 a month, on a paid plan), or choose what to clear in your Gallery. Nothing already there is ever removed.
+1937: 
+1938: ### Can I earn more storage?
+1939: Yes, free, up to **25 GB**: **1 GB for every friend who joins** with your invite (from **Contacts** in your Address Book, or **Invite** on the To line), and **1 GB for every 500 followers**. A friend or follower counts once they're a settled member: email confirmed and 18 or older, their account at least 30 days old, and on Traversence on at least 3 different days; someone you've blocked or who's been suspended doesn't count. You can earn up to 5 GB a month, and what you've earned stays even if followers leave. See yours under **Earned storage** on your Plans page; it's counted every day.
+1940: 
+1941: ### What's in the Shop?
+1942: Everything Traversence sells, in one place, at **/shop/** (**Shop** in the cart's side menu, under Cart): for you, Personal Plus and Pro, storage packs and GO Codes; for a business you're acting as, its plans, storage and AI packs, GO Codes, White Glove, and design, video, print and signs (ask for a quote). **Add to cart** puts a plan or a pack in the same cart as your GO Codes, and you pay for all of it with one card entry. A plan that starts keeps your card on file for its renewals; a change of plan, or packs added to a plan you already pay for, go on the card on file. Keeping a single video in 4K ($0.99) is in a video post's ⋯ menu and goes in the same cart. **A month of Personal Pro** ($9.95, paid once) is in the Shop too: Pro for a month with no card kept and nothing renewing; another month bought before it ends adds on. Coming: creator collaborations and licensing for businesses, and email, text and push packs. Without an account, the Shop shows GO Codes and what a free account adds.
+1943: 
+1944: ### Can I try Personal Pro for free?
+1945: Yes, once: **Try Pro free for 7 days** on your Plans page, in the Shop, or when you reach for more (the 2-minute recording limit, a full Gallery). No card and nothing charged: you get Pro's 50 GB, 10-minute videos and uploads up to 1 GB for a week, then it goes back to the free plan on its own unless you keep it (add a card and choose **Keep my plan**). AI Assist credits come with a paid plan, not the free week. It's for Verified members (email confirmed, 18 or older), one free week per account.
+1946: 
+1947: ### Can my business post?
+1948: Yes. If you're on a business's team with Catalog & content to edit, **What's on your mind?** shows **Post as**: choose the business, and the post shows its name and links to its page. A business's posts show on its listing page, under **Posts**, and in the Pulse of everyone who linked it; choose **Public** or **People who linked it**. They last 3 or 7 days like any post, or Keep them into the business's Gallery (its plan's storage). A business doesn't send Snaps: it reaches people through its Messages, when they've chosen to hear from it. A business sees how many saw or reacted to its posts, never who.
+1949: 
+1950: ### How do I send to someone who isn't on Traversence?
+1951: On the **To** line, type their name: if no one by that name is here, **Invite “name” to Traversence** asks for their email or phone. By email, we send them a link to join; by phone, you get a message and link to send them yourself (we don't send texts). Once they join, you're asked to connect, and they show on the To line. You can also invite from **Contacts** in your Address Book.
+1952: 
+1953: ### Can people see that I looked at their post?
+1954: On a post, its poster sees **Seen by** with a number. They see your name only if you're linked: you're connected, or one of you follows the other. Anyone else is counted, never named. Who reacted works the same way. Nowhere else on Traversence shows who looked at something.
+1955: 
+1956: ### How long can a video be, and how many can I post?
+1957: Up to **2 minutes**. Tap **Record** and choose the frame: **Portrait** (9:16, for phones), **Square** or **Landscape** (16:9). What's inside the frame is exactly what's recorded, and the phone remembers your choice. Zoom with two fingers on the picture, or tap **1×** for 2× and 3×, before or while you record. The switch-camera button works while you record too: the clip carries on from the other camera, sound and all. Where your phone's browser offers the camera's own zoom (Chrome on most Android phones) it stays sharp; elsewhere (iPhones, most front cameras) the picture is enlarged, so it softens as you zoom, up to 3×. Tap the red button to start and again to stop (the ring counts down from 2:00 and stops by itself at 0:00). Then watch it back and choose **Use video** or **Retake**; × closes it, and asks first if you'd lose a recording. It records at a phone-friendly size as it goes, so it sends quickly. A video from your phone can be up to 2 minutes and 25 MB. On **Personal Pro**, and when you post as a business, videos can be up to **10 minutes** and uploads up to 1 GB; when the ring reaches 0:00 on another plan, we offer Pro once, beside **Keep my 2 minutes**. You can post **5 photo or video posts a day** (2 a day in your first week), with up to 25 up at once; words-only posts don't count. At the limit, delete one of your active posts to make room, or keep the ones you want to stay (kept posts don't count). A video bigger than 720p gets a 720p copy for feeds, so it plays quickly everywhere. On **Personal Pro** (and a business's posts) the original is kept too: **Watch in 4K** (or HD) on the video plays it. When you keep a post, its video is kept at your plan's size: 720p on Personal, 1080p on Personal Plus, the original on Personal Pro. To keep one video at full size without a plan, choose **Keep in 4K · $0.99** in its post's ⋯ menu: it goes in your cart, and once paid the post is kept with its original video (and **Watch in 4K** plays it). It's for videos bigger than 720p, before the post is kept. On free accounts, video can pause until the 1st if the month's budget for them runs out; photos and words carry on, and the page tells you when.
+1958: 
+1959: ### What are the reactions?
+1960: Like, Love, Care, Haha, Wow, Sad and Angry. Tap **Like** to choose one; tap the same one again to take it off, or another to change it. A post shows how many of each.
+1961: 
+1962: ### What happens to a post that's reported, or deleted?
+1963: Report a post from its ⋯ menu; the person isn't told who reported it. Our team looks at it. A post is hidden while it's looked at after three reports, or at once if it shows someone's private information or a sacred place, or puts someone in danger. When a post is reported we keep a small copy of it until the report is decided, and for 90 days after, even if the post ends or is deleted, so a decision can be checked; it's never shown or used for anything else. We may have to keep it longer if the law asks us to. Otherwise a deleted or ended post is gone for good; we keep only a line saying a post existed and when, never what it said or showed.
+1964: 
+1965: ### What are the tabs on a profile?
+1966: Quick ways into each tool: **Dashboard** (your profile with your Pulse under it, where your account opens; tap it to come back from any other tab), **Posts** (what you've posted, and on someone else's profile what they share with you; a profile opens on it), **About**, **Contacts** (your private Address Book, only you see it), **Gallery** (for you, every photo you've uploaded; for visitors, the photos from your published journeys), **Connections** (how many people follow you, if you publish it), **Journeys**, and **Check-ins**, **Events** and **Reviews**, which are coming. Visitors see the tabs for what you share.
+1967: 
+1968: ### How do I frame my profile photo?
+1969: Tap the pencil on your photo, then **Reposition and size**. Drag the photo to move it inside the square, and use the slider (or + and −) to make it bigger or smaller. We keep a private, resized copy of the photo you chose, so you can reframe it later without uploading it again. When you remove the photo, that copy goes too. The cover photo drags up or down the same way.
+1970: 
+1971: ### Can I make all my photos public at once?
+1972: Yes. When you add or change a photo, tick **Make all my photo uploads public**. We remember it, and each new photo starts out public. You can still hide any one photo, and untick the box to go back to choosing each time.
+1973: 
+1974: ### Can people look at my profile photos?
+1975: Yes, if you've made them public. On your public profile, a tap on your cover or profile photo opens it full screen with your name, likes, comments and Share; on a phone, swipe up from the photo to its comments, and drag the photo down onto the × to close it. Liking, commenting on and sharing photos are coming. To change a photo, use the pencil on it in your dashboard.
+1976: 
+1977: ### Why do I show as "Member #" and a number?
+1978: You haven't chosen a display name yet. We never show your email, so until you pick a name, people see a member number. Set one under **Profile**.
+1979: 
+1980: ### What names can I use?
+1981: Any name from 2 to 40 characters, using letters, numbers, spaces and simple punctuation. Leave out phone numbers and email addresses. Names that suggest you speak for Traversence, such as "Traversence", "Admin", "Staff" or "Support", are reserved.
+1982: 
+1983: ### How do I see my profile as others do?
+1984: On your profile, under your details, tap **See it as others do**. You see it as a visitor would, with none of your own tools, and you can switch between **Anyone**, **A follower** and **A connection** to check who sees which posts. The buttons visitors get (Follow, Connect, Message, Snap) show as a preview there; they do nothing on your own profile.
+1985: 
+1986: ### What's the difference between a public and a private profile?
+1987: - **Public:** anyone can see your name and your journeys, and members can follow you.
+1988: - **Private:** people must send you a connection request instead of following, and you can't publish journeys, because journeys show your name.
+1989: 
+1990: Either way, your email and your location are never shown.
+1991: 
+1992: ### What does Verified mean?
+1993: A **✓ Verified** mark on someone's profile means their email is confirmed (with the link we sent them) and they told us
+1994: they're 18 or older. That's all it takes, and it happens when you confirm your email at sign-up: there's no separate
+1995: question. We never search for anything more about anyone. A business is checked on its own, against its website and
+1996: public records, when its owner claims it; checking a phone with a texted code is coming, and starts only when you ask for
+1997: the code.
+1998: 
+1999: ### Do I have to be verified?
+2000: Everyone who confirms their email is. Browsing, searching, saving, commenting and messaging need nothing more. Writing
+2001: as a contributor, claiming a business, starting a community and staff work need a confirmed email; claiming a business
+2002: also checks the business itself, which starts when you tap to claim it.
+2003: 
+2004: ### Who can see my email?
+2005: No one on the site: your email is never shown on Traversence. Traversence staff can see it only to verify your
+2006: account, or to contact you officially when we can't reach you on Traversence itself, and only when it's truly
+2007: needed. Each time they look, it's recorded.
+2008: 
+2009: ### Why is there a "verify you're human" check when I sign in?
+2010: It stops bots from guessing passwords and making fake accounts. It's Cloudflare Turnstile: usually it passes on its own in a second, with no puzzle to solve. If you press the button before it's done, the form waits for it (a few seconds at most) and tries it again on its own if it stalls; you don't need to do anything. If it still can't finish, reload the page, or turn off any ad or script blocker for this site, or sign in with Google, Microsoft or Facebook instead. It's on the sign-in, sign-up and "forgot password" forms (signing in with Google, Apple, Microsoft or Facebook skips it, since they check already). It isn't used for ads.
+2011: 
+2012: ### How is the Traversence team's access protected?
+2013: Anyone on our team who can use the admin side signs in in two steps: their password (or Google and the others), then a 6-digit code we email them, before any admin page opens. Every code we email (signing in, claiming or adding a business) puts the code first in the subject, so Gmail offers Copy code and a phone can fill it in for you; in the email it's shown once, large, in a box that selects with one tap or click. A sign-in code also has **Sign in with this code**: it opens the sign-in page with the code in and signs you in by itself. It works in the browser where you started signing in; anywhere else the page says so, and signing in there sends a new code. On the code step, the box says **6 digits**, and the page says until what time the code works, in your own time zone ("until 4:42 AM MST"). Type or paste the code (spaces and dashes are fine): it signs you in as soon as the 6th digit is in. They can trust their own browser for 30 days, and changing their password makes every browser ask again. Two-step sign-in for business owners is coming, before businesses can connect payments.
+2014: 
+2015: ### Does Traversence have a password vault?
+2016: Our own team has one now: the logins for the outside services we use are kept in a vault that only its owner's browser can open. Each password is sealed (encrypted) in the browser before it's saved, so what we store can't be read by anyone at Traversence, or by anyone who got into our server. Setting it up takes five short steps: the device's passkey (fingerprint, face or PIN); a vault passphrase, which isn't a password (it never leaves the browser, so it has its own rules: four or more words, or 20 characters, hard to guess, and used nowhere else; the page can suggest one); the recovery words; and two recommended extra checks, an authenticator app (whose code is then needed to add a device or use the recovery words) and a spare passkey or security key. Opening a password takes the passkey and the passphrase; each password opens only for its exact sign-in page; and every password opened is emailed to its owner with a link to lock the vault. If you lose your devices or passphrase, 24 recovery words you saved at the start (printed or downloaded, never emailed) get you back in, once: using them makes new ones. You type three of them back from your saved copy before they're kept, so a mistyped kit is caught at the start. We keep nothing that could open a vault, so lost words with no other device means the vault can't be opened, by anyone. A vault for members and businesses is coming, only if you choose it and agree to its terms, alongside 1Password through us or the password manager you already use. Our team also has a browser extension for Chrome and Edge: connected from the vault for up to 12 hours (the key stays in the browser's memory, gone when the browser closes or the vault is locked), it lists the saved logins under a site's sign-in box only on that exact site, so a look-alike site gets nothing, fills the one picked, and after a sign-in offers to save it or update the saved password. A public version for members and businesses comes with their vault. The vault page's bar across the top shows how long it stays open, with Close and Lock at its end: after 5 minutes unused it asks if you're still there and closes 2 minutes later, like a bank's sign-in. Reloading the page keeps it open (in that tab only, for that time); leaving by a link asks first, since leaving closes it, and closing the tab ends it. A connected extension shows how long it has left. The extension keeps its connection for 12 hours or until the browser closes, in every tab; every 30 minutes it checks with the vault and lets go at once if the vault was locked or it was disconnected. When it isn't connected, its Connect button opens the Vault page, and unlocking brings you back to the tab you were on, connected. On a sign-in that asks for the email first, Fill puts in the email and then the password when the next screen asks for it. In a new-password box it offers a strong password (within the length the page states), and after a password change on a page with no user name it asks which saved login the new password is for. The vault opens three ways: with the passphrase, with the authenticator app's code, or with a code emailed to the email on the account; the second and third are then finished by the device's own PIN, fingerprint or face (or a phone or security key), whose secret never leaves the device, so a code alone opens nothing. PIN unlock turns on for a computer the first time the vault is opened there with the passphrase, and can be turned off under Devices. Its owner chooses what the vault emails and how often (its Emails button): passwords opened, logins the extension saved, the extension connected, and the vault unlocked after a lock can each be emailed each time, the first time each day, in an hourly or daily summary, or not at all (always kept in the vault's own record). Each email, summaries included, says who did each thing: the person and the staff login, or the extension and who connected it. What would show someone else in the vault (devices, recovery words, the authenticator app, a lock, many deletes, and changes to these settings) is always emailed at once. In the list, each login has **Copy password** beside it; the rest (**Show the password for 10 seconds**, **Copy the user name**, **Change it** and **Delete it**) is under its **⋯** (2026-11-20). The extension downloads from the vault page, with its install steps for Chrome and Edge.
+2017: 
+2018: ### What can Traversence staff see about my account?
+2019: We don't look at accounts unless there's an issue or you ask us for help. When we do, staff say why before they
+2020: open yours (a report, your request, a claim, a check), and that's recorded with their name. What they see is the
+2021: basics from your sign-up: your display name, when you joined, whether your email and age are confirmed, whether
+2022: you're Verified, the roles you hold, and the privacy choices you made. Your email and phone stay hidden unless they're
+2023: needed to contact you, and showing them is recorded separately. No one, in any role, can see your private
+2024: messages, your Address Book or your contact cards.
+2025: 
+2026: ### How will Traversence contact me?
+2027: On Traversence: through your notifications, your Pulse and a notice at the top of the page. We use your email or
+2028: phone only for official contact when we can't reach you here (for example, if you can't sign in), and only when
+2029: it's needed. If you contact us for help or sales, we reply to you, or to the contact you name, about what you asked.
+2030: A business's address is used only for that business (claiming it, or confirming it); we don't ask members for a
+2031: postal address.
+2032: 
+2033: ### Can my account be limited or revoked?
+2034: Yes, for breaking the [posting guidelines](#posting-guidelines-and-safety) or misusing the site. You always hear from
+2035: us first, on Traversence, with what happened and the steps to put it right:
+2036: 1. **Warning.** You have 24 hours to confirm you'll follow the steps, or to ask for a review.
+2037: 2. **Limited, with a final warning.** If we don't hear from you, you can still browse, but you can't post, comment or
+2038:    send messages. You have 24 more hours.
+2039: 3. **Access revoked.** If there's still no reply, you can't sign in. We email you what happened, how to recover, and
+2040:    a link to ask for a review.
+2041: 
+2042: Something serious (threats, scams, sharing someone's private information) goes straight to step 3. Asking for a
+2043: review at any step stops the clock until a person at Traversence has looked at it, and they reply by email. Your
+2044: posts aren't deleted at any step. Your notice is at [Your account notice](/user/notice.php). If you can't sign in,
+2045: you can get the review link sent again there.
+2046: 
+2047: ### What lowers my standing?
+2048: Mostly, something you posted being taken down after people reported it. Each one lowers your account's trust score,
+2049: and when the score drops too low, a warning opens on its own. Confirming your email raises it. A take-down that's
+2050: reversed gives it back.
+2051: 
+2052: ### Can anyone read my private messages?
+2053: No. No one at Traversence, in any role, can read your private messages or your contact cards.
+2054: 
+2055: ### What does AI Assist do?
+2056: It helps you write: a caption, a paragraph for your journey, a few lines for a post, or an answer to a question about a place or a subject. Ask about anything, from **AI Assist** in the menu (on its own, or under a topic you've chosen) or with the **✦ AI Assist** button under the story box when you write a journey or an experience, where **Insert** puts what it wrote into your story. It writes only from what we've researched (historic records, public sources and our guides), never from guesses, and shows how many of our facts it used. When we don't know enough yet, it says so and sends the subject to our research queue; when our research learns something (within 45 days), it writes your answer again and emails you, and the ask shows **Answer ready**. Every ask and answer is kept under **Your asks** on the AI Assist page, with **Copy**, and only you see them. The subjects people ask about in a place (the subject only, counted, never your words or who asked) help decide what that place's guide covers. What you ask goes to our AI provider only with **AI Assist & Learning** turned on, and is never shown to anyone else. AI Assist comes with a paid plan: **Personal Plus** or **Personal Pro**, or any paid plan on a business you own (its owners share the business's credits). You get 3 free asks a day (the AI Assist page shows how many are left), then each ask uses one **AI Assist credit** from a plan you pay for (Personal Plus has 10 a month, Personal Pro 25, a business plan 10 to 500, and a +50 pack adds more on the Plans page). A follow-up answer costs you nothing. Your own plan's credits are used first; when you have more than one, you choose which pays. The page shows what's left on each. There's also a monthly limit on what your asks may cost, set by what your plans pay; if you reach it, it's back on the 1st, or a +50 credits pack (or a bigger plan) raises it at once. A trial includes AI Assist from its first payment, and an ask that couldn't be written costs nothing. It never says where a sacred, burial or archaeological place is.
+2057: 
+2058: ### Why does search suggest topics as I type?
+2059: When the words match a topic our guides cover (a river, a trade, a town's history), it's offered under **From our guides**, and search results show the facts from our guides that your words name. What people search for and don't find helps decide what we research next (counts only, never who searched).
+2060: 
+2061: ### Does Traversence use AI on what I write?
+2062: Only if you turn it on. **AI Assist & Learning** is off until you switch it on in Privacy Settings. Private messages and contact cards never enter shared learning, whatever you choose. [Our approach](/our-approach.php) has the details.
+2063: 
+2064: ### Do you sell my information or show me targeted ads?
+2065: No. We don't sell or rent your information, share it for advertising, target ads, or track you around the web. [Our approach](/our-approach.php) explains what we never do, and the [Privacy Policy](/privacy.php) says exactly what we collect and why.

@@ -1,0 +1,51 @@
+1: <?php
+2: // data-deletion.php — how to have your account and data deleted (decisions/0090). Facebook asks every app that uses
+3: // Facebook Login for this page ("Data deletion instructions URL"); it applies to everyone, however they signed up.
+4: require_once __DIR__ . '/../app/ui/page-shell.php';
+5: tv_page_start('Deleting your data', ['no_crumbs' => true, 'description' => 'How to have your Traversence account and data deleted, and how to disconnect Google, Apple, Microsoft or Facebook.']);
+6: ?>
+7: <style>
+8:   .dd{max-width:46rem;font-size:.95rem;line-height:1.6;color:#3E2B1F}
+9:   .dd p{margin:.45rem 0}.dd ol,.dd ul{margin:.3rem 0 .6rem 1.2rem}.dd ol{list-style:decimal}.dd ul{list-style:disc}.dd li{margin:.25rem 0}
+10:   .dd h2{font-family:var(--tv-font-head,Georgia,serif);font-weight:700;font-size:1.15rem;margin:1.2rem 0 .3rem}
+11:   .dd a{color:#92400E;text-decoration:underline}
+12: </style>
+13: <div class="dd">
+14:   <h1 class="font-serif font-bold text-3xl">Deleting your data</h1>
+15:   <p>You can have your Traversence account and what's tied to it deleted at any time, however you signed up: with your email,
+16:     or with Google, Apple, Microsoft or Facebook.</p>
+17: 
+18:   <?php if (!empty($_GET['closed'])): ?>
+19:   <p style="background:#FEF3C7;border:1px solid #FCD34D;border-radius:.6rem;padding:.6rem .8rem" role="status"><b>Your account is closed.</b> It will be deleted on <?= htmlspecialchars(mb_substr((string) $_GET['closed'], 0, 40)) ?>. We've emailed you a link to restore it if you change your mind, or just sign in before then.</p>
+20:   <?php endif; ?>
+21:   <?php if (!empty($_GET['done'])): ?>
+22:   <p style="background:#DCFCE7;border:1px solid #86EFAC;border-radius:.6rem;padding:.6rem .8rem" role="status"><b>Your account is deleted.</b> We've emailed you to confirm. Thank you for being part of Traversence.</p>
+23:   <?php endif; ?>
+24:   <h2>Delete your account yourself</h2>
+25:   <ol>
+26:     <li>Sign in, then go to <a href="/user/delete-account.php">Delete my account</a> (also under Dashboard → Privacy).</li>
+27:     <li>It shows exactly what will be deleted. Type DELETE to confirm.</li>
+28:     <li>Your account closes straight away (you're signed out, and your profile and posts are hidden), and it's deleted for good
+29:       after 30 days. Until then, restore it from the email we send, or by signing in. Or choose to delete it right away.</li>
+30:   </ol>
+31:   <p>Can't sign in? Email <a href="mailto:support@traversence.com?subject=Delete%20my%20account">support@traversence.com</a> from
+32:     the address on your account, with the subject "Delete my account". We reply to confirm it's you, then delete it within 30 days.</p>
+33:   <p>What's deleted: your account, your profile, the sign-ins linked to it (the ID Google, Apple, Microsoft or Facebook gave us,
+34:     and the email they shared), your address book and connections, your saved places and choices, and your likes. What you
+35:     wrote for others (journeys, stories, posts and comments) is taken down and its text erased; messages you sent to other
+36:     people show "[Deleted]".</p>
+37:   <p>What may stay, without your name on it: counts of visits and searches, which never record who (see the
+38:     <a href="/privacy.php">Privacy Policy</a>). A business listing you claimed stays on the site for the business, with your
+39:     name taken off it. Records the law requires us to keep (such as a report we acted on) are kept only as long as required.</p>
+40: 
+41:   <h2>Disconnect Traversence from the account you signed in with</h2>
+42:   <p>This stops that account being used to sign in here. It doesn't delete your Traversence account; set a password with
+43:     <a href="/forgot-password.php">Forgot password?</a> first if you want to keep using it.</p>
+44:   <ul>
+45:     <li><b>Facebook:</b> Settings &amp; privacy → Settings → Apps and websites → Traversence → Remove.</li>
+46:     <li><b>Google:</b> myaccount.google.com → Security → Your connections to third-party apps &amp; services → Traversence → Delete all connections.</li>
+47:     <li><b>Apple:</b> Settings → your name → Sign in with Apple (or account.apple.com → Sign-In and Security → Sign in with Apple) → Traversence → Stop using.</li>
+48:     <li><b>Microsoft:</b> account.microsoft.com → Privacy → Apps and services → Traversence → Remove these permissions.</li>
+49:   </ul>
+50: </div>
+51: <?php tv_page_end(); ?>

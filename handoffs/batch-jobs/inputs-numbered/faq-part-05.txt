@@ -1,0 +1,352 @@
+1055: 
+1056: ### What do the plans cost?
+1057: For a business: **Free** costs nothing; **Basic Partner** is $29.95 a month, **Core Partner** $79.95, **Strategic Partner** $229.95 and **Cornerstone** $399.95. For yourself: **Personal** is free, **Personal Plus** $4.95 a month and **Personal Pro** $9.95. Paying by the year costs 10 months' price for 12 (two months free). Each plan includes storage and AI Assist credits, and each business plan adds tools to the one below it (Basic Partner adds customers, quotes and invoices, order emails and discount codes; Core Partner card checkout, a storefront and dynamic QR codes; Strategic Partner campaigns, wholesale price lists, your own workflows, the API and White Glove; Cornerstone several locations and the Co-Op hub). The **Plans** page lists everything under each plan, and **Settings & team** in your business shows what yours opens. No plan ranks you higher in search: plans pay for tools, storage and support.
+1058: 
+1059: ### How do I choose or change my plan?
+1060: Open **Plans**: **Manage plan** in your business dashboard, or **Plans** in your Dashboard's menu, under Settings (also in the site menu, ☰). Pick a plan, monthly or yearly, and add your card. The card goes straight to QuickBooks Payments (Intuit); we never see or keep the number. A bigger plan starts right away and you pay the difference for the rest of the period; a smaller one starts at your next renewal, and you keep what you paid for until then.
+1061: 
+1062: ### How does a free trial work?
+1063: When you claim your business and choose a paid plan, you first see a review: the plan, its price after the trial, the day the trial starts and ends, and what happens then. Tick that you agree to the Terms and choose **Start my free trial**. It lasts 30 days (our team sometimes offers 60 or 90), needs no card, and nothing is charged during it. We email you 5 days and 1 day before it ends, and on the day. To keep the plan, set up billing on the **Plans** page (add a card and choose **Keep my plan**): the price is charged from the day the trial ends, and you can cancel any time. If you don't, your business goes back to the Free plan on its own: nothing is charged, your listing and content stay, and the paid tools pause until you choose a plan again.
+1064: 
+1065: ### Does my plan renew on its own?
+1066: Yes, on the same date each month or year, charged to the card on file, with a receipt by email each time. A yearly plan gets a reminder 7 days before it renews. Choose **Stop at the end of this period** on the Plans page any time: you keep everything until then and aren't charged again. Periods already started aren't refunded.
+1067: 
+1068: ### What happens if my card is declined?
+1069: We email you and try again 3 days later, and once more after 7 days. Update the card on the Plans page and we charge it right away. If it's still declined after that, the plan goes back to Free; your listing stays up, and you can choose a plan again any time.
+1070: 
+1071: ### What are storage and AI packs?
+1072: Extra storage (+25 GB, +50 GB, +100 GB, +250 GB, +1 TB or +5 TB) and +50 AI Assist credits a month, the same for every plan and for personal accounts. Add one on the Plans page once your plan is paid: you pay for the rest of the current period now, then it renews with your plan on the same date. Packs are always full price, also on a yearly plan. **Remove at renewal** takes one off at the next renewal.
+1073: 
+1074: 
+1075: ### How do I use a promo code?
+1076: Type it where it says **Promo code**: on the **Plans** page, in your **GO Codes cart**, or on an order we've prepared for you, before you approve it. A trial code starts the free trial right away, with no card. A code for a percentage off shows what it takes off before you pay. If a code came with a QR code (a GO Code), scan it: its page shows the offer and takes you to where it works, with the code ready. Each code works once per account, between its dates, and some are only for one business.
+1077: 
+1078: ### Why didn't my code take anything off?
+1079: A code works on certain things: plans, GO Codes, or kinds of work such as creative or printing. It never takes anything off storage or AI Assist packs. Some prices are already as low as they go, so a code can't take them lower. If you think it should apply, write to support@traversence.com with the code.
+1080: ## Journeys and contributors
+1081: 
+1082: ### What is a journey?
+1083: A story about a place you've been, in your words, with your photos. You can add a video link, tag the place and link the businesses you visited. Journeys appear on the place pages, so other people find them while exploring.
+1084: 
+1085: ### How do I start writing journeys?
+1086: Become a contributor: go to your **Dashboard**, choose **Your journeys**, and click **Become a contributor**. Writing, editing and managing your journeys all happen in your Dashboard.
+1087: - You'll read the contributor guidelines and accept them.
+1088: - You'll need to be 18 or older.
+1089: - Your profile can't be private, because journeys show your name.
+1090: 
+1091: ### How does my journey get onto the front page?
+1092: Publish it. Drafts are seen only by you and our team. A journey needs three things to show:
+1093: - **Published.** Open it from **Your journeys**, click **Edit**, then **Publish**.
+1094: - **A story of a few sentences** (at least 40 characters).
+1095: - **A place**, under **About a place**. Without one, it shows only on the North America page. With one, it also shows on that town, area or region.
+1096: 
+1097: Once published, it appears in the **Journeys & guides** feed right away, newest first.
+1098: 
+1099: ### Where do my published journeys show?
+1100: - On **Let's Explore**, in the **Journeys & guides** feed for the place you chose, and the places above it, up to North America.
+1101: - On your **public profile**, under **Journeys**.
+1102: - On the **listing page** of every business you linked in your journey, under "Journeys that mention…".
+1103: 
+1104: A journey you post as a business also shows on that business's listing page.
+1105: 
+1106: ### How does a photo end up in the big picture at the top of a page?
+1107: The picture at the top is chosen from published journeys at that place. Photos need to be at least 900 pixels wide, and the uploads we store are 2000, so yours qualify. The ones people like and comment on most get shown first.
+1108: 
+1109: ### How do I get into Top Contributors?
+1110: Publish journeys as a contributor and keep your profile public. The list favors recent journeys people engage with, and accounts that have been around a while.
+1111: 
+1112: ### My journey said "Saved as a draft: an automatic check found…". What now?
+1113: An automatic check spotted something it holds back: unsafe or spammy wording, or a pile of links. The message says what it found. Reword that part and publish again.
+1114: 
+1115: ### The place I wrote about isn't in the place list. What do I pick?
+1116: The place list has regions, areas, towns and local names. For a lake, a park or a trailhead, pick the nearest town or the area. Mention the place itself in your title and story.
+1117: 
+1118: ### What's the difference between "Traversence", "Contributor" and "Business"?
+1119: Every journey and guide is labelled:
+1120: - **Traversence:** written by our editorial team.
+1121: - **Contributor:** written by a member, with their name on it.
+1122: - **Business:** posted by a local business's team, shown under the business's name and linked to its listing.
+1123: - **Partnership:** the writer was paid, or given something free, for it.
+1124: 
+1125: ### Can my business post journeys?
+1126: Yes. If you're on a listing's team as its Owner, Manager or General member, the journey editor has a **Post as** choice: yourself, or the business. A business journey shows the business's name and links to its listing. You still need to be a contributor yourself.
+1127: 
+1128: ### Do I have to mark a partnership?
+1129: Yes. If you were paid, or given something free, for a journey, mark it **Partnership**. U.S. law requires the disclosure.
+1130: 
+1131: ### Can I say exactly where and when it happened?
+1132: Yes, if you want to. **Where it happened** is an optional pin you set on a map, and you can add a time next to the "Was here" date. Each photo can also have its own pin and the date it was taken.
+1133: 
+1134: ### My photo knows where and when it was taken. Does Traversence use that?
+1135: Only if you say so. When you add photos, your browser reads the photo's own date and location and shows them to you: "This photo says it was taken Aug 12 near …. Use it?" Tick what you want to keep. The photo we store has all of that removed either way.
+1136: 
+1137: ### Where are my photos and files kept?
+1138: In secure file storage (Amazon S3, moving to Cloudflare R2), not on the web server: photos of places, businesses, journeys and profiles, a business's proofs and files, and order artwork. Photos you've made public load from there; private files (proofs, documents, order files, anything shared only with a customer) open through links that work for a few minutes and only for people allowed to see them. Everything you add is kept together in your own folder (a business's in its own), under a random name rather than your account number, so your photos' addresses don't say who you are. Removing a photo or file deletes it from storage, and deleting your account deletes your folder; files that belong to an order stay with the order, as its record. Documents sent to prove a claim are deleted as soon as the claim is decided. Downloading all your files in one go is coming.
+1139: 
+1140: ### How big can a file be, and what happens when I upload one?
+1141: Every upload on Traversence works the same way, wherever you add it: the gallery, a business's proofs and files, an order's proofs, artwork and shipping labels, journey and profile photos, the photos at the top of a listing, a guest adding to an album, a claim document, a GO Code's logo. Before anything is sent we check the size: a file that's too big for where it's going is refused straight away with the limit, and anything over 10 MB asks you first, since it takes a while. Files go straight to secure storage in parts, with a bar showing how far along it is; if your connection drops, each part is tried again before it gives up. When it's done, the result shows right beside what you were working on (no jumping to the top of the page). Each file is checked to be what its name says (a PDF really a PDF) before it's kept. The most one file can be is **1 GB** (gallery videos and files, a business's proofs and files, order files). Some places take less, because they need less: a gallery photo up to 100 MB, photos for a listing, a profile or a journey up to 15 MB (we resize them anyway), a guest's photo 25 MB, a claim document 25 MB, a GO Code logo 2 MB. Photos are made a sensible size on your phone before they're sent, unless the album keeps originals (portfolio and brand albums).
+1142: 
+1143: ### Can I leave the page while a big file uploads?
+1144: Yes. Once you start an upload, your browser keeps a copy of the file and carries on sending it while you move around the site: open another order, go to your dashboard, use other apps. A box in the bottom corner of every page shows each file with its size, how much has gone, one progress bar, and what you need to do before you go. On a computer, keep one Traversence page open (in any tab) until it reaches 100%. On a phone, keep the browser open and in front: phones pause uploads when you switch apps or lock the screen, and they carry on when you come back. If you close every Traversence page, the upload pauses and picks up where it stopped the next time you open the site in that browser (within a day). If the connection drops, it tries again every minute. When it's done, you get a notice with a link back to where you started it, and with **Tell me when it's done** your browser's own notification tells you even when you're in another app or tab. Closing the last Traversence page while an upload is still going asks you first. In a private window, or a browser that can't keep a copy, the page sends the file itself and asks before you leave it.
+1145: 
+1146: ### Can I share an album with just a few people?
+1147: Yes. Open the album and choose **People**, then invite each person by email as **View only** or **Can contribute**. They get an email with a link; once they sign in (or make a free account) the album is in their gallery under **Shared with you**, whatever the album's setting. People who can contribute add their own photos (they stay theirs) and can take out only the ones they added; they can't remove anyone else's photos or change the album. You can change someone's role, take back an invitation, or **Remove** them: their photos come out of the album, and their likes and comments there are deleted. Anyone can also **Leave album**.
+1148: 
+1149: ### Can my business have a gallery?
+1150: Yes. In your business's tools choose **Gallery** (or **Manage the gallery** on your listing page): everyone on your team with **Catalog & content** can upload photos and videos and make albums. The photos at the top of your listing are in it already. Public albums show on your listing page under **Albums**. A business's gallery counts toward its plan's storage.
+1151: 
+1152: ### How do Portfolio albums work for my clients?
+1153: Make an album and, under **What it's for**, choose **Portfolio**. You set the rules: whether clients pick their favourites (and how many), downloads (none, picked photos only, or all, and how many each), and a watermark with your own text. Share it with its link or invite clients in **People**. Clients sign in, tap **Choose my picks**, then **Send my picks** with a note; you get an email, and **Client picks** shows each client's choices and lets you highlight them on the album. Clients see the watermark; you never do. Photos you upload to a Portfolio keep their full-size original, which is what a download gives (no watermark). Videos aren't watermarked.
+1154: 
+1155: ### What is a Brand & documents album?
+1156: A place for a business's (or anyone's) logos, brand guides, PDFs, design files (Illustrator, Photoshop, InDesign, EPS, SVG), fonts, Office files, ZIPs, audio and video: any of them up to 1 GB. Choose **Brand & documents** under **What it's for**, then **Upload files**. Each file shows its type, size and version; **New version** uploads a replacement and keeps every older one, and the history icon lists them, each downloadable. If the album is shared, people who can see it can download its files. Searching and tagging files across albums is coming.
+1157: 
+1158: ### Can Traversence staff see my private photos?
+1159: No. Our team's gallery tools list only what's already shared (public and unlisted albums, and what's in them); private albums and photos are only counted. If something shared breaks the rules, the team can make that album private or take a photo out of shared albums. It stays yours, in your gallery, nothing is deleted, and you get an email saying why.
+1160: 
+1161: ### Can guests add photos to my album without an account?
+1162: Yes, for an event. In the album choose **People**, then **Let guests add photos**: you get a guest link and a QR code to print or show. Anyone who opens it can add photos (up to 60 a day each), with their name if they want; no account or app needed, and where the photos were taken is never sent. The photos are yours to keep or delete, and they show "Added by" the name they gave. **New guest link** or **Turn off** stops the old link and QR code at once.
+1163: 
+1164: ### Can people like and comment on my photos?
+1165: Yes, anyone who can see a photo and is signed in. Open it full screen: the heart likes it (on a phone, double-tap the photo), and comments sit with that photo, not the whole album. You can remove any comment on your own photos, people can remove their own, and anyone can report one. Commenting needs an account that's 18 or older.
+1166: 
+1167: ### Can I post a photo someone else took?
+1168: Yes, with their permission. Under the photo, choose **Used with permission** and say who took it. It shows as "Photo: their name".
+1169: 
+1170: ### Can other people reuse my journey?
+1171: You choose, under **Rights and reuse**:
+1172: - **Shown on Traversence only** (the default);
+1173: - **Others may share it, with credit**;
+1174: - **Free to use, no credit needed**.
+1175: 
+1176: You keep ownership either way.
+1177: 
+1178: ### Can I write a journey with someone else?
+1179: Yes. Under **Co-authors**, search for up to five members by name. They're invited when you save. Their name shows on the journey, and it shows on their profile, once they accept. Invitations wait on their **Your journeys** page.
+1180: 
+1181: ### What does "Mature themes" do?
+1182: It puts a notice in front of your journey: readers choose to open it. Its card shows a notice instead of a photo, and it isn't used for the big picture at the top of pages. All Traversence accounts are for adults, but this lets readers decide.
+1183: 
+1184: ### What's the "Caution" note for?
+1185: Anything readers should know first, such as rough roads, weather, closures or gate times. It shows as a banner at the top of your journey.
+1186: 
+1187: ### Can I add a video?
+1188: Yes, as a YouTube or Vimeo link. We don't host video uploads.
+1189: 
+1190: ### Who can see my comments?
+1191: Comments on journeys are public. You can remove your own comments any time.
+1192: 
+1193: ### Can I edit or delete a journey?
+1194: Yes, from **Your journeys**. Deleting removes it and its photos.
+1195: 
+1196: ### Who owns my journeys?
+1197: You do. Traversence shows them on the site with your name, and you can remove them any time.
+1198: 
+1199: ## Photos and your location
+1200: 
+1201: ### Does Traversence share where I am?
+1202: No. We never expose anyone's location. You may share your own, by tagging a place or a photo yourself.
+1203: 
+1204: ### What happens to the hidden data in my photos?
+1205: When you upload a photo, we remove everything hidden in the file, including GPS coordinates, your device and the time it was taken. If you want to show where a photo was taken, tag it yourself with a place or a map pin.
+1206: 
+1207: ### What's "Was here", and will there be "Am here"?
+1208: **Was here** marks a journey as a place you visited, with the month. **Am here**, live check-ins, is coming as a separate feature. You'll switch it on yourself after reading its rules and risks. Each time you check in, you'll choose to post now or later.
+1209: 
+1210: ### Why do some photos say Stock photo?
+1211: Until a place, a business or a section has a photo of its own, a park, monument, visitor centre or historic site first gets a free Wikimedia Commons photo of the place itself, taken there and named for it (one taken right there, within about a mile, needs only the place's own name: "Lyman Lake" counts for Lyman Lake State Park), with its credit; the first time someone opens one still without it, we look for its photo first, within the hour; only when there's none do we show a **stock photo** instead: a photo nobody on Traversence took, from Wikimedia Commons, the Library of Congress or Pixabay, chosen by our team one at a time. Each one shows its credit on the photo ("Photo: <who took it> on <where it's from>") with a small **i**; tap it to see that it's a stock photo, whether it shows this place or only the kind of place (**Representative**), its licence and its source. We only use photos whose licences allow it, and never photos of sacred, burial or protected places. As soon as a real photo is added, it shows instead, by itself.
+1212: 
+1213: ### What does "Representative photo" mean?
+1214: The stock photo shows the kind of place or thing, not this one itself: a desert road for a desert town, a shopfront for a shop. A business's stock photo is always marked Representative, because it never shows that business. When the photo really is of that place, the label says **Stock photo** alone.
+1215: 
+1216: ### Where can stock photos be used?
+1217: Only where a photo illustrates: the photo at the top of a place's guide or of a listing with no photos yet, a card with no photo, a storefront's banner, the home page's sections and an event's backdrop. Never where a photo says "this is the real thing": a product or an item for sale, a journey, a story or a review, a gallery album, an event's own photos, a business's own photos (its premises, its people, its work, its logo), a profile picture, or a proof or an order. Those places don't offer stock photos at all, because authenticity matters.
+1218: 
+1219: ### How do I add a photo or a file?
+1220: Wherever you add one (a journey, your profile, a Marketplace post, a catalog item, a listing's photos, a storefront), tap the button and your **Gallery** opens on the page, not your computer's file window:
+1221: - **Your gallery:** choose one of your photos (or several), sorted into catalogs. For the Marketplace, a catalog item or a storefront, the photo is used right where it is in your Gallery. A journey, your profile and a listing's photos keep a copy of their own, which then shows in that catalog too.
+1222: - **Stock:** only where a photo illustrates, like a storefront's cover (see below).
+1223: - **Upload new:** drag files in, paste a screenshot (Ctrl+V or ⌘V), or tap **Browse your device**, which opens your computer's or phone's own file window. What you upload is kept in your Gallery too, ready to use again.
+1224: 
+1225: It's the same for documents and order files (proofs, artwork, print-ready files, shipping labels, a quote's files): **Your gallery** shows the documents you've kept that fit, and a new file you upload is kept in your Gallery's **Documents** too, then added where you were. The order or quote keeps its own copy as part of its record.
+1226: 
+1227: ### Does the Gallery know where my photos and files are used?
+1228: Yes. Each time you use a photo or a file from your Gallery (an order's proof, a catalog item, your storefront's cover, a journey…), the Gallery remembers. Open the photo to see **Used in …**, or look beside each file on the **Documents** tab. Only you (or your business's team) see this.
+1229: 
+1230: ### Where are my documents?
+1231: In your **Gallery**, on the **Documents** tab: every file you've added anywhere on Traversence (proofs, artwork, quotes, brand files), newest first, with its size, its version and where it's been used. Search them, download one, or **Add documents**. To use one somewhere, tap that page's file button: it's under **Your gallery**.
+1232: 
+1233: ### What are the Gallery's catalogs?
+1234: Your Gallery sorts every photo by where it belongs, so it's easy to find: **Uploaded here**, **Journeys**, **Profile** (or **Listing photos** for a business), **Marketplace** and **Storefront**. Documents have their own catalog and tab. **Orders** holds artwork from your orders with us that's been released to you; its photos go anywhere a photo does, your profile picture included, where you frame it like any other. Choose one from the **Catalog** button on **Photos & videos**, or from the list at the top of **Your gallery** when you're choosing a photo. Nothing needs filing by hand: a photo moves to its catalog as you use it. **Albums** are still yours to make, and **Stock photos** has a tab of its own, because they aren't yours.
+1235: 
+1236: ### Where do I find stock photos?
+1237: In your **Gallery**, on its own tab, **Stock photos**, next to **Photos & videos** and **Albums**. Type what the photo should show and **Search**: you'll see what's already in the stock library, then free photos found at Wikimedia Commons, the Library of Congress and Pixabay, each with its credit and licence. Choosing one of those adds it to the library, labelled as a stock photo wherever it shows. One place for all your art, kept apart: your photos and albums are yours; stock photos aren't, so they never go in your photos or albums. Search them, see each one's credit, and, for a business, use one as its storefront's cover. When you pick a photo anywhere it's allowed, the picker has the same two tabs: **Your gallery** and **Stock**.
+1238: 
+1239: ### How do I replace a stock photo with my own?
+1240: Add your own photo where it shows: on your listing, tap **Add your own photo** (or **Photos & video** at the top); on your storefront, upload a **Cover** in **Storefront & pages**. Yours shows straight away and the stock photo goes. For a place, share a journey with photos of it: journeys' photos show at the top of its guide.
+1241: 
+1242: ### Can I choose a stock photo for my storefront?
+1243: Yes. In **Storefront & pages**, under **Logo and cover**, tap **Choose a photo** under the cover: your own photos are on the **Your gallery** tab, stock photos on the **Stock** tab. Or open your business's **Gallery** → **Stock photos** and tap **Use as storefront cover**. Visitors see it labelled as a stock photo until you upload your own cover, which takes over by itself. Your logo is always your own: stock photos can't be a logo.
+1244: 
+1245: ## Posting guidelines and safety
+1246: 
+1247: ### Can I post photos of other people?
+1248: Ask before you show people, and take extra care with children. You can mark a journey as showing people with their permission.
+1249: 
+1250: ### What about private property and tribal lands?
+1251: - **Private property:** homes and private land need the owner's permission.
+1252: - **Tribal lands:** many nations restrict photography and filming. Some villages don't allow it at all, and commercial filming needs permits. Follow each nation's rules for visitors, and don't point others to sacred or restricted places.
+1253: 
+1254: Our guidelines are guidance, not legal advice. You're responsible for what you post.
+1255: 
+1256: ### What can be reported?
+1257: - spam or scams;
+1258: - harassment or hate;
+1259: - sacred or restricted sites;
+1260: - someone's private information;
+1261: - people shown without consent;
+1262: - private property without permission;
+1263: - unsafe or illegal content.
+1264: 
+1265: ### How do I report something?
+1266: Use **Report** on the journey, comment or post, choose a reason, and add a note if it helps. Our team reviews every report.
+1267: 
+1268: ### What happens after a report?
+1269: Journeys publish as soon as they're posted, and our team responds to reports. If something breaks the rules, we hide it. A hidden journey stays visible to its writer.
+1270: 
+1271: ## Suggestions and corrections
+1272: 
+1273: ### Something's missing or wrong. How do I tell you?
+1274: Use **Make a suggestion** in the menu, or **Tell us** on a listing or place page. It works for anything: a business, a lake, a trail, a landmark, a story idea, or a correction to a listing. You can drop a pin on the map to show where it is.
+1275: 
+1276: ### What happens to my suggestion?
+1277: Our team reviews it and checks it against public sources. Then:
+1278: - **A correction** (a phone, website, address, hours or name) is made on the listing.
+1279: - **Closed** keeps the listing on the site, marked **Closed** on its page and in search, so anyone looking for it knows before they go. Closed places come last in results and never show as open. If it reopens, tap **Tell us** on its page.
+1280: - **Listed twice** becomes one listing, and the other one's link takes you to it.
+1281: - **A missing business** becomes a new listing; **a missing lake, trail, park, campground or landmark** becomes a new place. Places whose names may mark a sacred, burial or protected site are held, not shown.
+1282: - **A missing event**: events are coming.
+1283: 
+1284: If you were signed in when you sent it, we email you when it's done. A business run by its owner is changed by its owner, so we check with them first.
+1285: 
+1286: ## GO Codes and short links
+1287: 
+1288: ### What are GO Codes?
+1289: GO Codes are Traversence's QR codes: for a link, a phone call, an email, Wi-Fi, a contact card, an event (it offers "Add to calendar"), text or a text message, in your colors and with your logo. Make one at [GO Codes](/qr/) (or just trvgo.us): choose what it does, type what it says, pick how it looks, and it's drawn as you type so you can scan it to check.
+1290: 
+1291: ### What do GO Codes cost?
+1292: Each GO Code is **$4.95, once, plus sales tax**, and keeps working, unless its payment is refunded or charged back (then it stops working; see [What if something's wrong with my order?](#what-if-something-s-wrong-with-my-order)). With a free account you also get **5 free GO Codes** (link, phone, email or Wi-Fi in black and white), once your email is confirmed. Add codes to your **Cart**, then check out: the tax is worked out from your billing address, and you pay by card right there. Your card goes straight to QuickBooks Payments (Intuit); we never see your card number.
+1293: 
+1294: ### What if something's wrong with my order?
+1295: All sales are final, but when something goes wrong that we didn't expect, in production or with files you approved, we make it right. Tell us at **support@traversence.com** within 14 days of receiving it, with your order number (and photos for printed items); if the carrier delays a package, the 14 days start when tracking shows it delivered. We **fix it first**: redo, reprint or replace what we got wrong. If it can't be fixed, you get a **full or partial credit** on your account, good for 90 days toward anything we sell. A **refund** is the last resort, when neither works.
+1296: 
+1297: What counts as a fix: for **digital work** (designs, video, GO Codes, plans), a code that won't scan or goes to the wrong place through our error, a file that won't open or comes in the wrong format, or something missing that was on the proof you approved. A change of mind after approval, a typo that was on the proof you initialled, or a new format or size isn't a fix; we're glad to quote it as new work. For **printed and made-to-order products**, damage in shipping, a printing or manufacturing defect (a severe color shift, bleeding text, cuts out of line with the proof), or the wrong size, material or quantity. Slight color differences between a screen and ink, and damage after delivery, aren't. **Custom and made-to-order products** are final once you approve the proof, so check names, numbers and spelling carefully. If a GO Code's payment is refunded, the code leaves your account and stops working; while a card dispute is open, it's paused. A refund goes back to the card or account you paid with, through QuickBooks, and we email you when it's made; your bank may take a few days to show it. The details are in our [Terms](/terms.php#fix-credit-refund).
+1298: 
+1299: ### Do I need an account for GO Codes?
+1300: No. You can make GO Codes, check out as a guest, and download them. We keep them with your browser and email you a private link that opens them on any device. An account is recommended: your codes stay in one place, you get 5 free ones, and you can make Dynamic GO Codes. After a guest checkout we offer to open your account with the name and email you gave; your codes move into it, and so do earlier guest orders paid with that email once it's confirmed.
+1301: 
+1302: ### Where are my GO Codes after I pay?
+1303: On **Manage GO Codes**. As soon as your card goes through, you land there with your codes ready, and your receipt email links back to them. (Paid on QuickBooks' own invoice page instead? Your codes appear there by themselves once the payment registers.) Each code says what it does in plain words ("Calls 505-555-1234", "Opens yoursite.com"), its trvgo.us address and how often it's been scanned. Tap its name for the details: a larger picture, everything it holds, **Try it** (trying it yourself isn't counted as a scan), and the order it came from. Download each one as **SVG** for printing (sharp at any size) or **PNG** for screens. The SVG is a true vector with no background: the code is one shape, so in a design program (Illustrator, Inkscape, Affinity) you can recolor it in one click and place it on anything. When you download it you pick how big it will be printed (from 0.8 in for something read up close, through 1 in for a business card, to 12 in for a banner, or your own size), and it opens at that size, with a clear margin around it. Keep the code darker than whatever it's printed on, with a clear margin around it, or phones may not read it. **My orders**, below your codes, lists each order with what it bought, refunded items included. Spotted a typo after it's issued? Write to **support@traversence.com** with the order number: we correct it, and the code you printed stays the same.
+1304: 
+1305: ### What's a Dynamic GO Code?
+1306: A short trvgo.us address (like trvgo.us/k7qm2x) in a code: after you've printed it you can still change where it goes, switch it off, and see how often it's scanned. Dynamic GO Codes need an account and the QR plan ($14.95 a month or $119.40 a year; free while billing isn't switched on yet), or a business's Core plan and up. Find them under **Manage GO Codes**.
+1307: 
+1308: ### What happens to my printed codes if my plan ends?
+1309: Nothing you've printed stops working. A business's Dynamic GO Codes go to its listing on Traversence; a person's keep going wherever they pointed last. You just can't change where they go until the plan is back on. GO Codes you bought keep doing what you made them do. Only a code switched off by its owner, or by our team because it's misused, stops working; scanning it then says it isn't active.
+1310: 
+1311: ### Why does my GO Code go through trvgo.us?
+1312: So you can see how often it's scanned, and so a mistake can be put right after you've printed it. Every GO Code except Wi-Fi holds a short trvgo.us address: a link code goes straight to your link, a contact card or event downloads to the phone, and a phone number, text message or email starts the call, text or email straight away (if a phone's browser wants a tap first, it shows one button that does it). A Wi-Fi code holds the network itself, so phones join without going online first. Scans are counted the same privacy-first way as other trvgo.us links (the day and kind of phone, nothing else). If Traversence ever closes, you'll be able to download your GO Codes re-made to hold what they do directly, so they keep working without us ([Terms](/terms.php#go-codes)).
+1313: 
+1314: ### Why do shared links start with trvgo.us?
+1315: When you tap **Share** or **Copy link** on a listing, a place, a journey or a photo, you get a short trvgo.us address that opens the same page. It's easier to text or print, and it's the same short link for everyone sharing that page. The **QR** button beside Share shows the page's code, to scan or print.
+1316: 
+1317: ### How do I save a business to my phone's contacts?
+1318: On its listing, tap **Save contact** (the person with a +, in the row of round buttons). Your phone offers to add it with its name, phone, address and website as they are now. A shelter whose location is kept private has no address on its card. Each business sees how many times its card was saved, never by whom.
+1319: 
+1320: ### What's counted when someone scans my code?
+1321: The day, and the kind of phone (iPhone, Android or computer). Nothing else: no name, account, IP address, location or cookie. Link previews (when a link is pasted into a chat) and bots aren't counted. There are no ad trackers on trvgo.us.
+1322: 
+1323: ### Can I use my GO Codes for my business?
+1324: Yes. Once a GO Code is yours (free or paid), print it and use it on anything you make, for personal or business use, with no fee each time. What it holds and where it points is up to you, but codes and trvgo.us links that lead to scams, malware or anything unlawful are switched off. Test-scan a code at the size you'll print it before printing a lot. The full rules are in our [Terms of Use](/terms.php#go-codes).
+1325: 
+1326: ## Orders we prepare for you
+1327: 
+1328: ### How do I review and approve an order Traversence prepared for me?
+1329: Open the link in our email (no account needed). It shows everything in the order with its price, and a proof for anything we'll print or make, and for each GO Code. Tap **Review the proof**: it opens large and sharp on its own (a long proof scrolls; × closes it), with **Approve** and **Make changes** in the bar across the top. **Width**, **Page** (each page whole, top to bottom of your screen) and **2**, **3**, **4** (pages side by side) set how it's shown; your choice is remembered on that device. **Approve** opens the final-approval terms: you take full responsibility for checking the proof (layout, design, text, spelling, grammar, colors, dimensions and resolution); once approved it goes to production and can't be changed or cancelled; and errors found afterwards are reprinted at your expense. Tick the two boxes, type your initials and tap **Submit Final Approval**, or **Cancel & Request Changes** to go back and tell us what to change. The proof you're approving can be downloaded from there too, to check it at full size or print it. A GO Code's proof shows the code and everything it holds (a contact card as the card people will save). Tap **Make changes** and tell us what to change: we send you a new proof on the same link. A proof can have several files (front and back, or each size): they're shown together, and **Approve** approves them all. If we send a new version, it replaces the one before, and if we change a file in a proof (even one you'd approved), it comes back to you to approve again: an approval only ever covers the files you saw. Proofs are shown square, to their edges, with a **red dashed line** where the piece is cut. When every proof is approved, add your billing address and your name and tap **Approve the order**. What you approve is made as shown, so check names, numbers and spelling first. A GO Code in your order can be tested before you pay: scan it from the proof and it opens a page marked **Proof** with a button that does what the code does (opens the link, saves the contact, and so on). Those test scans aren't counted. Once the order is paid, the code goes live: scans open it directly and are counted. The link works until the date shown on it; reply to our email and we'll send it again. Your order reads like an invoice: each item shows where it ships (each can go to a different address, or be picked up) and its own shipping, added up in a Shipping line. If something ships to you, the address we have for it is already filled in when you approve: check it, and change it if it's wrong. If we don't have one yet, give it then (or tick that it goes to your billing address). Every printed item has a proof for you to approve before the order comes to you: if one isn't ready yet, the page says we're still preparing it. Once it's approved, each item shows where it stands (in production, shipped, delivered…), with tracking when there is any. Tick **Email me as my order moves along** (when you approve, or later on the same page) and we email you at each step; untick it and we don't. Receipts always come. If we've agreed you'll pay us directly (cash, check, Zelle), there's no card form: we confirm each payment by email and it shows on the same link. When you open your order's page, we note the time and whether it's on a phone or a computer, so our team knows you've seen it; nothing else about you is kept.
+1330: 
+1331: ### Why is my order grouped into projects, and when can I download my files?
+1332: A bigger order is grouped into projects (say, a manual in English and the same manual in German). Each project lists its items with their prices and a subtotal. Each item has its own proof: rounds of concepts for design work, and the print-ready file for anything we print. You always see the current proof; once you approve one, earlier rounds aren't shown any more. Approving is what releases your files for use, once the order is paid in full: the approved print-ready file of anything we print, ready to download from your order page. Design artwork that's going to print stays there to look at, and the print file is the one you download. When an order is design only, with no printing, its print-ready file is released to you the same way.
+1333: 
+1334: ### Do I have to pay for the whole order up front?
+1335: As a rule, yes: an order is paid in full when you approve it, with all its terms final, and then it goes into production. When some of its terms may still change after you approve, the order asks for a deposit instead (it shows how much), and the rest is due once production schedules it. Either way it's paid in full before it's released for delivery (shipped or ready for pickup), unless we've agreed otherwise with you. Sales tax is added when you approve, for where it ships (see [How is sales tax worked out on my order?](#how-is-sales-tax-worked-out-on-my-order)). You pay by card on the same page (your card goes straight to QuickBooks Payments; we never see the number), or on QuickBooks' own page by card or bank transfer. If you pay part of it on QuickBooks' page, that part shows on your order as soon as QuickBooks tells us; printing starts once the deposit is paid (or, on an order paid in full on approval, once all of it is). If something in the order is a GO Code, it's ready to download from the page as soon as the order is paid. An older order that said you'd pay the invoice later is paid the same way, and printing starts once it's paid. Paying later on account terms is coming.
+1336: 
+1337: ### How is sales tax worked out on my order?
+1338: When you approve, the sales tax is worked out for **where the order ships**: each place has its own rate. An order you pick up is taxed at our address in Saint Johns, Arizona. If you **resell** what you order, your order is **tax exempt** (a nonprofit, a government, an exemption code), or it **ships out of Arizona**, tell us before you approve: we mark the order and no sales tax is added. Your order page says which applies before you approve. An order going to **several addresses** is coming: for now we send each address as its own order, so each is taxed for where it goes.
+1339: 
+1340: ### I'm on the Traversence team. What does Next step mean on the Client orders list?
+1341: Back-Office → Orders is a board. Each order says three things, kept apart: **Where it stands** (Draft, With the client, Link expired, Changes asked, Approved, In production, Out the door, Complete), its **Money** (Not due yet, a deposit due, an amount owed, Released before payment, Deposit paid, Paid) and its **Delivery** (Not started, At the vendor, Shipped, Ready for pickup, Delivered). **Next step** is the one thing to do, a button that takes you to the spot that does it: **Finish and send**, **Send it again** for a link that ran out, **Upload the new proof** when the client asked for changes, **Take a payment**, **Send the work order**, **Follow the work order**, **Record the vendor bill** once the vendor has made it and their bill isn't recorded yet, and **Complete the order** once it's out the door and paid. A dispute comes first (**Answer the dispute**); then money owed on an order that's out the door or past its due date (**Collect the balance**, which opens the order at its payment step). When it's waiting on someone else it says who (Waiting on the client, With the vendor). **Send it again** and **Send a reminder** work right in the row: it says ✓ Sent with **Copy the link**, and if the order moved to another tile it says so until you refresh. While money is still owed, **Complete** is greyed with the amount; an admin can still complete it with a reason that's kept in the order's history.
+1342: 
+1343: ### I'm on the Traversence team. What are ✎ and ⋯ on an order's Order, Money and Delivery lines?
+1344: Each line says where that part of the order stands, with its one suggested step as a button. **✎** corrects what happened (the delivery's date, the items, the payments), and the old value stays in the order's History. **⋯** opens every other move from where it stands, each saying what it does; one that can't be done right now is greyed with the reason (Complete the order: "$809.10 still owed: collect the balance first"). It closes with ×, Esc or a click outside. The lines stay open: they're the order's tasks.
+1345: 
+1346: ### I'm on the Traversence team. What do the tiles on the Orders board count?
+1347: **Needs us**, **Waiting on the client**, **In production** and **Out the door** count open orders by where each one stands, and each tile is the board's filter: press one to see its orders (the board opens on Needs us). **Money owed** stands apart: the total owed now and how many orders owe it, whatever their stage (a deposit order's balance isn't owed until it's out the door). The filter button beside the search chooses **Everyone's** or **Mine**, **Open** or **All** (completed and cancelled too). A tile with nothing in it says so, with **Place an order** or the tile that has some.
+1348: 
+1349: ### I'm on the Traversence team. What happens when a client says they have an order that still owes money?
+1350: It doesn't complete. The client is thanked, and the order becomes **Delivered, balance due**: on the board its Next step is **Collect the balance**; on the order the Money line's button is **Record the payment**, with the other ways in its ⋯; and Pulse opens a case with the same steps. If the money came in, **Record the payment**: the order completes and the client gets the thank-you. If it didn't, **Collect the balance**. Or an admin can **Override with a reason**, kept on the order. (decisions/0178 §6)
+1351: 
+1352: ### I'm on the Traversence team. How does an order know it was paid in QuickBooks?
+1353: It asks QuickBooks. An order that names a QuickBooks invoice reads it when you open the order (at most every few minutes) and once an hour on its own. An invoice made by hand is found by its number and linked: Order details then say **Invoice 1044, linked by its number**, with ↗ to open it in QuickBooks. A payment QuickBooks shows that the order hasn't recorded is recorded at once, and the order moves on as it would for any payment: the Money line says **Paid in QuickBooks Oct 19 · check 2231**, with ↗ and ✎ (to correct it; the History keeps what it said). Nothing is written to QuickBooks by reading it, and the client isn't sent a receipt for a payment they made there. The other way round, a payment you record on the order (a check, a wire) is also received on that QuickBooks invoice, so it's never entered twice. One invoice is linked to one order only. Test orders never reach live QuickBooks. (decisions/0178)
+1354: 
+1355: ### I'm on the Traversence team. What is the Vendor line on an order?
+1356: Once a work order with an agreed cost has gone to the vendor, the order has a fourth line, **Vendor**: what we owe them and whether they've billed it ("$256.83 to the print vendor (work order 20261027-WO0001), not billed yet"). Drop their invoice (a PDF) on the line, or **choose a file**: it's kept with the order's files and sent to no one. Its text is read right there in your browser, with no AI: their invoice number, date, PO, amount, tax, shipping, total, due date and how it shipped. It's matched to the work order by its PO (our work order number), and each fact is shown beside what we expected, ✓ when it matches. Only what doesn't match is asked, with its two answers ("The vendor says it shipped by USPS Priority Mail; the work order says Will Call. Which is right?"). Then **Record the vendor bill**: it's recorded on the order and made in QuickBooks as a bill against the vendor ("Billed $256.83 (inv 130929, Nov 17) · due Dec 17", with ↗ to open it there). A scanned invoice with no text asks for its four key fields, and **Record the bill by hand** types them in. If QuickBooks can't take it right then, the bill is kept on the order with why, and **Send it to QuickBooks** tries again. Its ⋯ holds **Not billed by them** (with why: their own job, a sample), **Dispute…** once it's billed, and **Cancel the record**, which only works before the bill reaches QuickBooks; once it's there, it's voided in QuickBooks. Paying vendors isn't done here yet. On the board, once the vendor has made it and their bill isn't recorded, the order's Next step is **Record the vendor bill**.
+1357: 
+1358: ### I'm on the Traversence team. Where do I refund, credit or correct a payment on an order?
+1359: On the order itself, in its **Money** section (the Money line's ⋯ goes straight to each one). It shows the total, what's paid and what's owed, then each payment as a row with its one way to correct it. One read from QuickBooks has **↗** to open it there: QuickBooks is its record, so it's corrected there and read again. One recorded here and never processed (a check noted, nothing charged or posted to QuickBooks) has **Cancel the record**, with why: it stops counting as paid, as if it was never recorded, and the History keeps a line; it's greyed once something moved on because of it (a work order went out, it was delivered). One processed (a card charged, or received on its QuickBooks invoice) has **Refund…**. Money never has Undo. Fix it first, then a credit (**Issue a credit memo**: it waits for Jason's OK too, then it's made in QuickBooks); a refund only when neither works. A card dispute and how it ended, a refund or credit made in QuickBooks that needs placing, and **Check QuickBooks** are there too. For a client who wants to pay by card, **Copy the pay link** or **Ask the client to pay**: we never type in a card. (decisions/0178)
+1360: 
+1361: ### I'm on the Traversence team. Why does a refund wait for Jason?
+1362: Every refund, whatever the amount, waits for his OK (decisions/0178 §1), and so does a credit memo (his answer of 2026-11-24: it gives money back in effect). **Refund…** asks for the payment it comes from, the amount, why, and any GO Codes or work orders that stop with it, then **Send to Jason for his OK**. Nothing is refunded yet: the Money line says **Refund of $X waiting for Jason's OK**, and Jason gets a Pulse case with **Approve** and **Decline**. On Approve it goes back through QuickBooks (the card refunded, a Refund Receipt in the books, the client emailed) and what was ticked stops with it; if QuickBooks refuses, nothing is refunded, the order says why, and he can approve it again once that's put right. On Decline the order shows his reason. Until he decides, **Withdraw** takes it back. A refund of money that didn't come by card (a check, a wire) gets its Refund Receipt in QuickBooks on his Approve, and the order shows **Send it back**: send the money, type how (check 1234), then **✓ Sent**. A credit memo on his Approve is given, made in QuickBooks, and the client is emailed.
+1363: 
+1364: ### I'm on the Traversence team. Until when can an order be cancelled?
+1365: Until the vendor accepts its work order (decisions/0178 §2). Before that, **Cancel the order…** cancels it, tells the client, and stops any work order the vendor hasn't accepted (they're told). If something has been paid, cancelling refunds it, so it goes to Jason for his OK first, and the order is cancelled when he approves it. Once the vendor accepts, Cancel is greyed with the date ("The vendor accepted the work order on Nov 3: it can't be cancelled; a credit or a refund instead").
+1366: 
+1367: ### Can I cancel an order Traversence prepared for me?
+1368: Yes, until our print partner accepts the work for production: write to **support@traversence.com** with your order number. If you've paid anything, it's refunded to the card or account you paid with, and we email you when it's done. Once production has accepted the work, it's made to order, so we offer a fix, a credit or, when neither works, a refund, as in [What if something's wrong with my order?](/faq.php#what-if-something-s-wrong-with-my-order).
+1369: 
+1370: ### I'm on the Traversence team. How do I send a client an update on their order?
+1371: Press the ✉ beside their name in Bill to (or **Send the client an update** in the order's ⋯): add a note if you like, then **Send the update**. It emails them where each item stands, with tracking, and it's kept in the order's History. Once it's gone, the ✉ says **✓ Sent** with the day, time and zone; an email can't be unsent, so there's no Undo. If it didn't go (the address was refused or isn't valid), the page says so and nothing is marked as sent: check the email in Bill to and send it again. A client who turned off progress emails on their order page isn't sent one.
+1372: 
+1373: ### What if my card payment doesn't get an answer?
+1374: Now and then the card processor doesn't answer in time, so we can't tell straight away whether your card was charged. If that happens, **don't pay again**: your order page says so, and we check the payment and email you. Until it's settled, a second payment isn't taken, so you're never charged twice. Questions: support@traversence.com.
+1375: 
+1376: ### Can I pay by wire transfer or check?
+1377: Yes: under **Pay** on your order's page, choose **Wire transfer** (for orders of $2,500 or more) or **Check** instead of Card (it's your choice, at checkout). When you choose, we ask for the wire's confirmation code from your bank (or the check number) in case you've already sent it; leave it blank if you haven't. For your safety our wire details are never emailed: tap **Email me a code**, enter the 6-digit code we send to the order's email, and they show on the page for 10 minutes (they can't be copied or printed, and each viewing is recorded). Before sending a wire, call us at (602) 708-3795 to confirm the details: we never send or change our bank details by email, so if anyone does, it isn't us. Our check details show there and come by email. Put the order number in the reference. Once you've sent it, come back to the same link (the email has it) and enter the wire's confirmation code from your bank, or the check number. Your order waits on a payment hold until the money reaches us: then we email you a receipt and it goes to production. If we haven't heard that it's sent, we email you a reminder 2 hours after you choose, again at 9 am the next business day, and at 4 pm that day with the other ways you can pay. If we arranged for you to pay us directly (cash, check, Zelle), your order's page says so and doesn't take a card; we record your payment when it reaches us and email you a receipt.
+1378: 
+1379: ### Where do I see all my orders?
+1380: Once you've done your part (paid, or told us your wire or check is sent), your order's page says **Thank you** and shows what's next. From there, **Create your free account** with the email the order came to (or sign in), and **Your orders** in your account lists every order we've prepared for you, with its proofs, payment, where it stands and your files. Orders sent to your email join your account once you've confirmed that email. If your order is for a business, **Put [your business] on Traversence** adds it in the same step, filled in from your order: one account for you, with your business on it.
+1381: 
+1382: ### How do I know my order is finished?
+1383: When everything on your order has shipped or is ready for pickup, we email you (if you get progress emails) with each item's tracking, and your order page asks **Do you have it?** Tap **Yes, I have it** once it's in your hands. The order is complete once anything still to pay on it is settled. You can add a few stars and a word or two about how it went, and say whether we may quote you. If something isn't right (missing, damaged, not what you expected), tap **Something isn't right?** instead and tell us: that opens a support ticket, we email you its number, and we'll be in touch to put it right. The order stays open until we do. If you haven't told us three days after it went out, we send one reminder. Once it's complete we email you a thank-you with a link to reorder.
+1384: 
+1385: ### Can I reorder something you made for me?
+1386: Yes. On a completed order's page (the link in our thank-you email), **Reorder** lists what was in it: tick what you need again and how many. Or, once we've released a piece to you, it's under **Your artwork** on your **Your orders** page (sign in with the email your orders went to): look it over, download the files that are yours, and tap **Ask to reorder** with the quantity and anything we should know. Tick **I want changes** if the art changes. We send you the reorder to approve like any order. With the same art there's no new proof round: next to the proof you'll see **Confirm reuse**, and you sign off with your initials as you did the first time. That's only when the item is exactly the same (the same product and options): if anything about it changes, we send you a fresh proof to approve. Reorders are priced at today's rates.
+1387: 
+1388: ### Where is my printed order?
+1389: On your order's page: **Where it is** shows whether it's in production, sent to print, shipped (with its tracking number) or ready for pickup. If you ticked **Email me as my order moves along**, we also email you at each step.
+1390: 
+1391: ### What does Traversence keep about me when I buy something?
+1392: Your customer record, made from your own orders and plans: your name, email, phone and company as you gave them, what you've bought and when, and the total. Our team can add a note (say, that you asked us to call in spring) or a tag (like Wholesale) to help look after you. It's private to our team, never shown on the site and never sold. Your orders are kept for our accounts even if you close your account.
+1393: 
+1394: ### Will my business get a list of its own customers?
+1395: Yes, on Basic Partner and up: open your business portal (**Your business** → **Open the portal**, or traversence.com/business/) and choose **Customers**. Add the people you work with, keep notes, tag them (Retail, Wholesale, or your own tags) and see groups like new, returning and VIP. Your orders and messages join them there as checkout and the inbox open. It's private to your business: no other business, and no one outside your team, can see it.
+1396: 
+1397: ### How do I add my products and services?
+1398: In your business portal, open **Catalog** and tap **Add a product**: its name, the kind (an item, a service, a class or event) and its price. Then open it to add a description, more prices (a different price for 12, for example), options that change the price ("Size: Small, Large +1.00") and your own cost and supplier, which only your team sees. Hide anything you've stopped selling; it stays in your catalog. Every plan includes the catalog.
+1399: 
+1400: Coming with the Marketplace: each plan shows a number of active items at once (Free 10, Basic 25, Core 100, Strategic 250, Enterprise / Cornerstone 1,000 per listing). Hidden, sold and expired items don't count. At your plan's number, adding or showing another item is greyed out with the plan that raises it; nothing already showing is taken down.
+1401: 
+1402: ### Can I sell things on Traversence?
+1403: Yes: anyone with an account who is 18 or older can post on the **Marketplace** (see Buying and selling below). A post shows the town or area you pick, never your address. No payment ever passes through Traversence: people pay each other directly. Offers and the dual confirmation (the seller taps Sold, the buyer taps Got it) are live too. Businesses' items are there too, and from Core Partner up a business can take card payments through its own Stripe or Square account, with no cut to us.
+1404: 
+1405: ### What is the business portal?
+1406: Your business's own tools, for you and your team. When you act as your listing, its **Overview** is your one landing page: the listing at a glance (its status, how complete your profile is, your numbers, Reply to messages and Edit listing); **What's on your mind?** to post as the business, with its posts under it; its **Pulse**, everything coming in to the business (messages, guest questions and more), each opening right there with ▾; **Messages & offers** (send an offer or news to subscribers, ask people to link again, your conversations and guest questions); what visitors did from your listing in the last 30 days (visits, calls, directions, website visits); then every tool, with Edit listing, Gallery and Team & roles. Its menu has everything in one place: Overview, its Pulse and messages, the listing and Edit listing, then **Market 360°**, one button for everything about selling (its pages are in the **Market 360°** menu at the top of each: **Get selling** first, then six modules: **Business Identification** (Trust score, Legal identity), **Money & Processing** (E-commerce setup, Sales tax, Store policies), **Products & Inventory** (Catalog, Marketplace, Bundles), **E-commerce** (Orders, Customers, Quotes & invoices, Shipping & pickup, Discount codes, Reports), **Storefront** (Storefront & pages) and **Marketing** (Linked people, Marketing); pages still coming show greyed, saying what they'll do), then its other tools, then Team & roles and Plan & settings. **Get selling** walks you through setting up to sell in seven parts that tick themselves as you finish them: business profile, store, catalog and inventory, getting paid, shipping and tax, verification and payouts (done in Stripe's or Square's own setup; it ticks once Stripe or Square says payments and payouts are on, and lists what they still need), then test and launch. Open it by choosing the business under **Your listings** in your account menu, or at traversence.com/business/. Each person sees what their role allows (Owner, Manager, Accountant, Sales, Support, Creator, Developer or Viewer, who can look but not change anything), and each tool is opened by your plan: one your plan doesn't include shows greyed with the plan it comes with. Customers, Catalog, Marketplace, E-commerce setup, Store policies, Storefront & pages, Trust score, Linked people, Quotes & invoices, Orders, Discount codes, Sales tax, Shipping & pickup and Plan & settings (with your team) are open now; the inbox, legal identity, bundles, marketing (QR codes, short links, campaigns) and reports are coming. Your business's information is kept in its own place, walled off from every other business: no other business can reach it, whatever happens.

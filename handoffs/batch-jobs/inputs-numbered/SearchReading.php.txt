@@ -1,0 +1,202 @@
+1: <?php
+2: // app/lib/SearchReading.php — reading a search, the intent first (decisions/0157 §4.3, §7.4):
+3: //   line()   how the search was read, said plainly ("Read as a kind of business: Gun Clubs, near St. Johns"), with a way to
+4: //            read it otherwise (another kind it could mean, or the words as typed)
+5: //   fact()   a question about something we hold ("blue hills hours", "phone for Joe's Diner"): the answer itself, from the
+6: //            listing, or from the page we read it on, with that page
+7: //   pages()  the pages we read that match the words, near the place: our index answers any search, not only with
+8: //            listings (a county notice, a calendar), each a title and its link
+9: // Plain database reads: it costs nothing. Nothing about who searched is kept.
+10: declare(strict_types=1);
+11: 
+12: require_once __DIR__ . '/Database.php';
+13: 
+14: final class SearchReading
+15: {
+16:     private const PUBLIC = ['unclaimed', 'claimed-unverified', 'pending-verification', 'verified'];
+17:     /** What a question asks for: [label, its words]. */
+18:     private const FACTS = [
+19:         // "open now", "open late", "call a plumber", "order online" are filters and kinds, not questions: not here
+20:         'hours' => ['Hours', '/\b(hours?|what time|opening times|when (does|do|is))\b/i'],
+21:         'phone' => ['Phone', '/\b(phone|telephone|phone number)\b/i'],
+22:         'address' => ['Address', '/\b(address|where is|located|directions to)\b/i'],
+23:         'website' => ['Website', '/\b(website|web site|url)\b/i'],
+24:     ];
+25:     /** The little words around a question ("what are the hours of …"). */
+26:     private const FILLER = '/\b(what|whats|what\'s|are|is|the|of|for|at|does|do|it|its|their|when|where|how|to|get|number|time|times|today|now|me|a|an|please)\b/i';
+27: 
+28:     /**
+29:      * A question about one thing we hold: ['ask', 'label', 'value', 'name', 'url', 'others' => [[label, value]], 'from', 'source'].
+30:      * The listing first; else a place named on a page we read (with that page). Never a confidential place's address.
+31:      */
+32:     public static function fact(PDO $pdo, string $q, ?array $place = null): ?array
+33:     {
+34:         $ask = null;
+35:         foreach (self::FACTS as $k => [, $re]) if (preg_match($re, $q)) { $ask = $k; break; }
+36:         if ($ask === null) return null;
+37:         $name = $q;
+38:         foreach (self::FACTS as [, $re]) $name = (string) preg_replace($re, ' ', $name);
+39:         $name = trim((string) preg_replace(['/' . "['’]s\\b" . '/u', self::FILLER, '/[^\p{L}\p{N}&\'\- ]+/u', '/\s+/'], [' ', ' ', ' ', ' '], $name));
+40:         if ($place && !empty($place['label'])) $name = trim((string) preg_replace('/\b' . preg_quote(strtok((string) $place['label'], ',·'), '/') . '\b/i', '', $name));
+41:         if (mb_strlen($name) < 3) return null;
+42:         // a kind of business ("plumber hours") isn't one thing: only a name we hold exactly is answered then
+43:         $isKind = false;
+44:         if (count(preg_split('/\s+/', $name) ?: []) <= 2)   // a name of three words or more is a name ("Blue Hills Environmental")
+45:             try { require_once __DIR__ . '/Concepts.php'; $k = Concepts::kinds($pdo, $name, 1)[0] ?? null; $isKind = $k && (float) $k['score'] >= 0.8; } catch (Throwable $e) {}
+46:         return self::fromListing($pdo, $ask, $name, $place, $isKind) ?? ($isKind ? null : self::fromStore($pdo, $ask, $name, $place));
+47:     }
+48: 
+49:     private static function squash(string $s): string { return (string) preg_replace('/[^a-z0-9]+/', '', mb_strtolower($s)); }
+50: 
+51:     private static function fromListing(PDO $pdo, string $ask, string $name, ?array $place, bool $exactOnly = false): ?array
+52:     {
+53:         $in = "'" . implode("','", self::PUBLIC) . "'";
+54:         $words = array_values(array_filter(preg_split('/\s+/', $name) ?: [], fn ($w) => mb_strlen($w) >= 2));
+55:         if (!$words) return null;
+56:         $where = []; $args = [];
+57:         foreach (array_slice($words, 0, 5) as $w) { $where[] = 'e.name LIKE ?'; $args[] = '%' . str_replace(['\\', '%', '_'], ['\\\\', '\\%', '\\_'], $w) . '%'; }
+58:         try {
+59:             $st = $pdo->prepare("SELECT e.id, e.name, e.category_id, e.latitude, e.longitude FROM entities e WHERE e.entity_type = 'merchant' AND e.is_suppressed = 0
+60:                                    AND e.status IN ($in) AND " . implode(' AND ', $where) . ' LIMIT 40');
+61:             $st->execute($args);
+62:             $rows = $st->fetchAll(PDO::FETCH_ASSOC);
+63:         } catch (Throwable $e) { return null; }
+64:         if (!$rows) return null;
+65:         // the name it is: the whole name, or the name it starts with; nearest the place when there are several
+66:         $want = self::squash($name);
+67:         $lat = isset($place['lat']) ? (float) $place['lat'] : null; $lon = isset($place['lon']) ? (float) $place['lon'] : null;
+68:         usort($rows, function ($a, $b) use ($want, $lat, $lon) {
+69:             $ea = self::squash((string) $a['name']) === $want ? 0 : 1; $eb = self::squash((string) $b['name']) === $want ? 0 : 1;
+70:             if ($ea !== $eb) return $ea <=> $eb;
+71:             if ($lat === null || $a['latitude'] === null || $b['latitude'] === null) return strlen((string) $a['name']) <=> strlen((string) $b['name']);
+72:             return (($a['latitude'] - $lat) ** 2 + ($a['longitude'] - $lon) ** 2) <=> (($b['latitude'] - $lat) ** 2 + ($b['longitude'] - $lon) ** 2);
+73:         });
+74:         $r = $rows[0];
+75:         $have = self::squash((string) $r['name']);
+76:         // the name it is: the same, or most of it from its start ("blue hills" for Blue Hills Environmental)
+77:         $sp = fn (string $x): string => trim((string) preg_replace('/[^a-z0-9]+/', ' ', mb_strtolower($x)));
+78:         $starts = str_starts_with($sp((string) $r['name']) . ' ', $sp($name) . ' ');   // whole words from the start
+79:         if ($have !== $want && ($exactOnly || !$starts)) return null;
+80:         $meta = [];
+81:         try {
+82:             $st = $pdo->prepare("SELECT meta_key, meta_value FROM entity_metadata WHERE entity_id = ? AND meta_key IN ('phone', 'address', 'city', 'state', 'website', 'hours', 'closed')");
+83:             $st->execute([(int) $r['id']]);
+84:             foreach ($st->fetchAll(PDO::FETCH_ASSOC) as $m) $meta[(string) $m['meta_key']] = json_decode((string) $m['meta_value'], true) ?? $m['meta_value'];
+85:         } catch (Throwable $e) {}
+86:         $private = false;
+87:         try { require_once __DIR__ . '/ListingSafety.php'; $private = ListingSafety::isConfidential($r['category_id'] !== null ? (int) $r['category_id'] : null, (string) $r['name']); } catch (Throwable $e) {}
+88:         $vals = self::values($meta, $private);
+89:         $out = ['ask' => $ask, 'label' => self::FACTS[$ask][0], 'value' => $vals[$ask] ?? null, 'name' => (string) $r['name'], 'url' => '/listing/view.php?id=' . (int) $r['id'],
+90:                 'others' => [], 'from' => 'Our listing', 'source' => null];
+91:         if ($out['value'] === null) $out['value'] = ['hours' => 'Not listed', 'phone' => 'Not listed', 'address' => $private ? 'Kept private for the safety of the people it shelters. Call to get help.' : 'Not listed', 'website' => 'None listed'][$ask];
+92:         foreach (['hours', 'phone', 'address', 'website'] as $k) if ($k !== $ask && !empty($vals[$k])) $out['others'][] = [self::FACTS[$k][0], $vals[$k]];
+93:         return $out;
+94:     }
+95: 
+96:     /** A listing's answers, in words. A confidential place: its phone only (decisions/0044). */
+97:     private static function values(array $m, bool $private): array
+98:     {
+99:         $v = [];
+100:         if (!empty($m['phone']) && is_string($m['phone'])) $v['phone'] = $m['phone'];
+101:         if (!$private) {
+102:             $addr = trim(implode(', ', array_filter([is_string($m['address'] ?? null) ? $m['address'] : '', is_string($m['city'] ?? null) ? $m['city'] : '', is_string($m['state'] ?? null) ? $m['state'] : ''])));
+103:             if ($addr !== '') $v['address'] = $addr;
+104:             if (!empty($m['website']) && is_string($m['website'])) $v['website'] = $m['website'];
+105:         }
+106:         if (array_key_exists('closed', $m)) $v['hours'] = 'Closed (marked closed)';
+107:         elseif (!empty($m['hours'])) {
+108:             $h = $m['hours'];
+109:             $v['hours'] = is_array($h) ? implode('; ', array_map(fn ($x) => is_scalar($x) ? (string) $x : '', $h)) : (string) $h;
+110:             try {
+111:                 require_once __DIR__ . '/Hours.php';
+112:                 $st = Hours::status(Hours::parse(is_string($h) ? $h : json_encode($h)), (int) date('w'), (int) date('G') * 60 + (int) date('i'));
+113:                 if (!empty($st['text'])) $v['hours'] = $st['text'] . ' · ' . $v['hours'];
+114:             } catch (Throwable $e) {}
+115:         }
+116:         return $v;
+117:     }
+118: 
+119:     /** A place named on a page we read (decisions/0157 §3): its answer, with the page it's on. */
+120:     private static function fromStore(PDO $pdo, string $ask, string $name, ?array $place): ?array
+121:     {
+122:         if (!is_file(__DIR__ . '/crawler/SourceIndex.php')) return null;
+123:         require_once __DIR__ . '/crawler/SourceIndex.php';
+124:         $hits = SourceIndex::search($pdo, ['text' => $name, 'named_only' => true, 'limit' => 3]);
+125:         $want = self::squash($name);
+126:         foreach ($hits as $x) {
+127:             $have = self::squash((string) $x['name']);
+128:             if (!str_starts_with($have, $want) && !str_starts_with($want, $have)) continue;
+129:             $c = SourceIndex::card($x);
+130:             $vals = array_filter(['hours' => $c['hours'], 'phone' => $c['phone'], 'address' => trim($c['address'] !== '' ? $c['address'] : $c['town']), 'website' => $c['website']]);
+131:             $out = ['ask' => $ask, 'label' => self::FACTS[$ask][0], 'value' => $vals[$ask] ?? 'Not on the page we read', 'name' => $c['label'], 'url' => $c['source'],
+132:                     'others' => [], 'from' => $c['from'] . ' (not listed yet)', 'source' => $c['source']];
+133:             foreach (['hours', 'phone', 'address', 'website'] as $k) if ($k !== $ask && !empty($vals[$k])) $out['others'][] = [self::FACTS[$k][0], $vals[$k]];
+134:             return $out;
+135:         }
+136:         return null;
+137:     }
+138: 
+139:     /**
+140:      * The pages we read that match the words (decisions/0157 §7.4): every word in the page's title, on sites we read near
+141:      * the place (a site's places are in its town) or anywhere when no place is set. [['label', 'sub', 'url']], at most $max.
+142:      * Only pages of sites read regularly: a cite-only site is never read in bulk, and its pages aren't served.
+143:      */
+144:     public static function pages(PDO $pdo, string $text, ?array $place, int $max = 5): array
+145:     {
+146:         $words = array_values(array_filter(preg_split('/[^\p{L}\p{N}]+/u', mb_strtolower($text)) ?: [], fn ($w) => mb_strlen($w) >= 3
+147:             && !in_array($w, ['the', 'and', 'for', 'near', 'with', 'from', 'what', 'where', 'when'], true)));
+148:         if (!$words) return [];
+149:         $P = Database::t('crawl_pages'); $R = Database::t('reference_sources'); $F = Database::t('source_facts');
+150:         $where = []; $args = [];
+151:         foreach (array_slice($words, 0, 5) as $w) { $where[] = 'p.title LIKE ?'; $args[] = '%' . str_replace(['\\', '%', '_'], ['\\\\', '\\%', '\\_'], $w) . '%'; }
+152:         $near = '';
+153:         $town = trim((string) strtok((string) ($place['label'] ?? ''), ',·'));
+154:         if ($town !== '') {
+155:             $alt = (string) preg_replace('/^st\.?\s+/i', 'Saint ', $town); $alt2 = (string) preg_replace('/^saint\s+/i', 'St. ', $town);
+156:             $near = " AND p.host IN (SELECT host FROM (SELECT DISTINCT host FROM $F WHERE town IN (?, ?, ?)) h)";
+157:             array_push($args, $town, $alt, $alt2);
+158:         }
+159:         try {
+160:             $st = $pdo->prepare("SELECT p.url, p.title, p.page_kind, p.host, p.fetched_at FROM $P p JOIN $R r ON r.host = p.host AND r.status = 'read'
+161:                                   WHERE p.status = 200 AND p.title IS NOT NULL AND " . implode(' AND ', $where) . $near . " ORDER BY p.changed_at DESC LIMIT " . (int) $max);
+162:             $st->execute($args);
+163:             $kinds = ['list' => 'A list', 'events' => 'Events', 'notice' => 'A notice', 'article' => 'An article', 'own_site' => 'Its own site'];
+164:             return array_map(fn ($r) => ['label' => (string) $r['title'], 'url' => (string) $r['url'],
+165:                 'sub' => trim(($kinds[$r['page_kind'] ?? ''] ?? 'A page') . ' on ' . $r['host'] . ' · read ' . date('M j', strtotime((string) $r['fetched_at'])))], $st->fetchAll(PDO::FETCH_ASSOC));
+166:         } catch (Throwable $e) { return []; }
+167:     }
+168: 
+169:     /**
+170:      * How a search was read, the intent first (decisions/0157 §4.3), and how else it could be read. $r: what search made of
+171:      * it: q, text, place, cat (label), meant [[label, q]], top (a listing), need (labels), do, when, fact.
+172:      * ['as' => name|kind|need|activity|fact|words, 'text' => "…", 'otherwise' => [['label', 'q' | 'drop']]] or null.
+173:      */
+174:     public static function line(array $r): ?array
+175:     {
+176:         $q = trim((string) ($r['q'] ?? '')); if ($q === '') return null;
+177:         $where = !empty($r['place']) ? ', near ' . trim((string) strtok((string) $r['place'], '·')) : '';
+178:         $when = !empty($r['when']) ? ', ' . mb_strtolower((string) $r['when']) : '';
+179:         $other = [];
+180:         $kinds = array_values(array_filter((array) ($r['meant'] ?? []), fn ($k) => !empty($k['label']) && !empty($k['q'])));
+181:         if (!empty($r['fact'])) {
+182:             $f = $r['fact'];
+183:             return ['as' => 'fact', 'text' => 'Read as a question: ' . mb_strtolower((string) $f['label']) . ' of ' . $f['name'], 'otherwise' => [['label' => 'Search the words instead', 'q' => (string) $f['name']]]];
+184:         }
+185:         if (!empty($r['top'])) {
+186:             if (!empty($r['top_kind'])) $other[] = ['label' => 'More ' . mb_strtolower((string) $r['top_kind']) . ' nearby', 'q' => mb_strtolower((string) $r['top_kind'])];
+187:             return ['as' => 'name', 'text' => 'Read as a name: ' . $r['top'] . $where, 'otherwise' => $other];
+188:         }
+189:         if (!empty($r['need'])) return ['as' => 'need', 'text' => 'Read as a need: ' . implode(' and ', (array) $r['need']) . $where . $when, 'otherwise' => [['label' => 'Just the words', 'drop' => 'why']]];
+190:         if (!empty($r['do'])) return ['as' => 'activity', 'text' => 'Read as something to do: ' . mb_strtolower((string) $r['do']) . $where . $when, 'otherwise' => [['label' => 'Just the words', 'drop' => 'do']]];
+191:         if (!empty($r['cat'])) {
+192:             foreach ($kinds as $k) if (mb_strtolower((string) $k['label']) !== mb_strtolower((string) $r['cat']) && count($other) < 2) $other[] = ['label' => (string) $k['label'], 'q' => (string) $k['q']];
+193:             if (mb_strtolower((string) $r['cat']) !== mb_strtolower((string) ($r['text'] ?? '')) && ($r['text'] ?? '') !== '') $other[] = ['label' => 'Just the words "' . $r['text'] . '"', 'drop' => 'category'];
+194:             return ['as' => 'kind', 'text' => 'Read as a kind of business: ' . $r['cat'] . $where . $when, 'otherwise' => $other];
+195:         }
+196:         if (($r['text'] ?? '') !== '') {
+197:             foreach (array_slice($kinds, 0, 2) as $k) $other[] = ['label' => (string) $k['label'], 'q' => (string) $k['q']];
+198:             return ['as' => 'words', 'text' => 'Searched the words "' . $r['text'] . '"' . $where . $when, 'otherwise' => $other];
+199:         }
+200:         return null;
+201:     }
+202: }

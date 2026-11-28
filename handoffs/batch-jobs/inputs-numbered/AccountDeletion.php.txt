@@ -1,0 +1,290 @@
+1: <?php
+2: // app/lib/AccountDeletion.php — Delete my account, by the person themselves (decisions/0091).
+3: //
+4: // What happens, in one transaction:
+5: //   deleted     what is only theirs: profile (and its photos), address book and contact cards, connections, groups of
+6: //               people, saved places and searches, settings, privacy choices, likes, mutes, the sign-ins linked to it,
+7: //               their team access to listings, pending email links and codes
+8: //   erased      what they wrote for others to read: journeys, stories, posts, group posts and comments are hidden and
+9: //               their text erased; their messages to other people read "[Deleted]" (the other person's side stays)
+10: //   released    a business listing they ran goes back to unclaimed (it stays on the site, for the business); a claim
+11: //               still in progress is withdrawn; their roles are revoked
+12: //   kept        records the site needs without their name: reports they made, enforcement records, decisions staff
+13: //               made, counts (which never record who)
+14: //   the account a placeholder: its email becomes deleted-<id>@deleted.invalid, every personal field is cleared, it can
+15: //               never sign in, and every session on it ends. The row stays so the records above still point somewhere.
+16: //
+17: // Not allowed until fixed first: an admin (another admin removes admin first), and someone who owns a group with other
+18: // members (hand it over or hide it first; a group with only them is hidden with the account).
+19: declare(strict_types=1);
+20: 
+21: final class AccountDeletion
+22: {
+23:     /** Reasons the account can't be deleted yet: [[message, link]]. */
+24:     public static function blockers(PDO $pdo, int $uid): array
+25:     {
+26:         $out = [];
+27:         $u = self::user($pdo, $uid);
+28:         if (!$u) return [['This account doesn\'t exist.', '']];
+29:         if ((int) $u['is_admin'] === 1) $out[] = ['You\'re an admin. Ask another admin to remove admin from your account first, so the site always has someone who can run it.', '/admin/people.php'];
+30:         foreach (self::q($pdo, "SELECT g.id, g.name FROM community_groups g WHERE g.owner_id = ? AND g.status = 'active'
+31:                                  AND EXISTS (SELECT 1 FROM community_group_members m WHERE m.group_id = g.id AND m.user_id <> ? AND m.status = 'active')", [$uid, $uid]) as $g) {
+32:             $out[] = ['You own the group "' . $g['name'] . '", which has other members. Make someone else its owner, or hide it, first.', '/community/group.php?id=' . (int) $g['id']];
+33:         }
+34:         return $out;
+35:     }
+36: 
+37:     /** What deleting will do, for the confirm page: [label => count], only the non-zero ones. */
+38:     public static function summary(PDO $pdo, int $uid): array
+39:     {
+40:         $n = fn (string $sql, array $a = []) => (int) (self::q($pdo, $sql, $a ?: [$uid])[0]['n'] ?? 0);
+41:         $s = [
+42:             'journeys' => $n("SELECT COUNT(*) n FROM journeys WHERE author_id = ? AND status <> 'hidden'"),
+43:             'stories' => $n('SELECT COUNT(*) n FROM place_stories WHERE author_id = ?'),
+44:             'posts and comments' => $n('SELECT (SELECT COUNT(*) FROM posts WHERE user_id = ? AND is_deleted = 0) + (SELECT COUNT(*) FROM community_posts WHERE user_id = ? AND removed_at IS NULL)'
+45:                                      . ' + (SELECT COUNT(*) FROM content_comments WHERE user_id = ?) + (SELECT COUNT(*) FROM journey_comments WHERE user_id = ?) n', [$uid, $uid, $uid, $uid]),
+46:             'messages you sent' => $n('SELECT COUNT(*) n FROM messages WHERE sender_id = ?'),
+47:             'contacts in your address book' => $n('SELECT COUNT(*) n FROM address_contacts WHERE owner_id = ?'),
+48:             'connections' => $n('SELECT COUNT(*) n FROM people_connections WHERE requester_id = ? OR addressee_id = ?', [$uid, $uid]),
+49:             'saved places' => $n('SELECT COUNT(*) n FROM user_places WHERE user_id = ?'),
+50:             'trips' => $n('SELECT COUNT(*) n FROM trips WHERE user_id = ?'),
+51:             'business listings you run' => $n('SELECT COUNT(*) n FROM entities WHERE owner_user_id = ?'),
+52:         ];
+53:         return array_filter($s);
+54:     }
+55: 
+56:     /** Deletes the account. Throws RuntimeException when blocked. Returns the email it had (for the goodbye email). */
+57:     public static function run(PDO $pdo, int $uid): string
+58:     {
+59:         if ($b = self::blockers($pdo, $uid)) throw new RuntimeException($b[0][0]);
+60:         $u = self::user($pdo, $uid);
+61:         $email = (string) $u['email'];
+62:         $files = [];
+63:         foreach (self::q($pdo, 'SELECT avatar_path, cover_path FROM member_profiles WHERE user_id = ?', [$uid]) as $r) foreach ($r as $p) if ($p) $files[] = (string) $p;
+64:         $qrLogos = array_map(fn ($r) => (int) $r['id'], self::q($pdo, 'SELECT id FROM qr_issued WHERE user_id = ?', [$uid]));   // QR code logos (decisions/0095)
+65: 
+66:         $do = function (string $sql, array $a) use ($pdo): void {
+67:             try { $pdo->prepare($sql)->execute($a); }
+68:             catch (PDOException $e) {
+69:                 // a table or column this site doesn't have yet (an update not run) is skipped; anything else stops it all
+70:                 if (!preg_match('/doesn\'t exist|Unknown column|42S02|42S22/', $e->getMessage())) throw $e;
+71:             }
+72:         };
+73:         $pdo->beginTransaction();
+74:         try {
+75:             // deleted: only theirs
+76:             foreach ([
+77:                 'address_contacts' => ['owner_id'], 'contact_cards' => ['user_id'], 'contact_requests' => ['requester_id', 'owner_id'],
+78:                 'contact_shares' => ['owner_id', 'viewer_id'], 'people_connections' => ['requester_id', 'addressee_id'],
+79:                 'people_group_members' => ['user_id'], 'user_blocks' => ['user_id'], 'user_links' => ['user_id'], 'user_places' => ['user_id'],
+80:                 'user_settings' => ['user_id'], 'saved_searches' => ['user_id'], 'tool_consents' => ['user_id'], 'tool_consent_log' => ['user_id'],
+81:                 'age_confirmations' => ['user_id'], 'email_confirmations' => ['user_id'], 'user_otp_challenges' => ['user_id'],
+82:                 'user_identities' => ['user_id'], 'marketing_optins' => ['user_id'], 'member_profiles' => ['user_id'], 'content_likes' => ['user_id'],
+83:                 'journey_likes' => ['user_id'], 'business_message_mutes' => ['user_id'], 'business_message_reads' => ['user_id'],
+84:                 'business_contact_shares' => ['user_id'], 'message_members' => ['user_id'], 'journey_coauthors' => ['user_id'],
+85:                 'community_group_members' => ['user_id'], 'listing_access' => ['user_id'], 'admin_access' => ['user_id'], 'contributors' => ['user_id'],
+86:                 'saved_items' => ['user_id'], 'member_plans' => ['user_id'], 'qr_issued' => ['user_id'], 'ai_asks' => ['user_id'], 'like_events' => ['user_id'], 'like_watch' => ['user_id'],
+87:             ] as $t => $cols) $do('DELETE FROM ' . Database::t($t) . " WHERE " . implode(' OR ', array_map(fn ($c) => "`$c` = ?", $cols)), array_fill(0, count($cols), $uid));
+88:             $do("UPDATE personal_guides SET status = 'hidden', hidden_reason = 'The author deleted their account', title = '', intro = '', updated_at = NOW() WHERE user_id = ?", [$uid]);   // as journeys (0174 §6)
+89:             $do('DELETE s FROM trip_stops s JOIN trips t ON t.id = s.trip_id WHERE t.user_id = ?', [$uid]);   // their trips (decisions/0174 §6)
+90:             $do('DELETE FROM trips WHERE user_id = ?', [$uid]);
+91:             $do('DELETE m FROM people_group_members m JOIN people_groups g ON g.id = m.group_id WHERE g.owner_id = ?', [$uid]);
+92:             $do('DELETE FROM people_groups WHERE owner_id = ?', [$uid]);
+93:             // trvgo.us codes (decisions/0094): their own are switched off and emptied; a listing's stay with the business.
+94:             // QR orders stay as sales and tax records (decisions/0095).
+95:             $do("UPDATE short_codes SET active = 0, off_reason = 'owner', target = '', payload = NULL, title = '' WHERE owner_user_id = ? AND entity_id IS NULL", [$uid]);
+96:             $do('UPDATE short_codes SET owner_user_id = NULL WHERE owner_user_id = ?', [$uid]);
+97: 
+98:             // erased: what they wrote for others
+99:             $do("UPDATE journeys SET status = 'hidden', hidden_reason = 'The author deleted their account', title = '', body = '', video_url = '', updated_at = NOW() WHERE author_id = ?", [$uid]);
+100:             $do("UPDATE journey_comments SET status = 'hidden', body = '' WHERE user_id = ?", [$uid]);
+101:             $do("UPDATE content_comments SET status = 'hidden', body = '' WHERE user_id = ?", [$uid]);
+102:             $do("UPDATE place_stories SET status = 'draft', body = '' WHERE author_id = ?", [$uid]);
+103:             $do("UPDATE posts SET is_deleted = 1, body = '' WHERE user_id = ?", [$uid]);
+104:             $do("UPDATE community_posts SET removed_at = COALESCE(removed_at, NOW()), body = '' WHERE user_id = ?", [$uid]);
+105:             $do("UPDATE experiences SET status = 'hidden' WHERE author_id = ?", [$uid]);
+106:             $do("UPDATE messages SET body = '[Deleted]' WHERE sender_id = ?", [$uid]);
+107:             $do("UPDATE business_messages SET body = '[Deleted]' WHERE user_id = ? AND (sent_by = ? OR sent_by IS NULL)", [$uid, $uid]);
+108:             $do("UPDATE community_groups SET status = 'hidden' WHERE owner_id = ?", [$uid]);   // only their own: others' were a blocker
+109: 
+110:             // released: listings go back to unclaimed, claims in progress withdrawn, roles revoked
+111:             $do("UPDATE entities SET owner_user_id = NULL, status = CASE WHEN status IN ('claimed-unverified', 'pending-verification', 'verified') THEN 'unclaimed' ELSE status END WHERE owner_user_id = ?", [$uid]);
+112:             $do("UPDATE listing_claims SET status = 'withdrawn' WHERE user_id = ? AND status IN ('emailing', 'on_hold')", [$uid]);
+113:             $do('UPDATE ' . Database::t('role_grants') . ' SET revoked_at = NOW(), revoked_by = ? WHERE user_id = ? AND revoked_at IS NULL', [$uid, $uid]);
+114:             $do('UPDATE suggestions SET user_id = NULL WHERE user_id = ?', [$uid]);
+115: 
+116:             $do("UPDATE account_closures SET status = 'deleted', deleted_at = NOW(), token_hash = NULL, hidden = NULL WHERE user_id = ?", [$uid]);   // nothing left to restore
+117: 
+118:             // the account itself: a placeholder that can never sign in; every session on it ends
+119:             $do("UPDATE users SET email = CONCAT('deleted-', id, '@deleted.invalid'), phone = NULL, display_name = NULL, password_hash = ?, email_verified_at = NULL,
+120:                          google_sub = NULL, home_cluster_id = NULL, area_zip = NULL, area_city = NULL, area_state = NULL, area_lat = NULL, area_lon = NULL, area_label = NULL,
+121:                          session_version = session_version + 1, deleted_at = NOW(), updated_at = NOW() WHERE id = ?", [password_hash(bin2hex(random_bytes(32)), PASSWORD_DEFAULT), $uid]);
+122:             $pdo->commit();
+123:         } catch (Throwable $e) {
+124:             $pdo->rollBack();
+125:             error_log('account deletion ' . $uid . ': ' . $e->getMessage());
+126:             throw new RuntimeException('Your account couldn\'t be deleted just now. Nothing was changed. Try again, or email support@traversence.com.');
+127:         }
+128:         // their profile photos, from uploads/ only
+129:         require_once __DIR__ . '/Store.php';   // on the server or in S3 (decisions/0123)
+130:         foreach ($qrLogos as $qid) Store::remove(__DIR__ . '/../storage/qr-logos/' . (int) $qid . '.png');   // from before owner folders
+131:         try {   // their gallery (decisions/0126): its records; the files go with their folder just below
+132:             $pdo->prepare("DELETE ai FROM gallery_album_items ai JOIN gallery_albums a ON a.id = ai.album_id WHERE a.owner_kind = 'members' AND a.owner_ref = ?")->execute([(string) $uid]);
+133:             $pdo->prepare("DELETE FROM gallery_albums WHERE owner_kind = 'members' AND owner_ref = ?")->execute([(string) $uid]);
+134:             $pdo->prepare("DELETE FROM gallery_items WHERE owner_kind = 'members' AND owner_ref = ?")->execute([(string) $uid]);
+135:         } catch (PDOException) {}   // no gallery yet
+136:         try { require_once __DIR__ . '/MemberPosts.php'; MemberPosts::wipeOwner($pdo, $uid); } catch (Throwable $x) { error_log('account deletion posts ' . $uid . ': ' . $x->getMessage()); }   // their posts (decisions/0153); held copies keep their time
+137:         try { Store::wipe('members', $uid); } catch (Throwable $x) { error_log('account deletion files ' . $uid . ': ' . $x->getMessage()); }   // everything in their folder (decisions/0124); their orders' files stay with the orders
+138:         foreach ($files as $p) {
+139:             $rel = '/' . ltrim((string) preg_replace('#^https?://[^/]+#', '', (string) $p), '/');
+140:             if (str_starts_with($rel, '/uploads/') && !str_contains($rel, '..')) Store::remove(Store::web($rel));
+141:         }
+142:         return $email;
+143:     }
+144: 
+145:     // ---- Closing first: 30 days to change your mind (decisions/0091, 2026-10-15) ------------------------------------
+146:     //
+147:     // close()    what they posted is hidden (the way each kind is hidden, with what it was before kept in the closure's
+148:     //            record), every session ends, and the account waits 30 days. Nothing is erased yet; a listing they run
+149:     //            stays as it is. An email has a Restore link.
+150:     //   restore()  puts back exactly what close() hid (only where nobody has changed it since), and the account is open
+151:     //   sweep()    on day 30, run() does the full deletion. Page loads run it (tickSoon, at most every 30 minutes).
+152:     // Signing in while it's closing (password, Google, Apple, Microsoft, Facebook) goes to /user/restore-account.php,
+153:     // which offers Restore or Keep it closed; nothing else opens until then.
+154: 
+155:     public const GRACE_DAYS = 30;
+156: 
+157:     public static function ready(PDO $pdo): bool
+158:     {
+159:         try { $pdo->query('SELECT 1 FROM account_closures LIMIT 0'); return true; } catch (PDOException) { return false; }
+160:     }
+161: 
+162:     /** The closure waiting on this account, or null. */
+163:     public static function closing(PDO $pdo, int $uid): ?array
+164:     {
+165:         return self::q($pdo, "SELECT * FROM account_closures WHERE user_id = ? AND status = 'closing' LIMIT 1", [$uid])[0] ?? null;
+166:     }
+167: 
+168:     /** The account a Restore link is for, or null. */
+169:     public static function byToken(PDO $pdo, string $token): ?int
+170:     {
+171:         if (!preg_match('/^[a-f0-9]{40}$/', $token)) return null;
+172:         $r = self::q($pdo, "SELECT user_id FROM account_closures WHERE token_hash = ? AND status = 'closing' LIMIT 1", [hash('sha256', $token)]);
+173:         return $r ? (int) $r[0]['user_id'] : null;
+174:     }
+175: 
+176:     /** Closes the account for 30 days. Returns ['email', 'delete_after', 'token']. Throws RuntimeException when blocked. */
+177:     public static function close(PDO $pdo, int $uid): array
+178:     {
+179:         if ($b = self::blockers($pdo, $uid)) throw new RuntimeException($b[0][0]);
+180:         if (!self::ready($pdo)) throw new RuntimeException('Closing accounts isn\'t set up yet (a database update). Try again later.');
+181:         $u = self::user($pdo, $uid);
+182:         $hidden = [];
+183:         // each kind the way it's hidden: [table, id column, owner column, column, its hidden value, which rows]
+184:         foreach ([
+185:             ['journeys', 'id', 'author_id', 'status', 'hidden', "status <> 'hidden'"],
+186:             ['journey_comments', 'id', 'user_id', 'status', 'hidden', "status <> 'hidden'"],
+187:             ['content_comments', 'id', 'user_id', 'status', 'hidden', "status <> 'hidden'"],
+188:             ['place_stories', 'id', 'author_id', 'status', 'draft', "status = 'published'"],
+189:             ['posts', 'id', 'user_id', 'is_deleted', '1', 'is_deleted = 0'],
+190:             ['experiences', 'id', 'author_id', 'status', 'hidden', "status <> 'hidden'"],
+191:             ['member_profiles', 'user_id', 'user_id', 'published', '0', 'published = 1'],
+192:             ['community_groups', 'id', 'owner_id', 'status', 'hidden', "status = 'active'"],
+193:         ] as [$t, $idc, $own, $col, $to, $where]) {
+194:             foreach (self::q($pdo, "SELECT `$idc` AS id, `$col` AS v FROM `$t` WHERE `$own` = ? AND $where", [$uid]) as $r) $hidden[] = [$t, $idc, $r['id'], $col, $r['v'], $to];
+195:         }
+196:         foreach (self::q($pdo, 'SELECT id FROM community_posts WHERE user_id = ? AND removed_at IS NULL', [$uid]) as $r) $hidden[] = ['community_posts', 'id', $r['id'], 'removed_at', null, 'now'];
+197:         $token = bin2hex(random_bytes(20));
+198:         $pdo->beginTransaction();
+199:         try {
+200:             foreach ($hidden as [$t, $idc, $id, $col, , $to]) {
+201:                 $pdo->prepare("UPDATE `$t` SET `$col` = " . ($to === 'now' ? 'NOW()' : '?') . " WHERE `$idc` = ?")->execute($to === 'now' ? [$id] : [$to, $id]);
+202:             }
+203:             $pdo->prepare("INSERT INTO account_closures (user_id, requested_at, delete_after, status, hidden, token_hash) VALUES (?, NOW(), DATE_ADD(NOW(), INTERVAL " . self::GRACE_DAYS . " DAY), 'closing', ?, ?)
+204:                            ON DUPLICATE KEY UPDATE requested_at = NOW(), delete_after = VALUES(delete_after), status = 'closing', hidden = VALUES(hidden), token_hash = VALUES(token_hash), restored_at = NULL, deleted_at = NULL")
+205:                 ->execute([$uid, json_encode($hidden), hash('sha256', $token)]);
+206:             $pdo->prepare('UPDATE users SET session_version = session_version + 1, updated_at = NOW() WHERE id = ?')->execute([$uid]);   // signed out everywhere
+207:             $pdo->commit();
+208:         } catch (Throwable $e) {
+209:             $pdo->rollBack();
+210:             error_log('account close ' . $uid . ': ' . $e->getMessage());
+211:             throw new RuntimeException('Your account couldn\'t be closed just now. Nothing was changed. Try again, or email support@traversence.com.');
+212:         }
+213:         $after = (string) (self::closing($pdo, $uid)['delete_after'] ?? '');
+214:         return ['email' => (string) $u['email'], 'delete_after' => $after, 'token' => $token];
+215:     }
+216: 
+217:     /** Opens a closing account again: what close() hid comes back (where nobody has changed it since). */
+218:     public static function restore(PDO $pdo, int $uid): void
+219:     {
+220:         $c = self::closing($pdo, $uid);
+221:         if (!$c) throw new RuntimeException('There\'s nothing to restore: this account isn\'t closing.');
+222:         $pdo->beginTransaction();
+223:         try {
+224:             foreach ((array) json_decode((string) $c['hidden'], true) as $h) {
+225:                 [$t, $idc, $id, $col, $was, $to] = $h + [null, null, null, null, null, null];
+226:                 if (!preg_match('/^[a-z_]+$/', (string) $t . $idc . $col)) continue;
+227:                 if ($to === 'now') $pdo->prepare("UPDATE `$t` SET `$col` = NULL WHERE `$idc` = ? AND `$col` IS NOT NULL")->execute([$id]);
+228:                 else $pdo->prepare("UPDATE `$t` SET `$col` = ? WHERE `$idc` = ? AND `$col` = ?")->execute([$was, $id, $to]);
+229:             }
+230:             $pdo->prepare("UPDATE account_closures SET status = 'restored', restored_at = NOW(), token_hash = NULL WHERE user_id = ?")->execute([$uid]);
+231:             $pdo->commit();
+232:         } catch (Throwable $e) {
+233:             $pdo->rollBack();
+234:             error_log('account restore ' . $uid . ': ' . $e->getMessage());
+235:             throw new RuntimeException('Your account couldn\'t be restored just now. Try again, or email support@traversence.com.');
+236:         }
+237:     }
+238: 
+239:     /** Day 30: the full deletion for every closure that's due. Returns how many. */
+240:     public static function sweep(PDO $pdo): int
+241:     {
+242:         if (!self::ready($pdo)) return 0;
+243:         $n = 0;
+244:         foreach (self::q($pdo, "SELECT user_id FROM account_closures WHERE status = 'closing' AND delete_after <= NOW() LIMIT 20", []) as $r) {
+245:             $uid = (int) $r['user_id'];
+246:             try {
+247:                 $email = self::run($pdo, $uid);
+248:                 $pdo->prepare("UPDATE account_closures SET status = 'deleted', deleted_at = NOW(), token_hash = NULL, hidden = NULL WHERE user_id = ?")->execute([$uid]);
+249:                 self::mail($email, 'Your Traversence account is deleted',
+250:                     "The 30 days are up, and your Traversence account has been deleted, as you asked.\n\nYour profile, address book, connections, saved places and settings are gone, "
+251:                     . "and what you wrote (journeys, stories, posts and comments) has been erased.\n\nThank you for being part of Traversence.");
+252:                 $n++;
+253:             } catch (Throwable $e) { error_log('account sweep ' . $uid . ': ' . $e->getMessage()); }   // tried again on the next sweep
+254:         }
+255:         return $n;
+256:     }
+257: 
+258:     /** sweep(), from page loads, at most every 30 minutes. */
+259:     public static function tickSoon(PDO $pdo): void
+260:     {
+261:         $f = dirname(__DIR__) . '/storage/closures.tick';
+262:         $last = @filemtime($f);
+263:         if ($last !== false && $last > time() - 1800) return;
+264:         @touch($f);
+265:         try { self::sweep($pdo); } catch (Throwable $e) { error_log('closures tick: ' . $e->getMessage()); }
+266:     }
+267: 
+268:     /** Signing in to a closing account: remember who (15 minutes), so /user/restore-account.php can offer Restore. */
+269:     public static function holdForRestore(int $uid): void
+270:     {
+271:         $_SESSION['tv_closing'] = ['uid' => $uid, 'at' => time()];
+272:     }
+273: 
+274:     public static function mail(string $to, string $subject, string $body): void
+275:     {
+276:         try { require_once __DIR__ . '/Mailer.php'; Mailer::send($to, $subject, $body); } catch (Throwable $e) { error_log('account closure email: ' . $e->getMessage()); }
+277:     }
+278: 
+279:     private static function user(PDO $pdo, int $uid): ?array
+280:     {
+281:         $r = self::q($pdo, 'SELECT id, email, is_admin FROM users WHERE id = ?', [$uid]);
+282:         return $r[0] ?? null;
+283:     }
+284: 
+285:     /** A read that returns [] when a table isn't there yet. */
+286:     private static function q(PDO $pdo, string $sql, array $a): array
+287:     {
+288:         try { $st = $pdo->prepare($sql); $st->execute($a); return $st->fetchAll(PDO::FETCH_ASSOC); } catch (PDOException) { return []; }
+289:     }
+290: }

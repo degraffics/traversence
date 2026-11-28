@@ -1,0 +1,919 @@
+1: <?php
+2: 
+3: declare(strict_types=1);
+4: 
+5: require_once __DIR__ . '/PlaceScope.php';
+6: require_once __DIR__ . '/SearchText.php';
+7: require_once __DIR__ . '/ListingSafety.php';
+8: require_once __DIR__ . '/Links.php';
+9: require_once __DIR__ . '/Hours.php';
+10: if (is_file(__DIR__ . '/Community.php')) require_once __DIR__ . '/Community.php';
+11: if (is_file(__DIR__ . '/crawler/RecBulk.php')) require_once __DIR__ . '/crawler/RecBulk.php';
+12: if (is_file(__DIR__ . '/Landmarks.php')) require_once __DIR__ . '/Landmarks.php';
+13: require_once __DIR__ . '/NameText.php';
+14: 
+15: /**
+16:  * api/lib/SearchIndex.php — the 5W index behind universal search (decisions/0053 §8).
+17:  *
+18:  * One row per searchable thing (a listing, an outdoors place, a story, a community group, a topic), tagged with:
+19:  *   What   terms: its name, category and group, offerings, activities, type, topic;
+20:  *   Who    public only: the managing agency or organization, and who it is for or run by (veterans, seniors,
+21:  *          kids and families, tribal nations and communities, "-owned" as the listing itself says);
+22:  *   When   a listing's hours as published (read by Hours.php when searching);
+23:  *   Where  ZIP, town, state, cluster, place key and point;
+24:  *   Why    intents (eat, stay, heal, help, explore, connect, buy, learn), read from what it is.
+25:  * Nothing personal is indexed: no member profiles, contacts, messages, or members' names.
+26:  *
+27:  * build():   one batch of one kind, for the admin's "Build" button (Admin > Crawler > Data loads > Search index).
+28:  * refresh(): keeps it current without a cron: at most every 15 minutes, a search picks up listings changed since the
+29:  *            last look and rebuilds the small kinds (stories, groups, topics).
+30:  * find():    candidates for the 5W reading of a query, scored and ordered.
+31:  */
+32: require_once __DIR__ . '/CategoryAlso.php';
+33: 
+34: final class SearchIndex
+35: {
+36:     public const KINDS = ['listing', 'outdoors', 'story', 'group', 'topic'];
+37:     public const KIND_LABEL = ['listing' => 'Listing', 'outdoors' => 'Outdoors', 'story' => 'Story', 'group' => 'Group', 'topic' => 'Topic', 'experience' => 'Experience'];
+38:     /** The site's sections (the header's funnels, decisions/0055 §2) each kind lives in. Topics split: a category is Get Local, a community topic is Connect. */
+39:     public const FUNNELS = ['explore' => "Let's Explore", 'local' => 'Get Local', 'social' => 'Connect', 'market' => 'Marketplace'];
+40:     public static function funnelOf(string $kind, string $id = ''): string
+41:     {
+42:         return match ($kind) { 'listing' => 'local', 'topic' => str_starts_with($id, 'ct:') ? 'social' : 'local', 'group' => 'social', default => 'explore' };
+43:     }
+44:     /** SQL for the kinds in a section. */
+45:     private static function funnelSql(string $f): string
+46:     {
+47:         return match ($f) {
+48:             'local' => "(si.kind = 'listing' OR (si.kind = 'topic' AND si.item_id LIKE 'cat:%'))",
+49:             'social' => "(si.kind = 'group' OR (si.kind = 'topic' AND si.item_id LIKE 'ct:%'))",
+50:             'explore' => "si.kind IN ('outdoors', 'story')",
+51:             default => '1 = 0',   // Market: nothing to search yet
+52:         };
+53:     }
+54:     public const KIND_PLURAL = ['listing' => 'Listings', 'outdoors' => 'Outdoors', 'story' => 'Stories & guides', 'group' => 'Groups', 'topic' => 'Topics', 'experience' => 'Experiences'];
+55:     private const STATUSES = ['unclaimed', 'claimed-unverified', 'pending-verification', 'verified'];
+56: 
+57:     /** Why: what a thing is for, read from its name, category, type and activities. Order matters only for display. */
+58:     public const WHY = [
+59:         'eat'     => '/\b(restaurants?|food|foods|cafe|café|coffee|bakery|bakeries|diner|pizza|grill|bar|bars|pub|brew\w*|taco\w*|burgers?|kitchen|catering|deli|ice cream|donuts?|bbq|barbecue|steak\w*|cantina|dining|eatery|mexican|chinese|italian|sandwich\w*|fast food|drive.?in)\b/u',
+60:         'stay'    => '/\b(hotels?|motels?|lodges?|lodging|inns?|cabins?|rv parks?|campgrounds?|camping|resorts?|bed and breakfast|b&b|vacation rentals?)\b/u',
+61:         'heal'    => '/\b(health\w*|medical|clinics?|hospitals?|doctors?|physicians?|dental|dentists?|therap\w*|chiropract\w*|pharmac\w*|counsel\w*|mental|wellness|optometr\w*|urgent care|nursing|rehab\w*|physical therapists?|behavioral)\b/u',
+62:         'help'    => '/\b(food banks?|pantr\w*|shelters?|assistance|crisis|legal aid|social services?|recovery|veterans services|housing authority|domestic violence|hotlines?|outreach|charit\w*|non.?profits?|human services|family services|community action)\b/u',
+63:         'explore' => '/\b(parks?|trails?|trailheads?|recreation areas?|recreation centers?|lakes?|national forests?|wilderness|museums?|national monuments?|scenic|overlooks?|hiking|fishing|visitor centers?|tours?|historic\w*|galler\w*|attractions?|picnic\w*|day use|rivers?|canyons?|campgrounds?|skiing|ski areas?|golf|outdoors?|amusement\w*|bowling|theaters?|theatres?|zoos?)\b/u',
+64:         'connect' => '/\b(church\w*|communit\w*|clubs?|associations?|chapter|volunteer\w*|lodge hall|grange|senior centers?|community centers?|fellowship|ministr\w*|group)\b/u',
+65:         'buy'     => '/\b(stores?|shops?|shopping|retail\w*|markets?|boutiques?|suppl\w*|hardware|grocer\w*|dealers?|dealerships?|feed|gifts?|thrift|furniture|clothing|jewel\w*|nurser\w*|florists?)\b/u',
+66:         'fix'     => '/\b(contractors?|construction|remodel\w*|plumb\w*|electric(al|ians?)|roof\w*|hvac|heating|air conditioning|handyman|repair\w*|flooring|cabinets?|painting|landscap\w*|lawn|pest|exterminat\w*|septic|home improvement|carpet\w*|windows?|garage doors?|concrete|masonry|fenc\w*|builders?|movers?|cleaning|janitorial|locksmiths?|appliances?)\b/u',
+67:         'learn'   => '/\b(schools?|colleges?|librar\w*|education\w*|classes|training|tutor\w*|academ\w*|preschools?|universit\w*|museums?|learning)\b/u',
+68:     ];
+69:     public const WHY_LABEL = ['eat' => 'Somewhere to eat', 'stay' => 'Somewhere to stay', 'heal' => 'Care and health', 'help' => 'Getting help',
+70:                               'explore' => 'Things to do', 'connect' => 'Meeting people', 'buy' => 'Shopping', 'learn' => 'Learning', 'fix' => 'Repairs and projects'];
+71:     /** Words that carry the question, not the thing ("find me someone to…"): left out of matching. */
+72:     public const STOP = ['my', 'our', 'your', 'me', 'i', 'we', 'us', 'the', 'a', 'an', 'of', 'for', 'to', 'with', 'and', 'or', 'some', 'need', 'needs', 'want',
+73:         'looking', 'find', 'get', 'someone', 'somebody', 'anyone', 'who', 'can', 'could', 'please', 'near', 'around', 'here', 'nearby', 'local', 'best', 'good',
+74:         'great', 'cheap', 'affordable', 'top', 'recommended', 'that', 'this', 'do', 'does', 'is', 'are', 'on', 'at', 'in', 'by', 'it', 'up'];
+75:     /** Words that help the order but shouldn't be required ("remodel my home": home is where, not what). */
+76:     public const SOFT = ['home', 'house', 'place', 'family', 'service', 'services', 'company', 'shop', 'store', 'business',
+77:         'new', 'newest', 'latest', 'recent', 'spot', 'spots', 'joint', 'town'];   // "a new pizza spot": pizza is the thing
+78: 
+79:     /** Who it's for or run by. Read from the thing's own name, category and description; never guessed about a person. */
+80:     public const AUDIENCE = [
+81:         'veterans' => '/\b(veterans?|vfw|american legion|amvets|va (clinic|medical|office))\b/u',
+82:         'seniors'  => '/\b(seniors?|elders?|elderly|aging|older adults?|retirement|assisted living)\b/u',
+83:         'kids'     => '/\b(youth|kids?|children|child|teens?|boys (and|&) girls|head start|preschool\w*|day ?care|child ?care)\b/u',
+84:         'families' => '/\b(famil(y|ies)|parents?|parenting)\b/u',
+85:         'women'    => '/\b(women|womens|mothers?|moms?|maternity)\b/u',
+86:         // tribal: only the thing's own words for it (Apache and Navajo are also county and forest names)
+87:         'tribal'   => '/\b(tribal|tribes?|nation|pueblo|chapter house)\b/u',
+88:     ];
+89:     /**
+90:      * Outings (Jason, 2026-11-10, "place to take my kids": "Kids? Ages? Type of activities?"): who's coming or the kind
+91:      * of outing, read from the words, chooses the kinds of places that fit, as whole words in a thing's terms (its name,
+92:      * category, type, activities). Each: [label, words that fit, words that rule it out]. Ages and settings narrow the
+93:      * family's list or put some first; UniversalSearch::outing() reads them.
+94:      */
+95:     public const OUTINGS = [
+96:         'family' => ['With kids', ['playground', 'playgrounds', 'zoo', 'zoos', 'zoological', 'aquarium', 'aquariums', 'museum', 'museums', 'library', 'libraries',
+97:             'park', 'parks', 'splash pad', 'splash pads', 'water park', 'water parks', 'mini golf', 'miniature golf', 'putt putt', 'bowling', 'trampoline',
+98:             'arcade', 'arcades', 'family fun', 'fun center', 'fun centers', 'amusement', 'amusement parks', 'skating', 'roller rink', 'ice rink', 'skate park',
+99:             'swimming pool', 'swimming pools', 'aquatic', 'aquatics', 'nature center', 'science center', 'discovery center', 'children s museum', 'childrens museum',
+100:             'botanical', 'garden', 'gardens', 'farm', 'farms', 'petting', 'pumpkin patch', 'ice cream', 'frozen yogurt', 'gelato', 'carousel', 'laser tag',
+101:             'go kart', 'go karts', 'batting cages', 'climbing gym', 'rock climbing', 'planetarium', 'observatory', 'recreation center', 'recreation centers',
+102:             'picnic', 'picnic area', 'lake', 'lakes', 'beach', 'nature trail', 'movie theater', 'movie theaters', 'cinema', 'escape room', 'escape rooms',
+103:             'dinosaur', 'train', 'railroad', 'wildlife', 'visitor center', 'family entertainment']],
+104:         'dog' => ['With your dog', ['dog park', 'dog parks', 'dog friendly', 'pet friendly', 'off leash', 'park', 'parks', 'trail', 'trails', 'trailhead', 'lake',
+105:             'lakes', 'beach', 'preserve', 'open space', 'patio', 'brewery', 'pet supplies', 'pet stores', 'dog grooming']],
+106:         'date' => ['Date night', ['fine dining', 'steakhouse', 'steak house', 'wine', 'winery', 'wineries', 'wine bar', 'cocktail', 'cocktails', 'lounge', 'bistro',
+107:             'italian', 'french', 'sushi', 'tapas', 'dessert', 'desserts', 'chocolate', 'theater', 'theaters', 'theatre', 'live music', 'music venue', 'jazz',
+108:             'comedy', 'comedy club', 'concert', 'concerts', 'observatory', 'planetarium', 'scenic', 'overlook', 'viewpoint', 'botanical', 'garden', 'gardens',
+109:             'spa', 'day spas', 'art gallery', 'art galleries', 'galleries', 'museum', 'museums', 'dance', 'dancing', 'brewery', 'breweries', 'rooftop', 'cinema',
+110:             'movie theater', 'bowling', 'escape room', 'mini golf']],
+111:     ];
+112:     /** The places that fit an age (put first) or a setting (only those), within an outing's list. */
+113:     public const OUTING_AGES = [
+114:         'little' => ['Toddlers and little ones', ['playground', 'playgrounds', 'splash pad', 'library', 'libraries', 'petting', 'children s museum', 'childrens museum',
+115:             'zoo', 'aquarium', 'carousel', 'farm', 'park', 'parks', 'train', 'ice cream', 'discovery center', 'nature center', 'picnic']],
+116:         'kids' => ['Kids', ['playground', 'zoo', 'aquarium', 'museum', 'science center', 'children s museum', 'childrens museum', 'mini golf', 'miniature golf', 'bowling',
+117:             'trampoline', 'water park', 'splash pad', 'skating', 'family fun', 'fun center', 'park', 'library', 'nature center', 'ice cream', 'dinosaur', 'farm']],
+118:         'teens' => ['Teens', ['arcade', 'arcades', 'trampoline', 'laser tag', 'go kart', 'go karts', 'escape room', 'escape rooms', 'climbing gym', 'rock climbing',
+119:             'skate park', 'bowling', 'mini golf', 'movie theater', 'cinema', 'water park', 'amusement', 'batting cages', 'ice rink', 'roller rink', 'lake', 'trail']],
+120:     ];
+121:     public const OUTING_SETTINGS = [
+122:         'indoor' => ['Indoors', ['museum', 'museums', 'library', 'libraries', 'bowling', 'arcade', 'arcades', 'trampoline', 'aquarium', 'aquariums', 'laser tag',
+123:             'escape room', 'escape rooms', 'climbing gym', 'roller rink', 'ice rink', 'skating', 'science center', 'discovery center', 'children s museum',
+124:             'childrens museum', 'planetarium', 'movie theater', 'movie theaters', 'cinema', 'theater', 'theaters', 'art gallery', 'art galleries', 'galleries',
+125:             'family fun', 'fun center', 'fun centers', 'ice cream', 'frozen yogurt', 'gelato', 'recreation center', 'recreation centers', 'aquatic', 'mall',
+126:             'shopping center', 'spa', 'day spas', 'dessert', 'desserts', 'comedy club', 'wine bar', 'lounge', 'family entertainment']],
+127:         'outdoor' => ['Outdoors', ['playground', 'playgrounds', 'zoo', 'zoos', 'park', 'parks', 'splash pad', 'water park', 'mini golf', 'miniature golf',
+128:             'skate park', 'botanical', 'garden', 'gardens', 'farm', 'farms', 'petting', 'pumpkin patch', 'go kart', 'go karts', 'batting cages', 'picnic',
+129:             'lake', 'lakes', 'beach', 'trail', 'trails', 'trailhead', 'nature trail', 'nature center', 'preserve', 'open space', 'scenic', 'overlook',
+130:             'viewpoint', 'dog park', 'wildlife', 'observatory']],
+131:     ];
+132:     /** Never an outing, whatever its words (an RV park isn't a park for the kids). */
+133:     public const OUTING_NOT = ['inn', 'inns', 'hotel', 'hotels', 'motel', 'motels', 'lodging', 'suites', 'historic district', 'rv park', 'rv parks', 'mobile home', 'manufactured home', 'trailer park', 'industrial park', 'business park', 'office park',
+134:         'park model', 'parking', 'liquor', 'smoke shop', 'vape', 'tobacco', 'cannabis', 'dispensary', 'marijuana', 'tattoo', 'casino', 'adult', 'strip club',
+135:         'night club', 'nightclub', 'bail bonds', 'pawn', 'storage', 'funeral', 'cemetery', 'real estate', 'apartments', 'property management', 'contractor',
+136:         'contractors', 'insurance', 'attorney', 'attorneys', 'lawyer', 'dental', 'dentist', 'dentists', 'clinic', 'pharmacy', 'pharmacies', 'church', 'churches',
+137:         'school district', 'preschool', 'day care', 'daycare', 'child care', 'auto', 'towing', 'plumbing', 'roofing', 'landscaping', 'pool service',
+138:         'pool supplies', 'pool cleaning', 'pool builders', 'pool contractors', 'spa services', 'garden centers', 'nursery', 'farm supply', 'farm equipment', 'feed'];
+139: 
+140:     /** The words that fit an outing ['for' => family|dog|date|'', 'age' => …, 'setting' => indoor|outdoor|''], or []. */
+141:     public static function outingWords(array $o): array
+142:     {
+143:         $for = self::OUTINGS[$o['for'] ?? ''][1] ?? [];
+144:         $set = self::OUTING_SETTINGS[$o['setting'] ?? ''][1] ?? [];
+145:         if ($for && $set) { $both = array_values(array_intersect($for, $set)); return $both ?: $set; }
+146:         return $for ?: $set;
+147:     }
+148: 
+149:     public const AUDIENCE_LABEL = ['veterans' => 'Veterans', 'seniors' => 'Seniors', 'kids' => 'Kids and youth', 'families' => 'Families',
+150:                                    'women' => 'Women', 'tribal' => 'Tribal nations and communities'];
+151:     /**
+152:      * What's served, read from the whole description, offerings and name (not only the category): each match adds the
+153:      * words found and the cuisine they point to, so "mexican" finds a place whose description says "tacos and tamales".
+154:      */
+155:     public const FOOD = [
+156:         'mexican'     => '/\b(mexican|tex.?mex|tacos?|taqueria|burritos?|enchiladas?|tamales?|carne asada|menudo|pozole|posole|chile rellenos?|fajitas?|quesadillas?|tortas?|horchata|sopapillas?)\b/u',
+157:         'southwestern'=> '/\b(southwestern|new mexican|green chile|red chile|chile verde|navajo tacos?|fry ?bread|blue corn|mutton stew)\b/u',
+158:         'native foods'=> '/\b(fry ?bread|navajo tacos?|blue corn|mutton stew|indian tacos?)\b/u',
+159:         'italian'     => '/\b(italian|pasta|lasagna|spaghetti|calzones?|stromboli)\b/u',
+160:         'pizza'       => '/\b(pizzas?|pizzeria)\b/u',
+161:         'chinese'     => '/\b(chinese|chow mein|lo mein|dim sum|szechuan|kung pao|egg rolls?)\b/u',
+162:         'japanese'    => '/\b(japanese|sushi|ramen|teriyaki|hibachi|tempura)\b/u',
+163:         'thai'        => '/\b(thai|pad thai|curry)\b/u',
+164:         'vietnamese'  => '/\b(vietnamese|pho|banh mi)\b/u',
+165:         'bbq'         => '/\b(bbq|barbecue|barbeque|smokehouse|brisket|pulled pork|smoked meats?)\b/u',
+166:         'burgers'     => '/\b(burgers?|hamburgers?|cheeseburgers?)\b/u',
+167:         'steak'       => '/\b(steaks?|steakhouse|prime rib|ribeye)\b/u',
+168:         'seafood'     => '/\b(seafood|fish|shrimp|crab|lobster|oysters?)\b/u',
+169:         'breakfast'   => '/\b(breakfast|brunch|pancakes?|waffles?|omelets?|omelettes?|biscuits and gravy)\b/u',
+170:         'coffee'      => '/\b(coffee|espresso|lattes?|cappuccinos?|coffee ?house)\b/u',
+171:         'bakery'      => '/\b(bakery|bakeries|pastr(y|ies)|donuts?|doughnuts?|cinnamon rolls?|cupcakes?|breads?|pies)\b/u',
+172:         'dessert'     => '/\b(ice cream|frozen yogurt|gelato|shakes?|milkshakes?|desserts?|fudge|candy)\b/u',
+173:         'sandwiches'  => '/\b(deli|sandwich(es)?|subs|hoagies?|wraps?)\b/u',
+174:         'wings'       => '/\b(wings|chicken wings)\b/u',
+175:         'vegetarian'  => '/\b(vegetarian|vegan|plant.?based)\b/u',
+176:         'gluten free' => '/\bgluten.?free\b/u',
+177:         'catering'    => '/\bcatering\b/u',
+178:     ];
+179: 
+180:     /** Food words in a text: [cuisine tags..., the words themselves...]. */
+181:     public static function food(string $text): array
+182:     {
+183:         $out = [];
+184:         foreach (self::FOOD as $tag => $re) if (preg_match_all($re, $text, $m)) { $out[] = $tag; foreach ($m[0] as $w) $out[] = $w; }
+185:         return array_values(array_unique($out));
+186:     }
+187: 
+188:     /** Ownership only as the listing itself states it ("veteran-owned"). */
+189:     private const OWNED = '/\b(veteran|native|tribally|tribal|woman|women|family|locally|black|hispanic|latino|latina)[- ]owned\b/u';
+190: 
+191:     // ---- setup and bookkeeping ----------------------------------------------------------------------------
+192: 
+193:     public static function ready(PDO $pdo): bool
+194:     {
+195:         static $ok = null;
+196:         if ($ok !== null) return $ok;
+197:         try { $pdo->query('SELECT 1 FROM search_index LIMIT 1'); $pdo->query('SELECT 1 FROM search_index_state LIMIT 1'); return $ok = true; }
+198:         catch (PDOException) { return $ok = false; }
+199:     }
+200: 
+201:     public static function counts(PDO $pdo): array
+202:     {
+203:         $out = array_fill_keys(self::KINDS, 0);
+204:         foreach ($pdo->query('SELECT kind, COUNT(*) AS n FROM search_index GROUP BY kind')->fetchAll(PDO::FETCH_ASSOC) as $r) $out[(string) $r['kind']] = (int) $r['n'];
+205:         return $out;
+206:     }
+207: 
+208:     public static function state(PDO $pdo, string $k): string
+209:     {
+210:         // the whole value from v_long once its database update has run (2026-11-17_search_index_state_wide.sql); v alone
+211:         // holds 200 characters, and the server cut longer ones without an error (Start the system's state among them)
+212:         $st = $pdo->prepare(self::hasLong($pdo) ? 'SELECT COALESCE(v_long, v) FROM search_index_state WHERE k = ?' : 'SELECT v FROM search_index_state WHERE k = ?');
+213:         $st->execute([$k]);
+214:         return (string) ($st->fetchColumn() ?: '');
+215:     }
+216: 
+217:     public static function setState(PDO $pdo, string $k, string $v): void
+218:     {
+219:         $pdo->prepare('DELETE FROM search_index_state WHERE k = ?')->execute([$k]);
+220:         if (self::hasLong($pdo)) $pdo->prepare('INSERT INTO search_index_state (k, v, v_long) VALUES (?, ?, ?)')->execute([$k, mb_substr($v, 0, 200), $v]);
+221:         else $pdo->prepare('INSERT INTO search_index_state (k, v) VALUES (?, ?)')->execute([$k, $v]);
+222:     }
+223: 
+224:     /** Whether search_index_state has v_long yet (its database update has run); asked once a request. */
+225:     private static function hasLong(PDO $pdo): bool
+226:     {
+227:         static $has = null;
+228:         if ($has !== null) return $has;
+229:         try { $pdo->query('SELECT v_long FROM search_index_state LIMIT 0'); return $has = true; } catch (Throwable $x) { return $has = false; }
+230:     }
+231: 
+232:     /** Lowercase words with single spaces and a space at each end, so "% word%" finds a word's start. */
+233:     public static function norm(string ...$parts): string
+234:     {
+235:         $s = mb_strtolower(implode(' ', $parts));
+236:         $s = SearchText::spell(preg_replace('/[^\p{L}\p{N}]+/u', ' ', $s));   // "Theatre" is stored as "theater", like what people type
+237:         return ' ' . trim(preg_replace('/\s+/', ' ', $s)) . ' ';
+238:     }
+239: 
+240:     private static function tags(array $rules, string $text): array
+241:     {
+242:         $out = [];
+243:         foreach ($rules as $k => $re) if (preg_match($re, $text)) $out[] = $k;
+244:         return $out;
+245:     }
+246: 
+247:     /** Replace these rows (one kind). */
+248:     private static function put(PDO $pdo, string $kind, array $ids, array $rows): void
+249:     {
+250:         foreach (array_chunk($ids, 200) as $chunk) {
+251:             if (!$chunk) continue;
+252:             $in = implode(',', array_fill(0, count($chunk), '?'));
+253:             $pdo->prepare("DELETE FROM search_index WHERE kind = ? AND item_id IN ($in)")->execute(array_merge([$kind], array_map('strval', $chunk)));
+254:         }
+255:         $cols = ['kind', 'item_id', 'label', 'sub', 'url', 'terms', 'who', 'why', 'hours', 'about', 'category_id', 'zip', 'city', 'state', 'place_key',
+256:                  'micro_cluster_id', 'lat', 'lon', 'weight', 'private_location', 'indexed_at'];
+257:         if (self::hasAlso($pdo)) $cols[] = 'also_cats';   // secondary categories (decisions/0073), once its migration has run
+258:         $now = date('Y-m-d H:i:s');
+259:         foreach (array_chunk($rows, 100) as $chunk) {
+260:             $sql = 'INSERT INTO search_index (' . implode(',', $cols) . ') VALUES ' . implode(',', array_fill(0, count($chunk), '(' . implode(',', array_fill(0, count($cols), '?')) . ')'));
+261:             $args = [];
+262:             foreach ($chunk as $r) {
+263:                 $r += ['kind' => $kind, 'sub' => '', 'url' => '', 'terms' => '', 'who' => '', 'why' => '', 'hours' => null, 'about' => '', 'category_id' => null,
+264:                        'zip' => '', 'city' => '', 'state' => '', 'place_key' => '', 'micro_cluster_id' => null, 'lat' => null, 'lon' => null, 'weight' => 0,
+265:                        'private_location' => 0, 'indexed_at' => $now, 'also_cats' => ''];
+266:                 $r['label'] = mb_substr((string) $r['label'], 0, 200); $r['sub'] = mb_substr((string) $r['sub'], 0, 200);
+267:                 $r['who'] = mb_substr((string) $r['who'], 0, 300); $r['about'] = mb_substr((string) $r['about'], 0, 400);
+268:                 $r['city'] = mb_substr((string) $r['city'], 0, 80); $r['state'] = mb_substr(strtoupper(trim((string) $r['state'])), 0, 2);
+269:                 $r['zip'] = substr(trim((string) $r['zip']), 0, 5);
+270:                 foreach ($cols as $c) $args[] = $r[$c];
+271:             }
+272:             $pdo->prepare($sql)->execute($args);
+273:         }
+274:     }
+275: 
+276:     // ---- building ------------------------------------------------------------------------------------------
+277: 
+278:     /**
+279:      * One batch of one kind. $after is the last id done ('' to start). Returns ['done' => rows looked at, 'next' => id or
+280:      * null when the kind is finished]. A full build removes, at its end, rows that weren't seen (deleted items).
+281:      */
+282:     public static function build(PDO $pdo, string $kind, string $after = '', int $limit = 400): array
+283:     {
+284:         if ($after === '') self::setState($pdo, 'build_' . $kind . '_started', date('Y-m-d H:i:s'));
+285:         $limit = max(50, min(1000, $limit));
+286:         switch ($kind) {
+287:             case 'listing':  [$n, $last] = self::listingsAfter($pdo, (int) $after, $limit); break;
+288:             case 'outdoors': [$n, $last] = self::outdoorsAfter($pdo, $after, $limit); break;
+289:             case 'story': case 'group': case 'topic': [$n, $last] = [self::rebuildSmall($pdo, $kind), null]; break;
+290:             default: throw new InvalidArgumentException('Unknown kind.');
+291:         }
+292:         $next = ($kind === 'listing' || $kind === 'outdoors') && $n >= $limit ? (string) $last : null;
+293:         if ($next === null) {
+294:             $since = self::state($pdo, 'build_' . $kind . '_started');
+295:             if ($since !== '' && ($kind === 'listing' || $kind === 'outdoors')) $pdo->prepare('DELETE FROM search_index WHERE kind = ? AND indexed_at < ?')->execute([$kind, $since]);
+296:             self::setState($pdo, 'built_' . $kind, date('Y-m-d H:i:s'));
+297:             if ($kind === 'listing') self::setState($pdo, 'listing_mark', $since !== '' ? $since : date('Y-m-d H:i:s'));
+298:         }
+299:         return ['done' => $n, 'next' => $next];
+300:     }
+301: 
+302:     /** Listings with id > $after. */
+303:     private static function listingsAfter(PDO $pdo, int $after, int $limit): array
+304:     {
+305:         $st = $pdo->prepare('SELECT e.id FROM entities e WHERE e.id > ? ORDER BY e.id LIMIT ' . $limit);
+306:         $st->execute([$after]);
+307:         $ids = array_map('intval', $st->fetchAll(PDO::FETCH_COLUMN));
+308:         if ($ids) self::indexListings($pdo, $ids);
+309:         return [count($ids), $ids ? end($ids) : $after];
+310:     }
+311: 
+312:     /** search_index.also_cats exists (app/migrations/2026-11-13_listing_categories.sql). */
+313:     public static function hasAlso(PDO $pdo): bool
+314:     {
+315:         static $ok = null;
+316:         if ($ok !== null) return $ok;
+317:         try { $pdo->query('SELECT also_cats FROM search_index LIMIT 1'); return $ok = true; } catch (PDOException) { return $ok = false; }
+318:     }
+319: 
+320: 
+321:     /** Staff's words for each kind of business (category_terms, decisions/0075): [category id => [term]]. */
+322:     private static function kindWords(PDO $pdo): array
+323:     {
+324:         static $m = null;
+325:         if ($m !== null) return $m;
+326:         $m = [];
+327:         try { foreach ($pdo->query('SELECT category_id, term FROM category_terms')->fetchAll(PDO::FETCH_ASSOC) as $r) $m[(int) $r['category_id']][] = (string) $r['term']; } catch (Throwable) {}
+328:         return $m;
+329:     }
+330:     /** (Re)index these listings; the ones no longer public are removed. */
+331:     public static function indexListings(PDO $pdo, array $ids): int
+332:     {
+333:         $ids = array_values(array_unique(array_map('intval', $ids)));
+334:         if (!$ids) return 0;
+335:         $in = implode(',', array_fill(0, count($ids), '?'));
+336:         $st = $pdo->prepare("SELECT e.id, e.name, e.entity_type, e.status, e.is_suppressed, e.category_id, e.primary_zip, e.micro_cluster_id, e.latitude, e.longitude,
+337:                                     e.verified_tier, c.name AS cat, g.name AS grp
+338:                                FROM entities e LEFT JOIN categories c ON c.id = e.category_id LEFT JOIN categories g ON g.id = c.parent_id
+339:                               WHERE e.id IN ($in)");
+340:         $st->execute($ids);
+341:         $ents = [];
+342:         foreach ($st->fetchAll(PDO::FETCH_ASSOC) as $e) {
+343:             if ($e['entity_type'] !== 'merchant' || (int) $e['is_suppressed'] === 1 || !in_array($e['status'], self::STATUSES, true)) continue;
+344:             $ents[(int) $e['id']] = $e;
+345:         }
+346:         $meta = [];
+347:         if ($ents) {
+348:             $in2 = implode(',', array_fill(0, count($ents), '?'));
+349:             $ms = $pdo->prepare("SELECT entity_id, meta_key, meta_value FROM entity_metadata WHERE entity_id IN ($in2) AND meta_key IN ('closed','city','state','description','offerings','hours','category','aka')");
+350:             $ms->execute(array_keys($ents));
+351:             foreach ($ms->fetchAll(PDO::FETCH_ASSOC) as $m) {
+352:                 $v = json_decode((string) $m['meta_value'], true);
+353:                 $meta[(int) $m['entity_id']][(string) $m['meta_key']] = $v ?? $m['meta_value'];
+354:             }
+355:         }
+356:         if (!class_exists('ListingCategories')) require_once __DIR__ . '/ListingCategories.php';
+357:         $alsoCats = $ents ? ListingCategories::many($pdo, array_keys($ents)) : [];   // its secondary categories (decisions/0073)
+358:         $kindWords = self::kindWords($pdo);   // staff's words for each kind ("mental health" for Counselors): found by them too
+359:         if (!class_exists('Nexus')) require_once __DIR__ . '/Nexus.php';
+360:         $nexusOf = $ents ? Nexus::namesFor($pdo, array_keys($ents)) : [];   // the organization it's part of (decisions/0054): "changepoint" finds every location
+361:         $rows = [];
+362:         foreach ($ents as $id => $e) {
+363:             $m = $meta[$id] ?? [];
+364:             $also = $alsoCats[$id] ?? [];
+365:             $alsoWords = implode(' ', array_map(fn ($c) => $c['name'] . ' ' . SearchText::catLabel($c['name']), $also));
+366:             if (isset($nexusOf[$id])) $alsoWords .= ' ' . $nexusOf[$id];
+367:             if (is_array($m['aka'] ?? null)) $alsoWords .= ' ' . implode(' ', array_filter($m['aka'], 'is_string'));   // its other names (decisions/0084)
+368:             $alsoWords .= ' ' . implode(' ', array_unique(array_merge($kindWords[(int) $e['category_id']] ?? [], ...array_map(fn ($c) => $kindWords[(int) ($c['id'] ?? 0)] ?? [], $also))));
+369:             $cat = (string) ($e['cat'] ?? '') ?: (is_string($m['category'] ?? null) ? $m['category'] : '');
+370:             $catShow = $cat !== '' ? SearchText::catLabel($cat) : '';   // its plain name, shown; both names are searched (decisions/0068)
+371:             $offer = is_array($m['offerings'] ?? null) ? implode(' ', array_map('strval', array_filter($m['offerings'], 'is_scalar'))) : (string) ($m['offerings'] ?? '');
+372:             $desc = is_string($m['description'] ?? null) ? $m['description'] : '';
+373:             $city = is_string($m['city'] ?? null) ? $m['city'] : ''; $stt = is_string($m['state'] ?? null) ? $m['state'] : '';
+374:             $name = NameText::listing((string) $e['name'], (string) $e['status']);   // in full words, unless its owner claimed it (decisions/0058 §31)
+375:             $what = mb_strtolower($name . ' ' . $cat . ' ' . ($e['grp'] ?? '') . ' ' . $offer);
+376:             // Why: what it is (its category and offerings; its broad group only when those say nothing), never its name
+377:             // (a broad group like "Automotive Repair" also holds car rentals and washes, so it never says fix, help or buy)
+378:             $whyTags = self::tags(self::WHY, mb_strtolower($cat . ' ' . $alsoWords . ' ' . $offer))
+379:                 ?: array_values(array_intersect(self::tags(self::WHY, mb_strtolower((string) ($e['grp'] ?? ''))), ['eat', 'stay', 'explore', 'learn', 'heal']));
+380:             $aud = self::tags(self::AUDIENCE, $what);   // who it is for: from its name and category (a description is too loose)
+381:             if (preg_match_all(self::OWNED, mb_strtolower($desc . ' ' . $name), $mm)) foreach ($mm[0] as $o) $aud[] = str_replace(' ', '-', $o);
+382:             // What it serves, from the whole description, offerings and name (food places and food sellers only)
+383:             $foodish = in_array('eat', $whyTags, true) || preg_match('/\b(food|grocer\w*|market|bakery|caterer\w*|butcher|meat)\b/u', mb_strtolower($cat . ' ' . ($e['grp'] ?? '')));
+384:             $food = $foodish ? self::food(mb_strtolower($name . ' ' . $offer . ' ' . $desc)) : [];
+385:             $private = ListingSafety::isConfidential($e['category_id'] !== null ? (int) $e['category_id'] : null, $name);
+386:             $hours = $m['hours'] ?? null;
+387:             $shut = isset($m['closed']);   // marked closed (decisions/0072): still found, shown as Closed, last, never open now
+388:             if ($shut) $hours = ['Mon-Sun closed'];
+389:             $rows[] = [
+390:                 'item_id' => (string) $id, 'label' => $name, 'sub' => trim(implode(' · ', array_filter([$shut ? 'Closed' : '', $catShow, trim($city . ($stt !== '' ? ', ' . $stt : ''))])), ' ·'),
+391:                 'url' => '/listing/view.php?id=' . $id,
+392:                 'terms' => self::norm($name, $cat . ($catShow !== $cat ? ' ' . $catShow : ''), (string) ($e['grp'] ?? ''), $alsoWords, $offer, implode(' ', array_map(fn ($a) => self::AUDIENCE_LABEL[$a] ?? $a, $aud)), implode(' ', $food)),
+393:                 'who' => implode(' ', array_unique($aud)), 'why' => implode(' ', $whyTags),
+394:                 'hours' => $hours !== null && $hours !== '' && $hours !== [] ? (is_string($hours) ? $hours : json_encode($hours)) : null,
+395:                 'about' => mb_strimwidth(trim(preg_replace('/\s+/', ' ', $desc)), 0, 390, '…'),
+396:                 'category_id' => $e['category_id'] !== null ? (int) $e['category_id'] : null,
+397:                 'zip' => (string) ($e['primary_zip'] ?? ''), 'city' => $city, 'state' => $stt,
+398:                 'micro_cluster_id' => $e['micro_cluster_id'] !== null ? (int) $e['micro_cluster_id'] : null,
+399:                 'lat' => $e['latitude'] !== null ? (float) $e['latitude'] : null, 'lon' => $e['longitude'] !== null ? (float) $e['longitude'] : null,
+400:                 'weight' => $shut ? -40 : (int) ($e['status'] === 'verified' ? 10 : ($e['status'] === 'claimed-unverified' || $e['status'] === 'pending-verification' ? 5 : 0)),
+401:                 'private_location' => $private ? 1 : 0,
+402:                 'also_cats' => ListingCategories::token($also),
+403:             ];
+404:         }
+405:         self::put($pdo, 'listing', $ids, $rows);
+406:         return count($rows);
+407:     }
+408: 
+409:     /**
+410:      * Outdoors: Recreation.gov places (ids 'a…' and 'f…'), then natural landmarks (decisions/0058 §24; ids 'g' + the
+411:      * GNIS id, 10 digits, so they sort after). Hidden ones and ones waiting for a person are never indexed.
+412:      */
+413:     private static function outdoorsAfter(PDO $pdo, string $after, int $limit): array
+414:     {
+415:         if ($after === '' || $after[0] !== 'g') {
+416:             [$n, $last] = self::recAfter($pdo, $after, $limit);
+417:             if ($n >= $limit) return [$n, $last];
+418:             [$m, $last2] = self::landmarksAfter($pdo, 'g', $limit - $n);
+419:             return [$n + $m, $m ? $last2 : ($n ? $last : $after)];
+420:         }
+421:         return self::landmarksAfter($pdo, $after, $limit);
+422:     }
+423: 
+424:     /** Re-indexes one landmark after a person approved or hid it (it's removed when it's no longer shown). */
+425:     public static function refreshLandmark(PDO $pdo, int $gnisId): void
+426:     {
+427:         self::landmarksAfter($pdo, 'g' . str_pad((string) max(0, $gnisId - 1), 10, '0', STR_PAD_LEFT), 1);
+428:     }
+429: 
+430:     /** Natural landmarks with an index id after $after ('g0000000123'). */
+431:     private static function landmarksAfter(PDO $pdo, string $after, int $limit): array
+432:     {
+433:         if ($limit <= 0 || !class_exists('Landmarks') || !Landmarks::ready($pdo)) return [0, $after];
+434:         $st = $pdo->prepare('SELECT * FROM landmarks WHERE gnis_id > ? ORDER BY gnis_id LIMIT ' . $limit);
+435:         $st->execute([(int) substr($after, 1)]);
+436:         $all = $st->fetchAll(PDO::FETCH_ASSOC);
+437:         $key = fn (array $r) => 'g' . str_pad((string) $r['gnis_id'], 10, '0', STR_PAD_LEFT);
+438:         if (is_file(__DIR__ . '/Nations.php')) require_once __DIR__ . '/Nations.php';
+439:         $nationName = fn (string $shape) => class_exists('Nations') ? Nations::label($pdo, $shape) : $shape;   // the nation's own name (decisions/0058 §26)
+440:         $ids = []; $rows = [];
+441:         foreach ($all as $r) {
+442:             $ids[] = $key($r);
+443:             if (!Landmarks::visible($r)) continue;   // nothing on a nation's land while the nation tools are off (decisions/0058 §27)
+444:             $type = Landmarks::kindLabel($r);
+445:             require_once __DIR__ . '/Landmarks.php';
+446:             $what = mb_strtolower($r['name'] . ' ' . $type . ' ' . Landmarks::about($pdo, $r));
+447:             $rows[] = [
+448:                 'item_id' => $key($r), 'label' => (string) $r['name'],
+449:                 'sub' => implode(' · ', array_filter([$type, $r['nation'] !== '' ? $nationName((string) $r['nation']) . ' land' : ($r['near_town'] !== '' ? 'near ' . $r['near_town'] : (string) $r['county'] . ' County')])),
+450:                 'url' => '/place/landmark.php?id=' . (int) $r['gnis_id'],
+451:                 'terms' => self::norm((string) $r['name'], $type, (string) $r['fclass'], (string) $r['wd_desc'], 'landmark natural outdoors', Landmarks::activityWords($r)),
+452:                 'why' => implode(' ', array_unique(array_merge(['explore'], self::tags(self::WHY, $what)))),
+453:                 'about' => mb_strimwidth(Landmarks::about($pdo, $r), 0, 390, '…'),
+454:                 'zip' => (string) $r['zip5'], 'city' => (string) $r['near_town'], 'state' => (string) $r['state'],
+455:                 'lat' => (float) $r['lat'], 'lon' => (float) $r['lon'],
+456:                 'category_id' => (int) ($r['category_id'] ?? 0) > 0 ? (int) $r['category_id'] : null,   // its category: "museums near me" finds it (2026-11-10)
+457:                 'weight' => ($r['image_url'] !== '' ? 3 : 0) + ($r['wiki_title'] !== '' ? 3 : 0) + min(20, (int) (($r['interest'] ?? 0) / 2)),   // a photo, an article, and the interest it draws (2026-11-10) first
+458:             ];
+459:         }
+460:         self::put($pdo, 'outdoors', $ids, $rows);
+461:         return [count($all), $all ? $key(end($all)) : $after];
+462:     }
+463: 
+464:     /** Public recreation places (Recreation.gov); hidden ones are never indexed. */
+465:     private static function recAfter(PDO $pdo, string $after, int $limit): array
+466:     {
+467:         if (!class_exists('RecBulk') || !RecBulk::ready($pdo)) return [0, $after];
+468:         $st = $pdo->prepare('SELECT ridb_id, kind, name, type, org, summary, lat, lon, city, state, zip5, activities, hidden FROM rec_places WHERE ridb_id > ? ORDER BY ridb_id LIMIT ' . $limit);
+469:         $st->execute([$after]);
+470:         $all = $st->fetchAll(PDO::FETCH_ASSOC);
+471:         $ids = []; $rows = [];
+472:         foreach ($all as $r) {
+473:             $ids[] = (string) $r['ridb_id'];
+474:             if ((int) $r['hidden'] === 1) continue;
+475:             $name = RecBulk::displayName((string) $r['name']);
+476:             $type = RecBulk::kindLabel($r);
+477:             $what = mb_strtolower($name . ' ' . $type . ' ' . $r['type'] . ' ' . $r['activities']);
+478:             $rows[] = [
+479:                 'item_id' => (string) $r['ridb_id'], 'label' => $name, 'sub' => trim(implode(' · ', array_filter([$type, (string) $r['org']])), ' ·'),
+480:                 'url' => '/place/recreation.php?id=' . rawurlencode((string) $r['ridb_id']),
+481:                 'terms' => self::norm($name, $type, (string) $r['type'], (string) $r['activities'], (string) $r['org'], 'outdoors'),
+482:                 'who' => mb_strtolower((string) $r['org']), 'why' => implode(' ', array_unique(array_merge(['explore'], self::tags(self::WHY, $what)))),
+483:                 'about' => mb_strimwidth((string) $r['summary'], 0, 390, '…'),
+484:                 'zip' => (string) $r['zip5'], 'city' => (string) $r['city'], 'state' => (string) $r['state'],
+485:                 'lat' => $r['lat'] !== null ? (float) $r['lat'] : null, 'lon' => $r['lon'] !== null ? (float) $r['lon'] : null,
+486:             ];
+487:         }
+488:         self::put($pdo, 'outdoors', $ids, $rows);
+489:         return [count($all), $all ? (string) end($all)['ridb_id'] : $after];
+490:     }
+491: 
+492:     /** Stories, groups and topics are few: rebuilt whole. */
+493:     private static function rebuildSmall(PDO $pdo, string $kind): int
+494:     {
+495:         $rows = [];
+496:         if ($kind === 'story') {
+497:             try {
+498:                 $st = $pdo->query("SELECT id, place_key, title, body FROM place_stories WHERE status = 'published'");
+499:                 foreach ($st->fetchAll(PDO::FETCH_ASSOC) as $s) {
+500:                     try { [$pl, $url] = Links::resolve($pdo, 'place', (string) $s['place_key']); } catch (Throwable) { continue; }
+501:                     $body = trim(preg_replace('/\s+/', ' ', strip_tags((string) $s['body'])));
+502:                     $rows[] = self::placed($pdo, (string) $s['place_key'], [
+503:                         'item_id' => (string) $s['id'], 'label' => (string) $s['title'], 'sub' => 'Story · ' . $pl, 'url' => $url . '#story-h',
+504:                         'terms' => self::norm((string) $s['title'], $pl, 'story guide'),
+505:                         'why' => implode(' ', array_unique(array_merge(['explore'], self::tags(self::WHY, mb_strtolower((string) $s['title']))))),
+506:                         'about' => mb_strimwidth($body, 0, 390, '…')]);
+507:                 }
+508:             } catch (PDOException) {}
+509:         } elseif ($kind === 'group' && class_exists('Community') && Community::ready($pdo)) {
+510:             foreach (Community::directory($pdo, '', 200) as $g) {
+511:                 $pk = '';
+512:                 try { $q = $pdo->prepare('SELECT place_key FROM community_groups WHERE id = ?'); $q->execute([$g['id']]); $pk = (string) ($q->fetchColumn() ?: ''); } catch (PDOException) {}
+513:                 $what = mb_strtolower($g['name'] . ' ' . $g['topic_label'] . ' ' . $g['about']);
+514:                 $rows[] = self::placed($pdo, $pk, [
+515:                     'item_id' => (string) $g['id'], 'label' => (string) $g['name'],
+516:                     'sub' => 'Group · ' . $g['members'] . ' member' . ($g['members'] === 1 ? '' : 's') . ($g['topic_label'] ? ' · ' . $g['topic_label'] : ''),
+517:                     'url' => '/community/group.php?id=' . $g['id'],
+518:                     'terms' => self::norm((string) $g['name'], (string) $g['topic_label'], 'group community ' . implode(' ', $g['tags'] ?? [])),   // its tags find it (decisions/0136 §1)
+519:                     'who' => implode(' ', self::tags(self::AUDIENCE, $what)),
+520:                     'why' => implode(' ', array_unique(array_merge(['connect'], self::tags(self::WHY, $what)))),
+521:                     'about' => (string) $g['about'], 'weight' => min(20, (int) $g['members'])]);
+522:             }
+523:         } elseif ($kind === 'topic') {
+524:             try {
+525:                 $seen = [];
+526:                 foreach ($pdo->query('SELECT c.id, c.name, c.slug, p.name AS parent FROM categories c LEFT JOIN categories p ON p.id = c.parent_id WHERE c.is_active = 1
+527:                                       ORDER BY (SELECT COUNT(*) FROM entities e WHERE e.category_id = c.id) DESC, c.id')->fetchAll(PDO::FETCH_ASSOC) as $c) {
+528:                     $plain = SearchText::catLabel((string) $c['name']);   // the name visitors see (decisions/0068); both are searched
+529:                     // one topic for a shared plain name: the directory reads all its categories (Self Storage is three)
+530:                     if (isset($seen[mb_strtolower($plain)])) continue;
+531:                     $seen[mb_strtolower($plain)] = 1;
+532:                     $rows[] = ['item_id' => 'cat:' . $c['id'], 'label' => $plain, 'sub' => 'Category' . ($c['parent'] ? ' in ' . $c['parent'] : ''),
+533:                                'url' => '/directory/?cat=' . rawurlencode((string) $c['slug']) . '&catname=' . rawurlencode($plain),
+534:                                'terms' => self::norm((string) $c['name'], $plain, (string) ($c['parent'] ?? '')), 'category_id' => (int) $c['id'],
+535:                                'why' => implode(' ', self::tags(self::WHY, mb_strtolower((string) $c['name'])))];   // its own name, not its broad group
+536:                 }
+537:             } catch (PDOException) {}
+538:             if (class_exists('Community')) foreach (Community::TOPICS as $k => $label) {
+539:                 if ($k === 'other') continue;
+540:                 $rows[] = ['item_id' => 'ct:' . $k, 'label' => $label, 'sub' => 'Community topic', 'url' => '/community/?topic=' . rawurlencode($k),
+541:                            'terms' => self::norm($label, 'community groups'), 'why' => 'connect'];
+542:             }
+543:         }
+544:         $pdo->prepare('DELETE FROM search_index WHERE kind = ?')->execute([$kind]);
+545:         self::put($pdo, $kind, [], $rows);
+546:         return count($rows);
+547:     }
+548: 
+549:     /** Where a story or group is: its place key, and the place's anchor ZIP, cluster and point. */
+550:     private static function placed(PDO $pdo, string $key, array $row): array
+551:     {
+552:         $row['place_key'] = $key;
+553:         if (preg_match('/^cluster:(\d+)$/', $key, $m)) {
+554:             try {
+555:                 $st = $pdo->prepare('SELECT mc.id, mc.primary_zip, z.latitude, z.longitude, TRIM(z.city) AS city, TRIM(z.state) AS state FROM micro_clusters mc
+556:                                        LEFT JOIN zip_coordinates z ON TRIM(z.zip) = TRIM(mc.primary_zip) WHERE mc.id = ? LIMIT 1');
+557:                 $st->execute([(int) $m[1]]);
+558:                 if ($c = $st->fetch(PDO::FETCH_ASSOC)) $row += ['micro_cluster_id' => (int) $c['id'], 'zip' => (string) $c['primary_zip'], 'city' => (string) $c['city'], 'state' => (string) $c['state'],
+559:                                                                 'lat' => $c['latitude'] !== null ? (float) $c['latitude'] : null, 'lon' => $c['longitude'] !== null ? (float) $c['longitude'] : null];
+560:             } catch (PDOException) {}
+561:         }
+562:         return $row;
+563:     }
+564: 
+565:     /**
+566:      * Keeps the index current with no cron: at most every 15 minutes, listings changed since the last look (their row
+567:      * or their details) are re-read (up to 300), and stories, groups and topics are rebuilt. Quiet on any failure.
+568:      */
+569:     public static function refresh(PDO $pdo, bool $force = false): void
+570:     {
+571:         try {
+572:             if (!self::ready($pdo)) return;
+573:             $last = self::state($pdo, 'refreshed_at');
+574:             if (!$force && $last !== '' && strtotime($last) > time() - 900) return;
+575:             self::setState($pdo, 'refreshed_at', date('Y-m-d H:i:s'));
+576:             $mark = self::state($pdo, 'listing_mark');
+577:             if ($mark !== '') {
+578:                 // listings changed since the mark, oldest first, 600 at a time. The mark moves to the last one taken, so each
+579:                 // run carries on where the last stopped (2026-11-10: it moved only when fewer than 300 had changed, so with
+580:                 // the crawler busy it re-read the same 300 every time and new listings, Dana Point's, never reached search)
+581:                 $now = date('Y-m-d H:i:s'); $n = 600;
+582:                 $st = $pdo->prepare('SELECT id, updated_at FROM entities WHERE updated_at > ? ORDER BY updated_at, id LIMIT ' . $n);
+583:                 $st->execute([$mark]); $er = $st->fetchAll(PDO::FETCH_ASSOC);
+584:                 $st = $pdo->prepare('SELECT entity_id, MAX(updated_at) u FROM entity_metadata WHERE updated_at > ? GROUP BY entity_id ORDER BY u LIMIT ' . $n);
+585:                 $st->execute([$mark]); $mr = $st->fetchAll(PDO::FETCH_ASSOC);
+586:                 $ids = array_values(array_unique(array_merge(array_map(fn ($r) => (int) $r['id'], $er), array_map(fn ($r) => (int) $r['entity_id'], $mr))));
+587:                 if ($ids) foreach (array_chunk($ids, 300) as $chunk) self::indexListings($pdo, $chunk);
+588:                 // as far as both lists reached: a full list stops at its last row; one with room left reached now
+589:                 $back = fn (string $t) => date('Y-m-d H:i:s', strtotime($t) - 1);   // a second back: others changed that same second are read again
+590:                 $reach = [count($er) >= $n ? $back((string) end($er)['updated_at']) : $now, count($mr) >= $n ? $back((string) end($mr)['u']) : $now];
+591:                 $next = min($reach);
+592:                 if ($next <= $mark) $next = date('Y-m-d H:i:s', strtotime($mark) + 1);   // a second full of changes: step past it
+593:                 self::setState($pdo, 'listing_mark', $next);
+594:             }
+595:             foreach (['story', 'group', 'topic'] as $k) self::rebuildSmall($pdo, $k);
+596:             // landmarks added after the federal data (by hand, or found for a guide on demand: ids from 900000000), new since
+597:             // last time; they were only indexed on a full rebuild (2026-11-10: Four Corners Monument, Dana Point's places)
+598:             if (class_exists('Landmarks') || is_file(__DIR__ . '/Landmarks.php')) {
+599:                 require_once __DIR__ . '/Landmarks.php';
+600:                 if (Landmarks::ready($pdo)) {
+601:                     $lm = self::state($pdo, 'landmark_added_mark');
+602:                     if ($lm === '') $lm = 'g' . str_pad((string) (Landmarks::MANUAL_FROM - 1), 10, '0', STR_PAD_LEFT);
+603:                     [$n, $next] = self::landmarksAfter($pdo, $lm, 300);
+604:                     if ($n > 0) self::setState($pdo, 'landmark_added_mark', $next);
+605:                     // each landmark filed under one of our categories by its source's class (2026-11-10: "from categories not
+606:                     // guesses"); a few filed now are re-indexed at once, many go through the walk below
+607:                     $filed = Landmarks::categorize($pdo);
+608:                     if (count($filed) > 300) { self::setState($pdo, 'landmark_kind_walk3', 'g'); }
+609:                     else foreach ($filed as $fid) self::refreshLandmark($pdo, (int) $fid);
+610:                     // every landmark again under its kind, 1000 a run until done (once, and after a big filing)
+611:                     $wk = self::state($pdo, 'landmark_kind_walk3');   // 3: with its activities (Landmarks::activities, 2026-11-10)
+612:                     if ($wk === '') $wk = 'g';
+613:                     if ($wk !== 'done') { [$wn, $wnext] = self::landmarksAfter($pdo, $wk, 1000); self::setState($pdo, 'landmark_kind_walk3', $wn < 1000 ? 'done' : $wnext); }
+614:                 }
+615:             }
+616:         } catch (Throwable $e) {
+617:             error_log('SearchIndex::refresh: ' . $e->getMessage());
+618:         }
+619:     }
+620: 
+621:     // ---- searching -----------------------------------------------------------------------------------------
+622: 
+623:     /**
+624:      * @param array $o text (words left after the chips), cat (['id','label']), place (a place chip), area (['lat','lon','radius']),
+625:      *                 kind (one kind or null), why (intent or ''), audience (key or ''), when (['now' => [dow, min]] or ['days' => [...]] or []),
+626:      *                 limit
+627:      * @return array{items: list<array>, kinds: array<string,int>, audience_found: bool, total: int}
+628:      */
+629:     public static function find(PDO $pdo, array $o): array
+630:     {
+631:         $text = trim((string) ($o['text'] ?? '')); $cat = $o['cat'] ?? null; $place = $o['place'] ?? null; $area = $o['area'] ?? null;
+632:         $kind = $o['kind'] ?? null; $why = (string) ($o['why'] ?? ''); $aud = (string) ($o['audience'] ?? ''); $when = (array) ($o['when'] ?? []);
+633:         $limit = max(1, min(40, (int) ($o['limit'] ?? 12)));
+634:         $nearest = !empty($o['nearest']) && $area;   // "near me" alone (2026-11-10): everything around, nearest first
+635:         $p = [];
+636:         $w = [];
+637:         // What: every word (or one of its everyday alternatives) starts a word in the terms. Question words are left
+638:         // out, and soft words ("home") only help the order, unless they're all there is.
+639:         $all = array_values(array_filter(SearchText::tokens($text, !empty($o['any']) ? 'all' : 'things'), fn ($t) => !in_array($t, self::STOP, true)));
+640:         $toks = array_values(array_filter($all, fn ($t) => !in_array($t, self::SOFT, true))) ?: $all;
+641:         $soft = array_values(array_diff($all, $toks));
+642:         $any = !empty($o['any']);   // the loose try: any one of the words
+643:         $ors = [];
+644:         foreach ($toks as $i => $t) {
+645:             $or = [];
+646:             foreach (SearchText::alternatives($t) as $j => $a) {
+647:                 $a = trim(self::norm($a));
+648:                 if ($a === '') continue;
+649:                 $ph = ":w{$i}_{$j}";
+650:                 $or[] = "si.terms LIKE $ph";
+651:                 $p[$ph] = ((mb_strlen($a) <= 3 && $j === 0) || !empty($o['whole']) ? '% ' . $a . ' %' : '% ' . $a . '%');   // 'whole': "lake" isn't "Lakeside"
+652:             }
+653:             // the start of a word in its description: "sports" isn't "Passports"
+654:             // whole-word mode: a long word ("stargazing") still counts in a description
+655:             if (mb_strlen($t) >= (empty($o['whole']) ? 4 : 6) && !in_array($t, (array) ($o['no_about'] ?? []), true)) { $or[] = "CONCAT(' ', REPLACE(REPLACE(REPLACE(REPLACE(si.about, '-', ' '), '/', ' '), ',', ' '), '(', ' ')) LIKE :wa$i"; $p[":wa$i"] = '% ' . $t . '%'; }
+656:             if ($or) $ors[] = '(' . implode(' OR ', $or) . ')';
+657:         }
+658:         if ($ors) $w[] = $any ? '(' . implode(' OR ', $ors) . ')' : implode(' AND ', $ors);
+659:         if ($cat) {
+660:             // a category read from words ("pizza") also finds listings with the words in them (Dittys Pizza & Pie, a restaurant)
+661:             $cl = trim(self::norm((string) ($cat['words'] ?? '')));
+662:             // its kin count as it ("Parks": State Parks); a word other kinds of business share ("park": RV Parks) is never
+663:             // read from a name (decisions/0061)
+664:             $kin = array_map('intval', (array) ($cat['kin'] ?? []));
+665:             if (!empty($cat['shared'])) $cl = '';
+666:             $w[] = "((si.kind = 'listing' AND (si.category_id IN (SELECT id FROM categories WHERE id = :ca OR parent_id = :cb" . CategoryAlso::sqlFor($pdo, (int) $cat['id']) . ")" . ($kin ? ' OR si.category_id IN (' . implode(',', $kin) . ')' : '') . (self::hasAlso($pdo) ? ' OR si.also_cats LIKE :cz' : '') . ($cl !== '' ? ' OR si.terms LIKE :cl' : '') . ")) OR (si.kind <> 'listing' AND si.terms LIKE :cw))";
+667:             if (self::hasAlso($pdo)) $p[':cz'] = '% ' . (int) $cat['id'] . ' %';   // also listed under it (decisions/0073)
+668:             $catSet = array_merge([(int) $cat['id']], $kin, array_map('intval', $pdo->query('SELECT id FROM categories WHERE parent_id = ' . (int) $cat['id'] . CategoryAlso::sqlFor($pdo, (int) $cat['id']))->fetchAll(PDO::FETCH_COLUMN)));
+669:             $cw = explode(' ', trim(self::norm((string) $cat['label'])))[0];
+670:             $cw = strlen($cw) > 5 ? preg_replace('/(ists?|ies|s)$/', '', $cw) : $cw;
+671:             $p += [':ca' => (int) $cat['id'], ':cb' => (int) $cat['id'], ':cw' => '% ' . $cw . '%'] + ($cl !== '' ? [':cl' => '% ' . $cl . ' %'] : []);   // the whole word: "pub" isn't "public"
+672:         }
+673:         if ($kind) { $w[] = 'si.kind = :kind'; $p[':kind'] = $kind; }
+674:         // an activity ("going fishing"): places for doing things, or a business named for the activity itself
+675:         // (a bait shop says fishing); "Silver Lakes Family Fellowship" isn't one (decisions/0060)
+676:         if (!empty($o['act'])) {
+677:             $w[] = "(si.why LIKE '%explore%' OR si.kind IN ('outdoors', 'story', 'group', 'experience') OR si.terms LIKE :act)";
+678:             $p[':act'] = '% ' . trim(self::norm((string) $o['act'])) . '%';
+679:         }
+680:         // a kind of place to see ("landmarks", "canyons"): places for going, never a business only named for it (Landmark Homes)
+681:         if (!empty($o['explore_only'])) $w[] = "(si.why LIKE '%explore%' OR si.kind IN ('outdoors', 'story', 'group', 'experience'))";
+682:         if (!empty($o['funnel'])) $w[] = self::funnelSql((string) $o['funnel']);
+683:         // A place alone: its stories, groups and outdoors (its listings are a count and "See all", not an A-Z list)
+684:         $placeOnly = !$toks && !$cat && $why === '' && $aud === '' && !$kind && !$when;
+685:         if ($placeOnly && !$place && !$area) return ['items' => [], 'kinds' => [], 'funnels' => [], 'audience_found' => true, 'total' => 0];
+686:         if ($placeOnly) $w[] = "si.kind IN ('story', 'group', 'outdoors')";
+687:         if ($aud !== '') { $w[] = 'si.who LIKE :aud'; $p[':aud'] = '%' . $aud . '%'; }
+688:         // an outing ("place to take my kids", "rainy day activities"): only the kinds of places that fit, never what rules
+689:         // them out; a business or a place to go, never a category, group or guide
+690:         $outing = (array) ($o['outing'] ?? []);
+691:         $fit = $outing ? self::outingWords($outing) : [];
+692:         if ($fit) {
+693:             $ow = [];
+694:             foreach ($fit as $i => $f) { $ow[] = "si.terms LIKE :of$i"; $p[":of$i"] = '% ' . $f . ' %'; }
+695:             $w[] = '(' . implode(' OR ', $ow) . ')';
+696:             $nw = [];
+697:             foreach (self::OUTING_NOT as $i => $f) { $nw[] = "si.terms LIKE :on$i"; $p[":on$i"] = '% ' . $f . ' %'; }
+698:             $w[] = 'NOT (' . implode(' OR ', $nw) . ')';
+699:             $w[] = "si.kind IN ('listing', 'outdoors', 'experience')";
+700:         }
+701:         // Where
+702:         $where = self::whereSql($pdo, $place, $area, $p);
+703:         if (!empty($o['not_place'])) {   // beyond a place: around it, but not in it (decisions/0060)
+704:             $not = self::whereSql($pdo, $o['not_place'], null, $p);
+705:             if ($not !== '') $w[] = "NOT COALESCE($not, 0)";   // a row with no ZIP or place key is outside it, not unknown
+706:         }
+707:         if ($where !== '') $w[] = $placeOnly || !$toks ? $where : "(si.kind = 'topic' OR (si.kind = 'group' AND si.place_key = '') OR $where)";
+708:         // Why alone ("places to eat in St. Johns") chooses what's shown; with other words it only changes the order
+709:         $whyOnly = $why !== '' && !$toks && !$cat && empty($o['why_loose']) && !$fit;   // an outing's own list chooses
+710:         if ($why !== '' && !$toks && !$cat) $w[] = "si.kind <> 'topic'";
+711:         if ($whyOnly) { $w[] = 'si.why LIKE :whyf'; $p[':whyf'] = '%' . $why . '%'; }
+712:         $sql = 'SELECT si.* FROM search_index si' . ($w ? ' WHERE ' . implode(' AND ', $w) : '')
+713:              . ' ORDER BY ' . ($why !== '' ? '(si.why LIKE :whyo) DESC, ' : '') . 'si.weight DESC, si.label LIMIT 400';
+714:         if ($why !== '') $p[':whyo'] = '%' . $why . '%';
+715:         $st = $pdo->prepare($sql);
+716:         $st->execute($p);
+717:         $rows = $st->fetchAll(PDO::FETCH_ASSOC);
+718:         $audFound = true;
+719:         if (!$rows && $whyOnly) { $o['why_loose'] = true; return self::find($pdo, $o); }
+720:         if (!$rows && count($toks) >= 2 && !$any && empty($o['strict'])) { $o['any'] = true; return self::find($pdo, $o); }   // (not for "beyond": only real matches)   // then any of the words, most matched first
+721:         if (!$rows && $aud !== '') {   // nothing says it's for them: show the rest, and say so
+722:             unset($o['audience']); $r = self::find($pdo, $o); $r['audience_found'] = false; return $r;
+723:         }
+724: 
+725:         $lt = trim(self::norm(implode(' ', $all)));
+726:         // a word in a text: the start of a word, or the whole word when it's short ("car" isn't "carpet")
+727:         $has = fn (string $normText, string $t) => str_contains($normText, mb_strlen($t) <= 3 ? ' ' . $t . ' ' : ' ' . $t);
+728:         // the loose try (any one of the words): a rare word counts for more than a common one ("pizza" over "new")
+729:         $rare = [];
+730:         if ($any && $rows) foreach ($toks as $t) {
+731:             $n = count(array_filter($rows, fn ($r) => $has((string) $r['terms'], $t) || $has(' ' . self::norm((string) $r['label']) . ' ', $t)));
+732:             $rare[$t] = $n ? (int) round(60 * (1 - $n / count($rows))) : 0;
+733:         }
+734:         $out = [];
+735:         foreach ($rows as $r) {
+736:             $lab = trim(self::norm((string) $r['label']));
+737:             $nlab = ' ' . $lab . ' ';
+738:             $score = 0; $named = false;
+739:             // found through a secondary category: after the listings whose primary category it is (decisions/0073)
+740:             if (!empty($catSet) && $r['kind'] === 'listing' && !in_array((int) $r['category_id'], $catSet, true) && str_contains((string) ($r['also_cats'] ?? ''), ' ' . (int) $cat['id'] . ' ')) $score -= 15;
+741:             if ($lt !== '') {
+742:                 if ($lab === $lt) { $score += 100; $named = true; }
+743:                 elseif (str_starts_with($nlab, ' ' . $lt . (mb_strlen($lt) <= 3 ? ' ' : ''))) { $score += 60; $named = mb_strlen($lt) >= 6; }   // its own name, typed
+744:                 elseif (!array_filter($toks, fn ($t) => !$has($nlab, $t))) $score += 40;
+745:                 elseif (!array_filter($toks, fn ($t) => !$has((string) $r['terms'], $t))) $score += 20;
+746:                 if ($any) foreach ($toks as $t) if ($has((string) $r['terms'], $t) || $has($nlab, $t)) $score += 15 + ($rare[$t] ?? 0);
+747:                 foreach ($toks as $t) foreach (SearchText::alternatives($t) as $j => $a) {   // the word itself, then its nearest alternatives
+748:                     if (str_contains((string) $r['terms'], ' ' . trim(self::norm($a)))) { $score += max(0, 20 - 3 * $j); break; }
+749:                 }
+750:                 foreach ($soft as $t) if (str_contains((string) $r['terms'], ' ' . $t)) $score += 5;
+751:             }
+752:             if ($why !== '' && in_array($why, explode(' ', (string) $r['why']), true)) $score += 45;   // they said what they want to do
+753:             if ($fit) {
+754:                 foreach ((array) (self::OUTING_AGES[$outing['age'] ?? ''][1] ?? []) as $aw) if (str_contains((string) $r['terms'], ' ' . $aw . ' ')) { $score += 30; break; }
+755:                 $hits = 0; foreach ($fit as $f) if (str_contains((string) $r['terms'], ' ' . $f . ' ')) $hits++;
+756:                 $score += min(3, $hits) * 8;   // a zoo that says zoo, park and picnic over a café named "Garden"
+757:             }
+758:             $open = null;
+759:             if ($when && $r['kind'] === 'listing') {
+760:                 $wk = $r['hours'] ? Hours::parse((string) $r['hours']) : null;
+761:                 if (isset($when['now'])) $open = Hours::openAt($wk, (int) $when['now'][0], (int) $when['now'][1]);
+762:                 elseif (!empty($when['days'])) {
+763:                     $vals = array_map(fn ($d) => Hours::openOn($wk, (int) $d), $when['days']);
+764:                     $open = in_array(true, $vals, true) ? true : (count(array_filter($vals, fn ($v) => $v === false)) === count($vals) ? false : null);
+765:                 }
+766:                 if ($open === false) continue;   // known to be closed then
+767:                 if ($open === true) $score += 25;
+768:             }
+769:             $miles = null;
+770:             if ($area && $r['lat'] !== null) {
+771:                 $miles = self::miles((float) $area['lat'], (float) $area['lon'], (float) $r['lat'], (float) $r['lon']);
+772:                 if ($miles > (float) $area['radius']) continue;
+773:                 $score -= (int) round($miles / 5);
+774:             }
+775:             if ($r['kind'] === 'topic') $score -= ($place || $area) ? 60 : 25;   // a category is a way in, not usually the answer
+776:             if ($r['kind'] === 'outdoors' && $why === 'explore') $score += 10;
+777:             // the Chameleon Filter (brand.md §5; decisions/0058 §19): on Let's Explore, the place's stories, outdoors,
+778:             // groups and topics come first and businesses follow as connections; on Get Local, businesses lead as before
+779:             if (($o['track'] ?? '') === 'explore') $score += ['story' => 60, 'outdoors' => 45, 'group' => 20, 'topic' => 55, 'listing' => -20][$r['kind']] ?? 0;
+780:             // ...and of the businesses, the places people go to see (parks, monuments, landmarks, museums, historic sites)
+781:             if (($o['track'] ?? '') === 'explore' && $r['kind'] === 'listing' && preg_match('/ (national park|monument|landmark|museum|historic|visitor cent|state park|preserve|observator)/', (string) $r['terms'])) $score += 45;
+782:             if (!empty($o['prefer']) && str_contains((string) $r['terms'], ' ' . $o['prefer'] . ' ')) $score += 20;
+783:             // what an action is for ("fishing for apache trout"): those with the words first, never required
+784:             foreach ((array) ($o['boost'] ?? []) as $bw) { $bn = trim(self::norm((string) $bw)); if ($bn !== '' && (str_contains((string) $r['terms'], ' ' . $bn) || str_contains($nlab, ' ' . $bn) || str_contains(' ' . self::norm((string) ($r['about'] ?? '')), ' ' . $bn))) $score += 30; }   // "the mayor": city offices first
+785:             $score += (int) $r['weight'];
+786:             $out[] = ['score' => $score, 'kind' => (string) $r['kind'], 'id' => (string) $r['item_id'], 'label' => (string) $r['label'],
+787:                       'sub' => ($r['kind'] === 'listing' && class_exists('SearchText') ? preg_replace_callback('/^[^·]+/u', fn ($m) => SearchText::catLabel(trim($m[0])) . (str_contains((string) $r['sub'], '·') ? ' ' : ''), (string) $r['sub']) : (string) $r['sub']) . ($miles !== null ? ' · ' . ($miles < 1 ? '<1' : (string) round($miles)) . ' mi' : ''), 'url' => (string) $r['url'],
+788:                       'open' => $open, 'miles' => $miles, 'peek' => $r['kind'] === 'listing' || $r['kind'] === 'outdoors', 'who' => (string) $r['who'], 'funnel' => self::funnelOf((string) $r['kind'], (string) $r['item_id']),
+789:                       'named' => $named];
+790:         }
+791:         // Local first (decisions/0060, 0075): with a distance around a place, nearer steps come first (10, 25, 50 mi,
+792:         // then the rest), the best match first within each; a place searched by its own name leads wherever it is.
+793:         // Without it, "mental health" 250 mi around St. Johns led with names 40 mi away over counselors in town.
+794:         $band = fn ($x) => $x['named'] ? 0 : ($x['miles'] === null ? 4 : ($x['miles'] <= 10 ? 1 : ($x['miles'] <= 25 ? 2 : ($x['miles'] <= 50 ? 3 : 4))));
+795:         if ($area && (float) $area['radius'] > 10) usort($out, fn ($a, $b) => [$band($a), $b['score'], $a['label']] <=> [$band($b), $a['score'], $b['label']]);
+796:         else usort($out, fn ($a, $b) => [$b['score'], $a['label']] <=> [$a['score'], $b['label']]);
+797:         if ($nearest) usort($out, fn ($a, $b) => [$a['miles'] === null ? 1 : 0, (float) ($a['miles'] ?? 0), $a['label']] <=> [$b['miles'] === null ? 1 : 0, (float) ($b['miles'] ?? 0), $b['label']]);
+798:         $kinds = []; $funnels = [];
+799:         foreach ($out as $x) { $kinds[$x['kind']] = ($kinds[$x['kind']] ?? 0) + 1; if ($x['kind'] !== 'topic') $funnels[$x['funnel']] = ($funnels[$x['funnel']] ?? 0) + 1; }   // a section counts what's listed under it, never the categories (2026-11-22)
+800:         $total = count($out);
+801:         // enough of each kind to group by kind, in the order found
+802:         $items = [];
+803:         $per = [];
+804:         foreach ($out as $x) {
+805:             if (count($items) >= $limit && ($per[$x['kind']] ?? 0) >= 6) continue;   // enough of each to fill a section tab
+806:             if (($per[$x['kind']] ?? 0) >= ($x['kind'] === 'topic' ? 3 : $limit)) continue;
+807:             $per[$x['kind']] = ($per[$x['kind']] ?? 0) + 1;
+808:             unset($x['score']);
+809:             $items[] = $x;
+810:         }
+811:         return ['items' => $items, 'kinds' => $kinds, 'funnels' => $funnels, 'audience_found' => $audFound, 'total' => $total, 'loose' => $any];
+812:     }
+813: 
+814:     /**
+815:      * Rows in a place for a page or a map (Discover's views, map pins): by kind, Why, and any of some words.
+816:      * @param array $o kinds (list), why ('' or intent), words (any of), limit, geo (only rows with a point)
+817:      */
+818:     public static function rows(PDO $pdo, ?array $place, ?array $area, array $o = []): array
+819:     {
+820:         $p = [];
+821:         $w = [];
+822:         if (!empty($o['kinds'])) {
+823:             $in = [];
+824:             foreach (array_values($o['kinds']) as $i => $k) { $in[] = ":k$i"; $p[":k$i"] = $k; }
+825:             $w[] = 'si.kind IN (' . implode(',', $in) . ')';
+826:         }
+827:         if (!empty($o['why'])) { $w[] = 'si.why LIKE :why'; $p[':why'] = '%' . $o['why'] . '%'; }
+828:         if (!empty($o['words'])) {
+829:             $or = [];
+830:             foreach (array_values($o['words']) as $i => $word) {
+831:                 // a short word ("art") or one marked whole ("nation=") matches the whole word, not "arthritis" or "national"
+832:                 $whole = str_ends_with((string) $word, '=') || mb_strlen(rtrim((string) $word, '=')) <= 3;
+833:                 $n = trim(self::norm(rtrim((string) $word, '=')));
+834:                 $or[] = "si.terms LIKE :ww$i"; $p[":ww$i"] = '% ' . $n . ($whole ? ' %' : '%');
+835:             }
+836:             $w[] = '(' . implode(' OR ', $or) . ')';
+837:         }
+838:         if (!empty($o['geo'])) $w[] = 'si.lat IS NOT NULL AND si.lon IS NOT NULL';
+839:         if (!empty($o['not_place']) && ($not = self::whereSql($pdo, $o['not_place'], null, $p)) !== '') $w[] = "NOT COALESCE($not, 0)";   // around a place, not in it
+840:         $where = self::whereSql($pdo, $place, $area, $p);
+841:         if ($where !== '') $w[] = $where;
+842:         $limit = max(1, min(5000, (int) ($o['limit'] ?? 200)));
+843:         $st = $pdo->prepare('SELECT si.kind, si.item_id, si.label, si.sub, si.url, si.terms, si.why, si.who, si.about, si.lat, si.lon, si.city, si.state, si.weight, si.category_id
+844:                                FROM search_index si' . ($w ? ' WHERE ' . implode(' AND ', $w) : '') . ' ORDER BY si.weight DESC, si.label LIMIT ' . $limit);
+845:         $st->execute($p);
+846:         $out = [];
+847:         foreach ($st->fetchAll(PDO::FETCH_ASSOC) as $r) {
+848:             if ($area && $r['lat'] !== null) {
+849:                 $r['miles'] = self::miles((float) $area['lat'], (float) $area['lon'], (float) $r['lat'], (float) $r['lon']);
+850:                 if ($r['miles'] > (float) $area['radius']) continue;
+851:             }
+852:             $out[] = $r;
+853:         }
+854:         if ($area) usort($out, fn ($a, $b) => ($a['miles'] ?? 0) <=> ($b['miles'] ?? 0));
+855:         return $out;
+856:     }
+857: 
+858:     /** The cuisines named in a row's terms (from FOOD), for grouping places to eat. */
+859:     public static function cuisines(string $terms): array
+860:     {
+861:         $out = [];
+862:         foreach (array_keys(self::FOOD) as $tag) if (str_contains($terms, ' ' . $tag . ' ')) $out[] = $tag;
+863:         return $out;
+864:     }
+865: 
+866:     public static function miles(float $a, float $b, float $c, float $d): float
+867:     {
+868:         $r = M_PI / 180;
+869:         $x = sin(($c - $a) * $r / 2) ** 2 + cos($a * $r) * cos($c * $r) * sin(($d - $b) * $r / 2) ** 2;
+870:         return 3958.8 * 2 * asin(min(1, sqrt($x)));
+871:     }
+872: 
+873:     /** SQL on si.* for a place (boundary) or an area (a box; the exact distance is checked after). '' = anywhere. */
+874:     public static function whereSql(PDO $pdo, ?array $place, ?array $area, array &$p): string
+875:     {
+876:         if ($area) {
+877:             $dLat = $area['radius'] / 69.0; $dLon = $area['radius'] / max(0.0001, 69.0 * cos(deg2rad((float) $area['lat'])));
+878:             $p += [':la1' => $area['lat'] - $dLat, ':la2' => $area['lat'] + $dLat, ':lo1' => $area['lon'] - $dLon, ':lo2' => $area['lon'] + $dLon];
+879:             return '(si.lat BETWEEN :la1 AND :la2 AND si.lon BETWEEN :lo1 AND :lo2)';
+880:         }
+881:         if (!$place) return '';
+882:         $or = [];
+883:         $param = ['cluster' => 'cluster', 'geo_hub' => 'geo', 'hub' => 'hub'][$place['level'] ?? ''] ?? null;
+884:         if ($param && !empty($place['slug']) && empty($place['town'])) {   // a town in its area: its own ZIPs only
+885:             $s = PlaceScope::resolve($pdo, [$param => (string) $place['slug']]);
+886:             if ($s && $s['found']) $or[] = str_replace(['e.micro_cluster_id', 'e.primary_zip'], ['si.micro_cluster_id', 'si.zip'], (string) $s['sql']);
+887:         }
+888:         $zips = array_slice(array_values(array_filter(array_map('strval', (array) ($place['zips'] ?? [])))), 0, 60);
+889:         // a county: every ZIP in it, not only the first 60 ("Los Angeles County" has hundreds)
+890:         if (!empty($place['county']) && !empty($place['state'])) {
+891:             $or[] = 'si.zip IN (SELECT TRIM(zc.zip) FROM zip_coordinates zc WHERE TRIM(zc.county) = :pco AND TRIM(zc.state) = :pcs)';
+892:             $p[':pco'] = (string) $place['county']; $p[':pcs'] = (string) $place['state'];
+893:             $zips = [];
+894:         }
+895:         // a state: every ZIP in it
+896:         if (!empty($place['is_state']) && !empty($place['state'])) {
+897:             $or[] = 'si.zip IN (SELECT TRIM(zc.zip) FROM zip_coordinates zc WHERE TRIM(zc.state) = :pst)';
+898:             $p[':pst'] = (string) $place['state'];
+899:             $zips = [];
+900:         }
+901:         // a town: every ZIP in it, and listings that give it as their city, not only its first 60 ZIPs ("pizza in phoenix":
+902:         // Phoenix has more than 60, and a downtown pizzeria's ZIP was past them)
+903:         if (!empty($place['city']) && !empty($place['state']) && empty($place['county']) && empty($place['is_state'])) {
+904:             $or[] = 'si.zip IN (SELECT TRIM(zc.zip) FROM zip_coordinates zc WHERE zc.city = :ptc AND TRIM(zc.state) = :pts)';
+905:             $or[] = '(LOWER(si.city) = :ptc2 AND si.state = :pts2)';
+906:             $p[':ptc'] = (string) $place['city']; $p[':pts'] = (string) $place['state'];
+907:             $p[':ptc2'] = mb_strtolower(trim((string) $place['city'])); $p[':pts2'] = (string) $place['state'];
+908:         }
+909:         if ($zips) {
+910:             $ph = [];
+911:             foreach ($zips as $i => $z) { $ph[] = ":z$i"; $p[":z$i"] = substr(trim($z), 0, 5); }
+912:             $or[] = 'si.zip IN (' . implode(',', $ph) . ')';
+913:         }
+914:         if (!empty($place['key'])) { $or[] = 'si.place_key = :pkey'; $p[':pkey'] = (string) $place['key']; }
+915:         if (!$or && !empty($place['city'])) { $or[] = '(LOWER(si.city) = :pcity AND si.state = :pst)'; $p[':pcity'] = mb_strtolower((string) $place['city']); $p[':pst'] = (string) ($place['state'] ?? ''); }
+916:         if (!$or && !empty($place['state'])) { $or[] = 'si.state = :pst2'; $p[':pst2'] = (string) $place['state']; }
+917:         return $or ? '(' . implode(' OR ', $or) . ')' : '';
+918:     }
+919: }
