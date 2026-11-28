@@ -53,7 +53,7 @@ final class DataCleanup
         'drop_box' => ['listings', 'Mail & package drop-offs', 'A drop or collection box (USPS, UPS, FedEx…): a real place people use, its own kind of listing with its pin, "Mail & package drop-off". One an earlier pass took off is put back.', 'drop_off', 'Jason, 2026-11-15 ("their own listing and map pin")'],
         'taken_off' => ['off', 'Taken off by an earlier pass, not yet back to work', 'A listing an earlier pass hid as page text or a sighting before the routing of 2026-11-15: sent where it goes now (a sighting, "name unknown", a "Help us find" card, a drop-off, or Restricted).', 'reuse', 'Jason, 2026-11-15 ("reused or moved into restricted")'],
         'person_place' => ['listings', 'People shown as places', 'A listing whose name is a person\'s (a provider, in NPI\'s "Last, First" form or the crawler\'s person test), not a place to visit: kept as a record under its practice (the listing at the same street address or phone, when there is one), off the public site.', 'quarantine', 'The CMO (7), 2026-11-27: individual providers become records attached to their practice, never a standalone place; the CEO, 2026-11-28 (F9)'],
-        'legacy_unsourced' => ['listings', 'September listings with no source we may keep', 'A listing from the one-time September 2026 migration whose phone and address no source we may keep confirms (only "Found by our crawler"): back to a sighting until one does. Its scope is a setting the CEO rules (off, health, all).', 'sighting', '0164 §3.5 (the floor); the CEO, 2026-11-28 (F9, 1A first)'],
+        'legacy_unsourced' => ['listings', 'September listings with no source we may keep', 'A listing from the one-time September 2026 migration whose phone and address no source we may keep confirms (only "Found by our crawler"): back to a sighting until one does. A government or agency listing with any source we keep stays up. Its scope is a setting the CEO rules: off, health (Health & Medical and the emergency services 0061 names), or all.', 'sighting', '0164 §3.5 (the floor); the CEO, 2026-11-28 (F9, 1A first)'],
         'page_only' => ['listings', 'Made from a page we may only cite', 'A listing whose address and phone rest only on pages whose terms let us cite them, not keep their facts.', 'sighting', '0164 R9, §3.5'],
         'osm_only' => ['listings', 'Values from OpenStreetMap only', 'A phone, address, website, hours or map point whose only source is OpenStreetMap (a lead, never a source).', 'unconfirm', '0065, 0164 R9'],
         'closed_one_site' => ['listings', '"Closed" from one site', 'A listing the crawler marked Closed on one site\'s word.', 'caution', '0164 R12 ("Still open?")'],
@@ -318,8 +318,18 @@ final class DataCleanup
         $byPhone = [];
         // F9: the pilot's listings, the health group's categories, and each street's and phone's places (a person's practice)
         $pilot = array_flip(self::pilotIds($pdo)); $scope = self::legacyScope($pdo);
-        $health = [];
-        try { foreach ($pdo->query("SELECT c.id FROM categories c LEFT JOIN categories g ON g.id = c.parent_id WHERE c.slug = 'health-and-medical' OR g.slug = 'health-and-medical'")->fetchAll(PDO::FETCH_COLUMN) as $cid) $health[(int) $cid] = true; } catch (Throwable $x) { error_log('DataCleanup health: ' . $x->getMessage()); }
+        // the "health" scope (the CEO's (c), 2026-11-28; the session manager): the Health & Medical group, plus the safety
+        // categories 0061's emergency needs already name (Situations.php:441, :446). A public kind (Claims::KIND_GROUPS) is
+        // told apart so one with any keepable source stays up
+        $health = []; $public = [];
+        try {
+            $q = $pdo->prepare("SELECT c.id, c.name, c.slug, g.slug AS gslug, COALESCE(g.name, c.name) AS gname FROM categories c LEFT JOIN categories g ON g.id = c.parent_id");
+            $q->execute();
+            foreach ($q->fetchAll(PDO::FETCH_ASSOC) as $c) {
+                if ($c['slug'] === 'health-and-medical' || $c['gslug'] === 'health-and-medical' || in_array((string) $c['name'], self::SAFETY_CATEGORIES, true)) $health[(int) $c['id']] = true;
+                if (in_array((string) $c['gname'], self::PUBLIC_GROUPS, true)) $public[(int) $c['id']] = true;
+            }
+        } catch (Throwable $x) { error_log('DataCleanup scope: ' . $x->getMessage()); }
         $practiceAt = [];
         foreach ($rows as $e) {
             $pm = $meta[(int) $e['id']] ?? []; $nm = (string) $e['name'];
@@ -382,7 +392,8 @@ final class DataCleanup
                 continue;
             }
             $legacy = (string) ($e['created_at'] ?? '') !== '' && (string) $e['created_at'] < self::LEGACY_BEFORE && $r === null;   // the September migration: never through the intake
-            if ($legacy && $pk !== 'keep' && $ak !== 'keep') {
+            $anyKeep = (bool) array_filter(['phone', 'address', 'website', 'hours', 'point'], fn ($x) => $kind($x) === 'keep');
+            if ($legacy && $pk !== 'keep' && $ak !== 'keep' && !(isset($public[(int) $e['category_id']]) && $anyKeep)) {   // a government or agency listing with any source we keep stays up
                 $inScope = $scope === 'all' || ($scope === 'health' && isset($health[(int) $e['category_id']]));
                 if ($want('legacy_unsourced')) $add(self::item('listings', 'entity:' . $id, $name, 'legacy_unsourced', $inScope ? $whole : 'left',
                     ($inScope ? '' : ($scope === 'off' ? 'Waiting on the CEO\'s scope (Data cleanup\'s legacy_scope is off): ' : 'Outside the scope set (' . $scope . '): ')) . 'From the September migration; no source we may keep confirms its ' . ($phone !== '' && $street ? 'phone or address' : ($phone !== '' ? 'phone' : 'address')), $link($id)));
@@ -637,6 +648,11 @@ final class DataCleanup
 
     /** F9 (2026-11-28): which September listings legacy_unsourced takes, as the CEO rules: off (shown, never acted on), health, all. */
     public const LEGACY_BEFORE = '2026-10-01';
+    /** The safety kinds in the health scope: exactly the categories 0061's emergency needs name (Situations.php:441, :446).
+     *  Shelters aren't named there, so they're not here (a gap, in the data-capture review). */
+    public const SAFETY_CATEGORIES = ['Fire Departments', 'County Government-Fire Protection', 'Civil Defense Agencies', 'County Government-Public Order & Safety', 'Sheriff'];
+    /** The public kinds (Claims::KIND_GROUPS' 'public'), whose listings stay up on any keepable source. */
+    public const PUBLIC_GROUPS = ['Government & Public Services'];
     public static function legacyScope(PDO $pdo): string { $v = self::setting($pdo, 'legacy_scope'); return in_array($v, ['health', 'all'], true) ? $v : 'off'; }
 
     /** Listings named in the pilot plan (handoffs/hometown-theater/): never off the site by a pass, always "Check these".

@@ -33,7 +33,7 @@ foreach ([
   "CREATE TABLE categories (id INT PRIMARY KEY, name VARCHAR(120), slug VARCHAR(120), parent_id INT NULL)",
   "CREATE TABLE cleanup_settings (k VARCHAR(40) PRIMARY KEY, v VARCHAR(500), by_id INT NULL, at DATETIME NULL)",
 ] as $q) $pdo->exec($q);
-$pdo->exec("INSERT INTO categories VALUES (1, 'Health & Medical', 'health-and-medical', NULL), (2, 'Doctors', 'doctors', 1), (3, 'Food & Dining', 'food-and-dining', NULL), (4, 'Restaurants', 'restaurants', 3)");
+$pdo->exec("INSERT INTO categories VALUES (1, 'Health & Medical', 'health-and-medical', NULL), (2, 'Doctors', 'doctors', 1), (3, 'Food & Dining', 'food-and-dining', NULL), (4, 'Restaurants', 'restaurants', 3), (5, 'Government & Public Services', 'government-and-public-services', NULL), (6, 'Fire Departments', 'fire-departments', 5), (7, 'Post Offices', 'post-offices', 5)");
 $L = function (int $id, string $name, int $cat, string $created, array $meta, array $extra = []) use ($pdo): void {
     $e = $extra + ['status' => 'unclaimed', 'owner_user_id' => null, 'updated_by_type' => 'ai_crawler'];
     $pdo->prepare('INSERT INTO entities (id, name, category_id, created_at, status, owner_user_id, updated_by_type) VALUES (?, ?, ?, ?, ?, ?, ?)')->execute([$id, $name, $cat, $created, $e['status'], $e['owner_user_id'], $e['updated_by_type']]);
@@ -51,6 +51,10 @@ $pdo->exec("INSERT INTO identity_facts (record_kind, record_id, fact, value) VAL
 $L(107, 'Show Low Pharmacy', 2, $nov, ['address' => '40 Main St', 'phone' => '928-555-0107']);                            // November, through the intake
 $pdo->exec("INSERT INTO crawler_raw_index (entity_id, status, raw_payload) VALUES (107, 'published', '{}')");
 $L(8807, 'Hometown Theater', 4, $sep, ['address' => '7 W Commercial St', 'phone' => '928-337-2301']);                     // the pilot
+$L(109, 'Show Low Fire District', 6, $sep, ['address' => '60 Main St', 'phone' => '928-555-0109']);                   // safety, no source
+$L(110, 'Eagar Post Office', 7, $sep, ['address' => '70 Main St', 'phone' => '928-555-0110']);                           // public, a kept website
+$pdo->exec("INSERT INTO identity_facts (record_kind, record_id, fact, value) VALUES ('listing', 110, 'website', 'https://usps.com')"); $pdo->exec("INSERT INTO identity_fact_sources (fact_id, kind, site) VALUES (LAST_INSERT_ID(), 'website', 'usps.com')");
+$L(111, 'Snowflake Town Hall', 7, $sep, ['address' => '80 Main St', 'phone' => '928-555-0111']);                         // public, no source at all
 $L(108, 'Springerville Grill', 4, $sep, ['address' => '50 Main St', 'phone' => '928-555-0108'], ['src' => ['phone' => 'admin'], 'lock' => ['phone' => 1]]);   // a person edited it
 
 $items = fn (string $rule) => array_column(array_filter(DataCleanup::collect($pdo, $rule)['items'], fn ($i) => $i['rule'] === $rule), null, 'ref');
@@ -65,9 +69,12 @@ check('legacy_unsourced, scope off (the default): found, shown, none acted on, s
 check('…a September listing with a kept source (NPI) and one that came through the intake are left alone', !isset($lu['entity:106']) && !isset($lu['entity:107']));
 DataCleanup::setSetting($pdo, 'legacy_scope', 'health', 1);
 $lu = $items('legacy_unsourced');
+check('scope health takes the safety kinds 0061 names (a fire district), not other public kinds', ($items('legacy_unsourced')['entity:109']['guard'] ?? '') === 'act' && ($items('legacy_unsourced')['entity:111']['guard'] ?? '') === 'left');
+check('a government listing with any kept source (a website) stays up, not even listed', !isset($items('legacy_unsourced')['entity:110']));
 check('scope health: the clinic acted on, the cafe left (outside the scope)', $lu['entity:104']['guard'] === 'act' && $lu['entity:105']['guard'] === 'left' && str_contains($lu['entity:105']['why'], 'Outside the scope set (health)'));
 DataCleanup::setSetting($pdo, 'legacy_scope', 'all', 1);
 $lu = $items('legacy_unsourced');
+check('scope all: a government listing with no source at all goes back', ($items('legacy_unsourced')['entity:111']['guard'] ?? '') === 'act');
 check('scope all: the cafe acted on; the pilot\'s theater and the listing a person edited are "Check these"', $lu['entity:105']['guard'] === 'act' && ($lu['entity:8807']['guard'] ?? '') === 'check' && ($lu['entity:108']['guard'] ?? '') === 'check');
 DataCleanup::setSetting($pdo, 'pilot_ids', '105, 999', 1);
 check('a participant Editorial adds to pilot_ids is "Check these" too', ($items('legacy_unsourced')['entity:105']['guard'] ?? '') === 'check' && DataCleanup::pilotIds($pdo) === [8807, 105, 999]);
