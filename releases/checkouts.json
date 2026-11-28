@@ -253,6 +253,20 @@
    "expires": "2026-11-28T06:06:14Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/TeamRunner.php",
+   "functions": [
+    "mayWork",
+    "pick"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
+   "why": "R2 lanes and locks (decisions/0180 \u00a75, \u00a77), r2-lanes-4",
+   "since": "2026-11-28T02:06:16Z",
+   "expires": "2026-11-28T06:06:16Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
