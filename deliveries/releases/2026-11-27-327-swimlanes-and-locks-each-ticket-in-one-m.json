@@ -6,25 +6,29 @@
     "zip": "r2-lanes-4.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "staged",
-    "step": 0,
+    "state": "live",
+    "step": 3,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
     "plan_at": "2026-11-28 02:30:02",
     "staged_at": "2026-11-28 02:30:04",
-    "vetted_at": null,
-    "live_at": null,
+    "vetted_at": "2026-11-28 02:50:01",
+    "live_at": "2026-11-28 02:50:02",
     "files": {
         "app/admin/control-console.php": {
             "sha": "bfa48fe263127b4dc3836f8e2b7bd5ebfd56f80b4e3f00256168b194f76a350c",
             "size": 307921,
-            "live_was": "22b9397dd15394fefbad741561fcd6ba56b11e2639fe687b7c173a039fe602d8"
+            "live_was": "22b9397dd15394fefbad741561fcd6ba56b11e2639fe687b7c173a039fe602d8",
+            "existed": true,
+            "old_sha": "22b9397dd15394fefbad741561fcd6ba56b11e2639fe687b7c173a039fe602d8"
         },
         "app/ui/faq.md": {
             "sha": "fcb0265d8556d2ec9e57dc930861895a14e3ff9b67d035246098aa630823e729",
             "size": 471357,
-            "live_was": "1126071b64d78d617095f41b2ef96b36d16df2bef87c79548e7d8b126da341de"
+            "live_was": "1126071b64d78d617095f41b2ef96b36d16df2bef87c79548e7d8b126da341de",
+            "existed": true,
+            "old_sha": "1126071b64d78d617095f41b2ef96b36d16df2bef87c79548e7d8b126da341de"
         },
         "app/migrations/2026-11-26_0180_r2_lanes.sql": {
             "sha": "318e5f3a577eda0d811b21c75e93f3d2186d50cd3c01b9ac6394238ada69a809",
@@ -34,32 +38,44 @@
         "app/lib/GaugeTasks.php": {
             "sha": "5ca26c9d5987299caf92e480af9fa489a7ab8bcf5ca046d613e3a99f3dfddad7",
             "size": 61682,
-            "live_was": "ca836f9c4dd8c5f4153e5586268f138fbca884b5f4e682299991976a4fc083d4"
+            "live_was": "ca836f9c4dd8c5f4153e5586268f138fbca884b5f4e682299991976a4fc083d4",
+            "existed": true,
+            "old_sha": "ca836f9c4dd8c5f4153e5586268f138fbca884b5f4e682299991976a4fc083d4"
         },
         "app/lib/TeamRunner.php": {
             "sha": "2d5b56998546dd0b6dc5ff39d49157301fc7eb149d5877004c4cf04bd41636e4",
             "size": 60122,
-            "live_was": "f9e2b9baf3eeabb7d30060de9c555b2e966c4c31ddbcce6bc99f4442d5ec6f18"
+            "live_was": "f9e2b9baf3eeabb7d30060de9c555b2e966c4c31ddbcce6bc99f4442d5ec6f18",
+            "existed": true,
+            "old_sha": "f9e2b9baf3eeabb7d30060de9c555b2e966c4c31ddbcce6bc99f4442d5ec6f18"
         },
         "app/lib/TeamRoster.php": {
             "sha": "51794ae17cc47c24cee1cdab4c6e1588440ab1bdd77be439eded7f7dbb2685dd",
             "size": 23417,
-            "live_was": "289d90d140da4c61801288b38439460c6d8e283ed09e80d877037b27f4e5d878"
+            "live_was": "289d90d140da4c61801288b38439460c6d8e283ed09e80d877037b27f4e5d878",
+            "existed": true,
+            "old_sha": "289d90d140da4c61801288b38439460c6d8e283ed09e80d877037b27f4e5d878"
         },
         "website/admin/api.php": {
             "sha": "636b5f01ebe1f0609105b51cfbaaa948834143014f6f4de8ae5cf071644f9b44",
             "size": 58995,
-            "live_was": "e5e9257952e51b71bcd384ea27dcfd0e19ce1023660b36316df07864d3301ee2"
+            "live_was": "e5e9257952e51b71bcd384ea27dcfd0e19ce1023660b36316df07864d3301ee2",
+            "existed": true,
+            "old_sha": "e5e9257952e51b71bcd384ea27dcfd0e19ce1023660b36316df07864d3301ee2"
         },
         "website/js/tv-ask.js": {
             "sha": "7674c71b4deea49056e3608135fb7c983d3bafa572d0b6ff92066cb6c71c84e6",
             "size": 55907,
-            "live_was": "e63229d90b84f1eb1c01a73570659a22f66fe17e169dcf6fadc254f5ffc2b242"
+            "live_was": "e63229d90b84f1eb1c01a73570659a22f66fe17e169dcf6fadc254f5ffc2b242",
+            "existed": true,
+            "old_sha": "e63229d90b84f1eb1c01a73570659a22f66fe17e169dcf6fadc254f5ffc2b242"
         },
         "website/js/admin-control.js": {
             "sha": "a7faf0cc95a7ab6e3e1945c0e9c9e190e98933734123c5f910f85e41003827ec",
             "size": 82398,
-            "live_was": "db1d48b2deaf3d5ebf07a737843358b784a8d6285d9e6c08b5cf11794556566a"
+            "live_was": "db1d48b2deaf3d5ebf07a737843358b784a8d6285d9e6c08b5cf11794556566a",
+            "existed": true,
+            "old_sha": "db1d48b2deaf3d5ebf07a737843358b784a8d6285d9e6c08b5cf11794556566a"
         }
     },
     "migrations": [
@@ -67,8 +83,8 @@
     ],
     "checks": {
         "ok": true,
-        "where": "staging",
-        "at": "2026-11-28T02:30:05+00:00",
+        "where": "live",
+        "at": "2026-11-28T02:50:02+00:00",
         "items": [
             [
                 "PHP files parse",
@@ -76,24 +92,9 @@
                 "5 checked"
             ],
             [
-                "Migrations only add",
-                true,
-                "1 checked"
-            ],
-            [
-                "Data changes have a reason",
-                true,
-                "2026-11-26_0180_r2_lanes.sql change rows: R1's two long Work tickets (the 6:13 jobs; the before-and-after check's false blocks) lost their reason past 400 characters to live's why column (live read of control_gauge_tasks, 2026-11-26); their full reason is written into goal, a TEXT column, only where goal is empty, so nothing a person wrote  (a copy of every table they touch is kept first)"
-            ],
-            [
-                "Migrations ran on staging",
-                true,
-                "Ran 2026-11-26_0180_r2_lanes.sql"
-            ],
-            [
                 "Pages answer",
                 true,
-                "3 pages answered on staging.trvgo.us"
+                "3 pages answered on traversence.com"
             ],
             [
                 "No new fatal errors in the logs",
@@ -133,6 +134,21 @@
             "at": "2026-11-28T02:30:07+00:00",
             "by": 0,
             "msg": "On staging and its checks passed; the advocates look again now (the before-and-after check)."
+        },
+        {
+            "at": "2026-11-28T02:50:01+00:00",
+            "by": 0,
+            "msg": "The before-and-after check: passed."
+        },
+        {
+            "at": "2026-11-28T02:50:01+00:00",
+            "by": 0,
+            "msg": "Approved in chat before it was sent through git, and its checks on staging passed: publishing by itself."
+        },
+        {
+            "at": "2026-11-28T02:50:02+00:00",
+            "by": 0,
+            "msg": "Published: 8 files, after its 1 migration ran first (2026-11-26_0180_r2_lanes.sql; a copy of what each touched is kept 14 days); everyone at once (no switch)."
         }
     ]
 }
