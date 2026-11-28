@@ -404,3 +404,7 @@ have been adjusted by middle manage on diagnosis." When a check or workflow is d
 planned work, the lane's Tier 3 manager fixes it on diagnosis and reports it, with no escalation. It may never weaken a
 check of money, security, private data or 0066. First use: the before-and-after check's narrowed reach (0179's note of
 the same date).
+
+## Note (Jason, 2026-11-28): the advocates are an independent audit, not a release gate
+
+Jason: "The account advocates should also act like the audit, and independently operations vs attached to key deployment work." (1) The advocates come out of the release path: a release's before-and-after check is only the narrowed regression check (pages running the changed code, worse only; 0179's note of the same date). (2) The advocates run on their own schedule as an independent audit of the live site: each walks its own account type's paths (0180's appendix) at 1280 and 390, and each finding becomes a Work-queue ticket in the owning lane, its gate or harm named, in the daily audit and the daily report. (3) Advocates never block a release and no deployment session runs them; their tickets follow the normal tiers, a live harm escalating at once. Owners: IT Manager (11) and PM (8). The scheduled audit is the release line's build after the check change (batch-drafted).
