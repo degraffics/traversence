@@ -171,6 +171,53 @@
    "expires": "2026-11-28T17:25:30Z",
    "release": "task-seed-6.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/ReleaseKind.php",
+   "functions": [
+    "(top)"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jUERktaQyfVHekd5i",
+   "why": "release ruling1-holds.zip",
+   "since": "2026-11-28T14:16:06Z",
+   "expires": "2026-11-28T18:16:06Z",
+   "release": "ruling1-holds.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/BeforeAfter.php",
+   "functions": [
+    "(top)",
+    "step"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jUERktaQyfVHekd5i",
+   "why": "release ruling1-holds.zip",
+   "since": "2026-11-28T14:16:06Z",
+   "expires": "2026-11-28T18:16:06Z",
+   "release": "ruling1-holds.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Releases.php",
+   "functions": [
+    "(top)",
+    "checkedByAdvocates",
+    "rule2",
+    "sendForReview"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5jUERktaQyfVHekd5i",
+   "why": "release ruling1-holds.zip",
+   "since": "2026-11-28T14:16:06Z",
+   "expires": "2026-11-28T18:16:06Z",
+   "release": "ruling1-holds.zip",
+   "callers": {
+    "checkedByAdvocates": [
+     "app/lib/BeforeAfter.php"
+    ]
+   }
   }
  ],
  "lapsed": [
