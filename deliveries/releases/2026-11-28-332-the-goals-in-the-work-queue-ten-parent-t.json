@@ -28,7 +28,7 @@
     "checks": {
         "ok": true,
         "where": "staging",
-        "at": "2026-11-28T13:30:09+00:00",
+        "at": "2026-11-28T13:45:04+00:00",
         "items": [
             [
                 "PHP files parse",
@@ -59,6 +59,11 @@
                 "No new fatal errors in the logs",
                 true,
                 "3 logs read"
+            ],
+            [
+                "Before and after (advocates)",
+                null,
+                "Couldn't be judged (the test accounts couldn't sign in): it waits for a person · https://github.com/degraffics/traversence/actions/runs/46149918272"
             ]
         ],
         "first_fail": ""
@@ -93,6 +98,16 @@
             "at": "2026-11-28T13:30:11+00:00",
             "by": 0,
             "msg": "On staging and its checks passed; the advocates look again now (the before-and-after check)."
+        },
+        {
+            "at": "2026-11-28T13:45:04+00:00",
+            "by": 0,
+            "msg": "The before-and-after check: couldn't judge it; it waits for a person."
+        },
+        {
+            "at": "2026-11-28T13:45:04+00:00",
+            "by": 0,
+            "msg": "Sent for review on staging: UI, UX and Functional, then Publish."
         }
     ]
 }
