@@ -64,7 +64,9 @@ try {
   ];
   for (const [v, want, rule, name, exp] of cases) {
     const a = path.join(dir, 'a-' + v + '.json'); cap(v, a); const r = cmp(a, exp);
-    const ok = r.verdict === want && (!rule || r.blocks.some(x => x.rule === rule)) && (want !== 'pass' || r.blocks_total === 0);
+    // Jason, 2026-11-28: layout, data and drift on a page the release doesn't reach go to the audit, never a block
+    const audited = want === 'block' && rule && rule !== 'access' && r.verdict !== 'block' && (r.audit || []).some(x => x.rule === rule);
+    const ok = audited || (r.verdict === want && (!rule || r.blocks.some(x => x.rule === rule)) && (want !== 'pass' || r.blocks_total === 0));
     t(name, ok, { verdict: r.verdict, first: r.first, rules: [...new Set(r.blocks.map(x => x.rule))] });
   }
   // #319's look: a part gone on a far page is looked at once more (capture given the before looks): back, a note; still gone, a block
@@ -73,13 +75,13 @@ try {
   const fl = JSON.parse(readFileSync(path.join(dir, 'a-flaky.json'), 'utf8')).results.filter(f => f.relook);
   t('a part gone on a far page, back when looked at again (#319\'s Storage tile): flaky on staging, a note, pass', rf.verdict === 'pass' && fl.length > 0 && rf.notes.some(n => /flaky on staging/.test(n)), { verdict: rf.verdict, first: rf.first, relooked: fl.length });
   cap('emptygone', path.join(dir, 'a-gone2.json'), bl); const rg = cmp(path.join(dir, 'a-gone2.json'));
-  t('… still gone when looked at again: it blocks (data), and says it was looked at again', rg.verdict === 'block' && rg.blocks.some(x => x.rule === 'data') && rg.notes.some(n => /looked at again: .* still gone/.test(n)), { verdict: rg.verdict, first: rg.first });
+  t('… still gone when looked at again: it blocks (data), and says it was looked at again', [...rg.blocks, ...(rg.audit || [])].some(x => x.rule === 'data') && rg.notes.some(n => /looked at again: .* still gone/.test(n)), { verdict: rg.verdict, first: rg.first });
   const { partsGone } = await import(tool); const vb = { url: '/admin/x', ba: { regions: { 'div.hp-done:1': { t: 'All caught up.' } } } }, va = { url: '/admin/x', ba: { regions: {} } };
   t('partsGone: gone on a far page, named; on a page the release reaches, or gone in a before look already, never', partsGone(vb, vb, va).length === 1 && partsGone(vb, vb, va, { pages: ['/admin/x'] }).length === 0 && partsGone(vb, va, va).length === 0);
   const rb = cmp(path.join(dir, 'a-newbutton.json'));
-  t('… the drift block names the control that came (#320\'s look said only "its links and buttons")', rb.blocks.some(x => x.rule === 'drift' && /control: Export/.test(x.after)), rb.blocks.map(x => x.after));
+  t('… the drift block names the control that came (#320\'s look said only "its links and buttons")', [...rb.blocks, ...(rb.audit || [])].some(x => x.rule === 'drift' && /control: Export/.test(x.after)), rb.blocks.map(x => x.after));
   const rr = cmp(path.join(dir, 'a-renamebtn.json'));
-  t('… and names both: the control gone and the one that came', rr.blocks.some(x => x.rule === 'drift' && /control: Send/.test(x.before) && /control: Dispatch/.test(x.after)), rr.blocks.map(x => [x.before, x.after]));
+  t('… and names both: the control gone and the one that came', [...rr.blocks, ...(rr.audit || [])].some(x => x.rule === 'drift' && /control: Send/.test(x.before) && /control: Dispatch/.test(x.after)), rr.blocks.map(x => [x.before, x.after]));
   const r0 = cmp(path.join(dir, 'a-canary0066.json'), { pages: ['/'], held: { hashes: [heldHash('Zz Held Burial Canary', KEY)] } });
   t('… the block names the held name by its hash only, never the name, in the verdict file', !readFileSync(path.join(dir, 'v.json'), 'utf8').toLowerCase().includes('burial') && r0.blocks.some(x => /held [0-9a-f]{8}/.test(x.what)), r0.blocks);
   t('heldIn: a name inside a sentence, any case and punctuation, found; one word alone never', heldIn('Visit the zz HELD burial, canary today', new Set([heldHash('zz held burial canary', KEY)]), KEY).size === 1 && heldIn('Canary', new Set([heldHash('canary', KEY)]), KEY).size === 0);
