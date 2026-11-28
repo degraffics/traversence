@@ -36,9 +36,9 @@ source.
   updates `entities.category_id` whenever the listing has no owner (`owner_user_id IS NULL`). It checks the lock only
   on the `category` text field (:295). A staff member's category on an unclaimed listing is locked in metadata but
   **not** in `category_id`. So the daily reclassify (`reclassifyTick`, "applied" when sure, :258–270) can change the
-  kind a person set, and the listing then shows the new kind with the old text locked. **Fix (F1):** `setCategory`
-  skips a listing whose `category` field is locked, and records "kept (a person set it)" in `category_changes`.
-  The same rule applies to ADHS A2 and IT's C3 fix. Lane: Data & Content (one function), Tier 4 IT Manager (11).
+  kind a person set, and the listing then shows the new kind with the old text locked. **Fix (F1), in IT's search
+  release 1b:** `setCategory` never overwrites a category a person set. ADHS A2 and the C3 fix re-file through it,
+  through one mapping (`IntakeStager::REGISTRY_KIND`, `registryCategory()`; the IT Manager, 2026-11-28).
   *To do: count the listings where this happened, from `category_changes` (applied, with a locked category field).*
 
 ## 3. Each path
@@ -61,17 +61,36 @@ showing · Undo · measured on 1A.
 | People: `AddBusiness.php`, claims, staff edits | the person (0164: never overwritten) | the person's choice | *to do* | the field's History | *to do* |
 | W0 indexer, W5–W7, W10–W13 | not listings (URLs, guides, journeys, events, stories) | n/a | n/a | n/a | out of scope for listings; *to do: confirm none writes `entities`* (the grep in §1 says none does) |
 
+### Measured on a 1A sample (2026-11-28 ~01:45 UTC)
+
+150 of the 852 public 1A health listings, chosen at random (seed 1128), each page read as a visitor. What the page's
+"How sure we are" names as its source, and the error found:
+
+| Source the page names | Listings | People shown as places | Hospital-named, not filed under Hospitals |
+|---|---|---|---|
+| The NPI Registry (address, phone) | 62 | 8 (13%) | 2 |
+| Our crawler only, nothing else confirming | 84 | 49 (58%) | 1 |
+| Our team | 4 | 2 | 0 |
+
+Labels: Unconfirmed 84, Qualified 34, Being checked 20, Confirmed by Traversence 12. "Sources disagree" on 31.
+People are counted by name form (NPI's "Last, First", or a name ending in a credential, with no business word), so the
+figures are a floor. *To do: the same sample against each path's own record (the live read per id), and Show Low's
+non-health listings for comparison.*
+
 ## 4. Failures so far, each with its fix, release and lane
 
 | # | Failure (evidence) | Fix | Release | Lane |
 |---|---|---|---|---|
-| F1 | A person's category not protected in `category_id` (`CategoryClassifier.php:293`) | §2 | health corrections | Data & Content; Tier 4 IT (11) |
-| F2 | The gate has no person check: `evaluate()` uses `looksPerson` (:489) only for duplicates (:142–147), never for *real* or *appropriate*, so an individual from an open dataset passes (C5, ~240 in 1A) | *real* fails for a person's name unless a practice is named; the record kept, attached to its practice (the CMO's ruling, 2026-11-27) | IT's search release 1 (#1629) | IT (11) |
+| F1 | A person's category not protected in `category_id` (`CategoryClassifier.php:293`) | §2: `setCategory` never overwrites a category a person set (the locked text key, or set by admin, owner or user) | **IT's search release 1b** (the session manager, 2026-11-28: not a second fix in the same writer) | IT (11) |
+| F2 | The gate has no person check: `evaluate()` uses `looksPerson` (:489) only for duplicates (:142–147), never for *real* or *appropriate*, so an individual from an open dataset passes (C5, ~240 in 1A) | *real* fails for a person's name unless a practice is named; the record kept, attached to its practice (the CMO's ruling, 2026-11-27) | **IT's search release 1b** (evaluate keeps a looksPerson find as a record) | IT (11) |
 | F3 | Registry evidence never re-files the kind (C3; `crawler.py:1039`) | one taxonomy-code mapping, applied where the crawler set the kind | IT's search release 1, with A2's licence rows in the same table | IT (11) and Data & Content |
 | F4 | A site-wide meta description kept as one place's About (C1; `crawler.py:805`, :2443) | keep it only when the site is the place's own, or the text names its town | health corrections | Data & Content |
 | F5 | Departments' hours kept as one place's hours (C2, 1 listing) | one set for the place's own address, else none; and the missing hours (99%) as a fill line | health corrections | Data & Content |
 | F6 | "Qualified" vouches for more than it checks (C6; `ListingConfidence.php:24–31`) | the label says what it checks; a disagreement on kind holds it at "Being checked" | IT's search release 1 | IT (11) |
 | F7 | Urgent care ranked under clinics (C7) | search order | Frontend & Shop | Frontend & Shop |
+| F8 | `website/api/ingest.php:68` creates listings through `upsertEntity` with no gate: no floor, no category check, no person check, no auto-import switch. Nothing of ours calls it today, but any holder of the worker token can | refused while the pause holds (pause-1a); then retired, or routed through `IntakeStager::stage` | pause-1a now; retirement in 1b or later | IT (11) |
+| F9 | Listings public with no second source: 84 of 150 sampled 1A health listings (56%) read "Found by our crawler; no other source has confirmed it yet", Unconfirmed at 5 of 100. 49 of those 84 (58%) are people. 0164 §3.5's floor asks for a source we may keep; the page names none | *to do: trace when and how they were published (before the floor, or a path past it); then held to Review until a second source confirms them, with Undo* | health corrections | Data & Content, with IT (11) for the gate |
+| F10 | Sources disagree, shown but unresolved: 31 of 150 (21%) carry "⚠ Sources disagree" | *to do: which fields, and why the evidence rule (most independent sources wins) didn't settle them* | health corrections | Data & Content |
 
 ## 5. Checked against 0164, 0163 and 0066 (*to do*)
 
