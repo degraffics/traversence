@@ -6,42 +6,50 @@
     "zip": "writeorder-tenant.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "staged",
-    "step": 0,
+    "state": "live",
+    "step": 3,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
     "plan_at": "2026-11-28 01:40:02",
     "staged_at": "2026-11-28 01:40:04",
-    "vetted_at": null,
-    "live_at": null,
+    "vetted_at": "2026-11-28 01:50:02",
+    "live_at": "2026-11-28 01:50:02",
     "files": {
         "app/ui/faq.md": {
             "sha": "1126071b64d78d617095f41b2ef96b36d16df2bef87c79548e7d8b126da341de",
             "size": 470101,
-            "live_was": "3dd0f62ee74cb30618a2b03390d7ee634507499590e8ef67f0096015e7500f88"
+            "live_was": "3dd0f62ee74cb30618a2b03390d7ee634507499590e8ef67f0096015e7500f88",
+            "existed": true,
+            "old_sha": "3dd0f62ee74cb30618a2b03390d7ee634507499590e8ef67f0096015e7500f88"
         },
         "app/lib/Scope.php": {
             "sha": "4f7587b33b83e340ee0dc817a1714d8224c7a36ace59af6f4c9e48ae442e5fc9",
             "size": 2831,
-            "live_was": "1f3e968ed17dc4c77c91695f9f23bc21577e7ca3ee3e622201f7ad52f81fb407"
+            "live_was": "1f3e968ed17dc4c77c91695f9f23bc21577e7ca3ee3e622201f7ad52f81fb407",
+            "existed": true,
+            "old_sha": "1f3e968ed17dc4c77c91695f9f23bc21577e7ca3ee3e622201f7ad52f81fb407"
         },
         "app/lib/MarketCheckout.php": {
             "sha": "ce595face56fecb7d97d9d344bbbe688224a0aece6ac46fe47cd13ebe8c88f9e",
             "size": 67347,
-            "live_was": "4196be36c6d30c61a74b24e53a00c757657dfb93d1d585fd5346a9c76fbf4140"
+            "live_was": "4196be36c6d30c61a74b24e53a00c757657dfb93d1d585fd5346a9c76fbf4140",
+            "existed": true,
+            "old_sha": "4196be36c6d30c61a74b24e53a00c757657dfb93d1d585fd5346a9c76fbf4140"
         },
         "app/lib/BusinessData.php": {
             "sha": "f6fba14976cad486272f20d01fa8380817a55ce4a0d776cc80b1b5bd91d2a51c",
             "size": 13905,
-            "live_was": "d13c0797653012b5fc6a42196b23d1fc42c4c4c399c74886025da52a25ec8744"
+            "live_was": "d13c0797653012b5fc6a42196b23d1fc42c4c4c399c74886025da52a25ec8744",
+            "existed": true,
+            "old_sha": "d13c0797653012b5fc6a42196b23d1fc42c4c4c399c74886025da52a25ec8744"
         }
     },
     "migrations": [],
     "checks": {
         "ok": true,
-        "where": "staging",
-        "at": "2026-11-28T01:40:05+00:00",
+        "where": "live",
+        "at": "2026-11-28T01:50:03+00:00",
         "items": [
             [
                 "PHP files parse",
@@ -51,7 +59,7 @@
             [
                 "Pages answer",
                 true,
-                "2 pages answered on staging.trvgo.us"
+                "2 pages answered on traversence.com"
             ],
             [
                 "No new fatal errors in the logs",
@@ -91,6 +99,21 @@
             "at": "2026-11-28T01:40:07+00:00",
             "by": 0,
             "msg": "On staging and its checks passed; the advocates look again now (the before-and-after check)."
+        },
+        {
+            "at": "2026-11-28T01:50:02+00:00",
+            "by": 0,
+            "msg": "The before-and-after check: passed."
+        },
+        {
+            "at": "2026-11-28T01:50:02+00:00",
+            "by": 0,
+            "msg": "Approved in chat before it was sent through git, and its checks on staging passed: publishing by itself."
+        },
+        {
+            "at": "2026-11-28T01:50:02+00:00",
+            "by": 0,
+            "msg": "Published: 4 files; everyone at once (no switch)."
         }
     ]
 }
