@@ -74,6 +74,16 @@
             "at": "2026-11-28T02:55:06+00:00",
             "by": 0,
             "msg": "Uploaded pause-1a.zip: 10 files."
+        },
+        {
+            "at": "2026-11-28T02:55:08+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/pause-1a.zip (git 4abc46d838)."
+        },
+        {
+            "at": "2026-11-28T02:55:08+00:00",
+            "by": 0,
+            "msg": "Waiting for its before look: the advocates look at staging as it is, then it goes on staging (the before-and-after check)."
         }
     ]
 }
