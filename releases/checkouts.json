@@ -8,9 +8,13 @@
    "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
    "why": "Gate 5 writeOrder: the COPY_HELD constant",
    "since": "2026-11-28T01:20:19Z",
-   "expires": "2026-11-28T05:20:52Z",
-   "release": "",
-   "callers": {}
+   "expires": "2026-11-28T05:21:15Z",
+   "release": "writeorder-tenant.zip",
+   "callers": {
+    "tick": [
+     "app/scripts/market_tick.php"
+    ]
+   }
   },
   {
    "path": "app/lib/BusinessData.php",
@@ -21,8 +25,8 @@
    "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
    "why": "Gate 5: writeOrder's tenant put back, one transaction, a failed copy's ticket and held order",
    "since": "2026-11-28T01:20:21Z",
-   "expires": "2026-11-28T05:20:21Z",
-   "release": "",
+   "expires": "2026-11-28T05:21:15Z",
+   "release": "writeorder-tenant.zip",
    "callers": {}
   },
   {
@@ -34,8 +38,8 @@
    "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
    "why": "Gate 5: writeOrder's tenant put back, one transaction, a failed copy's ticket and held order",
    "since": "2026-11-28T01:20:23Z",
-   "expires": "2026-11-28T05:20:23Z",
-   "release": "",
+   "expires": "2026-11-28T05:21:15Z",
+   "release": "writeorder-tenant.zip",
    "callers": {}
   }
  ],
