@@ -1,0 +1,39 @@
+{
+    "id": 343,
+    "title": "A release publishes the moment its before-and-after check passes",
+    "why": "Jason's ruling, 2026-11-28 15:55 UTC: \"Push to live should be done immediately, upon pass.\" Today's Lives landed on the 10-minute job's runs. The cause, in two parts: beforeafter.yml committed its verdict and told nobody, and the site's ping endpoint (website/api/releases-pull.php) took builds only, leaving verdicts to releases_tick (the CEO's Tier 4 option (a), 2026-11-27, handoffs/pipeline-tick/README.md). His ruling replaces option (a). Gate: the record every gate's work is picked from (Goals and records with the roles, by Mon Nov 30).",
+    "proposals": "",
+    "zip": "publish-on-pass.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "website/api/releases-pull.php": {
+            "sha": "6e9a802bcdea6ba57fe26709a68f10923e96c4faf13da615e512793093acdc28",
+            "size": 3041,
+            "live_was": "cd41983ba4aa32512be0f30cd7123a791016ac16eb9184483673857663254011"
+        },
+        "app/ui/faq.md": {
+            "sha": "46dec0c72fcb33d7190f5c61917d79b9e2e69b058d9ca562bf7c464f04d347b7",
+            "size": 471862,
+            "live_was": "08c729916bfb97f87677c6973ddfab80ba95316a8f98793f07e65ae0c9324d35"
+        }
+    },
+    "migrations": [],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-28T16:44:09+00:00",
+            "by": 0,
+            "msg": "Uploaded publish-on-pass.zip: 2 files."
+        }
+    ]
+}
