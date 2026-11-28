@@ -1,0 +1,150 @@
+1: <?php
+2: // privacy.php — the Privacy Policy (decisions/0077). DRAFT for review: the [bracketed] items are facts to fill in, and the
+3: // whole text should be checked by an attorney before launch. "Your privacy choices" works live: it's the same choices
+4: // card as everywhere (js/consent.js), saved to this browser and, when signed in, to the account.
+5: require_once __DIR__ . '/../app/ui/page-shell.php';
+6: tv_page_start('Privacy Policy', ['no_crumbs' => true, 'description' => 'What Traversence collects, why, what your browser stores, and the choices you have.']);
+7: $h2 = 'font-serif font-bold text-lg text-[#3E2B1F] mt-6 mb-1';
+8: ?>
+9: <style>
+10:   .pv{max-width:46rem;font-size:.95rem;line-height:1.6;color:#3E2B1F}
+11:   .pv p{margin:.45rem 0}.pv ul{margin:.3rem 0 .6rem 1.1rem;list-style:disc}.pv li{margin:.2rem 0}
+12:   .pv-box{background:#F7EFDC;border:1px solid #EADFC4;border-radius:.9rem;padding:.8rem 1rem;margin:.6rem 0}
+13:   .pv table{width:100%;border-collapse:collapse;font-size:.85rem;margin:.5rem 0}.pv th,.pv td{text-align:left;vertical-align:top;padding:.45rem .5rem;border-top:1px solid #EADFC4}
+14:   .pv th{font-weight:700;background:#F3E7CC}.pv code{font-size:.8rem;background:#FFFBF2;padding:0 .2rem;border-radius:.2rem}
+15:   .pv-fill{background:#FDE68A;padding:0 .2rem;border-radius:.2rem}
+16:   @media (max-width:767px){ .pv table,.pv thead,.pv tbody,.pv tr,.pv th,.pv td{display:block} .pv thead{display:none} .pv tr{border-top:1px solid #EADFC4;padding:.3rem 0} .pv td{border:0;padding:.15rem .3rem} }
+17: </style>
+18: <?php
+19: // published (decisions/0142 §1): the version in effect, from System Configuration → Content templates; until one is
+20: // published, the text below
+21: require_once __DIR__ . '/../app/lib/LegalTexts.php';
+22: $tvLive = null; try { $tvLive = LegalTexts::live(Database::connection(), 'privacy'); } catch (Throwable $x) { error_log('privacy page: ' . $x->getMessage()); }
+23: if ($tvLive) { echo LegalTexts::css() . '<div class="pv">' . LegalTexts::page($tvLive, 'Privacy Policy', ['choices' => '<div class="pv-box" data-choices-card><p class="text-sm">Loading your choices…</p></div>']) . '</div>'; tv_page_end(); return; }
+24: ?>
+25: <div class="pv">
+26:   <h1 class="font-serif font-bold text-3xl">Privacy Policy</h1>
+27:   <?php tv_placeholder_banner('Draft for review. Fill in the highlighted [bracketed] items and have it checked before launch.'); ?>
+28:   <p class="text-sm text-[#8A7355]">Last updated: <span class="pv-fill">[date of publishing]</span></p>
+29: 
+30:   <div class="pv-box">
+31:     <p class="font-bold">The short version</p>
+32:     <ul>
+33:       <li><b>We never sell your information,</b> and we don't share it for advertising.</li>
+34:       <li>We don't track you across other websites, and there are no ads on Traversence.</li>
+35:       <li><b>Usage analytics and videos from YouTube are off until you say yes.</b> Everything works the same either way.</li>
+36:       <li>Private messages, your Address Book and your contact details stay private unless you choose to share them.</li>
+37:       <li>You can see, change, download or delete your information, and change your choices any time.</li>
+38:     </ul>
+39:   </div>
+40: 
+41:   <h2 class="<?= $h2 ?>" id="choices">Your privacy choices</h2>
+42:   <p>These are saved in this browser and, if you're signed in, on your account. You can also change them in Privacy Settings → Your tools.</p>
+43:   <div class="pv-box" data-choices-card><p class="text-sm">Loading your choices…</p></div>
+44: 
+45:   <h2 class="<?= $h2 ?>" id="who">Who we are</h2>
+46:   <p>Traversence (traversence.com) is run by <span class="pv-fill">[legal business name]</span>, <span class="pv-fill">[mailing address]</span>. Questions or requests about your information: <a class="underline" href="mailto:support@traversence.com">support@traversence.com</a>.</p>
+47: 
+48:   <h2 class="<?= $h2 ?>" id="collect">What we collect</h2>
+49:   <ul>
+50:     <li><b>Your account:</b> email address, password (stored scrambled; we can't read it), display name, and that you confirmed you're 18 or older. A phone number only if you give one (to verify it, or to add or claim a business). We don't ask members for a postal address; a business's address is used only for that business.</li>
+51:     <li><b>If you sign in with Google, Apple, Microsoft or Facebook:</b> that company tells us its ID for you, your email address and your name. Nothing else: not your password, contacts, photos or anything else in that account. Apple may give a "Hide My Email" address that forwards to you. We use them only to sign you in and to fill in your account. You can stop signing in that way any time by setting a password with "Forgot password?", and remove Traversence from that account; how, and how to have your data deleted, is on <a class="underline" href="/data-deletion.php">Deleting your data</a>.</li>
+52:     <li><b>What you post:</b> comments, journeys, photos, suggestions and reports. Photos have their hidden date and location removed unless you choose to keep them.</li>
+53:     <li><b>Messages and your Address Book:</b> kept private, visible only to you and the people you message.</li>
+54:     <li><b>Business owners:</b> what you give us to claim or add a business, and the checks we make to confirm it, if you agreed to Verification.</li>
+55:     <li><b>Business cards you hand us:</b> when our team meets you, we may photograph your business card to add your business and keep in touch. The photo is kept privately for our team; the business's name, phone, address and website go on its listing, and the person's details stay in our sales notes, never public. Ask us and we'll delete them.</li>
+56:     <li><b>Your place:</b> the place you choose to search around, kept in your browser, and on your account only if you save it. We never use your device's location unless you tap "Use my location", and then only for that search.</li>
+57:     <li><b>Counts, not people:</b> how often pages, listings and places are visited, the order pages are visited in, which site a visit came from (its name only, like Google, never the address or your search), and what's searched in which area, as totals with no name, account or device attached. Search words are cleaned (email addresses and long numbers removed) and rare ones are deleted after 90 days.</li>
+58:     <li><b>Short links and QR codes (trvgo.us):</b> when someone opens one, we count it by the day and the kind of phone (iPhone, Android, computer), nothing else: no IP address, location, account or cookie. A code being drawn as you type isn't kept. The codes you get are kept in your account (what they hold, how they look, and your logo if you add one) so you can download them again; anyone who scans a code can read what's in it.</li>
+59:     <li><b>GO Codes without an account:</b> to keep your cart and codes for you, we set one cookie (tv_go) holding a random key; we store only a scrambled form of it, never anything about you. Your receipt email has a private link that opens your codes on any device. If you later sign in or create an account, those codes move into it.</li>
+60:     <li><b>Buying GO Codes:</b> for each order we keep your name, email, billing address, what you bought and what you paid. QuickBooks (Intuit) receives your name, email and billing address to make the invoice and work out sales tax. Cards are processed by QuickBooks Payments: on our checkout page your card number, expiry date, security code and billing ZIP go from your browser straight to Intuit, which gives us back a one-time token to charge; we never see or keep card numbers, and our servers never receive them. We also keep each order's history (payments, fixes, credits, refunds and card disputes, and which of our team handled each) as business records; a credit or refund is recorded in QuickBooks too. Your GO Codes' scans are counted like any trvgo.us link: the day and the kind of phone, nothing else.</li>
+61:     <li><b>Weather and roads on guides:</b> our server asks the National Weather Service and AZ 511 for a place's weather and road conditions. It sends the place's location, never yours, and nothing about you.</li>
+62:     <li><b>When your order arrives:</b> when you tell us you have it, we keep that date, and any stars and words you add about how it went, or a problem you report, with the order for our team. We quote your words (with your first name) only if you tick the box saying we may.</li>
+63:     <li><b>Your customer record:</b> when you buy from us (an order or a plan), our team sees one record for you, made from those orders and plans: your name, email, phone and company as you gave them, what you've bought and when, and the total. Our team may add notes and tags to it to look after you. It stays inside our team (in our separate admin database), is never shown on the site, and is never sold or shared.</li>
+64:     <li><b>Messages from our pages' forms:</b> when you write to us through a form on one of our pages, we keep your name, email, phone (if you give it) and message to answer you and follow up; it also becomes your customer record with us (above). To keep out spam we keep a scrambled fingerprint of your internet address (not the address itself) to limit messages to a few an hour. We never add you to a mailing list from it.</li>
+65:     <li><b>Server records:</b> like every website, our server briefly records requests (internet address, page, time, browser) to keep the site running and safe. <span class="pv-fill">[how long server logs are kept]</span>.</li>
+66:     <li><b>Usage analytics, only if you allow it:</b> see below.</li>
+67:   </ul>
+68:   <p>Listings of businesses and places come from public information (a business's own website, official records, open map data and directories). Owners can claim their listing to correct it, make details private, or ask for it to be removed.</p>
+69: 
+70:   <h2 class="<?= $h2 ?>" id="use">How we use it</h2>
+71:   <ul>
+72:     <li>To run your account, show what you post, deliver your messages, and keep the site safe from spam and abuse.</li>
+73:     <li>To confirm owners and contributors, when you've agreed to Verification.</li>
+74:     <li>To improve search and the site, from counts and, if you allow it, from analytics.</li>
+75:     <li>To reach you about your account, on Traversence itself (notifications, your Pulse, a notice on the page). We use your email or phone only for official contact when we can't reach you there, such as when you can't sign in, and only when it's needed. Marketing email only if you haven't opted out, and you can opt out any time.</li>
+76:     <li>When you ask us for help or about our services, to reply to you, or to the contact you name, about what you asked.</li>
+77:     <li>With AI Assist &amp; Learning, only if you turn it on (see Privacy Settings → Your tools). Never for ads, selling or profiling.</li>
+78:     <li><b>Your AI Assist asks:</b> what you ask and the answer are kept under Your asks on the AI Assist page so you can copy them again and so we can send you a better answer when our research learns more. Only you see them; they're deleted with your account. Our team sees only counts and what they cost (where on the site asks come from, and the subjects we didn't know yet), never what you asked. The subjects asked about in a place, counted, help decide what its guide covers; never your words or who asked.</li>
+79:     <li><b>Linking what you publish:</b> when you publish a journey or an experience, we find the places and businesses it names so they're linked and your piece shows on their pages. Claude reads your words for this only if you've turned on AI Assist &amp; Learning; otherwise we match names from our own directory. You can take any tag off. When you @mention someone in a group post, only they are told, and only if they're in the group.</li>
+80:   </ul>
+81: 
+82:   <h2 class="<?= $h2 ?>" id="cookies">Cookies and what your browser stores</h2>
+83:   <p><b>Always on, because the site needs them</b> (they can't be turned off):</p>
+84:   <table>
+85:     <thead><tr><th>Name</th><th>What it's for</th><th>How long</th></tr></thead>
+86:     <tbody>
+87:       <tr><td><code>traversence_session</code></td><td>Keeps you signed in.</td><td>Until you close the browser or sign out</td></tr>
+88:       <tr><td><code>tv_gd</code></td><td>A random number set only when you use a business's question form without an account, so the form can't be abused. It doesn't identify you.</td><td>1 year</td></tr>
+89:       <tr><td><code>tv_2s</code></td><td>Only for the Traversence team: a random key that lets a browser they chose to trust skip the emailed sign-in code. We keep only a scrambled form of it.</td><td>30 days</td></tr>
+90:       <tr><td><code>tv_choices</code></td><td>Remembers your privacy choices on this page.</td><td>1 year</td></tr>
+91:       <tr><td>Browser storage (<code>tv_…</code>)</td><td>Remembers things you set: menus left open, recent searches, your distance and place. It stays on your device and isn't sent to us.</td><td>Until you clear it</td></tr>
+92:     </tbody>
+93:   </table>
+94:   <p><b>Only if you say yes:</b></p>
+95:   <table>
+96:     <thead><tr><th>Who</th><th>When</th><th>What they may store</th></tr></thead>
+97:     <tbody>
+98:       <tr><td><span class="pv-fill">[analytics service]</span></td><td>With Usage analytics on</td><td>Their cookies, to tell a returning visit from a new one. <span class="pv-fill">[name the cookies and how long]</span></td></tr>
+99:       <tr><td>Cloudflare Turnstile</td><td>On the sign-in, sign-up and "forgot password" forms, once switched on</td><td>A check that you're a person, not a bot, usually without a puzzle. It looks at your browser and connection, not at who you are, and isn't used for ads. Cloudflare's <a class="underline" href="https://www.cloudflare.com/turnstile-privacy-policy/" target="_blank" rel="noopener">Turnstile Privacy Addendum</a> says what it collects and how it's used.</td></tr>
+100:       <tr><td>YouTube (Google) or Vimeo</td><td>When a video plays (with Videos on, or when you tap Play)</td><td>Their cookies and storage, under their own privacy policies</td></tr>
+101:     </tbody>
+102:   </table>
+103:   <p><b>Services that see your internet address when a page loads from them</b> (no cookies from us): Amazon S3 (photos and files load from there), OpenStreetMap (map tiles), Cloudflare's cdnjs (the map library, and the viewer that shows PDF proofs on an order's page), and the Tailwind CDN (page styles). Links to Google Maps open Google only when you tap them.</p>
+104: 
+105:   <h2 class="<?= $h2 ?>" id="analytics">Usage analytics</h2>
+106:   <p>If you allow it, <span class="pv-fill">[analytics service]</span> measures how the site is used: pages visited, how people move between them, the kind of device and browser, and roughly where (city level, from the internet address). We use it only to fix and improve Traversence. We don't sell it, don't use it for advertising, and don't let the analytics service use it for its own advertising. <span class="pv-fill">[the service's own privacy policy link, and whether it shortens internet addresses]</span></p>
+107: 
+108:   <h2 class="<?= $h2 ?>" id="videos">Videos</h2>
+109:   <p>Some places, listings and journeys include a video hosted on YouTube or Vimeo. Until you allow Videos (or tap Play on one), a video shows only a Play button, and nothing loads from YouTube or Vimeo. When one plays, YouTube (Google) or Vimeo receives your internet address and the page you're on, and may set cookies, under their own privacy policies. We load YouTube in its privacy-enhanced mode.</p>
+110: 
+111:   <h2 class="<?= $h2 ?>" id="staff">When our staff look at your account</h2>
+112:   <p>We don't look at accounts unless there's an issue (a report, a claim, a safety concern) or you ask us for help. A staff member must say why before opening yours, and every look is recorded with their name and the reason. They see the basics from your sign-up: display name, when you joined, whether your email and age are confirmed, whether you're Verified, your roles and your privacy choices. Your email and phone are shown only when needed to verify you or contact you officially, and that's recorded separately. No one, in any role, can read your private messages, your Address Book or your contact cards.</p>
+113:   <p>If your account breaks our guidelines, you hear from us first, on Traversence, with the steps to put it right and 24 hours to reply or ask for a review, before anything else happens. If access is ever revoked, we email you what happened, how to recover, and a link to ask a person to review it. <a class="underline" href="/faq.php#can-my-account-be-limited-or-revoked">How notices work</a>.</p>
+114: 
+115:   <h2 class="<?= $h2 ?>" id="share">Who we share it with</h2>
+116:   <p><b>We don't sell your personal information, and we don't share it for targeted advertising.</b> We share only what's needed with:</p>
+117:   <ul>
+118:     <li>Companies that run parts of the service for us, under contract: hosting (<span class="pv-fill">[hosting company]</span>), file storage (Amazon Web Services: photos, documents and files you add are kept in Amazon S3, in the United States), email delivery (<span class="pv-fill">[email provider]</span>), text-message codes (<span class="pv-fill">[SMS provider]</span>), and, if you allow it, analytics (<span class="pv-fill">[analytics service]</span>).</li>
+119:     <li>A business, when you message it or send it a question: what you write, and the contact details you choose to give.</li>
+120:     <li>The law: when required by a valid legal request, or to protect someone's safety.</li>
+121:   </ul>
+122: 
+123:   <h2 class="<?= $h2 ?>" id="keep">How long we keep it</h2>
+124:   <ul>
+125:     <li>Your account and what you post: until you delete them or your account.</li>
+126:     <li>Sign-in: until you sign out or close the browser; an unused sign-in is removed after 30 days.</li>
+127:     <li>Rare search words: 90 days. Visit counts: kept as totals.</li>
+128:     <li>Records of the choices you made: as long as your account exists, so we can show what you agreed to.</li>
+129:     <li>Notices on your account, reviews, and the record of staff opening it: as long as your account exists.</li>
+130:     <li><span class="pv-fill">[server logs, backups]</span></li>
+131:   </ul>
+132: 
+133:   <h2 class="<?= $h2 ?>" id="rights">Your rights</h2>
+134:   <p>You can ask to see, correct, download or delete your information, and to withdraw any choice you made. Most of it you can do yourself in your account and Privacy Settings; for anything else, email <a class="underline" href="mailto:support@traversence.com">support@traversence.com</a>. We'll answer within <span class="pv-fill">[30]</span> days and won't treat you differently for asking.</p>
+135:   <p>Depending on where you live (for example California, Colorado, Virginia, and other states, or the EU and UK), you may have further rights, such as to opt out of the sale or sharing of personal information. We don't sell or share it, so there's nothing to opt out of, and turning off Usage analytics stops analytics too. If you're in the EU or UK, we rely on your consent for analytics and videos, and on running the service you asked for (or our legitimate interest in keeping it safe) for the rest. <span class="pv-fill">[EU/UK representative, if needed]</span></p>
+136: 
+137:   <h2 class="<?= $h2 ?>" id="delete">Deleting your account and data</h2>
+138:   <p>Signed in, open <b>Dashboard → Privacy → Delete my account</b> (<a class="underline" href="/user/delete-account.php">/user/delete-account.php</a>) and follow the steps. Your account, profile, sign-in connections (Google, Apple, Microsoft or Facebook) and the information they gave us are deleted; you have 30 days to change your mind, then it's permanent. Records the law requires us to keep, such as receipts for purchases, are kept only as long as required.</p>
+139:   <p>Signed in with Facebook and want to remove the connection too? In Facebook, go to <b>Settings &amp; privacy → Settings → Apps and websites</b>, find Traversence and click <b>Remove</b>. Can't sign in any more? Email <a class="underline" href="mailto:support@traversence.com?subject=Delete%20my%20account">support@traversence.com</a> from the email address on your account, and we'll delete it for you within 30 days.</p>
+140: 
+141:   <h2 class="<?= $h2 ?>" id="children">Children</h2>
+142:   <p>Traversence accounts are for adults, 18 and up. The site isn't directed to children under 13, and we don't knowingly collect their information.</p>
+143: 
+144:   <h2 class="<?= $h2 ?>" id="security">Keeping it safe</h2>
+145:   <p>Connections are encrypted, passwords are stored scrambled, and access to personal information is limited to the staff who need it. No system is perfect: if something goes wrong that affects you, we'll tell you.</p>
+146: 
+147:   <h2 class="<?= $h2 ?>" id="changes">Changes</h2>
+148:   <p>When this policy changes, the date above changes. If a change affects a choice you made (analytics, videos, or a tool you turned on), we ask you again before it applies.</p>
+149: </div>
+150: <?php tv_page_end();

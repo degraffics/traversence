@@ -1,0 +1,191 @@
+1: <?php
+2: 
+3: declare(strict_types=1);
+4: 
+5: /**
+6:  * api/lib/Consent.php — tool activation and consent (decisions/0049, 0051, 0052).
+7:  *
+8:  * Every person-facing tool is activated once with consent: ACTIVATE → ⓘ CONSENT (the one-line summary always
+9:  * shown; ⓘ opens the full explanation) → active. One record per person per tool, with the version of the wording
+10:  * they agreed to; a new version asks again. Deactivating pauses the tool, never deletes. Wording below is as
+11:  * approved by Jason on 2026-09-30; change the version number when what a tool does or shares changes.
+12:  */
+13: final class Consent
+14: {
+15:     public const TOOLS = [
+16:         'linking' => [
+17:             'name' => 'Linking',
+18:             'version' => 1,
+19:             'summary' => 'Link people, places and businesses: an open connection that pulls their posts into your feeds.',
+20:             'explanation' => "Linking is an open connection: the person or business you link can see that you linked them. It pulls their posts into your feeds and never pushes your posts to them.\n\nYou can message each other in your Traversence inbox; businesses follow your marketing preferences for anything sales-related.\n\nWant something within reach privately instead? Add it to your Address Book.\n\nUnlink anything with one tap, or turn Linking off in Privacy Settings → Your tools.",
+21:             'paused' => 'Your links are kept but paused: they drop out of your feeds and businesses can\'t message you until you turn Linking back on.',
+22:             'read_required' => false,
+23:         ],
+24:         'address_book' => [
+25:             'name' => 'Address Book',
+26:             'version' => 1,
+27:             'summary' => 'Your private contacts, and how each one can reach you.',
+28:             'explanation' => "Your Address Book is private: people, businesses and places you add don't see it. Contacts don't have to be on Traversence.\n\nFrom here you can message them, choose which of your details (phone, email, address) to share with each, and take them back any time. Linking never gives access to your Address Book.\n\nYour email and location are never shown to anyone.\n\nTurn it off in Privacy Settings → Your tools; your contacts are paused, not deleted.",
+29:             'paused' => 'Your contacts are kept but paused until you turn the Address Book back on.',
+30:             'read_required' => false,
+31:         ],
+32:         'ai_learning' => [
+33:             'name' => 'AI Assist & Learning',
+34:             'version' => 1,
+35:             'summary' => 'Help us help you, and help others.',
+36:             'explanation' => "With AI Assist & Learning on, Traversence looks at abstract patterns in how the site is used and in the posts you contribute, to improve the interface and build guides, stories and listings that are more accurate and complete for everyone. AI Assist also helps you directly: suggestions, answers and drafts.\n\nYour specific information stays safeguarded, and your private messages and contact cards are never used.\n\nThis is for the benefit of everyone on Traversence, and never, ever used for ads, selling or profiling labels.\n\nSee what it has learned about you, reset it, or turn it off any time in Privacy Settings → Your tools.",
+37:             'declined' => "Got it! Rest assured, your experience is protected: nothing you contribute is used for learning. If you'd like to help others find useful information, tag a place or topic with @. Only the tag is shared, never your words or your name. You can turn on AI Assist & Learning any time in Privacy Settings → Your tools.",
+38:             'paused' => 'Nothing you contribute from now on is used for learning. What was learned before stays unless you reset it.',
+39:             'read_required' => false,
+40:         ],
+41:         // decisions/0062 §4: asked at sign-up; required only to contribute, claim a listing, run a community or work on staff
+42:         'verification' => [
+43:             'name' => 'Verification',
+44:             'version' => 1,
+45:             'summary' => 'We\'ll check the details you give us (name, email, phone, and for owners the business) against the sources we list. Nothing else about you is looked up.',
+46:             'explanation' => "What we check, and against what: your email, with a link we send you; that you're 18 or older, with your own confirmation; your phone, with a code we text you, if you give us one; and, if you claim a business, the business against its own website and the public registries we list (the NPI Registry for health care, IRS nonprofits, state and county sites). The result is a \"Verified\" mark on your profile.\n\nWe only check what you gave us. We never search for anything more about you, and nothing about you is made public beyond the mark.\n\nIt's needed only to write as a contributor, claim a business, run a community, or work on Traversence's staff. Browsing, searching, saving, commenting and messaging never need it.\n\nSwitch it off any time in Privacy Settings → Your tools. That removes the Verified mark, not your account.",
+47:             'paused' => 'Your Verified mark is removed; your account and everything in it stay. Writing as a contributor, claiming a business, starting a community and staff work need it switched back on.',
+48:             'read_required' => false,
+49:         ],
+50:         // decisions/0077: the two choices that use cookies from other companies. Asked at sign-up and of every visitor
+51:         // (cookie: true), off until someone says yes; never needed to use any part of Traversence.
+52:         'analytics' => [
+53:             'name' => 'Usage analytics',
+54:             'version' => 1,
+55:             'cookie' => true,
+56:             'summary' => 'Let us count how Traversence is used (pages visited, searches that found nothing, what\'s hard to use) with an analytics service, so we can fix and improve it.',
+57:             'explanation' => "With Usage analytics on, an analytics service we use measures how the site is used: which pages are visited, how people move between them, the kind of device and browser, and roughly where (city level, from the internet address). It sets its own cookies to tell a returning visit from a new one.\n\nWe use what it shows us only to improve Traversence. We don't sell it, we don't use it for advertising, and we don't let the analytics service use it for its own advertising.\n\nOff by default. Everything on Traversence works the same either way. Change it any time on the Privacy page or in Privacy Settings → Your tools.",
+58:             'paused' => 'Analytics no longer runs for you. What was measured before stays in the service\'s totals, not linked to your account.',
+59:             'read_required' => false,
+60:         ],
+61:         'video' => [
+62:             'name' => 'Videos from YouTube',
+63:             'version' => 1,
+64:             'cookie' => true,
+65:             'summary' => 'Play videos that come from YouTube or Vimeo right on the page. Playing one lets YouTube (Google) or Vimeo see your visit and set their cookies.',
+66:             'explanation' => "Some places, listings and journeys include a video hosted on YouTube or Vimeo. We load them in YouTube's privacy-enhanced mode, but once a video plays, YouTube (Google) or Vimeo receives your internet address and the page you're on, and may set cookies, under their own privacy policies.\n\nWith Videos on, videos load as part of the page. With it off, each video shows a Play button and loads only when you tap it, or you can open it on YouTube instead.\n\nChange it any time on the Privacy page or in Privacy Settings → Your tools.",
+67:             'paused' => 'Videos wait for you to tap Play again.',
+68:             'read_required' => false,
+69:         ],
+70:     ];
+71: 
+72:     /** The visitor's choices for the cookie tools, from the tv_choices cookie: tool => true|false (absent: not asked). */
+73:     public const COOKIE = 'tv_choices';
+74: 
+75:     public static function cookieChoices(): array
+76:     {
+77:         $raw = json_decode((string) ($_COOKIE[self::COOKIE] ?? ''), true);
+78:         $out = [];
+79:         foreach ((array) $raw as $tool => $v) {
+80:             if (!isset(self::TOOLS[$tool]) || empty(self::TOOLS[$tool]['cookie']) || !is_array($v)) continue;
+81:             if ((int) ($v[1] ?? 0) >= self::TOOLS[$tool]['version']) $out[$tool] = (bool) ($v[0] ?? false);   // an older wording asks again
+82:         }
+83:         return $out;
+84:     }
+85: 
+86:     /** Remembers a visitor's choice in tv_choices (first-party, a year; only the choices, readable by the page's script). */
+87:     public static function setCookieChoice(string $tool, bool $on): void
+88:     {
+89:         if (!isset(self::TOOLS[$tool]) || empty(self::TOOLS[$tool]['cookie'])) throw new InvalidArgumentException('Unknown choice.');
+90:         $all = (array) json_decode((string) ($_COOKIE[self::COOKIE] ?? ''), true);
+91:         $all[$tool] = [$on ? 1 : 0, self::TOOLS[$tool]['version'], date('Ymd')];
+92:         $val = json_encode($all);
+93:         $_COOKIE[self::COOKIE] = $val;
+94:         if (!headers_sent()) setcookie(self::COOKIE, $val, ['expires' => time() + 365 * 86400, 'path' => '/', 'secure' => !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off', 'httponly' => false, 'samesite' => 'Lax']);
+95:     }
+96: 
+97:     /**
+98:      * Whether a cookie tool is allowed for this visit: a signed-in person's account choice wins, then this browser's.
+99:      * Never asked means no.
+100:      */
+101:     public static function allows(?PDO $pdo, ?int $uid, string $tool): bool
+102:     {
+103:         if ($uid && $pdo && self::ready($pdo)) {
+104:             $r = self::row($pdo, $uid, $tool);
+105:             if ($r !== null) return $r['status'] === 'active' && (int) $r['version'] >= self::TOOLS[$tool]['version'];
+106:         }
+107:         return self::cookieChoices()[$tool] ?? false;
+108:     }
+109: 
+110:     public static function ready(PDO $pdo): bool
+111:     {
+112:         try { $pdo->query('SELECT 1 FROM tool_consent_log LIMIT 1'); $pdo->query('SELECT 1 FROM tool_consents LIMIT 1'); return true; } catch (PDOException) { return false; }
+113:     }
+114: 
+115:     private static function row(PDO $pdo, int $uid, string $tool): ?array
+116:     {
+117:         $st = $pdo->prepare('SELECT status, version, activated_at, deactivated_at FROM tool_consents WHERE user_id = ? AND tool = ?');
+118:         $st->execute([$uid, $tool]);
+119:         return $st->fetch(PDO::FETCH_ASSOC) ?: null;
+120:     }
+121: 
+122:     /** Active with the current wording? (A tool with an older version needs consent again.) */
+123:     public static function active(PDO $pdo, int $uid, string $tool): bool
+124:     {
+125:         if (!isset(self::TOOLS[$tool]) || !self::ready($pdo)) return false;
+126:         $r = self::row($pdo, $uid, $tool);
+127:         return $r !== null && $r['status'] === 'active' && (int) $r['version'] >= self::TOOLS[$tool]['version'];
+128:     }
+129: 
+130:     /** Switched off on purpose (as opposed to never asked): the tool's effects are paused. */
+131:     public static function paused(PDO $pdo, int $uid, string $tool): bool
+132:     {
+133:         if (!self::ready($pdo)) return false;
+134:         $r = self::row($pdo, $uid, $tool);
+135:         return $r !== null && $r['status'] === 'inactive';
+136:     }
+137: 
+138:     public static function set(PDO $pdo, int $uid, string $tool, bool $on, string $page = '', bool $fullShown = false): void
+139:     {
+140:         if (!isset(self::TOOLS[$tool])) throw new InvalidArgumentException('Unknown tool.');
+141:         $v = self::TOOLS[$tool]['version'];
+142:         if ($on && self::TOOLS[$tool]['read_required'] && !$fullShown) throw new InvalidArgumentException('Please read the full text first.');
+143:         $now = date('Y-m-d H:i:s');
+144:         if (self::row($pdo, $uid, $tool) === null) {
+145:             $pdo->prepare('INSERT INTO tool_consents (user_id, tool, version, status, activated_at, deactivated_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?)')
+146:                 ->execute([$uid, $tool, $v, $on ? 'active' : 'inactive', $on ? $now : null, $on ? null : $now, $now]);
+147:         } elseif ($on) {
+148:             $pdo->prepare("UPDATE tool_consents SET status = 'active', version = ?, activated_at = ?, updated_at = ? WHERE user_id = ? AND tool = ?")->execute([$v, $now, $now, $uid, $tool]);
+149:         } else {
+150:             $pdo->prepare("UPDATE tool_consents SET status = 'inactive', deactivated_at = ?, updated_at = ? WHERE user_id = ? AND tool = ?")->execute([$now, $now, $uid, $tool]);
+151:         }
+152:         $pdo->prepare('INSERT INTO tool_consent_log (user_id, tool, version, action, full_text_shown, page, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)')
+153:             ->execute([$uid, $tool, $v, $on ? 'activate' : 'deactivate', $fullShown ? 1 : 0, mb_substr($page, 0, 255), $now]);
+154:         self::keepWording($pdo, $tool);
+155:         if (!empty(self::TOOLS[$tool]['cookie'])) self::setCookieChoice($tool, $on);   // this browser follows the account
+156:     }
+157: 
+158:     /** The exact wording of each version, kept the first time it's agreed to (decisions/0062 §4), so the log's version
+159:      *  number always leads back to the words the person saw. */
+160:     private static function keepWording(PDO $pdo, string $tool): void
+161:     {
+162:         $t = self::TOOLS[$tool];
+163:         try {
+164:             $st = $pdo->prepare('SELECT 1 FROM consent_wordings WHERE tool = ? AND version = ?'); $st->execute([$tool, $t['version']]);
+165:             if ($st->fetchColumn()) return;
+166:             $pdo->prepare('INSERT INTO consent_wordings (tool, version, summary, explanation, first_used) VALUES (?, ?, ?, ?, ?)')
+167:                 ->execute([$tool, $t['version'], $t['summary'], $t['explanation'], date('Y-m-d H:i:s')]);
+168:         } catch (PDOException) { /* not set up yet (2026-11-01_verification_consent.sql), or two at once */ }
+169:     }
+170: 
+171:     /** Your tools: each tool's wording and this person's state. */
+172:     public static function all(PDO $pdo, int $uid): array
+173:     {
+174:         $out = [];
+175:         foreach (self::TOOLS as $key => $t) {
+176:             $r = self::row($pdo, $uid, $key);
+177:             $state = $r === null ? 'not_asked' : ($r['status'] === 'active' ? ((int) $r['version'] >= $t['version'] ? 'active' : 'update') : 'paused');
+178:             $out[] = ['tool' => $key, 'name' => $t['name'], 'summary' => $t['summary'], 'explanation' => $t['explanation'], 'paused_note' => $t['paused'],
+179:                       'declined_note' => $t['declined'] ?? '', 'read_required' => $t['read_required'], 'state' => $state,
+180:                       'since' => $r ? ($r['status'] === 'active' ? $r['activated_at'] : $r['deactivated_at']) : null];
+181:         }
+182:         return $out;
+183:     }
+184: 
+185:     /** What the consent chip needs for one tool. */
+186:     public static function prompt(string $tool): array
+187:     {
+188:         $t = self::TOOLS[$tool];
+189:         return ['tool' => $tool, 'name' => $t['name'], 'summary' => $t['summary'], 'explanation' => $t['explanation'], 'read_required' => $t['read_required']];
+190:     }
+191: }

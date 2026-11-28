@@ -1,0 +1,522 @@
+1: <?php
+2: // api/lib/SituationReasoner.php — reading a situation from what the words mean, not from a list of phrases
+3: // (decisions/0061, the meaning layer). Rule-based, no AI.
+4: //
+5: // People describe the same thing a hundred ways ("bit by something", "a dog bit me", "got stung", "my ankle is
+6: // swollen"). Instead of listing every wording, each word has a meaning class (bite, bit, bitten, stung → harm; dog,
+7: // snake, "something" → creature; ankle → body; pipe → plumbing), a few grammar cues are read ("by" names what did it,
+8: // "my" marks what's theirs, "out of" marks what's missing), and event frames turn the meaning into a situation:
+9: // harm + creature → An injury; broken + plumbing → Leak or burst pipe; out of + gas → Gas for the car.
+10: //
+11: // Five kinds of word (the Traversence intent taxonomy, decisions/0061):
+12: //   event   what happened (broke, stuck, bit)                         → Why: a situation, urgent ones first
+13: //   thing   what it happened to, or what did it (wallet, pipe, dog)   → What / Who: what's looked up
+14: //   action  how something is done (fix, install, register, cook)     → Why: who does it (how-to guides are coming)
+15: //   tool    the tool or medium (generator, saw, app, permit portal)  → What: narrows what to find
+16: //   time    when (asap, upcoming, this morning, fall)                 → When: open now, coming up, a season
+17: //   modifier what kind of it (heavy-duty, local, used)                → narrows What: those that mention it first
+18: //   wrapper  the shape of the ask (how to, where can I)              → structure: "how to" marks a procedure
+19: // Every word also has a lexical category (noun, verb…), decisions/0063; see api/lib/Lexicon.php.
+20: //
+21: // It runs only when no phrase in the situation map matched. Each answer carries its reasoning, which the search term
+22: // analysis (Admin → Missed searches, ✦) shows, so a wrong reading can be seen and corrected.
+23: declare(strict_types=1);
+24: 
+25: final class SituationReasoner
+26: {
+27:     /** Events: what happened. 'weak' ones ("bit", "cut", "hit") need a thing or a cue ("got", "was", "by", "my") to count. */
+28:     private const EVENTS = [
+29:         'harm' => ['bite' => 0, 'bit' => 1, 'bitten' => 0, 'biting' => 0, 'bites' => 0, 'sting' => 0, 'stung' => 0, 'stinging' => 0, 'scratched' => 0,
+30:                    'attacked' => 0, 'mauled' => 0, 'cut' => 1, 'burned' => 0, 'burnt' => 0, 'burn' => 1, 'hurt' => 0, 'hurts' => 0, 'hurting' => 0, 'injured' => 0,
+31:                    'injury' => 0, 'sprained' => 0, 'sprain' => 0, 'twisted' => 0, 'fell' => 1, 'fallen' => 0, 'slipped' => 1, 'bleeding' => 0, 'bleed' => 0,
+32:                    'swollen' => 0, 'hit' => 1, 'struck' => 1, 'stabbed' => 0, 'shot' => 1, 'dislocated' => 0, 'fractured' => 0],
+33:         'broken' => ['broke' => 1, 'broken' => 1, 'busted' => 0, 'cracked' => 1, 'shattered' => 0, 'leaking' => 0, 'leak' => 0, 'leaky' => 0, 'leaks' => 0,
+34:                      'clogged' => 0, 'burst' => 0, 'frozen' => 1, 'flooded' => 0, 'overflowing' => 0, 'flat' => 1, 'dead' => 1, 'died' => 1, 'stopped' => 1,
+35:                      'smoking' => 1, 'sparking' => 0, 'tripped' => 1, 'wont start' => 0, 'wont turn on' => 0, 'went out' => 0, 'wont' => 1, 'not working' => 0, 'stopped working' => 0, 'quit working' => 0,
+36:                      'broke down' => 0, 'acting up' => 0, 'making a noise' => 0],
+37:         'lost' => ['lost' => 1, 'lose' => 1, 'missing' => 1, 'cant find' => 0, 'stolen' => 1, 'stole' => 1, 'misplaced' => 0, 'ran away' => 0, 'gone' => 1,
+38:                    'find my' => 0, 'looking for my' => 0, 'left my' => 0, 'robbed' => 0, 'took my' => 0],
+39:         // someone else's thing, found (decisions/0064): "found a wallet", "came across a stray dog". "find my…" is lost
+40:         'found' => ['found' => 0, 'came across' => 0, 'picked up' => 1, 'turned up' => 1],
+41:         'stuck' => ['stuck' => 0, 'stranded' => 0, 'trapped' => 0, 'locked out' => 0, 'slid off' => 0],
+42:         'without' => ['out of' => 0, 'ran out' => 0, 'run out' => 0, 'no' => 1, 'without' => 1, 'cant afford' => 0, 'cant pay' => 0, 'need' => 1, 'low on' => 0],
+43:         'smell' => ['smell' => 0, 'smells' => 0, 'smelling' => 0, 'odor' => 0],
+44:         'help' => ['need help with' => 0, 'help with' => 0, 'help me with' => 0, 'need help' => 0, 'help' => 1, 'assistance' => 0, 'advice' => 0],
+45:         'sick' => ['sick' => 0, 'ill' => 1, 'fever' => 0, 'vomiting' => 0, 'throwing up' => 0, 'not eating' => 0, 'limping' => 0],
+46:     ];
+47:     /**
+48:      * Actions: how something is done. The person wants it done, so they lead to who does it. 'weak' ones ("make", "set
+49:      * up", "service") count only with a thing or a tool.
+50:      */
+51:     private const ACTIONS = [
+52:         'repair' => ['fix' => 0, 'fixing' => 0, 'fixed' => 1, 'repair' => 0, 'repairing' => 0, 'repairs' => 0, 'mend' => 0, 'patch' => 1, 'service' => 1, 'tune up' => 0],
+53:         'install' => ['install' => 0, 'installing' => 0, 'installed' => 0, 'installation' => 0, 'put in' => 1, 'hook up' => 0, 'replace' => 1, 'replacing' => 1],
+54:         'build' => ['build' => 1, 'building' => 1, 'construct' => 0, 'remodel' => 0, 'remodeling' => 0, 'renovate' => 0, 'renovating' => 0, 'make' => 1],
+55:         'register' => ['register' => 0, 'registration' => 0, 'renew' => 0, 'renewal' => 0, 'license' => 1, 'title' => 1, 'apply for' => 0, 'sign up' => 1],
+56:         'cook' => ['cook' => 0, 'cooking' => 0, 'bake' => 0, 'baking' => 0, 'recipe' => 0, 'recipes' => 0, 'grilling' => 0, 'canning' => 1],
+57:         'configure' => ['configure' => 0, 'configuring' => 0, 'set up' => 1, 'setup' => 1, 'program' => 1, 'connect' => 1, 'activate' => 0],
+58:         'rent' => ['rent' => 0, 'renting' => 0, 'rental' => 0, 'borrow' => 0, 'lease' => 1, 'hire' => 1],
+59:         'buy' => ['buy' => 1, 'buying' => 1, 'purchase' => 1, 'shop for' => 0],
+60:         'learn' => ['learn' => 0, 'learning' => 0, 'lessons' => 0, 'class' => 1, 'classes' => 1, 'teach me' => 0, 'how to' => 1],
+61:     ];
+62:     /** Tools: the tool, utility or medium used. They narrow what to find (equipment, a service, a portal). */
+63:     private const TOOLS = [
+64:         'power-tool' => ['saw', 'chainsaw', 'chain saw', 'drill', 'sander', 'grinder', 'nail gun', 'table saw', 'power tools', 'power tool', 'welder', 'air compressor', 'compressor', 'pressure washer'],
+65:         'generator' => ['generator', 'generators'],
+66:         'yard-tool' => ['lawn mower', 'lawnmower', 'mower', 'riding mower', 'weed eater', 'weedeater', 'trimmer', 'leaf blower', 'snowblower', 'snow blower', 'tiller'],
+67:         'heavy-equipment' => ['tractor', 'skid steer', 'backhoe', 'excavator', 'trailer', 'scissor lift', 'scaffolding', 'dumpster', 'forklift'],
+68:         'computer' => ['app', 'software', 'computer', 'laptop', 'printer', 'router', 'modem', 'email', 'website', 'smart tv', 'tablet', 'ipad', 'iphone', 'smartphone'],
+69:         'calculator' => ['calculator'],
+70:         'portal' => ['permit portal', 'portal', 'online form'],
+71:         'kitchen' => ['grill', 'smoker', 'oven', 'stove', 'pressure cooker', 'instant pot', 'canner', 'dutch oven'],
+72:         'hand-tool' => ['hammer', 'wrench', 'screwdriver', 'toolbox', 'tool box'],
+73:     ];
+74:     /**
+75:      * Verbs by their base form (decisions/0064): any form of these is the event or action, so "robbing", "bites", "leaked"
+76:      * need no list of their own (WordFamilies::bases gives the base). Only verbs whose every form means the same thing:
+77:      * "find" isn't here ("find my keys" is lost, "found keys" is found).
+78:      */
+79:     private const VERBS = [
+80:         'lose' => ['event', 'lost'], 'steal' => ['event', 'lost'], 'rob' => ['event', 'lost'], 'misplace' => ['event', 'lost'],
+81:         'break' => ['event', 'broken'], 'crack' => ['event', 'broken'], 'leak' => ['event', 'broken'], 'burst' => ['event', 'broken'], 'clog' => ['event', 'broken'],
+82:         'flood' => ['event', 'broken'], 'shatter' => ['event', 'broken'],
+83:         'bite' => ['event', 'harm'], 'sting' => ['event', 'harm'], 'injure' => ['event', 'harm'], 'sprain' => ['event', 'harm'], 'scratch' => ['event', 'harm'],
+84:         'fix' => ['action', 'repair'], 'repair' => ['action', 'repair'], 'mend' => ['action', 'repair'],
+85:         'install' => ['action', 'install'], 'remodel' => ['action', 'build'], 'renovate' => ['action', 'build'],
+86:         'rent' => ['action', 'rent'], 'borrow' => ['action', 'rent'], 'purchase' => ['action', 'buy'], 'bake' => ['action', 'cook'],
+87:     ];
+88:     /**
+89:      * Time: when. Each class is what it does to a search: now/urgent (open now first), tonight, today, weekend (open
+90:      * then), upcoming (coming up: events, as they come), a season. "now", "tonight", "today", "this weekend",
+91:      * "emergency" and "24 hours" are read by the search itself; these are the other ways people say it.
+92:      */
+93:     private const TIMES = [
+94:         'urgent' => ['asap', 'right away', 'immediately', 'as soon as possible'],
+95:         'now' => ['this minute', 'open right now'],
+96:         'today' => ['this morning', 'this afternoon', 'this evening'],
+97:         'upcoming' => ['upcoming', 'coming up', 'this week', 'next week', 'soon', 'next month', 'later this month'],
+98:     ];
+99:     /** What each time class does to a search: [the When value, its label]. Seasons are read as WordSenses reads them. */
+100:     public const TIME_CLASSES = ['urgent' => ['now', 'Emergency: open now first'], 'now' => ['now', 'Open now'], 'tonight' => ['tonight', 'Open tonight'],
+101:                                  'today' => ['today', 'Open today'], 'weekend' => ['weekend', 'Open this weekend'], 'upcoming' => ['upcoming', 'Coming up'],
+102:                                  'fall' => ['season:fall', 'Fall'], 'spring' => ['season:spring', 'Spring'], 'summer' => ['season:summer', 'Summer'], 'winter' => ['season:winter', 'Winter']];
+103:     /** Modifiers: they say what kind of the thing ("heavy-duty generator"); they put the ones that mention them first. */
+104:     private const MODIFIERS = [
+105:         'quality' => ['heavy duty', 'heavy-duty', 'commercial', 'residential', 'industrial', 'professional', 'organic', 'handmade', 'custom'],
+106:         'condition' => ['used', 'new', 'refurbished', 'secondhand', 'second hand', 'vintage', 'antique'],
+107:         'price' => ['cheap', 'affordable', 'free', 'discount', 'low cost', 'budget'],
+108:         'locality' => ['local', 'nearby', 'locally owned', 'family owned', 'small'],
+109:         'access' => ['wheelchair accessible', 'accessible', 'pet friendly', 'dog friendly', 'kid friendly', 'drive thru', 'drive through', 'walk in', 'mobile'],
+110:     ];
+111:     /** Wrappers: the shape of the ask. Stripped from what's searched; "how to" marks a procedure (a guide, or who does it). */
+112:     private const WRAPPERS = [
+113:         'procedure' => ['how to', 'how do i', 'how do you', 'how can i', 'learn how to', 'steps to', 'how does one'],
+114:         'place' => ['where can i', 'where do i', 'where to', 'where is', 'where are', 'is there a', 'are there any'],
+115:         'need' => ['i need', 'i need a', 'looking for', 'i want to', 'want to', 'need to', 'trying to'],
+116:         'definition' => ['what is', 'what are', 'what does'],
+117:     ];
+118: 
+119:     /** The kinds of word, what each is, and the W it feeds (Admin → Teach a word). */
+120:     public const KINDS = ['event' => ['an event (what happened)', 'why'], 'thing' => ['a thing (what it happened to, or what did it)', 'what'],
+121:                           'action' => ['an action (how it\'s done: who does it)', 'why'], 'tool' => ['a tool (narrows what to find)', 'what'],
+122:                           'time' => ['a time (when: open now, coming up, a season)', 'when'],
+123:                           'modifier' => ['a modifier (heavy-duty, local: what kind of it)', 'what'],
+124:                           'wrapper' => ['a wrapper (how to, where can I: the shape of the ask)', 'how']];
+125: 
+126:     /** Things: what it happened to, or what did it. */
+127:     private const THINGS = [
+128:         'creature' => ['dog', 'dogs', 'puppy', 'cat', 'snake', 'rattlesnake', 'rattler', 'spider', 'scorpion', 'bee', 'bees', 'wasp', 'hornet', 'bug', 'bugs',
+129:                        'insect', 'tick', 'mosquito', 'animal', 'raccoon', 'bat', 'coyote', 'horse', 'ant', 'ants', 'something', 'critter', 'skunk', 'rodent', 'mouse', 'rat'],
+130:         'venomous' => ['snake', 'rattlesnake', 'rattler', 'black widow', 'brown recluse'],
+131:         'body' => ['arm', 'leg', 'ankle', 'wrist', 'foot', 'feet', 'hand', 'finger', 'toe', 'knee', 'back', 'head', 'neck', 'shoulder', 'hip', 'rib', 'ribs',
+132:                    'nose', 'face', 'skin', 'elbow', 'collarbone', 'myself', 'me'],
+133:         'tooth' => ['tooth', 'teeth', 'filling', 'crown'],
+134:         'eye' => ['eye', 'eyes', 'glasses', 'contacts'],
+135:         'pet' => ['dog', 'cat', 'puppy', 'kitten', 'pet', 'horse'],
+136:         'vehicle' => ['car', 'truck', 'vehicle', 'van', 'suv', 'jeep', 'rv', 'motorcycle', 'engine', 'transmission', 'brakes', 'brake'],
+137:         'tire' => ['tire', 'tires', 'tyre'],
+138:         'battery' => ['battery'],
+139:         'windshield' => ['windshield', 'windscreen', 'car window'],
+140:         'plumbing' => ['pipe', 'pipes', 'toilet', 'sink', 'faucet', 'drain', 'water heater', 'shower', 'tub', 'sewer', 'septic', 'well pump'],
+141:         'water' => ['water'],
+142:         'power' => ['power', 'electricity', 'lights', 'electric', 'outlet', 'breaker'],
+143:         'heating' => ['heater', 'furnace', 'heat', 'ac', 'air conditioner', 'air conditioning', 'swamp cooler', 'propane'],
+144:         'roof' => ['roof', 'ceiling'],
+145:         'device' => ['phone', 'computer', 'laptop', 'tv', 'tablet', 'washer', 'dryer', 'fridge', 'refrigerator', 'stove', 'oven', 'dishwasher', 'microwave', 'freezer'],
+146:         'keys' => ['key', 'keys'],
+147:         'house' => ['house', 'home', 'door', 'window', 'lock', 'garage', 'garage door', 'fence', 'floor', 'wall'],
+148:         'job' => ['job', 'work'],
+149:         'money' => ['money', 'cash', 'rent', 'bills', 'bill', 'paycheck'],
+150:         'food' => ['food', 'groceries', 'something to eat'],
+151:         'meds' => ['meds', 'medicine', 'medication', 'prescription', 'pills', 'insulin', 'inhaler'],
+152:         'fuel' => ['gas', 'fuel', 'diesel'],
+153:         'smoke' => ['smoke', 'fire', 'burning'],
+154:         'road' => ['road', 'highway', 'mud', 'snow', 'ditch', 'sand', 'ice', 'side of the road'],
+155:         'internet' => ['internet', 'wifi', 'cell service', 'signal'],
+156:         'taxes' => ['taxes', 'tax', 'tax return', 'irs'],
+157:         'legal' => ['lawyer', 'attorney', 'court', 'custody', 'divorce', 'eviction', 'evicted', 'arrested', 'ticket', 'lawsuit'],
+158:         'move' => ['move', 'moving', 'movers'],
+159:         'project' => ['shed', 'deck', 'porch', 'patio', 'addition', 'barn', 'cabin', 'carport', 'ramp', 'retaining wall'],
+160:         // decisions/0064: the families WordNet adds most of their members to (api/lib/WordFamilies.php)
+161:         'belongings' => ['wallet', 'purse', 'bag', 'backpack', 'handbag', 'luggage', 'suitcase', 'jewelry', 'ring', 'jacket', 'coat', 'umbrella', 'watch'],
+162:         'documents' => ['id', 'license', 'drivers license', 'passport', 'social security card', 'birth certificate', 'credit card', 'debit card', 'checkbook'],
+163:     ];
+164:     /**
+165:      * Frames, first match wins: [event, thing classes (any one; [] = none needed), situation slug, why]. "{e}" and
+166:      * "{t}" are the words read as the event and the thing. 'agent' frames need "by" or the thing doing it ("a dog bit").
+167:      */
+168:     private const FRAMES = [
+169:         ['smell', ['fuel'], 'smell-gas', 'smelling "{t}" is a possible gas leak'],
+170:         ['smell', ['smoke'], 'wildfire', 'smelling "{t}" may be a fire'],
+171:         ['sick', ['pet'], 'pet-sick', 'their "{t}" is "{e}"', 'mine'],
+172:         ['harm', ['pet'], 'pet-sick', 'their "{t}" was "{e}" (it\'s the pet that\'s hurt)', 'mine-patient'],
+173:         ['harm', ['vehicle'], 'car-accident', '"{e}" with a "{t}": a crash or being hit by a car'],
+174:         ['harm', ['venomous'], 'someone-hurt', '"{e}" by a "{t}" can be life-threatening'],
+175:         ['harm', ['creature', 'body'], 'injury', '"{e}" is a harm done to someone, and "{t}" says what did it or where: an injury'],
+176:         ['harm', ['tooth'], 'toothache', '"{e}" to a "{t}"'],
+177:         ['broken', ['tooth'], 'toothache', 'a "{e}" "{t}"'],
+178:         ['broken', ['body'], 'injury', 'a "{e}" "{t}" is an injury'],
+179:         ['broken', ['eye'], 'eyes', '"{e}" "{t}"'],
+180:         ['harm', [], 'injury', '"{e}" is a harm done to someone: an injury'],
+181:         ['sick', [], 'feel-sick', '"{e}": being unwell'],
+182:         ['broken', ['tire'], 'flat-tire', 'a "{e}" "{t}"'],
+183:         ['broken', ['battery'], 'dead-battery', 'a "{e}" "{t}"'],
+184:         ['broken', ['windshield'], 'cracked-windshield', 'a "{e}" "{t}"'],
+185:         ['broken', ['vehicle'], 'stuck-on-road', 'the "{t}" "{e}": stuck until it\'s towed or fixed', 'stranded'],
+186:         ['broken', ['vehicle'], 'fix-my-car', 'the "{t}" is "{e}": car repair'],
+187:         ['broken', ['plumbing'], 'burst-pipe', 'the "{t}" is "{e}": plumbing'],
+188:         ['broken', ['water'], 'no-water', '"{t}": "{e}"'],
+189:         ['broken', ['power'], 'power-out', '"{t}": "{e}"'],
+190:         ['broken', ['heating'], 'no-heat', 'the "{t}" is "{e}"'],
+191:         ['broken', ['roof'], 'roof-leak', 'the "{t}" is "{e}"'],
+192:         ['broken', ['device'], 'appliance-broke', 'the "{t}" is "{e}"'],
+193:         ['broken', ['internet'], 'internet-phone', '"{t}": "{e}"'],
+194:         ['broken', ['house'], 'home-repair', 'the "{t}" is "{e}"'],
+195:         // found: someone else's thing (decisions/0064). An animal may be someone's pet; anything else is handed in
+196:         ['found', ['pet', 'creature'], 'lost-pet', 'found a "{t}": it may be someone\'s pet', 'not-mine'],
+197:         ['found', ['belongings', 'documents', 'keys', 'device', 'money', 'eye', 'power-tool', 'hand-tool'], 'found-belongings', 'found someone\'s "{t}": hand it in', 'not-mine'],
+198:         ['lost', ['keys'], 'locked-out', '"{e}" "{t}"'],
+199:         ['lost', ['pet'], 'lost-pet', 'the "{t}" is "{e}"'],
+200:         ['lost', ['vehicle'], 'car-gone', 'the "{t}" is "{e}"'],
+201:         ['lost', ['job'], 'find-a-job', '"{e}" a "{t}": looking for work'],
+202:         ['lost', ['belongings', 'documents', 'money', 'device', 'eye'], 'lost-belongings', '"{e}" "{t}": report it, and replace what matters'],
+203:         ['stuck', ['house', 'keys'], 'locked-out', '"{e}" of the "{t}"'],
+204:         ['stuck', ['vehicle', 'road'], 'stuck-on-road', '"{e}" in the "{t}"'],
+205:         ['help', ['taxes'], 'taxes', '"{e}" "{t}"'],
+206:         ['help', ['legal'], 'legal-trouble', '"{e}" a legal matter ("{t}")'],
+207:         ['help', ['money'], 'cant-pay-bills', '"{e}" "{t}"'],
+208:         ['help', ['food'], 'hungry', '"{e}" "{t}"'],
+209:         ['help', ['job'], 'find-a-job', '"{e}" a "{t}"'],
+210:         ['help', ['move'], 'moving', '"{e}" "{t}"'],
+211:         ['help', ['meds'], 'need-prescription', '"{e}" "{t}"'],
+212:         ['without', ['fuel'], 'fuel', '"{e}" "{t}"'],
+213:         ['without', ['food'], 'hungry', '"{e}" "{t}"'],
+214:         ['without', ['money'], 'cant-pay-bills', '"{e}" "{t}"'],
+215:         ['without', ['meds'], 'need-prescription', '"{e}" "{t}"'],
+216:         ['without', ['water'], 'no-water', '"{e}" "{t}"'],
+217:         ['without', ['power'], 'power-out', '"{e}" "{t}"'],
+218:         ['without', ['heating'], 'no-heat', '"{e}" "{t}"'],
+219:         ['without', ['internet'], 'internet-phone', '"{e}" "{t}"'],
+220:     ];
+221:     /** Rules for actions: an action with a thing or a tool leads to who does it. Checked after the events' rules. */
+222:     private const ACTION_FRAMES = [
+223:         ['repair', ['tire'], 'flat-tire', '"{e}" a "{t}": a tire shop'],
+224:         ['repair', ['windshield'], 'cracked-windshield', '"{e}" a "{t}"'],
+225:         ['repair', ['battery'], 'dead-battery', '"{e}" a "{t}"'],
+226:         ['repair', ['power-tool', 'generator', 'yard-tool'], 'small-engine', '"{e}" a "{t}": small engine repair'],
+227:         ['repair', ['vehicle'], 'fix-my-car', '"{e}" the "{t}": car repair'],
+228:         ['repair', ['plumbing'], 'burst-pipe', '"{e}" the "{t}": a plumber'],
+229:         ['repair', ['heating'], 'no-heat', '"{e}" the "{t}": heating and cooling'],
+230:         ['repair', ['roof'], 'roof-leak', '"{e}" the "{t}"'],
+231:         ['repair', ['computer'], 'tech-help', '"{e}" the "{t}": computer help'],
+232:         ['repair', ['device'], 'appliance-broke', '"{e}" the "{t}": appliance repair'],
+233:         ['repair', ['internet'], 'internet-phone', '"{e}" the "{t}"'],
+234:         ['repair', ['house', 'power', 'project'], 'home-repair', '"{e}" the "{t}": who fixes it'],
+235:         ['install', ['internet'], 'internet-phone', '"{e}" "{t}"'],
+236:         ['install', ['computer'], 'tech-help', '"{e}" a "{t}"'],
+237:         ['install', ['plumbing', 'heating', 'power', 'house', 'roof', 'device', 'kitchen'], 'install-something', '"{e}" a "{t}": who installs it'],
+238:         ['install', [], 'install-something', '"{e}": who installs it'],
+239:         ['build', ['house', 'project', 'roof'], 'build-something', '"{e}" a "{t}": builders, lumber and tools'],
+240:         ['register', ['vehicle'], 'register-license', '"{e}" a "{t}": the motor vehicle office'],
+241:         ['register', [], 'register-license', '"{e}": the office that does it'],
+242:         ['learn', ['kitchen'], 'cooking', '"{e}" to cook (how-to guides are coming; for now, who teaches it)'],
+243:         ['learn', ['computer'], 'tech-help', '"{e}" the "{t}" (how-to guides are coming; for now, who helps)'],
+244:         ['cook', [], 'cooking', '"{e}": groceries, kitchen supplies and classes'],
+245:         ['configure', ['computer', 'device', 'internet'], 'tech-help', '"{e}" the "{t}": who sets it up'],
+246:         ['configure', [], 'tech-help', '"{e}": who sets it up'],
+247:         ['rent', ['power-tool', 'generator', 'yard-tool', 'heavy-equipment'], 'rent-equipment', '"{e}" a "{t}": equipment rental'],
+248:         ['buy', ['power-tool', 'generator', 'yard-tool', 'kitchen'], 'tools-hardware', '"{e}" a "{t}": hardware and tool stores'],
+249:     ];
+250:     /** Cues that make a weak event count ("got bit", "was cut", "bit by", "my arm"). */
+251:     private const CUES = ['got', 'get', 'gets', 'was', 'were', 'been', 'is', 'by', 'my', 'i', 'me', 'im', 'ive', 'our', 'his', 'her', 'their', 'just', 'has', 'have'];
+252: 
+253:     // ---- taught in Admin (Missed searches → Meanings): words and rules joining the built-in ones -------------------
+254: 
+255:     private static ?array $taught = null;
+256: 
+257:     /** Forgets what was loaded, so the next read sees changes made since (the Workbench's dry run, decisions/0063). */
+258:     public static function reset(): void { self::$taught = null; }
+259: 
+260:     /** Loads the words and rules taught in Admin (once per request). Without the tables, only the built-in ones. */
+261:     public static function load(PDO $pdo): void
+262:     {
+263:         if (self::$taught !== null) return;
+264:         self::$taught = ['event' => [], 'thing' => [], 'action' => [], 'tool' => [], 'time' => [], 'modifier' => [], 'wrapper' => [], 'frames' => [], 'pos' => []];
+265:         try {
+266:             try { $rows = $pdo->query('SELECT kind, class, word, weak, pos FROM search_meanings')->fetchAll(PDO::FETCH_ASSOC); }
+267:             catch (Throwable) { $rows = $pdo->query("SELECT kind, class, word, weak, '' AS pos FROM search_meanings")->fetchAll(PDO::FETCH_ASSOC); }   // before 2026-10-28_lexicon.sql
+268:             foreach ($rows as $r) {
+269:                 $w = mb_strtolower(trim((string) $r['word'])); if ($w === '') continue;
+270:                 if ((string) $r['pos'] !== '') self::$taught['pos'][$w] = (string) $r['pos'];
+271:                 $k = (string) $r['kind'];
+272:                 if ($k === 'event' || $k === 'action') self::$taught[$k][(string) $r['class']][$w] = (int) $r['weak'];
+273:                 elseif (isset(self::KINDS[$k])) self::$taught[$k][(string) $r['class']][] = $w;
+274:             }
+275:             foreach ($pdo->query('SELECT event, things, slug, why FROM search_frames ORDER BY id')->fetchAll(PDO::FETCH_ASSOC) as $r) {
+276:                 self::$taught['frames'][] = [(string) $r['event'], array_values(array_filter(array_map('trim', explode(',', (string) $r['things'])))), (string) $r['slug'],
+277:                                              (string) $r['why'] !== '' ? (string) $r['why'] : ((string) $r['things'] !== '' ? 'taught in Admin: "{e}" with "{t}"' : 'taught in Admin: "{e}"')];
+278:             }
+279:         } catch (Throwable) { /* not taught yet: run 2026-10-21_search_meanings.sql */ }
+280:     }
+281: 
+282:     /** What a verb form is by its base ("robbed" → [event, lost]), or null (decisions/0064). */
+283:     public static function verbOf(string $w): ?array
+284:     {
+285:         require_once __DIR__ . '/WordFamilies.php';
+286:         foreach (WordFamilies::bases($w) as $b) if (isset(self::VERBS[$b])) return self::VERBS[$b];
+287:         return null;
+288:     }
+289: 
+290:     /** Built-in events plus taught ones. */
+291:     public static function events(): array
+292:     {
+293:         $e = self::EVENTS;
+294:         foreach (self::$taught['event'] ?? [] as $c => $forms) $e[$c] = ($e[$c] ?? []) + $forms;
+295:         return $e;
+296:     }
+297: 
+298:     /** Built-in things plus taught ones. */
+299:     public static function things(): array
+300:     {
+301:         $t = self::THINGS;
+302:         foreach (self::$taught['thing'] ?? [] as $c => $forms) $t[$c] = array_values(array_unique(array_merge($t[$c] ?? [], $forms)));
+303:         return $t;
+304:     }
+305: 
+306:     /** Built-in actions plus taught ones. */
+307:     public static function actions(): array
+308:     {
+309:         $a = self::ACTIONS;
+310:         foreach (self::$taught['action'] ?? [] as $c => $forms) $a[$c] = ($a[$c] ?? []) + $forms;
+311:         return $a;
+312:     }
+313: 
+314:     /** Built-in tools plus taught ones. */
+315:     public static function tools(): array
+316:     {
+317:         $t = self::TOOLS;
+318:         foreach (self::$taught['tool'] ?? [] as $c => $forms) $t[$c] = array_values(array_unique(array_merge($t[$c] ?? [], $forms)));
+319:         return $t;
+320:     }
+321: 
+322:     /** Built-in time words plus taught ones (taught ones only in the classes search knows how to act on). */
+323:     public static function times(): array
+324:     {
+325:         $t = self::TIMES;
+326:         foreach (self::$taught['time'] ?? [] as $c => $forms) if (isset(self::TIME_CLASSES[$c])) $t[$c] = array_values(array_unique(array_merge($t[$c] ?? [], $forms)));
+327:         return $t;
+328:     }
+329: 
+330:     /** Built-in modifiers plus taught ones. */
+331:     public static function modifiers(): array
+332:     {
+333:         $m = self::MODIFIERS;
+334:         foreach (self::$taught['modifier'] ?? [] as $c => $forms) $m[$c] = array_values(array_unique(array_merge($m[$c] ?? [], $forms)));
+335:         return $m;
+336:     }
+337: 
+338:     /** Built-in wrappers plus taught ones. */
+339:     public static function wrappers(): array
+340:     {
+341:         $w = self::WRAPPERS;
+342:         foreach (self::$taught['wrapper'] ?? [] as $c => $forms) $w[$c] = array_values(array_unique(array_merge($w[$c] ?? [], $forms)));
+343:         return $w;
+344:     }
+345: 
+346:     /** The lexical category a person set for a word, if any (decisions/0063). */
+347:     public static function taughtPos(string $w): string { return (string) (self::$taught['pos'][$w] ?? ''); }
+348: 
+349:     /** The classes of each kind, for Admin. */
+350:     public static function classes(): array
+351:     {
+352:         return ['event' => array_keys(self::events()), 'thing' => array_keys(self::things()), 'action' => array_keys(self::actions()),
+353:                 'tool' => array_keys(self::tools()), 'time' => array_keys(self::TIME_CLASSES), 'modifier' => array_keys(self::modifiers()),
+354:                 'wrapper' => array_keys(self::wrappers())];
+355:     }
+356: 
+357:     /** The time word in the words, longest first: ['class', 'word', 'value', 'label'] or null. */
+358:     public static function when(string $text): ?array
+359:     {
+360:         $text = ' ' . trim($text) . ' ';
+361:         $all = [];
+362:         foreach (self::times() as $c => $forms) foreach ($forms as $f) $all[] = [$c, $f];
+363:         usort($all, fn ($a, $b) => strlen($b[1]) <=> strlen($a[1]));
+364:         foreach ($all as [$c, $f]) if (strpos($text, ' ' . $f . ' ') !== false) return ['class' => $c, 'word' => $f, 'value' => self::TIME_CLASSES[$c][0], 'label' => self::TIME_CLASSES[$c][1]];
+365:         return null;
+366:     }
+367: 
+368:     /** The built-in rules that lead to one situation, for its builder: [[lead, things]]. */
+369:     public static function builtInFramesFor(string $slug): array
+370:     {
+371:         $out = [];
+372:         foreach (array_merge(self::FRAMES, self::ACTION_FRAMES) as $f) if ($f[2] === $slug) $out[] = ['lead' => $f[0], 'things' => $f[1]];
+373:         return $out;
+374:     }
+375: 
+376:     /** Taught rules first, then the built-in ones: events', then actions'. */
+377:     public static function frames(): array { return array_merge(self::$taught['frames'] ?? [], self::FRAMES, self::ACTION_FRAMES); }
+378: 
+379:     /**
+380:      * Each word's kind, for ✦ Analyze: [['word', 'kind', 'class', 'w']], in the order they're typed. A word can be
+381:      * read as more than one kind ("oven": a thing, and a tool); each reading is listed.
+382:      */
+383:     public static function kinds(string $q): array
+384:     {
+385:         $text = ' ' . trim(preg_replace('/\s+/', ' ', mb_strtolower(preg_replace("/[^a-z0-9' ]+/i", ' ', $q)))) . ' ';
+386:         $text = str_replace(["can't", "won't", "don't", "'"], ['cant', 'wont', 'dont', ''], $text);
+387:         $out = [];
+388:         $add = function (string $kind, array $byClass, bool $keyed) use ($text, &$out) {
+389:             foreach ($byClass as $c => $forms) {
+390:                 $list = $keyed ? array_keys($forms) : $forms;
+391:                 usort($list, fn ($a, $b) => strlen((string) $b) <=> strlen((string) $a));
+392:                 foreach ($list as $f) {
+393:                     $at = strpos($text, ' ' . $f . ' ');
+394:                     if ($at === false) continue;
+395:                     $out[] = ['word' => (string) $f, 'kind' => $kind, 'class' => (string) $c, 'w' => self::KINDS[$kind][1], 'at' => $at];
+396:                     break;
+397:                 }
+398:             }
+399:         };
+400:         $add('event', self::events(), true); $add('action', self::actions(), true);
+401:         $add('thing', self::things(), false); $add('tool', self::tools(), false); $add('time', self::times(), false);
+402:         $add('modifier', self::modifiers(), false); $add('wrapper', self::wrappers(), false);
+403:         usort($out, fn ($a, $b) => $a['at'] <=> $b['at']);
+404:         return array_map(fn ($x) => array_diff_key($x, ['at' => 1]), $out);
+405:     }
+406: 
+407:     /** The built-in classes with a few of their words, for the Meanings card. */
+408:     public static function builtIn(): array
+409:     {
+410:         $o = ['event' => [], 'thing' => [], 'action' => [], 'tool' => [], 'time' => [], 'modifier' => [], 'wrapper' => []];
+411:         foreach (self::EVENTS as $c => $f) $o['event'][$c] = array_slice(array_keys($f), 0, 8);
+412:         foreach (self::THINGS as $c => $f) $o['thing'][$c] = array_slice($f, 0, 8);
+413:         foreach (self::ACTIONS as $c => $f) $o['action'][$c] = array_slice(array_keys($f), 0, 8);
+414:         foreach (self::TOOLS as $c => $f) $o['tool'][$c] = array_slice($f, 0, 8);
+415:         foreach (self::TIMES as $c => $f) $o['time'][$c] = array_slice($f, 0, 8);
+416:         foreach (self::MODIFIERS as $c => $f) $o['modifier'][$c] = array_slice($f, 0, 8);
+417:         foreach (self::WRAPPERS as $c => $f) $o['wrapper'][$c] = array_slice($f, 0, 8);
+418:         return $o;
+419:     }
+420: 
+421:     /** Every word the meanings use (offered by "Did you mean" for a slip; decisions/0064). */
+422:     public static function vocab(): array
+423:     {
+424:         $v = [];
+425:         foreach (self::events() as $forms) foreach (array_keys($forms) as $f) foreach (explode(' ', (string) $f) as $w) $v[$w] = 1;
+426:         foreach (self::things() as $forms) foreach ($forms as $f) foreach (explode(' ', $f) as $w) $v[$w] = 1;
+427:         foreach (self::actions() as $forms) foreach (array_keys($forms) as $f) foreach (explode(' ', (string) $f) as $w) $v[$w] = 1;
+428:         foreach (array_merge(self::tools(), self::times()) as $forms) foreach ($forms as $f) foreach (explode(' ', $f) as $w) $v[$w] = 1;
+429:         return array_keys($v);
+430:     }
+431: 
+432:     /**
+433:      * What the words mean as a situation: ['slug', 'why' (the reasoning, in words), 'words' (the words it used)], or null.
+434:      * $tok: the words, normalised (Situations::norm) and spell-corrected.
+435:      */
+436:     /** A form as search writes words (Situations::norm: "meds" is "med", "can't" is "cant"), so both sides match. */
+437:     private static function nf(string $f): string { return class_exists('Situations') ? Situations::norm($f) : $f; }
+438: 
+439:     public static function infer(array $tok, bool $noDict = false): ?array
+440:     {
+441:         $text = ' ' . implode(' ', $tok) . ' ';
+442:         // the events said, longest forms first ("broke down" before "broke"); a weak one needs a thing or a cue
+443:         $events = [];
+444:         $lead = [];
+445:         foreach (self::events() as $class => $forms) $lead[] = ['event', $class, $forms];
+446:         foreach (self::actions() as $class => $forms) $lead[] = ['action', $class, $forms];
+447:         foreach ($lead as [$kind, $class, $forms]) {
+448:             uksort($forms, fn ($a, $b) => strlen($b) <=> strlen($a));
+449:             foreach ($forms as $f => $weak) {
+450:                 if (!preg_match('/ ' . preg_quote(self::nf($f), '/') . ' /', $text, $m, PREG_OFFSET_CAPTURE)) continue;
+451:                 foreach ($forms as $f2 => $w2) if (self::nf($f2) === self::nf($f) && strpos(' ' . implode(' ', $tok) . ' ', ' ' . $f2 . ' ') !== false) { $f = $f2; $weak = $w2; break; }   // as typed ("bite", not "bites")
+452:                 $events[] = ['class' => $class, 'word' => $f, 'weak' => (bool) $weak, 'at' => $m[0][1], 'kind' => $kind];
+453:                 break;
+454:             }
+455:         }
+456:         // any form of a verb that always means the same ("robbing", "leaked"), by its base form (decisions/0064)
+457:         if (is_file(__DIR__ . '/WordFamilies.php')) {
+458:             require_once __DIR__ . '/WordFamilies.php';
+459:             $have = array_column($events, 'class');
+460:             foreach ($tok as $t) {
+461:                 foreach (WordFamilies::bases($t) as $b) {
+462:                     if (!isset(self::VERBS[$b])) continue;
+463:                     [$k, $c] = self::VERBS[$b];
+464:                     if (!in_array($c, $have, true)) { $events[] = ['class' => $c, 'word' => $t, 'weak' => false, 'at' => (int) strpos($text, ' ' . $t . ' '), 'kind' => $k]; $have[] = $c; }
+465:                     break;
+466:                 }
+467:             }
+468:         }
+469:         if (!$events) return null;
+470:         // "a bit", "a little bit": an amount, not a bite
+471:         $events = array_values(array_filter($events, fn ($e) => !($e['word'] === 'bit' && preg_match('/ (a|little|quite a|tiny) bit /', $text))));
+472:         // the things said, and what kind each is
+473:         $things = [];
+474:         foreach (array_merge(self::things(), self::tools()) as $class => $forms) {
+475:             usort($forms, fn ($a, $b) => strlen($b) <=> strlen($a));
+476:             // shown as the person wrote it: the form that is exactly a word typed ("dog", not "dogs"), else the dictionary's ("taxes", not "taxe")
+477:             $hitF = null;
+478:             foreach ($forms as $f) if (preg_match('/ ' . preg_quote(self::nf($f), '/') . ' /', $text)) { if ($hitF === null) $hitF = $f; if (in_array($f, $tok, true)) { $hitF = $f; break; } }
+479:             if ($hitF !== null) $things[$class] = $hitF;
+480:         }
+481:         // a thing nobody listed, from the dictionary (decisions/0064): "a purse" is someone's belongings, "a hamster" a pet
+482:         $dict = [];
+483:         if (!$noDict && class_exists('WordFamilies')) {
+484:             for ($i = 0, $n = count($tok); $i < $n; $i++) {
+485:                 foreach ([3, 2, 1] as $len) {
+486:                     if ($i + $len > $n) continue;
+487:                     $ph = implode(' ', array_slice($tok, $i, $len));
+488:                     $fam = WordFamilies::family($ph);
+489:                     if ($fam === null || isset($things[$fam])) continue;
+490:                     $things[$fam] = $ph; $dict[$fam] = true; break;
+491:                 }
+492:             }
+493:         }
+494:         $cue = (bool) array_intersect($tok, self::CUES);
+495:         $mine = (bool) preg_match('/ (my|our) /', $text);
+496:         $toMe = (bool) preg_match('/ (me|i|im|myself) /', $text);
+497:         foreach (self::frames() as $fr) {
+498:             [$ev, $need, $slug, $why] = $fr; $flag = $fr[4] ?? '';
+499:             foreach ($events as $e) {
+500:                 if ($e['class'] !== $ev) continue;
+501:                 $hit = null;
+502:                 foreach ($need as $nc) if (isset($things[$nc])) { $hit = $nc; break; }
+503:                 if ($need && $hit === null) continue;
+504:                 if (!$need && $e['weak'] && !$cue) continue;   // "cut" alone could be a haircut; "got cut" is a harm
+505:                 if (!$need && $e['weak'] && $e['kind'] === 'action') continue;   // "make" or "set up" alone says nothing about what
+506:                 // a pet that's sick or hurt is the pet's; "my dog bit me" is the person's injury
+507:                 if ($flag === 'mine' && !$mine) continue;
+508:                 if ($flag === 'not-mine' && $mine) continue;   // "found my keys": their own, found again; nothing to hand in
+509:                 if ($flag === 'stranded' && !in_array($e['word'], ['wont start', 'died', 'broke down', 'dead', 'stopped'], true)) continue;   // "my car died" strands them; "car is making a noise" doesn't
+510:                 if ($flag === 'mine-patient' && (!$mine || $toMe || preg_match('/ by (my|our) /', $text))) continue;   // "my dog got bit" is the dog's; "my dog bit me" is theirs
+511:                 if ($hit === 'creature' && $things[$hit] === 'something' && $ev !== 'harm') continue;
+512:                 $t = $hit !== null ? $things[$hit] : '';
+513:                 $by = $ev === 'harm' && preg_match('/ by (a |an |the |some |my |our )?' . preg_quote(self::nf($t), '/') . ' /', $text) ? ' ("by" names what did it)' : '';
+514:                 $fromDict = $hit !== null && isset($dict[$hit]);
+515:                 return ['slug' => $slug, 'why' => str_replace(['{e}', '{t}'], [$e['word'], $t], $why) . $by . ($fromDict ? ' ("' . $t . '" is ' . (WordFamilies::LABEL[$hit] ?? $hit) . ', from the dictionary)' : ''),
+516:                         'dict' => $fromDict, 'kind' => $e['kind'], 'thing' => $t,
+517:                         'words' => array_values(array_filter(array_merge(explode(' ', self::nf($e['word'])), explode(' ', self::nf($t)), $by !== '' ? ['by'] : [])))];
+518:             }
+519:         }
+520:         return null;
+521:     }
+522: }

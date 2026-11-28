@@ -1,0 +1,326 @@
+1: <?php
+2: // claim.php: claim a listing, or add a business that isn't listed (decisions/0070).
+3: //
+4: //   /claim.php?listing=123            claim a listing (or see your claim on it)
+5: //   /claim.php?listing=123&dispute=1  question the owner of a claimed listing
+6: //   /claim.php?listing=123&mode=contribute  help complete a listing (anyone)
+7: //   /claim.php?new=1                  add a business that isn't listed yet
+8: //
+9: // Step 1, an email code to your account: the listing is "Managed by owner". Step 2, text the claim's code to the
+10: // Verify number from the phone on the listing: ✓ Verified (or an admin contacts you within 48 hours). Other ways: an
+11: // email at the business's own domain, a document, or an appointment. A second request is held, never just refused.
+12: require_once __DIR__ . '/../app/ui/page-shell.php';
+13: require_once __DIR__ . '/../app/lib/Database.php';
+14: require_once __DIR__ . '/../app/lib/Consent.php';
+15: 
+16: $pdo = Database::connection();
+17: $me = class_exists('Auth') ? Auth::currentUser() : null;
+18: if (!class_exists('Auth')) { require_once __DIR__ . '/../app/bootstrap.php'; header('Content-Type: text/html; charset=utf-8'); $me = Auth::currentUser(); }
+19: require_once __DIR__ . '/../app/lib/Claims.php';
+20: require_once __DIR__ . '/../app/lib/VerifyRequests.php';
+21: require_once __DIR__ . '/../app/lib/AddBusiness.php';
+22: require_once __DIR__ . '/../app/lib/ListingCategories.php';
+23: require_once __DIR__ . '/../app/ui/category-fields.php';
+24: require_once __DIR__ . '/../app/lib/crawler/IntakeStager.php';
+25: $ready = Claims::ready($pdo);
+26: 
+27: $id = (int) ($_GET['listing'] ?? 0);
+28: $adding = !empty($_GET['new']) || $id === 0;
+29: $contribute = !$adding && ($_GET['mode'] ?? '') === 'contribute';
+30: $disputing = !$adding && !empty($_GET['dispute']);
+31: $biz = $id > 0 ? Claims::listing($pdo, $id) : null;
+32: require_once __DIR__ . '/../app/lib/PlaceScope.php';
+33: $notBiz = $biz ? PlaceScope::notABusiness($pdo, (int) $biz['id']) : '';   // a drop box: nothing to claim, but always a way to help (never a dead end)
+34: if ($notBiz !== '' && !$adding) $contribute = true;
+35: // who might claim it (Jason, 2026-11-19; decisions/0070 note): a business, a public place, a community group, a place on a nation's land
+36: $kind = $biz ? Claims::kind($pdo, (int) $biz['id']) : 'business';
+37: $kw = Claims::KIND_WORDS[$kind];
+38: $agency = $biz && in_array($kind, ['public', 'nation'], true) ? Claims::agency($pdo, (int) $biz['id']) : null;
+39: $uid = $me ? (int) $me['id'] : 0;
+40: $holding = $biz && $ready ? Claims::holding($pdo, $id) : null;
+41: $mine = $biz && $uid && $ready ? Claims::mine($pdo, $uid, $id) : null;
+42: $myActive = $mine && in_array($mine['status'], ['managed', 'verified', 'on_hold'], true) ? $mine : null;
+43: $missing = $uid && $ready ? Claims::missing($pdo, $uid) : [];
+44: $near = trim(mb_substr(preg_replace('/[^\p{L}\p{N} ,.\'()-]/u', '', (string) ($_GET['near'] ?? '')), 0, 80));
+45: $dir = tv_route(['directory/index.php' => '/directory/']) ?: '/';
+46: $csrf = (string) ($_SESSION['csrf_token'] ?? '');
+47: $here = $_SERVER['REQUEST_URI'] ?? '/claim.php';
+48: $pf = [];   // from an order we prepared for this business (its thank-you page: "Put HK Parts on Traversence")
+49: if ($adding && !empty($_GET['order'])) {
+50:     require_once __DIR__ . '/../app/lib/ClientOrders.php';
+51:     $po = ClientOrders::byToken($pdo, (string) $_GET['order']);
+52:     if ($po && $po['status'] !== 'draft') $pf = ['name' => (string) $po['client_company'], 'phone' => (string) $po['client_phone'], 'email' => (string) $po['bill_email'],
+53:         'address' => (string) $po['bill_street'], 'town' => (string) $po['bill_city'], 'state' => (string) $po['bill_state']];
+54: }
+55: 
+56: // what this visit shows
+57: $view = 'claim';
+58: if ($adding) $view = 'add';
+59: elseif ($contribute) $view = 'contribute';
+60: elseif (!$biz) $view = 'missing';
+61: elseif ($myActive) $view = $myActive['status'] === 'on_hold' ? 'held' : 'mine';
+62: elseif ($disputing) $view = 'dispute';
+63: elseif ($holding || $biz['status'] !== 'unclaimed') $view = 'taken';
+64: if ($view === 'claim' && $kind === 'nation') $view = 'nation';   // the nation's own tools decide (0054, 0066): a request our team checks with the nation
+65: 
+66: $pageTitle = ['add' => 'Add your business', 'contribute' => 'Help complete this listing', 'held' => 'Claim Request On Hold',
+67:               'mine' => 'Your claim', 'dispute' => 'Question this listing\'s owner', 'taken' => $kw['title'], 'nation' => $kw['title']][$view] ?? $kw['title'];
+68: tv_page_start($pageTitle, ['no_crumbs' => true, 'back' => $biz ? '/listing/view.php?id=' . (int) $biz['id'] : $dir,
+69:     'description' => 'Add or claim your business on Traversence: confirm by email, then one tap to get verified.']);
+70: $e = 'tv_e';
+71: $claim = $myActive;
+72: $cOut = function (?array $c) use ($biz, $pdo, $kind): array {
+73:     if (!$c) return [];
+74:     return ['id' => (int) $c['id'], 'status' => $c['status'], 'text_code' => $c['text_code'], 'verify_number' => Claims::verifyNumber(),
+75:             'listed_phone' => Claims::fmtPhone((string) $c['listed_phone']), 'claimant_phone' => Claims::fmtPhone((string) $c['claimant_phone']),
+76:             'role' => $c['role_note'], 'due_at' => $c['due_at'], 'route' => $c['route'], 'has_document' => $c['doc_path'] !== '', 'plan' => $c['plan'],
+77:             'domain' => implode(' or @', Claims::domains($pdo, (int) $biz['id'], $biz['website'] ?? '')), 'kind' => $kind, 'name' => $biz['name'] ?? '', 'request' => VerifyRequests::latest($pdo, (int) $c['id'])];
+78: };
+79: ?>
+80: <style>
+81:   .cl{max-width:42rem}
+82:   .cl-card{background:var(--tv-sec,#F7EFDC);border:1px solid rgba(203,185,141,.7);border-radius:1rem;padding:1rem 1.1rem;margin-top:.8rem}
+83:   .cl-card h2{font-family:var(--tv-font-head,Georgia,serif);font-weight:700;font-size:1.15rem;color:var(--tv-ink,#3E2B1F)}
+84:   .cl-s{font-size:.8rem;color:var(--tv-meta,#5C4632)}.cl-m{font-size:.75rem;color:var(--tv-meta,#8A7355)}
+85:   .cl-in{width:100%;background:var(--tv-card-a,#FFFBF2);border:1px solid var(--tv-line-strong,#CBB98D);border-radius:.6rem;padding:.5rem .7rem;font-size:.9rem}
+86:   .cl-lb{display:block;font-size:.75rem;font-weight:600;margin:.6rem 0 .2rem}
+87:   .cl-b{display:inline-flex;align-items:center;gap:.35rem;font-size:.85rem;font-weight:600;border:1px solid var(--tv-line-strong,#CBB98D);background:var(--tv-card-a,#FFFBF2);border-radius:.7rem;padding:.45rem .9rem;cursor:pointer;color:var(--tv-ink,#3E2B1F)}
+88:   .cl-b.go{background:#B8863B;border-color:#B8863B;color:var(--tv-ink,#2A1B12)}.cl-b:disabled{opacity:.55;cursor:default}
+89:   .cl-chk{display:flex;gap:.5rem;align-items:flex-start;font-size:.85rem;margin-top:.6rem}
+90:   .cl-code{font-family:ui-monospace,monospace;font-size:1.4rem;font-weight:700;letter-spacing:.06em;background:var(--tv-umber,#3E2B1F);color:#F7EFDC;border-radius:.6rem;padding:.25rem .7rem;display:inline-block}
+91:   .cl-steps{counter-reset:s;list-style:none;padding:0;margin:.6rem 0 0}
+92:   .cl-steps li{counter-increment:s;position:relative;padding-left:1.9rem;margin:.55rem 0;font-size:.9rem}
+93:   .cl-steps li::before{content:counter(s);position:absolute;left:0;top:0;width:1.4rem;height:1.4rem;border-radius:50%;background:var(--tv-umber,#3E2B1F);color:#F7EFDC;font-size:.75rem;display:flex;align-items:center;justify-content:center}
+94:   .cl-steps li.done::before{content:'✓';background:var(--tv-sage,#8FBCA8);color:var(--tv-ink,#2A1B12)}
+95:   .cl-msg{font-size:.85rem;margin-top:.6rem}.cl-msg.bad{color:var(--tv-crimson,#991B1B)}.cl-msg.ok{color:#166534}
+96:   .cl-pill{display:inline-block;font-size:.72rem;font-weight:700;border-radius:999px;padding:.15rem .6rem;background:var(--tv-sec,#E3D3AC);color:var(--tv-ink,#3E2B1F)}
+97:   .cl-pill.v{background:var(--tv-sage,#8FBCA8)}.cl-pill.h{background:#F2C98A}
+98:   details.cl-more{margin-top:.6rem}details.cl-more summary{cursor:pointer;font-weight:600;font-size:.85rem;color:var(--tv-link,#92400E)}
+99:   .cl-plan{display:flex;flex-direction:column;gap:.45rem;margin-top:.6rem}
+100:   .cl-tier{border:1px solid var(--tv-line-strong,#CBB98D);border-radius:.7rem;background:var(--tv-card-a,#FFFBF2)}.cl-tier.on{border-color:var(--tv-sage,#8FBCA8);box-shadow:0 0 0 2px rgba(143,188,168,.45)}
+101:   .cl-tier-h{display:flex;align-items:center;gap:.5rem;padding:.55rem .6rem .55rem .75rem}
+102:   .cl-tier-h label{flex:1;display:flex;gap:.55rem;align-items:flex-start;font-size:.92rem;cursor:pointer;min-width:0}.cl-tier-h input{margin-top:.25rem;accent-color:#5E8F79}
+103:   .cl-price{color:var(--tv-link,#92400E);font-weight:700}
+104:   .cl-tog{flex:none;width:30px;height:30px;border-radius:50%;border:1px solid var(--tv-line-strong,#CBB98D);background:var(--tv-sec,#F7EFDC);color:var(--tv-icon,#B45309);font-size:.85rem;cursor:pointer}
+105:   .cl-tog[aria-expanded=true]{background:var(--tv-sage,#8FBCA8);border-color:var(--tv-sage,#8FBCA8);color:#1F3B30;box-shadow:0 0 6px rgba(143,188,168,.7)}
+106:   .cl-tier-f{margin:0;padding:.1rem 1rem .7rem 2.4rem;list-style:disc;font-size:.85rem;color:var(--tv-ink,#3E2B1F)}.cl-tier-f li{margin-top:.2rem}
+107:   @media (max-width:767px){.cl-card{border-radius:.5rem}}
+108: </style>
+109: <div class="cl" id="claim" data-csrf="<?= $e($csrf) ?>" data-entity="<?= $biz ? (int) $biz['id'] : 0 ?>"
+110:      data-claim='<?= $e(json_encode($cOut($claim), JSON_UNESCAPED_UNICODE)) ?>' data-missing="<?= $e(implode(',', $missing)) ?>">
+111:   <h1 class="font-serif font-bold text-3xl"><?= $e($pageTitle) ?></h1>
+112:   <?php if (!empty($_GET['added']) && $myActive): ?>
+113:   <div class="tv-bleed cl-card" style="border-color:var(--tv-sage,#8FBCA8)"><p class="cl-s"><b>Your business is live on Traversence.</b> <a class="underline text-[color:var(--tv-link)]" href="/listing/view.php?id=<?= (int) $biz['id'] ?>">See it</a>, add photos and more from your business dashboard, and send a verification request below for the ✓.</p></div>
+114:   <?php endif; ?>
+115:   <?php if ($biz): ?>
+116:     <p class="cl-s mt-1"><span class="font-semibold"><?= $e($biz['name']) ?></span><?= $biz['city'] ? ', ' . $e($biz['city']) . ($biz['state'] ? ', ' . $e($biz['state']) : '') : '' ?>
+117:       · <a class="underline text-[color:var(--tv-link)]" href="/listing/view.php?id=<?= (int) $biz['id'] ?>">See the listing</a></p>
+118:   <?php endif; ?>
+119: 
+120: <?php if (!$ready): ?>
+121:   <div class="tv-bleed cl-card"><p class="cl-s">Claiming isn't switched on yet. Please check back soon.</p></div>
+122: 
+123: <?php elseif ($view === 'missing'): ?>
+124:   <div class="tv-bleed cl-card"><p class="cl-s">That listing wasn't found. You can <a class="underline" href="/claim.php?new=1">add your business</a> instead.</p></div>
+125: 
+126: <?php elseif ($view === 'add'): ?>
+127:   <?php $kinds = AddBusiness::KINDS; $miss = $me ? Claims::missing($pdo, $uid) : []; ?>
+128:   <p class="cl-s mt-1">Your business on Traversence in a few minutes, website or not. It goes live as soon as you confirm a code we email you, and you manage it from your phone<?= $near !== '' ? '. Adding near <b>' . $e($near) . '</b>' : '' ?>.</p>
+129:   <?php if ($me && in_array('email', $miss, true)): ?>
+130:   <div class="tv-bleed cl-card" id="cl-email"><h2>First, confirm your email</h2>
+131:     <p class="cl-s mt-1">We sent a link to <b><?= $e($me['email']) ?></b> when you joined. Open it, then come back here; what you type below is kept.</p>
+132:     <div class="mt-2"><button class="cl-b" type="button" data-resend>Send the link again</button></div><p class="cl-msg" role="status"></p></div>
+133:   <?php endif; ?>
+134:   <form class="tv-bleed cl-card" id="cl-new" data-signed="<?= $me ? '1' : '0' ?>" data-next="<?= $e($here) ?>" autocomplete="on">
+135:     <h2>Your business</h2>
+136:     <label class="cl-lb" for="n-name">Business name</label><input class="cl-in" id="n-name" name="name" required maxlength="120" value="<?= $e($pf['name'] ?? '') ?>">
+137:     <p class="cl-m mt-1" data-name-tip hidden>Tip: businesses do best with the name on their sign. Put what you do in the categories (+) and What you offer below: that's where people's searches find you.</p>
+138:     <?php $catsOn = ListingCategories::ready($pdo); ?>
+139:     <div<?= $catsOn ? ' data-cat-more data-max="' . ListingCategories::MAX . '"' : '' ?>>
+140:     <label class="cl-lb" for="n-kind">What it is</label>
+141:     <div class="tv-cat-line"><select class="cl-in" id="n-kind" name="kind"><option value="">Choose…</option>
+142:       <?php foreach ($kinds as $k => [$label]): ?><option value="<?= $e($k) ?>"><?= $e($label) ?></option><?php endforeach; ?></select><?= $catsOn ? tv_cat_add_button() : '' ?></div>
+143:     <?php if ($catsOn): ?><?= tv_cat_more_rows(IntakeStager::leafCategories($pdo), [], 'cl-in') ?>
+144:     <p class="cl-m mt-1">Tap + to pick the exact kind of business (Movie theater, Bakery…) and up to <?= ListingCategories::MAX ?> in all: people find you under each one. The first exact one becomes your main category.</p><?php endif; ?>
+145:     </div>
+146:     <div style="display:grid;grid-template-columns:1fr 5rem;gap:.5rem">
+147:       <div><label class="cl-lb" for="n-town">Town (or nearest)</label><input class="cl-in" id="n-town" name="town" required maxlength="80" value="<?= $e($near !== '' ? $near : ($pf['town'] ?? '')) ?>"></div>
+148:       <div><label class="cl-lb" for="n-state">State</label><input class="cl-in" id="n-state" name="state" maxlength="2" value="<?= $e(($pf['state'] ?? '') !== '' ? strtoupper($pf['state']) : 'AZ') ?>" style="text-transform:uppercase"></div>
+149:     </div>
+150:     <label class="cl-lb" for="n-phone">Business phone</label><input class="cl-in" id="n-phone" name="phone" required inputmode="tel" maxlength="20" placeholder="A cell is fine" value="<?= $e($pf['phone'] ?? '') ?>">
+151:     <label class="cl-lb" for="n-email">Business email</label><input class="cl-in" id="n-email" name="email" type="email" required maxlength="160" autocomplete="email" value="<?= $e((string) ($me['email'] ?? ($pf['email'] ?? ''))) ?>">
+152:     <p class="cl-m mt-1">Where we can reach the business. Yours is filled in: change it if the business has its own. It isn't shown on your listing.</p>
+153:     <label class="cl-lb" for="n-addr">Street address</label><input class="cl-in" id="n-addr" name="address" maxlength="160" placeholder="Or use the pin below if there isn't one" value="<?= $e($pf['address'] ?? '') ?>">
+154:     <div class="mt-2 flex gap-2 flex-wrap items-center"><button class="cl-b" type="button" data-here><?= tv_icon('pin', 'tv-ei') ?> Use where I am now</button><span class="cl-m" data-pin></span></div>
+155:     <input type="hidden" name="point">
+156:     <details class="cl-more"><summary>Facebook, website, hours, what you offer (optional)</summary>
+157:       <label class="cl-lb" for="n-fb">Facebook page</label><input class="cl-in" id="n-fb" name="facebook" maxlength="300" inputmode="url" placeholder="facebook.com/yourbusiness">
+158:       <label class="cl-lb" for="n-web">Website</label><input class="cl-in" id="n-web" name="website" maxlength="300" inputmode="url">
+159:       <label class="cl-lb" for="n-hours">Hours</label><input class="cl-in" id="n-hours" name="hours" maxlength="300" placeholder="Mon–Fri 8–5, Sat 9–1">
+160:       <label class="cl-lb" for="n-offers">What you offer</label><textarea class="cl-in" id="n-offers" name="offers" rows="3" maxlength="1000"></textarea>
+161:       <p class="cl-m mt-2">Photos: add them from your listing as soon as it's live.</p>
+162:     </details>
+163:     <?php if ($me && in_array('phone', $miss, true)): ?>
+164:     <label class="cl-lb" for="n-me">Your phone</label><input class="cl-in" id="n-me" name="account_phone" required inputmode="tel" maxlength="20">
+165:     <p class="cl-m mt-1">Private: saved to your account, and only our staff see it, so we can reach you about your listing.</p>
+166:     <?php endif; if ($me && in_array('verification', $miss, true)): ?>
+167:     <p class="cl-chk" data-tv-status="info" data-tv-label="First:">Confirm your email: open the link we sent you, or send it again from <a class="underline" href="/login.php">Sign in</a>.</p>
+168:     <?php endif; if ($me && in_array('age', $miss, true)): ?>
+169:     <label class="cl-chk"><input type="checkbox" name="age" required> <span>I'm 18 or older.</span></label>
+170:     <?php endif; ?>
+171:     <?php if ($me): ?>
+172:     <div class="mt-3"><button class="cl-b go" type="submit">Email me a code</button></div>
+173:     <?php else: ?>
+174:     <p class="cl-s mt-3">You'll need a Traversence account, with your email and phone. What you've typed is kept while you sign in.</p>
+175:     <div class="mt-2 flex gap-2 flex-wrap"><button class="cl-b go" type="submit" data-to="/login.php">Sign in to continue</button><button class="cl-b" type="submit" data-to="/register.php">Create an account</button></div>
+176:     <?php endif; ?>
+177:     <div data-dups hidden class="mt-3"></div>
+178:     <div data-code hidden class="mt-3">
+179:       <label class="cl-lb" for="n-code">The 6-digit code from your email</label>
+180:       <input class="cl-in" id="n-code" name="code" inputmode="numeric" maxlength="6" autocomplete="one-time-code">
+181:       <div class="mt-2"><button class="cl-b go" type="button" data-golive>Confirm and go live</button></div>
+182:     </div>
+183:     <p class="cl-msg" role="status"></p>
+184:   </form>
+185:   <details class="tv-bleed cl-card cl-more" style="margin-top:.8rem"><summary>Not your business? Tell us about it instead</summary>
+186:   <form id="cl-add" data-kind="missing" class="mt-2">
+187:     <p class="cl-s">We check it and add it, and email you when it's on the site.</p>
+188:     <label class="cl-lb" for="a-name">Business name</label><input class="cl-in" id="a-name" name="name" required maxlength="160">
+189:     <label class="cl-lb" for="a-what">What it is</label><input class="cl-in" id="a-what" name="what" maxlength="160" placeholder="Hardware store, diner, outfitter…">
+190:     <label class="cl-lb" for="a-addr">Street address and town</label><input class="cl-in" id="a-addr" name="address" maxlength="160" value="<?= $e($near) ?>">
+191:     <label class="cl-lb" for="a-phone">Phone</label><input class="cl-in" id="a-phone" name="phone" inputmode="tel" maxlength="20">
+192:     <label class="cl-lb" for="a-web">Website or Facebook page</label><input class="cl-in" id="a-web" name="website" maxlength="160" placeholder="optional">
+193:     <label class="cl-lb" for="a-note">Anything else</label><textarea class="cl-in" id="a-note" name="note" rows="2" maxlength="600"></textarea>
+194:     <input type="text" name="hp" value="" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+195:     <div class="mt-3"><button class="cl-b" type="submit">Send</button></div>
+196:     <p class="cl-msg" role="status"></p>
+197:   </form></details>
+198: 
+199: <?php elseif ($view === 'contribute'): ?>
+200:   <?php if ($notBiz !== ''): ?><p data-tv-status="info" data-tv-label="Nothing to claim:"><?= $e($notBiz) ?> You can still tell us what's wrong or missing (its pickup times, a moved box).</p><?php endif; ?>
+201:   <p class="cl-s mt-1">Share what you know, such as a phone number, hours or what they do. Anyone can suggest details<?= $notBiz !== '' ? '; our team checks them' : '; the owner confirms them when they claim the listing' ?>.</p>
+202:   <form class="tv-bleed cl-card" id="cl-add" data-kind="fix">
+203:     <label class="cl-lb" for="a-phone">Phone</label><input class="cl-in" id="a-phone" name="phone" inputmode="tel" maxlength="20">
+204:     <label class="cl-lb" for="a-web">Website</label><input class="cl-in" id="a-web" name="website" maxlength="160" placeholder="optional">
+205:     <label class="cl-lb" for="a-hours">Hours</label><input class="cl-in" id="a-hours" name="hours" maxlength="160" placeholder="optional">
+206:     <label class="cl-lb" for="a-note">Anything else</label><textarea class="cl-in" id="a-note" name="note" rows="2" maxlength="600"></textarea>
+207:     <input type="text" name="hp" value="" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+208:     <div class="mt-3"><button class="cl-b go" type="submit">Send</button></div>
+209:     <p class="cl-msg" role="status"></p>
+210:   </form>
+211: 
+212: <?php elseif (!$me): ?>
+213:   <div class="tv-bleed cl-card">
+214:     <h2>Sign in to claim</h2>
+215:     <p class="cl-s mt-1">Claiming takes a few minutes: an email code, then a quick text. You'll need a Traversence account (18 or older).</p>
+216:     <div class="flex gap-2 flex-wrap mt-3">
+217:       <a class="cl-b go" href="/login.php?next=<?= $e(urlencode($here)) ?>">Sign in</a>
+218:       <a class="cl-b" href="/register.php?next=<?= $e(urlencode($here)) ?>">Create an account</a>
+219:     </div>
+220:   </div>
+221: 
+222: <?php elseif ($view === 'claim'): ?>
+223:   <ol class="tv-bleed cl-steps cl-card" aria-label="How claiming works">
+224:     <li><b>Confirm by email.</b> We send a code to <?= $e($me['email']) ?>. You can then edit your description, hours, services and photos.</li>
+225:     <li><b>Get verified.</b> One tap sends us a verification request (or text your claim's code). Once we confirm, your name, phone, address and website open up, and the listing shows ✓ Verified.</li>
+226:     <li><b><?= $kind === 'business' ? 'Choose a plan.' : 'Your plan.' ?></b> <?= $kind === 'business' ? 'Free, or a paid plan (free trial for now).' : 'Free. Plans for agencies and nonprofits are coming; until then, everything a claimed listing gets on Free is yours.' ?></li>
+227:   </ol>
+228:   <?php if ($kind === 'public'): // who runs it: its Nexus (decisions/0054), never typed in as its name ?>
+229:   <div class="tv-bleed cl-card"><h2>Who runs it</h2>
+230:     <?php if ($agency): ?><p class="cl-s mt-1">Run by <b><?= $e($agency['chain']) ?></b>. Your claim covers this place. Not the right agency? Say which one below; our team checks it.</p>
+231:     <?php else: ?><p class="cl-s mt-1">We don't know yet which agency runs it. Say which one below (optional): our team checks it and links it.</p><?php endif; ?>
+232:     <p class="cl-chk mt-2" data-tv-status="info" data-tv-label="Coming:">Claiming for the whole agency, every place it runs, in one go. For now, claim each place you look after.</p></div>
+233:   <?php endif; ?>
+234:   <form class="tv-bleed cl-card" id="cl-start">
+235:     <h2>Step 1: email code</h2>
+236:     <label class="cl-lb" for="c-role">Your role with <?= $e($kw['yours']) ?></label>
+237:     <select class="cl-in" id="c-role" name="role"><?php foreach (Claims::KIND_ROLES[$kind] as $r): ?><option><?= $e($r) ?></option><?php endforeach; ?></select>
+238:     <?php if ($kind === 'public'): ?><label class="cl-lb" for="c-agency"><?= $agency ? 'A different agency? (optional)' : 'Which agency runs it? (optional)' ?></label>
+239:     <input class="cl-in" id="c-agency" name="agency" maxlength="120" data-spell placeholder="For example, Arizona State Parks &amp; Trails"><?php endif; ?>
+240:     <label class="cl-lb" for="c-phone">The phone you'll text from</label>
+241:     <input class="cl-in" id="c-phone" name="phone" inputmode="tel" maxlength="20" placeholder="Your cell is fine" value="<?= $e(Claims::fmtPhone(Claims::phone10($biz['phone'] ?? ''))) ?>">
+242:     <?php if (in_array('email', $missing, true)): ?>
+243:     <p class="cl-s mt-2" id="cl-email"><b>First, confirm your email.</b> Open the link we sent to <?= $e($me['email']) ?> when you joined, then come back.
+244:       <button class="cl-b mt-1" type="button" data-resend>Send the link again</button></p>
+245:     <?php endif; if (in_array('phone', $missing, true)): ?>
+246:     <label class="cl-lb" for="c-me">Your phone (private: saved to your account, only our staff see it)</label>
+247:     <input class="cl-in" id="c-me" name="account_phone" required inputmode="tel" maxlength="20">
+248:     <?php endif; if (in_array('verification', $missing, true)): ?>
+249:     <p class="cl-chk" data-tv-status="info" data-tv-label="First:">Confirm your email: open the link we sent you, or send it again from <a class="underline" href="/login.php">Sign in</a>.</p>
+250:     <?php endif; if (in_array('age', $missing, true)): ?>
+251:     <label class="cl-chk"><input type="checkbox" name="age" required> <span>I'm 18 or older.</span></label>
+252:     <?php endif; ?>
+253:     <div class="mt-3"><button class="cl-b go" type="submit">Email me a code</button></div>
+254:     <div id="cl-code" hidden>
+255:       <label class="cl-lb" for="c-code">The 6-digit code from your email</label>
+256:       <input class="cl-in" id="c-code" name="code" inputmode="numeric" maxlength="6" autocomplete="one-time-code">
+257:       <div class="mt-3"><button class="cl-b go" type="button" id="cl-confirm">Confirm</button></div>
+258:     </div>
+259:     <p class="cl-msg" role="status"></p>
+260:   </form>
+261: 
+262: <?php elseif ($view === 'taken' || $view === 'held' || $view === 'nation'): ?>
+263:   <div class="tv-bleed cl-card">
+264:     <span class="cl-pill h"><?= $view === 'nation' ? 'A request for our team' : 'Claim Request On Hold' ?></span>
+265:     <?php if ($view === 'nation'): ?>
+266:     <p class="cl-s mt-2">This place is on a nation's land, and the nation decides who speaks for it. Until the nation's own tools are ready, your request comes to our team, who check with the nation before anything changes. Leave a way to reach you and your role.</p>
+267:     <?php else: ?>
+268:     <p class="cl-s mt-2"><?= $view === 'held' ? 'Your request is saved.' : 'Another claim for this listing is in progress.' ?>
+269:       Only one claim goes ahead at a time, so your request is on hold, not turned down. An admin has been told and will be in touch. Leave a way to reach you, and anything that shows <?= $e($kw['yours']) ?> runs it.</p>
+270:     <?php endif; ?>
+271:     <?php $hd = $myActive ? Claims::detailsOf($myActive) : []; ?>
+272:     <form id="cl-hold">
+273:       <label class="cl-lb" for="h-role">Your role with <?= $e($kw['yours']) ?></label>
+274:       <input class="cl-in" id="h-role" name="role" maxlength="80" value="<?= $e($hd['role'] ?? ($myActive['role_note'] ?? '')) ?>" placeholder="Owner, manager…">
+275:       <label class="cl-lb" for="h-phone">Phone</label>
+276:       <input class="cl-in" id="h-phone" name="phone" inputmode="tel" maxlength="20" value="<?= $e(Claims::fmtPhone((string) ($hd['phone'] ?? ''))) ?>">
+277:       <label class="cl-lb" for="h-note">Note for the admin</label>
+278:       <textarea class="cl-in" id="h-note" name="note" rows="3" maxlength="1000"><?= $e($hd['note'] ?? '') ?></textarea>
+279:       <?php if (in_array('verification', $missing, true)): ?>
+280:       <p class="cl-chk" data-tv-status="info" data-tv-label="First:">Confirm your email: open the link we sent you, or send it again from <a class="underline" href="/login.php">Sign in</a>.</p>
+281:       <?php endif; if (in_array('age', $missing, true)): ?>
+282:       <label class="cl-chk"><input type="checkbox" name="age" required> <span>I'm 18 or older.</span></label>
+283:       <?php endif; ?>
+284:       <div class="mt-3 flex gap-2 flex-wrap"><button class="cl-b go" type="submit"><?= $view === 'held' ? 'Update my request' : 'Save my request' ?></button>
+285:         <?php if ($view === 'held'): ?><button class="cl-b" type="button" data-withdraw>Withdraw it</button><?php endif; ?></div>
+286:       <p class="cl-msg" role="status"></p>
+287:     </form>
+288:     <?php if ($view === 'held' && $myActive): ?>
+289:     <details class="cl-more"><summary>Add a document</summary>
+290:       <form class="cl-doc mt-2"><p class="cl-m">A business license, utility bill, lease, photos of the location or back office, or a brochure. PDF, JPG or PNG, up to 25 MB. Only admins see it, and it's deleted as soon as your claim is decided.</p>
+291:         <input type="file" name="file" accept=".pdf,.jpg,.jpeg,.png" required class="mt-2 text-sm"> <button class="cl-b mt-2" type="submit">Send</button><p class="cl-msg" role="status"></p></form>
+292:     </details>
+293:     <?php endif; ?>
+294:     <?php if ($holding && $holding['status'] === 'verified'): ?>
+295:       <p class="cl-m mt-3">This listing has a verified owner. If you believe that's wrong, you can <a class="underline" href="/claim.php?listing=<?= (int) $biz['id'] ?>&dispute=1">question it</a>.</p>
+296:     <?php endif; ?>
+297:   </div>
+298: 
+299: <?php elseif ($view === 'dispute'): ?>
+300:   <?php if (!$holding): ?>
+301:   <div class="tv-bleed cl-card"><p class="cl-s">This listing has no owner yet, so there's nothing to question. You can <a class="underline" href="/claim.php?listing=<?= (int) $biz['id'] ?>">claim it</a>.</p></div>
+302:   <?php else: ?>
+303:   <form class="tv-bleed cl-card" id="cl-dispute">
+304:     <p class="cl-s">If you own or run this business and someone else holds the listing, tell us. The owner is told and has a chance to answer; an admin decides. Nothing changes on the listing until then.</p>
+305:     <label class="cl-lb" for="d-reason">Why you believe the listing is yours</label>
+306:     <textarea class="cl-in" id="d-reason" name="reason" rows="4" maxlength="4000" required></textarea>
+307:     <label class="cl-lb" for="d-file">Proof (optional): a license, bill, lease or photos</label>
+308:     <input type="file" id="d-file" name="file" accept=".pdf,.jpg,.jpeg,.png" class="text-sm">
+309:     <?php if (in_array('verification', $missing, true)): ?>
+310:     <p class="cl-chk" data-tv-status="info" data-tv-label="First:">Confirm your email: open the link we sent you, or send it again from <a class="underline" href="/login.php">Sign in</a>.</p>
+311:     <?php endif; if (in_array('age', $missing, true)): ?>
+312:     <label class="cl-chk"><input type="checkbox" name="age" value="1" required> <span>I'm 18 or older.</span></label>
+313:     <?php endif; ?>
+314:     <div class="mt-3"><button class="cl-b go" type="submit">Send to an admin</button></div>
+315:     <p class="cl-msg" role="status"></p>
+316:   </form>
+317:   <?php endif; ?>
+318: 
+319: <?php endif; ?>
+320: 
+321:   <!-- Step 2 and after: drawn by js/claim.js once a claim is Managed (or shown straight away for your own claim) -->
+322:   <div id="cl-mine" <?= $view === 'mine' ? '' : 'hidden' ?>></div>
+323: </div>
+324: <script src="/js/cat-more.js?v=<?= (int) @filemtime(__DIR__ . '/js/cat-more.js') ?>"></script>
+325: <script src="/js/claim.js?v=<?= (int) @filemtime(__DIR__ . '/js/claim.js') ?>" defer></script>
+326: <?php tv_page_end();

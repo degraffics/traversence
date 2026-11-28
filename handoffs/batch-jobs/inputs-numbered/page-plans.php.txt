@@ -1,0 +1,219 @@
+1: <?php
+2: // /plans.php — choose and manage a plan (decisions/0108 step 3; Master AOS v44 §5): ?listing=N for a business the
+3: // signed-in person owns (or handles billing for), ?me=1 for their own personal plan, neither for the list of both.
+4: // Monthly or yearly (a year is 10 months), storage and AI Assist packs, a card kept on file in QuickBooks Payments
+5: // (the card goes from the browser to Intuit; only a one-time token reaches us), receipts. All through /api/plans.php.
+6: declare(strict_types=1);
+7: 
+8: require_once __DIR__ . '/../app/bootstrap.php';
+9: require_once __DIR__ . '/../app/lib/Billing.php';
+10: require_once __DIR__ . '/../app/lib/Promotions.php';
+11: require_once __DIR__ . '/../app/ui/page-shell.php';
+12: require_once __DIR__ . '/../app/ui/go-codes.php';
+13: tv_card_page_csp('plans', ['quickbooks']);   // a card page: only our scripts and Intuit's (0098; its script list there)
+14: header('Content-Type: text/html; charset=utf-8');
+15: header('Cache-Control: no-store');
+16: 
+17: $me = Auth::currentUser();
+18: $pdo = Database::connection();
+19: $e = fn ($s) => htmlspecialchars((string) $s, ENT_QUOTES);
+20: if (!$me) { header('Location: /login.php?next=' . rawurlencode($_SERVER['REQUEST_URI'] ?? '/plans.php'), true, 302); exit; }
+21: $uid = (int) $me['id'];
+22: $type = isset($_GET['me']) ? 'user' : (isset($_GET['listing']) ? 'listing' : '');
+23: $id = $type === 'user' ? $uid : (int) ($_GET['listing'] ?? 0);
+24: $allowed = $type !== '' && Billing::ready($pdo) && Billing::canManage($pdo, $uid, $type, $id);
+25: 
+26: tv_page_start('Plans', ['no_crumbs' => true, 'description' => 'Choose and manage your Traversence plan.']);
+27: tv_go_head('', false);
+28: ?>
+29: <style>
+30:   .pl-row{display:flex;gap:.6rem;align-items:flex-start;border:1px solid var(--tv-line-strong,#CBB98D);background:var(--tv-card-a,#FFFBF2);border-radius:.7rem;padding:.6rem .75rem;margin:0 0 .4rem;cursor:pointer}
+31:   .pl-row.on{border-color:#6E9F8A;box-shadow:0 0 0 2px rgba(143,188,168,.45)}
+32:   .pl-row input{margin-top:.25rem;accent-color:#5E8F79}
+33:   .pl-row b{display:block}.pl-row small{color:var(--tv-meta,#5C4632);font-size:.8rem}
+34:   .pl-price{margin-left:auto;text-align:right;font-weight:700;white-space:nowrap}
+35:   .pl-now{font-size:.9rem;line-height:1.5}
+36:   .pl-tag{display:inline-block;background:var(--tv-sage,#8FBCA8);color:#1F3A2E;border-radius:999px;padding:0 .5rem;font-size:.72rem;font-weight:700;margin-left:.3rem}
+37:   .pl-cyc{display:inline-flex;border:1px solid var(--tv-line-strong,#CBB98D);border-radius:999px;overflow:hidden;margin:0 0 .6rem}
+38:   .pl-cyc button{border:0;background:var(--tv-card-a,#FFFBF2);padding:.35rem .85rem;font-weight:600;font-size:.85rem;color:var(--tv-meta,#5C4632);cursor:pointer}
+39:   .pl-cyc button.on{background:var(--tv-sage,#8FBCA8);color:#1F3A2E}
+40:   .pl-inc{margin:.3rem 0 0;font-size:.8rem;color:var(--tv-meta,#5C4632)}
+41:   .pl-inc ul{margin:.15rem 0 0;padding-left:1.05rem}.pl-inc li{margin:.1rem 0}
+42:   .pl-line{display:flex;justify-content:space-between;font-size:.88rem;margin:.15rem 0}
+43:   .pl-pack{display:flex;gap:.5rem;align-items:center;justify-content:space-between;border-top:1px solid var(--tv-line,#EADFC4);padding:.45rem 0;font-size:.88rem}
+44:   .pl-msg[hidden],.pl-x[hidden],[data-cardbox][hidden],[data-promo-note][hidden]{display:none}
+45:   .pl-msg{background:#E7F3EC;border:1px solid #B7D9C7;border-radius:.6rem;padding:.5rem .7rem;font-size:.88rem;margin:.5rem 0}
+46:   .pl-x{background:#FDECEC;border:1px solid #F3B7B7;border-radius:.6rem;padding:.5rem .7rem;font-size:.88rem;margin:.5rem 0}
+47: </style>
+48: <div class="go">
+49: <?php if ($type === ''): $pq = isset($_GET['promo']) ? '&promo=' . rawurlencode(Promotions::clean((string) $_GET['promo'])) : '';
+50:     $mine = $pdo->prepare('SELECT id, name, plan_tier FROM entities WHERE owner_user_id = ? ORDER BY name LIMIT 100'); $mine->execute([$uid]); ?>
+51:   <h1>Plans</h1>
+52:   <p class="go-lead">Choose which plan to manage.</p>
+53:   <section class="go-card tv-bleed">
+54:     <div class="pl-pack"><span><a href="/plans.php?me=1<?= $pq ?>" style="color:var(--tv-link,#92400E);font-weight:700">Your personal plan</a></span><span class="go-note"><?= $e((Billing::PLANS[Billing::allowance($pdo, 'user', $uid)['plan']][0] ?? 'Personal')) ?></span></div>
+55:     <?php foreach ($mine as $l): ?>
+56:     <div class="pl-pack"><span><a href="/plans.php?listing=<?= (int) $l['id'] ?><?= $pq ?>" style="color:var(--tv-link,#92400E);font-weight:700"><?= $e($l['name']) ?></a></span><span class="go-note"><?= $e(Billing::PLANS[Billing::allowance($pdo, 'listing', (int) $l['id'])['plan']][0] ?? 'Free') ?></span></div>
+57:     <?php endforeach; ?>
+58:   </section>
+59: <?php elseif (!$allowed): ?>
+60:   <section class="go-card tv-bleed"><h1>Plans</h1><p class="go-note">Only the owner of this business, or someone they let handle billing, can manage its plan. <a href="/plans.php">See your plans</a>.</p></section>
+61: <?php else: ?>
+62:   <h1 data-title>Plan</h1>
+63:   <div class="pl-msg" data-msg hidden></div><div class="pl-x" data-err hidden></div>
+64:   <section class="go-card tv-bleed"><h2>Now</h2><div class="pl-now" data-now></div><div data-cardbox hidden style="margin-top:.6rem"></div></section>
+65:   <section class="go-card tv-bleed"><h2>Have a code?</h2><div class="ec-code" style="display:flex;gap:.4rem"><input class="go-in" data-code value="<?= $e(Promotions::clean((string) ($_GET['promo'] ?? ''))) ?>" placeholder="Enter a promo code" aria-label="Promo code" autocapitalize="characters" style="flex:1;min-width:0;border:1px solid var(--tv-line-strong,#CBB98D);border-radius:.6rem;padding:.45rem .6rem;background:var(--tv-card-a,#FFFBF2)"><button type="button" class="go-btn" data-apply>Apply</button></div><p class="go-note" data-promo-note style="margin-top:.4rem" hidden></p></section>
+66: <?php if ($type === 'user' && Billing::selfTrialWhyNot($pdo, $uid) === ''): /* the free week of Pro (decisions/0154 §5): once, no card */ ?>
+67:   <section class="go-card tv-bleed" id="try" data-trycard><h2>Try Pro free for 7 days</h2><p class="go-note">Personal Pro for a week: 50 GB, 10-minute videos, uploads to 1 GB and the creator tools. No card, nothing charged; it goes back to Free on its own unless you keep it. Once an account; AI Assist credits come with a paid plan.</p>
+68:     <button type="button" class="go-btn main" data-try style="margin-top:.5rem">Start my free week</button></section>
+69: <?php endif; ?>
+70:   <section class="go-card tv-bleed"><h2>Choose a plan</h2><div data-cyc></div><div data-plans></div><p class="go-note" style="margin-top:.2rem">An AI Assist credit is one ask, or one description written for you, after the 3 free asks a day. Storage holds your photos, files and items. <a href="/faq.php#what-does-ai-assist-do">More about AI Assist</a></p><div data-act style="margin-top:.7rem"></div></section>
+71:   <section class="go-card tv-bleed" id="packs" data-packs-card hidden><h2>Storage and AI packs</h2><p class="go-note">The same packs for every plan, at full price, renewing with your plan. Added now, you pay for the rest of this period.</p><div data-packs></div></section>
+72: <?php if ($type === 'user'): /* earned storage (decisions/0154 §7): counted now, then once a day */
+73:     require_once __DIR__ . '/../app/lib/EarnedStorage.php';
+74:     $es = EarnedStorage::status($pdo, $uid);
+75:     if ($es['ready']) { try { $es = EarnedStorage::recount($pdo, $uid); } catch (Throwable $x) { error_log('earned recount: ' . $x->getMessage()); } } ?>
+76:   <section class="go-card tv-bleed" id="earned"><h2>Earned storage</h2>
+77:     <?php if (!$es['ready']): ?><p class="go-note">Coming within the hour: the space you earn from followers and friends who join.</p>
+78:     <?php else: ?><p class="pl-now">You've earned <b><?= (int) $es['earned_gb'] ?> GB</b> of <?= (int) $es['cap_gb'] ?> GB, on top of your plan's storage.</p>
+79:     <p class="go-note">1 GB for every <?= EarnedStorage::PER_FOLLOWERS ?> followers (you have <?= (int) $es['followers'] ?> who count, <?= (int) $es['to_next'] ?> more to the next GB) and for every friend who joins with your invite (<?= (int) $es['friends'] ?> so far).
+80:       They count once they're settled members: email confirmed and 18+, their account 30 days old, and on Traversence on 3 different days. Up to <?= EarnedStorage::MONTH_GB ?> GB a month (<?= (int) $es['month_left'] ?> GB left this month); it stays when followers leave.
+81:       Invite friends from your <a href="/user/dashboard.php#addressbook">Address Book</a>.</p><?php endif; ?>
+82:   </section>
+83: <?php endif; ?>
+84:   <section class="go-card tv-bleed" data-rec-card hidden><h2>Receipts</h2><div data-rec></div><p class="go-note" style="margin-top:.4rem">Each payment is also emailed to you, with a receipt from QuickBooks.</p></section>
+85:   <p class="go-note">Plans sell tools, storage and support, never a higher place in search. A yearly plan is 10 months' price for 12; packs are always full price. <a href="/terms.php#plans">Terms</a>.</p>
+86:   <p class="go-note">Strategic Partner and Cornerstone include White Glove: choosing one gives your White Glove agent access to your business for that work, limited as the <a href="/terms.php#white-glove">White Glove terms</a> say. You can turn it off in Settings &amp; team.</p>
+87: <?php endif; ?>
+88: </div>
+89: <?php if ($allowed): ?>
+90: <script<?= tv_nonce() ?>>
+91: (function () {
+92:   var T = <?= json_encode($type) ?>, ID = <?= $id ?>, V = null, pick = <?= json_encode(isset(Billing::PLANS[(string) ($_GET['pick'] ?? '')]) && Billing::PLANS[(string) $_GET['pick']][1] === ($type === 'user' ? 'user' : 'listing') ? (string) $_GET['pick'] : null) /* from the Shop or the upgrade sheet */ ?>, cyc = 'month', PROMO = null;
+93:   var $ = function (k) { return document.querySelector('[data-' + k + ']'); }, esc = Go.esc;
+94:   var money = function (c) { return '$' + ((+c || 0) / 100).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); };
+95:   var day = function (d) { return d ? new Date(d + 'T12:00:00').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : ''; };
+96:   function api(b) {
+97:     b.type = T; b.id = ID; $('err').hidden = true;
+98:     return Go.call('/api/plans.php', b).then(function (d) { V = d.view; if (d.message) { $('msg').textContent = d.message; $('msg').hidden = false; } paint(); return d; },
+99:       function (x) { $('err').textContent = x.message; $('err').hidden = false; throw x; });
+100:   }
+101:   var tb = $('try');
+102:   if (tb) tb.addEventListener('click', function () {
+103:     if (window.TvAsk && TvAsk.busy) TvAsk.busy(tb, true);
+104:     api({ action: 'try' }).then(function () { var c = $('trycard'); if (c) c.remove(); }, function () {}).then(function () { if (window.TvAsk && TvAsk.busy && tb.isConnected) TvAsk.busy(tb, false); });
+105:   });
+106:   function planOf(k) { return V.plans.filter(function (p) { return p.key === k; })[0]; }
+107:   function paint() {
+108:     var s = V.sub, a = V.allowance;
+109:     $('title').textContent = 'Plan for ' + V.name;
+110:     var now = '';
+111:     if (!s) now = 'You\'re on the <b>' + esc(planOf(a.plan).name) + '</b> plan, at no cost.';
+112:     else if (s.status === 'trial') now = '<b>' + esc(s.name) + '</b>, free trial until <b>' + day(s.trial_ends) + '</b>. It goes back to the free plan on its own unless you keep it below.';
+113:     else {
+114:       now = '<b>' + esc(s.name) + '</b>, ' + money(s.price) + (s.cycle === 'year' ? ' a year' : ' a month') + '. ';
+115:       if (s.status === 'past_due') now += '<br><b style="color:var(--tv-crimson,#B91C1C)">Your card was declined.</b> We\'ll try again on ' + day(s.next_try) + '. Update the card to settle it now.';
+116:       else if (s.cancel_at_end) now += 'Stops on ' + day(s.period_end) + '. <a href="#" data-resume>Keep renewing</a>';
+117:       else now += 'Renews ' + day(s.period_end) + (s.card ? ' on ' + esc(s.card) : '') + '.' + (s.next_plan ? ' Moves to ' + esc(s.next_plan) + ' then.' : '')
+118:         + (s.promo ? ' Your code takes ' + s.promo.percent + '% off the plan ' + (s.promo.left === 255 ? 'at every renewal.' : (s.promo.left === 1 ? 'at the next renewal.' : 'at the next ' + s.promo.left + ' renewals.')) : '');
+119:       now += '<div style="margin-top:.5rem;display:flex;gap:.4rem;flex-wrap:wrap"><button type="button" class="go-btn sm" data-newcard>Update the card</button>'
+120:         + (s.cancel_at_end ? '' : '<button type="button" class="go-btn sm" data-stop>Stop at the end of this period</button>') + '</div>';
+121:     }
+122:     now += '<p class="go-note" style="margin-top:.4rem">Includes ' + a.storage_gb + ' GB storage' + (a.ai_credits ? ' and ' + a.ai_credits + ' AI Assist credits a month' : '') + '.</p>';
+123:     $('now').innerHTML = now;
+124:     var paid = s && s.status !== 'trial';
+125:     if (paid) cyc = s.cycle;
+126:     $('cyc').innerHTML = paid ? '<p class="go-note">Billed ' + (cyc === 'year' ? 'yearly' : 'monthly') + '.</p>'
+127:       : '<div class="pl-cyc" role="group" aria-label="Billing"><button type="button" data-c="month" class="' + (cyc === 'month' ? 'on' : '') + '">Monthly</button><button type="button" data-c="year" class="' + (cyc === 'year' ? 'on' : '') + '">Yearly: 2 months free</button></div>';
+128:     if (pick === null) pick = s ? s.plan : (a.plan);
+129:     $('plans').innerHTML = V.plans.map(function (p) {
+130:       var cur = s ? s.plan === p.key : a.plan === p.key, price = p.month ? money(cyc === 'year' ? p.year : p.month) + (cyc === 'year' ? '/yr' : '/mo') : 'Free';
+131:       return '<label class="pl-row' + (pick === p.key ? ' on' : '') + '"><input type="radio" name="pl" value="' + p.key + '"' + (pick === p.key ? ' checked' : '') + '><span><b>' + esc(p.name)
+132:         + (cur ? '<span class="pl-tag">' + (s && s.status === 'trial' ? 'Trial' : 'Now') + '</span>' : '') + '</b><small>' + p.gb + ' GB storage' + (p.ai ? ', ' + p.ai + ' AI Assist credits a month' : '') + '</small>' + inc(p) + '</span><span class="pl-price">' + price + '</span></label>';
+133:     }).join('');
+134:     paintPacks(); paintRec(); action();
+135:   }
+136:   function inc(p) {   // what the plan includes: everything in the one below, plus these
+137:     if (!p.adds || !p.adds.length) return '';
+138:     return '<div class="pl-inc">' + (p.after ? 'Everything in ' + esc(p.after) + ', plus:' : 'Includes:') + '<ul>' + p.adds.map(function (a) { return '<li>' + esc(a) + '</li>'; }).join('') + '</ul></div>';
+139:   }
+140:   function paintPacks() {
+141:     var s = V.sub, on = s && s.status === 'active';
+142:     $('packs-card').hidden = !on; if (!on) return;
+143:     var have = s.addons.map(function (x) { return '<div class="pl-pack"><span>' + esc(x.name) + (x.qty > 1 ? ' × ' + x.qty : '') + (x.off ? ' <i class="go-note">comes off ' + day(s.period_end) + '</i>' : '') + '</span>'
+144:       + '<button type="button" class="go-btn sm" data-off="' + x.id + '" data-v="' + (x.off ? 0 : 1) + '">' + (x.off ? 'Keep it' : 'Remove at renewal') + '</button></div>'; }).join('');
+145:     $('packs').innerHTML = have + V.packs.map(function (p) {
+146:       return '<div class="pl-pack"><span>' + esc(p.name) + ' <span class="go-note">' + money(p.month) + ' a month</span></span><button type="button" class="go-btn sm" data-add="' + p.key + '">Add</button></div>';
+147:     }).join('');
+148:   }
+149:   function paintRec() {
+150:     var s = V.sub, r = s ? s.charges : [];
+151:     $('rec-card').hidden = !r.length;
+152:     $('rec').innerHTML = r.map(function (c) { return '<div class="pl-line"><span>' + day(c.when) + ' · ' + esc({ start: 'Plan started', renewal: 'Renewal', upgrade: 'Plan change', addon: 'Pack' }[c.kind] || c.kind) + (c.status !== 'paid' ? ' <b style="color:var(--tv-crimson,#B91C1C)">declined</b>' : '') + '</span><span>' + money(c.amount) + '</span></div>'; }).join('');
+153:   }
+154:   function action() {
+155:     var s = V.sub, box = $('act'), p = planOf(pick), paid = s && s.status !== 'trial';
+156:     box.innerHTML = '';
+157:     if (!p) return;
+158:     if (!p.month) {   // the free plan
+159:       box.innerHTML = '<p class="go-note">' + (!s ? 'You\'re on the free plan.' : s.status === 'trial' ? 'Your trial goes back to Free on its own on ' + day(s.trial_ends) + '.' : 'To go back to Free, choose <b>Stop at the end of this period</b> above. Everything stays until then.') + '</p>';
+160:       return;
+161:     }
+162:     if (paid) {
+163:       if (s.status !== 'active') { box.innerHTML = '<p class="go-note">Update the card first, then change the plan.</p>'; return; }
+164:       Go.call('/api/plans.php', { type: T, id: ID, action: 'quote', plan: pick }).then(function (d) {
+165:         var c = d.change; if (!c || c.when === 'same') { box.innerHTML = '<p class="go-note">This is your plan.</p>'; return; }
+166:         box.innerHTML = '<p class="go-note">' + (c.when === 'now' ? 'Starts now. Charged today for the rest of this period: <b>' + money(c.charge) + '</b>; then ' + money(d.quote.lines[0][1]) + (s.cycle === 'year' ? ' a year.' : ' a month.')
+167:           : 'Starts at your renewal on ' + day(s.period_end) + '. Nothing is charged now, and you keep ' + esc(s.name) + ' until then.') + '</p>'
+168:           + '<button type="button" class="go-btn main" data-change style="margin-top:.4rem">Change to ' + esc(p.name) + '</button>';
+169:       });
+170:       return;
+171:     }
+172:     // no plan yet, or a trial to keep: the total and the card
+173:     Go.call('/api/plans.php', { type: T, id: ID, action: 'quote', plan: pick, cycle: cyc, promo: PROMO ? PROMO.code : '' }).then(function (d) {
+174:       var q = d.quote;
+175:       box.innerHTML = q.lines.map(function (l) { return '<div class="pl-line"><span>' + esc(l[0]) + '</span><span>' + money(l[1]) + '</span></div>'; }).join('')
+176:         + '<div class="go-sum"><span>' + (PROMO ? 'Today' : 'Today, then every ' + (cyc === 'year' ? 'year' : 'month')) + '</span><span>' + money(q.total) + '</span></div>'
+177:         + (PROMO ? '<p class="go-note">With your code ' + esc(PROMO.code) + ': ' + esc(PROMO.offer) + '. After that, the plan\'s full price.</p>' : '') + '<div data-pay></div>';
+178:       Go.cardForm(box.querySelector('[data-pay]'), { id: 'pl', subtotal_cents: q.total, tax_cents: 0, total_cents: q.total }, V.pay,
+179:         { amount: q.total, summary: false, label: (s ? 'Keep ' : 'Start ') + p.name + ' · ' + money(q.total),
+180:           note: 'Renews on its own; stop any time from this page. A receipt is emailed each time.',
+181:           pay: function (tok) { return api({ action: 'start', plan: pick, cycle: cyc, addons: {}, token: tok, promo: PROMO ? PROMO.code : '' }).then(function (d) { PROMO = null; $('promo-note').hidden = true; return d; }); },
+182:           onPaid: function () { window.scrollTo(0, 0); } });
+183:     });
+184:   }
+185:   document.addEventListener('click', function (ev) {
+186:     var t = ev.target.closest('button,a,input'); if (!t || !t.closest('.go')) return;
+187:     if (t.name === 'pl') { pick = t.value; paint(); return; }
+188:     if (t.dataset.c) { cyc = t.dataset.c; paint(); return; }
+189:     if (t.hasAttribute('data-apply')) { applyCode(); return; }
+190:     if (t.hasAttribute('data-change')) { api({ action: 'change', plan: pick }); return; }
+191:     if (t.hasAttribute('data-stop')) { if (!TvAsk.gate(t, 'Stop your plan at the end of this period? Everything stays until ' + day(V.sub.period_end) + '.', { yes: 'Stop it', danger: true })) return; api({ action: 'cancel', stop: true }); return; }
+192:     if (t.hasAttribute('data-resume')) { ev.preventDefault(); api({ action: 'cancel', stop: false }); return; }
+193:     if (t.dataset.add) { var pk = V.packs.filter(function (x) { return x.key === t.dataset.add; })[0];
+194:       Go.call('/api/plans.php', { type: T, id: ID, action: 'quote', plan: V.sub.plan, addon: pk.key }).then(function (d) {
+195:         if (!TvAsk.gate(t, 'Add ' + pk.name + '? ' + money(d.addon_now) + ' now for the rest of this period, then ' + money(pk.month * (V.sub.cycle === 'year' ? 12 : 1)) + (V.sub.cycle === 'year' ? ' a year' : ' a month') + ' with your plan.', { yes: 'Add it' })) return;
+196:         api({ action: 'addon', addon: pk.key, qty: 1 });
+197:       }); return; }
+198:     if (t.dataset.off) { api({ action: 'remove', aid: +t.dataset.off, remove: t.dataset.v === '1' }); return; }
+199:     if (t.hasAttribute('data-newcard')) {
+200:       var cb = $('cardbox'); cb.hidden = !cb.hidden; if (cb.hidden) return;
+201:       Go.cardForm(cb, { id: 'plc', subtotal_cents: 0, tax_cents: 0, total_cents: 0 }, V.pay, { amount: 0, summary: false, label: 'Save this card',
+202:         note: V.sub.status === 'past_due' ? 'The declined payment is tried on it right away.' : 'Nothing is charged now.',
+203:         pay: function (tok) { return api({ action: 'card', token: tok }); }, onPaid: function () { cb.hidden = true; } });
+204:     }
+205:   });
+206:   function applyCode() {
+207:     var c = $('code').value.trim(); if (!c) return;
+208:     api({ action: 'code', code: c }).then(function (d) {
+209:       var n = $('promo-note');
+210:       if (d.promo) { PROMO = d.promo; n.innerHTML = '<b>' + esc(d.promo.code) + '</b>: ' + esc(d.promo.offer) + (d.promo.terms ? '. ' + esc(d.promo.terms) : '') + ' <a href="#" data-unpromo>Remove</a>'; n.hidden = false; action(); }
+211:       else { n.hidden = true; $('code').value = ''; pick = null; paint(); }
+212:     }, function () {});
+213:   }
+214:   document.addEventListener('click', function (ev) { if (ev.target.closest('[data-unpromo]')) { ev.preventDefault(); PROMO = null; $('promo-note').hidden = true; $('code').value = ''; action(); } });
+215:   api({ action: 'status' }).then(function () { if ($('code').value) applyCode(); });
+216: })();
+217: </script>
+218: <?php endif; ?>
+219: <?php tv_page_end();

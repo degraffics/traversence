@@ -1,0 +1,303 @@
+752: 
+753: ### What are the lines that finish my words as I type?
+754: They're ways your search could carry on, like "where can i park **overnight for free**" or "parks **for kids**". What you typed is plain and the rest is bold. Tap one to search it. They come from the situations we know, the ways people ask ("…check out", "…worth the drive") and what fits the thing you named (open now, this weekend, near your place). They don't come from other people's searches.
+755: 
+756: ### Why doesn't "parks" show RV parks?
+757: Search reads the kind of thing you mean. "Parks" are parks, including state and national parks. RV parks and mobile home parks are their own kinds, so search for those by name ("RV parks"). "Where can I park" is about parking: places to stay overnight with an RV or camper, rest areas and truck stops, parking lots, and who to call about parking rules.
+758: 
+759: ### Can I search near a lake, park or landmark?
+760: Yes. "Plumber near Lyman Lake" searches about 15 miles around the lake, and if there are none that close, the nearest ones beyond follow. Your own place stays as you set it.
+761: 
+762: ### If I search a business by name, can I find others like it?
+763: Yes. A business named in full shows first, with what it offers and **More like it nearby**.
+764: 
+765: ### What if nothing matches all my words?
+766: If no place has every word you typed, **Suggestions** lists each word on its own with how many it finds, like **Search "hat" · 1 found**. Tap one to search for it.
+767: 
+768: ### Does searching change the place I set?
+769: No. Search starts in the place you set and never changes it. Results in your place come first. Anything that matches beyond it follows under **Beyond (your place)**, nearest first, with how far away it is. If you chose a town, like "Saint Johns, AZ", that town comes first, and the rest of its area follows under **Beyond**. To search somewhere else for one search, say so: "pizza in Show Low". Your place stays as you set it. A town outside our regions counts only when you say "in" or "near" it, or name its state.
+770: 
+771: ### Can I save my own search phrases?
+772: Yes. In the search panel, **⊕** next to **Quick Search** adds the words you've typed as one of your quick searches, and **✎** lets you add, change or remove them. Each shows how many it finds where you are, counted the way its search would find them (none for what changes by the minute, like open now). For now they're saved in this browser. To count them, the words are sent with the search; each count is kept for an hour by phrase and place, never with who asked, and then cleared. To keep a search on your account, with its place, use **☆ Save** on its results.
+773: 
+774: ### How do I switch between the list and the map?
+775: Use **List**, **Table** or **Map** at the top right of Get Local (a phone has List and Map). **Map** opens full screen with every result as a pin; **Exit map** brings you back to the list, which keeps any filters you changed on the map. **Table** shows the same results as rows: tap a column's name to sort it (A to Z, Z to A, or nearest first), search it, or untick values to hide them ("Show Restaurants (6)"); the column menus work on the results on the page, and **Clear the column filters** brings every row back. On a computer you may see the list **beside the map** instead: the numbered businesses on the left, their numbered pins on the right, a dashed ring for how far you chose, and **Search this area** once you move the map. We're trying both layouts to see which helps people more (we count which one a device has and what's tapped there, never who); **Arrange** lets you pick the one you like.
+776: 
+777: ### Where do I find the guide to a town or area?
+778: On Let's Explore, with the place set, **The guide to …** sits at the top of Journeys & guides: its towns, places to go, the outdoors and local businesses. Searching the town's name opens it too. A town with no guide yet offers **Build the guide** in search: a first look in about two minutes, the full guide after.
+779: 
+780: Each business in a guide shows what it is, its street, and whether it's open now when we know its hours. Our crawler reads these from the business's own website and checks them again every month or so; one we haven't read yet shows its name, kind and distance until it's been read.
+781: 
+782: ### What can I do on the map?
+783: - **Search:** type in the search at the top and press Enter. The pins change to match.
+784: - **The list, nearest first:** the panel lists everything on the map, ours and OpenStreetMap's together, nearest first with the miles: from where you are (the blue dot, or the location you've shared with the site), else from the place you've set, else from the middle of the map. The line above the list says which. A business we only know by its ZIP code shows "about … mi · location approx." and comes after the ones we know exactly at about the same distance. Tap one of ours to choose its pin and see its card; one from OpenStreetMap opens directions. **Show 25 more** goes further.
+785: - **Controls** (bottom right): zoom in and out, **Go to my location** (the arrow: it moves the map to where you are), **Search this area**, and **Map style**.
+786: - **Where it opens:** in a 5-mile circle around your place when your place has a point (Auto-detect, or a ZIP), or, with no place set, around you (your browser asks once whether to share your location); widen with the distance or **Search this area**. Opened for one place, it opens there.
+787: - **A pin's card:** its photo when it has one (credited), what you'd do there (**Walk**, **Drive**, **Hike**, **Exhibits**, **Views**, **On the water**, **Camp**, **Picnic & play**, **Historic site**, from what the place is), a few lines on what it is (from Wikipedia; for a place without an article, the first time anyone opens it Claude, the AI we use, writes two or three sentences from what we hold and public sources, kept for everyone after; until then, what Wikidata records: whether it's on the National Register, when it dates from, its style and architect), then, when one of our guides tells its story, the guide's own words about it (**From the Glendale guide ›**), where it is, hours, and **Call**, **Directions**, **Website** and **Open**. Been there? **Add a tip or review** or **Suggest a change** sits right with it. Places are ranked by the interest they draw (how much people read about them on Wikipedia, how many Wikipedias cover them, and the guides and journeys that name them), then by distance.
+788: - **Where you are:** a blue dot marks where you are as soon as the map opens, if your browser already shares your location with Traversence (or your place came from Auto-detect). It doesn't ask on its own; tap **My location** for that. Your location stays on your device.
+789: - **Moved the map?** A **Search this area** button appears at the top, in words, so you can look where the map now is.
+790: - **Nothing of ours there yet?** The panel offers **Search this area**, **Widen to 25 mi**, and what OpenStreetMap has there as lighter pins, not our listings (in Arizona, New Mexico, Utah, Colorado and Nevada, from our own copy of OpenStreetMap; elsewhere there are none): with no words, everything everyday at once (places to eat, coffee, groceries, gas, pharmacies, places to stay); or one kind at a tap, trails, parks and campgrounds included. Tap a pin for what it is, its address, phone, hours and directions. If your words name a kind ("coffee shops"), those show at once. Asking also sends that town to our crawler, so our own listings follow, usually within an hour or two.
+791: - **The panel:** the tab on the map's left edge (the bottom on phones) opens it. It has what's shown, the distance, "Search this area as I move the map", the map style, and the details of the place you tapped. Use the arrows there to step to the next place nearby.
+792: - **Folding the panel (phones):** the chevron at the panel's top right folds it down to its title, so you can see more map. Tap the title or the chevron to bring it back. Tapping a pin brings it back too.
+793: 
+794: ### What does Auto-detect do?
+795: It sets your place to the town you're in, by its name ("St. Johns"), not the wider area around it, right away: searches look at that town and the miles around it, and the directory follows it. Let's Explore shows the town's name, with the area it's in under it, since its pages cover the whole area. Set your place with it before this change? Tap the target once more. If it can't name the area, it says so; pick a region or type a ZIP instead. To change it, tap the place again.
+796: 
+797: ### Does "My location" share where I am?
+798: No. It only moves the map on your device. It isn't saved or sent anywhere.
+799: 
+800: ### What do the hearts on the map mean?
+801: A heart in a circle is one of your favorites: a business you linked or saved to your Address Book. Favorites always show on their own, never grouped with other pins.
+802: 
+803: ### What map styles are there?
+804: - **Streets** and **Light** (a faded map, so pins stand out) cover everywhere.
+805: - **Terrain** (topographic) and **Satellite** (with towns and roads labelled) cover the United States.
+806: 
+807: The map remembers the style you chose.
+808: 
+809: ### I set Distance to "My place only" and nothing came up. Now what?
+810: Search says so and tells you how far the nearest one is ("Nothing in Saint Johns. The nearest is 23 mi away."), with buttons for the next distances out, like **25 mi**, **50 mi** and **No limit**, each showing how many it finds. The same happens at any distance, including the 10 mi it starts at ("Nothing within 10 mi of St. Johns. The nearest is 40 mi away."). Tap one and the Distance slider moves with it. Search never looks further on its own. Your place stays as you set it.
+811: 
+812: ### Why do some category names look shorter than in other directories?
+813: Business categories often carry trade codes, like "Automobile Parts & Supplies-Retail-New" or "Feed-Dealers (Whls)". We show the plain name ("Automobile Parts & Supplies", "Feed-Dealers"). "Used" stays, because it tells you something.
+814: 
+815: ### What if there's nothing like it where I am?
+816: The search tells you: "No 'pizza' in St. Johns yet." You can **Recommend one**, or **Add a listing** if it's yours. Below that, it shows the nearest towns that do have it, nearest first. Tap one to see it on the map with what's around it.
+817: 
+818: ### How do I filter the directory?
+819: In Get Local, the line over the list is the filter: tap its kind, distance or place to change them, × to clear one. **Filters** beside it has **Open now**, **Has a phone**, **Has a website** and **★ Favorites**: tick one and it shows in the line, with × to turn it off. Elsewhere, tap the search at the top: at the foot of **Quick Search** are the same filters, with **Near me**.
+820: 
+821: ### How do I arrange Get Local's results?
+822: Tap **Arrange** beside Filters. **Results per page**: 10, 25, 50 or 100. **Show**: businesses closed for good show last, marked Closed; untick it to hide them for you (we never hide them for everyone). **On each card**: which details each business shows and in what order (its kind, distance, hours, address, phone number, website or email); drag them, or use ↑ ↓, × to take one off, **+ Add a detail** to bring one back. The first three share the top line. **On a computer**: the list beside the map, or List, Table or Map. It's remembered on this device, and **Put it all back as it was** undoes it all.
+823: 
+824: ### What are the buttons on a business's card?
+825: **Call** and **Directions** are the round buttons by its name; **⋯** holds **Email**, **Website** and **Peek** (a quick card without leaving the page), each in words, and says so when a business hasn't given an email or a website yet. The link button on the right links the business to your account. The small number beside the name is how sure we are of the listing's details: tap ⓘ to see why.
+826: 
+827: ### Why doesn't a business show Directions?
+828: Its only address is a mailbox (a PO Box or a private mailbox), so there's nowhere to drive to: the card says **Mailing address only**, and its pin on the map marks its town, not a street. If it's your business, add a street address in your listing's editor and Directions appears. Places that keep their address private for the safety of the people they help, like shelters, never show one: call them instead.
+829: 
+830: ### What order are Get Local's results in?
+831: **Best match**, unless you choose otherwise under **Sort**: if you typed words, the closest matches first; then the businesses we're most certain of (how sure we are that a listing's details are right: a business that has claimed its listing and confirmed it rises to the top); then the nearest. **Near me** is always the nearest first, with how many miles. **Nearest first** and **A to Z** are under Sort too.
+832: 
+833: ### How do I change where I'm looking?
+834: Tap the place at the top left of the directory (📍 and the place name) and choose another. To clear it and search everywhere, tap the **×** beside it.
+835: 
+836: ### Why is the search at the top only a ⌕ on Get Local?
+837: Get Local has its own search bar, so the one at the top folds to its ⌕ to keep one search on the page. Tap it (or press Ctrl K, ⌘K on a Mac) to search the whole site: places, stories and groups as well as businesses. On other pages the top search shows in full, with the place you're searching in beside it (tap it to change where).
+838: 
+839: ### In what order are businesses listed?
+840: For a town or "Near me", nearest first. Otherwise, the best match for what you searched.
+841: 
+842: ### Can I comment on a business, a place or an experience?
+843: Yes. Most pages have **Comments** at the bottom: share a tip, or say what it was like. Signed in, the box is right there, with a few ideas to start from on a business (best thing to order, parking, good for kids, accessible?): tap one and it starts your comment for you. Not signed in, tapping the box offers to sign in or make an account. You need to be 18 or older. Comments are public and show your name. You can remove your own, and report one that breaks the rules. Stars and ratings aren't used: say what you think in words.
+844: 
+845: ### What is my gallery?
+846: Every photo and video you keep on Traversence, in one place: open **Gallery** in your Dashboard menu. It's grouped by year and month, by when each photo was taken (six a month, then **View all**), and photos from your journeys and your profile appear there too. **Upload** adds photos and videos (a video can be up to 1 GB; your phone makes photos a sensible size first, and the place a photo was taken is never sent). Tap a photo to see it full screen: swipe or use the arrows, pinch to zoom, and tap the dark background, press Esc or tap × to close. **Select** lets you put several in an album, or delete ones you uploaded (photos from journeys or your profile are removed where they live). Open one and its ⋯ menu edits your photo's caption, its alt text (a description for people who use screen readers) and when it was taken, or deletes it. A business has a gallery too (see below), and an album can be a Portfolio for clients or Brand & documents.
+847: 
+848: ### Who can see my albums?
+849: You choose for each album, under **Edit & who sees it**: **Public** (anyone, shown on your profile's Gallery tab), **Unlisted** (only people with its link or QR code; search engines don't list it) or **Private** (only you and the people you invite). **Share** gives you the link, your phone's share sheet and a QR code. What you upload is private until you put it in an album you share. Open any photo and it says who can see it, from the most open album it's in: **Public**, **Anyone with the link**, **Invited people**, or **Only you** (**Your team** for a business's photos); a journey or profile photo follows its own page. **New link** gives an album a fresh link at once, and making it private does the same, so any link or QR code you shared before stops working, photos included. Deleting an album keeps its photos in your gallery.
+850: 
+851: ### How do I add photos or a video to my business or my profile?
+852: Open your listing (as its owner or manager) or your profile, and tap **Photos & video** on the picture at the top. Add up to 8 photos, or link a YouTube or Vimeo video, and choose which shows first. Use your own photos, or ones you have permission to use. We keep a resized copy and nothing else from the file, such as where it was taken. On a private profile, only your connections see them.
+853: 
+854: ### What do the views and likes on a page mean?
+855: Views count visits that saw the page. Likes count people who liked it. We never show who viewed or liked anything. Likes are checked for automated activity, so a count means real people: likes that come at a machine's pace, or more likes than a page has views, are taken off the count, and anything unusual is looked at by our team. **Share** sends the page with your phone's share options, or copies its link.
+856: 
+857: ### Does Traversence track when I call or visit a business's website?
+858: We count it for the business, never who did it. A tap on Call, Directions, Website or a contact page adds one to that business's count for the day. No name, account, device or address is stored with it. Businesses see the totals for the last 30 days.
+859: 
+860: ### What does Traversence count about how the site is used?
+861: Totals only, never who. We count how many visits see each section, listing, journey and place. We also count how people move between sections, and what they search for in which place, with how many results it found. No name, account, device or address is stored with a count. Search words are lower-cased, with email addresses and long numbers removed, and counted by area and day so search can learn what people here look for and what's missing. They're only shown in our reports once 3 or more visits searched them. Rarer ones are deleted after 90 days. Our own team's visits aren't counted, and a business's own people looking at their listing aren't counted on it, so the numbers are visitors'. Businesses see visits to their listing in Business Insights.
+862: 
+863: ### Why is a pin marked "approximate"?
+864: Until we've placed a listing's street address, its pin sits in the middle of its ZIP area. When you open it on the map, we look the address up and move the pin if it matches. Rural addresses don't always match an exact spot. Mileposts, roads without numbers and mail-only addresses are examples. When we can only place a listing near where it is, we say so.
+865: 
+866: ### A pin is in the wrong place. How do I fix it?
+867: Tap **Wrong spot? Fix the pin** on the map card or the listing page (it shows where there's a pin to fix, so not on a PO box). Drag the pin to the door (or tap the map, or tap **I'm here now** if you're there), then **Send**. You don't need an account. We check every suggestion before the map changes. If you run the business, or you're Traversence staff, your pin is saved at once, and you can change the address too.
+868: 
+869: ### I own the business. How do I change our address or pin?
+870: Open **Location and map pin** from Business in your Dashboard (or from the listing page). Change the address and the pin follows it, or drag the pin to your door and save. Only the business's owners and managers, and Traversence staff, can do this.
+871: 
+872: ### Why doesn't a listing have a map pin?
+873: A few reasons:
+874: - The address is a PO box or mail-only, so there's no place to pin.
+875: - We haven't confirmed the spot yet.
+876: - The business asked to keep its address confidential. Those listings show a phone number only and never appear on the map.
+877: 
+878: ### Where does a business's information come from?
+879: From the evidence. Each listing's details (name, address, phone, website, hours) come from what we can find about the business: its own website, official registries, and other pages that match it by name and address or phone. When those disagree with what we had, **the evidence wins**: the value with the most independent sources goes on the listing by itself. Our team can see every change and undo it. Google, Yelp and Facebook pages only confirm what we found; we never copy from them. Every source we use is on our list with its licence, and the licence decides what we may do with it: keep its facts, show it with credit, link to it, or only use it to confirm. OpenStreetMap, for example, only tells us a place exists and links to it; Wikipedia gives us facts, never its words.
+880: 
+881: Once a business is **claimed and confirmed** (✓ Verified), its owner decides. Nothing we find changes it on its own. While a claim is only **Managed by owner** (step 1 of claiming), what we find can still update the name, phone, address and website, but never anything the owner wrote. Instead the owner sees **We found other information about your business** on their listing, with each value and where we found it, and can **Use this** or **Dismiss** it.
+882: 
+883: ### Why does my listing say "We found other information about your business"?
+884: Only you see it, as the listing's owner. It lists details we found about your business elsewhere (your website, an official registry, another page that matches you) that differ from your listing. Your listing keeps what you set. Tap **Use this** to put a value on your listing, or **Dismiss** to set it aside; dismissed values aren't offered again.
+885: 
+886: ### What does Traversence show on a tribal nation's land?
+887: What is public: established boundaries, key resources and services, public businesses and publicly known places, each with the nation's own name and its rules for visitors. What is sensitive or specific to the nation, such as sacred, burial or ceremonial places and its springs, is not shown. It stays that way until the nation has its own controls on Traversence and decides. When a nation asks us to close something, it stays closed until the nation asks to reopen it.
+888: 
+889: ### Where does the information about a landmark or outdoor place come from?
+890: - **Landmarks:** the name, the kind of feature and the map point come from the federal names registry (USGS Geographic
+891:   Names). The description comes from Wikidata and Wikipedia, credited on the page.
+892: - **Outdoor places** (campgrounds, trailheads, recreation areas): Recreation.gov, the federal recreation registry. That
+893:   covers who runs the place, what you can do there, its phone and its page. It's refreshed each month.
+894: - **Phone lines in a resource guide:** our staff enter them. A line shows only when its number was found on the
+895:   provider's own official page at the last check.
+896: - **On a tribal nation's land:** we keep only the places the nation has opened to visitors. Nothing is kept about the
+897:   rest.
+898: 
+899: Events will work the same way when they're added. Marketplace posts come from the people who post them (see Buying and selling).
+900: 
+901: ### Why doesn't a landmark have a photo?
+902: A landmark's photo comes from Wikimedia Commons, a free library of photos, credited to the person who took it with its licence. If the landmark's own entry has none, we look on Commons for one taken there: free to use, named for the landmark, and taken nearby (or naming its state, county or town). We look every hour, a few landmarks at a time, and look again a month later for ones with nothing yet. You can also add yours with **Share a photo** on the landmark's page.
+903: 
+904: ### Where do a listing's phone number and website come from?
+905: From the business's own website first, then official registries (like the NPI Registry for health care and the IRS
+906: list of nonprofits), then other public pages that show the business with its name and address. A number goes on a
+907: listing when the business's own website, a registry or a government page gives it, or when two separate websites
+908: agree; otherwise our staff check it first. Google, Yelp and Facebook pages are links that tell us where to look,
+909: never a source on their own: we link to them rather than copy what they say. If you own the business, claim your listing to set your own
+910: details: once your claim is confirmed, they're never overwritten.
+911: 
+912: ### I own a business. How do I get it listed?
+913: Use **Add or claim a business** at the bottom of any page. If your business is already listed, claim it. If it isn't, add it yourself: it takes a few minutes from your phone, and it's live as soon as you confirm a code we email you.
+914: 
+915: ### Can I add my business if it only has a Facebook page, or no website at all?
+916: Yes. A website isn't needed. Give its name, what it is, the town, a phone number, and a street address, or tap **Use where I am now** to drop a pin if there's no usable address. Add your Facebook page, website, hours and what you offer if you like, and photos once it's live. Your Traversence listing can be your business's page on the web.
+917: 
+918: Before saving, we check whether it's already listed (the same phone, website or Facebook page, or a similar name in the same town). If it is, we show you and you can claim that listing instead, so there aren't two.
+919: 
+920: ### How do you decide which category a business is in?
+921: From what the business says about itself: what its own website calls it, its name, what it offers and its description, matched as whole words (so a "spa" is never found inside "newspaper"), and from which industry those words point to. When it's clearly one category, that's the one; when it isn't, a person picks. A word that happens to be in a name ("Dollar Tree" isn't a tree service) never decides on its own. We also check the businesses already listed and correct a category that plainly doesn't fit (a school district filed under nurses); anything less certain goes to our team, and a category an owner or our team chose is never changed. If yours is wrong, claim your listing and set it, or use **Suggest a change** on the listing.
+922: 
+923: ### Can my business be in more than one category?
+924: Yes. Every business has one **main category**, shown on its card, and can be listed under **up to 4 more**. On the add-your-business form or in your business dashboard, tap **+** beside the category to add another, then type what it is ("movie theater", "event venue", "party rentals") and pick it from the list. Can't find yours? Pick the closest and tell us; we add new categories as businesses need them. People searching any of those categories find you there too, after the businesses whose main category it is. No plan gets more categories or ranks higher: they're the same for everyone. Pick the ones that match what you really do; that's where they work best.
+925: 
+926: ### What should I put in "What you offer"?
+927: Short names of what people come to you for, one per line: "Matinees", "Private screenings", "Concessions". Anyone searching for one of them finds you, even if it isn't a category. Your business dashboard suggests a few that similar businesses list.
+928: 
+929: ### What name should I use for my business?
+930: The name on your sign works best. What you do ("Movies, Popcorn & Parties") is better in your categories and in "What you offer", where people's searches find it. We'll suggest this if your name looks like it carries a list of services, but it's your choice.
+931: 
+932: ### What do I need to add or claim a business?
+933: A Traversence account (18 or older) with:
+934: - **a confirmed email**: the link we email you when you join (you can ask for it again from the page);
+935: - **a phone number**: it stays private, only our team sees it, so we can reach you about your listing;
+936: 
+937: To add a business, the form also asks for **the business's phone and email**. Your account email is filled in; change it if the business has its own. The business email isn't shown on your listing.
+938: 
+939: If you're not signed in, the page lets you sign in or create an account and keeps what you've typed.
+940: 
+941: ### Where do the listings come from?
+942: From public information: the business's own website, official records such as the federal list of health-care providers (the NPI Registry), open map data, and directories like chambers of commerce. Our crawler gathers what's there, checks that a business is real (its own website, an official record, a government page, two separate sources, or one source whose page says enough about it: that one shows as unconfirmed until more agree), puts it in the category that fits what it says it is, and joins it with what's already listed instead of making a second copy. Each listing goes up unclaimed, ready for its owner to claim. Each fact keeps where it came from, from the first time our crawler sees a business: what it found and which other sources agreed are kept together, and stay with the listing once it goes up (or with the listing it turned out to be). A business we haven't listed yet isn't forgotten either, so the next time it comes up we already know what we've seen. Open map data (OpenStreetMap) only tells our crawler where to look; what we keep is what the business's own site or an official record says.
+943: 
+944: ### How often does your crawler read a website?
+945: Only as often as it changes. Our crawler keeps a note of each page it reads (its address, when, and a fingerprint of its text, never a copy of the page) and asks the website first whether the page has changed; a page that hasn't isn't downloaded again. Pages that change often, like an events calendar, are read again within a week or two, pages that don't up to every three months, and never more often than the site's robots.txt allows. It reads a page's own structured data first (schema.org, the same markup search engines read), so a business that puts its name, address, phone and hours there is read just as it wrote them. On a page that lists many places, like a county's services page or a chamber's members, each one is read as its own place, with the kind of business its words describe and its town. Search finds the businesses named on those pages even before they're listed (see below).
+946: 
+947: ### Can your crawler take a website off a listing by mistake?
+948: It shouldn't, and we've made sure a missed visit never counts. Our crawler works in short runs, and a run sometimes ends before it reaches everything it set out to check. Until now, a website it never got to could be counted as one that didn't load, and after two of those it came off the listing. Now a check that wasn't done is simply done later: a website comes off only when our crawler actually tried it twice, at least three days apart, and it didn't load. The same goes for the pages we read: a visit that ends early keeps everything we already knew from that website, and each page replaces only what that same page said before. Guides are protected the same way. If a guide's draft doesn't finish, the guide stays as it was, and one our team took down stays down. A section someone on our team saves while Claude is writing is kept as they wrote it. The monthly load of natural landmarks never deletes a place that's held for a person or a tribal nation to decide on. We're now checking the websites taken off before this change and putting back those that load (coming). If you see a listing missing its website, tap **Suggest an edit** on the listing and tell us.
+949: 
+950: ### How does your crawler choose which websites to read?
+951: On its own, for most of them. It meets websites through the pages it reads: when a county page or a chamber's list links to another site, that site joins its list too (a link from a business's name on the page is taken as that business's own website). On each site, it reads the site's map of its pages (its sitemap) and its new pages first, so over a few visits it covers the whole site, not just its front pages. Once a month it also reads the free public web archive Common Crawl, which captures billions of pages: from it, it finds every town, county and state office site in the states we cover, and reads up to 50 pages of each website we read regularly without visiting the site itself. Since 2026-11-20 it finds those pages in Common Crawl's URL Index (its index files for bulk reading, as Common Crawl asks), one request at a time, never by querying its index server in bulk; that server is asked only for a single page's copy when a site doesn't load, at most 12 a run. Every website it meets goes on its list with what kind of site it is, from its address and from what the site says about itself (its title and description). A site that said nothing the first time is asked again two weeks later, and any site still waiting for a decision is looked at again every two months. A **Visit website** link next to a business on a page we read fills in that business's website, rather than being treated as a site to read. When our team reads a site through Listing Intake, it counts as a visit too: its pages go in the crawler's notes, the site joins its list, and the places it names are kept for search where the site's terms allow (never from directories we only cite, or a site our team set aside). Public bodies, like government offices, counties, cities and schools, are read regularly from the start, since what they publish is public. Commercial directories and social media are never copied, only cited. Chambers of commerce, tourism sites, organizations and other sites are classified by the crawler itself from their address and what their home page says (coming: it runs once our indexer is switched on), and read regularly; what they say is kept only as far as their terms and licence allow. Nothing waits on a person any more, except tribal nations' websites, which are always a person's decision. Our team can change any call, and theirs always stands. It reads PDFs as well as web pages, like a county's list of transfer stations or a poster of hours. A PDF that's a picture of a page (a scanned flyer) is read by a text scanner (AWS Textract), and a page that only shows its text in a full browser is read through a service that renders it (Tavily), each within a small monthly budget. Neither is ever used on a page a website asks crawlers not to read.
+952: 
+953: ### Does your crawler keep every link it finds?
+954: Yes, as a note, not as a copy (coming: our indexer is built and switched off until we start it). Every link on every page our crawler reads goes into its index, on the same website or another, with the page it came from and the words of the link, so nothing it has seen is lost; there's no longer a limit of 60 links a page or 40 other websites a visit. Keeping a link isn't reading it. A page is read only when its website may be read, its robots.txt allows it, and at a polite pace (one page every second and a half at least, or slower if the site asks). Facebook and Instagram pages are never read, sign-in and account pages never, and a tribal nation's website only when a person on our team says so. A website that blocks us is never tried again by itself; our team decides. A link to a website about somewhere outside the states we cover (another state's own site, like a Kansas city's, or another country's) is kept in the index as **Outside our region** and never read; if our team welcomes that website, it's read like any other (2026-11-19). Pages near the places we already list are read first, then official and first-party websites, then the rest, so the index grows from what matters to people here. What we learn from a page comes back to the index: a page that gave us real places ranks its links higher, and junk (a parked domain, an endless calendar, a search-results page) is remembered as junk by a short fingerprint, so it's never read twice. The indexer works all the time in small batches, so our website never feels it.
+955: 
+956: ### How can your team see where a listing's details came from?
+957: Every fact we hold about a business (its name, address, phone, hours, website) keeps each source that gave it: the business itself, our team, an official record, or a page our crawler read, with the date. For a page, it also shows how it was read (its own structured data, an item on a list, a scanned flyer) and what that website's terms let us do with it. When a page we read names a business we already list, what the page says joins the listing's record as one more source, so where sources disagree, our team sees it at once.
+958: 
+959: ### Do some websites count for more than others?
+960: Yes, by their record. Each website our crawler uses keeps a count of how often what it showed was later borne out (the business was confirmed and listed) and how often it was shown wrong (the business had closed, or never existed). A site that's right nine times in ten counts for more toward the two independent sources a listing needs; one that's often wrong counts for less, or not at all. A duplicate or a business outside what we list doesn't count against a site. Our team can see each site's record and change how it's used.
+961: 
+962: ### What happens when your crawler can't confirm a business?
+963: The free steps come first: our own index, open map data, official records and the business's own website. When they can't settle it, a paid step can, within a monthly budget we set: Claude (an AI from Anthropic) looks the business up on the web and says whether it's open, closed or not found, giving the pages it relied on and the words on them. We check those words are really on those pages before anything counts. A business confirmed this way is listed under the same rules as any other; one shown to have closed is set aside, with the page that says so, and our team can undo it. Places on tribal nations' land, and places whose location is kept private, are always left to a person. Claude also reads the terms of websites like chambers of commerce, to decide whether our crawler may read them regularly or only link to them, quoting the sentence it relied on.
+964: 
+965: ### How does search show it understood me?
+966: At the top of the results, in one line: "Read as a kind of business: Gun Clubs, near St. Johns", "Read as a name", "Read as a need" or "Read as something to do". If that isn't what you meant, the line offers other readings one tap away: another kind your words could mean, or just the words as you typed them. Ask about one thing, like "Blue Hills Motel hours" or "phone for Joe's Diner", and the answer comes first: the hours or the phone, from the listing, or from the page we read it on, with a link to that page.
+967: 
+968: ### What is "From pages we read" in my search results?
+969: Pages our crawler reads regularly whose titles match your words, from sites in the place you're searching: a county notice, a calendar of events, a list of services. Each opens the page itself, so you can read it where it was published. We keep a note of each page (its title, its address, when we read it), never a copy of it.
+970: 
+971: ### What is "Named on pages we read" in my search results?
+972: Businesses our crawler found on pages it reads regularly, like a county's services page or a chamber's members, that aren't Traversence listings yet. They show when we have few listings of our own for what you searched, nearest first, each with the page it's named on (tap it to see that page) and Call or Directions where the page gave a phone or address. Each one is on its way through the same checks as any business we find: once another independent source agrees (its own website, an official record, a map), it's listed; until then it stays here, never mixed in with our listings. Know one of them is closed or wrong? Use **Tell us** under the results.
+973: 
+974: The same rules as our listings apply to them. A place that may be sacred, a burial place or an archaeological site isn't shown here unless it's plainly open to visitors (a museum, a park, a historic site), and on a tribal nation's land only businesses show, with the nation's name and a reminder that visitors follow its rules. A shelter's address is never shown, only its phone. A name that reads as a person's (a contact on a county page, say) isn't shown either. Nothing is thrown away: what isn't shown is kept, marked, for our team and, once their tools exist, the nations.
+975: 
+976: ### Do you send anything private to Google's Gemini?
+977: No. We may use Google's Gemini (its free tier) only to read public web pages into facts, such as a business's hours on its own website, and that's switched off until our team turns it on. Before a page is sent, people's private details (emails, ID numbers, anyone named in a death notice, a court record or with a home address) are taken out, and so is any name we keep back: a sacred, burial or archaeological place, a place specific to a tribal nation, a confidential shelter. What it's asked is written by our system from our own lists of places and kinds of business, never your words. Your searches, posts, messages and anything you type to AI on Traversence go only to Claude, and only as our privacy policy and your AI & Learning setting allow. Gemini never finds businesses for us, and nothing it says becomes a fact on a listing until a public record, an open dataset or the business's own website confirms it.
+978: 
+979: ### Why doesn't a domestic-violence shelter show its address?
+980: To keep the people inside safe. Domestic-violence shelters and safe houses don't take walk-ins: you call, they talk with you, and they arrange where to meet. So their listing shows their phone, and **Need help now?** with 911, the National Domestic Violence Hotline (1-800-799-7233, 24 hours) and its text line (text START to 88788). If a shelter publishes an office address itself, that shows. Calls and texts go straight from your phone; we don't see or keep them. Their listings are also never sent to a search or map service to be checked: we check them against our own records only. Every other place, including homeless and family shelters, crisis centers and care homes, shows its address.
+981: 
+982: ### How do you know a listing is right?
+983: Our crawler checks each business against public sources: its own website, official records, government pages and directories. Open map data (OpenStreetMap) only tells it where to look: its phone, hours and address are never copied, only what the business's own website or another source we read says. A business found on just one website can be listed when that page gives enough (its street address and phone, say); it's marked unconfirmed and is checked again and again until more sources agree. A town someone searches for is looked at again a month later, and for the kind of place they searched (storage, auto repair, pharmacies) when that isn't one we already look for there. When its own website lists its locations, that wins for each location's phone and hours. When a source shows the business at another address, it isn't listed at the old one until that's sorted out. Each listing shows when it was listed and when it was last checked. Our crawler reads each listing's own website again every month while we're less sure of it (under 51) and every three months once we're surer, and Google is checked at least every three months: it fills in what's missing (never changing what a person wrote), and checks that the business is still there. When the website now shows a different phone number or different hours from the listing, our team gets the new ones to check (a site's number can be a head office's, and hours can be one season's), and the listing changes once they confirm. It also checks the listings against each other for one business listed twice (see "How do you keep a business from being listed twice?"); two businesses sharing one number are left as two. A website that stops working, twice a few days apart, comes off the listing (or goes to our team, if the owner entered it), and it stays off until the business's site works again or someone puts it back. Every change to a listing, by our crawler, our team, the owner or a visitor's accepted fix, is kept with who or what made it, and what it replaced is kept too, so nothing we learned is lost and an old value never quietly comes back. A listing's phone, address or website is changed by what other sources say only when two independent sources agree (one website counts once), and a business's name only ever gets spelled out in full, never swapped for another name. When two listings turn out to be one business, what we knew about both is kept together on the one that stays. When a business's own website says it has closed for good, its listing shows **Possibly closed**, quoting what the site says, with **Still open? Tell us**, and our team checks. It shows Closed (still findable, with **Reopened? Tell us**) only once a person or the owner confirms it: one website alone never closes a listing. If the site stops saying so, the notice goes. When its website says it has moved, our team gets the new address to check (never changed on its own, since one branch moving isn't the business moving). When its website doesn't load for us, we try again a few days later and look for Common Crawl's latest copy of it (a free public archive of the web): if that copy is recent, the site is probably up and refusing our crawler, so our team checks it instead of the website coming off the listing, and a missing description can come from the copy, marked with the date it was copied. A missing phone is looked for in our own copies of the public registries first (the NPI Registry for health care, Recreation.gov for recreation areas), matched by name and street, and only then on the web; a listing our copies or its website flag as possibly closed is first in line for the Google check. If our main mail server doesn't answer, the site's own emails (sign-in codes, notices, receipts) go through our backup mail service, Amazon SES, from send.traversence.com. When the weather service can't give us a forecast, a place's guide shows a link to the National Weather Service's own forecast for it instead. If the check for a place's events fails, it's tried again the next day; otherwise each place is checked weekly. Something wrong? Use **Closed, moved or listed twice? Tell us** on the listing, or claim it if it's yours.
+984: 
+985: ### What does "Possibly closed" on a listing mean?
+986: The listing now says **Still open?**, with the source's own words. One source we read, often the business's own website or an open dataset, says it may have closed. It's a caution, never a closing: the listing stays up, with the source's own words. Under it you can answer **Yes, it's open** or **It's closed** (counted once a day per device, never who). When the notice has stood for 30 days without enough visitors saying it's open, or a visitor and a source both say it closed, our team checks: a call, a visit or a photo of its sign. Only our team or the owner marks a listing Closed, and a closed listing stays findable with **Reopened? Tell us**.
+987: 
+988: ### How do you keep a business from being listed twice?
+989: Every way a listing is made or shown again (our crawler's finds, the businesses' own "Add a business", our team's adds, a "Help us find this business" answer, a listing put back) goes through one identity check first. It compares the business with everything we list nearby, including listings that are hidden, by its name (with "LLC", "Inc" and plurals set aside), its phone (an extension doesn't count) and its street address written any way ("Rd" or "Road", a suite or none). If it's the same business, what's new fills the gaps in the listing we have, and nothing is listed twice. A separate check, switched on by our team, looks over the listings already live: two that are exactly the same business become one by themselves, two that differ on a detail (a suite, a second phone, a different website) are checked against public sources first, and only what the evidence can't settle, or a listing a business has claimed, comes to our team. Both stay on the site meanwhile. Another location of a business, or a doctor at a clinic, is never treated as a duplicate.
+990: 
+991: ### Do you use open business datasets?
+992: Coming, and switched off until our team turns it on. Open datasets that anyone may use (Overture Maps and Foursquare's open places, under their licences, credited) will tell our crawler which businesses are in a town we don't cover well yet. Each one goes through the same identity check as everything else, so a business we already list only gets what's missing filled in, and a find is listed only once it has a real name and a phone or street address we're allowed to keep, at the confidence its sources earn. A dataset saying a place has closed only asks our team to check it; it never takes a listing down by itself.
+993: 
+994: ### Can search engines find Traversence?
+995: Not yet. Until we open the site to search engines, every page (the home page, sign-in, the directory, listings, guides and businesses' storefronts on trvgo.us) asks them not to list it, and our sitemap lists nothing. You can still share any link, and anyone can open it. When we open the site, the public pages (listings, places, towns, guides and the like) go into the sitemap, while trial and unverified listings, private or confidential businesses, first-look guides, drafts and places told only as a story stay out. Sign-in, your account, your messages, the admin and our own tools are never listed, and nor is staging, where our team tests changes.
+996: 
+997: ### Why did a listing I saw move to another link?
+998: It was the same business as another listing, so the two became one. The old link takes you to the one we kept, with everything we knew about both. If we got it wrong, tell us with **Closed, moved or listed twice? Tell us** on the listing: our team can undo it exactly, and the two are never put together again.
+999: 
+1000: ### Will you merge my claimed listing with another one?
+1001: Never without asking you. When a listing you manage may be the same business as another, our team asks you first, and what you entered is never changed by it.
+1002: 
+1003: ### What is the number in the circle on a listing?
+1004: How sure we are of the listing, out of 100. It's on its card in the directory, guides, the map and search; on the listing's own page it's said in words ("How sure we are: Qualified", with **How we know**). Tap it to see how we know: each source that agrees (our own team, the owner, local people, an official registry, a government page, its own website, a chamber of commerce) and when we last saw it. Many rural businesses have no website or online record, so what our team enters and checks, the owner's claim and local people's confirmations count the most; having no website never counts against a listing. Red (up to 25) means our crawler found it and nothing else has confirmed it yet; orange (26 to 50) means some sources agree; gold (51 to 75) means enough independent sources agree; green (76 and up) means a person stands behind it: our team checked it, or the owner claimed it (with ✓ once they've shown it's theirs). Sources and computers alone never make a listing green, but they still count once it is: a claimed listing that other sources back up climbs toward 100. Older evidence counts for less, and a website that stops working or a closure report lowers it. Under the evidence, **Is this right?** lets you say Yes (it counts once a day from your device, and we never record who) or No (it opens a correction our team reviews).
+1005: 
+1006: 
+1007: ### What's on a listing's page?
+1008: Its photo, then a card with, in its top-right corner, the **Link** button with **⋯** beside it. **⋯** opens what you can do: **Call**, **Email**, **Directions**, **Map**, **Website**, **Contact**, **Message** (or **Leave a message** when the business isn't on Traversence yet), **Save contact** and **QR code**; tap one, or ×, or anywhere outside to close it. The card leads with its name, address, town and phone, then its categories in small words (each one searches for more like it near there, with the most specific first and any "Other" last), who runs it or whether it's claimed, and **How sure we are**, which opens **How we know**. **Link** links you with the business (sign in first). **About** shows when there's something to say about it.
+1009: ### Why did Traversence call my business?
+1010: To check your listing is right. Many local businesses have no website or online record, so our team calls the ones we're least sure of to confirm you're open and your name, phone and address are right. It takes a minute, and it's how your listing earns its green "Confirmed by Traversence" mark. We may also tell you how to claim your listing (free), so you can keep it up to date yourself. If we reached a wrong number, or you've moved or closed, tell us on the call, or use **Closed, moved or listed twice? Tell us** on the listing.
+1011: 
+1012: ### My business is listed and I didn't ask for it. Can I change it or have it removed?
+1013: Yes. Claim it (**Claim it** on the listing) to correct it, add what's missing, or make details private. Or use **Closed, moved or listed twice? Tell us** on the listing to ask us to remove it, and our team takes it off the site.
+1014: 
+1015: ### Someone told you about a business. How does it get listed?
+1016: If it isn't yours, use **Not your business? Tell us about it instead** on the same page. Our team checks it, adds it (a website isn't needed) and emails you when it's on the site. If you said it's yours, that email has a **Claim it** link.
+1017: 
+1018: ### My business is listed, but I never added it. How did it get here?
+1019: Most listings come from public records and our crawler. Our team also adds businesses they come across: from a business card someone hands them, or from a receipt, a menu or a sign where they've been a customer. Those start unclaimed, with what was on the card or receipt, and our crawler fills in the rest. Claim it to manage it yourself, or tap **Suggest an edit** on it if something's wrong.
+1020: 
+1021: ### How do I claim my business?
+1022: Open your listing and tap **Claim it**, at the top right of its photo (on a park or a public office it reads **Staff? Claim it**; on a nonprofit or a church, **Run it? Claim it**). You'll need a Traversence account (18 or older) with your email confirmed. Then:
+1023: 1. **Confirm by email.** We send a code to your account email. Enter it and your listing shows **Managed by owner**: you can edit its description, hours, services and photos right away.
+1024: 2. **Get verified.** Tap **Send verification request**. Our team gets your listing and how to reach you, checks it (usually the same day) and confirms it, and your listing shows **✓ Verified**. If they need something first, such as a call or a photo of the storefront, they'll email you, and you can send a new request when it's ready. You can also text your claim's code (it looks like TV-1234) to our Verify number instead.
+1025: 3. **Choose a plan.** Free, or a paid plan (see below). Agencies and nonprofits stay on Free: plans for them are coming.
+1026: 
+1027: Your business dashboard (**Manage** on your listing) shows where your claim stands and what's left.
+1028: 
+1029: ### Who can claim a park, a public office, a nonprofit or a church?
+1030: The people who run it. Each listing knows what kind of place it is, and its claim page asks the right things.
+1031: - **A park or a public office** is claimed by the agency's staff: a site or park manager, agency staff, or whoever handles its public information. The page shows which agency runs it (for example, State of Arizona › Arizona State Parks & Trails). If that's wrong, or it doesn't know yet, you can say which agency it is and our team checks it. The quickest way to be confirmed is a code sent to your email at the agency's own website. A claim covers the place you look after; claiming for the whole agency, every place it runs, in one go is coming.
+1032: - **A nonprofit or a church** is claimed by its director, pastor or leader, its staff, a board member or a volunteer.
+1033: - **A place on a tribal nation's land** that the nation runs: the nation decides who speaks for it. Until the nation's own tools are ready, your request comes to our team, who check with the nation first.
+1034: 
+1035: Agencies and nonprofits keep everything a claimed listing gets on Free; plans made for them are coming.
+1036: 
+1037: ### What does "Managed by owner" mean?
+1038: Someone has added or claimed the listing and confirmed it by email, and it's waiting to be verified. Until it's verified it isn't shown to search engines. They can edit the description, hours, services and photos. Changes to the name, phone, address and website wait for our team until the claim is confirmed, so customers are never sent to the wrong place.
+1039: 
+1040: ### I texted from a different number. What happens?
+1041: That's fine: in a lot of small businesses the owner's own cell is the business phone. Someone from our team will contact you at that number within 48 hours to confirm who you are and your role with the business. If you can't text, you can instead use an email at your business's own website domain (when your listing has a website), send a document such as a business license or utility bill (only our team sees it, and it's deleted as soon as your claim is decided), or ask for a call or a visit at a time that suits you.
+1042: 
+1043: ### Why did Traversence contact my business?
+1044: Your business is listed on Traversence from public information, and claiming it is free. Someone from Traversence may
+1045: call, stop by, or email the address your business publishes, to offer you the listing: once it's yours you can
+1046: correct the details, add your hours and photos, and answer people who message you. We use only your business's
+1047: public phone, website and email, and never sell them. If you'd rather not hear from us, say so (or reply "no thanks"
+1048: to the email) and we won't contact you about it again.
+1049: 
+1050: ### Someone else already claimed my business. What can I do?
+1051: Ask to claim it anyway. Only one claim goes ahead at a time, so yours is saved as **Claim Request On Hold**, not turned down, and our team is told straight away. Leave a way to reach you and anything that shows the business is yours. If the listing has a confirmed owner and you believe that's wrong, you can question it from the claim page: the owner is told and can answer, and our team decides. Nothing changes on the listing while that happens.
+1052: 
+1053: ### I have more than one location. Do I claim each one?
+1054: When you claim one, we look for your other locations (the same name, phone or website) and offer to claim them together. Each location stays its own listing, with its own page. One confirmation can cover them all when it shows every location: your website lists them, or you send photos or a brochure that does. Otherwise each location is confirmed on its own.

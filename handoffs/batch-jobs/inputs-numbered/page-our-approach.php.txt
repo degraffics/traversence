@@ -1,0 +1,82 @@
+1: <?php
+2: // our-approach.php — "Our approach to linking": the commitments in decisions/0050, 0051 and 0052, in plain words.
+3: // Linked from every activation panel, Privacy Settings and the footer. Not the legal privacy policy (that is
+4: // privacy.php, still to be written and reviewed); wording here gets legal review before public launch.
+5: require_once __DIR__ . '/../app/ui/page-shell.php';
+6: tv_page_start('Our approach to linking', ['description' => 'How Traversence treats what you link, save and write: what a link is for, what we never do, and what you control.']);
+7: $h2 = 'font-serif font-bold text-xl text-[#3E2B1F] mt-2';
+8: $card = 'bg-[#F7EFDC] border border-[#CBB98D]/70 rounded-2xl shadow-md p-5 sm:p-6 space-y-3 text-[0.95rem] leading-relaxed text-[#3E2B1F]';
+9: ?>
+10: <article class="max-w-3xl mx-auto space-y-5">
+11:   <header>
+12:     <p class="text-[11px] uppercase tracking-widest text-[#8A7355]">Trust</p>
+13:     <h1 class="font-serif font-bold text-3xl sm:text-4xl">Our approach to linking</h1>
+14:     <p class="mt-2 text-[#5C4632]">On most platforms, every follow and every connection is also a data point: used to rank what you see, to target ads, to map who knows whom, and to train AI. Traversence works differently, so you can connect to anything, including a clinic, a recovery program, a food bank, a church or a tribal nation's services, without that becoming a profile of you.</p>
+15:   </header>
+16: 
+17:   <section class="<?= $card ?>">
+18:     <h2 class="<?= $h2 ?>">A link is for you</h2>
+19:     <p>Linking a place, a business or a person fills your own feeds with what they share. That's what it's for.</p>
+20:     <ul class="list-disc pl-5 space-y-1.5">
+21:       <li><strong>Links are open connections.</strong> A business or person you link can see that you linked them, so it's a real, two-way connection. They can message you in your Traversence inbox; sales messages follow the marketing choices you set, and you can mute any kind of message.</li>
+22:       <li><strong>Links to places and topics have no other side.</strong> Nobody is told.</li>
+23:       <li><strong>Links pull, they never push.</strong> Linking brings their posts to you; it never sends yours to them.</li>
+24:       <li><strong>No one else sees who you link.</strong> Only you, and the one you linked.</li>
+25:     </ul>
+26:   </section>
+27: 
+28:   <section class="<?= $card ?>">
+29:     <h2 class="<?= $h2 ?>">Want it private? Use your Address Book</h2>
+30:     <p>Your Address Book is private. Save a business, a member, or anyone who isn't on Traversence, and they are never told. From there you can message them, write yourself a note, and choose which of your details (phone, email, address) to share with each person, and take them back any time. Nothing happens until you act.</p>
+31:   </section>
+32: 
+33:   <section class="<?= $card ?>">
+34:     <h2 class="<?= $h2 ?>">What we never do</h2>
+35:     <ul class="list-disc pl-5 space-y-1.5">
+36:       <li><strong>No selling or renting</strong> of your links, profile, contacts or activity, to anyone.</li>
+37:       <li><strong>No ad targeting.</strong> A business reaches only the people who chose to link it, and only in the inbox.</li>
+38:       <li><strong>No sensitive labels.</strong> We don't infer or label health, recovery, religion, ethnicity, tribal membership, sexuality, politics or finances from what you link, and we don't let anyone else do it. Linking a clinic says nothing about you.</li>
+39:       <li><strong>No "people you may know".</strong> We don't mine who links whom. People find each other by searching or by invitation.</li>
+40:       <li><strong>No tracking you around the web.</strong> No advertising pixels or tracking scripts.</li>
+41:       <li><strong>No location from linking.</strong> A link never reveals where you live or where you are. Your email and location are never shown to anyone.</li>
+42:     </ul>
+43:   </section>
+44: 
+45:   <section class="<?= $card ?>">
+46:     <h2 class="<?= $h2 ?>">AI: your choice, one place</h2>
+47:     <p><strong>AI Assist &amp; Learning</strong> is off until you turn it on, once, in Privacy Settings. If you do, it can help you (suggestions, drafting a message, summarizing your group), and what you write from then on can help Traversence recognize topics and missing places, kept only as patterns that don't identify anyone.</p>
+48:     <ul class="list-disc pl-5 space-y-1.5">
+49:       <li><strong>Private messages and contact cards never enter shared learning,</strong> whatever you choose. Only your own AI Assist reads them, for you.</li>
+50:       <li><strong>If you don't turn it on,</strong> nothing you write is read or scanned for learning. If you'd like to help others find things anyway, tag a place or topic with <strong>@</strong>: only the tag counts, never your words or your name.</li>
+51:       <li><strong>Changes apply from that point on,</strong> never backwards. You can see what has been learned from you, reset it, or switch it off.</li>
+52:       <li><strong>AI providers we use must not train on Traversence data.</strong></li>
+53:     </ul>
+54:   </section>
+55: 
+56:   <section class="<?= $card ?>">
+57:     <h2 class="<?= $h2 ?>">Messages</h2>
+58:     <ul class="list-disc pl-5 space-y-1.5">
+59:       <li>Someone you haven't linked or accepted sends a <strong>message request</strong>: you Accept, Decline or Block. Every conversation has Report, Block and Help.</li>
+60:       <li>Messages from a business are labelled: Sales, Support, General inquiry or Relationship management. Mute any kind, from any business; report a sales message that's labelled as something else.</li>
+61:       <li>Visitors without an account can ask a business a question. Their contact goes only to that business, to answer, and never to marketing.</li>
+62:     </ul>
+63:   </section>
+64: 
+65:   <section class="<?= $card ?>">
+66:     <h2 class="<?= $h2 ?>">What you control</h2>
+67:     <ul class="list-disc pl-5 space-y-1.5">
+68:       <li>Every tool (Linking, Address Book, AI Assist &amp; Learning) is switched on only with your consent, and switched off any time in <a class="underline text-amber-800" href="/user/dashboard.php#security">Privacy Settings</a>. Switching off pauses a tool; nothing is deleted.</li>
+69:       <li>Every link is listed in your account, with one-tap unlink and mute. You can remove anyone who linked you.</li>
+70:       <li>Email and text messages from a business only ever with your explicit, per-channel consent.</li>
+71:       <li>Download and delete your data: coming soon.</li>
+72:     </ul>
+73:   </section>
+74: 
+75:   <section class="<?= $card ?>">
+76:     <h2 class="<?= $h2 ?>">What we do count</h2>
+77:     <p>To run and improve Traversence we count things in the aggregate: how many people link a place, which categories are linked most, whether the site is healthy. These counts are never tied to a named person outside Traversence and never used to target anyone.</p>
+78:   </section>
+79: 
+80:   <p class="text-xs text-[#8A7355] px-1">This page explains our commitments in plain words. The full <a class="underline" href="/privacy.php">privacy policy</a> is being written and will be legally reviewed before public launch.</p>
+81: </article>
+82: <?php tv_page_end();
