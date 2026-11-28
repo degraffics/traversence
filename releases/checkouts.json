@@ -149,6 +149,17 @@
    "expires": "2026-11-28T17:12:32Z",
    "release": "task-seed-4.zip",
    "callers": {}
+  },
+  {
+   "path": "app/migrations/2026-11-28_task_seed_5.sql",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5jUERktaQyfVHekd5i",
+   "why": "release task-seed-5.zip",
+   "since": "2026-11-28T13:22:04Z",
+   "expires": "2026-11-28T17:22:04Z",
+   "release": "task-seed-5.zip",
+   "callers": {}
   }
  ],
  "lapsed": [
