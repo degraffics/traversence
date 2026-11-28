@@ -39,6 +39,16 @@
             "at": "2026-11-28T14:25:03+00:00",
             "by": 0,
             "msg": "Uploaded ruling1-holds-3.zip: 3 files."
+        },
+        {
+            "at": "2026-11-28T14:25:04+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/ruling1-holds-3.zip (git b675528d75)."
+        },
+        {
+            "at": "2026-11-28T14:25:06+00:00",
+            "by": 0,
+            "msg": "Waiting for its before look: the advocates look at staging as it is, then it goes on staging (the before-and-after check)."
         }
     ]
 }
