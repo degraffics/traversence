@@ -40,10 +40,27 @@ Job files are in `handoffs/batch-jobs/`. Costs are the real figures `batch.py fe
 | 21 | Reconcile: team, security, money, gates, and 18 atlas areas (merged atlas in research/platform-atlas/merged/) | `job21-reconcile/` | 22 | see file | $2.44 |
 | 21b | Reconcile: atlas README | `job21b-reconcile-atlas-readme/` | 1 | see file | $0.12 |
 
-**Total: $54.28** (wave 1 $36.58; wave 2 $17.70, independent second passes and reconciles).
+| W3-1 | Before-and-after narrowing + advocates' audit schedule (ship-ready drafts in ready/) | `w3-1-before-after/` | 1 | | $0.54 |
+| W3-2 | Search release 1, ship-ready draft | `w3-2-search-release-1/` | 1 | | $0.66 |
+| W3-3 | Care claim kind, ship-ready draft | `w3-3-care-claim-kind/` | 1 | | $0.39 |
+| W3-4a | Confirmed findings extracted from the security and money reconciles | `w3-4a-extract-findings/` | 2 | | $0.06 |
+| W3-4b | One fix per confirmed security/money finding, by file | `w3-4b-security-money-fixes/` | 21 | | $4.63 |
+| W3-5 | Promise-check fixes: FAQ and page wording as OLD/NEW blocks | `w3-5-promise-fixes/` | 8 | | $1.43 |
+| W3-6 | Team agent code, gate-critical roles | `w3-6-team-gate-roles/` | 5 | | $2.57 |
+| W3-7 | Decided-not-live items (events first), ship-ready drafts | `w3-7-decided-not-live/` | 15 | | $6.13 |
+| W3-8 | Data-capture review, full draft (also research/data-capture-review-2026-12-02-batch-draft.md; the existing file was left untouched) | `w3-8-data-capture/` | 1 | | $0.37 |
+| W3-9 | Reruns at a 64k output limit of answers that hit the 32k limit | `w3-9-truncated-reruns/` | 11 | | $8.25 |
+
+**Total: $79.31** (wave 1 $36.58; wave 2 $17.70, independent second passes and reconciles; wave 3 $25.03).
 
 Notes:
 - Jobs 1-2 omit "our source" (not public). Job 12 can't see most search-table indexes: app/migrations isn't in the mirror.
 - Job 19 doesn't cover open Work-queue parents (live database). Job 15's counts come from the public search at 03:50 UTC.
 - Inputs for jobs 9-20 were line-numbered copies kept in a session scratch folder (not committed); jobs 3-8's are in `handoffs/batch-jobs/inputs-numbered/`.
 - The platform atlas is in `research/platform-atlas/` (18 areas and its README).
+
+## Wave 3: ship-ready drafts (`research/ai-results/ready/<release>/`)
+
+Each folder holds whole final files (`files/<live path>`), `tests/`, `faq/` and `release.json`, parsed from the answers. **Not run or verified**; the lane session verifies, tests, zip-checks and sends. Files over about 60 KB are given as changed regions with anchors (`regions: true` in release.json), not whole files. FAQ and page-wording fixes are OLD/NEW blocks.
+
+Answers that hit the output limit even after a rerun (the last file is cut off; each folder has a TRUNCATED.md): `events`, `fix-money-AiCredits-php`, `fix-money-KindCheckout-php`, `fix-money-MarketCheckout-php`, `fix-money-MarketPay-php`, `fix-security-upload-php`, `team-advocates`.

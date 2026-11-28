@@ -1,0 +1,48 @@
+{
+  "name": "f14-throttle-password-reset",
+  "gate": "security-med",
+  "what": "Adds per-IP and per-target throttling to the password-reset request endpoint. The limits apply whether or not the captcha is on, which stops mail bombing. The per-IP limit returns 429 with Retry-After. The per-target (email) limit silently skips token creation and email sending and returns the same generic success, so account existence is still not revealed. The new reusable app/lib/RateLimiter.php is file-backed and stores keys as hashes only. Register is NOT changed in this release because its file was not attached.",
+  "files": [
+    "files/app/lib/RateLimiter.php",
+    "files/sync-storage/api/auth/password/request-reset.php",
+    "tests/ratelimiter-test.php",
+    "tests/request-reset-static-test.php",
+    "faq/faq-entries.md"
+  ],
+  "decisions": [
+    "Default limits: 10 requests per IP per hour and 3 reset emails per address per hour. A person must confirm these.",
+    "Throttling is always on, not only while the captcha is off. This is the safest default and the captcha stays as decisions/0097 describes.",
+    "Per-target limit hit: return the identical generic success and do not reveal it. Per-IP limit hit: HTTP 429 'rate_limited', which reveals nothing about accounts.",
+    "Blocked attempts are not recorded, so a sender cannot extend a lockout by retrying.",
+    "Storage fails OPEN with error_log when the dir is unusable, so password resets are never broken. The alternative, fail-closed, needs a person's decision.",
+    "The client IP is REMOTE_ADDR only. X-Forwarded-For is NOT trusted by default, because spoofing it would bypass the limit.",
+    "File-backed storage, not DB: the DB layer/schema was not shown, so no migration was invented. Default dir is RATE_LIMIT_DIR, else the sys temp dir plus /traversence-ratelimit.",
+    "The register endpoint is out of scope here because its file was not shown. RateLimiter is designed so register can call RateLimiter::hit('register-ip', ...) and RateLimiter::hit('register-target', ...) in a follow-up."
+  ],
+  "tests": [
+    "php tests/ratelimiter-test.php",
+    "php tests/request-reset-static-test.php"
+  ],
+  "risks": [
+    "NOTHING here has been run, tested, linted or zip-checked. This is a draft for the lane session to verify.",
+    "If the site is behind a proxy, load balancer or CDN, REMOTE_ADDR is the proxy's IP. All visitors would then share one per-IP bucket, and legitimate users could get 429 errors.",
+    "If the sys temp dir is per-process (systemd PrivateTmp) or wiped, limits reset or are not shared across PHP workers. Set RATE_LIMIT_DIR to a persistent shared, writable, non-web-served dir.",
+    "Across multiple web servers, file-backed limits are per-server, so the effective limit is multiplied by the server count.",
+    "Fail-open means a broken storage dir silently disables throttling (logged only).",
+    "A legitimate user who requests more than 3 resets in an hour gets no further emails, and only the FAQ explains this.",
+    "Limiter files accumulate, one per IP/email. Opportunistic GC deletes files idle for more than 24h on about 1% of requests.",
+    "The register endpoint remains unthrottled until a follow-up release, so the f14 finding is only partly closed."
+  ],
+  "verify": [
+    "Confirm the live path. It was guessed as sync-storage/api/auth/password/request-reset.php from the attachment name and the ../../../../app requires. app/lib/RateLimiter.php is a NEW file next to the existing Mailer.php and Captcha.php.",
+    "PERSON DECISION: confirm the limits (per IP 10/hour, per address 3/hour).",
+    "PERSON DECISION: fail-open (default) or fail-closed when limiter storage is unusable.",
+    "PERSON DECISION / INFRA: is there a reverse proxy? If yes, decide which trusted proxy header to use for the client IP.",
+    "Set RATE_LIMIT_DIR in .env to a persistent, shared, writable directory outside the web root. Confirm the PHP user can write to it.",
+    "register endpoint: file not shown. It was not changed. A follow-up must add per-IP and per-target RateLimiter::hit calls there.",
+    "app/bootstrap.php, Response, Auth, Mailer, Captcha: file not shown. The patch assumes Response::error() ends the request (as the existing code already relies on), and that header() before it is safe.",
+    "Manual check on staging: send 11 POSTs from one IP and confirm the 11th returns 429 with Retry-After. Send 4 POSTs for one existing address and confirm only 3 emails arrive and all 4 responses are identical.",
+    "Run both test scripts and php -l on both changed/new PHP files."
+  ],
+  "regions": false
+}

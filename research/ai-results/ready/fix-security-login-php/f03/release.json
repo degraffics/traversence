@@ -1,0 +1,33 @@
+{
+  "name": "f03-login-brute-force-limiter",
+  "gate": "high - ship first. f12 and f13 are stacked on top of this login.php.",
+  "what": "Adds a sliding-window limiter for failed sign-ins to the login endpoint, counted per client IP and per typed email. When either limit is reached, the endpoint returns HTTP 429 'rate_limited' with Retry-After. This check runs before the captcha and before Auth::attemptLogin. Each 401 records a failure. A successful sign-in clears that account's counter.",
+  "files": [
+    "files/app/lib/LoginThrottle.php",
+    "files/sync-storage/api/auth/login.php"
+  ],
+  "decisions": [
+    "Limits: 30 failures per IP and 10 per account in 15 minutes (constants in LoginThrottle). A person should confirm these numbers.",
+    "The client IP comes from REMOTE_ADDR only, and X-Forwarded-For is ignored. Behind a proxy or CDN, every visitor would share one IP bucket. If the site runs behind one, a person must decide which trusted header to use.",
+    "Only 401 (invalid_credentials) counts as a failure. 409/403/422/400 do not count (f13 later folds 409/403 into 401 by default).",
+    "The per-account limit lets an attacker lock a real user out for up to 15 minutes. This is accepted as the tradeoff, and the lockout is temporary.",
+    "Test accounts (TestAccounts bypass) are NOT exempt from the limiter.",
+    "Storage is flock'd JSON files under <root>/storage/login-throttle (no DB, because the DB layer is not shown). The limiter fails OPEN with error_log if the directory is not writable."
+  ],
+  "tests": ["tests/login-throttle-test.php"],
+  "risks": [
+    "Nothing here has been run, tested or zip-checked. This is a draft.",
+    "Assumes Response::error() ends the request, as the existing code already relies on.",
+    "File storage does not work across multiple web servers. A shared store (DB or Redis) is needed if there is more than one server.",
+    "Counter files build up. A 1% random gc removes stale ones.",
+    "header('Retry-After') could be overridden or dropped if Response::error clears headers (Response not shown)."
+  ],
+  "verify": [
+    "Live path assumed to be sync-storage/api/auth/login.php, inferred from the attachment name and require paths. Confirm before copying.",
+    "app/bootstrap.php, Response, Auth, Captcha and TestAccounts: file not shown.",
+    "Confirm <root>/storage/ is writable by PHP and NOT web-served (the files hold only hashes and timestamps).",
+    "PERSON'S DECISION: the limit numbers, and proxy/trusted-IP handling.",
+    "Run php tests/login-throttle-test.php, then manually make 11 wrong-password attempts and expect a 429 with Retry-After."
+  ],
+  "regions": false
+}

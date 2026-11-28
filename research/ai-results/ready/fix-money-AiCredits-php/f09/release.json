@@ -1,0 +1,26 @@
+{
+  "name": "f09-ai-credits-count-fails-closed",
+  "gate": "Needs f11 first (this file contains f11's change). Second of four releases to app/lib/AiCredits.php.",
+  "what": "AiCredits::count() returned 0 when its query failed, so on a database error every free ask and credit looked unused (fails open). It now returns null and logs the error. pots() then treats the plan's credits as all used (left 0), state() gives no free asks, and both say 'unread' => true so /ai/ can explain why.",
+  "files": ["files/app/lib/AiCredits.php", "tests/ai-credits-f09-count-fails-closed.php", "faq/faq-entries.md"],
+  "decisions": [
+    "Return null (as a private ?int) rather than rethrow. Rethrowing would make pots() silently drop the plan (its try/catch), so the member would look unfunded. It would also throw out of state(), whose free-ask count isn't wrapped, and could break /ai/.",
+    "Not PHP_INT_MAX: 'used' is displayed, so it would show 9223372036854775807. On failure, used is set to the plan's credits instead.",
+    "funded stays true on a count error. The plan really is paid; only the count is unknown. So the Chameleon Filter's funded() is unchanged.",
+    "'why' keeps its existing values ('used' here). The new 'unread' key is added, and /ai/ can show a 'couldn't check, try again' message. Needs a person: whether /ai/ should show that message (page not shown)."
+  ],
+  "tests": ["php tests/ai-credits-f09-count-fails-closed.php [path/to/AiCredits.php]  (needs pdo_sqlite; stubs Database/Billing/Team/Thresholds)"],
+  "risks": [
+    "DRAFT: nothing here has been run, tested or zip-checked.",
+    "During a database fault, members with a paid plan see 'used' and can't ask until it recovers. That's intended (fails closed), but the message may confuse them until /ai/ reads 'unread'.",
+    "state() and pots() return a new key, 'unread'. Any code that compares the whole array or expects exact keys would notice it.",
+    "error_log is written on every failing count. A long outage could make the log noisy."
+  ],
+  "verify": [
+    "/ai/ and ItemWriter (not shown): confirm they gate on 'next' (null blocks), not on 'free_left' or 'left' alone.",
+    "Decide whether /ai/ shows a specific message when state()['unread'] is true (page not shown).",
+    "Run this release's test plus f11's test against the shipped file.",
+    "Database.php, Billing.php, Team.php and Thresholds.php are not shown; the tests stub them."
+  ],
+  "regions": false
+}

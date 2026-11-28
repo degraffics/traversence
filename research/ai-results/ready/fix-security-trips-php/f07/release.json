@@ -1,0 +1,25 @@
+{
+  "name": "f07-trips-db-error-hidden",
+  "gate": "lane session: verify, run tests, zip-check before ship (draft, nothing run)",
+  "what": "api/trips.php: PDOException extends RuntimeException, so database faults were caught by the RuntimeException block (was :157-159) and their SQL text echoed with a 422, including on the guest actions addable/resolve/journey that query before the sign-in check. A catch (PDOException) now comes first: rollback (guarded), error_log the detail, and answer with the same generic 500 'error' the Throwable block already uses.",
+  "files": ["files/api/trips.php"],
+  "decisions": [
+    "The status and wording copy the existing Throwable block (500, 'error', support@traversence.com), so the client sees nothing new.",
+    "The rollBack in the new block is wrapped in try/catch, so a lost connection cannot raise a second, uncaught PDOException carrying the same text.",
+    "Scope is limited to the catch chain. Trips' own RuntimeException refusals still show their text with a 422, as before."
+  ],
+  "tests": ["tests/trips-pdo-error-hidden.php"],
+  "risks": [
+    "Nothing here has been run, linted or tested. It is a draft.",
+    "A database fault (for example a duplicate key) used to answer 422 'refused'. It now answers 500 'error'. Any client code in js/tv-trips.js or the trip page that branches on 422 for these cases will now take the 500 branch.",
+    "If Trips.php or JourneyPlan.php throws its own RuntimeException subclasses that wrap SQL text (other than PDOException), that text still goes out through the 422 block."
+  ],
+  "verify": [
+    "Live path: the attached file was a scratch copy. Its header says /api/trips.php and it requires __DIR__/../../app, so it sits one folder below the site root (for example <webroot>/api/trips.php). Confirm the real path before zipping; files/api/trips.php is assumed.",
+    "app/bootstrap.php, the Response class, Database and app/lib/Trips.php: file not shown. Confirm that Response::error() sends and exits (the code relies on that), and that Trips.php never deliberately throws a PDOException meant for the visitor.",
+    "Decision for a person: $pdo = Database::connection() runs outside the try block. A connection failure there is handled by whatever bootstrap does (file not shown). Check that display_errors is off in production, or decide whether to move the connection inside the try. That is not changed here.",
+    "Manual check: point a staging copy at a DB user without SELECT on the trips tables, POST {action: addable} as a guest, and expect a 500 with the generic text and the detail in the error log.",
+    "Run: php tests/trips-pdo-error-hidden.php files/api/trips.php"
+  ],
+  "regions": false
+}

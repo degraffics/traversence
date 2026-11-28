@@ -1,0 +1,26 @@
+{
+  "name": "f03-rental-hold-by-time-to-return",
+  "gate": 5,
+  "what": "A rental deposit in 'hold' mode is held on the card only if the return day starts within HOLD_DAYS (6) of now. It used to be allowed by rental length alone, so a short rental booked weeks ahead got a hold that lapses before capture. Otherwise the deposit is charged and refunded on return, the existing fallback. New KindCheckout::holdFits() and HOLD_DAYS; header comment updated (finding cites :8).",
+  "files": ["files/app/lib/KindCheckout.php"],
+  "decisions": [
+    "Measured as the reviewers suggested: strtotime($to) - now <= 6*86400, where $to is the return day from dates() (a same-day rental's $to is the next day, which is more cautious).",
+    "Kept the old '$n > 6' test as well. It is implied by the new test, since 'from' is never in the past.",
+    "NEEDS A PERSON: is 6 days to the start of the return day enough slack? Stripe's online card authorization lasts about 7 days. If the business captures a day late, the hold can still lapse. A safer setting is HOLD_DAYS = 5. Default left at the reviewed 6."
+  ],
+  "tests": ["tests/f03-rental-hold-window.php"],
+  "risks": [
+    "Nothing here has been run, tested or verified. It is a draft.",
+    "The hold is decided in prepare(). If payment happens much later (a pending/awaiting order paid near hold_until), the authorization is placed later, which only shortens the time to return. That case is safe. Payment-time code (MarketCheckout / the Stripe call) is not shown and not rechecked.",
+    "Buyers who booked ahead and expected a hold now see 'refunded on return' and are charged the deposit up front.",
+    "This is a whole-file release cut from the attached live KindCheckout.php alone. It does not contain f04/f18/f19/f20. Shipping several as-is, the later one overwrites the earlier, so the lane must merge. f19 also edits prepare(), but in the ticket/booking lines, not this one."
+  ],
+  "verify": [
+    "Run tests/f03-rental-hold-window.php from tools/kind-tests/ (it requires ../../app/lib/KindCheckout.php and ItemKinds.php).",
+    "Stripe test mode only (QuickBooksPay::guardReal()/testHere() untouched; no real card). Run a 2-day rental starting in 3 weeks and expect 'Deposit (refunded on return)' with hold false. Run one returning in 3 days and expect 'held on your card'.",
+    "MarketCheckout (where $out['hold'] becomes the capture_method): file not shown. Confirm it reads only $out['hold'].",
+    "Person decision: HOLD_DAYS 6 vs 5 (see decisions).",
+    "Gate number 5 is my guess for a money-touching change; confirm."
+  ],
+  "regions": false
+}

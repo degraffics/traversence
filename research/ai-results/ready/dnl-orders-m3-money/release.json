@@ -1,0 +1,54 @@
+{
+  "name": "orders-m3-money",
+  "gate": "Money (decisions/0180's hard money line): the session manager sets the tier; Design reviewer at 1280 and 390, then Jason's pop-up before it ships",
+  "what": "Orders M3, the library half of Back-Office → Money: Outstanding with aging (current, 1–30, 31–60, 61–90, 90+, due later) by client; Take a payment across one client's orders (deposits first, then balances, oldest first, 0177 §4), each part received on its QuickBooks invoice when it has one (0178 note (b)); Credits on account and their use (credit_used written for the first time, 0178 §3), corrected by Cancel the record, never Undo. Orders::money now counts applied credit as paid, never as refundable. SKIPPED, said first: (1) M2b ('how an order goes', paused by Jason 2026-11-24): nothing here builds on it. (2) Order #12's books (waiting for Jason, 'after holiday', 2026-11-27): OrderMoney::HELD lists it in Outstanding but refuses any payment or credit on it from here. (3) The attached job 19 draft was empty: this was drafted from the decisions and live files alone. (4) Open Work-queue parents are in the live database, not attached: not checked. Not in this item and not drafted: Refunds & credit memos view (design §4.4 lists it under M3; the item doesn't, and refunds/credit memos wait for Jason), Remind on Outstanding, credit terms (M7). Not drafted: the page itself (see verify).",
+  "files": [
+    "files/app/lib/OrderMoney.php (new)",
+    "files/app/lib/Orders.php.region-1.php (money, cancelledCents, new creditCancelledCents, cancels unchanged, settle)",
+    "files/app/lib/Orders.php.region-2.php (creditBalance gains ?bool $test; new creditRows, creditLots)",
+    "tests/orders-m3-money.php (to tools/orders-tests/m3-money.php)",
+    "faq/faq-entries.md"
+  ],
+  "decisions": [
+    "research/order-management-design-2026-11-23.md §4.4, §6 M3 (approved as the plan, Jason, 2026-11-23)",
+    "decisions/0177 §4: a payment goes to deposits first, then balances, oldest first",
+    "decisions/0178 §3: credit on account: staff apply it, the system suggests it (OrderMoney::suggestion), never by itself",
+    "decisions/0178 money note (2026-11-23): money never has Undo; a recorded, unprocessed entry has Cancel the record. 0178 §3 says 'with Undo'; the later standing rule wins, so an applied credit has Cancel the record. Session manager to confirm.",
+    "decisions/0178 note (b): a payment recorded here is received on its linked QuickBooks invoice (QuickBooksPay::recordOtherPayment, guardReal inside)",
+    "decisions/0178 §5: no keyed cards: Take a payment records money that came in; it never charges a card, and Wallet's saved cards aren't used",
+    "decisions/0178 note of 2026-11-24: credit memos wait for Jason, so an overpayment is refused, never turned into credit",
+    "decisions/0098: credits last 90 days, used oldest first; the ledger is only added to (a cancel is a row in order_payment_cancels)",
+    "handoffs/decided-not-live.md: M2b paused; Order #12's books wait for Jason; M3 is queue item 2 after item 0 (the order tests green again)"
+  ],
+  "tests": [
+    "tools/orders-tests/m3-money.php: aging buckets and days past due; allocation (deposits first, oldest first, overpayment measured); credit lots (oldest first, 90-day expiry, never negative); Order #12 held, S-12 not. Opt-in DB part (TV_ORDERS_DB=1, QB_ENV=mock, sandbox seeds with no invoice): credit sides kept apart, apply, refuse over-apply, applied credit not refundable, Cancel the record restores it, overpayment refused with nothing recorded, one payment across two orders"
+  ],
+  "risks": [
+    "Nothing here was run, tested, linted or zip-checked: it is a DRAFT for the lane session.",
+    "Orders::money()['paid'] now includes applied credit: every reader (shipHold, vendorHold, dueNow, boardState, completeHold, applyQuickBooks, cancelRecord) sees credit as paid. Intended, but each needs a look; 'cash' is added for anything that must mean money in hand.",
+    "cancelledCents() now counts only charge/deposit cancels (it counted every cancel; before M3 only those existed). Any caller outside Orders.php not shown.",
+    "settle(): 'refunded' now needs net + credit_used <= 0, so an order paid by credit settles as paid. A mixed order fully refunded in cash but with credit applied reads part_refunded.",
+    "Nothing is written to QuickBooks when credit is applied: its invoice keeps the old balance until staff apply the credit memo there (a needs_books event says so). If QuickBooks' 'Automatically apply credits' is on, QuickBooks may apply the same credit memo itself: double use. Check that setting.",
+    "The client's pay link is QuickBooks' invoice page on some orders: after credit is applied here and before it's applied in QuickBooks, a client paying there could overpay.",
+    "Take a payment records with Orders::record directly. The per-order Record the payment in ClientOrders.php is past the attachment's truncation, so whatever else it does (paid_at, GO Codes going live, stage, receipt email) is not done here.",
+    "Each order's part is recorded on its own, not in one transaction (QuickBooks calls can't sit in one). A failure part way leaves the earlier parts recorded, said per order in the result.",
+    "dueSince() calls ClientOrders::dueDate() only if it is public (is_callable). Otherwise it falls back to approved_at/sent_at/created_at plus the terms' days, which may disagree with the board's past due.",
+    "Outstanding calls ClientOrders::boardState() per order (up to 500): heavy on a long list.",
+    "OrderMoney::HELD hard-codes Order #12 by its number: remove the entry when Jason answers.",
+    "The DB test's seed INSERT guesses which orders columns are required; item 0's harness owns the real schema."
+  ],
+  "verify": [
+    "The Back-Office → Money page, its route, the Take a payment drawer, the order page's 'Credit available: $X · Apply it' line, and the API actions: file not shown (admin/backoffice router, tools.php, tv_admin_start, client-order.php, /api/admin/client-order.php). Not drafted; build them on OrderMoney::outstanding/openFor/takePayment/credits/suggestion/applyCredit/cancelCredit.",
+    "Who may take a payment and apply credit (Access::can key and rule): admin/Access.php not shown; the per-order record_pay check should be reused.",
+    "ClientOrders.php's record-payment path, received(), dueDate() visibility, releaseAt(): file shown only in part (truncated); confirm the takePayment parts match what record_pay does.",
+    "Orders.php is about 62 KB: regions:true. Check both ANCHOR first and last lines against live before replacing.",
+    "orders.approved_at, orders.paid_at, order_ledger.qb_payment_id, orders.qb_link_customer exist on live (paid_at and qb_payment_id are used by live code; approved_at isn't seen on orders).",
+    "order_payment_cancels has a unique key on ledger_id (live cancelRecord relies on INSERT IGNORE + rowCount).",
+    "admin/order.php reads money()['credit_used'] and creditBalance(): file not shown; check they still read right.",
+    "No migration in this release: it uses order_payment_cancels (2026-11-24_order_refunds.sql) and existing ledger kinds.",
+    "Item 0 (the order tests green again) should land first so the DB part of the test has its harness.",
+    "QuickBooks' 'Automatically apply credits' setting, in the sandbox first.",
+    "Jason/session manager: Cancel the record (not Undo) for an applied credit, against 0178 §3's wording."
+  ],
+  "regions": true
+}

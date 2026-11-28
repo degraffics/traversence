@@ -1,0 +1,34 @@
+{
+  "name": "faq-part-01-promise-fixes (held: no findings attached)",
+  "gate": "hold",
+  "what": "Was to apply the job 6 promise-check fixes to FAQ lines 276-382 and to the plans, our-approach, privacy, terms, takedown, data-deletion and claim pages. The promise-check file arrived empty, so no wording is changed. This release carries only notes for the lane session.",
+  "files": [
+    "faq/faq-entries.md",
+    "faq/page-wording.md",
+    "release.json"
+  ],
+  "decisions": [
+    "No replacement blocks were written. The job 6 promise check (promise-faq-part-01.md.c40000) is empty, and inventing findings would risk rewording true text or missing real problems.",
+    "No live PHP file is changed, so there are no files/ entries and no regions.",
+    "Possible issues noticed while reading are listed under 'verify' as unconfirmed candidates, not as fixes."
+  ],
+  "tests": [],
+  "risks": [
+    "Nothing here was run, tested or zip-checked; this is a draft for the lane session.",
+    "The promise check appears truncated or missing (blank chunk file with a .c40000 suffix). Promises the check flagged stay unfixed on the site until it is re-attached and this job rerun.",
+    "The 'verify' candidates come from reading only, not from the job 6 answer. Some may be true once the files not shown are checked."
+  ],
+  "verify": [
+    "file not shown: the job 6 promise-check answer for faq-part-01 (attached file is empty). Re-attach and rerun.",
+    "file not shown: app/lib/Billing.php and api/plans.php. Needed to confirm FAQ line 280 'they can only pay in sandbox mode', terms line 99 'we try again after 3 and 7 days', and plans.php line 84 'Each payment is also emailed to you, with a receipt from QuickBooks'.",
+    "Candidate: terms line 97 says 'A free trial starts only after you review it and agree to these Terms'. The plans.php 'Start my free week' button (lines 67-68, 101-105) calls api({action:'try'}) with no agreement step in this file. Check api/plans.php before rewording.",
+    "Candidate: terms line 97 'We email you 5 days and 1 day before it ends, and on the day' and line 94 'a yearly plan gets a reminder 7 days before it renews'. The sending job is not shown (file not shown).",
+    "Candidate: our-approach line 71 says 'Download and delete your data: coming soon.' Privacy lines 37, 134 and 138 and data-deletion lines 24-32 describe deletion as available now (via /user/delete-account.php, file not shown). The pages disagree. A data download tool isn't seen in any attached file, so privacy line 37 'download' may need a 'coming'.",
+    "Candidate: privacy line 138 says 'you have 30 days to change your mind, then it's permanent'. Data-deletion line 29 also offers 'Or choose to delete it right away'. Confirm against /user/delete-account.php (file not shown) and align the two pages.",
+    "Candidate: claim.php line 226 offers 'a paid plan (free trial for now)' for a business. In plans.php the trial card is shown only when $type === 'user' (line 66). The listing-trial path is not shown (Claims.php and Billing.php not shown).",
+    "Candidate: FAQ line 280 says test accounts are 'left out of counts, likes, emails, people search and billing'. No attached code confirms this (file not shown).",
+    "Candidate: takedown.php line 51 says a protected reason comes down 'as soon as you send this', otherwise within 24 hours. This depends on app/lib/Takedowns.php::file (file not shown).",
+    "faq.php anchors were not checked: faq.php is not attached (file not shown). Check them before any heading is reworded."
+  ],
+  "regions": false
+}

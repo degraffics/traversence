@@ -1,0 +1,22 @@
+{
+  "name": "f01-paid-in-quickbooks-no-blind-fallback",
+  "gate": "BLOCKED (code not shown) - money path: independent check before merge",
+  "what": "paidInQuickBooks (ClientOrders.php:1753-1758) must no longer record the whole balance as paid when fromQuickBooks() returns ''. That '' means a lock timeout, nothing new, or a part already paid. Plan: (1) delete the fallback that records the balance; (2) if something must be recorded, take GET_LOCK('tv-pay-'.$oid, 20) and inside it re-read the order and Orders::money(); record only the amount QuickBooks reports for that payment, capped at what is left, with a qbpay-<oid>-<QB payment id> request_key so pay() and applyQuickBooks() see it; release in finally; (3) if QuickBooks reports nothing, say 'QuickBooks shows nothing new yet' and record nothing.",
+  "files": [],
+  "decisions": [
+    "Safest default: record nothing on '' (the fallback deleted outright). Whether staff should get a 'QuickBooks shows nothing yet - record it by hand?' button instead is a person's decision; until then they use Record a payment."
+  ],
+  "tests": ["tests/f01_paid_in_quickbooks_acceptance.php (static acceptance test: FAILS until the fix is written)"],
+  "risks": [
+    "Nothing here was run or verified.",
+    "No code is included: ClientOrders.php lines 1700-1800 were not in the attachment (it is truncated at about line 1000), so the fix could not be written without inventing code.",
+    "The test is a static source check and assumes it sits in tools/orders-tests/ (TV_ROOT overrides the root)."
+  ],
+  "verify": [
+    "file not shown: ClientOrders.php 1731-1758 (paidInQuickBooks, pay()) - write the fix from the full file as planned in 'what'.",
+    "Confirm pay() and paidInQuickBooks() use the same lock name 'tv-pay-'.$oid and the same request_key scheme, so one cannot record what the other already did.",
+    "Sandbox test: a QB payment for part of the balance is recorded as that part only; '' records nothing; two tabs pressing at once record once.",
+    "Person's decision: whether a manual 'record anyway' path is wanted (see decisions)."
+  ],
+  "regions": false
+}

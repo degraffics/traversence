@@ -1,0 +1,40 @@
+{
+  "name": "faq-part-07-promise-fixes",
+  "gate": "HOLD: input missing. The job 6 promise-check answer (/tmp/claude-0/.../promise-faq-part-07.md.c40000) was attached empty. Re-run this task with the real findings before any FAQ or page wording ships.",
+  "what": "Intended: OLD/NEW replacement blocks fixing promises the job 6 promise check found in FAQ slice faq-part-07 (lines 1725-2065) and in the plans, our-approach, privacy, terms, takedown, data-deletion and claim pages. Delivered: no replacement blocks, because there are no findings to act on. Possible mismatches seen in the attached code are listed under verify for the lane session.",
+  "files": [
+    "faq/faq-entries.md",
+    "faq/page-wording.md",
+    "release.json"
+  ],
+  "decisions": [
+    "No FAQ or page text is changed. The task is scoped to findings from the job 6 answer, and that file is empty. Inventing findings would break the brief: 'Skip findings the attached code doesn't confirm'.",
+    "No live PHP file is changed. All requested outputs are wording blocks, so there are no files/ or region files and regions is false.",
+    "No FAQ heading is reworded, so no faq.php# anchor can break in this release.",
+    "Candidate mismatches seen while reading the attached pages are recorded under verify only, quoted exactly, so the lane session can match them to the real job 6 answer."
+  ],
+  "tests": [],
+  "risks": [
+    "Nothing here was run, tested or zip-checked. This is a draft for the lane session.",
+    "The real job 6 findings are not reflected at all. Shipping this release changes nothing, and any promise problems in faq-part-07 remain live.",
+    "The verify candidates below come only from reading the attached files. The code that decides most of them (faq.php, /api/plans.php, Billing.php, Claims.php, js/claim.js, user/delete-account.php, LegalTexts.php) was not attached, so each candidate may be wrong in either direction."
+  ],
+  "verify": [
+    "INPUT MISSING: the promise-check file 'promise-faq-part-07.md.c40000' is empty. Attach the job 6 answer and re-run.",
+    "file not shown: faq.php. I can't confirm how headings become anchors. Links that depend on it: plans.php line 70 '/faq.php#what-does-ai-assist-do', privacy.php line 113 '/faq.php#can-my-account-be-limited-or-revoked', and FAQ line 2034 '(#posting-guidelines-and-safety)' (that heading is not in this slice).",
+    "file not shown: app/lib/LegalTexts.php. When a published version is live, privacy.php returns LegalTexts::page(...) instead of the draft text. I can't confirm that the anchors the FAQ links to ('/privacy.php#choices' on lines 1830, 1833 and 1836; '/privacy.php#cookies' on line 1827) exist in the published version.",
+    "Candidate (our-approach.php line 71): '<li>Download and delete your data: coming soon.</li>'. Account deletion is described as built in FAQ line 1848 and data-deletion.php lines 24-30, and privacy.php line 37 says 'You can see, change, download or delete your information'. Confirm whether download exists (code not shown) before rewording either page.",
+    "Candidate (our-approach.php line 80): 'The full <a class=\"underline\" href=\"/privacy.php\">privacy policy</a> is being written and will be legally reviewed before public launch.' privacy.php exists as a draft. Confirm the intended wording with the job 6 answer.",
+    "Candidate (privacy.php line 99): Cloudflare Turnstile is listed in the table headed 'Only if you say yes' (line 94). FAQ line 2010 and privacy.php's own row say it runs on the sign-in, sign-up and forgot-password forms 'once switched on', not by visitor consent. FAQ line 1827 lists only analytics and videos as optional. Confirm with Captcha.php (file not shown).",
+    "Candidate (FAQ line 1996 vs claim.php): FAQ says 'checking a phone with a texted code is coming'. claim.php line 215 says 'an email code, then a quick text', and line 225 says '(or text your claim's code)'. Confirm whether these describe the same feature (an SMS sent to the member vs the member texting our Verify number) using Claims.php and js/claim.js (files not shown).",
+    "Candidate (FAQ line 2001): 'claiming a business ... need a confirmed email'. claim.php line 174 says 'You'll need a Traversence account, with your email and phone', and lines 163-170 and 245-252 also ask for an account phone and age. Confirm against Claims::missing (file not shown).",
+    "Candidate (terms.php line 97): 'A free trial starts only after you review it and agree to these Terms.' plans.php lines 67-68 start the free week from one button, 'Start my free week', with no visible terms step. Confirm in /api/plans.php action 'try' (file not shown).",
+    "Candidate (terms.php line 97): 'the plan's price is then charged from the day the trial ends'. plans.php lines 173-181 show keeping a trial as a quote total charged 'Today' when the card is added. Confirm the charge date in /api/plans.php action 'start' and Billing.php (files not shown).",
+    "Candidate (terms.php line 94): 'a yearly plan gets a reminder 7 days before it renews', and terms.php line 97: 'We email you 5 days and 1 day before it ends, and on the day'. Neither appears in the FAQ slice, and the sending code is not shown.",
+    "Candidate (FAQ line 1945): 'It's for Verified members (email confirmed, 18 or older)'. plans.php line 66 gates the trial on Billing::selfTrialWhyNot (file not shown).",
+    "Candidate (FAQ line 1848): 'you need to have signed in within the last 15 minutes'. file not shown: user/delete-account.php.",
+    "Candidate (FAQ line 1939 vs plans.php line 77): plans.php shows 'Coming within the hour: the space you earn from followers and friends who join.' when EarnedStorage is not ready. FAQ states earned storage as live. Confirm EarnedStorage::status readiness in production (file not shown).",
+    "Candidate (our-approach.php line 47): AI Assist can help with 'summarizing your group'. FAQ line 2056 describes only writing help and answers. Confirm whether group summaries are built (code not shown)."
+  ],
+  "regions": false
+}

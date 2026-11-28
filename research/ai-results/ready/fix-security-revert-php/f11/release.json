@@ -1,0 +1,39 @@
+{
+  "name": "f11-email-revert-collision-check",
+  "gate": "med - ship AFTER f02 (this file already contains the f02 change); if f02 is held, rebase only the collision block onto the live file",
+  "what": "revert.php wrote revert_to_email back to users without checking whether another user now holds that address. If no unique index exists, that creates duplicate emails. Inside the transaction and before any write, it now runs SELECT ... WHERE email = :email AND id != :id ... FOR UPDATE, the same id != self rule as confirm-change. On a hit, nothing is written and it returns 409 'email_in_use'. A unique-index violation (SQLSTATE 23000) from a race is mapped to the same 409. Other PDO errors are rethrown unchanged.",
+  "files": [
+    "files/sync-storage/api/auth/email/revert.php",
+    "tests/email-revert-collision.php",
+    "faq/faq-entries.md"
+  ],
+  "decisions": [
+    "On conflict NOTHING is changed: the token is not consumed, the email is not reverted, sessions are not bumped and the password is not locked. Locking the password while the email still points at the possibly-attacker address would hand recovery to the attacker via forgot-password. NEEDS HUMAN DECISION: should a conflict still bump sessions, or flag the account for admin review? The default is no change plus error_log for support.",
+    "The 409 message admits the address belongs to another account. The caller has already proved they know that address (hash_equals check above), so this leaks nothing new to them.",
+    "Exact equality (email = :email) is used, assuming case-insensitive collation and lowercase-stored emails; confirm-change.php is not shown, so this could not be matched to its query byte for byte.",
+    "A by-reference flag is used instead of calling Response::error inside the transaction closure, so the transaction never ends via exit."
+  ],
+  "data_reason": "No new UPDATE/DELETE. The existing UPDATEs from f02 are now skipped when the restored address belongs to another user.",
+  "tests": [
+    "php f11/tests/email-revert-collision.php",
+    "php f11/tests/email-revert-collision.php <live>/sync-storage/api/auth/email/revert.php (after deploy)",
+    "php f02/tests/email-revert-forced-reset.php f11/files/sync-storage/api/auth/email/revert.php (f02 behaviour must still pass on this file)"
+  ],
+  "risks": [
+    "NOTHING HERE HAS BEEN RUN, LINTED OR TESTED; it is a draft for the lane session to verify.",
+    "Without a unique index on users.email, FOR UPDATE under REPEATABLE READ relies on gap locks on an email index. If there is no index on email at all, it may lock more rows than intended or not fully close the race. A unique index is the real fix; its migration is not included.",
+    "Assumes Database::transaction rolls back and rethrows exceptions (so the 23000 catch works) and commits normally when the closure returns early. Database class not shown.",
+    "On conflict the token stays unused but will still expire. Support must act before expires_at or reissue a link.",
+    "If users.email is stored or compared case-sensitively, a differently-cased duplicate would slip past this check."
+  ],
+  "verify": [
+    "Confirm the live path is sync-storage/api/auth/email/revert.php (derived from the attachment name and require_once depth).",
+    "confirm-change.php: file not shown. Compare its collision query and 409 error code with the ones here, and align the code name ('email_in_use') if it differs.",
+    "Database::transaction: file not shown. Confirm the early-return and rethrow behaviour described in risks.",
+    "Schema: file not shown. Check whether users.email has a unique index and what its collation is. If there is no unique index, consider a separate migration after deduplicating existing rows, which needs its own data_reason.",
+    "Human decision on conflict behaviour (see decisions).",
+    "Ship order: f02 first, then this file. If f02 is rejected, do NOT ship this file as-is, because it contains the f02 password lock.",
+    "Manual check on staging: A changes email; B registers A's old address; A clicks revert. Expect 409 email_in_use, A's row, token and sessions unchanged, and an error_log line."
+  ],
+  "regions": false
+}

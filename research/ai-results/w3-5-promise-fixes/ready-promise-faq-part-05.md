@@ -1,0 +1,61 @@
+The attached promise check (job 6 answer, `promise-faq-part-05.md`) is empty, so there are no findings to fix. I haven't made up fixes in its place. The FAQ and page-wording files below contain no replacement blocks. `release.json` explains why and lists places where the attached pages disagree with each other, for the lane session to check once the real job 6 answer is attached.
+
+=== FILE: faq/faq-entries.md ===
+# FAQ replacement blocks: faq-part-05 (lines 1055–1406)
+
+No replacement blocks in this draft.
+
+The promise check these fixes depend on (job 6 answer, `research/ai-results/job6-promise-check/promise-faq-part-05.md`) was attached empty. No findings came with it, so no FAQ entry is reworded here, and no `faq.php#` anchor is touched.
+
+When the job 6 answer is attached, each fix will appear here as:
+
+OLD (exact text copied from the slice):
+<the sentence or entry as it stands>
+
+NEW:
+<the corrected text: what the code does, or "coming" where it isn't built>
+=== END FILE ===
+
+=== FILE: faq/page-wording.md ===
+# Page-wording replacement blocks: plans, our-approach, privacy, terms, takedown, data-deletion, claim
+
+No replacement blocks in this draft.
+
+The promise check (job 6 answer) was attached empty, so there are no findings to apply to these pages. Places where the attached pages and the FAQ slice disagree are listed under `verify` in `release.json`. None of them is changed here, because the code that would settle each one (the upload pipeline, the account-deletion flow, the plans API, the billing jobs) isn't attached.
+=== END FILE ===
+
+=== FILE: release.json ===
+{
+  "name": "faq-part-05-promise-fixes",
+  "gate": "hold: the job 6 promise-check answer for faq-part-05 was attached empty; nothing to apply until it is re-attached",
+  "what": "Meant to apply the job 6 promise-check findings to FAQ lines 1055-1406 and to the plans, our-approach, privacy, terms, takedown, data-deletion and claim pages. The findings file was empty, so this draft has no replacement blocks and changes no live files. Places where the attached pages disagree are listed under verify, unfixed.",
+  "files": [
+    "faq/faq-entries.md",
+    "faq/page-wording.md",
+    "release.json"
+  ],
+  "decisions": [
+    "No fixes were invented. The brief asks to fix what the job 6 answer found, and that answer was empty (scratchpad file promise-faq-part-05.md.c40000 had no content).",
+    "No live PHP file is changed, so there are no files/ entries, no regions and no tests.",
+    "Disagreements between the attached pages and the FAQ slice go under verify rather than becoming OLD/NEW blocks. The code that decides which side is right isn't attached, and the brief says to skip findings the attached code doesn't confirm."
+  ],
+  "tests": [],
+  "risks": [
+    "Nothing in this draft was run, tested or zip-checked; the lane session must do that.",
+    "The job 6 findings may still exist somewhere (perhaps the attachment was cut off). Until they are attached, the FAQ promises in this slice are unchecked against the code.",
+    "The verify items below come from reading only the attached pages and the FAQ slice. They are not confirmed findings."
+  ],
+  "verify": [
+    "Re-attach the job 6 answer (research/ai-results/job6-promise-check/promise-faq-part-05.md); the attached copy was empty.",
+    "Photo metadata: FAQ line 1135 says 'The photo we store has all of that removed either way', and line 1205 says every upload is stripped of GPS, device and time. privacy.php line 52 says 'Photos have their hidden date and location removed unless you choose to keep them.' Check the upload or EXIF-stripping code (file not shown) and align whichever text is wrong.",
+    "Account deletion: our-approach.php line 71 says 'Download and delete your data: coming soon.' data-deletion.php lines 24-30 and privacy.php line 138 describe a live 'Delete my account' at /user/delete-account.php (file not shown), and FAQ line 1138 says deleting your account deletes your folder. If deletion is live, our-approach.php line 71 should say deletion is available and only download is coming. Also check privacy.php line 37 ('see, change, download or delete'): a download-your-data feature isn't confirmed, and FAQ line 1138 says downloading all files is coming.",
+    "Released files location: terms.php line 116 says released final files 'appear in your account's Assets'. FAQ lines 1234 and 1386 name 'Orders' in the Gallery and 'Your artwork' on 'Your orders'. Check the client-orders and gallery code (file not shown) for the real name.",
+    "Self-serve trial length: plans.php lines 66-68 offer personal accounts 'Try Pro free for 7 days'. FAQ line 1063 describes only the 30-day trial (sometimes 60 or 90) that comes with claiming a business. Check Billing::selfTrialWhyNot and the trial code in app/lib/Billing.php (file not shown); the FAQ may need to mention the personal 7-day trial.",
+    "Declined-card retries: FAQ line 1069 says 'try again 3 days later, and once more after 7 days'. terms.php line 99 says 'after 3 and 7 days'. Check the billing retry job (file not shown) for whether the second try is day 7 or day 10 after the decline, then make both texts say the same.",
+    "Plan contents, prices and pack sizes (FAQ lines 1057 and 1072): plans.php renders these from /api/plans.php and Billing::PLANS (files not shown); check the prices, the tools each plan adds and the pack sizes there.",
+    "Yearly renewal reminder 7 days before (FAQ line 1066, terms.php line 94) and trial emails at 5 days, 1 day and on the day (FAQ line 1063, terms.php line 97): the scheduler code isn't shown.",
+    "Takedown and claim promises (takedown.php lines 3 and 51 hide-at-once or within 24 hours; claim.php line 290 'deleted as soon as your claim is decided', matching FAQ line 1138): Takedowns.php and Claims.php aren't shown."
+  ],
+  "regions": false
+}
+=== END FILE ===

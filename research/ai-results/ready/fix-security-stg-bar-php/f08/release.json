@@ -1,0 +1,24 @@
+{
+  "name": "f08-stg-bar-refuse-empty-key",
+  "gate": "staging-only endpoint (Staging::here()); ship BEFORE f24 (f24's file is built on this one)",
+  "what": "website/api/stg-bar.php refuses with 503 'bar_unconfigured' when RELEASE_BAR_KEY is empty or missing. The refusal comes before the bar cookie is checked and before anything is signed or sent to the live site. Before this fix, an empty key would sign with HMAC key '' and let anyone forge a bar cookie and the X-Bar-Sig.",
+  "files": ["files/website/api/stg-bar.php"],
+  "decisions": [
+    "Status 503 with reason 'bar_unconfigured' (a server setup problem, not the visitor's fault). The message points to the live admin.",
+    "A value of '0' is also refused, because the existing (getenv(...) ?: '') already turns '0' into ''. This is unchanged behaviour, now made explicit."
+  ],
+  "tests": ["tests/stg-bar-empty-key.php (install as tools/staging-tests/stg-bar-empty-key.php; it takes the live file path as argv[1])"],
+  "risks": [
+    "DRAFT: nothing here has been run, linted, tested or zip-checked.",
+    "If Response::error() does not end the request, execution would continue to Releases::verify. The test's stub exits, so the real Response::error must be checked.",
+    "If staging currently runs with no RELEASE_BAR_KEY, the bar will stop working there and show the new 503 message until the key is set."
+  ],
+  "verify": [
+    "Confirm the live path is website/api/stg-bar.php. It was inferred from the header comment and the __DIR__ . '/../../app/' requires; the attached copy came from a scratchpad path.",
+    "staging-updates.php: file not shown. Confirm its line 16 guard matches this one in status code and wording, and align them if a person prefers that file's style.",
+    "app/bootstrap.php, app/lib/Releases.php, Response: file not shown. Confirm Response::error(string, int, string) exits.",
+    "Confirm RELEASE_BAR_KEY is set on staging before shipping, so the bar keeps working.",
+    "Run tests/stg-bar-empty-key.php and php -l on the file."
+  ],
+  "regions": false
+}

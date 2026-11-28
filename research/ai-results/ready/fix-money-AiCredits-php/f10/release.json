@@ -1,0 +1,11 @@
+{
+  "name": "f10-ai-credits-spend-fails-closed",
+  "gate": "Needs f11 and f09 first (this file contains both). Third of four releases to app/lib/AiCredits.php.",
+  "what": "In AiCredits::state(), a failing spend query was swallowed and left $spent = 0, so the monthly backstop could never trip during a database fault. A failed read is now tracked ($spentRead) and logged. The member's state becomes why='cover' with next=null, and 'unread' => true.",
+  "files": ["files/app/lib/AiCredits.php", "tests/ai-credits-f10-spend-fails-closed.php", "faq/faq-entries.md"],
+  "decisions": [
+    "Use a $spentRead flag rather than the suggested $spent = INF. json_encode() fails on INF ('Inf and NaN cannot be JSON encoded'), which could break /ai/ if it encodes the state. 'spent' stays a finite 0.0, and the block comes from why='cover'.",
+    "Keep why='cover' as the reason, as suggested, so /ai/ shows its existing backstop message. 'unread' lets it say more if wanted.",
+    "A member with no plan still gets why='no_plan' (that check comes first)."
+  ],
+  "tests": ["php tests/ai-credits-f10-spend-fails-closed

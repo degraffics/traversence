@@ -1,0 +1,28 @@
+{
+  "name": "f05-rental-return-once",
+  "gate": "5",
+  "what": "Marking a rental returned now moves its deposit money at most once. Before the gateway is called, a conditional UPDATE claims the order (pay_mode 'returning'), based on a fresh read of the order. The capture or refund carries an idempotency key, 'rental-return-<order id>', whenever MarketPay accepts one. 'returned' is written only on the row this call claimed. If the gateway call fails, the order stays claimed and a Work queue ticket goes to our team, so nothing can run twice.",
+  "files": ["files/app/lib/MarketCheckout.php.region-1.php", "tests/f05-rental-return-once.php", "faq/faq-entries.md"],
+  "decisions": [
+    "When the gateway throws, the safest default is to leave the order at 'returning' and ticket our team. A throw can come after money moved (a timeout), so an automatic retry could double it. A person should decide whether retries can be automatic once MarketPay's idempotency key is confirmed.",
+    "The idempotency key leaves out the amount. A retry with different damage is then refused by the gateway instead of paying twice.",
+    "A charged (not held) rental with all of the deposit kept for damage no longer sends a $0 refund. Before, it called refund with 0."
+  ],
+  "tests": ["tests/f05-rental-return-once.php (install as tools/market-tests/f05-rental-return-once.php; reads the source only, no DB and no money)"],
+  "risks": [
+    "DRAFT: nothing here was run, linted or tested. The lane session must run php -l, the test, and a sandbox/mock rental return (twice, in two tabs).",
+    "MarketPay.php is not shown. Unless capture()/refund() take a parameter named $idempotencyKey and send it (Stripe Idempotency-Key header, Square idempotency_key), no key reaches the gateway, and only the DB claim prevents the double run.",
+    "If pay_mode is an ENUM rather than a VARCHAR, 'returning' won't fit and the claim UPDATE will fail or be truncated (schema not shown).",
+    "An order left at 'returning' waits for our team. The business sees a message saying so.",
+    "The finding's line numbers (726, 732-734) don't match the attached file's layout. Apply the region by its anchor text."
+  ],
+  "verify": [
+    "file not shown: app/lib/MarketPay.php. Check the signatures of capture() and refund(). If neither has $idempotencyKey, add it in MarketPay (its own release) so the key is sent. payCall finds it by reflection and needs no change.",
+    "file not shown: the market_orders schema. Confirm pay_mode is a VARCHAR wide enough for 'returning' (9 chars). If it's an ENUM, a safe-twice migration is needed first.",
+    "Square: capture is called without an access token, as in the live code. Confirm MarketPay::capture fetches its own for Square.",
+    "file not shown: the portal page that calls rentalReturned. Confirm it shows a thrown RuntimeException's message to the business, and that its 'Mark returned' button hides when pay_mode is 'returning'.",
+    "grep for other code that reads pay_mode === 'hold' or 'returned', and make sure 'returning' is handled there.",
+    "Sandbox run: mark one rental returned twice at once and confirm exactly one capture/refund appears in the gateway dashboard."
+  ],
+  "regions": true
+}

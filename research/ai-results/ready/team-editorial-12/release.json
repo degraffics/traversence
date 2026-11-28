@@ -1,0 +1,36 @@
+{
+  "name": "team-role-12-editorial-director",
+  "gate": "Tier 5 (Founder ruling): adding the 'editorial' step changes TeamRunner::ruleData(), and so the decision tree's fingerprint. That is a change to the tree's rules (decisions/0180 §2). On deploy, treeApproval() clears the approval and drops the ceiling to Planning for every role. A new approval must be the Founder's own press or written words (0180's 'one-time setup' correction). Otherwise it touches no high-risk territory and is backend only (app/lib).",
+  "what": "Role 12, the Editorial Director, gets its agent step 'editorial'. It runs on Work tickets in its own lane (TeamRoster::lane === 'editorial-director') at Planning or Building, and only on tickets no person owns. It proposes steps only, at every ceiling. Its code-first checks: the FAQ entry (0057), 390px (0058 §11), one clear next action (0180 §8), the words against brand.md and the design standards, a territory's Tier 4 review (0180 §4), held names (0066), and never overwriting a person's words (0164, 0180 §7). AI access order: code ($0), then the agents' API (closed until its own counter is live, per 0180's note 'Separate each'), then a session. The session route is a lean ask added as a step, so it travels in the build brief. On Accept, the steps are added as the accepting person's own adds, with History. The same proposal is never made twice. Charter, ticket types and prompt are in app/lib/EditorialDirector.php.",
+  "files": [
+    "files/app/lib/EditorialDirector.php",
+    "files/app/lib/TeamRunner.php",
+    "tests/team-editorial-tests.php",
+    "faq/faq-entries.md"
+  ],
+  "decisions": ["0180 §1, §2, §4, §5, §6, §7, §8 and notes (routing rule cheapest first; 'Separate each')", "0179", "0057", "0058 §11", "0066", "0164", "handoffs/piece2/jason-spec.md §4–§7"],
+  "tests": ["tests/team-editorial-tests.php (pure functions and constants only; no DB, no network, no money)"],
+  "risks": [
+    "Nothing here has been run, tested or zip-checked. It is a draft for the lane session.",
+    "The attached reconcile (rec-j18-team.md) is empty: all 18 pass sections have no content. No team-pass finding was carried in. This was built only from decisions/0180, jason-spec §4–§7, the vetting note and the live code shown.",
+    "Fingerprint change: on deploy, the tree's approval is cleared and every agent drops to Planning, so the gate also falls back to propose and the handoff step goes off. It needs the Founder's own re-approval and raises: Building, then Implementation, one stage at a time.",
+    "If the editorial-director row has no acts_level, TeamRoster::doer still returns the role itself. Each tick then logs a 'refused' run on the first eligible ticket, once an hour per ticket, until the Founder gives the role permissions.",
+    "applies() calls EditorialDirector::proposal(), which runs lane, steps and ADR queries for each candidate ticket in pick(). That adds DB load per tick on a large queue.",
+    "The session route only adds a step after a person accepts. The session reads it through the build brief once the System Architect writes one. Until then, the ask waits on the ticket.",
+    "The simplicity veto (hold a screen before release) is not built here. It belongs to R5 and Releases.php, which is not shown. The FAQ says 'coming'.",
+    "No migration, no UPDATE or DELETE of data, and no money path. QuickBooksPay is not touched."
+  ],
+  "verify": [
+    "Shared functions: STEPS, STEP_AT, STEP_COST_MICROS, ruleData()/fingerprint(), applies(), run() and accept() in TeamRunner.php are touched by every role's release. Merge each role's entries by hand and in order. The last merge decides the fingerprint the Founder approves.",
+    "TeamRoster.php and GaugeTasks.php are unchanged by this role. The lane routes and handOff already exist in the attached files. TeamRoster::steps() now lists 'editorial' for editorial-director through TeamRunner::STEPS.",
+    "app/admin/Access.php: file not shown. Confirm Access::canAs treats the new action 'team.editorial' with default ['min' => 'manager', 'depts' => []] as intended (any department), and whether a content department key should be used instead.",
+    "The R1 roster seed is not shown. Confirm the 'editorial-director' row exists, is active, and has acts_level and acts_dept set. Permissions are the Founder's (0180 §2).",
+    "The migration adding control_gauge_tasks.lane and handoff is not shown. TeamRoster::lane() tolerates their absence, but confirm on staging.",
+    "app/lib/AiClient.php: file not shown. The API tier is closed in code (EditorialDirector::apiReady). Wire it to the agents' own $40 counter with its allow() only when that counter ships (IT lane, the CFO's Tier 4).",
+    "The Work queue / Team page that renders proposals and calls TeamRunner::accept/dismiss: file not shown. Confirm it renders the 'editorial' proposal shape ({steps:[{key,see,do,confirm}], route, route_why, tier, territory, flag, hash}) rather than assuming a brief's field keys, and shows EditorialDirector::CHARTER on the role's card.",
+    "Releases.php / beforeafter.mjs: files not shown. The veto is not wired.",
+    "app/ui/faq.md: file not shown. Place faq/faq-entries.md's entries there.",
+    "Run tests/team-editorial-tests.php with TRV_LIB pointing at the live app/lib with this release's two files overlaid, then run the full team tests."
+  ],
+  "regions": false
+}

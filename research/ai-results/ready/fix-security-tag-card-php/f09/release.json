@@ -1,0 +1,34 @@
+{
+  "name": "f09-tag-card-stale-hidden",
+  "gate": "med",
+  "what": "Hidden or held things could keep appearing in tag preview cards for up to about 70 minutes: a 3600s server cache plus 600s public HTTP caching. This draft cuts the server cache to 300s and switches the browser header to 'private, max-age=60', so shared caches and CDNs no longer store cards. It also adds TagCardCache::forget() so hide/hold actions can clear a card immediately. Until forget() is wired in, the worst case is about 6 minutes.",
+  "files": [
+    "files/api/tag-card.php",
+    "files/app/lib/TagCardCache.php"
+  ],
+  "decisions": [
+    "Safest default: server TTL is 300s, down from 3600s, and the header is 'Cache-Control: private, max-age=60', down from 'public, max-age=600'. Someone must decide whether a 5-minute server TTL is acceptable for load once forget() is wired in, and whether to raise it back toward 3600.",
+    "Negative results ('none') are still cached for the TTL. An unhidden or released thing may stay 404 for up to 5 minutes unless forget() is also called on unhide/release.",
+    "The cache key format 'tagcard:<ref>' is unchanged, so existing entries expire naturally. No migration is needed."
+  ],
+  "tests": [
+    "tests/tag-card-cache-static-tests.php",
+    "tests/tag-card-cache-forget-tests.php"
+  ],
+  "risks": [
+    "Nothing here has been run, tested or verified. This is a draft for the lane session.",
+    "The shorter TTL means more ContentTags::card() queries. Load impact is unmeasured.",
+    "forget() relies on PageCache::forget(PDO, string), which was not seen. If it doesn't exist, forget() returns false and logs. It does not break anything, but there is no immediate clearing.",
+    "The forget test uses a stub PageCache, not the real class.",
+    "Ref strings must match exactly. A thing referenced under more than one ref (for example a rec:<slug> alias) needs each ref forgotten."
+  ],
+  "verify": [
+    "file not shown: app/lib/PageCache.php. Confirm a forget/delete method exists with signature forget(PDO $pdo, string $key). If it is named differently, adjust TagCardCache::forget, or add PageCache::forget in a follow-up.",
+    "file not shown: app/lib/ContentTags.php. Confirm card() already returns null for hidden, held and unknown things, as the tag-card.php header comment says.",
+    "file not shown: the hide/hold/unhide/release actions (admin or moderation code). Person's decision and wiring needed: call TagCardCache::forgetThing($pdo, $kind, $id) after each state change, for every ref kind that can point at the thing. That step is what makes clearing immediate.",
+    "Confirm the live path of tag-card.php relative to the repo root. It is drafted as files/api/tag-card.php, and its require paths ('/../../app/...') imply app/ sits two levels above the file. Place TagCardCache.php in that same app/lib/.",
+    "Check that no CDN or proxy rule overrides Cache-Control for /api/tag-card.php, and purge any CDN copies once on deploy.",
+    "Run both test scripts with PHP 8.0 and zip-check the release folder."
+  ],
+  "regions": false
+}

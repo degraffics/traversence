@@ -1,0 +1,25 @@
+{
+  "name": "f11-ai-credits-count-inflight-asks",
+  "gate": "First of four releases to app/lib/AiCredits.php (f11 → f09 → f10 → f25). Built on the attached live file.",
+  "what": "AiCredits::count() counted only 'done' jobs, so asks sent in parallel each saw the same free ask or credit unused and could overrun the daily free asks and the plan's credits. It now counts every job that isn't 'failed', including waiting and working ones. count() feeds both pots() (credits used) and state() (free asks today), so this fixes both.",
+  "files": ["files/app/lib/AiCredits.php", "tests/ai-credits-f11-inflight.php", "faq/faq-entries.md"],
+  "decisions": [
+    "Count every status except 'failed' (a NULL status counts, using COALESCE). This is the safe default: anything not clearly failed holds its credit.",
+    "No atomic reservation at insert. The insert happens in /ai/ and ItemWriter, which weren't attached. A small race is left between state() and the INSERT. Needs a person's decision: add a per-member lock (for example MySQL GET_LOCK('ai_ask:<uid>')) around state() plus the INSERT in those callers, in a follow-up."
+  ],
+  "tests": ["php tests/ai-credits-f11-inflight.php [path/to/AiCredits.php]  (needs pdo_sqlite; stubs Database/Billing/Team/Thresholds)"],
+  "risks": [
+    "DRAFT: nothing here has been run, tested or zip-checked.",
+    "If ai_jobs uses other end states that mean no AI call and no cost (for example 'cancelled', 'refused', 'error'), those asks now hold a credit. Members would see fewer asks left until the list is widened.",
+    "A short window remains between the check (state()) and the INSERT in the callers, so two asks in the same instant can still both pass. That's much narrower than before, when the window lasted the whole AI call.",
+    "Ships first. f09, f10 and f25 build on this file."
+  ],
+  "verify": [
+    "Confirm the full list of ai_jobs.status values. Schema file not shown. Should any besides 'failed' give the ask back?",
+    "Confirm the callers insert the ai_jobs row (charged_to set) before calling the AI, not after. /ai/ and ItemWriter not shown.",
+    "Decide whether to add the atomic reservation (lock around state() plus INSERT) in the callers. Files not shown.",
+    "Database.php, Billing.php, Team.php and Thresholds.php are not shown. The test stubs assume Billing::PLANS[plan][0]=label and [4]=credits, and ADDONS[addon][1]=cents and [3]=credits, as the attached code reads them.",
+    "Check the FAQ entry against the existing AI Assist FAQ (file not shown) for wording and duplicates."
+  ],
+  "regions": false
+}

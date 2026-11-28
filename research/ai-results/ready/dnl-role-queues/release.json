@@ -1,0 +1,43 @@
+{
+  "name": "role-queues",
+  "gate": "Tier 3, in the Project Manager's (8) lane: a non-protected workflow view (decisions/0180 §1). Read only: no migration, no table or column, no money, no address, no 0066 surface. The Prior Ruling Check finds no high-risk territory under 0180 §4, so there is no Tier 4 review; Tier 4 is still needed if the lane finds that wiring the page touches one. Sequenced with the transition plan's phase 2 release 1 (handoffs/decided-not-live.md), after the pipeline release and R2. Launch work comes first under 0181's gates.",
+  "what": "SKIPPED FIRST, as the attached documents require: (1) Per-stage SLA or stall limits. The session manager's Q-B ('no stall limit per stage (none decided), so no stall step') is kept for Jason's return, so none is invented. The only SLA shown is the decided rule: late means a day old and nobody has it (GaugeTasks::LATE_HOURS). (2) 'An alarm or report emailed to Jason also a row in its owning role's queue'. The mail and alarm code (FounderMail, Notify, ControlAlarms, Mailer) is not attached. Q-A's interim ruling, also kept for Jason's return, lets tickets reach the Team only by a person's 'Give it to the Team' or the audit, so alarm-made rows would need his answer first. Not paused or waiting, and unaffected: the M2b orders pause and Order #12's books are not touched. BUILT: app/lib/RoleQueues.php, a read-only view over GaugeTasks::queue()'s rows. It gives each of the seven lanes (TeamRoster::lane) and each non-advocate, non-retired role a queue: the rows it holds, its lane's untaken tickets for a lane manager, and waiting rulings for the Founder. Each queue carries counts, oldest-open hours, a chip line, and per-row SLA words. Tickets held under a retired or renamed role's name are listed as 'unplaced'.",
+  "files": [
+    "files/app/lib/RoleQueues.php",
+    "tests/role-queues.php",
+    "faq/faq-entries.md",
+    "release.json"
+  ],
+  "decisions": [
+    "Skipped: per-stage SLA. Q-B is undecided and waits for Jason's return (handoffs/decided-not-live.md, 'Gaps for Jason's return').",
+    "Skipped: alarm or report emails as queue rows. The files are not shown, and Q-A's interim ruling waits for Jason's return.",
+    "Role queues as the agents' inbox (Jason, 2026-11-27: 'Yes to role queues; mail only, OneDrive stays'; jason-spec §7): a view on the Work queue, with no agent mailboxes.",
+    "0180 §5: 'every ticket routes to exactly one of the seven middle managers'. Department queues are the seven lanes, through TeamRoster::lane, so routing is reused and not duplicated (0180 §7, 'settled ideas are reused').",
+    "0180 §5: advocates never build or move a ticket, so they get no queue. Retired roles are never shown (Jason's answer 1), so they get no queue either.",
+    "0180 §1: non-protected workflow is Tier 3, in the Project Manager's lane (handoffs/decided-not-live.md).",
+    "Kit-buttons / GaugeTasks::LATE_HOURS: a ticket is late when it is a day old and nobody has it. This is the only SLA."
+  ],
+  "tests": [
+    "tests/role-queues.php -> tools/role-queues-tests/role-queues.php. Uses in-memory SQLite. Checks: lane grouping, lane-manager triage, held rows, the Founder's waiting rulings, the late and open SLA words, the unplaced retired-role row, that advocates and retired roles get no queue, unknown-state handling, and that the view makes no writes."
+  ],
+  "risks": [
+    "Nothing here was run, tested, synced or zip-checked. It is all a DRAFT for the lane session.",
+    "Job 19's draft file was attached empty, so there was nothing to review. This release is built from the attached live files only.",
+    "GaugeTasks::queue() writes: advance() moves stages and closes tasks. RoleQueues therefore takes the page's existing queue() rows. If the page called queue() a second time for these views, it would repeat those checks.",
+    "TeamRoster::lane() runs one query per ticket that has a parent and no stored lane (up to 3 deep). This can be slow on a long queue.",
+    "Tickets held under a role's old name (after a rename through TeamRoster::edit) fall into 'unplaced' rather than the role's queue. This also affects TeamRoster::openTickets, which matches by name.",
+    "The test requires the live Database.php and ControlLog.php through GaugeTasks and TeamRoster. If either connects or runs code when loaded, the SQLite test may not run as written.",
+    "The FAQ entries say 'Coming' until the Work queue page shows the views."
+  ],
+  "verify": [
+    "file not shown: the Work queue page (System Control Board, Development). Wire RoleQueues::build($pdo, $queueRows) using the rows the page already gets from GaugeTasks::queue(). Add a lane/role filter with each queue's line as its chip. The view checked at 1280 and 390px, with the simplicity veto (0180 §8).",
+    "file not shown: app/lib/TeamRunner.php. TeamRoster::lane falls back to it through laneOf for rows with no stored lane. Check that it loads in the test, or that every test row avoids it as written.",
+    "file not shown: app/lib/Database.php and app/lib/ControlLog.php. Check that loading them has no side effects for the SQLite test.",
+    "file not shown: the R2 migration adding the control_gauge_tasks 'lane' and 'handoff' columns. GaugeTasks::handOff writes them. lane() works without them.",
+    "file not shown: handoffs/piece2/jason-spec.md §7. Confirm that 'department' means the seven lanes and not TeamRoster::DEPARTMENTS (the layers). A per-layer roll-up of the role queues is a small addition if needed.",
+    "file not shown: app/ui/faq.md. Add the four entries from faq/faq-entries.md.",
+    "file not shown: FounderMail, Notify, ControlAlarms. Needed for the skipped alarm-row part once Q-A is answered.",
+    "Confirm that 'system · ' (a middle dot) in RoleQueues matches TeamRoster::actor's bytes."
+  ],
+  "regions": false
+}

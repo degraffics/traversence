@@ -1,0 +1,38 @@
+{
+  "name": "team-it-manager-agent",
+  "gate": "Founder ruling (Tier 5) before publish. This release adds a step and an Access action ('team.triage') to the decision tree. Under decisions/0180 §2 that is a change to the tree's rules and to a role's permissions. The change to TeamRunner::ruleData() changes the fingerprint, so treeApproval() clears Jason's one-time approval and drops the ceiling to Planning until he approves the new tree himself (0180 note: never a carried-over approval). Also subject to the 0181 launch-gate rule of at most one R2–R5 slot a day (0181 file not shown).",
+  "what": "The IT Manager (0180 role 11) gets its agent.\n- It has one $0 step in TeamRunner, 'triage'. The step only proposes, at every ceiling.\n- It applies to Work tickets in the IT Manager's lane (TeamRoster::LANE_ROUTES, unchanged) at Planning or Building, before a release is named.\n- It proposes four things: the tier by what the ticket touches; the checklist steps its specialists record (22 staging and before-and-after, 24 migration rules, 25 privacy and 0066, its own crawler-batch verification, and the Tier 4 review when a territory is touched); the decisions to attach; and the AI route.\n- The AI access order is code, then the agents' API (off until its counter is live), then a session.\n- A person's Accept adds the steps and decisions through GaugeTasks, with History. Dismiss changes nothing, and the triage isn't proposed again.\n- Charter, ticket types and lean prompts live in app/lib/ItManager.php.",
+  "files": [
+    "files/app/lib/ItManager.php",
+    "files/app/lib/TeamRunner.php",
+    "tests/it-manager-tests.php",
+    "faq/faq-entries.md"
+  ],
+  "decisions": ["0180", "0179", "0165", "0066", "0164", "0161", "0145", "0178"],
+  "tests": ["tests/it-manager-tests.php (install as tools/team-tests/it-manager-tests.php; no database, no network, no money)"],
+  "regions": false,
+  "risks": [
+    "Not run or verified. Nothing in this release was executed, linted, tested or zip-checked; the lane session must do all of it.",
+    "Publishing clears the decision tree's approval (fingerprint change). Every agent drops to Planning until Jason approves the new tree. This affects all roles, not just the IT Manager.",
+    "pick() now checks TeamRoster::lane() for every open Work ticket at Planning or Building. That may query parents (up to depth 3) on each run, so it could be slow on a large queue.",
+    "Accepting a triage adds steps to the ticket. GaugeTasks::advance() won't close a ticket at Confirmation until every step is confirmed, so IT tickets close later once their triage is accepted. This is intended, but it is a behaviour change.",
+    "A dismissed or accepted triage is never proposed again on that ticket, even if its scope changes later.",
+    "The agents' API rung is hard-wired off (ItManager::agentsApiLive() returns false) until the AI items release ships its own counter. Until then, any bounded reasoning routes to a session.",
+    "Held 0066 names: the packet leaves out a nations ticket's words, but the targets it lists (library, path and job names) still go in. That relies on target names never containing a held name.",
+    "The tests require app/lib/TeamRunner.php, which require_once's Database.php. If Database.php connects or reads config at include time, the tests may fail outside the app (Database.php: file not shown)."
+  ],
+  "verify": [
+    "The reconcile file (research/ai-results/job21-reconcile/rec-j18-team.md) holds no findings. Every pass of all six teams was empty, so this release uses no pass finding. It is built only from decisions/0180, jason-spec §4–§7, team-vetting-2026-11-27 and the attached live code. Regenerate the reconcile if pass findings were expected.",
+    "Shared functions: TeamRunner::STEPS, STEP_AT, STEP_COST_MICROS, ruleData()/fingerprint(), pick(), applies(), run() and accept() are used by every role's step. They cover project-manager gate, system-architect handoff, translator brief and ops-reconciliation audit. Other roles' releases editing the same functions must be merged in order, not overwritten.",
+    "STEPS order changed: 'triage' is inserted first, so pick() offers the IT Manager's triage before the Project Manager's gate on the same ticket. Confirm the PM lane accepts this ordering.",
+    "app/admin/Access.php: file not shown. Confirm Access::canAs() applies the default rule for the new action 'team.triage' (min manager, depts ['eng']), or add the action to Permissions.",
+    "The R1 seed of team_roster: file not shown. Confirm a row with slug 'it-manager' exists, is active, and has acts_level/acts_dept that satisfy team.triage (for example manager/eng). If acts_level is empty, TeamRoster::can() refuses every run.",
+    "R2 status conflict. team-vetting-2026-11-27 says LANE_ROUTES is held on claude/r2-design and 'no lane exists in live code'. The attached sync copy of TeamRoster.php and GaugeTasks::handOff() already contain LANES, LANE_ROUTES and the lane/handoff columns. Confirm the attached files are the live ones and that the lane/handoff column migration has shipped (file not shown). ItManager::applies() depends on TeamRoster::lane().",
+    "GaugeTasks.php and TeamRoster.php are unchanged by this release. ItManager calls GaugeTasks::steps, stepAdd, adrs, adrAttach and BOUNDARIES, and TeamRoster::lane and ticketTargets, exactly as attached.",
+    "GaugeTasks::decisions() (DocsRepo): file not shown. Confirm 0165, 0180, 0066, 0145 and 0178 are in the Decisions list; adrAttach skips any that aren't.",
+    "AiClient: file not shown. When the agents' counter and allow() ship (0180 'Separate each'), wire ItManager::agentsApiLive() to them in the IT lane, with the CFO's Tier 4 review. Nothing here calls AiClient.",
+    "The Team page and Work queue admin views: files not shown. The charter is not yet displayed on the IT Manager's card, and the triage proposal's Accept/Dismiss rides on the existing proposal UI. Check that it renders a proposal whose JSON is not brief fields.",
+    "decisions/0181 (launch gates): file not shown. Confirm the release slot.",
+    "Zip check: the release adds no migration, so there is no UPDATE/DELETE and no data_reason is needed. Confirm ReleaseKind classifies the release as code only."
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "name": "f20-leave-code-rate-limits",
+  "gate": "med",
+  "what": "Rate-limits bearer-code actions on /listing/api/leave.php. Each connection (IP) may have at most 10 failed codes per 15 minutes and 30 'check' reads per hour. Confirm-link resends are limited to 1 per code per 10 minutes, 3 per code per day, and 10 per IP per hour. Requests over a limit get 429 rate_limited with Retry-After. Counters are stored only as sha256 hashes in a new table, listing_leave_throttle.",
+  "files": [
+    "files/listing/api/leave.php",
+    "files/app/lib/LeaveThrottle.php",
+    "files/migrations/f20_listing_leave_throttle.sql",
+    "tests/leave-throttle-tests/leave_throttle_test.php",
+    "faq/faq-entries.md"
+  ],
+  "decisions": [
+    "Limits are the safest default and need a person's sign-off: FAIL 10/15min per IP, CHECK 30/h per IP, RESEND 1 per 10min and 3 per day per code, 10 per hour per IP. They are constants in LeaveThrottle.",
+    "If the table is missing or the DB errors, the throttle fails closed for 'resend' (it sends mail) and fails open for check/reply/withdraw, so the feature keeps working. Each case writes an error_log line.",
+    "A failure is recorded when a code action throws InvalidArgumentException, or when 'check' returns an empty thread.",
+    "Raw codes and IPs are never stored; only sha256('ip|..') and sha256('code|..') are kept.",
+    "data_reason: LeaveThrottle::prune() deletes throttle rows older than 2 days. They are counters only, and rows that old can no longer affect any limit. It runs on about 1 in 50 inserts.",
+    "The member-only actions (reply or withdraw by id with no code) and 'leave' are not changed by this release."
+  ],
+  "tests": [
+    "php tests/leave-throttle-tests/leave_throttle_test.php (needs pdo_sqlite)"
+  ],
+  "risks": [
+    "DRAFT: nothing here has been run, linted, tested or zip-checked. The lane session must do all of that.",
+    "Users behind a shared NAT or proxy share one IP bucket, so a busy office could hit the check or failure caps.",
+    "Checking and then inserting is not atomic. Concurrent requests can go slightly over a limit (for example, two resends at once).",
+    "If REMOTE_ADDR is a load balancer or proxy address, every visitor shares one bucket. That would block legitimate guests site-wide.",
+    "Deploying leave.php before the migration runs means resend is refused for everyone until the table exists."
+  ],
+  "verify": [
+    "Run the migration before deploying the PHP. The migrations folder and naming convention are file not shown; move f20_listing_leave_throttle.sql to match.",
+    "app/lib/ListingMessages.php is file not shown. Check whether resendConfirm() already throttles mail, and whether it throws InvalidArgumentException for an unknown code.",
+    "GuestInquiries (guestView/guestReply) is file not shown. Confirm that an unknown code either throws InvalidArgumentException or makes guestView return empty, so failures get counted.",
+    "Response (error/json/requireCsrf) is file not shown. Confirm Response::error() and Response::json() end the request (the existing switch already relies on this), and that a 429 status is accepted.",
+    "app/bootstrap.php is file not shown. Confirm the real client IP is in REMOTE_ADDR, or whether a trusted-proxy header must be used.",
+    "Person's decision: approve or adjust the limit values, and the choice to fail closed on resend when the table is missing.",
+    "Check the front-end handles 429 rate_limited and shows the message (front-end file not shown)."
+  ],
+  "regions": false
+}

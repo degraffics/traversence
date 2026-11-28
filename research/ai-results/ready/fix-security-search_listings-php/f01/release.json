@@ -1,0 +1,34 @@
+{
+  "name": "f01-map-confidential-pins",
+  "gate": "high: privacy/safety leak to signed-out callers; ship before any other search change",
+  "what": "api/search_listings.php map view (view=map) returned the exact lat/lon and phone of confidential listings (ListingSafety::isConfidential, decisions/0044) to anyone, signed in or not. The pin SELECT now carries x.category_id. Each pin row goes through the same ListingSafety::isConfidential(category_id, raw business_name) test the cards use, and confidential rows are dropped whole before pins (and managedSet) are built. 'truncated' now uses the count fetched before the drop, so removing confidential rows can't mask a real MAX_PINS cut. No other behavior is changed.",
+  "files": [
+    "files/api/search_listings.php"
+  ],
+  "decisions": [
+    "Safest default: confidential listings are skipped from the map entirely. The alternative was to keep the pin with lat/lon and phone set to null, but a pin with no point is useless on a map and invites a client-side fallback such as the ZIP centre. This matches the cards, where private listings get no point and no ZIP fallback.",
+    "'total' in the map response still counts confidential matches, the same number the list view shows. It reveals no location.",
+    "The test uses the raw stored e.name (not NameText::listing), the same input the card path passes to isConfidential.",
+    "If isConfidential throws, the request fails with the generic 500. That fails closed: no pins are sent."
+  ],
+  "tests": [
+    "tests/search_map_confidential_test.php (deploy to tools/search-tests/). Part A runs static checks and php -l. Part B is a live, signed-out check against BASE_URL with CONF_ID (and optionally PUB_ID), all read-only."
+  ],
+  "risks": [
+    "Nothing in this release has been run, linted or tested. It is a draft for the lane session to verify.",
+    "ListingSafety.php is not shown, so its isConfidential(?int, string) signature is inferred from the two existing calls in this file. If it differs, the map view will 500 (fails closed).",
+    "Related, not fixed here (outside f01's scope; needs its own finding): the list view still returns 'distance' rounded to 0.1 mi for confidential listings. Repeated searches from different centres, or a tight radius filter, could narrow down their location. The map pin query also still uses their coordinates in the radius/box filter, though it no longer returns them.",
+    "Front-end map code is not shown. If it assumed pins.length === total, the counts may now differ by the number of hidden confidential listings."
+  ],
+  "verify": [
+    "Live path: the release places the file at files/api/search_listings.php. Confirm the real deploy path, since the file requires __DIR__ . '/../../app/lib/...', so app/ sits two levels above api/.",
+    "app/lib/ListingSafety.php: file not shown. Confirm that isConfidential(?int $categoryId, string $name): bool exists and matches what the cards use.",
+    "DECISION NEEDED (person): should confidential listings be absent from the map (implemented default), or shown as an un-placed entry in a side list? The default is the safest choice; change it only on purpose.",
+    "DECISION NEEDED (person): whether the list view's 'distance' for confidential listings should be nulled or coarsened (see risks). Not changed here.",
+    "Run the test signed out against staging with CONF_ID set to a known confidential listing that has coordinates, and PUB_ID set to a public one.",
+    "Check the browser's network tab with view=map over an area containing a shelter-type listing. No pin for it should appear, and no phone or lat/lon for it should be anywhere in the JSON.",
+    "Check that caches/CDN don't hold old map responses (the endpoint sends no-store, but confirm no edge cache overrides it).",
+    "Zip-check the release folder: one live file, one test, faq, release.json."
+  ],
+  "regions": false
+}

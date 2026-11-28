@@ -1,0 +1,46 @@
+{
+  "name": "orders-m4-place-order-groundwork",
+  "gate": "not set: no gate scheme is attached; the lane session sets it. This is groundwork, not M4 complete",
+  "what": "Orders M4 (research/order-management-design-2026-11-23.md §4.2, §6), groundwork only. ClientOrders::placeSteps(), a pure function giving Place an order's five guided steps (Client, Items, Where it goes and tax, Payment terms, Review and send): which are done, which is current, a one-line summary for a folded step, and routing by the choices made (pickup asks no address; nothing to deliver; deposit shown as cost + 15%). Several destinations and credit terms are said as coming. NOT wired into any page: admin/client-order.php, tools.php and admin/ecommerce.php were not attached, so the guided page and the archived page's redirect are not drafted. The attached job-19 DRAFT was empty (0 bytes); nothing from it was used.",
+  "skipped": [
+    "Retiring /admin/ecommerce.php#orders (redirect, remove its New order): waits for Jason, per the design §2 ('Jason clears the archive entry', archive.md 49); file not shown either",
+    "Several destinations, one invoice each: decisions/0177 §1, M5; until then an order to more than one address is sent as one order per address (said in the step)",
+    "Credit terms Net 15 / Net 30: decisions/0178 §4, M7, granted by Jason only (said as coming)",
+    "A category on a new product or service in step 2: M6, not built",
+    "M2b (how an order goes): paused by Jason 2026-11-24; not touched"
+  ],
+  "files": [
+    "files/app/lib/ClientOrders.php.region-1.php",
+    "tests/place-steps.php",
+    "faq/faq-entries.md"
+  ],
+  "decisions": [
+    "research/order-management-design-2026-11-23.md §3.5, §4.2, §6 M4 (approved as the plan, Jason, 2026-11-23)",
+    "decisions/0177 §1 (until release B an order to several addresses isn't approved: send each address as its own order), §3 (deposit: cost + 15%, 65% where cost isn't recorded)",
+    "decisions/0178 §4 (credit terms: Net 15/Net 30, Jason only, M7)",
+    "ClientOrders::OFFERED (invoice later not offered; decisions/0101 note 2026-11-23)",
+    "Jason's rule, 2026-11-23: a finished step folds to one line with Change"
+  ],
+  "tests": [
+    "tests/place-steps.php → tools/orders-tests/place-steps.php: pure, no database, no QuickBooks, no money; prints PASS/FAIL per check and exits 1 on any FAIL"
+  ],
+  "risks": [
+    "Nothing here was run, tested, linted or zip-checked: it is a DRAFT for the lane session to verify",
+    "placeSteps() is unused until admin/client-order.php calls it; shipping it alone changes nothing visible",
+    "The test requires app/lib/ClientOrders.php, which requires Orders.php, Products.php and Store.php at load. If Products.php or Store.php need a database or config at load time (not shown), the test fails to start rather than failing a check",
+    "The tax choice (release A, order page Terms) is not read: its column name isn't in the attached code. Step 3 is done on the delivery and address alone; the lane session decides whether step 3 also waits on the tax choice",
+    "Payment terms counts as done whenever pay_mode is offered, and create() sets 'full', so step 4 is done by default. If staff must confirm it, that needs a flag that doesn't exist yet",
+    "The queue (handoffs/decided-not-live.md) puts M3 and M3's first fix (the order tests green again) before M4; the live Work queue isn't attached, so the order isn't checked",
+    "The region anchor is one line (offeredMode), kept unchanged, with the new method after it; check that the line in live is byte-identical before applying"
+  ],
+  "verify": [
+    "admin/client-order.php: file not shown. The guided page (design §4.2) and its use of placeSteps() are not drafted; the lane session drafts them against the live file (lines 459-481 per design §1.1)",
+    "app/admin/backoffice tools.php (tv_order_next_step, tiles): file not shown; not drafted",
+    "admin/ecommerce.php and archive.md: file not shown, and the redirect waits for Jason clearing the archive entry",
+    "app/lib/Products.php, app/lib/Store.php: file not shown; check they load without a database for the test",
+    "app/lib/ClientOrders.php: attached truncated (over 60 KB), hence regions; confirm the anchor line matches exactly and the method lands inside the class",
+    "PHP 8.0: no 8.1+ syntax used (no enums, readonly, never, first-class callables); str_contains/str_starts_with are 8.0",
+    "No migration in this release; no UPDATE or DELETE"
+  ],
+  "regions": true
+}

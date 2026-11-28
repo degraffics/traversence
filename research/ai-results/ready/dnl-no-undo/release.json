@@ -1,0 +1,43 @@
+{
+  "name": "no-undo-ack (DRAFT, job 19 reviewed; compare-only against handoffs/no-undo/)",
+  "gate": "HELD: needs a Design look and Jason's pop-up before it is sent (handoffs/decided-not-live.md, Building now: 'built and tested, not sent … needs a Design look and Jason's pop-up'). The tested build in handoffs/no-undo/ (branch claude/no-undo) is preferred; this draft is for comparison. Also blocked until the UI callers of unack() are removed (test check 2).",
+  "what": "No Undo on an alarm's acknowledgement (CLAUDE.md #1314; decided-not-live Control board item 2). ControlAlarms::unack() becomes a no-op that always returns false, so an acknowledgement can't be cleared. ack()'s docblock says it is final. No schema change, no migration.",
+  "files": [
+    "files/app/lib/ControlAlarms.php.region-1.php",
+    "tests/control-no-undo-ack.php",
+    "faq/faq-entries.md"
+  ],
+  "decisions": [
+    "CLAUDE.md #1314 (not attached; scope taken from decided-not-live.md: 'No Undo on any alarm's acknowledgement')",
+    "decisions/0171 §7: acknowledging in any of the three places acknowledges all; one record; it stops the email repeat; the alarm stays open until green",
+    "decisions/0171 §8: 'Done in Pulse means acknowledged. Undo reopens it.' This is superseded by #1314 for alarms; the session manager adds the note (this draft doesn't edit the decision)",
+    "decisions/0171 §7 3c: Undo of a Resolve for a day (unresolve()) is left unchanged; whether #1314 covers it is Jason's call",
+    "Skipped, paused or waiting for Jason (untouched): this release's own send (Design look + Jason's pop-up); M2b Orders (Paused by Jason 2026-11-24); Order #12's books ('after holiday'); Gaps for Jason's return. Corrected from job 19: the Start card's 'Mark issue resolved' was already decided (0171 note osm-copy-wider), so it isn't a skip"
+  ],
+  "tests": [
+    "tests/control-no-undo-ack.php → tools/control-tests/no-undo-ack.php (folder name assumed; tools tree not shown). Check 2 (no unack callers left) is a release blocker and is expected to FAIL until the Pulse, board and email-link Undo is removed. The database checks run only on staging or with TV_TESTS_DB=1"
+  ],
+  "risks": [
+    "NOTHING here was run, linted, tested or zip-checked; it is a draft for the lane session",
+    "The tested build in handoffs/no-undo/ exists and isn't attached. If it differs from this draft, the tested build wins; diff them first",
+    "The library change alone is not ship-ready: Pulse's Undo on alarm:/alarms:<group> items (Pulse::mark), any board Undo (admin-control.js, the action endpoint) and the email link page aren't shown or patched. If Pulse's Undo only changes Pulse's own item state, Pulse and the alarm would disagree (the item reopens, the alarm stays acknowledged)",
+    "Behaviour change: an acknowledged warning or notice leaves counts() and the board's Open filter, and with no Undo it can't be brought back by a person. It still becomes a trip if the system can't fix it, and a trip counts and is emailed regardless of acknowledgement (counts(), mail())",
+    "unack() is kept as a no-op returning false, so an unchanged caller shows its 'nothing to undo' path rather than a fatal. Confirm each caller's false-path words are true",
+    "unresolve() doesn't clear ack_*, so a reopened trip keeps its acknowledgement. That is consistent with #1314, but confirm the wording on the reopened card",
+    "The test leaves one control_log line (proc 'test:no-undo') because ControlLog's schema isn't shown",
+    "The region was taken from a truncated copy of ControlAlarms.php (the live mirror); the anchor must match the current live file byte for byte"
+  ],
+  "verify": [
+    "file not shown: handoffs/no-undo/ and branch claude/no-undo (diff this draft against them)",
+    "file not shown: CLAUDE.md #1314 (confirm the scope, including whether 'any alarm's acknowledgement' covers unresolve())",
+    "file not shown: app/lib/Pulse.php, pulse-ui.php (Done/Undo on alarm items), admin-control.js, the board's action endpoint, the email link page: remove each Undo of an acknowledgement and run test check 2",
+    "file not shown: faq.md (place the entries in its existing section and format)",
+    "file not shown: tools/ tree (confirm the tools/control-tests/ folder) and app/lib/ControlLog.php",
+    "The anchor lines match the live ControlAlarms.php exactly: first line '    /** Acknowledged by a person: stops the repeat email; it stays open until its reading is good. */', through unack()'s closing '    }'",
+    "PHP 8.0 lint on ControlAlarms.php and the test (php -l)",
+    "On staging: acknowledge a warning and a trip, and confirm no Undo is offered anywhere (board row, group row's Acknowledge all, Pulse, email link); a trip stays in the light and a warning leaves it",
+    "The Design look and Jason's pop-up, then the zip check, sync and byte-check before the line moves to Live",
+    "Session manager: add a #1314 note to 0171 §8 ('Undo reopens it')"
+  ],
+  "regions": true
+}

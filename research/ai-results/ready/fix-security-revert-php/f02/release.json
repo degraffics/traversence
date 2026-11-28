@@ -1,0 +1,39 @@
+{
+  "name": "f02-email-revert-forced-password-reset",
+  "gate": "high - ship first; f11 is built on top of this file",
+  "what": "revert.php promised a mandatory password reset but never enforced it, so an attacker who knew the password could sign straight back in after the revert. Inside the existing transaction, users.password_hash is now replaced with a valid bcrypt/default hash of a 64-hex-char random secret that is never stored or shown. The old password stops working at the same moment as the email rollback and session bump. The owner recovers via the existing forgot-password flow to the restored address. The response message tells them so.",
+  "files": [
+    "files/sync-storage/api/auth/email/revert.php",
+    "tests/email-revert-forced-reset.php",
+    "faq/faq-entries.md"
+  ],
+  "decisions": [
+    "NEEDS HUMAN DECISION: how to force the reset. Default implemented: option A, replace password_hash with an unusable-but-well-formed hash (no schema change, only this file). Option B: add a users.must_reset_password flag (migration) and enforce it in login and the session/auth middleware. Those files are not shown, so B was not built. Choose A or B.",
+    "The unusable hash is a real password_hash() of random hex rather than a marker string such as '!locked'. Any code calling password_get_info()/password_needs_rehash()/password_verify() keeps working and simply fails to match.",
+    "The hash is computed before the transaction so bcrypt cost is not paid while row locks are held.",
+    "is_suspended is still not set (it remains a separate admin action), matching the original comment."
+  ],
+  "data_reason": "UPDATE users SET password_hash: the account owner has stated via the revert link that the email change was not theirs. The current password is presumed known to an attacker and must stop working at once. The change affects only the single row users.id = email_confirmations.user_id of the consumed token.",
+  "tests": [
+    "php f02/tests/email-revert-forced-reset.php",
+    "php f02/tests/email-revert-forced-reset.php <live>/sync-storage/api/auth/email/revert.php (after deploy)"
+  ],
+  "risks": [
+    "NOTHING HERE HAS BEEN RUN, LINTED OR TESTED; it is a draft for the lane session to verify.",
+    "If the forgot-password flow refuses accounts whose hash fails some check, or requires the current password, the owner could be locked out. The forgot-password code is not shown.",
+    "Password-reset tokens requested by the attacker while the email was theirs may still be valid. They could then set a new password and undo this lock. Where those tokens are stored is not shown.",
+    "Remember-me cookies or API tokens not covered by Auth::bumpSessionVersion would survive. Not shown.",
+    "Two concurrent valid revert requests can both pass the confirmed_at check (pre-existing TOCTOU, not in scope). Both would lock the password, which is harmless here."
+  ],
+  "verify": [
+    "Confirm the live path is sync-storage/api/auth/email/revert.php. It was derived from the attachment name and the require_once depth.",
+    "Confirm the users column is named password_hash, as the original comment implies. Schema file not shown.",
+    "Human decision on option A (implemented) vs option B (must-reset flag), see decisions.",
+    "Login code is not shown: confirm it uses password_verify() and has no special case that would accept or crash on this hash.",
+    "Forgot-password code is not shown: confirm it works for an account whose password_hash was replaced, and sends to users.email (the restored address).",
+    "Password-reset token storage is not shown: decide whether outstanding reset tokens for this user should be invalidated in the same transaction. That is recommended as a follow-up.",
+    "Auth::bumpSessionVersion and Database::transaction are not shown: confirm the signatures used here are unchanged.",
+    "Manual check on staging: change an email, click revert with the correct original address, try the old password (must fail), then complete forgot-password and sign in with the new password."
+  ],
+  "regions": false
+}

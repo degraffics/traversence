@@ -1,0 +1,28 @@
+{
+  "name": "f19-evidence-use-freeze-and-protected-facts",
+  "gate": "lane review: verify Claims::frozen signature and the admin queue before shipping",
+  "what": "listing/api/evidence.php: the 'use' action is now refused with 409 claim_frozen while a dispute freezes the claim. The freeze check fails closed if Claims::frozen is missing or throws. 'use' is also refused with 409 needs_admin for protected facts (name, website, phone, email, address). Unknown fact_ids are refused before Identity::ownerUse runs. 'dismiss' is unchanged because it does not change the listing.",
+  "files": ["files/listing/api/evidence.php"],
+  "decisions": [
+    "Freeze check fails closed. If Claims or Claims::frozen cannot be found or errors, 'use' is refused and 'dismiss' still works.",
+    "Protected facts are blocked rather than queued. The admin-queue API was not shown, so this release does not invent one. The owner is told the detail was not changed, and the release makes no claim that it was queued.",
+    "The protected-fact list is a conservative default: name, website, phone, email, address.",
+    "The fact key is found through Identity::offers(), which documents a 'fact' field per offer. This adds one extra offers() call on 'use'."
+  ],
+  "tests": ["tests/evidence-freeze-test.php"],
+  "risks": [
+    "Nothing here has been run, tested or zip-checked. This is a DRAFT only.",
+    "If Claims::frozen does not exist or takes different arguments, every 'use' will be refused (fail closed). That blocks the feature but is safe.",
+    "If Identity::ownerUse already queues protected facts for admin, this release blocks a path that worked correctly.",
+    "The test is a static source check plus php -l. It does not exercise the endpoint against a database."
+  ],
+  "verify": [
+    "app/lib/Claims.php: file not shown. Confirm Claims::frozen exists, confirm its signature is (PDO $pdo, int $entityId), and confirm it returns true while a dispute freeze is active. Also confirm the path app/lib/Claims.php and whether bootstrap autoloads it.",
+    "app/lib/Identity.php: file not shown. Check whether ownerUse already respects the freeze or queues protected fields. If it queues them, remove the needs_admin block and rely on ownerUse. If it does not, wire this block to the real admin-queue call.",
+    "PERSON DECISION: which facts are protected and need admin approval. The default is name, website, phone, email and address. Also confirm these key names match the 'fact' values Identity::offers returns.",
+    "PERSON DECISION: whether a blocked protected fact should be queued automatically once a queue API is confirmed. The FAQ marks this as 'coming'.",
+    "Confirm Response::error exits, so no code runs after a refusal inside the try block.",
+    "Confirm the front end shows the 409 messages for claim_frozen and needs_admin."
+  ],
+  "regions": false
+}

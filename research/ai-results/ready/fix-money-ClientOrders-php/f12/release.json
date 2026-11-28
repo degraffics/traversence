@@ -1,0 +1,22 @@
+{
+  "name": "f12-skip-qb-payments-posted-here",
+  "gate": "money path: independent check before merge",
+  "what": "applyQuickBooks now also skips a QuickBooks payment whose id is already in order_ledger.qb_payment_id for this order (a payment recorded here and posted to the linked invoice). Before, that depended only on the 'ours' mark.",
+  "files": ["files/app/lib/ClientOrders.php.region-1.php"],
+  "decisions": [
+    "The check is per order, because QuickBooks ids are unique per company and sandbox and production can repeat them.",
+    "A ledger row with that id whose record was later cancelled (order_payment_cancels) still blocks re-applying the QuickBooks payment. Safest: no double record. The correction is made in QuickBooks (0178 money note). A person may decide otherwise.",
+    "If the column is missing, it logs and falls back to today's mark-only behaviour, rather than stopping all QuickBooks reads."
+  ],
+  "tests": ["tests/f12_skip_posted_payments.php"],
+  "risks": [
+    "Nothing here was run or verified.",
+    "Race: if recordPayment posts to QuickBooks and writes qb_payment_id outside the tv-pay- lock, a read in between can still double-record. f13 closes that by holding the lock across post and update."
+  ],
+  "verify": [
+    "file not shown: the migration that adds order_ledger.qb_payment_id, and the code that writes it (recordPayment, around :2188-2210). Confirm the column exists in production and is filled for posted payments.",
+    "file not shown: QuickBooksPay::invoiceByNumber's 'ours' mark - confirm what it reads.",
+    "DB test (MySQL, sandbox): record a payment on a linked order (posted to sandbox QuickBooks), run readQuickBooks($pdo, $oid, true), and check that the ledger has one row, not two."
+  ],
+  "regions": true
+}

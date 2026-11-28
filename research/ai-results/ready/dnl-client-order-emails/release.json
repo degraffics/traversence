@@ -1,0 +1,47 @@
+{
+  "name": "client-order-emails (0172: client order emails through the one dispatcher)",
+  "gate": "Lane checks first that the Work queue task 'Client order emails through the one dispatcher (0172)' is open and not paused (the Work queue lives in the database, not attached). Then the lane verifies and tests, and it goes to Jason's daily batch (0179 rule 1).",
+  "what": "Client order emails to a member client go through Notify::send: two new kinds, order.client (Notice: sent for review, resent, each stage, cancelled) and order.invoice (Alert: an invoice due now, invoiceLaterChoose). The email can't be turned off (0172 §1.6 'email (always)') and lands in the member's Pulse too. A client who isn't a member, a member whose account email isn't the order's billing email, or any time Notify can't take it (update not run, kind unknown, an error) is emailed by ClientOrders::mail exactly as before; once Notify has taken it, ClientOrders::mail isn't called, so never two emails. Notify: an email of a kind that can't be turned off carries no 'Stop these' link (it did nothing for such kinds), and the Communications setting says an order 'always comes by email: it's about an order of yours'. Skipped, said first: M2b (two legs) is paused by Jason 2026-11-24 ('Pause for now. add to work queue.'); nothing here touches stages, legs or their rules. Order #12's books are open with the Founder ('I will address this after holiday'); nothing here touches money, invoices or the ledger. Texting (0172 step 8) needs its own decision; no text channel. Telling staff about the client's answers (0172 §2.4 'staff') is not drafted: staffEmail()'s callers are in the truncated part of ClientOrders.php. Other ClientOrders::mail callers in the truncated part (receipts, approvals, anything else) stay on ClientOrders::mail.",
+  "files": [
+    "files/app/lib/ClientOrders.php.region-1.php",
+    "files/app/lib/ClientOrders.php.region-2.php",
+    "files/app/lib/ClientOrders.php.region-3.php",
+    "files/app/lib/ClientOrders.php.region-4.php",
+    "files/app/lib/Notify.php",
+    "tests/client-order-emails.php",
+    "faq/faq-entries.md"
+  ],
+  "decisions": [
+    "0172 §4 one dispatcher; §2.4 'Client order (ours) placed, stage, done: buyer; staff; email; Notice' and 'Quote or invoice: customer; Alert'; §1.6 'per order: email (always)'",
+    "0172 'Pulse is the inbox': a member client's order emails also land in their Pulse",
+    "0101 (client orders) and its 2026-11-23 notes: the emails' words and when they go are unchanged",
+    "Skipped: M2b paused by Jason 2026-11-24; Order #12's books open with the Founder; texting needs its own decision; M7 credit terms (0178) is its own queued item"
+  ],
+  "tests": [
+    "php tests/client-order-emails.php (static: lint of Notify.php and of each region wrapped in a class; the kinds' shape; every client email in the regions through tell(); the fallback to ClientOrders::mail; no thread passed)",
+    "Lane, in the order tests' harness (file not shown): a member client (account email = bill_email) gets one comms_messages row of order.client and one email route row, and ClientOrders::mail is not called; a guest client gets ClientOrders::mail and no comms_messages row; Notify not ready → ClientOrders::mail; a sandbox send with \\$mail false sends nothing; invoiceLaterChoose('invoice') on a pending order sends order.invoice. Test orders only (QuickBooksPay::guardReal()/testHere()); no real money moves."
+  ],
+  "risks": [
+    "Nothing here was run, linted, tested or zip-checked: all of it is a draft for the lane.",
+    "ClientOrders::mail() itself is file not shown: tell() calls it as self::mail(\\$o, \\$subject, \\$body) and reads its result as truthy, inferred from the attached callers (send() stores it in self::\\$mailed). Check its signature and return.",
+    "Sender changes for member clients: Notify emails as CommsSetup::prefixFor('notices') ('Account notices'), with ' · Traversence' added to the subject and an 'Open it:' link after the body (the body already holds the order link). ClientOrders::mail's own sender (likely orders@) and reply-to aren't shown; 'Questions? Just reply.' then reaches whatever REPLY_TO the notices sender has (support@ by default in Mailer).",
+    "Notify sends to the member's account email (users.email); tell() only uses Notify when that equals the order's bill_email, so the order's address and the event's 'To <bill_email>' stay true.",
+    "order.client is Notice: a member client with quiet hours set has the email held until they end (notify_release); a kind or channel paused by message control holds it with no automatic release (releaseHeld releases only quiet hours). tell() counts 'held' as sent, so the order's history says 'To …'.",
+    "Each call is its own message (a random thing per send), as each ClientOrders::mail call was its own email; Notify's once-per-thing dedupe isn't used.",
+    "Removing 'Stop these' from can't-be-off member emails also applies to any future such kind; today only order.client and order.invoice are member kinds with email that can't be off. email/stop.php is file not shown.",
+    "Found, not changed: Notify::BODIES holds 'sitehealth.finding' with a KINDS-shaped value, and KINDS has no 'sitehealth.finding', so Notify::send('sitehealth.finding', …) logs 'unknown kind' and returns 0. For the Control Board lane.",
+    "If Notify.php isn't updated with the regions, tell() still works: the kinds are unknown, Notify::send returns 0 and every email goes by ClientOrders::mail as before."
+  ],
+  "verify": [
+    "Work queue (database, not attached): the task is open and not paused before building.",
+    "ClientOrders.php regions: each ANCHOR's first line and its closing '    }' match the live file byte for byte (the attached copy was truncated after boardState; the four replaced methods are in the attached part).",
+    "ClientOrders::mail(): file not shown — its signature (\\$o, \\$subject, \\$body), its return value, its sender and reply-to.",
+    "ClientOrders::\\$mailed, wantsProgress(), hasReceived(), GOT_IT_ASK, releaseHold(), mine(), proofGaps(), proofGapText(): file not shown (truncated part); used unchanged.",
+    "comms_messages has a unique key on (to_user, kind, thing) (Notify relies on INSERT IGNORE): migration not shown.",
+    "CommsSetup::prefixFor('notices') and what sender/reply-to it gives: file not shown.",
+    "email/stop.php: file not shown; no change needed (no stop link is drawn for these kinds).",
+    "faq.md: file not shown; place the entries under the orders section.",
+    "Notify.php: diff against live shows only the two KINDS entries, the settings() email_fixed line and the deliverEmail() footer."
+  ],
+  "regions": true
+}

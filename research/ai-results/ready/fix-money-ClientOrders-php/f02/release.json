@@ -1,0 +1,25 @@
+{
+  "name": "f02-test-copy-sandbox-only",
+  "gate": "PARTIAL - money path: independent check before merge; the wiring below is still to be written",
+  "what": "Adds ClientOrders::testEnvBlock() and ClientOrders::inOrderEnv(). A test copy (name starts 'TEST · ' or Orders::isTest) whose qb_env is not sandbox/mock is refused, and QuickBooks work runs in the order's own qb_env, never the mode Payments is in now. Still to be done by the lane (code not shown): in cantInvoice add `if (($w = self::testEnvBlock($o)) !== '') return $w;`; wrap invoiceFor (around :1470-1503) and the card charge (:1731 onward) in self::inOrderEnv($o, fn () => ...); delete the qb_env overwrite at :1731 (or make it only fill an empty qb_env on a non-test order).",
+  "files": ["files/app/lib/ClientOrders.php.region-1.php"],
+  "decisions": [
+    "mock is allowed as well as sandbox: it moves no money and keeps local tests working. Strict 'sandbox only' is a one-word change if a person prefers it.",
+    "A test copy with no qb_env recorded is refused (safest), not treated as sandbox.",
+    "A real order with an empty qb_env still falls back to the current mode, as readQuickBooks already does."
+  ],
+  "tests": ["tests/f02_test_copy_env.php (guard cases PASS once the region is in; the last two FAIL until the lane does the wiring)"],
+  "risks": [
+    "Nothing here was run or verified.",
+    "Only the guard is shipped: until cantInvoice, invoiceFor and the charge use it, f02 is not closed.",
+    "Orders::isTest() is not shown; the guard also relies on the 'TEST · ' name prefix that duplicate() sets.",
+    "inOrderEnv's return type is mixed (PHP 8.0 OK)."
+  ],
+  "verify": [
+    "file not shown: ClientOrders.php :1470, :1481, :1485, :1503 (invoiceFor calls, cantInvoice) and :1731 (qb_env overwrite) - wire the helpers as in 'what'.",
+    "file not shown: Orders.php (Orders::isTest) - confirm it does not need the database.",
+    "Sandbox test with Payments switched to Production: a test copy approves and is invoiced in sandbox, and the charge goes to sandbox (guardReal()/testHere() hold).",
+    "Confirm no existing test copy already has qb_env = production. If one does, it is now refused; that is the intent, but tell staff."
+  ],
+  "regions": true
+}

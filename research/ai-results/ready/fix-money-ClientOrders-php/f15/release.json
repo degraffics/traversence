@@ -1,0 +1,20 @@
+{
+  "name": "f15-charge-always-recorded",
+  "gate": "BLOCKED (code not shown) - money path: independent check before merge",
+  "what": "In pay() (ClientOrders.php:1734-1744) the card is charged before the ledger write, so a failure in between leaves a charge with no record. Plan: (1) write the ledger row (self::received(...) with the same $key) immediately after a successful charge, before any invoice, QuickBooks posting, email or stage work; (2) wrap everything after the charge in try/catch(Throwable): on failure, Orders::event($pdo, $oid, 'needs_books', 'Card charged <amount>, charge <charge id>, request <key>, but it wasn\\'t recorded: <message>') and error_log it, then tell the client the payment went through; (3) never retry the charge in the catch.",
+  "files": [],
+  "decisions": [
+    "On a failure after a successful charge the client is told it went through and staff get needs_books (safest: no second charge). Whether to also email staff at once is a person's decision."
+  ],
+  "tests": ["tests/f15_charge_then_ledger_acceptance.php (static acceptance test: FAILS until the fix is written)"],
+  "risks": [
+    "Nothing here was run or verified.",
+    "No code is included: ClientOrders.php 1731-1758 was not in the attachment."
+  ],
+  "verify": [
+    "file not shown: ClientOrders.php 1731-1758 (pay()) - write the fix as planned.",
+    "Confirm $key at :1735/:1738 is the value sent to the gateway as Request-Id (QuickBooksPay charge; file not shown). If it is not, a retry can charge twice: make it so.",
+    "Sandbox test: force the ledger write to throw after a sandbox charge, and check that a needs_books event carries the charge id and that no second charge happens."
+  ],
+  "regions": false
+}

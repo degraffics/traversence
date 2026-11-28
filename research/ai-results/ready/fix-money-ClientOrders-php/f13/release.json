@@ -1,0 +1,21 @@
+{
+  "name": "f13-record-payment-under-lock",
+  "gate": "BLOCKED (code not shown) - money path: independent check before merge",
+  "what": "recordPayment (ClientOrders.php:2188-2194) takes no lock, so a recorded payment and a card charge can together overrun the total. Plan: $lock = $pdo->quote('tv-pay-'.$oid); refuse with 'Another payment on this order is going through: try again in a moment.' if GET_LOCK($lock, 20) !== 1; inside try: re-read the order and Orders::money(), recompute what is left, refuse an amount above it, then record, post to QuickBooks (recordOtherPayment) and store qb_payment_id, all still inside the lock; finally RELEASE_LOCK.",
+  "files": [],
+  "decisions": [
+    "An amount above what is left is refused, not capped (safest: staff see the conflict). Allowing overpayment as credit is a person's decision (0098 credits)."
+  ],
+  "tests": ["tests/f13_record_payment_lock_acceptance.php (static acceptance test: FAILS until the fix is written)"],
+  "risks": [
+    "Nothing here was run or verified.",
+    "No code is included: ClientOrders.php 2150-2220 was not in the attachment.",
+    "f12's skip on qb_payment_id is only race-free if the QuickBooks post and the qb_payment_id update happen inside this lock."
+  ],
+  "verify": [
+    "file not shown: ClientOrders.php 2188-2194 (recordPayment) - write the fix as planned.",
+    "Confirm the lock name matches pay() and applyQuickBooks() exactly ('tv-pay-'.$oid).",
+    "Two-session test on a sandbox order: a card charge and a recorded payment at once never total more than the order."
+  ],
+  "regions": false
+}

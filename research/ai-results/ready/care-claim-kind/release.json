@@ -1,0 +1,50 @@
+{
+  "name": "care-claim-kind",
+  "gate": "Gate 3 (hours and services kept current by the people who run them). Frontend & Shop, after Monday's four and search release 1. Design review first. Tests at 1280 and 390.",
+  "what": "Health & Medical listings take their own claim kind, 'care' (decisions/0070 note, 2026-11-27/28). It brings their own roles, tip and title, proof by the listing's own domain first, and Free only (refused server-side in Claims::activate). claim.php step 3 says plans for health care listings are coming. DRAFT from job 17b, reviewed against the live files: not run, not applied, not tested.",
+  "files": [
+    "files/app/lib/Claims.php.region-1.php",
+    "files/app/lib/Claims.php.region-2.php",
+    "files/website/claim.php",
+    "tests/claim-kind-care.php",
+    "faq/faq-entries.md"
+  ],
+  "decisions": [
+    "decisions/0070 note 2026-11-27/28 (health care's claim kind)",
+    "decisions/0070 note 2026-11-19 (claim kinds, KIND_GROUPS, agency/organization proof rule, Free for non-business kinds)",
+    "decisions/0073 (category groups)",
+    "decisions/0164 (people aren't places: individual providers stay out)",
+    "CLAUDE.md 'Never a dead end' (staff see 'Open in the editor'; not built here, see verify)"
+  ],
+  "tests": [
+    "tests/claim-kind-care.php -> tools/listing-tests/claim-kind-care.php (plain PHP, PASS/FAIL/SKIP, exit 1 on FAIL; SQLite fixture, never the live DB; activate() checks stop before Billing)"
+  ],
+  "risks": [
+    "Nothing in this release has been run, applied, linted or tested. It is a draft for the lane session to verify, test and zip-check.",
+    "Change from draft 17b: activate()'s care guard runs before the Terms check, so a paid choice gets the true reason, not 'agree to the Terms'. $e is assigned earlier and the later duplicate is removed.",
+    "Change from draft 17b: unified diffs are replaced by whole files and regions. Claims.php is over 60 KB, so it ships as two regions (constants plus kind(), and activate()). claim.php ships whole.",
+    "Change from draft 17b: the FAQ no longer names the button 'Work here? Claim it'. The listing aside (listing/view.php) is not changed in this release, and the button words await Design review, so visitors would not see that label yet.",
+    "Incomplete against the note: listing/view.php is not shown, so neither required change there is drafted: (a) the aside takes its words from KIND_WORDS instead of the hard-coded 'Are you the owner?' (view.php:564); (b) staff see 'Open in the editor', never Claim. Until these land, a health care listing's aside still reads 'Are you the owner?'.",
+    "KIND_WORDS['care'] 'button' ('Work here? Claim it') and 'yours' ('your organization') are drafts, not from the note. They need Design review.",
+    "Only new paid choices are blocked. A Health & Medical listing claimed before this release counted as 'business' and may already hold a paid-plan trial, which is left untouched. The lane should count these and decide with Jason. No data change is made here.",
+    "The server-side Free guard covers 'care' only. 'public' and 'community' still rely on the page (js/claim.js) to hide paid plans, as before. That gap exists already and is not widened here.",
+    "Any other route to a paid plan (the listing's Plans page, Billing) is not shown and not guarded here.",
+    "kind() reads only the main category (e.category_id) and one parent level. A three-level category tree, or a health listing whose main category sits elsewhere, falls back to 'business'. This is existing behaviour.",
+    "Requiring Claims.php in the test also loads Database, StepUpAuth, Mailer and TrustScore. If those need env or config at load time, the test must use claim-kinds.php's bootstrap.",
+    "listing/api/claim.php (live) declares a closure with return type 'never', which is PHP 8.1, not 8.0. This is outside this release but worth checking against the server's PHP version.",
+    "No migration and no UPDATE or DELETE of data in this release."
+  ],
+  "verify": [
+    "'Health & Medical' matches the top-level categories.name exactly (ampersand, not '&amp;' or 'and'), and is a top-level group in decisions/0073 (file not shown).",
+    "The repo path of claim.php: the attachment was sync-storage/claim.php. Its '../app/' requires put it beside app/, and website/claim.php is assumed. Fix files/ and the test's probe if that's wrong.",
+    "listing/view.php: file not shown. Draft and verify there: the aside from Claims::KIND_WORDS[Claims::kind($pdo, $id)] (button and tip, %s the name), and staff seeing 'Open in the editor' instead of Claim.",
+    "js/claim.js: file not shown. Check that the plan step offers no paid plan for kind 'care' (it gets 'kind' from $cOut and the API), and how it shows the 422 refusal if one slips through. Check the proof ordering puts the domain route first for care, as the 0070 rule requires for agencies and organizations.",
+    "tools/listing-tests/claim-kinds.php: file not shown. Match its bootstrap, or fold these checks in and update the '11 checks' count in 0070's note.",
+    "claim-kinds.cjs: file not shown. Add browser checks at 1280 and 390: the Health & Medical aside (once view.php lands), the claim page title and roles, step 3's Free line, no paid plan offered, and staff seeing 'Open in the editor'.",
+    "app/lib/Billing.php: file not shown. The test requires it through activate(); the guards throw before any Billing call.",
+    "faq.md: file not shown. Match its heading style when placing faq/faq-entries.md.",
+    "Region anchors: each region's last line is the method's closing '    }', identified by the line before it, as written in each ANCHOR comment.",
+    "Lint both regions after splicing (php -l app/lib/Claims.php) and php -l website/claim.php on PHP 8.0."
+  ],
+  "regions": true
+}

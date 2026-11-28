@@ -1,0 +1,43 @@
+{
+  "name": "dnl-0179-safe-additive-proof",
+  "gate": "Daily batch (0179 rule 1). This release changes how ReleaseKind decides what counts as low-risk, so it is not a low-risk kind itself: it names no kind and needs Jason's approval in the batch. It is not sent to releases/inbox/ until the batch with it is approved. It is not agent-built, and it is not one of the four releases the before-and-after check was paused for.",
+  "what": "SKIPPED FIRST, as the attached documents require. (1) Switching rule 2 on (the before_after and rule2_autopublish switches) waits for Piece 3 and for Jason, who presses staging's switches himself (0179, note 'Piece 3's decisions'). (2) The before-and-after check is paused for four releases (0179, note 2026-11-26 18:30 UTC). This release leaves that pause and the switch alone. (3) A row limit for data fixes is 'Jason's choice' (DB3). data_fix stays in the batch. (4) Brief A, whether a staging Publish should be before-and-after checked, is to be revisited with Jason before he raises agents to Confirmation. (5) The ruling on Gemini and internal text (0164 §0.8) waits for Jason. (6) Growing the low-risk list happens only by Jason's word. No kind is added. (7) M2b is paused and Order #12's books wait for Jason; neither is touched. REVIEW OF THE DRAFT: the attached job-19 draft (dnl-publish-authority-0179.md) is empty (0 bytes), so there was nothing to review and this release is built from the live files. Most of 0179 is already in the live code: the batch wait in Releases::autoPublish ('Waits for the daily batch'), ReleaseKind's proof of the low-risk kinds, the territories, and TeamRunner::confirmationWaits gating Confirmation on before_after and rule2_autopublish. One real gap remains between the decision's text and the code. 0179's note 'Piece 3's last two briefs' says an add-only migration is safe additive only when it is 'CREATE TABLE IF NOT EXISTS, or a guarded ADD COLUMN or INDEX'. ReleaseKind::additive() currently also passes (a) a CREATE TABLE without IF NOT EXISTS, which is not safe to run twice, (b) CREATE OR REPLACE, which replaces, and (c) an ALTER TABLE that mixes one ADD COLUMN with other clauses, such as ALTER COLUMN ... SET DEFAULT, CONVERT TO CHARACTER SET or ENGINE=. Its ALTER check also stops at the first quote, so clauses after a quoted DEFAULT were never read. This release tightens additive() to the decision's words. Every ALTER TABLE clause must be ADD COLUMN, ADD INDEX or ADD KEY, and a CREATE TABLE must say IF NOT EXISTS. Both are checked outside quoted strings and inside them, where a guarded ADD COLUMN keeps its ALTER for PREPARE. The change only narrows what passes: a release that no longer proves 'additive' counts as needing approval and waits for the batch. Nothing else in ReleaseKind changes, and TeamRunner is untouched, so the decision tree's fingerprint is unchanged.",
+  "files": [
+    "files/app/lib/ReleaseKind.php"
+  ],
+  "decisions": [
+    "0179 rule 1 (the daily batch): this release goes through it",
+    "0179 rule 2 and 'Who classifies': a release that is not clearly low-risk counts as needing approval",
+    "0179 'Safe additive' and the note 'Piece 3's last two briefs': an add-only migration is CREATE TABLE IF NOT EXISTS, or a guarded ADD COLUMN or INDEX; any UPDATE, DELETE, DROP, MODIFY or RENAME stays Tier 3",
+    "0180 §4: territories detected by what a change touches (unchanged here)",
+    "0162 / 0145 §6: migrations only add (Releases::migrationChecks, unchanged)",
+    "SKIPPED: switching rule 2 on (waits for Piece 3 and Jason's own press of staging's switches)",
+    "SKIPPED: the before-and-after check's pause for four releases (paused; not touched)",
+    "SKIPPED: data_fix row limit (DB3, Jason's choice)",
+    "SKIPPED: Brief A revisit before Confirmation (waits for Jason)",
+    "SKIPPED: Gemini internal-text ruling, 0164 §0.8 (waits for Jason)",
+    "SKIPPED: a 'tests' kind in ReleaseKind. Tests are in rule 2's list, but release zips carry only app/, website/ and trvgo/ (Releases::pathOk), and where tests would ship isn't shown, so there is nothing to prove yet. This is a question for the lane, not a new kind."
+  ],
+  "tests": [
+    "tests/releasekind-0179-tests.php"
+  ],
+  "risks": [
+    "Nothing here was run, linted, tested or zip-checked. It is a draft for the lane session to verify, test and zip-check.",
+    "The change narrows 'additive'. Patterns that passed before now count as needing approval and wait for the batch: an ALTER with ALGORITHM=/LOCK= clauses, a CREATE TABLE without IF NOT EXISTS, CREATE OR REPLACE, and ALTER COLUMN / CONVERT / ENGINE mixed with ADD. This is the safe direction, but an in-flight release that relied on 'additive' would now wait.",
+    "If the site's 'guarded ADD COLUMN' uses a form this check doesn't recognise, guarded adds would stop proving 'additive' and would wait for the batch. The form recognised here is an ALTER inside a quoted string for PREPARE, or a bare ADD COLUMN. A non-ALTER guard statement (SET/PREPARE/EXECUTE/DEALLOCATE) is allowed, since only ALTER and CREATE are read. Check this against the live migrations.",
+    "A standalone CREATE INDEX or CREATE VIEW (without OR REPLACE) still passes, as before. CREATE INDEX isn't safe to run twice. It is left alone because the site's index-guard convention isn't shown.",
+    "Releases::rule2 and Releases::agentGate are past the truncation of the attached Releases.php. Whether they call ReleaseKind::prove for every kind is not confirmed here.",
+    "No money moves, no migration, and no data change in this release, so no data_reason is needed."
+  ],
+  "verify": [
+    "Releases.php: file shown only up to publish(); rule2(), agentGate() and the rest are not shown. Confirm they read ReleaseKind::prove (and 'kind:<id>') and that nothing else calls the private additive().",
+    "BeforeAfter.php, DbUpdates.php, DbCopies.php, SchemaUpkeep.php, Switches.php: file not shown. Confirm none depends on additive()'s old leniency.",
+    "app/migrations/: file not shown. Run each live migration that a past release declared kind 'additive' through ReleaseKind::prove('additive', ...) before and after this change. List any that flip, and confirm each flip is a pattern the decision does not call safe additive.",
+    "app/ui/faq.md: file not shown. Merge faq/faq-entries.md into it by hand. Pick a heading no existing question uses, because headings are anchors (0057), and keep every existing heading so a later FAQ release still proves 'faq'.",
+    "TeamRunner::fingerprint() before and after: it should be identical, since TeamRunner is not in this release and ReleaseKind is not in ruleData(). If it differs, stop: the tree's approval would clear.",
+    "Move tests/releasekind-0179-tests.php to tools/release-kind-tests/ and run it with php from the repo root (or set TV_ROOT). It loads TeamRunner.php, which requires Database.php, ControlLog.php, GaugeTasks.php and TeamRoster.php at load. Those are not shown; confirm they have no side effects on load.",
+    "php -l on files/app/lib/ReleaseKind.php under PHP 8.0. It uses str_starts_with/str_ends_with, match and a possessive quantifier in PCRE.",
+    "handoffs/decided-not-live.md is stale: its Piece 3 row says 'not started', while the 2026-11-26 batch note and the live code show P3-3 to P3-6. That is for the session manager to update. It is not in this release."
+  ],
+  "regions": false
+}

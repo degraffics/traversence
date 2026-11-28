@@ -1,0 +1,23 @@
+{
+  "name": "f17-dispute-returns-dispute-id-only",
+  "gate": "med: ship after f04 (this file contains f04's guard); f18 is built on top of this file",
+  "what": "listing/api/claim.php 'dispute' action: the response is now {dispute_id, message}. It no longer includes the disputed claim's claim_id, which belongs to the other party. The raw $pdo->query('SELECT claim_id FROM disputes ...') used to fetch it is removed. Everything else matches f04.",
+  "files": ["files/listing/api/claim.php"],
+  "decisions": [
+    "Safest default: drop claim_id from the response entirely; nothing replaces it on the client.",
+    "Proof for a dispute should be keyed by dispute_id server-side. If the uploader currently needs the client to send the other party's claim_id, that is a separate bug to fix in the uploader. claim_id is not handed back."
+  ],
+  "tests": ["tests/claim-dispute-response-test.php (static: lint, dispute case returns dispute_id only, no SELECT claim_id, f04 guard still present)"],
+  "risks": [
+    "NOTHING HERE HAS BEEN RUN OR VERIFIED: not linted, not tested, not deployed. The lane session must run php -l, the test and a zip check.",
+    "The dispute proof upload may break: the code comment says proof 'follows through the uploader (target claim_doc)'. If the page's JS sends the returned claim_id to the uploader, the proof step stops working until it uses dispute_id.",
+    "This file carries f04. Shipping f17 without f04 also ships f04's guard; shipping f04 after f17 would undo f17."
+  ],
+  "verify": [
+    "Claim page JS and the dispute form: files not shown. Search for where the dispute response's claim_id is read, and switch it to dispute_id or remove it.",
+    "The uploader handling target claim_doc for disputes: file not shown. Confirm it attaches proof by dispute_id and checks the dispute was filed by the uploader. If it needs claim_id, a person must decide how to move it to dispute_id before shipping.",
+    "Manual check on staging: file one dispute with a test account against a test listing. Confirm the JSON has dispute_id and no claim_id, and that attaching proof still works.",
+    "Live path: header says /listing/api/claim.php; requires reach ../../../app. Place it at the real live path (it may be under a web-root folder)."
+  ],
+  "regions": false
+}

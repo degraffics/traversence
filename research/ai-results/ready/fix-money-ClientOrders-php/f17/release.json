@@ -1,0 +1,22 @@
+{
+  "name": "f17-outside-orders-wait-for-payment",
+  "gate": "order flow: review before merge",
+  "what": "shipHold no longer returns '' for pay_mode 'outside'. An order paid outside QuickBooks ships or becomes ready only once the payment is recorded, or when an admin releases it with a reason, like every other order (model 1.9).",
+  "files": ["files/app/lib/ClientOrders.php.region-1.php"],
+  "decisions": [
+    "If an 'outside' order is approved with an automatic 'released' event (see verify), overridden() would still let it ship with no admin reason. Whether outside orders should be auto-released at all is a person's decision. The safest default is no auto-release: staff record the payment or an admin releases it."
+  ],
+  "tests": ["tests/f17_outside_ship_hold.php"],
+  "risks": [
+    "Nothing here was run or verified.",
+    "Behaviour change: open 'outside' orders with nothing recorded as paid can no longer be marked shipped or ready until staff record the payment. Tell staff before release.",
+    "boardState (around :1050) still counts 'outside' as release-met for the 'staged for production' wording. That is display only and left alone; it can say staged while delivery waits."
+  ],
+  "verify": [
+    "file not shown: ClientOrders.php :798-799 context, :1449 and :1453 (the approve/outside path). If it records an order_events 'released' row automatically for outside orders, this fix does nothing until that is removed or made to require an admin and a reason.",
+    "file not shown: whichever item-status path checks OUT_DOOR statuses against shipHold - confirm it calls shipHold and has no 'outside' shortcut of its own.",
+    "DB test (sandbox): an 'outside' order with nothing recorded is refused at setStage('shipped'); after Record a payment for the full amount it is allowed.",
+    "Query open 'outside' orders with a balance before release, so staff can record their payments."
+  ],
+  "regions": true
+}

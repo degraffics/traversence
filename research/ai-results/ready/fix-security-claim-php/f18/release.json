@@ -1,0 +1,26 @@
+{
+  "name": "f18-sibling-addresses-need-confirmed-claim",
+  "gate": "med: ship after f04 and f17 (this file contains both)",
+  "what": "listing/api/claim.php 'locations' action: each sibling location's street address is only returned when the claim's status is in a new $addressStatuses allowlist. Otherwise 'address' is '' (key kept so the page doesn't break). Name, town and id are still returned so locations can still be picked. The response also says addresses_shown: true|false. The allowlist ships EMPTY, so no addresses go out at any status until a person fills in the confirmed status values.",
+  "files": ["files/listing/api/claim.php"],
+  "decisions": [
+    "DECISION NEEDED: which claim statuses count as confirmed? The exact status strings live in app/lib/Claims.php, which is not shown. Safest default: $addressStatuses = [], so addresses are omitted at every status.",
+    "The address key is kept as '' rather than removed, so existing page code that reads it keeps working.",
+    "add_locations is unchanged: a member can still add siblings by id at any status (out of scope for f18)."
+  ],
+  "tests": ["tests/claim-sibling-address-test.php (static: lint, gating present, no ungated address, f04/f17 still present, sample-row check of the gating; optional staging HTTP: owner's 'locations' has no addresses while addresses_shown is false)"],
+  "risks": [
+    "NOTHING HERE HAS BEEN RUN OR VERIFIED: not linted, not tested, not deployed. The lane session must run php -l, the test and a zip check.",
+    "With the empty default, confirmed owners also stop seeing sibling addresses until the allowlist is filled in. Members with same-named locations in one town may find them harder to tell apart.",
+    "If the allowlist is filled with strings that don't exactly match Claims.php statuses, it fails closed (no addresses). That is safe but looks broken.",
+    "This file carries f04 and f17. Shipping an earlier release's file after this one would undo f18."
+  ],
+  "verify": [
+    "app/lib/Claims.php: file not shown. Read the claim status values. Ask the owner of decisions/0070 which ones mean confirmed (e.g. the status after 'confirm' → Managed by owner, or after domain/document/admin verification), and put the exact strings in $addressStatuses.",
+    "Claims::siblings: file not shown. Confirm it doesn't return other private fields; this release only filters 'address'.",
+    "Claim page JS: file not shown. Confirm it shows sensibly when address is '' (e.g. falls back to name and town). Optionally show the FAQ text when addresses_shown is false.",
+    "FAQ entry: place it where claim FAQs live; wording assumes the allowlist will be filled in.",
+    "Live path: header says /listing/api/claim.php; requires reach ../../../app. Place it at the real live path (it may be under a web-root folder)."
+  ],
+  "regions": false
+}

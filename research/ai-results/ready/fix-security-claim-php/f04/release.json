@@ -1,0 +1,28 @@
+{
+  "name": "f04-claim-ownership-guard",
+  "gate": "high: ship first; f17 and f18 are built on top of this file",
+  "what": "listing/api/claim.php: one ownership guard runs before the switch for every action that takes a claim_id (details, domain_start, domain_confirm, appointment, locations, add_locations, activate, withdraw, verify_request). The guard loads the claim with Claims::get and returns 404 'Claim not found.' unless claim.user_id is the signed-in user. This happens before any library call and before $out() returns text_code and phones. A missing claim and someone else's claim get the same 404, so claim ids can't be probed. The existing check inside 'locations' is kept.",
+  "files": ["files/listing/api/claim.php"],
+  "decisions": [
+    "Safest default: no admin or staff bypass on this member endpoint. Admins acting on another member's claim would now get 404. A person must confirm admin tools don't post here.",
+    "Missing and not-yours both return 404 not_found (same as the existing 'locations' check), so claim ids can't be enumerated.",
+    "Guard placed at the endpoint whatever app/lib/Claims.php does (defense in depth). The finding's severity depends on the library, which is not shown."
+  ],
+  "tests": ["tests/claim-ownership-test.php (static: lint, guard before switch, every $cid case is guarded; optional staging HTTP: member B gets 404 on member A's claim via read-only 'locations')"],
+  "risks": [
+    "NOTHING HERE HAS BEEN RUN OR VERIFIED: not linted, not tested, not deployed. The lane session must run php -l, the test and a zip check.",
+    "Any legitimate flow where a claim is used by an account other than claim.user_id (co-owner, transferred claim, staff-on-behalf) will now get 404.",
+    "Adds one Claims::get read per claim_id request.",
+    "Not covered by this endpoint guard: 'answer' (dispute_id) and the multipart 'document' upload, which has no case here and goes through the uploader."
+  ],
+  "verify": [
+    "Live path: the file's header says /listing/api/claim.php, but its requires reach ../../../app. It may sit under a web-root folder (e.g. public_html/listing/api/claim.php). Place it at the real live path.",
+    "app/lib/Claims.php: file not shown. Confirm Claims::get returns user_id (the existing 'locations' case already relies on it). Check whether details/domainStart/domainConfirm/appointment/addLocations/activate/withdraw already check ownership; this sets f04's true severity.",
+    "app/lib/VerifyRequests.php: file not shown. Confirm VerifyRequests::send checks ownership too.",
+    "Claims::answerDispute: file not shown. Confirm it only lets the disputed claim's owner answer.",
+    "The document uploader (target claim_doc): file not shown. Confirm it checks the claim belongs to the uploader.",
+    "DECISION NEEDED: should admins or co-owners act on others' claims through this endpoint? Default here: no.",
+    "Confirm the claim page's JS handles a 404 not_found on these actions (it already must for 'locations')."
+  ],
+  "regions": false
+}

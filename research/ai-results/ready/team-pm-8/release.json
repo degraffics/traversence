@@ -1,0 +1,43 @@
+{
+  "name": "team-role-08-project-manager",
+  "gate": "Tier 5 · Founder ruling. This release changes the decision tree's rules: two new Project Manager steps (sequence, stall), STEP_AI, AGENTS_API_LIVE and STALL_DAYS are all in TeamRunner::ruleData. On staging it clears the tree's approval and drops agents to Planning (treeApproval). Only the Founder's own press or his written words re-approve it (decisions/0180 §2; the note 'It is one time only'). It also sits behind R2 (lanes), which the vetting doc of 2026-11-27 says is held on claude/r2-design, and inside 0181's one-slot-a-day rule for R2-R5. 0181 is not attached.",
+  "what": "The Project Manager (role 8, slug project-manager; decisions/0180 §5 and appendix row 8; jason-spec §8) now has a working $0 agent in TeamRunner. (1) Charter: TeamRunner::CHARTERS['project-manager'] and charter(), covering 0180 §6's four groundings: follows, job, knowledge and escalation, plus 'never'. (2) Lane: project-manager, the fallback lane in TeamRoster::LANE_ROUTES. Each run's 'seen' line names the ticket's lane. (3) Ticket types: Work only. (4) Steps: gate (unchanged behaviour; the lane is now noted); sequence, which proposes a priority from what the ticket depends on (a ruling's precedent → 1, its goal's priority, or the most urgent ticket waiting on it), never guesses and always proposes; stall, for a Priority 1 or 2 Work ticket idle 3 days at its stage, which opens one 'Unstick task #N' child ticket in that lane (it proposes at Planning and acts from Building on, with Undo that withdraws it), and when that child is also idle 3 days, asks a session once. (5) Prompts: TeamRunner::PROMPTS['stall'], lean per 0180 §6, filled by prompt(). (6) AI access order: STEP_AI and route(), meaning code, then the agents' API only when AGENTS_API_LIVE (false until its own $40 counter exists, per 0180's 'Separate each' correction), then a session. Session questions are listed by TeamRunner::sessionAsks(). Accept and Undo cover the new steps.",
+  "files": [
+    "files/app/lib/TeamRunner.php",
+    "tests/team-pm-tests.php",
+    "tests/team-pm-db-tests.php",
+    "faq/faq-entries.md"
+  ],
+  "decisions": ["0180", "0179", "0165", "0164", "0145", "0066"],
+  "tests": [
+    "tests/team-pm-tests.php (no database: steps, ceilings, route order, ruleData keys, sequenceFrom, idleDays, prompt, charter)",
+    "tests/team-pm-db-tests.php (staging only, exits SKIP elsewhere: sequenceFor, stallFor at ticket and session level, person-owned tickets refused, its own Unstick tickets ignored; withdraws its tickets at the end)"
+  ],
+  "risks": [
+    "Nothing here was run, linted, tested or zip-checked. This is a DRAFT for the lane session to verify on staging.",
+    "The attached reconcile (rec-j18-team.md) is empty: all 18 pass sections have no content. No team-pass findings were merged. This draft rests only on the live TeamRunner.php, GaugeTasks.php and TeamRoster.php, decisions/0180, jason-spec §4–§8 and the 2026-11-27 vetting doc.",
+    "The fingerprint changes, so on deploy to staging the tree's approval is cleared and the ceiling drops to Planning for every role, not only this one. Gate, handoff and the Translator's brief all fall back to Planning behaviour until the Founder re-approves and raises the ceiling again.",
+    "The stall step opens tickets from Building on. A queue with many old Priority 1–2 tickets could open several Unstick tickets in a few hours. Each run is one ticket, and each ticket is worked at most once an hour. Each child has Undo.",
+    "The Unstick child's lane comes from its parent through TeamRoster::lane's parent walk. The other managers (9–14) have no steps yet, so those children wait for a person or for later role releases.",
+    "The gate step still works every lane's Planning tickets, as it does today. Under 0180 §5 each lane's manager owns its tickets, so when other managers get gate-like steps this should narrow to the PM's lane.",
+    "dismissedBefore() stops a dismissed priority proposal from coming back. A dismissed Unstick proposal returns after STALL_DAYS if the ticket is still stalled.",
+    "Session asks rely on a person or the session manager taking them. Until health.php ships sessionAsks(), they show only in the run log and the ticket's proposals.",
+    "No real money moves: no step calls QuickBooksPay, a connector, AiClient or any outside service. The tests make no payments."
+  ],
+  "verify": [
+    "Several roles touch the same functions. TeamRunner::STEPS, STEP_AT, STEP_COST_MICROS, ruleData() and fingerprint() are shared by the Project Manager (gate, sequence, stall), the System Architect (handoff, role 20), the Executive Translator (brief, role 28) and Operations & Reconciliation (audit, role 23). run(), applies(), pick(), accept() and undo() branch per step for all of them. Any other role's release editing these must merge by key, not overwrite this file. STEP_AI, PROMPTS and CHARTERS are keyed by step or slug for that reason.",
+    "undo() now shares its withdraw branch between 'audit' (role 23) and 'stall' (role 8).",
+    "GaugeTasks.php: no change. The PM writes only through GaugeTasks::add, edit, move and withdraw.",
+    "TeamRoster.php: no change. The charter lives in TeamRunner::CHARTERS. The Team page that would show it is a file not shown, so charter() is not yet rendered anywhere.",
+    "Access.php: file not shown. New actions team.sequence and team.stall rely on Access::canAs honouring the passed default ['min' => 'manager', 'depts' => ['ops']] for an action it doesn't list. Confirm on staging that the PM row's acts_level and acts_dept pass, and that no Permissions entry is needed.",
+    "health.php: file not shown. To carry the PM's session questions into build-requests.json, its report should add TeamRunner::sessionAsks($pdo). Not done here.",
+    "The Work queue page: file not shown. Confirm its Accept and Dismiss buttons render for step 'sequence' and 'stall' proposals. It may only know 'gate' and 'brief'.",
+    "AiClient: file not shown. The API rung is declared but closed (AGENTS_API_LIVE = false). No AiClient method is called or assumed.",
+    "The lane and handoff columns on control_gauge_tasks: GaugeTasks::handOff writes them but ensure() doesn't create them, and their migration is a file not shown. TeamRoster::lane reads $t['lane'] ?? '' safely without them.",
+    "Database.php: file not shown. tests/team-pm-db-tests.php assumes Database::pdo(). Fix the accessor if it differs. Both tests assume the repo root is two levels up, or argv[1] or TRAV_ROOT.",
+    "There is no due-date column on control_gauge_tasks. The vetting doc's 'a due date its open tickets can't meet' is not built. Only the 3-day idle rule is.",
+    "Check the stall proposal's JSON matching: stallFor looks for '\"child\":<id>,' in team_runs.proposal. This relies on json_encode key order (route, child, ask), as written in run().",
+    "The role's slug is project-manager, as in TeamRunner::STEPS and TeamRoster::LANES. Confirm the seeded team_roster row uses that slug, is active, and has acts_level manager or above in ops."
+  ],
+  "regions": false
+}

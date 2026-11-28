@@ -1,0 +1,43 @@
+{
+  "name": "f15-resend-confirmation-server-side-limit",
+  "gate": "med: apply the migration before deploying the code (the code fails open without the table, so the order is not fatal)",
+  "what": "resend-confirmation.php was limited per session only, so clearing the cookie gave unlimited sends and allowed mail-bombing any address. This adds a database-backed rolling-hour limit: 3 sends per email address (counted whether or not the address has an account, so the 429 does not reveal registrations) and 10 per client IP (IPv6 grouped per /64). The existing per-session limit and all messages are unchanged.",
+  "files": [
+    "files/app/lib/ResendLimiter.php",
+    "files/database/migrations/20261106_resend_confirmation_attempts.sql",
+    "files/sync-storage/api/auth/resend-confirmation.php",
+    "tests/resend-limiter-tests.php",
+    "faq/faq-entries.md"
+  ],
+  "decisions": [
+    "NEEDS A PERSON: should the limiter fail OPEN or CLOSED if its table or the DB is unavailable? Implemented default: fail open with error_log, keeping the per-session limit, so legitimate users can still confirm. Failing closed is stronger against mail-bombing but blocks every resend whenever the limiter errors.",
+    "NEEDS A PERSON: limit values. Defaults are PER_EMAIL=3/hour (same as the old session limit) and PER_IP=10/hour. Shared IPs (offices, campuses, carrier NAT) could hit the IP limit; raise PER_IP if support sees this.",
+    "NEEDS A PERSON: captcha. The finding also mentions that there is no captcha. No captcha was added because no captcha provider or library is shown. The server-side limits are the safe default; adding a captcha is a separate product decision.",
+    "Rejected attempts are recorded too (insert-then-count, which is race-safe), so continued hammering keeps a key blocked until the rolling hour clears.",
+    "The email limit counts every requested address, including ones with no account, so the 429 response does not enable account enumeration.",
+    "Emails and IPs are stored only as sha256 hashes and pruned after 24h (probabilistically, 1 in 50 requests)."
+  ],
+  "tests": [
+    "tests/resend-limiter-tests.php (install as tools/auth-tests/resend-limiter-tests.php; needs pdo_sqlite; prints PASS/FAIL per check and exits non-zero on any FAIL)"
+  ],
+  "risks": [
+    "NOTHING HERE HAS BEEN RUN OR VERIFIED: the migration, code and tests are drafts only.",
+    "REMOTE_ADDR is used as the client IP. Behind a reverse proxy or CDN, every visitor may share one IP and the IP limit would block everyone after 10 sends an hour. Confirm how the app gets the real client IP. Do not trust X-Forwarded-For unless it is set by a known proxy.",
+    "The email hashes are unsalted sha256, which can be reversed by guessing likely addresses. This is acceptable because rows live 24h at most, but note it for privacy review.",
+    "Pruning runs a DELETE on about 2% of requests. With the idx_rca_time index this should be cheap; check it on production volume.",
+    "Fail-open default: if the migration is not applied, only the old per-session limit protects this endpoint (the errors are logged)."
+  ],
+  "verify": [
+    "Live path assumed to be sync-storage/api/auth/resend-confirmation.php, inferred from the attachment name and its require_once __DIR__ . '/../../../app/bootstrap.php'. Confirm before copying.",
+    "app/bootstrap.php, Response, Database, Auth and app/lib/Mailer.php: file not shown. Assumed (as the existing code does) that Response::error() ends the request and that Database::connection() returns a PDO with ERRMODE_EXCEPTION.",
+    "Migrations folder and naming convention: file not shown. Placed at database/migrations/20261106_resend_confirmation_attempts.sql; move or rename it to match the project's runner. The migration is CREATE TABLE IF NOT EXISTS only, so it is safe to run twice.",
+    "Check whether an existing rate-limit helper or table exists in app/lib (file not shown). If one does, consider reusing it instead of ResendLimiter.",
+    "Run the migration twice on staging and confirm no error and the table exists.",
+    "Run php tools/auth-tests/resend-limiter-tests.php and expect ALL PASS.",
+    "Manual test on staging: request a resend 4 times for one address while clearing cookies between requests; expect the 4th to return 429 too_many. Also send 11 requests for different addresses from one IP; expect the 11th to return 429.",
+    "Confirm the client-IP source behind the production proxy (see risks).",
+    "Decide fail-open vs fail-closed, the limit values, and the captcha question (see decisions).",
+    "Zip-check that the release contains only the files listed in 'files'."
+  ],
+  "regions": false
+}

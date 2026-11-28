@@ -1,0 +1,49 @@
+{
+  "name": "piece3-spend-undo",
+  "gate": "Daily batch (decisions/0179 rule 1; its note 'Piece 3's decisions': Piece 3's releases are not pre-approved). Tier 2 backend bug fix: one internal file (app/lib/TeamRunner.php); it touches no high-risk territory (TeamRunner and team_runs are not in TERRITORIES) and changes no rule the decision tree's fingerprint covers.",
+  "what": "Piece 3's spending limit per agent and Undo per agent action, made to work as P3-4 wrote them. (1) TeamRunner::log() now writes cost_micros. Before this, run() checked a step's cost against the role's limit, but no run ever recorded a cost, so spentThisMonth() always read $0. (2) TeamRunner::undo() claims the run before it acts and gives the claim back if the Undo fails. Before this, two presses at once could both act (a double move back, a double withdraw), even though a second Undo is meant to be refused. Every step still costs $0, so nothing a person sees changes except the refusal of a second, simultaneous Undo.",
+  "files": [
+    "files/app/lib/TeamRunner.php.region-1.php",
+    "files/app/lib/TeamRunner.php.region-2.php",
+    "tests/piece3-spend-undo-static.php",
+    "tests/piece3-spend-undo-db.php",
+    "faq/faq-entries.md"
+  ],
+  "decisions": [
+    "SKIPPED (paused): changes to the before-and-after check (app/lib/BeforeAfter.php). decisions/0179's note of 2026-11-26 18:30 UTC pauses it for four releases (ba-proof-fixes, switch-readback, the staff-mail fix, R1). Its noise fixes go in ba-proof-fixes, and it switches back on before any agent-built release and before R2. BeforeAfter.php is reviewed below but not changed.",
+    "SKIPPED (waiting for its own release and the Founder's fence): per-agent spend limits above $0, and any setter for team_settings 'spend:<slug>'. 0180's note 'Separate each' makes the agents' API budget its own $40 counter, built with the AI items release (IT Manager's lane, the CFO's Tier 4): 'nothing is spent from (3) until its counter is live'. 0180 §2 makes the spend cap a fence, a Founder ruling. Limits stay $0 and the per-step costs stay $0.",
+    "SKIPPED (Jason's own presses): switching on rule 2 or the before-and-after switch, and raising the ceiling to Confirmation (0179's note 'Piece 3's decisions': 'Jason presses staging's three switches himself'; TeamRunner::setCeiling, confirmationWaits).",
+    "SKIPPED (paused / waiting for Jason, not part of this item): M2b ('Pause for now'), Order #12's books ('after holiday'), no-undo (needs Jason's pop-up). Not touched.",
+    "NOT ATTACHED: open Work-queue parents live in the database. This release names none and opens none.",
+    "DRAFT REVIEW: the attached job 19 draft (research/ai-results/job19-decided-not-live/dnl-piece3.md) is empty, so there was nothing to review or keep. This release is built from the live files alone.",
+    "STALE HANDOFF: handoffs/decided-not-live.md says Piece 3 is 'not started'. The live code says otherwise: BeforeAfter.php (P3-2), TeamRunner's STEP_COST_MICROS, spendLimit, spentThisMonth and the no-Undo refusal in log() (P3-4), and the fence (P3-6). The 2026-11-26 batch line also lists P3-3 to P3-6 as sent. The session manager should update the line after checking the sync. This release does not edit the handoff.",
+    "Built on: 0179 'What comes next' (Piece 3: Undo on every agent action, a spending limit per agent), 0179 rule 1 (daily batch), 0180 §4.1 and §7 ($0 agent spend, the hard money line), 0180 §2 (the fingerprint covers the rules: ruleData() is untouched, so the tree's one-time approval of 2026-11-26 stands).",
+    "Chosen: log() books the cost from STEP_COST_MICROS[$step], the same figure run() checks, and only for done or proposed runs. Refused and failed runs book $0. This keeps run(), audit() and every caller unchanged.",
+    "Chosen: undo() claims with UPDATE ... WHERE id = ? AND undone_at IS NULL and checks rowCount() before acting. A failure clears only its own claim (AND undone_by = ?) and rethrows. The step check ('This kind of run has no Undo') now comes before the claim, so an unknown step never claims.",
+    "Not changed: app/lib/AiCredits.php covers members' AI Assist credits, not agents' spending. It is out of scope and unchanged."
+  ],
+  "tests": [
+    "tests/piece3-spend-undo-static.php -> tools/piece3-tests/piece3-spend-undo-static.php: no database. Checks the log() INSERT (13 columns, 12 placeholders, cost from STEP_COST_MICROS, after the no-Undo refusal), that undo() claims before it acts and gives the claim back, and that ruleData()'s keys and the $0 step costs are unchanged.",
+    "tests/piece3-spend-undo-db.php -> tools/piece3-tests/piece3-spend-undo-db.php: a throwaway MySQL schema only (its name must contain 'test'). Checks that log() writes cost_micros, that a no-Undo done run is refused with $0, that a second Undo and an Undo of a proposal are refused, and that a failing Undo leaves undone_at NULL. No outside call and no money: no QuickBooksPay path is reached."
+  ],
+  "risks": [
+    "NOTHING HERE WAS RUN OR VERIFIED: not linted, not tested, not zip-checked. The lane session runs php -l, both tests, and the zip check.",
+    "If live's or staging's team_runs was created before cost_micros existed, CREATE TABLE IF NOT EXISTS never added it, and the new INSERT would fail on every run, stopping the Team's runner and audit. Check the column before publishing (verify).",
+    "The undo() claim depends on PDOStatement::rowCount() returning affected rows for UPDATE on MySQL/MariaDB (the PDO default). If PDO::MYSQL_ATTR_FOUND_ROWS were set, it still returns 1 only when the row matched undone_at IS NULL, so the guard holds.",
+    "While an Undo is acting, the run already shows as undone. If the Undo then fails, it goes back to not undone. A page read in that moment may show 'undone' briefly.",
+    "Region anchors: the closing brace '    }' recurs in the file. Each region's end is the brace right after the quoted return line, and the lane must replace exactly that span.",
+    "Reviewed, not fixed (each for its own ticket): audit() and applyRefusals() are not subject to the spend check (both $0 today); applyRefusals() acts as 'the fence' with a logbook line but no team_runs record or Undo; handoff Undo restores owner_at as now, not the original time; the audit's second-look Undo withdraws the Work ticket but leaves the Audit ticket Confirmed; BeforeAfter::tickLine() calls CPanel::ready() with no require_once for CPanel in the file shown."
+  ],
+  "verify": [
+    "On live and staging: SHOW COLUMNS FROM team_runs LIKE 'cost_micros' returns the column (INT NOT NULL DEFAULT 0). If it is missing, hold this release and add a guarded, add-only migration first.",
+    "On staging, before and after the release: TeamRunner::fingerprint($pdo) is identical, and TeamRunner::treeApproval($pdo) is still set (no 'decision tree's rules changed' line in the History).",
+    "Apply region-1 over log() and region-2 over undo() in app/lib/TeamRunner.php, then php -l (PHP 8.0) and a byte diff showing only those two methods changed.",
+    "Run tools/piece3-tests/piece3-spend-undo-static.php (ALL PASS), then piece3-spend-undo-db.php on a throwaway test schema (ALL PASS).",
+    "On staging with the runner on: one tick writes a team_runs row with cost_micros 0; an Undo pressed twice quickly on a done gate run gives one 'Undone' and one 'Already undone'.",
+    "file not shown: app/lib/ControlLog.php, GaugeTasks.php (move, withdraw), TeamRoster.php (actor), Releases.php, Scheduler.php (whether it loads CPanel), Database.php. Confirm their signatures match the calls kept unchanged here.",
+    "file not shown: tools/piece3-tests/ (the harness and its bootstrap). Fit the two tests to its style if it differs.",
+    "Whether the before-and-after check is back on (its pause covers four named releases only). This release is none of them, so it gets the check if the switch is on. Read Switches on live.",
+    "The job 19 draft file came through empty. Confirm with the research job that no draft content was lost."
+  ],
+  "regions": true
+}
