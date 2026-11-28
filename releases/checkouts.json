@@ -41,6 +41,23 @@
    "expires": "2026-11-28T05:21:15Z",
    "release": "writeorder-tenant.zip",
    "callers": {}
+  },
+  {
+   "path": "app/lib/HubOpening.php",
+   "functions": [
+    "blockOf",
+    "termsDue",
+    "termsOff",
+    "termsRead",
+    "termsWords"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5iAy5magAU62jYiAxM",
+   "why": "ADHS A1: W14 reads the licensed facilities' terms (handoffs/adhs-source.md)",
+   "since": "2026-11-28T01:27:44Z",
+   "expires": "2026-11-28T05:27:44Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
