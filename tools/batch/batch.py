@@ -8,12 +8,17 @@ API credit (agents' budget, Jason #1573/#1574), never from the site's own $40 (A
   python3 tools/batch/batch.py status <batch_id>
   python3 tools/batch/batch.py fetch <batch_id> --out research/ai-results/<name>/   # answers + real cost
 
-jobs.jsonl: one JSON per line: {"id": "...", "model": "claude-haiku-5-5", "max_tokens": 2000,
+jobs.jsonl: one JSON per line: {"id": "...", "ticket": 123, "model": "claude-haiku-5-5", "max_tokens": 2000,
 "system": "...", "prompt": "...", "files": ["repo/path", ...]}. Files are read from the repo and attached.
+Every job names its Work-queue ticket ("ticket": its id, or a seeded ticket's exact title; tools/page-audit/ticket.py):
+a job without one is refused before anything is sent (Jason, 2026-11-28: "never bypass" the Work queue).
 Rules: public data and repo files only, never members' or owners' private data (decisions/0164); the key comes
 only from BATCH_API_KEY (Jason adds it in the environment's settings; never in the repo or chat).
 """
 import json, os, sys, time, urllib.request, urllib.error, pathlib
+
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'page-audit'))
+import ticket as ticket_rule  # noqa: E402
 
 API = "https://api.anthropic.com/v1/messages/batches"   # explicit: the session's own ANTHROPIC_BASE_URL is not ours
 # $ per million tokens (input, output), Batch API = half the list price (decisions/0180's envelope note)
@@ -45,6 +50,9 @@ def build(path):
         if not line.strip():
             continue
         j = json.loads(line)
+        why = ticket_rule.check(j.get("ticket"))   # no job without its Work-queue ticket; checked before anything is sent
+        if why:
+            sys.exit(f"Refused (nothing was sent): line {n} ({j.get('id', '?')}) has {why}")
         model = j.get("model", "claude-haiku-5-5")
         if model not in PRICE:
             sys.exit(f"line {n}: unknown model {model}")
