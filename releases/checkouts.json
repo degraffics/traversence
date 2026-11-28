@@ -155,6 +155,17 @@
    "expires": "2026-11-28T05:35:51Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/ui/admin-dashboard.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5iAy5magAU62jYiAxM",
+   "why": "Pause: no new listings published by the system, on Jason's call 2026-11-28 ('Pause it. Yes')",
+   "since": "2026-11-28T01:35:53Z",
+   "expires": "2026-11-28T05:35:53Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
