@@ -1,0 +1,43 @@
+{
+  "name": "orders-m6-catalog-categories-backend",
+  "gate": "Lane session checks the Work queue first: M6 is 5th in the Orders queue (handoffs/decided-not-live.md), after M3's test fix, M2b (paused), M3, M4 and M5. The attached documents do not mark M6 itself as paused or waiting for Jason. Its Work-queue parent is in the live database, which isn't attached, so it is not seen here. Do not ship ahead of the queue unless the session manager says so.",
+  "what": "DRAFT, partial M6 (research/order-management-design-2026-11-23.md §4.5 and §6 M6). It adds catalog Categories and a Services/Products split by kind as a new, self-contained library (app/lib/Catalog.php) and a twice-safe migration with two new tables. No attached live file is changed. Not included: the Back-Office Catalog tabs (Products · Services · Categories) and the category picker on New product or service. Also not included: Place an order's search grouping, the Shop grouping, and the 'cost checked' column. Those files are not attached (see verify).",
+  "files": [
+    "files/app/lib/Catalog.php",
+    "files/app/migrations/2027-01-26_catalog_categories.sql",
+    "tests/catalog-tests.php",
+    "faq/faq-entries.md"
+  ],
+  "decisions": [
+    "SKIPPED FIRST, as the attached documents say they are paused or waiting for Jason: (1) M2b, how an order goes ('Paused by Jason 2026-11-24'). M6 does not depend on it, and nothing here touches it. (2) M7, credit terms ('granted by Jason', 0178). This is not part of M6 and is not touched. (3) Order #12's books ('I will address this after holiday', Jason, 2026-11-27). Not touched. (4) Release B / several destinations (0177 §1, M5). Not part of M6 and not touched.",
+    "Review of the attached DRAFT (job 19): the attached file research/ai-results/job19-decided-not-live/dnl-orders-m6-catalog.md is empty. There was no draft code, test or FAQ text to review, so everything here was drafted fresh against the live files and the design doc.",
+    "Scope source: research/order-management-design-2026-11-23.md §4.5. Products and Services are 'two lists of one catalog (Products, by kind)'. 'Categories: a new list; a product or service has one.' §2's Catalog table says services are 'Products with kind = service'.",
+    "One category per product or service is enforced by catalog_category_items.product_id being the PRIMARY KEY. Setting a new category replaces the old one. Setting 0 clears it.",
+    "Categories live in their own link table rather than in a new column on products. This avoids an ALTER on a table whose definition isn't attached, and keeps the migration safe to run twice with no DELIMITER.",
+    "A category that still holds items can't be deleted (move them or hide it). Nothing is ever unlinked silently.",
+    "No money paths are touched: no QuickBooksPay calls, no ledger, no order totals. The 0177 §3 deposit logic in ClientOrders::depositFor is unchanged."
+  ],
+  "tests": [
+    "tests/catalog-tests.php: plain PHP that prints PASS/FAIL per check and exits 1 on any FAIL. It uses an in-memory SQLite PDO with a minimal products table plus the two new tables. Place it as tools/catalog-tests/run.php, or set TV_APP to the app folder. It covers: create a category; slug collision refused; empty name refused; assign, reassign (still one category), clear; assigning to a missing category or missing product refused; Services vs Products listing by kind; grouping with uncategorised items last as 'Other'; delete refused while it holds items; delete when empty; counts."
+  ],
+  "risks": [
+    "NOTHING HERE WAS RUN OR VERIFIED. The PHP, the SQL and the test are drafts. The lane session runs php -l, the test, and the migration twice on staging, then zip-checks.",
+    "The products table name ('products') and its columns 'id', 'name', 'kind', 'status' are assumed. 'name' and 'status' come from the attached code (ClientOrders::addProduct reads $p['name'] and $p['status'] === 'active'); 'kind' comes from the design doc only. Products.php is not attached.",
+    "The test runs on SQLite, not MySQL/MariaDB. The library's SQL is written to be portable (no ON DUPLICATE KEY, no NOW(); times come from PHP), but the migration's DDL itself is untested.",
+    "The migration filename date 2027-01-26 may clash with or misorder against migrations not shown. The latest attached reference is 2027-01-25_order_proofs_retired.sql.",
+    "This is backend only. Until the Back-Office Catalog tabs are built, staff can't create categories from the UI. The FAQ entries therefore say 'coming'.",
+    "Shipping ahead of M3–M5 would break the queue order in handoffs/decided-not-live.md. See gate."
+  ],
+  "verify": [
+    "app/lib/Products.php: file not shown. Confirm the table name, the 'kind' column and its values (is a service exactly kind = 'service'?), and the 'status' values. Change Catalog::PRODUCTS / Catalog::SERVICE_KIND if they differ.",
+    "admin/backoffice products page (Back-Office → Products, 'backoffice/products'): file not shown. The Catalog tabs (Products · Services · Categories), the header's one filled New button per tab, ⋯ per row, and at 390 the filter button on its own line under the search (§6 M6, Design reviewer's build note) are still to be built there.",
+    "admin/client-order.php new_product (CO 218/221): file not shown. Add the category picker to New product or service, calling Catalog::setCategory.",
+    "The Shop and Place an order's catalog search: files not shown. Group by Catalog::grouped when built (M4 may own Place an order).",
+    "app/lib/Costing.php: file not shown. §4.5's 'whether its cost is checked' column needs it and is not drafted.",
+    "The migrations runner and the convention for app/migrations/*.sql (engine, charset, naming): file not shown. Match it.",
+    "tools/<area>-tests/ harness conventions: not shown. Adapt tests/catalog-tests.php to it.",
+    "The Work queue's M6 task and its parents (live database, not attached): confirm M6 isn't paused and that its turn has come.",
+    "No live file in this release is changed, so there is no whole-file or region replacement to byte-check. Only new files are added."
+  ],
+  "regions": false
+}

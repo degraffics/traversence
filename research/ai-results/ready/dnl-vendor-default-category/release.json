@@ -1,0 +1,48 @@
+{
+  "name": "dnl-vendor-default-category",
+  "gate": "Ships switched OFF. The item's own condition ('once confirmed in the sandbox', handoffs/decided-not-live.md, Later) has no recorded confirmation in the attached files. QuickBooksPay::VENDOR_CATEGORY_FIELD stays '' until the lane session confirms in the QuickBooks sandbox which Vendor field holds the default category. While it is '', every vendor bill posts to the setting 'Vendor bills post to' exactly as today. The Tier and gate number for this release are not stated in the attached files; the session manager assigns them.",
+  "what": "Reads a vendor's default category (default expense account) from QuickBooks, read only, when a vendor bill on an order is created in QuickBooks (decisions/0178 note (c)). The bill posts to that category when the vendor has a usable one (active, and of type Cost of Goods Sold, Expense or Other Expense). Otherwise it posts to the setting 'Vendor bills post to' (VendorBills::account()). createBill() also returns 'from' => 'vendor'|'setting'. Nothing is stored, no migration is needed, nothing is written to QuickBooks beyond the Bill it already made, and no money moves.",
+  "files": [
+    "files/app/lib/QuickBooksPay.php.region-1.php",
+    "tests/vendor-category.php",
+    "faq/faq-entries.md",
+    "release.json"
+  ],
+  "decisions": [
+    "SAID FIRST: checked for anything paused or waiting for Jason. This item is neither, so it is drafted. The following nearby items are skipped and not touched: M2b, how an order goes (paused by Jason 2026-11-24, 'Pause for now. add to work queue.'); Order #12's books (open with the Founder, 'I will address this after holiday', 2026-11-27); paying vendors (decisions/0178 note (c): 'Paying vendors stays a separate decision'). M7 credit terms is also untouched (not this item).",
+    "handoffs/decided-not-live.md, Later: 'A vendor's default category from QuickBooks, once confirmed in the sandbox' is the item. Its sandbox condition is honoured by shipping switched off (VENDOR_CATEGORY_FIELD = '').",
+    "decisions/0178 note (c) (Jason, 2026-11-23, 'Yes, create it'): a vendor bill recorded on an order is also created in QuickBooks as a Bill against the vendor. This release only changes which account that Bill's single line posts to.",
+    "createBill() docblock (live): the account comes from the setting 'Vendor bills post to', 'never .env'. Kept: the setting stays the fallback, and nothing new is read from .env.",
+    "decisions/0178 'Not changed': QuickBooksPay::guardReal() still runs first in createBill(); the new code only reads.",
+    "ASSUMED, NOT DECIDED: the vendor's category wins over the setting. No attached decision states the precedence. The reverse is a one-line swap in billAccount().",
+    "Open Work-queue parent tasks are in the live database and not attached. Their notes may narrow or change this item."
+  ],
+  "tests": [
+    "tests/vendor-category.php (to live at tools/quickbooks-tests/vendor-category.php): QB_ENV=mock, with no network, no database writes and no money. It checks billAccount()'s choice, categoryUsable()'s account-type and active filter, the mock vendorCategory(), the off gate (both constants ''), that the field is never set to APAccountRef, and createBill()'s wiring and 'from' key by reading the source. Prints PASS/FAIL/SKIP and exits 1 on any FAIL."
+  ],
+  "risks": [
+    "NOTHING HERE HAS BEEN RUN, LINTED, TESTED OR ZIP-CHECKED. It is a draft for the lane session.",
+    "Review of the job-19 draft, changes made: (1) The live QuickBooksPay.php is well over about 60 KB, so this release ships a region rather than a diff or a whole file. The new constants and methods sit inside the same region, right after createBill(), because PHP allows class constants anywhere in the class body. That keeps it to one anchor. (2) The draft accepted any active account as the vendor's category. Here only Cost of Goods Sold, Expense and Other Expense accounts are accepted (categoryUsable(), pure and tested). A Bank, Accounts Payable or Income account in an AccountBasedExpenseLineDetail would mispost or be refused, so in those cases the bill falls back to the setting. (3) The Vendor read uses call() with an optional VENDOR_CATEGORY_MINOR override, rather than fetch(), so the field can need a newer minorversion without changing the global MINOR = '75'. (4) The category's account id must be digits. (5) The mock return of createBill() also says 'from' => 'setting', so the return shape is the same in every mode. The mock account label is unchanged. (6) The test SKIPs the PDO-handle checks when pdo_sqlite is missing, instead of crashing.",
+    "The QuickBooks Accounting API may not expose a vendor's default category on the Vendor entity at all. Vendor.APAccountRef is the vendor's payables account, NOT its expense category, and must never be used (the test guards this). If the sandbox shows no such field, the item can't be built this way: leave the constant '' and return the item to the session manager.",
+    "The precedence (vendor's category before the setting) is an assumption. See decisions.",
+    "Expense and Other Expense accounts are accepted alongside Cost of Goods Sold. Whether an order's vendor bill may post to a plain Expense account is not decided in the attached files. Narrow the list in categoryUsable() if not.",
+    "When switched on, each bill makes two extra GETs (vendor, account). Both go through call() → http(), so StagingGate::hold and the QuickBooks log apply. Any failure falls back to the setting and never blocks the bill.",
+    "Idempotency: the Bill keeps its requestid 'vbill-<id>'. If a vendor's category changes between a first try and a retry, QuickBooks returns the original Bill with its original account. The account label returned then reflects the new choice, not what QuickBooks actually used.",
+    "The createBill docblock still mentions 'QB_COGS_ACCOUNT_ID in .env', which contradicts its own 'never .env' later in the same docblock. The docblock is left as live (outside the region) and only noted here.",
+    "In mock mode, vendorCategory() answers (vendor 101) even though the gate is off. This is test-only, and createBill()'s mock branch returns before it is called, so no mock bill changes."
+  ],
+  "verify": [
+    "Repo path: the live file was attached from sync-app/lib/QuickBooksPay.php, but its header says app/lib/QuickBooksPay.php. Confirm which path the region targets.",
+    "Apply region-1 by hand. Replace from the exact line '    public static function createBill(PDO $pdo, array $b, array $o, array $acct): array' through the first '    }' after it (the line that closes createBill), with the region's content minus its ANCHOR comment lines. createBill's docblock above it stays as is. Then run php -l under PHP 8.0.",
+    "Sandbox, before setting VENDOR_CATEGORY_FIELD: in the QuickBooks sandbox, give a test vendor a default category. GET vendor/<id> at minorversion 75 and higher, and find the field, its shape ({value,name} expected) and the minorversion needed. Only then set VENDOR_CATEGORY_FIELD (and VENDOR_CATEGORY_MINOR if needed), and update the gate check in the test. Record the confirmation where the item says.",
+    "Run tools/quickbooks-tests/vendor-category.php (copy of tests/vendor-category.php). Expect all PASS, or SKIP only for the PDO-handle checks.",
+    "file not shown: app/lib/Orders.php (required by QuickBooksPay.php; the test needs it to load under QB_ENV=mock without a database).",
+    "file not shown: app/lib/VendorBills.php (createBill()'s caller). Confirm it ignores or tolerates the extra 'from' key. Saying 'the vendor's default category in QuickBooks' in History would be a separate patch once it is attached.",
+    "file not shown: faq.md. Place faq/faq-entries.md's entries in its style, marked coming until this is switched on.",
+    "file not shown: the existing order and vendor-bill tests (tools/order-tests or wherever they live). Run them to confirm mock bills still carry the setting's account label.",
+    "file not shown: app/lib/StagingGate.php. Confirm hold() still covers the two extra GETs on staging.",
+    "Check that the QuickBooks log (app/storage/logs/quickbooks.log) shows the vendor and account GETs with the company id masked.",
+    "Zip-check the release folder."
+  ],
+  "regions": true
+}

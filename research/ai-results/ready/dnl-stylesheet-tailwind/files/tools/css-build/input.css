@@ -1,0 +1,10 @@
+/* Traversence site stylesheet source. Built to css/site.css by tools/css-build/build.sh. */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * LANE: move here, unchanged, the contents of every <style type="text/tailwindcss">
+ * block in the live pages. Those blocks only work with the Play CDN. File not shown.
+ * tools/css-tests/stylesheet-test.php fails while any such block remains in a page.
+ */

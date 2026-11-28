@@ -1,0 +1,55 @@
+The attached promise check (the job 6 answer) is **empty**. The file at `.../job6-promise-check__promise-faq-part-06.md.c40000` has no content, so there are no findings to fix. I haven't made any OLD/NEW blocks, because I'd have had to invent findings. The two markdown files below say so, and `release.json` explains why. Some possible mismatches I noticed between the FAQ slice and the attached pages are listed under `verify` for a re-run of job 6. None of them have been applied.
+
+=== FILE: faq/faq-entries.md ===
+# FAQ replacement blocks: faq-part-06 (FAQ lines 1407–1724)
+
+No replacement blocks in this draft.
+
+The promise check this release was asked to apply (job 6 answer, promise-faq-part-06) was attached empty, so it gave no findings to fix. No FAQ entry has been changed. See release.json "verify" for the re-run request and for candidate mismatches to put to the promise check. They are listed there only and not applied here.
+=== END FILE ===
+
+=== FILE: faq/page-wording.md ===
+# Page-wording replacement blocks (plans, our-approach, privacy, terms, takedown, data-deletion, claim)
+
+No replacement blocks in this draft.
+
+The job 6 promise check was attached empty, so there are no confirmed findings for these pages. Candidate mismatches seen while reading the attached pages are listed in release.json "verify" for the promise check to confirm or reject. None of them has been reworded here.
+=== END FILE ===
+
+=== FILE: release.json ===
+{
+  "name": "faq-part-06-promise-fixes",
+  "gate": "blocked: input missing (job 6 promise-check answer for faq-part-06 attached empty)",
+  "what": "Was meant to apply the job 6 promise-check findings to FAQ lines 1407-1724 and the plans/our-approach/privacy/terms/takedown/data-deletion/claim pages as OLD/NEW replacement blocks. The findings file was attached with no content, so this draft has no replacement blocks and changes no live files.",
+  "files": [
+    "faq/faq-entries.md",
+    "faq/page-wording.md",
+    "release.json"
+  ],
+  "decisions": [
+    "No OLD/NEW blocks were written because the promise-check answer was empty. Rewording FAQ or page text without findings would mean inventing them, which the brief rules out.",
+    "Mismatches noticed while reading the attached pages are listed under 'verify' as candidates for the promise check. None of them was applied.",
+    "No PHP files changed, so there are no regions and no tests."
+  ],
+  "tests": [],
+  "risks": [
+    "Nothing here was run, tested or zip-checked. It is a draft for the lane session.",
+    "The release is effectively empty. If it ships as-is, any promises the real job 6 check found stay unfixed on the live FAQ and pages.",
+    "The empty input may be a truncated or failed batch output (the '.c40000' suffix suggests a chunked file). Other chunks may also be missing."
+  ],
+  "verify": [
+    "Re-run or re-attach the job 6 promise-check answer for faq-part-06. The file /tmp/claude-0/.../scratchpad/n/plain_traversence__research__ai-results__job6-promise-check__promise-faq-part-06.md.c40000 is empty.",
+    "faq.php: file not shown. Its # anchors (needed before rewording any heading) can't be checked.",
+    "Candidate (not applied): FAQ 'What does Traversence keep when I agree to its Terms or place an order?' says the records are 'kept 7 years' and that they stay after account deletion. It also points to a Privacy Policy section 'Records of what you agreed to'. The attached privacy.php draft has no such section, and its 'How long we keep it' says 'Records of the choices you made: as long as your account exists'. The published version (LegalTexts::live 'privacy') is file not shown.",
+    "Candidate (not applied): our-approach.php says 'Download and delete your data: coming soon.' But data-deletion.php and privacy.php describe a working Delete my account at /user/delete-account.php (that file is not shown). Download can't be confirmed from the attached code.",
+    "Candidate (not applied): our-approach.php says the privacy policy 'is being written'. privacy.php exists as a draft for review, with a LegalTexts published-version path.",
+    "Candidate (not applied): terms.php #plans promises 'a yearly plan gets a reminder 7 days before it renews', declined-renewal retries 'after 3 and 7 days', and trial emails '5 days and 1 day before it ends, and on the day'. plans.php only shows next_try and trial_ends. Billing.php and the renewal job are file not shown.",
+    "Candidate (not applied): FAQ 'My plan includes White Glove...' and terms.php #white-glove say you can turn agent access off and on in Settings & team, and that every change is logged with a staff ID. The portal settings page and the access/logging code are file not shown.",
+    "Candidate (not applied): FAQ 'How much storage does my business have?' mentions an 'Add storage' button and an amber meter past 80%. plans.php shows storage packs (#packs) only while a paid plan is active; the Overview and upload code are file not shown.",
+    "Candidate (not applied): claim.php step 3 says 'Free, or a paid plan (free trial for now).' Whether business trials are live is not confirmed by the attached code (Billing::selfTrialWhyNot is shown only for personal plans).",
+    "Candidate (not applied): FAQ 'What is my business's Trust score?' says Phone verified comes from texting from the listing's phone when claiming. claim.php's header comment also allows 'an admin contacts you within 48 hours' and other routes (domain email, document, appointment). It is not confirmed whether those routes also tick Phone verified (Claims.php: file not shown).",
+    "Candidate (not applied): privacy.php lists Apple sign-in, but FAQ 'What happens when I create an account?' and 'Can I use Traversence without an account?' list only Google, Microsoft or Facebook. Check which providers are live (login/register code: file not shown)."
+  ],
+  "regions": false
+}
+=== END FILE ===

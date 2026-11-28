@@ -1,0 +1,49 @@
+{
+  "name": "orders-m5-destinations-part1",
+  "gate": "Not before M3 and M4 are live and the Orders queue's item 0 (the order tests green again) is done: decisions/0177 note of 2026-11-25 ('after M3 and M4'), order-management design §6, handoffs/decided-not-live.md Orders 0-4. Even then this zip turns nothing on for clients: an order with more than one address still says to send each address as its own order (0177 status) until the wiring release (QuickBooks invoice per destination, approval, payment) is drafted against files not attached here. Session manager and Design reviewer per §6; Jason's pop-up for anything client-facing.",
+  "what": "Skipped first: M2b ('how an order goes', paused by Jason 2026-11-24: 'Pause for now. add to work queue.') and Order #12's books (waiting for Jason after the holiday) are untouched. Nothing in decisions/0177 is paused. The attached job-19 draft was empty, so this is built from the live files. Part 1 of M5: (1) app/lib/OrderDestinations.php, pure arithmetic for 0177: each line's destination (its own address, the order's Ship to, or our address for pickup, nothing-to-deliver and GO Codes), one invoice per destination oldest first, each invoice's deposit (COGS x 1.15 or staff % of that invoice's total, capped at it; 65% of price where no cost), the order's deposit as their sum, an estimate's deposit spread in proportion, a payment applied deposits first then balances oldest first, and the vendor release on the whole order only; (2) ClientOrders::depositFor delegates to it (same numbers as release A); (3) the order_invoices table (safe twice; nothing writes it yet) and deleteTest clearing it for sandbox orders; (4) tests and FAQ entries marked 'coming'.",
+  "files": [
+    "files/app/lib/OrderDestinations.php",
+    "files/app/lib/ClientOrders.php.region-1.php",
+    "files/app/lib/ClientOrders.php.region-2.php",
+    "files/app/migrations/2027-02-10_order_invoices.sql",
+    "tests/m5-destinations-tests.php",
+    "tests/m5-deposit-parity-tests.php",
+    "faq/faq-entries.md",
+    "release.json"
+  ],
+  "decisions": [
+    "decisions/0177 §1 (three levels; one invoice per destination; pickup, delivery by us and digital at our address)",
+    "decisions/0177 §3 (deposit COGS + 15% per invoice, capped at it; staff % per invoice total; 65% where no cost; estimate deposit in proportion)",
+    "decisions/0177 §4 (payments deposits first then balances, oldest destination first; vendor release on the whole order, Jason 2026-11-23)",
+    "research/order-management-design-2026-11-23.md §6 (M5 after M3 and M4)",
+    "handoffs/decided-not-live.md (M2b paused by Jason; Order #12 waiting for Jason)"
+  ],
+  "tests": [
+    "tests/m5-destinations-tests.php -> tools/orders-tests/m5-destinations-tests.php (pure; no DB, no QuickBooks; also checks the lib never names QuickBooksPay or PDO)",
+    "tests/m5-deposit-parity-tests.php -> tools/orders-tests/m5-deposit-parity-tests.php (ClientOrders::depositFor gives release A's numbers after region-1; in-memory SQLite, SKIP if not loadable)"
+  ],
+  "risks": [
+    "Nothing here was run, tested, linted or zip-checked: every file is a draft for the lane session to verify.",
+    "No real money moves: the library is pure arithmetic and the tests never call QuickBooksPay; the wiring release must keep QuickBooksPay::guardReal()/testHere() in its tests.",
+    "region-1 changes live money code (release A's deposit): it is meant to be behaviour-identical; m5-deposit-parity-tests.php checks two cases only. Check the email in ClientOrders::send and the board's deposit sub against an existing deposit order before and after.",
+    "0177 §3 says an item whose COGS 'isn't checked (Costing: unchecked, or zero)' counts at 65%; the live rule (kept as is) only treats a zero cost that way, matching Jason's confirmed words 'isn't recorded'. Left unchanged; the lane asks the session manager which reading holds.",
+    "Read literally, 0177 §1 puts a GO Code (digital) at our address, so a shipped order with a GO Code gets two invoices. Implemented literally; confirm before wiring. Services (service_type) are not treated as digital here.",
+    "'Oldest destination first' is defined as the order's own Ship to, then added addresses by id, our address last: an interpretation, not in the decision text.",
+    "A staff % applied per invoice can differ by a cent per invoice from the same % of the whole order (tested: 2 x 50% of $1.01 = $1.02).",
+    "Invoice subtotals use qty x unit + ship_cents (as depositFor reads a price); promo_off_cents and whatever recalc does are not included (recalc not shown).",
+    "order_invoices is created but unused until the wiring release; its column types are a guess against orders.id (not shown).",
+    "The FAQ wording avoids saying 'cost + 15%' to clients; a content look should confirm that's wanted."
+  ],
+  "verify": [
+    "file not shown: app/lib/QuickBooksPay.php (invoiceFor's ShipAddr, invoice per destination, the guardReal/testHere helpers): the wiring release needs it.",
+    "file not shown in full: app/lib/ClientOrders.php is truncated after boardState; approve, pay, recalc, releaseAt, delivery(), split/unsplit (release A) were not seen. Check releaseAt matches OrderDestinations::releaseNeed for deposit orders, and that split/unsplit is what release B replaces.",
+    "Check the region anchors against the live ClientOrders.php byte for byte; each region ends before the method's closing brace, which stays.",
+    "file not shown: the order_addresses table and order_lines.ship_to semantics beyond 'digits = an address id' (from duplicate()).",
+    "file not shown: app/lib/Costing.php (what 'checked' means for 0177 §3).",
+    "file not shown: faq.md (merge faq/faq-entries.md into it); tools/orders-tests/ harness (queue item 0 says it's red: run these after it's green).",
+    "Rename the migration to the day it ships; run it twice in phpMyAdmin to confirm it is safe twice; confirm deleteTest on a sandbox order clears order_invoices once the table exists.",
+    "Run both tests on PHP 8.0."
+  ],
+  "regions": true
+}

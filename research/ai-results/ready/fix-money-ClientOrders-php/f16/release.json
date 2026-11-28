@@ -1,0 +1,22 @@
+{
+  "name": "f16-deposit-only-checked-cogs",
+  "gate": "money amount shown to clients: review before merge",
+  "what": "depositFor now uses the cost path only when the item's COGS is above zero and Costing says it is checked (self::costed). The shipping we pay is added on top of that COGS. An item with shipping cost only, unchecked COGS or zero COGS is figured at 65% of its price, as 0177 §3 says. The sum moved into a pure depositFromLines() so it can be tested.",
+  "files": ["files/app/lib/ClientOrders.php.region-1.php"],
+  "decisions": [
+    "'Checked' is read as self::costed($pdo, $lineId), as refreshPrices already uses it. A cost typed on a custom line (addCustom) that Costing has not checked now counts at 65%. That follows 0177 §3, but a person should confirm it.",
+    "The 65% fallback is of the price including shipping charged (as before); the shipping we pay is not added to it."
+  ],
+  "tests": ["tests/f16_deposit_checked_cogs.php"],
+  "risks": [
+    "Nothing here was run or verified.",
+    "Deposits on orders still in draft or sent can go up when they are next figured. Already-approved orders keep their stored deposit_cents, but confirm nothing recomputes those.",
+    "One costed() query per line: fine for normal order sizes."
+  ],
+  "verify": [
+    "file not shown: ClientOrders::costed() (probably around :2851) and Costing.php - confirm costed() returns true only for a checked COGS and does not throw when the Costing table is missing. If the table is missing, every item would fall to 65%.",
+    "Check where deposit_cents is set at approval (not shown) still calls depositFor.",
+    "Sandbox: a deposit order with one checked and one unchecked item shows cost+15% plus 65%, and lists the unchecked item."
+  ],
+  "regions": true
+}

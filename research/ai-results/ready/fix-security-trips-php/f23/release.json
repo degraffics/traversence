@@ -1,0 +1,25 @@
+{
+  "name": "f23-trips-tz-checked",
+  "gate": "lane session: verify, run tests, zip-check before ship (draft, nothing run). Ship after f07; this file already contains f07's change.",
+  "what": "api/trips.php: tz from the client was stored unchecked by add (:77), from_plan (:134), copy_journey (:147) and claim (:152). Only from_plan pattern-checked it, and that check let names like 'Foo/Bar' through, which then threw in new DateTimeZone. tz is now checked once at :44 against DateTimeZone::listIdentifiers(ALL_WITH_BC), at most 64 bytes and a string only. Anything else becomes '', the same as when no tz is sent. from_plan now just falls back to America/Phoenix.",
+  "files": ["files/api/trips.php"],
+  "decisions": [
+    "Safest default for a bad tz: store '' (today's behaviour when tz is absent), not a guessed zone. A person should confirm '' is what Trips::create/claim expect for 'no zone'.",
+    "ALL_WITH_BC is used so older names that browsers still send (for example Asia/Calcutta) are kept. Raw offsets ('+05:00') and wrong-case names are refused rather than normalised.",
+    "This file is built on f07's version so shipping f23 cannot undo f07. f07's catch change is included unchanged."
+  ],
+  "tests": ["tests/trips-tz-checked.php"],
+  "risks": [
+    "Nothing here has been run, linted or tested. It is a draft.",
+    "A client that sends an offset or an unusual zone string now gets the trip saved with no zone instead of that string. The from_plan dates then use America/Phoenix, as they already did for odd values.",
+    "Rows already stored with bad tz values are not touched. No data change is made, so no data_reason is needed. Whether to clean old rows is a separate decision."
+  ],
+  "verify": [
+    "Live path: the attached file was a scratch copy. files/api/trips.php is assumed (see f07). Confirm before zipping.",
+    "app/lib/Trips.php: file not shown. Confirm how create()/claim() store and later use tz, the column length, and whether '' means 'no zone'.",
+    "Decision for a person: should old rows with a tz outside the list be cleared? Any such migration needs its own UPDATE with a data_reason; none is included here.",
+    "js/tv-trips.js and the trip page: file not shown. Confirm they send Intl.DateTimeFormat().resolvedOptions().timeZone (an IANA name).",
+    "Run: php tests/trips-tz-checked.php files/api/trips.php and php ../f07/tests/trips-pdo-error-hidden.php files/api/trips.php"
+  ],
+  "regions": false
+}

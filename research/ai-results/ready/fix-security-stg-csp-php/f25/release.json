@@ -1,0 +1,40 @@
+{
+  "name": "f25-stg-csp-harden",
+  "gate": "staging only; lane review + tests pass before merge",
+  "what": "stg-csp.php (staging CSP report sink) now accepts only application/csp-report or application/json bodies (else 415), only reports whose document-uri host and Origin (if sent) match this host (else silent 204), allows at most 30 ledger writes per minute across all senders (file-locked counter, fails closed), and reduces blocked-uri, page path and directive to inert URL characters before StagingGate::record, so a stored value can no longer carry HTML/script into the Held page. Also blocks javascript:/other non-web schemes and trims data:/blob: payloads to their keyword.",
+  "files": [
+    "files/website/api/stg-csp.php",
+    "files/app/lib/CspReport.php",
+    "tests/csp-report-tests.php",
+    "faq/faq-entries.md",
+    "release.json"
+  ],
+  "decisions": [
+    "Content types accepted: application/csp-report and application/json only. application/reports+json (Reporting API / report-to) is rejected with 415; the old parser already recorded nothing from that format, so no reports are lost.",
+    "Host check rejects with a silent 204, not an error, so a probing sender learns nothing.",
+    "Rate cap is global (not per IP): 30 writes/minute, counter in sys_get_temp_dir()/stg-csp-rate. If the counter file can't be opened the report is dropped (fail closed).",
+    "Values are sanitised at input because the Held page file was not attached; output escaping on the Held page is still required (see verify).",
+    "Non-web schemes are stored as 'other-scheme(<name>)'; data:/blob: are stored as just 'data'/'blob'."
+  ],
+  "tests": [
+    "tests/csp-report-tests.php (copy to tools/staging-tests/; run: php csp-report-tests.php; expect ALL PASS)"
+  ],
+  "risks": [
+    "DRAFT: nothing here has been run, tested or zip-checked; the lane session must do all of that.",
+    "The host check can be forged by anyone who sets the headers and body to match. It filters casual cross-site noise; it is not authentication. The rate cap and sanitising are the real protections.",
+    "Behind a proxy that rewrites Host, HTTP_HOST may not match the page host, and every real report would be dropped silently.",
+    "30/minute may drop real reports during a burst, for example a page with many blocked resources.",
+    "Existing Held rows written before this fix are not sanitised. No data migration is included."
+  ],
+  "verify": [
+    "PERSON DECISION: rate cap value (30/min, global) and whether rejecting application/reports+json is acceptable. If staging's policy uses report-to, a parser for the reports+json array format should be added.",
+    "PERSON DECISION: whether to clean up already-stored Held rows of kind csp. Not done here; it would need an UPDATE/DELETE with a data_reason.",
+    "Held page file not shown: confirm it escapes every StagingGate ledger field with htmlspecialchars(..., ENT_QUOTES) and never puts a stored value raw into href/src. If it does, fix it in a follow-up release; this release does not cover it.",
+    "app/lib/StagingGate.php not shown: confirm record() signature and that serviceOf() copes with the new 'other-scheme(...)' / 'data' / 'blob' values.",
+    "app/lib/Staging.php not shown: confirm Staging::here() is unchanged and still makes the endpoint 404 on live.",
+    "Confirm the live path is website/api/stg-csp.php with app/lib/ two levels up, as the require_once lines assume. The attached file name was sync-storage/api/stg-csp.php.",
+    "Confirm sys_get_temp_dir() is writable on staging and not shared with another site that could exhaust the counter.",
+    "Manual on staging: POST a csp-report with Content-Type text/plain → 415; with a document-uri on another host → 204 and no Held row; a real browser violation → a Held row appears; a payload of '\"><img src=x onerror=alert(1)>' → Held shows inert text; more than 30 posts in a minute → the extra ones produce no rows; live URL → 404."
+  ],
+  "regions": false
+}

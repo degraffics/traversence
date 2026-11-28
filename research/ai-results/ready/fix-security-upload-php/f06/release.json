@@ -1,0 +1,25 @@
+{
+  "name": "f06-upload-csrf-empty-token",
+  "gate": "lane review; tests/upload-csrf-empty-token.php prints only PASS against files/api/upload.php and shows FAIL on the empty-token cases against the live api/upload.php",
+  "what": "api/upload.php line 38: the CSRF check compared the page's X-CSRF-Token with $_SESSION['csrf_token'] using hash_equals on two strings, so a signed-in session with no token (or an empty one) matched an empty or missing header and any form post was accepted. The check now refuses when the session token is missing, empty or not a string, before comparing. Guest targets (the guest photo drop) are unchanged: they still skip this check and use their own key.",
+  "files": ["files/api/upload.php"],
+  "decisions": [
+    "Safest default implemented: a signed-in session without a usable csrf_token is refused with the existing 'This page had expired. Reload it and try again.' (403, code csrf). No token is minted on the fly in the API, because a fresh token could never match the header the page already sent.",
+    "Needs a person: confirm that every page that uploads creates $_SESSION['csrf_token'] for every signed-in session, including remember-me or other auto sign-ins. If some session type never gets a token, those people will now be refused on every upload (previously they were let through without protection). The fix for that belongs where the token is made, not here."
+  ],
+  "tests": ["tests/upload-csrf-empty-token.php (php tests/upload-csrf-empty-token.php [path/to/api/upload.php])"],
+  "risks": [
+    "DRAFT: nothing here has been run, tested or verified. The lane session must run the tests and zip-check.",
+    "Signed-in sessions with no csrf_token are now refused (see decisions). Before shipping, watch for a rise in 403 'csrf' answers from api/upload.php.",
+    "files/api/upload.php is the whole file, cut from the attached copy. f21 and f22 also replace this whole file. Whichever of them ships after this must be re-cut on top of it, or this fix is undone. The edits don't overlap: f06 changes line 38, f21 changes line 32 and lines 52-54, f22 changes line 24.",
+    "The tests use stand-in Response/Auth/Database/Uploads classes. They check this script's logic, not the real bootstrap or session handling."
+  ],
+  "verify": [
+    "Live path: the attached header says api/upload.php, but it requires __DIR__ . '/../../app/bootstrap.php', so it sits one folder below the site root (e.g. public/api/upload.php). Place the file at the real live path.",
+    "app/bootstrap.php: file not shown. Check where $_SESSION['csrf_token'] is created and that it is always a non-empty string for signed-in sessions.",
+    "js/tv-upload.js: file not shown. Check that it always sends X-CSRF-Token, including on the form-post 'piece' requests.",
+    "Check that the attached copy still matches live before replacing the whole file.",
+    "Manual: signed in, upload a photo (works). Then clear csrf_token from the session (or start a session without one) and retry: expect 403 'This page had expired…'. Guest photo drop still works signed out."
+  ],
+  "regions": false
+}

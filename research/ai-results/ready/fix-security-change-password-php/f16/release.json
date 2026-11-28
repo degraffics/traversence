@@ -1,0 +1,46 @@
+{
+  "name": "f16-current-password-attempt-limit",
+  "gate": "security",
+  "what": "Adds a per-user limit on current-password guesses in sync-storage/api/auth/change-password.php: 5 attempts per 15-minute window, with HTTP 429, Retry-After and code too_many_attempts once exceeded. Attempts are reserved atomically before verification so parallel requests cannot bypass the limit. The counter resets on success and the attempt is refunded on validation or DB errors. Also adds a reusable PasswordAttemptLimiter and its table. request-change.php is NOT changed (file not shown).",
+  "files": [
+    "files/app/lib/PasswordAttemptLimiter.php",
+    "files/sync-storage/api/auth/change-password.php",
+    "files/migrations/2025_f16_password_attempt_counters.sql",
+    "tests/password-attempt-limiter-test.php",
+    "faq/faq-entries.md"
+  ],
+  "decisions": [
+    "Limit is 5 attempts per fixed 15-minute window, which allows at most about 480 guesses per day per account. A person should confirm whether this is acceptable or whether to add escalating or longer lockouts.",
+    "One shared scope 'current_password' for every endpoint that checks the current password, so an attacker does not get a separate budget per endpoint.",
+    "Fail CLOSED (503) if the limiter table or storage is unavailable. Password change stops working until the migration is applied. Needs a person's sign-off; the alternative is fail-open with logging.",
+    "No email to the user when the lockout triggers (safest default: no new mail path). A person decides whether to add one.",
+    "A PDOException from Auth::changeCurrentPassword is refunded and not counted as a guess. Its existing 401 response is kept unchanged.",
+    "data_reason (runtime DELETE in reset): removes the acting user's own counter row after they prove the correct password.",
+    "data_reason (runtime UPDATE in refund): decrements the acting user's own counter by 1, floored at 0, when the failure was not a wrong guess.",
+    "The table has no foreign key to users because the users table was not shown. user_id is BIGINT UNSIGNED."
+  ],
+  "tests": [
+    "tests/password-attempt-limiter-test.php (intended live path tools/auth-tests/). Pure decide() checks always run. The DB checks (reserve, block, per-user isolation, window expiry, refund floor, reset) need the migration and print SKIP otherwise."
+  ],
+  "risks": [
+    "Nothing in this release has been run, tested or verified. It is a draft.",
+    "The SQL assumes MySQL/MariaDB (ON DUPLICATE KEY UPDATE, IF(), left-to-right assignment). It will fail on SQLite or Postgres.",
+    "Named placeholders are deliberately distinct (:now1/:now2, :cutoff1/:cutoff2) so they work with native prepares too.",
+    "If Auth::changeCurrentPassword throws RuntimeException for reasons other than a wrong password (non-PDO), those cases are still counted as guesses.",
+    "If Auth checks the new password before verifying the current one, the refund on 422 keeps that path free. If Auth checks it after, a 422 already implies the current password was correct, so the refund leaks nothing new.",
+    "Fail-closed means a missed migration breaks password change for everyone (503).",
+    "Response::error is assumed to terminate the request, as the original file already relied on."
+  ],
+  "verify": [
+    "request-change.php: file not shown, so it is not changed. A person must wire the same pattern there with scope PasswordAttemptLimiter::SCOPE_CURRENT_PASSWORD: reserve before the current-password check, return 429 if not allowed, refund on non-guess errors, reset on success. Until then f16 is only half fixed.",
+    "Auth::changeCurrentPassword: file not shown. Confirm that a wrong current password throws RuntimeException, a bad new password throws InvalidArgumentException, and the order in which it checks the two.",
+    "Response class: file not shown. Confirm that Response::error(message, status, code) exits and that a header() call before it is kept.",
+    "Database::connection(): file not shown. Confirm it returns a PDO on MySQL/MariaDB with ERRMODE_EXCEPTION.",
+    "Migrations directory, naming and runner: not shown. Place 2025_f16_password_attempt_counters.sql where the project expects it, apply it BEFORE deploying the PHP (fail-closed), and run it twice to confirm it is idempotent.",
+    "Confirm the live paths: sync-storage/api/auth/change-password.php and app/lib/PasswordAttemptLimiter.php (inferred from the require_once paths). The test assumes it lives at tools/auth-tests/.",
+    "Person decision: the limit values (5 per 15 min), fail-closed versus fail-open, and lockout email.",
+    "Front end: confirm the password-change form shows the 429 message for code 'too_many_attempts'.",
+    "Zip-check that the release contains exactly the listed files."
+  ],
+  "regions": false
+}

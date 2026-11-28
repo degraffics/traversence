@@ -1,0 +1,34 @@
+{
+  "name": "dnl-order-m2b (skipped: paused by Jason)",
+  "gate": "SKIPPED. Not for release. handoffs/decided-not-live.md: \"Paused by Jason 2026-11-24 (\\\"Pause for now. add to work queue.\\\")\"; handoffs/order-management-m2.md (Final hand-off): \"M2b, decided, built, reviewed, paused (not in flight)\".",
+  "what": "Nothing is changed. The item 'Change how an order goes: two legs on 0101's existing fields (M2b; PR #1346 merged as the record)' is paused by Jason, and the brief says to skip anything paused. No site files, no tests, no FAQ entries, no migration. The build stays in handoffs/order-m2b/order-m2b.zip (built on Sync 02:52 UTC, 2eab529) as the record.",
+  "files": [],
+  "decisions": [
+    "decisions/0101 note (2026-11-24): M2b approved (Jason's Approve and Yes). That note itself is not attached: the attached 0101 is truncated before it.",
+    "Jason, 2026-11-24: \"Pause for now. add to work queue.\" (handoffs/decided-not-live.md; handoffs/order-management-m2.md Final hand-off)",
+    "From 2026-11-25 the Work queue on the System Control Board's Development page is the queue (handoffs/decided-not-live.md). Whether M2b has been resumed is recorded there, and it is not attached.",
+    "Queue order (handoffs/order-management-m2.md 'Next, in order'): 1. M3's first fix (order tests green again), 2. M2b when Jason resumes it."
+  ],
+  "tests": [],
+  "risks": [
+    "Nothing here was run or verified. This is a draft decision to skip, not a tested release.",
+    "The skip rests on the attached documents only. If Jason resumed M2b in the live Work queue after 2026-11-25, this skip is stale. Check the queue before acting.",
+    "While M2b stays paused, live behaviour 1: WorkOrders::setTracking writes 'Courier booked: …' to the work order's history before the vendor email. A Mailer::send failure is only logged (error_log('work order tracking mail: …')), so staff can believe the vendor was told when they weren't.",
+    "While M2b stays paused, live behaviour 2: ClientOrders::boardState reads a vendor's Will Call 'ready' as 'Ready for pickup at our shop' (the Order #12 case in the hand-off).",
+    "If M2b is resumed, risk 1: the zip was built on 2eab529. Re-apply its diff onto the live copies; never unzip over them.",
+    "If M2b is resumed, risk 2: m2b.php and m2b.cjs run on a harness the hand-off says has drifted from the live tables. Do M3's first fix first.",
+    "Test-count discrepancy in the sources: m2b.php is 31 tests in 'M2b built' and 35 in the Final hand-off. Use the suite as it is in the repo."
+  ],
+  "verify": [
+    "Confirm in the live Work queue (not attached) whether Jason has resumed M2b. If he hasn't, nothing further is needed for this item.",
+    "file not shown: handoffs/order-m2b/order-m2b.zip",
+    "file not shown: website/admin/client-order.php",
+    "file not shown: app/admin/tools.php ('backoffice/work_orders')",
+    "file not shown: app/ui/faq.md (M2b's three entries are in the zip, not attached)",
+    "file not shown: decisions/0101's 2026-11-24 note (the attached 0101 is truncated before it)",
+    "file truncated: app/lib/ClientOrders.php, cut inside boardState. deliverables(), delivery(), outTheDoor() and itemStatus() are not visible, so no exact ANCHOR regions can be written from the attachment.",
+    "On resume, the anchor in live app/lib/WorkOrders.php::moveItems that M2b replaces with a goesTo() check: \"if ($to === 'delivered' && in_array($w['delivery'], ['will_call', 'internal', 'local'], true)) return '';   // it came to us: we take it from here\"",
+    "On resume, renew the claims, which lapsed when it was paused: ClientOrders.php::boardState,deliverables (change) + legs (add); WorkOrders.php::moveItems,setTracking (change) + goesTo,legWords,setDelivery,tellVendor (add); tools.php::'backoffice/work_orders'; website/admin/client-order.php"
+  ],
+  "regions": false
+}

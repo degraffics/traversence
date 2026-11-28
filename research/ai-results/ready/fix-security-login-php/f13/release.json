@@ -1,0 +1,28 @@
+{
+  "name": "f13-login-no-account-status-leak",
+  "gate": "med - stacked on f03 and f12 (this login.php includes both). Ship after f12.",
+  "what": "The 409 'closing' and 403 'unconfirmed' responses no longer reveal account status before the password is known to be right. By default, every Auth::attemptLogin failure returns one 401 'invalid_credentials' with the fixed message 'Incorrect email or password.', and each counts toward the f03 limiter. The 409 and 403 responses come back only if a person confirms that Auth verifies the password before throwing 4090/4030, and sets LoginErrorMap::STATUS_AFTER_PASSWORD_CONFIRMED = true.",
+  "files": [
+    "files/app/lib/LoginErrorMap.php",
+    "files/sync-storage/api/auth/login.php"
+  ],
+  "decisions": [
+    "PERSON'S DECISION: read Auth::attemptLogin (file not shown). If it throws 4090/4030 only after password_verify succeeds, set STATUS_AFTER_PASSWORD_CONFIRMED = true to restore the decisions/0091 and decisions/0014 flows. Otherwise, either leave the flag false (the shipped default) or change Auth to check the password first, then set it true.",
+    "With the default (false), unconfirmed and closing users lose the in-page 'resend link' and 'restore account' prompts. The FAQ marks those as coming.",
+    "Every 401 now uses one fixed message instead of $e->getMessage(), so differing Auth messages can't reveal account existence. Non-auth RuntimeExceptions (e.g. a DB error) also become a generic 401 and count as a failure."
+  ],
+  "tests": ["tests/login-error-map-test.php"],
+  "risks": [
+    "Nothing here has been run, tested or zip-checked. This is a draft.",
+    "Timing can still reveal accounts if Auth skips password_verify for unknown emails (Auth not shown).",
+    "The frontend may branch on 409/403 to redirect to /user/restore-account.php or offer the confirm link. With the default, those branches never fire (frontend not shown).",
+    "Other endpoints (signup, password reset, restore-account) may still reveal account existence. They are out of scope and not shown."
+  ],
+  "verify": [
+    "app/lib/Auth.php: file not shown. The finding says '(verify)': check the order of the password check against the 4090/4030 throws.",
+    "Frontend login page handling of 409/403: file not shown.",
+    "Live path assumed to be sync-storage/api/auth/login.php.",
+    "Run php tests/login-error-map-test.php. Then manually sign in to an unconfirmed account with a wrong password and expect the generic 401."
+  ],
+  "regions": false
+}

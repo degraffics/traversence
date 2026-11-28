@@ -1,0 +1,219 @@
+<?php
+// app/lib/Events.php — events a business posts (decisions/0134, its minimum before Jan 1: the note of 2026-11-27, option
+// (a), piloted by the Hometown theater). One store, `events`, for host-posted events; the crawler's Live events stay in
+// their own store for Jan 1 (that note: "Live events stay separate from host events", the merge moves to Q1).
+//   Who posts:  a business's team on a claimed listing whose claim is confirmed, with Catalog & content to edit (Team::can,
+//               which holds an unclaimed public listing at view; 0134 §2's Owner, Manager, Creator through their roles'
+//               permissions). The poster's own Verification (0062; 0134 §2, Jason's answer 1) isn't checked here yet: its
+//               lookup isn't wired in this release.
+//   What:       title, a short description, a kind (0134 §3), when (start, end or all day, in the venue's own time zone:
+//               CLAUDE.md "Times where they happened"), who for (all ages, 18+, 21+), a cover photo (the one uploader,
+//               target event_photo), showtimes as information only, and a link to one of the host's own published
+//               Event tickets items (ItemKinds 'ticket', bought on the Marketplace path). Free events otherwise: no price.
+//   Never:      links to outside ticket sellers or "pay at the door" notes (0134 §3; the note: showtimes are information
+//               only, with no ticket link and no door note). Words the Marketplace holds or blocks are held the same way.
+//   Checks:     Publish, Put back on, and every edit of a published event pass the same checks (0134 §2's automated checks,
+//               §7's date ahead): an edit that fails them isn't saved.
+//   States:     draft → published ⇄ draft (Unpublish); a published event can be cancelled (it shows as cancelled, its way
+//               back is Put back on); a draft can be deleted (kept 30 days with Put back). Each change of what a person
+//               entered keeps the old value in its History (CLAUDE.md "Edit or Undo").
+declare(strict_types=1);
+
+require_once __DIR__ . '/Database.php';
+
+final class Events
+{
+    /** 0134 §3's kinds. */
+    public const KINDS = ['festival' => 'Festival', 'market' => 'Market', 'music' => 'Music', 'arts' => 'Arts', 'sports' => 'Sports & rodeo',
+        'outdoors' => 'Outdoors', 'food' => 'Food & drink', 'family' => 'Family', 'faith' => 'Faith', 'learning' => 'Learning', 'meetup' => 'Meetup',
+        'business' => 'Business', 'volunteering' => 'Volunteering', 'civic' => 'Civic'];
+    /** 0134 §3, "Who for". */
+    public const AGES = ['all' => 'All ages', '18' => '18+', '21' => '21+'];
+    public const STATUSES = ['draft' => 'Draft', 'published' => 'Published', 'cancelled' => 'Cancelled', 'deleted' => 'Deleted'];
+    /** What a person entered: each change keeps the old value in the History. */
+    public const FIELDS = ['title', 'about', 'kind', 'starts_at', 'ends_at', 'all_day', 'age', 'showtimes', 'ticket_item_id', 'gallery_item_id'];
+    public const KEEP_DAYS = 30;
+    /** A listing claimed but not yet confirmed (the listing's own states, as its Overview names them): no events until it is. */
+    public const CLAIM_UNCONFIRMED = ['pending-verification', 'claimed-unverified'];
+
+    public static function ready(PDO $pdo): bool
+    {
+        try { $pdo->query('SELECT 1 FROM events LIMIT 0'); $pdo->query('SELECT 1 FROM event_history LIMIT 0'); return true; } catch (Throwable) { return false; }
+    }
+
+    /**
+     * May this person post for this listing? [yes, why not]. The listing must be claimed, its claim confirmed (0134 §2: "a
+     * business also needs its claim"); the role needs Catalog & content to edit.
+     */
+    public static function canPost(PDO $pdo, int $uid, int $entity): array
+    {
+        require_once __DIR__ . '/Team.php';
+        $st = $pdo->prepare('SELECT status FROM entities WHERE id = ?'); $st->execute([$entity]); $status = (string) $st->fetchColumn();
+        if ($status === 'unclaimed') return [false, 'Events are posted by a business that has claimed its listing. Claim it first.'];
+        if (in_array($status, self::CLAIM_UNCONFIRMED, true)) return [false, 'Your claim on this listing isn\'t confirmed yet. Finish confirming it in Edit listing, then post events.'];
+        if (!Team::can($pdo, $uid, $entity, 'catalog', 'edit')) return [false, 'Your role can\'t post events for this business. The owner can change your role.'];
+        return [true, ''];
+    }
+
+    /** The venue's time zone: its state (and its longitude where a state has two), as trips and hours read it. */
+    public static function zone(PDO $pdo, int $entity): string
+    {
+        require_once __DIR__ . '/JourneyPlan.php';
+        try {
+            $st = $pdo->prepare('SELECT TRIM(z.state) AS state, e.longitude FROM entities e LEFT JOIN zip_coordinates z ON TRIM(z.zip) = TRIM(e.primary_zip) WHERE e.id = ? LIMIT 1');
+            $st->execute([$entity]); $r = $st->fetch(PDO::FETCH_ASSOC) ?: [];
+            return JourneyPlan::timezone(['state' => (string) ($r['state'] ?? ''), 'lon' => $r['longitude'] !== null && $r['longitude'] !== '' ? (float) $r['longitude'] : -100]);
+        } catch (Throwable) { return 'America/Phoenix'; }
+    }
+
+    /** The business's events, newest start first, deleted ones last (still within their 30 days). */
+    public static function forHost(PDO $pdo, int $entity): array
+    {
+        $st = $pdo->prepare("SELECT * FROM events WHERE entity_id = ? AND (status <> 'deleted' OR deleted_at > UTC_TIMESTAMP() - INTERVAL " . self::KEEP_DAYS . " DAY)
+                              ORDER BY status = 'deleted', starts_at DESC, id DESC");
+        $st->execute([$entity]);
+        return $st->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public static function get(PDO $pdo, int $id): ?array
+    {
+        $st = $pdo->prepare('SELECT * FROM events WHERE id = ?'); $st->execute([$id]);
+        return $st->fetch(PDO::FETCH_ASSOC) ?: null;
+    }
+
+    /** The host's own published Event tickets items, for the event's ticket link: [id => title]. */
+    public static function ticketItems(PDO $pdo, int $entity): array
+    {
+        try {
+            $st = $pdo->prepare("SELECT id, title FROM market_items WHERE entity_id = ? AND status = 'published' AND kind IN ('ticket', 'class') ORDER BY published_at DESC");
+            $st->execute([$entity]);
+            return array_column($st->fetchAll(PDO::FETCH_ASSOC), 'title', 'id');
+        } catch (Throwable) { return []; }
+    }
+
+    /**
+     * Save a new event (id 0) or an edit, from the form. Times come as the venue's local "Y-m-d\TH:i" (or a date for all
+     * day) and are stored as written, with the venue's zone beside them. An edit of a published event passes Publish's
+     * checks first (its date, when it moved; its words, when they changed). Returns the event's id; throws with the reason.
+     */
+    public static function save(PDO $pdo, int $uid, int $entity, array $in, int $id = 0, string $tz = ''): int
+    {
+        [$ok, $why] = self::canPost($pdo, $uid, $entity); if (!$ok) throw new InvalidArgumentException($why);
+        $old = $id ? self::get($pdo, $id) : null;
+        if ($id && (!$old || (int) $old['entity_id'] !== $entity)) throw new InvalidArgumentException('That event isn\'t this business\'s.');
+        if ($old && $old['status'] === 'deleted') throw new InvalidArgumentException('That event was deleted. Put it back first.');
+        $v = self::clean($pdo, $entity, $in);
+        if ($old) {
+            $changed = [];
+            foreach (self::FIELDS as $f) if ((string) ($old[$f] ?? '') !== (string) ($v[$f] ?? '')) $changed[$f] = $old[$f];
+            if (!$changed) return $id;
+            if ($old['status'] === 'published') {   // a live event's change shows at once, so it passes Publish's checks first (0134 §2, §7)
+                $dated = array_key_exists('starts_at', $changed) || array_key_exists('ends_at', $changed) || array_key_exists('all_day', $changed);
+                $worded = array_key_exists('title', $changed) || array_key_exists('about', $changed) || array_key_exists('showtimes', $changed);
+                $hold = self::publishHold($pdo, array_merge($old, $v), 'edit', $dated, $worded);
+                if ($hold !== '') throw new InvalidArgumentException($hold);
+            }
+            $sets = implode(', ', array_map(fn ($f) => "$f = ?", array_keys($v)));
+            $pdo->prepare("UPDATE events SET $sets, updated_by = ?, updated_at = UTC_TIMESTAMP() WHERE id = ?")->execute(array_merge(array_values($v), [$uid, $id]));
+            $h = $pdo->prepare('INSERT INTO event_history (event_id, at, tz, user_id, field, old_value) VALUES (?, UTC_TIMESTAMP(), ?, ?, ?, ?)');
+            foreach ($changed as $f => $was) $h->execute([$id, self::tzOk($tz), $uid, $f, $was === null ? null : (string) $was]);
+            return $id;
+        }
+        $cols = array_merge(array_keys($v), ['entity_id', 'zone', 'status', 'created_by', 'created_at', 'created_tz', 'updated_by', 'updated_at']);
+        $vals = array_merge(array_values($v), [$entity, self::zone($pdo, $entity), 'draft', $uid, gmdate('Y-m-d H:i:s'), self::tzOk($tz), $uid, gmdate('Y-m-d H:i:s')]);
+        $pdo->prepare('INSERT INTO events (' . implode(', ', $cols) . ') VALUES (' . implode(', ', array_fill(0, count($cols), '?')) . ')')->execute($vals);
+        $new = (int) $pdo->lastInsertId();
+        $pdo->prepare('INSERT INTO event_history (event_id, at, tz, user_id, field, old_value) VALUES (?, UTC_TIMESTAMP(), ?, ?, ?, NULL)')->execute([$new, self::tzOk($tz), $uid, 'created']);
+        return $new;
+    }
+
+    /**
+     * Why an event can't show yet ('' when it can): its date is ahead, and its words pass the Marketplace's rules (0134 §2's
+     * automated checks, §7's date ahead). $what words the answer: 'publish', 'restore' (Put back on) or 'edit' (a change to a
+     * published event). $date and $words choose which checks run (an edit runs only those its change touches).
+     */
+    public static function publishHold(PDO $pdo, array $e, string $what = 'publish', bool $date = true, bool $words = true): string
+    {
+        if ($date && strtotime((string) (($e['ends_at'] ?? null) ?: ($e['starts_at'] ?? ''))) < strtotime('-1 day'))
+            return ['restore' => 'This event is in the past, so it can\'t be put back on. Change its date first.',
+                    'edit' => 'Not saved: it\'s published, so its date must be ahead. Choose a date ahead.'][$what] ?? 'This event is in the past. Change its date to publish it.';
+        if ($words) {
+            $hold = self::checkWords($pdo, (string) ($e['title'] ?? ''), (string) ($e['about'] ?? '') . "\n" . (string) ($e['showtimes'] ?? ''));
+            if ($hold !== '') return ($what === 'edit' ? 'Not saved, because it\'s published. ' : '') . $hold;
+        }
+        return '';
+    }
+
+    /**
+     * Move an event: publish, unpublish (back to a draft), cancel, restore (a cancelled event published again), delete (a
+     * draft or a cancelled event, kept 30 days), undelete. Returns the words for the notice.
+     */
+    public static function act(PDO $pdo, int $uid, int $entity, int $id, string $what, string $tz = ''): string
+    {
+        [$ok, $why] = self::canPost($pdo, $uid, $entity); if (!$ok) throw new InvalidArgumentException($why);
+        $e = self::get($pdo, $id);
+        if (!$e || (int) $e['entity_id'] !== $entity) throw new InvalidArgumentException('That event isn\'t this business\'s.');
+        $s = (string) $e['status'];
+        $moves = ['publish' => [['draft'], 'published', 'Published. It shows on its own page, your listing and your town\'s guide.'],
+                  'unpublish' => [['published'], 'draft', 'Unpublished: back to a draft, seen only by your team.'],
+                  'cancel' => [['published'], 'cancelled', 'Cancelled. It stays listed as cancelled, so anyone planning to come knows.'],
+                  'restore' => [['cancelled'], 'published', 'Put back on: published again.'],
+                  'delete' => [['draft', 'cancelled'], 'deleted', 'Deleted. It\'s kept ' . self::KEEP_DAYS . ' days in case you want it back.'],
+                  'undelete' => [['deleted'], 'draft', 'Put back as a draft.']];
+        if (!isset($moves[$what])) throw new InvalidArgumentException('Unknown action.');
+        [$from, $to, $words] = $moves[$what];
+        if (!in_array($s, $from, true)) return 'Already ' . strtolower(self::STATUSES[$s] ?? $s) . ': nothing to change.';
+        if ($what === 'publish' || $what === 'restore') {   // Put back on publishes again, so it passes the same checks (0134 §2, §7)
+            $hold = self::publishHold($pdo, $e, $what);
+            if ($hold !== '') throw new InvalidArgumentException($hold);
+        }
+        $pdo->prepare('UPDATE events SET status = ?, updated_by = ?, updated_at = UTC_TIMESTAMP()' . ($to === 'deleted' ? ', deleted_at = UTC_TIMESTAMP()' : ($what === 'undelete' ? ', deleted_at = NULL' : '')) . ($to === 'published' && !$e['published_at'] ? ', published_at = UTC_TIMESTAMP()' : '') . ' WHERE id = ? AND status = ?')
+            ->execute([$to, $uid, $id, $s]);
+        $pdo->prepare('INSERT INTO event_history (event_id, at, tz, user_id, field, old_value) VALUES (?, UTC_TIMESTAMP(), ?, ?, ?, ?)')->execute([$id, self::tzOk($tz), $uid, $what, $s]);   // the move by name, with the state it left (the Design reviewer, 2026-11-27)
+        if ($what === 'cancel' && !empty($e['ticket_item_id']))   // 0134 §6a: a cancelled event refunds or credits everyone; its page stops offering tickets (ticketOf)
+            $words .= ' Its Event tickets item is still on sale on the Marketplace: unpublish it in Market 360° → Marketplace, and refund or credit everyone who bought. We don\'t tell buyers for you yet, so tell them yourself.';
+        return $words;
+    }
+
+    /** A History line's words: the move named, with the state it left in brackets, as the state line names it ("cancelled it (was Published)"). */
+    public const MOVE_WORDS = ['publish' => 'published it', 'unpublish' => 'unpublished it', 'cancel' => 'cancelled it', 'restore' => 'put it back on', 'delete' => 'deleted it', 'undelete' => 'put it back'];
+    public static function historyWords(array $x): string
+    {
+        $f = (string) $x['field']; $was = $x['old_value'];
+        if ($f === 'created') return 'added it';
+        if (isset(self::MOVE_WORDS[$f])) return self::MOVE_WORDS[$f] . ' (was ' . (self::STATUSES[(string) $was] ?? (string) $was) . ')';
+        if ($f === 'status') return 'changed its state (was ' . (self::STATUSES[(string) $was] ?? (string) $was) . ')';   // before the moves were named
+        return 'changed ' . str_replace('_', ' ', $f) . ($was !== null && $was !== '' ? ' (was "' . mb_strimwidth((string) $was, 0, 80, '…') . '")' : '');
+    }
+
+    /** An event's History: [at, tz, who, what changed, the old value], newest first. */
+    public static function history(PDO $pdo, int $id): array
+    {
+        $st = $pdo->prepare('SELECT h.*, COALESCE(NULLIF(u.display_name, \'\'), u.email, \'\') AS who FROM event_history h LEFT JOIN users u ON u.id = h.user_id WHERE h.event_id = ? ORDER BY h.id DESC LIMIT 100');
+        try { $st->execute([$id]); return $st->fetchAll(PDO::FETCH_ASSOC); }
+        catch (Throwable) { $st = $pdo->prepare('SELECT h.*, \'\' AS who FROM event_history h WHERE h.event_id = ? ORDER BY h.id DESC LIMIT 100'); $st->execute([$id]); return $st->fetchAll(PDO::FETCH_ASSOC); }
+    }
+
+    /** "Sat Dec 19, 7:00 PM MST" in the venue's zone (CLAUDE.md "Times where they happened"), all day as the date alone. */
+    public static function when(array $e): string
+    {
+        $zone = (string) ($e['zone'] ?: 'America/Phoenix');
+        try { $z = new DateTimeZone($zone); } catch (Throwable) { $z = new DateTimeZone('America/Phoenix'); }
+        $s = new DateTime((string) $e['starts_at'], $z);
+        if ((int) $e['all_day']) {
+            $out = $s->format('D M j, Y');
+            if (!empty($e['ends_at']) && substr((string) $e['ends_at'], 0, 10) !== substr((string) $e['starts_at'], 0, 10)) $out .= ' to ' . (new DateTime((string) $e['ends_at'], $z))->format('D M j');
+            return $out . ', all day';
+        }
+        $out = $s->format('D M j, Y, g:i A');
+        if (!empty($e['ends_at'])) { $en = new DateTime((string) $e['ends_at'], $z); $out .= ' to ' . ($en->format('Y-m-d') === $s->format('Y-m-d') ? $en->format('g:i A') : $en->format('D M j, g:i A')); }
+        return $out . ' ' . $s->format('T');
+    }
+
+    // ---- what the public sees (E2: the event's page, its listing's "Coming up here", its place's guide) ---------------------
+
+    /** A public event: published or cancelled (shown as cancelled), its host listing up. Null otherwise. */
+    public static function publicGet(PDO $pdo, int $id): ?array
+    {
+        if (!self::ready($pdo)) return null;
+        $st = $pdo->prepare("SELECT ev.*, e.name AS host_name, e.micro_cluster_id FROM

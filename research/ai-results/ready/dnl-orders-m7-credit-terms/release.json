@@ -1,0 +1,50 @@
+{
+  "name": "orders-m7-credit-terms",
+  "gate": "5 (money policy, decisions/0178 §4: Jason's pop-up; the session manager to confirm the gate)",
+  "what": "SKIPPED FIRST, as the attached documents say: (1) M2b, how an order goes in two legs (PR #1346), paused by Jason 2026-11-24 ('Pause for now. add to work queue.'): nothing here touches its fields or flow; (2) Order #12's books ($1,111.14 invoiced against $809.10 of lines), waiting for Jason after the holiday: nothing here reads or changes Order #12; (3) Work-queue parents are in the live database and not attached, so this release doesn't link to them. The attached draft (job 19, dnl-orders-m7-credit-terms.md) was EMPTY: there was nothing to review, so this is drafted from decisions/0178 §4, the design §3.2/§3.5/§6 and the live files. WHAT IT DOES: credit terms (Net 15 / Net 30) on a client's account, asked for by staff with what the credit process found and granted, declined or ended by Jason only (his own Founder staff login, as Orders::canDecideRefund). An order on terms (its due_terms Net 15/30, and a grant covering it when it was sent) no longer waits for payment before the vendor (vendorHold) or delivery (shipHold); a deposit asked on it still comes before the vendor. Staff can't give an order Net 15/30 unless the client has a grant (saveTerms; orders that already have them keep them, as invoice later does). The client's email says the terms in place of 'Pay in full on approval' (send). Orders on 'Due on receipt', and orders whose Net terms were typed without a grant, keep 0177 §4's holds exactly as today.",
+  "files": [
+    "files/app/lib/CreditTerms.php",
+    "files/app/migrations/2027-02-01_client_credit_terms.sql",
+    "files/app/lib/ClientOrders.php.region-1.php",
+    "files/app/lib/ClientOrders.php.region-2.php",
+    "files/app/lib/ClientOrders.php.region-3.php",
+    "files/app/lib/ClientOrders.php.region-4.php",
+    "tests/credit-terms-tests.php",
+    "faq/faq-entries.md"
+  ],
+  "decisions": [
+    "decisions/0178 §4: Net 15 and Net 30, granted by Jason only, after the credit process; a deposit can still be asked; due by the terms' date; vendor and delivery don't wait (model 1.8)",
+    "decisions/0178 'Not changed': 0177 §4's holds stay for every order not on terms; QuickBooksPay::guardReal() untouched (nothing here reaches QuickBooks)",
+    "decisions/0101 note 2026-11-23: invoice later isn't offered; terms replace it (the same 'keeps what it has, can't newly choose it' rule is used for Net terms without a grant)",
+    "research/order-management-design-2026-11-23.md §3.2 'On credit terms', §3.5 chain 'credit terms ⟶ due by the terms' date', §6 M7",
+    "Drafting choices for review (not decided anywhere): a grant counts for orders sent while it was live (ending terms doesn't pull them from orders already sent); Net 30 covers Net 15; a new grant ends the client's earlier one; only Jason ends terms; a client is matched by account id or by email"
+  ],
+  "tests": [
+    "tests/credit-terms-tests.php → copy to tools/orders-tests/credit-terms-tests.php; php tools/orders-tests/credit-terms-tests.php (needs pdo_sqlite; in-memory, never the live database; apply the four regions first)"
+  ],
+  "risks": [
+    "NOTHING HERE WAS RUN OR VERIFIED: no test, lint, migration or zip check was run; the lane session must do all of it",
+    "The job 19 draft was empty: this release had no prior draft to check against",
+    "Queue order: M7 is item 6 of the Orders queue, after item 0 (M3's first fix: 'the order tests green again') and M3–M6; the existing order tests may not be green, so a failure elsewhere may not be this release's. Shipping M7 ahead of M3–M6 needs the session manager's OK",
+    "No screens: the admin pages (admin/client-order.php Terms, the client's account) and Jason's Pulse case for an ask are not attached, so the Ask / Grant / Decline / End buttons and the Terms dropdown's hint are not built. Until they are, staff see the whyNot() words when they pick Net 15/30 for a client without a grant, and grants can only be made through CreditTerms::grant(). The FAQ entries are therefore 'coming'",
+    "Behaviour change: staff today can pick Net 15/30 freely (it only set a due date). After this, a NEW choice of Net 15/30 needs Jason's grant; orders that already carry it keep it and keep their payment holds",
+    "boardState() (the Money line's 'On credit terms' state, design §3.2) is not changed: the function is cut off in the attached ClientOrders.php. A terms order shows as 'owed' with 'past due' after its date, as today",
+    "completeHold() / 0178 §6 not changed: a terms order delivered before its due date still becomes 'Delivered, balance due' for the admin. Whether a not-yet-due terms balance should wait quietly until its date is a question for Jason",
+    "releaseAt(), mine(), dueDate(), hasItems() and proofGaps() are in the cut-off part of ClientOrders.php: the regions call them as the shown code does, unseen",
+    "Time: grants are stamped with PHP's date(); orders.sent_at with MySQL NOW(). If PHP and MySQL time zones differ, a grant made minutes before a send could miss it (send again fixes it)",
+    "Invoice-later orders aren't moved to terms: invoiceLaterChoose() still offers Send invoice / Release only",
+    "Migration file name/date is a placeholder: rename it into the live sequence. No UPDATE/DELETE in it; CREATE TABLE IF NOT EXISTS is safe twice",
+    "No money moves in any path here; tests use SQLite in memory and never load QuickBooksPay"
+  ],
+  "verify": [
+    "ClientOrders.php is over 60 KB and was attached cut off: confirm each region's ANCHOR (saveTerms, shipHold, vendorHold, send) matches the live file byte for byte before replacing, then php -l",
+    "file not shown: the rest of app/lib/ClientOrders.php (releaseAt, mine, dueDate, hasItems, boardState's end) — check the regions' calls against it",
+    "file not shown: app/admin/Access.php and app/lib/Workspaces.php — CreditTerms::canGrant() mirrors Orders::canDecideRefund(); confirm Access::staff() and Workspaces::levelOf() as used there",
+    "file not shown: admin/client-order.php and the Pulse case list — screens for Ask / Grant / Decline / End not built; plan them with the Design reviewer",
+    "file not shown: the live migrations folder — pick the migration's date; confirm users.id is INT UNSIGNED (no foreign key is made)",
+    "Run tools/orders-tests/credit-terms-tests.php after the regions: expect all PASS; the hold tests SKIP if ClientOrders.php can't load outside the site",
+    "On staging: a client without a grant can't be given Net 30; with a grant, a full-pay order goes to the vendor and ships unpaid; a deposit order on terms waits for its deposit; the client's email says the terms",
+    "Byte-check after sync before moving the line to 'Live' in handoffs/decided-not-live.md"
+  ],
+  "regions": true
+}

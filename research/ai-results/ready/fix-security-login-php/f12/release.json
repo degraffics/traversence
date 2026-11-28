@@ -1,0 +1,29 @@
+{
+  "name": "f12-test-account-captcha-bypass-secret",
+  "gate": "med - stacked on f03 (this login.php includes the f03 limiter). Ship after f03.",
+  "what": "The test-account captcha bypass now also requires the X-Test-Login-Secret request header. The header is compared with hash_equals against the TEST_LOGIN_SECRET server env value (at least 32 chars). The secret is checked first, so TestAccounts::checkRequest is only reached with a valid secret. If the env value is unset or short, there is no bypass and the captcha always applies.",
+  "files": [
+    "files/app/lib/TestLoginSecret.php",
+    "files/sync-storage/api/auth/login.php"
+  ],
+  "decisions": [
+    "Safest default: fail closed. If TEST_LOGIN_SECRET is missing, the bypass is disabled.",
+    "PERSON'S DECISION: the header name X-Test-Login-Secret and env name TEST_LOGIN_SECRET. The site's own checks (decisions/0145 §3) must be updated to send the header, or their sign-ins will need a captcha once the captcha keys are set.",
+    "The existing TestAccounts::checkRequest is kept and ANDed with the secret, not replaced."
+  ],
+  "tests": ["tests/test-login-secret-test.php"],
+  "risks": [
+    "Nothing here has been run, tested or zip-checked. This is a draft.",
+    "If TestAccounts::checkRequest already checks a token internally, this adds a second factor. That is harmless, but the token flow is unchanged.",
+    "How .env is loaded is unknown. configured() reads getenv, then $_ENV, then $_SERVER. If bootstrap loads .env some other way, the secret will look unset and the bypass will stay off.",
+    "While the captcha keys are unset, Captcha::verify presumably passes anyway, so there is no visible change until the keys are set."
+  ],
+  "verify": [
+    "app/lib/TestAccounts.php: file not shown. The finding says '(verify)': check whether checkRequest really keys on the email alone.",
+    "app/bootstrap.php / .env loading: file not shown. Confirm getenv('TEST_LOGIN_SECRET') sees the .env value.",
+    "Live path assumed to be sync-storage/api/auth/login.php.",
+    "Add TEST_LOGIN_SECRET (32+ random chars, e.g. bin2hex(random_bytes(32))) to .env and to the site checks' config, never to the repo.",
+    "Run php tests/test-login-secret-test.php."
+  ],
+  "regions": false
+}

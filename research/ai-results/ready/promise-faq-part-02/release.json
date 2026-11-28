@@ -1,0 +1,37 @@
+{
+  "name": "faq-part-02 promise fixes (job 6): held, no findings received",
+  "gate": "HOLD: the job 6 promise-check input is empty; nothing to apply until it is re-attached",
+  "what": "Draft only. The promise check meant to drive this release was attached empty, so no FAQ entry or page wording is changed. faq/faq-entries.md and faq/page-wording.md hold no replacement blocks. They list possible mismatches noticed on a plain read, for the lane session to compare with the real findings.",
+  "files": [
+    "faq/faq-entries.md",
+    "faq/page-wording.md",
+    "release.json"
+  ],
+  "decisions": [
+    "No OLD/NEW blocks were written without the promise check's findings. Inventing findings would risk rewording true promises or missing the real ones.",
+    "No live PHP file is changed, so there are no files/ entries and no regions.",
+    "No faq.php# anchors were touched, because no heading is reworded."
+  ],
+  "tests": [],
+  "risks": [
+    "Nothing here has been run, tested or zip-checked. This is a draft for the lane session.",
+    "The candidate mismatches listed come from reading text only. None is confirmed by attached code, and some may be false positives.",
+    "If this release ships as is, it changes nothing. The FAQ and page promises the check found stay unfixed until the check is re-attached."
+  ],
+  "verify": [
+    "file not shown (empty): the promise check, job 6 answer, plain_traversence__research__ai-results__job6-promise-check__promise-faq-part-02.md.c40000. Re-attach it and rerun this job.",
+    "faq-part-02 line 448: 'Coming: the System Control Board' versus lines 383–418, which describe the board as built. Board code is not shown.",
+    "faq-part-02 line 403: '(a trip already open stays a trip until an admin resolves it)' versus line 389: 'a trip clears itself (2026-11-20), escalated or not'. Code not shown.",
+    "faq-part-02 line 390: 'only **Resolve** clears it' (Escalation Notice) versus line 389's self-clearing. Code not shown.",
+    "faq-part-02 line 391: push 'at the session manager's next hourly check' versus line 465: 'A trip goes at once, whatever your quiet hours'. Code not shown.",
+    "page-our-approach.php line 71: 'Download and delete your data: coming soon.' Deletion looks built (page-data-deletion.php, /user/delete-account.php). file not shown: user/delete-account.php.",
+    "page-our-approach.php line 41: 'Your email and location are never shown to anyone' versus page-privacy.php line 112 (staff see email and phone when needed).",
+    "page-privacy.php line 37: 'download' your information. No download feature appears in any attached file.",
+    "page-terms.php lines 94, 97 and 99: renewal reminder 7 days, trial emails at 5 days, 1 day and the day, retries after 3 and 7 days. file not shown: app/lib/Billing.php.",
+    "page-claim.php line 226: 'Free, or a paid plan (free trial for now).' file not shown: app/lib/Claims.php and app/lib/Billing.php.",
+    "page-takedown.php line 51: 'within 24 hours'. file not shown: app/lib/Takedowns.php (hide_by).",
+    "page-plans.php line 84: 'emailed to you, with a receipt from QuickBooks'. file not shown: api/plans.php and app/lib/QuickBooksPay.php.",
+    "file not shown: faq.php. Anchors were not checked, and none were needed since no heading changed."
+  ],
+  "regions": false
+}

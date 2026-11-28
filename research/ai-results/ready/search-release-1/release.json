@@ -1,0 +1,50 @@
+{
+  "name": "search-release-1",
+  "gate": "1 (live harm; decisions/0181's note, #1620)",
+  "what": "(a) 'urgent care', 'walk in clinic', 'emergency room' read as a new urgent situation, Urgent care (open now first, known-closed left out), and taken out of Feeling sick; SEED_VERSION 13 -> 14. (b) Situations::solutions orders by the need's own category order and its words ahead of weight (SQL, so LIMIT 400 keeps the right rows) and, in the place, ahead of distance; urgent care before clinics (audit C7); interim C5 guard: NPI 'Last, First' person names aren't offered as answers to a need. (c) SearchIndex::refresh moved off the search request into a scheduled job, search_index_tick (Scheduler::JOBS and AUTO, every 15 min); a search runs it again only when the job hasn't run in 30 minutes. (d) C3, C5, C6: their root-cause files are not attached (see verify); only the C5 interim guard above and the C6 FAQ wording ('coming') are in this release.",
+  "files": [
+    "files/app/lib/Situations.php.region-1.php",
+    "files/app/lib/Situations.php.region-2.php",
+    "files/app/lib/Situations.php.region-3.php",
+    "files/app/lib/SearchIndex.php.region-1.php",
+    "files/app/scripts/search_index_tick.php",
+    "files/app/lib/Scheduler.php",
+    "faq/faq-entries.md"
+  ],
+  "decisions": [
+    "decisions/0061 (situations; health-order note; principle 5 and 6: Urgent care is urgent, not a danger situation)",
+    "decisions/0060 (2026-11-27 note: a need like urgent care ranks that exact kind first)",
+    "decisions/0181 (live harm; 'search is running really slow')",
+    "decisions/0164 (people aren't places: C5)",
+    "research/listing-audit-2026-11-27.md (F10, C3, C5, C6, C7)"
+  ],
+  "tests": [
+    "tests/search-release-1-situations.php -> tools/search-tests/ (seed reading of 'urgent care'; need order ahead of weight on SQLite; person guard)",
+    "tests/search-release-1-index-job.php -> tools/search-tests/ (job in JOBS/AUTO, script present, a search defers to the job)"
+  ],
+  "risks": [
+    "Nothing here was run, tested, linted or verified: every file is a DRAFT for the lane session.",
+    "The attached DRAFT (job 17a, research/ai-results/job17-patch-drafts/patch-search-release-1.md) was EMPTY: no draft diffs could be reviewed against the live files. This release was written from the live files directly; compare with the real draft if it exists.",
+    "Situations.php was attached truncated (ends inside logTerm), so it is shipped as regions only; the lane must apply them to the full live file.",
+    "Region 3 changes ordering for every need, not only health: in the place, the need's first-named category now leads ahead of distance (e.g. Wrecker Service ahead of a nearer Towing%). Beyond the place, nearest still leads.",
+    "The C5 person guard drops any listing named exactly 'Word, Word …' with no business word; a real business named that way would stop being offered for needs (still in the directory).",
+    "If Feeling sick was edited in Admin (source 'admin'), the seed refresh leaves its 'urgent care' phrase and both situations will answer together.",
+    "'emergency room' and 'emergency department' now read as Urgent care (urgent, no 911 line); someone-hurt keeps the 911 line for its own phrases.",
+    "If cron for search_index_tick isn't set up or is paused by Automation::job, searches resume the catch-up after 30 minutes (no worse than today), but a 30-minute gap in freshness is possible.",
+    "No real money moves anywhere in this release or its tests; no QuickBooksPay calls."
+  ],
+  "verify": [
+    "Draft file research/ai-results/job17-patch-drafts/patch-search-release-1.md: attached empty; get the real draft and diff it against these files.",
+    "decisions/0061's health-order note: the attachment was truncated before it; check region 3's ordering against its exact words.",
+    "app/lib/UniversalSearch.php: file not shown. Audit F10: 'urgent' read as a time word at :355 may strip 'urgent' before Situations::read sees 'urgent care'; it must read the phrase first. Also find every SearchIndex::refresh caller (expected: the search path) and confirm none passes force=true per request.",
+    "Category names on live: confirm the category Banner's urgent care (#8938) is filed under and whether any 'Urgent Care%' category exists (SELECT id, name FROM categories WHERE name LIKE '%urgent%').",
+    "app/scripts/*_tick.php bootstrap: file not shown. Match search_index_tick.php's requires/env loading to an existing tick script (e.g. frontier_tick.php).",
+    "app/lib/Automation.php: file not shown. Confirm Automation::job() doesn't pause 'search_index_tick' (it's database-only upkeep, like frontier_tick).",
+    "C3 (NPI taxonomy code -> category on NPI evidence; one category writer): app/lib/Identity.php (fromReferences :971-980), app/lib/crawler/IntakeStager.php (:437, :467-492), app/lib/CategoryClassifier.php (setCategory :289-293), app/lib/crawler/NpiBulk.php, workers/crawler/crawler.py (:1039): file not shown; not built here.",
+    "C5 root fix (looksPerson in evaluate's floor :177-178; NPI_CATEGORY only for NPI registry :471; DataCleanup person rule :499 without its no-category condition, with Undo): app/lib/crawler/AutoImport.php, app/lib/crawler/IntakeStager.php, app/lib/DataCleanup.php: file not shown; not built here. ListingIdentity.php was attached but the audit places the fix in evaluate, so it is unchanged.",
+    "C6 (label says what it vouches for; kind mismatch or shared-site About holds it at 'Being checked'): app/lib/ListingConfidence.php (:24-31, :85-182, :151) and Identity.php: file not shown; FAQ entry marked coming.",
+    "Run both tests at the lane; run a search for 'urgent care show low', 'urgent care', 'walk in clinic', 'feel sick', 'emergency room show low' at 1280 and 390 and check the Urgent care answer and that Feeling sick is unchanged otherwise.",
+    "After deploy: Scheduled tasks shows search_index_tick added by sync() and running every 15 min; search_index_state has refresh_job_at advancing; search latency compared before/after."
+  ],
+  "regions": true
+}

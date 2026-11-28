@@ -1,0 +1,26 @@
+{
+  "name": "f21-upload-hide-pdo-message",
+  "gate": "lane review; tests/upload-pdo-message-hidden.php prints only PASS against files/api/upload.php and shows FAIL on the database cases against the live api/upload.php",
+  "what": "api/upload.php lines 52-54: PDOException extends RuntimeException, so a database error was caught by the RuntimeException branch and its text (SQLSTATE, table and schema names, DB user and host) was echoed to the page. A PDOException branch now comes before it: it logs the full text and answers with a generic message. Database::connection() also moved inside the try, so a failed connection gets the same generic answer instead of crashing.",
+  "files": ["files/api/upload.php"],
+  "decisions": [
+    "Kept HTTP 409 and error code 'error' for database failures, so js/tv-upload.js handles them exactly as before; only the message text changes. A person may prefer 500. If so, check js/tv-upload.js (file not shown) for how it treats each status before changing it.",
+    "Other RuntimeExceptions keep showing their own message: Uploads.php appears to use them for visitor-facing text (e.g. an expired upload). Only PDOException is hidden."
+  ],
+  "tests": ["tests/upload-pdo-message-hidden.php (php tests/upload-pdo-message-hidden.php [path/to/api/upload.php])"],
+  "risks": [
+    "DRAFT: nothing here has been run, tested or verified. The lane session must run the tests and zip-check.",
+    "If app/lib/Uploads.php catches a PDOException and re-throws it as a RuntimeException with the database text in the message, that text will still be shown. This fix cannot see that (file not shown); see verify.",
+    "files/api/upload.php is the whole file, cut from the attached copy. f06 and f22 also replace this whole file. Whichever ships after another must be re-cut on top of it, or the earlier fix is undone. The edits don't overlap: f21 changes line 32 and lines 52-54, f06 changes line 38, f22 changes line 24.",
+    "The tests use stand-in Response/Auth/Database/Uploads classes, not the real database code."
+  ],
+  "verify": [
+    "Live path: the attached header says api/upload.php, but it requires __DIR__ . '/../../app/bootstrap.php', so it sits one folder below the site root (e.g. public/api/upload.php). Place the file at the real live path.",
+    "app/lib/Uploads.php and app/lib/upload-targets.php: file not shown. Grep them for 'new RuntimeException' built from a caught exception's getMessage() and for messages that include SQL. Any such case needs the same treatment.",
+    "app/bootstrap.php: file not shown. Check whether it sets PDO::ERRMODE_EXCEPTION (assumed) and whether Database::connection() connects eagerly or lazily.",
+    "js/tv-upload.js: file not shown. Check that it shows error.message for 409 answers.",
+    "Check that the attached copy still matches live before replacing the whole file.",
+    "Manual on staging only: point the app at a wrong DB password and try an upload. Expect 'Something went wrong saving that…' on the page and the full error in the PHP error log."
+  ],
+  "regions": false
+}

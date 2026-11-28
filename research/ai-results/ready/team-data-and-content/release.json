@@ -1,0 +1,51 @@
+{
+  "name": "team-content-writers",
+  "gate": "decisions/0181 launch gates: guides are named as gate 3's critical path in 0180's budget notes. 0181 itself is not shown; the gate is unconfirmed.",
+  "what": "The agent for the Front-End Content Writers role (0180 row 26), which is the Data & Content lane's role on the platform. It adds one $0 step, 'content', that only ever proposes. On an unowned or role-held Work ticket at Planning in the Editorial Director's lane, it proposes the goal, in scope, out of scope and Done when that are still empty. Its kinds are FAQ entry, words on a page, guide quality and listing accuracy, each with fixed templates. Its checks: lane, stage, no high-risk territory, no word flag, never a person's words, and a fence note. It proposes once per ticket. A person's Accept applies the proposal as their Edit with History. Its AI access order is recorded on every proposal: code, then API (closed until the agents' $40 counter is live), then a session through the System Architect's build brief. Ticket types are unchanged: its tickets are Work tickets, and KINDS classify them within its lane.",
+  "files": [
+    "files/app/lib/TeamContent.php",
+    "files/app/lib/TeamRunner.php.region-1.php",
+    "files/app/lib/TeamRunner.php.region-2.php",
+    "files/app/lib/TeamRunner.php.region-3.php",
+    "files/app/lib/TeamRunner.php.region-4.php",
+    "files/app/lib/TeamRunner.php.region-5.php",
+    "files/app/lib/TeamRunner.php.region-6.php",
+    "tests/team-content-tests.php",
+    "faq/faq-entries.md"
+  ],
+  "decisions": [
+    "0180 §1, §2, §3, §4, §5, §6, §7, appendix row 26, and its notes of 2026-11-26/27 (routing cheapest first; separate budgets; agents' API counter not live)",
+    "0179 (proposals, Undo, the tree fingerprint, the fence)",
+    "0164 (W0–W15 rules: never overwrite what a person entered; nothing private to free APIs)",
+    "0066 (held names never shown or sent)",
+    "0057 (the FAQ grows with every build)",
+    "0145 §3 (test accounts are views only)",
+    "0165 (staging only)",
+    "handoffs/piece2/jason-spec.md §4–§7"
+  ],
+  "tests": [
+    "tests/team-content-tests.php: place it as tools/team-tests/team-content-tests.php and run `php tools/team-tests/team-content-tests.php`. It is pure, with no database, and prints PASS/FAIL per check."
+  ],
+  "risks": [
+    "Nothing here was run, linted, tested or zip-checked. It is a draft for the lane session to verify.",
+    "Adding the 'content' step changes TeamRunner::ruleData(), so the tree fingerprint changes. On deploy, treeApproval() clears the approval and drops every agent to Planning. Per 0180 §2 this is a decision-tree rule change, a Tier 5 Founder ruling. Per 0180's one-time-setup note, re-approval must be the Founder's own press or written words, never carried over. Ship only with that ruling in hand.",
+    "If the role's seeded slug is not 'content-writers', TeamRoster::doer() finds no row and the step silently never runs. Nothing breaks, but the role does nothing.",
+    "The role's acts_level/acts_dept are not set here. TeamRoster::can() refuses until the Founder grants permissions (0180 §2), and every attempt logs a 'refused' run.",
+    "Almost all content work reaches public pages. With reach at Backend only, its eventual builds wait for the Founder at the fence. This step only proposes scope, so it is not blocked, but the gate's deliverable still needs the Founder's reach decision or per-ticket release.",
+    "The word-flag stop is conservative. Common words such as 'personal', 'private', 'orders' or 'prices' make it skip a ticket and leave it for a person.",
+    "The Work queue page that renders proposals is not shown. A 'content' proposal is shaped {fields, kind, checks, route, session_ask, fence}, not brief fields, so the page may mis-render it until it has a 'content' case.",
+    "The reconcile file (rec-j18-team.md) is empty: all 18 pass sections have no content. No team-pass finding informed this release; it rests only on 0180, the spec and the live code."
+  ],
+  "verify": [
+    "Several roles touch the same functions. TeamRunner STEPS, STEP_AT, STEP_COST_MICROS, applies(), run() and accept() are edited by every role release that adds a step. Merge these regions by hand with any other role's pending version, keeping each step's branch. ruleData()/fingerprint() are shared consequences.",
+    "TeamRunner.php was judged over about 60 KB, so it is delivered as regions (regions: true). Each region file is a fragment with no <?php tag. The ANCHOR line is not part of the replacement. Where the last anchor line is '    }' or '    ];', it means the first such line after the anchor's first line.",
+    "GaugeTasks.php and TeamRoster.php are unchanged. The role reuses Work tickets, GaugeTasks::edit/SCOPE/adrs/BOUNDARIES, TeamRoster::lane/ticketTargets/LANE_ROUTES/LANE_NAMES and TeamRunner::touches/tier/frontOf as they stand.",
+    "The seed for 0180 row 26 is not shown (file not shown). Confirm its slug equals TeamContent::SLUG and STEPS['content'][0] ('content-writers'), its reports_to (editorial-director) and that it is active.",
+    "app/admin/Access.php is not shown. Confirm 'team.content' is acceptable as an Access action with default ['min' => 'staff', 'depts' => []], and that an empty depts list means any department.",
+    "The lane and handoff columns on control_gauge_tasks come from R2's migration, held on claude/r2-design (file not shown). Without them TeamRoster::lane() routes by words and paths, which still works.",
+    "Lane scope: the vetting brief's option A gives the Data & Content session the Editorial (12) and Marketing (13) lanes. This step serves only the Editorial Director's lane, because the Marketing lane's specialists are roles 29–30. Confirm, or add marketing kinds in a later release.",
+    "Not shown, and not called directly: AiClient (the agents' $40 counter; the API stays closed in code), HeldNames (held-name checks are left to the nations territory and word stops), 0181, Database.php, Staging.php, Switches.php and the Work queue page.",
+    "Confirm app/ui/faq.md is the FAQ source, as named in TeamRoster::LANE_ROUTES, before the faq template's in_scope is relied on."
+  ],
+  "regions": true
+}

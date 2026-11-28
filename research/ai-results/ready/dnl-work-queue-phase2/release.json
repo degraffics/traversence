@@ -1,0 +1,49 @@
+{
+  "name": "work-queue-phase2-r1-thread",
+  "gate": "Tier 3 (decisions/0180 §1 'non-protected workflow redesigns'; Jason 2026-11-27 'this doesn't seem like a t5 concern'), Project Manager (8) lane through jason-spec §8's four stages. Before live: the Project Manager decides whether 0180 §4 territory 5 (privacy: staff messages) applies; if it does, Tier 4 records its review and Prior Ruling Check (0180 §4: implements handoffs/work-queue-phase2.md release 1). Jason sees it as a line in the daily batch (0179). Sequencing: after task-seed-4, the pipeline release and R2; launch work wins against 0181's gates.",
+  "what": "Work queue phase 2, release 1: a task's thread. Staff posts in a new additive table (control_gauge_task_posts), with Edit (old words in History) and Undo within a day. The system's lines are read from the task's existing History (GaugeTasks::history), with no second record. The build session's notes come from releases/task-notes.json. The session manager's rulings (releases/task-rulings.json) become Work queue tasks, once each. No AI, no notifications, no money. The attached DRAFT (job 19) was empty, so this is drafted fresh from the handoff and the live GaugeTasks.php.",
+  "files": [
+    "files/app/lib/TaskThread.php",
+    "files/app/migrations/2026-11-28_task_thread.sql",
+    "tests/task-thread-tests.php",
+    "faq/faq-entries.md"
+  ],
+  "decisions": [
+    "Builds release 1 of handoffs/work-queue-phase2.md ('The thread: posts, system lines from History, the box. No AI.') and its 2026-11-27 note (also reads releases/task-notes.json and releases/task-rulings.json).",
+    "Tier 3 per the handoff's note and decided-not-live.md; territory 5 is flagged for the Project Manager, not decided here.",
+    "No live file is changed. GaugeTasks.php is used through its public methods (task, history, add, openFor, ensure, withdraw), so no region of it is replaced.",
+    "Posts never go into GaugeTasks::report() / health.php, so no staff name leaves the board (0145 §1).",
+    "A done or withdrawn task's thread is read-only, matching GaugeTasks::open()'s rule for steps and decisions.",
+    "Each post's press is a logbook line ('Task #N post added/edited/undone: ...'). The thread leaves those lines out of its system lines, because the post itself is shown.",
+    "Proposed file formats, for the session manager to confirm: task-notes.json = [{task, line, link, at}]; task-rulings.json = [{key, what, why, gauge?}], each ruling becoming a Work task with source 'task-rulings.json · <key>' and gauge 'area:rulings' by default.",
+    "SKIPPED: the attached DRAFT (job 19) is empty, so there was nothing to review.",
+    "SKIPPED (paused or waiting for Jason, untouched): M2b (paused by Jason 2026-11-24) and Order #12's books ('I will address this after holiday'). Nothing in phase 2 itself is paused or waiting for Jason.",
+    "SKIPPED (dependency): release 2, Ask Claude / task_assist. It runs on the agents' own $40 counter in AiClient, and 0180's 'Separate each' correction says nothing is spent from it until that counter is live (the AI items release). AiClient.php is not attached. Gaps 3 and 4 (daily share, model) remain suggestions.",
+    "SKIPPED (sequencing): release 3, Start the build and Gemini's public-page read. Gemini's gap 1 is answered by 0180's paid Google AI note; held 0066 names still go nowhere.",
+    "SKIPPED (sequencing): the Executive channel ('+ Add' → To: the CEO). It is its own release after this one.",
+    "SKIPPED (files not shown): role queues (decided-not-live lists them with release 1; they need TeamRoster.php and the Work queue page) and notifications through Notify::send (Notify.php)."
+  ],
+  "tests": [
+    "tests/task-thread-tests.php → tools/work-queue-tests/task-thread-tests.php: the pure checks run anywhere. The database checks run only with TASK_THREAD_TEST_DSN pointing at a database whose name contains 'test'. No money moves, and nothing touches QuickBooksPay."
+  ],
+  "risks": [
+    "Nothing here has been run, tested, linted or zip-checked. It is a DRAFT for the lane session.",
+    "GaugeTasks::history reads control_log.at. If ControlLog stores local time rather than UTC, system lines will sort out of step with posts (stored as UTC_TIMESTAMP). ControlLog.php is not shown.",
+    "Territory 5 (privacy: staff messages) may apply. If the Project Manager flags it, Tier 4's review must be recorded before live.",
+    "TaskThread::render's markup is unstyled and has had no 1280px or 390px check. It needs the Design reviewer's fidelity check (brand.md, design/css-theme-brand.md) and the simplicity veto (Guardian 15, Editorial Director 12).",
+    "applyRulings creates tasks automatically from a file the session manager writes. A wrong file would add wrong tasks; each can be withdrawn with a reason.",
+    "Live GaugeTasks::handOff writes columns lane and handoff that GaugeTasks::ensure() doesn't create (presumably R2's migration). This release doesn't depend on them, but it was noticed in review."
+  ],
+  "verify": [
+    "file not shown: the task page / side panel (#282) and its POST handler. Wire TaskThread::render() at the foot of the task page and TaskThread::handle($pdo, $_POST, $staffName, $staffUid, $tz) behind the page's own staff check and form token, passing the token in $hidden.",
+    "file not shown: ControlLog.php. Confirm add()'s signature as used in GaugeTasks, and that control_log.at is UTC.",
+    "file not shown: Database.php. Confirm that requiring it has no side effect in the test script.",
+    "file not shown: health.php / the hourly path (gauge-requests.mjs, gauges.json) and where releases/task-notes.json and releases/task-rulings.json land on the server. Wire TaskThread::loadJson(<path>) into thread() and applyRulings().",
+    "file not shown: Notify.php (thread notifications deferred), AiClient.php (release 2), TeamRoster.php (role queues).",
+    "Run app/migrations/2026-11-28_task_thread.sql twice on staging. The second run must change nothing. Rename the file if the migrations folder's dating differs.",
+    "Run tools/work-queue-tests/task-thread-tests.php on staging, with a test DSN: every line PASS.",
+    "Before-and-after check on the task page at 1280 and 390, including the Staff Views Advocate (A12).",
+    "Confirm GaugeTasks::report() output is unchanged (no posts and no staff names in build-requests.json)."
+  ],
+  "regions": false
+}

@@ -1,0 +1,35 @@
+{
+  "name": "f10-wire-card-session-bound",
+  "gate": "DO NOT SHIP files/website/api/wire-card.php until the code-entry step (file not shown) calls WireCardGate::mark($token) right after a successful code check. Without that call, the wire card returns 404 for every client. Ship app/lib/WireCardGate.php and the code-entry change first or in the same release. The test must print ALL PASS with WIRE_CODE_FILE set.",
+  "what": "Finding f10 (med): the wire-card picture was served to anyone holding the order link once the code had been entered anywhere. Now the code-entry step marks the browser's session with a hash of the order token, and wire-card.php serves the picture only when that marker is present and younger than ClientOrders::WIRE_MINUTES. All existing checks (pending, wireLeft, pay_method wire) are unchanged. Every failure is the same 404.",
+  "files": [
+    "files/app/lib/WireCardGate.php",
+    "files/website/api/wire-card.php"
+  ],
+  "decisions": [
+    "NEEDS A PERSON'S DECISION: is tying the wire details to one browser acceptable? A client who switches devices must re-enter the code. Default implemented: yes, bound to the session (safest).",
+    "Marker lifetime = ClientOrders::WIRE_MINUTES, falling back to 15 minutes if the constant is absent. ClientOrders::wireLeft() still applies as well.",
+    "wire-card.php never creates a session for requests without a session cookie. The session is closed right after reading so the image request does not hold the session lock.",
+    "mark() regenerates the session id when access is granted (anti-fixation).",
+    "Only sha256(token) is stored in the session. The map is capped at 20 entries and expired entries are pruned."
+  ],
+  "tests": [
+    "tests/wire-card-gate-test.php (place under tools/wire-card-tests/; set WIRE_CODE_FILE to the code-entry file)"
+  ],
+  "risks": [
+    "Nothing here has been run, tested or verified. It is a draft for the lane session.",
+    "If the code-entry step is not wired to WireCardGate::mark(), every client loses the wire details (fail-closed outage).",
+    "If app/bootstrap.php already starts or configures sessions (name, cookie path, save handler), WireCardGate uses the active session as is. If bootstrap starts sessions on a narrower cookie path than /api/, the marker will not reach wire-card.php.",
+    "session_regenerate_id in mark() could disturb other session-dependent code on that request (e.g. a CSRF token tied to the session id).",
+    "Clients who verified the code before deploy will lose the card until they re-enter the code."
+  ],
+  "verify": [
+    "file not shown: the code-entry / code-verification step (the order page or the endpoint that checks the emailed code). Add require_once of app/lib/WireCardGate.php and call WireCardGate::mark((string) $token) only after a successful code check, before any output.",
+    "file not shown: app/bootstrap.php. Check whether it starts sessions and with which cookie params, and confirm the session cookie is sent to /api/wire-card.php.",
+    "file not shown: app/lib/ClientOrders.php. Confirm WIRE_MINUTES exists and that byToken() takes the raw ?t= token, the same value passed to mark().",
+    "Manual check: enter the code in browser A and confirm the picture loads. Open the same link in private browser B without the code and confirm 404. Wait past WIRE_MINUTES and confirm 404.",
+    "Confirm the response headers still include Cache-Control: no-store and no session cache-limiter headers override it.",
+    "Person's decision above (device binding) is confirmed before release."
+  ],
+  "regions": false
+}

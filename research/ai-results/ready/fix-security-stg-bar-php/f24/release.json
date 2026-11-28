@@ -1,0 +1,24 @@
+{
+  "name": "f24-stg-bar-cookie-value-charset",
+  "gate": "staging-only endpoint; ship AFTER f08 (this file already contains f08's empty-key guard)",
+  "what": "In website/api/stg-bar.php, a cookie value read from the host's 409 bot-check page is used only if the whole value matches [A-Za-z0-9._-]*. The check uses \\A...\\z, because '$' would allow a trailing newline. Otherwise the retry is skipped and the 409 answer is handled as before. This keeps CR/LF, spaces and ';' out of the outgoing Cookie header.",
+  "files": ["files/website/api/stg-bar.php"],
+  "decisions": [
+    "Safest default: on a bad value, stop retrying and do not fall back to 'name=1'. This avoids sending a guessed cookie. The caller gets the existing 502 or the live site's answer as before.",
+    "The cookie name is already limited to humans_\\d+ by the existing pattern and is left unchanged.",
+    "Built on f08's file so that both fixes can ship in order without conflict."
+  ],
+  "tests": ["tests/stg-bar-cookie-value.php (install as tools/staging-tests/stg-bar-cookie-value.php; it takes the live file path as argv[1])"],
+  "risks": [
+    "DRAFT: nothing here has been run, linted, tested or zip-checked.",
+    "If Bluehost's challenge ever issues values outside [A-Za-z0-9._-] (for example base64 with '+', '/' or '='), the retry stops working and the bar sees the 409 or 502 path. A person should check a real challenge page.",
+    "If this ships without f08, it also ships f08's change. If f08 is rejected, remove the $key === '' line from this file."
+  ],
+  "verify": [
+    "Decision needed: confirm with a real Bluehost 409 challenge body that its cookie values fit [A-Za-z0-9._-]. If they don't, choose between widening the set (never CR, LF, ';' or space) and keeping the refusal.",
+    "Confirm the live path is website/api/stg-bar.php (inferred; the attached copy came from a scratchpad path).",
+    "Confirm f08 has shipped, or ship both together.",
+    "Run tests/stg-bar-cookie-value.php and php -l on the file."
+  ],
+  "regions": false
+}

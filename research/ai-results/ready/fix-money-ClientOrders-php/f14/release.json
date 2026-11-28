@@ -1,0 +1,21 @@
+{
+  "name": "f14-record-payment-nonce-key",
+  "gate": "BLOCKED (code not shown) - money path: independent check before merge",
+  "what": "recordPayment's duplicate key (ClientOrders.php:2193, 2202, 2210) uses the minute. That double-posts across a minute boundary, merges two real same-amount payments in one minute, and still posts to QuickBooks for a deduped record. Plan: (1) received() (:2508-2510) returns bool: true when it inserted the ledger row, false when the request_key was already there; (2) recordPayment keys on a nonce from the form ('rec-'.$oid.'-'.$nonce, the nonce matching /^[a-f0-9]{16,40}$/, made with bin2hex(random_bytes(16)) when the form is rendered); (3) when received() returns false, return 'Already recorded' and skip the QuickBooks post and the event. Callers that ignore the return (applyQuickBooks etc.) are unaffected.",
+  "files": [],
+  "decisions": [
+    "A form with no valid nonce is refused ('Refresh the page and record it again') rather than falling back to a time key (safest).",
+    "The admin form that renders the nonce is not shown; it must be updated in the same release."
+  ],
+  "tests": ["tests/f14_received_dedupe_acceptance.php (static acceptance test: FAILS until the fix is written)"],
+  "risks": [
+    "Nothing here was run or verified.",
+    "No code is included: ClientOrders.php 2188-2210 and 2508-2510 and the admin payment form were not in the attachment."
+  ],
+  "verify": [
+    "file not shown: ClientOrders.php 2188-2210 (recordPayment), 2508-2510 (received()), and the admin form posting to recordPayment.",
+    "Grep every caller of received() and confirm none relies on a void return.",
+    "Sandbox test: double-submit the same form = one record and one QuickBooks post; two real payments of the same amount in one minute = two records."
+  ],
+  "regions": false
+}

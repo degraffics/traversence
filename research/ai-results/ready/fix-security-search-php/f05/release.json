@@ -1,0 +1,37 @@
+{
+  "name": "f05-search-removed-csrf",
+  "gate": "Ship only after the lane confirms the site's CSRF token (session key or helper) and updates the client script that sends ?removed= to send a POST with the token. Until then, staff ×'s are counted like a visitor's and do not block, which is the safe side.",
+  "what": "api/search.php: GET ?removed= now always passes a null user id to SuggestionFlags::remove, so it only counts and never makes a staff block. A staff block now needs a POST (form or JSON) with removed/q/rk plus this session's CSRF token (X-CSRF-Token header or csrf_token field). The request must not be marked Sec-Fetch-Site: cross-site, and the person must pass the existing $canTeach check. A POST with a missing or wrong token gets 403 csrf_failed and records nothing. A new app/lib/SuggestionRemoveGuard.php holds the checks so they can be tested without a database.",
+  "files": [
+    "files/api/search.php",
+    "files/app/lib/SuggestionRemoveGuard.php"
+  ],
+  "decisions": [
+    "Safest default: GET never blocks. Even a signed-in staff member's GET ?removed= is only counted, with user id null.",
+    "Safest default: the CSRF token is checked against $_SESSION['csrf_token'] with hash_equals, and the check fails closed. With no session, no token or a wrong token, nothing is recorded and the reply is 403. NEEDS A PERSON: confirm the site's real token key or helper and change SuggestionRemoveGuard::SESSION_KEY or sessionToken() to match.",
+    "A POST from a visitor with a valid token is counted with a null id, the same as a GET.",
+    "No Origin/Host comparison, because proxies or a CDN could break real staff requests. The token is the control; Sec-Fetch-Site: cross-site is refused as an extra layer.",
+    "GET visitor counts remain forgeable (anyone can inflate a count). That is unchanged and out of this finding's scope. NEEDS A PERSON: decide whether visitor ×'s should also move to POST."
+  ],
+  "tests": [
+    "tests/suggestion-remove-guard-test.php -> tools/search-tests/suggestion-remove-guard-test.php",
+    "tests/search-removed-get-test.php -> tools/search-tests/search-removed-get-test.php"
+  ],
+  "risks": [
+    "Nothing here has been run or verified: no tests executed, no php -l, no zip check, no live request tried.",
+    "Until the client JS is changed to POST with a token, staff can no longer block suggestions from the search box. Their × is only counted.",
+    "If the session key guess ('csrf_token') is wrong, every staff POST gets 403. This fails closed, but staff will see 'Please refresh the page and try again.'",
+    "The 403 relies on Response::error ending the request, as the existing peek branch already assumes. If it throws instead, the outer catch would answer 500 search_failed. Either way, no block is recorded.",
+    "The file's live location is inferred from its require paths (<web root>/api/search.php, two levels below app/). The release uses files/api/search.php."
+  ],
+  "verify": [
+    "file not shown: the site's CSRF token source (bootstrap / Auth / any Csrf helper). Confirm the session key or helper and the name the pages expose the token under (meta tag or JS variable). Adjust SuggestionRemoveGuard::SESSION_KEY or sessionToken().",
+    "file not shown: the front-end script that calls /api/search.php?removed=…&rk=… (suggestion ×). Change it to fetch POST with body {removed, q, rk} and header X-CSRF-Token. Ship it together with this release, or accept that staff blocks pause.",
+    "file not shown: app/lib/SuggestionFlags.php. Confirm remove($pdo, $q, $removed, $kind, $userId|null) treats a null id as a visitor count, as the original code already relied on.",
+    "file not shown: app/bootstrap.php. Confirm the session is active on API requests, so sessionToken() can read it.",
+    "Confirm the real live path of api/search.php under the web root, and place files/api/search.php there. Place app/lib/SuggestionRemoveGuard.php under the repo's app/lib/.",
+    "Manually: as staff, GET /api/search.php?removed=x&q=test returns ok and no block appears (only a count). POST without a token returns 403. POST with the token blocks. As a visitor, POST with the token only counts.",
+    "Run both tests from tools/search-tests/ and php -l both PHP files. Zip-check that the folder holds only the two files listed."
+  ],
+  "regions": false
+}

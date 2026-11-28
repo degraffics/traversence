@@ -1,0 +1,22 @@
+=== FILE: release.json ===
+{
+  "name": "orders-m3-money",
+  "gate": "5 (money records on client orders: Jason's pop-up before it goes live, as for M2; the Design reviewer for the Money views once the lane wires them)",
+  "what": "SKIPPED FIRST, as the attached documents say: (1) M2b, how an order goes, is paused by Jason (2026-11-24, 'Pause for now. add to work queue'), so nothing here builds on or touches it. (2) Order #12's books wait for Jason ('I will address this after holiday', 2026-11-27), so Take a payment, Apply credit and Remind refuse Order #12 (MoneyDesk::HELD). Outstanding still lists it, marked held, with no actions. (3) Credit terms (Net 15 / Net 30) are M7 and granted by Jason only (0178 §4), so they are not here. (4) Refunds and credit memos each wait for Jason's OK (0178 §1 and its 2026-11-24 note), and the 'Refunds & credit memos' view is not in this item, so it is not here. (5) Queue item 0, 'the order tests green again', needs the test harness, which is not attached, so it is not here. ALSO: the attached DRAFT (job 19) is EMPTY. There was nothing to review, so this is built from the live files. WHAT IT DOES (Orders M3, design §4.4 and §6): app/lib/MoneyDesk.php adds Outstanding, Take a payment across orders, Credits on account with Apply, and Remind. Outstanding lists every approved client order with money owed, grouped by client, with aging (current, 1–30, 31–60, 61–90, over 90; 'due before delivery' for a deposit order's later balance) and the client's credit available. It reads ClientOrders::boardState, so the board and Money never disagree. Take a payment takes one payment and spreads it over the ticked orders: deposits first, then balances, oldest order first (0177 §4). Each share is recorded through ClientOrders::received with an 'out-' key, so it posts to a linked QuickBooks invoice as M1b does, and it shows Cancel the record, never Undo (0178's money note). Apply credit is pressed by staff and never automatic (0178 §3). It writes credit_used for the first time. Its correction is Cancel the record, which gives the credit back. Orders.php changes in two regions. Region 1: money()['paid'] now counts a credit applied, so an order's balance, dueNow, the holds and the board all see it. 'cash' and 'net' stay money only, so a credit is never refunded as cash. settle() no longer reads a credit-paid order as refunded. cancelledCents() counts only cancelled payments, and a new creditCancelledCents() counts cancelled credit uses. Region 2: creditBalance() and a new creditLots() leave out cancelled uses, and can keep test (sandbox) credit and real credit apart. NOT DRAFTED, because those files aren't attached: the Back-Office → Money page and its routes, the order page's 'Credit available: $X · Apply it' line (client-order.php), and the client page's 'paid by credit' wording (order.php). See verify.",
+  "files": [
+    "files/app/lib/MoneyDesk.php",
+    "files/app/lib/Orders.php.region-1.php",
+    "files/app/lib/Orders.php.region-2.php",
+    "tests/money-desk-tests.php",
+    "faq/faq-entries.md",
+    "release.json"
+  ],
+  "decisions": [
+    "research/order-management-design-2026-11-23.md §4.4 and §6 M3: Outstanding with aging, Take a payment across orders, Credits on account (the item's three). Refunds & credit memos as a view is left out: it is not in the item.",
+    "decisions/0178 §3: staff apply credit and the system suggests it; it is never taken off by itself. credit_used is written for the first time.",
+    "decisions/0178 note of 2026-11-23: money never has Undo. A payment or credit applied here is a record that was never processed, so its correction is Cancel the record. This supersedes the design's '✓ Paid … · Undo' and 0178 §3's 'with Undo'. Flagged for the session manager to confirm.",
+    "decisions/0178 note (b): a payment recorded here is also received on a hand-made QuickBooks invoice linked by its number. Inherited by recording through ClientOrders::received, as M1b does.",
+    "decisions/0177 §4: a payment pays deposits first, then balances, oldest first. Applied across a client's orders.",
+    "decisions/0098: credits last 90 days (Orders::CREDIT_DAYS) and are used oldest first.",
+    "decisions/0178 §5: no keyed cards. 'Card (another terminal)' only records money taken elsewhere, and nothing here takes a card number.",
+    "A reminder is an email, and an email can't be unsent, so it confirms as '✓ Reminded <date>' with no Undo, against the design's '· Undo'.

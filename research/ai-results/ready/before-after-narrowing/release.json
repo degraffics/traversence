@@ -1,0 +1,40 @@
+{
+  "name": "before-after-narrowing",
+  "gate": "Tier 2, backend only (app/lib, app/scripts, an add-only migration; no public page). Prior Ruling Check: implements decisions/0179's note 'How the Team's capacity grows' §4 (the four block rules) and 0180 §5 (advocates) and §8 (plan drift opens a ticket, never a rollback). It changes what the publish check blocks, so a Tier 4 review is recommended before live (verify). Touches no 0180 §4 territory by its files.",
+  "what": "(a) The before-and-after check's site side keeps a block only on 0179's four rules: a listed block whose rule is report-only (alt text, unnamed control, dialog, a territory named) goes on the release's card; plan drift (files the build brief didn't name) opens one Work ticket; any other or unknown rule still blocks, and a block list short of its total keeps the block. (b) The advocates' own audit: Scheduler::JOBS 'advocates_tick' (hourly, asks GitHub once a day from 4:00 UTC, switch advocates_audit, live only), its runner app/scripts/advocates_tick.php and AdvocatesAudit.php: a finding seen on two looks in a row opens one unowned Work ticket (an experience ticket) for its lane; it never blocks, withdraws or publishes a release, waits while one is checked, and counts its minutes in DB4's budget.",
+  "files": [
+    "files/app/lib/BeforeAfter.php",
+    "files/app/lib/AdvocatesAudit.php",
+    "files/app/scripts/advocates_tick.php",
+    "files/app/migrations/2026-11-28_advocates_audit.sql",
+    "files/app/lib/Scheduler.php",
+    "tests/ba-narrowing.php",
+    "tests/advocates-audit.php",
+    "faq/faq-entries.md"
+  ],
+  "decisions": ["0179", "0180", "0165", "0066", "0145"],
+  "tests": ["tests/ba-narrowing.php", "tests/advocates-audit.php"],
+  "risks": [
+    "DRAFT: nothing here was run, linted, tested or zip-checked; the lane session must run php -l on every file, both tests, and the zip check.",
+    "The narrowing only acts on a per-block list in the verdict file ('blocks': [{who, page, size, rule, what}]); beforeafter.mjs isn't shown, so if it writes no such list or other rule names, nothing is narrowed and the check behaves as before (fail-safe, but the narrowing does nothing until it matches).",
+    "Report-only rules (alt, unnamed, dialog, area) stop blocking: an unnamed control could be read as 'broken controls' under 0179 §4; confirm the list.",
+    "The advocates' audit spends GitHub Actions minutes from the same daily budget as release checks (DB4); it asks only when no release is waiting and the budget isn't spent, but a late-day release could find less budget left.",
+    "AdvocatesAudit opens tickets in the live Work queue (control_gauge_tasks) from a file on main; it dedups by what, at most 5 a run, but a noisy run could still open several tickets in a day.",
+    "AdvocatesAudit::open sets tier from TeamRunner::tier, which still marks a touched territory Tier 5 until R3; the ticket stays a Work ticket, not a Resolution.",
+    "Scheduler.php is output whole from the attached copy; any change on live since that copy would be overwritten."
+  ],
+  "verify": [
+    "0180's attached text has no note saying 'advocates audit on a schedule, independent of the builders': §5 gives their two jobs, and its note 'roles check one another' gives releases to A1–A12. The schedule (once a day, 4:00 UTC), the two-looks rule, the 5-ticket cap and staging (not live) as the site looked at are this draft's choices: confirm or point to the note.",
+    "0179's note of 2026-11-28 says 'The before-and-after check is unchanged'; confirm this narrowing is within rule 2 / note §4 (implementing it) and doesn't need a ruling.",
+    "File not shown: tools/page-audit/beforeafter.mjs and .github/workflows/beforeafter.yml: the verdict file's per-block field name ('blocks') and its rule keys must match BeforeAfter::REPORT_ONLY / TICKET_ONLY / RULES; the narrowing of the four rules in the browser-side compare is not drafted here.",
+    "File not shown: the GitHub workflow for the 'advocates-audit' repository_dispatch event and its writer of site-audit/results/advocates/latest.json ({run, at, seconds, views, findings:[{who, page, size, rule, what, lane}]}); it must be built (presumably on beforeafter.mjs's capture) before the switch is turned on.",
+    "File not shown: app/lib/Releases.php (checkedByAdvocates, noteFromCheck): confirm it accepts the verdict array with the extra keys 'reports', 'tickets', 'narrowed', and that a narrowed 'pass' publishes as any pass.",
+    "File not shown: app/lib/Switches.php: how a new switch (advocates_audit, shipped off) is registered; Switches::on for an unknown key is assumed to return false.",
+    "File not shown: app/lib/TeamRoster.php: TeamRoster::LANES is assumed to be a list of lane keys (as GaugeTasks::handOff uses it), and control_gauge_tasks.lane to exist (R2). Which lane owns a screen is not set by the attached decisions; the result file's 'lane' is trusted only if it's one of LANES.",
+    "File not shown: app/lib/AuditClock.php, DocsRepo.php, StagingSite.php, Staging.php: askGitHub, now, copyHold, here used as BeforeAfter uses them.",
+    "File not shown: an existing app/scripts/*_tick.php to copy the runner's top lines from (require order, Database::connection()).",
+    "Test paths: TV_APP default assumes tests live in tools/<area>-tests/ with app/ at the repo root; adjust to the mirror's layout (sync-app/).",
+    "Whether a change to what the before-and-after check blocks counts as a 'release fence' under 0180 §2 (Tier 5) is not said; recorded here as Tier 2 with a Tier 4 review."
+  ],
+  "regions": false
+}

@@ -1,0 +1,1142 @@
+=== FILE: files/app/lib/TeamRunner.php ===
+<?php
+// app/lib/TeamRunner.php — the Team's agent runner (decisions/0179's Piece 2, release P2-3; handoffs/piece2-team.md §5, approved
+// by Jason 2026-11-25). A scheduled job (team_tick) that, on staging only, takes one ticket, does one step for one active role,
+// logs it, and stops. What it does reaches live only when staging is published, inside the approved batch (Jason's Q1 A: the
+// Work queue's tables are records).
+//
+// The rules it keeps (each from the design and the session manager's rulings):
+//   - Staging only: Staging::here() or it does nothing and logs nothing (on live the job is QUIET, so its silence isn't late).
+//   - Off until switched on: the switch team_runner (System Configuration → Switches, on staging).
+//   - One run at a time (GET_LOCK), one step a run, a ticket at most once an hour.
+//   - Never a ticket a person has (owner a person's name): only unowned ones, or ones a Team role has ("system · <role>").
+//   - Never a Founder ruling (Tier 5, decisions/0180 §1): on a Resolution ticket it may only propose the brief's words; only
+//     the Founder answers.
+//   - Its permissions only through Access::canAs, for the role's level and department (TeamRoster::can); never test accounts.
+//   - Internal first and free: every step here reads our own records and writes through the owning library. No step calls an
+//     outside service or paid AI (Jason's Q4 B), so none asks StagingGate::hold() or AiClient::allow(); a paid step, if ever
+//     added, holds alone at the cap and raises one brief per ticket (Jason, 2026-11-25; piece2-team.md §5.1).
+//   - A person's words are never overwritten: where a step would write words a person may have written, it proposes them,
+//     and a person's Accept applies them as an Edit with History.
+//   - Every run has Undo (an action rolled back as if never done), or says why it can't; a second Undo is refused.
+//   - Each run notes what it touched (touches), for piece 3's before-and-after check.
+//   - How a step reaches reasoning (decisions/0180 §6 and its note to §6, "the routing rule, cheapest first"): code first; then
+//     the agents' API, only once its own $40 counter is live (AGENTS_API_LIVE; until then nothing is spent there); then a
+//     Claude session, asked through a proposal a person or the session manager takes (sessionAsks). STEP_AI holds each step's
+//     order, and it is part of the rules the decision tree's approval covers.
+//   - The Project Manager (role 8, decisions/0180 §5 and appendix row 8; jason-spec §8): gate, sequence and stall (CHARTERS).
+declare(strict_types=1);
+
+require_once __DIR__ . '/Database.php';
+require_once __DIR__ . '/ControlLog.php';
+require_once __DIR__ . '/GaugeTasks.php';
+require_once __DIR__ . '/TeamRoster.php';
+
+final class TeamRunner
+{
+    public const SWITCH = 'team_runner';
+    /** A ticket is worked at most once in this many minutes (piece2-team.md §5: "no run on it in the last hour"). */
+    public const GAP_MINUTES = 60;
+    /** Each step: [the role's slug, what it's called, the Access action it needs, that action's default rule]. */
+    public const STEPS = [
+        'gate' => ['project-manager', 'Moves a Work ticket from Planning to Building once its gate passes', 'team.gate', ['min' => 'manager', 'depts' => ['ops']]],
+        'handoff' => ['system-architect', 'Writes a Building ticket\'s build brief and hands it to the session manager', 'team.handoff', ['min' => 'staff', 'depts' => ['eng']]],
+        'brief' => ['translator', 'Proposes a Resolution brief\'s plain words from its ticket and its decisions', 'team.brief', ['min' => 'staff', 'depts' => ['ops']]],
+        'audit' => ['ops-reconciliation', 'Runs the daily health and drift audit: a finding is looked at twice before it opens a ticket', 'team.audit', ['min' => 'manager', 'depts' => ['ops']]],
+        // the Project Manager's sequencing and stall tracking (decisions/0180 §5, row 8: "sequences work … tracks dependencies and stalls")
+        'sequence' => ['project-manager', 'Proposes a Work ticket\'s priority from what it depends on: its goal, or the tickets waiting on it', 'team.sequence', ['min' => 'manager', 'depts' => ['ops']]],
+        'stall' => ['project-manager', 'Finds a Priority 1 or 2 Work ticket idle three days at its stage and opens one ticket to unstick it in its own lane; still stuck, asks a session', 'team.stall', ['min' => 'manager', 'depts' => ['ops']]],
+    ];
+    /**
+     * The ceiling (Jason, 2026-11-25: "limit agents and build to only the initial work que stage until I fully vet the builds";
+     * decisions/0179's note on how the Team's capacity grows): the furthest stage agents work in. key => [name, what agents do].
+     */
+    public const CEILINGS = [
+        'planning' => ['Planning', 'Agents only propose: the Project Manager says a ticket is ready for Building, the Translator suggests a brief\'s words, the audit opens tickets. A person accepts or dismisses each.'],
+        // Jason, 2026-11-25 (through the session manager): the Project Manager acts at Building and takes audit-raised tickets
+        // itself; at Implementation the brief goes straight to a build session; at Confirmation, Tier 1 and 2 publish alone (decisions/0180 §1)
+        'building' => ['Building', 'The Project Manager moves a ticket to Building once its gate passes, and takes the tickets the audit raised itself; a ticket a person entered still waits for Give it to the Team. The System Architect writes build briefs for the session manager.'],
+        'implementation' => ['Implementation', 'As Building, and the System Architect\'s build brief goes straight to a build session, through the report (build-requests.json).'],
+        'confirmation' => ['Confirmation and safe publish', 'Agents act as at Implementation, and a release that touches no high-risk territory publishes by itself once staging\'s checks and the advocates pass it (Tier 1 and Tier 2, rule 2); one that touches a territory comes to the Founder as a Decision Brief.'],
+    ];
+    /**
+     * How far Implementation reaches (P3-6, the fence; decisions/0179's note "agents work on the backend first", Jason,
+     * 2026-11-26: "get the agents active … without them pushing live file, except for the backend"; "Admin does count for
+     * backend"). key => [name, what it means]. Ships "backend"; only the Founder changes it (setReach).
+     */
+    public const REACH = [
+        'backend' => ['Backend only', 'A brief whose change stays in the backend (the admin, the site\'s internal code, the workers) goes to a build session; one that reaches a page a visitor, member or business sees stops at its brief and waits for you.'],
+        'everywhere' => ['Everywhere', 'Briefs go to a build session wherever their change reaches.'],
+    ];
+    /** What each step does at each ceiling: act, propose, or off. */
+    public const STEP_AT = [
+        'gate' => ['planning' => 'propose', 'building' => 'act', 'implementation' => 'act', 'confirmation' => 'act'],
+        'handoff' => ['planning' => 'off', 'building' => 'act', 'implementation' => 'act', 'confirmation' => 'act'],
+        'brief' => ['planning' => 'propose', 'building' => 'propose', 'implementation' => 'propose', 'confirmation' => 'propose'],
+        'audit' => ['planning' => 'act', 'building' => 'act', 'implementation' => 'act', 'confirmation' => 'act'],
+        // a priority is a person's choice: the Project Manager only ever proposes it
+        'sequence' => ['planning' => 'propose', 'building' => 'propose', 'implementation' => 'propose', 'confirmation' => 'propose'],
+        // opening the Unstick ticket is the Project Manager's own record (Undo withdraws it); at Planning it only proposes
+        'stall' => ['planning' => 'propose', 'building' => 'act', 'implementation' => 'act', 'confirmation' => 'act'],
+    ];
+    /**
+     * The high-risk territories (decisions/0180 §4, which kept 0179's note: "detected by what a change or finding touches"), each
+     * from the code: its libraries, tables, page paths, jobs and services. Words are only a secondary flag (TIER5_WORDS). Until
+     * R3 brings the Tier 4 review (0180's rollout), a change that touches one waits for a Founder ruling (Tier 5), as before.
+     */
+    public const TERRITORIES = [
+        'money' => ['libs' => ['QuickBooksPay', 'Billing', 'Orders', 'ClientOrders', 'Wallet', 'MarketPay', 'AccountDomains'],
+            'tables' => ['orders', 'order_lines', 'order_ledger', 'order_events', 'order_refund_requests', 'order_payment_cancels', 'subscriptions', 'subscription_charges', 'wallet_cards', 'account_domains', 'domain_cart', 'market_orders', 'market_pay_events'],
+            'paths' => ['/order.php', '/user/orders.php', '/market/cart.php', '/market/order.php', '/qr/cart.php', '/shop/domains.php', '/user/domains/', '/business/pay-connect.php', '/api/market-pay.php', '/api/market-webhook.php', '/api/qb-webhook.php', '/api/client-order.php', '/api/domains.php', '/api/admin/client-order.php', '/admin/order.php', '/admin/client-order.php', '/admin/quickbooks.php', '/admin/backoffice/orders', '/admin/backoffice/production'],
+            'jobs' => ['billing_tick', 'pay_wait_tick', 'qb_orders_tick', 'got_it_tick', 'market_tick'], 'services' => ['quickbooks', 'stripe', 'square']],
+        // a migration is high-risk (data) by what it does, not by being one (Jason, 2026-11-25, through the session manager: CREATE
+        // TABLE IF NOT EXISTS or a guarded ADD COLUMN/INDEX alone is 0179's safe additive; UPDATE, DELETE, DROP, MODIFY or
+        // RENAME stays high-risk (0180 §4, item 2); TRUNCATE deletes and CHANGE renames or modifies a column). ReleaseKind::writes() reads them.
+        'data' => ['libs' => ['DataMove', 'DbUpdates', 'StagingPublish'], 'tables' => ['db_updates_log'], 'paths' => ['/admin/config/dbupdates'], 'jobs' => [], 'services' => [],
+            'sql' => ['UPDATE', 'DELETE', 'DROP', 'MODIFY', 'RENAME', 'TRUNCATE', 'CHANGE']],
+        'address' => ['libs' => [], 'tables' => ['short_codes', 'business_domains'], 'paths' => ['/.htaccess', '/admin/router.php', 'trvgo/index.php', 'trvgo/.htaccess', 'site-audit/pages.md'], 'jobs' => ['domains_tick'], 'services' => ['cloudflare', 'namecom', 'fly']],
+        // HeldNames and its read (P3-5, the session manager, 2026-11-26: 0066's own area, a data entry only)
+        'nations' => ['libs' => ['Landmarks', 'Nations', 'HeldNames'], 'tables' => ['landmarks', 'nations', 'nation_decision_log'], 'paths' => ['/place/landmark.php', '/admin/landmarks.php', '/admin/nations.php', '/api/crawl/landmarks.php', '/api/held-hashes.php'], 'jobs' => ['landmark_photos_tick', 'heritage_tick'], 'services' => []],
+        'privacy' => ['libs' => ['Auth', 'StaffLogin', 'TestAccounts', 'People', 'StepUpAuth', 'AccountDeletion'], 'tables' => ['users', 'staff_accounts', 'email_confirmations', 'people_connections', 'contact_cards', 'messages', 'user_otp_challenges', 'two_step_devices', 'test_records'],
+            'paths' => ['/api/auth/', '/user/accounts.php', '/user/delete-account.php', '/user/api/delete-account.php', '/user/api/profile.php', '/user/api/people.php', '/admin/people.php', '/admin/api/people.php', '/admin/config/testaccounts', '/privacy.php', 'app/storage/'], 'jobs' => ['guest_tick'], 'services' => []],
+    ];
+
+    /**
+     * What one step may cost (Piece 3, P3-4: "a spending limit per agent"). No step calls paid AI or an outside service
+     * (Q4 B), so each is $0; a step that ever costs more than its role's limit this month is refused (spendLimit).
+     */
+    public const STEP_COST_MICROS = ['gate' => 0, 'handoff' => 0, 'brief' => 0, 'audit' => 0, 'sequence' => 0, 'stall' => 0];
+
+    /**
+     * How each step reaches reasoning, in order (decisions/0180's note to §6: "(1) Code and templates ($0) wherever they settle
+     * it. (2) The API for specific, focused calls … (3) Sessions (Claude Max) for agents' multi-step reasoning"; jason-spec §4:
+     * internal first, no silent guesswork). A step not listed is code only. Keyed by step so each role's release adds its own.
+     */
+    public const STEP_AI = [
+        'gate' => ['code'],
+        'sequence' => ['code'],                       // code settles it or nothing is proposed: never a guess
+        'stall' => ['code', 'api', 'session'],        // past one Unstick ticket, a lean question
+    ];
+    /**
+     * The agents' API rung (decisions/0180's correction "Separate each": its own hard $40 counter in AiClient, "nothing is spent
+     * from (3) until its counter is live, and until then agents stay on sessions"). False until that counter ships; turning it
+     * on is a release (it changes the rules, so the tree is approved again), and the call itself then goes through AiClient.
+     */
+    public const AGENTS_API_LIVE = false;
+
+    /** A Work ticket at Priority 1 or 2 idle this many days at its stage is stalled (team-vetting 2026-11-27: "a ticket idle for 3 days"). */
+    public const STALL_DAYS = 3;
+    /** The source line the Project Manager's Unstick tickets carry (and how it never unsticks its own). */
+    public const PM_SOURCE = 'the Project Manager (stall of task #';
+
+    /**
+     * The lean questions a step asks a session when code can't settle it (decisions/0180 §6: "gets only the change, the areas it
+     * touches and the ADR sections it may rely on, never the whole history"). {key} is filled by prompt(). Wording, not rules:
+     * not in ruleData.
+     */
+    public const PROMPTS = [
+        'stall' => "Project Manager (role 8, decisions/0180 §5; reports to the COO). Code couldn't settle this; answer lean (0180 §6).\n"
+            . "Task #{id}: {what}\nStage: {stage}, idle {days} days. Priority {priority}. Lane: {lane}.\n"
+            . "Its gate still needs: {missing}.\nIts Unstick ticket, task #{child}, is idle too.\nDecisions attached: {adrs}.\n"
+            . "Answer in three lines: (1) the next action; (2) the lane or role that does it; (3) the decision and section it rests on, or \"none applies\".\n"
+            . "If it needs a rule, ADR or fence change, or two lanes' valid priorities conflict, say \"Tier 5\" or \"deadlock: the CEO\" and why. Nothing else.",
+    ];
+
+    /**
+     * Each role's charter, as code holds it (decisions/0180 §6's four groundings: the ADRs it follows, its job, its knowledge, its
+     * escalation). Descriptive: what a role may do still comes only from Access (TeamRoster::can). Keyed by slug.
+     */
+    public const CHARTERS = [
+        'project-manager' => [
+            'number' => 8,
+            'name' => 'Project Manager',
+            'layer' => 'Layer 3, a middle manager; reports to the Chief Operating Officer (3)',
+            'lane' => 'project-manager',
+            'job' => 'Sequences work through Planning, Building, Implementation and Confirmation; tracks what each ticket depends on; finds stalls (decisions/0180 §5 and appendix row 8; jason-spec §8).',
+            'tickets' => ['work'],
+            'steps' => ['gate', 'sequence', 'stall'],
+            'follows' => ['decisions/0180 §1, §3, §5, §6, §7', 'decisions/0179 (the runner: staging only, Undo, the ceiling)', 'decisions/0165 (staging)', 'decisions/0145 §3 (never a test account)', 'decisions/0164 (nothing private to a free outside API)'],
+            'knowledge' => 'The Work queue (GaugeTasks): stages and their gates, priorities, parent goals, steps and the decisions attached; the run log (team_runs).',
+            'escalation' => 'A stall opens one Unstick ticket in the ticket\'s own lane (its manager owns it); still stuck, a lean question goes to a session. A priority conflict between lanes goes to the CEO as a deadlock (0180 note, 2026-11-27). A lane hand-off is the PM\'s only for its own lane (TeamRoster::mayHandOff).',
+            'never' => ['takes a ticket a person has', 'sets a priority a person set (it proposes; a person accepts)', 'answers a Founder ruling', 'moves a ticket past a stage the system moves by its own check', 'spends: every step is $0'],
+        ],
+    ];
+
+    /** A role's monthly limit in micro-dollars (team_settings "spend:<slug>"; $0 unless the Founder sets one). */
+    public static function spendLimit(PDO $pdo, string $slug): int { $v = self::setting($pdo, 'spend:' . $slug); return $v !== null && is_numeric($v['v']) ? max(0, (int) $v['v']) : 0; }
+
+    /** What a role's runs cost this month (team_runs.cost_micros). */
+    public static function spentThisMonth(PDO $pdo, string $slug): int
+    {
+        try { $st = $pdo->prepare("SELECT COALESCE(SUM(cost_micros), 0) FROM team_runs WHERE role = ? AND at >= DATE_FORMAT(UTC_TIMESTAMP(), '%Y-%m-01')"); $st->execute([$slug]); return (int) $st->fetchColumn(); } catch (Throwable $x) { return 0; }
+    }
+
+    /** The rule data the decision tree's approval is tied to (0179's note: "a fingerprint of its rules, not its wording"). */
+    public static function ruleData(): array
+    {
+        $steps = []; foreach (self::STEPS as $k => [$role, , $action, $def]) $steps[$k] = [$role, $action, $def];
+        return ['steps' => $steps, 'step_at' => self::STEP_AT, 'ceilings' => array_keys(self::CEILINGS), 'territories' => self::TERRITORIES, 'tier5_words' => self::TIER5_WORDS, 'tier1_words' => self::TIER1, 'step_cost' => self::STEP_COST_MICROS,
+            'step_ai' => self::STEP_AI, 'agents_api' => self::AGENTS_API_LIVE, 'stall_days' => self::STALL_DAYS];
+    }
+    /** With $pdo, the reach setting joins the rules (P3-6: changing it clears the tree's approval). */
+    public static function fingerprint(?PDO $pdo = null): string { return hash('sha256', json_encode(self::ruleData() + ($pdo ? ['reach' => self::reach($pdo)] : []))); }
+
+    /**
+     * Which rung a step uses now (decisions/0180's note to §6): 'code' when code settles it; else the next rung of its order that
+     * is open ('api' only while AGENTS_API_LIVE; 'session' otherwise); 'none' when its order has no rung past code (it stops
+     * and proposes nothing: no silent guesswork, jason-spec §4.5).
+     */
+    public static function route(string $step, bool $codeSettles): string
+    {
+        $order = self::STEP_AI[$step] ?? ['code'];
+        if ($codeSettles && in_array('code', $order, true)) return 'code';
+        foreach ($order as $rung) {
+            if ($rung === 'api' && self::AGENTS_API_LIVE) return 'api';
+            if ($rung === 'session') return 'session';
+        }
+        return 'none';
+    }
+
+    /** A step's lean question with its {keys} filled; a key with no value reads "none". */
+    public static function prompt(string $step, array $vars): string
+    {
+        $tpl = self::PROMPTS[$step] ?? ''; if ($tpl === '') return '';
+        $map = []; foreach ($vars as $k => $v) $map['{' . $k . '}'] = trim((string) $v) !== '' ? mb_substr(trim((string) $v), 0, 300) : 'none';
+        return (string) preg_replace('/\{[a-z_]+\}/', 'none', strtr($tpl, $map));
+    }
+
+    /** A role's charter, with its steps' reasoning order (STEP_AI), or [] when code holds none. */
+    public static function charter(string $slug): array
+    {
+        $c = self::CHARTERS[$slug] ?? []; if (!$c) return [];
+        $c['ai'] = []; foreach ($c['steps'] as $s) $c['ai'][$s] = self::STEP_AI[$s] ?? ['code'];
+        return $c;
+    }
+
+    /** How far Implementation reaches: 'backend' (as shipped, and whenever it can't be read) or 'everywhere'. */
+    public static function reach(PDO $pdo): string { $r = self::setting($pdo, 'reach'); return $r && ($r['v'] ?? '') === 'everywhere' ? 'everywhere' : 'backend'; }
+
+    /**
+     * The Founder sets how far Implementation reaches (checked here too, never a job or an agent). Logged in the Team's History
+     * with the value before; changing it changes the fingerprint, so the tree's approval is cleared (treeApproval).
+     */
+    public static function setReach(PDO $pdo, string $to, string $who, string $tz = ''): string
+    {
+        if (!isset(self::REACH[$to])) throw new RuntimeException('Choose Backend only or Everywhere.');
+        require_once dirname(__DIR__) . '/admin/Access.php';
+        if (!Access::isFounder()) throw new RuntimeException('Only the Founder changes how far Implementation reaches (decisions/0179\'s note, 2026-11-26).');
+        $now = self::reach($pdo); if ($now === $to) return 'It\'s already ' . self::REACH[$to][0] . '.';
+        self::put($pdo, 'reach', $to, $who, $tz);
+        ControlLog::add($pdo, 'control', '', 'Team setting: Implementation reaches ' . self::REACH[$now][0] . ' → ' . self::REACH[$to][0] . ' (Change back on the Team page)', $who, '', $tz);
+        self::treeApproval($pdo);   // a changed rule clears the approval now, said in the History
+        return 'Implementation reaches ' . self::REACH[$to][0] . ' now.';
+    }
+
+    /**
+     * The fence (P3-6): the files a ticket's change names that reach a page a visitor, member or business sees, or why it can't
+     * be shown to stay in the backend. [] when every file named is backend: an /admin/ page or its parts (website/admin/,
+     * app/admin/), a worker (workers/), or a file the live mirror's reach map (reach.py --fence-map, carried in gauges.json as
+     * "fence") shows reaching no public page. A ticket naming no file, or a file the map doesn't hold, isn't proved backend.
+     */
+    public static function frontOf(PDO $pdo, array $t): array
+    {
+        $words = implode("\n", [(string) $t['what'], (string) $t['why'], (string) ($t['goal'] ?? ''), (string) ($t['in_scope'] ?? ''), (string) ($t['build_brief'] ?? '')]);
+        foreach (GaugeTasks::steps($pdo, (int) $t['id']) as $st) $words .= "\n" . $st['see'] . ' ' . $st['do_what'];
+        preg_match_all('#\b((?:app|website|workers|trvgo)/[\w./-]+\.(?:php|js|css|py|sql|json|md))\b#', $words, $m);
+        $files = array_values(array_unique($m[1]));
+        if (!$files) return ['(it names no file, so it can\'t be shown to stay in the backend)'];
+        $back = self::fenceMap($pdo);
+        $out = [];
+        foreach ($files as $f) {
+            if (str_starts_with($f, 'website/admin/') || str_starts_with($f, 'app/admin/') || str_starts_with($f, 'workers/')) continue;
+            if ($back !== null && isset($back[$f])) continue;
+            $out[] = $f . ($back === null ? ' (the reach map isn\'t here yet)' : '');
+        }
+        return $out;
+    }
+
+    /**
+     * Is one file of a release backend (P3-6), as reach.py's fence judges it: the admin's pages and parts, a new file under app/
+     * (its callers decide, and they're checked too), a migration that only adds, or a file the reach map holds.
+     */
+    public static function backendFile(PDO $pdo, string $p, bool $new, string $text = ''): bool
+    {
+        if (str_starts_with($p, 'website/admin/') || str_starts_with($p, 'app/admin/') || str_starts_with($p, 'workers/')) return true;
+        if (str_starts_with($p, 'app/migrations/')) { require_once __DIR__ . '/ReleaseKind.php'; return !ReleaseKind::writes($text) && !ReleaseKind::insertsRows([$p => [$text, null]]); }
+        if (str_starts_with($p, 'app/') && $new) return true;
+        $map = self::fenceMap($pdo);
+        return $map !== null && isset($map[$p]);
+    }
+
+    /** The live mirror's backend-only files (gauges.json's "fence"), or null when it isn't there. */
+    private static function fenceMap(PDO $pdo): ?array
+    {
+        try { require_once __DIR__ . '/ControlGauges.php'; $f = (array) (ControlGauges::config($pdo)['fence'] ?? []); } catch (Throwable $x) { return null; }
+        return ($f['at'] ?? '') !== '' && is_array($f['backend'] ?? null) ? array_fill_keys(array_map('strval', $f['backend']), true) : null;   // no map read yet: nothing is proved backend
+    }
+
+    /**
+     * Where a ticket's brief goes now (report()'s "brief_to"): a build session from Implementation on, behind the fence ("founder"
+     * when Backend only and its change reaches a public page, or a build refused it as front end), else the session manager.
+     */
+    public static function briefFor(PDO $pdo, array $t): string
+    {
+        if (self::briefTo($pdo) !== 'build') return 'session manager';
+        if (self::reach($pdo) === 'everywhere') return 'build';
+        if (self::setting($pdo, 'front:' . (int) $t['id'])) return 'founder';
+        return self::frontOf($pdo, $t) ? 'founder' : 'build';
+    }
+
+    /**
+     * A build session's zip refused at the fence (send.py --team-ticket; carried in gauges.json as "fence_refusals"): the ticket
+     * goes back to its brief and waits for the Founder, said once on its run log and in the logbook.
+     */
+    public static function applyRefusals(PDO $pdo): int
+    {
+        try { require_once __DIR__ . '/ControlGauges.php'; $rs = (array) (ControlGauges::config($pdo)['fence_refusals'] ?? []); } catch (Throwable $x) { return 0; }
+        $n = 0;
+        foreach ($rs as $r) {
+            $id = (int) ($r['ticket'] ?? 0); if ($id < 1 || self::setting($pdo, 'front:' . $id)) continue;
+            $t = GaugeTasks::task($pdo, $id); if (!$t) continue;
+            $why = mb_substr('A build reached a public page: ' . (string) ($r['reason'] ?? '') . ' (' . (string) ($r['zip'] ?? '') . ')', 0, 380);
+            self::put($pdo, 'front:' . $id, $why, 'the fence');
+            $pdo->prepare('UPDATE control_gauge_tasks SET rel = \'\' WHERE id = ?')->execute([$id]);
+            ControlLog::add($pdo, 'control', '', 'Task #' . $id . ' back at its brief, front end: waiting for the Founder (' . $why . ')', 'the fence');
+            $n++;
+        }
+        return $n;
+    }
+
+    private static function setting(PDO $pdo, string $k): ?array
+    {
+        try { $st = $pdo->prepare('SELECT * FROM team_settings WHERE k = ?'); $st->execute([$k]); return $st->fetch(PDO::FETCH_ASSOC) ?: null; } catch (Throwable $x) { return null; }
+    }
+    private static function put(PDO $pdo, string $k, ?string $v, string $who, string $tz = ''): void
+    {
+        if ($v === null) { $pdo->prepare('DELETE FROM team_settings WHERE k = ?')->execute([$k]); return; }
+        $pdo->prepare('INSERT INTO team_settings (k, v, who, at, tz) VALUES (?, ?, ?, UTC_TIMESTAMP(), ?) ON DUPLICATE KEY UPDATE v = VALUES(v), who = VALUES(who), at = VALUES(at), tz = VALUES(tz)')->execute([$k, $v, mb_substr($who, 0, 80), $tz]);
+    }
+
+    /** The decision tree's approval while its rules are unchanged, else null. A changed rule clears it and lowers the ceiling, logged. */
+    public static function treeApproval(PDO $pdo): ?array
+    {
+        $a = self::setting($pdo, 'tree'); if (!$a) return null;
+        if ((string) $a['v'] === self::fingerprint($pdo)) return $a;
+        self::put($pdo, 'tree', null, 'the system');
+        $c = self::setting($pdo, 'ceiling');
+        if ($c && $c['v'] !== 'planning') self::put($pdo, 'ceiling', 'planning', 'the system');
+        ControlLog::add($pdo, 'control', '', 'Team setting: the decision tree\'s rules changed since ' . $a['who'] . ' approved them, so the approval is cleared and agents work up to Planning again', 'the system');
+        return null;
+    }
+
+    /** Approve the decision tree (the Founder's alone: the caller checks Access::isFounder). */
+    public static function approveTree(PDO $pdo, string $who, string $tz = ''): string
+    {
+        if (self::treeApproval($pdo)) return 'It\'s already approved, as it stands.';
+        self::put($pdo, 'tree', self::fingerprint($pdo), $who, $tz);
+        ControlLog::add($pdo, 'control', '', 'Team setting: the decision tree approved (fingerprint ' . substr(self::fingerprint($pdo), 0, 12) . ')', $who, '', $tz);
+        return 'Approved. Raising "Agents work up to" is open now, one stage at a time, each with its evidence.';
+    }
+
+    /** Where agents work up to: Planning until the Founder raises it, and always Planning while the decision tree isn't approved. */
+    public static function ceiling(PDO $pdo): string
+    {
+        if (!self::treeApproval($pdo)) return 'planning';
+        $c = self::setting($pdo, 'ceiling');
+        return $c && isset(self::CEILINGS[$c['v']]) ? (string) $c['v'] : 'planning';
+    }
+
+    /** What a step does now: act, propose or off. */
+    public static function mode(PDO $pdo, string $step): string { return self::STEP_AT[$step][self::ceiling($pdo)] ?? 'off'; }
+    /** Where a build brief goes (report()'s "brief_to"): a build session from Implementation on, else the session manager. */
+    public static function briefTo(PDO $pdo): string { return in_array(self::ceiling($pdo), ['implementation', 'confirmation'], true) ? 'build' : 'session manager'; }
+
+    /** Change the ceiling (the Founder's alone): up one stage at a time once the tree is approved, never to Confirmation yet; down any time. */
+    public static function setCeiling(PDO $pdo, string $to, string $who, string $why = '', string $tz = ''): string
+    {
+        if (!isset(self::CEILINGS[$to])) throw new RuntimeException('Choose Planning, Building, Implementation or Confirmation.');
+        $keys = array_keys(self::CEILINGS); $now = self::ceiling($pdo);
+        $from = array_search($now, $keys, true); $dest = array_search($to, $keys, true);
+        if ($dest === $from) return 'It\'s already ' . self::CEILINGS[$to][0] . '.';
+        if ($dest > $from) {
+            if (!self::treeApproval($pdo)) throw new RuntimeException('Approve the decision tree first.');
+            if ($dest !== $from + 1) throw new RuntimeException('One stage at a time, each on its evidence.');
+            if ($to === 'confirmation' && ($w = self::confirmationWaits($pdo)) !== '') throw new RuntimeException($w);
+        }
+        self::put($pdo, 'ceiling', $to, $who, $tz);
+        ControlLog::add($pdo, 'control', '', 'Team setting: agents work up to ' . self::CEILINGS[$now][0] . ' → ' . self::CEILINGS[$to][0] . (trim($why) !== '' ? ' (' . trim($why) . ')' : ''), $who, '', $tz);
+        return 'Agents work up to ' . self::CEILINGS[$to][0] . ' now.';
+    }
+
+    /** The evidence for raising to a stage (0179's note, §3): each line with its reading here and its source; the Founder judges. */
+    public static function evidence(PDO $pdo, string $to): array
+    {
+        $q = function (string $sql) use ($pdo) { try { return (int) $pdo->query($sql)->fetchColumn(); } catch (Throwable $x) { return null; } };
+        require_once __DIR__ . '/Staging.php'; $here = Staging::here() ? 'staging' : 'the live site';
+        $runs = $q('SELECT COUNT(*) FROM team_runs');
+        if ($to === 'building') {
+            $acc = $q("SELECT COUNT(*) FROM team_runs WHERE state = 'proposed' AND settled_at IS NOT NULL AND undone_at IS NULL"); $dis = $q("SELECT COUNT(*) FROM team_runs WHERE state = 'proposed' AND undone_at IS NOT NULL"); $open = $q("SELECT COUNT(*) FROM team_runs WHERE state = 'proposed' AND settled_at IS NULL");
+            $noUndo = $q("SELECT COUNT(*) FROM team_runs WHERE state = 'done' AND undo_how = ''");
+            return [['Planning\'s suggestions', $acc === null ? 'No runs table here' : $acc . ' accepted · ' . $dis . ' dismissed · ' . $open . ' open', 'team_runs on ' . $here],
+                ['Staging isolation', Staging::here() ? 'This is staging: the runner works here only' : 'This is the live site: ' . (int) $runs . ' runs recorded here (the runner never runs on live; its work arrives only by Publish)', 'TeamRunner::blocked, team_tick.php'],
+                ['Every run logged with its Undo', $runs === null ? 'No runs table here' : (int) $runs . ' runs · ' . (int) $noUndo . ' that did something without an Undo', 'team_runs.undo_how']];
+        }
+        if ($to === 'implementation') {
+            $briefs = $q("SELECT COUNT(*) FROM team_runs WHERE step = 'handoff'"); $back = $q("SELECT COUNT(*) FROM team_runs WHERE step = 'handoff' AND undone_at IS NOT NULL");
+            $refused = $q("SELECT COUNT(*) FROM team_runs WHERE state = 'refused'"); $adv = $q("SELECT COUNT(*) FROM team_runs r JOIN team_roster t ON t.slug = r.role WHERE t.kind IN ('advocate', 'founder')");
+            require_once __DIR__ . '/StagingGate.php'; $held = null; try { $held = StagingGate::counts($pdo); } catch (Throwable $x) {}
+            return [['Building\'s outputs', $briefs === null ? 'No runs table here' : (int) $briefs . ' build briefs written · ' . (int) $back . ' taken back', 'team_runs (step handoff)'],
+                ['The agents\' permission check', 'Every step asks Access::canAs for its role\'s level · ' . (int) $refused . ' refused · ' . (int) $adv . ' runs by an advocate or the Founder (must be 0)', 'TeamRoster::can, team_runs'],
+                ['Holds on outside calls, payments and email', $held === null ? 'Read on staging' : 'StagingGate: ' . json_encode($held), 'StagingGate::counts']];
+        }
+        // Confirmation and safe publish (0179's note §3; Piece 3, P3-4): what the before-and-after check and rule 2 have done
+        $rel = []; try { $rel = $pdo->query("SELECT id, zip_name, state, checks, log, live_at, updated_at FROM site_releases WHERE created_at >= UTC_TIMESTAMP() - INTERVAL 14 DAY")->fetchAll(PDO::FETCH_ASSOC); } catch (Throwable $x) {}
+        $ba = ['pass' => 0, 'block' => 0, 'none' => 0]; $byZip = []; $escapes = 0; $alone = 0; $undone = 0;
+        foreach ($rel as $x) {
+            $it = null; foreach ((array) (json_decode((string) $x['checks'], true)['items'] ?? []) as $i) if (($i[0] ?? '') === 'Before and after (advocates)') $it = $i[1];
+            $ba[$it === true ? 'pass' : ($it === false ? 'block' : 'none')]++;
+            $byZip[(string) $x['zip_name']][] = $it;
+            if ($it === true && $x['state'] === 'rolled_back') $escapes++;
+            if (str_contains((string) $x['log'], 'Published alone (')) { $alone++; if ($x['state'] === 'rolled_back') $undone++; }
+        }
+        $wrong = 0; foreach ($byZip as $its) if (in_array(false, $its, true) && end($its) === true) $wrong++;   // blocked, then the same zip passed unchanged in name
+        return [['Releases checked by the advocates', '14 days: ' . $ba['pass'] . ' passed · ' . $ba['block'] . ' blocked · ' . $ba['none'] . ' not checked', 'site_releases: the check "Before and after (advocates)"'],
+            ['Blocks that were wrong', $wrong . ' blocked, then sent again under the same name and passed', 'site_releases by zip name'],
+            ['Escapes', $escapes . ' passed by the advocates, then rolled back', 'site_releases: rolled_back'],
+            ['Undo end to end', $alone . ' published alone (rule 2) · ' . $undone . ' of them undone (rolled back)', 'site_releases: "Published alone"'],
+            ['Ready', ($w = self::confirmationWaits($pdo)) === '' ? 'The before-and-after check and rule 2 are on' : $w, 'Switches: before_after, rule2_autopublish'],
+            // Brief A (Jason, 2026-11-25: "keep staging record publishes in the daily batch for now"): revisit before this raise
+            ['A staging Publish', 'Isn\'t checked by the advocates: it stays in the daily batch (Brief A). Decide whether it should be, before raising to Confirmation.', 'decisions/0179\'s note "Piece 3\'s decisions"; handoffs/piece3-check.md §15']];
+    }
+
+    /** Why Confirmation can't open yet ('' when it can): the before-and-after check and rule 2 both on (decisions/0179 rule 2). */
+    public static function confirmationWaits(PDO $pdo): string
+    {
+        require_once __DIR__ . '/Switches.php'; $all = Switches::all($pdo);
+        $on = fn ($k) => !empty($all[$k]) && !$all[$k]['killed'] && $all[$k]['state'] === 'on';
+        if (!$on('before_after')) return 'Needs the before-and-after check switched on (Piece 3).';
+        if (!$on('rule2_autopublish')) return 'Needs rule 2 switched on: low-risk releases publish alone (the Founder\'s switch).';
+        return '';
+    }
+
+    /** A finding looks again after this many hours (piece2-team.md §6: "the next day's run checks it again"; the job runs daily). */
+    public const SECOND_LOOK_HOURS = 20;
+    /**
+     * The tier rules (decisions/0180 §1, the five tiers; piece2-team.md §6), on a finding's words: a word about a high-risk
+     * territory only flags it for a person (Tier 5 comes by what it touches); Tier 1 when it's only the kinds 0179 rule 2 names
+     * as low-risk (wording, the FAQ, tests, the phone layout); Tier 2 otherwise. territory => pattern.
+     */
+    /** The names before decisions/0180 R1, kept as aliases so nothing that still reads them breaks (the zip check keeps earlier
+     *  work; removing them is for a later release, with Jason's OK). */
+    public const TIER3_AREAS = self::TERRITORIES;
+    public const TIER3 = self::TIER5_WORDS;
+    public const TIER5_WORDS = [
+        'money' => '/\b(orders?|payments?|billing|invoices?|refunds?|charges?|charged|prices?|pricing|quickbooks|stripe|square|payouts?|subscriptions?)\b/i',
+        'data' => '/\b(delete|deleted|deletes|drop|dropped|migrations?|purge|purged|truncate|data loss|reshape)\b/i',
+        'address' => '/\b(routes?|urls?|redirects?|public address|404)\b/i',
+        'nations' => '/(\b0066\b|\bnations?\b|\btribal\b|\bsacred\b|\bburials?\b|archaeolog|landmark visibility|landmarks::)/i',
+        'privacy' => '/\b(privacy|private|personal|email address(es)?|phone numbers?|consent|is_test|leak)\b/i',
+        // the two territories with no area in the code (0180 §4, items 6 and 7): a finding about them is always a word flag for a person
+        'mission' => '/\b(mission|commission|zero-commission)\b/i',
+        'deadlock' => '/\b(deadlock(ed)?|conflicting decisions|decisions? (that )?(disagree|conflict|contradict)s?|contradicts? (decision|adr) ?\d{0,4})\b/i',
+    ];
+    public const TIER1 = '/\b(wording|typo|faq|label|tests?|layout|390|phone|mobile|contrast|spacing)\b/i';
+
+    public static function ensure(PDO $pdo): void
+    {
+        $pdo->exec("CREATE TABLE IF NOT EXISTS team_runs (id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, at DATETIME NOT NULL, role VARCHAR(60) NOT NULL DEFAULT '',
+            task_id INT UNSIGNED NULL, step VARCHAR(20) NOT NULL DEFAULT '', seen VARCHAR(400) NOT NULL DEFAULT '', did VARCHAR(400) NOT NULL DEFAULT '',
+            state VARCHAR(10) NOT NULL DEFAULT 'done', why VARCHAR(400) NOT NULL DEFAULT '', proposal TEXT NULL, undo_how VARCHAR(400) NOT NULL DEFAULT '', undo_data TEXT NULL,
+            undone_at DATETIME NULL, undone_by VARCHAR(80) NOT NULL DEFAULT '', settled_at DATETIME NULL, settled_by VARCHAR(80) NOT NULL DEFAULT '',
+            cost_micros INT NOT NULL DEFAULT 0, touches VARCHAR(400) NOT NULL DEFAULT '', KEY task_at (task_id, at), KEY at (at)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
+        $pdo->exec("CREATE TABLE IF NOT EXISTS team_settings (k VARCHAR(40) NOT NULL PRIMARY KEY, v VARCHAR(255) NOT NULL DEFAULT '', who VARCHAR(80) NOT NULL DEFAULT '', at DATETIME NULL, tz VARCHAR(64) NOT NULL DEFAULT '') ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
+    }
+
+    /** May it run here, now? null when yes, else why not (in words). */
+    public static function blocked(PDO $pdo): ?string
+    {
+        require_once __DIR__ . '/Staging.php';
+        if (!Staging::here()) return 'live';   // never on the live site
+        require_once __DIR__ . '/Switches.php';
+        try { if (!Switches::on($pdo, self::SWITCH)) return 'The Team\'s runner is switched off (System Configuration → Switches, on staging).'; } catch (Throwable $x) { return 'The switches couldn\'t be read: ' . $x->getMessage(); }
+        if (!TeamRoster::ready($pdo)) return 'The Team isn\'t set up yet (its migration hasn\'t run).';
+        return null;
+    }
+
+    /** One run: one ticket, one step. Returns a line for the job's log ('' on live: nothing logged). */
+    public static function tick(PDO $pdo): string
+    {
+        $why = self::blocked($pdo);
+        if ($why === 'live') return '';
+        if ($why !== null) return $why;
+        self::ensure($pdo);
+        if ((int) $pdo->query("SELECT GET_LOCK('team_tick', 0)")->fetchColumn() !== 1) return 'Another run is going: this one did nothing.';
+        try {
+            $back = self::applyRefusals($pdo);
+            $pick = self::pick($pdo);
+            if (!$pick) return $back ? $back . ' ticket' . ($back === 1 ? '' : 's') . ' back at the brief (the fence); nothing else to do.' : 'Nothing to do: no ticket a working role has a step for.';
+            [$t, $step, $role] = $pick;
+            return self::run($pdo, $t, $step, $role);
+        } finally { $pdo->query("SELECT RELEASE_LOCK('team_tick')"); }
+    }
+
+    /** The ticket and step for this run: [task row, step, role row], or null. Priority first, then age (the queue's own order). */
+    public static function pick(PDO $pdo): ?array
+    {
+        $roles = [];
+        foreach (self::STEPS as $step => [$slug, , $act, $def]) { if ($step === 'audit' || self::mode($pdo, $step) === 'off') continue; $d = TeamRoster::doer($pdo, $slug, $act, $def); if ($d) $roles[$step] = $d[0]; }   // a step off at this ceiling gets no work; a role on standby's step goes up its line (0180 §5)
+        if (!$roles) return null;
+        $recent = [];
+        try { $st = $pdo->prepare('SELECT DISTINCT task_id FROM team_runs WHERE at > UTC_TIMESTAMP() - INTERVAL ' . self::GAP_MINUTES . ' MINUTE'); $st->execute(); foreach ($st->fetchAll(PDO::FETCH_COLUMN) as $x) $recent[(int) $x] = true; } catch (Throwable $x) {}
+        $q = array_filter(GaugeTasks::queue($pdo), fn ($t) => !in_array($t['state'], ['done', 'withdrawn'], true) && !isset($recent[(int) $t['id']]) && self::mayWork($t));
+        usort($q, fn ($a, $b) => [((int) ($a['priority'] ?? 0)) ?: 4, (int) $a['id']] <=> [((int) ($b['priority'] ?? 0)) ?: 4, (int) $b['id']]);
+        foreach ($q as $t) foreach ($roles as $step => $role) if (self::mayWork($t, $role) && self::applies($pdo, $step, $t)) return [$t, $step, $role];
+        return null;
+    }
+
+    /**
+     * A ticket the Project Manager takes itself from Building on (Jason, 2026-11-25): unowned, and raised by the audit (an Audit
+     * ticket, or one whose parent is). One a person entered waits for Give it to the Team.
+     */
+    public static function takesItself(PDO $pdo, array $t): bool
+    {
+        if (trim((string) $t['owner']) !== '') return false;
+        if ((string) ($t['ticket'] ?? '') === 'audit') return true;
+        if (empty($t['parent_id'])) return false;
+        try { $st = $pdo->prepare('SELECT ticket FROM control_gauge_tasks WHERE id = ?'); $st->execute([(int) $t['parent_id']]); return $st->fetchColumn() === 'audit'; } catch (Throwable $x) { return false; }
+    }
+
+    /**
+     * Never a ticket a person has: only unowned ones, or ones a Team role has. With a role (decisions/0180 R2, §7 "One owner at
+     * a time"): the ticket's single owner is its lock. A role may work it when nobody holds it or it holds it itself; another
+     * role's hold lapses after GAP_MINUTES (§7's "at most once an hour"), so a stalled role never keeps a ticket from its lane.
+     */
+    public static function mayWork(array $t, ?array $role = null): bool
+    {
+        $o = (string) $t['owner']; if ($o !== '' && !str_starts_with($o, 'system · ')) return false;
+        if ($role === null || $o === '' || $o === TeamRoster::actor($role)) return true;
+        $at = (string) ($t['owner_at'] ?? ''); return $at === '' || strtotime($at . ' UTC') < time() - self::GAP_MINUTES * 60;
+    }
+
+    /** Does this step have work on this ticket? */
+    public static function applies(PDO $pdo, string $step, array $t): bool
+    {
+        $tk = (string) ($t['ticket'] ?? 'work'); $sg = (string) ($t['stage'] ?? '');
+        if ($step === 'gate') return $tk === 'work' && $sg === 'planning' && !self::openProposal($pdo, (int) $t['id'], 'gate')
+            && (GaugeTasks::gate($pdo, $t) === [] || (self::mode($pdo, 'gate') === 'act' && self::takesItself($pdo, $t) && GaugeTasks::gate($pdo, $t) === ['someone to have it (Take it)']));
+        if ($step === 'handoff') return $tk === 'work' && $sg === 'building' && trim((string) $t['goal']) !== '' && trim((string) ($t['build_brief'] ?? '')) === '' && (string) $t['rel'] === '';
+        if ($step === 'audit') return false;   // the audit is its own daily job, not one ticket's step
+        if ($step === 'brief') { if ($tk !== 'resolution' || $sg !== 'brief') return false; return self::briefDraft($pdo, $t) !== []; }
+        if ($step === 'sequence') return $tk === 'work' && in_array($sg, ['planning', 'building'], true) && (int) ($t['priority'] ?? 0) === 0
+            && !self::openProposal($pdo, (int) $t['id'], 'sequence') && !self::dismissedBefore($pdo, (int) $t['id'], 'sequence', 0) && self::sequenceFor($pdo, $t) !== null;
+        if ($step === 'stall') return $tk === 'work' && !self::openProposal($pdo, (int) $t['id'], 'stall') && self::stallFor($pdo, $t) !== null;
+        return false;
+    }
+
+    /**
+     * [tier, territory, flag] for a finding (0180 §4: detected "by what a change or finding touches"). Its targets come first:
+     * a page or file path (by its start), a job, a service, a library or a table named in TERRITORIES makes it Tier 5 (a Founder
+     * ruling, until R3's Tier 4 review) in that territory. Words alone never do: a word in TIER5_WORDS leaves it Tier 2 with that
+     * territory as its flag ("Words suggest a high-risk territory: a person checks"). Tier 1 only for the low-risk kinds (TIER1)
+     * with no flag; anything else Tier 2.
+     * Targets: ['path:/order.php', 'job:billing_tick', 'svc:stripe', 'lib:Orders', 'table:orders'].
+     */
+    public static function tier(string $text, array $targets = []): array
+    {
+        if ($b = self::touches($targets)) return [5, $b, ''];
+        foreach (self::TIER5_WORDS as $b => $re) if (preg_match($re, $text)) return [2, '', $b];
+        return [preg_match(self::TIER1, $text) ? 1 : 2, '', ''];
+    }
+
+    /** The high-risk territory a finding's targets touch, or ''. */
+    public static function touches(array $targets): string
+    {
+        $kinds = ['path' => 'paths', 'job' => 'jobs', 'svc' => 'services', 'lib' => 'libs', 'table' => 'tables', 'sql' => 'sql'];
+        foreach ($targets as $tg) {
+            [$k, $v] = array_pad(explode(':', (string) $tg, 2), 2, ''); $v = trim($v); if ($v === '' || !isset($kinds[$k])) continue;
+            if ($k === 'path') { $v = (string) (parse_url($v, PHP_URL_PATH) ?? $v); $v = preg_replace('#^(website|sync-storage)/#', '/', $v); }
+            foreach (self::TERRITORIES as $b => $a) foreach ($a[$kinds[$k]] ?? [] as $x) {
+                if ($k === 'path' ? ($v === $x || str_starts_with($v, $x) || str_starts_with(ltrim($v, '/'), ltrim($x, '/'))) : strcasecmp($v, $x) === 0) return $b;
+            }
+        }
+        return '';
+    }
+
+    /** What a finding's own record names: its page and paths, the files in its detail (app/lib/X.php → lib:X), its job, its component. */
+    public static function targetsOf(string $page, array $paths = [], string $detail = ''): array
+    {
+        $out = [];
+        foreach (array_merge([$page], $paths) as $p) if (trim((string) $p) !== '') $out[] = 'path:' . trim((string) $p);
+        if (preg_match_all('#\b(app/(?:lib|admin)/([A-Za-z]+)\.php|app/migrations/[\w.-]+|website/[\w./-]+\.php|trvgo/[\w./-]+)#', $detail, $m, PREG_SET_ORDER))
+            foreach ($m as $x) $out[] = ($x[2] ?? '') !== '' ? 'lib:' . $x[2] : 'path:' . $x[1];
+        return array_values(array_unique($out));
+    }
+
+    /**
+     * What the audit finds, from our own records first (piece2-team.md §6): Site health's open findings (the file both sites
+     * read, through StagingGate inside SiteHealth), jobs that are late here (Scheduler's own record, quiet and retired ones
+     * left out), and this site's open alarms. key => [what, why].
+     */
+    public static function findings(PDO $pdo): array
+    {
+        $out = [];
+        try { require_once __DIR__ . '/SiteHealth.php';
+            foreach (SiteHealth::open($pdo) as $f) $out['finding:' . $f['id']] = ['Site health: ' . $f['title'], trim($f['severity'] . ' · ' . $f['detail'] . ($f['page'] !== '' ? ' · ' . $f['page'] : '') . ($f['blocks'] ? ' · blocks ' . $f['blocks'] . ' path' . ($f['blocks'] === 1 ? '' : 's') : '')),
+                self::targetsOf((string) $f['page'], [], (string) $f['detail'])];   // its 'paths' are the visitor paths it blocks (names, not pages)
+        } catch (Throwable $x) {}
+        try { require_once __DIR__ . '/Scheduler.php'; require_once __DIR__ . '/Staging.php';
+            $skip = array_merge(Scheduler::QUIET, Scheduler::RETIRED, Staging::here() ? Scheduler::NOT_ON_STAGING : []);
+            foreach (Scheduler::lastRuns($pdo) as $job => $r) {
+                if (in_array($job, $skip, true) || !isset(Scheduler::JOBS[$job])) continue;
+                $late = (int) Scheduler::JOBS[$job][3]; $st = $pdo->prepare('SELECT TIMESTAMPDIFF(MINUTE, ?, NOW())'); $st->execute([(string) $r['started_at']]); $mins = (int) $st->fetchColumn();
+                if ($late > 0 && $mins > $late) $out['job:' . $job] = ['A scheduled job is late: ' . Scheduler::JOBS[$job][0], 'Its last run started ' . round($mins / 60, 1) . ' hours ago; it\'s late after ' . round($late / 60, 1) . ' (Scheduled tasks).', ['job:' . $job]];
+                elseif ((int) ($r['fails_today'] ?? 0) > 0 && (int) $r['ok'] === 0) $out['job:' . $job . ':fail'] = ['A scheduled job failed: ' . Scheduler::JOBS[$job][0], 'Its last run stopped: ' . (string) $r['note'], ['job:' . $job]];
+            }
+        } catch (Throwable $x) {}
+        try { foreach ($pdo->query("SELECT * FROM control_alarms WHERE cleared_at IS NULL ORDER BY id")->fetchAll(PDO::FETCH_ASSOC) as $a) {
+                $c = (string) ($a['component'] ?? ''); $tg = [];   // what it touches: its component (svc:, ep:, job:), else the job or service its key names
+                foreach (array_filter([$c, (string) $a['akey']]) as $k) {
+                    if (preg_match('#^svc:([a-z0-9_]+)#', $k, $m)) $tg[] = 'svc:' . $m[1];
+                    elseif (preg_match('#^ep:([a-z0-9_/.-]+)#', $k, $m)) $tg[] = 'path:/' . ltrim($m[1], '/');
+                    elseif (preg_match('#^(?:job|task:failed):([a-z0-9_]+)#', $k, $m)) $tg[] = 'job:' . $m[1];
+                }
+                $out['alarm:' . $a['id']] = ['An open alarm: ' . $a['title'], 'Level ' . $a['level'] . ' on the System Control Board.', array_values(array_unique($tg))];
+            }
+        } catch (Throwable $x) {}
+        return $out;
+    }
+
+    /**
+     * The daily audit (the Ops & Reconciliation Manager's step): each new finding opens one Audit ticket at Found; on its second
+     * look a day later, one still there is Confirmed and opens the Work (Tier 1–2) or Resolution (Tier 5 · Founder ruling) ticket it calls for,
+     * and one gone is cleared by its own check. Each ticket it opens is a run with Undo (withdraws it). Staging only, its switch on.
+     */
+    public static function audit(PDO $pdo, string $how = 'the daily run'): string
+    {
+        $why = self::blocked($pdo); if ($why === 'live') return ''; if ($why !== null) return $why;
+        self::ensure($pdo);
+        $d = TeamRoster::doer($pdo, 'ops-reconciliation', self::STEPS['audit'][2], self::STEPS['audit'][3]);   // on standby, the next active role above it runs the audit (0180 §5)
+        if (!$d) return 'The Operations & Reconciliation Manager and every role above it are on standby: the audit waits for the Founder.';
+        $role = $d[0];
+        [, , $action, $def] = self::STEPS['audit'];
+        [$ok, $no] = TeamRoster::can($role, $action, $def);
+        if (!$ok) return self::log($pdo, $role, 0, 'audit', 'its permissions', '', 'refused', $no . ' (Permissions: ' . $action . ')');
+        if ((int) $pdo->query("SELECT GET_LOCK('team_audit', 0)")->fetchColumn() !== 1) return 'Another audit is going: this one did nothing.';
+        try {
+            $who = TeamRoster::actor($role); $now = self::findings($pdo); $n = ['opened' => 0, 'confirmed' => 0, 'cleared' => 0];
+            $open = $pdo->query("SELECT * FROM control_gauge_tasks WHERE ticket = 'audit' AND audit_key <> '' AND undone_at IS NULL AND cleared_at IS NULL")->fetchAll(PDO::FETCH_ASSOC);
+            $have = []; foreach ($open as $t) $have[(string) $t['audit_key']] = $t;
+            foreach ($open as $t) {   // the second look
+                if ($t['stage'] !== 'found' || time() - (int) strtotime($t['at'] . ' UTC') < self::SECOND_LOOK_HOURS * 3600) continue;
+                if (!isset($now[$t['audit_key']])) { GaugeTasks::auditClear($pdo, (int) $t['id'], $who); $n['cleared']++; continue; }
+                $c = GaugeTasks::auditConfirm($pdo, (int) $t['id'], $who); $n['confirmed']++;
+                self::log($pdo, $role, $c, 'audit', 'its second look at task #' . $t['id'], 'Confirmed task #' . $t['id'] . ' and opened this ' . ((int) $t['tier'] === 5 ? 'Resolution' : 'Work') . ' ticket (Tier ' . (int) $t['tier'] . ')', 'done', '', null, 'Withdraws this ticket', ['withdraw' => $c], 'task:' . $c);
+            }
+            foreach ($now as $k => $fd) {   // a new finding
+                [$what, $words] = $fd; $tg = (array) ($fd[2] ?? []);
+                if (isset($have[$k])) continue;
+                [$tier, $b, $flag] = self::tier($what . ' ' . $words, $tg);
+                $id = GaugeTasks::auditOpen($pdo, $k, $what, $words . ($b !== '' ? ' (Tier 5 · Founder ruling: ' . GaugeTasks::BOUNDARIES[$b] . ', by what it touches)' : ''), $tier, $who, '', $flag);
+                self::log($pdo, $role, $id, 'audit', $k . ($tg ? ' · touches ' . implode(', ', $tg) : ''), 'Found: ' . $what . ' (Tier ' . $tier . ($flag !== '' ? ', words suggest ' . (GaugeTasks::BOUNDARIES[$flag] ?? $flag) . ': a person checks' : '') . '); it\'s looked at again tomorrow', 'done', '', null, 'Withdraws this ticket', ['withdraw' => $id], 'task:' . $id);
+                $n['opened']++;
+            }
+            return $who . ' · audit (' . $how . '): ' . count($now) . ' finding' . (count($now) === 1 ? '' : 's') . ' · ' . $n['opened'] . ' new · ' . $n['confirmed'] . ' confirmed · ' . $n['cleared'] . ' cleared as noise';
+        } finally { $pdo->query("SELECT RELEASE_LOCK('team_audit')"); }
+    }
+
+    /** Do the step, log it, and return the line. */
+    public static function run(PDO $pdo, array $t, string $step, array $role): string
+    {
+        self::ensure($pdo);
+        [, $name, $action, $def] = self::STEPS[$step];
+        $who = TeamRoster::actor($role); $id = (int) $t['id'];
+        [$ok, $no] = TeamRoster::can($role, $action, $def);
+        if (!$ok) return self::log($pdo, $role, $id, $step, 'its permissions', '', 'refused', $no . ' (Permissions: ' . $action . ')');
+        $cost = (int) (self::STEP_COST_MICROS[$step] ?? 0);   // the spending limit per agent (Piece 3, P3-4)
+        if ($cost > 0 && self::spentThisMonth($pdo, (string) $role['slug']) + $cost > self::spendLimit($pdo, (string) $role['slug']))
+            return self::log($pdo, $role, $id, $step, 'its spending limit', '', 'refused', 'It would spend $' . number_format($cost / 1e6, 2) . ', over this month\'s limit for ' . $role['name'] . ' ($' . number_format(self::spendLimit($pdo, (string) $role['slug']) / 1e6, 2) . ').');
+        try {
+            if ($step === 'gate' && self::mode($pdo, 'gate') === 'propose') {   // at Planning: a proposal a person accepts (Jason, 2026-11-25)
+                return self::log($pdo, $role, $id, $step, 'its goal, Done when, decisions and owner' . self::laneSeen($pdo, $t), 'Proposed: ready for Building (its gate passes)', 'proposed', '', ['move' => 'building'], 'A proposal changes nothing until a person accepts it', null, 'task:' . $id);
+            }
+            if ($step === 'gate') {
+                $took = trim((string) $t['owner']) === '' && self::takesItself($pdo, $t);   // an audit-raised ticket: it takes it first
+                if ($took) $pdo->prepare('UPDATE control_gauge_tasks SET owner = ?, owner_at = UTC_TIMESTAMP() WHERE id = ? AND owner = \'\'')->execute([mb_substr($who, 0, 80), $id]);
+                try { $msg = GaugeTasks::move($pdo, $id, 'building', $who, 'its gate passed: a goal, Done when, its decisions and someone who has it'); }
+                catch (RuntimeException $x) { if ($took) $pdo->prepare('UPDATE control_gauge_tasks SET owner = \'\', owner_at = NULL WHERE id = ?')->execute([$id]); throw $x; }
+                return self::log($pdo, $role, $id, $step, 'its goal, Done when, decisions and owner' . self::laneSeen($pdo, $t), ($took ? 'Took it (the audit raised it); ' . lcfirst($msg) : $msg), 'done', '', null,
+                    $took ? 'Moves it back to Planning and gives it back to nobody' : 'Moves it back to Planning', $took ? ['to' => 'planning', 'owner' => ''] : ['to' => 'planning'], 'task:' . $id);
+            }
+            if ($step === 'handoff') {
+                $brief = self::buildBrief($pdo, $t);
+                $was = (string) $t['owner'];
+                $pdo->prepare('UPDATE control_gauge_tasks SET build_brief = ?, owner = ?, owner_at = UTC_TIMESTAMP() WHERE id = ?')->execute([$brief, mb_substr($who, 0, 80), $id]);
+                $to = self::briefFor($pdo, ['build_brief' => $brief] + $t);   // Implementation on: straight to a build session (Jason, 2026-11-25), behind the fence (P3-6)
+                $said = $to === 'build' ? 'straight to a build session' : ($to === 'founder' ? 'front end: waiting for you (it reaches a public page: ' . mb_substr(implode(', ', self::frontOf($pdo, ['build_brief' => $brief] + $t)), 0, 160) . ')' : 'with the session manager');
+                ControlLog::add($pdo, 'control', '', 'Task #' . $id . ' build brief written; ' . $said . ' (hourly report, build-requests.json)', $who);
+                return self::log($pdo, $role, $id, $step, 'its scope, decisions and steps' . ($to !== 'session manager' ? ', and how far it reaches (the fence)' : ''), 'Wrote its build brief; ' . $said . ' at the next hourly report', 'done', '', null,
+                    'Takes the brief back and gives the ticket back to ' . ($was !== '' ? $was : 'nobody'), ['owner' => $was], 'task:' . $id);
+            }
+            if ($step === 'brief') {
+                $d = self::briefDraft($pdo, $t);
+                return self::log($pdo, $role, $id, $step, 'its words, its decisions and the boundary', 'Proposed ' . count($d) . ' part' . (count($d) === 1 ? '' : 's') . ' of its brief: ' . implode(', ', array_map(fn ($k) => strtolower(GaugeTasks::BRIEF[$k][0]), array_keys($d))), 'proposed', '', $d,
+                    'A proposal changes nothing until a person accepts it', null, 'task:' . $id);
+            }
+            if ($step === 'sequence') {   // code settles it (STEP_AI: code only), or applies() gave it no work
+                $s = self::sequenceFor($pdo, $t); if (!$s) return '';
+                return self::log($pdo, $role, $id, $step, 'what it depends on' . self::laneSeen($pdo, $t), 'Proposed: Priority ' . $s[0] . ' (' . $s[1] . ')', 'proposed', '', ['priority' => $s[0], 'why' => $s[1]],
+                    'A proposal changes nothing until a person accepts it', null, 'task:' . $id);
+            }
+            if ($step === 'stall') {
+                $s = self::stallFor($pdo, $t); if (!$s) return '';
+                $seen = 'its stage, its age and its gate' . self::laneSeen($pdo, $t);
+                if ($s['level'] === 'session') {   // code couldn't unstick it: the next rung of STEP_AI (the API only once its counter is live)
+                    $via = self::route('stall', false);
+                    $ask = self::prompt('stall', ['id' => $id, 'what' => (string) $t['what'], 'stage' => $s['stage_name'], 'days' => $s['days'], 'priority' => (int) ($t['priority'] ?? 0),
+                        'lane' => $s['lane'], 'missing' => implode(', ', $s['missing']), 'child' => $s['child'], 'adrs' => implode(', ', array_map(fn ($a) => $a['adr'], GaugeTasks::adrs($pdo, $id)))]);
+                    return self::log($pdo, $role, $id, $step, $seen, 'Asked a ' . ($via === 'api' ? 'focused API call' : 'session') . ': still stuck ' . $s['days'] . ' days at ' . $s['stage_name'] . ', and its Unstick ticket (task #' . $s['child'] . ') too', 'proposed', '',
+                        ['route' => $via === 'api' ? 'api' : 'session', 'child' => (int) $s['child'], 'ask' => $ask], 'A proposal changes nothing until a person accepts it', null, 'task:' . $id);
+                }
+                $u = self::unstickWords($t, $s);
+                if (self::mode($pdo, 'stall') === 'propose')
+                    return self::log($pdo, $role, $id, $step, $seen, 'Proposed: open "' . mb_substr($u['what'], 0, 120) . '" in its lane', 'proposed', '', ['unstick' => $u], 'A proposal changes nothing until a person accepts it', null, 'task:' . $id);
+                $cid = self::unstick($pdo, $t, $u, $who);
+                return self::log($pdo, $role, $id, $step, $seen, 'Opened task #' . $cid . ' to unstick it (' . $s['days'] . ' days at ' . $s['stage_name'] . '), in ' . $s['lane'] . '\'s lane', 'done', '', null,
+                    'Withdraws task #' . $cid, ['withdraw' => $cid], 'task:' . $cid);
+            }
+        } catch (RuntimeException $x) { return self::log($pdo, $role, $id, $step, $name, '', 'failed', $x->getMessage()); }
+        return '';
+    }
+
+    /** " · lane: <name>" for a run's seen line (decisions/0180 §5: every ticket routes to exactly one lane), or '' when it can't be read. */
+    private static function laneSeen(PDO $pdo, array $t): string
+    {
+        try { return ' · lane: ' . TeamRoster::laneName($pdo, TeamRoster::lane($pdo, $t)); } catch (Throwable $x) { return ''; }
+    }
+
+    /**
+     * The priority a ticket's dependencies settle, in code (the Project Manager's sequence step; jason-spec §8 "tracking
+     * sequence/dependencies"): [priority, why], or null when code doesn't settle it (then nothing is proposed).
+     */
+    public static function sequenceFor(PDO $pdo, array $t): ?array
+    {
+        $pp = null; $ptk = ''; $pid = (int) ($t['parent_id'] ?? 0); $kids = [];
+        try {
+            if ($pid > 0) { $st = $pdo->prepare('SELECT priority, ticket FROM control_gauge_tasks WHERE id = ?'); $st->execute([$pid]);
+                if ($p = $st->fetch(PDO::FETCH_ASSOC)) { $pp = $p['priority'] !== null ? (int) $p['priority'] : null; $ptk = (string) $p['ticket']; } }
+            $st = $pdo->prepare("SELECT priority FROM control_gauge_tasks WHERE parent_id = ? AND kind = 'fix' AND undone_at IS NULL AND cleared_at IS NULL"); $st->execute([(int) $t['id']]);
+            foreach ($st->fetchAll(PDO::FETCH_COLUMN) as $x) $kids[] = $x === null ? 0 : (int) $x;
+        } catch (Throwable $x) { return null; }
+        return self::sequenceFrom($pp, $ptk, $pid, $kids);
+    }
+
+    /** sequenceFor's rule, without the database: a Founder ruling's precedent first, then its goal's priority, then what waits on it. */
+    public static function sequenceFrom(?int $parentPrio, string $parentTicket, int $parentId, array $kidPrios): ?array
+    {
+        if ($parentId > 0 && $parentTicket === 'resolution') return [1, 'it records a Founder ruling\'s precedent (task #' . $parentId . ')'];
+        if ($parentId > 0 && $parentPrio !== null && $parentPrio >= 1 && $parentPrio <= 3) return [$parentPrio, 'its goal, task #' . $parentId . ', is Priority ' . $parentPrio];
+        $set = array_values(array_filter($kidPrios, fn ($p) => $p >= 1 && $p <= 3));
+        if ($set) { $n = count($kidPrios); return [min($set), $n . ' open ticket' . ($n === 1 ? '' : 's') . ' wait' . ($n === 1 ? 's' : '') . ' on it, the most urgent Priority ' . min($set)]; }
+        return null;
+    }
+
+    /** Whole days since a UTC time ('' or unreadable: 0). */
+    public static function idleDays(string $since, int $now): int
+    {
+        $t = $since !== '' ? strtotime($since . ' UTC') : false;
+        return $t === false ? 0 : max(0, intdiv($now - $t, 86400));
+    }
+
+    /**
+     * Is a Work ticket stalled (the Project Manager's stall step): Priority 1 or 2, open, idle STALL_DAYS at its stage, and not one
+     * of the Project Manager's own Unstick tickets. 'ticket' when no Unstick ticket is open for it; 'session' when its Unstick
+     * ticket is idle as long too and no question was asked about that one. Else null.
+     */
+    public static function stallFor(PDO $pdo, array $t): ?array
+    {
+        if ((string) ($t['ticket'] ?? 'work') !== 'work' || ($t['cleared_at'] ?? null) !== null || ($t['undone_at'] ?? null) !== null) return null;
+        if (str_starts_with((string) ($t['source'] ?? ''), self::PM_SOURCE)) return null;
+        $p = (int) ($t['priority'] ?? 0); if ($p < 1 || $p > 2) return null;
+        $sg = (string) ($t['stage'] ?? ''); $names = GaugeTasks::stagesOf('work'); if (!isset($names[$sg])) return null;
+        $id = (int) $t['id']; $days = self::idleDays((string) (($t['stage_at'] ?? '') ?: $t['at']), time());
+        if ($days < self::STALL_DAYS) return null;
+        $base = ['days' => $days, 'stage' => $sg, 'stage_name' => $names[$sg][0], 'missing' => GaugeTasks::gate($pdo, $t), 'child' => 0,
+            'lane' => (function () use ($pdo, $t) { try { return TeamRoster::laneName($pdo, TeamRoster::lane($pdo, $t)); } catch (Throwable $x) { return 'its lane'; } })()];
+        try {
+            $st = $pdo->prepare("SELECT id, at FROM control_gauge_tasks WHERE parent_id = ? AND source = ? AND kind = 'fix' AND undone_at IS NULL AND cleared_at IS NULL ORDER BY id LIMIT 1");
+            $st->execute([$id, self::PM_SOURCE . $id . ')']); $c = $st->fetch(PDO::FETCH_ASSOC);
+            if (!$c) return self::dismissedBefore($pdo, $id, 'stall', self::STALL_DAYS, '"unstick"') ? null : ['level' => 'ticket'] + $base;
+            if (self::idleDays((string) $c['at'], time()) < self::STALL_DAYS) return null;
+            $st = $pdo->prepare("SELECT 1 FROM team_runs WHERE task_id = ? AND step = 'stall' AND proposal LIKE ? LIMIT 1"); $st->execute([$id, '%"child":' . (int) $c['id'] . ',%']);
+            if ($st->fetchColumn()) return null;   // one question per Unstick ticket
+            return ['level' => 'session', 'child' => (int) $c['id']] + $base;
+        } catch (Throwable $x) { return null; }
+    }
+
+    /** The Unstick ticket's words, from the ticket's own record. */
+    private static function unstickWords(array $t, array $s): array
+    {
+        return ['what' => 'Unstick task #' . (int) $t['id'] . ': ' . mb_substr((string) $t['what'], 0, 200),
+            'why' => 'Stalled ' . $s['days'] . ' days at ' . $s['stage_name'] . ($s['missing'] ? '; it needs ' . implode(', ', $s['missing']) : '') . '. Opened by the Project Manager (decisions/0180 §5, role 8: tracks stalls); its lane: ' . $s['lane'] . '.'];
+    }
+
+    /** Open the Unstick ticket, a child of the stalled one (so it keeps that lane, TeamRoster::lane), at the same priority. */
+    private static function unstick(PDO $pdo, array $t, array $u, string $who, string $tz = ''): int
+    {
+        $id = (int) $t['id'];
+        $cid = GaugeTasks::add($pdo, (string) $t['gauge'], (string) ($u['what'] ?? ''), (string) ($u['why'] ?? ''), self::PM_SOURCE . $id . ')', $who, 0, $tz, 'work', $id);
+        $p = (int) ($t['priority'] ?? 0);
+        if ($p >= 1 && $p <= 3) $pdo->prepare('UPDATE control_gauge_tasks SET priority = ? WHERE id = ? AND priority IS NULL')->execute([$p, $cid]);
+        return $cid;
+    }
+
+    /** Was this step's proposal on this ticket dismissed (in the last $days days; 0: ever), optionally one whose proposal contains $like? */
+    private static function dismissedBefore(PDO $pdo, int $task, string $step, int $days, string $like = ''): bool
+    {
+        try {
+            $st = $pdo->prepare("SELECT 1 FROM team_runs WHERE task_id = ? AND step = ? AND state = 'proposed' AND undone_at IS NOT NULL" . ($days > 0 ? ' AND undone_at > UTC_TIMESTAMP() - INTERVAL ' . (int) $days . ' DAY' : '') . ($like !== '' ? ' AND proposal LIKE ?' : '') . ' LIMIT 1');
+            $st->execute($like !== '' ? [$task, $step, '%' . $like . '%'] : [$task, $step]);
+            return (bool) $st->fetchColumn();
+        } catch (Throwable $x) { return false; }
+    }
+
+    /** Open questions for a session (STEP_AI's session rung), for the report: [{task, run, at, ask}]. */
+    public static function sessionAsks(PDO $pdo): array
+    {
+        $out = [];
+        try { foreach ($pdo->query("SELECT id, task_id, at, proposal FROM team_runs WHERE state = 'proposed' AND settled_at IS NULL AND proposal LIKE '%\"route\":\"session\"%' ORDER BY id")->fetchAll(PDO::FETCH_ASSOC) as $r) {
+                $p = json_decode((string) $r['proposal'], true) ?: [];
+                $out[] = ['task' => (int) $r['task_id'], 'run' => (int) $r['id'], 'at_utc' => str_replace(' ', 'T', (string) $r['at']) . 'Z', 'ask' => (string) ($p['ask'] ?? '')];
+            } } catch (Throwable $x) {}
+        return $out;
+    }
+
+    /**
+     * The Translator's words for a Resolution brief, from what we hold (no AI): only fields still empty, never a person's.
+     * Why it needs you, from its boundary (0179 rule 3) and the decisions attached; the cost, when it has none named.
+     */
+    public static function briefDraft(PDO $pdo, array $t): array
+    {
+        $b = GaugeTasks::brief($pdo, (int) $t['id']) ?? []; $out = [];
+        $bd = (string) ($b['boundary'] ?? '');
+        $adr = array_values(array_filter(GaugeTasks::adrs($pdo, (int) $t['id']), fn ($a) => $a['adr'] !== 'none'));
+        if (trim((string) ($b['why_you'] ?? '')) === '' && ($bd !== '' || $adr)) {
+            $all = $adr ? GaugeTasks::decisions() : [];
+            $out['why_you'] = trim(($bd !== '' ? 'It needs a Founder ruling (Tier 5, decisions/0180 §3): it touches a high-risk territory, ' . lcfirst(GaugeTasks::BOUNDARIES[$bd] ?? $bd) . '.' : '')
+                . ($adr ? ' It rests on ' . implode('; ', array_map(fn ($a) => $a['adr'] . ' (' . ($all[$a['adr']]['title'] ?? 'not in the list') . ')', $adr)) . '.' : ''));
+        }
+        return $out;
+    }
+
+    /** A Building ticket's build brief, in plain words from its own record: what, why, source, scope, decisions, steps. */
+    public static function buildBrief(PDO $pdo, array $t): string
+    {
+        $id = (int) $t['id']; $all = GaugeTasks::decisions(); $L = [];
+        $L[] = 'Task #' . $id . ': ' . $t['what'];
+        $L[] = 'Why: ' . $t['why'] . ((string) $t['source'] !== '' ? ' (source: ' . $t['source'] . ')' : '');
+        foreach (['goal' => 'Goal', 'in_scope' => 'In scope', 'out_scope' => 'Out of scope', 'done_when' => 'Done when'] as $k => $lb) if (trim((string) ($t[$k] ?? '')) !== '') $L[] = $lb . ': ' . trim((string) $t[$k]);
+        $ad = GaugeTasks::adrs($pdo, $id);
+        if ($ad) $L[] = 'Decisions: ' . implode('; ', array_map(fn ($a) => $a['adr'] === 'none' ? 'none applies' : $a['adr'] . ' ' . ($all[$a['adr']]['title'] ?? ''), $ad));
+        foreach (GaugeTasks::steps($pdo, $id) as $s) $L[] = 'Step ' . $s['pos'] . ': ' . $s['do_what'] . ($s['confirm'] !== '' ? ' (confirmed when: ' . $s['confirm'] . ')' : '');
+        return mb_substr(implode("\n", $L), 0, 4000);
+    }
+
+    private static function log(PDO $pdo, array $role, int $task, string $step, string $seen, string $did, string $state, string $why = '', ?array $proposal = null, string $undoHow = '', ?array $undo = null, string $touches = ''): string
+    {
+        // Undo on every agent action (decisions/0179's "What comes next"; Piece 3, P3-4): a step that did something without its
+        // Undo isn't recorded as done; it's refused, so it shows, and a step that can't be undone only ever proposes
+        if ($state === 'done' && (trim($undoHow) === '' || $undo === null)) { $state = 'refused'; $why = 'It did "' . mb_substr($did, 0, 120) . '" with no Undo: a step that can\'t be undone only proposes (Piece 3).'; }
+        $pdo->prepare('INSERT INTO team_runs (at, role, task_id, step, seen, did, state, why, proposal, undo_how, undo_data, touches) VALUES (UTC_TIMESTAMP(), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)')
+            ->execute([(string) $role['slug'], $task, $step, mb_substr($seen, 0, 400), mb_substr($did, 0, 400), $state, mb_substr($why, 0, 400), $proposal !== null ? json_encode($proposal, JSON_UNESCAPED_UNICODE) : null,
+                mb_substr($undoHow, 0, 400), $undo !== null ? json_encode($undo) : null, mb_substr($touches, 0, 400)]);
+        $rid = (int) $pdo->lastInsertId();
+        $line = TeamRoster::actor($role) . ' · task #' . $task . ' · ' . ($state === 'done' || $state === 'proposed' ? $did : $state . ': ' . $why);
+        ControlLog::add($pdo, 'control', '', 'Task #' . $task . ' run #' . $rid . ' (' . $step . '): ' . ($state === 'done' || $state === 'proposed' ? $did : $state . ', ' . $why), TeamRoster::actor($role));
+        return $line;
+    }
+
+    /** A ticket's runs, newest first. */
+    public static function runs(PDO $pdo, int $task, int $limit = 10): array
+    {
+        try { $st = $pdo->prepare('SELECT * FROM team_runs WHERE task_id = ? ORDER BY id DESC LIMIT ' . (int) $limit); $st->execute([$task]); return $st->fetchAll(PDO::FETCH_ASSOC); } catch (Throwable $x) { return []; }
+    }
+
+    public static function get(PDO $pdo, int $id): ?array
+    {
+        try { $st = $pdo->prepare('SELECT * FROM team_runs WHERE id = ?'); $st->execute([$id]); return $st->fetch(PDO::FETCH_ASSOC) ?: null; } catch (Throwable $x) { return null; }
+    }
+
+    /** Undo a run: rolled back as if never done (CLAUDE.md "Edit or Undo"), logged; a second Undo is refused. */
+    public static function undo(PDO $pdo, int $rid, string $who, string $tz = ''): string
+    {
+        $r = self::get($pdo, $rid); if (!$r) throw new RuntimeException('That run isn\'t there.');
+        if ($r['undone_at'] !== null) throw new RuntimeException('Already undone, by ' . $r['undone_by'] . '.');
+        if ($r['state'] !== 'done') throw new RuntimeException($r['state'] === 'proposed' ? 'A proposal changes nothing: Accept or Dismiss it.' : 'It did nothing, so there\'s nothing to undo.');
+        $u = json_decode((string) $r['undo_data'], true) ?: []; $tid = (int) $r['task_id'];
+        if ($r['step'] === 'gate') { GaugeTasks::move($pdo, $tid, (string) $u['to'], $who, 'Undo of run #' . $rid, $tz); if (array_key_exists('owner', $u)) $pdo->prepare('UPDATE control_gauge_tasks SET owner = ?, owner_at = NULL WHERE id = ?')->execute([(string) $u['owner'], $tid]); }
+        elseif ($r['step'] === 'handoff') {
+            $pdo->prepare('UPDATE control_gauge_tasks SET build_brief = NULL, owner = ?, owner_at = ? WHERE id = ?')->execute([(string) ($u['owner'] ?? ''), ($u['owner'] ?? '') !== '' ? gmdate('Y-m-d H:i:s') : null, $tid]);
+            ControlLog::add($pdo, 'control', '', 'Task #' . $tid . ' build brief taken back (Undo of run #' . $rid . ')', $who, '', $tz);
+        } elseif (in_array($r['step'], ['audit', 'stall'], true)) GaugeTasks::withdraw($pdo, (int) $u['withdraw'], 'Undo of run #' . $rid, $who, $tz);
+        else throw new RuntimeException('This kind of run has no Undo.');
+        $pdo->prepare('UPDATE team_runs SET undone_at = UTC_TIMESTAMP(), undone_by = ? WHERE id = ? AND undone_at IS NULL')->execute([mb_substr($who, 0, 80), $rid]);
+        return 'Undone: ' . lcfirst((string) $r['undo_how']) . '.';
+    }
+
+    /** An open (unsettled) proposal of this step on this ticket? */
+    public static function openProposal(PDO $pdo, int $task, string $step): bool
+    {
+        try { $st = $pdo->prepare("SELECT 1 FROM team_runs WHERE task_id = ? AND step = ? AND state = 'proposed' AND settled_at IS NULL LIMIT 1"); $st->execute([$task, $step]); return (bool) $st->fetchColumn(); } catch (Throwable $x) { return false; }
+    }
+
+    /** Open proposals on each ticket (for the queue's rows and filter): task id => count. */
+    public static function openSuggestions(PDO $pdo): array
+    {
+        $out = []; try { foreach ($pdo->query("SELECT task_id, COUNT(*) n FROM team_runs WHERE state = 'proposed' AND settled_at IS NULL GROUP BY task_id")->fetchAll(PDO::FETCH_ASSOC) as $x) $out[(int) $x['task_id']] = (int) $x['n']; } catch (Throwable $x) {}
+        return $out;
+    }
+
+    /** Accept a proposal: a move made as the person who accepts (through its gate), or a brief's parts applied as their Edit (History kept, only where still empty). */
+    public static function accept(PDO $pdo, int $rid, string $who, string $tz = ''): string
+    {
+        $r = self::get($pdo, $rid); if (!$r || $r['state'] !== 'proposed') throw new RuntimeException('That isn\'t a proposal.');
+        if ($r['settled_at'] !== null) throw new RuntimeException('It\'s already ' . ($r['undone_at'] !== null ? 'dismissed' : 'accepted') . '.');
+        $p = json_decode((string) $r['proposal'], true) ?: [];
+        $settle = function () use ($pdo, $rid, $who) { $pdo->prepare('UPDATE team_runs SET settled_at = UTC_TIMESTAMP(), settled_by = ? WHERE id = ?')->execute([mb_substr($who, 0, 80), $rid]); };
+        if ($r['step'] === 'gate') {
+            $msg = GaugeTasks::move($pdo, (int) $r['task_id'], (string) ($p['move'] ?? 'building'), $who, 'accepting the Project Manager\'s proposal (run #' . $rid . ')', $tz);
+            $pdo->prepare('UPDATE team_runs SET settled_at = UTC_TIMESTAMP(), settled_by = ? WHERE id = ?')->execute([mb_substr($who, 0, 80), $rid]);
+            return 'Accepted: ' . $msg;
+        }
+        if ($r['step'] === 'sequence') {   // a priority applied as the accepting person's Edit, only where nobody set one
+            $t = GaugeTasks::task($pdo, (int) $r['task_id']); if (!$t) throw new RuntimeException('That task isn\'t in the queue.');
+            if ((int) ($t['priority'] ?? 0) > 0) { $settle(); return 'Accepted, and left as a person set it: Priority ' . (int) $t['priority'] . '.'; }
+            $msg = GaugeTasks::edit($pdo, (int) $r['task_id'], ['priority' => (string) (int) ($p['priority'] ?? 0)], $who . ' (accepting system · Project Manager)', $tz);
+            $settle();
+            return 'Accepted: Priority ' . (int) ($p['priority'] ?? 0) . '. ' . $msg;
+        }
+        if ($r['step'] === 'stall') {
+            if (($p['route'] ?? '') !== '') {   // the person takes the question to a session (or the session manager answers it)
+                $settle();
+                ControlLog::add($pdo, 'control', '', 'Task #' . (int) $r['task_id'] . ' taken to a ' . ($p['route'] === 'api' ? 'focused API call' : 'session') . ' with the Project Manager\'s question (run #' . $rid . ')', $who, '', $tz);
+                return 'Accepted: the Project Manager\'s question goes with it. Its answer is recorded on the ticket.';
+            }
+            $t = GaugeTasks::task($pdo, (int) $r['task_id']);
+            if (!$t || $t['cleared_at'] !== null || $t['undone_at'] !== null) throw new RuntimeException('That task is done or withdrawn: nothing to unstick.');
+            $cid = self::unstick($pdo, $t, (array) ($p['unstick'] ?? []), $who, $tz);
+            $settle();
+            return 'Accepted: task #' . $cid . ' opened to unstick it, in its lane.';
+        }
+        $b = GaugeTasks::brief($pdo, (int) $r['task_id']) ?? []; $n = 0; $kept = [];
+        foreach ($p as $k => $v) { if (trim((string) ($b[$k] ?? '')) !== '') { $kept[] = strtolower(GaugeTasks::BRIEF[$k][0]); continue; } GaugeTasks::briefEdit($pdo, (int) $r['task_id'], $k, (string) $v, $who . ' (accepting ' . TeamRoster::actor(['name' => self::roleName($pdo, (string) $r['role'])]) . ')', $tz); $n++; }
+        $pdo->prepare('UPDATE team_runs SET settled_at = UTC_TIMESTAMP(), settled_by = ? WHERE id = ?')->execute([mb_substr($who, 0, 80), $rid]);
+        return 'Accepted: ' . $n . ' part' . ($n === 1 ? '' : 's') . ' of the brief filled, kept in its History.' . ($kept ? ' Left as a person wrote it: ' . implode(', ', $kept) . '.' : '');
+    }
+
+    /** Dismiss a proposal: nothing changes; it's kept, marked dismissed. */
+    public static function dismiss(PDO $pdo, int $rid, string $who): string
+    {
+        $r = self::get($pdo, $rid); if (!$r || $r['state'] !== 'proposed') throw new RuntimeException('That isn\'t a proposal.');
+        if ($r['settled_at'] !== null) throw new RuntimeException('It\'s already settled.');
+        $pdo->prepare('UPDATE team_runs SET settled_at = UTC_TIMESTAMP(), settled_by = ?, undone_at = UTC_TIMESTAMP(), undone_by = ? WHERE id = ?')->execute([mb_substr($who, 0, 80), mb_substr($who, 0, 80), $rid]);
+        return 'Dismissed: nothing changed.';
+    }
+
+    private static function roleName(PDO $pdo, string $slug): string { $r = TeamRoster::bySlug($pdo, $slug); return $r ? (string) $r['name'] : $slug; }
+}
+=== END FILE ===
+
+=== FILE: tests/team-pm-tests.php ===
+<?php
+// tools/team-tests/team-pm-tests.php — the Project Manager (role 8) in TeamRunner: its steps, ceilings, reasoning order,
+// prompt, charter and the code-only rules (sequenceFrom, idleDays). No database, no outside call, no money (nothing here
+// reaches QuickBooksPay or any connector). Run: php tools/team-tests/team-pm-tests.php [repo root]
+declare(strict_types=1);
+
+$root = $argv[1] ?? (getenv('TRAV_ROOT') ?: dirname(__DIR__, 2));
+require_once rtrim($root, '/') . '/app/lib/TeamRunner.php';
+
+$fail = 0;
+function check(string $name, bool $ok): void { global $fail; echo ($ok ? 'PASS' : 'FAIL') . ': ' . $name . "\n"; if (!$ok) $fail++; }
+
+// steps and ceilings
+$pm = array_keys(array_filter(TeamRunner::STEPS, fn ($s) => $s[0] === 'project-manager'));
+check('the Project Manager has gate, sequence and stall', $pm === ['gate', 'sequence', 'stall']);
+foreach ($pm as $s) {
+    check("$s needs a team.* Access action", str_starts_with(TeamRunner::STEPS[$s][2], 'team.'));
+    check("$s has a mode at every ceiling", array_keys(TeamRunner::STEP_AT[$s]) === array_keys(TeamRunner::CEILINGS));
+    check("$s costs \$0", (TeamRunner::STEP_COST_MICROS[$s] ?? -1) === 0);
+}
+check('sequence only proposes, at every ceiling', array_unique(array_values(TeamRunner::STEP_AT['sequence'])) === ['propose']);
+check('stall proposes at Planning', TeamRunner::STEP_AT['stall']['planning'] === 'propose');
+check('stall acts from Building on', TeamRunner::STEP_AT['stall']['building'] === 'act' && TeamRunner::STEP_AT['stall']['confirmation'] === 'act');
+check('every step in STEPS has a STEP_AT row', array_diff(array_keys(TeamRunner::STEPS), array_keys(TeamRunner::STEP_AT)) === []);
+
+// the reasoning order: code, then API, then session (0180's note to §6)
+check('stall order is code, api, session', TeamRunner::STEP_AI['stall'] === ['code', 'api', 'session']);
+check('code settles: code', TeamRunner::route('stall', true) === 'code');
+check('API off until its counter is live', TeamRunner::AGENTS_API_LIVE === false);
+check('code can\'t settle, API off: session', TeamRunner::route('stall', false) === 'session');
+check('sequence never guesses past code', TeamRunner::route('sequence', false) === 'none');
+check('an unlisted step is code only', TeamRunner::route('handoff', false) === 'none');
+
+// the rules the tree's approval covers
+$rd = TeamRunner::ruleData();
+check('ruleData carries step_ai', isset($rd['step_ai']['stall']));
+check('ruleData carries agents_api and stall_days', array_key_exists('agents_api', $rd) && $rd['stall_days'] === 3);
+check('ruleData carries the new steps', isset($rd['steps']['sequence'], $rd['steps']['stall']));
+check('fingerprint is stable', TeamRunner::fingerprint() === TeamRunner::fingerprint());
+
+// sequence: code settles it, or nothing
+check('precedent of a ruling is Priority 1', (TeamRunner::sequenceFrom(null, 'resolution', 7, [])[0] ?? 0) === 1);
+check('goal priority carries', (TeamRunner::sequenceFrom(2, 'work', 7, [])[0] ?? 0) === 2);
+check('waiting tickets: most urgent', (TeamRunner::sequenceFrom(null, '', 0, [3, 1, 0])[0] ?? 0) === 1);
+check('nothing settles: null (no guess)', TeamRunner::sequenceFrom(null, '', 0, []) === null);
+check('children without priorities: null', TeamRunner::sequenceFrom(null, '', 0, [0, 0]) === null);
+check('a goal without a priority, no children: null', TeamRunner::sequenceFrom(null, 'work', 5, []) === null);
+
+// idle days
+$now = strtotime('2026-11-30 13:00:00 UTC');
+check('idle 3 days', TeamRunner::idleDays('2026-11-27 12:00:00', $now) === 3);
+check('idle under a day', TeamRunner::idleDays('2026-11-30 01:00:00', $now) === 0);
+check('no date: 0', TeamRunner::idleDays('', $now) === 0);
+check('future date: 0', TeamRunner::idleDays('2026-12-05 00:00:00', $now) === 0);
+
+// the prompt: lean, filled, private-free by construction
+$ask = TeamRunner::prompt('stall', ['id' => 42, 'what' => 'Fix the stray Recovered email', 'stage' => 'Building', 'days' => 4, 'priority' => 1, 'lane' => 'IT Manager', 'missing' => '', 'child' => 51, 'adrs' => '0180']);
+check('prompt names the ticket', str_contains($ask, 'Task #42'));
+check('prompt leaves no {placeholder}', !preg_match('/\{[a-z_]+\}/', $ask));
+check('an empty value reads none', str_contains($ask, 'still needs: none'));
+check('prompt is lean (< 1200 chars)', mb_strlen($ask) < 1200);
+check('an unknown prompt is empty', TeamRunner::prompt('nope', []) === '');
+
+// the charter (0180 §6's four groundings)
+$c = TeamRunner::charter('project-manager');
+check('charter is role 8 in the project-manager lane', ($c['number'] ?? 0) === 8 && ($c['lane'] ?? '') === 'project-manager');
+check('charter works Work tickets only', ($c['tickets'] ?? []) === ['work']);
+foreach (['follows', 'job', 'knowledge', 'escalation', 'never'] as $k) check("charter has $k", !empty($c[$k]));
+check('charter steps match STEPS', ($c['steps'] ?? []) === $pm);
+check('charter shows the stall order', ($c['ai']['stall'] ?? []) === ['code', 'api', 'session']);
+check('no charter for an unknown role', TeamRunner::charter('nobody') === []);
+check('the PM lane is one of the seven', in_array('project-manager', TeamRoster::LANES, true));
+
+echo $fail === 0 ? "ALL PASS\n" : "$fail FAILED\n";
+exit($fail === 0 ? 0 : 1);
+=== END FILE ===
+
+=== FILE: tests/team-pm-db-tests.php ===
+<?php
+// tools/team-tests/team-pm-db-tests.php — the Project Manager's stall and sequence steps against a database, ON STAGING ONLY.
+// It makes its own tickets on gauge area:pm-test, reads what the steps would do, and withdraws them at the end. It never
+// switches the runner, never touches the ceiling or the tree, and makes no outside call or payment.
+// Run on staging: php tools/team-tests/team-pm-db-tests.php [repo root]
+declare(strict_types=1);
+
+$root = $argv[1] ?? (getenv('TRAV_ROOT') ?: dirname(__DIR__, 2));
+require_once rtrim($root, '/') . '/app/lib/TeamRunner.php';
+require_once rtrim($root, '/') . '/app/lib/Staging.php';
+
+$fail = 0;
+function check(string $name, bool $ok): void { global $fail; echo ($ok ? 'PASS' : 'FAIL') . ': ' . $name . "\n"; if (!$ok) $fail++; }
+
+if (!Staging::here()) { echo "SKIP: staging only (this is not staging)\nALL PASS\n"; exit(0); }
+$pdo = Database::pdo();   // VERIFY: Database's accessor name (file not shown)
+TeamRunner::ensure($pdo); GaugeTasks::ensure($pdo);
+$who = 'pm-tests'; $made = [];
+
+// a goal at Priority 2 and a child without a priority: sequence proposes 2
+$goal = GaugeTasks::add($pdo, 'area:pm-test', 'PM test goal ' . uniqid(), 'test', 'tests', $who, 0); $made[] = $goal;
+GaugeTasks::edit($pdo, $goal, ['priority' => '2'], $who);
+$kid = GaugeTasks::add($pdo, 'area:pm-test', 'PM test child ' . uniqid(), 'test', 'tests', $who, 0, '', 'work', $goal); $made[] = $kid;
+$s = TeamRunner::sequenceFor($pdo, GaugeTasks::task($pdo, $kid));
+check('sequence: child takes its goal\'s Priority 2', ($s[0] ?? 0) === 2);
+check('sequence: the goal is settled by what waits on it', (TeamRunner::sequenceFor($pdo, GaugeTasks::task($pdo, $goal))[0] ?? 0) === 2 || TeamRunner::sequenceFor($pdo, GaugeTasks::task($pdo, $goal)) === null);
+
+// a stalled Priority 1 ticket: four days at Planning (test data only, on staging; data_reason: the stall test needs an old stage_at)
+$st = GaugeTasks::add($pdo, 'area:pm-test', 'PM test stalled ' . uniqid(), 'test', 'tests', $who, 0); $made[] = $st;
+$pdo->prepare('UPDATE control_gauge_tasks SET priority = 1, stage_at = UTC_TIMESTAMP() - INTERVAL 4 DAY WHERE id = ?')->execute([$st]);
+$f = TeamRunner::stallFor($pdo, GaugeTasks::task($pdo, $st));
+check('stall: found at ticket level', ($f['level'] ?? '') === 'ticket' && ($f['days'] ?? 0) >= 4);
+check('stall: names what its gate needs', in_array('a goal', $f['missing'] ?? [], true));
+
+// a person's ticket is never worked
+$pdo->prepare('UPDATE control_gauge_tasks SET owner = ? WHERE id = ?')->execute(['A Person', $st]);
+check('mayWork refuses a person\'s ticket', !TeamRunner::mayWork(GaugeTasks::task($pdo, $st)));
+$pdo->prepare("UPDATE control_gauge_tasks SET owner = '' WHERE id = ?")->execute([$st]);
+
+// an Unstick ticket, fresh: no second escalation yet; the PM never unsticks its own
+$u = GaugeTasks::add($pdo, 'area:pm-test', 'Unstick task #' . $st . ': test', 'test', TeamRunner::PM_SOURCE . $st . ')', $who, 0, '', 'work', $st); $made[] = $u;
+check('stall: a fresh Unstick ticket holds the escalation', TeamRunner::stallFor($pdo, GaugeTasks::task($pdo, $st)) === null);
+$pdo->prepare('UPDATE control_gauge_tasks SET priority = 1, stage_at = UTC_TIMESTAMP() - INTERVAL 9 DAY WHERE id = ?')->execute([$u]);
+check('stall: never on its own Unstick ticket', TeamRunner::stallFor($pdo, GaugeTasks::task($pdo, $u)) === null);
+$pdo->prepare('UPDATE control_gauge_tasks SET at = UTC_TIMESTAMP() - INTERVAL 4 DAY WHERE id = ?')->execute([$u]);
+$f = TeamRunner::stallFor($pdo, GaugeTasks::task($pdo, $st));
+check('stall: Unstick idle too → session level', ($f['level'] ?? '') === 'session' && ($f['child'] ?? 0) === $u);
+check('stall: the route is a session while the agents\' API is off', TeamRunner::route('stall', false) === 'session');
+
+foreach (array_reverse($made) as $id) { try { GaugeTasks::withdraw($pdo, $id, 'pm-tests cleanup', $who); } catch (Throwable $x) {} }
+echo $fail === 0 ? "ALL PASS\n" : "$fail FAILED\n";
+exit($fail === 0 ? 0 : 1);
+=== END FILE ===
+
+=== FILE: faq/faq-entries.md ===
+### Who keeps the work moving behind Traversence?
+
+Every change to the site is a ticket on our Work queue, and each moves through four stages: Planning, Building, Implementation and Confirmation. Our Project Manager, an automated role on the team, keeps that order. It checks that a ticket has a clear goal, a "done when" and the decisions it rests on before it moves on, suggests which tickets come first based on what depends on what, and notices when something has sat still for three days. When that happens it opens one follow-up for the team that owns the work. If that also stalls, it asks a person-run review for a next step.
+
+It works on our test site first, and nothing it does reaches the live site until a checked release publishes it. Every action it takes can be undone. It never takes work a person is doing, never changes a priority a person set, never spends money, and never decides anything only our founder decides.
+
+### Does the Project Manager use AI?
+
+It works from our own records first, in plain code that costs nothing. Only when code can't settle a question does it write a short, focused question for a reviewed session, and it shares just that ticket's facts. A paid AI path for this kind of question is **coming**. It will have its own small monthly cap, and it stays off until that cap is in place.
+
+### Can I see what the team is working on?
+
+**Coming.** For now the Work queue and the team's roles are visible to our staff only.
+=== END FILE ===
+
+=== FILE: release.json ===
+{
+  "name": "team-role-08-project-manager",
+  "gate": "Tier 5 · Founder ruling. This release changes the decision tree's rules: two new Project Manager steps (sequence, stall), STEP_AI, AGENTS_API_LIVE and STALL_DAYS are all in TeamRunner::ruleData. On staging it clears the tree's approval and drops agents to Planning (treeApproval). Only the Founder's own press or his written words re-approve it (decisions/0180 §2; the note 'It is one time only'). It also sits behind R2 (lanes), which the vetting doc of 2026-11-27 says is held on claude/r2-design, and inside 0181's one-slot-a-day rule for R2-R5. 0181 is not attached.",
+  "what": "The Project Manager (role 8, slug project-manager; decisions/0180 §5 and appendix row 8; jason-spec §8) now has a working $0 agent in TeamRunner. (1) Charter: TeamRunner::CHARTERS['project-manager'] and charter(), covering 0180 §6's four groundings: follows, job, knowledge and escalation, plus 'never'. (2) Lane: project-manager, the fallback lane in TeamRoster::LANE_ROUTES. Each run's 'seen' line names the ticket's lane. (3) Ticket types: Work only. (4) Steps: gate (unchanged behaviour; the lane is now noted); sequence, which proposes a priority from what the ticket depends on (a ruling's precedent → 1, its goal's priority, or the most urgent ticket waiting on it), never guesses and always proposes; stall, for a Priority 1 or 2 Work ticket idle 3 days at its stage, which opens one 'Unstick task #N' child ticket in that lane (it proposes at Planning and acts from Building on, with Undo that withdraws it), and when that child is also idle 3 days, asks a session once. (5) Prompts: TeamRunner::PROMPTS['stall'], lean per 0180 §6, filled by prompt(). (6) AI access order: STEP_AI and route(), meaning code, then the agents' API only when AGENTS_API_LIVE (false until its own $40 counter exists, per 0180's 'Separate each' correction), then a session. Session questions are listed by TeamRunner::sessionAsks(). Accept and Undo cover the new steps.",
+  "files": [
+    "files/app/lib/TeamRunner.php",
+    "tests/team-pm-tests.php",
+    "tests/team-pm-db-tests.php",
+    "faq/faq-entries.md"
+  ],
+  "decisions": ["0180", "0179", "0165", "0164", "0145", "0066"],
+  "tests": [
+    "tests/team-pm-tests.php (no database: steps, ceilings, route order, ruleData keys, sequenceFrom, idleDays, prompt, charter)",
+    "tests/team-pm-db-tests.php (staging only, exits SKIP elsewhere: sequenceFor, stallFor at ticket and session level, person-owned tickets refused, its own Unstick tickets ignored; withdraws its tickets at the end)"
+  ],
+  "risks": [
+    "Nothing here was run, linted, tested or zip-checked. This is a DRAFT for the lane session to verify on staging.",
+    "The attached reconcile (rec-j18-team.md) is empty: all 18 pass sections have no content. No team-pass findings were merged. This draft rests only on the live TeamRunner.php, GaugeTasks.php and TeamRoster.php, decisions/0180, jason-spec §4–§8 and the 2026-11-27 vetting doc.",
+    "The fingerprint changes, so on deploy to staging the tree's approval is cleared and the ceiling drops to Planning for every role, not only this one. Gate, handoff and the Translator's brief all fall back to Planning behaviour until the Founder re-approves and raises the ceiling again.",
+    "The stall step opens tickets from Building on. A queue with many old Priority 1–2 tickets could open several Unstick tickets in a few hours. Each run is one ticket, and each ticket is worked at most once an hour. Each child has Undo.",
+    "The Unstick child's lane comes from its parent through TeamRoster::lane's parent walk. The other managers (9–14) have no steps yet, so those children wait for a person or for later role releases.",
+    "The gate step still works every lane's Planning tickets, as it does today. Under 0180 §5 each lane's manager owns its tickets, so when other managers get gate-like steps this should narrow to the PM's lane.",
+    "dismissedBefore() stops a dismissed priority proposal from coming back. A dismissed Unstick proposal returns after STALL_DAYS if the ticket is still stalled.",
+    "Session asks rely on a person or the session manager taking them. Until health.php ships sessionAsks(), they show only in the run log and the ticket's proposals.",
+    "No real money moves: no step calls QuickBooksPay, a connector, AiClient or any outside service. The tests make no payments."
+  ],
+  "verify": [
+    "Several roles touch the same functions. TeamRunner::STEPS, STEP_AT, STEP_COST_MICROS, ruleData() and fingerprint() are shared by the Project Manager (gate, sequence, stall), the System Architect (handoff, role 20), the Executive Translator (brief, role 28) and Operations & Reconciliation (audit, role 23). run(), applies(), pick(), accept() and undo() branch per step for all of them. Any other role's release editing these must merge by key, not overwrite this file. STEP_AI, PROMPTS and CHARTERS are keyed by step or slug for that reason.",
+    "undo() now shares its withdraw branch between 'audit' (role 23) and 'stall' (role 8).",
+    "GaugeTasks.php: no change. The PM writes only through GaugeTasks::add, edit, move and withdraw.",
+    "TeamRoster.php: no change. The charter lives in TeamRunner::CHARTERS. The Team page that would show it is a file not shown, so charter() is not yet rendered anywhere.",
+    "Access.php: file not shown. New actions team.sequence and team.stall rely on Access::canAs honouring the passed default ['min' => 'manager', 'depts' => ['ops']] for an action it doesn't list. Confirm on staging that the PM row's acts_level and acts_dept pass, and that no Permissions entry is needed.",
+    "health.php: file not shown. To carry the PM's session questions into build-requests.json, its report should add TeamRunner::sessionAsks($pdo). Not done here.",
+    "The Work queue page: file not shown. Confirm its Accept and Dismiss buttons render for step 'sequence' and 'stall' proposals. It may only know 'gate' and 'brief'.",
+    "AiClient: file not shown. The API rung is declared but closed (AGENTS_API_LIVE = false). No AiClient method is called or assumed.",
+    "The lane and handoff columns on control_gauge_tasks: GaugeTasks::handOff writes them but ensure() doesn't create them, and their migration is a file not shown. TeamRoster::lane reads $t['lane'] ?? '' safely without them.",
+    "Database.php: file not shown. tests/team-pm-db-tests.php assumes Database::pdo(). Fix the accessor if it differs. Both tests assume the repo root is two levels up, or argv[1] or TRAV_ROOT.",
+    "There is no due-date column on control_gauge_tasks. The vetting doc's 'a due date its open tickets can't meet' is not built. Only the 3-day idle rule is.",
+    "Check the stall proposal's JSON matching: stallFor looks for '\"child\":<id>,' in team_runs.proposal. This relies on json_encode key order (route, child, ask), as written in run().",
+    "The role's slug is project-manager, as in TeamRunner::STEPS and TeamRoster::LANES. Confirm the seeded team_roster row uses that slug, is active, and has acts_level manager or above in ops."
+  ],
+  "regions": false
+}
+=== END FILE ===
