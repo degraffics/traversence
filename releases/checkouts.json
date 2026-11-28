@@ -118,6 +118,17 @@
    "expires": "2026-11-28T05:27:54Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/Operations.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5iAy5magAU62jYiAxM",
+   "why": "ADHS A1: the generated ADDED_OFF and CAPS lists (azdhs)",
+   "since": "2026-11-28T01:28:51Z",
+   "expires": "2026-11-28T05:28:51Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
