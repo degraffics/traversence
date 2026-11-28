@@ -1,0 +1,54 @@
+{
+ "zip": "pause-1a-3.zip",
+ "built_on": "5b39084 Sync: 2026-11-28 02:52 UTC",
+ "recorded": "2026-11-28 04:32 UTC",
+ "note": "Pause sent a third time, unchanged (replaces pause-1a-2.zip, withdrawn as #329 on people.php at 390, where no changed code runs); built on Sync 2026-11-28 02:52 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/lib/HelpFind.php": {
+   "sha256": "884e2770c79dd58f61f80d052075857b8f2f28cf09f933bd4670fbf094f71a04",
+   "live": false
+  },
+  "app/lib/Identity.php": {
+   "sha256": "3243d99a8bcc60953cf78dc4e1200b320de0189aba45fd22d999c3d22c7c3384",
+   "live": false
+  },
+  "app/lib/ListingIdentity.php": {
+   "sha256": "e229881e1b809139223aaef266b8a17032bf2b17a1025adf1801ac707a01b4e0",
+   "live": false
+  },
+  "app/lib/Suggestions.php": {
+   "sha256": "674522007ee1e4e1895c66639b03ce6d7dc90813765bafa5c2a2491dbd753f6d",
+   "live": false
+  },
+  "app/lib/crawler/AutoImport.php": {
+   "sha256": "10b5b3eccabb61e65049a67a725fe0fb77dd592957009820d71a2ae335cecdb1",
+   "live": false
+  },
+  "app/lib/crawler/Refresh.php": {
+   "sha256": "2ddaa11da636b132bdf124f3ca2df9f632222d5d2d7dd795a17c5944c4ac3468",
+   "live": false
+  },
+  "app/ui/admin-dashboard.php": {
+   "sha256": "d0f5241042f39eb6e318073c4a874a87b0deb64e00bb90280de8ba480e75e76f",
+   "live": false
+  },
+  "app/ui/faq.md": {
+   "sha256": "08c729916bfb97f87677c6973ddfab80ba95316a8f98793f07e65ae0c9324d35",
+   "live": false
+  },
+  "website/admin/auto-imports.php": {
+   "sha256": "6a29ef88a86b95c85aa7ae0a54bba62d1aa76aa1ce68b608a40e590f8c47dcf5",
+   "live": false
+  },
+  "website/admin/crawler-review.php": {
+   "sha256": "7989e4ffec4648edbab125998fe3f37a3f9d93134ba66315b63327fbb5af56de",
+   "live": false
+  },
+  "website/api/ingest.php": {
+   "sha256": "f3a152434c6c3807adb0bf9f4b66717141fc33f6e3c8a7a0d89a3d3f20013c52",
+   "live": false
+  }
+ }
+}
