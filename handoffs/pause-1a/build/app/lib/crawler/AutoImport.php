@@ -61,9 +61,16 @@ final class AutoImport
         $fields = array_map(fn ($v) => is_array($v) ? implode('; ', array_map('strval', $v)) : (string) $v, $fields);
         try {
             require_once __DIR__ . '/../Suggestions.php';
-            $st = $pdo->prepare("SELECT 1 FROM suggestions WHERE entity_id = ? AND kind = 'fix' AND status = 'new' AND device_hash = ?");
+            $st = $pdo->prepare("SELECT id, fields FROM suggestions WHERE entity_id = ? AND kind = 'fix' AND status = 'new' AND device_hash = ? ORDER BY id DESC LIMIT 1");
             $st->execute([$entityId, $device]);
-            if ($st->fetchColumn()) return false;
+            if ($open = $st->fetch(PDO::FETCH_ASSOC)) {   // one open at a time: a second find adds what's new to it, never dropped
+                $was = json_decode((string) $open['fields'], true) ?: [];
+                $add = array_filter($fields, fn ($v, $k) => !isset($was[$k]) || mb_strpos((string) $was[$k], $v) === false, ARRAY_FILTER_USE_BOTH);
+                if (!$add) return false;
+                foreach ($add as $k => $v) $was[$k] = isset($was[$k]) ? mb_substr($was[$k] . ' | ' . $v, 0, $k === 'description' ? 1500 : 400) : $v;
+                $pdo->prepare('UPDATE suggestions SET fields = ? WHERE id = ?')->execute([json_encode($was, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES), (int) $open['id']]);
+                return true;
+            }
             Suggestions::create($pdo, ['kind' => 'fix', 'topic' => 'business', 'entity_id' => $entityId, 'fields' => $fields,
                 'note' => $what . ' ' . implode(' and ', array_map(fn ($k) => $k === 'description' ? 'an About' : $k, array_keys($fields))) . '. Held for a person while the pause holds (' . self::PAUSED . '). Check it is this place\'s own, not a head office\'s or another location\'s, then apply it.',
                 'context' => 'Paused: held for Review'], null, $device);
