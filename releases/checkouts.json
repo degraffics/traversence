@@ -132,16 +132,12 @@
   },
   {
    "path": "app/lib/crawler/AutoImport.php",
-   "functions": [
-    "PAUSED",
-    "enabled",
-    "pausedWhy"
-   ],
+   "functions": [],
    "kind": "change",
    "session": "session_01CXLi5iAy5magAU62jYiAxM",
-   "why": "Pause: no new listings published by the system, on Jason's call 2026-11-28 ('Pause it. Yes')",
+   "why": "Pause: the header's note on PAUSED (Jason's call 2026-11-28)",
    "since": "2026-11-28T01:35:49Z",
-   "expires": "2026-11-28T05:35:49Z",
+   "expires": "2026-11-28T05:37:21Z",
    "release": "",
    "callers": {}
   },
