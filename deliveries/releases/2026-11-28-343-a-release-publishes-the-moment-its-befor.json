@@ -34,6 +34,16 @@
             "at": "2026-11-28T16:44:09+00:00",
             "by": 0,
             "msg": "Uploaded publish-on-pass.zip: 2 files."
+        },
+        {
+            "at": "2026-11-28T16:44:10+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/publish-on-pass.zip (git fd36e5a1b6)."
+        },
+        {
+            "at": "2026-11-28T16:44:11+00:00",
+            "by": 0,
+            "msg": "Waiting for its before look: the advocates look at staging as it is, then it goes on staging (the before-and-after check)."
         }
     ]
 }
