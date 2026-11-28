@@ -6,13 +6,13 @@
     "zip": "task-seed-4-2.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "approved",
+    "state": "staged",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
     "plan_at": "2026-11-28 14:45:03",
-    "staged_at": null,
+    "staged_at": "2026-11-28 14:45:05",
     "vetted_at": null,
     "live_at": null,
     "files": {
@@ -25,7 +25,44 @@
     "migrations": [
         "app/migrations/2026-11-27_task_seed_4.sql"
     ],
-    "checks": [],
+    "checks": {
+        "ok": true,
+        "where": "staging",
+        "at": "2026-11-28T14:45:05+00:00",
+        "items": [
+            [
+                "PHP files parse",
+                true,
+                "0 checked"
+            ],
+            [
+                "Migrations only add",
+                true,
+                "1 checked"
+            ],
+            [
+                "Data changes have a reason",
+                true,
+                "2026-11-27_task_seed_4.sql change rows: Adds two columns to control_gauge_tasks (due_on DATE NULL, measure VARCHAR(255) NULL; guarded, safe to run twice) and writes them on the 10 goals only where empty. Adds 10 goal tasks and 62 child tasks, their decisions to control_gauge_task_adrs and 13 briefs to control_gauge_task_briefs, each only  (a copy of every table they touch is kept first)"
+            ],
+            [
+                "Migrations ran on staging",
+                true,
+                "Ran 2026-11-27_task_seed_4.sql"
+            ],
+            [
+                "Pages answer",
+                true,
+                "2 pages answered on staging.trvgo.us"
+            ],
+            [
+                "No new fatal errors in the logs",
+                true,
+                "3 logs read"
+            ]
+        ],
+        "first_fail": ""
+    },
     "log": [
         {
             "at": "2026-11-28T14:27:52+00:00",
@@ -46,6 +83,11 @@
             "at": "2026-11-28T14:45:03+00:00",
             "by": 0,
             "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
+        },
+        {
+            "at": "2026-11-28T14:45:05+00:00",
+            "by": 0,
+            "msg": "Put on staging (1 files); its checks passed."
         }
     ]
 }
