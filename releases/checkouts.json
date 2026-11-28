@@ -2,6 +2,49 @@
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
  "claims": [
   {
+   "path": "app/lib/MarketCheckout.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
+   "why": "Gate 5 writeOrder: the COPY_HELD constant",
+   "since": "2026-11-28T01:20:19Z",
+   "expires": "2026-11-28T05:21:15Z",
+   "release": "writeorder-tenant.zip",
+   "callers": {
+    "tick": [
+     "app/scripts/market_tick.php"
+    ]
+   }
+  },
+  {
+   "path": "app/lib/BusinessData.php",
+   "functions": [
+    "scoped"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
+   "why": "Gate 5: writeOrder's tenant put back, one transaction, a failed copy's ticket and held order",
+   "since": "2026-11-28T01:20:21Z",
+   "expires": "2026-11-28T05:21:15Z",
+   "release": "writeorder-tenant.zip",
+   "callers": {}
+  },
+  {
+   "path": "app/lib/Scope.php",
+   "functions": [
+    "leave"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
+   "why": "Gate 5: writeOrder's tenant put back, one transaction, a failed copy's ticket and held order",
+   "since": "2026-11-28T01:20:23Z",
+   "expires": "2026-11-28T05:21:15Z",
+   "release": "writeorder-tenant.zip",
+   "callers": {}
+  }
+ ],
+ "lapsed": [
+  {
    "path": "app/lib/FounderMail.php",
    "functions": [
     "batch",
@@ -14,7 +57,8 @@
    "since": "2026-11-27T16:24:54Z",
    "expires": "2026-11-27T21:55:02Z",
    "release": "",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-28T01:20:19Z"
   },
   {
    "path": "app/lib/FounderMail.php",
@@ -38,7 +82,8 @@
    "since": "2026-11-27T16:24:56Z",
    "expires": "2026-11-27T21:54:59Z",
    "release": "",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-28T01:20:19Z"
   },
   {
    "path": "app/lib/Notify.php",
@@ -54,7 +99,8 @@
    "since": "2026-11-27T16:45:19Z",
    "expires": "2026-11-27T21:55:04Z",
    "release": "",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-28T01:20:19Z"
   },
   {
    "path": "app/admin/control-console.php",
@@ -68,7 +114,8 @@
    "since": "2026-11-27T20:09:17Z",
    "expires": "2026-11-28T00:09:49Z",
    "release": "r2-lanes-3.zip",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-28T01:20:19Z"
   },
   {
    "path": "app/lib/TeamRunner.php",
@@ -82,7 +129,8 @@
    "since": "2026-11-27T20:09:20Z",
    "expires": "2026-11-28T00:09:49Z",
    "release": "r2-lanes-3.zip",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-28T01:20:19Z"
   },
   {
    "path": "website/admin/api.php",
@@ -93,7 +141,8 @@
    "since": "2026-11-27T20:09:22Z",
    "expires": "2026-11-28T00:09:49Z",
    "release": "r2-lanes-3.zip",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-28T01:20:19Z"
   },
   {
    "path": "app/migrations/2026-11-26_0180_r2_lanes.sql",
@@ -104,7 +153,8 @@
    "since": "2026-11-27T20:09:49Z",
    "expires": "2026-11-28T00:09:49Z",
    "release": "r2-lanes-3.zip",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-28T01:20:19Z"
   },
   {
    "path": "app/lib/GaugeTasks.php",
@@ -115,7 +165,8 @@
    "since": "2026-11-27T20:09:49Z",
    "expires": "2026-11-28T00:09:49Z",
    "release": "r2-lanes-3.zip",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-28T01:20:19Z"
   },
   {
    "path": "app/lib/TeamRoster.php",
@@ -126,7 +177,8 @@
    "since": "2026-11-27T20:09:49Z",
    "expires": "2026-11-28T00:09:49Z",
    "release": "r2-lanes-3.zip",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-28T01:20:19Z"
   },
   {
    "path": "website/js/tv-ask.js",
@@ -137,7 +189,8 @@
    "since": "2026-11-27T20:09:49Z",
    "expires": "2026-11-28T00:09:49Z",
    "release": "r2-lanes-3.zip",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-28T01:20:19Z"
   },
   {
    "path": "website/js/admin-control.js",
@@ -148,7 +201,8 @@
    "since": "2026-11-27T20:09:49Z",
    "expires": "2026-11-28T00:09:49Z",
    "release": "r2-lanes-3.zip",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-28T01:20:19Z"
   },
   {
    "path": "app/lib/MarketCheckout.php",
@@ -162,7 +216,8 @@
    "since": "2026-11-27T20:13:08Z",
    "expires": "2026-11-28T00:13:08Z",
    "release": "",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-28T01:20:19Z"
   },
   {
    "path": "app/lib/BusinessData.php",
@@ -175,7 +230,8 @@
    "since": "2026-11-27T20:13:14Z",
    "expires": "2026-11-28T00:13:14Z",
    "release": "",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-28T01:20:19Z"
   },
   {
    "path": "app/lib/Scope.php",
@@ -188,7 +244,8 @@
    "since": "2026-11-27T20:13:16Z",
    "expires": "2026-11-28T00:13:16Z",
    "release": "",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-28T01:20:19Z"
   },
   {
    "path": "app/lib/crawler/OpenLoads.php",
@@ -199,7 +256,8 @@
    "since": "2026-11-27T20:24:31Z",
    "expires": "2026-11-28T00:26:01Z",
    "release": "",
-   "callers": {}
+   "callers": {},
+   "lapsed": "2026-11-28T01:20:19Z"
   },
   {
    "path": "app/lib/crawler/OpenLoads.php",
@@ -212,10 +270,9 @@
    "since": "2026-11-27T20:24:33Z",
    "expires": "2026-11-28T00:24:33Z",
    "release": "",
-   "callers": {}
-  }
- ],
- "lapsed": [
+   "callers": {},
+   "lapsed": "2026-11-28T01:20:19Z"
+  },
   {
    "path": "app/migrations/2026-11-27_e1_round_valley_renew.sql",
    "functions": [],
@@ -703,215 +760,6 @@
    "release": "",
    "callers": {},
    "lapsed": "2026-11-27T08:43:28Z"
-  },
-  {
-   "path": "website/js/location-scope.js",
-   "functions": [
-    "placeOptions"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
-   "why": "C.4: a town picked in Get Local opens within 10 mi; its area listed as its own choice (decisions/0053; P9)",
-   "since": "2026-11-27T04:35:08Z",
-   "expires": "2026-11-27T08:35:08Z",
-   "release": "",
-   "callers": {},
-   "lapsed": "2026-11-27T08:43:28Z"
-  },
-  {
-   "path": "app/ui/location-modal.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
-   "why": "Place box lists float again on phones: location-modal.php's phone rule scoped to its own box (0058 \u00a711, \u00a725)",
-   "since": "2026-11-27T04:42:35Z",
-   "expires": "2026-11-27T08:42:35Z",
-   "release": "",
-   "callers": {},
-   "lapsed": "2026-11-27T08:43:28Z"
-  },
-  {
-   "path": "app/ui/security-headers.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
-   "why": "G.1: the search lock's leaks closed (decisions/0181 \u00a74)",
-   "since": "2026-11-27T01:52:14Z",
-   "expires": "2026-11-27T05:52:14Z",
-   "release": "",
-   "callers": {},
-   "lapsed": "2026-11-27T06:27:04Z"
-  },
-  {
-   "path": "website/index.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
-   "why": "G.1: the search lock's leaks closed (decisions/0181 \u00a74)",
-   "since": "2026-11-27T01:52:17Z",
-   "expires": "2026-11-27T05:52:17Z",
-   "release": "",
-   "callers": {},
-   "zones": [
-    "home.after-doors"
-   ],
-   "lapsed": "2026-11-27T06:27:04Z"
-  },
-  {
-   "path": "website/login.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
-   "why": "G.1: the search lock's leaks closed (decisions/0181 \u00a74)",
-   "since": "2026-11-27T01:52:21Z",
-   "expires": "2026-11-27T05:52:21Z",
-   "release": "",
-   "callers": {},
-   "lapsed": "2026-11-27T06:27:04Z"
-  },
-  {
-   "path": "website/register.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
-   "why": "G.1: the search lock's leaks closed (decisions/0181 \u00a74)",
-   "since": "2026-11-27T01:52:23Z",
-   "expires": "2026-11-27T05:52:23Z",
-   "release": "",
-   "callers": {},
-   "lapsed": "2026-11-27T06:27:04Z"
-  },
-  {
-   "path": "website/forgot-password.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
-   "why": "G.1: the search lock's leaks closed (decisions/0181 \u00a74)",
-   "since": "2026-11-27T01:52:25Z",
-   "expires": "2026-11-27T05:52:25Z",
-   "release": "",
-   "callers": {},
-   "lapsed": "2026-11-27T06:27:04Z"
-  },
-  {
-   "path": "website/directory/classic.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
-   "why": "G.1: the search lock's leaks closed (decisions/0181 \u00a74)",
-   "since": "2026-11-27T01:52:28Z",
-   "expires": "2026-11-27T05:52:28Z",
-   "release": "",
-   "callers": {},
-   "lapsed": "2026-11-27T06:27:04Z"
-  },
-  {
-   "path": "website/sitemap.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
-   "why": "G.1: the search lock's leaks closed (decisions/0181 \u00a74)",
-   "since": "2026-11-27T01:52:32Z",
-   "expires": "2026-11-27T05:52:32Z",
-   "release": "",
-   "callers": {},
-   "lapsed": "2026-11-27T06:27:04Z"
-  },
-  {
-   "path": "app/lib/crawler/OpenLoads.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
-   "why": "W1 load trips (#11): the ledger reads a closure as updated (COUNTS); batch's docblock names its new counts",
-   "since": "2026-11-27T02:02:11Z",
-   "expires": "2026-11-27T06:09:36Z",
-   "release": "",
-   "callers": {
-    "batch": [
-     "website/api/crawl/loads.php"
-    ]
-   },
-   "lapsed": "2026-11-27T06:27:04Z"
-  },
-  {
-   "path": "app/lib/ControlLedger.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
-   "why": "W1 load trips (#11): the ledger reads a closure as updated (COUNTS); batch's docblock names its new counts",
-   "since": "2026-11-27T02:02:11Z",
-   "expires": "2026-11-27T06:09:36Z",
-   "release": "",
-   "callers": {},
-   "lapsed": "2026-11-27T06:27:04Z"
-  },
-  {
-   "path": "app/lib/TeamRunner.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
-   "why": "P3-6: the fence, agents build in the backend first (Jason, 2026-11-26)",
-   "since": "2026-11-26T02:32:20Z",
-   "expires": "2026-11-26T06:32:20Z",
-   "release": "",
-   "callers": {},
-   "lapsed": "2026-11-26T09:07:57Z"
-  },
-  {
-   "path": "app/admin/control-console.php",
-   "functions": [
-    "tv_cb_workqueue",
-    "tv_cb_wq_batch"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
-   "why": "batch-live-fix: the batch strip says when a batch is live; ?tab= lands (Jason, 2026-11-26)",
-   "since": "2026-11-26T03:16:08Z",
-   "expires": "2026-11-26T07:16:15Z",
-   "release": "batch-live-fix.zip",
-   "callers": {},
-   "lapsed": "2026-11-26T09:07:57Z"
-  },
-  {
-   "path": "website/js/admin-control.js",
-   "functions": [
-    "redraw"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
-   "why": "batch-live-fix: the batch strip says when a batch is live; ?tab= lands (Jason, 2026-11-26)",
-   "since": "2026-11-26T03:16:10Z",
-   "expires": "2026-11-26T07:16:15Z",
-   "release": "batch-live-fix.zip",
-   "callers": {},
-   "lapsed": "2026-11-26T09:07:57Z"
-  },
-  {
-   "path": "app/lib/ControlGauges.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
-   "why": "batch-live-fix: the batch strip says when a batch is live; ?tab= lands (Jason, 2026-11-26)",
-   "since": "2026-11-26T03:16:13Z",
-   "expires": "2026-11-26T07:16:15Z",
-   "release": "batch-live-fix.zip",
-   "callers": {},
-   "lapsed": "2026-11-26T09:07:57Z"
-  },
-  {
-   "path": "app/admin/sections.php",
-   "functions": [
-    "tv_admin_mod_staging",
-    "tv_admin_staging_mirror"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5kEx1NbamxWYoRxUDh",
-   "why": "release staging-mirror-words.zip",
-   "since": "2026-11-26T03:35:09Z",
-   "expires": "2026-11-26T07:35:09Z",
-   "release": "staging-mirror-words.zip",
-   "callers": {},
-   "lapsed": "2026-11-26T09:07:57Z"
   }
  ]
 }
