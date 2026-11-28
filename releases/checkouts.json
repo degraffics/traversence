@@ -291,6 +291,19 @@
    "expires": "2026-11-28T06:07:03Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "website/js/admin-control.js",
+   "functions": [
+    "wqFilter"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
+   "why": "R2 lanes and locks (decisions/0180 \u00a75, \u00a77), r2-lanes-4",
+   "since": "2026-11-28T02:07:05Z",
+   "expires": "2026-11-28T06:07:05Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
