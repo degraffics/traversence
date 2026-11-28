@@ -94,7 +94,7 @@ $it = array_values(array_filter($rel($q)['checks']['items'], fn ($i) => $i[0] ==
 $t('incomplete (accounts couldn\'t sign in; ruling 1, 2026-11-28): not counted as a pass; it stays on staging, reaches the Founder as "couldn\'t be judged", with a ticket for the IT Manager (ruling1.php has the three looks)', $it && $it[1] === null && $rel($q)['state'] === 'staged' && Releases::review($pdo, $q) !== null && (int) $pdo->query("SELECT COUNT(*) FROM control_gauge_tasks WHERE audit_key = 'ba-incomplete:$q'")->fetchColumn() === 1, [$it, $out]);
 BeforeAfter::setBudget($pdo, 1);
 [$s, $out] = $go('p32-budget.zip', false, 'pass');
-$t('the day\'s minutes spent (DB4): a pass waits for the batch (review), never alone', BeforeAfter::spent($pdo) && str_starts_with(Releases::lastWordFor($rel($s)), 'Sent for review'), $out);
+$t('the day\'s minutes spent (DB4; ruling 1, 2026-11-28): no look is asked, it waits unpublished until they reset, and nobody is asked to review it (ruling1.php has the rest)', BeforeAfter::spent($pdo) && (int) $ba($s)['asked_at'] === 0 && str_starts_with((string) $ba($s)['ask_error'], 'today\'s check minutes are spent') && Releases::review($pdo, $s) === null && $rel($s)['state'] !== 'live', $out);
 BeforeAfter::setBudget($pdo, null);
 // 8. withdrawn meanwhile; staging
 $w = $mk('p32-w.zip'); BeforeAfter::begin($pdo, $w, 'p32-w.zip', $sha, false); $pdo->exec("UPDATE site_releases SET state = 'withdrawn' WHERE id = $w");

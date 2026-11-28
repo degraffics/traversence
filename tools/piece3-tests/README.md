@@ -35,5 +35,5 @@ Piece 3's tests (decisions/0179 rule 2; `handoffs/piece3-check.md`; its README):
 - **The narrowed check (Jason, 2026-11-28; 0179's note):** `reach_test.py` adds 5 checks (a change inside one function of a shared functions file reaches only its callers' pages; its top-level code, as before). `before-timeout.test.mjs` and `compare-closed.test.mjs` now expect layout, data and drift on a page the release doesn't reach in the verdict's `audit` (for `site-audit/results/beforeafter/audit.json`), never a block; access, canaries and 0066 still block everywhere.
 - `ruling1.php` (Jason's ruling 1, 2026-11-28: releases wait for the Founder only when they must): an incomplete after look is asked
   again, 3 looks in all, then the release stays on staging with a ticket for the IT Manager and reaches the Founder as "couldn't be judged"; only a migration
-  that changes or removes rows holds as data; the review email says "its checks passed" only when the check passed; 33 checks:
+  that changes or removes rows holds as data; the review email says "its checks passed" only when the check passed; the day's minutes spent: no look, no email, it waits until they reset; 42 checks:
   `php ruling1.php <root>/app`.

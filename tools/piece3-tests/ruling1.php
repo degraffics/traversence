@@ -4,7 +4,8 @@
 // incomplete after look (the test accounts couldn't sign in) is asked again, 3 looks in all, each known by its run; still
 // incomplete, the release stays on staging, unpublished, with an Audit ticket for the IT Manager, and only then reaches the
 // Founder, in an email that says it couldn't be judged: never live unchecked. A later look that passes or blocks is acted on as ever. (2) Adding rows no longer holds a release; UPDATE
-// or DELETE does. (3) The review email says "its checks passed" only when the before-and-after check passed.
+// or DELETE does. (3) The review email says "its checks passed" only when the before-and-after check passed. DB4: once the day's
+// check minutes are spent no look is asked for and nobody is emailed. The release waits on staging until they reset.
 // Run: php ruling1.php <root>/app   (it resets lv_main; its setup is pipeline.php's)
 declare(strict_types=1);
 $app = rtrim($argv[1] ?? '', '/'); if (!is_dir($app . '/lib')) { fwrite(STDERR, "usage: php pipeline.php <root>/app\n"); exit(2); }
@@ -82,6 +83,32 @@ $t('a pass whose release.json asks for review still waits for the Founder\'s rev
 $f = $toAfter('r1-f.zip', true); $look($f, 'incomplete', $run1 . '51'); $look($f, 'incomplete', $run1 . '52'); $look($f, 'incomplete', $run1 . '53');
 $t('before its last look nobody is asked: two incomplete looks send no review', (function () use ($toAfter, $look, $run1, $pdo) { $g = $toAfter('r1-g.zip'); $look($g, 'incomplete', $run1 . '61'); $look($g, 'incomplete', $run1 . '62'); return Releases::review($pdo, $g) === null; })() && Releases::review($pdo, $f) !== null && count($tickets($f)) === 1 && $rel($f)['state'] === 'staged');
 $t('only the release the advocates passed is live: none went live unchecked', array_map('intval', $pdo->query("SELECT id FROM site_releases WHERE state = 'live'")->fetchAll(PDO::FETCH_COLUMN)) === [$b]);
+$liveBefore = [$b];
+
+// ---- DB4: the day's minutes spent. No new look, no email; it waits on staging until they reset
+$pdo->prepare('REPLACE INTO site_release_settings (k, v) VALUES (?, ?)')->execute(['ba_used', json_encode(['day' => gmdate('Y-m-d'), 'minutes' => 0])]);
+BeforeAfter::setBudget($pdo, 5);
+$p1 = $toAfter('r1-min-a.zip'); $n0 = count($asks);
+$pdo->prepare('REPLACE INTO site_release_settings (k, v) VALUES (?, ?)')->execute(['ba_used', json_encode(['day' => gmdate('Y-m-d'), 'minutes' => 6])]);
+$out = $look($p1, 'pass', $run1 . '71');
+$t('a look that passed while the minutes ran out: checked, so it publishes as any other, nobody asked to review it', BeforeAfter::spent($pdo) && $rel($p1)['state'] === 'live' && Releases::review($pdo, $p1) === null, [$rel($p1)['state'], $out]);
+$p2 = $mk('r1-min-b.zip'); $n0 = count($asks); $line = BeforeAfter::begin($pdo, $p2, 'r1-min-b.zip', $sha, false);
+$t('minutes spent: a new release\'s before look is not asked for', count($asks) === $n0 && (int) $ba($p2)['asked_at'] === 0 && preg_match('/^today\'s check minutes are spent \(\d+(\.\d)? of 5 used\); its look is asked for once they reset, at 00:00 UTC$/', (string) $ba($p2)['ask_error']) === 1, $ba($p2));
+$t('… the Releases page says why it waits and when it resumes', str_contains(BeforeAfter::words($pdo, $p2), 'today\'s check minutes are spent') && str_contains(BeforeAfter::words($pdo, $p2), 'once they reset, at 00:00 UTC') && !str_contains(BeforeAfter::words($pdo, $p2), 'GitHub not asked'), BeforeAfter::words($pdo, $p2));
+$out = BeforeAfter::advance($pdo);
+$t('… the 10-minute step asks nothing while they are spent; nobody is emailed; it is not published', count($asks) === $n0 && Releases::review($pdo, $p2) === null && $rel($p2)['state'] !== 'live' && $rel($p2)['state'] !== 'staged');
+$pdo->prepare('REPLACE INTO site_release_settings (k, v) VALUES (?, ?)')->execute(['ba_used', json_encode(['day' => gmdate('Y-m-d', time() - 86400), 'minutes' => 6])]);   // the next UTC day: the count starts again
+$out = BeforeAfter::advance($pdo);
+$t('after the reset: its before look is asked for, and it goes on as any release', !BeforeAfter::spent($pdo) && count($asks) === $n0 + 1 && end($asks)[1]['phase'] === 'before' && (int) $ba($p2)['asked_at'] > 0, $out);
+$verdict($p2, ['phase' => 'before-done', 'verdict' => 'waiting', 'seconds' => 0]); $stagedNow($p2);
+$pdo->prepare('REPLACE INTO site_release_settings (k, v) VALUES (?, ?)')->execute(['ba_used', json_encode(['day' => gmdate('Y-m-d'), 'minutes' => 9])]);
+$n0 = count($asks); $out = BeforeAfter::advance($pdo);
+$t('minutes spent between its two looks: on staging, its after look not asked, unpublished, said on its card', count($asks) === $n0 && $ba($p2)['phase'] === 'after' && (int) $ba($p2)['asked_at'] === 0 && $rel($p2)['state'] === 'staged' && Releases::review($pdo, $p2) === null && (bool) preg_grep('/Waiting for its after look: today\'s check minutes are spent.*stays unpublished until then/', array_column((array) $rel($p2)['log'], 'msg')), $out);
+BeforeAfter::setBudget($pdo, null); $out = BeforeAfter::advance($pdo);
+$t('… and once there are minutes again its after look is asked', count($asks) === $n0 + 1 && end($asks)[1]['phase'] === 'after' && (int) $ba($p2)['asked_at'] > 0, $out);
+$out = $look($p2, 'pass', $run1 . '72');
+$t('… then checked and published as normal', $rel($p2)['state'] === 'live' && Releases::review($pdo, $p2) === null, $out);
+$t('no budget set: nothing is ever held for minutes', BeforeAfter::minutesHold($pdo) === '');
 
 // ---- (2) only a migration that changes or removes rows waits as data
 require_once $app . '/lib/ReleaseKind.php';
