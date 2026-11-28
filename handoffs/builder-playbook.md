@@ -87,6 +87,7 @@ Each one comes from a request Jason had to send. Build to them, and the session 
 
 ## 3. Before sending a release
 
+- **The before-and-after check blocks only where your code runs** (Jason, 2026-11-28; 0179's note): it looks at the pages that call what you changed and blocks on what you made worse there. What it finds elsewhere goes to the daily audit (`site-audit/results/beforeafter/audit.json`) as a Work-queue fix, never a block. Don't resend a release unchanged against such a finding, and don't loosen the check. A check diagnosed as misconfigured is fixed by the lane's Tier 3 manager on diagnosis (0180's note), never one of money, security, private data or 0066.
 - **Every behaviour has a source, or it is a question** (Jason, 2026-11-20: "Why is this session inventing things
   instead of check what's already set by adr?"). The release summary lists each behaviour on its own line with its
   source: a decision and section, or Jason's quoted words with their date. A behaviour no decision states is never a

@@ -191,3 +191,24 @@ their own chats (CLAUDE.md, "Work silently" and "Asking Jason").
 ## Note (Jason, 2026-11-28): rollout on passing checks; amends rule 1
 
 Jason, 2026-11-28, through the CEO: "Rollout can be upon release passing its checks." A release goes live once its checks pass: no daily batch wait and no one-slot-a-day limit. Unchanged: a high-risk area's Tier 4 review, and data changes that take content off the site (`data_reason` migrations, e.g. F9), which still go in his daily batch until he says otherwise. The before-and-after check is unchanged.
+
+## Note (Jason, 2026-11-28): the before-and-after check looks only where the release's code runs; amends rule 2
+
+Jason: "if every release checks every unaffected page the really slows down the process… This is an obvious blockage with
+an obvious misconfigured workflow, so it should have been adjusted by middle manage on diagnosis", and "The found issue should
+be passed to the audit and the specific issue should be addressed in a subsequent work queue fix." Built by the session
+manager for the IT Manager (11) on the CEO's order (#330: blocked twice on `/admin/people.php`'s overlap at 390, a page no
+changed code runs):
+- **Where it looks:** `reach.py` walks a functions file the release changes only from the callers of the functions it
+  changes (closed over the file's own calls). A change to the file's top-level code, a class or a script reaches every page
+  that loads it, as before. Pause-1a-3's pages expected to change went from 148 to 65, and people.php dropped out.
+- **What blocks:** only what the release made worse on those pages. Layout, data and drift found on any other page go to
+  `site-audit/results/beforeafter/audit.json` (the daily audit) as a Work-queue fix for the owning lane, never a block.
+- **Never weakened:** the access rule still blocks on every page it looks at: an account's reach, another account's
+  email, an error on a view that worked, and 0066's held names.
+- Tests: `tools/piece3-tests/reach_test.py` (5 new checks) and `beforeafter.test.mjs` (its cases for unreached pages now
+  expect the audit).
+
+## Note (Jason, 2026-11-28): the advocates leave the release path; amends rule 2
+
+Jason: "The account advocates should also act like the audit, and independently operations vs attached to key deployment work." (1) The advocates come out of the release path: a release's before-and-after check is only the narrowed regression check (pages running the changed code, worse only; 0179's note of the same date). (2) The advocates run on their own schedule as an independent audit of the live site: each walks its own account type's paths (0180's appendix) at 1280 and 390, and each finding becomes a Work-queue ticket in the owning lane, its gate or harm named, in the daily audit and the daily report. (3) Advocates never block a release and no deployment session runs them; their tickets follow the normal tiers, a live harm escalating at once. Owners: IT Manager (11) and PM (8). The scheduled audit is the release line's build after the check change (batch-drafted).

@@ -125,6 +125,9 @@ jobs:
           node tools/page-audit/beforeafter.mjs compare --before before/ba-before-1.json --before2 before/ba-before-2.json --after ba-after.json \
             --expected before/ba-expected.json --held before/ba-held.json --release "$RELEASE" --out "site-audit/results/beforeafter/$RELEASE.json" || true
           python3 -c "import json,os;f='site-audit/results/beforeafter/'+os.environ['RELEASE']+'.json';v=json.load(open(f));v['run']=os.environ['RUN'];v['phase']='after-done';json.dump(v,open(f,'w'),indent=1)"
+          # what the look found on pages this release doesn't run goes to the daily audit, one line per page and finding
+          # (Jason, 2026-11-28): site-audit/results/beforeafter/audit.json, newest first, the last 200, for the Work queue
+          python3 -c "import json,os;d='site-audit/results/beforeafter/';v=json.load(open(d+os.environ['RELEASE']+'.json'));a=json.load(open(d+'audit.json')) if os.path.exists(d+'audit.json') else [];k=lambda x:(x.get('page'),x.get('size'),x.get('who'),x.get('what'));seen={k(x) for x in a};new=[x for x in v.get('audit') or [] if k(x) not in seen];json.dump((new+a)[:200],open(d+'audit.json','w'),indent=1)"
       - name: Keep the after looks with this run (one day, never committed)
         if: env.PHASE == 'after'
         uses: actions/upload-artifact@v4
@@ -139,7 +142,7 @@ jobs:
         run: |
           git config user.name "before-after"
           git config user.email "before-after@users.noreply.github.com"
-          git add "site-audit/results/beforeafter/$RELEASE.json"
+          git add "site-audit/results/beforeafter/$RELEASE.json" site-audit/results/beforeafter/audit.json 2>/dev/null || git add "site-audit/results/beforeafter/$RELEASE.json"
           if git diff --cached --quiet; then echo "No change."; exit 0; fi
           git commit -m "Before and after: release #$RELEASE, $PHASE"
           for i in 1 2 3 4; do git pull --rebase -q && git push && break; sleep $((i * 5)); done

@@ -21,10 +21,10 @@ ok(v.notes.some(n => n.startsWith(K + ': its before looks timed out') && /drift 
 v = cmp(view(CR, page(head), true), view(CR, page(full)), view(CR, page(full)), exp([]));
 ok(!v.blocks.length && !v.notes.some(n => /timed out/.test(n)), 'the second before look opened: compared with it, the same page passes', v);
 v = cmp(view(CR, page(head), true), view(CR, page(full)), view(CR, page([...head, 'Something new'])), exp([]));
-ok(v.blocks.some(b => b.rule === 'drift'), '… and a part changed after it still blocks drift', v.blocks);
+ok(!v.blocks.length && v.audit.some(b => b.rule === 'drift'), '… and a part changed after it, on a page the release doesn\'t reach: drift to the audit, not a block (Jason, 2026-11-28)', v);
 // 3. before looks that opened, a part changed: drift as ever
 v = cmp(view(CR, page(full)), view(CR, page(full)), view(CR, page([...head, 'Something new'])), exp([]));
-ok(v.blocks.some(b => b.rule === 'drift'), 'before looks that opened, a part changed after: drift', v.blocks);
+ok(!v.blocks.length && v.audit.some(b => b.rule === 'drift' && b.lane === 'IT Manager (11)'), 'before looks that opened, a part changed after, page not reached: to the audit for a lane', v);
 // 4. a canary (another account's email) on a skipped page: access still blocks
 v = cmp(view(CR, page(head), true), view(CR, page(head), true), view(CR, page(full, { canaries: ['member'] })), exp([]));
 ok(v.blocks.some(b => b.rule === 'access' && /check\+member@/.test(b.after)), 'a skipped page showing another account\'s email: access still blocks', v.blocks);
