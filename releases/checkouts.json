@@ -181,23 +181,33 @@
    "session": "session_01CXLi5jUERktaQyfVHekd5i",
    "why": "release ruling1-holds.zip",
    "since": "2026-11-28T14:16:06Z",
-   "expires": "2026-11-28T18:20:40Z",
-   "release": "ruling1-holds-2.zip",
+   "expires": "2026-11-28T18:23:57Z",
+   "release": "ruling1-holds-3.zip",
    "callers": {}
   },
   {
    "path": "app/lib/BeforeAfter.php",
    "functions": [
     "(top)",
-    "step"
+    "begin",
+    "on",
+    "step",
+    "words"
    ],
    "kind": "change",
    "session": "session_01CXLi5jUERktaQyfVHekd5i",
    "why": "release ruling1-holds.zip",
    "since": "2026-11-28T14:16:06Z",
-   "expires": "2026-11-28T18:20:40Z",
-   "release": "ruling1-holds-2.zip",
-   "callers": {}
+   "expires": "2026-11-28T18:23:57Z",
+   "release": "ruling1-holds-3.zip",
+   "callers": {
+    "begin": [
+     "app/lib/Releases.php"
+    ],
+    "on": [
+     "app/lib/Releases.php"
+    ]
+   }
   },
   {
    "path": "app/lib/Releases.php",
@@ -211,8 +221,8 @@
    "session": "session_01CXLi5jUERktaQyfVHekd5i",
    "why": "release ruling1-holds.zip",
    "since": "2026-11-28T14:16:06Z",
-   "expires": "2026-11-28T18:20:40Z",
-   "release": "ruling1-holds-2.zip",
+   "expires": "2026-11-28T18:23:57Z",
+   "release": "ruling1-holds-3.zip",
    "callers": {
     "checkedByAdvocates": [
      "app/lib/BeforeAfter.php"
