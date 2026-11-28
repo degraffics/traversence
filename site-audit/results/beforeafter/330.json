@@ -1,8 +1,46 @@
 {
  "release": "330",
- "phase": "before-done",
- "verdict": "waiting",
+ "at": "2026-11-28T05:20:46.930Z",
+ "verdict": "block",
+ "first": "Access or privacy (0066 included): Doesn't open now: TimeoutError: page.goto: Timeout 45000ms exceeded.\nCall log:\n  - navigating to \"https://staging.trvgo.us/admin/crawler-review.php\", waiting until \"load\"\n (executive, /admin/crawler-review.php, phone)",
+ "blocks": [
+  {
+   "rule": "access",
+   "rule_name": "Access or privacy (0066 included)",
+   "advocate": "advocate-staff-views",
+   "who": "executive",
+   "page": "/admin/crawler-review.php",
+   "size": "phone",
+   "what": "Doesn't open now: TimeoutError: page.goto: Timeout 45000ms exceeded.\nCall log:\n  - navigating to \"https://staging.trvgo.us/admin/crawler-review.php\", waiting until \"load\"\n",
+   "before": "200",
+   "after": "TimeoutError: page.goto: Timeout 45000ms exceeded.\nCall log:\n  - navigating to \"https://staging.trvgo.us/admin/crawler-review.php\", waiting until \"load\"\n"
+  },
+  {
+   "rule": "layout",
+   "rule_name": "Layout or phone",
+   "advocate": "advocate-staff-views",
+   "who": "executive",
+   "page": "/admin/people.php",
+   "size": "phone",
+   "what": "Controls drawn over each other: 1. Dashboard & Pulse \u00d7 People in Back-Office; 4. Market 360\u00b0 \u00d7 Staff logins",
+   "before": "1",
+   "after": "3"
+  }
+ ],
+ "blocks_total": 2,
+ "notes": [
+  "member|/admin/chamber-builder.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "executive|/admin/insights.php|phone: already missed \"Cards 3px from the screen edge at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "executive|/admin/settings.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "executive|/admin/chamber-builder.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "ops-staff|/admin/crawler-review.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "ops-staff|/admin/insights.php|phone: already missed \"Cards 3px from the screen edge at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "ops-staff|/admin/chamber-builder.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)"
+ ],
+ "far": [],
+ "tickets": [],
  "views": 216,
- "seconds": 560,
- "run": "https://github.com/degraffics/traversence/actions/runs/46108091720"
+ "seconds": 1801,
+ "run": "https://github.com/degraffics/traversence/actions/runs/46110852572",
+ "phase": "after-done"
 }
