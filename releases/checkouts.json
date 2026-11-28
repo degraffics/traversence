@@ -96,6 +96,17 @@
    "expires": "2026-11-28T05:27:50Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/migrations/2026-11-28_w14_adhs.sql",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5iAy5magAU62jYiAxM",
+   "why": "ADHS A1: W14 reads the licensed facilities' terms (handoffs/adhs-source.md)",
+   "since": "2026-11-28T01:27:52Z",
+   "expires": "2026-11-28T05:27:52Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
