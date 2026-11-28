@@ -71,6 +71,16 @@
             "at": "2026-11-28T02:07:56+00:00",
             "by": 0,
             "msg": "Uploaded r2-lanes-4.zip: 9 files."
+        },
+        {
+            "at": "2026-11-28T02:07:58+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/r2-lanes-4.zip (git 1d52da7677)."
+        },
+        {
+            "at": "2026-11-28T02:07:58+00:00",
+            "by": 0,
+            "msg": "Waiting for its before look: the advocates look at staging as it is, then it goes on staging (the before-and-after check)."
         }
     ]
 }
