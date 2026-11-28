@@ -6,7 +6,7 @@
     "zip": "ruling1-holds.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "planned",
+    "state": "withdrawn",
     "step": 0,
     "paused": false,
     "urgent": null,
@@ -39,6 +39,21 @@
             "at": "2026-11-28T14:17:51+00:00",
             "by": 0,
             "msg": "Uploaded ruling1-holds.zip: 3 files."
+        },
+        {
+            "at": "2026-11-28T14:17:53+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/ruling1-holds.zip (git da5038674f)."
+        },
+        {
+            "at": "2026-11-28T14:17:53+00:00",
+            "by": 0,
+            "msg": "Waiting for its before look: the advocates look at staging as it is, then it goes on staging (the before-and-after check)."
+        },
+        {
+            "at": "2026-11-28T14:21:44+00:00",
+            "by": 0,
+            "msg": "Replaced by release #337, a fixed build, and withdrawn by itself."
         }
     ]
 }
