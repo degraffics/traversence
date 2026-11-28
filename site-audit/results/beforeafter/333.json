@@ -1,8 +1,39 @@
 {
  "release": "333",
- "phase": "before-done",
- "verdict": "waiting",
- "views": 37,
- "seconds": 47,
- "run": "https://github.com/degraffics/traversence/actions/runs/46149349249"
+ "at": "2026-11-28T13:32:33.946Z",
+ "verdict": "block",
+ "first": "Access or privacy (0066 included): This test account could sign in before and can't after (executive, (sign-in), -)",
+ "blocks": [
+  {
+   "rule": "access",
+   "rule_name": "Access or privacy (0066 included)",
+   "who": "executive",
+   "page": "(sign-in)",
+   "size": "-",
+   "what": "This test account could sign in before and can't after",
+   "before": "ok",
+   "after": "Error: staff sign-in TRV-0002 didn't get past the sign-in page: That code doesn't match. Use the newest code we emailed, or the one your authenticator app shows now."
+  },
+  {
+   "rule": "access",
+   "rule_name": "Access or privacy (0066 included)",
+   "who": "ops-staff",
+   "page": "(sign-in)",
+   "size": "-",
+   "what": "This test account could sign in before and can't after",
+   "before": "ok",
+   "after": "Error: staff sign-in TRV-0005 didn't get past the sign-in page: That code doesn't match. Use the newest code we emailed, or the one your authenticator app shows now."
+  }
+ ],
+ "blocks_total": 2,
+ "notes": [
+  "Not checked as executive and ops-staff (couldn't sign in), though the change names its pages: a person looks before it goes on"
+ ],
+ "far": [],
+ "tickets": [],
+ "audit": [],
+ "views": 34,
+ "seconds": 166,
+ "run": "https://github.com/degraffics/traversence/actions/runs/46149929525",
+ "phase": "after-done"
 }
