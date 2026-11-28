@@ -15,7 +15,7 @@ Ticket: "Ready to be vetted: /admin/config/team shows each role's charter, lane,
 - `TeamRunner.php` is not touched: no rule changes, the tree's approval stays, and nothing clashes with agent 01's held build.
 
 ## Tests (the live app plus this build, with the migrations)
-- `php tools/team-tests/test-ticket.php <root>/app`: 45 of 45 on MariaDB.
+- `php tools/team-tests/test-ticket.php <root>/app`: 46 of 46 on MariaDB.
 - `node tools/team-tests/test-ticket.cjs <root> <shots>`: 26 of 26 at 1280 and 390 (screens in `screens/`).
 - `runner.php` 85 of 85 (its steps check now holds before and after agent 01), `audit.php` 34 of 34.
 
@@ -23,6 +23,16 @@ Ticket: "Ready to be vetted: /admin/config/team shows each role's charter, lane,
 1. pause-1a-4 live and synced, then `faq.md` rebuilt on the live copy; zip, zip check, send.
 2. Design: approved to send by the session manager standing in as the Design look (2026-11-28), with two word fixes, both made
    (Status on a role with no step; the greyed button's title).
+
+## The list card (the CEO's question, 2026-11-28)
+- **Status:** an active role with no step reads "Waiting for its first step" in the list too (it read "Active" beside "No steps
+  yet"); a role with a step reads "Active". Checked in `test-ticket.php`; the list at 390 wasn't looked at again in a browser (a
+  word in the same pill).
+- **Not tied to the test ticket passing yet:** a test's result is kept on staging (`team_settings`), and the live list can't read
+  it. Suggest: the result travels with the agent's release record, then "Active" can wait for a passed test.
+- **What fills by itself when an agent's release goes live** (tools.php, `config/team` list): Open tickets does (the Work queue's
+  tickets its role holds). Works doesn't: it is the role's stored words (`stages`), so each agent's release sets them; only "No
+  steps yet" goes by itself. Acts as doesn't: it is the role's level and department, which only the Founder gives (0180 §2).
 
 ## Gaps (labelled)
 1. **A test run counts in the Team page's evidence.** It is a real `team_runs` row (dismissed or undone), so "Planning's
