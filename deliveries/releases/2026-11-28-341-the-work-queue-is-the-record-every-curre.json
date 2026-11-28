@@ -6,12 +6,12 @@
     "zip": "task-seed-5-2.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "planned",
+    "state": "approved",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
-    "plan_at": null,
+    "plan_at": "2026-11-28 15:45:05",
     "staged_at": null,
     "vetted_at": null,
     "live_at": null,
@@ -31,6 +31,21 @@
             "at": "2026-11-28T15:37:05+00:00",
             "by": 0,
             "msg": "Uploaded task-seed-5-2.zip: 1 files."
+        },
+        {
+            "at": "2026-11-28T15:37:06+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/task-seed-5-2.zip (git 25c02b9265)."
+        },
+        {
+            "at": "2026-11-28T15:37:07+00:00",
+            "by": 0,
+            "msg": "Waiting for its before look: the advocates look at staging as it is, then it goes on staging (the before-and-after check)."
+        },
+        {
+            "at": "2026-11-28T15:45:05+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
         }
     ]
 }
