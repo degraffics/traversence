@@ -23,14 +23,14 @@ ok(v.verdict === 'pass' && v.blocks_total === 0, 'one view unusable, one compare
 ok(v.notes.some(x => x.startsWith('member /me') || x.includes("before look wasn't usable")), 'the unusable one is named in the notes');
 
 // 3. the rules still block on a usable before look (nothing loosened)
-v = compare(shot([page('/trips')]), shot([page('/trips')]), shot([page('/trips', { ba: { ...page('/trips').ba, cards: 1 } })]), { pages: [], ...held }, '3');
+v = compare(shot([page('/trips')]), shot([page('/trips')]), shot([page('/trips', { ba: { ...page('/trips').ba, cards: 1 } })]), { pages: ['/trips'], ...held }, '3');
 ok(v.verdict === 'block' && v.blocks.some(b => b.rule === 'data'), 'fewer cards on a usable before look still blocks (' + v.first + ')');
 v = compare(shot([page('/trips')]), shot([page('/trips')]), shot([page('/trips', { status: 500 })]), { pages: [], ...held }, '4');
 ok(v.verdict === 'block' && v.blocks.some(b => b.rule === 'access'), 'a page that worked and errors after still blocks (' + v.first + ')');
 v = compare(shot([page('/trips', { status: 401, ba: undefined })]), shot([page('/trips', { status: 401, ba: undefined })]), shot([page('/trips')]), { pages: [], ...held }, '5');
 ok(v.verdict === 'block' && v.blocks.some(b => b.rule === 'access'), 'a page that refused this account and opens now still blocks (a 401 before is usable)');
 v = compare(shot([page('/trips')]), shot([page('/trips')]), shot([page('/trips', { ba: { ...page('/trips').ba, lines: ['Welcome', 'Something new'] } })]), { pages: [], ...held }, '6');
-ok(v.verdict === 'block' && v.blocks.some(b => b.rule === 'drift'), 'a page that changed and isn\'t named still blocks as drift');
+ok(v.verdict === 'pass' && v.audit.some(b => b.rule === 'drift'), 'a page that changed and isn\'t named: drift to the audit, not a block (Jason, 2026-11-28)');
 v = compare(shot([page('/trips')]), shot([page('/trips')]), shot([page('/trips')]), { pages: [], ...held }, '7');
 ok(v.verdict === 'pass', 'nothing changed: pass');
 

@@ -88,6 +88,58 @@ def pages_of(path, used_by):
                 q.append(g)
     return out
 
+def chunks(text):
+    """A PHP functions file split by its top-level functions: {name: its text up to the next one}, '' for the rest (the
+    file's own top-level code). For the narrowed reach below."""
+    code = COMMENTS.sub(' ', text)
+    ms = list(FUNC.finditer(code))
+    out = {'': code[:ms[0].start()] if ms else code}
+    for i, m in enumerate(ms):
+        out[m.group(1)] = code[m.start():ms[i + 1].start() if i + 1 < len(ms) else len(code)]
+    return out
+
+def changed_functions(old, new):
+    """The functions a release changes in a functions file (no class), closed over the file's own calls (a function that
+    calls a changed one is changed too); None when the file's top-level code changes, or a function is added or removed
+    at the top level in a way that changes what loading it does (then every page that loads it is reached, as before)."""
+    a, b = chunks(old), chunks(new)
+    if re.sub(r'\s+', ' ', a.get('', '')).strip() != re.sub(r'\s+', ' ', b.get('', '')).strip():
+        return None
+    norm = lambda t: re.sub(r'\s+', ' ', t or '').strip()
+    changed = {n for n in set(a) | set(b) if n and norm(a.get(n)) != norm(b.get(n))}
+    grew = True
+    while grew:
+        grew = False
+        for n, body in b.items():
+            if n and n not in changed and any(re.search(r'\b' + re.escape(c) + r'\s*\(', body) for c in changed):
+                changed.add(n); grew = True
+    return changed
+
+def pages_of_changed(path, used_by, texts, new_text):
+    """pages_of, narrowed for a functions file the release changes (Jason, 2026-11-28: "if every release checks every
+    unaffected page that really slows down the process"; the CEO's order: a shared shell file counts only for pages whose
+    rendering it changes). Only the files that call a changed function are walked from; a page that loads the file for
+    another of its functions isn't reached (#329 and #330: admin-dashboard.php's tv_admin_status changed, and people.php,
+    which loads it through section-rails.php only for tv_admin_counts, was looked at and blocked)."""
+    old = texts.get(path)
+    if old is None or new_text is None or not path.endswith('.php') or defines(path, old)[1]:
+        return pages_of(path, used_by)   # a new file, a class, a script: as before
+    changed = changed_functions(old, new_text)
+    if changed is None:
+        return pages_of(path, used_by)
+    out = {}
+    u = page_url(path)
+    if u:
+        out[u] = 0
+    if not changed:
+        return out
+    pat = re.compile(r'\b(?:' + '|'.join(re.escape(c) for c in sorted(changed)) + r')\s*\(')
+    for g in used_by.get(path, ()):
+        if pat.search(COMMENTS.sub(' ', texts.get(g, ''))):
+            for v, n in pages_of(g, used_by).items():
+                out[v] = min(n + 1, out.get(v, n + 1))
+    return out
+
 NEAR = 2   # a page this close is expected to change; farther ones are looked at, and a change there is drift (piece3-check.md §2.4)
 
 SHARED = 0.5   # a changed file within NEAR of this share of the site's pages is one nearly every page loads: it draws none
@@ -115,7 +167,7 @@ def for_release(mirror, zpath):
     total = len({u for u in (page_url(p) for p in texts) if u}) or 1
     best, drawn_near, shared = {}, set(), []
     for f in files:
-        reached = pages_of(f, used_by)
+        reached = pages_of_changed(f, used_by, texts, z.read(f).decode('utf-8', 'replace'))
         for u, n in reached.items():
             best[u] = min(n, best.get(u, n))
         near = {u for u, n in reached.items() if n <= NEAR}

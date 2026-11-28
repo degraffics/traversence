@@ -441,7 +441,16 @@ export function compare(b1, b2, a, exp = {}, release = '', heldKey = STAGING?.to
     for (const [k] of Object.entries({ scroll: 1, edges: 1, names: 1 })) if (b[k] && f[k]) notes.push(`${key(f)}: already missed "${STANDARDS[k]}" before (Site health's, not this change's)`);
   }
   // one block per rule, page and size is enough to read (the rest are counted)
-  const uniq = []; const seen = new Set(); for (const x of blocks) { const k = [x.rule, x.who, x.page, x.size, x.what].join('|'); if (!seen.has(k)) { seen.add(k); uniq.push(x); } }
+  const all = []; const seen = new Set(); for (const x of blocks) { const k = [x.rule, x.who, x.page, x.size, x.what].join('|'); if (!seen.has(k)) { seen.add(k); all.push(x); } }
+  // Jason, 2026-11-28 ("The found issue should be passed to the audit and the specific issue should be addressed in a
+  // subsequent work queue fix"): the look blocks only on what the release made worse on the pages its changed code runs
+  // (reach.py's expected, narrowed to the callers of what changed). Layout, data and drift found anywhere else go to the
+  // daily audit as a Work-queue ticket for the owning lane, never a block. Access (an account's reach, another account's
+  // email, an error, 0066's held names) still blocks on every page: no check of security, private data or 0066 is weakened.
+  const reached = (x) => x.rule === 'access' || x.page === '(sign-in)' || expected.has(x.page);
+  const uniq = all.filter(reached);
+  const audit = all.filter(x => !reached(x)).map(x => ({ lane: 'IT Manager (11)', rule: x.rule, who: x.who, page: x.page, size: x.size, what: x.what, before: x.before, after: x.after, release: String(release), why: 'found by the before-and-after check on a page this release\'s changed code doesn\'t run: the audit, a Work-queue fix' }));
+  for (const x of audit) notes.push(`${x.who}|${x.page}|${x.size}: ${x.what} (on a page this release's changed code doesn't run: passed to the audit, a Work-queue ticket, not a block)`);
   // an account that alone checks a kind of page (the Member advocate every page as a member, the Executive and the Staff login
   // the admin pages as staff) and couldn't sign in, before or after, while the change names a page of that kind: that view
   // of the change wasn't checked, so the look is incomplete (a person looks), never pass (#304, 2026-11-26: both staff logins
@@ -454,7 +463,7 @@ export function compare(b1, b2, a, exp = {}, release = '', heldKey = STAGING?.to
   if (!compared && a.results.length) notes.unshift('No view had a usable before look (staging was closed or erroring when it was taken): a person looks before it goes on');
   return { release: String(release), at: new Date().toISOString(), verdict: uniq.length ? 'block' : (incomplete ? 'incomplete' : 'pass'),
     first: uniq[0] ? `${uniq[0].rule_name}: ${uniq[0].what} (${uniq[0].who}, ${uniq[0].page}, ${uniq[0].size})` : '',
-    blocks: uniq.slice(0, 50), blocks_total: uniq.length, notes: notes.slice(0, 30), far: far.slice(0, 10), tickets: tickets.slice(0, 10), views: a.results.length, seconds: (b1.seconds || 0) + (b2.seconds || 0) + (a.seconds || 0) };
+    blocks: uniq.slice(0, 50), blocks_total: uniq.length, notes: notes.slice(0, 30), far: far.slice(0, 10), tickets: tickets.slice(0, 10), audit: audit.slice(0, 50), views: a.results.length, seconds: (b1.seconds || 0) + (b2.seconds || 0) + (a.seconds || 0) };
 }
 
 // ---- command line ----------------------------------------------------------------------------------------------------

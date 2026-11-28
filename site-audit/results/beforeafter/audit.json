@@ -1,0 +1,26 @@
+[
+ {
+  "lane": "IT Manager (11)",
+  "rule": "layout",
+  "who": "executive",
+  "page": "/admin/people.php",
+  "size": "phone",
+  "what": "Controls drawn over each other: 1. Dashboard & Pulse \u00d7 People in Back-Office; 4. Market 360\u00b0 \u00d7 Staff logins",
+  "before": "1",
+  "after": "3",
+  "release": "330",
+  "why": "found by the before-and-after check on a page this release's changed code doesn't run (#329, #330): the audit, a Work-queue fix; handoffs/it-lane-2026-11-28.md"
+ },
+ {
+  "lane": "IT Manager (11)",
+  "rule": "access",
+  "who": "executive",
+  "page": "/admin/crawler-review.php",
+  "size": "phone",
+  "what": "Didn't open in 45 s on staging (opened before; ops-staff's look opened). While paused, every staged find stays and Review evaluated all of them; pause-1a-4 bounds it (200, Show more)",
+  "before": "200",
+  "after": "timeout",
+  "release": "330",
+  "why": "the pause's own side effect, fixed in pause-1a-4; logged so the audit follows it to live"
+ }
+]

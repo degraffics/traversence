@@ -396,3 +396,11 @@ cost is known only when its results come back. Solution: the batch path reserves
 budget (the platform's $40 or the agents' $40) at submission, settles it at the result, never submits past the cap, and
 goes through `StagingGate::hold()` and counts failures like every call. IT Manager's (11) lane, the CFO's (4) Tier 4;
 money it protects; with the AI items release.
+
+## Note (Jason, 2026-11-28): a misconfigured check is fixed on diagnosis
+
+Standing authority, in Jason's words: "This is an obvious blockage with an obvious misconfigured workflow, so it should
+have been adjusted by middle manage on diagnosis." When a check or workflow is diagnosed as misconfigured and blocking
+planned work, the lane's Tier 3 manager fixes it on diagnosis and reports it, with no escalation. It may never weaken a
+check of money, security, private data or 0066. First use: the before-and-after check's narrowed reach (0179's note of
+the same date).

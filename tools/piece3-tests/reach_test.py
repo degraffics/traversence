@@ -57,4 +57,27 @@ t('a file within NEAR of half the pages or more is shared', e2['shared'] == ['we
 t('… its pages stay expected (a change there isn\'t drift)', all(u in e2['pages'] for u in ('/admin/a.php', '/admin/b.php', '/admin/c.php', '/admin/d.php')), e2['pages'])
 t('… but only what the release\'s own files draw is drawn: the page Lanes reaches, not the others', '/admin/a.php' in e2['drawn'] and not any(u in e2['drawn'] for u in ('/admin/b.php', '/admin/c.php', '/admin/d.php')), e2['drawn'])
 t('the earlier release: no shared file, so drawn is expected', exp['shared'] == [] and set(exp['drawn']) >= set(exp['pages']) - {'/shop.php'}, exp)
+
+# the narrowed reach (Jason, 2026-11-28): a functions file the release changes reaches only the callers of what changed
+m3 = tempfile.mkdtemp()
+def w3(p, s):
+    full = os.path.join(m3, p); os.makedirs(os.path.dirname(full), exist_ok=True); open(full, 'w').write(s)
+DASH = "<?php\nfunction tv_admin_counts() { return 1; }\nfunction tv_admin_status() { return 'a'; }\nfunction tv_admin_dashboard() { return tv_admin_status(); }\n"
+w3('sync-app/ui/admin-dashboard.php', DASH)
+w3('sync-app/ui/section-rails.php', "<?php\nrequire_once __DIR__ . '/admin-dashboard.php';\nfunction tv_section_rail() { return tv_admin_counts(); }\n")
+w3('sync-storage/admin/people.php', "<?php\nrequire_once __DIR__ . '/../../app/ui/section-rails.php';\necho tv_section_rail();\n")
+w3('sync-storage/admin/dashboard.php', "<?php\nrequire_once __DIR__ . '/../../app/ui/admin-dashboard.php';\necho tv_admin_dashboard();\n")
+def rel3(body):
+    z3 = os.path.join(m3, 'r%d.zip' % (abs(hash(body)) % 10**6))
+    with zipfile.ZipFile(z3, 'w') as f:
+        f.writestr('app/ui/admin-dashboard.php', body); f.writestr('release.json', '{}')
+    return R.for_release(m3, z3)[1]
+e3 = rel3(DASH.replace("return 'a';", "return 'b';"))
+t('narrowed: a change inside tv_admin_status reaches the dashboard that calls it, through its caller', '/admin/dashboard.php' in e3['pages'], e3)
+t('narrowed: … not people.php, which loads the file only for tv_admin_counts (#329, #330)', '/admin/people.php' not in e3['pages'], e3)
+e4 = rel3(DASH.replace('return 1;', 'return 2;'))
+t('narrowed: a change in tv_admin_counts reaches people.php through the side menu', '/admin/people.php' in e4['pages'], e4)
+e5 = rel3("<?php\nrequire_once 'x.php';\n" + DASH[6:])
+t('narrowed: a change to the file\'s top-level code reaches every page that loads it, as before', '/admin/people.php' in e5['pages'] and '/admin/dashboard.php' in e5['pages'], e5)
+t('changed_functions: closed over the file\'s own calls', R.changed_functions(DASH, DASH.replace("return 'a';", "return 'b';")) == {'tv_admin_status', 'tv_admin_dashboard'})
 print('\n%d passed, %d failed' % (ok, bad)); sys.exit(1 if bad else 0)
