@@ -82,3 +82,22 @@ Each note is given with its source:
    - the per-item table becomes phone cards;
    - Print the master manifest becomes a heading icon.
 7. Every order release's proof includes Order details, Files and Shipping at 390 (I missed these in M1 and M1b).
+
+## 2026-11-27 (this reviewer's last day before the usage reset)
+
+Approved, each with its notes:
+
+| Release | Session | Outcome and notes |
+|---|---|---|
+| founder-link (b24dba4) | founder emails | Approved. The push has its title plus one sentence, with no address. There's one named button per email, and the phrase itself is the link. The footer is "You get this email because you're the Founder. Change what reaches you". "From the CEO" and the footer are #5E4F3C (7.65:1; #8A7355 failed at 4.36:1). Note: the text part's address shouldn't end in a full stop. |
+| Events E1 (2196f08) | Frontend & Shop | Approved. Row moves are outlined, and New event is the one primary. ✎ and 🕒 sit together, with History below. History lines name each move "(was <State>)". |
+| Events E2 (f80f090) | Frontend & Shop | Approved. A cancelled event shows "Tickets: sales stopped", plus "Have tickets?" with a way forward (no refund terms). "More at <host>" has no outer card. A stock hero carries its credit. |
+| Events P1 + P2, pilot scope (2913dec, no participant codes) | Frontend & Shop | Approved. "Your offer" is labelled, with its hint, and is one line tall. Save offer and Leave sit below it at 390. P2's cards follow §11. Send the evening to Maps is in. |
+| C.5a Get Local list hold (3769606) | Frontend & Shop | Approved. Note: aria-busy and a polite live region on "Loading…". |
+| C.5b guide alerts and roads (7cb1da9) | Frontend & Shop | Approved. Note: drop stored items past their own end time when the page is drawn. |
+| posts-pdo visitor error line | Frontend & Shop | Approved: "Something went wrong on our side. Try again in a minute; if it keeps happening, tell us at support@traversence.com." |
+| writeOrder inbox words (1d20e63) | writeOrder | Approved on two conditions. (1) "Our team has been told" must raise the team's case in the same step, and a test must check it. (2) The retry release's message 2 must also cover invoices the team added by hand. |
+
+Other rulings:
+- Tailwind's `/40`, `/60`, `/70` on var() borders never drew. Rewrite them with color-mix in the stylesheet release (login.php:35 and the home and listing borders), with before and after screens at 1280 and 390.
+- The P2 minimum-order line, "· code X on orders of $N or more until <date>", was approved and then dropped with codes.
