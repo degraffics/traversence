@@ -151,6 +151,11 @@ hours on 4. So C1 and C2 have to be counted from the listing page or a live read
   123 covered three towns; this covers 1A. The exact figure, by NPI entity type (NPI-1), comes from the live read.
 - **C1, a shared website:** the search shows only 2 domains used at more than one address (summithealthcare.net 3,
   communitybridgesinc.org 2). That is a floor, because only 28 listings show a website there.
+- **C5, evidence from the public pages (Data & Content, beside the IT Manager's trace below):** #6978 and #8375 read
+  "Found by our crawler; no other source has confirmed it yet". #4929 ("Larson, J W Dc") reads "Address and phone in
+  the NPI Registry", a person's listing carrying an organisation's registry line. That fits the registry stamp the IT
+  Manager traced (`IntakeStager.php:471-476`). Their categories ("Speech Therapists", "Nurse Practitioners") are rows
+  in the live `categories` table and appear in no code.
 
 Next: the live read per id for C1, C2 and C5's NPI type; where the individuals entered (the load and its file:line);
 the top 50 by taps.
