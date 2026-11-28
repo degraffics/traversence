@@ -237,6 +237,14 @@ hours on 4. So C1 and C2 have to be counted from the listing page or a live read
 Next: C5's NPI type per id (live read); where the individuals entered (the load and its file:line);
 the top 50 by taps.
 
+### The top 50 by taps: a gap, skipped (the session manager, 2026-11-28)
+
+Taps are kept per listing per day in `listing_actions` (`js/out-count.js` → `api/out.php` → `ListingActions::count`).
+No admin page lists them by listing: Insights shows totals per action (`website/admin/insights.php:72`), and only Sales'
+prospects list orders listings by views and then taps (`app/lib/Sales.php:117–127`). `live-read.yml` reads neither.
+Ruled (b): the top 50 is skipped, and every 1A health listing is audited instead (852, above). A per-listing taps read
+is not built (0181 §2: no new tooling unless it blocks a gate).
+
 ### Open: ADHS's licensed list (Summit Healthcare Urgent Care, Show Low)
 
 Not in NPI, not in our listings. The read of ADHS's AZ Care Check (`azcarecheck.azdhs.gov`, `www.azdhs.gov`) is refused by
