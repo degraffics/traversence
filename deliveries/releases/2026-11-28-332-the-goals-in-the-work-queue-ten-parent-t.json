@@ -1,0 +1,36 @@
+{
+    "id": 332,
+    "title": "The goals in the Work queue: ten parent tasks with their owners, and every open item since Nov 25 under its goal",
+    "why": "CLAUDE.md #1552 (Jason, 2026-11-27: goals and records live with the roles, by Monday 06:00 MST) and #1553 (launch first). For the PM (8), built as Build & QA (21). Sources: decisions/0181 and its notes, 0180's appendix, 0135's and 0164's notes of 2026-11-27, research/launch-plan-jan1-2026-11-26.md §4, §7 (Brief D) and §10, handoffs/decided-not-live.md.",
+    "proposals": "",
+    "zip": "task-seed-4.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/migrations/2026-11-27_task_seed_4.sql": {
+            "sha": "9cc0707f2f77e65a82801d69cd4578bf3430b97ca2a2185c94c66ca2cbcd3820",
+            "size": 179783,
+            "live_was": null
+        }
+    },
+    "migrations": [
+        "app/migrations/2026-11-27_task_seed_4.sql"
+    ],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-28T13:13:20+00:00",
+            "by": 0,
+            "msg": "Uploaded task-seed-4.zip: 1 files."
+        }
+    ]
+}
