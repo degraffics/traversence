@@ -6,12 +6,12 @@
     "zip": "task-seed-4-2.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "planned",
+    "state": "approved",
     "step": 0,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
-    "plan_at": null,
+    "plan_at": "2026-11-28 14:45:03",
     "staged_at": null,
     "vetted_at": null,
     "live_at": null,
@@ -41,6 +41,11 @@
             "at": "2026-11-28T14:27:55+00:00",
             "by": 0,
             "msg": "Waiting for its before look: the advocates look at staging as it is, then it goes on staging (the before-and-after check)."
+        },
+        {
+            "at": "2026-11-28T14:45:03+00:00",
+            "by": 0,
+            "msg": "Plan approved (no switch: everyone at once when published), advancing on schedule."
         }
     ]
 }
