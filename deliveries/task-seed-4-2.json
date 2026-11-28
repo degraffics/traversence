@@ -1,0 +1,14 @@
+{
+ "zip": "task-seed-4-2.zip",
+ "built_on": "da2708f Sync: 2026-11-28 13:46 UTC",
+ "recorded": "2026-11-28 14:26 UTC",
+ "note": "task-seed-4 sent again, its migration unchanged (replaces task-seed-4.zip, #332: incomplete on the check's own sign-in, fixed #1679); built on Sync 2026-11-28 13:46 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/migrations/2026-11-27_task_seed_4.sql": {
+   "sha256": "9cc0707f2f77e65a82801d69cd4578bf3430b97ca2a2185c94c66ca2cbcd3820",
+   "live": false
+  }
+ }
+}

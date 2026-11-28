@@ -1,4 +1,8 @@
 {
+ "ticket": "task-seed-4: the goals as parent tasks, each with owner, measure, due date and decision",
+ "replaces": [
+  "#332"
+ ],
  "title": "The goals in the Work queue: ten parent tasks with their owners, and every open item since Nov 25 under its goal",
  "why": "CLAUDE.md #1552 (Jason, 2026-11-27: goals and records live with the roles, by Monday 06:00 MST) and #1553 (launch first). For the PM (8), built as Build & QA (21). Sources: decisions/0181 and its notes, 0180's appendix, 0135's and 0164's notes of 2026-11-27, research/launch-plan-jan1-2026-11-26.md §4, §7 (Brief D) and §10, handoffs/decided-not-live.md.",
  "changes": [
@@ -17,5 +21,6 @@
  ],
  "proposals": [],
  "switch": "",
- "data_reason": "Adds two columns to control_gauge_tasks (due_on DATE NULL, measure VARCHAR(255) NULL; guarded, safe to run twice) and writes them on the 10 goals only where empty. Adds 10 goal tasks and 62 child tasks, their decisions to control_gauge_task_adrs and 13 briefs to control_gauge_task_briefs, each only where it isn't there yet and each with its id named (MAX(id)+1, the staging catch-up rule); sets parent_id on 14 existing tasks only where it is empty. On task #22 (Work queue phase 2) replaces why and done_when only where they are still the 2026-11-24 seed's own text or empty, and owner only where empty: a person's text is never overwritten. Nothing is deleted."
+ "data_reason": "Adds two columns to control_gauge_tasks (due_on DATE NULL, measure VARCHAR(255) NULL; guarded, safe to run twice) and writes them on the 10 goals only where empty. Adds 10 goal tasks and 62 child tasks, their decisions to control_gauge_task_adrs and 13 briefs to control_gauge_task_briefs, each only where it isn't there yet and each with its id named (MAX(id)+1, the staging catch-up rule); sets parent_id on 14 existing tasks only where it is empty. On task #22 (Work queue phase 2) replaces why and done_when only where they are still the 2026-11-24 seed's own text or empty, and owner only where empty: a person's text is never overwritten. Nothing is deleted.",
+ "notes": "Sent again as task-seed-4-2, its migration unchanged: #332 came back incomplete because three releases' looks spent the same one-time staff code at once (fixed in the check, #1679). release.json gains its Work-queue ticket and names #332 as replaced."
 }
