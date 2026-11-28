@@ -1,8 +1,45 @@
 {
  "release": "327",
- "phase": "before-done",
- "verdict": "waiting",
+ "at": "2026-11-28T02:40:33.508Z",
+ "verdict": "pass",
+ "first": "",
+ "blocks": [],
+ "blocks_total": 0,
+ "notes": [
+  "executive|/admin/config/control?tab=development|phone: already missed \"Cards 3px from the screen edge at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "executive|/admin/crawler-review.php|phone: far timeout, noted: timed out in the before look and after: slowness already there, not this change's (the slow-pages ticket)",
+  "executive|/admin/data.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "executive|/admin/listing-intake.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "executive|/admin/settings.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "ops-staff|/admin/crawler-review.php|phone: far timeout, noted: timed out in the before look and after: slowness already there, not this change's (the slow-pages ticket)",
+  "ops-staff|/admin/data.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "ops-staff|/admin/listing-intake.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)"
+ ],
+ "far": [
+  {
+   "who": "executive",
+   "page": "/admin/crawler-review.php",
+   "size": "phone",
+   "outcome": "before_too",
+   "ms": 0,
+   "via": [
+    "website/js/tv-ask.js"
+   ]
+  },
+  {
+   "who": "ops-staff",
+   "page": "/admin/crawler-review.php",
+   "size": "phone",
+   "outcome": "before_too",
+   "ms": 0,
+   "via": [
+    "website/js/tv-ask.js"
+   ]
+  }
+ ],
+ "tickets": [],
  "views": 174,
- "seconds": 543,
- "run": "https://github.com/degraffics/traversence/actions/runs/46096551323"
+ "seconds": 1707,
+ "run": "https://github.com/degraffics/traversence/actions/runs/46098378969",
+ "phase": "after-done"
 }
