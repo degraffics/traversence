@@ -203,12 +203,36 @@ final class HubOpening
         return null;
     }
 
+    /**
+     * The terms' answer on automated reading, in one word, with the clause it rests on (the session manager's ruling,
+     * 2026-11-28: "say plainly allowed, not allowed or unclear, with the terms' URL and the clause quoted"):
+     * ['not allowed' | 'allowed' | 'unclear', clause]. A block is "not allowed". A sentence about automated access that
+     * forbids it, or asks for permission first, is "not allowed". One that permits it is "allowed". No such sentence is
+     * "unclear": silence is never taken as permission. It informs a person's press, never replaces it.
+     */
+    public static function verdict(string $robots, array $f): array
+    {
+        if (($b = self::blockOf($robots, $f)) !== null) return ['not allowed', ucfirst($b)];
+        $text = trim((string) ($f['text'] ?? ''));
+        if ($text === '') return ['unclear', ''];
+        $about = '/\b(automat\w*|robots?|bots?|crawl\w*|scrap\w*|spider\w*|harvest\w*|data[- ]mining|bulk download\w*)\b/i';
+        $no = '/\b(prohibit\w*|not (be )?permitted|may not|must not|shall not|forbid\w*|not allowed|without (the )?(prior |express )?(written )?(permission|consent|authori[sz]ation))\b/i';
+        $yes = '/\b(permit(ted|s)?|allow(ed|s)?|may (be )?(used|accessed|copied|downloaded)|free(ly)? to|public record)\b/i';
+        $hits = array_values(array_filter(array_map('trim', preg_split('/(?<=[.!?])\s+/', $text) ?: []), fn ($x) => (bool) preg_match($about, $x)));
+        foreach ($hits as $x) if (preg_match($no, $x)) return ['not allowed', mb_substr($x, 0, 400)];
+        foreach ($hits as $x) if (preg_match($yes, $x)) return ['allowed', mb_substr($x, 0, 400)];
+        return ['unclear', $hits ? mb_substr($hits[0], 0, 400) : ''];
+    }
+
     /** The finding in words, for the source's Pulse step: what the crawler read and when. */
     public static function termsWords(array $r): string
     {
         if (empty($r['fetched_at'])) return 'The crawler hasn\'t read it yet (W14\'s task ' . self::TERMS_TASK . ', switched off until a person switches it on).';
         $f = json_decode((string) ($r['terms_fetch'] ?? ''), true) ?: [];
-        $w = 'Read by the crawler ' . substr((string) $r['fetched_at'], 0, 16) . ' UTC: ';
+        [$v, $clause] = self::verdict((string) $r['robots'], $f);
+        $turl = (string) (($r['terms_url'] ?? '') ?: ($r['url'] ?? ''));
+        $w = 'Terms: ' . strtoupper($v) . ' (' . $turl . ($clause !== '' ? ' says: "' . $clause . '"' : ': no sentence about automated reading, so not taken as permission') . '). ';
+        $w .= 'Read by the crawler ' . substr((string) $r['fetched_at'], 0, 16) . ' UTC: ';
         if (($b = self::blockOf((string) $r['robots'], $f)) !== null) return $w . ucfirst($b) . ' Ask the agency for the list as a file (A.R.S. §39-121).';
         $w .= 'robots.txt allows it' . (!empty($f['crawl_delay']) ? ' (one read every ' . rtrim(rtrim(number_format((float) $f['crawl_delay'], 1), '0'), '.') . ' s)' : '') . '. ';
         $w .= ($f['page_why'] ?? '') === 'empty' ? 'Its page shows nothing without a browser (drawn by scripts). ' : 'Its page answered ' . (int) ($f['page_status'] ?? 0) . '. ';

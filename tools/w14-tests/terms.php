@@ -93,6 +93,20 @@ $cc = array_values(array_filter($steps, fn ($s) => str_contains((string) $s['t']
 check('Pulse: ADHS\'s step shows the crawler\'s read, with Terms read: allowed', $mine && str_contains($mine[0]['h'], 'Read by the crawler') && $mine[0]['act'][2] === 'Terms read: allowed');
 check('…the Corporation Commission\'s step is as before (not a reader service)', $cc && !str_contains($cc[0]['h'], 'crawler'));
 
+// the verdict (the session manager's ruling, 2026-11-28)
+$V = fn (string $text, string $rb = 'allowed') => HubOpening::verdict($rb, ['text' => $text]);
+check('verdict: a sentence forbidding automated access is NOT ALLOWED, the clause quoted', $V('Welcome. Use of automated scripts, robots or scrapers to access this site is prohibited. Thanks.') === ['not allowed', 'Use of automated scripts, robots or scrapers to access this site is prohibited.']);
+check('…asking permission first is NOT ALLOWED', $V('You may not crawl this site without prior written permission.')[0] === 'not allowed');
+check('…a sentence permitting it is ALLOWED, quoted', $V('Automated access to the public facility list is permitted at a reasonable rate.') === ['allowed', 'Automated access to the public facility list is permitted at a reasonable rate.']);
+check('…a forbidding clause wins over a permitting one', $V('Bots are allowed on the news pages. Scraping the facility search is prohibited.')[0] === 'not allowed');
+check('…nothing about automated reading is UNCLEAR (silence is never permission)', $V('These records are public. Contact us with questions.') === ['unclear', '']);
+check('…a mention without yes or no is UNCLEAR, quoted', $V('Our robots policy is under review.') === ['unclear', 'Our robots policy is under review.']);
+check('…no words at all: UNCLEAR', $V('') === ['unclear', '']);
+check('…a block is NOT ALLOWED with its reason', $V('anything', 'disallowed')[0] === 'not allowed');
+$pdo->exec("UPDATE authority_sources SET robots = 'allowed', fetched_at = UTC_TIMESTAMP(), terms_fetch = '{\"text\":\"Scraping this site is prohibited.\",\"page_status\":200}' WHERE id = $adhs");
+$w = HubOpening::termsWords($r());
+check('…the Pulse words start with the verdict, the terms URL and the clause', str_starts_with($w, 'Terms: NOT ALLOWED (https://www.azdhs.gov/licensing/index.php says: "Scraping this site is prohibited.")'));
+
 $pdo->exec('DROP DATABASE w14_test');
 array_map('unlink', glob("$lib/*.php")); @rmdir($lib);
 echo $fails ? "$fails failed\n" : "all passed\n";

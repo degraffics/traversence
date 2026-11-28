@@ -11,7 +11,7 @@
    "where": "https://traversence.com/admin/config/workflows (W14)"
   },
   {
-   "what": "The source's Pulse step (Hubs: read its terms) shows what the crawler read and when: robots allows it and how fast, whether the page needs a browser, list files linked, the terms' first words. Terms read: allowed stays the person's press.",
+   "what": "The source's Pulse step (Hubs: read its terms) starts with the terms' answer in one word: ALLOWED, NOT ALLOWED or UNCLEAR, with the terms page's address and the clause quoted (no sentence about automated reading is UNCLEAR, never taken as permission). Then what the crawler read and when: robots, the pace, whether the page needs a browser, list files linked. Terms read: allowed stays a person's press (the IT Manager's, recording Jason's words; the session manager, 2026-11-28).",
    "where": "https://traversence.com/admin/pulse (Hubs)"
   },
   {
