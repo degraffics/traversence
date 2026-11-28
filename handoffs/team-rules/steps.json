@@ -1,0 +1,413 @@
+[
+ {
+  "key": "sequence",
+  "slug": "project-manager",
+  "no": 8,
+  "what": "Proposes a Work ticket's priority from what it depends on: its goal, or the tickets waiting on it. Never over a priority a person set",
+  "lvl": "manager",
+  "depts": [
+   "ops"
+  ],
+  "at": {
+   "planning": "propose",
+   "building": "propose",
+   "implementation": "propose",
+   "confirmation": "propose"
+  },
+  "pos": 1
+ },
+ {
+  "key": "stall",
+  "slug": "project-manager",
+  "no": 8,
+  "what": "Finds a Priority 1 or 2 Work ticket idle 3 days at its stage and opens one \"Unstick\" ticket in its lane; if that sits 3 days too, asks a session once",
+  "lvl": "manager",
+  "depts": [
+   "ops"
+  ],
+  "at": {
+   "planning": "propose",
+   "building": "act",
+   "implementation": "act",
+   "confirmation": "act"
+  },
+  "pos": 1
+ },
+ {
+  "key": "release-watch",
+  "slug": "staging-release",
+  "no": 22,
+  "what": "Proposes the next step for a release that stopped on staging (a failed check, a look that didn't finish): send again, withdraw, or Roll back by the rules",
+  "lvl": "staff",
+  "depts": [],
+  "at": {
+   "planning": "propose",
+   "building": "propose",
+   "implementation": "propose",
+   "confirmation": "propose"
+  },
+  "pos": 2
+ },
+ {
+  "key": "policy",
+  "slug": "ops-policy",
+  "no": 16,
+  "what": "Proposes the operating procedure and time limit that apply to a ticket, from the routing policy",
+  "lvl": "staff",
+  "depts": [],
+  "at": {
+   "planning": "propose",
+   "building": "propose",
+   "implementation": "propose",
+   "confirmation": "propose"
+  },
+  "pos": 3
+ },
+ {
+  "key": "triage",
+  "slug": "it-manager",
+  "no": 11,
+  "what": "Proposes a triage for a Work ticket in the IT Manager's lane: its tier, the checks its specialists record, and where any reasoning goes",
+  "lvl": "manager",
+  "depts": [
+   "eng"
+  ],
+  "at": {
+   "planning": "propose",
+   "building": "propose",
+   "implementation": "propose",
+   "confirmation": "propose"
+  },
+  "pos": 4
+ },
+ {
+  "key": "tier4-ops",
+  "slug": "coo",
+  "no": 3,
+  "what": "Proposes the Tier 4 review of a change in the Project Manager's and Customer Service Manager's lanes, with the Prior Ruling Check",
+  "lvl": "executive",
+  "depts": [],
+  "at": {
+   "planning": "propose",
+   "building": "propose",
+   "implementation": "propose",
+   "confirmation": "propose"
+  },
+  "pos": 5
+ },
+ {
+  "key": "schema",
+  "slug": "schema-guards",
+  "no": 24,
+  "what": "Proposes a migration's tier from what it does: only adds (Tier 2), or updates, deletes, drops, renames, truncates or alters a column (a high-risk territory)",
+  "lvl": "staff",
+  "depts": [],
+  "at": {
+   "planning": "propose",
+   "building": "propose",
+   "implementation": "propose",
+   "confirmation": "propose"
+  },
+  "pos": 7
+ },
+ {
+  "key": "privacy",
+  "slug": "privacy-guards",
+  "no": 25,
+  "what": "Proposes the privacy and 0066 check for a ticket: held names, and every surface that could expose them",
+  "lvl": "staff",
+  "depts": [],
+  "at": {
+   "planning": "propose",
+   "building": "propose",
+   "implementation": "propose",
+   "confirmation": "propose"
+  },
+  "pos": 8
+ },
+ {
+  "key": "editorial",
+  "slug": "editorial-director",
+  "no": 12,
+  "what": "Proposes an Editorial lane ticket's checks as steps: the FAQ, the words, 390px, one clear next action, a territory's Tier 4, held names, a person's words",
+  "lvl": "manager",
+  "depts": [],
+  "at": {
+   "planning": "propose",
+   "building": "propose",
+   "implementation": "propose",
+   "confirmation": "propose"
+  },
+  "pos": 12
+ },
+ {
+  "key": "content",
+  "slug": "content-editor",
+  "no": 26,
+  "what": "Proposes an editorial Work ticket's goal, scope and Done when from its kind (FAQ, words, guide, listing); a person accepts",
+  "lvl": "staff",
+  "depts": [],
+  "at": {
+   "planning": "propose",
+   "building": "propose",
+   "implementation": "propose",
+   "confirmation": "propose"
+  },
+  "pos": 13
+ },
+ {
+  "key": "simplicity",
+  "slug": "cognitive-load",
+  "no": 15,
+  "what": "Proposes trimming a ticket's scope or a screen that grows heavy: one screen, one clear next action",
+  "lvl": "staff",
+  "depts": [],
+  "at": {
+   "planning": "propose",
+   "building": "propose",
+   "implementation": "propose",
+   "confirmation": "propose"
+  },
+  "pos": 26
+ },
+ {
+  "key": "flow",
+  "slug": "ux-prototyper",
+  "no": 27,
+  "what": "Proposes the wireframe or flow a ticket needs, in the brand's tokens, as a step for a person",
+  "lvl": "staff",
+  "depts": [],
+  "at": {
+   "planning": "propose",
+   "building": "propose",
+   "implementation": "propose",
+   "confirmation": "propose"
+  },
+  "pos": 27
+ },
+ {
+  "key": "triage-service",
+  "slug": "customer-service-manager",
+  "no": 9,
+  "what": "Proposes a triage for a ticket in the Customer Service lane (members and businesses), and routes an advocate's experience ticket for its screens",
+  "lvl": "manager",
+  "depts": [],
+  "at": {
+   "planning": "propose",
+   "building": "propose",
+   "implementation": "propose",
+   "confirmation": "propose"
+  },
+  "pos": 28
+ },
+ {
+  "key": "support",
+  "slug": "member-support",
+  "no": 18,
+  "what": "Proposes the answer or standing notice for a member or business report, and names the friction it shows",
+  "lvl": "staff",
+  "depts": [],
+  "at": {
+   "planning": "propose",
+   "building": "propose",
+   "implementation": "propose",
+   "confirmation": "propose"
+  },
+  "pos": 29
+ },
+ {
+  "key": "order-check",
+  "slug": "orders",
+  "no": 17,
+  "what": "Proposes an order's checks (proof, work order, fulfilment). Reading only: it never moves money",
+  "lvl": "staff",
+  "depts": [],
+  "at": {
+   "planning": "propose",
+   "building": "propose",
+   "implementation": "propose",
+   "confirmation": "propose"
+  },
+  "pos": 30
+ },
+ {
+  "key": "tier4-eng",
+  "slug": "cto",
+  "no": 5,
+  "what": "Proposes the Tier 4 review of a data, address or privacy change in the IT Manager's lane, with the Prior Ruling Check",
+  "lvl": "executive",
+  "depts": [],
+  "at": {
+   "planning": "propose",
+   "building": "propose",
+   "implementation": "propose",
+   "confirmation": "propose"
+  },
+  "pos": 31
+ },
+ {
+  "key": "tier4-data",
+  "slug": "cio",
+  "no": 6,
+  "what": "Proposes the Tier 4 review of a data mutation or privacy change, with the CTO, with the Prior Ruling Check",
+  "lvl": "executive",
+  "depts": [],
+  "at": {
+   "planning": "propose",
+   "building": "propose",
+   "implementation": "propose",
+   "confirmation": "propose"
+  },
+  "pos": 32
+ },
+ {
+  "key": "tier4-mission",
+  "slug": "cmo",
+  "no": 7,
+  "what": "Proposes the Tier 4 review of a marketing, editorial or sales change against the mission, with the Prior Ruling Check",
+  "lvl": "executive",
+  "depts": [],
+  "at": {
+   "planning": "propose",
+   "building": "propose",
+   "implementation": "propose",
+   "confirmation": "propose"
+  },
+  "pos": 33
+ },
+ {
+  "key": "tier4-money",
+  "slug": "cfo",
+  "no": 4,
+  "what": "Proposes the Tier 4 review of every edit that touches money (0180 §4.1), with the Prior Ruling Check. It never moves money",
+  "lvl": "executive",
+  "depts": [],
+  "at": {
+   "planning": "propose",
+   "building": "propose",
+   "implementation": "propose",
+   "confirmation": "propose"
+  },
+  "pos": 34
+ },
+ {
+  "key": "triage-accounting",
+  "slug": "accounting-manager",
+  "no": 10,
+  "what": "Proposes a triage for a ticket in the Accounting lane; prepares a refund record only (a refund runs with Jason's OK, 0178)",
+  "lvl": "manager",
+  "depts": [],
+  "at": {
+   "planning": "propose",
+   "building": "propose",
+   "implementation": "propose",
+   "confirmation": "propose"
+  },
+  "pos": 35
+ },
+ {
+  "key": "billing-check",
+  "slug": "finance",
+  "no": 19,
+  "what": "Proposes the tax, sandbox-isolation and billing-accuracy checks for a ticket. Reading only: it never moves money",
+  "lvl": "staff",
+  "depts": [],
+  "at": {
+   "planning": "propose",
+   "building": "propose",
+   "implementation": "propose",
+   "confirmation": "propose"
+  },
+  "pos": 36
+ },
+ {
+  "key": "triage-marketing",
+  "slug": "marketing-director",
+  "no": 13,
+  "what": "Proposes a triage for a ticket in the Marketing lane (brand, campaigns, SEO, taxonomy, funnels)",
+  "lvl": "manager",
+  "depts": [],
+  "at": {
+   "planning": "propose",
+   "building": "propose",
+   "implementation": "propose",
+   "confirmation": "propose"
+  },
+  "pos": 37
+ },
+ {
+  "key": "triage-sales",
+  "slug": "sales-director",
+  "no": 14,
+  "what": "Proposes a triage for a ticket in the Sales lane (leads, onboarding, partnerships, retention)",
+  "lvl": "manager",
+  "depts": [],
+  "at": {
+   "planning": "propose",
+   "building": "propose",
+   "implementation": "propose",
+   "confirmation": "propose"
+  },
+  "pos": 38
+ },
+ {
+  "key": "brand",
+  "slug": "brand-strategists",
+  "no": 29,
+  "what": "Proposes a brand or campaign ticket's checks, within the zero-commission commitment",
+  "lvl": "staff",
+  "depts": [],
+  "at": {
+   "planning": "propose",
+   "building": "propose",
+   "implementation": "propose",
+   "confirmation": "propose"
+  },
+  "pos": 39
+ },
+ {
+  "key": "seo",
+  "slug": "seo-analysts",
+  "no": 30,
+  "what": "Proposes an SEO, taxonomy or funnel ticket's checks, from privacy-safe counts only",
+  "lvl": "staff",
+  "depts": [],
+  "at": {
+   "planning": "propose",
+   "building": "propose",
+   "implementation": "propose",
+   "confirmation": "propose"
+  },
+  "pos": 40
+ },
+ {
+  "key": "onboarding",
+  "slug": "growth",
+  "no": 31,
+  "what": "Proposes the next step for a business claim, lead or partner onboarding",
+  "lvl": "staff",
+  "depts": [],
+  "at": {
+   "planning": "propose",
+   "building": "propose",
+   "implementation": "propose",
+   "confirmation": "propose"
+  },
+  "pos": 41
+ },
+ {
+  "key": "retention",
+  "slug": "partnerships",
+  "no": 32,
+  "what": "Proposes the next step for a partner or a retention case",
+  "lvl": "staff",
+  "depts": [],
+  "at": {
+   "planning": "propose",
+   "building": "propose",
+   "implementation": "propose",
+   "confirmation": "propose"
+  },
+  "pos": 42
+ }
+]

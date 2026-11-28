@@ -43,3 +43,6 @@ Piece 2's tests (decisions/0179; `handoffs/piece2-team.md` §12; its README): `r
   `node test-ticket.cjs <root> <shots>`.
 - `team-pm.php` + `team-pm-db.php` (agent 01, the Project Manager's sequence and stall steps; held for a Founder ruling): 50 checks
   without a database, 9 on MariaDB in staging mode.
+- `rules.php` (the "rules" release; Jason's ruling B, 0180 §2): every step in `handoffs/team-agents-rules.md` is in TeamRunner's rules
+  word for word and nothing else is, the fingerprint changes once and BUILT keeps it, a step without code does nothing; 24 checks:
+  `php rules.php <root>/app <live TeamRunner.php>`.

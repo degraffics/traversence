@@ -1,0 +1,27 @@
+{
+ "ticket": "Agent online 01 (wave 1): Project Manager (8), upgraded in place",
+ "title": "The Team's rules, once: the 42 agents' listed steps join the decision tree, each doing nothing until its own release",
+ "why": "Jason's ruling B (decisions/0180 §2, 2026-11-28): one approval covers all 42 agents' rule changes, provided he has seen them listed (handoffs/team-agents-rules.md). Goal: the transition cutover by Dec 15 (the team scales claims toward the ladder). This release lands every listed rule so the tree is approved once, not 26 times.",
+ "changes": [
+  {
+   "what": "The decision tree's rules gain the 27 listed steps of 26 roles, each exactly as listed: its role, the Permissions action it asks for, that it only proposes (the Project Manager's stall step acts from Building on), and that it costs $0. Three rules come once: each step's order of reasoning (code first), the agents' paid API off, and 3 days for a stalled ticket.",
+   "where": "https://traversence.com/admin/config/team#tm-tree"
+  },
+  {
+   "what": "The rules change, so the tree's approval is cleared and agents work up to Planning until the Founder presses Approve the decision tree, once, signed in with the Founder's own staff login.",
+   "where": "https://traversence.com/admin/config/team#tm-tree"
+  },
+  {
+   "what": "A listed step whose code isn't live does nothing: the runner gives it no work, it isn't one of its role's steps, and the Team page reads \"Coming with its release … It does nothing until then\". The four live steps (gate, hand-off, brief, audit) work as before. Each agent's own release then switches its step on without changing the rules.",
+   "where": "https://traversence.com/admin/config/team#tm-tree"
+  },
+  {
+   "what": "The FAQ's team entry says what \"Coming with its release\" means on the Team page.",
+   "where": "https://traversence.com/faq.php"
+  }
+ ],
+ "proposals": [],
+ "switch": "",
+ "tier4": "Tier 5, a Founder ruling: the decision tree's rules change (decisions/0180 §2; ruling B recorded in #1681)",
+ "notes": "NOT SENT. Order (the CEO, 2026-11-28): after the pause and task-seed-4 and -5; then task-seed-6-2. Waiting on pause live and synced (faq.md is shared), then faq.md rebuilt on the live copy. Files: app/lib/TeamRunner.php (the entries, STEP_AI, AGENTS_API_LIVE, STALL_DAYS, BUILT, and pick() and applies() skip a step without code), app/lib/TeamRoster.php (steps() only built ones; planned()), app/admin/team-console.php (the table's Coming rows), app/admin/control-console.php (Give it to the Team lists only roles with a built step). Tests: tools/team-tests/rules.php (24 checks on MariaDB: the list word for word, the fingerprint once, BUILT keeps it), runner.php 85, audit.php 34. Fingerprint: live 7b521b97…, this release c96dc6ae…. After live: the Approve press is on staging's Team page or live's, wherever the tree's approval is kept; the release line confirms which before the Founder is told. Way back: Roll back (the approval then matches the old rules again)."
+}
