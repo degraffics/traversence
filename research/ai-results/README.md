@@ -30,7 +30,17 @@ Job files are in `handoffs/batch-jobs/`. Costs are the real figures `batch.py fe
 | 19 | Decided-not-live items, patches | `job19-decided-not-live/` | 14 | ~0 cited, 6 diff files | $4.22 |
 | 20 | Control Board items, patches | `job20-control-board/` | 6 | ~0 cited, 4 diff files | $2.58 |
 
-**Total: $36.58** (the running total sent to the session manager).
+| 18b | Team, second independent pass | `job18b-team-pass2/` | 6 | see file | $2.41 |
+| 18c | Team, third pass on AI access | `job18c-team-pass3-ai-access/` | 6 | see file | $2.41 |
+| 10b | Security, second pass | `job10b-security-pass2/` | 5 | see file | $1.18 |
+| 11b | Money paths, second pass | `job11b-money-pass2/` | 7 | see file | $1.07 |
+| 16c | Atlas, second pass (18 areas) | `job16c-atlas-pass2/` | 18 | see file | $7.56 |
+| 16d | Atlas README, second pass | `job16d-atlas-readme-pass2/` | 1 | see file | $0.28 |
+| 13b | Launch gates, second pass | `job13b-gates-pass2/` | 1 | see file | $0.21 |
+| 21 | Reconcile: team, security, money, gates, and 18 atlas areas (merged atlas in research/platform-atlas/merged/) | `job21-reconcile/` | 22 | see file | $2.44 |
+| 21b | Reconcile: atlas README | `job21b-reconcile-atlas-readme/` | 1 | see file | $0.12 |
+
+**Total: $54.28** (wave 1 $36.58; wave 2 $17.70, independent second passes and reconciles).
 
 Notes:
 - Jobs 1-2 omit "our source" (not public). Job 12 can't see most search-table indexes: app/migrations isn't in the mirror.
