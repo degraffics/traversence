@@ -1,8 +1,17 @@
 {
  "release": "326",
- "phase": "before-done",
- "verdict": "waiting",
+ "at": "2026-11-28T01:45:32.366Z",
+ "verdict": "pass",
+ "first": "",
+ "blocks": [],
+ "blocks_total": 0,
+ "notes": [
+  "executive|/admin/config/control?tab=development|phone: already missed \"Cards 3px from the screen edge at 390px (0058 \u00a711)\" before (Site health's, not this change's)"
+ ],
+ "far": [],
+ "tickets": [],
  "views": 251,
- "seconds": 264,
- "run": "https://github.com/degraffics/traversence/actions/runs/46092810616"
+ "seconds": 817,
+ "run": "https://github.com/degraffics/traversence/actions/runs/46094257927",
+ "phase": "after-done"
 }
