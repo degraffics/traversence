@@ -1,8 +1,21 @@
 {
  "release": "332",
- "phase": "before-done",
- "verdict": "waiting",
- "views": 34,
- "seconds": 69,
- "run": "https://github.com/degraffics/traversence/actions/runs/46148535500"
+ "at": "2026-11-28T13:32:27.239Z",
+ "verdict": "incomplete",
+ "first": "",
+ "blocks": [],
+ "blocks_total": 0,
+ "notes": [
+  "Not checked as executive and ops-staff (couldn't sign in), though the change names its pages: a person looks before it goes on",
+  "executive|/admin/config/control?tab=development|desktop: no before look to compare",
+  "executive|/admin/config/control?tab=development|phone: no before look to compare",
+  "ops-staff|/admin/config/control?tab=development|phone: no before look to compare"
+ ],
+ "far": [],
+ "tickets": [],
+ "audit": [],
+ "views": 37,
+ "seconds": 219,
+ "run": "https://github.com/degraffics/traversence/actions/runs/46149918272",
+ "phase": "after-done"
 }
