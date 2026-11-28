@@ -4,6 +4,11 @@
 > written there costs usage. Write no progress notes, plans, recaps or summaries in your own chat. Use tool calls,
 > commits and one short message to the session manager per result (what's done, its link, what's needed). End each
 > turn with no text, or one line at most. The CEO session is the only session that writes to Jason.
+>
+> **The Work queue is the only development lane (Jason, 2026-11-28).** "Sessions dont get to do something out of
+> sync or our work process! They should be the shiny example of how an agent utilizes Ai and our system." Nothing is
+> built, batched or sent without its Work-queue ticket; take work only from the queue, in its order, and move the
+> ticket through planned, built, implemented, confirmed as you go. A release.json names its `ticket`.
 
 This repo (`degraffics/traversence`) is the durable record of Traversence's governance and technical docs: charter, PRD,
 commercial, architecture, brand, phases, regions, routes, workflow, future-considerations, `decisions/*.md`,
