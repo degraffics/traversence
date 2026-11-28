@@ -96,8 +96,8 @@
    "session": "session_01CXLi5iAy5magAU62jYiAxM",
    "why": "Pause: About text and hours held for Review while paused (the IT Manager's Tier 4)",
    "since": "2026-11-28T01:35:49Z",
-   "expires": "2026-11-28T06:53:47Z",
-   "release": "pause-1a.zip",
+   "expires": "2026-11-28T07:43:53Z",
+   "release": "pause-1a-2.zip",
    "callers": {}
   },
   {
@@ -107,8 +107,8 @@
    "session": "session_01CXLi5iAy5magAU62jYiAxM",
    "why": "Pause: no new listings published by the system, on Jason's call 2026-11-28 ('Pause it. Yes')",
    "since": "2026-11-28T01:35:51Z",
-   "expires": "2026-11-28T06:53:47Z",
-   "release": "pause-1a.zip",
+   "expires": "2026-11-28T07:43:53Z",
+   "release": "pause-1a-2.zip",
    "callers": {}
   },
   {
@@ -118,8 +118,8 @@
    "session": "session_01CXLi5iAy5magAU62jYiAxM",
    "why": "Pause: no new listings published by the system, on Jason's call 2026-11-28 ('Pause it. Yes')",
    "since": "2026-11-28T01:35:53Z",
-   "expires": "2026-11-28T06:53:47Z",
-   "release": "pause-1a.zip",
+   "expires": "2026-11-28T07:43:53Z",
+   "release": "pause-1a-2.zip",
    "callers": {}
   },
   {
@@ -225,8 +225,8 @@
    "session": "session_01CXLi5iAy5magAU62jYiAxM",
    "why": "Pause: About text and hours held for Review on every machine path (the IT Manager's Tier 4)",
    "since": "2026-11-28T02:06:03Z",
-   "expires": "2026-11-28T06:53:47Z",
-   "release": "pause-1a.zip",
+   "expires": "2026-11-28T07:43:53Z",
+   "release": "pause-1a-2.zip",
    "callers": {
     "create": [
      "app/lib/DataCleanup.php",
@@ -273,8 +273,8 @@
    "session": "session_01CXLi5iAy5magAU62jYiAxM",
    "why": "Pause: a Help us find card comes back only on a person's phone or address while paused (the IT Manager's Tier 4)",
    "since": "2026-11-28T02:15:52Z",
-   "expires": "2026-11-28T06:53:47Z",
-   "release": "pause-1a.zip",
+   "expires": "2026-11-28T07:43:53Z",
+   "release": "pause-1a-2.zip",
    "callers": {}
   },
   {
@@ -284,8 +284,8 @@
    "session": "session_01CXLi5iAy5magAU62jYiAxM",
    "why": "release pause-1a.zip",
    "since": "2026-11-28T02:53:47Z",
-   "expires": "2026-11-28T06:53:47Z",
-   "release": "pause-1a.zip",
+   "expires": "2026-11-28T07:43:53Z",
+   "release": "pause-1a-2.zip",
    "callers": {}
   },
   {
@@ -295,8 +295,8 @@
    "session": "session_01CXLi5iAy5magAU62jYiAxM",
    "why": "release pause-1a.zip",
    "since": "2026-11-28T02:53:47Z",
-   "expires": "2026-11-28T06:53:47Z",
-   "release": "pause-1a.zip",
+   "expires": "2026-11-28T07:43:53Z",
+   "release": "pause-1a-2.zip",
    "callers": {}
   },
   {
@@ -306,8 +306,8 @@
    "session": "session_01CXLi5iAy5magAU62jYiAxM",
    "why": "release pause-1a.zip",
    "since": "2026-11-28T02:53:47Z",
-   "expires": "2026-11-28T06:53:47Z",
-   "release": "pause-1a.zip",
+   "expires": "2026-11-28T07:43:53Z",
+   "release": "pause-1a-2.zip",
    "callers": {}
   },
   {
@@ -317,8 +317,8 @@
    "session": "session_01CXLi5iAy5magAU62jYiAxM",
    "why": "release pause-1a.zip",
    "since": "2026-11-28T02:53:47Z",
-   "expires": "2026-11-28T06:53:47Z",
-   "release": "pause-1a.zip",
+   "expires": "2026-11-28T07:43:53Z",
+   "release": "pause-1a-2.zip",
    "callers": {}
   },
   {
@@ -330,6 +330,17 @@
    "since": "2026-11-28T03:42:50Z",
    "expires": "2026-11-28T07:42:50Z",
    "release": "",
+   "callers": {}
+  },
+  {
+   "path": "website/admin/crawler-review.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5iAy5magAU62jYiAxM",
+   "why": "release pause-1a-2.zip",
+   "since": "2026-11-28T03:43:53Z",
+   "expires": "2026-11-28T07:43:53Z",
+   "release": "pause-1a-2.zip",
    "callers": {}
   }
  ],
