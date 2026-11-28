@@ -36,3 +36,14 @@ to Data & Content at 01:52 UTC.
 - Retiring `api/ingest.php` (nothing calls it; it has no gate of its own): for 1c or later, as a Suggest-a-change with its
   caller check.
 - Search 1b rebuilds `AutoImport.php` and `Identity.php` on this release once it's live and synced.
+
+## Second pass (@5576476c, 2026-11-28)
+**Verdict: PASS on one condition.** `HelpFind::promoteSome` must not un-hide a card on a machine-filled phone or address
+while paused (the independent check's second round). Everything else checks out:
+- `Identity::applyEvidence` and `ListingIdentity::merge` hold About text and hours;
+- `Suggestions` keeps the held About (`HELD_FIELDS`, machine devices only) and appends a second find;
+- the real path runs on MariaDB (`identity.php` 11/11) and `pause.php` passes 21/21;
+- people's saves (`Claims::writeField`, `IntakeStager::adminSave`) are unchanged and never held.
+
+The smaller issues in `tier4-independent.md` can follow in 1b or the health corrections, except that the note "A person
+applies it there" should say staff copy it into the editor until Review can apply an About.

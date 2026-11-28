@@ -43,3 +43,34 @@ Manager's condition.
 - **The test only partly exercises it.** `fillGaps`, Refresh, `tryImport` and `advance` are checked by searching the source,
   never run. Nothing covers the identity path. `ingest`'s stand-in `stage()` skips the obvious merge. The header comment still
   says `ingest` refuses.
+
+---
+
+## Second round (@5576476c, 2026-11-28 ~02:15 UTC)
+
+A fresh agent checked the same paths again, on the new head. `pause.php` passes 21 of 21 and `identity.php` 11 of 11 on
+MariaDB.
+
+**Verdict: FAIL, on one open path.** All six earlier paths are closed, in code and in tests.
+
+**Checked and clean:**
+- all 60 scripts, all 22 crawler endpoints and every publish and un-hide route;
+- people's own saves are never held.
+
+**Still open: an automatic re-publish.** `HelpFind::promoteSome`/`promote` (HelpFind.php:128-161; it un-hides at :161,
+confirmed by the IT Manager).
+- **How it runs:** on page views, with no person: the hub's `HelpFind::block` → `inPlace` → `promoteSome`
+  (`hub/index.php:466`, `HelpFind.php:40`), and search's `HelpFind::near` (`UniversalSearch.php:1642`).
+- **What it does:** it un-hides any "Help us find" card that has a phone or a street address from any source, checking only
+  `beforeShow`. While paused, phone and address still fill: `fillGaps` with no person, or the phone landing through
+  `applyEvidence`.
+- **Fix:** while paused, promote only a card whose phone or address a person set (source admin, owner or user, or locked),
+  or gate `promoteSome` on `AutoImport::enabled()`.
+
+**Smaller issues (not leaks):**
+- A held About can't be applied from Review: `SuggestionActions::FIX` and `diff()` have no `description`.
+- Joined hours (" | ") stay on one line when applied.
+- A twin merge files the About twice: once as `crawler-identity-merge-paused`, then again through `applyEvidence`.
+- A drop value whose `meta_value` isn't JSON is neither copied nor held (`ListingIdentity.php:401`).
+- Appended values skip `strip_tags`.
+- The row closes with "nothing new to add" when only the held fields were new.
