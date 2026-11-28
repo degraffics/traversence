@@ -1,0 +1,19 @@
+{
+ "ticket": "Ready to be vetted: /admin/config/team shows each role's charter, lane, tier, AI access and queue, with Run a test ticket",
+ "title": "The team, one agent at a time: a Work-queue ticket for each of the 30 roles and the 12 advocates, in the CEO's order",
+ "why": "Jason, 2026-11-28, through the CEO and the session manager: \"Bring each one online individually… just in case we run out of usage\". Goal: the transition cutover by Dec 15 (the team scales claims toward the ladder). The queue is the only development lane, so each agent's release needs its ticket first.",
+ "changes": [
+  {
+   "what": "42 new tickets under the transition goal, numbered 01 to 42 in the CEO's order: wave 1 (roles 8, 22, 16, 11, 3), wave 2 (21, 24, 25, 20, 23, 28), wave 3 (12, 26, the 12 advocates, 15, 27, 9, 18, 17), wave 4 (5, 6, 7, 4, 10, 19, 13, 14, 29, 30, 31, 32). Each is its own release and counts as live only once its Run a test ticket passes on the team page. Roles 8, 20, 21, 23, 26 and 28 are upgraded in place. None for the Founder (1) or the CEO (2).",
+   "where": "https://traversence.com/admin/control-board"
+  },
+  {
+   "what": "task-seed-5's four team group tickets (executives, middle managers, operators and keepers, the 12 advocates) show as Withdrawn, with why: replaced by one ticket per agent. They are kept, and one a person has taken or moved is left as it is.",
+   "where": "https://traversence.com/admin/control-board"
+  }
+ ],
+ "proposals": [],
+ "switch": "",
+ "data_reason": "Adds 42 tasks to control_gauge_tasks, each with its id named (MAX(id)+1), only where the transition goal exists and no task has its (gauge, item), and writes each one's lane only where R2's lane column exists and the lane is empty. Sets undone_at and done_how (\"Withdrawn: replaced by one ticket per agent…\") on task-seed-5's four team group tasks, only while each is still as seeded (Planning, no release, nobody has it, not done or withdrawn). Nothing is deleted.",
+ "notes": "Data only, Tier 2. Built on task-seed-4 and task-seed-5 (both pending, no shared file): without the goals no ticket is made, and before task-seed-5 the 42 tickets are still made. Test: tools/task-seed-tests/seed6.php (17 checks on MariaDB with the live GaugeTasks and TeamRoster, run twice). Way back: a withdrawn ticket is put back from the queue, and the new tickets carry who = 'task-seed-6 (Build & QA, 21)'."
+}
