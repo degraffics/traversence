@@ -121,6 +121,11 @@
             "at": "2026-11-28T13:30:04+00:00",
             "by": 0,
             "msg": "Put on staging (11 files); its checks passed."
+        },
+        {
+            "at": "2026-11-28T13:30:06+00:00",
+            "by": 0,
+            "msg": "On staging and its checks passed; the advocates look again now (the before-and-after check)."
         }
     ]
 }
