@@ -1,0 +1,7 @@
+# tools/trip-tests/
+
+The index of this folder, moved here from the root README to keep it a short map (CLAUDE.md "Keep this file lean"). Keep it current when files are added, moved or removed.
+
+## Index (moved from the root README, 2026-11-28)
+
+Trips' tests (decisions/0174 release 2): `trips.php` (the rules on a real MySQL or MariaDB: private, mailbox, closed, hidden and pointless places refused with why; owners only; Undo; Delete kept 30 days; the device's trip moved in; a journey's stops; account deletion; 28 checks) and `trips.cjs` with `trips-seed.php` (rendered at 1280 and 390: the picker from ⋯ and Get Local, Undo, Already in, greyed, Make it my trip, Your trips, a guest's trip and signing in; 67 checks); `trip-page.php` (release 3 on MariaDB: timing, hours and daylight, the trip's zone, moving, fewer days, stays, Use these stops; 21 checks) and `trip-page.cjs` (the trip page rendered at 1280 and 390: Save as a trip, Use these stops, times and legs, the map, ↑ ↓ and drag, days, Closed when you'd arrive and Move, Undo, Print, Rename, Delete, not found, Peek's Add to a trip; 57 checks); `sharing.php` (release 4 on MariaDB: share links on, off and new, what shows publicly, counts never who, Personal Guides checked like a journey, reported, hidden, withdrawn; 26 checks) and `sharing.cjs` with `sharing-seed.php` (rendered: Share, the view-only link, a private place left out and a closed one greyed, Turn off, Publish, the guide as a content page, Admin → Journeys' Hide and Restore, Withdraw, Admin → Insights; 44 checks)
