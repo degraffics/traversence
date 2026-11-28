@@ -6,7 +6,7 @@
     "zip": "pause-1a-3.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "staged",
+    "state": "withdrawn",
     "step": 0,
     "paused": false,
     "urgent": null,
@@ -74,9 +74,9 @@
     },
     "migrations": [],
     "checks": {
-        "ok": true,
+        "ok": false,
         "where": "staging",
-        "at": "2026-11-28T05:10:04+00:00",
+        "at": "2026-11-28T05:30:02+00:00",
         "items": [
             [
                 "PHP files parse",
@@ -92,9 +92,14 @@
                 "No new fatal errors in the logs",
                 true,
                 "3 logs read"
+            ],
+            [
+                "Before and after (advocates)",
+                false,
+                "2 problems: Access or privacy (0066 included): Doesn't open now: TimeoutError: page.goto: Timeout 45000ms exceeded.\nCall log:\n  - navigating to \"https://staging.trvgo.us/admin/crawler-review.php\", waiting until \"load\"\n (executive, /admin/crawler-review.php, phone) · https://github.com/degraffics/traversence/actions/runs/46110852572"
             ]
         ],
-        "first_fail": ""
+        "first_fail": "Before and after (advocates): 2 problems: Access or privacy (0066 included): Doesn't open now: TimeoutError: page.goto: Timeout 45000ms exceeded.\nCall log:\n  - navigating to \"https://staging.trvgo.us/admin/crawler-review.php\", waiting until \"load\"\n (executive, /admin/crawler-review.php, phone) · https://github.com/degraffics/traversence/actions/runs/46110852572"
     },
     "log": [
         {
@@ -126,6 +131,16 @@
             "at": "2026-11-28T05:10:06+00:00",
             "by": 0,
             "msg": "On staging and its checks passed; the advocates look again now (the before-and-after check)."
+        },
+        {
+            "at": "2026-11-28T05:30:02+00:00",
+            "by": 0,
+            "msg": "The before-and-after check: blocked it: Access or privacy (0066 included): Doesn't open now: TimeoutError: page.goto: Timeout 45000ms exceeded.\nCall log:\n  - navigating to \"https://staging.trvgo.us/admin/crawler-review.php\", waiting until \"load\"\n (executive, /admin/crawler-review.php, phone)"
+        },
+        {
+            "at": "2026-11-28T05:30:02+00:00",
+            "by": 0,
+            "msg": "Withdrawn by itself: its checks on staging failed (Before and after (advocates): 2 problems: Access or privacy (0066 included): Doesn't open now: TimeoutError: page.goto: Timeout 45000ms exceeded.\nCall log:\n  - navigating to \"https://staging.trvgo.us/admin/crawler-review.php\", waiting until \"load\"\n (executive, /admin/crawler-review.php, phone) · https://github.com/degraffics/traversence/actions/runs/46110852572). Nothing on the live site changed; the session that built it sends a fixed build (11 files back to live's copy on staging)."
         }
     ]
 }
