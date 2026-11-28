@@ -2,7 +2,7 @@
  "zip": "task-seed-5.zip",
  "built_on": "5b39084 Sync: 2026-11-28 02:52 UTC",
  "recorded": "2026-11-28 13:22 UTC",
- "note": "task-seed-5: every current item a Work-queue ticket under its goal, in its lane, at its real phase (49 tickets, 7 of task-seed-4's linked or moved in place; data only, Tier 2; nothing deleted); built on Sync 2026-11-28 02:52 UTC Sent through git (releases/inbox).",
+ "note": "task-seed-5: every current item a Work-queue ticket under its goal, in its lane, at its real phase (49 tickets, 7 of task-seed-4's linked or moved in place; data only, Tier 2; nothing deleted); built on Sync 2026-11-28 02:52 UTC Sent through git (releases/inbox). Withdrawn as #333; replaced by task-seed-5-2.zip.",
  "status": "pending",
  "live_in": "",
  "files": {
