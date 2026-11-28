@@ -184,6 +184,19 @@
    "expires": "2026-11-28T05:40:21Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/crawler/Refresh.php",
+   "functions": [
+    "complete"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iAy5magAU62jYiAxM",
+   "why": "Pause: About text and hours held for Review while paused (the IT Manager's Tier 4)",
+   "since": "2026-11-28T01:49:43Z",
+   "expires": "2026-11-28T05:49:43Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
