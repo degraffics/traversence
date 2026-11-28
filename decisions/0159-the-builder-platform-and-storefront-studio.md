@@ -2,6 +2,8 @@
 
 **Note (2026-11-15, decisions/0165, accepted and built; corrected the same day):** builds approved in chat still go live by themselves (Jason: "The publish feature is for me to push the changes I make from within staging"). As first built, 0165 replaced the 2026-11-13 progress note that builds sent through git go live by themselves (`Releases::autoPublish`): every build waits on staging, releases stack there, and Publish (Jason's, on the site manager) merges staging's code and data into live. §5's site manager stays. Built as one release (`handoffs/0165-staging.md`): `autoPublish` is gone from `Releases.php`.
 
+**Note (2026-11-28, Jason's direction via the CEO: faster releases, every check kept):** two changes, owned by Operations & Policy (16) and the IT Manager (11), are the first builds after the usage reset. (A) **The pre-send look:** the build session runs the same `beforeafter.mjs` on the bench before `send.py`, so a failure costs minutes, not a staging round; staging's own look still runs. (B) **Auto-sync:** a release's "Release #N: Live" record commit fires `sync.yml` by itself (`repository_dispatch`), keeping one sync run at a time; `deliveries.py verify` and the deliveries PR follow as now. Three further changes touch approval gates and go to Jason as a Decision Brief first; nothing is built on them yet.
+
 **Status:** Accepted (Jason, 2026-11-13: "accepted, but I want this built in a new session"; the hand-off is `handoffs/0159-the-builder.md`). Built in steps, one release each: steps 1–4 (releases #4–#34; the
 site manager, builds from git, the editor and the full editor) and step 5's first two parts, Storefront Studio 5a
 (#41) and 5b (#42). Next: 5c, commerce blocks; then 5d, the studio bar, and step 6, AI writing.
