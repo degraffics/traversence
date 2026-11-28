@@ -72,6 +72,19 @@
    "expires": "2026-11-28T05:27:46Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/service-defs.php",
+   "functions": [
+    "azdhs"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5iAy5magAU62jYiAxM",
+   "why": "ADHS A1: W14 reads the licensed facilities' terms (handoffs/adhs-source.md)",
+   "since": "2026-11-28T01:27:48Z",
+   "expires": "2026-11-28T05:27:48Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
