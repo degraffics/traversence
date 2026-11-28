@@ -26,3 +26,4 @@
   - A held pass, an incomplete look and a spent budget each wait for review. Minutes are counted once.
   - A withdrawn release's wait is dropped. Nothing happens on staging.
   Run: `php tools/piece3-tests/pipeline.php <root>/app`. It resets lv_main.
+- `layout-flip.test.mjs`: a page whose width at 390 comes and goes with its data (#325's block on /admin/crawler-review.php). The second before look missing it, or the view missing it on an earlier release (`priorMissed`, the last 10 verdicts), is a note and a ticket for the IT lane, never a block; a view with no such history, or another standard, still blocks. 13 checks.

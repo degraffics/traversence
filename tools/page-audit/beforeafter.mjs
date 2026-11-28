@@ -280,6 +280,23 @@ export function priorSkips(dir, release) {
   return out;
 }
 
+/** The layout standards each view already missed on earlier releases (in up to the last 10 verdicts' notes: "already missed X
+ *  before", or "X missed after, from a record's own content"): view key → { standard name: the release it was seen on }. A
+ *  page whose width at 390 comes and goes with its data (/admin/crawler-review.php: #322, #323, #324, then #325's block). */
+export function priorMissed(dir, release) {
+  const n = Number(release) || Infinity; let files = [];
+  try { files = readdirSync(dir).map(f => [Number(f.replace(/\.json$/, '')), f]).filter(([r]) => r > 0 && r < n).sort((x, y) => y[0] - x[0]); } catch (x) { return {}; }
+  const out = {};
+  for (const [r, f] of files.slice(0, 10)) {
+    let v = {}; try { v = JSON.parse(readFileSync(dir + '/' + f, 'utf8')); } catch (x) { continue; }
+    for (const t of v.notes || []) {
+      const m = String(t).match(/^([^|]+\|[^|]+\|[a-z]+): (?:already missed "([^"]+)" before|"([^"]+)" missed after, from a record's own content)/);
+      if (m) { const k = m[1], std = m[2] || m[3]; (out[k] = out[k] || {})[std] = out[k][std] || r; }
+    }
+  }
+  return out;
+}
+
 export function compare(b1, b2, a, exp = {}, release = '', heldKey = STAGING?.token || CHECK_TOKEN) {
   const B = new Map(b1.results.map(f => [key(f), f])), B2 = new Map(b2.results.map(f => [key(f), f]));
   const A = new Map(a.results.map(f => [key(f), f]));
@@ -365,6 +382,15 @@ export function compare(b1, b2, a, exp = {}, release = '', heldKey = STAGING?.to
         // wider than the screen only because of a record's own content (a long address), on a page the change doesn't name:
         // that record's data, noted for Site health, never this change's (#308's look, /admin/crawler-review.php at 390)
         if ((k === 'scroll' || k === 'edges') && f.ba?.wideRec && !expected.has(f.url)) notes.push(`${key(f)}: "${STANDARDS[k]}" missed after, from a record's own content (its data); not this change's`);
+        // the second before look already missed it: the page moves on its own between looks (its data), never this change's
+        else if ((k === 'scroll' || k === 'edges') && B2.get(key(f)) && on(B2.get(key(f))) && B2.get(key(f)) !== b) notes.push(`${key(f)}: "${STANDARDS[k]}" missed after and in the second before look (the page moves on its own); not this change's`);
+        // missed on this view in an earlier release's looks too: the page's own fault that comes and goes with its data
+        // (#325, 2026-11-27: /admin/crawler-review.php at 390), noted for Site health and a ticket for the IT lane, never a block
+        else if ((k === 'scroll' || k === 'edges') && (exp.missed || {})[key(f)]?.[STANDARDS[k]]) {
+          const seen = exp.missed[key(f)][STANDARDS[k]];
+          notes.push(`${key(f)}: "${STANDARDS[k]}" missed after; it was missed on this view before too (#${seen}), so it comes and goes with the page's data (Site health's, not this change's; a ticket for the IT Manager's (11) lane)`);
+          tickets.push({ lane: 'IT Manager (11)', what: `${f.url} (${f.who}, ${f.size}): "${STANDARDS[k]}" comes and goes with its data (missed on #${seen} and #${release || '?'})`, why: 'the before-and-after check can\'t tell it from a change: fix the page at its cause (0058 §11)', release });
+        }
         else block('layout', f, STANDARDS[k], 'met', 'missed');
       }
     const more = (k, what) => { const n0 = (b.ba?.[k] || []).length, n1 = (f.ba?.[k] || []).length; if (n1 > n0 && !moving(x => (x.ba?.[k] || []).length)) block('layout', f, what + ': ' + (f.ba[k] || []).slice(0, 2).join('; '), n0, n1); };
@@ -448,6 +474,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     const exp = arg('expected') ? rd(arg('expected')) : {};
     if (arg('held')) { try { exp.held = rd(arg('held')); } catch (x) { exp.held = { error: 'held.json unreadable' }; } }
     exp.skips = priorSkips(arg('verdicts', 'site-audit/results/beforeafter'), arg('release'));   // the CTO's Tier 4: no page unchecked forever
+    exp.missed = priorMissed(arg('verdicts', 'site-audit/results/beforeafter'), arg('release'));   // a page's own layout faults that come and go (#325)
     const v = compare(rd(arg('before')), rd(arg('before2') || arg('before')), rd(arg('after')), exp, arg('release'));
     writeFileSync(arg('out', 'ba-verdict.json'), JSON.stringify(v, null, 1) + '\n');
     console.log(`${v.verdict}${v.first ? ': ' + v.first : ''} (${v.views} views, ${v.blocks_total} block${v.blocks_total === 1 ? '' : 's'})`);
