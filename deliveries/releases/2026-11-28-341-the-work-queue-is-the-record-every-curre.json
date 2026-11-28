@@ -6,15 +6,15 @@
     "zip": "task-seed-5-2.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "staged",
-    "step": 0,
+    "state": "live",
+    "step": 3,
     "paused": false,
     "urgent": null,
     "schedule_at": null,
     "plan_at": "2026-11-28 15:45:05",
     "staged_at": "2026-11-28 15:45:06",
-    "vetted_at": null,
-    "live_at": null,
+    "vetted_at": "2026-11-28 16:15:02",
+    "live_at": "2026-11-28 16:15:02",
     "files": {
         "app/migrations/2026-11-28_task_seed_5.sql": {
             "sha": "12084557100cd98dac544c578f029da4818d3d75085532098053ae1eccf821da",
@@ -27,8 +27,8 @@
     ],
     "checks": {
         "ok": true,
-        "where": "staging",
-        "at": "2026-11-28T15:45:07+00:00",
+        "where": "live",
+        "at": "2026-11-28T16:15:02+00:00",
         "items": [
             [
                 "PHP files parse",
@@ -36,24 +36,9 @@
                 "0 checked"
             ],
             [
-                "Migrations only add",
-                true,
-                "1 checked"
-            ],
-            [
-                "Data changes have a reason",
-                true,
-                "2026-11-28_task_seed_5.sql change rows: Adds 49 tasks to control_gauge_tasks, each with its id named (MAX(id)+1), only where its goal exists and no task has its (gauge, item), and writes each one's lane only where R2's lane column exists and the lane is empty. On 7 of task-seed-4's own tasks, replaces source only where it is still the see (a copy of every table they touch is kept first)"
-            ],
-            [
-                "Migrations ran on staging",
-                true,
-                "Ran 2026-11-28_task_seed_5.sql"
-            ],
-            [
                 "Pages answer",
                 true,
-                "2 pages answered on staging.trvgo.us"
+                "2 pages answered on traversence.com"
             ],
             [
                 "No new fatal errors in the logs",
@@ -93,6 +78,21 @@
             "at": "2026-11-28T15:45:09+00:00",
             "by": 0,
             "msg": "On staging and its checks passed; the advocates look again now (the before-and-after check)."
+        },
+        {
+            "at": "2026-11-28T16:15:02+00:00",
+            "by": 0,
+            "msg": "The before-and-after check: passed."
+        },
+        {
+            "at": "2026-11-28T16:15:02+00:00",
+            "by": 0,
+            "msg": "Approved in chat before it was sent through git, and its checks on staging passed: publishing by itself."
+        },
+        {
+            "at": "2026-11-28T16:15:02+00:00",
+            "by": 0,
+            "msg": "Published: 0 files, after its 1 migration ran first (2026-11-28_task_seed_5.sql; a copy of what each touched is kept 14 days); everyone at once (no switch)."
         }
     ]
 }
