@@ -7,6 +7,7 @@ Each rule below comes from a real mistake (in brackets) so it isn't repeated.
 
 ## 1. Before writing code
 
+- **Draft in the batch, verify in the session** (Jason, 2026-11-28: "keep the batch for analysis and drafting, from the $100 credit good to Dec 27, and use sessions only to verify, test and send what it drafted. Good plan."). Analysis and draft patches go through `tools/batch/batch.py` (a `--max-usd` limit; results in `research/ai-results/`). A build session starts from that draft, then verifies it against the live mirror, tests it and sends it through every normal check. Nothing ships from a batch directly. Moving work from the batch back to sessions needs his OK through the CEO.
 - **Read the decisions and the live code for the area first**, and the hand-off you were given. If Jason "already
   outlined" it, it's in a decision: find it (`grep -rl` in `decisions/`) before proposing anything. [The hero and stock
   photos process was re-proposed though 0058 §30, 0138 and 0143 §4–5 already set it.]
@@ -212,7 +213,7 @@ Operations & Policy (16).) Every ticket names the gate (1–6) it moves, or a li
 it enables (0181's ladder) or the money it protects (caps, meters, the money line), the indirect link stated (Jason,
 2026-11-27: "dont narrow your view to disregard indirect over direct implications"); without one it's logged in its
 role's queue, not built before Jan 1. No new tooling, meters, board features, check refinements or process
-releases unless one blocks a gate; rollout releases get 0181 §2's one slot a day. What reaches Jason: a Tier 5 brief, live
+releases unless one blocks a gate. Releases go live once their checks pass (Jason, 2026-11-28: "Rollout can be upon release passing its checks"; 0181 §2's note): no daily batch wait and no one slot a day; a high-risk area's Tier 4 review and data changes that take content off the site (`data_reason` migrations) still go in his daily batch. What reaches Jason: a Tier 5 brief, live
 harm, and the CEO's one daily launch report against the gates. No new sessions before launch.
 
 ### R6. The session manager (Jason, 2026-11-13): every session

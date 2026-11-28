@@ -46,6 +46,8 @@ gates.
 Until the gates pass, launch work comes first in the one queue. 0180's rollout releases R2–R5 get at most one slot a
 day. This qualifies 0180's "R1–R5 ship as each passes" (note added there).
 
+**Note (2026-11-28), replacing the one slot a day:** Jason, 2026-11-28, through the CEO: "Rollout can be upon release passing its checks." A release goes live once its checks pass: no daily batch wait and no one-slot-a-day limit. Unchanged: a high-risk area's Tier 4 review, and data changes that take content off the site (`data_reason` migrations, e.g. F9), which still go in his daily batch until he says otherwise. The before-and-after check is unchanged.
+
 ### 3. The launch area (Brief B1, widened by Jason)
 
 - **Area:** every town within **200 miles of the Four Corners Monument** (36.999, -109.045). Measured from the site's
