@@ -170,6 +170,22 @@
    "expires": "2026-11-28T05:59:41Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/DataCleanup.php",
+   "functions": [
+    "act",
+    "findListings",
+    "legacyScope",
+    "pilotIds"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iAy5magAU62jYiAxM",
+   "why": "F9: two Data cleanup rules, people as places and September listings with no keepable source (the CEO's ruling, 2026-11-28)",
+   "since": "2026-11-28T01:59:43Z",
+   "expires": "2026-11-28T05:59:43Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
