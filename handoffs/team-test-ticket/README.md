@@ -8,18 +8,21 @@ Ticket: "Ready to be vetted: /admin/config/team shows each role's charter, lane,
   `TeamRunner::run`, then Undo or Dismiss and Withdraw), `last()`, `lastWords()`, `aiWords()`. The last result is one row a role in
   `team_settings` (`vet:<slug>`); no migration.
 - **Changed:** `app/admin/tools.php` (`config/team` only): the fields AI access and Test ticket, the action Run a test ticket
-  (greyed with `off`, as Run the audit now is), and its act. No live line replaced.
+  (greyed with `off`, as Run the audit now is, its title the same reason as its Test ticket row), and its act. One live line
+  replaced: Status on an active role with no step reads "Active · waiting for its first step (its own release brings one)"
+  (the Design look, 2026-11-28).
 - **FAQ:** `faq-entry.md`, to merge into the live `faq.md` at send (faq.md is in flight in pause-1a-4).
 - `TeamRunner.php` is not touched: no rule changes, the tree's approval stays, and nothing clashes with agent 01's held build.
 
 ## Tests (the live app plus this build, with the migrations)
-- `php tools/team-tests/test-ticket.php <root>/app`: 42 of 42 on MariaDB.
-- `node tools/team-tests/test-ticket.cjs <root> <shots>`: 22 of 22 at 1280 and 390 (screens in `screens/`).
+- `php tools/team-tests/test-ticket.php <root>/app`: 45 of 45 on MariaDB.
+- `node tools/team-tests/test-ticket.cjs <root> <shots>`: 26 of 26 at 1280 and 390 (screens in `screens/`).
 - `runner.php` 85 of 85 (its steps check now holds before and after agent 01), `audit.php` 34 of 34.
 
 ## Before it is sent
 1. pause-1a-4 live and synced, then `faq.md` rebuilt on the live copy; zip, zip check, send.
-2. The Design reviewer's look at the drawer at 1280 and 390 (`screens/`).
+2. Design: approved to send by the session manager standing in as the Design look (2026-11-28), with two word fixes, both made
+   (Status on a role with no step; the greyed button's title).
 
 ## Gaps (labelled)
 1. **A test run counts in the Team page's evidence.** It is a real `team_runs` row (dismissed or undone), so "Planning's

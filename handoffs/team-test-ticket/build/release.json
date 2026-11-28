@@ -16,11 +16,15 @@
    "where": "https://traversence.com/admin/config/team"
   },
   {
+   "what": "An active role with no step yet reads \"Active · waiting for its first step (its own release brings one)\", true to Its steps: None yet.",
+   "where": "https://traversence.com/admin/config/team"
+  },
+  {
    "what": "The FAQ's team entry says how a role is tested before it counts as live.",
    "where": "https://traversence.com/faq.php"
   }
  ],
  "proposals": [],
  "switch": "",
- "notes": "Tier 2, backend only (an /admin/ page and one new library; no public page, no rule of the decision tree: TeamRunner.php is not touched, so the tree's approval stays). NOT SENT: waiting on pause-1a-4 live and synced (faq.md), then the Design reviewer's look at the drawer (handoffs/team-test-ticket/screens, 1280 and 390). Tests: tools/team-tests/test-ticket.php (42 checks on MariaDB), test-ticket.cjs (22 checks at 1280 and 390), runner.php 85, audit.php 34. A test run is a real row in team_runs on staging (undone or dismissed), so the Team page's evidence counts include it. Way back: Roll back."
+ "notes": "Tier 2, backend only (an /admin/ page and one new library; no public page, no rule of the decision tree: TeamRunner.php is not touched, so the tree's approval stays). NOT SENT: waiting on pause-1a-4 live and synced (faq.md), Design approved with two word fixes, both made (the session manager as the Design look, 2026-11-28). Tests: tools/team-tests/test-ticket.php (45 checks on MariaDB), test-ticket.cjs (26 checks at 1280 and 390), runner.php 85, audit.php 34. A test run is a real row in team_runs on staging (undone or dismissed), so the Team page's evidence counts include it. Way back: Roll back."
 }

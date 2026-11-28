@@ -2479,7 +2479,8 @@ return [
             $vet = is_file(__DIR__ . '/../lib/TeamVet.php'); if ($vet) require_once __DIR__ . '/../lib/TeamVet.php';   // Run a test ticket (Jason, 2026-11-28): the result and its cost, on the role's own page
             $steps = array_map(fn ($k) => TeamRunner::STEPS[$k][1] . ' (' . ['act' => 'acts', 'propose' => 'proposes; a person accepts', 'off' => 'off until agents work past ' . TeamRunner::CEILINGS[$cl][0]][TeamRunner::STEP_AT[$k][$cl]] . ')', $steps0);
             $fields = [
-                ['Status', (TeamRoster::STATUSES[$st][0] ?? $st) . ' · ' . lcfirst(TeamRoster::STATUSES[$st][1] ?? '')],
+                ['Status', $st === 'active' && !$isF && !$adv && !$steps0 ? (TeamRoster::STATUSES[$st][0] ?? $st) . ' · waiting for its first step (its own release brings one)'   // true to Its steps: "None yet" (the Design look, 2026-11-28)
+                    : (TeamRoster::STATUSES[$st][0] ?? $st) . ' · ' . lcfirst(TeamRoster::STATUSES[$st][1] ?? '')],
                 ['Layer', TeamRoster::DEPARTMENTS[$r['department']][0] ?? (TeamRoster::OLD_DEPARTMENTS[$r['department']] ?? $r['department'])],
                 ['Kind', (TeamRoster::KINDS[$r['kind']][0] ?? $r['kind']) . ' · ' . lcfirst(TeamRoster::KINDS[$r['kind']][1] ?? '')],
                 ['Made of', TeamRoster::MADE_OF[$r['made_of']] ?? $r['made_of']],
