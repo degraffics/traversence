@@ -149,6 +149,16 @@
             "at": "2026-11-28T02:50:02+00:00",
             "by": 0,
             "msg": "Published: 8 files, after its 1 migration ran first (2026-11-26_0180_r2_lanes.sql; a copy of what each touched is kept 14 days); everyone at once (no switch)."
+        },
+        {
+            "at": "2026-11-28T02:50:04+00:00",
+            "by": 0,
+            "msg": "Before-and-after check: /admin/crawler-review.php (as the test Executive, at 390) was slow before this release too, and still didn't open after it. Staging is slow there; it's reached only through website/js/tv-ask.js. The slow-pages ticket has it."
+        },
+        {
+            "at": "2026-11-28T02:50:04+00:00",
+            "by": 0,
+            "msg": "Before-and-after check: /admin/crawler-review.php (as the test Ops staff, at 390) was slow before this release too, and still didn't open after it. Staging is slow there; it's reached only through website/js/tv-ask.js. The slow-pages ticket has it."
         }
     ]
 }
