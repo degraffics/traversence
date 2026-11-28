@@ -4,6 +4,34 @@
  "lines": [],
  "messages": [
   {
+   "id": "sm-2026-11-28-live-340",
+   "at": "2026-11-28T16:10:00Z",
+   "subject": "Live: #340 the pause: nothing the system finds publishes by itself",
+   "body": "Release #340 (pause-1a-6) went live at 15:45 UTC, synced (16:04 UTC) and byte-checked. Machine finds are staged for Review instead of publishing; owner and staff edits still publish at once. Review shows the newest 200 waiting, and the page fits at phone width. https://traversence.com/admin/config/releases",
+   "link": "https://traversence.com/admin/config/releases"
+  },
+  {
+   "id": "sm-2026-11-28-live-339",
+   "at": "2026-11-28T16:10:00Z",
+   "subject": "Live: #339 task-seed-4-2 (the ten goals and their tasks in the Work queue; data-only, can't be byte-checked)",
+   "body": "Release #339 went live at 15:00 UTC. It's data-only, so the mirror can't byte-check it. The Work queue: https://traversence.com/admin/development. Releases: https://traversence.com/admin/config/releases",
+   "link": "https://traversence.com/admin/config/releases"
+  },
+  {
+   "id": "sm-2026-11-28-live-338",
+   "at": "2026-11-28T16:10:00Z",
+   "subject": "Live: #338 ruling 1: releases wait for you only for a high-risk Tier 4 or a data_reason change",
+   "body": "Release #338 went live at 15:30 UTC, synced (16:04 UTC) and byte-checked. Adding rows no longer holds a release. A look that can't judge is re-run 3 times before reaching you. When the day's check minutes are spent, a release waits on staging until 00:00 UTC without an email. https://traversence.com/admin/config/releases",
+   "link": "https://traversence.com/admin/config/releases"
+  },
+  {
+   "id": "sm-2026-11-28-live-334",
+   "at": "2026-11-28T16:10:00Z",
+   "subject": "Live: #334 task-seed-6 (the 42 agent tickets; data-only, can't be byte-checked)",
+   "body": "Release #334 went live at 13:45 UTC. It's data-only, so the mirror can't byte-check it. It made 0 agent tickets on live because task-seed-4's goals weren't live yet; task-seed-6-2 makes them. https://traversence.com/admin/config/releases",
+   "link": "https://traversence.com/admin/config/releases"
+  },
+  {
    "id": "sm-2026-11-26-test-1",
    "at": "2026-11-26T02:35:00Z",
    "subject": "Traversence: the site's own email works",
