@@ -3,8 +3,8 @@
 Reviewed: claude/pause-1a @84d2b031 (handoffs/pause-1a/build, tools/pause-tests/pause.php), read against the live mirror
 at Sync 01:15 UTC (d897347). Earlier pass: @d32f440b, 01:38 UTC.
 
-**Verdict: PASS on one condition.** The identity layer's automatic writes of About text and hours are held like the rest
-(below). The independent check is recorded in `tier4-independent.md`.
+**Verdict: not yet.** First pass: PASS on one condition (the identity layer). The independent check (`tier4-independent.md`)
+widens that condition to four paths and two defects. It passes once they're closed and run in a test.
 
 ## Confirmed
 - `AutoImport::enabled()` is false while `PAUSED` holds words, whatever .env says. `pausedWhy()` is shown on the dashboard
