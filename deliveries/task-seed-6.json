@@ -1,0 +1,14 @@
+{
+ "zip": "task-seed-6.zip",
+ "built_on": "5b39084 Sync: 2026-11-28 02:52 UTC",
+ "recorded": "2026-11-28 13:25 UTC",
+ "note": "task-seed-6: one Work-queue ticket per agent (30 roles, 12 advocates) in the CEO's wave order, task-seed-5's four team group tickets withdrawn (data only, Tier 2; nothing deleted); built on Sync 2026-11-28 02:52 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/migrations/2026-11-28_task_seed_6.sql": {
+   "sha256": "225c86fdbf28d349a199d3dcdf6bc8663b30ee72c5da99f0f0a569d73a249010",
+   "live": false
+  }
+ }
+}

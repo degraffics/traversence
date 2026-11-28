@@ -4,10 +4,10 @@
 send.py refuses a release.json without "ticket"; tools/batch/batch.py refuses a job without one. A ticket is:
   - its Work-queue id: 123 or "#123" (the number on /admin/control-board's Work queue), or
   - its exact title, for a ticket whose id isn't known in the repo: one of the titles the seeds wrote
-    (handoffs/task-seed-4/items.json, handoffs/task-seed-5/items.json).
+    (handoffs/task-seed-*/items.json).
 A title nobody seeded is refused: add the ticket to the Work queue first, then name it by its id.
 """
-import json, os, re
+import glob, json, os, re
 
 DOCS = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
 HOW = ('Name its Work-queue ticket: "ticket": 123 (its id on the Work queue, https://traversence.com/admin/control-board), '
@@ -25,11 +25,12 @@ def seeded(docs=DOCS):
                 out.update(c['what'] for c in g.get('children', []))
     except (OSError, ValueError, KeyError):
         pass
-    try:
-        with open(os.path.join(docs, 'handoffs', 'task-seed-5', 'items.json'), encoding='utf-8') as f:
-            out.update(x['what'] for x in json.load(f)['new'])
-    except (OSError, ValueError, KeyError):
-        pass
+    for seed in sorted(glob.glob(os.path.join(docs, 'handoffs', 'task-seed-*', 'items.json'))):   # task-seed-5 and every later seed
+        try:
+            with open(seed, encoding='utf-8') as f:
+                out.update(x['what'] for x in json.load(f).get('new', []))
+        except (OSError, ValueError, KeyError, AttributeError):
+            pass
     return out
 
 
