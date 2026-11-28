@@ -1,0 +1,14 @@
+{
+ "zip": "task-seed-5.zip",
+ "built_on": "5b39084 Sync: 2026-11-28 02:52 UTC",
+ "recorded": "2026-11-28 13:22 UTC",
+ "note": "task-seed-5: every current item a Work-queue ticket under its goal, in its lane, at its real phase (49 tickets, 7 of task-seed-4's linked or moved in place; data only, Tier 2; nothing deleted); built on Sync 2026-11-28 02:52 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/migrations/2026-11-28_task_seed_5.sql": {
+   "sha256": "12084557100cd98dac544c578f029da4818d3d75085532098053ae1eccf821da",
+   "live": false
+  }
+ }
+}

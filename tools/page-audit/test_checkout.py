@@ -64,7 +64,7 @@ class Base(unittest.TestCase):
     def zip(self, files, name='build.zip'):
         p = os.path.join(self.tmp, name)
         with zipfile.ZipFile(p, 'w') as z:
-            z.writestr('release.json', json.dumps({'title': 't', 'why': 'w', 'proposals': [], 'switch': ''}))
+            z.writestr('release.json', json.dumps({'ticket': 1, 'title': 't', 'why': 'w', 'proposals': [], 'switch': ''}))
             for n, body in files.items():
                 z.writestr(n, body)
         return p

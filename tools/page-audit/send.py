@@ -3,7 +3,8 @@
 
     python3 tools/page-audit/send.py <zip> --mirror <traverse-3way-sync checkout> --note "…built on Sync: <time>"
 
-It runs the zip check (it must pass), records the zip in the delivery log, and copies it into releases/inbox/. Then
+release.json must name its Work-queue ticket ("ticket": its id, or a seeded ticket's exact title; ticket.py): without one
+nothing is sent (Jason, 2026-11-28). It runs the zip check (it must pass), records the zip in the delivery log, and copies it into releases/inbox/. Then
 commit, open a PR and merge it into main: within 10 minutes the live site takes it onto staging as a release (or at once
 with Releases ▾ → Check for builds on the site manager). After Jason publishes it, run the sync and
 `deliveries.py verify` as for any delivery.
@@ -17,6 +18,7 @@ import json, argparse, os, re, shutil, subprocess, sys, zipfile
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import checkout  # noqa: E402
+import ticket as ticket_rule  # noqa: E402
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = os.path.normpath(os.path.join(HERE, '..', '..'))
@@ -152,6 +154,9 @@ def main():
             plan = json.loads(z.read('release.json'))
         except ValueError:
             sys.exit('release.json isn\'t valid JSON.')
+        why = ticket_rule.check(plan.get('ticket'))   # no release without its Work-queue ticket (Jason, 2026-11-28); before anything is claimed or recorded
+        if why:
+            sys.exit('Refused (nothing was claimed, nothing sent): release.json has ' + why)
         if not plan.get('changes'):   # the review email, Pulse case and site manager list these (Jason, 2026-11-15: legible on a phone)
             print('Warning: release.json has no "changes" list ([{"what": "a few words", "where": "where to look"}]): the review email falls back to "why" split into its numbered parts.')
         guard(a, name, plan, z)

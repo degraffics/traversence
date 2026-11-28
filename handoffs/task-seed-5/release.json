@@ -1,0 +1,23 @@
+{
+ "ticket": "task-seed-5: every current item a ticket under its goal, in its lane, at its real phase",
+ "title": "The Work queue is the record: every current item a ticket under its goal, in its lane, at its real phase",
+ "why": "Jason's ruling, 2026-11-28, through the session manager: \"Work queue is our only development lane so never bypass it!\" Goal: Goals and records with the roles, live by Mon Nov 30 (CLAUDE.md, launch first: the record every gate's work is picked from).",
+ "changes": [
+  {
+   "what": "49 new tickets, each under its goal and in its lane, at its real phase (Planning, Building, Implementation or Confirmation), with its draft or release in Source: the pause and the two seeds, the four team releases and the team page, the advocates' own audit, search 1a, 1b, 1c and 2, the care claim kinds, the IT lane's tickets, Frontend & Shop's builds waiting to be sent, Events E1, E2, P1 and P2, the Hometown Theater's touch points (F9), the decided-not-live drafts and the Control Board drafts.",
+   "where": "https://traversence.com/admin/control-board"
+  },
+  {
+   "what": "The before-and-after check's two findings as Audit tickets: /admin/people.php at 390 (Found) and Review not opening in 45 s (Confirmed, bounded by pause-1a-4).",
+   "where": "https://traversence.com/admin/control-board"
+  },
+  {
+   "what": "Seven of task-seed-4's tickets gain their build or draft in Source. Three that are built move to Building with their release named (the daily goal check, the layout shift, the Marketplace's four sections), each move in its History. Only while still as seeded: a person's move or words are never changed.",
+   "where": "https://traversence.com/admin/control-board"
+  }
+ ],
+ "proposals": [],
+ "switch": "",
+ "data_reason": "Adds 49 tasks to control_gauge_tasks, each with its id named (MAX(id)+1), only where its goal exists and no task has its (gauge, item), and writes each one's lane only where R2's lane column exists and the lane is empty. On 7 of task-seed-4's own tasks, replaces source only where it is still the seed's own text, and on 3 of them sets stage, stage_at and rel only while the task is still at Planning with no release named, with one row in control_gauge_task_moves for each. Nothing is deleted, and no person's text or move is overwritten.",
+ "notes": "Data only, Tier 2. Built on task-seed-4 (pending, no shared file): if task-seed-4's goals aren't there, no ticket is made. Test: tools/task-seed-tests/seed5.php (24 checks on MariaDB with the live GaugeTasks and TeamRoster, run twice, without the lane column, without the goals). With it in the repo: send.py refuses a release.json without \"ticket\" and tools/batch/batch.py refuses a job without one (tools/page-audit/ticket.py, test_send_ticket.py, tools/batch/test_batch_ticket.py). Not in this release (its own ticket, at Planning): send.py and the release record moving a ticket's phase by themselves on send and on Live. Way back: Roll back removes nothing by itself; the tickets carry who = 'task-seed-5 (Build & QA, 21)' and can be closed from the queue."
+}
