@@ -2,7 +2,7 @@
  "zip": "pause-1a-4.zip",
  "built_on": "5b39084 Sync: 2026-11-28 02:52 UTC",
  "recorded": "2026-11-28 13:11 UTC",
- "note": "Pause sent a fourth time (replaces pause-1a-3.zip, withdrawn as #330: Review didn't open in 45 s for the executive; while paused advance() passes a staged row once and Review reads the newest 200 with Show more and the true total); built on Sync 2026-11-28 02:52 UTC Sent through git (releases/inbox).",
+ "note": "Pause sent a fourth time (replaces pause-1a-3.zip, withdrawn as #330: Review didn't open in 45 s for the executive; while paused advance() passes a staged row once and Review reads the newest 200 with Show more and the true total); built on Sync 2026-11-28 02:52 UTC Sent through git (releases/inbox). Came back incomplete as #331 (the check's staff sign-ins failed: three releases' looks spent the same one-time code at once; no fault of the release); replaced by pause-1a-5.zip.",
  "status": "pending",
  "live_in": "",
  "files": {
