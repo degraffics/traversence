@@ -199,6 +199,19 @@
    "expires": "2026-11-28T06:05:59Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/ListingIdentity.php",
+   "functions": [
+    "merge"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iAy5magAU62jYiAxM",
+   "why": "Pause: About text and hours held for Review on every machine path (the IT Manager's Tier 4)",
+   "since": "2026-11-28T02:06:01Z",
+   "expires": "2026-11-28T06:06:01Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
