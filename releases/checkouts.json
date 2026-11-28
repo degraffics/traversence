@@ -278,6 +278,19 @@
    "expires": "2026-11-28T06:06:18Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "website/js/tv-ask.js",
+   "functions": [
+    "ask"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
+   "why": "R2 lanes and locks (decisions/0180 \u00a75, \u00a77), r2-lanes-4",
+   "since": "2026-11-28T02:07:03Z",
+   "expires": "2026-11-28T06:07:03Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
