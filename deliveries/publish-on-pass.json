@@ -1,0 +1,18 @@
+{
+ "zip": "publish-on-pass.zip",
+ "built_on": "46512b8 Sync: 2026-11-28 16:04 UTC",
+ "recorded": "2026-11-28 16:43 UTC",
+ "note": "Publish on pass: the ping moves each waiting release on by its verdict on main (Jason, 2026-11-28 15:55 UTC); built on Sync 2026-11-28 16:04 UTC, whose faq.md is pause-1a-6's (live as #340) Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/ui/faq.md": {
+   "sha256": "46dec0c72fcb33d7190f5c61917d79b9e2e69b058d9ca562bf7c464f04d347b7",
+   "live": false
+  },
+  "website/api/releases-pull.php": {
+   "sha256": "6e9a802bcdea6ba57fe26709a68f10923e96c4faf13da615e512793093acdc28",
+   "live": false
+  }
+ }
+}
