@@ -1,5 +1,5 @@
 <?php
-// tools/task-seed-tests/seed6.php: task-seed-6 on a real MariaDB (php seed6.php <live app/lib> <seed 4's> <seed 5's> <seed 6's migration>).
+// tools/task-seed-tests/seed6.php: task-seed-6 on a real MariaDB (php seed6.php <live app/lib> <seed 4's> <seed 5's> <seed 6's migration>; since task-seed-6-2 the migration is 2026-11-28_task_seed_6b.sql and also seeds handoffs/task-seed-7's tickets).
 // One ticket per agent in the CEO's wave order, task-seed-5's four team group tickets withdrawn (kept), run twice the way
 // DbUpdates::autoRun does, a group ticket a person took left alone, before task-seed-5, before the goals.
 declare(strict_types=1);
@@ -9,6 +9,7 @@ require_once $lib . '/ControlLog.php'; require_once $lib . '/GaugeTasks.php'; re
 $root = new PDO('mysql:host=localhost;charset=utf8mb4', 't', 't', [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
 $ok = 0; $bad = 0; $t = function (string $w, bool $p) use (&$ok, &$bad) { $p ? $ok++ : $bad++; echo ($p ? 'ok   ' : 'FAIL ') . "$w\n"; };
 $D = json_decode((string) file_get_contents(__DIR__ . '/../../handoffs/task-seed-6/items.json'), true);
+$D7 = json_decode((string) file_get_contents(__DIR__ . '/../../handoffs/task-seed-7/items.json'), true)['new'];   // the session manager's tickets, seeded with task-seed-6-2
 $run = function (PDO $pdo, string $file) { foreach (array_filter(array_map('trim', explode(';', (string) file_get_contents($file)))) as $s) { $s = trim(preg_replace('/^--.*$/m', '', $s)); if ($s !== '') $pdo->exec($s); } };
 $fresh = function (string $db, array $seeds) use ($root, $run): PDO {
     $root->exec("DROP DATABASE IF EXISTS $db"); $root->exec("CREATE DATABASE $db CHARACTER SET utf8mb4");
@@ -27,7 +28,11 @@ $pdo = $fresh('ts6', [$m4, $m5]);
 $before = $n($pdo, 'SELECT COUNT(*) FROM control_gauge_tasks');
 $pdo->exec("UPDATE control_gauge_tasks SET owner = 'Jason', owner_at = UTC_TIMESTAMP() WHERE item = 'The team release: the middle managers'");   // a person took one
 $run($pdo, $m6); $n1 = $n($pdo, 'SELECT COUNT(*) FROM control_gauge_tasks'); $run($pdo, $m6);
-$t('run twice: nothing made twice, nothing deleted', $n1 === $n($pdo, 'SELECT COUNT(*) FROM control_gauge_tasks') && $n1 - $before === 42);
+$t('run twice: nothing made twice, nothing deleted', $n1 === $n($pdo, 'SELECT COUNT(*) FROM control_gauge_tasks') && $n1 - $before === 42 + count($D7));
+$r7 = $pdo->query("SELECT c.*, p.item pi FROM control_gauge_tasks c LEFT JOIN control_gauge_tasks p ON p.id = c.parent_id WHERE c.who = 'task-seed-7 (Build & QA, 21)' ORDER BY c.id")->fetchAll(PDO::FETCH_ASSOC);
+$t('task-seed-7: the session manager\'s ' . count($D7) . ' tickets, after the 42, each under its own goal', count($r7) === count($D7) && array_map(fn ($r) => (int) $r['id'], $r7) === range($before + 43, $before + 42 + count($D7)) && array_column($r7, 'pi') === array_column($D7, 'parent'));
+$t('task-seed-7: each at its real phase, in its lane, its release and source named', array_column($r7, 'stage') === array_column($D7, 'stage') && array_column($r7, 'lane') === array_column($D7, 'lane') && array_column($r7, 'rel') === array_column($D7, 'rel') && !array_filter($r7, fn ($r) => $r['source'] === '' || $r['ticket'] !== 'work'));
+$t('task-seed-7: the ticket for publishing on pass is there, at Implementation, with Jason\'s words', (bool) array_filter($r7, fn ($r) => $r['item'] === 'A release publishes the moment its check passes, not on the next 15-minute tick' && $r['stage'] === 'implementation' && str_contains($r['why'], 'Push to live should be done immediately, upon pass')));
 $rows = $pdo->query("SELECT c.*, p.item pi FROM control_gauge_tasks c LEFT JOIN control_gauge_tasks p ON p.id = c.parent_id WHERE c.$mine ORDER BY c.id")->fetchAll(PDO::FETCH_ASSOC);
 $t('42 agent tickets: 30 roles and the 12 advocates', count($rows) === 42 && count(array_filter($rows, fn ($r) => str_contains($r['item'], 'advocate A'))) === 12);
 $t('no ticket for the Founder (1) or the CEO (2)', !array_filter($rows, fn ($r) => preg_match('/\((1|2)\)/', $r['item'])));

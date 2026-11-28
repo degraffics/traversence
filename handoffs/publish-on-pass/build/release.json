@@ -1,0 +1,21 @@
+{
+ "ticket": "A release publishes the moment its check passes, not on the next 15-minute tick",
+ "title": "A release publishes the moment its before-and-after check passes",
+ "why": "Jason's ruling, 2026-11-28 15:55 UTC: \"Push to live should be done immediately, upon pass.\" Today's Lives landed on the 10-minute job's runs. The cause, in two parts: beforeafter.yml committed its verdict and told nobody, and the site's ping endpoint (website/api/releases-pull.php) took builds only, leaving verdicts to releases_tick (the CEO's Tier 4 option (a), 2026-11-27, handoffs/pipeline-tick/README.md). His ruling replaces option (a). Gate: the record every gate's work is picked from (Goals and records with the roles, by Mon Nov 30).",
+ "changes": [
+  {
+   "what": "A release moves on as soon as its look's verdict is on main: its before look in puts it on staging, an after pass publishes it, a block withdraws it. The check's workflow tells the site (the same endpoint a new build's ping calls), and the site reads the verdict from main and decides, as its 10-minute job does. Nothing from the call decides anything, and a release with no pass on main stays where it is. If the call is missed, the 10-minute job still reads the verdict.",
+   "where": "https://traversence.com/admin/config/releases"
+  },
+  {
+   "what": "FAQ, \"What is the before-and-after check?\": the release moves on at once when a look is done (within 10 minutes if that call is missed).",
+   "where": "https://traversence.com/faq.php"
+  }
+ ],
+ "proposals": [],
+ "switch": "",
+ "checks": {
+  "tickverdict": "tools/piece3-tests/tickverdict.php 50 on MariaDB, the real endpoint run in its own process with GitHub answered in place of the network: a before verdict on main moves its release on in the ping's call, counted once; a waiting release with no verdict on main stays as it was; an after pass is decided in that call, carrying releases.publish only (never schedule, turn off or roll back), once; a block reaches the decision step as a block; GitHub is asked only for the inbox listing and the waiting releases' verdict files on main; a second ping within the minute is 429; the lock (one advance at a time) and the rest as before."
+ },
+ "notes": "Backend only, 2 files: website/api/releases-pull.php (after it takes builds, BeforeAfter::advance under the same one-call grant, each in its own try) and app/ui/faq.md (one sentence). No migration. The other half is in the docs repo already: .github/workflows/beforeafter.yml's last step, Tell the site the verdict is in. Never unchecked: the step is BeforeAfter::advance, unchanged, which publishes only on a pass verdict read from main, holds what ruling 1 holds, and leaves a release waiting when a step throws. The endpoint stays at most once a minute, with nothing read from the request. Tier 4: the release pipeline; this replaces the CEO's option (a) of 2026-11-27 on Jason's ruling, recorded on decisions/0179. Way back: Roll back on System Configuration → Releases (the job reads verdicts as before); the workflow step comes out by a PR."
+}

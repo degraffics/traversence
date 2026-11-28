@@ -1,0 +1,14 @@
+{
+ "zip": "task-seed-6-2.zip",
+ "built_on": "46512b8 Sync: 2026-11-28 16:04 UTC",
+ "recorded": "2026-11-28 16:09 UTC",
+ "note": "task-seed-6 sent again as task-seed-6-2 (#334 ran before the goals and made nothing): its statements under a new file name, with the session manager's seven tickets; built on Sync 2026-11-28 16:04 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/migrations/2026-11-28_task_seed_6b.sql": {
+   "sha256": "7a930170cfe4d61fbdb66c666bc5ef568737e04740fa4352adfad9dde935bb9b",
+   "live": false
+  }
+ }
+}
