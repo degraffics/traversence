@@ -12,7 +12,7 @@ line in Jason's daily batch; the pilot guard). Evidence: `research/data-capture-
 - `legacy_unsourced`: created before 2026-10-01, never through the intake (no published `crawler_raw_index` row), and
   no kept source for its phone or address (an identity fact from a registry, a person, or a page we may keep). It goes
   back to a sighting. Its scope is the setting `legacy_scope`: off (the default: found and shown, never acted on, "Waiting
-  on the CEO's scope"), health (the Health & Medical group plus the safety kinds 0061's emergency needs name: Fire Departments, County Government-Fire Protection, Civil Defense Agencies, County Government-Public Order & Safety, Sheriff; `Situations.php:441`, `:446`; the session manager, 2026-11-28), or all. A government or agency listing (`Claims::KIND_GROUPS` public) with any source we keep stays up. The CEO ruled (c): person_place plus health.
+  on the CEO's scope"), health (the Health & Medical group plus the safety kinds 0061's emergency needs name: Fire Departments, County Government-Fire Protection, Civil Defense Agencies, County Government-Public Order & Safety, Sheriff, Police Departments; `Situations.php:441`, `:442`, `:446`; the session manager, 2026-11-28), or all. A government or agency listing (`Claims::KIND_GROUPS` public) with any source we keep stays up. The CEO ruled (c): person_place plus health.
 - **Guard:** `pilotIds()` = #8807 plus the setting `pilot_ids` (Editorial (12) adds each invited participant). Those,
   and any claimed or person-touched listing, are "Check these", never acted on.
 - **Acting and Undo:** both use the existing off-site case in `act()` (with `junk_name`, `no_floor`, `page_only`):
@@ -24,5 +24,5 @@ line in Jason's daily batch; the pilot guard). Evidence: `research/data-capture-
   a small once-flag (a migration sets `cleanup_settings.pass_once`, and a job that always runs takes it once). That's
   the session manager's to route.
 
-- **Gaps flagged:** shelters aren't named in 0061's needs, so they're outside the safety scope. `Police Departments` is named
-  at `Situations.php:442` but not in the session manager's list; it's left out until ruled.
+- **Gaps flagged:** shelters aren't named in 0061's needs, so they're outside the safety scope. `Police Departments` added (`Situations.php:442`;
+  the session manager, 2026-11-28).

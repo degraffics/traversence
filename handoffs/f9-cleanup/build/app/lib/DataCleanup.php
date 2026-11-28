@@ -648,9 +648,9 @@ final class DataCleanup
 
     /** F9 (2026-11-28): which September listings legacy_unsourced takes, as the CEO rules: off (shown, never acted on), health, all. */
     public const LEGACY_BEFORE = '2026-10-01';
-    /** The safety kinds in the health scope: exactly the categories 0061's emergency needs name (Situations.php:441, :446).
+    /** The safety kinds in the health scope: exactly the categories 0061's emergency needs name (Situations.php:441, :442, :446).
      *  Shelters aren't named there, so they're not here (a gap, in the data-capture review). */
-    public const SAFETY_CATEGORIES = ['Fire Departments', 'County Government-Fire Protection', 'Civil Defense Agencies', 'County Government-Public Order & Safety', 'Sheriff'];
+    public const SAFETY_CATEGORIES = ['Fire Departments', 'County Government-Fire Protection', 'Civil Defense Agencies', 'County Government-Public Order & Safety', 'Sheriff', 'Police Departments'];
     /** The public kinds (Claims::KIND_GROUPS' 'public'), whose listings stay up on any keepable source. */
     public const PUBLIC_GROUPS = ['Government & Public Services'];
     public static function legacyScope(PDO $pdo): string { $v = self::setting($pdo, 'legacy_scope'); return in_array($v, ['health', 'all'], true) ? $v : 'off'; }
