@@ -20,8 +20,8 @@ $pdo->exec("CREATE TABLE authority_sources (id INT UNSIGNED NOT NULL AUTO_INCREM
   status VARCHAR(10) NOT NULL DEFAULT 'staged', enabled TINYINT NOT NULL DEFAULT 0, on_by INT UNSIGNED DEFAULT NULL, on_at DATETIME DEFAULT NULL, note VARCHAR(500) DEFAULT NULL,
   added_at DATETIME NOT NULL, PRIMARY KEY (id), UNIQUE KEY uq_state_url (state, url(190))) DEFAULT CHARSET=utf8mb4");
 $pdo->exec("INSERT INTO authority_sources (state, kind, name, url, host, service, real_use, added_at) VALUES ('AZ', 'company', 'Arizona Corporation Commission', 'https://arizonabusinesscenter.azcc.gov/', 'arizonabusinesscenter.azcc.gov', 'azcc', 'lookup', UTC_TIMESTAMP())");
-$pdo->exec("CREATE TABLE hub_stages (hub_id INT PRIMARY KEY)"); $pdo->exec("CREATE TABLE crawl_workflows (wf VARCHAR(8) PRIMARY KEY, name VARCHAR(80), label VARCHAR(80), paused TINYINT, paused_at DATETIME, share_pct INT, why VARCHAR(200))"); $pdo->exec("CREATE TABLE hubs (id INT PRIMARY KEY, name VARCHAR(80), status VARCHAR(20))");
-$pdo->exec("CREATE TABLE crawl_capture_tasks (task VARCHAR(40) PRIMARY KEY, enabled TINYINT NOT NULL DEFAULT 0, mode VARCHAR(8) NOT NULL DEFAULT 'run', max_fetches INT NOT NULL DEFAULT 0)");
+$pdo->exec("CREATE TABLE hub_stages (hub_id INT PRIMARY KEY)"); $pdo->exec("CREATE TABLE crawl_workflows (wf VARCHAR(8) PRIMARY KEY, name VARCHAR(80), label VARCHAR(80), paused TINYINT, paused_at DATETIME, paused_by INT UNSIGNED NULL, paused_why VARCHAR(255) NULL, share_pct INT, why VARCHAR(200))"); $pdo->exec("INSERT INTO crawl_workflows (wf, name, paused, paused_why) VALUES ('W14', 'Authority sources', 1, 'Added paused (Release B): a person switches it on')"); $pdo->exec("CREATE TABLE hubs (id INT PRIMARY KEY, name VARCHAR(80), status VARCHAR(20))");
+$pdo->exec("CREATE TABLE crawl_capture_tasks (task VARCHAR(24) PRIMARY KEY, wf VARCHAR(8) NOT NULL DEFAULT '', name VARCHAR(120) NOT NULL DEFAULT '', what VARCHAR(255) NOT NULL DEFAULT '', from_where VARCHAR(255) NOT NULL DEFAULT '', mode VARCHAR(8) NOT NULL DEFAULT 'run', every_minutes SMALLINT UNSIGNED NOT NULL DEFAULT 0, fresh_days SMALLINT UNSIGNED NULL, per_run SMALLINT UNSIGNED NOT NULL DEFAULT 0, max_seconds SMALLINT UNSIGNED NOT NULL DEFAULT 0, max_fetches SMALLINT UNSIGNED NOT NULL DEFAULT 0, max_paid SMALLINT UNSIGNED NOT NULL DEFAULT 0, enabled TINYINT(1) NOT NULL DEFAULT 0, sort SMALLINT NOT NULL DEFAULT 0, last_served_at DATETIME NULL, last_outcome VARCHAR(16) NULL, last_why VARCHAR(255) NULL, updated_at DATETIME NULL, off_why VARCHAR(255) NULL, off_by INT UNSIGNED NULL, off_at DATETIME NULL)");
 
 // the migration, as DbUpdates runs it (split on ;), twice
 $sql = file_get_contents("$root/app/migrations/2026-11-28_w14_adhs.sql");
@@ -32,6 +32,22 @@ check('migration twice: ADHS staged once, switched off, lookup, its terms unread
 $cols = $pdo->query("SELECT COLUMN_NAME FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = 'w14_test' AND TABLE_NAME = 'authority_sources' AND COLUMN_NAME IN ('robots', 'terms_fetch', 'fetched_at')")->fetchAll(PDO::FETCH_COLUMN);
 check('…its three columns added once', count($cols) === 3);
 $adhs = (int) $rows[0]['id'];
+$tk = $pdo->query("SELECT * FROM crawl_capture_tasks WHERE task = 'w14_terms'")->fetch(PDO::FETCH_ASSOC);
+check('switched on by the migration (Jason, "use the crawler to scan those site if allowed"): w14_terms on, W14, a run task, 6 fetches, once a day', $tk && (int) $tk['enabled'] === 1 && $tk['wf'] === 'W14' && $tk['mode'] === 'run' && (int) $tk['max_fetches'] === 6 && (int) $tk['every_minutes'] === 1440);
+check('…W14 off its shipped pause', (int) $pdo->query("SELECT paused FROM crawl_workflows WHERE wf = 'W14'")->fetchColumn() === 0);
+// the way back
+$rb = file_get_contents("$root/app/rollbacks/2026-11-28_w14_adhs.sql");
+$runRb = function () use ($pdo, $rb) { foreach (array_filter(array_map('trim', explode(';', preg_replace('/^--.*$/m', '', $rb)))) as $q) $pdo->exec($q); };
+$runRb();
+check('Roll back: the task off and W14 paused again, saying why', (int) $pdo->query("SELECT enabled FROM crawl_capture_tasks WHERE task = 'w14_terms'")->fetchColumn() === 0 && (int) $pdo->query("SELECT paused FROM crawl_workflows WHERE wf = 'W14'")->fetchColumn() === 1 && str_contains((string) $pdo->query("SELECT paused_why FROM crawl_workflows WHERE wf = 'W14'")->fetchColumn(), 'Rolled back'));
+// a person's own pause stands: through the migration again and the rollback
+$pdo->exec("UPDATE crawl_workflows SET paused = 1, paused_by = 7, paused_why = 'A person paused it' WHERE wf = 'W14'");
+$run();
+check('a W14 a person paused stays paused when the migration runs again (and the task row isn\'t made twice)', (int) $pdo->query("SELECT paused FROM crawl_workflows WHERE wf = 'W14'")->fetchColumn() === 1 && (int) $pdo->query("SELECT COUNT(*) FROM crawl_capture_tasks WHERE task = 'w14_terms'")->fetchColumn() === 1);
+$pdo->exec("UPDATE crawl_capture_tasks SET enabled = 1 WHERE task = 'w14_terms'"); $pdo->exec("UPDATE crawl_capture_tasks SET enabled = 0, off_by = 7 WHERE task = 'w14_terms'"); $pdo->exec("UPDATE crawl_capture_tasks SET enabled = 1, off_by = 7 WHERE task = 'w14_terms'");
+$runRb();
+check('…and Roll back leaves a person\'s switch alone (off_by set, paused_by set)', (int) $pdo->query("SELECT enabled FROM crawl_capture_tasks WHERE task = 'w14_terms'")->fetchColumn() === 1 && (string) $pdo->query("SELECT paused_why FROM crawl_workflows WHERE wf = 'W14'")->fetchColumn() === 'A person paused it');
+$pdo->exec("UPDATE crawl_capture_tasks SET enabled = 0, off_by = NULL WHERE task = 'w14_terms'");
 
 // a temp lib: the build's HubOpening with stubs beside it
 $lib = sys_get_temp_dir() . '/w14-lib-' . getmypid(); @mkdir($lib);
@@ -44,7 +60,7 @@ require "$lib/HubOpening.php"; require_once "$lib/EngineCase.php"; require_once 
 
 HubOpening::ensureWorkflow($pdo);
 $tk = $pdo->query("SELECT * FROM crawl_capture_tasks WHERE task = 'w14_terms'")->fetch(PDO::FETCH_ASSOC);
-check('the task w14_terms is added switched off, a run task (a bulk task gets no fetches), 6 fetches', $tk && (int) $tk['enabled'] === 0 && $tk['mode'] === 'run' && (int) $tk['max_fetches'] === 6);
+check('ensureWorkflow keeps the migration\'s row (one row, a run task, 6 fetches)', $tk && $tk['mode'] === 'run' && (int) $tk['max_fetches'] === 6 && (int) $pdo->query("SELECT COUNT(*) FROM crawl_capture_tasks WHERE task = 'w14_terms'")->fetchColumn() === 1);
 $pdo->exec("UPDATE crawl_capture_tasks SET max_fetches = 9 WHERE task = 'w14_terms'"); HubOpening::ensureWorkflow($pdo);
 check('…a ceiling a person set is kept', (int) $pdo->query("SELECT max_fetches FROM crawl_capture_tasks WHERE task = 'w14_terms'")->fetchColumn() === 9);
 check('task off: termsOff says so, nothing due', str_contains((string) HubOpening::termsOff($pdo, 'azdhs'), 'switched off') && HubOpening::termsDue($pdo) === []);

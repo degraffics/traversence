@@ -118,7 +118,7 @@ final class OutsideServices
             [['Arizona Business Center', 'https://arizonabusinesscenter.azcc.gov/'], ['Corporation Commission', 'https://azcc.gov/']],
             [], ''],
         'azdhs' => ['Arizona Department of Health Services (licensed facilities)', 'Arizona\'s licensed health-care facilities (AZ Care Check): a licence\'s type and status set a health listing\'s true kind, hospital, urgent care or clinic (decisions/0164 §1.5, §7.1; Jason through the CEO, 2026-11-28).',
-            'Free ($0). Public records: the facts it states kept and shown with the source and the date (R9). W14 reads its robots.txt and terms first, and a person decides from them; its real use (bulk data, lookup only, blocked) is recorded on its authority source. A read at most every few seconds.',
+            'Free ($0). Public records: the facts it states kept and shown with the source and the date (R9). W14 reads its robots.txt and terms first, on Jason\'s call (2026-11-28, through the CEO: "use the crawler to scan those site if allowed"), and the IT Manager decides from them; its real use (bulk data, lookup only, blocked) is recorded on its authority source. A read at most every few seconds.',
             [['AZ Care Check', 'https://azcarecheck.azdhs.gov/s/'], ['Licensing', 'https://www.azdhs.gov/licensing/index.php']],
             [], ''],
         'nmsos' => ['New Mexico Secretary of State (businesses)', 'Companies registered in New Mexico: a match on name and address establishes a listing (decisions/0164 §1.5).',

@@ -225,9 +225,9 @@ final class HubOpening
     }
 
     /** The finding in words, for the source's Pulse step: what the crawler read and when. */
-    public static function termsWords(array $r): string
+    public static function termsWords(array $r, ?PDO $pdo = null): string
     {
-        if (empty($r['fetched_at'])) return 'The crawler hasn\'t read it yet (W14\'s task ' . self::TERMS_TASK . ', switched off until a person switches it on).';
+        if (empty($r['fetched_at'])) return 'The crawler hasn\'t read it yet: W14\'s task ' . self::TERMS_TASK . ' reads it on its next run while W14, this service and the task are on' . (($w = $pdo ? self::termsOff($pdo, (string) ($r['service'] ?? '')) : null) !== null ? ' (now: ' . $w . ')' : '') . '.';
         $f = json_decode((string) ($r['terms_fetch'] ?? ''), true) ?: [];
         [$v, $clause] = self::verdict((string) $r['robots'], $f);
         $turl = (string) (($r['terms_url'] ?? '') ?: ($r['url'] ?? ''));
@@ -265,7 +265,7 @@ final class HubOpening
         }
         foreach (self::sources($pdo) as $r) {
             $id = (int) $r['id']; $use = self::USES[$r['real_use']] ?? $r['real_use'];
-            if ($r['terms_read_at'] === null) $st[] = ['t' => $r['state'] . ', ' . $r['name'] . ': read its terms', 'h' => $use . '. Robots.txt, its terms of use and any data licence: whether automated reading is allowed, and how fast.' . (in_array((string) ($r['service'] ?? ''), self::READER_SERVICES, true) ? ' ' . self::termsWords($r) : ''), 'act' => ['do', 'hub_terms:' . $id, 'Terms read: allowed'], 'auto' => false, 'ext' => ['Its terms', (string) ($r['terms_url'] ?: $r['url'])]];
+            if ($r['terms_read_at'] === null) $st[] = ['t' => $r['state'] . ', ' . $r['name'] . ': read its terms', 'h' => $use . '. Robots.txt, its terms of use and any data licence: whether automated reading is allowed, and how fast.' . (in_array((string) ($r['service'] ?? ''), self::READER_SERVICES, true) ? ' ' . self::termsWords($r, $pdo) : ''), 'act' => ['do', 'hub_terms:' . $id, 'Terms read: allowed'], 'auto' => false, 'ext' => ['Its terms', (string) ($r['terms_url'] ?: $r['url'])]];
             elseif (!(int) $r['enabled'] && $r['real_use'] !== 'blocked') $st[] = $s($r['state'] . ', ' . $r['name'] . ': switch it on', $use . '. For an open hub it switches on from here once the hub line passes (H3).', ['do', 'hub_on:' . $id, 'Switch it on']);
         }
         return $st ?: [$s('Nothing waits on a person', 'The case closes by itself.', ['resolve'])];

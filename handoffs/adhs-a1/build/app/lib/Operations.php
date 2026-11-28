@@ -74,7 +74,7 @@ final class Operations
 
     /** Services added switched off (Jason, 2026-11-15): paused once, on the first look, until a person switches them on. */
     // generated from app/lib/service-defs.php (decisions/0173 §4): edit that file, then run tools/page-audit/service-defs.php --write
-    public const ADDED_OFF = ['gemini', 'supabase', 'overture', 'foursquare', 'geofabrik', 'azcc', 'azdhs', 'nmsos', 'azlicences'];
+    public const ADDED_OFF = ['gemini', 'supabase', 'overture', 'foursquare', 'geofabrik', 'azcc', 'nmsos', 'azlicences'];
     /** Why each was added off, for its switch (2026-11-18: "until Release B" was out of date once B shipped; the live rows
      *  were reworded by app/migrations/2026-11-18_added_off_words.sql). Off until a person switches it on, plus its own reason. */
     public const ADDED_OFF_WHY = [

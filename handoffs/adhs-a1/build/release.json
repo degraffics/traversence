@@ -1,13 +1,13 @@
 {
- "title": "W14 reads Arizona's licensed health facilities' terms (ADHS, AZ Care Check): staged switched off (A1)",
+ "title": "W14 reads Arizona's licensed health facilities' terms (ADHS, AZ Care Check), switched on for that read only (A1)",
  "why": "Jason through the CEO, 2026-11-28: \"Arizona's licensed health-facility list (azcarecheck.azdhs.gov, www.azdhs.gov) is read by our crawler, not from a session. Add both as sources under 0164: honour robots.txt and the site's terms, and let the licence decide the use.\" decisions/0164 §7.1 (W14: find, read its terms, classify, test the reader, stage switched off). It feeds the listing audit's C3, C5 and C6 (research/listing-audit-2026-11-27.md) and gate 3. Brief: handoffs/adhs-source.md.",
  "changes": [
   {
-   "what": "ADHS's licensed facilities are a W14 authority source for Arizona (kind health, lookup until its terms say otherwise), staged switched off, and a service card (azdhs: Free, public records, added off). A person decides its use from the terms, as for the other Arizona sources.",
+   "what": "ADHS's licensed facilities are a W14 authority source for Arizona (kind health, lookup until its terms say otherwise), with a service card (azdhs: Free, public records). The terms read is switched on (Jason through the CEO, 2026-11-28: \"use the crawler to scan those site if allowed\"). A person decides its use from the terms, as for the other Arizona sources.",
    "where": "https://traversence.com/admin/config/register (Arizona Department of Health Services)"
   },
   {
-   "what": "A new crawler task, w14_terms (W14, added switched off): once it's on, the worker reads the source's robots.txt first, then its own page and its terms page once each, politely. It sends back what it found (robots, the pages' answers, the terms' words, any list file linked). Nothing is read past a disallow, an unreadable robots.txt or a refusal. Any of those raises the service's issue with the public-records step (A.R.S. §39-121), never a workaround. Nothing from the source's records is kept.",
+   "what": "A new crawler task, w14_terms (W14), added on, and W14 off its shipped pause (unless a person paused it). The worker reads the source's robots.txt first, then its own page and its terms page once each, politely, and sends back what it found: robots, the pages' answers, the terms' words, any list file linked. It reads only ADHS (READER_SERVICES): W14's other sources (azcc, the licence lists) stay as they are. Nothing is read past a disallow, an unreadable robots.txt or a refusal. Any of those raises the service's issue with the public-records step (A.R.S. §39-121), never a workaround. Nothing from the source's records is kept. A run task with 6 fetches: CrawlService gives a bulk task none.",
    "where": "https://traversence.com/admin/config/workflows (W14)"
   },
   {
@@ -21,7 +21,7 @@
  ],
  "proposals": [],
  "switch": "",
- "data_reason": "The migration adds one row to authority_sources (ADHS, Arizona, staged and switched off) only when it isn't there, and three columns for the crawler's read (robots, terms_fetch, fetched_at). Nothing existing is changed.",
+ "data_reason": "Jason through the CEO, 2026-11-28: \"use the crawler to scan those site if allowed\" (the session manager: reading robots.txt and the terms page is the \"if allowed\" check, so it ships switched on). The migration adds the ADHS authority_sources row and three columns for the crawler's read (each only when missing). It adds the w14_terms task, switched on, only when it isn't there. It takes W14 off its shipped pause only when no person paused it (paused_by IS NULL). Its way back, app/rollbacks/2026-11-28_w14_adhs.sql, switches the task off and pauses W14 again, each only if this release's switch still holds.",
  "tier4": "IT Manager (11), for a new crawler task and source (to be recorded before live)",
- "notes": "Nothing is read until a person switches on W14, the azdhs service and the w14_terms task. Admin's test: the Hubs step reads \"The crawler hasn't read it yet\" while off; after a read it shows either the finding with Terms read: allowed, or \"Blocked by the site: …\" with the records-request step (the service's issue shows the same). The worker is 2.18.0 (workers/crawler, merged with this release). An older worker never gets the task (the plan asks what it has). Roll back: the release's Roll back puts the files back. The source row and its columns stay, unused (added only)."
+ "notes": "Admin's test: the Hubs step reads \"The crawler hasn't read it yet: … reads it on its next run\" (with the hold, if any: the master switch, the azdhs card). After the read it starts with \"Terms: ALLOWED / NOT ALLOWED / UNCLEAR (<terms URL> says: \"<clause>\")\". If ALLOWED, the IT Manager presses Terms read: allowed and records Jason's words, and a one-line follow-up and then A2 come next. Anything else goes to the CEO, and nothing more ships. The worker is 2.18.0 (workers/crawler, merged with this release; the session manager watches its Railway deploy). An older worker never gets the task (the plan asks what it has). Roll back: the release's Roll back puts the files back and runs app/rollbacks/2026-11-28_w14_adhs.sql. The source row and its columns stay, unused (added only)."
 }
