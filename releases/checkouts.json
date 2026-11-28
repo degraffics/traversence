@@ -367,6 +367,17 @@
    "expires": "2026-11-28T06:07:07Z",
    "release": "r2-lanes-4.zip",
    "callers": {}
+  },
+  {
+   "path": "app/scripts/control_tick.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5iAy5magAU62jYiAxM",
+   "why": "F9 health corrections: the once-pass and its hook (the IT Manager's design, 2026-11-28)",
+   "since": "2026-11-28T02:13:43Z",
+   "expires": "2026-11-28T06:13:43Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
