@@ -39,7 +39,7 @@ four folders up from `app/lib/`) naming `DB_DATABASE=lv_main`.
 Piece 2's tests (decisions/0179; `handoffs/piece2-team.md` §12; its README): `roster.php` + `roster.cjs` (the Team), `tickets.php` + `tickets.cjs` (ticket types and stages), `runner.php` + `runner.cjs` (the staging-only runner, the ceiling, the Tier 3 flag), `team-head.cjs` (the Team page's decision tree and how far agents work), `audit.php` (the daily audit, Tier 3 by what a finding touches), `batch.php` + `batch.cjs` + `batch_py.py` (P2-5: the daily batch and emailed answers), `fence.cjs` with `fence-seed.php` (P3-6: the fence's line on a ticket's page at 1280 and 390), `old-suites.sh` (the Work queue's own suites over Piece 2), `rollback.sh` (a release's Roll back proved on the bench)
 - `test-ticket.php` + `test-ticket.cjs` (Run a test ticket, TeamVet; Jason, 2026-11-28): never on live, refused in words with the
   way forward where a role can't run yet, one test ticket through the real `TeamRunner::run`, the result and its cost shown and
-  kept, nothing left in the queue; 42 checks on MariaDB and 22 at 1280 and 390: `php test-ticket.php <root>/app`,
+  kept, nothing left in the queue; 45 checks on MariaDB and 26 at 1280 and 390: `php test-ticket.php <root>/app`,
   `node test-ticket.cjs <root> <shots>`.
 - `team-pm.php` + `team-pm-db.php` (agent 01, the Project Manager's sequence and stall steps; held for a Founder ruling): 50 checks
   without a database, 9 on MariaDB in staging mode.

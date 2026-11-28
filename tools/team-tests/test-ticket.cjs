@@ -51,6 +51,9 @@ const openRole = async (p, id) => { await p.click('tr[data-id="' + id + '"] td.a
       const off = await p.$('.ak-dr .ak-actrow button[data-act="test"]');
       const why = off ? ((await off.getAttribute('title')) || '') + ' ' + await (await drawer(p)).textContent() : '';
       t(L + 'a role with no step yet: the button is greyed, with why and the way forward', !!off && await off.isDisabled() && /no step in the runner yet/.test(why) && /Work queue/.test(why), why.slice(0, 300));
+      const ttl = (await off.getAttribute('title')) || '';
+      t(L + 'the greyed button\'s title gives the same reason as its Test ticket row', /no step in the runner yet/.test(ttl) && (await (await drawer(p)).textContent()).includes(ttl), ttl);
+      t(L + 'its Status says what is true: waiting for its first step', /Active · waiting for its first step \(its own release brings one\)/.test(await (await drawer(p)).textContent()));
       t(L + 'and the reason is in the drawer\'s words, not only the button\'s title', /It can\'t run now: It has no step in the runner yet/.test(await (await drawer(p)).textContent()));
       if (shots) await p.screenshot({ path: shots + '/test-ticket-greyed-' + w + '.png' });
       t(L + 'no page error', errs.length === 0, errs);
