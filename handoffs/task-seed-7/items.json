@@ -64,6 +64,19 @@
    "rel": "",
    "priority": 3,
    "ticket": "work"
+  },
+  {
+   "goal": "transition",
+   "gauge": "area:transition",
+   "parent": "The transition cutover: our business and conversations on the platform by Dec 15",
+   "what": "deliveries.py verify marks a migration-only release live from the mirror, but migrations never reach the mirror (it marked seed-4 and seed-5 live while staged)",
+   "why": "Named by the session manager, 2026-11-28. The delivery log said live for task-seed-4 and task-seed-5 while both were only on staging. Not built",
+   "source": "tools/page-audit/deliveries.py · deliveries/task-seed-4.json, deliveries/task-seed-5.json",
+   "stage": "planning",
+   "lane": "it-manager",
+   "rel": "",
+   "priority": 2,
+   "ticket": "work"
   }
  ],
  "moved": [],
