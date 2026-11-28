@@ -25,16 +25,84 @@ it. Data & Content's part (the data: categories, hours, duplicates, sources) goe
   pick needs at least one subject hit, with place only breaking ties. With no subject hit, a neutral hero (the brand pattern, no photo),
   never another kind's photo. Health and emergency kinds never get a stock storefront.
 
-### Still to come
+### Rendered (2026-11-28, read-only)
 
-Rendered at 1280 and 390, as a guest and as staff: the kind line running under the photo credit; Edit and ⋯ over the
-title; every link and button followed ("Location and map pin" → `/listing/location.php`); hours against `Hours::status`
-in the listing's own zone; the claim path; its place in search ("hospital show low", "urgent care show low").
+Rendered at 1280 and 390, as a guest and as staff, on a harness built from the live mirror (Sync 19:50 UTC; seeded:
+a Show Low hospital, an urgent care, an antiques shop, one stock photo "antiques, storefront" tagged to Show Low's
+cluster). Each count is the SQL to run in one live read (pending), on live table names.
+
+**F1 confirmed.** The antiques storefront is the hospital's hero at both widths for both. Card-fixes' rules live only in
+discovery's cards (`discovery/index.php:382`) and the list de-dupe; the listing hero goes `tv_explore_hero` →
+`StockLibrary::forSlot`, which has neither. It also goes against `view.php:369`'s own comment ("a stock photo of its
+kind of business") and 0143 ("representative images of the subject"). Fix as ruled, applied in `forSlot` so every slot
+gets it: health, emergency, government, memorials, religious and cemetery kinds never get stock. The ranking change
+needs a note on 0143.
+
+**F2. The kind line hides under the photo credit** (390x664 and 360x640, staff; just clears at 390x844 and for guests).
+- Cause: two layers sized apart. `view.php:267` caps the listing hero at `clamp(200px,32vh,340px)` (B5);
+  `app/ui/explore-hero.php:205` pins the stock credit (`.xh-stkw`) at `bottom:3.4rem` on phones, while `.xh-head`
+  (`:208`) grows down: a two-line name, then Claim it wrapping (`.xh-corner`, `:293`), then the kind line.
+- Touches: F1's set on phones under about 750px tall; worse for names over about 24 characters, unclaimed (Claim
+  it), or a manager viewing ("Add your own photo").
+- Fix: one flow on phones: the hero a column (head at the top, credit and actions at the foot), `min-height` for the
+  fixed height, so it grows to fit; or the credit in `.xh-acts`' row, as `.xh-cap` already is.
+
+**F3. Edit (admin), ⋯ and the Link sit on the card's title** (1280 and 390).
+- Causes: `view.php:289` places `.lv-admin` at `right:3.2rem` inside the corner that `js/link-button.js:20` places
+  (two 30px buttons, about 4.1rem), so staff's Edit overlaps ⋯; and `view.php:276`'s `.lv-name.lv-loc{padding-right:0}`
+  (B5's name over the address) dropped the 5.5rem clearance `.lv-name` (`:277`) and `h1` (`:251`) keep, so a name
+  over about 22 characters runs under ⋯ and the Link at 390.
+- Touches: every listing for staff; for everyone, names over about 22 characters
+  (`SELECT COUNT(*) FROM entities WHERE entity_type='merchant' AND is_suppressed=0 AND CHAR_LENGTH(name)>22`).
+- Fix: the clearance back on `.lv-loc`'s first line; Edit (admin) moves into the ⋯ toolkit as a named staff item.
+
+**F4. Hours: no "open now" on the page; "24/7" unread; times in the server's zone.**
+- The page prints the raw lines only (`view.php:500-503`). `Hours::parse` reads "24/7" as all days (`Hours.php:73`) but
+  its 24-hour test (`:77`) leaves out `/7`, so "24/7" and "Emergency Department: 24/7" are unknown. Every caller
+  takes the day and minute from `date()` in the server's zone: `UniversalSearch.php:1204`, `search_listings.php:482`,
+  `SearchReading.php:112`, `hub/index.php:184` (tested: "Mon-Sun 8am-8pm" at 23:30 UTC reads Closed in UTC, Open in
+  Phoenix).
+- Touches: every listing with hours (`SELECT COUNT(*) FROM entity_metadata WHERE meta_key='hours'`); 24/7 ones
+  (`… AND meta_value LIKE '%24%7%'`).
+- Fix: in search release 2 (slot #9): `Hours::now` in the listing's own zone for search rows, situations and the page's
+  line, and `|24\s*\/\s*7` at `Hours.php:77`. The four other callers move to it in the same release. Gap: Navajo
+  Nation land keeps daylight saving while Arizona doesn't; `Hours::zone` reads by state today.
+
+**F5. "Suggest an edit" missing on unclaimed listings, its words wrong on claimed ones.** An unclaimed listing's aside
+offers only "Are you the owner? Claim it" (`view.php:564`); Suggest an edit (`?mode=contribute`) shows only for
+claimed ones and drop boxes (`:562`, `:566`), whose page (`claim.php:199+`) is worded for unclaimed ("the owner
+confirms them when they claim it"). Fix: Suggest an edit for every viewer who isn't its team, worded by claim state.
+
+**F6. The claim path treats a hospital as a business, and offers staff a claim.** `Claims::KIND_GROUPS`
+(`Claims.php:371`) maps only Government, Non-Profit and Religious, so Health & Medical is "business" (Owner, Co-owner,
+Manager, Employee). `view.php:379-381` and `:564` show Claim to staff (CLAUDE.md: never offer what an account should
+use elsewhere; staff have the editor). `:564`'s "Are you the owner?" ignores `KIND_WORDS`. Fix: Health & Medical in
+`KIND_GROUPS` (roles for a hospital need a note on decisions/0070, for Jason); staff get "Open in the editor"; the
+aside's words from `KIND_WORDS`.
+
+**F7. Comment starters about food on every listing.** "Best thing to order · Parking · Good for kids · Accessible?"
+on a hospital (`view.php:669`, hard-coded). Fix: starters by category group, beside `ListingActions`.
+
+**F8. "Location and map pin" lands where it says** (staff: the pin and address form; a visitor: Suggest a fix). Edge:
+staff see it on hidden listings (`view.php:424`) but `ListingLocation::get` (`ListingLocation.php:46`) filters
+`is_suppressed = 0`, so they get "isn't there any more"; and a visitor can open the location page of a listing that
+isn't public. Fix: `ListingLocation::get` takes view.php's own rule (public for visitors; any for staff and its team).
+
+**F9. Directions opens a pin, not a route.** `view.php:172`, `:175` build `maps/search/?api=1&query=lat,lon`; the
+same page's Nexus cards (`:584`) use `maps/dir/?api=1&destination=`. Fix: one helper in `ListingActions` for both.
+
+**F10. Its place in search** (recorded; ranking is IT's release 1): "hospital show low" and "summit healthcare" find
+it first ("Hospital · Show Low, AZ"); "urgent care show low" finds nothing ("urgent" read as a time word,
+`UniversalSearch.php:355`); "emergency room show low" and "er show low" find no listings (no synonym to hospital; the
+'Emergency room and hospitals' need, `Situations.php:140`, isn't reached by those words). Passed to IT.
+
+**Worked:** Call, Website, Save contact (.vcf), QR (all in ⋯); the town link; Tell us (with ×); the hero's ⋯; no script
+errors and no sideways scroll at 390.
 
 ### Housekeeping found on the way
 
-- `app/ui/faq.md.orig` is on the live server: a stray copy, read by nothing (no `.php` or `.js` in the mirror names it).
-  It goes under "removes" in the next Frontend & Shop release.
+- `app/ui/faq.md.orig` (403,551 bytes, an older copy) is on the live server, read by nothing (no `.php` or `.js` in the
+  mirror names it). It goes under "removes" in search release 2.
 
 ## Data & Content's part
 
