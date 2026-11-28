@@ -11,7 +11,7 @@ API credit (agents' budget, Jason #1573/#1574), never from the site's own $40 (A
 jobs.jsonl: one JSON per line: {"id": "...", "model": "claude-haiku-5-5", "max_tokens": 2000,
 "system": "...", "prompt": "...", "files": ["repo/path", ...]}. Files are read from the repo and attached.
 Rules: public data and repo files only, never members' or owners' private data (decisions/0164); the key comes
-only from TRV_ANTHROPIC_API_KEY (Jason adds it in the environment's settings; never in the repo or chat).
+only from BATCH_API_KEY (Jason adds it in the environment's settings; never in the repo or chat).
 """
 import json, os, sys, time, urllib.request, urllib.error, pathlib
 
@@ -23,9 +23,9 @@ PRICE = {m: (i / 2, o / 2) for m, (i, o) in LIST.items()}
 
 def key():
     # TRV_ANTHROPIC_API_KEY first: the session runtime keeps ANTHROPIC_API_KEY for itself and strips it (2026-11-28)
-    k = (os.environ.get("TRV_ANTHROPIC_API_KEY") or os.environ.get("ANTHROPIC_API_KEY") or "").strip()
+    k = (os.environ.get("BATCH_API_KEY") or os.environ.get("TRV_ANTHROPIC_API_KEY") or os.environ.get("ANTHROPIC_API_KEY") or "").strip()
     if not k:
-        sys.exit("TRV_ANTHROPIC_API_KEY isn't set: Jason adds it in the cloud environment's settings, then a new or resumed session sees it.")
+        sys.exit("BATCH_API_KEY isn't set: Jason adds it in the cloud environment's settings, then a new or resumed session sees it.")
     return k
 
 
