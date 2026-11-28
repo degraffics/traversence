@@ -48,7 +48,10 @@ async function freshStep(id) {
  * the next step if another check took this one). */
 export async function staffIn(ctx, a, site = SITE) {
   const p = await ctx.newPage();
-  for (let tries = 0; tries < 2; tries++) {
+  // up to 5 steps, starting after a random 0–25 s (the session manager, 2026-11-28: #331–#333's looks ran at once on other
+  // runners, each spent the same one-time code and all but one failed to sign in; a step file can't reach another runner)
+  await new Promise(r => setTimeout(r, Math.floor(Math.random() * 25000)));
+  for (let tries = 0; tries < 5; tries++) {
     if (!(await p.$('#code'))) {
       await p.goto(`${site}/admin/login.php`, { waitUntil: 'domcontentloaded' });
       await p.fill('#sid', a.staff_id); await p.fill('#pw', a.password);
