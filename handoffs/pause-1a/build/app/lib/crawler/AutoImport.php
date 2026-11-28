@@ -58,7 +58,7 @@ final class AutoImport
     {
         $fields = array_filter($fields, fn ($v) => $v !== null && $v !== '' && $v !== []);
         if (!$fields) return false;
-        $fields = array_map(fn ($v) => is_array($v) ? implode('; ', array_map('strval', $v)) : (string) $v, $fields);
+        $fields = array_map(fn ($v) => trim(strip_tags(is_array($v) ? implode('; ', array_map('strval', $v)) : (string) $v)), $fields);
         try {
             require_once __DIR__ . '/../Suggestions.php';
             $st = $pdo->prepare("SELECT id, fields FROM suggestions WHERE entity_id = ? AND kind = 'fix' AND status = 'new' AND device_hash = ? ORDER BY id DESC LIMIT 1");
@@ -72,7 +72,7 @@ final class AutoImport
                 return true;
             }
             Suggestions::create($pdo, ['kind' => 'fix', 'topic' => 'business', 'entity_id' => $entityId, 'fields' => $fields,
-                'note' => $what . ' ' . implode(' and ', array_map(fn ($k) => $k === 'description' ? 'an About' : $k, array_keys($fields))) . '. Held for a person while the pause holds (' . self::PAUSED . '). Check it is this place\'s own, not a head office\'s or another location\'s, then apply it.',
+                'note' => $what . ' ' . implode(' and ', array_map(fn ($k) => $k === 'description' ? 'an About' : $k, array_keys($fields))) . '. Held for a person while the pause holds (' . self::PAUSED . '). Check it is this place\'s own, not a head office\'s or another location\'s. Hours apply from this suggestion; an About is copied into the listing\'s editor by staff.',
                 'context' => 'Paused: held for Review'], null, $device);
             return true;
         } catch (Throwable $x) { error_log('pause hold #' . $entityId . ': ' . $x->getMessage()); return false; }
