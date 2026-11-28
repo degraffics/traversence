@@ -1,0 +1,36 @@
+{
+    "id": 334,
+    "title": "The team, one agent at a time: a Work-queue ticket for each of the 30 roles and the 12 advocates, in the CEO's order",
+    "why": "Jason, 2026-11-28, through the CEO and the session manager: \"Bring each one online individually… just in case we run out of usage\". Goal: the transition cutover by Dec 15 (the team scales claims toward the ladder). The queue is the only development lane, so each agent's release needs its ticket first.",
+    "proposals": "",
+    "zip": "task-seed-6.zip",
+    "switch": "",
+    "advance": "schedule",
+    "state": "planned",
+    "step": 0,
+    "paused": false,
+    "urgent": null,
+    "schedule_at": null,
+    "plan_at": null,
+    "staged_at": null,
+    "vetted_at": null,
+    "live_at": null,
+    "files": {
+        "app/migrations/2026-11-28_task_seed_6.sql": {
+            "sha": "225c86fdbf28d349a199d3dcdf6bc8663b30ee72c5da99f0f0a569d73a249010",
+            "size": 81881,
+            "live_was": null
+        }
+    },
+    "migrations": [
+        "app/migrations/2026-11-28_task_seed_6.sql"
+    ],
+    "checks": [],
+    "log": [
+        {
+            "at": "2026-11-28T13:26:25+00:00",
+            "by": 0,
+            "msg": "Uploaded task-seed-6.zip: 1 files."
+        }
+    ]
+}
