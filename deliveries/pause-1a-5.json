@@ -2,7 +2,7 @@
  "zip": "pause-1a-5.zip",
  "built_on": "5b39084 Sync: 2026-11-28 02:52 UTC",
  "recorded": "2026-11-28 13:45 UTC",
- "note": "Pause sent a fifth time, its files unchanged (replaces pause-1a-4.zip: #331 came back incomplete because three releases' looks spent the same one-time staff code at the same moment, fixed in the check, #1679); built on Sync 2026-11-28 02:52 UTC Sent through git (releases/inbox).",
+ "note": "Pause sent a fifth time, its files unchanged (replaces pause-1a-4.zip: #331 came back incomplete because three releases' looks spent the same one-time staff code at the same moment, fixed in the check, #1679); built on Sync 2026-11-28 02:52 UTC Sent through git (releases/inbox). Stopped by the before-and-after check as #335 (sideways scroll at 390 on /admin/crawler-review.php); replaced by pause-1a-6.zip.",
  "status": "pending",
  "live_in": "",
  "files": {
