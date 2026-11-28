@@ -2,94 +2,6 @@
  "about": "Check-out for site files (decisions/0161). Written by tools/page-audit/checkout.py; don't edit by hand.",
  "claims": [
   {
-   "path": "app/lib/HubOpening.php",
-   "functions": [
-    "blockOf",
-    "termsDue",
-    "termsOff",
-    "termsRead",
-    "termsWords"
-   ],
-   "kind": "add",
-   "session": "session_01CXLi5iAy5magAU62jYiAxM",
-   "why": "ADHS A1: W14 reads the licensed facilities' terms (handoffs/adhs-source.md)",
-   "since": "2026-11-28T01:27:44Z",
-   "expires": "2026-11-28T05:27:44Z",
-   "release": "",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/HubOpening.php",
-   "functions": [
-    "ensureWorkflow",
-    "pulseSteps"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5iAy5magAU62jYiAxM",
-   "why": "ADHS A1: W14 reads the licensed facilities' terms (handoffs/adhs-source.md)",
-   "since": "2026-11-28T01:27:46Z",
-   "expires": "2026-11-28T05:27:46Z",
-   "release": "",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/service-defs.php",
-   "functions": [
-    "azdhs"
-   ],
-   "kind": "add",
-   "session": "session_01CXLi5iAy5magAU62jYiAxM",
-   "why": "ADHS A1: W14 reads the licensed facilities' terms (handoffs/adhs-source.md)",
-   "since": "2026-11-28T01:27:48Z",
-   "expires": "2026-11-28T05:27:48Z",
-   "release": "",
-   "callers": {}
-  },
-  {
-   "path": "website/api/crawl/w14.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5iAy5magAU62jYiAxM",
-   "why": "ADHS A1: W14 reads the licensed facilities' terms (handoffs/adhs-source.md)",
-   "since": "2026-11-28T01:27:50Z",
-   "expires": "2026-11-28T05:27:50Z",
-   "release": "",
-   "callers": {}
-  },
-  {
-   "path": "app/migrations/2026-11-28_w14_adhs.sql",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5iAy5magAU62jYiAxM",
-   "why": "ADHS A1: W14 reads the licensed facilities' terms (handoffs/adhs-source.md)",
-   "since": "2026-11-28T01:27:52Z",
-   "expires": "2026-11-28T05:27:52Z",
-   "release": "",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/ControlRegister.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5iAy5magAU62jYiAxM",
-   "why": "ADHS A1: W14 reads the licensed facilities' terms (handoffs/adhs-source.md)",
-   "since": "2026-11-28T01:27:54Z",
-   "expires": "2026-11-28T05:27:54Z",
-   "release": "",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/Operations.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5iAy5magAU62jYiAxM",
-   "why": "ADHS A1: the generated ADDED_OFF and CAPS lists (azdhs)",
-   "since": "2026-11-28T01:28:51Z",
-   "expires": "2026-11-28T05:28:51Z",
-   "release": "",
-   "callers": {}
-  },
-  {
    "path": "app/lib/crawler/AutoImport.php",
    "functions": [],
    "kind": "change",
@@ -123,100 +35,6 @@
    "callers": {}
   },
   {
-   "path": "website/api/ingest.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5iAy5magAU62jYiAxM",
-   "why": "Pause: no new listings published by the system, on Jason's call 2026-11-28 ('Pause it. Yes')",
-   "since": "2026-11-28T01:35:55Z",
-   "expires": "2026-11-28T05:35:55Z",
-   "release": "",
-   "callers": {}
-  },
-  {
-   "path": "app/rollbacks/2026-11-28_w14_adhs.sql",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5iAy5magAU62jYiAxM",
-   "why": "ADHS A1: its way back",
-   "since": "2026-11-28T01:40:21Z",
-   "expires": "2026-11-28T05:40:21Z",
-   "release": "",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/crawler/Refresh.php",
-   "functions": [
-    "complete"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5iAy5magAU62jYiAxM",
-   "why": "Pause: About text and hours held for Review while paused (the IT Manager's Tier 4)",
-   "since": "2026-11-28T01:49:43Z",
-   "expires": "2026-11-28T05:49:43Z",
-   "release": "",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/DataCleanup.php",
-   "functions": [
-    "ONCE",
-    "ONCE_RULES",
-    "PUBLIC_GROUPS",
-    "SAFETY_CATEGORIES",
-    "areaClusters",
-    "isPerson",
-    "legacy_unsourced",
-    "person_place",
-    "placeKey",
-    "takeOnce"
-   ],
-   "kind": "add",
-   "session": "session_01CXLi5iAy5magAU62jYiAxM",
-   "why": "F9 health corrections: the once-pass and its hook (the IT Manager's design, 2026-11-28)",
-   "since": "2026-11-28T01:59:41Z",
-   "expires": "2026-11-28T06:13:45Z",
-   "release": "",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/DataCleanup.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5iAy5magAU62jYiAxM",
-   "why": "F9 health corrections: the rules in findListings and act, and the file's header",
-   "since": "2026-11-28T01:59:43Z",
-   "expires": "2026-11-28T06:14:08Z",
-   "release": "",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/Identity.php",
-   "functions": [
-    "applyEvidence"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5iAy5magAU62jYiAxM",
-   "why": "Pause: About text and hours held for Review on every machine path (the IT Manager's Tier 4)",
-   "since": "2026-11-28T02:05:59Z",
-   "expires": "2026-11-28T06:05:59Z",
-   "release": "",
-   "callers": {}
-  },
-  {
-   "path": "app/lib/ListingIdentity.php",
-   "functions": [
-    "merge"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5iAy5magAU62jYiAxM",
-   "why": "Pause: About text and hours held for Review on every machine path (the IT Manager's Tier 4)",
-   "since": "2026-11-28T02:06:01Z",
-   "expires": "2026-11-28T06:06:01Z",
-   "release": "",
-   "callers": {}
-  },
-  {
    "path": "app/lib/Suggestions.php",
    "functions": [
     "create"
@@ -238,31 +56,6 @@
      "website/api/suggestion.php"
     ]
    }
-  },
-  {
-   "path": "app/lib/Suggestions.php",
-   "functions": [
-    "HELD_DEVICES",
-    "HELD_FIELDS"
-   ],
-   "kind": "add",
-   "session": "session_01CXLi5iAy5magAU62jYiAxM",
-   "why": "Pause: About text and hours held for Review on every machine path (the IT Manager's Tier 4)",
-   "since": "2026-11-28T02:06:05Z",
-   "expires": "2026-11-28T06:06:05Z",
-   "release": "",
-   "callers": {}
-  },
-  {
-   "path": "app/scripts/control_tick.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5iAy5magAU62jYiAxM",
-   "why": "F9 health corrections: the once-pass and its hook (the IT Manager's design, 2026-11-28)",
-   "since": "2026-11-28T02:13:43Z",
-   "expires": "2026-11-28T06:13:43Z",
-   "release": "",
-   "callers": {}
   },
   {
    "path": "app/lib/HelpFind.php",
@@ -345,6 +138,229 @@
   }
  ],
  "lapsed": [
+  {
+   "path": "app/lib/HubOpening.php",
+   "functions": [
+    "blockOf",
+    "termsDue",
+    "termsOff",
+    "termsRead",
+    "termsWords"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5iAy5magAU62jYiAxM",
+   "why": "ADHS A1: W14 reads the licensed facilities' terms (handoffs/adhs-source.md)",
+   "since": "2026-11-28T01:27:44Z",
+   "expires": "2026-11-28T05:27:44Z",
+   "release": "",
+   "callers": {},
+   "lapsed": "2026-11-28T07:18:31Z"
+  },
+  {
+   "path": "app/lib/HubOpening.php",
+   "functions": [
+    "ensureWorkflow",
+    "pulseSteps"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iAy5magAU62jYiAxM",
+   "why": "ADHS A1: W14 reads the licensed facilities' terms (handoffs/adhs-source.md)",
+   "since": "2026-11-28T01:27:46Z",
+   "expires": "2026-11-28T05:27:46Z",
+   "release": "",
+   "callers": {},
+   "lapsed": "2026-11-28T07:18:31Z"
+  },
+  {
+   "path": "app/lib/service-defs.php",
+   "functions": [
+    "azdhs"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5iAy5magAU62jYiAxM",
+   "why": "ADHS A1: W14 reads the licensed facilities' terms (handoffs/adhs-source.md)",
+   "since": "2026-11-28T01:27:48Z",
+   "expires": "2026-11-28T05:27:48Z",
+   "release": "",
+   "callers": {},
+   "lapsed": "2026-11-28T07:18:31Z"
+  },
+  {
+   "path": "website/api/crawl/w14.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5iAy5magAU62jYiAxM",
+   "why": "ADHS A1: W14 reads the licensed facilities' terms (handoffs/adhs-source.md)",
+   "since": "2026-11-28T01:27:50Z",
+   "expires": "2026-11-28T05:27:50Z",
+   "release": "",
+   "callers": {},
+   "lapsed": "2026-11-28T07:18:31Z"
+  },
+  {
+   "path": "app/migrations/2026-11-28_w14_adhs.sql",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5iAy5magAU62jYiAxM",
+   "why": "ADHS A1: W14 reads the licensed facilities' terms (handoffs/adhs-source.md)",
+   "since": "2026-11-28T01:27:52Z",
+   "expires": "2026-11-28T05:27:52Z",
+   "release": "",
+   "callers": {},
+   "lapsed": "2026-11-28T07:18:31Z"
+  },
+  {
+   "path": "app/lib/ControlRegister.php",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5iAy5magAU62jYiAxM",
+   "why": "ADHS A1: W14 reads the licensed facilities' terms (handoffs/adhs-source.md)",
+   "since": "2026-11-28T01:27:54Z",
+   "expires": "2026-11-28T05:27:54Z",
+   "release": "",
+   "callers": {},
+   "lapsed": "2026-11-28T07:18:31Z"
+  },
+  {
+   "path": "app/lib/Operations.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5iAy5magAU62jYiAxM",
+   "why": "ADHS A1: the generated ADDED_OFF and CAPS lists (azdhs)",
+   "since": "2026-11-28T01:28:51Z",
+   "expires": "2026-11-28T05:28:51Z",
+   "release": "",
+   "callers": {},
+   "lapsed": "2026-11-28T07:18:31Z"
+  },
+  {
+   "path": "website/api/ingest.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5iAy5magAU62jYiAxM",
+   "why": "Pause: no new listings published by the system, on Jason's call 2026-11-28 ('Pause it. Yes')",
+   "since": "2026-11-28T01:35:55Z",
+   "expires": "2026-11-28T05:35:55Z",
+   "release": "",
+   "callers": {},
+   "lapsed": "2026-11-28T07:18:31Z"
+  },
+  {
+   "path": "app/rollbacks/2026-11-28_w14_adhs.sql",
+   "functions": [],
+   "kind": "add",
+   "session": "session_01CXLi5iAy5magAU62jYiAxM",
+   "why": "ADHS A1: its way back",
+   "since": "2026-11-28T01:40:21Z",
+   "expires": "2026-11-28T05:40:21Z",
+   "release": "",
+   "callers": {},
+   "lapsed": "2026-11-28T07:18:31Z"
+  },
+  {
+   "path": "app/lib/crawler/Refresh.php",
+   "functions": [
+    "complete"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iAy5magAU62jYiAxM",
+   "why": "Pause: About text and hours held for Review while paused (the IT Manager's Tier 4)",
+   "since": "2026-11-28T01:49:43Z",
+   "expires": "2026-11-28T05:49:43Z",
+   "release": "",
+   "callers": {},
+   "lapsed": "2026-11-28T07:18:31Z"
+  },
+  {
+   "path": "app/lib/DataCleanup.php",
+   "functions": [
+    "ONCE",
+    "ONCE_RULES",
+    "PUBLIC_GROUPS",
+    "SAFETY_CATEGORIES",
+    "areaClusters",
+    "isPerson",
+    "legacy_unsourced",
+    "person_place",
+    "placeKey",
+    "takeOnce"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5iAy5magAU62jYiAxM",
+   "why": "F9 health corrections: the once-pass and its hook (the IT Manager's design, 2026-11-28)",
+   "since": "2026-11-28T01:59:41Z",
+   "expires": "2026-11-28T06:13:45Z",
+   "release": "",
+   "callers": {},
+   "lapsed": "2026-11-28T07:18:31Z"
+  },
+  {
+   "path": "app/lib/DataCleanup.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5iAy5magAU62jYiAxM",
+   "why": "F9 health corrections: the rules in findListings and act, and the file's header",
+   "since": "2026-11-28T01:59:43Z",
+   "expires": "2026-11-28T06:14:08Z",
+   "release": "",
+   "callers": {},
+   "lapsed": "2026-11-28T07:18:31Z"
+  },
+  {
+   "path": "app/lib/Identity.php",
+   "functions": [
+    "applyEvidence"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iAy5magAU62jYiAxM",
+   "why": "Pause: About text and hours held for Review on every machine path (the IT Manager's Tier 4)",
+   "since": "2026-11-28T02:05:59Z",
+   "expires": "2026-11-28T06:05:59Z",
+   "release": "",
+   "callers": {},
+   "lapsed": "2026-11-28T07:18:31Z"
+  },
+  {
+   "path": "app/lib/ListingIdentity.php",
+   "functions": [
+    "merge"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iAy5magAU62jYiAxM",
+   "why": "Pause: About text and hours held for Review on every machine path (the IT Manager's Tier 4)",
+   "since": "2026-11-28T02:06:01Z",
+   "expires": "2026-11-28T06:06:01Z",
+   "release": "",
+   "callers": {},
+   "lapsed": "2026-11-28T07:18:31Z"
+  },
+  {
+   "path": "app/lib/Suggestions.php",
+   "functions": [
+    "HELD_DEVICES",
+    "HELD_FIELDS"
+   ],
+   "kind": "add",
+   "session": "session_01CXLi5iAy5magAU62jYiAxM",
+   "why": "Pause: About text and hours held for Review on every machine path (the IT Manager's Tier 4)",
+   "since": "2026-11-28T02:06:05Z",
+   "expires": "2026-11-28T06:06:05Z",
+   "release": "",
+   "callers": {},
+   "lapsed": "2026-11-28T07:18:31Z"
+  },
+  {
+   "path": "app/scripts/control_tick.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5iAy5magAU62jYiAxM",
+   "why": "F9 health corrections: the once-pass and its hook (the IT Manager's design, 2026-11-28)",
+   "since": "2026-11-28T02:13:43Z",
+   "expires": "2026-11-28T06:13:43Z",
+   "release": "",
+   "callers": {},
+   "lapsed": "2026-11-28T07:18:31Z"
+  },
   {
    "path": "app/lib/FounderMail.php",
    "functions": [
@@ -808,259 +824,6 @@
    "release": "",
    "callers": {},
    "lapsed": "2026-11-27T10:52:25Z"
-  },
-  {
-   "path": "website/api/search_listings.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
-   "why": "C.8 open now from known hours only, in the listing's zone (P10, reopened by Jason 2026-11-27)",
-   "since": "2026-11-27T04:53:57Z",
-   "expires": "2026-11-27T08:53:57Z",
-   "release": "",
-   "callers": {},
-   "lapsed": "2026-11-27T10:52:25Z"
-  },
-  {
-   "path": "website/js/search-panel.js",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
-   "why": "C.8 open now from known hours only, in the listing's zone (P10, reopened by Jason 2026-11-27)",
-   "since": "2026-11-27T04:53:59Z",
-   "expires": "2026-11-27T08:53:59Z",
-   "release": "",
-   "callers": {},
-   "lapsed": "2026-11-27T10:52:25Z"
-  },
-  {
-   "path": "website/hub/index.php",
-   "functions": [
-    "hub_card"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
-   "why": "C.8 open now from known hours only, in the listing's zone (P10, reopened by Jason 2026-11-27)",
-   "since": "2026-11-27T04:54:01Z",
-   "expires": "2026-11-27T08:54:01Z",
-   "release": "",
-   "callers": {},
-   "lapsed": "2026-11-27T10:52:25Z"
-  },
-  {
-   "path": "app/ui/header.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
-   "why": "C.8 open now from known hours only, in the listing's zone (P10, reopened by Jason 2026-11-27)",
-   "since": "2026-11-27T04:54:03Z",
-   "expires": "2026-11-27T08:54:03Z",
-   "release": "",
-   "callers": {},
-   "lapsed": "2026-11-27T10:52:25Z"
-  },
-  {
-   "path": "app/admin/control-console.php",
-   "functions": [
-    "tv_cb_workqueue",
-    "tv_cb_wq_row"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
-   "why": "R2 (decisions/0180 \u00a75, \u00a77): swimlanes and locks",
-   "since": "2026-11-27T02:29:25Z",
-   "expires": "2026-11-27T08:28:20Z",
-   "release": "r2-lanes-2.zip",
-   "callers": {},
-   "lapsed": "2026-11-27T08:43:28Z"
-  },
-  {
-   "path": "app/lib/TeamRunner.php",
-   "functions": [
-    "mayWork",
-    "pick"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
-   "why": "R2 (decisions/0180 \u00a75, \u00a77): swimlanes and locks",
-   "since": "2026-11-27T02:29:25Z",
-   "expires": "2026-11-27T08:28:20Z",
-   "release": "r2-lanes-2.zip",
-   "callers": {},
-   "lapsed": "2026-11-27T08:43:28Z"
-  },
-  {
-   "path": "website/admin/api.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
-   "why": "R2 (decisions/0180 \u00a75, \u00a77): swimlanes and locks",
-   "since": "2026-11-27T02:29:25Z",
-   "expires": "2026-11-27T08:28:20Z",
-   "release": "r2-lanes-2.zip",
-   "callers": {},
-   "lapsed": "2026-11-27T08:43:28Z"
-  },
-  {
-   "path": "website/js/tv-ask.js",
-   "functions": [
-    "ask"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
-   "why": "R2 (decisions/0180 \u00a75, \u00a77): swimlanes and locks",
-   "since": "2026-11-27T02:29:25Z",
-   "expires": "2026-11-27T08:28:20Z",
-   "release": "r2-lanes-2.zip",
-   "callers": {
-    "ask": [
-     "app/ui/card-scanner.php",
-     "app/ui/explore-hero.php",
-     "app/ui/lead-panel.php",
-     "app/ui/market-ui.php",
-     "app/ui/pulse-ui.php",
-     "website/admin/client-order.php",
-     "website/admin/listing-intake.php",
-     "website/admin/order.php",
-     "website/js/address-book.js",
-     "website/js/admin-control.js",
-     "website/js/admin-kit.js",
-     "website/js/admin-releases.js",
-     "website/js/engage.js",
-     "website/js/gallery.js",
-     "website/js/photo-viewer.js",
-     "website/js/short-link.js",
-     "website/js/tv-env-edit.js",
-     "website/js/tv-moments.js",
-     "website/js/tv-pulse.js",
-     "website/js/tv-vault.js",
-     "website/order.php"
-    ]
-   },
-   "lapsed": "2026-11-27T08:43:28Z"
-  },
-  {
-   "path": "website/js/admin-control.js",
-   "functions": [
-    "wqFilter"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
-   "why": "R2 (decisions/0180 \u00a75, \u00a77): swimlanes and locks",
-   "since": "2026-11-27T02:29:25Z",
-   "expires": "2026-11-27T08:28:20Z",
-   "release": "r2-lanes-2.zip",
-   "callers": {},
-   "lapsed": "2026-11-27T08:43:28Z"
-  },
-  {
-   "path": "app/lib/TeamRoster.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
-   "why": "R2 (decisions/0180 \u00a75, \u00a77): swimlanes and locks",
-   "since": "2026-11-27T02:29:34Z",
-   "expires": "2026-11-27T08:28:20Z",
-   "release": "r2-lanes-2.zip",
-   "callers": {},
-   "lapsed": "2026-11-27T08:43:28Z"
-  },
-  {
-   "path": "app/lib/GaugeTasks.php",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
-   "why": "R2 (decisions/0180 \u00a75, \u00a77): swimlanes and locks",
-   "since": "2026-11-27T02:29:34Z",
-   "expires": "2026-11-27T08:28:20Z",
-   "release": "r2-lanes-2.zip",
-   "callers": {},
-   "lapsed": "2026-11-27T08:43:28Z"
-  },
-  {
-   "path": "app/lib/Jurisdictions.php",
-   "functions": [
-    "closedWhy",
-    "regionOpen",
-    "review",
-    "reviewer",
-    "tier",
-    "undoReview"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5jsi4U8fUwJYPkZsMx",
-   "why": "J1: Q8 'Show' (0164 R8/P5-3 note, 2026-11-27): story only off nation land while a record is under review",
-   "since": "2026-11-27T02:30:01Z",
-   "expires": "2026-11-27T08:09:01Z",
-   "release": "j1-jurisdictions.zip",
-   "callers": {
-    "regionOpen": [
-     "app/admin/sections.php",
-     "app/lib/Heritage.php"
-    ],
-    "review": [
-     "app/admin/sections.php"
-    ],
-    "closedWhy": [
-     "app/lib/Guides.php"
-    ],
-    "tier": [
-     "app/lib/Heritage.php"
-    ]
-   },
-   "lapsed": "2026-11-27T08:43:28Z"
-  },
-  {
-   "path": "app/admin/sections.php",
-   "functions": [
-    "tv_admin_mod_jurisdictions"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5jsi4U8fUwJYPkZsMx",
-   "why": "J1: a region opens on its team-reviewed jurisdiction record (Jason, 2026-11-27, R8 advisory; 0164 R8/R17 note)",
-   "since": "2026-11-27T02:30:01Z",
-   "expires": "2026-11-27T06:30:01Z",
-   "release": "j1-jurisdictions.zip",
-   "callers": {},
-   "lapsed": "2026-11-27T08:43:28Z"
-  },
-  {
-   "path": "app/lib/HubOpening.php",
-   "functions": [
-    "lawSigned"
-   ],
-   "kind": "change",
-   "session": "session_01CXLi5jsi4U8fUwJYPkZsMx",
-   "why": "J1: a region opens on its team-reviewed jurisdiction record (Jason, 2026-11-27, R8 advisory; 0164 R8/R17 note)",
-   "since": "2026-11-27T02:30:01Z",
-   "expires": "2026-11-27T06:30:01Z",
-   "release": "j1-jurisdictions.zip",
-   "callers": {},
-   "lapsed": "2026-11-27T08:43:28Z"
-  },
-  {
-   "path": "app/migrations/2026-11-26_0180_r2_lanes.sql",
-   "functions": [],
-   "kind": "add",
-   "session": "session_01CXLi5inRHU7bxiyPoYoi4v",
-   "why": "release r2-lanes.zip",
-   "since": "2026-11-27T03:00:45Z",
-   "expires": "2026-11-27T08:28:20Z",
-   "release": "r2-lanes-2.zip",
-   "callers": {},
-   "lapsed": "2026-11-27T08:43:28Z"
-  },
-  {
-   "path": "website/directory/index.php",
-   "functions": [],
-   "kind": "change",
-   "session": "session_01CXLi5hB3G6GziaxeT9zngX",
-   "why": "C.4: a town picked in Get Local opens within 10 mi; its area listed as its own choice (decisions/0053; P9)",
-   "since": "2026-11-27T04:34:57Z",
-   "expires": "2026-11-27T08:34:57Z",
-   "release": "",
-   "callers": {},
-   "lapsed": "2026-11-27T08:43:28Z"
   }
  ]
 }

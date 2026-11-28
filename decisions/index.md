@@ -1,6 +1,6 @@
 # Decision register
 
-Decision 0145 §1a. Generated on 2026-11-27 19:17 UTC from `decisions/` and the live mirror (`aaea746`). Don't edit by hand:
+Decision 0145 §1a. Generated on 2026-11-28 07:17 UTC from `decisions/` and the live mirror (`5b39084`). Don't edit by hand:
 edit the decision, and this follows. "Missing files" are files a decision names that the site no longer has: the
 decision may be stale, or the file moved.
 
@@ -14,7 +14,7 @@ decision may be stale, or the file moved.
 | 0006 | [Pilot Hub Scope — Ancient America (Pilot Continental Hub)](0006-pilot-hub-scope.md) | accepted |  |  | 0 |  |
 | 0007 | [Paid Tiers Sell Tools and Support, Never Ranking Placement](0007-paid-tiers-sell-tools-not-placement.md) | accepted |  |  | 0 |  |
 | 0008 | [Activity & Content Data Preserves Personal vs. Business-Proxy Attribution](0008-activity-data-preserves-dual-attribution.md) | accepted |  |  | 0 |  |
-| 0009 | [Guest Activity Attribution & Cross-Session Pattern Detection](0009-guest-activity-attribution-and-pattern-detection.md) | accepted |  | 1 | 2 |  |
+| 0009 | [Guest Activity Attribution & Cross-Session Pattern Detection](0009-guest-activity-attribution-and-pattern-detection.md) | accepted |  | 2 | 2 |  |
 | 0010 | [User Identity Exposure, Public Authorship, and Consent Controls for AI-Engine Use of Contributions](0010-identity-exposure-and-ai-consent.md) | accepted |  |  | 0 |  |
 | 0011 | [AI-Corpus Data Minimization — Context-In, Abstraction-Out](0011-context-in-abstraction-out-data-minimization.md) | accepted |  |  | 0 |  |
 | 0012 | [Unified `entities` Schema — the Hybrid Graph-Mirror Model](0012-unified-entities-schema-hybrid-graph-mirror.md) | replaced |  | 1 | 0 |  |
@@ -58,15 +58,15 @@ decision may be stale, or the file moved.
 | 0050 | [Linking and Data-Use Policy — How Traversence Treats What You Connect To](0050-linking-and-data-use-policy.md) | accepted |  |  | 0 |  |
 | 0051 | [AI & Learning Consent — One Account-Level Consent for the Learning System](0051-ai-and-learning-consent.md) | accepted |  |  | 0 |  |
 | 0052 | [One Messaging System, Open Links, and the Private Address Book](0052-one-messaging-system-open-links-private-address-book.md) | replaced |  |  | 0 |  |
-| 0053 | [Universal Search, In Place](0053-universal-search-in-place.md) | accepted |  |  | 0 |  |
+| 0053 | [Universal Search, In Place](0053-universal-search-in-place.md) | accepted |  | 1 | 0 |  |
 | 0054 | [The Nexus — Organizations With Many Locations](0054-nexus-organizations-with-many-locations.md) | accepted | 0133 | 1 | 3 |  |
 | 0055 | [App Shell, Dashboards and Roles](0055-app-shell-dashboards-and-roles.md) | accepted |  | 2 | 8 |  |
 | 0056 | [Journeys, Contributors and the Six-Tier Discovery Funnel](0056-journeys-contributors-and-the-six-tier-funnel.md) | accepted |  |  | 0 |  |
 | 0057 | [The FAQ Grows With Every Build](0057-faq-grows-with-every-build.md) | accepted |  |  | 1 | `website/includes/faq.md` |
 | 0058 | [Public Profiles, Journey Management, and Adult Accounts](0058-public-profiles-journey-management-and-adult-accounts.md) | accepted |  | 15 | 1 |  |
 | 0059 | [Experiences](0059-experiences.md) | accepted |  |  | 0 |  |
-| 0060 | [0060: Search & Suggestion Architecture](0060-search-and-suggestion-architecture.md) | accepted |  | 1 | 0 |  |
-| 0061 | [0061: Situations: an intent map, the Chameleon Filter as router, and search that learns](0061-situations-intent-map-and-learning-search.md) | accepted | 0133 | 1 | 0 |  |
+| 0060 | [0060: Search & Suggestion Architecture](0060-search-and-suggestion-architecture.md) | accepted |  | 3 | 0 |  |
+| 0061 | [0061: Situations: an intent map, the Chameleon Filter as router, and search that learns](0061-situations-intent-map-and-learning-search.md) | accepted | 0133 | 2 | 1 |  |
 | 0062 | [0062: Identities: one record per thing, every fact with its sources, verification by consent](0062-identities-sources-and-verification.md) | accepted | 0133 | 1 | 0 |  |
 | 0063 | [0063: Lexicon and syntax: how search reads each word, and how a person corrects it](0063-lexicon-syntax-and-the-workbench.md) | accepted |  |  | 0 |  |
 | 0064 | [0064: Search learns words on its own; people have access and control, not chores](0064-search-learns-words-on-its-own.md) | accepted |  | 3 | 0 |  |
@@ -75,7 +75,7 @@ decision may be stale, or the file moved.
 | 0067 | [0067. What words mean: from a word to the kinds of place that serve it](0067-what-words-mean-concepts.md) | accepted | 0133 | 2 | 0 |  |
 | 0068 | [0068. Plain names for categories](0068-plain-names-for-categories.md) | accepted |  |  | 0 |  |
 | 0069 | [0069. Frontend and backend folders: website/ and app/](0069-frontend-and-backend-folders.md) | accepted |  |  | 4 |  |
-| 0070 | [0070. Claiming a listing: a quick way in, a text to finish, an admin when needed](0070-claiming-a-listing.md) | accepted |  | 2 | 0 |  |
+| 0070 | [0070. Claiming a listing: a quick way in, a text to finish, an admin when needed](0070-claiming-a-listing.md) | accepted |  | 3 | 1 |  |
 | 0071 | [0071. Adding a business: live in minutes, verified with one tap](0071-adding-a-business.md) | accepted |  | 1 | 0 |  |
 | 0072 | [0072. Acting on visitors' suggestions in one step](0072-acting-on-suggestions.md) | accepted |  | 1 | 5 |  |
 | 0073 | [0073. Listing categories: one main, up to four more, and offerings](0073-listing-categories.md) | proposed |  | 1 | 6 |  |
@@ -115,7 +115,7 @@ decision may be stale, or the file moved.
 | 0107 | [0107: The item panel, proof versions with several files, and item statuses from the vendor](0107-item-panel.md) | accepted |  |  | 1 |  |
 | 0108 | [0108: Sales & Growth: the merchant funnel, AI Assist credits, OCR, promotions, plans and onboarding](0108-sales-and-growth.md) | accepted |  |  | 5 |  |
 | 0109 | [0109: The admin rebuilt: modules, sections, widgets and workflows](0109-admin-engine.md) | accepted |  | 2 | 7 |  |
-| 0110 | [0110: Data separation: three realms (member, business, admin), walls in the database, not only in the code](0110-data-separation.md) | accepted |  | 1 | 0 |  |
+| 0110 | [0110: Data separation: three realms (member, business, admin), walls in the database, not only in the code](0110-data-separation.md) | accepted |  | 2 | 0 |  |
 | 0111 | [0111: Customers (CRM), built in our admin first](0111-customers-crm.md) | accepted |  |  | 0 |  |
 | 0112 | [0112: Taxes and shipping, price lists, and Storefront & pages, built in our admin first](0112-taxes-shipping-pricelists-pages.md) | accepted |  | 1 | 2 | `website/_errors/404.php` |
 | 0113 | [0113: Scheduled tasks, set from the admin through the cPanel API](0113-scheduled-tasks.md) | accepted |  | 1 | 8 |  |
@@ -164,12 +164,12 @@ decision may be stale, or the file moved.
 | 0156 | [The Vault: passwords only their owner can open](0156-the-vault.md) | accepted |  | 6 | 2 |  |
 | 0157 | [Our own index: reading pages and reading searches](0157-our-own-index-reading-pages-and-searches.md) | accepted |  | 1 | 1 |  |
 | 0158 | [One way to publish: our site's releases and businesses' storefronts](0158-one-way-to-publish.md) | accepted |  | 2 | 0 |  |
-| 0159 | [The builder: Traversence's platform builder and Storefront Studio](0159-the-builder-platform-and-storefront-studio.md) | accepted |  | 1 | 1 |  |
+| 0159 | [The builder: Traversence's platform builder and Storefront Studio](0159-the-builder-platform-and-storefront-studio.md) | accepted |  | 2 | 1 |  |
 | 0160 | [The crawler as one service, and each creation workflow start to finish](0160-the-crawler-as-a-service-and-the-creation-workflows.md) | accepted |  | 4 | 0 |  |
 | 0161 | [Check-out for site files: the page manager](0161-check-out-for-site-files-the-page-manager.md) | accepted |  |  | 5 |  |
 | 0162 | [Migrations at publish, copied first; leftovers after a rollback tracked and removed by release](0162-migrations-at-publish-copied-first-leftovers-tracked.md) | accepted |  | 2 | 0 |  |
 | 0163 | [Operations: one view of outside services, workflows and spend](0163-operations-one-view-of-services-workflows-and-spend.md) | accepted |  | 11 | 4 |  |
-| 0164 | [The Knowledge Engine: rule book, phases, workflows and sources](0164-the-knowledge-engine-rule-book-phases-workflows-and-sources.md) | accepted |  | 14 | 1 |  |
+| 0164 | [The Knowledge Engine: rule book, phases, workflows and sources](0164-the-knowledge-engine-rule-book-phases-workflows-and-sources.md) | accepted |  | 15 | 1 |  |
 | 0165 | [Staging is the live site in safe mode; Publish merges it into live](0165-staging-is-live-in-safe-mode-publish-merges-it.md) | accepted |  | 1 | 2 |  |
 | 0166 | [0166: Provider-neutral payments and bookkeeping: our own ledger, connectors, and QuickBooks set up once](0166-provider-neutral-payments-and-bookkeeping.md) | accepted |  | 1 | 1 |  |
 | 0167 | [0167: Communications in one place: set up in System Configuration, handled in Pulse](0167-communications-in-one-place.md) | accepted |  | 2 | 0 |  |
@@ -183,7 +183,7 @@ decision may be stale, or the file moved.
 | 0175 | [0175: One lifecycle for every module: our services and account apps, from selection to removal, acted on from the board](0175-one-lifecycle-for-every-module.md) | accepted |  | 11 | 1 |  |
 | 0176 | [0176: The dispatcher presents and routes every thread](0176-the-dispatcher-presents-and-routes-every-thread.md) | accepted |  | 9 | 2 |  |
 | 0177 | [0177: One order, several destinations: invoices, tax and the deposit](0177-one-order-several-destinations.md) | accepted |  | 1 | 0 |  |
-| 0178 | [0178: Order money policy: refunds, cancelling, credit, terms, cards and delivery with a balance](0178-order-money-policy.md) | accepted |  | 4 | 0 |  |
+| 0178 | [0178: Order money policy: refunds, cancelling, credit, terms, cards and delivery with a balance](0178-order-money-policy.md) | accepted |  | 5 | 1 |  |
 | 0179 | [0179: Publish authority and escalation: what the team finishes alone, and what comes to Jason](0179-publish-authority-and-escalation.md) | accepted |  | 1 | 0 |  |
 | 0180 | [0180: The organization and five-tier governance: who decides what, and the hard money line](0180-organization-and-five-tier-governance.md) | accepted |  | 7 | 0 |  |
 | 0181 | [0181: The Jan 1 launch: its gates, its area and the search lock](0181-the-jan-1-launch-gates-area-and-search-lock.md) | accepted |  |  | 0 |  |

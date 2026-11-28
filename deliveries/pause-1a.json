@@ -3,7 +3,7 @@
  "built_on": "5b39084 Sync: 2026-11-28 02:52 UTC",
  "recorded": "2026-11-28 02:54 UTC",
  "note": "built on Sync 2026-11-28 02:52 UTC Sent through git (releases/inbox). Withdrawn as #328 (the Done: line at 390 on /admin/crawler-review.php); replaced by pause-1a-2.zip.",
- "status": "replaced",
+ "status": "pending",
  "live_in": "",
  "files": {
   "app/lib/HelpFind.php": {

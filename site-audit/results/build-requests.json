@@ -1,5 +1,5 @@
 {
- "at": "2026-11-28T05:17:29.303Z",
+ "at": "2026-11-28T06:17:32.332Z",
  "requests": [
   {
    "id": 3,
@@ -1253,6 +1253,24 @@
    "was": "task",
    "why": "An advocate's view was worse after it (decisions/0179 rule 2's four rules): Layout or phone: Controls drawn over each other: 1. Dashboard & Pulse × People in Back-Office; 4. Market 360° × Staff logins (executive, /admin/people.php, phone). It withdrew itself; nothing on the live site changed. Fix it and send it again. The report: https://github.com/degraffics/traversence/actions/runs/46106265072",
    "source": "the daily audit (ba:329)",
+   "owner": "system · before-and-after check",
+   "release": "",
+   "ticket": "audit",
+   "stage": "found",
+   "tier": 2,
+   "build_brief": "",
+   "late": false
+  },
+  {
+   "id": 74,
+   "at_utc": "2026-11-28T05:30:04Z",
+   "gauge": "area:audit",
+   "build": "",
+   "item": "Release #330 was stopped by the before-and-after check: Access or privacy (0066 included): Doesn't open now: TimeoutError: page.goto: Timeout 45000ms exceeded. Call log: - navigating to \"https://staging.trvgo.us/admin/crawler-review.php\", waiting until \"",
+   "what": "Release #330 was stopped by the before-and-after check: Access or privacy (0066 included): Doesn't open now: TimeoutError: page.goto: Timeout 45000ms exceeded. Call log: - navigating to \"https://staging.trvgo.us/admin/crawler-review.php\", waiting until \"",
+   "was": "task",
+   "why": "An advocate's view was worse after it (decisions/0179 rule 2's four rules): Access or privacy (0066 included): Doesn't open now: TimeoutError: page.goto: Timeout 45000ms exceeded.\nCall log:\n  - navigating to \"https://staging.trvgo.us/admin/crawler-review.php\", waiting until \"load\"\n (executive, /admin/crawler-review.php, phone). It withdrew itself; nothing on the live site changed. Fix it and send ",
+   "source": "the daily audit (ba:330)",
    "owner": "system · before-and-after check",
    "release": "",
    "ticket": "audit",

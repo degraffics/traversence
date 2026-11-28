@@ -3,7 +3,7 @@
  "built_on": "5b39084 Sync: 2026-11-28 02:52 UTC",
  "recorded": "2026-11-28 03:44 UTC",
  "note": "Pause sent again (replaces pause-1a.zip, withdrawn as #328 on Review's Done: line at 390, fixed in crawler-review.php's style); built on Sync 2026-11-28 02:52 UTC Sent through git (releases/inbox). Withdrawn as #329 (people.php at 390: controls overlapping, 1 before, 3 after; no changed code runs on that page); replaced by pause-1a-3.zip.",
- "status": "replaced",
+ "status": "pending",
  "live_in": "",
  "files": {
   "app/lib/HelpFind.php": {
