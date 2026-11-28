@@ -236,7 +236,8 @@ const CORE = [
     w.goal = /\/listing\/view\.php|\/place\//.test(w.here()) || (!!href && /^https?:/.test(href));
     if (!w.goal) { w.add('dead_end', 'J01', w.here(), `the first result (${said.slice(0, 60)}) didn't open a place's page`); return; }
     const t = await textOf(page);
-    if (/Open now/i.test(said) && /\bClosed\b/.test(t) && !/\bOpen\b/.test(t)) w.add('accuracy', 'J02', w.here(), 'the search said open now; the place\'s page says closed');
+    const pnow = await page.$eval('[data-hours-now]', e => e.getAttribute('data-hours-now')).catch(() => '');
+    if (/Open now|Open · Closes/i.test(said) && pnow === 'closed') w.add('accuracy', 'J02', w.here(), 'the search said open now; the place\'s page says closed');
     if (!(await page.locator('a[href^="tel:"]').count())) w.add('clarity', 'J02', w.here(), 'no phone to call on the place\'s page');
     if (!(await page.locator('a[data-out="directions"]').count())) w.add('accuracy', 'J02', w.here(), 'no directions on the place\'s page');
     if (!/\bOpen\b|\bClosed\b|Hours/i.test(t)) w.add('clarity', 'J03', w.here(), 'the place\'s page doesn\'t say whether it\'s open now');
@@ -593,10 +594,12 @@ async function guidePath(g) {
           row.phone = tel.length > 0;
           if (s.phone && !tel.some(h => digits(h) === digits(s.phone))) w.add('accuracy', 'J02', w.here(), tel.length ? `${s.name}'s page shows another phone than our data has` : `${s.name} has a phone in our data but its page has none to call`);
           if (!(await page.locator('a[data-out="directions"]').count())) w.add('accuracy', 'J02', w.here(), `no directions on ${s.name}'s page`);
-          const says = /\bOpen\b ·|Open now|Open 24 hours|\bClosed\b/.test(text);
-          row.open_shown = says;
-          if (s.has_hours && !says) w.add('clarity', 'J02', w.here(), `${s.name}'s page lists hours but doesn't say whether it's open now${s.status ? ' (our data: ' + s.status + ')' : ''}`);
-          if (says && s.open_now === true && /\bClosed\b/.test(text) && !/\bOpen\b/.test(text)) w.add('accuracy', 'J02', w.here(), `${s.name}'s page says closed; our data says ${s.status}`);
+          // the page's own line over its hours (data-hours-now, Hours::now in its zone; search release 2), never any
+          // "Closed" elsewhere on the page ("Sun Closed", another location's line: Gate 2's false reports, 2026-11-27)
+          const now = await page.$eval('[data-hours-now]', e => [e.getAttribute('data-hours-now'), e.textContent.replace(/\s+/g, ' ').trim()]).catch(() => null);
+          row.open_shown = !!now;
+          if (s.has_hours && !now) w.add('clarity', 'J02', w.here(), `${s.name}'s page lists hours but doesn't say whether it's open now${s.status ? ' (our data: ' + s.status + ')' : ''}`);
+          if (now && s.open_now === true && now[0] === 'closed') w.add('accuracy', 'J02', w.here(), `${s.name}'s page says ${now[1]}; our data says ${s.status}`);
           if (says && s.open_now === false && /Open now|\bOpen\b ·/.test(text) && !/\bClosed\b/.test(text)) w.add('accuracy', 'J02', w.here(), `${s.name}'s page says open; our data says ${s.status}`);
         }
         await w.links(3, checked);
