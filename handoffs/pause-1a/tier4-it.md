@@ -47,3 +47,13 @@ while paused (the independent check's second round). Everything else checks out:
 
 The smaller issues in `tier4-independent.md` can follow in 1b or the health corrections, except that the note "A person
 applies it there" should say staff copy it into the editor until Review can apply an About.
+
+## Third pass (@fae50a77, 2026-11-28): PASS
+- **The condition is met.** `HelpFind::promoteSome`, while paused, takes a card back only when its phone or address is locked or
+  was set by a person (source admin, owner or user). A machine-filled value no longer puts a card back.
+  `tools/pause-tests/helpfind.php` on MariaDB: paused, 2 of 4 come back (the owner's phone, our team's address); pause
+  emptied, all 4.
+- The held About's note now says staff copy it into the editor. Appended values are stripped of tags, and a non-JSON drop
+  value is held as it is. The twin merge's double filing is known and noted in the README.
+- `pause.php` 21/21, `identity.php` 11/11, `helpfind.php` all pass, run by the IT Manager on the 01:15 live lib.
+- **Before it sends:** `faq.md` is re-applied on the live copy after R2 (r2-lanes-4) syncs.
