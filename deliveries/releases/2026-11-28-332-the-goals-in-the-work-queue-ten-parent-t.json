@@ -6,7 +6,7 @@
     "zip": "task-seed-4.zip",
     "switch": "",
     "advance": "schedule",
-    "state": "staged",
+    "state": "withdrawn",
     "step": 0,
     "paused": false,
     "urgent": null,
@@ -108,6 +108,11 @@
             "at": "2026-11-28T13:45:04+00:00",
             "by": 0,
             "msg": "Sent for review on staging: UI, UX and Functional, then Publish."
+        },
+        {
+            "at": "2026-11-28T14:27:53+00:00",
+            "by": 0,
+            "msg": "Replaced by release #339, a fixed build, and withdrawn by itself."
         }
     ]
 }
