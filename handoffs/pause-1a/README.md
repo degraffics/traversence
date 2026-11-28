@@ -1,6 +1,6 @@
 # pause-1a: nothing the system finds publishes by itself (Jason's call, 2026-11-28, "Pause it. Yes")
 
-Built on Sync 2026-11-28 02:52 UTC (after #327 live; faq.md re-applied on it). Zip: `pause-1a.zip`; build and `release.json` in `build/`.
+Built on Sync 2026-11-28 02:52 UTC (after #327 live; faq.md re-applied on it). Sent again as `pause-1a-2.zip` after #328 was withdrawn: Review's Done: line 24px off the right edge at 390 (crawler-review.php, one CSS line). Zip: `pause-1a.zip`; build and `release.json` in `build/`.
 Tests: `php tools/pause-tests/pause.php handoffs/pause-1a/build <mirror>/sync-app/lib` (21 checks) and
 `php tools/pause-tests/identity.php handoffs/pause-1a/build <mirror>/sync-app/lib` (11 checks, the real `Identity::applyEvidence`
 on MariaDB; the owner's and staff's saves). Zip check clean.
