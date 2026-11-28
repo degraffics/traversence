@@ -187,3 +187,7 @@ After it blocked its own fix four times on staging's own changing data, Jason ch
 session. A build session's question for Jason goes to the session manager for review, then to the CEO session, which
 puts it to him in its chat in the same form (written for him and Gemini, never a pop-up). Sessions work silently in
 their own chats (CLAUDE.md, "Work silently" and "Asking Jason").
+
+## Note (Jason, 2026-11-28): rollout on passing checks; amends rule 1
+
+Jason, 2026-11-28, through the CEO: "Rollout can be upon release passing its checks." A release goes live once its checks pass: no daily batch wait and no one-slot-a-day limit. Unchanged: a high-risk area's Tier 4 review, and data changes that take content off the site (`data_reason` migrations, e.g. F9), which still go in his daily batch until he says otherwise. The before-and-after check is unchanged.
