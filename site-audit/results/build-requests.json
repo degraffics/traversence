@@ -1,5 +1,5 @@
 {
- "at": "2026-11-28T06:17:32.332Z",
+ "at": "2026-11-28T14:17:28.102Z",
  "requests": [
   {
    "id": 3,
@@ -1271,6 +1271,24 @@
    "was": "task",
    "why": "An advocate's view was worse after it (decisions/0179 rule 2's four rules): Access or privacy (0066 included): Doesn't open now: TimeoutError: page.goto: Timeout 45000ms exceeded.\nCall log:\n  - navigating to \"https://staging.trvgo.us/admin/crawler-review.php\", waiting until \"load\"\n (executive, /admin/crawler-review.php, phone). It withdrew itself; nothing on the live site changed. Fix it and send ",
    "source": "the daily audit (ba:330)",
+   "owner": "system · before-and-after check",
+   "release": "",
+   "ticket": "audit",
+   "stage": "found",
+   "tier": 2,
+   "build_brief": "",
+   "late": false
+  },
+  {
+   "id": 75,
+   "at_utc": "2026-11-28T13:45:08Z",
+   "gauge": "area:audit",
+   "build": "",
+   "item": "Release #333 was stopped by the before-and-after check: Access or privacy (0066 included): This test account could sign in before and can't after (executive, (sign-in), -)",
+   "what": "Release #333 was stopped by the before-and-after check: Access or privacy (0066 included): This test account could sign in before and can't after (executive, (sign-in), -)",
+   "was": "task",
+   "why": "An advocate's view was worse after it (decisions/0179 rule 2's four rules): Access or privacy (0066 included): This test account could sign in before and can't after (executive, (sign-in), -). It withdrew itself; nothing on the live site changed. Fix it and send it again. The report: https://github.com/degraffics/traversence/actions/runs/46149929525",
+   "source": "the daily audit (ba:333)",
    "owner": "system · before-and-after check",
    "release": "",
    "ticket": "audit",
