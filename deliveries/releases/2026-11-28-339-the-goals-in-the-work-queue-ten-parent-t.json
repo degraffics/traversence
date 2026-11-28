@@ -31,6 +31,16 @@
             "at": "2026-11-28T14:27:52+00:00",
             "by": 0,
             "msg": "Uploaded task-seed-4-2.zip: 1 files."
+        },
+        {
+            "at": "2026-11-28T14:27:53+00:00",
+            "by": 0,
+            "msg": "Came from git: releases/inbox/task-seed-4-2.zip (git 7d72df5abf)."
+        },
+        {
+            "at": "2026-11-28T14:27:55+00:00",
+            "by": 0,
+            "msg": "Waiting for its before look: the advocates look at staging as it is, then it goes on staging (the before-and-after check)."
         }
     ]
 }
