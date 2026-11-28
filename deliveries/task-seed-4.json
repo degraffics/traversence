@@ -1,0 +1,14 @@
+{
+ "zip": "task-seed-4.zip",
+ "built_on": "5b39084 Sync: 2026-11-28 02:52 UTC",
+ "recorded": "2026-11-28 13:12 UTC",
+ "note": "task-seed-4: the ten goals as parent tasks with owner, measure and due date, 62 child tasks, every open item under its goal (data only, Tier 2; nothing deleted); built on Sync 2026-11-28 02:52 UTC Sent through git (releases/inbox).",
+ "status": "pending",
+ "live_in": "",
+ "files": {
+  "app/migrations/2026-11-27_task_seed_4.sql": {
+   "sha256": "9cc0707f2f77e65a82801d69cd4578bf3430b97ca2a2185c94c66ca2cbcd3820",
+   "live": false
+  }
+ }
+}
