@@ -1,0 +1,26 @@
+{
+ "ticket": "Ready to be vetted: /admin/config/team shows each role's charter, lane, tier, AI access and queue, with Run a test ticket",
+ "title": "Run a test ticket: each Team role's page runs one test ticket on staging and shows the result and its cost",
+ "why": "Jason, 2026-11-28: each role \"ready to be vetted\", and an agent counts as live only once its Run a test ticket passes on the Team page. It is the gate for every agent's Live (the transition cutover by Dec 15; the team scales claims toward the ladder).",
+ "changes": [
+  {
+   "what": "On a Team role's page, Run a test ticket. On the staging copy it makes one test ticket the role's own step applies to, runs that step once through the runner's real code (its permissions, its spending limit, how far agents work), and answers with the result and its cost: \"Passed: … Cost $0.00\". The run is then undone (or its suggestion dismissed) and the test ticket withdrawn, so nothing stays in the queue.",
+   "where": "https://traversence.com/admin/config/team"
+  },
+  {
+   "what": "The page keeps the last result under Test ticket (passed or not, what it did, its cost, when, by whom) and adds AI access: code only, $0 a step, the role's limit this month, the paid path off until it has its own budget.",
+   "where": "https://traversence.com/admin/config/team"
+  },
+  {
+   "what": "Where a role can't run yet the button is greyed and the page says why, with the way forward: on the live site (open it on staging), the runner switched off (where to switch it on), on standby (Make active), no step yet or an advocate (its own release, in the Work queue), the auditor (Run the audit now), a step off at this ceiling (the Founder raises it).",
+   "where": "https://traversence.com/admin/config/team"
+  },
+  {
+   "what": "The FAQ's team entry says how a role is tested before it counts as live.",
+   "where": "https://traversence.com/faq.php"
+  }
+ ],
+ "proposals": [],
+ "switch": "",
+ "notes": "Tier 2, backend only (an /admin/ page and one new library; no public page, no rule of the decision tree: TeamRunner.php is not touched, so the tree's approval stays). NOT SENT: waiting on pause-1a-4 live and synced (faq.md), then the Design reviewer's look at the drawer (handoffs/team-test-ticket/screens, 1280 and 390). Tests: tools/team-tests/test-ticket.php (42 checks on MariaDB), test-ticket.cjs (22 checks at 1280 and 390), runner.php 85, audit.php 34. A test run is a real row in team_runs on staging (undone or dismissed), so the Team page's evidence counts include it. Way back: Roll back."
+}
