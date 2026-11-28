@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-28T16:04:52Z",
+ "generated_at": "2026-11-28T16:41:43Z",
  "version": 2,
  "generated_by": "tools/page-audit/gauges.py",
  "note": "The gauges' configuration (handoffs/control-board-plan/step3/sections/gauge-lifecycle.md), compact: the site computes every stage from it (app/lib/ControlGauges.php); each gauge's detail is in gauges-items.json.",
@@ -3800,6 +3800,12 @@
   "lines": []
  },
  "messages": [
+  {
+   "id": "sm-2026-11-28-live-341",
+   "at": "2026-11-28T16:45:00Z",
+   "subject": "Live: #341 task-seed-5-2 (every current item a Work-queue ticket; data-only, can't be byte-checked)",
+   "body": "Release #341 went live at 16:15 UTC. Every current item is now a ticket under its goal, at its real phase: https://traversence.com/admin/development. It's data-only, so it can't be byte-checked. Releases: https://traversence.com/admin/config/releases"
+  },
   {
    "id": "sm-2026-11-28-live-340",
    "at": "2026-11-28T16:10:00Z",
