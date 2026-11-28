@@ -227,3 +227,14 @@ then the claim proceeds from step 1.
 - **Plans:** agencies and nonprofits stay on Free, and step 3 says plans for them are coming. Their own plan needs a decision of its own (Jason's answer).
 - **Tests:** `tools/listing-tests/claim-kinds.php` (11 checks) and `claim-kinds.cjs` (33 checks at 1280 and 390).
 
+
+**Note (2026-11-27/28): health care's claim fits the people who run it** (recorded as Operations & Policy (16), applying
+Jason's note of 2026-11-19 above, "a claim form that fits them", to health care; the CEO). Health & Medical listings take
+their own claim kind, `care`, in `Claims::KIND_GROUPS` (app/lib/Claims.php:371): roles Administrator or practice
+manager, Staff, Communications, Other; the line "Work at %s? Claim it to keep its hours and services current."; the
+title "Claim this health care listing"; proof by this decision's agency rule (the code to an email at its own domain
+first); Free until a decision on its own plan. The listing's aside takes its words from the kind (`KIND_WORDS`), never a
+hard-coded "Are you the owner?" (listing/view.php:564). Two existing rules applied, not new: staff see "Open in the
+editor", never Claim (CLAUDE.md "Never a dead end": never offer what their account should use elsewhere); individual
+providers stay out (0164: people aren't places). Gate 3 (hours and services kept current by the people who run them);
+Frontend & Shop, after Monday's four and search release 1, Design review first, tests at 1280 and 390.

@@ -32,3 +32,8 @@ four folders up from `app/lib/`) naming `DB_DATABASE=lv_main`.
   ticket per finding, tiers by 0179, nothing doubled, the second look (confirmed opens Work or a Resolution; gone is cleared),
   the Audit closing with its ticket, Undo, Permissions, live and off doing nothing, the job, Run the audit now. 21 checks:
   `php audit.php <root>/app` (it resets lv_main).
+
+
+## Index (moved from the root README, 2026-11-28)
+
+Piece 2's tests (decisions/0179; `handoffs/piece2-team.md` §12; its README): `roster.php` + `roster.cjs` (the Team), `tickets.php` + `tickets.cjs` (ticket types and stages), `runner.php` + `runner.cjs` (the staging-only runner, the ceiling, the Tier 3 flag), `team-head.cjs` (the Team page's decision tree and how far agents work), `audit.php` (the daily audit, Tier 3 by what a finding touches), `batch.php` + `batch.cjs` + `batch_py.py` (P2-5: the daily batch and emailed answers), `fence.cjs` with `fence-seed.php` (P3-6: the fence's line on a ticket's page at 1280 and 390), `old-suites.sh` (the Work queue's own suites over Piece 2), `rollback.sh` (a release's Roll back proved on the bench)

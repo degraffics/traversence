@@ -3,7 +3,7 @@
  "built_on": "dd02bdd Sync: 2026-11-27 19:50 UTC",
  "recorded": "2026-11-27 20:10 UTC",
  "note": "R2 sent a fourth time (replaces r2-lanes-2.zip, withdrawn as #318): rebuilt on Sync 19:50 UTC (dd02bdd), faq.md re-applied on the live copy; the check's fixes live in #324. Sent through git (releases/inbox).",
- "status": "pending",
+ "status": "replaced",
  "live_in": "",
  "files": {
   "app/admin/control-console.php": {
@@ -42,5 +42,6 @@
    "sha256": "7674c71b4deea49056e3608135fb7c983d3bafa572d0b6ff92066cb6c71c84e6",
    "live": false
   }
- }
+ },
+ "replaced_by": "withdrawn as Release #325 (the before-and-after check, 20:50 UTC 2026-11-27: /admin/crawler-review.php at 390, a page whose width comes and goes with its data); sent again only as r2-lanes-4, rebuilt on the live copy"
 }
