@@ -14,6 +14,9 @@ on MariaDB; the owner's and staff's saves). Zip check clean.
   locked, as today: neither asks the pause.
 - Not covered, by design: `DataCleanup::settle` un-hiding a merged sighting (path 5 of the independent check). It runs
   only from `data_cleanup_tick`, which is off.
+- `HelpFind::promoteSome` (a "Help us find" card back on page views): while paused, only on a phone or address a person
+  entered (`tools/pause-tests/helpfind.php`, MariaDB).
+- Known, not leaks (the IT Manager, 2026-11-28): a twin merge can file the About twice (merge, then identity).
 - `api/ingest.php` stages each record for Review with a hold and answers 200 "held for review".
 - Way back: Roll back, or a one-line release emptying `PAUSED`.
 - **Tier 4:** the IT Manager (11), first on d32f440b (PASS for publishing; the About and hours gap, now fixed), then

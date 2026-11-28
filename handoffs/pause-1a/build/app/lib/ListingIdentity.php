@@ -398,7 +398,7 @@ final class ListingIdentity
                     require_once __DIR__ . '/crawler/AutoImport.php';
                     if (AutoImport::pausedWhy() !== null) {
                         $v = $pdo->prepare('SELECT meta_value FROM entity_metadata WHERE entity_id = ? AND meta_key = ?'); $v->execute([$drop, $k]);
-                        $d = json_decode((string) $v->fetchColumn(), true);
+                        $raw = (string) $v->fetchColumn(); $d = json_decode($raw, true) ?? $raw;   // a value that isn't JSON is held as it is
                         AutoImport::holdForReview($pdo, $keep, [$k => $d], 'crawler-identity-merge-paused', 'Its twin #' . $drop . ' (merged into it) has');
                         continue;
                     }
