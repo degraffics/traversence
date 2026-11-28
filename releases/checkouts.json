@@ -320,6 +320,17 @@
    "expires": "2026-11-28T06:53:47Z",
    "release": "pause-1a.zip",
    "callers": {}
+  },
+  {
+   "path": "website/admin/crawler-review.php",
+   "functions": [],
+   "kind": "change",
+   "session": "session_01CXLi5iAy5magAU62jYiAxM",
+   "why": "the Done: status line 24px off the right edge at 390 (#328 withdrawn)",
+   "since": "2026-11-28T03:42:50Z",
+   "expires": "2026-11-28T07:42:50Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
