@@ -186,6 +186,19 @@
    "expires": "2026-11-28T05:59:43Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/Identity.php",
+   "functions": [
+    "applyEvidence"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iAy5magAU62jYiAxM",
+   "why": "Pause: About text and hours held for Review on every machine path (the IT Manager's Tier 4)",
+   "since": "2026-11-28T02:05:59Z",
+   "expires": "2026-11-28T06:05:59Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
