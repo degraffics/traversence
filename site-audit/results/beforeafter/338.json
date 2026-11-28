@@ -1,8 +1,22 @@
 {
  "release": "338",
- "phase": "before-done",
- "verdict": "waiting",
+ "at": "2026-11-28T15:13:52.251Z",
+ "verdict": "pass",
+ "first": "",
+ "blocks": [],
+ "blocks_total": 0,
+ "notes": [
+  "member|/admin/chamber-builder.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "accountant|/admin/chamber-builder.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "executive|/admin/chamber-builder.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "executive|/admin/settings.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)",
+  "ops-staff|/admin/chamber-builder.php|phone: already missed \"No sideways scroll at 390px (0058 \u00a711)\" before (Site health's, not this change's)"
+ ],
+ "far": [],
+ "tickets": [],
+ "audit": [],
  "views": 205,
- "seconds": 789,
- "run": "https://github.com/degraffics/traversence/actions/runs/46154557165"
+ "seconds": 2290,
+ "run": "https://github.com/degraffics/traversence/actions/runs/46157520680",
+ "phase": "after-done"
 }
