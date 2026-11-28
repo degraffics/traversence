@@ -22,3 +22,15 @@ on MariaDB; the owner's and staff's saves). Zip check clean.
 - **Tier 4:** the IT Manager (11), first on d32f440b (PASS for publishing; the About and hours gap, now fixed), then
   on 84d2b031 and this head (to be recorded here). Independent check: *(to be recorded)*.
 - **After live:** the public 1A counts against 01:30 UTC (`before_counts`), an hour later.
+
+## pause-1a-6 (2026-11-28, the release line)
+#335 (pause-1a-5) was withdrawn by the before-and-after check: sideways scroll at 390 on Review, for executive and ops-staff.
+Cause: while paused Review shows the newest 200, and finds whose name, address or category has no break point ran wider than their
+card; under the old order they sat below the page's cap and were never drawn. Fix: one CSS line in `crawler-review.php` (`.rv-card`
+and its text wrap anywhere). Nothing else changed from pause-1a-5.
+- Bench: the live mirror plus the build, served by `php -S` with `TV_BENCH=1` (a one-line stand-in for the admin check in the bench's
+  copy of `admin-crawler.php`); `php tools/pause-tests/review-seed.php <db>` (1,000 staged finds, every eleventh unbreakable), then
+  `node tools/pause-tests/review-390.cjs <bench url> <shots>`: 24 checks at 390 and 1280. Before the fix: page 1,127px wide at 390.
+  After: no sideways scroll, cards 3px from each edge, Show 200 more loads the next 200. Screens in `screens/`.
+- Pause tests (window 18, pause, identity, helpfind): all passed. Zip check clean on mirror da2708f.
+- release.json: its ticket, `"replaces": ["pause-1a-5.zip"]`.

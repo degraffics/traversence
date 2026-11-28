@@ -271,6 +271,7 @@ tv_crawler_start('review', 'Review', $pdo, 'Everything the crawler needs you for
   .rv-match{margin:.35rem 0 0;font-size:.84rem;color:#5C4632}.rv-match b{color:#92400E}
   .rv-card.rv-gone{opacity:0;transform:scale(.98);transition:opacity .35s,transform .35s}
   .ta-work .tv-note.tv-bleed{width:auto}   /* a status line drawn as a notice keeps 3px each side at 390px (0058 §11): the notice's own width:100% pushed it 24px off the right edge (#328's before-and-after) */
+  .rv-card{min-width:0}.rv-card p,.rv-card a,.rv-card summary,.rv-card dd,.rv-card dt,.rv-why p{overflow-wrap:anywhere}   /* a find's words with no place to break (a web address as its name, an address run together) wrap inside the card: newest first shows such finds, and one pushed the page sideways at 390px (#335's before-and-after) */
 </style>
 
 <?php // find any listing (live, hidden, closed or unclaimed) and edit it in a pop-up, without leaving Review (decisions/0074) ?>
