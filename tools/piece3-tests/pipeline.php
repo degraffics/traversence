@@ -91,7 +91,7 @@ $it = array_values(array_filter($rel($p)['checks']['items'], fn ($i) => $i[0] ==
 $t('a pass, its release.json asking for review: passed, and it waits for review (never alone)', $it && $it[1] === true && str_contains($it[2], '12 views') && str_starts_with(Releases::lastWordFor($rel($p)), 'Sent for review'), [$it, $out]);
 [$q, $out] = $go('p32-incomplete.zip', false, 'incomplete');
 $it = array_values(array_filter($rel($q)['checks']['items'], fn ($i) => $i[0] === BeforeAfter::ITEM))[0] ?? null;
-$t('incomplete (accounts couldn\'t sign in; ruling 1, 2026-11-28): not counted as a pass; it stays on staging, never sent for review, with a ticket for the IT Manager (ruling1.php has the three looks)', $it && $it[1] === null && $rel($q)['state'] === 'staged' && Releases::review($pdo, $q) === null && (int) $pdo->query("SELECT COUNT(*) FROM control_gauge_tasks WHERE audit_key = 'ba-incomplete:$q'")->fetchColumn() === 1, [$it, $out]);
+$t('incomplete (accounts couldn\'t sign in; ruling 1, 2026-11-28): not counted as a pass; it stays on staging, reaches the Founder as "couldn\'t be judged", with a ticket for the IT Manager (ruling1.php has the three looks)', $it && $it[1] === null && $rel($q)['state'] === 'staged' && Releases::review($pdo, $q) !== null && (int) $pdo->query("SELECT COUNT(*) FROM control_gauge_tasks WHERE audit_key = 'ba-incomplete:$q'")->fetchColumn() === 1, [$it, $out]);
 BeforeAfter::setBudget($pdo, 1);
 [$s, $out] = $go('p32-budget.zip', false, 'pass');
 $t('the day\'s minutes spent (DB4): a pass waits for the batch (review), never alone', BeforeAfter::spent($pdo) && str_starts_with(Releases::lastWordFor($rel($s)), 'Sent for review'), $out);

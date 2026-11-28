@@ -2,7 +2,7 @@
  "zip": "ruling1-holds.zip",
  "built_on": "da2708f Sync: 2026-11-28 13:46 UTC",
  "recorded": "2026-11-28 14:17 UTC",
- "note": "Ruling 1's holds: an incomplete look is asked again (3 looks) then a ticket for the IT Manager, adding rows no longer holds a release, the review email says its checks passed only when the before-and-after check passed; built on Sync 2026-11-28 13:46 UTC Sent through git (releases/inbox).",
+ "note": "Ruling 1's holds: an incomplete look is asked again (3 looks) then a ticket for the IT Manager, adding rows no longer holds a release, the review email says its checks passed only when the before-and-after check passed; built on Sync 2026-11-28 13:46 UTC Sent through git (releases/inbox). Replaced before it went live (#336) by ruling1-holds-2.zip: the CEO's final shape, where three incomplete looks reach the Founder with a truthful email.",
  "status": "pending",
  "live_in": "",
  "files": {

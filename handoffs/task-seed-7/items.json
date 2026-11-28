@@ -4,12 +4,25 @@
    "goal": "records",
    "gauge": "area:records",
    "parent": "Goals and records with the roles, live by Mon Nov 30 13:00 UTC",
-   "what": "Releases wait for Jason only for a high-risk Tier 4 or a data_reason change (ruling 1): no other holds, no other review emails",
-   "why": "Being built by the release line session. Jason, 2026-11-28 14:10 UTC: \"I shouldnt\" be required to review these. An incomplete look is asked again (3 looks), then a ticket for the IT Manager. Adding rows no longer holds a release. The review email goes only when a release truly waits on him",
-   "source": "handoffs/ruling1-holds/README.md · release ruling1-holds.zip",
+   "what": "Data releases that only add rows go live on passing checks, only data_reason changes stay in the daily batch",
+   "why": "Being built by the release line session. Jason's ruling 1, 2026-11-28 14:10 UTC: \"I shouldnt\" be required to review these. A migration that only adds rows goes live on its checks. One that changes or removes rows (UPDATE or DELETE, its data_reason) still waits for the Founder",
+   "source": "handoffs/ruling1-holds/README.md · release ruling1-holds-2.zip",
    "stage": "implementation",
    "lane": "it-manager",
-   "rel": "ruling1-holds.zip",
+   "rel": "ruling1-holds-2.zip",
+   "priority": 1,
+   "ticket": "work"
+  },
+  {
+   "goal": "records",
+   "gauge": "area:records",
+   "parent": "Goals and records with the roles, live by Mon Nov 30 13:00 UTC",
+   "what": "An incomplete look says 'couldn't be judged', never 'its checks passed'",
+   "why": "Being built by the release line session. The pipeline re-runs an incomplete look first, 3 looks in all. If it still can't be judged it reaches Jason, and the email says so truthfully. No other waiting-for-your-review email goes out for a release that doesn't need him",
+   "source": "handoffs/ruling1-holds/README.md · release ruling1-holds-2.zip",
+   "stage": "implementation",
+   "lane": "it-manager",
+   "rel": "ruling1-holds-2.zip",
    "priority": 1,
    "ticket": "work"
   },
@@ -54,5 +67,5 @@
   }
  ],
  "moved": [],
- "note": "Tickets named by the session manager on 2026-11-28, seeded with task-seed-6-2"
+ "note": "Tickets named by the session manager on 2026-11-28, seeded with task-seed-6-2. A title holds no semicolon (a migration is split on them): the session manager's \"…passing checks; only data_reason…\" is kept with a comma"
 }
