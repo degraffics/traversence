@@ -156,8 +156,17 @@ hours on 4. So C1 and C2 have to be counted from the listing page or a live read
   the NPI Registry", a person's listing carrying an organisation's registry line. That fits the registry stamp the IT
   Manager traced (`IntakeStager.php:471-476`). Their categories ("Speech Therapists", "Nurse Practitioners") are rows
   in the live `categories` table and appear in no code.
+- **C1 and C2, read on the public listing pages (2026-11-28 ~01:00 UTC):** 88 pages: every 1A health listing with a
+  description or a website, plus the hospitals' records. **C1:** 11 of them have an About that names a different town
+  from the listing's own: #14779, #4934, #5095 (six towns), #5355, #5376 and #5377 (Flagstaff, on Lakeside listings),
+  #5394, #6146, #6211, #7056 (Tucson and Prescott, on a Show Low listing), #7165. That is 11 of the 65 that have a
+  description at all. **C2:** only **1** of the 88 pages shows hours at all, and it is #14779, with Monday–Friday given
+  three times. So contradictory hours are rare. The real gap is that health listings have no hours (1 page of 88; 4 of
+  852 in search). That is a fill task for the hours source, not a correction.
+- **Where the facts come from, on those pages:** 124 "· Nov 2026" lines, 58 "· Oct 2026", and 41 crawler-only lines
+  ("Found by our crawler…").
 
-Next: the live read per id for C1, C2 and C5's NPI type; where the individuals entered (the load and its file:line);
+Next: C5's NPI type per id (live read); where the individuals entered (the load and its file:line);
 the top 50 by taps.
 
 ### Open: ADHS's licensed list (Summit Healthcare Urgent Care, Show Low)
