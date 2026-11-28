@@ -58,6 +58,20 @@
    "expires": "2026-11-28T05:27:44Z",
    "release": "",
    "callers": {}
+  },
+  {
+   "path": "app/lib/HubOpening.php",
+   "functions": [
+    "ensureWorkflow",
+    "pulseSteps"
+   ],
+   "kind": "change",
+   "session": "session_01CXLi5iAy5magAU62jYiAxM",
+   "why": "ADHS A1: W14 reads the licensed facilities' terms (handoffs/adhs-source.md)",
+   "since": "2026-11-28T01:27:46Z",
+   "expires": "2026-11-28T05:27:46Z",
+   "release": "",
+   "callers": {}
   }
  ],
  "lapsed": [
